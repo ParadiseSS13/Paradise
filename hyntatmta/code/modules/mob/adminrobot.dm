@@ -20,8 +20,6 @@
 
 /obj/item/weapon/robot_module/admin/New()
 	..()
-	modules += new /obj/item/borg/sight/meson(src)
-	modules += new /obj/item/borg/sight/thermal(src)
 	modules += new /obj/item/weapon/rcd/borg(src)
 	modules += new /obj/item/weapon/extinguisher(src)
 	modules += new /obj/item/weapon/weldingtool/largetank/cyborg(src)
@@ -109,8 +107,7 @@
 	//languages
 	module.add_languages(src)
 	//subsystems
-	module.add_subsystems(src)
-
+	//module.add_subsystems(src)
 	status_flags &= ~CANPUSH
 
 	notify_ai(2)

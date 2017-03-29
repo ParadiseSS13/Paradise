@@ -10,7 +10,6 @@
 	var/slices_num
 	var/eatverb
 	var/wrapped = 0
-	var/dry = 0
 	var/dried_type = null
 	var/dry = 0
 	var/cooktype[0]

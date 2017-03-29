@@ -101,7 +101,6 @@
 					M.unEquip(src, 1)
 				qdel(src)
 				return
-			flags &= ~NOREACT // allowing reagents to react after being lit
 			reagents.handle_reactions()
 	return ..()
 

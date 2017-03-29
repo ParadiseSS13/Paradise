@@ -589,7 +589,7 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 		var/name = initial(O.name)
 		if(name != "Naked")
 			choices[initial(O.name)] = type
-			
+
 	var/dostrip = 0
 	switch(alert("Strip [M] before dressing?", "Strip?", "Yes", "No", "Cancel"))
 		if("Yes")
@@ -656,11 +656,6 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 					else
 						to_chat(src, "Invalid ERT Loadout selected")
 
-
-		else // outfit datum
-			if(O)
-				M.equipOutfit(O, FALSE)
-
 		if("Hunter's set")
 			M.equip_to_slot_or_del(new /obj/item/clothing/under/atmta/hunter(M), slot_w_uniform)
 			M.equip_to_slot_or_del(new /obj/item/clothing/shoes/atmta/hunter_boots(M), slot_shoes)
@@ -700,6 +695,10 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 			W.registered_name = M.real_name
 			M.equip_to_slot_or_del(W, slot_wear_id)
 			M.regenerate_icons()
+
+		else // outfit datum
+			if(O)
+				M.equipOutfit(O, FALSE)
 
 	log_admin("[key_name(usr)] changed the equipment of [key_name(M)] to [dresscode].")
 	message_admins("\blue [key_name_admin(usr)] changed the equipment of [key_name_admin(M)] to [dresscode].", 1)
