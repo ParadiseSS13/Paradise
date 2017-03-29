@@ -50,7 +50,7 @@
 		dir = newdir
 	update_move_direction()
 
-/obj/machinery/conveyor/set_dir(newdir)
+/obj/machinery/conveyor/setDir(newdir)
 	. = ..()
 	update_move_direction()
 
@@ -129,12 +129,13 @@
 			var/obj/item/conveyor_construct/C = new/obj/item/conveyor_construct(src.loc)
 			C.id = id
 			transfer_fingerprints_to(C)
+		playsound(loc, I.usesound, 50, 1)
 		to_chat(usr,"<span class='notice'>You remove the conveyor belt.</span>")
 		qdel(src)
 
 	else if(istype(I, /obj/item/weapon/wrench))
 		if(!(stat & BROKEN))
-			playsound(loc, 'sound/items/Ratchet.ogg', 50, 1)
+			playsound(loc, I.usesound, 50, 1)
 			dir = turn(dir,-45)
 			update_move_direction()
 			to_chat(user, "<span class='notice'>You rotate [src].</span>")
@@ -253,9 +254,20 @@
 
 // attack with hand, switch position
 /obj/machinery/conveyor_switch/attack_hand(mob/user)
-	if(!allowed(user)) //this is in Para but not TG. I don't think there's any which are set anyway.
+	if(..())
+		return 1
+
+	toggle(user)
+
+/obj/machinery/conveyor_switch/attack_ghost(mob/user)
+	if(user.can_advanced_admin_interact())
+		toggle(user)
+
+/obj/machinery/conveyor_switch/proc/toggle(mob/user)
+	if(!allowed(user) && !user.can_advanced_admin_interact()) //this is in Para but not TG. I don't think there's any which are set anyway.
 		to_chat(user, "<span class='warning'>Access denied.</span>")
 		return
+
 	add_fingerprint(user)
 	if(position == 0)
 		if(convdir)   //is it a oneway switch
@@ -281,7 +293,6 @@
 			S.update()
 		CHECK_TICK
 
-
 /obj/machinery/conveyor_switch/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/weapon/crowbar))
 		var/obj/item/conveyor_switch_construct/C = new/obj/item/conveyor_switch_construct(src.loc)
@@ -298,7 +309,12 @@
 /obj/machinery/conveyor_switch/multitool_topic(var/mob/user,var/list/href_list,var/obj/O)
 	..()
 	if("toggle_logic" in href_list)
-		convdir = !convdir //reverses?
+		if(convdir)
+			convdir = 0
+		else if(last_pos)
+			convdir = last_pos
+		else
+			convdir = position
 
 
 /obj/machinery/conveyor_switch/multitool_menu(var/mob/user, var/obj/item/device/multitool/P)

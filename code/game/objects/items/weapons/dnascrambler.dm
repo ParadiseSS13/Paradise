@@ -22,16 +22,22 @@
 		if(src.used)
 			return
 
+		if(ishuman(M))
+			var/mob/living/carbon/human/H = M
+			if(H.species.flags & NO_DNA)
+				to_chat(user, "<span class='warning'>You failed to inject [M], as they have no DNA to scramble, nor flesh to inject.</span>")
+				return
+
 		if(M == user)
-			user.visible_message("<span class='danger'>[user.name] injects \himself with [src]!</span>")
+			user.visible_message("<span class='danger'>[user] injects \himself with [src]!</span>")
 			src.injected(user,user)
 		else
-			user.visible_message("<span class='danger'>[user.name] is trying to inject [M.name] with [src]!</span>")
+			user.visible_message("<span class='danger'>[user] is trying to inject [M] with [src]!</span>")
 			if(do_mob(user,M,30))
-				user.visible_message("<span class='danger'>[user.name] injects [M.name] with [src].</span>")
+				user.visible_message("<span class='danger'>[user] injects [M] with [src].</span>")
 				src.injected(M, user)
 			else
-				to_chat(user, "\red You failed to inject [M.name].")
+				to_chat(user, "<span class='warning'>You failed to inject [M].</span>")
 
 	proc/injected(var/mob/living/carbon/target, var/mob/living/carbon/user)
 		scramble(1, target, 100)

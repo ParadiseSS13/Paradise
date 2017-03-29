@@ -25,12 +25,10 @@ var/global/list/socks_m = list()	 //stores only socks name
 var/global/list/socks_f = list()	 //stores only socks name
 	//Alt Heads
 var/global/list/alt_heads_list = list()	//stores /datum/sprite_accessory/alt_heads indexed by name
-	//Backpacks
-var/global/list/backbaglist = list("Nothing", "Backpack", "Satchel", "Satchel Alt")
 
 var/static/list/scarySounds = list('sound/weapons/thudswoosh.ogg','sound/weapons/Taser.ogg','sound/weapons/armbomb.ogg','sound/voice/hiss1.ogg','sound/voice/hiss2.ogg', \
 'sound/voice/hiss3.ogg','sound/voice/hiss4.ogg','sound/voice/hiss5.ogg','sound/voice/hiss6.ogg','sound/effects/Glassbr1.ogg','sound/effects/Glassbr2.ogg','sound/effects/Glassbr3.ogg', \
-'sound/items/Welder.ogg','sound/items/Welder2.ogg','sound/machines/airlock.ogg','sound/effects/clownstep1.ogg','sound/effects/clownstep2.ogg')
+'sound/items/Welder.ogg','sound/items/Welder2.ogg','sound/machines/airlock_open.ogg','sound/effects/clownstep1.ogg','sound/effects/clownstep2.ogg')
 
 // Reference list for disposal sort junctions. Set the sortType variable on disposal sort junctions to
 // the index of the sort department that you want. For example, sortType set to 2 will reroute all packages
@@ -47,3 +45,29 @@ var/list/TAGGERLOCATIONS = list("Disposals",
 	"Bar", "Kitchen", "Hydroponics", "Janitor Closet","Genetics","Brig Physician")
 
 var/list/hit_appends = list("-OOF", "-ACK", "-UGH", "-HRNK", "-HURGH", "-GLORF")
+
+var/global/list/greek_letters = list("Alpha", "Beta", "Gamma", "Delta",
+	"Epsilon", "Zeta", "Eta", "Theta", "Iota", "Kappa", "Lambda", "Mu",
+	"Nu", "Xi", "Omicron", "Pi", "Rho", "Sigma", "Tau", "Upsilon", "Phi",
+	"Chi", "Psi", "Omega")
+
+var/global/list/phonetic_alphabet = list("Alpha", "Bravo", "Charlie",
+	"Delta", "Echo", "Foxtrot", "Golf", "Hotel", "India", "Juliet",
+	"Kilo", "Lima", "Mike", "November", "Oscar", "Papa", "Quebec",
+	"Romeo", "Sierra", "Tango", "Uniform", "Victor", "Whiskey", "X-ray",
+	"Yankee", "Zulu")
+
+var/global/list/numbers_as_words = list("One", "Two", "Three", "Four",
+	"Five", "Six", "Seven", "Eight", "Nine", "Ten", "Eleven", "Twelve",
+	"Thirteen", "Fourteen", "Fifteen", "Sixteen", "Seventeen",
+	"Eighteen", "Nineteen")
+
+	//Backpacks
+#define GBACKPACK "Grey Backpack"
+#define GSATCHEL "Grey Satchel"
+#define GDUFFLEBAG "Grey Dufflebag"
+#define LSATCHEL "Leather Satchel"
+#define DBACKPACK "Department Backpack"
+#define DSATCHEL "Department Satchel"
+#define DDUFFLEBAG "Department Dufflebag"
+var/global/list/backbaglist = list(DBACKPACK, DSATCHEL, DDUFFLEBAG, GBACKPACK, GSATCHEL, GDUFFLEBAG, LSATCHEL)

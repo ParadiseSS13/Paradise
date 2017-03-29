@@ -58,12 +58,22 @@
 	floor_tile = /obj/item/stack/tile/mineral/gold
 	icons = list("gold","gold_dam")
 
+/turf/simulated/floor/mineral/gold/fancy
+	icon_state = "goldfancy"
+	floor_tile = /obj/item/stack/tile/mineral/gold/fancy
+	icons = list("goldfancy","goldfancy_dam")
+
 //SILVER
 /turf/simulated/floor/mineral/silver
 	name = "silver floor"
 	icon_state = "silver"
 	floor_tile = /obj/item/stack/tile/mineral/silver
 	icons = list("silver","silver_dam")
+
+/turf/simulated/floor/mineral/silver/fancy
+	icon_state = "silverfancy"
+	floor_tile = /obj/item/stack/tile/mineral/silver/fancy
+	icons = list("silverfancy","silverfancy_dam")
 
 //BANANIUM
 /turf/simulated/floor/mineral/bananium
@@ -73,10 +83,10 @@
 	icons = list("bananium","bananium_dam")
 	var/spam_flag = 0
 
-/turf/simulated/floor/mineral/bananium/Entered(mob/AM)
+/turf/simulated/floor/mineral/bananium/Entered(mob/living/M)
 	.=..()
 	if(!.)
-		if(istype(AM))
+		if(istype(M))
 			squeek()
 
 /turf/simulated/floor/mineral/bananium/attackby(obj/item/weapon/W, mob/user, params)

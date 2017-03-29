@@ -103,6 +103,16 @@
 	can_cut_open = 1
 	icon_state = "workboots"
 
+/obj/item/clothing/shoes/winterboots
+	name = "winter boots"
+	desc = "Boots lined with 'synthetic' animal fur."
+	can_cut_open = 1
+	icon_state = "winterboots"
+	cold_protection = FEET|LEGS
+	min_cold_protection_temperature = SHOES_MIN_TEMP_PROTECT
+	heat_protection = FEET|LEGS
+	max_heat_protection_temperature = SHOES_MAX_TEMP_PROTECT
+
 /obj/item/clothing/shoes/cult
 	name = "boots"
 	desc = "A pair of boots worn by the followers of Nar-Sie."

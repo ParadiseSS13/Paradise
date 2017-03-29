@@ -26,6 +26,10 @@
 			for(var/obj/item in hand_items)
 				if(istype(item, /obj/item/organ/internal/brain)) //Yeah, sadly this doesn't work due to the organ system.
 					break
+				if(ABSTRACT in item.flags)
+					continue
+				if(NODROP in item.flags)
+					message += "This feels very redundant, but you go through with it anyway.<br>"
 				marked_item = 		item
 				message += "You mark [item] for recall.</span>"
 				name = "Recall [item]"
@@ -36,6 +40,7 @@
 					message = "<span class='caution'>You aren't holding anything that can be marked for recall.</span>"
 				else
 					message = "<span class='notice'>You must hold the desired item in your hands to mark it for recall.</span>"
+
 		else if(marked_item && marked_item in hand_items) //unlinking item to the spell
 			message = "<span class='notice'>You remove the mark on [marked_item] to use elsewhere.</span>"
 			name = "Instant Summons"

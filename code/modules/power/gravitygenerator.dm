@@ -184,14 +184,14 @@ var/const/GRAV_NEEDS_WRENCH = 3
 		if(GRAV_NEEDS_SCREWDRIVER)
 			if(istype(I, /obj/item/weapon/screwdriver))
 				to_chat(user, "<span class='notice'>You secure the screws of the framework.</span>")
-				playsound(src.loc, 'sound/items/Screwdriver.ogg', 50, 1)
+				playsound(src.loc, I.usesound, 50, 1)
 				broken_state++
 		if(GRAV_NEEDS_WELDING)
 			if(istype(I, /obj/item/weapon/weldingtool))
 				var/obj/item/weapon/weldingtool/WT = I
 				if(WT.remove_fuel(1, user))
 					to_chat(user, "<span class='notice'>You mend the damaged framework.</span>")
-					playsound(src.loc, 'sound/items/Welder2.ogg', 50, 1)
+					playsound(src.loc, WT.usesound, 50, 1)
 					broken_state++
 		if(GRAV_NEEDS_PLASTEEL)
 			if(istype(I, /obj/item/stack/sheet/plasteel))
@@ -199,14 +199,14 @@ var/const/GRAV_NEEDS_WRENCH = 3
 				if(PS.amount >= 10)
 					PS.use(10)
 					to_chat(user, "<span class='notice'>You add the plating to the framework.</span>")
-					playsound(src.loc, 'sound/machines/click.ogg', 75, 1)
+					playsound(src.loc, PS.usesound, 75, 1)
 					broken_state++
 				else
 					to_chat(user, "<span class='notice'>You need 10 sheets of plasteel.</span>")
 		if(GRAV_NEEDS_WRENCH)
 			if(istype(I, /obj/item/weapon/wrench))
 				to_chat(user, "<span class='notice'>You secure the plating to the framework.</span>")
-				playsound(src.loc, 'sound/items/Ratchet.ogg', 75, 1)
+				playsound(src.loc, I.usesound, 75, 1)
 				set_fix()
 		else
 			..()

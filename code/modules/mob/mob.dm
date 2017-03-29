@@ -171,7 +171,7 @@
 	if(istype(W))
 		if(istype(W, /obj/item/clothing))
 			var/obj/item/clothing/C = W
-			if(C.rig_restrict_helmet)
+			if(C.hardsuit_restrict_helmet)
 				to_chat(src, "\red You must fasten the helmet to a hardsuit first. (Target the head and use on a hardsuit)")// Stop eva helms equipping.
 
 			else
@@ -231,22 +231,18 @@
 		//Mob can equip.  Equip it.
 		equip_to_slot_or_del(W, slot)
 	else
-		//Mob can't equip it.  Put it in a bag B.
-		// Do I have a backpack?
-		var/obj/item/weapon/storage/B
-		if(istype(back,/obj/item/weapon/storage))
-			//Mob is wearing backpack
-			B = back
-		else
-			//not wearing backpack.  Check if player holding plastic bag
-			B=is_in_hands(/obj/item/weapon/storage/bag/plasticbag)
-			if(!B) //If not holding plastic bag, give plastic bag
-				B=new /obj/item/weapon/storage/bag/plasticbag(null) // Null in case of failed equip.
-				if(!put_in_hands(B))
-					return // Bag could not be placed in players hands.  I don't know what to do here...
-		//Now, B represents a container we can insert W into.
-		B.handle_item_insertion(W,1)
-		return B
+		//Mob can't equip it.  Put it their backpack or toss it on the floor
+		if(istype(back, /obj/item/weapon/storage))
+			var/obj/item/weapon/storage/S = back
+			//Now, B represents a container we can insert W into.
+			S.handle_item_insertion(W,1)
+			return S
+
+		var/turf/T = get_turf(src)
+		if(istype(T))
+			W.forceMove(T)
+			return T
+
 
 //The list of slots by priority. equip_to_appropriate_slot() uses this list. Doesn't matter if a mob type doesn't have a slot.
 var/list/slot_equipment_priority = list( \
@@ -1061,7 +1057,7 @@ var/list/slot_equipment_priority = list( \
 			visible_implants += O
 	return visible_implants
 
-mob/proc/yank_out_object()
+/mob/proc/yank_out_object()
 	set category = "Object"
 	set name = "Yank out object"
 	set desc = "Remove an embedded item at the cost of bleeding and pain."
@@ -1098,8 +1094,10 @@ mob/proc/yank_out_object()
 	var/obj/item/weapon/selection = input("What do you want to yank out?", "Embedded objects") in valid_objects
 
 	if(self)
+		visible_message("<span class='warning'>[usr] appears to be trying to extract an object from their body.</span>")
 		to_chat(src, "<span class='warning'>You attempt to get a good grip on [selection] in your body.</span>")
 	else
+		visible_message("<span class='warning'>[usr] attempts to get a good grip on [selection] in [S]'s body.</span>")
 		to_chat(U, "<span class='warning'>You attempt to get a good grip on [selection] in [S]'s body.</span>")
 
 	if(!do_after(U, 80, target = S))

@@ -241,11 +241,12 @@
 			var/mob/living/carbon/human/H = new
 			H.species = current_species
 			H.s_tone = s_tone
-			H.species.updatespeciescolor(H)
-
-			icobase = H.species.icobase
+			H.species.updatespeciescolor(H, 0) //The mob's species wasn't set, so it's almost certainly different than the character's species at the moment. Thus, we need to be owner-insensitive.
+			var/obj/item/organ/external/chest/C = H.get_organ("chest")
+			icobase = C.icobase ? C.icobase : C.species.icobase
 			if(H.species.bodyflags & HAS_TAIL)
-				coloured_tail = H.species.tail
+				coloured_tail = H.tail ? H.tail : H.species.tail
+
 			qdel(H)
 		else
 			icobase = current_species.icobase
@@ -469,7 +470,7 @@
 			if(CHEF)
 				clothes_s = new /icon(uniform_dmi, "chef_s")
 				clothes_s.Blend(new /icon('icons/mob/feet.dmi', "black"), ICON_UNDERLAY)
-				clothes_s.Blend(new /icon('icons/mob/head.dmi', "chefhat"), ICON_OVERLAY)
+				clothes_s.Blend(new /icon('icons/mob/head.dmi', "chef"), ICON_OVERLAY)
 				if(prob(1))
 					clothes_s.Blend(new /icon('icons/mob/suit.dmi', "apronchef"), ICON_OVERLAY)
 				switch(backbag)

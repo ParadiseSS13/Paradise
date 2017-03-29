@@ -7,7 +7,7 @@
 	dynamic_lighting = 0
 	requires_power = 0
 	report_alerts = 0
-	
+
 /area/awaymission/clownplanet/miningtown
 	name = "Clown Planet - Bananium-o-Rama"
 	icon_state = "away1"

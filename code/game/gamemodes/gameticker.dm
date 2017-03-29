@@ -258,12 +258,16 @@ var/round_start_time = 0
 	else	//nuke kills everyone on z-level 1 to prevent "hurr-durr I survived"
 		for(var/mob/M in mob_list)
 			M.buckled = temp_buckle
-			if(M.client)
-				M.client.screen += cinematic
 			if(M.stat != DEAD)
 				var/turf/T = get_turf(M)
-				if(T && is_station_level(T.z))
-					M.death(0) //no mercy
+				if(T && is_station_level(T.z) && !istype(M.loc, /obj/structure/closet/secure_closet/freezer))
+					var/mob/ghost = M.ghostize()
+					M.dust() //no mercy
+					if(ghost && ghost.client) //Play the victims an uninterrupted cinematic.
+						ghost.client.screen += cinematic
+					CHECK_TICK
+			if(M && M.client) //Play the survivors a cinematic.
+				M.client.screen += cinematic
 
 	//Now animate the cinematic
 	switch(station_missed)
@@ -415,7 +419,6 @@ var/round_start_time = 0
 
 
 /datum/controller/gameticker/proc/declare_completion()
-
 	nologevent = 1 //end of round murder and shenanigans are legal; there's no need to jam up attack logs past this point.
 	//Round statistics report
 	var/datum/station_state/end_state = new /datum/station_state()
@@ -468,6 +471,9 @@ var/round_start_time = 0
 
 	scoreboard()
 	karmareminder()
+
+	// Declare the completion of the station goals
+	mode.declare_station_goal_completion()
 
 	//Ask the event manager to print round end information
 	event_manager.RoundEnd()

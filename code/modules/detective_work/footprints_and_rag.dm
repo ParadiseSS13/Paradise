@@ -25,6 +25,7 @@
 	volume = 5
 	can_be_placed_into = null
 	flags = OPENCONTAINER | NOBLUDGEON
+	var/wipespeed = 30
 
 /obj/item/weapon/reagent_containers/glass/rag/attack(atom/target as obj|turf|area, mob/user as mob , flag)
 	if(ismob(target) && target.reagents && reagents.total_volume)
@@ -39,7 +40,7 @@
 	if(!proximity) return
 	if(istype(A) && src in user)
 		user.visible_message("[user] starts to wipe down [A] with [src]!")
-		if(do_after(user,30, target = A))
+		if(do_after(user, wipespeed, target = A))
 			user.visible_message("[user] finishes wiping off the [A]!")
 			A.clean_blood()
 	return

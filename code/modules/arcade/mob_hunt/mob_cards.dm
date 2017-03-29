@@ -35,7 +35,7 @@
 /obj/item/weapon/storage/box/nanomob_booster_pack
 	name = "Nano-Mob Hunter Trading Card Booster Pack"
 	desc = "Contains 6 random Nano-Mob Hunter Trading Cards. May contain a holographic card!"
-	can_hold = list("/obj/item/weapon/nanomob_card")
+	can_hold = list(/obj/item/weapon/nanomob_card)
 
 /obj/item/weapon/storage/box/nanomob_booster_pack/New()
 	..()

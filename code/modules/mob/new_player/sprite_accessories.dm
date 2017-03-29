@@ -431,106 +431,87 @@
 /datum/sprite_accessory/hair/ipc
 	species_allowed = list("Machine")
 	glasses_over = 1
+	models_allowed = list("Bishop Cybernetics mtr.", "Hesphiastos Industries mtr.", "Morpheus Cyberkinetics", "Ward-Takahashi mtr.", "Xion Manufacturing Group mtr.", "Shellguard Munitions Monitor Series")
 
 /datum/sprite_accessory/hair/ipc/ipc_screen_pink
 	name = "Pink IPC Screen"
 	icon_state = "ipc_pink"
-	models_allowed = list("Bishop Cybernetics mtr.", "Hesphiastos Industries mtr.", "Morpheus Cyberkinetics", "Ward-Takahashi mtr.", "Xion Manufacturing Group mtr.")
 
 /datum/sprite_accessory/hair/ipc/ipc_screen_red
 	name = "Red IPC Screen"
 	icon_state = "ipc_red"
-	models_allowed = list("Bishop Cybernetics mtr.", "Hesphiastos Industries mtr.", "Morpheus Cyberkinetics", "Ward-Takahashi mtr.", "Xion Manufacturing Group mtr.")
 
 /datum/sprite_accessory/hair/ipc/ipc_screen_green
 	name = "Green IPC Screen"
 	icon_state = "ipc_green"
-	models_allowed = list("Bishop Cybernetics mtr.", "Hesphiastos Industries mtr.", "Morpheus Cyberkinetics", "Ward-Takahashi mtr.", "Xion Manufacturing Group mtr.")
 
 /datum/sprite_accessory/hair/ipc/ipc_screen_blue
 	name = "Blue IPC Screen"
 	icon_state = "ipc_blue"
-	models_allowed = list("Bishop Cybernetics mtr.", "Hesphiastos Industries mtr.", "Morpheus Cyberkinetics", "Ward-Takahashi mtr.", "Xion Manufacturing Group mtr.")
 
 /datum/sprite_accessory/hair/ipc/ipc_screen_breakout
 	name = "Breakout IPC Screen"
 	icon_state = "ipc_breakout"
-	models_allowed = list("Bishop Cybernetics mtr.", "Hesphiastos Industries mtr.", "Morpheus Cyberkinetics", "Ward-Takahashi mtr.", "Xion Manufacturing Group mtr.")
 
 /datum/sprite_accessory/hair/ipc/ipc_screen_eight
 	name = "Eight IPC Screen"
 	icon_state = "ipc_eight"
-	models_allowed = list("Bishop Cybernetics mtr.", "Hesphiastos Industries mtr.", "Morpheus Cyberkinetics", "Ward-Takahashi mtr.", "Xion Manufacturing Group mtr.")
 
 /datum/sprite_accessory/hair/ipc/ipc_screen_rainbow
 	name = "Rainbow IPC Screen"
 	icon_state = "ipc_rainbow"
-	models_allowed = list("Bishop Cybernetics mtr.", "Hesphiastos Industries mtr.", "Morpheus Cyberkinetics", "Ward-Takahashi mtr.", "Xion Manufacturing Group mtr.")
 
 /datum/sprite_accessory/hair/ipc/ipc_screen_goggles
 	name = "Goggles IPC Screen"
 	icon_state = "ipc_goggles"
-	models_allowed = list("Bishop Cybernetics mtr.", "Hesphiastos Industries mtr.", "Morpheus Cyberkinetics", "Ward-Takahashi mtr.", "Xion Manufacturing Group mtr.")
 
 /datum/sprite_accessory/hair/ipc/ipc_screen_heart
 	name = "Heart IPC Screen"
 	icon_state = "ipc_heart"
-	models_allowed = list("Bishop Cybernetics mtr.", "Hesphiastos Industries mtr.", "Morpheus Cyberkinetics", "Ward-Takahashi mtr.", "Xion Manufacturing Group mtr.")
 
 /datum/sprite_accessory/hair/ipc/ipc_screen_monoeye
 	name = "Monoeye IPC Screen"
 	icon_state = "ipc_monoeye"
-	models_allowed = list("Bishop Cybernetics mtr.", "Hesphiastos Industries mtr.", "Morpheus Cyberkinetics", "Ward-Takahashi mtr.", "Xion Manufacturing Group mtr.")
 
 /datum/sprite_accessory/hair/ipc/ipc_screen_nature
 	name = "Nature IPC Screen"
 	icon_state = "ipc_nature"
-	models_allowed = list("Bishop Cybernetics mtr.", "Hesphiastos Industries mtr.", "Morpheus Cyberkinetics", "Ward-Takahashi mtr.", "Xion Manufacturing Group mtr.")
 
 /datum/sprite_accessory/hair/ipc/ipc_screen_orange
 	name = "Orange IPC Screen"
 	icon_state = "ipc_orange"
-	models_allowed = list("Bishop Cybernetics mtr.", "Hesphiastos Industries mtr.", "Morpheus Cyberkinetics", "Ward-Takahashi mtr.", "Xion Manufacturing Group mtr.")
 
 /datum/sprite_accessory/hair/ipc/ipc_screen_purple
 	name = "Purple IPC Screen"
 	icon_state = "ipc_purple"
-	models_allowed = list("Bishop Cybernetics mtr.", "Hesphiastos Industries mtr.", "Morpheus Cyberkinetics", "Ward-Takahashi mtr.", "Xion Manufacturing Group mtr.")
 
 /datum/sprite_accessory/hair/ipc/ipc_screen_shower
 	name = "Shower IPC Screen"
 	icon_state = "ipc_shower"
-	models_allowed = list("Bishop Cybernetics mtr.", "Hesphiastos Industries mtr.", "Morpheus Cyberkinetics", "Ward-Takahashi mtr.", "Xion Manufacturing Group mtr.")
 
 /datum/sprite_accessory/hair/ipc/ipc_screen_static
 	name = "Static IPC Screen"
 	icon_state = "ipc_static"
-	models_allowed = list("Bishop Cybernetics mtr.", "Hesphiastos Industries mtr.", "Morpheus Cyberkinetics", "Ward-Takahashi mtr.", "Xion Manufacturing Group mtr.")
 
 /datum/sprite_accessory/hair/ipc/ipc_screen_yellow
 	name = "Yellow IPC Screen"
 	icon_state = "ipc_yellow"
-	models_allowed = list("Bishop Cybernetics mtr.", "Hesphiastos Industries mtr.", "Morpheus Cyberkinetics", "Ward-Takahashi mtr.", "Xion Manufacturing Group mtr.")
 
 /datum/sprite_accessory/hair/ipc/ipc_screen_scrolling
 	name = "Scanline IPC Screen"
 	icon_state = "ipc_scroll"
-	models_allowed = list("Bishop Cybernetics mtr.", "Hesphiastos Industries mtr.", "Morpheus Cyberkinetics", "Ward-Takahashi mtr.", "Xion Manufacturing Group mtr.")
 
 /datum/sprite_accessory/hair/ipc/ipc_screen_console
 	name = "Console IPC Screen"
 	icon_state = "ipc_console"
-	models_allowed = list("Bishop Cybernetics mtr.", "Hesphiastos Industries mtr.", "Morpheus Cyberkinetics", "Ward-Takahashi mtr.", "Xion Manufacturing Group mtr.")
 
 /datum/sprite_accessory/hair/ipc/ipc_screen_rgb
 	name = "RGB IPC Screen"
 	icon_state = "ipc_rgb"
-	models_allowed = list("Bishop Cybernetics mtr.", "Hesphiastos Industries mtr.", "Morpheus Cyberkinetics", "Ward-Takahashi mtr.", "Xion Manufacturing Group mtr.")
 
 /datum/sprite_accessory/hair/ipc/ipc_screen_glider
 	name = "Glider IPC Screen"
 	icon_state = "ipc_gol_glider"
-	models_allowed = list("Bishop Cybernetics mtr.", "Hesphiastos Industries mtr.", "Morpheus Cyberkinetics", "Ward-Takahashi mtr.", "Xion Manufacturing Group mtr.")
 
 /datum/sprite_accessory/hair/ipc/hesphiastos_alt_off
 	name = "Dark Hesphiastos Screen"
@@ -1151,13 +1132,13 @@
 ///////////////////////////
 /datum/sprite_accessory/underwear
 	icon = 'icons/mob/underwear.dmi'
-	species_allowed = list("Human", "Unathi", "Diona", "Vulpkanin", "Tajaran", "Kidan", "Grey", "Plasmaman", "Machine", "Skeleton", "Drask")
+	species_allowed = list("Human", "Unathi", "Diona", "Vulpkanin", "Tajaran", "Kidan", "Grey", "Plasmaman", "Machine", "Skrell", "Slime People", "Skeleton", "Drask")
 	gender = NEUTER
 
 /datum/sprite_accessory/underwear/nude
 	name = "Nude"
 	icon_state = null
-	species_allowed = list("Human", "Unathi", "Diona", "Vulpkanin", "Tajaran", "Kidan", "Grey", "Plasmaman", "Machine", "Skeleton", "Drask", "Vox")
+	species_allowed = list("Human", "Unathi", "Diona", "Vulpkanin", "Tajaran", "Kidan", "Grey", "Plasmaman", "Machine", "Skrell", "Slime People", "Skeleton", "Drask", "Vox")
 
 /datum/sprite_accessory/underwear/male
 	gender = MALE
@@ -1277,13 +1258,13 @@
 ////////////////////////////
 /datum/sprite_accessory/undershirt
 	icon = 'icons/mob/underwear.dmi'
-	species_allowed = list("Human", "Unathi", "Diona", "Vulpkanin", "Tajaran", "Kidan", "Grey", "Plasmaman", "Machine", "Skeleton", "Drask")
+	species_allowed = list("Human", "Unathi", "Diona", "Vulpkanin", "Tajaran", "Kidan", "Grey", "Plasmaman", "Machine", "Skrell", "Slime People", "Skeleton", "Drask")
 	gender = NEUTER
 
 /datum/sprite_accessory/undershirt/nude
 	name = "Nude"
 	icon_state = null
-	species_allowed = list("Human", "Unathi", "Diona", "Vulpkanin", "Tajaran", "Kidan", "Grey", "Plasmaman", "Machine", "Skeleton", "Drask", "Vox")
+	species_allowed = list("Human", "Unathi", "Diona", "Vulpkanin", "Tajaran", "Kidan", "Grey", "Plasmaman", "Machine", "Skrell", "Slime People", "Skeleton", "Drask", "Vox")
 
 //plain color shirts
 /datum/sprite_accessory/undershirt/shirt_white
@@ -1513,13 +1494,13 @@
 ///////////////////////
 /datum/sprite_accessory/socks
 	icon = 'icons/mob/underwear.dmi'
-	species_allowed = list("Human", "Unathi", "Diona", "Vulpkanin", "Tajaran", "Kidan", "Grey", "Plasmaman", "Machine", "Skeleton", "Drask")
+	species_allowed = list("Human", "Unathi", "Diona", "Vulpkanin", "Tajaran", "Kidan", "Grey", "Plasmaman", "Machine", "Skrell", "Slime People", "Skeleton", "Drask")
 	gender = NEUTER
 
 /datum/sprite_accessory/socks/nude
 	name = "Nude"
 	icon_state = null
-	species_allowed = list("Human", "Unathi", "Diona", "Vulpkanin", "Tajaran", "Kidan", "Grey", "Plasmaman", "Machine", "Skeleton", "Drask", "Vox")
+	species_allowed = list("Human", "Unathi", "Diona", "Vulpkanin", "Tajaran", "Kidan", "Grey", "Plasmaman", "Machine", "Skrell", "Slime People", "Skeleton", "Drask", "Vox")
 
 /datum/sprite_accessory/socks/white_norm
 	name = "Normal White"
@@ -1645,7 +1626,7 @@
 
 /datum/sprite_accessory/head_accessory/none
 	name = "None"
-	species_allowed = list("Human", "Unathi", "Diona", "Grey", "Machine", "Tajaran", "Vulpkanin", "Slime People", "Skeleton", "Vox")
+	species_allowed = list("Human", "Unathi", "Diona", "Grey", "Kidan", "Machine", "Tajaran", "Vulpkanin", "Skrell", "Slime People", "Skeleton", "Vox")
 	icon_state = "accessory_none"
 
 /datum/sprite_accessory/head_accessory/unathi
@@ -1768,6 +1749,48 @@
 	name = "Head Light"
 	icon_state = "light"
 
+/datum/sprite_accessory/head_accessory/kidan
+	icon = 'icons/mob/human_face.dmi'
+	species_allowed = list("Kidan")
+	over_hair = 1
+	do_colouration = 0
+
+/datum/sprite_accessory/head_accessory/kidan/perked_antennae
+	name = "Perked-up Antennae"
+	icon_state = "kidan_perky"
+
+/datum/sprite_accessory/head_accessory/kidan/mopey_antennae
+	name = "Mopey Antennae"
+	icon_state = "kidan_mopey"
+
+/datum/sprite_accessory/head_accessory/kidan/curious_antennae
+	name = "Curious Antennae"
+	icon_state = "kidan_curious"
+
+/datum/sprite_accessory/head_accessory/kidan/mopey_antennae
+	name = "Mopey Antennae"
+	icon_state = "kidan_mopey"
+
+/datum/sprite_accessory/head_accessory/kidan/crescent_antennae
+	name = "Crescent Antennae"
+	icon_state = "kidan_crescent"
+
+/datum/sprite_accessory/head_accessory/kidan/alert_antennae
+	name = "Alert Antennae"
+	icon_state = "kidan_alert"
+
+/datum/sprite_accessory/head_accessory/kidan/normal_antennae
+	name = "Normal Antennae"
+	icon_state = "kidan_normal"
+
+/datum/sprite_accessory/head_accessory/kidan/long_antennae
+	name = "Long Antennae"
+	icon_state = "kidan_long"
+
+/datum/sprite_accessory/head_accessory/kidan/moth_antennae
+	name = "Moth Antennae"
+	icon_state = "kidan_moth"
+
 
 /* BODY MARKINGS */
 
@@ -1779,7 +1802,7 @@
 
 /datum/sprite_accessory/body_markings/none
 	name = "None"
-	species_allowed = list("Human", "Unathi", "Diona", "Grey", "Machine", "Tajaran", "Vulpkanin", "Slime People", "Skeleton", "Vox")
+	species_allowed = list("Human", "Unathi", "Diona", "Grey", "Machine", "Tajaran", "Vulpkanin", "Skrell", "Slime People", "Skeleton", "Vox")
 	icon_state = "accessory_none"
 
 /datum/sprite_accessory/body_markings/tiger
@@ -1968,6 +1991,7 @@
 /datum/sprite_accessory/body_markings/head/unathi/snout_lower_una_round
 	name = "Unathi Lower Round Snout"
 	icon_state = "markings_face_snout_lower_una"
+	heads_allowed = list("All")
 
 /datum/sprite_accessory/body_markings/head/unathi/banded_una //Companion marking for Unathi Banded.
 	name = "Unathi Banded Head"

@@ -57,6 +57,10 @@
 			on_CD = handle_emote_CD(50) //longer cooldown
 		if("fart", "farts", "flip", "flips", "snap", "snaps")
 			on_CD = handle_emote_CD()				//proc located in code\modules\mob\emote.dm
+		if("cough", "coughs")
+			on_CD = handle_emote_CD()
+		if("sneeze", "sneezes")
+			on_CD = handle_emote_CD()
 		//Everything else, including typos of the above emotes
 		else
 			on_CD = 0	//If it doesn't induce the cooldown, we won't check for the cooldown
@@ -400,9 +404,11 @@
 					message = "<B>[src]</B> coughs!"
 					m_type = 2
 					if(gender == FEMALE)
-						playsound(src.loc, pick("honk/sound/emotes/female_cough_1.ogg", "honk/sound/emotes/female_cough_2.ogg", "honk/sound/emotes/female_cough_3.ogg"), 60, 1, 0, pitch = get_age_pitch())
+						if(species.female_cough_sounds)
+							playsound(src, pick(species.female_cough_sounds), 120)
 					else
-						playsound(src.loc, pick("honk/sound/emotes/male_cough_1.ogg", "honk/sound/emotes/male_cough_2.ogg", "honk/sound/emotes/male_cough_3.ogg"), 60, 1, 0, pitch = get_age_pitch())
+						if(species.male_cough_sounds)
+							playsound(src, pick(species.male_cough_sounds), 120)
 				else
 					message = "<B>[src]</B> makes a strong noise."
 					m_type = 2
@@ -674,6 +680,10 @@
 			else
 				if(!muzzled)
 					message = "<B>[src]</B> sneezes."
+					if(gender == FEMALE)
+						playsound(src, species.female_sneeze_sound, 70)
+					else
+						playsound(src, species.male_sneeze_sound, 70)
 					m_type = 2
 					if(gender == FEMALE)
 						playsound(src.loc, "honk/sound/emotes/female_sneeze.ogg", 60, 1, 0, pitch = get_age_pitch())
@@ -847,11 +857,11 @@
 //			playsound(loc, 'sound/effects/fart.ogg', 50, 1, -3) //Admins still vote no to fun
 			if(locate(/obj/item/weapon/storage/bible) in get_turf(src))
 				to_chat(viewers(src), "<span class='warning'><b>[src] farts on the Bible!</b></span>")
-				to_chat(viewers(src), "<span class='notice'><b>A mysterious force smites [src]!</b></span>")
-				var/datum/effect/system/spark_spread/s = new /datum/effect/system/spark_spread
-				s.set_up(3, 1, src)
-				s.start()
-				gib()
+				var/image/cross = image('icons/obj/storage.dmi',"bible") 
+				var/adminbfmessage = "\blue [bicon(cross)] <b><font color=red>Bible Fart: </font>[key_name(src, 1)] (<A HREF='?_src_=holder;adminmoreinfo=\ref[src]'>?</A>) (<A HREF='?_src_=holder;adminplayeropts=\ref[src]'>PP</A>) (<A HREF='?_src_=vars;Vars=[UID()]'>VV</A>) (<A HREF='?_src_=holder;subtlemessage=\ref[src]'>SM</A>) ([admin_jump_link(src)]) (<A HREF='?_src_=holder;secretsadmin=check_antagonist'>CA</A>) (<A HREF='?_src_=holder;Smite=[UID()]'>SMITE</A>):</b>" 
+				for(var/client/X in admins) 
+					if(check_rights(R_EVENT,0,X.mob)) 
+						to_chat(X, adminbfmessage) 
 			else if(TOXIC_FARTS in mutations)
 				message = "<b>[src]</b> unleashes a [pick("horrible","terrible","foul","disgusting","awful")] fart."
 			else if(SUPER_FART in mutations)

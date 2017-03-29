@@ -87,14 +87,14 @@ field_generator power level display
 			if(FG_UNSECURED)
 				if(isinspace()) return
 				state = FG_SECURED
-				playsound(loc, 'sound/items/Ratchet.ogg', 75, 1)
+				playsound(loc, W.usesound, 75, 1)
 				user.visible_message("[user.name] secures [name] to the floor.", \
 					"<span class='notice'>You secure the external reinforcing bolts to the floor.</span>", \
 					"<span class='italics'>You hear ratchet.</span>")
 				anchored = 1
 			if(FG_SECURED)
 				state = FG_UNSECURED
-				playsound(loc, 'sound/items/Ratchet.ogg', 75, 1)
+				playsound(loc, W.usesound, 75, 1)
 				user.visible_message("[user.name] unsecures [name] reinforcing bolts from the floor.", \
 					"<span class='notice'>You undo the external reinforcing bolts.</span>", \
 					"<span class='italics'>You hear ratchet.</span>")
@@ -110,11 +110,11 @@ field_generator power level display
 
 			if(FG_SECURED)
 				if(WT.remove_fuel(0,user))
-					playsound(loc, 'sound/items/Welder2.ogg', 50, 1)
+					playsound(loc, WT.usesound, 50, 1)
 					user.visible_message("[user.name] starts to weld the [name] to the floor.", \
 						"<span class='notice'>You start to weld \the [src] to the floor...</span>", \
 						"<span class='italics'>You hear welding.</span>")
-					if(do_after(user,20, target = src))
+					if(do_after(user, 20 * WT.toolspeed, target = src))
 						if(!src || !WT.isOn())
 							return
 						state = FG_WELDED
@@ -122,11 +122,11 @@ field_generator power level display
 
 			if(FG_WELDED)
 				if(WT.remove_fuel(0,user))
-					playsound(loc, 'sound/items/Welder2.ogg', 50, 1)
+					playsound(loc, WT.usesound, 50, 1)
 					user.visible_message("[user.name] starts to cut the [name] free from the floor.", \
 						"<span class='notice'>You start to cut \the [src] free from the floor...</span>", \
 						"<span class='italics'>You hear welding.</span>")
-					if(do_after(user,20, target = src))
+					if(do_after(user, 20 * WT.toolspeed, target = src))
 						if(!src || !WT.isOn())
 							return
 						state = FG_SECURED
@@ -319,7 +319,7 @@ field_generator power level display
 			if(O.last_warning && temp)
 				if((world.time - O.last_warning) > 50) //to stop message-spam
 					temp = 0
-					message_admins("A singulo exists and a containment field has failed.",1)
+					message_admins("A singulo exists and a containment field has failed. Location: [get_area(src)] (<A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[x];Y=[y];Z=[z]'>JMP</A>)",1)
 					investigate_log("has <font color='red'>failed</font> whilst a singulo exists.","singulo")
 			O.last_warning = world.time
 

@@ -17,8 +17,8 @@
 	invisibility = INVISIBILITY_REVENANT
 	health =  INFINITY //Revenants don't use health, they use essence instead
 	maxHealth =  INFINITY
-	see_invisible = INVISIBILITY_REVENANT
 	see_in_dark = 8
+	see_invisible = SEE_INVISIBLE_OBSERVER_NOLIGHTING
 	universal_understand = 1
 	response_help   = "passes through"
 	response_disarm = "swings at"
@@ -29,7 +29,6 @@
 	harm_intent_damage = 0
 	friendly = "touches"
 	status_flags = 0
-	see_in_dark = 8
 	wander = 0
 	density = 0
 	flying = 1

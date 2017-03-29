@@ -8,16 +8,11 @@
 #define ABSTRACT				64		// for all things that are technically items but used for various different stuff, made it 128 because it could conflict with other flags other way
 #define ON_BORDER				128		// item has priority to check when entering or leaving
 
-#define GLASSESCOVERSEYES		1024
-#define MASKCOVERSEYES			1024	// get rid of some of the other retardation in these flags
-#define HEADCOVERSEYES			1024	// feel free to realloc these numbers for other purposes
-#define MASKCOVERSMOUTH			2048	// on other items, these are just for mask/head
-#define HEADCOVERSMOUTH			2048
-
-#define HEADBANGPROTECT			4096
 #define EARBANGPROTECT			1024
 
 #define NOSLIP					1024 	//prevents from slipping on wet floors, in space etc
+
+#define HEADBANGPROTECT			4096
 
 #define OPENCONTAINER			4096	// is an open container for chemistry purposes
 

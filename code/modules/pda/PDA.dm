@@ -440,7 +440,8 @@ var/global/list/obj/item/device/pda/PDAs = list()
 		scanmode.scan_atom(A, user)
 
 /obj/item/device/pda/proc/explode() //This needs tuning.
-	if(!src.detonate) return
+	if(!detonate) 
+		return
 	var/turf/T = get_turf(src.loc)
 
 	if(ismob(loc))
