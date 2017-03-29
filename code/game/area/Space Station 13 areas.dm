@@ -17,7 +17,7 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 
 /area
 	var/fire = null
-	var/atmosalm = 0
+	var/atmosalm = ATMOS_ALARM_NONE
 	var/poweralm = 1
 	var/party = null
 	var/radalert = 0
@@ -57,7 +57,7 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 
 	var/tele_proof = 0
 	var/no_teleportlocs = 0
-	
+
 	var/outdoors = 0 //For space, the asteroid, lavaland, etc. Used with blueprints to determine if we are adding a new area (vs editing a station room)
 
 /*Adding a wizard area teleport list because motherfucking lag -- Urist*/
@@ -1044,7 +1044,7 @@ var/list/ghostteleportlocs = list()
 
 /area/bridge/meeting_room
 	name = "Heads of Staff Meeting Room"
-	icon_state = "bridge"
+	icon_state = "meeting"
 	music = null
 
 /area/crew_quarters/captain
@@ -1880,6 +1880,10 @@ area/security/podbay
 	name = "Toxins Mixing Room"
 	icon_state = "toxmix"
 
+/area/toxins/launch
+	name = "Toxins Launch Room"
+	icon_state = "toxlaunch"
+
 /area/toxins/misc_lab
 	name = "Research Testing Lab"
 	icon_state = "toxmisc"
@@ -2470,11 +2474,6 @@ area/security/podbay
 
 /area/awaymission/spacebattle/secret
 	name = "Hidden Chamber"
-
-/area/awaymission/listeningpost
-	name = "Listening Post"
-	icon_state = "away"
-	requires_power = 0
 
 /area/awaymission/beach
 	name = "Beach"

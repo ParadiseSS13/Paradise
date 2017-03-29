@@ -10,6 +10,7 @@
 	w_class = 1
 	slot_flags = SLOT_BELT | SLOT_EARS
 	attack_verb = list("attacked", "coloured")
+	toolspeed = 1
 	var/colour = "#FF0000" //RGB
 	var/drawtype = "rune"
 	var/list/graffiti = list("body","amyjon","face","matt","revolution","engie","guy","end","dwarf","uboa","up","down","left","right","heart","borgsrogue","voxpox","shitcurity","catbeast","hieroglyphs1","hieroglyphs2","hieroglyphs3","security","syndicate1","syndicate2","nanotrasen","lie","valid","arrowleft","arrowright","arrowup","arrowdown","chicken","hailcrab","brokenheart","peace","scribble","scribble2","scribble3","skrek","squish","tunnelsnake","yip","youaredead")
@@ -77,7 +78,7 @@
 	drawtype = temp
 	update_window(usr)
 
-/obj/item/toy/crayon/afterattack(atom/target, mob/user as mob, proximity)
+/obj/item/toy/crayon/afterattack(atom/target, mob/user, proximity)
 	if(!proximity) return
 	if(is_type_in_list(target,validSurfaces))
 		var/temp = "rune"
@@ -86,7 +87,7 @@
 		else if(graffiti.Find(drawtype))
 			temp = "graffiti"
 		to_chat(user, "You start drawing a [temp] on the [target.name].")
-		if(instant || do_after(user, 50, target = target))
+		if(instant || do_after(user, 50 * toolspeed, target = target))
 			var/obj/effect/decal/cleanable/crayon/C = new /obj/effect/decal/cleanable/crayon(target,colour,drawtype,temp)
 			C.add_hiddenprint(user)
 			to_chat(user, "You finish drawing [temp].")
@@ -95,17 +96,22 @@
 				if(!uses)
 					to_chat(user, "<span class='danger'>You used up your [name]!</span>")
 					qdel(src)
-	return
 
-/obj/item/toy/crayon/attack(mob/M as mob, mob/user as mob)
+/obj/item/toy/crayon/attack(mob/M, mob/user)
 	var/huffable = istype(src,/obj/item/toy/crayon/spraycan)
 	if(M == user)
-		to_chat(user, "You take a [huffable ? "huff" : "bite"] of the [name]. Delicious!")
+		if(ishuman(user))
+			var/mob/living/carbon/human/H = user
+			if(!H.check_has_mouth())
+				to_chat(user, "<span class='warning'>You do not have a mouth!</span>")
+				return
+		playsound(loc, 'sound/items/eatfood.ogg', 50, 0)
+		to_chat(user, "<span class='notice'>You take a [huffable ? "huff" : "bite"] of the [name]. Delicious!</span>")
 		user.nutrition += 5
 		if(uses)
 			uses -= 5
 			if(uses <= 0)
-				to_chat(user, "<span class='danger'>There is no more of [name] left!</span>")
+				to_chat(user, "<span class='warning'>There is no more of [name] left!</span>")
 				qdel(src)
 	else
 		..()

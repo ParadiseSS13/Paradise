@@ -51,7 +51,7 @@
 			var/response = alert(user, "Are you sure you want to put the bag of holding inside another bag of holding?","Are you sure you want to die?","Yes","No")
 			if(response == "Yes")
 				user.visible_message("<span class='warning'>[user] grins as \he begins to put a Bag of Holding into a Bag of Holding!</span>", "<span class='warning'>You begin to put the Bag of Holding into the Bag of Holding!</span>")
-				if(do_after(user,30,target=src))
+				if(do_after(user, 30, target=src))
 					investigate_log("has become a singularity. Caused by [user.key]","singulo")
 					user.visible_message("<span class='warning'>[user] erupts in evil laughter as \he puts the Bag of Holding into another Bag of Holding!</span>", "<span class='warning'>You can't help but laugh wildly as you put the Bag of Holding into another Bag of Holding, complete darkness surrounding you.</span>","<span class='warning'> You hear the sound of scientific evil brewing! </span>")
 					qdel(W)
@@ -189,7 +189,7 @@
 /obj/item/weapon/storage/backpack/satchel_norm
 	name = "satchel"
 	desc = "A deluxe NT Satchel, made of the highest quality leather."
-	icon_state = "satchel"
+	icon_state = "satchel-norm"
 
 /obj/item/weapon/storage/backpack/satchel_eng
 	name = "industrial satchel"

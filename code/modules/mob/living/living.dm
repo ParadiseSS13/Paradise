@@ -6,7 +6,8 @@
 
 /mob/living/ghostize(can_reenter_corpse = 1)
 	var/prev_client = client
-	if(..())
+	. = ..()
+	if(.)
 		if(ranged_ability && prev_client)
 			ranged_ability.remove_mousepointer(prev_client)
 
@@ -846,7 +847,7 @@
 	return tally
 
 /mob/living/proc/can_use_guns(var/obj/item/weapon/gun/G)
-	if(G.trigger_guard != TRIGGER_GUARD_ALLOW_ALL && !IsAdvancedToolUser())
+	if(G.trigger_guard != TRIGGER_GUARD_ALLOW_ALL && !IsAdvancedToolUser() && !issmall(src))
 		to_chat(src, "<span class='warning'>You don't have the dexterity to do this!</span>")
 		return 0
 	return 1

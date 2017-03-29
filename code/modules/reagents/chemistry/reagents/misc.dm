@@ -39,7 +39,6 @@
 	reagent_state = GAS
 	color = "#808080" // rgb: 128, 128, 128
 
-
 /datum/reagent/nitrogen
 	name = "Nitrogen"
 	id = "nitrogen"
@@ -417,15 +416,15 @@
 	var/newsize = current_size
 	switch(volume)
 		if(0 to 19)
-			newsize = 1.25
+			newsize = 1.1
 		if(20 to 49)
-			newsize = 1.5
+			newsize = 1.2
 		if(50 to 99)
-			newsize = 2
+			newsize = 1.25
 		if(100 to 199)
-			newsize = 2.5
+			newsize = 1.3
 		if(200 to INFINITY)
-			newsize = 3.5
+			newsize = 1.5
 
 	H.resize = newsize/current_size
 	current_size = newsize

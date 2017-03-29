@@ -12,5 +12,5 @@
 		var/area/A = T.loc
 		if(!A.dynamic_lighting)
 			continue
-		var/atom/movable/lighting_overlay/O = new(T)
-		T.lighting_overlay = O
+
+		new /atom/movable/lighting_overlay(T, TRUE)

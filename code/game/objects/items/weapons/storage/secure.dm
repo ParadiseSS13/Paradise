@@ -37,7 +37,7 @@
 			emag_act(user, W)
 
 		if(istype(W, /obj/item/weapon/screwdriver))
-			if(do_after(user, 20, target = src))
+			if(do_after(user, 20 * W.toolspeed, target = src))
 				open = !open
 				user.show_message("<span class='notice'>You [open ? "open" : "close"] the service panel.</span>", 1)
 			return
@@ -45,18 +45,18 @@
 		if((istype(W, /obj/item/device/multitool)) && (open == 1) && (!l_hacking))
 			user.show_message("<span class='danger'>Now attempting to reset internal memory, please hold.</span>", 1)
 			l_hacking = 1
-			if(do_after(usr, 100, target = src))
+			if(do_after(usr, 100 * W.toolspeed, target = src))
 				if(prob(40))
 					l_setshort = 1
 					l_set = 0
-					user.show_message("<span class='danger'>Internal memory reset.  Please give it a few seconds to reinitialize.</span>", 1)
+					user.show_message("<span class='danger'>Internal memory reset. Please give it a few seconds to reinitialize.</span>", 1)
 					sleep(80)
 					l_setshort = 0
 					l_hacking = 0
 				else
 					user.show_message("<span class='danger'>Unable to reset internal memory.</span>", 1)
 					l_hacking = 0
-			else	
+			else
 				l_hacking = 0
 			return
 		//At this point you have exhausted all the special things to do when locked
@@ -212,9 +212,9 @@
 	force = 15
 
 /obj/item/weapon/storage/secure/briefcase/syndie/New()
-	..()	
+	..()
 	for(var/i = 0, i < storage_slots - 2, i++)
-		handle_item_insertion(new /obj/item/weapon/spacecash/c1000, 1)
+		handle_item_insertion(new /obj/item/stack/spacecash/c1000, 1)
 
 // -----------------------------
 //        Secure Safe
@@ -232,7 +232,7 @@
 	max_w_class = 8
 	anchored = 1
 	density = 0
-	cant_hold = list("/obj/item/weapon/storage/secure/briefcase")
+	cant_hold = list(/obj/item/weapon/storage/secure/briefcase)
 
 /obj/item/weapon/storage/secure/safe/New()
 	..()

@@ -199,6 +199,10 @@
 		var/atom/O = mob.loc
 		return O.relaymove(mob, direct)
 
+	if(istype(mob.get_active_hand(), /obj/item))
+		var/obj/item/I = mob.get_active_hand()
+		I.moved(mob, n, direct)
+
 	if(!mob.Process_Spacemove(direct))
 		return 0
 
@@ -276,7 +280,7 @@
 
 		for(var/obj/item/weapon/grab/G in mob)
 			if(G.state == GRAB_NECK)
-				mob.set_dir(reverse_dir[direct])
+				mob.setDir(reverse_dir[direct])
 			G.adjust_position()
 		for(var/obj/item/weapon/grab/G in mob.grabbed_by)
 			G.adjust_position()

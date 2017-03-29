@@ -115,6 +115,24 @@
 /datum/dna/gene/disability/blindness/New()
 	block=BLINDBLOCK
 
+/datum/dna/gene/disability/colourblindness
+	name = "Colourblindness"
+	activation_message = "You feel a peculiar prickling in your eyes while your perception of colour changes."
+	deactivation_message ="Your eyes tingle unsettlingly, though everything seems to become alot more colourful."
+	instability = -GENE_INSTABILITY_MODERATE
+	disability = COLOURBLIND
+
+/datum/dna/gene/disability/colourblindness/New()
+	block=COLOURBLINDBLOCK
+
+/datum/dna/gene/disability/colourblindness/activate(var/mob/M, var/connected, var/flags)
+	..()
+	M.update_client_colour() //Handle the activation of the colourblindness on the mob.
+
+/datum/dna/gene/disability/colourblindness/deactivate(var/mob/M, var/connected, var/flags)
+	..()
+	M.update_client_colour() //Handle the deactivation of the colourblindness on the mob.
+
 /datum/dna/gene/disability/deaf
 	name="Deafness"
 	activation_message="It's kinda quiet."
@@ -126,7 +144,7 @@
 	block=DEAFBLOCK
 
 /datum/dna/gene/disability/deaf/activate(var/mob/M, var/connected, var/flags)
-	..(M,connected,flags)
+	..()
 	M.EarDeaf(1)
 
 /datum/dna/gene/disability/nearsighted
@@ -138,7 +156,6 @@
 
 /datum/dna/gene/disability/nearsighted/New()
 	block=GLASSESBLOCK
-
 
 /datum/dna/gene/disability/lisp
 	name = "Lisp"

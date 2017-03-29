@@ -177,16 +177,20 @@
 	for(var/turf/space/S in range(W,1))
 		S.update_starlight()
 
-	lighting_overlay = old_lighting_overlay
-	corners = old_corners
-	affecting_lights = old_affecting_lights
-	if((old_opacity != opacity) || (dynamic_lighting != old_dynamic_lighting))
-		reconsider_lights()
-	if(dynamic_lighting != old_dynamic_lighting)
-		if(dynamic_lighting)
-			lighting_build_overlay()
-		else
-			lighting_clear_overlay()
+	recalc_atom_opacity()
+
+	if(lighting_overlays_initialised)
+		lighting_overlay = old_lighting_overlay
+		affecting_lights = old_affecting_lights
+		corners = old_corners
+		if((old_opacity != opacity) || (dynamic_lighting != old_dynamic_lighting))
+			reconsider_lights()
+		if(dynamic_lighting != old_dynamic_lighting)
+			if(dynamic_lighting)
+				lighting_build_overlay()
+			else
+				lighting_clear_overlay()
+				
 	obscured = old_obscured
 
 	return W
@@ -382,20 +386,25 @@
 	if(ticker)
 		cameranet.updateVisibility(src)
 
-/turf/proc/get_lumcount() //Gets the lighting level of a given turf.
-	if(lighting_overlay)
-		return lighting_overlay.get_clamped_lum()
-	return 1
-
-/turf/attackby(obj/item/C, mob/user, params)
-	if(can_lay_cable() && istype(C, /obj/item/stack/cable_coil))
-		var/obj/item/stack/cable_coil/coil = C
-		for(var/obj/structure/cable/LC in src)
-			if((LC.d1==0)||(LC.d2==0))
-				LC.attackby(C,user)
-				return
-		coil.place_turf(src, user)
-		return 1
+/turf/attackby(obj/item/I, mob/user, params)
+	if(can_lay_cable())
+		if(istype(I, /obj/item/stack/cable_coil))
+			var/obj/item/stack/cable_coil/C = I
+			for(var/obj/structure/cable/LC in src)
+				if(LC.d1 == 0 || LC.d2==0)
+					LC.attackby(C,user)
+					return
+			C.place_turf(src, user)
+			return 1
+		else if(istype(I, /obj/item/weapon/twohanded/rcl))
+			var/obj/item/weapon/twohanded/rcl/R = I
+			if(R.loaded)
+				for(var/obj/structure/cable/LC in src)
+					if(LC.d1 == 0 || LC.d2==0)
+						LC.attackby(R, user)
+						return
+				R.loaded.place_turf(src, user)
+				R.is_empty(user)
 
 	return 0
 

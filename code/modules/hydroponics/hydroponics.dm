@@ -1,3 +1,5 @@
+#define HYDRO_CYCLES_PER_AGE	2	//Adjust this to adjust how many hydroponics cycles it takes to increase age. Positive integers only.
+
 /obj/machinery/hydroponics
 	name = "hydroponics tray"
 	icon = 'icons/obj/hydroponics/equipment.dmi'
@@ -20,10 +22,12 @@
 	var/lastproduce = 0		//Last time it was harvested
 	var/lastcycle = 0		//Used for timing of cycles.
 	var/cycledelay = 200	//About 10 seconds / cycle
+	var/current_cycle = 0	//Used for tracking when to age
 	var/harvest = 0			//Ready to harvest?
 	var/obj/item/seeds/myseed = null	//The currently planted seed
 	var/rating = 1
 	var/wrenchable = 1
+	var/lid_state = 0
 	var/recent_bee_visit = FALSE //Have we been visited by a bee recently, so bees dont overpollinate one plant
 	var/using_irrigation = FALSE //If the tray is connected to other trays via irrigation hoses
 	var/self_sustaining = FALSE //If the tray generates nutrients and water on its own
@@ -108,6 +112,20 @@
 
 	return connected
 
+/obj/machinery/hydroponics/AltClick()
+	if(wrenchable && !usr.stat && !usr.lying && Adjacent(usr))
+		toggle_lid(usr)
+		return
+	return ..()
+
+/obj/machinery/hydroponics/proc/toggle_lid(mob/living/user)
+	if(!user || user.stat || user.restrained())
+		return
+
+	lid_state = !lid_state
+	to_chat(user, "<span class='notice'>You [lid_state ? "close" : "open"] the tray's lid.</span>")
+	update_icon()
+
 
 /obj/machinery/hydroponics/bullet_act(obj/item/projectile/Proj) //Works with the Somatoray to modify plant variables.
 	if(!myseed)
@@ -136,7 +154,10 @@
 		lastcycle = world.time
 		if(myseed && !dead)
 			// Advance age
-			age++
+			current_cycle++
+			if(current_cycle == HYDRO_CYCLES_PER_AGE)
+				age++
+				current_cycle = 0
 			if(age < myseed.maturation)
 				lastproduce = age
 
@@ -267,6 +288,9 @@
 			overlays += image('icons/obj/hydroponics/equipment.dmi', icon_state = "gaia_blessing")
 		set_light(3)
 
+	if(lid_state)
+		overlays += image('icons/obj/hydroponics/equipment.dmi', icon_state = "hydrocover")
+
 	update_icon_hoses()
 
 	if(myseed)
@@ -276,7 +300,7 @@
 	if(!self_sustaining)
 		if(myseed && myseed.get_gene(/datum/plant_gene/trait/glow))
 			var/datum/plant_gene/trait/glow/G = myseed.get_gene(/datum/plant_gene/trait/glow)
-			set_light(G.get_lum(myseed))
+			set_light(G.glow_range(myseed), G.glow_power(myseed), G.glow_color)
 		else
 			set_light(0)
 
@@ -850,8 +874,8 @@
 
 		if(!anchored && !isinspace())
 			user.visible_message("[user] begins to wrench [src] into place.", "<span class='notice'>You begin to wrench [src] in place...</span>")
-			playsound(loc, 'sound/items/Ratchet.ogg', 50, 1)
-			if (do_after(user, 20, target = src))
+			playsound(loc, O.usesound, 50, 1)
+			if (do_after(user, 20 * O.toolspeed, target = src))
 				if(anchored)
 					return
 				anchored = 1
@@ -860,8 +884,8 @@
 		else if(anchored)
 			user.visible_message("[user] begins to unwrench [src].", \
 								"<span class='notice'>You begin to unwrench [src]...</span>")
-			playsound(loc, 'sound/items/Ratchet.ogg', 50, 1)
-			if (do_after(user, 20, target = src))
+			playsound(loc, O.usesound, 50, 1)
+			if (do_after(user, 20 * O.toolspeed, target = src))
 				if(!anchored)
 					return
 				anchored = 0
@@ -870,7 +894,7 @@
 
 	else if(iswirecutter(O) && wrenchable)
 		using_irrigation = !using_irrigation
-		playsound(src, 'sound/items/Wirecutter.ogg', 50, 1)
+		playsound(src, O.usesound, 50, 1)
 		user.visible_message("<span class='notice'>[user] [using_irrigation ? "" : "dis"]connects [src]'s irrigation hoses.</span>", \
 		"<span class='notice'>You [using_irrigation ? "" : "dis"]connect [src]'s irrigation hoses.</span>")
 		for(var/obj/machinery/hydroponics/h in range(1,src))
@@ -881,11 +905,11 @@
 			to_chat(user, "<span class='warning'>[src] doesn't have any plants or weeds!</span>")
 			return
 		user.visible_message("<span class='notice'>[user] starts digging out [src]'s plants...</span>", "<span class='notice'>You start digging out [src]'s plants...</span>")
-		playsound(src, 'sound/effects/shovel_dig.ogg', 50, 1)
-		if(!do_after(user, 50, target = src) || (!myseed && !weedlevel))
+		playsound(src, O.usesound, 50, 1)
+		if(!do_after(user, 25 * O.toolspeed, target = src) || (!myseed && !weedlevel))
 			return
 		user.visible_message("<span class='notice'>[user] digs out the plants in [src]!</span>", "<span class='notice'>You dig out all of [src]'s plants!</span>")
-		playsound(src, 'sound/effects/shovel_dig.ogg', 50, 1)
+		playsound(src, O.usesound, 50, 1)
 		if(myseed) //Could be that they're just using it as a de-weeder
 			age = 0
 			plant_health = 0
@@ -903,6 +927,9 @@
 
 /obj/machinery/hydroponics/attack_hand(mob/user)
 	if(issilicon(user)) //How does AI know what plant is?
+		return
+	if(lid_state)
+		to_chat(user, "<span class='warning'>You can't reach the plant through the cover.</span>")
 		return
 	if(harvest)
 		myseed.harvest(user)
@@ -969,14 +996,14 @@
 	C.faction = list("plants")
 
 ///Diona Nymph Related Procs///
-/obj/machinery/hydroponics/CanPass(atom/movable/mover, turf/target, height=0, air_group=0) //So nymphs can climb over top of trays.
-	if(air_group || (height==0))
+/obj/machinery/hydroponics/CanPass(atom/movable/mover, turf/target, height=0) //So nymphs can climb over top of trays.
+	if(height==0)
 		return 1
 
 	if(istype(mover) && mover.checkpass(PASSTABLE))
 		return 1
 	else
-		return 0
+		return ..()
 
 /obj/machinery/hydroponics/attack_animal(mob/living/user)
 	if(istype(user, /mob/living/simple_animal/diona))
@@ -1014,3 +1041,5 @@
 		qdel(src)
 	else
 		..()
+
+#undef HYDRO_CYCLES_PER_AGE

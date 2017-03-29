@@ -6,6 +6,7 @@
 	icon = 'icons/obj/weapons.dmi'
 	icon_state = "uglyminearmed"
 	var/triggered = 0
+	var/faction = "syndicate"
 
 /obj/effect/mine/proc/mineEffect(mob/living/victim)
 	to_chat(victim, "<span class='danger'>*click*</span>")
@@ -15,6 +16,8 @@
 		return
 	if(isanimal(AM))
 		var/mob/living/simple_animal/SA = AM
+		if(faction && (faction in SA.faction))
+			return
 		if(!SA.flying)
 			triggermine(SA)
 	else

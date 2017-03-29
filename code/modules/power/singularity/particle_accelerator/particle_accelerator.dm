@@ -214,7 +214,7 @@ So, hopefully this is helpful if any more icons are to be added/changed/wonderin
 	return 0
 
 
-/obj/structure/particle_accelerator/proc/process_tool_hit(var/obj/O, var/mob/user)
+/obj/structure/particle_accelerator/proc/process_tool_hit(var/obj/item/O, var/mob/user)
 	if(!(O) || !(user))
 		return 0
 	if(!ismob(user) || !isobj(O))
@@ -224,14 +224,14 @@ So, hopefully this is helpful if any more icons are to be added/changed/wonderin
 	switch(construction_state)//TODO:Might be more interesting to have it need several parts rather than a single list of steps
 		if(0)
 			if(iswrench(O) && !isinspace())
-				playsound(loc, 'sound/items/Ratchet.ogg', 75, 1)
+				playsound(loc, O.usesound, 50, 1)
 				anchored = 1
 				user.visible_message("[user.name] secures the [name] to the floor.", \
 					"You secure the external bolts.")
 				temp_state++
 		if(1)
 			if(iswrench(O))
-				playsound(loc, 'sound/items/Ratchet.ogg', 75, 1)
+				playsound(loc, O.usesound, 50, 1)
 				anchored = 0
 				user.visible_message("[user.name] detaches the [name] from the floor.", \
 					"You remove the external bolts.")
@@ -239,6 +239,7 @@ So, hopefully this is helpful if any more icons are to be added/changed/wonderin
 			else if(iscoil(O))
 				var/obj/item/stack/cable_coil/C = O
 				if(C.use(1))
+					playsound(loc, O.usesound, 50, 1)
 					user.visible_message("[user.name] adds wires to the [name].", \
 						"You add some wires.")
 					temp_state++
@@ -247,15 +248,18 @@ So, hopefully this is helpful if any more icons are to be added/changed/wonderin
 					return
 		if(2)
 			if(iswirecutter(O))//TODO:Shock user if its on?
+				playsound(loc, O.usesound, 50, 1)
 				user.visible_message("[user.name] removes some wires from the [name].", \
 					"You remove some wires.")
 				temp_state--
 			else if(isscrewdriver(O))
+				playsound(loc, O.usesound, 50, 1)
 				user.visible_message("[user.name] closes the [name]'s access panel.", \
 					"You close the access panel.")
 				temp_state++
 		if(3)
 			if(isscrewdriver(O))
+				playsound(loc, O.usesound, 50, 1)
 				user.visible_message("[user.name] opens the [name]'s access panel.", \
 					"You open the access panel.")
 				temp_state--
@@ -352,7 +356,7 @@ So, hopefully this is helpful if any more icons are to be added/changed/wonderin
 	return 0
 
 
-/obj/machinery/particle_accelerator/proc/process_tool_hit(var/obj/O, var/mob/user)
+/obj/machinery/particle_accelerator/proc/process_tool_hit(var/obj/item/O, var/mob/user)
 	if(!(O) || !(user))
 		return 0
 	if(!ismob(user) || !isobj(O))
@@ -361,7 +365,7 @@ So, hopefully this is helpful if any more icons are to be added/changed/wonderin
 	switch(construction_state)//TODO:Might be more interesting to have it need several parts rather than a single list of steps
 		if(0)
 			if(iswrench(O))
-				playsound(loc, 'sound/items/Ratchet.ogg', 75, 1)
+				playsound(loc, O.usesound, 50, 1)
 				anchored = 1
 				user.visible_message("[user.name] secures the [name] to the floor.", \
 					"You secure the external bolts.")
@@ -369,7 +373,7 @@ So, hopefully this is helpful if any more icons are to be added/changed/wonderin
 				power_change()
 		if(1)
 			if(iswrench(O))
-				playsound(loc, 'sound/items/Ratchet.ogg', 75, 1)
+				playsound(loc, O.usesound, 50, 1)
 				anchored = 0
 				user.visible_message("[user.name] detaches the [name] from the floor.", \
 					"You remove the external bolts.")
@@ -377,20 +381,24 @@ So, hopefully this is helpful if any more icons are to be added/changed/wonderin
 				power_change()
 			else if(iscoil(O))
 				if(O:use(1))
+					playsound(loc, O.usesound, 50, 1)
 					user.visible_message("[user.name] adds wires to the [name].", \
 						"You add some wires.")
 					temp_state++
 		if(2)
 			if(iswirecutter(O))//TODO:Shock user if its on?
+				playsound(loc, O.usesound, 50, 1)
 				user.visible_message("[user.name] removes some wires from the [name].", \
 					"You remove some wires.")
 				temp_state--
 			else if(isscrewdriver(O))
+				playsound(loc, O.usesound, 50, 1)
 				user.visible_message("[user.name] closes the [name]'s access panel.", \
 					"You close the access panel.")
 				temp_state++
 		if(3)
 			if(isscrewdriver(O))
+				playsound(loc, O.usesound, 50, 1)
 				user.visible_message("[user.name] opens the [name]'s access panel.", \
 					"You open the access panel.")
 				temp_state--

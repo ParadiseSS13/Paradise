@@ -93,10 +93,11 @@
 	onclose(user, "honkputer")
 
 
-/obj/machinery/computer/HONKputer/attackby(I as obj, user as mob, params)
+/obj/machinery/computer/HONKputer/attackby(obj/I, mob/user, params)
 	if(istype(I, /obj/item/weapon/screwdriver) && circuit)
-		playsound(src.loc, 'sound/items/Screwdriver.ogg', 50, 1)
-		if(do_after(user, 20, target = src))
+		var/obj/item/weapon/screwdriver/S = I
+		playsound(src.loc, S.usesound, 50, 1)
+		if(do_after(user, 20 * S.toolspeed, target = src))
 			var/obj/structure/computerframe/HONKputer/A = new /obj/structure/computerframe/HONKputer( src.loc )
 			var/obj/item/weapon/circuitboard/M = new circuit( A )
 			A.circuit = M

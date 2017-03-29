@@ -59,6 +59,7 @@
 	desc = "Cut, cut, and once more cut."
 	icon = 'icons/obj/surgery.dmi'
 	icon_state = "scalpel"
+	item_state = "scalpel"
 	flags = CONDUCT
 	force = 10.0
 	sharp = 1
@@ -82,37 +83,36 @@
 /*
  * Researchable Scalpels
  */
-/obj/item/weapon/scalpel/laser1 //lasers also count as catuarys
+/obj/item/weapon/scalpel/laser //parent type
+	name = "laser scalpel"
+	desc = "A scalpel augmented with a directed laser."
+	icon_state = "scalpel_laser1_on"
+	damtype = "fire"
+	hitsound = 'sound/weapons/sear.ogg'
+
+/obj/item/weapon/scalpel/laser/laser1 //lasers also count as catuarys
 	name = "laser scalpel"
 	desc = "A scalpel augmented with a directed laser.  This one looks basic and could be improved."
 	icon_state = "scalpel_laser1_on"
-	item_state = "scalpel"
-	damtype = "fire"
-	hitsound = 'sound/weapons/sear.ogg'
+	toolspeed = 0.8
 
-/obj/item/weapon/scalpel/laser2
+/obj/item/weapon/scalpel/laser/laser2
 	name = "laser scalpel"
 	desc = "A scalpel augmented with a directed laser. This one looks somewhat advanced."
 	icon_state = "scalpel_laser2_on"
-	item_state = "scalpel"
-	damtype = "fire"
-	hitsound = 'sound/weapons/sear.ogg'
+	toolspeed = 0.6
 
-/obj/item/weapon/scalpel/laser3
+/obj/item/weapon/scalpel/laser/laser3
 	name = "laser scalpel"
 	desc = "A scalpel augmented with a directed laser.  This one looks to be the pinnacle of precision energy cutlery!"
 	icon_state = "scalpel_laser3_on"
-	item_state = "scalpel"
-	damtype = "fire"
-	hitsound = 'sound/weapons/sear.ogg'
+	toolspeed = 0.4
 
-/obj/item/weapon/scalpel/manager //super tool! Retractor/hemostat
+/obj/item/weapon/scalpel/laser/manager //super tool! Retractor/hemostat
 	name = "incision management system"
 	desc = "A true extension of the surgeon's body, this marvel instantly and completely prepares an incision allowing for the immediate commencement of therapeutic steps."
 	icon_state = "scalpel_manager_on"
-	item_state = "scalpel"
-	damtype = "fire"
-	hitsound = 'sound/weapons/sear.ogg'
+	toolspeed = 0.2
 
 /obj/item/weapon/circular_saw
 	name = "circular saw"

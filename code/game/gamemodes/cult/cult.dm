@@ -176,8 +176,8 @@ var/global/list/all_cults = list()
 		var/datum/action/innate/cultcomm/C = new()
 		C.Grant(cult_mind.current)
 		cult_mind.current.create_attack_log("<span class='danger'>Has been converted to the cult!</span>")
-		if(jobban_isbanned(cult_mind.current, ROLE_CULTIST))
-			replace_jobbaned_player(cult_mind.current, ROLE_CULTIST)
+		if(jobban_isbanned(cult_mind.current, ROLE_CULTIST) || jobban_isbanned(cult_mind.current, ROLE_SYNDICATE))
+			replace_jobbanned_player(cult_mind.current, ROLE_CULTIST)
 		update_cult_icons_added(cult_mind)
 		if(GAMEMODE_IS_CULT)
 			var/datum/game_mode/cult/cult_mode = ticker.mode
@@ -350,10 +350,10 @@ var/global/list/all_cults = list()
 
 				if("harvest")
 					if(harvested > harvest_target)
-						explanation = "Offer [harvest_target] humans for [ticker.mode.cultdat.entity_name]'s first meal of the day. ([harvested] eaten) <font color='green'><B>Success!</B></font>"
+						explanation = "Offer [harvest_target] humans for [ticker.mode.cultdat.entity_name]'s first meal of the day. ([harvested] sacrificed) <font color='green'><B>Success!</B></font>"
 						feedback_add_details("cult_objective","cult_harvest|SUCCESS")
 					else
-						explanation = "Offer [harvest_target] humans for [ticker.mode.cultdat.entity_name]'s first meal of the day. ([harvested] eaten) <font color='red'><B>Fail!</B></font>"
+						explanation = "Offer [harvest_target] humans for [ticker.mode.cultdat.entity_name]'s first meal of the day. ([harvested] sacrificed) <font color='red'><B>Fail!</B></font>"
 						feedback_add_details("cult_objective","cult_harvest|FAIL")
 
 				if("hijack")
