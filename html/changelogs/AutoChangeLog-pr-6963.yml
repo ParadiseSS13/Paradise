@@ -1,0 +1,5 @@
+author: "Purpose2"
+delete-after: True
+changes: 
+  - bugfix: "'Roundstart malfunctioning' cameras now appropriately have their wires cut."
+  - bugfix: "AI core camera can no longer be a 'roundstart malfunctioning' camera on both Box & Meta Stations."
