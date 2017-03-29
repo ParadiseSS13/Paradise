@@ -10,6 +10,16 @@
     </span>
   {{/if}}
 </div>
+<div class="item">
+  {{if data.can_dry}}
+	<div class="itemLabel" style="width: 70%">
+		Drying:
+	</div>
+	<div class="itemContent" style="width: 30%;">
+		{{:helper.link('On', 'power-off', {'dryingOn' : 1}, data.drying ? 'selected' : null)}}{{:helper.link('Off', 'close', {'dryingOff' : 1}, data.drying ? null : 'selected')}}
+	</div>
+  {{/if}}
+</div>
 <div class='item'>
   {{if data.contents}}
     {{for data.contents}}

@@ -41,7 +41,7 @@
 
 /obj/machinery/bottler/attackby(obj/item/O, mob/user, params)
 	if(iswrench(O))		//This being before the canUnequip check allows borgs to (un)wrench bottlers in case they need move them to fix stuff
-		playsound(src, 'sound/items/Ratchet.ogg', 50, 1)
+		playsound(src, O.usesound, 50, 1)
 		if(anchored)
 			anchored = 0
 			to_chat(user, "<span class='alert'>[src] can now be moved.</span>")
@@ -179,7 +179,7 @@
 		con_type = "glass bottle"
 		max_define = MAX_GLASS
 		mat_ratio = RATIO_GLASS
-	else if(istype(S, /obj/item/stack/sheet/mineral/plastic))
+	else if(istype(S, /obj/item/stack/sheet/plastic))
 		con_type = "plastic bottle"
 		max_define = MAX_PLAST
 		mat_ratio = RATIO_PLAST

@@ -140,13 +140,13 @@ var/list/spells = typesof(/obj/effect/proc_holder/spell) //needed for the badmin
 	var/obj/effect/proc_holder/spell/noclothes/clothes_spell = locate() in (user.mob_spell_list | (user.mind ? user.mind.spell_list : list()))
 	if((ishuman(user) && clothes_req) && !istype(clothes_spell))//clothes check
 		var/mob/living/carbon/human/H = user
-		if(!istype(H.wear_suit, /obj/item/clothing/suit/wizrobe) && !istype(H.wear_suit, /obj/item/clothing/suit/space/rig/wizard))
+		if(!istype(H.wear_suit, /obj/item/clothing/suit/wizrobe) && !istype(H.wear_suit, /obj/item/clothing/suit/space/hardsuit/wizard))
 			to_chat(user, "<span class='notice'>I don't feel strong enough without my robe.</span>")
 			return 0
 		if(!istype(H.shoes, /obj/item/clothing/shoes/sandal))
 			to_chat(user, "<span class='notice'>I don't feel strong enough without my sandals.</span>")
 			return 0
-		if(!istype(H.head, /obj/item/clothing/head/wizard) && !istype(H.head, /obj/item/clothing/head/helmet/space/rig/wizard))
+		if(!istype(H.head, /obj/item/clothing/head/wizard) && !istype(H.head, /obj/item/clothing/head/helmet/space/hardsuit/wizard))
 			to_chat(user, "<span class='notice'>I don't feel strong enough without my hat.</span>")
 			return 0
 	else if(!ishuman(user))
@@ -442,11 +442,11 @@ var/list/spells = typesof(/obj/effect/proc_holder/spell) //needed for the badmin
 		var/clothcheck = locate(/obj/effect/proc_holder/spell/noclothes) in user.mob_spell_list
 		var/clothcheck2 = user.mind && (locate(/obj/effect/proc_holder/spell/noclothes) in user.mind.spell_list)
 		if(clothes_req && !clothcheck && !clothcheck2) //clothes check
-			if(!istype(H.wear_suit, /obj/item/clothing/suit/wizrobe) && !istype(H.wear_suit, /obj/item/clothing/suit/space/rig/wizard))
+			if(!istype(H.wear_suit, /obj/item/clothing/suit/wizrobe) && !istype(H.wear_suit, /obj/item/clothing/suit/space/hardsuit/wizard))
 				return 0
 			if(!istype(H.shoes, /obj/item/clothing/shoes/sandal))
 				return 0
-			if(!istype(H.head, /obj/item/clothing/head/wizard) && !istype(H.head, /obj/item/clothing/head/helmet/space/rig/wizard))
+			if(!istype(H.head, /obj/item/clothing/head/wizard) && !istype(H.head, /obj/item/clothing/head/helmet/space/hardsuit/wizard))
 				return 0
 	else
 		if(clothes_req  || human_req)

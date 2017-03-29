@@ -24,87 +24,83 @@
 			stat |= NOPOWER
 
 /obj/machinery/ai_slipper/proc/setState(var/enabled, var/uses)
-	src.disabled = disabled
-	src.uses = uses
-	src.power_change()
+	disabled = disabled
+	uses = uses
+	power_change()
 
 /obj/machinery/ai_slipper/attackby(obj/item/weapon/W, mob/user, params)
 	if(stat & (NOPOWER|BROKEN))
 		return
 	if(istype(user, /mob/living/silicon))
-		return src.attack_hand(user)
+		return attack_hand(user)
 	else // trying to unlock the interface
-		if(src.allowed(usr))
+		if(allowed(usr))
 			locked = !locked
-			to_chat(user, "You [ locked ? "lock" : "unlock"] the device.")
+			to_chat(user, "You [locked ? "lock" : "unlock"] the device.")
 			if(locked)
-				if(user.machine==src)
+				if(user.machine == src)
 					user.unset_machine()
 					user << browse(null, "window=ai_slipper")
 			else
-				if(user.machine==src)
-					src.attack_hand(usr)
+				if(user.machine == src)
+					attack_hand(usr)
 		else
 			to_chat(user, "\red Access denied.")
 			return
 	return
 
-/obj/machinery/ai_slipper/attack_ai(mob/user as mob)
+/obj/machinery/ai_slipper/attack_ai(mob/user)
+	return attack_hand(user)
+	
+/obj/machinery/ai_slipper/attack_ghost(mob/user)
 	return attack_hand(user)
 
-/obj/machinery/ai_slipper/attack_hand(mob/user as mob)
+/obj/machinery/ai_slipper/attack_hand(mob/user)
 	if(stat & (NOPOWER|BROKEN))
 		return
-	if( (get_dist(src, user) > 1 ))
-		if(!istype(user, /mob/living/silicon))
-			to_chat(user, text("Too far away."))
-			user.unset_machine()
-			user << browse(null, "window=ai_slipper")
-			return
+
+	if(get_dist(src, user) > 1 && (!issilicon(user) && !user.can_admin_interact()))
+		to_chat(user, "<span class='warning'>Too far away.</span>")
+		user.unset_machine()
+		user << browse(null, "window=ai_slipper")
+		return
 
 	user.set_machine(src)
-	var/loc = src.loc
-	if(istype(loc, /turf))
-		loc = loc:loc
-	if(!istype(loc, /area))
-		to_chat(user, text("Turret badly positioned - loc.loc is [].", loc))
-		return
-	var/area/area = loc
-	var/t = "<TT><B>AI Liquid Dispenser</B> ([area.name])<HR>"
+	var/area/myarea = get_area(src)
+	var/t = "<TT><B>AI Liquid Dispenser</B> ([myarea.name])<HR>"
 
-	if(src.locked && (!istype(user, /mob/living/silicon)))
+	if(locked && (!issilicon(user) && !user.can_admin_interact()))
 		t += "<I>(Swipe ID card to unlock control panel.)</I><BR>"
 	else
-		t += text("Dispenser [] - <A href='?src=[UID()];toggleOn=1'>[]?</a><br>\n", src.disabled?"deactivated":"activated", src.disabled?"Enable":"Disable")
+		t += text("Dispenser [] - <A href='?src=[UID()];toggleOn=1'>[]?</a><br>\n", disabled ? "deactivated" : "activated", disabled ? "Enable" : "Disable")
 		t += text("Uses Left: [uses]. <A href='?src=[UID()];toggleUse=1'>Activate the dispenser?</A><br>\n")
 
 	user << browse(t, "window=computer;size=575x450")
 	onclose(user, "computer")
-	return
 
 /obj/machinery/ai_slipper/Topic(href, href_list)
 	if(..())
 		return 1
-	if(src.locked)
-		if(!istype(usr, /mob/living/silicon))
-			to_chat(usr, "Control panel is locked!")
-			return
+
+	if(locked && (!issilicon(usr) && !usr.can_admin_interact()))
+		to_chat(usr, "Control panel is locked!")
+		return 1
+
 	if(href_list["toggleOn"])
-		src.disabled = !src.disabled
-		icon_state = src.disabled? "motion0":"motion3"
+		disabled = !disabled
+		icon_state = disabled? "motion0":"motion3"
 	if(href_list["toggleUse"])
 		if(cooldown_on || disabled)
 			return
 		else
-			new /obj/effect/effect/foam(src.loc)
-			src.uses--
+			new /obj/effect/effect/foam(loc)
+			uses--
 			cooldown_on = 1
 			cooldown_time = world.timeofday + 100
 			slip_process()
 			return
 
-	src.attack_hand(usr)
-	return
+	attack_hand(usr)
 
 /obj/machinery/ai_slipper/proc/slip_process()
 	while(cooldown_time - world.timeofday > 0)
@@ -120,5 +116,4 @@
 		return
 	if(uses >= 0)
 		cooldown_on = 0
-	src.power_change()
-	return
+	power_change()

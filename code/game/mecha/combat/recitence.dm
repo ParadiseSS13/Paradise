@@ -16,6 +16,7 @@
 	max_equip = 3
 	step_energy_drain = 3
 	stepsound = null
+	turnsound = null
 
 /obj/mecha/combat/recitence/loaded/New()
 	..()

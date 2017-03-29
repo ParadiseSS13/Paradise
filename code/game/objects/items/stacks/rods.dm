@@ -1,3 +1,7 @@
+var/global/list/datum/stack_recipe/rod_recipes = list ( \
+	new/datum/stack_recipe("grille", /obj/structure/grille, 2, time = 10, one_per_turf = 1, on_floor = 1), \
+	)
+
 /obj/item/stack/rods
 	name = "metal rod"
 	desc = "Some rods. Can be used for building, or something."
@@ -11,16 +15,18 @@
 	throw_speed = 3
 	throw_range = 7
 	materials = list(MAT_METAL=1000)
-	max_amount = 60
+	max_amount = 50
 	attack_verb = list("hit", "bludgeoned", "whacked")
 	hitsound = 'sound/weapons/grenadelaunch.ogg'
+	toolspeed = 1
+	usesound = 'sound/items/Deconstruct.ogg'
 
 /obj/item/stack/rods/cyborg
 	materials = list()
 
-/obj/item/stack/rods/New(var/loc, var/amount=null)
+/obj/item/stack/rods/New(loc, amount=null)
 	..()
-
+	recipes = rod_recipes
 	update_icon()
 
 /obj/item/stack/rods/update_icon()
@@ -30,12 +36,12 @@
 	else
 		icon_state = "rods"
 
-/obj/item/stack/rods/attackby(obj/item/W as obj, mob/user as mob, params)
+/obj/item/stack/rods/attackby(obj/item/W, mob/user, params)
 	if(istype(W, /obj/item/weapon/weldingtool))
 		var/obj/item/weapon/weldingtool/WT = W
 
 		if(get_amount() < 2)
-			to_chat(user, "<span class='warning'>You need at least two rods to do this.</span>")
+			to_chat(user, "<span class='warning'>You need at least two rods to do this!</span>")
 			return
 
 		if(WT.remove_fuel(0,user))
@@ -45,9 +51,9 @@
 				// stack was moved into another one on the pile
 				new_item = locate() in user.loc
 
-			user.visible_message("<span class='warning'>[user.name] shaped [src] into metal with the weldingtool.</span>", \
-						 "<span class='notice'>You shaped [src] into metal with the weldingtool.</span>", \
-						 "<span class='warning'>You hear welding.</span>")
+			user.visible_message("[user.name] shape [src] into metal with the welding tool.", \
+						 "<span class='notice'>You shape [src] into metal with the welding tool.</span>", \
+						 "<span class='italics'>You hear welding.</span>")
 
 			var/replace = user.get_inactive_hand() == src
 			use(2)
@@ -57,34 +63,3 @@
 					user.put_in_hands(new_item)
 		return
 	..()
-
-
-/obj/item/stack/rods/attack_self(mob/user as mob)
-	src.add_fingerprint(user)
-
-	if(!istype(user.loc,/turf)) return 0
-
-	if(locate(/obj/structure/grille, usr.loc))
-		for(var/obj/structure/grille/G in usr.loc)
-			if(G.destroyed)
-				G.health = 10
-				G.density = 1
-				G.destroyed = 0
-				G.icon_state = "grille"
-				use(1)
-			else
-				return 1
-	else
-		if(amount < 2)
-			to_chat(user, "\blue You need at least two rods to do this.")
-			return
-		to_chat(usr, "\blue Assembling grille...")
-
-		if(!do_after(usr, 10, target = user))
-			return
-
-		var /obj/structure/grille/F = new /obj/structure/grille/ ( usr.loc )
-		to_chat(usr, "\blue You assemble a grille")
-		F.add_fingerprint(usr)
-		use(2)
-	return

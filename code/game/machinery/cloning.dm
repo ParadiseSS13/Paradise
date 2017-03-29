@@ -124,6 +124,9 @@
 	buf.dna.unique_enzymes = md5(buf.dna.real_name)
 	buf.dna.UI=list(0x066,0x000,0x033,0x000,0x000,0x000,0xAF0,0x000,0x000,0x000,0x000,0x000,0x000,0x000,0x000,0x000,0x033,0x066,0x0FF,0x4DB,0x002,0x690,0x000,0x000)
 	//buf.dna.UI=list(0x0C8,0x0C8,0x0C8,0x0C8,0x0C8,0x0C8,0x000,0x000,0x000,0x000,0x161,0xFBD,0xDEF) // Farmer Jeff
+	for(var/i in buf.dna.UI.len to DNA_UI_LENGTH)
+		buf.dna.UI += 0x000
+	buf.dna.ResetSE()
 	buf.dna.UpdateUI()
 
 /obj/item/weapon/disk/data/monkey
@@ -379,7 +382,7 @@
 				connected = null
 			else
 				anchored = 1
-			playsound(loc, 'sound/items/Ratchet.ogg', 100, 1)
+			playsound(loc, W.usesound, 100, 1)
 			if(anchored)
 				user.visible_message("[user] secures [src] to the floor.", "You secure [src] to the floor.")
 			else

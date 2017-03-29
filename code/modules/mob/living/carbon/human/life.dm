@@ -172,7 +172,7 @@
 		if(gene.is_active(src))
 			speech_problem_flag = 1
 			gene.OnMobLife(src)
-	if(gene_stability < GENETIC_DAMAGE_STAGE_1)
+	if(!ignore_gene_stability && gene_stability < GENETIC_DAMAGE_STAGE_1)
 		var/instability = DEFAULT_GENE_STABILITY - gene_stability
 		if(prob(instability * 0.1))
 			adjustFireLoss(min(5, instability * 0.67))
@@ -1103,7 +1103,7 @@
 			if(istype(loc,/obj/item/bodybag))
 				return
 			var/obj/item/clothing/mask/M = H.wear_mask
-			if(M && (M.flags & MASKCOVERSMOUTH))
+			if(M && (M.flags_cover & MASKCOVERSMOUTH))
 				return
 			if(H.species && H.species.flags & NO_BREATHE)
 				return //no puking if you can't smell!

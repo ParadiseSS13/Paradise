@@ -58,6 +58,16 @@
 #define COLOR_WHITE 	"#FFFFFF"
 #define COLOR_GRAY      "#808080"
 
+//FONTS:
+// Used by Paper and PhotoCopier (and PaperBin once a year).
+// Used by PDA's Notekeeper.
+// Used by NewsCaster and NewsPaper.
+// Used by Modular Computers
+#define PEN_FONT "Verdana"
+#define CRAYON_FONT "Comic Sans MS"
+#define PRINTER_FONT "Times New Roman"
+#define SIGNFONT "Times New Roman"
+
 //some arbitrary defines to be used by self-pruning global lists. (see master_controller)
 #define PROCESS_KILL 26	//Used to trigger removal from a processing list
 
@@ -253,16 +263,19 @@
 #define MAP_MAXZ 6
 
 //Matricies
-#define MATRIX_DEFAULT list(1, 0, 0, 0,\
-                            0, 1, 0, 0,\
-                            0, 0, 1, 0,\
-                            0, 0, 0, 1)
+#define MATRIX_GREYSCALE list(0.33, 0.33, 0.33,\
+                              0.33, 0.33, 0.33,\
+                              0.33, 0.33, 0.33)
 
-#define MATRIX_GREYSCALE list(0.33, 0.33, 0.33, 0,\
-                              0.33, 0.33, 0.33, 0,\
-                              0.33, 0.33, 0.33, 0,\
-                              0.00, 0.00, 0.00, 1,\
-                              0.00, 0.00, 0.00, 0)
+#define MATRIX_VULP_CBLIND list(0.5,0.4,0.1,\
+                                0.5,0.4,0.1,\
+                                0.0,0.2,0.8)
+
+#define MATRIX_TAJ_CBLIND list(0.4,0.2,0.4,\
+                               0.4,0.6,0.0,\
+                               0.2,0.2,0.6)
+
+
 //Gun trigger guards
 #define TRIGGER_GUARD_ALLOW_ALL -1
 #define TRIGGER_GUARD_NONE 0
@@ -314,3 +327,6 @@
 #define BIRD_SCORE "Hierophants Killed"
 #define BOSS_SCORE "Bosses Killed"
 #define TENDRIL_CLEAR_SCORE "Tendrils Killed"
+
+// The number of station goals generated each round.
+#define STATION_GOAL_BUDGET 1

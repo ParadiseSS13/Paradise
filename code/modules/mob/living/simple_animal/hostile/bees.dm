@@ -161,8 +161,8 @@
 /mob/living/simple_animal/hostile/poison/bees/worker/Found(atom/A)
 	if(istype(A, /obj/machinery/hydroponics))
 		var/obj/machinery/hydroponics/Hydro = A
-		if(Hydro.myseed && !Hydro.dead && !Hydro.recent_bee_visit)
-			wanted_objects |= /obj/machinery/hydroponics //so we only hunt them while they're alive/seeded/not visisted
+		if(Hydro.myseed && !Hydro.dead && !Hydro.recent_bee_visit && !Hydro.lid_state)
+			wanted_objects |= /obj/machinery/hydroponics //so we only hunt them while they're alive/seeded/not visisted and uncovered
 			return 1
 	..()
 
@@ -188,12 +188,12 @@
 		..()
 
 /mob/living/simple_animal/hostile/poison/bees/worker/proc/pollinate(obj/machinery/hydroponics/Hydro)
-	if(!istype(Hydro) || !Hydro.myseed || Hydro.dead || Hydro.recent_bee_visit)
+	if(!istype(Hydro) || !Hydro.myseed || Hydro.dead || Hydro.recent_bee_visit || Hydro.lid_state)
 		target = null
 		return
 
 	target = null //so we pick a new hydro tray next FindTarget(), instead of loving the same plant for eternity
-	wanted_objects -= /obj/machinery/hydroponics //so we only hunt them while they're alive/seeded/not visisted
+	wanted_objects -= /obj/machinery/hydroponics //so we only hunt them while they're alive/seeded/not visisted and uncovered
 	Hydro.recent_bee_visit = TRUE
 	spawn(BEE_TRAY_RECENT_VISIT)
 		if(Hydro)

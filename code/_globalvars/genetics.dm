@@ -1,5 +1,6 @@
 	///////////
 var/BLINDBLOCK = 0
+var/COLOURBLINDBLOCK = 0
 var/DEAFBLOCK = 0
 var/HULKBLOCK = 0
 var/TELEBLOCK = 0

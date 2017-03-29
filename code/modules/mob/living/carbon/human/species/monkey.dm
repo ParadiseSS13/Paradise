@@ -26,6 +26,7 @@
 	tail = "chimptail"
 	bodyflags = FEET_PADDED | HAS_TAIL
 	reagent_tag = PROCESS_ORG
+	//Has standard darksight of 2.
 
 	//unarmed_types = list(/datum/unarmed_attack/bite, /datum/unarmed_attack/claws)
 	//inherent_verbs = list(/mob/living/proc/ventcrawl)
@@ -54,7 +55,7 @@
 
 /datum/species/monkey/handle_dna(var/mob/living/carbon/human/H)
 	H.dna.SetSEState(MONKEYBLOCK,1)
-	genemutcheck(H, MONKEYBLOCK)
+	genemutcheck(H,MONKEYBLOCK,null,MUTCHK_FORCED)
 
 /datum/species/monkey/handle_can_equip(obj/item/I, slot, disable_warning = 0, mob/living/carbon/human/user)
 	switch(slot)
@@ -105,6 +106,15 @@
 	base_color = "#000000"
 	tail = "farwatail"
 	reagent_tag = PROCESS_ORG
+	has_organ = list(
+		"heart" =    /obj/item/organ/internal/heart,
+		"lungs" =    /obj/item/organ/internal/lungs,
+		"liver" =    /obj/item/organ/internal/liver/tajaran,
+		"kidneys" =  /obj/item/organ/internal/kidneys,
+		"brain" =    /obj/item/organ/internal/brain,
+		"appendix" = /obj/item/organ/internal/appendix,
+		"eyes" =     /obj/item/organ/internal/eyes/tajaran/farwa //Tajara monkey-forms are uniquely colourblind and have excellent darksight, which is why they need a subtype of their greater-form's organ..
+		)
 
 
 /datum/species/monkey/vulpkanin
@@ -120,6 +130,15 @@
 	base_color = "#000000"
 	tail = "wolpintail"
 	reagent_tag = PROCESS_ORG
+	has_organ = list(
+		"heart" =    /obj/item/organ/internal/heart,
+		"lungs" =    /obj/item/organ/internal/lungs,
+		"liver" =    /obj/item/organ/internal/liver/vulpkanin,
+		"kidneys" =  /obj/item/organ/internal/kidneys,
+		"brain" =    /obj/item/organ/internal/brain,
+		"appendix" = /obj/item/organ/internal/appendix,
+		"eyes" =     /obj/item/organ/internal/eyes/vulpkanin/wolpin //Vulpkanin monkey-forms are uniquely colourblind and have excellent darksight, which is why they need a subtype of their greater-form's organ..
+		)
 
 
 /datum/species/monkey/skrell

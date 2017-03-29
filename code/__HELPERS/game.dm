@@ -428,6 +428,23 @@
 			return 0
 	return 1
 
+
+/proc/GetRedPart(const/hexa)
+	return hex2num(copytext(hexa, 2, 4))
+
+/proc/GetGreenPart(const/hexa)
+	return hex2num(copytext(hexa, 4, 6))
+
+/proc/GetBluePart(const/hexa)
+	return hex2num(copytext(hexa, 6, 8))
+
+/proc/GetHexColors(const/hexa)
+	return list(
+		GetRedPart(hexa),
+		GetGreenPart(hexa),
+		GetBluePart(hexa),
+	)
+
 /proc/MinutesToTicks(var/minutes as num)
 	return minutes * 60 * 10
 
@@ -462,7 +479,7 @@ proc/pollCandidates(Question, be_special_type, antag_age_check = 0, poll_time = 
 			G << 'sound/misc/notice2.ogg'//Alerting them to their consideration
 			if(flashwindow)
 				window_flash(G.client)
-			switch(alert(G,Question,"Please answer in [poll_time/10] seconds!","Yes","No","Not This Round"))
+			switch(alert(G,Question,"Please answer in [poll_time/10] seconds!","No","Yes","Not This Round"))
 				if("Yes")
 					to_chat(G, "<span class='notice'>Choice registered: Yes.</span>")
 					if((world.time-time_passed)>poll_time)//If more than 30 game seconds passed.

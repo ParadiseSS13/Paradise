@@ -718,6 +718,14 @@
 	bitesize = 3
 	list_reagents = list("nutriment" = 6, "vitamin" = 1)
 
+/obj/item/weapon/reagent_containers/food/snacks/baseballburger
+	name = "home run baseball burger"
+	desc = "It's still warm. The steam coming off of it looks like baseball."
+	icon_state = "baseball"
+	filling_color = "#CD853F"
+	bitesize = 3
+	list_reagents = list("nutriment" = 6, "vitamin" = 1)
+
 /obj/item/weapon/reagent_containers/food/snacks/omelette
 	name = "Omelette Du Fromage"
 	desc = "That's all you can say!"
@@ -1219,13 +1227,6 @@
 		user.drop_item()
 		forceMove(get_turf(O))
 		return Expand()
-	if(istype(O, /obj/machinery/computer/camera_advanced/xenobio))
-		var/obj/machinery/computer/camera_advanced/xenobio/X = O
-		X.monkeys++
-		to_chat(user, "<span class='notice'>You feed [src] to the [X]. It now has [X.monkeys] monkey cubes stored.</span>")
-		user.drop_item()
-		qdel(src)
-		return
 	..()
 
 /obj/item/weapon/reagent_containers/food/snacks/monkeycube/water_act(volume, temperature)

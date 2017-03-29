@@ -333,7 +333,7 @@
 
 	if(ticker && ticker.mode.name == "blob")
 		var/datum/game_mode/blob/BL = ticker.mode
-		BL.blobwincount = initial(BL.blobwincount) * 2
+		BL.blobwincount += initial(BL.blobwincount)
 
 
 /mob/camera/blob/verb/blob_broadcast()

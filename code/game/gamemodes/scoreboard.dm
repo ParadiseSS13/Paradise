@@ -165,8 +165,8 @@
 			// has an account?
 			if(A)
 				. += A.money
-		for(var/obj/item/weapon/spacecash/cash in C.contents)
-			. += cash.get_total()
+		for(var/obj/item/stack/spacecash/cash in C.contents)
+			. += cash.amount
 		for(var/obj/item/weapon/storage/S in C.contents)
 			. += .(S, level + 1)
 

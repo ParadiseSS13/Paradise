@@ -15,7 +15,7 @@
 	name = "welding helmet"
 	desc = "A head-mounted face cover designed to protect the wearer completely from space-arc eye."
 	icon_state = "welding"
-	flags = HEADCOVERSEYES | HEADCOVERSMOUTH
+	flags_cover = HEADCOVERSEYES | HEADCOVERSMOUTH
 	item_state = "welding"
 	materials = list(MAT_METAL=1750, MAT_GLASS=400)
 	flash_protect = 2
@@ -53,7 +53,7 @@
 /obj/item/clothing/head/welding/proc/toggle()
 	if(up)
 		up = !up
-		flags |= (HEADCOVERSEYES | HEADCOVERSMOUTH)
+		flags_cover |= (HEADCOVERSEYES | HEADCOVERSMOUTH)
 		flags_inv |= (HIDEMASK|HIDEEARS|HIDEEYES|HIDEFACE)
 		icon_state = initial(icon_state)
 		to_chat(usr, "You flip the [src] down to protect your eyes.")
@@ -61,15 +61,15 @@
 		tint = 2
 	else
 		up = !up
-		flags &= ~(HEADCOVERSEYES | HEADCOVERSMOUTH)
+		flags_cover &= ~(HEADCOVERSEYES | HEADCOVERSMOUTH)
 		flags_inv &= ~(HIDEMASK|HIDEEARS|HIDEEYES|HIDEFACE)
 		icon_state = "[initial(icon_state)]up"
 		to_chat(usr, "You push the [src] up out of your face.")
 		flash_protect = 0
 		tint = 0
-	var/mob/living/carbon/C = usr
-	C.update_tint()
-	usr.update_inv_head()	//so our mob-overlays update
+	var/mob/living/carbon/user = usr
+	user.update_tint()
+	user.update_inv_head()	//so our mob-overlays update
 
 	for(var/X in actions)
 		var/datum/action/A = X
@@ -84,7 +84,7 @@
 	name = "cake-hat"
 	desc = "It's tasty looking!"
 	icon_state = "cake0"
-	flags = HEADCOVERSEYES
+	flags_cover = HEADCOVERSEYES
 	var/onfire = 0.0
 	var/status = 0
 	var/fire_resist = T0C+1300	//this is the max temp it can stand before you start to cook. although it might not burn away, you take damage
@@ -150,8 +150,9 @@
 	icon_state = "hardhat0_pumpkin"//Could stand to be renamed
 	item_state = "hardhat0_pumpkin"
 	item_color = "pumpkin"
-	flags = HEADCOVERSEYES | HEADCOVERSMOUTH | BLOCKHAIR
+	flags = BLOCKHAIR
 	flags_inv = HIDEMASK|HIDEEARS|HIDEEYES|HIDEFACE
+	flags_cover = HEADCOVERSEYES | HEADCOVERSMOUTH
 
 	armor = list(melee = 0, bullet = 0, laser = 0, energy = 0, bomb = 0, bio = 0, rad = 0)
 	brightness_on = 2 //luminosity when on
@@ -220,8 +221,8 @@
 	desc = "A helmet made out of a box."
 	icon_state = "cardborg_h"
 	item_state = "cardborg_h"
-	flags = HEADCOVERSEYES | HEADCOVERSMOUTH
 	flags_inv = HIDEMASK|HIDEEARS|HIDEEYES|HIDEFACE
+	flags_cover = HEADCOVERSEYES | HEADCOVERSMOUTH
 	species_disguise = "High-tech robot"
 
 /obj/item/clothing/head/cardborg/equipped(mob/living/user, slot)

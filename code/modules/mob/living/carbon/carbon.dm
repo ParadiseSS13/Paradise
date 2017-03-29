@@ -149,7 +149,7 @@
 		return 0
 	if(reagents.has_reagent("teslium"))
 		shock_damage *= 1.5 //If the mob has teslium in their body, shocks are 50% more damaging!
-	take_overall_damage(0,shock_damage)
+	take_overall_damage(0,shock_damage, used_weapon = "Electrocution")
 	//src.burn_skin(shock_damage)
 	//src.adjustFireLoss(shock_damage) //burn_skin will do this for us
 	//src.updatehealth()
@@ -174,7 +174,7 @@
 			"<span class='userdanger'>The [source] arc flashes and electrocutes you!</span>", \
 			"<span class='italics'>You hear a lightning-like crack!</span>" \
 		)
-		playsound(loc, "sound/effects/eleczap.ogg", 50, 1, -1)
+		playsound(loc, 'sound/effects/eleczap.ogg', 50, 1, -1)
 		explosion(src.loc,-1,0,2,2)
 	if(override)
 		return override
@@ -309,7 +309,7 @@
 			Stun(2)
 
 		var/obj/item/organ/internal/eyes/E = get_int_organ(/obj/item/organ/internal/eyes)
-		if(!E)
+		if(!E || (E && E.weld_proof))
 			return
 
 		switch(damage)

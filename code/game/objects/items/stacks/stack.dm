@@ -14,11 +14,14 @@
 	var/singular_name
 	var/amount = 1
 	var/max_amount //also see stack recipes initialisation, param "max_res_amount" must be equal to this max_amount
+	var/merge_type = null // This path and its children should merge with this stack, defaults to src.type
 
 /obj/item/stack/New(var/loc, var/amt = null)
 	..()
 	if(amt != null)	//Allow for stacks with the amount=0
 		amount = amt
+	if(!merge_type)
+		merge_type = type
 
 /obj/item/stack/Destroy()
 	if(usr && usr.machine == src)
@@ -232,7 +235,7 @@
 
 /obj/item/stack/attackby(obj/item/W, mob/user, params)
 	..()
-	if(istype(W, type))
+	if(istype(W, merge_type))
 		var/obj/item/stack/S = W
 		if(S.amount >= max_amount)
 			return 1

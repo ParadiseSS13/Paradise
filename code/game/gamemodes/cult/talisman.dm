@@ -59,6 +59,7 @@
 	dat += "Please choose the chant to be imbued into the fabric of reality.<BR>"
 	dat += "<HR>"
 	dat += "<A href='?src=[UID()];rune=newtome'>N'ath reth sh'yro eth d'raggathnor!</A> - Summons an arcane tome, used to scribe runes and communicate with other cultists.<BR>"
+	dat += "<A href='?src=[UID()];rune=metal'>Bar'tea eas!</A> - Provides 5 runed metal.<BR>"
 	dat += "<A href='?src=[UID()];rune=teleport'>Sas'so c'arta forbici!</A> - Allows you to move to a selected teleportation rune.<BR>"
 	dat += "<A href='?src=[UID()];rune=emp'>Ta'gh fara'qha fel d'amar det!</A> - Allows you to destroy technology in a short range.<BR>"
 	dat += "<A href='?src=[UID()];rune=runestun'>Fuu ma'jin!</A> - Allows you to stun a person by attacking them with the talisman.<BR>"
@@ -79,6 +80,12 @@
 				if("newtome")
 					var/obj/item/weapon/tome/T = new(usr)
 					usr.put_in_hands(T)
+				if("metal")
+					if(istype(src, /obj/item/weapon/paper/talisman/supply/weak))
+						usr.visible_message("<span class='cultitalic'>Lesser supply talismans lack the strength to materialize runed metal!</span>")
+						return
+					var/obj/item/stack/sheet/runed_metal/R = new(usr,5)
+					usr.put_in_hands(R)
 				if("teleport")
 					var/obj/item/weapon/paper/talisman/teleport/T = new(usr)
 					usr.put_in_hands(T)
@@ -270,8 +277,9 @@
 	var/mob/living/carbon/human/H = user
 	user.visible_message("<span class='warning'>Otherworldly armor suddenly appears on [user]!</span>", \
 						 "<span class='cultitalic'>You speak the words of the talisman, arming yourself!</span>")
-	H.equip_or_collect(new /obj/item/clothing/suit/hooded/cultrobes/alt(user), slot_wear_suit)
-	H.equip_or_collect(new /obj/item/weapon/storage/backpack/cultpack(user), slot_back)
+	H.equip_to_slot_or_del(new /obj/item/clothing/suit/hooded/cultrobes/alt(user), slot_wear_suit)
+	H.equip_to_slot_or_del(new /obj/item/weapon/storage/backpack/cultpack(user), slot_back)
+	H.equip_to_slot_or_del(new /obj/item/clothing/shoes/cult(user), slot_shoes)
 	H.put_in_hands(new /obj/item/weapon/melee/cultblade(user))
 	H.put_in_hands(new /obj/item/weapon/restraints/legcuffs/bola/cult(user))
 

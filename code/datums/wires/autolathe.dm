@@ -1,5 +1,4 @@
 /datum/wires/autolathe
-
 	holder_type = /obj/machinery/autolathe
 	wire_count = 10
 
@@ -7,21 +6,29 @@ var/const/AUTOLATHE_HACK_WIRE = 1
 var/const/AUTOLATHE_SHOCK_WIRE = 2
 var/const/AUTOLATHE_DISABLE_WIRE = 4
 
-/datum/wires/autolathe/GetInteractWindow()
+/datum/wires/autolathe/GetWireName(index)
+	switch(index)
+		if(AUTOLATHE_HACK_WIRE)
+			return "Hack"
+		
+		if(AUTOLATHE_SHOCK_WIRE)
+			return "Shock"
+		
+		if(AUTOLATHE_DISABLE_WIRE)
+			return "Disable"
+
+/datum/wires/autolathe/get_status()
+	. = ..()
 	var/obj/machinery/autolathe/A = holder
-	. += ..()
-	. += text("<BR>The red light is [A.disabled ? "off" : "on"].<BR>The green light is [A.shocked ? "off" : "on"].<BR>The blue light is [A.hacked ? "off" : "on"].<BR>")
+	. += "The red light is [A.disabled ? "off" : "on"]."
+	. += "The green light is [A.shocked ? "off" : "on"]."
+	. += "The blue light is [A.hacked ? "off" : "on"]."
 
 /datum/wires/autolathe/CanUse()
 	var/obj/machinery/autolathe/A = holder
 	if(A.panel_open)
 		return 1
 	return 0
-
-/datum/wires/autolathe/Interact(var/mob/living/user)
-	if(CanUse(user))
-		var/obj/machinery/autolathe/V = holder
-		V.attack_hand(user)
 
 /datum/wires/autolathe/UpdateCut(index, mended)
 	var/obj/machinery/autolathe/A = holder
@@ -32,6 +39,7 @@ var/const/AUTOLATHE_DISABLE_WIRE = 4
 			A.shocked = !mended
 		if(AUTOLATHE_DISABLE_WIRE)
 			A.disabled = !mended
+	..()
 
 /datum/wires/autolathe/UpdatePulsed(index)
 	if(IsIndexCut(index))
@@ -40,19 +48,27 @@ var/const/AUTOLATHE_DISABLE_WIRE = 4
 	switch(index)
 		if(AUTOLATHE_HACK_WIRE)
 			A.adjust_hacked(!A.hacked)
+			updateUIs()
 			spawn(50)
 				if(A && !IsIndexCut(index))
 					A.adjust_hacked(0)
-					Interact(usr)
+					updateUIs()
 		if(AUTOLATHE_SHOCK_WIRE)
 			A.shocked = !A.shocked
+			updateUIs()
 			spawn(50)
 				if(A && !IsIndexCut(index))
 					A.shocked = 0
-					Interact(usr)
+					updateUIs()
 		if(AUTOLATHE_DISABLE_WIRE)
 			A.disabled = !A.disabled
+			updateUIs()
 			spawn(50)
 				if(A && !IsIndexCut(index))
 					A.disabled = 0
-					Interact(usr)
+					updateUIs()
+
+/datum/wires/autolathe/proc/updateUIs()
+	nanomanager.update_uis(src)
+	if(holder)
+		nanomanager.update_uis(holder)

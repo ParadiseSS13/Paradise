@@ -77,9 +77,9 @@
 		for(var/client/C in admins)
 			if(check_rights(R_ADMIN, 0, C.mob))
 
-				if(C.holder.fakekey && !check_rights(R_ADMIN, 0))		//Mentors/Mods can't see stealthmins
+				if(C.holder.fakekey && !check_rights(R_ADMIN, 0))		//Mentors can't see stealthmins
 					continue
-				
+
 				if(C.holder.big_brother && !check_rights(R_PERMISSIONS, 0))		// normal admins can't see BB
 					continue
 
@@ -126,5 +126,5 @@
 				modmsg += "\t[C] is a [C.holder.rank]\n"
 				num_mods_online++
 
-	msg = "<b>Current Admins ([num_admins_online]):</b>\n" + msg + "\n<b>Current Mods/Mentors ([num_mods_online]):</b>\n" + modmsg
+	msg = "<b>Current Admins ([num_admins_online]):</b>\n" + msg + "\n<b>Current Mentors ([num_mods_online]):</b>\n" + modmsg
 	to_chat(src, msg)

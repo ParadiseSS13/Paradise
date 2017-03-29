@@ -1,6 +1,6 @@
 /obj/item/device/mmi/posibrain
 	name = "positronic brain"
-	desc = "A cube of shining metal, four inches to a side and covered in shallow grooves. The speaker switch is set to 'on'."
+	desc = "A cube of shining metal, four inches to a side and covered in shallow grooves."
 	icon = 'icons/obj/assemblies.dmi'
 	icon_state = "posibrain"
 	w_class = 3
@@ -15,11 +15,14 @@
 	var/silenced = 0 //if set to 1, they can't talk.
 	var/next_ping_at = 0
 
+/obj/item/device/mmi/posibrain/examine(mob/user)
+	if(..(user, 1))
+		to_chat(user, "Its speaker is turned [silenced ? "off" : "on"].")
 
-/obj/item/device/mmi/posibrain/attack_self(mob/user as mob)
+/obj/item/device/mmi/posibrain/attack_self(mob/user)
 	if(brainmob && !brainmob.key && searching == 0)
 		//Start the process of searching for a new user.
-		to_chat(user, "\blue You carefully locate the manual activation switch and start the positronic brain's boot process.")
+		to_chat(user, "<span class='notice'>You carefully locate the manual activation switch and start the positronic brain's boot process.</span>")
 		icon_state = "posibrain-searching"
 		ghost_volunteers.Cut()
 		src.searching = 1
@@ -31,18 +34,10 @@
 					transfer_personality(O)
 			reset_search()
 	else
-		if(silenced)
-			silenced = 0
-			to_chat(user, "<span class='notice'>You toggle the speaker to 'on', on the [src].</span>")
-			desc = "A cube of shining metal, four inches to a side and covered in shallow grooves. The speaker switch is set to 'on'."
-			if(brainmob && brainmob.key)
-				to_chat(brainmob, "<span class='warning'>Your internal speaker has been toggled to 'on'.</span>")
-		else
-			silenced = 1
-			to_chat(user, "<span class='notice'>You toggle the speaker to 'off', on the [src].</span>")
-			desc = "A cube of shining metal, four inches to a side and covered in shallow grooves. The speaker switch is set to 'off'."
-			if(brainmob && brainmob.key)
-				to_chat(brainmob, "<span class='warning'>Your internal speaker has been toggled to 'off'.</span>")
+		silenced = !silenced
+		to_chat(user, "<span class='notice'>You toggle the speaker [silenced ? "off" : "on"].</span>")
+		if(brainmob && brainmob.key)
+			to_chat(brainmob, "<span class='warning'>Your internal speaker has been toggled [silenced ? "off" : "on"].</span>")		
 
 /obj/item/device/mmi/posibrain/proc/request_player()
 	for(var/mob/dead/observer/O in player_list)

@@ -33,14 +33,14 @@ var/global/list/captain_display_cases = list()
 				circuit.forceMove(src)
 				state++
 				to_chat(user, "<span class='notice'>You add the airlock electronics to the frame.</span>")
-				playsound(get_turf(src), 'sound/items/Deconstruct.ogg', 50, 1)
+				playsound(get_turf(src),W.usesound, 50, 1)
 			if(istype(W, /obj/item/weapon/crowbar))
 				new /obj/machinery/constructable_frame/machine_frame(T)
 				var/obj/item/stack/sheet/glass/G = new /obj/item/stack/sheet/glass(T)
 				G.amount = 5
 				qdel(src)
 				to_chat(user, "<span class='notice'>You pry the glass out of the frame.</span>")
-				playsound(get_turf(src), 'sound/items/Crowbar.ogg', 50, 1)
+				playsound(get_turf(src), W.usesound, 50, 1)
 				return
 
 		if(DISPLAYCASE_FRAME_SCREWDRIVER)
@@ -54,7 +54,7 @@ var/global/list/captain_display_cases = list()
 					C.req_one_access = null
 				if(isprox(sensor))
 					C.burglar_alarm = 1
-				playsound(get_turf(src), 'sound/items/Screwdriver.ogg', 50, 1)
+				playsound(get_turf(src), W.usesound, 50, 1)
 				qdel(src)
 				return
 			if(istype(W, /obj/item/weapon/crowbar))
@@ -65,13 +65,13 @@ var/global/list/captain_display_cases = list()
 					sensor = null
 				state--
 				to_chat(user, "<span class='notice'>You pry the electronics out of the frame.</span>")
-				playsound(get_turf(src), 'sound/items/Crowbar.ogg', 50, 1)
+				playsound(get_turf(src), W.usesound, 50, 1)
 			if(isprox(W) && !isprox(sensor))
 				user.drop_item()
 				sensor = W
 				sensor.forceMove(src)
 				to_chat(user, "<span class='notice'>You add the proximity sensor to the frame.</span>")
-				playsound(src.loc, 'sound/items/Deconstruct.ogg', 50, 1)
+				playsound(src.loc, W.usesound, 50, 1)
 
 	if(pstate != state)
 		pstate = state
@@ -227,7 +227,7 @@ var/global/list/captain_display_cases = list()
 			"You pry \the [src] apart.", \
 			"You hear something pop.")
 		var/turf/T = get_turf(src)
-		playsound(T, 'sound/items/Crowbar.ogg', 50, 1)
+		playsound(T, W.usesound, 50, 1)
 		dump()
 		var/obj/item/weapon/airlock_electronics/C = circuit
 		if(!C)

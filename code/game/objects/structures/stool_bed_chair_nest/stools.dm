@@ -4,6 +4,8 @@
 	icon = 'icons/obj/objects.dmi'
 	icon_state = "stool"
 	anchored = 1.0
+	var/buildstackamount = 1
+	var/buildstacktype = /obj/item/stack/sheet/metal
 
 /obj/structure/stool/ex_act(severity)
 	switch(severity)
@@ -12,27 +14,26 @@
 			return
 		if(2.0)
 			if(prob(70))
-				new /obj/item/stack/sheet/metal(src.loc)
+				new buildstacktype(loc, buildstackamount)
 				qdel(src)
 				return
 		if(3.0)
 			if(prob(50))
-				new /obj/item/stack/sheet/metal(src.loc)
+				new buildstacktype(loc, buildstackamount)
 				qdel(src)
 				return
 	return
 
 /obj/structure/stool/blob_act()
 	if(prob(75))
-		new /obj/item/stack/sheet/metal(src.loc)
+		new buildstacktype(loc, buildstackamount)
 		qdel(src)
 
 /obj/structure/stool/attackby(obj/item/weapon/W as obj, mob/user as mob, params)
 	if(istype(W, /obj/item/weapon/wrench))
-		playsound(src.loc, 'sound/items/Ratchet.ogg', 50, 1)
-		new /obj/item/stack/sheet/metal(src.loc)
+		playsound(loc, W.usesound, 50, 1)
+		new buildstacktype(loc, buildstackamount)
 		qdel(src)
-	return
 
 /obj/structure/stool/MouseDrop(atom/over_object, src_location, over_location, src_control, over_control, params, skip_fucking_stool_shit = 0)
 	if(skip_fucking_stool_shit)
@@ -42,7 +43,7 @@
 		if(H==usr && !H.restrained() && !H.stat && in_range(src, over_object))
 			var/obj/item/weapon/stool/S = new/obj/item/weapon/stool()
 			S.origin = src
-			src.loc = S
+			loc = S
 			H.put_in_hands(S)
 			H.visible_message("<span class='warning'>[H] grabs [src] from the floor!</span>", "<span class='warning'>You grab [src] from the floor!</span>")
 

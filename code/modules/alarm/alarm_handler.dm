@@ -47,6 +47,11 @@
 		existing.clear(source)
 		return check_alarm_cleared(existing)
 
+/datum/alarm_handler/proc/has_major_alarms()
+	if(alarms && alarms.len)
+		return 1
+	return 0
+
 /datum/alarm_handler/proc/major_alarms()
 	return alarms
 
