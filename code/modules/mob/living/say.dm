@@ -32,7 +32,7 @@ var/list/department_radio_keys = list(
 	  ":P" = "AI Private",	"#P" = "AI Private",	".P" = "AI Private",
 	  ":-" = "Special Ops",	"#-" = "Special Ops",	".-" = "Special Ops",
 	  ":_" = "SyndTeam",	"#_" = "SyndTeam",		"._" = "SyndTeam",
-	  ":X" = "cords",		"#X" = "cords",			".X" = "cords"
+	  ":X" = "cords",		"#X" = "cords",			".X" = "cords",
 
 	  //kinda localization -- rastaf0
 	  //same keys as above, but on russian keyboard layout. This file uses cp1251 as encoding.

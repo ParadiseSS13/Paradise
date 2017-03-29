@@ -127,6 +127,10 @@
 	var/list/speech_sounds                   // A list of sounds to potentially play when speaking.
 	var/list/speech_chance                   // The likelihood of a speech sound playing.
 	var/scream_verb = "screams"
+	var/male_laugh_sound = list('honk/sound/emotes/laugh_m1.ogg','honk/sound/emotes/laugh_m2.ogg')
+	var/female_laugh_sound = list('honk/sound/emotes/laugh_f1.ogg','honk/sound/emotes/laugh_f2.ogg')
+	var/male_groan_sound = list('honk/sound/emotes/yawn_m1.ogg','honk/sound/emotes/yawn_m2.ogg')
+	var/female_groan_sound = list('honk/sound/emotes/whimper_f1.ogg','honk/sound/emotes/whimper_f2.ogg')
 	var/male_scream_sound = 'sound/goonstation/voice/male_scream.ogg'
 	var/female_scream_sound = 'sound/goonstation/voice/female_scream.ogg'
 	var/male_cough_sounds = list('sound/effects/mob_effects/m_cougha.ogg','sound/effects/mob_effects/m_coughb.ogg', 'sound/effects/mob_effects/m_coughc.ogg')
