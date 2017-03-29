@@ -747,6 +747,19 @@
 	icon_state = "braided"
 	secondary_theme = "beads"
 
+/datum/sprite_accessory/hair/vulpkanin/vulp_hair_punkbraided
+	name = "Punk Braided"
+	icon_state = "punkbraided"
+	secondary_theme = "flare"
+
+/datum/sprite_accessory/hair/vulpkanin/vulp_hair_short2
+	name = "Short Alt."
+	icon_state = "short2"
+
+/datum/sprite_accessory/hair/vulpkanin/vulp_hair_rough
+	name = "Rough-Cropped Mane"
+	icon_state = "rough"
+
 /datum/sprite_accessory/hair/vox
 	species_allowed = list("Vox")
 	glasses_over = 1
@@ -1047,6 +1060,15 @@
 /datum/sprite_accessory/facial_hair/vulpkanin/vulp_swift
 	name = "Swift"
 	icon_state = "vulp_facial_swift"
+
+/datum/sprite_accessory/facial_hair/vulpkanin/vulp_elder
+	name = "Elder"
+	icon_state = "vulp_facial_elder"
+	secondary_theme = "chin"
+
+/datum/sprite_accessory/facial_hair/vulpkanin/vulp_slash
+	name = "Slash"
+	icon_state = "vulp_facial_slash"
 
 /datum/sprite_accessory/facial_hair/unathi
 	species_allowed = list("Unathi")
@@ -1729,6 +1751,20 @@
 	name = "Vulpkanin Nose"
 	icon_state = "markings_face_nose_vulp"
 
+/datum/sprite_accessory/head_accessory/vulpkanin/vulp_nose2
+	name = "Vulpkanin Nose Alt."
+	icon_state = "markings_face_nose2_vulp"
+
+/datum/sprite_accessory/head_accessory/vulpkanin/vulp_elder
+	icon = 'icons/mob/human_face.dmi'
+	name = "Elder"
+	icon_state = "vulp_facial_elder"
+
+/datum/sprite_accessory/head_accessory/vulpkanin/vulp_slash
+	icon = 'icons/mob/human_face.dmi'
+	name = "Slash"
+	icon_state = "vulp_facial_slash"
+
 /datum/sprite_accessory/head_accessory/ipc
 	species_allowed = list("Machine")
 	over_hair = 1
@@ -1955,6 +1991,10 @@
 /datum/sprite_accessory/body_markings/head/vulpkanin/nose_default_vulp
 	name = "Vulpkanin Nose"
 	icon_state = "markings_face_nose_vulp"
+
+/datum/sprite_accessory/body_markings/head/vulpkanin/nose2_default_vulp
+	name = "Vulpkanin Nose Alt."
+	icon_state = "markings_face_nose2_vulp"
 
 /datum/sprite_accessory/body_markings/head/vulpkanin/muzzle_vulp //Companion marking for Vulpkanin Belly Alt..
 	name = "Vulpkanin Muzzle"
