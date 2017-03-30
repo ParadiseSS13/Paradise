@@ -1054,6 +1054,10 @@
 	name = "Tajara Goatee"
 	icon_state = "facial_goatee"
 
+/datum/sprite_accessory/facial_hair/tajara/taj_goatee_faded
+	name = "Tajara Faded Goatee"
+	icon_state = "facial_goatee_faded"
+
 /datum/sprite_accessory/facial_hair/tajara/taj_smallstache
 	name = "Tajara Smallstache"
 	icon_state = "facial_smallstache"
