@@ -1,0 +1,5 @@
+author: "uraniummeltdown"
+delete-after: True
+changes: 
+  - bugfix: "Emagging a closed firelock does not permanently break it anymore, only opens it."
+  - bugfix: "Emagged windoors should be able to be screwdriver+crowbar'd again."
