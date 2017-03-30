@@ -1,0 +1,4 @@
+author: "FlattestGuitar"
+delete-after: True
+changes: 
+  - tweak: "Strange Reagent only deals clone damage on a successful revival."
