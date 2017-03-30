@@ -217,7 +217,7 @@ Pipelines + Other Objects -> Pipe network
 
 	qdel(src)
 
-/obj/machinery/atmospherics/construction(D, P, C)
+/obj/machinery/atmospherics/on_construction(D, P, C)
 	if(C)
 		color = C
 	dir = D

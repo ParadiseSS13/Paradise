@@ -51,7 +51,7 @@
 
 /obj/machinery/ai_slipper/attack_ai(mob/user)
 	return attack_hand(user)
-	
+
 /obj/machinery/ai_slipper/attack_ghost(mob/user)
 	return attack_hand(user)
 
@@ -93,7 +93,7 @@
 		if(cooldown_on || disabled)
 			return
 		else
-			new /obj/effect/effect/foam(loc)
+			new /obj/structure/foam(loc)
 			uses--
 			cooldown_on = 1
 			cooldown_time = world.timeofday + 100
