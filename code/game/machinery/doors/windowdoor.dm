@@ -97,7 +97,7 @@
 		return 1
 
 /obj/machinery/door/window/open(var/forced=0)
-	if(operating == 1) //doors can still open when emag-disabled
+	if(operating) //doors can still open when emag-disabled
 		return 0
 	if(!ticker)
 		return 0
@@ -119,7 +119,7 @@
 	air_update_turf(1)
 	update_freelook_sight()
 
-	if(operating == 1) //emag again
+	if(operating) //emag again
 		operating = 0
 	return 1
 
@@ -192,7 +192,7 @@
 
 /obj/machinery/door/window/attack_ai(mob/user)
 	return attack_hand(user)
-	
+
 /obj/machinery/door/window/attack_ghost(mob/user)
 	if(user.can_advanced_admin_interact())
 		return attack_hand(user)
@@ -228,10 +228,11 @@
 	return attackby(user, user)
 
 /obj/machinery/door/window/emag_act(mob/user, obj/weapon)
-	if(density)
-		operating = -1
+	if(!operating && density && !emagged)
+		operating = 1
 		flick("[base_state]spark", src)
 		sleep(6)
+		operating = 0
 		desc += "<BR><span class='warning'>Its access panel is smoking slightly.</span>"
 		if(istype(weapon, /obj/item/weapon/melee/energy/blade))
 			var/obj/item/weapon/melee/energy/blade/B

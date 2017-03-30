@@ -1,5 +1,5 @@
 /obj/structure/closet/secure_closet/freezer
-	desc = "It's an immobile card-locked refrigerative storage unit. This one is lead-lined."
+	desc = "It's a card-locked refrigerative storage unit. This one is lead-lined."
 
 /obj/structure/closet/secure_closet/freezer/update_icon()
 	if(broken)

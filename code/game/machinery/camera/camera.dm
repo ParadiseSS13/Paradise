@@ -47,6 +47,7 @@
 	..()
 	if(is_station_level(z) && prob(3) && !start_active)
 		toggle_cam()
+		wires.CutAll()
 
 /obj/machinery/camera/Destroy()
 	toggle_cam(null, 0) //kick anyone viewing out

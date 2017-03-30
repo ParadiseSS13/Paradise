@@ -300,7 +300,7 @@
 	var/turf/mobloc = get_turf(C)
 	var/list/turfs = new/list()
 	for(var/turf/T in range(user, outer_tele_radius))
-		if(!is_teleport_allowed(T))
+		if(!is_teleport_allowed(T.z))
 			continue
 		if(get_dir(C, T) != C.dir)
 			continue

@@ -29,14 +29,14 @@
 	var/allow_items = 1
 
 /obj/machinery/computer/cryopod/attack_ai()
-	src.attack_hand()
+	attack_hand()
 
 /obj/machinery/computer/cryopod/attack_hand(mob/user = usr)
 	if(stat & (NOPOWER|BROKEN))
 		return
 
 	user.set_machine(src)
-	src.add_fingerprint(usr)
+	add_fingerprint(usr)
 
 	var/dat
 
@@ -60,7 +60,7 @@
 
 	var/mob/user = usr
 
-	src.add_fingerprint(user)
+	add_fingerprint(user)
 
 	if(href_list["log"])
 
@@ -120,7 +120,7 @@
 			I.loc = get_turf(src)
 			frozen_items -= I
 
-	src.updateUsrDialog()
+	updateUsrDialog()
 	return
 
 /obj/item/weapon/circuitboard/cryopodcontrol
@@ -230,8 +230,8 @@
 
 	// Don't send messages unless we *need* the computer, and less than five minutes have passed since last time we messaged
 	if(!control_computer && urgent && last_no_computer_message + 5*60*10 < world.time)
-		log_admin("Cryopod in [src.loc.loc] could not find control computer!")
-		message_admins("Cryopod in [src.loc.loc] could not find control computer!")
+		log_admin("Cryopod in [loc.loc] could not find control computer!")
+		message_admins("Cryopod in [loc.loc] could not find control computer!")
 		last_no_computer_message = world.time
 
 	return control_computer != null
@@ -296,7 +296,7 @@
 				cloner.records.Remove(R)
 
 	//Delete all items not on the preservation list.
-	var/list/items = src.contents
+	var/list/items = contents
 	items -= occupant // Don't delete the occupant
 	items -= announce // or the autosay radio.
 
@@ -322,7 +322,7 @@
 				control_computer.frozen_items += W
 				W.loc = null
 			else
-				W.loc = src.loc
+				W.loc = loc
 
 	//Update any existing objectives involving this mob.
 	for(var/datum/objective/O in all_objectives)
@@ -444,7 +444,7 @@
 			if(do_after(user, 20, target = G:affecting))
 				if(!M || !G || !G:affecting) return
 
-				if(src.occupant)
+				if(occupant)
 					to_chat(user, "<span class='boldnotice'>\The [src] is in use.</span>")
 					return
 
@@ -480,7 +480,7 @@
 			message_admins("[key_name_admin(M)] has entered a stasis pod. (<A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[x];Y=[y];Z=[z]'>JMP</a>)")
 
 			//Despawning occurs when process() is called with an occupant without a client.
-			src.add_fingerprint(M)
+			add_fingerprint(M)
 
 
 /obj/machinery/cryopod/MouseDrop_T(atom/movable/O as mob|obj, mob/user as mob)
@@ -531,6 +531,9 @@
 		willing = 1
 
 	if(willing)
+		if(!Adjacent(L))
+			to_chat(user, "<span class='boldnotice'>You're not close enough to \the [src].</span>")
+			return
 		if(L == user)
 			visible_message("[user] starts climbing into the cryo pod.")
 		else
@@ -539,7 +542,7 @@
 		if(do_after(user, 20, target = L))
 			if(!L) return
 
-			if(src.occupant)
+			if(occupant)
 				to_chat(user, "<span class='boldnotice'>\The [src] is in use.</span>")
 				return
 			L.forceMove(src)
@@ -571,7 +574,7 @@
 		message_admins("<span class='notice'>[key_name_admin(L)] has entered a stasis pod.</span>")
 
 		//Despawning occurs when process() is called with an occupant without a client.
-		src.add_fingerprint(L)
+		add_fingerprint(L)
 
 	return
 
@@ -593,14 +596,14 @@
 		icon_state = base_icon_state
 
 	//Eject any items that aren't meant to be in the pod.
-	var/list/items = src.contents
+	var/list/items = contents
 	if(occupant) items -= occupant
 	if(announce) items -= announce
 
 	for(var/obj/item/W in items)
 		W.loc = get_turf(src)
 
-	src.go_out()
+	go_out()
 	add_fingerprint(usr)
 
 	name = initial(name)
@@ -614,7 +617,7 @@
 	if(usr.stat != 0 || !check_occupant_allowed(usr))
 		return
 
-	if(src.occupant)
+	if(occupant)
 		to_chat(usr, "<span class='boldnotice'>\The [src] is in use.</span>")
 		return
 
@@ -630,13 +633,13 @@
 		if(!usr || !usr.client)
 			return
 
-		if(src.occupant)
+		if(occupant)
 			to_chat(usr, "<span class='boldnotice'>\The [src] is in use.</span>")
 			return
 
 		usr.stop_pulling()
 		usr.forceMove(src)
-		src.occupant = usr
+		occupant = usr
 		time_till_despawn = initial(time_till_despawn) / willing_time_divisor
 
 		if(orient_right)
@@ -649,7 +652,7 @@
 		occupant = usr
 		time_entered = world.time
 
-		src.add_fingerprint(usr)
+		add_fingerprint(usr)
 		name = "[name] ([usr.name])"
 
 	return
