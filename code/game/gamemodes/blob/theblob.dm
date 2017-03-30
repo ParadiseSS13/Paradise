@@ -140,7 +140,7 @@
 	..()
 	L.blob_act()
 
-/obj/effect/blob/tesla_act(power)
+/obj/structure/blob/tesla_act(power)
 	..()
 	take_damage(power/400, BURN)
 
