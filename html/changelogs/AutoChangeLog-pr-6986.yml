@@ -1,0 +1,4 @@
+author: "KasparoVy"
+delete-after: True
+changes: 
+  - rscadd: "You can now slam drinks/bottles/flasks by click-dragging them onto yourself while it's in your active hand."
