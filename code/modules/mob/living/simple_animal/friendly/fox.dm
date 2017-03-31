@@ -19,11 +19,47 @@
 	response_harm = "kicks"
 	gold_core_spawnable = CHEM_MOB_SPAWN_FRIENDLY
 
+	var/turns_since_scan = 0
+	var/mob/living/movement_target
+
 //Captain fox
 /mob/living/simple_animal/pet/fox/Renault
 	name = "Renault"
 	desc = "Renault, the Captain's trustworthy fox. I wonder what it says?"
 	gold_core_spawnable = CHEM_MOB_SPAWN_INVALID
+
+/mob/living/simple_animal/pet/fox/Renault/handle_automated_action()
+	. = ..()
+
+	if(!incapacitated())
+		for(var/mob/living/L in range(1, src))
+			if(Adjacent(L) && L == movement_target)
+				perform_the_nom(src, L, src, "Stomach")
+				movement_target = null
+
+/mob/living/simple_animal/pet/fox/Renault/handle_automated_movement()
+	. = ..()
+
+	if(!incapacitated())
+		turns_since_scan++
+		if(turns_since_scan > 5)
+			walk_to(src,0)
+			turns_since_scan = 0
+			if(movement_target && !isturf(movement_target.loc))
+				movement_target = null
+				stop_automated_movement = 0
+			if(!movement_target || !(movement_target.loc in oview(src, 3)))
+				movement_target = null
+				stop_automated_movement = 0
+				for(var/mob/living/snack in oview(src, 3))
+					if(isturf(snack.loc) && !snack.stat)
+						if(snack.get_species() == "Vulpkanin") //is this caninebalism
+							movement_target = snack
+							break
+			if(movement_target)
+				stop_automated_movement = 1
+				walk_to(src, movement_target, 0, 3)
+
 
 //Syndi fox
 /mob/living/simple_animal/pet/fox/Syndifox
