@@ -1,0 +1,4 @@
+author: "Krausus"
+delete-after: True
+changes: 
+  - bugfix: "Blobs are no longer nearly guaranteed to immediately tear themselves apart upon spawning."
