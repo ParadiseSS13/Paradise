@@ -50,6 +50,9 @@
 	var/damage = Clamp(0.01 * exposed_temperature, 0, 4)
 	take_damage(damage, BURN)
 
+/obj/structure/blob/blob_act()
+	return
+
 /obj/structure/blob/proc/Life()
 	return
 
