@@ -1,4 +1,0 @@
-author: "Kyep"
-delete-after: True
-changes: 
-  - rscadd: "Access to jobs is now based solely on Playtime, NOT days since BYOND account was registered."
