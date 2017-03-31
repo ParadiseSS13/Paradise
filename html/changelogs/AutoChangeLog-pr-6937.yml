@@ -1,0 +1,4 @@
+author: "Fox McCloud"
+delete-after: True
+changes: 
+  - tweak: "Autopsies can now be performed without needing to cut someone open"
