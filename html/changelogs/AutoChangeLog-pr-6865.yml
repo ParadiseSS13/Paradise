@@ -1,5 +1,0 @@
-author: "Fox McCloud"
-delete-after: True
-changes: 
-  - rscadd: "Adds modular receiver to the maintenance loot system"
-  - rscadd: "Receivers can now be produced in hacked autolathes; no longer available in R&D protolathes."
