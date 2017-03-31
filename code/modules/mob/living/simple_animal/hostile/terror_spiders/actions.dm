@@ -112,11 +112,11 @@
 		else if(istype(loc, /turf/space))
 			to_chat(src, "<span class='danger'>Webs cannot be spun in space.</span>")
 		else
-			var/obj/effect/spider/terrorweb/T = locate() in get_turf(src)
+			var/obj/structure/spider/terrorweb/T = locate() in get_turf(src)
 			if(T)
 				to_chat(src, "<span class='danger'>There is already a web here.</span>")
 			else
-				var/obj/effect/spider/terrorweb/W = new /obj/effect/spider/terrorweb(loc)
+				var/obj/structure/spider/terrorweb/W = new /obj/structure/spider/terrorweb(loc)
 				W.creator_ckey = ckey
 				if(thick)
 					W.opacity = 1
@@ -125,7 +125,7 @@
 					W.infectious = 1
 					W.name = "sharp terror web"
 
-/obj/effect/spider/terrorweb
+/obj/structure/spider/terrorweb
 	name = "terror web"
 	desc = "it's stringy and sticky"
 	icon = 'icons/effects/effects.dmi'
@@ -136,18 +136,18 @@
 	var/creator_ckey = null
 	var/infectious = 0
 
-/obj/effect/spider/terrorweb/New()
+/obj/structure/spider/terrorweb/New()
 	..()
 	if(prob(50))
 		icon_state = "stickyweb2"
 
-/obj/effect/spider/terrorweb/proc/DeCloakNearby()
+/obj/structure/spider/terrorweb/proc/DeCloakNearby()
 	for(var/mob/living/simple_animal/hostile/poison/terror_spider/gray/G in view(6,src))
 		if(!G.ckey && G.stat != DEAD)
 			G.GrayDeCloak()
 			G.Aggro()
 
-/obj/effect/spider/terrorweb/CanPass(atom/movable/mover, turf/target)
+/obj/structure/spider/terrorweb/CanPass(atom/movable/mover, turf/target)
 	if(istype(mover, /mob/living/simple_animal/hostile/poison/terror_spider))
 		return 1
 	if(istype(mover, /obj/item/projectile/terrorqueenspit))
@@ -178,7 +178,7 @@
 		return prob(20)
 	return ..()
 
-/obj/effect/spider/terrorweb/bullet_act(obj/item/projectile/Proj)
+/obj/structure/spider/terrorweb/bullet_act(obj/item/projectile/Proj)
 	if(Proj.damage_type != BRUTE && Proj.damage_type != BURN)
 		visible_message("<span class='danger'>[src] is undamaged by [Proj]!</span>")
 		// Webs don't care about disablers, tasers, etc. Or toxin damage. They're organic, but not alive.
@@ -196,7 +196,7 @@
 					choices += L
 		for(var/obj/O in oview(1,src))
 			if(Adjacent(O) && !O.anchored)
-				if(!istype(O, /obj/effect/spider/terrorweb) && !istype(O, /obj/effect/spider/cocoon) && !istype(O, /obj/effect/spider/spiderling/terror_spiderling))
+				if(!istype(O, /obj/structure/spider/terrorweb) && !istype(O, /obj/structure/spider/cocoon) && !istype(O, /obj/structure/spider/spiderling/terror_spiderling))
 					choices += O
 		if(choices.len)
 			cocoon_target = input(src,"What do you wish to cocoon?") in null|choices
@@ -215,7 +215,7 @@
 		if(do_after(src, 40, target = cocoon_target.loc))
 			if(busy == SPINNING_COCOON)
 				if(cocoon_target && isturf(cocoon_target.loc) && get_dist(src,cocoon_target) <= 1)
-					var/obj/effect/spider/cocoon/C = new(cocoon_target.loc)
+					var/obj/structure/spider/cocoon/C = new(cocoon_target.loc)
 					var/large_cocoon = 0
 					C.pixel_x = cocoon_target.pixel_x
 					C.pixel_y = cocoon_target.pixel_y

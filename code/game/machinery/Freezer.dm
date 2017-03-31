@@ -44,7 +44,7 @@
 	min_temperature = max(0,T0C - (170 + (T*15)))
 	current_heat_capacity = 1000 * ((H - 1) ** 2)
 
-/obj/machinery/atmospherics/unary/cold_sink/freezer/construction()
+/obj/machinery/atmospherics/unary/cold_sink/freezer/on_construction()
 	..(dir,dir)
 
 /obj/machinery/atmospherics/unary/cold_sink/freezer/attackby(obj/item/I, mob/user, params)
@@ -193,7 +193,7 @@
 	component_parts += new /obj/item/stack/cable_coil(src, 1)
 	RefreshParts()
 
-/obj/machinery/atmospherics/unary/heat_reservoir/heater/construction()
+/obj/machinery/atmospherics/unary/heat_reservoir/heater/on_construction()
 	..(dir,dir)
 
 /obj/machinery/atmospherics/unary/heat_reservoir/heater/RefreshParts()

@@ -3303,7 +3303,7 @@
 "blA" = (/obj/item/device/radio/intercom{pixel_y = 25},/obj/structure/stool/bed/chair{dir = 4},/turf/simulated/shuttle/floor,/area/shuttle/pod_4)
 "blB" = (/obj/structure/shuttle/window,/obj/structure/grille,/turf/simulated/shuttle/plating,/area/shuttle/pod_4)
 "blC" = (/obj/effect/spawner/window,/turf/simulated/floor/plating,/area/civilian/barber)
-"blD" = (/obj/machinery/camera/motion{c_tag = "Mini Satellite AI Chamber"; dir = 2; network = list("SS13","MiniSat")},/obj/machinery/door/window/southright{dir = 4; name = "AI Core Door"; req_access = null; req_access_txt = "16"},/turf/simulated/floor/plasteel{dir = 10; icon_state = "vault"},/area/turret_protected/ai)
+"blD" = (/obj/machinery/camera/motion{c_tag = "Mini Satellite AI Chamber"; dir = 2; network = list("SS13","MiniSat"); start_active = 1},/obj/machinery/door/window/southright{dir = 4; name = "AI Core Door"; req_access = null; req_access_txt = "16"},/turf/simulated/floor/plasteel{dir = 10; icon_state = "vault"},/area/turret_protected/ai)
 "blE" = (/turf/simulated/floor/plasteel{icon_state = "vault"; dir = 8},/area/construction/hallway{name = "\improper MiniSat Exterior"})
 "blF" = (/obj/machinery/ai_slipper{icon_state = "motion0"},/obj/machinery/flasher{id = "AI"; pixel_x = 24; pixel_y = -24},/obj/machinery/requests_console{department = "AI"; departmentType = 5; name = "AI Requests Console"; pixel_x = 32; pixel_y = 32},/obj/machinery/newscaster/security_unit{pixel_x = -32; pixel_y = 32},/turf/simulated/floor/plasteel{icon_state = "vault"},/area/turret_protected/ai)
 "blG" = (/obj/machinery/hologram/holopad,/turf/simulated/floor/plasteel{dir = 4; icon_state = "vault"},/area/turret_protected/ai)

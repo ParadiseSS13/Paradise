@@ -153,7 +153,7 @@
 			if(3)
 				if(world.time > (spider_lastspawn + spider_spawnfrequency))
 					if(prob(20))
-						var/obj/effect/spider/eggcluster/terror_eggcluster/N = locate() in get_turf(src)
+						var/obj/structure/spider/eggcluster/terror_eggcluster/N = locate() in get_turf(src)
 						if(!N)
 							spider_lastspawn = world.time
 							DoLayTerrorEggs(/mob/living/simple_animal/hostile/poison/terror_spider/green, 2, 0)
@@ -161,7 +161,7 @@
 			if(4)
 				if(world.time > (spider_lastspawn + spider_spawnfrequency))
 					if(prob(20))
-						var/obj/effect/spider/eggcluster/terror_eggcluster/N = locate() in get_turf(src)
+						var/obj/structure/spider/eggcluster/terror_eggcluster/N = locate() in get_turf(src)
 						if(!N)
 							spider_lastspawn = world.time
 							DoLayTerrorEggs(/mob/living/simple_animal/hostile/poison/terror_spider/red, 2, 1)
@@ -169,7 +169,7 @@
 			if(5)
 				if(world.time > (spider_lastspawn + spider_spawnfrequency))
 					if(prob(20))
-						var/obj/effect/spider/eggcluster/terror_eggcluster/N = locate() in get_turf(src)
+						var/obj/structure/spider/eggcluster/terror_eggcluster/N = locate() in get_turf(src)
 						if(!N)
 							if(!spider_awaymission)
 								QueenFakeLings()
@@ -331,7 +331,7 @@
 		spider_can_fakelings--
 		var/numlings = 15
 		for(var/i in 1 to numlings)
-			var/obj/effect/spider/spiderling/terror_spiderling/S = new /obj/effect/spider/spiderling/terror_spiderling(get_turf(src))
+			var/obj/structure/spider/spiderling/terror_spiderling/S = new /obj/structure/spider/spiderling/terror_spiderling(get_turf(src))
 			S.grow_as = /mob/living/simple_animal/hostile/poison/terror_spider/red
 			S.stillborn = 1
 			S.name = "Evil-Looking Spiderling"

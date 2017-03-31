@@ -136,9 +136,9 @@
 					break
 		else if(ai_spins_webs && world.time > (last_spins_webs + freq_spins_webs))
 			last_spins_webs = world.time
-			var/obj/effect/spider/terrorweb/T = locate() in get_turf(src)
+			var/obj/structure/spider/terrorweb/T = locate() in get_turf(src)
 			if(!T)
-				var/obj/effect/spider/terrorweb/W = new /obj/effect/spider/terrorweb(loc)
+				var/obj/structure/spider/terrorweb/W = new /obj/structure/spider/terrorweb(loc)
 				if(web_infects)
 					W.infectious = 1
 					W.name = "sharp terror web"
@@ -275,7 +275,7 @@
 	var/list/potentials = list()
 	for(var/turf/simulated/T in oview(3,get_turf(src)))
 		if(T.density == 0 && get_dist(get_turf(src),T) == 3)
-			var/obj/effect/spider/terrorweb/W = locate() in T
+			var/obj/structure/spider/terrorweb/W = locate() in T
 			if(!W)
 				var/obj/structure/grille/G = locate() in T
 				if(!G)
@@ -288,7 +288,7 @@
 	var/list/webbed = list()
 	for(var/turf/simulated/T in oview(3,get_turf(src)))
 		if(T.density == 0 && get_dist(get_turf(src),T) == 3)
-			var/obj/effect/spider/terrorweb/W = locate() in T
+			var/obj/structure/spider/terrorweb/W = locate() in T
 			if(W)
 				webbed += T
 	return webbed

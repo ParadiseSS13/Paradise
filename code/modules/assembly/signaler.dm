@@ -61,7 +61,7 @@
 	if(!flag1)
 		dat += {"
 			<A href='byond://?src=[UID()];send=1'>Send Signal</A><BR>
-			Reciever is <A href='byond://?src=[UID()];receive=1'>[receiving?"on":"off"]</A><BR>
+			Receiver is <A href='byond://?src=[UID()];receive=1'>[receiving?"on":"off"]</A><BR>
 		"}
 	dat += {"
 		<B>Frequency/Code</B> for signaler:<BR>

@@ -28,7 +28,7 @@
 	var/alarm_on = 0
 	var/busy = 0
 	var/emped = 0  //Number of consecutive EMP's on this camera
-	
+
 	var/toggle_message = 'sound/items/Wirecutter.ogg'
 
 /obj/machinery/camera/New()
@@ -47,6 +47,7 @@
 	..()
 	if(is_station_level(z) && prob(3) && !start_active)
 		toggle_cam()
+		wires.CutAll()
 
 /obj/machinery/camera/Destroy()
 	toggle_cam(null, 0) //kick anyone viewing out
@@ -109,7 +110,7 @@
 /obj/machinery/camera/blob_act()
 	qdel(src)
 	return
-	
+
 /obj/machinery/camera/attack_ghost(mob/user)
 	if(panel_open)
 		wires.Interact(user)
