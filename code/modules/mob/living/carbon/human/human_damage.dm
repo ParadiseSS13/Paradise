@@ -245,7 +245,6 @@
 	updatehealth()
 	speech_problem_flag = 1
 
-
 //Heal MANY external organs, in random order
 /mob/living/carbon/human/heal_overall_damage(brute, burn, internal=0, robotic=0)
 	var/list/obj/item/organ/external/parts = get_damaged_organs(brute,burn)
