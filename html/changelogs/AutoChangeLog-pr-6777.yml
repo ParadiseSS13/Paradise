@@ -1,0 +1,4 @@
+author: "uraniummeltdown"
+delete-after: True
+changes: 
+  - rscadd: "Powered grilles now have a chance to zap you when you throw an object at them."
