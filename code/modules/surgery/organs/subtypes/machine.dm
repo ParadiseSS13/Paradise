@@ -2,7 +2,7 @@
 /obj/item/organ/external/head/ipc
 	can_intake_reagents = 0
 	vital = 0
-	max_damage = 50 //made same as arm, since it is not vital
+	max_damage = 99999 //made same as arm, since it is not vital
 	min_broken_damage = 30
 	encased = null
 	status = ORGAN_ROBOT
@@ -143,7 +143,7 @@
 	organ_tag = "brain"
 	parent_organ = "chest"
 	vital = 1
-	max_damage = 200
+	max_damage = 99999
 	slot = "brain"
 	status = ORGAN_ROBOT
 	species = "Machine"
