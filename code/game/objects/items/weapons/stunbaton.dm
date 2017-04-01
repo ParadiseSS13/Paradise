@@ -201,11 +201,17 @@
 	stunforce = 5
 	hitcost = 3750
 	slot_flags = SLOT_BACK
-	var/obj/item/device/assembly/igniter/sparkler = 0
+	var/obj/item/device/assembly/igniter/sparkler = null
 
 /obj/item/weapon/melee/baton/cattleprod/New()
 	..()
-	sparkler = new (src)
+	sparkler = new(src)
+
+/obj/item/weapon/melee/baton/cattleprod/Destroy()
+	if(sparkler)
+		qdel(sparkler)
+		sparkler = null
+	return ..()
 
 /obj/item/weapon/melee/baton/cattleprod/baton_stun()
 	if(sparkler.activate())
