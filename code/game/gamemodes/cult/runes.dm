@@ -968,7 +968,7 @@ var/list/teleport_runes = list()
 		if(O.client && !jobban_isbanned(O, ROLE_CULTIST) && !jobban_isbanned(O, ROLE_SYNDICATE))
 			ghosts_on_rune |= O
 	var/mob/dead/observer/ghost_to_spawn = pick(ghosts_on_rune)
-	var/mob/living/carbon/human/dummy/new_human = new(get_turf(src))
+	var/mob/living/carbon/human/new_human = new(get_turf(src))
 	new_human.real_name = ghost_to_spawn.real_name
 	new_human.alpha = 150 //Makes them translucent
 	new_human.color = "grey" //heh..cult greytide...litterly...
@@ -985,10 +985,15 @@ var/list/teleport_runes = list()
 	ticker.mode.add_cultist(new_human.mind, 0)
 	to_chat(new_human, "<span class='cultitalic'><b>You are a servant of [ticker.mode.cultdat.entity_title3]. You have been made semi-corporeal by the cult of [ticker.mode.cultdat.entity_name], and you are to serve them at all costs.</b></span>")
 
+	var/i = 0
 	while(user in get_turf(src))
+		i++
 		if(user.stat)
 			break
-		user.apply_damage(0.1, BRUTE)
+		if(i > 60)
+			user.apply_damage(2, BRUTE)
+		else if(i > 30)
+			user.apply_damage(1, BRUTE)
 		sleep(3)
 
 	qdel(N)
