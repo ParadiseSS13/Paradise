@@ -49,7 +49,7 @@ var/global/list/datum/stack_recipe/metal_recipes = list(
 	new /datum/stack_recipe("canister", /obj/machinery/portable_atmospherics/canister, 10, time = 15, one_per_turf = 1, on_floor = 1),
 	null,
 	new /datum/stack_recipe("floor tile", /obj/item/stack/tile/plasteel, 1, 4, 20),
-	new /datum/stack_recipe/rods("metal rod", /obj/item/stack/rods, 1, 2, 60),
+	new /datum/stack_recipe/rods("metal rod", /obj/item/stack/rods, 1, 2, 50),
 	null,
 	new /datum/stack_recipe("computer frame", /obj/structure/computerframe, 5, time = 25, one_per_turf = 1, on_floor = 1),
 	new /datum/stack_recipe("modular console", /obj/machinery/modular_computer/console/buildable/, 10, time = 25, one_per_turf = 1, on_floor = 1),
@@ -152,13 +152,15 @@ var/global/list/datum/stack_recipe/wood_recipes = list(
 	new /datum/stack_recipe("wooden barricade", /obj/structure/barricade/wooden, 5, time = 50, one_per_turf = 1, on_floor = 1),
 	new /datum/stack_recipe("bookcase", /obj/structure/bookcase, 5, time = 50, one_per_turf = 1, on_floor = 1),
 	new /datum/stack_recipe("drying rack", /obj/machinery/smartfridge/drying_rack, 10, time = 15, one_per_turf = 1, on_floor = 1),
+	new /datum/stack_recipe("dog bed", /obj/structure/stool/bed/dogbed, 10, time = 10, one_per_turf = 1, on_floor = 1), \
 	new /datum/stack_recipe("rifle stock", /obj/item/weaponcrafting/stock, 10, time = 40),
 	new /datum/stack_recipe("wooden door", /obj/structure/mineral_door/wood, 10, time = 20, one_per_turf = 1, on_floor = 1),
 	new /datum/stack_recipe("coffin", /obj/structure/closet/coffin, 5, time = 15, one_per_turf = 1, on_floor = 1),
 	new /datum/stack_recipe("easel", /obj/structure/easel, 3, one_per_turf = 1, on_floor = 1),
 	new /datum/stack_recipe("wooden buckler", /obj/item/weapon/shield/riot/buckler, 20, time = 40),
 	new /datum/stack_recipe("apiary", /obj/structure/beebox, 40, time = 50),
-	new /datum/stack_recipe("honey frame", /obj/item/honey_frame, 5, time = 10)
+	new /datum/stack_recipe("honey frame", /obj/item/honey_frame, 5, time = 10),
+	new /datum/stack_recipe("baseball bat", /obj/item/weapon/melee/baseball_bat, 5, time = 15)
 )
 
 /obj/item/stack/sheet/wood
