@@ -269,7 +269,7 @@
 						M.take_organ_damage(0,20)
 
 /datum/reagent/sacid/reaction_obj(obj/O, volume)
-	if((istype(O,/obj/item) || istype(O,/obj/effect/glowshroom)) && prob(40))
+	if((istype(O,/obj/item) || istype(O,/obj/structure/glowshroom)) && prob(40))
 		if(!O.unacidable)
 			var/obj/effect/decal/cleanable/molten_object/I = new/obj/effect/decal/cleanable/molten_object(O.loc)
 			I.desc = "Looks like this was \an [O] some time ago."
@@ -615,7 +615,7 @@
 					H.status_flags |= DISFIGURED
 
 /datum/reagent/facid/reaction_obj(obj/O, volume)
-	if((istype(O, /obj/item) || istype(O, /obj/effect/glowshroom)))
+	if((istype(O, /obj/item) || istype(O, /obj/structure/glowshroom)))
 		if(!O.unacidable)
 			var/obj/effect/decal/cleanable/molten_object/I = new/obj/effect/decal/cleanable/molten_object(O.loc)
 			I.desc = "Looks like this was \an [O] some time ago."
@@ -924,10 +924,10 @@
 		var/obj/structure/alien/weeds/alien_weeds = O
 		alien_weeds.health -= rand(15,35) // Kills alien weeds pretty fast
 		alien_weeds.healthcheck()
-	else if(istype(O, /obj/effect/glowshroom)) //even a small amount is enough to kill it
+	else if(istype(O, /obj/structure/glowshroom)) //even a small amount is enough to kill it
 		qdel(O)
-	else if(istype(O,/obj/effect/spacevine))
-		var/obj/effect/spacevine/SV = O
+	else if(istype(O,/obj/structure/spacevine))
+		var/obj/structure/spacevine/SV = O
 		SV.on_chem_effect(src)
 
 /datum/reagent/glyphosate/reaction_mob(mob/living/M, method=TOUCH, volume)

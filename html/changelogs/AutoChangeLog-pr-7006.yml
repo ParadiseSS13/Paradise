@@ -1,0 +1,5 @@
+author: "KasparoVy"
+delete-after: True
+changes: 
+  - bugfix: "Thrown objects that cross a tile with non-full windows will no longer hit the window even if it isn't visually obstructing the path."
+  - bugfix: "Shooting guns (i.e. tasers) in the above circumstances means that the taser shots won't be blocked by windows that aren't visually obstructing the path."

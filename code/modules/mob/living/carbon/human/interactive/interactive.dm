@@ -631,8 +631,6 @@
 										AL.wires.UpdatePulsed(AIRLOCK_WIRE_DOOR_BOLTS)
 									if(!AL.wires.IsIndexCut(AIRLOCK_WIRE_MAIN_POWER1))
 										AL.wires.CutWireIndex(AIRLOCK_WIRE_MAIN_POWER1)
-									if(!AL.wires.IsIndexCut(AIRLOCK_WIRE_MAIN_POWER2))
-										AL.wires.CutWireIndex(AIRLOCK_WIRE_MAIN_POWER2)
 									if(prob(mistake_chance) && !AL.wires.IsIndexCut(AIRLOCK_WIRE_SAFETY))
 										AL.wires.CutWireIndex(AIRLOCK_WIRE_SAFETY)
 									if(prob(mistake_chance) && !AL.wires.IsIndexCut(AIRLOCK_WIRE_ELECTRIFY))

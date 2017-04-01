@@ -130,6 +130,7 @@ var/global/list/ts_spiderling_list = list()
 	var/spider_myqueen = null
 	var/mylocation = null
 	var/chasecycles = 0
+	var/web_infects = 0
 
 	var/datum/action/innate/terrorspider/web/web_action
 	var/datum/action/innate/terrorspider/wrap/wrap_action
@@ -167,7 +168,7 @@ var/global/list/ts_spiderling_list = list()
 			visible_message("<span class='notice'>[src] harmlessly nuzzles [target].</span>")
 		T.CheckFaction()
 		CheckFaction()
-	else if(istype(target, /obj/effect/spider/cocoon))
+	else if(istype(target, /obj/structure/spider/cocoon))
 		to_chat(src, "Destroying our own cocoons would not help us.")
 	else if(istype(target, /obj/machinery/door/firedoor))
 		var/obj/machinery/door/firedoor/F = target
@@ -263,7 +264,6 @@ var/global/list/ts_spiderling_list = list()
 				// these are static spiders, specifically for the UO71 away mission, make them stay in place
 				ai_ventcrawls = 0
 				spider_placed = 1
-				wander = 0
 	else
 		ts_count_alive_station++
 	// after 30 seconds, assuming nobody took control of it yet, offer it to ghosts.

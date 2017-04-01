@@ -22,6 +22,7 @@
 	move_to_delay = 4
 	spider_tier = TS_TIER_2
 	loot = list(/obj/item/clothing/accessory/medal)
+	web_infects = 1
 
 
 /mob/living/simple_animal/hostile/poison/terror_spider/white/LoseTarget()
@@ -42,8 +43,8 @@
 		return
 	var/inject_target = pick("chest","head")
 	L.attack_animal(src)
-	if(L.stunned || L.paralysis || L.can_inject(null,0,inject_target,0))
-		if(!IsInfected(L))
+	if(L.stunned || L.paralysis || L.can_inject(null, 0, inject_target, 0))
+		if(!IsTSInfected(L))
 			visible_message("<span class='danger'>[src] buries its long fangs deep into the [inject_target] of [L]!</span>")
 			new /obj/item/organ/internal/body_egg/terror_eggs(L)
 			if(!ckey)
@@ -54,7 +55,7 @@
 			L.Weaken(5)
 			L.Stun(5)
 
-/mob/living/simple_animal/hostile/poison/terror_spider/proc/IsInfected(mob/living/carbon/C) // Terror AI requires this
+/proc/IsTSInfected(mob/living/carbon/C) // Terror AI requires this
 	if(C.get_int_organ(/obj/item/organ/internal/body_egg))
 		return 1
 	return 0

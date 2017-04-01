@@ -12,7 +12,7 @@
 	for(var/mob/living/M in hearers(7, flashbang_turf))
 		bang(get_turf(M), M)
 
-	for(var/obj/effect/blob/B in hear(8,flashbang_turf))     		//Blob damage here
+	for(var/obj/structure/blob/B in hear(8,flashbang_turf))     		//Blob damage here
 		var/damage = round(30/(get_dist(B,get_turf(src))+1))
 		B.health -= damage
 		B.update_icon()

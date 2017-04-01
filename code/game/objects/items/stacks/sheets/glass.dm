@@ -22,6 +22,7 @@
 	origin_tech = "materials=1"
 	var/created_window = /obj/structure/window/basic
 	var/full_window = /obj/structure/window/full/basic
+	merge_type = /obj/item/stack/sheet/glass
 
 /obj/item/stack/sheet/glass/fifty
 	amount = 50
@@ -155,6 +156,7 @@
 	origin_tech = "materials=2"
 	var/created_window = /obj/structure/window/reinforced
 	var/full_window = /obj/structure/window/full/reinforced
+	merge_type = /obj/item/stack/sheet/rglass
 
 /obj/item/stack/sheet/rglass/cyborg
 	materials = list()

@@ -726,3 +726,22 @@
 		icon_state = options[choice]
 		to_chat(user, "Your strange witch hat has now shapeshifted into it's [choice] form!")
 		return 1
+
+/obj/item/weapon/reagent_containers/food/drinks/bottle/fluff/moonshine //nethiafins : Serhij Zozulia
+	name = "Cloudy Bottle"
+	desc = "The contents of this bottle are vile. You should only drink it when you hit rock bottom."
+	icon = 'icons/obj/custom_items.dmi'
+	icon_state = "questionable_liquid"
+	item_state = "questionable_liquid"
+	amount_per_transfer_from_this = 5
+	list_reagents = list("moonshine" = 100)
+
+/obj/item/weapon/storage/box/fluff/moonshine_kit //nethiafins : Serhij Zozulia
+	name = "Moonshine Serving box"
+
+/obj/item/weapon/storage/box/fluff/moonshine_kit/New()
+	..()
+	new /obj/item/weapon/reagent_containers/food/drinks/drinkingglass/shotglass(src)
+	new /obj/item/weapon/reagent_containers/food/drinks/drinkingglass/shotglass(src)
+	new /obj/item/weapon/reagent_containers/food/drinks/bottle/fluff/moonshine(src)
+

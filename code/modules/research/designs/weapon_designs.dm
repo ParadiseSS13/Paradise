@@ -104,16 +104,6 @@
 	locked = 1
 	category = list("Weapons")
 
-/datum/design/receiver
-	name = "Modular Receiver"
-	desc = "A prototype modular receiver and trigger assembly for a variety of firearms."
-	id = "receiver"
-	req_tech = list("combat" = 5, "materials" = 4)
-	build_type = PROTOLATHE
-	materials = list(MAT_METAL = 6500, MAT_SILVER = 500)
-	build_path = /obj/item/weaponcrafting/receiver
-	category = list("Weapons")
-
 /datum/design/plasmapistol
 	name = "Plasma Pistol"
 	desc = "A specialized firearm designed to fire lethal bolts of toxins."

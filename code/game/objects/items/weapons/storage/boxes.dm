@@ -423,8 +423,12 @@
 	desc = "A box for containing construction permits, used to officially declare built rooms as additions to the station."
 	icon_state = "id"
 
-/obj/item/weapon/storage/box/permits/New() //There's only a few, so blueprints are still useful beyond setting every room's name to PRIMARY FART STORAGE
+/obj/item/weapon/storage/box/permits/New()
 	..()
+	new /obj/item/areaeditor/permit(src)
+	new /obj/item/areaeditor/permit(src)
+	new /obj/item/areaeditor/permit(src)
+	new /obj/item/areaeditor/permit(src)
 	new /obj/item/areaeditor/permit(src)
 	new /obj/item/areaeditor/permit(src)
 	new /obj/item/areaeditor/permit(src)
