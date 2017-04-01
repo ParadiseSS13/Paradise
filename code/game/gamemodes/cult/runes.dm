@@ -987,15 +987,10 @@ var/list/teleport_runes = list()
 	summoned_guy = new_human
 	to_chat(new_human, "<span class='cultitalic'><b>You are a servant of [ticker.mode.cultdat.entity_title3]. You have been made semi-corporeal by the cult of [ticker.mode.cultdat.entity_name], and you are to serve them at all costs.</b></span>")
 
-	var/i = 0
 	while(user in get_turf(src))
-		i++
 		if(user.stat)
 			break
-		if(i > 60)
-			user.apply_damage(2, BRUTE)
-		else if(i > 30)
-			user.apply_damage(1, BRUTE)
+		user.apply_damage(0.1, BRUTE)
 		sleep(3)
 
 	qdel(N)
