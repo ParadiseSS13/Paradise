@@ -4,7 +4,7 @@ var/global/list/role_playtime_requirements = list(
 	// CREW-FRIENDLY ROLES
 	ROLE_PAI = 0,
 	ROLE_POSIBRAIN = 5, // Same as cyborg job.
-	ROLE_SENTIENT = 10,
+	ROLE_SENTIENT = 5,
 	ROLE_ERT = 20, // High, because they're team-based, and we want ERT to be robust
 	ROLE_TRADER = 5,
 
@@ -18,10 +18,10 @@ var/global/list/role_playtime_requirements = list(
 	ROLE_BORER = 3,
 	ROLE_NINJA = 3,
 	ROLE_MORPH = 3,
+	ROLE_DEMON = 3,
 
 	// DUO ANTAGS
 	ROLE_GUARDIAN = 5,
-	ROLE_DEMON = 5,
 	ROLE_GSPIDER = 5,
 
 	// TEAM ANTAGS
@@ -32,7 +32,7 @@ var/global/list/role_playtime_requirements = list(
 	ROLE_CULTIST = 10,
 	ROLE_RAIDER = 10,
 	ROLE_ALIEN = 10,
-	ROLE_ABDUCTOR = 20,
+	ROLE_ABDUCTOR = 10,
 )
 
 // Admin Verbs
