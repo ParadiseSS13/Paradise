@@ -333,8 +333,6 @@
 			for(var/datum/mind/H in ticker.mode.cult)
 				if(H.current)
 					to_chat(H.current, "<span class='danger'>[ticker.mode.cultdat.entity_name]</span> murmurs, <span class='cultlarge'>[occupant] is beyond your reach. Sacrifice [cult_mode.sacrifice_target.current] instead...</span></span>")
-			for(var/mob/dead/observer/O in player_list)
-				to_chat(O, "<span class='danger'>[ticker.mode.cultdat.entity_name]</span> murmurs, <span class='cultlarge'>[occupant] is beyond your reach. Sacrifice [cult_mode.sacrifice_target.current] instead...</span></span>")
 		else
 			cult_mode.bypass_phase()
 
