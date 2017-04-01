@@ -5,7 +5,7 @@ var/global/list/role_playtime_requirements = list(
 	ROLE_PAI = 0,
 	ROLE_POSIBRAIN = 5, // Same as cyborg job.
 	ROLE_SENTIENT = 5,
-	ROLE_ERT = 20, // High, because they're team-based, and we want ERT to be robust
+	ROLE_ERT = 10, // High, because they're team-based, and we want ERT to be robust
 	ROLE_TRADER = 5,
 
 	// SOLO ANTAGS
