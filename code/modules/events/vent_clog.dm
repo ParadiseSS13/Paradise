@@ -23,7 +23,7 @@
 							"atrazine","banana","charcoal","space_drugs","methamphetamine","holywater","ethanol","hot_coco","facid",
 							"blood","morphine","ether","fluorine","mutadone","mutagen","hydrocodone","fuel",
 							"haloperidol","lsd","nanites","lipolicide","frostoil","salglu_solution","beepskysmash",
-							"omnizine", "amanitin", "adminordrazine", "neurotoxin", "synaptizine")
+							"omnizine", "amanitin", "adminordrazine", "neurotoxin", "synaptizine", "sodiumchloride")
 		var/datum/reagents/R = new/datum/reagents(50)
 		R.my_atom = vent
 		R.add_reagent(pick(gunk), 50)
