@@ -937,6 +937,7 @@ var/list/teleport_runes = list()
 	icon_state = "6"
 	construct_invoke = 0
 	color = rgb(200, 0, 0)
+	var/mob/living/summoned_guy = null
 
 /obj/effect/rune/manifest/New(loc)
 	..()
@@ -983,6 +984,7 @@ var/list/teleport_runes = list()
 	N.mouse_opacity = 0
 	new_human.key = ghost_to_spawn.key
 	ticker.mode.add_cultist(new_human.mind, 0)
+	summoned_guy = new_human
 	to_chat(new_human, "<span class='cultitalic'><b>You are a servant of [ticker.mode.cultdat.entity_title3]. You have been made semi-corporeal by the cult of [ticker.mode.cultdat.entity_name], and you are to serve them at all costs.</b></span>")
 
 	var/i = 0
@@ -1003,3 +1005,10 @@ var/list/teleport_runes = list()
 		for(var/obj/I in new_human)
 			new_human.unEquip(I)
 		new_human.dust()
+		summoned_guy = null
+
+/obj/effect/rune/manifest/Destroy()
+	if(summoned_guy)
+		var/mob/living/carbon/human/H = summoned_guy
+		H.dust()
+	..()
