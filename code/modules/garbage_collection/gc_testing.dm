@@ -25,9 +25,9 @@
 		to_chat(usr, "<span class='notice'>No hard del()'d types found.</span>")
 		return
 
-	to_chat(usr, "Types hard del()'d by the GC:")
+	to_chat(usr, "Types hard del()'d by the GC and number of times failed:")
 	for(var/A in gc_hard_del_types)
-		to_chat(usr, "[A]")
+		to_chat(usr, "[A] - [gc_hard_del_types[A]] times")
 
 #ifdef TESTING
 /client/var/running_find_references
