@@ -14,13 +14,25 @@
 	var/list/ammo_name = list("stun","kill")
 	select = 1
 	var/charge_sections = 4
-	var/charge_tick = 0
-	var/charge_delay = 4
 	var/shot = null
 	actions_types = list(/datum/action/item_action/toggle_firemode)
 	mag_type = /obj/item/ammo_box/magazine/energy
-	var/empty = null
 	var/ratio = null
+	var/empty = ""
+
+/obj/item/weapon/gun/projectile/automatic/senergy/emp_act(severity)
+	var/lost = (round(get_ammo() / severity))
+	if(magazine)
+		if(lost >= (magazine.stored_ammo.len + 1))
+			chambered = null
+			for(var/i = 1 to (magazine.stored_ammo.len))
+				var/b = magazine.stored_ammo[magazine.stored_ammo.len]
+				magazine.stored_ammo -= b
+		else
+			for(var/i = 1 to lost)
+				var/b = magazine.stored_ammo[magazine.stored_ammo.len]
+				magazine.stored_ammo -= b
+	update_icon()
 
 /obj/item/weapon/gun/projectile/automatic/senergy/New()
 	..()
@@ -41,6 +53,7 @@
 		var/temp = ammo_types[select]
 		chambered = new temp(src)
 		fire_sound = chambered.fire_sound
+		fire_delay = chambered.delay
 	return
 
 /obj/item/weapon/gun/projectile/automatic/senergy/proc/select_fire(mob/living/user)
@@ -55,12 +68,17 @@
 
 /obj/item/weapon/gun/projectile/automatic/senergy/update_icon()
 	overlays.Cut()
-	if(!magazine)
-		empty = "-e"
-		ratio = 0
-	else
-		ratio = Ceiling((magazine.ammo_count()*charge_sections/magazine.max_ammo))
+	if(magazine)
+		ratio = Ceiling((get_ammo()*charge_sections/magazine.max_ammo))
 		empty = ""
+	else
+		empty = "-e"
+		if(chambered)
+			ratio = 1
+		else
+			ratio = 0
+	if(ratio >= charge_sections)
+		ratio = charge_sections
 	icon_state = "[initial(icon_state)][empty]"
 	overlays += "[initial(icon_state)]-[shot]-[ratio]"
 	return
@@ -95,6 +113,14 @@
 	name = "Mark 5 Laser Carbine"
 	desc = "For the Emperor"
 	mag_type = /obj/item/ammo_box/magazine/energy/SG
+
+/obj/item/weapon/gun/projectile/automatic/senergy/security
+	name = "Security Long Energy Gun"
+	desc = "A new energy gun that uses large removable magazines. Shot for shot, it is weaker then a normal energy gun.."
+	icon_state = "Security"
+	ammo_types = list(/obj/item/ammo_casing/caseless/energy/weak/disable,/obj/item/ammo_casing/caseless/energy/weak)
+	mag_type = /obj/item/ammo_box/magazine/energy/security
+	charge_sections = 3
 //////////////////////////////////////
 //				mags				//
 //////////////////////////////////////
@@ -112,6 +138,13 @@
 	desc = "[initial(desc)] It has [stored_ammo.len] shot\s left."
 	icon_state = "[initial(icon_state)]-[Ceiling((ammo_count()*2/max_ammo))]"
 
+/obj/item/ammo_box/magazine/energy/emp_act(severity)
+	var/lost = (round(stored_ammo.len / severity))
+	for(var/i = 1 to lost)
+		var/b = stored_ammo[stored_ammo.len]
+		stored_ammo -= b
+	update_icon()
+
 
 /obj/item/ammo_box/magazine/energy/attack_self()
  	return
@@ -120,6 +153,16 @@
 
 /obj/item/ammo_box/magazine/energy/car
 	icon_state = "car_bat"
+
+/obj/item/ammo_box/magazine/energy/security
+	icon_state = "sec_las"
+	max_ammo = 30
+
+/obj/item/ammo_box/magazine/energy/security/cargo
+
+/obj/item/ammo_box/magazine/energy/security/cargo/New()
+	update_icon()
+
 //////////////////////////////////////
 //				ammo				//
 //////////////////////////////////////
@@ -131,7 +174,26 @@
 	fire_sound = 'sound/weapons/Laser.ogg'
 
 /obj/item/ammo_casing/caseless/energy/stun
-	desc = "An energy unit."
-	caliber = "energy"
 	projectile_type = /obj/item/projectile/energy/electrode
 	fire_sound = 'sound/weapons/taser.ogg'
+	delay = 15
+
+/obj/item/ammo_casing/caseless/energy/weak
+	projectile_type = /obj/item/projectile/beam/laser/weak
+
+/obj/item/ammo_casing/caseless/energy/weak/disable
+	projectile_type = /obj/item/projectile/beam/disabler/weak
+	fire_sound = 'sound/weapons/taser2.ogg'
+
+
+//////////////////////////////////////
+//				projectile			//
+//////////////////////////////////////
+
+
+/obj/item/projectile/beam/disabler/weak
+	damage = 30
+
+/obj/item/projectile/beam/laser/weak
+	name = "weak laser"
+	damage = 15
