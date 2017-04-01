@@ -570,7 +570,7 @@
 /datum/sprite_accessory/hair/unathi/una_frills_dorsal
 	icon = 'icons/mob/human_face.dmi'
 	name = "Dorsal Frills"
-	icon_state = "facial_dorsalfrills"
+	icon_state = "unathi_dorsalfrills"
 	secondary_theme = "webbing"
 
 /datum/sprite_accessory/hair/unathi/simple
@@ -812,6 +812,7 @@
 /datum/sprite_accessory/hair/vulpkanin/vulp_hair_short2
 	name = "Short Alt."
 	icon_state = "short2"
+	glasses_over = 1
 
 /datum/sprite_accessory/hair/vulpkanin/vulp_hair_rough
 	name = "Rough-Cropped Mane"
@@ -1188,20 +1189,23 @@
 /datum/sprite_accessory/facial_hair/unathi/una_frills_dorsal
 	over_hair = null
 	name = "Dorsal Frills"
-	icon_state = "facial_dorsalfrills"
+	icon_state = "unathi_dorsalfrills"
 	secondary_theme = "webbing"
 
 /datum/sprite_accessory/facial_hair/unathi/una_chin_horns
 	name = "Chin Horns"
-	icon_state = "facial_chinhorns"
+	icon = 'icons/mob/body_accessory.dmi'
+	icon_state = "horns_chin"
 
 /datum/sprite_accessory/facial_hair/unathi/una_horn_adorns
 	name = "Horn Adorns"
-	icon_state = "facial_hornadorns"
+	icon = 'icons/mob/body_accessory.dmi'
+	icon_state = "horns_adorns"
 
 /datum/sprite_accessory/facial_hair/unathi/una_spikes
 	name = "Spikes"
-	icon_state = "facial_spikes"
+	icon = 'icons/mob/body_accessory.dmi'
+	icon_state = "horns_spikes"
 
 //skin styles - WIP
 //going to have to re-integrate this with surgery
