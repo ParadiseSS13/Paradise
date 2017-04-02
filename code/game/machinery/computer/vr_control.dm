@@ -27,14 +27,14 @@
 
 /obj/machinery/computer/vr_control/ui_interact(mob/user, ui_key = "main", var/datum/nanoui/ui = null, var/force_open = 1)
 	//crew_monitor.ui_interact(user, ui_key, ui, force_open)
+	switch(alert("What would you like to do?", "VR Control", "Join Room", "Make Room", "Cancel"))
+		if("Join Room")
+			spawn_vr_avatar(user, input(user, "Choose a room to join.","Select Level") as null|anything in vr_rooms)
+		if("Make Room")
+			make_vr_room(input(user, "Name your new Room","Name here.") as null|text, input(user, "Choose a Level to load into your new Room.","Select Level") as null|anything in vr_templates)
+		if("Cancel")
+			return
 
 /obj/machinery/computer/vr_control/interact(mob/user)
 	//crew_monitor.ui_interact(user)
 
-/obj/machinery/computer/vr_control/proc/loadlevel(var/datum/map_template/template)
-	//var/map = input(usr, "Choose a Map Template to place at your CURRENT LOCATION","Place Map Template") as null|anything in map_templates
-	//if(!map)
-	//	return
-	template = "_maps/map_files/templates/vr/lobby.dmm"
-	var/datum/space_chunk/C = space_manager.allocate_space(template.width, template.height)
-	template.load(C, centered = FALSE)

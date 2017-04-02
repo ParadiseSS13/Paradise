@@ -22,7 +22,6 @@
 
 		if("avatarspawn")
 			avatarspawn += loc
-			qdel(src)
 
 		if("JoinLate")
 			latejoin += loc
