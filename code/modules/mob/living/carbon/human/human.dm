@@ -74,9 +74,6 @@
 	real_name = "Test Dummy"
 	status_flags = GODMODE|CANPUSH
 
-/mob/living/carbon/human/manifested
-	real_name = "Cursed Human"
-
 /mob/living/carbon/human/skrell/New(var/new_loc)
 	..(new_loc, "Skrell")
 
