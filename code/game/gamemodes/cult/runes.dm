@@ -993,17 +993,19 @@ var/list/teleport_runes = list()
 		user.apply_damage(0.1, BRUTE)
 		sleep(3)
 
-	summoned_guys -= new_human
 	qdel(N)
 	if(new_human)
 		new_human.visible_message("<span class='warning'>[new_human] suddenly dissolves into bones and ashes.</span>", \
 								  "<span class='cultlarge'>Your link to the world fades. Your form breaks apart.</span>")
 		for(var/obj/I in new_human)
 			new_human.unEquip(I)
+		summoned_guys -= new_human
 		new_human.dust()
 
 /obj/effect/rune/manifest/Destroy()
 	for(var/mob/living/carbon/human/guy in summoned_guys)
+		for(var/obj/I in guy)
+			guy.unEquip(I)
 		guy.dust()
 	summoned_guys.Cut()
 	return ..()
