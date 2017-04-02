@@ -160,6 +160,8 @@ var/ert_request_answered = 0
 
 	M.set_species("Human",1)
 	M.dna.ready_dna(M)
+	M.reagents.add_reagent("mutadone", 1) //No fat/blind/colourblind/epileptic/whatever ERT.
+	M.overeatduration = 0
 
 	var/hair_c = pick("#8B4513","#000000","#FF4500","#FFD700") // Brown, black, red, blonde
 	var/eye_c = pick("#000000","#8B4513","1E90FF") // Black, brown, blue

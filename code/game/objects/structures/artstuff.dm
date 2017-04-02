@@ -19,6 +19,11 @@
 	burntime = 15
 	var/obj/item/weapon/canvas/painting = null
 
+/obj/structure/easel/Destroy()
+	if(painting)
+		qdel(painting)
+		painting = null
+	return ..()
 
 //Adding canvases
 /obj/structure/easel/attackby(var/obj/item/I, var/mob/user, params)

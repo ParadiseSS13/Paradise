@@ -48,6 +48,7 @@ LIGHTERS ARE IN LIGHTERS.DM
 /obj/item/clothing/mask/cigarette/Destroy()
 	if(reagents)
 		qdel(reagents)
+		reagents = null
 	processing_objects -= src
 	return ..()
 

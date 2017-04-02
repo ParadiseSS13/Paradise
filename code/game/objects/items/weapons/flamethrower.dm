@@ -34,6 +34,7 @@
 	if(ptank)
 		qdel(ptank)
 		ptank = null
+	previousturf = null
 	return ..()
 
 

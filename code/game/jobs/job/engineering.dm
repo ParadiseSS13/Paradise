@@ -57,6 +57,8 @@
 	minimal_access = list(access_eva, access_engine, access_engine_equip, access_tech_storage, access_maint_tunnels, access_external_airlocks, access_construction, access_mineral_storeroom)
 	alt_titles = list("Maintenance Technician","Engine Technician","Electrician")
 	minimal_player_age = 7
+	exp_requirements = 300
+	exp_type = EXP_TYPE_CREW
 	outfit = /datum/outfit/job/engineer
 
 /datum/outfit/job/engineer
@@ -93,6 +95,8 @@
 	alt_titles = list("Atmospheric Technician")
 
 	minimal_player_age = 7
+	exp_requirements = 300
+	exp_type = EXP_TYPE_CREW
 	outfit = /datum/outfit/job/atmos
 
 /datum/outfit/job/atmos

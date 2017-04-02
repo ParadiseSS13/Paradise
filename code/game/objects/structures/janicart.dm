@@ -19,12 +19,24 @@
 
 
 /obj/structure/janitorialcart/New()
+	..()
 	create_reagents(100)
 	janitorial_equipment += src
 
-
 /obj/structure/janitorialcart/Destroy()
 	janitorial_equipment -= src
+	if(mybag)
+		qdel(mybag)
+		mybag = null
+	if(mymop)
+		qdel(mymop)
+		mymop = null
+	if(myspray)
+		qdel(myspray)
+		myspray = null
+	if(myreplacer)
+		qdel(myreplacer)
+		myreplacer = null
 	return ..()
 
 /obj/structure/janitorialcart/proc/wet_mop(obj/item/weapon/mop, mob/user)

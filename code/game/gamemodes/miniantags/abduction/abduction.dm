@@ -116,6 +116,8 @@
 		H.mind.abductor.agent = 1
 		H.mind.abductor.team = team_number
 		H.real_name = team_name + " Agent"
+		H.reagents.add_reagent("mutadone", 1) //No fat/blind/colourblind/epileptic/whatever ayys.
+		H.overeatduration = 0
 		equip_common(H,team_number)
 		equip_agent(H,team_number)
 		greet_agent(agent,team_number)
@@ -130,6 +132,8 @@
 		H.mind.abductor.scientist = 1
 		H.mind.abductor.team = team_number
 		H.real_name = team_name + " Scientist"
+		H.reagents.add_reagent("mutadone", 1) //No fat/blind/colourblind/epileptic/whatever ayys.
+		H.overeatduration = 0
 		equip_common(H,team_number)
 		equip_scientist(H,team_number)
 		greet_scientist(scientist,team_number)
