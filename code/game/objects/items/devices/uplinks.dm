@@ -22,6 +22,7 @@ var/list/world_uplinks = list()
 	var/used_TC = 0
 
 	var/job = null
+	var/species = null
 	var/show_descriptions = 0
 
 /obj/item/device/uplink/nano_host()
@@ -48,6 +49,10 @@ var/list/world_uplinks = list()
 /obj/item/device/uplink/proc/generate_menu(mob/user as mob)
 	if(!job)
 		job = user.mind.assigned_role
+	if(!species)
+		if(ishuman(user))
+			var/mob/living/carbon/human/H = user
+			species = H.species.name
 
 	var/dat = "<B>[src.welcome]</B><BR>"
 	dat += "Telecrystals left: [src.uses]<BR>"
@@ -69,6 +74,9 @@ var/list/world_uplinks = list()
 			if(I.job && I.job.len)
 				if(!(I.job.Find(job)))
 					continue
+			if(I.species && I.species.len)
+				if(!(I.species.Find(species)))
+					continue
 			dat += "<A href='byond://?src=[UID()];buy_item=[I.reference];cost=[I.cost]'>[I.name]</A> ([I.cost])<BR>"
 			category_items++
 
@@ -82,6 +90,10 @@ var/list/world_uplinks = list()
 /obj/item/device/uplink/proc/generate_item_lists(mob/user as mob)
 	if(!job)
 		job = user.mind.assigned_role
+	if(!species)
+		if(ishuman(user))
+			var/mob/living/carbon/human/H = user
+			species = H.species.name
 
 	var/list/nano = new
 	var/list/reference = new
@@ -91,6 +103,9 @@ var/list/world_uplinks = list()
 		for(var/datum/uplink_item/I in ItemsCategory[category])
 			if(I.job && I.job.len)
 				if(!(I.job.Find(job)))
+					continue
+			if(I.species && I.species.len)
+				if(!(I.species.Find(species)))
 					continue
 			nano[nano.len]["items"] += list(list("Name" = sanitize(I.name), "Description" = sanitize(I.description()),"Cost" = I.cost, "obj_path" = I.reference))
 			reference[I.reference] = I
