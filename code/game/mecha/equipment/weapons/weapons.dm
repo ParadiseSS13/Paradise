@@ -78,7 +78,7 @@
 	equip_cooldown = 10
 	name = "CH-LC \"Solaris\" Laser Cannon"
 	icon_state = "mecha_laser"
-	energy_drain = 40
+	energy_drain = 60
 	projectile = /obj/item/projectile/beam/laser/heavylaser
 	fire_sound = 'sound/weapons/lasercannonfire.ogg'
 
@@ -448,7 +448,7 @@
 	desc = "A device that shoots resonant plasma bursts at extreme velocity. The blasts are capable of crushing rock and demloishing solid obstacles."
 	icon_state = "mecha_plasmacutter"
 	item_state = "plasmacutter"
-	energy_drain = 60
+	energy_drain = 30
 	origin_tech = "materials=3;combat=2;powerstorage=3;plasmatech=3"
 	projectile = /obj/item/projectile/plasma/adv/mech
 	fire_sound = 'sound/weapons/laser.ogg'
