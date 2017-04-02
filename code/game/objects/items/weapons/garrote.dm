@@ -13,6 +13,10 @@
 	var/improvised = 0
 	var/garrote_time
 
+/obj/item/weapon/twohanded/garrote/Destroy()
+	strangling = null
+	return ..()
+
 /obj/item/weapon/twohanded/garrote/update_icon()
 	if(strangling) // If we're strangling someone we want our icon to stay wielded
 		icon_state = "garrot_unwrap"

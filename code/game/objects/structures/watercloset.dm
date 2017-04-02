@@ -14,9 +14,13 @@
 
 
 /obj/structure/toilet/New()
+	..()
 	open = round(rand(0, 1))
 	update_icon()
 
+/obj/structure/toilet/Destroy()
+	swirlie = null
+	return ..()
 
 /obj/structure/toilet/attack_hand(mob/living/user)
 	if(swirlie)

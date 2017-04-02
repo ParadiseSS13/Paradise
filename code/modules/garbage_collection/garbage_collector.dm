@@ -82,7 +82,7 @@ var/global/datum/controller/process/garbage_collector/garbageCollector
 #undef GC_COLLECTIONS_PER_TICK
 
 /datum/controller/process/garbage_collector/proc/hardDel(var/datum/D)
-	gc_hard_del_types |= D.type
+	gc_hard_del_types["[D.type]"]++
 	D.hard_deleted = 1
 	if(!D.gcDestroyed)
 		spawn(-1)

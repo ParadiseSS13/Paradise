@@ -17,6 +17,12 @@
 /obj/structure/door_assembly/New()
 	update_state()
 
+/obj/structure/door_assembly/Destroy()
+	if(electronics)
+		qdel(electronics)
+		electronics = null
+	return ..()
+
 /obj/structure/door_assembly/door_assembly_com
 	base_icon_state = "com"
 	base_name = "Command Airlock"
