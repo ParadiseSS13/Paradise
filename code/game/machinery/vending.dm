@@ -1161,13 +1161,6 @@
 					/obj/item/weapon/screwdriver = 5,/obj/item/weapon/crowbar = 5)
 	//everything after the power cell had no amounts, I improvised.  -Sayu
 
-
-/obj/machinery/vending/eva
-	name = "Hardsuit Kits"
-	desc = "Conversion kits for your alien hardsuit needs."
-	products = list(/obj/item/device/modkit = 6,/obj/item/device/modkit/tajaran = 6,/obj/item/device/modkit/unathi = 6,/obj/item/device/modkit/skrell = 6,/obj/item/device/modkit/vox = 6)
-
-
 /obj/machinery/vending/sustenance
 	name = "Sustenance Vendor"
 	desc = "A vending machine which vends food, as required by section 47-C of the NT's Prisoner Ethical Treatment Agreement."
