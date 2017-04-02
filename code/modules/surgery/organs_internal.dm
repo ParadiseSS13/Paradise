@@ -69,7 +69,7 @@
 	var/implements_extract = list(/obj/item/weapon/hemostat = 100, /obj/item/weapon/kitchen/utensil/fork = 55)
 	var/implements_mend = list(/obj/item/stack/medical/bruise_pack = 20,/obj/item/stack/medical/bruise_pack/advanced = 100,/obj/item/stack/nanopaste = 100)
 	//Finish is just so you can close up after you do other things.
-	var/implements_finsh = list(/obj/item/weapon/scalpel/manager = 120,/obj/item/weapon/retractor = 100 ,/obj/item/weapon/crowbar = 75)
+	var/implements_finsh = list(/obj/item/weapon/scalpel/laser/manager = 100,/obj/item/weapon/retractor = 100 ,/obj/item/weapon/crowbar = 75)
 	var/current_type
 	var/obj/item/organ/internal/I = null
 	var/obj/item/organ/external/affected = null
@@ -368,10 +368,6 @@
 /datum/surgery_step/cut_carapace
 	name = "cut carapace"
 	allowed_tools = list(
-	/obj/item/weapon/scalpel/laser3 = 115, \
-	/obj/item/weapon/scalpel/laser2 = 110, \
-	/obj/item/weapon/scalpel/laser1 = 105, \
-	/obj/item/weapon/scalpel/manager = 120, \
 	/obj/item/weapon/scalpel = 100,		\
 	/obj/item/weapon/kitchen/knife = 75,	\
 	/obj/item/weapon/shard = 50, 		\
@@ -406,7 +402,7 @@
 	name = "retract carapace"
 
 	allowed_tools = list(
-	/obj/item/weapon/scalpel/manager = 120, \
+	/obj/item/weapon/scalpel/laser/manager = 100, \
 	/obj/item/weapon/retractor = 100, 	\
 	/obj/item/weapon/crowbar = 75,	\
 	/obj/item/weapon/kitchen/utensil/fork = 50

@@ -17,6 +17,12 @@
 /obj/structure/door_assembly/New()
 	update_state()
 
+/obj/structure/door_assembly/Destroy()
+	if(electronics)
+		qdel(electronics)
+		electronics = null
+	return ..()
+
 /obj/structure/door_assembly/door_assembly_com
 	base_icon_state = "com"
 	base_name = "Command Airlock"
@@ -94,7 +100,7 @@
 	base_name = "Maintenance Hatch"
 	airlock_type = "/maintenance_hatch"
 	glass = -1
-	
+
 /obj/structure/door_assembly/door_assembly_highsecurity // Borrowing this until WJohnston makes sprites for the assembly
 	base_icon_state = "highsec"
 	base_name = "High Security Airlock"
@@ -103,7 +109,7 @@
 
 /obj/structure/door_assembly/door_assembly_shuttle
 	base_icon_state = "shuttle"
-	base_name = "shuttle airlock"
+	base_name = "Shuttle Airlock"
 	airlock_type = "/shuttle"
 	glass = -1
 
@@ -114,12 +120,6 @@
 	base_icon_state = "g" //Remember to delete this line when reverting "glass" var to 1.
 	airlock_type = "/multi_tile/glass"
 	glass = -1 //To prevent bugs in deconstruction process.
-
-/obj/structure/door_assembly/door_assembly_cult
-	base_name = "cult airlock assembly"
-	icon = 'icons/obj/doors/Doorcult.dmi'
-	base_icon_state ="construction"
-	airlock_type = "/cult"
 
 /obj/structure/door_assembly/multi_tile/New()
 	if(dir in list(EAST, WEST))
@@ -146,14 +146,12 @@
 	airlock_type = "/cult"
 	glass = -1
 
-
 /obj/structure/door_assembly/door_assembly_cultruned
 	icon = 'icons/obj/doors/Doorcultruned.dmi'
 	base_icon_state = "construction"
 	base_name = "runed airlock"
 	airlock_type = "/cult/runed"
 	glass = -1
-
 
 /obj/structure/door_assembly/attackby(obj/item/W as obj, mob/user as mob, params)
 	if(istype(W, /obj/item/weapon/pen))
@@ -183,10 +181,10 @@
 					new /obj/item/stack/sheet/rglass(src.loc)
 					glass = 0
 			else if(!anchored)
-				user.visible_message("[user] dissassembles the airlock assembly.", "You start to dissassemble the airlock assembly.")
+				user.visible_message("[user] disassembles the airlock assembly.", "You start to disassemble the airlock assembly.")
 				if(do_after(user, 40 * WT.toolspeed, target = src))
 					if(!src || !WT.isOn()) return
-					to_chat(user, "\blue You dissasembled the airlock assembly!")
+					to_chat(user, "\blue You disassembled the airlock assembly!")
 					new /obj/item/stack/sheet/metal(src.loc, 4)
 					qdel(src)
 		else
@@ -220,8 +218,9 @@
 
 		if(do_after(user, 40 * W.toolspeed, target = src))
 			if(!src) return
-			to_chat(user, "\blue You cut the airlock wires.!")
-			new/obj/item/stack/cable_coil(src.loc, 1)
+			to_chat(user, "\blue You cut the airlock's wires!")
+			if(state == 1)
+				new/obj/item/stack/cable_coil(src.loc, 1)
 			src.state = 0
 
 	else if(istype(W, /obj/item/weapon/airlock_electronics) && state == 1 && W:icon_state != "door_electronics_smoked")
@@ -292,6 +291,7 @@
 			else
 				path = text2path("/obj/machinery/door/airlock[airlock_type]")
 			var/obj/machinery/door/airlock/door = new path(src.loc)
+			door.setDir(dir)
 			door.assembly_type = type
 			door.electronics = src.electronics
 			if(src.electronics.one_access)

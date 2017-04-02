@@ -220,7 +220,7 @@
 	rarity = 20
 	genes = list(/datum/plant_gene/trait/glow, /datum/plant_gene/trait/plant_type/fungal_metabolism)
 	growing_icon = 'icons/obj/hydroponics/growing_mushrooms.dmi'
-	mutatelist = list(/obj/item/seeds/glowshroom/glowcap)
+	mutatelist = list(/obj/item/seeds/glowshroom/glowcap, /obj/item/seeds/glowshroom/shadowshroom)
 	reagents_add = list("radium" = 0.1, "phosphorus" = 0.1, "nutriment" = 0.04)
 
 /obj/item/weapon/reagent_containers/food/snacks/grown/mushroom/glowshroom
@@ -229,20 +229,31 @@
 	desc = "<I>Mycena Bregprox</I>: This species of mushroom glows in the dark."
 	icon_state = "glowshroom"
 	filling_color = "#00FA9A"
-	var/effect_path = /obj/effect/glowshroom
+	var/effect_path = /obj/structure/glowshroom
 	origin_tech = "biotech=4;plasmatech=6"
 	light_color = "#006622"
 
 /obj/item/weapon/reagent_containers/food/snacks/grown/mushroom/glowshroom/attack_self(mob/user)
 	if(istype(user.loc, /turf/space))
-		return
-	var/obj/effect/glowshroom/planted = new effect_path(user.loc)
-	planted.delay = planted.delay - seed.production * 100 //So the delay goes DOWN with better stats instead of up. :I
-	planted.endurance = seed.endurance
-	planted.yield = seed.yield
-	planted.potency = seed.potency
+		return FALSE
+	if(!isturf(user.loc))
+		to_chat(user, "<span class='warning'>You need more space to plant [src].</span>")
+		return FALSE
+	var/count = 0
+	var/maxcount = 1
+	for(var/tempdir in cardinal)
+		var/turf/simulated/wall = get_step(user.loc, tempdir)
+		if(istype(wall))
+			maxcount++
+	for(var/obj/structure/glowshroom/G in user.loc)
+		count++
+	if(count >= maxcount)
+		to_chat(user, "<span class='warning'>There are too many shrooms here to plant [src].</span>")
+		return FALSE
+	new effect_path(user.loc, seed)
 	to_chat(user, "<span class='notice'>You plant [src].</span>")
 	qdel(src)
+	return TRUE
 
 
 // Glowcap
@@ -255,7 +266,7 @@
 	icon_dead = "glowshroom-dead"
 	plantname = "Glowcaps"
 	product = /obj/item/weapon/reagent_containers/food/snacks/grown/mushroom/glowshroom/glowcap
-	genes = list(/datum/plant_gene/trait/glow, /datum/plant_gene/trait/cell_charge, /datum/plant_gene/trait/plant_type/fungal_metabolism)
+	genes = list(/datum/plant_gene/trait/glow/red, /datum/plant_gene/trait/cell_charge, /datum/plant_gene/trait/plant_type/fungal_metabolism)
 	mutatelist = list()
 	reagents_add = list("teslium" = 0.1, "nutriment" = 0.04)
 	rarity = 30
@@ -263,10 +274,10 @@
 /obj/item/weapon/reagent_containers/food/snacks/grown/mushroom/glowshroom/glowcap
 	seed = /obj/item/seeds/glowshroom/glowcap
 	name = "glowcap cluster"
-	desc = "<I>Mycena Ruthenia</I>: This species of mushroom glows in the dark, but aren't bioluminescent. They're warm to the touch..."
+	desc = "<I>Mycena Ruthenia</I>: This species of mushroom glows in the dark, but isn't actually bioluminescent. They're warm to the touch..."
 	icon_state = "glowcap"
 	filling_color = "#00FA9A"
-	effect_path = /obj/effect/glowshroom/glowcap
+	effect_path = /obj/structure/glowshroom/glowcap
 	origin_tech = "biotech=4;powerstorage=6;plasmatech=4"
 	light_color = "#8E0300"
 
@@ -292,3 +303,26 @@
 	desc = "A fungus ideal for making antibacterials."
 	icon_state = "angel"
 	color = "#4f4331"
+
+//Shadowshroom
+/obj/item/seeds/glowshroom/shadowshroom
+	name = "pack of shadowshroom mycelium"
+	desc = "This mycelium will grow into something shadowy."
+	icon_state = "mycelium-shadowshroom"
+	species = "shadowshroom"
+	icon_grow = "shadowshroom-grow"
+	icon_dead = "shadowshroom-dead"
+	plantname = "Shadowshrooms"
+	product = /obj/item/weapon/reagent_containers/food/snacks/grown/mushroom/glowshroom/shadowshroom
+	genes = list(/datum/plant_gene/trait/glow/shadow, /datum/plant_gene/trait/plant_type/fungal_metabolism)
+	mutatelist = list()
+	reagents_add = list("radium" = 0.2, "nutriment" = 0.04)
+	rarity = 30
+
+/obj/item/weapon/reagent_containers/food/snacks/grown/mushroom/glowshroom/shadowshroom
+	seed = /obj/item/seeds/glowshroom/shadowshroom
+	name = "shadowshroom cluster"
+	desc = "<I>Mycena Umbra</I>: This species of mushroom emits shadow instead of light."
+	icon_state = "shadowshroom"
+	effect_path = /obj/structure/glowshroom/shadowshroom
+	origin_tech = "biotech=4;plasmatech=4;magnets=4"

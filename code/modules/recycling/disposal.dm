@@ -210,7 +210,8 @@
 
 // leave the disposal
 /obj/machinery/disposal/proc/go_out(mob/user)
-	user.forceMove(loc)
+	if(user)
+		user.forceMove(loc)
 	update()
 
 // ai as human but can't flush
@@ -457,7 +458,7 @@
 		H.vent_gas(loc)
 		qdel(H)
 
-/obj/machinery/disposal/CanPass(atom/movable/mover, turf/target, height=0, air_group=0)
+/obj/machinery/disposal/CanPass(atom/movable/mover, turf/target, height=0)
 	if(istype(mover,/obj/item) && mover.throwing)
 		var/obj/item/I = mover
 		if(istype(I, /obj/item/projectile))
@@ -471,7 +472,7 @@
 				M.show_message("\the [I] bounces off of \the [src]'s rim!.", 3)
 		return 0
 	else
-		return ..(mover, target, height, air_group)
+		return ..(mover, target, height)
 
 
 /obj/machinery/disposal/singularity_pull(S, current_size)
@@ -1146,6 +1147,19 @@
 	update()
 	return
 
+/obj/structure/disposalpipe/trunk/Destroy()
+	if(istype(linked, /obj/structure/disposaloutlet))
+		var/obj/structure/disposaloutlet/O = linked
+		O.expel(animation = 0)
+	else if(istype(linked, /obj/machinery/disposal))
+		var/obj/machinery/disposal/D = linked
+		if(D.trunk == src)
+			D.go_out()
+			D.trunk = null
+
+	linked = null
+	return ..()
+
 /obj/structure/disposalpipe/trunk/proc/getlinked()
 	linked = null
 	var/obj/machinery/disposal/D = locate() in src.loc
@@ -1193,7 +1207,7 @@
 			playsound(loc, W.usesound, 100, 1)
 			to_chat(user, "<span class='notice'>Slicing the disposal pipe.</span>")
 			if(do_after(user, 30 * W.toolspeed, target = src))
-				if(!W.isOn()) 
+				if(!W.isOn())
 					return
 				welded()
 		else
@@ -1276,16 +1290,17 @@
 
 	// expel the contents of the holder object, then delete it
 	// called when the holder exits the outlet
-	proc/expel(var/obj/structure/disposalholder/H)
+	proc/expel(var/obj/structure/disposalholder/H, animation = 1)
 
-		flick("outlet-open", src)
-		playsound(src, 'sound/machines/warning-buzzer.ogg', 50, 0, 0)
-		sleep(20)	//wait until correct animation frame
-		playsound(src, 'sound/machines/hiss.ogg', 50, 0, 0)
+		if(animation)
+			flick("outlet-open", src)
+			playsound(src, 'sound/machines/warning-buzzer.ogg', 50, 0, 0)
+			sleep(20)	//wait until correct animation frame
+			playsound(src, 'sound/machines/hiss.ogg', 50, 0, 0)
 
 		if(H)
 			for(var/atom/movable/AM in H)
-				AM.loc = src.loc
+				AM.forceMove(loc)
 				AM.pipe_eject(dir)
 				if(!istype(AM,/mob/living/silicon/robot/drone)) //Drones keep smashing windows from being fired out of chutes. Bad for the station. ~Z
 					spawn(5)
@@ -1294,7 +1309,6 @@
 			H.vent_gas(src.loc)
 			qdel(H)
 
-		return
 
 	attackby(var/obj/item/I, var/mob/user, params)
 		if(!I || !user)

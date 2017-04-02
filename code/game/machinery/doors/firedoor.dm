@@ -37,6 +37,14 @@
 		return ..()
 	return 0
 
+/obj/machinery/door/firedoor/ex_act(severity)
+	switch(severity)
+		if(1.0)
+			qdel(src)
+		if(2.0)
+			if(prob(50))
+				qdel(src)
+
 /obj/machinery/door/firedoor/power_change()
 	if(powered(power_channel))
 		stat &= ~NOPOWER
@@ -93,7 +101,6 @@
 		user.visible_message("[user] forces \the [src] with [C].",
 		"You force \the [src] with [C].")
 		if(density)
-			autoclose = TRUE
 			open()
 		else
 			close()
@@ -103,6 +110,7 @@
 		return
 
 	add_fingerprint(user)
+	user.changeNext_move(CLICK_CD_MELEE)
 
 	if(can_force && (!glass || user.a_intent != I_HELP))
 		user.visible_message("<span class='notice'>[user] begins forcing \the [src].</span>", \
@@ -110,10 +118,8 @@
 		if(do_after(user, force_open_time, target = src))
 			user.visible_message("<span class='notice'>[user] forces \the [src].</span>", \
 								 "<span class='notice'>You force \the [src].</span>")
-			autoclose = TRUE
 			open()
 	else if(glass)
-		user.changeNext_move(CLICK_CD_MELEE)
 		user.visible_message("<span class='warning'>[user] bangs on \the [src].</span>",
 							 "<span class='warning'>You bang on \the [src].</span>")
 		playsound(get_turf(src), 'sound/effects/Glassknock.ogg', 10, 1)
@@ -136,8 +142,10 @@
 	switch(animation)
 		if("opening")
 			flick("door_opening", src)
+			playsound(src, 'sound/machines/airlock_ext_open.ogg', 30, 1)
 		if("closing")
 			flick("door_closing", src)
+			playsound(src, 'sound/machines/airlock_ext_close.ogg', 30, 1)
 
 /obj/machinery/door/firedoor/update_icon()
 	overlays.Cut()
@@ -160,9 +168,12 @@
 	active_alarm = FALSE
 	update_icon()
 
-/obj/machinery/door/firedoor/open()
+/obj/machinery/door/firedoor/open(auto_close = TRUE)
 	. = ..()
-	latetoggle()
+	latetoggle(auto_close)
+
+	if(auto_close)
+		autoclose = TRUE
 
 /obj/machinery/door/firedoor/close()
 	. = ..()
@@ -174,26 +185,26 @@
 	if(active_alarm)
 		. = ..()
 
-/obj/machinery/door/firedoor/proc/latetoggle()
+/obj/machinery/door/firedoor/proc/latetoggle(auto_close = TRUE)
 	if(operating || stat & NOPOWER || !nextstate)
 		return
 	switch(nextstate)
 		if(OPEN)
 			nextstate = null
-			open()
+			open(auto_close)
 		if(CLOSED)
 			nextstate = null
 			close()
 
-/obj/machinery/door/firedoor/proc/forcetoggle(magic = FALSE)
+/obj/machinery/door/firedoor/proc/forcetoggle(magic = FALSE, auto_close = TRUE)
 	if(!magic && (operating || stat & NOPOWER))
 		return
 	if(density)
-		open()
+		open(auto_close)
 	else
 		close()
 
-/obj/machinery/door/firedoor/proc/deconstruct(disassembled = TRUE)
+/obj/machinery/door/firedoor/deconstruct(disassembled = TRUE)
 	if(can_deconstruct)
 		var/obj/structure/firelock_frame/F = new assembly_type(get_turf(src))
 		if(disassembled)

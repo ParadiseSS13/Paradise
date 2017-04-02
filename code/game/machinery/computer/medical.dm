@@ -234,7 +234,6 @@
 			screen = MED_DATA_MAIN
 
 	if(authenticated)
-		var/incapable = (usr.stat || usr.restrained() || (!in_range(src, usr) && !issilicon(usr)))
 		if(href_list["logout"])
 			authenticated = null
 			screen = null
@@ -281,7 +280,7 @@
 			setTemp("<h3>Are you sure you wish to delete all records?</h3>", buttons)
 
 		if(href_list["field"])
-			if(incapable)
+			if(..())
 				return 1
 			var/a1 = active1
 			var/a2 = active2
@@ -289,7 +288,7 @@
 				if("fingerprint")
 					if(istype(active1, /datum/data/record))
 						var/t1 = copytext(trim(sanitize(input("Please input fingerprint hash:", "Med. records", active1.fields["fingerprint"], null) as text)), 1, MAX_MESSAGE_LEN)
-						if(!t1 || incapable || active1 != a1)
+						if(!t1 || ..() || active1 != a1)
 							return 1
 						active1.fields["fingerprint"] = t1
 				if("sex")
@@ -301,61 +300,61 @@
 				if("age")
 					if(istype(active1, /datum/data/record))
 						var/t1 = input("Please input age:", "Med. records", active1.fields["age"], null) as num
-						if(!t1 || incapable || active1 != a1)
+						if(!t1 || ..() || active1 != a1)
 							return 1
 						active1.fields["age"] = t1
 				if("mi_dis")
 					if(istype(active2, /datum/data/record))
 						var/t1 = copytext(trim(sanitize(input("Please input minor disabilities list:", "Med. records", active2.fields["mi_dis"], null) as text)), 1, MAX_MESSAGE_LEN)
-						if(!t1 || incapable || active2 != a2)
+						if(!t1 || ..() || active2 != a2)
 							return 1
 						active2.fields["mi_dis"] = t1
 				if("mi_dis_d")
 					if(istype(active2, /datum/data/record))
 						var/t1 = copytext(trim(sanitize(input("Please summarize minor dis.:", "Med. records", active2.fields["mi_dis_d"], null) as message)), 1, MAX_MESSAGE_LEN)
-						if(!t1 || incapable || active2 != a2)
+						if(!t1 || ..() || active2 != a2)
 							return 1
 						active2.fields["mi_dis_d"] = t1
 				if("ma_dis")
 					if(istype(active2, /datum/data/record))
 						var/t1 = copytext(trim(sanitize(input("Please input major diabilities list:", "Med. records", active2.fields["ma_dis"], null) as text)), 1, MAX_MESSAGE_LEN)
-						if(!t1 || incapable || active2 != a2)
+						if(!t1 || ..() || active2 != a2)
 							return 1
 						active2.fields["ma_dis"] = t1
 				if("ma_dis_d")
 					if(istype(active2, /datum/data/record))
 						var/t1 = copytext(trim(sanitize(input("Please summarize major dis.:", "Med. records", active2.fields["ma_dis_d"], null) as message)), 1, MAX_MESSAGE_LEN)
-						if(!t1 || incapable || active2 != a2)
+						if(!t1 || ..() || active2 != a2)
 							return 1
 						active2.fields["ma_dis_d"] = t1
 				if("alg")
 					if(istype(active2, /datum/data/record))
 						var/t1 = copytext(trim(sanitize(input("Please state allergies:", "Med. records", active2.fields["alg"], null) as text)), 1, MAX_MESSAGE_LEN)
-						if(!t1 || incapable || active2 != a2)
+						if(!t1 || ..() || active2 != a2)
 							return 1
 						active2.fields["alg"] = t1
 				if("alg_d")
 					if(istype(active2, /datum/data/record))
 						var/t1 = copytext(trim(sanitize(input("Please summarize allergies:", "Med. records", active2.fields["alg_d"], null) as message)), 1, MAX_MESSAGE_LEN)
-						if(!t1 || incapable || active2 != a2)
+						if(!t1 || ..() || active2 != a2)
 							return 1
 						active2.fields["alg_d"] = t1
 				if("cdi")
 					if(istype(active2, /datum/data/record))
 						var/t1 = copytext(trim(sanitize(input("Please state diseases:", "Med. records", active2.fields["cdi"], null) as text)), 1, MAX_MESSAGE_LEN)
-						if(!t1 || incapable || active2 != a2)
+						if(!t1 || ..() || active2 != a2)
 							return 1
 						active2.fields["cdi"] = t1
 				if("cdi_d")
 					if(istype(active2, /datum/data/record))
 						var/t1 = copytext(trim(sanitize(input("Please summarize diseases:", "Med. records", active2.fields["cdi_d"], null) as message)), 1, MAX_MESSAGE_LEN)
-						if(!t1 || incapable || active2 != a2)
+						if(!t1 || ..() || active2 != a2)
 							return 1
 						active2.fields["cdi_d"] = t1
 				if("notes")
 					if(istype(active2, /datum/data/record))
 						var/t1 = copytext(html_encode(trim(input("Please summarize notes:", "Med. records", html_decode(active2.fields["notes"]), null) as message)), 1, MAX_MESSAGE_LEN)
-						if(!t1 || incapable || active2 != a2)
+						if(!t1 || ..() || active2 != a2)
 							return 1
 						active2.fields["notes"] = t1
 				if("p_stat")
@@ -390,21 +389,21 @@
 				if("b_dna")
 					if(istype(active2, /datum/data/record))
 						var/t1 = copytext(trim(sanitize(input("Please input DNA hash:", "Med. records", active2.fields["b_dna"], null) as text)), 1, MAX_MESSAGE_LEN)
-						if(!t1 || incapable || active2 != a2)
+						if(!t1 || ..() || active2 != a2)
 							return 1
 						active2.fields["b_dna"] = t1
 				if("vir_name")
 					var/datum/data/record/v = locate(href_list["edit_vir"])
 					if(v)
 						var/t1 = copytext(trim(sanitize(input("Please input pathogen name:", "VirusDB", v.fields["name"], null)  as text)), 1, MAX_MESSAGE_LEN)
-						if(!t1 || incapable || active1 != a1)
+						if(!t1 || ..() || active1 != a1)
 							return 1
 						v.fields["name"] = t1
 				if("vir_desc")
 					var/datum/data/record/v = locate(href_list["edit_vir"])
 					if(v)
 						var/t1 = copytext(trim(sanitize(input("Please input information about pathogen:", "VirusDB", v.fields["description"], null) as message)), 1, MAX_MESSAGE_LEN)
-						if(!t1 || incapable || active1 != a1)
+						if(!t1 || ..() || active1 != a1)
 							return 1
 						v.fields["description"] = t1
 
@@ -454,7 +453,7 @@
 				return 1
 			var/a2 = active2
 			var/t1 = copytext(trim(sanitize(input("Add Comment:", "Med. records", null, null) as message)), 1, MAX_MESSAGE_LEN)
-			if(!t1 || incapable || active2 != a2)
+			if(!t1 || ..() || active2 != a2)
 				return 1
 			active2.fields["comments"] += "Made by [authenticated] ([rank]) on [current_date_string] [worldtime2text()]<BR>[t1]"
 
@@ -465,7 +464,7 @@
 
 		if(href_list["search"])
 			var/t1 = input("Search String: (Name, DNA, or ID)", "Med. records", null, null) as text
-			if(!t1 || incapable)
+			if(!t1 || ..())
 				return 1
 			active1 = null
 			active2 = null

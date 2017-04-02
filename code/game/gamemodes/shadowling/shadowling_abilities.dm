@@ -109,7 +109,7 @@
 		charge_counter = charge_max
 		return
 	to_chat(user, "<span class='shadowling'>You silently disable all nearby lights.</span>")
-	for(var/obj/effect/glowshroom/G in orange(2, user)) //Why the fuck was this in the loop below?
+	for(var/obj/structure/glowshroom/G in orange(2, user)) //Why the fuck was this in the loop below?
 		G.visible_message("<span class='warning'>\The [G] withers away!</span>")
 		qdel(G)
 	for(var/turf/T in targets)

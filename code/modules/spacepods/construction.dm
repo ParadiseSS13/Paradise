@@ -19,6 +19,12 @@
 
 	dir = EAST
 
+/obj/structure/spacepod_frame/Destroy()
+	if(construct)
+		qdel(construct)
+		construct = null
+	return ..()
+
 /obj/structure/spacepod_frame/attackby(obj/item/W as obj, mob/user as mob, params)
 	if(!construct || !construct.action(W, user))
 		..()

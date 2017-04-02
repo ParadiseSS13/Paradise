@@ -104,9 +104,7 @@
 	speed = 0
 	boost = world.time + 60
 
-
-
-
+// Cult slaughter demon
 /mob/living/simple_animal/slaughter/cult //Summoned as part of the cult objective "Bring the Slaughter"
 	name = "harbringer of the slaughter"
 	real_name = "harbringer of the Slaughter"
@@ -154,17 +152,18 @@
 /mob/living/simple_animal/slaughter/cult/New()
 	..()
 	spawn(5)
-		var/list/demon_candidates = get_candidates(ROLE_CULTIST)
+		var/list/demon_candidates = pollCandidates("Do you want to play as a slaughter demon?", ROLE_DEMON, 1, 100)
 		if(!demon_candidates.len)
 			visible_message("<span class='warning'>[src] disappears in a flash of red light!</span>")
 			qdel(src)
 			return 0
-		var/client/C = pick(demon_candidates)
+		var/mob/M = pick(demon_candidates)
 		var/mob/living/simple_animal/slaughter/cult/S = src
-		if(!C)
+		if(!M || !M.client)
 			visible_message("<span class='warning'>[src] disappears in a flash of red light!</span>")
 			qdel(src)
 			return 0
+		var/client/C = M.client
 
 		S.key = C.key
 		S.mind.assigned_role = "Harbringer of the Slaughter"
@@ -181,7 +180,7 @@
 
 ////////////////////The Powers
 
-//Paradise Port:I added this cuase..SPOOPY DEMON IN YOUR BRAIN
+//Paradise Port: I added this because..SPOOPY DEMON IN YOUR BRAIN
 
 
 /datum/action/innate/demon/whisper
