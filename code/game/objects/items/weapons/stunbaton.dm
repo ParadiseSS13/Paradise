@@ -2,6 +2,7 @@
 	name = "stunbaton"
 	desc = "A stun baton for incapacitating people with."
 	icon_state = "stunbaton"
+	var/base_icon = "stunbaton"
 	item_state = "baton"
 	slot_flags = SLOT_BELT
 	force = 10
@@ -48,11 +49,11 @@
 
 /obj/item/weapon/melee/baton/update_icon()
 	if(status)
-		icon_state = "[initial(name)]_active"
+		icon_state = "[base_icon]_active"
 	else if(!bcell)
-		icon_state = "[initial(name)]_nocell"
+		icon_state = "[base_icon]_nocell"
 	else
-		icon_state = "[initial(name)]"
+		icon_state = "[base_icon]"
 
 /obj/item/weapon/melee/baton/examine(mob/user)
 	..(user)
@@ -194,6 +195,7 @@
 	name = "stunprod"
 	desc = "An improvised stun baton."
 	icon_state = "stunprod_nocell"
+	base_icon = "stunprod"
 	item_state = "prod"
 	w_class = 3
 	force = 3
