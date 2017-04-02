@@ -13,7 +13,7 @@
 	materials = list(MAT_METAL=750)
 	origin_tech = "powerstorage=3;syndicate=5"
 	var/drain_rate = 1600000		// amount of power to drain per tick
-	var/apc_drain_rate = 5000 		// Max. amount drained from single APC. In Watts.
+	var/apc_drain_rate = 50 		// Max. amount drained from single APC. In Watts.
 	var/dissipation_rate = 20000	// Passive dissipation of drained power. In Watts.
 	var/power_drained = 0 			// Amount of power drained.
 	var/max_power = 1e10			// Detonation point.
@@ -110,10 +110,8 @@
 			if(istype(T.master, /obj/machinery/power/apc))
 				var/obj/machinery/power/apc/A = T.master
 				if(A.operating && A.cell)
-					var/cur_charge = A.cell.charge / CELLRATE
-					var/drain_val = min(apc_drain_rate, cur_charge)
-					A.cell.use(drain_val * CELLRATE)
-					drained += drain_val
+					A.cell.use(apc_drain_rate)
+					drained += apc_drain_rate
 	power_drained += drained
 	return 1
 

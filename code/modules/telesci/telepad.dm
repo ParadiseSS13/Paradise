@@ -128,7 +128,7 @@
 	var/rand_y = 0
 	var/emagged = 0
 	var/teleporting = 0
-	var/chargecost = 1500
+	var/chargecost = 1000
 
 /obj/item/weapon/rcs/New()
 	..()
