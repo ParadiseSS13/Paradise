@@ -111,7 +111,12 @@
 		return 1
 
 	if(href_list["ready"])
-		ready = !ready
+		if(check_prisonlist(ckey(key)))
+			return 0
+		if(!check_prisonlist(ckey(key)))
+			to_chat(usr, "Looks like you're unwhitelisted. You will start the game as D-class prisoner.")
+		else
+			ready = !ready
 		new_player_panel_proc()
 
 	if(href_list["refresh"])
