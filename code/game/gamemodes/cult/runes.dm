@@ -937,8 +937,7 @@ var/list/teleport_runes = list()
 	icon_state = "6"
 	construct_invoke = 0
 	color = rgb(200, 0, 0)
-	var/mob/living/carbon/human/summoned_guy = null
-	var/is_busy = 0
+	var/list/summoned_guys = list()
 
 /obj/effect/rune/manifest/New(loc)
 	..()
@@ -947,10 +946,6 @@ var/list/teleport_runes = list()
 	notify_ghosts("Manifest rune created in [get_area(src)].", 'sound/effects/ghost2.ogg', source = src)
 
 /obj/effect/rune/manifest/can_invoke(mob/living/user)
-	if(is_busy)
-		to_chat(user,"<span class='cultitalic'>The rune is already in use.</span>")
-		fail_invoke()
-		return list()
 	if(!(user in get_turf(src)))
 		to_chat(user,"<span class='cultitalic'>You must be standing on [src]!</span>")
 		fail_invoke()
@@ -989,9 +984,8 @@ var/list/teleport_runes = list()
 	N.mouse_opacity = 0
 	new_human.key = ghost_to_spawn.key
 	ticker.mode.add_cultist(new_human.mind, 0)
-	summoned_guy = new_human
+	summoned_guys |= new_human
 	to_chat(new_human, "<span class='cultitalic'><b>You are a servant of [ticker.mode.cultdat.entity_title3]. You have been made semi-corporeal by the cult of [ticker.mode.cultdat.entity_name], and you are to serve them at all costs.</b></span>")
-	is_busy = 1
 
 	while(user in get_turf(src))
 		if(user.stat)
@@ -999,19 +993,17 @@ var/list/teleport_runes = list()
 		user.apply_damage(0.1, BRUTE)
 		sleep(3)
 
+	summoned_guys -= new_human
 	qdel(N)
-	is_busy = 0
 	if(new_human)
 		new_human.visible_message("<span class='warning'>[new_human] suddenly dissolves into bones and ashes.</span>", \
 								  "<span class='cultlarge'>Your link to the world fades. Your form breaks apart.</span>")
 		for(var/obj/I in new_human)
 			new_human.unEquip(I)
 		new_human.dust()
-		summoned_guy = null
 
 /obj/effect/rune/manifest/Destroy()
-	if(summoned_guy)
-		summoned_guy.dust()
-		summoned_guy = null
-		is_busy = 0
+	for(var/mob/living/carbon/human/guy in summoned_guys)
+		guy.dust()
+	summoned_guys = list()
 	return ..()
