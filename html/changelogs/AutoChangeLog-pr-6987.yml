@@ -1,0 +1,4 @@
+author: "Kyep"
+delete-after: True
+changes: 
+  - bugfix: "Cultists now get a new sacrifice target when the current one cryos."
