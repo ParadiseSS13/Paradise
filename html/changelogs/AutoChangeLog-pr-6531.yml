@@ -1,0 +1,4 @@
+author: "Kyep"
+delete-after: True
+changes: 
+  - tweak: "Adjusted Black Market Packers away mission. It now has some danger to it (carp), some more interesting stuff to find (syndi lab) and a challenge (fix the ship powergrid)."
