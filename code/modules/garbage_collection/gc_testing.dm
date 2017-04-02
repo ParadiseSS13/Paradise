@@ -18,6 +18,9 @@
 	set name = "(GC) Display del() Log"
 	set desc = "Displays a list of things that have failed to GC this round"
 
+	if(!check_rights(R_DEBUG))
+		return
+
 	var/dat = "<B>List of things that failed to GC this round</B><BR><BR>"
 	for(var/path in didntgc)
 		dat += "[path] - [didntgc[path]] times<BR>"
