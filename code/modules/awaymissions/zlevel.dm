@@ -70,6 +70,7 @@ var/global/list/potentialRandomZlevels = generateMapList(filename = "config/away
 		log_startup_progress("  No away missions found.")
 		return
 
+
 /proc/createALLZlevels()
 	if(awaydestinations.len)	//crude, but it saves another var!
 		return
