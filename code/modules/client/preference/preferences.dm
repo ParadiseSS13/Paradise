@@ -147,6 +147,7 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 	var/alt_head = "None"				//Alt head style.
 	var/species = "Human"
 	var/language = "None"				//Secondary language
+	var/autohiss_mode = AUTOHISS_OFF	//Species autohiss level. OFF, BASIC, FULL.
 
 	var/body_accessory = null
 
@@ -289,6 +290,8 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 			if(species == "Grey")
 				dat += "<b>Voice:</b> <a href ='?_src_=prefs;preference=speciesprefs;task=input'>[speciesprefs ? "Wingdings" : "Normal"]</a><BR>"
 			dat += "<b>Secondary Language:</b> <a href='?_src_=prefs;preference=language;task=input'>[language]</a><br>"
+			if(species in list("Unathi", "Tajaran", "Plasmaman", "Kidan"))
+				dat += "<b>Auto-accent:</b> <a href='?_src_=prefs;preference=autohiss_mode;task=input'>[autohiss_mode == 2 ? "Full" : (autohiss_mode == 1 ? "Basic" : "Off")]</a><br>"
 			dat += "<b>Blood Type:</b> <a href='?_src_=prefs;preference=b_type;task=input'>[b_type]</a><br>"
 			if(species in list("Human", "Drask", "Vox"))
 				dat += "<b>Skin Tone:</b> <a href='?_src_=prefs;preference=s_tone;task=input'>[species == "Vox" ? "[s_tone]" : "[-s_tone + 35]/220"]</a><br>"
@@ -1342,6 +1345,9 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 						//Reset prosthetics.
 						organ_data = list()
 						rlimb_data = list()
+
+						if(!(species in list("Unathi", "Tajaran", "Plasmaman", "Kidan")))
+							autohiss_mode = 0
 				if("speciesprefs")
 					speciesprefs = !speciesprefs //Starts 0, so if someone clicks the button up top there, this won't be 0 anymore. If they click it again, it'll go back to 0.
 				if("language")
@@ -1365,6 +1371,12 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 							new_languages += lang.name
 
 					language = input("Please select a secondary language", "Character Generation", null) in new_languages
+
+				if("autohiss_mode")
+					if(species in list("Unathi", "Tajaran", "Plasmaman", "Kidan"))
+						var/list/autohiss_choice = list("Off" = 0, "Basic" = 1, "Full" = 2)
+						var/new_autohiss_pref = input(user, "Choose your character's auto-accent level:", "Character Preference") as null|anything in autohiss_choice
+						autohiss_mode = autohiss_choice[new_autohiss_pref]
 
 				if("metadata")
 					var/new_metadata = input(user, "Enter any information you'd like others to see, such as Roleplay-preferences:", "Game Preference" , metadata)  as message|null
