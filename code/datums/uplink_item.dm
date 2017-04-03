@@ -368,8 +368,8 @@ var/list/uplink_items = list()
 	name = "Claw Sharpener"
 	desc = "With some genetic and physicial modifications, claws can become very deadly and useful"
 	item = /obj/item/weapon/species_enhancement/claws
-	cost = 3
-	species = list("Tajaran", "Unathi", "Vulpkanin", "Kidan")
+	cost = 6
+	species = list("Tajaran", "Unathi", "Vulpkanin", "Kidan", "Vox")
 
 // DANGEROUS WEAPONS
 

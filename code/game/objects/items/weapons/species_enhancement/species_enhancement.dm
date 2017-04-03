@@ -13,35 +13,32 @@
 	else
 		icon_state = "lepopen"
 
-/obj/item/weapon/species_enhancement/attack(mob/M as mob, mob/user as mob)
+/obj/item/weapon/species_enhancement/attack(mob/M, mob/user)
 	if(!M || !user)
 		return
 
 	if(!ishuman(M) || !ishuman(user))
 		return
 
-	if(src.used)
+	if(used)
 		return
 
-	if(ishuman(M))
-		var/mob/living/carbon/human/H = M
-		if(species && species.len) //Species specific enhancer without a species restriction could be adminbused, hence sanity check
-			if(!(species.Find(H.species.name)))
-				to_chat(user, "<span class='warning'>You failed to inject [M], as they are incompatible with this genetic modifier.</span>")
-				return
+	if(!species.Find(M.get_species()))
+		to_chat(user, "<span class='warning'>You failed to inject [M], as they are incompatible with this genetic modifier.</span>")
+		return
 
 	if(M == user)
 		user.visible_message("<span class='danger'>[user] injects \himself with [src]!</span>")
-		src.injected(user)
+		injected(user)
 	else
 		user.visible_message("<span class='danger'>[user] is trying to inject [M] with [src]!</span>")
 		if(do_mob(user,M,30))
 			user.visible_message("<span class='danger'>[user] injects [M] with [src].</span>")
-			src.injected(M)
+			injected(M)
 		else
 			to_chat(user, "<span class='warning'>You failed to inject [M].</span>")
 
 /obj/item/weapon/species_enhancement/proc/injected(var/mob/living/carbon/human/target)
-	src.used = 1
-	src.update_icon()
-	src.name = "used " + src.name
+	used = 1
+	update_icon()
+	name = "used " + name

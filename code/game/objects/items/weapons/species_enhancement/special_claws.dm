@@ -1,7 +1,7 @@
 /obj/item/weapon/species_enhancement/claws
 	name = "Claw Sharpener"
 	desc = "An illegal genetic serum with nanobots designed to enhance the user's claws."
-	species = list("Tajaran", "Unathi", "Vulpkanin", "Kidan")
+	species = list("Tajaran", "Unathi", "Vulpkanin", "Kidan", "Vox")
 
 /obj/item/weapon/species_enhancement/claws/injected(var/mob/living/carbon/human/target)
 	var/obj/item/organ/internal/cyberimp/chest/arm_mod/fancy_claws/claws_to_add = new /obj/item/organ/internal/cyberimp/chest/arm_mod/fancy_claws
@@ -26,7 +26,7 @@
 /obj/item/weapon/wirecutters/claws
 	name = "Claws"
 	desc = "Your claws, currently ready to cut something."
-	toolspeed = 0.25
+	edge = 0
 	force = 18 //Same as e-daggers
 	var/obj/item/organ/internal/cyberimp/chest/arm_mod/holder
 	flags = ABSTRACT | NODROP
@@ -49,7 +49,7 @@
 /obj/item/weapon/crowbar/claws
 	name = "Claws"
 	desc = "Your claws, currently ready to dig into something."
-	toolspeed = 0.25
+	sharp = 1
 	force = 18 //Same as e-daggers
 	var/obj/item/organ/internal/cyberimp/chest/arm_mod/holder
 	flags = ABSTRACT | NODROP
@@ -72,7 +72,7 @@
 /obj/item/weapon/screwdriver/claws
 	name = "Claws"
 	desc = "Your claws, currently ready to be stuck into something."
-	toolspeed = 0.25
+	sharp = 1
 	force = 18 //Same as e-daggers
 	var/obj/item/organ/internal/cyberimp/chest/arm_mod/holder
 	flags = ABSTRACT | NODROP
