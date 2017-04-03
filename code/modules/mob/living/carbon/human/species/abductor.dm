@@ -38,3 +38,6 @@
 	H.languages.Cut() //Under no condition should you be able to speak any language
 	H.add_language("Abductor Mindlink") //other than over the abductor's own mindlink
 	return ..()
+
+/datum/species/abductor/handle_reagents(mob/living/carbon/human/H, datum/reagent/R)
+	R.on_abductor_life(H)

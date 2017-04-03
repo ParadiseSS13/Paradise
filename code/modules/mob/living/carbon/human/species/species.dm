@@ -411,12 +411,17 @@
 		H.verbs -= ability
 	return
 
-// Do species-specific reagent handling here
-// Return 1 if it should do normal processing too
-// Return 0 if it shouldn't deplete and do its normal effect
-// Other return values will cause weird badness
+/*
+* Do spe-- PROC HIJACKED!
+* This now is used to call the proper reagent proc to handle per-species reagent on life effects for the supplied reagent.
+* Make sure you define this for any new species to call their own reagent proc or else they won't be able to handle their special reagent effects properly!
+* Humans don't need to override this since they are meant to be the base-line for reagent effects. Override it for everyone else you want to have special effects
+* No longer provides a return value, so don't put it in a conditional unless you re-add return values too!
+*/
 /datum/species/proc/handle_reagents(var/mob/living/carbon/human/H, var/datum/reagent/R)
-	return 1
+	if(!H || !R)
+		return
+	R.on_mob_life(H)
 
 // For special snowflake species effects
 // (Slime People changing color based on the reagents they consume)

@@ -256,12 +256,5 @@
 				P.Extinguish(H)
 	H.update_fire()
 
-/datum/species/plasmaman/handle_reagents(var/mob/living/carbon/human/H, var/datum/reagent/R)
-	if(R.id == "plasma")
-		H.adjustBruteLoss(-0.5*REAGENTS_EFFECT_MULTIPLIER)
-		H.adjustFireLoss(-0.5*REAGENTS_EFFECT_MULTIPLIER)
-		H.adjustPlasma(20)
-		H.reagents.remove_reagent(R.id, REAGENTS_METABOLISM)
-		return 0 //Handling reagent removal on our own. Prevents plasma from dealing toxin damage to Plasmamen.
-
-	return ..()
+/datum/species/plasmaman/handle_reagents(mob/living/carbon/human/H, datum/reagent/R)
+	R.on_plasmaman_life(H)

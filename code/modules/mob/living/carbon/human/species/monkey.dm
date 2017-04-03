@@ -93,6 +93,9 @@
 			return 2
 	return 2
 
+/datum/species/monkey/handle_reagents(mob/living/carbon/human/H, datum/reagent/R)
+	R.on_monkey_life(H)
+
 /datum/species/monkey/tajaran
 	name = "Farwa"
 	name_plural = "Farwa"
@@ -116,6 +119,8 @@
 		"eyes" =     /obj/item/organ/internal/eyes/tajaran/farwa //Tajara monkey-forms are uniquely colourblind and have excellent darksight, which is why they need a subtype of their greater-form's organ..
 		)
 
+/datum/species/monkey/tajaran/handle_reagents(mob/living/carbon/human/H, datum/reagent/R)
+	R.on_farwa_life(H)
 
 /datum/species/monkey/vulpkanin
 	name = "Wolpin"
@@ -140,6 +145,8 @@
 		"eyes" =     /obj/item/organ/internal/eyes/vulpkanin/wolpin //Vulpkanin monkey-forms are uniquely colourblind and have excellent darksight, which is why they need a subtype of their greater-form's organ..
 		)
 
+/datum/species/monkey/vulpkanin/handle_reagents(mob/living/carbon/human/H, datum/reagent/R)
+	R.on_wolpin_life(H)
 
 /datum/species/monkey/skrell
 	name = "Neara"
@@ -157,6 +164,9 @@
 
 	bodyflags = FEET_PADDED
 
+/datum/species/monkey/skrell/handle_reagents(mob/living/carbon/human/H, datum/reagent/R)
+	R.on_neara_life(H)
+
 
 /datum/species/monkey/unathi
 	name = "Stok"
@@ -173,3 +183,6 @@
 	reagent_tag = PROCESS_ORG
 
 	bodyflags = FEET_CLAWS | HAS_TAIL
+
+/datum/species/monkey/unathi/handle_reagents(mob/living/carbon/human/H, datum/reagent/R)
+	R.on_stok_life(H)

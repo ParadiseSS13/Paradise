@@ -82,6 +82,9 @@
 /datum/species/unathi/handle_death(var/mob/living/carbon/human/H)
 	H.stop_tail_wagging(1)
 
+/datum/species/unathi/handle_reagents(mob/living/carbon/human/H, datum/reagent/R)
+	R.on_unathi_life(H)
+
 /datum/species/tajaran
 	name = "Tajaran"
 	name_plural = "Tajaran"
@@ -142,6 +145,10 @@
 /datum/species/tajaran/handle_death(var/mob/living/carbon/human/H)
 	H.stop_tail_wagging(1)
 
+/datum/species/tajaran/handle_reagents(mob/living/carbon/human/H, datum/reagent/R)
+	R.on_tajaran_life(H)
+
+
 /datum/species/vulpkanin
 	name = "Vulpkanin"
 	name_plural = "Vulpkanin"
@@ -192,6 +199,9 @@
 /datum/species/vulpkanin/handle_death(var/mob/living/carbon/human/H)
 	H.stop_tail_wagging(1)
 
+/datum/species/vulpkanin/handle_reagents(mob/living/carbon/human/H, datum/reagent/R)
+	R.on_vulpkanin_life(H)
+
 /datum/species/skrell
 	name = "Skrell"
 	name_plural = "Skrell"
@@ -239,6 +249,9 @@
 		"is twisting their own neck!",
 		"makes like a fish and suffocates!",
 		"is strangling themselves with their own tendrils!")
+
+/datum/species/skrell/handle_reagents(mob/living/carbon/human/H, datum/reagent/R)
+	R.on_skrell_life(H)
 
 /datum/species/vox
 	name = "Vox"
@@ -401,13 +414,8 @@
 		H.change_icobase(new_icobase, new_deform, owner_sensitive) //Update the icobase/deform of all our organs, but make sure we don't mess with frankenstein limbs in doing so.
 		H.update_dna()
 
-/datum/species/vox/handle_reagents(var/mob/living/carbon/human/H, var/datum/reagent/R)
-	if(R.id == "oxygen") //Armalis are above such petty things.
-		H.adjustToxLoss(1*REAGENTS_EFFECT_MULTIPLIER) //Same as plasma.
-		H.reagents.remove_reagent(R.id, REAGENTS_METABOLISM)
-		return 0 //Handling reagent removal on our own.
-
-	return ..()
+/datum/species/vox/handle_reagents(mob/living/carbon/human/H, datum/reagent/R)
+	R.on_vox_life(H)
 
 /datum/species/vox/armalis/handle_post_spawn(var/mob/living/carbon/human/H)
 	H.verbs += /mob/living/carbon/human/proc/leap
@@ -470,8 +478,8 @@
 		"is holding their breath!",
 		"is huffing oxygen!")
 
-/datum/species/vox/armalis/handle_reagents() //Skip the Vox oxygen reagent toxicity. Armalis are above such things.
-	return 1
+/datum/species/vox/armalis/handle_reagents(mob/living/carbon/human/H, datum/reagent/R)
+	R.on_vox_armalis_life(H)
 
 /datum/species/kidan
 	name = "Kidan"
@@ -513,6 +521,9 @@
 		"is jamming their claws into their eye sockets!",
 		"is twisting their own neck!",
 		"is holding their breath!")
+
+/datum/species/kidan/handle_reagents(mob/living/carbon/human/H, datum/reagent/R)
+	R.on_kidan_life(H)
 
 /datum/species/slime
 	name = "Slime People"
@@ -562,6 +573,9 @@
 		/mob/living/carbon/human/verb/toggle_recolor_verb,
 		/mob/living/carbon/human/proc/regrow_limbs
 		)
+
+/datum/species/slime/handle_reagents(mob/living/carbon/human/H, datum/reagent/R)
+	R.on_slime_person_life(H)
 
 /datum/species/slime/handle_life(var/mob/living/carbon/human/H)
 //This is allegedly for code "style". Like a plaid sweater?
@@ -753,6 +767,9 @@
 	if(speech_pref)
 		H.mind.speech_span = "wingdings"
 
+/datum/species/grey/handle_reagents(mob/living/carbon/human/H, datum/reagent/R)
+	R.on_grey_life(H)
+
 /datum/species/diona
 	name = "Diona"
 	name_plural = "Dionaea"
@@ -838,6 +855,9 @@
 	H.gender = NEUTER
 
 	return ..()
+
+/datum/species/diona/handle_reagents(mob/living/carbon/human/H, datum/reagent/R)
+	R.on_diona_life(H)
 
 /datum/species/diona/handle_life(var/mob/living/carbon/human/H)
 	var/rads = H.radiation / 25
@@ -960,6 +980,9 @@
 			H.update_hair()
 			H.update_fhair()
 
+/datum/species/machine/handle_reagents(mob/living/carbon/human/H, datum/reagent/R)
+	R.on_machine_person_life(H)
+
 /datum/species/drask
 	name = "Drask"
 	name_plural = "Drask"
@@ -1026,6 +1049,9 @@
 		"eyes" =     				/obj/item/organ/internal/eyes/drask, //5 darksight.
 		"brain" =  					/obj/item/organ/internal/brain/drask
 		)
+
+/datum/species/drask/handle_reagents(mob/living/carbon/human/H, datum/reagent/R)
+	R.on_drask_life(H)
 
 /datum/species/drask/handle_temperature(datum/gas_mixture/breath, var/mob/living/carbon/human/H)
 	if( abs(310.15 - breath.temperature) > 50)

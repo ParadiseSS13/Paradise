@@ -59,6 +59,8 @@
 	H.equip_to_slot_or_del(new /obj/item/clothing/gloves/golem(H), slot_gloves)
 	..()
 
+/datum/species/golem/handle_reagents(mob/living/carbon/human/H, datum/reagent/R)
+	R.on_golem_life(H)
 
 ////////Adamantine Golem stuff I dunno where else to put it
 

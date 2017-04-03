@@ -83,6 +83,9 @@
 					msg_admin_attack("[key_name(M)] removed [key_name(H)]'s antennae")
 			return 0
 
+/datum/species/wryn/handle_reagents(mob/living/carbon/human/H, datum/reagent/R)
+	R.on_wryn_life(H)
+
 /datum/species/nucleation
 	name = "Nucleation"
 	name_plural = "Nucleations"
@@ -126,3 +129,6 @@
 	explosion(T, 0, 0, 2, 2) // Create a small explosion burst upon death
 //	new /obj/item/weapon/shard/supermatter( T )
 	qdel(H)
+
+/datum/species/nucleation/handle_reagents(mob/living/carbon/human/H, datum/reagent/R)
+	R.on_nucleation_life(H)
