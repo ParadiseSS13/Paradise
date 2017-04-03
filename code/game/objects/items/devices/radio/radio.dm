@@ -271,7 +271,7 @@ var/global/list/default_medbay_channels = list(
 /mob/living/automatedannouncer/Destroy()
 	if(lifetime_timer)
 		deltimer(lifetime_timer)
-	..()
+	return ..()
 
 /mob/living/automatedannouncer/proc/autocleanup()
 	log_runtime(EXCEPTION("An announcer somehow managed to outlive the radio! Deleting!"), src, list("Message: '[message]'"))
