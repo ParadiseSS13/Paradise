@@ -30,6 +30,12 @@
 		C.adjustPlasma(10)
 	..()
 
+/datum/reagent/plasma/on_plasmaman_life(mob/living/carbon/human/H)
+	H.adjustBruteLoss(-0.5 * REAGENTS_EFFECT_MULTIPLIER)
+	H.adjustFireLoss(-0.5 * REAGENTS_EFFECT_MULTIPLIER)
+	H.adjustPlasma(20)
+	H.reagents.remove_reagent(id, metabolization_rate)
+
 /datum/reagent/plasma/reaction_mob(mob/living/M, method=TOUCH, volume)//Splashing people with plasma is stronger than fuel!
 	if(method == TOUCH)
 		M.adjust_fire_stacks(volume / 5)
