@@ -1,0 +1,4 @@
+author: "Kyep"
+delete-after: True
+changes: 
+  - bugfix: "Ghosts manifested by cultists are no longer invincible, and an exploit allowing them to be made permanent has been fixed."
