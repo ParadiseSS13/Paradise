@@ -934,20 +934,20 @@
 	color = "#CC7A00"
 	process_flags = SYNTHETIC
 
-/datum/reagent/medicine/degreaser/on_mob_life(mob/living/M)
+/datum/reagent/medicine/degreaser/on_machine_person_life(mob/living/carbon/human/H)
 	if(prob(50))		//Same effects as coffee, to help purge ill effects like paralysis
-		M.AdjustParalysis(-1)
-		M.AdjustStunned(-1)
-		M.AdjustWeakened(-1)
-		M.AdjustConfused(-5)
-	for(var/datum/reagent/R in M.reagents.reagent_list)
+		H.AdjustParalysis(-1)
+		H.AdjustStunned(-1)
+		H.AdjustWeakened(-1)
+		H.AdjustConfused(-5)
+	for(var/datum/reagent/R in H.reagents.reagent_list)
 		if(R != src)
 			if(R.id == "ultralube" || R.id == "lube")
 				//Flushes lube and ultra-lube even faster than other chems
-				M.reagents.remove_reagent(R.id, 5)
+				H.reagents.remove_reagent(R.id, 5)
 			else
-				M.reagents.remove_reagent(R.id,1)
-	..()
+				H.reagents.remove_reagent(R.id,1)
+	H.reagents.remove_reagent(id, metabolization_rate)
 
 /datum/reagent/medicine/degreaser/reaction_turf(turf/simulated/T, volume)
 	if(volume >= 1 && istype(T))
@@ -963,9 +963,9 @@
 	color = "#D7B395"
 	process_flags = SYNTHETIC
 
-/datum/reagent/medicine/liquid_solder/on_mob_life(mob/living/M)
-	M.adjustBrainLoss(-3)
-	..()
+/datum/reagent/medicine/liquid_solder/on_machine_person_life(mob/living/carbon/human/H)
+	H.adjustBrainLoss(-3)
+	H.reagents.remove_reagent(id, metabolization_rate)
 
 
 

@@ -1061,12 +1061,17 @@
 	drink_desc = "The equivalent of alcohol for synthetic crewmembers. They'd find it awful if they had tastebuds too."
 
 /datum/reagent/consumable/ethanol/synthanol/on_mob_life(mob/living/M)
-	if(!M.isSynthetic())
-		holder.remove_reagent(id, 3.6) //gets removed from organics very fast
-		if(prob(25))
-			holder.remove_reagent(id, 15)
-			M.fakevomit()
-	..()
+	to_chat(M, "synthanol on_mob_life()")
+	holder.remove_reagent(id, 3.6) //gets removed from organics very fast
+	if(prob(25))
+		holder.remove_reagent(id, 15)
+		M.fakevomit()
+
+/datum/reagent/consumable/ethanol/synthanol/on_machine_person_life(mob/living/carbon/human/H)
+	to_chat(H, "synthanol on_machine_life()")
+	H.AdjustDrunk(alcohol_perc)
+	H.AdjustDizzy(dizzy_adj)
+	H.reagents.remove_reagent(id, metabolization_rate)
 
 /datum/reagent/consumable/ethanol/synthanol/reaction_mob(mob/living/M, method=TOUCH, volume)
 	if(M.isSynthetic())
