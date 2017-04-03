@@ -238,7 +238,6 @@
 	..()
 	modules += new /obj/item/weapon/soap/nanotrasen(src)
 	modules += new /obj/item/weapon/storage/bag/trash/cyborg(src)
-	modules += new /obj/item/weapon/mop/advanced/cyborg(src)
 	modules += new /obj/item/device/lightreplacer(src)
 	modules += new /obj/item/weapon/holosign_creator(src)
 	emag = new /obj/item/weapon/reagent_containers/spray(src)
