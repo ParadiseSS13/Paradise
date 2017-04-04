@@ -196,6 +196,13 @@
 		/obj/item/areaeditor/blueprints,
 		/obj/item/clothing/head/helmet/space,
 		/obj/item/clothing/suit/space,
+		/obj/item/clothing/suit/armor/laserproof,
+		/obj/item/clothing/suit/armor/reactive,
+		/obj/item/weapon/tank,
+		/obj/item/weapon/defibrillator/compact,
+		/obj/item/weapon/reagent_containers/hypospray,
+		/obj/item/clothing/accessory/medal/gold/captain,
+		/obj/item/clothing/gloves/color/black/krav_maga/sec,
 		/obj/item/weapon/storage/internal,
 		/obj/item/device/spacepod_key,
 		/obj/item/weapon/nullrod
