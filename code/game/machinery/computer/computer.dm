@@ -19,12 +19,6 @@
 	overlay_layer = layer
 	..()
 
-/obj/machinery/computer/Destroy()
-	if(circuit)
-		qdel(circuit)
-		circuit = null
-	return ..()
-
 /obj/machinery/computer/initialize()
 	..()
 	power_change()
