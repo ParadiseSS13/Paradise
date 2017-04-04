@@ -111,8 +111,6 @@
 		return 1
 
 	if(href_list["ready"])
-		if(check_prisonlist(ckey(key)))
-			return 0
 		if(!check_prisonlist(ckey(key)))
 			to_chat(usr, "Looks like you're unwhitelisted. You will start the game as D-class prisoner.")
 		else
