@@ -190,7 +190,7 @@
 				lighting_build_overlay()
 			else
 				lighting_clear_overlay()
-
+				
 	obscured = old_obscured
 
 	return W

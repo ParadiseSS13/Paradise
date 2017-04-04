@@ -19,7 +19,7 @@ var/ert_request_answered = 0
 	set category = "Event"
 	set desc = "Send an CentComm response team to the station."
 
-	if(!check_rights(R_EVENT))
+	if(!check_rights(R_ADMIN))
 		return
 
 	if(!ticker)

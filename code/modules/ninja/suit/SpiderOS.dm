@@ -212,7 +212,7 @@
 		if("Message")
 			var/obj/item/device/pda/P = locate(href_list["target"])
 			var/t = input(U, "Please enter untraceable message.") as text
-			t = copytext(sanitize(t), 1, MAX_MESSAGE_LEN)
+			t = copytext(sanitize_local(t), 1, MAX_MESSAGE_LEN)
 			if(!t||U.stat||U.wear_suit!=src||!s_initialized)//Wow, another one of these. Man...
 				display_to << browse(null, "window=spideros")
 				return
@@ -220,7 +220,7 @@
 				to_chat(display_to, "<span class='danger'>Error: unable to deliver message.</span>")
 				display_spideros()
 				return
-			
+
 			var/datum/data/pda/app/messenger/M = P.find_program(/datum/data/pda/app/messenger)
 			M.notify("<b>Message from unknown source: </b>\"[t]\" (Unable to Reply)", 0)
 

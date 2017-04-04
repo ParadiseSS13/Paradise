@@ -336,6 +336,11 @@ DISABLE_SPACE_RUINS
 ## Uncomment this if you want to disable usage of emoji in OOC
 #DISABLE_OOC_EMOJI
 
+# UNCOMMENT THIS IF YOU WANT TO USE ATMTA WHITELIST
+# Non-whitelisted spawns as D-class prisoners in Prison Wing
+# They cannot use OOC and can't join as drone
+PRISONLIST_ENABLED
+
 ## Uncomment this to shut down the world any time it would normally reboot
 #SHUTDOWN_ON_REBOOT
 ## A command to run prior to the world shutting down, only used if the above option is enabled

@@ -11,7 +11,7 @@
 	name = "traitor"
 	config_tag = "traitor"
 	restricted_jobs = list("Cyborg")//They are part of the AI if he is traitor so are they, they use to get double chances
-	protected_jobs = list("Security Officer", "Warden", "Detective", "Head of Security", "Internal Affairs Agent", "Captain", "Blueshield", "Nanotrasen Representative", "Security Pod Pilot", "Magistrate", "Internal Affairs Agent", "Brig Physician", "Nanotrasen Navy Officer", "Special Operations Officer")
+	protected_jobs = list("Security Officer", "Warden", "Detective", "Head of Security", "Internal Affairs Agent", "Captain", "Blueshield", "Nanotrasen Representative", "Security Pod Pilot", "Magistrate", "Internal Affairs Agent", "Brig Physician", "D-class Prisoner", "Nanotrasen Navy Officer", "Special Operations Officer")
 	required_players = 0
 	required_enemies = 1
 	recommended_enemies = 4
@@ -244,7 +244,7 @@
 				text += "body destroyed"
 			text += ")"
 
-
+			var/karma_reward = 0
 			var/TC_uses = 0
 			var/uplink_true = 0
 			var/purchases = ""
@@ -268,6 +268,7 @@
 						feedback_add_details("traitor_objective","[objective.type]|FAIL")
 						traitorwin = 0
 					count++
+				karma_reward = count - 1
 
 			var/special_role_text
 			if(traitor.special_role)
@@ -279,6 +280,8 @@
 			if(traitorwin)
 				text += "<br><font color='green'><B>The [special_role_text] was successful!</B></font>"
 				feedback_add_details("traitor_success","SUCCESS")
+				sql_report_objective_karma(traitor.key, karma_reward)
+				to_chat(world, "<b>[traitor.key] got [karma_reward] karma points for completing special role!</b>")
 			else
 				text += "<br><font color='red'><B>The [special_role_text] has failed!</B></font>"
 				feedback_add_details("traitor_success","FAIL")

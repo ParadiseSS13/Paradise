@@ -1,5 +1,5 @@
 /obj/item/weapon/gun/projectile/automatic/spikethrower
-	name = "\improper Vox spike thrower"
+	name = "Vox spike thrower"
 	desc = "A vicious alien projectile weapon. Parts of it quiver gelatinously, as though the thing is insectile and alive."
 	icon_state = "spikethrower"
 	item_state = "spikethrower"
@@ -40,7 +40,7 @@
 	..()
 
 /obj/item/ammo_box/magazine/internal/spikethrower
-	name = "\improper Vox spikethrower internal magazine"
+	name = "Vox spikethrower internal magazine"
 	ammo_type = /obj/item/ammo_casing/caseless/spike
 	caliber = "spike"
 	max_ammo = 10

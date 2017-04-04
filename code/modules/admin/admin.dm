@@ -552,8 +552,8 @@ var/global/nologevent = 0
 		if(!check_rights(R_SERVER,0))
 			message = adminscrub(message,500)
 		message = replacetext(message, "\n", "<br>") // required since we're putting it in a <p> tag
-		to_chat(world, "<span class=notice><b>[usr.client.holder.fakekey ? "Administrator" : usr.key] Announces:</b><p style='text-indent: 50px'>[message]</p></span>")
-		log_admin("Announce: [key_name(usr)] : [message]")
+		to_chat(world, "<span class=notice><b>[usr.client.holder.fakekey ? "Administrator" : usr.key] Announces:</b><p style='text-indent: 50px'>[sanitize(message)]</p></span>")
+		log_admin("Announce: [key_name(usr)] : [sanitize(message)]")
 	feedback_add_details("admin_verb","A") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
 /datum/admins/proc/toggleooc()
@@ -782,7 +782,7 @@ var/global/nologevent = 0
 	set desc = "(atom path) Spawn an atom"
 	set name = "Spawn"
 
-	if(!check_rights(R_SPAWN))
+	if(!check_rights(R_DEBUG))
 		return
 
 	var/list/types = typesof(/atom)

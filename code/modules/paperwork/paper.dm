@@ -89,7 +89,7 @@
 	if((CLUMSY in usr.mutations) && prob(50))
 		to_chat(usr, "<span class='warning'>You cut yourself on the paper.</span>")
 		return
-	var/n_name = sanitize(copytext(input(usr, "What would you like to label the paper?", "Paper Labelling", name) as text, 1, MAX_MESSAGE_LEN))
+	var/n_name = sanitize_local(copytext(input(usr, "What would you like to label the paper?", "Paper Labelling", name) as text, 1, MAX_MESSAGE_LEN))
 	if((loc == usr && usr.stat == 0))
 		name = "[(n_name ? text("[n_name]") : initial(name))]"
 	if(name != "paper")
@@ -272,7 +272,7 @@
 				message_admins("PAPER: [key_name_admin(usr)] tried to use forbidden word in [src]: [bad].")
 				return
 */
-		t = html_encode(t)
+		t = lhtml_encode(t)
 		t = parsepencode(t, i, usr) // Encode everything from pencode to html
 
 		if(id!="end")

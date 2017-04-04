@@ -32,7 +32,39 @@ var/list/department_radio_keys = list(
 	  ":P" = "AI Private",	"#P" = "AI Private",	".P" = "AI Private",
 	  ":-" = "Special Ops",	"#-" = "Special Ops",	".-" = "Special Ops",
 	  ":_" = "SyndTeam",	"#_" = "SyndTeam",		"._" = "SyndTeam",
-	  ":X" = "cords",		"#X" = "cords",			".X" = "cords"
+	  ":X" = "cords",		"#X" = "cords",			".X" = "cords",
+
+	  //kinda localization -- rastaf0
+	  //same keys as above, but on russian keyboard layout. This file uses cp1251 as encoding.
+	  ":ê" = "right ear",	"#ê" = "right ear",		".ê" = "right ear",
+	  ":ä" = "left ear",	"#ä" = "left ear",		".ä" = "left ear",
+	  ":ø" = "intercom",	"#ø" = "intercom",		".ø" = "intercom",
+	  ":ð" = "department",	"#ð" = "department",	".ð" = "department",
+	  ":ñ" = "Command",		"#ñ" = "Command",		".ñ" = "Command",
+	  ":ò" = "Science",		"#ò" = "Science",		".ò" = "Science",
+	  ":ü" = "Medical",		"#ü" = "Medical",		".ü" = "Medical",
+	  ":ó" = "Engineering",	"#ó" = "Engineering",	".ó" = "Engineering",
+	  ":û" = "Security",	"#û" = "Security",		".û" = "Security",
+	  ":ö" = "whisper",		"#ö" = "whisper",		".ö" = "whisper",
+	  ":å" = "Syndicate",	"#å" = "Syndicate",		".å" = "Syndicate",
+	  ":ã" = "Supply",		"#ã" = "Supply",		".ã" = "Supply",
+	  ":ì" = "Service",		"#ì" = "Service",		".ì" = "Service",
+	  ":ç" = "AI Private",	"#ç" = "AI Private",	".ç" = "AI Private",
+	  //Uppercase
+	  ":Ê" = "right ear",	"#Ê" = "right ear",		".Ê" = "right ear",
+	  ":Ä" = "left ear",	"#Ä" = "left ear",		".Ä" = "left ear",
+	  ":Ø" = "intercom",	"#Ø" = "intercom",		".Ø" = "intercom",
+	  ":Ð" = "department",	"#Ç" = "department",	".Ð" = "department",
+	  ":Ñ" = "Command",		"#Ñ" = "Command",		".Ñ" = "Command",
+	  ":Ò" = "Science",		"#Ò" = "Science",		".Ò" = "Science",
+	  ":Ü" = "Medical",		"#Ü" = "Medical",		".Ü" = "Medical",
+	  ":Ó" = "Engineering",	"#Ó" = "Engineering",	".Ó" = "Engineering",
+	  ":Û" = "Security",	"#Û" = "Security",		".Û" = "Security",
+	  ":Ö" = "whisper",		"#Ö" = "whisper",		".Ö" = "whisper",
+	  ":Å" = "Syndicate",	"#Å" = "Syndicate",		".Å" = "Syndicate",
+	  ":Ã" = "Supply",		"#Ã" = "Supply",		".Ã" = "Supply",
+	  ":Ì" = "Service",		"#Ì" = "Service",		".Ì" = "Service",
+	  ":Ç" = "AI Private",	"#Ç" = "AI Private",	".Ç" = "AI Private"
 )
 
 
@@ -116,6 +148,9 @@ proc/get_radio_key_from_channel(var/channel)
 
 	if(sanitize)
 		message = trim_strip_html_properly(message)
+		message = sanitize_local(message)
+		message = ruscapitalize(message)
+		message = pointization(message)
 
 	if(stat)
 		if(stat == DEAD)
