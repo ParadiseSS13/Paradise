@@ -389,7 +389,6 @@
 	prefs.last_ip = address				//these are gonna be used for banning
 	prefs.last_id = computer_id			//these are gonna be used for banning
 
-	. = ..()	//calls mob.Login()
 	spawn() // Goonchat does some non-instant checks in start()
 		chatOutput.start()
 
@@ -416,6 +415,8 @@
 			winset(src, null, "command=\".configure graphics-hwmode on\"")
 
 	log_client_to_db(tdata)
+	
+	. = ..()	//calls mob.Login()
 
 	if(ckey in clientmessages)
 		for(var/message in clientmessages[ckey])
@@ -487,7 +488,7 @@
 	var/DBQuery/query = dbcon.NewQuery("SELECT id, datediff(Now(),firstseen) as age FROM [format_table_name("player")] WHERE ckey = '[ckey]'")
 	query.Execute()
 	var/sql_id = 0
-	player_age = 0	// New players won't have an entry so knowing we have a connection we set this to zero to be updated if their is a record.
+	player_age = 0	// New players won't have an entry so knowing we have a connection we set this to zero to be updated if there is a record.
 	while(query.NextRow())
 		sql_id = query.item[1]
 		player_age = text2num(query.item[2])

@@ -8,7 +8,7 @@
 	handle_player_polling()
 
 /client/proc/can_vote()
-	return player_age >= 30
+	return istext(player_age) || player_age >= 30
 
 /client/proc/handle_player_polling()
 	establish_db_connection()
