@@ -95,6 +95,17 @@ LIGHTERS ARE IN LIGHTERS.DM
 	else if(istype(W, /obj/item/device/assembly/igniter))
 		light("<span class='notice'>[user] fiddles with [W], and manages to light their [name].</span>")
 
+	else if(istype(W, /obj/item/weapon/gun/magic/wand/fireball))
+		var/obj/item/weapon/gun/magic/wand/fireball/F = W
+		if(F.charges)
+			if(prob(50))
+				light("<span class='notice'>Trying painfully hard to be cool, [user] manages to light their [name] with [W], singing their eyebrows.</span>")
+			else
+				to_chat(user, "<span class='warning'>You aren't cool enough to light your [name] with [W].</span>")
+				explosion(user.loc, -1, 0, 2, 3, 0, flame_range = 2)
+			F.charges--
+
+
 	//can't think of any other way to update the overlays :<
 	user.update_inv_wear_mask()
 	user.update_inv_l_hand()
