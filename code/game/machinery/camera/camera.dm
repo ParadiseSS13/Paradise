@@ -51,15 +51,13 @@
 
 /obj/machinery/camera/Destroy()
 	toggle_cam(null, 0) //kick anyone viewing out
-	if(assembly)
-		QDEL_NULL(assembly)
+	QDEL_NULL(assembly)
 	if(istype(bug))
 		bug.bugged_cameras -= src.c_tag
 		if(bug.current == src)
 			bug.current = null
 		bug = null
-	if(wires)
-		QDEL_NULL(wires)
+	QDEL_NULL(wires)
 	cameranet.removeCamera(src) //Will handle removal from the camera network and the chunks, so we don't need to worry about that
 	cameranet.cameras -= src
 	var/area/ai_monitored/A = get_area(src)

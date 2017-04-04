@@ -112,8 +112,7 @@
 	buf.dna=new
 
 /obj/item/weapon/disk/data/Destroy()
-	if(buf)
-		QDEL_NULL(buf)
+	QDEL_NULL(buf)
 	return ..()
 
 /obj/item/weapon/disk/data/demo
