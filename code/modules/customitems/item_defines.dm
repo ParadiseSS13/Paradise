@@ -734,7 +734,6 @@
 	icon_state = "questionable_liquid"
 	item_state = "questionable_liquid"
 	amount_per_transfer_from_this = 5
-	list_reagents = list("moonshine" = 100)
 
 /obj/item/weapon/storage/box/fluff/moonshine_kit //nethiafins : Serhij Zozulia
 	name = "Moonshine Serving box"
