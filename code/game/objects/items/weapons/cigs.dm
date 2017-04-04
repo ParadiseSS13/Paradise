@@ -98,10 +98,10 @@ LIGHTERS ARE IN LIGHTERS.DM
 	else if(istype(W, /obj/item/weapon/gun/magic/wand/fireball))
 		var/obj/item/weapon/gun/magic/wand/fireball/F = W
 		if(F.charges)
-			if(prob(50))
-				light("<span class='notice'>Trying painfully hard to be cool, [user] manages to light their [name] with [W], singing their eyebrows.</span>")
+			if(prob(50) || user.mind.assigned_role == "Wizard")
+				light("<span class='notice'>Holy shit, did [user] just manage to light their [name] with [W], with only moderate eyebrow singing?</span>")
 			else
-				to_chat(user, "<span class='warning'>You aren't cool enough to light your [name] with [W].</span>")
+				to_chat(user, "<span class='warning'>Unsure which end of the wand is which, [user] fails to light [name] with [W].</span>")
 				explosion(user.loc, -1, 0, 2, 3, 0, flame_range = 2)
 			F.charges--
 
