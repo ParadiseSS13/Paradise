@@ -42,7 +42,8 @@
 	var/heat_level_3_breathe = 1000 // Heat damage level 3 above this point; used for breathed air temperature
 
 	var/body_temperature = 310.15	//non-IS_SYNTHETIC species will try to stabilize at this temperature. (also affects temperature processing)
-	var/reagent_tag                 //Used for metabolizing reagents.
+	var/on_species_life_proc_name = "on_mob_life"	//set this to the reagent proc name used for this species. Defaults to "on_mob_life" in case you don't set it
+	var/reagent_process_tag	= PROCESS_ORG			//used to determine if the species can metabolize certain reagents. Defaults to PROCESS_ORG, which most species use.
 	var/hunger_drain = HUNGER_FACTOR
 	var/digestion_ratio = 1 //How quickly the species digests/absorbs reagents.
 
@@ -412,16 +413,17 @@
 	return
 
 /*
-* Do spe-- PROC HIJACKED!
-* This now is used to call the proper reagent proc to handle per-species reagent on life effects for the supplied reagent.
-* Make sure you define this for any new species to call their own reagent proc or else they won't be able to handle their special reagent effects properly!
-* Humans don't need to override this since they are meant to be the base-line for reagent effects. Override it for everyone else you want to have special effects
-* No longer provides a return value, so don't put it in a conditional unless you re-add return values too!
+* This proc is used if you want to adjust HOW a species handles their reagents, not what the reagents do directly.
+* If you want to adjust what a reagent does to a certain species, override the appropriate on_species_life proc on the reagent. (on_tajaran_life, on_vox_life, etc)
+* By default, this simply calls the species' respective on_species_life proc on the provided reagent.
+* However, if you wanted to do things like adjust the rate at which a species metabolizes their reagents, you can easily adjust this proc to support that on that species.
+* You even can make it so that a species will only metabolize the reagents if certain criteria are met, such as being over 50% nutrition or below normal body temp, if you wanted.
+* Just make sure you still use the call proc used below in order to call the proper procs, or else you might find your changes doing nothing.
 */
 /datum/species/proc/handle_reagents(var/mob/living/carbon/human/H, var/datum/reagent/R)
 	if(!H || !R)
 		return
-	R.on_mob_life(H)
+	call(R, on_species_life_proc_name)(H)
 
 // For special snowflake species effects
 // (Slime People changing color based on the reagents they consume)

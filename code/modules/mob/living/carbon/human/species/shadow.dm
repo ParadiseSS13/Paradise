@@ -24,7 +24,7 @@
 	virus_immune = 1
 
 	dietflags = DIET_OMNI		//the mutation process allowed you to now digest all foods regardless of initial race
-	reagent_tag = PROCESS_ORG
+	on_species_life_proc_name = "on_shadow_person_life"
 	suicide_messages = list(
 		"is attempting to bite their tongue off!",
 		"is jamming their claws into their eye sockets!",
@@ -73,6 +73,3 @@
 		else if(light_amount < 2) //heal in the dark
 			H.heal_overall_damage(1,1)
 			H.clear_alert("lightexposure")
-
-/datum/species/shadow/handle_reagents(mob/living/carbon/human/H, datum/reagent/R)
-	R.on_shadow_person_life(H)

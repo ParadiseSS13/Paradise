@@ -12,7 +12,7 @@
 
 	virus_immune = 1
 	dietflags = DIET_OMNI		//golems can eat anything because they are magic or something
-	reagent_tag = PROCESS_ORG
+	on_species_life_proc_name = "on_golem_life"
 
 	unarmed_type = /datum/unarmed_attack/punch
 	punchdamagelow = 5
@@ -59,8 +59,6 @@
 	H.equip_to_slot_or_del(new /obj/item/clothing/gloves/golem(H), slot_gloves)
 	..()
 
-/datum/species/golem/handle_reagents(mob/living/carbon/human/H, datum/reagent/R)
-	R.on_golem_life(H)
 
 ////////Adamantine Golem stuff I dunno where else to put it
 

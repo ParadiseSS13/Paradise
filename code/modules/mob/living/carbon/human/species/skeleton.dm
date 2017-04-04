@@ -19,7 +19,7 @@
 
 	virus_immune = 1 //why is this a var and not a flag?
 	dietflags = DIET_OMNI
-	reagent_tag = PROCESS_ORG
+	on_species_life_proc_name = "on_skeleton_life"
 
 	warning_low_pressure = -1
 	hazard_low_pressure = -1
@@ -42,6 +42,3 @@
 	has_organ = list(
 		"brain" = /obj/item/organ/internal/brain/golem,
 	) //Has default darksight of 2.
-
-/datum/species/skeleton/handle_reagents(mob/living/carbon/human/H, datum/reagent/R)
-	R.on_skeleton_life(H)

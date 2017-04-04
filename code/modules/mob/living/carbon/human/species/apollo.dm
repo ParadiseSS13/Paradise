@@ -42,7 +42,7 @@
 
 	oxy_mod = 0
 
-	reagent_tag = PROCESS_ORG
+	on_species_life_proc_name = "on_wryn_life"
 	base_color = "#704300"
 	flesh_color = "#704300"
 	blood_color = "#FFFF99"
@@ -83,8 +83,6 @@
 					msg_admin_attack("[key_name(M)] removed [key_name(H)]'s antennae")
 			return 0
 
-/datum/species/wryn/handle_reagents(mob/living/carbon/human/H, datum/reagent/R)
-	R.on_wryn_life(H)
 
 /datum/species/nucleation
 	name = "Nucleation"
@@ -108,7 +106,7 @@
 	//Default styles for created mobs.
 	default_hair = "Nucleation Crystals"
 
-	reagent_tag = PROCESS_ORG
+	on_species_life_proc_name = "on_nucleation_life"
 	has_organ = list(
 		"heart" =    /obj/item/organ/internal/heart,
 		"crystallized brain" =    /obj/item/organ/internal/brain/crystal,
@@ -129,6 +127,3 @@
 	explosion(T, 0, 0, 2, 2) // Create a small explosion burst upon death
 //	new /obj/item/weapon/shard/supermatter( T )
 	qdel(H)
-
-/datum/species/nucleation/handle_reagents(mob/living/carbon/human/H, datum/reagent/R)
-	R.on_nucleation_life(H)

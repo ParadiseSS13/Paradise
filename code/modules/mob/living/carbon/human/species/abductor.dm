@@ -25,7 +25,7 @@
 	virus_immune = 1
 	clothing_flags = HAS_UNDERWEAR | HAS_UNDERSHIRT | HAS_SOCKS
 	dietflags = DIET_OMNI
-	reagent_tag = PROCESS_ORG
+	on_species_life_proc_name = "on_abductor_life"
 	blood_color = "#FF5AFF"
 
 /datum/species/abductor/can_understand(var/mob/other) //Abductors can understand everyone, but they can only speak over their mindlink to another team-member
@@ -38,6 +38,3 @@
 	H.languages.Cut() //Under no condition should you be able to speak any language
 	H.add_language("Abductor Mindlink") //other than over the abductor's own mindlink
 	return ..()
-
-/datum/species/abductor/handle_reagents(mob/living/carbon/human/H, datum/reagent/R)
-	R.on_abductor_life(H)

@@ -312,6 +312,7 @@ Made by Xhuis
 
 	silent_steps = 1
 	grant_vision_toggle = 0
+	on_species_life_proc_name = "on_shadowling_life"
 
 /datum/species/shadow/ling/handle_life(var/mob/living/carbon/human/H)
 	if(!H.weakeyes)
@@ -350,6 +351,7 @@ Made by Xhuis
 	burn_mod = 1.1
 	oxy_mod = 0
 	hot_env_multiplier = 1.1
+	on_species_life_proc_name = "on_lesser_shadowling_life"
 
 /datum/species/shadow/ling/lesser/handle_life(var/mob/living/carbon/human/H)
 	if(!H.weakeyes)

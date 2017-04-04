@@ -8,7 +8,7 @@
 
 	flags = IS_WHITELISTED | NO_BLOOD | NOTRANSSTING
 	dietflags = DIET_OMNI
-	reagent_tag = PROCESS_ORG
+	on_species_life_proc_name = "on_plasmaman_life"
 
 	//default_mutations=list(SKELETON) // This screws things up
 
@@ -255,6 +255,3 @@
 			if(istype(P))
 				P.Extinguish(H)
 	H.update_fire()
-
-/datum/species/plasmaman/handle_reagents(mob/living/carbon/human/H, datum/reagent/R)
-	R.on_plasmaman_life(H)

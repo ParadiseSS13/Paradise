@@ -151,9 +151,9 @@
 		to_chat(M, "<span class='warning'>You would DIE for some [name] right now!</span>")
 
 
-/********************************/
-/*	Species Reagent Overrides	*/
-/********************************/
+/****************************************/
+/*	on_species_life Proc Declarations	*/
+/****************************************/
 /*
 *	Override these procs on a reagent if a certain species should be affected differently by a certain reagent instead of the normal on_mob_life for that reagent
 *	If you don't override the proc, it instead just calls on_mob_life for that reagent to run normally since you didn't want a special interaction
@@ -262,18 +262,18 @@
 	on_shadow_person_life(H)
 
 
-//Monkey species procs
+//Monkey species procs, these default to calling their "evolved" form's proc, but you can override this if you want them to react differently to a reagent in primitive form
 /datum/reagent/proc/on_monkey_life(mob/living/carbon/human/H)				//human monkeys, aka chimps
-	on_mob_life(H)
+	on_mob_life(H)		//humans use on_mob_life, change this if you make humans have their own on_species_life proc
 
 /datum/reagent/proc/on_farwa_life(mob/living/carbon/human/H)				//tajaran monkeys
-	on_mob_life(H)
+	on_tajaran_life(H)
 
 /datum/reagent/proc/on_neara_life(mob/living/carbon/human/H)				//skrell monkeys
-	on_mob_life(H)
+	on_skrell_life(H)
 
 /datum/reagent/proc/on_wolpin_life(mob/living/carbon/human/H)				//vulpkanin monkeys
-	on_mob_life(H)
+	on_vulpkanin_life(H)
 
 /datum/reagent/proc/on_stok_life(mob/living/carbon/human/H)					//unathi monkeys
-	on_mob_life(H)
+	on_unathi_life(H)
