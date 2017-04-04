@@ -183,7 +183,7 @@
 				spawn(20)
 					if(thingy)
 						walk(thingy,0)
-	for(var/obj/mecha/combat/recitence/R in oview(6, chassis))
+	for(var/obj/mecha/combat/reticence/R in oview(6, chassis))
 		R.occupant_message("\The [R] has protected you from [chassis]'s HONK at the cost of some power.")
 		R.use_power(R.get_charge() / 4)
 
@@ -244,7 +244,7 @@
 	projectiles = 20
 	projectile_energy_cost = 50
 
-/obj/item/mecha_parts/mecha_equipment/weapon/ballistic/carbine/silenced/can_attach(obj/mecha/combat/recitence/M as obj)
+/obj/item/mecha_parts/mecha_equipment/weapon/ballistic/carbine/silenced/can_attach(obj/mecha/combat/reticence/M as obj)
 	if(..())
 		if(istype(M))
 			return 1
