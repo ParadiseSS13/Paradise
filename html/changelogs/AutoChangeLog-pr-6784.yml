@@ -1,0 +1,5 @@
+author: "FalseIncarnate"
+delete-after: True
+changes: 
+  - rscadd: "Adds FullofSkittles's custom pAI sprites. Thanks FoS!"
+  - tweak: "Custom sprites for cyborgs, AI, AI holograms, and pAI units no longer are restricted to a single name. Get your money's worth by using that borg sprite regardless of your version number!"
