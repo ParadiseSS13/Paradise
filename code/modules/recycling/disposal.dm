@@ -500,7 +500,7 @@
 	var/hasmob = 0 //If it contains a mob
 
 	Destroy()
-		qdel(gas)
+		QDEL_NULL(gas)
 		active = 0
 		return ..()
 

@@ -1218,28 +1218,19 @@
 	var/monkey_type = "Monkey"
 	list_reagents = list("nutriment" = 2)
 
-/obj/item/weapon/reagent_containers/food/snacks/monkeycube/afterattack(obj/O, mob/user, proximity)
-	if(!proximity)
-		return
-	if(istype(O, /obj/structure/sink))
-		to_chat(user, "<span class='notice'>You place [src] under a stream of water...</span>")
-		user.drop_item()
-		forceMove(get_turf(O))
-		return Expand()
-	..()
-
 /obj/item/weapon/reagent_containers/food/snacks/monkeycube/water_act(volume, temperature)
 	if(volume >= 5)
 		return Expand()
 
 /obj/item/weapon/reagent_containers/food/snacks/monkeycube/wash(mob/user, atom/source)
-	if(do_after(user, 40, target = source))
-		return 1
+	user.drop_item()
+	forceMove(get_turf(source))
+	return 1
 
 /obj/item/weapon/reagent_containers/food/snacks/monkeycube/proc/Expand()
 	if(isnull(gcDestroyed))
 		visible_message("<span class='notice'>[src] expands!</span>")
-		new/mob/living/carbon/human(get_turf(src),monkey_type)
+		new/mob/living/carbon/human(get_turf(src), monkey_type)
 		qdel(src)
 
 /obj/item/weapon/reagent_containers/food/snacks/monkeycube/farwacube

@@ -20,6 +20,12 @@
 				4 = Screwdriver panel closed and is fully built (you cannot attach upgrades)
 	*/
 
+/obj/item/weapon/camera_assembly/Destroy()
+	for(var/thing in upgrades)
+		qdel(thing)
+	upgrades.Cut()
+	return ..()
+
 /obj/item/weapon/camera_assembly/attackby(obj/item/W, mob/living/user, params)
 
 	switch(state)
