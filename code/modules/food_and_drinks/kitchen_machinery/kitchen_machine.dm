@@ -159,7 +159,7 @@
 		if(!istype(src, /obj/machinery/kitchen_machine/oven) && !istype(src, /obj/machinery/kitchen_machine/grill))
 			to_chat(user, "<span class='alert'>This is ridiculous. You can not fit \the [G.affecting] in this [src].</span>")
 			return 1
-		if(istype(G.affecting, /mob/living/carbon/human) && (G.get_species != "Machine"))
+		if(istype(G.affecting, /mob/living/carbon/human) && (G.affecting.get_species() != "Machine"))
 
 //			if(!iscarbon(G.affecting))
 //				to_chat(user, "<span class='warning'>You can only harm carbon-based creatures this way!</span>")

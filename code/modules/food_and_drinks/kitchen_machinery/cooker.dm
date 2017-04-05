@@ -115,7 +115,7 @@
 	if(!checkValid(I, user))
 		if(istype(I, /obj/item/weapon/grab))
 			var/obj/item/weapon/grab/G = I
-			if(istype(G.affecting, /mob/living/carbon/human) && (G.get_species != "Machine"))
+			if(istype(G.affecting, /mob/living/carbon/human) && (G.affecting.get_species() != "Machine"))
 //				if(!iscarbon(G.affecting))
 //					to_chat(user, "<span class='warning'>You can only harm carbon-based creatures this way!</span>")
 //					return
