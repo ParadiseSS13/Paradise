@@ -178,7 +178,7 @@
 	var/time_till_despawn = 9000 // This is reduced by 90% if a player manually enters cryo
 	var/willing_time_divisor = 10
 	var/time_entered = 0          // Used to keep track of the safe period.
-	var/obj/item/device/radio/intercom/announce //
+	var/obj/item/device/radio/intercom/announce
 
 	var/obj/machinery/computer/cryopod/control_computer
 	var/last_no_computer_message = 0
@@ -192,12 +192,18 @@
 		/obj/item/device/paicard,
 		/obj/item/weapon/gun,
 		/obj/item/weapon/pinpointer,
-		/obj/item/clothing/suit,
 		/obj/item/clothing/shoes/magboots,
 		/obj/item/areaeditor/blueprints,
 		/obj/item/clothing/head/helmet/space,
+		/obj/item/clothing/suit/space,
+		/obj/item/clothing/suit/armor,
+		/obj/item/weapon/defibrillator/compact,
+		/obj/item/weapon/reagent_containers/hypospray/CMO,
+		/obj/item/clothing/accessory/medal/gold/captain,
+		/obj/item/clothing/gloves/color/black/krav_maga/sec,
 		/obj/item/weapon/storage/internal,
-		/obj/item/device/spacepod_key
+		/obj/item/device/spacepod_key,
+		/obj/item/weapon/nullrod
 	)
 	// These items will NOT be preserved
 	var/list/do_not_preserve_items = list (
