@@ -1563,11 +1563,11 @@ var/list/ghostteleportlocs = list()
 	icon_state = "surgery"
 
 /area/medical/surgery1
-	name = "\improper Surgery 1"
+	name = "Surgery 1"
 	icon_state = "surgery1"
 
 /area/medical/surgery2
-	name = "\improper Surgery 2"
+	name = "Surgery 2"
 	icon_state = "surgery2"
 
 /area/medical/surgeryobs
