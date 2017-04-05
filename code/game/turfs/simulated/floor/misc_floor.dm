@@ -38,6 +38,7 @@
 /turf/simulated/floor/beach
 	name = "beach"
 	icon = 'icons/misc/beach.dmi'
+	mouse_opacity = 0
 
 /turf/simulated/floor/beach/sand
 	name = "sand"
