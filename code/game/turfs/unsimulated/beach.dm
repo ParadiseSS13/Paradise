@@ -18,7 +18,7 @@
 
 /turf/unsimulated/beach/sand/dense			//for boundary "walls"
 	density = 1
-	
+
 /turf/unsimulated/beach/coastline
 	name = "Coastline"
 	//icon = 'icons/misc/beach2.dmi'
