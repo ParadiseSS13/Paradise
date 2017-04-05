@@ -115,30 +115,34 @@
 	if(!checkValid(I, user))
 		if(istype(I, /obj/item/weapon/grab))
 			var/obj/item/weapon/grab/G = I
-			if(!iscarbon(G.affecting))
+			if(istype(G.affecting, /mob/living/carbon/human) && !istype(G.affecting, /mob/living/carbon/human/machine))
+//				if(!iscarbon(G.affecting))
+//					to_chat(user, "<span class='warning'>You can only harm carbon-based creatures this way!</span>")
+//					return
+//				if(G.affecting.stat == DEAD)
+//					to_chat(user, "<span class='warning'>[G.affecting] is dead!</span>")
+//					return
+				if(G.state < GRAB_AGGRESSIVE)
+					to_chat(user, "<span class='warning'>You need a better grip to do that!</span>")
+					return
+				var/mob/living/carbon/human/C = G.affecting
+				var/obj/item/organ/external/head/head = C.get_organ("head")
+				if(!head)
+					to_chat(user, "<span class='warning'>This person doesn't have a head!</span>")
+					return
+				if(istype(src, /obj/machinery/cooker/deepfryer))
+					C.visible_message("<span class='danger'>[user] dunks [C]'s face into [src]!</span>", \
+									"<span class='userdanger'>[user] dunks your face into [src]!</span>")
+					if(!C.stat)
+						C.emote("scream")
+					user.changeNext_move(CLICK_CD_MELEE)
+					C.apply_damage(25, BURN, "head") //25 fire damage and disfigurement because your face was just deep fried!
+					head.disfigure("burn")
+					add_logs(G.assailant, G.affecting, "deep-fried face")
+					qdel(I) //Removes the grip so the person MIGHT have a small chance to run the fuck away and to prevent rapid dunks.
+				return
+			else
 				to_chat(user, "<span class='warning'>You can only harm carbon-based creatures this way!</span>")
-				return
-//			if(G.affecting.stat == DEAD)
-//				to_chat(user, "<span class='warning'>[G.affecting] is dead!</span>")
-//				return
-			if(G.state < GRAB_AGGRESSIVE)
-				to_chat(user, "<span class='warning'>You need a better grip to do that!</span>")
-				return
-			var/mob/living/carbon/human/C = G.affecting
-			var/obj/item/organ/external/head/head = C.get_organ("head")
-			if(!head)
-				to_chat(user, "<span class='warning'>This person doesn't have a head!</span>")
-				return
-			if(istype(src, /obj/machinery/cooker/deepfryer))
-				C.visible_message("<span class='danger'>[user] dunks [C]'s face into [src]!</span>", \
-								"<span class='userdanger'>[user] dunks your face into [src]!</span>")
-				if(!C.stat)
-					C.emote("scream")
-				user.changeNext_move(CLICK_CD_MELEE)
-				C.apply_damage(25, BURN, "head") //25 fire damage and disfigurement because your face was just deep fried!
-				head.disfigure("burn")
-				add_logs(G.assailant, G.affecting, "deep-fried face")
-				qdel(I) //Removes the grip so the person MIGHT have a small chance to run the fuck away and to prevent rapid dunks.
 		return
 	if(!burns)
 		if(istype(I, /obj/item/weapon/reagent_containers/food/snacks))

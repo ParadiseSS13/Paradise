@@ -159,52 +159,57 @@
 		if(!istype(src, /obj/machinery/kitchen_machine/oven) && !istype(src, /obj/machinery/kitchen_machine/grill))
 			to_chat(user, "<span class='alert'>This is ridiculous. You can not fit \the [G.affecting] in this [src].</span>")
 			return 1
-		if(!iscarbon(G.affecting))
+		if(istype(G.affecting, /mob/living/carbon/human) && !istype(G.affecting, /mob/living/carbon/human/machine))
+
+//			if(!iscarbon(G.affecting))
+//				to_chat(user, "<span class='warning'>You can only harm carbon-based creatures this way!</span>")
+//				return 1
+//			if(G.affecting.stat == DEAD)
+//				to_chat(user, "<span class='warning'>[G.affecting] is dead!</span>")
+//				return 1
+			if(G.state < GRAB_AGGRESSIVE)
+				to_chat(user, "<span class='warning'>You need a better grip to do that!</span>")
+				return 1
+			var/mob/living/carbon/human/C = G.affecting
+			var/obj/item/organ/external/head/head = C.get_organ("head")
+			if(!head)
+				to_chat(user, "<span class='warning'>This person doesn't have a head!</span>")
+				return 1
+			if(istype(src, /obj/machinery/kitchen_machine/oven))
+				if(G.state < GRAB_AGGRESSIVE)
+					to_chat(user, "<span class='warning'>You need a better grip to do that!</span>")
+					return 1
+				C.visible_message("<span class='danger'>[user] bashes [C]'s head in [src]'s door!</span>", \
+								"<span class='userdanger'>[user] bashes your head in [src]'s door! It feels rather hot in the oven!</span>")
+				if(!C.stat)
+					C.emote("scream")
+				user.changeNext_move(CLICK_CD_MELEE)
+				C.apply_damage(5, BURN, "head") //5 fire damage, 15 brute damage, and weakening because your head was just in a hot oven with the door bashing into your neck!
+				C.apply_damage(15, BRUTE, "head")
+				C.Weaken(2)
+				add_logs(G.assailant, G.affecting, "head smashed in oven")
+				qdel(O) //Removes the grip to prevent rapid bashes. With the weaken, you PROBABLY can't run unless they are slow to grab you again...
+				return 1
+			if(istype(src, /obj/machinery/kitchen_machine/grill))
+				if(G.state < GRAB_AGGRESSIVE)
+					to_chat(user, "<span class='warning'>You need a better grip to do that!</span>")
+					return 1
+				C.visible_message("<span class='danger'>[user] forces [C] onto [src], searing [C]'s upper body!</span>", \
+								"<span class='userdanger'>[user] forces you onto [src]! It burns!</span>")
+				if(!C.stat)
+					C.emote("scream")
+				user.changeNext_move(CLICK_CD_MELEE)
+				C.apply_damage(10, BURN, "head") //30 overall upper body damage because your body was just placed over a hot grill!
+				C.apply_damage(10, BURN, "chest")
+				C.apply_damage(5, BURN, "l_arm")
+				C.apply_damage(5, BURN, "r_arm")
+				add_logs(G.assailant, G.affecting, "burns on a grill")
+				qdel(O) //Removes the grip to prevent rapid sears and give you a chance to run
+				return 1
+			return 1
+		else
 			to_chat(user, "<span class='warning'>You can only harm carbon-based creatures this way!</span>")
 			return 1
-//		if(G.affecting.stat == DEAD)
-//			to_chat(user, "<span class='warning'>[G.affecting] is dead!</span>")
-//			return 1
-		if(G.state < GRAB_AGGRESSIVE)
-			to_chat(user, "<span class='warning'>You need a better grip to do that!</span>")
-			return 1
-		var/mob/living/carbon/human/C = G.affecting
-		var/obj/item/organ/external/head/head = C.get_organ("head")
-		if(!head)
-			to_chat(user, "<span class='warning'>This person doesn't have a head!</span>")
-			return 1
-		if(istype(src, /obj/machinery/kitchen_machine/oven))
-			if(G.state < GRAB_AGGRESSIVE)
-				to_chat(user, "<span class='warning'>You need a better grip to do that!</span>")
-				return 1
-			C.visible_message("<span class='danger'>[user] bashes [C]'s head in [src]'s door!</span>", \
-							"<span class='userdanger'>[user] bashes your head in [src]'s door! It feels rather hot in the oven!</span>")
-			if(!C.stat)
-				C.emote("scream")
-			user.changeNext_move(CLICK_CD_MELEE)
-			C.apply_damage(5, BURN, "head") //5 fire damage, 15 brute damage, and weakening because your head was just in a hot oven with the door bashing into your neck!
-			C.apply_damage(15, BRUTE, "head")
-			C.Weaken(2)
-			add_logs(G.assailant, G.affecting, "head smashed in oven")
-			qdel(O) //Removes the grip to prevent rapid bashes. With the weaken, you PROBABLY can't run unless they are slow to grab you again...
-			return 1
-		if(istype(src, /obj/machinery/kitchen_machine/grill))
-			if(G.state < GRAB_AGGRESSIVE)
-				to_chat(user, "<span class='warning'>You need a better grip to do that!</span>")
-				return 1
-			C.visible_message("<span class='danger'>[user] forces [C] onto [src], searing [C]'s upper body!</span>", \
-							"<span class='userdanger'>[user] forces you onto [src]! It burns!</span>")
-			if(!C.stat)
-				C.emote("scream")
-			user.changeNext_move(CLICK_CD_MELEE)
-			C.apply_damage(10, BURN, "head") //30 overall upper body damage because your body was just placed over a hot grill!
-			C.apply_damage(10, BURN, "chest")
-			C.apply_damage(5, BURN, "l_arm")
-			C.apply_damage(5, BURN, "r_arm")
-			add_logs(G.assailant, G.affecting, "burns on a grill")
-			qdel(O) //Removes the grip to prevent rapid sears and give you a chance to run
-			return 1
-		return 1
 	else
 		to_chat(user, "<span class='alert'>You have no idea what you can cook with this [O].</span>")
 		return 1
