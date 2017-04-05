@@ -197,6 +197,7 @@
 		/obj/item/areaeditor/blueprints,
 		/obj/item/clothing/head/helmet/space,
 		/obj/item/weapon/storage/internal,
+		/obj/item/weapon/gun/projectile/revolver/detective,
 		/obj/item/device/spacepod_key
 	)
 	// These items will NOT be preserved
