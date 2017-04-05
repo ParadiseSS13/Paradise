@@ -89,7 +89,45 @@
 	satchel = /obj/item/weapon/storage/backpack/satchel_sec
 	dufflebag = /obj/item/weapon/storage/backpack/duffel/security
 
+/datum/job/seniorsec
+	title = "Senior Officer"
+	flag = SENIORSEC
+	department_flag = ENGSEC
+	total_positions = 1
+	spawn_positions = 1
+	is_security = 1
+	supervisors = "the head of security"
+	selection_color = "#ffeeee"
+	access = list(access_security, access_sec_doors, access_brig, access_court, access_maint_tunnels, access_morgue, access_weapons)
+	minimal_access = list(access_security, access_sec_doors, access_brig, access_court, access_maint_tunnels, access_weapons)
+	minimal_player_age = 30
+	exp_requirements = 3000 // This'll be changed to be karma related once I've worked that bit out.
+	exp_type = EXP_TYPE_CREW
+	outfit = /datum/outfit/job/seniorsec
 
+/datum/outfit/job/seniorsec // Since nothing actually changes, equipment-wise, could probably just use the regular datum
+	name = "Senior Officer"
+	jobtype = /datum/job/seniorsec
+
+	uniform = /obj/item/clothing/under/rank/security
+	suit = /obj/item/clothing/suit/armor/vest/security
+	gloves = /obj/item/clothing/gloves/color/black
+	shoes = /obj/item/clothing/shoes/jackboots
+	head = /obj/item/clothing/head/helmet
+	l_ear = /obj/item/device/radio/headset/headset_sec/alt
+	id = /obj/item/weapon/card/id/security
+	l_pocket = /obj/item/device/flash
+	suit_store = /obj/item/weapon/gun/energy/gun/advtaser
+	pda = /obj/item/device/pda/security
+	backpack_contents = list(
+		/obj/item/weapon/restraints/handcuffs = 1
+	)
+
+	implants = list(/obj/item/weapon/implant/loyalty)
+
+	backpack = /obj/item/weapon/storage/backpack/security
+	satchel = /obj/item/weapon/storage/backpack/satchel_sec
+	dufflebag = /obj/item/weapon/storage/backpack/duffel/security
 
 /datum/job/detective
 	title = "Detective"
