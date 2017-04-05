@@ -1,9 +1,0 @@
-author: "Purpose2"
-delete-after: True
-changes: 
-  - rscadd: "Cryostorage console now stores the Null Rod & all variations."
-  - bugfix: "Mime mech is now 'Reticence' as it should be"
-  - bugfix: "Fixes missing cult's Berserker Robe sprite."
-  - tweak: "Cryostorage console no longer stores hundreds of bomber jackets, and now stores hardsuits"
-  - tweak: "Cryostorage console now catches and stores most unique objective items."
-  - tweak: "Corrects some typos and grammar."

@@ -1,9 +1,0 @@
-author: "KasparoVy"
-delete-after: True
-changes: 
-  - rscadd: "Adds a Tajaran facial hair style."
-  - rscadd: "Adds a few new frill styles for Unathi."
-  - rscadd: "Adds some new horn styles for Unathi."
-  - rscadd: "Adds a couple new facial hair styles for Vulpkanin."
-  - rscadd: "Adds a few new hair styles for Vulpkanin."
-  - tweak: "Updates Vulpkanin Adhara & Kajam hairstyles."
