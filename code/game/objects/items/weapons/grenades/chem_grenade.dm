@@ -26,6 +26,14 @@
 		payload_name += " " // formatting, ignore me
 	update_icon()
 
+/obj/item/weapon/grenade/chem_grenade/Destroy()
+	if(nadeassembly)
+		qdel(nadeassembly)
+		nadeassembly = null
+	for(var/thing in beakers)
+		qdel(thing)
+	beakers.Cut()
+	return ..()
 
 /obj/item/weapon/grenade/chem_grenade/examine(mob/user)
 	..(user)

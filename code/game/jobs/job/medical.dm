@@ -52,6 +52,8 @@
 	minimal_access = list(access_medical, access_morgue, access_surgery, access_maint_tunnels)
 	alt_titles = list("Surgeon","Nurse","Coroner")
 	minimal_player_age = 3
+	exp_requirements = 180
+	exp_type = EXP_TYPE_CREW
 	outfit = /datum/outfit/job/doctor
 
 /datum/outfit/job/doctor
@@ -115,6 +117,8 @@
 	minimal_access = list(access_medical, access_chemistry, access_maint_tunnels, access_mineral_storeroom)
 	alt_titles = list("Pharmacist","Pharmacologist")
 	minimal_player_age = 7
+	exp_requirements = 300
+	exp_type = EXP_TYPE_CREW
 	outfit = /datum/outfit/job/chemist
 
 /datum/outfit/job/chemist
@@ -145,6 +149,8 @@
 	access = list(access_medical, access_morgue, access_surgery, access_chemistry, access_virology, access_genetics, access_research, access_mineral_storeroom)
 	minimal_access = list(access_medical, access_morgue, access_genetics, access_research, access_maint_tunnels)
 	minimal_player_age = 3
+	exp_requirements = 180
+	exp_type = EXP_TYPE_CREW
 	outfit = /datum/outfit/job/geneticist
 
 /datum/outfit/job/geneticist
@@ -177,6 +183,8 @@
 	minimal_access = list(access_medical, access_virology, access_maint_tunnels, access_mineral_storeroom)
 	alt_titles = list("Pathologist","Microbiologist")
 	minimal_player_age = 7
+	exp_requirements = 300
+	exp_type = EXP_TYPE_CREW
 	outfit = /datum/outfit/job/virologist
 
 /datum/outfit/job/virologist
@@ -245,6 +253,8 @@
 	access = list(access_paramedic, access_medical, access_sec_doors, access_maint_tunnels, access_external_airlocks, access_morgue)
 	minimal_access=list(access_paramedic, access_medical, access_sec_doors, access_maint_tunnels, access_external_airlocks, access_morgue)
 	minimal_player_age = 3
+	exp_requirements = 180
+	exp_type = EXP_TYPE_CREW
 	outfit = /datum/outfit/job/paramedic
 
 /datum/outfit/job/paramedic

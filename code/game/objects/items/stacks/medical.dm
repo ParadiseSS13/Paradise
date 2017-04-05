@@ -188,7 +188,7 @@
 	heal_burn = 12
 
 
-//Splits//
+//Splints//
 
 
 /obj/item/stack/medical/splint
@@ -216,14 +216,14 @@
 				to_chat(user, "<span class='notice'>You remove the splint from [H]'s [limb].</span>")
 			return
 		if(M == user)
-			user.visible_message("<span class='notice'>[user] starts to apply [src] to [H]'s [limb].</span>", \
-								 "<span class='notice'>You start to apply [src] to [H]'s [limb].</span>", \
+			user.visible_message("<span class='notice'>[user] starts to apply [src] to their [limb].</span>", \
+								 "<span class='notice'>You start to apply [src] to your [limb].</span>", \
 								 "<span class='notice'>You hear something being wrapped.</span>")
 			if(!do_mob(user, H, self_delay))
 				return
 		else
-			user.visible_message("<span class='green'>[user] applies [src] to their [limb].</span>", \
-								 "<span class='green'>You apply [src] to your [limb].</span>", \
+			user.visible_message("<span class='green'>[user] applies [src] to [H]'s [limb].</span>", \
+								 "<span class='green'>You apply [src] to [H]'s [limb].</span>", \
 								 "<span class='green'>You hear something being wrapped.</span>")
 
 		affecting.status |= ORGAN_SPLINTED

@@ -116,6 +116,8 @@
 		H.mind.abductor.agent = 1
 		H.mind.abductor.team = team_number
 		H.real_name = team_name + " Agent"
+		H.reagents.add_reagent("mutadone", 1) //No fat/blind/colourblind/epileptic/whatever ayys.
+		H.overeatduration = 0
 		equip_common(H,team_number)
 		equip_agent(H,team_number)
 		greet_agent(agent,team_number)
@@ -130,6 +132,8 @@
 		H.mind.abductor.scientist = 1
 		H.mind.abductor.team = team_number
 		H.real_name = team_name + " Scientist"
+		H.reagents.add_reagent("mutadone", 1) //No fat/blind/colourblind/epileptic/whatever ayys.
+		H.overeatduration = 0
 		equip_common(H,team_number)
 		equip_scientist(H,team_number)
 		greet_scientist(scientist,team_number)
@@ -223,6 +227,7 @@
 
 	var/obj/item/device/radio/R = new /obj/item/device/radio/headset/syndicate/alt(agent)
 	R.set_frequency(radio_freq)
+	R.name = "alien headset"
 	agent.equip_to_slot_or_del(R, slot_l_ear)
 	agent.equip_to_slot_or_del(new /obj/item/clothing/shoes/combat(agent), slot_shoes)
 	agent.equip_to_slot_or_del(new /obj/item/clothing/under/color/grey(agent), slot_w_uniform) //they're greys gettit
@@ -287,7 +292,7 @@
 		var/datum/objective/objective = team_objectives[team_number]
 		var/team_name = team_names[team_number]
 		if(console.experiment.points >= objective.target_amount)
-			to_chat(world, "<span class='greenannounce'>[team_name] team fullfilled its mission!</span>")
+			to_chat(world, "<span class='greenannounce'>[team_name] team fulfilled its mission!</span>")
 		else
 			to_chat(world, "<span class='boldannounce'>[team_name] team failed its mission.</span>")
 	..()

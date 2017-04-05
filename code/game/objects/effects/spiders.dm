@@ -1,14 +1,19 @@
 //generic procs copied from obj/effect/alien
-/obj/effect/spider
+/obj/structure/spider
 	name = "web"
 	desc = "it's stringy and sticky"
 	icon = 'icons/effects/effects.dmi'
 	anchored = 1
 	density = 0
 	var/health = 15
+	var/master_commander = null
+
+/obj/structure/spider/Destroy()
+	master_commander = null
+	return ..()
 
 //similar to weeds, but only barfed out by nurses manually
-/obj/effect/spider/ex_act(severity)
+/obj/structure/spider/ex_act(severity)
 	switch(severity)
 		if(1.0)
 			qdel(src)
@@ -20,7 +25,7 @@
 				qdel(src)
 	return
 
-/obj/effect/spider/attackby(var/obj/item/weapon/W, var/mob/user, params)
+/obj/structure/spider/attackby(var/obj/item/weapon/W, var/mob/user, params)
 	if(W.attack_verb.len)
 		visible_message("<span class='danger'>[user] has [pick(W.attack_verb)] \the [src] with \the [W]!</span>")
 	else
@@ -38,28 +43,28 @@
 	health -= damage
 	healthcheck()
 
-/obj/effect/spider/bullet_act(var/obj/item/projectile/Proj)
+/obj/structure/spider/bullet_act(var/obj/item/projectile/Proj)
 	..()
 	health -= Proj.damage
 	healthcheck()
 
-/obj/effect/spider/proc/healthcheck()
+/obj/structure/spider/proc/healthcheck()
 	if(health <= 0)
 		qdel(src)
 
-/obj/effect/spider/temperature_expose(datum/gas_mixture/air, exposed_temperature, exposed_volume)
+/obj/structure/spider/temperature_expose(datum/gas_mixture/air, exposed_temperature, exposed_volume)
 	if(exposed_temperature > 300)
 		health -= 5
 		healthcheck()
 
-/obj/effect/spider/stickyweb
+/obj/structure/spider/stickyweb
 	icon_state = "stickyweb1"
 
-/obj/effect/spider/stickyweb/New()
+/obj/structure/spider/stickyweb/New()
 	if(prob(50))
 		icon_state = "stickyweb2"
 
-/obj/effect/spider/stickyweb/CanPass(atom/movable/mover, turf/target, height=0)
+/obj/structure/spider/stickyweb/CanPass(atom/movable/mover, turf/target, height=0)
 	if(height==0) return 1
 	if(istype(mover, /mob/living/simple_animal/hostile/poison/giant_spider))
 		return 1
@@ -71,33 +76,32 @@
 		return prob(30)
 	return 1
 
-/obj/effect/spider/eggcluster
+/obj/structure/spider/eggcluster
 	name = "egg cluster"
 	desc = "They seem to pulse slightly with an inner life"
 	icon_state = "eggs"
 	var/amount_grown = 0
 	var/player_spiders = 0
 	var/faction = list()
-	var/master_commander = null
 
-/obj/effect/spider/eggcluster/New()
+/obj/structure/spider/eggcluster/New()
 	pixel_x = rand(3,-3)
 	pixel_y = rand(3,-3)
 	processing_objects.Add(src)
 
-/obj/effect/spider/eggcluster/process()
+/obj/structure/spider/eggcluster/process()
 	amount_grown += rand(0,2)
 	if(amount_grown >= 100)
 		var/num = rand(3,12)
 		for(var/i=0, i<num, i++)
-			var/obj/effect/spider/spiderling/S = new /obj/effect/spider/spiderling(src.loc)
+			var/obj/structure/spider/spiderling/S = new /obj/structure/spider/spiderling(src.loc)
 			S.faction = faction
 			S.master_commander = master_commander
 			if(player_spiders)
 				S.player_spiders = 1
 		qdel(src)
 
-/obj/effect/spider/spiderling
+/obj/structure/spider/spiderling
 	name = "spiderling"
 	desc = "It never stays still for long."
 	icon_state = "spiderling"
@@ -110,30 +114,33 @@
 	var/travelling_in_vent = 0
 	var/player_spiders = 0
 	var/faction = list()
-	var/master_commander = null
 	var/selecting_player = 0
 
-/obj/effect/spider/spiderling/New()
+/obj/structure/spider/spiderling/New()
 	pixel_x = rand(6,-6)
 	pixel_y = rand(6,-6)
 	processing_objects.Add(src)
 
-/obj/effect/spider/spiderling/Bump(atom/user)
+/obj/structure/spider/spiderling/Destroy()
+	entry_vent = null
+	return ..()
+
+/obj/structure/spider/spiderling/Bump(atom/user)
 	if(istype(user, /obj/structure/table))
 		src.loc = user.loc
 	else
 		..()
 
-/obj/effect/spider/spiderling/proc/die()
+/obj/structure/spider/spiderling/proc/die()
 	visible_message("<span class='alert'>[src] dies!</span>")
 	new /obj/effect/decal/cleanable/spiderling_remains(src.loc)
 	qdel(src)
 
-/obj/effect/spider/spiderling/healthcheck()
+/obj/structure/spider/spiderling/healthcheck()
 	if(health <= 0)
 		die()
 
-/obj/effect/spider/spiderling/process()
+/obj/structure/spider/spiderling/process()
 	if(travelling_in_vent)
 		if(istype(src.loc, /turf))
 			travelling_in_vent = 0
@@ -217,16 +224,16 @@
 	icon_state = "greenshatter"
 	anchored = 1
 
-/obj/effect/spider/cocoon
+/obj/structure/spider/cocoon
 	name = "cocoon"
 	desc = "Something wrapped in silky spider web"
 	icon_state = "cocoon1"
 	health = 60
 
-/obj/effect/spider/cocoon/New()
+/obj/structure/spider/cocoon/New()
 		icon_state = pick("cocoon1","cocoon2","cocoon3")
 
-/obj/effect/spider/cocoon/Destroy()
+/obj/structure/spider/cocoon/Destroy()
 	src.visible_message("<span class='danger'>\The [src] splits open.</span>")
 	for(var/atom/movable/A in contents)
 		A.loc = src.loc

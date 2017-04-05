@@ -30,7 +30,7 @@
 	return
 
 /obj/machinery/door/poddoor/shutters/open()
-	if(operating == 1) //doors can still open when emag-disabled
+	if(operating || emagged) //doors can still open when emag-disabled
 		return
 	if(!ticker)
 		return 0
@@ -44,7 +44,7 @@
 	air_update_turf(1)
 	update_freelook_sight()
 
-	if(operating == 1) //emag again
+	if(operating) //emag again
 		operating = 0
 	if(autoclose)
 		spawn(150)

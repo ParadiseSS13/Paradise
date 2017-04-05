@@ -236,8 +236,8 @@
 /proc/forbidden_atoms_check(atom/A)
 	var/list/blacklist = list(
 		/mob/living,
-		/obj/effect/blob,
-		/obj/effect/spider/spiderling,
+		/obj/structure/blob,
+		/obj/structure/spider/spiderling,
 		/obj/item/weapon/disk/nuclear,
 		/obj/machinery/nuclearbomb,
 		/obj/item/device/radio/beacon,
@@ -662,6 +662,13 @@
 			investigate_log("[key_name(usr)] has sent the supply shuttle away. Remaining points: [shuttle_master.points]. Shuttle contents: [shuttle_master.sold_atoms]", "cargo")
 		else if(!shuttle_master.supply.request(shuttle_master.getDock("supply_home")))
 			post_signal("supply")
+			if(LAZYLEN(shuttle_master.shoppinglist) && prob(10))
+				var/datum/supply_order/O = new /datum/supply_order()
+				O.ordernum = shuttle_master.ordernum
+				O.object = shuttle_master.supply_packs[pick(shuttle_master.supply_packs)]
+				O.orderedby = random_name(pick(MALE,FEMALE), species = "Human")
+				shuttle_master.shoppinglist += O
+				investigate_log("Random [O.object] crate added to supply shuttle")
 
 	else if(href_list["doorder"])
 		if(world.time < reqtime)

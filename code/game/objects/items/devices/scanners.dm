@@ -259,7 +259,7 @@ REAGENT SCANNER
 		if(H.gene_stability < 40)
 			user.show_message("<span class='userdanger'>Subject's genes are quickly breaking down!</span>")
 		else if(H.gene_stability < 70)
-			user.show_message("<span class='danger'>Subject's genes are showing signs of spontenous breakdown.</span>")
+			user.show_message("<span class='danger'>Subject's genes are showing signs of spontaneous breakdown.</span>")
 		else if(H.gene_stability < 85)
 			user.show_message("<span class='warning'>Subject's genes are showing minor signs of instability.</span>")
 		else
@@ -285,7 +285,7 @@ REAGENT SCANNER
 		else
 			to_chat(user, "<span class='notice'>You install the upgrade in the [src].</span>")
 			overlays += "advanced"
-			playsound(src.loc, usesound, 50, 1)
+			playsound(loc, W.usesound, 50, 1)
 			upgraded = 1
 			qdel(W)
 
@@ -537,5 +537,5 @@ REAGENT SCANNER
 			user.show_message("Possible mutations: [T.slime_mutation[1]], [T.slime_mutation[2]], [T.slime_mutation[3]], [T.slime_mutation[4]]", 1)
 			user.show_message("Genetic destability: [T.mutation_chance]% chance of mutation on splitting", 1)
 	if(T.cores > 1)
-		user.show_message("Anomalious slime core amount detected", 1)
+		user.show_message("Anomalous slime core amount detected", 1)
 	user.show_message("Growth progress: [T.amount_grown]/10", 1)

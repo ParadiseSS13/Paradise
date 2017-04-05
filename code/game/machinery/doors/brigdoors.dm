@@ -63,6 +63,10 @@
 			stat |= BROKEN
 		update_icon()
 
+/obj/machinery/door_timer/Destroy()
+	QDEL_NULL(Radio)
+	targets.Cut()
+	return ..()
 
 //Main door timer loop, if it's timing and time is >0 reduce time by 1.
 // if it's less than 0, open door, reset timer
@@ -186,7 +190,7 @@
 	if(..())
 		return
 	interact(user)
-		
+
 /obj/machinery/door_timer/interact(mob/user)
 	// Used for the 'time left' display
 	var/second = round(timeleft() % 60)

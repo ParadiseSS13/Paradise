@@ -22,6 +22,7 @@ var/global/list/datum/stack_recipe/metal_recipes = list(
 	new /datum/stack_recipe("barber chair", /obj/structure/stool/bed/chair/barber, one_per_turf = 1, on_floor = 1),
 	new /datum/stack_recipe("wheelchair", /obj/structure/stool/bed/chair/wheelchair, 15, one_per_turf = 1, on_floor = 1),
 	new /datum/stack_recipe("bed", /obj/structure/stool/bed, 2, one_per_turf = 1, on_floor = 1),
+	new /datum/stack_recipe("psychiatrist bed", /obj/structure/stool/psychbed, 5, one_per_turf = 1, on_floor = 1),
 	null,
 	new /datum/stack_recipe_list("office chairs",list(
 		new /datum/stack_recipe("dark office chair", /obj/structure/stool/bed/chair/office/dark, 5, one_per_turf = 1, on_floor = 1),
@@ -49,7 +50,7 @@ var/global/list/datum/stack_recipe/metal_recipes = list(
 	new /datum/stack_recipe("canister", /obj/machinery/portable_atmospherics/canister, 10, time = 15, one_per_turf = 1, on_floor = 1),
 	null,
 	new /datum/stack_recipe("floor tile", /obj/item/stack/tile/plasteel, 1, 4, 20),
-	new /datum/stack_recipe/rods("metal rod", /obj/item/stack/rods, 1, 2, 60),
+	new /datum/stack_recipe/rods("metal rod", /obj/item/stack/rods, 1, 2, 50),
 	null,
 	new /datum/stack_recipe("computer frame", /obj/structure/computerframe, 5, time = 25, one_per_turf = 1, on_floor = 1),
 	new /datum/stack_recipe("modular console", /obj/machinery/modular_computer/console/buildable/, 10, time = 25, one_per_turf = 1, on_floor = 1),
@@ -100,6 +101,7 @@ var/global/list/datum/stack_recipe/metal_recipes = list(
 	throwforce = 10.0
 	flags = CONDUCT
 	origin_tech = "materials=1"
+	merge_type = /obj/item/stack/sheet/metal
 
 /obj/item/stack/sheet/metal/cyborg
 	materials = list()
@@ -136,6 +138,7 @@ var/global/list/datum/stack_recipe/plasteel_recipes = list(
 	throwforce = 10.0
 	flags = CONDUCT
 	origin_tech = "materials=2"
+	merge_type = /obj/item/stack/sheet/plasteel
 
 /obj/item/stack/sheet/plasteel/New(var/loc, var/amount=null)
 	recipes = plasteel_recipes
@@ -152,13 +155,15 @@ var/global/list/datum/stack_recipe/wood_recipes = list(
 	new /datum/stack_recipe("wooden barricade", /obj/structure/barricade/wooden, 5, time = 50, one_per_turf = 1, on_floor = 1),
 	new /datum/stack_recipe("bookcase", /obj/structure/bookcase, 5, time = 50, one_per_turf = 1, on_floor = 1),
 	new /datum/stack_recipe("drying rack", /obj/machinery/smartfridge/drying_rack, 10, time = 15, one_per_turf = 1, on_floor = 1),
+	new /datum/stack_recipe("dog bed", /obj/structure/stool/bed/dogbed, 10, time = 10, one_per_turf = 1, on_floor = 1), \
 	new /datum/stack_recipe("rifle stock", /obj/item/weaponcrafting/stock, 10, time = 40),
 	new /datum/stack_recipe("wooden door", /obj/structure/mineral_door/wood, 10, time = 20, one_per_turf = 1, on_floor = 1),
 	new /datum/stack_recipe("coffin", /obj/structure/closet/coffin, 5, time = 15, one_per_turf = 1, on_floor = 1),
 	new /datum/stack_recipe("easel", /obj/structure/easel, 3, one_per_turf = 1, on_floor = 1),
 	new /datum/stack_recipe("wooden buckler", /obj/item/weapon/shield/riot/buckler, 20, time = 40),
 	new /datum/stack_recipe("apiary", /obj/structure/beebox, 40, time = 50),
-	new /datum/stack_recipe("honey frame", /obj/item/honey_frame, 5, time = 10)
+	new /datum/stack_recipe("honey frame", /obj/item/honey_frame, 5, time = 10),
+	new /datum/stack_recipe("baseball bat", /obj/item/weapon/melee/baseball_bat, 5, time = 15)
 )
 
 /obj/item/stack/sheet/wood
@@ -169,6 +174,7 @@ var/global/list/datum/stack_recipe/wood_recipes = list(
 	icon_state = "sheet-wood"
 	origin_tech = "materials=1;biotech=1"
 	burn_state = FLAMMABLE
+	merge_type = /obj/item/stack/sheet/wood
 
 /obj/item/stack/sheet/wood/New(var/loc, var/amount=null)
 	recipes = wood_recipes
@@ -206,6 +212,7 @@ var/global/list/datum/stack_recipe/cloth_recipes = list ( \
 	burn_state = FLAMMABLE
 	force = 0
 	throwforce = 0
+	merge_type = /obj/item/stack/sheet/cloth
 
 /obj/item/stack/sheet/cloth/New(loc, amount=null)
 	recipes = cloth_recipes
@@ -238,6 +245,7 @@ var/global/list/datum/stack_recipe/cardboard_recipes = list (
 	icon_state = "sheet-card"
 	origin_tech = "materials=1"
 	burn_state = FLAMMABLE
+	merge_type = /obj/item/stack/sheet/cardboard
 
 /obj/item/stack/sheet/cardboard/New(var/loc, var/amt = null)
 	recipes = cardboard_recipes
@@ -263,6 +271,7 @@ var/global/list/datum/stack_recipe/runed_metal_recipes = list ( \
 	icon_state = "sheet-runed"
 	icon = 'icons/obj/items.dmi'
 	sheettype = "runed"
+	merge_type = /obj/item/stack/sheet/runed_metal
 
 /obj/item/stack/sheet/runed_metal/attack_self(mob/living/user)
 	if(!iscultist(user))
@@ -318,6 +327,7 @@ var/global/list/datum/stack_recipe/plastic_recipes = list ( \
 	icon_state = "sheet-plastic"
 	throwforce = 7
 	origin_tech = "materials=1;biotech=1"
+	merge_type = /obj/item/stack/sheet/plastic
 
 /obj/item/stack/sheet/plastic/New()
 	recipes = plastic_recipes
