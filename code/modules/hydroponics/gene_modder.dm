@@ -36,12 +36,8 @@
 	reagent_genes.Cut()
 	trait_genes.Cut()
 	target = null
-	if(seed)
-		qdel(seed)
-		seed = null
-	if(disk)
-		qdel(disk)
-		disk = null
+	QDEL_NULL(seed)
+	QDEL_NULL(disk)
 	return ..()
 
 /obj/machinery/plantgenes/RefreshParts()
@@ -384,9 +380,7 @@
 	pixel_y = rand(-5, 5)
 
 /obj/item/weapon/disk/plantgene/Destroy()
-	if(gene)
-		qdel(gene)
-		gene = null
+	QDEL_NULL(gene)
 	return ..()
 
 /obj/item/weapon/disk/plantgene/attackby(obj/item/weapon/W, mob/user, params)

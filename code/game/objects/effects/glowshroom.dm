@@ -36,9 +36,7 @@
 	to_chat(user, "This is a [generation]\th generation [name]!")
 
 /obj/structure/glowshroom/Destroy()
-	if(myseed)
-		qdel(myseed)
-		myseed = null
+	QDEL_NULL(myseed)
 	return ..()
 
 /obj/structure/glowshroom/New(loc, obj/item/seeds/newseed, mutate_stats)

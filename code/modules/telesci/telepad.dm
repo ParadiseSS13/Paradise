@@ -140,9 +140,7 @@
 	to_chat(user, "There are [round(rcell.charge/chargecost)] charge\s left.")
 
 /obj/item/weapon/rcs/Destroy()
-	if(rcell)
-		qdel(rcell)
-		rcell = null
+	QDEL_NULL(rcell)
 	return ..()
 
 /obj/item/weapon/rcs/attack_self(mob/user)

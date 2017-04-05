@@ -111,8 +111,7 @@
 		init(R)
 
 /turf/unsimulated/floor/upperlevel/Destroy()
-	qdel(sensor)
-	sensor = null
+	QDEL_NULL(sensor)
 	return ..()
 
 /turf/unsimulated/floor/upperlevel/proc/init(var/obj/effect/levelref/R)

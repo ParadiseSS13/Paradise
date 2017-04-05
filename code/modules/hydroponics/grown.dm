@@ -40,9 +40,7 @@
 		add_juice()
 
 /obj/item/weapon/reagent_containers/food/snacks/grown/Destroy()
-	if(seed)
-		qdel(seed)
-		seed = null
+	QDEL_NULL(seed)
 	return ..()
 
 /obj/item/weapon/reagent_containers/food/snacks/grown/proc/add_juice()

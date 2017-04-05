@@ -146,11 +146,8 @@
 			product_records.Add(product)
 
 /obj/machinery/vending/Destroy()
-	qdel(wires) // qdel
-	wires = null
-	if(coin)
-		qdel(coin) // qdel
-		coin = null
+	QDEL_NULL(wires)
+	QDEL_NULL(coin)
 	return ..()
 
 /obj/machinery/vending/ex_act(severity)

@@ -46,9 +46,7 @@ LIGHTERS ARE IN LIGHTERS.DM
 	reagents.set_reacting(FALSE) // so it doesn't react until you light it
 
 /obj/item/clothing/mask/cigarette/Destroy()
-	if(reagents)
-		qdel(reagents)
-		reagents = null
+	QDEL_NULL(reagents)
 	processing_objects -= src
 	return ..()
 

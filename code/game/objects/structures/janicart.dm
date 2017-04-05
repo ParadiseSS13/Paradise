@@ -25,18 +25,10 @@
 
 /obj/structure/janitorialcart/Destroy()
 	janitorial_equipment -= src
-	if(mybag)
-		qdel(mybag)
-		mybag = null
-	if(mymop)
-		qdel(mymop)
-		mymop = null
-	if(myspray)
-		qdel(myspray)
-		myspray = null
-	if(myreplacer)
-		qdel(myreplacer)
-		myreplacer = null
+	QDEL_NULL(mybag)
+	QDEL_NULL(mymop)
+	QDEL_NULL(myspray)
+	QDEL_NULL(myreplacer)
 	return ..()
 
 /obj/structure/janitorialcart/proc/wet_mop(obj/item/weapon/mop, mob/user)

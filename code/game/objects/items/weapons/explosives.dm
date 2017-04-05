@@ -18,9 +18,7 @@
 	..()
 
 /obj/item/weapon/grenade/plastic/Destroy()
-	if(nadeassembly)
-		qdel(nadeassembly)
-		nadeassembly = null
+	QDEL_NULL(nadeassembly)
 	target = null
 	return ..()
 

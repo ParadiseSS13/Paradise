@@ -429,7 +429,5 @@
 		desc += " The package is not sealed."
 
 /obj/item/shippingPackage/Destroy()
-	if(wrapped)
-		qdel(wrapped)
-		wrapped = null
+	QDEL_NULL(wrapped)
 	return ..()

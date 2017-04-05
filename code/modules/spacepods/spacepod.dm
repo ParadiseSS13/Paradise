@@ -124,22 +124,14 @@
 /obj/spacepod/Destroy()
 	if(equipment_system.cargo_system)
 		equipment_system.cargo_system.removed(null)
-	qdel(equipment_system)
-	equipment_system = null
-	qdel(cargo_hold)
-	cargo_hold = null
-	qdel(battery)
-	battery = null
-	qdel(cabin_air)
-	cabin_air = null
-	qdel(internal_tank)
-	internal_tank = null
-	qdel(pr_int_temp_processor)
-	pr_int_temp_processor = null
-	qdel(pr_give_air)
-	pr_give_air = null
-	qdel(ion_trail)
-	ion_trail = null
+	QDEL_NULL(equipment_system)
+	QDEL_NULL(cargo_hold)
+	QDEL_NULL(battery)
+	QDEL_NULL(cabin_air)
+	QDEL_NULL(internal_tank)
+	QDEL_NULL(pr_int_temp_processor)
+	QDEL_NULL(pr_give_air)
+	QDEL_NULL(ion_trail)
 	occupant_sanity_check()
 	if(pilot)
 		pilot.forceMove(get_turf(src))
