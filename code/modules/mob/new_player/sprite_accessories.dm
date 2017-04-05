@@ -1749,6 +1749,26 @@
 	name = "Head Light"
 	icon_state = "light"
 
+/datum/sprite_accessory/head_accessory/ipc/ipc_side_lights
+	name = "Side Lights"
+	icon_state = "sidelights"
+
+/datum/sprite_accessory/head_accessory/ipc/ipc_side_cyber_head
+	name = "Cyber Pipes"
+	icon_state = "cyberhead"
+
+/datum/sprite_accessory/head_accessory/ipc/ipc_side_antlers
+	name = "Antlers"
+	icon_state = "antlers"
+
+/datum/sprite_accessory/head_accessory/ipc/ipc_side_drone_eyes
+	name = "Drone Eyes"
+	icon_state = "droneeyes"
+
+/datum/sprite_accessory/head_accessory/ipc/ipc_crowned
+	name = "Crowned"
+	icon_state = "crowned"
+
 /datum/sprite_accessory/head_accessory/kidan
 	icon = 'icons/mob/human_face.dmi'
 	species_allowed = list("Kidan")
