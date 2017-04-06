@@ -169,7 +169,7 @@
 	interact(user)
 
 /obj/machinery/kitchen_machine/proc/special_attack(obj/item/weapon/grab/G, mob/user)
-	to_chat(user, "<span class='alert'>This is ridiculous. You can not fit \the [G.affecting] in this [src].</span>")
+	to_chat(user, "<span class='alert'>This is ridiculous. You can not fit [G.affecting] in this [src].</span>")
 	return 0
 
 /********************
