@@ -11,9 +11,7 @@
 	var/locked = FALSE
 
 /obj/item/weapon/computer_hardware/ai_slot/Destroy()
-	if(stored_card)
-		qdel(stored_card)
-		stored_card = null
+	QDEL_NULL(stored_card)
 	return ..()
 
 

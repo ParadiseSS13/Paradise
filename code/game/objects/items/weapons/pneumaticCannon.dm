@@ -17,9 +17,7 @@
 	var/pressureSetting = 1 //How powerful the cannon is - higher pressure = more gas but more powerful throws
 
 /obj/item/weapon/pneumatic_cannon/Destroy()
-	if(tank)
-		qdel(tank)
-		tank = null
+	QDEL_NULL(tank)
 	for(var/obj/item/I in loadedItems)
 		qdel(I)
 	loadedItems.Cut()

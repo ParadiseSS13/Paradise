@@ -165,10 +165,8 @@
 			M.unEquip(piece)
 		qdel(piece)
 	processing_objects -= src
-	qdel(wires)
-	wires = null
-	qdel(spark_system)
-	spark_system = null
+	QDEL_NULL(wires)
+	QDEL_NULL(spark_system)
 	return ..()
 
 /obj/item/weapon/rig/proc/suit_is_deployed()

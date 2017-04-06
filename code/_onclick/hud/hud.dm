@@ -54,8 +54,7 @@
 	qdel(hide_actions_toggle)
 	hide_actions_toggle = null
 
-	qdel(module_store_icon)
-	module_store_icon = null
+	QDEL_NULL(module_store_icon)
 
 	if(static_inventory.len)
 		for(var/thing in static_inventory)

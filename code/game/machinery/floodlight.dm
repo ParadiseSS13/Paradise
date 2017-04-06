@@ -20,9 +20,7 @@
 	..()
 
 /obj/machinery/floodlight/Destroy()
-	if(cell)
-		qdel(cell)
-		cell = null
+	QDEL_NULL(cell)
 	return ..()
 
 /obj/machinery/floodlight/proc/updateicon()

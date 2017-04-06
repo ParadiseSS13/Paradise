@@ -20,9 +20,7 @@
 	var/obj/item/weapon/canvas/painting = null
 
 /obj/structure/easel/Destroy()
-	if(painting)
-		qdel(painting)
-		painting = null
+	QDEL_NULL(painting)
 	return ..()
 
 //Adding canvases

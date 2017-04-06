@@ -82,12 +82,8 @@
 /obj/machinery/clonepod/Destroy()
 	if(connected)
 		connected.pods -= src
-	if(Radio)
-		qdel(Radio)
-		Radio = null
-	if(countdown)
-		qdel(countdown)
-		countdown = null
+	QDEL_NULL(Radio)
+	QDEL_NULL(countdown)
 	return ..()
 
 /obj/machinery/clonepod/RefreshParts()

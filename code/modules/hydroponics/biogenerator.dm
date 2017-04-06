@@ -31,12 +31,8 @@
 	RefreshParts()
 
 /obj/machinery/biogenerator/Destroy()
-	if(beaker)
-		qdel(beaker)
-		beaker = null
-	if(files)
-		qdel(files)
-		files = null
+	QDEL_NULL(beaker)
+	QDEL_NULL(files)
 	return ..()
 
 /obj/machinery/biogenerator/ex_act(severity)

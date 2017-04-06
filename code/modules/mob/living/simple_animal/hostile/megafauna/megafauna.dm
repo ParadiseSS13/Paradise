@@ -43,7 +43,7 @@
 	mouse_opacity = 2 // Easier to click on in melee, they're giant targets anyway
 
 /mob/living/simple_animal/hostile/megafauna/Destroy()
-	qdel(internal_gps)
+	QDEL_NULL(internal_gps)
 	. = ..()
 
 /mob/living/simple_animal/hostile/megafauna/death(gibbed)
@@ -77,7 +77,7 @@
 				OpenFire()
 		else
 			devour(L)
-			
+
 /mob/living/simple_animal/hostile/megafauna/onShuttleMove()
 	var/turf/oldloc = loc
 	. = ..()

@@ -12,8 +12,7 @@
 	crew_monitor = new(src)
 
 /obj/item/device/sensor_device/Destroy()
-	qdel(crew_monitor)
-	crew_monitor = null
+	QDEL_NULL(crew_monitor)
 	return ..()
 
 /obj/item/device/sensor_device/attack_self(mob/user as mob)

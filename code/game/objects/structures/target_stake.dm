@@ -9,9 +9,7 @@
 	var/obj/item/target/pinned_target // the current pinned target
 
 /obj/structure/target_stake/Destroy()
-	if(pinned_target)
-		qdel(pinned_target)
-		pinned_target = null
+	QDEL_NULL(pinned_target)
 	return ..()
 
 /obj/structure/target_stake/Move()

@@ -169,14 +169,11 @@
 /mob/living/simple_animal/bot/Destroy()
 	if(paicard)
 		ejectpai()
-	qdel(Radio)
-	Radio = null
-	qdel(access_card)
-	access_card = null
+	QDEL_NULL(Radio)
+	QDEL_NULL(access_card)
 	if(radio_controller && bot_filter)
 		radio_controller.remove_object(bot_core, control_freq)
-	qdel(bot_core)
-	bot_core = null
+	QDEL_NULL(bot_core)
 	return ..()
 
 /mob/living/simple_animal/bot/death(gibbed)
@@ -263,7 +260,7 @@
 		interact(H)
 	else
 		return ..()
-		
+
 /mob/living/simple_animal/bot/attack_ghost(mob/M)
 	interact(M)
 

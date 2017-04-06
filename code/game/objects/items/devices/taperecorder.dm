@@ -21,9 +21,7 @@
 	update_icon()
 
 /obj/item/device/taperecorder/Destroy()
-	if(mytape)
-		qdel(mytape)
-		mytape = null
+	QDEL_NULL(mytape)
 	return ..()
 
 /obj/item/device/taperecorder/examine(mob/user)

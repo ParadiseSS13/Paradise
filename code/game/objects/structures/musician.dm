@@ -281,8 +281,7 @@
 		icon_state = "piano"
 
 /obj/structure/piano/Destroy()
-	qdel(song)
-	song = null
+	QDEL_NULL(song)
 	return ..()
 
 /obj/structure/piano/initialize()

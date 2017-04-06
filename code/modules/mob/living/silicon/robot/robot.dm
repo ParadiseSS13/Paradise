@@ -251,12 +251,10 @@ var/list/robot_verbs_default = list(
 		mmi = null
 	if(connected_ai)
 		connected_ai.connected_robots -= src
-	qdel(wires)
-	wires = null
-	qdel(module)
-	module = null
-	camera = null
-	cell = null
+	QDEL_NULL(wires)
+	QDEL_NULL(module)
+	QDEL_NULL(camera)
+	QDEL_NULL(cell)
 	return ..()
 
 /mob/living/silicon/robot/proc/pick_module()
