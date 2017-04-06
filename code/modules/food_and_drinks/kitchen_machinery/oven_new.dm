@@ -43,3 +43,29 @@
 	for(var/obj/item/weapon/stock_parts/micro_laser/M in component_parts)
 		E += M.rating
 	efficiency = round((E/2), 1) // There's 2 lasers, so halve the effect on the efficiency to keep it balanced
+
+/obj/machinery/kitchen_machine/oven/special_attack(obj/item/weapon/grab/G, mob/user)
+	if(istype(G.affecting, /mob/living/carbon/human))
+		if(G.state < GRAB_AGGRESSIVE)
+			to_chat(user, "<span class='warning'>You need a better grip to do that!</span>")
+			return 1
+		var/mob/living/carbon/human/C = G.affecting
+		var/obj/item/organ/external/head/head = C.get_organ("head")
+		if(!head)
+			to_chat(user, "<span class='warning'>This person doesn't have a head!</span>")
+			return 1
+		C.visible_message("<span class='danger'>[user] bashes [C]'s head in [src]'s door!</span>", \
+						"<span class='userdanger'>[user] bashes your head in [src]'s door! It feels rather hot in the oven!</span>")
+		if(!C.stat)
+			C.emote("scream")
+		user.changeNext_move(CLICK_CD_MELEE)
+		if(!(head.status & ORGAN_ROBOT))
+			C.apply_damage(5, BURN, "head") //5 fire damage, 15 brute damage, and weakening because your head was just in a hot oven with the door bashing into your neck!
+		C.apply_damage(15, BRUTE, "head")
+		C.Weaken(2)
+		add_logs(G.assailant, G.affecting, "head smashed in oven")
+		qdel(G) //Removes the grip to prevent rapid bashes. With the weaken, you PROBABLY can't run unless they are slow to grab you again...
+		return 1
+	else
+		to_chat(user, "<span class='warning'>You can only harm carbon-based creatures this way!</span>")
+		return 0

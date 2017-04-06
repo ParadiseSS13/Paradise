@@ -43,6 +43,37 @@
 	var/obj/item/weapon/reagent_containers/food/snacks/deepfryholder/type = new(get_turf(src))
 	return type
 
+/obj/machinery/cooker/deepfryer/special_attack(obj/item/weapon/grab/G, mob/user)
+	if(istype(G.affecting, /mob/living/carbon/human))
+//				if(!iscarbon(G.affecting))
+//					to_chat(user, "<span class='warning'>You can only harm carbon-based creatures this way!</span>")
+//					return 0
+//				if(G.affecting.stat == DEAD)
+//					to_chat(user, "<span class='warning'>[G.affecting] is dead!</span>")
+//					return 0
+		if(G.state < GRAB_AGGRESSIVE)
+			to_chat(user, "<span class='warning'>You need a better grip to do that!</span>")
+			return 0
+		var/mob/living/carbon/human/C = G.affecting
+		var/obj/item/organ/external/head/head = C.get_organ("head")
+		if(!head)
+			to_chat(user, "<span class='warning'>This person doesn't have a head!</span>")
+			return 0
+		C.visible_message("<span class='danger'>[user] dunks [C]'s face into [src]!</span>", \
+						"<span class='userdanger'>[user] dunks your face into [src]!</span>")
+		if(!C.stat)
+			C.emote("scream")
+		user.changeNext_move(CLICK_CD_MELEE)
+		if(!(head.status & ORGAN_ROBOT))
+			C.apply_damage(25, BURN, "head") //25 fire damage and disfigurement because your face was just deep fried!
+			head.disfigure("burn")
+		add_logs(G.assailant, G.affecting, "deep-fried face")
+		qdel(G) //Removes the grip so the person MIGHT have a small chance to run the fuck away and to prevent rapid dunks.
+	else
+		to_chat(user, "<span class='warning'>You can only harm carbon-based creatures this way!</span>")
+	return 0
+
+
 /obj/machinery/cooker/deepfryer/checkSpecials(obj/item/I)
 	if(!I)
 		return 0
