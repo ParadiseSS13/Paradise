@@ -15,7 +15,7 @@
 		cooldown = 0
 		processing_objects.Add(src)
 	else
-		to_chat(imp_in, "<span class='warning'>You must wait [(30 - cooldown)*2] seconds to use [src] again!</span>")
+		to_chat(imp_in, "<span class='warning'>You must wait [(total_cooldown - cooldown)*2] seconds to use [src] again!</span>")
 
 /obj/item/weapon/implant/abductor/process()
 	if(cooldown < total_cooldown)
