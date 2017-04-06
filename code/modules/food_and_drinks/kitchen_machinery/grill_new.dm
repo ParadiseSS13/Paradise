@@ -50,10 +50,6 @@
 			to_chat(user, "<span class='warning'>You need a better grip to do that!</span>")
 			return 1
 		var/mob/living/carbon/human/C = G.affecting
-		var/obj/item/organ/external/head/head = C.get_organ("head")
-		var/obj/item/organ/external/chest/chest = C.get_organ("chest")
-		var/obj/item/organ/external/arm/l_arm = C.get_organ("l_arm")
-		var/obj/item/organ/external/arm/right/r_arm = C.get_organ("r_arm")
 		C.visible_message("<span class='danger'>[user] forces [C] onto [src], searing [C]'s body!</span>", \
 						"<span class='userdanger'>[user] forces you onto [src]! It burns!</span>")
 		C.emote("scream")

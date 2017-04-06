@@ -55,7 +55,7 @@
 			return 0
 		C.visible_message("<span class='danger'>[user] dunks [C]'s face into [src]!</span>", \
 						"<span class='userdanger'>[user] dunks your face into [src]!</span>")
-			C.emote("scream")
+		C.emote("scream")
 		user.changeNext_move(CLICK_CD_MELEE)
 		C.apply_damage(25, BURN, "head") //25 fire damage and disfigurement because your face was just deep fried!
 		head.disfigure("burn")
