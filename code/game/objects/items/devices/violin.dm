@@ -18,8 +18,7 @@
 	song.instrumentExt = "ogg"
 
 /obj/item/device/violin/Destroy()
-	qdel(song)
-	song = null
+	QDEL_NULL(song)
 	return ..()
 
 /obj/item/device/violin/initialize()

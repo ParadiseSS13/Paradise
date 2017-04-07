@@ -386,9 +386,7 @@
 	var/obj/item/weapon/card/id/access_id
 
 /obj/item/clothing/accessory/petcollar/Destroy()
-	if(access_id)
-		qdel(access_id)
-		access_id = null
+	QDEL_NULL(access_id)
 	processing_objects -= src
 	return ..()
 

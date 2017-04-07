@@ -178,7 +178,7 @@
 	var/time_till_despawn = 9000 // This is reduced by 90% if a player manually enters cryo
 	var/willing_time_divisor = 10
 	var/time_entered = 0          // Used to keep track of the safe period.
-	var/obj/item/device/radio/intercom/announce //
+	var/obj/item/device/radio/intercom/announce
 
 	var/obj/machinery/computer/cryopod/control_computer
 	var/last_no_computer_message = 0
@@ -192,12 +192,18 @@
 		/obj/item/device/paicard,
 		/obj/item/weapon/gun,
 		/obj/item/weapon/pinpointer,
-		/obj/item/clothing/suit,
 		/obj/item/clothing/shoes/magboots,
 		/obj/item/areaeditor/blueprints,
 		/obj/item/clothing/head/helmet/space,
+		/obj/item/clothing/suit/space,
+		/obj/item/clothing/suit/armor,
+		/obj/item/weapon/defibrillator/compact,
+		/obj/item/weapon/reagent_containers/hypospray/CMO,
+		/obj/item/clothing/accessory/medal/gold/captain,
+		/obj/item/clothing/gloves/color/black/krav_maga/sec,
 		/obj/item/weapon/storage/internal,
-		/obj/item/device/spacepod_key
+		/obj/item/device/spacepod_key,
+		/obj/item/weapon/nullrod
 	)
 	// These items will NOT be preserved
 	var/list/do_not_preserve_items = list (
@@ -323,6 +329,18 @@
 				W.loc = null
 			else
 				W.loc = loc
+
+	// Skip past any cult sacrifice objective using this person
+	if(GAMEMODE_IS_CULT && is_sacrifice_target(occupant.mind))
+		var/datum/game_mode/cult/cult_mode = ticker.mode
+		var/list/p_s_t = cult_mode.get_possible_sac_targets()
+		if(p_s_t.len)
+			cult_mode.sacrifice_target = pick(p_s_t)
+			for(var/datum/mind/H in ticker.mode.cult)
+				if(H.current)
+					to_chat(H.current, "<span class='danger'>[ticker.mode.cultdat.entity_name]</span> murmurs, <span class='cultlarge'>[occupant] is beyond your reach. Sacrifice [cult_mode.sacrifice_target.current] instead...</span></span>")
+		else
+			cult_mode.bypass_phase()
 
 	//Update any existing objectives involving this mob.
 	for(var/datum/objective/O in all_objectives)

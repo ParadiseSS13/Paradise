@@ -39,7 +39,7 @@
 								"Gygax",
 								"Durand",
 								"H.O.N.K",
-								"Recitence",
+								"Reticence",
 								"Phazon",
 								"Exosuit Equipment",
 								"Cyborg Upgrade Modules",

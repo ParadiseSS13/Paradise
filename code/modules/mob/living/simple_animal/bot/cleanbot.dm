@@ -98,7 +98,7 @@
 
 			if(prob(5)) //Spawns foam!
 				visible_message("<span class='danger'>[src] whirs and bubbles violently, before releasing a plume of froth!</span>")
-				new /obj/effect/effect/foam(loc)
+				new /obj/structure/foam(loc)
 
 	else if(prob(5))
 		audible_message("[src] makes an excited beeping booping sound!")

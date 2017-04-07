@@ -74,7 +74,7 @@
 	var/numlings = input("How many?") as null|anything in list(10, 20, 30, 40, 50)
 	var/sbpc = input("%chance to be stillborn?") as null|anything in list(0, 25, 50, 75, 100)
 	for(var/i=0, i<numlings, i++)
-		var/obj/effect/spider/spiderling/terror_spiderling/S = new /obj/effect/spider/spiderling/terror_spiderling(get_turf(src))
+		var/obj/structure/spider/spiderling/terror_spiderling/S = new /obj/structure/spider/spiderling/terror_spiderling(get_turf(src))
 		S.grow_as = pick(/mob/living/simple_animal/hostile/poison/terror_spider/red, \
 		/mob/living/simple_animal/hostile/poison/terror_spider/gray, \
 		/mob/living/simple_animal/hostile/poison/terror_spider/green, \
@@ -91,9 +91,9 @@
 		if(T.spider_tier < spider_tier)
 			T.degenerate = 1
 			to_chat(T, "<span class='userdanger'>Through the hivemind, the raw power of [src] floods into your body, burning it from the inside out!</span>")
-	for(var/obj/effect/spider/eggcluster/terror_eggcluster/T in ts_egg_list)
+	for(var/obj/structure/spider/eggcluster/terror_eggcluster/T in ts_egg_list)
 		qdel(T)
-	for(var/obj/effect/spider/spiderling/terror_spiderling/T in ts_spiderling_list)
+	for(var/obj/structure/spider/spiderling/terror_spiderling/T in ts_spiderling_list)
 		T.stillborn = 1
 	to_chat(src, "<span class='userdanger'>All Terror Spiders, except yourself, will die off shortly.</span>")
 

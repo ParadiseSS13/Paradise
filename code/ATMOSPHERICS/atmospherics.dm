@@ -53,15 +53,11 @@ Pipelines + Other Objects -> Pipe network
 		stored = new(src, make_from = src)
 
 /obj/machinery/atmospherics/Destroy()
-	if(stored)
-		qdel(stored)
-		stored = null
+	QDEL_NULL(stored)
 	for(var/mob/living/L in src) //ventcrawling is serious business
 		L.remove_ventcrawl()
 		L.forceMove(get_turf(src))
-	if(pipe_image)
-		qdel(pipe_image) //we have to del it, or it might keep a ref somewhere else
-		pipe_image = null
+	QDEL_NULL(pipe_image) //we have to del it, or it might keep a ref somewhere else
 	return ..()
 
 // Icons/overlays/underlays
@@ -217,7 +213,7 @@ Pipelines + Other Objects -> Pipe network
 
 	qdel(src)
 
-/obj/machinery/atmospherics/construction(D, P, C)
+/obj/machinery/atmospherics/on_construction(D, P, C)
 	if(C)
 		color = C
 	dir = D

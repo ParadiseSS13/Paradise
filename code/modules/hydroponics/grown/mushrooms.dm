@@ -229,7 +229,7 @@
 	desc = "<I>Mycena Bregprox</I>: This species of mushroom glows in the dark."
 	icon_state = "glowshroom"
 	filling_color = "#00FA9A"
-	var/effect_path = /obj/effect/glowshroom
+	var/effect_path = /obj/structure/glowshroom
 	origin_tech = "biotech=4;plasmatech=6"
 	light_color = "#006622"
 
@@ -245,7 +245,7 @@
 		var/turf/simulated/wall = get_step(user.loc, tempdir)
 		if(istype(wall))
 			maxcount++
-	for(var/obj/effect/glowshroom/G in user.loc)
+	for(var/obj/structure/glowshroom/G in user.loc)
 		count++
 	if(count >= maxcount)
 		to_chat(user, "<span class='warning'>There are too many shrooms here to plant [src].</span>")
@@ -277,7 +277,7 @@
 	desc = "<I>Mycena Ruthenia</I>: This species of mushroom glows in the dark, but isn't actually bioluminescent. They're warm to the touch..."
 	icon_state = "glowcap"
 	filling_color = "#00FA9A"
-	effect_path = /obj/effect/glowshroom/glowcap
+	effect_path = /obj/structure/glowshroom/glowcap
 	origin_tech = "biotech=4;powerstorage=6;plasmatech=4"
 	light_color = "#8E0300"
 
@@ -324,5 +324,5 @@
 	name = "shadowshroom cluster"
 	desc = "<I>Mycena Umbra</I>: This species of mushroom emits shadow instead of light."
 	icon_state = "shadowshroom"
-	effect_path = /obj/effect/glowshroom/shadowshroom
+	effect_path = /obj/structure/glowshroom/shadowshroom
 	origin_tech = "biotech=4;plasmatech=4;magnets=4"

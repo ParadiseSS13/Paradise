@@ -352,6 +352,7 @@ var/list/uplink_items = list()
 /datum/uplink_item/jobspecific/poison_pen
 	name = "Poison Pen"
 	desc = "Cutting edge of deadly writing implements technology, this gadget will infuse any piece of paper with delayed contact poison."
+	reference = "PP"
 	item = /obj/item/weapon/pen/poison
 	cost = 2
 	excludefrom = list(/datum/game_mode/nuclear)

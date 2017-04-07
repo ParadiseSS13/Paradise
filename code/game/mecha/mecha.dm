@@ -629,8 +629,7 @@
 	else
 		qdel(cabin_air)
 	cabin_air = null
-	qdel(spark_system)
-	spark_system = null
+	QDEL_NULL(spark_system)
 
 	mechas_list -= src //global mech list
 	return ..()

@@ -46,8 +46,7 @@ LIGHTERS ARE IN LIGHTERS.DM
 	reagents.set_reacting(FALSE) // so it doesn't react until you light it
 
 /obj/item/clothing/mask/cigarette/Destroy()
-	if(reagents)
-		qdel(reagents)
+	QDEL_NULL(reagents)
 	processing_objects -= src
 	return ..()
 
@@ -93,6 +92,17 @@ LIGHTERS ARE IN LIGHTERS.DM
 
 	else if(istype(W, /obj/item/device/assembly/igniter))
 		light("<span class='notice'>[user] fiddles with [W], and manages to light their [name].</span>")
+
+	else if(istype(W, /obj/item/weapon/gun/magic/wand/fireball))
+		var/obj/item/weapon/gun/magic/wand/fireball/F = W
+		if(F.charges)
+			if(prob(50) || user.mind.assigned_role == "Wizard")
+				light("<span class='notice'>Holy shit, did [user] just manage to light their [name] with [W], with only moderate eyebrow singing?</span>")
+			else
+				to_chat(user, "<span class='warning'>Unsure which end of the wand is which, [user] fails to light [name] with [W].</span>")
+				explosion(user.loc, -1, 0, 2, 3, 0, flame_range = 2)
+			F.charges--
+
 
 	//can't think of any other way to update the overlays :<
 	user.update_inv_wear_mask()

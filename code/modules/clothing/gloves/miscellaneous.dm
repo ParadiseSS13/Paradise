@@ -70,9 +70,7 @@
 	update_icon()
 
 /obj/item/clothing/gloves/color/yellow/stun/Destroy()
-	if(cell)
-		qdel(cell)
-		cell = null
+	QDEL_NULL(cell)
 	return ..()
 
 /obj/item/clothing/gloves/color/yellow/stun/Touch(atom/A, proximity)

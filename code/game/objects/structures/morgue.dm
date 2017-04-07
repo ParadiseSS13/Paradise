@@ -160,9 +160,7 @@
 	return
 
 /obj/structure/morgue/Destroy()
-	if(connected)
-		qdel(connected)
-		connected = null
+	QDEL_NULL(connected)
 	return ..()
 
 /obj/structure/morgue/container_resist(var/mob/living/L)
@@ -405,9 +403,7 @@
 	return
 
 /obj/structure/crematorium/Destroy()
-	if(connected)
-		qdel(connected)
-		connected = null
+	QDEL_NULL(connected)
 	return ..()
 
 /obj/structure/crematorium/container_resist(var/mob/living/L)
@@ -471,7 +467,7 @@
 		connected.connected = null
 	connected = null
 	return ..()
-	
+
 // Crematorium switch
 /obj/machinery/crema_switch
 	desc = "Burn baby burn!"
@@ -484,7 +480,7 @@
 	var/area/area = null
 	var/otherarea = null
 	var/id = 1
-	
+
 /obj/machinery/crema_switch/attack_ghost(mob/user)
 	if(user.can_advanced_admin_interact())
 		return attack_hand(user)

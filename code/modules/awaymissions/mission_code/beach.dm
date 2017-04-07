@@ -18,6 +18,7 @@
 	if(water_timer)
 		deltimer(water_timer)
 	water_timer = null
+	return ..()
 
 /obj/effect/waterfall/proc/drip()
 	var/obj/effect/effect/water/W = new(loc)

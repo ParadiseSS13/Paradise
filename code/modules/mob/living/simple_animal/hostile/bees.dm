@@ -295,8 +295,7 @@
 	queen = new(src)
 
 /obj/item/queen_bee/Destroy()
-	qdel(queen)
-	queen = null
+	QDEL_NULL(queen)
 	return ..()
 
 

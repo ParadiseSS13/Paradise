@@ -59,8 +59,7 @@ RCD
 	return
 
 /obj/item/weapon/rcd/Destroy()
-	qdel(spark_system)
-	spark_system = null
+	QDEL_NULL(spark_system)
 	rcd_list -= src
 	return ..()
 

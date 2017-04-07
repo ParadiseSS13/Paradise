@@ -229,7 +229,7 @@
 		//Different classes of items give different commodities.
 		if(istype(W,/obj/item/weapon/cigbutt))
 			stored_comms["plastic"]++
-		else if(istype(W,/obj/effect/spider/spiderling))
+		else if(istype(W,/obj/structure/spider/spiderling))
 			stored_comms["wood"]++
 			stored_comms["wood"]++
 			stored_comms["plastic"]++
