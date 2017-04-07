@@ -240,11 +240,7 @@ var/const/INGEST = 2
 		if(M && R)
 			if(ishuman(M))
 				var/mob/living/carbon/human/H = M
-				//Check if this mob's species is set then call the species handle_reagents
-				if(H.species)
-					H.species.handle_reagents(H, R)
-				else	//in case you somehow don't have a species, just use the default on_mob_life
-					R.on_mob_life(H)
+				H.species.handle_reagents(H, R)
 			else	//use the default on_mob_life for non-human mobs
 				R.on_mob_life(M)
 
