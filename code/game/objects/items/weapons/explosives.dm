@@ -18,10 +18,9 @@
 	..()
 
 /obj/item/weapon/grenade/plastic/Destroy()
-	qdel(nadeassembly)
-	nadeassembly = null
+	QDEL_NULL(nadeassembly)
 	target = null
-	..()
+	return ..()
 
 /obj/item/weapon/grenade/plastic/attackby(obj/item/I, mob/user, params)
 	if(!nadeassembly && istype(I, /obj/item/device/assembly_holder))

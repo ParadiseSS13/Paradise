@@ -40,9 +40,7 @@
 		src.colorlist += D
 
 /obj/machinery/pdapainter/Destroy()
-	if(storedpda)
-		qdel(storedpda)
-		storedpda = null
+	QDEL_NULL(storedpda)
 	return ..()
 
 /obj/machinery/pdapainter/attackby(var/obj/item/O as obj, var/mob/user as mob, params)
@@ -85,7 +83,7 @@
 	set name = "Eject PDA"
 	set category = "Object"
 	set src in oview(1)
-	
+
 	if(usr.incapacitated())
 		return
 

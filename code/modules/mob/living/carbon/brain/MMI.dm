@@ -167,12 +167,8 @@
 	if(isrobot(loc))
 		var/mob/living/silicon/robot/borg = loc
 		borg.mmi = null
-	if(brainmob)
-		qdel(brainmob)
-		brainmob = null
-	if(held_brain)
-		qdel(held_brain)
-		held_brain = null
+	QDEL_NULL(brainmob)
+	QDEL_NULL(held_brain)
 	return ..()
 
 /obj/item/device/mmi/syndie

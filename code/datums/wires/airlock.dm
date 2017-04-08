@@ -11,52 +11,44 @@
 
 var/const/AIRLOCK_WIRE_IDSCAN = 1
 var/const/AIRLOCK_WIRE_MAIN_POWER1 = 2
-var/const/AIRLOCK_WIRE_MAIN_POWER2 = 4
-var/const/AIRLOCK_WIRE_DOOR_BOLTS = 8
-var/const/AIRLOCK_WIRE_BACKUP_POWER1 = 16
-var/const/AIRLOCK_WIRE_BACKUP_POWER2 = 32
-var/const/AIRLOCK_WIRE_OPEN_DOOR = 64
-var/const/AIRLOCK_WIRE_AI_CONTROL = 128
-var/const/AIRLOCK_WIRE_ELECTRIFY = 256
-var/const/AIRLOCK_WIRE_SAFETY = 512
-var/const/AIRLOCK_WIRE_SPEED = 1024
-var/const/AIRLOCK_WIRE_LIGHT = 2048
+var/const/AIRLOCK_WIRE_DOOR_BOLTS = 4
+var/const/AIRLOCK_WIRE_BACKUP_POWER1 = 8
+var/const/AIRLOCK_WIRE_OPEN_DOOR = 16
+var/const/AIRLOCK_WIRE_AI_CONTROL = 32
+var/const/AIRLOCK_WIRE_ELECTRIFY = 64
+var/const/AIRLOCK_WIRE_SAFETY = 128
+var/const/AIRLOCK_WIRE_SPEED = 256
+var/const/AIRLOCK_WIRE_LIGHT = 512
 
 /datum/wires/airlock/GetWireName(index)
 	switch(index)
 		if(AIRLOCK_WIRE_IDSCAN)
 			return "ID Scan"
-		
+
 		if(AIRLOCK_WIRE_MAIN_POWER1)
 			return "Primary Power"
-		
-		if(AIRLOCK_WIRE_MAIN_POWER2)
-			return "Secondary Power"
-		
+
 		if(AIRLOCK_WIRE_DOOR_BOLTS)
 			return "Door Bolts"
-			
+
 		if(AIRLOCK_WIRE_BACKUP_POWER1)
 			return "Primary Backup Power"
-		
-		if(AIRLOCK_WIRE_BACKUP_POWER2)
-			return "Secondary Backup Power"
-			
+
 		if(AIRLOCK_WIRE_OPEN_DOOR)
 			return "Door State"
-			
+
 		if(AIRLOCK_WIRE_AI_CONTROL)
 			return "AI Control"
-			
+
 		if(AIRLOCK_WIRE_ELECTRIFY)
 			return "Electrification"
-			
+
 		if(AIRLOCK_WIRE_ELECTRIFY)
 			return "Door Safeties"
-			
+
 		if(AIRLOCK_WIRE_ELECTRIFY)
 			return "Door Timing"
-			
+
 		if(AIRLOCK_WIRE_ELECTRIFY)
 			return "Bolt Lights"
 
@@ -89,7 +81,7 @@ var/const/AIRLOCK_WIRE_LIGHT = 2048
 	switch(index)
 		if(AIRLOCK_WIRE_IDSCAN)
 			A.aiDisabledIdScanner = !mended
-		if(AIRLOCK_WIRE_MAIN_POWER1, AIRLOCK_WIRE_MAIN_POWER2)
+		if(AIRLOCK_WIRE_MAIN_POWER1)
 
 			if(!mended)
 				//Cutting either one disables the main door power, but unless backup power is also cut, the backup power re-powers the door in 10 seconds. While unpowered, the door may be crowbarred open, but bolts-raising will not work. Cutting these wires may electocute the user.
@@ -99,7 +91,7 @@ var/const/AIRLOCK_WIRE_LIGHT = 2048
 				A.regainMainPower()
 				A.shock(usr, 50)
 
-		if(AIRLOCK_WIRE_BACKUP_POWER1, AIRLOCK_WIRE_BACKUP_POWER2)
+		if(AIRLOCK_WIRE_BACKUP_POWER1)
 
 			if(!mended)
 				//Cutting either one disables the backup door power (allowing it to be crowbarred open, but disabling bolts-raising), but may electocute the user.
@@ -165,7 +157,7 @@ var/const/AIRLOCK_WIRE_LIGHT = 2048
 				if(A.emergency)
 					A.emergency = 0
 					A.update_icon()
-		if(AIRLOCK_WIRE_MAIN_POWER1 || AIRLOCK_WIRE_MAIN_POWER2)
+		if(AIRLOCK_WIRE_MAIN_POWER1)
 			//Sending a pulse through either one causes a breaker to trip, disabling the door for 10 seconds if backup power is connected, or 1 minute if not (or until backup power comes back on, whichever is shorter).
 			A.loseMainPower()
 		if(AIRLOCK_WIRE_DOOR_BOLTS)
@@ -176,7 +168,7 @@ var/const/AIRLOCK_WIRE_LIGHT = 2048
 			else
 				A.unlock()
 
-		if(AIRLOCK_WIRE_BACKUP_POWER1 || AIRLOCK_WIRE_BACKUP_POWER2)
+		if(AIRLOCK_WIRE_BACKUP_POWER1)
 			//two wires for backup power. Sending a pulse through either one causes a breaker to trip, but this does not disable it unless main power is down too (in which case it is disabled for 1 minute or however long it takes main power to come back, whichever is shorter).
 			A.loseBackupPower()
 		if(AIRLOCK_WIRE_AI_CONTROL)

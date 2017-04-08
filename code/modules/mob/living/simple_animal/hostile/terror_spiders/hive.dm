@@ -46,10 +46,10 @@
 		if(T.stat != DEAD && !T.spider_placed && spider_awaymission == T.spider_awaymission)
 			if(T.type == specific_type)
 				numspiders += 1
-	for(var/obj/effect/spider/eggcluster/terror_eggcluster/E in ts_egg_list)
+	for(var/obj/structure/spider/eggcluster/terror_eggcluster/E in ts_egg_list)
 		if(E.spiderling_type == specific_type && E.z == z)
 			numspiders += E.spiderling_number
-	for(var/obj/effect/spider/spiderling/terror_spiderling/L in ts_spiderling_list)
+	for(var/obj/structure/spider/spiderling/terror_spiderling/L in ts_spiderling_list)
 		if(!L.stillborn && L.grow_as == specific_type && L.z == z)
 			numspiders += 1
 	return numspiders

@@ -17,9 +17,7 @@
 
 
 /obj/item/weapon/melee/powerfist/Destroy()
-	if(tank)
-		qdel(tank)
-		tank = null
+	QDEL_NULL(tank)
 	return ..()
 
 /obj/item/weapon/melee/powerfist/examine(mob/user)

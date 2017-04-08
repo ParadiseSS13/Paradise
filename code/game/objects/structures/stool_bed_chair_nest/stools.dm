@@ -4,6 +4,8 @@
 	icon = 'icons/obj/objects.dmi'
 	icon_state = "stool"
 	anchored = 1.0
+	var/buildstackamount = 1
+	var/buildstacktype = /obj/item/stack/sheet/metal
 
 /obj/structure/stool/ex_act(severity)
 	switch(severity)
@@ -12,25 +14,25 @@
 			return
 		if(2.0)
 			if(prob(70))
-				new /obj/item/stack/sheet/metal(loc)
+				new buildstacktype(loc, buildstackamount)
 				qdel(src)
 				return
 		if(3.0)
 			if(prob(50))
-				new /obj/item/stack/sheet/metal(loc)
+				new buildstacktype(loc, buildstackamount)
 				qdel(src)
 				return
 	return
 
 /obj/structure/stool/blob_act()
 	if(prob(75))
-		new /obj/item/stack/sheet/metal(loc)
+		new buildstacktype(loc, buildstackamount)
 		qdel(src)
 
 /obj/structure/stool/attackby(obj/item/weapon/W as obj, mob/user as mob, params)
 	if(istype(W, /obj/item/weapon/wrench))
 		playsound(loc, W.usesound, 50, 1)
-		new /obj/item/stack/sheet/metal(loc)
+		new buildstacktype(loc, buildstackamount)
 		qdel(src)
 
 /obj/structure/stool/MouseDrop(atom/over_object, src_location, over_location, src_control, over_control, params, skip_fucking_stool_shit = 0)

@@ -936,7 +936,7 @@ var/list/ventcrawl_machinery = list(/obj/machinery/atmospherics/unary/vent_pump,
 /mob/living/carbon/proc/can_eat(flags = 255)
 	return 1
 
-/mob/living/carbon/proc/eat(var/obj/item/weapon/reagent_containers/food/toEat, mob/user)
+/mob/living/carbon/proc/eat(var/obj/item/weapon/reagent_containers/food/toEat, mob/user, var/bitesize_override)
 	if(!istype(toEat))
 		return 0
 	var/fullness = nutrition + 10
@@ -953,7 +953,7 @@ var/list/ventcrawl_machinery = list(/obj/machinery/atmospherics/unary/vent_pump,
 	else
 		if(!forceFed(toEat, user, fullness))
 			return 0
-	consume(toEat)
+	consume(toEat, bitesize_override)
 	score_foodeaten++
 	return 1
 
@@ -1006,7 +1006,8 @@ var/list/ventcrawl_machinery = list(/obj/machinery/atmospherics/unary/vent_pump,
 
 /*TO DO - If/when stomach organs are introduced, override this at the human level sending the item to the stomach
 so that different stomachs can handle things in different ways VB*/
-/mob/living/carbon/proc/consume(var/obj/item/weapon/reagent_containers/food/toEat)
+/mob/living/carbon/proc/consume(var/obj/item/weapon/reagent_containers/food/toEat, var/bitesize_override)
+	var/this_bite = bitesize_override ? bitesize_override : toEat.bitesize
 	if(!toEat.reagents)
 		return
 	if(satiety > -200)
@@ -1014,9 +1015,9 @@ so that different stomachs can handle things in different ways VB*/
 	if(toEat.consume_sound)
 		playsound(loc, toEat.consume_sound, rand(10,50), 1)
 	if(toEat.reagents.total_volume)
-		var/fraction = min(toEat.bitesize/toEat.reagents.total_volume, 1)
+		var/fraction = min(this_bite/toEat.reagents.total_volume, 1)
 		toEat.reagents.reaction(src, toEat.apply_type, fraction)
-		toEat.reagents.trans_to(src, toEat.bitesize*toEat.transfer_efficiency)
+		toEat.reagents.trans_to(src, this_bite*toEat.transfer_efficiency)
 
 /mob/living/carbon/get_access()
 	. = ..()

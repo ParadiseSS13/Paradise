@@ -150,8 +150,7 @@
 	var/obj/item/device/mmi/stored_mmi
 
 /obj/item/organ/internal/brain/mmi_holder/Destroy()
-	if(stored_mmi)
-		qdel(stored_mmi)
+	QDEL_NULL(stored_mmi)
 	return ..()
 
 /obj/item/organ/internal/brain/mmi_holder/insert(var/mob/living/target,special = 0)

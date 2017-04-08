@@ -14,9 +14,7 @@
 	..()
 
 /obj/item/weapon/computer_hardware/battery/Destroy()
-	if(battery)
-		qdel(battery)
-		battery = null
+	QDEL_NULL(battery)
 	return ..()
 
 /obj/item/weapon/computer_hardware/battery/on_remove(obj/item/device/modular_computer/M, mob/living/user = null)

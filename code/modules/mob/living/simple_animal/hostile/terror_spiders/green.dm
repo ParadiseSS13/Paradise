@@ -30,7 +30,7 @@
 	greeneggs_action.Grant(src)
 
 /mob/living/simple_animal/hostile/poison/terror_spider/green/proc/DoLayGreenEggs()
-	var/obj/effect/spider/eggcluster/E = locate() in get_turf(src)
+	var/obj/structure/spider/eggcluster/E = locate() in get_turf(src)
 	if(E)
 		to_chat(src, "<span class='notice'>There is already a cluster of eggs here!</span>")
 	else if(fed < feedings_to_lay)

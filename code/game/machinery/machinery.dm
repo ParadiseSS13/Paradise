@@ -396,15 +396,18 @@ Class Procs:
 /obj/machinery/proc/default_deconstruction_crowbar(var/obj/item/weapon/crowbar/C, var/ignore_panel = 0)
 	if(istype(C) && (panel_open || ignore_panel))
 		playsound(loc, C.usesound, 50, 1)
-		spawn_frame()
-		for(var/obj/item/I in component_parts)
-			if(I.reliability != 100 && crit_fail)
-				I.crit_fail = 1
-			I.forceMove(loc)
-		qdel(src)
+		deconstruct()
 		return 1
 	return 0
 
+/obj/machinery/proc/deconstruct(disassembled = TRUE)
+	on_deconstruction()
+	spawn_frame()
+	for(var/obj/item/I in component_parts)
+		if(I.reliability != 100 && crit_fail)
+			I.crit_fail = 1
+		I.forceMove(loc)
+	qdel(src)
 
 /obj/machinery/proc/spawn_frame()
 	var/obj/machinery/constructable_frame/machine_frame/M = new /obj/machinery/constructable_frame/machine_frame(loc)
@@ -490,18 +493,6 @@ Class Procs:
 	if(user.research_scanner && component_parts)
 		display_parts(user)
 
-/obj/machinery/proc/dismantle()
-	playsound(loc, 'sound/items/Crowbar.ogg', 50, 1)
-	var/obj/machinery/constructable_frame/machine_frame/M = new /obj/machinery/constructable_frame/machine_frame(loc)
-	M.state = 2
-	M.icon_state = "box_1"
-	for(var/obj/I in component_parts)
-		if(I.reliability != 100 && crit_fail)
-			I.crit_fail = 1
-		I.loc = loc
-	qdel(src)
-	return 1
-
 /obj/machinery/proc/on_assess_perp(mob/living/carbon/human/perp)
 	return 0
 
@@ -573,7 +564,10 @@ Class Procs:
 	return 0
 
 //called on machinery construction (i.e from frame to machinery) but not on initialization
-/obj/machinery/proc/construction()
+/obj/machinery/proc/on_construction()
+	return
+
+/obj/machinery/proc/on_deconstruction()
 	return
 
 /obj/machinery/proc/can_be_overridden()

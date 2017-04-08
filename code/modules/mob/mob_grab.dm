@@ -444,8 +444,7 @@
 		if(assailant.client)
 			assailant.client.screen -= hud
 		assailant = null
-	qdel(hud)
-	hud = null
+	QDEL_NULL(hud)
 	return ..()
 
 

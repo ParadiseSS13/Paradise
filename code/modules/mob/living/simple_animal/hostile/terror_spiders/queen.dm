@@ -30,7 +30,7 @@
 	var/lastnestsetup = 0
 	var/neststep = 0
 	var/hasnested = 0
-	var/spider_max_per_nest = 20 // above this, queen stops spawning more, and declares war.
+	var/spider_max_per_nest = 25 // above this, AI queens become stable
 	var/canlay = 4 // main counter for egg-laying ability! # = num uses, incremented at intervals
 	var/eggslaid = 0
 	var/spider_can_fakelings = 3 // spawns defective spiderlings that don't grow up, used to freak out crew, atmosphere
@@ -153,7 +153,7 @@
 			if(3)
 				if(world.time > (spider_lastspawn + spider_spawnfrequency))
 					if(prob(20))
-						var/obj/effect/spider/eggcluster/terror_eggcluster/N = locate() in get_turf(src)
+						var/obj/structure/spider/eggcluster/terror_eggcluster/N = locate() in get_turf(src)
 						if(!N)
 							spider_lastspawn = world.time
 							DoLayTerrorEggs(/mob/living/simple_animal/hostile/poison/terror_spider/green, 2, 0)
@@ -161,7 +161,7 @@
 			if(4)
 				if(world.time > (spider_lastspawn + spider_spawnfrequency))
 					if(prob(20))
-						var/obj/effect/spider/eggcluster/terror_eggcluster/N = locate() in get_turf(src)
+						var/obj/structure/spider/eggcluster/terror_eggcluster/N = locate() in get_turf(src)
 						if(!N)
 							spider_lastspawn = world.time
 							DoLayTerrorEggs(/mob/living/simple_animal/hostile/poison/terror_spider/red, 2, 1)
@@ -169,7 +169,7 @@
 			if(5)
 				if(world.time > (spider_lastspawn + spider_spawnfrequency))
 					if(prob(20))
-						var/obj/effect/spider/eggcluster/terror_eggcluster/N = locate() in get_turf(src)
+						var/obj/structure/spider/eggcluster/terror_eggcluster/N = locate() in get_turf(src)
 						if(!N)
 							if(!spider_awaymission)
 								QueenFakeLings()
@@ -251,6 +251,8 @@
 		I.flicker()
 
 /mob/living/simple_animal/hostile/poison/terror_spider/queen/proc/LayQueenEggs()
+	if(stat == DEAD)
+		return
 	if(!hasnested)
 		to_chat(src, "<span class='danger'>You must nest before doing this.</span>")
 		return
@@ -329,7 +331,7 @@
 		spider_can_fakelings--
 		var/numlings = 15
 		for(var/i in 1 to numlings)
-			var/obj/effect/spider/spiderling/terror_spiderling/S = new /obj/effect/spider/spiderling/terror_spiderling(get_turf(src))
+			var/obj/structure/spider/spiderling/terror_spiderling/S = new /obj/structure/spider/spiderling/terror_spiderling(get_turf(src))
 			S.grow_as = /mob/living/simple_animal/hostile/poison/terror_spider/red
 			S.stillborn = 1
 			S.name = "Evil-Looking Spiderling"
@@ -344,12 +346,13 @@
 	damage = 0
 	icon_state = "toxin"
 	damage_type = TOX
+	var/bonus_tox = 30
 
 /obj/item/projectile/terrorqueenspit/on_hit(mob/living/carbon/target)
 	if(ismob(target))
 		var/mob/living/L = target
 		if(L.reagents)
 			if(L.can_inject(null, 0, "chest", 0))
-				L.reagents.add_reagent("terror_queen_toxin", 15)
+				L.Hallucinate(400)
 		if(!isterrorspider(L))
-			L.adjustToxLoss(30)
+			L.adjustToxLoss(bonus_tox)

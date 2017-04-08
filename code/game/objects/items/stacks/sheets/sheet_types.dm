@@ -22,6 +22,7 @@ var/global/list/datum/stack_recipe/metal_recipes = list(
 	new /datum/stack_recipe("barber chair", /obj/structure/stool/bed/chair/barber, one_per_turf = 1, on_floor = 1),
 	new /datum/stack_recipe("wheelchair", /obj/structure/stool/bed/chair/wheelchair, 15, one_per_turf = 1, on_floor = 1),
 	new /datum/stack_recipe("bed", /obj/structure/stool/bed, 2, one_per_turf = 1, on_floor = 1),
+	new /datum/stack_recipe("psychiatrist bed", /obj/structure/stool/psychbed, 5, one_per_turf = 1, on_floor = 1),
 	null,
 	new /datum/stack_recipe_list("office chairs",list(
 		new /datum/stack_recipe("dark office chair", /obj/structure/stool/bed/chair/office/dark, 5, one_per_turf = 1, on_floor = 1),
@@ -100,6 +101,7 @@ var/global/list/datum/stack_recipe/metal_recipes = list(
 	throwforce = 10.0
 	flags = CONDUCT
 	origin_tech = "materials=1"
+	merge_type = /obj/item/stack/sheet/metal
 
 /obj/item/stack/sheet/metal/cyborg
 	materials = list()
@@ -136,6 +138,7 @@ var/global/list/datum/stack_recipe/plasteel_recipes = list(
 	throwforce = 10.0
 	flags = CONDUCT
 	origin_tech = "materials=2"
+	merge_type = /obj/item/stack/sheet/plasteel
 
 /obj/item/stack/sheet/plasteel/New(var/loc, var/amount=null)
 	recipes = plasteel_recipes
@@ -171,6 +174,7 @@ var/global/list/datum/stack_recipe/wood_recipes = list(
 	icon_state = "sheet-wood"
 	origin_tech = "materials=1;biotech=1"
 	burn_state = FLAMMABLE
+	merge_type = /obj/item/stack/sheet/wood
 
 /obj/item/stack/sheet/wood/New(var/loc, var/amount=null)
 	recipes = wood_recipes
@@ -208,6 +212,7 @@ var/global/list/datum/stack_recipe/cloth_recipes = list ( \
 	burn_state = FLAMMABLE
 	force = 0
 	throwforce = 0
+	merge_type = /obj/item/stack/sheet/cloth
 
 /obj/item/stack/sheet/cloth/New(loc, amount=null)
 	recipes = cloth_recipes
@@ -240,6 +245,7 @@ var/global/list/datum/stack_recipe/cardboard_recipes = list (
 	icon_state = "sheet-card"
 	origin_tech = "materials=1"
 	burn_state = FLAMMABLE
+	merge_type = /obj/item/stack/sheet/cardboard
 
 /obj/item/stack/sheet/cardboard/New(var/loc, var/amt = null)
 	recipes = cardboard_recipes
@@ -265,6 +271,7 @@ var/global/list/datum/stack_recipe/runed_metal_recipes = list ( \
 	icon_state = "sheet-runed"
 	icon = 'icons/obj/items.dmi'
 	sheettype = "runed"
+	merge_type = /obj/item/stack/sheet/runed_metal
 
 /obj/item/stack/sheet/runed_metal/attack_self(mob/living/user)
 	if(!iscultist(user))
@@ -320,6 +327,7 @@ var/global/list/datum/stack_recipe/plastic_recipes = list ( \
 	icon_state = "sheet-plastic"
 	throwforce = 7
 	origin_tech = "materials=1;biotech=1"
+	merge_type = /obj/item/stack/sheet/plastic
 
 /obj/item/stack/sheet/plastic/New()
 	recipes = plastic_recipes

@@ -11,7 +11,7 @@
 	pass_flags = PASSBLOB
 	faction = list("blob")
 
-	var/obj/effect/blob/core/blob_core = null // The blob overmind's core
+	var/obj/structure/blob/core/blob_core = null // The blob overmind's core
 	var/blob_points = 0
 	var/max_blob_points = 100
 	var/last_attack = 0
@@ -117,7 +117,7 @@
 		stat(null, "Power Stored: [blob_points]/[max_blob_points]")
 
 /mob/camera/blob/Move(var/NewLoc, var/Dir = 0)
-	var/obj/effect/blob/B = locate() in range("3x3", NewLoc)
+	var/obj/structure/blob/B = locate() in range("3x3", NewLoc)
 	if(B)
 		loc = NewLoc
 	else
