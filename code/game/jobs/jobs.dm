@@ -65,12 +65,19 @@ var/list/command_positions = list(
 	"Head of Security",
 	"Chief Engineer",
 	"Research Director",
-	"Chief Medical Officer"
+	"Chief Medical Officer",
+	"Acting Captain",
+	"Acting Head of Personnel",
+	"Acting Head of Security",
+	"Acting Chief Engineer",
+	"Acting Research Director",
+	"Acting Chief Medical Officer"
 )
 
 
 var/list/engineering_positions = list(
 	"Chief Engineer",
+	"Acting Chief Engineer",
 	"Station Engineer",
 	"Life Support Specialist",
 	"Mechanic"
@@ -79,6 +86,7 @@ var/list/engineering_positions = list(
 
 var/list/medical_positions = list(
 	"Chief Medical Officer",
+	"Acting Chief Medical Officer",
 	"Medical Doctor",
 	"Geneticist",
 	"Psychiatrist",
@@ -90,14 +98,16 @@ var/list/medical_positions = list(
 
 var/list/science_positions = list(
 	"Research Director",
+	"Acting Research Director",
 	"Scientist",
 	"Geneticist",	//Part of both medical and science
-	"Roboticist",
+	"Roboticist"
 )
 
 //BS12 EDIT
 var/list/support_positions = list(
 	"Head of Personnel",
+	"Acting Head of Personnel",
 	"Bartender",
 	"Botanist",
 	"Chef",
@@ -118,6 +128,7 @@ var/list/support_positions = list(
 
 var/list/supply_positions = list(
 	"Head of Personnel",
+	"Acting Head of Personnel",
 	"Quartermaster",
 	"Cargo Technician",
 	"Shaft Miner"
@@ -128,6 +139,7 @@ var/list/service_positions = support_positions - supply_positions + list("Head o
 
 var/list/security_positions = list(
 	"Head of Security",
+	"Acting Head of Security",
 	"Warden",
 	"Detective",
 	"Security Officer",
