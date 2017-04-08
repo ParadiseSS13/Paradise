@@ -27,6 +27,7 @@ _maps/map_files/RandomZLevels/blackmarketpackers.dmm
 _maps/map_files/RandomZLevels/spacehotel.dmm
 _maps/map_files/RandomZLevels/wildwest.dmm
 _maps/map_files/RandomZLevels/terrorspiders.dmm
+_maps/map_files/RandomZLevels/syndicateship.dmm
 
 #===================================#
 # SPECIAL AWAY MISSIONS             #
