@@ -9,6 +9,7 @@
 	access = list()
 	minimal_access = list()
 	prisonlist_job = 1
+	outfit = /datum/outfit/job/prisoner
 
 /datum/outfit/job/prisoner
 	name = "D-Class"

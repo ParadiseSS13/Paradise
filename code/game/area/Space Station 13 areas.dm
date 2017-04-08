@@ -311,7 +311,7 @@ var/list/ghostteleportlocs = list()
 	icon_state = "shuttlered2"
 
 /area/shuttle/syndicate_sit
-	name = "\improper Syndicate SIT Shuttle"
+	name = " Syndicate SIT Shuttle"
 	icon_state = "shuttlered"
 
 /area/shuttle/assault_pod
@@ -538,7 +538,7 @@ var/list/ghostteleportlocs = list()
 	icon_state = "syndie-elite"
 
 /area/syndicate_mothership/infteam
-	name = "\improper Syndicate Infiltrators"
+	name = " Syndicate Infiltrators"
 	icon_state = "syndie-elite"
 
 /area/syndicate_depot
