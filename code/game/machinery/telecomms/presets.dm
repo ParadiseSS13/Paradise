@@ -24,6 +24,12 @@
 	toggled = 0
 	autolinkers = list("r_relay")
 
+/obj/machinery/telecomms/relay/preset/syndiship
+	id = "Syndicate Mothership Relay"
+	hide = 1
+	toggled = 1
+	autolinkers = list("r_relay")
+	
 /obj/machinery/telecomms/relay/preset/engioutpost
 	id = "Engineering Outpost"
 	hide = 1
