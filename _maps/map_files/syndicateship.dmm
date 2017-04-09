@@ -1,0 +1,317 @@
+"aa" = (/turf/space,/area/space)
+"ab" = (/turf/simulated/shuttle/wall{dir = 8; icon_state = "diagonalWall3"},/area/awaycontent/syndiship)
+"ac" = (/turf/simulated/shuttle/wall{dir = 4; icon_state = "wall3"},/area/awaycontent/syndiship)
+"ad" = (/turf/simulated/shuttle/wall{dir = 1; icon_state = "diagonalWall3"},/area/awaycontent/syndiship)
+"ae" = (/turf/simulated/shuttle/floor/syndicate,/turf/simulated/shuttle/wall{desc = "This window appears to be reinforced, it looks nearly impossible to break."; icon_state = "window5"; name = "window"; opacity = 0},/area/awaycontent/syndiship)
+"af" = (/obj/machinery/light{dir = 1; on = 1},/turf/simulated/shuttle/floor/syndicate,/area/awaycontent/syndiship)
+"ag" = (/turf/simulated/shuttle/floor/syndicate,/area/awaycontent/syndiship)
+"ah" = (/obj/machinery/door/poddoor{id_tag = "syndiawaystart"; name = "Entrance Doors"},/turf/simulated/shuttle/floor/syndicate,/area/awaycontent/syndiship)
+"ai" = (/turf/simulated/shuttle/wall{icon_state = "wall3"},/area/awaycontent/syndiship)
+"aj" = (/obj/effect/landmark{name = "awaystart"},/turf/simulated/shuttle/floor/syndicate,/area/awaycontent/syndiship)
+"ak" = (/mob/living/simple_animal/hostile/syndicate/ranged,/turf/simulated/shuttle/floor/syndicate,/area/awaycontent/syndiship)
+"al" = (/obj/machinery/light,/turf/simulated/shuttle/floor/syndicate,/area/awaycontent/syndiship)
+"am" = (/turf/simulated/shuttle/wall{icon_state = "diagonalWall3"},/area/awaycontent/syndiship)
+"an" = (/obj/machinery/door/airlock/centcom{name = "Access"; req_access_txt = "271"},/turf/simulated/shuttle/floor/syndicate,/area/awaycontent/syndiship)
+"ao" = (/obj/machinery/light{icon_state = "tube1"; dir = 8},/turf/simulated/shuttle/floor/syndicate,/area/awaycontent/syndiship)
+"ap" = (/obj/machinery/light{icon_state = "tube1"; dir = 4},/turf/simulated/shuttle/floor/syndicate,/area/awaycontent/syndiship)
+"aq" = (/turf/simulated/shuttle/floor/syndicate,/turf/simulated/shuttle/wall{dir = 1; icon_state = "diagonalWall3"},/area/awaycontent/syndiship)
+"ar" = (/obj/machinery/light{dir = 4; icon_state = "tube1"},/turf/simulated/shuttle/floor/syndicate,/area/awaycontent/syndiship)
+"as" = (/obj/structure/table/reinforced,/obj/machinery/computer/id_upgrader{access_to_give = list(271); door_to_open = "syndiaway"},/turf/simulated/shuttle/floor/syndicate,/area/awaycontent/syndiship)
+"at" = (/obj/structure/table/reinforced,/obj/item/weapon/paper_bin,/obj/item/weapon/pen,/turf/simulated/shuttle/floor/syndicate,/area/awaycontent/syndiship)
+"au" = (/obj/structure/table/reinforced,/obj/machinery/door_control{id = "syndiawaystart"; name = "Entrance Door Control"; req_access = null; req_access_txt = "101"},/turf/simulated/shuttle/floor/syndicate,/area/awaycontent/syndiship)
+"av" = (/obj/structure/table/reinforced,/obj/item/weapon/gun/projectile/automatic/m90,/turf/simulated/shuttle/floor/syndicate,/area/awaycontent/syndiship)
+"aw" = (/obj/structure/table/reinforced,/turf/simulated/shuttle/floor/syndicate,/area/awaycontent/syndiship)
+"ax" = (/obj/machinery/light/small{tag = "icon-bulb1 (NORTH)"; icon_state = "bulb1"; dir = 1},/turf/simulated/shuttle/floor/syndicate,/area/awaycontent/syndiship)
+"ay" = (/obj/machinery/light{dir = 8},/obj/structure/spider/terrorweb,/turf/simulated/shuttle/floor/syndicate,/area/awaycontent/syndiship)
+"az" = (/obj/structure/spider/terrorweb,/mob/living/simple_animal/hostile/poison/terror_spider/black,/turf/simulated/shuttle/floor/syndicate,/area/awaycontent/syndiship)
+"aA" = (/obj/structure/spider/terrorweb,/turf/simulated/shuttle/floor/syndicate,/area/awaycontent/syndiship)
+"aB" = (/obj/structure/table/reinforced,/obj/item/ammo_box/magazine/m10mm,/obj/item/ammo_box/magazine/m10mm,/obj/item/ammo_box/magazine/m10mm,/obj/machinery/light{dir = 1; in_use = 1},/turf/simulated/shuttle/floor/syndicate,/area/awaycontent/syndiship)
+"aC" = (/obj/structure/table/reinforced,/obj/item/ammo_box/magazine/m12g,/obj/item/ammo_box/magazine/m12g,/obj/item/ammo_box/magazine/m12g,/turf/simulated/shuttle/floor/syndicate,/area/awaycontent/syndiship)
+"aD" = (/obj/structure/table/reinforced,/obj/item/ammo_box/magazine/sniper_rounds/penetrator,/obj/item/ammo_box/magazine/sniper_rounds/penetrator,/obj/item/ammo_box/magazine/sniper_rounds/penetrator,/turf/simulated/shuttle/floor/syndicate,/area/awaycontent/syndiship)
+"aE" = (/obj/structure/table/reinforced,/obj/item/ammo_box/magazine/m556,/obj/item/ammo_box/magazine/m556,/obj/item/ammo_box/magazine/m556,/turf/simulated/shuttle/floor/syndicate,/area/awaycontent/syndiship)
+"aF" = (/obj/structure/table/reinforced,/obj/item/ammo_box/magazine/mm556x45,/obj/item/ammo_box/magazine/mm556x45,/obj/item/ammo_box/magazine/mm556x45,/turf/simulated/shuttle/floor/syndicate,/area/awaycontent/syndiship)
+"aG" = (/obj/structure/table/reinforced,/obj/item/ammo_box/magazine/smgm45,/obj/item/ammo_box/magazine/smgm45,/obj/item/ammo_box/magazine/smgm45,/turf/simulated/shuttle/floor/syndicate,/area/awaycontent/syndiship)
+"aH" = (/obj/structure/table/reinforced,/obj/item/ammo_box/magazine/m556,/obj/item/ammo_box/magazine/m556,/obj/item/ammo_box/magazine/m556,/obj/machinery/light{dir = 1; in_use = 1},/turf/simulated/shuttle/floor/syndicate,/area/awaycontent/syndiship)
+"aI" = (/obj/structure/stool/bed/chair{dir = 1},/mob/living/simple_animal/hostile/syndicate,/turf/simulated/shuttle/floor/syndicate,/area/awaycontent/syndiship)
+"aJ" = (/obj/machinery/light{dir = 8},/turf/simulated/shuttle/floor/syndicate,/area/awaycontent/syndiship)
+"aK" = (/obj/machinery/light/small,/turf/simulated/shuttle/floor/syndicate,/area/awaycontent/syndiship)
+"aL" = (/obj/structure/spider/terrorweb,/mob/living/simple_animal/hostile/poison/terror_spider/green,/turf/simulated/shuttle/floor/syndicate,/area/awaycontent/syndiship)
+"aM" = (/mob/living/simple_animal/hostile/syndicate/ranged/space,/turf/simulated/shuttle/floor/syndicate,/area/awaycontent/syndiship)
+"aN" = (/obj/structure/spider/terrorweb,/mob/living/simple_animal/hostile/poison/terror_spider/gray,/turf/simulated/shuttle/floor/syndicate,/area/awaycontent/syndiship)
+"aO" = (/obj/machinery/atmospherics/unary/cryo_cell,/turf/simulated/shuttle/floor/syndicate,/area/awaycontent/syndiship)
+"aP" = (/obj/structure/table/reinforced,/obj/item/weapon/reagent_containers/glass/beaker/cryoxadone,/turf/simulated/shuttle/floor/syndicate,/area/awaycontent/syndiship)
+"aQ" = (/obj/machinery/computer/scan_consolenew,/turf/simulated/shuttle/floor/syndicate,/area/awaycontent/syndiship)
+"aR" = (/obj/machinery/dna_scannernew,/obj/machinery/atmospherics/pipe/simple/hidden/supply,/obj/machinery/light{dir = 1; on = 1},/turf/simulated/shuttle/floor/syndicate,/area/awaycontent/syndiship)
+"aS" = (/obj/machinery/clonepod/biomass,/turf/simulated/shuttle/floor/syndicate,/area/awaycontent/syndiship)
+"aT" = (/obj/machinery/computer/cloning,/obj/machinery/atmospherics/pipe/simple/hidden/supply,/turf/simulated/shuttle/floor/syndicate,/area/awaycontent/syndiship)
+"aU" = (/obj/machinery/dna_scannernew,/obj/machinery/atmospherics/pipe/simple/hidden/supply,/turf/simulated/shuttle/floor/syndicate,/area/awaycontent/syndiship)
+"aV" = (/obj/structure/table,/obj/item/weapon/storage/firstaid/brute,/obj/item/weapon/storage/firstaid/brute,/obj/machinery/light{dir = 1; on = 1},/turf/simulated/shuttle/floor/syndicate,/area/awaycontent/syndiship)
+"aW" = (/obj/structure/table,/obj/item/weapon/storage/firstaid/fire,/obj/item/weapon/storage/firstaid/fire,/obj/item/weapon/storage/firstaid/fire,/turf/simulated/shuttle/floor/syndicate,/area/awaycontent/syndiship)
+"aX" = (/obj/structure/table,/obj/item/weapon/storage/firstaid/toxin,/obj/item/weapon/storage/firstaid/toxin,/turf/simulated/shuttle/floor/syndicate,/area/awaycontent/syndiship)
+"aY" = (/obj/structure/table,/obj/item/weapon/storage/firstaid/o2,/obj/item/weapon/storage/firstaid/o2,/turf/simulated/shuttle/floor/syndicate,/area/awaycontent/syndiship)
+"aZ" = (/obj/structure/table,/obj/item/weapon/storage/firstaid/adv,/obj/item/weapon/storage/firstaid/adv,/obj/machinery/light{dir = 1; on = 1},/turf/simulated/shuttle/floor/syndicate,/area/awaycontent/syndiship)
+"ba" = (/obj/structure/table,/obj/item/weapon/storage/firstaid,/obj/item/weapon/storage/firstaid,/turf/simulated/shuttle/floor/syndicate,/area/awaycontent/syndiship)
+"bb" = (/obj/machinery/sleeper/syndie,/turf/simulated/shuttle/floor/syndicate,/area/awaycontent/syndiship)
+"bc" = (/obj/structure/spider/terrorweb,/obj/structure/spider/spiderling/terror_spiderling,/turf/simulated/shuttle/floor/syndicate,/area/awaycontent/syndiship)
+"bd" = (/obj/structure/spider/terrorweb,/obj/structure/spider/eggcluster/terror_eggcluster,/turf/simulated/shuttle/floor/syndicate,/area/awaycontent/syndiship)
+"be" = (/obj/item/device/radio/intercom/syndicate,/obj/structure/table,/obj/machinery/light{dir = 1; in_use = 1},/turf/simulated/shuttle/floor/syndicate,/area/awaycontent/syndiship)
+"bf" = (/obj/structure/stool/bed/chair{dir = 4},/turf/simulated/shuttle/floor/syndicate,/area/awaycontent/syndiship)
+"bg" = (/obj/machinery/computer/message_monitor,/obj/machinery/light{dir = 1; in_use = 1},/turf/simulated/shuttle/floor/syndicate,/area/awaycontent/syndiship)
+"bh" = (/obj/machinery/atmospherics/pipe/manifold/visible{dir = 8},/obj/machinery/light{dir = 8},/turf/simulated/shuttle/floor/syndicate,/area/awaycontent/syndiship)
+"bi" = (/obj/machinery/atmospherics/pipe/simple/visible{dir = 10},/turf/simulated/shuttle/floor/syndicate,/area/awaycontent/syndiship)
+"bj" = (/obj/item/device/radio/intercom/syndicate,/obj/structure/table,/turf/simulated/shuttle/floor/syndicate,/area/awaycontent/syndiship)
+"bk" = (/obj/structure/stool/bed/chair{dir = 8},/turf/simulated/shuttle/floor/syndicate,/area/awaycontent/syndiship)
+"bl" = (/obj/item/weapon/paper/monitorkey,/obj/structure/table,/turf/simulated/shuttle/floor/syndicate,/area/awaycontent/syndiship)
+"bm" = (/obj/machinery/atmospherics/unary/portables_connector{dir = 1; name = "Connector Port (Air Supply)"},/obj/machinery/portable_atmospherics/canister/oxygen{name = "Canister: \[O2] (CRYO)"},/turf/simulated/shuttle/floor/syndicate,/area/awaycontent/syndiship)
+"bn" = (/obj/machinery/atmospherics/unary/cold_sink/freezer{dir = 1},/turf/simulated/shuttle/floor/syndicate,/area/awaycontent/syndiship)
+"bo" = (/obj/structure/table/glass,/obj/item/weapon/storage/backpack/duffel/syndie/surgery,/obj/machinery/light,/turf/simulated/shuttle/floor/syndicate,/area/awaycontent/syndiship)
+"bp" = (/obj/machinery/optable,/turf/simulated/shuttle/floor/syndicate,/area/awaycontent/syndiship)
+"bq" = (/obj/machinery/bodyscanner,/turf/simulated/shuttle/floor/syndicate,/area/awaycontent/syndiship)
+"br" = (/obj/machinery/body_scanconsole,/obj/machinery/light,/turf/simulated/shuttle/floor/syndicate,/area/awaycontent/syndiship)
+"bs" = (/obj/machinery/chem_dispenser,/turf/simulated/shuttle/floor/syndicate,/area/awaycontent/syndiship)
+"bt" = (/obj/machinery/chem_master,/turf/simulated/shuttle/floor/syndicate,/area/awaycontent/syndiship)
+"bu" = (/obj/machinery/chem_heater,/obj/machinery/light,/turf/simulated/shuttle/floor/syndicate,/area/awaycontent/syndiship)
+"bv" = (/obj/structure/table,/obj/item/weapon/reagent_containers/glass/beaker/large,/obj/item/weapon/reagent_containers/glass/beaker/large,/obj/item/weapon/reagent_containers/glass/beaker/large,/obj/item/weapon/reagent_containers/glass/beaker/large,/obj/item/clothing/glasses/science,/obj/item/weapon/reagent_containers/dropper,/obj/item/weapon/reagent_containers/dropper/precision,/turf/simulated/shuttle/floor/syndicate,/area/awaycontent/syndiship)
+"bw" = (/obj/structure/table,/obj/item/weapon/storage/box/beakers,/turf/simulated/shuttle/floor/syndicate,/area/awaycontent/syndiship)
+"bx" = (/obj/structure/table,/obj/item/weapon/storage/box/syringes,/turf/simulated/shuttle/floor/syndicate,/area/awaycontent/syndiship)
+"by" = (/obj/structure/spider/terrorweb,/mob/living/simple_animal/hostile/poison/terror_spider/prince,/turf/simulated/shuttle/floor/syndicate,/area/awaycontent/syndiship)
+"bz" = (/obj/item/device/radio/intercom/syndicate,/obj/structure/table,/obj/machinery/light,/turf/simulated/shuttle/floor/syndicate,/area/awaycontent/syndiship)
+"bA" = (/turf/simulated/shuttle/floor/syndicate,/turf/simulated/shuttle/wall{dir = 4; icon_state = "diagonalWall3"},/area/awaycontent/syndiship)
+"bB" = (/obj/machinery/light/small{tag = "icon-bulb1 (NORTH)"; icon_state = "bulb1"; dir = 1},/turf/simulated/floor/greengrid,/area/awaycontent/syndiship)
+"bC" = (/turf/simulated/floor/greengrid,/area/awaycontent/syndiship)
+"bD" = (/obj/machinery/light{dir = 1; on = 1},/obj/structure/spider/terrorweb,/turf/simulated/shuttle/floor/syndicate,/area/awaycontent/syndiship)
+"bE" = (/obj/structure/spider/terrorweb,/mob/living/simple_animal/hostile/poison/terror_spider/red,/turf/simulated/shuttle/floor/syndicate,/area/awaycontent/syndiship)
+"bF" = (/obj/structure/table,/obj/item/weapon/stock_parts/cell/high{pixel_x = -3; pixel_y = 3},/obj/item/weapon/stock_parts/cell/high,/obj/machinery/light{dir = 1; in_use = 1},/turf/simulated/shuttle/floor{icon_state = "floor4"},/area/awaycontent/syndiship)
+"bG" = (/obj/structure/table,/obj/item/device/assembly/voice{pixel_y = 3},/obj/item/device/gps,/turf/simulated/shuttle/floor{icon_state = "floor4"},/area/awaycontent/syndiship)
+"bH" = (/obj/structure/table,/obj/item/weapon/wrench,/obj/item/device/assembly/infra,/turf/simulated/shuttle/floor{icon_state = "floor4"},/area/awaycontent/syndiship)
+"bI" = (/obj/structure/table,/obj/item/device/assembly/prox_sensor{pixel_x = -8; pixel_y = 4},/obj/item/device/assembly/prox_sensor{pixel_x = -8; pixel_y = 4},/obj/item/device/assembly/signaler,/obj/item/device/assembly/signaler,/turf/simulated/shuttle/floor{icon_state = "floor4"},/area/awaycontent/syndiship)
+"bJ" = (/obj/structure/table,/obj/item/weapon/weldingtool/largetank,/obj/item/device/multitool,/turf/simulated/shuttle/floor{icon_state = "floor4"},/area/awaycontent/syndiship)
+"bK" = (/obj/structure/table,/obj/item/device/radio/beacon/syndicate/bomb{pixel_y = 5},/obj/item/device/radio/beacon/syndicate/bomb,/turf/simulated/shuttle/floor{icon_state = "floor4"},/area/awaycontent/syndiship)
+"bL" = (/obj/structure/table,/obj/item/weapon/grenade/syndieminibomb{pixel_x = 4; pixel_y = 2; pixel_z = 0},/obj/item/weapon/grenade/syndieminibomb{pixel_x = -1},/obj/machinery/light{dir = 1; in_use = 1},/turf/simulated/shuttle/floor{icon_state = "floor4"},/area/awaycontent/syndiship)
+"bM" = (/obj/machinery/telecomms/relay/preset/syndiship,/turf/simulated/floor/greengrid,/area/awaycontent/syndiship)
+"bN" = (/obj/structure/spider/terrorweb,/mob/living/simple_animal/hostile/poison/terror_spider/queen/empress,/turf/simulated/shuttle/floor/syndicate,/area/awaycontent/syndiship)
+"bO" = (/obj/structure/spider/terrorweb,/mob/living/simple_animal/hostile/poison/terror_spider/white,/turf/simulated/shuttle/floor/syndicate,/area/awaycontent/syndiship)
+"bP" = (/obj/structure/spider/terrorweb,/mob/living/simple_animal/hostile/poison/terror_spider/purple,/turf/simulated/shuttle/floor/syndicate,/area/awaycontent/syndiship)
+"bQ" = (/obj/structure/spider/terrorweb,/obj/structure/spider/spiderling/terror_spiderling,/mob/living/simple_animal/hostile/poison/terror_spider/mother,/turf/simulated/shuttle/floor/syndicate,/area/awaycontent/syndiship)
+"bR" = (/obj/structure/table,/obj/item/weapon/tank/jetpack/oxygen/harness,/obj/item/weapon/tank/jetpack/oxygen/harness,/turf/simulated/shuttle/floor{icon_state = "floor4"},/area/awaycontent/syndiship)
+"bS" = (/turf/simulated/shuttle/floor{icon_state = "floor4"},/area/awaycontent/syndiship)
+"bT" = (/obj/machinery/light/small,/turf/simulated/floor/greengrid,/area/awaycontent/syndiship)
+"bU" = (/obj/machinery/light,/obj/structure/spider/terrorweb,/turf/simulated/shuttle/floor/syndicate,/area/awaycontent/syndiship)
+"bV" = (/obj/structure/table,/obj/item/weapon/storage/toolbox/syndicate,/obj/item/weapon/crowbar/red,/obj/item/device/gps,/obj/machinery/light,/turf/simulated/shuttle/floor{icon_state = "floor4"},/area/awaycontent/syndiship)
+"bW" = (/obj/structure/stool/bed,/obj/item/weapon/bedsheet/syndie,/obj/machinery/light{dir = 1; on = 1},/turf/simulated/shuttle/floor/syndicate,/area/awaycontent/syndiship)
+"bX" = (/obj/structure/table/reinforced,/obj/machinery/chem_dispenser/beer,/turf/simulated/shuttle/floor/syndicate,/area/awaycontent/syndiship)
+"bY" = (/obj/structure/table/reinforced,/obj/machinery/chem_dispenser/soda,/turf/simulated/shuttle/floor/syndicate,/area/awaycontent/syndiship)
+"bZ" = (/obj/machinery/vending/boozeomat,/turf/simulated/shuttle/floor/syndicate,/area/awaycontent/syndiship)
+"ca" = (/obj/machinery/light{dir = 1},/obj/machinery/vending/syndisnack,/turf/simulated/shuttle/floor/syndicate,/area/awaycontent/syndiship)
+"cb" = (/obj/machinery/light{dir = 1},/turf/simulated/shuttle/floor/syndicate,/area/awaycontent/syndiship)
+"cc" = (/obj/structure/toilet,/turf/simulated/shuttle/floor/syndicate,/area/awaycontent/syndiship)
+"cd" = (/obj/machinery/recharge_station,/turf/simulated/shuttle/floor/syndicate,/area/awaycontent/syndiship)
+"ce" = (/obj/machinery/computer/communications,/obj/machinery/light{dir = 1; on = 1},/turf/simulated/shuttle/floor/syndicate,/area/awaycontent/syndiship)
+"cf" = (/obj/machinery/computer/camera_advanced,/turf/simulated/shuttle/floor/syndicate,/area/awaycontent/syndiship)
+"cg" = (/obj/machinery/computer/card,/turf/simulated/shuttle/floor/syndicate,/area/awaycontent/syndiship)
+"ch" = (/obj/machinery/computer/crew,/obj/machinery/light{dir = 1; on = 1},/turf/simulated/shuttle/floor/syndicate,/area/awaycontent/syndiship)
+"ci" = (/obj/machinery/computer/message_monitor,/turf/simulated/shuttle/floor/syndicate,/area/awaycontent/syndiship)
+"cj" = (/obj/machinery/computer/med_data,/turf/simulated/shuttle/floor/syndicate,/area/awaycontent/syndiship)
+"ck" = (/obj/machinery/computer/secure_data,/obj/machinery/light{dir = 1; on = 1},/turf/simulated/shuttle/floor/syndicate,/area/awaycontent/syndiship)
+"cl" = (/obj/machinery/gateway{dir = 9},/obj/machinery/light/small{tag = "icon-bulb1 (NORTH)"; icon_state = "bulb1"; dir = 1},/turf/simulated/shuttle/floor/syndicate,/area/awaycontent/syndiship)
+"cm" = (/obj/machinery/gateway{dir = 1},/turf/simulated/shuttle/floor/syndicate,/area/awaycontent/syndiship)
+"cn" = (/obj/machinery/gateway{dir = 5},/obj/machinery/light/small{tag = "icon-bulb1 (NORTH)"; icon_state = "bulb1"; dir = 1},/turf/simulated/shuttle/floor/syndicate,/area/awaycontent/syndiship)
+"co" = (/obj/structure/stool/bed/chair/wood/normal,/mob/living/simple_animal/hostile/syndicate,/turf/simulated/shuttle/floor/syndicate,/area/awaycontent/syndiship)
+"cp" = (/obj/structure/stool/bed/chair{dir = 1},/turf/simulated/shuttle/floor/syndicate,/area/awaycontent/syndiship)
+"cq" = (/obj/machinery/gateway{dir = 8},/turf/simulated/shuttle/floor/syndicate,/area/awaycontent/syndiship)
+"cr" = (/obj/machinery/gateway/centeraway{calibrated = 0},/turf/simulated/shuttle/floor/syndicate,/area/awaycontent/syndiship)
+"cs" = (/obj/machinery/gateway{dir = 4},/turf/simulated/shuttle/floor/syndicate,/area/awaycontent/syndiship)
+"ct" = (/obj/structure/table/woodentable,/obj/item/weapon/pen,/obj/item/weapon/paper{info = "Log 1:<br>While mining today I noticed the NT station was finished with its renovations. They placed some huge reinforced tumor on the station &ndash; looks so ugly. I wouldn't be surprised if those pigs decided to turn that little astronomy outpost into a prison with that thing, it'd be pretty typical of them.<br><br>Log 2:<br>Really dumb of me, but I just waved at an engineer in the outpost, and he waved back. I hope to god he was too dumb or drunk to recognize the suit, because if he isn't, then we might have to pull out before they come looking for us.<br><br>Log 3:<br>That huge reinforced tumor in their science section has been making a lot of noise lately. I've been hearing some banging and scratching from the other side and I'm kind of glad now that they reinforced this thing so much. I'll be sleeping with my gun under my pillow from now on."; name = "Personal Log"},/obj/machinery/light,/turf/simulated/shuttle/floor/syndicate,/area/awaycontent/syndiship)
+"cu" = (/obj/structure/closet/secure_closet{desc = "It's a secure locker for personnel. The first card swiped gains control."; icon_broken = "cabinetdetective_broken"; icon_closed = "cabinetdetective"; icon_locked = "cabinetdetective_locked"; icon_off = "cabinetdetective_broken"; icon_opened = "cabinetdetective_open"; icon_state = "cabinetdetective_locked"; locked = 1; name = "personal closet"; req_access_txt = "150"},/obj/item/ammo_box/magazine/m10mm,/obj/item/ammo_box/magazine/m10mm,/obj/item/weapon/suppressor,/obj/item/weapon/gun/projectile/automatic/pistol,/turf/simulated/shuttle/floor/syndicate,/area/awaycontent/syndiship)
+"cv" = (/obj/structure/stool/bed/chair,/turf/simulated/shuttle/floor/syndicate,/area/awaycontent/syndiship)
+"cw" = (/obj/machinery/gateway{dir = 10},/obj/machinery/light/small,/turf/simulated/shuttle/floor/syndicate,/area/awaycontent/syndiship)
+"cx" = (/obj/machinery/gateway,/turf/simulated/shuttle/floor/syndicate,/area/awaycontent/syndiship)
+"cy" = (/obj/machinery/gateway{dir = 6},/obj/machinery/light/small,/turf/simulated/shuttle/floor/syndicate,/area/awaycontent/syndiship)
+"cz" = (/obj/structure/table/woodentable,/turf/simulated/shuttle/floor/syndicate,/area/awaycontent/syndiship)
+"cA" = (/obj/structure/sink{icon_state = "sink"; dir = 8; pixel_x = -12; pixel_y = 2},/obj/structure/mirror{pixel_x = -28},/obj/machinery/light{icon_state = "tube1"; dir = 8},/turf/simulated/shuttle/floor/syndicate,/area/awaycontent/syndiship)
+"cB" = (/obj/machinery/light{dir = 8},/mob/living/simple_animal/hostile/syndicate/ranged,/turf/simulated/shuttle/floor/syndicate,/area/awaycontent/syndiship)
+"cC" = (/obj/structure/sink{icon_state = "sink"; dir = 8; pixel_x = -12; pixel_y = 2},/obj/structure/mirror{pixel_x = -28},/turf/simulated/shuttle/floor/syndicate,/area/awaycontent/syndiship)
+"cD" = (/obj/machinery/light{dir = 4; icon_state = "tube1"},/obj/machinery/light{dir = 1; on = 1},/turf/simulated/shuttle/floor/syndicate,/area/awaycontent/syndiship)
+"cE" = (/obj/machinery/light{icon_state = "tube1"; dir = 8},/mob/living/simple_animal/hostile/syndicate/ranged,/turf/simulated/shuttle/floor/syndicate,/area/awaycontent/syndiship)
+"cF" = (/obj/machinery/light{dir = 1; on = 1},/mob/living/simple_animal/hostile/poison/bees/syndi,/turf/simulated/shuttle/floor/syndicate,/area/awaycontent/syndiship)
+"cG" = (/mob/living/simple_animal/hostile/poison/bees/syndi,/turf/simulated/shuttle/floor/syndicate,/area/awaycontent/syndiship)
+"cH" = (/turf/simulated/floor/engine/vacuum,/area/awaycontent/syndiship)
+"cI" = (/obj/machinery/light{icon_state = "tube1"; dir = 8},/turf/simulated/floor/engine/vacuum,/area/awaycontent/syndiship)
+"cJ" = (/obj/machinery/igniter{icon_state = "igniter0"; id = "synditoxins"; on = 0},/turf/simulated/floor/engine/vacuum,/area/awaycontent/syndiship)
+"cK" = (/obj/machinery/light{icon_state = "tube1"; dir = 4},/turf/simulated/floor/engine/vacuum,/area/awaycontent/syndiship)
+"cL" = (/obj/structure/rack,/obj/item/weapon/gun/projectile/automatic/shotgun/bulldog,/turf/simulated/shuttle/floor/syndicate,/area/awaycontent/syndiship)
+"cM" = (/obj/structure/rack,/obj/item/weapon/gun/projectile/automatic/l6_saw,/turf/simulated/shuttle/floor/syndicate,/area/awaycontent/syndiship)
+"cN" = (/obj/structure/rack,/obj/item/weapon/gun/projectile/automatic/pistol,/turf/simulated/shuttle/floor/syndicate,/area/awaycontent/syndiship)
+"cO" = (/obj/machinery/porta_turret/syndicate/interior{density = 0; desc = "Syndicate interior defense turret chambered for .45 rounds and mounted on a wall. Designed to down intruders without damaging the hull."; name = "wall mounted machine gun turret (.45)"; pixel_y = 27},/turf/simulated/shuttle/floor/syndicate,/area/awaycontent/syndiship)
+"cP" = (/obj/structure/rack,/obj/item/weapon/storage/box/syndie_kit/elite_hardsuit,/turf/simulated/shuttle/floor/syndicate,/area/awaycontent/syndiship)
+"cQ" = (/obj/structure/rack,/obj/item/weapon/storage/box/syndie_kit/shielded_hardsuit,/turf/simulated/shuttle/floor/syndicate,/area/awaycontent/syndiship)
+"cR" = (/obj/structure/rack,/obj/item/weapon/storage/box/syndie_kit/hardsuit,/turf/simulated/shuttle/floor/syndicate,/area/awaycontent/syndiship)
+"cS" = (/obj/machinery/atmospherics/unary/outlet_injector,/turf/simulated/floor/engine/vacuum,/area/awaycontent/syndiship)
+"cT" = (/obj/machinery/atmospherics/unary/vent_pump/siphon/on,/turf/simulated/floor/engine/vacuum,/area/awaycontent/syndiship)
+"cU" = (/obj/machinery/porta_turret/syndicate/interior{shot_delay = 10},/turf/simulated/shuttle/floor/syndicate,/area/awaycontent/syndiship)
+"cV" = (/obj/machinery/atmospherics/pipe/simple/visible,/turf/simulated/shuttle/wall{dir = 4; icon_state = "wall3"},/area/awaycontent/syndiship)
+"cW" = (/obj/structure/rack,/obj/item/weapon/gun/projectile/automatic/c20r,/turf/simulated/shuttle/floor/syndicate,/area/awaycontent/syndiship)
+"cX" = (/obj/structure/rack,/obj/item/weapon/gun/projectile/automatic/m90,/turf/simulated/shuttle/floor/syndicate,/area/awaycontent/syndiship)
+"cY" = (/obj/structure/rack,/obj/machinery/light,/obj/item/weapon/gun/projectile/automatic/sniper_rifle/syndicate,/turf/simulated/shuttle/floor/syndicate,/area/awaycontent/syndiship)
+"cZ" = (/obj/machinery/light,/mob/living/simple_animal/hostile/syndicate/ranged/space,/turf/simulated/shuttle/floor/syndicate,/area/awaycontent/syndiship)
+"da" = (/obj/structure/rack,/obj/item/weapon/shield/energy,/obj/machinery/light,/turf/simulated/shuttle/floor/syndicate,/area/awaycontent/syndiship)
+"db" = (/obj/structure/rack,/obj/item/weapon/pinpointer,/turf/simulated/shuttle/floor/syndicate,/area/awaycontent/syndiship)
+"dc" = (/obj/structure/rack,/obj/item/weapon/melee/energy/sword,/obj/item/weapon/melee/energy/sword,/turf/simulated/shuttle/floor/syndicate,/area/awaycontent/syndiship)
+"dd" = (/obj/machinery/atmospherics/trinary/mixer{dir = 1},/obj/machinery/ignition_switch{id = "synditoxins"; pixel_x = 6; pixel_y = 25},/turf/simulated/shuttle/floor/syndicate,/area/awaycontent/syndiship)
+"de" = (/obj/machinery/atmospherics/pipe/simple/visible{dir = 4},/turf/simulated/shuttle/floor/syndicate,/area/awaycontent/syndiship)
+"df" = (/obj/machinery/atmospherics/unary/portables_connector{dir = 8},/obj/machinery/light{dir = 1},/turf/simulated/shuttle/floor/syndicate,/area/awaycontent/syndiship)
+"dg" = (/obj/structure/table,/obj/item/device/transfer_valve,/obj/item/device/transfer_valve,/obj/item/device/transfer_valve,/obj/item/device/transfer_valve,/obj/item/device/transfer_valve,/obj/item/device/transfer_valve,/obj/item/device/transfer_valve,/obj/item/device/transfer_valve,/obj/item/device/transfer_valve,/obj/item/device/transfer_valve,/turf/simulated/shuttle/floor/syndicate,/area/awaycontent/syndiship)
+"dh" = (/obj/structure/table,/obj/item/device/assembly/timer,/obj/item/device/assembly/timer,/obj/item/device/assembly/timer,/obj/item/device/assembly/timer,/obj/item/device/assembly/timer,/obj/item/device/assembly/timer,/obj/item/device/assembly/timer,/obj/item/device/assembly/timer,/obj/item/device/assembly/timer,/obj/item/device/assembly/timer,/turf/simulated/shuttle/floor/syndicate,/area/awaycontent/syndiship)
+"di" = (/obj/structure/table,/obj/item/weapon/storage/toolbox/syndicate,/turf/simulated/shuttle/floor/syndicate,/area/awaycontent/syndiship)
+"dj" = (/obj/structure/dispenser,/obj/machinery/light{dir = 1},/turf/simulated/shuttle/floor/syndicate,/area/awaycontent/syndiship)
+"dk" = (/obj/machinery/vending/plasmaresearch,/turf/simulated/shuttle/floor/syndicate,/area/awaycontent/syndiship)
+"dl" = (/obj/machinery/atmospherics/binary/volume_pump/on,/obj/machinery/portable_atmospherics/canister,/turf/simulated/shuttle/floor/syndicate,/area/awaycontent/syndiship)
+"dm" = (/turf/simulated/shuttle/wall{dir = 4; icon_state = "diagonalWall3"},/area/awaycontent/syndiship)
+"dn" = (/obj/machinery/atmospherics/unary/portables_connector{dir = 1},/turf/simulated/shuttle/floor/syndicate,/area/awaycontent/syndiship)
+"do" = (/obj/machinery/atmospherics/unary/portables_connector{dir = 1},/obj/machinery/light{icon_state = "tube1"; dir = 4},/turf/simulated/shuttle/floor/syndicate,/area/awaycontent/syndiship)
+"dp" = (/obj/machinery/light,/mob/living/simple_animal/hostile/poison/bees/syndi,/turf/simulated/shuttle/floor/syndicate,/area/awaycontent/syndiship)
+"dq" = (/obj/machinery/portable_atmospherics/canister/toxins,/turf/simulated/shuttle/floor/syndicate,/area/awaycontent/syndiship)
+"dr" = (/obj/machinery/mecha_part_fabricator,/obj/machinery/light{dir = 1; in_use = 1},/turf/simulated/shuttle/floor/syndicate,/area/awaycontent/syndiship)
+"ds" = (/obj/machinery/mecha_part_fabricator,/turf/simulated/shuttle/floor/syndicate,/area/awaycontent/syndiship)
+"dt" = (/obj/structure/closet/syndicate/resources{name = "Material Storage"},/turf/simulated/shuttle/floor/syndicate,/area/awaycontent/syndiship)
+"du" = (/obj/structure/reagent_dispensers/fueltank,/obj/machinery/light{dir = 1; in_use = 1},/turf/simulated/shuttle/floor/syndicate,/area/awaycontent/syndiship)
+"dv" = (/obj/machinery/portable_atmospherics/canister/oxygen,/turf/simulated/shuttle/floor/syndicate,/area/awaycontent/syndiship)
+"dw" = (/obj/item/mecha_parts/mecha_equipment/weapon/ballistic/lmg,/turf/simulated/shuttle/floor/syndicate,/area/awaycontent/syndiship)
+"dx" = (/obj/item/mecha_parts/mecha_equipment/extinguisher,/turf/simulated/shuttle/floor/syndicate,/area/awaycontent/syndiship)
+"dy" = (/obj/effect/decal/mecha_wreckage/mauler,/turf/simulated/shuttle/floor/syndicate,/area/awaycontent/syndiship)
+"dz" = (/obj/structure/table,/turf/simulated/shuttle/floor/syndicate,/area/awaycontent/syndiship)
+"dA" = (/obj/structure/window/reinforced{dir = 8},/obj/machinery/light{dir = 1},/obj/structure/stool/bed,/obj/effect/decal/remains/human,/turf/simulated/shuttle/floor/syndicate,/area/awaycontent/syndiship)
+"dB" = (/obj/structure/window/reinforced{dir = 4; pixel_x = 0},/turf/simulated/shuttle/floor/syndicate,/area/awaycontent/syndiship)
+"dC" = (/obj/structure/window/reinforced{dir = 8},/obj/machinery/light{dir = 1},/obj/structure/stool/bed,/turf/simulated/shuttle/floor/syndicate,/area/awaycontent/syndiship)
+"dD" = (/obj/item/mecha_parts/mecha_equipment/rcd,/turf/simulated/shuttle/floor/syndicate,/area/awaycontent/syndiship)
+"dE" = (/obj/structure/window/reinforced{dir = 8},/turf/simulated/shuttle/floor/syndicate,/area/awaycontent/syndiship)
+"dF" = (/obj/item/mecha_parts/mecha_equipment/antiproj_armor_booster,/turf/simulated/shuttle/floor/syndicate,/area/awaycontent/syndiship)
+"dG" = (/obj/item/mecha_parts/mecha_equipment/repair_droid,/turf/simulated/shuttle/floor/syndicate,/area/awaycontent/syndiship)
+"dH" = (/obj/item/mecha_parts/mecha_equipment/tesla_energy_relay,/turf/simulated/shuttle/floor/syndicate,/area/awaycontent/syndiship)
+"dI" = (/obj/structure/window/reinforced{dir = 1; layer = 2.9},/turf/simulated/shuttle/floor/syndicate,/area/awaycontent/syndiship)
+"dJ" = (/obj/machinery/door/window/brigdoor/northleft,/turf/simulated/shuttle/floor/syndicate,/area/awaycontent/syndiship)
+"dK" = (/obj/mecha/combat/gygax/dark/loaded,/obj/machinery/light{dir = 1; in_use = 1},/turf/simulated/shuttle/floor/syndicate,/area/awaycontent/syndiship)
+"dL" = (/obj/item/weapon/gun/projectile/automatic/l6_saw,/turf/simulated/shuttle/floor/syndicate,/area/awaycontent/syndiship)
+"dM" = (/obj/item/weapon/storage/box/syndie_kit/atmosgasgrenades,/turf/simulated/shuttle/floor/syndicate,/area/awaycontent/syndiship)
+"dN" = (/obj/item/weapon/storage/box/syndie_kit/missionary_set,/turf/simulated/shuttle/floor/syndicate,/area/awaycontent/syndiship)
+"dO" = (/obj/item/weapon/card/emag,/turf/simulated/shuttle/floor/syndicate,/area/awaycontent/syndiship)
+"dP" = (/obj/item/weapon/gun/projectile/automatic/sniper_rifle/syndicate,/turf/simulated/shuttle/floor/syndicate,/area/awaycontent/syndiship)
+"dQ" = (/obj/item/ammo_box/shotgun/buck,/obj/machinery/light{dir = 1; in_use = 1},/turf/simulated/shuttle/floor/syndicate,/area/awaycontent/syndiship)
+"dR" = (/obj/mecha/combat/marauder/mauler/loaded,/turf/simulated/shuttle/floor/syndicate,/area/awaycontent/syndiship)
+"dS" = (/obj/item/weapon/flamethrower,/turf/simulated/shuttle/floor/syndicate,/area/awaycontent/syndiship)
+"dT" = (/obj/item/weapon/storage/box/syndie_kit/emp,/turf/simulated/shuttle/floor/syndicate,/area/awaycontent/syndiship)
+"dU" = (/obj/item/weapon/storage/box/syndie_kit/guardian,/turf/simulated/shuttle/floor/syndicate,/area/awaycontent/syndiship)
+"dV" = (/obj/item/weapon/storage/box/syndie_kit/elite_hardsuit,/turf/simulated/shuttle/floor/syndicate,/area/awaycontent/syndiship)
+"dW" = (/obj/item/ammo_box/magazine/mm556x45,/turf/simulated/shuttle/floor/syndicate,/area/awaycontent/syndiship)
+"dX" = (/obj/item/ammo_box/n762,/turf/simulated/shuttle/floor/syndicate,/area/awaycontent/syndiship)
+"dY" = (/obj/machinery/computer/telecrystals/boss,/obj/machinery/light,/turf/unsimulated/floor{icon_state = "floor4"},/area/awaycontent/syndiship)
+"dZ" = (/obj/item/weapon/storage/box/syndie_kit/bioterror,/turf/simulated/shuttle/floor/syndicate,/area/awaycontent/syndiship)
+"ea" = (/obj/item/weapon/storage/box/syndie_kit/caneshotgun,/turf/simulated/shuttle/floor/syndicate,/area/awaycontent/syndiship)
+"eb" = (/obj/item/weapon/gun/projectile/automatic/c20r,/turf/simulated/shuttle/floor/syndicate,/area/awaycontent/syndiship)
+"ec" = (/obj/item/weapon/gun/projectile/automatic/ar,/turf/simulated/shuttle/floor/syndicate,/area/awaycontent/syndiship)
+"ed" = (/obj/item/weapon/storage/backpack/duffel/syndie/ammo,/turf/simulated/shuttle/floor/syndicate,/area/awaycontent/syndiship)
+"ee" = (/obj/item/ammo_box/magazine/sniper_rounds,/obj/machinery/light,/turf/simulated/shuttle/floor/syndicate,/area/awaycontent/syndiship)
+"ef" = (/turf/simulated/shuttle/floor/syndicate,/turf/simulated/shuttle/wall{icon_state = "diagonalWall3"},/area/awaycontent/syndiship)
+
+(1,1,1) = {"
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaabacacacacacacacacacacacacacacacacacacacacacacacacacacacacacacacacacacacadaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaeafagagagagafagagagagagafagagafahafagagafagagagafagagagafagagagafagagagaiaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaeagajagagagagagagagagagagagagagahagakagagagagagagagagagagagagagagagagagaiaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaealagagagagalagagagagagalagagalahalagagalagagagalagagagalakagagagagagagaiaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaamacacacacacacacaeaeaeacacacanacacacacacacaoagapacacacacacacacacaqagagaraiaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaiasatauavawaiaxagaxaiayazaAaiagagagaiaBaCaDaEaFaGaHaiagagagaiaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaiagagaIagaganagagagaiaAaAaAaeagagagaiakagagagagagagaiagakagaiaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaiaJagagagaraiaKagaKaiaLaAaAaeagagagaialagagaMakagalanagagagaiaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaabacacacacacacacacacacacacacanacaiaAaAaNaeaoagapaiacacacacacacacaiaJagaraiaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaeaOaPaQaRaSaTaUaVaWaXaYaZbaagbbaiaybcbdaeagagagaibeagagagagbfbgaiagagagaiaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaebhbiagagakagagagagagagagagagaraiaAaLaAaeagagakaibjbkakagagakblaiagagagaiaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaebmbnagbobpagbqbragbsbtbubvbwbxaiaAbyaAaeagagagaibzagagagagagalanagagagaiaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaamacacacacacacacacacacacacacacacbAaAaAaAaeaoagapaiacacacacacacacaiaJagaraiaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaibBbCbBaibDbEaAaAbDaAbdaAaAaeagagagaibFbGbHbIbJbKbLaiagagakaiaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaibCbMbCaibNaAaAbcbOaAbPbQaAaeagagagaibRbSakagagagagaiagagagaiaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaibTbCbTaibUaAbEaAbUbdaAaAbUaiagagagaibVagagagagakalanagagagaiaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaabacacacacacacacanacacacacacacacacacacacaiaoagapaiacacacacacacacaiaJagaraiacacacacacacacacacacacadaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaebWagaiafagagagagagaibXbYbZcaagakcbagagaiagagagaiccaiccaiccaicdaiagagagaicecfcgchcicjckaiclcmcnaiaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaecoaganagagagagagagaiaoakagagagagagagaganakagagaianaianaianaianaiagagagaicpcpcpcpcpcpcpaicqcrcsaiaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaectcuaialagagagagagaiagcvcvcvcvcvcvcvapaiagagagaiagagagafakagagaiagagagaiagagaMagaMagagaicwcxcyaiaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaamacacacacacaqagagagaiagczczczczczczczagaeaoagapaicAagagagagagapaicBagaracacaeacanacaeacacacanacaiaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaiagagagaiagcpcpcpcpcpcpcpakaeagagagaicCakagalagagaganagagagafagagafagafagagagafagcDaiaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaiaJagaraicEagagagagagalagagaiagagagaiacacacacacacacaiagagagagagagagaMagagagagagakagaeaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaiagagakaiacacacacacacacacacaiagagagaicFcGcGcGcGcGcFaiagagakalagagagagalagalagagagaraiaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaabacacacacacbAagagagaicHcHcHcHcHcHcHcHcHaiaoagapaicGcGcGcGcGcGcGaeaJagaracacaeaeaeacanacaeaeaeacaiaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaebWagaiafagagagagagaicIcJcHcJcHcJcHcJcKaiagagagaicGcGcGcGcGcGcGaeagagagaicLcMcNagcOagcOagcPcQcRaiaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaecoaganagagagagagagaicScHcHcHcHcHcHcHcTaiagagakaicGcGcGcGcGcGcGaeagagagaiaJaMaMaMaMcUaMaMaMaMaraiaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaectcuaialagagagagagaicVaeaeaeaeaeaeaecVaiagagagaicGcGcGcGcGcGcGaeagagagaicWcXcYaMakcZakaMdadbdcaiaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaamacacacacacaqagagagaidddedfdgdhdidjdkdlaeaoagapaicGcGcGcGcGcGcGaeaJakaraiacacacacacacacacacacacdmaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaiagagagaidnagakagagagagagdoaeagagagaidpcGcGcGcGcGdpaiagagagaiaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaiaJagaraiaoagagagagagagagaganagagagaiacacacacacacacaiagagagaiaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaiagagagaidqdqagagagagakagapaeagagagaidrdsdsdtdtdiduaiagagagaiaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaabacacacacacbAagagagaidvdvalagagagalagagaeaoagapaidwagdxagaMagagaiaJagaraiaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaebWagaiafagagagagagaiacacacacacacacacacaiagagagaiaodyagdyagdyapaeagagagaiaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaecoaganagagakagagagaidzdzdzdAdBdCdBdAagaiakagagaidDagaMagagagagaeagagakaiaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaectcuaialagagagagagaidzagagdEdBdEdBdEagaiagagagaialdFagagdGdHcZanagagagaiaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaamacacacacacaqagagagaidzagakdIdJdIdJdIdJaiaoagapaiacacacacacacacaiaJagaraiaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaiagagagaidzagagagagagagagagaiagagagaidKdLdMdNdOdPdQaeagagagaiaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaiaJagaraidzagagagagagakagaganagakagaidRdSdTdUdVdWdXaeagagagaiaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaiagagagaidzagagagagagagagagaiagagagaidYdZeaebecedeeaeagagagaiaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaabacacacacacbAagagagefacacacacacacacacacacaoagapacacacacacacacacbAagagaraiaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaebWagaiafagagagagagagakafagagagafagagagafagagagafagagagafagagakagagagagaiaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaecoaganagagagagagagagagagagagagagagagagagagagagagagagagagagagagakagagagaiaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaectcuaialagagagalagagagalagagagalagagagalakagagalagagagalagagagalagagagaiaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaamacacacacacacacacacacacacacacacacacacacacacacacacacacacacacacacacacacacdmaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+"}
