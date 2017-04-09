@@ -2582,6 +2582,10 @@ area/security/podbay
 /area/awaycontent/a30
 	icon_state = "awaycontent30"
 
+/area/awaycontent/syndiship
+	icon_state = "away"
+	requires_power = 0
+
 /////////////////////////////////////////////////////////////////////
 /*
  Lists of areas to be used with is_type_in_list.
