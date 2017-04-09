@@ -376,9 +376,9 @@ var/list/all_supply_groups = list(supply_emergency,supply_security,supply_engine
 
 /////// Implants & etc
 
-/datum/supply_packs/security/armory/loyalty
+/datum/supply_packs/security/armory/mindshield
 	name = "Mindshield Implants Crate"
-	contains = list (/obj/item/weapon/storage/lockbox/loyalty)
+	contains = list (/obj/item/weapon/storage/lockbox/mindshield)
 	cost = 40
 	containername = "mindshield implant crate"
 

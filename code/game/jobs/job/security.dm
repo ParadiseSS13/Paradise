@@ -40,7 +40,7 @@
 		/obj/item/weapon/melee/classic_baton/telescopic = 1
 	)
 
-	implants = list(/obj/item/weapon/implant/loyalty)
+	implants = list(/obj/item/weapon/implant/mindshield)
 
 	backpack = /obj/item/weapon/storage/backpack/security
 	satchel = /obj/item/weapon/storage/backpack/satchel_sec
@@ -83,7 +83,7 @@
 		/obj/item/weapon/restraints/handcuffs = 1
 	)
 
-	implants = list(/obj/item/weapon/implant/loyalty)
+	implants = list(/obj/item/weapon/implant/mindshield)
 
 	backpack = /obj/item/weapon/storage/backpack/security
 	satchel = /obj/item/weapon/storage/backpack/satchel_sec
@@ -130,7 +130,7 @@
 		/obj/item/weapon/melee/classic_baton/telescopic = 1
 	)
 
-	implants = list(/obj/item/weapon/implant/loyalty)
+	implants = list(/obj/item/weapon/implant/mindshield)
 
 /datum/outfit/job/detective/pre_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
 	. = ..()
@@ -183,7 +183,7 @@
 		/obj/item/weapon/restraints/handcuffs = 1
 	)
 
-	implants = list(/obj/item/weapon/implant/loyalty)
+	implants = list(/obj/item/weapon/implant/mindshield)
 
 	backpack = /obj/item/weapon/storage/backpack/security
 	satchel = /obj/item/weapon/storage/backpack/satchel_sec
@@ -218,7 +218,7 @@
 	l_hand = /obj/item/weapon/storage/firstaid/adv
 	pda = /obj/item/device/pda/medical
 
-	implants = list(/obj/item/weapon/implant/loyalty)
+	implants = list(/obj/item/weapon/implant/mindshield)
 
 	backpack = /obj/item/weapon/storage/backpack/medic
 	satchel = /obj/item/weapon/storage/backpack/satchel_med
@@ -257,7 +257,7 @@
 		/obj/item/weapon/restraints/handcuffs = 1
 	)
 
-	implants = list(/obj/item/weapon/implant/loyalty)
+	implants = list(/obj/item/weapon/implant/mindshield)
 
 	backpack = /obj/item/weapon/storage/backpack/security
 	satchel = /obj/item/weapon/storage/backpack/satchel_sec

@@ -189,7 +189,7 @@
 					to_chat(target, "<span class='danger'>You feel yourself agreeing with [user], and a surge of loyalty begins building.</span>")
 					target.Weaken(12)
 					sleep(20)
-					if(isloyal(target))
+					if(ismindshielded(target))
 						to_chat(user, "<span class='notice'>They are enslaved by Nanotrasen. You feel their interest in your cause wane and disappear.</span>")
 						user.visible_message("<span class='danger'>[user] stops talking for a moment, then moves back away from [target].</span>")
 						to_chat(target, "<span class='danger'>Your mindshield implant activates, protecting you from conversion.</span>")
