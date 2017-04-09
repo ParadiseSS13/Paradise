@@ -178,11 +178,8 @@
 	area.power_change()
 	if(occupier)
 		malfvacate(1)
-	qdel(wires)
-	wires = null
-	if(cell)
-		qdel(cell) // qdel
-		cell = null
+	QDEL_NULL(wires)
+	QDEL_NULL(cell)
 	if(terminal)
 		disconnect_terminal()
 	area.apc -= src

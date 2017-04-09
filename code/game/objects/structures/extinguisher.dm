@@ -9,9 +9,7 @@
 	var/opened = 0
 
 /obj/structure/extinguisher_cabinet/Destroy()
-	if(has_extinguisher)
-		qdel(has_extinguisher)
-		has_extinguisher = null
+	QDEL_NULL(has_extinguisher)
 	return ..()
 
 /obj/structure/extinguisher_cabinet/attackby(obj/item/O, mob/user, params)

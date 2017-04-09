@@ -35,8 +35,7 @@
 	for(var/module in modules)
 		qdel(module)
 	modules.Cut()
-	qdel(emag)
-	emag = null
+	QDEL_NULL(emag)
 	return ..()
 
 /obj/item/weapon/robot_module/proc/fix_modules()

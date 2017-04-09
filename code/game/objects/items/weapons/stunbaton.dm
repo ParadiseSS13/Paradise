@@ -24,9 +24,7 @@
 	return
 
 /obj/item/weapon/melee/baton/Destroy()
-	if(bcell)
-		qdel(bcell)
-		bcell = null
+	QDEL_NULL(bcell)
 	return ..()
 
 /obj/item/weapon/melee/baton/loaded/New() //this one starts with a cell pre-installed.
@@ -208,9 +206,7 @@
 	sparkler = new(src)
 
 /obj/item/weapon/melee/baton/cattleprod/Destroy()
-	if(sparkler)
-		qdel(sparkler)
-		sparkler = null
+	QDEL_NULL(sparkler)
 	return ..()
 
 /obj/item/weapon/melee/baton/cattleprod/baton_stun()

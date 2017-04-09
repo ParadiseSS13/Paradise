@@ -18,9 +18,7 @@
 	update_state()
 
 /obj/structure/door_assembly/Destroy()
-	if(electronics)
-		qdel(electronics)
-		electronics = null
+	QDEL_NULL(electronics)
 	return ..()
 
 /obj/structure/door_assembly/door_assembly_com

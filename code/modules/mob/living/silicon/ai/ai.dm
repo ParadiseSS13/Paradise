@@ -246,7 +246,7 @@ var/list/ai_verbs_default = list(
 	ai_list -= src
 	shuttle_caller_list -= src
 	shuttle_master.autoEvac()
-	qdel(eyeobj) // No AI, no Eye
+	QDEL_NULL(eyeobj) // No AI, no Eye
 	malfhack = null
 	return ..()
 

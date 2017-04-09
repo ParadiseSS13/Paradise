@@ -93,9 +93,7 @@
 	return
 
 /obj/machinery/reagentgrinder/Destroy()
-	if(beaker)
-		qdel(beaker)
-		beaker = null
+	QDEL_NULL(beaker)
 	return ..()
 
 /obj/machinery/reagentgrinder/ex_act(severity)

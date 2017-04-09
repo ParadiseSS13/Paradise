@@ -66,12 +66,8 @@
 		if(O.trace_chemicals[V] > 0 && !chemtraces.Find(V))
 			chemtraces += V
 
-/obj/item/weapon/autopsy_scanner/verb/print_data()
-	set name = "Print Data"
-	set category = "Object"
-	set src in oview(1)
-
-	if(usr.incapacitated())
+/obj/item/weapon/autopsy_scanner/attack_self(mob/user)
+	if(!wdata.len && !chemtraces.len)
 		return
 
 	var/scan_data = ""
@@ -143,17 +139,17 @@
 			scan_data += chemID
 			scan_data += "<br>"
 
-	usr.visible_message("<span class='warning'>[src] rattles and prints out a sheet of paper.</span>")
+	user.visible_message("<span class='warning'>[src] rattles and prints out a sheet of paper.</span>")
 
 	playsound(loc, 'sound/goonstation/machines/printer_thermal.ogg', 50, 1)
 	sleep(10)
 
-	var/obj/item/weapon/paper/P = new(usr.loc)
+	var/obj/item/weapon/paper/P = new(user.loc)
 	P.name = "Autopsy Data ([target_name])"
 	P.info = "<tt>[scan_data]</tt>"
 	P.overlays += "paper_words"
 
-	usr.put_in_hands(P)
+	user.put_in_hands(P)
 
 /obj/item/weapon/autopsy_scanner/attack(mob/living/carbon/human/M, mob/living/carbon/user)
 	if(!istype(M))

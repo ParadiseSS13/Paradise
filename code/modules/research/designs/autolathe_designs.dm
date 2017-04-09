@@ -608,6 +608,14 @@
 	build_path = /obj/item/weapon/rcd
 	category = list("hacked", "Construction")
 
+/datum/design/rcl
+	name = "Rapid Cable Layer"
+	id = "rcl"
+	build_type = AUTOLATHE
+	materials = list(MAT_METAL = 5000)
+	build_path = /obj/item/weapon/twohanded/rcl
+	category = list("hacked", "Construction")
+
 /datum/design/electropack
 	name = "Electropack"
 	id = "electropack"

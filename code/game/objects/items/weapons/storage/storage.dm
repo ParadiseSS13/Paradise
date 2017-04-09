@@ -454,8 +454,8 @@
 	for(var/obj/O in contents)
 		O.mouse_opacity = initial(O.mouse_opacity)
 
-	qdel(boxes)
-	qdel(closer)
+	QDEL_NULL(boxes)
+	QDEL_NULL(closer)
 	return ..()
 
 /obj/item/weapon/storage/emp_act(severity)

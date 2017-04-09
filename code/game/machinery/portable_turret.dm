@@ -20,7 +20,7 @@
 	var/health = 80			//the turret's health
 	var/locked = 1			//if the turret's behaviour control access is locked
 	var/controllock = 0		//if the turret responds to control panels
-	
+
 	var/installation = /obj/item/weapon/gun/energy/gun/turret		//the type of weapon installed
 	var/gun_charge = 0		//the charge of the gun inserted
 	var/projectile = null	//holder for bullettype
@@ -56,7 +56,7 @@
 
 	var/screen = 0 // Screen 0: main control, screen 1: access levels
 	var/one_access = 0 // Determines if access control is set to req_one_access or req_access
-	
+
 	var/syndicate = 0		//is the turret a syndicate turret?
 	var/faction = ""
 	var/emp_vulnerable = 1 // Can be empd
@@ -94,8 +94,7 @@
 	setup()
 
 /obj/machinery/porta_turret/Destroy()
-	qdel(spark_system)
-	spark_system = null
+	QDEL_NULL(spark_system)
 	return ..()
 
 /obj/machinery/porta_turret/centcom/New()
@@ -549,8 +548,8 @@ var/list/turret_icons
 /obj/machinery/porta_turret/proc/in_faction(mob/living/target)
 	if(!(faction in target.faction))
 		return 0
-	return 1			
-				
+	return 1
+
 /obj/machinery/porta_turret/proc/assess_and_assign(var/mob/living/L, var/list/targets, var/list/secondarytargets)
 	switch(assess_living(L))
 		if(TURRET_PRIORITY_TARGET)
@@ -582,7 +581,7 @@ var/list/turret_icons
 
 	if(emagged)		// If emagged not even the dead get a rest
 		return L.stat ? TURRET_SECONDARY_TARGET : TURRET_PRIORITY_TARGET
-		
+
 	if(in_faction(L))
 		return TURRET_NOT_TARGET
 
@@ -967,46 +966,46 @@ var/list/turret_icons
 
 /atom/movable/porta_turret_cover
 	icon = 'icons/obj/turrets.dmi'
-	
+
 // Syndicate turrets
 /obj/machinery/porta_turret/syndicate
 	projectile = /obj/item/projectile/bullet
 	eprojectile = /obj/item/projectile/bullet
 	shot_sound = 'sound/weapons/Gunshot.ogg'
 	eshot_sound = 'sound/weapons/Gunshot.ogg'
-	
+
 	icon_state = "syndieturret0"
 	var/icon_state_initial = "syndieturret0"
 	var/icon_state_active = "syndieturret1"
 	var/icon_state_destroyed = "syndieturret2"
-	
+
 	syndicate = 1
 	installation = null
 	always_up = 1
 	use_power = 0
 	has_cover = 0
 	raised = 1
-	scan_range = 9	
-	
+	scan_range = 9
+
 	faction = "syndicate"
 	emp_vulnerable = 0
-	
+
 	lethal = 1
 	check_arrest = 0
 	check_records = 0
 	check_weapons = 0
 	check_access = 0
-	check_anomalies = 1	
+	check_anomalies = 1
 	check_synth	= 1
 	ailock = 1
-	
+
 /obj/machinery/porta_turret/syndicate/New()
 	..()
 	if(req_one_access && req_one_access.len)
 		req_one_access.Cut()
 	req_access = list(access_syndicate)
 	one_access = 0
-	
+
 /obj/machinery/porta_turret/syndicate/update_icon()
 	if(stat & BROKEN)
 		icon_state = icon_state_destroyed
@@ -1025,7 +1024,7 @@ var/list/turret_icons
 	health = 40
 	projectile = /obj/item/projectile/bullet/weakbullet3
 	eprojectile = /obj/item/projectile/bullet/weakbullet3
-	
+
 /obj/machinery/porta_turret/syndicate/interior
 	name = "machine gun turret (.45)"
 	desc = "Syndicate interior defense turret chambered for .45 rounds. Designed to down intruders without damaging the hull."

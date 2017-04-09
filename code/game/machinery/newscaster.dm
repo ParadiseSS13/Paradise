@@ -113,9 +113,7 @@ var/list/obj/machinery/newscaster/allCasters = list() //Global list that will co
 /obj/machinery/newscaster/Destroy()
 	allCasters -= src
 	viewing_channel = null
-	if(photo)
-		qdel(photo)
-		photo = null
+	QDEL_NULL(photo)
 	return ..()
 
 /obj/machinery/newscaster/update_icon()

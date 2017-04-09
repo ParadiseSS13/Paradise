@@ -35,8 +35,7 @@ var/bomb_set
 	poi_list |= src
 
 /obj/machinery/nuclearbomb/Destroy()
-	qdel(wires)
-	wires = null
+	QDEL_NULL(wires)
 	poi_list.Remove(src)
 	return ..()
 

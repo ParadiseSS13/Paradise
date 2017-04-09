@@ -75,9 +75,7 @@
 	plant_hud_set_water()
 
 /obj/machinery/hydroponics/Destroy()
-	if(myseed)
-		qdel(myseed)
-		myseed = null
+	QDEL_NULL(myseed)
 	return ..()
 
 /obj/machinery/hydroponics/constructable/attackby(obj/item/I, mob/user, params)

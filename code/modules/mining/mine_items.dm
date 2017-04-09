@@ -226,6 +226,7 @@
 
 /obj/item/device/mobcapsule/Destroy()
 	if(captured)
+		captured.ghostize()
 		qdel(captured)
 		captured = null
 	return ..()

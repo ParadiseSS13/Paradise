@@ -116,8 +116,7 @@
 	if(roomtimer)
 		deltimer(roomtimer)
 		roomtimer = null
-	qdel(card)
-	card = null
+	QDEL_NULL(card)
 	return ..()
 
 /obj/machinery/door/unpowered/hotel_door/examine(mob/user)
@@ -220,9 +219,7 @@
 	vacant_rooms.Cut()
 	guests.Cut()
 
-	if(radio)
-		qdel(radio)
-		radio = null
+	QDEL_NULL(radio)
 
 	return ..()
 

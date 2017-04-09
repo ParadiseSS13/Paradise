@@ -186,7 +186,7 @@
 
 
 /obj/item/weapon/storage/fancy/cigarettes/Destroy()
-	qdel(reagents)
+	QDEL_NULL(reagents)
 	return ..()
 
 

@@ -27,9 +27,7 @@
 	update_icon()
 
 /obj/item/weapon/grenade/chem_grenade/Destroy()
-	if(nadeassembly)
-		qdel(nadeassembly)
-		nadeassembly = null
+	QDEL_NULL(nadeassembly)
 	for(var/thing in beakers)
 		qdel(thing)
 	beakers.Cut()
