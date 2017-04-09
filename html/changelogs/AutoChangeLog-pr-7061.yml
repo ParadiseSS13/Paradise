@@ -1,0 +1,8 @@
+author: "Fox McCloud"
+delete-after: True
+changes: 
+  - tweak: "High capacity cells have 10,000 charge instead of 15,000"
+  - tweak: "Mech equipment power costs minorly adjusted"
+  - tweak: "APCs charge a bit faster"
+  - tweak: "EMPs less effective against pods and mechs"
+  - bugfix: "Fixes not being able to recharge modular laptops/tablets"
