@@ -20,4 +20,3 @@ data/
 *.db
 stddef.dm
 .atom-build.json
-code/game/mecha/combat/reticence.dm
