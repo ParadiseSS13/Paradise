@@ -42,14 +42,16 @@
 	W.registered_name = H.real_name
 	W.access = list(access_maint_tunnels)
 	if(class == "Superhero")
-		W.name = "[H.real_name]'s ID Card (Superhero)"
 		W.assignment = "Superhero"
+		W.rank = "Superhero"
 		ticker.mode.superheroes += H.mind
 	else if(class == "Supervillain")
-		W.name = "[H.real_name]'s ID Card (Supervillain)"
 		W.assignment = "Supervillain"
+		W.rank = "Supervillain"
 		ticker.mode.supervillains += H.mind
-
+	W.icon_state = "lifetimeid"
+	W.SetOwnerInfo(H)
+	W.UpdateName()
 	H.equip_to_slot_or_del(W, slot_wear_id)
 	H.regenerate_icons()
 
