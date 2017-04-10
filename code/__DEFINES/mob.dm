@@ -124,6 +124,9 @@
 #define islarva(A)		(istype((A), /mob/living/carbon/alien/larva))
 #define isslime(A)		(istype((A), /mob/living/carbon/slime))
 
+//Human sub-species
+#define isabductor(A) (is_species(A, "Abductor"))
+
 #define isanimal(A)		(istype((A), /mob/living/simple_animal))
 #define iscorgi(A)		(istype((A), /mob/living/simple_animal/pet/corgi))
 #define ismouse(A)		(istype((A), /mob/living/simple_animal/mouse))

@@ -486,7 +486,7 @@
 	brute_mod = 0.8
 
 	flags = IS_WHITELISTED
-	clothing_flags = HAS_SOCKS
+	clothing_flags = HAS_UNDERWEAR | HAS_UNDERSHIRT | HAS_SOCKS
 	bodyflags = FEET_CLAWS | HAS_HEAD_ACCESSORY
 	eyes = "kidan_eyes_s"
 	dietflags = DIET_HERB
@@ -512,6 +512,8 @@
 		"is attempting to bite their antenna off!",
 		"is jamming their claws into their eye sockets!",
 		"is twisting their own neck!",
+		"is cracking their exoskeleton!",
+		"is stabbing themselves with their mandibles!",
 		"is holding their breath!")
 
 /datum/species/slime
