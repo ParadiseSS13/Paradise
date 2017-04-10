@@ -45,31 +45,34 @@
 	proc/custom_action(step, used_atom, user)
 		if(istype(used_atom, /obj/item/weapon/weldingtool))
 			var/obj/item/weapon/weldingtool/W = used_atom
-			if (W.remove_fuel(0, user))
-				playsound(holder, 'sound/items/Welder2.ogg', 50, 1)
+			if(W.remove_fuel(0, user))
+				playsound(holder, W.usesound, 50, 1)
 			else
 				return 0
 		else if(istype(used_atom, /obj/item/weapon/wrench))
-			playsound(holder, 'sound/items/Ratchet.ogg', 50, 1)
+			var/obj/item/weapon/wrench/W = used_atom
+			playsound(holder, W.usesound, 50, 1)
 
 		else if(istype(used_atom, /obj/item/weapon/screwdriver))
-			playsound(holder, 'sound/items/Screwdriver.ogg', 50, 1)
+			var/obj/item/weapon/screwdriver/S = used_atom
+			playsound(holder, S.usesound, 50, 1)
 
 		else if(istype(used_atom, /obj/item/weapon/wirecutters))
-			playsound(holder, 'sound/items/Wirecutter.ogg', 50, 1)
+			var/obj/item/weapon/wirecutters/W = used_atom
+			playsound(holder, W.usesound, 50, 1)
 
 		else if(istype(used_atom, /obj/item/stack/cable_coil))
 			var/obj/item/stack/cable_coil/C = used_atom
 			if(C.amount<4)
-				user << ("There's not enough cable to finish the task.")
+				to_chat(user, ("<span class='warning'>There's not enough cable to finish the task.</span>"))
 				return 0
 			else
 				C.use(4)
-				playsound(holder, 'sound/items/Deconstruct.ogg', 50, 1)
+				playsound(holder, C.usesound, 50, 1)
 		else if(istype(used_atom, /obj/item/stack))
 			var/obj/item/stack/S = used_atom
 			if(S.amount < 5)
-				user << ("There's not enough material in this stack.")
+				to_chat(user, ("<span class='warning'>There's not enough material in this stack.</span>"))
 				return 0
 			else
 				S.use(5)
@@ -106,30 +109,29 @@
 		return
 
 	proc/try_consume(mob/user as mob, atom/used_atom, amount)
-		if(amount>0)
-			// STACKS
-			if(istype(used_atom,/obj/item/stack))
-				var/obj/item/stack/stack=used_atom
-				if(stack.amount < amount)
-					user << "\red You don't have enough [stack]! You need at least [amount]."
-					return 0
-				stack.use(amount)
+		if(amount > 0)
 			// CABLES
 			if(istype(used_atom,/obj/item/stack/cable_coil))
 				var/obj/item/stack/cable_coil/coil=used_atom
-				if(coil.amount < amount)
-					user << "\red You don't have enough cable! You need at least [amount] coils."
+				if(!coil.use(amount))
+					to_chat(user, "<span class='warning'>You don't have enough cable! You need at least [amount] coils.</span>")
 					return 0
-				coil.use(amount)
 			// WELDER
 			if(istype(used_atom,/obj/item/weapon/weldingtool))
 				var/obj/item/weapon/weldingtool/welder=used_atom
 				if(!welder.isOn())
-					user << "\blue You tap the [src] with your unlit welder.  [pick("Ding","Dong")]."
+					to_chat(user, "<span class='notice'>You tap the [src] with your unlit welder. [pick("Ding","Dong")].</span>")
 					return 0
 				if(!welder.remove_fuel(amount,user))
-					user << "\red You don't have enough fuel!"
+					to_chat(user, "<span class='warning'>You don't have enough fuel!</span>")
 					return 0
+			// STACKS
+			if(istype(used_atom,/obj/item/stack))
+				var/obj/item/stack/stack=used_atom
+				if(stack.amount < amount)
+					to_chat(user, "<span class='warning'>You don't have enough [stack]! You need at least [amount].</span>")
+					return 0
+				stack.use(amount)
 		return 1
 
 /datum/construction/reversible

@@ -2,7 +2,7 @@
 
 /mob/camera/blob/proc/can_buy(var/cost = 15)
 	if(blob_points < cost)
-		src << "<span class='warning'>You cannot afford this!</span>"
+		to_chat(src, "<span class='warning'>You cannot afford this!</span>")
 		return 0
 	add_points(-cost)
 	return 1
@@ -27,7 +27,7 @@
 		for(var/i = 1; i <= blob_nodes.len; i++)
 			nodes["Blob Node #[i]"] = blob_nodes[i]
 		var/node_name = input(src, "Choose a node to jump to.", "Node Jump") in nodes
-		var/obj/effect/blob/node/chosen_node = nodes[node_name]
+		var/obj/structure/blob/node/chosen_node = nodes[node_name]
 		if(chosen_node)
 			src.loc = chosen_node.loc
 
@@ -41,21 +41,21 @@
 
 /mob/camera/blob/proc/create_shield(var/turf/T)
 
-	var/obj/effect/blob/B = (locate(/obj/effect/blob) in T)
+	var/obj/structure/blob/B = (locate(/obj/structure/blob) in T)
 
 	if(!B)//We are on a blob
-		src << "There is no blob here!"
+		to_chat(src, "There is no blob here!")
 		return
 
-	if(!istype(B, /obj/effect/blob/normal))
-		src << "Unable to use this blob, find a normal one."
+	if(!istype(B, /obj/structure/blob/normal))
+		to_chat(src, "Unable to use this blob, find a normal one.")
 		return
 
 	if(!can_buy(10))
 		return
 
 	B.color = blob_reagent_datum.color
-	B.change_to(/obj/effect/blob/shield)
+	B.change_to(/obj/structure/blob/shield)
 
 	return
 
@@ -72,26 +72,26 @@
 	if(!T)
 		return
 
-	var/obj/effect/blob/B = (locate(/obj/effect/blob) in T)
+	var/obj/structure/blob/B = (locate(/obj/structure/blob) in T)
 
 	if(!B)//We are on a blob
-		src << "There is no blob here!"
+		to_chat(src, "There is no blob here!")
 		return
 
-	if(!istype(B, /obj/effect/blob/normal))
-		src << "Unable to use this blob, find a normal one."
+	if(!istype(B, /obj/structure/blob/normal))
+		to_chat(src, "Unable to use this blob, find a normal one.")
 		return
 
-	for(var/obj/effect/blob/resource/blob in orange(4, T))
-		src << "There is a resource blob nearby, move more than 4 tiles away from it!"
+	for(var/obj/structure/blob/resource/blob in orange(4, T))
+		to_chat(src, "There is a resource blob nearby, move more than 4 tiles away from it!")
 		return
 
 	if(!can_buy(40))
 		return
 
 	B.color = blob_reagent_datum.color
-	B.change_to(/obj/effect/blob/resource)
-	var/obj/effect/blob/resource/R = locate() in T
+	B.change_to(/obj/structure/blob/resource)
+	var/obj/structure/blob/resource/R = locate() in T
 	if(R)
 		R.overmind = src
 
@@ -108,25 +108,25 @@
 	if(!T)
 		return
 
-	var/obj/effect/blob/B = (locate(/obj/effect/blob) in T)
+	var/obj/structure/blob/B = (locate(/obj/structure/blob) in T)
 
 	if(!B)//We are on a blob
-		src << "There is no blob here!"
+		to_chat(src, "There is no blob here!")
 		return
 
-	if(!istype(B, /obj/effect/blob/normal))
-		src << "Unable to use this blob, find a normal one."
+	if(!istype(B, /obj/structure/blob/normal))
+		to_chat(src, "Unable to use this blob, find a normal one.")
 		return
 
-	for(var/obj/effect/blob/node/blob in orange(5, T))
-		src << "There is another node nearby, move more than 5 tiles away from it!"
+	for(var/obj/structure/blob/node/blob in orange(5, T))
+		to_chat(src, "There is another node nearby, move more than 5 tiles away from it!")
 		return
 
 	if(!can_buy(60))
 		return
 
-	B.change_to(/obj/effect/blob/node)
-	var/obj/effect/blob/node/R = locate() in T
+	B.change_to(/obj/structure/blob/node)
+	var/obj/structure/blob/node/R = locate() in T
 	if(R)
 		R.adjustcolors(blob_reagent_datum.color)
 		R.overmind = src
@@ -144,25 +144,25 @@
 	if(!T)
 		return
 
-	var/obj/effect/blob/B = locate(/obj/effect/blob) in T
+	var/obj/structure/blob/B = locate(/obj/structure/blob) in T
 	if(!B)
-		src << "You must be on a blob!"
+		to_chat(src, "You must be on a blob!")
 		return
 
-	if(!istype(B, /obj/effect/blob/normal))
-		src << "Unable to use this blob, find a normal one."
+	if(!istype(B, /obj/structure/blob/normal))
+		to_chat(src, "Unable to use this blob, find a normal one.")
 		return
 
-	for(var/obj/effect/blob/factory/blob in orange(7, T))
-		src << "There is a factory blob nearby, move more than 7 tiles away from it!"
+	for(var/obj/structure/blob/factory/blob in orange(7, T))
+		to_chat(src, "There is a factory blob nearby, move more than 7 tiles away from it!")
 		return
 
 	if(!can_buy(60))
 		return
 
-	B.change_to(/obj/effect/blob/factory)
+	B.change_to(/obj/structure/blob/factory)
 	B.color = blob_reagent_datum.color
-	var/obj/effect/blob/factory/R = locate() in T
+	var/obj/structure/blob/factory/R = locate() in T
 	if(R)
 		R.overmind = src
 	return
@@ -178,13 +178,13 @@
 	if(!T)
 		return
 
-	var/obj/effect/blob/B = locate(/obj/effect/blob) in T
+	var/obj/structure/blob/B = locate(/obj/structure/blob) in T
 	if(!B)
-		src << "You must be on a blob!"
+		to_chat(src, "You must be on a blob!")
 		return
 
-	if(!istype(B, /obj/effect/blob/factory))
-		src << "Unable to use this blob, find a factory blob."
+	if(!istype(B, /obj/structure/blob/factory))
+		to_chat(src, "Unable to use this blob, find a factory blob.")
 		return
 
 	if(!can_buy(20))
@@ -210,9 +210,9 @@
 	if(!T)
 		return
 
-	var/obj/effect/blob/node/B = locate(/obj/effect/blob/node) in T
+	var/obj/structure/blob/node/B = locate(/obj/structure/blob/node) in T
 	if(!B)
-		src << "You must be on a blob node!"
+		to_chat(src, "You must be on a blob node!")
 		return
 
 	if(!can_buy(80))
@@ -234,13 +234,13 @@
 	if(!T)
 		return
 
-	var/obj/effect/blob/B = locate(/obj/effect/blob) in T
+	var/obj/structure/blob/B = locate(/obj/structure/blob) in T
 	if(!B)
-		src << "You must be on a blob!"
+		to_chat(src, "You must be on a blob!")
 		return
 
-	if(istype(B, /obj/effect/blob/core))
-		src << "Unable to remove this blob."
+	if(istype(B, /obj/structure/blob/core))
+		to_chat(src, "Unable to remove this blob.")
 		return
 
 	qdel(B)
@@ -261,14 +261,14 @@
 
 	if(!can_attack())
 		return
-	var/obj/effect/blob/B = locate() in T
+	var/obj/structure/blob/B = locate() in T
 	if(B)
-		src << "There is a blob here!"
+		to_chat(src, "There is a blob here!")
 		return
 
-	var/obj/effect/blob/OB = locate() in circlerange(T, 1)
+	var/obj/structure/blob/OB = locate() in circlerange(T, 1)
 	if(!OB)
-		src << "There is no blob adjacent to you."
+		to_chat(src, "There is no blob adjacent to you.")
 		return
 
 	if(!can_buy(5))
@@ -298,7 +298,7 @@
 	if(!can_buy(5))
 		return
 
-	src << "You rally your spores."
+	to_chat(src, "You rally your spores.")
 
 	var/list/surrounding_turfs = block(locate(T.x - 1, T.y - 1, T.z), locate(T.x + 1, T.y + 1, T.z))
 	if(!surrounding_turfs.len)
@@ -317,23 +317,23 @@
 	set desc = "Expend resources to attempt to produce another sentient overmind"
 
 	if(!blob_nodes || !blob_nodes.len)
-		src << "<span class='warning'>A node is required to birth your offspring...</span>"
+		to_chat(src, "<span class='warning'>A node is required to birth your offspring...</span>")
 		return
-	var/obj/effect/blob/node/N = locate(/obj/effect/blob) in blob_nodes
+	var/obj/structure/blob/node/N = locate(/obj/structure/blob) in blob_nodes
 	if(!N)
-		src << "<span class='warning'>A node is required to birth your offspring...</span>"
+		to_chat(src, "<span class='warning'>A node is required to birth your offspring...</span>")
 		return
 
 	if(!can_buy(100))
 		return
 
 	verbs -= /mob/camera/blob/verb/split_consciousness //we've used our split_consciousness
-	new /obj/effect/blob/core/ (get_turf(N), 200, null, blob_core.point_rate, "offspring")
+	new /obj/structure/blob/core/ (get_turf(N), 200, null, blob_core.point_rate, "offspring")
 	qdel(N)
 
 	if(ticker && ticker.mode.name == "blob")
 		var/datum/game_mode/blob/BL = ticker.mode
-		BL.blobwincount = initial(BL.blobwincount) * 2
+		BL.blobwincount += initial(BL.blobwincount)
 
 
 /mob/camera/blob/verb/blob_broadcast()
@@ -346,7 +346,7 @@
 	if(!speak_text)
 		return
 	else
-		usr << "You broadcast with your minions, <B>[speak_text]</B>"
+		to_chat(usr, "You broadcast with your minions, <B>[speak_text]</B>")
 	for(var/mob/living/simple_animal/hostile/blob_minion in blob_mobs)
 		blob_minion.say(speak_text)
 	return
@@ -362,26 +362,26 @@
 	if(!T)
 		return
 
-	var/obj/effect/blob/B = (locate(/obj/effect/blob) in T)
+	var/obj/structure/blob/B = (locate(/obj/structure/blob) in T)
 
 	if(!B)//We are on a blob
-		src << "There is no blob here!"
+		to_chat(src, "There is no blob here!")
 		return
 
-	if(!istype(B, /obj/effect/blob/normal))
-		src << "Unable to use this blob, find a normal one."
+	if(!istype(B, /obj/structure/blob/normal))
+		to_chat(src, "Unable to use this blob, find a normal one.")
 		return
 
-	for(var/obj/effect/blob/storage/blob in orange(3, T))
-		src << "There is a storage blob nearby, move more than 4 tiles away from it!"
+	for(var/obj/structure/blob/storage/blob in orange(3, T))
+		to_chat(src, "There is a storage blob nearby, move more than 4 tiles away from it!")
 		return
 
 	if(!can_buy(40))
 		return
 
 	B.color = blob_reagent_datum.color
-	B.change_to(/obj/effect/blob/storage)
-	var/obj/effect/blob/storage/R = locate() in T
+	B.change_to(/obj/structure/blob/storage)
+	var/obj/structure/blob/storage/R = locate() in T
 	if(R)
 		R.overmind = src
 		R.update_max_blob_points(50)
@@ -400,10 +400,10 @@
 	var/datum/reagent/blob/B = pick((subtypesof(/datum/reagent/blob) - blob_reagent_datum.type))
 	blob_reagent_datum = new B
 
-	for(var/obj/effect/blob/BL in blobs)
+	for(var/obj/structure/blob/BL in blobs)
 		BL.adjustcolors(blob_reagent_datum.color)
 
 	for(var/mob/living/simple_animal/hostile/blob/BLO)
 		BLO.adjustcolors(blob_reagent_datum.color)
 
-	src << "Your reagent is now: <b>[blob_reagent_datum.name]</b>!"
+	to_chat(src, "Your reagent is now: <b>[blob_reagent_datum.name]</b>!")

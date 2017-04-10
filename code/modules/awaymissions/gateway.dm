@@ -9,14 +9,14 @@ var/obj/machinery/gateway/centerstation/the_gateway = null
 	unacidable = 1
 	var/active = 0
 
+/obj/machinery/gateway/initialize()
+	..()
+	update_icon()
+	update_density_from_dir()
 
-/obj/machinery/gateway/New()
-	if(!the_gateway)
-		the_gateway = src
-	spawn(25)
-		update_icon()
-		if(dir == 2)
-			density = 0
+/obj/machinery/gateway/proc/update_density_from_dir()
+	if(dir == 2)
+		density = 0
 
 
 /obj/machinery/gateway/update_icon()
@@ -40,13 +40,18 @@ var/obj/machinery/gateway/centerstation/the_gateway = null
 	var/obj/machinery/gateway/centeraway/awaygate = null
 
 /obj/machinery/gateway/centerstation/New()
+	..()
 	if(!the_gateway)
 		the_gateway = src
-	spawn(25)
-		update_icon()
-		wait = world.time + config.gateway_delay	//+ thirty minutes default
-		awaygate = locate(/obj/machinery/gateway/centeraway) in world
 
+/obj/machinery/gateway/centerstation/initialize()
+	..()
+	update_icon()
+	wait = world.time + config.gateway_delay	//+ thirty minutes default
+	awaygate = locate(/obj/machinery/gateway/centeraway) in world
+
+/obj/machinery/gateway/centerstation/update_density_from_dir()
+	return
 
 /obj/machinery/gateway/centerstation/Destroy()
 	if(the_gateway == src)
@@ -61,7 +66,7 @@ var/obj/machinery/gateway/centerstation/the_gateway = null
 
 
 
-obj/machinery/gateway/centerstation/process()
+/obj/machinery/gateway/centerstation/process()
 	if(stat & (NOPOWER))
 		if(active) toggleoff()
 		return
@@ -97,10 +102,10 @@ obj/machinery/gateway/centerstation/process()
 	if(!awaygate)
 		awaygate = locate(/obj/machinery/gateway/centeraway) in world
 		if(!awaygate)
-			user << "<span class='notice'>Error: No destination found.</span>"
+			to_chat(user, "<span class='notice'>Error: No destination found.</span>")
 			return
 	if(world.time < wait)
-		user << "<span class='notice'>Error: Warpspace triangulation in progress. Estimated time to completion: [round(((wait - world.time) / 10) / 60)] minutes.</span>"
+		to_chat(user, "<span class='notice'>Error: Warpspace triangulation in progress. Estimated time to completion: [round(((wait - world.time) / 10) / 60)] minutes.</span>")
 		return
 
 	for(var/obj/machinery/gateway/G in linked)
@@ -149,7 +154,7 @@ obj/machinery/gateway/centerstation/process()
 
 /obj/machinery/gateway/centerstation/attackby(obj/item/device/W as obj, mob/user as mob, params)
 	if(istype(W,/obj/item/device/multitool))
-		user << "\black The gate is already calibrated, there is no work for you to do here."
+		to_chat(user, "The gate is already calibrated, there is no work for you to do here.")
 		return
 
 /////////////////////////////////////Away////////////////////////
@@ -165,11 +170,14 @@ obj/machinery/gateway/centerstation/process()
 	var/obj/machinery/gateway/centeraway/stationgate = null
 
 
-/obj/machinery/gateway/centeraway/New()
-	spawn(25)
-		update_icon()
-		stationgate = locate(/obj/machinery/gateway/centerstation) in world
+/obj/machinery/gateway/centeraway/initialize()
+	..()
+	update_icon()
+	stationgate = locate(/obj/machinery/gateway/centerstation) in world
 
+
+/obj/machinery/gateway/centeraway/update_density_from_dir()
+	return
 
 /obj/machinery/gateway/centeraway/update_icon()
 	if(active)
@@ -204,7 +212,7 @@ obj/machinery/gateway/centerstation/process()
 	if(!stationgate)
 		stationgate = locate(/obj/machinery/gateway/centerstation) in world
 		if(!stationgate)
-			user << "<span class='notice'>Error: No destination found.</span>"
+			to_chat(user, "<span class='notice'>Error: No destination found.</span>")
 			return
 
 	for(var/obj/machinery/gateway/G in linked)
@@ -236,20 +244,26 @@ obj/machinery/gateway/centerstation/process()
 	if(!ready)	return
 	if(!active)	return
 	if(istype(M, /mob/living/carbon))
-		for(var/obj/item/weapon/implant/exile/E in M)//Checking that there is an exile implant in the contents
-			if(E.imp_in == M)//Checking that it's actually implanted vs just in their pocket
-				M << "\black The station gate has detected your exile implant and is blocking your entry."
-				return
+		if(exilecheck(M)) return
+	if(istype(M, /obj))
+		for(var/mob/living/carbon/F in M)
+			if(exilecheck(F)) return
 	M.forceMove(get_step(stationgate.loc, SOUTH))
 	M.dir = SOUTH
 
+/obj/machinery/gateway/centeraway/proc/exilecheck(var/mob/living/carbon/M)
+	for(var/obj/item/weapon/implant/exile/E in M)//Checking that there is an exile implant in the contents
+		if(E.imp_in == M)//Checking that it's actually implanted vs just in their pocket
+			to_chat(M, "<span class='notice'>The station gate has detected your exile implant and is blocking your entry.</span>")
+			return 1
+	return 0
 
 /obj/machinery/gateway/centeraway/attackby(obj/item/device/W as obj, mob/user as mob, params)
 	if(istype(W,/obj/item/device/multitool))
 		if(calibrated)
-			user << "\black The gate is already calibrated, there is no work for you to do here."
+			to_chat(user, "<span class='notice'>The gate is already calibrated, there is no work for you to do here.</span>")
 			return
 		else
-			user << "<span class='boldnotice'>Recalibration successful!</span>: \black This gate's systems have been fine tuned.  Travel to this gate will now be on target."
+			to_chat(user, "<span class='boldnotice'>Recalibration successful!</span><span class='notice'>: This gate's systems have been fine tuned.  Travel to this gate will now be on target.</span>")
 			calibrated = 1
 			return

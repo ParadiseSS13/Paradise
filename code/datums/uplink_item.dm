@@ -13,9 +13,9 @@ var/list/uplink_items = list()
 			var/datum/uplink_item/I = new item()
 			if(!I.item)
 				continue
-			if(I.gamemodes.len && ticker && !(ticker.mode.name in I.gamemodes))
+			if(I.gamemodes.len && ticker && !(ticker.mode.type in I.gamemodes))
 				continue
-			if(I.excludefrom.len && ticker && (ticker.mode.name in I.excludefrom))
+			if(I.excludefrom.len && ticker && (ticker.mode.type in I.excludefrom))
 				continue
 			if(I.last)
 				last += I
@@ -54,8 +54,13 @@ var/list/uplink_items = list()
 	var/list/excludefrom = list() //Empty list does nothing. Place the name of gamemode you don't want this item to be available in here. This is so you dont have to list EVERY mode to exclude something.
 	var/list/job = null
 	var/surplus = 100 //Chance of being included in the surplus crate (when pick() selects it)
+	var/hijack_only = 0 //can this item be purchased only during hijackings?
 
 /datum/uplink_item/proc/spawn_item(var/turf/loc, var/obj/item/device/uplink/U)
+	if(hijack_only)
+		if(!(locate(/datum/objective/hijack) in usr.mind.objectives))
+			to_chat(usr, "<span class='warning'>The Syndicate lacks resources to provide you with this item.</span>")
+			return
 	if(item)
 		U.uses -= max(cost, 0)
 		U.used_TC += cost
@@ -75,29 +80,30 @@ var/list/uplink_items = list()
 	if(!istype(U))
 		return 0
 
-	if (user.stat || user.restrained())
+	if(user.stat || user.restrained())
 		return 0
 
-	if (!(istype(user, /mob/living/carbon/human)))
+	if(!(istype(user, /mob/living/carbon/human)))
 		return 0
 
 	// If the uplink's holder is in the user's contents
-	if ((U.loc in user.contents || (in_range(U.loc, user) && istype(U.loc.loc, /turf))))
+	if((U.loc in user.contents || (in_range(U.loc, user) && istype(U.loc.loc, /turf))))
 		user.set_machine(U)
 		if(cost > U.uses)
 			return 0
 
 		var/obj/I = spawn_item(get_turf(user), U)
 
-		if(ishuman(user))
-			var/mob/living/carbon/human/A = user
-			A.put_in_any_hand_if_possible(I)
+		if(I)
+			if(ishuman(user))
+				var/mob/living/carbon/human/A = user
+				A.put_in_any_hand_if_possible(I)
 
-			if(istype(I,/obj/item/weapon/storage/box/) && I.contents.len>0)
-				for(var/atom/o in I)
-					U.purchase_log += "<BIG>\icon[o]</BIG>"
-			else
-				U.purchase_log += "<BIG>\icon[I]</BIG>"
+				if(istype(I,/obj/item/weapon/storage/box/) && I.contents.len>0)
+					for(var/atom/o in I)
+						U.purchase_log += "<BIG>[bicon(o)]</BIG>"
+				else
+					U.purchase_log += "<BIG>[bicon(I)]</BIG>"
 
 		//U.interact(user)
 		return 1
@@ -122,6 +128,23 @@ var/list/uplink_items = list()
 	cost = 5
 	job = list("Clown")
 
+//mime
+/datum/uplink_item/job_specific/caneshotgun
+	name = "Cane Shotgun + Assassination Darts"
+	desc = "A specialized, one shell shotgun with a built-in cloaking device to mimic a cane. The shotgun is capable of hiding it's contents and the pin alongside being supressed. Comes with 6 special darts and a preloaded shrapnel round."
+	reference = "MCS"
+	item = /obj/item/weapon/storage/box/syndie_kit/caneshotgun
+	cost = 15
+	job = list("Mime")
+
+/datum/uplink_item/dangerous/cat_grenade
+	name = "Feral Cat Delivery Grenade"
+	desc = "The feral cat delivery grenade contains 8 dehydrated feral cats in a similar manner to dehydrated monkeys, which, upon detonation, will be rehydrated by a small reservoir of water contained within the grenade. These cats will then attack anything in sight."
+	item = /obj/item/weapon/grenade/spawnergrenade/feral_cats
+	reference = "CCLG"
+	cost = 5
+	job = list("Psychiatrist")//why? Becuase its funny that a person in charge of your mental wellbeing has a cat granade..
+
 //Chef
 /datum/uplink_item/jobspecific/specialsauce
 	name = "Chef Excellence's Special Sauce"
@@ -135,7 +158,7 @@ var/list/uplink_items = list()
 	name = "Meat Cleaver"
 	desc = "A mean looking meat cleaver that does damage comparable to an Energy Sword but with the added benefit of chopping your victim into hunks of meat after they've died and the chance to stun when thrown."
 	reference = "MC"
-	item = /obj/item/weapon/butch/meatcleaver
+	item = /obj/item/weapon/kitchen/knife/butcher/meatcleaver
 	cost = 10
 	job = list("Chef")
 
@@ -157,6 +180,24 @@ var/list/uplink_items = list()
 	cost = 13
 	job = list("Chaplain")
 
+/datum/uplink_item/jobspecific/missionary_kit
+	name = "Missionary Starter Kit"
+	desc = "A box containing a missionary staff, missionary robes, and bible. The robes and staff can be linked to allow you to convert victims at range for a short time to do your bidding. The bible is for bible stuff."
+	reference = "MK"
+	item = /obj/item/weapon/storage/box/syndie_kit/missionary_set
+	cost = 15
+	job = list("Chaplain")
+
+/datum/uplink_item/jobspecific/artistic_toolbox
+	name = "Artistic Toolbox"
+	desc = "An accursed toolbox that grants its followers extreme power at the cost of requiring repeated sacrifices to it. If sacrifices are not provided, it will turn on its follower."
+	reference = "HGAT"
+	item = /obj/item/weapon/storage/toolbox/green/memetic
+	cost = 20
+	job = list("Chaplain")
+	surplus = 0     //No lucky chances from the crate; if you get this, this is ALL you're getting
+	hijack_only = 1 //This is a murderbone weapon, as such, it should only be available in those scenarios.
+
 //Janitor
 
 /datum/uplink_item/jobspecific/cautionsign
@@ -166,6 +207,7 @@ var/list/uplink_items = list()
 	item = /obj/item/weapon/caution/proximity_sign
 	cost = 4
 	job = list("Janitor")
+	surplus = 0
 
 //Medical
 
@@ -191,7 +233,7 @@ var/list/uplink_items = list()
 
 /datum/uplink_item/jobspecific/pickpocketgloves
 	name = "Pickpocket's Gloves"
-	desc = "A pair of sleek gloves to aid in pickpocketing, while wearing these you can see inside the pockets of any unsuspecting mark, loot the ID or pockets without them knowing, and pickpocketing puts the item directly into your hand."
+	desc = "A pair of sleek gloves to aid in pickpocketing. While wearing these, you can loot your target without them knowing. Pickpocketing puts the item directly into your hand."
 	reference = "PG"
 	item = /obj/item/clothing/gloves/color/black/thief
 	cost = 6
@@ -218,6 +260,16 @@ var/list/uplink_items = list()
 	cost = 5
 	job = list("Barber")
 
+//Botanist
+
+/datum/uplink_item/jobspecific/bee_briefcase
+	name = "Briefcase Full of Bees"
+	desc = "A seemingly innocent briefcase full of not-so-innocent Syndicate-bred bees. Inject the case with blood to train the bees to ignore the donor(s). It also wirelessly taps into station intercomms to broadcast a message of TERROR."
+	reference = "BEE"
+	item = /obj/item/weapon/bee_briefcase
+	cost = 10
+	job = list("Botanist")
+
 //Engineer
 
 /datum/uplink_item/jobspecific/powergloves
@@ -238,6 +290,43 @@ var/list/uplink_items = list()
 	cost = 12
 	job = list("Research Director")
 
+//Librarian
+/datum/uplink_item/jobspecific/etwenty
+	name = "The E20"
+	desc = "A seemingly innocent die, those who are not afraid to roll for attack will find it's effects quite explosive. Has a four second timer."
+	reference = "ETW"
+	item = /obj/item/weapon/dice/d20/e20
+	cost = 3
+	job = list("Librarian")
+
+
+//Botanist
+/datum/uplink_item/jobspecific/ambrosiacruciatus
+	name = "Ambrosia Cruciatus Seeds"
+	desc = "Part of the notorious Ambrosia family, this species is nearly indistinguishable from Ambrosia Vulgaris- but its' branches contain a revolting toxin. Eight units are enough to drive victims insane."
+	reference = "BRO"
+	item = /obj/item/seeds/ambrosia/cruciatus
+	cost = 2
+	job = list("Botanist")
+
+
+//Atmos Tech
+/datum/uplink_item/jobspecific/contortionist
+	name = "Contortionist's Jumpsuit"
+	desc = "A highly flexible jumpsuit that will help you navigate the ventilation loops of the station internally. Comes with pockets and ID slot, but can't be used without stripping off most gear, including backpack, belt, helmet, and exosuit. Free hands are also necessary to crawl around inside."
+	reference = "AIRJ"
+	item = /obj/item/clothing/under/contortionist
+	cost = 6
+	job = list("Life Support Specialist")
+
+/datum/uplink_item/jobspecific/energizedfireaxe
+	name = "Energized Fire Axe"
+	desc = "A fire axe with a massive electrical charge built into it. It can release this charge on its first victim and will be rather plain after that."
+	reference = "EFA"
+	item = /obj/item/weapon/twohanded/energizedfireaxe
+	cost = 10
+	job = list("Life Support Specialist")
+
 //Stimulants
 
 /datum/uplink_item/jobspecific/stims
@@ -256,7 +345,19 @@ var/list/uplink_items = list()
 	reference = "TPB"
 	item = /obj/item/weapon/reagent_containers/glass/bottle/traitor
 	cost = 2
-	job = list("Scientist","Research Director","Chief Medical Officer","Medical Doctor","Psychiatrist","Chemist","Paramedic","Virologist","Bartender")
+	job = list("Research Director","Chief Medical Officer","Medical Doctor","Psychiatrist","Paramedic","Virologist","Bartender")
+
+// Paper contact poison pen
+
+/datum/uplink_item/jobspecific/poison_pen
+	name = "Poison Pen"
+	desc = "Cutting edge of deadly writing implements technology, this gadget will infuse any piece of paper with delayed contact poison."
+	reference = "PP"
+	item = /obj/item/weapon/pen/poison
+	cost = 2
+	excludefrom = list(/datum/game_mode/nuclear)
+	job = list("Head of Personnel", "Quartermaster", "Cargo Technician")
+
 
 // DANGEROUS WEAPONS
 
@@ -269,7 +370,7 @@ var/list/uplink_items = list()
 	reference = "SPI"
 	desc = "A small, easily concealable handgun that uses 10mm auto rounds in 8-round magazines and is compatible with suppressors."
 	item = /obj/item/weapon/gun/projectile/automatic/pistol
-	cost = 9
+	cost = 4
 
 /datum/uplink_item/dangerous/revolver
 	name = "Syndicate .357 Revolver"
@@ -285,7 +386,7 @@ var/list/uplink_items = list()
 	desc = "A fully-loaded Scarborough Arms bullpup submachine gun that fires .45 rounds with a 20-round magazine and is compatible with suppressors."
 	item = /obj/item/weapon/gun/projectile/automatic/c20r
 	cost = 14
-	gamemodes = list("nuclear emergency")
+	gamemodes = list(/datum/game_mode/nuclear)
 	surplus = 40
 
 /datum/uplink_item/dangerous/carbine
@@ -294,7 +395,7 @@ var/list/uplink_items = list()
 	reference = "AR"
 	item = /obj/item/weapon/gun/projectile/automatic/m90
 	cost = 18
-	gamemodes = list("nuclear emergency")
+	gamemodes = list(/datum/game_mode/nuclear)
 	surplus = 50
 
 /datum/uplink_item/dangerous/machinegun
@@ -303,8 +404,17 @@ var/list/uplink_items = list()
 	reference = "LMG"
 	item = /obj/item/weapon/gun/projectile/automatic/l6_saw
 	cost = 40
-	gamemodes = list("nuclear emergency")
+	gamemodes = list(/datum/game_mode/nuclear)
 	surplus = 0
+
+/datum/uplink_item/dangerous/sniper
+	name = "Sniper Rifle"
+	desc = "Ranged fury, Syndicate style. guaranteed to cause shock and awe or your TC back!"
+	reference = "SSR"
+	item = /obj/item/weapon/gun/projectile/automatic/sniper_rifle/syndicate
+	cost = 16
+	surplus = 25
+	gamemodes = list(/datum/game_mode/nuclear)
 
 /datum/uplink_item/dangerous/crossbow
 	name = "Energy Crossbow"
@@ -312,7 +422,7 @@ var/list/uplink_items = list()
 	reference = "EC"
 	item = /obj/item/weapon/gun/energy/kinetic_accelerator/crossbow
 	cost = 12
-	excludefrom = list("nuclear emergency")
+	excludefrom = list(/datum/game_mode/nuclear)
 	surplus = 50
 
 /datum/uplink_item/dangerous/flamethrower
@@ -321,7 +431,7 @@ var/list/uplink_items = list()
 	reference = "FT"
 	item = /obj/item/weapon/flamethrower/full/tank
 	cost = 11
-	gamemodes = list("nuclear emergency")
+	gamemodes = list(/datum/game_mode/nuclear)
 	surplus = 40
 
 /datum/uplink_item/dangerous/sword
@@ -331,6 +441,16 @@ var/list/uplink_items = list()
 	item = /obj/item/weapon/melee/energy/sword/saber
 	cost = 8
 
+/datum/uplink_item/dangerous/powerfist
+	name = "Power Fist"
+	desc = "The power-fist is a metal gauntlet with a built-in piston-ram powered by an external gas supply.\
+		 Upon hitting a target, the piston-ram will extend foward to make contact for some serious damage. \
+		 Using a wrench on the piston valve will allow you to tweak the amount of gas used per punch to \
+		 deal extra damage and hit targets further. Use a screwdriver to take out any attached tanks."
+	reference = "PF"
+	item = /obj/item/weapon/melee/powerfist
+	cost = 8
+
 /datum/uplink_item/dangerous/chainsaw
 	name = "Chainsaw"
 	desc = "A high powered chainsaw for cutting up ...you know...."
@@ -338,13 +458,20 @@ var/list/uplink_items = list()
 	item = /obj/item/weapon/twohanded/chainsaw
 	cost = 13
 
+/datum/uplink_item/dangerous/batterer
+	name = "Mind Batterer"
+	desc = "A device that has a chance of knocking down people around you for a long amount of time. 50% chance per person. The user is unaffected. Has 5 charges."
+	reference = "BTR"
+	item = /obj/item/device/batterer
+	cost = 5
+
 /datum/uplink_item/dangerous/manhacks
 	name = "Viscerator Delivery Grenade"
 	desc = "A unique grenade that deploys a swarm of viscerators upon activation, which will chase down and shred any non-operatives in the area."
 	reference = "VDG"
 	item = /obj/item/weapon/grenade/spawnergrenade/manhacks
 	cost = 8
-	gamemodes = list("nuclear emergency")
+	gamemodes = list(/datum/game_mode/nuclear)
 	surplus = 35
 
 /datum/uplink_item/ammo/bioterror
@@ -353,23 +480,31 @@ var/list/uplink_items = list()
 	reference = "BTS"
 	item = /obj/item/weapon/storage/box/syndie_kit/bioterror
 	cost = 6
-	gamemodes = list("nuclear emergency")
+	gamemodes = list(/datum/game_mode/nuclear)
 
-/datum/uplink_item/dangerous/tabungrenades
-	name = "Tabun Gas Grenades"
-	desc = "A box of four (4) grenades filled with Tabun, a deadly neurotoxin. Use extreme caution when handling and be sure to vacate the premise after using; ensure communication is maintained with team to avoid accidental gassings."
+/datum/uplink_item/dangerous/saringrenades
+	name = "Sarin Gas Grenades"
+	desc = "A box of four (4) grenades filled with Sarin, a deadly neurotoxin. Use extreme caution when handling and be sure to vacate the premise after using; ensure communication is maintained with team to avoid accidental gassings."
 	reference = "TGG"
-	item = /obj/item/weapon/storage/box/syndie_kit/tabun
+	item = /obj/item/weapon/storage/box/syndie_kit/sarin
 	cost = 15
-	gamemodes = list("nuclear emergency")
+	gamemodes = list(/datum/game_mode/nuclear)
 	surplus = 0
 
+/datum/uplink_item/dangerous/atmosgrenades
+	name = "Atmos Grenades"
+	desc = "A box of two (2) grenades that wreak havoc with the atmosphere of the target area. Capable of engulfing a large area in lit plasma, or N2O. Deploy with extreme caution!"
+	reference = "AGG"
+	item = /obj/item/weapon/storage/box/syndie_kit/atmosgasgrenades
+	cost = 11
+
 /datum/uplink_item/dangerous/emp
-	name = "EMP Kit"
-	desc = "A box that contains two EMP grenades, an EMP implant and a short ranged recharging device disguised as a flashlight. Useful to disrupt communication and silicon lifeforms."
-	reference = "EMP"
+	name = "EMP Grenades and Implanter Kit"
+	desc = "A box that contains two EMP grenades and an EMP implant. Useful to disrupt communication, \
+			security's energy weapons, and silicon lifeforms when you're in a tight spot."
+	reference = "EMPK"
 	item = /obj/item/weapon/storage/box/syndie_kit/emp
-	cost = 5
+	cost = 2
 
 /datum/uplink_item/dangerous/syndicate_minibomb
 	name = "Syndicate Minibomb"
@@ -385,7 +520,7 @@ var/list/uplink_items = list()
 	reference = "GE"
 	item = /obj/mecha/combat/gygax/dark/loaded
 	cost = 90
-	gamemodes = list("nuclear emergency")
+	gamemodes = list(/datum/game_mode/nuclear)
 	surplus = 0
 
 /datum/uplink_item/dangerous/mauler
@@ -394,7 +529,7 @@ var/list/uplink_items = list()
 	reference = "ME"
 	item = /obj/mecha/combat/marauder/mauler/loaded
 	cost = 140
-	gamemodes = list("nuclear emergency")
+	gamemodes = list(/datum/game_mode/nuclear)
 	surplus = 0
 
 /datum/uplink_item/dangerous/syndieborg
@@ -403,8 +538,36 @@ var/list/uplink_items = list()
 	reference = "SC"
 	item = /obj/item/weapon/antag_spawner/borg_tele
 	cost = 50
-	gamemodes = list("nuclear emergency")
+	gamemodes = list(/datum/game_mode/nuclear)
 	surplus = 0
+
+/datum/uplink_item/dangerous/foamsmg
+	name = "Toy Submachine Gun"
+	desc = "A fully-loaded Donksoft bullpup submachine gun that fires riot grade rounds with a 20-round magazine."
+	reference = "FSMG"
+	item = /obj/item/weapon/gun/projectile/automatic/c20r/toy
+	cost = 5
+	gamemodes = list(/datum/game_mode/nuclear)
+	surplus = 0
+
+/datum/uplink_item/dangerous/foammachinegun
+	name = "Toy Machine Gun"
+	desc = "A fully-loaded Donksoft belt-fed machine gun. This weapon has a massive 50-round magazine of devastating riot grade darts, that can briefly incapacitate someone in just one volley."
+	reference = "FLMG"
+	item = /obj/item/weapon/gun/projectile/automatic/l6_saw/toy
+	cost = 10
+	gamemodes = list(/datum/game_mode/nuclear)
+	surplus = 0
+
+/datum/uplink_item/ammo/toydarts
+	name = "Box of Riot Darts"
+	desc = "A box of 40 Donksoft foam riot darts, for reloading any compatible foam dart gun. Don't forget to share!"
+	reference = "FOAM"
+	item = /obj/item/ammo_box/foambox/riot
+	cost = 2
+	gamemodes = list(/datum/game_mode/nuclear)
+	surplus = 0
+
 
 //for refunding the syndieborg teleporter
 /datum/uplink_item/dangerous/syndieborg/spawn_item()
@@ -416,7 +579,7 @@ var/list/uplink_items = list()
 	name = "Holoparasites"
 	desc = "Though capable of near sorcerous feats via use of hardlight holograms and nanomachines, they require an organic host as a home base and source of fuel."
 	item = /obj/item/weapon/storage/box/syndie_kit/guardian
-	excludefrom = list("nuclear emergency")
+	excludefrom = list(/datum/game_mode/nuclear)
 	cost = 12
 
 // Ammunition
@@ -427,10 +590,31 @@ var/list/uplink_items = list()
 
 /datum/uplink_item/ammo/pistol
 	name = "Magazine - 10mm"
-	desc = "An additional 8-round 10mm magazine for use in the syndicate pistol. These subsonic rounds are dirt cheap but are half as effective as .357 rounds."
+	desc = "An additional 8-round 10mm magazine for use in the syndicate pistol, loaded with rounds that are cheap but around half as effective as .357"
 	reference = "10MM"
 	item = /obj/item/ammo_box/magazine/m10mm
 	cost = 1
+
+/datum/uplink_item/ammo/pistolap
+	name = "Magazine - 10mm Armour Piercing"
+	desc = "An additional 8-round 10mm magazine for use in the syndicate pistol, loaded with rounds that are less effective at injuring the target but penetrate protective gear."
+	reference = "10MMAP"
+	item = /obj/item/ammo_box/magazine/m10mm/ap
+	cost = 2
+
+/datum/uplink_item/ammo/pistolfire
+	name = "Magazine - 10mm Incendiary"
+	desc = "An additional 8-round 10mm magazine for use in the syndicate pistol, loaded with incendiary rounds which ignite the target."
+	reference = "10MMFIRE"
+	item = /obj/item/ammo_box/magazine/m10mm/fire
+	cost = 2
+
+/datum/uplink_item/ammo/pistolhp
+	name = "Magazine - 10mm Hollow Point"
+	desc = "An additional 8-round 10mm magazine for use in the syndicate pistol, loaded with rounds which are more damaging but ineffective against armour."
+	reference = "10MMHP"
+	item = /obj/item/ammo_box/magazine/m10mm/hp
+	cost = 3
 
 /datum/uplink_item/ammo/revolver
 	name = "Speed Loader - .357"
@@ -445,7 +629,7 @@ var/list/uplink_items = list()
 	reference = "45"
 	item = /obj/item/ammo_box/magazine/smgm45
 	cost = 2
-	gamemodes = list("nuclear emergency")
+	gamemodes = list(/datum/game_mode/nuclear)
 
 /datum/uplink_item/ammo/ammobag
 	name = "Ammo Duffelbag - Shotgun Ammo Grab Bag"
@@ -453,7 +637,7 @@ var/list/uplink_items = list()
 	reference = "SAGL"
 	item = /obj/item/weapon/storage/backpack/duffel/syndie/ammo/loaded
 	cost = 10 //bulk buyer's discount. Very useful if you're buying a mech and dont have TC left to buy people non-shotgun guns
-	gamemodes = list("nuclear emergency")
+	gamemodes = list(/datum/game_mode/nuclear)
 
 /datum/uplink_item/ammo/bullslug
 	name = "Drum Magazine - 12g Slugs"
@@ -461,7 +645,7 @@ var/list/uplink_items = list()
 	reference = "12BSG"
 	item = /obj/item/ammo_box/magazine/m12g
 	cost = 2
-	gamemodes = list("nuclear emergency")
+	gamemodes = list(/datum/game_mode/nuclear)
 
 /datum/uplink_item/ammo/bullbuck
 	name = "Drum Magazine - 12g buckshot"
@@ -469,7 +653,7 @@ var/list/uplink_items = list()
 	reference = "12BS"
 	item = /obj/item/ammo_box/magazine/m12g/buckshot
 	cost = 2
-	gamemodes = list("nuclear emergency")
+	gamemodes = list(/datum/game_mode/nuclear)
 
 /datum/uplink_item/ammo/bullstun
 	name = "Drum Magazine - 12g Stun Slug"
@@ -477,7 +661,7 @@ var/list/uplink_items = list()
 	reference = "12SS"
 	item = /obj/item/ammo_box/magazine/m12g/stun
 	cost = 3
-	gamemodes = list("nuclear emergency")
+	gamemodes = list(/datum/game_mode/nuclear)
 
 /datum/uplink_item/ammo/bulldragon
 	name = "Drum Magazine - 12g Dragon's Breath"
@@ -485,7 +669,7 @@ var/list/uplink_items = list()
 	reference = "12DB"
 	item = /obj/item/ammo_box/magazine/m12g/dragon
 	cost = 2
-	gamemodes = list("nuclear emergency")
+	gamemodes = list(/datum/game_mode/nuclear)
 
 /datum/uplink_item/ammo/carbine
 	name = "Toploader Magazine - 5.56"
@@ -493,7 +677,7 @@ var/list/uplink_items = list()
 	reference = "556"
 	item = /obj/item/ammo_box/magazine/m556
 	cost = 2
-	gamemodes = list("nuclear emergency")
+	gamemodes = list(/datum/game_mode/nuclear)
 
 /datum/uplink_item/ammo/a40mm
 	name = "Ammo Box - 40mm grenades"
@@ -501,21 +685,70 @@ var/list/uplink_items = list()
 	reference = "40MM"
 	item = /obj/item/ammo_box/a40mm
 	cost = 4
-	gamemodes = list("nuclear emergency")
+	gamemodes = list(/datum/game_mode/nuclear)
 
 /datum/uplink_item/ammo/machinegun
-	name = "Box Magazine - 7.62x51mm"
-	desc = "A 50-round magazine of 7.62x51mm ammunition for use in the L6 SAW machine gun. By the time you need to use this, you'll already be on a pile of corpses."
+	name = "Box Magazine - 5.56x45mm"
+	desc = "A 50-round magazine of 5.56x45mm ammunition for use in the L6 SAW machine gun. By the time you need to use this, you'll already be on a pile of corpses."
 	reference = "762"
-	item = /obj/item/ammo_box/magazine/m762
+	item = /obj/item/ammo_box/magazine/mm556x45
 	cost = 12
-	gamemodes = list("nuclear emergency")
+	gamemodes = list(/datum/game_mode/nuclear)
 	surplus = 0
+
+/datum/uplink_item/ammo/sniper
+	cost = 4
+	gamemodes = list(/datum/game_mode/nuclear)
+
+/datum/uplink_item/ammo/sniper/basic
+	name = ".50 Magazine"
+	desc = "An additional standard 6-round magazine for use with .50 sniper rifles."
+	reference = "50M"
+	item = /obj/item/ammo_box/magazine/sniper_rounds
+
+/datum/uplink_item/ammo/sniper/soporific
+	name = ".50 Soporific Magazine"
+	desc = "A 3-round magazine of soporific ammo designed for use with .50 sniper rifles. Put your enemies to sleep today!"
+	reference = "50S"
+	item = /obj/item/ammo_box/magazine/sniper_rounds/soporific
+	cost = 6
+
+/datum/uplink_item/ammo/sniper/haemorrhage
+	name = ".50 Haemorrhage Magazine"
+	desc = "A 5-round magazine of haemorrhage ammo designed for use with .50 sniper rifles; causes heavy bleeding \
+			in the target."
+	reference = "50B"
+	item = /obj/item/ammo_box/magazine/sniper_rounds/haemorrhage
+
+/datum/uplink_item/ammo/sniper/penetrator
+	name = ".50 Penetrator Magazine"
+	desc = "A 5-round magazine of penetrator ammo designed for use with .50 sniper rifles. \
+			Can pierce walls and multiple enemies."
+	reference = "50P"
+	item = /obj/item/ammo_box/magazine/sniper_rounds/penetrator
+	cost = 5
 
 // STEALTHY WEAPONS
 
 /datum/uplink_item/stealthy_weapons
 	category = "Stealthy and Inconspicuous Weapons"
+
+/datum/uplink_item/stealthy_weapons/garrote
+	name = "Fiber Wire Garrote"
+	desc = "A length of fiber wire between two wooden handles, perfect for the discrete assassin. This weapon, when used on a target from behind \
+			will instantly put them in your grasp and silence them, as well as causing rapid suffocation. Does not work on those who do not need to breathe."
+	reference = "GAR"
+	item = /obj/item/weapon/twohanded/garrote
+	cost = 12
+
+/datum/uplink_item/stealthy_weapons/martialarts
+	name = "Martial Arts Scroll"
+	desc = "This scroll contains the secrets of an ancient martial arts technique. You will master unarmed combat, \
+			deflecting all ranged weapon fire, but you also refuse to use dishonorable ranged weaponry."
+	reference = "SCS"
+	item = /obj/item/weapon/sleeping_carp_scroll
+	cost = 17
+	excludefrom = list(/datum/game_mode/nuclear)
 
 /datum/uplink_item/stealthy_weapons/edagger
 	name = "Energy Dagger"
@@ -526,11 +759,19 @@ var/list/uplink_items = list()
 
 /datum/uplink_item/stealthy_weapons/sleepy_pen
 	name = "Sleepy Pen"
-	desc = "A syringe disguised as a functional pen. It's filled with a potent anaesthetic. \The pen holds two doses of the mixture. The pen can be refilled."
+	desc = "A syringe disguised as a functional pen. It's filled with a potent anaesthetic. \ The pen holds two doses of the mixture. The pen can be refilled."
 	reference = "SP"
 	item = /obj/item/weapon/pen/sleepy
 	cost = 8
-	excludefrom = list("nuclear emergency")
+	excludefrom = list(/datum/game_mode/nuclear)
+
+/datum/uplink_item/stealthy_weapons/foampistol
+	name = "Toy Gun (with Stun Darts)"
+	desc = "An innocent looking toy pistol designed to fire foam darts. Comes loaded with riot grade darts, to incapacitate a target."
+	reference = "FSPI"
+	item = /obj/item/weapon/gun/projectile/automatic/toy/pistol/riot
+	cost = 3
+	surplus = 10
 
 /datum/uplink_item/stealthy_weapons/soap
 	name = "Syndicate Soap"
@@ -560,7 +801,7 @@ var/list/uplink_items = list()
 	desc = "Fitted for use on any small caliber weapon with a threaded barrel, this suppressor will silence the shots of the weapon for increased stealth and superior ambushing capability."
 	reference = "US"
 	item = /obj/item/weapon/suppressor
-	cost = 3
+	cost = 1
 	surplus = 10
 
 /datum/uplink_item/stealthy_weapons/pizza_bomb
@@ -573,10 +814,24 @@ var/list/uplink_items = list()
 
 /datum/uplink_item/stealthy_weapons/dehy_carp
 	name = "Dehydrated Space Carp"
-	desc = "Just add water to make your very own hostile to everything space carp. It looks just like a plushie."
+	desc = "Just add water to make your very own hostile to everything space carp. It looks just like a plushie. The first person to squeeze it will be registered as its owner, who it will not attack. If no owner is registered, it'll just attack everyone."
 	reference = "DSC"
 	item = /obj/item/toy/carpplushie/dehy_carp
 	cost = 3
+
+/datum/uplink_item/stealthy_weapons/chamsechud
+	name = "Chameleon Security HUD"
+	desc = "A stolen Nanotrasen Security HUD with Syndicate chameleon technology implemented into it. Similarly to a chameleon jumpsuit, the HUD can be morphed into various other eyewear, while retaining the HUD qualities when worn."
+	reference = "CHHUD"
+	item = /obj/item/clothing/glasses/hud/security/chameleon
+	cost = 2
+
+/datum/uplink_item/stealthy_weapons/chameleonflag
+	name = "Chameleon Flag"
+	desc = "A flag that can be disguised as any other known flag. There is a heat sensitive bomb loaded into the pole that will be detonated if the flag is lit on fire."
+	reference = "CHFLAG"
+	item = /obj/item/flag/chameleon
+	cost = 7
 
 // STEALTHY TOOLS
 
@@ -605,14 +860,14 @@ var/list/uplink_items = list()
 	reference = "NSSS"
 	item = /obj/item/clothing/shoes/syndigaloshes
 	cost = 2
-	excludefrom = list("nuclear emergency")
+	excludefrom = list(/datum/game_mode/nuclear)
 
 /datum/uplink_item/stealthy_tools/syndigaloshes/nuke
 	name = "Tactical No-Slip Brown Shoes"
 	desc = "These allow you to run on wet floors. They do not work on lubricated surfaces, and the maker swears they're better than normal ones, somehow."
 	reference = "NNSSS"
 	cost = 4 //but they aren't
-	gamemodes = list("nuclear emergency")
+	gamemodes = list(/datum/game_mode/nuclear)
 
 /datum/uplink_item/stealthy_tools/agent_card
 	name = "Agent ID Card"
@@ -658,6 +913,15 @@ var/list/uplink_items = list()
 	cost = 2
 	surplus = 30
 
+/datum/uplink_item/stealthy_tools/emplight
+	name = "EMP Flashlight"
+	desc = "A small, self-charging, short-ranged EMP device disguised as a flashlight. \
+		Useful for disrupting headsets, cameras, and borgs during stealth operations."
+	reference = "EMPL"
+	item = /obj/item/device/flashlight/emp
+	cost = 2
+	surplus = 30
+
 // DEVICE AND TOOLS
 
 /datum/uplink_item/device_tools
@@ -679,8 +943,8 @@ var/list/uplink_items = list()
 	cost = 1
 
 /datum/uplink_item/device_tools/surgerybag
-	name = "Syndicate Surgery Dufflebag"
-	desc = "The Syndicate surgery dufflebag is a toolkit containing all surgery tools, a straitjacket, and a muzzle."
+	name = "Syndicate Surgery Duffelbag"
+	desc = "The Syndicate surgery duffelbag is a toolkit containing all surgery tools, a straitjacket, and a muzzle."
 	reference = "SSDB"
 	item = /obj/item/weapon/storage/backpack/duffel/syndie/surgery
 	cost = 4
@@ -691,7 +955,7 @@ var/list/uplink_items = list()
 	reference = "SBM"
 	item = /obj/item/weapon/storage/belt/military
 	cost = 3
-	excludefrom = list("nuclear emergency")
+	excludefrom = list(/datum/game_mode/nuclear)
 
 /datum/uplink_item/device_tools/medkit
 	name = "Syndicate Combat Medic Kit"
@@ -700,23 +964,50 @@ var/list/uplink_items = list()
 	reference = "SCMK"
 	item = /obj/item/weapon/storage/firstaid/tactical
 	cost = 9
-	gamemodes = list("nuclear emergency")
+	gamemodes = list(/datum/game_mode/nuclear)
 
-/datum/uplink_item/device_tools/space_suit
-	name = "Space Suit"
-	desc = "The red and black syndicate space suit is less encumbering than Nanotrasen variants, fits inside bags, and has a weapon slot. Nanotrasen crewmembers are trained to report red space suit sightings."
+//Space Suits and Hardsuits
+/datum/uplink_item/suits
+	category = "Space Suits and Hardsuits"
+	surplus = 40
+
+/datum/uplink_item/suits/space_suit
+	name = "Syndicate Space Suit"
+	desc = "This red and black syndicate space suit is less encumbering than Nanotrasen variants, \
+			fits inside bags, and has a weapon slot. Nanotrasen crewmembers are trained to report red space suit \
+			sightings, however."
 	reference = "SS"
 	item = /obj/item/weapon/storage/box/syndie_kit/space
 	cost = 4
 
-/datum/uplink_item/device_tools/hardsuit
-	name = "Blood-red Hardsuit"
-	desc = "The feared suit of a syndicate nuclear agent. Features slightly better armor. When the helmet is deployed your identity will be protected. Toggling the suit into combat mode \
-	will allow you all the mobility of a loose fitting uniform without sacrificing armor. Additionally the suit is collapsible, small enough to fit within a backpack. \
-	Nanotrasen crewmembers are trained to report red space suit sightings, these suits in particular are known to drive employees into a panic."
+/datum/uplink_item/suits/hardsuit
+	name = "Syndicate Hardsuit"
+	desc = "The feared suit of a syndicate nuclear agent. Features slightly better armoring and a built in jetpack \
+			that runs off standard atmospheric tanks. When the built in helmet is deployed your identity will be \
+			protected, even in death, as the suit cannot be removed by outside forces. Toggling the suit in and out of \
+			combat mode will allow you all the mobility of a loose fitting uniform without sacrificing armoring. \
+			Additionally the suit is collapsible, making it small enough to fit within a backpack. \
+			Nanotrasen crew who spot these suits are known to panic."
 	reference = "BRHS"
 	item = /obj/item/weapon/storage/box/syndie_kit/hardsuit
 	cost = 8
+
+/datum/uplink_item/suits/hardsuit/elite
+	name = "Elite Syndicate Hardsuit"
+	desc = "An advanced hardsuit with superior armor and mobility to the standard Syndicate Hardsuit."
+	item = /obj/item/weapon/storage/box/syndie_kit/elite_hardsuit
+	cost = 8
+	reference = "ESHS"
+	gamemodes = list(/datum/game_mode/nuclear)
+
+/datum/uplink_item/suits/hardsuit/shielded
+	name = "Shielded Hardsuit"
+	desc = "An advanced hardsuit with built in energy shielding. The shields will rapidly recharge when not under fire."
+	item = /obj/item/weapon/storage/box/syndie_kit/shielded_hardsuit
+	cost = 30
+	reference = "SHS"
+	gamemodes = list(/datum/game_mode/nuclear)
+
 
 /datum/uplink_item/device_tools/thermal
 	name = "Thermal Imaging Glasses"
@@ -755,14 +1046,22 @@ var/list/uplink_items = list()
 	reference = "BRMB"
 	item = /obj/item/clothing/shoes/magboots/syndie
 	cost = 3
-	gamemodes = list("nuclear emergency")
+	gamemodes = list(/datum/game_mode/nuclear)
 
 /datum/uplink_item/device_tools/plastic_explosives
 	name = "Composition C-4"
-	desc = "C-4 is plastic explosive of the common variety Composition C. You can use it to breach walls or connect a signaller to its wiring to make it remotely detonable. It has a modifiable timer with a minimum setting of 10 seconds."
+	desc = "C-4 is plastic explosive of the common variety Composition C. You can use it to breach walls or connect an assembly to its wiring to make it remotely detonable. It has a modifiable timer with a minimum setting of 10 seconds."
 	reference = "C4"
-	item = /obj/item/weapon/c4
+	item = /obj/item/weapon/grenade/plastic/c4
 	cost = 1
+
+/datum/uplink_item/device_tools/breaching_charge
+	name = "Composition X-4"
+	desc = "X-4 is a shaped charge designed to be safe to the user while causing maximum damage to the occupants of the room beach breached. It has a modifiable timer with a minimum setting of 10 seconds."
+	reference = "X4"
+	item = /obj/item/weapon/grenade/plastic/x4
+	cost = 2
+	gamemodes = list(/datum/game_mode/nuclear)
 
 /datum/uplink_item/device_tools/powersink
 	name = "Power Sink"
@@ -772,8 +1071,11 @@ var/list/uplink_items = list()
 	cost = 10
 
 /datum/uplink_item/device_tools/singularity_beacon
-	name = "Singularity Beacon"
-	desc = "When screwed to wiring attached to an electric grid, then activated, this large device pulls the singularity towards it. Does not work when the singularity is still in containment. A singularity beacon can cause catastrophic damage to a space station, leading to an emergency evacuation. Because of its size, it cannot be carried. Ordering this sends you a small beacon that will teleport the larger beacon to your location on activation."
+	name = "Power Beacon"
+	desc = "When screwed to wiring attached to an electric grid and activated, this large device pulls any \
+			active gravitational singularities or tesla balls towards it. This will not work when the engine is still \
+			in containment. Because of its size, it cannot be carried. Ordering this \
+			sends you a small beacon that will teleport the larger beacon to your location upon activation."
 	reference = "SNGB"
 	item = /obj/item/device/radio/beacon/syndicate
 	cost = 14
@@ -793,7 +1095,7 @@ var/list/uplink_items = list()
 	reference = "SD"
 	item = /obj/item/device/syndicatedetonator
 	cost = 3
-	gamemodes = list("nuclear emergency")
+	gamemodes = list(/datum/game_mode/nuclear)
 
 /datum/uplink_item/device_tools/advpinpointer
 	name = "Advanced Pinpointer"
@@ -809,13 +1111,30 @@ var/list/uplink_items = list()
 	item = /obj/item/device/multitool/ai_detect
 	cost = 1
 
+/datum/uplink_item/device_tools/telecrystal
+	name = "Raw Telecrystal"
+	desc = "Telecrystal in its rawest and purest form; can be utilized on active uplinks to increase their telecrystal count."
+	reference = "RTC"
+	item = /obj/item/stack/telecrystal
+	cost = 1
+	surplus = 0
+
 /datum/uplink_item/device_tools/teleporter
 	name = "Teleporter Circuit Board"
 	desc = "A printed circuit board that completes the teleporter onboard the mothership. Advise you test fire the teleporter before entering it, as malfunctions can occur."
 	item = /obj/item/weapon/circuitboard/teleporter
 	reference = "TP"
 	cost = 40
-	gamemodes = list("nuclear emergency")
+	gamemodes = list(/datum/game_mode/nuclear)
+	surplus = 0
+
+/datum/uplink_item/device_tools/assault_pod
+	name = "Assault Pod Targetting Device"
+	desc = "Use to select the landing zone of your assault pod."
+	item = /obj/item/device/assault_pod
+	reference = "APT"
+	cost = 30
+	gamemodes = list(/datum/game_mode/nuclear)
 	surplus = 0
 
 /datum/uplink_item/device_tools/shield
@@ -824,7 +1143,7 @@ var/list/uplink_items = list()
 	item = /obj/item/weapon/shield/energy
 	reference = "ESD"
 	cost = 16
-	gamemodes = list("nuclear emergency")
+	gamemodes = list(/datum/game_mode/nuclear)
 	surplus = 20
 
 /datum/uplink_item/device_tools/medgun
@@ -833,7 +1152,7 @@ var/list/uplink_items = list()
 	item = /obj/item/weapon/gun/medbeam
 	reference = "MBG"
 	cost = 15
-	gamemodes = list("nuclear emergency")
+	gamemodes = list(/datum/game_mode/nuclear)
 
 
 // IMPLANTS
@@ -850,24 +1169,17 @@ var/list/uplink_items = list()
 
 /datum/uplink_item/implants/uplink
 	name = "Uplink Implant"
-	desc = "An implant injected into the body, and later activated using a bodily gesture to open an uplink with 5 telecrystals. The ability for an agent to open an uplink after their possessions have been stripped from them makes this implant excellent for escaping confinement."
+	desc = "An implant injected into the body, and later activated using a bodily gesture to open an uplink with 10 telecrystals. The ability for an agent to open an uplink after their possessions have been stripped from them makes this implant excellent for escaping confinement."
 	reference = "UI"
 	item = /obj/item/weapon/implanter/uplink
 	cost = 14
 	surplus = 0
 
-/datum/uplink_item/implants/explosive
-	name = "Explosive Implant"
-	desc = "An implant injected into the body, and later activated using a vocal command to cause a large explosion from the implant."
-	reference = "EI"
-	item = /obj/item/weapon/implanter/explosive
-	cost = 12
-
-/datum/uplink_item/implants/compression
-	name = "Compressed Matter Implant"
-	desc = "An implant injected into the body, and later activated using a bodily gesture to retrieve an item that was earlier compressed."
-	reference = "CI"
-	item = /obj/item/weapon/implanter/compressed
+/datum/uplink_item/implants/storage
+	name = "Storage Implant"
+	desc = "An implant injected into the body, and later activated at the user's will. It will open a small subspace pocket capable of storing two items."
+	reference = "ESI"
+	item = /obj/item/weapon/implanter/storage
 	cost = 8
 
 /datum/uplink_item/implants/mindslave
@@ -883,6 +1195,68 @@ var/list/uplink_items = list()
 	reference = "AI"
 	item = /obj/item/weapon/implanter/adrenalin
 	cost = 8
+
+/datum/uplink_item/implants/microbomb
+	name = "Microbomb Implant"
+	desc = "An implant injected into the body, and later activated either manually or automatically upon death. The more implants inside of you, the higher the explosive power. \
+	This will permanently destroy your body, however."
+	reference = "MBI"
+	item = /obj/item/weapon/implanter/explosive
+	cost = 2
+	gamemodes = list(/datum/game_mode/nuclear)
+
+// Cybernetics
+/datum/uplink_item/cyber_implants
+	category = "Cybernetic Implants"
+	surplus = 0
+	gamemodes = list(/datum/game_mode/nuclear)
+
+/datum/uplink_item/cyber_implants/spawn_item(turf/loc, obj/item/device/uplink/U)
+	if(item)
+		if(findtext(item, /obj/item/organ/internal/cyberimp))
+			U.uses -= max(cost, 0)
+			U.used_TC += cost
+			feedback_add_details("traitor_uplink_items_bought", name) //this one and the line before copypasted because snowflaek code
+			return new /obj/item/weapon/storage/box/cyber_implants(loc, item)
+		else
+			return ..()
+
+/datum/uplink_item/cyber_implants/thermals
+	name = "Thermal Vision Implant"
+	desc = "These cybernetic eyes will give you thermal vision. Comes with an automated implanting tool."
+	reference = "CIT"
+	item = /obj/item/organ/internal/cyberimp/eyes/thermals
+	cost = 8
+
+/datum/uplink_item/cyber_implants/xray
+	name = "X-Ray Vision Implant"
+	desc = "These cybernetic eyes will give you X-ray vision. Comes with an automated implanting tool."
+	reference = "CIX"
+	item = /obj/item/organ/internal/cyberimp/eyes/xray
+	cost = 10
+
+/datum/uplink_item/cyber_implants/antistun
+	name = "CNS Rebooter Implant"
+	desc = "This implant will help you get back up on your feet faster after being stunned. \
+			Comes with an automated implanting tool."
+	reference = "CIAS"
+	item = /obj/item/organ/internal/cyberimp/brain/anti_stun
+	cost = 12
+
+/datum/uplink_item/cyber_implants/reviver
+	name = "Reviver Implant"
+	desc = "This implant will attempt to revive you if you lose consciousness. Comes with an automated implanting tool."
+	reference = "CIR"
+	item = /obj/item/organ/internal/cyberimp/chest/reviver
+	cost = 8
+
+/datum/uplink_item/cyber_implants/bundle
+	name = "Cybernetic Implants Bundle"
+	desc = "A random selection of cybernetic implants. Guaranteed 5 high quality implants. \
+			Comes with an automated implanting tool."
+	reference = "CIB"
+	item = /obj/item/weapon/storage/box/cyber_implants/bundle
+	cost = 40
 
 // POINTLESS BADASSERY
 
@@ -903,7 +1277,7 @@ var/list/uplink_items = list()
 	reference = "SYB"
 	item = /obj/item/weapon/storage/box/syndicate
 	cost = 20
-	excludefrom = list("nuclear emergency")
+	excludefrom = list(/datum/game_mode/nuclear)
 
 /datum/uplink_item/badass/syndiecards
 	name = "Syndicate Playing Cards"
@@ -912,7 +1286,7 @@ var/list/uplink_items = list()
 	reference = "SPC"
 	item = /obj/item/toy/cards/deck/syndicate
 	cost = 1
-	excludefrom = list("nuclear emergency")
+	excludefrom = list(/datum/game_mode/nuclear)
 	surplus = 40
 
 /datum/uplink_item/badass/syndiecash
@@ -929,6 +1303,14 @@ var/list/uplink_items = list()
 	reference = "BABA"
 	item = /obj/item/toy/syndicateballoon
 	cost = 20
+
+/datum/uplink_item/implants/macrobomb
+	name = "Macrobomb Implant"
+	desc = "An implant injected into the body, and later activated either manually or automatically upon death. Upon death, releases a massive explosion that will wipe out everything nearby."
+	reference = "HAB"
+	item = /obj/item/weapon/implanter/explosive_macro
+	cost = 20
+	gamemodes = list(/datum/game_mode/nuclear)
 
 /*/datum/uplink_item/badass/random
 	name = "Random Item"
@@ -962,7 +1344,7 @@ var/list/uplink_items = list()
 	reference = "SYSC"
 	cost = 20
 	item = /obj/item/weapon/storage/box/syndicate
-	excludefrom = list("nuclear emergency")
+	excludefrom = list(/datum/game_mode/nuclear)
 
 /datum/uplink_item/badass/surplus_crate/spawn_item(turf/loc, obj/item/device/uplink/U)
 	var/obj/structure/closet/crate/C = new(loc)
@@ -987,7 +1369,7 @@ var/list/uplink_items = list()
 		bought_items += I.item
 		remaining_TC -= I.cost
 
-	U.purchase_log += "<BIG>\icon[C]</BIG>"
+	U.purchase_log += "<BIG>[bicon(C)]</BIG>"
 	for(var/item in bought_items)
 		new item(C)
-		U.purchase_log += "<BIG>\icon[item]</BIG>"
+		U.purchase_log += "<BIG>[bicon(item)]</BIG>"

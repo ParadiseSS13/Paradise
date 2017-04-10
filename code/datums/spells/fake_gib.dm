@@ -1,17 +1,11 @@
-/obj/effect/proc_holder/spell/targeted/fake_gib
+/obj/effect/proc_holder/spell/targeted/touch/fake_disintegrate
 	name = "Disintegrate"
-	desc = "This spell instantly kills somebody adjacent to you with the vilest of magick."
+	desc = "This spell charges your hand with vile energy that can be used to violently explode victims."
+	hand_path = "/obj/item/weapon/melee/touch_attack/fake_disintegrate"
 
-	school = "conjuration"
-	charge_max = 20
+	school = "evocation"
+	charge_max = 600
 	clothes_req = 0
-	invocation = "EI NATH"
-	invocation_type = "shout"
-	range = -1
-	include_user = 1
-	cooldown_min = 5 //25 deciseconds reduction per rank
+	cooldown_min = 200 //100 deciseconds reduction per rank
 
-	sparks_spread = 3
-	sparks_amt = 1
-
-	action_icon_state = "spell_disintegrate"
+	action_icon_state = "gib"

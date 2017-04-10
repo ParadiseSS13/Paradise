@@ -3,31 +3,20 @@
 /////////////////////////////////////////////////////////////////////////////////////////
 
 // MAXIMUM SCIENCE
-/datum/job_objective/maximize_research
-	completion_payment = 1000
+/datum/job_objective/further_research
+	completion_payment = 5
+	per_unit = 1
 
-/datum/job_objective/maximize_research/get_description()
-	var/desc = "Maximize all legal research tech levels."
+/datum/job_objective/further_research/get_description()
+	var/desc = "Research tech levels, and have cargo ship them to centcomm."
+	desc += "([units_completed] completed.)"
 	return desc
 
 /datum/job_objective/maximize_research/check_for_completion()
-	var/obj/machinery/r_n_d/server/server = null
-	for(var/obj/machinery/r_n_d/server/serber in machines)
-		if(serber.name == "Core R&D Server")
-			server = serber
-			break
-	if(!server)
-		return 0
-
-	for(var/datum/tech/T in server.files.possible_tech)
-		if(T.max_level==0) // Ignore illegal tech, etc
-			continue
-		var/datum/tech/KT  = locate(T.type, server.files.known_tech)
-		if(!KT)
-			return 0 // Obviously haven't maxed everything if we don't know a tech.
-		if(KT.level<T.max_level)
-			return 0
-	return 1
+	for(var/tech in shuttle_master.techLevels)
+		if(shuttle_master.techLevels[tech] > 0)
+			return 1
+	return 0
 
 /////////////////////////////////////////////////////////////////////////////////////////
 // Robotics
@@ -51,6 +40,6 @@
 	per_unit = 1
 
 /datum/job_objective/make_ripley/get_description()
-	var/desc = "Make a Ripley."
+	var/desc = "Make a Ripley or Firefighter."
 	desc += "([units_completed] created.)"
 	return desc

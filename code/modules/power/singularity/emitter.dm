@@ -64,11 +64,19 @@
 	set category = "Object"
 	set src in oview(1)
 
-	if (src.anchored || usr:stat)
-		usr << "It is fastened to the floor!"
+	if(src.anchored || usr:stat)
+		to_chat(usr, "It is fastened to the floor!")
 		return 0
 	src.dir = turn(src.dir, 90)
 	return 1
+
+/obj/machinery/power/emitter/AltClick(mob/user)
+	if(user.incapacitated())
+		to_chat(user, "<span class='warning'>You can't do that right now!</span>")
+		return
+	if(!Adjacent(user))
+		return
+	rotate()
 
 /obj/machinery/power/emitter/initialize()
 	..()
@@ -79,7 +87,7 @@
 /obj/machinery/power/emitter/multitool_menu(var/mob/user,var/obj/item/device/multitool/P)
 	return {"
 	<ul>
-		<li><b>Frequency:</b> <a href="?src=\ref[src];set_freq=-1">[format_frequency(frequency)] GHz</a> (<a href="?src=\ref[src];set_freq=[1439]">Reset</a>)</li>
+		<li><b>Frequency:</b> <a href="?src=[UID()];set_freq=-1">[format_frequency(frequency)] GHz</a> (<a href="?src=[UID()];set_freq=[1439]">Reset</a>)</li>
 		<li>[format_tag("ID Tag","id_tag","set_id")]</a></li>
 	</ul>
 	"}
@@ -106,8 +114,8 @@
 		active=on
 		var/statestr=on?"on":"off"
 		// Spammy message_admins("Emitter turned [statestr] by radio signal ([signal.data["command"]] @ [frequency]) in [formatJumpTo(src)]",0,1)
-		log_game("Emitter turned [statestr] by radio signal ([signal.data["command"]] @ [frequency]) in ([x], [y], [z]) AAC prints: [list2text(signal.data["hiddenprints"])]")
-		investigate_log("turned <font color='orange'>[statestr]</font> by radio signal ([signal.data["command"]] @ [frequency]) AAC prints: [list2text(signal.data["hiddenprints"])]","singulo")
+		log_game("Emitter turned [statestr] by radio signal ([signal.data["command"]] @ [frequency]) in ([x], [y], [z]) AAC prints: [jointext(signal.data["hiddenprints"], "")]")
+		investigate_log("turned <font color='orange'>[statestr]</font> by radio signal ([signal.data["command"]] @ [frequency]) AAC prints: [jointext(signal.data["hiddenprints"], "")]","singulo")
 		update_icon()
 
 /obj/machinery/power/emitter/Destroy()
@@ -117,7 +125,7 @@
 	return ..()
 
 /obj/machinery/power/emitter/update_icon()
-	if (active && powernet && avail(active_power_usage))
+	if(active && powernet && avail(active_power_usage))
 		icon_state = "emitter_+a"
 	else
 		icon_state = "emitter"
@@ -127,18 +135,18 @@
 	src.add_fingerprint(user)
 	if(state == 2)
 		if(!powernet)
-			user << "The emitter isn't connected to a wire."
+			to_chat(user, "The emitter isn't connected to a wire.")
 			return 1
 		if(!src.locked)
 			if(src.active==1)
 				src.active = 0
-				user << "You turn off the [src]."
+				to_chat(user, "You turn off the [src].")
 				message_admins("Emitter turned off by [key_name_admin(user)] in ([x], [y], [z] - <A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[x];Y=[y];Z=[z]'>JMP</a>)",0,1)
 				log_game("Emitter turned off by [key_name(user)] in [x], [y], [z]")
 				investigate_log("turned <font color='red'>off</font> by [key_name(usr)]","singulo")
 			else
 				src.active = 1
-				user << "You turn on the [src]."
+				to_chat(user, "You turn on the [src].")
 				src.shot_number = 0
 				src.fire_delay = maximum_fire_delay
 				message_admins("Emitter turned on by [key_name_admin(user)] in ([x], [y], [z] - <A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[x];Y=[y];Z=[z]'>JMP</a>)",0,1)
@@ -146,9 +154,9 @@
 				investigate_log("turned <font color='green'>on</font> by [key_name(usr)]","singulo")
 			update_icon()
 		else
-			user << "\red The controls are locked!"
+			to_chat(user, "\red The controls are locked!")
 	else
-		user << "\red The [src] needs to be firmly secured to the floor first."
+		to_chat(user, "\red The [src] needs to be firmly secured to the floor first.")
 		return 1
 
 
@@ -186,7 +194,7 @@
 		src.last_shot = world.time
 		if(src.shot_number < 3)
 			src.fire_delay = 2
-			src.shot_number ++
+			src.shot_number++
 		else
 			src.fire_delay = rand(minimum_fire_delay,maximum_fire_delay)
 			src.shot_number = 0
@@ -213,7 +221,7 @@
 			else // Any other
 				A.yo = -20
 				A.xo = 0
-		A.process()	//TODO: Carn: check this out
+		A.fire()	//TODO: Carn: check this out
 
 
 /obj/machinery/power/emitter/attackby(obj/item/W, mob/user, params)
@@ -223,76 +231,76 @@
 
 	if(istype(W, /obj/item/weapon/wrench))
 		if(active)
-			user << "Turn off the [src] first."
+			to_chat(user, "Turn off the [src] first.")
 			return
 		switch(state)
 			if(0)
 				state = 1
-				playsound(src.loc, 'sound/items/Ratchet.ogg', 75, 1)
+				playsound(src.loc, W.usesound, 75, 1)
 				user.visible_message("[user.name] secures [src.name] to the floor.", \
 					"You secure the external reinforcing bolts to the floor.", \
 					"You hear a ratchet")
 				src.anchored = 1
 			if(1)
 				state = 0
-				playsound(src.loc, 'sound/items/Ratchet.ogg', 75, 1)
+				playsound(src.loc,W.usesound, 75, 1)
 				user.visible_message("[user.name] unsecures [src.name] reinforcing bolts from the floor.", \
 					"You undo the external reinforcing bolts.", \
 					"You hear a ratchet")
 				src.anchored = 0
 			if(2)
-				user << "\red The [src.name] needs to be unwelded from the floor."
+				to_chat(user, "\red The [src.name] needs to be unwelded from the floor.")
 		return
 
 	if(istype(W, /obj/item/weapon/weldingtool))
 		var/obj/item/weapon/weldingtool/WT = W
 		if(active)
-			user << "Turn off the [src] first."
+			to_chat(user, "Turn off the [src] first.")
 			return
 		switch(state)
 			if(0)
-				user << "\red The [src.name] needs to be wrenched to the floor."
+				to_chat(user, "\red The [src.name] needs to be wrenched to the floor.")
 			if(1)
-				if (WT.remove_fuel(0,user))
-					playsound(src.loc, 'sound/items/Welder2.ogg', 50, 1)
+				if(WT.remove_fuel(0,user))
+					playsound(src.loc, WT.usesound, 50, 1)
 					user.visible_message("[user.name] starts to weld the [src.name] to the floor.", \
 						"You start to weld the [src] to the floor.", \
 						"You hear welding")
-					if (do_after(user,20, target = src))
+					if(do_after(user, 20 * WT.toolspeed, target = src))
 						if(!src || !WT.isOn()) return
 						state = 2
-						user << "You weld the [src] to the floor."
+						to_chat(user, "You weld the [src] to the floor.")
 						connect_to_network()
 				else
-					user << "\red You need more welding fuel to complete this task."
+					to_chat(user, "\red You need more welding fuel to complete this task.")
 			if(2)
-				if (WT.remove_fuel(0,user))
-					playsound(src.loc, 'sound/items/Welder2.ogg', 50, 1)
+				if(WT.remove_fuel(0,user))
+					playsound(src.loc, WT.usesound, 50, 1)
 					user.visible_message("[user.name] starts to cut the [src.name] free from the floor.", \
 						"You start to cut the [src] free from the floor.", \
 						"You hear welding")
-					if (do_after(user,20, target = src))
+					if(do_after(user, 20 * WT.toolspeed, target = src))
 						if(!src || !WT.isOn()) return
 						state = 1
-						user << "You cut the [src] free from the floor."
+						to_chat(user, "You cut the [src] free from the floor.")
 						disconnect_from_network()
 				else
-					user << "\red You need more welding fuel to complete this task."
+					to_chat(user, "\red You need more welding fuel to complete this task.")
 		return
 
 	if(istype(W, /obj/item/weapon/card/id) || istype(W, /obj/item/device/pda))
 		if(emagged)
-			user << "\red The lock seems to be broken"
+			to_chat(user, "\red The lock seems to be broken")
 			return
 		if(src.allowed(user))
 			if(active)
 				src.locked = !src.locked
-				user << "The controls are now [src.locked ? "locked." : "unlocked."]"
+				to_chat(user, "The controls are now [src.locked ? "locked." : "unlocked."]")
 			else
 				src.locked = 0 //just in case it somehow gets locked
-				user << "\red The controls can only be locked when the [src] is online"
+				to_chat(user, "\red The controls can only be locked when the [src] is online")
 		else
-			user << "\red Access denied."
+			to_chat(user, "\red Access denied.")
 		return
 
 	if(default_deconstruction_screwdriver(user, "emitter_open", "emitter", W))

@@ -84,15 +84,24 @@
 	layer = 3
 	icon = 'icons/effects/effects.dmi'
 	icon_state = "cobweb1"
+	burntime = 1
 
-/obj/effect/decal/cleanable/molten_item
+/obj/effect/decal/cleanable/cobweb/fire_act()
+	qdel(src)
+
+/obj/effect/decal/cleanable/molten_object
 	name = "gooey grey mass"
 	desc = "It looks like a melted... something."
 	density = 0
 	anchored = 1
 	layer = 3
-	icon = 'icons/obj/chemical.dmi'
+	gender = NEUTER
+	icon = 'icons/effects/effects.dmi'
 	icon_state = "molten"
+
+/obj/effect/decal/cleanable/molten_object/large
+	name = "big gooey grey mass"
+	icon_state = "big_molten"
 
 /obj/effect/decal/cleanable/cobweb2
 	name = "cobweb"
@@ -114,7 +123,6 @@
 	icon = 'icons/effects/blood.dmi'
 	icon_state = "vomit_1"
 	random_icon_states = list("vomit_1", "vomit_2", "vomit_3", "vomit_4")
-	var/list/datum/disease2/disease/virus2 = list()
 	noclear = 1
 
 /obj/effect/decal/cleanable/vomit/New()
@@ -133,17 +141,6 @@
 	reagents.remove_reagent("vomit", 5)
 	reagents.add_reagent("green_vomit", 5)
 
-/obj/effect/decal/cleanable/poop
-	name = "poop"
-	desc = "Gosh, how unpleasant."
-	gender = PLURAL
-	density = 0
-	anchored = 1
-	layer = 2
-	icon = 'icons/effects/poop.dmi'
-	random_icon_states = list("floor1", "floor2", "floor3", "floor4", "floor5", "floor6", "floor7")
-	var/list/datum/disease2/disease/virus2 = list()
-
 /obj/effect/decal/cleanable/tomato_smudge
 	name = "tomato smudge"
 	desc = "It's red."
@@ -152,6 +149,15 @@
 	layer = 2
 	icon = 'icons/effects/tomatodecal.dmi'
 	random_icon_states = list("tomato_floor1", "tomato_floor2", "tomato_floor3")
+
+/obj/effect/decal/cleanable/plant_smudge
+	name = "plant smudge"
+	density = 0
+	anchored = 1
+	layer = 2
+	gender = NEUTER
+	icon = 'icons/effects/tomatodecal.dmi'
+	random_icon_states = list("smashed_plant")
 
 /obj/effect/decal/cleanable/egg_smudge
 	name = "smashed egg"
@@ -171,16 +177,6 @@
 	icon = 'icons/effects/tomatodecal.dmi'
 	random_icon_states = list("smashed_pie")
 
-/obj/effect/decal/cleanable/fruit_smudge
-	name = "smudge"
-	desc = "Some kind of fruit smear."
-	density = 0
-	anchored = 1
-	layer = 2
-	icon = 'icons/effects/blood.dmi'
-	icon_state = "mfloor1"
-	random_icon_states = list("mfloor1", "mfloor2", "mfloor3", "mfloor4", "mfloor5", "mfloor6", "mfloor7")
-
 /obj/effect/decal/cleanable/fungus
 	name = "space fungus"
 	desc = "A fungal growth. Looks pretty nasty."
@@ -194,3 +190,14 @@
 /obj/effect/decal/cleanable/fungus/New()
 	..()
 	reagents.add_reagent("fungus", 10)
+
+/obj/effect/decal/cleanable/confetti //PARTY TIME!
+	name = "confetti"
+	desc = "Party time!"
+	gender = PLURAL
+	icon = 'icons/obj/objects.dmi'
+	icon_state = "confetti1"
+	random_icon_states = list("confetti1", "confetti2", "confetti3")
+	anchored = 1
+
+

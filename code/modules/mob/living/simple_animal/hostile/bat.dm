@@ -8,36 +8,28 @@
 	icon_gib = "bat_dead"
 	speak_chance = 0
 	turns_per_move = 3
-	meat_type = /obj/item/weapon/reagent_containers/food/snacks/meat
-	meat_amount = 1
+	butcher_results = list(/obj/item/weapon/reagent_containers/food/snacks/meat = 1)
 	response_help = "pets the"
 	response_disarm = "gently pushes aside the"
 	response_harm = "hits the"
 	speed = 4
 	maxHealth = 20
 	health = 20
-
+	mob_size = MOB_SIZE_TINY
 	harm_intent_damage = 8
 	melee_damage_lower = 10
 	melee_damage_upper = 10
 	attacktext = "bites"
 	attack_sound = 'sound/weapons/bite.ogg'
 
-	//Space carp aren't affected by atmos.
-	min_oxy = 0
-	max_oxy = 0
-	min_tox = 0
-	max_tox = 0
-	min_co2 = 0
-	max_co2 = 0
-	min_n2 = 0
-	max_n2 = 0
+	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
 	minbodytemp = 0
 
 //	break_stuff_probability = 2
 
 	faction = list("scarybat")
 	var/mob/living/owner
+	gold_core_spawnable = CHEM_MOB_SPAWN_HOSTILE
 
 /mob/living/simple_animal/hostile/scarybat/New(loc, mob/living/L as mob)
 	..()

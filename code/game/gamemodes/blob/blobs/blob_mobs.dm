@@ -8,14 +8,7 @@
 	icon = 'icons/mob/blob.dmi'
 	pass_flags = PASSBLOB
 	faction = list("blob")
-	min_oxy = 0
-	max_oxy = 0
-	min_tox = 0
-	max_tox = 0
-	min_co2 = 0
-	max_co2 = 0
-	min_n2 = 0
-	max_n2 = 0
+	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
 	minbodytemp = 0
 	maxbodytemp = 360
 	universal_speak = 1 //So mobs can understand them when a blob uses Blob Broadcast
@@ -44,9 +37,10 @@
 	attacktext = "hits"
 	attack_sound = 'sound/weapons/genhit1.ogg'
 	speak_emote = list("pulses")
-	var/obj/effect/blob/factory/factory = null
+	var/obj/structure/blob/factory/factory = null
 	var/list/human_overlays = list()
 	var/is_zombie = 0
+	gold_core_spawnable = CHEM_MOB_SPAWN_HOSTILE
 
 /mob/living/simple_animal/hostile/blob/blobspore/fire_act(datum/gas_mixture/air, exposed_temperature, exposed_volume)
 	..()
@@ -54,11 +48,11 @@
 
 
 /mob/living/simple_animal/hostile/blob/blobspore/CanPass(atom/movable/mover, turf/target, height=0)
-	if(istype(mover, /obj/effect/blob))
+	if(istype(mover, /obj/structure/blob))
 		return 1
 	return ..()
 
-/mob/living/simple_animal/hostile/blob/blobspore/New(loc, var/obj/effect/blob/factory/linked_node)
+/mob/living/simple_animal/hostile/blob/blobspore/New(loc, var/obj/structure/blob/factory/linked_node)
 	if(istype(linked_node))
 		factory = linked_node
 		factory.spores += src
@@ -74,6 +68,7 @@
 	..()
 
 /mob/living/simple_animal/hostile/blob/blobspore/proc/Zombify(var/mob/living/carbon/human/H)
+	var/obj/item/organ/external/head/head_organ = H.get_organ("head")
 	is_zombie = 1
 	if(H.wear_suit)
 		var/obj/item/clothing/suit/armor/A = H.wear_suit
@@ -88,14 +83,15 @@
 	icon = H.icon
 	speak_emote = list("groans")
 	icon_state = "zombie2_s"
-	H.h_style = null
+	head_organ.h_style = null
 	H.update_hair()
 	human_overlays = H.overlays
 	update_icons()
 	H.loc = src
 	loc.visible_message("<span class='warning'>The corpse of [H.name] suddenly rises!</span>")
 
-/mob/living/simple_animal/hostile/blob/blobspore/death()
+/mob/living/simple_animal/hostile/blob/blobspore/death(gibbed)
+	..()
 	// On death, create a small smoke of harmful gas (s-Acid)
 	var/datum/effect/system/chem_smoke_spread/S = new
 	var/turf/location = get_turf(src)
@@ -106,14 +102,12 @@
 	if(overmind && overmind.blob_reagent_datum)
 		reagents.add_reagent(overmind.blob_reagent_datum.id, 8)
 	else
-		reagents.add_reagent("spores", 8)
+		reagents.add_reagent("spore", 8)
 
 	// Attach the smoke spreader and setup/start it.
 	S.attach(location)
 	S.set_up(reagents, 1, 1, location, 15, 1) // only 1-2 smoke cloud
 	S.start()
-
-	ghostize()
 	qdel(src)
 
 /mob/living/simple_animal/hostile/blob/blobspore/Destroy()
@@ -166,12 +160,14 @@
 	minbodytemp = 0
 	maxbodytemp = 360
 	force_threshold = 10
+	mob_size = MOB_SIZE_LARGE
 	environment_smash = 3
+	gold_core_spawnable = CHEM_MOB_SPAWN_HOSTILE
 
 
 /mob/living/simple_animal/hostile/blob/blobbernaut/blob_act()
 	return
 
-/mob/living/simple_animal/hostile/blob/blobbernaut/death()
+/mob/living/simple_animal/hostile/blob/blobbernaut/death(gibbed)
 	..()
 	flick("blobbernaut_death", src)

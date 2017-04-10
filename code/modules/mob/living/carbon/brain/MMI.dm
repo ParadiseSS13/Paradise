@@ -12,26 +12,23 @@
 	var/alien = 0
 	var/syndiemmi = 0 //Whether or not this is a Syndicate MMI
 	var/mob/living/carbon/brain/brainmob = null//The current occupant.
-	var/obj/item/organ/brain/held_brain = null // This is so MMI's aren't brainscrubber 9000's
+	var/obj/item/organ/internal/brain/held_brain = null // This is so MMI's aren't brainscrubber 9000's
 	var/mob/living/silicon/robot/robot = null//Appears unused.
 	var/obj/mecha/mecha = null//This does not appear to be used outside of reference in mecha.dm.
 // I'm using this for mechs giving MMIs HUDs now
 
 /obj/item/device/mmi/attackby(var/obj/item/O as obj, var/mob/user as mob, params)
-	if(istype(O, /obj/item/organ/brain/crystal ))
-		user << "<span class='warning'> This brain is too malformed to be able to use with the [src].</span>"
+	if(istype(O, /obj/item/organ/internal/brain/crystal ))
+		to_chat(user, "<span class='warning'> This brain is too malformed to be able to use with the [src].</span>")
 		return
-	if(istype(O,/obj/item/organ/brain) && !brainmob) //Time to stick a brain in it --NEO
-		var/obj/item/organ/brain/B = O
+	if(istype(O,/obj/item/organ/internal/brain) && !brainmob) //Time to stick a brain in it --NEO
+		var/obj/item/organ/internal/brain/B = O
 		if(!B.brainmob)
-			user << "<span class='warning'>You aren't sure where this brain came from, but you're pretty sure it's a useless brain.</span>"
+			to_chat(user, "<span class='warning'>You aren't sure where this brain came from, but you're pretty sure it's a useless brain.</span>")
 			return
 		if(held_brain)
-			user << "<span class='userdanger'>Somehow, this MMI still has a brain in it. Report this to the bug tracker.</span>"
-			log_to_dd("[user] tried to stick a [O] into [src] in [get_area(src)], but the held brain variable wasn't cleared")
-			return
-		if(B.status & ORGAN_DEAD) // As it stood, a brain would never become unviable for MMI usage. Perhaps we should keep it that way?
-			user << "<span class='warning'>This [B] is dead</span>"
+			to_chat(user, "<span class='userdanger'>Somehow, this MMI still has a brain in it. Report this to the bug tracker.</span>")
+			log_runtime(EXCEPTION("[user] tried to stick a [O] into [src] in [get_area(src)], but the held brain variable wasn't cleared"), src)
 			return
 		for(var/mob/V in viewers(src, null))
 			V.show_message("<span class='notice'>[user] sticks \a [O] into \the [src].</span>")
@@ -47,14 +44,15 @@
 		user.drop_item()
 		B.forceMove(src)
 		held_brain = B
-		if(istype(O,/obj/item/organ/brain/xeno)) // I'm not sure how well this will work now, since I don't think you can actually get xeno brains
+		if(istype(O,/obj/item/organ/internal/brain/xeno)) // kept the type check, as it still does other weird stuff
 			name = "Man-Machine Interface: Alien - [brainmob.real_name]"
 			icon = 'icons/mob/alien.dmi'
 			icon_state = "AlienMMI"
 			alien = 1
 		else
 			name = "Man-Machine Interface: [brainmob.real_name]"
-			icon_state = "mmi_full"
+			icon = B.mmi_icon
+			icon_state = "[B.mmi_icon_state]"
 			alien = 0
 		feedback_inc("cyborg_mmis_filled",1)
 
@@ -70,9 +68,9 @@
 
 /obj/item/device/mmi/attack_self(mob/user as mob)
 	if(!brainmob)
-		user << "<span class='warning'>You upend the MMI, but there's nothing in it.</span>"
+		to_chat(user, "<span class='warning'>You upend the MMI, but there's nothing in it.</span>")
 	else
-		user << "<span class='notice'>You unlock and upend the MMI, spilling the brain onto the floor.</span>"
+		to_chat(user, "<span class='notice'>You unlock and upend the MMI, spilling the brain onto the floor.</span>")
 		dropbrain(get_turf(user))
 		icon = 'icons/obj/assemblies.dmi'
 		icon_state = "mmi_empty"
@@ -89,8 +87,8 @@
 		held_brain = new(src)
 	else // We have a species, and it has a brain
 		var/brain_path = H.species.return_organ("brain")
-		if(!ispath(brain_path, /obj/item/organ/brain))
-			brain_path = /obj/item/organ/brain
+		if(!ispath(brain_path, /obj/item/organ/internal/brain))
+			brain_path = /obj/item/organ/internal/brain
 		held_brain = new brain_path(src) // Slime people will keep their slimy brains this way
 	held_brain.dna = brainmob.dna.Clone()
 	held_brain.name = "\the [brainmob.name]'s [initial(held_brain.name)]"
@@ -103,8 +101,8 @@
 //problem i was having with alien/nonalien brain drops.
 /obj/item/device/mmi/proc/dropbrain(var/turf/dropspot)
 	if(isnull(held_brain))
-		log_to_dd("[src] at [loc] attempted to drop brain without a contained brain in [get_area(src)].")
-		brainmob << "<span class='userdanger'>Your MMI did not contain a brain! We'll make a new one for you, but you'd best report this to the bugtracker!</span>"
+		log_runtime(EXCEPTION("[src] at [loc] attempted to drop brain without a contained brain in [get_area(src)]."), src)
+		to_chat(brainmob, "<span class='userdanger'>Your MMI did not contain a brain! We'll make a new one for you, but you'd best report this to the bugtracker!</span>")
 		held_brain = new(dropspot) // Let's not ruin someone's round because of something dumb -- Crazylemon
 		held_brain.dna = brainmob.dna.Clone()
 		held_brain.name = "\the [brainmob.name]'s [initial(held_brain.name)]"
@@ -140,10 +138,10 @@
 	set popup_menu = 0
 
 	if(brainmob.stat)
-		brainmob << "Can't do that while incapacitated or dead."
+		to_chat(brainmob, "Can't do that while incapacitated or dead.")
 
 	radio.listening = radio.listening==1 ? 0 : 1
-	brainmob << "<span class='notice'>Radio is [radio.listening==1 ? "now" : "no longer"] receiving broadcast.</span>"
+	to_chat(brainmob, "<span class='notice'>Radio is [radio.listening==1 ? "now" : "no longer"] receiving broadcast.</span>")
 
 /obj/item/device/mmi/emp_act(severity)
 	if(!brainmob)
@@ -169,15 +167,33 @@
 	if(isrobot(loc))
 		var/mob/living/silicon/robot/borg = loc
 		borg.mmi = null
-	if(brainmob)
-		qdel(brainmob)
-		brainmob = null
-	if(held_brain)
-		qdel(held_brain)
-		held_brain = null
+	QDEL_NULL(brainmob)
+	QDEL_NULL(held_brain)
 	return ..()
 
 /obj/item/device/mmi/syndie
 	name = "Syndicate Man-Machine Interface"
 	desc = "Syndicate's own brand of MMI. It enforces laws designed to help Syndicate agents achieve their goals upon cyborgs created with it, but doesn't fit in Nanotrasen AI cores."
 	syndiemmi = 1
+
+/obj/item/device/mmi/attempt_become_organ(obj/item/organ/external/parent,mob/living/carbon/human/H)
+	if(!brainmob)
+		return 0
+	if(!parent)
+		log_debug("Attempting to insert into a null parent!")
+		return 0
+	if(H.get_int_organ(/obj/item/organ/internal/brain))
+		// one brain at a time
+		return 0
+	var/obj/item/organ/internal/brain/mmi_holder/holder = new()
+	holder.parent_organ = parent.limb_name
+	forceMove(holder)
+	holder.stored_mmi = src
+	holder.update_from_mmi()
+	if(istype(src, /obj/item/device/mmi/posibrain))
+		holder.robotize()
+	if(brainmob && brainmob.mind)
+		brainmob.mind.transfer_to(H)
+	holder.insert(H)
+
+	return 1

@@ -62,7 +62,7 @@
 
 /obj/machinery/radiocarbon_spectrometer/attackby(var/obj/I as obj, var/mob/user as mob, params)
 	if(scanning)
-		user << "<span class='warning'>You can't do that while [src] is scanning!</span>"
+		to_chat(user, "<span class='warning'>You can't do that while [src] is scanning!</span>")
 	else
 		if(istype(I, /obj/item/stack/nanopaste))
 			var/choice = alert("What do you want to do with the nanopaste?","Radiometric Scanner","Scan nanopaste","Fix seal integrity")
@@ -78,14 +78,14 @@
 				var/obj/item/weapon/reagent_containers/glass/G = I
 				var/amount_transferred = min(src.reagents.maximum_volume - src.reagents.total_volume, G.reagents.total_volume)
 				G.reagents.trans_to(src, amount_transferred)
-				user << "<span class='info'>You empty [amount_transferred]u of coolant into [src].</span>"
+				to_chat(user, "<span class='info'>You empty [amount_transferred]u of coolant into [src].</span>")
 				update_coolant()
 				return
 			else if(choice == "Empty coolant")
 				var/obj/item/weapon/reagent_containers/glass/G = I
 				var/amount_transferred = min(G.reagents.maximum_volume - G.reagents.total_volume, src.reagents.total_volume)
 				src.reagents.trans_to(G, amount_transferred)
-				user << "<span class='info'>You remove [amount_transferred]u of coolant from [src].</span>"
+				to_chat(user, "<span class='info'>You remove [amount_transferred]u of coolant from [src].</span>")
 				update_coolant()
 				return
 		user.drop_item()
@@ -97,8 +97,8 @@
 	fresh_coolant = 0
 	coolant_purity = 0
 	var/num_reagent_types = 0
-	for (var/datum/reagent/current_reagent in src.reagents.reagent_list)
-		if (!current_reagent)
+	for(var/datum/reagent/current_reagent in src.reagents.reagent_list)
+		if(!current_reagent)
 			continue
 		var/cur_purity = coolant_reagents_purity[current_reagent.id]
 		if(!cur_purity)
@@ -112,11 +112,21 @@
 		coolant_purity = total_purity / fresh_coolant
 
 /obj/machinery/radiocarbon_spectrometer/ui_interact(mob/user, ui_key = "main", var/datum/nanoui/ui = null, var/force_open = 1)
-
 	if(user.stat)
 		return
 
-	// this is the data which will be sent to the ui
+	// update the ui if it exists, returns null if no ui is passed/found
+	ui = nanomanager.try_update_ui(user, src, ui_key, ui, force_open)
+	if(!ui)
+		// the ui does not exist, so we'll create a new() one
+        // for a list of parameters and their descriptions see the code docs in \code\modules\nano\nanoui.dm
+		ui = new(user, src, ui_key, "geoscanner.tmpl", "High Res Radiocarbon Spectrometer", 900, 825)
+		// open the new ui window
+		ui.open()
+		// auto update every Master Controller tick
+		ui.set_auto_update(1)
+
+/obj/machinery/radiocarbon_spectrometer/ui_data(mob/user, ui_key = "main", datum/topic_state/state = default_state)
 	var/data[0]
 	data["scanned_item"] = (scanned_item ? scanned_item.name : "")
 	data["scanned_item_desc"] = (scanned_item ? (scanned_item.desc ? scanned_item.desc : "No information on record.") : "")
@@ -141,19 +151,7 @@
 	data["radiation"] = round(radiation)
 	data["t_left_radspike"] = round(t_left_radspike)
 	data["rad_shield_on"] = rad_shield
-
-	// update the ui if it exists, returns null if no ui is passed/found
-	ui = nanomanager.try_update_ui(user, src, ui_key, ui, data, force_open)
-	if (!ui)
-		// the ui does not exist, so we'll create a new() one
-        // for a list of parameters and their descriptions see the code docs in \code\modules\nano\nanoui.dm
-		ui = new(user, src, ui_key, "geoscanner.tmpl", "High Res Radiocarbon Spectrometer", 900, 825)
-		// when the ui is first opened this is the data it will use
-		ui.set_initial_data(data)
-		// open the new ui window
-		ui.open()
-		// auto update every Master Controller tick
-		ui.set_auto_update(1)
+	return data
 
 /obj/machinery/radiocarbon_spectrometer/process()
 	if(scanning)
@@ -228,16 +226,16 @@
 			//emergency stop if seal integrity reaches 0
 			if(scanner_seal_integrity <= 0 || (scanner_temperature >= 1273 && !rad_shield))
 				stop_scanning()
-				src.visible_message("\blue \icon[src] buzzes unhappily. It has failed mid-scan!", 2)
+				src.visible_message("\blue [bicon(src)] buzzes unhappily. It has failed mid-scan!", 2)
 
 			if(prob(5))
-				src.visible_message("\blue \icon[src] [pick("whirrs","chuffs","clicks")][pick(" excitedly"," energetically"," busily")].", 2)
+				src.visible_message("\blue [bicon(src)] [pick("whirrs","chuffs","clicks")][pick(" excitedly"," energetically"," busily")].", 2)
 	else
 		//gradually cool down over time
 		if(scanner_temperature > 0)
 			scanner_temperature = max(scanner_temperature - 5 - 10 * rand(), 0)
 		if(prob(0.75))
-			src.visible_message("\blue \icon[src] [pick("plinks","hisses")][pick(" quietly"," softly"," sadly"," plaintively")].", 2)
+			src.visible_message("\blue [bicon(src)] [pick("plinks","hisses")][pick(" quietly"," softly"," sadly"," plaintively")].", 2)
 	last_process_worldtime = world.time
 
 /obj/machinery/radiocarbon_spectrometer/proc/stop_scanning()
@@ -255,10 +253,11 @@
 		used_coolant = 0
 
 /obj/machinery/radiocarbon_spectrometer/proc/complete_scan()
-	src.visible_message("\blue \icon[src] makes an insistent chime.", 2)
+	src.visible_message("\blue [bicon(src)] makes an insistent chime.", 2)
 
 	if(scanned_item)
 		//create report
+		playsound(loc, 'sound/goonstation/machines/printer_dotmatrix.ogg', 50, 1)
 		var/obj/item/weapon/paper/P = new(src)
 		P.name = "[src] report #[++report_num]: [scanned_item.name]"
 		P.stamped = list(/obj/item/weapon/stamp)
@@ -330,11 +329,11 @@
 					scanner_progress = 0
 					scanning = 1
 					t_left_radspike = pick(5,10,15)
-					usr << "<span class='notice'>Scan initiated.</span>"
+					to_chat(usr, "<span class='notice'>Scan initiated.</span>")
 				else
-					usr << "<span class='warning'>Could not initiate scan, seal requires replacing.</span>"
+					to_chat(usr, "<span class='warning'>Could not initiate scan, seal requires replacing.</span>")
 			else
-				usr << "<span class='warning'>Insert an item to scan.</span>"
+				to_chat(usr, "<span class='warning'>Insert an item to scan.</span>")
 
 	if(href_list["maserWavelength"])
 		maser_wavelength = max(min(maser_wavelength + 1000 * text2num(href_list["maserWavelength"]), 10000), 1)

@@ -30,8 +30,8 @@ var/global/datum/controller/process/air_system/air_master
 
 	var/watch = start_watch()
 	log_startup_progress("Processing geometry...")
-	setup_allturfs() // Get all currently active tiles that need processing each atmos tick.
 	setup_overlays() // Assign icons and such for gas-turf-overlays
+	setup_allturfs() // Get all currently active tiles that need processing each atmos tick.
 	log_startup_progress("  Geometry processed in [stop_watch(watch)]s.")
 
 /datum/controller/process/air_system/doWork()
@@ -120,7 +120,7 @@ var/global/datum/controller/process/air_system/air_master
 /datum/controller/process/air_system/proc/process_excited_groups()
 	last_excited = excited_groups.len
 	for(var/datum/excited_group/EG in excited_groups)
-		EG.breakdown_cooldown ++
+		EG.breakdown_cooldown++
 		if(EG.breakdown_cooldown == 10)
 			EG.self_breakdown()
 			SCHECK

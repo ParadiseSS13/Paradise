@@ -35,7 +35,7 @@
 
 /obj/structure/filingcabinet/attackby(obj/item/P as obj, mob/user as mob, params)
 	if(istype(P, /obj/item/weapon/paper) || istype(P, /obj/item/weapon/folder) || istype(P, /obj/item/weapon/photo) || istype(P, /obj/item/weapon/paper_bundle) || istype(P, /obj/item/documents))
-		user << "<span class='notice'>You put [P] in [src].</span>"
+		to_chat(user, "<span class='notice'>You put [P] in [src].</span>")
 		user.drop_item()
 		P.loc = src
 		icon_state = "[initial(icon_state)]-open"
@@ -43,24 +43,26 @@
 		icon_state = initial(icon_state)
 		updateUsrDialog()
 	else if(istype(P, /obj/item/weapon/wrench))
-		playsound(loc, 'sound/items/Ratchet.ogg', 50, 1)
+		playsound(loc, P.usesound, 50, 1)
 		anchored = !anchored
-		user << "<span class='notice'>You [anchored ? "wrench" : "unwrench"] \the [src].</span>"
+		to_chat(user, "<span class='notice'>You [anchored ? "wrench" : "unwrench"] \the [src].</span>")
 	else
-		user << "<span class='notice'>You can't put [P] in [src]!</span>"
+		to_chat(user, "<span class='notice'>You can't put [P] in [src]!</span>")
 
 
 /obj/structure/filingcabinet/attack_hand(mob/user as mob)
 	if(contents.len <= 0)
-		user << "<span class='notice'>\The [src] is empty.</span>"
+		to_chat(user, "<span class='notice'>\The [src] is empty.</span>")
 		return
 
 	user.set_machine(src)
 	var/dat = "<center><table>"
 	for(var/obj/item/P in src)
-		dat += "<tr><td><a href='?src=\ref[src];retrieve=\ref[P]'>[P.name]</a></td></tr>"
+		dat += "<tr><td><a href='?src=[UID()];retrieve=\ref[P]'>[P.name]</a></td></tr>"
 	dat += "</table></center>"
-	user << browse("<html><head><title>[name]</title></head><body>[dat]</body></html>", "window=filingcabinet;size=350x300")
+	var/datum/browser/popup = new(user, "filingcabinet", name, 350, 300)
+	popup.set_content(dat)
+	popup.open(0)
 
 	return
 
@@ -77,13 +79,13 @@
 			I.loc = loc
 			if(prob(25))
 				step_rand(I)
-			user << "<span class='notice'>You pull \a [I] out of [src] at random.</span>"
+			to_chat(user, "<span class='notice'>You pull \a [I] out of [src] at random.</span>")
 			return
-	user << "<span class='notice'>You find nothing in [src].</span>"
+	to_chat(user, "<span class='notice'>You find nothing in [src].</span>")
 
 /obj/structure/filingcabinet/Topic(href, href_list)
 	if(href_list["retrieve"])
-		usr << browse("", "window=filingcabinet") // Close the menu
+		usr << browse(null, "window=filingcabinet") // Close the menu
 
 		//var/retrieveindex = text2num(href_list["retrieve"])
 		var/obj/item/P = locate(href_list["retrieve"])//contents[retrieveindex]
@@ -108,17 +110,15 @@
 		for(var/datum/data/record/G in data_core.general)
 			var/datum/data/record/S
 			for(var/datum/data/record/R in data_core.security)
-				if((R.fields["name"] == G.fields["name"] || R.fields["id"] == G.fields["id"]))
+				if(R.fields["name"] == G.fields["name"] || R.fields["id"] == G.fields["id"])
 					S = R
 					break
 			var/obj/item/weapon/paper/P = new /obj/item/weapon/paper(src)
 			P.info = "<CENTER><B>Security Record</B></CENTER><BR>"
 			P.info += "Name: [G.fields["name"]] ID: [G.fields["id"]]<BR>\nSex: [G.fields["sex"]]<BR>\nAge: [G.fields["age"]]<BR>\nFingerprint: [G.fields["fingerprint"]]<BR>\nPhysical Status: [G.fields["p_stat"]]<BR>\nMental Status: [G.fields["m_stat"]]<BR>"
 			P.info += "<BR>\n<CENTER><B>Security Data</B></CENTER><BR>\nCriminal Status: [S.fields["criminal"]]<BR>\n<BR>\nMinor Crimes: [S.fields["mi_crim"]]<BR>\nDetails: [S.fields["mi_crim_d"]]<BR>\n<BR>\nMajor Crimes: [S.fields["ma_crim"]]<BR>\nDetails: [S.fields["ma_crim_d"]]<BR>\n<BR>\nImportant Notes:<BR>\n\t[S.fields["notes"]]<BR>\n<BR>\n<CENTER><B>Comments/Log</B></CENTER><BR>"
-			var/counter = 1
-			while(S.fields["com_[counter]"])
-				P.info += "[S.fields["com_[counter]"]]<BR>"
-				counter++
+			for(var/c in S.fields["comments"])
+				P.info += "[c]<BR>"
 			P.info += "</TT>"
 			P.name = "paper - '[G.fields["name"]]'"
 			virgin = 0	//tabbing here is correct- it's possible for people to try and use it
@@ -144,17 +144,15 @@
 		for(var/datum/data/record/G in data_core.general)
 			var/datum/data/record/M
 			for(var/datum/data/record/R in data_core.medical)
-				if((R.fields["name"] == G.fields["name"] || R.fields["id"] == G.fields["id"]))
+				if(R.fields["name"] == G.fields["name"] || R.fields["id"] == G.fields["id"])
 					M = R
 					break
 			var/obj/item/weapon/paper/P = new /obj/item/weapon/paper(src)
 			P.info = "<CENTER><B>Medical Record</B></CENTER><BR>"
 			P.info += "Name: [G.fields["name"]] ID: [G.fields["id"]]<BR>\nSex: [G.fields["sex"]]<BR>\nAge: [G.fields["age"]]<BR>\nFingerprint: [G.fields["fingerprint"]]<BR>\nPhysical Status: [G.fields["p_stat"]]<BR>\nMental Status: [G.fields["m_stat"]]<BR>"
 			P.info += "<BR>\n<CENTER><B>Medical Data</B></CENTER><BR>\nBlood Type: [M.fields["b_type"]]<BR>\nDNA: [M.fields["b_dna"]]<BR>\n<BR>\nMinor Disabilities: [M.fields["mi_dis"]]<BR>\nDetails: [M.fields["mi_dis_d"]]<BR>\n<BR>\nMajor Disabilities: [M.fields["ma_dis"]]<BR>\nDetails: [M.fields["ma_dis_d"]]<BR>\n<BR>\nAllergies: [M.fields["alg"]]<BR>\nDetails: [M.fields["alg_d"]]<BR>\n<BR>\nCurrent Diseases: [M.fields["cdi"]] (per disease info placed in log/comment section)<BR>\nDetails: [M.fields["cdi_d"]]<BR>\n<BR>\nImportant Notes:<BR>\n\t[M.fields["notes"]]<BR>\n<BR>\n<CENTER><B>Comments/Log</B></CENTER><BR>"
-			var/counter = 1
-			while(M.fields["com_[counter]"])
-				P.info += "[M.fields["com_[counter]"]]<BR>"
-				counter++
+			for(var/c in M.fields["comments"])
+				P.info += "[c]<BR>"
 			P.info += "</TT>"
 			P.name = "paper - '[G.fields["name"]]'"
 			virgin = 0	//tabbing here is correct- it's possible for people to try and use it

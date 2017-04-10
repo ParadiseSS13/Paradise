@@ -9,7 +9,7 @@
 	item_state = "lighter-g"
 	var/icon_on = "lighter-g-on"
 	var/icon_off = "lighter-g"
-	w_class = 1
+	w_class = 2
 	throwforce = 4
 	flags = CONDUCT
 	slot_flags = SLOT_BELT
@@ -45,8 +45,14 @@
 				if(prob(75))
 					user.visible_message("<span class='notice'>After a few attempts, [user] manages to light the [src].</span>")
 				else
-					user << "<span class='warning'>You burn yourself while lighting the lighter.</span>"
-					user.adjustFireLoss(5)
+					to_chat(user, "<span class='warning'>You burn yourself while lighting the lighter.</span>")
+					var/mob/living/M = user
+					if(ishuman(M))
+						var/mob/living/carbon/human/H = M
+						var/obj/item/organ/external/affecting = H.get_organ("[user.hand ? "l" : "r" ]_hand")
+						if(affecting.take_damage( 0, 5 ))		//INFERNO
+							H.UpdateDamageIcon()
+							H.updatehealth()
 					user.visible_message("<span class='notice'>After a few attempts, [user] manages to light the [src], they however burn their finger in the process.</span>")
 
 			set_light(2)
@@ -85,6 +91,7 @@
 				cig.light("<span class='rose'>[user] whips the [name] out and holds it for [M]. Their arm is as steady as the unflickering flame they light \the [cig] with.</span>")
 			else
 				cig.light("<span class='notice'>[user] holds the [name] out for [M], and lights the [cig.name].</span>")
+			M.update_inv_wear_mask()
 	else
 		..()
 
@@ -140,7 +147,7 @@
 	icon_state = "match_unlit"
 	var/lit = 0
 	var/smoketime = 5
-	w_class = 1.0
+	w_class = 1
 	origin_tech = "materials=1"
 	attack_verb = list("burnt", "singed")
 

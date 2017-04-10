@@ -14,7 +14,7 @@
 		announcement = "Massive migration of unknown biological entities has been detected near [station_name()], please stand-by."
 	else
 		announcement = "Unknown biological [spawned_carp.len == 1 ? "entity has" : "entities have"] been detected near [station_name()], please stand-by."
-	command_announcement.Announce(announcement, "Lifesign Alert")
+	event_announcement.Announce(announcement, "Lifesign Alert")
 
 /datum/event/carp_migration/start()
 	if(severity == EVENT_LEVEL_MAJOR)
@@ -34,9 +34,9 @@
 	num_groups = min(num_groups, spawn_locations.len)
 	
 	var/i = 1
-	while (i <= num_groups)
+	while(i <= num_groups)
 		var/group_size = rand(group_size_min, group_size_max)
-		for (var/j = 1, j <= group_size, j++)
+		for(var/j = 1, j <= group_size, j++)
 			var/carptype = /mob/living/simple_animal/hostile/carp
 			if(prob(5))
 				carptype = /mob/living/simple_animal/hostile/carp/megacarp

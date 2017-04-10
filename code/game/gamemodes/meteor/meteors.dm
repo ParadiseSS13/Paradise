@@ -10,6 +10,10 @@
 
 /var/list/meteors_dust = list(/obj/effect/meteor/dust) //for space dust event
 
+/var/list/meteors_gore = list(/obj/effect/meteor/gore) //Meaty Gore
+
+/var/list/meteors_ops = list(/obj/effect/meteor/goreops) //Meaty Ops
+
 
 ///////////////////////////////
 //Meteor spawning global procs
@@ -22,7 +26,7 @@
 	var/turf/pickedstart
 	var/turf/pickedgoal
 	var/max_i = 10//number of tries to spawn meteor.
-	while (!istype(pickedstart, /turf/space))
+	while(!istype(pickedstart, /turf/space))
 		var/startSide = pick(cardinal)
 		pickedstart = spaceDebrisStartLoc(startSide, 1)
 		pickedgoal = spaceDebrisFinishLoc(startSide, 1)
@@ -32,7 +36,7 @@
 	var/Me = pickweight(meteortypes)
 	var/obj/effect/meteor/M = new Me(pickedstart)
 	M.dest = pickedgoal
-	M.z_original = 1
+	M.z_original = level_name_to_num(MAIN_STATION)
 	spawn(0)
 		walk_towards(M, M.dest, 1)
 	return
@@ -114,11 +118,13 @@
 	return .
 
 /obj/effect/meteor/Destroy()
+	meteor_list -= src
 	walk(src,0) //this cancels the walk_towards() proc
 	return ..()
 
 /obj/effect/meteor/New()
 	..()
+	meteor_list += src
 	SpinAnimation()
 
 /obj/effect/meteor/Bump(atom/A)
@@ -127,7 +133,7 @@
 		playsound(src.loc, meteorsound, 40, 1)
 		get_hit()
 
-/obj/effect/meteor/CanPass(atom/movable/mover, turf/target, height=0, air_group=0)
+/obj/effect/meteor/CanPass(atom/movable/mover, turf/target, height=0)
 	return istype(mover, /obj/effect/meteor) ? 1 : ..()
 
 /obj/effect/meteor/proc/ram_turf(var/turf/T)
@@ -256,3 +262,52 @@
 	..()
 	if(prob(20))
 		explosion(src.loc,2,4,6,8)
+
+
+//Gore
+/obj/effect/meteor/gore
+	name = "Oraganic Debris"
+	icon = 'icons/mob/human.dmi'
+	icon_state = "body_m_s"
+	hits = 1
+	hitpwr = 0
+	meteorsound = 'sound/effects/blobattack.ogg'
+	meteordrop = /obj/item/weapon/reagent_containers/food/snacks/meat
+	var/meteorgibs = /obj/effect/gibspawner/generic
+
+/obj/effect/meteor/gore/make_debris()
+	..()
+	new meteorgibs(get_turf(src))
+
+
+/obj/effect/meteor/gore/ram_turf(turf/T)
+	if(!istype(T, /turf/space))
+		new /obj/effect/decal/cleanable/blood(T)
+
+/obj/effect/meteor/gore/Bump(atom/A)
+	A.ex_act(hitpwr)
+	get_hit()
+
+//Meteor Ops
+/obj/effect/meteor/goreops
+	name = "MeteorOps"
+	icon = 'icons/mob/animal.dmi'
+	icon_state = "syndicaterangedpsace"
+	hits = 10
+	hitpwr = 1
+	meteorsound = 'sound/effects/blobattack.ogg'
+	meteordrop = /obj/item/weapon/reagent_containers/food/snacks/meat
+	var/meteorgibs = /obj/effect/gibspawner/generic
+
+/obj/effect/meteor/goreops/make_debris()
+	..()
+	new meteorgibs(get_turf(src))
+
+
+/obj/effect/meteor/goreops/ram_turf(turf/T)
+	if(!istype(T, /turf/space))
+		new /obj/effect/decal/cleanable/blood(T)
+
+/obj/effect/meteor/goreops/Bump(atom/A)
+	A.ex_act(hitpwr)
+	get_hit()

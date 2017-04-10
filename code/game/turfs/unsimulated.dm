@@ -4,6 +4,15 @@
 	oxygen = MOLES_O2STANDARD
 	nitrogen = MOLES_N2STANDARD
 
+/turf/unsimulated/can_lay_cable()
+	return 0
+
+/turf/unsimulated/floor/plating/vox
+	icon_state = "plating"
+	name = "plating"
+	nitrogen = 100
+	oxygen = 0
+
 /turf/unsimulated/floor/plating/snow
 	name = "snow"
 	icon = 'icons/turf/snow.dmi'

@@ -64,6 +64,7 @@
 
 /obj/machinery/power/supermatter_shard/New()
 	. = ..()
+	poi_list |= src
 	radio = new(src)
 	radio.listening = 0
 	investigate_log("has been created.", "supermatter")
@@ -71,8 +72,8 @@
 
 /obj/machinery/power/supermatter_shard/Destroy()
 	investigate_log("has been destroyed.", "supermatter")
-	qdel(radio)
-	radio = null
+	QDEL_NULL(radio)
+	poi_list.Remove(src)
 	return ..()
 
 /obj/machinery/power/supermatter_shard/proc/explode()
@@ -98,7 +99,7 @@
 			var/stability = num2text(round((damage / explosion_point) * 100))
 
 			if(damage > emergency_point)
-				radio.autosay("[emergency_alert] Instability: [stability]%", src)
+				radio.autosay("[emergency_alert] Instability: [stability]%", src.name)
 				lastwarning = world.timeofday
 				if(!has_reached_emergency)
 					investigate_log("has reached the emergency point for the first time.", "supermatter")
@@ -106,21 +107,25 @@
 					has_reached_emergency = 1
 
 			else if(damage >= damage_archived) // The damage is still going up
-				radio.autosay("[warning_alert] Instability: [stability]%", src)
+				radio.autosay("[warning_alert] Instability: [stability]%", src.name)
 				lastwarning = world.timeofday - 150
 
 			else                                                 // Phew, we're safe
-				radio.autosay("[safe_alert]", src)
+				radio.autosay("[safe_alert]", src.name)
 				lastwarning = world.timeofday
 
 		if(damage > explosion_point)
-			for(var/mob/living/mob in living_mob_list)
-				if(istype(mob, /mob/living/carbon/human))
-					//Hilariously enough, running into a closet should make you get hit the hardest.
-					var/mob/living/carbon/human/H = mob
-					H.hallucination += max(50, min(300, DETONATION_HALLUCINATION * sqrt(1 / (get_dist(mob, src) + 1)) ) )
-				var/rads = DETONATION_RADS * sqrt( 1 / (get_dist(mob, src) + 1) )
-				mob.apply_effect(rads, IRRADIATE)
+			if(get_turf(src))
+				var/turf/position = get_turf(src)
+				for(var/mob/living/mob in living_mob_list)
+					var/turf/mob_pos = get_turf(mob)
+					if(mob_pos && mob_pos.z == position.z)
+						if(ishuman(mob))
+							//Hilariously enough, running into a closet should make you get hit the hardest.
+							var/mob/living/carbon/human/H = mob
+							H.AdjustHallucinate(max(50, min(300, DETONATION_HALLUCINATION * sqrt(1 / (get_dist(mob, src) + 1)))))
+						var/rads = DETONATION_RADS * sqrt( 1 / (get_dist(mob, src) + 1) )
+						mob.apply_effect(rads, IRRADIATE)
 
 			explode()
 
@@ -182,10 +187,10 @@
 			continue
 		// Where we're going, we don't need eyes.
 		// Prosthetic eyes will also protect against this business.
-		var/obj/item/organ/eyes = l.internal_organs_by_name["eyes"]
+		var/obj/item/organ/internal/eyes/eyes = l.get_int_organ(/obj/item/organ/internal/eyes)
 		if(!istype(eyes))
 			continue
-		l.hallucination = max(0, min(200, l.hallucination + power * config_hallucination_power * sqrt( 1 / max(1,get_dist(l, src)) ) ) )
+		l.Hallucinate(min(200, l.hallucination + power * config_hallucination_power * sqrt( 1 / max(1,get_dist(l, src)))))
 
 	for(var/mob/living/l in range(src, round((power / 100) ** 0.25)))
 		var/rads = (power / 10) * sqrt( 1 / max(get_dist(l, src),1) )
@@ -220,8 +225,8 @@
 	message_admins("Singularity has consumed a supermatter shard and can now become stage six.")
 	visible_message("<span class='userdanger'>[src] is consumed by the singularity!</span>")
 	for(var/mob/M in mob_list)
-		M << 'sound/effects/supermatter.ogg' //everyone goan know bout this
-		M << "<span class='boldannounce'>A horrible screeching fills your ears, and a wave of dread washes over you...</span>"
+		M << 'sound/effects/supermatter.ogg' //everyone gunna know bout this
+		to_chat(M, "<span class='boldannounce'>A horrible screeching fills your ears, and a wave of dread washes over you...</span>")
 	qdel(src)
 	return(gain)
 
@@ -255,6 +260,13 @@
 
 // This is purely informational UI that may be accessed by AIs or robots
 /obj/machinery/power/supermatter_shard/ui_interact(mob/user, ui_key = "main", var/datum/nanoui/ui = null, var/force_open = 1)
+	ui = nanomanager.try_update_ui(user, src, ui_key, ui, force_open)
+	if(!ui)
+		ui = new(user, src, ui_key, "supermatter_crystal.tmpl", "Supermatter Crystal", 500, 300)
+		ui.open()
+		ui.set_auto_update(1)
+
+/obj/machinery/power/supermatter_shard/ui_data(mob/user, ui_key = "main", datum/topic_state/state = default_state)
 	var/data[0]
 
 	data["integrity_percentage"] = round(get_integrity())
@@ -273,12 +285,7 @@
 	else
 		data["detonating"] = 0
 
-	ui = nanomanager.try_update_ui(user, src, ui_key, ui, data, force_open)
-	if (!ui)
-		ui = new(user, src, ui_key, "supermatter_crystal.tmpl", "Supermatter Crystal", 500, 300)
-		ui.set_initial_data(data)
-		ui.open()
-		ui.set_auto_update(1)
+	return data
 
 /obj/machinery/power/supermatter_shard/proc/transfer_energy()
 	for(var/obj/machinery/power/rad_collector/R in rad_collectors)

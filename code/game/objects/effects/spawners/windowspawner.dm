@@ -5,10 +5,15 @@
 	var/useFull = 0
 	var/useGrille = 1
 	var/windowtospawn = /obj/structure/window/basic
+	anchored = 1 // No sliding out while you prime
 
-/obj/effect/spawner/window/New()
+/obj/effect/spawner/window/initialize()
 	spawn(0)
-		for(var/obj/structure/grille/G in get_turf(src))	qdel(G) //just in case mappers don't know what they are doing
+		var/turf/T = get_turf(src)
+		for(var/obj/structure/grille/G in get_turf(src))
+			// Complain noisily
+			log_runtime(EXCEPTION("Extra grille on turf: ([T.x],[T.y],[T.z])"), src)
+			qdel(G) //just in case mappers don't know what they are doing
 
 		if(!useFull)
 			for(var/cdir in cardinal)
@@ -29,6 +34,7 @@
 
 		spawn(10)
 			qdel(src)
+
 
 /obj/effect/spawner/window/reinforced
 	name = "reinforced window spawner"

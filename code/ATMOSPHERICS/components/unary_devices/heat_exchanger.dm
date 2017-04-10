@@ -5,11 +5,12 @@
 
 	name = "heat exchanger"
 	desc = "Exchanges heat between two input gases. Setup for fast heat transfer"
-	
+
 	can_unwrench = 1
 
 	var/obj/machinery/atmospherics/unary/heat_exchanger/partner = null
 	var/update_cycle
+	burn_state = LAVA_PROOF
 
 /obj/machinery/atmospherics/unary/heat_exchanger/update_icon()
 	if(node)
@@ -32,7 +33,8 @@
 	..()
 
 /obj/machinery/atmospherics/unary/heat_exchanger/process()
-	..()
+	if(!..())
+		return 0
 	if(!partner)
 		return 0
 

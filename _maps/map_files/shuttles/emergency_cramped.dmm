@@ -1,0 +1,49 @@
+"a" = (/turf/space,/area/space)
+"b" = (/turf/simulated/shuttle/wall{icon_state = "swall_s6"; dir = 2},/area/shuttle/escape)
+"c" = (/obj/structure/window/full/shuttle,/obj/structure/grille,/turf/simulated/floor/plating,/area/shuttle/escape)
+"d" = (/turf/simulated/shuttle/wall{icon_state = "swall_s10"; dir = 2},/area/shuttle/escape)
+"e" = (/turf/simulated/shuttle/wall{icon_state = "swallc4"},/area/shuttle/escape)
+"f" = (/obj/machinery/computer/emergency_shuttle,/turf/simulated/floor/plating,/area/shuttle/escape)
+"g" = (/turf/simulated/shuttle/wall{icon_state = "swallc3"},/area/shuttle/escape)
+"h" = (/turf/simulated/shuttle/wall{tag = "icon-swall3"; icon_state = "swall3"; dir = 2},/area/shuttle/escape)
+"i" = (/obj/structure/table,/obj/item/weapon/book/manual,/turf/simulated/floor/plating,/area/shuttle/escape)
+"j" = (/obj/structure/stool/bed/chair{dir = 1},/turf/simulated/floor/plating,/area/shuttle/escape)
+"k" = (/obj/structure/table,/obj/item/device/gps,/turf/simulated/floor/plating,/area/shuttle/escape)
+"l" = (/obj/machinery/door/airlock/shuttle{aiControlDisabled = 1; hackProof = 1; id_tag = "s_docking_airlock"; name = "Shuttle Hatch"},/turf/simulated/floor/plating,/area/shuttle/escape)
+"m" = (/turf/simulated/floor/plating,/area/shuttle/escape)
+"n" = (/obj/structure/window/reinforced{dir = 1; layer = 2.9},/obj/structure/table,/obj/item/weapon/storage/firstaid,/turf/simulated/floor/plating,/area/shuttle/escape)
+"o" = (/obj/machinery/door/window/northleft,/turf/simulated/floor/plating,/area/shuttle/escape)
+"p" = (/obj/structure/window/reinforced{dir = 1; layer = 2.9},/obj/structure/closet/emcloset,/turf/simulated/floor/plating,/area/shuttle/escape)
+"q" = (/obj/machinery/door/airlock/shuttle{aiControlDisabled = 1; hackProof = 1; id_tag = "s_docking_airlock"; name = "Shuttle Hatch"},/obj/docking_port/mobile/emergency{name = "Secure Transport Vessel 5"; timid = 1},/turf/simulated/floor/plating,/area/shuttle/escape)
+"r" = (/obj/effect/decal/warning_stripes/yellow/hollow,/obj/structure/closet/crate,/obj/effect/spawner/lootdrop/maintenance,/obj/machinery/light/spot{tag = "icon-tube1 (EAST)"; icon_state = "tube1"; dir = 4},/turf/simulated/floor/plating,/area/shuttle/escape)
+"s" = (/obj/structure/stool/bed/chair{dir = 4},/turf/simulated/floor/plating,/area/shuttle/escape)
+"t" = (/obj/structure/window/full/shuttle{icon_state = "16"},/obj/structure/grille,/turf/simulated/floor/plating,/area/shuttle/escape)
+"u" = (/obj/effect/decal/warning_stripes/yellow/hollow,/obj/structure/closet/crate,/obj/effect/spawner/lootdrop/maintenance,/turf/simulated/floor/plating,/area/shuttle/escape)
+"v" = (/obj/structure/window/full/shuttle{icon_state = "8"},/obj/structure/grille,/turf/simulated/floor/plating,/area/shuttle/escape)
+"w" = (/obj/effect/decal/warning_stripes/yellow/hollow,/obj/structure/closet/crate,/turf/simulated/floor/plating,/area/shuttle/escape)
+"x" = (/obj/structure/window/full/shuttle{icon_state = "15"},/obj/structure/grille,/turf/simulated/floor/plating,/area/shuttle/escape)
+"y" = (/obj/structure/closet/emcloset,/turf/simulated/floor/plating,/area/shuttle/escape)
+"z" = (/obj/structure/shuttle/engine/heater,/obj/structure/window/reinforced,/obj/structure/window/reinforced{dir = 1; layer = 2.9},/turf/simulated/floor/plating/airless,/area/shuttle/escape)
+"A" = (/turf/simulated/shuttle/wall{icon_state = "swall_s5"; dir = 2},/area/shuttle/escape)
+"B" = (/obj/structure/shuttle/engine/propulsion{tag = "icon-burst_l"; icon_state = "burst_l"},/turf/space,/area/shuttle/escape)
+"C" = (/obj/structure/shuttle/engine/propulsion{tag = "icon-propulsion_r"; icon_state = "propulsion_r"},/turf/space,/area/shuttle/escape)
+"D" = (/turf/simulated/shuttle/wall{tag = "icon-swall_s9"; icon_state = "swall_s9"; dir = 2},/area/shuttle/escape)
+
+(1,1,1) = {"
+abcda
+befgd
+hijkh
+lmmmh
+hnoph
+qmmrh
+hsmrh
+tsmut
+vsmwv
+xsmwx
+hsmrh
+lmmrh
+hsmrh
+lmmyh
+hzzzh
+ABCCD
+"}

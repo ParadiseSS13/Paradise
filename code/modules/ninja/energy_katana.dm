@@ -5,7 +5,7 @@
 	item_state = "energy_katana"
 	force = 40
 	throwforce = 20
-	armour_penetration = 15
+	armour_penetration = 50
 	var/cooldown = 0 // Because spam aint cool, yo.
 	var/datum/effect/system/spark_spread/spark_system
 
@@ -65,7 +65,7 @@
 			msg = "Your Energy Katana lands at your feet!"
 
 	if(msg)
-		user << "<span class='notice'>[msg]</span>"
+		to_chat(user, "<span class='notice'>[msg]</span>")
 
 /obj/item/weapon/katana/energy/New()
 	..()
@@ -74,6 +74,5 @@
 	spark_system.attach(src)
 
 /obj/item/weapon/katana/energy/Destroy()
-	qdel(spark_system)
-	spark_system = null
+	QDEL_NULL(spark_system)
 	return ..()

@@ -1,0 +1,26 @@
+"a" = (/turf/template_noop,/area/template_noop)
+"b" = (/turf/unsimulated/beach/water,/area/template_noop)
+"c" = (/obj/machinery/shower{pixel_y = 24},/obj/structure/window/reinforced/polarized{dir = 4; id = "room_s"},/turf/unsimulated/floor{dir = 8; icon_state = "whitehall"},/area/template_noop)
+"d" = (/turf/unsimulated/floor{icon_state = "white"},/area/template_noop)
+"e" = (/obj/structure/rack,/obj/item/device/guitar,/obj/item/device/violin{pixel_x = 8},/turf/unsimulated/floor{icon_state = "white"},/area/template_noop)
+"f" = (/obj/structure/dresser,/turf/unsimulated/floor{icon_state = "white"},/area/template_noop)
+"g" = (/obj/item/device/flashlight/lamp/green,/obj/structure/table,/turf/unsimulated/floor{icon_state = "white"},/area/template_noop)
+"h" = (/obj/structure/window/reinforced/polarized{dir = 4; id = "room_s"},/turf/unsimulated/floor{dir = 8; icon_state = "whitehall"},/area/template_noop)
+"i" = (/obj/structure/piano,/turf/unsimulated/floor{icon_state = "white"},/area/template_noop)
+"j" = (/obj/structure/stool/bed,/obj/item/weapon/bedsheet/mime,/turf/unsimulated/floor{icon_state = "white"},/area/template_noop)
+"k" = (/obj/machinery/light{dir = 8},/obj/machinery/button/windowtint{id = "room_s"; pixel_x = -24; pixel_y = 0; range = 5},/obj/item/weapon/soap,/turf/unsimulated/floor{dir = 1; icon_state = "whitehall"},/area/template_noop)
+"l" = (/turf/unsimulated/floor{dir = 1; icon_state = "whitehall"},/area/template_noop)
+"m" = (/obj/structure/window/reinforced/polarized{dir = 4; id = "room_s"},/turf/unsimulated/floor{dir = 1; icon_state = "whitecorner"},/area/template_noop)
+"n" = (/obj/structure/sink{icon_state = "sink"; dir = 8; pixel_x = -12; pixel_y = 2},/obj/structure/mirror{pixel_x = -28},/turf/unsimulated/floor{icon_state = "freezerfloor"},/area/template_noop)
+"o" = (/obj/structure/toilet{dir = 1},/turf/unsimulated/floor{icon_state = "freezerfloor"},/area/template_noop)
+"p" = (/obj/machinery/door/window/eastleft,/turf/unsimulated/floor{icon_state = "freezerfloor"},/area/template_noop)
+
+(1,1,1) = {"
+aaaaaaaaaaa
+abbcdddefga
+abbhiddddja
+aklmdddddja
+anopdddddda
+aaaaaaaaaaa
+aaaaaaaaaaa
+"}

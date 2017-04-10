@@ -7,7 +7,7 @@
 	throwforce = 5.0
 	throw_speed = 3
 	throw_range = 5
-	w_class = 2.0
+	w_class = 2
 	origin_tech = "syndicate=4;magnets=4"
 	var/can_use = 1
 	var/obj/effect/dummy/chameleon/active_dummy = null
@@ -31,7 +31,7 @@
 	if(!active_dummy)
 		if(istype(target,/obj/item) && !istype(target, /obj/item/weapon/disk/nuclear))
 			playsound(get_turf(src), 'sound/weapons/flash.ogg', 100, 1, -6)
-			user << "<span class='notice'>Scanned [target].</span>"
+			to_chat(user, "<span class='notice'>Scanned [target].</span>")
 			saved_item = target.type
 			saved_icon = target.icon
 			saved_icon_state = target.icon_state
@@ -45,7 +45,7 @@
 		playsound(get_turf(src), 'sound/effects/pop.ogg', 100, 1, -6)
 		qdel(active_dummy)
 		active_dummy = null
-		usr << "<span class='notice'>You deactivate \the [src].</span>"
+		to_chat(usr, "<span class='notice'>You deactivate \the [src].</span>")
 		var/obj/effect/overlay/T = new/obj/effect/overlay(get_turf(src))
 		T.icon = 'icons/effects/effects.dmi'
 		flick("emppulse",T)
@@ -58,7 +58,7 @@
 		var/obj/effect/dummy/chameleon/C = new/obj/effect/dummy/chameleon(usr.loc)
 		C.activate(O, usr, saved_icon, saved_icon_state, saved_overlays, saved_underlays, src)
 		qdel(O)
-		usr << "<span class='notice'>You activate \the [src].</span>"
+		to_chat(usr, "<span class='notice'>You activate \the [src].</span>")
 		var/obj/effect/overlay/T = new/obj/effect/overlay(get_turf(src))
 		T.icon = 'icons/effects/effects.dmi'
 		flick("emppulse",T)
@@ -83,7 +83,7 @@
 		A.loc = active_dummy.loc
 		if(ismob(A))
 			var/mob/M = A
-			M.reset_view(null)
+			M.reset_perspective(null)
 
 /obj/effect/dummy/chameleon
 	name = ""
@@ -107,24 +107,24 @@
 
 /obj/effect/dummy/chameleon/attackby()
 	for(var/mob/M in src)
-		M << "<span class='danger'>Your chameleon-projector deactivates.</span>"
+		to_chat(M, "<span class='danger'>Your chameleon-projector deactivates.</span>")
 	master.disrupt()
 
 /obj/effect/dummy/chameleon/attack_hand()
 	for(var/mob/M in src)
-		M << "<span class='danger'>Your chameleon-projector deactivates.</span>"
+		to_chat(M, "<span class='danger'>Your chameleon-projector deactivates.</span>")
 	master.disrupt()
 
 /obj/effect/dummy/chameleon/ex_act(var/severity) //no longer bomb-proof
 	for(var/mob/M in src)
-		M << "<span class='danger'>Your chameleon-projector deactivates.</span>"
+		to_chat(M, "<span class='danger'>Your chameleon-projector deactivates.</span>")
 		spawn()
 			M.ex_act(severity)
 	master.disrupt()
 
 /obj/effect/dummy/chameleon/bullet_act()
 	for(var/mob/M in src)
-		M << "<span class='danger'>Your chameleon-projector deactivates.</span>"
+		to_chat(M, "<span class='danger'>Your chameleon-projector deactivates.</span>")
 	..()
 	master.disrupt()
 

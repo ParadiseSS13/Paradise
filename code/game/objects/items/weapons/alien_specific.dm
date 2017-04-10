@@ -14,7 +14,6 @@
 	throw_range = 5
 	w_class = 2
 	w_class_on = 2
-	flags = NOSHIELD
 	attack_verb = list("attacked", "slashed", "gored", "sliced", "torn", "ripped", "butchered", "cut")
 	attack_verb_on = list()
 
@@ -34,11 +33,11 @@
 /obj/item/weapon/reagent_containers/spray/alien/smoke/afterattack(atom/A as mob|obj, mob/user as mob)
 	if(istype(A, /obj/structure/reagent_dispensers) && get_dist(src,A) <= 1)
 		if(!A.reagents.total_volume && A.reagents)
-			user << "<span class='notice'>\The [A] is empty.</span>"
+			to_chat(user, "<span class='notice'>\The [A] is empty.</span>")
 			return
 
 		if(reagents.total_volume >= reagents.maximum_volume)
-			user << "<span class='notice'>\The [src] is full.</span>"
+			to_chat(user, "<span class='notice'>\The [src] is full.</span>")
 			return
 	reagents.remove_reagent(25,"water")
 	var/datum/effect/system/bad_smoke_spread/smoke = new /datum/effect/system/bad_smoke_spread()
@@ -65,10 +64,3 @@
 	desc = "Useful for taking pictures, making friends and flash-frying chips."
 	icon = 'icons/mob/alien.dmi'
 	icon_state = "borg-flash"
-
-//heat vision
-
-/obj/item/borg/sight/thermal/alien
-	name = "thermal module"
-	icon = 'icons/mob/alien.dmi'
-	icon_state = "borg-extra-vision"

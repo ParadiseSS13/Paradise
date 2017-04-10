@@ -12,13 +12,13 @@
 	var/creating_new_account = 0
 	var/activated = 1
 	var/const/fund_cap = 1000000
-	
+
 	light_color = LIGHT_COLOR_GREEN
 
 /obj/machinery/computer/account_database/proc/get_access_level(var/mob/user)
 	if(user.can_admin_interact())
 		return 2
-	if (!held_card)
+	if(!held_card)
 		return 0
 	if(access_cent_commander in held_card.access)
 		return 2
@@ -76,11 +76,17 @@
 /obj/machinery/computer/account_database/attack_hand(mob/user as mob)
 	ui_interact(user)
 
-/obj/machinery/computer/account_database/ui_interact(mob/user, ui_key="main", var/datum/nanoui/ui = null, var/force_open = 1)
+/obj/machinery/computer/account_database/ui_interact(mob/user, ui_key = "main", var/datum/nanoui/ui = null, var/force_open = 1)
 	user.set_machine(src)
+	ui = nanomanager.try_update_ui(user, src, ui_key, ui, force_open)
+	if(!ui)
+		ui = new(user, src, ui_key, "accounts_terminal.tmpl", src.name, 400, 640)
+		ui.open()
 
+/obj/machinery/computer/account_database/ui_data(mob/user, ui_key = "main", datum/topic_state/state = default_state)
 	var/data[0]
-	data["src"] = "\ref[src]"
+
+	data["src"] = UID()
 	data["id_inserted"] = !!held_card
 	data["id_card"] = held_card ? text("[held_card.registered_name], [held_card.assignment]") : "-----"
 	data["access_level"] = get_access_level(user)
@@ -91,14 +97,14 @@
 	data["transactions"] = null
 	data["accounts"] = null
 
-	if (detailed_account_view)
+	if(detailed_account_view)
 		data["account_number"] = detailed_account_view.account_number
 		data["owner_name"] = detailed_account_view.owner_name
 		data["money"] = detailed_account_view.money
 		data["suspended"] = detailed_account_view.suspended
 
 		var/list/trx[0]
-		for (var/datum/transaction/T in detailed_account_view.transaction_log)
+		for(var/datum/transaction/T in detailed_account_view.transaction_log)
 			trx.Add(list(list(\
 				"date" = T.date, \
 				"time" = T.time, \
@@ -107,7 +113,7 @@
 				"amount" = T.amount, \
 				"source_terminal" = T.source_terminal)))
 
-		if (trx.len > 0)
+		if(trx.len > 0)
 			data["transactions"] = trx
 
 	var/list/accounts[0]
@@ -119,19 +125,15 @@
 			"suspended"=D.suspended ? "SUSPENDED" : "",\
 			"account_index"=i)))
 
-	if (accounts.len > 0)
+	if(accounts.len > 0)
 		data["accounts"] = accounts
 
-	ui = nanomanager.try_update_ui(user, src, ui_key, ui, data, force_open)
-	if (!ui)
-		ui = new(user, src, ui_key, "accounts_terminal.tmpl", src.name, 400, 640)
-		ui.set_initial_data(data)
-		ui.open()
-		
+	return data
+
 /obj/machinery/computer/account_database/Topic(href, href_list)
 	if(..())
 		return 1
-		
+
 	if(href_list["insert_card"])
 		if(held_card)
 			held_card.forceMove(loc)
@@ -142,12 +144,12 @@
 
 		else
 			var/obj/item/I = usr.get_active_hand()
-			if (istype(I, /obj/item/weapon/card/id))
+			if(istype(I, /obj/item/weapon/card/id))
 				var/obj/item/weapon/card/id/C = I
 				usr.drop_item()
 				C.forceMove(src)
-				held_card = C		
-		
+				held_card = C
+
 	if(!get_access_level(usr))
 		return 1
 
@@ -176,10 +178,10 @@
 			if("finalise_create_account")
 				var/account_name = href_list["holder_name"]
 				var/starting_funds = max(text2num(href_list["starting_funds"]), 0)
-				
+
 				starting_funds = Clamp(starting_funds, 0, station_account.money)	// Not authorized to put the station in debt.
-				starting_funds = min(starting_funds, fund_cap)						// Not authorized to give more than the fund cap.				
-				
+				starting_funds = min(starting_funds, fund_cap)						// Not authorized to give more than the fund cap.
+
 				create_account(account_name, starting_funds, src)
 				if(starting_funds > 0)
 					//subtract the money
@@ -218,8 +220,9 @@
 
 			if("print")
 				var/text
+				playsound(loc, 'sound/goonstation/machines/printer_thermal.ogg', 50, 1)
 				var/obj/item/weapon/paper/P = new(loc)
-				if (detailed_account_view)
+				if(detailed_account_view)
 					P.name = "account #[detailed_account_view.account_number] details"
 					var/title = "Account #[detailed_account_view.account_number] Details"
 					text = {"
@@ -241,7 +244,7 @@
 							<tbody>
 						"}
 
-					for (var/datum/transaction/T in detailed_account_view.transaction_log)
+					for(var/datum/transaction/T in detailed_account_view.transaction_log)
 						text += {"
 									<tr>
 										<td>[T.date] [T.time]</td>
@@ -291,6 +294,6 @@
 					"}
 
 				P.info = text
-				state("The terminal prints out a report.")
+				visible_message("<span class='notice'>[src] prints out a report.</span>")
 
 	return 1

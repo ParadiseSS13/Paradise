@@ -78,7 +78,7 @@ var/global/list/image/fluidtrack_cache=list()
 
 		// Process 4 bits
 		for(var/bi=0;bi<4;bi++)
-			b=1<<bi
+			b = 1 << bi
 			// COMING BIT
 			// If setting
 			if(comingdir&b)
@@ -157,8 +157,8 @@ var/global/list/image/fluidtrack_cache=list()
 	dryname = "dried tracks"
 	desc = "Whoops..."
 	drydesc = "Whoops..."
-	coming_state = "wheels"
-	going_state  = ""
+	coming_state = "wheels1"
+	going_state  = "wheels2"
 	desc = "They look like tracks left by wheels."
 	gender = PLURAL
 	random_icon_states = null

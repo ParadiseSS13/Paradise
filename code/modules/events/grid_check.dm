@@ -8,21 +8,21 @@
 	power_failure(0)
 
 /datum/event/grid_check/announce()
-	command_announcement.Announce("Abnormal activity detected in [station_name()]'s powernet. As a precautionary measure, the station's power will be shut off for an indeterminate duration.", "Automated Grid Check", new_sound = 'sound/AI/poweroff.ogg')
+	event_announcement.Announce("Abnormal activity detected in [station_name()]'s powernet. As a precautionary measure, the station's power will be shut off for an indeterminate duration.", "Automated Grid Check", new_sound = 'sound/AI/poweroff.ogg')
 
 /datum/event/grid_check/end()
 	power_restore()
 
 /proc/power_failure(var/announce = 1)
 	if(announce)
-		command_announcement.Announce("Abnormal activity detected in [station_name()]'s powernet. As a precautionary measure, the station's power will be shut off for an indeterminate duration.", "Critical Power Failure", new_sound = 'sound/AI/poweroff.ogg')
+		event_announcement.Announce("Abnormal activity detected in [station_name()]'s powernet. As a precautionary measure, the station's power will be shut off for an indeterminate duration.", "Critical Power Failure", new_sound = 'sound/AI/poweroff.ogg')
 
 	var/list/skipped_areas = list(/area/turret_protected/ai)
 	var/list/skipped_areas_apc = list(/area/engine/engineering)
 
 	for(var/obj/machinery/power/smes/S in machines)
 		var/area/current_area = get_area(S)
-		if(current_area.type in skipped_areas || !(S.z in config.station_levels))
+		if(current_area.type in skipped_areas || !is_station_level(S.z))
 			continue
 		S.last_charge			= S.charge
 		S.last_output_attempt	= S.output_attempt
@@ -33,9 +33,9 @@
 		S.update_icon()
 		S.power_change()
 
-	for(var/obj/machinery/power/apc/C in world)
+	for(var/obj/machinery/power/apc/C in apcs)
 		var/area/current_area = get_area(C)
-		if(current_area.type in skipped_areas_apc || !(C.z in config.station_levels))
+		if(current_area.type in skipped_areas_apc || !is_station_level(C.z))
 			continue
 		if(C.cell)
 			C.cell.charge = 0
@@ -45,16 +45,16 @@
 	var/list/skipped_areas_apc = list(/area/engine/engineering)
 
 	if(announce)
-		command_announcement.Announce("Power has been restored to [station_name()]. We apologize for the inconvenience.", "Power Systems Nominal", new_sound = 'sound/AI/poweron.ogg')
-	for(var/obj/machinery/power/apc/C in machines)
+		event_announcement.Announce("Power has been restored to [station_name()]. We apologize for the inconvenience.", "Power Systems Nominal", new_sound = 'sound/AI/poweron.ogg')
+	for(var/obj/machinery/power/apc/C in apcs)
 		var/area/current_area = get_area(C)
-		if(current_area.type in skipped_areas_apc || !(C.z in config.station_levels))
+		if(current_area.type in skipped_areas_apc || !is_station_level(C.z))
 			continue
 		if(C.cell)
 			C.cell.charge = C.cell.maxcharge
 	for(var/obj/machinery/power/smes/S in machines)
 		var/area/current_area = get_area(S)
-		if(current_area.type in skipped_areas || !(S.z in config.station_levels))
+		if(current_area.type in skipped_areas || !is_station_level(S.z))
 			continue
 		S.charge = S.last_charge
 		S.output_attempt = S.last_output_attempt
@@ -64,9 +64,9 @@
 
 /proc/power_restore_quick(var/announce = 1)
 	if(announce)
-		command_announcement.Announce("All SMESs on [station_name()] have been recharged. We apologize for the inconvenience.", "Power Systems Nominal", new_sound = 'sound/AI/poweron.ogg')
+		event_announcement.Announce("All SMESs on [station_name()] have been recharged. We apologize for the inconvenience.", "Power Systems Nominal", new_sound = 'sound/AI/poweron.ogg')
 	for(var/obj/machinery/power/smes/S in machines)
-		if(S.z != 1)
+		if(!is_station_level(S.z))
 			continue
 		S.charge = S.capacity
 		S.output_level = S.output_level_max
@@ -74,4 +74,3 @@
 		S.input_attempt = 1
 		S.update_icon()
 		S.power_change()
-	

@@ -1,4 +1,4 @@
-/obj/effect/blob/factory
+/obj/structure/blob/factory
 	name = "factory blob"
 	icon = 'icons/mob/blob.dmi'
 	icon_state = "blob_factory"
@@ -9,18 +9,18 @@
 	var/spore_delay = 0
 	var/mob/camera/blob/overmind
 
-/obj/effect/blob/factory/update_icon()
+/obj/structure/blob/factory/update_icon()
 	if(health <= 0)
 		qdel(src)
 
-/obj/effect/blob/factory/Destroy()
+/obj/structure/blob/factory/Destroy()
 	for(var/mob/living/simple_animal/hostile/blob/blobspore/spore in spores)
 		if(spore.factory == src)
 			spore.factory = null
 	spores = null
 	return ..()
 
-/obj/effect/blob/factory/run_action()
+/obj/structure/blob/factory/run_action()
 	if(spores.len >= max_spores)
 		return 0
 	if(spore_delay > world.time)

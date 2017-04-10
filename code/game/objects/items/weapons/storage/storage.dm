@@ -8,7 +8,7 @@
 /obj/item/weapon/storage
 	name = "storage"
 	icon = 'icons/obj/storage.dmi'
-	w_class = 3.0
+	w_class = 3
 	var/silent = 0 // No message on putting items in
 	var/list/can_hold = new/list() //List of objects which this item can store (if set, it can't store anything else)
 	var/list/cant_hold = new/list() //List of objects which this item can't store (in effect only if can_hold isn't set)
@@ -26,10 +26,10 @@
 	var/use_sound = "rustle"	//sound played when used. null for no sound.
 
 /obj/item/weapon/storage/MouseDrop(obj/over_object as obj)
-	if (ishuman(usr)) //so monkeys can take off their backpacks -- Urist
+	if(ishuman(usr)) //so monkeys can take off their backpacks -- Urist
 		var/mob/M = usr
 
-		if (istype(usr.loc,/obj/mecha)) // stops inventory actions in a mech
+		if(istype(usr.loc,/obj/mecha)) // stops inventory actions in a mech
 			return
 
 		if(over_object == M && Adjacent(M)) // this must come before the screen objects only block
@@ -39,12 +39,12 @@
 			show_to(M)
 			return
 
-		if ((istype(over_object, /obj/structure/table) || istype(over_object, /turf/simulated/floor)) \
+		if((istype(over_object, /obj/structure/table) || istype(over_object, /turf/simulated/floor)) \
 			&& contents.len && loc == usr && !usr.stat && !usr.restrained() && usr.canmove && over_object.Adjacent(usr) \
 			&& !istype(src, /obj/item/weapon/storage/lockbox))
 			var/turf/T = get_turf(over_object)
-			if (istype(over_object, /turf/simulated/floor))
-				if (get_turf(usr) != T)
+			if(istype(over_object, /turf/simulated/floor))
+				if(get_turf(usr) != T)
 					return // Can only empty containers onto the floor under you
 				if("Yes" != alert(usr,"Empty \the [src] onto \the [T]?","Confirm","Yes","No"))
 					return
@@ -59,12 +59,12 @@
 			update_icon() // For content-sensitive icons
 			return
 
-		if (!( istype(over_object, /obj/screen) ))
+		if(!( istype(over_object, /obj/screen) ))
 			return ..()
-		if (!(src.loc == usr) || (src.loc && src.loc.loc == usr))
+		if(!(src.loc == usr) || (src.loc && src.loc.loc == usr))
 			return
 		playsound(src.loc, "rustle", 50, 1, -5)
-		if (!( M.restrained() ) && !( M.stat ))
+		if(!( M.restrained() ) && !( M.stat ))
 			switch(over_object.name)
 				if("r_hand")
 					if(!M.unEquip(src))
@@ -77,7 +77,7 @@
 			src.add_fingerprint(usr)
 			return
 		if(over_object == usr && in_range(src, usr) || usr.contents.Find(src))
-			if (usr.s_active)
+			if(usr.s_active)
 				usr.s_active.close(usr)
 			src.show_to(usr)
 			return
@@ -94,7 +94,7 @@
 		L += S.return_inv()
 	for(var/obj/item/weapon/gift/G in src)
 		L += G.gift
-		if (istype(G.gift, /obj/item/weapon/storage))
+		if(istype(G.gift, /obj/item/weapon/storage))
 			L += G.gift:return_inv()
 	for(var/obj/item/weapon/folder/F in src)
 		L += F.contents
@@ -128,11 +128,11 @@
 	return
 
 /obj/item/weapon/storage/proc/open(mob/user as mob)
-	if (src.use_sound)
+	if(src.use_sound)
 		playsound(src.loc, src.use_sound, 50, 1, -5)
 
 	orient2hud(user)
-	if (user.s_active)
+	if(user.s_active)
 		user.s_active.close(user)
 	show_to(user)
 
@@ -151,8 +151,9 @@
 	for(var/obj/O in src.contents)
 		O.screen_loc = "[cx],[cy]"
 		O.layer = 20
+		O.plane = HUD_PLANE
 		cx++
-		if (cx > mx)
+		if(cx > mx)
 			cx = tx
 			cy--
 	src.closer.screen_loc = "[mx+1],[my]"
@@ -170,8 +171,9 @@
 			ND.sample_object.screen_loc = "[cx]:16,[cy]:16"
 			ND.sample_object.maptext = "<font color='white'>[(ND.number > 1)? "[ND.number]" : ""]</font>"
 			ND.sample_object.layer = 20
+			ND.sample_object.plane = HUD_PLANE
 			cx++
-			if (cx > (4+cols))
+			if(cx > (4+cols))
 				cx = 4
 				cy--
 	else
@@ -180,8 +182,9 @@
 			O.screen_loc = "[cx]:16,[cy]:16"
 			O.maptext = ""
 			O.layer = 20
+			O.plane = HUD_PLANE
 			cx++
-			if (cx > (4+cols))
+			if(cx > (4+cols))
 				cx = 4
 				cy--
 	src.closer.screen_loc = "[4+cols+1]:16,2:16"
@@ -221,7 +224,7 @@
 	//var/mob/living/carbon/human/H = user
 	var/row_num = 0
 	var/col_count = min(7,storage_slots) -1
-	if (adjusted_contents > 7)
+	if(adjusted_contents > 7)
 		row_num = round((adjusted_contents-1) / 7) // 7 is the maximum allowed width.
 	src.standard_orient_objs(row_num, col_count, numbered_contents)
 	return
@@ -235,31 +238,23 @@
 		return 0 //Means the item is already in the storage item
 	if(contents.len >= storage_slots)
 		if(!stop_messages)
-			usr << "<span class='warning'>[W] won't fit in [src], make some space!</span>"
+			to_chat(usr, "<span class='warning'>[W] won't fit in [src], make some space!</span>")
 		return 0 //Storage item is full
 
 	if(can_hold.len)
-		var/ok = 0
-		for(var/A in can_hold)
-			if(istype(W, text2path(A) ))
-				ok = 1
-				break
-		if(!ok)
+		if(!is_type_in_typecache(W, can_hold))
 			if(!stop_messages)
-				if (istype(W, /obj/item/weapon/hand_labeler))
-					return 0
-				usr << "<span class='notice'>[src] cannot hold [W].</span>"
+				to_chat(usr, "<span class='notice'>[src] cannot hold [W].</span>")
 			return 0
 
-	for(var/A in cant_hold) //Check for specific items which this container can't hold.
-		if(istype(W, text2path(A) ))
-			if(!stop_messages)
-				usr << "<span class='notice'>[src] cannot hold [W].</span>"
-			return 0
-
-	if (W.w_class > max_w_class)
+	if(is_type_in_typecache(W, cant_hold)) //Check for specific items which this container can't hold.
 		if(!stop_messages)
-			usr << "<span class='notice'>[W] is too big for this [src].</span>"
+			to_chat(usr, "<span class='notice'>[src] cannot hold [W].</span>")
+		return 0
+
+	if(W.w_class > max_w_class)
+		if(!stop_messages)
+			to_chat(usr, "<span class='notice'>[W] is too big for this [src].</span>")
 		return 0
 
 	var/sum_w_class = W.w_class
@@ -268,17 +263,17 @@
 
 	if(sum_w_class > max_combined_w_class)
 		if(!stop_messages)
-			usr << "<span class='notice'>[src] is full, make some space.</span>"
+			to_chat(usr, "<span class='notice'>[src] is full, make some space.</span>")
 		return 0
 
 	if(W.w_class >= src.w_class && (istype(W, /obj/item/weapon/storage)))
 		if(!istype(src, /obj/item/weapon/storage/backpack/holding))	//bohs should be able to hold backpacks again. The override for putting a boh in a boh is in backpack.dm.
 			if(!stop_messages)
-				usr << "<span class='notice'>[src] cannot hold [W] as it's a storage item of the same size.</span>"
+				to_chat(usr, "<span class='notice'>[src] cannot hold [W] as it's a storage item of the same size.</span>")
 			return 0 //To prevent the stacking of same sized storage items.
 
 	if(W.flags & NODROP) //SHOULD be handled in unEquip, but better safe than sorry.
-		usr << "<span class='notice'>\the [W] is stuck to your hand, you can't put it in \the [src]</span>"
+		to_chat(usr, "<span class='notice'>\the [W] is stuck to your hand, you can't put it in \the [src]</span>")
 		return 0
 
 	return 1
@@ -295,21 +290,21 @@
 		usr.update_icons()	//update our overlays
 	if(silent)
 		prevent_warning = 1
-	W.loc = src
+	W.forceMove(src)
 	W.on_enter_storage(src)
 	if(usr)
-		if (usr.client && usr.s_active != src)
+		if(usr.client && usr.s_active != src)
 			usr.client.screen -= W
 		W.dropped(usr)
 		add_fingerprint(usr)
 
 		if(!prevent_warning && !istype(W, /obj/item/weapon/gun/energy/kinetic_accelerator/crossbow))
 			for(var/mob/M in viewers(usr, null))
-				if (M == usr)
-					usr << "<span class='notice'>You put the [W] into [src].</span>"
-				else if (M in range(1)) //If someone is standing close enough, they can tell what it is...
+				if(M == usr)
+					to_chat(usr, "<span class='notice'>You put the [W] into [src].</span>")
+				else if(M in range(1)) //If someone is standing close enough, they can tell what it is...
 					M.show_message("<span class='notice'>[usr] puts [W] into [src].</span>")
-				else if (W && W.w_class >= 3.0) //Otherwise they can only see large or normal items from a distance...
+				else if(W && W.w_class >= 3.0) //Otherwise they can only see large or normal items from a distance...
 					M.show_message("<span class='notice'>[usr] puts [W] into [src].</span>")
 
 		src.orient2hud(usr)
@@ -320,7 +315,7 @@
 	return 1
 
 //Call this proc to handle the removal of an item from the storage item. The item will be moved to the atom sent as new_target
-/obj/item/weapon/storage/proc/remove_from_storage(obj/item/W as obj, atom/new_location)
+/obj/item/weapon/storage/proc/remove_from_storage(obj/item/W as obj, atom/new_location, burn = 0)
 	if(!istype(W)) return 0
 
 	if(istype(src, /obj/item/weapon/storage/fancy))
@@ -328,8 +323,8 @@
 		F.update_icon(1)
 
 	for(var/mob/M in range(1, src.loc))
-		if (M.s_active == src)
-			if (M.client)
+		if(M.s_active == src)
+			if(M.client)
 				M.client.screen -= W
 
 	if(new_location)
@@ -337,11 +332,13 @@
 			W.dropped(usr)
 		if(ismob(new_location))
 			W.layer = 20
+			W.plane = HUD_PLANE
 		else
 			W.layer = initial(W.layer)
-		W.loc = new_location
+			W.plane = initial(W.plane)
+		W.forceMove(new_location)
 	else
-		W.loc = get_turf(src)
+		W.forceMove(get_turf(src))
 
 	if(usr)
 		src.orient2hud(usr)
@@ -352,14 +349,20 @@
 	W.on_exit_storage(src)
 	update_icon()
 	W.mouse_opacity = initial(W.mouse_opacity)
+	if(burn)
+		W.fire_act()
 	return 1
+
+/obj/item/weapon/storage/empty_object_contents(burn, loc)
+	for(var/obj/item/Item in contents)
+		remove_from_storage(Item, loc, burn)
 
 //This proc is called when you want to place an item into the storage item.
 /obj/item/weapon/storage/attackby(obj/item/W as obj, mob/user as mob, params)
 	..()
 
 	if(isrobot(user))
-		user << "\blue You're a robot. No."
+		to_chat(user, "\blue You're a robot. No.")
 		return 1//Robots can't interact with storage items.
 
 	if(!can_be_inserted(W))
@@ -367,9 +370,6 @@
 
 	handle_item_insertion(W)
 	return 1
-
-/obj/item/weapon/storage/dropped(mob/user as mob)
-	return
 
 
 /obj/item/weapon/storage/attack_hand(mob/user as mob)
@@ -387,14 +387,14 @@
 			return
 
 	src.orient2hud(user)
-	if (src.loc == user)
-		if (user.s_active)
+	if(src.loc == user)
+		if(user.s_active)
 			user.s_active.close(user)
 		src.show_to(user)
 	else
 		..()
 		for(var/mob/M in range(1))
-			if (M.s_active == src)
+			if(M.s_active == src)
 				src.close(M)
 	src.add_fingerprint(user)
 	return
@@ -404,11 +404,11 @@
 	set category = "Object"
 
 	collection_mode = !collection_mode
-	switch (collection_mode)
+	switch(collection_mode)
 		if(1)
-			usr << "[src] now picks up all items in a tile at once."
+			to_chat(usr, "[src] now picks up all items in a tile at once.")
 		if(0)
-			usr << "[src] now picks up one item at a time."
+			to_chat(usr, "[src] now picks up one item at a time.")
 
 
 /obj/item/weapon/storage/verb/quick_empty()
@@ -424,6 +424,8 @@
 		remove_from_storage(I, T)
 
 /obj/item/weapon/storage/New()
+	can_hold = typecacheof(can_hold)
+	cant_hold = typecacheof(cant_hold)
 
 	if(allow_quick_empty)
 		verbs += /obj/item/weapon/storage/verb/quick_empty
@@ -445,15 +447,15 @@
 	src.closer.master = src
 	src.closer.icon_state = "x"
 	src.closer.layer = 20
+	src.closer.plane = HUD_PLANE
 	orient2hud()
-	return
 
 /obj/item/weapon/storage/Destroy()
 	for(var/obj/O in contents)
 		O.mouse_opacity = initial(O.mouse_opacity)
 
-	qdel(boxes)
-	qdel(closer)
+	QDEL_NULL(boxes)
+	QDEL_NULL(closer)
 	return ..()
 
 /obj/item/weapon/storage/emp_act(severity)
@@ -461,6 +463,16 @@
 		for(var/obj/O in contents)
 			O.emp_act(severity)
 	..()
+
+/obj/item/weapon/storage/hear_talk(mob/living/M as mob, msg)
+	..()
+	for(var/obj/O in contents)
+		O.hear_talk(M, msg)
+
+/obj/item/weapon/storage/hear_message(mob/living/M as mob, msg)
+	..()
+	for(var/obj/O in contents)
+		O.hear_message(M, msg)
 
 // BubbleWrap - A box can be folded up to make card
 /obj/item/weapon/storage/attack_self(mob/user as mob)
@@ -472,22 +484,22 @@
 			return
 
 	//Otherwise we'll try to fold it.
-	if ( contents.len )
+	if( contents.len )
 		return
 
-	if ( !ispath(src.foldable) )
+	if( !ispath(src.foldable) )
 		return
 	var/found = 0
 	// Close any open UI windows first
 	for(var/mob/M in range(1))
-		if (M.s_active == src)
+		if(M.s_active == src)
 			src.close(M)
-		if ( M == user )
+		if( M == user )
 			found = 1
-	if ( !found )	// User is too far away
+	if( !found )	// User is too far away
 		return
 	// Now make the cardboard
-	user << "<span class='notice'>You fold [src] flat.</span>"
+	to_chat(user, "<span class='notice'>You fold [src] flat.</span>")
 	new src.foldable(get_turf(src))
 	qdel(src)
 //BubbleWrap END
@@ -498,14 +510,14 @@
 	var/depth = 0
 	var/atom/cur_atom = src
 
-	while (cur_atom && !(cur_atom in container.contents))
-		if (isarea(cur_atom))
+	while(cur_atom && !(cur_atom in container.contents))
+		if(isarea(cur_atom))
 			return -1
-		if (istype(cur_atom.loc, /obj/item/weapon/storage))
+		if(istype(cur_atom.loc, /obj/item/weapon/storage))
 			depth++
 		cur_atom = cur_atom.loc
 
-	if (!cur_atom)
+	if(!cur_atom)
 		return -1	//inside something with a null loc.
 
 	return depth
@@ -516,15 +528,46 @@
 	var/depth = 0
 	var/atom/cur_atom = src
 
-	while (cur_atom && !isturf(cur_atom))
-		if (isarea(cur_atom))
+	while(cur_atom && !isturf(cur_atom))
+		if(isarea(cur_atom))
 			return -1
-		if (istype(cur_atom.loc, /obj/item/weapon/storage))
+		if(istype(cur_atom.loc, /obj/item/weapon/storage))
 			depth++
 		cur_atom = cur_atom.loc
 
-	if (!cur_atom)
+	if(!cur_atom)
 		return -1	//inside something with a null loc.
 
 	return depth
 
+/obj/item/weapon/storage/serialize()
+	var data = ..()
+	var/list/content_list = list()
+	data["content"] = content_list
+	data["slots"] = storage_slots
+	data["max_w_class"] = max_w_class
+	data["max_c_w_class"] = max_combined_w_class
+	for(var/thing in contents)
+		var/atom/movable/AM = thing
+		// This code does not watch out for infinite loops
+		// But then again a tesseract would destroy the server anyways
+		// Also I wish I could just insert a list instead of it reading it the wrong way
+		content_list.len++
+		content_list[content_list.len] = AM.serialize()
+	return data
+
+/obj/item/weapon/storage/deserialize(list/data)
+	if(isnum(data["slots"]))
+		storage_slots = data["slots"]
+	if(isnum(data["max_w_class"]))
+		max_w_class = data["max_w_class"]
+	if(isnum(data["max_c_w_class"]))
+		max_combined_w_class = data["max_c_w_class"]
+	for(var/thing in contents)
+		qdel(thing) // out with the old
+	for(var/thing in data["content"])
+		if(islist(thing))
+			list_to_object(thing, src)
+		else
+			log_runtime(EXCEPTION("Non-list thing found in storage/deserialize."), src, list("Thing: [thing]"))
+	..()

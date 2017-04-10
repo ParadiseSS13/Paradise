@@ -68,6 +68,8 @@
 	build_type = PROTOLATHE
 	materials = list(MAT_SILVER = 1000, MAT_METAL = 5000, MAT_DIAMOND = 3000)
 	build_path = /obj/item/weapon/gun/energy/wormhole_projector
+	locked = 1
+	access_requirement = list(access_rd) //screw you, HoS, this aint yours; this is only for a man of science---and trouble.
 	category = list("Weapons")
 
 /datum/design/large_grenade
@@ -92,8 +94,8 @@
 	category = list("Weapons")
 
 /datum/design/lasercannon
-	name = "Laser Cannon"
-	desc = "A heavy duty laser cannon."
+	name = "Accelerator Laser Cannon"
+	desc = "A heavy duty laser cannon. It does more damage the farther away the target is."
 	id = "lasercannon"
 	req_tech = list("combat" = 4, "materials" = 3, "powerstorage" = 3)
 	build_type = PROTOLATHE
@@ -102,68 +104,49 @@
 	locked = 1
 	category = list("Weapons")
 
-/datum/design/receiver
-	name = "Modular Receiver"
-	desc = "A prototype modular receiver and trigger assembly for a variety of firearms."
-	id = "receiver"
-	req_tech = list("combat" = 5, "materials" = 4)
-	build_type = PROTOLATHE
-	materials = list(MAT_METAL = 6500, MAT_SILVER = 500)
-	build_path = /obj/item/weaponcrafting/receiver
-	category = list("Weapons")
-
 /datum/design/plasmapistol
 	name = "Plasma Pistol"
 	desc = "A specialized firearm designed to fire lethal bolts of toxins."
 	id = "ppistol"
-	req_tech = list("combat" = 5, "plasmatech" = 4)
+	req_tech = list("combat" = 4, "plasmatech" = 3)
 	build_type = PROTOLATHE
 	materials = list(MAT_METAL = 5000, MAT_GLASS = 1000, MAT_PLASMA = 3000)
 	build_path = /obj/item/weapon/gun/energy/toxgun
 	locked = 1
 	category = list("Weapons")
 
-/datum/design/smg
-	name = "Nanotrasen Saber SMG"
-	desc = "A prototype weapon made using lightweight materials on a traditional frame, designed to fire standard 9mm rounds."
-	id = "smg"
-	req_tech = list("combat" = 4, "materials" = 3)
+//WT550 Mags
+
+/datum/design/mag_oldsmg
+	name = "WT-550 Auto Gun Magazine (4.6x30mm)"
+	desc = "A 20 round magazine for the out of date security WT-550 Auto Rifle"
+	id = "mag_oldsmg"
+	req_tech = list("combat" = 1, "materials" = 1)
 	build_type = PROTOLATHE
-	materials = list(MAT_METAL = 8000, MAT_SILVER = 2000, MAT_DIAMOND = 1000)
-	build_path = /obj/item/weapon/gun/projectile/automatic/proto
-	locked = 1
+	materials = list(MAT_METAL = 4000)
+	build_path = /obj/item/ammo_box/magazine/wt550m9
 	category = list("Weapons")
 
-/datum/design/mag_smg
-	name = "Saber Submachine Gun Magazine (9mm)"
-	desc = "A 30-round magazine for the Saber submachine gun."
-	id = "mag_smg"
-	req_tech = list("combat" = 4, "materials" = 3)
-	build_type = PROTOLATHE
-	materials = list(MAT_METAL = 2000)
-	build_path = /obj/item/ammo_box/magazine/smgm9mm
-	category = list("Weapons")
+/datum/design/mag_oldsmg/ap_mag
+	name = "WT-550 Auto Gun Armour Piercing Magazine (4.6x30mm AP)"
+	desc = "A 20 round armour piercing magazine for the out of date security WT-550 Auto Rifle"
+	id = "mag_oldsmg_ap"
+	materials = list(MAT_METAL = 6000, MAT_SILVER = 600)
+	build_path = /obj/item/ammo_box/magazine/wt550m9/wtap
 
-/datum/design/mag_smg/ap_mag
-	name = "Saber Submachine Gun Magazine (9mmAP)"
-	desc = "A 30-round armour piercing magazine for the Saber submachine gun. Deals slightly less damage but bypasses most armor."
-	id = "mag_smg_ap"
-	materials = list(MAT_METAL = 3000, MAT_SILVER = 100)
-	build_path = /obj/item/ammo_box/magazine/smgm9mm/ap
+/datum/design/mag_oldsmg/ic_mag
+	name = "WT-550 Auto Gun Incendiary Magazine (4.6x30mm IC)"
+	desc = "A 20 round armour piercing magazine for the out of date security WT-550 Auto Rifle"
+	id = "mag_oldsmg_ic"
+	materials = list(MAT_METAL = 6000, MAT_SILVER = 600, MAT_GLASS = 1000)
+	build_path = /obj/item/ammo_box/magazine/wt550m9/wtic
 
-/datum/design/mag_smg/incin_mag
-	name = "Saber Submachine Gun Magazine (9mmIC)"
-	desc = "A 30-round incendiary round magazine for the Saber submachine gun. Deals significantly less damage but sets the target on fire."
-	id = "mag_smg_ic"
-	materials = list(MAT_METAL = 3000, MAT_SILVER = 100, MAT_GLASS = 400)
-	build_path = /obj/item/ammo_box/magazine/smgm9mm/fire
-
-/datum/design/mag_smg/incin_tox
-	name = "Saber Submachine Gun Magazine (9mmTX)"
-	desc = "A 30-round uranium tipped round magazine for the Saber submachine gun. Deals toxin damage, but less overall damage."
-	id = "mag_smg_tx"
-	materials = list(MAT_METAL = 3000, MAT_GLASS = 200, MAT_URANIUM = 1000)
-	build_path = /obj/item/ammo_box/magazine/smgm9mm/toxin
+/datum/design/mag_oldsmg/tx_mag
+	name = "WT-550 Auto Gun Uranium Magazine (4.6x30mm TX)"
+	desc = "A 20 round uranium tipped magazine for the out of date security WT-550 Auto Rifle"
+	id = "mag_oldsmg_tx"
+	materials = list(MAT_METAL = 6000, MAT_SILVER = 600, MAT_URANIUM = 2000)
+	build_path = /obj/item/ammo_box/magazine/wt550m9/wttx
 
 /datum/design/rapidsyringe
 	name = "Rapid Syringe Gun"
@@ -186,13 +169,13 @@
 	category = list("Weapons")
 
 /datum/design/stunrevolver
-	name = "Stun Revolver"
-	desc = "A high-tech revolver that fires internal, reusable stun cartidges in a revolving cylinder. The stun cartridges can be recharged using a conventional energy weapon recharger."
+	name = "Tesla Revolver"
+	desc = "A high-tech revolver that fires internal, reusable shock cartridges in a revolving cylinder. The cartridges can be recharged using conventional rechargers."
 	id = "stunrevolver"
-	req_tech = list("combat" = 3, "materials" = 3, "powerstorage" = 2)
+	req_tech = list("combat" = 3, "materials" = 3, "powerstorage" = 5)
 	build_type = PROTOLATHE
-	materials = list(MAT_METAL = 4000, MAT_GLASS = 1000)
-	build_path = /obj/item/weapon/gun/energy/stunrevolver
+	materials = list(MAT_METAL = 10000, MAT_GLASS = 10000, MAT_SILVER = 10000)
+	build_path = /obj/item/weapon/gun/energy/shock_revolver
 	locked = 1
 	category = list("Weapons")
 
@@ -234,5 +217,16 @@
 	build_type = PROTOLATHE
 	materials = list(MAT_GOLD = 5000,MAT_URANIUM = 10000, MAT_METAL = 4000)
 	build_path = /obj/item/weapon/gun/energy/xray
+	locked = 1
+	category = list("Weapons")
+
+/datum/design/immolator
+	name = "Immolator Laser Gun"
+	desc = "Has fewer shots than a regular laser gun, but ignites the target on hit"
+	id = "immolator"
+	req_tech = list("combat" = 4, "materials" = 5, "powerstorage" = 5, "magnets" = 4)
+	build_type = PROTOLATHE
+	materials = list(MAT_METAL = 4000, MAT_GLASS = 1000, MAT_SILVER = 3000, MAT_PLASMA = 2000)
+	build_path = /obj/item/weapon/gun/energy/immolator
 	locked = 1
 	category = list("Weapons")

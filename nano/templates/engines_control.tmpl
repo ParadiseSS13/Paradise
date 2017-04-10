@@ -1,6 +1,6 @@
 <div class="item">
-    {{:helper.link('Overall status', 'note', {'state' :'status'}, null, state == 'status' ? 'selected' : null)}}
-    {{:helper.link('Details', 'note', {'state' : 'engines'}, null, state == 'engines' ? 'selected' : null)}}
+    {{:helper.link('Overall status', 'sticky-note', {'state' :'status'}, null, state == 'status' ? 'selected' : null)}}
+    {{:helper.link('Details', 'sticky-note', {'state' : 'engines'}, null, state == 'engines' ? 'selected' : null)}}
 </div>
 
 {{if data.state == "engines"}}
@@ -11,7 +11,7 @@
 					<span class='white'>Engine #{{:(index + 1)}}:</span>
 				</div>
 				<div class="itemContent">
-						{{:helper.link(value.eng_on ? 'Shutdown' : 'Power up', 'power', { 'toggle' : 1, 'engine' : value.eng_reference }, null, value.eng_on ? 'selected' : null)}}
+						{{:helper.link(value.eng_on ? 'Shutdown' : 'Power up', 'power-off', { 'toggle' : 1, 'engine' : value.eng_reference }, null, value.eng_on ? 'selected' : null)}}
 				</div>
 			</div>
 			<div class='statusDisplay'>
@@ -45,9 +45,9 @@
 					<span class='average'>Thrust limit:</span>
 				</div>
 				<div class="itemContent">
-					{{:helper.link('', 'circle-plus', { 'limit' : 0.1, 'engine' : value.eng_reference }, null, null)}}
+					{{:helper.link('', 'plus-circle', { 'limit' : 0.1, 'engine' : value.eng_reference }, null, null)}}
 					{{:helper.link(value.eng_thrust_limiter+'%', null, { 'set_limit' : 1, 'engine' : value.eng_reference }, null, null)}}
-					{{:helper.link('', 'circle-minus', { 'limit' : -0.1, 'engine' : value.eng_reference }, null, null)}}
+					{{:helper.link('', 'minus-circle', { 'limit' : -0.1, 'engine' : value.eng_reference }, null, null)}}
 				</div>
 			  </div>
 		  </div>
@@ -63,7 +63,7 @@
 						<span class='white'>Engine #{{:(index + 1)}}:</span>
 					</div>
 					<div class="itemContent">
-						{{:helper.link(value.eng_on ? 'Shutdown' : 'Power up', 'power', { 'toggle' : 1, 'engine' : value.eng_reference }, null, value.eng_on ? 'selected' : null)}}
+						{{:helper.link(value.eng_on ? 'Shutdown' : 'Power up', 'power-off', { 'toggle' : 1, 'engine' : value.eng_reference }, null, value.eng_on ? 'selected' : null)}}
 					</div>
 				</div>
 				<div class='item'>

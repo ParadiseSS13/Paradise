@@ -3,7 +3,7 @@
 	desc = "A generic brand of lipstick."
 	icon = 'icons/obj/items.dmi'
 	icon_state = "lipstick"
-	w_class = 1.0
+	w_class = 1
 	var/colour = "red"
 	var/open = 0
 
@@ -42,7 +42,7 @@
 
 /obj/item/weapon/lipstick/attack_self(mob/user as mob)
 	overlays.Cut()
-	user << "<span class='notice'>You twist \the [src] [open ? "closed" : "open"].</span>"
+	to_chat(user, "<span class='notice'>You twist \the [src] [open ? "closed" : "open"].</span>")
 	open = !open
 	if(open)
 		var/image/colored = image("icon"='icons/obj/items.dmi', "icon_state"="lipstick_uncap_color")
@@ -60,7 +60,7 @@
 	if(ishuman(M))
 		var/mob/living/carbon/human/H = M
 		if(H.lip_style)	//if they already have lipstick on
-			user << "<span class='notice'>You need to wipe off the old lipstick first!</span>"
+			to_chat(user, "<span class='notice'>You need to wipe off the old lipstick first!</span>")
 			return
 		if(H == user)
 			user.visible_message("<span class='notice'>[user] does their lips with \the [src].</span>", \
@@ -78,7 +78,7 @@
 				H.lip_color = colour
 				H.update_body()
 	else
-		user << "<span class='notice'>Where are the lips on that?</span>"
+		to_chat(user, "<span class='notice'>Where are the lips on that?</span>")
 
 /obj/item/weapon/razor
 	name = "electric razor"
@@ -86,67 +86,77 @@
 	icon = 'icons/obj/items.dmi'
 	icon_state = "razor"
 	flags = CONDUCT
-	w_class = 1.0
+	w_class = 1
+	usesound = 'sound/items/Welder2.ogg'
+	toolspeed = 1
 
 /obj/item/weapon/razor/attack(mob/living/carbon/M as mob, mob/user as mob)
 	if(ishuman(M))
 		var/mob/living/carbon/human/H = M
+		var/obj/item/organ/external/head/C = H.get_organ("head")
+		var/datum/robolimb/robohead = all_robolimbs[C.model]
 		if(user.zone_sel.selecting == "mouth")
 			if(!get_location_accessible(H, "mouth"))
-				user << "<span class='warning'>The mask is in the way.</span>"
+				to_chat(user, "<span class='warning'>The mask is in the way.</span>")
 				return
-			if(H.f_style == "Shaved")
-				user << "<span class='notice'>Already clean-shaven.</span>"
+			if((C.species && C.species.flags & ALL_RPARTS) && robohead.is_monitor) //If the target is of a species that can have prosthetic heads, but the head doesn't support human hair 'wigs'...
+				to_chat(user, "<span class='warning'>You find yourself disappointed at the appalling lack of facial hair.</span>")
+				return
+			if(C.f_style == "Shaved")
+				to_chat(user, "<span class='notice'>Already clean-shaven.</span>")
 				return
 			if(H == user) //shaving yourself
 				user.visible_message("<span class='notice'>[user] starts to shave their facial hair with \the [src].</span>", \
 				"<span class='notice'>You take a moment shave your facial hair with \the [src].</span>")
-				if(do_after(user, 50, target = H))
+				if(do_after(user, 50 * toolspeed, target = H))
 					user.visible_message("<span class='notice'>[user] shaves his facial hair clean with the [src].</span>", \
 					"<span class='notice'>You finish shaving with the [src]. Fast and clean!</span>")
-					H.f_style = "Shaved"
-					H.update_hair()
-					playsound(src.loc, 'sound/items/Welder2.ogg', 20, 1)
+					C.f_style = "Shaved"
+					H.update_fhair()
+					playsound(src.loc, usesound, 20, 1)
 			else
 				var/turf/user_loc = user.loc
 				var/turf/H_loc = H.loc
 				user.visible_message("<span class='danger'>[user] tries to shave [H]'s facial hair with \the [src].</span>", \
 				"<span class='warning'>You start shaving [H]'s facial hair.</span>")
-				if(do_after(user, 50, target = H))
+				if(do_after(user, 50 * toolspeed, target = H))
 					if(user_loc == user.loc && H_loc == H.loc)
 						user.visible_message("<span class='danger'>[user] shaves off [H]'s facial hair with \the [src].</span>", \
 						"<span class='notice'>You shave [H]'s facial hair clean off.</span>")
-						H.f_style = "Shaved"
-						H.update_hair()
-						playsound(src.loc, 'sound/items/Welder2.ogg', 20, 1)
+						C.f_style = "Shaved"
+						H.update_fhair()
+						playsound(src.loc, usesound, 20, 1)
 		if(user.zone_sel.selecting == "head")
 			if(!get_location_accessible(H, "head"))
-				user << "<span class='warning'>The headgear is in the way.</span>"
+				to_chat(user, "<span class='warning'>The headgear is in the way.</span>")
 				return
-			if(H.h_style == "Bald" || H.h_style == "Balding Hair" || H.h_style == "Skinhead")
-				user << "<span class='notice'>There is not enough hair left to shave...</span>"
+			if((C.species && C.species.flags & ALL_RPARTS) && robohead.is_monitor) //If the target is of a species that can have prosthetic heads, but the head doesn't support human hair 'wigs'...
+				to_chat(user, "<span class='warning'>You find yourself disappointed at the appalling lack of hair.</span>")
+				return
+			if(C.h_style == "Bald" || C.h_style == "Balding Hair" || C.h_style == "Skinhead")
+				to_chat(user, "<span class='notice'>There is not enough hair left to shave...</span>")
 				return
 			if(H == user) //shaving yourself
 				user.visible_message("<span class='warning'>[user] starts to shave their head with \the [src].</span>", \
 				"<span class='warning'>You start to shave your head with \the [src].</span>")
-				if(do_after(user, 50, target = H))
+				if(do_after(user, 50 * toolspeed, target = H))
 					user.visible_message("<span class='notice'>[user] shaves his head with the [src].</span>", \
 					"<span class='notice'>You finish shaving with the [src].</span>")
-					H.h_style = "Skinhead"
+					C.h_style = "Skinhead"
 					H.update_hair()
-					playsound(src.loc, 'sound/items/Welder2.ogg', 40, 1)
+					playsound(src.loc, usesound, 40, 1)
 			else
 				var/turf/user_loc = user.loc
 				var/turf/H_loc = H.loc
 				user.visible_message("<span class='danger'>[user] tries to shave [H]'s head with \the [src]!</span>", \
 				"<span class='warning'>You start shaving [H]'s head.</span>")
-				if(do_after(user, 50, target = H))
+				if(do_after(user, 50 * toolspeed, target = H))
 					if(user_loc == user.loc && H_loc == H.loc)
 						user.visible_message("<span class='danger'>[user] shaves [H]'s head bald with \the [src]!</span>", \
 						"<span class='warning'>You shave [H]'s head bald.</span>")
-						H.h_style = "Skinhead"
+						C.h_style = "Skinhead"
 						H.update_hair()
-						playsound(src.loc, 'sound/items/Welder2.ogg', 40, 1)
+						playsound(src.loc, usesound, 40, 1)
 		else
 			..()
 	else

@@ -31,6 +31,7 @@
 		icon_state = "blank"
 		anchored = 1
 		layer = 99
+		plane = HUD_PLANE
 		mouse_opacity = 0
 		unacidable = 1//Just to be sure.
 
@@ -53,13 +54,6 @@
 	icon_state = "begin"
 	anchored = 1.0
 	unacidable = 1
-
-/obj/effect/stop
-	var/victim = null
-	icon_state = "empty"
-	name = "Geas"
-	desc = "You can't resist."
-	// name = ""
 
 /obj/effect/projection
 	name = "Projection"
@@ -92,3 +86,10 @@
 	var/master = null
 
 	var/list/container = list(  )
+
+
+/obj/structure/showcase/horrific_experiment
+	name = "horrific experiment"
+	desc = "Some sort of pod filled with blood and vicerea. You swear you can see it moving..."
+	icon = 'icons/obj/cloning.dmi'
+	icon_state = "pod_g"

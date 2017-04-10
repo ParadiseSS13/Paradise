@@ -25,37 +25,37 @@
 
 /client/proc/nanomapgen_DumpTile(var/startX = 1, var/startY = 1, var/currentZ = 1, var/endX = -1, var/endY = -1)
 
-	if (endX < 0 || endX > world.maxx)
+	if(endX < 0 || endX > world.maxx)
 		endX = world.maxx
 
-	if (endY < 0 || endY > world.maxy)
+	if(endY < 0 || endY > world.maxy)
 		endY = world.maxy
 
-	if (currentZ < 0 || currentZ > world.maxz)
-		usr << "NanoMapGen: <B>ERROR: currentZ ([currentZ]) must be between 1 and [world.maxz]</B>"
+	if(currentZ < 0 || currentZ > world.maxz)
+		to_chat(usr, "NanoMapGen: <B>ERROR: currentZ ([currentZ]) must be between 1 and [world.maxz]</B>")
 
 		sleep(3)
 		return NANOMAP_TERMINALERR
 
-	if (startX > endX)
-		usr << "NanoMapGen: <B>ERROR: startX ([startX]) cannot be greater than endX ([endX])</B>"
+	if(startX > endX)
+		to_chat(usr, "NanoMapGen: <B>ERROR: startX ([startX]) cannot be greater than endX ([endX])</B>")
 
 		sleep(3)
 		return NANOMAP_TERMINALERR
 
-	if (startY > endX)
-		usr << "NanoMapGen: <B>ERROR: startY ([startY]) cannot be greater than endY ([endY])</B>"
+	if(startY > endX)
+		to_chat(usr, "NanoMapGen: <B>ERROR: startY ([startY]) cannot be greater than endY ([endY])</B>")
 		sleep(3)
 		return NANOMAP_TERMINALERR
 
 	var/icon/Tile = icon(file("nano/mapbase1024.png"))
-	if (Tile.Width() != NANOMAP_MAX_ICON_DIMENSION || Tile.Height() != NANOMAP_MAX_ICON_DIMENSION)
+	if(Tile.Width() != NANOMAP_MAX_ICON_DIMENSION || Tile.Height() != NANOMAP_MAX_ICON_DIMENSION)
 		log_to_dd("NanoMapGen: <B>ERROR: BASE IMAGE DIMENSIONS ARE NOT [NANOMAP_MAX_ICON_DIMENSION]x[NANOMAP_MAX_ICON_DIMENSION]</B>")
 		sleep(3)
 		return NANOMAP_TERMINALERR
 
 	log_to_dd("NanoMapGen: <B>GENERATE MAP ([startX],[startY],[currentZ]) to ([endX],[endY],[currentZ])</B>")
-	usr << "NanoMapGen: <B>GENERATE MAP ([startX],[startY],[currentZ]) to ([endX],[endY],[currentZ])</B>"
+	to_chat(usr, "NanoMapGen: <B>GENERATE MAP ([startX],[startY],[currentZ]) to ([endX],[endY],[currentZ])</B>")
 
 	var/count = 0;
 	for(var/WorldX = startX, WorldX <= endX, WorldX++)
@@ -70,7 +70,7 @@
 
 			count++
 
-			if (count % 8000 == 0)
+			if(count % 8000 == 0)
 				log_to_dd("NanoMapGen: <B>[count] tiles done</B>")
 				sleep(1)
 
@@ -82,9 +82,9 @@
 
 	log_to_dd("NanoMapGen: <B>Done.</B>")
 
-	usr << "NanoMapGen: <B>Done. File [mapFilename] uploaded to your cache.</B>"
+	to_chat(usr, "NanoMapGen: <B>Done. File [mapFilename] uploaded to your cache.</B>")
 
-	if (Tile.Width() != NANOMAP_MAX_ICON_DIMENSION || Tile.Height() != NANOMAP_MAX_ICON_DIMENSION)
+	if(Tile.Width() != NANOMAP_MAX_ICON_DIMENSION || Tile.Height() != NANOMAP_MAX_ICON_DIMENSION)
 		return NANOMAP_BADOUTPUT
 
 	return NANOMAP_SUCCESS

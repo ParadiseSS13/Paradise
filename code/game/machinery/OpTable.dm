@@ -13,14 +13,24 @@
 
 	var/obj/machinery/computer/operating/computer = null
 	buckle_lying = 90
+	var/no_icon_updates = 0 //set this to 1 if you don't want the icons ever changing
 
 /obj/machinery/optable/New()
 	..()
 	for(dir in list(NORTH,EAST,SOUTH,WEST))
 		computer = locate(/obj/machinery/computer/operating, get_step(src, dir))
-		if (computer)
+		if(computer)
 			computer.table = src
 			break
+
+/obj/machinery/optable/Destroy()
+	if(computer)
+		computer.table = null
+		computer.victim = null
+		computer = null
+	if(victim)
+		victim = null
+	return ..()
 
 /obj/machinery/optable/ex_act(severity)
 	switch(severity)
@@ -29,12 +39,12 @@
 			qdel(src)
 			return
 		if(2.0)
-			if (prob(50))
+			if(prob(50))
 				//SN src = null
 				qdel(src)
 				return
 		if(3.0)
-			if (prob(25))
+			if(prob(25))
 				src.density = 0
 		else
 	return
@@ -44,15 +54,15 @@
 		qdel(src)
 
 /obj/machinery/optable/attack_hand(mob/user as mob)
-	if (HULK in usr.mutations)
-		usr << text("\blue You destroy the table.")
+	if(HULK in usr.mutations)
+		to_chat(usr, text("\blue You destroy the table."))
 		visible_message("\red [usr] destroys the operating table!")
 		src.density = 0
 		qdel(src)
 	return
 
-/obj/machinery/optable/CanPass(atom/movable/mover, turf/target, height=0, air_group=0)
-	if(air_group || (height==0)) return 1
+/obj/machinery/optable/CanPass(atom/movable/mover, turf/target, height=0)
+	if(height==0) return 1
 
 	if(istype(mover) && mover.checkpass(PASSTABLE))
 		return 1
@@ -79,26 +89,26 @@
 		var/mob/living/carbon/human/M = locate(/mob/living/carbon/human, src.loc)
 		if(M.lying)
 			src.victim = M
-			icon_state = M.pulse ? "table2-active" : "table2-idle"
+			if(!no_icon_updates)
+				icon_state = M.pulse ? "table2-active" : "table2-idle"
 			return 1
 	src.victim = null
-	icon_state = "table2-idle"
+	if(!no_icon_updates)
+		icon_state = "table2-idle"
 	return 0
 
 /obj/machinery/optable/process()
 	check_victim()
 
 /obj/machinery/optable/proc/take_victim(mob/living/carbon/C, mob/living/carbon/user as mob)
-	if (C == user)
+	if(C == user)
 		user.visible_message("[user] climbs on the operating table.","You climb on the operating table.")
 	else
 		visible_message("<span class='alert'>[C] has been laid on the operating table by [user].</span>")
-	if (C.client)
-		C.client.perspective = EYE_PERSPECTIVE
-		C.client.eye = src
 	C.resting = 1
-	C.loc = src.loc
-	if (user.pulling == C)
+	C.update_canmove()
+	C.forceMove(loc)
+	if(user.pulling == C)
 		user.stop_pulling()
 	for(var/obj/O in src)
 		O.loc = src.loc
@@ -106,9 +116,11 @@
 	if(ishuman(C))
 		var/mob/living/carbon/human/H = C
 		src.victim = H
-		icon_state = H.pulse ? "table2-active" : "table2-idle"
+		if(!no_icon_updates)
+			icon_state = H.pulse ? "table2-active" : "table2-idle"
 	else
-		icon_state = "table2-idle"
+		if(!no_icon_updates)
+			icon_state = "table2-idle"
 
 /obj/machinery/optable/verb/climb_on()
 	set name = "Climb On Table"
@@ -121,20 +133,26 @@
 	take_victim(usr,usr)
 
 /obj/machinery/optable/attackby(obj/item/weapon/W as obj, mob/living/carbon/user as mob, params)
-	if (istype(W, /obj/item/weapon/grab))
+	if(istype(W, /obj/item/weapon/grab))
 		if(iscarbon(W:affecting))
 			take_victim(W:affecting,usr)
 			qdel(W)
 			return
+	if(istype(W, /obj/item/weapon/wrench))
+		playsound(src.loc, W.usesound, 50, 1)
+		if(do_after(user, 20 * W.toolspeed, target = src))
+			to_chat(user, "<span class='notice'>You deconstruct the table.</span>")
+			new /obj/item/stack/sheet/plasteel(loc, 5)
+			qdel(src)
 
 
 /obj/machinery/optable/proc/check_table(mob/living/carbon/patient as mob)
 	if(src.victim && get_turf(victim) == get_turf(src) && victim.lying)
-		usr << "<span class='notice'>The table is already occupied!</span>"
+		to_chat(usr, "<span class='notice'>The table is already occupied!</span>")
 		return 0
 
 	if(patient.buckled)
-		usr << "<span class='notice'>Unbuckle first!</span>"
+		to_chat(usr, "<span class='notice'>Unbuckle first!</span>")
 		return 0
 
 	return 1

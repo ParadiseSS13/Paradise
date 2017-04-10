@@ -26,11 +26,11 @@
 
 /obj/machinery/space_heater/air_conditioner/examine(mob/user)
 	..(user)
-	user << "The air conditioner is [on ? "on" : "off"] and the hatch is [open ? "open" : "closed"]."
+	to_chat(user, "The air conditioner is [on ? "on" : "off"] and the hatch is [open ? "open" : "closed"].")
 	if(open)
-		user << "The power cell is [cell ? "installed" : "missing"]."
+		to_chat(user, "The power cell is [cell ? "installed" : "missing"].")
 	else
-		user << "The charge meter reads [cell ? round(cell.percent(),1) : 0]%"
+		to_chat(user, "The charge meter reads [cell ? round(cell.percent(),1) : 0]%")
 
 
 /obj/machinery/space_heater/air_conditioner/emp_act(severity)
@@ -45,7 +45,7 @@
 	if(istype(I, /obj/item/weapon/stock_parts/cell))
 		if(open)
 			if(cell)
-				user << "There is already a power cell inside."
+				to_chat(user, "There is already a power cell inside.")
 				return
 			else
 				// insert cell
@@ -58,7 +58,7 @@
 
 					user.visible_message("<span class='notice'>[user] inserts a power cell into [src].</span>", "<span class='notice'>You insert the power cell into [src].</span>")
 		else
-			user << "The hatch must be open to insert a power cell."
+			to_chat(user, "The hatch must be open to insert a power cell.")
 			return
 	else if(istype(I, /obj/item/weapon/screwdriver))
 		open = !open
@@ -80,20 +80,20 @@
 		var/dat
 		dat = "Power cell: "
 		if(cell)
-			dat += "<A href='byond://?src=\ref[src];op=cellremove'>Installed</A><BR>"
+			dat += "<A href='byond://?src=[UID()];op=cellremove'>Installed</A><BR>"
 		else
-			dat += "<A href='byond://?src=\ref[src];op=cellinstall'>Removed</A><BR>"
+			dat += "<A href='byond://?src=[UID()];op=cellinstall'>Removed</A><BR>"
 
 
 		// AUTOFIXED BY fix_string_idiocy.py
 		// C:\Users\Rob\Documents\Projects\vgstation13\code\ATMOSPHERICS\chiller.dm:95: dat += "Power Level: [cell ? round(cell.percent(),1) : 0]%<BR><BR>"
 		dat += {"Power Level: [cell ? round(cell.percent(),1) : 0]%<BR><BR>
 			Set Temperature:
-			<A href='?src=\ref[src];op=temp;val=-5'>-</A>
-			<A href='?src=\ref[src];op=temp;val=-1'>-</A>
+			<A href='?src=[UID()];op=temp;val=-5'>-</A>
+			<A href='?src=[UID()];op=temp;val=-1'>-</A>
 			[temp]&deg;C
-			<A href='?src=\ref[src];op=temp;val=1'>+</A>
-			<A href='?src=\ref[src];op=temp;val=5'>+</A><BR>"}
+			<A href='?src=[UID()];op=temp;val=1'>+</A>
+			<A href='?src=[UID()];op=temp;val=5'>+</A><BR>"}
 		// END AUTOFIX
 		user.set_machine(src)
 		user << browse("<HEAD><TITLE>Air Conditioner Control Panel</TITLE></HEAD><TT>[dat]</TT>", "window=aircond")
@@ -105,9 +105,9 @@
 	return
 
 /obj/machinery/space_heater/air_conditioner/Topic(href, href_list)
-	if (usr.stat)
+	if(usr.stat)
 		return
-	if ((in_range(src, usr) && istype(src.loc, /turf)) || (istype(usr, /mob/living/silicon)))
+	if((in_range(src, usr) && istype(src.loc, /turf)) || (istype(usr, /mob/living/silicon)))
 		usr.set_machine(src)
 
 		switch(href_list["op"])

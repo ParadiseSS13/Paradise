@@ -1,7 +1,7 @@
 /obj/effect/decal/point
 	name = "arrow"
 	desc = "It's an arrow hanging in mid-air. There may be a wizard about."
-	icon = 'icons/mob/screen1.dmi'
+	icon = 'icons/mob/screen_gen.dmi'
 	icon_state = "arrow"
 	layer = 16.0
 	anchored = 1
@@ -12,6 +12,7 @@
 	density = 0
 	anchored = 1
 	layer = 50
+	plane = HUD_PLANE
 
 /obj/effect/decal/chempuff
 	name = "chemicals"

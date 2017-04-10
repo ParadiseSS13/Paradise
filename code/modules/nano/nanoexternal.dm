@@ -13,13 +13,13 @@
 
 	var/datum/nanoui/ui = locate(uiref)
 
-	if (istype(ui))
+	if(istype(ui))
 		ui.close()
 
 		if(ui.ref)
 			var/href = "close=1"
 			src.Topic(href, params2list(href), ui.ref)	// this will direct to the atom's Topic() proc via client.Topic()
-		else if (ui.on_close_logic)
+		else if(ui.on_close_logic)
 			// no atomref specified (or not found)
 			// so just reset the user mob's machine var
 			if(src && src.mob)
@@ -28,7 +28,7 @@
  /**
   * The ui_interact proc is used to open and update Nano UIs
   * If ui_interact is not used then the UI will not update correctly
-  * ui_interact is currently defined for /atom/movable
+  * ui_interact is currently defined for /datum
   *
   * @param user /mob The mob who is interacting with this ui
   * @param ui_key string A string key to use for this ui. Allows for multiple unique uis on one obj/mob (defaut value "main")
@@ -39,6 +39,18 @@
   */
 /datum/proc/ui_interact(mob/user, ui_key = "main", var/datum/nanoui/ui = null, var/force_open = 1, var/datum/nano_ui/master_ui = null, var/datum/topic_state/state = default_state)
 	return
+
+/**
+ * The ui_data proc is used to get data for the interface
+ *
+ * @param user /mob The mob who is viewing this ui
+ * @param ui_key string A string key to use for this ui. Allows for multiple unique uis on one obj/mob (defaut value "main")
+ * @param state /datum/topic_state Current topic state of the UI
+ *
+ * @return list()
+ */
+/datum/proc/ui_data(mob/user, ui_key = "main", datum/topic_state/state = default_state)
+	return list()
 
 // Used by the Nano UI Manager (/datum/nanomanager) to track UIs opened by this mob
 /mob/var/list/open_uis = list()

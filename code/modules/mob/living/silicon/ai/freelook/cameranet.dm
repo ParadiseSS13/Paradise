@@ -2,33 +2,34 @@
 //
 // The datum containing all the chunks.
 
+var/const/CHUNK_SIZE = 16 // Only chunk sizes that are to the power of 2. E.g: 2, 4, 8, 16, etc..
+
 var/datum/cameranet/cameranet = new()
 
 /datum/cameranet
+	var/name = "Camera Net" // Name to show for VV and stat()
+
 	// The cameras on the map, no matter if they work or not. Updated in obj/machinery/camera.dm by New() and Destroy().
 	var/list/cameras = list()
-	var/cameras_unsorted = 1
 	// The chunks of the map, mapping the areas that the cameras can see.
 	var/list/chunks = list()
 	var/ready = 0
 
-/datum/cameranet/proc/process_sort()
-	if(cameras_unsorted)
-		cameras = dd_sortedObjectList(cameras)
-		cameras_unsorted = 0
+	// The object used for the clickable stat() button.
+	var/obj/effect/statclick/statclick
 
 // Checks if a chunk has been Generated in x, y, z.
 /datum/cameranet/proc/chunkGenerated(x, y, z)
-	x &= ~0xf
-	y &= ~0xf
+	x &= ~(CHUNK_SIZE - 1)
+	y &= ~(CHUNK_SIZE - 1)
 	var/key = "[x],[y],[z]"
 	return (chunks[key])
 
 // Returns the chunk in the x, y, z.
 // If there is no chunk, it creates a new chunk and returns that.
 /datum/cameranet/proc/getCameraChunk(x, y, z)
-	x &= ~0xf
-	y &= ~0xf
+	x &= ~(CHUNK_SIZE - 1)
+	y &= ~(CHUNK_SIZE - 1)
 	var/key = "[x],[y],[z]"
 	if(!chunks[key])
 		chunks[key] = new /datum/camerachunk(null, x, y, z)
@@ -37,12 +38,12 @@ var/datum/cameranet/cameranet = new()
 
 // Updates what the aiEye can see. It is recommended you use this when the aiEye moves or it's location is set.
 
-/datum/cameranet/proc/visibility(mob/aiEye/ai)
+/datum/cameranet/proc/visibility(mob/camera/aiEye/ai)
 	// 0xf = 15
-	var/x1 = max(0, ai.x - 16) & ~0xf
-	var/y1 = max(0, ai.y - 16) & ~0xf
-	var/x2 = min(world.maxx, ai.x + 16) & ~0xf
-	var/y2 = min(world.maxy, ai.y + 16) & ~0xf
+	var/x1 = max(0, ai.x - 16) & ~(CHUNK_SIZE - 1)
+	var/y1 = max(0, ai.y - 16) & ~(CHUNK_SIZE - 1)
+	var/x2 = min(world.maxx, ai.x + 16) & ~(CHUNK_SIZE - 1)
+	var/y2 = min(world.maxy, ai.y + 16) & ~(CHUNK_SIZE - 1)
 
 	var/list/visibleChunks = list()
 
@@ -63,7 +64,7 @@ var/datum/cameranet/cameranet = new()
 
 // Updates the chunks that the turf is located in. Use this when obstacles are destroyed or	when doors open.
 
-/datum/cameranet/proc/updateVisibility(atom/A, var/opacity_check = 1)
+/datum/cameranet/proc/updateVisibility(atom/A, opacity_check = 1)
 
 	if(!ticker || (opacity_check && !A.opacity))
 		return
@@ -109,15 +110,15 @@ var/datum/cameranet/cameranet = new()
 
 	var/turf/T = get_turf(c)
 	if(T)
-		var/x1 = max(0, T.x - 8) & ~0xf
-		var/y1 = max(0, T.y - 8) & ~0xf
-		var/x2 = min(world.maxx, T.x + 8) & ~0xf
-		var/y2 = min(world.maxy, T.y + 8) & ~0xf
+		var/x1 = max(0, T.x - (CHUNK_SIZE / 2)) & ~(CHUNK_SIZE - 1)
+		var/y1 = max(0, T.y - (CHUNK_SIZE / 2)) & ~(CHUNK_SIZE - 1)
+		var/x2 = min(world.maxx, T.x + (CHUNK_SIZE / 2)) & ~(CHUNK_SIZE - 1)
+		var/y2 = min(world.maxy, T.y + (CHUNK_SIZE / 2)) & ~(CHUNK_SIZE - 1)
 
-		//world << "X1: [x1] - Y1: [y1] - X2: [x2] - Y2: [y2]"
+//		to_chat(world, "X1: [x1] - Y1: [y1] - X2: [x2] - Y2: [y2]")
 
-		for(var/x = x1; x <= x2; x += 16)
-			for(var/y = y1; y <= y2; y += 16)
+		for(var/x = x1; x <= x2; x += CHUNK_SIZE)
+			for(var/y = y1; y <= y2; y += CHUNK_SIZE)
 				if(chunkGenerated(x, y, T.z))
 					var/datum/camerachunk/chunk = getCameraChunk(x, y, T.z)
 					if(choice == 0)
@@ -144,6 +145,14 @@ var/datum/cameranet/cameranet = new()
 		if(chunk.visibleTurfs[position])
 			return 1
 	return 0
+
+/*
+/datum/cameranet/proc/stat_entry()
+	if(!statclick)
+		statclick = new/obj/effect/statclick/debug("Initializing...", src)
+
+	stat(name, statclick.update("Cameras: [cameranet.cameras.len] | Chunks: [cameranet.chunks.len]"))
+*/
 
 // Debug verb for VVing the chunk that the turf is in.
 /*

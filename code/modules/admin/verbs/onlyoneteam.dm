@@ -3,7 +3,8 @@
 		alert("The game hasn't started yet!")
 		return
 
-	var/list/incompatible_species = list("Plasmaman")
+	var/list/incompatible_species = list("Plasmaman", "Vox")
+	var/team_toggle = 0
 	for(var/mob/living/carbon/human/H in player_list)
 		if(H.stat == DEAD || !(H.client))
 			continue
@@ -14,20 +15,20 @@
 			var/datum/preferences/A = new()	// Randomize appearance
 			A.copy_to(H)
 
-		for (var/obj/item/I in H)
-			if (istype(I, /obj/item/weapon/implant))
+		for(var/obj/item/I in H)
+			if(istype(I, /obj/item/weapon/implant))
 				continue
 			if(istype (I, /obj/item/organ))
 				continue
 			qdel(I)
 
-		H << "<B>You are part of the [station_name()] dodgeball tournament. Throw dodgeballs at crewmembers wearing a different color than you. OOC: Use THROW on an EMPTY-HAND to catch thrown dodgeballs.</B>"
+		to_chat(H, "<B>You are part of the [station_name()] dodgeball tournament. Throw dodgeballs at crewmembers wearing a different color than you. OOC: Use THROW on an EMPTY-HAND to catch thrown dodgeballs.</B>")
 
 		H.equip_to_slot_or_del(new /obj/item/device/radio/headset/heads/captain(H), slot_l_ear)
 		H.equip_to_slot_or_del(new /obj/item/weapon/beach_ball/dodgeball(H), slot_r_hand)
 		H.equip_to_slot_or_del(new /obj/item/clothing/shoes/white(H), slot_shoes)
 
-		if(prob(50))
+		if(!team_toggle)
 			team_alpha += H
 
 			H.equip_to_slot_or_del(new /obj/item/clothing/under/color/red/dodgeball(H), slot_w_uniform)
@@ -53,7 +54,8 @@
 			W.registered_name = H.real_name
 			H.equip_to_slot_or_del(W, slot_wear_id)
 
-		H.species.equip(H)
+		team_toggle = !team_toggle
+		H.species.after_equip_job(null, H)
 		H.regenerate_icons()
 
 	message_admins("[key_name_admin(usr)] used DODGEBAWWWWWWWL! -NO ATTACK LOGS WILL BE SENT TO ADMINS FROM THIS POINT FORTH-", 1)
@@ -75,13 +77,13 @@
 		if(H.l_hand == src) return
 		var/mob/A = H.LAssailant
 		if((H in team_alpha) && (A in team_alpha))
-			A << "<span class='warning'>He's on your team!</span>"
+			to_chat(A, "<span class='warning'>He's on your team!</span>")
 			return
 		else if((H in team_bravo) && (A in team_bravo))
-			A << "<span class='warning'>He's on your team!</span>"
+			to_chat(A, "<span class='warning'>He's on your team!</span>")
 			return
 		else if(!A in team_alpha && !A in team_bravo)
-			A << "<span class='warning'>You're not part of the dodgeball game, sorry!</span>"
+			to_chat(A, "<span class='warning'>You're not part of the dodgeball game, sorry!</span>")
 			return
 		else
 			playsound(src, 'sound/items/dodgeball.ogg', 50, 1)

@@ -4,12 +4,14 @@
 	icon = 'icons/obj/assemblies/new_assemblies.dmi'
 	icon_state = ""
 	flags = CONDUCT
-	w_class = 2.0
+	w_class = 2
 	materials = list(MAT_METAL=100)
 	throwforce = 2
 	throw_speed = 3
 	throw_range = 10
 	origin_tech = "magnets=1"
+	toolspeed = 1
+	usesound = 'sound/items/Deconstruct.ogg'
 
 	var/bomb_name = "bomb" // used for naming bombs / mines
 
@@ -114,7 +116,7 @@
 	attach_assembly(var/obj/item/device/assembly/A, var/mob/user)
 		holder = new/obj/item/device/assembly_holder(get_turf(src))
 		if(holder.attach(A,src,user))
-			user << "\blue You attach \the [A] to \the [src]!"
+			to_chat(user, "\blue You attach \the [A] to \the [src]!")
 			return 1
 		return 0
 
@@ -127,9 +129,9 @@
 				return
 		if(istype(W, /obj/item/weapon/screwdriver))
 			if(toggle_secure())
-				user << "\blue \The [src] is ready!"
+				to_chat(user, "\blue \The [src] is ready!")
 			else
-				user << "\blue \The [src] can now be attached!"
+				to_chat(user, "\blue \The [src] can now be attached!")
 			return
 		..()
 		return
@@ -144,9 +146,9 @@
 		..(user)
 		if((in_range(src, user) || loc == user))
 			if(secured)
-				user << "\The [src] is ready!"
+				to_chat(user, "\The [src] is ready!")
 			else
-				user << "\The [src] can be attached!"
+				to_chat(user, "\The [src] can be attached!")
 
 
 	attack_self(mob/user as mob)

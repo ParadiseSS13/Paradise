@@ -13,8 +13,31 @@
 			new refined_type(get_turf(src.loc))
 			qdel(src)
 		else if(W.isOn())
-			user << "<span class='info'>Not enough fuel to smelt [src].</span>"
+			to_chat(user, "<span class='info'>Not enough fuel to smelt [src].</span>")
 	..()
+
+/obj/item/weapon/ore/Crossed(AM as mob|obj)
+	var/obj/item/weapon/storage/bag/ore/OB
+	var/turf/simulated/floor/F = get_turf(src)
+	if(loc != F)
+		return ..()
+	if(ishuman(AM))
+		var/mob/living/carbon/human/H = AM
+		for(var/thing in H.get_body_slots())
+			if(istype(thing, /obj/item/weapon/storage/bag/ore))
+				OB = thing
+				break
+	else if(isrobot(AM))
+		var/mob/living/silicon/robot/R = AM
+		for(var/thing in R.get_all_slots())
+			if(istype(thing, /obj/item/weapon/storage/bag/ore))
+				OB = thing
+				break
+	if(OB && istype(F, /turf/simulated/floor/plating/airless/asteroid))
+		F.attackby(OB, AM)
+	return ..()
+
+
 
 /obj/item/weapon/ore/uranium
 	name = "uranium ore"
@@ -40,8 +63,12 @@
 	refined_type = /obj/item/stack/sheet/glass
 	materials = list(MAT_GLASS=MINERAL_MATERIAL_AMOUNT)
 
+/obj/item/weapon/ore/glass/basalt
+	name = "volcanic ash"
+	icon_state = "volcanic_sand"
+
 /obj/item/weapon/ore/glass/attack_self(mob/living/user as mob)
-	user << "<span class='notice'>You use the sand to make sandstone.</span>"
+	to_chat(user, "<span class='notice'>You use the sand to make sandstone.</span>")
 	var/sandAmt = 1
 	for(var/obj/item/weapon/ore/glass/G in user.loc) // The sand on the floor
 		sandAmt += 1
@@ -71,7 +98,7 @@
 	if(istype(I, /obj/item/weapon/weldingtool))
 		var/obj/item/weapon/weldingtool/W = I
 		if(W.welding)
-			user << "<span class='warning'>You can't hit a high enough temperature to smelt [src] properly!</span>"
+			to_chat(user, "<span class='warning'>You can't hit a high enough temperature to smelt [src] properly!</span>")
 	else
 		..()
 
@@ -107,6 +134,14 @@
 	refined_type = /obj/item/stack/sheet/mineral/bananium
 	materials = list(MAT_BANANIUM=MINERAL_MATERIAL_AMOUNT)
 
+/obj/item/weapon/ore/tranquillite
+	name = "tranquillite ore"
+	icon_state = "Mime ore"
+	origin_tech = "materials=4"
+	points = 60
+	refined_type = /obj/item/stack/sheet/mineral/tranquillite
+	materials = list(MAT_TRANQUILLITE=MINERAL_MATERIAL_AMOUNT)
+
 /obj/item/weapon/ore/slag
 	name = "slag"
 	desc = "Completely useless"
@@ -128,8 +163,7 @@
 	var/datum/wires/explosive/gibtonite/wires
 
 /obj/item/weapon/twohanded/required/gibtonite/Destroy()
-	qdel(wires)
-	wires = null
+	QDEL_NULL(wires)
 	return ..()
 
 /obj/item/weapon/twohanded/required/gibtonite/attackby(obj/item/I, mob/user, params)
@@ -158,7 +192,11 @@
 			return
 	..()
 
-/obj/item/weapon/twohanded/required/gibtonite/attack_self(user)
+/obj/item/weapon/twohanded/required/gibtonite/attack_ghost(mob/user)
+	if(wires)
+		wires.Interact(user)
+
+/obj/item/weapon/twohanded/required/gibtonite/attack_self(mob/user)
 	if(wires)
 		wires.Interact(user)
 	else
@@ -209,7 +247,7 @@
 /obj/item/weapon/ore/New()
 	pixel_x = rand(0,16)-8
 	pixel_y = rand(0,8)-8
-	if(src.z == ZLEVEL_ASTEROID)
+	if(is_mining_level(src.z))
 		score_oremined++ //When ore spawns, increment score.  Only include ore spawned on mining asteroid (No Clown Planet)
 
 /obj/item/weapon/ore/ex_act()

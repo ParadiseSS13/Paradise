@@ -29,6 +29,11 @@
 
 /obj/structure/New()
 	..()
+	if(smooth)
+		if(ticker && ticker.current_state == GAME_STATE_PLAYING)
+			smooth_icon(src)
+			smooth_icon_neighbors(src)
+		icon_state = ""
 	if(climbable)
 		verbs += /obj/structure/proc/climb_on
 	if(ticker)
@@ -37,6 +42,10 @@
 /obj/structure/Destroy()
 	if(ticker)
 		cameranet.updateVisibility(src)
+	if(smooth)
+		var/turf/T = get_turf(src)
+		spawn(0)
+			smooth_icon_neighbors(T)
 	return ..()
 
 /obj/structure/proc/climb_on()
@@ -57,16 +66,16 @@
 
 /obj/structure/proc/do_climb(var/mob/living/user)
 
-	if (!can_touch(user) || !climbable)
+	if(!can_touch(user) || !climbable)
 		return
 
 	for(var/obj/O in range(0, src))
 		if(O.density == 1 && O != src && !istype(O, /obj/machinery/door/window)) //Ignores windoors, as those already block climbing, otherwise a windoor on the opposite side of a table would prevent climbing.
-			user << "\red You cannot climb [src], as it is blocked by \a [O]!"
+			to_chat(user, "\red You cannot climb [src], as it is blocked by \a [O]!")
 			return
 	for(var/turf/T in range(0, src))
 		if(T.density == 1)
-			user << "\red You cannot climb [src], as it is blocked by \a [T]!"
+			to_chat(user, "\red You cannot climb [src], as it is blocked by \a [T]!")
 			return
 	var/turf/T = src.loc
 	if(!T || !istype(T)) return
@@ -76,11 +85,11 @@
 
 	usr.visible_message("<span class='warning'>[user] starts climbing onto \the [src]!</span>")
 	climber = user
-	if(!do_after(user,50, target = src))
+	if(!do_after(user, 50, target = src))
 		climber = null
 		return
 
-	if (!can_touch(user) || !climbable)
+	if(!can_touch(user) || !climbable)
 		climber = null
 		return
 
@@ -90,7 +99,7 @@
 		return
 
 	usr.loc = get_turf(src)
-	if (get_turf(user) == get_turf(src))
+	if(get_turf(user) == get_turf(src))
 		usr.visible_message("<span class='warning'>[user] climbs onto \the [src]!</span>")
 
 	climber = null
@@ -102,14 +111,14 @@
 		if(M.lying) return //No spamming this on people.
 
 		M.Weaken(5)
-		M << "\red You topple as \the [src] moves under you!"
+		to_chat(M, "\red You topple as \the [src] moves under you!")
 
 		if(prob(25))
 
 			var/damage = rand(15,30)
 			var/mob/living/carbon/human/H = M
 			if(!istype(H))
-				H << "\red You land heavily!"
+				to_chat(H, "\red You land heavily!")
 				M.adjustBruteLoss(damage)
 				return
 
@@ -128,12 +137,12 @@
 					affecting = H.get_organ("head")
 
 			if(affecting)
-				M << "\red You land heavily on your [affecting.name]!"
+				to_chat(M, "\red You land heavily on your [affecting.name]!")
 				affecting.take_damage(damage, 0)
 				if(affecting.parent)
 					affecting.parent.add_autopsy_data("Misadventure", damage)
 			else
-				H << "\red You land heavily!"
+				to_chat(H, "\red You land heavily!")
 				H.adjustBruteLoss(damage)
 
 			H.UpdateDamageIcon()
@@ -141,17 +150,17 @@
 	return
 
 /obj/structure/proc/can_touch(var/mob/user)
-	if (!user)
+	if(!user)
 		return 0
 	if(!Adjacent(user))
 		return 0
-	if (user.restrained() || user.buckled)
-		user << "<span class='notice'>You need your hands and legs free for this.</span>"
+	if(user.restrained() || user.buckled)
+		to_chat(user, "<span class='notice'>You need your hands and legs free for this.</span>")
 		return 0
-	if (user.stat || user.paralysis || user.sleeping || user.lying || user.weakened)
+	if(user.stat || user.paralysis || user.sleeping || user.lying || user.weakened)
 		return 0
-	if (issilicon(user))
-		user << "<span class='notice'>You need hands for this.</span>"
+	if(issilicon(user))
+		to_chat(user, "<span class='notice'>You need hands for this.</span>")
 		return 0
 	return 1
 

@@ -10,9 +10,9 @@
 	<div class='item'>
 			<div style='float'>
 				{{if value.price > 0}}
-					{{:helper.link('Buy (' + value.price + ')', 'cart', { "vend" : value.key }, value.amount > 0 ? null : 'disabled')}}
+					{{:helper.link('Buy (' + value.price + ')', 'shopping-cart', { "vend" : value.key }, value.amount > 0 ? null : 'disabled')}}
 				{{else}}
-					{{:helper.link('Vend', 'circle-arrow-s', { "vend" : value.key }, value.amount > 0 ? null : 'disabled')}}
+					{{:helper.link('Vend', 'arrow-circle-down', { "vend" : value.key }, value.amount > 0 ? null : 'disabled')}}
 				{{/if}}
 			</div>
 		<div class='itemContent'>
@@ -44,8 +44,8 @@
 		{{if data.message_err}} <span class='uiIcon16 icon-alert' ></span>{{/if}} {{:data.message}}
 	</div>
 	<div class='item'>
-		{{:helper.link('Pay', 'cart', {'pay' : 1})}}
-		{{:helper.link('Cancel', 'arrowreturn-1-w', {'cancelpurchase' : 1})}}
+		{{:helper.link('Pay', 'shopping-cart', {'pay' : 1})}}
+		{{:helper.link('Cancel', 'arrow-left', {'cancelpurchase' : 1})}}
 	</div>
 </div>
 {{/if}}

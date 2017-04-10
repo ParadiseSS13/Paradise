@@ -9,6 +9,7 @@
 	var/dye_color = "#FFFFFF"
 
 /obj/machinery/dye_generator/initialize()
+	..()
 	power_change()
 
 /obj/machinery/dye_generator/power_change()
@@ -32,7 +33,7 @@
 			qdel(src)
 			return
 		if(2.0)
-			if (prob(50))
+			if(prob(50))
 				qdel(src)
 				return
 		if(3.0)
@@ -73,7 +74,7 @@
 	throw_speed = 4
 	throw_range = 7
 	force = 0
-	w_class = 1.0
+	w_class = 1
 	var/dye_color = "#FFFFFF"
 
 /obj/item/hair_dye_bottle/New()
@@ -110,21 +111,21 @@
 		if(do_after(user, 50, target = H))
 			switch(what_to_dye)
 				if("hair")
-					var/r_hair = hex2num(copytext(dye_color, 2, 4))
-					var/g_hair = hex2num(copytext(dye_color, 4, 6))
-					var/b_hair = hex2num(copytext(dye_color, 6, 8))
+					var/r_hair = color2R(dye_color)
+					var/g_hair = color2G(dye_color)
+					var/b_hair = color2B(dye_color)
 					if(H.change_hair_color(r_hair, g_hair, b_hair))
 						H.update_dna()
 				if("facial hair")
-					var/r_facial = hex2num(copytext(dye_color, 2, 4))
-					var/g_facial = hex2num(copytext(dye_color, 4, 6))
-					var/b_facial = hex2num(copytext(dye_color, 6, 8))
+					var/r_facial = color2R(dye_color)
+					var/g_facial = color2G(dye_color)
+					var/b_facial = color2B(dye_color)
 					if(H.change_facial_hair_color(r_facial, g_facial, b_facial))
 						H.update_dna()
 				if("body")
-					var/r_skin = hex2num(copytext(dye_color, 2, 4))
-					var/g_skin = hex2num(copytext(dye_color, 4, 6))
-					var/b_skin = hex2num(copytext(dye_color, 6, 8))
+					var/r_skin = color2R(dye_color)
+					var/g_skin = color2G(dye_color)
+					var/b_skin = color2B(dye_color)
 					if(H.change_skin_color(r_skin, g_skin, b_skin))
 						H.update_dna()
 		user.visible_message("<span class='notice'>[user] finishes dying [M]'s [what_to_dye]!</span>", "<span class='notice'>You finish dying [M]'s [what_to_dye]!</span>")

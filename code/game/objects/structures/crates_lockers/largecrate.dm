@@ -1,8 +1,8 @@
 /obj/structure/largecrate
 	name = "large crate"
 	desc = "A hefty wooden crate."
-	icon = 'icons/obj/storage.dmi'
-	icon_state = "densecrate"
+	icon = 'icons/obj/crates.dmi'
+	icon_state = "largecrate"
 	density = 1
 	var/obj/item/weapon/paper/manifest/manifest
 
@@ -18,7 +18,7 @@
 
 /obj/structure/largecrate/attack_hand(mob/user as mob)
 	if(manifest)
-		user << "<span class='notice'>You tear the manifest off of the crate.</span>"
+		to_chat(user, "<span class='notice'>You tear the manifest off of the crate.</span>")
 		playsound(src.loc, 'sound/items/poster_ripped.ogg', 75, 1)
 		manifest.forceMove(loc)
 		if(ishuman(user))
@@ -27,7 +27,7 @@
 		update_icon()
 		return
 	else
-		user << "<span class='notice'>You need a crowbar to pry this open!</span>"
+		to_chat(user, "<span class='notice'>You need a crowbar to pry this open!</span>")
 		return
 
 /obj/structure/largecrate/attackby(obj/item/weapon/W as obj, mob/user as mob, params)
@@ -38,8 +38,9 @@
 			update_icon()
 		new /obj/item/stack/sheet/wood(src)
 		var/turf/T = get_turf(src)
-		for(var/obj/O in contents)
-			O.forceMove(T)
+		for(var/O in contents)
+			var/atom/movable/A = O
+			A.forceMove(T)
 		user.visible_message("<span class='notice'>[user] pries \the [src] open.</span>", \
 							 "<span class='notice'>You pry open \the [src].</span>", \
 							 "<span class='notice'>You hear splitting wood.</span>")
@@ -48,7 +49,6 @@
 		return attack_hand(user)
 
 /obj/structure/largecrate/mule
-	icon_state = "mulecrate"
 
 /obj/structure/largecrate/lisa
 	icon_state = "lisacrate"

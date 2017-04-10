@@ -6,15 +6,28 @@ var/const/PARTICLE_TOGGLE_WIRE = 1 // Toggles whether the PA is on or not.
 var/const/PARTICLE_STRENGTH_WIRE = 2 // Determines the strength of the PA.
 var/const/PARTICLE_INTERFACE_WIRE = 4 // Determines the interface showing up.
 var/const/PARTICLE_LIMIT_POWER_WIRE = 8 // Determines how strong the PA can be.
-//var/const/PARTICLE_NOTHING_WIRE = 16 // Blank wire
 
-/datum/wires/particle_acc/control_box/CanUse(var/mob/living/L)
+/datum/wires/particle_acc/control_box/GetWireName(index)
+	switch(index)
+		if(PARTICLE_TOGGLE_WIRE)
+			return "Power Toggle"
+		
+		if(PARTICLE_STRENGTH_WIRE)
+			return "Strength"
+		
+		if(PARTICLE_INTERFACE_WIRE)
+			return "Interface"
+			
+		if(PARTICLE_LIMIT_POWER_WIRE)
+			return "Maximum Power"
+
+/datum/wires/particle_acc/control_box/CanUse(mob/living/L)
 	var/obj/machinery/particle_accelerator/control_box/C = holder
 	if(C.construction_state == 2)
 		return 1
 	return 0
 
-/datum/wires/particle_acc/control_box/UpdatePulsed(var/index)
+/datum/wires/particle_acc/control_box/UpdatePulsed(index)
 	var/obj/machinery/particle_accelerator/control_box/C = holder
 	switch(index)
 
@@ -28,9 +41,10 @@ var/const/PARTICLE_LIMIT_POWER_WIRE = 8 // Determines how strong the PA can be.
 			C.interface_control = !C.interface_control
 
 		if(PARTICLE_LIMIT_POWER_WIRE)
-			C.visible_message("\icon[C]<b>[C]</b> makes a large whirring noise.")
+			C.visible_message("[bicon(C)]<b>[C]</b> makes a large whirring noise.")
+	..()
 
-/datum/wires/particle_acc/control_box/UpdateCut(var/index, var/mended)
+/datum/wires/particle_acc/control_box/UpdateCut(index, mended)
 	var/obj/machinery/particle_accelerator/control_box/C = holder
 	switch(index)
 
@@ -50,3 +64,4 @@ var/const/PARTICLE_LIMIT_POWER_WIRE = 8 // Determines how strong the PA can be.
 			C.strength_upper_limit = (mended ? 2 : 3)
 			if(C.strength_upper_limit < C.strength)
 				C.remove_strength()
+	..()

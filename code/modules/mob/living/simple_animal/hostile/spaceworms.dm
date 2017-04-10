@@ -26,9 +26,7 @@
 
 	minbodytemp = 0
 	maxbodytemp = 350
-	min_oxy = 0
-	max_co2 = 0
-	max_tox = 0
+	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
 
 	a_intent = I_HARM //so they don't get pushed around
 
@@ -156,7 +154,7 @@
 		if(istype(noms, /turf/simulated/wall))
 			W = noms
 			nomDelay *= 2
-			if(W.walltype == "rwall")
+			if(istype(W, /turf/simulated/wall/r_wall))
 				nomDelay *= 2
 		else
 			return
@@ -165,7 +163,7 @@
 
 	src.visible_message("<span class='userdanger'>\the [src] starts to eat \the [noms]!</span>","<span class='notice'>You start to eat \the [noms]. (This will take about [ufnomDelay] seconds.)</span>","<span class='userdanger'>You hear gnashing.</span>") //inform everyone what the fucking worm is doing.
 
-	if(do_after(src, nomDelay,5,0, target = noms))
+	if(do_after(src, nomDelay, 0, target = noms))
 		if(noms && Adjacent(noms) && (currentlyEating == noms))//It exists, were next to it, and it's still the thing were eating
 			if(W)
 				W.ChangeTurf(/turf/simulated/floor/plating)
@@ -186,7 +184,7 @@
 
 
 //Harder to kill the head, but it can kill off the whole worm
-/mob/living/simple_animal/hostile/spaceWorm/wormHead/death()
+/mob/living/simple_animal/hostile/spaceWorm/wormHead/death(gibbed)
 	..()
 	if(prob(catastrophicDeathProb))
 		for(var/mob/living/simple_animal/hostile/spaceWorm/SW in totalWormSegments)
@@ -296,7 +294,7 @@
 	qdel(src)
 
 
-/mob/living/simple_animal/hostile/spaceWorm/death()
+/mob/living/simple_animal/hostile/spaceWorm/death(gibbed)
 	..()
 	if(myHead)
 		myHead.totalWormSegments -= src

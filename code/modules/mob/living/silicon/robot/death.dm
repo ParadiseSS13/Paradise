@@ -11,6 +11,8 @@
 	animation.icon = 'icons/mob/mob.dmi'
 	animation.master = src
 
+	playsound(src.loc, 'sound/goonstation/effects/robogib.ogg', 50, 1)
+
 	flick("gibbed-r", animation)
 	robogibs(loc, viruses)
 
@@ -57,13 +59,12 @@
 		var/obj/machinery/recharge_station/RC = loc
 		RC.go_out()
 
-	if(blind)	blind.layer = 0
 	sight |= SEE_TURFS|SEE_MOBS|SEE_OBJS
 	see_in_dark = 8
 	see_invisible = SEE_INVISIBLE_LEVEL_TWO
 	update_icons()
-	timeofdeath = worldtime2text()
-	if(mind)	mind.store_memory("Time of death: [timeofdeath]", 0)
+	timeofdeath = world.time
+	if(mind)	mind.store_memory("Time of death: [worldtime2text(timeofdeath)]", 0)
 
 	sql_report_cyborg_death(src)
 

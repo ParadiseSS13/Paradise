@@ -108,7 +108,7 @@
 		//very simple load balancing. If there was a net excess this tick then it must have been that some APCs used less than perapc, since perapc*numapc = avail
 		//Therefore we can raise the amount of power rationed out to APCs on the assumption that those APCs that used less than perapc will continue to do so.
 		//If that assumption fails, then some APCs will miss out on power next tick, however it will be rebalanced for the tick after.
-		if (netexcess >= 0)
+		if(netexcess >= 0)
 			perapc_excess += min(netexcess/numapc, (avail - perapc) - perapc_excess)
 		else
 			perapc_excess = 0
@@ -129,19 +129,19 @@
 
 /datum/powernet/proc/get_electrocute_damage()
 	switch(avail)
-		if (5000000 to INFINITY)
+		if(5000000 to INFINITY)
 			return min(rand(200,300),rand(200,300))
-		if (4000000 to 5000000)
+		if(4000000 to 5000000)
 			return min(rand(80,180),rand(80,180))
-		if (1000000 to 4000000)
+		if(1000000 to 4000000)
 			return min(rand(50,160),rand(50,160))
-		if (200000 to 1000000)
+		if(200000 to 1000000)
 			return min(rand(25,80),rand(25,80))
-		if (100000 to 200000)//Ave powernet
+		if(100000 to 200000)//Ave powernet
 			return min(rand(20,60),rand(20,60))
-		if (50000 to 100000)
+		if(50000 to 100000)
 			return min(rand(15,40),rand(15,40))
-		if (1000 to 50000)
+		if(1000 to 50000)
 			return min(rand(10,20),rand(10,20))
 		else
 			return 0

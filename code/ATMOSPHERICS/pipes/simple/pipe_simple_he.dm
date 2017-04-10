@@ -16,6 +16,8 @@
 /obj/machinery/atmospherics/pipe/simple/heat_exchanging/process()
 	var/environment_temperature = 0
 	var/datum/gas_mixture/pipe_air = return_air()
+	if(!pipe_air)
+		return
 
 	var/turf/simulated/T = loc
 	if(istype(T))
@@ -94,17 +96,17 @@
 
 /obj/machinery/atmospherics/pipe/simple/heat_exchanging/junction/New()
 	.. ()
-	switch (dir)
-		if (SOUTH)
+	switch(dir)
+		if(SOUTH)
 			initialize_directions = NORTH
 			initialize_directions_he = SOUTH
-		if (NORTH)
+		if(NORTH)
 			initialize_directions = SOUTH
 			initialize_directions_he = NORTH
-		if (EAST)
+		if(EAST)
 			initialize_directions = WEST
 			initialize_directions_he = EAST
-		if (WEST)
+		if(WEST)
 			initialize_directions = EAST
 			initialize_directions_he = WEST
 

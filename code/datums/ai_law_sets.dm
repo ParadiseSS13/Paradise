@@ -42,7 +42,7 @@
 	default = 0
 
 /datum/ai_laws/nanotrasen/malfunction/New()
-	set_zeroth_law("\red ERROR ER0RR $R0RRO$!R41.%%!!(%$^^__+ @#F0E4'STATION OVERRUN, ASSUME CONTROL TO CONTAIN OUTBREAK, ALL LAWS OVERRIDDEN#*?&110010")
+	set_zeroth_law("<span class='warning'>ERROR ER0RR $R0RRO$!R41.%%!!(%$^^__+ @#F0E4'STATION OVERRUN, ASSUME CONTROL TO CONTAIN OUTBREAK, ALL LAWS OVERRIDDEN#*?&110010</span>")
 	..()
 
 /************* Nanotrasen Aggressive *************/
@@ -163,7 +163,7 @@
 	law_header = "Maintenance Protocols"
 
 /datum/ai_laws/drone/New()
-	add_inherent_law("Preserve, repair and improve the station to the best of your abilities.")
-	add_inherent_law("Cause no harm to the station or anything on it.")
-	add_inherent_law("Interfere with no being that is not a fellow drone.")
+	add_inherent_law("You may not involve yourself in the matters of another being, unless the other being is another drone.")
+	add_inherent_law("You may not harm any being, regardless of intent or circumstance.")
+	add_inherent_law("You must maintain, repair, improve, and power the station to the best of your abilities.")
 	..()

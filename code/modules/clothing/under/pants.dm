@@ -86,4 +86,4 @@
 	desc = "For those brave enough to weather the breeze."
 	icon_state = "chaps"
 	item_color = "chaps"
-	flags = ONESIZEFITSALL
+	flags_size = ONESIZEFITSALL

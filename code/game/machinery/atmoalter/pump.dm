@@ -8,7 +8,7 @@
 	var/on = 0
 	var/direction_out = 0 //0 = siphoning, 1 = releasing
 	var/target_pressure = 100
-	
+
 	var/pressuremin = 0
 	var/pressuremax = 10 * ONE_ATMOSPHERE
 
@@ -98,15 +98,27 @@
 /obj/machinery/portable_atmospherics/pump/attack_ai(var/mob/user as mob)
 	src.add_hiddenprint(user)
 	return src.attack_hand(user)
-	
+
 /obj/machinery/portable_atmospherics/pump/attack_ghost(var/mob/user as mob)
 	return src.attack_hand(user)
 
 /obj/machinery/portable_atmospherics/pump/attack_hand(var/mob/user as mob)
 	ui_interact(user)
-	
-/obj/machinery/portable_atmospherics/pump/ui_interact(mob/user, ui_key = "main", var/datum/nanoui/ui = null)
-	var/list/data[0]
+
+/obj/machinery/portable_atmospherics/pump/ui_interact(mob/user, ui_key = "main", var/datum/nanoui/ui = null, var/force_open = 1, var/datum/topic_state/state = physical_state)
+	// update the ui if it exists, returns null if no ui is passed/found
+	ui = nanomanager.try_update_ui(user, src, ui_key, ui, force_open)
+	if(!ui)
+		// the ui does not exist, so we'll create a new() one
+        // for a list of parameters and their descriptions see the code docs in \code\modules\nano\nanoui.dm
+		ui = new(user, src, ui_key, "portpump.tmpl", "Portable Pump", 480, 400, state = state)
+		// open the new ui window
+		ui.open()
+		// auto update every Master Controller tick
+		ui.set_auto_update(1)
+
+/obj/machinery/portable_atmospherics/pump/ui_data(mob/user, ui_key = "main", datum/topic_state/state = physical_state)
+	var/data[0]
 	data["portConnected"] = connected_port ? 1 : 0
 	data["tankPressure"] = round(air_contents.return_pressure() > 0 ? air_contents.return_pressure() : 0)
 	data["targetpressure"] = round(target_pressure)
@@ -116,21 +128,10 @@
 	data["on"] = on ? 1 : 0
 
 	data["hasHoldingTank"] = holding ? 1 : 0
-	if (holding)
+	if(holding)
 		data["holdingTank"] = list("name" = holding.name, "tankPressure" = round(holding.air_contents.return_pressure() > 0 ? holding.air_contents.return_pressure() : 0))
 
-	// update the ui if it exists, returns null if no ui is passed/found
-	ui = nanomanager.try_update_ui(user, src, ui_key, ui, data)
-	if (!ui)
-		// the ui does not exist, so we'll create a new() one
-        // for a list of parameters and their descriptions see the code docs in \code\modules\nano\nanoui.dm
-		ui = new(user, src, ui_key, "portpump.tmpl", "Portable Pump", 480, 400, state = physical_state)
-		// when the ui is first opened this is the data it will use
-		ui.set_initial_data(data)
-		// open the new ui window
-		ui.open()
-		// auto update every Master Controller tick
-		ui.set_auto_update(1)
+	return data
 
 /obj/machinery/portable_atmospherics/pump/Topic(href, href_list)
 	if(..())
@@ -143,16 +144,15 @@
 	if(href_list["direction"])
 		direction_out = !direction_out
 
-	if (href_list["remove_tank"])
+	if(href_list["remove_tank"])
 		if(holding)
 			holding.loc = loc
 			holding = null
 		update_icon()
 
-	if (href_list["pressure_adj"])
+	if(href_list["pressure_adj"])
 		var/diff = text2num(href_list["pressure_adj"])
 		target_pressure = Clamp(target_pressure+diff, pressuremin, pressuremax)
 		update_icon()
 
 	src.add_fingerprint(usr)
-	

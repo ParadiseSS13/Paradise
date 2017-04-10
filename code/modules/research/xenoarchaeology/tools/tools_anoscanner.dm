@@ -4,7 +4,7 @@
 	icon = 'icons/obj/xenoarchaeology.dmi'
 	icon_state = "flashgun"
 	item_state = "lampgreen"
-	w_class = 1.0
+	w_class = 1
 	slot_flags = SLOT_BELT
 	var/nearest_artifact_id = "unknown"
 	var/nearest_artifact_distance = -1
@@ -26,7 +26,7 @@
 	else
 		message = "Scanning array is recharging."
 
-	user << "<span class='info'>[message]</span>"
+	to_chat(user, "<span class='info'>[message]</span>")
 
 /obj/item/device/ano_scanner/proc/scan()
 	last_scan_time = world.time

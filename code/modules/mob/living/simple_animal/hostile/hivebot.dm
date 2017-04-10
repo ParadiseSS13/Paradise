@@ -18,16 +18,14 @@
 	projectilesound = 'sound/weapons/Gunshot.ogg'
 	projectiletype = /obj/item/projectile/hivebotbullet
 	faction = list("hivebot")
-	min_oxy = 0
-	max_oxy = 0
-	min_tox = 0
-	max_tox = 0
-	min_co2 = 0
-	max_co2 = 0
-	min_n2 = 0
-	max_n2 = 0
+	check_friendly_fire = 1
+	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
 	minbodytemp = 0
 	speak_emote = list("states")
+	gold_core_spawnable = CHEM_MOB_SPAWN_HOSTILE
+	loot = list(/obj/effect/decal/cleanable/blood/gibs/robot)
+	deathmessage = "blows apart!"
+	del_on_death = 1
 
 /mob/living/simple_animal/hostile/hivebot/range
 	name = "Hivebot"
@@ -46,18 +44,14 @@
 	name = "Strong Hivebot"
 	desc = "A robot, this one is armed and looks tough!"
 	health = 80
+	maxHealth = 80
 	ranged = 1
 
-/mob/living/simple_animal/hostile/hivebot/death()
-	..()
-	visible_message("<b>[src]</b> blows apart!")
-	new /obj/effect/decal/cleanable/blood/gibs/robot(src.loc)
+/mob/living/simple_animal/hostile/hivebot/death(gibbed)
 	var/datum/effect/system/spark_spread/s = new /datum/effect/system/spark_spread
 	s.set_up(3, 1, src)
 	s.start()
-	ghostize()
-	qdel(src)
-	return
+	..()
 
 /mob/living/simple_animal/hostile/hivebot/tele//this still needs work
 	name = "Beacon"
@@ -79,37 +73,35 @@
 		warpbots()
 
 
-	New()
-		..()
-		var/datum/effect/system/harmless_smoke_spread/smoke = new /datum/effect/system/harmless_smoke_spread()
-		smoke.set_up(5, 0, src.loc)
-		smoke.start()
-		visible_message("\red <B>The [src] warps in!</B>")
-		playsound(src.loc, 'sound/effects/EMPulse.ogg', 25, 1)
+/mob/living/simple_animal/hostile/hivebot/tele/New()
+	..()
+	var/datum/effect/system/harmless_smoke_spread/smoke = new /datum/effect/system/harmless_smoke_spread()
+	smoke.set_up(5, 0, src.loc)
+	smoke.start()
+	visible_message("<span class='danger'>The [src] warps in!</span>")
+	playsound(src.loc, 'sound/effects/EMPulse.ogg', 25, 1)
 
-	warpbots()
-		icon_state = "def_radar"
-		visible_message("\red The [src] turns on!")
-		while(bot_amt > 0)
-			bot_amt--
-			switch(bot_type)
-				if("norm")
-					var/mob/living/simple_animal/hostile/hivebot/H = new /mob/living/simple_animal/hostile/hivebot(get_turf(src))
-					H.faction = faction
-				if("range")
-					var/mob/living/simple_animal/hostile/hivebot/range/R = new /mob/living/simple_animal/hostile/hivebot/range(get_turf(src))
-					R.faction = faction
-				if("rapid")
-					var/mob/living/simple_animal/hostile/hivebot/rapid/F = new /mob/living/simple_animal/hostile/hivebot/rapid(get_turf(src))
-					F.faction = faction
-		spawn(100)
-			qdel(src)
+/mob/living/simple_animal/hostile/hivebot/tele/warpbots()
+	icon_state = "def_radar"
+	visible_message("\red The [src] turns on!")
+	while(bot_amt > 0)
+		bot_amt--
+		switch(bot_type)
+			if("norm")
+				var/mob/living/simple_animal/hostile/hivebot/H = new /mob/living/simple_animal/hostile/hivebot(get_turf(src))
+				H.faction = faction
+			if("range")
+				var/mob/living/simple_animal/hostile/hivebot/range/R = new /mob/living/simple_animal/hostile/hivebot/range(get_turf(src))
+				R.faction = faction
+			if("rapid")
+				var/mob/living/simple_animal/hostile/hivebot/rapid/F = new /mob/living/simple_animal/hostile/hivebot/rapid(get_turf(src))
+				F.faction = faction
+	spawn(100)
+		qdel(src)
+	return
+
+/mob/living/simple_animal/hostile/hivebot/tele/handle_automated_action()
+	if(!..())
 		return
-
-
-	Life()
-		..()
-		if(stat == 0)
-			if(prob(2))//Might be a bit low, will mess with it likely
-				warpbots()
-
+	if(prob(2))//Might be a bit low, will mess with it likely
+		warpbots()

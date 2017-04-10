@@ -74,11 +74,11 @@
       </div>
       <div class='itemContent'>
         {{for data.effects}}
-          {{:helper.link(value.stage, 'transferthick-e-w', { 'grab' : value.reference })}}
+          {{:helper.link(value.stage, 'exchange', { 'grab' : value.reference })}}
         {{/for}}
       </div>
       <div class='itemContent'>
-        {{:helper.link('Species', 'transferthick-e-w', { 'affected_species' : 1 })}}
+        {{:helper.link('Species', 'exchange', { 'affected_species' : 1 })}}
       </div>
     </div>
   {{/if}}
@@ -103,6 +103,6 @@
       {{/if}}
     </div>
   </div>
-  {{:helper.link('Save To Disk', 'disk', { 'disk' : 1 }, (data.buffer || data.species_buffer) ? null : 'disabled')}}
+  {{:helper.link('Save To Disk', 'floppy-o', { 'disk' : 1 }, (data.buffer || data.species_buffer) ? null : 'disabled')}}
   {{:helper.link('Splice Onto Dish', 'pencil', { 'splice' : 1 }, ((data.buffer || data.species_buffer) && !data.info) ? null : 'disabled')}}
 {{/if}}

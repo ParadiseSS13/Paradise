@@ -8,6 +8,6 @@
 		if(!interactable() || istype(usr,/mob/living/silicon))
 			return 0
 		if(!computer.net)
-			usr << "An indecipherable set of code flicks across the screen.  Nothing else happens."
+			to_chat(usr, "An indecipherable set of code flicks across the screen.  Nothing else happens.")
 			return
 		var/list/results = computer.net.get_machines

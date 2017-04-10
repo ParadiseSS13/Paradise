@@ -18,9 +18,8 @@
 	var/log_adminwarn = 0				// log warnings admins get about bomb construction and such
 	var/log_pda = 0						// log pda messages
 	var/log_world_output = 0			// log world.log << messages
-	var/log_runtimes = 0                // Logs all runtimes.
+	var/log_runtimes = 0                // logs world.log to a file
 	var/log_hrefs = 0					// logs all links clicked in-game. Could be used for debugging and tracking down exploits
-	var/log_runtime = 0					// logs world.log to a file
 	var/sql_enabled = 0					// for sql switching
 	var/allow_admin_ooccolor = 0		// Allows admins with relevant permissions to have their own ooc colour
 	var/allow_vote_restart = 0 			// allow votes to restart
@@ -36,10 +35,10 @@
 	var/feature_object_spell_system = 0 //spawns a spellbook which gives object-type spells instead of verb-type spells for the wizard
 	var/traitor_scaling = 0 			//if amount of traitors scales based on amount of players
 	var/protect_roles_from_antagonist = 0// If security and such can be tratior/cult/other
-	var/continous_rounds = 0			// Gamemodes which end instantly will instead keep on going until the round ends by escape shuttle or nuke.
+	var/continuous_rounds = 0			// Gamemodes which end instantly will instead keep on going until the round ends by escape shuttle or nuke.
 	var/allow_Metadata = 0				// Metadata is supported.
 	var/popup_admin_pm = 0				//adminPMs to non-admins show in a pop-up 'reply' window when set to 1.
-	var/Ticklag = 0.9
+	var/Ticklag = 0.5
 	var/Tickcomp = 0
 	var/socket_talk	= 0					// use socket_talk to communicate with other processes
 	var/list/resource_urls = null
@@ -62,11 +61,14 @@
 	var/ToRban = 0
 	var/automute_on = 0					//enables automuting/spam prevention
 	var/jobs_have_minimal_access = 0	//determines whether jobs use minimal access or expanded access.
+	var/round_abandon_penalty_period = 30 MINUTES // Time from round start during which ghosting out is penalized
 
 	var/reactionary_explosions = 0 //If we use reactionary explosions, explosions that react to walls and doors
 
 	var/assistantlimit = 0 //enables assistant limiting
 	var/assistantratio = 2 //how many assistants to security members
+
+	var/traitor_objectives_amount = 2
 
 	var/max_maint_drones = 5				//This many drones can spawn,
 	var/allow_drone_spawn = 1				//assuming the admin allow them to.
@@ -84,9 +86,10 @@
 	var/donationsurl = "http://example.org"
 	var/repositoryurl = "http://example.org"
 
-	var/media_base_url = "http://example.org"
 	var/overflow_server_url
 	var/forbid_singulo_possession = 0
+
+	var/check_randomizer = 0
 
 	//game_options.txt configs
 
@@ -106,6 +109,8 @@
 
 	var/auto_toggle_ooc_during_round = 0
 
+	var/shuttle_refuel_delay = 12000
+
 	//Used for modifying movement speed for mobs.
 	//Unversal modifiers
 	var/run_speed = 0
@@ -124,6 +129,10 @@
 	var/use_age_restriction_for_jobs = 0 //Do jobs use account age restrictions? --requires database
 	var/use_age_restriction_for_antags = 0 //Do antags use account age restrictions? --requires database
 
+	var/use_exp_tracking = 0
+	var/use_exp_restrictions = 0
+	var/use_exp_restrictions_admin_bypass = 0
+
 	var/simultaneous_pm_warning_timeout = 100
 
 	var/assistant_maint = 0 //Do assistants get maint access?
@@ -133,9 +142,11 @@
 	var/comms_password = ""
 
 	var/use_irc_bot = 0
-	var/irc_bot_host = ""
+	var/list/irc_bot_host = list()
 	var/main_irc = ""
 	var/admin_irc = ""
+	var/admin_notify_irc = ""
+	var/cidrandomizer_irc = ""
 	var/python_path = "" //Path to the python executable.  Defaults to "python" on windows and "/usr/bin/env python2" on unix
 
 	var/default_laws = 0 //Controls what laws the AI spawns with.
@@ -164,8 +175,7 @@
 	var/list/overflow_whitelist = list() //whitelist for overflow
 
 	var/disable_away_missions = 0 // disable away missions
-
-	var/autoconvert_notes = 0 //if all connecting player's notes should attempt to be converted to the database
+	var/disable_space_ruins = 0 //disable space ruins
 
 	var/ooc_allowed = 1
 	var/looc_allowed = 1
@@ -175,20 +185,26 @@
 	var/disable_lobby_music = 0 // Disables the lobby music
 	var/disable_cid_warn_popup = 0 //disables the annoying "You have already logged in this round, disconnect or be banned" popup, because it annoys the shit out of me when testing.
 
+	var/max_loadout_points = 5 // How many points can be spent on extra items in character setup
+
+	var/disable_ooc_emoji = 0 // prevents people from using emoji in OOC
+
+	var/shutdown_on_reboot = 0 // Whether to shut down the world instead of rebooting it
+
 /datum/configuration/New()
 	var/list/L = subtypesof(/datum/game_mode)
-	for (var/T in L)
+	for(var/T in L)
 		// I wish I didn't have to instance the game modes in order to look up
 		// their information, but it is the only way (at least that I know of).
 		var/datum/game_mode/M = new T()
 
-		if (M.config_tag)
+		if(M.config_tag)
 			if(!(M.config_tag in modes))		// ensure each mode is added only once
 				diary << "Adding game mode [M.name] ([M.config_tag]) to configuration."
 				src.modes += M.config_tag
 				src.mode_names[M.config_tag] = M.name
 				src.probabilities[M.config_tag] = M.probability
-				if (M.votable)
+				if(M.votable)
 					src.votable_modes += M.config_tag
 		qdel(M)
 	src.votable_modes += "secret"
@@ -200,188 +216,197 @@
 		if(!t)	continue
 
 		t = trim(t)
-		if (length(t) == 0)
+		if(length(t) == 0)
 			continue
-		else if (copytext(t, 1, 2) == "#")
+		else if(copytext(t, 1, 2) == "#")
 			continue
 
 		var/pos = findtext(t, " ")
 		var/name = null
 		var/value = null
 
-		if (pos)
+		if(pos)
 			name = lowertext(copytext(t, 1, pos))
 			value = copytext(t, pos + 1)
 		else
 			name = lowertext(t)
 
-		if (!name)
+		if(!name)
 			continue
 
 		if(type == "config")
-			switch (name)
-				if ("resource_urls")
-					config.resource_urls = text2list(value, " ")
+			switch(name)
+				if("resource_urls")
+					config.resource_urls = splittext(value, " ")
 
-				if ("admin_legacy_system")
+				if("admin_legacy_system")
 					config.admin_legacy_system = 1
 
-				if ("ban_legacy_system")
+				if("ban_legacy_system")
 					config.ban_legacy_system = 1
 
-				if ("use_age_restriction_for_jobs")
+				if("use_age_restriction_for_jobs")
 					config.use_age_restriction_for_jobs = 1
 
-				if ("use_age_restriction_for_antags")
+				if("use_age_restriction_for_antags")
 					config.use_age_restriction_for_antags = 1
 
-				if ("jobs_have_minimal_access")
+				if("use_exp_tracking")
+					config.use_exp_tracking = 1
+
+				if("use_exp_restrictions")
+					config.use_exp_restrictions = 1
+
+				if("use_exp_restrictions_admin_bypass")
+					config.use_exp_restrictions_admin_bypass = 1
+
+				if("jobs_have_minimal_access")
 					config.jobs_have_minimal_access = 1
 
-				if ("log_ooc")
+				if("log_ooc")
 					config.log_ooc = 1
 
-				if ("log_access")
+				if("log_access")
 					config.log_access = 1
 
-				if ("log_say")
+				if("log_say")
 					config.log_say = 1
 
-				if ("log_admin")
+				if("log_admin")
 					config.log_admin = 1
 
-				if ("log_debug")
+				if("log_debug")
 					config.log_debug = text2num(value)
 
-				if ("log_game")
+				if("log_game")
 					config.log_game = 1
 
-				if ("log_vote")
+				if("log_vote")
 					config.log_vote = 1
 
-				if ("log_whisper")
+				if("log_whisper")
 					config.log_whisper = 1
 
-				if ("log_attack")
+				if("log_attack")
 					config.log_attack = 1
 
-				if ("log_emote")
+				if("log_emote")
 					config.log_emote = 1
 
-				if ("log_adminchat")
+				if("log_adminchat")
 					config.log_adminchat = 1
 
-				if ("log_adminwarn")
+				if("log_adminwarn")
 					config.log_adminwarn = 1
 
-				if ("log_pda")
+				if("log_pda")
 					config.log_pda = 1
 
-				if ("log_world_output")
+				if("log_world_output")
 					config.log_world_output = 1
 
-				if ("log_hrefs")
+				if("log_hrefs")
 					config.log_hrefs = 1
 
-				if ("log_runtime")
-					config.log_runtime = 1
+				if("log_runtime")
+					config.log_runtimes = 1
 
-				if ("mentors")
+				if("mentors")
 					config.mods_are_mentors = 1
 
 				if("allow_admin_ooccolor")
 					config.allow_admin_ooccolor = 1
 
-				if ("allow_vote_restart")
+				if("allow_vote_restart")
 					config.allow_vote_restart = 1
 
-				if ("allow_vote_mode")
+				if("allow_vote_mode")
 					config.allow_vote_mode = 1
 
 				if("no_dead_vote")
 					config.vote_no_dead = 1
 
-				if ("default_no_vote")
+				if("default_no_vote")
 					config.vote_no_default = 1
 
-				if ("vote_delay")
+				if("vote_delay")
 					config.vote_delay = text2num(value)
 
-				if ("vote_period")
+				if("vote_period")
 					config.vote_period = text2num(value)
 
-				if ("allow_ai")
+				if("allow_ai")
 					config.allow_ai = 1
 
-//				if ("authentication")
+//				if("authentication")
 //					config.enable_authentication = 1
 
-				if ("norespawn")
+				if("norespawn")
 					config.respawn = 0
 
-				if ("servername")
+				if("servername")
 					config.server_name = value
 
-				if ("serversuffix")
+				if("serversuffix")
 					config.server_suffix = 1
 
-				if ("nudge_script_path")
+				if("nudge_script_path")
 					config.nudge_script_path = value
 
-				if ("hostedby")
+				if("hostedby")
 					config.hostedby = value
 
-				if ("server")
+				if("server")
 					config.server = value
 
-				if ("banappeals")
+				if("banappeals")
 					config.banappeals = value
 
-				if ("wikiurl")
+				if("wikiurl")
 					config.wikiurl = value
 
-				if ("forumurl")
+				if("forumurl")
 					config.forumurl = value
 
-				if ("rulesurl")
+				if("rulesurl")
 					config.rulesurl = value
 
-				if ("donationsurl")
+				if("donationsurl")
 					config.donationsurl = value
 
-				if ("repositoryurl")
+				if("repositoryurl")
 					config.repositoryurl = value
 
-				if ("guest_jobban")
+				if("guest_jobban")
 					config.guest_jobban = 1
 
-				if ("guest_ban")
+				if("guest_ban")
 					guests_allowed = 0
 
-				if ("usewhitelist")
+				if("usewhitelist")
 					config.usewhitelist = 1
 
-				if ("feature_object_spell_system")
+				if("feature_object_spell_system")
 					config.feature_object_spell_system = 1
 
-				if ("allow_metadata")
+				if("allow_metadata")
 					config.allow_Metadata = 1
 
-				if ("traitor_scaling")
+				if("traitor_scaling")
 					config.traitor_scaling = 1
 
 				if("protect_roles_from_antagonist")
 					config.protect_roles_from_antagonist = 1
 
-				if ("probability")
+				if("probability")
 					var/prob_pos = findtext(value, " ")
 					var/prob_name = null
 					var/prob_value = null
 
-					if (prob_pos)
+					if(prob_pos)
 						prob_name = lowertext(copytext(value, 1, prob_pos))
 						prob_value = copytext(value, prob_pos + 1)
-						if (prob_name in config.modes)
+						if(prob_name in config.modes)
 							config.probabilities[prob_name] = text2num(prob_value)
 						else
 							diary << "Unknown game mode probability configuration definition: [prob_name]."
@@ -399,6 +424,9 @@
 
 				if("forbid_singulo_possession")
 					forbid_singulo_possession = 1
+
+				if("check_randomizer")
+					check_randomizer = 1
 
 				if("popup_admin_pm")
 					config.popup_admin_pm = 1
@@ -447,7 +475,7 @@
 					config.gateway_delay = text2num(value)
 
 				if("continuous_rounds")
-					config.continous_rounds = 1
+					config.continuous_rounds = 1
 
 				if("ghost_interaction")
 					config.ghost_interaction = 1
@@ -456,13 +484,19 @@
 					config.comms_password = value
 
 				if("irc_bot_host")
-					config.irc_bot_host = value
+					config.irc_bot_host = splittext(value, ";")
 
 				if("main_irc")
 					config.main_irc = value
 
 				if("admin_irc")
 					config.admin_irc = value
+
+				if("admin_notify_irc")
+					config.admin_notify_irc = value
+
+				if("cidrandomizer_irc")
+					config.cidrandomizer_irc = value
 
 				if("python_path")
 					if(value)
@@ -479,9 +513,6 @@
 				if("assistant_ratio")
 					config.assistantratio = text2num(value)
 
-				if("media_base_url")
-					media_base_url = value
-
 				if("allow_drone_spawn")
 					config.allow_drone_spawn = text2num(value)
 
@@ -490,18 +521,6 @@
 
 				if("max_maint_drones")
 					config.max_maint_drones = text2num(value)
-
-				if("station_levels")
-					config.station_levels = text2numlist(value, ";")
-
-				if("admin_levels")
-					config.admin_levels = text2numlist(value, ";")
-
-				if("contact_levels")
-					config.contact_levels = text2numlist(value, ";")
-
-				if("player_levels")
-					config.player_levels = text2numlist(value, ";")
 
 				if("expected_round_length")
 					config.expected_round_length = MinutesToTicks(text2num(value))
@@ -544,14 +563,35 @@
 				if("disable_away_missions")
 					config.disable_away_missions = 1
 
-				if("autoconvert_notes")
-					config.autoconvert_notes = 1
+				if("disable_space_ruins")
+					config.disable_space_ruins = 1
 
 				if("disable_lobby_music")
 					config.disable_lobby_music = 1
 
 				if("disable_cid_warn_popup")
 					config.disable_cid_warn_popup = 1
+
+				if("max_loadout_points")
+					config.max_loadout_points = text2num(value)
+
+				if("round_abandon_penalty_period")
+					config.round_abandon_penalty_period = MinutesToTicks(text2num(value))
+
+				if("medal_hub_address")
+					global.medal_hub = value
+
+				if("medal_hub_password")
+					global.medal_pass = value
+
+				if("disable_ooc_emoji")
+					config.disable_ooc_emoji = 1
+
+				if("shutdown_on_reboot")
+					config.shutdown_on_reboot = 1
+
+				if("shutdown_shell_command")
+					shutdown_shell_command = value
 
 				else
 					diary << "Unknown setting in configuration: '[name]'"
@@ -599,15 +639,19 @@
 					config.bones_can_break = value
 				if("limbs_can_break")
 					config.limbs_can_break = value
+				if("shuttle_refuel_delay")
+					config.shuttle_refuel_delay     = text2num(value)
+				if("traitor_objectives_amount")
+					config.traitor_objectives_amount = text2num(value)
 				if("reactionary_explosions")
 					config.reactionary_explosions	= 1
 				if("bombcap")
 					var/BombCap = text2num(value)
-					if (!BombCap)
+					if(!BombCap)
 						continue
-					if (BombCap < 4)
+					if(BombCap < 4)
 						BombCap = 4
-					if (BombCap > 128)
+					if(BombCap > 128)
 						BombCap = 128
 
 					MAX_EX_DEVESTATION_RANGE = round(BombCap/4)
@@ -626,36 +670,36 @@
 		if(!t)	continue
 
 		t = trim(t)
-		if (length(t) == 0)
+		if(length(t) == 0)
 			continue
-		else if (copytext(t, 1, 2) == "#")
+		else if(copytext(t, 1, 2) == "#")
 			continue
 
 		var/pos = findtext(t, " ")
 		var/name = null
 		var/value = null
 
-		if (pos)
+		if(pos)
 			name = lowertext(copytext(t, 1, pos))
 			value = copytext(t, pos + 1)
 		else
 			name = lowertext(t)
 
-		if (!name)
+		if(!name)
 			continue
 
-		switch (name)
+		switch(name)
 			if("sql_enabled")
 				config.sql_enabled = 1
-			if ("address")
+			if("address")
 				sqladdress = value
-			if ("port")
+			if("port")
 				sqlport = value
-			if ("feedback_database")
+			if("feedback_database")
 				sqlfdbkdb = value
-			if ("feedback_login")
+			if("feedback_login")
 				sqlfdbklogin = value
-			if ("feedback_password")
+			if("feedback_password")
 				sqlfdbkpass = value
 			if("feedback_tableprefix")
 				sqlfdbktableprefix = value
@@ -668,9 +712,9 @@
 		if(!t)	continue
 
 		t = trim(t)
-		if (length(t) == 0)
+		if(length(t) == 0)
 			continue
-		else if (copytext(t, 1, 2) == "#")
+		else if(copytext(t, 1, 2) == "#")
 			continue
 
 		config.overflow_whitelist += t
@@ -678,25 +722,25 @@
 /datum/configuration/proc/pick_mode(mode_name)
 	// I wish I didn't have to instance the game modes in order to look up
 	// their information, but it is the only way (at least that I know of).
-	for (var/T in subtypesof(/datum/game_mode))
+	for(var/T in subtypesof(/datum/game_mode))
 		var/datum/game_mode/M = new T()
-		if (M.config_tag && M.config_tag == mode_name)
+		if(M.config_tag && M.config_tag == mode_name)
 			return M
 		qdel(M)
 	return new /datum/game_mode/extended()
 
 /datum/configuration/proc/get_runnable_modes()
 	var/list/datum/game_mode/runnable_modes = new
-	for (var/T in subtypesof(/datum/game_mode))
+	for(var/T in subtypesof(/datum/game_mode))
 		var/datum/game_mode/M = new T()
-		//world << "DEBUG: [T], tag=[M.config_tag], prob=[probabilities[M.config_tag]]"
-		if (!(M.config_tag in modes))
+//		to_chat(world, "DEBUG: [T], tag=[M.config_tag], prob=[probabilities[M.config_tag]]")
+		if(!(M.config_tag in modes))
 			qdel(M)
 			continue
-		if (probabilities[M.config_tag]<=0)
+		if(probabilities[M.config_tag]<=0)
 			qdel(M)
 			continue
-		if (M.can_start())
+		if(M.can_start())
 			runnable_modes[M] = probabilities[M.config_tag]
-			//world << "DEBUG: runnable_mode\[[runnable_modes.len]\] = [M.config_tag]"
+//			to_chat(world, "DEBUG: runnable_mode\[[runnable_modes.len]\] = [M.config_tag]")
 	return runnable_modes

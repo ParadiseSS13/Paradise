@@ -113,19 +113,19 @@
 /obj/machinery/programmable/proc/printlist(var/list/L)
 	var/dat
 	for(var/datum/cargoprofile/p in L)
-		dat += "[p.name]: <A href='?src=\ref[src];operation=[p.id]'>[p.enabled?"<B>YES</B>":"NO"]</A><BR>"
+		dat += "[p.name]: <A href='?src=[UID()];operation=[p.id]'>[p.enabled?"<B>YES</B>":"NO"]</A><BR>"
 	return dat
 
 /obj/machinery/programmable/proc/buildMenu()
 	var/dat
 	dat += "<B>PROGRAMMABLE UNLOADER</B><BR><TT>"
-	dat += "POWER: <A href='?src=\ref[src];operation=start'>[on ? "ON" : "OFF"]</A><BR>"
-	dat += "INLET: <A href='?src=\ref[src];operation=inlet'>[capitalize(dir2text(indir))]</A> "
-	dat += "OUTLET: <A href='?src=\ref[src];operation=outlet'>[capitalize(dir2text(outdir))]</A>"
-	dat += " (<A href='?src=\ref[src];operation=swapdir'>SWAP</A>)</TT><HR>"
+	dat += "POWER: <A href='?src=[UID()];operation=start'>[on ? "ON" : "OFF"]</A><BR>"
+	dat += "INLET: <A href='?src=[UID()];operation=inlet'>[capitalize(dir2text(indir))]</A> "
+	dat += "OUTLET: <A href='?src=[UID()];operation=outlet'>[capitalize(dir2text(outdir))]</A>"
+	dat += " (<A href='?src=[UID()];operation=swapdir'>SWAP</A>)</TT><HR>"
 	if(default)
 		dat += "MAIN PROGRAM: "
-		dat += "<TT>[default.name]: <A href='?src=\ref[src];operation=default'>[default.enabled ? "<B>YES</B>" : "NO"]</A><BR>"
+		dat += "<TT>[default.name]: <A href='?src=[UID()];operation=default'>[default.enabled ? "<B>YES</B>" : "NO"]</A><BR>"
 	if(profiles.len)
 		if(!default || !default.enabled)
 			dat += printlist(profiles)
@@ -197,10 +197,10 @@
 
 /obj/machinery/programmable/attackby(obj/item/I as obj, mob/user as mob, params)
 	if(istype(I,/obj/item/weapon/wrench)) // code borrowed from pipe dispenser
-		if (unwrenched==0)
-			playsound(src.loc, 'sound/items/Ratchet.ogg', 50, 1)
-			user << "\blue You begin to unfasten \the [src] from the floor..."
-			if (do_after(user, 40, target = src))
+		if(unwrenched==0)
+			playsound(src.loc, I.usesound, 50, 1)
+			to_chat(user, "\blue You begin to unfasten \the [src] from the floor...")
+			if(do_after(user, 40 * I.toolspeed, target = src))
 				user.visible_message( \
 					"[user] unfastens \the [src].", \
 					"\blue You have unfastened \the [src]. Now it can be pulled somewhere else.", \
@@ -208,12 +208,12 @@
 				src.anchored = 0
 				src.stat |= MAINT
 				src.unwrenched = 1
-				if (usr.machine==src)
+				if(usr.machine==src)
 					usr << browse(null, "window=pipedispenser")
 		else /* unwrenched */
-			playsound(src.loc, 'sound/items/Ratchet.ogg', 50, 1)
-			user << "\blue You begin to fasten \the [src] to the floor..."
-			if (do_after(user, 20, target = src))
+			playsound(src.loc, I.usesound, 50, 1)
+			to_chat(user, "\blue You begin to fasten \the [src] to the floor...")
+			if(do_after(user, 20 * I.toolspeed, target = src))
 				user.visible_message( \
 					"[user] fastens \the [src].", \
 					"\blue You fastened \the [src] into place.", \
@@ -230,16 +230,17 @@
 			open = 0
 			if(!unwrenched && !circuit_removed)
 				src.stat &= ~MAINT
-			user << "You close \the [src]'s maintenance panel."
+			to_chat(user, "You close \the [src]'s maintenance panel.")
 		else
 			open = 1
 			src.stat |= MAINT
-			user << "You open \the [src]'s maintenance panel."
+			to_chat(user, "You open \the [src]'s maintenance panel.")
 	if(istype(I,/obj/item/weapon/crowbar))
 		if(open)
-			user << "\blue You begin to pry out the [src]'s circuits."
-			if(do_after(user,40, target = src))
-				user << "\blue You remove the circuitboard."
+			to_chat(user, "\blue You begin to pry out the [src]'s circuits.")
+			if(do_after(user, 40 * I.toolspeed, target = src))
+				to_chat(user, "\blue You remove the circuitboard.")
+				playsound(loc, I.usesound, 50, 1)
 				circuit_removed = 1
 				use_power = 0
 				on = 0
@@ -254,16 +255,17 @@
 				src.overrides = null
 				P.emag_overrides = src.emag_overrides
 				src.emag_overrides = null
+				default_deconstruction_crowbar(I, 1)
 				return
 		else
 			..(I,user)
 
 	if(istype(I,/obj/item/weapon/circuitboard/programmable))
 		if(!open)
-			user << "You have to open the machine first!"
+			to_chat(user, "You have to open the machine first!")
 			return
 		if(!circuit_removed)
-			user << "There is already a circuitboard present!"
+			to_chat(user, "There is already a circuitboard present!")
 			return
 		circuit_removed = 0
 		I.loc = src
@@ -272,7 +274,7 @@
 /obj/machinery/programmable/emag_act(user as mob)
 	if(emagged)
 		return
-	user << "You swipe the unloader with your card.  After a moment's grinding, it beeps in a sinister fashion."
+	to_chat(user, "You swipe the unloader with your card.  After a moment's grinding, it beeps in a sinister fashion.")
 	playsound(src.loc, 'sound/machines/twobeep.ogg', 50, 0)
 	emagged = 1
 	overrides += emag_overrides
@@ -283,7 +285,7 @@
 	return
 
 /obj/machinery/programmable/process()
-	if (!output || !input)
+	if(!output || !input)
 		return
 
 	if(!on || stat || sleep)
@@ -296,10 +298,8 @@
 			O.loc = loc
 		for(var/mob/M in contents)
 			M.loc = loc
-			if(M.client)
-				M.client.eye = M.client.mob
-				M.client.perspective = MOB_PERSPECTIVE
-				M << "\blue The machine turns off, and you fall out."
+			M.reset_perspective(null)
+			to_chat(M, "<span class='notice'>The machine turns off, and you fall out.</span>")
 
 		return
 
@@ -330,7 +330,7 @@
 	if(sleep)
 		return // something stopped the machine
 
-	for (var/obj/A in input.contents)// I fully expect this to cause unreasonable lag
+	for(var/obj/A in input.contents)// I fully expect this to cause unreasonable lag
 		if(!A)
 			break
 		if(work > workmax)
@@ -439,11 +439,11 @@
 	buildMenu()
 		var/dat
 		dat += "<B>PROGRAMMABLE PROCESSOR</B><BR><TT>"
-		dat += "POWER: <A href='?src=\ref[src];operation=start'>[on ? "ON" : "OFF"]</A><BR>"
-		dat += "INLET: <A href='?src=\ref[src];operation=inlet'>[capitalize(dir2text(indir))]</A><BR>"
+		dat += "POWER: <A href='?src=[UID()];operation=start'>[on ? "ON" : "OFF"]</A><BR>"
+		dat += "INLET: <A href='?src=[UID()];operation=inlet'>[capitalize(dir2text(indir))]</A><BR>"
 		if(default)
 			dat += "MAIN PROGRAM: "
-			dat += "<TT>[default.name]: <A href='?src=\ref[src];operation=default'>[default.enabled ? "<B>YES</B>" : "NO"]</A><BR>"
+			dat += "<TT>[default.name]: <A href='?src=[UID()];operation=default'>[default.enabled ? "<B>YES</B>" : "NO"]</A><BR>"
 		if(profiles.len)
 			if(!default || !default.enabled)
 				dat += printlist(profiles)
@@ -498,7 +498,7 @@
 		if(H.gloves && istype(H.gloves, /obj/item/clothing/gloves/boxing))
 			var/newsleep = 0
 			if(H.loc != input)
-				H << "The boxing machine refuses to acknowledge you unless you face it head on!"
+				to_chat(H, "The boxing machine refuses to acknowledge you unless you face it head on!")
 				return
 			var/damage = 0
 			if(H.a_intent != I_HARM)
@@ -585,22 +585,22 @@
 		if(istype(I,/obj/item/device/multitool))
 			hacking = (hacking?0:1)
 			if(hacking)
-				user << "You unlock the data port on the board.  You can now use a PDA to alter its data."
+				to_chat(user, "You unlock the data port on the board.  You can now use a PDA to alter its data.")
 			else
-				user << "You relock the data port."
+				to_chat(user, "You relock the data port.")
 		if(istype(I,/obj/item/device/pda))
 			if(!hacking)
-				user << "It looks like you can't access the board's data port.  You'll have to open it with a multitool."
+				to_chat(user, "It looks like you can't access the board's data port.  You'll have to open it with a multitool.")
 			else
 				user.set_machine(src)
 				interact(user)
 		if(istype(I,/obj/item/weapon/card/emag) && !emagged)
 			if(!hacking)
-				user << "There seems to be a data port on the card, but it's locked.  A multitool could open it."
+				to_chat(user, "There seems to be a data port on the card, but it's locked.  A multitool could open it.")
 			else
 				emagged = 1
 				overrides += emag_overrides
-				user << "You swipe the card in the card's data port.  The lights flicker, then flash once."
+				to_chat(user, "You swipe the card in the card's data port.  The lights flicker, then flash once.")
 
 	proc/format(var/datum/cargoprofile/P,var/level)
 		// PROFILE=0 OVERRIDE=1 MAIN=2
@@ -608,10 +608,10 @@
 			return "NONE<BR>"
 		var/dat = "[P.name]"
 		if(level == 0 || (level == 1 && !default))
-			dat += " <A href='?src=\ref[src];operation=promote;id=[P.id];level=[level]'>PROMOTE</A>"
+			dat += " <A href='?src=[UID()];operation=promote;id=[P.id];level=[level]'>PROMOTE</A>"
 		if(level > 0)
-			dat += " <A href='?src=\ref[src];operation=demote;id=[P.id];level=[level]'>DEMOTE</A>"
-		dat += " <A href='?src=\ref[src];operation=delete;id=[P.id];level=[level]'>REMOVE</A>"
+			dat += " <A href='?src=[UID()];operation=demote;id=[P.id];level=[level]'>DEMOTE</A>"
+		dat += " <A href='?src=[UID()];operation=delete;id=[P.id];level=[level]'>REMOVE</A>"
 		dat += "<BR>"
 		return dat
 
@@ -619,20 +619,20 @@
 		var/dat
 		dat = "MAIN FUNCTION<BR><TT>"
 		dat += format(default,2)
-		dat += "</TT>- CAUTION -<BR>\[<A href='?src=\ref[src];operation=deleteall'>DELETE NON-MAIN ALGORITHMS</A>\]<BR>"
-		dat += "\[<A href='?src=\ref[src];operation=reset'>MASTER RESET</A>\]<HR>"
+		dat += "</TT>- CAUTION -<BR>\[<A href='?src=[UID()];operation=deleteall'>DELETE NON-MAIN ALGORITHMS</A>\]<BR>"
+		dat += "\[<A href='?src=[UID()];operation=reset'>MASTER RESET</A>\]<HR>"
 
 		dat += "OVERRIDES:<BR><TT>"
 		for(var/datum/cargoprofile/P in overrides)
 			dat += format(P,1)
 		dat += "</TT><BR>"
-		dat += "- CAUTION -<BR>\[<A href='?src=\ref[src];operation=deleteoverrides'>DELETE ALL OVERRIDES</A>\]<HR>"
+		dat += "- CAUTION -<BR>\[<A href='?src=[UID()];operation=deleteoverrides'>DELETE ALL OVERRIDES</A>\]<HR>"
 
 		dat += "</TT> TERTIARY PROFILES:<BR><TT>"
 		for(var/datum/cargoprofile/P in profiles)
 			dat += format(P,0)
 		dat += "</TT><BR>"
-		dat += "- CAUTION -<BR>\[<A href='?src=\ref[src];operation=deleteprofiles'>DELETE TERTIARY PROFILES</A>\]"
+		dat += "- CAUTION -<BR>\[<A href='?src=[UID()];operation=deleteprofiles'>DELETE TERTIARY PROFILES</A>\]"
 
 		user << browse("<HEAD><TITLE>Circuit Reprogramming</TITLE></HEAD>[dat]", "window=progcircuit")
 		onclose(user, "progcircuit")

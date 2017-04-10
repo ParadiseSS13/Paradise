@@ -1,0 +1,59 @@
+{{if !data.beepsky.active}}
+	{{if data.beepsky.count == 0}}
+		<H1><span class="bad">No bots found.</span></H1>
+	{{else}}
+		<div class="item">
+			Select a bot:
+		</div>
+		<br>
+		{{for data.beepsky.bots}}
+			<div class="item">
+				 {{:helper.link(value.Name, 'gear', {'radiomenu' : "1", 'op' : "control",'bot' : value.ref}, null, 'pdalink fixedLeftWidest')}} (Location: {{:value.Location}})
+			</div>
+		{{/for}}
+	{{/if}}
+	<br>
+	{{:helper.link('Scan for Bots','rss', {'radiomenu' : "1", 'op' : "scanbots"}, null, 'pdalink fixedLeftWidest')}}
+{{else}}
+	<H1><span class="average">{{:data.beepsky.active}}</span></H1>
+	{{if data.beepsky.botstatus.mode == -1}}
+		<H1><span class="bad">Waiting for response...</span></H1>
+	{{else}}
+		<H1><span class="good">Status:</span></H1>
+		<div class="item">
+			<div class="itemLabel">
+				<span class="good">Location:</span>
+			</div>
+			<div class="itemContent">
+				<span class="average">{{:data.beepsky.botstatus.loca}}</span>
+			</div>
+		</div>
+		<div class="item">
+			<div class="itemLabel">
+				<span class="good">Mode:</span>
+			</div>
+			<div class="itemContent">
+				<span class="average">
+					{{if data.beepsky.botstatus.mode ==0}}
+						Ready
+					{{else data.beepsky.botstatus.mode == 1}}
+						Apprehending target
+					{{else data.beepsky.botstatus.mode ==2 || data.beepsky.botstatus.mode == 3}}
+						Arresting target
+					{{else data.beepsky.botstatus.mode ==4}}
+						Starting patrol
+					{{else data.beepsky.botstatus.mode ==5}}
+						On Patrol
+					{{else data.beepsky.botstatus.mode ==6}}
+						Responding to summons
+					{{/if}}
+				</span>
+			</div>
+		</div>
+		<div class="item">
+			{{:helper.link('Stop Patrol', 'gear', {'radiomenu' : "1", 'op' : "stop"}, null, 'pdalink fixedLeftWide')}}
+			{{:helper.link('Start Patrol', 'gear', {'radiomenu' : "1", 'op' : "go"}, null, 'pdalink fixedLeftWide')}}
+			{{:helper.link('Summon Bot', 'gear', {'radiomenu' : "1", 'op' : "summon"}, null, 'pdalink fixedLeftWide')}}
+		</div>
+	{{/if}}
+{{/if}}

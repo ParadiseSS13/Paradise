@@ -10,8 +10,8 @@
 	Note that AI have no need for the adjacency proc, and so this proc is a lot cleaner.
 */
 /mob/living/silicon/ai/DblClickOn(var/atom/A, params)
-	if(client.buildmode) // comes after object.Click to allow buildmode gui objects to be clicked
-		build_click(src, client.buildmode, params, A)
+	if(client.click_intercept)
+		client.click_intercept.InterceptClickOn(src, params, A)
 		return
 
 	if(control_disabled || stat) return
@@ -23,15 +23,22 @@
 
 
 /mob/living/silicon/ai/ClickOn(var/atom/A, params)
+	if(client.click_intercept)
+		client.click_intercept.InterceptClickOn(src, params, A)
+		return
+
 	if(world.time <= next_click)
 		return
 	next_click = world.time + 1
 
-	if(client.buildmode) // comes after object.Click to allow buildmode gui objects to be clicked
-		build_click(src, client.buildmode, params, A)
-		return
-
 	if(control_disabled || stat)
+		return
+		
+	var/turf/pixel_turf = get_turf_pixel(A)
+	if(pixel_turf && !cameranet.checkTurfVis(pixel_turf))
+		log_admin("[key_name_admin(src)] might be running a modified client! (failed checkTurfVis on AI click of [A]([COORD(A)])")
+		message_admins("[key_name_admin(src)] might be running a modified client! (failed checkTurfVis on AI click of [A]([ADMIN_COORDJMP(A)]))")
+		send2irc_adminless_only("NOCHEAT", "[key_name(src)] might be running a modified client! (failed checkTurfVis on AI click of [A]([COORD(A)]))")
 		return
 
 	var/list/modifiers = params2list(params)
@@ -44,7 +51,7 @@
 	if(modifiers["middle"])
 		MiddleClickOn(A)
 		if(controlled_mech) //Are we piloting a mech? Placed here so the modifiers are not overridden.
-			controlled_mech.click_action(A, src) //Override AI normal click behavior.
+			controlled_mech.click_action(A, src, params) //Override AI normal click behavior.
 		return
 	if(modifiers["shift"])
 		ShiftClickOn(A)
@@ -125,19 +132,21 @@
 
 /obj/machinery/door/airlock/AIAltShiftClick()  // Sets/Unsets Emergency Access Override
 	if(density)
-		Topic(src, list("src"= "\ref[src]", "command"="emergency", "activate" = "1"), 1) // 1 meaning no window (consistency!)
+		Topic(src, list("src" = UID(), "command"="emergency", "activate" = "1"), 1) // 1 meaning no window (consistency!)
 	else
-		Topic(src, list("src"= "\ref[src]", "command"="emergency", "activate" = "0"), 1)
+		Topic(src, list("src" = UID(), "command"="emergency", "activate" = "0"), 1)
 	return
 
-/atom/proc/AIShiftClick()
+/atom/proc/AIShiftClick(var/mob/user)
+	if(user.client)
+		user.examinate(src)
 	return
 
 /obj/machinery/door/airlock/AIShiftClick()  // Opens and closes doors!
 	if(density)
-		Topic(src, list("src"= "\ref[src]", "command"="open", "activate" = "1"), 1) // 1 meaning no window (consistency!)
+		Topic(src, list("src" = UID(), "command"="open", "activate" = "1"), 1) // 1 meaning no window (consistency!)
 	else
-		Topic(src, list("src"= "\ref[src]", "command"="open", "activate" = "0"), 1)
+		Topic(src, list("src" = UID(), "command"="open", "activate" = "0"), 1)
 	return
 
 /atom/proc/AICtrlClick(var/mob/living/silicon/ai/user)
@@ -148,15 +157,15 @@
 
 /obj/machinery/door/airlock/AICtrlClick() // Bolts doors
 	if(locked)
-		Topic(src, list("src"= "\ref[src]", "command"="bolts", "activate" = "0"), 1)// 1 meaning no window (consistency!)
+		Topic(src, list("src" = UID(), "command"="bolts", "activate" = "0"), 1)// 1 meaning no window (consistency!)
 	else
-		Topic(src, list("src"= "\ref[src]", "command"="bolts", "activate" = "1"), 1)
+		Topic(src, list("src" = UID(), "command"="bolts", "activate" = "1"), 1)
 
 /obj/machinery/power/apc/AICtrlClick() // turns off/on APCs.
 	Topic("breaker=1", list("breaker"="1"), 0) // 0 meaning no window (consistency! wait...)
 
 /obj/machinery/turretid/AICtrlClick() //turns off/on Turrets
-	Topic(src, list("src"= "\ref[src]", "command"="enable", "value"="[!enabled]"), 1) // 1 meaning no window (consistency!)
+	Topic(src, list("src" = UID(), "command"="enable", "value"="[!enabled]"), 1) // 1 meaning no window (consistency!)
 
 /atom/proc/AIAltClick(var/atom/A)
 	AltClick(A)
@@ -164,23 +173,23 @@
 /obj/machinery/door/airlock/AIAltClick() // Electrifies doors.
 	if(!electrified_until)
 		// permanent shock
-		Topic(src, list("src"= "\ref[src]", "command"="electrify_permanently", "activate" = "1"), 1) // 1 meaning no window (consistency!)
+		Topic(src, list("src" = UID(), "command"="electrify_permanently", "activate" = "1"), 1) // 1 meaning no window (consistency!)
 	else
 		// disable/6 is not in Topic; disable/5 disables both temporary and permanent shock
-		Topic(src, list("src"= "\ref[src]", "command"="electrify_permanently", "activate" = "0"), 1)
+		Topic(src, list("src" = UID(), "command"="electrify_permanently", "activate" = "0"), 1)
 	return
 
 /obj/machinery/turretid/AIAltClick() //toggles lethal on turrets
-	Topic(src, list("src"= "\ref[src]", "command"="lethal", "value"="[!lethal]"), 1) // 1 meaning no window (consistency!)
+	Topic(src, list("src" = UID(), "command"="lethal", "value"="[!lethal]"), 1) // 1 meaning no window (consistency!)
 
 /atom/proc/AIMiddleClick()
 	return
 
 /obj/machinery/door/airlock/AIMiddleClick() // Toggles door bolt lights.
 	if(!src.lights)
-		Topic(src, list("src"= "\ref[src]", "command"="lights", "activate" = "1"), 1) // 1 meaning no window (consistency!)
+		Topic(src, list("src" = UID(), "command"="lights", "activate" = "1"), 1) // 1 meaning no window (consistency!)
 	else
-		Topic(src, list("src"= "\ref[src]", "command"="lights", "activate" = "0"), 1)
+		Topic(src, list("src" = UID(), "command"="lights", "activate" = "0"), 1)
 	return
 
 

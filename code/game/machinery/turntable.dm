@@ -30,11 +30,11 @@
 /obj/machinery/party/turntable/attack_hand(mob/user as mob)
 
 	var/t = "<B>Turntable Interface</B><br><br>"
-	//t += "<A href='?src=\ref[src];on=1'>On</A><br>"
-	t += "<A href='?src=\ref[src];off=1'>Off</A><br><br>"
-	t += "<A href='?src=\ref[src];on1=Testloop1'>One</A><br>"
-	t += "<A href='?src=\ref[src];on2=Testloop2'>TestLoop2</A><br>"
-	t += "<A href='?src=\ref[src];on3=Testloop3'>TestLoop3</A><br>"
+	//t += "<A href='?src=[UID()];on=1'>On</A><br>"
+	t += "<A href='?src=[UID()];off=1'>Off</A><br><br>"
+	t += "<A href='?src=[UID()];on1=Testloop1'>One</A><br>"
+	t += "<A href='?src=[UID()];on2=Testloop2'>TestLoop2</A><br>"
+	t += "<A href='?src=[UID()];on3=Testloop3'>TestLoop3</A><br>"
 
 	user << browse(t, "window=turntable;size=420x700")
 
@@ -43,7 +43,7 @@
 	..()
 	if( href_list["on1"] )
 		if(src.playing == 0)
-			//world << "Should be working..."
+//			to_chat(world, "Should be working...")
 			var/sound/S = sound('sound/turntable/TestLoop1.ogg')
 			S.repeat = 1
 			S.channel = 10
@@ -52,8 +52,8 @@
 			S.environment = 0
 			//for(var/mob/M in world)
 			//	if(M.loc.loc == src.loc.loc && M.music == 0)
-			//		world << "Found the song..."
-			//		M << S
+//					to_chat(world, "Found the song...")
+//					M << S
 			//		M.music = 1
 			var/area/A = src.loc.loc
 
@@ -63,7 +63,7 @@
 			while(playing == 1)
 				for(var/mob/M in world)
 					if((M.loc.loc in A) && M.music == 0)
-						//world << "Found the song..."
+//						to_chat(world, "Found the song...")
 						M << S
 						M.music = 1
 					else if(!(M.loc.loc in A) && M.music == 1)
@@ -75,7 +75,7 @@
 			return
 	if( href_list["on2"] )
 		if(src.playing == 0)
-			//world << "Should be working..."
+//			to_chat(world, "Should be working...")
 			var/sound/S = sound('sound/turntable/TestLoop2.ogg')
 			S.repeat = 1
 			S.channel = 10
@@ -84,8 +84,8 @@
 			S.environment = 0
 			//for(var/mob/M in world)
 			//	if(M.loc.loc == src.loc.loc && M.music == 0)
-			//		world << "Found the song..."
-			//		M << S
+//					to_chat(world, "Found the song...")
+//					M << S
 			//		M.music = 1
 			var/area/A = src.loc.loc
 			for(var/obj/machinery/party/lasermachine/L in A)
@@ -94,7 +94,7 @@
 			while(playing == 1)
 				for(var/mob/M in world)
 					if(M.loc.loc == src.loc.loc && M.music == 0)
-						//world << "Found the song..."
+//						to_chat(world, "Found the song...")
 						M << S
 						M.music = 1
 					else if(M.loc.loc != src.loc.loc && M.music == 1)
@@ -106,7 +106,7 @@
 			return
 	if( href_list["on3"] )
 		if(src.playing == 0)
-			//world << "Should be working..."
+//			to_chat(world, "Should be working...")
 			var/sound/S = sound('sound/turntable/TestLoop3.ogg')
 			S.repeat = 1
 			S.channel = 10
@@ -115,8 +115,8 @@
 			S.environment = 0
 			//for(var/mob/M in world)
 			//	if(M.loc.loc == src.loc.loc && M.music == 0)
-			//		world << "Found the song..."
-			//		M << S
+//					to_chat(world, "Found the song...")
+//					M << S
 			//		M.music = 1
 			var/area/A = src.loc.loc
 			for(var/obj/machinery/party/lasermachine/L in A)
@@ -125,7 +125,7 @@
 			while(playing == 1)
 				for(var/mob/M in world)
 					if(M.loc.loc == src.loc.loc && M.music == 0)
-						//world << "Found the song..."
+//						to_chat(world, "Found the song...")
 						M << S
 						M.music = 1
 					else if(M.loc.loc != src.loc.loc && M.music == 1)

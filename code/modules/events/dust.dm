@@ -62,7 +62,7 @@
 	goal = locate(endx, endy, 1)
 	src.x = startx
 	src.y = starty
-	src.z = 1
+	src.z = level_name_to_num(MAIN_STATION)
 	spawn(0)
 		walk_towards(src, goal, 1)
 	return
@@ -73,12 +73,12 @@
 			for(var/mob/M in range(10, src))
 				if(!M.stat && !istype(M, /mob/living/silicon/ai))
 					shake_camera(M, 3, 1)
-		if (A)
+		if(A)
 			playsound(src.loc, 'sound/effects/meteorimpact.ogg', 40, 1)
 
 			if(ismob(A))
 				A.ex_act(strength)//This should work for now I guess
-			else if(!istype(A,/obj/machinery/power/emitter) && !istype(A,/obj/machinery/field_generator)) //Protect the singularity from getting released every round!
+			else if(!istype(A,/obj/machinery/power/emitter) && !istype(A,/obj/machinery/field/generator)) //Protect the singularity from getting released every round!
 				A.ex_act(strength) //Changing emitter/field gen ex_act would make it immune to bombs and C4
 
 			life--

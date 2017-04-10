@@ -2,6 +2,7 @@
 	name = "telecommunications traffic control"
 
 	var/screen = 0				// the screen number:
+	var/allservers = 0          // Are all servers being edited at the same time?
 	var/list/servers = list()	// the servers located by the computer
 	var/mob/editingcode
 	var/mob/lasteditor
@@ -38,37 +39,44 @@
 
 	if(screen == 0) //main menu
 		dat += "<br>[temp]</br>"
-		dat += "<br>Current Network: <a href='?src=\ref[src];network=1'>[network]</a><br>"
+		dat += "<br>Current Network: <a href='?src=[UID()];network=1'>[network]</a><br>"
 		if(servers.len)
 			dat += "<br>Detected Telecommunication Servers:<ul>"
 			for(var/obj/machinery/telecomms/T in servers)
-				dat += "<li><a href='?src=\ref[src];viewserver=[T.id]'>\ref[T] [T.name]</a> ([T.id])</li>"
+				dat += "<li><a href='?src=[UID()];viewserver=[T.id]'>\ref[T] [T.name]</a> ([T.id])</li>"
+			dat += "<li><a href='?src=[UID()];viewserver=all'>Modify All Detected Servers</a></li>"
 			dat += "</ul>"
 
-			dat += "<br><a href='?src=\ref[src];operation=release'>\[Flush Buffer\]</a>"
+			dat += "<br><a href='?src=[UID()];operation=release'>\[Flush Buffer\]</a>"
 
 		else
-			dat += "<br>No servers detected. Scan for servers: <a href='?src=\ref[src];operation=scan'>\[Scan\]</a>"
+			dat += "<br>No servers detected. Scan for servers: <a href='?src=[UID()];operation=scan'>\[Scan\]</a>"
 
 	if(screen == 1) //server menu
 		dat += "<br>[temp]<br>"
-		dat += "<center><a href='?src=\ref[src];operation=mainmenu'>\[Main Menu\]</a>     <a href='?src=\ref[src];operation=refresh'>\[Refresh\]</a></center>"
+		dat += "<center><a href='?src=[UID()];operation=mainmenu'>\[Main Menu\]</a>     <a href='?src=[UID()];operation=refresh'>\[Refresh\]</a></center>"
 		dat += "<br>Current Network: [network]"
-		dat += "<br>Selected Server: [SelectedServer.id]<br><br>"
-		dat += "<br><a href='?src=\ref[src];operation=editcode'>\[Edit Code\]</a>"
-		dat += "<br>Signal Execution: "
-		if(SelectedServer.autoruncode)
-			dat += "<a href='?src=\ref[src];operation=togglerun'>ALWAYS</a>"
+		if(allservers)
+			dat += "<br>Selected Server: All Servers<br><br>"
 		else
-			dat += "<a href='?src=\ref[src];operation=togglerun'>NEVER</a>"
+			dat += "<br>Selected Server: [SelectedServer.id]<br><br>"
+		dat += "<br><a href='?src=[UID()];operation=editcode'>\[Edit Code\]</a>"
+		dat += "<br>Signal Execution: "
+		if(allservers)
+			dat += "<a href='?src=[UID()];operation=runon'>ALWAYS</a> <a href='?src=[UID()];operation=runoff'>NEVER</a>"
+		else
+			if(SelectedServer.autoruncode)
+				dat += "<a href='?src=[UID()];operation=togglerun'>ALWAYS</a>"
+			else
+				dat += "<a href='?src=[UID()];operation=togglerun'>NEVER</a>"
 
 	if(screen == 2) //code editor
 		if(editingcode == user)
 			dat += {"<br>[temp]<br>
 					<center>
-					<a href='?src=\ref[src];operation=codeback'>\[Back\]</a>
-					<a href='?src=\ref[src];operation=mainmenu'>\[Main Menu\]</a>
-					<a href='?src=\ref[src];operation=refresh'>\[Refresh\]</a>
+					<a href='?src=[UID()];operation=codeback'>\[Back\]</a>
+					<a href='?src=[UID()];operation=mainmenu'>\[Main Menu\]</a>
+					<a href='?src=[UID()];operation=refresh'>\[Refresh\]</a>
 					</center>
 
 					<style type="text/css">
@@ -108,11 +116,12 @@
 
 						function compileCode() {
 							var codeText = cMirror_fSubmit.getValue();
-							window.location = "byond://?src=\ref[src];choice=Compile;cMirror=" + encodeURIComponent(codeText);
+							document.getElementById("cMirrorPost").value = codeText;
+							document.getElementById("theform").submit();
 						}
 
 						function clearCode() {
-							window.location = "byond://?src=\ref[src];choice=Clear;";
+							window.location = "byond://?src=[UID()];choice=Clear;";
 						}
 					</script>
 					<a href="javascript:compileCode()">Compile</a>
@@ -121,10 +130,16 @@
 					<div class="item">
 						[compiling_errors]
 					</div>
+
+					<form action="byond://" method="POST" id="theform">
+						<input type="hidden" name="choice" value="Compile">
+						<input type="hidden" name="src" value="[UID()]">
+						<input type="hidden" id="cMirrorPost" name="cMirror" value="">
+					</form>
 					"}
 		else
 			dat += {"<br>[temp]<br>
-					<center><a href='?src=\ref[src];operation=refresh'>\[Refresh\]</a></center>
+					<center><a href='?src=[UID()];operation=refresh'>\[Refresh\]</a></center>
 					<div class="item" style="width:80%">
 						<textarea id="fSubmit" name="cMirror">
 							[storedcode]
@@ -149,9 +164,9 @@
 
 	var/datum/browser/popup = new(user, "traffic_control", "Telecommunication Traffic Control", 700, 500)
 	//codemirror
-	popup.add_script("codemirror-compressed", 'nano/js/codemirror-compressed.js') // A custom compressed JS file of codemirror, with CSS highlighting
-	popup.add_stylesheet("codemirror", 'nano/css/codemirror.css') // this CSS sheet is common to all UIs, so all UIs can use codemirror
-	popup.add_stylesheet("lesser-dark", 'nano/css/lesser-dark.css') //CSS styling for codemirror, dark theme
+	popup.add_script("codemirror-compressed", 'nano/codemirror/codemirror-compressed.js') // A custom minified JavaScript file of CodeMirror, with the following plugins: CSS Mode, NTSL Mode, CSS-hint addon, Search addon, Sublime Keymap.
+	popup.add_stylesheet("codemirror", 'nano/codemirror/codemirror.css')                  // A CSS sheet containing the basic stylings and formatting information for CodeMirror.
+	popup.add_stylesheet("lesser-dark", 'nano/codemirror/lesser-dark.css')                // A theme for CodeMirror to use, which closely resembles the rest of the NanoUI style.
 
 	popup.set_content(dat)
 	popup.open()
@@ -178,7 +193,7 @@
 	user.set_machine(src)
 
 	if(!allowed(user) && !emagged)
-		user << "<span class='danger'>Access Denied.</span>"
+		to_chat(user, "<span class='danger'>Access Denied.</span>")
 		return 0
 
 	switch(href_list["choice"])
@@ -213,6 +228,26 @@
 						compiling_errors += "(0 errors)"
 
 					updateUsrDialog()
+			if(allservers)
+				spawn(0)
+					compiling_errors = "<font color = black>Please wait, compiling...</font>"
+					updateUsrDialog()
+
+					for(var/obj/machinery/telecomms/server/Server in servers)
+						Server.setcode(code)
+						var/list/compileerrors = Server.compile(user)
+						if(!telecomms_check(user))
+							return
+						if(compileerrors.len)
+							compiling_errors = "<b>Compile Errors</b><br>"
+							for(var/datum/scriptError/e in compileerrors)
+								compiling_errors += "<font color = red>\t>[e.message]</font></br>"
+							compiling_errors += "([compileerrors.len] errors)"
+							updateUsrDialog()
+							return // If there are errors, don't waste time compiling on other servers
+					compiling_errors = "<font color='#4266DB'>TCS compilation successful!</font><br>"
+					compiling_errors += "(0 errors)"
+					updateUsrDialog()
 
 		if("Clear")
 			if(!telecomms_check(user) || user != editingcode)
@@ -225,13 +260,24 @@
 				compiling_errors = "<font color='#4266DB'>Server Memory Cleared!</font>"
 				storedcode = null
 				updateUsrDialog()
+			if(allservers)
+				for(var/obj/machinery/telecomms/server/Server in servers)
+					Server.memory = list() // clear the memory
+
+					compiling_errors = "<font color='#4266DB'>Server Memory Cleared!</font>"
+					storedcode = null
+					updateUsrDialog()
 
 	if(href_list["viewserver"])
 		screen = 1
-		for(var/obj/machinery/telecomms/T in servers)
-			if(T.id == href_list["viewserver"])
-				SelectedServer = T
-				break
+		if(href_list["viewserver"] == "all")
+			allservers = 1
+		else
+			allservers = 0
+			for(var/obj/machinery/telecomms/T in servers)
+				if(T.id == href_list["viewserver"])
+					SelectedServer = T
+					break
 
 	if(href_list["operation"])
 		switch(href_list["operation"])
@@ -244,7 +290,7 @@
 				screen = 0
 
 			if("codeback")
-				if(SelectedServer)
+				if(allservers || SelectedServer)
 					screen = 1
 
 			if("scan")
@@ -268,6 +314,12 @@
 
 			if("togglerun")
 				SelectedServer.autoruncode = !(SelectedServer.autoruncode)
+			if("runon")
+				for(var/obj/machinery/telecomms/server/Server in servers)
+					Server.autoruncode = 1
+			if("runoff")
+				for(var/obj/machinery/telecomms/server/Server in servers)
+					Server.autoruncode = 0
 
 	if(href_list["network"])
 
@@ -288,14 +340,14 @@
 
 /obj/machinery/computer/telecomms/traffic/attackby(var/obj/item/weapon/D as obj, var/mob/user as mob, params)
 	if(istype(D, /obj/item/weapon/screwdriver))
-		playsound(get_turf(src), 'sound/items/Screwdriver.ogg', 50, 1)
-		if(do_after(user, 20, target = src))
-			if (src.stat & BROKEN)
-				user << "\blue The broken glass falls out."
+		playsound(get_turf(src), D.usesound, 50, 1)
+		if(do_after(user, 20 * D.toolspeed, target = src))
+			if(src.stat & BROKEN)
+				to_chat(user, "\blue The broken glass falls out.")
 				var/obj/structure/computerframe/A = new /obj/structure/computerframe( src.loc )
 				new /obj/item/weapon/shard(loc)
 				var/obj/item/weapon/circuitboard/comm_traffic/M = new /obj/item/weapon/circuitboard/comm_traffic( A )
-				for (var/obj/C in src)
+				for(var/obj/C in src)
 					C.loc = src.loc
 				A.circuit = M
 				A.state = 3
@@ -303,10 +355,10 @@
 				A.anchored = 1
 				qdel(src)
 			else
-				user << "\blue You disconnect the monitor."
+				to_chat(user, "\blue You disconnect the monitor.")
 				var/obj/structure/computerframe/A = new /obj/structure/computerframe( src.loc )
 				var/obj/item/weapon/circuitboard/comm_traffic/M = new /obj/item/weapon/circuitboard/comm_traffic( A )
-				for (var/obj/C in src)
+				for(var/obj/C in src)
 					C.loc = src.loc
 				A.circuit = M
 				A.state = 4
@@ -320,7 +372,7 @@
 	if(!emagged)
 		playsound(get_turf(src), 'sound/effects/sparks4.ogg', 75, 1)
 		emagged = 1
-		user << "\blue You you disable the security protocols"
+		to_chat(user, "\blue You you disable the security protocols")
 
 /obj/machinery/computer/telecomms/traffic/proc/canAccess(var/mob/user)
 	if(issilicon(user) || in_range(user, src))

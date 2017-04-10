@@ -18,7 +18,9 @@ var/global/datum/global_init/init = new ()
 	cache_lifespan = 0	//stops player uploaded stuff from being kept in the rsc past the current session
 
 
-#define RECOMMENDED_VERSION 508
+#define RECOMMENDED_VERSION 510
+
+var/global/list/map_transition_config = MAP_TRANSITION_CONFIG
 
 /world/New()
 	//logs
@@ -35,16 +37,11 @@ var/global/datum/global_init/init = new ()
 	if(config && config.log_runtimes)
 		log = file("data/logs/runtime/[time2text(world.realtime,"YYYY-MM-DD-(hh-mm-ss)")]-runtime.log")
 
-	SetupHooks() // /vg/
-
 	if(config && config.server_name != null && config.server_suffix && world.port > 0)
 		// dumb and hardcoded but I don't care~
 		config.server_name += " #[(world.port % 1000) / 100]"
 
 	timezoneOffset = text2num(time2text(0,"hh")) * 36000
-
-	if(config && config.log_runtime)
-		log = file("data/logs/runtime/[time2text(world.realtime,"YYYY-MM-DD-(hh-mm-ss)")]-runtime.log")
 
 	callHook("startup")
 
@@ -52,13 +49,10 @@ var/global/datum/global_init/init = new ()
 
 	. = ..()
 
-	sleep_offline = 1
-
-	plant_controller = new()
 	// Create robolimbs for chargen.
 	populate_robolimb_list()
 
-	setup_map_transitions() //Before the MC starts up
+	space_manager.initialize() //Before the MC starts up
 
 	processScheduler = new
 	master_controller = new /datum/controller/game_controller()
@@ -67,6 +61,7 @@ var/global/datum/global_init/init = new ()
 		processScheduler.setup()
 
 		master_controller.setup()
+		sleep_offline = 1
 
 	#ifdef MAP_NAME
 	map_name = "[MAP_NAME]"
@@ -82,14 +77,14 @@ var/global/datum/global_init/init = new ()
 	return
 
 //world/Topic(href, href_list[])
-//		world << "Received a Topic() call!"
-//		world << "[href]"
+//		to_chat(world, "Received a Topic() call!")
+//		to_chat(world, "[href]")
 //		for(var/a in href_list)
-//			world << "[a]"
+//			to_chat(world, "[a]")
 //		if(href_list["hello"])
-//			world << "Hello world!"
+//			to_chat(world, "Hello world!")
 //			return "Hello world!"
-//		world << "End of Topic() call."
+//		to_chat(world, "End of Topic() call.")
 //		..()
 
 var/world_topic_spam_protect_ip = "0.0.0.0"
@@ -98,21 +93,25 @@ var/world_topic_spam_protect_time = world.timeofday
 /world/Topic(T, addr, master, key)
 	diary << "TOPIC: \"[T]\", from:[addr], master:[master], key:[key]"
 
-	if (T == "ping")
+	var/list/input = params2list(T)
+	var/key_valid = (config.comms_password && input["key"] == config.comms_password) //no password means no comms, not any password
+
+	if("ping" in input)
 		var/x = 1
-		for (var/client/C)
+		for(var/client/C)
 			x++
 		return x
 
-	else if(T == "players")
+	else if("players" in input)
 		var/n = 0
 		for(var/mob/M in player_list)
 			if(M.client)
 				n++
 		return n
 
-	else if (T == "status")
+	else if("status" in input)
 		var/list/s = list()
+		var/list/admins = list()
 		s["version"] = game_version
 		s["mode"] = master_mode
 		s["respawn"] = config ? abandon_allowed : 0
@@ -122,25 +121,74 @@ var/world_topic_spam_protect_time = world.timeofday
 		s["host"] = host ? host : null
 		s["players"] = list()
 		s["stationtime"] = worldtime2text()
-		var/n = 0
-		var/admins = 0
+		var/player_count = 0
+		var/admin_count = 0
 
 		for(var/client/C in clients)
 			if(C.holder)
 				if(C.holder.fakekey)
 					continue	//so stealthmins aren't revealed by the hub
-				admins++
-			s["player[n]"] = C.key
-			n++
-		s["players"] = n
-
-//		if(revdata)	s["revision"] = revdata.revision
-		s["admins"] = admins
+				admin_count++
+				admins += list(list(C.key, C.holder.rank))
+			s["player[player_count]"] = C.key
+			player_count++
+		s["players"] = player_count
+		s["admins"] = admin_count
 		s["map_name"] = map_name ? map_name : "Unknown"
+
+		if(key_valid)
+			if(ticker && ticker.mode)
+				s["real_mode"] = ticker.mode.name
+
+			s["security_level"] = get_security_level()
+
+			if(shuttle_master && shuttle_master.emergency)
+				// Shuttle status, see /__DEFINES/stat.dm
+				s["shuttle_mode"] = shuttle_master.emergency.mode
+				// Shuttle timer, in seconds
+				s["shuttle_timer"] = shuttle_master.emergency.timeLeft()
+
+			for(var/i in 1 to admins.len)
+				var/list/A = admins[i]
+				s["admin[i - 1]"] = A[1]
+				s["adminrank[i - 1]"] = A[2]
 
 		return list2params(s)
 
-	else if(copytext(T,1,9) == "adminmsg")
+	else if("manifest" in input)
+		var/list/positions = list()
+		var/list/set_names = list(
+			"heads" = command_positions,
+			"sec" = security_positions,
+			"eng" = engineering_positions,
+			"med" = medical_positions,
+			"sci" = science_positions,
+			"car" = supply_positions,
+			"srv" = service_positions,
+			"civ" = civilian_positions,
+			"bot" = nonhuman_positions
+		)
+
+		for(var/datum/data/record/t in data_core.general)
+			var/name = t.fields["name"]
+			var/rank = t.fields["rank"]
+			var/real_rank = t.fields["real_rank"]
+
+			var/department = 0
+			for(var/k in set_names)
+				if(real_rank in set_names[k])
+					if(!positions[k])
+						positions[k] = list()
+					positions[k][name] = rank
+					department = 1
+			if(!department)
+				if(!positions["misc"])
+					positions["misc"] = list()
+				positions["misc"][name] = rank
+
+		return json_encode(positions)
+
+	else if("adminmsg" in input)
 		/*
 			We got an adminmsg from IRC bot lets split the input then validate the input.
 			expected output:
@@ -149,20 +197,8 @@ var/world_topic_spam_protect_time = world.timeofday
 				3. validatationkey = the key the bot has, it should match the gameservers commspassword in it's configuration.
 				4. sender = the ircnick that send the message.
 		*/
-
-
-		var/input[] = params2list(T)
-		if(input["key"] != config.comms_password)
-			if(world_topic_spam_protect_ip == addr && abs(world_topic_spam_protect_time - world.time) < 50)
-
-				spawn(50)
-					world_topic_spam_protect_time = world.time
-					return "Bad Key (Throttled)"
-
-			world_topic_spam_protect_time = world.time
-			world_topic_spam_protect_ip = addr
-
-			return "Bad Key"
+		if(!key_valid)
+			return keySpamProtect(addr)
 
 		var/client/C
 
@@ -180,72 +216,99 @@ var/world_topic_spam_protect_time = world.timeofday
 		C.irc_admin = input["sender"]
 
 		C << 'sound/effects/adminhelp.ogg'
-		C << message
-
+		to_chat(C, message)
 
 		for(var/client/A in admins)
 			if(A != C)
-				A << amessage
+				to_chat(A, amessage)
 
 		return "Message Successful"
 
-	else if(copytext(T,1,6) == "notes")
+	else if("notes" in input)
 		/*
 			We got a request for notes from the IRC Bot
 			expected output:
 				1. notes = ckey of person the notes lookup is for
 				2. validationkey = the key the bot has, it should match the gameservers commspassword in it's configuration.
 		*/
-		var/input[] = params2list(T)
-		if(input["key"] != config.comms_password)
-			if(world_topic_spam_protect_ip == addr && abs(world_topic_spam_protect_time - world.time) < 50)
-
-				spawn(50)
-					world_topic_spam_protect_time = world.time
-					return "Bad Key (Throttled)"
-
-			world_topic_spam_protect_time = world.time
-			world_topic_spam_protect_ip = addr
-			return "Bad Key"
+		if(!key_valid)
+			return keySpamProtect(addr)
 
 		return show_player_info_irc(input["notes"])
 
+	else if("announce" in input)
+		if(config.comms_password)
+			if(input["key"] != config.comms_password)
+				return "Bad Key"
+			else
+				for(var/client/C in clients)
+					to_chat(C, "<span class='announce'>PR: [input["announce"]]</span>")
+
+/proc/keySpamProtect(var/addr)
+	if(world_topic_spam_protect_ip == addr && abs(world_topic_spam_protect_time - world.time) < 50)
+		spawn(50)
+			world_topic_spam_protect_time = world.time
+			return "Bad Key (Throttled)"
+
+	world_topic_spam_protect_time = world.time
+	world_topic_spam_protect_ip = addr
+	return "Bad Key"
+
 /world/Reboot(var/reason, var/feedback_c, var/feedback_r, var/time)
-	if (reason == 1) //special reboot, do none of the normal stuff
+	if(reason == 1) //special reboot, do none of the normal stuff
 		if(usr)
 			message_admins("[key_name_admin(usr)] has requested an immediate world restart via client side debugging tools")
 			log_admin("[key_name(usr)] has requested an immediate world restart via client side debugging tools")
 		spawn(0)
-			world << "<span class='boldannounce'>Rebooting world immediately due to host request</span>"
-		return ..(1)
+			to_chat(world, "<span class='boldannounce'>Rebooting world immediately due to host request</span>")
+		if(config && config.shutdown_on_reboot)
+			sleep(0)
+			if(shutdown_shell_command)
+				shell(shutdown_shell_command)
+			del(world)
+			return
+		else
+			return ..(1)
+
 	var/delay
 	if(!isnull(time))
 		delay = max(0,time)
 	else
 		delay = ticker.restart_timeout
 	if(ticker.delay_end)
-		world << "<span class='boldannounce'>An admin has delayed the round end.</span>"
+		to_chat(world, "<span class='boldannounce'>An admin has delayed the round end.</span>")
 		return
-	world << "<span class='boldannounce'>Rebooting world in [delay/10] [delay > 10 ? "seconds" : "second"]. [reason]</span>"
+	to_chat(world, "<span class='boldannounce'>Rebooting world in [delay/10] [delay > 10 ? "seconds" : "second"]. [reason]</span>")
+
+	var/round_end_sound = pick(round_end_sounds)
+	var/sound_length = round_end_sounds[round_end_sound]
+	if(delay > sound_length) // If there's time, play the round-end sound before rebooting
+		spawn(delay - sound_length)
+			if(!ticker.delay_end)
+				world << round_end_sound
 	sleep(delay)
 	if(blackbox)
 		blackbox.save_all_data_to_sql()
 	if(ticker.delay_end)
-		world << "<span class='boldannounce'>Reboot was cancelled by an admin.</span>"
+		to_chat(world, "<span class='boldannounce'>Reboot was cancelled by an admin.</span>")
 		return
 	feedback_set_details("[feedback_c]","[feedback_r]")
 	log_game("<span class='boldannounce'>Rebooting world. [reason]</span>")
 	//kick_clients_in_lobby("<span class='boldannounce'>The round came to an end with you in the lobby.</span>", 1)
 
-	spawn(0)
-		world << sound(pick('sound/AI/newroundsexy.ogg','sound/misc/apcdestroyed.ogg','sound/misc/bangindonk.ogg')) // random end sounds!! - LastyBatsy
-
 	processScheduler.stop()
 
-	for(var/client/C in clients)
-		if(config.server)	//if you set a server location in config.txt, it sends you there instead of trying to reconnect to the same world address. -- NeoFite
-			C << link("byond://[config.server]")
-	..(0)
+	if(config && config.shutdown_on_reboot)
+		sleep(0)
+		if(shutdown_shell_command)
+			shell(shutdown_shell_command)
+		del(world)
+		return
+	else
+		for(var/client/C in clients)
+			if(config.server)	//if you set a server location in config.txt, it sends you there instead of trying to reconnect to the same world address. -- NeoFite
+				C << link("byond://[config.server]")
+		..(0)
 
 #define INACTIVITY_KICK	6000	//10 minutes in ticks (approx.)
 /world/proc/KickInactiveClients()
@@ -264,38 +327,13 @@ var/world_topic_spam_protect_time = world.timeofday
 			if(C.is_afk(INACTIVITY_KICK))
 				if(!istype(C.mob, /mob/dead))
 					log_access("AFK: [key_name(C)]")
-					C << "\red You have been inactive for more than 10 minutes and have been disconnected."
+					to_chat(C, "\red You have been inactive for more than 10 minutes and have been disconnected.")
 					del(C)
-		if ( ((world.timeofday - sleep_check) > work_length) || ((world.timeofday - sleep_check) < 0) )
+		if( ((world.timeofday - sleep_check) > work_length) || ((world.timeofday - sleep_check) < 0) )
 			sleep(sleep_length)
 			sleep_check = world.timeofday
 		waiting++
 //#undef INACTIVITY_KICK
-/*
-#define DISCONNECTED_DELETE	6000	//10 minutes in ticks (approx)
-/world/proc/KickDisconnectedClients()
-	spawn(-1)
-		//set background = 1
-		while(1)
-			sleep(DISCONNECTED_DELETE)
-			for(var/mob/living/carbon/human/C in living_mob_list)
-				if (dd_hasprefix(C.key,@)) return
-				if(!C.client && C.brain_op_stage!=4.0 && C.lastKnownIP)
-					sleep(600)
-					if(!C.client && C.stat != DEAD && C.brain_op_stage!=4.0)
-						job_master.FreeRole(C.job)
-						message_admins("[key_name_admin(C)], the [C.job] has been freed due to (<font color='#ffcc00'><b>Client disconnect for 10 minutes</b></font>)\n")
-						for(var/obj/item/W in C)
-							C.unEquip(W)
-						del(C)
-					else if(!C.key && C.stat != DEAD && C.brain_op_stage!=4.0)
-						job_master.FreeRole(C.job)
-						message_admins("[key_name_admin(C)], the [C.job] has been freed due to (<font color='#ffcc00'><b>Client quit BYOND</b></font>)\n")
-						for(var/obj/item/W in C)
-							C.unEquip(W)
-						del(C)
-#undef INACTIVITY_KICK
-*/
 
 /hook/startup/proc/loadMode()
 	world.load_mode()
@@ -312,11 +350,6 @@ var/world_topic_spam_protect_time = world.timeofday
 	var/F = file("data/mode.txt")
 	fdel(F)
 	F << the_mode
-
-/hook/startup/proc/loadMusic()
-	for(var/obj/machinery/media/jukebox/J in machines)
-		J.process()
-	return 1
 
 /hook/startup/proc/loadMOTD()
 	world.load_motd()
@@ -337,7 +370,7 @@ var/world_topic_spam_protect_time = world.timeofday
 /world/proc/update_status()
 	var/s = ""
 
-	if (config && config.server_name)
+	if(config && config.server_name)
 		s += "<b>[config.server_name]</b> &#8212; "
 
 	s += "<b>[station_name()]</b>";
@@ -359,41 +392,41 @@ var/world_topic_spam_protect_time = world.timeofday
 	else
 		features += "<b>STARTING</b>"
 
-	if (!enter_allowed)
+	if(!enter_allowed)
 		features += "closed"
 
 	features += abandon_allowed ? "respawn" : "no respawn"
 
-	if (config && config.allow_vote_mode)
+	if(config && config.allow_vote_mode)
 		features += "vote"
 
-	if (config && config.allow_ai)
+	if(config && config.allow_ai)
 		features += "AI allowed"
 
 	var/n = 0
-	for (var/mob/M in player_list)
-		if (M.client)
+	for(var/mob/M in player_list)
+		if(M.client)
 			n++
 
-	if (n > 1)
+	if(n > 1)
 		features += "~[n] players"
-	else if (n > 0)
+	else if(n > 0)
 		features += "~[n] player"
 
 	/*
 	is there a reason for this? the byond site shows 'hosted by X' when there is a proper host already.
-	if (host)
+	if(host)
 		features += "hosted by <b>[host]</b>"
 	*/
 
-//	if (!host && config && config.hostedby)
+//	if(!host && config && config.hostedby)
 //		features += "hosted by <b>[config.hostedby]</b>"
 
-	if (features)
-		s += ": [list2text(features, ", ")]"
+	if(features)
+		s += ": [jointext(features, ", ")]"
 
 	/* does this help? I do not know */
-	if (src.status != s)
+	if(src.status != s)
 		src.status = s
 
 #define FAILED_DB_CONNECTION_CUTOFF 5
@@ -423,7 +456,7 @@ proc/setup_database_connection()
 
 	dbcon.Connect("dbi:mysql:[db]:[address]:[port]","[user]","[pass]")
 	. = dbcon.IsConnected()
-	if ( . )
+	if( . )
 		failed_db_connections = 0	//If this connection succeeded, reset the failed connections counter.
 	else
 		failed_db_connections++		//If it failed, increase the failed connections counter.

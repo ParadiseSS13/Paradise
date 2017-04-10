@@ -1,17 +1,3 @@
-// Vampire power defines
-#define VAMP_REJUV 1
-#define VAMP_GLARE 2
-#define VAMP_HYPNO 3
-#define VAMP_SHAPE 4
-#define VAMP_VISION 5
-#define VAMP_DISEASE 6
-#define VAMP_CLOAK 7
-#define VAMP_BATS 8
-#define VAMP_SCREAM 9
-#define VAMP_JAUNT 10
-#define VAMP_SLAVE 11
-#define VAMP_BLINK 12
-#define VAMP_FULL 13
 ///////////////////ORGAN DEFINES///////////////////
 
 // Organ defines.
@@ -64,6 +50,12 @@
 #define SHOES_SLOWDOWN -1.0			// How much shoes slow you down by default. Negative values speed you up
 
 
+//Mob attribute defaults.
+#define DEFAULT_MARKING_STYLES list("head" = "None", "body" = "None", "tail" = "None") //Marking styles. Use instead of initial() for m_styles.
+#define DEFAULT_MARKING_COLOURS list("head" = "#000000", "body" = "#000000", "tail" = "#000000") //Marking colours. Use instead of initial() for m_colours.
+
+#define OXYCONCEN_PLASMEN_IGNITION 0.5 //Moles of oxygen in the air needed to light up a poorly clothed Plasmaman. Same as LINDA requirements for plasma burning.
+
 ////////REAGENT STUFF////////
 // How many units of reagent are consumed per tick, by default.
 #define  REAGENTS_METABOLISM 0.4
@@ -86,11 +78,18 @@
 #define APPEARANCE_SKIN 8
 #define APPEARANCE_HAIR 16
 #define APPEARANCE_HAIR_COLOR 32
-#define APPEARANCE_FACIAL_HAIR 64
-#define APPEARANCE_FACIAL_HAIR_COLOR 128
-#define APPEARANCE_EYE_COLOR 256
-#define APPEARANCE_ALL_HAIR APPEARANCE_HAIR|APPEARANCE_HAIR_COLOR|APPEARANCE_FACIAL_HAIR|APPEARANCE_FACIAL_HAIR_COLOR
-#define APPEARANCE_ALL 511
+#define APPEARANCE_SECONDARY_HAIR_COLOR 64
+#define APPEARANCE_FACIAL_HAIR 128
+#define APPEARANCE_FACIAL_HAIR_COLOR 256
+#define APPEARANCE_SECONDARY_FACIAL_HAIR_COLOR 512
+#define APPEARANCE_EYE_COLOR 1024
+#define APPEARANCE_ALL_HAIR APPEARANCE_HAIR|APPEARANCE_HAIR_COLOR|APPEARANCE_SECONDARY_HAIR_COLOR|APPEARANCE_FACIAL_HAIR|APPEARANCE_FACIAL_HAIR_COLOR|APPEARANCE_SECONDARY_FACIAL_HAIR_COLOR
+#define APPEARANCE_HEAD_ACCESSORY 2048
+#define APPEARANCE_MARKINGS 4096
+#define APPEARANCE_BODY_ACCESSORY 8192
+#define APPEARANCE_ALT_HEAD 16384
+#define APPEARANCE_ALL_BODY APPEARANCE_ALL_HAIR|APPEARANCE_HEAD_ACCESSORY|APPEARANCE_MARKINGS|APPEARANCE_BODY_ACCESSORY|APPEARANCE_ALT_HEAD
+#define APPEARANCE_ALL 32767
 
 // Intents
 #define I_HELP		"help"
@@ -106,3 +105,63 @@
 
 #define DEFAULT_ITEM_STRIP_DELAY		40  //time taken (in deciseconds) to strip somebody
 #define DEFAULT_ITEM_PUTON_DELAY		20  //time taken (in deciseconsd) to reverse-strip somebody
+
+#define IGNORE_ACCESS -1
+
+#define CHEM_MOB_SPAWN_INVALID   0
+#define CHEM_MOB_SPAWN_HOSTILE   1
+#define CHEM_MOB_SPAWN_FRIENDLY  2
+
+#define TINT_IMPAIR 2			//Threshold of tint level to apply weld mask overlay
+#define TINT_BLIND 3			//Threshold of tint level to obscure vision fully
+
+#define isliving(A)		(istype((A), /mob/living))
+#define iscarbon(A)		(istype((A), /mob/living/carbon))
+#define ishuman(A)		(istype((A), /mob/living/carbon/human))
+#define isbrain(A)		(istype((A), /mob/living/carbon/brain))
+#define isalien(A)		(istype((A), /mob/living/carbon/alien))
+#define isalienadult(A)	(istype((A), /mob/living/carbon/alien/humanoid))
+#define islarva(A)		(istype((A), /mob/living/carbon/alien/larva))
+#define isslime(A)		(istype((A), /mob/living/carbon/slime))
+
+//Human sub-species
+#define isabductor(A) (is_species(A, "Abductor"))
+
+#define isanimal(A)		(istype((A), /mob/living/simple_animal))
+#define iscorgi(A)		(istype((A), /mob/living/simple_animal/pet/corgi))
+#define ismouse(A)		(istype((A), /mob/living/simple_animal/mouse))
+#define isbot(A)		(istype((A), /mob/living/simple_animal/bot))
+#define isswarmer(A)	(istype((A), /mob/living/simple_animal/hostile/swarmer))
+#define isguardian(A)	(istype((A), /mob/living/simple_animal/hostile/guardian))
+
+
+
+#define issilicon(A)	(istype((A), /mob/living/silicon))
+#define isAI(A)			(istype((A), /mob/living/silicon/ai))
+#define isrobot(A)		(istype((A), /mob/living/silicon/robot))
+#define ispAI(A)		(istype((A), /mob/living/silicon/pai))
+
+// For the tcomms monitor
+#define ispathhuman(A)		(ispath(A, /mob/living/carbon/human))
+#define ispathbrain(A)		(ispath(A, /mob/living/carbon/brain))
+#define ispathslime(A)		(ispath(A, /mob/living/carbon/slime))
+#define ispathbot(A)			(ispath(A, /mob/living/simple_animal/bot))
+#define ispathsilicon(A)	(ispath(A, /mob/living/silicon))
+#define ispathanimal(A)		(ispath(A, /mob/living/simple_animal))
+
+#define isAutoAnnouncer(A)	(istype((A), /mob/living/automatedannouncer))
+
+#define isAIEye(A)		(istype((A), /mob/camera/aiEye))
+#define isovermind(A)	(istype((A), /mob/camera/blob))
+
+#define isSpirit(A)		(istype((A), /mob/spirit))
+#define ismask(A)		(istype((A), /mob/spirit/mask))
+
+#define isobserver(A)	(istype((A), /mob/dead/observer))
+
+#define isnewplayer(A)  (istype((A), /mob/new_player))
+
+#define isorgan(A)		(istype((A), /obj/item/organ/external))
+#define hasorgans(A)	(ishuman(A))
+
+#define is_admin(user)	(check_rights(R_ADMIN, 0, (user)) != 0)

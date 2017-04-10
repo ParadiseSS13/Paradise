@@ -5,19 +5,16 @@
 	if(isliving(A))
 		var/mob/living/L = A
 		if(!L.stat)
-			stance = HOSTILE_STANCE_ATTACK
 			return L
 		else
 			enemies -= L
 	else if(istype(A, /obj/mecha))
 		var/obj/mecha/M = A
 		if(M.occupant)
-			stance = HOSTILE_STANCE_ATTACK
 			return A
 	else if(istype(A, /obj/spacepod))
 		var/obj/spacepod/M = A
-		if(M.occupant || M.occupant2)
-			stance = HOSTILE_STANCE_ATTACK
+		if(M.pilot)
 			return A
 
 /mob/living/simple_animal/hostile/retaliate/ListTargets()
@@ -50,9 +47,9 @@
 				enemies |= M.occupant
 		else if(istype(A, /obj/spacepod))
 			var/obj/spacepod/M = A
-			if(M.occupant || M.occupant2)
+			if(M.pilot)
 				enemies |= M
-				enemies |= M.occupant
+				enemies |= M.pilot
 
 	for(var/mob/living/simple_animal/hostile/retaliate/H in around)
 		var/retaliate_faction_check = 0
@@ -64,7 +61,7 @@
 			H.enemies |= enemies
 	return 0
 
-/mob/living/simple_animal/hostile/retaliate/adjustBruteLoss(var/damage)
+/mob/living/simple_animal/hostile/retaliate/adjustHealth(damage)
 	..(damage)
 	Retaliate()
 

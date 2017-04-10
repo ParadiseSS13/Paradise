@@ -6,14 +6,12 @@
 	var/obj/item/clothing/head/helmet/part1 = null
 	var/obj/item/device/radio/electropack/part2 = null
 	var/status = 0
-	w_class = 5.0
+	w_class = 5
 	flags = CONDUCT
 
 /obj/item/assembly/shock_kit/Destroy()
-	qdel(part1)
-	part1 = null
-	qdel(part2)
-	part2 = null
+	QDEL_NULL(part1)
+	QDEL_NULL(part2)
 	return ..()
 
 /obj/item/assembly/shock_kit/attackby(obj/item/weapon/W as obj, mob/user as mob, params)
@@ -31,7 +29,7 @@
 		return
 	if(istype(W, /obj/item/weapon/screwdriver))
 		status = !status
-		user << "<span class='notice'>[src] is now [status ? "secured" : "unsecured"]!</span>"
+		to_chat(user, "<span class='notice'>[src] is now [status ? "secured" : "unsecured"]!</span>")
 	add_fingerprint(user)
 	return
 

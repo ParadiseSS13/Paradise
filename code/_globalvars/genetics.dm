@@ -1,5 +1,6 @@
 	///////////
 var/BLINDBLOCK = 0
+var/COLOURBLINDBLOCK = 0
 var/DEAFBLOCK = 0
 var/HULKBLOCK = 0
 var/TELEBLOCK = 0
@@ -53,7 +54,6 @@ var/CHAMELEONBLOCK = 0
 var/CRYOBLOCK = 0
 var/EATBLOCK = 0
 var/JUMPBLOCK = 0
-//var/MELTBLOCK = 0
 var/EMPATHBLOCK = 0
 var/SUPERFARTBLOCK = 0
 var/IMMOLATEBLOCK = 0
@@ -63,7 +63,6 @@ var/POLYMORPHBLOCK = 0
 // /vg/ Mutations
 ///////////////////////////////
 var/LOUDBLOCK = 0
-//var/WHISPERBLOCK = 0
 var/DIZZYBLOCK = 0
 
 var/list/reg_dna = list(  ) //this appears to be a list of UE == real_name correlations

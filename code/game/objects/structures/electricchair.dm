@@ -24,7 +24,7 @@
 /obj/structure/stool/bed/chair/e_chair/attackby(obj/item/weapon/W as obj, mob/user as mob, params)
 	if(istype(W, /obj/item/weapon/wrench))
 		var/obj/structure/stool/bed/chair/C = new /obj/structure/stool/bed/chair(loc)
-		playsound(loc, 'sound/items/Ratchet.ogg', 50, 1)
+		playsound(loc, W.usesound, 50, 1)
 		C.dir = dir
 		part.loc = loc
 		part.master = null
@@ -40,9 +40,9 @@
 	if(usr.stat || !usr.canmove || usr.restrained())
 		return
 	if(last_time + delay_time > world.time)
-		usr << "<span class='warning'>\The [src] is not ready yet!</span>"
+		to_chat(usr, "<span class='warning'>\The [src] is not ready yet!</span>")
 		return
-	usr << "<span class='notice'>You activate \the [src].</span>"
+	to_chat(usr, "<span class='notice'>You activate \the [src].</span>")
 	shock()
 	return
 
@@ -77,13 +77,10 @@
 	s.start()
 	visible_message("<span class='danger'>The electric chair went off!</span>", "<span class='danger'>You hear a deep sharp shock!</span>")
 	if(buckled_mob)
-		buckled_mob.burn_skin(90)
-		buckled_mob << "<span class='danger'>You feel a deep shock course through your body!</span>"
-		sleep(1)
-		buckled_mob.burn_skin(90)
-		sleep(5)
-		buckled_mob.burn_skin(max(rand(5,20),rand(5,20),rand(5,20)))
-
+		buckled_mob.electrocute_act(110, src, 1)
+		to_chat(buckled_mob, "<span class='danger'>You feel a deep shock course through your body!</span>")
+		spawn(1)
+			buckled_mob.electrocute_act(110, src, 1)
 	A.power_light = light
 	A.updateicon()
 	return

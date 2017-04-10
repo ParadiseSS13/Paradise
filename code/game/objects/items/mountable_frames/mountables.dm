@@ -18,14 +18,14 @@
 /obj/item/mounted/proc/try_build(turf/on_wall, mob/user, proximity_flag) //checks
 	if(!on_wall || !user)
 		return
-	if (proximity_flag != 1) //if we aren't next to the wall
+	if(proximity_flag != 1) //if we aren't next to the wall
 		return
-	if (!( get_dir(on_wall,user) in cardinal))
-		user << "<span class='rose'>You need to be standing next to a wall to place \the [src].</span>"
+	if(!( get_dir(on_wall,user) in cardinal))
+		to_chat(user, "<span class='rose'>You need to be standing next to a wall to place \the [src].</span>")
 		return
 
 	if(gotwallitem(get_turf(user), get_dir(on_wall,user)))
-		user << "<span class='rose'>There's already an item on this wall!</span>"
+		to_chat(user, "<span class='rose'>There's already an item on this wall!</span>")
 		return
 
 	return 1

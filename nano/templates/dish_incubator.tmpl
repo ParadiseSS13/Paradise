@@ -12,11 +12,11 @@
     Power:
   </div>
   <div class="itemContent">
-    {{:helper.link('On', 'power', { 'power' : 1 }, !data.dish_inserted ? 'disabled' : data.on ? 'selected' : null)}}{{:helper.link('Off', 'close', { 'power' : 1 }, data.on ? null : 'selected')}}
+    {{:helper.link('On', 'power-off', { 'power' : 1 }, !data.dish_inserted ? 'disabled' : data.on ? 'selected' : null)}}{{:helper.link('Off', 'close', { 'power' : 1 }, data.on ? null : 'selected')}}
   </div>
 </div>
 <div class='item'>
-  {{:helper.link('Add Radiation', 'radiation', {'rad' : 1})}}
+  {{:helper.link('Add Radiation', 'exclamation-circle', {'rad' : 1})}}
   {{:helper.link('Flush System', 'trash', {'flush' : 1}, data.system_in_use ? null : 'disabled')}}
 </div>
 
@@ -54,7 +54,7 @@
 </div>
 <div class='item'>
   {{:helper.link('Eject Chemicals', 'eject', { 'ejectchem' : 1 }, data.chemicals_inserted ? null : 'disabled')}}
-  {{:helper.link('Breed Virus', 'circle-arrow-s', { 'virus' : 1 }, data.can_breed_virus ? null : 'disabled')}}
+  {{:helper.link('Breed Virus', 'arrow-circle-down', { 'virus' : 1 }, data.can_breed_virus ? null : 'disabled')}}
 </div>
 
 {{if data.chemicals_inserted}}

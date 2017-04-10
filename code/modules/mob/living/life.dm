@@ -49,15 +49,15 @@
 		handle_disabilities() // eye, ear, brain damages
 		handle_status_effects() //all special effects, stunned, weakened, jitteryness, hallucination, sleeping, etc
 
-	handle_actions()
-
-	update_canmove()
+	update_canmove(1) // set to 1 to not update icon action buttons; rip this argument out if Life is ever refactored to be non-stupid. -Fox
 
 	if(client)
 		//regular_hud_updates() //THIS DOESN'T FUCKING UPDATE SHIT
 		handle_regular_hud_updates() //IT JUST REMOVES FUCKING HUD IMAGES
 	if(get_nations_mode())
 		process_nations()
+
+	..()
 
 /mob/living/proc/handle_breathing()
 	return
@@ -93,7 +93,7 @@
 		if(paralysis)
 			stat = UNCONSCIOUS
 
-		else if (status_flags & FAKEDEATH)
+		else if(status_flags & FAKEDEATH)
 			stat = UNCONSCIOUS
 
 		else
@@ -110,18 +110,22 @@
 	handle_drugged()
 	handle_slurring()
 	handle_paralysed()
+	handle_sleeping()
+	handle_slowed()
+	handle_drunk()
+	handle_cultslurring()
 
 
 /mob/living/proc/handle_stunned()
 	if(stunned)
-		AdjustStunned(-1)
+		AdjustStunned(-1, updating = 1, force = 1)
 		if(!stunned)
 			update_icons()
 	return stunned
 
 /mob/living/proc/handle_weakened()
 	if(weakened)
-		weakened = max(weakened-1,0)	//before you get mad Rockdtben: I done this so update_canmove isn't called multiple times
+		AdjustWeakened(-1, updating = 1, force = 1)
 		if(!weakened)
 			update_icons()
 	return weakened
@@ -133,42 +137,64 @@
 
 /mob/living/proc/handle_silent()
 	if(silent)
-		silent = max(silent-1, 0)
+		AdjustSilence(-1)
 	return silent
 
 /mob/living/proc/handle_drugged()
 	if(druggy)
-		druggy = max(druggy-1, 0)
+		AdjustDruggy(-1)
 	return druggy
 
 /mob/living/proc/handle_slurring()
 	if(slurring)
-		slurring = max(slurring-1, 0)
+		AdjustSlur(-1)
 	return slurring
 
-/mob/living/proc/handle_paralysed() // Currently only used by simple_animal.dm, treated as a special case in other mobs
+/mob/living/proc/handle_cultslurring()
+	if(cultslurring)
+		AdjustCultSlur(-1)
+	return cultslurring
+
+/mob/living/proc/handle_paralysed()
 	if(paralysis)
-		AdjustParalysis(-1)
+		AdjustParalysis(-1, updating = 1, force = 1)
 	return paralysis
 
+/mob/living/proc/handle_sleeping()
+	if(sleeping)
+		AdjustSleeping(-1)
+		throw_alert("asleep", /obj/screen/alert/asleep)
+	else
+		clear_alert("asleep")
+	return sleeping
 
+/mob/living/proc/handle_slowed()
+	if(slowed)
+		AdjustSlowed(-1)
+	return slowed
+
+/mob/living/proc/handle_drunk()
+	if(drunk)
+		AdjustDrunk(-1)
+	return drunk
 
 /mob/living/proc/handle_disabilities()
 	//Eyes
 	if(disabilities & BLIND || stat)	//blindness from disability or unconsciousness doesn't get better on its own
-		eye_blind = max(eye_blind, 1)
+		EyeBlind(1)
 	else if(eye_blind)			//blindness, heals slowly over time
-		eye_blind = max(eye_blind-1,0)
+		AdjustEyeBlind(-1)
 	else if(eye_blurry)			//blurry eyes heal slowly
-		eye_blurry = max(eye_blurry-1, 0)
+		AdjustEyeBlurry(-1)
 
 	//Ears
 	if(disabilities & DEAF)		//disabled-deaf, doesn't get better on its own
-		setEarDamage(-1, max(ear_deaf, 1))
+		EarDeaf(1)
 	else
 		// deafness heals slowly over time, unless ear_damage is over 100
 		if(ear_damage < 100)
-			adjustEarDamage(-0.05,-1)
+			AdjustEarDamage(-0.05)
+			AdjustEarDeaf(-1)
 
 //this handles hud updates. Calls update_vision() and handle_hud_icons()
 /mob/living/proc/handle_regular_hud_updates()
@@ -176,41 +202,65 @@
 
 	handle_vision()
 	handle_hud_icons()
-	update_action_buttons()
 
 	return 1
 
 /mob/living/proc/handle_vision()
-
-	client.screen.Remove(global_hud.blurry, global_hud.druggy, global_hud.vimpaired, global_hud.darkMask)
-
 	update_sight()
 
-	if(stat != DEAD)
-		if(blind)
-			if(eye_blind)
-				blind.layer = 18
-			else
-				blind.layer = 0
+	if(stat == DEAD)
+		return
+	if(blinded || eye_blind)
+		overlay_fullscreen("blind", /obj/screen/fullscreen/blind)
+		throw_alert("blind", /obj/screen/alert/blind)
+	else
+		clear_fullscreen("blind")
+		clear_alert("blind")
 
-				if (disabilities & NEARSIGHTED)
-					client.screen += global_hud.vimpaired
-
-				if (eye_blurry)
-					client.screen += global_hud.blurry
-
-				if (druggy)
-					client.screen += global_hud.druggy
-
-		if(machine)
-			if (!( machine.check_eye(src) ))
-				reset_view(null)
+		if(disabilities & NEARSIGHTED)
+			overlay_fullscreen("nearsighted", /obj/screen/fullscreen/impaired, 1)
 		else
-			if(!client.adminobs)
-				reset_view(null)
+			clear_fullscreen("nearsighted")
+
+		if(eye_blurry)
+			overlay_fullscreen("blurry", /obj/screen/fullscreen/blurry)
+		else
+			clear_fullscreen("blurry")
+
+		if(druggy)
+			overlay_fullscreen("high", /obj/screen/fullscreen/high)
+			throw_alert("high", /obj/screen/alert/high)
+		else
+			clear_fullscreen("high")
+			clear_alert("high")
+
+	if(machine)
+		if(!machine.check_eye(src))
+			reset_perspective(null)
+	else
+		if(!remote_view && !client.adminobs)
+			reset_perspective(null)
 
 /mob/living/proc/update_sight()
 	return
+
+// Gives a mob the vision of being dead
+/mob/living/proc/grant_death_vision()
+	sight |= SEE_TURFS
+	sight |= SEE_MOBS
+	sight |= SEE_OBJS
+	see_in_dark = 8
+	see_invisible = SEE_INVISIBLE_OBSERVER
+
+// See through walls, dark, etc.
+// basically the same as death vision except you can't
+// see ghosts
+/mob/living/proc/grant_xray_vision()
+	sight |= SEE_TURFS
+	sight |= SEE_MOBS
+	sight |= SEE_OBJS
+	see_in_dark = 8
+	see_invisible = SEE_INVISIBLE_LEVEL_TWO
 
 /mob/living/proc/handle_hud_icons()
 	handle_hud_icons_health()
@@ -218,92 +268,6 @@
 
 /mob/living/proc/handle_hud_icons_health()
 	return
-
-/mob/living/proc/handle_actions()
-	//Pretty bad, i'd use picked/dropped instead but the parent calls in these are nonexistent
-	for(var/datum/action/A in actions)
-		if(A.CheckRemoval(src))
-			A.Remove(src)
-	for(var/obj/item/I in src)
-		if(istype(I,/obj/item/clothing/under))
-			var/obj/item/clothing/under/U = I
-			for(var/obj/item/IU in U)
-				if(istype(IU, /obj/item/clothing/accessory))
-					var/obj/item/clothing/accessory/A = IU
-					if(A.action_button_name)
-						if(!A.action)
-							if(A.action_button_is_hands_free)
-								A.action = new/datum/action/item_action/hands_free
-							else
-								A.action = new/datum/action/item_action
-							A.action.name = A.action_button_name
-							A.action.target = A
-						A.action.check_flags &= ~AB_CHECK_INSIDE
-						A.action.Grant(src)
-		if(I.action_button_name)
-			if(!I.action)
-				if(I.action_button_is_hands_free)
-					I.action = new/datum/action/item_action/hands_free
-				else
-					I.action = new/datum/action/item_action
-				I.action.name = I.action_button_name
-				I.action.target = I
-			I.action.Grant(src)
-	return
-
-/mob/living/update_action_buttons()
-	if(!hud_used) return
-	if(!client) return
-
-	if(hud_used.hud_shown != 1)	//Hud toggled to minimal
-		return
-
-	client.screen -= hud_used.hide_actions_toggle
-	for(var/datum/action/A in actions)
-		if(A.button)
-			client.screen -= A.button
-
-	if(hud_used.action_buttons_hidden)
-		if(!hud_used.hide_actions_toggle)
-			hud_used.hide_actions_toggle = new(hud_used)
-			hud_used.hide_actions_toggle.UpdateIcon()
-
-		if(!hud_used.hide_actions_toggle.moved)
-			hud_used.hide_actions_toggle.screen_loc = hud_used.ButtonNumberToScreenCoords(1)
-			//hud_used.SetButtonCoords(hud_used.hide_actions_toggle,1)
-
-		client.screen += hud_used.hide_actions_toggle
-		return
-
-	var/button_number = 0
-	for(var/datum/action/A in actions)
-		button_number++
-		if(A.button == null)
-			var/obj/screen/movable/action_button/N = new(hud_used)
-			N.owner = A
-			A.button = N
-
-		var/obj/screen/movable/action_button/B = A.button
-
-		B.UpdateIcon()
-
-		B.name = A.UpdateName()
-
-		client.screen += B
-
-		if(!B.moved)
-			B.screen_loc = hud_used.ButtonNumberToScreenCoords(button_number)
-			//hud_used.SetButtonCoords(B,button_number)
-
-	if(button_number > 0)
-		if(!hud_used.hide_actions_toggle)
-			hud_used.hide_actions_toggle = new(hud_used)
-			hud_used.hide_actions_toggle.InitialiseIcon(src)
-		if(!hud_used.hide_actions_toggle.moved)
-			hud_used.hide_actions_toggle.screen_loc = hud_used.ButtonNumberToScreenCoords(button_number+1)
-			//hud_used.SetButtonCoords(hud_used.hide_actions_toggle,button_number+1)
-		client.screen += hud_used.hide_actions_toggle
-
 
 /mob/living/proc/process_nations()
 	if(client)

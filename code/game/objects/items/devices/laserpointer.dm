@@ -11,7 +11,6 @@
 	w_class = 2 //Increased to 2, because diodes are w_class 2. Conservation of matter.
 	origin_tech = "combat=1"
 	origin_tech = "magnets=2"
-	var/turf/pointer_loc
 	var/energy = 5
 	var/max_energy = 5
 	var/effectchance = 33
@@ -35,6 +34,10 @@
 	if(!pointer_icon_state)
 		pointer_icon_state = pick("red_laser","green_laser","blue_laser","purple_laser")
 
+/obj/item/device/laser_pointer/Destroy()
+	QDEL_NULL(diode)
+	return ..()
+
 /obj/item/device/laser_pointer/upgraded/New()
 	..()
 	diode = new /obj/item/weapon/stock_parts/micro_laser/ultra
@@ -50,13 +53,13 @@
 			user.drop_item()
 			W.loc = src
 			diode = W
-			user << "<span class='notice'>You install a [diode.name] in [src].</span>"
+			to_chat(user, "<span class='notice'>You install a [diode.name] in [src].</span>")
 		else
-			user << "<span class='notice'>[src] already has a cell.</span>"
+			to_chat(user, "<span class='notice'>[src] already has a cell.</span>")
 
 	else if(istype(W, /obj/item/weapon/screwdriver))
 		if(diode)
-			user << "<span class='notice'>You remove the [diode.name] from the [src].</span>"
+			to_chat(user, "<span class='notice'>You remove the [diode.name] from the [src].</span>")
 			diode.loc = get_turf(src.loc)
 			diode = null
 			return
@@ -71,18 +74,23 @@
 /obj/item/device/laser_pointer/proc/laser_act(var/atom/target, var/mob/living/user, var/params)
 	if( !(user in (viewers(7,target))) )
 		return
-	if (!diode)
-		user << "<span class='notice'>You point [src] at [target], but nothing happens!</span>"
+	if(!diode)
+		to_chat(user, "<span class='notice'>You point [src] at [target], but nothing happens!</span>")
 		return
-	if (!user.IsAdvancedToolUser())
-		user << "<span class='warning'>You don't have the dexterity to do this!</span>"
+	if(!user.IsAdvancedToolUser())
+		to_chat(user, "<span class='warning'>You don't have the dexterity to do this!</span>")
 		return
+	if(ishuman(user))
+		var/mob/living/carbon/human/H = user
+		if((HULK in H.mutations) || (H.species.flags & NOGUNS))
+			user << "<span class='warning'>Your fingers can't press the button!</span>"
+			return
 
 	add_fingerprint(user)
 
 	//nothing happens if the battery is drained
 	if(recharge_locked)
-		user << "<span class='notice'>You point [src] at [target], but it's still charging.</span>"
+		to_chat(user, "<span class='notice'>You point [src] at [target], but it's still charging.</span>")
 		return
 
 	var/outmsg
@@ -90,72 +98,36 @@
 
 	//human/alien mobs
 	if(iscarbon(target))
+		var/mob/living/carbon/C = target
 		if(user.zone_sel.selecting == "eyes")
-			var/mob/living/carbon/C = target
+			add_logs(user, C, "shone in the eyes", object="laser pointer")
+
+			var/severity = 1
+			if(prob(33))
+				severity = 2
+			else if(prob(50))
+				severity = 0
 
 			//20% chance to actually hit the eyes
-
-			if(prob(effectchance * diode.rating))
-				add_logs(C, user, "shone in the eyes", object="laser pointer")
-
-
-				//eye target check
+			if(prob(effectchance * diode.rating) && C.flash_eyes(severity))
 				outmsg = "<span class='notice'>You blind [C] by shining [src] in their eyes.</span>"
 				if(C.weakeyes)
 					C.Stun(1)
-				var/eye_prot = C.eyecheck()
-				if(C.blinded || eye_prot >= 2)
-					eye_prot = 4
-				var/severity = 3 - eye_prot
-				if(prob(33))
-					severity += 1
-				else if(prob(50))
-					severity -= 1
-				severity = min(max(severity, 0), 4)
-				var/mob/living/carbon/human/H = C
-				var/obj/item/organ/eyes/E = H.internal_organs_by_name["eyes"]
-
-				switch(severity)
-					if(0)
-						//no effect
-						C << "<span class='info'>A small, bright dot appears in your vision.</span>"
-					if(1)
-						//industrial grade eye protection
-						E.damage += rand(0, 2)
-						C << "<span class='notice'>Something bright flashes in the corner of your vision!</span>"
-					if(2)
-						//basic eye protection (sunglasses)
-						flick("flash", C.flash)
-						E.damage += rand(1, 6)
-						C << "<span class='danger'>Your eyes were blinded!</span>"
-					if(3)
-						//no eye protection
-						if(prob(2))
-							C.Weaken(1)
-						flick("e_flash", C.flash)
-						E.damage += rand(3, 7)
-						C << "<span class='danger'>Your eyes were blinded!</span>"
-					if(4)
-						//the effect has been worsened by something
-						if(prob(5))
-							C.Weaken(1)
-						flick("e_flash", C.flash)
-						E.damage += rand(5, 10)
-						C << "<span class='danger'>Your eyes were blinded!</span>"
 			else
-				outmsg = "<span class='notice'>You fail to blind [C] by shining [src] at their eyes.</span>"
+				outmsg = "<span class='warning'>You fail to blind [C] by shining [src] at their eyes!</span>"
 
 	//robots and AI
 	else if(issilicon(target))
 		var/mob/living/silicon/S = target
 		//20% chance to actually hit the sensors
 		if(prob(effectchance * diode.rating))
+			S.flash_eyes(affect_silicon = 1)
 			S.Weaken(rand(5,10))
-			S << "<span class='warning'>Your sensors were overloaded by a laser!</span>"
+			to_chat(S, "<span class='warning'>Your sensors were overloaded by a laser!</span>")
 			outmsg = "<span class='notice'>You overload [S] by shining [src] at their sensors.</span>"
 
-			S.attack_log += text("\[[time_stamp()]\] <font color='orange'>Has had a laser pointer shone in their eyes by [user.name] ([user.ckey])</font>")
-			user.attack_log += text("\[[time_stamp()]\] <font color='orange'>Shone a laser pointer in the eyes of [S.name] ([S.ckey])</font>")
+			S.create_attack_log("<font color='orange'>Has had a laser pointer shone in their eyes by [user.name] ([user.ckey])</font>")
+			user.create_attack_log("<font color='orange'>Shone a laser pointer in the eyes of [S.name] ([S.ckey])</font>")
 			log_attack("<font color='orange'>[user.name] ([user.ckey]) Shone a laser pointer in the eyes of [S.name] ([S.ckey])</font>")
 		else
 			outmsg = "<span class='notice'>You fail to overload [S] by shining [src] at their sensors.</span>"
@@ -168,7 +140,7 @@
 			outmsg = "<span class='notice'>You hit the lens of [C] with [src], temporarily disabling the camera!</span>"
 
 			log_admin("\[[time_stamp()]\] [user.name] ([user.ckey]) EMPd a camera with a laser pointer")
-			user.attack_log += text("\[[time_stamp()]\] [user.name] ([user.ckey]) EMPd a camera with a laser pointer")
+			user.create_attack_log("[user.name] ([user.ckey]) EMPd a camera with a laser pointer")
 		else
 			outmsg = "<span class='info'>You missed the lens of [C] with [src].</span>"
 
@@ -190,9 +162,9 @@
 		I.pixel_y = target.pixel_y + rand(-5,5)
 
 	if(outmsg)
-		user << outmsg
+		to_chat(user, outmsg)
 	else
-		user << "<span class='info'>You point [src] at [target].</span>"
+		to_chat(user, "<span class='info'>You point [src] at [target].</span>")
 
 	energy -= 1
 	if(energy <= max_energy)
@@ -200,7 +172,7 @@
 			recharging = 1
 			processing_objects.Add(src)
 		if(energy <= 0)
-			user << "<span class='warning'>You've overused the battery of [src], now it needs time to recharge!</span>"
+			to_chat(user, "<span class='warning'>You've overused the battery of [src], now it needs time to recharge!</span>")
 			recharge_locked = 1
 
 	flick_overlay(I, showto, 10)

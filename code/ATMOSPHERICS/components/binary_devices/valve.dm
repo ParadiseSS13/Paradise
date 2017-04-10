@@ -45,17 +45,21 @@
 	investigate_log("was closed by [usr ? key_name(usr) : "a remote signal"]", "atmos")
 	return
 	
-/obj/machinery/atmospherics/binary/valve/attack_ai(mob/user as mob)
+/obj/machinery/atmospherics/binary/valve/attack_ai(mob/user)
 	return
+	
+/obj/machinery/atmospherics/binary/valve/attack_ghost(mob/user)
+	if(user.can_advanced_admin_interact())
+		return attack_hand(user)
 
-/obj/machinery/atmospherics/binary/valve/attack_hand(mob/user as mob)
+/obj/machinery/atmospherics/binary/valve/attack_hand(mob/user)
 	add_fingerprint(usr)
 	update_icon(1)
 	sleep(10)
-	if (open)
+	if(open)
 		close()
-		return
-	open()
+	else
+		open()
 				
 /obj/machinery/atmospherics/binary/valve/digital		// can be controlled by AI
 	name = "digital valve"
@@ -67,14 +71,14 @@
 	var/datum/radio_frequency/radio_connection
 	settagwhitelist = list("id_tag")
 
-/obj/machinery/atmospherics/binary/valve/digital/attack_ai(mob/user as mob)
-	return src.attack_hand(user)
+/obj/machinery/atmospherics/binary/valve/digital/attack_ai(mob/user)
+	return attack_hand(user)
 
-/obj/machinery/atmospherics/binary/valve/digital/attack_hand(mob/user as mob)
+/obj/machinery/atmospherics/binary/valve/digital/attack_hand(mob/user)
 	if(!powered())
 		return
-	if(!src.allowed(user))
-		user << "<span class='alert'>Access denied.</span>"
+	if(!allowed(user) && !user.can_advanced_admin_interact())
+		to_chat(user, "<span class='alert'>Access denied.</span>")
 		return
 	..()
 
@@ -130,7 +134,7 @@
 				if(open)
 					close()
 
-/obj/machinery/atmospherics/binary/valve/digital/attackby(var/obj/item/weapon/W as obj, var/mob/user as mob)
+/obj/machinery/atmospherics/binary/valve/digital/attackby(var/obj/item/weapon/W as obj, var/mob/user)
 	if(istype(W, /obj/item/device/multitool))
 		update_multitool_menu(user)
 		return 1
@@ -139,7 +143,7 @@
 /obj/machinery/atmospherics/binary/valve/digital/multitool_menu(var/mob/user,var/obj/item/device/multitool/P)
 	return {"
 		<ul>
-			<li><b>Frequency:</b> <a href="?src=\ref[src];set_freq=-1">[format_frequency(frequency)] GHz</a> (<a href="?src=\ref[src];set_freq=[1439]">Reset</a>)</li>
+			<li><b>Frequency:</b> <a href="?src=[UID()];set_freq=-1">[format_frequency(frequency)] GHz</a> (<a href="?src=[UID()];set_freq=[1439]">Reset</a>)</li>
 			<li>[format_tag("ID Tag","id_tag","set_id")]</a></li>
 		</ul>
 		"}

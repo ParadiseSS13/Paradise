@@ -32,7 +32,7 @@
 				continue
 			dat += {"
 			<td>
-				<center><a href='?src=\ref[src];[fileop]=\ref[F]'>
+				<center><a href='?src=[UID()];[fileop]=\ref[F]'>
 					<img src=\ref[F.image]><br>
 					<span>[F.name]</span>
 				</a></center>
@@ -60,8 +60,8 @@
 			continue
 		dat += {"
 		<td>
-			<a href='?src=\ref[src];[peripheralop]=\ref[C]'>
-				\icon[C]<br>
+			<a href='?src=[UID()];[peripheralop]=\ref[C]'>
+				[bicon(C)]<br>
 				<span>[C.name]</span>
 			</a>
 		</td>"}
@@ -73,7 +73,7 @@
 /datum/file/program/ntos/proc/window(var/title,var/buttonbar,var/content)
 	return {"
 	<div class='filewin'>
-		<div class='titlebar'>[title] <a href='?src=\ref[src];winclose'><img src=\ref['icons/ntos/tb_close.png']></a></div>
+		<div class='titlebar'>[title] <a href='?src=[UID()];winclose'><img src=\ref['icons/ntos/tb_close.png']></a></div>
 		<div class='buttonbar'>[buttonbar]</div>
 		<div class='contentpane'>[content]</div>
 	</div>"}

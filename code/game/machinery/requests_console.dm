@@ -8,14 +8,16 @@
 
 //Request Console Screens
 #define RCS_MAINMENU 0	// Main menu
-#define RCS_RQASSIST 1	// Request supplies
-#define RCS_RQSUPPLY 2	// Request assistance
+#define RCS_RQSUPPLY 1	// Request supplies
+#define RCS_RQASSIST 2	// Request assistance
 #define RCS_SENDINFO 3	// Relay information
 #define RCS_SENTPASS 4	// Message sent successfully
 #define RCS_SENTFAIL 5	// Message sent unsuccessfully
 #define RCS_VIEWMSGS 6	// View messages
 #define RCS_MESSAUTH 7	// Authentication before sending
 #define RCS_ANNOUNCE 8	// Send announcement
+#define RCS_SHIPPING 9	// Print Shipping Labels/Packages
+#define RCS_SHIP_LOG 10	// View Shipping Label Log
 
 var/req_console_assistance = list()
 var/req_console_supplies = list()
@@ -52,6 +54,10 @@ var/list/obj/machinery/requests_console/allConsoles = list()
 	var/priority = -1 ; //Priority of the message being sent
 	light_range = 0
 	var/datum/announcement/announcement = new
+	var/list/shipping_log = list()
+	var/ship_tag_name = ""
+	var/ship_tag_index = 0
+	var/print_cooldown = 0	//cooldown on shipping label printer, stores the  in-game time of when the printer will next be ready
 
 /obj/machinery/requests_console/power_change()
 	..()
@@ -68,15 +74,15 @@ var/list/obj/machinery/requests_console/allConsoles = list()
 	..()
 
 	announcement.title = "[department] announcement"
-	announcement.newscast = 1
+	announcement.newscast = 0
 
 	name = "[department] Requests Console"
 	allConsoles += src
-	if (departmentType & RC_ASSIST)
+	if(departmentType & RC_ASSIST)
 		req_console_assistance |= department
-	if (departmentType & RC_SUPPLY)
+	if(departmentType & RC_SUPPLY)
 		req_console_supplies |= department
-	if (departmentType & RC_INFO)
+	if(departmentType & RC_INFO)
 		req_console_information |= department
 
 	set_light(1)
@@ -84,16 +90,16 @@ var/list/obj/machinery/requests_console/allConsoles = list()
 /obj/machinery/requests_console/Destroy()
 	allConsoles -= src
 	var/lastDeptRC = 1
-	for (var/obj/machinery/requests_console/Console in allConsoles)
-		if (Console.department == department)
+	for(var/obj/machinery/requests_console/Console in allConsoles)
+		if(Console.department == department)
 			lastDeptRC = 0
 			break
 	if(lastDeptRC)
-		if (departmentType & RC_ASSIST)
+		if(departmentType & RC_ASSIST)
 			req_console_assistance -= department
-		if (departmentType & RC_SUPPLY)
+		if(departmentType & RC_SUPPLY)
 			req_console_supplies -= department
-		if (departmentType & RC_INFO)
+		if(departmentType & RC_INFO)
 			req_console_information -= department
 	return ..()
 
@@ -109,6 +115,13 @@ var/list/obj/machinery/requests_console/allConsoles = list()
 	ui_interact(user)
 
 /obj/machinery/requests_console/ui_interact(mob/user, ui_key = "main", var/datum/nanoui/ui = null, var/force_open = 1)
+	ui = nanomanager.try_update_ui(user, src, ui_key, ui, force_open)
+	if(!ui)
+		ui = new(user, src, ui_key, "request_console.tmpl", "[department] Request Console", 520, 410)
+		ui.open()
+		ui.set_auto_update(1)
+
+/obj/machinery/requests_console/ui_data(mob/user, ui_key = "main", datum/topic_state/state = default_state)
 	var/data[0]
 
 	data["department"] = department
@@ -121,6 +134,7 @@ var/list/obj/machinery/requests_console/allConsoles = list()
 	data["assist_dept"] = req_console_assistance
 	data["supply_dept"] = req_console_supplies
 	data["info_dept"]   = req_console_information
+	data["ship_dept"]	= TAGGERLOCATIONS
 
 	data["message"] = message
 	data["recipient"] = recipient
@@ -128,13 +142,10 @@ var/list/obj/machinery/requests_console/allConsoles = list()
 	data["msgStamped"] = msgStamped
 	data["msgVerified"] = msgVerified
 	data["announceAuth"] = announceAuth
+	data["shipDest"] = ship_tag_name
+	data["shipping_log"] = shipping_log
 
-	ui = nanomanager.try_update_ui(user, src, ui_key, ui, data, force_open)
-	if (!ui)
-		ui = new(user, src, ui_key, "request_console.tmpl", "[department] Request Console", 520, 410)
-		ui.set_initial_data(data)
-		ui.open()
-		ui.set_auto_update(1)
+	return data
 
 /obj/machinery/requests_console/Topic(href, href_list)
 	if(..())
@@ -172,7 +183,7 @@ var/list/obj/machinery/requests_console/allConsoles = list()
 		var/log_msg = message
 		var/pass = 0
 		screen = RCS_SENTFAIL
-		for (var/obj/machinery/message_server/MS in world)
+		for(var/obj/machinery/message_server/MS in world)
 			if(!MS.active) continue
 			MS.send_rc_message(ckey(href_list["department"]),department,log_msg,msgStamped,msgVerified,priority)
 			pass = 1
@@ -180,7 +191,7 @@ var/list/obj/machinery/requests_console/allConsoles = list()
 			screen = RCS_SENTPASS
 			message_log += "<B>Message sent to [recipient]</B><BR>[message]"
 		else
-			audible_message(text("\icon[src] *The Requests Console beeps: 'NOTICE: No server detected!'"),,4)
+			audible_message(text("[bicon(src)] *The Requests Console beeps: '<b>NOTICE:</b> No server detected!'"),,4)
 
 	//Handle screen switching
 	if(href_list["setScreen"])
@@ -188,14 +199,34 @@ var/list/obj/machinery/requests_console/allConsoles = list()
 		if(tempScreen == RCS_ANNOUNCE && !announcementConsole)
 			return
 		if(tempScreen == RCS_VIEWMSGS)
-			for (var/obj/machinery/requests_console/Console in allConsoles)
-				if (Console.department == department)
+			for(var/obj/machinery/requests_console/Console in allConsoles)
+				if(Console.department == department)
 					Console.newmessagepriority = 0
 					Console.icon_state = "req_comp0"
 					Console.set_light(1)
 		if(tempScreen == RCS_MAINMENU)
 			reset_message()
 		screen = tempScreen
+
+	if(href_list["shipSelect"])
+		ship_tag_name = href_list["shipSelect"]
+		ship_tag_index = TAGGERLOCATIONS.Find(ship_tag_name)
+
+	//Handle Shipping Label Printing
+	if(href_list["printLabel"])
+		var/error_message = ""
+		if(!ship_tag_index)
+			error_message = "Please select a destination."
+		else if(!msgVerified)
+			error_message = "Please verify shipper ID."
+		else if(world.time < print_cooldown)
+			error_message = "Please allow the printer time to prepare the next shipping label."
+		if(error_message)
+			audible_message(text("[bicon(src)] *The Requests Console beeps: '<b>NOTICE:</b> [error_message]'"),,4)
+			return
+		print_label(ship_tag_name, ship_tag_index)
+		shipping_log += "<B>Shipping Label printed for [ship_tag_name]</b><br>[msgVerified]"
+		reset_message(1)
 
 	//Handle silencing the console
 	if(href_list["toggleSilent"])
@@ -207,7 +238,7 @@ var/list/obj/machinery/requests_console/allConsoles = list()
 					//err... hacking code, which has no reason for existing... but anyway... it was once supposed to unlock priority 3 messanging on that console (EXTREME priority...), but the code for that was removed.
 /obj/machinery/requests_console/attackby(var/obj/item/weapon/O as obj, var/mob/user as mob)
 	/*
-	if (istype(O, /obj/item/weapon/crowbar))
+	if(istype(O, /obj/item/weapon/crowbar))
 		if(open)
 			open = 0
 			icon_state="req_comp0"
@@ -217,7 +248,7 @@ var/list/obj/machinery/requests_console/allConsoles = list()
 				icon_state="req_comp_open"
 			else if(hackState == 1)
 				icon_state="req_comp_rewired"
-	if (istype(O, /obj/item/weapon/screwdriver))
+	if(istype(O, /obj/item/weapon/screwdriver))
 		if(open)
 			if(hackState == 0)
 				hackState = 1
@@ -226,9 +257,9 @@ var/list/obj/machinery/requests_console/allConsoles = list()
 				hackState = 0
 				icon_state="req_comp_open"
 		else
-			user << "You can't do much with that."*/
+			to_chat(user, "You can't do much with that.")*/
 
-	if (istype(O, /obj/item/weapon/card/id))
+	if(istype(O, /obj/item/weapon/card/id))
 		if(inoperable(MAINT)) return
 		if(screen == RCS_MESSAUTH)
 			var/obj/item/weapon/card/id/T = O
@@ -236,14 +267,18 @@ var/list/obj/machinery/requests_console/allConsoles = list()
 			updateUsrDialog()
 		if(screen == RCS_ANNOUNCE)
 			var/obj/item/weapon/card/id/ID = O
-			if (access_RC_announce in ID.GetAccess())
+			if(access_RC_announce in ID.GetAccess())
 				announceAuth = 1
 				announcement.announcer = ID.assignment ? "[ID.assignment] [ID.registered_name]" : ID.registered_name
 			else
 				reset_message()
-				user << "<span class='warning'>You are not authorized to send announcements.</span>"
+				to_chat(user, "<span class='warning'>You are not authorized to send announcements.</span>")
 			updateUsrDialog()
-	if (istype(O, /obj/item/weapon/stamp))
+		if(screen == RCS_SHIPPING)
+			var/obj/item/weapon/card/id/T = O
+			msgVerified = text("<font color='green'><b>Sender verified as [T.registered_name] ([T.assignment])</b></font>")
+			updateUsrDialog()
+	if(istype(O, /obj/item/weapon/stamp))
 		if(inoperable(MAINT)) return
 		if(screen == RCS_MESSAUTH)
 			var/obj/item/weapon/stamp/T = O
@@ -259,6 +294,8 @@ var/list/obj/machinery/requests_console/allConsoles = list()
 	msgStamped = ""
 	announceAuth = 0
 	announcement.announcer = ""
+	ship_tag_name = ""
+	ship_tag_index = 0
 	if(mainmenu)
 		screen = RCS_MAINMENU
 
@@ -266,7 +303,7 @@ var/list/obj/machinery/requests_console/allConsoles = list()
 	var/linkedSender
 	if(istype(source, /obj/machinery/requests_console))
 		var/obj/machinery/requests_console/sender = source
-		linkedSender = "<a href='?src=\ref[src];write=[ckey(sender.department)]'[sender.department]</a>"
+		linkedSender = "<a href='?src=[UID()];write=[ckey(sender.department)]'[sender.department]</a>"
 	else
 		capitalize(source)
 		linkedSender = source
@@ -276,7 +313,7 @@ var/list/obj/machinery/requests_console/allConsoles = list()
 		update_icon()
 	if(!src.silent)
 		playsound(src.loc, 'sound/machines/twobeep.ogg', 50, 1)
-		state(title)
+		atom_say(title)
 
 	switch(priority)
 		if(2) // High
@@ -284,3 +321,9 @@ var/list/obj/machinery/requests_console/allConsoles = list()
 		else // Normal
 			src.message_log += "<b>From:</b> [linkedSender]<BR>[message]"
 	set_light(2)
+
+/obj/machinery/requests_console/proc/print_label(tag_name, tag_index)
+	var/obj/item/shippingPackage/sp = new /obj/item/shippingPackage(get_turf(src))
+	sp.sortTag = tag_index
+	sp.update_desc()
+	print_cooldown = world.time + 600	//1 minute cooldown before you can print another label, but you can still configure the next one during this time

@@ -15,10 +15,10 @@ Thus, the two variables affect pump operation are set in New():
 /obj/machinery/atmospherics/binary/pump
 	icon = 'icons/atmos/pump.dmi'
 	icon_state = "map_off"
-	
+
 	name = "gas pump"
 	desc = "A pump"
-	
+
 	can_unwrench = 1
 
 	var/on = 0
@@ -54,10 +54,7 @@ Thus, the two variables affect pump operation are set in New():
 		add_underlay(T, node2, dir)
 
 /obj/machinery/atmospherics/binary/pump/process()
-//		..()
-	if(stat & (NOPOWER|BROKEN))
-		return
-	if(!on)
+	if(!..() || (stat & (NOPOWER|BROKEN)) || !on)
 		return 0
 
 	var/output_starting_pressure = air2.return_pressure()
@@ -106,15 +103,6 @@ Thus, the two variables affect pump operation are set in New():
 	radio_connection.post_signal(src, signal, filter = RADIO_ATMOSIA)
 	return 1
 
-/obj/machinery/atmospherics/binary/pump/interact(mob/user as mob)
-	var/dat = {"<b>Power: </b><a href='?src=\ref[src];power=1'>[on?"On":"Off"]</a><br>
-				<b>Desirable output pressure: </b>
-				[round(target_pressure,0.1)]kPa | <a href='?src=\ref[src];set_press=1'>Change</a>
-				"}
-
-	user << browse("<HEAD><TITLE>[src.name] control</TITLE></HEAD><TT>[dat]</TT>", "window=atmo_pump")
-	onclose(user, "atmo_pump")
-
 /obj/machinery/atmospherics/binary/pump/initialize()
 	..()
 	if(frequency)
@@ -123,7 +111,7 @@ Thus, the two variables affect pump operation are set in New():
 /obj/machinery/atmospherics/binary/pump/receive_signal(datum/signal/signal)
 	if(!signal.data["tag"] || (signal.data["tag"] != id) || (signal.data["sigtype"]!="command"))
 		return 0
-	
+
 	var/old_on = on //for logging
 
 	if(signal.data["power"])
@@ -138,7 +126,7 @@ Thus, the two variables affect pump operation are set in New():
 			text2num(signal.data["set_output_pressure"]),
 			ONE_ATMOSPHERE*50
 		)
-		
+
 	if(on != old_on)
 		investigate_log("was turned [on ? "on" : "off"] by a remote signal", "atmos")
 
@@ -152,31 +140,60 @@ Thus, the two variables affect pump operation are set in New():
 	update_icon()
 	return
 
-/obj/machinery/atmospherics/binary/pump/attack_hand(user as mob)
+/obj/machinery/atmospherics/binary/pump/attack_hand(mob/user)
 	if(..())
 		return
-	src.add_fingerprint(usr)
-	if(!src.allowed(user))
-		user << "<span class='alert'>Access denied.</span>"
+
+	if(!allowed(user))
+		to_chat(user, "<span class='alert'>Access denied.</span>")
 		return
-	usr.set_machine(src)
-	interact(user)
-	return
+
+	add_fingerprint(user)
+	ui_interact(user)
+
+/obj/machinery/atmospherics/binary/pump/attack_ghost(mob/user)
+	ui_interact(user)
+
+/obj/machinery/atmospherics/binary/pump/ui_interact(mob/user, ui_key = "main", datum/nanoui/ui = null, force_open = 1, var/master_ui = null, var/datum/topic_state/state = default_state)
+	user.set_machine(src)
+	ui = nanomanager.try_update_ui(user, src, ui_key, ui, force_open)
+	if(!ui)
+		ui = new(user, src, ui_key, "atmos_pump.tmpl", name, 385, 115, state = state)
+		ui.open()
+
+/obj/machinery/atmospherics/binary/pump/ui_data(mob/user)
+	var/list/data = list()
+	data["on"] = on
+	data["pressure"] = round(target_pressure)
+	data["max_pressure"] = round(MAX_OUTPUT_PRESSURE)
+	return data
 
 /obj/machinery/atmospherics/binary/pump/Topic(href,href_list)
-	if(..()) 
+	if(..())
 		return 1
+
 	if(href_list["power"])
 		on = !on
 		investigate_log("was turned [on ? "on" : "off"] by [key_name(usr)]", "atmos")
-	if(href_list["set_press"])
-		var/new_pressure = input(usr,"Enter new output pressure (0-4500kPa)","Pressure control",src.target_pressure) as num
-		src.target_pressure = max(0, min(4500, new_pressure))
-		investigate_log("was set to [target_pressure] kPa by [key_name(usr)]", "atmos")
-	usr.set_machine(src)
-	src.update_icon()
-	src.updateUsrDialog()
-	return
+		. = TRUE
+	if(href_list["pressure"])
+		var/pressure = href_list["pressure"]
+		if(pressure == "max")
+			pressure = MAX_OUTPUT_PRESSURE
+			. = TRUE
+		else if(pressure == "input")
+			pressure = input("New output pressure (0-[MAX_OUTPUT_PRESSURE] kPa):", name, target_pressure) as num|null
+			if(!isnull(pressure))
+				. = TRUE
+		else if(text2num(pressure) != null)
+			pressure = text2num(pressure)
+			. = TRUE
+		if(.)
+			target_pressure = Clamp(pressure, 0, MAX_OUTPUT_PRESSURE)
+			investigate_log("was set to [target_pressure] kPa by [key_name(usr)]", "atmos")
+
+	update_icon()
+	nanomanager.update_uis(src)
 
 /obj/machinery/atmospherics/binary/pump/power_change()
 	var/old_stat = stat
@@ -184,10 +201,10 @@ Thus, the two variables affect pump operation are set in New():
 	if(old_stat != stat)
 		update_icon()
 
-/obj/machinery/atmospherics/binary/pump/attackby(var/obj/item/weapon/W as obj, var/mob/user as mob, params)
-	if (!istype(W, /obj/item/weapon/wrench))
+/obj/machinery/atmospherics/binary/pump/attackby(obj/item/weapon/W, mob/user, params)
+	if(!istype(W, /obj/item/weapon/wrench))
 		return ..()
-	if (!(stat & NOPOWER) && on)
-		user << "<span class='alert'>You cannot unwrench this [src], turn it off first.</span>"
+	if(!(stat & NOPOWER) && on)
+		to_chat(user, "<span class='alert'>You cannot unwrench this [src], turn it off first.</span>")
 		return 1
 	return ..()

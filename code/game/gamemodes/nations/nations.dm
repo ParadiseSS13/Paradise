@@ -1,7 +1,7 @@
 datum/game_mode/nations
 	name = "nations"
 	config_tag = "nations"
-	required_players_secret = 25
+	required_players = 25
 	var/kickoff = 0
 	var/victory = 0
 	var/list/cargonians = list("Quartermaster","Cargo Technician","Shaft Miner")
@@ -23,7 +23,7 @@ datum/game_mode/nations
 	return ..()
 
 /datum/game_mode/nations/proc/send_intercept()
-	command_announcement.Announce("Due to recent and COMPLETELY UNFOUNDED allegations of massive fraud and insider trading \
+	event_announcement.Announce("Due to recent and COMPLETELY UNFOUNDED allegations of massive fraud and insider trading \
 					affecting trillions of investors, the Nanotrasen Corporation has decided to liquidate all \
 					assets of the Centcom Division in order to pay the massive legal fees that will be incurred \
 					during the following centuries long court process. Therefore, all current employment contracts \
@@ -42,9 +42,9 @@ datum/game_mode/nations
 				H.mind.nation.membership += H.mind.current
 				if(H.mind.assigned_role == H.mind.nation.default_leader)
 					H.mind.nation.current_leader = H.mind.current
-					H << "You have been chosen to lead the nation of [H.mind.nation.default_name]!"
+					to_chat(H, "You have been chosen to lead the nation of [H.mind.nation.default_name]!")
 					continue
-				H << "You are now part of the great sovereign nation of [H.mind.nation.default_name]!"
+				to_chat(H, "You are now part of the great sovereign nation of [H.mind.nation.default_name]!")
 				continue
 
 			if(H.mind.assigned_role in medical_positions)
@@ -53,9 +53,9 @@ datum/game_mode/nations
 				H.mind.nation.membership += H.mind.current
 				if(H.mind.assigned_role == H.mind.nation.default_leader)
 					H.mind.nation.current_leader = H.mind.current
-					H << "You have been chosen to lead the nation of [H.mind.nation.default_name]!"
+					to_chat(H, "You have been chosen to lead the nation of [H.mind.nation.default_name]!")
 					continue
-				H << "You are now part of the great sovereign nation of [H.mind.nation.default_name]!"
+				to_chat(H, "You are now part of the great sovereign nation of [H.mind.nation.default_name]!")
 				continue
 
 			if(H.mind.assigned_role in science_positions)
@@ -64,9 +64,9 @@ datum/game_mode/nations
 				H.mind.nation.membership += H.mind.current
 				if(H.mind.assigned_role == H.mind.nation.default_leader)
 					H.mind.nation.current_leader = H.mind.current
-					H << "You have been chosen to lead the nation of [H.mind.nation.default_name]!"
+					to_chat(H, "You have been chosen to lead the nation of [H.mind.nation.default_name]!")
 					continue
-				H << "You are now part of the great sovereign nation of [H.mind.nation.default_name]!"
+				to_chat(H, "You are now part of the great sovereign nation of [H.mind.nation.default_name]!")
 				continue
 
 			if(H.mind.assigned_role in security_positions)
@@ -75,9 +75,9 @@ datum/game_mode/nations
 				H.mind.nation.membership += H.mind.current
 				if(H.mind.assigned_role == H.mind.nation.default_leader)
 					H.mind.nation.current_leader = H.mind.current
-					H << "You have been chosen to lead the nation of [H.mind.nation.default_name]!"
+					to_chat(H, "You have been chosen to lead the nation of [H.mind.nation.default_name]!")
 					continue
-				H << "You are now part of the great sovereign nation of [H.mind.nation.default_name]!"
+				to_chat(H, "You are now part of the great sovereign nation of [H.mind.nation.default_name]!")
 				continue
 
 			if(H.mind.assigned_role in cargonians)
@@ -86,9 +86,9 @@ datum/game_mode/nations
 				H.mind.nation.membership += H.mind.current
 				if(H.mind.assigned_role == H.mind.nation.default_leader)
 					H.mind.nation.current_leader = H.mind.current
-					H << "You have been chosen to lead the nation of [H.mind.nation.default_name]!"
+					to_chat(H, "You have been chosen to lead the nation of [H.mind.nation.default_name]!")
 					continue
-				H << "You are now part of the great sovereign nation of [H.mind.nation.default_name]!"
+				to_chat(H, "You are now part of the great sovereign nation of [H.mind.nation.default_name]!")
 				continue
 
 			if(H.mind.assigned_role in servicion)
@@ -97,34 +97,24 @@ datum/game_mode/nations
 				H.mind.nation.membership += H.mind.current
 				if(H.mind.assigned_role == H.mind.nation.default_leader)
 					H.mind.nation.current_leader = H.mind.current
-					H << "You have been chosen to lead the nation of [H.mind.nation.default_name]!"
+					to_chat(H, "You have been chosen to lead the nation of [H.mind.nation.default_name]!")
 					continue
-				H << "You are now part of the great sovereign nation of [H.mind.nation.default_name]!"
+				to_chat(H, "You are now part of the great sovereign nation of [H.mind.nation.default_name]!")
 				continue
 
-			if(H.mind.assigned_role in support_positions)
+			if(H.mind.assigned_role in (support_positions + command_positions))
 				H.mind.nation = all_nations["People's Republic of Commandzakstan"]
 				update_nations_icons_added(H,"hudcommand")
 				H.mind.nation.membership += H.mind.current
 				if(H.mind.assigned_role == H.mind.nation.default_leader)
 					H.mind.nation.current_leader = H.mind.current
-					H << "You have been chosen to lead the nation of [H.mind.nation.default_name]!"
+					to_chat(H, "You have been chosen to lead the nation of [H.mind.nation.default_name]!")
 					continue
-				H << "You are now part of the great sovereign nation of [H.mind.nation.default_name]!"
+				to_chat(H, "You are now part of the great sovereign nation of [H.mind.nation.default_name]!")
 				continue
 
-			if(H.mind.assigned_role in command_positions)
-				H.mind.nation = all_nations["People's Republic of Commandzakstan"]
-				update_nations_icons_added(H,"hudcommand")
-				H.mind.nation.membership += H.mind.current
-				if(H.mind.assigned_role == H.mind.nation.default_leader)
-					H.mind.nation.current_leader = H.mind.current
-					H << "You have been chosen to lead the nation of [H.mind.nation.default_name]!"
-					continue
-				H << "You are now part of the great sovereign nation of [H.mind.nation.default_name]!"
-				continue
 			if(H.mind.assigned_role in civilian_positions)
-				H << "You do not belong to any nation and are free to sell your services to the highest bidder."
+				to_chat(H, "You do not belong to any nation and are free to sell your services to the highest bidder.")
 				continue
 
 			else
@@ -151,8 +141,8 @@ datum/game_mode/nations
 			qdel(oldmmi)
 
 /datum/game_mode/nations/proc/remove_access()
-	for(var/obj/machinery/door/airlock/W in machines)
-		if(W.z in config.station_levels)
+	for(var/obj/machinery/door/airlock/W in airlocks)
+		if(is_station_level(W.z))
 			W.req_access = list()
 
 
@@ -163,7 +153,7 @@ datum/game_mode/nations
 			N.current_name = N.default_name
 		if(!N.current_leader && N.membership.len)
 			N.current_leader = pick(N.membership)
-			N.current_leader << "You have been chosen to lead the nation of [N.current_name]!"
+			to_chat(N.current_leader, "You have been chosen to lead the nation of [N.current_name]!")
 		if(N.current_leader)
 			var/mob/living/carbon/human/H = N.current_leader
 			H.verbs += /mob/living/carbon/human/proc/set_nation_name
@@ -178,70 +168,62 @@ datum/game_mode/nations
  */
 /hook/latespawn/proc/give_latejoiners_nations(var/mob/living/carbon/human/H)
 	var/datum/game_mode/nations/mode = get_nations_mode()
-	if (!mode) return 1
+	if(!mode) return 1
 
 	if(!mode.kickoff) return 1
 
-	var/list/cargonians = list("Quartermaster","Cargo Technician","Shaft Miner")
-	var/list/servicion = list("Clown", "Mime", "Bartender", "Chef", "Botanist")
 	if(H.mind)
 		if(H.mind.assigned_role in engineering_positions)
 			H.mind.nation = all_nations["Atmosia"]
 			mode.update_nations_icons_added(H,"atmosia")
 			H.mind.nation.membership += H.mind.current
-			H << "You are now part of the great sovereign nation of [H.mind.nation.current_name]!"
+			to_chat(H, "You are now part of the great sovereign nation of [H.mind.nation.current_name]!")
 			return 1
 
 		if(H.mind.assigned_role in medical_positions)
 			H.mind.nation = all_nations["Medistan"]
 			mode.update_nations_icons_added(H,"hudmedistan")
 			H.mind.nation.membership += H.mind.current
-			H << "You are now part of the great sovereign nation of [H.mind.nation.current_name]!"
+			to_chat(H, "You are now part of the great sovereign nation of [H.mind.nation.current_name]!")
 			return 1
 
 		if(H.mind.assigned_role in science_positions)
 			H.mind.nation = all_nations["Scientopia"]
 			mode.update_nations_icons_added(H,"hudscientopia")
 			H.mind.nation.membership += H.mind.current
-			H << "You are now part of the great sovereign nation of [H.mind.nation.current_name]!"
+			to_chat(H, "You are now part of the great sovereign nation of [H.mind.nation.current_name]!")
 			return 1
 
 		if(H.mind.assigned_role in security_positions)
 			H.mind.nation = all_nations["Brigston"]
 			mode.update_nations_icons_added(H,"hudbrigston")
 			H.mind.nation.membership += H.mind.current
-			H << "You are now part of the great sovereign nation of [H.mind.nation.current_name]!"
+			to_chat(H, "You are now part of the great sovereign nation of [H.mind.nation.current_name]!")
 			return 1
 
-		if(H.mind.assigned_role in cargonians)
+		if(H.mind.assigned_role in mode.cargonians)
 			H.mind.nation = all_nations["Cargonia"]
 			mode.update_nations_icons_added(H,"hudcargonia")
 			H.mind.nation.membership += H.mind.current
-			H << "You are now part of the great sovereign nation of [H.mind.nation.current_name]!"
+			to_chat(H, "You are now part of the great sovereign nation of [H.mind.nation.current_name]!")
 			return 1
 
-		if(H.mind.assigned_role in servicion)
+		if(H.mind.assigned_role in mode.servicion)
 			H.mind.nation = all_nations["Servicion"]
 			mode.update_nations_icons_added(H,"hudservice")
 			H.mind.nation.membership += H.mind.current
-			H << "You are now part of the great sovereign nation of [H.mind.nation.current_name]!"
+			to_chat(H, "You are now part of the great sovereign nation of [H.mind.nation.current_name]!")
 			return 1
 
-		if(H.mind.assigned_role in support_positions)
+		if(H.mind.assigned_role in (support_positions + command_positions))
 			H.mind.nation = all_nations["People's Republic of Commandzakstan"]
 			mode.update_nations_icons_added(H,"hudcommand")
 			H.mind.nation.membership += H.mind.current
-			H << "You are now part of the great sovereign nation of [H.mind.nation.current_name]!"
+			to_chat(H, "You are now part of the great sovereign nation of [H.mind.nation.current_name]!")
 			return 1
 
-		if(H.mind.assigned_role in command_positions)
-			H.mind.nation = all_nations["People's Republic of Commandzakstan"]
-			mode.update_nations_icons_added(H,"hudcommand")
-			H.mind.nation.membership += H.mind.current
-			H << "You are now part of the great sovereign nation of [H.mind.nation.current_name]!"
-			return 1
 		if(H.mind.assigned_role in civilian_positions)
-			H << "You do not belong to any nation and are free to sell your services to the highest bidder."
+			to_chat(H, "You do not belong to any nation and are free to sell your services to the highest bidder.")
 			return 1
 
 		if(H.mind.assigned_role == "AI")
@@ -255,7 +237,7 @@ datum/game_mode/nations
 	return 1
 
 /proc/get_nations_mode()
-	if(!ticker || !istype(ticker.mode, /datum/game_mode/nations))
+	if(!GAMEMODE_IS_NATIONS)
 		return null
 
 	return ticker.mode
@@ -266,9 +248,9 @@ datum/game_mode/nations
 /datum/game_mode/proc/update_nations_icons_added(datum/mind/nations_mind,var/naticon)
 	var/datum/atom_hud/antag/nations_hud = huds[GAME_HUD_NATIONS]
 	nations_hud.join_hud(nations_mind)
-	set_nations_hud(nations_mind.current,naticon)
+	set_nations_hud(nations_mind,naticon)
 
 /datum/game_mode/proc/update_nations_icons_removed(datum/mind/nations_mind)
 	var/datum/atom_hud/antag/nations_hud = huds[GAME_HUD_NATIONS]
 	nations_hud.leave_hud(nations_mind)
-	set_nations_hud(nations_mind.current, null)
+	set_nations_hud(nations_mind, null)

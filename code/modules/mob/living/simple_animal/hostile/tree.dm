@@ -14,6 +14,7 @@
 	speed = 1
 	maxHealth = 250
 	health = 250
+	mob_size = MOB_SIZE_LARGE
 
 	pixel_x = -16
 
@@ -24,18 +25,14 @@
 	attack_sound = 'sound/weapons/bite.ogg'
 	speak_emote = list("pines")
 
-	//Space carp aren't affected by atmos.
-	min_oxy = 0
-	max_oxy = 0
-	min_tox = 0
-	max_tox = 0
-	min_co2 = 0
-	max_co2 = 0
-	min_n2 = 0
-	max_n2 = 0
+	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
 	minbodytemp = 0
 
-	faction = list("hostile")
+	faction = list("hostile", "winter")
+	loot = list(/obj/item/stack/sheet/wood)
+	gold_core_spawnable = CHEM_MOB_SPAWN_HOSTILE
+	deathmessage = "is hacked into pieces!"
+	del_on_death = 1
 
 /mob/living/simple_animal/hostile/tree/FindTarget()
 	. = ..()
@@ -49,9 +46,3 @@
 		if(prob(15))
 			L.Weaken(3)
 			L.visible_message("<span class='danger'>\the [src] knocks down \the [L]!</span>")
-
-/mob/living/simple_animal/hostile/tree/death()
-	..()
-	visible_message("\red <b>[src]</b> is hacked into pieces!")
-	new /obj/item/stack/sheet/wood(loc)
-	qdel(src)

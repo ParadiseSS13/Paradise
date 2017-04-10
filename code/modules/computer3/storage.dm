@@ -116,16 +116,16 @@
 
 	attackby(obj/O as obj, mob/user as mob, params)
 		if(inserted && istype(O,/obj/item/weapon/pen))
-			usr << "You use [O] to carefully pry [inserted] out of [src]."
+			to_chat(usr, "You use [O] to carefully pry [inserted] out of [src].")
 			eject_disk(forced = 1)
 			return
 
 		if(istype(O,/obj/item/weapon/disk/file))
 			if(inserted)
-				usr << "There's already a disk in [src]!"
+				to_chat(usr, "There's already a disk in [src]!")
 				return
 
-			usr << "You insert [O] into [src]."
+			to_chat(usr, "You insert [O] into [src].")
 			usr.drop_item()
 			O.loc = src
 			inserted = O
@@ -163,6 +163,7 @@
 	//parent_type = /obj/item/part/computer/storage // todon't: do this
 	name = "Data Disk"
 	desc = "A device that can be inserted and removed into computers easily as a form of portable data storage. This one stores 1 Megabyte"
+	icon_state = "datadisk_arcade"
 	var/list/files
 	var/list/spawn_files = list()
 	var/writeprotect = 0

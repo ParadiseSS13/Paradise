@@ -25,20 +25,23 @@
 	var/list/protected_jobs = list()	// Jobs that can't be traitors
 	var/list/protected_species = list() // Species that can't be traitors
 	var/required_players = 0
-	var/required_players_secret = 0 //Minimum number of players for that game mode to be chose in Secret
 	var/required_enemies = 0
-	var/recommended_players = 0
 	var/recommended_enemies = 0
 	var/newscaster_announcements = null
 	var/ert_disabled = 0
 	var/uplink_welcome = "Syndicate Uplink Console:"
-	var/uplink_uses = 10
+	var/uplink_uses = 20
+	var/datum/cult_info/cultdat //here instead of cult for adminbus purposes
 
 	var/const/waittime_l = 600  //lower bound on time before intercept arrives (in tenths of seconds)
 	var/const/waittime_h = 1800 //upper bound on time before intercept arrives (in tenths of seconds)
+	var/list/player_draft_log = list()
+	var/list/datum/mind/xenos = list()
+	
+	var/list/datum/station_goal/station_goals = list() // A list of all station goals for this game mode
 
 /datum/game_mode/proc/announce() //to be calles when round starts
-	world << "<B>Notice</B>: [src] did not define announce()"
+	to_chat(world, "<B>Notice</B>: [src] did not define announce()")
 
 
 ///can_start()
@@ -49,21 +52,19 @@
 		if((player.client)&&(player.ready))
 			playerC++
 
-	if(master_mode=="secret")
-		if(playerC >= required_players_secret)
-			return 1
-	else
-		if(playerC >= required_players)
-			return 1
+	if(playerC >= required_players)
+		return 1
 	return 0
 
 //pre_pre_setup() For when you really don't want certain jobs ingame.
 /datum/game_mode/proc/pre_pre_setup()
+
 	return 1
 
 ///pre_setup()
 ///Attempts to select players for special roles the mode might have.
 /datum/game_mode/proc/pre_setup()
+
 	return 1
 
 
@@ -79,6 +80,7 @@
 //	if(revdata)
 //		feedback_set_details("revision","[revdata.revision]")
 	feedback_set_details("server_ip","[world.internet_address]:[world.port]")
+	generate_station_goals()
 	start_state = new /datum/station_state()
 	start_state.count()
 	return 1
@@ -93,7 +95,7 @@
 /datum/game_mode/proc/process_job_tasks()
 	var/obj/machinery/message_server/useMS = null
 	if(message_servers)
-		for (var/obj/machinery/message_server/MS in message_servers)
+		for(var/obj/machinery/message_server/MS in message_servers)
 			if(MS.active)
 				useMS = MS
 				break
@@ -101,7 +103,7 @@
 		if(M.mind)
 			var/obj/item/device/pda/P=null
 			for(var/obj/item/device/pda/check_pda in PDAs)
-				if (check_pda.owner==M.name)
+				if(check_pda.owner==M.name)
 					P=check_pda
 					break
 			var/count=0
@@ -114,17 +116,18 @@
 					msg="We see that you completed [newunits] new unit[newunits>1?"s":""] for Task #[count]! "
 					pay=objective.completion_payment * newunits
 					objective.units_compensated += newunits
+					objective.is_completed() // So we don't get many messages regarding completion
 				else if(!objective.completed)
 					if(objective.is_completed())
 						pay=objective.completion_payment
 						msg="Task #[count] completed! "
 				if(pay>0)
 					if(M.mind.initial_account)
-						M.mind.initial_account.money += objective.completion_payment
+						M.mind.initial_account.money += pay
 						var/datum/transaction/T = new()
 						T.target_name = "[command_name()] Payroll"
 						T.purpose = "Payment"
-						T.amount = objective.completion_payment
+						T.amount = pay
 						T.date = current_date_string
 						T.time = worldtime2text()
 						T.source_terminal = "\[CLASSIFIED\] Terminal #[rand(111,333)]"
@@ -133,25 +136,14 @@
 					else
 						msg += "However, we were unable to send you the $[pay] you're entitled."
 					if(useMS && P)
-						// THIS SHOULD HAVE DONE EVERYTHING FOR ME
 						useMS.send_pda_message("[P.owner]", "[command_name()] Payroll", msg)
 
-						// BUT NOPE, NEED TO DO THIS BULLSHIT.
-						P.play_ringtone()
-						//Search for holder of the PDA.
-						var/mob/living/L = null
-						if(P.loc && isliving(P.loc))
-							L = P.loc
-						//Maybe they are a pAI!
-						else
-							L = get(P, /mob/living/silicon)
-
-						if(L)
-							L << "\icon[P] <b>Message from [command_name()] (Payroll), </b>\"[msg]\" (<i>Unable to Reply</i>)"
+						var/datum/data/pda/app/messenger/PM = P.find_program(/datum/data/pda/app/messenger)
+						PM.notify("<b>Message from [command_name()] (Payroll), </b>\"[msg]\" (<i>Unable to Reply</i>)", 0)
 					break
 
 /datum/game_mode/proc/check_finished() //to be called by ticker
-	if(shuttle_master.emergency.mode >= SHUTTLE_ENDGAME || station_was_nuked)
+	if((shuttle_master.emergency && shuttle_master.emergency.mode >= SHUTTLE_ENDGAME) || station_was_nuked)
 		return 1
 	return 0
 
@@ -233,7 +225,7 @@
 
 /datum/game_mode/proc/check_win() //universal trigger to be called at mob death, nuke explosion, etc. To be called from everywhere.
 	return 0
-
+	
 /datum/game_mode/proc/get_players_for_role(var/role, override_jobbans=0)
 	var/list/players = list()
 	var/list/candidates = list()
@@ -254,8 +246,8 @@
 
 	// Get a list of all the people who want to be the antagonist for this round, except those with incompatible species
 	for(var/mob/new_player/player in players)
-		if(player.client.prefs.be_special & role && !(player.client.prefs.species in protected_species))
-			log_debug("[player.key] had [roletext] enabled, so we are drafting them.")
+		if((role in player.client.prefs.be_special) && !(player.client.prefs.species in protected_species))
+			player_draft_log += "[player.key] had [roletext] enabled, so we are drafting them."
 			candidates += player.mind
 			players -= player
 
@@ -264,7 +256,7 @@
 		for(var/key in round_voters)
 			for(var/mob/new_player/player in players)
 				if(player.ckey == key)
-					log_debug("[player.key] voted for this round, so we are drafting them.")
+					player_draft_log += "[player.key] voted for this round, so we are drafting them."
 					candidates += player.mind
 					players -= player
 					break
@@ -276,57 +268,6 @@
 				if(player.assigned_role == job)
 					candidates -= player
 
-	/*if(candidates.len < recommended_enemies)
-		for(var/mob/new_player/player in players)
-			if(player.client && player.ready)
-				if(!(player.client.prefs.be_special & role)) // We don't have enough people who want to be antagonist, make a seperate list of people who don't want to be one
-					if(!jobban_isbanned(player, "Syndicate") && !jobban_isbanned(player, roletext)) //Nodrak/Carn: Antag Job-bans
-						drafted += player.mind
-
-	if(restricted_jobs)
-		for(var/datum/mind/player in drafted)				// Remove people who can't be an antagonist
-			for(var/job in restricted_jobs)
-				if(player.assigned_role == job)
-					drafted -= player
-
-	drafted = shuffle(drafted) // Will hopefully increase randomness, Donkie
-
-	while(candidates.len < recommended_enemies)				// Pick randomlly just the number of people we need and add them to our list of candidates
-		if(drafted.len > 0)
-			applicant = pick(drafted)
-			if(applicant)
-				candidates += applicant
-				log_debug("[applicant.key] was force-drafted as [roletext], because there aren't enough candidates.")
-				drafted.Remove(applicant)
-
-		else												// Not enough scrubs, ABORT ABORT ABORT
-			break
-
-	if(candidates.len < recommended_enemies && override_jobbans) //If we still don't have enough people, we're going to start drafting banned people.
-		for(var/mob/new_player/player in players)
-			if (player.client && player.ready)
-				if(jobban_isbanned(player, "Syndicate") || jobban_isbanned(player, roletext)) //Nodrak/Carn: Antag Job-bans
-					drafted += player.mind
-
-	if(restricted_jobs)
-		for(var/datum/mind/player in drafted)				// Remove people who can't be an antagonist
-			for(var/job in restricted_jobs)
-				if(player.assigned_role == job)
-					drafted -= player
-
-	drafted = shuffle(drafted) // Will hopefully increase randomness, Donkie
-
-	while(candidates.len < recommended_enemies)				// Pick randomlly just the number of people we need and add them to our list of candidates
-		if(drafted.len > 0)
-			applicant = pick(drafted)
-			if(applicant)
-				candidates += applicant
-				drafted.Remove(applicant)
-				log_debug("[applicant.key] was force-drafted as [roletext], because there aren't enough candidates.")
-
-		else												// Not enough scrubs, ABORT ABORT ABORT
-			break
-	*/
 
 	return candidates		// Returns: The number of people who had the antagonist role set to yes, regardless of recomended_enemies, if that number is greater than recommended_enemies
 							//			recommended_enemies if the number of people with that role set to yes is less than recomended_enemies,
@@ -336,7 +277,7 @@
 /datum/game_mode/proc/latespawn(var/mob)
 
 /*
-/datum/game_mode/proc/check_player_role_pref(var/role, var/mob/new_player/player)
+/datum/game_mode/proc/check_player_role_pref(var/role, var/mob/player)
 	if(player.preferences.be_special & role)
 		return 1
 	return 0
@@ -346,61 +287,63 @@
 	. = 0
 	for(var/mob/new_player/P in player_list)
 		if(P.client && P.ready)
-			. ++
+			.++
 
 /datum/game_mode/proc/num_players_started()
 	. = 0
 	for(var/mob/living/carbon/human/H in player_list)
 		if(H.client)
-			. ++
+			.++
 
 ///////////////////////////////////
 //Keeps track of all living heads//
 ///////////////////////////////////
 /datum/game_mode/proc/get_living_heads()
-	var/list/heads = list()
+	. = list()
 	for(var/mob/living/carbon/human/player in mob_list)
-		if(player.stat!=2 && player.mind && (player.mind.assigned_role in command_positions))
-			heads += player.mind
-	return heads
+		if(player.stat != DEAD && player.mind && (player.mind.assigned_role in command_positions))
+			. |= player.mind
 
-/datum/game_mode/proc/get_extra_living_heads()
-	var/list/heads = list()
-	var/list/alt_positions = list("Warden", "Magistrate", "Blueshield", "Nanotrasen Representative")
-	for(var/mob/living/carbon/human/player in mob_list)
-		if(player.stat!=2 && player.mind && (player.mind.assigned_role in alt_positions))
-			heads += player.mind
-	return heads
 
 ////////////////////////////
 //Keeps track of all heads//
 ////////////////////////////
 /datum/game_mode/proc/get_all_heads()
-	var/list/heads = list()
+	. = list()
 	for(var/mob/player in mob_list)
 		if(player.mind && (player.mind.assigned_role in command_positions))
-			heads += player.mind
-	return heads
+			. |= player.mind
 
-/datum/game_mode/proc/get_extra_heads()
-	var/list/heads = list()
-	var/list/alt_positions = list("Warden", "Magistrate", "Blueshield", "Nanotrasen Representative")
-	for(var/mob/player in mob_list)
-		if(player.mind && (player.mind.assigned_role in alt_positions))
-			heads += player.mind
-	return heads
+//////////////////////////////////////////////
+//Keeps track of all living security members//
+//////////////////////////////////////////////
+/datum/game_mode/proc/get_living_sec()
+	. = list()
+	for(var/mob/living/carbon/human/player in mob_list)
+		if(player.stat != DEAD && player.mind && (player.mind.assigned_role in security_positions))
+			. |= player.mind
+
+////////////////////////////////////////
+//Keeps track of all  security members//
+////////////////////////////////////////
+/datum/game_mode/proc/get_all_sec()
+	. = list()
+	for(var/mob/living/carbon/human/player in mob_list)
+		if(player.mind && (player.mind.assigned_role in security_positions))
+			. |= player.mind
 
 /datum/game_mode/proc/check_antagonists_topic(href, href_list[])
 	return 0
 
 /datum/game_mode/New()
 	newscaster_announcements = pick(newscaster_standard_feeds)
+	cultdat = setupcult()
 
 //////////////////////////
 //Reports player logouts//
 //////////////////////////
 proc/display_roundstart_logout_report()
-	var/msg = "\blue <b>Roundstart logout report\n\n"
+	var/msg = "<span class='notice'>Roundstart logout report</span>\n\n"
 	for(var/mob/living/L in mob_list)
 
 		if(L.ckey)
@@ -453,8 +396,8 @@ proc/display_roundstart_logout_report()
 
 
 	for(var/mob/M in mob_list)
-		if(M.client && M.client.holder)
-			M << msg
+		if(check_rights(R_ADMIN, 0, M))
+			to_chat(M, msg)
 
 
 proc/get_nt_opposed()
@@ -471,44 +414,100 @@ proc/get_nt_opposed()
 //Announces objectives/generic antag text.
 /proc/show_generic_antag_text(var/datum/mind/player)
 	if(player.current)
-		player.current << \
-		"You are an antagonist! <font color=blue>Within the rules,</font> \
+		to_chat(player.current, "You are an antagonist! <font color=blue>Within the rules,</font> \
 		try to act as an opposing force to the crew. Further RP and try to make sure \
 		other players have <i>fun</i>! If you are confused or at a loss, always adminhelp, \
 		and before taking extreme actions, please try to also contact the administration! \
 		Think through your actions and make the roleplay immersive! <b>Please remember all \
-		rules aside from those without explicit exceptions apply to antagonists.</b>"
+		rules aside from those without explicit exceptions apply to antagonists.</b>")
 
 /proc/show_objectives(var/datum/mind/player)
 	if(!player || !player.current) return
 
 	var/obj_count = 1
-	player.current << "\blue Your current objectives:"
+	to_chat(player.current, "\blue Your current objectives:")
 	for(var/datum/objective/objective in player.objectives)
-		player.current << "<B>Objective #[obj_count]</B>: [objective.explanation_text]"
+		to_chat(player.current, "<B>Objective #[obj_count]</B>: [objective.explanation_text]")
 		obj_count++
 
 /proc/get_roletext(var/role)
-	var/roletext
-	switch(role)
-		if(BE_CHANGELING)	roletext="changeling"
-		if(BE_TRAITOR)		roletext="traitor"
-		if(BE_OPERATIVE)	roletext="operative"
-		if(BE_WIZARD)		roletext="wizard"
-		if(BE_MALF)			roletext="malf AI"
-		if(BE_REV)			roletext="revolutionary"
-		if(BE_CULTIST)		roletext="cultist"
-		if(BE_NINJA)		roletext="ninja"
-		if(BE_RAIDER)		roletext="raider"
-		if(BE_VAMPIRE)		roletext="vampire"
-		if(BE_ALIEN)		roletext="alien"
-		if(BE_MUTINEER)		roletext="mutineer"
-		if(BE_BLOB)			roletext="blob"
-	return roletext
+	return role
 
 /proc/get_nuke_code()
 	var/nukecode = "ERROR"
 	for(var/obj/machinery/nuclearbomb/bomb in world)
-		if(bomb && bomb.r_code && bomb.z == ZLEVEL_STATION)
+		if(bomb && bomb.r_code && is_station_level(bomb.z))
 			nukecode = bomb.r_code
 	return nukecode
+
+/datum/game_mode/proc/replace_jobbanned_player(mob/living/M, role_type)
+	var/list/mob/dead/observer/candidates = pollCandidates("Do you want to play as a [role_type]?", role_type, 0, 100)
+	var/mob/dead/observer/theghost = null
+	if(candidates.len)
+		theghost = pick(candidates)
+		to_chat(M, "<span class='userdanger'>Your mob has been taken over by a ghost! Appeal your job ban if you want to avoid this in the future!</span>")
+		message_admins("[key_name_admin(theghost)] has taken control of ([key_name_admin(M)]) to replace a jobbanned player.")
+		M.ghostize()
+		M.key = theghost.key
+	else
+		message_admins("[M] ([M.key] has been converted into [role_type] with an active antagonist jobban for said role since no ghost has volunteered to take their place.")
+		to_chat(M, "<span class='biggerdanger'>You have been converted into [role_type] with an active jobban. Any further violations of the rules on your part are likely to result in a permanent ban.</span>")
+
+/datum/game_mode/proc/printplayer(datum/mind/ply, fleecheck)
+	var/text = "<br><b>[ply.key]</b> was <b>[ply.name]</b> the <b>[ply.assigned_role]</b> and"
+	if(ply.current)
+		if(ply.current.stat == DEAD)
+			text += " <span class='boldannounce'>died</span>"
+		else
+			text += " <span class='greenannounce'>survived</span>"
+		if(fleecheck && !is_station_level(ply.current.z))
+			text += " while <span class='boldannounce'>fleeing the station</span>"
+		if(ply.current.real_name != ply.name)
+			text += " as <b>[ply.current.real_name]</b>"
+	else
+		text += " <span class='boldannounce'>had their body destroyed</span>"
+	return text
+
+/datum/game_mode/proc/printobjectives(datum/mind/ply)
+	var/text = ""
+	var/count = 1
+	for(var/datum/objective/objective in ply.objectives)
+		if(objective.check_completion())
+			text += "<br><b>Objective #[count]</b>: [objective.explanation_text] <span class='greenannounce'>Success!</span>"
+		else
+			text += "<br><b>Objective #[count]</b>: [objective.explanation_text] <span class='boldannounce'>Fail.</span>"
+		count++
+	return text
+
+/datum/game_mode/proc/generate_station_goals()
+	var/list/possible = list()
+	for(var/T in subtypesof(/datum/station_goal))
+		var/datum/station_goal/G = T
+		if(config_tag in initial(G.gamemode_blacklist))
+			continue
+		possible += T
+	var/goal_weights = 0
+	while(possible.len && goal_weights < STATION_GOAL_BUDGET)
+		var/datum/station_goal/picked = pick_n_take(possible)
+		goal_weights += initial(picked.weight)
+		station_goals += new picked
+	
+	if(station_goals.len)	
+		send_station_goals_message()
+	
+/datum/game_mode/proc/send_station_goals_message()
+	var/message_text = "<div style='text-align:center;'><img src='ntlogo.png'>"
+	message_text += "<h3>[command_name()] Orders</h3></div><hr>"
+	message_text += "<b>Special Orders for [station_name()]:</b><br><br>"
+
+	for(var/datum/station_goal/G in station_goals)
+		G.on_report()
+		message_text += G.get_report()
+		message_text += "<hr>"
+			
+	print_command_report(message_text, "[command_name()] Orders")
+
+/datum/game_mode/proc/declare_station_goal_completion()
+	for(var/V in station_goals)
+		var/datum/station_goal/G = V
+		G.print_result()	

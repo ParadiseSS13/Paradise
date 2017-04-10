@@ -54,6 +54,8 @@
 #define CARBON_LIFEFORM_FIRE_RESISTANCE 	200+T0C	//Resistance to fire damage
 #define CARBON_LIFEFORM_FIRE_DAMAGE			4		//Fire damage
 	//Plasma fire properties
+#define OXYGEN_BURN_RATE_BASE				1.4
+#define PLASMA_BURN_RATE_DELTA				4
 #define PLASMA_MINIMUM_BURN_TEMPERATURE		100+T0C
 #define PLASMA_UPPER_TEMPERATURE			1370+T0C
 #define PLASMA_MINIMUM_OXYGEN_NEEDED		2
@@ -114,5 +116,7 @@
 #define MAX_OUTPUT_PRESSURE					4500 // (kPa) What pressure pumps and powered equipment max out at.
 #define MAX_TRANSFER_RATE					200 // (L/s) Maximum speed powered equipment can work at.
 
-// Sound Limits
-#define SOUND_MINIMUM_PRESSURE 10
+// Atmos alarm defines
+#define ATMOS_ALARM_NONE					0
+#define ATMOS_ALARM_WARNING					1
+#define ATMOS_ALARM_DANGER					2

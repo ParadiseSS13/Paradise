@@ -21,6 +21,12 @@
 	origin_tech = "syndicate=3"
 	syndie = 1 //Signifies that it de-crypts Syndicate transmissions
 
+/obj/item/device/encryptionkey/syndteam
+	icon_state = "cypherkey"
+	channels = list("SyndTeam" = 1, "Syndicate" = 1)
+	origin_tech = "syndicate=4"
+	syndie = 1 //Signifies that it de-crypts Syndicate transmissions
+
 /obj/item/device/encryptionkey/binary
 	name = "binary translator key"
 	desc = "An encryption key for a radio headset. To access the binary channel, use :b."
@@ -132,6 +138,10 @@
 /obj/item/device/encryptionkey/ert
 	name = "Nanotrasen ERT Radio Encryption Key"
 	channels = list("Response Team" = 1, "Science" = 1, "Command" = 1, "Medical" = 1, "Engineering" = 1, "Security" = 1, "Supply" = 1, "Service" = 1)
+
+/obj/item/device/encryptionkey/centcom
+	name = "Centcom Radio Encryption Key"
+	channels = list("Response Team" = 1, "Special Ops" = 1, "Science" = 1, "Command" = 1, "Medical" = 1, "Engineering" = 1, "Security" = 1, "Supply" = 1, "Service" = 1)
 
 /obj/item/device/encryptionkey/heads/ai_integrated //ported from bay, this goes 'inside' the AI.
 	name = "AI Integrated Encryption Key"

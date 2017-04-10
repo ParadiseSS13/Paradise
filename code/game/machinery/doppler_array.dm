@@ -7,6 +7,7 @@ var/list/doppler_arrays = list()
 	icon_state = "tdoppler"
 	density = 1
 	anchored = 1
+	atom_say_verb = "states coldly"
 
 /obj/machinery/doppler_array/New()
 	..()
@@ -19,17 +20,17 @@ var/list/doppler_arrays = list()
 /obj/machinery/doppler_array/process()
 	return PROCESS_KILL
 
-/obj/machinery/doppler_array/attackby(var/obj/item/O as obj, var/mob/user as mob, params)
+/obj/machinery/doppler_array/attackby(var/obj/item/O, var/mob/user, params)
 	if(istype(O, /obj/item/weapon/wrench))
 		if(!anchored && !isinspace())
 			anchored = 1
 			power_change()
-			user << "<span class='notice'>You fasten [src].</span>"
+			to_chat(user, "<span class='notice'>You fasten [src].</span>")
 		else if(anchored)
 			anchored = 0
 			power_change()
-			user << "<span class='notice'>You unfasten [src].</span>"
-		playsound(loc, 'sound/items/Ratchet.ogg', 50, 1)
+			to_chat(user, "<span class='notice'>You unfasten [src].</span>")
+		playsound(loc, O.usesound, 50, 1)
 
 /obj/machinery/doppler_array/verb/rotate()
 	set name = "Rotate Tachyon-doppler Dish"
@@ -74,9 +75,8 @@ var/list/doppler_arrays = list()
 	if(devastation_range < orig_dev_range || heavy_impact_range < orig_heavy_range || light_impact_range < orig_light_range)
 		messages += "Theoretical: Epicenter radius: [orig_dev_range]. Outer radius: [orig_heavy_range]. Shockwave radius: [orig_light_range]."
 
-	for(var/mob/O in hearers(src, null))
-		for(var/message in messages)
-			O.show_message("<span class='game say'><span class='name'>[src]</span> states coldly, \"[message]\"",2)
+	for(var/message in messages)
+		atom_say(message)
 
 
 /obj/machinery/doppler_array/power_change()

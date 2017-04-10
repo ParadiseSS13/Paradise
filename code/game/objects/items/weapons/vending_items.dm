@@ -10,7 +10,7 @@
 	throwforce = 10.0
 	throw_speed = 1
 	throw_range = 7
-	w_class = 4.0
+	w_class = 4
 
 	var/charges = 0		//how many restocking "charges" the refill has
 
@@ -23,9 +23,9 @@
 /obj/item/weapon/vending_refill/examine(mob/user)
 	..(user)
 	if(charges)
-		user << "It can restock [charges] item(s)."
+		to_chat(user, "It can restock [charges] item(s).")
 	else
-		user << "It's empty!"
+		to_chat(user, "It's empty!")
 
 //NOTE I decided to go for about 1/3 of a machine's capacity
 
@@ -82,3 +82,8 @@
 	machine_name = "CritterCare"
 	icon_state = "refill_pet"
 	charges = 31// of 94
+
+/obj/item/weapon/vending_refill/chinese
+	machine_name = "MrChangs"
+	charges = 8// of 24
+

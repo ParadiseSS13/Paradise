@@ -16,23 +16,24 @@
 
 /obj/machinery/arcade/New()
 	..()
-	var/choice = pick(subtypesof(/obj/machinery/arcade))
-	new choice(loc)
-	qdel(src)
+	if(type == /obj/machinery/arcade)		//if you spawn the base-type, it will replace itself with a random subtype for randomness
+		var/choice = pick(subtypesof(/obj/machinery/arcade))
+		new choice(loc)
+		qdel(src)
 
 /obj/machinery/arcade/examine(mob/user)
 	..(user)
 	if(freeplay)
-		user << "Someone enabled freeplay on this machine!"
+		to_chat(user, "Someone enabled freeplay on this machine!")
 	else
 		if(token_price)
-			user << "\The [src.name] costs [token_price] credits per play."
+			to_chat(user, "\The [src.name] costs [token_price] credits per play.")
 		if(!tokens)
-			user << "\The [src.name] has no available play credits. Better feed the machine!"
+			to_chat(user, "\The [src.name] has no available play credits. Better feed the machine!")
 		else if(tokens == 1)
-			user << "\The [src.name] has only 1 play credit left!"
+			to_chat(user, "\The [src.name] has only 1 play credit left!")
 		else
-			user << "\The [src.name] has [tokens] play credits!"
+			to_chat(user, "\The [src.name] has [tokens] play credits!")
 
 /obj/machinery/arcade/attack_hand(mob/user as mob)
 	if(..())
@@ -47,7 +48,7 @@
 	if(stat & BROKEN || panel_open)
 		return
 	if(!tokens && !freeplay)
-		user << "\The [src.name] doesn't have enough credits to play! Pay first!"
+		to_chat(user, "\The [src.name] doesn't have enough credits to play! Pay first!")
 		return
 	if(!in_use && (tokens || freeplay))
 		in_use = 1
@@ -55,14 +56,14 @@
 		return
 	if(in_use)
 		if(src != user.machine)
-			user << "Someone else is already playing this machine, please wait your turn!"
+			to_chat(user, "Someone else is already playing this machine, please wait your turn!")
 		return
 
 /obj/machinery/arcade/attackby(var/obj/item/O as obj, var/mob/user as mob, params)
 	if(istype(O, /obj/item/weapon/screwdriver) && anchored)
-		playsound(src.loc, 'sound/items/Screwdriver.ogg', 50, 1)
+		playsound(src.loc, O.usesound, 50, 1)
 		panel_open = !panel_open
-		user << "You [panel_open ? "open" : "close"] the maintenance panel."
+		to_chat(user, "You [panel_open ? "open" : "close"] the maintenance panel.")
 		update_icon()
 		return
 	if(!freeplay)
@@ -71,38 +72,34 @@
 			if(pay_with_card(C))
 				tokens += 1
 			return
-		else if(istype(O, /obj/item/weapon/spacecash))
-			var/obj/item/weapon/spacecash/C = O
+		else if(istype(O, /obj/item/stack/spacecash))
+			var/obj/item/stack/spacecash/C = O
 			if(pay_with_cash(C, user))
 				tokens += 1
 			return
-	if(panel_open&& component_parts && istype(O, /obj/item/weapon/crowbar))
+	if(panel_open && component_parts && istype(O, /obj/item/weapon/crowbar))
 		default_deconstruction_crowbar(O)
 
 /obj/machinery/arcade/update_icon()
 	return
 
-/obj/machinery/arcade/proc/pay_with_cash(var/obj/item/weapon/spacecash/cashmoney, var/mob/user)
-	if(cashmoney.get_total() < token_price)
-		user << "\icon[cashmoney] <span class='warning'>That is not enough money.</span>"
+/obj/machinery/arcade/proc/pay_with_cash(obj/item/stack/spacecash/cashmoney, mob/user)
+	if(cashmoney.amount < token_price)
+		to_chat(user, "[bicon(cashmoney)] <span class='warning'>That is not enough money.</span>")
 		return 0
 	visible_message("<span class='info'>[usr] inserts a credit chip into [src].</span>")
-	var/left = cashmoney.get_total() - token_price
-	user.unEquip(cashmoney)
-	qdel(cashmoney)
-	if(left)
-		dispense_cash(left, src.loc, user)
+	cashmoney.use(token_price)
 	return 1
 
 /obj/machinery/arcade/proc/pay_with_card(var/obj/item/weapon/card/id/I, var/mob/user)
 	visible_message("<span class='info'>[usr] swipes a card through [src].</span>")
 	var/datum/money_account/customer_account = attempt_account_access_nosec(I.associated_account_number)
-	if (!customer_account)
-		user <<"Error: Unable to access account. Please contact technical support if problem persists."
+	if(!customer_account)
+		to_chat(user, "Error: Unable to access account. Please contact technical support if problem persists.")
 		return 0
 
 	if(customer_account.suspended)
-		user << "Unable to access account: account suspended."
+		to_chat(user, "Unable to access account: account suspended.")
 		return 0
 
 	// Have the customer punch in the PIN before checking if there's enough money. Prevents people from figuring out acct is
@@ -112,11 +109,11 @@
 		customer_account = attempt_account_access(I.associated_account_number, attempt_pin, 2)
 
 		if(!customer_account)
-			user << "Unable to access account: incorrect credentials."
+			to_chat(user, "Unable to access account: incorrect credentials.")
 			return 0
 
 	if(token_price > customer_account.money)
-		user << "Insufficient funds in account."
+		to_chat(user, "Insufficient funds in account.")
 		return 0
 	else
 		// Okay to move the money at this point

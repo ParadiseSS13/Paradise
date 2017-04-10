@@ -3,11 +3,10 @@
 	real_name = "alien larva"
 	icon_state = "larva0"
 	pass_flags = PASSTABLE | PASSMOB
+	mob_size = MOB_SIZE_SMALL
 
 	maxHealth = 30
 	health = 30
-	storedPlasma = 50
-	max_plasma = 50
 	density = 0
 
 	var/amount_grown = 0
@@ -16,29 +15,29 @@
 
 //This is fine right now, if we're adding organ specific damage this needs to be updated
 /mob/living/carbon/alien/larva/New()
-	var/datum/reagents/R = new/datum/reagents(100)
-	reagents = R
-	R.my_atom = src
+	create_reagents(100)
 	if(name == "alien larva")
 		name = "alien larva ([rand(1, 1000)])"
 	real_name = name
 	regenerate_icons()
 	add_language("Xenomorph")
 	add_language("Hivemind")
+	alien_organs += new /obj/item/organ/internal/xenos/plasmavessel/larva
+
 	..()
 
 //This is fine, works the same as a human
 /mob/living/carbon/alien/larva/Bump(atom/movable/AM as mob|obj, yes)
 
 	spawn( 0 )
-		if ((!( yes ) || now_pushing))
+		if((!( yes ) || now_pushing))
 			return
 		now_pushing = 1
 		if(ismob(AM))
 			var/mob/tmob = AM
 			if(istype(tmob, /mob/living/carbon/human) && (FAT in tmob.mutations))
 				if(prob(70))
-					src << "\red <B>You fail to push [tmob]'s fat ass out of the way.</B>"
+					to_chat(src, "<span class='danger'>You fail to push [tmob]'s fat ass out of the way.</span>")
 					now_pushing = 0
 					return
 				if(!(tmob.status_flags & CANPUSH))
@@ -48,11 +47,11 @@
 
 		now_pushing = 0
 		..()
-		if (!( istype(AM, /atom/movable) ))
+		if(!( istype(AM, /atom/movable) ))
 			return
-		if (!( now_pushing ))
+		if(!( now_pushing ))
 			now_pushing = 1
-			if (!( AM.anchored ))
+			if(!( AM.anchored ))
 				var/t = get_dir(src, AM)
 				step(AM, t)
 			now_pushing = null
@@ -64,8 +63,9 @@
 	..()
 	stat(null, "Progress: [amount_grown]/[max_grown]")
 
-/mob/living/carbon/alien/larva/adjustToxLoss(amount)
-	if(stat != DEAD)
+
+/mob/living/carbon/alien/larva/adjustPlasma(amount)
+	if(stat != DEAD && amount > 0)
 		amount_grown = min(amount_grown + 1, max_grown)
 	..(amount)
 
@@ -75,26 +75,26 @@
 
 	var/b_loss = null
 	var/f_loss = null
-	switch (severity)
-		if (1.0)
+	switch(severity)
+		if(1.0)
 			gib()
 			return
 
-		if (2.0)
+		if(2.0)
 
 			b_loss += 60
 
 			f_loss += 60
 
-			ear_damage += 30
-			ear_deaf += 120
+			AdjustEarDamage(30)
+			AdjustEarDeaf(120)
 
 		if(3.0)
 			b_loss += 30
-			if (prob(50))
+			if(prob(50))
 				Paralyse(1)
-			ear_damage += 15
-			ear_deaf += 60
+			AdjustEarDamage(15)
+			AdjustEarDeaf(60)
 
 	adjustBruteLoss(b_loss)
 	adjustFireLoss(f_loss)
@@ -116,20 +116,20 @@
 				"<span class='userdanger'>[M] [M.attacktext] [src]!</span>")
 		var/damage = rand(M.melee_damage_lower, M.melee_damage_upper)
 		adjustBruteLoss(damage)
-		add_logs(src, M, "attacked", admin=0)
+		add_logs(M, src, "attacked", admin=0, print_attack_log = 0)
 		updatehealth()
 
 
 
 /mob/living/carbon/alien/larva/attack_slime(mob/living/carbon/slime/M as mob)
-	if (!ticker)
-		M << "You cannot attack people before the game has started."
+	if(!ticker)
+		to_chat(M, "You cannot attack people before the game has started.")
 		return
 
 	if(M.Victim)
 		return // can't attack while eating!
 
-	if (stat != DEAD)
+	if(stat != DEAD)
 		M.do_attack_animation(src)
 		visible_message("<span class='danger'>The [M.name] glomps [src]!</span>", \
 				"<span class='userdanger'>The [M.name] glomps [src]!</span>")
@@ -147,29 +147,29 @@
 	return
 
 /mob/living/carbon/alien/larva/attack_hand(mob/living/carbon/human/M as mob)
-	if (!ticker)
-		M << "You cannot attack people before the game has started."
+	if(!ticker)
+		to_chat(M, "You cannot attack people before the game has started.")
 		return
 
-	if (istype(loc, /turf) && istype(loc.loc, /area/start))
-		M << "No attacking people at spawn, you jackass."
+	if(istype(loc, /turf) && istype(loc.loc, /area/start))
+		to_chat(M, "No attacking people at spawn, you jackass.")
 		return
 
 	..()
 
 	switch(M.a_intent)
 
-		if (I_HELP)
+		if(I_HELP)
 			help_shake_act(M)
 
-		if (I_GRAB)
+		if(I_GRAB)
 			grabbedby(M)
 
 		else
 			M.do_attack_animation(src)
 			var/damage = rand(1, 9)
-			if (prob(90))
-				if (HULK in M.mutations)
+			if(prob(90))
+				if(HULK in M.mutations)
 					damage += 5
 					spawn(0)
 						Paralyse(1)
@@ -179,7 +179,7 @@
 				playsound(loc, "punch", 25, 1, -1)
 				visible_message("<span class='danger'>[M] has kicked [src]!</span>", \
 						"<span class='userdanger'>[M] has kicked [src]!</span>")
-				if ((stat != DEAD) && (damage > 4.9))
+				if((stat != DEAD) && (damage > 4.9))
 					Paralyse(rand(5,10))
 					visible_message("<span class='danger'>[M] has weakened [src]!</span>", \
 							"<span class='userdanger'>[M] has weakened [src]!</span>", \
@@ -190,41 +190,6 @@
 				playsound(loc, 'sound/weapons/punchmiss.ogg', 25, 1, -1)
 				visible_message("<span class='danger'>[M] has attempted to kick [src]!</span>", \
 						"<span class='userdanger'>[M] has attempted to kick [src]!</span>")
-	return
-
-/mob/living/carbon/alien/larva/attack_alien(mob/living/carbon/alien/humanoid/M as mob)
-	if (!ticker)
-		M << "You cannot attack people before the game has started."
-		return
-
-	if (istype(loc, /turf) && istype(loc.loc, /area/start))
-		M << "No attacking people at spawn, you jackass."
-		return
-
-	..()
-
-	switch(M.a_intent)
-
-		if (I_HELP)
-			sleeping = max(0,sleeping-5)
-			resting = 0
-			AdjustParalysis(-3)
-			AdjustStunned(-3)
-			AdjustWeakened(-3)
-			visible_message("<span class='notice'>[M.name] nuzzles [src] trying to wake it up!</span>")
-
-		else
-			if (health > 0)
-				M.do_attack_animation(src)
-				playsound(loc, 'sound/weapons/bite.ogg', 50, 1, -1)
-				var/damage = 1
-				visible_message("<span class='danger'>[M.name] bites [src]!</span>", \
-						"<span class='userdanger'>[M.name] bites [src]!</span>")
-				adjustBruteLoss(damage)
-				updatehealth()
-			else
-				M << "<span class='warning'>[name] is too injured for that.</span>"
-	return
 
 /mob/living/carbon/alien/larva/restrained()
 	return 0
@@ -236,15 +201,6 @@
 
 
 /mob/living/carbon/alien/larva/show_inv(mob/user as mob)
-
-	user.set_machine(src)
-	var/dat = {"
-	<B><HR><FONT size=3>[name]</FONT></B>
-	<BR><HR><BR>
-	<BR><A href='?src=\ref[user];mach_close=mob[name]'>Close</A>
-	<BR>"}
-	user << browse(dat, text("window=mob[name];size=340x480"))
-	onclose(user, "mob[name]")
 	return
 
 /* Commented out because it's duplicated in life.dm

@@ -42,15 +42,17 @@
 
 
 	HasProximity(atom/movable/AM as mob|obj)
-		if (istype(AM, /obj/effect/beam))	return
-		if (AM.move_speed < 12)	sense()
+		if(!isobj(AM) && !isliving(AM))
+			return
+		if(istype(AM, /obj/effect))	return
+		if(AM.move_speed < 12)	sense()
 		return
 
 
 	sense()
 		if((!secured)||(!scanning)||(cooldown > 0))	return 0
 		pulse(0)
-		visible_message("\icon[src] *beep* *beep*", "*beep* *beep*")
+		visible_message("[bicon(src)] *beep* *beep*", "*beep* *beep*")
 		cooldown = 2
 		spawn(10)
 			process_cooldown()
@@ -68,6 +70,7 @@
 
 
 	dropped()
+		..()
 		spawn(0)
 			sense()
 			return
@@ -110,11 +113,13 @@
 			return 0
 		var/second = time % 60
 		var/minute = (time - second) / 60
-		var/dat = text("<TT><B>Proximity Sensor</B>\n[] []:[]\n<A href='?src=\ref[];tp=-30'>-</A> <A href='?src=\ref[];tp=-1'>-</A> <A href='?src=\ref[];tp=1'>+</A> <A href='?src=\ref[];tp=30'>+</A>\n</TT>", (timing ? text("<A href='?src=\ref[];time=0'>Arming</A>", src) : text("<A href='?src=\ref[];time=1'>Not Arming</A>", src)), minute, second, src, src, src, src)
-		dat += "<BR><A href='?src=\ref[src];scanning=1'>[scanning?"Armed":"Unarmed"]</A> (Movement sensor active when armed!)"
-		dat += "<BR><BR><A href='?src=\ref[src];refresh=1'>Refresh</A>"
-		dat += "<BR><BR><A href='?src=\ref[src];close=1'>Close</A>"
-		user << browse(dat, "window=prox")
+		var/dat = text("<TT><B>Proximity Sensor</B>\n[] []:[]\n<A href='?src=[UID()];tp=-30'>-</A> <A href='?src=[UID()];tp=-1'>-</A> <A href='?src=[UID()];tp=1'>+</A> <A href='?src=[UID()];tp=30'>+</A>\n</TT>", (timing ? "<A href='?src=[UID()];time=0'>Arming</A>" : "<A href='?src=[UID()];time=1'>Not Arming</A>"), minute, second)
+		dat += "<BR><A href='?src=[UID()];scanning=1'>[scanning?"Armed":"Unarmed"]</A> (Movement sensor active when armed!)"
+		dat += "<BR><BR><A href='?src=[UID()];refresh=1'>Refresh</A>"
+		dat += "<BR><BR><A href='?src=[UID()];close=1'>Close</A>"
+		var/datum/browser/popup = new(user, "prox", name, 400, 400)
+		popup.set_content(dat)
+		popup.open(0)
 		onclose(user, "prox")
 		return
 

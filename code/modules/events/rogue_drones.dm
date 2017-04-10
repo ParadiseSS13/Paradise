@@ -25,12 +25,12 @@
 /datum/event/rogue_drone/announce()
 	var/msg
 	if(prob(33))
-		msg = "A combat drone wing operating out of the NMV Icarus has failed to return from a sweep of this sector, if any are sighted approach with caution."
+		msg = "A combat drone wing operating out of the NSV Icarus has failed to return from a sweep of this sector, if any are sighted approach with caution."
 	else if(prob(50))
-		msg = "Contact has been lost with a combat drone wing operating out of the NMV Icarus. If any are sighted in the area, approach with caution."
+		msg = "Contact has been lost with a combat drone wing operating out of the NSV Icarus. If any are sighted in the area, approach with caution."
 	else
-		msg = "Unidentified hackers have targetted a combat drone wing deployed from the NMV Icarus. If any are sighted in the area, approach with caution."
-	command_announcement.Announce(msg, "Rogue drone alert")
+		msg = "Unidentified hackers have targetted a combat drone wing deployed from the NSV Icarus. If any are sighted in the area, approach with caution."
+	event_announcement.Announce(msg, "Rogue drone alert")
 
 /datum/event/rogue_drone/tick()
 	return
@@ -41,13 +41,13 @@
 		var/datum/effect/system/spark_spread/sparks = new /datum/effect/system/spark_spread()
 		sparks.set_up(3, 0, D.loc)
 		sparks.start()
-		D.z = 2
+		D.z = level_name_to_num(CENTCOMM)
 		D.has_loot = 0
 
 		qdel(D)
 		num_recovered++
 
 	if(num_recovered > drones_list.len * 0.75)
-		command_announcement.Announce("Icarus drone control reports the malfunctioning wing has been recovered safely.", "Rogue drone alert")
+		event_announcement.Announce("Icarus drone control reports the malfunctioning wing has been recovered safely.", "Rogue drone alert")
 	else
-		command_announcement.Announce("Icarus drone control registers disappointment at the loss of the drones, but the survivors have been recovered.", "Rogue drone alert")
+		event_announcement.Announce("Icarus drone control registers disappointment at the loss of the drones, but the survivors have been recovered.", "Rogue drone alert")

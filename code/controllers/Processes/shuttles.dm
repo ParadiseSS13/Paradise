@@ -9,6 +9,7 @@ var/const/CALL_SHUTTLE_REASON_LENGTH = 12
 
 		//emergency shuttle stuff
 	var/obj/docking_port/mobile/emergency/emergency
+	var/obj/docking_port/mobile/emergency/backup/backup_shuttle
 	var/emergencyCallTime = 6000	//time taken for emergency shuttle to reach the station when called (in deciseconds)
 	var/emergencyDockTime = 1800	//time taken for emergency shuttle to leave again once it has docked (in deciseconds)
 	var/emergencyEscapeTime = 1200	//time taken for emergency shuttle to reach a safe distance after leaving station (in deciseconds)
@@ -49,6 +50,8 @@ var/const/CALL_SHUTTLE_REASON_LENGTH = 12
 
 	if(!emergency)
 		WARNING("No /obj/docking_port/mobile/emergency placed on the map!")
+	if(!backup_shuttle)
+		WARNING("No /obj/docking_port/mobile/emergency/backup placed on the map!")
 	if(!supply)
 		WARNING("No /obj/docking_port/mobile/supply placed on the map!")
 
@@ -88,36 +91,48 @@ var/const/CALL_SHUTTLE_REASON_LENGTH = 12
 
 /datum/controller/process/shuttle/proc/requestEvac(mob/user, call_reason)
 	if(!emergency)
-		throw EXCEPTION("requestEvac(): There is no emergency shuttle! The game will be unresolvable. This is likely due to a mapping error")
-		return
+		WARNING("requestEvac(): There is no emergency shuttle, but the shuttle was called. Using the backup shuttle instead.")
+		if(!backup_shuttle)
+			WARNING("requestEvac(): There is no emergency shuttle, or backup shuttle!\
+			The game will be unresolvable.This is possibly a mapping error, \
+			more likely a bug with the shuttle \
+			manipulation system, or badminry. It is possible to manually \
+			resolve this problem by loading an emergency shuttle template \
+			manually, and then calling register() on the mobile docking port. \
+			Good luck.")
+			return
+		emergency = backup_shuttle
 
+	if(world.time - round_start_time < config.shuttle_refuel_delay)
+		to_chat(user, "The emergency shuttle is refueling. Please wait another [abs(round(((world.time - round_start_time) - config.shuttle_refuel_delay)/600))] minutes before trying again.")
+		return
 
 	switch(emergency.mode)
 		if(SHUTTLE_RECALL)
-			user << "The emergency shuttle may not be called while returning to Centcom."
+			to_chat(user, "The emergency shuttle may not be called while returning to Centcom.")
 			return
 		if(SHUTTLE_CALL)
-			user << "The emergency shuttle is already on its way."
+			to_chat(user, "The emergency shuttle is already on its way.")
 			return
 		if(SHUTTLE_DOCKED)
-			user << "The emergency shuttle is already here."
+			to_chat(user, "The emergency shuttle is already here.")
 			return
 		if(SHUTTLE_ESCAPE)
-			user << "The emergency shuttle is moving away to a safe distance."
+			to_chat(user, "The emergency shuttle is moving away to a safe distance.")
 			return
 		if(SHUTTLE_STRANDED)
-			user << "The emergency shuttle has been disabled by Centcom."
+			to_chat(user, "The emergency shuttle has been disabled by Centcom.")
 			return
 
 	call_reason = trim(html_encode(call_reason))
 
 	if(length(call_reason) < CALL_SHUTTLE_REASON_LENGTH)
-		user << "You must provide a reason."
+		to_chat(user, "You must provide a reason.")
 		return
 
 	var/area/signal_origin = get_area(user)
 	var/emergency_reason = "\nNature of emergency:\n\n[call_reason]"
-	if(seclevel2num(get_security_level()) == SEC_LEVEL_RED) // There is a serious threat we gotta move no time to give them five minutes.
+	if(seclevel2num(get_security_level()) >= SEC_LEVEL_RED) // There is a serious threat we gotta move no time to give them five minutes.
 		emergency.request(null, 0.5, signal_origin, html_decode(emergency_reason), 1)
 	else
 		emergency.request(null, 1, signal_origin, html_decode(emergency_reason), 0)
@@ -126,6 +141,14 @@ var/const/CALL_SHUTTLE_REASON_LENGTH = 12
 	message_admins("[key_name_admin(user)] has called the shuttle.")
 
 	return
+
+
+// Called when an emergency shuttle mobile docking port is
+// destroyed, which will only happen with admin intervention
+/datum/controller/process/shuttle/proc/emergencyDeregister()
+	// When a new emergency shuttle is created, it will override the
+	// backup shuttle.
+	emergency = backup_shuttle
 
 /datum/controller/process/shuttle/proc/cancelEvac(mob/user)
 	if(canRecall())
@@ -139,7 +162,7 @@ var/const/CALL_SHUTTLE_REASON_LENGTH = 12
 		return
 	if(ticker.mode.name == "meteor")
 		return
-	if(seclevel2num(get_security_level()) == SEC_LEVEL_RED)
+	if(seclevel2num(get_security_level()) >= SEC_LEVEL_RED)
 		if(emergency.timeLeft(1) < emergencyCallTime * 0.25)
 			return
 	else
@@ -159,9 +182,11 @@ var/const/CALL_SHUTTLE_REASON_LENGTH = 12
 			var/obj/machinery/computer/communications/C = thing
 			if(C.stat & BROKEN)
 				continue
+		else if(istype(thing, /datum/computer_file/program/comm) || istype(thing, /obj/item/weapon/circuitboard/communications))
+			continue
 
 		var/turf/T = get_turf(thing)
-		if(T && T.z == ZLEVEL_STATION)
+		if(T && is_station_level(T.z))
 			callShuttle = 0
 			break
 
@@ -191,13 +216,14 @@ var/const/CALL_SHUTTLE_REASON_LENGTH = 12
 
 /datum/controller/process/shuttle/proc/moveShuttle(shuttleId, dockId, timed)
 	var/obj/docking_port/mobile/M = getShuttle(shuttleId)
+	var/obj/docking_port/stationary/D = getDock(dockId)
 	if(!M)
 		return 1
 	if(timed)
-		if(M.request(getDock(dockId)))
+		if(M.request(D))
 			return 2
 	else
-		if(M.dock(getDock(dockId)))
+		if(M.dock(D))
 			return 2
 	return 0	//dock successful
 
@@ -205,132 +231,4 @@ var/const/CALL_SHUTTLE_REASON_LENGTH = 12
 	for(var/obj/docking_port/mobile/M in mobile)
 		if(!M.roundstart_move)
 			continue
-		for(var/obj/docking_port/stationary/S in stationary)
-			if(S.z != ZLEVEL_STATION && findtext(S.id, M.id))
-				S.width = M.width
-				S.height = M.height
-				S.dwidth = M.dwidth
-				S.dheight = M.dheight
-		moveShuttle(M.id, "[M.roundstart_move]", 0)
-
-/datum/supply_order
-	var/ordernum
-	var/datum/supply_packs/object = null
-	var/orderedby = null
-	var/orderedbyRank
-	var/comment = null
-
-/datum/supply_order/proc/generateRequisition(atom/_loc)
-	if(!object)
-		return
-
-	var/obj/item/weapon/paper/reqform = new /obj/item/weapon/paper(_loc)
-	reqform.name = "requisition form - [object.name]"
-	reqform.info += "<h3>[station_name] Supply Requisition Form</h3><hr>"
-	reqform.info += "INDEX: #[ordernum]<br>"
-	reqform.info += "REQUESTED BY: [orderedby]<br>"
-	reqform.info += "RANK: [orderedbyRank]<br>"
-	reqform.info += "REASON: [comment]<br>"
-	reqform.info += "SUPPLY CRATE TYPE: [object.name]<br>"
-	reqform.info += "ACCESS RESTRICTION: [get_access_desc(object.access)]<br>"
-	reqform.info += "CONTENTS:<br>"
-	reqform.info += object.manifest
-	reqform.info += "<hr>"
-	reqform.info += "STAMP BELOW TO APPROVE THIS REQUISITION:<br>"
-
-	reqform.update_icon()	//Fix for appearing blank when printed.
-
-	return reqform
-
-/datum/supply_order/proc/createObject(atom/_loc, errors=0)
-	if(!object)
-		return
-
-		//create the crate
-	var/atom/Crate = new object.containertype(_loc)
-	Crate.name = "[object.containername] [comment ? "([comment])":"" ]"
-	if(object.access)
-		Crate:req_access = list(text2num(object.access))
-
-		//create the manifest slip
-	var/obj/item/weapon/paper/manifest/slip = new /obj/item/weapon/paper/manifest()
-	slip.erroneous = errors
-	slip.points = object.cost
-	slip.ordernumber = ordernum
-
-	var/stationName = (errors & MANIFEST_ERROR_NAME) ? new_station_name() : station_name()
-	var/packagesAmt = shuttle_master.shoppinglist.len + ((errors & MANIFEST_ERROR_COUNT) ? rand(1,2) : 0)
-
-	slip.info = "<h3>[command_name()] Shipping Manifest</h3><hr><br>"
-	slip.info +="Order #[ordernum]<br>"
-	slip.info +="Destination: [stationName]<br>"
-	slip.info +="[packagesAmt] PACKAGES IN THIS SHIPMENT<br>"
-	slip.info +="CONTENTS:<br><ul>"
-
-		//we now create the actual contents
-	var/list/contains
-	if(istype(object, /datum/supply_packs/misc/randomised))
-		var/datum/supply_packs/misc/randomised/SO = object
-		contains = list()
-		if(object.contains.len)
-			for(var/j=1, j<=SO.num_contained, j++)
-				contains += pick(object.contains)
-	else
-		contains = object.contains
-
-	for(var/typepath in contains)
-		if(!typepath)	continue
-		var/atom/A = new typepath(Crate)
-		if(object.amount && A.vars.Find("amount") && A:amount)
-			A:amount = object.amount
-		slip.info += "<li>[A.name]</li>"	//add the item to the manifest (even if it was misplaced)
-
-	if(istype(Crate, /obj/structure/closet/critter)) // critter crates do not actually spawn mobs yet and have no contains var, but the manifest still needs to list them
-		var/obj/structure/closet/critter/CritCrate = Crate
-		if(CritCrate.content_mob)
-			var/mob/crittername = CritCrate.content_mob
-			slip.info += "<li>[initial(crittername.name)]</li>"
-
-	if((errors & MANIFEST_ERROR_ITEM))
-		//secure and large crates cannot lose items
-		if(findtext("[object.containertype]", "/secure/") || findtext("[object.containertype]","/largecrate/"))
-			errors &= ~MANIFEST_ERROR_ITEM
-		else
-			var/lostAmt = max(round(Crate.contents.len/10), 1)
-			//lose some of the items
-			while(--lostAmt >= 0)
-				qdel(pick(Crate.contents))
-
-	//manifest finalisation
-	slip.info += "</ul><br>"
-	slip.info += "CHECK CONTENTS AND STAMP BELOW THE LINE TO CONFIRM RECEIPT OF GOODS<hr>" // And now this is actually meaningful.
-	slip.loc = Crate
-	if(istype(Crate, /obj/structure/closet/crate))
-		var/obj/structure/closet/crate/CR = Crate
-		CR.manifest = slip
-		CR.update_icon()
-	if(istype(Crate, /obj/structure/largecrate))
-		var/obj/structure/largecrate/LC = Crate
-		LC.manifest = slip
-		LC.update_icon()
-
-	return Crate
-
-/datum/controller/process/shuttle/proc/generateSupplyOrder(packId, _orderedby, _orderedbyRank, _comment)
-	if(!packId)
-		return
-	var/datum/supply_packs/P = supply_packs["[packId]"]
-	if(!P)
-		return
-
-	var/datum/supply_order/O = new()
-	O.ordernum = ordernum++
-	O.object = P
-	O.orderedby = _orderedby
-	O.orderedbyRank = _orderedbyRank
-	O.comment = _comment
-
-	requestlist += O
-
-	return O
-
+		M.dockRoundstart()

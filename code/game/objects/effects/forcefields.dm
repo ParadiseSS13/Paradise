@@ -3,14 +3,13 @@
 	name = "FORCEWALL"
 	icon = 'icons/effects/effects.dmi'
 	icon_state = "m_shield"
-	anchored = 1.0
+	anchored = 1
 	opacity = 0
 	density = 1
 	unacidable = 1
 
-
-
-
+/obj/effect/forcefield/CanAtmosPass(turf/T)
+	return !density
 
 ///////////Mimewalls///////////
 
@@ -18,7 +17,7 @@
 	icon_state = "empty"
 	name = "invisible wall"
 	desc = "You have a bad feeling about this."
-	var/timeleft = 50
+	var/timeleft = 300
 	var/last_process = 0
 
 /obj/effect/forcefield/mime/New()

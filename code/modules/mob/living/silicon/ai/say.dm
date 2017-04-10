@@ -1,4 +1,69 @@
-/mob/living/silicon/ai/proc/IsVocal()
+/*
+ * AI Saycode
+ */
+
+
+/mob/living/silicon/ai/handle_track(var/message, var/verb = "says", var/datum/language/language, var/mob/speaker = null, var/speaker_name, var/atom/follow_target, var/hard_to_hear)
+	if(hard_to_hear)
+		return
+
+	var/jobname // the mob's "job"
+	var/mob/living/carbon/human/impersonating //The crewmember being impersonated, if any.
+	var/changed_voice
+
+	if(ishuman(speaker))
+		var/mob/living/carbon/human/H = speaker
+
+		var/obj/item/weapon/card/id/id = H.wear_id
+		if((istype(id) && id.is_untrackable()) && H.HasVoiceChanger())
+			changed_voice = 1
+			var/mob/living/carbon/human/I = locate(speaker_name)
+			if(I)
+				impersonating = I
+				jobname = impersonating.get_assignment()
+			else
+				jobname = "Unknown"
+		else
+			jobname = H.get_assignment()
+
+	else if(iscarbon(speaker)) // Nonhuman carbon mob
+		jobname = "No ID"
+	else if(isAI(speaker))
+		jobname = "AI"
+	else if(isrobot(speaker))
+		jobname = "Cyborg"
+	else if(ispAI(speaker))
+		jobname = "Personal AI"
+	else if(isAutoAnnouncer(speaker))
+		var/mob/living/automatedannouncer/AA = speaker
+		jobname = AA.role
+	else
+		jobname = "Unknown"
+
+	var/track = ""
+	var/mob/mob_to_track = null
+	if(changed_voice)
+		if(impersonating)
+			mob_to_track = impersonating
+		else
+			track = "[speaker_name] ([jobname])"
+	else
+		if(istype(follow_target, /mob/living/simple_animal/bot))
+			track = "<a href='byond://?src=[UID()];trackbot=\ref[follow_target]'>[speaker_name] ([jobname])</a>"
+		else
+			mob_to_track = speaker
+
+	if(mob_to_track)
+		track = "<a href='byond://?src=[UID()];track=\ref[mob_to_track]'>[speaker_name] ([jobname])</a>"
+		track += "<a href='byond://?src=[UID()];open=\ref[mob_to_track]'>\[OPEN\]</a>"
+
+	return track
+
+
+
+/*
+ * AI VOX Announcements
+ */
 
 var/announcing_vox = 0 // Stores the time of the last announcement
 var/const/VOX_CHANNEL = 200
@@ -19,7 +84,7 @@ var/const/VOX_PATH = "sound/vox_fem/"
 	var/index = 0
 	for(var/word in vox_sounds)
 		index++
-		dat += "<A href='?src=\ref[src];say_word=[word]'>[capitalize(word)]</A>"
+		dat += "<A href='?src=[UID()];say_word=[word]'>[capitalize(word)]</A>"
 		if(index != vox_sounds.len)
 			dat += " / "
 
@@ -30,22 +95,22 @@ var/const/VOX_PATH = "sound/vox_fem/"
 /mob/living/silicon/ai/proc/ai_announcement()
 	if(check_unable(AI_CHECK_WIRELESS | AI_CHECK_RADIO))
 		return
-		
+
 	if(announcing_vox > world.time)
-		src << "<span class='warning'>Please wait [round((announcing_vox - world.time) / 10)] seconds.</span>"
+		to_chat(src, "<span class='warning'>Please wait [round((announcing_vox - world.time) / 10)] seconds.</span>")
 		return
 
 	var/message = input(src, "WARNING: Misuse of this verb can result in you being job banned. More help is available in 'Announcement Help'", "Announcement", last_announcement) as text|null
 
 	last_announcement = message
-	
+
 	if(check_unable(AI_CHECK_WIRELESS | AI_CHECK_RADIO))
 		return
 
 	if(!message || announcing_vox > world.time)
 		return
 
-	var/list/words = text2list(trim(message), " ")
+	var/list/words = splittext(trim(message), " ")
 	var/list/incorrect_words = list()
 
 	if(words.len > 30)
@@ -60,7 +125,7 @@ var/const/VOX_PATH = "sound/vox_fem/"
 			incorrect_words += word
 
 	if(incorrect_words.len)
-		src << "<span class='warning'>These words are not available on the announcement system: [english_list(incorrect_words)].</span>"
+		to_chat(src, "<span class='warning'>These words are not available on the announcement system: [english_list(incorrect_words)].</span>")
 		return
 
 	announcing_vox = world.time + VOX_DELAY
@@ -84,7 +149,7 @@ var/const/VOX_PATH = "sound/vox_fem/"
 			for(var/mob/M in player_list)
 				if(M.client)
 					var/turf/T = get_turf(M)
-					if(T && T.z == z_level && !isdeaf(M))
+					if(T && T.z == z_level && M.can_hear())
 						M << voice
 		else
 			only_listener << voice
@@ -96,6 +161,6 @@ var/const/VOX_PATH = "sound/vox_fem/"
 /client/proc/preload_vox()
 	var/list/vox_files = flist(VOX_PATH)
 	for(var/file in vox_files)
-	//  src << "Downloading [file]"
+//	to_chat(src, "Downloading [file]")
 		var/sound/S = sound("[VOX_PATH][file]")
 		src << browse_rsc(S)

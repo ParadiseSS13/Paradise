@@ -22,7 +22,7 @@
 		return 0
 
 	GetText()
-		return "Set digital valve <a href=\"?src=\ref[src];set_subject=1\">[fmtString(valve)]</a> to <a href=\"?src=\ref[src];set_state=1\">[state?"open":"closed"]</a>."
+		return "Set digital valve <a href=\"?src=[UID()];set_subject=1\">[fmtString(valve)]</a> to <a href=\"?src=[UID()];set_state=1\">[state?"open":"closed"]</a>."
 
 	Topic(href,href_list)
 		if(..())
@@ -37,7 +37,7 @@
 				if(!isnull(V.id_tag) && V.frequency == parent.frequency)
 					valves|=V.id_tag
 			if(valves.len==0)
-				usr << "<span class='warning'>Unable to find any digital valves on this frequency.</span>"
+				to_chat(usr, "<span class='warning'>Unable to find any digital valves on this frequency.</span>")
 				return
 			valve = input("Select a valve:", "Sensor Data", valve) as null|anything in valves
 			parent.updateUsrDialog()

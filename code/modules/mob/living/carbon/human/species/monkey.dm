@@ -19,19 +19,21 @@
 	eyes = "blank_eyes"
 	death_message = "lets out a faint chimper as it collapses and stops moving..."
 
+	scream_verb = "screeches"
+	male_scream_sound = 'sound/goonstation/voice/monkey_scream.ogg'
+	female_scream_sound = 'sound/goonstation/voice/monkey_scream.ogg'
+
 	tail = "chimptail"
 	bodyflags = FEET_PADDED | HAS_TAIL
 	reagent_tag = PROCESS_ORG
+	//Has standard darksight of 2.
 
 	//unarmed_types = list(/datum/unarmed_attack/bite, /datum/unarmed_attack/claws)
 	//inherent_verbs = list(/mob/living/proc/ventcrawl)
-	meat_type = /obj/item/weapon/reagent_containers/food/snacks/meat/monkey
 
 	total_health = 75
 	brute_mod = 1.5
 	burn_mod = 1.5
-
-	flags = IS_RESTRICTED
 
 /datum/species/monkey/handle_npc(var/mob/living/carbon/human/H)
 	if(H.stat != CONSCIOUS)
@@ -41,16 +43,19 @@
 	if(prob(1))
 		H.emote(pick("scratch","jump","roll","tail"))
 
-datum/species/monkey/get_random_name(var/gender)
-	return
+/datum/species/monkey/get_random_name()
+	return "[lowertext(name)] ([rand(100,999)])"
 
 /datum/species/monkey/handle_post_spawn(var/mob/living/carbon/human/H)
 	H.real_name = "[lowertext(name)] ([rand(100,999)])"
 	H.name = H.real_name
+	H.butcher_results = list(/obj/item/weapon/reagent_containers/food/snacks/meat/monkey = 5)
+
 	..()
 
 /datum/species/monkey/handle_dna(var/mob/living/carbon/human/H)
 	H.dna.SetSEState(MONKEYBLOCK,1)
+	genemutcheck(H,MONKEYBLOCK,null,MUTCHK_FORCED)
 
 /datum/species/monkey/handle_can_equip(obj/item/I, slot, disable_warning = 0, mob/living/carbon/human/user)
 	switch(slot)
@@ -98,9 +103,18 @@ datum/species/monkey/get_random_name(var/gender)
 	greater_form = "Tajaran"
 	default_language = "Farwa"
 	flesh_color = "#AFA59E"
-	base_color = "#333333"
+	base_color = "#000000"
 	tail = "farwatail"
 	reagent_tag = PROCESS_ORG
+	has_organ = list(
+		"heart" =    /obj/item/organ/internal/heart,
+		"lungs" =    /obj/item/organ/internal/lungs,
+		"liver" =    /obj/item/organ/internal/liver/tajaran,
+		"kidneys" =  /obj/item/organ/internal/kidneys,
+		"brain" =    /obj/item/organ/internal/brain,
+		"appendix" = /obj/item/organ/internal/appendix,
+		"eyes" =     /obj/item/organ/internal/eyes/tajaran/farwa //Tajara monkey-forms are uniquely colourblind and have excellent darksight, which is why they need a subtype of their greater-form's organ..
+		)
 
 
 /datum/species/monkey/vulpkanin
@@ -113,9 +127,18 @@ datum/species/monkey/get_random_name(var/gender)
 	greater_form = "Vulpkanin"
 	default_language = "Wolpin"
 	flesh_color = "#966464"
-	base_color = "#BE8264"
+	base_color = "#000000"
 	tail = "wolpintail"
 	reagent_tag = PROCESS_ORG
+	has_organ = list(
+		"heart" =    /obj/item/organ/internal/heart,
+		"lungs" =    /obj/item/organ/internal/lungs,
+		"liver" =    /obj/item/organ/internal/liver/vulpkanin,
+		"kidneys" =  /obj/item/organ/internal/kidneys,
+		"brain" =    /obj/item/organ/internal/brain,
+		"appendix" = /obj/item/organ/internal/appendix,
+		"eyes" =     /obj/item/organ/internal/eyes/vulpkanin/wolpin //Vulpkanin monkey-forms are uniquely colourblind and have excellent darksight, which is why they need a subtype of their greater-form's organ..
+		)
 
 
 /datum/species/monkey/skrell
@@ -146,7 +169,7 @@ datum/species/monkey/get_random_name(var/gender)
 	greater_form = "Unathi"
 	default_language = "Stok"
 	flesh_color = "#34AF10"
-	base_color = "#066000"
+	base_color = "#000000"
 	reagent_tag = PROCESS_ORG
 
 	bodyflags = FEET_CLAWS | HAS_TAIL

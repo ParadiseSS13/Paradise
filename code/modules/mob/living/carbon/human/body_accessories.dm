@@ -3,7 +3,7 @@ var/global/list/body_accessory_by_name = list("None" = null)
 
 /hook/startup/proc/initalize_body_accessories()
 
-//	__init_body_accessory(/datum/body_accessory/body)
+	__init_body_accessory(/datum/body_accessory/body)
 	__init_body_accessory(/datum/body_accessory/tail)
 
 	if(body_accessory_by_name.len)
@@ -73,7 +73,7 @@ var/global/list/body_accessory_by_species = list("None" = null)
 
 	else	return icon_state
 
-/*
+
 //Bodies
 /datum/body_accessory/body
 	blend_mode = ICON_MULTIPLY
@@ -82,15 +82,19 @@ var/global/list/body_accessory_by_species = list("None" = null)
 	name = "Snake"
 
 	icon = 'icons/mob/body_accessory_64.dmi'
-	icon_state = "naga"
+	icon_state = "snake"
 
-	pixel_x_offset = -16*/
+	pixel_x_offset = -16
+
+
 
 //Tails
 /datum/body_accessory/tail
 	icon = 'icons/mob/body_accessory.dmi'
 	animated_icon = 'icons/mob/body_accessory.dmi'
 	blend_mode = ICON_ADD
+	icon_state = "null"
+	animated_icon_state = "null"
 
 /datum/body_accessory/tail/try_restrictions(var/mob/living/carbon/human/H)
 	if(!H.wear_suit || !(H.wear_suit.flags_inv & HIDETAIL) && !istype(H.wear_suit, /obj/item/clothing/suit/space))
@@ -98,31 +102,40 @@ var/global/list/body_accessory_by_species = list("None" = null)
 	return 0
 
 
-//vulpakin
+/datum/body_accessory/tail/wingler_tail // Jay wingler fluff tail
+	name = "Jay Wingler Tail"
+
+	icon_state = "winglertail"
+	animated_icon_state = "winglertail_a"
+
+
+//Vulpkanin
 /datum/body_accessory/tail/vulpkanin_2
 	name = "Vulpkanin Alt 1 (Bushy)"
-
 	icon_state = "vulptail2"
 	animated_icon_state = "vulptail2_a"
 	allowed_species = list("Vulpkanin")
 
 /datum/body_accessory/tail/vulpkanin_3
 	name = "Vulpkanin Alt 2 (Straight)"
-
 	icon_state = "vulptail3"
 	animated_icon_state = "vulptail3_a"
 	allowed_species = list("Vulpkanin")
 
 /datum/body_accessory/tail/vulpkanin_4
 	name = "Vulpkanin Alt 3 (Tiny)"
-
 	icon_state = "vulptail4"
 	animated_icon_state = "vulptail4_a"
 	allowed_species = list("Vulpkanin")
 
 /datum/body_accessory/tail/vulpkanin_5
 	name = "Vulpkanin Alt 4 (Short)"
-
 	icon_state = "vulptail5"
 	animated_icon_state = "vulptail5_a"
+	allowed_species = list("Vulpkanin")
+
+/datum/body_accessory/tail/vulpkanin_6
+	name = "Vulpkanin Alt 5 (Straight Bushy)"
+	icon_state = "vulptail6"
+	animated_icon_state = "vulptail6_a"
 	allowed_species = list("Vulpkanin")

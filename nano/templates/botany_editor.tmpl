@@ -31,7 +31,7 @@ Used In File(s): \code\modules\hydroponics\seed_machines.dm
 			<div class="itemContent">
 				{{:data.locus}}
 			</div>
-			{{:helper.link('Eject Disk', 'circle-arrow-e', {'eject_disk' : 1}, null)}}
+			{{:helper.link('Eject Disk', 'arrow-circle-right', {'eject_disk' : 1}, null)}}
 		</div>
 	{{else}}
 		<div class="notice">No disk loaded.</div>
@@ -48,7 +48,7 @@ Used In File(s): \code\modules\hydroponics\seed_machines.dm
 			{{if data.degradation <= 100}}
 				{{:helper.link('Apply Gene Mods', 'gear', {'apply_gene' : 1}, null)}}
 			{{/if}}
-			{{:helper.link('Eject Target', 'circle-arrow-e', {'eject_packet' : 1}, null)}}
+			{{:helper.link('Eject Target', 'arrow-circle-right', {'eject_packet' : 1}, null)}}
 		</div>
 	{{else}}
 		<div class="notice">No target seed packet loaded</div>

@@ -11,7 +11,7 @@
 	materials = list(MAT_METAL = 700, MAT_GLASS = 50)
 	construction_time=100
 	build_path = /obj/item/weapon/stock_parts/cell
-	category = list("Misc","Power")
+	category = list("Misc","Power","Machinery","initial")
 
 /datum/design/high_cell
 	name = "High-Capacity Power Cell"
@@ -91,4 +91,24 @@
 	reliability = 76
 	materials = list(MAT_GLASS = 1000, "sacid" = 20)
 	build_path = /obj/item/weapon/circuitboard/pacman/super
+	category = list("Engineering Machinery")
+
+/datum/design/tesla_coil
+	name = "Machine Design (Tesla Coil Board)"
+	desc = "The circuit board for a tesla coil."
+	id = "tesla_coil"
+	req_tech = list("programming" = 1)
+	build_type = IMPRINTER
+	materials = list(MAT_GLASS = 1000, "sacid" = 20)
+	build_path = /obj/item/weapon/circuitboard/tesla_coil
+	category = list("Engineering Machinery")
+
+/datum/design/grounding_rod
+	name = "Machine Design (Grounding Rod Board)"
+	desc = "The circuit board for a grounding rod."
+	id = "grounding_rod"
+	req_tech = list("programming" = 1)
+	build_type = IMPRINTER
+	materials = list(MAT_GLASS = 1000, "sacid" = 20)
+	build_path = /obj/item/weapon/circuitboard/grounding_rod
 	category = list("Engineering Machinery")

@@ -1,22 +1,10 @@
 <h3>Subsystems</h3>
 	<div class="item">
 		<div class="itemLabel">
-			Recharge Station:
-		</div>
-		<div class="itemContent">
-			{{if data.has_floor}}
-				<span class='good'>OK</span>
-			{{else}}
-				<span class='bad'>ERROR</span>
-			{{/if}}
-		</div>
-	</div>
-	<div class="item">
-		<div class="itemLabel">
 			Power Port:
 		</div>
 		<div class="itemContent">
-			{{if data.has_port}}
+			{{if data.recharge_port}}
 				<span class='good'>OK</span>
 			{{else}}
 				<span class='bad'>ERROR</span>
@@ -44,7 +32,7 @@
 			<div class="itemContent">
 				{{:helper.displayBar(data.mecha_charge_percentage, 0, 100)}}
 					<div class="statusValue">
-						{{:data.mecha_charge_percentage}}%<br>
+						{{:helper.smoothRound(data.mecha_charge_percentage)}}%<br>
 					</div>
 			</div>
 		</div>
@@ -61,7 +49,7 @@
 				Cell Charge:
 			</div>
 			<div class="itemContent">
-				{{:data.mecha_charge}}
+				{{:helper.smoothRound(data.mecha_charge)}}
 			</div>
 		</div>
 {{/if}}

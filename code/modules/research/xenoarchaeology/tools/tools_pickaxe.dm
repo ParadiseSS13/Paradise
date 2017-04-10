@@ -111,7 +111,7 @@
 	attack_self(var/mob/user as mob)
 		var/N = input("Excavation amount (in centimeters):", "[src]") as null|anything in possible_excavation_amounts
 
-		if (N)
+		if(N)
 			excavation_amount = N / 2
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -126,13 +126,13 @@
 	foldable = /obj/item/stack/sheet/cardboard //BubbleWrap
 	storage_slots = 7
 	w_class = 2
-	can_hold = list("/obj/item/weapon/pickaxe/brush",\
-	"/obj/item/weapon/pickaxe/one_pick",\
-	"/obj/item/weapon/pickaxe/two_pick",\
-	"/obj/item/weapon/pickaxe/three_pick",\
-	"/obj/item/weapon/pickaxe/four_pick",\
-	"/obj/item/weapon/pickaxe/five_pick",\
-	"/obj/item/weapon/pickaxe/six_pick")
+	can_hold = list(/obj/item/weapon/pickaxe/brush,\
+	/obj/item/weapon/pickaxe/one_pick,\
+	/obj/item/weapon/pickaxe/two_pick,\
+	/obj/item/weapon/pickaxe/three_pick,\
+	/obj/item/weapon/pickaxe/four_pick,\
+	/obj/item/weapon/pickaxe/five_pick,\
+	/obj/item/weapon/pickaxe/six_pick)
 	max_combined_w_class = 17
 	max_w_class = 4
 	use_to_pickup = 1 // for picking up broken bulbs, not that most people will try

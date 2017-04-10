@@ -7,13 +7,16 @@
 	var/freq_text
 
 	// the name of the channel
-	if(display_freq in ANTAG_FREQS)
-		freq_text = "#unkn"
-	else
-		for(var/channel in radiochannels)
-			if(radiochannels[channel] == display_freq)
-				freq_text = channel
-				break
+	switch(display_freq)
+		if(SYND_FREQ)
+			freq_text = "#unkn"
+		if(SYNDTEAM_FREQ)
+			freq_text = "#unid"
+		else
+			for(var/channel in radiochannels)
+				if(radiochannels[channel] == display_freq)
+					freq_text = channel
+					break
 
 	// --- If the frequency has not been assigned a name, just use the frequency as the name ---
 	if(!freq_text)
@@ -33,7 +36,7 @@
 
 /proc/get_message_server()
 	if(message_servers)
-		for (var/obj/machinery/message_server/MS in message_servers)
+		for(var/obj/machinery/message_server/MS in message_servers)
 			if(MS.active)
 				return MS
 	return null
@@ -47,6 +50,7 @@
 /proc/get_receiver_reception(var/receiver, var/datum/signal/signal)
 	if(receiver && check_signal(signal))
 		var/turf/pos = get_turf(receiver)
+		// Maybe should get tie-in to the space manager?
 		if(pos && (pos.z in signal.data["level"]))
 			return TELECOMMS_RECEPTION_RECEIVER
 	return TELECOMMS_RECEPTION_NONE

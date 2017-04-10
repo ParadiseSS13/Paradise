@@ -19,7 +19,7 @@ effective or pretty fucking useless.
 	desc = "A strange device with twin antennas."
 	icon_state = "batterer"
 	throwforce = 5
-	w_class = 1.0
+	w_class = 1
 	throw_speed = 4
 	throw_range = 10
 	flags = CONDUCT
@@ -27,35 +27,34 @@ effective or pretty fucking useless.
 	origin_tech = "magnets=3;combat=3;syndicate=3"
 
 	var/times_used = 0 //Number of times it's been used.
-	var/max_uses = 2
+	var/max_uses = 5
 
-
-/obj/item/device/batterer/attack_self(mob/living/carbon/user as mob, flag = 0, emp = 0)
-	if(!user) 	return
+/obj/item/device/batterer/examine(mob/user)
+	..(user)
 	if(times_used >= max_uses)
-		user << "\red The mind batterer has been burnt out!"
+		to_chat(user, "<span class='notice'>[src] is out of charge.</span>")
+	if(times_used < max_uses)
+		to_chat(user, "<span class='notice'>[src] has [max_uses-times_used] charges left.</span>")
+
+/obj/item/device/batterer/attack_self(mob/living/carbon/user, flag = 0, emp = 0)
+	if(!user)
+		return
+	if(times_used >= max_uses)
+		to_chat(user, "<span class='danger'>The mind batterer has been burnt out!</span>")
 		return
 
-	user.attack_log += text("\[[time_stamp()]\] <font color='red'>Used [src] to knock down people in the area.</font>")
 
-	for(var/mob/living/carbon/human/M in orange(10, user))
-		spawn()
-			if(prob(50))
+	for(var/mob/living/carbon/human/M in oview(7, user))
+		if(prob(50))
+			M.Weaken(rand(4,7))
+			add_logs(user, M, "stunned", src)
+			to_chat(M, "<span class='danger'>You feel a tremendous, paralyzing wave flood your mind.</span>")
+		else
+			to_chat(M, "<span class='danger'>You feel a sudden, electric jolt travel through your head.</span>")
 
-				M.Weaken(rand(10,20))
-				if(prob(25))
-					M.Stun(rand(5,10))
-				M << "\red <b>You feel a tremendous, paralyzing wave flood your mind.</b>"
-				if(!iscarbon(user))
-					M.LAssailant = null
-				else
-					M.LAssailant = user
-			else
-				M << "\red <b>You feel a sudden, electric jolt travel through your head.</b>"
-
-	playsound(src.loc, 'sound/misc/interference.ogg', 50, 1)
-	user << "\blue You trigger [src]."
-	times_used += 1
+	playsound(loc, 'sound/misc/interference.ogg', 50, 1)
+	times_used++
+	to_chat(user, "<span class='notice'>You trigger [src]. It has [max_uses-times_used] charges left.</span>")
 	if(times_used >= max_uses)
 		icon_state = "battererburnt"
 
@@ -80,7 +79,7 @@ effective or pretty fucking useless.
 	flags = CONDUCT
 	slot_flags = SLOT_BELT
 	throwforce = 3
-	w_class = 1.0
+	w_class = 1
 	throw_speed = 3
 	throw_range = 7
 	materials = list(MAT_METAL=400)
@@ -91,7 +90,7 @@ effective or pretty fucking useless.
 
 /obj/item/device/rad_laser/attack(mob/living/M, mob/living/user)
 	if(!used)
-		add_logs(M, user, "irradiated", src)
+		add_logs(user, M, "irradiated", src)
 		user.visible_message("<span class='notice'>[user] has analyzed [M]'s vitals.</span>")
 		var/cooldown = round(max(100,(((intensity*8)-(wavelength/2))+(intensity*2))*10))
 		used = 1
@@ -103,7 +102,7 @@ effective or pretty fucking useless.
 					M.apply_effect(round(intensity/1.5), PARALYZE)
 				M.apply_effect(intensity*10, IRRADIATE)
 	else
-		user << "<span class='warning'>The radioactive microlaser is still recharging.</span>"
+		to_chat(user, "<span class='warning'>The radioactive microlaser is still recharging.</span>")
 
 /obj/item/device/rad_laser/proc/handle_cooldown(cooldown)
 	spawn(cooldown)
@@ -119,8 +118,8 @@ effective or pretty fucking useless.
 
 	var/cooldown = round(max(10,((intensity*8)-(wavelength/2))+(intensity*2)))
 	var/dat = {"
-	Radiation Intensity: <A href='?src=\ref[src];radint=-5'>-</A><A href='?src=\ref[src];radint=-1'>-</A> [intensity] <A href='?src=\ref[src];radint=1'>+</A><A href='?src=\ref[src];radint=5'>+</A><BR>
-	Radiation Wavelength: <A href='?src=\ref[src];radwav=-5'>-</A><A href='?src=\ref[src];radwav=-1'>-</A> [(wavelength+(intensity*4))] <A href='?src=\ref[src];radwav=1'>+</A><A href='?src=\ref[src];radwav=5'>+</A><BR>
+	Radiation Intensity: <A href='?src=[UID()];radint=-5'>-</A><A href='?src=[UID()];radint=-1'>-</A> [intensity] <A href='?src=[UID()];radint=1'>+</A><A href='?src=[UID()];radint=5'>+</A><BR>
+	Radiation Wavelength: <A href='?src=[UID()];radwav=-5'>-</A><A href='?src=[UID()];radwav=-1'>-</A> [(wavelength+(intensity*4))] <A href='?src=[UID()];radwav=1'>+</A><A href='?src=[UID()];radwav=5'>+</A><BR>
 	Laser Cooldown: [cooldown] Seconds<BR>
 	"}
 

@@ -3,7 +3,7 @@
 		alert("The game hasn't started yet!")
 		return
 
-	var/list/incompatible_species = list("Plasmaman")
+	var/list/incompatible_species = list("Plasmaman", "Vox")
 	for(var/mob/living/carbon/human/H in player_list)
 		if(H.stat == DEAD || !(H.client))
 			continue
@@ -15,20 +15,20 @@
 			A.copy_to(H)
 
 		ticker.mode.traitors += H.mind
-		H.mind.special_role = "traitor"
+		H.mind.special_role = SPECIAL_ROLE_TRAITOR
 
 		var/datum/objective/hijack/hijack_objective = new
 		hijack_objective.owner = H.mind
 		H.mind.objectives += hijack_objective
 
-		H << "<B>You are a Highlander. Kill all other Highlanders. There can be only one.</B>"
+		to_chat(H, "<B>You are a Highlander. Kill all other Highlanders. There can be only one.</B>")
 		var/obj_count = 1
 		for(var/datum/objective/OBJ in H.mind.objectives)
-			H << "<B>Objective #[obj_count]</B>: [OBJ.explanation_text]"
+			to_chat(H, "<B>Objective #[obj_count]</B>: [OBJ.explanation_text]")
 			obj_count++
 
-		for (var/obj/item/I in H)
-			if (istype(I, /obj/item/weapon/implant))
+		for(var/obj/item/I in H)
+			if(istype(I, /obj/item/weapon/implant))
 				continue
 			if(istype(I, /obj/item/organ))
 				continue
@@ -49,7 +49,7 @@
 		W.assignment = "Highlander"
 		W.registered_name = H.real_name
 		H.equip_to_slot_or_del(W, slot_wear_id)
-		H.species.equip(H)
+		H.species.after_equip_job(null, H)
 		H.regenerate_icons()
 
 	message_admins("[key_name_admin(usr)] used THERE CAN BE ONLY ONE! -NO ATTACK LOGS WILL BE SENT TO ADMINS FROM THIS POINT FORTH-", 1)
@@ -73,10 +73,10 @@
 		hijack_objective.owner = H.mind
 		H.mind.objectives += hijack_objective
 
-		H << "<B>You are the multiverse summoner. Activate your blade to summon copies of yourself from another universe to fight by your side.</B>"
+		to_chat(H, "<B>You are the multiverse summoner. Activate your blade to summon copies of yourself from another universe to fight by your side.</B>")
 		var/obj_count = 1
 		for(var/datum/objective/OBJ in H.mind.objectives)
-			H << "<B>Objective #[obj_count]</B>: [OBJ.explanation_text]"
+			to_chat(H, "<B>Objective #[obj_count]</B>: [OBJ.explanation_text]")
 			obj_count++
 
 		var/obj/item/slot_item_ID = H.get_item_by_slot(slot_wear_id)

@@ -76,6 +76,8 @@ var/global/list/obj/machinery/message_server/message_servers = list()
 	if(active && (stat & (BROKEN|NOPOWER)))
 		active = 0
 		return
+	if(prob(3))
+		playsound(loc, "computer_ambience", 50, 1)
 	update_icon()
 	return
 
@@ -85,12 +87,12 @@ var/global/list/obj/machinery/message_server/message_servers = list()
 /obj/machinery/message_server/proc/send_rc_message(var/recipient = "",var/sender = "",var/message = "",var/stamp = "", var/id_auth = "", var/priority = 1)
 	rc_msgs += new/datum/data_rc_msg(recipient,sender,message,stamp,id_auth)
 	var/authmsg = "[message]<br>"
-	if (id_auth)
+	if(id_auth)
 		authmsg += "[id_auth]<br>"
-	if (stamp)
+	if(stamp)
 		authmsg += "[stamp]<br>"
-	for (var/obj/machinery/requests_console/Console in allConsoles)
-		if (ckey(Console.department) == ckey(recipient))
+	for(var/obj/machinery/requests_console/Console in allConsoles)
+		if(ckey(Console.department) == ckey(recipient))
 			if(Console.inoperable())
 				Console.message_log += "<B>Message lost due to console failure.</B><BR>Please contact [station_name()] system adminsitrator or AI for technical assistance.<BR>"
 				continue
@@ -101,18 +103,18 @@ var/global/list/obj/machinery/message_server/message_servers = list()
 				if(2)
 					if(!Console.silent)
 						playsound(Console.loc, 'sound/machines/twobeep.ogg', 50, 1)
-						Console.audible_message(text("\icon[Console] *The Requests Console beeps: 'PRIORITY Alert in [sender]'"),,5)
-					Console.message_log += "<B><FONT color='red'>High Priority message from <A href='?src=\ref[Console];write=[sender]'>[sender]</A></FONT></B><BR>[authmsg]"
+						Console.audible_message(text("[bicon(Console)] *The Requests Console beeps: 'PRIORITY Alert in [sender]'"),,5)
+					Console.message_log += "<B><FONT color='red'>High Priority message from <A href='?src=[Console.UID()];write=[sender]'>[sender]</A></FONT></B><BR>[authmsg]"
 				else
 					if(!Console.silent)
 						playsound(Console.loc, 'sound/machines/twobeep.ogg', 50, 1)
-						Console.audible_message(text("\icon[Console] *The Requests Console beeps: 'Message from [sender]'"),,4)
-					Console.message_log += "<B>Message from <A href='?src=\ref[Console];write=[sender]'>[sender]</A></B><BR>[authmsg]"
+						Console.audible_message(text("[bicon(Console)] *The Requests Console beeps: 'Message from [sender]'"),,4)
+					Console.message_log += "<B>Message from <A href='?src=[Console.UID()];write=[sender]'>[sender]</A></B><BR>[authmsg]"
 			Console.set_light(2)
 
 /obj/machinery/message_server/attack_hand(user as mob)
-//	user << "\blue There seem to be some parts missing from this server. They should arrive on the station in a few days, give or take a few CentCom delays."
-	user << "You toggle PDA message passing from [active ? "On" : "Off"] to [active ? "Off" : "On"]"
+//	to_chat(user, "\blue There seem to be some parts missing from this server. They should arrive on the station in a few days, give or take a few CentComm delays.")
+	to_chat(user, "You toggle PDA message passing from [active ? "On" : "Off"] to [active ? "Off" : "On"]")
 	active = !active
 	update_icon()
 
@@ -121,7 +123,7 @@ var/global/list/obj/machinery/message_server/message_servers = list()
 /obj/machinery/message_server/update_icon()
 	if((stat & (BROKEN|NOPOWER)))
 		icon_state = "server-nopower"
-	else if (!active)
+	else if(!active)
 		icon_state = "server-off"
 	else
 		icon_state = "server-on"
@@ -207,6 +209,7 @@ var/obj/machinery/blackbox_recorder/blackbox
 	var/list/msg_security = list()
 	var/list/msg_deathsquad = list()
 	var/list/msg_syndicate = list()
+	var/list/msg_syndteam = list()
 	var/list/msg_mining = list()
 	var/list/msg_cargo = list()
 	var/list/msg_service = list()
@@ -233,6 +236,7 @@ var/obj/machinery/blackbox_recorder/blackbox
 		BR.msg_security = msg_security
 		BR.msg_deathsquad = msg_deathsquad
 		BR.msg_syndicate = msg_syndicate
+		BR.msg_syndteam = msg_syndteam
 		BR.msg_mining = msg_mining
 		BR.msg_cargo = msg_cargo
 		BR.msg_service = msg_service
@@ -275,6 +279,7 @@ var/obj/machinery/blackbox_recorder/blackbox
 	feedback_add_details("radio_usage","SEC-[msg_security.len]")
 	feedback_add_details("radio_usage","DTH-[msg_deathsquad.len]")
 	feedback_add_details("radio_usage","SYN-[msg_syndicate.len]")
+	feedback_add_details("radio_usage","SYT-[msg_syndteam.len]")
 	feedback_add_details("radio_usage","MIN-[msg_mining.len]")
 	feedback_add_details("radio_usage","CAR-[msg_cargo.len]")
 	feedback_add_details("radio_usage","SRV-[msg_service.len]")
@@ -309,17 +314,11 @@ var/obj/machinery/blackbox_recorder/blackbox
 		var/DBQuery/query_insert = dbcon.NewQuery(sql)
 		query_insert.Execute()
 
-// Sanitize inputs to avoid SQL injection attacks
-proc/sql_sanitize_text(var/text)
-	text = replacetext(text, "'", "''")
-	text = replacetext(text, ";", "")
-	text = replacetext(text, "&", "")
-	return text
 
 proc/feedback_set(var/variable,var/value)
 	if(!blackbox) return
 
-	variable = sql_sanitize_text(variable)
+	variable = sanitizeSQL(variable)
 
 	var/datum/feedback_variable/FV = blackbox.find_feedback_datum(variable)
 
@@ -330,7 +329,7 @@ proc/feedback_set(var/variable,var/value)
 proc/feedback_inc(var/variable,var/value)
 	if(!blackbox) return
 
-	variable = sql_sanitize_text(variable)
+	variable = sanitizeSQL(variable)
 
 	var/datum/feedback_variable/FV = blackbox.find_feedback_datum(variable)
 
@@ -341,7 +340,7 @@ proc/feedback_inc(var/variable,var/value)
 proc/feedback_dec(var/variable,var/value)
 	if(!blackbox) return
 
-	variable = sql_sanitize_text(variable)
+	variable = sanitizeSQL(variable)
 
 	var/datum/feedback_variable/FV = blackbox.find_feedback_datum(variable)
 
@@ -352,8 +351,8 @@ proc/feedback_dec(var/variable,var/value)
 proc/feedback_set_details(var/variable,var/details)
 	if(!blackbox) return
 
-	variable = sql_sanitize_text(variable)
-	details = sql_sanitize_text(details)
+	variable = sanitizeSQL(variable)
+	details = sanitizeSQL(details)
 
 	var/datum/feedback_variable/FV = blackbox.find_feedback_datum(variable)
 
@@ -364,8 +363,8 @@ proc/feedback_set_details(var/variable,var/details)
 proc/feedback_add_details(var/variable,var/details)
 	if(!blackbox) return
 
-	variable = sql_sanitize_text(variable)
-	details = sql_sanitize_text(details)
+	variable = sanitizeSQL(variable)
+	details = sanitizeSQL(details)
 
 	var/datum/feedback_variable/FV = blackbox.find_feedback_datum(variable)
 

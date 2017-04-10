@@ -11,9 +11,8 @@
 	for(var/mob/living/M in get_mobs_in_view(4, user))
 		if(iscarbon(M))
 			if(!M.mind || !M.mind.changeling)
-				M.ear_deaf = max(0, M.ear_deaf + 30)
-				M.ear_damage = max(0, M.ear_damage)
-				M.confused += 20
+				M.AdjustEarDeaf(30)
+				M.AdjustConfused(20)
 				M.Jitter(50)
 			else
 				M << sound('sound/effects/screech.ogg')
@@ -42,5 +41,3 @@
 		L.broken()
 	empulse(get_turf(user), 2, 4, 1)
 	return 1
-
-

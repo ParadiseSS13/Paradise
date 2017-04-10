@@ -6,8 +6,9 @@
 	item_color = "black"
 	desc = "It's a plain jumpsuit. It seems to have a small dial on the wrist."
 	origin_tech = "syndicate=3"
-	siemens_coefficient = 0.8
 	var/list/clothing_choices = list()
+	burn_state = FIRE_PROOF
+	armor = list(melee = 10, bullet = 10, laser = 10, energy = 0, bomb = 0, bio = 0, rad = 0)
 
 	New()
 		..()
@@ -24,14 +25,14 @@
 	attackby(obj/item/clothing/under/U as obj, mob/user as mob, params)
 		..()
 		if(istype(U, /obj/item/clothing/under/chameleon))
-			user << "\red Nothing happens."
+			to_chat(user, "\red Nothing happens.")
 			return
 		if(istype(U, /obj/item/clothing/under))
 			if(src.clothing_choices.Find(U))
-				user << "\red Pattern is already recognised by the suit."
+				to_chat(user, "\red Pattern is already recognised by the suit.")
 				return
 			src.clothing_choices += U
-			user << "\red Pattern absorbed by the suit."
+			to_chat(user, "\red Pattern absorbed by the suit.")
 
 
 	emp_act(severity)
@@ -39,11 +40,13 @@
 		desc = "Groovy!"
 		icon_state = "psyche"
 		item_color = "psyche"
+		usr.update_inv_w_uniform()
 		spawn(200)
-			name = "Black Jumpsuit"
-			icon_state = "bl_suit"
-			item_color = "black"
-			desc = null
+			name = initial(name)
+			icon_state = initial(icon_state)
+			item_color = initial(item_color)
+			desc = initial(desc)
+			usr.update_inv_w_uniform()
 		..()
 
 
@@ -53,7 +56,7 @@
 		set src in usr
 
 		if(icon_state == "psyche")
-			usr << "\red Your suit is malfunctioning"
+			to_chat(usr, "\red Your suit is malfunctioning")
 			return
 
 		var/obj/item/clothing/under/A

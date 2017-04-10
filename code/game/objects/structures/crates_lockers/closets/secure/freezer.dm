@@ -1,4 +1,5 @@
 /obj/structure/closet/secure_closet/freezer
+	desc = "It's a card-locked refrigerative storage unit. This one is lead-lined."
 
 /obj/structure/closet/secure_closet/freezer/update_icon()
 	if(broken)
@@ -21,7 +22,6 @@
 	var/list/bombs = search_contents_for(/obj/item/device/transfer_valve)
 	if(!isemptylist(bombs)) // You're fucked.
 		..(severity)
-	return
 
 /obj/structure/closet/secure_closet/freezer/kitchen
 	name = "kitchen cabinet"
@@ -29,8 +29,7 @@
 
 	New()
 		..()
-		sleep(2)
-		for(var/i = 0, i < 3, i++)
+		for(var/i in 1 to 3)
 			new /obj/item/weapon/reagent_containers/food/condiment/flour(src)
 		new /obj/item/weapon/reagent_containers/food/condiment/rice(src)
 		new /obj/item/weapon/reagent_containers/food/condiment/sugar(src)
@@ -54,10 +53,8 @@
 
 	New()
 		..()
-		sleep(2)
-		for(var/i = 0, i < 4, i++)
+		for(var/i in 1 to 4)
 			new /obj/item/weapon/reagent_containers/food/snacks/meat/monkey(src)
-		return
 
 
 
@@ -73,14 +70,11 @@
 
 	New()
 		..()
-		sleep(2)
-		for(var/i = 0, i < 5, i++)
-			new /obj/item/weapon/reagent_containers/food/drinks/milk(src)
-		for(var/i = 0, i < 5, i++)
-			new /obj/item/weapon/reagent_containers/food/drinks/soymilk(src)
-		for(var/i = 0, i < 2, i++)
+		for(var/i in 1 to 5)
+			new /obj/item/weapon/reagent_containers/food/condiment/milk(src)
+			new /obj/item/weapon/reagent_containers/food/condiment/soymilk(src)
+		for(var/i in 1 to 2)
 			new /obj/item/weapon/storage/fancy/egg_box(src)
-		return
 
 
 
@@ -94,13 +88,14 @@
 	icon_off = "fridge1"
 	req_access = list(access_heads_vault)
 
-
-	New()
-		..()
-		sleep(2)
-		dispense_cash(6700,src)
-		return
-
+/obj/structure/closet/secure_closet/freezer/money/New()
+	..()
+	for(var/i in 1 to 3)
+		new /obj/item/stack/spacecash/c1000(src)
+	for(var/i in 1 to 5)
+		new /obj/item/stack/spacecash/c500(src)
+	for(var/i in 1 to 6)
+		new /obj/item/stack/spacecash/c200(src)
 
 
 

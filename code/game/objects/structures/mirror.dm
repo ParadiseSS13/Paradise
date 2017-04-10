@@ -17,6 +17,7 @@
 		if(!AC)
 			AC = new(src, user)
 			AC.name = "SalonPro Nano-Mirror&trade;"
+			AC.flags = APPEARANCE_ALL_BODY
 			ui_users[user] = AC
 		AC.ui_interact(user)
 
@@ -75,7 +76,7 @@
 
 /obj/structure/mirror/attack_slime(mob/living/user as mob)
 	var/mob/living/carbon/slime/S = user
-	if (!S.is_adult)
+	if(!S.is_adult)
 		return
 	user.do_attack_animation(src)
 	if(shattered)

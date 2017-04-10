@@ -78,7 +78,6 @@
 /////////////////////////////////
 /obj/item/weapon/grenade/flashbang/cluster
 	icon_state = "flashbang_active"
-	banglet = 1
 
 /obj/item/weapon/grenade/clusterbuster/emp
 	name = "Electromagnetic Storm"
@@ -134,7 +133,7 @@
 
 /obj/item/weapon/grenade/clusterbuster/nervegas
 	name = "Nerve Gas Clusterbomb"
-	payload = /obj/item/weapon/grenade/chem_grenade/tabungas
+	payload = /obj/item/weapon/grenade/chem_grenade/saringas
 
 /obj/item/weapon/grenade/clusterbuster/megadirt
 	name = "Megamaid's Revenge Grenade"
@@ -171,7 +170,7 @@
 
 /obj/item/weapon/grenade/clusterbuster/honk
 	name = "Mega Honk Grenade"
-	payload = /obj/item/weapon/bananapeel
+	payload = /obj/item/weapon/grown/bananapeel
 
 /obj/item/weapon/grenade/clusterbuster/honk_evil
 	name = "Evil Mega Honk Grenade"
@@ -242,6 +241,16 @@
 	name = "Crab Grenade"
 	desc = "Reserved for those pesky request."
 	payload = /mob/living/simple_animal/crab
+
+/obj/item/weapon/grenade/clusterbuster/plasma
+	name = "Plasma Cluster Grenade"
+	desc = "For when everything needs to die in a fire."
+	payload = /obj/item/weapon/grenade/gas
+
+/obj/item/weapon/grenade/clusterbuster/n2o
+	name = "N2O Cluster Grenade"
+	desc = "For when you need to knock out EVERYONE."
+	payload = /obj/item/weapon/grenade/gas/knockout
 
 ////////////Clusterbuster of Clusterbusters////////////
 

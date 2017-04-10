@@ -67,8 +67,9 @@ var/const/tk_maxrange = 15
 	icon_state = "2"
 	flags = NOBLUDGEON | ABSTRACT
 	//item_state = null
-	w_class = 10.0
+	w_class = 10
 	layer = 20
+	plane = HUD_PLANE
 
 	var/last_throw = 0
 	var/atom/movable/focus = null
@@ -111,7 +112,7 @@ var/const/tk_maxrange = 15
 		if(focus)
 			d = max(d,get_dist(user,focus)) // whichever is further
 		if(d > tk_maxrange)
-			user << "<span class='warning'>Your mind won't reach that far.</span>"
+			to_chat(user, "<span class='warning'>Your mind won't reach that far.</span>")
 			return
 
 		if(!focus)

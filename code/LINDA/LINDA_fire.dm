@@ -49,6 +49,7 @@
 	layer = TURF_LAYER
 
 	blend_mode = BLEND_ADD
+	light_range = 3
 
 	var/volume = 125
 	var/temperature = FIRE_MINIMUM_TEMPERATURE_TO_EXIST
@@ -57,8 +58,6 @@
 
 /obj/effect/hotspot/New()
 	..()
-	color = heat2color(temperature)
-	set_light(3, 1, color)
 	air_master.hotspots += src
 	perform_exposure()
 	dir = pick(cardinal)
@@ -83,14 +82,13 @@
 		volume = affected.fuel_burnt*FIRE_GROWTH_RATE
 		location.assume_air(affected)
 
-	for(var/atom/item in loc)
+	for(var/A in loc)
+		var/atom/item = A
 		if(item && item != src) // It's possible that the item is deleted in temperature_expose
 			item.fire_act(null, temperature, volume)
 
-//	animate(src, color = heat2color(temperature), 5)
 	color = heat2color(temperature)
 	set_light(l_color = color)
-
 	return 0
 
 
@@ -117,11 +115,10 @@
 
 	perform_exposure()
 
-	if(location.wet) location.wet = 0
+	if(location.wet) location.wet = TURF_DRY
 
 	if(bypassing)
 		icon_state = "3"
-		set_light(7,3)
 		location.burn_tile()
 
 		//Possible spread due to radiated heat
@@ -129,6 +126,9 @@
 			var/radiated_temperature = location.air.temperature*FIRE_SPREAD_RADIOSITY_SCALE
 			for(var/direction in cardinal)
 				if(!(location.atmos_adjacent_turfs & direction))
+					var/turf/simulated/wall/W = get_step(src, direction)
+					if(istype(W))
+						W.adjacent_fire_act(W, radiated_temperature)
 					continue
 				var/turf/simulated/T = get_step(src, direction)
 				if(istype(T) && T.active_hotspot)
@@ -137,10 +137,8 @@
 	else
 		if(volume > CELL_VOLUME*0.4)
 			icon_state = "2"
-			set_light(5, 2)
 		else
 			icon_state = "1"
-			set_light(3, 1)
 
 	if(temperature > location.max_fire_temperature_sustained)
 		location.max_fire_temperature_sustained = temperature
@@ -155,9 +153,9 @@
 // Garbage collect itself by nulling reference to it
 
 /obj/effect/hotspot/Destroy()
+	set_light(0)
 	air_master.hotspots -= src
 	DestroyTurf()
-	set_light(0)
 	if(istype(loc, /turf/simulated))
 		var/turf/simulated/T = loc
 		if(T.active_hotspot == src)
@@ -170,7 +168,7 @@
 		var/turf/simulated/T = loc
 		if(T.to_be_destroyed)
 			var/chance_of_deletion
-			if (T.heat_capacity) //beware of division by zero
+			if(T.heat_capacity) //beware of division by zero
 				chance_of_deletion = T.max_fire_temperature_sustained / T.heat_capacity * 8 //there is no problem with prob(23456), min() was redundant --rastaf0
 			else
 				chance_of_deletion = 100

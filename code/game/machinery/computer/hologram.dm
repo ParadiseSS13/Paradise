@@ -22,7 +22,7 @@
 	return
 
 /obj/machinery/computer/hologram_comp/attack_hand()
-	if (!in_range(src, usr))
+	if(!in_range(src, usr))
 		return 0
 	src.show_console(usr)
 	return
@@ -30,7 +30,7 @@
 /obj/machinery/computer/hologram_comp/proc/render()
 	var/icon/I = new /icon('icons/mob/human.dmi', "body_m_s")
 
-	if (src.lumens >= 0)
+	if(src.lumens >= 0)
 		I.Blend(rgb(src.lumens, src.lumens, src.lumens), ICON_ADD)
 	else
 		I.Blend(rgb(- src.lumens,  -src.lumens,  -src.lumens), ICON_SUBTRACT)
@@ -48,10 +48,20 @@
 /obj/machinery/computer/hologram_comp/proc/show_console(var/mob/user as mob)
 	var/dat
 	user.set_machine(src)
-	if (src.temp)
-		dat = text("[]<BR><BR><A href='?src=\ref[];temp=1'>Clear</A>", src.temp, src)
+	if(src.temp)
+		dat = text("[]<BR><BR><A href='?src=[UID()];temp=1'>Clear</A>", src.temp)
 	else
-		dat = text("<B>Hologram Status:</B><HR>\nPower: <A href='?src=\ref[];power=1'>[]</A><HR>\n<B>Hologram Control:</B><BR>\nColor Luminosity: []/220 <A href='?src=\ref[];reset=1'>\[Reset\]</A><BR>\nLighten: <A href='?src=\ref[];light=1'>1</A> <A href='?src=\ref[];light=10'>10</A><BR>\nDarken: <A href='?src=\ref[];light=-1'>1</A> <A href='?src=\ref[];light=-10'>10</A><BR>\n<BR>\nHair Color: ([],[],[]) <A href='?src=\ref[];h_reset=1'>\[Reset\]</A><BR>\nRed (0-255): <A href='?src=\ref[];h_r=-300'>\[0\]</A> <A href='?src=\ref[];h_r=-10'>-10</A> <A href='?src=\ref[];h_r=-1'>-1</A> [] <A href='?src=\ref[];h_r=1'>1</A> <A href='?src=\ref[];h_r=10'>10</A> <A href='?src=\ref[];h_r=300'>\[255\]</A><BR>\nGreen (0-255): <A href='?src=\ref[];h_g=-300'>\[0\]</A> <A href='?src=\ref[];h_g=-10'>-10</A> <A href='?src=\ref[];h_g=-1'>-1</A> [] <A href='?src=\ref[];h_g=1'>1</A> <A href='?src=\ref[];h_g=10'>10</A> <A href='?src=\ref[];h_g=300'>\[255\]</A><BR>\nBlue (0-255): <A href='?src=\ref[];h_b=-300'>\[0\]</A> <A href='?src=\ref[];h_b=-10'>-10</A> <A href='?src=\ref[];h_b=-1'>-1</A> [] <A href='?src=\ref[];h_b=1'>1</A> <A href='?src=\ref[];h_b=10'>10</A> <A href='?src=\ref[];h_b=300'>\[255\]</A><BR>", src, (src.projector.hologram ? "On" : "Off"),  -src.lumens + 35, src, src, src, src, src, src.h_r, src.h_g, src.h_b, src, src, src, src, src.h_r, src, src, src, src, src, src, src.h_g, src, src, src, src, src, src, src.h_b, src, src, src)
+		dat = text({"<B>Hologram Status:</B><HR>\n
+			Power: <A href='?src=[UID()];power=1'>[]</A><HR>\n
+			<B>Hologram Control:</B><BR>\n
+			Color Luminosity: []/220 <A href='?src=[UID()];reset=1'>\[Reset\]</A><BR>\n
+			Lighten: <A href='?src=[UID()];light=1'>1</A> <A href='?src=[UID()];light=10'>10</A><BR>\n
+			Darken: <A href='?src=[UID()];light=-1'>1</A> <A href='?src=[UID()];light=-10'>10</A><BR>\n
+			<BR>\nHair Color: ([],[],[]) <A href='?src=[UID()];h_reset=1'>\[Reset\]</A><BR>\n
+			Red (0-255): <A href='?src=[UID()];h_r=-300'>\[0\]</A> <A href='?src=[UID()];h_r=-10'>-10</A> <A href='?src=[UID()];h_r=-1'>-1</A> [] <A href='?src=[UID()];h_r=1'>1</A> <A href='?src=[UID()];h_r=10'>10</A> <A href='?src=[UID()];h_r=300'>\[255\]</A><BR>\n
+			Green (0-255): <A href='?src=[UID()];h_g=-300'>\[0\]</A> <A href='?src=[UID()];h_g=-10'>-10</A> <A href='?src=[UID()];h_g=-1'>-1</A> [] <A href='?src=[UID()];h_g=1'>1</A> <A href='?src=[UID()];h_g=10'>10</A> <A href='?src=[UID()];h_g=300'>\[255\]</A><BR>\n
+			Blue (0-255): <A href='?src=[UID()];h_b=-300'>\[0\]</A> <A href='?src=[UID()];h_b=-10'>-10</A> <A href='?src=[UID()];h_b=-1'>-1</A> [] <A href='?src=[UID()];h_b=1'>1</A> <A href='?src=[UID()];h_b=10'>10</A> <A href='?src=[UID()];h_b=300'>\[255\]</A><BR>
+			"}, (src.projector.hologram ? "On" : "Off"),  -src.lumens + 35, src.h_r, src.h_g, src.h_b, src.h_r, src.h_g, src.h_b)
 	user << browse(dat, "window=hologram_console")
 	onclose(user, "hologram_console")
 	return
@@ -59,10 +69,10 @@
 /obj/machinery/computer/hologram_comp/Topic(href, href_list)
 	if(..())
 		return 1
-	if (in_range(src, usr))
+	if(in_range(src, usr))
 		flick("holo_console1", src)
-		if (href_list["power"])
-			if (src.projector.hologram)
+		if(href_list["power"])
+			if(src.projector.hologram)
 				src.projector.icon_state = "hologram0"
 				//src.projector.hologram = null
 				qdel(src.projector.hologram)
@@ -73,38 +83,38 @@
 				src.projector.icon_state = "hologram1"
 				src.render()
 		else
-			if (href_list["h_r"])
-				if (src.projector.hologram)
+			if(href_list["h_r"])
+				if(src.projector.hologram)
 					src.h_r += text2num(href_list["h_r"])
 					src.h_r = min(max(src.h_r, 0), 255)
 					render()
 			else
-				if (href_list["h_g"])
-					if (src.projector.hologram)
+				if(href_list["h_g"])
+					if(src.projector.hologram)
 						src.h_g += text2num(href_list["h_g"])
 						src.h_g = min(max(src.h_g, 0), 255)
 						render()
 				else
-					if (href_list["h_b"])
-						if (src.projector.hologram)
+					if(href_list["h_b"])
+						if(src.projector.hologram)
 							src.h_b += text2num(href_list["h_b"])
 							src.h_b = min(max(src.h_b, 0), 255)
 							render()
 					else
-						if (href_list["light"])
-							if (src.projector.hologram)
+						if(href_list["light"])
+							if(src.projector.hologram)
 								src.lumens += text2num(href_list["light"])
 								src.lumens = min(max(src.lumens, -185.0), 35)
 								render()
 						else
-							if (href_list["reset"])
-								if (src.projector.hologram)
+							if(href_list["reset"])
+								if(src.projector.hologram)
 									src.lumens = 0
 									render()
 							else
-								if (href_list["temp"])
+								if(href_list["temp"])
 									src.temp = null
 		for(var/mob/M in viewers(1, src))
-			if ((M.client && M.machine == src))
+			if((M.client && M.machine == src))
 				src.show_console(M)
 	return

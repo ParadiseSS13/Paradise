@@ -77,10 +77,6 @@
 			src.text = ""
 			src.build_traitor(correct_person)
 			return src.text
-		if("malf")
-			src.text = ""
-			src.build_malf(correct_person)
-			return src.text
 		if("changeling","traitorchan")
 			src.text = ""
 			src.build_changeling(correct_person)
@@ -94,8 +90,8 @@
 /datum/intercept_text/proc/pick_mob()
 	var/list/dudes = list()
 	for(var/mob/living/carbon/human/man in player_list)
-		if (!man.mind) continue
-		if (man.mind.assigned_role=="MODE") continue
+		if(!man.mind) continue
+		if(man.mind.assigned_role=="MODE") continue
 		dudes += man
 	if(dudes.len==0)
 		return null
@@ -104,7 +100,7 @@
 
 /datum/intercept_text/proc/pick_fingerprints()
 	var/mob/living/carbon/human/dude = src.pick_mob()
-	//if (!dude) return pick_fingerprints() //who coded that is totally crasy or just a traitor. -- rastaf0
+	//if(!dude) return pick_fingerprints() //who coded that is totally crasy or just a traitor. -- rastaf0
 	if(dude)
 		return num2text(md5(dude.dna.uni_identity))
 	else
@@ -194,12 +190,6 @@
 	src.text += "that is standard issue aboard your vessel may be a target. We recommend removal of this object, and it's storage in a safe "
 	src.text += "environment. As this may cause panic among the crew, all efforts should be made to keep this information a secret from all but "
 	src.text += "the most trusted crew-members."
-
-/datum/intercept_text/proc/build_malf(datum/mind/correct_person)
-	var/a_name = pick(src.anomalies)
-	src.text += "<BR><BR>A [a_name] was recently picked up by a nearby stations sensors in your sector. If it came into contact with your ship or "
-	src.text += "electrical equipment, it may have had hazardarous and unpredictable effect. Closely observe any non carbon based life forms "
-	src.text += "for signs of unusual behaviour, but keep this information discreet at all times due to this possibly dangerous scenario."
 
 /datum/intercept_text/proc/build_changeling(datum/mind/correct_person)
 	var/cname = pick(src.changeling_names)

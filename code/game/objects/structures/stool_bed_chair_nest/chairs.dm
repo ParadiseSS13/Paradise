@@ -3,6 +3,8 @@
 	desc = "You sit in this. Either by will or force."
 	icon_state = "chair"
 	buckle_lying = 0 //you sit in a chair, not lay
+	burn_state = FIRE_PROOF
+	buildstackamount = 1
 
 	var/propelled = 0 // Check for fire-extinguisher-driven chairs
 
@@ -11,6 +13,12 @@
 	spawn(3)	//sorry. i don't think there's a better way to do this.
 		handle_rotation()
 	return
+
+/obj/structure/stool/bed/chair/narsie_act()
+	if(prob(20))
+		var/obj/structure/stool/bed/chair/wood/W = new/obj/structure/stool/bed/chair/wood(get_turf(src))
+		W.dir = dir
+		qdel(src)
 
 /obj/structure/stool/bed/chair/Move(atom/newloc, direct)
 	..()
@@ -21,11 +29,11 @@
 	if(istype(W, /obj/item/assembly/shock_kit))
 		var/obj/item/assembly/shock_kit/SK = W
 		if(!SK.status)
-			user << "<span class='notice'>[SK] is not ready to be attached!</span>"
+			to_chat(user, "<span class='notice'>[SK] is not ready to be attached!</span>")
 			return
 		user.drop_item()
 		var/obj/structure/stool/bed/chair/e_chair/E = new /obj/structure/stool/bed/chair/e_chair(src.loc)
-		playsound(src.loc, 'sound/items/Deconstruct.ogg', 50, 1)
+		playsound(src.loc, W.usesound, 50, 1)
 		E.dir = dir
 		E.part = SK
 		SK.loc = E
@@ -49,26 +57,38 @@
 
 /obj/structure/stool/bed/chair/verb/rotate()
 	set name = "Rotate Chair"
-	set category = null
+	set category = "Object"
 	set src in oview(1)
 
 	if(config.ghost_interaction)
-		src.dir = turn(src.dir, 90)
+		setDir(turn(dir, 90))
 		handle_rotation()
 		return
-	else
-		if(!usr || !isturf(usr.loc))
-			return
-		if(usr.stat || usr.restrained())
-			return
 
-		src.dir = turn(src.dir, 90)
-		handle_rotation()
+	if(usr.incapacitated())
 		return
+
+	setDir(turn(dir, 90))
+	handle_rotation()
+
+/obj/structure/stool/bed/chair/AltClick(mob/user)
+	if(user.incapacitated())
+		to_chat(user, "<span class='warning'>You can't do that right now!</span>")
+		return
+	if(!Adjacent(user))
+		return
+	rotate()
 
 // Chair types
 /obj/structure/stool/bed/chair/wood
+	burn_state = FLAMMABLE
+	burntime = 20
+	buildstackamount = 3
+	buildstacktype = /obj/item/stack/sheet/wood
 	// TODO:  Special ash subtype that looks like charred chair legs
+
+/obj/structure/stool/bed/chair/wood/narsie_act()
+	return
 
 /obj/structure/stool/bed/chair/wood/normal
 	icon_state = "wooden_chair"
@@ -80,21 +100,14 @@
 	name = "wooden chair"
 	desc = "Old is never too old to not be in fashion."
 
-/obj/structure/stool/bed/chair/wood/attackby(obj/item/weapon/W as obj, mob/user as mob, params)
-	if(istype(W, /obj/item/weapon/wrench))
-		playsound(src.loc, 'sound/items/Ratchet.ogg', 50, 1)
-		new /obj/item/stack/sheet/wood(get_turf(src))
-		new /obj/item/stack/sheet/wood(get_turf(src))
-		new /obj/item/stack/sheet/wood(get_turf(src))
-		qdel(src)
-	else
-		..()
-
 /obj/structure/stool/bed/chair/comfy
 	name = "comfy chair"
 	desc = "It looks comfy."
 	icon_state = "comfychair"
 	color = rgb(255,255,255)
+	burn_state = FLAMMABLE
+	burntime = 30
+	buildstackamount = 2
 	var/image/armrest = null
 
 /obj/structure/stool/bed/chair/comfy/New()
@@ -139,6 +152,7 @@
 /obj/structure/stool/bed/chair/office
 	anchored = 0
 	movable = 1
+	buildstackamount = 5
 
 /obj/structure/stool/bed/chair/office/Bump(atom/A)
 	..()
@@ -168,11 +182,13 @@
 
 /obj/structure/stool/bed/chair/barber
 	icon_state = "barber_chair"
+	buildstackamount = 1
 
 /obj/structure/stool/bed/chair/sofa
 	name = "old ratty sofa"
 	icon_state = "sofamiddle"
 	anchored = 1
+	buildstackamount = 1
 
 /obj/structure/stool/bed/chair/sofa/left
 	icon_state = "sofaend_left"

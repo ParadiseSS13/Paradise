@@ -7,14 +7,20 @@
 #define GC_FORCE_DEL_PER_TICK 30
 //#define GC_DEBUG
 
-// A list of types that were queued in the GC, and had to be soft deleted; used in testing
-var/list/gc_hard_del_types = list()
+var/list/didntgc = list()   	// list of all types that have failed to GC associated with the number of times that's happened.
+							    // the types are stored as strings
+var/list/sleptDestroy = list()	//Same as above but these are paths that slept during their Destroy call
+
+var/list/noqdelhint = list()    // list of all types that do not return a QDEL_HINT
+
 var/global/datum/controller/process/garbage_collector/garbageCollector
 
 // The time a datum was destroyed by the GC, or null if it hasn't been
 /datum/var/gcDestroyed
 // Whether a datum was hard-deleted by the GC; 0 if not, 1 if it was queued, -1 if directly deleted
 /datum/var/hard_deleted = 0
+
+
 
 /datum/controller/process/garbage_collector
 	var/list/queue = new
@@ -24,6 +30,11 @@ var/global/datum/controller/process/garbage_collector/garbageCollector
 	var/dels_count = 0
 	var/hard_dels = 0
 	var/soft_dels = 0
+
+	// all types that did not respect qdel(A, force=TRUE) and returned one
+	// of the immortality qdel hints
+	var/list/noforcerespect = list()
+
 
 /datum/controller/process/garbage_collector/proc/addTrash(var/datum/D)
 	if(!istype(D) || del_everything)
@@ -60,8 +71,6 @@ var/global/datum/controller/process/garbage_collector/garbageCollector
 			queue.Cut(1, 2)
 
 			remainingForceDelPerTick--
-			// Sleep check more aggressively when force deleting.
-			calls_since_last_scheck += 9
 		else // Otherwise, it was GC'd - remove it from the queue
 			queue.Cut(1, 2)
 			soft_dels++
@@ -77,7 +86,7 @@ var/global/datum/controller/process/garbage_collector/garbageCollector
 #undef GC_COLLECTIONS_PER_TICK
 
 /datum/controller/process/garbage_collector/proc/hardDel(var/datum/D)
-	gc_hard_del_types |= D.type
+	didntgc["[D.type]"]++
 	D.hard_deleted = 1
 	if(!D.gcDestroyed)
 		spawn(-1)
@@ -88,16 +97,17 @@ var/global/datum/controller/process/garbage_collector/garbageCollector
 	dels_count++
 
 // Effectively replaces del for any datum-based type
-/proc/qdel(var/datum/D)
+/proc/qdel(datum/D, force=FALSE)
 	if(isnull(D))
-		return
-
-	if(isnull(garbageCollector))
-		del(D)
 		return
 
 	if(!istype(D)) // A non-datum was passed into qdel - just delete it outright.
 		// warning("qdel() passed object of type [D.type]. qdel() can only handle /datum/ types.")
+		del(D)
+		return
+
+	if(isnull(garbageCollector))
+		D.Destroy()
 		del(D)
 		return
 
@@ -106,10 +116,10 @@ var/global/datum/controller/process/garbage_collector/garbageCollector
 		var/hint
 		D.gcDestroyed = world.time
 		try
-			hint = D.Destroy()
+			hint = D.Destroy(force)
 		catch(var/exception/e)
 			if(istype(e))
-				gcwarning("qdel() caught runtime destroying [D.type]: [e] in [e.file], line [e.line]")
+				log_runtime(e, D, "Caught by qdel() destroying [D.type]")
 			else
 				gcwarning("qdel() caught runtime destroying [D.type]: [e]")
 			// Destroy runtimed? Panic! Hard delete!
@@ -120,37 +130,47 @@ var/global/datum/controller/process/garbage_collector/garbageCollector
 			return
 		if(!isnull(D.gcDestroyed) && D.gcDestroyed != world.time)
 			gcwarning("Sleep detected in Destroy() call of [D.type]")
+			sleptDestroy["[D.type]"]++
 			D.gcDestroyed = world.time
 
 		switch(hint)
 			if(QDEL_HINT_QUEUE)     //qdel should queue the object for deletion
 				garbageCollector.addTrash(D)
-			if(QDEL_HINT_LETMELIVE)   //qdel should let the object live after calling destroy.
-				return
-			if(QDEL_HINT_IWILLGC)   //functionally the same as the above. qdel should assume the object will gc on its own, and not check it.
-				return
-			if (QDEL_HINT_HARDDEL_NOW)  //qdel should assume this object won't gc, and hard del it post haste.
+			if (QDEL_HINT_LETMELIVE, QDEL_HINT_IWILLGC)	//qdel should let the object live after calling destory.
+				if(!force)
+					return
+				// Returning LETMELIVE after being told to force destroy
+				// indicates the objects Destroy() does not respect force
+				if(!("[D.type]" in garbageCollector.noforcerespect))
+					garbageCollector.noforcerespect += "[D.type]"
+					gcwarning("WARNING: [D.type] has been force deleted, but is \
+						returning an immortal QDEL_HINT, indicating it does \
+						not respect the force flag for qdel(). It has been \
+						placed in the queue, further instances of this type \
+						will also be queued.")
+				garbageCollector.addTrash(D)
+			if(QDEL_HINT_HARDDEL_NOW)  //qdel should assume this object won't gc, and hard del it post haste.
 				D.hard_deleted = -1 // -1 means "this hard del skipped the queue", used for profiling
 				del(D)
 				if(garbageCollector)
 					garbageCollector.dels_count++
-			if (QDEL_HINT_PUTINPOOL)  //qdel will put this object in the pool.
-				PlaceInPool(D,0)
-			if (QDEL_HINT_FINDREFERENCE)//qdel will, if TESTING is enabled, display all references to this object, then queue the object for deletion.
+			if(QDEL_HINT_FINDREFERENCE)//qdel will, if TESTING is enabled, display all references to this object, then queue the object for deletion.
 				#ifdef TESTING
 				D.find_references(remove_from_queue = FALSE)
 				#endif
 				garbageCollector.addTrash(D)
 			else
-				// world << "WARNING GC DID NOT GET A RETURN VALUE FOR [D], [D.type]!"
+				if(!noqdelhint["[D.type]"])
+					noqdelhint["[D.type]"] = "[D.type]"
+					gcwarning("WARNING: [D.type] is not returning a qdel hint. It is being placed in the queue. Further instances of this type will also be queued.")
 				garbageCollector.addTrash(D)
 
 
 // Returns 1 if the object has been queued for deletion.
 /proc/qdeleted(var/datum/D)
-	if (!istype(D))
+	if(!istype(D))
 		return 0
-	if (!isnull(D.gcDestroyed))
+	if(!isnull(D.gcDestroyed))
 		return 1
 	return 0
 
@@ -158,26 +178,10 @@ var/global/datum/controller/process/garbage_collector/garbageCollector
  * Like Del(), but for qdel.
  * Called BEFORE qdel moves shit.
  */
-/datum/proc/Destroy()
+/datum/proc/Destroy(force=FALSE)
 	tag = null
 	return QDEL_HINT_QUEUE // Garbage Collect everything.
 
-// If something gets deleted directly, make sure its Destroy proc is still called
-/datum/Del()
-	if(isnull(gcDestroyed)) // Not GC'd
-		try
-			Destroy()
-		catch(var/exception/e)
-			if(istype(e))
-				gcwarning("Del() caught runtime destroying [type]: [e] in [e.file], line [e.line]")
-			else
-				gcwarning("Del() caught runtime destroying [type]: [e]")
-		if(del_profiling)
-			delete_profile(src)
-	else
-		if(del_profiling)
-			delete_profile(src)
-	return ..()
-
 /proc/gcwarning(msg)
 	log_to_dd("## GC WARNING: [msg]")
+	log_runtime(EXCEPTION(msg))

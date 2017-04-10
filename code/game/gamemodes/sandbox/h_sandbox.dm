@@ -37,12 +37,12 @@ datum/hSB
 			var/hsbpanel = "<center><b>h_Sandbox Panel</b></center><hr>"
 			if(admin)
 				hsbpanel += "<b>Administration Tools:</b><br>"
-				hsbpanel += "- <a href=\"?\ref[src];hsb=hsbtobj\">Toggle Object Spawning</a><br><br>"
+				hsbpanel += "- <a href=\"?src=[UID()];hsb=hsbtobj\">Toggle Object Spawning</a><br><br>"
 			hsbpanel += "<b>Regular Tools:</b><br>"
 			for(var/T in hrefs)
-				hsbpanel += "- <a href=\"?\ref[src];hsb=[T]\">[hrefs[T]]</a><br>"
+				hsbpanel += "- <a href=\"?src=[UID()];hsb=[T]\">[hrefs[T]]</a><br>"
 			if(hsboxspawn)
-				hsbpanel += "- <a href=\"?\ref[src];hsb=hsbobj\">Spawn Object</a><br><br>"
+				hsbpanel += "- <a href=\"?src=[UID()];hsb=hsbobj\">Spawn Object</a><br><br>"
 			usr << browse(hsbpanel, "window=hsbpanel")
 	Topic(href, href_list)
 		if(!(src.owner == usr.ckey)) return
@@ -52,11 +52,11 @@ datum/hSB
 				if("hsbtobj")
 					if(!admin) return
 					if(hsboxspawn)
-						world << "<b>Sandbox:  [usr.key] has disabled object spawning!</b>"
+						to_chat(world, "<b>Sandbox:  [usr.key] has disabled object spawning!</b>")
 						hsboxspawn = 0
 						return
 					if(!hsboxspawn)
-						world << "<b>Sandbox:  [usr.key] has enabled object spawning!</b>"
+						to_chat(world, "<b>Sandbox:  [usr.key] has enabled object spawning!</b>")
 						hsboxspawn = 1
 						return
 				if("hsbsuit")
@@ -64,27 +64,35 @@ datum/hSB
 					if(P.wear_suit)
 						P.wear_suit.loc = P.loc
 						P.wear_suit.layer = initial(P.wear_suit.layer)
+						P.wear_suit.plane = initial(P.wear_suit.plane)
 						P.wear_suit = null
 					P.wear_suit = new/obj/item/clothing/suit/space(P)
 					P.wear_suit.layer = 20
+					P.wear_suit.plane = HUD_PLANE
 					if(P.head)
 						P.head.loc = P.loc
 						P.head.layer = initial(P.head.layer)
+						P.head.plane = initial(P.head.plane)
 						P.head = null
 					P.head = new/obj/item/clothing/head/helmet/space(P)
 					P.head.layer = 20
+					P.head.plane = HUD_PLANE
 					if(P.wear_mask)
 						P.wear_mask.loc = P.loc
 						P.wear_mask.layer = initial(P.wear_mask.layer)
+						P.wear_mask.plane = initial(P.wear_mask.plane)
 						P.wear_mask = null
 					P.wear_mask = new/obj/item/clothing/mask/gas(P)
 					P.wear_mask.layer = 20
+					P.wear_mask.plane = HUD_PLANE
 					if(P.back)
 						P.back.loc = P.loc
 						P.back.layer = initial(P.back.layer)
+						P.back.plane = initial(P.back.plane)
 						P.back = null
 					P.back = new/obj/item/weapon/tank/jetpack(P)
 					P.back.layer = 20
+					P.back.plane = HUD_PLANE
 					P.internal = P.back
 				if("hsbmetal")
 					var/obj/item/stack/sheet/hsb = new/obj/item/stack/sheet/metal
@@ -105,7 +113,7 @@ datum/hSB
 							hsb.req_access += A
 
 					hsb.loc = usr.loc
-					usr << "<b>Sandbox:  Created an airlock."
+					to_chat(usr, "<b>Sandbox:  Created an airlock.")
 				if("hsbcanister")
 					var/list/hsbcanisters = subtypesof(/obj/machinery/portable_atmospherics/canister/)
 					var/hsbcanister = input(usr, "Choose a canister to spawn.", "Sandbox:") in hsbcanisters + "Cancel"
@@ -120,7 +128,7 @@ datum/hSB
 				if("hsbtoolbox")
 					var/obj/item/weapon/storage/hsb = new/obj/item/weapon/storage/toolbox/mechanical
 					for(var/obj/item/device/radio/T in hsb)
-						del(T)
+						qdel(T)
 					new/obj/item/weapon/crowbar (hsb)
 					hsb.loc = usr.loc
 				if("hsbmedkit")

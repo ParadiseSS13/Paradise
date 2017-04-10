@@ -27,10 +27,10 @@ Used In File(s): \code\game\machinery\teleporter.dm
 		<div class="item">{{:helper.link('Set target', 'gear', {'settarget': 1})}}</div>
 	</div>
 	<div style="margin-top:10px;" class="item">
-		<div class="item">{{:helper.link('Get target from memory', 'arrowthickstop-1-s', {'locked': 1}, data.locked ? '' : 'disabled')}}</div>
+		<div class="item">{{:helper.link('Get target from memory', 'arrow-circle-down', {'lock': 1}, data.locked ? '' : 'disabled')}}</div>
 		<div class="item">{{:helper.link('Eject GPS device', 'eject', {'eject': 1}, data.locked ? '' : 'disabled')}}</div>
 	</div>
 	<div style="margin-top:10px;" class="item">
-		<div class="item">{{:helper.link('Calibrate hub', 'arrow-4-diag', {'calibrate': 1}, data.target == 'None' ? 'disabled' : '')}}</div>
+		<div class="item">{{:helper.link('Calibrate hub', 'arrows-alt', {'calibrate': 1}, data.target == 'None' ? 'disabled' : '')}}</div>
 	</div>
 {{/if}}

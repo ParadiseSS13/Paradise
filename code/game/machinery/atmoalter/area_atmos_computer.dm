@@ -71,13 +71,13 @@
 			<body>
 				<center><h1>Area Air Control</h1></center>
 				<font color="red">[status]</font><br>
-				<a href="?src=\ref[src];scan=1">Scan</a>
+				<a href="?src=[UID()];scan=1">Scan</a>
 				<table border="1" width="90%">"}
 		for(var/obj/machinery/portable_atmospherics/scrubber/huge/scrubber in connectedscrubbers)
 			dat += {"
 					<tr>
 						<td>[scrubber.name]</td>
-						<td width="150"><a class="green" href="?src=\ref[src];scrub=\ref[scrubber];toggle=1">Turn On</a> <a class="red" href="?src=\ref[src];scrub=\ref[scrubber];toggle=0">Turn Off</a></td>
+						<td width="150"><a class="green" href="?src=[UID()];scrub=\ref[scrubber];toggle=1">Turn On</a> <a class="red" href="?src=[UID()];scrub=\ref[scrubber];toggle=0">Turn Off</a></td>
 					</tr>"}
 
 		dat += {"
@@ -85,7 +85,9 @@
 				<i>[zone]</i>
 			</body>
 		</html>"}
-		user << browse("[dat]", "window=miningshuttle;size=400x400")
+		var/datum/browser/popup = new(user, "area_atmos", name, 400, 400)
+		popup.set_content(dat)
+		popup.open(0)
 		status = ""
 
 	Topic(href, href_list)

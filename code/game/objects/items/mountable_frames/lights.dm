@@ -7,11 +7,11 @@
 	mount_reqs = list("simfloor")
 
 /obj/item/mounted/frame/light_fixture/do_build(turf/on_wall, mob/user)
-	user << "You begin attaching [src] to \the [on_wall]."
+	to_chat(user, "You begin attaching [src] to \the [on_wall].")
 	playsound(get_turf(src), 'sound/machines/click.ogg', 75, 1)
 	var/constrdir = user.dir
 	var/constrloc = get_turf(user)
-	if (!do_after(user, 30, target = src))
+	if(!do_after(user, 30, target = on_wall))
 		return
 	var/obj/machinery/light_construct/newlight
 	switch(fixture_type)

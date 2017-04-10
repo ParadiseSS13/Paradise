@@ -30,15 +30,38 @@ LIGHTERS ARE IN LIGHTERS.DM
 	var/lastHolder = null
 	var/smoketime = 300
 	var/chem_volume = 30
+	species_fit = list("Vox", "Unathi", "Tajaran", "Vulpkanin", "Grey")
+	sprite_sheets = list(
+		"Vox" = 'icons/mob/species/vox/mask.dmi',
+		"Unathi" = 'icons/mob/species/unathi/mask.dmi',
+		"Tajaran" = 'icons/mob/species/tajaran/mask.dmi',
+		"Vulpkanin" = 'icons/mob/species/vulpkanin/mask.dmi',
+		"Grey" = 'icons/mob/species/grey/mask.dmi'
+		)
+
 
 /obj/item/clothing/mask/cigarette/New()
 	..()
-	flags |= NOREACT // so it doesn't react until you light it
 	create_reagents(chem_volume) // making the cigarrete a chemical holder with a maximum volume of 30
+	reagents.set_reacting(FALSE) // so it doesn't react until you light it
 
 /obj/item/clothing/mask/cigarette/Destroy()
-	qdel(reagents)
+	QDEL_NULL(reagents)
+	processing_objects -= src
 	return ..()
+
+/obj/item/clothing/mask/cigarette/attack(var/mob/living/M, var/mob/living/user, def_zone)
+	if(istype(M) && M.on_fire)
+		user.changeNext_move(CLICK_CD_MELEE)
+		user.do_attack_animation(M)
+		light("<span class='notice'>[user] coldly lights the [name] with the burning body of [M]. Clearly, they offer the warmest of regards...</span>")
+		return 1
+	else
+		return ..()
+
+
+/obj/item/clothing/mask/cigarette/fire_act()
+	light()
 
 /obj/item/clothing/mask/cigarette/attackby(obj/item/weapon/W as obj, mob/user as mob, params)
 	..()
@@ -59,7 +82,7 @@ LIGHTERS ARE IN LIGHTERS.DM
 
 	else if(istype(W, /obj/item/weapon/match))
 		var/obj/item/weapon/match/M = W
-		if(M.lit)
+		if(M.lit == 1)
 			light("<span class='notice'>[user] lights their [name] with their [W].</span>")
 
 	else if(istype(W, /obj/item/weapon/melee/energy/sword/saber))
@@ -70,10 +93,21 @@ LIGHTERS ARE IN LIGHTERS.DM
 	else if(istype(W, /obj/item/device/assembly/igniter))
 		light("<span class='notice'>[user] fiddles with [W], and manages to light their [name].</span>")
 
+	else if(istype(W, /obj/item/weapon/gun/magic/wand/fireball))
+		var/obj/item/weapon/gun/magic/wand/fireball/F = W
+		if(F.charges)
+			if(prob(50) || user.mind.assigned_role == "Wizard")
+				light("<span class='notice'>Holy shit, did [user] just manage to light their [name] with [W], with only moderate eyebrow singing?</span>")
+			else
+				to_chat(user, "<span class='warning'>Unsure which end of the wand is which, [user] fails to light [name] with [W].</span>")
+				explosion(user.loc, -1, 0, 2, 3, 0, flame_range = 2)
+			F.charges--
+
+
 	//can't think of any other way to update the overlays :<
-	user.update_inv_wear_mask(0)
-	user.update_inv_l_hand(0)
-	user.update_inv_r_hand(1)
+	user.update_inv_wear_mask()
+	user.update_inv_l_hand()
+	user.update_inv_r_hand()
 	return
 
 
@@ -83,15 +117,15 @@ LIGHTERS ARE IN LIGHTERS.DM
 	if(istype(glass))	//you can dip cigarettes into beakers
 		var/transfered = glass.reagents.trans_to(src, chem_volume)
 		if(transfered)	//if reagents were transfered, show the message
-			user << "<span class='notice'>You dip \the [src] into \the [glass].</span>"
+			to_chat(user, "<span class='notice'>You dip \the [src] into \the [glass].</span>")
 		else			//if not, either the beaker was empty, or the cigarette was full
 			if(!glass.reagents.total_volume)
-				user << "<span class='notice'>[glass] is empty.</span>"
+				to_chat(user, "<span class='notice'>[glass] is empty.</span>")
 			else
-				user << "<span class='notice'>[src] is full.</span>"
+				to_chat(user, "<span class='notice'>[src] is full.</span>")
 
 
-/obj/item/clothing/mask/cigarette/proc/light(var/flavor_text = "[usr] lights the [name].")
+/obj/item/clothing/mask/cigarette/proc/light(flavor_text = null)
 	if(!src.lit)
 		src.lit = 1
 		damtype = "fire"
@@ -113,12 +147,13 @@ LIGHTERS ARE IN LIGHTERS.DM
 				M.unEquip(src, 1)
 			qdel(src)
 			return
-		flags &= ~NOREACT // allowing reagents to react after being lit
+		reagents.set_reacting(TRUE)
 		reagents.handle_reactions()
 		icon_state = icon_on
 		item_state = icon_on
-		var/turf/T = get_turf(src)
-		T.visible_message(flavor_text)
+		if(flavor_text)
+			var/turf/T = get_turf(src)
+			T.visible_message(flavor_text)
 		set_light(2, 0.25, "#E38F46")
 		processing_objects.Add(src)
 
@@ -155,11 +190,9 @@ LIGHTERS ARE IN LIGHTERS.DM
 	if(reagents && reagents.total_volume)	//	check if it has any reagents at all
 		if(is_being_smoked) // if it's being smoked, transfer reagents to the mob
 			var/mob/living/carbon/C = loc
-			if(prob(15)) // so it's not an instarape in case of acid
-				reagents.reaction(C, INGEST)
 			reagents.trans_to(C, REAGENTS_METABOLISM)
 			if(!reagents.total_volume) // There were reagents, but now they're gone
-				C << "<span class='notice'>Your [name] loses its flavor.</span>"
+				to_chat(C, "<span class='notice'>Your [name] loses its flavor.</span>")
 		else // else just remove some of the reagents
 			reagents.remove_any(REAGENTS_METABOLISM)
 	return
@@ -171,7 +204,7 @@ LIGHTERS ARE IN LIGHTERS.DM
 	transfer_fingerprints_to(butt)
 	if(ismob(loc))
 		var/mob/living/M = loc
-		M << "<span class='notice'>Your [name] goes out.</span>"
+		to_chat(M, "<span class='notice'>Your [name] goes out.</span>")
 		M.unEquip(src, 1)		//Force the un-equip so the overlays update
 	processing_objects.Remove(src)
 	qdel(src)
@@ -184,9 +217,9 @@ LIGHTERS ARE IN LIGHTERS.DM
 	var/random_reagent = pick("fuel","saltpetre","synaptizine","green_vomit","potass_iodide","msg","lexorin","mannitol","spaceacillin","cryoxadone","holywater","tea","egg","haloperidol","mutagen","omnizine","carpet","aranesp","cryostylane","chocolate","bilk","cheese","rum","blood","charcoal","coffee","ectoplasm","space_drugs","milk","mutadone","antihol","teporone","insulin","salbutamol","toxin")
 	reagents.add_reagent(random_reagent, 10)
 
-/obj/item/clothing/mask/cigarette/joint
-	name = "joint"
-	desc = "A roll of ambrosium vulgaris wrapped in a thin paper. Dude."
+/obj/item/clothing/mask/cigarette/rollie
+	name = "rollie"
+	desc = "A roll of dried plant matter wrapped in thin paper."
 	icon_state = "spliffoff"
 	icon_on = "spliffon"
 	icon_off = "spliffoff"
@@ -196,35 +229,21 @@ LIGHTERS ARE IN LIGHTERS.DM
 	smoketime = 180
 	chem_volume = 50
 
-/obj/item/clothing/mask/cigarette/joint/New()
+/obj/item/clothing/mask/cigarette/rollie/New()
 	..()
-	var/list/jointnames = list("joint","doobie","spliff","blunt")
-	name = pick(jointnames)
-	src.pixel_x = rand(-5.0, 5)
-	src.pixel_y = rand(-5.0, 5)
+	pixel_x = rand(-5, 5)
+	pixel_y = rand(-5, 5)
 
-/obj/item/clothing/mask/cigarette/joint/deus
-	desc = "A roll of ambrosium deus wrapped in a thin paper. Dude."
 
 /obj/item/weapon/cigbutt/roach
 	name = "roach"
-	desc = "A manky old roach."
+	desc = "A manky old roach, or for non-stoners, a used rollup."
 	icon_state = "roach"
 
 /obj/item/weapon/cigbutt/roach/New()
 	..()
-	src.pixel_x = rand(-5.0, 5)
-	src.pixel_y = rand(-5.0, 5)
-
-/obj/item/clothing/mask/cigarette/handroll
-	name = "hand-rolled cigarette"
-	desc = "A roll of tobacco and nicotine, freshly rolled by hand."
-	icon_state = "hr_cigoff"
-	item_state = "hr_cigoff"
-	icon_on = "hr_cigon"  //Note - these are in masks.dmi not in cigarette.dmi
-	icon_off = "hr_cigoff"
-	type_butt = /obj/item/weapon/cigbutt
-	chem_volume = 50
+	pixel_x = rand(-5, 5)
+	pixel_y = rand(-5, 5)
 
 ////////////
 // CIGARS //
@@ -285,7 +304,7 @@ LIGHTERS ARE IN LIGHTERS.DM
 	if(istype(W, /obj/item/weapon/match))
 		..()
 	else
-		user << "<span class='notice'>\The [src] straight out REFUSES to be lit by such uncivilized means.</span>"
+		to_chat(user, "<span class='notice'>\The [src] straight out REFUSES to be lit by such uncivilized means.</span>")
 
 /////////////////
 //SMOKING PIPES//
@@ -304,14 +323,15 @@ LIGHTERS ARE IN LIGHTERS.DM
 	..()
 	reagents.add_reagent("nicotine", chem_volume)
 
-/obj/item/clothing/mask/cigarette/pipe/light(var/flavor_text = "[usr] lights the [name].")
+/obj/item/clothing/mask/cigarette/pipe/light(flavor_text = null)
 	if(!src.lit)
 		src.lit = 1
 		damtype = "fire"
 		icon_state = icon_on
 		item_state = icon_on
-		var/turf/T = get_turf(src)
-		T.visible_message(flavor_text)
+		if(flavor_text)
+			var/turf/T = get_turf(src)
+			T.visible_message(flavor_text)
 		processing_objects.Add(src)
 
 /obj/item/clothing/mask/cigarette/pipe/process()
@@ -321,7 +341,7 @@ LIGHTERS ARE IN LIGHTERS.DM
 		new /obj/effect/decal/cleanable/ash(location)
 		if(ismob(loc))
 			var/mob/living/M = loc
-			M << "<span class='notice'>Your [name] goes out, and you empty the ash.</span>"
+			to_chat(M, "<span class='notice'>Your [name] goes out, and you empty the ash.</span>")
 			lit = 0
 			icon_state = icon_off
 			item_state = icon_off
@@ -340,7 +360,7 @@ LIGHTERS ARE IN LIGHTERS.DM
 		processing_objects.Remove(src)
 		return
 	if(smoketime <= 0)
-		user << "<span class='notice'>You refill the pipe with tobacco.</span>"
+		to_chat(user, "<span class='notice'>You refill the pipe with tobacco.</span>")
 		reagents.add_reagent("nicotine", chem_volume)
 		smoketime = initial(smoketime)
 	return
@@ -349,7 +369,7 @@ LIGHTERS ARE IN LIGHTERS.DM
 	if(istype(W, /obj/item/weapon/match))
 		..()
 	else
-		user << "<span class='notice'>\The [src] straight out REFUSES to be lit by such means.</span>"
+		to_chat(user, "<span class='notice'>\The [src] straight out REFUSES to be lit by such means.</span>")
 
 /obj/item/clothing/mask/cigarette/pipe/cobpipe
 	name = "corn cob pipe"
@@ -364,51 +384,30 @@ LIGHTERS ARE IN LIGHTERS.DM
 ///////////
 //ROLLING//
 ///////////
-obj/item/weapon/rollingpaper
+/obj/item/weapon/rollingpaper
 	name = "rolling paper"
 	desc = "A thin piece of paper used to make fine smokeables."
 	icon = 'icons/obj/cigarettes.dmi'
 	icon_state = "cig_paper"
 	w_class = 1
 
-
-obj/item/weapon/rollingpaperpack
-	name = "rolling paper pack"
-	desc = "A pack of Nanotrasen brand rolling papers."
-	icon = 'icons/obj/cigarettes.dmi'
-	icon_state = "cig_paper_pack"
-	w_class = 1
-	var/papers = 25
-
-obj/item/weapon/rollingpaperpack/attack_self(mob/user)
-	if(papers > 1)
-		var/obj/item/weapon/rollingpaper/P = new /obj/item/weapon/rollingpaper()
-		user.put_in_inactive_hand(P)
-		user << "You take a paper out of the pack."
-		papers --
-	else
-		var/obj/item/weapon/rollingpaper/P = new /obj/item/weapon/rollingpaper()
-		user.put_in_inactive_hand(P)
-		user << "You take the last paper out of the pack, and throw the pack away."
-		qdel(src)
-
-/obj/item/weapon/rollingpaperpack/MouseDrop(atom/over_object)
-	var/mob/M = usr
-	if(M.restrained() || M.stat)
+/obj/item/weapon/rollingpaper/afterattack(atom/target, mob/user, proximity)
+	if(!proximity)
 		return
-
-	if(over_object == M)
-		M.put_in_hands(src)
-
-	else if(istype(over_object, /obj/screen))
-		switch(over_object.name)
-			if("r_hand")
-				M.unEquip(src)
-				M.put_in_r_hand(src)
-			if("l_hand")
-				M.unEquip(src)
-				M.put_in_l_hand(src)
-
-/obj/item/weapon/rollingpaperpack/examine(mob/user)
-	..(user)
-	user << "There are [src.papers] left"
+	if(istype(target, /obj/item/weapon/reagent_containers/food/snacks/grown))
+		var/obj/item/weapon/reagent_containers/food/snacks/grown/O = target
+		if(O.dry)
+			user.unEquip(target, 1)
+			user.unEquip(src, 1)
+			var/obj/item/clothing/mask/cigarette/rollie/R = new /obj/item/clothing/mask/cigarette/rollie(user.loc)
+			R.chem_volume = target.reagents.total_volume
+			target.reagents.trans_to(R, R.chem_volume)
+			user.put_in_active_hand(R)
+			to_chat(user, "<span class='notice'>You roll the [target.name] into a rolling paper.</span>")
+			R.desc = "Dried [target.name] rolled up in a thin piece of paper."
+			qdel(target)
+			qdel(src)
+		else
+			to_chat(user, "<span class='warning'>You need to dry this first!</span>")
+	else
+		..()

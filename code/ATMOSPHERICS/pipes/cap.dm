@@ -31,10 +31,11 @@
 	else
 		. = PROCESS_KILL
 /obj/machinery/atmospherics/pipe/cap/Destroy()
+	. = ..()
 	if(node)
 		node.disconnect(src)
-
-	return ..()
+		node.defer_build_network()
+		node = null
 
 /obj/machinery/atmospherics/pipe/cap/disconnect(obj/machinery/atmospherics/reference)
 	if(reference == node)
@@ -66,7 +67,7 @@
 	for(var/obj/machinery/atmospherics/target in get_step(src, dir))
 		if(target.initialize_directions & get_dir(target,src))
 			var/c = check_connect_types(target,src)
-			if (c)
+			if(c)
 				target.connected_to = c
 				src.connected_to = c
 				node = target

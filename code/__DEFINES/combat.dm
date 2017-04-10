@@ -7,14 +7,12 @@
 #define TOX			"tox"
 #define OXY			"oxy"
 #define CLONE		"clone"
-#define HALLOSS		"halloss"
 #define STAMINA 	"stamina"
 
 #define STUN		"stun"
 #define WEAKEN		"weaken"
 #define PARALYZE	"paralize"
 #define IRRADIATE	"irradiate"
-#define AGONY		"agony" // Added in PAIN!
 #define STUTTER		"stutter"
 #define SLUR		"slur"
 #define EYE_BLUR	"eye_blur"
@@ -26,6 +24,7 @@
 #define FIRELOSS 2
 #define TOXLOSS 4
 #define OXYLOSS 8
+#define SHAME 16
 
 //Bitflags defining which status effects could be or are inflicted on a mob
 #define CANSTUN		1
@@ -50,14 +49,24 @@
 #define GRAB_UPGRADING  4
 #define GRAB_KILL    5
 
-//Hostile Mob Stances
-#define HOSTILE_STANCE_IDLE 1
-#define HOSTILE_STANCE_ALERT 2
-#define HOSTILE_STANCE_ATTACK 3
-#define HOSTILE_STANCE_ATTACKING 4
-#define HOSTILE_STANCE_TIRED 5
 
 //Hostile Mob AI Status
 #define AI_ON		1
-#define AI_SLEEP	2
+#define AI_IDLE		2
 #define AI_OFF		3
+
+//Attack types for checking shields/hit reactions
+
+#define MELEE_ATTACK 1
+#define UNARMED_ATTACK 2
+#define PROJECTILE_ATTACK 3
+#define THROWN_PROJECTILE_ATTACK 4
+#define LEAP_ATTACK 5
+
+//Gun Stuff
+ #define SAWN_INTACT  0
+ #define SAWN_OFF     1
+
+ #define WEAPON_LIGHT 0
+ #define WEAPON_MEDIUM 1
+ #define WEAPON_HEAVY 2

@@ -7,7 +7,7 @@
 	throwforce = 3.0
 	throw_speed = 1
 	throw_range = 5
-	w_class = 2.0
+	w_class = 2
 	attack_verb = list("warned", "cautioned", "smashed")
 
 	proximity_sign
@@ -22,7 +22,7 @@
 					return
 				if(armed)
 					armed = 0
-					user << "\blue You disarm \the [src]."
+					to_chat(user, "\blue You disarm \the [src].")
 					return
 				timing = !timing
 				if(timing)
@@ -30,7 +30,7 @@
 				else
 					armed = 0
 					timepassed = 0
-				H << "\blue You [timing ? "activate \the [src]'s timer, you have 15 seconds." : "de-activate \the [src]'s timer."]"
+				to_chat(H, "\blue You [timing ? "activate \the [src]'s timer, you have 15 seconds." : "de-activate \the [src]'s timer."]")
 
 		process()
 			if(!timing)

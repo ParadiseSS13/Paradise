@@ -3,7 +3,7 @@
 	icon_state = "map"
 
 	can_unwrench = 1
-	
+
 	name = "gas mixer"
 
 	var/target_pressure = ONE_ATMOSPHERE
@@ -11,15 +11,15 @@
 	var/node2_concentration = 0.5
 
 	//node 3 is the outlet, nodes 1 & 2 are intakes
-	
+
 /obj/machinery/atmospherics/trinary/mixer/flipped
 	icon_state = "mmap"
 	flipped = 1
 
-/obj/machinery/atmospherics/trinary/mixer/update_icon(var/safety = 0)
+/obj/machinery/atmospherics/trinary/mixer/update_icon(safety = 0)
 	if(flipped)
-		icon_state = "m"	
-	else	
+		icon_state = "m"
+	else
 		icon_state = ""
 
 	if(!powered())
@@ -57,8 +57,7 @@
 	air3.volume = 300
 
 /obj/machinery/atmospherics/trinary/mixer/process()
-	..()
-	if(!on)
+	if(!..() || !on)
 		return 0
 
 	var/output_starting_pressure = air3.return_pressure()
@@ -109,53 +108,71 @@
 
 	return 1
 
-/obj/machinery/atmospherics/trinary/mixer/attack_hand(user as mob)
+/obj/machinery/atmospherics/trinary/mixer/attack_ghost(mob/user)
+	ui_interact(user)
+
+/obj/machinery/atmospherics/trinary/mixer/attack_hand(mob/user)
 	if(..())
 		return
-	src.add_fingerprint(usr)
-	if(!src.allowed(user))
-		user << "<span class='alert'>Access denied.</span>"
-		return
-	usr.set_machine(src)
-	var/dat = {"<b>Power: </b><a href='?src=\ref[src];power=1'>[on?"On":"Off"]</a><br>
-				<b>Desirable output pressure: </b>
-				[target_pressure]kPa | <a href='?src=\ref[src];set_press=1'>Change</a>
-				<br>
-				<b>Node 1 Concentration:</b>
-				<a href='?src=\ref[src];node1_c=-0.1'><b>-</b></a>
-				<a href='?src=\ref[src];node1_c=-0.01'>-</a>
-				[node1_concentration]([node1_concentration*100]%)
-				<a href='?src=\ref[src];node1_c=0.01'><b>+</b></a>
-				<a href='?src=\ref[src];node1_c=0.1'>+</a>
-				<br>
-				<b>Node 2 Concentration:</b>
-				<a href='?src=\ref[src];node2_c=-0.1'><b>-</b></a>
-				<a href='?src=\ref[src];node2_c=-0.01'>-</a>
-				[node2_concentration]([node2_concentration*100]%)
-				<a href='?src=\ref[src];node2_c=0.01'><b>+</b></a>
-				<a href='?src=\ref[src];node2_c=0.1'>+</a>
-				"}
 
-	user << browse("<HEAD><TITLE>[src.name] control</TITLE></HEAD><TT>[dat]</TT>", "window=atmo_mixer")
-	onclose(user, "atmo_mixer")
-	return
+	if(!allowed(user))
+		to_chat(user, "<span class='alert'>Access denied.</span>")
+		return
+
+	add_fingerprint(user)
+	ui_interact(user)
+
+/obj/machinery/atmospherics/trinary/mixer/ui_interact(mob/user, ui_key = "main", datum/nanoui/ui = null, force_open = 1, var/master_ui = null, var/datum/topic_state/state = default_state)
+	user.set_machine(src)
+	ui = nanomanager.try_update_ui(user, src, ui_key, ui, force_open)
+	if(!ui)
+		ui = new(user, src, ui_key, "atmos_mixer.tmpl", name, 370, 165, state = state)
+		ui.open()
+
+/obj/machinery/atmospherics/trinary/mixer/ui_data(mob/user)
+	var/list/data = list()
+	data["on"] = on
+	data["pressure"] = round(target_pressure)
+	data["max_pressure"] = round(MAX_OUTPUT_PRESSURE)
+	data["node1_concentration"] = round(node1_concentration*100)
+	data["node2_concentration"] = round(node2_concentration*100)
+	return data
 
 /obj/machinery/atmospherics/trinary/mixer/Topic(href,href_list)
-	if(..()) 
+	if(..())
 		return 1
+
 	if(href_list["power"])
 		on = !on
-	if(href_list["set_press"])
-		var/new_pressure = input(usr,"Enter new output pressure (0-4500kPa)","Pressure control",src.target_pressure) as num
-		src.target_pressure = max(0, min(4500, new_pressure))
-	if(href_list["node1_c"])
-		var/value = text2num(href_list["node1_c"])
-		src.node1_concentration = max(0, min(1, src.node1_concentration + value))
-		src.node2_concentration = max(0, min(1, src.node2_concentration - value))
-	if(href_list["node2_c"])
-		var/value = text2num(href_list["node2_c"])
-		src.node2_concentration = max(0, min(1, src.node2_concentration + value))
-		src.node1_concentration = max(0, min(1, src.node1_concentration - value))
-	src.update_icon()
-	src.updateUsrDialog()
-	return
+		investigate_log("was turned [on ? "on" : "off"] by [key_name(usr)]", "atmos")
+		. = TRUE
+	if(href_list["pressure"])
+		var/pressure = href_list["pressure"]
+		if(pressure == "max")
+			pressure = MAX_OUTPUT_PRESSURE
+			. = TRUE
+		else if(pressure == "input")
+			pressure = input("New output pressure (0-[MAX_OUTPUT_PRESSURE] kPa):", name, target_pressure) as num|null
+			if(!isnull(pressure) && !..())
+				. = TRUE
+		else if(text2num(pressure) != null)
+			pressure = text2num(pressure)
+			. = TRUE
+		if(.)
+			target_pressure = Clamp(pressure, 0, MAX_OUTPUT_PRESSURE)
+			investigate_log("was set to [target_pressure] kPa by [key_name(usr)]", "atmos")
+	if(href_list["node1"])
+		var/value = text2num(href_list["node1"])
+		node1_concentration = max(0, min(1, node1_concentration + value))
+		node2_concentration = max(0, min(1, node2_concentration - value))
+		investigate_log("was set to [node1_concentration] % on node 1 by [key_name(usr)]", "atmos")
+		. = TRUE
+	if(href_list["node2"])
+		var/value = text2num(href_list["node2"])
+		node2_concentration = max(0, min(1, node2_concentration + value))
+		node1_concentration = max(0, min(1, node1_concentration - value))
+		investigate_log("was set to [node2_concentration] % on node 2 by [key_name(usr)]", "atmos")
+		. = TRUE
+
+	update_icon()
+	nanomanager.update_uis(src)

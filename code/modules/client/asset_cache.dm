@@ -46,10 +46,10 @@ You can set verify to TRUE if you want send() to sleep until the client has the 
 
 	client << browse_rsc(asset_cache[asset_name], asset_name)
 	if(!verify || !winexists(client, "asset_cache_browser")) // Can't access the asset cache browser, rip.
-		if (client)
+		if(client)
 			client.cache += asset_name
 		return 1
-	if (!client)
+	if(!client)
 		return 0
 
 	client.sending |= asset_name
@@ -91,17 +91,17 @@ You can set verify to TRUE if you want send() to sleep until the client has the 
 	var/list/unreceived = asset_list - (client.cache + client.sending)
 	if(!unreceived || !unreceived.len)
 		return 0
-	if (unreceived.len >= ASSET_CACHE_TELL_CLIENT_AMOUNT)
-		client << "Sending Resources..."
+	if(unreceived.len >= ASSET_CACHE_TELL_CLIENT_AMOUNT)
+		to_chat(client, "Sending Resources...")
 	for(var/asset in unreceived)
-		if (asset in asset_cache)
+		if(asset in asset_cache)
 			client << browse_rsc(asset_cache[asset], asset)
 
 	if(!verify || !winexists(client, "asset_cache_browser")) // Can't access the asset cache browser, rip.
-		if (client)
+		if(client)
 			client.cache += unreceived
 		return 1
-	if (!client)
+	if(!client)
 		return 0
 	client.sending |= unreceived
 	var/job = ++client.last_asset_job
@@ -129,9 +129,9 @@ You can set verify to TRUE if you want send() to sleep until the client has the 
 //The proc calls procs that sleep for long times.
 proc/getFilesSlow(var/client/client, var/list/files, var/register_asset = TRUE)
 	for(var/file in files)
-		if (!client)
+		if(!client)
 			break
-		if (register_asset)
+		if(register_asset)
 			register_asset(file,files[file])
 		send_asset(client,file)
 		sleep(-1) //queuing calls like this too quickly can cause issues in some client versions
@@ -159,7 +159,7 @@ proc/getFilesSlow(var/client/client, var/list/files, var/register_asset = TRUE)
 
 //get a assetdatum or make a new one
 /proc/get_asset_datum(var/type)
-	if (!(type in asset_datums))
+	if(!(type in asset_datums))
 		return new type()
 	return asset_datums[type]
 
@@ -187,29 +187,73 @@ proc/getFilesSlow(var/client/client, var/list/files, var/register_asset = TRUE)
 //DEFINITIONS FOR ASSET DATUMS START HERE.
 /datum/asset/simple/paper
 	assets = list(
-		"large_stamp-clown.png" = 'icons/paper_icons/large_stamp-clown.png',
-		"large_stamp-deny.png" = 'icons/paper_icons/large_stamp-deny.png',
-		"large_stamp-ok.png" = 'icons/paper_icons/large_stamp-ok.png',
-		"large_stamp-hop.png" = 'icons/paper_icons/large_stamp-hop.png',
-		"large_stamp-cmo.png" = 'icons/paper_icons/large_stamp-cmo.png',
-		"large_stamp-ce.png" = 'icons/paper_icons/large_stamp-ce.png',
-		"large_stamp-hos.png" = 'icons/paper_icons/large_stamp-hos.png',
-		"large_stamp-rd.png" = 'icons/paper_icons/large_stamp-rd.png',
-		"large_stamp-cap.png" = 'icons/paper_icons/large_stamp-cap.png',
-		"large_stamp-qm.png" = 'icons/paper_icons/large_stamp-qm.png',
-		"large_stamp-law.png" = 'icons/paper_icons/large_stamp-law.png',
-		"large_stamp-cent.png" = 'icons/paper_icons/large_stamp-cent.png',
+		"large_stamp-clown.png"     = 'icons/paper_icons/large_stamp-clown.png',
+		"large_stamp-deny.png"      = 'icons/paper_icons/large_stamp-deny.png',
+		"large_stamp-ok.png"        = 'icons/paper_icons/large_stamp-ok.png',
+		"large_stamp-hop.png"       = 'icons/paper_icons/large_stamp-hop.png',
+		"large_stamp-cmo.png"       = 'icons/paper_icons/large_stamp-cmo.png',
+		"large_stamp-ce.png"        = 'icons/paper_icons/large_stamp-ce.png',
+		"large_stamp-hos.png"       = 'icons/paper_icons/large_stamp-hos.png',
+		"large_stamp-rd.png"        = 'icons/paper_icons/large_stamp-rd.png',
+		"large_stamp-cap.png"       = 'icons/paper_icons/large_stamp-cap.png',
+		"large_stamp-qm.png"        = 'icons/paper_icons/large_stamp-qm.png',
+		"large_stamp-law.png"       = 'icons/paper_icons/large_stamp-law.png',
+		"large_stamp-cent.png"      = 'icons/paper_icons/large_stamp-cent.png',
 		"large_stamp-syndicate.png" = 'icons/paper_icons/large_stamp-syndicate.png',
-		"talisman.png" = 'icons/paper_icons/talisman.png',
-		"ntlogo.png" = 'icons/paper_icons/ntlogo.png'
+		"talisman.png"              = 'icons/paper_icons/talisman.png',
+		"ntlogo.png"                = 'icons/paper_icons/ntlogo.png'
+	)
+
+/datum/asset/simple/chess
+	assets = list(
+		"bishop_black.png"			= 'icons/chess_pieces/bishop_black.png',
+		"bishop_white.png"			= 'icons/chess_pieces/bishop_white.png',
+		"king_black.png"			= 'icons/chess_pieces/king_black.png',
+		"king_white.png"			= 'icons/chess_pieces/king_white.png',
+		"knight_black.png"			= 'icons/chess_pieces/knight_black.png',
+		"knight_white.png"			= 'icons/chess_pieces/knight_white.png',
+		"pawn_black.png"			= 'icons/chess_pieces/pawn_black.png',
+		"pawn_white.png"			= 'icons/chess_pieces/pawn_white.png',
+		"queen_black.png"			= 'icons/chess_pieces/queen_black.png',
+		"queen_white.png"			= 'icons/chess_pieces/queen_white.png',
+		"rook_black.png"			= 'icons/chess_pieces/rook_black.png',
+		"rook_white.png"			= 'icons/chess_pieces/rook_white.png',
+		"sprites.png"			    = 'icons/chess_pieces/sprites.png',
+		"blank.gif"                 = 'icons/chess_pieces/blank.gif',
+		"background.png"            = 'nano/images/uiBackground.png',
+		"garbochess.js"             = 'html/browser/garbochess.js',
+		"boardui.js"                = 'html/browser/boardui.js'
+	)
+
+/datum/asset/simple/headers
+	assets = list(
+		"alarm_green.gif" 			= 'icons/program_icons/alarm_green.gif',
+		"alarm_red.gif" 			= 'icons/program_icons/alarm_red.gif',
+		"batt_5.gif" 				= 'icons/program_icons/batt_5.gif',
+		"batt_20.gif" 				= 'icons/program_icons/batt_20.gif',
+		"batt_40.gif" 				= 'icons/program_icons/batt_40.gif',
+		"batt_60.gif" 				= 'icons/program_icons/batt_60.gif',
+		"batt_80.gif" 				= 'icons/program_icons/batt_80.gif',
+		"batt_100.gif" 				= 'icons/program_icons/batt_100.gif',
+		"charging.gif" 				= 'icons/program_icons/charging.gif',
+		"downloader_finished.gif" 	= 'icons/program_icons/downloader_finished.gif',
+		"downloader_running.gif" 	= 'icons/program_icons/downloader_running.gif',
+		"ntnrc_idle.gif"			= 'icons/program_icons/ntnrc_idle.gif',
+		"ntnrc_new.gif"				= 'icons/program_icons/ntnrc_new.gif',
+		"power_norm.gif"			= 'icons/program_icons/power_norm.gif',
+		"power_warn.gif"			= 'icons/program_icons/power_warn.gif',
+		"sig_high.gif" 				= 'icons/program_icons/sig_high.gif',
+		"sig_low.gif" 				= 'icons/program_icons/sig_low.gif',
+		"sig_lan.gif" 				= 'icons/program_icons/sig_lan.gif',
+		"sig_none.gif" 				= 'icons/program_icons/sig_none.gif',
 	)
 
 /datum/asset/nanoui
 	var/list/common = list()
 
 	var/list/common_dirs = list(
-		"nano/css/",
-		"nano/js/",
+		"nano/assets/",
+		"nano/codemirror/",
 		"nano/images/",
 		"nano/layouts/"
 	)
@@ -219,14 +263,14 @@ proc/getFilesSlow(var/client/client, var/list/files, var/register_asset = TRUE)
 
 /datum/asset/nanoui/register()
 	// Crawl the directories to find files.
-	for (var/path in common_dirs)
+	for(var/path in common_dirs)
 		var/list/filenames = flist(path)
 		for(var/filename in filenames)
 			if(copytext(filename, length(filename)) != "/") // Ignore directories.
 				if(fexists(path + filename))
 					common[filename] = fcopy_rsc(path + filename)
 					register_asset(filename, common[filename])
-	for (var/path in uncommon_dirs)
+	for(var/path in uncommon_dirs)
 		var/list/filenames = flist(path)
 		for(var/filename in filenames)
 			if(copytext(filename, length(filename)) != "/") // Ignore directories.
@@ -239,3 +283,37 @@ proc/getFilesSlow(var/client/client, var/list/files, var/register_asset = TRUE)
 
 	send_asset_list(client, uncommon)
 	send_asset_list(client, common)
+
+
+//Pill sprites for UIs
+/datum/asset/chem_master
+	var/assets = list()
+	var/verify = FALSE
+
+/datum/asset/chem_master/register()
+	for(var/i = 1 to 20)
+		assets["pill[i].png"] = icon('icons/obj/chemical.dmi', "pill[i]")
+	for(var/i in list("bottle", "small_bottle", "wide_bottle", "round_bottle"))
+		assets["[i].png"] = icon('icons/obj/chemical.dmi', "[i]")
+	for(var/asset_name in assets)
+		register_asset(asset_name, assets[asset_name])
+
+/datum/asset/chem_master/send(client)
+	send_asset_list(client, assets, verify)
+
+
+//Mob Hunt sprites for UIs
+/datum/asset/mob_hunt
+	var/assets = list()
+	var/verify = FALSE
+
+/datum/asset/mob_hunt/register()
+	for(var/state in icon_states('icons/effects/mob_hunt.dmi'))
+		if(state == "Placeholder")
+			continue
+		assets["[state].png"] = icon('icons/effects/mob_hunt.dmi', state)
+	for(var/asset_name in assets)
+		register_asset(asset_name, assets[asset_name])
+
+/datum/asset/mob_hunt/send(client)
+	send_asset_list(client, assets, verify)

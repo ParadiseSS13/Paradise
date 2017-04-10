@@ -29,7 +29,7 @@ var/global/list/obj/machinery/telecomms/telecomms_list = list()
 	var/toggled = 1 	// Is it toggled on
 	var/on = 1
 	var/long_range_link = 0	// Can you link it across Z levels or on the otherside of the map? (Relay & Hub)
-	var/circuitboard = null // string pointing to a circuitboard type
+	var/circuitboard = null // type pointing to a circuitboard type
 	var/hide = 0				// Is it a hidden machine?
 	var/listening_level = 0	// 0 = auto set in New() - this is the z level that the machine is listening to.
 	Mtoollink = 1
@@ -39,7 +39,7 @@ var/global/list/obj/machinery/telecomms/telecomms_list = list()
 
 	if(!on)
 		return
-	//world << "[src] ([src.id]) - [signal.debug_print()]"
+//	to_chat(world, "[src] ([src.id]) - [signal.debug_print()]")
 	var/send_count = 0
 
 
@@ -56,40 +56,17 @@ var/global/list/obj/machinery/telecomms/telecomms_list = list()
 			continue
 		if(amount && send_count >= amount)
 			break
+			// TODO: Make the radio system cooperate with the space manager
 		if(machine.loc.z != listening_level)
 			if(long_range_link == 0 && machine.long_range_link == 0)
 				continue
 		// If we're sending a copy, be sure to create the copy for EACH machine and paste the data
-		var/datum/signal/copy = new
+		var/datum/signal/copy
 		if(copysig)
-
+			copy = new
 			copy.transmission_method = 2
 			copy.frequency = signal.frequency
-			// Copy the main data contents! Workaround for some nasty bug where the actual array memory is copied and not its contents.
-			copy.data = list(
-
-			"mob" = signal.data["mob"],
-			"mobtype" = signal.data["mobtype"],
-			"realname" = signal.data["realname"],
-			"name" = signal.data["name"],
-			"job" = signal.data["job"],
-			"key" = signal.data["key"],
-			"vmessage" = signal.data["vmessage"],
-			"vname" = signal.data["vname"],
-			"vmask" = signal.data["vmask"],
-			"compression" = signal.data["compression"],
-			"message" = signal.data["message"],
-			"connection" = signal.data["connection"],
-			"radio" = signal.data["radio"],
-			"slow" = signal.data["slow"],
-			"traffic" = signal.data["traffic"],
-			"type" = signal.data["type"],
-			"server" = signal.data["server"],
-			"reject" = signal.data["reject"],
-			"level" = signal.data["level"],
-			"verb" = signal.data["verb"],
-			"language" = signal.data["language"]
-			)
+			copy.data = signal.data.Copy()
 
 			// Keep the "original" signal constant
 			if(!signal.data["original"])
@@ -97,15 +74,11 @@ var/global/list/obj/machinery/telecomms/telecomms_list = list()
 			else
 				copy.data["original"] = signal.data["original"]
 
-		else
-			qdel(copy)
-
-
 		send_count++
 		if(machine.is_freq_listening(signal))
 			machine.traffic++
 
-		if(copysig && copy)
+		if(copysig)
 			machine.receive_information(copy, src)
 		else
 			machine.receive_information(signal, src)
@@ -142,9 +115,11 @@ var/global/list/obj/machinery/telecomms/telecomms_list = list()
 	if(!listening_level)
 		//Defaults to our Z level!
 		var/turf/position = get_turf(src)
+		// TODO: Make the radio system cooperate with the space manager
 		listening_level = position.z
 
 /obj/machinery/telecomms/initialize()
+	..()
 	if(autolinkers.len)
 		// Links nearby machines
 		if(!long_range_link)
@@ -166,6 +141,7 @@ var/global/list/obj/machinery/telecomms/telecomms_list = list()
 /obj/machinery/telecomms/proc/add_link(var/obj/machinery/telecomms/T)
 	var/turf/position = get_turf(src)
 	var/turf/T_position = get_turf(T)
+	// TODO: Make the radio system cooperate with the space manager
 	if((position.z == T_position.z) || (src.long_range_link && T.long_range_link))
 		for(var/x in autolinkers)
 			if(T.autolinkers.Find(x))
@@ -224,7 +200,7 @@ var/global/list/obj/machinery/telecomms/telecomms_list = list()
 	use_power = 1
 	idle_power_usage = 30
 	machinetype = 1
-	circuitboard = "/obj/item/weapon/circuitboard/telecomms/receiver"
+	circuitboard = /obj/item/weapon/circuitboard/telecomms/receiver
 
 /obj/machinery/telecomms/receiver/receive_signal(datum/signal/signal)
 
@@ -280,7 +256,7 @@ var/global/list/obj/machinery/telecomms/telecomms_list = list()
 	use_power = 1
 	idle_power_usage = 80
 	machinetype = 7
-	circuitboard = "/obj/item/weapon/circuitboard/telecomms/hub"
+	circuitboard = /obj/item/weapon/circuitboard/telecomms/hub
 	long_range_link = 1
 	netspeed = 40
 
@@ -314,7 +290,7 @@ var/global/list/obj/machinery/telecomms/telecomms_list = list()
 	use_power = 1
 	idle_power_usage = 30
 	machinetype = 8
-	circuitboard = "/obj/item/weapon/circuitboard/telecomms/relay"
+	circuitboard = /obj/item/weapon/circuitboard/telecomms/relay
 	netspeed = 5
 	long_range_link = 1
 	var/broadcasting = 1
@@ -365,7 +341,7 @@ var/global/list/obj/machinery/telecomms/telecomms_list = list()
 	use_power = 1
 	idle_power_usage = 50
 	machinetype = 2
-	circuitboard = "/obj/item/weapon/circuitboard/telecomms/bus"
+	circuitboard = /obj/item/weapon/circuitboard/telecomms/bus
 	netspeed = 40
 	var/change_frequency = 0
 
@@ -387,7 +363,7 @@ var/global/list/obj/machinery/telecomms/telecomms_list = list()
 			src.receive_information(signal, src)
 
 		// Try sending it!
-		var/list/try_send = list("/obj/machinery/telecomms/server", "/obj/machinery/telecomms/hub", "/obj/machinery/telecomms/broadcaster", "/obj/machinery/telecomms/bus")
+		var/list/try_send = list("/obj/machinery/telecomms/server", "/obj/machinery/telecomms/hub", "/obj/machinery/telecomms/broadcaster")
 		var/i = 0
 		for(var/send in try_send)
 			if(i)
@@ -417,7 +393,7 @@ var/global/list/obj/machinery/telecomms/telecomms_list = list()
 	use_power = 1
 	idle_power_usage = 30
 	machinetype = 3
-	circuitboard = "/obj/item/weapon/circuitboard/telecomms/processor"
+	circuitboard = /obj/item/weapon/circuitboard/telecomms/processor
 	var/process_mode = 1 // 1 = Uncompress Signals, 0 = Compress Signals
 
 	receive_information(datum/signal/signal, obj/machinery/telecomms/machine_from)
@@ -454,7 +430,7 @@ var/global/list/obj/machinery/telecomms/telecomms_list = list()
 	use_power = 1
 	idle_power_usage = 15
 	machinetype = 4
-	circuitboard = "/obj/item/weapon/circuitboard/telecomms/server"
+	circuitboard = /obj/item/weapon/circuitboard/telecomms/server
 	var/list/log_entries = list()
 	var/list/stored_names = list()
 	var/list/TrafficActions = list()
@@ -499,7 +475,9 @@ var/global/list/obj/machinery/telecomms/telecomms_list = list()
 
 				// Copy the signal.data entries we want
 				log.parameters["mobtype"] = signal.data["mobtype"]
+				log.parameters["race"] = signal.data["race"]
 				log.parameters["job"] = signal.data["job"]
+				log.parameters["language"] = signal.data["language"]
 				log.parameters["key"] = signal.data["key"]
 				log.parameters["vmessage"] = signal.data["message"]
 				log.parameters["vname"] = signal.data["vname"]
@@ -584,10 +562,3 @@ var/global/list/obj/machinery/telecomms/telecomms_list = list()
 	var/name = "data packet (#)"
 	var/garbage_collector = 1 // if set to 0, will not be garbage collected
 	var/input_type = "Speech File"
-
-
-
-
-
-
-

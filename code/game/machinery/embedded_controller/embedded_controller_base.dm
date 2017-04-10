@@ -27,8 +27,8 @@
 	src.updateDialog()
 
 /obj/machinery/embedded_controller/attack_ghost(mob/user as mob)
-	src.ui_interact(user)	
-	
+	src.ui_interact(user)
+
 /obj/machinery/embedded_controller/attack_ai(mob/user as mob)
 	src.ui_interact(user)
 
@@ -55,6 +55,7 @@
 	unacidable = 1
 
 /obj/machinery/embedded_controller/radio/initialize()
+	..()
 	set_frequency(frequency)
 
 /obj/machinery/embedded_controller/radio/update_icon()

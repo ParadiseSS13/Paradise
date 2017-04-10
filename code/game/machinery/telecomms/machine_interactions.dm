@@ -23,27 +23,27 @@
 	switch(construct_op)
 		if(0)
 			if(istype(P, /obj/item/weapon/screwdriver))
-				user << "You unfasten the bolts."
-				playsound(src.loc, 'sound/items/Screwdriver.ogg', 50, 1)
-				construct_op ++
+				to_chat(user, "You unfasten the bolts.")
+				playsound(src.loc, P.usesound, 50, 1)
+				construct_op++
 		if(1)
 			if(istype(P, /obj/item/weapon/screwdriver))
-				user << "You fasten the bolts."
-				playsound(src.loc, 'sound/items/Screwdriver.ogg', 50, 1)
-				construct_op --
+				to_chat(user, "You fasten the bolts.")
+				playsound(src.loc,P.usesound, 50, 1)
+				construct_op--
 			if(istype(P, /obj/item/weapon/wrench))
-				user << "You dislodge the external plating."
-				playsound(src.loc, 'sound/items/Ratchet.ogg', 75, 1)
-				construct_op ++
+				to_chat(user, "You dislodge the external plating.")
+				playsound(src.loc, P.usesound, 75, 1)
+				construct_op++
 		if(2)
 			if(istype(P, /obj/item/weapon/wrench))
-				user << "You secure the external plating."
-				playsound(src.loc, 'sound/items/Ratchet.ogg', 75, 1)
-				construct_op --
+				to_chat(user, "You secure the external plating.")
+				playsound(src.loc, P.usesound, 75, 1)
+				construct_op--
 			if(istype(P, /obj/item/weapon/wirecutters))
-				playsound(src.loc, 'sound/items/Wirecutter.ogg', 50, 1)
-				user << "You remove the cables."
-				construct_op ++
+				playsound(src.loc, P.usesound, 50, 1)
+				to_chat(user, "You remove the cables.")
+				construct_op++
 				var/obj/item/stack/cable_coil/A = new /obj/item/stack/cable_coil( user.loc )
 				A.amount = 5
 				stat |= BROKEN // the machine's been borked!
@@ -51,18 +51,19 @@
 			if(istype(P, /obj/item/stack/cable_coil))
 				var/obj/item/stack/cable_coil/A = P
 				if(A.amount >= 5)
-					user << "You insert the cables."
+					playsound(loc, A.usesound, 50, 1)
+					to_chat(user, "You insert the cables.")
 					A.amount -= 5
 					if(A.amount <= 0)
 						user.drop_item()
 						qdel(A)
-					construct_op --
+					construct_op--
 					stat &= ~BROKEN // the machine's not borked anymore!
 			if(istype(P, /obj/item/weapon/crowbar))
-				user << "You begin prying out the circuit board other components..."
-				playsound(src.loc, 'sound/items/Crowbar.ogg', 50, 1)
-				if(do_after(user,60, target = src))
-					user << "You finish prying out the components."
+				to_chat(user, "You begin prying out the circuit board other components...")
+				playsound(src.loc, P.usesound, 50, 1)
+				if(do_after(user, 60 * P.toolspeed, target = src))
+					to_chat(user, "You finish prying out the components.")
 
 					// Drop all the component stuff
 					if(component_parts)
@@ -71,15 +72,12 @@
 								I.crit_fail = 1
 							I.loc = src.loc
 					else
-
 						// If the machine wasn't made during runtime, probably doesn't have components:
 						// manually find the components and drop them!
-						var/newpath = text2path(circuitboard)
-						var/obj/item/weapon/circuitboard/C = new newpath
+						var/obj/item/weapon/circuitboard/C = new circuitboard
 						for(var/I in C.req_components)
 							for(var/i = 1, i <= C.req_components[I], i++)
-								newpath = text2path(I)
-								var/obj/item/s = new newpath
+								var/obj/item/s = new I
 								s.loc = src.loc
 								if(istype(s, /obj/item/stack/cable_coil))
 									var/obj/item/stack/cable_coil/A = s
@@ -97,7 +95,7 @@
 	var/value = vars[varname]
 	if(!value || value=="")
 		value="-----"
-	return "<b>[label]:</b> <a href=\"?src=\ref[src];input=[varname]\">[value]</a>"
+	return "<b>[label]:</b> <a href=\"?src=[UID()];input=[varname]\">[value]</a>"
 
 /obj/machinery/telecomms/attack_ai(var/mob/user as mob)
 	attack_hand(user)
@@ -119,7 +117,7 @@
 
 	dat = {"
 		<p>[temp]</p>
-		<p><b>Power Status:</b> <a href='?src=\ref[src];input=toggle'>[src.toggled ? "On" : "Off"]</a></p>"}
+		<p><b>Power Status:</b> <a href='?src=[UID()];input=toggle'>[src.toggled ? "On" : "Off"]</a></p>"}
 	if(on && toggled)
 		dat += {"
 			<p>[formatInput("Identification String","id","id")]</p>
@@ -138,7 +136,7 @@
 			i++
 			if(T.hide && !src.hide)
 				continue
-			dat += "<li>\ref[T] [T.name] ([T.id])  <a href='?src=\ref[src];unlink=[i]'>\[X\]</a></li>"
+			dat += "<li>\ref[T] [T.name] ([T.id])  <a href='?src=[UID()];unlink=[i]'>\[X\]</a></li>"
 
 		// AUTOFIXED BY fix_string_idiocy.py
 		// C:\Users\Rob\Documents\Projects\vgstation13\code\game\machinery\telecomms\machine_interactions.dm:140: dat += "</ol>"
@@ -149,15 +147,15 @@
 		if(length(freq_listening))
 			dat += "<ul>"
 			for(var/x in freq_listening)
-				dat += "<li>[format_frequency(x)] GHz<a href='?src=\ref[src];delete=[x]'>\[X\]</a></li>"
+				dat += "<li>[format_frequency(x)] GHz<a href='?src=[UID()];delete=[x]'>\[X\]</a></li>"
 			dat += "</ul>"
 		else
 			dat += "<li>NONE</li>"
 
 
 		// AUTOFIXED BY fix_string_idiocy.py
-		// C:\Users\Rob\Documents\Projects\vgstation13\code\game\machinery\telecomms\machine_interactions.dm:155: dat += "<br>  <a href='?src=\ref[src];input=freq'>\[Add Filter\]</a>"
-		dat += {"<p><a href='?src=\ref[src];input=freq'>\[Add Filter\]</a></p>
+		// C:\Users\Rob\Documents\Projects\vgstation13\code\game\machinery\telecomms\machine_interactions.dm:155: dat += "<br>  <a href='?src=[UID()];input=freq'>\[Add Filter\]</a>"
+		dat += {"<p><a href='?src=[UID()];input=freq'>\[Add Filter\]</a></p>
 			<hr />"}
 		// END AUTOFIX
 
@@ -183,11 +181,12 @@
 	var/turf/position = get_turf(src)
 
 	// Toggle on/off getting signals from the station or the current Z level
-	if(src.listening_level == ZLEVEL_STATION) // equals the station
+	// TODO: Could work with the space manager better
+	if(is_station_level(src.listening_level)) // equals the station
 		src.listening_level = position.z
 		return 1
-	else if(position.z == ZLEVEL_TELECOMMS)
-		src.listening_level = ZLEVEL_STATION
+	else if(level_boosts_signal(position.z))
+		src.listening_level = level_name_to_num(MAIN_STATION)
 		return 1
 	return 0
 
@@ -216,7 +215,7 @@
 /*
 // Add an option to the processor to switch processing mode. (COMPRESS -> UNCOMPRESS or UNCOMPRESS -> COMPRESS)
 /obj/machinery/telecomms/processor/Options_Menu()
-	var/dat = "<br>Processing Mode: <A href='?src=\ref[src];process=1'>[process_mode ? "UNCOMPRESS" : "COMPRESS"]</a>"
+	var/dat = "<br>Processing Mode: <A href='?src=[UID()];process=1'>[process_mode ? "UNCOMPRESS" : "COMPRESS"]</a>"
 	return dat
 */
 // The topic for Additional Options. Use this for checking href links for your specific option.
@@ -236,10 +235,10 @@
 
 /obj/machinery/telecomms/relay/Options_Menu()
 	var/dat = ""
-	if(src.z == ZLEVEL_TELECOMMS)
-		dat += "<br>Signal Locked to Station: <A href='?src=\ref[src];change_listening=1'>[listening_level == ZLEVEL_STATION ? "TRUE" : "FALSE"]</a>"
-	dat += "<br>Broadcasting: <A href='?src=\ref[src];broadcast=1'>[broadcasting ? "YES" : "NO"]</a>"
-	dat += "<br>Receiving:    <A href='?src=\ref[src];receive=1'>[receiving ? "YES" : "NO"]</a>"
+	if(level_boosts_signal(src.z))
+		dat += "<br>Signal Locked to Station: <A href='?src=[UID()];change_listening=1'>[is_station_level(listening_level) ? "TRUE" : "FALSE"]</a>"
+	dat += "<br>Broadcasting: <A href='?src=[UID()];broadcast=1'>[broadcasting ? "YES" : "NO"]</a>"
+	dat += "<br>Receiving:    <A href='?src=[UID()];receive=1'>[receiving ? "YES" : "NO"]</a>"
 	return dat
 
 /obj/machinery/telecomms/relay/Options_Topic(href, href_list)
@@ -262,7 +261,7 @@
 // BUS
 
 /obj/machinery/telecomms/bus/Options_Menu()
-	var/dat = "<br>Change Signal Frequency: <A href='?src=\ref[src];change_freq=1'>[change_frequency ? "YES ([change_frequency])" : "NO"]</a>"
+	var/dat = "<br>Change Signal Frequency: <A href='?src=[UID()];change_freq=1'>[change_frequency ? "YES ([change_frequency])" : "NO"]</a>"
 	return dat
 
 /obj/machinery/telecomms/bus/Options_Topic(href, href_list)
@@ -396,4 +395,3 @@
 	if(issilicon(user) || in_range(user, src))
 		return 1
 	return 0
-

@@ -77,11 +77,11 @@
 		set src in view(1)
 
 		if(usr.stat || usr.restrained() || usr.lying || !istype(usr, /mob/living))
-			usr << "\red You can't do that."
+			to_chat(usr, "\red You can't do that.")
 			return
 
 		if(!Adjacent(usr))
-			usr << "You can't reach it."
+			to_chat(usr, "You can't reach it.")
 			return
 
 		Reset()
@@ -212,15 +212,15 @@
 				qdel(src)
 				return
 			if(2.0)
-				if (prob(25))
+				if(prob(25))
 					qdel(src)
 					return
-				if (prob(50))
+				if(prob(50))
 					for(var/x in verbs)
 						verbs -= x
 					set_broken()
 			if(3.0)
-				if (prob(25))
+				if(prob(25))
 					for(var/x in verbs)
 						verbs -= x
 					set_broken()
@@ -229,7 +229,7 @@
 
 
 	blob_act()
-		if (prob(75))
+		if(prob(75))
 			set_broken()
 			density = 0
 
@@ -365,7 +365,7 @@
 			os.attack_hand(user)
 			return
 
-		user << "\The [src] won't boot!"
+		to_chat(user, "\The [src] won't boot!")
 
 	attack_ai(var/mob/user as mob) // copypasta because server racks lose attack_hand()
 		if(stat)
@@ -390,7 +390,7 @@
 			os.attack_hand(user)
 			return
 
-		user << "\The [src] won't boot!"
+		to_chat(user, "\The [src] won't boot!")
 
 	interact()
 		if(stat)
@@ -443,7 +443,7 @@
 
 	//Returns percentage of battery charge remaining. Returns -1 if no battery is installed.
 	proc/check_battery_status()
-		if (battery)
+		if(battery)
 			var/obj/item/weapon/stock_parts/cell/B = battery
 			return round(B.charge / (B.maxcharge / 100))
 		else

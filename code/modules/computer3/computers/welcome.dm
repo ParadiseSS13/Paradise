@@ -10,7 +10,6 @@
 
 
 	interact()
-		usr.set_machine(src)
 		if(!interactable())
 			return
 		var/dat = ""

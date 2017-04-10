@@ -20,8 +20,25 @@
 		icon_state = "[((x + y) ^ ~(x * y) + z) % 25]"
 	update_starlight()
 
-/turf/space/Destroy()
-	return QDEL_HINT_LETMELIVE
+/turf/space/Destroy(force)
+	if(force)
+		. = ..()
+	else
+		return QDEL_HINT_LETMELIVE
+
+
+/turf/space/BeforeChange()
+	..()
+	var/datum/space_level/S = space_manager.get_zlev(z)
+	S.remove_from_transit(src)
+	if(light_sources) // Turn off starlight, if present
+		set_light(0)
+
+/turf/space/AfterChange(ignore_air, keep_cabling = FALSE)
+	..()
+	var/datum/space_level/S = space_manager.get_zlev(z)
+	S.add_to_transit(src)
+	S.apply_transition(src)
 
 /turf/space/proc/update_starlight()
 	if(!config.starlight)
@@ -32,48 +49,45 @@
 		set_light(0)
 
 /turf/space/attackby(obj/item/C as obj, mob/user as mob, params)
-
-	if (istype(C, /obj/item/stack/rods))
+	..()
+	if(istype(C, /obj/item/stack/rods))
 		var/obj/item/stack/rods/R = C
 		var/obj/structure/lattice/L = locate(/obj/structure/lattice, src)
 		if(L)
-			if(R.amount < 2)
-				user << "\red You don't have enough rods to do that."
-				return
-			user << "\blue You begin to build a catwalk."
-			if(do_after(user,30, target = src))
+			if(R.use(1))
+				to_chat(user, "<span class='notice'>You begin constructing catwalk...</span>")
 				playsound(src, 'sound/weapons/Genhit.ogg', 50, 1)
-				user << "\blue You build a catwalk!"
-				R.use(2)
-				ChangeTurf(/turf/simulated/floor/plating/airless/catwalk)
 				qdel(L)
-				return
-
-		user << "\blue Constructing support lattice ..."
-		playsound(src, 'sound/weapons/Genhit.ogg', 50, 1)
-		ReplaceWithLattice()
-		R.use(1)
+				ChangeTurf(/turf/simulated/floor/plating/airless/catwalk)
+			else
+				to_chat(user, "<span class='warning'>You need two rods to build a catwalk!</span>")
+			return
+		if(R.use(1))
+			to_chat(user, "<span class='notice'>Constructing support lattice...</span>")
+			playsound(src, 'sound/weapons/Genhit.ogg', 50, 1)
+			ReplaceWithLattice()
+		else
+			to_chat(user, "<span class='warning'>You need one rod to build a lattice.</span>")
 		return
 
-	if (istype(C, /obj/item/stack/tile/plasteel))
+	if(istype(C, /obj/item/stack/tile/plasteel))
 		var/obj/structure/lattice/L = locate(/obj/structure/lattice, src)
 		if(L)
 			var/obj/item/stack/tile/plasteel/S = C
-			qdel(L)
-			playsound(src, 'sound/weapons/Genhit.ogg', 50, 1)
-			S.build(src)
-			S.use(1)
-			return
+			if(S.use(1))
+				qdel(L)
+				playsound(src, 'sound/weapons/Genhit.ogg', 50, 1)
+				to_chat(user, "<span class='notice'>You build a floor.</span>")
+				ChangeTurf(/turf/simulated/floor/plating)
+			else
+				to_chat(user, "<span class='warning'>You need one floor tile to build a floor!</span>")
 		else
-			user << "\red The plating is going to need some support."
-	return
+			to_chat(user, "<span class='warning'>The plating is going to need some support! Place metal rods first.</span>")
 
-/turf/space/Entered(atom/movable/A as mob|obj)
+/turf/space/Entered(atom/movable/A as mob|obj, atom/OL, ignoreRest = 0)
 	..()
-	if ((!(A) || src != A.loc))
-		return
 
-	if(destination_z)
+	if(destination_z && A && (src in A.locs))
 		A.x = destination_x
 		A.y = destination_y
 		A.z = destination_z
@@ -110,18 +124,18 @@
 		target_z = y_arr[cur_y]
 /*
 		//debug
-		world << "Src.z = [src.z] in global map X = [cur_x], Y = [cur_y]"
-		world << "Target Z = [target_z]"
-		world << "Next X = [next_x]"
+		to_chat(world, "Src.z = [src.z] in global map X = [cur_x], Y = [cur_y]")
+		to_chat(world, "Target Z = [target_z]")
+		to_chat(world, "Next X = [next_x]")
 		//debug
 */
 		if(target_z)
 			A.z = target_z
 			A.x = world.maxx - 2
 			spawn (0)
-				if ((A && A.loc))
+				if((A && A.loc))
 					A.loc.Entered(A)
-	else if (src.x >= world.maxx)
+	else if(src.x >= world.maxx)
 		if(istype(A, /obj/effect/meteor))
 			qdel(A)
 			return
@@ -135,18 +149,18 @@
 		target_z = y_arr[cur_y]
 /*
 		//debug
-		world << "Src.z = [src.z] in global map X = [cur_x], Y = [cur_y]"
-		world << "Target Z = [target_z]"
-		world << "Next X = [next_x]"
+		to_chat(world, "Src.z = [src.z] in global map X = [cur_x], Y = [cur_y]")
+		to_chat(world, "Target Z = [target_z]")
+		to_chat(world, "Next X = [next_x]")
 		//debug
 */
 		if(target_z)
 			A.z = target_z
 			A.x = 3
 			spawn (0)
-				if ((A && A.loc))
+				if((A && A.loc))
 					A.loc.Entered(A)
-	else if (src.y <= 1)
+	else if(src.y <= 1)
 		if(istype(A, /obj/effect/meteor))
 			qdel(A)
 			return
@@ -159,19 +173,19 @@
 		target_z = y_arr[next_y]
 /*
 		//debug
-		world << "Src.z = [src.z] in global map X = [cur_x], Y = [cur_y]"
-		world << "Next Y = [next_y]"
-		world << "Target Z = [target_z]"
+		to_chat(world, "Src.z = [src.z] in global map X = [cur_x], Y = [cur_y]")
+		to_chat(world, "Next Y = [next_y]")
+		to_chat(world, "Target Z = [target_z]")
 		//debug
 */
 		if(target_z)
 			A.z = target_z
 			A.y = world.maxy - 2
 			spawn (0)
-				if ((A && A.loc))
+				if((A && A.loc))
 					A.loc.Entered(A)
 
-	else if (src.y >= world.maxy)
+	else if(src.y >= world.maxy)
 		if(istype(A, /obj/effect/meteor)||istype(A, /obj/effect/space_dust))
 			qdel(A)
 			return
@@ -184,18 +198,44 @@
 		target_z = y_arr[next_y]
 /*
 		//debug
-		world << "Src.z = [src.z] in global map X = [cur_x], Y = [cur_y]"
-		world << "Next Y = [next_y]"
-		world << "Target Z = [target_z]"
+		to_chat(world, "Src.z = [src.z] in global map X = [cur_x], Y = [cur_y]")
+		to_chat(world, "Next Y = [next_y]")
+		to_chat(world, "Target Z = [target_z]")
 		//debug
 */
 		if(target_z)
 			A.z = target_z
 			A.y = 3
 			spawn (0)
-				if ((A && A.loc))
+				if((A && A.loc))
 					A.loc.Entered(A)
 	return
 
 /turf/space/singularity_act()
 	return
+
+/turf/space/can_have_cabling()
+	return 0
+
+/turf/space/proc/set_transition_north(dest_z)
+	destination_x = x
+	destination_y = TRANSITION_BORDER_SOUTH + 1
+	destination_z = dest_z
+
+/turf/space/proc/set_transition_south(dest_z)
+	destination_x = x
+	destination_y = TRANSITION_BORDER_NORTH - 1
+	destination_z = dest_z
+
+/turf/space/proc/set_transition_east(dest_z)
+	destination_x = TRANSITION_BORDER_WEST + 1
+	destination_y = y
+	destination_z = dest_z
+
+/turf/space/proc/set_transition_west(dest_z)
+	destination_x = TRANSITION_BORDER_EAST - 1
+	destination_y = y
+	destination_z = dest_z
+
+/turf/space/proc/remove_transitions()
+	destination_z = initial(destination_z)

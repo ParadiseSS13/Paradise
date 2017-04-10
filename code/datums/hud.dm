@@ -6,14 +6,19 @@ var/datum/atom_hud/huds = list( \
 	DATA_HUD_SECURITY_ADVANCED = new/datum/atom_hud/data/human/security/advanced(), \
 	DATA_HUD_MEDICAL_BASIC = new/datum/atom_hud/data/human/medical/basic(), \
 	DATA_HUD_MEDICAL_ADVANCED = new/datum/atom_hud/data/human/medical/advanced(), \
-	DATA_HUD_DIAGNOSTIC = new/datum/atom_hud/data/diagnostic(),
+	DATA_HUD_DIAGNOSTIC = new/datum/atom_hud/data/diagnostic(), \
+	DATA_HUD_HYDROPONIC = new/datum/atom_hud/data/hydroponic(), \
 	GAME_HUD_NATIONS = new/datum/atom_hud/antag(), \
 	ANTAG_HUD_CULT = new/datum/atom_hud/antag(), \
 	ANTAG_HUD_REV = new/datum/atom_hud/antag(), \
 	ANTAG_HUD_OPS = new/datum/atom_hud/antag(), \
 	ANTAG_HUD_WIZ  = new/datum/atom_hud/antag(), \
 	ANTAG_HUD_SHADOW  = new/datum/atom_hud/antag(), \
-	ANTAG_HUD_SOLO = new/datum/atom_hud/antag(), \
+	ANTAG_HUD_TRAITOR = new/datum/atom_hud/antag/hidden(),\
+	ANTAG_HUD_NINJA = new/datum/atom_hud/antag/hidden(),\
+	ANTAG_HUD_CHANGELING = new/datum/atom_hud/antag/hidden(),\
+	ANTAG_HUD_VAMPIRE = new/datum/atom_hud/antag/hidden(),\
+	ANTAG_HUD_ABDUCTOR = new/datum/atom_hud/antag/hidden()\
  	)
 
 /datum/atom_hud
@@ -24,8 +29,8 @@ var/datum/atom_hud/huds = list( \
 /datum/atom_hud/proc/remove_hud_from(mob/M)
 	if(!M)
 		return
-	//if(src in M.permanent_huds)//I will deal with you later -Fethas
-	//	return
+	if(src in M.permanent_huds)
+		return
 	for(var/atom/A in hudatoms)
 		remove_from_single_hud(M, A)
 	hudusers -= M
@@ -71,7 +76,13 @@ var/datum/atom_hud/huds = list( \
 	//	for(var/datum/gang/G in ticker.mode.gangs)
 	//		gang_huds += G.ganghud
 
-	for(var/datum/atom_hud/hud in huds)//|gang_huds))
+	var/serv_huds = list()//mindslaves and/or vampire thralls
+	if(ticker.mode)
+		for(var/datum/mindslaves/serv in (ticker.mode.vampires | ticker.mode.traitors))
+			serv_huds += serv.thrallhud
+
+
+	for(var/datum/atom_hud/hud in (huds|serv_huds))//|gang_huds))
 		if(src in hud.hudusers)
 			hud.add_hud_to(src)
 

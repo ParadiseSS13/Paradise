@@ -82,7 +82,7 @@
 	//use up stored charges
 	if(charges >= 10)
 		charges -= 10
-		new /obj/effect/spider/eggcluster(pick(view(1,src)))
+		new /obj/structure/spider/eggcluster(pick(view(1,src)))
 
 	if(charges >= 3)
 		if(prob(5))
@@ -99,7 +99,7 @@
 
 	if(charges >= 0.1)
 		if(prob(5))
-			src.visible_message("\red \icon[src] [src]'s eyes glow ruby red for a moment!")
+			src.visible_message("\red [bicon(src)] [src]'s eyes glow ruby red for a moment!")
 			charges -= 0.1
 
 	//check on our shadow wights
@@ -129,7 +129,7 @@
 
 		var/target = pick("chest","groin","head","l_arm","r_arm","r_leg","l_leg","l_hand","r_hand","l_foot","r_foot")
 		M.apply_damage(rand(5, 10), BRUTE, target)
-		M << "\red The skin on your [parse_zone(target)] feels like it's ripping apart, and a stream of blood flies out."
+		to_chat(M, "\red The skin on your [parse_zone(target)] feels like it's ripping apart, and a stream of blood flies out.")
 		var/obj/effect/decal/cleanable/blood/splatter/animated/B = new(M.loc)
 		B.target_turf = pick(range(1, src))
 		B.blood_DNA = list()
@@ -194,10 +194,10 @@
 			'sound/hallucinations/turn_around1.ogg',\
 			'sound/hallucinations/turn_around2.ogg',\
 			), 50, 1, -3)
-			M.sleeping = max(M.sleeping,rand(5,10))
+			M.Sleeping(rand(5,10))
 			src.loc = null
 	else
 		processing_objects.Remove(src)
 
 /obj/effect/shadow_wight/Bump(var/atom/obstacle)
-	obstacle << "\red You feel a chill run down your spine!"
+	to_chat(obstacle, "\red You feel a chill run down your spine!")

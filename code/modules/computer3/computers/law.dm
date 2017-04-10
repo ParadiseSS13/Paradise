@@ -17,17 +17,18 @@
 
 		opened = !opened
 		if(opened)
-			usr << "\blue The access panel is now open."
+			to_chat(usr, "\blue The access panel is now open.")
 		else
-			usr << "\blue The access panel is now closed."
+			to_chat(usr, "\blue The access panel is now closed.")
 		return
 
 
 	attackby(obj/item/weapon/aiModule/module as obj, mob/user as mob, params)
-		if (user.z > 6)
-			user << "\red <b>Unable to establish a connection</b>: \black You're too far away from the station!"
-			return
 		if(istype(module, /obj/item/weapon/aiModule))
+			var/turf/T = get_turf(current)
+			if(!atoms_share_level(T, src))
+				to_chat(user, "<span class='danger'>Unable to establish a connection</span>: You're too far away from the target silicon!")
+				return
 			module.install(src)
 		else
 			return ..()
@@ -35,18 +36,18 @@
 
 	attack_hand(var/mob/user as mob)
 		if(src.stat & NOPOWER)
-			usr << "The upload computer has no power!"
+			to_chat(usr, "The upload computer has no power!")
 			return
 		if(src.stat & BROKEN)
-			usr << "The upload computer is broken!"
+			to_chat(usr, "The upload computer is broken!")
 			return
 
 		src.current = select_active_ai(user)
 
-		if (!src.current)
-			usr << "No active AIs detected."
+		if(!src.current)
+			to_chat(usr, "No active AIs detected.")
 		else
-			usr << "[src.current.name] selected for law changes."
+			to_chat(usr, "[src.current.name] selected for law changes.")
 		return
 
 
@@ -60,6 +61,10 @@
 
 	attackby(obj/item/weapon/aiModule/module as obj, mob/user as mob, params)
 		if(istype(module, /obj/item/weapon/aiModule))
+			var/turf/T = get_turf(current)
+			if(!atoms_share_level(T, src))
+				to_chat(user, "<span class='danger'>Unable to establish a connection</span>: You're too far away from the target silicon!")
+				return
 			module.install(src)
 		else
 			return ..()
@@ -67,16 +72,16 @@
 
 	attack_hand(var/mob/user as mob)
 		if(src.stat & NOPOWER)
-			usr << "The upload computer has no power!"
+			to_chat(usr, "The upload computer has no power!")
 			return
 		if(src.stat & BROKEN)
-			usr << "The upload computer is broken!"
+			to_chat(usr, "The upload computer is broken!")
 			return
 
 		src.current = freeborg()
 
-		if (!src.current)
-			usr << "No free cyborgs detected."
+		if(!src.current)
+			to_chat(usr, "No free cyborgs detected.")
 		else
-			usr << "[src.current.name] selected for law changes."
+			to_chat(usr, "[src.current.name] selected for law changes.")
 		return

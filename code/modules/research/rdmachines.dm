@@ -36,13 +36,13 @@
 	w -= src.disable_wire
 
 /obj/machinery/r_n_d/attack_hand(mob/user as mob)
-	if (shocked)
+	if(shocked)
 		shock(user,50)
 	if(panel_open)
 		var/dat as text
 		dat += "[src.name] Wires:<BR>"
 		for(var/wire in src.wires)
-			dat += text("[wire] Wire: <A href='?src=\ref[src];wire=[wire];cut=1'>[src.wires[wire] ? "Mend" : "Cut"]</A> <A href='?src=\ref[src];wire=[wire];pulse=1'>Pulse</A><BR>")
+			dat += text("[wire] Wire: <A href='?src=[UID()];wire=[wire];cut=1'>[src.wires[wire] ? "Mend" : "Cut"]</A> <A href='?src=[UID()];wire=[wire];pulse=1'>Pulse</A><BR>")
 
 		dat += text("The red light is [src.disabled ? "off" : "on"].<BR>")
 		dat += text("The green light is [src.shocked ? "off" : "on"].<BR>")
@@ -58,11 +58,11 @@
 	src.add_fingerprint(usr)
 	if(href_list["pulse"])
 		var/temp_wire = href_list["wire"]
-		if (!istype(usr.get_active_hand(), /obj/item/device/multitool))
-			usr << "You need a multitool!"
+		if(!istype(usr.get_active_hand(), /obj/item/device/multitool))
+			to_chat(usr, "You need a multitool!")
 		else
 			if(src.wires[temp_wire])
-				usr << "You can't pulse a cut wire."
+				to_chat(usr, "You can't pulse a cut wire.")
 			else
 				if(src.hack_wire == href_list["wire"])
 					src.hacked = !src.hacked
@@ -76,8 +76,8 @@
 					src.shock(usr,50)
 					spawn(100) src.shocked = !src.shocked
 	if(href_list["cut"])
-		if (!istype(usr.get_active_hand(), /obj/item/weapon/wirecutters))
-			usr << "You need wirecutters!"
+		if(!istype(usr.get_active_hand(), /obj/item/weapon/wirecutters))
+			to_chat(usr, "You need wirecutters!")
 		else
 			var/temp_wire = href_list["wire"]
 			wires[temp_wire] = !wires[temp_wire]

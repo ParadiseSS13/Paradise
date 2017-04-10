@@ -16,7 +16,14 @@
 	aSignal = new(src)
 	aSignal.code = rand(1,100)
 
-	aSignal.frequency = sanitize_frequency(rand(PUBLIC_LOW_FREQ, PUBLIC_HIGH_FREQ))
+	var/new_frequency = sanitize_frequency(rand(PUBLIC_LOW_FREQ, PUBLIC_HIGH_FREQ))
+	aSignal.set_frequency(new_frequency)
+	poi_list |= src
+
+/obj/effect/anomaly/Destroy()
+	QDEL_NULL(aSignal)
+	poi_list.Remove(src)
+	return ..()
 
 /obj/effect/anomaly/proc/anomalyEffect()
 	if(prob(50))
@@ -34,7 +41,7 @@
 
 /obj/effect/anomaly/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/device/analyzer))
-		user << "<span class='notice'>Analyzing... [src]'s unstable field is fluctuating along frequency [aSignal.code]:[format_frequency(aSignal.frequency)].</span>"
+		to_chat(user, "<span class='notice'>Analyzing... [src]'s unstable field is fluctuating along frequency [aSignal.code]:[format_frequency(aSignal.frequency)].</span>")
 
 ///////////////////////
 

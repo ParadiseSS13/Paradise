@@ -12,7 +12,7 @@
 			icon_state = "cpaper_words"
 			return
 		icon_state = "cpaper"
-	else if (copied)
+	else if(copied)
 		if(info)
 			icon_state = "paper_words"
 			return
@@ -30,7 +30,7 @@
 	set category = "Object"
 	set src in usr
 
-	if (copied == 0)
+	if(copied == 0)
 		var/obj/item/weapon/paper/carbon/c = src
 		var/copycontents = html_decode(c.info)
 		var/obj/item/weapon/paper/carbon/copy = new /obj/item/weapon/paper/carbon (usr.loc)
@@ -41,10 +41,10 @@
 		copy.name = "Copy - " + c.name
 		copy.fields = c.fields
 		copy.updateinfolinks()
-		usr << "<span class='notice'>You tear off the carbon-copy!</span>"
+		to_chat(usr, "<span class='notice'>You tear off the carbon-copy!</span>")
 		c.copied = 1
 		copy.iscopy = 1
 		copy.update_icon()
 		c.update_icon()
 	else
-		usr << "There are no more carbon copies attached to this paper!"
+		to_chat(usr, "There are no more carbon copies attached to this paper!")

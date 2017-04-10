@@ -5,7 +5,7 @@
 	icon_state = "retractor"
 	materials = list(MAT_METAL=6000, MAT_GLASS=3000)
 	flags = CONDUCT
-	w_class = 2.0
+	w_class = 2
 	origin_tech = "materials=1;biotech=1"
 
 
@@ -16,7 +16,7 @@
 	icon_state = "hemostat"
 	materials = list(MAT_METAL=5000, MAT_GLASS=2500)
 	flags = CONDUCT
-	w_class = 1.0
+	w_class = 1
 	origin_tech = "materials=1;biotech=1"
 	attack_verb = list("attacked", "pinched")
 
@@ -28,7 +28,7 @@
 	icon_state = "cautery"
 	materials = list(MAT_METAL=2500, MAT_GLASS=750)
 	flags = CONDUCT
-	w_class = 1.0
+	w_class = 1
 	origin_tech = "materials=1;biotech=1"
 	attack_verb = list("burnt")
 
@@ -44,13 +44,13 @@
 	force = 15.0
 	sharp = 1
 	edge = 1
-	w_class = 3.0
+	w_class = 3
 	origin_tech = "materials=1;biotech=1"
 	attack_verb = list("drilled")
 
 	suicide_act(mob/user)
-		viewers(user) << pick("<span class='suicide'>[user] is pressing [src] to \his temple and activating it! It looks like \he's trying to commit suicide.</span>", \
-							"<span class='suicide'>[user] is pressing [src] to \his chest and activating it! It looks like \he's trying to commit suicide.</span>")
+		to_chat(viewers(user), pick("<span class='suicide'>[user] is pressing [src] to \his temple and activating it! It looks like \he's trying to commit suicide.</span>",
+							"<span class='suicide'>[user] is pressing [src] to \his chest and activating it! It looks like \he's trying to commit suicide.</span>"))
 		return (BRUTELOSS)
 
 
@@ -59,11 +59,12 @@
 	desc = "Cut, cut, and once more cut."
 	icon = 'icons/obj/surgery.dmi'
 	icon_state = "scalpel"
+	item_state = "scalpel"
 	flags = CONDUCT
 	force = 10.0
 	sharp = 1
 	edge = 1
-	w_class = 1.0
+	w_class = 1
 	throwforce = 5.0
 	throw_speed = 3
 	throw_range = 5
@@ -73,46 +74,45 @@
 	hitsound = 'sound/weapons/bladeslice.ogg'
 
 	suicide_act(mob/user)
-		viewers(user) << pick("<span class='suicide'>[user] is slitting \his wrists with [src]! It looks like \he's trying to commit suicide.</span>", \
-							"<span class='suicide'>[user] is slitting \his throat with [src]! It looks like \he's trying to commit suicide.</span>", \
-							"<span class='suicide'>[user] is slitting \his stomach open with [src]! It looks like \he's trying to commit seppuku.</span>")
+		to_chat(viewers(user), pick("<span class='suicide'>[user] is slitting \his wrists with [src]! It looks like \he's trying to commit suicide.</span>",
+							"<span class='suicide'>[user] is slitting \his throat with [src]! It looks like \he's trying to commit suicide.</span>",
+							"<span class='suicide'>[user] is slitting \his stomach open with [src]! It looks like \he's trying to commit seppuku.</span>"))
 		return (BRUTELOSS)
 
 
 /*
  * Researchable Scalpels
  */
-/obj/item/weapon/scalpel/laser1
+/obj/item/weapon/scalpel/laser //parent type
 	name = "laser scalpel"
-	desc = "A scalpel augmented with a directed laser, for more precise cutting without blood entering the field.  This one looks basic and could be improved."
+	desc = "A scalpel augmented with a directed laser."
 	icon_state = "scalpel_laser1_on"
-	item_state = "scalpel"
 	damtype = "fire"
 	hitsound = 'sound/weapons/sear.ogg'
 
-/obj/item/weapon/scalpel/laser2
+/obj/item/weapon/scalpel/laser/laser1 //lasers also count as catuarys
 	name = "laser scalpel"
-	desc = "A scalpel augmented with a directed laser, for more precise cutting without blood entering the field.  This one looks somewhat advanced."
+	desc = "A scalpel augmented with a directed laser.  This one looks basic and could be improved."
+	icon_state = "scalpel_laser1_on"
+	toolspeed = 0.8
+
+/obj/item/weapon/scalpel/laser/laser2
+	name = "laser scalpel"
+	desc = "A scalpel augmented with a directed laser. This one looks somewhat advanced."
 	icon_state = "scalpel_laser2_on"
-	item_state = "scalpel"
-	damtype = "fire"
-	hitsound = 'sound/weapons/sear.ogg'
+	toolspeed = 0.6
 
-/obj/item/weapon/scalpel/laser3
+/obj/item/weapon/scalpel/laser/laser3
 	name = "laser scalpel"
-	desc = "A scalpel augmented with a directed laser, for more precise cutting without blood entering the field.  This one looks to be the pinnacle of precision energy cutlery!"
+	desc = "A scalpel augmented with a directed laser.  This one looks to be the pinnacle of precision energy cutlery!"
 	icon_state = "scalpel_laser3_on"
-	item_state = "scalpel"
-	damtype = "fire"
-	hitsound = 'sound/weapons/sear.ogg'
+	toolspeed = 0.4
 
-/obj/item/weapon/scalpel/manager
+/obj/item/weapon/scalpel/laser/manager //super tool! Retractor/hemostat
 	name = "incision management system"
 	desc = "A true extension of the surgeon's body, this marvel instantly and completely prepares an incision allowing for the immediate commencement of therapeutic steps."
 	icon_state = "scalpel_manager_on"
-	item_state = "scalpel"
-	damtype = "fire"
-	hitsound = 'sound/weapons/sear.ogg'
+	toolspeed = 0.2
 
 /obj/item/weapon/circular_saw
 	name = "circular saw"
@@ -124,7 +124,7 @@
 	force = 15.0
 	sharp = 1
 	edge = 1
-	w_class = 3.0
+	w_class = 3
 	throwforce = 9.0
 	throw_speed = 3
 	throw_range = 5
@@ -132,15 +132,15 @@
 	origin_tech = "materials=1;biotech=1"
 	attack_verb = list("attacked", "slashed", "sawed", "cut")
 
-
 //misc, formerly from code/defines/weapons.dm
 /obj/item/weapon/bonegel
 	name = "bone gel"
 	icon = 'icons/obj/surgery.dmi'
 	icon_state = "bone-gel"
 	force = 0
-	w_class = 2.0
+	w_class = 2
 	throwforce = 1.0
+	origin_tech = "materials=1;biotech=1"
 
 /obj/item/weapon/FixOVein
 	name = "FixOVein"
@@ -148,9 +148,8 @@
 	icon_state = "fixovein"
 	force = 0
 	throwforce = 1.0
-	origin_tech = "materials=1;biotech=3"
-	w_class = 2.0
-	var/usage_amount = 10
+	origin_tech = "materials=1;biotech=1"
+	w_class = 2
 
 /obj/item/weapon/bonesetter
 	name = "bone setter"
@@ -160,20 +159,15 @@
 	throwforce = 9.0
 	throw_speed = 3
 	throw_range = 5
-	w_class = 2.0
+	w_class = 2
 	attack_verb = list("attacked", "hit", "bludgeoned")
+	origin_tech = "materials=1;biotech=1"
 
 /obj/item/weapon/surgical_drapes
 	name = "surgical drapes"
 	desc = "Nanotrasen brand surgical drapes provide optimal safety and infection control."
 	icon = 'icons/obj/surgery.dmi'
 	icon_state = "surgical_drapes"
-	w_class = 1.0
+	w_class = 1
 	origin_tech = "biotech=1"
 	attack_verb = list("slapped")
-
-/*
-/obj/item/weapon/surgical_drapes/attack(mob/living/M, mob/user)
-	if(!attempt_initiate_surgery(src, M, user))
-		..()
-*/

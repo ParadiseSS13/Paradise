@@ -10,6 +10,7 @@
 	range = -1
 	cooldown_min = 100 //50 deciseconds reduction per rank
 	include_user = 1
+	nonabstract_req = 1
 	centcom_cancast = 0 //Prevent people from getting to centcom
 
 	var phaseshift = 0
@@ -17,8 +18,11 @@
 
 	action_icon_state = "jaunt"
 
-/obj/effect/proc_holder/spell/targeted/ethereal_jaunt/cast(list/targets) //magnets, so mostly hardcoded
+/obj/effect/proc_holder/spell/targeted/ethereal_jaunt/cast(list/targets, mob/user = usr) //magnets, so mostly hardcoded
 	for(var/mob/living/target in targets)
+		if(!target.can_safely_leave_loc()) // No more brainmobs hopping out of their brains
+			to_chat(target, "<span class='warning'>You are somehow too bound to your current location to abandon it.</span>")
+			continue
 		spawn(0)
 
 			if(target.buckled)
@@ -95,6 +99,7 @@
 	var/canmove = 1
 	density = 0
 	anchored = 1
+	burn_state = LAVA_PROOF
 
 /obj/effect/dummy/spell_jaunt/Destroy()
 	// Eject contents if deleted somehow
@@ -103,12 +108,12 @@
 	return ..()
 
 /obj/effect/dummy/spell_jaunt/relaymove(var/mob/user, direction)
-	if (!src.canmove) return
+	if(!src.canmove) return
 	var/turf/newLoc = get_step(src,direction)
 	if(!(newLoc.flags & NOJAUNT))
 		loc = newLoc
 	else
-		user << "<span class='warning'>Some strange aura is blocking the way!</span>"
+		to_chat(user, "<span class='warning'>Some strange aura is blocking the way!</span>")
 	src.canmove = 0
 	spawn(2) src.canmove = 1
 

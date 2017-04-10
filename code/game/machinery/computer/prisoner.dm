@@ -27,48 +27,50 @@
 	var/dat
 	dat += "<B>Prisoner Implant Manager System</B><BR>"
 	if(screen == 0)
-		dat += "<HR><A href='?src=\ref[src];lock=1'>Unlock Console</A>"
+		dat += "<HR><A href='?src=[UID()];lock=1'>Unlock Console</A>"
 	else if(screen == 1)
 		if(istype(inserted_id))
 			var/p = inserted_id:points
 			var/g = inserted_id:goal
-			dat += text("<A href='?src=\ref[src];id=1'>[inserted_id]</A><br>")
-			dat += text("Collected points: [p]. <A href='?src=\ref[src];id=2'>Reset.</A><br>")
-			dat += text("Card goal: [g].  <A href='?src=\ref[src];id=3'>Set </A><br>")
+			dat += text("<A href='?src=[UID()];id=1'>[inserted_id]</A><br>")
+			dat += text("Collected points: [p]. <A href='?src=[UID()];id=2'>Reset.</A><br>")
+			dat += text("Card goal: [g].  <A href='?src=[UID()];id=3'>Set </A><br>")
 			dat += text("Space Law recommends sentences of 100 points per minute they would normally serve in the brig.<BR>")
 		else
-			dat += text("<A href='?src=\ref[src];id=0'>Insert Prisoner ID</A><br>")
-		dat += "<HR>Chemical Implants<BR>"
+			dat += text("<A href='?src=[UID()];id=0'>Insert Prisoner ID</A><br>")
 		var/turf/Tr = null
-		for(var/obj/item/weapon/implant/chem/C in tracking_implants)
+		dat += "<HR>Chemical Implants<BR>"
+		for(var/obj/item/weapon/implant/chem/C in tracked_implants)
 			Tr = get_turf(C)
 			if((Tr) && (Tr.z != src.z))	continue//Out of range
 			if(!C.implanted) continue
-
 			// AUTOFIXED BY fix_string_idiocy.py
 			// C:\Users\Rob\Documents\Projects\vgstation13\code\game\machinery\computer\prisoner.dm:41: dat += "[C.imp_in.name] | Remaining Units: [C.reagents.total_volume] | Inject: "
 			dat += {"[C.imp_in.name] | Remaining Units: [C.reagents.total_volume] | Inject:
-				<A href='?src=\ref[src];inject1=\ref[C]'>(<font color=red>(1)</font>)</A>
-				<A href='?src=\ref[src];inject5=\ref[C]'>(<font color=red>(5)</font>)</A>
-				<A href='?src=\ref[src];inject10=\ref[C]'>(<font color=red>(10)</font>)</A><BR>
+				<A href='?src=[UID()];inject1=\ref[C]'>(<font color=red>(1)</font>)</A>
+				<A href='?src=[UID()];inject5=\ref[C]'>(<font color=red>(5)</font>)</A>
+				<A href='?src=[UID()];inject10=\ref[C]'>(<font color=red>(10)</font>)</A><BR>
 				********************************<BR>"}
 			// END AUTOFIX
 		dat += "<HR>Tracking Implants<BR>"
-		for(var/obj/item/weapon/implant/tracking/T in tracking_implants)
+		for(var/obj/item/weapon/implant/tracking/T in tracked_implants)
 			Tr = get_turf(T)
 			if((Tr) && (Tr.z != src.z))	continue//Out of range
 			if(!T.implanted) continue
-			var/loc_display = "Unknown"
 			var/mob/living/carbon/M = T.imp_in
-			if((M.z in config.station_levels) && !istype(M.loc, /turf/space))
-				var/turf/mob_loc = get_turf(M)
-				loc_display = mob_loc.loc
-			if(T.malfunction)
-				loc_display = pick(teleportlocs)
-			dat += "ID: [T.id] | Location: [loc_display]<BR>"
-			dat += "<A href='?src=\ref[src];warn=\ref[T]'>(<font color=red><i>Message Holder</i></font>)</A> |<BR>"
+			var/loc_display = "Unknown"
+			var/health_display = "OK"
+			var/total_loss = (M.maxHealth - M.health)
+			if(M.stat == DEAD)
+				health_display = "DEAD"
+			else if(total_loss)
+				health_display = "HURT ([total_loss])"
+			if(is_station_level(M.z) && !istype(M.loc, /turf/space))
+				loc_display = "[get_area(M)]"
+			dat += "ID: [T.id] <BR>Subject: [M] <BR>Location: [loc_display] <BR>Health: [health_display] <BR>"
+			dat += "<A href='?src=[UID()];warn=\ref[T]'>(<font color=red><i>Message Holder</i></font>)</A> |<BR>"
 			dat += "********************************<BR>"
-		dat += "<HR><A href='?src=\ref[src];lock=1'>Lock Console</A>"
+		dat += "<HR><A href='?src=[UID()];lock=1'>Lock Console</A>"
 
 	user << browse(dat, "window=computer;size=400x500")
 	onclose(user, "computer")
@@ -93,7 +95,8 @@
 					usr.drop_item()
 					I.loc = src
 					inserted_id = I
-				else usr << "\red No valid ID."
+				else
+					to_chat(usr, "\red No valid ID.")
 			if("1")
 				inserted_id.loc = get_step(src,get_turf(usr))
 				inserted_id = null
@@ -119,7 +122,7 @@
 		if(src.allowed(usr))
 			screen = !screen
 		else
-			usr << "<span class='warning'>Unauthorized access.</span>"
+			to_chat(usr, "<span class='warning'>Unauthorized access.</span>")
 
 	else if(href_list["warn"])
 		var/warning = sanitize(copytext(input(usr,"Message:","Enter your message here!",""),1,MAX_MESSAGE_LEN))
@@ -127,7 +130,7 @@
 		var/obj/item/weapon/implant/I = locate(href_list["warn"])
 		if((I)&&(I.imp_in))
 			var/mob/living/carbon/R = I.imp_in
-			R << "<span class='boldnotice'>You hear a voice in your head saying: '[warning]'</span>"
+			to_chat(R, "<span class='boldnotice'>You hear a voice in your head saying: '[warning]'</span>")
 
 	src.add_fingerprint(usr)
 	src.updateUsrDialog()

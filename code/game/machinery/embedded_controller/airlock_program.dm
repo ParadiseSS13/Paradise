@@ -36,7 +36,7 @@
 	memory["purge"] = 0
 	memory["secure"] = 0
 
-	if (istype(M, /obj/machinery/embedded_controller/radio/airlock))	//if our controller is an airlock controller than we can auto-init our tags
+	if(istype(M, /obj/machinery/embedded_controller/radio/airlock))	//if our controller is an airlock controller than we can auto-init our tags
 		var/obj/machinery/embedded_controller/radio/airlock/controller = M
 		tag_exterior_door = controller.tag_exterior_door? controller.tag_exterior_door : "[id_tag]_outer"
 		tag_interior_door = controller.tag_interior_door? controller.tag_interior_door : "[id_tag]_inner"
@@ -177,13 +177,13 @@
 			if(memory["pump_status"] != "off")	//send a signal to stop pumping
 				signalPump(tag_airpump, 0)
 
-	if ((state == STATE_PRESSURIZE || state == STATE_DEPRESSURIZE) && !check_doors_secured())
+	if((state == STATE_PRESSURIZE || state == STATE_DEPRESSURIZE) && !check_doors_secured())
 		//the airlock will not allow itself to continue to cycle when any of the doors are forced open.
 		stop_cycling()
 
 	switch(state)
 		if(STATE_PREPARE)
-			if (check_doors_secured())
+			if(check_doors_secured())
 				var/chamber_pressure = memory["chamber_sensor_pressure"]
 				var/target_pressure = memory["target_pressure"]
 

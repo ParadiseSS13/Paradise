@@ -4,7 +4,7 @@
 	set desc = "Click to rename your nation. You are only able to do this once."
 
 	var/datum/game_mode/nations/mode = get_nations_mode()
-	if (!mode) return 1
+	if(!mode) return 1
 
 	if(!mode.kickoff) return 1
 
@@ -16,7 +16,7 @@
 		if(input)
 			H.mind.nation.current_name = input
 			H.mind.nation.update_nation_id()
-			H << "You rename your nation to [input]."
+			to_chat(H, "You rename your nation to [input].")
 			H.verbs -= /mob/living/carbon/human/proc/set_nation_name
 			return 1
 
@@ -27,7 +27,7 @@
 	set desc = "Click to set a rank for Leaders and Members."
 
 	var/datum/game_mode/nations/mode = get_nations_mode()
-	if (!mode) return 1
+	if(!mode) return 1
 
 	if(!mode.kickoff) return 1
 
@@ -44,7 +44,7 @@
 			if(type == "Member")
 				H.mind.nation.member_rank = input
 			H.mind.nation.update_nation_id()
-			H << "You changed the [type] rank of your nation to [input]."
+			to_chat(H, "You changed the [type] rank of your nation to [input].")
 			return 1
 
 /mob/living/carbon/human/proc/choose_heir()
@@ -53,7 +53,7 @@
 	set desc = "Click to pick a Heir. Note that the Heir has the ability to take over your role at ANY TIME. Choose carefully."
 
 	var/datum/game_mode/nations/mode = get_nations_mode()
-	if (!mode) return 1
+	if(!mode) return 1
 
 	if(!mode.kickoff) return 1
 
@@ -64,13 +64,13 @@
 		if(heir)
 			if(H.mind.nation.heir)
 				var/mob/living/carbon/human/oldheir = H.mind.nation.heir
-				oldheir << "You are no longer the heir to your nation!"
+				to_chat(oldheir, "You are no longer the heir to your nation!")
 				oldheir.verbs -= /mob/living/carbon/human/proc/takeover
 			var/mob/living/carbon/human/newheir = heir
 			H.mind.nation.heir = newheir
 			newheir.verbs += /mob/living/carbon/human/proc/takeover
-			newheir << "You have been selected to be the heir to your nation's leadership!"
-			H << "You have selected [heir] to be your heir!"
+			to_chat(newheir, "You have been selected to be the heir to your nation's leadership!")
+			to_chat(H, "You have selected [heir] to be your heir!")
 			H.mind.nation.update_nation_id()
 
 
@@ -80,7 +80,7 @@
 	set desc = "Click to replace your current nation's leader with yourself."
 
 	var/datum/game_mode/nations/mode = get_nations_mode()
-	if (!mode) return 1
+	if(!mode) return 1
 
 	if(!mode.kickoff) return 1
 
@@ -90,7 +90,7 @@
 		var/confirmation = input(H, "Are you sure you want to take over leadership?", "Become Leader", "") as null|anything in list("Yes", "No")
 		if(confirmation == "Yes")
 			var/mob/living/carbon/human/oldleader = H.mind.nation.current_leader
-			oldleader << "You have been replaced by [H.name] as the leader of [H.mind.nation.current_name]!"
+			to_chat(oldleader, "You have been replaced by [H.name] as the leader of [H.mind.nation.current_name]!")
 			oldleader.verbs -= /mob/living/carbon/human/proc/set_nation_name
 			oldleader.verbs -= /mob/living/carbon/human/proc/set_ranks
 			oldleader.verbs -= /mob/living/carbon/human/proc/choose_heir
@@ -100,7 +100,7 @@
 			H.verbs += /mob/living/carbon/human/proc/set_nation_name
 			H.verbs += /mob/living/carbon/human/proc/set_ranks
 			H.verbs += /mob/living/carbon/human/proc/choose_heir
-			H << "You have replaced [oldleader.name] as the leader of [H.mind.nation.current_name]!"
+			to_chat(H, "You have replaced [oldleader.name] as the leader of [H.mind.nation.current_name]!")
 			H.mind.nation.update_nation_id()
 
 

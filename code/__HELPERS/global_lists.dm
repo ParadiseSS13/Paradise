@@ -4,6 +4,10 @@
 //////////////////////////
 
 /proc/makeDatumRefLists()
+	//markings
+	init_sprite_accessory_subtypes(/datum/sprite_accessory/body_markings, marking_styles_list)
+	//head accessory
+	init_sprite_accessory_subtypes(/datum/sprite_accessory/head_accessory, head_accessory_styles_list)
 	//hair
 	init_sprite_accessory_subtypes(/datum/sprite_accessory/hair, hair_styles_list, hair_styles_male_list, hair_styles_female_list)
 	//facial hair
@@ -14,16 +18,20 @@
 	init_sprite_accessory_subtypes(/datum/sprite_accessory/undershirt, undershirt_list, undershirt_m, undershirt_f)
 	//socks
 	init_sprite_accessory_subtypes(/datum/sprite_accessory/socks, socks_list, socks_m, socks_f)
+	//alt heads
+	init_sprite_accessory_subtypes(/datum/sprite_accessory/alt_heads, alt_heads_list)
 
 	init_subtypes(/datum/surgery_step, surgery_steps)
-	sort_surgeries()
+
+	for(var/path in (subtypesof(/datum/surgery)))
+		surgeries_list += new path()
 
 	init_datum_subtypes(/datum/job, joblist, list(/datum/job/ai, /datum/job/cyborg), "title")
 	init_datum_subtypes(/datum/superheroes, all_superheroes, null, "name")
 	init_datum_subtypes(/datum/nations, all_nations, null, "default_name")
 	init_datum_subtypes(/datum/language, all_languages, null, "name")
 
-	for (var/language_name in all_languages)
+	for(var/language_name in all_languages)
 		var/datum/language/L = all_languages[language_name]
 		if(!(L.flags & NONGLOBAL))
 			language_keys[":[lowertext(L.key)]"] = L
@@ -40,19 +48,22 @@
 		if(S.flags & IS_WHITELISTED)
 			whitelisted_species += S.name
 
-	init_subtypes(/datum/table_recipe, table_recipes)
+	init_subtypes(/datum/crafting_recipe, crafting_recipes)
+
+	all_cults = typesof(/datum/cult_info)
+
 	return 1
 
 /* // Uncomment to debug chemical reaction list.
 /client/verb/debug_chemical_list()
 
-	for (var/reaction in chemical_reactions_list)
+	for(var/reaction in chemical_reactions_list)
 		. += "chemical_reactions_list\[\"[reaction]\"\] = \"[chemical_reactions_list[reaction]]\"\n"
 		if(islist(chemical_reactions_list[reaction]))
 			var/list/L = chemical_reactions_list[reaction]
 			for(var/t in L)
 				. += "    has: [t]\n"
-	world << .
+	to_chat(world, .)
 */
 
 

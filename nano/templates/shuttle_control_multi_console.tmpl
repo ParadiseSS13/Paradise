@@ -48,10 +48,10 @@
 <div class="item" style="padding-top: 10px">
 	<div class="item">
 		<div class="itemContent" style="padding-top: 2px; width: 100%">
-			{{:helper.link('Launch Ship', 'arrowthickstop-1-e', {'move_multi' : '1'}, data.can_launch ? null : 'disabled' , null)}}
-			{{:helper.link('Return to Base', 'arrowthickstop-1-w', {'start' : '1'}, data.can_return_to_base ? null : 'disabled' , null)}}
+			{{:helper.link('Launch Ship', 'arrow-circle-right', {'move_multi' : '1'}, data.can_launch ? null : 'disabled' , null)}}
+			{{:helper.link('Return to Base', 'arrow-circle-o-left', {'start' : '1'}, data.can_return_to_base ? null : 'disabled' , null)}}
 			{{if data.can_cloak}}
-				{{:helper.link(data.cloaked ? 'Disable Cloak' : 'Enable Cloak', 'alert', {'toggle_cloak' : '1'}, data.can_cloak ? null : 'disabled' , null)}}
+				{{:helper.link(data.cloaked ? 'Disable Cloak' : 'Enable Cloak', 'exclamation-triangle', {'toggle_cloak' : '1'}, data.can_cloak ? null : 'disabled' , null)}}
 			{{/if}}
 		</div>
 	</div>

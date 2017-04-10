@@ -6,24 +6,55 @@
 /datum/wires/airlock
 	holder_type = /obj/machinery/door/airlock
 	wire_count = 12
+	window_x = 410
 	window_y = 570
 
 var/const/AIRLOCK_WIRE_IDSCAN = 1
 var/const/AIRLOCK_WIRE_MAIN_POWER1 = 2
-var/const/AIRLOCK_WIRE_MAIN_POWER2 = 4
-var/const/AIRLOCK_WIRE_DOOR_BOLTS = 8
-var/const/AIRLOCK_WIRE_BACKUP_POWER1 = 16
-var/const/AIRLOCK_WIRE_BACKUP_POWER2 = 32
-var/const/AIRLOCK_WIRE_OPEN_DOOR = 64
-var/const/AIRLOCK_WIRE_AI_CONTROL = 128
-var/const/AIRLOCK_WIRE_ELECTRIFY = 256
-var/const/AIRLOCK_WIRE_SAFETY = 512
-var/const/AIRLOCK_WIRE_SPEED = 1024
-var/const/AIRLOCK_WIRE_LIGHT = 2048
+var/const/AIRLOCK_WIRE_DOOR_BOLTS = 4
+var/const/AIRLOCK_WIRE_BACKUP_POWER1 = 8
+var/const/AIRLOCK_WIRE_OPEN_DOOR = 16
+var/const/AIRLOCK_WIRE_AI_CONTROL = 32
+var/const/AIRLOCK_WIRE_ELECTRIFY = 64
+var/const/AIRLOCK_WIRE_SAFETY = 128
+var/const/AIRLOCK_WIRE_SPEED = 256
+var/const/AIRLOCK_WIRE_LIGHT = 512
 
-/datum/wires/airlock/CanUse(var/mob/living/L)
+/datum/wires/airlock/GetWireName(index)
+	switch(index)
+		if(AIRLOCK_WIRE_IDSCAN)
+			return "ID Scan"
+
+		if(AIRLOCK_WIRE_MAIN_POWER1)
+			return "Primary Power"
+
+		if(AIRLOCK_WIRE_DOOR_BOLTS)
+			return "Door Bolts"
+
+		if(AIRLOCK_WIRE_BACKUP_POWER1)
+			return "Primary Backup Power"
+
+		if(AIRLOCK_WIRE_OPEN_DOOR)
+			return "Door State"
+
+		if(AIRLOCK_WIRE_AI_CONTROL)
+			return "AI Control"
+
+		if(AIRLOCK_WIRE_ELECTRIFY)
+			return "Electrification"
+
+		if(AIRLOCK_WIRE_ELECTRIFY)
+			return "Door Safeties"
+
+		if(AIRLOCK_WIRE_ELECTRIFY)
+			return "Door Timing"
+
+		if(AIRLOCK_WIRE_ELECTRIFY)
+			return "Bolt Lights"
+
+/datum/wires/airlock/CanUse(mob/living/L)
 	var/obj/machinery/door/airlock/A = holder
-	if(!istype(L, /mob/living/silicon))
+	if(!issilicon(L))
 		if(A.isElectrified())
 			if(A.shock(L, 100))
 				return 0
@@ -31,26 +62,26 @@ var/const/AIRLOCK_WIRE_LIGHT = 2048
 		return 1
 	return 0
 
-/datum/wires/airlock/GetInteractWindow()
+/datum/wires/airlock/get_status()
+	. = ..()
 	var/obj/machinery/door/airlock/A = holder
 	var/haspower = A.arePowerSystemsOn()
-	. += ..()
-	. += text("<br>\n[]<br>\n[]<br>\n[]<br>\n[]<br>\n[]<br>\n[]<br>\n[]", 
-	(A.locked ? "The door bolts have fallen!" : "The door bolts look up."),
-	((A.lights && haspower) ? "The door bolt lights are on." : "The door bolt lights are off!"),
-	((haspower) ? "The test light is on." : "The test light is off!"),
-	((A.aiControlDisabled==0 && !A.emagged && haspower) ? "The 'AI control allowed' light is on." : "The 'AI control allowed' light is off."),
-	((A.safe==0 && haspower) ? "The 'Check Wiring' light is on." : "The 'Check Wiring' light is off."),
-	((A.normalspeed==0 && haspower) ? "The 'Check Timing Mechanism' light is on." : "The 'Check Timing Mechanism' light is off."),
-	((A.emergency && haspower) ? "The emergency lights are on." : "The emergency lights are off."))
 
-/datum/wires/airlock/UpdateCut(var/index, var/mended)
+	. += "The door bolts [A.locked ? "have fallen!" : "look up."]"
+	. += "The door bolt lights are [(A.lights && haspower) ? "on." : "off!"]"
+	. +=  "The test light is [haspower ? "on." : "off!"]"
+	. += "The 'AI control allowed' light is [(A.aiControlDisabled == 0 && !A.emagged && haspower) ? "on" : "off"]."
+	. += "The 'Check Wiring' light is [(A.safe == 0 && haspower) ? "on" : "off"]."
+	. += "The 'Check Timing Mechanism' light is [(A.normalspeed == 0 && haspower) ? "on" : "off"]."
+	. += "The emergency lights are [(A.emergency && haspower) ? "on" : "off"]."
+
+/datum/wires/airlock/UpdateCut(index, mended)
 
 	var/obj/machinery/door/airlock/A = holder
 	switch(index)
 		if(AIRLOCK_WIRE_IDSCAN)
 			A.aiDisabledIdScanner = !mended
-		if(AIRLOCK_WIRE_MAIN_POWER1, AIRLOCK_WIRE_MAIN_POWER2)
+		if(AIRLOCK_WIRE_MAIN_POWER1)
 
 			if(!mended)
 				//Cutting either one disables the main door power, but unless backup power is also cut, the backup power re-powers the door in 10 seconds. While unpowered, the door may be crowbarred open, but bolts-raising will not work. Cutting these wires may electocute the user.
@@ -60,7 +91,7 @@ var/const/AIRLOCK_WIRE_LIGHT = 2048
 				A.regainMainPower()
 				A.shock(usr, 50)
 
-		if(AIRLOCK_WIRE_BACKUP_POWER1, AIRLOCK_WIRE_BACKUP_POWER2)
+		if(AIRLOCK_WIRE_BACKUP_POWER1)
 
 			if(!mended)
 				//Cutting either one disables the backup door power (allowing it to be crowbarred open, but disabling bolts-raising), but may electocute the user.
@@ -100,20 +131,22 @@ var/const/AIRLOCK_WIRE_LIGHT = 2048
 				A.electrify(0)
 			return // Don't update the dialog.
 
-		if (AIRLOCK_WIRE_SAFETY)
+		if(AIRLOCK_WIRE_SAFETY)
 			A.safe = mended
 
 		if(AIRLOCK_WIRE_SPEED)
 			A.autoclose = mended
 			if(mended)
 				if(!A.density)
-					A.close()
+					spawn(0)
+						A.close()
 
 		if(AIRLOCK_WIRE_LIGHT)
 			A.lights = mended
 			A.update_icon()
+	..()
 
-/datum/wires/airlock/UpdatePulsed(var/index)
+/datum/wires/airlock/UpdatePulsed(index)
 
 	var/obj/machinery/door/airlock/A = holder
 	switch(index)
@@ -124,7 +157,7 @@ var/const/AIRLOCK_WIRE_LIGHT = 2048
 				if(A.emergency)
 					A.emergency = 0
 					A.update_icon()
-		if(AIRLOCK_WIRE_MAIN_POWER1 || AIRLOCK_WIRE_MAIN_POWER2)
+		if(AIRLOCK_WIRE_MAIN_POWER1)
 			//Sending a pulse through either one causes a breaker to trip, disabling the door for 10 seconds if backup power is connected, or 1 minute if not (or until backup power comes back on, whichever is shorter).
 			A.loseMainPower()
 		if(AIRLOCK_WIRE_DOOR_BOLTS)
@@ -135,7 +168,7 @@ var/const/AIRLOCK_WIRE_LIGHT = 2048
 			else
 				A.unlock()
 
-		if(AIRLOCK_WIRE_BACKUP_POWER1 || AIRLOCK_WIRE_BACKUP_POWER2)
+		if(AIRLOCK_WIRE_BACKUP_POWER1)
 			//two wires for backup power. Sending a pulse through either one causes a breaker to trip, but this does not disable it unless main power is down too (in which case it is disabled for 1 minute or however long it takes main power to come back, whichever is shorter).
 			A.loseBackupPower()
 		if(AIRLOCK_WIRE_AI_CONTROL)
@@ -159,12 +192,16 @@ var/const/AIRLOCK_WIRE_LIGHT = 2048
 			//will succeed only if the ID wire is cut or the door requires no access and it's not emagged
 			if(A.emagged)	return
 			if(!A.requiresID() || A.check_access(null))
-				if(A.density)	A.open()
-				else		A.close()
+				spawn(0)
+					if(A.density)
+						A.open()
+					else
+						A.close()
 		if(AIRLOCK_WIRE_SAFETY)
 			A.safe = !A.safe
 			if(!A.density)
-				A.close()
+				spawn(0)
+					A.close()
 
 		if(AIRLOCK_WIRE_SPEED)
 			A.normalspeed = !A.normalspeed
@@ -172,3 +209,5 @@ var/const/AIRLOCK_WIRE_LIGHT = 2048
 		if(AIRLOCK_WIRE_LIGHT)
 			A.lights = !A.lights
 			A.update_icon()
+
+	..()

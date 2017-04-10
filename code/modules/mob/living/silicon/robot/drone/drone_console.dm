@@ -20,8 +20,15 @@
 		return
 
 	if(!allowed(user))
-		user << "\red Access denied."
+		to_chat(user, "\red Access denied.")
 		return
+
+	interact(user)
+
+/obj/machinery/computer/drone_control/attack_ghost(mob/user as mob)
+	interact(user)
+
+/obj/machinery/computer/drone_control/interact(mob/user)
 
 	user.set_machine(src)
 	var/dat
@@ -31,12 +38,12 @@
 		dat += "<BR>[D.real_name] ([D.stat == 2 ? "<font color='red'>INACTIVE" : "<font color='green'>ACTIVE"]</FONT>)"
 		dat += "<font dize = 9><BR>Cell charge: [D.cell.charge]/[D.cell.maxcharge]."
 		dat += "<BR>Currently located in: [get_area(D)]."
-		dat += "<BR><A href='?src=\ref[src];resync=\ref[D]'>Resync</A> | <A href='?src=\ref[src];shutdown=\ref[D]'>Shutdown</A></font>"
+		dat += "<BR><A href='?src=[UID()];resync=\ref[D]'>Resync</A> | <A href='?src=[UID()];shutdown=\ref[D]'>Shutdown</A></font>"
 
-	dat += "<BR><BR><B>Request drone presence in area:</B> <A href='?src=\ref[src];setarea=1'>[drone_call_area]</A> (<A href='?src=\ref[src];ping=1'>Send ping</A>)"
+	dat += "<BR><BR><B>Request drone presence in area:</B> <A href='?src=[UID()];setarea=1'>[drone_call_area]</A> (<A href='?src=[UID()];ping=1'>Send ping</A>)"
 
 	dat += "<BR><BR><B>Drone fabricator</B>: "
-	dat += "[dronefab ? "<A href='?src=\ref[src];toggle_fab=1'>[(dronefab.produce_drones && !(dronefab.stat & NOPOWER)) ? "ACTIVE" : "INACTIVE"]</A>" : "<font color='red'><b>FABRICATOR NOT DETECTED.</b></font> (<A href='?src=\ref[src];search_fab=1'>search</a>)"]"
+	dat += "[dronefab ? "<A href='?src=[UID()];toggle_fab=1'>[(dronefab.produce_drones && !(dronefab.stat & NOPOWER)) ? "ACTIVE" : "INACTIVE"]</A>" : "<font color='red'><b>FABRICATOR NOT DETECTED.</b></font> (<A href='?src=[UID()];search_fab=1'>search</a>)"]"
 	user << browse(dat, "window=computer;size=400x500")
 	onclose(user, "computer")
 	return
@@ -47,13 +54,13 @@
 		return
 
 	if(!allowed(usr))
-		usr << "\red Access denied."
+		to_chat(usr, "\red Access denied.")
 		return
 
-	if ((usr.contents.Find(src) || (in_range(src, usr) && istype(src.loc, /turf))) || (istype(usr, /mob/living/silicon)))
+	if((usr.contents.Find(src) || (in_range(src, usr) && istype(src.loc, /turf))) || (istype(usr, /mob/living/silicon)))
 		usr.set_machine(src)
 
-	if (href_list["setarea"])
+	if(href_list["setarea"])
 
 		//Probably should consider using another list, but this one will do.
 		var/t_area = input("Select the area to ping.", "Set Target Area", null) as null|anything in TAGGERLOCATIONS
@@ -62,59 +69,59 @@
 			return
 
 		drone_call_area = t_area
-		usr << "\blue You set the area selector to [drone_call_area]."
+		to_chat(usr, "\blue You set the area selector to [drone_call_area].")
 
-	else if (href_list["ping"])
+	else if(href_list["ping"])
 
-		usr << "\blue You issue a maintenance request for all active drones, highlighting [drone_call_area]."
+		to_chat(usr, "\blue You issue a maintenance request for all active drones, highlighting [drone_call_area].")
 		for(var/mob/living/silicon/robot/drone/D in world)
 			if(D.client && D.stat == 0)
-				D << "-- Maintenance drone presence requested in: [drone_call_area]."
+				to_chat(D, "-- Maintenance drone presence requested in: [drone_call_area].")
 
-	else if (href_list["resync"])
+	else if(href_list["resync"])
 
 		var/mob/living/silicon/robot/drone/D = locate(href_list["resync"])
 
 		if(D.stat != 2)
-			usr << "\red You issue a law synchronization directive for the drone."
+			to_chat(usr, "\red You issue a law synchronization directive for the drone.")
 			D.law_resync()
 
-	else if (href_list["shutdown"])
+	else if(href_list["shutdown"])
 
 		var/mob/living/silicon/robot/drone/D = locate(href_list["shutdown"])
 
 		if(D.stat != 2)
-			usr << "\red You issue a kill command for the unfortunate drone."
+			to_chat(usr, "\red You issue a kill command for the unfortunate drone.")
 			message_admins("[key_name_admin(usr)] issued kill order for drone [key_name_admin(D)] from control console.")
 			log_game("[key_name(usr)] issued kill order for [key_name(src)] from control console.")
 			D.shut_down()
 
-	else if (href_list["search_fab"])
+	else if(href_list["search_fab"])
 		if(dronefab)
 			return
 
-		for(var/obj/machinery/drone_fabricator/fab in oview(3,src))
+		for(var/obj/machinery/drone_fabricator/fab in get_area(src))
 
 			if(fab.stat & NOPOWER)
 				continue
 
 			dronefab = fab
-			usr << "\blue Drone fabricator located."
+			to_chat(usr, "\blue Drone fabricator located.")
 			return
 
-		usr << "\red Unable to locate drone fabricator."
+		to_chat(usr, "\red Unable to locate drone fabricator.")
 
-	else if (href_list["toggle_fab"])
+	else if(href_list["toggle_fab"])
 
 		if(!dronefab)
 			return
 
 		if(get_dist(src,dronefab) > 3)
 			dronefab = null
-			usr << "\red Unable to locate drone fabricator."
+			to_chat(usr, "\red Unable to locate drone fabricator.")
 			return
 
 		dronefab.produce_drones = !dronefab.produce_drones
-		usr << "\blue You [dronefab.produce_drones ? "enable" : "disable"] drone production in the nearby fabricator."
+		to_chat(usr, "\blue You [dronefab.produce_drones ? "enable" : "disable"] drone production in the nearby fabricator.")
 
 	src.updateUsrDialog()

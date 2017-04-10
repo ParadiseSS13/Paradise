@@ -12,12 +12,12 @@
 	return STATUS_CLOSE
 
 /mob/proc/shared_nano_interaction()
-	if (src.stat || !client)
+	if(stat || !client)
 		return STATUS_CLOSE						// no updates, close the interface
-	else if (restrained() || lying || stat || stunned || weakened)
+	else if(incapacitated())
 		return STATUS_UPDATE					// update only (orange visibility)
 	return STATUS_INTERACTIVE
-	
+
 /mob/dead/observer/shared_nano_interaction()
 	if(check_rights(R_ADMIN, 0, src))
 		return STATUS_INTERACTIVE				// Admins are more equal
@@ -26,7 +26,7 @@
 /mob/living/silicon/ai/shared_nano_interaction()
 	if(lacks_power())
 		return STATUS_CLOSE
-	if (check_unable(1, 0))
+	if(check_unable(1, 0))
 		return STATUS_CLOSE
 	return ..()
 

@@ -1,10 +1,15 @@
 /obj/effect/proc_holder/spell/targeted/area_teleport
 	name = "Area teleport"
 	desc = "This spell teleports you to a type of area of your selection."
-
+	nonabstract_req = 1
+	
 	var/randomise_selection = 0 //if it lets the usr choose the teleport loc or picks it from the list
 	var/invocation_area = 1 //if the invocation appends the selected area
-/obj/effect/proc_holder/spell/targeted/area_teleport/perform(list/targets, recharge = 1)
+	
+	var/sound1 = 'sound/weapons/ZapBang.ogg'
+	var/sound2 = 'sound/weapons/ZapBang.ogg'	
+	
+/obj/effect/proc_holder/spell/targeted/area_teleport/perform(list/targets, recharge = 1, mob/living/user = usr)
 	var/thearea = before_cast(targets)
 	if(!thearea || !cast_check(1))
 		revert_cast()
@@ -26,9 +31,14 @@
 
 	var/area/thearea = teleportlocs[A]
 
+	if(thearea.tele_proof && !istype(thearea, /area/wizard_station))
+		to_chat(usr, "A mysterious force disrupts your arcane spell matrix, and you remain where you are.")
+		return
+
 	return thearea
 
-/obj/effect/proc_holder/spell/targeted/area_teleport/cast(list/targets,area/thearea)
+/obj/effect/proc_holder/spell/targeted/area_teleport/cast(list/targets,area/thearea,mob/living/user = usr)
+	playsound(get_turf(user), sound1, 50,1)
 	for(var/mob/living/target in targets)
 		var/list/L = list()
 		for(var/turf/T in get_area_turfs(thearea.type))
@@ -42,7 +52,7 @@
 					L+=T
 
 		if(!L.len)
-			usr <<"The spell matrix was unable to locate a suitable teleport destination for an unknown reason. Sorry."
+			to_chat(usr, "The spell matrix was unable to locate a suitable teleport destination for an unknown reason. Sorry.")
 			return
 
 		if(target && target.buckled)
@@ -60,7 +70,8 @@
 				break
 
 		if(!success)
-			target.loc = pick(L)
+			target.forceMove(pick(L))
+			playsound(get_turf(user), sound2, 50,1)
 
 	return
 

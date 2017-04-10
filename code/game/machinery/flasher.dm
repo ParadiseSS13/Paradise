@@ -25,73 +25,58 @@
 /*
 /obj/machinery/flasher/New()
 	sleep(4)					//<--- What the fuck are you doing? D=
-	src.sd_set_light(2)
+	sd_set_light(2)
 */
 /obj/machinery/flasher/power_change()
-	if ( powered() )
+	if( powered() )
 		stat &= ~NOPOWER
 		icon_state = "[base_state]1"
-//		src.sd_set_light(2)
+//		sd_set_light(2)
 	else
 		stat |= ~NOPOWER
 		icon_state = "[base_state]1-p"
-//		src.sd_set_light(0)
+//		sd_set_light(0)
 
 //Don't want to render prison breaks impossible
 /obj/machinery/flasher/attackby(obj/item/weapon/W as obj, mob/user as mob, params)
-	if (istype(W, /obj/item/weapon/wirecutters))
+	if(istype(W, /obj/item/weapon/wirecutters))
 		add_fingerprint(user)
-		src.disable = !src.disable
-		if (src.disable)
+		disable = !disable
+		if(disable)
 			user.visible_message("\red [user] has disconnected the [src]'s flashbulb!", "\red You disconnect the [src]'s flashbulb!")
-		if (!src.disable)
+		if(!disable)
 			user.visible_message("\red [user] has connected the [src]'s flashbulb!", "\red You connect the [src]'s flashbulb!")
 
 //Let the AI trigger them directly.
-/obj/machinery/flasher/attack_ai()
-	if (src.anchored)
-		return src.flash()
-	else
-		return
+/obj/machinery/flasher/attack_ai(mob/user)
+	if(anchored)
+		return flash()
+		
+/obj/machinery/flasher/attack_ghost(mob/user)
+	if(anchored && user.can_advanced_admin_interact())
+		return flash()
 
 /obj/machinery/flasher/proc/flash()
-	if (!(powered()))
+	if(!(powered()))
 		return
 
-	if ((src.disable) || (src.last_flash && world.time < src.last_flash + 150))
+	if((disable) || (last_flash && world.time < last_flash + 150))
 		return
 
-	playsound(src.loc, 'sound/weapons/flash.ogg', 100, 1)
+	playsound(loc, 'sound/weapons/flash.ogg', 100, 1)
 	flick("[base_state]_flash", src)
-	src.last_flash = world.time
+	last_flash = world.time
 	use_power(1000)
 
-	for (var/mob/O in viewers(src, null))
-		if (get_dist(src, O) > src.range)
+	for(var/mob/living/L in viewers(src, null))
+		if(get_dist(src, L) > range)
 			continue
 
-		if (istype(O, /mob/living/carbon/human))
-			var/mob/living/carbon/human/H = O
-			if(!H.eyecheck() <= 0)
-				continue
-
-		if (istype(O, /mob/living/carbon/alien))//So aliens don't get flashed (they have no external eyes)/N
-			continue
-
-		O.Weaken(strength)
-		if(O.weakeyes)
-			O.Weaken(strength * 1.5)
-			O.visible_message("<span class='disarm'><b>[O]</b> gasps and shields their eyes!</span>")
-		if (istype(O, /mob/living/carbon/human))
-			var/mob/living/carbon/human/H = O
-			var/obj/item/organ/eyes/E = H.internal_organs_by_name["eyes"]
-			if (E && (E.damage > E.min_bruised_damage && prob(E.damage + 50)))
-				flick("e_flash", O:flash)
-				E.damage += rand(1, 2)
-		else
-			if(!O.blinded)
-				flick("flash", O:flash)
-
+		if(L.flash_eyes(affect_silicon = 1))
+			L.Weaken(strength)
+			if(L.weakeyes)
+				L.Weaken(strength * 1.5)
+				L.visible_message("<span class='disarm'><b>[L]</b> gasps and shields their eyes!</span>")
 
 /obj/machinery/flasher/emp_act(severity)
 	if(stat & (BROKEN|NOPOWER))
@@ -102,35 +87,51 @@
 	..(severity)
 
 /obj/machinery/flasher/portable/HasProximity(atom/movable/AM as mob|obj)
-	if ((src.disable) || (src.last_flash && world.time < src.last_flash + 150))
+	if((disable) || (last_flash && world.time < last_flash + 150))
 		return
 
 	if(istype(AM, /mob/living/carbon))
 		var/mob/living/carbon/M = AM
-		if ((M.m_intent != "walk") && (src.anchored))
-			src.flash()
+		if((M.m_intent != "walk") && (anchored))
+			flash()
 
 /obj/machinery/flasher/portable/attackby(obj/item/weapon/W as obj, mob/user as mob, params)
-	if (istype(W, /obj/item/weapon/wrench))
+	if(istype(W, /obj/item/weapon/wrench))
 		add_fingerprint(user)
-		src.anchored = !src.anchored
+		anchored = !anchored
 
-		if (!src.anchored)
+		if(!anchored)
 			user.show_message(text("\red [src] can now be moved."))
-			src.overlays.Cut()
+			overlays.Cut()
 
-		else if (src.anchored)
+		else if(anchored)
 			user.show_message(text("\red [src] is now secured."))
-			src.overlays += "[base_state]-s"
+			overlays += "[base_state]-s"
 
+// Flasher button
+/obj/machinery/flasher_button
+	name = "flasher button"
+	desc = "A remote control switch for a mounted flasher."
+	icon = 'icons/obj/objects.dmi'
+	icon_state = "launcherbtt"
+	var/id = null
+	var/active = 0
+	anchored = 1.0
+	use_power = 1
+	idle_power_usage = 2
+	active_power_usage = 4			
+			
 /obj/machinery/flasher_button/attack_ai(mob/user as mob)
-	return src.attack_hand(user)
+	return attack_hand(user)
+	
+/obj/machinery/flasher_button/attack_ghost(mob/user)
+	if(user.can_advanced_admin_interact())
+		return attack_hand(user)
 
 /obj/machinery/flasher_button/attackby(obj/item/weapon/W, mob/user as mob, params)
-	return src.attack_hand(user)
+	return attack_hand(user)
 
 /obj/machinery/flasher_button/attack_hand(mob/user as mob)
-
 	if(stat & (NOPOWER|BROKEN))
 		return
 	if(active)
@@ -142,7 +143,7 @@
 	icon_state = "launcheract"
 
 	for(var/obj/machinery/flasher/M in world)
-		if(M.id == src.id)
+		if(M.id == id)
 			spawn()
 				M.flash()
 
@@ -150,5 +151,3 @@
 
 	icon_state = "launcherbtt"
 	active = 0
-
-	return

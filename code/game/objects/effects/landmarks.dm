@@ -1,6 +1,6 @@
 /obj/effect/landmark
 	name = "landmark"
-	icon = 'icons/mob/screen1.dmi'
+	icon = 'icons/mob/screen_gen.dmi'
 	icon_state = "x2"
 	anchored = 1.0
 	unacidable = 1
@@ -8,26 +8,10 @@
 /obj/effect/landmark/New()
 
 	..()
-	tag = text("landmark*[]", name)
+	set_tag()
 	invisibility = 101
 
 	switch(name)			//some of these are probably obsolete
-		if("shuttle")
-			shuttle_z = z
-			qdel(src)
-
-		if("airtunnel_stop")
-			airtunnel_stop = x
-
-		if("airtunnel_start")
-			airtunnel_start = x
-
-		if("airtunnel_bottom")
-			airtunnel_bottom = y
-
-		if("monkey")
-			monkeystart += loc
-			qdel(src)
 		if("start")
 			newplayer_start += loc
 			qdel(src)
@@ -52,29 +36,28 @@
 			latejoin_cyborg += loc
 			qdel(src)
 
-		//prisoners
 		if("prisonwarp")
 			prisonwarp += loc
 			qdel(src)
-	//	if("mazewarp")
-	//		mazewarp += loc
-		if("Holding Facility")
-			holdingfacility += loc
-		if("tdome1")
-			tdome1	+= loc
-		if("tdome2")
-			tdome2 += loc
-		if("tdomeadmin")
-			tdomeadmin	+= loc
-		if("tdomeobserve")
-			tdomeobserve += loc
-		if("aroomwarp")
-			aroomwarp += loc
 
-		//not prisoners
 		if("prisonsecuritywarp")
 			prisonsecuritywarp += loc
 			qdel(src)
+
+		if("tdome1")
+			tdome1	+= loc
+
+		if("tdome2")
+			tdome2 += loc
+
+		if("tdomeadmin")
+			tdomeadmin	+= loc
+
+		if("tdomeobserve")
+			tdomeobserve += loc
+
+		if("aroomwarp")
+			aroomwarp += loc
 
 		if("blobstart")
 			blobstart += loc
@@ -94,6 +77,14 @@
 		if("voxstart")
 			raider_spawn += loc
 
+		if("ERT Director")
+			ertdirector += loc
+			qdel(src)
+
+		if("Response Team")
+			emergencyresponseteamspawn += loc
+			qdel(src)
+
 	landmarks_list += src
 	return 1
 
@@ -102,18 +93,19 @@
 	..()
 	return QDEL_HINT_HARDDEL_NOW
 
+/obj/effect/landmark/proc/set_tag()
+	tag = text("landmark*[]", name)
+
+
 /obj/effect/landmark/start
 	name = "start"
-	icon = 'icons/mob/screen1.dmi'
+	icon = 'icons/mob/screen_gen.dmi'
 	icon_state = "x"
 	anchored = 1.0
 
-/obj/effect/landmark/start/New()
-	..()
+/obj/effect/landmark/start/set_tag()
 	tag = "start*[name]"
-	invisibility = 101
 
-	return 1
 
 //Costume spawner landmarks
 
@@ -172,7 +164,7 @@
 	new /obj/item/clothing/gloves/color/white(src.loc)
 	new /obj/item/clothing/shoes/white(src.loc)
 	new /obj/item/clothing/under/scratch(src.loc)
-	if (prob(30))
+	if(prob(30))
 		new /obj/item/clothing/head/cueball(src.loc)
 	qdel(src)
 
@@ -222,9 +214,10 @@
 	new /obj/item/clothing/head/ushanka(src.loc)
 	qdel(src)
 
+
 /obj/effect/landmark/costume/imperium_monk/New()
 	new /obj/item/clothing/suit/imperium_monk(src.loc)
-	if (prob(25))
+	if(prob(25))
 		new /obj/item/clothing/mask/gas/cyborg(src.loc)
 	qdel(src)
 
@@ -258,3 +251,17 @@
 	new /obj/item/clothing/mask/gas/sexymime(src.loc)
 	new /obj/item/clothing/under/sexymime(src.loc)
 	qdel(src)
+	
+/obj/effect/landmark/ruin
+	var/datum/map_template/ruin/ruin_template
+
+/obj/effect/landmark/ruin/New(loc, my_ruin_template)
+	name = "ruin_[ruin_landmarks.len + 1]"
+	..(loc)
+	ruin_template = my_ruin_template
+	ruin_landmarks |= src
+
+/obj/effect/landmark/ruin/Destroy()
+	ruin_landmarks -= src
+	ruin_template = null
+	. = ..()

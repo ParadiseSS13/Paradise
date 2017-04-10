@@ -1,8 +1,6 @@
 /mob/living/simple_animal/spiderbot
 
-	min_oxy = 0
-	max_tox = 0
-	max_co2 = 0
+	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
 	minbodytemp = 0
 	maxbodytemp = 500
 
@@ -38,20 +36,22 @@
 	var/syndie = 0                //IS WE SYNDICAT? (currently unused)
 	speed = -1                    //Spiderbots gotta go fast.
 	//pass_flags = PASSTABLE      //Maybe griefy?
-	small = 1
+	mob_size = MOB_SIZE_SMALL
 	speak_emote = list("beeps","clicks","chirps")
 	can_hide = 1
 	ventcrawler = 2
+	loot = list(/obj/effect/decal/cleanable/blood/gibs/robot)
+	del_on_death = 1
 
 /mob/living/simple_animal/spiderbot/attackby(var/obj/item/O as obj, var/mob/user as mob, params)
 
 	if(istype(O, /obj/item/device/mmi) || istype(O, /obj/item/device/mmi/posibrain))
 		var/obj/item/device/mmi/B = O
 		if(src.mmi) //There's already a brain in it.
-			user << "\red There's already a brain in [src]!"
+			to_chat(user, "\red There's already a brain in [src]!")
 			return
 		if(!B.brainmob)
-			user << "\red Sticking an empty MMI into the frame would sort of defeat the purpose."
+			to_chat(user, "\red Sticking an empty MMI into the frame would sort of defeat the purpose.")
 			return
 		if(!B.brainmob.key)
 			var/ghost_can_reenter = 0
@@ -65,18 +65,18 @@
 						ghost_can_reenter = 1
 						break
 			if(!ghost_can_reenter)
-				user << "<span class='notice'>[O] is completely unresponsive; there's no point.</span>"
+				to_chat(user, "<span class='notice'>[O] is completely unresponsive; there's no point.</span>")
 				return
 
 		if(B.brainmob.stat == DEAD)
-			user << "\red [O] is dead. Sticking it into the frame would sort of defeat the purpose."
+			to_chat(user, "\red [O] is dead. Sticking it into the frame would sort of defeat the purpose.")
 			return
 
 		if(jobban_isbanned(B.brainmob, "Cyborg") || jobban_isbanned(B.brainmob,"nonhumandept"))
-			user << "\red [O] does not seem to fit."
+			to_chat(user, "\red [O] does not seem to fit.")
 			return
 
-		user << "\blue You install [O] in [src]!"
+		to_chat(user, "\blue You install [O] in [src]!")
 
 		user.drop_item()
 		src.mmi = O
@@ -86,9 +86,9 @@
 		src.update_icon()
 		return 1
 
-	if (istype(O, /obj/item/weapon/weldingtool))
+	if(istype(O, /obj/item/weapon/weldingtool))
 		var/obj/item/weapon/weldingtool/WT = O
-		if (WT.remove_fuel(0))
+		if(WT.remove_fuel(0))
 			if(health < maxHealth)
 				health += pick(1,1,1,2,2,3)
 				if(health > maxHealth)
@@ -97,13 +97,13 @@
 				for(var/mob/W in viewers(user, null))
 					W.show_message(text("\red [user] has spot-welded some of the damage to [src]!"), 1)
 			else
-				user << "\blue [src] is undamaged!"
+				to_chat(user, "\blue [src] is undamaged!")
 		else
-			user << "Need more welding fuel!"
+			to_chat(user, "Need more welding fuel!")
 			return
 	else if(istype(O, /obj/item/weapon/card/id)||istype(O, /obj/item/device/pda))
-		if (!mmi)
-			user << "\red There's no reason to swipe your ID - the spiderbot has no brain to remove."
+		if(!mmi)
+			to_chat(user, "\red There's no reason to swipe your ID - the spiderbot has no brain to remove.")
 			return 0
 
 		var/obj/item/weapon/card/id/id_card
@@ -115,7 +115,7 @@
 			id_card = pda.id
 
 		if(access_robotics in id_card.access)
-			user << "\blue You swipe your access card and pop the brain out of [src]."
+			to_chat(user, "\blue You swipe your access card and pop the brain out of [src].")
 			eject_brain()
 
 			if(held_item)
@@ -124,34 +124,37 @@
 
 			return 1
 		else
-			user << "\red You swipe your card, with no effect."
+			to_chat(user, "\red You swipe your card, with no effect.")
 			return 0
 
 	else
 		if(O.force)
 			var/damage = O.force
-			if (O.damtype == STAMINA)
+			if(O.damtype == STAMINA)
 				damage = 0
 			adjustBruteLoss(damage)
 			for(var/mob/M in viewers(src, null))
-				if ((M.client && !( M.blinded )))
+				if((M.client && !( M.blinded )))
 					M.show_message("\red \b [src] has been attacked with the [O] by [user]. ")
 		else
-			usr << "\red This weapon is ineffective, it does no damage."
+			to_chat(usr, "\red This weapon is ineffective, it does no damage.")
 			for(var/mob/M in viewers(src, null))
-				if ((M.client && !( M.blinded )))
+				if((M.client && !( M.blinded )))
 					M.show_message("\red [user] gently taps [src] with the [O]. ")
 
 /mob/living/simple_animal/spiderbot/emag_act(user as mob)
-	if (emagged)
-		user << "\red [src] is already overloaded - better run."
+	if(emagged)
+		to_chat(user, "\red [src] is already overloaded - better run.")
 		return 0
 	else
 		emagged = 1
-		user << "\blue You short out the security protocols and overload [src]'s cell, priming it to explode in a short time."
-		spawn(100)	src << "\red Your cell seems to be outputting a lot of power..."
-		spawn(200)	src << "\red Internal heat sensors are spiking! Something is badly wrong with your cell!"
-		spawn(300)	src.explode()
+		to_chat(user, "\blue You short out the security protocols and overload [src]'s cell, priming it to explode in a short time.")
+		spawn(100)
+			to_chat(src, "\red Your cell seems to be outputting a lot of power...")
+		spawn(200)
+			to_chat(src, "\red Internal heat sensors are spiking! Something is badly wrong with your cell!")
+		spawn(300)
+			src.explode()
 
 /mob/living/simple_animal/spiderbot/proc/transfer_personality(var/obj/item/device/mmi/M as obj)
 
@@ -162,7 +165,7 @@
 
 /mob/living/simple_animal/spiderbot/proc/explode() //When emagged.
 	for(var/mob/M in viewers(src, null))
-		if ((M.client && !( M.blinded )))
+		if((M.client && !( M.blinded )))
 			M.show_message("\red [src] makes an odd warbling noise, fizzles, and explodes.")
 	explosion(get_turf(loc), -1, -1, 3, 5)
 	eject_brain()
@@ -204,20 +207,14 @@
 
 	..()
 
-/mob/living/simple_animal/spiderbot/death()
-
-	living_mob_list -= src
-	dead_mob_list += src
-
+/mob/living/simple_animal/spiderbot/death(gibbed)
 	if(camera)
 		camera.status = 0
 
 	if(held_item)
 		held_item.forceMove(src.loc)
 		held_item = null
-
-	robogibs(src.loc, viruses)
-	qdel(src)
+	..()
 
 //Cannibalized from the parrot mob. ~Zuhayr
 
@@ -230,7 +227,7 @@
 		return
 
 	if(!held_item)
-		usr << "\red You have nothing to drop!"
+		to_chat(usr, "\red You have nothing to drop!")
 		return 0
 
 	if(istype(held_item, /obj/item/weapon/grenade))
@@ -258,7 +255,7 @@
 		return -1
 
 	if(held_item)
-		src << "\red You are already holding \the [held_item]"
+		to_chat(src, "\red You are already holding \the [held_item]")
 		return 1
 
 	var/list/items = list()
@@ -275,13 +272,13 @@
 				selection.loc = src
 				visible_message("\blue [src] scoops up \the [held_item]!", "\blue You grab \the [held_item]!", "You hear a skittering noise and a clink.")
 				return held_item
-		src << "\red \The [selection] is too far away."
+		to_chat(src, "\red \The [selection] is too far away.")
 		return 0
 
-	src << "\red There is nothing of interest to take."
+	to_chat(src, "\red There is nothing of interest to take.")
 	return 0
 
 /mob/living/simple_animal/spiderbot/examine(mob/user)
 	..(user)
 	if(src.held_item)
-		user << "It is carrying \a [src.held_item] \icon[src.held_item]."
+		to_chat(user, "It is carrying \a [src.held_item] [bicon(src.held_item)].")

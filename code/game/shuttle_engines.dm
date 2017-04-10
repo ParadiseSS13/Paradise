@@ -2,6 +2,12 @@
 	name = "shuttle"
 	icon = 'icons/turf/shuttle.dmi'
 
+/obj/structure/shuttle/shuttleRotate(rotation)
+	..()
+	var/matrix/M = transform
+	M.Turn(rotation)
+	transform = M
+
 /obj/structure/shuttle/window
 	name = "shuttle window"
 	icon = 'icons/obj/podwindows.dmi'
@@ -10,8 +16,8 @@
 	opacity = 0
 	anchored = 1
 
-	CanPass(atom/movable/mover, turf/target, height, air_group)
-		if(!height || air_group) return 0
+	CanPass(atom/movable/mover, turf/target, height)
+		if(!height) return 0
 		else return ..()
 
 	CanAtmosPass(turf/T)

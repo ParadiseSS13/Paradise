@@ -3,8 +3,8 @@
 	icon = 'icons/obj/device.dmi'
 	icon_state = "pinoff"
 	flags = CONDUCT
-	slot_flags = SLOT_BELT
-	w_class = 2.0
+	slot_flags = SLOT_PDA | SLOT_BELT
+	w_class = 2
 	item_state = "electronic"
 	throw_speed = 4
 	throw_range = 20
@@ -12,7 +12,12 @@
 	var/obj/item/weapon/disk/nuclear/the_disk = null
 	var/active = 0
 
+/obj/item/weapon/pinpointer/New()
+	..()
+	pinpointer_list += src
+
 /obj/item/weapon/pinpointer/Destroy()
+	pinpointer_list -= src
 	active = 0
 	the_disk = null
 	return ..()
@@ -21,11 +26,11 @@
 	if(!active)
 		active = 1
 		workdisk()
-		usr << "<span class='notice'>You activate the pinpointer.</span>"
+		to_chat(usr, "<span class='notice'>You activate the pinpointer.</span>")
 	else
 		active = 0
 		icon_state = "pinoff"
-		usr << "<span class='notice'>You deactivate the pinpointer.</span>"
+		to_chat(usr, "<span class='notice'>You deactivate the pinpointer.</span>")
 
 /obj/item/weapon/pinpointer/proc/scandisk()
 	if(!the_disk)
@@ -68,7 +73,7 @@
 	..(user)
 	for(var/obj/machinery/nuclearbomb/bomb in machines)
 		if(bomb.timing)
-			user << "Extreme danger.  Arming signal detected.   Time remaining: [bomb.timeleft]"
+			to_chat(user, "Extreme danger.  Arming signal detected.   Time remaining: [bomb.timeleft]")
 
 /obj/item/weapon/pinpointer/advpinpointer
 	name = "advanced pinpointer"
@@ -86,11 +91,11 @@
 			point_at(location)
 		if(mode == 2)
 			point_at(target)
-		usr << "<span class='notice'>You activate the pinpointer.</span>"
+		to_chat(usr, "<span class='notice'>You activate the pinpointer.</span>")
 	else
 		active = 0
 		icon_state = "pinoff"
-		usr << "<span class='notice'>You deactivate the pinpointer.</span>"
+		to_chat(usr, "<span class='notice'>You deactivate the pinpointer.</span>")
 
 /obj/item/weapon/pinpointer/advpinpointer/workdisk()
 	if(mode == 0)
@@ -127,7 +132,7 @@
 
 			location = locate(locationx,locationy,Z.z)
 
-			usr << "<span class='notice'>You set the pinpointer to locate [locationx],[locationy]</span>"
+			to_chat(usr, "<span class='notice'>You set the pinpointer to locate [locationx],[locationy]</span>")
 
 
 			return attack_self()
@@ -152,9 +157,9 @@
 						return
 					target = locate(item_paths[targetitem])
 					if(!target)
-						usr << "<span class='warning'>Failed to locate [targetitem]!</span>"
+						to_chat(usr, "<span class='warning'>Failed to locate [targetitem]!</span>")
 						return
-					usr << "<span class='notice'>You set the pinpointer to locate [targetitem].</span>"
+					to_chat(usr, "<span class='notice'>You set the pinpointer to locate [targetitem].</span>")
 				if("DNA")
 					var/DNAstring = input("Input DNA string to search for." , "Please Enter String." , "")
 					if(!DNAstring)
@@ -174,21 +179,21 @@
 /obj/item/weapon/pinpointer/nukeop
 	var/mode = 0	//Mode 0 locates disk, mode 1 locates the shuttle
 	var/obj/docking_port/mobile/home = null
-	slot_flags = SLOT_PDA | SLOT_BELT
+	slot_flags = SLOT_BELT | SLOT_PDA
 
 /obj/item/weapon/pinpointer/nukeop/attack_self(mob/user as mob)
 	if(!active)
 		active = 1
 		if(!mode)
 			workdisk()
-			user << "<span class='notice'>Authentication Disk Locator active.</span>"
+			to_chat(user, "<span class='notice'>Authentication Disk Locator active.</span>")
 		else
 			worklocation()
-			user << "<span class='notice'>Shuttle Locator active.</span>"
+			to_chat(user, "<span class='notice'>Shuttle Locator active.</span>")
 	else
 		active = 0
 		icon_state = "pinoff"
-		user << "<span class='notice'>You deactivate the pinpointer.</span>"
+		to_chat(user, "<span class='notice'>You deactivate the pinpointer.</span>")
 
 /obj/item/weapon/pinpointer/nukeop/workdisk()
 	if(!active) return
@@ -259,16 +264,16 @@
 
 /obj/item/weapon/pinpointer/operative/attack_self()
 	if(!usr.mind || !(usr.mind in ticker.mode.syndicates))
-		usr << "<span class='danger'>AUTHENTICATION FAILURE. ACCESS DENIED.</span>"
+		to_chat(usr, "<span class='danger'>AUTHENTICATION FAILURE. ACCESS DENIED.</span>")
 		return 0
 	if(!active)
 		active = 1
 		workop()
-		usr << "<span class='notice'>You activate the pinpointer.</span>"
+		to_chat(usr, "<span class='notice'>You activate the pinpointer.</span>")
 	else
 		active = 0
 		icon_state = "pinoff"
-		usr << "<span class='notice'>You deactivate the pinpointer.</span>"
+		to_chat(usr, "<span class='notice'>You deactivate the pinpointer.</span>")
 
 /obj/item/weapon/pinpointer/operative/proc/scan_for_ops()
 	if(active)
@@ -292,6 +297,6 @@
 	..()
 	if(active)
 		if(nearest_op)
-			user << "Nearest operative detected is <i>[nearest_op.real_name].</i>"
+			to_chat(user, "Nearest operative detected is <i>[nearest_op.real_name].</i>")
 		else
-			user << "No operatives detected within scanning range."
+			to_chat(user, "No operatives detected within scanning range.")

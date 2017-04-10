@@ -35,15 +35,15 @@
 		var/obj/item/weapon/weldingtool/WT = W
 		if(salvage_num <= 0)
 			user.visible_message("[user] begins to slice apart the now completely stripped [src].", "You begin to slice apart the [src].", "You hear the sound of a welder nearby.")
-			if(WT.remove_fuel(0,user) && do_after(user,80,target=src))
+			if(WT.remove_fuel(0,user) && do_after(user, 80 * WT.toolspeed, target = src))
 				user.visible_message("The now-dilapidated [src] falls apart in a clatter.", "As you slice apart the final support structures, the [src] falls apart in a heap.", "You hear metal clanking to the floor.")
 				new /obj/item/stack/sheet/metal(src.loc)
 				var/obj/item/stack/rods/rods = new /obj/item/stack/rods(src.loc)
 				rods.amount = 2
 				qdel(src)
 		else
-			if (isemptylist(welder_salvage))
-				user << "<span class='warning'>What's left on the [src] cannot be removed with a welder, besides the frame itself</span>"
+			if(isemptylist(welder_salvage))
+				to_chat(user, "<span class='warning'>What's left on the [src] cannot be removed with a welder, besides the frame itself</span>")
 			else if(WT.remove_fuel(0,user))
 				var/type = prob(70)?pick(welder_salvage):null
 				if(type)
@@ -53,12 +53,12 @@
 						welder_salvage -= type
 					salvage_num--
 				else
-					user << "You failed to salvage anything valuable from [src]."
+					to_chat(user, "You failed to salvage anything valuable from [src].")
 			else
-				user << "\blue You need more welding fuel to complete this task."
+				to_chat(user, "\blue You need more welding fuel to complete this task.")
 	else if(istype(W, /obj/item/weapon/wirecutters))
 		if(salvage_num <= 0)
-			user << "You don't see anything that can be cut with [W]."
+			to_chat(user, "You don't see anything that can be cut with [W].")
 			return
 		else if(!isemptylist(wirecutters_salvage))
 			var/type = prob(70)?pick(wirecutters_salvage):null
@@ -67,7 +67,7 @@
 				user.visible_message("[user] cuts [N] from [src].", "You cut [N] from [src].")
 				salvage_num--
 			else
-				user << "You failed to salvage anything valuable from [src]."
+				to_chat(user, "You failed to salvage anything valuable from [src].")
 	else if(istype(W, /obj/item/weapon/crowbar))
 		if(!isemptylist(crowbar_salvage))
 			var/obj/S = pick(crowbar_salvage)
@@ -76,7 +76,7 @@
 				crowbar_salvage -= S
 				user.visible_message("[user] pries [S] from [src].", "You pry [S] from [src].")
 		else
-			user << "You don't see anything that can be pried with [W]."
+			to_chat(user, "You don't see anything that can be pried with [W].")
 	else
 		..()
 	return
@@ -114,17 +114,13 @@
 	icon_state = "mauler-broken"
 	desc = "The syndicate won't be very happy about this..."
 
-/obj/effect/decal/mecha_wreckage/mime
-	name = "Mimech wreckage"
-	icon_state = "mime-broken"
-
 /obj/effect/decal/mecha_wreckage/seraph
 	name = "Seraph wreckage"
 	icon_state = "seraph-broken"
 
-/obj/effect/decal/mecha_wreckage/recitence
-	name = "\improper Recitence wreckage"
-	icon_state = "recitence-broken"
+/obj/effect/decal/mecha_wreckage/reticence
+	name = "\improper Reticence wreckage"
+	icon_state = "mime-broken"
 
 /obj/effect/decal/mecha_wreckage/ripley
 	name = "Ripley wreckage"

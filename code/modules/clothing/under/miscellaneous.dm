@@ -67,16 +67,37 @@
 	item_state = "gy_suit"
 	item_color = "vice"
 
+/obj/item/clothing/under/solgov
+	name = "Sol Federation marine uniform"
+	desc = "A comfortable and durable combat uniform worn by Sol Federation Marine Forces."
+	icon_state = "solgov"
+	item_state = "ro_suit"
+	item_color = "solgov"
+	armor = list(melee = 10, bullet = 0, laser = 0, energy = 0, bomb = 0, bio = 0, rad = 0)
+	displays_id = 0
+
+/obj/item/clothing/under/solgov/command
+	name = "Sol Federation Lieutenant's uniform"
+	desc = "A comfortable and durable combat uniform worn by Sol Federation Marine Forces. This one has additional insignia on its shoulders."
+	icon_state = "solgovc"
+	item_color = "solgovc"
+
+/obj/item/clothing/under/solgov/rep
+	name = "Sol Federation representative's uniform"
+	desc = "A formal uniform worn by the diplomatic representatives of the Sol Federation."
+	icon_state = "solgovr"
+	item_color = "solgovr"
+
 /obj/item/clothing/under/rank/centcom_officer
-	desc = "It's a jumpsuit worn by CentCom Officers."
-	name = "\improper CentCom officer's jumpsuit"
+	desc = "It's a jumpsuit worn by CentComm Officers."
+	name = "\improper CentComm officer's jumpsuit"
 	icon_state = "officer"
 	item_state = "g_suit"
 	item_color = "officer"
 
 /obj/item/clothing/under/rank/centcom_commander
-	desc = "It's a jumpsuit worn by CentCom's highest-tier Commanders."
-	name = "\improper CentCom officer's jumpsuit"
+	desc = "It's a jumpsuit worn by CentComm's highest-tier Commanders."
+	name = "\improper CentComm officer's jumpsuit"
 	icon_state = "centcom"
 	item_state = "dg_suit"
 	item_color = "centcom"
@@ -88,7 +109,7 @@
 	item_state = "g_suit"
 	item_color = "officer"
 	displays_id = 0
-	flags = ONESIZEFITSALL
+	flags_size = ONESIZEFITSALL
 
 /obj/item/clothing/under/rank/centcom/captain
 	desc = "Gold trim on space-black cloth, this uniform displays the rank of \"Captain\" and bears \"N.C.V. Fearless CV-286\" on the left shounder."
@@ -105,7 +126,7 @@
 	item_state = "g_suit"
 	item_color = "officer"
 	displays_id = 0
-	flags = ONESIZEFITSALL
+	flags_size = ONESIZEFITSALL
 
 /obj/item/clothing/under/rank/centcom/representative
 	desc = "Gold trim on space-black cloth, this uniform displays the rank of \"Ensign\" and bears \"N.S.S. Cyberiad\" on the left shounder."
@@ -114,7 +135,7 @@
 	item_state = "g_suit"
 	item_color = "officer"
 	displays_id = 0
-	flags = ONESIZEFITSALL
+	flags_size = ONESIZEFITSALL
 
 /obj/item/clothing/under/rank/centcom/diplomatic
 	desc = "A very gaudy and official looking uniform of the Nanotrasen Diplomatic Corps."
@@ -130,7 +151,7 @@
 	icon_state = "ert_uniform"
 	item_state = "bl_suit"
 	item_color = "ert_uniform"
-	armor = list(melee = 10, bullet = 0, laser = 0,energy = 0, bomb = 0, bio = 0, rad = 0)
+	armor = list(melee = 10, bullet = 0, laser = 0, energy = 0, bomb = 0, bio = 0, rad = 0)
 
 /obj/item/clothing/under/space
 	name = "\improper NASA jumpsuit"
@@ -146,6 +167,7 @@
 	min_cold_protection_temperature = SPACE_SUIT_MIN_TEMP_PROTECT
 	heat_protection = UPPER_TORSO | LOWER_TORSO|LEGS|FEET|ARMS|HANDS
 	max_heat_protection_temperature = SPACE_SUIT_MAX_TEMP_PROTECT
+	burn_state = FIRE_PROOF
 
 /obj/item/clothing/under/acj
 	name = "administrative cybernetic jumpsuit"
@@ -156,13 +178,14 @@
 	gas_transfer_coefficient = 0.01
 	permeability_coefficient = 0.01
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|FEET|ARMS|HANDS|HEAD
-	armor = list(melee = 100, bullet = 100, laser = 100,energy = 100, bomb = 100, bio = 100, rad = 100)
+	armor = list(melee = 100, bullet = 100, laser = 100, energy = 100, bomb = 100, bio = 100, rad = 100)
 	cold_protection = UPPER_TORSO | LOWER_TORSO | LEGS | FEET | ARMS | HANDS | HEAD
 	min_cold_protection_temperature = SPACE_SUIT_MIN_TEMP_PROTECT
 	heat_protection = UPPER_TORSO | LOWER_TORSO|LEGS|FEET|ARMS|HANDS | HEAD
 	max_heat_protection_temperature = FIRE_IMMUNITY_SUIT_MAX_TEMP_PROTECT
 	slowdown = -10
 	siemens_coefficient = 0
+	burn_state = LAVA_PROOF
 
 /obj/item/clothing/under/johnny
 	name = "johnny~~ jumpsuit"
@@ -231,7 +254,7 @@
 	icon_state = "red_suit"
 	item_state = "r_suit"
 	item_color = "red_suit"
-	flags = ONESIZEFITSALL
+	flags_size = ONESIZEFITSALL
 
 /obj/item/clothing/under/suit_jacket/navy
 	name = "navy suit"
@@ -256,7 +279,7 @@
 
 /obj/item/clothing/under/suit_jacket/charcoal
 	name = "charcoal suit"
-	desc = "A charcoal suit and red tie. Very professional."
+	desc = "A charcoal suit and blue tie. Very professional."
 	icon_state = "charcoal_suit"
 	item_state = "charcoal_suit"
 	item_color = "charcoal_suit"
@@ -334,6 +357,7 @@
 	item_state = "gladiator"
 	item_color = "gladiator"
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|ARMS
+	burn_state = FIRE_PROOF
 
 //dress
 
@@ -460,6 +484,13 @@
 	item_color = "sundress"
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO
 
+/obj/item/clothing/under/captainparade
+	name = "captain's parade uniform"
+	desc = "A captain's luxury-wear, for special occasions."
+	icon_state = "captain_parade"
+	item_state = "by_suit"
+	item_color = "captain_parade"
+
 /obj/item/clothing/under/roman
 	name = "roman armor"
 	desc = "An ancient Roman armor. Made of metallic strips and leather straps."
@@ -467,6 +498,7 @@
 	item_color = "roman"
 	item_state = "armor"
 	strip_delay = 100
+	burn_state = FIRE_PROOF
 
 /obj/item/clothing/under/maid
 	name = "maid costume"
@@ -483,6 +515,26 @@
 	item_state = "janimaid"
 	item_color = "janimaid"
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO
+
+/obj/item/clothing/under/singery
+	name = "yellow performer's outfit"
+	desc = "Just looking at this makes you want to sing."
+	icon_state = "ysing"
+	item_state = "ysing"
+	item_color = "ysing"
+
+/obj/item/clothing/under/singerb
+	name = "blue performer's outfit"
+	desc = "Just looking at this makes you want to sing."
+	icon_state = "bsing"
+	item_state = "bsing"
+	item_color = "bsing"
+
+/obj/item/clothing/under/jester
+	name = "jester suit"
+	desc = "A jolly dress, well suited to entertain your master, nuncle."
+	icon_state = "jester"
+	item_color = "jester"
 
 /obj/item/clothing/under/flappers
 	name = "flappers"
@@ -534,57 +586,65 @@
 	item_state = "bane"
 	item_color = "bane"
 
-/obj/item/clothing/under/vox_grey
+/obj/item/clothing/under/vox
+	name = "Ripped Jumpsuit"
+	desc = "A jumpsuit that looks like it's been shredded by some talons. Who could wear this now?"
+	icon = 'icons/obj/clothing/species/vox/uniforms.dmi'
+	icon_state = "vgrey"
+	item_state = "vgrey"
+	item_color = "vgrey"
+
+/obj/item/clothing/under/vox/grey
 	name = "Grey Vox Jumpsuit"
 	desc = "An assistant's jumpsuit ripped to better fit a vox."
 	icon_state = "vgrey"
 	item_state = "vgrey"
 	item_color = "vgrey"
 
-/obj/item/clothing/under/vox_robotics
+/obj/item/clothing/under/vox/robotics
 	name = "Vox Robotics Jumpsuit"
 	desc = "A roboticist's jumpsuit ripped to better fit a vox."
 	icon_state = "vrobotics"
 	item_state = "vrobotics"
 	item_color = "vrobotics"
 
-/obj/item/clothing/under/vox_toxins
+/obj/item/clothing/under/vox/toxins
 	name = "Vox Toxins Jumpsuit"
 	desc = "A Toxin Researcher's jumpsuit ripped to better fit a vox."
 	icon_state = "vtoxinswhite"
 	item_state = "vtoxinswhite"
 	item_color = "vtoxinswhite"
 
-/obj/item/clothing/under/vox_atmos
+/obj/item/clothing/under/vox/atmos
 	name = "Vox Atmos Jumpsuit"
 	desc = "An Atmos Tech's jumpsuit ripped to better fit a vox."
 	icon_state = "vatmos"
 	item_state = "vatmos"
 	item_color = "vatmos"
 
-/obj/item/clothing/under/vox_engi
+/obj/item/clothing/under/vox/engi
 	name = "Vox Engineer Jumpsuit"
 	desc = "An Engineer's jumpsuit ripped to better fit a vox."
 	icon_state = "vengine"
 	item_state = "vengine"
 	item_color = "vengine"
-	armor = list(melee = 0, bullet = 0, laser = 0,energy = 0, bomb = 0, bio = 0, rad = 10)
+	armor = list(melee = 0, bullet = 0, laser = 0, energy = 0, bomb = 0, bio = 0, rad = 10)
 
-/obj/item/clothing/under/vox_sec
+/obj/item/clothing/under/vox/sec
 	name = "Vox Security Jumpsuit"
 	desc = "A Security officer's jumpsuit ripped to better fit a vox."
 	icon_state = "vred"
 	item_state = "vred"
 	item_color = "vred"
-	armor = list(melee = 10, bullet = 0, laser = 0,energy = 0, bomb = 0, bio = 0, rad = 0)
+	armor = list(melee = 10, bullet = 0, laser = 0, energy = 0, bomb = 0, bio = 0, rad = 0)
 
-/obj/item/clothing/under/vox_chem
+/obj/item/clothing/under/vox/chem
 	name = "Vox Chemist Jumpsuit"
 	desc = "A Chemist's jumpsuit ripped to better fit a vox."
 	icon_state = "vchem"
 	item_state = "vchem"
 	item_color = "vchem"
-	armor = list(melee = 0, bullet = 0, laser = 0,energy = 0, bomb = 0, bio = 10, rad = 0)
+	armor = list(melee = 0, bullet = 0, laser = 0, energy = 0, bomb = 0, bio = 10, rad = 0)
 
 /obj/item/clothing/under/psyjump
 	name = "Psychic Amp Jumpsuit"
@@ -668,6 +728,8 @@
 	desc = "A soft brown jumpsuit made of synthetic feathers and strong conviction."
 	icon_state = "owl"
 	item_color = "owl"
+
+/obj/item/clothing/under/owl/super_hero
 	flags = NODROP
 
 /obj/item/clothing/under/griffin
@@ -675,6 +737,8 @@
 	desc = "A soft brown jumpsuit with a white feather collar made of synthetic feathers and a lust for mayhem."
 	icon_state = "griffin"
 	item_color = "griffin"
+
+/obj/item/clothing/under/griffin/super_hero
 	flags = NODROP
 
 /obj/item/clothing/under/noble_clothes
@@ -683,3 +747,41 @@
 	icon_state = "noble_clothes"
 	item_color = "noble_clothes"
 	item_state = "noble_clothes"
+
+/obj/item/clothing/under/contortionist
+	name = "Contortionist's Jumpsuit"
+	desc = "A light jumpsuit useful for squeezing through narrow vents."
+	icon_state = "atmos"
+	item_state = "atmos_suit"
+	item_color = "atmos"
+
+/obj/item/clothing/under/contortionist/equipped(mob/living/carbon/human/user, slot)
+	if(!user.ventcrawler)
+		user.ventcrawler = 2
+	..()
+
+/obj/item/clothing/under/contortionist/dropped(mob/living/carbon/human/user)
+	if(!user.get_int_organ(/obj/item/organ/internal/heart/gland/ventcrawling))
+		user.ventcrawler = 0
+	..()
+
+/obj/item/clothing/under/contortionist/proc/check_clothing(mob/user as mob)
+	//Allowed to wear: glasses, shoes, gloves, pockets, mask, and jumpsuit (obviously)
+	var/list/slot_must_be_empty = list(slot_back,slot_handcuffed,slot_legcuffed,slot_l_hand,slot_r_hand,slot_belt,slot_head,slot_wear_suit)
+	for(var/slot_id in slot_must_be_empty)
+		if(user.get_item_by_slot(slot_id))
+			to_chat(user,"<span class='warning'>You can't fit inside while wearing that \the [user.get_item_by_slot(slot_id)].</span>")
+			return 0
+	return 1
+
+/obj/item/clothing/under/cursedclown
+	name = "cursed clown suit"
+	desc = "It wasn't already?"
+	icon = 'icons/goonstation/objects/clothing/uniform.dmi'
+	icon_state = "cursedclown"
+	item_state = "cclown_uniform"
+	item_color = "cursedclown"
+	icon_override = 'icons/goonstation/mob/clothing/uniform.dmi'
+	lefthand_file = 'icons/goonstation/mob/inhands/clothing_lefthand.dmi'
+	righthand_file = 'icons/goonstation/mob/inhands/clothing_righthand.dmi'
+	flags = NODROP

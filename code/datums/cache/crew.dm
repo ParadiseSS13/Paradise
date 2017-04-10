@@ -62,6 +62,6 @@ var/global/datum/repository/crew/crew_repository = new()
 	for(var/mob/living/carbon/human/H in mob_list)
 		if(istype(H.w_uniform, /obj/item/clothing/under))
 			var/obj/item/clothing/under/C = H.w_uniform
-			if (C.has_sensor)
+			if(C.has_sensor)
 				tracked |= C
 	return tracked

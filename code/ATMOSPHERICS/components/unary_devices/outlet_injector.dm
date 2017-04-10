@@ -5,7 +5,7 @@
 	layer = 3
 
 	can_unwrench = 1
-	
+
 	name = "air injector"
 	desc = "Has a valve and pump attached to it"
 
@@ -22,7 +22,7 @@
 	var/datum/radio_frequency/radio_connection
 	Mtoollink = 1
 	settagwhitelist = list("id_tag")
-	
+
 /obj/machinery/atmospherics/unary/outlet_injector/on
 	on = 1
 
@@ -52,7 +52,9 @@
 		update_icon()
 
 /obj/machinery/atmospherics/unary/outlet_injector/process()
-	..()
+	if(!..())
+		return 0
+	
 	injecting = 0
 
 	if(!on || stat & NOPOWER)
@@ -160,7 +162,7 @@
 /obj/machinery/atmospherics/unary/outlet_injector/multitool_menu(var/mob/user,var/obj/item/device/multitool/P)
 	return {"
 	<ul>
-		<li><b>Frequency:</b> <a href="?src=\ref[src];set_freq=-1">[format_frequency(frequency)] GHz</a> (<a href="?src=\ref[src];set_freq=[1439]">Reset</a>)</li>
+		<li><b>Frequency:</b> <a href="?src=[UID()];set_freq=-1">[format_frequency(frequency)] GHz</a> (<a href="?src=[UID()];set_freq=[1439]">Reset</a>)</li>
 		<li>[format_tag("ID Tag","id_tag","set_id")]</a></li>
 	</ul>
 "}
@@ -170,8 +172,8 @@
 		interact(user)
 		return 1
 	if(istype(W, /obj/item/weapon/wrench))
-		if (!(stat & NOPOWER) && on)
-			user << "<span class='danger'>You cannot unwrench this [src], turn if off first.</span>"
+		if(!(stat & NOPOWER) && on)
+			to_chat(user, "<span class='danger'>You cannot unwrench this [src], turn if off first.</span>")
 			return 1
 	return ..()
 

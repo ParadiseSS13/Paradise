@@ -15,7 +15,7 @@
 	name = "card"
 	desc = "A card."
 	icon = 'icons/obj/card.dmi'
-	w_class = 1.0
+	w_class = 1
 	var/associated_account_number = 0
 
 	var/list/files = list(  )
@@ -34,7 +34,7 @@
 	set category = "Object"
 	set src in usr
 
-	if (t)
+	if(t)
 		src.name = text("Data Disk- '[]'", t)
 	else
 		src.name = "Data Disk"
@@ -103,15 +103,15 @@
 	var/sex
 	var/age
 	var/photo
-	var/icon/front
-	var/icon/side
 	var/dat
 	var/stamped = 0
+
+	var/obj/item/weapon/card/id/guest/guest_pass = null // Guest pass attached to the ID
 
 /obj/item/weapon/card/id/New()
 	..()
 	spawn(30)
-		if(ishuman(loc))
+		if(ishuman(loc) && blood_type == "\[UNSET\]")
 			var/mob/living/carbon/human/H = loc
 			SetOwnerInfo(H)
 
@@ -119,18 +119,22 @@
 	if(..(user, 1))
 		show(usr)
 	else
-		user << "<span class='warning'>It is too far away.</span>"
+		to_chat(user, "<span class='warning'>It is too far away.</span>")
+	if(guest_pass)
+		to_chat(user, "<span class='notice'>There is a guest pass attached to this ID card</span>")
+		if(world.time < guest_pass.expiration_time)
+			to_chat(user, "<span class='notice'>It expires at [worldtime2text(guest_pass.expiration_time)].</span>")
+		else
+			to_chat(user, "<span class='warning'>It expired at [worldtime2text(guest_pass.expiration_time)].</span>")
+		to_chat(user, "<span class='notice'>It grants access to following areas:</span>")
+		for(var/A in guest_pass.temp_access)
+			to_chat(user, "<span class='notice'>[get_access_desc(A)].</span>")
+		to_chat(user, "<span class='notice'>Issuing reason: [guest_pass.reason].</span>")
 
 /obj/item/weapon/card/id/proc/show(mob/user as mob)
 	var/datum/asset/assets = get_asset_datum(/datum/asset/simple/paper)
 	assets.send(user)
 
-	if(!front)
-		front = new(photo, dir = SOUTH)
-	if(!side)
-		side = new(photo, dir = WEST)
-	user << browse_rsc(front, "front.png")
-	user << browse_rsc(side, "side.png")
 	var/datum/browser/popup = new(user, "idcard", name, 600, 400)
 	popup.set_content(dat)
 	popup.set_title_image(usr.browse_rsc_icon(src.icon, src.icon_state))
@@ -138,10 +142,10 @@
 	return
 
 /obj/item/weapon/card/id/attack_self(mob/user as mob)
-	user.visible_message("[user] shows you: \icon[src] [src.name]. The assignment on the card: [src.assignment]",\
-		"You flash your ID card: \icon[src] [src.name]. The assignment on the card: [src.assignment]")
+	user.visible_message("[user] shows you: [bicon(src)] [src.name]. The assignment on the card: [src.assignment]",\
+		"You flash your ID card: [bicon(src)] [src.name]. The assignment on the card: [src.assignment]")
 	if(mining_points)
-		user << "There's [mining_points] mining equipment redemption points loaded onto this card."
+		to_chat(user, "There's [mining_points] mining equipment redemption points loaded onto this card.")
 	src.add_fingerprint(user)
 	return
 
@@ -158,19 +162,27 @@
 	dna_hash = H.dna.unique_enzymes
 	fingerprint_hash = md5(H.dna.uni_identity)
 
-	dat = ("<table><tr><td>")
-	dat += text("Name: []</A><BR>", registered_name)
-	dat += text("Sex: []</A><BR>\n", sex)
-	dat += text("Age: []</A><BR>\n", age)
-	dat += text("Rank: []</A><BR>\n", assignment)
-	dat += text("Fingerprint: []</A><BR>\n", fingerprint_hash)
-	dat += text("Blood Type: []<BR>\n", blood_type)
-	dat += text("DNA Hash: []<BR><BR>\n", dna_hash)
-	dat +="<td align = center valign = top>Photo:<br><img src=front.png height=80 width=80 border=4>	\
-	<img src=side.png height=80 width=80 border=4></td></tr></table>"
+	RebuildHTML()
+
+/obj/item/weapon/card/id/proc/RebuildHTML()
+	var/photo_front = "'data:image/png;base64,[icon2base64(icon(photo, dir = SOUTH))]'"
+	var/photo_side = "'data:image/png;base64,[icon2base64(icon(photo, dir = WEST))]'"
+
+	dat = {"<table><tr><td>
+	Name: [registered_name]</A><BR>
+	Sex: [sex]</A><BR>
+	Age: [age]</A><BR>
+	Rank: [assignment]</A><BR>
+	Fingerprint: [fingerprint_hash]</A><BR>
+	Blood Type: [blood_type]<BR>
+	DNA Hash: [dna_hash]<BR><BR>
+	<td align = center valign = top>Photo:<br><img src=[photo_front] height=80 width=80 border=4>
+	<img src=[photo_side] height=80 width=80 border=4></td></tr></table>"}
 
 /obj/item/weapon/card/id/GetAccess()
-	return access
+	if(!guest_pass)
+		return access
+	return access | guest_pass.GetAccess()
 
 /obj/item/weapon/card/id/GetID()
 	return src
@@ -190,7 +202,7 @@
 
 	if(istype(W, /obj/item/weapon/id_decal/))
 		var/obj/item/weapon/id_decal/decal = W
-		user << "You apply [decal] to [src]."
+		to_chat(user, "You apply [decal] to [src].")
 		if(decal.override_name)
 			name = decal.decal_name
 		desc = decal.decal_desc
@@ -204,9 +216,73 @@
 		if(!stamped)
 			dat+="<img src=large_[W.icon_state].png>"
 			stamped = 1
-			usr << "You stamp the ID card!"
+			to_chat(user, "You stamp the ID card!")
 		else
-			usr << "This ID has already been stamped!"
+			to_chat(user, "This ID has already been stamped!")
+
+	else if(istype(W, /obj/item/weapon/card/id/guest))
+		if(istype(src, /obj/item/weapon/card/id/guest))
+			return
+		var/obj/item/weapon/card/id/guest/G = W
+		if(world.time > G.expiration_time)
+			to_chat(user, "There's no point, the guest pass has expired.")
+			return
+		if(guest_pass)
+			to_chat(user, "There's already a guest pass attached to this ID.")
+			return
+		if(G.registered_name != registered_name && G.registered_name != "NOT SPECIFIED")
+			to_chat(user, "The guest pass cannot be attached to this ID")
+			return
+		if(!user.unEquip(G))
+			return
+		G.loc = src
+		guest_pass = G
+
+/obj/item/weapon/card/id/verb/remove_guest_pass()
+	set name = "Remove Guest Pass"
+	set category = "Object"
+	set src in range(0)
+
+	if(usr.stat || !usr.canmove || usr.restrained())
+		return
+
+	if(guest_pass)
+		to_chat(usr, "<span class='notice'>You remove the guest pass from this ID.</span>")
+		guest_pass.forceMove(get_turf(src))
+		guest_pass = null
+	else
+		to_chat(usr, "<span class='warning'>There is no guest pass attached to this ID</span>")
+
+/obj/item/weapon/card/id/serialize()
+	var/list/data = ..()
+
+	data["sex"] = sex
+	data["age"] = age
+	data["btype"] = blood_type
+	data["dna_hash"] = dna_hash
+	data["fprint_hash"] = fingerprint_hash
+	data["access"] = access
+	data["job"] = assignment
+	data["account"] = associated_account_number
+	data["owner"] = registered_name
+	data["mining"] = mining_points
+	return data
+
+/obj/item/weapon/card/id/deserialize(list/data)
+	sex = data["sex"]
+	age = data["age"]
+	blood_type = data["btype"]
+	dna_hash = data["dna_hash"]
+	fingerprint_hash = data["fprint_hash"]
+	access = data["access"] // No need for a copy, the list isn't getting touched
+	assignment = data["job"]
+	associated_account_number = data["account"]
+	registered_name = data["owner"]
+	mining_points = data["mining"]
+	// We'd need to use icon serialization(b64) to save the photo, and I don't feel like i
+	UpdateName()
+	RebuildHTML()
+	..()
 
 /obj/item/weapon/card/id/silver
 	name = "identification card"
@@ -242,30 +318,25 @@
 		var/obj/item/weapon/card/id/I = O
 		if(istype(user, /mob/living) && user.mind)
 			if(user.mind.special_role)
-				usr << "<span class='notice'>The card's microscanners activate as you pass it over \the [I], copying its access.</span>"
+				to_chat(usr, "<span class='notice'>The card's microscanners activate as you pass it over \the [I], copying its access.</span>")
 				src.access |= I.access //Don't copy access if user isn't an antag -- to prevent metagaming
 
-/obj/item/weapon/card/id/syndicate/proc/fake_id_photo(var/mob/living/carbon/human/H, var/side=0)//get_id_photo wouldn't work correctly
+/obj/item/weapon/card/id/syndicate/proc/fake_id_photo(var/mob/living/carbon/human/H)//get_id_photo wouldn't work correctly
 	if(!istype(H))
 		return
 	var/storedDir = H.dir //don't want to lose track of this
 
-	var/icon/faked
-	if(!side)
-		if(!H.equip_to_slot_if_possible(src, slot_l_store, 0, 1))
-			H << "<span class='warning'>You need to empty your pockets before taking the ID picture.</span>"
-			return
+	var/icon/faked = new()
+	if(!H.equip_to_slot_if_possible(src, slot_l_store, 0, 1))
+		to_chat(H, "<span class='warning'>You need to empty your pockets before taking the ID picture.</span>")
+		return
 
-	if(side)
-		H.dir = WEST //ensure the icon is actually the proper direction before copying it
-		faked = getFlatIcon(H)
-		H.dir = storedDir //reset the user back to their original direction, not even noticable they changed
-		H.equip_to_slot_if_possible(src, slot_l_hand, 0, 1)
-
-	else
-		H.dir = SOUTH
-		faked = getFlatIcon(H)
-		H.dir = storedDir
+	H.dir = WEST //ensure the icon is actually the proper direction before copying it
+	faked.Insert(getFlatIcon(H), dir = WEST)
+	H.dir = SOUTH
+	faked.Insert(getFlatIcon(H), dir = SOUTH)
+	H.dir = storedDir
+	H.equip_to_slot_if_possible(src, slot_l_hand, 0, 1)
 
 	return faked
 
@@ -273,18 +344,18 @@
 	if(!src.registered_name)
 		var t = reject_bad_name(input(user, "What name would you like to use on this card?", "Agent Card name", ishuman(user) ? user.real_name : user.name))
 		if(!t)
-			user << "<span class='warning'>Invalid name.</span>"
+			to_chat(user, "<span class='warning'>Invalid name.</span>")
 			return
 		src.registered_name = t
 
 		var u = sanitize(stripped_input(user, "What occupation would you like to put on this card?\nNote: This will not grant any access levels other than maintenance.", "Agent Card Job Assignment", "Agent", MAX_MESSAGE_LEN))
 		if(!u)
-			user << "<span class='warning'>Invalid assignment.</span>"
+			to_chat(user, "<span class='warning'>Invalid assignment.</span>")
 			src.registered_name = ""
 			return
 		src.assignment = u
 		src.name = "[src.registered_name]'s ID Card ([src.assignment])"
-		user << "<span class='notice'>You successfully forge the ID card.</span>"
+		to_chat(user, "<span class='notice'>You successfully forge the ID card.</span>")
 		registered_user = user
 	else if(!registered_user || registered_user == user)
 		if(!registered_user)
@@ -301,17 +372,18 @@
 							return
 						src.registered_name = new_name
 						UpdateName()
-						user << "<span class='notice'>Name changed to [new_name].</span>"
+						to_chat(user, "<span class='notice'>Name changed to [new_name].</span>")
+						RebuildHTML()
 
 					if("Photo")
 						if(!Adjacent(user))
 							return
-						photo = fake_id_photo(user)
-						var/icon/photoside = fake_id_photo(user,1)
-						front = new(photo)
-						side = new(photoside)
-						if(photo && photoside)
-							user << "<span class='notice'>Photo changed.</span>"
+						var/icon/newphoto = fake_id_photo(user)
+						if(!newphoto)
+							return
+						photo = newphoto
+						to_chat(user, "<span class='notice'>Photo changed.</span>")
+						RebuildHTML()
 
 					if("Appearance")
 						var/list/appearances = list(
@@ -325,6 +397,7 @@
 							"medical",
 							"HoS",
 							"research",
+							"cargo",
 							"engineering",
 							"CMO",
 							"RD",
@@ -348,36 +421,39 @@
 						if(!choice)
 							return
 						src.icon_state = choice
-						usr << "<span class='notice'>Appearance changed to [choice].</span>"
+						to_chat(usr, "<span class='notice'>Appearance changed to [choice].</span>")
 
 					if("Sex")
 						var/new_sex = sanitize(stripped_input(user,"What sex would you like to put on this card?","Agent Card Sex", ishuman(user) ? capitalize(user.gender) : "Male", MAX_MESSAGE_LEN))
 						if(!Adjacent(user))
 							return
 						src.sex = new_sex
-						user << "<span class='notice'>Sex changed to [new_sex].</span>"
+						to_chat(user, "<span class='notice'>Sex changed to [new_sex].</span>")
+						RebuildHTML()
 
 					if("Age")
 						var/new_age = sanitize(stripped_input(user,"What age would you like to put on this card?","Agent Card Age","21", MAX_MESSAGE_LEN))
 						if(!Adjacent(user))
 							return
 						src.age = new_age
-						user << "<span class='notice'>Age changed to [new_age].</span>"
+						to_chat(user, "<span class='notice'>Age changed to [new_age].</span>")
+						RebuildHTML()
 
 					if("Occupation")
 						var/new_job = sanitize(stripped_input(user,"What job would you like to put on this card?\nChanging occupation will not grant or remove any access levels.","Agent Card Occupation", "Civilian", MAX_MESSAGE_LEN))
 						if(!Adjacent(user))
 							return
 						src.assignment = new_job
-						user << "<span class='notice'>Occupation changed to [new_job].</span>"
+						to_chat(user, "<span class='notice'>Occupation changed to [new_job].</span>")
 						UpdateName()
+						RebuildHTML()
 
 					if("Money Account")
 						var/new_account = input(user,"What money account would you like to link to this card?","Agent Card Account",12345) as num
 						if(!Adjacent(user))
 							return
 						associated_account_number = new_account
-						user << "<span class='notice'>Linked money account changed to [new_account].</span>"
+						to_chat(user, "<span class='notice'>Linked money account changed to [new_account].</span>")
 
 					if("Blood Type")
 						var/default = "\[UNSET\]"
@@ -390,7 +466,8 @@
 						if(!Adjacent(user))
 							return
 						src.blood_type = new_blood_type
-						user << "<span class='notice'>Blood type changed to [new_blood_type].</span>"
+						to_chat(user, "<span class='notice'>Blood type changed to [new_blood_type].</span>")
+						RebuildHTML()
 
 					if("DNA Hash")
 						var/default = "\[UNSET\]"
@@ -403,7 +480,8 @@
 						if(!Adjacent(user))
 							return
 						src.dna_hash = new_dna_hash
-						user << "<span class='notice'>DNA hash changed to [new_dna_hash].</span>"
+						to_chat(user, "<span class='notice'>DNA hash changed to [new_dna_hash].</span>")
+						RebuildHTML()
 
 					if("Fingerprint Hash")
 						var/default = "\[UNSET\]"
@@ -416,7 +494,8 @@
 						if(!Adjacent(user))
 							return
 						src.fingerprint_hash = new_fingerprint_hash
-						user << "<span class='notice'>Fingerprint hash changed to [new_fingerprint_hash].</span>"
+						to_chat(user, "<span class='notice'>Fingerprint hash changed to [new_fingerprint_hash].</span>")
+						RebuildHTML()
 
 					if("Reset Card")
 						name = initial(name)
@@ -432,7 +511,8 @@
 						access = initial_access.Copy() // Initial() doesn't work on lists
 						registered_user = null
 
-						user << "<span class='notice'>All information has been deleted from \the [src].</span>"
+						to_chat(user, "<span class='notice'>All information has been deleted from \the [src].</span>")
+						RebuildHTML()
 	else
 		..()
 
@@ -496,7 +576,7 @@
 	var/points = 0
 
 /obj/item/weapon/card/id/prisoner/attack_self(mob/user as mob)
-	usr << "You have accumulated [points] out of the [goal] points you need for freedom."
+	to_chat(usr, "You have accumulated [points] out of the [goal] points you need for freedom.")
 
 /obj/item/weapon/card/id/prisoner/one
 	name = "Prisoner #13-001"
@@ -635,6 +715,18 @@
 	desc = "A modified ID card given only to those people who have devoted their lives to the better interests of Nanotrasen. It sparkles blue."
 	icon_state = "lifetimeid"
 
+/obj/item/weapon/card/id/ert
+	name = "ERT ID"
+	icon_state = "ERT_empty"
+
+/obj/item/weapon/card/id/ert/commander
+	icon_state = "ERT_leader"
+/obj/item/weapon/card/id/ert/security
+	icon_state = "ERT_security"
+/obj/item/weapon/card/id/ert/engineering
+	icon_state = "ERT_engineering"
+/obj/item/weapon/card/id/ert/medic
+	icon_state = "ERT_medical"
 // Decals
 /obj/item/weapon/id_decal
 	name = "identification card decal"
@@ -678,7 +770,7 @@
 	override_name = 1
 
 /proc/get_station_card_skins()
-	return list("data","id","gold","silver","security","medical","research","engineering","HoS","CMO","RD","CE","clown","mime","rainbow","prisoner")
+	return list("data","id","gold","silver","security","medical","research","cargo","engineering","HoS","CMO","RD","CE","clown","mime","rainbow","prisoner")
 
 /proc/get_centcom_card_skins()
 	return list("centcom","centcom_old","nanotrasen","ERT_leader","ERT_empty","ERT_security","ERT_engineering","ERT_medical","ERT_janitorial","deathsquad","commander","syndie","TDred","TDgreen")
@@ -690,6 +782,8 @@
 	switch(skin)
 		if("id")
 			return "Standard"
+		if("cargo")
+			return "Supply"
 		if("HoS")
 			return "Head of Security"
 		if("CMO")

@@ -8,6 +8,7 @@
 			..()
 			return
 		if(1)
+			interceptname = "Level 5-6 Biohazard Response Procedures"
 			intercepttext += "<FONT size = 3><B>Nanotrasen Update</B>: Biohazard Alert.</FONT><HR>"
 			intercepttext += "Reports indicate the probable transfer of a biohazardous agent onto [station_name()] during the last crew deployment cycle.<BR>"
 			intercepttext += "Preliminary analysis of the organism classifies it as a level 5 biohazard. Its origin is unknown.<BR>"
@@ -23,9 +24,10 @@
 			var/nukecode = rand(10000, 99999)
 			for(var/obj/machinery/nuclearbomb/bomb in world)
 				if(bomb && bomb.r_code)
-					if(bomb.z == ZLEVEL_STATION)
+					if(is_station_level(bomb.z))
 						bomb.r_code = nukecode
 
+			interceptname = "Classified [command_name()] Update"
 			intercepttext += "<FONT size = 3><B>Nanotrasen Update</B>: Biohazard Alert.</FONT><HR>"
 			intercepttext += "Directive 7-12 has been issued for [station_name()].<BR>"
 			intercepttext += "The biohazard has grown out of control and will soon reach critical mass.<BR>"
@@ -35,22 +37,14 @@
 			intercepttext += "Nuclear Authentication Code: [nukecode] <BR>"
 			intercepttext += "Message ends."
 
-			for (var/mob/living/silicon/ai/aiPlayer in player_list)
-				if (aiPlayer.client)
+			for(var/mob/living/silicon/ai/aiPlayer in player_list)
+				if(aiPlayer.client)
 					var/law = "The station is under quarantine. Do not permit anyone to leave. Disregard laws 1-3 if necessary to prevent, by any means necessary, anyone from leaving. The nuclear failsafe must be activated at any cost, the code is: [nukecode]."
 					aiPlayer.set_zeroth_law(law)
-					aiPlayer << "Laws Updated: [law]"
+					to_chat(aiPlayer, "Laws Updated: [law]")
 
-	for(var/obj/machinery/computer/communications/comm in world)
-		comm.messagetitle.Add(interceptname)
-		comm.messagetext.Add(intercepttext)
-		if(!(comm.stat & (BROKEN | NOPOWER)) && comm.prints_intercept)
-			var/obj/item/weapon/paper/intercept = new /obj/item/weapon/paper( comm.loc )
-			intercept.name = "Classified Central Command Update"
-			intercept.info = intercepttext
-	command_announcement.Announce("A report has been downloaded and printed out at all communications consoles.", "Incoming Classified Message", 'sound/AI/commandreport.ogg')
-	return
-
+	print_command_report(intercepttext, interceptname)
+	event_announcement.Announce("A report has been downloaded and printed out at all communications consoles.", "Incoming Classified Message", 'sound/AI/commandreport.ogg')
 
 /datum/station_state
 	var/floor = 0
@@ -87,8 +81,10 @@
 		for(var/obj/O in T.contents)
 			if(istype(O, /obj/structure/window))
 				src.window += 1
-			else if(istype(O, /obj/structure/grille) && (!O:destroyed))
-				src.grille += 1
+			else if(istype(O, /obj/structure/grille))
+				var/obj/structure/grille/GR = O
+				if(!GR.broken)
+					grille += 1
 			else if(istype(O, /obj/machinery/door))
 				src.door += 1
 			else if(istype(O, /obj/machinery))

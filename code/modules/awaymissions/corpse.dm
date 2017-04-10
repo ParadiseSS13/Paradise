@@ -7,6 +7,7 @@
 /obj/effect/landmark/corpse
 	name = "Unknown"
 	var/mobname = "Unknown"  //Unused now but it'd fuck up maps to remove it now
+	var/mob_species = null //Set to make a mob of another race, currently used only in ruins
 	var/corpseuniform = null //Set this to an object path to have the slot filled with said object on the corpse.
 	var/corpsesuit = null
 	var/corpseshoes = null
@@ -25,6 +26,8 @@
 	var/corpseidicon = null //For setting it to be a gold, silver, centcomm etc ID
 	var/timeofdeath = null
 	var/coffin = 0
+	var/brute_damage = 0
+	var/oxy_damage = 0
 
 /obj/effect/landmark/corpse/initialize()
 	if(istype(src,/obj/effect/landmark/corpse/clown))
@@ -36,32 +39,36 @@
 	var/mob/living/carbon/human/human/M = new /mob/living/carbon/human/human (src.loc)
 	M.real_name = src.name
 	M.death(1) //Kills the new mob
+	M.adjustOxyLoss(oxy_damage)
+	M.adjustBruteLoss(brute_damage)
 	M.timeofdeath = timeofdeath
-	if(src.corpseuniform)
-		M.equip_to_slot_or_del(new src.corpseuniform(M), slot_w_uniform)
-	if(src.corpsesuit)
-		M.equip_to_slot_or_del(new src.corpsesuit(M), slot_wear_suit)
-	if(src.corpseshoes)
-		M.equip_to_slot_or_del(new src.corpseshoes(M), slot_shoes)
-	if(src.corpsegloves)
-		M.equip_to_slot_or_del(new src.corpsegloves(M), slot_gloves)
-	if(src.corpseradio)
-		M.equip_to_slot_or_del(new src.corpseradio(M), slot_l_ear)
-	if(src.corpseglasses)
-		M.equip_to_slot_or_del(new src.corpseglasses(M), slot_glasses)
-	if(src.corpsemask)
-		M.equip_to_slot_or_del(new src.corpsemask(M), slot_wear_mask)
-	if(src.corpsehelmet)
-		M.equip_to_slot_or_del(new src.corpsehelmet(M), slot_head)
-	if(src.corpsebelt)
-		M.equip_to_slot_or_del(new src.corpsebelt(M), slot_belt)
-	if(src.corpsepocket1)
-		M.equip_to_slot_or_del(new src.corpsepocket1(M), slot_r_store)
-	if(src.corpsepocket2)
-		M.equip_to_slot_or_del(new src.corpsepocket2(M), slot_l_store)
-	if(src.corpseback)
-		M.equip_to_slot_or_del(new src.corpseback(M), slot_back)
-	if(src.corpseid == 1)
+	if(mob_species)
+		M.set_species(mob_species)
+	if(corpseuniform)
+		M.equip_to_slot_or_del(new corpseuniform(M), slot_w_uniform)
+	if(corpsesuit)
+		M.equip_to_slot_or_del(new corpsesuit(M), slot_wear_suit)
+	if(corpseshoes)
+		M.equip_to_slot_or_del(new corpseshoes(M), slot_shoes)
+	if(corpsegloves)
+		M.equip_to_slot_or_del(new corpsegloves(M), slot_gloves)
+	if(corpseradio)
+		M.equip_to_slot_or_del(new corpseradio(M), slot_l_ear)
+	if(corpseglasses)
+		M.equip_to_slot_or_del(new corpseglasses(M), slot_glasses)
+	if(corpsemask)
+		M.equip_to_slot_or_del(new corpsemask(M), slot_wear_mask)
+	if(corpsehelmet)
+		M.equip_to_slot_or_del(new corpsehelmet(M), slot_head)
+	if(corpsebelt)
+		M.equip_to_slot_or_del(new corpsebelt(M), slot_belt)
+	if(corpsepocket1)
+		M.equip_to_slot_or_del(new corpsepocket1(M), slot_r_store)
+	if(corpsepocket2)
+		M.equip_to_slot_or_del(new corpsepocket2(M), slot_l_store)
+	if(corpseback)
+		M.equip_to_slot_or_del(new corpseback(M), slot_back)
+	if(corpseid == 1)
 		var/obj/item/weapon/card/id/W = new(M)
 		W.name = "[M.real_name]'s ID Card"
 		var/datum/job/jobdatum
@@ -70,9 +77,9 @@
 			if(J.title == corpseidaccess)
 				jobdatum = J
 				break
-		if(src.corpseidicon)
+		if(corpseidicon)
 			W.icon_state = corpseidicon
-		if(src.corpseidaccess)
+		if(corpseidaccess)
 			if(jobdatum)
 				W.access = jobdatum.get_access()
 			else
@@ -81,18 +88,14 @@
 			W.assignment = corpseidjob
 		W.registered_name = M.real_name
 		M.equip_to_slot_or_del(W, slot_wear_id)
-	if(src.coffin == 1)
+	if(coffin == 1)
 		var/obj/structure/closet/coffin/sarcophagus/sarc = locate(/obj/structure/closet/coffin/sarcophagus) in loc
 		if(sarc) M.loc = sarc
 	qdel(src)
 
-
-
 // I'll work on making a list of corpses people request for maps, or that I think will be commonly used. Syndicate operatives for example.
-
-
-
-
+/obj/effect/landmark/corpse/damaged
+	brute_damage = 1000
 
 /obj/effect/landmark/corpse/syndicatesoldier
 	name = "Syndicate Operative"
@@ -113,12 +116,12 @@
 /obj/effect/landmark/corpse/syndicatecommando
 	name = "Syndicate Commando"
 	corpseuniform = /obj/item/clothing/under/syndicate
-	corpsesuit = /obj/item/clothing/suit/space/rig/syndi
+	corpsesuit = /obj/item/clothing/suit/space/hardsuit/syndi
 	corpseshoes = /obj/item/clothing/shoes/combat
 	corpsegloves = /obj/item/clothing/gloves/combat
 	corpseradio = /obj/item/device/radio/headset
 	corpsemask = /obj/item/clothing/mask/gas/syndicate
-	corpsehelmet = /obj/item/clothing/head/helmet/space/rig/syndi
+	corpsehelmet = /obj/item/clothing/head/helmet/space/hardsuit/syndi
 	corpseback = /obj/item/weapon/tank/jetpack/oxygen
 	corpsepocket1 = /obj/item/weapon/tank/emergency_oxygen
 	corpseid = 1
@@ -159,7 +162,7 @@
 	corpseradio = /obj/item/device/radio/headset/headset_eng
 	corpseuniform = /obj/item/clothing/under/rank/engineer
 	corpseback = /obj/item/weapon/storage/backpack/industrial
-	corpseshoes = /obj/item/clothing/shoes/orange
+	corpseshoes = /obj/item/clothing/shoes/workboots
 	corpsebelt = /obj/item/weapon/storage/belt/utility/full
 	corpsegloves = /obj/item/clothing/gloves/color/yellow
 	corpsehelmet = /obj/item/clothing/head/hardhat
@@ -167,10 +170,10 @@
 	corpseidjob = "Station Engineer"
 	corpseidaccess = "Station Engineer"
 
-/obj/effect/landmark/corpse/engineer/rig
-	corpsesuit = /obj/item/clothing/suit/space/rig
+/obj/effect/landmark/corpse/engineer/hardsuit
+	corpsesuit = /obj/item/clothing/suit/space/hardsuit
 	corpsemask = /obj/item/clothing/mask/breath
-	corpsehelmet = /obj/item/clothing/head/helmet/space/rig
+	corpsehelmet = /obj/item/clothing/head/helmet/space/hardsuit
 
 /obj/effect/landmark/corpse/clown
 
@@ -252,10 +255,10 @@
 	corpseidjob = "Shaft Miner"
 	corpseidaccess = "Shaft Miner"
 
-/obj/effect/landmark/corpse/miner/rig
-	corpsesuit = /obj/item/clothing/suit/space/rig/mining
+/obj/effect/landmark/corpse/miner/hardsuit
+	corpsesuit = /obj/item/clothing/suit/space/hardsuit/mining
 	corpsemask = /obj/item/clothing/mask/breath
-	corpsehelmet = /obj/item/clothing/head/helmet/space/rig/mining
+	corpsehelmet = /obj/item/clothing/head/helmet/space/hardsuit/mining
 
 
 /////////////////Officers//////////////////////
@@ -285,3 +288,10 @@
 	corpseid = 1
 	corpseidjob = "Commander"
 	corpseidaccess = "Captain"
+
+/obj/effect/landmark/corpse/abductor //Connected to ruins, for some reason?
+	name = "abductor"
+	mobname = "???"
+	mob_species = "abductor"
+	corpseuniform = /obj/item/clothing/under/color/grey
+	corpseshoes = /obj/item/clothing/shoes/combat

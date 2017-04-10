@@ -3,69 +3,17 @@
 var/const/E		= 2.71828183
 var/const/Sqrt2	= 1.41421356
 
-// List of square roots for the numbers 1-100.
-var/list/sqrtTable = list(1, 1, 1, 2, 2, 2, 2, 2, 3, 3, 3, 3, 3, 3, 3, 4, 4, 4, 4, 4, 4, 4, 4, 4, 5,
-                          5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 7, 7,
-                          7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8,
-                          8, 8, 8, 8, 8, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 10)
-
 /proc/Atan2(x, y)
 	if(!x && !y) return 0
 	var/a = arccos(x / sqrt(x*x + y*y))
 	return y >= 0 ? a : -a
 
-/proc/Ceiling(x)
-	return -round(-x)
-
-//Replaced in /code/__DEFINES/math.dm because holy shit man a define is faster.
-/*
-/proc/Clamp(val, min, max)
-	return max(min, min(val, max))
-*/
-
-// cotangent
-/proc/Cot(x)
-	return 1 / Tan(x)
-
-// cosecant
-/proc/Csc(x)
-	return 1 / sin(x)
-
-/proc/Default(a, b)
-	return a ? a : b
-
-/proc/Floor(x)
-	return round(x)
-
 // Greatest Common Divisor - Euclid's algorithm
 /proc/Gcd(a, b)
 	return b ? Gcd(b, a % b) : a
 
-/proc/Inverse(x)
-	return 1 / x
-
 /proc/IsAboutEqual(a, b, deviation = 0.1)
 	return abs(a - b) <= deviation
-
-/proc/IsEven(x)
-	return x % 2 == 0
-
-// Returns true if val is from min to max, inclusive.
-/proc/IsInRange(val, min, max)
-	return min <= val && val <= max
-
-/proc/IsInteger(x)
-	return Floor(x) == x
-
-/proc/IsOdd(x)
-	return !IsEven(x)
-
-/proc/IsMultiple(x, y)
-	return x % y == 0
-
-// Least Common Multiple
-/proc/Lcm(a, b)
-	return abs(a) / Gcd(a, b) * abs(b)
 
 // Performs a linear interpolation between a and b.
 // Note that amount=0 returns a, amount=1 returns b, and
@@ -81,15 +29,6 @@ var/list/sqrtTable = list(1, 1, 1, 2, 2, 2, 2, 2, 3, 3, 3, 3, 3, 3, 3, 4, 4, 4, 
 		sum += val
 	return sum / values
 
-
-// Returns the nth root of x.
-/proc/Root(n, x)
-	return x ** (1 / n)
-
-// secant
-/proc/Sec(x)
-	return 1 / cos(x)
-
 // The quadratic formula. Returns a list with the solutions, or an empty list
 // if they are imaginary.
 /proc/SolveQuadratic(a, b, c)
@@ -102,18 +41,6 @@ var/list/sqrtTable = list(1, 1, 1, 2, 2, 2, 2, 2, 3, 3, 3, 3, 3, 3, 3, 4, 4, 4, 
 	. += (-b + root) / bottom
 	if(!d) return
 	. += (-b - root) / bottom
-
-// tangent
-/proc/Tan(x)
-	return sin(x) / cos(x)
-
-/proc/ToDegrees(radians)
-				  // 180 / Pi
-	return radians * 57.2957795
-
-/proc/ToRadians(degrees)
-				  // Pi / 180
-	return degrees * 0.0174532925
 
 // Will filter out extra rotations and negative rotations
 // E.g: 540 becomes 180. -180 becomes 180.
@@ -128,6 +55,16 @@ var/list/sqrtTable = list(1, 1, 1, 2, 2, 2, 2, 2, 3, 3, 3, 3, 3, 3, 3, 4, 4, 4, 
 	var/d = max - min
 	var/t = Floor((val - min) / d)
 	return val - (t * d)
+
+//A logarithm that converts an integer to a number scaled between 0 and 1 (can be tweaked to be higher).
+//Currently, this is used for hydroponics-produce sprite transforming, but could be useful for other transform functions.
+/proc/TransformUsingVariable(input, inputmaximum, scaling_modifier = 0)
+
+	var/inputToDegrees = (input/inputmaximum)*180 //Converting from a 0 -> 100 scale to a 0 -> 180 scale. The 0 -> 180 scale corresponds to degrees
+	var/size_factor = ((-cos(inputToDegrees) +1) /2) //returns a value from 0 to 1
+
+	return size_factor + scaling_modifier //scale mod of 0 results in a number from 0 to 1. A scale modifier of +0.5 returns 0.5 to 1.5
+	//world<< "Transform multiplier of [src] is [size_factor + scaling_modifer]"
 
 /proc/RaiseToPower(num, power)
     if(!power) return 1
@@ -158,3 +95,24 @@ var/gaussian_next
 		gaussian_next = R2 * working
 	return (mean + stddev * R1)
 #undef ACCURACY
+
+
+
+// oof, what a mouthful
+// Used in status_procs' "adjust" to let them modify a status effect by a given
+// amount, without inadverdently increasing it in the wrong direction
+/proc/directional_bounded_sum(orig_val, modifier, bound_lower, bound_upper)
+	var/new_val = orig_val + modifier
+	if(modifier > 0)
+		if(new_val > bound_upper)
+			new_val = max(orig_val, bound_upper)
+	else if(modifier < 0)
+		if(new_val < bound_lower)
+			new_val = min(orig_val, bound_lower)
+	return new_val
+
+// sqrt, but if you give it a negative number, you get 0 instead of a runtime
+/proc/sqrtor0(num)
+	if(num < 0)
+		return 0
+	return sqrt(num)

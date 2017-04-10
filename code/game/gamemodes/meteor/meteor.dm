@@ -4,15 +4,11 @@
 	var/const/initialmeteordelay = 6000
 	var/wave = 1
 	required_players = 35
-	required_players_secret = 35
-
-	uplink_welcome = "EVIL METEOR Uplink Console:"
-	uplink_uses = 10
 
 
 /datum/game_mode/meteor/announce()
-	world << "<B>The current game mode is - Meteor!</B>"
-	world << "<B>The space station has been stuck in a major meteor shower. You must escape from the station or at least live.</B>"
+	to_chat(world, "<B>The current game mode is - Meteor!</B>")
+	to_chat(world, "<B>The space station has been stuck in a major meteor shower. You must escape from the station or at least live.</B>")
 
 
 /datum/game_mode/meteor/post_setup()
@@ -54,9 +50,9 @@
 			survivors++
 
 	if(survivors)
-		world << "\blue <B>The following survived the meteor storm</B>:[text]"
+		to_chat(world, "<span class='boldnotice'>The following survived the meteor storm</span>:[text]")
 	else
-		world << "\blue <B>Nobody survived the meteor storm!</B>"
+		to_chat(world, "<span class='boldnotice'>Nobody survived the meteor storm!</span>")
 
 	feedback_set_details("round_end_result","end - evacuation")
 	feedback_set("round_end_result",survivors)

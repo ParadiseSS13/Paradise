@@ -1,0 +1,30 @@
+"a" = (/turf/template_noop,/area/template_noop)
+"b" = (/obj/structure/sign/poster{desc = "You can't make out anything from the poster's original print. It's ruined."; dir = 8; icon_state = "poster_ripped"; name = "ripped poster"; pixel_x = -32; ruined = 1},/turf/unsimulated/floor/carpet,/area/template_noop)
+"c" = (/turf/unsimulated/floor/carpet,/area/template_noop)
+"d" = (/obj/structure/dresser,/obj/item/clothing/head/xenos,/turf/unsimulated/floor/carpet,/area/template_noop)
+"e" = (/obj/machinery/light{dir = 8},/turf/unsimulated/floor/carpet,/area/template_noop)
+"f" = (/mob/living/simple_animal/hostile/alien/queen,/turf/unsimulated/floor/carpet,/area/template_noop)
+"g" = (/obj/structure/stool/bed/nest,/turf/unsimulated/floor/carpet,/area/template_noop)
+"h" = (/obj/structure/stool/bed/alien,/obj/item/xenos_claw,/turf/unsimulated/floor/carpet,/area/template_noop)
+"i" = (/obj/effect/gibspawner/xeno,/turf/unsimulated/floor/carpet,/area/template_noop)
+"j" = (/obj/effect/decal/remains/human,/turf/unsimulated/floor/carpet,/area/template_noop)
+"k" = (/obj/structure/stool/bed/alien,/obj/item/clothing/suit/xenos,/turf/unsimulated/floor/carpet,/area/template_noop)
+"l" = (/obj/structure/alien/weeds/node,/obj/structure/window/reinforced/polarized{id = "room_n"},/turf/unsimulated/floor/carpet,/area/template_noop)
+"m" = (/obj/structure/alien/weeds{icon_state = "weeds1"},/obj/structure/window/reinforced/polarized{id = "room_n"},/turf/unsimulated/floor/carpet,/area/template_noop)
+"n" = (/obj/machinery/door/window/southright,/obj/structure/alien/weeds{icon_state = "weeds1"},/turf/unsimulated/floor/carpet,/area/template_noop)
+"o" = (/obj/structure/table/woodentable,/obj/item/weapon/lipstick/black,/turf/unsimulated/floor/carpet,/area/template_noop)
+"p" = (/obj/structure/sink{icon_state = "sink"; dir = 8; pixel_x = -12; pixel_y = 2},/obj/structure/alien/weeds,/obj/structure/mirror{dir = 8; pixel_x = -28},/turf/unsimulated/floor{icon_state = "freezerfloor"},/area/template_noop)
+"q" = (/obj/structure/toilet{dir = 1},/obj/structure/alien/weeds{icon_state = "weeds2"},/obj/item/organ/internal/body_egg/alien_embryo,/turf/unsimulated/floor{icon_state = "freezerfloor"},/area/template_noop)
+"r" = (/obj/machinery/door/window/eastleft,/obj/structure/alien/weeds,/turf/unsimulated/floor{icon_state = "freezerfloor"},/area/template_noop)
+"s" = (/obj/machinery/shower{dir = 8},/obj/structure/alien/weeds{icon_state = "weeds1"},/turf/unsimulated/floor{icon_state = "freezerfloor"},/area/template_noop)
+"t" = (/turf/unsimulated/wall/metal,/area/template_noop)
+
+(1,1,1) = {"
+aaaaaaa
+abcccda
+aecfgha
+acijgka
+almnmoa
+apqrsta
+aaaaaaa
+"}

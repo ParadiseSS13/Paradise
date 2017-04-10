@@ -13,15 +13,15 @@
 
 /datum/event/wormholes/start()
 	for(var/turf/simulated/floor/T in world)
-		if((T.z in config.station_levels))
+		if(is_station_level(T.z))
 			pick_turfs += T
 
-	for(var/i = 1, i <= number_of_wormholes, i++)
+	for(var/i in 1 to number_of_wormholes)
 		var/turf/T = pick(pick_turfs)
 		wormholes += new /obj/effect/portal/wormhole(T, null, null, -1)
 
 /datum/event/wormholes/announce()
-	command_announcement.Announce("Space-time anomalies detected on the station. There is no additional data.", "Anomaly Alert", new_sound = 'sound/AI/spanomalies.ogg')
+	event_announcement.Announce("Space-time anomalies detected on the station. There is no additional data.", "Anomaly Alert", new_sound = 'sound/AI/spanomalies.ogg')
 
 /datum/event/wormholes/tick()
 	if(activeFor % shift_frequency == 0)
@@ -30,9 +30,8 @@
 			if(T)	O.loc = T
 
 /datum/event/wormholes/end()
-	portals.Remove(wormholes)
 	for(var/obj/effect/portal/wormhole/O in wormholes)
-		O.loc = null
+		qdel(O)
 	wormholes.Cut()
 
 

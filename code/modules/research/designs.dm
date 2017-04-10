@@ -17,6 +17,7 @@ The currently supporting non-reagent materials:
 - MAT_URANIUM (/obj/item/stack/uranium).
 - MAT_DIAMOND (/obj/item/stack/diamond).
 - MAT_BANANIUM (/obj/item/stack/bananium).
+- MAT_TRANQUILLITE (/obj/item/stack/tranquillite).
 (Insert new ones here)
 
 Don't add new keyword/IDs if they are made from an existing one (such as rods which are made from metal). Only add raw materials.
@@ -42,10 +43,14 @@ other types of metals and chemistry for reagents).
 	var/build_type = null				//Flag as to what kind machine the design is built in. See defines.
 	var/list/materials = list()			//List of materials. Format: "id" = amount.
 	var/construction_time				//Amount of time required for building the object
-	var/build_path = ""					//The file path of the object that gets created
+	var/build_path = null				//The file path of the object that gets created
+	var/list/make_reagents = list()			//Reagents produced. Format: "id" = amount. Currently only supported by the biogenerator.
 	var/locked = 0						//If true it will spawn inside a lockbox with currently sec access
+	var/access_requirement = list(access_armory) //What special access requirements will the lockbox have? Defaults to armory.
 	var/category = null //Primarily used for Mech Fabricators, but can be used for anything
 	var/list/reagents = list()			//List of reagents. Format: "id" = amount.
+	var/maxstack = 1
+	var/lathe_time_factor = 1			//How many times faster than normal is this to build on the protolathe
 
 //A proc to calculate the reliability of a design based on tech levels and innate modifiers.
 //Input: A list of /datum/tech; Output: The new reliabilty.

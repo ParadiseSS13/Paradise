@@ -1,0 +1,15 @@
+"a" = (/turf/template_noop,/area/template_noop)
+"b" = (/turf/unsimulated/wall/metal,/area/template_noop)
+"c" = (/obj/effect/view_portal{id = "mazeland_room"},/obj/machinery/light{dir = 8},/turf/unsimulated/floor{icon_state = "floor"},/area/template_noop)
+"d" = (/obj/effect/view_portal/visual{dist = 2; frustrum = 0; id = "mazeland"; radius = 1},/turf/unsimulated/floor{icon_state = "floor"},/area/template_noop)
+"e" = (/turf/unsimulated/wall{dynamic_lighting = 0; icon = null},/area/template_noop)
+
+(1,1,1) = {"
+aaaaaaa
+abbcbba
+abbdbba
+abeeeba
+abeeeba
+abbbbba
+aaaaaaa
+"}

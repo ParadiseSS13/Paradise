@@ -2,24 +2,24 @@
 	if(checkrights && !check_rights(R_ADMIN|R_MOD))
 		return
 	if(!dbcon.IsConnected())
-		usr << "<span class='danger'>Failed to establish database connection.</span>"
+		to_chat(usr, "<span class='danger'>Failed to establish database connection.</span>")
 		return
 	if(!target_ckey)
 		var/new_ckey = ckey(input(usr,"Who would you like to add a note for?","Enter a ckey",null) as text|null)
 		if(!new_ckey)
 			return
-		new_ckey = sanitizeSQL(new_ckey)
+		new_ckey = ckey(new_ckey)
 		var/DBQuery/query_find_ckey = dbcon.NewQuery("SELECT ckey FROM [format_table_name("player")] WHERE ckey = '[new_ckey]'")
 		if(!query_find_ckey.Execute())
 			var/err = query_find_ckey.ErrorMsg()
 			log_game("SQL ERROR obtaining ckey from player table. Error : \[[err]\]\n")
 			return
 		if(!query_find_ckey.NextRow())
-			usr << "<span class='redtext'>[new_ckey] has not been seen before, you can only add notes to known players.</span>"
+			to_chat(usr, "<span class='redtext'>[new_ckey] has not been seen before, you can only add notes to known players.</span>")
 			return
 		else
 			target_ckey = new_ckey
-	var/target_sql_ckey = sanitizeSQL(target_ckey)
+	var/target_sql_ckey = ckey(target_ckey)
 	if(!notetext)
 		notetext = input(usr,"Write your note","Add Note") as message|null
 		if(!notetext)
@@ -31,9 +31,11 @@
 		adminckey = usr.ckey
 		if(!adminckey)
 			return
+	else if(usr && (usr.ckey == ckey(adminckey))) // Don't ckeyize special note sources
+		adminckey = ckey(adminckey)
 	var/admin_sql_ckey = sanitizeSQL(adminckey)
 	if(!server)
-		if (config && config.server_name)
+		if(config && config.server_name)
 			server = config.server_name
 	server = sanitizeSQL(server)
 	var/DBQuery/query_noteadd = dbcon.NewQuery("INSERT INTO [format_table_name("notes")] (ckey, timestamp, notetext, adminckey, server) VALUES ('[target_sql_ckey]', '[timestamp]', '[notetext]', '[admin_sql_ckey]', '[server]')")
@@ -53,7 +55,7 @@
 	var/notetext
 	var/adminckey
 	if(!dbcon.IsConnected())
-		usr << "<span class='danger'>Failed to establish database connection.</span>"
+		to_chat(usr, "<span class='danger'>Failed to establish database connection.</span>")
 		return
 	if(!note_id)
 		return
@@ -80,13 +82,13 @@
 	if(!check_rights(R_ADMIN|R_MOD))
 		return
 	if(!dbcon.IsConnected())
-		usr << "<span class='danger'>Failed to establish database connection.</span>"
+		to_chat(usr, "<span class='danger'>Failed to establish database connection.</span>")
 		return
 	if(!note_id)
 		return
 	note_id = text2num(note_id)
 	var/target_ckey
-	var/sql_ckey = sanitizeSQL(usr.ckey)
+	var/sql_ckey = usr.ckey
 	var/DBQuery/query_find_note_edit = dbcon.NewQuery("SELECT ckey, notetext, adminckey FROM [format_table_name("notes")] WHERE id = [note_id]")
 	if(!query_find_note_edit.Execute())
 		var/err = query_find_note_edit.ErrorMsg()
@@ -128,7 +130,7 @@
 	if(!linkless)
 		output = navbar
 	if(target_ckey)
-		var/target_sql_ckey = sanitizeSQL(target_ckey)
+		var/target_sql_ckey = ckey(target_ckey)
 		var/DBQuery/query_get_notes = dbcon.NewQuery("SELECT id, timestamp, notetext, adminckey, last_editor, server FROM [format_table_name("notes")] WHERE ckey = '[target_sql_ckey]' ORDER BY timestamp")
 		if(!query_get_notes.Execute())
 			var/err = query_get_notes.ErrorMsg()
@@ -177,75 +179,9 @@
 		output += "<center><a href='?_src_=holder;addnoteempty=1'>\[Add Note\]</a></center>"
 		output += ruler
 	usr << browse(output, "window=show_notes;size=900x500")
-	
-/proc/regex_note_sql_extract(str, exp)
-	return new /datum/regex(str, exp, call(LIBREGEX_LIBRARY, "regEx_find")(str, exp))
 
-// If the AUTOCONVERT_NOTES is turned on, any time a player connects this will be run to try and add all their notes to the database
-/proc/convert_notes_sql(ckey)
-	if(!ckey)
-		return 0
-	
-	var/playerfile = "data/player_saves/[copytext(ckey, 1, 2)]/[ckey]/info.sav"
-	var/savefile/info = new(playerfile)
-	var/list/infos
-	info >> infos
-	if(!infos || !infos.len)
-		fdel(playerfile)
-		return 0
-
-	ckey = ckey
-	for(var/datum/player_info/I in infos)	
-		var/notetext = I.content
-		var/adminckey = I.author
-		var/server
-		if (config && config.server_name)
-			server = config.server_name
-		
-		var/timestamp = I.timestamp
-		var/regex = "\[A-Za-z\]+\\, (\[A-Za-z\]+) (\[0-9\]+)\[A-Za-z\]+ of (\[0-9\]+)"
-		var/datum/regex/results = regex_note_sql_extract(timestamp, regex)
-		var/month = month2number(results.str(2))
-		var/day = results.str(3)
-		var/year = results.str(4)
-		timestamp = "[year]-[month]-[day] 00:00:00"
-
-		add_note(ckey, notetext, timestamp, adminckey, 0, server, 0)
-		
-	fdel(playerfile)
-	return 1
-
-// Using this proc causes lag - you have been warned.	
-/proc/mass_convert_notes()
-	if(!check_rights(R_SERVER))
-		return 0
-	world << "Beginning mass note conversion."
-	
-	var/player_notes_file = "data/player_notes.sav"
-	var/savefile/notesfile = new(player_notes_file)
-	var/list/note_keys
-	notesfile >> note_keys
-
-	if(!notesfile)
-		log_game("Error: Cannot access player_notes.sav file.")
-		return 0
-	if(!note_keys || !note_keys.len)
-		log_game("Error: player_notes.sav file is empty. Deleting it.")
-		fdel(player_notes_file)
-		return 0
-		
-	note_keys = sortList(note_keys)
-	var/i = 1
-	for(i, i <= note_keys.len, i++)
-		var/ckey = note_keys[i]
-		convert_notes_sql(ckey)
-	world << "Finished mass note conversion ([i] notes converted). Remember to turn off AUTOCONVERT_NOTES."
-	world << "Deleting the player_notes.sav file."
-	fdel(player_notes_file)	
-	return 1
-	
 /proc/show_player_info_irc(var/key as text)
-	var/target_sql_ckey = sanitizeSQL(key)
+	var/target_sql_ckey = ckey(key)
 	var/DBQuery/query_get_notes = dbcon.NewQuery("SELECT timestamp, notetext, adminckey, server FROM [format_table_name("notes")] WHERE ckey = '[target_sql_ckey]' ORDER BY timestamp")
 	if(!query_get_notes.Execute())
 		var/err = query_get_notes.ErrorMsg()

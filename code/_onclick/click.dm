@@ -34,13 +34,13 @@
 	* mob/RangedAttack(atom,params) - used only ranged, only used for tk and laser eyes but could be changed
 */
 /mob/proc/ClickOn( var/atom/A, var/params )
+	if(client.click_intercept)
+		client.click_intercept.InterceptClickOn(src, params, A)
+		return
+
 	if(world.time <= next_click)
 		return
 	next_click = world.time + 1
-
-	if(client && client.buildmode)
-		build_click(src, client.buildmode, params, A)
-		return
 
 	var/list/modifiers = params2list(params)
 	if(modifiers["shift"] && modifiers["ctrl"])
@@ -62,7 +62,7 @@
 		CtrlClickOn(A)
 		return
 
-	if(stat || paralysis || stunned || weakened)
+	if(incapacitated(ignore_restraints = 1, ignore_grab = 1, ignore_lying = 1))
 		return
 
 	face_atom(A)
@@ -74,7 +74,7 @@
 		if(!locate(/turf) in list(A,A.loc)) // Prevents inventory from being drilled
 			return
 		var/obj/mecha/M = loc
-		return M.click_action(A,src)
+		return M.click_action(A, src, params)
 
 	if(restrained())
 		changeNext_move(CLICK_CD_HANDCUFFED) //Doing shit in cuffs shall be vey slow
@@ -95,9 +95,9 @@
 			update_inv_r_hand(0)
 		return
 
-	// operate two STORAGE levels deep here (item in backpack in src; NOT item in box in backpack in src)
+	// operate three levels deep here (item in backpack in src; item in box in backpack in src, not any deeper)
 	var/sdepth = A.storage_depth(src)
-	if(A == loc || (A in loc) || (sdepth != -1 && sdepth <= 1))
+	if(A == loc || (A in loc) || (sdepth != -1 && sdepth <= 2))
 		// No adjacency needed
 		if(W)
 			var/resolved = A.attackby(W,src)
@@ -167,9 +167,8 @@
 	animals lunging, etc.
 */
 /mob/proc/RangedAttack(var/atom/A, var/params)
-	if(ishuman(src) && (istype(src:gloves, /obj/item/clothing/gloves/color/yellow/power)) && a_intent == I_HARM)
-		PowerGlove(A)
-	if(!mutations.len) return
+	if(!mutations.len)
+		return
 	if((LASER in mutations) && a_intent == I_HARM)
 		LaserEyes(A) // moved into a proc below
 		return
@@ -222,7 +221,7 @@
 	A.ShiftClick(src)
 	return
 /atom/proc/ShiftClick(var/mob/user)
-	if(user.client && user.client.eye == user)
+	if(user.client && get_turf(user.client.eye) == get_turf(user))
 		user.examinate(src)
 	return
 
@@ -264,12 +263,13 @@
 
 /atom/proc/AltClick(var/mob/user)
 	var/turf/T = get_turf(src)
-	if(T && user.TurfAdjacent(T))
-		if(user.listed_turf == T)
-			user.listed_turf = null
-		else
+	if(T)
+		if(user.TurfAdjacent(T))
 			user.listed_turf = T
 			user.client.statpanel = T.name
+			// If we had a method to force a `Stat` update, it would go here
+		else
+			user.listed_turf = null
 	return
 
 /mob/proc/TurfAdjacent(var/turf/T)
@@ -319,81 +319,10 @@
 	LE.current = T
 	LE.yo = U.y - T.y
 	LE.xo = U.x - T.x
-	spawn( 1 )
-		LE.process()
+	LE.fire()
 
-/mob/living/carbon/human/LaserEyes()
-	if(nutrition>0)
-		..()
-		nutrition = max(nutrition - rand(1,5),0)
-		handle_regular_hud_updates()
-	else
-		src << "\red You're out of energy!  You need food!"
-
-/mob/proc/PowerGlove(atom/A)
-	return
-
-/mob/living/carbon/human/PowerGlove(atom/A)
-	var/obj/item/clothing/gloves/color/yellow/power/G = src:gloves
-	var/time = 100
-	var/turf/T = get_turf(src)
-	var/turf/U = get_turf(A)
-	var/obj/structure/cable/cable = locate() in T
-	if(!cable || !istype(cable))
-		src << "<span class='warning'>There is no cable here to power the gloves.</span>"
-		return
-	if(world.time < G.next_shock)
-		src << "<span class='warning'>[G] aren't ready to shock again!</span>"
-		return
-	src.visible_message("<span class='warning'>[name] fires an arc of electricity!</span>", \
-	"<span class='warning'>You fire an arc of electricity!</span>", \
-	"You hear the loud crackle of electricity!")
-	var/datum/powernet/PN = cable.get_powernet()
-	var/available = 0
-	var/obj/item/projectile/beam/lightning/L = new /obj/item/projectile/beam/lightning/(get_turf(src))
-	if(PN)
-		available = PN.avail
-		L.damage = PN.get_electrocute_damage()
-		if(available >= 5000000)
-			L.damage = 205
-		if(L.damage >= 200)
-			time = 200
-		else if(L.damage >= 100)
-			time = 150
-		var/datum/effect/system/spark_spread/s = new /datum/effect/system/spark_spread
-		s.set_up(5, 1, src)
-		s.start()
-	if(L.damage <= 0)
-		qdel(L)
-	if(L)
-		playsound(get_turf(src), 'sound/effects/eleczap.ogg', 75, 1)
-		L.tang = L.adjustAngle(get_angle(U,T))
-		L.icon = midicon
-		L.icon_state = "[L.tang]"
-		L.firer = usr
-		L.def_zone = get_organ_target()
-		L.original = src
-		L.current = U
-		L.starting = U
-		L.yo = U.y - T.y
-		L.xo = U.x - T.x
-		spawn( 1 )
-			L.process()
-
-	next_move = world.time + 12
-	G.next_shock = world.time + time
 // Simple helper to face what you clicked on, in case it should be needed in more than one place
 /mob/proc/face_atom(var/atom/A)
-
-/*	// Snowflake for space vines. //Are you fucking kidding me?
-	var/is_buckled = 0
-	if(buckled)
-		if(istype(buckled))
-			if(!buckled.movable)
-				is_buckled = 1
-		else
-			is_buckled = 0*/
-
 	if( stat || buckled || !A || !x || !y || !A.x || !A.y ) return
 	var/dx = A.x - x
 	var/dy = A.y - y
@@ -406,16 +335,12 @@
 	else
 		if(dx > 0)	direction = EAST
 		else		direction = WEST
-	usr.dir = direction
-
-/*	if(buckled && buckled.movable)
-		buckled.dir = direction
-		buckled.handle_rotation()*/
+	dir = direction
 
 /obj/screen/click_catcher
-	icon = 'icons/mob/screen1_full.dmi'
+	icon = 'icons/mob/screen_full.dmi'
 	icon_state = "passage0"
-	layer = 0
+	plane = CLICKCATCHER_PLANE
 	mouse_opacity = 2
 	screen_loc = "CENTER-7,CENTER-7"
 

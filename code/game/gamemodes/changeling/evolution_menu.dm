@@ -47,7 +47,7 @@ var/list/sting_paths
 
 						var maintable_data = document.getElementById('maintable_data');
 						var ltr = maintable_data.getElementsByTagName("tr");
-						for ( var i = 0; i < ltr.length; ++i )
+						for( var i = 0; i < ltr.length; ++i )
 						{
 							try{
 								var tr = ltr\[i\];
@@ -60,7 +60,7 @@ var/list/sting_paths
 								var search = lsearch\[0\];
 								//var inner_span = li.getElementsByTagName("span")\[1\] //Should only ever contain one element.
 								//document.write("<p>"+search.innerText+"<br>"+filter+"<br>"+search.innerText.indexOf(filter))
-								if ( search.innerText.toLowerCase().indexOf(filter) == -1 )
+								if( search.innerText.toLowerCase().indexOf(filter) == -1 )
 								{
 									//document.write("a");
 									//ltr.removeChild(tr);
@@ -95,7 +95,7 @@ var/list/sting_paths
 
 					if(!ownsthis)
 					{
-						body += "<a href='?src=\ref[src];P="+power+"'>Evolve</a>"
+						body += "<a href='?src=[UID()];P="+power+"'>Evolve</a>"
 					}
 					body += "</td><td align='center'>";
 
@@ -211,7 +211,7 @@ var/list/sting_paths
 					Hover over a power to see more information<br>
 					Current ability choices remaining: [changeling.geneticpoints]<br>
 					By rendering a lifeform to a husk, we gain enough power to alter and adapt our evolutions.<br>
-					(<a href='?src=\ref[src];readapt=1'>Readapt</a>)<br>
+					(<a href='?src=[UID()];readapt=1'>Readapt</a>)<br>
 					<p>
 				</td>
 			</tr>
@@ -307,27 +307,27 @@ var/list/sting_paths
 			thepower = cling_sting
 
 	if(thepower == null)
-		user << "This is awkward. Changeling power purchase failed, please report this bug to a coder!"
+		to_chat(user, "This is awkward. Changeling power purchase failed, please report this bug to a coder!")
 		return
 
 	if(absorbedcount < thepower.req_dna)
-		user << "We lack the energy to evolve this ability!"
+		to_chat(user, "We lack the energy to evolve this ability!")
 		return
 
 	if(has_sting(thepower))
-		user << "We have already evolved this ability!"
+		to_chat(user, "We have already evolved this ability!")
 		return
 
 	if(thepower.dna_cost < 0)
-		user << "We cannot evolve this ability."
+		to_chat(user, "We cannot evolve this ability.")
 		return
 
 	if(geneticpoints < thepower.dna_cost)
-		user << "We have reached our capacity for abilities."
+		to_chat(user, "We have reached our capacity for abilities.")
 		return
 
 	if(user.status_flags & FAKEDEATH)//To avoid potential exploits by buying new powers while in stasis, which clears your verblist.
-		user << "We lack the energy to evolve new abilities right now."
+		to_chat(user, "We lack the energy to evolve new abilities right now.")
 		return
 
 	geneticpoints -= thepower.dna_cost
@@ -337,16 +337,16 @@ var/list/sting_paths
 //Reselect powers
 /datum/changeling/proc/lingRespec(var/mob/user)
 	if(!ishuman(user) || issmall(user))
-		user << "<span class='danger'>We can't remove our evolutions in this form!</span>"
+		to_chat(user, "<span class='danger'>We can't remove our evolutions in this form!</span>")
 		return
 	if(canrespec)
-		user << "<span class='notice'>We have removed our evolutions from this form, and are now ready to readapt.</span>"
+		to_chat(user, "<span class='notice'>We have removed our evolutions from this form, and are now ready to readapt.</span>")
 		user.remove_changeling_powers(1)
 		canrespec = 0
 		user.make_changeling()
 		return 1
 	else
-		user << "<span class='danger'>You lack the power to readapt your evolutions!</span>"
+		to_chat(user, "<span class='danger'>You lack the power to readapt your evolutions!</span>")
 		return 0
 
 /mob/proc/make_changeling()
@@ -376,6 +376,7 @@ var/list/sting_paths
 
 	var/mob/living/carbon/C = src		//only carbons have dna now, so we have to typecaste
 	mind.changeling.absorbed_dna |= C.dna
+	mind.changeling.trim_dna()
 	return 1
 
 //Used to dump the languages from the changeling datum into the actual mob.
@@ -411,6 +412,9 @@ var/list/sting_paths
 				mind.changeling.purchasedpowers -= p
 				p.on_refund(src)
 			remove_language("Changeling")
+		if(hud_used)
+			hud_used.lingstingdisplay.icon_state = null
+			hud_used.lingstingdisplay.invisibility = 101
 
 /datum/changeling/proc/has_sting(obj/effect/proc_holder/changeling/power)
 	for(var/obj/effect/proc_holder/changeling/P in purchasedpowers)

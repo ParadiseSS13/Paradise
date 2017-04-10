@@ -11,7 +11,6 @@ var/list/blob_nodes = list()
 	config_tag = "blob"
 
 	required_players = 30
-	required_players_secret = 30
 	required_enemies = 1
 	recommended_enemies = 1
 	restricted_jobs = list("Cyborg", "AI")
@@ -29,7 +28,7 @@ var/list/blob_nodes = list()
 
 /datum/game_mode/blob/pre_setup()
 
-	var/list/possible_blobs = get_players_for_role(BE_BLOB)
+	var/list/possible_blobs = get_players_for_role(ROLE_BLOB)
 
 	// stop setup if no possible traitors
 	if(!possible_blobs.len)
@@ -41,24 +40,24 @@ var/list/blob_nodes = list()
 
 
 	for(var/j = 0, j < cores_to_spawn, j++)
-		if (!possible_blobs.len)
+		if(!possible_blobs.len)
 			break
 		var/datum/mind/blob = pick(possible_blobs)
 		infected_crew += blob
-		blob.special_role = "Blob"
+		blob.special_role = SPECIAL_ROLE_BLOB
 		blob.restricted_roles = restricted_jobs
 		log_game("[blob.key] (ckey) has been selected as a Blob")
 		possible_blobs -= blob
 
 	if(!infected_crew.len)
 		return 0
-
+	..()
 	return 1
 
 /datum/game_mode/blob/proc/get_blob_candidates()
 	var/list/candidates = list()
 	for(var/mob/living/carbon/human/player in player_list)
-		if(!player.stat && player.mind && !player.mind.special_role && !jobban_isbanned(player, "Syndicate") && (player.client.prefs.be_special & BE_BLOB))
+		if(!player.stat && player.mind && !player.mind.special_role && !jobban_isbanned(player, "Syndicate") && (ROLE_BLOB in player.client.prefs.be_special))
 			candidates += player
 	return candidates
 
@@ -68,10 +67,10 @@ var/list/blob_nodes = list()
 	if(!istype(blobmind))
 		return 0
 	infected_crew += blobmind
-	blobmind.special_role = "Blob"
+	blobmind.special_role = SPECIAL_ROLE_BLOB
 	log_game("[blob.key] (ckey) has been selected as a Blob")
 	greet_blob(blobmind)
-	blob << "<span class='userdanger'>You feel very tired and bloated!  You don't have long before you burst!</span>"
+	to_chat(blob, "<span class='userdanger'>You feel very tired and bloated!  You don't have long before you burst!</span>")
 	spawn(600)
 		burst_blob(blobmind)
 	return 1
@@ -89,22 +88,22 @@ var/list/blob_nodes = list()
 
 
 /datum/game_mode/blob/announce()
-	world << "<B>The current game mode is - <font color='green'>Blob</font>!</B>"
-	world << "<B>A dangerous alien organism is rapidly spreading throughout the station!</B>"
-	world << "You must kill it all while minimizing the damage to the station."
+	to_chat(world, "<B>The current game mode is - <font color='green'>Blob</font>!</B>")
+	to_chat(world, "<B>A dangerous alien organism is rapidly spreading throughout the station!</B>")
+	to_chat(world, "You must kill it all while minimizing the damage to the station.")
 
 
 /datum/game_mode/blob/proc/greet_blob(var/datum/mind/blob)
-	blob.current << "<span class='userdanger'>You are infected by the Blob!</span>"
-	blob.current << "<b>Your body is ready to give spawn to a new blob core which will eat this station.</b>"
-	blob.current << "<b>Find a good location to spawn the core and then take control and overwhelm the station!</b>"
-	blob.current << "<b>When you have found a location, wait until you spawn; this will happen automatically and you cannot speed up the process.</b>"
-	blob.current << "<b>If you go outside of the station level, or in space, then you will die; make sure your location has lots of ground to cover.</b>"
+	to_chat(blob.current, "<span class='userdanger'>You are infected by the Blob!</span>")
+	to_chat(blob.current, "<b>Your body is ready to give spawn to a new blob core which will eat this station.</b>")
+	to_chat(blob.current, "<b>Find a good location to spawn the core and then take control and overwhelm the station!</b>")
+	to_chat(blob.current, "<b>When you have found a location, wait until you spawn; this will happen automatically and you cannot speed up the process.</b>")
+	to_chat(blob.current, "<b>If you go outside of the station level, or in space, then you will die; make sure your location has lots of ground to cover.</b>")
 	return
 
 /datum/game_mode/blob/proc/show_message(var/message)
 	for(var/datum/mind/blob in infected_crew)
-		blob.current << message
+		to_chat(blob.current, message)
 
 /datum/game_mode/blob/proc/burst_blobs()
 	for(var/datum/mind/blob in infected_crew)
@@ -119,14 +118,14 @@ var/list/blob_nodes = list()
 		if(directory[ckey(blob.key)])
 			blob_client = directory[ckey(blob.key)]
 			location = get_turf(C)
-			if(location.z != ZLEVEL_STATION || istype(location, /turf/space))
+			if(!is_station_level(location.z) || istype(location, /turf/space))
 				if(!warned)
-					C << "<span class='userdanger'>You feel ready to burst, but this isn't an appropriate place!  You must return to the station!</span>"
+					to_chat(C, "<span class='userdanger'>You feel ready to burst, but this isn't an appropriate place!  You must return to the station!</span>")
 					message_admins("[key_name_admin(C)] was in space when the blobs burst, and will die if he doesn't return to the station.")
 					spawn(300)
 						burst_blob(blob, 1)
 				else
-					burst ++
+					burst++
 					log_admin("[key_name(C)] was in space when attempting to burst as a blob.")
 					message_admins("[key_name_admin(C)] was in space when attempting to burst as a blob.")
 					C.gib()
@@ -134,14 +133,14 @@ var/list/blob_nodes = list()
 					check_finished() //Still needed in case we can't make any blobs
 
 			else if(blob_client && location)
-				burst ++
+				burst++
 				C.gib()
-				var/obj/effect/blob/core/core = new(location, 200, blob_client, blob_point_rate)
+				var/obj/structure/blob/core/core = new(location, 200, blob_client, blob_point_rate)
 				if(core.overmind && core.overmind.mind)
 					core.overmind.mind.name = blob.name
 					infected_crew -= blob
 					infected_crew += core.overmind.mind
-					core.overmind.mind.special_role = "Blob Overmind"
+					core.overmind.mind.special_role = SPECIAL_ROLE_BLOB_OVERMIND
 
 /datum/game_mode/blob/post_setup()
 
@@ -188,14 +187,14 @@ var/list/blob_nodes = list()
 /datum/game_mode/blob/proc/stage(var/stage)
 
 	switch(stage)
-		if (0)
+		if(0)
 			send_intercept(1)
 			declared = 1
 
-		if (1)
-			command_announcement.Announce("Confirmed outbreak of level 5 biohazard aboard [station_name()]. All personnel must contain the outbreak.", "Biohazard Alert", 'sound/AI/outbreak5.ogg')
+		if(1)
+			event_announcement.Announce("Confirmed outbreak of level 5 biohazard aboard [station_name()]. All personnel must contain the outbreak.", "Biohazard Alert", 'sound/AI/outbreak5.ogg')
 
-		if (2)
+		if(2)
 			send_intercept(2)
 
 	return

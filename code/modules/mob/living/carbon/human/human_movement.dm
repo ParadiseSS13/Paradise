@@ -12,8 +12,10 @@
 	if(embedded_flag)
 		handle_embedded_objects() //Moving with objects stuck in you can cause bad times.
 
+	if(slowed)
+		tally += 10
 
-	var/health_deficiency = (100 - health + staminaloss)
+	var/health_deficiency = (maxHealth - health + staminaloss)
 	if(reagents)
 		for(var/datum/reagent/R in reagents.reagent_list)
 			if(R.shock_reduction)
@@ -22,7 +24,7 @@
 		tally += (health_deficiency / 25)
 
 	var/hungry = (500 - nutrition)/5 // So overeat would be 100 and default level would be 80
-	if (hungry >= 70)
+	if(hungry >= 70)
 		tally += hungry/50
 
 	if(wear_suit)
@@ -37,18 +39,20 @@
 	if(back)
 		tally += back.slowdown
 
+	if(l_hand && (l_hand.flags & HANDSLOW))
+		tally += l_hand.slowdown
+	if(r_hand && (r_hand.flags & HANDSLOW))
+		tally += r_hand.slowdown
 
 	if(FAT in src.mutations)
 		tally += 1.5
-	if (bodytemperature < BODYTEMP_COLD_DAMAGE_LIMIT)
+	if(bodytemperature < BODYTEMP_COLD_DAMAGE_LIMIT)
 		tally += (BODYTEMP_COLD_DAMAGE_LIMIT - bodytemperature) / COLD_SLOWDOWN_FACTOR
 
 	tally += 2*stance_damage //damaged/missing feet or legs is slow
 
 	if(RUN in mutations)
 		tally = -1
-	if(HULK in mutations)
-		tally += 1
 	if(status_flags & IGNORESLOWDOWN) // make sure this is always at the end so we don't have ignore slowdown getting ignored itself
 		tally = -1
 
@@ -75,7 +79,7 @@
 			break
 
 	if(thrust)
-		if((movement_dir || thrust.stabilization_on) && thrust.allow_thrust(0.01, src))
+		if((movement_dir || thrust.stabilizers) && thrust.allow_thrust(0.01, src))
 			return 1
 	return 0
 
@@ -90,7 +94,7 @@
 
 /mob/living/carbon/human/Move(NewLoc, direct)
 	. = ..()
-	if(shoes)
+	if(shoes && .) // did we actually move?
 		if(!lying && !buckled)
 			if(!has_gravity(loc))
 				return

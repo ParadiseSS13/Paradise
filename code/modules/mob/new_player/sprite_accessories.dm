@@ -25,14 +25,15 @@
 	for(var/path in subtypesof(prototype))
 		var/datum/sprite_accessory/D = new path()
 
-		L[D.name] = D
+		if(D.name)
+			L[D.name] = D
 
-		switch(D.gender)
-			if(MALE)	male[D.name] = D
-			if(FEMALE)	female[D.name] = D
-			else
-				male[D.name] = D
-				female[D.name] = D
+			switch(D.gender)
+				if(MALE)	male[D.name] = D
+				if(FEMALE)	female[D.name] = D
+				else
+					male[D.name] = D
+					female[D.name] = D
 	return L
 
 /datum/sprite_accessory
@@ -42,7 +43,13 @@
 	var/gender = NEUTER	//Determines if the accessory will be skipped or included in random hair generations
 
 	// Restrict some styles to specific species
-	var/list/species_allowed = list("Human")
+	var/list/species_allowed = list("Human", "Slime People")
+	var/list/models_allowed = list() //Specifies which, if any, hairstyles or markings can be accessed by which prosthetics. Should equal the manufacturing company name in robolimbs.dm.
+	var/list/heads_allowed = null //Specifies which, if any, alt heads a head marking, hairstyle or facial hair style is compatible with.
+	var/list/tails_allowed = null //Specifies which, if any, tails a tail marking is compatible with.
+	var/marking_location //Specifies which bodypart a body marking is located on.
+	var/secondary_theme = null //If exists, there's a secondary colour to that hair style and the secondary theme's icon state's suffix is equal to this.
+	var/no_sec_colour = null //If exists, prohibit the colouration of the secondary theme.
 
 	// Whether or not the accessory can be affected by colouration
 	var/do_colouration = 1
@@ -57,391 +64,862 @@
 */
 
 /datum/sprite_accessory/hair
-
 	icon = 'icons/mob/human_face.dmi'	  // default icon for all hairs
+	var/glasses_over //Hair styles with hair that don't overhang the arms of glasses should have glasses_over set to a positive value.
 
-	bald
-		name = "Bald"
-		icon_state = "bald"
-		gender = MALE
-		species_allowed = list("Human","Unathi","Vox","Diona","Kidan","Grey","Plasmaman","Skellington")
+/datum/sprite_accessory/hair/bald
+	name = "Bald"
+	icon_state = "bald"
+	species_allowed = list("Human", "Unathi", "Vox", "Diona", "Kidan", "Grey", "Plasmaman", "Skeleton", "Vulpkanin", "Tajaran")
+	glasses_over = 1
 
-	short
-		name = "Short Hair"	  // try to capatilize the names please~
-		icon_state = "hair_a" // you do not need to define _s or _l sub-states, game automatically does this for you
+/datum/sprite_accessory/hair/short
+	name = "Short Hair"	  // try to capatilize the names please~
+	icon_state = "hair_a" // you do not need to define _s or _l sub-states, game automatically does this for you
+	glasses_over = 1
 
-	cut
-		name = "Cut Hair"
-		icon_state = "hair_c"
+/datum/sprite_accessory/hair/cut
+	name = "Cut Hair"
+	icon_state = "hair_c"
+	glasses_over = 1
 
-	long
-		name = "Shoulder-length Hair"
-		icon_state = "hair_b"
+/datum/sprite_accessory/hair/long
+	name = "Shoulder-length Hair"
+	icon_state = "hair_b"
 
-	longalt
-		name = "Shoulder-length Hair Alt"
-		icon_state = "hair_longfringe"
+/datum/sprite_accessory/hair/longalt
+	name = "Shoulder-length Hair Alt"
+	icon_state = "hair_longfringe"
 
-	/*longish
-		name = "Longer Hair"
-		icon_state = "hair_b2"*/
+/*/datum/sprite_accessory/hair/longish
+	name = "Longer Hair"
+	icon_state = "hair_b2"*/
 
-	longer
-		name = "Long Hair"
-		icon_state = "hair_vlong"
+/datum/sprite_accessory/hair/longer
+	name = "Long Hair"
+	icon_state = "hair_vlong"
 
-	longeralt
-		name = "Long Hair Alt"
-		icon_state = "hair_vlongfringe"
+/datum/sprite_accessory/hair/longeralt
+	name = "Long Hair Alt"
+	icon_state = "hair_vlongfringe"
 
-	longest
-		name = "Very Long Hair"
-		icon_state = "hair_longest"
+/datum/sprite_accessory/hair/longest
+	name = "Very Long Hair"
+	icon_state = "hair_longest"
 
-	longfringe
-		name = "Long Fringe"
-		icon_state = "hair_longfringe"
+/datum/sprite_accessory/hair/longfringe
+	name = "Long Fringe"
+	icon_state = "hair_longfringe"
 
-	longestalt
-		name = "Longer Fringe"
-		icon_state = "hair_vlongfringe"
+/datum/sprite_accessory/hair/longestalt
+	name = "Longer Fringe"
+	icon_state = "hair_vlongfringe"
 
-	halfbang
-		name = "Half-banged Hair"
-		icon_state = "hair_halfbang"
+/datum/sprite_accessory/hair/halfbang
+	name = "Half-banged Hair"
+	icon_state = "hair_halfbang"
 
-	halfbangalt
-		name = "Half-banged Hair Alt"
-		icon_state = "hair_halfbang_alt"
+/datum/sprite_accessory/hair/halfbangalt
+	name = "Half-banged Hair Alt"
+	icon_state = "hair_halfbang_alt"
 
-	ponytail1
-		name = "Ponytail male"
-		icon_state = "hair_ponytailm"
-		gender = MALE
+/datum/sprite_accessory/hair/ponytail1
+	name = "Ponytail male"
+	icon_state = "hair_ponytailm"
+	gender = MALE
+	glasses_over = 1
 
-	ponytail2
-		name = "Ponytail female"
-		icon_state = "hair_ponytailf"
-		gender = FEMALE
+/datum/sprite_accessory/hair/ponytail2
+	name = "Ponytail female"
+	icon_state = "hair_ponytailf"
+	gender = FEMALE
 
-	ponytail3
-		name = "Ponytail alt"
-		icon_state = "hair_ponytail3"
+/datum/sprite_accessory/hair/ponytail3
+	name = "Ponytail alt"
+	icon_state = "hair_ponytail3"
+	glasses_over = 1
 
-	sideponytail
-		name = "Side Ponytail"
-		icon_state = "hair_stail"
-		gender = FEMALE
+/datum/sprite_accessory/hair/sideponytail
+	name = "Side Ponytail"
+	icon_state = "hair_stail"
+	gender = FEMALE
+	glasses_over = 1
 
-	highponytail
-		name = "High Ponytail"
-		icon_state = "hair_highponytail"
-		gender = FEMALE
+/datum/sprite_accessory/hair/highponytail
+	name = "High Ponytail"
+	icon_state = "hair_highponytail"
+	gender = FEMALE
+	glasses_over = 1
 
+/datum/sprite_accessory/hair/wisp
+	name = "Wisp"
+	icon_state = "hair_wisp"
+	gender = FEMALE
 
-	wisp
-		name = "Wisp"
-		icon_state = "hair_wisp"
-		gender = FEMALE
+/datum/sprite_accessory/hair/parted
+	name = "Parted"
+	icon_state = "hair_parted"
 
-	parted
-		name = "Parted"
-		icon_state = "hair_parted"
+/datum/sprite_accessory/hair/pompadour
+	name = "Pompadour"
+	icon_state = "hair_pompadour"
+	gender = MALE
+	species_allowed = list("Human", "Slime People", "Unathi")
+	glasses_over = 1
 
-	pompadour
-		name = "Pompadour"
-		icon_state = "hair_pompadour"
-		gender = MALE
-		species_allowed = list("Human","Unathi")
+/datum/sprite_accessory/hair/quiff
+	name = "Quiff"
+	icon_state = "hair_quiff"
+	gender = MALE
+	glasses_over = 1
 
-	quiff
-		name = "Quiff"
-		icon_state = "hair_quiff"
-		gender = MALE
+/datum/sprite_accessory/hair/bedhead
+	name = "Bedhead"
+	icon_state = "hair_bedhead"
 
-	bedhead
-		name = "Bedhead"
-		icon_state = "hair_bedhead"
+/datum/sprite_accessory/hair/bedhead2
+	name = "Bedhead 2"
+	icon_state = "hair_bedheadv2"
 
-	bedhead2
-		name = "Bedhead 2"
-		icon_state = "hair_bedheadv2"
+/datum/sprite_accessory/hair/bedhead3
+	name = "Bedhead 3"
+	icon_state = "hair_bedheadv3"
 
-	bedhead3
-		name = "Bedhead 3"
-		icon_state = "hair_bedheadv3"
+/datum/sprite_accessory/hair/beehive
+	name = "Beehive"
+	icon_state = "hair_beehive"
+	gender = FEMALE
+	species_allowed = list("Human", "Slime People", "Unathi")
 
-	beehive
-		name = "Beehive"
-		icon_state = "hair_beehive"
-		gender = FEMALE
-		species_allowed = list("Human","Unathi")
+/datum/sprite_accessory/hair/bobcurl
+	name = "Bobcurl"
+	icon_state = "hair_bobcurl"
+	gender = FEMALE
+	species_allowed = list("Human", "Slime People", "Unathi")
 
-	bobcurl
-		name = "Bobcurl"
-		icon_state = "hair_bobcurl"
-		gender = FEMALE
-		species_allowed = list("Human","Unathi")
+/datum/sprite_accessory/hair/bob
+	name = "Bob"
+	icon_state = "hair_bobcut"
+	gender = FEMALE
+	species_allowed = list("Human", "Slime People", "Unathi")
 
-	bob
-		name = "Bob"
-		icon_state = "hair_bobcut"
-		gender = FEMALE
-		species_allowed = list("Human","Unathi")
+/datum/sprite_accessory/hair/bowl
+	name = "Bowl"
+	icon_state = "hair_bowlcut"
+	gender = MALE
+	glasses_over = 1
 
-	bowl
-		name = "Bowl"
-		icon_state = "hair_bowlcut"
-		gender = MALE
+/datum/sprite_accessory/hair/braid2
+	name = "Long Braid"
+	icon_state = "hair_hbraid"
+	gender = FEMALE
 
-	braid2
-		name = "Long Braid"
-		icon_state = "hair_hbraid"
-		gender = FEMALE
+/datum/sprite_accessory/hair/braid_hip
+	name = "Hippie Braid"
+	icon_state = "hair_hipbraid"
+	secondary_theme = "beads"
 
-	buzz
-		name = "Buzzcut"
-		icon_state = "hair_buzzcut"
-		gender = MALE
-		species_allowed = list("Human","Unathi")
+/datum/sprite_accessory/hair/braid_hip_una
+	name = "Unathi Hippie Braid"
+	icon_state = "hair_ubraid"
+	species_allowed = list("Unathi")
+	secondary_theme = "beads"
 
-	crew
-		name = "Crewcut"
-		icon_state = "hair_crewcut"
-		gender = MALE
+/datum/sprite_accessory/hair/buzz
+	name = "Buzzcut"
+	icon_state = "hair_buzzcut"
+	gender = MALE
+	species_allowed = list("Human", "Slime People", "Unathi")
+	glasses_over = 1
 
-	combover
-		name = "Combover"
-		icon_state = "hair_combover"
-		gender = MALE
+/datum/sprite_accessory/hair/crew
+	name = "Crewcut"
+	icon_state = "hair_crewcut"
+	gender = MALE
+	glasses_over = 1
 
-	devillock
-		name = "Devil Lock"
-		icon_state = "hair_devilock"
+/datum/sprite_accessory/hair/combover
+	name = "Combover"
+	icon_state = "hair_combover"
+	gender = MALE
+	glasses_over = 1
 
-	dreadlocks
-		name = "Dreadlocks"
-		icon_state = "hair_dreads"
+/datum/sprite_accessory/hair/devillock
+	name = "Devil Lock"
+	icon_state = "hair_devilock"
+	glasses_over = 1
 
-	curls
-		name = "Curls"
-		icon_state = "hair_curls"
+/datum/sprite_accessory/hair/dreadlocks
+	name = "Dreadlocks"
+	icon_state = "hair_dreads"
 
-	afro
-		name = "Afro"
-		icon_state = "hair_afro"
+/datum/sprite_accessory/hair/curls
+	name = "Curls"
+	icon_state = "hair_curls"
 
-	afro2
-		name = "Afro 2"
-		icon_state = "hair_afro2"
+/datum/sprite_accessory/hair/afro
+	name = "Afro"
+	icon_state = "hair_afro"
 
-	afro_large
-		name = "Big Afro"
-		icon_state = "hair_bigafro"
-		gender = MALE
+/datum/sprite_accessory/hair/afro2
+	name = "Afro 2"
+	icon_state = "hair_afro2"
+	glasses_over = 1
 
-	sargeant
-		name = "Flat Top"
-		icon_state = "hair_sargeant"
-		gender = MALE
+/datum/sprite_accessory/hair/afro_large
+	name = "Big Afro"
+	icon_state = "hair_bigafro"
+	gender = MALE
 
-	emo
-		name = "Emo"
-		icon_state = "hair_emo"
+/datum/sprite_accessory/hair/sergeant
+	name = "Flat Top"
+	icon_state = "hair_sergeant"
+	gender = MALE
+	glasses_over = 1
 
-	fag
-		name = "Flow Hair"
-		icon_state = "hair_f"
+/datum/sprite_accessory/hair/emo
+	name = "Emo"
+	icon_state = "hair_emo"
 
-	feather
-		name = "Feather"
-		icon_state = "hair_feather"
+/datum/sprite_accessory/hair/fag
+	name = "Flow Hair"
+	icon_state = "hair_f"
 
-	hitop
-		name = "Hitop"
-		icon_state = "hair_hitop"
-		gender = MALE
+/datum/sprite_accessory/hair/feather
+	name = "Feather"
+	icon_state = "hair_feather"
 
-	mohawk
-		name = "Mohawk"
-		icon_state = "hair_d"
-		species_allowed = list("Human","Unathi")
-	jensen
-		name = "Adam Jensen Hair"
-		icon_state = "hair_jensen"
-		gender = MALE
+/datum/sprite_accessory/hair/hitop
+	name = "Hitop"
+	icon_state = "hair_hitop"
+	gender = MALE
+	glasses_over = 1
 
-	gelled
-		name = "Gelled Back"
-		icon_state = "hair_gelled"
-		gender = FEMALE
+/datum/sprite_accessory/hair/mohawk
+	name = "Mohawk"
+	icon_state = "hair_d"
+	species_allowed = list("Human", "Slime People", "Unathi")
+	glasses_over = 1
 
-	gentle
-		name = "Gentle"
-		icon_state = "hair_gentle"
-		gender = FEMALE
+/datum/sprite_accessory/hair/jensen
+	name = "Adam Jensen Hair"
+	icon_state = "hair_jensen"
+	gender = MALE
+	glasses_over = 1
 
-	spiky
-		name = "Spiky"
-		icon_state = "hair_spikey"
-		species_allowed = list("Human","Unathi")
+/datum/sprite_accessory/hair/cia
+	name = "CIA"
+	icon_state = "hair_cia"
+	gender = MALE
+	glasses_over = 1
 
-	kusangi
-		name = "Kusanagi Hair"
-		icon_state = "hair_kusanagi"
+/datum/sprite_accessory/hair/mulder
+	name = "Mulder"
+	icon_state = "hair_mulder"
+	gender = MALE
+	glasses_over = 1
 
-	kagami
-		name = "Pigtails"
-		icon_state = "hair_kagami"
-		gender = FEMALE
+/datum/sprite_accessory/hair/gelled
+	name = "Gelled Back"
+	icon_state = "hair_gelled"
+	gender = FEMALE
+	glasses_over = 1
 
-	himecut
-		name = "Hime Cut"
-		icon_state = "hair_himecut"
-		gender = FEMALE
+/datum/sprite_accessory/hair/gentle
+	name = "Gentle"
+	icon_state = "hair_gentle"
+	gender = FEMALE
 
-	braid
-		name = "Floorlength Braid"
-		icon_state = "hair_braid"
-		gender = FEMALE
+/datum/sprite_accessory/hair/spiky
+	name = "Spiky"
+	icon_state = "hair_spikey"
+	species_allowed = list("Human", "Slime People", "Unathi")
+	glasses_over = 1
 
-	odango
-		name = "Odango"
-		icon_state = "hair_odango"
-		gender = FEMALE
+/datum/sprite_accessory/hair/kusanagi
+	name = "Kusanagi Hair"
+	icon_state = "hair_kusanagi"
 
-	ombre
-		name = "Ombre"
-		icon_state = "hair_ombre"
-		gender = FEMALE
+/datum/sprite_accessory/hair/kagami
+	name = "Pigtails"
+	icon_state = "hair_kagami"
+	gender = FEMALE
+	glasses_over = 1
 
-	updo
-		name = "Updo"
-		icon_state = "hair_updo"
-		gender = FEMALE
+/datum/sprite_accessory/hair/himecut
+	name = "Hime Cut"
+	icon_state = "hair_himecut"
+	gender = FEMALE
 
-	skinhead
-		name = "Skinhead"
-		icon_state = "hair_skinhead"
+/datum/sprite_accessory/hair/braid
+	name = "Floorlength Braid"
+	icon_state = "hair_braid"
+	gender = FEMALE
 
-	balding
-		name = "Balding Hair"
-		icon_state = "hair_e"
-		gender = MALE // turnoff!
+/datum/sprite_accessory/hair/odango
+	name = "Odango"
+	icon_state = "hair_odango"
+	gender = FEMALE
+	glasses_over = 1
+
+/datum/sprite_accessory/hair/ombre
+	name = "Ombre"
+	icon_state = "hair_ombre"
+	gender = FEMALE
+
+/datum/sprite_accessory/hair/updo
+	name = "Updo"
+	icon_state = "hair_updo"
+	gender = FEMALE
+
+/datum/sprite_accessory/hair/skinhead
+	name = "Skinhead"
+	icon_state = "hair_skinhead"
+	glasses_over = 1
+
+/datum/sprite_accessory/hair/balding
+	name = "Balding Hair"
+	icon_state = "hair_e"
+	gender = MALE // turnoff!
+	glasses_over = 1
+
+/datum/sprite_accessory/hair/longemo
+	name = "Long Emo"
+	icon_state = "hair_emolong"
+	gender = FEMALE
 
 //////////////////////////////
 //////START VG HAIRSTYLES/////
 //////////////////////////////
-	birdnest
-		name = "Bird Nest"
-		icon_state = "hair_birdnest"
+/datum/sprite_accessory/hair/birdnest
+	name = "Bird Nest"
+	icon_state = "hair_birdnest"
 
-	unkept
-		name = "Unkempt"
-		icon_state = "hair_unkept"
+/datum/sprite_accessory/hair/unkept
+	name = "Unkempt"
+	icon_state = "hair_unkept"
 
-	duelist
-		name = "Duelist"
-		icon_state = "hair_duelist"
-		gender = MALE
+/datum/sprite_accessory/hair/duelist
+	name = "Duelist"
+	icon_state = "hair_duelist"
+	gender = MALE
 
-	modern
-		name = "Modern"
-		icon_state = "hair_modern"
-		gender = FEMALE
+/datum/sprite_accessory/hair/modern
+	name = "Modern"
+	icon_state = "hair_modern"
+	gender = FEMALE
 
-	unshavenmohawk
-		name = "Unshaven Mohawk"
-		icon_state = "hair_unshavenmohawk"
-		gender = MALE
+/datum/sprite_accessory/hair/unshavenmohawk
+	name = "Unshaven Mohawk"
+	icon_state = "hair_unshavenmohawk"
+	gender = MALE
+	glasses_over = 1
 
-	drills
-		name = "Twincurls"
-		icon_state = "hair_twincurl"
-		gender = FEMALE
+/datum/sprite_accessory/hair/drills
+	name = "Twincurls"
+	icon_state = "hair_twincurl"
+	gender = FEMALE
 
-	minidrills
-		name = "Twincurls 2"
-		icon_state = "hair_twincurl2"
-		gender = FEMALE
+/datum/sprite_accessory/hair/minidrills
+	name = "Twincurls 2"
+	icon_state = "hair_twincurl2"
+	gender = FEMALE
 //////////////////////////////
 //////END VG HAIRSTYLES///////
 //////////////////////////////
 
-	icp_screen_pink
-		name = "pink IPC screen"
-		icon_state = "ipc_pink"
-		species_allowed = list("Machine")
+/datum/sprite_accessory/hair/ipc
+	species_allowed = list("Machine")
+	glasses_over = 1
+	models_allowed = list("Bishop Cybernetics mtr.", "Hesphiastos Industries mtr.", "Morpheus Cyberkinetics", "Ward-Takahashi mtr.", "Xion Manufacturing Group mtr.", "Shellguard Munitions Monitor Series")
 
-	icp_screen_red
-		name = "red IPC screen"
-		icon_state = "ipc_red"
-		species_allowed = list("Machine")
+/datum/sprite_accessory/hair/ipc/ipc_screen_pink
+	name = "Pink IPC Screen"
+	icon_state = "ipc_pink"
 
-	icp_screen_green
-		name = "green IPC screen"
-		icon_state = "ipc_green"
-		species_allowed = list("Machine")
+/datum/sprite_accessory/hair/ipc/ipc_screen_red
+	name = "Red IPC Screen"
+	icon_state = "ipc_red"
 
-	icp_screen_blue
-		name = "blue IPC screen"
-		icon_state = "ipc_blue"
-		species_allowed = list("Machine")
+/datum/sprite_accessory/hair/ipc/ipc_screen_green
+	name = "Green IPC Screen"
+	icon_state = "ipc_green"
 
-	icp_screen_breakout
-		name = "breakout IPC screen"
-		icon_state = "ipc_breakout"
-		species_allowed = list("Machine")
+/datum/sprite_accessory/hair/ipc/ipc_screen_blue
+	name = "Blue IPC Screen"
+	icon_state = "ipc_blue"
 
-	icp_screen_eight
-		name = "eight IPC screen"
-		icon_state = "ipc_eight"
-		species_allowed = list("Machine")
+/datum/sprite_accessory/hair/ipc/ipc_screen_breakout
+	name = "Breakout IPC Screen"
+	icon_state = "ipc_breakout"
 
-	icp_screen_goggles
-		name = "goggles IPC screen"
-		icon_state = "ipc_goggles"
-		species_allowed = list("Machine")
+/datum/sprite_accessory/hair/ipc/ipc_screen_eight
+	name = "Eight IPC Screen"
+	icon_state = "ipc_eight"
 
-	icp_screen_heart
-		name = "heart IPC screen"
-		icon_state = "ipc_heart"
-		species_allowed = list("Machine")
+/datum/sprite_accessory/hair/ipc/ipc_screen_rainbow
+	name = "Rainbow IPC Screen"
+	icon_state = "ipc_rainbow"
 
-	icp_screen_monoeye
-		name = "monoeye IPC screen"
-		icon_state = "ipc_monoeye"
-		species_allowed = list("Machine")
+/datum/sprite_accessory/hair/ipc/ipc_screen_goggles
+	name = "Goggles IPC Screen"
+	icon_state = "ipc_goggles"
 
-	icp_screen_nature
-		name = "nature IPC screen"
-		icon_state = "ipc_nature"
-		species_allowed = list("Machine")
+/datum/sprite_accessory/hair/ipc/ipc_screen_heart
+	name = "Heart IPC Screen"
+	icon_state = "ipc_heart"
 
-	icp_screen_orange
-		name = "orange IPC screen"
-		icon_state = "ipc_orange"
-		species_allowed = list("Machine")
+/datum/sprite_accessory/hair/ipc/ipc_screen_monoeye
+	name = "Monoeye IPC Screen"
+	icon_state = "ipc_monoeye"
 
-	icp_screen_purple
-		name = "purple IPC screen"
-		icon_state = "ipc_purple"
-		species_allowed = list("Machine")
+/datum/sprite_accessory/hair/ipc/ipc_screen_nature
+	name = "Nature IPC Screen"
+	icon_state = "ipc_nature"
 
-	icp_screen_shower
-		name = "shower IPC screen"
-		icon_state = "ipc_shower"
-		species_allowed = list("Machine")
+/datum/sprite_accessory/hair/ipc/ipc_screen_orange
+	name = "Orange IPC Screen"
+	icon_state = "ipc_orange"
 
-	icp_screen_static
-		name = "static IPC screen"
-		icon_state = "ipc_static"
-		species_allowed = list("Machine")
+/datum/sprite_accessory/hair/ipc/ipc_screen_purple
+	name = "Purple IPC Screen"
+	icon_state = "ipc_purple"
 
-	icp_screen_yellow
-		name = "yellow IPC screen"
-		icon_state = "ipc_yellow"
-		species_allowed = list("Machine")
+/datum/sprite_accessory/hair/ipc/ipc_screen_shower
+	name = "Shower IPC Screen"
+	icon_state = "ipc_shower"
+
+/datum/sprite_accessory/hair/ipc/ipc_screen_static
+	name = "Static IPC Screen"
+	icon_state = "ipc_static"
+
+/datum/sprite_accessory/hair/ipc/ipc_screen_yellow
+	name = "Yellow IPC Screen"
+	icon_state = "ipc_yellow"
+
+/datum/sprite_accessory/hair/ipc/ipc_screen_scrolling
+	name = "Scanline IPC Screen"
+	icon_state = "ipc_scroll"
+
+/datum/sprite_accessory/hair/ipc/ipc_screen_console
+	name = "Console IPC Screen"
+	icon_state = "ipc_console"
+
+/datum/sprite_accessory/hair/ipc/ipc_screen_rgb
+	name = "RGB IPC Screen"
+	icon_state = "ipc_rgb"
+
+/datum/sprite_accessory/hair/ipc/ipc_screen_glider
+	name = "Glider IPC Screen"
+	icon_state = "ipc_gol_glider"
+
+/datum/sprite_accessory/hair/ipc/hesphiastos_alt_off
+	name = "Dark Hesphiastos Screen"
+	icon_state = "hesphiastos_alt_off"
+	models_allowed = list("Hesphiastos Industries alt.")
+
+/datum/sprite_accessory/hair/ipc/hesphiastos_alt_pink
+	name = "Pink Hesphiastos Screen"
+	icon_state = "hesphiastos_alt_pink"
+	models_allowed = list("Hesphiastos Industries alt.")
+
+/datum/sprite_accessory/hair/ipc/hesphiastos_alt_orange
+	name = "Orange Hesphiastos Screen"
+	icon_state = "hesphiastos_alt_orange"
+	models_allowed = list("Hesphiastos Industries alt.")
+
+/datum/sprite_accessory/hair/ipc/hesphiastos_alt_goggle
+	name = "Goggles Hesphiastos Screen"
+	icon_state = "hesphiastos_alt_goggles"
+	models_allowed = list("Hesphiastos Industries alt.")
+
+/datum/sprite_accessory/hair/ipc/hesphiastos_alt_scroll
+	name = "Scrolling Hesphiastos Screen"
+	icon_state = "hesphiastos_alt_scroll"
+	models_allowed = list("Hesphiastos Industries alt.")
+
+/datum/sprite_accessory/hair/ipc/hesphiastos_alt_rgb
+	name = "RGB Hesphiastos Screen"
+	icon_state = "hesphiastos_alt_rgb"
+	models_allowed = list("Hesphiastos Industries alt.")
+
+/datum/sprite_accessory/hair/ipc/hesphiastos_alt_rainbow
+	name = "Rainbow Hesphiastos Screen"
+	icon_state = "hesphiastos_alt_rainbow"
+	models_allowed = list("Hesphiastos Industries alt.")
+
+/*
+///////////////////////////////////
+/  =---------------------------=  /
+/  == Alien Style Definitions ==  /
+/  =---------------------------=  /
+///////////////////////////////////
+*/
+
+/datum/sprite_accessory/hair/unathi
+	species_allowed = list("Unathi")
+	glasses_over = 1
+	icon = 'icons/mob/body_accessory.dmi'
+
+/datum/sprite_accessory/hair/unathi/una_side_frills
+	icon = 'icons/mob/human_face.dmi'
+	name = "Unathi Side Frills"
+	icon_state = "unathi_sidefrills"
+	secondary_theme = "webbing"
+
+/datum/sprite_accessory/hair/unathi/una_frills_dorsal
+	icon = 'icons/mob/human_face.dmi'
+	name = "Dorsal Frills"
+	icon_state = "unathi_dorsalfrills"
+	secondary_theme = "webbing"
+
+/datum/sprite_accessory/hair/unathi/simple
+	name = "Simple Horns"
+	icon_state = "horns_simple"
+
+/datum/sprite_accessory/hair/unathi/short
+	name = "Short Horns"
+	icon_state = "horns_short"
+
+/datum/sprite_accessory/hairy/unathi/curled
+	name = "Curled Horns"
+	icon_state = "horns_curled"
+
+/datum/sprite_accessory/hair/unathi/ram
+	name = "Ram Horns"
+	icon_state = "horns_ram"
+
+/datum/sprite_accessory/hair/unathi/double
+	name = "Double Horns"
+	icon_state = "horns_drac"
+
+/datum/sprite_accessory/hair/unathi/lower
+	name = "Lower Horns"
+	icon_state = "horns_lower"
+
+/datum/sprite_accessory/hair/unathi/big
+	name = "Big"
+	icon_state = "horns_big"
+
+/datum/sprite_accessory/hair/unathi/ram2
+	name = "Ram alt."
+	icon_state = "horns_ram2"
+
+/datum/sprite_accessory/hair/unathi/small
+	name = "Small"
+	icon_state = "horns_small"
+
+/datum/sprite_accessory/hair/unathi/chin
+	name = "Chin"
+	icon_state = "horns_chin"
+
+/datum/sprite_accessory/hair/unathi/adorns
+	name = "Adorns"
+	icon_state = "horns_adorns"
+
+/datum/sprite_accessory/hair/unathi/spikes
+	name = "Spikes"
+	icon_state = "horns_spikes"
+
+/datum/sprite_accessory/hair/skrell
+	species_allowed = list("Skrell")
+
+/datum/sprite_accessory/hair/skrell/skr_tentacle_m
+	name = "Skrell Male Tentacles"
+	icon_state = "skrell_hair_m"
+	gender = MALE
+
+/datum/sprite_accessory/hair/skrell/skr_tentacle_f
+	name = "Skrell Female Tentacles"
+	icon_state = "skrell_hair_f"
+	gender = FEMALE
+
+/datum/sprite_accessory/hair/skrell/skr_gold_m
+	name = "Gold plated Skrell Male Tentacles"
+	icon_state = "skrell_hair_m"
+	gender = MALE
+	secondary_theme = "gold"
+	no_sec_colour = 1
+
+/datum/sprite_accessory/hair/skrell/skr_gold_f
+	name = "Gold chained Skrell Female Tentacles"
+	icon_state = "skrell_hair_f"
+	gender = FEMALE
+	secondary_theme = "gold"
+	no_sec_colour = 1
+
+/datum/sprite_accessory/hair/skrell/skr_clothtentacle_m
+	name = "Cloth draped Skrell Male Tentacles"
+	icon_state = "skrell_hair_m"
+	gender = MALE
+	secondary_theme = "cloth"
+
+/datum/sprite_accessory/hair/skrell/skr_clothtentacle_f
+	name = "Cloth draped Skrell Female Tentacles"
+	icon_state = "skrell_hair_f"
+	gender = FEMALE
+	secondary_theme = "cloth"
+
+/datum/sprite_accessory/hair/tajara
+	species_allowed = list("Tajaran")
+	glasses_over = 1
+
+/datum/sprite_accessory/hair/tajara/taj_hair_clean
+	name = "Tajara Clean"
+	icon_state = "hair_clean"
+
+/datum/sprite_accessory/hair/tajara/taj_hair_bangs
+	name = "Tajara Bangs"
+	icon_state = "hair_bangs"
+	glasses_over = null
+
+/datum/sprite_accessory/hair/tajara/taj_hair_braid
+	name = "Tajara Braid"
+	icon_state = "hair_tbraid"
+	secondary_theme = "beads"
+	glasses_over = null
+
+/datum/sprite_accessory/hair/tajara/taj_hair_shaggy
+	name = "Tajara Shaggy"
+	icon_state = "hair_shaggy"
+
+/datum/sprite_accessory/hair/tajara/taj_hair_mohawk
+	name = "Tajaran Mohawk"
+	icon_state = "hair_mohawk"
+
+/datum/sprite_accessory/hair/tajara/taj_hair_plait
+	name = "Tajara Plait"
+	icon_state = "hair_plait"
+
+/datum/sprite_accessory/hair/tajara/taj_hair_straight
+	name = "Tajara Straight"
+	icon_state = "hair_straight"
+
+/datum/sprite_accessory/hair/tajara/taj_hair_long
+	name = "Tajara Long"
+	icon_state = "hair_long"
+
+/datum/sprite_accessory/hair/tajara/taj_hair_rattail
+	name = "Tajara Rat Tail"
+	icon_state = "hair_rattail"
+
+/datum/sprite_accessory/hair/tajara/taj_hair_spiky
+	name = "Tajara Spikey"
+	icon_state = "hair_tajspikey"
+
+/datum/sprite_accessory/hair/tajara/taj_hair_messy
+	name = "Tajara Messy"
+	icon_state = "hair_messy"
+
+/datum/sprite_accessory/hair/tajara/taj_hair_curls
+	name = "Tajara Curly"
+	icon_state = "hair_curly"
+	glasses_over = null
+
+/datum/sprite_accessory/hair/tajara/taj_hair_retro
+	name = "Tajaran Ladies' Retro"
+	icon_state = "hair_ladies_retro"
+	glasses_over = null
+
+/datum/sprite_accessory/hair/tajara/taj_hair_victory
+	name = "Tajara Victory Curls"
+	icon_state = "hair_victory"
+	glasses_over = null
+
+/datum/sprite_accessory/hair/tajara/taj_hair_bob
+	name = "Tajara Bob"
+	icon_state = "hair_tbob"
+	glasses_over = null
+
+/datum/sprite_accessory/hair/tajara/taj_hair_fingercurl
+	name = "Tajara Finger Curls"
+	icon_state = "hair_fingerwave"
+	glasses_over = null
+
+/datum/sprite_accessory/hair/vulpkanin
+	species_allowed = list("Vulpkanin")
+
+/datum/sprite_accessory/hair/vulpkanin/vulp_hair_kajam
+	name = "Kajam"
+	icon_state = "kajam"
+
+/datum/sprite_accessory/hair/vulpkanin/vulp_hair_keid
+	name = "Keid"
+	icon_state = "keid"
+
+/datum/sprite_accessory/hair/vulpkanin/vulp_hair_adhara
+	name = "Adhara"
+	icon_state = "adhara"
+
+/datum/sprite_accessory/hair/vulpkanin/vulp_hair_kleeia
+	name = "Kleeia"
+	icon_state = "kleeia"
+
+/datum/sprite_accessory/hair/vulpkanin/vulp_hair_mizar
+	name = "Mizar"
+	icon_state = "mizar"
+
+/datum/sprite_accessory/hair/vulpkanin/vulp_hair_apollo
+	name = "Apollo"
+	icon_state = "apollo"
+
+/datum/sprite_accessory/hair/vulpkanin/vulp_hair_belle
+	name = "Belle"
+	icon_state = "belle"
+	secondary_theme = "bands"
+
+/datum/sprite_accessory/hair/vulpkanin/vulp_hair_bun
+	name = "Bun"
+	icon_state = "bun"
+	glasses_over = 1
+
+/datum/sprite_accessory/hair/vulpkanin/vulp_hair_jagged
+	name = "Jagged"
+	icon_state = "jagged"
+
+/datum/sprite_accessory/hair/vulpkanin/vulp_hair_curl
+	name = "Curl"
+	icon_state = "curl"
+
+/datum/sprite_accessory/hair/vulpkanin/vulp_hair_hawk
+	name = "Hawk"
+	icon_state = "hawk"
+	glasses_over = 1
+
+/datum/sprite_accessory/hair/vulpkanin/vulp_hair_anita
+	name = "Anita"
+	icon_state = "anita"
+
+/datum/sprite_accessory/hair/vulpkanin/vulp_hair_short
+	name = "Short"
+	icon_state = "short"
+
+/datum/sprite_accessory/hair/vulpkanin/vulp_hair_spike
+	name = "Spike"
+	icon_state = "spike"
+	glasses_over = 1
+
+/datum/sprite_accessory/hair/vulpkanin/vulp_hair_braided
+	name = "Braided"
+	icon_state = "braided"
+	secondary_theme = "beads"
+
+/datum/sprite_accessory/hair/vulpkanin/vulp_hair_punkbraided
+	name = "Punk Braided"
+	icon_state = "punkbraided"
+	secondary_theme = "flare"
+
+/datum/sprite_accessory/hair/vulpkanin/vulp_hair_short2
+	name = "Short Alt."
+	icon_state = "short2"
+	glasses_over = 1
+
+/datum/sprite_accessory/hair/vulpkanin/vulp_hair_rough
+	name = "Rough-Cropped Mane"
+	icon_state = "rough"
+
+/datum/sprite_accessory/hair/vox
+	species_allowed = list("Vox")
+	glasses_over = 1
+
+/datum/sprite_accessory/hair/vox/vox_quills_short
+	name = "Short Vox Quills"
+	icon_state = "vox_shortquills"
+
+/datum/sprite_accessory/hair/vox/vox_crestedquills
+	name = "Crested Vox Quills"
+	icon_state = "vox_crestedquills"
+
+/datum/sprite_accessory/hair/vox/vox_tielquills
+	name = "Vox Tiel Quills"
+	icon_state = "vox_tielquills"
+
+/datum/sprite_accessory/hair/vox/vox_emperorquills
+	name = "Vox Emperor Quills"
+	icon_state = "vox_emperorquills"
+
+/datum/sprite_accessory/hair/vox/vox_keelquills
+	name = "Vox Keel Quills"
+	icon_state = "vox_keelquills"
+
+/datum/sprite_accessory/hair/vox/vox_keetquills
+	name = "Vox Keet Quills"
+	icon_state = "vox_keetquills"
+
+/datum/sprite_accessory/hair/vox/vox_quills_kingly
+	name = "Kingly Vox Quills"
+	icon_state = "vox_kingly"
+
+/datum/sprite_accessory/hair/vox/vox_quills_fluff
+	name = "Fluffy Vox Quills"
+	icon_state = "vox_afro"
+
+/datum/sprite_accessory/hair/vox/vox_quills_mohawk
+	name = "Vox Quill Mohawk"
+	icon_state = "vox_mohawk"
+
+/datum/sprite_accessory/hair/vox/vox_quills_long
+	name = "Long Vox Quills"
+	icon_state = "vox_yasu"
+
+/datum/sprite_accessory/hair/vox/vox_horns
+	name = "Vox Spikes"
+	icon_state = "vox_horns"
+
+/datum/sprite_accessory/hair/vox/vox_nights
+	name = "Vox Pigtails"
+	icon_state = "vox_nights"
+
+/datum/sprite_accessory/hair/vox/vox_razor
+	name = "Vox Razorback"
+	icon_state = "vox_razor"
+
+/datum/sprite_accessory/hair/vox/vox_razor_clipped
+	name = "Clipped Vox Razorback"
+	icon_state = "vox_razor_clipped"
+
+// Apollo-specific
+
+/datum/sprite_accessory/hair/wryn
+	species_allowed = list("Wryn")
+	glasses_over = 1
+
+/datum/sprite_accessory/hair/wryn/wry_antennae_default
+	name = "Antennae"
+	icon_state = "wryn_antennae"
+
+/datum/sprite_accessory/hair/nucleation
+	species_allowed = list("Nucleation")
+	glasses_over = 1
+
+/datum/sprite_accessory/hair/nucleation/nuc_crystals
+	name = "Nucleation Crystals"
+	icon_state = "nuc_crystal"
+
+/datum/sprite_accessory/hair/nucleation/nuc_betaburns
+	name = "Nucleation Beta Burns"
+	icon_state = "nuc_betaburns"
+
+/datum/sprite_accessory/hair/nucleation/nuc_fallout
+	name = "Nucleation Fallout"
+	icon_state = "nuc_fallout"
+
+/datum/sprite_accessory/hair/nucleation/nuc_frission
+	name = "Nucleation Frission"
+	icon_state = "nuc_frission"
+
+/datum/sprite_accessory/hair/nucleation/nuc_radical
+	name = "Nucleation Free Radical"
+	icon_state = "nuc_radical"
+
+/datum/sprite_accessory/hair/nucleation/nuc_gammaray
+	name = "Nucleation Gamma Ray"
+	icon_state = "nuc_gammaray"
+
+/datum/sprite_accessory/hair/nucleation/nuc_neutron
+	name = "Nucleation Neutron Bomb"
+	icon_state = "nuc_neutron"
+
 
 /*
 ///////////////////////////////////
@@ -452,526 +930,282 @@
 */
 
 /datum/sprite_accessory/facial_hair
-
 	icon = 'icons/mob/human_face.dmi'
 	gender = MALE // barf (unless you're a dorf, dorfs dig chix /w beards :P)
+	var/over_hair
 
-	shaved
-		name = "Shaved"
-		icon_state = "bald"
-		gender = NEUTER
-		species_allowed = list("Human","Unathi","Tajaran","Skrell","Vox","Diona","Kidan","Greys","Machine", "Vulpkanin")
+/datum/sprite_accessory/facial_hair/shaved
+	name = "Shaved"
+	icon_state = "bald"
+	gender = NEUTER
+	species_allowed = list("Human", "Unathi", "Tajaran", "Skrell", "Vox", "Diona", "Kidan", "Greys", "Vulpkanin", "Slime People")
 
+/datum/sprite_accessory/facial_hair/watson
+	name = "Watson Mustache"
+	icon_state = "facial_watson"
 
-	watson
-		name = "Watson Mustache"
-		icon_state = "facial_watson"
+/datum/sprite_accessory/facial_hair/hogan
+	name = "Hulk Hogan Mustache"
+	icon_state = "facial_hogan" //-Neek
 
-	hogan
-		name = "Hulk Hogan Mustache"
-		icon_state = "facial_hogan" //-Neek
+/datum/sprite_accessory/facial_hair/vandyke
+	name = "Van Dyke Mustache"
+	icon_state = "facial_vandyke"
 
-	vandyke
-		name = "Van Dyke Mustache"
-		icon_state = "facial_vandyke"
+/datum/sprite_accessory/facial_hair/chaplin
+	name = "Square Mustache"
+	icon_state = "facial_chaplin"
 
-	chaplin
-		name = "Square Mustache"
-		icon_state = "facial_chaplin"
+/datum/sprite_accessory/facial_hair/selleck
+	name = "Selleck Mustache"
+	icon_state = "facial_selleck"
 
-	selleck
-		name = "Selleck Mustache"
-		icon_state = "facial_selleck"
+/datum/sprite_accessory/facial_hair/neckbeard
+	name = "Neckbeard"
+	icon_state = "facial_neckbeard"
 
-	neckbeard
-		name = "Neckbeard"
-		icon_state = "facial_neckbeard"
+/datum/sprite_accessory/facial_hair/fullbeard
+	name = "Full Beard"
+	icon_state = "facial_fullbeard"
 
-	fullbeard
-		name = "Full Beard"
-		icon_state = "facial_fullbeard"
+/datum/sprite_accessory/facial_hair/longbeard
+	name = "Long Beard"
+	icon_state = "facial_longbeard"
 
-	longbeard
-		name = "Long Beard"
-		icon_state = "facial_longbeard"
+/datum/sprite_accessory/facial_hair/vlongbeard
+	name = "Very Long Beard"
+	icon_state = "facial_wise"
 
-	vlongbeard
-		name = "Very Long Beard"
-		icon_state = "facial_wise"
+/datum/sprite_accessory/facial_hair/elvis
+	name = "Elvis Sideburns"
+	icon_state = "facial_elvis"
+	species_allowed = list("Human", "Slime People", "Unathi")
 
-	elvis
-		name = "Elvis Sideburns"
-		icon_state = "facial_elvis"
-		species_allowed = list("Human","Unathi")
+/datum/sprite_accessory/facial_hair/abe
+	name = "Abraham Lincoln Beard"
+	icon_state = "facial_abe"
 
-	abe
-		name = "Abraham Lincoln Beard"
-		icon_state = "facial_abe"
+/datum/sprite_accessory/facial_hair/chinstrap
+	name = "Chinstrap"
+	icon_state = "facial_chin"
 
-	chinstrap
-		name = "Chinstrap"
-		icon_state = "facial_chin"
+/datum/sprite_accessory/facial_hair/hip
+	name = "Hipster Beard"
+	icon_state = "facial_hip"
 
-	hip
-		name = "Hipster Beard"
-		icon_state = "facial_hip"
+/datum/sprite_accessory/facial_hair/gt
+	name = "Goatee"
+	icon_state = "facial_gt"
 
-	gt
-		name = "Goatee"
-		icon_state = "facial_gt"
+/datum/sprite_accessory/facial_hair/jensen
+	name = "Adam Jensen Beard"
+	icon_state = "facial_jensen"
 
-	jensen
-		name = "Adam Jensen Beard"
-		icon_state = "facial_jensen"
-
-	dwarf
-		name = "Dwarf Beard"
-		icon_state = "facial_dwarf"
+/datum/sprite_accessory/facial_hair/dwarf
+	name = "Dwarf Beard"
+	icon_state = "facial_dwarf"
 
 //////////////////////////////
 //////START VG HAIRSTYLES/////
 //////////////////////////////
-	britstache
-		name = "Brit Stache"
-		icon_state = "facial_britstache"
+/datum/sprite_accessory/facial_hair/britstache
+	name = "Brit Stache"
+	icon_state = "facial_britstache"
 
-	martialartist
-		name = "Martial Artist"
-		icon_state = "facial_martialartist"
+/datum/sprite_accessory/facial_hair/martialartist
+	name = "Martial Artist"
+	icon_state = "facial_martialartist"
 
-	moonshiner
-		name = "Moonshiner"
-		icon_state = "facial_moonshiner"
+/datum/sprite_accessory/facial_hair/moonshiner
+	name = "Moonshiner"
+	icon_state = "facial_moonshiner"
 
-	tribeard
-		name = "Tri-beard"
-		icon_state = "facial_tribeard"
+/datum/sprite_accessory/facial_hair/tribeard
+	name = "Tri-beard"
+	icon_state = "facial_tribeard"
 
-	unshaven
-		name = "Unshaven"
-		icon_state = "facial_unshaven"
+/datum/sprite_accessory/facial_hair/unshaven
+	name = "Unshaven"
+	icon_state = "facial_unshaven"
 //////////////////////////////
 //////END VG HAIRSTYLES///////
 //////////////////////////////
 
 
-/*
-///////////////////////////////////
-/  =---------------------------=  /
-/  == Alien Style Definitions ==  /
-/  =---------------------------=  /
-///////////////////////////////////
-*/
-
-/datum/sprite_accessory/hair
-	una_spines_long
-		name = "Long Unathi Spines"
-		icon_state = "soghun_longspines"
-		species_allowed = list("Unathi")
-
-	una_spines_short
-		name = "Short Unathi Spines"
-		icon_state = "soghun_shortspines"
-		species_allowed = list("Unathi")
-
-	una_frills_long
-		name = "Long Unathi Frills"
-		icon_state = "soghun_longfrills"
-		species_allowed = list("Unathi")
-
-	una_frills_short
-		name = "Short Unathi Frills"
-		icon_state = "soghun_shortfrills"
-		species_allowed = list("Unathi")
-
-	una_horns
-		name = "Unathi Horns"
-		icon_state = "soghun_horns"
-		species_allowed = list("Unathi")
-
-	skr_tentacle_m
-		name = "Skrell Male Tentacles"
-		icon_state = "skrell_hair_m"
-		species_allowed = list("Skrell")
-		gender = MALE
-
-	skr_tentacle_f
-		name = "Skrell Female Tentacles"
-		icon_state = "skrell_hair_f"
-		species_allowed = list("Skrell")
-		gender = FEMALE
-
-	skr_gold_m
-		name = "Gold plated Skrell Male Tentacles"
-		icon_state = "skrell_goldhair_m"
-		species_allowed = list("Skrell")
-		gender = MALE
-
-	skr_gold_f
-		name = "Gold chained Skrell Female Tentacles"
-		icon_state = "skrell_goldhair_f"
-		species_allowed = list("Skrell")
-		gender = FEMALE
-
-	skr_clothtentacle_m
-		name = "Cloth draped Skrell Male Tentacles"
-		icon_state = "skrell_clothhair_m"
-		species_allowed = list("Skrell")
-		gender = MALE
-
-	skr_clothtentacle_f
-		name = "Cloth draped Skrell Female Tentacles"
-		icon_state = "skrell_clothhair_f"
-		species_allowed = list("Skrell")
-		gender = FEMALE
-
-	taj_ears
-		name = "Tajaran Ears"
-		icon_state = "ears_plain"
-		species_allowed = list("Tajaran")
-
-	taj_ears_clean
-		name = "Tajara Clean"
-		icon_state = "hair_clean"
-		species_allowed = list("Tajaran")
-
-	taj_ears_bangs
-		name = "Tajara Bangs"
-		icon_state = "hair_bangs"
-		species_allowed = list("Tajaran")
-
-	taj_ears_braid
-		name = "Tajara Braid"
-		icon_state = "hair_tbraid"
-		species_allowed = list("Tajaran")
-
-	taj_ears_shaggy
-		name = "Tajara Shaggy"
-		icon_state = "hair_shaggy"
-		species_allowed = list("Tajaran")
-
-	taj_ears_mohawk
-		name = "Tajaran Mohawk"
-		icon_state = "hair_mohawk"
-		species_allowed = list("Tajaran")
-
-	taj_ears_plait
-		name = "Tajara Plait"
-		icon_state = "hair_plait"
-		species_allowed = list("Tajaran")
-
-	taj_ears_straight
-		name = "Tajara Straight"
-		icon_state = "hair_straight"
-		species_allowed = list("Tajaran")
-
-	taj_ears_long
-		name = "Tajara Long"
-		icon_state = "hair_long"
-		species_allowed = list("Tajaran")
-
-	taj_ears_rattail
-		name = "Tajara Rat Tail"
-		icon_state = "hair_rattail"
-		species_allowed = list("Tajaran")
-
-	taj_ears_spiky
-		name = "Tajara Spiky"
-		icon_state = "hair_tajspiky"
-		species_allowed = list("Tajaran")
-
-	taj_ears_messy
-		name = "Tajara Messy"
-		icon_state = "hair_messy"
-		species_allowed = list("Tajaran")
-
-//Vulpkanin
-
-	vulp_hair_none
-		name = "None"
-		icon_state = "bald"
-		species_allowed = list("Vulpkanin")
-
-	vulp_hair_kajam
-		name = "Kajam"
-		icon_state = "kajam"
-		species_allowed = list("Vulpkanin")
-
-	vulp_hair_keid
-		name = "Keid"
-		icon_state = "keid"
-		species_allowed = list("Vulpkanin")
-
-	vulp_hair_adhara
-		name = "Adhara"
-		icon_state = "adhara"
-		species_allowed = list("Vulpkanin")
-
-	vulp_hair_kleeia
-		name = "Kleeia"
-		icon_state = "kleeia"
-		species_allowed = list("Vulpkanin")
-
-	vulp_hair_mizar
-		name = "Mizar"
-		icon_state = "mizar"
-		species_allowed = list("Vulpkanin")
-
-	vulp_hair_apollo
-		name = "Apollo"
-		icon_state = "apollo"
-		species_allowed = list("Vulpkanin")
-
-	vulp_hair_belle
-		name = "Belle"
-		icon_state = "belle"
-		species_allowed = list("Vulpkanin")
-
-	vulp_hair_bun
-		name = "Bun"
-		icon_state = "bun"
-		species_allowed = list("Vulpkanin")
-
-	vulp_hair_jagged
-		name = "Jagged"
-		icon_state = "jagged"
-		species_allowed = list("Vulpkanin")
-
-	vulp_hair_curl
-		name = "Curl"
-		icon_state = "curl"
-		species_allowed = list("Vulpkanin")
-
-	vulp_hair_hawk
-		name = "Hawk"
-		icon_state = "hawk"
-		species_allowed = list("Vulpkanin")
-
-	vulp_hair_anita
-		name = "Anita"
-		icon_state = "anita"
-		species_allowed = list("Vulpkanin")
-
-	vulp_hair_short
-		name = "Short"
-		icon_state = "short"
-		species_allowed = list("Vulpkanin")
-
-	vulp_hair_spike
-		name = "Spike"
-		icon_state = "spike"
-		species_allowed = list("Vulpkanin")
-
-//Vox
-
-	vox_quills_short
-		name = "Short Vox Quills"
-		icon_state = "vox_shortquills"
-		species_allowed = list("Vox")
-
-	vox_crestedquills
-		name = "Crested Vox Quills"
-		icon_state = "vox_crestedquills"
-		species_allowed = list("Vox")
-
-	vox_tielquills
-		name = "Vox Tiel Quills"
-		icon_state = "vox_tielquills"
-		species_allowed = list("Vox")
-
-	vox_emperorquills
-		name = "Vox Emperor Quills"
-		icon_state = "vox_emperorquills"
-		species_allowed = list("Vox")
-
-	vox_keelquills
-		name = "Vox Keel Quills"
-		icon_state = "vox_keelquills"
-		species_allowed = list("Vox")
-
-	vox_keetquills
-		name = "Vox Keet Quills"
-		icon_state = "vox_keetquills"
-		species_allowed = list("Vox")
-
-	vox_quills_kingly
-		name = "Kingly Vox Quills"
-		icon_state = "vox_kingly"
-		species_allowed = list("Vox")
-
-	vox_quills_fluff
-		name = "Fluffy Quills"
-		icon_state = "vox_afro"
-		species_allowed = list("Vox")
-
-	vox_quills_mohawk
-		name = "Quill Mohawk"
-		icon_state = "vox_mohawk"
-		species_allowed = list("Vox")
-
-	vox_quills_long
-		name = "Long Vox Quills"
-		icon_state = "vox_yasu"
-		species_allowed = list("Vox")
-
-	vox_horns
-		name = "Vox Spikes"
-		icon_state = "vox_horns"
-		species_allowed = list("Vox")
-
-	vox_nights
-		name = "Vox Pigtails"
-		icon_state = "vox_nights"
-		species_allowed = list("Vox")
-
-// Apollo-specific
-
-	//Wryn antennae
-
-	wry_antennae_default
-		name = "Antennae"
-		icon_state = "wryn_antennae"
-		species_allowed = list("Wryn")
-
-	//Nucleation "hairstyles"
-
-	nuc_crystals
-		name = "Nucleation Crystals"
-		icon_state = "nuc_crystal"
-		species_allowed = list("Nucleation")
-
-	nuc_betaburns
-		name = "Nucleation Beta Burns"
-		icon_state = "nuc_betaburns"
-		species_allowed = list("Nucleation")
-
-	nuc_fallout
-		name = "Nucleation Fallout"
-		icon_state = "nuc_fallout"
-		species_allowed = list("Nucleation")
-
-	nuc_frission
-		name = "Nucleation Frission"
-		icon_state = "nuc_frission"
-		species_allowed = list("Nucleation")
-
-	nuc_radical
-		name = "Nucleation Free Radical"
-		icon_state = "nuc_radical"
-		species_allowed = list("Nucleation")
-
-	nuc_gammaray
-		name = "Nucleation Gamma Ray"
-		icon_state = "nuc_gammaray"
-		species_allowed = list("Nucleation")
-
-	nuc_neutron
-		name = "Nucleation Neutron Bomb"
-		icon_state = "nuc_neutron"
-		species_allowed = list("Nucleation")
-
-/datum/sprite_accessory/facial_hair
-
-	taj_sideburns
-		name = "Tajara Sideburns"
-		icon_state = "facial_sideburns"
-		species_allowed = list("Tajaran")
-
-	taj_mutton
-		name = "Tajara Mutton"
-		icon_state = "facial_mutton"
-		species_allowed = list("Tajaran")
-
-	taj_pencilstache
-		name = "Tajara Pencilstache"
-		icon_state = "facial_pencilstache"
-		species_allowed = list("Tajaran")
-
-	taj_moustache
-		name = "Tajara Moustache"
-		icon_state = "facial_moustache"
-		species_allowed = list("Tajaran")
-
-	taj_goatee
-		name = "Tajara Goatee"
-		icon_state = "facial_goatee"
-		species_allowed = list("Tajaran")
-
-	taj_smallstache
-		name = "Tajara Smallstache"
-		icon_state = "facial_smallstache"
-		species_allowed = list("Tajaran")
-
-	vox_colonel
-		name = "Vox Colonel Beard"
-		icon_state = "vox_colonel"
-		species_allowed = list("Vox")
-
-	vox_long
-		name = "Long Mustache"
-		icon_state = "vox_fu"
-		species_allowed = list("Vox")
-
-	vox_neck
-		name = "Neck Quills"
-		icon_state = "vox_neck"
-		species_allowed = list("Vox")
-
-	vox_beard
-		name = "Vox Quill Beard"
-		icon_state = "vox_beard"
-		species_allowed = list("Vox")
-
-
-//Vulpkanin
-
-	vulp_blaze
-		name = "Blaze"
-		icon_state = "vulp_facial_blaze"
-		species_allowed = list("Vulpkanin")
-		gender = NEUTER
-
-	vulp_vulpine
-		name = "Vulpine"
-		icon_state = "vulp_facial_vulpine"
-		species_allowed = list("Vulpkanin")
-		gender = NEUTER
-
-	vulp_earfluff
-		name = "Earfluff"
-		icon_state = "vulp_facial_earfluff"
-		species_allowed = list("Vulpkanin")
-		gender = NEUTER
-
-	vulp_mask
-		name = "Mask"
-		icon_state = "vulp_facial_mask"
-		species_allowed = list("Vulpkanin")
-		gender = NEUTER
-
-	vulp_patch
-		name = "Patch"
-		icon_state = "vulp_facial_patch"
-		species_allowed = list("Vulpkanin")
-		gender = NEUTER
-
-	vulp_ruff
-		name = "Ruff"
-		icon_state = "vulp_facial_ruff"
-		species_allowed = list("Vulpkanin")
-		gender = NEUTER
-
-	vulp_kita
-		name = "Kita"
-		icon_state = "vulp_facial_kita"
-		species_allowed = list("Vulpkanin")
-		gender = NEUTER
-
-	vulp_swift
-		name = "Swift"
-		icon_state = "vulp_facial_swift"
-		species_allowed = list("Vulpkanin")
-		gender = NEUTER
+/datum/sprite_accessory/facial_hair/tajara
+	species_allowed = list("Tajaran")
+
+/datum/sprite_accessory/facial_hair/tajara/taj_sideburns
+	name = "Tajara Sideburns"
+	icon_state = "facial_sideburns"
+
+/datum/sprite_accessory/facial_hair/tajara/taj_mutton
+	name = "Tajara Mutton"
+	icon_state = "facial_mutton"
+
+/datum/sprite_accessory/facial_hair/tajara/taj_pencilstache
+	name = "Tajara Pencilstache"
+	icon_state = "facial_pencilstache"
+
+/datum/sprite_accessory/facial_hair/tajara/taj_moustache
+	name = "Tajara Moustache"
+	icon_state = "facial_moustache"
+
+/datum/sprite_accessory/facial_hair/tajara/taj_goatee
+	name = "Tajara Goatee"
+	icon_state = "facial_goatee"
+
+/datum/sprite_accessory/facial_hair/tajara/taj_goatee_faded
+	name = "Tajara Faded Goatee"
+	icon_state = "facial_goatee_faded"
+
+/datum/sprite_accessory/facial_hair/tajara/taj_smallstache
+	name = "Tajara Smallstache"
+	icon_state = "facial_smallstache"
+
+/datum/sprite_accessory/facial_hair/vox
+	species_allowed = list("Vox")
+	gender = NEUTER
+
+/datum/sprite_accessory/facial_hair/vox/vox_colonel
+	name = "Vox Colonel Beard"
+	icon_state = "vox_colonel"
+
+/datum/sprite_accessory/facial_hair/vox/vox_long
+	name = "Long Mustache"
+	icon_state = "vox_fu"
+
+/datum/sprite_accessory/facial_hair/vox/vox_neck
+	name = "Neck Quills"
+	icon_state = "vox_neck"
+
+/datum/sprite_accessory/facial_hair/vox/vox_beard
+	name = "Vox Quill Beard"
+	icon_state = "vox_beard"
+
+/datum/sprite_accessory/facial_hair/vulpkanin
+	species_allowed = list("Vulpkanin")
+	gender = NEUTER
+
+/datum/sprite_accessory/facial_hair/vulpkanin/vulp_blaze
+	name = "Blaze"
+	icon_state = "vulp_facial_blaze"
+
+/datum/sprite_accessory/facial_hair/vulpkanin/vulp_vulpine
+	name = "Vulpine"
+	icon_state = "vulp_facial_vulpine"
+
+/datum/sprite_accessory/facial_hair/vulpkanin/vulp_vulpine_brows
+	name = "Vulpine and Brows"
+	icon_state = "vulp_facial_vulpine_brows"
+
+/datum/sprite_accessory/facial_hair/vulpkanin/vulp_vulpine_fluff
+	name = "Vulpine and Earfluff"
+	icon_state = "vulp_facial_vulpine_fluff"
+
+/datum/sprite_accessory/facial_hair/vulpkanin/vulp_mask
+	name = "Mask"
+	icon_state = "vulp_facial_mask"
+
+/datum/sprite_accessory/facial_hair/vulpkanin/vulp_patch
+	name = "Patch"
+	icon_state = "vulp_facial_patch"
+
+/datum/sprite_accessory/facial_hair/vulpkanin/vulp_ruff
+	name = "Ruff"
+	icon_state = "vulp_facial_ruff"
+
+/datum/sprite_accessory/facial_hair/vulpkanin/vulp_kita
+	name = "Kita"
+	icon_state = "vulp_facial_kita"
+
+/datum/sprite_accessory/facial_hair/vulpkanin/vulp_swift
+	name = "Swift"
+	icon_state = "vulp_facial_swift"
+
+/datum/sprite_accessory/facial_hair/vulpkanin/vulp_elder
+	name = "Elder"
+	icon_state = "vulp_facial_elder"
+	secondary_theme = "chin"
+
+/datum/sprite_accessory/facial_hair/vulpkanin/vulp_slash
+	name = "Slash"
+	icon_state = "vulp_facial_slash"
+
+/datum/sprite_accessory/facial_hair/unathi
+	species_allowed = list("Unathi")
+	gender = NEUTER
+	over_hair = 1
+
+/datum/sprite_accessory/facial_hair/unathi/una_spines_long
+	name = "Long Spines"
+	icon_state = "unathi_longspines"
+
+/datum/sprite_accessory/facial_hair/unathi/una_spines_short
+	name = "Short Spines"
+	icon_state = "unathi_shortspines"
+
+/datum/sprite_accessory/facial_hair/unathi/una_frills_aquaspine
+	name = "Spiny Aquatic Frills"
+	icon_state = "unathi_dracfrills"
+
+/datum/sprite_accessory/facial_hair/unathi/una_frills_aquatic
+	name = "Aquatic Frills"
+	icon_state = "unathi_aquaticfrills"
+
+/datum/sprite_accessory/facial_hair/unathi/una_frills_long
+	name = "Long Frills"
+	icon_state = "unathi_longfrills"
+
+/datum/sprite_accessory/facial_hair/unathi/una_frills_short
+	name = "Short Frills"
+	icon_state = "unathi_shortfrills"
+
+/datum/sprite_accessory/facial_hair/unathi/una_frills_webbed_aquaspine
+	name = "Spiny Aquatic Webbed Frills"
+	icon_state = "unathi_dracfrills"
+	secondary_theme = "webbing"
+
+/datum/sprite_accessory/facial_hair/unathi/una_frills_webbed_aquatic
+	name = "Aquatic Webbed Frills"
+	icon_state = "unathi_aquaticfrills"
+	secondary_theme = "webbing"
+
+/datum/sprite_accessory/facial_hair/unathi/una_frills_webbed_long
+	name = "Long Webbed Frills"
+	icon_state = "unathi_longfrills"
+	secondary_theme = "webbing"
+
+/datum/sprite_accessory/facial_hair/unathi/una_frills_webbed_short
+	name = "Short Webbed Frills"
+	icon_state = "unathi_shortfrills"
+	secondary_theme = "webbing"
+
+/datum/sprite_accessory/facial_hair/unathi/una_side_frills
+	name = "Side Frills"
+	icon_state = "unathi_sidefrills"
+	secondary_theme = "webbing"
+
+/datum/sprite_accessory/facial_hair/unathi/una_frills_dorsal
+	over_hair = null
+	name = "Dorsal Frills"
+	icon_state = "unathi_dorsalfrills"
+	secondary_theme = "webbing"
+
+/datum/sprite_accessory/facial_hair/unathi/una_chin_horns
+	name = "Chin Horns"
+	icon = 'icons/mob/body_accessory.dmi'
+	icon_state = "horns_chin"
+
+/datum/sprite_accessory/facial_hair/unathi/una_horn_adorns
+	name = "Horn Adorns"
+	icon = 'icons/mob/body_accessory.dmi'
+	icon_state = "horns_adorns"
+
+/datum/sprite_accessory/facial_hair/unathi/una_spikes
+	name = "Spikes"
+	icon = 'icons/mob/body_accessory.dmi'
+	icon_state = "horns_spikes"
 
 //skin styles - WIP
 //going to have to re-integrate this with surgery
@@ -979,351 +1213,399 @@
 /datum/sprite_accessory/skin
 	icon = 'icons/mob/human_races/r_human.dmi'
 
-	human
-		name = "Default human skin"
-		icon_state = "default"
-		species_allowed = list("Human")
+/datum/sprite_accessory/skin/human
+	name = "Default human skin"
+	icon_state = "default"
+	species_allowed = list("Human")
 
-	human_tatt01
-		name = "Tatt01 human skin"
-		icon_state = "tatt1"
-		species_allowed = list("Human")
+/datum/sprite_accessory/skin/human/human_tatt01
+	name = "Tatt01 human skin"
+	icon_state = "tatt1"
 
-	tajaran
-		name = "Default tajaran skin"
-		icon_state = "default"
-		icon = 'icons/mob/human_races/r_tajaran.dmi'
-		species_allowed = list("Tajaran")
+/datum/sprite_accessory/skin/tajaran
+	name = "Default tajaran skin"
+	icon_state = "default"
+	icon = 'icons/mob/human_races/r_tajaran.dmi'
+	species_allowed = list("Tajaran")
 
-	vulpkanin
-		name = "Default Vulpkanin skin"
-		icon_state = "default"
-		icon = 'icons/mob/human_races/r_vulpkanin.dmi'
-		species_allowed = list("Vulpkanin")
+/datum/sprite_accessory/skin/vulpkanin
+	name = "Default Vulpkanin skin"
+	icon_state = "default"
+	icon = 'icons/mob/human_races/r_vulpkanin.dmi'
+	species_allowed = list("Vulpkanin")
 
-	unathi
-		name = "Default Unathi skin"
-		icon_state = "default"
-		icon = 'icons/mob/human_races/r_lizard.dmi'
-		species_allowed = list("Unathi")
+/datum/sprite_accessory/skin/unathi
+	name = "Default Unathi skin"
+	icon_state = "default"
+	icon = 'icons/mob/human_races/r_lizard.dmi'
+	species_allowed = list("Unathi")
 
-	skrell
-		name = "Default skrell skin"
-		icon_state = "default"
-		icon = 'icons/mob/human_races/r_skrell.dmi'
-		species_allowed = list("Skrell")
+/datum/sprite_accessory/skin/skrell
+	name = "Default skrell skin"
+	icon_state = "default"
+	icon = 'icons/mob/human_races/r_skrell.dmi'
+	species_allowed = list("Skrell")
 
 ///////////////////////////
 // Underwear Definitions //
 ///////////////////////////
 /datum/sprite_accessory/underwear
 	icon = 'icons/mob/underwear.dmi'
+	species_allowed = list("Human", "Unathi", "Diona", "Vulpkanin", "Tajaran", "Kidan", "Grey", "Plasmaman", "Machine", "Skrell", "Slime People", "Skeleton", "Drask")
+	gender = NEUTER
 
-	species_allowed = list("Human","Unathi","Vox","Diona","Vulpkanin","Kidan","Grey","Plasmaman","Skellington")
+/datum/sprite_accessory/underwear/nude
+	name = "Nude"
+	icon_state = null
+	species_allowed = list("Human", "Unathi", "Diona", "Vulpkanin", "Tajaran", "Kidan", "Grey", "Plasmaman", "Machine", "Skrell", "Slime People", "Skeleton", "Drask", "Vox")
 
-	nude
-		name = "Nude"
-		icon_state = null
-		gender = NEUTER
+/datum/sprite_accessory/underwear/male
+	gender = MALE
 
-	male_white
-		name = "Mens White"
-		icon_state = "male_white"
-		gender = MALE
+/datum/sprite_accessory/underwear/male/male_white
+	name = "Mens White"
+	icon_state = "male_white"
 
-	male_grey
-		name = "Mens Grey"
-		icon_state = "male_grey"
-		gender = MALE
+/datum/sprite_accessory/underwear/male/male_grey
+	name = "Mens Grey"
+	icon_state = "male_grey"
 
-	male_green
-		name = "Mens Green"
-		icon_state = "male_green"
-		gender = MALE
+/datum/sprite_accessory/underwear/male/male_grey
+	name = "Mens Grey Alt"
+	icon_state = "male_greyalt"
 
-	male_blue
-		name = "Mens Blue"
-		icon_state = "male_blue"
-		gender = MALE
+/datum/sprite_accessory/underwear/male/male_green
+	name = "Mens Green"
+	icon_state = "male_green"
 
-	male_black
-		name = "Mens Black"
-		icon_state = "male_black"
-		gender = MALE
+/datum/sprite_accessory/underwear/male/male_blue
+	name = "Mens Blue"
+	icon_state = "male_blue"
 
-	male_mankini
-		name = "Mankini"
-		icon_state = "male_mankini"
-		gender = MALE
+/datum/sprite_accessory/underwear/male/male_red
+	name = "Mens Red"
+	icon_state = "male_red"
 
-	female_red
-		name = "Ladies Red"
-		icon_state = "female_red"
-		gender = FEMALE
+/datum/sprite_accessory/underwear/male/male_black
+	name = "Mens Black"
+	icon_state = "male_black"
 
-	female_white
-		name = "Ladies White"
-		icon_state = "female_white"
-		gender = FEMALE
+/datum/sprite_accessory/underwear/male/male_black_alt
+	name = "Mens Black Alt"
+	icon_state = "male_blackalt"
 
-	female_yellow
-		name = "Ladies Yellow"
-		icon_state = "female_yellow"
-		gender = FEMALE
+/datum/sprite_accessory/underwear/male/male_striped
+	name = "Mens Striped"
+	icon_state = "male_stripe"
 
-	female_blue
-		name = "Ladies Blue"
-		icon_state = "female_blue"
-		gender = FEMALE
+/datum/sprite_accessory/underwear/male/male_heart
+	name = "Mens Hearts"
+	icon_state = "male_hearts"
 
-	female_black
-		name = "Ladies Black"
-		icon_state = "female_black"
-		gender = FEMALE
+/datum/sprite_accessory/underwear/male/male_kinky
+	name = "Mens Kinky"
+	icon_state = "male_kinky"
 
-	female_kinky
-		name = "Ladies Kinky"
-		icon_state = "female_kinky"
-		gender = FEMALE
+/datum/sprite_accessory/underwear/male/male_mankini
+	name = "Mankini"
+	icon_state = "male_mankini"
+
+/datum/sprite_accessory/underwear/female
+	gender = FEMALE
+
+/datum/sprite_accessory/underwear/female/female_red
+	name = "Ladies Red"
+	icon_state = "female_red"
+
+/datum/sprite_accessory/underwear/female/female_green
+	name = "Ladies Green"
+	icon_state = "female_green"
+
+/datum/sprite_accessory/underwear/female/female_white
+	name = "Ladies White"
+	icon_state = "female_white"
+
+/datum/sprite_accessory/underwear/female/female_whiter
+	name = "Ladies Whiter"
+	icon_state = "female_whiter"
+
+/datum/sprite_accessory/underwear/female/female_whitealt
+	name = "Ladies White Alt"
+	icon_state = "female_whitealt"
+
+/datum/sprite_accessory/underwear/female/female_yellow
+	name = "Ladies Yellow"
+	icon_state = "female_yellow"
+
+/datum/sprite_accessory/underwear/female/female_blue
+	name = "Ladies Blue"
+	icon_state = "female_blue"
+/datum/sprite_accessory/underwear/female/female_babyblue
+	name = "Ladies Baby Blue"
+	icon_state = "female_babyblue"
+
+/datum/sprite_accessory/underwear/female/female_black
+	name = "Ladies Black"
+	icon_state = "female_black"
+
+/datum/sprite_accessory/underwear/female/female_blacker
+	name = "Ladies Blacker"
+	icon_state = "female_blacker"
+
+/datum/sprite_accessory/underwear/female/female_blackalt
+	name = "Ladies Black Alt"
+	icon_state = "female_blackalt"
+
+/datum/sprite_accessory/underwear/female/female_kinky
+	name = "Ladies Kinky"
+	icon_state = "female_kinky"
+
+/datum/sprite_accessory/underwear/female/female_babydoll
+	name = "Ladies Full Grey"
+	icon_state = "female_babydoll"
+
+/datum/sprite_accessory/underwear/female/female_pink
+	name = "Ladies Pink"
+	icon_state = "female_pink"
+
+/datum/sprite_accessory/underwear/female/female_thong
+	name = "Ladies Thong"
+	icon_state = "female_thong"
 
 ////////////////////////////
 // Undershirt Definitions //
 ////////////////////////////
 /datum/sprite_accessory/undershirt
 	icon = 'icons/mob/underwear.dmi'
-
-	species_allowed = list("Human","Unathi","Vox","Diona","Vulpkanin","Kidan","Grey","Plasmaman","Skellington")
+	species_allowed = list("Human", "Unathi", "Diona", "Vulpkanin", "Tajaran", "Kidan", "Grey", "Plasmaman", "Machine", "Skrell", "Slime People", "Skeleton", "Drask")
+	gender = NEUTER
 
 /datum/sprite_accessory/undershirt/nude
 	name = "Nude"
 	icon_state = null
-	gender = NEUTER
+	species_allowed = list("Human", "Unathi", "Diona", "Vulpkanin", "Tajaran", "Kidan", "Grey", "Plasmaman", "Machine", "Skrell", "Slime People", "Skeleton", "Drask", "Vox")
 
 //plain color shirts
 /datum/sprite_accessory/undershirt/shirt_white
 	name = "White Shirt"
 	icon_state = "shirt_white"
-	gender = NEUTER
 
 /datum/sprite_accessory/undershirt/shirt_black
 	name = "Black Shirt"
 	icon_state = "shirt_black"
-	gender = NEUTER
+
+/datum/sprite_accessory/undershirt/shirt_blacker
+	name = "Blacker Shirt"
+	icon_state = "shirt_blacker"
 
 /datum/sprite_accessory/undershirt/shirt_grey
 	name = "Grey Shirt"
 	icon_state = "shirt_grey"
-	gender = NEUTER
 
 /datum/sprite_accessory/undershirt/shirt_red
 	name = "Red Shirt"
 	icon_state = "shirt_red"
-	gender = NEUTER
 
 /datum/sprite_accessory/undershirt/shirt_blue
 	name = "Blue Shirt"
 	icon_state = "shirt_blue"
-	gender = NEUTER
 
 /datum/sprite_accessory/undershirt/shirt_yellow
 	name = "Yellow Shirt"
 	icon_state = "shirt_yellow"
-	gender = NEUTER
 
 /datum/sprite_accessory/undershirt/shirt_green
 	name = "Green Shirt"
 	icon_state = "shirt_green"
-	gender = NEUTER
 
 /datum/sprite_accessory/undershirt/shirt_darkblue
 	name = "Dark Blue Shirt"
 	icon_state = "shirt_darkblue"
-	gender = NEUTER
 
 /datum/sprite_accessory/undershirt/shirt_darkred
 	name = "Dark Red Shirt"
 	icon_state = "shirt_darkred"
-	gender = NEUTER
 
 /datum/sprite_accessory/undershirt/shirt_darkgreen
 	name = "Dark Green Shirt"
 	icon_state = "shirt_darkgreen"
-	gender = NEUTER
 //end plain color shirts
 
+//graphic shirts
 /datum/sprite_accessory/undershirt/shirt_heart
 	name = "Heart Shirt"
 	icon_state = "shirt_heart"
-	gender = NEUTER
 
 /datum/sprite_accessory/undershirt/shirt_corgi
 	name = "Corgi Shirt"
 	icon_state = "shirt_corgi"
-	gender = NEUTER
+
+/datum/sprite_accessory/undershirt/shirt_clown
+	name = "Clown Shirt"
+	icon_state = "shirt_clown"
+
+/datum/sprite_accessory/undershirt/shirt_alien
+	name = "Alien Shirt"
+	icon_state = "shirt_alien"
 
 /datum/sprite_accessory/undershirt/shirt_jack
 	name = "Union Jack Shirt"
 	icon_state = "shirt_jack"
-	gender = NEUTER
 
 /datum/sprite_accessory/undershirt/love_nt
 	name = "I Love NT Shirt"
 	icon_state = "shirt_lovent"
-	gender = NEUTER
 
 /datum/sprite_accessory/undershirt/peace
 	name = "Peace Shirt"
 	icon_state = "shirt_peace"
-	gender = NEUTER
 
 /datum/sprite_accessory/undershirt/mondmondjaja
 	name = "Band Shirt"
 	icon_state = "shirt_band"
-	gender = NEUTER
 
 /datum/sprite_accessory/undershirt/pacman
 	name = "Pogoman Shirt"
 	icon_state = "shirt_pogoman"
-	gender = NEUTER
 
 /datum/sprite_accessory/undershirt/shirt_ss13
 	name = "SS13 Shirt"
 	icon_state = "shirt_ss13"
-	gender = NEUTER
 
 /datum/sprite_accessory/undershirt/shirt_question
 	name = "Question Mark Shirt"
 	icon_state = "shirt_question"
-	gender = NEUTER
 
 /datum/sprite_accessory/undershirt/shirt_skull
 	name = "Skull Shirt"
 	icon_state = "shirt_skull"
-	gender = NEUTER
 
 /datum/sprite_accessory/undershirt/shirt_commie
 	name = "Communist Shirt"
 	icon_state = "shirt_commie"
-	gender = NEUTER
 
 /datum/sprite_accessory/undershirt/shirt_nano
 	name = "Nanotrasen Shirt"
 	icon_state = "shirt_nano"
-	gender = NEUTER
 
 /datum/sprite_accessory/undershirt/shirt_meat
 	name = "Meat Shirt"
 	icon_state = "shirt_meat"
-	gender = NEUTER
 
 /datum/sprite_accessory/undershirt/shirt_tiedie
 	name = "Tiedie Shirt"
 	icon_state = "shirt_tiedie"
-	gender = NEUTER
 
 /datum/sprite_accessory/undershirt/blue_striped
 	name = "Striped Blue Shirt"
 	icon_state = "shirt_bluestripe"
-	gender = NEUTER
 
 /datum/sprite_accessory/undershirt/brightblue_striped
 	name = "Striped Bright Blue Shirt"
 	icon_state = "shirt_brightbluestripe"
-	gender = NEUTER
-
+//end graphic shirts
 
 //short sleeved
 /datum/sprite_accessory/undershirt/short_white
 	name = "White Short-sleeved Shirt"
 	icon_state = "short_white"
-	gender = NEUTER
 
 /datum/sprite_accessory/undershirt/short_purple
 	name = "Purple Short-sleeved Shirt"
 	icon_state = "short_purple"
-	gender = NEUTER
 
 /datum/sprite_accessory/undershirt/short_blue
 	name = "Blue Short-sleeved Shirt"
 	icon_state = "short_blue"
-	gender = NEUTER
 
 /datum/sprite_accessory/undershirt/short_green
 	name = "Green Short-sleeved Shirt"
 	icon_state = "short_green"
-	gender = NEUTER
 
 /datum/sprite_accessory/undershirt/short_black
 	name = "Black Short-sleeved Shirt"
 	icon_state = "short_black"
-	gender = NEUTER
 //end short sleeved
 
 //polo shirts
 /datum/sprite_accessory/undershirt/polo_blue
 	name = "Blue Polo Shirt"
 	icon_state = "polo_blue"
-	gender = NEUTER
 
 /datum/sprite_accessory/undershirt/polo_red
 	name = "Red Polo Shirt"
 	icon_state = "polo_red"
-	gender = NEUTER
 
 /datum/sprite_accessory/undershirt/polo_greyelllow
 	name = "Grey-Yellow Polo Shirt"
 	icon_state = "polo_greyellow"
-	gender = NEUTER
 //end polo shirts
 
 //sport shirts
 /datum/sprite_accessory/undershirt/sport_green
 	name = "Green Sports Shirt"
 	icon_state = "sport_green"
-	gender = NEUTER
 
 /datum/sprite_accessory/undershirt/sport_red
 	name = "Red Sports Shirt"
 	icon_state = "sport_red"
-	gender = NEUTER
 
 /datum/sprite_accessory/undershirt/sport_blue
 	name = "Blue Sports Shirt"
 	icon_state = "sport_blue"
-	gender = NEUTER
-//end sport shirts
 
 /datum/sprite_accessory/undershirt/jersey_red
 	name = "Red Jersey"
 	icon_state = "jersey_red"
-	gender = NEUTER
 
 /datum/sprite_accessory/undershirt/jersey_blue
 	name = "Blue Jersey"
 	icon_state = "jersey_blue"
-	gender = NEUTER
-
+//end sport shirts
 
 //tanktops
+/datum/sprite_accessory/undershirt/tank_redtop
+	name = "Red Crop-Top"
+	icon_state = "tank_redtop"
+	gender = FEMALE
+
+/datum/sprite_accessory/undershirt/tank_whitetop
+	name = "White Crop-Top"
+	icon_state = "tank_whitetop"
+	gender = FEMALE
+
+/datum/sprite_accessory/undershirt/tank_midriff
+	name = "White Mid Tank-Top"
+	icon_state = "tank_midriff"
+	gender = FEMALE
+
 /datum/sprite_accessory/undershirt/tank_white
 	name = "White Tank-Top"
 	icon_state = "tank_white"
-	gender = NEUTER
 
 /datum/sprite_accessory/undershirt/tank_black
 	name = "Black Tank-Top"
 	icon_state = "tank_black"
-	gender = NEUTER
+
+/datum/sprite_accessory/undershirt/tank_blacker
+	name = "Blacker Tank-Top"
+	icon_state = "tank_blacker"
 
 /datum/sprite_accessory/undershirt/tank_grey
 	name = "Grey Tank-Top"
 	icon_state = "tank_grey"
-	gender = NEUTER
+
+/datum/sprite_accessory/undershirt/tank_red
+	name = "Red Tank-Top"
+	icon_state = "tank_red"
 
 /datum/sprite_accessory/undershirt/tank_fire
 	name = "Fire Tank-Top"
 	icon_state = "tank_fire"
-	gender = NEUTER
+
+/datum/sprite_accessory/undershirt/tank_stripes
+	name = "Striped Tank-Top"
+	icon_state = "tank_stripes"
 //end tanktops
 
 ///////////////////////
@@ -1331,171 +1613,767 @@
 ///////////////////////
 /datum/sprite_accessory/socks
 	icon = 'icons/mob/underwear.dmi'
-	species_allowed = list("Human","Unathi","Diona","Grey","Machine","Tajaran","Vulpkanin","Slime People","Skellington")
+	species_allowed = list("Human", "Unathi", "Diona", "Vulpkanin", "Tajaran", "Kidan", "Grey", "Plasmaman", "Machine", "Skrell", "Slime People", "Skeleton", "Drask")
+	gender = NEUTER
 
 /datum/sprite_accessory/socks/nude
 	name = "Nude"
 	icon_state = null
-	gender = NEUTER
-	species_allowed = list("Human","Unathi","Diona","Grey","Machine","Tajaran","Vulpkanin","Slime People","Skellington","Vox")
-
+	species_allowed = list("Human", "Unathi", "Diona", "Vulpkanin", "Tajaran", "Kidan", "Grey", "Plasmaman", "Machine", "Skrell", "Slime People", "Skeleton", "Drask", "Vox")
 
 /datum/sprite_accessory/socks/white_norm
 	name = "Normal White"
 	icon_state = "white_norm"
-	gender = NEUTER
-
 
 /datum/sprite_accessory/socks/black_norm
 	name = "Normal Black"
 	icon_state = "black_norm"
-	gender = NEUTER
-
 
 /datum/sprite_accessory/socks/white_short
 	name = "Short White"
 	icon_state = "white_short"
-	gender = NEUTER
-
 
 /datum/sprite_accessory/socks/black_short
 	name = "Short Black"
 	icon_state = "black_short"
-	gender = NEUTER
-
 
 /datum/sprite_accessory/socks/white_knee
 	name = "Knee-high White"
 	icon_state = "white_knee"
-	gender = NEUTER
-
 
 /datum/sprite_accessory/socks/black_knee
 	name = "Knee-high Black"
 	icon_state = "black_knee"
-	gender = NEUTER
-
 
 /datum/sprite_accessory/socks/thin_knee
 	name = "Knee-high Thin"
 	icon_state = "thin_knee"
 	gender = FEMALE
 
-
 /datum/sprite_accessory/socks/striped_knee
 	name = "Knee-high Striped"
 	icon_state = "striped_knee"
-	gender = NEUTER
-
 
 /datum/sprite_accessory/socks/rainbow_knee
 	name = "Knee-high Rainbow"
 	icon_state = "rainbow_knee"
-	gender = NEUTER
-
 
 /datum/sprite_accessory/socks/white_thigh
 	name = "Thigh-high White"
 	icon_state = "white_thigh"
-	gender = NEUTER
 
 /datum/sprite_accessory/socks/black_thigh
 	name = "Thigh-high Black"
 	icon_state = "black_thigh"
-	gender = NEUTER
-
 
 /datum/sprite_accessory/socks/thin_thigh
 	name = "Thigh-high Thin"
 	icon_state = "thin_thigh"
 	gender = FEMALE
 
-
 /datum/sprite_accessory/socks/striped_thigh
 	name = "Thigh-high Striped"
 	icon_state = "striped_thigh"
-	gender = NEUTER
-
 
 /datum/sprite_accessory/socks/rainbow_thigh
 	name = "Thigh-high Rainbow"
 	icon_state = "rainbow_thigh"
-	gender = NEUTER
-
 
 /datum/sprite_accessory/socks/pantyhose
 	name = "Pantyhose"
 	icon_state = "pantyhose"
 	gender = FEMALE
 
-
 /datum/sprite_accessory/socks/black_fishnet
 	name = "Black Fishnet"
 	icon_state = "black_fishnet"
-	gender = NEUTER
 
-/datum/sprite_accessory/socks/vox_white
+/datum/sprite_accessory/socks/vox
+	species_allowed = list("Vox")
+
+/datum/sprite_accessory/socks/vox/vox_white
 	name = "Vox White"
 	icon_state = "vox_white"
-	gender = NEUTER
-	species_allowed = list("Vox")
 
-/datum/sprite_accessory/socks/vox_black
+/datum/sprite_accessory/socks/vox/vox_black
 	name = "Vox Black"
 	icon_state = "vox_black"
-	gender = NEUTER
-	species_allowed = list("Vox")
 
-/datum/sprite_accessory/socks/vox_thin
+/datum/sprite_accessory/socks/vox/vox_thin
 	name = "Vox Black Thin"
 	icon_state = "vox_blackthin"
-	gender = NEUTER
-	species_allowed = list("Vox")
 
-/datum/sprite_accessory/socks/vox_rainbow
+/datum/sprite_accessory/socks/vox/vox_rainbow
 	name = "Vox Rainbow"
 	icon_state = "vox_rainbow"
-	gender = NEUTER
-	species_allowed = list("Vox")
 
-/datum/sprite_accessory/socks/vox_stripped
+/datum/sprite_accessory/socks/vox/vox_stripped
 	name = "Vox Striped"
 	icon_state = "vox_white"
-	gender = NEUTER
-	species_allowed = list("Vox")
 
-/datum/sprite_accessory/socks/vox_white_thigh
+/datum/sprite_accessory/socks/vox/vox_white_thigh
 	name = "Vox Thigh-high White"
 	icon_state = "vox_whiteTH"
-	gender = NEUTER
-	species_allowed = list("Vox")
 
-/datum/sprite_accessory/socks/vox_black_thigh
+/datum/sprite_accessory/socks/vox/vox_black_thigh
 	name = "Vox Thigh-high Black"
 	icon_state = "vox_blackTH"
-	gender = NEUTER
-	species_allowed = list("Vox")
 
-/datum/sprite_accessory/socks/vox_thin_thigh
+/datum/sprite_accessory/socks/vox/vox_thin_thigh
 	name = "Vox Thigh-high Thin"
 	icon_state = "vox_blackthinTH"
-	gender = NEUTER
-	species_allowed = list("Vox")
 
-/datum/sprite_accessory/socks/vox_rainbow_thigh
+/datum/sprite_accessory/socks/vox/vox_rainbow_thigh
 	name = "Vox Thigh-high Rainbow"
 	icon_state = "vox_rainbowTH"
-	gender = NEUTER
-	species_allowed = list("Vox")
 
-/datum/sprite_accessory/socks/vox_striped_thigh
+/datum/sprite_accessory/socks/vox/vox_striped_thigh
 	name = "Vox Thigh-high Striped"
 	icon_state = "vox_stripedTH"
-	gender = NEUTER
-	species_allowed = list("Vox")
 
-/datum/sprite_accessory/socks/vox_fishnet
+/datum/sprite_accessory/socks/vox/vox_fishnet
 	name = "Vox Fishnets"
 	icon_state = "vox_fishnet"
-	gender = NEUTER
+
+/* HEAD ACCESSORY */
+
+/datum/sprite_accessory/head_accessory
+	icon = 'icons/mob/body_accessory.dmi'
+	species_allowed = list("Unathi", "Vulpkanin", "Tajaran", "Machine")
+	icon_state = "accessory_none"
+	var/over_hair
+
+/datum/sprite_accessory/head_accessory/none
+	name = "None"
+	species_allowed = list("Human", "Unathi", "Diona", "Grey", "Kidan", "Machine", "Tajaran", "Vulpkanin", "Skrell", "Slime People", "Skeleton", "Vox")
+	icon_state = "accessory_none"
+
+/datum/sprite_accessory/head_accessory/unathi
+	species_allowed = list("Unathi")
+	over_hair = 1
+
+/datum/sprite_accessory/head_accessory/unathi/simple
+	name = "Simple"
+	icon_state = "horns_simple"
+
+/datum/sprite_accessory/head_accessory/unathi/short
+	name = "Short"
+	icon_state = "horns_short"
+
+/datum/sprite_accessory/head_accessory/unathi/curled
+	name = "Curled"
+	icon_state = "horns_curled"
+
+/datum/sprite_accessory/head_accessory/unathi/ram
+	name = "Ram"
+	icon_state = "horns_ram"
+
+/datum/sprite_accessory/head_accessory/unathi/double
+	name = "Double"
+	icon_state = "horns_drac"
+
+/datum/sprite_accessory/head_accessory/unathi/lower
+	name = "Lower"
+	icon_state = "horns_lower"
+
+/datum/sprite_accessory/head_accessory/unathi/big
+	name = "Big"
+	icon_state = "horns_big"
+
+/datum/sprite_accessory/head_accessory/unathi/ram2
+	name = "Ram alt."
+	icon_state = "horns_ram2"
+
+/datum/sprite_accessory/head_accessory/unathi/small
+	name = "Small"
+	icon_state = "horns_small"
+
+/datum/sprite_accessory/head_accessory/unathi/chin
+	name = "Chin"
+	icon_state = "horns_chin"
+
+/datum/sprite_accessory/head_accessory/unathi/adorns
+	name = "Adorns"
+	icon_state = "horns_adorns"
+
+/datum/sprite_accessory/head_accessory/unathi/spikes
+	name = "Spikes"
+	icon_state = "horns_spikes"
+
+/datum/sprite_accessory/head_accessory/tajara
+	species_allowed = list("Tajaran")
+
+/datum/sprite_accessory/head_accessory/tajara/outears_taj
+	name = "Tajaran Outer Ears"
+	icon_state = "markings_face_outears_taj"
+
+/datum/sprite_accessory/head_accessory/tajara/inears_taj
+	name = "Tajaran Inner Ears"
+	icon_state = "markings_face_inears_taj"
+
+/datum/sprite_accessory/head_accessory/tajara/muzzle_taj
+	name = "Tajaran Muzzle"
+	icon_state = "markings_face_muzzle_taj"
+
+/datum/sprite_accessory/head_accessory/tajara/muzzle_and_inears_taj
+	name = "Tajaran Muzzle and Inner Ears"
+	icon_state = "markings_face_muzzle_and_inears_taj"
+
+/datum/sprite_accessory/head_accessory/tajara/taj_ears
+	icon = 'icons/mob/human_face.dmi'
+	name = "Tajaran Ears"
+	icon_state = "ears_plain"
+
+/datum/sprite_accessory/head_accessory/tajara/taj_nose
+	name = "Tajaran Nose"
+	icon_state = "markings_face_nose_taj"
+
+/datum/sprite_accessory/head_accessory/vulpkanin
+	species_allowed = list("Vulpkanin")
+
+/datum/sprite_accessory/head_accessory/vulpkanin/vulp_earfluff
+	icon = 'icons/mob/human_face.dmi'
+	name = "Vulpkanin Earfluff"
+	icon_state = "vulp_facial_earfluff"
+
+/datum/sprite_accessory/head_accessory/vulpkanin/vulp_blaze
+	icon = 'icons/mob/human_face.dmi'
+	name = "Blaze"
+	icon_state = "vulp_facial_blaze"
+
+/datum/sprite_accessory/head_accessory/vulpkanin/vulp_vulpine
+	icon = 'icons/mob/human_face.dmi'
+	name = "Vulpine"
+	icon_state = "vulp_facial_vulpine"
+
+/datum/sprite_accessory/head_accessory/vulpkanin/vulp_vulpine_fluff
+	icon = 'icons/mob/human_face.dmi'
+	name = "Vulpine and Earfluff"
+	icon_state = "vulp_facial_vulpine_fluff"
+
+/datum/sprite_accessory/head_accessory/vulpkanin/vulp_mask
+	icon = 'icons/mob/human_face.dmi'
+	name = "Mask"
+	icon_state = "vulp_facial_mask"
+
+/datum/sprite_accessory/head_accessory/vulpkanin/vulp_patch
+	icon = 'icons/mob/human_face.dmi'
+	name = "Patch"
+	icon_state = "vulp_facial_patch"
+
+/datum/sprite_accessory/head_accessory/vulpkanin/vulp_ruff
+	icon = 'icons/mob/human_face.dmi'
+	name = "Ruff"
+	icon_state = "vulp_facial_ruff"
+
+/datum/sprite_accessory/head_accessory/vulpkanin/vulp_kita
+	icon = 'icons/mob/human_face.dmi'
+	name = "Kita"
+	icon_state = "vulp_facial_kita"
+
+/datum/sprite_accessory/head_accessory/vulpkanin/vulp_swift
+	icon = 'icons/mob/human_face.dmi'
+	name = "Swift"
+	icon_state = "vulp_facial_swift"
+
+/datum/sprite_accessory/head_accessory/vulpkanin/vulp_nose
+	name = "Vulpkanin Nose"
+	icon_state = "markings_face_nose_vulp"
+
+/datum/sprite_accessory/head_accessory/vulpkanin/vulp_nose2
+	name = "Vulpkanin Nose Alt."
+	icon_state = "markings_face_nose2_vulp"
+
+/datum/sprite_accessory/head_accessory/vulpkanin/vulp_elder
+	icon = 'icons/mob/human_face.dmi'
+	name = "Elder"
+	icon_state = "vulp_facial_elder"
+
+/datum/sprite_accessory/head_accessory/vulpkanin/vulp_slash
+	icon = 'icons/mob/human_face.dmi'
+	name = "Slash"
+	icon_state = "vulp_facial_slash"
+
+/datum/sprite_accessory/head_accessory/ipc
+	species_allowed = list("Machine")
+	over_hair = 1
+
+/datum/sprite_accessory/head_accessory/ipc/ipc_antennae
+	name = "Antennae"
+	icon_state = "antennae"
+
+/datum/sprite_accessory/head_accessory/ipc/ipc_tv_antennae
+	name = "T.V. Antennae"
+	icon_state = "tvantennae"
+
+/datum/sprite_accessory/head_accessory/ipc/ipc_tesla_antennae
+	name = "Tesla Antennae"
+	icon_state = "tesla"
+
+/datum/sprite_accessory/head_accessory/ipc/ipc_light
+	name = "Head Light"
+	icon_state = "light"
+
+/datum/sprite_accessory/head_accessory/ipc/ipc_side_lights
+	name = "Side Lights"
+	icon_state = "sidelights"
+
+/datum/sprite_accessory/head_accessory/ipc/ipc_side_cyber_head
+	name = "Cyber Pipes"
+	icon_state = "cyberhead"
+
+/datum/sprite_accessory/head_accessory/ipc/ipc_side_antlers
+	name = "Antlers"
+	icon_state = "antlers"
+
+/datum/sprite_accessory/head_accessory/ipc/ipc_side_drone_eyes
+	name = "Drone Eyes"
+	icon_state = "droneeyes"
+
+/datum/sprite_accessory/head_accessory/ipc/ipc_crowned
+	name = "Crowned"
+	icon_state = "crowned"
+
+/datum/sprite_accessory/head_accessory/kidan
+	icon = 'icons/mob/human_face.dmi'
+	species_allowed = list("Kidan")
+	over_hair = 1
+	do_colouration = 1
+
+/datum/sprite_accessory/head_accessory/kidan/perked_antennae
+	name = "Perked-up Antennae"
+	icon_state = "kidan_perky"
+
+/datum/sprite_accessory/head_accessory/kidan/mopey_antennae
+	name = "Mopey Antennae"
+	icon_state = "kidan_mopey"
+
+/datum/sprite_accessory/head_accessory/kidan/curious_antennae
+	name = "Curious Antennae"
+	icon_state = "kidan_curious"
+
+/datum/sprite_accessory/head_accessory/kidan/mopey_antennae
+	name = "Mopey Antennae"
+	icon_state = "kidan_mopey"
+
+/datum/sprite_accessory/head_accessory/kidan/crescent_antennae
+	name = "Crescent Antennae"
+	icon_state = "kidan_crescent"
+
+/datum/sprite_accessory/head_accessory/kidan/alert_antennae
+	name = "Alert Antennae"
+	icon_state = "kidan_alert"
+
+/datum/sprite_accessory/head_accessory/kidan/normal_antennae
+	name = "Normal Antennae"
+	icon_state = "kidan_normal"
+
+/datum/sprite_accessory/head_accessory/kidan/long_antennae
+	name = "Long Antennae"
+	icon_state = "kidan_long"
+
+/datum/sprite_accessory/head_accessory/kidan/moth_antennae
+	name = "Moth Antennae"
+	icon_state = "kidan_moth"
+
+
+/* BODY MARKINGS */
+
+/datum/sprite_accessory/body_markings
+	icon = 'icons/mob/body_accessory.dmi'
+	species_allowed = list("Unathi", "Tajaran", "Vulpkanin", "Machine", "Vox")
+	icon_state = "accessory_none"
+	marking_location = "body"
+
+/datum/sprite_accessory/body_markings/none
+	name = "None"
+	species_allowed = list("Human", "Unathi", "Diona", "Grey", "Machine", "Tajaran", "Vulpkanin", "Skrell", "Slime People", "Skeleton", "Vox")
+	icon_state = "accessory_none"
+
+/datum/sprite_accessory/body_markings/tiger
+	name = "Tiger Body"
+	species_allowed = list("Unathi", "Tajaran", "Vulpkanin")
+	icon_state = "markings_tiger"
+
+/datum/sprite_accessory/body_markings/unathi
+	species_allowed = list("Unathi")
+
+/datum/sprite_accessory/body_markings/unathi/stripe_una
+	name = "Unathi Stripe"
+	icon_state = "markings_stripe_una"
+
+/datum/sprite_accessory/body_markings/unathi/belly_narrow_una
+	name = "Unathi Belly"
+	icon_state = "markings_belly_narrow_una"
+
+/datum/sprite_accessory/body_markings/unathi/banded_una
+	name = "Unathi Banded"
+	icon_state = "markings_banded_una"
+
+/datum/sprite_accessory/body_markings/unathi/points_una
+	name = "Unathi Points"
+	icon_state = "markings_points_una"
+
+/datum/sprite_accessory/body_markings/tajara
+	species_allowed = list("Tajaran")
+
+/datum/sprite_accessory/body_markings/tajara/belly_flat_taj
+	name = "Tajaran Belly"
+	icon_state = "markings_belly_flat_taj"
+
+/datum/sprite_accessory/body_markings/tajara/belly_crest_taj
+	name = "Tajaran Chest Crest"
+	icon_state = "markings_belly_crest_taj"
+
+/datum/sprite_accessory/body_markings/tajara/belly_full_taj
+	name = "Tajaran Belly 2"
+	icon_state = "markings_belly_full_taj"
+
+/datum/sprite_accessory/body_markings/tajara/points_taj
+	name = "Tajaran Points"
+	icon_state = "markings_points_taj"
+
+/datum/sprite_accessory/body_markings/tajara/patchy_taj
+	name = "Tajaran Patches"
+	icon_state = "markings_patch_taj"
+
+/datum/sprite_accessory/body_markings/vulpkanin
+	species_allowed = list("Vulpkanin")
+
+/datum/sprite_accessory/body_markings/vulpkanin/belly_fox_vulp
+	name = "Vulpkanin Belly"
+	icon_state = "markings_belly_fox_vulp"
+
+/datum/sprite_accessory/body_markings/vulpkanin/belly_full_vulp
+	name = "Vulpkanin Belly 2"
+	icon_state = "markings_belly_full_vulp"
+
+/datum/sprite_accessory/body_markings/vulpkanin/belly_crest_vulp
+	name = "Vulpkanin Belly Crest"
+	icon_state = "markings_belly_crest_vulp"
+
+/datum/sprite_accessory/body_markings/vulpkanin/points_fade_vulp
+	name = "Vulpkanin Points"
+	icon_state = "markings_points_fade_vulp"
+
+/datum/sprite_accessory/body_markings/vulpkanin/points_fade_belly_vulp
+	name = "Vulpkanin Points and Belly"
+	icon_state = "markings_points_fade_belly_vulp"
+
+/datum/sprite_accessory/body_markings/vulpkanin/points_fade_belly_alt_vulp
+	name = "Vulpkanin Points and Belly Alt."
+	icon_state = "markings_points_fade_belly_alt_vulp"
+
+/datum/sprite_accessory/body_markings/vulpkanin/points_sharp_vulp
+	name = "Vulpkanin Points 2"
+	icon_state = "markings_points_sharp_vulp"
+
+/datum/sprite_accessory/body_markings/vulpkanin/points_crest_vulp
+	name = "Vulpkanin Points and Crest"
+	icon_state = "markings_points_crest_vulp"
+
+/datum/sprite_accessory/body_markings/drask
+	species_allowed = list("Drask")
+
+/datum/sprite_accessory/body_markings/drask/arm_spines_drask
+	name = "Drask Arm Spines"
+	icon_state = "markings_armspines_drask"
+
+/datum/sprite_accessory/body_markings/head
+	marking_location = "head"
+	species_allowed = list()
+
+/datum/sprite_accessory/body_markings/head/tajara
+	species_allowed = list("Tajaran")
+
+/datum/sprite_accessory/body_markings/head/tajara/tiger_head_taj
+	name = "Tajaran Tiger Head"
+	icon_state = "markings_head_tiger_taj"
+
+/datum/sprite_accessory/body_markings/head/tajara/tiger_face_taj
+	name = "Tajaran Tiger Head and Face"
+	icon_state = "markings_face_tiger_taj"
+
+/datum/sprite_accessory/body_markings/head/tajara/outears_taj
+	name = "Tajaran Outer Ears"
+	icon_state = "markings_face_outears_taj"
+
+/datum/sprite_accessory/body_markings/head/tajara/inears_taj
+	name = "Tajaran Inner Ears"
+	icon_state = "markings_face_inears_taj"
+
+/datum/sprite_accessory/body_markings/head/tajara/nose_taj
+	name = "Tajaran Nose"
+	icon_state = "markings_face_nose_taj"
+
+/datum/sprite_accessory/body_markings/head/tajara/muzzle_taj
+	name = "Tajaran Muzzle"
+	icon_state = "markings_face_muzzle_taj"
+
+/datum/sprite_accessory/body_markings/head/tajara/muzzle_and_inears_taj
+	name = "Tajaran Muzzle and Inner Ears"
+	icon_state = "markings_face_muzzle_and_inears_taj"
+
+/datum/sprite_accessory/body_markings/head/tajara/muzzle_alt_taj //Companion marking for Tajaran Belly 2.
+	name = "Tajaran Muzzle 2"
+	icon_state = "markings_face_full_taj"
+
+/datum/sprite_accessory/body_markings/head/tajara/points_taj //Companion marking for Tajaran Points.
+	name = "Tajaran Points Head"
+	icon_state = "markings_face_points_taj"
+
+/datum/sprite_accessory/body_markings/head/tajara/patchy_taj //Companion marking for Tajaran Patches.
+	name = "Tajaran Patches Head"
+	icon_state = "markings_face_patch_taj"
+
+/datum/sprite_accessory/body_markings/head/vulpkanin
+	species_allowed = list("Vulpkanin")
+
+/datum/sprite_accessory/body_markings/head/vulpkanin/tiger_head_vulp
+	name = "Vulpkanin Tiger Head"
+	icon_state = "markings_head_tiger_vulp"
+
+/datum/sprite_accessory/body_markings/head/vulpkanin/tiger_face_vulp
+	name = "Vulpkanin Tiger Head and Face"
+	icon_state = "markings_face_tiger_vulp"
+
+/datum/sprite_accessory/body_markings/head/vulpkanin/nose_default_vulp
+	name = "Vulpkanin Nose"
+	icon_state = "markings_face_nose_vulp"
+
+/datum/sprite_accessory/body_markings/head/vulpkanin/nose2_default_vulp
+	name = "Vulpkanin Nose Alt."
+	icon_state = "markings_face_nose2_vulp"
+
+/datum/sprite_accessory/body_markings/head/vulpkanin/muzzle_vulp //Companion marking for Vulpkanin Belly Alt..
+	name = "Vulpkanin Muzzle"
+	icon_state = "markings_face_full_vulp"
+
+/datum/sprite_accessory/body_markings/head/vulpkanin/muzzle_ears_vulp //Companion marking for Vulpkanin Belly Alt..
+	name = "Vulpkanin Muzzle and Ears"
+	icon_state = "markings_face_full_ears_vulp"
+
+/datum/sprite_accessory/body_markings/head/vulpkanin/points_fade_vulp //Companion marking for Vulpkanin Points Fade.
+	name = "Vulpkanin Points Head"
+	icon_state = "markings_face_points_fade_vulp"
+
+/datum/sprite_accessory/body_markings/head/vulpkanin/points_sharp_vulp //Companion marking for Vulpkanin Points Sharp.
+	name = "Vulpkanin Points Head 2"
+	icon_state = "markings_face_points_sharp_vulp"
+
+/datum/sprite_accessory/body_markings/head/unathi
+	species_allowed = list("Unathi")
+
+/datum/sprite_accessory/body_markings/head/unathi/tiger_head_una
+	name = "Unathi Tiger Head"
+	icon_state = "markings_head_tiger_una"
+	heads_allowed = list("All")
+
+/datum/sprite_accessory/body_markings/head/unathi/tiger_face_una
+	name = "Unathi Tiger Head and Face"
+	icon_state = "markings_face_tiger_una"
+
+/datum/sprite_accessory/body_markings/head/unathi/snout_una_round
+	name = "Unathi Round Snout"
+	icon_state = "markings_face_snout_una_round"
+
+/datum/sprite_accessory/body_markings/head/unathi/snout_lower_una_round
+	name = "Unathi Lower Round Snout"
+	icon_state = "markings_face_snout_lower_una"
+	heads_allowed = list("All")
+
+/datum/sprite_accessory/body_markings/head/unathi/banded_una //Companion marking for Unathi Banded.
+	name = "Unathi Banded Head"
+	icon_state = "markings_face_banded_una"
+	heads_allowed = list("All")
+
+/datum/sprite_accessory/body_markings/head/unathi/snout_narrow_una //Companion marking for Unathi Narrow Belly.
+	name = "Unathi Snout 2"
+	icon_state = "markings_face_narrow_una"
+
+/datum/sprite_accessory/body_markings/head/unathi/points_una //Companion marking for Unathi Points.
+	name = "Unathi Points Head"
+	icon_state = "markings_face_points_una"
+
+/datum/sprite_accessory/body_markings/head/unathi/sharp
+	heads_allowed = list("Unathi Sharp Snout")
+
+/datum/sprite_accessory/body_markings/head/unathi/sharp/tiger_face_una_sharp
+	name = "Unathi Sharp Tiger Head and Face"
+	icon_state = "markings_face_tiger_una_sharp"
+
+/datum/sprite_accessory/body_markings/head/unathi/sharp/snout_una_sharp
+	name = "Unathi Sharp Snout"
+	icon_state = "markings_face_snout_una_sharp"
+
+/datum/sprite_accessory/body_markings/head/unathi/sharp/snout_narrow_una_sharp //Companion marking for Unathi Narrow Belly.
+	name = "Unathi Sharp Snout 2"
+	icon_state = "markings_face_narrow_una_sharp"
+
+/datum/sprite_accessory/body_markings/head/unathi/sharp/points_una_sharp //Companion marking for Unathi Points.
+	name = "Unathi Sharp Points Head"
+	icon_state = "markings_face_points_una"
+
+/datum/sprite_accessory/body_markings/head/optics
+	name = "Humanoid Optics"
+	species_allowed = list("Machine")
+	icon_state = "optics"
+	models_allowed = list("Bishop Cybernetics", "Hesphiastos Industries", "Ward-Takahashi", "Xion Manufacturing Group", "Zeng-Hu Pharmaceuticals") //Should be the same as the manufacturing company of the limb in robolimbs.dm
+
+/datum/sprite_accessory/body_markings/head/optics/bishop_alt
+	name = "Bishop Alt. Optics"
+	icon_state = "bishop_alt_optics"
+	models_allowed = list("Bishop Cybernetics alt.")
+
+/datum/sprite_accessory/body_markings/head/optics/morpheus_alt
+	name = "Morpheus Alt. Optics"
+	icon_state = "morpheus_alt_optics"
+	models_allowed = list("Morpheus Cyberkinetics alt.")
+
+/datum/sprite_accessory/body_markings/head/optics/wardtakahashi_alt
+	name = "Ward-Takahashi Alt. Optics"
+	icon_state = "wardtakahashi_alt_optics"
+	models_allowed = list("Ward-Takahashi alt.")
+
+/datum/sprite_accessory/body_markings/head/optics/xion_alt
+	name = "Xion Alt. Optics"
+	icon_state = "xion_alt_optics"
+	models_allowed = list("Xion Manufacturing Group alt.")
+
+/datum/sprite_accessory/body_markings/tattoo // Tattoos applied post-round startup with tattoo guns in item_defines.dm
+	species_allowed = list("Human", "Unathi", "Vulpkanin", "Tajaran", "Skrell")
+	icon_state = "accessory_none"
+
+/datum/sprite_accessory/body_markings/tattoo/elliot
+	name = "Elliot Circuit Tattoo"
+	icon_state = "campbell_tattoo"
+	species_allowed = null
+
+/datum/sprite_accessory/body_markings/tattoo/tiger_body
+	name = "Tiger-stripe Tattoo"
+	species_allowed = list("Human", "Unathi", "Vulpkanin", "Tajaran", "Skrell")
+	icon_state = "markings_tiger"
+
+/datum/sprite_accessory/body_markings/tattoo/heart
+	name = "Heart Tattoo"
+	icon_state = "markings_tattoo_heart"
+
+/datum/sprite_accessory/body_markings/tattoo/hive
+	name = "Hive Tattoo"
+	icon_state = "markings_tattoo_hive"
+
+/datum/sprite_accessory/body_markings/tattoo/nightling
+	name = "Nightling Tattoo"
+	icon_state = "markings_tattoo_nightling"
+
+/datum/sprite_accessory/body_markings/tattoo/grey
+	species_allowed = list("Grey")
+
+/datum/sprite_accessory/body_markings/tattoo/grey/heart_grey
+	name = "Grey Heart Tattoo"
+	icon_state = "markings_tattoo_heart_grey"
+
+/datum/sprite_accessory/body_markings/tattoo/grey/hive_grey
+	name = "Grey Hive Tattoo"
+	icon_state = "markings_tattoo_hive_grey"
+
+/datum/sprite_accessory/body_markings/tattoo/grey/nightling_grey
+	name = "Grey Nightling Tattoo"
+	icon_state = "markings_tattoo_nightling_grey"
+
+/datum/sprite_accessory/body_markings/tattoo/grey/tiger_body_grey
+	name = "Grey Tiger-stripe Tattoo"
+	icon_state = "markings_tattoo_tiger_grey"
+
+/datum/sprite_accessory/body_markings/tattoo/vox
 	species_allowed = list("Vox")
+
+/datum/sprite_accessory/body_markings/tattoo/vox/heart_vox
+	name = "Vox Heart Tattoo"
+	icon_state = "markings_tattoo_heart_vox"
+
+/datum/sprite_accessory/body_markings/tattoo/vox/hive_vox
+	name = "Vox Hive Tattoo"
+	icon_state = "markings_tattoo_hive_vox"
+
+/datum/sprite_accessory/body_markings/tattoo/vox/nightling_vox
+	name = "Vox Nightling Tattoo"
+	icon_state = "markings_tattoo_nightling_vox"
+
+/datum/sprite_accessory/body_markings/tattoo/vox/tiger_body_vox
+	name = "Vox Tiger-stripe Tattoo"
+	icon_state = "markings_tattoo_tiger_vox"
+
+/datum/sprite_accessory/body_markings/tail
+	species_allowed = list()
+	icon_state = "accessory_none"
+	marking_location = "tail"
+	tails_allowed = null
+
+/datum/sprite_accessory/body_markings/tail/vox
+	species_allowed = list("Vox")
+
+/datum/sprite_accessory/body_markings/tail/vox/vox_band
+	name = "Vox Tail Band"
+	icon_state = "markings_voxtail_band"
+
+/datum/sprite_accessory/body_markings/tail/vox/vox_tip
+	name = "Vox Tail Tip"
+	icon_state = "markings_voxtail_tip"
+
+/datum/sprite_accessory/body_markings/tail/vox/vox_stripe
+	name = "Vox Tail Stripe"
+	icon_state = "markings_voxtail_stripe"
+
+/datum/sprite_accessory/body_markings/tail/vulpkanin
+	species_allowed = list("Vulpkanin")
+
+/datum/sprite_accessory/body_markings/tail/vulpkanin/vulp_default_tip
+	name = "Vulpkanin Default Tail Tip"
+	icon_state = "markings_vulptail_tip"
+
+/datum/sprite_accessory/body_markings/tail/vulpkanin/vulp_default_fade
+	name = "Vulpkanin Default Tail Fade"
+	icon_state = "markings_vulptail_fade"
+
+/datum/sprite_accessory/body_markings/tail/vulpkanin/vulp_bushy_fluff
+	name = "Vulpkanin Bushy Tail Fluff"
+	tails_allowed = list("Vulpkanin Alt 1 (Bushy)")
+	icon_state = "markings_vulptail2_fluff"
+
+/datum/sprite_accessory/body_markings/tail/vulpkanin/vulp_short_tip
+	name = "Vulpkanin Short Tail Tip"
+	tails_allowed = list("Vulpkanin Alt 4 (Short)")
+	icon_state = "markings_vulptail5_tip"
+
+/datum/sprite_accessory/body_markings/tail/vulpkanin/vulp_hybrid_tip
+	name = "Vulpkanin Bushy Straight Tail Tip"
+	tails_allowed = list("Vulpkanin Alt 5 (Straight Bushy)")
+	icon_state = "markings_vulptail6_tip"
+
+/datum/sprite_accessory/body_markings/tail/vulpkanin/vulp_hybrid_fade
+	name = "Vulpkanin Bushy Straight Tail Fade"
+	tails_allowed = list("Vulpkanin Alt 5 (Straight Bushy)")
+	icon_state = "markings_vulptail6_fade"
+
+/datum/sprite_accessory/body_markings/tail/vulpkanin/vulp_hybrid_silverf
+	name = "Vulpkanin Bushy Straight Tail Black Fade White Tip"
+	tails_allowed = list("Vulpkanin Alt 5 (Straight Bushy)")
+	icon_state = "markings_vulptail6_silverf"
+
+/* ALT HEADS */
+
+/datum/sprite_accessory/alt_heads
+	icon = null
+	icon_state = null
+	species_allowed = null
+	var/suffix = null
+
+/datum/sprite_accessory/alt_heads/none
+	name = "None"
+
+/datum/sprite_accessory/alt_heads/una_sharp_snout
+	name = "Unathi Sharp Snout"
+	species_allowed = list("Unathi")
+	icon_state = "head_sharp"
+	suffix = "sharp"

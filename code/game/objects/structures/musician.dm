@@ -3,13 +3,12 @@
 /datum/song
 	var/name = "Untitled"
 	var/list/lines = new()
-	var/tempo = 5			// delay between notes
+	var/tempo = 5					// delay between notes
 
-	var/playing = 0			// if we're playing
-	var/help = 0			// if help is open
-	var/edit = 1			// if we're in editing mode
-	var/repeat = 0			// number of times remaining to repeat
-	var/max_repeats = 10	// maximum times we can repeat
+	var/playing = 0					// if we're playing
+	var/help = 0					// if help is open
+	var/repeat = 0					// number of times remaining to repeat
+	var/max_repeat = 10				// maximum times we can repeat
 
 	var/instrumentDir = "piano"		// the folder with the sounds
 	var/instrumentExt = "ogg"		// the file extension
@@ -59,12 +58,9 @@
 	// and play
 	var/turf/source = get_turf(instrumentObj)
 	for(var/mob/M in hearers(15, source))
-		if(!M.client || !(M.client.prefs.toggles & SOUND_INSTRUMENTS))
+		if(!M.client || !(M.client.prefs.sound & SOUND_INSTRUMENTS))
 			continue
 		M.playsound_local(source, soundfile, 100, falloff = 5)
-
-/datum/song/proc/updateDialog(mob/user as mob)
-	instrumentObj.updateDialog()		// assumes it's an object in world, override if otherwise
 
 /datum/song/proc/shouldStopPlaying(mob/user)
 	if(instrumentObj)
@@ -83,18 +79,18 @@
 			cur_acc[i] = "n"
 
 		for(var/line in lines)
-			//world << line
-			for(var/beat in text2list(lowertext(line), ","))
-				//world << "beat: [beat]"
-				var/list/notes = text2list(beat, "/")
-				for(var/note in text2list(notes[1], "-"))
-					//world << "note: [note]"
+//			to_chat(world, line)
+			for(var/beat in splittext(lowertext(line), ","))
+//				to_chat(world, "beat: [beat]")
+				var/list/notes = splittext(beat, "/")
+				for(var/note in splittext(notes[1], "-"))
+//					to_chat(world, "note: [note]")
 					if(!playing || shouldStopPlaying(user))//If the instrument is playing, or special case
 						playing = 0
 						return
 					if(lentext(note) == 0)
 						continue
-					//world << "Parse: [copytext(note,1,2)]"
+//					to_chat(world, "Parse: [copytext(note,1,2)]")
 					var/cur_note = text2ascii(note) - 96
 					if(cur_note < 1 || cur_note > 7)
 						continue
@@ -113,86 +109,53 @@
 				else
 					sleep(tempo)
 		repeat--
-		if(repeat >= 0) // don't show the last -1 repeat
-			updateDialog(user)
 	playing = 0
 	repeat = 0
-	updateDialog(user)
 
-/datum/song/proc/interact(mob/user as mob)
-	var/dat = ""
+/datum/song/ui_interact(mob/user, ui_key = "main", var/datum/nanoui/ui = null, var/force_open = 1)
+	if(!instrumentObj)
+		return
 
-	if(lines.len > 0)
-		dat += "<H3>Playback</H3>"
-		if(!playing)
-			dat += "<A href='?src=\ref[src];play=1'>Play</A> <SPAN CLASS='linkOn'>Stop</SPAN><BR><BR>"
-			dat += "Repeat Song: "
-			dat += repeat > 0 ? "<A href='?src=\ref[src];repeat=-10'>-</A><A href='?src=\ref[src];repeat=-1'>-</A>" : "<SPAN CLASS='linkOff'>-</SPAN><SPAN CLASS='linkOff'>-</SPAN>"
-			dat += " [repeat] times "
-			dat += repeat < max_repeats ? "<A href='?src=\ref[src];repeat=1'>+</A><A href='?src=\ref[src];repeat=10'>+</A>" : "<SPAN CLASS='linkOff'>+</SPAN><SPAN CLASS='linkOff'>+</SPAN>"
-			dat += "<BR>"
-		else
-			dat += "<SPAN CLASS='linkOn'>Play</SPAN> <A href='?src=\ref[src];stop=1'>Stop</A><BR>"
-			dat += "Repeats left: <B>[repeat]</B><BR>"
-	if(!edit)
-		dat += "<BR><B><A href='?src=\ref[src];edit=2'>Show Editor</A></B><BR>"
-	else
-		dat += "<H3>Editing</H3>"
-		dat += "<B><A href='?src=\ref[src];edit=1'>Hide Editor</A></B>"
-		dat += " <A href='?src=\ref[src];newsong=1'>Start a New Song</A>"
-		dat += " <A href='?src=\ref[src];import=1'>Import a Song</A><BR><BR>"
-		var/bpm = round(600 / tempo)
-		dat += "Tempo: <A href='?src=\ref[src];tempo=[world.tick_lag]'>-</A> [bpm] BPM <A href='?src=\ref[src];tempo=-[world.tick_lag]'>+</A><BR><BR>"
-		var/linecount = 0
-		for(var/line in lines)
-			linecount += 1
-			dat += "Line [linecount]: <A href='?src=\ref[src];modifyline=[linecount]'>Edit</A> <A href='?src=\ref[src];deleteline=[linecount]'>X</A> [line]<BR>"
-		dat += "<A href='?src=\ref[src];newline=1'>Add Line</A><BR><BR>"
-		if(help)
-			dat += "<B><A href='?src=\ref[src];help=1'>Hide Help</A></B><BR>"
-			dat += {"
-					Lines are a series of chords, separated by commas (,), each with notes seperated by hyphens (-).<br>
-					Every note in a chord will play together, with chord timed by the tempo.<br>
-					<br>
-					Notes are played by the names of the note, and optionally, the accidental, and/or the octave number.<br>
-					By default, every note is natural and in octave 3. Defining otherwise is remembered for each note.<br>
-					Example: <i>C,D,E,F,G,A,B</i> will play a C major scale.<br>
-					After a note has an accidental placed, it will be remembered: <i>C,C4,C,C3</i> is C3,C4,C4,C3</i><br>
-					Chords can be played simply by seperating each note with a hyphon: <i>A-C#,Cn-E,E-G#,Gn-B</i><br>
-					A pause may be denoted by an empty chord: <i>C,E,,C,G</i><br>
-					To make a chord be a different time, end it with /x, where the chord length will be length<br>
-					defined by tempo / x: <i>C,G/2,E/4</i><br>
-					Combined, an example is: <i>E-E4/4,F#/2,G#/8,B/8,E3-E4/4</i>
-					<br>
-					Lines may be up to 50 characters.<br>
-					A song may only contain up to 50 lines.<br>
-					"}
-		else
-			dat += "<B><A href='?src=\ref[src];help=2'>Show Help</A></B><BR>"
+	ui = nanomanager.try_update_ui(user, instrumentObj, ui_key, ui, force_open)
+	if(!ui)
+		ui = new(user, instrumentObj, ui_key, "song.tmpl", instrumentObj.name, 700, 500)
+		ui.open()
+		ui.set_auto_update(1)
 
-	var/datum/browser/popup = new(user, "instrument", instrumentObj.name, 700, 500)
-	popup.set_content(dat)
-	popup.set_title_image(user.browse_rsc_icon(instrumentObj.icon, instrumentObj.icon_state))
-	popup.open()
+/datum/song/ui_data(mob/user, ui_key = "main", datum/topic_state/state = default_state)
+	var/data[0]
 
+	data["lines"] = lines
+	data["tempo"] = tempo
+
+	data["playing"] = playing
+	data["help"] = help
+	data["repeat"] = repeat
+	data["maxRepeat"] = max_repeat
+	data["minTempo"] = world.tick_lag
+	data["maxTempo"] = 600
+
+	return data
 
 /datum/song/Topic(href, href_list)
-	if(!in_range(instrumentObj, usr) || (issilicon(usr) && instrumentObj.loc != usr) || !isliving(usr) || !usr.canmove || usr.restrained())
+	if(!in_range(instrumentObj, usr) || (issilicon(usr) && instrumentObj.loc != usr) || !isliving(usr) || usr.incapacitated())
 		usr << browse(null, "window=instrument")
 		usr.unset_machine()
-		return
+		return 1
 
 	instrumentObj.add_fingerprint(usr)
 
 	if(href_list["newsong"])
+		playing = 0
 		lines = new()
 		tempo = sanitize_tempo(5) // default 120 BPM
 		name = ""
 
 	else if(href_list["import"])
+		playing = 0
 		var/t = ""
 		do
-			t = html_encode(input(usr, "Please paste the entire song, formatted:", text("[]", name), t)  as message)
+			t = html_encode(input(usr, "Please paste the entire song, formatted:", text("[]", name), t) as message)
 			if(!in_range(instrumentObj, usr))
 				return
 
@@ -204,29 +167,27 @@
 
 		//split into lines
 		spawn()
-			lines = text2list(t, "\n")
+			lines = splittext(t, "\n")
+			if(lines.len == 0)
+				return 1
 			if(copytext(lines[1],1,6) == "BPM: ")
 				tempo = sanitize_tempo(600 / text2num(copytext(lines[1],6)))
 				lines.Cut(1,2)
 			else
 				tempo = sanitize_tempo(5) // default 120 BPM
 			if(lines.len > 50)
-				usr << "Too many lines!"
+				to_chat(usr, "Too many lines!")
 				lines.Cut(51)
 			var/linenum = 1
 			for(var/l in lines)
 				if(lentext(l) > 50)
-					usr << "Line [linenum] too long!"
+					to_chat(usr, "Line [linenum] too long!")
 					lines.Remove(l)
 				else
 					linenum++
-			updateDialog(usr)		// make sure updates when complete
 
 	else if(href_list["help"])
-		help = text2num(href_list["help"]) - 1
-
-	else if(href_list["edit"])
-		edit = text2num(href_list["edit"]) - 1
+		help = !help
 
 	if(href_list["repeat"]) //Changing this from a toggle to a number of repeats to avoid infinite loops.
 		if(playing)
@@ -234,18 +195,24 @@
 		repeat += round(text2num(href_list["repeat"]))
 		if(repeat < 0)
 			repeat = 0
-		if(repeat > max_repeats)
-			repeat = max_repeats
+		if(repeat > max_repeat)
+			repeat = max_repeat
 
 	else if(href_list["tempo"])
-		tempo = sanitize_tempo(tempo + text2num(href_list["tempo"]))
+		tempo = sanitize_tempo(tempo + text2num(href_list["tempo"]) * world.tick_lag)
 
 	else if(href_list["play"])
+		if(playing)
+			return
 		playing = 1
 		spawn()
 			playsong(usr)
 
-	else if(href_list["newline"])
+	else if(href_list["insertline"])
+		var/num = round(text2num(href_list["insertline"]))
+		if(num < 1 || num > lines.len + 1)
+			return
+
 		var/newline = html_encode(input("Enter your line: ", instrumentObj.name) as text|null)
 		if(!newline || !in_range(instrumentObj, usr))
 			return
@@ -253,16 +220,17 @@
 			return
 		if(lentext(newline) > 50)
 			newline = copytext(newline, 1, 50)
-		lines.Add(newline)
+
+		lines.Insert(num, newline)
 
 	else if(href_list["deleteline"])
 		var/num = round(text2num(href_list["deleteline"]))
 		if(num > lines.len || num < 1)
 			return
-		lines.Cut(num, num+1)
+		lines.Cut(num, num + 1)
 
 	else if(href_list["modifyline"])
-		var/num = round(text2num(href_list["modifyline"]),1)
+		var/num = round(text2num(href_list["modifyline"]))
 		var/content = html_encode(input("Enter your line: ", instrumentObj.name, lines[num]) as text|null)
 		if(!content || !in_range(instrumentObj, usr))
 			return
@@ -275,18 +243,11 @@
 	else if(href_list["stop"])
 		playing = 0
 
-	updateDialog(usr)
-	return
-
 /datum/song/proc/sanitize_tempo(new_tempo)
-	new_tempo = abs(new_tempo)
 	return max(round(new_tempo, world.tick_lag), world.tick_lag)
 
 // subclass for handheld instruments, like violin
 /datum/song/handheld
-
-/datum/song/handheld/updateDialog(mob/user as mob)
-	instrumentObj.interact(user)
 
 /datum/song/handheld/shouldStopPlaying()
 	if(instrumentObj)
@@ -320,8 +281,7 @@
 		icon_state = "piano"
 
 /obj/structure/piano/Destroy()
-	qdel(song)
-	song = null
+	QDEL_NULL(song)
 	return ..()
 
 /obj/structure/piano/initialize()
@@ -329,30 +289,35 @@
 	..()
 
 /obj/structure/piano/attack_hand(mob/user as mob)
-	interact(user)
+	ui_interact(user)
 
-/obj/structure/piano/interact(mob/user as mob)
-	if(!user || !anchored)
+/obj/structure/piano/ui_interact(mob/user, ui_key = "main", var/datum/nanoui/ui = null, var/force_open = 1)
+	if(!isliving(user) || user.incapacitated() || !anchored)
 		return
 
-	user.set_machine(src)
-	song.interact(user)
+	song.ui_interact(user, ui_key, ui, force_open)
+
+/obj/structure/piano/ui_data(mob/user, ui_key = "main", datum/topic_state/state = default_state)
+	return song.ui_data(user, ui_key, state)
+
+/obj/structure/piano/Topic(href, href_list)
+	song.Topic(href, href_list)
 
 /obj/structure/piano/attackby(obj/item/O as obj, mob/user as mob, params)
-	if (istype(O, /obj/item/weapon/wrench))
-		if (!anchored && !isinspace())
-			playsound(src.loc, 'sound/items/Ratchet.ogg', 50, 1)
-			user << "<span class='notice'> You begin to tighten \the [src] to the floor...</span>"
-			if (do_after(user, 20, target = src))
+	if(istype(O, /obj/item/weapon/wrench))
+		if(!anchored && !isinspace())
+			playsound(src.loc, O.usesound, 50, 1)
+			to_chat(user, "<span class='notice'> You begin to tighten \the [src] to the floor...</span>")
+			if(do_after(user, 20 * O.toolspeed, target = src))
 				user.visible_message( \
 					"[user] tightens \the [src]'s casters.", \
 					"<span class='notice'> You have tightened \the [src]'s casters. Now it can be played again.</span>", \
 					"You hear ratchet.")
 				anchored = 1
 		else if(anchored)
-			playsound(src.loc, 'sound/items/Ratchet.ogg', 50, 1)
-			user << "<span class='notice'> You begin to loosen \the [src]'s casters...</span>"
-			if (do_after(user, 40, target = src))
+			playsound(src.loc, O.usesound, 50, 1)
+			to_chat(user, "<span class='notice'> You begin to loosen \the [src]'s casters...</span>")
+			if(do_after(user, 40 * O.toolspeed, target = src))
 				user.visible_message( \
 					"[user] loosens \the [src]'s casters.", \
 					"<span class='notice'> You have loosened \the [src]. Now it can be pulled somewhere else.</span>", \

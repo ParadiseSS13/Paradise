@@ -29,8 +29,7 @@
 	air_contents.volume = 50
 
 /obj/machinery/atmospherics/unary/oxygen_generator/process()
-	..()
-	if(!on)
+	if(!..() || !on)
 		return 0
 
 	var/total_moles = air_contents.total_moles()

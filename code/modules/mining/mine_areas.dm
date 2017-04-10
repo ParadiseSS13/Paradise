@@ -3,7 +3,7 @@
 /area/mine
 	icon_state = "mining"
 
-/area/mine/explored
+/area/mine/dangerous/explored
 	name = "Mine"
 	icon_state = "explored"
 	music = null
@@ -13,9 +13,10 @@
 	power_environ = 0
 	power_equip = 0
 	power_light = 0
+	outdoors = 1
 	ambientsounds = list('sound/ambience/ambimine.ogg')
 
-/area/mine/unexplored
+/area/mine/dangerous/unexplored
 	name = "Mine"
 	icon_state = "unexplored"
 	music = null
@@ -25,13 +26,14 @@
 	power_environ = 0
 	power_equip = 0
 	power_light = 0
+	outdoors = 1
 	ambientsounds = list('sound/ambience/ambimine.ogg')
 
 /area/mine/lobby
-	name = "Mining station"
+	name = "Mining Station"
 
 /area/mine/storage
-	name = "Mining station Storage"
+	name = "Mining Station Storage"
 
 /area/mine/production
 	name = "Mining Station Starboard Wing"
@@ -52,16 +54,19 @@
 	name = "Mining Station Communications"
 
 /area/mine/cafeteria
-	name = "Mining station Cafeteria"
+	name = "Mining Station Cafeteria"
 
 /area/mine/hydroponics
-	name = "Mining station Hydroponics"
+	name = "Mining Station Hydroponics"
 
 /area/mine/sleeper
-	name = "Mining station Emergency Sleeper"
+	name = "Mining Station Emergency Sleeper"
 
 /area/mine/north_outpost
 	name = "North Mining Outpost"
 
 /area/mine/west_outpost
 	name = "West Mining Outpost"
+
+/area/mine/podbay
+	name = "Mining Podbay"

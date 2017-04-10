@@ -8,6 +8,9 @@ var/list/alldepartments = list()
 	icon = 'icons/obj/library.dmi'
 	icon_state = "fax"
 	insert_anim = "faxsend"
+	var/fax_network = "Local Fax Network"
+
+	var/long_range_enabled = 0 // Can we send messages off the station?
 	req_one_access = list(access_lawyer, access_heads, access_armory)
 
 	use_power = 1
@@ -15,12 +18,14 @@ var/list/alldepartments = list()
 	active_power_usage = 200
 
 	var/obj/item/weapon/card/id/scan = null // identification
+
 	var/authenticated = 0
 	var/sendcooldown = 0 // to avoid spamming fax messages
+	var/cooldown_time = 1800
 
 	var/department = "Unknown" // our department
 
-	var/destination = "Central Command" // the department we're sending to
+	var/destination = "Not Selected" // the department we're sending to
 
 /obj/machinery/photocopier/faxmachine/New()
 	..()
@@ -29,9 +34,17 @@ var/list/alldepartments = list()
 	if( !(("[department]" in alldepartments) || ("[department]" in admin_departments)) )
 		alldepartments |= department
 
-/obj/machinery/photocopier/faxmachine/attack_hand(mob/user as mob)
+/obj/machinery/photocopier/faxmachine/longrange
+	name = "long range fax machine"
+	fax_network = "Central Command Quantum Entanglement Network"
+	long_range_enabled = 1
+
+/obj/machinery/photocopier/faxmachine/attack_hand(mob/user)
 	ui_interact(user)
 
+/obj/machinery/photocopier/faxmachine/attack_ghost(mob/user)
+	ui_interact(user)	
+	
 /obj/machinery/photocopier/faxmachine/attackby(obj/item/weapon/item, mob/user, params)
 	if(istype(item,/obj/item/weapon/card/id) && !scan)
 		scan(item)
@@ -41,24 +54,32 @@ var/list/alldepartments = list()
 	else
 		return ..()
 
-/obj/machinery/photocopier/faxmachine/emag_act(user as mob)
+/obj/machinery/photocopier/faxmachine/emag_act(mob/user)
 	if(!emagged)
 		emagged = 1
-		user << "<span class='notice'>The transmitters realign to an unknown source!</span>"
+		to_chat(user, "<span class='notice'>The transmitters realign to an unknown source!</span>")
 	else
-		user << "<span class='warning'>You swipe the card through [src], but nothing happens.</span>"
+		to_chat(user, "<span class='warning'>You swipe the card through [src], but nothing happens.</span>")
 
 /obj/machinery/photocopier/faxmachine/ui_interact(mob/user, ui_key = "main", var/datum/nanoui/ui = null, var/force_open = 1)
+	ui = nanomanager.try_update_ui(user, src, ui_key, ui, force_open)
+	if(!ui)
+		ui = new(user, src, ui_key, "faxmachine.tmpl", "Fax Machine UI", 540, 450)
+		ui.open()
+
+/obj/machinery/photocopier/faxmachine/ui_data(mob/user, ui_key = "main", datum/topic_state/state = default_state)
 	var/data[0]
+	var/is_authenticated = is_authenticated(user)
+
 	if(scan)
 		data["scan_name"] = scan.name
 	else
 		data["scan_name"] = "-----"
-	data["authenticated"] = authenticated
-	if(!authenticated)
+	data["authenticated"] = is_authenticated
+	if(!is_authenticated)
 		data["network"] = "Disconnected"
 	else if(!emagged)
-		data["network"] = "Central Command Quantum Entanglement Network"
+		data["network"] = fax_network
 	else
 		data["network"] = "ERR*?*%!*"
 	if(copyitem)
@@ -74,68 +95,78 @@ var/list/alldepartments = list()
 	else
 		data["respectcooldown"] = 0
 
-	ui = nanomanager.try_update_ui(user, src, ui_key, ui, data, force_open)
-	if (!ui)
-		ui = new(user, src, ui_key, "faxmachine.tmpl", "Fax Machine UI", 540, 450)
-		ui.set_initial_data(data)
-		ui.open()
+	return data
 
+/obj/machinery/photocopier/faxmachine/proc/is_authenticated(mob/user)
+	if(authenticated)
+		return TRUE
+	else if(user.can_admin_interact())
+		return TRUE
+	return FALSE
+	
 /obj/machinery/photocopier/faxmachine/Topic(href, href_list)
 	if(..())
 		return 1
-
+		
+	var/is_authenticated = is_authenticated(usr)
 	if(href_list["send"])
-		if(copyitem && authenticated)
-			if ((destination in admin_departments) || (destination in hidden_admin_departments))
+		if(copyitem && is_authenticated)
+			if((destination in admin_departments) || (destination in hidden_admin_departments))
 				send_admin_fax(usr, destination)
 			else
 				sendfax(destination,usr)
 
-			if (sendcooldown)
+			if(sendcooldown)
 				spawn(sendcooldown) // cooldown time
 					sendcooldown = 0
 					nanomanager.update_uis(src)
 
 	if(href_list["paper"])
 		if(copyitem)
-			copyitem.loc = usr.loc
-			usr.put_in_hands(copyitem)
-			usr << "<span class='notice'>You take \the [copyitem] out of \the [src].</span>"
+			copyitem.forceMove(get_turf(src))
+			if(ishuman(usr))
+				if(!usr.get_active_hand() && Adjacent(usr))
+					usr.put_in_hands(copyitem)
+			to_chat(usr, "<span class='notice'>You eject \the [copyitem] from \the [src].</span>")
 			copyitem = null
 		else
 			var/obj/item/I = usr.get_active_hand()
-			if (istype(I, /obj/item/weapon/paper) || istype(I, /obj/item/weapon/photo) || istype(I, /obj/item/weapon/paper_bundle))
+			if(istype(I, /obj/item/weapon/paper) || istype(I, /obj/item/weapon/photo) || istype(I, /obj/item/weapon/paper_bundle))
 				usr.drop_item()
 				copyitem = I
-				I.loc = src
-				usr << "<span class='notice'>You insert \the [I] into \the [src].</span>"
+				I.forceMove(src)
+				to_chat(usr, "<span class='notice'>You insert \the [I] into \the [src].</span>")
 				flick(insert_anim, src)
 
 	if(href_list["scan"])
 		scan()
 
 	if(href_list["dept"])
-		if(authenticated)
+		if(is_authenticated)
 			var/lastdestination = destination
-			var/list/combineddepartments = alldepartments + admin_departments
+			var/list/combineddepartments = alldepartments.Copy()
+			if(long_range_enabled)
+				combineddepartments += admin_departments.Copy()
+
 			if(emagged)
-				combineddepartments += hidden_admin_departments
+				combineddepartments += hidden_admin_departments.Copy()
+
 			destination = input(usr, "To which department?", "Choose a department", "") as null|anything in combineddepartments
 			if(!destination)
 				destination = lastdestination
 
 	if(href_list["auth"])
-		if((!authenticated) && scan)
+		if(!is_authenticated && scan)
 			if(check_access(scan))
 				authenticated = 1
-		else if(authenticated)
+		else if(is_authenticated)
 			authenticated = 0
 
 	if(href_list["rename"])
 		if(copyitem)
 			var/n_name = sanitize(copytext(input(usr, "What would you like to label the fax?", "Fax Labelling", copyitem.name)  as text, 1, MAX_MESSAGE_LEN))
 			if((copyitem && copyitem.loc == src && usr.stat == 0))
-				if (istype(copyitem, /obj/item/weapon/paper))
+				if(istype(copyitem, /obj/item/weapon/paper))
 					copyitem.name = "[(n_name ? text("[n_name]") : initial(copyitem.name))]"
 					copyitem.desc = "This is a paper titled '" + copyitem.name + "'."
 				else if(istype(copyitem, /obj/item/weapon/photo))
@@ -148,26 +179,42 @@ var/list/alldepartments = list()
 /obj/machinery/photocopier/faxmachine/proc/scan(var/obj/item/weapon/card/id/card = null)
 	if(scan) // Card is in machine
 		if(ishuman(usr))
-			scan.loc = usr.loc
-			if(!usr.get_active_hand())
+			scan.forceMove(get_turf(src))
+			if(!usr.get_active_hand() && Adjacent(usr))
 				usr.put_in_hands(scan)
 			scan = null
 		else
-			scan.loc = src.loc
+			scan.forceMove(get_turf(src))
 			scan = null
-	else
+	else if(Adjacent(usr))
 		if(!card)
 			var/obj/item/I = usr.get_active_hand()
-			if (istype(I, /obj/item/weapon/card/id))
+			if(istype(I, /obj/item/weapon/card/id))
 				usr.drop_item()
-				I.loc = src
+				I.forceMove(src)
 				scan = I
-		else
-			if(istype(card))
-				usr.drop_item()
-				card.loc = src
-				scan = card
+		else if(istype(card))
+			usr.drop_item()
+			card.forceMove(src)
+			scan = card
 	nanomanager.update_uis(src)
+	
+/obj/machinery/photocopier/faxmachine/verb/eject_id()
+	set category = null
+	set name = "Eject ID Card"
+	set src in oview(1)
+
+	if(usr.restrained())	
+		return
+
+	if(scan)
+		to_chat(usr, "You remove \the [scan] from \the [src].")
+		scan.forceMove(get_turf(src))
+		if(!usr.get_active_hand() && Adjacent(usr))
+			usr.put_in_hands(scan)
+		scan = null
+	else
+		to_chat(usr, "There is nothing to remove from \the [src].")
 
 /obj/machinery/photocopier/faxmachine/proc/sendfax(var/destination,var/mob/sender)
 	if(stat & (BROKEN|NOPOWER))
@@ -180,7 +227,7 @@ var/list/alldepartments = list()
 		if( F.department == destination )
 			success = F.receivefax(copyitem)
 
-	if (success)
+	if(success)
 		var/datum/fax/F = new /datum/fax()
 		F.name = copyitem.name
 		F.from_department = department
@@ -191,7 +238,6 @@ var/list/alldepartments = list()
 		F.sent_at = world.time
 
 		visible_message("[src] beeps, \"Message transmitted successfully.\"")
-		//sendcooldown = 600
 	else
 		visible_message("[src] beeps, \"Error transmitting message.\"")
 
@@ -203,16 +249,17 @@ var/list/alldepartments = list()
 		return 0	//You can't send faxes to "Unknown"
 
 	flick("faxreceive", src)
-	playsound(loc, "sound/items/polaroid1.ogg", 50, 1)
+
+	playsound(loc, 'sound/goonstation/machines/printer_dotmatrix.ogg', 50, 1)
 
 	// give the sprite some time to flick
 	sleep(20)
 
-	if (istype(incoming, /obj/item/weapon/paper))
+	if(istype(incoming, /obj/item/weapon/paper))
 		copy(incoming)
-	else if (istype(incoming, /obj/item/weapon/photo))
+	else if(istype(incoming, /obj/item/weapon/photo))
 		photocopy(incoming)
-	else if (istype(incoming, /obj/item/weapon/paper_bundle))
+	else if(istype(incoming, /obj/item/weapon/paper_bundle))
 		bundlecopy(incoming)
 	else
 		return 0
@@ -223,15 +270,18 @@ var/list/alldepartments = list()
 /obj/machinery/photocopier/faxmachine/proc/send_admin_fax(var/mob/sender, var/destination)
 	if(stat & (BROKEN|NOPOWER))
 		return
+		
+	if(sendcooldown)
+		return
 
 	use_power(200)
 
 	var/obj/item/rcvdcopy
-	if (istype(copyitem, /obj/item/weapon/paper))
+	if(istype(copyitem, /obj/item/weapon/paper))
 		rcvdcopy = copy(copyitem)
-	else if (istype(copyitem, /obj/item/weapon/photo))
+	else if(istype(copyitem, /obj/item/weapon/photo))
 		rcvdcopy = photocopy(copyitem)
-	else if (istype(copyitem, /obj/item/weapon/paper_bundle))
+	else if(istype(copyitem, /obj/item/weapon/paper_bundle))
 		rcvdcopy = bundlecopy(copyitem)
 	else
 		visible_message("[src] beeps, \"Error transmitting message.\"")
@@ -250,18 +300,19 @@ var/list/alldepartments = list()
 
 	//message badmins that a fax has arrived
 	switch(destination)
-		if ("Central Command")
+		if("Central Command")
 			message_admins(sender, "CENTCOM FAX", destination, rcvdcopy, "#006100")
-		if ("Syndicate")
+		if("Syndicate")
 			message_admins(sender, "SYNDICATE FAX", destination, rcvdcopy, "#DC143C")
-	sendcooldown = 1800
-	sleep(50)
-	visible_message("[src] beeps, \"Message transmitted successfully.\"")
+	sendcooldown = cooldown_time
+	spawn(50)
+		visible_message("[src] beeps, \"Message transmitted successfully.\"")
 
 
-/obj/machinery/photocopier/faxmachine/proc/message_admins(var/mob/sender, var/faxname, var/faxtype, var/obj/item/sent, font_colour="#006100")
-	var/msg = "\blue <b><font color='[font_colour]'>[faxname]: </font>[key_name(sender, 1)] (<A HREF='?_src_=holder;adminplayeropts=\ref[sender]'>PP</A>) (<A HREF='?_src_=vars;Vars=\ref[sender]'>VV</A>) (<A HREF='?_src_=holder;subtlemessage=\ref[sender]'>SM</A>) ([admin_jump_link(sender, "holder")]) (<A HREF='?_src_=holder;secretsadmin=check_antagonist'>CA</A>) (<A HREF='?_src_=holder;BlueSpaceArtillery=\ref[sender]'>BSA</A>) (<a href='?_src_=holder;AdminFaxCreate=\ref[sender];originfax=\ref[src];faxtype=[faxtype];replyto=\ref[sent]'>REPLY</a>)</b>: Receiving '[sent.name]' via secure connection... <a href='?_src_=holder;AdminFaxView=\ref[sent]'>view message</a>"
-
+/obj/machinery/photocopier/faxmachine/proc/message_admins(var/mob/sender, var/faxname, var/faxtype, var/obj/item/sent, font_colour="#9A04D1")
+	var/msg = "<span class='boldnotice'><font color='[font_colour]'>[faxname]: </font> [key_name_admin(sender)] | REPLY: (<A HREF='?_src_=holder;CentcommReply=\ref[sender]'>RADIO</A>) (<a href='?_src_=holder;AdminFaxCreate=\ref[sender];originfax=\ref[src];faxtype=[faxtype];replyto=\ref[sent]'>FAX</a>) (<A HREF='?_src_=holder;subtlemessage=\ref[sender]'>SM</A>) | REJECT: (<A HREF='?_src_=holder;FaxReplyTemplate=\ref[sender];originfax=\ref[src]'>TEMPLATE</A>) (<A HREF='?_src_=holder;BlueSpaceArtillery=\ref[sender]'>BSA</A>) (<A HREF='?_src_=holder;EvilFax=\ref[sender];originfax=\ref[src]'>EVILFAX</A>) </span>: Receiving '[sent.name]' via secure connection... <a href='?_src_=holder;AdminFaxView=\ref[sent]'>view message</a>"
 	for(var/client/C in admins)
-		if(R_EVENT & C.holder.rights)
-			C << msg
+		if(check_rights(R_EVENT, 0, C.mob))
+			to_chat(C, msg)
+			if(C.prefs.sound & SOUND_ADMINHELP)
+				C << 'sound/effects/adminhelp.ogg'

@@ -7,6 +7,8 @@
 	icon_state = "guitar"
 	item_state = "guitar"
 	force = 10
+	burn_state = FLAMMABLE
+	burntime = 20
 	var/datum/song/handheld/song
 	hitsound = 'sound/effects/guitarsmash.ogg'
 
@@ -15,24 +17,25 @@
 	song.instrumentExt = "ogg"
 
 /obj/item/device/guitar/Destroy()
-	qdel(song)
-	song = null
+	QDEL_NULL(song)
 	return ..()
 
 /obj/item/device/guitar/attack_self(mob/user as mob)
-	interact(user)
+	ui_interact(user)
 
-/obj/item/device/guitar/interact(mob/user as mob)
-	if(!user)
+/obj/item/device/guitar/ui_interact(mob/user, ui_key = "main", var/datum/nanoui/ui = null, var/force_open = 1)
+	if(!isliving(user) || user.incapacitated())
 		return
 
-	if(!isliving(user) || user.stat || user.restrained() || user.lying)
-		return
+	song.ui_interact(user, ui_key, ui, force_open)
 
-	user.set_machine(src)
-	song.interact(user)
+/obj/item/device/guitar/ui_data(mob/user, ui_key = "main", datum/topic_state/state = default_state)
+	return song.ui_data(user, ui_key, state)
 
-/datum/table_recipe/guitar
+/obj/item/device/guitar/Topic(href, href_list)
+	song.Topic(href, href_list)
+
+/datum/crafting_recipe/guitar
 	name = "Guitar"
 	result = /obj/item/device/guitar
 	reqs = list(/obj/item/stack/sheet/wood = 5,

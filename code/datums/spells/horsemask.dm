@@ -12,13 +12,13 @@
 	range = 7
 	cooldown_min = 30 //30 deciseconds reduction per rank
 	selection_type = "range"
-	var/list/compatible_mobs = list(/mob/living/carbon/human)
 
-	action_icon_state = "spell_horse"
+	action_icon_state = "barn"
+	sound = 'sound/magic/HorseHead_curse.ogg'
 
 /obj/effect/proc_holder/spell/targeted/horsemask/cast(list/targets, mob/user = usr)
 	if(!targets.len)
-		user << "<span class='notice'>No target found in range.</span>"
+		to_chat(user, "<span class='notice'>No target found in range.</span>")
 		return
 
 	var/mob/living/carbon/target = targets[1]
@@ -26,12 +26,13 @@
 	if(!target)
 		return
 
-	if((target.type in compatible_mobs) || ishuman(target))
-		user << "<span class='notice'>It'd be stupid to curse [target] with a horse's head!</span>"
+
+	if(!ishuman(target))
+		to_chat(user, "<span class='notice'>It'd be stupid to curse [target] with a horse's head!</span>")
 		return
 
 	if(!(target in oview(range)))//If they are not  in overview after selection.
-		user << "<span class='notice'>They are too far away!</span>"
+		to_chat(user, "<span class='notice'>They are too far away!</span>")
 		return
 
 	var/obj/item/clothing/mask/horsehead/magichead = new /obj/item/clothing/mask/horsehead
@@ -44,4 +45,4 @@
 		qdel(target.wear_mask)
 	target.equip_to_slot_if_possible(magichead, slot_wear_mask, 1, 1)
 
-	flick("e_flash", target.flash)
+	target.flash_eyes()

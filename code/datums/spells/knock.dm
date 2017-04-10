@@ -11,8 +11,9 @@
 	cooldown_min = 20 //20 deciseconds reduction per rank
 
 	action_icon_state = "knock"
+	sound = 'sound/magic/Knock.ogg'
 
-/obj/effect/proc_holder/spell/aoe_turf/knock/cast(list/targets)
+/obj/effect/proc_holder/spell/aoe_turf/knock/cast(list/targets, mob/user = usr)
 	for(var/turf/T in targets)
 		for(var/obj/machinery/door/door in T.contents)
 			spawn(1)
@@ -22,4 +23,11 @@
 					var/obj/machinery/door/airlock/A = door
 					A.unlock(1)	//forced because it's magic!
 				door.open()
+		for(var/obj/structure/closet/C in T.contents)
+			spawn(1)
+				if(istype(C, /obj/structure/closet/secure_closet))
+					var/obj/structure/closet/secure_closet/SC = C
+					SC.locked = 0
+				C.open()
+
 	return

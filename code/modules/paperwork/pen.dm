@@ -17,7 +17,7 @@
 	item_state = "pen"
 	slot_flags = SLOT_BELT | SLOT_EARS
 	throwforce = 0
-	w_class = 1.0
+	w_class = 1
 	throw_speed = 3
 	throw_range = 7
 	materials = list(MAT_METAL=10)
@@ -25,7 +25,7 @@
 	pressure_resistance = 2
 
 /obj/item/weapon/pen/suicide_act(mob/user)
-	viewers(user) << "<span class='suicide'>[user] starts scribbling numbers over \himself with the [src.name]! It looks like \he's trying to commit sudoku.</span>"
+	to_chat(viewers(user), "<span class='suicide'>[user] starts scribbling numbers over \himself with the [src.name]! It looks like \he's trying to commit sudoku.</span>")
 	return (BRUTELOSS)
 
 /obj/item/weapon/pen/blue
@@ -50,24 +50,59 @@
 	icon_state = "pen"
 	colour = "white"
 
-/obj/item/weapon/pen/multi //spaceman96: Trenna Seber
+/obj/item/weapon/pen/multi
 	name = "multicolor pen"
 	desc = "It's a cool looking pen. Lots of colors!"
+
+	// these values are for the overlay
+	var/list/colour_choices = list(
+		"black" = list(0.25, 0.25, 0.25),
+		"red" = list(1, 0.25, 0.25),
+		"green" = list(0, 1, 0),
+		"blue" = list(0.5, 0.5, 1),
+		"yellow" = list(1, 1, 0))
+	var/pen_color_iconstate = "pencolor"
+	var/pen_color_shift = 3
+
+/obj/item/weapon/pen/multi/New()
+	..()
+	update_icon()
+
+/obj/item/weapon/pen/multi/proc/select_colour(mob/user as mob)
+	var/newcolour = input(user, "Which colour would you like to use?", name, colour) as null|anything in colour_choices
+	if(newcolour)
+		colour = newcolour
+		playsound(loc, 'sound/effects/pop.ogg', 50, 1)
+		update_icon()
+
+/obj/item/weapon/pen/multi/attack_self(mob/living/user as mob)
+	select_colour(user)
+
+/obj/item/weapon/pen/multi/update_icon()
+	overlays.Cut()
+	var/icon/o = new(icon, pen_color_iconstate)
+	var/list/c = colour_choices[colour]
+	o.SetIntensity(c[1], c[2], c[3])
+	if(pen_color_shift)
+		o.Shift(SOUTH, pen_color_shift)
+	overlays += o
 
 /obj/item/weapon/pen/fancy
 	name = "fancy pen"
 	desc = "A fancy metal pen. It uses blue ink. An inscription on one side reads,\"L.L. - L.R.\""
 	icon_state = "fancypen"
 
-/obj/item/weapon/pen/gold
+/obj/item/weapon/pen/multi/gold
 	name = "Gilded Pen"
 	desc = "A golden pen that is gilded with a meager amount of gold material. The word 'Nanotrasen' is etched on the clip of the pen."
 	icon_state = "goldpen"
-	
-/obj/item/weapon/pen/fountain
+	pen_color_shift = 0
+
+/obj/item/weapon/pen/multi/fountain
 	name = "Engraved Fountain Pen"
 	desc = "An expensive looking pen."
-	icon_state = "fountainpen"	
+	icon_state = "fountainpen"
+	pen_color_shift = 0
 
 /obj/item/weapon/pen/attack(mob/living/M, mob/user)
 	if(!istype(M))
@@ -75,11 +110,11 @@
 
 	if(!force)
 		if(M.can_inject(user, 1))
-			user << "<span class='warning'>You stab [M] with the pen.</span>"
-//			M << "<span class='danger'>You feel a tiny prick!</span>"
+			to_chat(user, "<span class='warning'>You stab [M] with the pen.</span>")
+//			to_chat(M, "<span class='danger'>You feel a tiny prick!</span>")
 			. = 1
 
-		add_logs(M, user, "stabbed", object="[name]")
+		add_logs(user, M, "stabbed", object="[name]")
 
 	else
 		. = ..()
@@ -126,7 +161,7 @@
 		hitsound = initial(hitsound)
 		throwforce = initial(throwforce)
 		playsound(user, 'sound/weapons/saberoff.ogg', 5, 1)
-		user << "<span class='warning'>[src] can now be concealed.</span>"
+		to_chat(user, "<span class='warning'>[src] can now be concealed.</span>")
 	else
 		on = 1
 		force = 18
@@ -137,7 +172,7 @@
 		hitsound = 'sound/weapons/blade1.ogg'
 		throwforce = 35
 		playsound(user, 'sound/weapons/saberon.ogg', 5, 1)
-		user << "<span class='warning'>[src] is now active.</span>"
+		to_chat(user, "<span class='warning'>[src] is now active.</span>")
 	update_icon()
 
 /obj/item/weapon/pen/edagger/update_icon()
@@ -147,3 +182,22 @@
 	else
 		icon_state = initial(icon_state) //looks like a normal pen when off.
 		item_state = initial(item_state)
+
+/obj/item/proc/on_write(obj/item/weapon/paper/P, mob/user)
+	return
+
+/obj/item/weapon/pen/poison
+	var/uses_left = 3
+
+/obj/item/weapon/pen/poison/on_write(obj/item/weapon/paper/P, mob/user)
+	if(P.contact_poison_volume)
+		to_chat(user, "<span class='warning'>[P] is already coated.</span>")
+	else if(uses_left)
+		uses_left--
+		P.contact_poison = "amanitin"
+		P.contact_poison_volume = 15
+		P.contact_poison_poisoner = user.name
+		add_logs(user, P, "used poison pen on")
+		to_chat(user, "<span class='warning'>You apply the poison to [P].</span>")
+	else
+		to_chat(user, "<span class='warning'>[src] clicks. It seems to be depleted.</span>")

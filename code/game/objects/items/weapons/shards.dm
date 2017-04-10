@@ -7,7 +7,7 @@
 	sharp = 1
 	edge = 1
 	desc = "Could probably be used as ... a throwing weapon?"
-	w_class = 1.0
+	w_class = 1
 	force = 5.0
 	throwforce = 10.0
 	item_state = "shard-glass"
@@ -16,8 +16,8 @@
 	hitsound = 'sound/weapons/bladeslice.ogg'
 
 /obj/item/weapon/shard/suicide_act(mob/user)
-		viewers(user) << pick("\red <b>[user] is slitting \his wrists with \the [src]! It looks like \he's trying to commit suicide.</b>", \
-							"\red <b>[user] is slitting \his throat with \the [src]! It looks like \he's trying to commit suicide.</b>")
+		to_chat(viewers(user), pick("<span class='danger'>[user] is slitting \his wrists with \the [src]! It looks like \he's trying to commit suicide.</span>",
+									"<span class='danger'>[user] is slitting \his throat with \the [src]! It looks like \he's trying to commit suicide.</span>"))
 		return (BRUTELOSS)
 
 /obj/item/weapon/shard/New()
@@ -35,6 +35,24 @@
 		else
 	..()
 
+/obj/item/weapon/shard/afterattack(atom/movable/AM, mob/user, proximity)
+	if(!proximity || !(src in user))
+		return
+	if(isturf(AM))
+		return
+	if(istype(AM, /obj/item/weapon/storage))
+		return
+	if(ishuman(user))
+		var/mob/living/carbon/human/H = user
+		if(!H.gloves)
+			var/obj/item/organ/external/affecting = H.get_organ("[user.hand ? "l" : "r" ]_hand")
+			if(affecting.status & ORGAN_ROBOT)
+				return
+			to_chat(H, "<span class='warning'>[src] cuts into your hand!</span>")
+			if(affecting.take_damage(force*0.5))
+				H.UpdateDamageIcon()
+				H.updatehealth()
+
 /obj/item/weapon/shard/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/weapon/weldingtool))
 		var/obj/item/weapon/weldingtool/WT = I
@@ -46,16 +64,16 @@
 				if(G.amount >= G.max_amount)
 					continue
 				G.attackby(NG, user)
-			user << "<span class='notice'>You add the newly-formed glass to the stack. It now contains [NG.amount] sheet\s.</span>"
+			to_chat(user, "<span class='notice'>You add the newly-formed glass to the stack. It now contains [NG.amount] sheet\s.</span>")
 			qdel(src)
 	..()
 
 /obj/item/weapon/shard/Crossed(AM as mob|obj)
 	if(isliving(AM))
 		var/mob/living/M = AM
-		if (M.incorporeal_move || M.flying)//you are incorporal or flying..no shard stepping!
+		if(M.incorporeal_move || M.flying)//you are incorporal or flying..no shard stepping!
 			return
-		M << "\red <B>You step on \the [src]!</B>"
+		to_chat(M, "<span class='danger'>You step on \the [src]!</span>")
 		playsound(src.loc, 'sound/effects/glass_step.ogg', 50, 1) // not sure how to handle metal shards with sounds
 		if(ishuman(M))
 			var/mob/living/carbon/human/H = M

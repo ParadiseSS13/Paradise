@@ -1,17 +1,17 @@
 /mob/dead/observer/say(var/message)
 	message = sanitize(copytext(message, 1, MAX_MESSAGE_LEN))
 
-	if (!message)
+	if(!message)
 		return
 
 	log_say("Ghost/[src.key] : [message]")
 
-	if (src.client)
+	if(src.client)
 		if(src.client.prefs.muted & MUTE_DEADCHAT)
-			src << "\red You cannot talk in deadchat (muted)."
+			to_chat(src, "\red You cannot talk in deadchat (muted).")
 			return
 
-		if (src.client.handle_spam_prevention(message,MUTE_DEADCHAT))
+		if(src.client.handle_spam_prevention(message,MUTE_DEADCHAT))
 			return
 
 	. = src.say_dead(message)
@@ -30,7 +30,7 @@
 
 	if(src.client)
 		if(src.client.prefs.muted & MUTE_DEADCHAT)
-			src << "\red You cannot emote in deadchat (muted)."
+			to_chat(src, "\red You cannot emote in deadchat (muted).")
 			return
 
 		if(src.client.handle_spam_prevention(message, MUTE_DEADCHAT))
@@ -38,28 +38,11 @@
 
 	. = src.emote_dead(message)
 
-/*
-	for (var/mob/M in hearers(null, null))
-		if (!M.stat)
-			if(M.job == "Chaplain")
-				if (prob (49))
-					M.show_message("<span class='game'><i>You hear muffled speech... but nothing is there...</i></span>", 2)
-					if(prob(20))
-						playsound(src.loc, pick('sound/effects/ghost.ogg','sound/effects/ghost2.ogg'), 10, 1)
-				else
-					M.show_message("<span class='game'><i>You hear muffled speech... you can almost make out some words...</i></span>", 2)
-//				M.show_message("<span class='game'><i>[stutter(message)]</i></span>", 2)
-					if(prob(30))
-						playsound(src.loc, pick('sound/effects/ghost.ogg','sound/effects/ghost2.ogg'), 10, 1)
-			else
-				if (prob(50))
-					return
-				else if (prob (95))
-					M.show_message("<span class='game'><i>You hear muffled speech... but nothing is there...</i></span>", 2)
-					if(prob(20))
-						playsound(src.loc, pick('sound/effects/ghost.ogg','sound/effects/ghost2.ogg'), 10, 1)
-				else
-					M.show_message("<span class='game'><i>You hear muffled speech... you can almost make out some words...</i></span>", 2)
-//				M.show_message("<span class='game'><i>[stutter(message)]</i></span>", 2)
-					playsound(src.loc, pick('sound/effects/ghost.ogg','sound/effects/ghost2.ogg'), 10, 1)
-*/
+/mob/dead/observer/handle_track(var/message, var/verb = "says", var/datum/language/language, var/mob/speaker = null, var/speaker_name, var/atom/follow_target, var/hard_to_hear)
+	return "[speaker_name] ([ghost_follow_link(follow_target, ghost=src)])"
+
+/mob/dead/observer/handle_speaker_name(var/mob/speaker = null, var/vname, var/hard_to_hear)
+	var/speaker_name = ..()
+	if(speaker && (speaker_name != speaker.real_name) && !isAI(speaker)) //Announce computer and various stuff that broadcasts doesn't use it's real name but AI's can't pretend to be other mobs.
+		speaker_name = "[speaker.real_name] ([speaker_name])"
+	return speaker_name

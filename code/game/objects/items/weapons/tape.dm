@@ -12,9 +12,38 @@
 
 	update_icon()
 
+/obj/item/stack/tape_roll/attack(mob/living/carbon/human/M as mob, mob/living/user as mob)
+	if(M.wear_mask)
+		to_chat(user, "Remove their mask first!")
+	else if(amount < 2)
+		to_chat(user, "You'll need more tape for this!")
+	else if(!M.check_has_mouth())
+		to_chat(user, "They have no mouth to tape over!")
+	else
+		if(M == user)
+			to_chat(user, "You try to tape your own mouth shut.")
+		else
+			to_chat(user, "You try to tape [M]'s mouth shut.")
+			M.visible_message("<span class='warning'>[user] tries to tape [M]'s mouth closed!</span>")
+		if(do_after(user, 50, target = M))
+			if(M == user)
+				to_chat(user, "You cover your own mouth with a piece of duct tape.")
+			else
+				to_chat(user, "You cover [M]'s mouth with a piece of duct tape. That will shut them up!")
+				M.visible_message("<span class='warning'>[user] tapes [M]'s mouth shut!</span>")
+			var/obj/item/clothing/mask/muzzle/G = new /obj/item/clothing/mask/muzzle/tapegag
+			M.equip_to_slot(G, slot_wear_mask)
+			G.add_fingerprint(user)
+			amount = amount - 2
+	if(amount <= 0)
+		user.unEquip(src, 1)
+		qdel(src)
+
+
+
 /* -- Disabled for now until it has a use --
 /obj/item/stack/tape_roll/attack_self(mob/user as mob)
-	user << "You remove a length of tape from [src]."
+	to_chat(user, "You remove a length of tape from [src].")
 
 	var/obj/item/weapon/ducttape/tape = new()
 	user.put_in_hands(tape)
@@ -71,7 +100,7 @@
 	if(!stuck)
 		return
 
-	user << "You remove \the [initial(name)] from [stuck]."
+	to_chat(user, "You remove \the [initial(name)] from [stuck].")
 
 	user.unEquip(src)
 	stuck.forceMove(get_turf(src))
@@ -91,8 +120,8 @@
 	if(target_turf != source_turf)
 		dir_offset = get_dir(source_turf, target_turf)
 		if(!(dir_offset in cardinal))
-			user << "You cannot reach that from here."		// can only place stuck papers in cardinal directions, to
-			return											// reduce papers around corners issue.
+			to_chat(user, "You cannot reach that from here.")// can only place stuck papers in cardinal directions, to
+			return											 // reduce papers around corners issue.
 
 	user.unEquip(src)
 	forceMove(source_turf)

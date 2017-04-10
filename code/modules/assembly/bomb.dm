@@ -3,13 +3,14 @@
 	icon = 'icons/obj/tank.dmi'
 	item_state = "assembly"
 	throwforce = 5
-	w_class = 3.0
+	w_class = 3
 	throw_speed = 2
 	throw_range = 4
 	flags = CONDUCT //Copied this from old code, so this may or may not be necessary
 	var/status = 0   //0 - not readied //1 - bomb finished with welder
 	var/obj/item/device/assembly_holder/bombassembly = null   //The first part of the bomb is an assembly holder, holding an igniter+some device
 	var/obj/item/weapon/tank/bombtank = null //the second part of the bomb is a plasma tank
+	origin_tech = "materials=1;engineering=1"
 
 /obj/item/device/onetankbomb/examine(mob/user)
 	..(user)
@@ -29,7 +30,7 @@
 		return
 	if(istype(W, /obj/item/weapon/wrench) && !status)	//This is basically bomb assembly code inverted. apparently it works.
 
-		user << "<span class='notice'>You disassemble [src].</span>"
+		to_chat(user, "<span class='notice'>You disassemble [src].</span>")
 
 		bombassembly.loc = user.loc
 		bombassembly.master = null
@@ -46,11 +47,11 @@
 			status = 1
 			bombers += "[key_name(user)] welded a single tank bomb. Temperature: [bombtank.air_contents.temperature-T0C]"
 			msg_admin_attack("[key_name_admin(user)] welded a single tank bomb. Temperature: [bombtank.air_contents.temperature-T0C]")
-			user << "<span class='notice'>A pressure hole has been bored to [bombtank] valve. \The [bombtank] can now be ignited.</span>"
+			to_chat(user, "<span class='notice'>A pressure hole has been bored to [bombtank] valve. \The [bombtank] can now be ignited.</span>")
 		else
 			status = 0
 			bombers += "[key_name(user)] unwelded a single tank bomb. Temperature: [bombtank.air_contents.temperature-T0C]"
-			user << "<span class='notice'>The hole has been closed.</span>"
+			to_chat(user, "<span class='notice'>The hole has been closed.</span>")
 	add_fingerprint(user)
 	..()
 
@@ -60,7 +61,7 @@
 	return
 
 /obj/item/device/onetankbomb/receive_signal()	//This is mainly called by the sensor through sense() to the holder, and from the holder to here.
-	visible_message("\icon[src] *beep* *beep*", "*beep* *beep*")
+	visible_message("[bicon(src)] *beep* *beep*", "*beep* *beep*")
 	sleep(10)
 	if(!src)
 		return
@@ -140,7 +141,7 @@
 
 		if(strength >=1)
 			explosion(ground_zero, 0, round(strength,1), round(strength*2,1), round(strength*3,1))
-		else if (strength >=0.5)
+		else if(strength >=0.5)
 			explosion(ground_zero, -1, 0, 1, 2)
 		else
 			ground_zero.assume_air(air_contents)
@@ -149,7 +150,7 @@
 	else if(air_contents.temperature > (T0C + 100))
 		strength = (fuel_moles/25)
 
-		if (strength >=1)
+		if(strength >=1)
 			explosion(ground_zero, -1, 0, round(strength,1), round(strength*3,1))
 		else
 			ground_zero.assume_air(air_contents)

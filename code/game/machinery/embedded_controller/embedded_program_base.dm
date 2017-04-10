@@ -7,7 +7,7 @@
 
 /datum/computer/file/embedded_program/New(var/obj/machinery/embedded_controller/M)
 	master = M
-	if (istype(M, /obj/machinery/embedded_controller/radio))
+	if(istype(M, /obj/machinery/embedded_controller/radio))
 		var/obj/machinery/embedded_controller/radio/R = M
 		id_tag = R.id_tag
 

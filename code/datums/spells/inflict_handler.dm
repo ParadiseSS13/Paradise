@@ -19,18 +19,11 @@
 
 	var/summon_type = null //this will put an obj at the target's location
 
-/obj/effect/proc_holder/spell/targeted/inflict_handler/cast(list/targets)
+/obj/effect/proc_holder/spell/targeted/inflict_handler/cast(list/targets, mob/user = usr)
 
 	for(var/mob/living/target in targets)
 		switch(destroys)
 			if("gib")
-				target.gib()
-			if("gib_brain")
-				if(ishuman(target))
-					var/mob/living/carbon/C = target
-					if(C.brain_op_stage != 4) // Their brain is already taken out
-						var/obj/item/organ/brain/B = new(C.loc)
-						B.transfer_identity(C)
 				target.gib()
 			if("disintegrate")
 				target.dust()
@@ -41,14 +34,14 @@
 		if(amt_dam_brute > 0)
 			if(amt_dam_fire >= 0)
 				target.take_overall_damage(amt_dam_brute,amt_dam_fire)
-			else if (amt_dam_fire < 0)
+			else if(amt_dam_fire < 0)
 				target.take_overall_damage(amt_dam_brute,0)
 				target.heal_overall_damage(0,amt_dam_fire)
 		else if(amt_dam_brute < 0)
 			if(amt_dam_fire > 0)
 				target.take_overall_damage(0,amt_dam_fire)
 				target.heal_overall_damage(amt_dam_brute,0)
-			else if (amt_dam_fire <= 0)
+			else if(amt_dam_fire <= 0)
 				target.heal_overall_damage(amt_dam_brute,amt_dam_fire)
 		target.adjustToxLoss(amt_dam_tox)
 		target.oxyloss += amt_dam_oxy
@@ -57,8 +50,8 @@
 		target.Paralyse(amt_paralysis)
 		target.Stun(amt_stunned)
 
-		target.eye_blind += amt_eye_blind
-		target.eye_blurry += amt_eye_blurry
+		target.AdjustEyeBlind(amt_eye_blind)
+		target.AdjustEyeBlurry(amt_eye_blurry)
 		//summoning
 		if(summon_type)
 			new summon_type(target.loc, target)

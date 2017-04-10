@@ -5,7 +5,7 @@
 	var/obj/effect/tear/TE
 
 /datum/event/tear/announce()
-	command_announcement.Announce("A tear in the fabric of space and time has opened. Expected location: [impact_area.name].", "Anomaly Alert")
+	event_announcement.Announce("A tear in the fabric of space and time has opened. Expected location: [impact_area.name].", "Anomaly Alert")
 
 /datum/event/tear/start()
 	var/turf/T = pick(get_area_turfs(impact_area))
@@ -41,15 +41,17 @@
 		if(animation)	qdel(animation)
 
 	spawn(rand(30,120))
-		var/blocked = blocked_mobs //global variable for blocked mobs
+		var/list/tear_critters = list()
+		for(var/T in typesof(/mob/living/simple_animal))
+			var/mob/living/simple_animal/SA = T
+			if(initial(SA.gold_core_spawnable) == CHEM_MOB_SPAWN_HOSTILE)
+				tear_critters += T
 
-		var/list/critters = typesof(/mob/living/simple_animal/hostile) - blocked // list of possible hostile mobs
-
-		for(var/i = 1, i <= 5, i++)
-			var/chosen = pick(critters)
-			var/mob/living/simple_animal/hostile/C = new chosen
-			C.faction = list("slimesummon")
-			C.loc = src.loc
+		for(var/i in 1 to 5)
+			var/chosen = pick(tear_critters)
+			var/mob/living/simple_animal/C = new chosen
+			C.faction |= "chemicalsummon"
+			C.forceMove(get_turf(src))
 			if(prob(50))
 				for(var/j = 1, j <= rand(1, 3), j++)
 					step(C, pick(NORTH,SOUTH,EAST,WEST))

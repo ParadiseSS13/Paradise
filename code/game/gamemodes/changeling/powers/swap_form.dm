@@ -11,14 +11,14 @@
 		return
 	var/obj/item/weapon/grab/G = user.get_active_hand()
 	if(!istype(G) || (G.state < GRAB_AGGRESSIVE))
-		user << "<span class='warning'>We must have an aggressive grab on creature in our active hand to do this!</span>"
+		to_chat(user, "<span class='warning'>We must have an aggressive grab on creature in our active hand to do this!</span>")
 		return
 	var/mob/living/carbon/human/target = G.affecting
 	if((NOCLONE || SKELETON || HUSK) in target.mutations)
-		user << "<span class='warning'>DNA of [target] is ruined beyond usability!</span>"
+		to_chat(user, "<span class='warning'>DNA of [target] is ruined beyond usability!</span>")
 		return
-	if(!istype(target) || issmall(target) || target.species.flags & NO_DNA_RAD || target.species.flags & NO_SCAN || target.species.flags & NO_BLOOD)
-		user << "<span class='warning'>[target] is not compatible with this ability.</span>"
+	if(!istype(target) || issmall(target) || target.species.flags & NO_DNA)
+		to_chat(user, "<span class='warning'>[target] is not compatible with this ability.</span>")
 		return
 	return 1
 
@@ -28,20 +28,22 @@
 	var/mob/living/carbon/human/target = G.affecting
 	var/datum/changeling/changeling = user.mind.changeling
 
-	user << "<span class='notice'>We tighen our grip. We must hold still....</span>"
+	to_chat(user, "<span class='notice'>We tighten our grip. We must hold still....</span>")
 	target.do_jitter_animation(500)
 	user.do_jitter_animation(500)
 
 	if(!do_mob(user,target,20))
-		user << "<span class='warning'>The body swap has been interrupted!</span>"
+		to_chat(user, "<span class='warning'>The body swap has been interrupted!</span>")
 		return
 
-	target << "<span class='userdanger'>[user] tightens their grip as a painful sensation invades your body.</span>"
+	to_chat(target, "<span class='userdanger'>[user] tightens their grip as a painful sensation invades your body.</span>")
 
+	changeling.absorbed_dna -= changeling.find_dna(user.dna)
+	changeling.protected_dna -= changeling.find_dna(user.dna)
+	changeling.absorbedcount -= 1
 	if(!changeling.has_dna(target.dna))
 		changeling.absorb_dna(target, user)
-	changeling.protected_dna -= user.dna
-	changeling.absorbed_dna -= user.dna
+	changeling.trim_dna()
 
 	var/mob/dead/observer/ghost = target.ghostize(0)
 	user.mind.transfer_to(target)
@@ -50,6 +52,8 @@
 		user.key = ghost.key
 
 	user.Paralyse(2)
-	user.remove_language("Changeling")
 	target.add_language("Changeling")
-	target << "<span class='warning'>Our genes cry out as we swap our [user] form for [target].</span>"
+	user.remove_language("Changeling")
+
+	to_chat(target, "<span class='warning'>Our genes cry out as we swap our [user] form for [target].</span>")
+	return 1

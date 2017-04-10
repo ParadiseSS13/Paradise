@@ -60,8 +60,8 @@ var/global/max_secret_rooms = 6
 		if("organharvest")
 			walltypes = list(/turf/simulated/wall/r_wall=2,/turf/simulated/wall=2,/turf/simulated/mineral/random/high_chance=1)
 			floortypes = list(/turf/simulated/floor,/turf/simulated/floor/engine)
-			treasureitems = list(/obj/machinery/bot/medbot/mysterious=1, /obj/item/weapon/circular_saw=1, /obj/structure/closet/critter/cat=2)
-			fluffitems = list(/obj/effect/decal/cleanable/blood=5,/obj/item/organ/appendix=2,/obj/structure/closet/crate/freezer=2,
+			treasureitems = list(/mob/living/simple_animal/bot/medbot/mysterious=1, /obj/item/weapon/circular_saw=1, /obj/structure/closet/critter/cat=2)
+			fluffitems = list(/obj/effect/decal/cleanable/blood=5,/obj/item/organ/internal/appendix=2,/obj/structure/closet/crate/freezer=2,
 							  /obj/machinery/optable=1,/obj/item/weapon/scalpel=1,/obj/item/weapon/storage/firstaid/regular=3,
 							  /obj/item/weapon/tank/anesthetic=1, /obj/item/weapon/surgical_drapes=2, /obj/item/device/mass_spectrometer/adv=1,/obj/item/clothing/glasses/hud/health=1)
 
@@ -70,9 +70,9 @@ var/global/max_secret_rooms = 6
 			walltypes = list(/turf/simulated/wall/cult=3,/turf/simulated/mineral/random/high_chance=1)
 			floortypes = list(/turf/simulated/floor/engine/cult)
 			treasureitems = list(/obj/item/device/soulstone=1, /obj/item/clothing/suit/space/cult=1, /obj/item/weapon/bedsheet/cult=2,
-								 /obj/item/clothing/suit/cultrobes=2, /mob/living/simple_animal/hostile/creature=3)
+								 /obj/item/clothing/suit/hooded/cultrobes=2, /mob/living/simple_animal/hostile/creature=3)
 			fluffitems = list(/obj/effect/gateway=1,/obj/effect/gibspawner=1,/obj/structure/cult/talisman=1,/obj/item/toy/crayon/red=2,
-							  /obj/item/organ/heart=2, /obj/effect/decal/cleanable/blood=4,/obj/structure/table/woodentable=2,/obj/item/weapon/ectoplasm=3,
+							  /obj/item/organ/internal/heart=2, /obj/effect/decal/cleanable/blood=4,/obj/structure/table/woodentable=2,/obj/item/weapon/reagent_containers/food/snacks/ectoplasm=3,
 							  /obj/item/clothing/head/helmet/space/cult=1, /obj/item/clothing/shoes/cult=1)
 
 		if("wizden")
@@ -88,7 +88,7 @@ var/global/max_secret_rooms = 6
 			theme = "cavein"
 			walltypes = list(/turf/simulated/mineral/random/high_chance=1)
 			floortypes = list(/turf/simulated/floor/plating/airless/asteroid, /turf/simulated/floor/beach/sand)
-			treasureitems = list(/obj/mecha/working/ripley/mining=1, /obj/item/weapon/pickaxe/drill/diamonddrill=2,/obj/item/weapon/gun/energy/kinetic_accelerator/hyper=1,
+			treasureitems = list(/obj/mecha/working/ripley/mining=1, /obj/item/weapon/pickaxe/drill/diamonddrill=2,
 							/obj/item/weapon/resonator/upgraded=1, /obj/item/weapon/pickaxe/drill/jackhammer=5)
 			fluffitems = list(/obj/effect/decal/cleanable/blood=3,/obj/effect/decal/remains/human=1,/obj/item/clothing/under/overalls=1,
 							  /obj/item/weapon/reagent_containers/food/snacks/grown/chili=1,/obj/item/weapon/tank/oxygen/red=2)
@@ -115,16 +115,16 @@ var/global/max_secret_rooms = 6
 			floortypes = list(/turf/simulated/floor,/turf/simulated/floor/wood)
 			treasureitems = list(/obj/item/weapon/melee/energy/sword/pirate=1,/obj/item/weapon/gun/projectile/revolver/doublebarrel=1,/obj/item/weapon/storage/backpack/satchel_flat=1,
 			/obj/machinery/reagentgrinder=2, /obj/machinery/computer/security/wooden_tv=4, /obj/machinery/vending/coffee=3)
-			fluffitems = list(/obj/structure/table/woodentable=2,/obj/structure/reagent_dispensers/beerkeg=1,/obj/item/weapon/spacecash/c500=4,
+			fluffitems = list(/obj/structure/table/woodentable=2,/obj/structure/reagent_dispensers/beerkeg=1,/obj/item/stack/spacecash/c500=4,
 							  /obj/item/weapon/reagent_containers/food/drinks/shaker=1,/obj/item/weapon/reagent_containers/food/drinks/bottle/wine=3,
 							  /obj/item/weapon/reagent_containers/food/drinks/bottle/whiskey=3,/obj/item/clothing/shoes/laceup=2)
 
 		if("plantlab")
 			theme = "plantlab"
-			treasureitems = list(/obj/item/weapon/gun/energy/floragun=1,/obj/item/seeds/ambrosiadeusseed=2,/obj/item/seeds/bluespacetomatoseed=2,/obj/item/seeds/bluetomatoseed=2,
-			/obj/item/seeds/coffeerseed=2, /obj/item/seeds/stobaccoseed=2)
-			fluffitems = list(/obj/structure/flora/kirbyplants=1,/obj/structure/table/reinforced=2,/obj/machinery/portable_atmospherics/hydroponics=1,
-							  /obj/effect/glowshroom/single=2,/obj/item/weapon/reagent_containers/syringe/charcoal=2,
+			treasureitems = list(/obj/item/weapon/gun/energy/floragun=1,/obj/item/seeds/ambrosia/deus=2,/obj/item/seeds/tomato/blue/bluespace=2,/obj/item/seeds/tomato/blue=2,
+			/obj/item/seeds/coffee/robusta=2, /obj/item/seeds/tobacco/space=2)
+			fluffitems = list(/obj/item/weapon/twohanded/required/kirbyplants=1,/obj/structure/table/reinforced=2,/obj/machinery/hydroponics=1,
+							  /obj/structure/glowshroom/single=2,/obj/item/weapon/reagent_containers/syringe/charcoal=2,
 							  /obj/item/weapon/reagent_containers/glass/bottle/diethylamine=3,/obj/item/weapon/reagent_containers/glass/bottle/ammonia=3)
 
 		/*if("poly")
@@ -139,7 +139,7 @@ var/global/max_secret_rooms = 6
 	possiblethemes -= theme //once a theme is selected, it's out of the running!
 	var/floor = pick(floortypes)
 
-	turfs = get_area_turfs(/area/mine/unexplored)
+	turfs = get_area_turfs(/area/mine/dangerous/unexplored)
 
 	if(!turfs.len)
 		return 0
@@ -161,7 +161,7 @@ var/global/max_secret_rooms = 6
 		surroundings += range(7, locate(T.x,T.y+y_size,T.z))
 		surroundings += range(7, locate(T.x+x_size,T.y+y_size,T.z))
 
-		if(locate(/area/mine/explored) in surroundings)
+		if(locate(/area/mine/dangerous/explored) in surroundings)
 			valid = 0
 			continue
 
@@ -194,7 +194,7 @@ var/global/max_secret_rooms = 6
 					A.fullUpdateMineralOverlays()
 		T = pick(emptyturfs)
 		if(T)
-			new /obj/effect/glowshroom/single(T) //Just to make it a little more visible
+			new /obj/structure/glowshroom/single(T) //Just to make it a little more visible
 			var/surprise = null
 			surprise = pickweight(treasureitems)
 			new surprise(T)//here's the prize
@@ -207,6 +207,5 @@ var/global/max_secret_rooms = 6
 				new garbage(T)
 				areapoints -= 5
 				emptyturfs -= T
-			//log_to_dd("The [theme] themed [T.loc] has been created!")
 
 	return 1

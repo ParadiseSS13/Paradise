@@ -1,5 +1,13 @@
 /obj/item/weapon/shield
 	name = "shield"
+	block_chance = 50
+
+/obj/item/weapon/shield/hit_reaction(mob/living/carbon/human/owner, attack_text, final_block_chance, damage, attack_type)
+	if(attack_type == THROWN_PROJECTILE_ATTACK)
+		final_block_chance += 30
+	if(attack_type == LEAP_ATTACK)
+		final_block_chance = 100
+	return ..()
 
 /obj/item/weapon/shield/riot
 	name = "riot shield"
@@ -7,7 +15,7 @@
 	icon = 'icons/obj/weapons.dmi'
 	icon_state = "riot"
 	slot_flags = SLOT_BACK
-	force = 8
+	force = 10
 	throwforce = 5
 	throw_speed = 2
 	throw_range = 3
@@ -16,9 +24,6 @@
 	origin_tech = "materials=2"
 	attack_verb = list("shoved", "bashed")
 	var/cooldown = 0 //shield bash cooldown. based on world.time
-
-/obj/item/weapon/shield/riot/IsShield()
-	return 1
 
 /obj/item/weapon/shield/riot/attackby(obj/item/weapon/W as obj, mob/user as mob, params)
 	if(istype(W, /obj/item/weapon/melee/baton))
@@ -35,6 +40,15 @@
 	icon_state = "roman_shield"
 	item_state = "roman_shield"
 
+/obj/item/weapon/shield/riot/buckler
+	name = "wooden buckler"
+	desc = "A medieval wooden buckler."
+	icon_state = "buckler"
+	item_state = "buckler"
+	materials = list()
+	burn_state = FLAMMABLE
+	block_chance = 30
+
 /obj/item/weapon/shield/energy
 	name = "energy combat shield"
 	desc = "A shield capable of stopping most melee attacks. Protects user from almost all energy projectiles. It can be retracted, expanded, and stored anywhere."
@@ -49,15 +63,15 @@
 	attack_verb = list("shoved", "bashed")
 	var/active = 0
 
-/obj/item/weapon/shield/energy/IsShield()
-	return (active)
+/obj/item/weapon/shield/energy/hit_reaction(mob/living/carbon/human/owner, attack_text, final_block_chance)
+	return 0
 
 /obj/item/weapon/shield/energy/IsReflect()
 	return (active)
 
 /obj/item/weapon/shield/energy/attack_self(mob/living/carbon/human/user)
 	if(user.disabilities & CLUMSY && prob(50))
-		user << "<span class='warning'>You beat yourself in the head with [src].</span>"
+		to_chat(user, "<span class='warning'>You beat yourself in the head with [src].</span>")
 		user.take_organ_damage(5)
 	active = !active
 	icon_state = "eshield[active]"
@@ -68,14 +82,14 @@
 		throw_speed = 2
 		w_class = 4
 		playsound(user, 'sound/weapons/saberon.ogg', 35, 1)
-		user << "<span class='notice'>[src] is now active.</span>"
+		to_chat(user, "<span class='notice'>[src] is now active.</span>")
 	else
 		force = 3
 		throwforce = 3
 		throw_speed = 3
 		w_class = 1
 		playsound(user, 'sound/weapons/saberoff.ogg', 35, 1)
-		user << "<span class='notice'>[src] can now be concealed.</span>"
+		to_chat(user, "<span class='notice'>[src] can now be concealed.</span>")
 	if(istype(user,/mob/living/carbon/human))
 		var/mob/living/carbon/human/H = user
 		H.update_inv_l_hand()
@@ -96,8 +110,10 @@
 	w_class = 3
 	var/active = 0
 
-/obj/item/weapon/shield/riot/tele/IsShield()
-	return (active)
+/obj/item/weapon/shield/riot/tele/hit_reaction(mob/living/carbon/human/owner, attack_text, final_block_chance)
+	if(active)
+		return ..()
+	return 0
 
 /obj/item/weapon/shield/riot/tele/attack_self(mob/living/user)
 	active = !active
@@ -110,51 +126,17 @@
 		throw_speed = 2
 		w_class = 4
 		slot_flags = SLOT_BACK
-		user << "<span class='notice'>You extend \the [src].</span>"
+		to_chat(user, "<span class='notice'>You extend \the [src].</span>")
 	else
 		force = 3
 		throwforce = 3
 		throw_speed = 3
 		w_class = 3
 		slot_flags = null
-		user << "<span class='notice'>[src] can now be concealed.</span>"
+		to_chat(user, "<span class='notice'>[src] can now be concealed.</span>")
 	if(istype(user,/mob/living/carbon/human))
 		var/mob/living/carbon/human/H = user
 		H.update_inv_l_hand()
 		H.update_inv_r_hand()
 	add_fingerprint(user)
 	return
-
-
-/obj/item/weapon/cloaking_device
-	name = "cloaking device"
-	desc = "Use this to become invisible to the human eyesocket."
-	icon = 'icons/obj/device.dmi'
-	icon_state = "shield0"
-	var/active = 0.0
-	flags = CONDUCT
-	item_state = "electronic"
-	throwforce = 10.0
-	throw_speed = 2
-	throw_range = 10
-	w_class = 2.0
-	origin_tech = "magnets=3;syndicate=4"
-
-
-/obj/item/weapon/cloaking_device/attack_self(mob/user as mob)
-	src.active = !( src.active )
-	if (src.active)
-		user << "\blue The cloaking device is now active."
-		src.icon_state = "shield1"
-	else
-		user << "\blue The cloaking device is now inactive."
-		src.icon_state = "shield0"
-	src.add_fingerprint(user)
-	return
-
-/obj/item/weapon/cloaking_device/emp_act(severity)
-	active = 0
-	icon_state = "shield0"
-	if(ismob(loc))
-		loc:update_icons()
-	..()
