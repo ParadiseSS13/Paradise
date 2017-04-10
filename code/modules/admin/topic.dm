@@ -825,6 +825,7 @@
 						for(var/job in notbannedlist)
 							ban_unban_log_save("[key_name(usr)] perma-jobbanned [key_name(M)] from [job]. reason: [reason]")
 							log_admin("[key_name(usr)] perma-banned [key_name(M)] from [job]")
+							usr << 'sound/effects/tiran.ogg'
 							feedback_inc("ban_job",1)
 							DB_ban_record(BANTYPE_JOB_PERMA, M, -1, reason, job)
 							feedback_add_details("ban_job","- [job]")
@@ -856,6 +857,7 @@
 					if("Yes")
 						ban_unban_log_save("[key_name(usr)] unjobbanned [key_name(M)] from [job]")
 						log_admin("[key_name(usr)] unbanned [key_name(M)] from [job]")
+						usr << 'sound/effects/netiran.ogg'
 						DB_ban_unban(M.ckey, BANTYPE_JOB_PERMA, job)
 						feedback_inc("ban_job_unban",1)
 						feedback_add_details("ban_job_unban","- [job]")
@@ -975,6 +977,7 @@
 					to_chat(M, "\red No ban appeals URL has been set.")
 				log_admin("[key_name(usr)] has banned [M.ckey].\nReason: [reason]\nThis will be removed in [mins] minutes.")
 				message_admins("\blue [key_name_admin(usr)] has banned [M.ckey].\nReason: [reason]\nThis will be removed in [mins] minutes.")
+				usr << 'sound/effects/tiran.ogg'
 
 				del(M.client)
 				//qdel(M)	// See no reason why to delete mob. Important stuff can be lost. And ban can be lifted before round ends.
@@ -999,6 +1002,7 @@
 				message_admins("\blue[key_name_admin(usr)] has banned [M.ckey].\nReason: [reason]\nThis is a permanent ban.")
 				feedback_inc("ban_perma",1)
 				DB_ban_record(BANTYPE_PERMA, M, -1, reason)
+				usr << 'sound/effects/tiran.ogg'
 
 				del(M.client)
 				//qdel(M)
@@ -1719,10 +1723,10 @@
 		var/input = input(src.owner, "Please enter a message to reply to [key_name(H)] via their headset.","Outgoing message from Centcomm", "")
 		if(!input)	return
 
-		to_chat(src.owner, "You sent [input] to [H] via a secure channel.")
-		log_admin("[key_name(src.owner)] replied to [key_name(H)]'s Centcomm message with the message [input].")
-		message_admins("[key_name_admin(src.owner)] replied to [key_name_admin(H)]'s Centcom message with: \"[input]\"")
-		to_chat(H, "You hear something crackle in your headset for a moment before a voice speaks.  \"Please stand by for a message from Central Command.  Message as follows. [input].  Message ends.\"")
+		to_chat(src.owner, "You sent [sanitize(input)] to [H] via a secure channel.")
+		log_admin("[key_name(src.owner)] replied to [key_name(H)]'s Centcomm message with the message [sanitize(input)].")
+		message_admins("[key_name_admin(src.owner)] replied to [key_name_admin(H)]'s Centcom message with: \"[sanitize(input)]\"")
+		to_chat(H, "You hear something crackle in your headset for a moment before a voice speaks.  \"Please stand by for a message from Central Command.  Message as follows. [sanitize(input)].  Message ends.\"")
 
 	else if(href_list["EvilFax"])
 		if(!check_rights(R_ADMIN))
