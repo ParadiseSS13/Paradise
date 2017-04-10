@@ -1,4 +1,0 @@
-author: "Purpose2"
-delete-after: True
-changes: 
-  - bugfix: "Welders must now been fueled and active to cut lattices."
