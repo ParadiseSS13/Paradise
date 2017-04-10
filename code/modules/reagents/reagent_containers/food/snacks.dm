@@ -405,16 +405,15 @@
 		reagents.add_reagent("coco", 2)
 		bitesize = 2
 
-/obj/item/weapon/reagent_containers/food/snacks/reagentchocolatebar //for reagent chocolate
-	name = "Chocolate Bar"
-	desc = "A plain chocolate bar. Is it dark chocolate, milk chocolate? Who knows!"
-	icon_state = "chocolatebar"
+/obj/item/weapon/reagent_containers/food/snacks/cocoa_pile //for reagent chocolate being spilled on turfs
+	name = "Pile of Cocoa Powder"
+	desc = "A pile of pure cocoa powder."
+	icon_state = "cocoa"
 	filling_color = "#7D5F46"
 
 	New()
 		..()
-		reagents.add_reagent("sugar", 10)
-		reagents.add_reagent("chocolate",10)
+		reagents.add_reagent("chocolate",5)		//no longer can be used to generate the reagent infinitely
 		bitesize = 2
 
 /obj/item/weapon/reagent_containers/food/snacks/chocolateegg

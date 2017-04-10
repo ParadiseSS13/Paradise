@@ -1236,6 +1236,7 @@
 		ticker.mode.forge_traitor_objectives(src)
 		ticker.mode.finalize_traitor(src)
 		ticker.mode.greet_traitor(src)
+		ticker.mode.update_traitor_icons_added(src)
 
 /datum/mind/proc/make_Nuke()
 	if(!(src in ticker.mode.syndicates))
@@ -1275,6 +1276,7 @@
 		special_role = "Changeling"
 		ticker.mode.forge_changeling_objectives(src)
 		ticker.mode.greet_changeling(src)
+		ticker.mode.update_change_icons_added(src)
 
 /datum/mind/proc/make_Wizard()
 	if(!(src in ticker.mode.wizards))
@@ -1294,6 +1296,7 @@
 		ticker.mode.name_wizard(current)
 		ticker.mode.forge_wizard_objectives(src)
 		ticker.mode.greet_wizard(src)
+		ticker.mode.update_wiz_icons_added(src)
 
 
 /datum/mind/proc/make_Cultist()

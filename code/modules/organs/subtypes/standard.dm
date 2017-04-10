@@ -137,7 +137,9 @@
 
 /obj/item/organ/external/head/removed()
 	if(owner)
-		name = "[owner.real_name]'s head"
+		if(!istype(dna))
+			dna = owner.dna.Clone()
+		name = "[dna.real_name]'s head"
 		owner.unEquip(owner.glasses)
 		owner.unEquip(owner.head)
 		owner.unEquip(owner.l_ear)

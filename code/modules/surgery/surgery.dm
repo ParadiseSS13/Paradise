@@ -66,7 +66,7 @@
 /datum/surgery_step/proc/fail_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool)
 	return null
 
-/proc/spread_germs_to_organ(obj/item/organ/external/E, mob/living/carbon/human/user)
+/proc/spread_germs_to_organ(obj/item/organ/E, mob/living/carbon/human/user)
 	if(!istype(user) || !istype(E)) return
 
 	var/germ_level = user.germ_level
@@ -131,4 +131,5 @@
 	var/ribcage =	0
 	var/head_reattach = 0
 	var/current_organ = "organ"
+	var/obj/item/organ/organ_ref = null
 	var/list/in_progress = list()

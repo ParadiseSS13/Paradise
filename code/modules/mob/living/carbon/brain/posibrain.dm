@@ -54,19 +54,24 @@
 		else if (response == "Never for this round")
 			C.prefs.be_special ^= BE_PAI
 
+// This should not ever happen, but let's be safe
+/obj/item/device/mmi/posibrain/dropbrain(var/turf/dropspot)
+	log_to_dd("[src] at [loc] attempted to drop brain without a contained brain.")
+	return
 
 /obj/item/device/mmi/posibrain/transfer_identity(var/mob/living/carbon/H)
 	name = "positronic brain ([H])"
-	brainmob.name = H.real_name
-	brainmob.real_name = H.real_name
-	brainmob.dna = H.dna
+	if(isnull(brainmob.dna))
+		brainmob.dna = H.dna.Clone()
+	brainmob.name = brainmob.dna.real_name
+	brainmob.real_name = brainmob.name
 	brainmob.timeofhostdeath = H.timeofdeath
-	brainmob.stat = 0
+	brainmob.stat = CONSCIOUS
 	if(brainmob.mind)
 		brainmob.mind.assigned_role = "Positronic Brain"
 	if(H.mind)
 		H.mind.transfer_to(brainmob)
-	brainmob << "\blue You feel slightly disoriented. That's normal when you're just a metal cube."
+	brainmob << "<span class='notice'>You feel slightly disoriented. That's normal when you're just a metal cube.</span>"
 	icon_state = "posibrain-occupied"
 	return
 

@@ -37,11 +37,15 @@
 			brainmob.client.screen.len = null //clear the hud
 
 /obj/item/organ/brain/proc/transfer_identity(var/mob/living/carbon/H)
-	name = "\the [H]'s [initial(src.name)]"
 	brainmob = new(src)
-	brainmob.name = H.real_name
-	brainmob.real_name = H.real_name
-	brainmob.dna = H.dna.Clone()
+	if(isnull(dna)) // someone didn't set this right...
+		log_to_dd("[src] at [loc] did not contain a dna datum at time of removed.")
+		dna = H.dna.Clone()
+	name = "\the [dna.real_name]'s [initial(src.name)]"
+	brainmob.dna = dna.Clone() // Silly baycode, what you do
+//	brainmob.dna = H.dna.Clone() Putting in and taking out a brain doesn't make it a carbon copy of the original brain of the body you put it in
+	brainmob.name = dna.real_name
+	brainmob.real_name = dna.real_name
 	brainmob.timeofhostdeath = H.timeofdeath
 	if(H.mind)
 		H.mind.transfer_to(brainmob)
@@ -59,33 +63,38 @@
 /obj/item/organ/brain/removed(var/mob/living/user)
 
 	if(!owner) return ..() // Probably a redundant removal; just bail
-	name = "[owner.real_name]'s brain"
-
-	var/mob/living/simple_animal/borer/borer = owner.has_brain_worms()
-
-	if(borer)
-		borer.detatch() //Should remove borer if the brain is removed - RR
-
-	owner.brain_op_stage = 4.0
 
 	var/obj/item/organ/brain/B = src
-	if(istype(B) && istype(owner))
+	if(istype(B) && istype(owner) && is_primary_organ())
+		var/mob/living/simple_animal/borer/borer = owner.has_brain_worms()
+
+		if(borer)
+			borer.detatch() //Should remove borer if the brain is removed - RR
+
+		owner.brain_op_stage = 4.0
 		B.transfer_identity(owner)
 
 	..()
 
 /obj/item/organ/brain/replaced(var/mob/living/target)
 
-	if(target.key)
-		target.ghostize()
-	var/mob/living/carbon/C = target
-	if(istype(C))
-		C.brain_op_stage = 1.0
-	if(brainmob)
-		if(brainmob.mind)
-			brainmob.mind.transfer_to(target)
-		else
-			target.key = brainmob.key
+	var/brain_already_exists = 0
+	if(istype(target,/mob/living/carbon/human)) // No more IPC multibrain shenanigans
+		var/mob/living/carbon/human/H = target
+		if(organ_tag in H.internal_organs_by_name)
+			brain_already_exists = 1
+
+	if(!brain_already_exists)
+		if(target.key)
+			target.ghostize()
+		var/mob/living/carbon/C = target
+		if(istype(C))
+			C.brain_op_stage = 1.0
+		if(brainmob)
+			if(brainmob.mind)
+				brainmob.mind.transfer_to(target)
+			else
+				target.key = brainmob.key
 	..()
 
 /obj/item/organ/brain/slime

@@ -534,6 +534,17 @@ Turf and target are seperate in case you want to teleport some distance from a t
 		loc = loc.loc
 	return loc
 
+/*
+Returns 1 if the chain up to the area contains the given typepath
+0 otherwise
+*/
+/atom/proc/is_found_within(var/typepath)
+	var/atom/A = src
+	while(A.loc)
+		if(istype(A.loc, typepath))
+			return 1
+		A = A.loc
+	return 0
 
 // the on-close client verb
 // called when a browser popup window is closed after registering with proc/onclose()

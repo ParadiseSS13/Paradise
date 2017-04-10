@@ -296,6 +296,7 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 	for(var/datum/atom_hud/H in huds)
 		if(istype(H, /datum/atom_hud/antag) || istype(H, /datum/atom_hud/data/human/security/advanced))
 			(adding_hud) ? H.add_hud_to(usr) : H.remove_hud_from(usr)
+	usr << "AntagHud Toggled [adding_hud ? "ON" : "OFF"]"
 
 
 /mob/dead/observer/proc/dead_tele(A in ghostteleportlocs)

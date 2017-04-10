@@ -133,17 +133,17 @@ datum/reagent/honey/reaction_turf(var/turf/T, var/volume)
 	reagent_state = LIQUID
 	color = "#2E2418"
 
-datum/reagent/chocolate/on_mob_life(var/mob/living/M as mob)
+/datum/reagent/chocolate/on_mob_life(var/mob/living/M as mob)
 	if(!M) M = holder.my_atom
 	M.reagents.add_reagent("sugar", 0.8)
 	..()
 	return
 
-datum/reagent/chocolate/reaction_turf(var/turf/T, var/volume)
+/datum/reagent/chocolate/reaction_turf(var/turf/T, var/volume)
 	src = null
 	if(volume >= 5)
-		new /obj/item/weapon/reagent_containers/food/snacks/reagentchocolatebar(T)
-		return
+		new /obj/item/weapon/reagent_containers/food/snacks/cocoa_pile(T)
+	return
 
 /datum/reagent/mugwort
 	name = "Mugwort"
