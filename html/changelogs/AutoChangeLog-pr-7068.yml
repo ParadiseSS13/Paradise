@@ -1,0 +1,4 @@
+author: "FalseIncarnate"
+delete-after: True
+changes: 
+  - tweak: "Damage done to the shuttle engines by a shadowling's \"Extend Shuttle\" ability now prevent the shuttle from being recalled to CentComm."
