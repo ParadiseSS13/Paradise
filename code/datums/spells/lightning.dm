@@ -15,10 +15,12 @@
 	var/image/halo = null
 	action_icon_state = "lightning"
 	var/sound/Snd // so far only way i can think of to stop a sound, thank MSO for the idea.
+	var/damaging=1
 
 /obj/effect/proc_holder/spell/targeted/lightning/lightnian
 	clothes_req = 0
 	invocation_type = "none"
+	damaging = 0
 
 /obj/effect/proc_holder/spell/targeted/lightning/Click()
 	if(!ready && start_time==0)
@@ -61,7 +63,7 @@ obj/effect/proc_holder/spell/targeted/lightning/proc/Reset(mob/user = usr)
 
 /obj/effect/proc_holder/spell/targeted/lightning/cast(list/targets, mob/user = usr)
 	ready = 0
-	var/mob/living/carbon/target = targets[1]
+	var/mob/living/target = targets[1]
 	Snd=sound(null, repeat = 0, wait = 1, channel = Snd.channel) //byond, why you suck?
 	playsound(get_turf(user),Snd,50,0)// Sorry MrPerson, but the other ways just didn't do it the way i needed to work, this is the only way.
 	if(get_dist(user,target)>range)
@@ -76,14 +78,26 @@ obj/effect/proc_holder/spell/targeted/lightning/proc/Reset(mob/user = usr)
 	Bolt(user,target,max(15,energy/2),5,user) //5 bounces for energy/2 burn
 	Reset(user)
 
-/obj/effect/proc_holder/spell/targeted/lightning/proc/Bolt(mob/origin, mob/target, bolt_energy, bounces, mob/user = usr)
+/obj/effect/proc_holder/spell/targeted/lightning/proc/Bolt(mob/origin, mob/living/target, bolt_energy, bounces, mob/user = usr)
 	origin.Beam(target,icon_state="lightning[rand(1,12)]",icon='icons/effects/effects.dmi',time=5)
-	var/mob/living/carbon/current = target
+	var/mob/living/current = target
 	if(bounces < 1)
-		current.electrocute_act(bolt_energy,"Lightning Bolt",safety=1)
+		if(damaging)
+			current.electrocute_act(bolt_energy,"Lightning Bolt",safety=1)
+		else
+			var/stuntime = round(bolt_energy/3)
+			current.Stun(stuntime)
+			current.Weaken(stuntime)
+			current.apply_effect(STUTTER, stuntime)
 		playsound(get_turf(current), 'sound/magic/LightningShock.ogg', 50, 1, -1)
 	else
-		current.electrocute_act(bolt_energy,"Lightning Bolt",safety=1)
+		if(damaging)
+			current.electrocute_act(bolt_energy,"Lightning Bolt",safety=1)
+		else
+			var/stuntime = round(bolt_energy/3)
+			current.Stun(stuntime)
+			current.Weaken(stuntime)
+			current.apply_effect(STUTTER, stuntime)
 		playsound(get_turf(current), 'sound/magic/LightningShock.ogg', 50, 1, -1)
 		var/list/possible_targets = new
 		for(var/mob/living/M in view_or_range(range,target,"view"))
