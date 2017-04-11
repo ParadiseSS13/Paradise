@@ -10,7 +10,7 @@
 	build_type = PROTOLATHE | AUTOLATHE
 	materials = list(MAT_METAL = 50, MAT_GLASS = 50)
 	build_path = /obj/item/weapon/stock_parts/capacitor
-	category = list("Stock Parts")
+	category = list("Stock Parts","Machinery","initial")
 	lathe_time_factor = 5
 
 /datum/design/basic_sensor
@@ -21,7 +21,7 @@
 	build_type = PROTOLATHE | AUTOLATHE
 	materials = list(MAT_METAL = 50, MAT_GLASS = 20)
 	build_path = /obj/item/weapon/stock_parts/scanning_module
-	category = list("Stock Parts")
+	category = list("Stock Parts","Machinery","initial")
 	lathe_time_factor = 5
 
 /datum/design/micro_mani
@@ -32,7 +32,7 @@
 	build_type = PROTOLATHE | AUTOLATHE
 	materials = list(MAT_METAL = 30)
 	build_path = /obj/item/weapon/stock_parts/manipulator
-	category = list("Stock Parts")
+	category = list("Stock Parts","Machinery","initial")
 	lathe_time_factor = 5
 
 /datum/design/basic_micro_laser
@@ -43,7 +43,7 @@
 	build_type = PROTOLATHE | AUTOLATHE
 	materials = list(MAT_METAL = 10, MAT_GLASS = 20)
 	build_path = /obj/item/weapon/stock_parts/micro_laser
-	category = list("Stock Parts")
+	category = list("Stock Parts","Machinery","initial")
 	lathe_time_factor = 5
 
 /datum/design/basic_matter_bin
@@ -54,7 +54,7 @@
 	build_type = PROTOLATHE | AUTOLATHE
 	materials = list(MAT_METAL = 80)
 	build_path = /obj/item/weapon/stock_parts/matter_bin
-	category = list("Stock Parts")
+	category = list("Stock Parts","Machinery","initial")
 	lathe_time_factor = 5
 
 /datum/design/adv_capacitor

@@ -7,15 +7,14 @@
 
 	default_language = "Galactic Common"
 	unarmed_type = /datum/unarmed_attack/claws
-	
-	darksight = 8
-	
+
 	ignored_by = list(/mob/living/simple_animal/hostile/faithless)
 
 	blood_color = "#CCCCCC"
 	flesh_color = "#AAAAAA"
 	has_organ = list(
-		"brain" = /obj/item/organ/internal/brain
+		"brain" = /obj/item/organ/internal/brain,
+		"eyes" = /obj/item/organ/internal/eyes/shadow //8 darksight.
 		)
 
 	flags = NO_BLOOD | NO_BREATHE | RADIMMUNE
@@ -23,7 +22,7 @@
 	oxy_mod = 0
 
 	virus_immune = 1
-	
+
 	dietflags = DIET_OMNI		//the mutation process allowed you to now digest all foods regardless of initial race
 	reagent_tag = PROCESS_ORG
 	suicide_messages = list(
@@ -31,10 +30,10 @@
 		"is jamming their claws into their eye sockets!",
 		"is twisting their own neck!",
 		"is staring into the closest light source!")
-		
+
 	var/grant_vision_toggle = 1
 	var/datum/action/innate/shadow/darkvision/vision_toggle
-		
+
 /datum/action/innate/shadow/darkvision //Darkvision toggle so shadowpeople can actually see where darkness is
 	name = "Toggle Darkvision"
 	check_flags = AB_CHECK_CONSCIOUS
@@ -49,13 +48,13 @@
 	else
 		H.vision_type = null
 		to_chat(H, "<span class='notice'>You adjust your vision to recognize the shadows.</span>")
-		
+
 /datum/species/shadow/grant_abilities(var/mob/living/carbon/human/H)
 	. = ..()
 	if(grant_vision_toggle)
 		vision_toggle = new
 		vision_toggle.Grant(H)
-		
+
 /datum/species/shadow/remove_abilities(var/mob/living/carbon/human/H)
 	. = ..()
 	if(grant_vision_toggle && vision_toggle)

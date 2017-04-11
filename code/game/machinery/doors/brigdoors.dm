@@ -37,6 +37,7 @@
 	Radio = new /obj/item/device/radio(src)
 	Radio.listening = 0
 	Radio.config(list("Security" = 0))
+	Radio.follow_target = src
 
 	pixel_x = ((dir & 3)? (0) : (dir == 4 ? 32 : -32))
 	pixel_y = ((dir & 3)? (dir ==1 ? 24 : -32) : (0))
@@ -62,6 +63,10 @@
 			stat |= BROKEN
 		update_icon()
 
+/obj/machinery/door_timer/Destroy()
+	QDEL_NULL(Radio)
+	targets.Cut()
+	return ..()
 
 //Main door timer loop, if it's timing and time is >0 reduce time by 1.
 // if it's less than 0, open door, reset timer
@@ -172,8 +177,10 @@
 
 //Allows AIs to use door_timer, see human attack_hand function below
 /obj/machinery/door_timer/attack_ai(mob/user)
-	return attack_hand(user)
+	interact(user)
 
+/obj/machinery/door_timer/attack_ghost(mob/user)
+	interact(user)
 
 //Allows humans to use door_timer
 //Opens dialog window when someone clicks on door timer
@@ -182,7 +189,9 @@
 /obj/machinery/door_timer/attack_hand(mob/user)
 	if(..())
 		return
+	interact(user)
 
+/obj/machinery/door_timer/interact(mob/user)
 	// Used for the 'time left' display
 	var/second = round(timeleft() % 60)
 	var/minute = round((timeleft() - second) / 60)
@@ -239,9 +248,10 @@
 // Also updates dialog window and timer icon
 /obj/machinery/door_timer/Topic(href, href_list)
 	if(..())
-		return
-	if(!allowed(usr))
-		return
+		return 1
+
+	if(!allowed(usr) && !usr.can_admin_interact())
+		return 1
 
 	usr.set_machine(src)
 

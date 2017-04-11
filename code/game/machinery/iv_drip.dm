@@ -3,7 +3,6 @@
 	icon = 'icons/obj/iv_drip.dmi'
 	icon_state = "iv_drip"
 	anchored = 0
-	density = 1
 	var/mob/living/carbon/human/attached = null
 	var/mode = 1 // 1 is injecting, 0 is taking blood.
 	var/obj/item/weapon/reagent_containers/beaker = null
@@ -16,9 +15,7 @@
 
 /obj/machinery/iv_drip/Destroy()
 	attached = null
-	if(beaker)
-		qdel(beaker)
-		beaker = null
+	QDEL_NULL(beaker)
 	return ..()
 
 /obj/machinery/iv_drip/update_icon()

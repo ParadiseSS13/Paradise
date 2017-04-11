@@ -66,7 +66,7 @@ var/list/organ_cache = list()
 			blood_DNA = list()
 		blood_DNA[dna.unique_enzymes] = dna.b_type
 
-/obj/item/organ/proc/die()
+/obj/item/organ/proc/necrotize(update_sprite=TRUE)
 	if(status & ORGAN_ROBOT)
 		return
 	damage = max_damage
@@ -105,10 +105,10 @@ var/list/organ_cache = list()
 		if(germ_level >= INFECTION_LEVEL_TWO)
 			germ_level += rand(2,6)
 		if(germ_level >= INFECTION_LEVEL_THREE)
-			die()
+			necrotize()
 
 		if(damage >= max_damage)
-			die()
+			necrotize()
 
 	else if(owner.bodytemperature >= 170)	//cryo stops germs from moving and doing their bad stuffs
 		//** Handle antibiotics and curing infections
@@ -117,7 +117,7 @@ var/list/organ_cache = list()
 
 	//check if we've hit max_damage
 	if(damage >= max_damage)
-		die()
+		necrotize()
 
 /obj/item/organ/proc/is_preserved()
 	if(istype(loc,/obj/item/device/mmi))
@@ -228,10 +228,10 @@ var/list/organ_cache = list()
 /obj/item/organ/proc/take_damage(amount, var/silent=0)
 	if(tough)
 		return
-	if(src.status & ORGAN_ROBOT)
-		src.damage = between(0, src.damage + (amount * 0.8), max_damage)
+	if(status & ORGAN_ROBOT)
+		damage = between(0, damage + (amount * 0.8), max_damage)
 	else
-		src.damage = between(0, src.damage + amount, max_damage)
+		damage = between(0, damage + amount, max_damage)
 
 		//only show this if the organ is not robotic
 		if(owner && parent_organ && amount > 0)
@@ -241,18 +241,18 @@ var/list/organ_cache = list()
 
 /obj/item/organ/proc/robotize() //Being used to make robutt hearts, etc
 	robotic = 2
-	src.status &= ~ORGAN_BROKEN
-	src.status &= ~ORGAN_BLEEDING
-	src.status &= ~ORGAN_SPLINTED
-	src.status &= ~ORGAN_CUT_AWAY
-	src.status &= ~ORGAN_ATTACHABLE
-	src.status &= ~ORGAN_DESTROYED
-	src.status |= ORGAN_ROBOT
-	src.status |= ORGAN_ASSISTED
+	status &= ~ORGAN_BROKEN
+	status &= ~ORGAN_BLEEDING
+	status &= ~ORGAN_SPLINTED
+	status &= ~ORGAN_CUT_AWAY
+	status &= ~ORGAN_ATTACHABLE
+	status &= ~ORGAN_DESTROYED
+	status |= ORGAN_ROBOT
+	status |= ORGAN_ASSISTED
 
 /obj/item/organ/proc/mechassist() //Used to add things like pacemakers, etc
-	robotize()
-	src.status &= ~ORGAN_ROBOT
+	robotize(1) //Skip the icon/name setting that occurs in robotize to avoid having to reset the icon file.
+	status &= ~ORGAN_ROBOT
 	robotic = 1
 	min_bruised_damage = 15
 	min_broken_damage = 35
@@ -325,7 +325,7 @@ var/list/organ_cache = list()
 	affected.internal_organs |= src
 	if(!target.get_int_organ(src))
 		target.internal_organs += src
-	src.loc = target
+	loc = target
 	if(robotic)
 		status |= ORGAN_ROBOT
 

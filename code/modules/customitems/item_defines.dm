@@ -26,6 +26,8 @@
 	var/tattoo_r = 1 // RGB values for the body markings
 	var/tattoo_g = 1
 	var/tattoo_b = 1
+	toolspeed = 1
+	usesound = 'sound/items/Welder2.ogg'
 
 /obj/item/device/fluff/tattoo_gun/attack(mob/living/carbon/M as mob, mob/user as mob)
 	if(user.a_intent == "harm")
@@ -61,7 +63,7 @@
 
 	else
 		user.visible_message("<span class='notice'>[user] begins to apply a [tattoo_name] [target] with the [src].</span>", "<span class='notice'>You begin to tattoo [target] with the [src]!</span>")
-		if(!do_after(user,30, target = M))
+		if(!do_after(user, 30 * toolspeed, target = M))
 			return
 		user.visible_message("<span class='notice'>[user] finishes the [tattoo_name] on [target].</span>", "<span class='notice'>You finish the [tattoo_name].</span>")
 
@@ -69,7 +71,7 @@
 		target.change_markings(tattoo_icon, "body")
 		target.change_marking_color(rgb(tattoo_r, tattoo_g, tattoo_b), "body")
 
-		playsound(src.loc, 'sound/items/Welder2.ogg', 20, 1)
+		playsound(src.loc, usesound, 20, 1)
 		used = 1
 		update_icon()
 
@@ -552,6 +554,15 @@
 	desc = "It's a worn-out bandana in camo paint"
 	icon_state = "bandcamo"
 
+
+/obj/item/clothing/mask/gas/sechailer/fluff/spartan //LP Spartan: Kaskreyarawkta
+	name = "minimal gasmask"
+	desc = "Designed to cover as little of face as possible while still being a functional gasmask."
+	icon = 'icons/obj/custom_items.dmi'
+	icon_state = "spartan_mask"
+	item_state = "spartan_mask"
+	species_restricted = list("Vox")
+
 //////////// Shoes ////////////
 
 //////////// Sets ////////////
@@ -614,7 +625,8 @@
 	icon = 'icons/obj/custom_items.dmi'
 	icon_state = "chronx_hood"
 	item_state = "chronx_hood"
-	flags = HEADCOVERSEYES | BLOCKHAIR
+	flags = BLOCKHAIR
+	flags_cover = HEADCOVERSEYES
 	actions_types = list(/datum/action/item_action/toggle)
 	var/adjusted = 0
 
@@ -685,3 +697,51 @@
 	name = "Voxcaster"
 	desc = "Battered, Sol-made military radio backpack that had its speakers fried from playing Vox opera. The words 'Swift-Talon' are crudely scratched onto its side."
 	icon_state = "voxcaster_fluff"
+
+/obj/item/clothing/head/wizard/fake/fluff/dreamy //phantasmicdream : Dreamy Rockwall
+	name = "strange witch hat"
+	desc = "A shapeshifting witch hat. A strange aura comes from it..."
+	icon = 'icons/obj/custom_items.dmi'
+	icon_state = "classic_witch"
+	item_state = "classic_witch"
+
+/obj/item/clothing/head/wizard/fake/fluff/dreamy/attack_self(mob/user)
+	var/list/options = list()
+	options["Classic"] = "classic_witch"
+	options["Good"] = "good_witch"
+	options["Dark"] = "dark_witch"
+	options["Steampunk"] ="steampunk_witch"
+	options["Healer"] = "healer_witch"
+	options["Cute"] = "cutie_witch"
+	options["Shy"] = "shy_witch"
+	options["Sexy"] ="sexy_witch"
+	options["Bunny"] = "bunny_witch"
+	options["Potions"] = "potions_witch"
+	options["Syndicate"] = "syndie_witch"
+	options["Nanotrasen"] ="nt_witch"
+
+	var/choice = input(user, "To what form do you wish to Shapeshift this hat?", "Shapeshift Hat") as null|anything in options
+
+	if(choice && !user.stat && in_range(user, src))
+		icon_state = options[choice]
+		to_chat(user, "Your strange witch hat has now shapeshifted into it's [choice] form!")
+		return 1
+
+/obj/item/weapon/reagent_containers/food/drinks/bottle/fluff/moonshine //nethiafins : Serhij Zozulia
+	name = "Cloudy Bottle"
+	desc = "The contents of this bottle are vile. You should only drink it when you hit rock bottom."
+	icon = 'icons/obj/custom_items.dmi'
+	icon_state = "questionable_liquid"
+	item_state = "questionable_liquid"
+	amount_per_transfer_from_this = 5
+	list_reagents = list("moonshine" = 100)
+
+/obj/item/weapon/storage/box/fluff/moonshine_kit //nethiafins : Serhij Zozulia
+	name = "Moonshine Serving box"
+
+/obj/item/weapon/storage/box/fluff/moonshine_kit/New()
+	..()
+	new /obj/item/weapon/reagent_containers/food/drinks/drinkingglass/shotglass(src)
+	new /obj/item/weapon/reagent_containers/food/drinks/drinkingglass/shotglass(src)
+	new /obj/item/weapon/reagent_containers/food/drinks/bottle/fluff/moonshine(src)
+

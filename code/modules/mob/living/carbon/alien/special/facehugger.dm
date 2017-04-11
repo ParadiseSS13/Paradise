@@ -17,7 +17,8 @@ var/const/MAX_ACTIVE_TIME = 400
 	w_class = 1 //note: can be picked up by aliens unlike most other items of w_class below 4
 	throw_range = 5
 	tint = 3
-	flags = MASKCOVERSMOUTH | MASKCOVERSEYES | AIRTIGHT
+	flags = AIRTIGHT
+	flags_cover = MASKCOVERSMOUTH | MASKCOVERSEYES
 	layer = MOB_LAYER
 
 	var/stat = CONSCIOUS //UNCONSCIOUS is the idle state in this case
@@ -126,7 +127,7 @@ var/const/MAX_ACTIVE_TIME = 400
 						"<span class='userdanger'>[src] leaps at [M]'s face!</span>")
 	if(ishuman(M))
 		var/mob/living/carbon/human/H = M
-		if(H.head && H.head.flags & HEADCOVERSMOUTH)
+		if(H.head && H.head.flags_cover & HEADCOVERSMOUTH)
 			H.visible_message("<span class='danger'>[src] smashes against [H]'s [H.head]!</span>", \
 								"<span class='userdanger'>[src] smashes against [H]'s [H.head]!</span>")
 			Die()
@@ -236,7 +237,7 @@ var/const/MAX_ACTIVE_TIME = 400
 	var/mob/living/carbon/C = M
 	if(ishuman(C))
 		var/mob/living/carbon/human/H = C
-		if(H.head && H.head.flags & HEADCOVERSMOUTH)
+		if(H.head && H.head.flags_cover & HEADCOVERSMOUTH)
 			return 0
 		return 1
 	return 0

@@ -57,7 +57,7 @@ emp_act
 	organ.add_autopsy_data(P.name, P.damage) // Add the bullet's name to the autopsy data
 
 	return (..(P , def_zone))
-	
+
 /mob/living/carbon/human/check_projectile_dismemberment(obj/item/projectile/P, def_zone)
 	var/obj/item/organ/external/affecting = get_organ(check_zone(def_zone))
 	if(affecting && !affecting.cannot_amputate && affecting.get_damage() >= (affecting.max_damage - P.dismemberment))
@@ -67,7 +67,7 @@ emp_act
 				damtype = DROPLIMB_BLUNT
 			if(BURN)
 				damtype = DROPLIMB_BURN
-			
+
 		affecting.droplimb(FALSE, damtype)
 
 /mob/living/carbon/human/getarmor(var/def_zone, var/type)
@@ -86,6 +86,7 @@ emp_act
 	for(var/obj/item/organ/external/organ in organs)
 		armorval += getarmor_organ(organ, type)
 		organnum++
+
 	return (armorval/max(organnum, 1))
 
 
@@ -99,7 +100,8 @@ emp_act
 		if(bp && istype(bp ,/obj/item/clothing))
 			var/obj/item/clothing/C = bp
 			if(C.body_parts_covered & def_zone.body_part)
-				protection += C.armor[type]
+				protection += C.armor[type]	
+				
 	return protection
 
 //this proc returns the Siemens coefficient of electrical resistivity for a particular external organ.
@@ -226,9 +228,9 @@ emp_act
 
 	if(! I.discrete)
 		if(I.attack_verb.len)
-			visible_message("<span class='danger'>[src] has been [pick(I.attack_verb)] in the [hit_area] with [I.name] by [user]!</span>")
+			visible_message("<span class='combat danger'>[src] has been [pick(I.attack_verb)] in the [hit_area] with [I.name] by [user]!</span>")
 		else
-			visible_message("<span class='danger'>[src] has been attacked in the [hit_area] with [I.name] by [user]!</span>")
+			visible_message("<span class='combat danger'>[src] has been attacked in the [hit_area] with [I.name] by [user]!</span>")
 
 	var/armor = run_armor_check(affecting, "melee", "Your armor has protected your [hit_area].", "Your armor has softened hit to your [hit_area].", armour_penetration = I.armour_penetration)
 	var/weapon_sharp = is_sharp(I)
@@ -264,8 +266,8 @@ emp_act
 				if("head")//Harder to score a stun but if you do it lasts a bit longer
 					if(stat == CONSCIOUS && armor < 50)
 						if(prob(I.force))
-							visible_message("<span class='danger'>[src] has been knocked down!</span>", \
-											"<span class='userdanger'>[src] has been knocked down!</span>")
+							visible_message("<span class='combat danger'>[src] has been knocked down!</span>", \
+											"<span class='combat userdanger'>[src] has been knocked down!</span>")
 							apply_effect(5, WEAKEN, armor)
 							AdjustConfused(15)
 						if(prob(I.force + ((100 - health)/2)) && src != user && I.damtype == BRUTE)
@@ -284,8 +286,8 @@ emp_act
 
 				if("upper body")//Easier to score a stun but lasts less time
 					if(stat == CONSCIOUS && I.force && prob(I.force + 10))
-						visible_message("<span class='danger'>[src] has been knocked down!</span>", \
-										"<span class='userdanger'>[src] has been knocked down!</span>")
+						visible_message("<span class='combat danger'>[src] has been knocked down!</span>", \
+										"<span class='combat userdanger'>[src] has been knocked down!</span>")
 						apply_effect(5, WEAKEN, armor)
 
 					if(bloody)

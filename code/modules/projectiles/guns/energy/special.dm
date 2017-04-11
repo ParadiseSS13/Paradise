@@ -84,141 +84,6 @@
 	ammo_type = list(/obj/item/ammo_casing/energy/mindflayer)
 	ammo_x_offset = 2
 
-/obj/item/weapon/gun/energy/kinetic_accelerator
-	name = "proto-kinetic accelerator"
-	desc = "In the year 2544, only a year after the discovery of a potentially \
-		world-changing substance, now colloquially referred to as plasma, the \
-		Nanotrasen-UEG mining conglomerate introduced a prototype of a gun-like \
-		device intended for quick, effective mining of plasma in the low \
-		pressures of the solar system. Included in this presentation were \
-		demonstrations of the gun being fired at collections of rocks contained \
-		in vacuumed environments, obliterating them instantly while maintaining \
-		the structure of the ores buried within them. Additionally, volunteers \
-		were called from the crowd to have the gun used on them, only proving that \
-		the gun caused little harm to objects in standard pressure. \n\
-		An official from an unnamed, now long dissipated company observed this \
-		presentation and offered to share their self-recharger cells, powered \
-		by the user's bioelectrical field, another new and unknown technology. \
-		They warned that the cells were incredibly experimental and several times \
-		had injured workers, but the scientists as Nanotrasen were unable to resist \
-		the money-saving potential of self recharging cells. Upon accepting this \
-		offer, it took only a matter of days to prove the volatility of these cells, \
-		as they exploded left and right whenever inserted into the prototype devices, \
-		only throwing more money in the bin. \n\
-		Whenever the Nanotrasen scientists were on the edge of giving up, a \
-		breakthrough was made by head researcher Miles Parks McCollum, who \
-		demonstrated that the cells could be stabilized when exposed to radium \
-		then cooled with cryostylane. After this discovery, the low pressure gun, \
-		now named the Kinetic Accelerator, was hastily completed and made compatible \
-		with the self-recharging cells. As a result of poor testing, the currently \
-		used guns lose their charge when not in use, and when two Kinetic Accelerators \
-		come in proximity of one another, they will interfere with each other. Despite \
-		this, the shoddy guns still see use in the mining of plasma to this day."
-	icon_state = "kineticgun"
-	item_state = "kineticgun"
-	ammo_type = list(/obj/item/ammo_casing/energy/kinetic)
-	cell_type = /obj/item/weapon/stock_parts/cell/emproof
-	// Apparently these are safe to carry? I'm sure goliaths would disagree.
-	needs_permit = 0
-	unique_rename = 1
-	origin_tech = "combat=3;powerstorage=3;engineering=3"
-	weapon_weight = WEAPON_LIGHT
-	can_flashlight = 1
-	flight_x_offset = 15
-	flight_y_offset = 9
-	var/overheat_time = 16
-	var/holds_charge = FALSE
-	var/unique_frequency = FALSE // modified by KA modkits
-	var/overheat = FALSE
-
-/obj/item/weapon/gun/energy/kinetic_accelerator/super
-	name = "super-kinetic accelerator"
-	desc = "An upgraded, superior version of the proto-kinetic accelerator."
-	icon_state = "kineticgun_u"
-	ammo_type = list(/obj/item/ammo_casing/energy/kinetic/super)
-	overheat_time = 15
-	origin_tech = "combat=3;powerstorage=2"
-
-/obj/item/weapon/gun/energy/kinetic_accelerator/hyper
-	name = "hyper-kinetic accelerator"
-	desc = "An upgraded, even more superior version of the proto-kinetic accelerator."
-	icon_state = "kineticgun_h"
-	ammo_type = list(/obj/item/ammo_casing/energy/kinetic/hyper)
-	overheat_time = 14
-	origin_tech = "combat=4;powerstorage=3"
-
-/obj/item/weapon/gun/energy/kinetic_accelerator/cyborg
-	holds_charge = TRUE
-	unique_frequency = TRUE
-
-/obj/item/weapon/gun/energy/kinetic_accelerator/hyper/cyborg
-	holds_charge = TRUE
-	unique_frequency = TRUE
-
-/obj/item/weapon/gun/energy/kinetic_accelerator/New()
-	. = ..()
-	if(!holds_charge)
-		empty()
-
-/obj/item/weapon/gun/energy/kinetic_accelerator/shoot_live_shot()
-	. = ..()
-	attempt_reload()
-
-/obj/item/weapon/gun/energy/kinetic_accelerator/equipped(mob/user)
-	. = ..()
-	if(!can_shoot())
-		attempt_reload()
-
-/obj/item/weapon/gun/energy/kinetic_accelerator/dropped()
-	. = ..()
-	if(!holds_charge)
-		// Put it on a delay because moving item from slot to hand
-		// calls dropped().
-		spawn(1)
-			if(!ismob(loc))
-				empty()
-
-/obj/item/weapon/gun/energy/kinetic_accelerator/proc/empty()
-	power_supply.use(5000)
-	update_icon()
-
-/obj/item/weapon/gun/energy/kinetic_accelerator/proc/attempt_reload()
-	if(overheat)
-		return
-	overheat = TRUE
-
-	var/carried = 0
-	if(!unique_frequency)
-		for(var/obj/item/weapon/gun/energy/kinetic_accelerator/K in \
-			loc.GetAllContents())
-
-			carried++
-
-		carried = max(carried, 1)
-	else
-		carried = 1
-
-	spawn(overheat_time * carried)
-		reload()
-		overheat = FALSE
-
-/obj/item/weapon/gun/energy/kinetic_accelerator/emp_act(severity)
-	return
-
-/obj/item/weapon/gun/energy/kinetic_accelerator/proc/reload()
-	power_supply.give(5000)
-	if(!suppressed)
-		playsound(loc, 'sound/weapons/kenetic_reload.ogg', 60, 1)
-	else if(ismob(loc))
-		to_chat(loc, "<span class='warning'>[src] silently charges up.<span>")
-	update_icon()
-
-/obj/item/weapon/gun/energy/kinetic_accelerator/update_icon()
-	if(!can_shoot())
-		icon_state = "[initial(icon_state)]_empty"
-	else
-		icon_state = initial(icon_state)
-
 /obj/item/weapon/gun/energy/kinetic_accelerator/crossbow
 	name = "mini energy crossbow"
 	desc = "A weapon favored by syndicate stealth specialists."
@@ -234,6 +99,9 @@
 	overheat_time = 20
 	holds_charge = TRUE
 	unique_frequency = TRUE
+	can_flashlight = 0
+	max_mod_capacity = 0
+	empty_state = null
 
 /obj/item/weapon/gun/energy/kinetic_accelerator/crossbow/ninja
 	name = "energy dart thrower"
@@ -271,6 +139,8 @@
 	origin_tech = "combat=1;materials=3;magnets=2;plasmatech=2;engineering=1"
 	ammo_type = list(/obj/item/ammo_casing/energy/plasma)
 	fire_sound = 'sound/weapons/laser.ogg'
+	usesound = 'sound/items/Welder.ogg'
+	toolspeed = 1
 	flags = CONDUCT | OPENCONTAINER
 	attack_verb = list("attacked", "slashed", "cut", "sliced")
 	force = 12
@@ -287,11 +157,11 @@
 	if(istype(A, /obj/item/stack/sheet/mineral/plasma))
 		var/obj/item/stack/sheet/S = A
 		S.use(1)
-		power_supply.give(10000)
+		power_supply.give(1000)
 		to_chat(user, "<span class='notice'>You insert [A] in [src], recharging it.</span>")
 	else if(istype(A, /obj/item/weapon/ore/plasma))
 		qdel(A)
-		power_supply.give(5000)
+		power_supply.give(500)
 		to_chat(user, "<span class='notice'>You insert [A] in [src], recharging it.</span>")
 	else
 		..()
@@ -438,12 +308,10 @@
 	desc = "A gun that changes the body temperature of its targets."
 	var/temperature = 300
 	var/target_temperature = 300
-	var/e_cost = 1000
 	origin_tech = "combat=3;materials=4;powerstorage=3;magnets=2"
 
 	ammo_type = list(/obj/item/ammo_casing/energy/temp)
 	selfcharge = 1
-	cell_type = /obj/item/weapon/stock_parts/cell
 
 	var/powercost = ""
 	var/powercostcolor = ""
@@ -499,19 +367,19 @@
 	T.temp = temperature
 	switch(temperature)
 		if(0 to 100)
-			T.e_cost = 3000
+			T.e_cost = 300
 			powercost = "High"
 		if(100 to 250)
-			T.e_cost = 2000
+			T.e_cost = 200
 			powercost = "Medium"
 		if(251 to 300)
-			T.e_cost = 1000
+			T.e_cost = 100
 			powercost = "Low"
 		if(301 to 400)
-			T.e_cost = 2000
+			T.e_cost = 200
 			powercost = "Medium"
 		if(401 to 1000)
-			T.e_cost = 3000
+			T.e_cost = 300
 			powercost = "High"
 	switch(powercost)
 		if("High")
@@ -601,16 +469,16 @@
 /obj/item/weapon/gun/energy/temperature/proc/update_charge()
 	var/charge = power_supply.charge
 	switch(charge)
-		if(9000 to INFINITY)		overlays += "900"
-		if(8000 to 9000)			overlays += "800"
-		if(7000 to 8000)			overlays += "700"
-		if(6000 to 7000)			overlays += "600"
-		if(5000 to 6000)			overlays += "500"
-		if(4000 to 5000)			overlays += "400"
-		if(3000 to 4000)			overlays += "300"
-		if(2000 to 3000)			overlays += "200"
-		if(1000 to 2002)			overlays += "100"
-		if(-INFINITY to 1000)	overlays += "0"
+		if(900 to INFINITY)		overlays += "900"
+		if(800 to 900)			overlays += "800"
+		if(700 to 800)			overlays += "700"
+		if(600 to 700)			overlays += "600"
+		if(500 to 600)			overlays += "500"
+		if(400 to 500)			overlays += "400"
+		if(300 to 400)			overlays += "300"
+		if(200 to 300)			overlays += "200"
+		if(100 to 202)			overlays += "100"
+		if(-INFINITY to 100)	overlays += "0"
 
 /obj/item/weapon/gun/energy/mimicgun
 	name = "mimic gun"

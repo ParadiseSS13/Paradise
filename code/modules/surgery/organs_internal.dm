@@ -69,7 +69,7 @@
 	var/implements_extract = list(/obj/item/weapon/hemostat = 100, /obj/item/weapon/kitchen/utensil/fork = 55)
 	var/implements_mend = list(/obj/item/stack/medical/bruise_pack = 20,/obj/item/stack/medical/bruise_pack/advanced = 100,/obj/item/stack/nanopaste = 100)
 	//Finish is just so you can close up after you do other things.
-	var/implements_finsh = list(/obj/item/weapon/scalpel/manager = 120,/obj/item/weapon/retractor = 100 ,/obj/item/weapon/crowbar = 75)
+	var/implements_finsh = list(/obj/item/weapon/scalpel/laser/manager = 100,/obj/item/weapon/retractor = 100 ,/obj/item/weapon/crowbar = 75)
 	var/current_type
 	var/obj/item/organ/internal/I = null
 	var/obj/item/organ/external/affected = null
@@ -182,7 +182,7 @@
 			H.custom_pain("The pain in your [affected.name] is living hell!", 1)
 
 	else if(istype(tool, /obj/item/weapon/reagent_containers/food/snacks/organ))
-		to_chat(user, "<span class='warning'>[tool] was biten by someone! It's too damaged to use!</span>")
+		to_chat(user, "<span class='warning'>[tool] was bitten by someone! It's too damaged to use!</span>")
 		return -1
 
 	..()
@@ -244,6 +244,8 @@
 				thing.forceMove(get_turf(target))
 			else
 				user.put_in_hands(thing)
+
+			target.update_icons()
 		else
 			user.visible_message("<span class='notice'>[user] can't seem to extract anything from [target]'s [parse_zone(target_zone)]!</span>",
 				"<span class='notice'>You can't extract anything from [target]'s [parse_zone(target_zone)]!</span>")
@@ -366,10 +368,6 @@
 /datum/surgery_step/cut_carapace
 	name = "cut carapace"
 	allowed_tools = list(
-	/obj/item/weapon/scalpel/laser3 = 115, \
-	/obj/item/weapon/scalpel/laser2 = 110, \
-	/obj/item/weapon/scalpel/laser1 = 105, \
-	/obj/item/weapon/scalpel/manager = 120, \
 	/obj/item/weapon/scalpel = 100,		\
 	/obj/item/weapon/kitchen/knife = 75,	\
 	/obj/item/weapon/shard = 50, 		\
@@ -404,7 +402,7 @@
 	name = "retract carapace"
 
 	allowed_tools = list(
-	/obj/item/weapon/scalpel/manager = 120, \
+	/obj/item/weapon/scalpel/laser/manager = 100, \
 	/obj/item/weapon/retractor = 100, 	\
 	/obj/item/weapon/crowbar = 75,	\
 	/obj/item/weapon/kitchen/utensil/fork = 50

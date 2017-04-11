@@ -17,9 +17,7 @@
 
 
 /obj/item/weapon/melee/powerfist/Destroy()
-	if(tank)
-		qdel(tank)
-		tank = null
+	QDEL_NULL(tank)
 	return ..()
 
 /obj/item/weapon/melee/powerfist/examine(mob/user)
@@ -46,7 +44,7 @@
 				fisto_setting = 3
 			if(3)
 				fisto_setting = 1
-		playsound(loc, 'sound/items/Ratchet.ogg', 50, 1)
+		playsound(loc, W.usesound, 50, 1)
 		to_chat(user, "<span class='notice'>You tweak \the [src]'s piston valve to [fisto_setting].</span>")
 	else if(istype(W, /obj/item/weapon/screwdriver))
 		if(tank)
@@ -87,7 +85,7 @@
 	target.apply_damage(force * fisto_setting, BRUTE)
 	target.visible_message("<span class='danger'>[user]'s powerfist lets out a loud hiss as they punch [target.name]!</span>", \
 		"<span class='userdanger'>You cry out in pain as [user]'s punch flings you backwards!</span>")
-	new/obj/effect/kinetic_blast(target.loc)
+	new /obj/effect/overlay/temp/kinetic_blast(target.loc)
 	playsound(loc, 'sound/weapons/resonator_blast.ogg', 50, 1)
 	playsound(loc, 'sound/weapons/genhit2.ogg', 50, 1)
 

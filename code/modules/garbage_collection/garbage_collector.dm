@@ -7,8 +7,12 @@
 #define GC_FORCE_DEL_PER_TICK 30
 //#define GC_DEBUG
 
-// A list of types that were queued in the GC, and had to be soft deleted; used in testing
-var/list/gc_hard_del_types = list()
+var/list/didntgc = list()   	// list of all types that have failed to GC associated with the number of times that's happened.
+							    // the types are stored as strings
+var/list/sleptDestroy = list()	//Same as above but these are paths that slept during their Destroy call
+
+var/list/noqdelhint = list()    // list of all types that do not return a QDEL_HINT
+
 var/global/datum/controller/process/garbage_collector/garbageCollector
 
 // The time a datum was destroyed by the GC, or null if it hasn't been
@@ -82,7 +86,7 @@ var/global/datum/controller/process/garbage_collector/garbageCollector
 #undef GC_COLLECTIONS_PER_TICK
 
 /datum/controller/process/garbage_collector/proc/hardDel(var/datum/D)
-	gc_hard_del_types |= D.type
+	didntgc["[D.type]"]++
 	D.hard_deleted = 1
 	if(!D.gcDestroyed)
 		spawn(-1)
@@ -126,6 +130,7 @@ var/global/datum/controller/process/garbage_collector/garbageCollector
 			return
 		if(!isnull(D.gcDestroyed) && D.gcDestroyed != world.time)
 			gcwarning("Sleep detected in Destroy() call of [D.type]")
+			sleptDestroy["[D.type]"]++
 			D.gcDestroyed = world.time
 
 		switch(hint)
@@ -155,7 +160,9 @@ var/global/datum/controller/process/garbage_collector/garbageCollector
 				#endif
 				garbageCollector.addTrash(D)
 			else
-//				to_chat(world, "WARNING GC DID NOT GET A RETURN VALUE FOR [D], [D.type]!")
+				if(!noqdelhint["[D.type]"])
+					noqdelhint["[D.type]"] = "[D.type]"
+					gcwarning("WARNING: [D.type] is not returning a qdel hint. It is being placed in the queue. Further instances of this type will also be queued.")
 				garbageCollector.addTrash(D)
 
 

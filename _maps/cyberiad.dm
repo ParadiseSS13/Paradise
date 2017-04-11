@@ -14,7 +14,7 @@ z7 = empty
 
 #if !defined(MAP_FILE)
 
-        #include "map_files\cyberiad\cyberiad.dmm"
+        #include "map_files\cyberiad\atmtiad.dmm"
         #include "map_files\cyberiad\z2.dmm"
         #include "map_files\cyberiad\z3.dmm"
         #include "map_files\cyberiad\z4.dmm"
@@ -22,8 +22,8 @@ z7 = empty
         #include "map_files\cyberiad\z6.dmm"
         #include "map_files\cyberiad\z7.dmm"
 
-        #define MAP_FILE "cyberiad.dmm"
-        #define MAP_NAME "SES ATMIITAD"
+        #define MAP_FILE "atmtiad.dmm"
+        #define MAP_NAME "SES ATMTIAD"
         #define MAP_TRANSITION_CONFIG list(\
 DECLARE_LEVEL(MAIN_STATION, CROSSLINKED, list(STATION_LEVEL,STATION_CONTACT,REACHABLE,AI_OK)),\
 DECLARE_LEVEL(CENTCOMM, SELFLOOPING, list(ADMIN_LEVEL, BLOCK_TELEPORT, IMPEDES_MAGIC)),\

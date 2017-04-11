@@ -108,11 +108,11 @@ var/list/possible_changeling_IDs = list("Alpha","Beta","Gamma","Delta","Epsilon"
 			if(identity_theft.target && identity_theft.target.current)
 				identity_theft.target_real_name = kill_objective.target.current.real_name //Whoops, forgot this.
 				var/mob/living/carbon/human/H = identity_theft.target.current
-				if(check_species_absorb(H.species)) // For species that can't be absorbed - should default to an escape objective
-					return
-				else
+				if(can_absorb_species(H.species)) // For species that can't be absorbed - should default to an escape objective
 					identity_theft.explanation_text = "Escape on the shuttle or an escape pod with the identity of [identity_theft.target_real_name], the [identity_theft.target.assigned_role] while wearing their identification card."
-			changeling.objectives += identity_theft
+					changeling.objectives += identity_theft
+				else
+					qdel(identity_theft)
 
 	if(!(locate(/datum/objective/escape) in changeling.objectives))
 		if(prob(70))
@@ -319,5 +319,5 @@ var/list/possible_changeling_IDs = list("Alpha","Beta","Gamma","Delta","Epsilon"
 
 	return 1
 
-/proc/check_species_absorb(datum/species/S)
+/proc/can_absorb_species(datum/species/S)
   return !(S.flags & NO_DNA)

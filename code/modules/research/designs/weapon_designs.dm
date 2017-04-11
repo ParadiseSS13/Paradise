@@ -104,16 +104,6 @@
 	locked = 1
 	category = list("Weapons")
 
-/datum/design/receiver
-	name = "Modular Receiver"
-	desc = "A prototype modular receiver and trigger assembly for a variety of firearms."
-	id = "receiver"
-	req_tech = list("combat" = 5, "materials" = 4)
-	build_type = PROTOLATHE
-	materials = list(MAT_METAL = 6500, MAT_SILVER = 500)
-	build_path = /obj/item/weaponcrafting/receiver
-	category = list("Weapons")
-
 /datum/design/plasmapistol
 	name = "Plasma Pistol"
 	desc = "A specialized firearm designed to fire lethal bolts of toxins."
@@ -152,8 +142,8 @@
 	build_path = /obj/item/ammo_box/magazine/wt550m9/wtic
 
 /datum/design/mag_oldsmg/tx_mag
-	name = "WT-550 Auto Gun Urnaium Magazine (4.6x30mm TX)"
-	desc = "A 20 round urnaium tipped magazine for the out of date security WT-550 Auto Rifle"
+	name = "WT-550 Auto Gun Uranium Magazine (4.6x30mm TX)"
+	desc = "A 20 round uranium tipped magazine for the out of date security WT-550 Auto Rifle"
 	id = "mag_oldsmg_tx"
 	materials = list(MAT_METAL = 6000, MAT_SILVER = 600, MAT_URANIUM = 2000)
 	build_path = /obj/item/ammo_box/magazine/wt550m9/wttx

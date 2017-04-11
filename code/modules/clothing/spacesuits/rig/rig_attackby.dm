@@ -80,7 +80,7 @@
 
 			var/obj/item/rig_module/mod = W
 			to_chat(user, "You begin installing \the [mod] into \the [src].")
-			if(!do_after(user,40, target = src))
+			if(!do_after(user, 40 * W.toolspeed, target = src))
 				return
 			if(!user || !W)
 				return

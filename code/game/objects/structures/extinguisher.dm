@@ -8,6 +8,9 @@
 	var/obj/item/weapon/extinguisher/has_extinguisher = new/obj/item/weapon/extinguisher
 	var/opened = 0
 
+/obj/structure/extinguisher_cabinet/Destroy()
+	QDEL_NULL(has_extinguisher)
+	return ..()
 
 /obj/structure/extinguisher_cabinet/attackby(obj/item/O, mob/user, params)
 	if(isrobot(user) || isalien(user))

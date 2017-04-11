@@ -16,7 +16,7 @@
 
 			if(charging && !(stat & (BROKEN|NOPOWER)) )
 
-				var/newlevel = 	round(charging.percent() * 4.0 / 99)
+				var/newlevel = 	round(charging.percent() * 4 / 100)
 //				to_chat(world, "nl: [newlevel]")
 
 				if(chargelevel != newlevel)
@@ -62,7 +62,7 @@
 
 			anchored = !anchored
 			to_chat(user, "You [anchored ? "attach" : "detach"] the cell charger [anchored ? "to" : "from"] the ground")
-			playsound(get_turf(src), 'sound/items/Ratchet.ogg', 75, 1)
+			playsound(get_turf(src), W.usesound, 75, 1)
 
 	attack_hand(mob/user)
 		if(charging)
@@ -91,7 +91,7 @@
 		if(!charging || (stat & (BROKEN|NOPOWER)) || !anchored)
 			return
 
-		use_power(2000)		//this used to use CELLRATE, but CELLRATE is fucking awful. feel free to fix this properly!
-		charging.give(1750)	//inefficiency.
+		use_power(200)		//this used to use CELLRATE, but CELLRATE is fucking awful. feel free to fix this properly!
+		charging.give(175)	//inefficiency.
 
 		updateicon()

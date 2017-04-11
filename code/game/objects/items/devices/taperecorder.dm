@@ -21,9 +21,7 @@
 	update_icon()
 
 /obj/item/device/taperecorder/Destroy()
-	if(mytape)
-		qdel(mytape)
-		mytape = null
+	QDEL_NULL(mytape)
 	return ..()
 
 /obj/item/device/taperecorder/examine(mob/user)
@@ -231,7 +229,7 @@
 		return
 
 	to_chat(usr, "<span class='notice'>Transcript printed.</span>")
-	playsound(loc, "sound/goonstation/machines/printer_thermal.ogg", 50, 1)
+	playsound(loc, 'sound/goonstation/machines/printer_thermal.ogg', 50, 1)
 	var/obj/item/weapon/paper/P = new /obj/item/weapon/paper(get_turf(src))
 	var/t1 = "<B>Transcript:</B><BR><BR>"
 	for(var/i = 1, mytape.storedinfo.len >= i, i++)
@@ -303,7 +301,7 @@
 /obj/item/device/tape/attackby(obj/item/I, mob/user)
 	if(ruined && istype(I, /obj/item/weapon/screwdriver))
 		to_chat(user, "<span class='notice'>You start winding the tape back in.</span>")
-		if(do_after(user, 120, target = src))
+		if(do_after(user, 120 * I.toolspeed, target = src))
 			to_chat(user, "<span class='notice'>You wound the tape back in!</span>")
 			fix()
 	else if(istype(I, /obj/item/weapon/pen))

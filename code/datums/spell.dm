@@ -100,7 +100,7 @@ var/list/spells = typesof(/obj/effect/proc_holder/spell) //needed for the badmin
 	var/action_icon = 'icons/mob/actions.dmi'
 	var/action_icon_state = "spell_default"
 	var/action_background_icon_state = "bg_spell"
-	
+
 	var/sound = null //The sound the spell makes when it is cast
 
 /obj/effect/proc_holder/spell/proc/cast_check(skipcharge = 0, mob/living/user = usr) //checks if the spell can be cast based on its settings; skipcharge is used when an additional cast_check is called inside the spell
@@ -140,13 +140,13 @@ var/list/spells = typesof(/obj/effect/proc_holder/spell) //needed for the badmin
 	var/obj/effect/proc_holder/spell/noclothes/clothes_spell = locate() in (user.mob_spell_list | (user.mind ? user.mind.spell_list : list()))
 	if((ishuman(user) && clothes_req) && !istype(clothes_spell))//clothes check
 		var/mob/living/carbon/human/H = user
-		if(!istype(H.wear_suit, /obj/item/clothing/suit/wizrobe) && !istype(H.wear_suit, /obj/item/clothing/suit/space/rig/wizard))
+		if(!istype(H.wear_suit, /obj/item/clothing/suit/wizrobe) && !istype(H.wear_suit, /obj/item/clothing/suit/space/hardsuit/wizard))
 			to_chat(user, "<span class='notice'>I don't feel strong enough without my robe.</span>")
 			return 0
 		if(!istype(H.shoes, /obj/item/clothing/shoes/sandal))
 			to_chat(user, "<span class='notice'>I don't feel strong enough without my sandals.</span>")
 			return 0
-		if(!istype(H.head, /obj/item/clothing/head/wizard) && !istype(H.head, /obj/item/clothing/head/helmet/space/rig/wizard))
+		if(!istype(H.head, /obj/item/clothing/head/wizard) && !istype(H.head, /obj/item/clothing/head/helmet/space/hardsuit/wizard))
 			to_chat(user, "<span class='notice'>I don't feel strong enough without my hat.</span>")
 			return 0
 	else if(!ishuman(user))
@@ -184,8 +184,8 @@ var/list/spells = typesof(/obj/effect/proc_holder/spell) //needed for the badmin
 			user.visible_message(invocation, invocation_emote_self) //same style as in mob/living/emote.dm
 
 /obj/effect/proc_holder/spell/proc/playMagSound()
-	playsound(get_turf(usr), sound,50,1)			
-			
+	playsound(get_turf(usr), sound,50,1)
+
 /obj/effect/proc_holder/spell/New()
 	..()
 	action = new(src)
@@ -194,8 +194,7 @@ var/list/spells = typesof(/obj/effect/proc_holder/spell) //needed for the badmin
 	charge_counter = charge_max
 
 /obj/effect/proc_holder/spell/Destroy()
-	qdel(action)
-	action = null
+	QDEL_NULL(action)
 	return ..()
 
 /obj/effect/proc_holder/spell/Click()
@@ -223,10 +222,10 @@ var/list/spells = typesof(/obj/effect/proc_holder/spell) //needed for the badmin
 	spawn(0)
 		if(charge_type == "recharge" && recharge)
 			start_recharge()
-			
+
 	if(sound)
-		playMagSound()			
-			
+		playMagSound()
+
 	if(prob(critfailchance))
 		critfail(targets)
 	else
@@ -442,11 +441,11 @@ var/list/spells = typesof(/obj/effect/proc_holder/spell) //needed for the badmin
 		var/clothcheck = locate(/obj/effect/proc_holder/spell/noclothes) in user.mob_spell_list
 		var/clothcheck2 = user.mind && (locate(/obj/effect/proc_holder/spell/noclothes) in user.mind.spell_list)
 		if(clothes_req && !clothcheck && !clothcheck2) //clothes check
-			if(!istype(H.wear_suit, /obj/item/clothing/suit/wizrobe) && !istype(H.wear_suit, /obj/item/clothing/suit/space/rig/wizard))
+			if(!istype(H.wear_suit, /obj/item/clothing/suit/wizrobe) && !istype(H.wear_suit, /obj/item/clothing/suit/space/hardsuit/wizard))
 				return 0
 			if(!istype(H.shoes, /obj/item/clothing/shoes/sandal))
 				return 0
-			if(!istype(H.head, /obj/item/clothing/head/wizard) && !istype(H.head, /obj/item/clothing/head/helmet/space/rig/wizard))
+			if(!istype(H.head, /obj/item/clothing/head/wizard) && !istype(H.head, /obj/item/clothing/head/helmet/space/hardsuit/wizard))
 				return 0
 	else
 		if(clothes_req  || human_req)

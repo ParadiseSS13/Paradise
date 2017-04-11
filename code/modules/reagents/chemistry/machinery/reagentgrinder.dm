@@ -1,5 +1,5 @@
 /obj/machinery/reagentgrinder
-	name = "\improper All-In-One Grinder"
+	name = "All-In-One Grinder"
 	icon = 'icons/obj/kitchen.dmi'
 	icon_state = "juicer1"
 	layer = 2.9
@@ -40,6 +40,7 @@
 			/obj/item/weapon/reagent_containers/food/snacks/grown/cherries = list("cherryjelly" = 0),
 			/obj/item/weapon/reagent_containers/food/snacks/grown/bluecherries = list("bluecherryjelly" = 0),
 			/obj/item/weapon/reagent_containers/food/snacks/egg = list("egg" = -5),
+			/obj/item/weapon/reagent_containers/food/snacks/grown/rice = list("rice" = -5),
 
 			//Grinder stuff, but only if dry
 			/obj/item/weapon/reagent_containers/food/snacks/grown/coffee/robusta = list("coffeepowder" = 0, "morphine" = 0),
@@ -92,9 +93,7 @@
 	return
 
 /obj/machinery/reagentgrinder/Destroy()
-	if(beaker)
-		qdel(beaker)
-		beaker = null
+	QDEL_NULL(beaker)
 	return ..()
 
 /obj/machinery/reagentgrinder/ex_act(severity)

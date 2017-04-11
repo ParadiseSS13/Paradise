@@ -334,7 +334,7 @@
 		else if(istype(obstacle, /obj/structure/grille/))
 			var/obj/structure/grille/G = obstacle
 			G.health = (0.25*initial(G.health))
-			G.destroyed = 1
+			G.broken = 1
 			G.icon_state = "[initial(G.icon_state)]-b"
 			G.density = 0
 			new /obj/item/stack/rods(get_turf(G.loc))
@@ -629,8 +629,7 @@
 	else
 		qdel(cabin_air)
 	cabin_air = null
-	qdel(spark_system)
-	spark_system = null
+	QDEL_NULL(spark_system)
 
 	mechas_list -= src //global mech list
 	return ..()
@@ -663,7 +662,7 @@
 
 /obj/mecha/emp_act(severity)
 	if(get_charge())
-		use_power((cell.charge / 2) / severity)
+		use_power((cell.charge/3)/(severity*2))
 		take_damage(50 / severity, "energy")
 	log_message("EMP detected", 1)
 	check_for_internal_damage(list(MECHA_INT_FIRE, MECHA_INT_TEMP_CONTROL, MECHA_INT_CONTROL_LOST, MECHA_INT_SHORT_CIRCUIT), 1)
@@ -734,7 +733,7 @@
 			// Since having maint protocols available is controllable by the MMI, I see this as a consensual way to remove an MMI without destroying the mech
 			user.visible_message("[user] begins levering out the MMI from the [src].", "You begin to lever out the MMI from the [src].")
 			to_chat(occupant, "<span class='warning'>[user] is prying you out of the exosuit!</span>")
-			if(do_after(user,80,target=src))
+			if(do_after(user, 80 * W.toolspeed, target=src))
 				user.visible_message("<span class='notice'>[user] pries the MMI out of the [src]!</span>", "<span class='notice'>You finish removing the MMI from the [src]!</span>")
 				go_out()
 		return

@@ -20,13 +20,19 @@
 				4 = Screwdriver panel closed and is fully built (you cannot attach upgrades)
 	*/
 
+/obj/item/weapon/camera_assembly/Destroy()
+	for(var/thing in upgrades)
+		qdel(thing)
+	upgrades.Cut()
+	return ..()
+
 /obj/item/weapon/camera_assembly/attackby(obj/item/W, mob/living/user, params)
 
 	switch(state)
 		if(0)
 			// State 0
 			if(iswrench(W) && isturf(src.loc))
-				playsound(src.loc, 'sound/items/Ratchet.ogg', 50, 1)
+				playsound(src.loc, W.usesound, 50, 1)
 				to_chat(user, "You wrench the assembly into place.")
 				anchored = 1
 				state = 1
@@ -44,7 +50,7 @@
 				return
 
 			else if(iswrench(W))
-				playsound(src.loc, 'sound/items/Ratchet.ogg', 50, 1)
+				playsound(src.loc, W.usesound, 50, 1)
 				to_chat(user, "You unattach the assembly from it's place.")
 				anchored = 0
 				update_icon()
@@ -57,6 +63,7 @@
 				var/obj/item/stack/cable_coil/C = W
 				if(C.use(2))
 					to_chat(user, "<span class='notice'>You add wires to the assembly.</span>")
+					playsound(loc, W.usesound, 50, 1)
 					state = 3
 				else
 					to_chat(user, "<span class='warning'>You need 2 coils of wire to wire the assembly.</span>")
@@ -74,7 +81,7 @@
 		if(3)
 			// State 3
 			if(isscrewdriver(W))
-				playsound(src.loc, 'sound/items/Screwdriver.ogg', 50, 1)
+				playsound(src.loc, W.usesound, 50, 1)
 
 				var/input = strip_html(input(usr, "Which networks would you like to connect this camera to? Seperate networks with a comma. No Spaces!\nFor example: SS13,Security,Secret ", "Set Network", "SS13"))
 				if(!input)
@@ -116,7 +123,7 @@
 
 			else if(iswirecutter(W))
 				new/obj/item/stack/cable_coil(get_turf(src), 2)
-				playsound(src.loc, 'sound/items/Wirecutter.ogg', 50, 1)
+				playsound(src.loc, W.usesound, 50, 1)
 				to_chat(user, "You cut the wires from the circuits.")
 				state = 2
 				return
@@ -137,7 +144,7 @@
 		var/obj/U = locate(/obj) in upgrades
 		if(U)
 			to_chat(user, "You unattach an upgrade from the assembly.")
-			playsound(src.loc, 'sound/items/Crowbar.ogg', 50, 1)
+			playsound(src.loc, W.usesound, 50, 1)
 			U.loc = get_turf(src)
 			upgrades -= U
 		return
@@ -162,9 +169,9 @@
 		return 0
 
 	to_chat(user, "<span class='notice'>You start to weld the [src]..</span>")
-	playsound(src.loc, 'sound/items/Welder.ogg', 50, 1)
+	playsound(src.loc, WT.usesound, 50, 1)
 	busy = 1
-	if(do_after(user, 20, target = src))
+	if(do_after(user, 20 * WT.toolspeed, target = src))
 		busy = 0
 		if(!WT.isOn())
 			return 0

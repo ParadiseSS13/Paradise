@@ -459,69 +459,69 @@
 	construction_time = 200
 	category = list("H.O.N.K")
 
-//Recitence
-/datum/design/recitence_chassis
-	name = "Exosuit Chassis (\"Recitence\")"
-	id = "recitence_chassis"
+//Reticence
+/datum/design/reticence_chassis
+	name = "Exosuit Chassis (\"Reticence\")"
+	id = "reticence_chassis"
 	build_type = MECHFAB
-	build_path = /obj/item/mecha_parts/chassis/recitence
+	build_path = /obj/item/mecha_parts/chassis/reticence
 	materials = list(MAT_METAL=20000)
 	construction_time = 100
-	category = list("Recitence")
+	category = list("Reticence")
 
-/datum/design/recitence_torso
-	name = "Exosuit Torso (\"Recitence\")"
-	id = "recitence_torso"
+/datum/design/reticence_torso
+	name = "Exosuit Torso (\"Reticence\")"
+	id = "reticence_torso"
 	build_type = MECHFAB
-	build_path = /obj/item/mecha_parts/part/recitence_torso
+	build_path = /obj/item/mecha_parts/part/reticence_torso
 	materials = list(MAT_METAL=20000,MAT_GLASS=10000,MAT_TRANQUILLITE=10000)
 	construction_time = 300
-	category = list("Recitence")
+	category = list("Reticence")
 
-/datum/design/recitence_head
-	name = "Exosuit Head (\"Recitence\")"
-	id = "recitence_head"
+/datum/design/reticence_head
+	name = "Exosuit Head (\"Reticence\")"
+	id = "reticence_head"
 	build_type = MECHFAB
-	build_path = /obj/item/mecha_parts/part/recitence_head
+	build_path = /obj/item/mecha_parts/part/reticence_head
 	materials = list(MAT_METAL=10000,MAT_GLASS=5000,MAT_TRANQUILLITE=5000)
 	construction_time = 200
-	category = list("Recitence")
+	category = list("Reticence")
 
-/datum/design/recitence_left_arm
-	name = "Exosuit Left Arm (\"Recitence\")"
-	id = "recitence_left_arm"
+/datum/design/reticence_left_arm
+	name = "Exosuit Left Arm (\"Reticence\")"
+	id = "reticence_left_arm"
 	build_type = MECHFAB
-	build_path = /obj/item/mecha_parts/part/recitence_left_arm
+	build_path = /obj/item/mecha_parts/part/reticence_left_arm
 	materials = list(MAT_METAL=15000,MAT_TRANQUILLITE=5000)
 	construction_time = 200
-	category = list("Recitence")
+	category = list("Reticence")
 
-/datum/design/recitence_right_arm
-	name = "Exosuit Right Arm (\"Recitence\")"
-	id = "recitence_right_arm"
+/datum/design/reticence_right_arm
+	name = "Exosuit Right Arm (\"Reticence\")"
+	id = "reticence_right_arm"
 	build_type = MECHFAB
-	build_path = /obj/item/mecha_parts/part/recitence_right_arm
+	build_path = /obj/item/mecha_parts/part/reticence_right_arm
 	materials = list(MAT_METAL=15000,MAT_TRANQUILLITE=5000)
 	construction_time = 200
-	category = list("Recitence")
+	category = list("Reticence")
 
-/datum/design/recitence_left_leg
-	name = "Exosuit Left Leg (\"Recitence\")"
-	id = "recitence_left_leg"
+/datum/design/reticence_left_leg
+	name = "Exosuit Left Leg (\"Reticence\")"
+	id = "reticence_left_leg"
 	build_type = MECHFAB
-	build_path =/obj/item/mecha_parts/part/recitence_left_leg
+	build_path =/obj/item/mecha_parts/part/reticence_left_leg
 	materials = list(MAT_METAL=20000,MAT_TRANQUILLITE=5000)
 	construction_time = 200
-	category = list("Recitence")
+	category = list("Reticence")
 
-/datum/design/recitence_right_leg
-	name = "Exosuit Right Leg (\"Recitence\")"
-	id = "recitence_right_leg"
+/datum/design/reticence_right_leg
+	name = "Exosuit Right Leg (\"Reticence\")"
+	id = "reticence_right_leg"
 	build_type = MECHFAB
-	build_path = /obj/item/mecha_parts/part/recitence_right_leg
+	build_path = /obj/item/mecha_parts/part/reticence_right_leg
 	materials = list(MAT_METAL=20000,MAT_TRANQUILLITE=5000)
 	construction_time = 200
-	category = list("Recitence")
+	category = list("Reticence")
 
 //Phazon
 /datum/design/phazon_chassis
@@ -1038,16 +1038,6 @@
 	construction_time = 120
 	category = list("Cyborg Upgrade Modules")
 
-/datum/design/borg_upgrade_hyperka
-	name = "Cyborg Upgrade (Hyper-Kinetic Accelerator)"
-	id = "borg_upgrade_hyperka"
-	req_tech = list("materials" = 7, "powerstorage" = 5, "engineering" = 5, "magnets" = 5, "combat" = 4)
-	build_type = MECHFAB //Reqs same as human Hyper KA
-	materials = list(MAT_METAL = 8000, MAT_GLASS = 1500, MAT_SILVER = 2000, MAT_GOLD = 2000, MAT_DIAMOND = 2000)
-	build_path = /obj/item/borg/upgrade/hyperka
-	construction_time = 120
-	category = list("Cyborg Upgrade Modules")
-
 /datum/design/borg_syndicate_module
 	name = "Cyborg Upgrade (Illegal Modules)"
 	id = "borg_syndicate_module"
@@ -1110,7 +1100,7 @@
 	name = "IPC Optical Sensor"
 	id = "ipc_optics"
 	build_type = MECHFAB
-	build_path = /obj/item/organ/internal/optical_sensor
+	build_path = /obj/item/organ/internal/eyes/optical_sensor
 	materials = list(MAT_METAL=1000, MAT_GLASS=2500)
 	construction_time = 200
 	category = list("Misc")

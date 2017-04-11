@@ -12,7 +12,7 @@
 	var/stunforce = 7
 	var/status = 0
 	var/obj/item/weapon/stock_parts/cell/high/bcell = null
-	var/hitcost = 1500
+	var/hitcost = 1000
 
 /obj/item/weapon/melee/baton/suicide_act(mob/user)
 	user.visible_message("<span class='suicide'>[user] is putting the live [name] in \his mouth! It looks like \he's trying to commit suicide.</span>")
@@ -24,9 +24,7 @@
 	return
 
 /obj/item/weapon/melee/baton/Destroy()
-	if(bcell)
-		qdel(bcell)
-		bcell = null
+	QDEL_NULL(bcell)
 	return ..()
 
 /obj/item/weapon/melee/baton/loaded/New() //this one starts with a cell pre-installed.
@@ -184,11 +182,6 @@
 			return 1
 	..()
 
-
-//secborg stun baton module
-/obj/item/weapon/melee/baton/loaded/robot
-	hitcost = 1000
-
 //Makeshift stun baton. Replacement for stun gloves.
 /obj/item/weapon/melee/baton/cattleprod
 	name = "stunprod"
@@ -199,13 +192,17 @@
 	force = 3
 	throwforce = 5
 	stunforce = 5
-	hitcost = 3750
+	hitcost = 2000
 	slot_flags = SLOT_BACK
-	var/obj/item/device/assembly/igniter/sparkler = 0
+	var/obj/item/device/assembly/igniter/sparkler = null
 
 /obj/item/weapon/melee/baton/cattleprod/New()
 	..()
-	sparkler = new (src)
+	sparkler = new(src)
+
+/obj/item/weapon/melee/baton/cattleprod/Destroy()
+	QDEL_NULL(sparkler)
+	return ..()
 
 /obj/item/weapon/melee/baton/cattleprod/baton_stun()
 	if(sparkler.activate())

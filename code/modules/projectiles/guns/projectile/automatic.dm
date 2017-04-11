@@ -251,7 +251,7 @@
 	empty_alarm()
 
 /obj/item/weapon/gun/projectile/automatic/lasercarbine
-	name = "\improper IK-60 Laser Carbine"
+	name = "IK-60 Laser Carbine"
 	desc = "An experimental carbine. Uses encased laser projectors as ammunition."//we need to uncouple the toroidal resistance dejammers
 	icon_state = "lasercarbine"
 	item_state = "laser"
@@ -261,3 +261,7 @@
 	fire_sound = 'sound/weapons/emitter2.ogg'
 	can_suppress = 0
 	burst_size = 2
+
+/obj/item/weapon/gun/projectile/automatic/lasercarbine/update_icon()
+	..()
+	icon_state = "lasercarbine[magazine ? "-[Ceiling(get_ammo(0)/5)*5]" : ""]"

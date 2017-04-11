@@ -6,12 +6,15 @@
 	var/datum/light_source/light
 	var/list/light_sources
 
+// Nonsensical value for l_color default, so we can detect if it gets set to null.
 #define NONSENSICAL_VALUE -99999
-/atom/proc/set_light(var/l_range, var/l_power, var/l_color = NONSENSICAL_VALUE)
+/atom/proc/set_light(l_range, l_power, l_color = NONSENSICAL_VALUE)
 	if(l_power != null)
 		light_power = l_power
+
 	if(l_range != null)
 		light_range = l_range
+
 	if(l_color != NONSENSICAL_VALUE)
 		light_color = l_color
 
@@ -35,30 +38,29 @@
 		if(light)
 			light.update(.)
 		else
-			light = new/datum/light_source(src, .)
+			light = new /datum/light_source(src, .)
 
 /atom/New()
 	. = ..()
+
 	if(light_power && light_range)
 		update_light()
+
+	if(opacity && isturf(loc))
+		var/turf/T = loc
+		T.has_opaque_atom = TRUE // No need to recalculate it in this case, it's guranteed to be on afterwards anyways.
 
 /atom/Destroy()
 	if(light)
 		light.destroy()
 		light = null
-
-	if(opacity && isturf(loc))
-		var/turf/T = loc
-		T.has_opaque_atom = TRUE // No need to recalculate it in this case, it's guaranteed to be on afterwards anyways.
-
-	. = ..()
-
+	return ..()
 
 /atom/movable/Destroy()
 	var/turf/T = loc
 	if(opacity && istype(T))
 		T.reconsider_lights()
-	. = ..()
+	return ..()
 
 /atom/movable/Move()
 	var/turf/old_loc = loc
@@ -75,36 +77,23 @@
 	if(istype(new_loc) && opacity)
 		new_loc.reconsider_lights()
 
-/atom/proc/set_opacity(var/new_opacity)
-	opacity = new_opacity
-	var/turf/T = loc
-	if (!isturf(T))
+/atom/proc/set_opacity(new_opacity)
+	if(new_opacity == opacity)
 		return
 
-	if (new_opacity == TRUE)
+	opacity = new_opacity
+	var/turf/T = loc
+	if(!isturf(T))
+		return
+
+	if(new_opacity == TRUE)
 		T.has_opaque_atom = TRUE
 		T.reconsider_lights()
 	else
 		var/old_has_opaque_atom = T.has_opaque_atom
 		T.recalc_atom_opacity()
-		if (old_has_opaque_atom != T.has_opaque_atom)
+		if(old_has_opaque_atom != T.has_opaque_atom)
 			T.reconsider_lights()
-
-// This code makes the light be queued for update when it is moved.
-// Entered() should handle it, however Exited() can do it if it is being moved to nullspace (as there would be no Entered() call in that situation).
-/atom/Entered(var/atom/movable/Obj, var/atom/OldLoc) //Implemented here because forceMove() doesn't call Move()
-	. = ..()
-
-	if (Obj && OldLoc != src)
-		for (var/datum/light_source/L in Obj.light_sources) // Cycle through the light sources on this atom and tell them to update.
-			L.source_atom.update_light()
-
-/atom/Exited(var/atom/movable/Obj, var/atom/newloc)
-	. = ..()
-
-	if (!newloc && Obj && newloc != src) // Incase the atom is being moved to nullspace, we handle queuing for a lighting update here.
-		for (var/datum/light_source/L in Obj.light_sources) // Cycle through the light sources on this atom and tell them to update.
-			L.source_atom.update_light()
 
 /obj/item/equipped()
 	. = ..()

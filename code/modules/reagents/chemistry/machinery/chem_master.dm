@@ -1,5 +1,5 @@
 /obj/machinery/chem_master
-	name = "\improper ChemMaster 3000"
+	name = "ChemMaster 3000"
 	density = 1
 	anchored = 1
 	icon = 'icons/obj/chemical.dmi'
@@ -96,7 +96,7 @@
 		if(!(printing))
 			printing = 1
 			visible_message("<span class='notice'>[src] rattles and prints out a sheet of paper.</span>")
-			playsound(loc, "sound/goonstation/machines/printer_dotmatrix.ogg", 50, 1)
+			playsound(loc, 'sound/goonstation/machines/printer_dotmatrix.ogg', 50, 1)
 			var/obj/item/weapon/paper/P = new /obj/item/weapon/paper(loc)
 			P.info = "<CENTER><B>Chemical Analysis</B></CENTER><BR>"
 			P.info += "<b>Time of analysis:</b> [worldtime2text(world.time)]<br><br>"
@@ -374,7 +374,7 @@
 	return all_safe
 
 /obj/machinery/chem_master/condimaster
-	name = "\improper CondiMaster 3000"
+	name = "CondiMaster 3000"
 	condi = 1
 
 /obj/machinery/chem_master/constructable

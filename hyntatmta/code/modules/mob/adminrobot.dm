@@ -5,6 +5,10 @@
 		/mob/living/silicon/proc/subsystem_power_monitor,
 		/mob/living/silicon/proc/subsystem_crew_monitor
 		)
+	module_actions = list(
+		/datum/action/innate/robot_sight/meson,
+		/datum/action/innate/robot_sight/thermal
+	)
 	stacktypes = list(
 		/obj/item/stack/sheet/metal/cyborg = 50,
 		/obj/item/stack/sheet/glass/cyborg = 50,
@@ -20,8 +24,6 @@
 
 /obj/item/weapon/robot_module/admin/New()
 	..()
-	modules += new /obj/item/borg/sight/meson(src)
-	modules += new /obj/item/borg/sight/thermal(src)
 	modules += new /obj/item/weapon/rcd/borg(src)
 	modules += new /obj/item/weapon/extinguisher(src)
 	modules += new /obj/item/weapon/weldingtool/largetank/cyborg(src)
@@ -109,8 +111,6 @@
 	//languages
 	module.add_languages(src)
 	//subsystems
-	module.add_subsystems(src)
-
 	status_flags &= ~CANPUSH
 
 	notify_ai(2)

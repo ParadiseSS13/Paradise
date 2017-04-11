@@ -89,6 +89,8 @@
 	sharp = 1
 	edge = 1
 	var/excavation_amount = 100
+	usesound = 'sound/effects/picaxe1.ogg'
+	toolspeed = 1
 
 /obj/item/weapon/pickaxe/proc/playDigSound()
 	playsound(src, pick(digsound),20,1)
@@ -100,6 +102,16 @@
 	digspeed = 30 //mines faster than a normal pickaxe, bought from mining vendor
 	origin_tech = "materials=3;engineering=2"
 	desc = "A silver-plated pickaxe that mines slightly faster than standard-issue."
+	toolspeed = 0.75
+
+/obj/item/weapon/pickaxe/gold
+	name = "golden pickaxe"
+	icon_state = "gpickaxe"
+	item_state = "gpickaxe"
+	digspeed = 20
+	origin_tech = "materials=4;engineering=2"
+	desc = "A gold-plated pickaxe that mines faster than standard-issue."
+	toolspeed = 0.6
 
 /obj/item/weapon/pickaxe/diamond
 	name = "diamond-tipped pickaxe"
@@ -108,6 +120,7 @@
 	digspeed = 20 //mines twice as fast as a normal pickaxe, bought from mining vendor
 	origin_tech = "materials=4;engineering=3"
 	desc = "A pickaxe with a diamond pick head. Extremely robust at cracking rock walls and digging up dirt."
+	toolspeed = 0.5
 
 /obj/item/weapon/pickaxe/drill
 	name = "mining drill"
@@ -116,8 +129,10 @@
 	digspeed = 25 //available from roundstart, faster than a pickaxe.
 	digsound = list('sound/weapons/drill.ogg')
 	hitsound = 'sound/weapons/drill.ogg'
+	usesound = 'sound/weapons/drill.ogg'
 	origin_tech = "materials=2;powerstorage=3;engineering=2"
 	desc = "An electric mining drill for the especially scrawny."
+	toolspeed = 0.5
 
 /obj/item/weapon/pickaxe/drill/cyborg
 	name = "cyborg mining drill"
@@ -130,6 +145,7 @@
 	digspeed = 10
 	origin_tech = "materials=6;powerstorage=4;engineering=5"
 	desc = "Yours is the drill that will pierce the heavens!"
+	toolspeed = 0.25
 
 /obj/item/weapon/pickaxe/diamonddrill/traitor //Pocket-sized traitor diamond drill.
 	name = "supermatter drill"
@@ -142,6 +158,7 @@
 	name = "diamond-tipped cyborg mining drill" //To inherit the NODROP flag, and easier to change borg specific drill mechanics.
 	icon_state = "diamonddrill"
 	digspeed = 10
+	toolspeed = 0.25
 
 /obj/item/weapon/pickaxe/drill/jackhammer
 	name = "sonic jackhammer"
@@ -151,23 +168,10 @@
 	origin_tech = "materials=3;powerstorage=2;engineering=2"
 	digsound = list('sound/weapons/sonic_jackhammer.ogg')
 	hitsound = 'sound/weapons/sonic_jackhammer.ogg'
+	usesound = 'sound/weapons/sonic_jackhammer.ogg'
 	desc = "Cracks rocks with sonic blasts, and doubles as a demolition power tool for smashing walls."
+	toolspeed = 0.1
 
-/obj/item/weapon/pickaxe/silver
-	name = "silver pickaxe"
-	icon_state = "spickaxe"
-	item_state = "spickaxe"
-	digspeed = 30
-	origin_tech = "materials=3"
-	desc = "This makes no metallurgic sense."
-
-/obj/item/weapon/pickaxe/gold
-	name = "golden pickaxe"
-	icon_state = "gpickaxe"
-	item_state = "gpickaxe"
-	digspeed = 20
-	origin_tech = "materials=4"
-	desc = "This makes no metallurgic sense."
 /*****************************Shovel********************************/
 
 /obj/item/weapon/shovel
@@ -184,6 +188,8 @@
 	materials = list(MAT_METAL=50)
 	origin_tech = "materials=1;engineering=1"
 	attack_verb = list("bashed", "bludgeoned", "thrashed", "whacked")
+	usesound = 'sound/effects/shovel_dig.ogg'
+	toolspeed = 1
 
 /obj/item/weapon/shovel/spade
 	name = "spade"
@@ -193,6 +199,7 @@
 	force = 5.0
 	throwforce = 7.0
 	w_class = 2
+	toolspeed = 2
 
 
 /**********************Mining car (Crate like thing, not the rail car)**************************/
@@ -200,7 +207,6 @@
 /obj/structure/closet/crate/miningcar
 	desc = "A mining car. This one doesn't work on rails, but has to be dragged."
 	name = "mining car (not for rails)"
-	icon = 'icons/obj/storage.dmi'
 	icon_state = "miningcar"
 	density = 1
 	icon_opened = "miningcaropen"
@@ -220,6 +226,7 @@
 
 /obj/item/device/mobcapsule/Destroy()
 	if(captured)
+		captured.ghostize()
 		qdel(captured)
 		captured = null
 	return ..()
@@ -266,7 +273,7 @@
 
 
 /area/survivalpod
-	name = "\improper Emergency Shelter"
+	name = "Emergency Shelter"
 	icon_state = "away"
 	requires_power = 0
 	has_gravity = 1
@@ -394,10 +401,10 @@
 
 /obj/item/device/gps/computer/attackby(obj/item/weapon/W, mob/user, params)
 	if(istype(W, /obj/item/weapon/wrench))
-		playsound(loc, 'sound/items/Ratchet.ogg', 50, 1)
+		playsound(loc, W.usesound, 50, 1)
 		user.visible_message("<span class='warning'>[user] disassembles the gps.</span>", \
 						"<span class='notice'>You start to disassemble the gps...</span>", "You hear clanking and banging noises.")
-		if(do_after(user, 20, target = src))
+		if(do_after(user, 20 * W.toolspeed, target = src))
 			new /obj/item/device/gps(loc)
 			qdel(src)
 			return ..()
@@ -472,10 +479,10 @@
 
 /obj/structure/fans/attackby(obj/item/weapon/W, mob/user, params)
 	if(istype(W, /obj/item/weapon/wrench))
-		playsound(loc, 'sound/items/Ratchet.ogg', 50, 1)
+		playsound(loc, W.usesound, 50, 1)
 		user.visible_message("<span class='warning'>[user] disassembles the fan.</span>", \
 							 "<span class='notice'>You start to disassemble the fan...</span>", "You hear clanking and banging noises.")
-		if(do_after(user, 20, target = src))
+		if(do_after(user, 20 * W.toolspeed, target = src))
 			deconstruct()
 			return ..()
 
@@ -523,10 +530,10 @@
 
 /obj/structure/tubes/attackby(obj/item/weapon/W, mob/user, params)
 	if(istype(W, /obj/item/weapon/wrench))
-		playsound(loc, 'sound/items/Ratchet.ogg', 50, 1)
+		playsound(loc, W.usesound, 50, 1)
 		user.visible_message("<span class='warning'>[user] disassembles [src].</span>", \
 							 "<span class='notice'>You start to disassemble [src]...</span>", "You hear clanking and banging noises.")
-		if(do_after(user, 20, target = src))
+		if(do_after(user, 20 * W.toolspeed, target = src))
 			new /obj/item/stack/rods(loc)
 			qdel(src)
 			return ..()

@@ -99,6 +99,8 @@ var/list/chatResources = list(
 
 	loaded = TRUE
 	winset(owner, "browseroutput", "is-disabled=false")
+	if(owner.holder)
+		loadAdmin()
 	for(var/message in messageQueue)
 		to_chat(owner, message)
 
@@ -119,6 +121,9 @@ var/list/chatResources = list(
 		data = list2json(data)
 	C << output("[data]", "[window]:ehjaxCallback")
 
+/datum/chatOutput/proc/loadAdmin()
+	var/data = json_encode(list("loadAdminCode" = replacetext(replacetext(file2text("goon/browserassets/html/adminOutput.html"), "\n", ""), "\t", "")))
+	ehjax_send(data = url_encode(data))
 
 /datum/chatOutput/proc/sendClientData()
 	var/list/deets = list("clientData" = list())
@@ -266,9 +271,4 @@ var/to_chat_src
 				C.chatOutput.messageQueue.Add(message)
 				return
 
-		// url_encode it TWICE, this way any UTF-8 characters are able to be decoded by the javascript.
-		var/output_message = "[url_encode(url_encode(message))]"
-		if(flag)
-			output_message += "&[url_encode(flag)]"
-
-		target << output(output_message, "browseroutput:output")
+		target << output(url_encode(message), "browseroutput:output")

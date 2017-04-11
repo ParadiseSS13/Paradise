@@ -145,6 +145,19 @@
 	message_admins("Last Cult Objective: [last_objective]")
 	log_admin("Last Cult Objective: [last_objective]")
 
+/datum/game_mode/cult/proc/get_possible_sac_targets()
+	var/list/possible_sac_targets = list()
+	for(var/mob/living/carbon/human/player in player_list)
+		if(player.mind && !is_convertable_to_cult(player.mind) && (player.stat != DEAD))
+			possible_sac_targets += player.mind
+	if(!possible_sac_targets.len)
+	//There are no living Unconvertables on the station. Looking for a Sacrifice Target among the ordinary crewmembers
+		for(var/mob/living/carbon/human/player in player_list)
+			if(is_secure_level(player.z)) //We can't sacrifice people that are on the centcom z-level
+				continue
+			if(player.mind && !(player.mind in cult) && (player.stat != DEAD))//make DAMN sure they are not dead
+				possible_sac_targets += player.mind
+	return possible_sac_targets
 
 /datum/game_mode/cult/proc/pick_objective()
 	var/list/possible_objectives = list()
@@ -153,19 +166,7 @@
 		possible_objectives |= "bloodspill"
 
 	if(!sacrificed.len)
-		var/list/possible_targets = list()
-		for(var/mob/living/carbon/human/player in player_list)
-			if(player.mind && !is_convertable_to_cult(player.mind) && (player.stat != DEAD))
-				possible_targets += player.mind
-
-		if(!possible_targets.len)
-		//There are no living Unconvertables on the station. Looking for a Sacrifice Target among the ordinary crewmembers
-			for(var/mob/living/carbon/human/player in player_list)
-				if(is_secure_level(player.z)) //We can't sacrifice people that are on the centcom z-level
-					continue
-				if(player.mind && !(player.mind in cult) && (player.stat != DEAD))//make DAMN sure they are not dead
-					possible_targets += player.mind
-
+		var/list/possible_targets = get_possible_sac_targets()
 		if(possible_targets.len > 0)
 			sacrifice_target = pick(possible_targets)
 			possible_objectives |= "sacrifice"

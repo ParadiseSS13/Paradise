@@ -44,7 +44,7 @@
 	min_temperature = max(0,T0C - (170 + (T*15)))
 	current_heat_capacity = 1000 * ((H - 1) ** 2)
 
-/obj/machinery/atmospherics/unary/cold_sink/freezer/construction()
+/obj/machinery/atmospherics/unary/cold_sink/freezer/on_construction()
 	..(dir,dir)
 
 /obj/machinery/atmospherics/unary/cold_sink/freezer/attackby(obj/item/I, mob/user, params)
@@ -65,7 +65,7 @@
 		var/list/choices = list("West" = WEST, "East" = EAST, "South" = SOUTH, "North" = NORTH)
 		var/selected = input(user,"Select a direction for the connector.", "Connector Direction") in choices
 		dir = choices[selected]
-		playsound(src.loc, 'sound/items/Ratchet.ogg', 50, 1)
+		playsound(src.loc, I.usesound, 50, 1)
 		var/node_connect = dir
 		initialize_directions = dir
 		for(var/obj/machinery/atmospherics/target in get_step(src,node_connect))
@@ -193,7 +193,7 @@
 	component_parts += new /obj/item/stack/cable_coil(src, 1)
 	RefreshParts()
 
-/obj/machinery/atmospherics/unary/heat_reservoir/heater/construction()
+/obj/machinery/atmospherics/unary/heat_reservoir/heater/on_construction()
 	..(dir,dir)
 
 /obj/machinery/atmospherics/unary/heat_reservoir/heater/RefreshParts()
@@ -224,7 +224,7 @@
 		var/list/choices = list("West" = WEST, "East" = EAST, "South" = SOUTH, "North" = NORTH)
 		var/selected = input(user,"Select a direction for the connector.", "Connector Direction") in choices
 		dir = choices[selected]
-		playsound(src.loc, 'sound/items/Ratchet.ogg', 50, 1)
+		playsound(src.loc, I.usesound, 50, 1)
 		var/node_connect = dir
 		initialize_directions = dir
 		for(var/obj/machinery/atmospherics/target in get_step(src,node_connect))

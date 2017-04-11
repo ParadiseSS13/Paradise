@@ -17,7 +17,7 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 
 /area
 	var/fire = null
-	var/atmosalm = 0
+	var/atmosalm = ATMOS_ALARM_NONE
 	var/poweralm = 1
 	var/party = null
 	var/radalert = 0
@@ -57,7 +57,7 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 
 	var/tele_proof = 0
 	var/no_teleportlocs = 0
-	
+
 	var/outdoors = 0 //For space, the asteroid, lavaland, etc. Used with blueprints to determine if we are adding a new area (vs editing a station room)
 
 /*Adding a wizard area teleport list because motherfucking lag -- Urist*/
@@ -311,7 +311,7 @@ var/list/ghostteleportlocs = list()
 	icon_state = "shuttlered2"
 
 /area/shuttle/syndicate_sit
-	name = "\improper Syndicate SIT Shuttle"
+	name = " Syndicate SIT Shuttle"
 	icon_state = "shuttlered"
 
 /area/shuttle/assault_pod
@@ -538,7 +538,7 @@ var/list/ghostteleportlocs = list()
 	icon_state = "syndie-elite"
 
 /area/syndicate_mothership/infteam
-	name = "\improper Syndicate Infiltrators"
+	name = " Syndicate Infiltrators"
 	icon_state = "syndie-elite"
 
 /area/syndicate_depot
@@ -1044,7 +1044,7 @@ var/list/ghostteleportlocs = list()
 
 /area/bridge/meeting_room
 	name = "Heads of Staff Meeting Room"
-	icon_state = "bridge"
+	icon_state = "meeting"
 	music = null
 
 /area/crew_quarters/captain
@@ -1563,11 +1563,11 @@ var/list/ghostteleportlocs = list()
 	icon_state = "surgery"
 
 /area/medical/surgery1
-	name = "\improper Surgery 1"
+	name = "Surgery 1"
 	icon_state = "surgery1"
 
 /area/medical/surgery2
-	name = "\improper Surgery 2"
+	name = "Surgery 2"
 	icon_state = "surgery2"
 
 /area/medical/surgeryobs
@@ -1879,6 +1879,10 @@ area/security/podbay
 /area/toxins/mixing
 	name = "Toxins Mixing Room"
 	icon_state = "toxmix"
+
+/area/toxins/launch
+	name = "Toxins Launch Room"
+	icon_state = "toxlaunch"
 
 /area/toxins/misc_lab
 	name = "Research Testing Lab"
@@ -2470,11 +2474,6 @@ area/security/podbay
 
 /area/awaymission/spacebattle/secret
 	name = "Hidden Chamber"
-
-/area/awaymission/listeningpost
-	name = "Listening Post"
-	icon_state = "away"
-	requires_power = 0
 
 /area/awaymission/beach
 	name = "Beach"

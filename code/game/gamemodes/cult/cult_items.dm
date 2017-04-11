@@ -64,7 +64,7 @@
 	icon_state = "culthood"
 	desc = "A hood worn by the followers of a cult."
 	flags_inv = HIDEFACE
-	flags = HEADCOVERSEYES
+	flags_cover = HEADCOVERSEYES
 	armor = list(melee = 30, bullet = 10, laser = 5, energy = 5, bomb = 0, bio = 0, rad = 0)
 	cold_protection = HEAD
 	min_cold_protection_temperature = SPACE_HELM_MIN_TEMP_PROTECT
@@ -96,8 +96,9 @@
 	icon_state = "magus"
 	item_state = "magus"
 	desc = "A helm worn by the followers of Nar-Sie."
+	flags = BLOCKHAIR
 	flags_inv = HIDEFACE
-	flags = HEADCOVERSEYES | HEADCOVERSMOUTH | BLOCKHAIR
+	flags_cover = HEADCOVERSEYES | HEADCOVERSMOUTH
 	armor = list(melee = 30, bullet = 30, laser = 30, energy = 20, bomb = 0, bio = 0, rad = 0)
 
 /obj/item/clothing/suit/magusred
@@ -145,8 +146,9 @@
 	icon_state = "cult_hoodalt"
 	armor = list(melee = 50, bullet = 40, laser = 50, energy = 30, bomb = 50, bio = 30, rad = 30)
 	body_parts_covered = HEAD
+	flags = NODROP
 	flags_inv = HIDEFACE
-	flags =  NODROP | HEADCOVERSEYES
+	flags_cover = HEADCOVERSEYES
 
 /obj/item/clothing/suit/hooded/cultrobes/cult_shield/equipped(mob/living/user, slot)
 	..()
@@ -171,8 +173,8 @@
 /obj/item/clothing/suit/hooded/cultrobes/berserker
 	name = "flagellant's robes"
 	desc = "Blood-soaked robes infused with dark magic; allows the user to move at inhuman speeds, but at the cost of increased damage."
-	icon_state = "hardsuit-beserker"
-	item_state = "hardsuit-beserker"
+	icon_state = "hardsuit-berserker"
+	item_state = "hardsuit-berserker"
 	flags_inv = HIDEJUMPSUIT
 	allowed = list(/obj/item/weapon/tome,/obj/item/weapon/melee/cultblade)
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|ARMS
@@ -186,7 +188,7 @@
 	desc = "Blood-soaked garb infused with dark magic; allows the user to move at inhuman speeds, but at the cost of increased damage."
 	icon_state = "culthood"
 	flags_inv = HIDEFACE
-	flags = HEADCOVERSEYES
+	flags_cover = HEADCOVERSEYES
 	armor = list(melee = -100, bullet = -100, laser = -100, energy = -100, bomb = -100, bio = -100, rad = -100)
 
 /obj/item/weapon/whetstone/cult
@@ -245,7 +247,7 @@
 		var/timer = shuttle_master.emergency.timeLeft(1) + cursetime
 		shuttle_master.emergency.setTimer(timer)
 		to_chat(user,"<span class='danger'>You shatter the orb! A dark essence spirals into the air, then disappears.</span>")
-		playsound(user.loc, "sound/effects/Glassbr1.ogg", 50, 1)
+		playsound(user.loc, 'sound/effects/Glassbr1.ogg', 50, 1)
 		qdel(src)
 		sleep(20)
 		var/global/list/curses
@@ -298,7 +300,7 @@
 	var/turf/mobloc = get_turf(C)
 	var/list/turfs = new/list()
 	for(var/turf/T in range(user, outer_tele_radius))
-		if(!is_teleport_allowed(T))
+		if(!is_teleport_allowed(T.z))
 			continue
 		if(get_dir(C, T) != C.dir)
 			continue

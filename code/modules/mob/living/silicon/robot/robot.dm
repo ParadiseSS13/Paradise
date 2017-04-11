@@ -180,16 +180,15 @@ var/list/robot_verbs_default = list(
 
 			for(var/line in lines)
 			// split & clean up
-				var/list/Entry = splittext(line, ";")
+				var/list/Entry = splittext(line, ":")
 				for(var/i = 1 to Entry.len)
 					Entry[i] = trim(Entry[i])
 
-				if(Entry.len < 2)
-					continue;
+				if(Entry.len < 2 || Entry[1] != "cyborg")		//ignore incorrectly formatted entries or entries that aren't marked for cyborg
+					continue
 
-				if(Entry[1] == src.ckey && Entry[2] == src.real_name) //They're in the list? Custom sprite time, var and icon change required
+				if(Entry[2] == ckey)	//They're in the list? Custom sprite time, var and icon change required
 					custom_sprite = 1
-					icon = 'icons/mob/custom-synthetic.dmi'
 
 	return 1
 
@@ -252,12 +251,10 @@ var/list/robot_verbs_default = list(
 		mmi = null
 	if(connected_ai)
 		connected_ai.connected_robots -= src
-	qdel(wires)
-	wires = null
-	qdel(module)
-	module = null
-	camera = null
-	cell = null
+	QDEL_NULL(wires)
+	QDEL_NULL(module)
+	QDEL_NULL(camera)
+	QDEL_NULL(cell)
 	return ..()
 
 /mob/living/silicon/robot/proc/pick_module()
@@ -289,6 +286,7 @@ var/list/robot_verbs_default = list(
 			module_sprites["Basic"] = "robot_old"
 			module_sprites["Android"] = "droid"
 			module_sprites["Default"] = "robot"
+			module_sprites["Noble-STD"] = "Noble-STD"
 
 		if("Service")
 			module = new /obj/item/weapon/robot_module/butler(src)
@@ -299,6 +297,7 @@ var/list/robot_verbs_default = list(
 			module_sprites["Rich"] = "maximillion"
 			module_sprites["Default"] = "Service2"
 			module_sprites["Standard"] = "robotServ"
+			module_sprites["Noble-SRV"] = "Noble-SRV"
 
 		if("Miner")
 			module = new /obj/item/weapon/robot_module/miner(src)
@@ -309,6 +308,7 @@ var/list/robot_verbs_default = list(
 			module_sprites["Advanced Droid"] = "droid-miner"
 			module_sprites["Treadhead"] = "Miner"
 			module_sprites["Standard"] = "robotMine"
+			module_sprites["Noble-DIG"] = "Noble-DIG"
 
 		if("Medical")
 			module = new /obj/item/weapon/robot_module/medical(src)
@@ -320,6 +320,7 @@ var/list/robot_verbs_default = list(
 			module_sprites["Advanced Droid"] = "droid-medical"
 			module_sprites["Needles"] = "medicalrobot"
 			module_sprites["Standard"] = "robotMedi"
+			module_sprites["Noble-MED"] = "Noble-MED"
 			status_flags &= ~CANPUSH
 
 		if("Security")
@@ -330,6 +331,7 @@ var/list/robot_verbs_default = list(
 			module_sprites["Black Knight"] = "securityrobot"
 			module_sprites["Bloodhound"] = "bloodhound"
 			module_sprites["Standard"] = "robotSecy"
+			module_sprites["Noble-SEC"] = "Noble-SEC"
 			status_flags &= ~CANPUSH
 
 		if("Engineering")
@@ -341,6 +343,7 @@ var/list/robot_verbs_default = list(
 			module_sprites["Antique"] = "engineerrobot"
 			module_sprites["Landmate"] = "landmate"
 			module_sprites["Standard"] = "robotEngi"
+			module_sprites["Noble-ENG"] = "Noble-ENG"
 			magpulse = 1
 
 		if("Janitor")
@@ -350,6 +353,7 @@ var/list/robot_verbs_default = list(
 			module_sprites["Mopbot"]  = "janitorrobot"
 			module_sprites["Mop Gear Rex"] = "mopgearrex"
 			module_sprites["Standard"] = "robotJani"
+			module_sprites["Noble-CLN"] = "Noble-CLN"
 
 		if("Combat")
 			module = new /obj/item/weapon/robot_module/combat(src)
@@ -610,7 +614,7 @@ var/list/robot_verbs_default = list(
 		var/obj/item/weapon/weldingtool/WT = W
 		user.changeNext_move(CLICK_CD_MELEE)
 		if(WT.remove_fuel(0))
-			playsound(src.loc, 'sound/items/Welder2.ogg', 50, 1)
+			playsound(src.loc, W.usesound, 50, 1)
 			adjustBruteLoss(-30)
 			updatehealth()
 			add_fingerprint(user)
@@ -644,7 +648,7 @@ var/list/robot_verbs_default = list(
 					return
 
 				to_chat(user, "You jam the crowbar into the robot and begin levering [mmi].")
-				if(do_after(user,3 SECONDS, target = src))
+				if(do_after(user, 30 * W.toolspeed, target = src))
 					to_chat(user, "You damage some parts of the chassis, but eventually manage to rip out [mmi]!")
 					var/obj/item/robot_parts/robot_suit/C = new/obj/item/robot_parts/robot_suit(loc)
 					C.l_leg = new/obj/item/robot_parts/l_leg(C)
@@ -938,9 +942,11 @@ var/list/robot_verbs_default = list(
 				adjustStaminaLoss(damage)
 		updatehealth()
 
+/mob/living/silicon/robot/attack_ghost(mob/user)
+	if(wiresexposed)
+		wires.Interact(user)
 
 /mob/living/silicon/robot/attack_hand(mob/user)
-
 	add_fingerprint(user)
 
 	if(opened && !wiresexposed && (!istype(user, /mob/living/silicon)))
@@ -1243,15 +1249,14 @@ var/list/robot_verbs_default = list(
 		triesleft--
 
 	var/icontype
-
-	if(custom_sprite == 1)
-		icontype = "Custom"
-		triesleft = 0
-	else
-		lockcharge = 1  //Locks borg until it select an icon to avoid secborgs running around with a standard sprite
-		icontype = input("Select an icon! [triesleft ? "You have [triesleft] more chances." : "This is your last try."]", "Robot", null, null) in module_sprites
+	lockcharge = 1  //Locks borg until it select an icon to avoid secborgs running around with a standard sprite
+	icontype = input("Select an icon! [triesleft ? "You have [triesleft] more chances." : "This is your last try."]", "Robot", null, null) in module_sprites
 
 	if(icontype)
+		if(icontype == "Custom")
+			icon = 'icons/mob/custom_synthetic/custom-synthetic.dmi'
+		else
+			icon = 'icons/mob/robots.dmi'
 		icon_state = module_sprites[icontype]
 		if(icontype == "Bro")
 			module.module_type = "Brobot"

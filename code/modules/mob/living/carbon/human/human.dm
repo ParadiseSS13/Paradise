@@ -55,7 +55,7 @@
 	UpdateAppearance()
 
 /mob/living/carbon/human/OpenCraftingMenu()
-	handcrafting.craft(src)
+	handcrafting.ui_interact(src)
 
 /mob/living/carbon/human/prepare_data_huds()
 	//Update med hud images...
@@ -724,8 +724,6 @@
 	if(istype(id))
 		return id
 
-
-
 /mob/living/carbon/human/update_sight()
 	if(!client)
 		return
@@ -928,12 +926,11 @@
 						if(R.fields["id"] == E.fields["id"])
 							if(hasHUD(usr,"security"))
 								read = 1
-								var/counter = 1
-								while(R.fields[text("com_[]", counter)])
-									to_chat(usr, text("[]", R.fields[text("com_[]", counter)]))
-									counter++
-								if(counter == 1)
-									to_chat(usr, "No comment found")
+								if(length(R.fields["comments"]))
+									for(var/c in R.fields["comments"])
+										to_chat(usr, c)
+								else
+									to_chat(usr, "<span class='warning'>No comment found</span>")
 								to_chat(usr, "<a href='?src=[UID()];secrecordadd=`'>\[Add comment\]</a>")
 
 			if(!read)
@@ -956,20 +953,17 @@
 						if(R.fields["id"] == E.fields["id"])
 							if(hasHUD(usr,"security"))
 								var/t1 = sanitize_local(copytext(input("Add Comment:", "Sec. records", null, null)	as message,1,MAX_MESSAGE_LEN))
-								if( !(t1) || usr.stat || usr.restrained() || !(hasHUD(usr,"security")) )
+								if(!t1 || usr.stat || usr.restrained() || !hasHUD(usr,"security"))
 									return
-								var/counter = 1
-								while(R.fields[text("com_[]", counter)])
-									counter++
-								if(istype(usr,/mob/living/carbon/human))
+								if(ishuman(usr))
 									var/mob/living/carbon/human/U = usr
-									R.fields[text("com_[counter]")] = text("Made by [U.get_authentification_name()] ([U.get_assignment()]) on [time2text(world.realtime, "DDD MMM DD hh:mm:ss")], [game_year]<BR>[t1]")
-								if(istype(usr,/mob/living/silicon/robot))
+									R.fields["comments"] += "Made by [U.get_authentification_name()] ([U.get_assignment()]) on [current_date_string] [worldtime2text()]<BR>[t1]"
+								if(isrobot(usr))
 									var/mob/living/silicon/robot/U = usr
-									R.fields[text("com_[counter]")] = text("Made by [U.name] ([U.modtype] [U.braintype]) on [time2text(world.realtime, "DDD MMM DD hh:mm:ss")], [game_year]<BR>[t1]")
-								if(istype(usr,/mob/living/silicon/ai))
+									R.fields["comments"] += "Made by [U.name] ([U.modtype] [U.braintype]) on [current_date_string] [worldtime2text()]<BR>[t1]"
+								if(isAI(usr))
 									var/mob/living/silicon/ai/U = usr
-									R.fields[text("com_[counter]")] = text("Made by [U.name] (artificial intelligence) on [time2text(world.realtime, "DDD MMM DD hh:mm:ss")], [game_year]<BR>[t1]")
+									R.fields["comments"] += "Made by [U.name] (artificial intelligence) on [current_date_string] [worldtime2text()]<BR>[t1]"
 
 	if(href_list["medical"])
 		if(hasHUD(usr,"medical"))
@@ -1054,12 +1048,11 @@
 						if(R.fields["id"] == E.fields["id"])
 							if(hasHUD(usr,"medical"))
 								read = 1
-								var/counter = 1
-								while(R.fields[text("com_[]", counter)])
-									to_chat(usr, text("[]", R.fields[text("com_[]", counter)]))
-									counter++
-								if(counter == 1)
-									to_chat(usr, "No comment found")
+								if(length(R.fields["comments"]))
+									for(var/c in R.fields["comments"])
+										to_chat(usr, c)
+								else
+									to_chat(usr, "<span class='warning'>No comment found</span>")
 								to_chat(usr, "<a href='?src=[UID()];medrecordadd=`'>\[Add comment\]</a>")
 
 			if(!read)
@@ -1082,17 +1075,14 @@
 						if(R.fields["id"] == E.fields["id"])
 							if(hasHUD(usr,"medical"))
 								var/t1 = sanitize_local(copytext(input("Add Comment:", "Med. records", null, null)	as message,1,MAX_MESSAGE_LEN))
-								if( !(t1) || usr.stat || usr.restrained() || !(hasHUD(usr,"medical")) )
+								if(!t1 || usr.stat || usr.restrained() || !hasHUD(usr,"medical"))
 									return
-								var/counter = 1
-								while(R.fields[text("com_[]", counter)])
-									counter++
-								if(istype(usr,/mob/living/carbon/human))
+								if(ishuman(usr))
 									var/mob/living/carbon/human/U = usr
-									R.fields[text("com_[counter]")] = text("Made by [U.get_authentification_name()] ([U.get_assignment()]) on [time2text(world.realtime, "DDD MMM DD hh:mm:ss")], [game_year]<BR>[t1]")
-								if(istype(usr,/mob/living/silicon/robot))
+									R.fields["comments"] += "Made by [U.get_authentification_name()] ([U.get_assignment()]) on [current_date_string] [worldtime2text()]<BR>[t1]"
+								if(isrobot(usr))
 									var/mob/living/silicon/robot/U = usr
-									R.fields[text("com_[counter]")] = text("Made by [U.name] ([U.modtype] [U.braintype]) on [time2text(world.realtime, "DDD MMM DD hh:mm:ss")], [game_year]<BR>[t1]")
+									R.fields["comments"] += "Made by [U.name] ([U.modtype] [U.braintype]) on [current_date_string] [worldtime2text()]<BR>[t1]"
 
 	///////Interactions!!///////
 	if(href_list["interaction"])
@@ -1513,7 +1503,6 @@
 		return 0
 	return 1
 
-
 /mob/living/carbon/human/proc/get_visible_gender()
 	if(wear_suit && wear_suit.flags_inv & HIDEJUMPSUIT && ((head && head.flags_inv & HIDEMASK) || wear_mask))
 		return NEUTER
@@ -1755,6 +1744,7 @@
 
 /mob/living/carbon/human/proc/set_species(var/new_species, var/default_colour, var/delay_icon_update = 0)
 	var/datum/species/oldspecies = species
+	var/datum/species/NS = all_species[new_species]
 	if(!dna)
 		if(!new_species)
 			new_species = "Human"
@@ -1774,6 +1764,8 @@
 		if(species.default_language)
 			remove_language(species.default_language)
 
+		if(gender == PLURAL && NS.has_gender)
+			change_gender(pick(MALE,FEMALE))
 		species.handle_pre_change(src)
 
 	species = all_species[new_species]
@@ -1781,6 +1773,8 @@
 	if(oldspecies)
 		if(oldspecies.default_genes.len)
 			oldspecies.handle_dna(src,1) // Remove any genes that belong to the old species
+
+	tail = species.tail
 
 	if(vessel)
 		vessel = null
@@ -1797,12 +1791,6 @@
 
 	if(species.default_language)
 		add_language(species.default_language)
-
-	see_in_dark = species.darksight
-	if(see_in_dark > 2)
-		see_invisible = SEE_INVISIBLE_LEVEL_ONE
-	else
-		see_invisible = SEE_INVISIBLE_LIVING
 
 	hunger_drain = species.hunger_drain
 	digestion_ratio = species.digestion_ratio
@@ -1873,7 +1861,16 @@
 		dna.real_name = real_name
 
 	species.handle_post_spawn(src)
+
+	see_in_dark = species.get_resultant_darksight(src)
+	if(see_in_dark > 2)
+		see_invisible = SEE_INVISIBLE_LEVEL_ONE
+	else
+		see_invisible = SEE_INVISIBLE_LIVING
+
 	species.handle_dna(src) //Give them whatever special dna business they got.
+
+	update_client_colour(0)
 
 	spawn(0)
 		overlays.Cut()
@@ -1896,7 +1893,6 @@
 	if(!species)
 		return null
 	return species.default_language ? all_languages[species.default_language] : null
-
 
 /mob/living/carbon/human/proc/bloody_doodle()
 	set category = "IC"
@@ -2164,7 +2160,7 @@
 					threatcount += 2
 
 	//Check for dresscode violations
-	if(istype(head, /obj/item/clothing/head/wizard) || istype(head, /obj/item/clothing/head/helmet/space/rig/wizard))
+	if(istype(head, /obj/item/clothing/head/wizard) || istype(head, /obj/item/clothing/head/helmet/space/hardsuit/wizard))
 		threatcount += 2
 
 
@@ -2323,6 +2319,10 @@
 		return 0
 
 	return .
+
+/mob/living/carbon/human/proc/change_icobase(var/new_icobase, var/new_deform, var/owner_sensitive)
+	for(var/obj/item/organ/external/O in organs)
+		O.change_organ_icobase(new_icobase, new_deform, owner_sensitive) //Change the icobase/deform of all our organs. If owner_sensitive is set, that means the proc won't mess with frankenstein limbs.
 
 /mob/living/carbon/human/serialize()
 	// Currently: Limbs/organs only

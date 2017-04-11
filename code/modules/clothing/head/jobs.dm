@@ -43,14 +43,16 @@
 	name = "chaplain's hood"
 	desc = "It's hood that covers the head. It keeps you warm during the space winters."
 	icon_state = "chaplain_hood"
-	flags = HEADCOVERSEYES | BLOCKHAIR
+	flags = BLOCKHAIR
+	flags_cover = HEADCOVERSEYES
 
 //Chaplain
 /obj/item/clothing/head/nun_hood
 	name = "nun hood"
 	desc = "Maximum piety in this star system."
 	icon_state = "nun_hood"
-	flags = HEADCOVERSEYES | BLOCKHAIR
+	flags = BLOCKHAIR
+	flags_cover = HEADCOVERSEYES
 
 /obj/item/clothing/head/det_hat
 	name = "hat"

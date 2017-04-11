@@ -242,23 +242,15 @@
 		return 0 //Storage item is full
 
 	if(can_hold.len)
-		var/ok = 0
-		for(var/A in can_hold)
-			if(istype(W, text2path(A) ))
-				ok = 1
-				break
-		if(!ok)
+		if(!is_type_in_typecache(W, can_hold))
 			if(!stop_messages)
-				if(istype(W, /obj/item/weapon/hand_labeler))
-					return 0
 				to_chat(usr, "<span class='notice'>[src] cannot hold [W].</span>")
 			return 0
 
-	for(var/A in cant_hold) //Check for specific items which this container can't hold.
-		if(istype(W, text2path(A) ))
-			if(!stop_messages)
-				to_chat(usr, "<span class='notice'>[src] cannot hold [W].</span>")
-			return 0
+	if(is_type_in_typecache(W, cant_hold)) //Check for specific items which this container can't hold.
+		if(!stop_messages)
+			to_chat(usr, "<span class='notice'>[src] cannot hold [W].</span>")
+		return 0
 
 	if(W.w_class > max_w_class)
 		if(!stop_messages)
@@ -432,6 +424,8 @@
 		remove_from_storage(I, T)
 
 /obj/item/weapon/storage/New()
+	can_hold = typecacheof(can_hold)
+	cant_hold = typecacheof(cant_hold)
 
 	if(allow_quick_empty)
 		verbs += /obj/item/weapon/storage/verb/quick_empty
@@ -455,14 +449,13 @@
 	src.closer.layer = 20
 	src.closer.plane = HUD_PLANE
 	orient2hud()
-	return
 
 /obj/item/weapon/storage/Destroy()
 	for(var/obj/O in contents)
 		O.mouse_opacity = initial(O.mouse_opacity)
 
-	qdel(boxes)
-	qdel(closer)
+	QDEL_NULL(boxes)
+	QDEL_NULL(closer)
 	return ..()
 
 /obj/item/weapon/storage/emp_act(severity)

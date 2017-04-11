@@ -76,11 +76,13 @@
 			qdel(AA)
 		alternate_appearances = null
 
-	if(reagents)
-		qdel(reagents)
-		reagents = null
+	QDEL_NULL(reagents)
 	invisibility = 101
 	return ..()
+
+//Hook for running code when a dir change occurs
+/atom/proc/setDir(newdir)
+	dir = newdir
 
 /atom/proc/CheckParts(list/parts_list)
 	for(var/A in parts_list)
@@ -220,11 +222,6 @@
 
 /atom/proc/relaymove()
 	return
-
-//called to set the atom's dir and used to add behaviour to dir-changes - Not fully used (yet)
-/atom/proc/set_dir(new_dir)
-	. = new_dir != dir
-	dir = new_dir
 
 /atom/proc/ex_act()
 	return

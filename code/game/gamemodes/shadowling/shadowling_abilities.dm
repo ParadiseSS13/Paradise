@@ -72,8 +72,8 @@
 		var/datum/data/pda/utility/flashlight/FL = P.find_program(/datum/data/pda/utility/flashlight)
 		if(FL && FL.fon)
 			FL.start()
-	else if(istype(I, /obj/item/clothing/head/helmet/space/rig))
-		var/obj/item/clothing/head/helmet/space/rig/R = I
+	else if(istype(I, /obj/item/clothing/head/helmet/space/hardsuit))
+		var/obj/item/clothing/head/helmet/space/hardsuit/R = I
 		if(R.on)
 			R.toggle_light()
 			R.visible_message("<span class='danger'>[R]'s light fades and turns off.</span>")
@@ -84,8 +84,8 @@
 			P.visible_message("<span class='danger'>[P]'s light fades and turns off.</span>")
 	else if(istype(I, /obj/item/weapon/gun))
 		var/obj/item/weapon/gun/G = I
-		if(G.F)
-			var/obj/item/device/flashlight/F = G.F
+		if(G.gun_light)
+			var/obj/item/device/flashlight/F = G.gun_light
 			if(F.on)
 				G.toggle_gunlight()
 				G.visible_message("<span class='danger'>[G]'s light fades and turns off.</span>")
@@ -109,7 +109,7 @@
 		charge_counter = charge_max
 		return
 	to_chat(user, "<span class='shadowling'>You silently disable all nearby lights.</span>")
-	for(var/obj/effect/glowshroom/G in orange(2, user)) //Why the fuck was this in the loop below?
+	for(var/obj/structure/glowshroom/G in orange(2, user)) //Why the fuck was this in the loop below?
 		G.visible_message("<span class='warning'>\The [G] withers away!</span>")
 		qdel(G)
 	for(var/turf/T in targets)

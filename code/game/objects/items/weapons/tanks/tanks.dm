@@ -33,9 +33,7 @@
 	return
 
 /obj/item/weapon/tank/Destroy()
-	if(air_contents)
-		qdel(air_contents)
-		air_contents = null
+	QDEL_NULL(air_contents)
 
 	processing_objects.Remove(src)
 
@@ -45,7 +43,7 @@
 /obj/item/weapon/tank/ui_action_click(mob/user)
 	toggle_internals(user)
 
-/obj/item/weapon/tank/proc/toggle_internals(mob/user)
+/obj/item/weapon/tank/proc/toggle_internals(mob/user, silent = FALSE)
 	var/mob/living/carbon/C = user
 	if(!istype(C))
 		return 0
@@ -65,13 +63,16 @@
 
 		if(can_open_valve)
 			if(C.internal)
-				to_chat(C, "<span class='notice'>You switch your internals to [src].</span>")
+				if(!silent)
+					to_chat(C, "<span class='notice'>You switch your internals to [src].</span>")
 			else
-				to_chat(C, "<span class='notice'>You open \the [src] valve.</span>")
+				if(!silent)
+					to_chat(C, "<span class='notice'>You open \the [src] valve.</span>")
 			C.internal = src
 			C.update_internals_hud_icon(1)
 		else
-			to_chat(C, "<span class='notice'>You are not wearing a suitable mask or helmet.</span>")
+			if(!silent)
+				to_chat(C, "<span class='notice'>You are not wearing a suitable mask or helmet.</span>")
 			return 0
 
 	C.update_action_buttons_icon()

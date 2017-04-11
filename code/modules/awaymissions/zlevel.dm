@@ -14,17 +14,6 @@ var/global/list/potentialRandomZlevels = generateMapList(filename = "config/away
 	log_debug("\tTook [stop_watch(subtimer)]s")
 
 	subtimer = start_watch()
-	log_debug("Initializing lighting")
-	for(var/turf/T in turfs)
-		if(T.dynamic_lighting)
-			T.lighting_build_overlay()
-		T.lighting_corners_initialised = TRUE
-		for(var/i = 1 to 4)
-			if((T.corners[i]) || (istype(T, /turf/space))) // Already have a corner on this direction. Also ignoring space turfs!
-				continue
-			T.corners[i] = new/datum/lighting_corner(T, LIGHTING_CORNER_DIAGONAL[i])
-	log_debug("\tTook [stop_watch(subtimer)]s")
-	subtimer = start_watch()
 	log_debug("Smoothing tiles")
 	for(var/turf/T in smoothTurfs)
 		if(T.smooth)
@@ -80,6 +69,7 @@ var/global/list/potentialRandomZlevels = generateMapList(filename = "config/away
 	else
 		log_startup_progress("  No away missions found.")
 		return
+
 
 /proc/createALLZlevels()
 	if(awaydestinations.len)	//crude, but it saves another var!

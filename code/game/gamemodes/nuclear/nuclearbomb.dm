@@ -35,8 +35,7 @@ var/bomb_set
 	poi_list |= src
 
 /obj/machinery/nuclearbomb/Destroy()
-	qdel(wires)
-	wires = null
+	QDEL_NULL(wires)
 	poi_list.Remove(src)
 	return ..()
 
@@ -58,12 +57,12 @@ var/bomb_set
 				panel_open = 1
 				overlays += image(icon, "npanel_open")
 				to_chat(user, "You unscrew the control panel of [src].")
-				playsound(src, 'sound/items/Screwdriver.ogg', 50, 1)
+				playsound(src, O.usesound, 50, 1)
 			else
 				panel_open = 0
 				overlays -= image(icon, "npanel_open")
 				to_chat(user, "You screw the control panel of [src] back on.")
-				playsound(src, 'sound/items/Screwdriver.ogg', 50, 1)
+				playsound(src, O.usesound, 50, 1)
 		else
 			if(panel_open == 0)
 				to_chat(user, "[src] emits a buzzing noise, the panel staying locked in.")
@@ -71,7 +70,7 @@ var/bomb_set
 				panel_open = 0
 				overlays -= image(icon, "npanel_open")
 				to_chat(user, "You screw the control panel of [src] back on.")
-				playsound(src, 'sound/items/Screwdriver.ogg', 50, 1)
+				playsound(src, O.usesound, 50, 1)
 			flick("nuclearbombc", src)
 		return
 
@@ -399,6 +398,7 @@ var/bomb_set
 /obj/item/weapon/disk/nuclear/New()
 	..()
 	processing_objects.Add(src)
+	poi_list |= src
 
 /obj/item/weapon/disk/nuclear/process()
 	var/turf/disk_loc = get_turf(src)
@@ -414,10 +414,12 @@ var/bomb_set
 	if(force)
 		message_admins("[src] has been !!force deleted!! in ([diskturf ? "[diskturf.x], [diskturf.y] ,[diskturf.z] - <A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[diskturf.x];Y=[diskturf.y];Z=[diskturf.z]'>JMP</a>":"nonexistent location"]).")
 		log_game("[src] has been !!force deleted!! in ([diskturf ? "[diskturf.x], [diskturf.y] ,[diskturf.z]":"nonexistent location"]).")
+		poi_list.Remove(src)
 		processing_objects.Remove(src)
 		return ..()
 
 	if(blobstart.len > 0)
+		poi_list.Remove(src)
 		var/obj/item/weapon/disk/nuclear/NEWDISK = new(pick(blobstart))
 		transfer_fingerprints_to(NEWDISK)
 		message_admins("[src] has been destroyed at ([diskturf.x], [diskturf.y], [diskturf.z] - <A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[diskturf.x];Y=[diskturf.y];Z=[diskturf.z]'>JMP</a>). Moving it to ([NEWDISK.x], [NEWDISK.y], [NEWDISK.z] - <A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[NEWDISK.x];Y=[NEWDISK.y];Z=[NEWDISK.z]'>JMP</a>).")

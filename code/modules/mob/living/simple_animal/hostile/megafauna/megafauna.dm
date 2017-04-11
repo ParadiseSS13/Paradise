@@ -43,7 +43,7 @@
 	mouse_opacity = 2 // Easier to click on in melee, they're giant targets anyway
 
 /mob/living/simple_animal/hostile/megafauna/Destroy()
-	qdel(internal_gps)
+	QDEL_NULL(internal_gps)
 	. = ..()
 
 /mob/living/simple_animal/hostile/megafauna/death(gibbed)
@@ -77,7 +77,7 @@
 				OpenFire()
 		else
 			devour(L)
-			
+
 /mob/living/simple_animal/hostile/megafauna/onShuttleMove()
 	var/turf/oldloc = loc
 	. = ..()
@@ -95,7 +95,8 @@
 	visible_message(
 		"<span class='danger'>[src] devours [L]!</span>",
 		"<span class='userdanger'>You feast on [L], restoring your health!</span>")
-	adjustBruteLoss(-L.maxHealth/2)
+	if(!is_station_level(z) && !client) //NPC monsters won't heal while on station
+		adjustBruteLoss(-L.maxHealth/2)
 	L.gib()
 
 /mob/living/simple_animal/hostile/megafauna/ex_act(severity, target)

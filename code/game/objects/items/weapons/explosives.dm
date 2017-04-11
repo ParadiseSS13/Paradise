@@ -7,6 +7,7 @@
 	det_time = 10
 	display_timer = 0
 	origin_tech = "syndicate=2"
+	toolspeed = 1
 	var/atom/target = null
 	var/image_overlay = null
 	var/obj/item/device/assembly_holder/nadeassembly = null
@@ -17,10 +18,9 @@
 	..()
 
 /obj/item/weapon/grenade/plastic/Destroy()
-	qdel(nadeassembly)
-	nadeassembly = null
+	QDEL_NULL(nadeassembly)
 	target = null
-	..()
+	return ..()
 
 /obj/item/weapon/grenade/plastic/attackby(obj/item/I, mob/user, params)
 	if(!nadeassembly && istype(I, /obj/item/device/assembly_holder))
@@ -36,7 +36,7 @@
 		update_icon()
 		return
 	if(nadeassembly && istype(I, /obj/item/weapon/wirecutters))
-		playsound(src, 'sound/items/Wirecutter.ogg', 20, 1)
+		playsound(src, I.usesound, 20, 1)
 		nadeassembly.loc = get_turf(src)
 		nadeassembly.master = null
 		nadeassembly = null
@@ -73,7 +73,7 @@
 		return
 	to_chat(user, "<span class='notice'>You start planting the [src]. The timer is set to [det_time]...</span>")
 
-	if(do_after(user, 50, target = AM))
+	if(do_after(user, 50 * toolspeed, target = AM))
 		if(!user.unEquip(src))
 			return
 		src.target = AM

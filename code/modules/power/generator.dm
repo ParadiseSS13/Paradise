@@ -166,7 +166,7 @@
 			power_change()
 		else
 			connect()
-		playsound(loc, 'sound/items/Ratchet.ogg', 50, 1)
+		playsound(loc, W.usesound, 50, 1)
 		to_chat(user, "<span class='notice'>You [anchored ? "secure" : "unsecure"] the bolts holding [src] to the floor.</span>")
 	else if(ismultitool(W))
 		if(cold_dir == WEST)

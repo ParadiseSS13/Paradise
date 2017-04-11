@@ -427,6 +427,9 @@ var/list/teleport_runes = list()
 			if(is_sacrifice_target(T.mind))
 				sacrifice_fulfilled = 1
 		new /obj/effect/overlay/temp/cult/sac(loc)
+		if(ticker && ticker.mode && ticker.mode.name == "cult")
+			var/datum/game_mode/cult/cult_mode = ticker.mode
+			cult_mode.harvested++
 		for(var/M in invokers)
 			if(sacrifice_fulfilled)
 				to_chat(M, "<span class='cultlarge'>\"Yes! This is the one I desire! You have done well.\"</span>")
@@ -934,6 +937,7 @@ var/list/teleport_runes = list()
 	icon_state = "6"
 	construct_invoke = 0
 	color = rgb(200, 0, 0)
+	var/list/summoned_guys = list()
 
 /obj/effect/rune/manifest/New(loc)
 	..()
@@ -949,7 +953,7 @@ var/list/teleport_runes = list()
 		return list()
 	var/list/ghosts_on_rune = list()
 	for(var/mob/dead/observer/O in get_turf(src))
-		if(O.client && !jobban_isbanned(O, ROLE_CULTIST))
+		if(O.client && !jobban_isbanned(O, ROLE_CULTIST) && !jobban_isbanned(O, ROLE_SYNDICATE))
 			ghosts_on_rune |= O
 	if(!ghosts_on_rune.len)
 		to_chat(user, "<span class='cultitalic'>There are no spirits near [src]!</span>")
@@ -962,7 +966,7 @@ var/list/teleport_runes = list()
 	var/mob/living/user = invokers[1]
 	var/list/ghosts_on_rune = list()
 	for(var/mob/dead/observer/O in get_turf(src))
-		if(O.client && !jobban_isbanned(O, ROLE_CULTIST))
+		if(O.client && !jobban_isbanned(O, ROLE_CULTIST) && !jobban_isbanned(O, ROLE_SYNDICATE))
 			ghosts_on_rune |= O
 	var/mob/dead/observer/ghost_to_spawn = pick(ghosts_on_rune)
 	var/mob/living/carbon/human/new_human = new(get_turf(src))
@@ -980,6 +984,7 @@ var/list/teleport_runes = list()
 	N.mouse_opacity = 0
 	new_human.key = ghost_to_spawn.key
 	ticker.mode.add_cultist(new_human.mind, 0)
+	summoned_guys |= new_human
 	to_chat(new_human, "<span class='cultitalic'><b>You are a servant of [ticker.mode.cultdat.entity_title3]. You have been made semi-corporeal by the cult of [ticker.mode.cultdat.entity_name], and you are to serve them at all costs.</b></span>")
 
 	while(user in get_turf(src))
@@ -994,4 +999,13 @@ var/list/teleport_runes = list()
 								  "<span class='cultlarge'>Your link to the world fades. Your form breaks apart.</span>")
 		for(var/obj/I in new_human)
 			new_human.unEquip(I)
+		summoned_guys -= new_human
 		new_human.dust()
+
+/obj/effect/rune/manifest/Destroy()
+	for(var/mob/living/carbon/human/guy in summoned_guys)
+		for(var/obj/I in guy)
+			guy.unEquip(I)
+		guy.dust()
+	summoned_guys.Cut()
+	return ..()

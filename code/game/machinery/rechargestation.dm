@@ -159,10 +159,7 @@
 				R.adjustFireLoss(-(repairs))
 				R.updatehealth()
 			if(R.cell)
-				if(R.cell.charge >= R.cell.maxcharge)
-					R.cell.charge = R.cell.maxcharge
-				else
-					R.cell.charge = min(R.cell.charge + recharge_speed, R.cell.maxcharge)
+				R.cell.charge = min(R.cell.charge + recharge_speed, R.cell.maxcharge)
 		else if(istype(occupant, /mob/living/carbon/human))
 			var/mob/living/carbon/human/H = occupant
 			if(H.get_int_organ(/obj/item/organ/internal/cell) && H.nutrition < 450)
@@ -192,8 +189,8 @@
 					// Engineering
 					if(istype(O,/obj/item/stack/sheet))
 						var/obj/item/stack/sheet/S = O
-						if(S.amount < 50)
-							S.amount += 1 * coeff
+						if(S.amount < S.max_amount)
+							S.amount += round(min(1 * coeff, S.max_amount - S.amount))
 					// Security
 					if(istype(O,/obj/item/device/flash))
 						var/obj/item/device/flash/F = O

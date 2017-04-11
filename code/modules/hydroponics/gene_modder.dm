@@ -24,12 +24,21 @@
 /obj/machinery/plantgenes/New()
 	..()
 	component_parts = list()
-	component_parts += new /obj/item/weapon/circuitboard/plantgenes(src)
-	component_parts += new /obj/item/weapon/stock_parts/console_screen(src)
-	component_parts += new /obj/item/weapon/stock_parts/scanning_module(src)
-	component_parts += new /obj/item/weapon/stock_parts/micro_laser(src)
-	component_parts += new /obj/item/weapon/stock_parts/manipulator(src)
+	component_parts += new /obj/item/weapon/circuitboard/plantgenes(null)
+	component_parts += new /obj/item/weapon/stock_parts/console_screen(null)
+	component_parts += new /obj/item/weapon/stock_parts/scanning_module(null)
+	component_parts += new /obj/item/weapon/stock_parts/micro_laser(null)
+	component_parts += new /obj/item/weapon/stock_parts/manipulator(null)
 	RefreshParts()
+
+/obj/machinery/plantgenes/Destroy()
+	core_genes.Cut()
+	reagent_genes.Cut()
+	trait_genes.Cut()
+	target = null
+	QDEL_NULL(seed)
+	QDEL_NULL(disk)
+	return ..()
 
 /obj/machinery/plantgenes/RefreshParts()
 	rating = 0
@@ -91,15 +100,16 @@
 		return
 	interact(user)
 
+/obj/machinery/plantgenes/attack_ghost(mob/user)
+	interact(user)
+
 /obj/machinery/plantgenes/interact(mob/user)
+	add_fingerprint(user)
 	user.set_machine(src)
 	if(!user)
 		return
 
 	var/datum/browser/popup = new(user, "plantdna", "Plant DNA Manipulator", 450, 600)
-	if(!(in_range(src, user) || issilicon(user)))
-		popup.close()
-		return
 
 	var/dat = ""
 
@@ -216,7 +226,7 @@
 
 /obj/machinery/plantgenes/Topic(var/href, var/list/href_list)
 	if(..())
-		return
+		return 1
 	usr.set_machine(src)
 
 	if(href_list["eject_seed"] && !operation)
@@ -281,9 +291,9 @@
 					repaint_seed()
 				if("extract")
 					if(disk && !disk.read_only)
-						disk.gene = G
-						if(istype(G, /datum/plant_gene/core/potency))
-							var/datum/plant_gene/core/gene = G
+						disk.gene = G.Copy()
+						if(istype(disk.gene, /datum/plant_gene/core/potency))
+							var/datum/plant_gene/core/gene = disk.gene
 							gene.value = min(gene.value, max_extract_pot)
 						disk.update_name()
 						qdel(seed)
@@ -368,6 +378,10 @@
 	overlays += "datadisk_gene"
 	pixel_x = rand(-5, 5)
 	pixel_y = rand(-5, 5)
+
+/obj/item/weapon/disk/plantgene/Destroy()
+	QDEL_NULL(gene)
+	return ..()
 
 /obj/item/weapon/disk/plantgene/attackby(obj/item/weapon/W, mob/user, params)
 	..()

@@ -10,7 +10,7 @@
 /datum/game_mode/traitor
 	name = "traitor"
 	config_tag = "traitor"
-	restricted_jobs = list("Cyborg")//They are part of the AI if he is traitor so are they, they use to get double chances
+	restricted_jobs = list("Cyborg", "D-Class Prisoner")//They are part of the AI if he is traitor so are they, they use to get double chances
 	protected_jobs = list("Security Officer", "Warden", "Detective", "Head of Security", "Internal Affairs Agent", "Captain", "Blueshield", "Nanotrasen Representative", "Security Pod Pilot", "Magistrate", "Internal Affairs Agent", "Brig Physician", "D-class Prisoner", "Nanotrasen Navy Officer", "Special Operations Officer")
 	required_players = 0
 	required_enemies = 1
@@ -358,8 +358,8 @@
 			to_chat(traitor_mind.current, "<span class='userdanger'>You have been turned into a robot! You are no longer a traitor.</span>")
 		else
 			to_chat(traitor_mind.current, "<span class='userdanger'>You have been brainwashed! You are no longer a traitor.</span>")
-		ticker.mode.update_traitor_icons_removed(traitor_mind)		
-		
+		ticker.mode.update_traitor_icons_removed(traitor_mind)
+
 /datum/game_mode/proc/update_traitor_icons_added(datum/mind/traitor_mind)
 	var/datum/atom_hud/antag/tatorhud = huds[ANTAG_HUD_TRAITOR]
 	tatorhud.join_hud(traitor_mind.current)

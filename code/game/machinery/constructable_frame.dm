@@ -66,9 +66,9 @@
 			if(istype(P, /obj/item/stack/cable_coil))
 				var/obj/item/stack/cable_coil/C = P
 				if(C.amount >= 5)
-					playsound(src.loc, 'sound/items/Deconstruct.ogg', 50, 1)
+					playsound(src.loc, C.usesound, 50, 1)
 					to_chat(user, "<span class='notice'>You start to add cables to the frame.</span>")
-					if(do_after(user, 20, target = src))
+					if(do_after(user, 20 * C.toolspeed, target = src))
 						if(state == 1 && C.amount >= 5 && C.use(5))
 							to_chat(user, "<span class='notice'>You add cables to the frame.</span>")
 							state = 2
@@ -86,13 +86,13 @@
 					return
 				G.use(5)
 				to_chat(user, "<span class='notice'>You add the glass to the frame.</span>")
-				playsound(get_turf(src), 'sound/items/Deconstruct.ogg', 50, 1)
+				playsound(get_turf(src), G.usesound, 50, 1)
 				new /obj/structure/displaycase_frame(src.loc)
 				qdel(src)
 				return
 
 			if(istype(P, /obj/item/weapon/wrench))
-				playsound(src.loc, 'sound/items/Ratchet.ogg', 75, 1)
+				playsound(src.loc, P.usesound, 75, 1)
 				to_chat(user, "<span class='notice'>You dismantle the frame.</span>")
 				new /obj/item/stack/sheet/metal(src.loc, 5)
 				qdel(src)
@@ -100,7 +100,7 @@
 			if(istype(P, /obj/item/weapon/circuitboard))
 				var/obj/item/weapon/circuitboard/B = P
 				if(B.board_type == "machine")
-					playsound(src.loc, 'sound/items/Deconstruct.ogg', 50, 1)
+					playsound(src.loc, B.usesound, 50, 1)
 					to_chat(user, "<span class='notice'>You add the circuit board to the frame.</span>")
 					circuit = P
 					user.drop_item()
@@ -114,7 +114,7 @@
 				else
 					to_chat(user, "<span class='danger'>This frame does not accept circuit boards of this type!</span>")
 			if(istype(P, /obj/item/weapon/wirecutters))
-				playsound(src.loc, 'sound/items/Wirecutter.ogg', 50, 1)
+				playsound(src.loc, P.usesound, 50, 1)
 				to_chat(user, "<span class='notice'>You remove the cables.</span>")
 				state = 1
 				icon_state = "box_0"
@@ -123,7 +123,7 @@
 
 		if(3)
 			if(istype(P, /obj/item/weapon/crowbar))
-				playsound(src.loc, 'sound/items/Crowbar.ogg', 50, 1)
+				playsound(src.loc, P.usesound, 50, 1)
 				state = 2
 				circuit.loc = src.loc
 				circuit = null
@@ -145,9 +145,9 @@
 						component_check = 0
 						break
 				if(component_check)
-					playsound(src.loc, 'sound/items/Screwdriver.ogg', 50, 1)
+					playsound(src.loc, P.usesound, 50, 1)
 					var/obj/machinery/new_machine = new src.circuit.build_path(src.loc)
-					new_machine.construction()
+					new_machine.on_construction()
 					for(var/obj/O in new_machine.component_parts)
 						qdel(O)
 					new_machine.component_parts = list()
@@ -190,20 +190,20 @@
 				for(var/I in req_components)
 					if(istype(P, I) && (req_components[I] > 0) && (!(P.flags & NODROP) || istype(P, /obj/item/stack)))
 						success=1
-						playsound(src.loc, 'sound/items/Deconstruct.ogg', 50, 1)
-						if(istype(P, /obj/item/stack/cable_coil))
-							var/obj/item/stack/cable_coil/CP = P
-							var/camt = min(CP.amount, req_components[I])
-							var/obj/item/stack/cable_coil/CC = new /obj/item/stack/cable_coil(src)
-							CC.amount = camt
-							CC.update_icon()
-							CP.use(camt)
-							components += CC
+						playsound(src.loc, P.usesound, 50, 1)
+						if(istype(P, /obj/item/stack))
+							var/obj/item/stack/S = P
+							var/camt = min(S.amount, req_components[I])
+							var/obj/item/stack/NS = new P.type(src)
+							NS.amount = camt
+							NS.update_icon()
+							S.use(camt)
+							components += NS
 							req_components[I] -= camt
 							update_req_desc()
 							break
 						user.drop_item()
-						P.loc = src
+						P.forceMove(src)
 						components += P
 						req_components[I]--
 						update_req_desc()

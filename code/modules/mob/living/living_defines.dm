@@ -52,6 +52,7 @@
 	var/list/surgeries = list()	//a list of surgery datums. generally empty, they're added when the player wants them.
 
 	var/gene_stability = DEFAULT_GENE_STABILITY
+	var/ignore_gene_stability = 0
 
 	var/obj/effect/proc_holder/ranged_ability //Any ranged ability the mob has, as a click override
 

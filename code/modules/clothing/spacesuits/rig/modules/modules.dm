@@ -13,6 +13,8 @@
 	desc = "It looks pretty sciency."
 	icon = 'icons/obj/rig_modules.dmi'
 	icon_state = "module"
+	
+	toolspeed = 1
 
 	var/damage = 0
 	var/obj/item/weapon/rig/holder
@@ -73,7 +75,7 @@
 
 		to_chat(user, "You start mending the damaged portions of \the [src]...")
 
-		if(!do_after(user,30, target = src) || !W || !src)
+		if(!do_after(user, 30 * W.toolspeed, target = src) || !W || !src)
 			return
 
 		var/obj/item/stack/nanopaste/paste = W
@@ -98,7 +100,7 @@
 			return
 
 		to_chat(user, "You start mending the damaged portions of \the [src]...")
-		if(!do_after(user, 30, target = src) || !W || !src)
+		if(!do_after(user, 30 * W.toolspeed, target = src) || !W || !src)
 			return
 
 		damage = 1
