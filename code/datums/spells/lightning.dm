@@ -15,7 +15,7 @@
 	var/image/halo = null
 	action_icon_state = "lightning"
 	var/sound/Snd // so far only way i can think of to stop a sound, thank MSO for the idea.
-	var/damaging=1
+	var/damaging=TRUE
 
 /obj/effect/proc_holder/spell/targeted/lightning/lightnian
 	clothes_req = 0
@@ -93,6 +93,8 @@ obj/effect/proc_holder/spell/targeted/lightning/proc/Reset(mob/user = usr)
 			current.do_jitter_animation(current.jitteriness)
 			current.AdjustStuttering(2)
 			current.Stun(2)
+			spawn(20)
+				current.AdjustJitter(-1000, bound_lower = 10) //Still jittery, but vastly less
 		playsound(get_turf(current), 'sound/magic/LightningShock.ogg', 50, 1, -1)
 	else
 		if(damaging)
@@ -102,6 +104,8 @@ obj/effect/proc_holder/spell/targeted/lightning/proc/Reset(mob/user = usr)
 			current.do_jitter_animation(current.jitteriness)
 			current.AdjustStuttering(2)
 			current.Stun(2)
+			spawn(20)
+				current.AdjustJitter(-1000, bound_lower = 10) //Still jittery, but vastly less
 		playsound(get_turf(current), 'sound/magic/LightningShock.ogg', 50, 1, -1)
 		var/list/possible_targets = new
 		for(var/mob/living/M in view_or_range(range,target,"view"))

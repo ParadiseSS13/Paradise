@@ -122,4 +122,4 @@ obj/effect/proc_holder/spell/targeted/magnet/proc/Reset(mob/user = usr)
 			return
 		var/mob/living/next = pick(possible_targets)
 		if(next)
-			Bolt(current,next,bolt_energy,bounces-1,user) // 5 max bounceses
+			Bolt(current,next,bolt_energy,bounces-1,user) // 5 max bounces

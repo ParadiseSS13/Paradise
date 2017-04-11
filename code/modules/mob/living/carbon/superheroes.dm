@@ -19,16 +19,12 @@
 
 /datum/superheroes/proc/equip(var/mob/living/carbon/human/H)
 	H.rename_character(H.real_name, name)
-	for(var/obj/item/W in H)
-		if(istype(W,/obj/item/organ)) continue
-		if(istype(W,/obj/item/weapon/implant)) continue
+	for(var/obj/item/W in H.get_all_slots())
 		H.unEquip(W)
 	H.equip_to_slot_or_del(new /obj/item/device/radio/headset(H), slot_l_ear)
 
 /datum/superheroes/proc/fixflags(var/mob/living/carbon/human/H)
-	for(var/obj/item/W in H)
-		if(istype(W,/obj/item/organ)) continue
-		if(istype(W,/obj/item/weapon/implant)) continue
+	for(var/obj/item/W in H.get_all_slots())
 		W.flags |= NODROP
 
 /datum/superheroes/proc/assign_genes(var/mob/living/carbon/human/H)
@@ -226,20 +222,20 @@
 		target.s_tone = 35
 		// No `update_dna=0` here because the character is being over-written
 		target.change_eye_color(1,1,1)
-		for(var/obj/item/W in target)
-			if(istype(W,/obj/item/organ)) continue
+		for(var/obj/item/W in target.get_all_slots())
 			target.unEquip(W)
 		target.rename_character(target.real_name, "Generic Henchman ([rand(1, 1000)])")
 		target.equip_to_slot_or_del(new /obj/item/clothing/under/color/grey/greytide(target), slot_w_uniform)
 		target.equip_to_slot_or_del(new /obj/item/clothing/shoes/black/greytide(target), slot_shoes)
 		target.equip_to_slot_or_del(new /obj/item/weapon/storage/toolbox/mechanical/greytide(target), slot_l_hand)
+		target.equip_to_slot_or_del(new /obj/item/device/radio/headset(target), slot_l_ear)
 		var/obj/item/weapon/card/id/syndicate/W = new(target)
 		W.icon_state = "lifetimeid"
-		W.registered_name = target.real_name
 		W.access = list(access_maint_tunnels)
-		W.name = "[target.real_name]'s ID Card (Greyshirt)"
 		W.assignment = "Greyshirt"
+		W.rank = "Greyshirt"
 		W.flags |= NODROP
+		W.SetOwnerInfo(target)
+		W.UpdateName()
 		target.equip_to_slot_or_del(W, slot_wear_id)
-		target.equip_to_slot_or_del(new /obj/item/device/radio/headset(target), slot_l_ear)
 		target.regenerate_icons()
