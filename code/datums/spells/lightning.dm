@@ -75,7 +75,11 @@ obj/effect/proc_holder/spell/targeted/lightning/proc/Reset(mob/user = usr)
 	user.Beam(target,icon_state="lightning[rand(1,12)]",icon='icons/effects/effects.dmi',time=5)
 
 	var/energy = min(world.time - start_time,100)
-	Bolt(user,target,max(15,energy/2),5,user) //5 bounces for energy/2 burn
+	if(damaging)
+		Bolt(user,target,max(15,energy/2),5,user) //5 bounces for energy/2 burn
+	else
+		var/bounces = round(energy/20)
+		Bolt(user,target,0,bounces,user)
 	Reset(user)
 
 /obj/effect/proc_holder/spell/targeted/lightning/proc/Bolt(mob/origin, mob/living/target, bolt_energy, bounces, mob/user = usr)
@@ -85,19 +89,19 @@ obj/effect/proc_holder/spell/targeted/lightning/proc/Reset(mob/user = usr)
 		if(damaging)
 			current.electrocute_act(bolt_energy,"Lightning Bolt",safety=1)
 		else
-			var/stuntime = round(bolt_energy/3)
-			current.Stun(stuntime)
-			current.Weaken(stuntime)
-			current.apply_effect(STUTTER, stuntime)
+			current.AdjustJitter(1000) //High numbers for violent convulsions
+			current.do_jitter_animation(current.jitteriness)
+			current.AdjustStuttering(2)
+			current.Stun(2)
 		playsound(get_turf(current), 'sound/magic/LightningShock.ogg', 50, 1, -1)
 	else
 		if(damaging)
 			current.electrocute_act(bolt_energy,"Lightning Bolt",safety=1)
 		else
-			var/stuntime = round(bolt_energy/3)
-			current.Stun(stuntime)
-			current.Weaken(stuntime)
-			current.apply_effect(STUTTER, stuntime)
+			current.AdjustJitter(1000) //High numbers for violent convulsions
+			current.do_jitter_animation(current.jitteriness)
+			current.AdjustStuttering(2)
+			current.Stun(2)
 		playsound(get_turf(current), 'sound/magic/LightningShock.ogg', 50, 1, -1)
 		var/list/possible_targets = new
 		for(var/mob/living/M in view_or_range(range,target,"view"))
