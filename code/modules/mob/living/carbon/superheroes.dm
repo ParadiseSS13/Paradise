@@ -14,14 +14,22 @@
 	assign_genes(H)
 	assign_spells(H)
 	equip(H)
+	fixflags(H)
 	assign_id(H)
 
 /datum/superheroes/proc/equip(var/mob/living/carbon/human/H)
 	H.rename_character(H.real_name, name)
 	for(var/obj/item/W in H)
 		if(istype(W,/obj/item/organ)) continue
+		if(istype(W,/obj/item/weapon/implant)) continue
 		H.unEquip(W)
 	H.equip_to_slot_or_del(new /obj/item/device/radio/headset(H), slot_l_ear)
+
+/datum/superheroes/proc/fixflags(var/mob/living/carbon/human/H)
+	for(var/obj/item/W in H)
+		if(istype(W,/obj/item/organ)) continue
+		if(istype(W,/obj/item/weapon/implant)) continue
+		W.flags |= NODROP
 
 /datum/superheroes/proc/assign_genes(var/mob/living/carbon/human/H)
 	if(default_genes.len)
@@ -52,6 +60,7 @@
 	W.icon_state = "lifetimeid"
 	W.SetOwnerInfo(H)
 	W.UpdateName()
+	W.flags |= NODROP
 	H.equip_to_slot_or_del(W, slot_wear_id)
 	H.regenerate_icons()
 
@@ -68,8 +77,8 @@
 	..()
 
 	H.equip_to_slot_or_del(new /obj/item/clothing/shoes/black/greytide(H), slot_shoes)
-	H.equip_to_slot_or_del(new /obj/item/clothing/under/owl/super_hero(H), slot_w_uniform)
-	H.equip_to_slot_or_del(new /obj/item/clothing/suit/toggle/owlwings/super_hero(H), slot_wear_suit)
+	H.equip_to_slot_or_del(new /obj/item/clothing/under/owl(H), slot_w_uniform)
+	H.equip_to_slot_or_del(new /obj/item/clothing/suit/toggle/owlwings(H), slot_wear_suit)
 	H.equip_to_slot_or_del(new /obj/item/clothing/mask/gas/owl_mask/super_hero(H), slot_wear_mask)
 	H.equip_to_slot_or_del(new /obj/item/weapon/storage/belt/bluespace/owlman(H), slot_belt)
 	H.equip_to_slot_or_del(new /obj/item/clothing/glasses/night(H), slot_glasses)
@@ -86,10 +95,10 @@
 /datum/superheroes/griffin/equip(var/mob/living/carbon/human/H)
 	..()
 
-	H.equip_to_slot_or_del(new /obj/item/clothing/shoes/griffin/super_hero(H), slot_shoes)
-	H.equip_to_slot_or_del(new /obj/item/clothing/under/griffin/super_hero(H), slot_w_uniform)
-	H.equip_to_slot_or_del(new /obj/item/clothing/suit/toggle/owlwings/griffinwings/super_hero(H), slot_wear_suit)
-	H.equip_to_slot_or_del(new /obj/item/clothing/head/griffin/super_hero(H), slot_head)
+	H.equip_to_slot_or_del(new /obj/item/clothing/shoes/griffin(H), slot_shoes)
+	H.equip_to_slot_or_del(new /obj/item/clothing/under/griffin(H), slot_w_uniform)
+	H.equip_to_slot_or_del(new /obj/item/clothing/suit/toggle/owlwings/griffinwings(H), slot_wear_suit)
+	H.equip_to_slot_or_del(new /obj/item/clothing/head/griffin/(H), slot_head)
 
 	var/obj/item/weapon/implant/freedom/L = new/obj/item/weapon/implant/freedom(H)
 	L.imp_in = H
@@ -227,10 +236,12 @@
 		target.equip_to_slot_or_del(new /obj/item/clothing/shoes/black/greytide(target), slot_shoes)
 		target.equip_to_slot_or_del(new /obj/item/weapon/storage/toolbox/mechanical/greytide(target), slot_l_hand)
 		var/obj/item/weapon/card/id/syndicate/W = new(target)
+		W.icon_state = "lifetimeid"
 		W.registered_name = target.real_name
 		W.access = list(access_maint_tunnels)
 		W.name = "[target.real_name]'s ID Card (Greyshirt)"
 		W.assignment = "Greyshirt"
+		W.flags |= NODROP
 		target.equip_to_slot_or_del(W, slot_wear_id)
 		target.equip_to_slot_or_del(new /obj/item/device/radio/headset(target), slot_l_ear)
 		target.regenerate_icons()
