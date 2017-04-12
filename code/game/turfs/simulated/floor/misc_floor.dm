@@ -38,7 +38,6 @@
 /turf/simulated/floor/beach
 	name = "beach"
 	icon = 'icons/misc/beach.dmi'
-	mouse_opacity = 0
 
 /turf/simulated/floor/beach/sand
 	name = "sand"
@@ -48,10 +47,12 @@
 	name = "coastline"
 	icon = 'icons/misc/beach2.dmi'
 	icon_state = "sandwater"
+	mouse_opacity = 0
 
 /turf/simulated/floor/beach/water
 	name = "water"
 	icon_state = "water"
+	mouse_opacity = 0
 
 /turf/simulated/floor/beach/water/New()
 	..()
