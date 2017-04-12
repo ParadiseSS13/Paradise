@@ -64,7 +64,6 @@
 	modules += new /obj/item/weapon/lighter/zippo(src)
 	modules += new /obj/item/weapon/pen(src)
 	modules += new /obj/item/weapon/restraints/handcuffs/cable/zipties/cyborg(src)
-	modules += new /obj/item/weapon/melee/baton/loaded/robot(src)
 	modules += new /obj/item/weapon/gun/energy/gun/cyborg(src)
 	modules += new /obj/item/taperoll/police(src)
 	modules += new /obj/item/weapon/pickaxe/drill/jackhammer(src)
