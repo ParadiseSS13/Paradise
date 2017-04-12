@@ -2,7 +2,8 @@
 	name = "Beach"
 	icon = 'icons/misc/beach.dmi'
 	var/water_overlay_image = null
-
+	mouse_opacity = 0
+	
 /turf/unsimulated/beach/New()
 	..()
 	if(water_overlay_image)
@@ -11,7 +12,8 @@
 /turf/unsimulated/beach/sand
 	name = "Sand"
 	icon_state = "desert"
-
+	mouse_opacity = 1
+	
 /turf/unsimulated/beach/sand/New()			//adds some aesthetic randomness to the beach sand
 	icon_state = pick("desert", "desert0", "desert1", "desert2", "desert3", "desert4")
 	..()
@@ -25,7 +27,6 @@
 	//icon_state = "sandwater"
 	icon_state = "beach"
 	water_overlay_image = "water_coast"
-	mouse_opacity = 0
 
 /turf/unsimulated/beach/coastline/dense		//for boundary "walls"
 	density = 1
@@ -34,7 +35,6 @@
 	name = "Shallow Water"
 	icon_state = "seashallow"
 	water_overlay_image = "water_shallow"
-	mouse_opacity = 0
 
 /turf/unsimulated/beach/water/dense			//for boundary "walls"
 	density = 1
@@ -43,13 +43,11 @@
 	name = "Water"
 	icon_state = "seadrop"
 	water_overlay_image = "water_drop"
-	mouse_opacity = 0
 
 /turf/unsimulated/beach/water/drop
 	name = "Water"
 	icon = 'icons/turf/floors/seadrop.dmi'
 	icon_state = "seadrop"
-	mouse_opacity = 0
 	water_overlay_image = null
 	smooth = SMOOTH_TRUE
 	canSmoothWith = list(
@@ -85,7 +83,6 @@
 	name = "Deep Water"
 	icon_state = "seadeep"
 	water_overlay_image = "water_deep"
-	mouse_opacity = 0
 
 /turf/unsimulated/beach/water/deep/dense
 	density = 1
@@ -94,12 +91,10 @@
 	name = "Sunken Floor"
 	icon = 'icons/turf/floors.dmi'
 	icon_state = "wood"
-	mouse_opacity = 0
 
 /turf/unsimulated/beach/water/deep/sand_floor
 	name = "Sea Floor"
 	icon_state = "sand"
-	mouse_opacity = 0
 
 /turf/unsimulated/beach/water/deep/rock_wall
 	name = "Reef Stone"
