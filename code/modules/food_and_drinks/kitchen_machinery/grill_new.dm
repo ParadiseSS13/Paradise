@@ -48,7 +48,7 @@
 	if(ishuman(G.affecting))
 		if(G.state < GRAB_AGGRESSIVE)
 			to_chat(user, "<span class='warning'>You need a better grip to do that!</span>")
-			return 1
+			return 0
 		var/mob/living/carbon/human/C = G.affecting
 		C.visible_message("<span class='danger'>[user] forces [C] onto [src], searing [C]'s body!</span>", \
 						"<span class='userdanger'>[user] forces you onto [src]! It burns!</span>")
@@ -58,5 +58,4 @@
 		add_logs(user, G.affecting, "burns on a grill")
 		qdel(G) //Removes the grip to prevent rapid sears and give you a chance to run
 		return 1
-	else
-		return 0
+	return 0
