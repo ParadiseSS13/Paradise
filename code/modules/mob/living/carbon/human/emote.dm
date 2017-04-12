@@ -53,6 +53,19 @@
 
 			if(!found_slime_bodypart)								//Everyone else fails, skip the emote attempt
 				return
+
+		if("clack", "clacks")
+			if(species.name == "Kidan")	//Only Kidan can clack and rightfully so.
+				on_CD = handle_emote_CD()			//proc located in code\modules\mob\emote.dm'
+			else								//Everyone else fails, skip the emote attempt
+				return
+
+		if("click", "clicks")
+			if(species.name == "Kidan")	//Only Kidan can click and rightfully so.
+				on_CD = handle_emote_CD()			//proc located in code\modules\mob\emote.dm'
+			else								//Everyone else fails, skip the emote attempt
+				return
+
 		if("scream", "screams", "slap", "slaps")
 			on_CD = handle_emote_CD(50) //longer cooldown
 		if("fart", "farts", "flip", "flips", "snap", "snaps")
@@ -161,6 +174,40 @@
 			else
 				message = "<B>[src]</B> squishes."
 			playsound(loc, 'sound/effects/slime_squish.ogg', 50, 0) //Credit to DrMinky (freesound.org) for the sound.
+			m_type = 2
+
+		if("clack", "clacks")
+			var/M = null
+			if(param)
+				for(var/mob/A in view(null, null))
+					if(param == A.name)
+						M = A
+						break
+			if(!M)
+				param = null
+
+			if(param)
+				message = "<B>[src]</B> clacks their mandibles at [param]."
+			else
+				message = "<B>[src]</B> clacks their mandibles."
+			playsound(loc, 'sound/effects/Kidanclack.ogg', 50, 0) //Credit to DrMinky (freesound.org) for the sound.
+			m_type = 2
+
+		if("click", "clicks")
+			var/M = null
+			if(param)
+				for(var/mob/A in view(null, null))
+					if(param == A.name)
+						M = A
+						break
+			if(!M)
+				param = null
+
+			if(param)
+				message = "<B>[src]</B> clicks their mandibles at [param]."
+			else
+				message = "<B>[src]</B> clicks their mandibles."
+			playsound(loc, 'sound/effects/Kidanclack2.ogg', 50, 0) //Credit to DrMinky (freesound.org) for the sound.
 			m_type = 2
 
 		if("yes")

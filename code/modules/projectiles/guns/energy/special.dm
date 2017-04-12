@@ -157,11 +157,11 @@
 	if(istype(A, /obj/item/stack/sheet/mineral/plasma))
 		var/obj/item/stack/sheet/S = A
 		S.use(1)
-		power_supply.give(10000)
+		power_supply.give(1000)
 		to_chat(user, "<span class='notice'>You insert [A] in [src], recharging it.</span>")
 	else if(istype(A, /obj/item/weapon/ore/plasma))
 		qdel(A)
-		power_supply.give(5000)
+		power_supply.give(500)
 		to_chat(user, "<span class='notice'>You insert [A] in [src], recharging it.</span>")
 	else
 		..()
@@ -308,12 +308,10 @@
 	desc = "A gun that changes the body temperature of its targets."
 	var/temperature = 300
 	var/target_temperature = 300
-	var/e_cost = 1000
 	origin_tech = "combat=3;materials=4;powerstorage=3;magnets=2"
 
 	ammo_type = list(/obj/item/ammo_casing/energy/temp)
 	selfcharge = 1
-	cell_type = /obj/item/weapon/stock_parts/cell
 
 	var/powercost = ""
 	var/powercostcolor = ""
@@ -369,19 +367,19 @@
 	T.temp = temperature
 	switch(temperature)
 		if(0 to 100)
-			T.e_cost = 3000
+			T.e_cost = 300
 			powercost = "High"
 		if(100 to 250)
-			T.e_cost = 2000
+			T.e_cost = 200
 			powercost = "Medium"
 		if(251 to 300)
-			T.e_cost = 1000
+			T.e_cost = 100
 			powercost = "Low"
 		if(301 to 400)
-			T.e_cost = 2000
+			T.e_cost = 200
 			powercost = "Medium"
 		if(401 to 1000)
-			T.e_cost = 3000
+			T.e_cost = 300
 			powercost = "High"
 	switch(powercost)
 		if("High")
@@ -471,16 +469,16 @@
 /obj/item/weapon/gun/energy/temperature/proc/update_charge()
 	var/charge = power_supply.charge
 	switch(charge)
-		if(9000 to INFINITY)		overlays += "900"
-		if(8000 to 9000)			overlays += "800"
-		if(7000 to 8000)			overlays += "700"
-		if(6000 to 7000)			overlays += "600"
-		if(5000 to 6000)			overlays += "500"
-		if(4000 to 5000)			overlays += "400"
-		if(3000 to 4000)			overlays += "300"
-		if(2000 to 3000)			overlays += "200"
-		if(1000 to 2002)			overlays += "100"
-		if(-INFINITY to 1000)	overlays += "0"
+		if(900 to INFINITY)		overlays += "900"
+		if(800 to 900)			overlays += "800"
+		if(700 to 800)			overlays += "700"
+		if(600 to 700)			overlays += "600"
+		if(500 to 600)			overlays += "500"
+		if(400 to 500)			overlays += "400"
+		if(300 to 400)			overlays += "300"
+		if(200 to 300)			overlays += "200"
+		if(100 to 202)			overlays += "100"
+		if(-INFINITY to 100)	overlays += "0"
 
 /obj/item/weapon/gun/energy/mimicgun
 	name = "mimic gun"

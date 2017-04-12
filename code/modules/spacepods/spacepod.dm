@@ -267,7 +267,7 @@
 	cargo_hold.emp_act(severity)
 
 	if(battery && battery.charge > 0)
-		battery.use((battery.charge / 2) / severity)
+		battery.use((battery.charge/3)/(severity*2))
 	deal_damage(80 / severity)
 	if(empcounter < (40 / severity))
 		empcounter = 40 / severity

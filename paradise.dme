@@ -847,6 +847,7 @@
 #include "code\game\objects\items\weapons\grenades\spawnergrenade.dm"
 #include "code\game\objects\items\weapons\grenades\syndieminibomb.dm"
 #include "code\game\objects\items\weapons\implants\implant.dm"
+#include "code\game\objects\items\weapons\implants\implant_abductor.dm"
 #include "code\game\objects\items\weapons\implants\implant_chem.dm"
 #include "code\game\objects\items\weapons\implants\implant_death_alarm.dm"
 #include "code\game\objects\items\weapons\implants\implant_explosive.dm"

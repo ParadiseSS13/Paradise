@@ -41,7 +41,7 @@ var/datum/announcement/minor/captain_announcement = new(do_newscast = 0)
 		/obj/item/weapon/melee/classic_baton/telescopic = 1
 	)
 
-	implants = list(/obj/item/weapon/implant/loyalty)
+	implants = list(/obj/item/weapon/implant/mindshield)
 
 	backpack = /obj/item/weapon/storage/backpack/captain
 	satchel = /obj/item/weapon/storage/backpack/satchel_cap
@@ -145,7 +145,7 @@ var/datum/announcement/minor/captain_announcement = new(do_newscast = 0)
 		/obj/item/weapon/melee/classic_baton/ntcane = 1
 	)
 
-	implants = list(/obj/item/weapon/implant/loyalty)
+	implants = list(/obj/item/weapon/implant/mindshield)
 
 
 
@@ -188,7 +188,7 @@ var/datum/announcement/minor/captain_announcement = new(do_newscast = 0)
 		/obj/item/weapon/gun/energy/gun/blueshield = 1
 	)
 
-	implants = list(/obj/item/weapon/implant/loyalty)
+	implants = list(/obj/item/weapon/implant/mindshield)
 
 	backpack = /obj/item/weapon/storage/backpack/security
 
@@ -232,7 +232,7 @@ var/datum/announcement/minor/captain_announcement = new(do_newscast = 0)
 		/obj/item/weapon/melee/classic_baton/telescopic = 1
 	)
 
-	implants = list(/obj/item/weapon/implant/loyalty)
+	implants = list(/obj/item/weapon/implant/mindshield)
 
 
 
@@ -269,4 +269,4 @@ var/datum/announcement/minor/captain_announcement = new(do_newscast = 0)
 	l_hand = /obj/item/weapon/storage/briefcase
 	pda = /obj/item/device/pda/lawyer
 
-	implants = list(/obj/item/weapon/implant/loyalty)
+	implants = list(/obj/item/weapon/implant/mindshield)

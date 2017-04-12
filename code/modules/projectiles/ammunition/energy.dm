@@ -3,7 +3,7 @@
 	desc = "The part of the gun that makes the laser go pew"
 	caliber = "energy"
 	projectile_type = /obj/item/projectile/energy
-	var/e_cost = 1000 //The amount of energy a cell needs to expend to create this shot.
+	var/e_cost = 100 //The amount of energy a cell needs to expend to create this shot.
 	var/select_name = "energy"
 	fire_sound = 'sound/weapons/Laser.ogg'
 
@@ -13,10 +13,11 @@
 
 /obj/item/ammo_casing/energy/lasergun
 	projectile_type = /obj/item/projectile/beam/laser
-	e_cost = 830
+	e_cost = 83
 	select_name = "kill"
 
 /obj/item/ammo_casing/energy/laser/hos //allows balancing of HoS and blueshit guns seperately from other energy weapons
+	e_cost = 100
 
 /obj/item/ammo_casing/energy/laser/practice
 	projectile_type = /obj/item/projectile/beam/practice
@@ -35,13 +36,13 @@
 
 /obj/item/ammo_casing/energy/laser/pulse
 	projectile_type = /obj/item/projectile/beam/pulse
-	e_cost = 2000
+	e_cost = 200
 	select_name = "DESTROY"
 	fire_sound = 'sound/weapons/pulse.ogg'
 
 /obj/item/ammo_casing/energy/laser/scatter/pulse
 	projectile_type = /obj/item/projectile/beam/pulse
-	e_cost = 2000
+	e_cost = 200
 	select_name = "ANNIHILATE"
 	fire_sound = 'sound/weapons/pulse.ogg'
 
@@ -55,26 +56,27 @@
 
 /obj/item/ammo_casing/energy/xray
 	projectile_type = /obj/item/projectile/beam/xray
-	e_cost = 500
+	e_cost = 50
 	fire_sound = 'sound/weapons/laser3.ogg'
 
 /obj/item/ammo_casing/energy/immolator
 	projectile_type = /obj/item/projectile/beam/immolator
 	fire_sound = 'sound/weapons/laser3.ogg'
-	e_cost = 1250
+	e_cost = 125
 
 /obj/item/ammo_casing/energy/electrode
 	projectile_type = /obj/item/projectile/energy/electrode
 	select_name = "stun"
 	fire_sound = 'sound/weapons/taser.ogg'
-	e_cost = 2000
+	e_cost = 200
 	delay = 15
 
 /obj/item/ammo_casing/energy/electrode/gun
 	fire_sound = 'sound/weapons/gunshot.ogg'
-	e_cost = 1000
+	e_cost = 100
 
 /obj/item/ammo_casing/energy/electrode/hos //allows balancing of HoS and blueshit guns seperately from other energy weapons
+	e_cost = 200
 
 /obj/item/ammo_casing/energy/ion
 	projectile_type = /obj/item/projectile/ion
@@ -121,7 +123,7 @@
 /obj/item/ammo_casing/energy/disabler
 	projectile_type = /obj/item/projectile/beam/disabler
 	select_name  = "disable"
-	e_cost = 500
+	e_cost = 50
 	fire_sound = 'sound/weapons/taser2.ogg'
 
 /obj/item/ammo_casing/energy/plasma
@@ -129,12 +131,12 @@
 	select_name = "plasma burst"
 	fire_sound = 'sound/weapons/plasma_cutter.ogg'
 	delay = 15
-	e_cost = 250
+	e_cost = 25
 
 /obj/item/ammo_casing/energy/plasma/adv
 	projectile_type = /obj/item/projectile/plasma/adv
 	delay = 10
-	e_cost = 100
+	e_cost = 10
 
 /obj/item/ammo_casing/energy/wormhole
 	projectile_type = /obj/item/projectile/beam/wormhole
@@ -153,7 +155,7 @@
 /obj/item/ammo_casing/energy/bolt
 	projectile_type = /obj/item/projectile/energy/bolt
 	select_name = "bolt"
-	e_cost = 5000
+	e_cost = 500
 	fire_sound = 'sound/weapons/Genhit.ogg'
 
 /obj/item/ammo_casing/energy/bolt/large
@@ -163,7 +165,7 @@
 /obj/item/ammo_casing/energy/dart
 	projectile_type = /obj/item/projectile/energy/dart
 	fire_sound = 'sound/weapons/Genhit.ogg'
-	e_cost = 5000
+	e_cost = 500
 	select_name = "toxic dart"
 
 /obj/item/ammo_casing/energy/instakill
@@ -187,7 +189,7 @@
 
 /obj/item/ammo_casing/energy/shock_revolver
 	fire_sound = 'sound/magic/lightningbolt.ogg'
-	e_cost = 2000
+	e_cost = 200
 	select_name = "lightning beam"
 	projectile_type = /obj/item/projectile/energy/shock_revolver
 
@@ -210,7 +212,7 @@
 /obj/item/ammo_casing/energy/teleport
 	projectile_type = /obj/item/projectile/energy/teleport
 	fire_sound = 'sound/weapons/wave.ogg'
-	e_cost = 1250
+	e_cost = 250
 	select_name = "teleport beam"
 	var/teleport_target
 
