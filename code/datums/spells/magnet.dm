@@ -19,7 +19,7 @@
 
 
 /obj/effect/proc_holder/spell/targeted/magnet/Click()
-	if(!ready && start_time==0)
+	if(!ready && start_time == 0)
 		if(cast_check())
 			StartChargeup()
 	else
@@ -30,12 +30,12 @@
 /obj/effect/proc_holder/spell/targeted/magnet/proc/StartChargeup(mob/user = usr)
 	ready = 1
 	to_chat(user, "<span class='notice'>You start gathering the power.</span>")
-	Snd = new/sound('sound/magic/lightning_chargeup.ogg',channel = 7)
+	Snd = new/sound('sound/magic/lightning_chargeup.ogg', channel = 7)
 	halo = image("icon"='icons/effects/effects.dmi',"icon_state" ="electricity","layer" = EFFECTS_LAYER)
 	user.overlays.Add(halo)
 	playsound(get_turf(user), Snd, 50, 0)
 	start_time = world.time
-	if(do_mob(user,user,100,uninterruptible=1))
+	if(do_mob(user, user, 100, uninterruptible=1))
 		if(ready)
 			Discharge()
 
@@ -61,8 +61,8 @@ obj/effect/proc_holder/spell/targeted/magnet/proc/Reset(mob/user = usr)
 /obj/effect/proc_holder/spell/targeted/magnet/cast(list/targets, mob/user = usr)
 	ready = 0
 	var/mob/living/target = targets[1]
-	Snd=sound(null, repeat = 0, wait = 1, channel = Snd.channel) //byond, why you suck?
-	playsound(get_turf(user),Snd,50,0)// Sorry MrPerson, but the other ways just didn't do it the way i needed to work, this is the only way.
+	Snd = sound(null, repeat = 0, wait = 1, channel = Snd.channel) //byond, why you suck?
+	playsound(get_turf(user), Snd, 50, 0)// Sorry MrPerson, but the other ways just didn't do it the way i needed to work, this is the only way.
 	if(get_dist(user,target)>range)
 		to_chat(user, "<span class='notice'>They are too far away!</span>")
 		Reset(user)
@@ -95,7 +95,7 @@ obj/effect/proc_holder/spell/targeted/magnet/proc/Reset(mob/user = usr)
 	Reset(user)
 
 /obj/effect/proc_holder/spell/targeted/magnet/proc/Bolt(mob/origin,mob/target,bolt_energy,bounces, mob/user = usr)
-	origin.Beam(target,icon_state="lightning",icon='icons/effects/effects.dmi',time=5)
+	origin.Beam(target, icon_state="lightning", icon='icons/effects/effects.dmi', time=5)
 	var/mob/living/carbon/current = target
 	if(bounces < 1)
 		for(var/obj/item/I in target.l_hand)
