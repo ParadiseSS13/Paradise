@@ -115,6 +115,7 @@
 	//see: setup.dm for list of mutations
 
 	var/voice_name = "unidentifiable voice"
+	var/bubble_icon = "h"	//Defines speechbubble
 
 	var/list/faction = list("neutral") //Used for checking whether hostile simple animals will attack you, possibly more stuff later
 
@@ -196,5 +197,5 @@
 	var/list/permanent_huds = list()
 
 	var/list/actions = list()
-	
+
 	var/list/progressbars = null	//for stacking do_after bars
