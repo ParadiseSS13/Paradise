@@ -92,7 +92,7 @@ obj/effect/proc_holder/spell/targeted/lightning/proc/Reset(mob/user = usr)
 			current.AdjustJitter(1000) //High numbers for violent convulsions
 			current.do_jitter_animation(current.jitteriness)
 			current.AdjustStuttering(2)
-			current.Stun(2)
+			current.Slowed(3)
 			spawn(20)
 				current.AdjustJitter(-1000, bound_lower = 10) //Still jittery, but vastly less
 		playsound(get_turf(current), 'sound/magic/LightningShock.ogg', 50, 1, -1)
@@ -103,7 +103,7 @@ obj/effect/proc_holder/spell/targeted/lightning/proc/Reset(mob/user = usr)
 			current.AdjustJitter(1000) //High numbers for violent convulsions
 			current.do_jitter_animation(current.jitteriness)
 			current.AdjustStuttering(2)
-			current.Stun(2)
+			current.Slowed(3)
 			spawn(20)
 				current.AdjustJitter(-1000, bound_lower = 10) //Still jittery, but vastly less
 		playsound(get_turf(current), 'sound/magic/LightningShock.ogg', 50, 1, -1)
