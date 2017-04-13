@@ -129,6 +129,11 @@
 	icon_state = "beret_sci"
 
 //Medical
+/obj/item/clothing/head/beret/med
+	name = "medical beret"
+	desc = "A blue beret with the medical insignia emblazoned on it.It smells very sterile."
+	icon_state = "beret_med"
+
 /obj/item/clothing/head/surgery
 	name = "surgical cap"
 	desc = "A cap surgeons wear during operations. Keeps their hair from tickling your internal organs."
