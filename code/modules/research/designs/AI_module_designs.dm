@@ -146,7 +146,7 @@
 	name = "Core AI Module (T.Y.R.A.N.T.)"
 	desc = "Allows for the construction of a T.Y.R.A.N.T. AI Module."
 	id = "tyrant_module"
-	req_tech = list("programming" = 4, "syndicate" = 2, "materials" = 6)
+	req_tech = list("programming" = 4, "syndicate" = 1, "materials" = 6)
 	build_type = IMPRINTER
 	materials = list(MAT_GLASS = 1000, "sacid" = 20, MAT_DIAMOND = 100)
 	build_path = /obj/item/weapon/aiModule/tyrant
