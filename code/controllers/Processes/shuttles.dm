@@ -160,6 +160,8 @@ var/const/CALL_SHUTTLE_REASON_LENGTH = 12
 /datum/controller/process/shuttle/proc/canRecall()
 	if(emergency.mode != SHUTTLE_CALL)
 		return
+	if(!emergency.canRecall)
+		return
 	if(ticker.mode.name == "meteor")
 		return
 	if(seclevel2num(get_security_level()) >= SEC_LEVEL_RED)

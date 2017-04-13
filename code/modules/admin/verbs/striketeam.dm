@@ -157,7 +157,7 @@ var/global/sent_strike_team = 0
 	equip_to_slot_or_del(new /obj/item/weapon/gun/energy/pulse(src), slot_r_hand)
 
 
-	var/obj/item/weapon/implant/loyalty/L = new/obj/item/weapon/implant/loyalty(src)//Here you go Deuryn
+	var/obj/item/weapon/implant/mindshield/L = new/obj/item/weapon/implant/mindshield(src)
 	L.imp_in = src
 	L.implanted = 1
 	sec_hud_set_implants()

@@ -118,8 +118,6 @@ var/list/karma_spenders = list()
 	if(!M)
 		to_chat(usr, "Please right click a mob to award karma directly, or use the 'Award Karma' verb to select a player from the player listing.")
 		return
-	if(!can_give_karma_to_mob(M))
-		return
 	if(alert("Give [M.name] good karma?", "Karma", "Yes", "No") != "Yes")
 		return
 	if(!can_give_karma_to_mob(M))

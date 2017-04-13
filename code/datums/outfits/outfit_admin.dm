@@ -218,7 +218,7 @@
 	if(istype(I))
 		apply_to_card(I, H, get_centcom_access("Nanotrasen Navy Officer"), "Nanotrasen Navy Officer")
 
-	var/obj/item/weapon/implant/L = new /obj/item/weapon/implant/loyalty(H)
+	var/obj/item/weapon/implant/L = new /obj/item/weapon/implant/mindshield(H)
 	L.imp_in = H
 	L.implanted = 1
 	H.sec_hud_set_implants()
@@ -250,7 +250,7 @@
 		/obj/item/weapon/reagent_containers/hypospray/combat/nanites = 1,
 		/obj/item/weapon/storage/box/zipties = 1,
 		/obj/item/clothing/shoes/magboots/advance = 1,
-		/obj/item/weapon/implanter/loyalty = 1,
+		/obj/item/weapon/implanter/mindshield = 1,
 	)
 
 /datum/outfit/admin/nt_special_ops_officer/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
@@ -329,7 +329,7 @@
 	if(istype(I))
 		apply_to_card(I, H, get_centcom_access("Nanotrasen Navy Captain"), "Nanotrasen Navy Captain")
 
-	var/obj/item/weapon/implant/L = new /obj/item/weapon/implant/loyalty(H)
+	var/obj/item/weapon/implant/L = new /obj/item/weapon/implant/mindshield(H)
 	L.imp_in = H
 	L.implanted = 1
 	H.sec_hud_set_implants()
@@ -755,7 +755,7 @@
 	if(istype(I))
 		apply_to_card(I, H, get_centcom_access("Emergency Response Team Member"), "Emergency Response Team Member")
 
-	var/obj/item/weapon/implant/L = new /obj/item/weapon/implant/loyalty(H)
+	var/obj/item/weapon/implant/L = new /obj/item/weapon/implant/mindshield(H)
 	L.imp_in = H
 	L.implanted = 1
 	H.sec_hud_set_implants()

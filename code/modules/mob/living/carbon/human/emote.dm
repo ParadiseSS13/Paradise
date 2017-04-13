@@ -53,6 +53,19 @@
 
 			if(!found_slime_bodypart)								//Everyone else fails, skip the emote attempt
 				return
+
+		if("clack", "clacks")
+			if(species.name == "Kidan")	//Only Kidan can clack and rightfully so.
+				on_CD = handle_emote_CD()			//proc located in code\modules\mob\emote.dm'
+			else								//Everyone else fails, skip the emote attempt
+				return
+
+		if("click", "clicks")
+			if(species.name == "Kidan")	//Only Kidan can click and rightfully so.
+				on_CD = handle_emote_CD()			//proc located in code\modules\mob\emote.dm'
+			else								//Everyone else fails, skip the emote attempt
+				return
+
 		if("scream", "screams")
 			on_CD = handle_emote_CD(50) //longer cooldown
 		if("fart", "farts", "flip", "flips", "snap", "snaps")
@@ -163,6 +176,40 @@
 			playsound(loc, 'sound/effects/slime_squish.ogg', 50, 0) //Credit to DrMinky (freesound.org) for the sound.
 			m_type = 2
 
+		if("clack", "clacks")
+			var/M = null
+			if(param)
+				for(var/mob/A in view(null, null))
+					if(param == A.name)
+						M = A
+						break
+			if(!M)
+				param = null
+
+			if(param)
+				message = "<B>[src]</B> clacks their mandibles at [param]."
+			else
+				message = "<B>[src]</B> clacks their mandibles."
+			playsound(loc, 'sound/effects/Kidanclack.ogg', 50, 0) //Credit to DrMinky (freesound.org) for the sound.
+			m_type = 2
+
+		if("click", "clicks")
+			var/M = null
+			if(param)
+				for(var/mob/A in view(null, null))
+					if(param == A.name)
+						M = A
+						break
+			if(!M)
+				param = null
+
+			if(param)
+				message = "<B>[src]</B> clicks their mandibles at [param]."
+			else
+				message = "<B>[src]</B> clicks their mandibles."
+			playsound(loc, 'sound/effects/Kidanclack2.ogg', 50, 0) //Credit to DrMinky (freesound.org) for the sound.
+			m_type = 2
+
 		if("yes")
 			var/M = null
 			if(param)
@@ -225,12 +272,12 @@
 			if(!restrained())
 				message = "<B>[src]</B> is strumming the air and headbanging like a safari chimp."
 				m_type = 1
-				
+
 		if("dance")
 			if(!restrained())
 				message = "<B>[src]</B> dances around happily."
 				m_type = 1
-				
+
 		if("jump")
 			if(!restrained())
 				message = "<B>[src]</B> jumps!"
@@ -857,11 +904,11 @@
 //			playsound(loc, 'sound/effects/fart.ogg', 50, 1, -3) //Admins still vote no to fun
 			if(locate(/obj/item/weapon/storage/bible) in get_turf(src))
 				to_chat(viewers(src), "<span class='warning'><b>[src] farts on the Bible!</b></span>")
-				var/image/cross = image('icons/obj/storage.dmi',"bible") 
-				var/adminbfmessage = "\blue [bicon(cross)] <b><font color=red>Bible Fart: </font>[key_name(src, 1)] (<A HREF='?_src_=holder;adminmoreinfo=\ref[src]'>?</A>) (<A HREF='?_src_=holder;adminplayeropts=\ref[src]'>PP</A>) (<A HREF='?_src_=vars;Vars=[UID()]'>VV</A>) (<A HREF='?_src_=holder;subtlemessage=\ref[src]'>SM</A>) ([admin_jump_link(src)]) (<A HREF='?_src_=holder;secretsadmin=check_antagonist'>CA</A>) (<A HREF='?_src_=holder;Smite=[UID()]'>SMITE</A>):</b>" 
-				for(var/client/X in admins) 
-					if(check_rights(R_EVENT,0,X.mob)) 
-						to_chat(X, adminbfmessage) 
+				var/image/cross = image('icons/obj/storage.dmi',"bible")
+				var/adminbfmessage = "\blue [bicon(cross)] <b><font color=red>Bible Fart: </font>[key_name(src, 1)] (<A HREF='?_src_=holder;adminmoreinfo=\ref[src]'>?</A>) (<A HREF='?_src_=holder;adminplayeropts=\ref[src]'>PP</A>) (<A HREF='?_src_=vars;Vars=[UID()]'>VV</A>) (<A HREF='?_src_=holder;subtlemessage=\ref[src]'>SM</A>) ([admin_jump_link(src)]) (<A HREF='?_src_=holder;secretsadmin=check_antagonist'>CA</A>) (<A HREF='?_src_=holder;Smite=[UID()]'>SMITE</A>):</b>"
+				for(var/client/X in admins)
+					if(check_rights(R_EVENT,0,X.mob))
+						to_chat(X, adminbfmessage)
 			else if(TOXIC_FARTS in mutations)
 				message = "<b>[src]</b> unleashes a [pick("horrible","terrible","foul","disgusting","awful")] fart."
 			else if(SUPER_FART in mutations)
