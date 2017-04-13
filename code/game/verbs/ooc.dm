@@ -24,13 +24,13 @@ var/global/admin_ooc_colour = "#b82e00"
 
 	if(!check_rights(R_ADMIN|R_MOD,0))
 		if(!config.ooc_allowed)
-			to_chat(src, "<span class='danger'>OOC is globally muted.</span>")
+			to_chat(src, "<span class='danger'>HALP ADMINS ABSORBED OOC</span>")
 			return
 		if(!config.dooc_allowed && (mob.stat == DEAD))
 			to_chat(usr, "<span class='danger'>OOC for dead mobs has been turned off.</span>")
 			return
 		if(prefs.muted & MUTE_OOC)
-			to_chat(src, "<span class='danger'>You cannot use OOC (muted).</span>")
+			to_chat(src, "<span class='danger'>You cannot use OOC (absorbed).</span>")
 			return
 		if(handle_spam_prevention(msg, MUTE_OOC, OOC_COOLDOWN))
 			return
@@ -89,7 +89,7 @@ var/global/admin_ooc_colour = "#b82e00"
 	if(config.ooc_allowed)
 		to_chat(world, "<B>The OOC channel has been globally enabled!</B>")
 	else
-		to_chat(world, "<B>The OOC channel has been globally disabled!</B>")
+		to_chat(world, "<B>HALP ADMINS ABSORBING OOC</B>")
 
 /proc/auto_toggle_ooc(var/on)
 	if(config.auto_toggle_ooc_during_round && config.ooc_allowed != on)
@@ -171,13 +171,13 @@ var/global/admin_ooc_colour = "#b82e00"
 
 	if(!check_rights(R_ADMIN|R_MOD,0))
 		if(!config.looc_allowed)
-			to_chat(src, "<span class='danger'>LOOC is globally muted.</span>")
+			to_chat(src, "<span class='danger'>HALP ADMINS ABSORBED LOOC</span>")
 			return
 		if(!config.dooc_allowed && (mob.stat == DEAD))
 			to_chat(usr, "<span class='danger'>LOOC for dead mobs has been turned off.</span>")
 			return
 		if(prefs.muted & MUTE_OOC)
-			to_chat(src, "<span class='danger'>You cannot use LOOC (muted).</span>")
+			to_chat(src, "<span class='danger'>You cannot use LOOC (absorbed).</span>")
 			return
 		if(handle_spam_prevention(msg, MUTE_OOC, OOC_COOLDOWN))
 			return

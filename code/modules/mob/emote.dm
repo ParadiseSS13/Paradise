@@ -86,7 +86,7 @@
 /mob/proc/emote_dead(var/message)
 
 	if(client.prefs.muted & MUTE_DEADCHAT)
-		to_chat(src, "\red You cannot send deadchat emotes (muted).")
+		to_chat(src, "\red You cannot send deadchat emotes (absorbed).")
 		return
 
 	if(!(client.prefs.toggles & CHAT_DEAD))
@@ -95,7 +95,7 @@
 
 	if(!src.client.holder)
 		if(!config.dsay_allowed)
-			to_chat(src, "\red Deadchat is globally muted")
+			to_chat(src, "\red HALP ADMINS ABSORBED DEADCHAT")
 			return
 
 
