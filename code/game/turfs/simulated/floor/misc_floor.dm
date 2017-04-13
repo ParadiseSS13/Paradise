@@ -47,7 +47,6 @@
 	name = "coastline"
 	icon = 'icons/misc/beach2.dmi'
 	icon_state = "sandwater"
-	mouse_opacity = 0
 
 /turf/simulated/floor/beach/water
 	name = "water"
