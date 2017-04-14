@@ -10,9 +10,7 @@ var/global/default_martial_art = new/datum/martial_art
 	var/s_tone = 0	//Skin tone
 
 	//Skin colour
-	var/r_skin = 0
-	var/g_skin = 0
-	var/b_skin = 0
+	var/skin_colour = "#000000"
 
 	var/lip_style = null	//no lipstick by default- arguably misleading, as it could be used for general makeup
 	var/lip_color = "white"

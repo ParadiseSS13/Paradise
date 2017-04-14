@@ -32,7 +32,7 @@
 	var/cannot_amputate
 	var/cannot_break
 	var/s_tone = null
-	var/list/s_col = null // If this is instantiated, it should be a list of length 3
+	var/s_col = null // If this is instantiated, it should be a hex value.
 	var/list/child_icons = list()
 	var/perma_injury = 0
 	var/dismember_at_max_damage = FALSE

@@ -324,7 +324,7 @@
 	organ_tag = "eyes"
 	parent_organ = "head"
 	slot = "eyes"
-	var/list/eye_colour = list(0,0,0)
+	var/eye_colour = "#000000"
 	var/list/colourmatrix = null
 	var/list/colourblind_matrix = MATRIX_GREYSCALE //Special colourblindness parameters. By default, it's black-and-white.
 	var/colourblind_darkview = null
@@ -630,13 +630,9 @@
 				head_organ.h_style = "Mohawk"
 			else
 				head_organ.h_style = "Very Long Hair"
-			head_organ.r_hair = 216
-			head_organ.g_hair = 192
-			head_organ.b_hair = 120
+			head_organ.hair_colour = "#D8C078"
 			H.update_hair()
 		if(!(head_organ.f_style == "Very Long Beard"))
 			head_organ.f_style = "Very Long Beard"
-			head_organ.r_facial = 216
-			head_organ.g_facial = 192
-			head_organ.b_facial = 120
+			head_organ.facial_colour = "#D8C078"
 			H.update_fhair()
