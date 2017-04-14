@@ -131,7 +131,7 @@
 //Medical
 /obj/item/clothing/head/beret/med
 	name = "medical beret"
-	desc = "A blue beret with the medical insignia emblazoned on it.It smells very sterile."
+	desc = "A white beret with a green cross finely threaded into it. It has that sterile smell about it."
 	icon_state = "beret_med"
 
 /obj/item/clothing/head/surgery
