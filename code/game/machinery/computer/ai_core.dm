@@ -10,12 +10,9 @@
 	var/obj/item/device/mmi/brain = null
 
 /obj/structure/AIcore/Destroy()
-	qdel(laws)
-	qdel(circuit)
-	qdel(brain)
-	laws = null
-	circuit = null
-	brain = null
+	QDEL_NULL(laws)
+	QDEL_NULL(circuit)
+	QDEL_NULL(brain)
 	return ..()
 
 /obj/structure/AIcore/attackby(obj/item/P as obj, mob/user as mob, params)

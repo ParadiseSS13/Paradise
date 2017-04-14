@@ -1181,7 +1181,8 @@
 	else
 		AdjustLoseBreath(2, bound_lower = 0, bound_upper = 3)
 		adjustOxyLoss(5)
-		adjustBruteLoss(1)
+		Paralyse(4)
+		adjustBruteLoss(2)
 
 
 

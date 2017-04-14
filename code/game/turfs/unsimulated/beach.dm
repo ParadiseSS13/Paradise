@@ -59,8 +59,7 @@
 	water_overlay = new(src)
 
 /turf/unsimulated/beach/water/drop/Destroy()
-	qdel(water_overlay)
-	water_overlay = null
+	QDEL_NULL(water_overlay)
 	return ..()
 
 /obj/effect/effect/beach_drop_overlay

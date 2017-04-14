@@ -128,7 +128,7 @@
 	var/rand_y = 0
 	var/emagged = 0
 	var/teleporting = 0
-	var/chargecost = 1500
+	var/chargecost = 1000
 
 /obj/item/weapon/rcs/New()
 	..()
@@ -140,9 +140,7 @@
 	to_chat(user, "There are [round(rcell.charge/chargecost)] charge\s left.")
 
 /obj/item/weapon/rcs/Destroy()
-	if(rcell)
-		qdel(rcell)
-		rcell = null
+	QDEL_NULL(rcell)
 	return ..()
 
 /obj/item/weapon/rcs/attack_self(mob/user)

@@ -5,24 +5,25 @@
 	return 100.0*charge/maxcharge
 
 // use power from a cell
-/obj/item/weapon/stock_parts/cell/proc/use(var/amount)
+/obj/item/weapon/stock_parts/cell/proc/use(amount)
 	if(rigged && amount > 0)
 		explode()
 		return 0
-
-	if(charge < amount)	return 0
+	if(charge < amount)
+		return 0
 	charge = (charge - amount)
 	return 1
 
 // recharge the cell
-/obj/item/weapon/stock_parts/cell/proc/give(var/amount)
+/obj/item/weapon/stock_parts/cell/proc/give(amount)
 	if(rigged && amount > 0)
 		explode()
 		return 0
-
-	if(maxcharge < amount)	return 0
+	if(maxcharge < amount)
+		return 0
 	var/power_used = min(maxcharge-charge,amount)
-	if(crit_fail)	return 0
+	if(crit_fail)
+		return 0
 	if(!prob(reliability))
 		minor_fault++
 		if(prob(minor_fault))
@@ -30,7 +31,6 @@
 			return 0
 	charge += power_used
 	return power_used
-
 
 /obj/item/weapon/stock_parts/cell/examine(mob/user)
 	if(..(user, 1))

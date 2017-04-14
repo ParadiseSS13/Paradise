@@ -500,7 +500,7 @@
 	var/hasmob = 0 //If it contains a mob
 
 	Destroy()
-		qdel(gas)
+		QDEL_NULL(gas)
 		active = 0
 		return ..()
 
@@ -1146,11 +1146,11 @@
 
 	update()
 	return
-	
+
 /obj/structure/disposalpipe/trunk/Destroy()
 	if(istype(linked, /obj/structure/disposaloutlet))
 		var/obj/structure/disposaloutlet/O = linked
-		O.expel()
+		O.expel(animation = 0)
 	else if(istype(linked, /obj/machinery/disposal))
 		var/obj/machinery/disposal/D = linked
 		if(D.trunk == src)
@@ -1207,7 +1207,7 @@
 			playsound(loc, W.usesound, 100, 1)
 			to_chat(user, "<span class='notice'>Slicing the disposal pipe.</span>")
 			if(do_after(user, 30 * W.toolspeed, target = src))
-				if(!W.isOn()) 
+				if(!W.isOn())
 					return
 				welded()
 		else
@@ -1290,12 +1290,13 @@
 
 	// expel the contents of the holder object, then delete it
 	// called when the holder exits the outlet
-	proc/expel(var/obj/structure/disposalholder/H)
+	proc/expel(var/obj/structure/disposalholder/H, animation = 1)
 
-		flick("outlet-open", src)
-		playsound(src, 'sound/machines/warning-buzzer.ogg', 50, 0, 0)
-		sleep(20)	//wait until correct animation frame
-		playsound(src, 'sound/machines/hiss.ogg', 50, 0, 0)
+		if(animation)
+			flick("outlet-open", src)
+			playsound(src, 'sound/machines/warning-buzzer.ogg', 50, 0, 0)
+			sleep(20)	//wait until correct animation frame
+			playsound(src, 'sound/machines/hiss.ogg', 50, 0, 0)
 
 		if(H)
 			for(var/atom/movable/AM in H)
@@ -1308,7 +1309,6 @@
 			H.vent_gas(src.loc)
 			qdel(H)
 
-		return
 
 	attackby(var/obj/item/I, var/mob/user, params)
 		if(!I || !user)

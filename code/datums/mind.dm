@@ -157,7 +157,7 @@
 	var/mob/living/carbon/human/H = current
 	if(ishuman(current))
 		/** Impanted**/
-		if(isloyal(H))
+		if(ismindshielded(H))
 			text = "Mindshield Implant:<a href='?src=[UID()];implant=remove'>Remove</a>|<b><font color='green'>Implanted</font></b></br>"
 		else
 			text = "Mindshield Implant:<b>No Implant</b>|<a href='?src=[UID()];implant=add'>Implant him!</a></br>"
@@ -167,7 +167,7 @@
 		if(ticker.mode.config_tag=="revolution")
 			text += uppertext(text)
 		text = "<i><b>[text]</b></i>: "
-		if(isloyal(H))
+		if(ismindshielded(H))
 			text += "<b>NO</b>|headrev|rev"
 		else if(src in ticker.mode.head_revolutionaries)
 			text += "<a href='?src=[UID()];revolution=clear'>no</a>|<b><font color='red'>HEADREV</font></b>|<a href='?src=[UID()];revolution=rev'>rev</a>"
@@ -203,7 +203,7 @@
 		if(ticker.mode.config_tag=="cult")
 			text = uppertext(text)
 		text = "<i><b>[text]</b></i>: "
-		if(isloyal(H))
+		if(ismindshielded(H))
 			text += "<B>NO</B>|cultist"
 		else if(src in ticker.mode.cult)
 			text += "<a href='?src=[UID()];cult=clear'>no</a>|<b><font color='red'>CULTIST</font></b>"
@@ -657,7 +657,7 @@
 
 		switch(href_list["implant"])
 			if("remove")
-				for(var/obj/item/weapon/implant/loyalty/I in H.contents)
+				for(var/obj/item/weapon/implant/mindshield/I in H.contents)
 					if(I && I.implanted)
 						I.removed(H)
 						qdel(I)
@@ -665,7 +665,7 @@
 				log_admin("[key_name(usr)] has deactivated [key_name(current)]'s mindshield implant")
 				message_admins("[key_name_admin(usr)] has deactivated [key_name_admin(current)]'s mindshield implant")
 			if("add")
-				var/obj/item/weapon/implant/loyalty/L = new/obj/item/weapon/implant/loyalty(H)
+				var/obj/item/weapon/implant/mindshield/L = new/obj/item/weapon/implant/mindshield(H)
 				L.imp_in = H
 				L.implanted = 1
 				H.sec_hud_set_implants()

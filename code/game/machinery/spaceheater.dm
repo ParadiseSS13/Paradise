@@ -20,9 +20,7 @@
 	return
 
 /obj/machinery/space_heater/Destroy()
-	if(cell)
-		qdel(cell)
-		cell = null
+	QDEL_NULL(cell)
 	return ..()
 
 /obj/machinery/space_heater/update_icon()

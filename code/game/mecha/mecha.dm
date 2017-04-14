@@ -629,8 +629,7 @@
 	else
 		qdel(cabin_air)
 	cabin_air = null
-	qdel(spark_system)
-	spark_system = null
+	QDEL_NULL(spark_system)
 
 	mechas_list -= src //global mech list
 	return ..()
@@ -663,7 +662,7 @@
 
 /obj/mecha/emp_act(severity)
 	if(get_charge())
-		use_power((cell.charge / 2) / severity)
+		use_power((cell.charge/3)/(severity*2))
 		take_damage(50 / severity, "energy")
 	log_message("EMP detected", 1)
 	check_for_internal_damage(list(MECHA_INT_FIRE, MECHA_INT_TEMP_CONTROL, MECHA_INT_CONTROL_LOST, MECHA_INT_SHORT_CIRCUIT), 1)

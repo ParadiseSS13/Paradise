@@ -19,7 +19,7 @@ var/global/list/all_cults = list()
 		return 0
 	if(ishuman(mind.current))
 		var/mob/living/carbon/human/H = mind.current
-		if(isloyal(H))
+		if(ismindshielded(H))
 			return 0
 	if(issilicon(mind.current))
 		return 0 //can't convert machines, that's ratvar's thing

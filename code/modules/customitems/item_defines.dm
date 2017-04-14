@@ -235,6 +235,33 @@
 		to_chat(target, "<span class='notice'>You comb your tail with the [src].</span>")
 		used = 1
 
+/obj/item/device/fluff/desolate_baton_kit //DesolateG: Michael steampunk_witch
+	name = "stun baton converstion kit"
+	desc = "Some sci-fi looking parts for a stun baton."
+	icon = 'icons/obj/custom_items.dmi'
+	icon_state = "scifikit"
+	w_class = 2
+
+/obj/item/device/fluff/desolate_baton_kit/afterattack(atom/target, mob/user, proximity)
+	if(!proximity || !ishuman(user) || user.incapacitated())
+		return
+
+	if(istype(target, /obj/item/weapon/melee/baton) && !istype(target, /obj/item/weapon/melee/baton/cattleprod))
+		to_chat(user, "<span class='notice'>You modify the appearance of [target].</span>")
+		//because batons use the initial() proc, we can't just swap the icon state, sadly
+		var/obj/item/weapon/melee/baton/the_baton = target
+		the_baton.base_icon = "desolate_baton"
+		the_baton.item_state = "desolate_baton"
+		the_baton.icon = 'icons/obj/custom_items.dmi'
+		the_baton.lefthand_file = 'icons/mob/inhands/fluff_lefthand.dmi'
+		the_baton.righthand_file = 'icons/mob/inhands/fluff_righthand.dmi'
+		the_baton.update_icon()
+		user.update_icons()
+		qdel(src)
+		return
+
+	to_chat(user, "<span class='warning'>You can't modify [target]!</span>")
+
 /obj/item/device/fluff/cardgage_helmet_kit //captain cardgage: Richard Ulery
 	name = "welding helmet modkit"
 	desc = "Some spraypaint and a stencil, perfect for painting flames onto a welding helmet!"
@@ -244,14 +271,14 @@
 	throwforce = 0
 
 /obj/item/device/fluff/cardgage_helmet_kit/afterattack(atom/target, mob/user, proximity)
-	if(!proximity || !ishuman(user) || user.lying)
+	if(!proximity || !ishuman(user) || user.incapacitated())
 		return
 
 	if(istype(target, /obj/item/clothing/head/welding))
 		to_chat(user, "<span class='notice'>You modify the appearance of [target].</span>")
 
 		var/obj/item/clothing/head/welding/flamedecal/P = new(get_turf(target))
-		transfer_fingerprints_to(P)
+		target.transfer_fingerprints_to(P)
 		qdel(target)
 		qdel(src)
 		return
@@ -269,7 +296,7 @@
 	throwforce = 0
 
 /obj/item/device/fluff/shadey_plasman_modkit/afterattack(atom/target, mob/user, proximity)
-	if(!proximity || !ishuman(user) || user.lying)
+	if(!proximity || !ishuman(user) || user.incapacitated())
 		return
 	var/mob/living/carbon/human/H = user
 
@@ -744,4 +771,3 @@
 	new /obj/item/weapon/reagent_containers/food/drinks/drinkingglass/shotglass(src)
 	new /obj/item/weapon/reagent_containers/food/drinks/drinkingglass/shotglass(src)
 	new /obj/item/weapon/reagent_containers/food/drinks/bottle/fluff/moonshine(src)
-

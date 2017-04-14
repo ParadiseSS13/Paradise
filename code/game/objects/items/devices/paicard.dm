@@ -12,7 +12,7 @@
 	var/looking_for_personality = 0
 	var/mob/living/silicon/pai/pai
 	var/list/faction = list("neutral") // The factions the pAI will inherit from the card
-	
+
 /obj/item/device/paicard/syndicate
 	name = "syndicate personal AI device"
 	faction = list("syndicate")
@@ -33,9 +33,7 @@
 		pai.ghostize()
 		qdel(pai)
 		pai = null
-	if(radio)
-		qdel(radio)
-		radio = null
+	QDEL_NULL(radio)
 	return ..()
 
 /obj/item/device/paicard/attack_self(mob/user)

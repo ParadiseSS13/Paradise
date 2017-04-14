@@ -82,12 +82,8 @@
 /obj/machinery/clonepod/Destroy()
 	if(connected)
 		connected.pods -= src
-	if(Radio)
-		qdel(Radio)
-		Radio = null
-	if(countdown)
-		qdel(countdown)
-		countdown = null
+	QDEL_NULL(Radio)
+	QDEL_NULL(countdown)
 	return ..()
 
 /obj/machinery/clonepod/RefreshParts()
@@ -104,12 +100,16 @@
 /obj/item/weapon/disk/data
 	name = "Cloning Data Disk"
 	icon_state = "datadisk0" //Gosh I hope syndies don't mistake them for the nuke disk.
-	var/datum/dna2/record/buf=null
+	var/datum/dna2/record/buf = null
 	var/read_only = 0 //Well,it's still a floppy disk
 
 /obj/item/weapon/disk/data/proc/Initialize()
 	buf = new
 	buf.dna=new
+
+/obj/item/weapon/disk/data/Destroy()
+	QDEL_NULL(buf)
+	return ..()
 
 /obj/item/weapon/disk/data/demo
 	name = "data disk - 'God Emperor of Mankind'"

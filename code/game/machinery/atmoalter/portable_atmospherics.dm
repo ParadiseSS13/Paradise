@@ -36,10 +36,8 @@
 
 /obj/machinery/portable_atmospherics/Destroy()
 	disconnect()
-	qdel(air_contents)
-	air_contents = null
-	qdel(holding)
-	holding = null
+	QDEL_NULL(air_contents)
+	QDEL_NULL(holding)
 	return ..()
 
 /obj/machinery/portable_atmospherics/update_icon()

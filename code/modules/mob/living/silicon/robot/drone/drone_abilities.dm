@@ -48,3 +48,54 @@
 		get_scooped(M)
 
 	..()
+
+/mob/living/silicon/robot/drone/verb/customize()
+	set name = "Customize Chassis"
+	set desc = "Reconfigure your chassis into a customized version."
+	set category = "Drone"
+
+	if(!custom_sprite) //Check to see if custom sprite time, checking the appopriate file to change a var
+		var/file = file2text("config/custom_sprites.txt")
+		var/lines = splittext(file, "\n")
+
+		for(var/line in lines)
+		// split & clean up
+			var/list/Entry = splittext(line, ":")
+			for(var/i = 1 to Entry.len)
+				Entry[i] = trim(Entry[i])
+
+			if(Entry.len < 2 || Entry[1] != "drone")
+				continue
+
+			if (Entry[2] == ckey) //Custom holograms
+				custom_sprite = 1  // option is given in hologram menu
+
+	if(!custom_sprite)
+		to_chat(src, "<span class='warning'>Error 404: Custom chassis not found. Revoking customization option.</span>")
+	else
+		icon = 'icons/mob/custom_synthetic/custom-synthetic.dmi'
+		icon_state = "[ckey]-drone"
+		to_chat(src, "<span class='notice'>You reconfigure your chassis and improve the station through your new aesthetics.</span>")
+	verbs -= /mob/living/silicon/robot/drone/verb/customize
+
+/mob/living/silicon/robot/drone/get_scooped(mob/living/carbon/grabber)
+	var/obj/item/weapon/holder/H = ..()
+	if(!istype(H))
+		return
+	if(resting)
+		resting = 0
+	if(custom_sprite)
+		H.icon = 'icons/mob/custom_synthetic/custom-synthetic.dmi'
+		H.icon_override = 'icons/mob/custom_synthetic/custom_head.dmi'
+		H.lefthand_file = 'icons/mob/custom_synthetic/custom_lefthand.dmi'
+		H.righthand_file = 'icons/mob/custom_synthetic/custom_righthand.dmi'
+		H.icon_state = "[icon_state]"
+		H.item_state = "[icon_state]_hand"
+	else
+		H.icon_state = "drone"
+		H.item_state = "drone"
+	grabber.put_in_active_hand(H)//for some reason unless i call this it dosen't work
+	grabber.update_inv_l_hand()
+	grabber.update_inv_r_hand()
+
+	return H
