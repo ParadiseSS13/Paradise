@@ -17,7 +17,7 @@
 
 /mob/living/carbon/human/virtual_reality/death()
 	return_to_lobby()
-	..()
+	return ..()
 
 /mob/living/carbon/human/virtual_reality/Destroy()
 	return_to_lobby()

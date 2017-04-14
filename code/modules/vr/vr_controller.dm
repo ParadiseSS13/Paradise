@@ -45,8 +45,9 @@ proc/build_virtual_avatar(mob/living/carbon/human/H, location, datum/map_templat
 	vr_avatar.real_name = H.real_name
 	vr_avatar.undershirt = H.undershirt
 	vr_avatar.underwear = H.underwear
-	var/obj/item/organ/external/head/hd = H.get_organ("head")
-	vr_avatar.change_hair(hd.h_style)
+	//var/obj/item/organ/external/head/hd = H.get_organ("head")
+	//vr_avatar.change_hair(hd.h_style)
+	vr_avatar.UpdateAppearance()
 	vr_avatar.equipOutfit(template.outfit)
 	return vr_avatar
 
@@ -63,4 +64,4 @@ proc/spawn_vr_avatar(mob/living/carbon/human/H, datum/vr_room/room)
 
 //Preloaded rooms
 /hook/roundstart/proc/starting_levels()
-	make_vr_room("Lobby", "lobby", "0")
+	make_vr_room("Lobby", "lobby", 0)

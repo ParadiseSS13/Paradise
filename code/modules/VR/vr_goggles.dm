@@ -21,9 +21,6 @@
 	vr_human.revert_to_reality(1)
 	cleanup_vr_avatar()
 
-/obj/item/clothing/glasses/vr_goggles/emag_act(mob/user)
-	//placeholder
-
 /obj/item/clothing/glasses/vr_goggles/dropped()
 	..()
 	if(vr_human)

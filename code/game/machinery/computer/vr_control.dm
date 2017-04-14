@@ -7,11 +7,9 @@
 
 
 /obj/machinery/computer/vr_control/New()
-	//vr_control = new(src)
 	..()
 
 /obj/machinery/computer/vr_control/Destroy()
-	//qdel(vr_control)
 	return ..()
 
 /obj/machinery/computer/vr_control/attack_ai(mob/user)
@@ -26,7 +24,6 @@
 	ui_interact(user)
 
 /obj/machinery/computer/vr_control/ui_interact(mob/user, ui_key = "main", var/datum/nanoui/ui = null, var/force_open = 1)
-	//crew_monitor.ui_interact(user, ui_key, ui, force_open)
 	switch(alert("What would you like to do?", "VR Control", "Join Room", "Make Room", "Cancel"))
 		if("Join Room")
 			spawn_vr_avatar(user, input(user, "Choose a room to join.","Select Level") as null|anything in vr_rooms)
@@ -36,5 +33,4 @@
 			return
 
 /obj/machinery/computer/vr_control/interact(mob/user)
-	//crew_monitor.ui_interact(user)
 
