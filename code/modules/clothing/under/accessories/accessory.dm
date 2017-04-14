@@ -243,7 +243,7 @@
 		to_chat(user, "Waving around a badge before swiping an ID would be pretty pointless.")
 		return
 	if(isliving(user))
-		user.visible_message("\red [user] displays their NanoTrasen Internal Security Legal Authorization Badge.\nIt reads: [stored_name], NT Security.","\red You display your NanoTrasen Internal Security Legal Authorization Badge.\nIt reads: [stored_name], NT Security.")
+		user.visible_message("\red [user] displays their Nanotrasen Internal Security Legal Authorization Badge.\nIt reads: [stored_name], NT Security.","\red You display your Nanotrasen Internal Security Legal Authorization Badge.\nIt reads: [stored_name], NT Security.")
 
 /obj/item/clothing/accessory/holobadge/attackby(var/obj/item/O as obj, var/mob/user as mob, params)
 	if(istype(O, /obj/item/weapon/card/id) || istype(O, /obj/item/device/pda))
@@ -361,16 +361,19 @@
 //However, these 3 don't have corgi versions of their sprites
 /obj/item/clothing/accessory/stripedredscarf
 	name = "striped red scarf"
+	desc = "A stylish scarf. The perfect winter accessory for those with a keen fashion sense, and those who just can't handle a cold breeze on their necks."
 	icon_state = "stripedredscarf"
 	item_color = "stripedredscarf"
 
 /obj/item/clothing/accessory/stripedgreenscarf
 	name = "striped green scarf"
+	desc = "A stylish scarf. The perfect winter accessory for those with a keen fashion sense, and those who just can't handle a cold breeze on their necks."
 	icon_state = "stripedgreenscarf"
 	item_color = "stripedgreenscarf"
 
 /obj/item/clothing/accessory/stripedbluescarf
 	name = "striped blue scarf"
+	desc = "A stylish scarf. The perfect winter accessory for those with a keen fashion sense, and those who just can't handle a cold breeze on their necks."
 	icon_state = "stripedbluescarf"
 	item_color = "stripedbluescarf"
 
@@ -383,9 +386,7 @@
 	var/obj/item/weapon/card/id/access_id
 
 /obj/item/clothing/accessory/petcollar/Destroy()
-	if(access_id)
-		qdel(access_id)
-		access_id = null
+	QDEL_NULL(access_id)
 	processing_objects -= src
 	return ..()
 

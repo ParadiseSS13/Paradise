@@ -67,6 +67,27 @@
 	item_state = "gy_suit"
 	item_color = "vice"
 
+/obj/item/clothing/under/solgov
+	name = "Sol Federation marine uniform"
+	desc = "A comfortable and durable combat uniform worn by Sol Federation Marine Forces."
+	icon_state = "solgov"
+	item_state = "ro_suit"
+	item_color = "solgov"
+	armor = list(melee = 10, bullet = 0, laser = 0, energy = 0, bomb = 0, bio = 0, rad = 0)
+	displays_id = 0
+
+/obj/item/clothing/under/solgov/command
+	name = "Sol Federation Lieutenant's uniform"
+	desc = "A comfortable and durable combat uniform worn by Sol Federation Marine Forces. This one has additional insignia on its shoulders."
+	icon_state = "solgovc"
+	item_color = "solgovc"
+
+/obj/item/clothing/under/solgov/rep
+	name = "Sol Federation representative's uniform"
+	desc = "A formal uniform worn by the diplomatic representatives of the Sol Federation."
+	icon_state = "solgovr"
+	item_color = "solgovr"
+
 /obj/item/clothing/under/rank/centcom_officer
 	desc = "It's a jumpsuit worn by CentComm Officers."
 	name = "\improper CentComm officer's jumpsuit"
@@ -740,7 +761,7 @@
 	..()
 
 /obj/item/clothing/under/contortionist/dropped(mob/living/carbon/human/user)
-	if(!user.get_int_organ(/obj/item/organ/internal/gland/ventcrawling))
+	if(!user.get_int_organ(/obj/item/organ/internal/heart/gland/ventcrawling))
 		user.ventcrawler = 0
 	..()
 

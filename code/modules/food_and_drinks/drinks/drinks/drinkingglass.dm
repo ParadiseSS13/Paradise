@@ -37,11 +37,17 @@
 	extinguish()
 
 /obj/item/weapon/reagent_containers/food/drinks/drinkingglass/on_reagent_change()
+	overlays.Cut()
 	if(reagents.reagent_list.len)
 		var/datum/reagent/R = reagents.get_master_reagent()
-		icon_state = R.drink_icon
 		name = R.drink_name
 		desc = R.drink_desc
+		if(R.drink_icon)
+			icon_state = R.drink_icon
+		else
+			var/image/I = image(icon, "glassoverlay")
+			I.color = mix_color_from_reagents(reagents.reagent_list)
+			overlays += I
 	else
 		icon_state = "glass_empty"
 		name = "glass"

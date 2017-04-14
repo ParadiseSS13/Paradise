@@ -109,7 +109,7 @@
 		charge_counter = charge_max
 		return
 	to_chat(user, "<span class='shadowling'>You silently disable all nearby lights.</span>")
-	for(var/obj/effect/glowshroom/G in orange(2, user)) //Why the fuck was this in the loop below?
+	for(var/obj/structure/glowshroom/G in orange(2, user)) //Why the fuck was this in the loop below?
 		G.visible_message("<span class='warning'>\The [G] withers away!</span>")
 		qdel(G)
 	for(var/turf/T in targets)
@@ -307,14 +307,14 @@
 					to_chat(target, "<span class='danger'>A terrible red light floods your mind. You collapse as conscious thought is wiped away.</span>")
 					target.Weaken(12)
 					sleep(20)
-					if(isloyal(target))
+					if(ismindshielded(target))
 						to_chat(user, "<span class='notice'>They have a mindshield implant. You begin to deactivate it - this will take some time.</span>")
 						user.visible_message("<span class='warning'>[user] pauses, then dips their head in concentration!</span>")
 						to_chat(target, "<span class='boldannounce'>Your mindshield implant becomes hot as it comes under attack!</span>")
 						sleep(100) //10 seconds - not spawn() so the enthralling takes longer
 						to_chat(user, "<span class='notice'>The nanobots composing the mindshield implant have been rendered inert. Now to continue.</span>")
 						user.visible_message("<span class='warning'>[user] relaxes again.</span>")
-						for(var/obj/item/weapon/implant/loyalty/L in target)
+						for(var/obj/item/weapon/implant/mindshield/L in target)
 							if(L && L.implanted)
 								qdel(L)
 						to_chat(target, "<span class='boldannounce'>Your mental protection implant unexpectedly falters, dims, dies.</span>")
@@ -718,8 +718,9 @@
 			var/more_minutes = 9000
 			var/timer = shuttle_master.emergency.timeLeft()
 			timer += more_minutes
-			event_announcement.Announce("Major system failure aboard the emergency shuttle. This will extend its arrival time by approximately 15 minutes..", "System Failure", 'sound/misc/notice1.ogg')
+			event_announcement.Announce("Major system failure aboard the emergency shuttle. This will extend its arrival time by approximately 15 minutes and the shuttle is unable to be recalled.", "System Failure", 'sound/misc/notice1.ogg')
 			shuttle_master.emergency.setTimer(timer)
+			shuttle_master.emergency.canRecall = FALSE
 		user.mind.spell_list.Remove(src) //Can only be used once!
 		qdel(src)
 

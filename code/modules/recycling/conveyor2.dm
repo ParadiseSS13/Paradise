@@ -256,9 +256,9 @@
 /obj/machinery/conveyor_switch/attack_hand(mob/user)
 	if(..())
 		return 1
-		
+
 	toggle(user)
-	
+
 /obj/machinery/conveyor_switch/attack_ghost(mob/user)
 	if(user.can_advanced_admin_interact())
 		toggle(user)
@@ -292,7 +292,7 @@
 			S.position = position
 			S.update()
 		CHECK_TICK
-		
+
 /obj/machinery/conveyor_switch/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/weapon/crowbar))
 		var/obj/item/conveyor_switch_construct/C = new/obj/item/conveyor_switch_construct(src.loc)
@@ -309,7 +309,12 @@
 /obj/machinery/conveyor_switch/multitool_topic(var/mob/user,var/list/href_list,var/obj/O)
 	..()
 	if("toggle_logic" in href_list)
-		convdir = !convdir //reverses?
+		if(convdir)
+			convdir = 0
+		else if(last_pos)
+			convdir = last_pos
+		else
+			convdir = position
 
 
 /obj/machinery/conveyor_switch/multitool_menu(var/mob/user, var/obj/item/device/multitool/P)

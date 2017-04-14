@@ -269,7 +269,7 @@
 		resources++
 		do_attack_animation(target)
 		changeNext_move(CLICK_CD_MELEE)
-		var/obj/effect/swarmer/integrate/I = new /obj/effect/swarmer/integrate(get_turf(target))
+		var/obj/structure/swarmer/integrate/I = new /obj/structure/swarmer/integrate(get_turf(target))
 		I.pixel_x = target.pixel_x
 		I.pixel_y = target.pixel_y
 		if(istype(target, /obj/item/stack))
@@ -283,7 +283,7 @@
 		return
 
 /mob/living/simple_animal/hostile/swarmer/proc/DisIntegrate(var/atom/movable/target)
-	new /obj/effect/swarmer/disintegration(get_turf(target))
+	new /obj/structure/swarmer/disintegration(get_turf(target))
 	do_attack_animation(target)
 	changeNext_move(CLICK_CD_MELEE)
 	target.ex_act(3)
@@ -317,12 +317,12 @@
 /mob/living/simple_animal/hostile/swarmer/proc/DismantleMachine(var/obj/machinery/target)
 	do_attack_animation(target)
 	to_chat(src, "<span class='info'>We begin to dismantle this machine. We will need to be uninterrupted.</span>")
-	var/obj/effect/swarmer/dismantle/D = new /obj/effect/swarmer/dismantle(get_turf(target))
+	var/obj/structure/swarmer/dismantle/D = new /obj/structure/swarmer/dismantle(get_turf(target))
 	D.pixel_x = target.pixel_x
 	D.pixel_y = target.pixel_y
 	if(do_mob(src, target, 100))
 		if(!src.Adjacent(target))
-			to_chat(src, "<span class='info'>Error:Dismantleing aborted.</span>")
+			to_chat(src, "<span class='info'>Error:Dismantling aborted.</span>")
 		else
 			to_chat(src, "<span class='info'>Dismantling complete.</span>")
 			var/obj/item/stack/sheet/metal/M = new /obj/item/stack/sheet/metal(target.loc)
@@ -330,7 +330,7 @@
 			if(target.component_parts && target.component_parts.len)
 				for(var/obj/item/I in target.component_parts)
 					I.forceMove(M.loc)
-			var/obj/effect/swarmer/disintegration/N = new /obj/effect/swarmer/disintegration(get_turf(target))
+			var/obj/structure/swarmer/disintegration/N = new /obj/structure/swarmer/disintegration(get_turf(target))
 			N.pixel_x = target.pixel_x
 			N.pixel_y = target.pixel_y
 			target.dropContents()
@@ -342,74 +342,72 @@
 
 
 
-/obj/effect/swarmer //Default swarmer effect object visual feedback
+/obj/structure/swarmer //Default swarmer effect object visual feedback
 	name = "swarmer ui"
 	desc = null
 	gender = NEUTER
 	icon = 'icons/mob/swarmer.dmi'
 	icon_state = "ui_light"
-	mouse_opacity = 0
-	layer = 4
+	layer = MOB_LAYER
+	anchored = 1
 	unacidable = 1
-
-/obj/effect/swarmer/disintegration
-	icon_state = "disintegrate"
-
-/obj/effect/swarmer/disintegration/New()
-	playsound(src.loc, "sparks", 100, 1)
-	spawn(10)
-		qdel(src)
-
-/obj/effect/swarmer/dismantle
-	icon_state = "dismantle"
-
-/obj/effect/swarmer/dismantle/New()
-	spawn(25)
-		qdel(src)
-
-/obj/effect/swarmer/integrate
-	icon_state = "integrate"
-
-/obj/effect/swarmer/integrate/New()
-	spawn(5)
-		qdel(src)
-
-/obj/effect/swarmer/destructible //Default destroyable object for swarmer constructions
 	light_range = 1
 	mouse_opacity = 1
 	var/health = 30
 
-/obj/effect/swarmer/destructible/proc/TakeDamage(damage)
+/obj/structure/swarmer/disintegration
+	icon_state = "disintegrate"
+
+/obj/structure/swarmer/disintegration/New()
+	playsound(src.loc, "sparks", 100, 1)
+	spawn(10)
+		qdel(src)
+
+/obj/structure/swarmer/dismantle
+	icon_state = "dismantle"
+
+/obj/structure/swarmer/dismantle/New()
+	spawn(25)
+		qdel(src)
+
+/obj/structure/swarmer/integrate
+	icon_state = "integrate"
+
+/obj/structure/swarmer/integrate/New()
+	spawn(5)
+		qdel(src)
+
+/obj/structure/swarmer/proc/TakeDamage(damage)
 	health -= damage
 	if(health <= 0)
 		qdel(src)
 
-/obj/effect/swarmer/destructible/bullet_act(obj/item/projectile/Proj)
+/obj/structure/swarmer/bullet_act(obj/item/projectile/Proj)
 	if(Proj.damage)
 		if((Proj.damage_type == BRUTE || Proj.damage_type == BURN))
 			TakeDamage(Proj.damage)
 	..()
 
-/obj/effect/swarmer/destructible/attackby(obj/item/weapon/I, mob/living/user, params)
+/obj/structure/swarmer/attackby(obj/item/weapon/I, mob/living/user, params)
 	if(istype(I, /obj/item/weapon))
 		user.changeNext_move(CLICK_CD_MELEE)
 		user.do_attack_animation(src)
 		TakeDamage(I.force)
 	return
 
-/obj/effect/swarmer/destructible/ex_act()
+/obj/structure/swarmer/ex_act()
 	qdel(src)
 	return
 
-/obj/effect/swarmer/destructible/blob_act()
+/obj/structure/swarmer/blob_act()
 	qdel(src)
 	return
 
-/obj/effect/swarmer/destructible/emp_act()
+/obj/structure/swarmer/emp_act()
 	qdel(src)
 	return
 
-/obj/effect/swarmer/destructible/attack_animal(mob/living/user)
+/obj/structure/swarmer/attack_animal(mob/living/user)
 	if(isanimal(user))
 		var/mob/living/simple_animal/S = user
 		S.do_attack_animation(src)
@@ -418,24 +416,14 @@
 			TakeDamage(rand(S.melee_damage_lower, S.melee_damage_upper))
 	return
 
-/mob/living/simple_animal/hostile/swarmer/proc/CreateTrap()
-	set name = "Create trap"
-	set category = "Swarmer"
-	set desc = "Creates a simple trap that will non-lethally electrocute anything that steps on it. Costs 5 resources"
-	if(/obj/effect/swarmer/destructible/trap in loc)
-		to_chat(src, "<span class='warning'>There is already a trap here. Aborting.</span>")
-		return
-	Fabricate(/obj/effect/swarmer/destructible/trap, 5)
-	return
-
-/obj/effect/swarmer/destructible/trap
+/obj/structure/swarmer/trap
 	name = "swarmer trap"
 	desc = "A quickly assembled trap that electrifies living beings and overwhelms machine sensors. Will not retain its form if damaged enough."
 	icon_state = "trap"
 	light_range = 1
 	health = 10
 
-/obj/effect/swarmer/destructible/trap/Crossed(var/atom/movable/AM)
+/obj/structure/swarmer/trap/Crossed(var/atom/movable/AM)
 	if(isliving(AM))
 		var/mob/living/L = AM
 		if(!istype(L, /mob/living/simple_animal/hostile/swarmer))
@@ -446,21 +434,29 @@
 			qdel(src)
 	..()
 
+/mob/living/simple_animal/hostile/swarmer/proc/CreateTrap()
+	set name = "Create trap"
+	set category = "Swarmer"
+	set desc = "Creates a simple trap that will non-lethally electrocute anything that steps on it. Costs 5 resources."
+	if(locate(/obj/structure/swarmer/trap) in loc)
+		to_chat(src, "<span class='warning'>There is already a trap here. Aborting.</span>")
+		return
+	Fabricate(/obj/structure/swarmer/trap, 5)
+
 /mob/living/simple_animal/hostile/swarmer/proc/CreateBarricade()
 	set name = "Create barricade"
 	set category = "Swarmer"
 	set desc = "Creates a barricade that will stop anything but swarmers and disabler beams from passing through."
-	if(/obj/effect/swarmer/destructible/blockade in loc)
+	if(locate(/obj/structure/swarmer/blockade) in loc)
 		to_chat(src, "<span class='warning'>There is already a blockade here. Aborting.</span>")
 		return
 	if(resources < 5)
 		to_chat(src, "<span class='warning'>We do not have the resources for this!</span>")
 		return
 	if(do_mob(src, src, 10))
-		Fabricate(/obj/effect/swarmer/destructible/blockade, 5)
-	return
+		Fabricate(/obj/structure/swarmer/blockade, 5)
 
-/obj/effect/swarmer/destructible/blockade
+/obj/structure/swarmer/blockade
 	name = "swarmer blockade"
 	desc = "A quickly assembled energy blockade. Will not retain its form if damaged enough, but disabler beams and swarmers pass right through."
 	icon_state = "barricade"
@@ -469,7 +465,7 @@
 	density = 1
 	anchored = 1
 
-/obj/effect/swarmer/destructible/blockade/CanPass(atom/movable/O)
+/obj/structure/swarmer/blockade/CanPass(atom/movable/O)
 	if(isswarmer(O))
 		return 1
 	if(istype(O, /obj/item/projectile/beam/disabler))

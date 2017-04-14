@@ -2,6 +2,7 @@
 var/list/admin_verbs_default = list(
 	/client/proc/deadmin_self,			/*destroys our own admin datum so we can play as a regular player*/
 	/client/proc/hide_verbs,			/*hides all our adminverbs*/
+	/client/proc/toggleadminhelpsound, /*toggles whether we hear bwoinks*/
 	/client/proc/cmd_mentor_check_new_players,
 	/client/proc/cmd_mentor_check_player_exp /* shows players by playtime */
 	)
@@ -88,7 +89,8 @@ var/list/admin_verbs_sounds = list(
 	/client/proc/play_local_sound,
 	/client/proc/play_sound,
 	/client/proc/play_server_sound,
-	/client/proc/play_intercomm_sound
+	/client/proc/play_intercomm_sound,
+	/client/proc/stop_global_admin_sounds
 	)
 var/list/admin_verbs_event = list(
 	/client/proc/object_talk,
@@ -155,7 +157,7 @@ var/list/admin_verbs_debug = list(
 	/client/proc/enable_debug_verbs,
 	/client/proc/toggledebuglogs,
 	/client/proc/qdel_toggle,
-	/client/proc/gc_dump_hdl,
+	/client/proc/cmd_display_del_log,
 	/client/proc/debugNatureMapGenerator,
 	/client/proc/check_bomb_impacts,
 	/client/proc/test_movable_UI,
@@ -552,7 +554,7 @@ var/list/admin_verbs_snpc = list(
 
 	var/turf/epicenter = mob.loc
 	var/list/choices = list("Small Bomb", "Medium Bomb", "Big Bomb", "Custom Bomb")
-	var/choice = input("What size explosion would you like to produce?") in choices
+	var/choice = input("What size explosion would you like to produce?") as null|anything in choices
 	switch(choice)
 		if(null)
 			return 0
@@ -988,12 +990,12 @@ var/list/admin_verbs_snpc = list(
 	verbs -= admin_verbs_snpc
 	verbs += /client/proc/show_snpc_verbs
 	to_chat(src, "<span class='interface'>SNPC verbs have been toggled off.</span>")
-	
+
 /client/proc/toggle_advanced_interaction()
 	set name = "Toggle Advanced Admin Interaction"
 	set category = "Admin"
 	set desc = "Allows you to interact with atoms such as buttons and doors, on top of regular machinery interaction."
-	
+
 	if(!check_rights(R_ADMIN))
 		return
 

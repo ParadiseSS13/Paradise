@@ -37,7 +37,7 @@
 
 	var/datum/material_container/materials
 
-	var/list/categories = list("Communication", "Construction", "Electronics", "Imported", "Medical", "Miscellaneous", "Security", "Tools")
+	var/list/categories = list("Tools", "Electronics", "Construction", "Communication", "Security", "Machinery", "Medical", "Miscellaneous", "Dinnerware", "Imported")
 
 /obj/machinery/autolathe/New()
 	..()
@@ -67,10 +67,8 @@
 	RefreshParts()
 
 /obj/machinery/autolathe/Destroy()
-	qdel(wires)
-	wires = null
-	qdel(materials)
-	materials = null
+	QDEL_NULL(wires)
+	QDEL_NULL(materials)
 	return ..()
 
 /obj/machinery/autolathe/interact(mob/user)

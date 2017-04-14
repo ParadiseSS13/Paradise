@@ -12,6 +12,7 @@
 	burn_state = FLAMMABLE
 	singular_name = "credit"
 	max_amount = 1000000
+	merge_type = /obj/item/stack/spacecash
 
 /obj/item/stack/spacecash/New(loc, amt = null)
 	..()

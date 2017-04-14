@@ -160,6 +160,8 @@ var/const/CALL_SHUTTLE_REASON_LENGTH = 12
 /datum/controller/process/shuttle/proc/canRecall()
 	if(emergency.mode != SHUTTLE_CALL)
 		return
+	if(!emergency.canRecall)
+		return
 	if(ticker.mode.name == "meteor")
 		return
 	if(seclevel2num(get_security_level()) >= SEC_LEVEL_RED)
@@ -182,6 +184,8 @@ var/const/CALL_SHUTTLE_REASON_LENGTH = 12
 			var/obj/machinery/computer/communications/C = thing
 			if(C.stat & BROKEN)
 				continue
+		else if(istype(thing, /datum/computer_file/program/comm) || istype(thing, /obj/item/weapon/circuitboard/communications))
+			continue
 
 		var/turf/T = get_turf(thing)
 		if(T && is_station_level(T.z))

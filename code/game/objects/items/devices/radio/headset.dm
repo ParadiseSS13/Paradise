@@ -32,12 +32,8 @@
 	recalculateChannels(1)
 
 /obj/item/device/radio/headset/Destroy()
-	if(keyslot1)
-		qdel(keyslot1)
-	if(keyslot2)
-		qdel(keyslot2)
-	keyslot1 = null
-	keyslot2 = null
+	QDEL_NULL(keyslot1)
+	QDEL_NULL(keyslot2)
 	return ..()
 
 /obj/item/device/radio/headset/list_channels(var/mob/user)
@@ -63,7 +59,7 @@
 		return RADIO_CONNECTION_FAIL
 
 	return ..()
-	
+
 /obj/item/device/radio/headset/is_listening()
 	if(ishuman(loc))
 		var/mob/living/carbon/human/H = loc
@@ -71,7 +67,7 @@
 			return ..()
 	else if(isanimal(loc) || isAI(loc))
 		return ..()
-	
+
 	return FALSE
 
 /obj/item/device/radio/headset/alt

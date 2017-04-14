@@ -1094,8 +1094,10 @@ var/list/slot_equipment_priority = list( \
 	var/obj/item/weapon/selection = input("What do you want to yank out?", "Embedded objects") in valid_objects
 
 	if(self)
+		visible_message("<span class='warning'>[usr] appears to be trying to extract an object from their body.</span>")
 		to_chat(src, "<span class='warning'>You attempt to get a good grip on [selection] in your body.</span>")
 	else
+		visible_message("<span class='warning'>[usr] attempts to get a good grip on [selection] in [S]'s body.</span>")
 		to_chat(U, "<span class='warning'>You attempt to get a good grip on [selection] in [S]'s body.</span>")
 
 	if(!do_after(U, 80, target = S))

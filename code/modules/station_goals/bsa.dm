@@ -7,7 +7,7 @@
 
 /datum/station_goal/bluespace_cannon/get_report()
 	return {"<b>Bluespace Artillery position construction</b><br>
-	Our military presence is inadequate in your sector. We need you to construct BSA-[rand(1,99)] Artillery position aboard your station.
+	Our military presence is inadequate in your sector. We need you to construct a BSA-[rand(1,99)] Artillery position aboard your station.
 	<br><br>
 	Its base parts should be available for shipping by your cargo shuttle.
 	<br>

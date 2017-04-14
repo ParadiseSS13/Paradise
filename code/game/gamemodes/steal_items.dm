@@ -6,10 +6,11 @@
 #define THEFT_FLAG_UNIQUE 2
 
 /datum/theft_objective
-	var/name=""
+	var/name = ""
 	var/typepath=/atom
-	var/list/protected_jobs=list()
-	var/flags=0
+	var/list/protected_jobs = list()
+	var/list/altitems = list()
+	var/flags = 0
 
 /datum/theft_objective/proc/check_completion(var/datum/mind/owner)
 	if(!owner.current)
@@ -70,6 +71,16 @@ datum/theft_objective/ai/check_special_completion(var/obj/item/device/aicard/C)
 	name = "the station blueprints"
 	typepath = /obj/item/areaeditor/blueprints
 	protected_jobs = list("Chief Engineer")
+	altitems = list(/obj/item/weapon/photo)
+
+/datum/objective_item/steal/blueprints/check_special_completion(obj/item/I)
+	if(istype(I, /obj/item/areaeditor/blueprints))
+		return 1
+	if(istype(I, /obj/item/weapon/photo))
+		var/obj/item/weapon/photo/P = I
+		if(P.blueprints)
+			return 1
+	return 0
 
 /datum/theft_objective/voidsuit
 	name = "a nasa voidsuit"

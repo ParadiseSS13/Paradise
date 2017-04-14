@@ -160,6 +160,8 @@ var/ert_request_answered = 0
 
 	M.set_species("Human",1)
 	M.dna.ready_dna(M)
+	M.reagents.add_reagent("mutadone", 1) //No fat/blind/colourblind/epileptic/whatever ERT.
+	M.overeatduration = 0
 
 	var/hair_c = pick("#8B4513","#000000","#FF4500","#FFD700") // Brown, black, red, blonde
 	var/eye_c = pick("#000000","#8B4513","1E90FF") // Black, brown, blue
@@ -311,7 +313,7 @@ var/ert_request_answered = 0
 	id = /obj/item/weapon/card/id/ert
 	l_ear = /obj/item/device/radio/headset/ert/alt
 
-	implants = list(/obj/item/weapon/implant/loyalty)
+	implants = list(/obj/item/weapon/implant/mindshield)
 
 /datum/outfit/job/centcom/response_team/pre_equip()
 	. = ..()
@@ -365,7 +367,7 @@ var/ert_request_answered = 0
 		/obj/item/clothing/head/helmet/ert/command = 1,
 		/obj/item/clothing/mask/gas/sechailer = 1,
 		/obj/item/weapon/restraints/handcuffs = 1,
-		/obj/item/weapon/storage/lockbox/loyalty = 1
+		/obj/item/weapon/storage/lockbox/mindshield = 1
 	)
 
 /datum/outfit/job/centcom/response_team/commander/red
@@ -381,7 +383,7 @@ var/ert_request_answered = 0
 		/obj/item/clothing/head/helmet/space/hardsuit/ert/commander = 1,
 		/obj/item/clothing/mask/gas/sechailer/swat = 1,
 		/obj/item/weapon/restraints/handcuffs = 1,
-		/obj/item/weapon/storage/lockbox/loyalty = 1
+		/obj/item/weapon/storage/lockbox/mindshield = 1
 	)
 
 /datum/outfit/job/centcom/response_team/commander/gamma
@@ -397,7 +399,7 @@ var/ert_request_answered = 0
 		/obj/item/clothing/head/helmet/space/hardsuit/ert/commander = 1,
 		/obj/item/clothing/mask/gas/sechailer/swat = 1,
 		/obj/item/weapon/restraints/handcuffs = 1,
-		/obj/item/weapon/storage/lockbox/loyalty = 1,
+		/obj/item/weapon/storage/lockbox/mindshield = 1,
 		/obj/item/weapon/gun/energy/pulse/pistol = 1
 		)
 

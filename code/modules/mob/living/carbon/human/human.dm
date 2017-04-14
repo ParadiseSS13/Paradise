@@ -52,7 +52,7 @@
 	UpdateAppearance()
 
 /mob/living/carbon/human/OpenCraftingMenu()
-	handcrafting.craft(src)
+	handcrafting.ui_interact(src)
 
 /mob/living/carbon/human/prepare_data_huds()
 	//Update med hud images...
@@ -1892,7 +1892,7 @@
 
 
 	//Mindshield implants imply slight trustworthiness
-	if(isloyal(src))
+	if(ismindshielded(src))
 		threatcount -= 1
 
 	//Agent cards lower threatlevel.

@@ -122,7 +122,7 @@
 
 /obj/item/clothing/suit/armor/hos/alt
 	name = "armored trenchoat"
-	desc = "A trenchcoat enchanced with a special lightweight kevlar. The epitome of tactical plainclothes."
+	desc = "A trenchcoat enhanced with a special lightweight kevlar. The epitome of tactical plainclothes."
 	icon_state = "hostrench_open"
 	item_state = "hostrench_open"
 	flags_inv = 0
@@ -142,7 +142,7 @@
 
 /obj/item/clothing/suit/armor/vest/warden
 	name = "Warden's armored jacket"
-	desc = "An armoured jacket with silver rank pips and livery."
+	desc = "An armored jacket with silver rank pips and livery."
 	icon_state = "warden_jacket"
 	item_state = "armor"
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|ARMS
@@ -166,7 +166,7 @@
 
 /obj/item/clothing/suit/armor/vest/capcarapace/alt
 	name = "captain's parade jacket"
-	desc = "For when an armoured vest isn't fashionable enough."
+	desc = "For when an armored vest isn't fashionable enough."
 	icon_state = "capformal"
 	item_state = "capspacesuit"
 
@@ -209,6 +209,7 @@
 	icon_state = "knight_templar"
 	item_state = "knight_templar"
 	allowed = list(/obj/item/weapon/nullrod/claymore)
+	armor = list(melee = 25, bullet = 5, laser = 5, energy = 5, bomb = 0, bio = 0, rad = 0)
 
 /obj/item/clothing/suit/armor/bulletproof
 	name = "Bulletproof Vest"
@@ -411,13 +412,13 @@
 
 /obj/item/clothing/suit/armor/tdome/red
 	name = "Red Thunderdome Armor"
-	desc = "Armor worn by the red Thunderodome team"
+	desc = "Armor worn by the red Thunderdome team."
 	icon_state = "tdred"
 	item_state = "tdred"
 
 /obj/item/clothing/suit/armor/tdome/green
 	name = "Green Thunderdome Armor"
-	desc = "Armor worn by the green Thunderodome team"
+	desc = "Armor worn by the green Thunderdome team."
 	icon_state = "tdgreen"
 	item_state = "tdgreen"
 

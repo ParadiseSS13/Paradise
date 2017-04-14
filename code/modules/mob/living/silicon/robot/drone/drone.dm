@@ -15,7 +15,7 @@
 	req_access = list(access_engine, access_robotics)
 	ventcrawler = 2
 	magpulse = 1
-	
+
 	default_language = "Drone"
 
 	// We need to keep track of a few module items so we don't need to do list operations
@@ -23,7 +23,7 @@
 	var/obj/item/stack/sheet/metal/cyborg/stack_metal = null
 	var/obj/item/stack/sheet/wood/stack_wood = null
 	var/obj/item/stack/sheet/glass/cyborg/stack_glass = null
-	var/obj/item/stack/sheet/mineral/plastic/cyborg/stack_plastic = null
+	var/obj/item/stack/sheet/plastic/stack_plastic = null
 	var/obj/item/weapon/matter_decompiler/decompiler = null
 
 	//Used for self-mailing.
@@ -43,7 +43,7 @@
 	remove_language("Galactic Common")
 	add_language("Drone Talk", 1)
 	add_language("Drone", 1)
-	
+
 	// Disable the microphone wire on Drones
 	if(radio)
 		radio.wires.CutWireIndex(WIRE_TRANSMIT)
@@ -70,7 +70,7 @@
 	stack_metal = locate(/obj/item/stack/sheet/metal/cyborg) in src.module
 	stack_wood = locate(/obj/item/stack/sheet/wood) in src.module
 	stack_glass = locate(/obj/item/stack/sheet/glass/cyborg) in src.module
-	stack_plastic = locate(/obj/item/stack/sheet/mineral/plastic/cyborg) in src.module
+	stack_plastic = locate(/obj/item/stack/sheet/plastic) in src.module
 
 	//Grab decompiler.
 	decompiler = locate(/obj/item/weapon/matter_decompiler) in src.module
@@ -281,7 +281,7 @@
 
 	if(!player) return
 
-	src.ckey = player.ckey
+	ckey = player.ckey
 
 	if(player.mob && player.mob.mind)
 		player.mob.mind.transfer_to(src)

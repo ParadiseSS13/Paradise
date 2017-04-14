@@ -235,6 +235,33 @@
 		to_chat(target, "<span class='notice'>You comb your tail with the [src].</span>")
 		used = 1
 
+/obj/item/device/fluff/desolate_baton_kit //DesolateG: Michael steampunk_witch
+	name = "stun baton converstion kit"
+	desc = "Some sci-fi looking parts for a stun baton."
+	icon = 'icons/obj/custom_items.dmi'
+	icon_state = "scifikit"
+	w_class = 2
+
+/obj/item/device/fluff/desolate_baton_kit/afterattack(atom/target, mob/user, proximity)
+	if(!proximity || !ishuman(user) || user.incapacitated())
+		return
+
+	if(istype(target, /obj/item/weapon/melee/baton) && !istype(target, /obj/item/weapon/melee/baton/cattleprod))
+		to_chat(user, "<span class='notice'>You modify the appearance of [target].</span>")
+		//because batons use the initial() proc, we can't just swap the icon state, sadly
+		var/obj/item/weapon/melee/baton/the_baton = target
+		the_baton.base_icon = "desolate_baton"
+		the_baton.item_state = "desolate_baton"
+		the_baton.icon = 'icons/obj/custom_items.dmi'
+		the_baton.lefthand_file = 'icons/mob/inhands/fluff_lefthand.dmi'
+		the_baton.righthand_file = 'icons/mob/inhands/fluff_righthand.dmi'
+		the_baton.update_icon()
+		user.update_icons()
+		qdel(src)
+		return
+
+	to_chat(user, "<span class='warning'>You can't modify [target]!</span>")
+
 /obj/item/device/fluff/cardgage_helmet_kit //captain cardgage: Richard Ulery
 	name = "welding helmet modkit"
 	desc = "Some spraypaint and a stencil, perfect for painting flames onto a welding helmet!"
@@ -244,14 +271,14 @@
 	throwforce = 0
 
 /obj/item/device/fluff/cardgage_helmet_kit/afterattack(atom/target, mob/user, proximity)
-	if(!proximity || !ishuman(user) || user.lying)
+	if(!proximity || !ishuman(user) || user.incapacitated())
 		return
 
 	if(istype(target, /obj/item/clothing/head/welding))
 		to_chat(user, "<span class='notice'>You modify the appearance of [target].</span>")
 
 		var/obj/item/clothing/head/welding/flamedecal/P = new(get_turf(target))
-		transfer_fingerprints_to(P)
+		target.transfer_fingerprints_to(P)
 		qdel(target)
 		qdel(src)
 		return
@@ -269,7 +296,7 @@
 	throwforce = 0
 
 /obj/item/device/fluff/shadey_plasman_modkit/afterattack(atom/target, mob/user, proximity)
-	if(!proximity || !ishuman(user) || user.lying)
+	if(!proximity || !ishuman(user) || user.incapacitated())
 		return
 	var/mob/living/carbon/human/H = user
 
@@ -625,7 +652,8 @@
 	icon = 'icons/obj/custom_items.dmi'
 	icon_state = "chronx_hood"
 	item_state = "chronx_hood"
-	flags = HEADCOVERSEYES | BLOCKHAIR
+	flags = BLOCKHAIR
+	flags_cover = HEADCOVERSEYES
 	actions_types = list(/datum/action/item_action/toggle)
 	var/adjusted = 0
 
@@ -696,3 +724,50 @@
 	name = "Voxcaster"
 	desc = "Battered, Sol-made military radio backpack that had its speakers fried from playing Vox opera. The words 'Swift-Talon' are crudely scratched onto its side."
 	icon_state = "voxcaster_fluff"
+
+/obj/item/clothing/head/wizard/fake/fluff/dreamy //phantasmicdream : Dreamy Rockwall
+	name = "strange witch hat"
+	desc = "A shapeshifting witch hat. A strange aura comes from it..."
+	icon = 'icons/obj/custom_items.dmi'
+	icon_state = "classic_witch"
+	item_state = "classic_witch"
+
+/obj/item/clothing/head/wizard/fake/fluff/dreamy/attack_self(mob/user)
+	var/list/options = list()
+	options["Classic"] = "classic_witch"
+	options["Good"] = "good_witch"
+	options["Dark"] = "dark_witch"
+	options["Steampunk"] ="steampunk_witch"
+	options["Healer"] = "healer_witch"
+	options["Cute"] = "cutie_witch"
+	options["Shy"] = "shy_witch"
+	options["Sexy"] ="sexy_witch"
+	options["Bunny"] = "bunny_witch"
+	options["Potions"] = "potions_witch"
+	options["Syndicate"] = "syndie_witch"
+	options["Nanotrasen"] ="nt_witch"
+
+	var/choice = input(user, "To what form do you wish to Shapeshift this hat?", "Shapeshift Hat") as null|anything in options
+
+	if(choice && !user.stat && in_range(user, src))
+		icon_state = options[choice]
+		to_chat(user, "Your strange witch hat has now shapeshifted into it's [choice] form!")
+		return 1
+
+/obj/item/weapon/reagent_containers/food/drinks/bottle/fluff/moonshine //nethiafins : Serhij Zozulia
+	name = "Cloudy Bottle"
+	desc = "The contents of this bottle are vile. You should only drink it when you hit rock bottom."
+	icon = 'icons/obj/custom_items.dmi'
+	icon_state = "questionable_liquid"
+	item_state = "questionable_liquid"
+	amount_per_transfer_from_this = 5
+	list_reagents = list("moonshine" = 100)
+
+/obj/item/weapon/storage/box/fluff/moonshine_kit //nethiafins : Serhij Zozulia
+	name = "Moonshine Serving box"
+
+/obj/item/weapon/storage/box/fluff/moonshine_kit/New()
+	..()
+	new /obj/item/weapon/reagent_containers/food/drinks/drinkingglass/shotglass(src)
+	new /obj/item/weapon/reagent_containers/food/drinks/drinkingglass/shotglass(src)
+	new /obj/item/weapon/reagent_containers/food/drinks/bottle/fluff/moonshine(src)

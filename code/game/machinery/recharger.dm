@@ -9,6 +9,7 @@
 	active_power_usage = 250
 	var/obj/item/charging = null
 	var/list/allowed_devices = list(/obj/item/weapon/gun/energy, /obj/item/weapon/melee/baton, /obj/item/device/modular_computer, /obj/item/weapon/rcs, /obj/item/ammo_box/magazine/energy)
+
 	var/icon_state_off = "rechargeroff"
 	var/icon_state_charged = "recharger2"
 	var/icon_state_charging = "recharger1"
@@ -49,6 +50,7 @@
 				if(!S.charge)
 					to_chat(user, "This is non-recharable!")
 					return
+
 
 			if(!user.drop_item())
 				return 1
@@ -132,6 +134,7 @@
 				icon_state = icon_state_charged
 			return
 
+	update_icon(using_power)
 
 	update_icon(using_power)
 

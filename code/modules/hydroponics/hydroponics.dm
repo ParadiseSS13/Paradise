@@ -75,9 +75,7 @@
 	plant_hud_set_water()
 
 /obj/machinery/hydroponics/Destroy()
-	if(myseed)
-		qdel(myseed)
-		myseed = null
+	QDEL_NULL(myseed)
 	return ..()
 
 /obj/machinery/hydroponics/constructable/attackby(obj/item/I, mob/user, params)
@@ -300,7 +298,7 @@
 	if(!self_sustaining)
 		if(myseed && myseed.get_gene(/datum/plant_gene/trait/glow))
 			var/datum/plant_gene/trait/glow/G = myseed.get_gene(/datum/plant_gene/trait/glow)
-			set_light(G.get_lum(myseed))
+			set_light(G.glow_range(myseed), G.glow_power(myseed), G.glow_color)
 		else
 			set_light(0)
 
@@ -485,7 +483,7 @@
 		log_game("[key_name(user)] caused spiderling pests to spawn in a hydro tray")
 		visible_message("<span class='warning'>The pests seem to behave oddly...</span>")
 		for(var/i in 1 to 3)
-			var/obj/effect/spider/spiderling/S = new(get_turf(src))
+			var/obj/structure/spider/spiderling/S = new(get_turf(src))
 			S.grow_as = /mob/living/simple_animal/hostile/poison/giant_spider/hunter
 	else
 		to_chat(user, "<span class='warning'>The pests seem to behave oddly, but quickly settle down...</span>")
@@ -996,14 +994,14 @@
 	C.faction = list("plants")
 
 ///Diona Nymph Related Procs///
-/obj/machinery/hydroponics/CanPass(atom/movable/mover, turf/target, height=0, air_group=0) //So nymphs can climb over top of trays.
-	if(air_group || (height==0))
+/obj/machinery/hydroponics/CanPass(atom/movable/mover, turf/target, height=0) //So nymphs can climb over top of trays.
+	if(height==0)
 		return 1
 
 	if(istype(mover) && mover.checkpass(PASSTABLE))
 		return 1
 	else
-		return 0
+		return ..()
 
 /obj/machinery/hydroponics/attack_animal(mob/living/user)
 	if(istype(user, /mob/living/simple_animal/diona))

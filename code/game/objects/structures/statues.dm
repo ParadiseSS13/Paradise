@@ -58,16 +58,18 @@
 		qdel(src)
 
 	else if(iswelder(W) && !anchored)
-		playsound(loc, W.usesound, 40, 1)
-		user.visible_message("[user] is slicing apart the [name].", \
-							 "<span class='notice'>You are slicing apart the [name]...</span>")
-		if(do_after(user, 40 * W.toolspeed, target = src))
-			if(!loc)
-				return
-			playsound(loc, W.usesound, 50, 1)
-			user.visible_message("[user] slices apart the [name].", \
-								 "<span class='notice'>You slice apart the [name]!</span>")
-			Dismantle(TRUE)
+		var/obj/item/weapon/weldingtool/WT = W
+		if(WT.remove_fuel(0, user))
+			playsound(loc, W.usesound, 40, 1)
+			user.visible_message("[user] is slicing apart the [name].", \
+								 "<span class='notice'>You are slicing apart the [name]...</span>")
+			if(do_after(user, 40 * W.toolspeed, target = src))
+				if(!loc)
+					return
+				playsound(loc, W.usesound, 50, 1)
+				user.visible_message("[user] slices apart the [name].", \
+									 "<span class='notice'>You slice apart the [name]!</span>")
+				Dismantle(TRUE)
 	else
 		hardness -= W.force/100
 		..()
