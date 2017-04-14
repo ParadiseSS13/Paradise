@@ -53,7 +53,7 @@
 /obj/item/device/radio/beacon/syndicate
 	name = "suspicious beacon"
 	desc = "A label on it reads: <i>Activate to have a singularity beacon teleported to your location</i>."
-	origin_tech = "bluespace=1;syndicate=7"
+	origin_tech = "bluespace=6;syndicate=5"
 	syndicate = 1
 
 /obj/item/device/radio/beacon/syndicate/attack_self(mob/user as mob)
@@ -67,7 +67,7 @@
 /obj/item/device/radio/beacon/syndicate/bomb
 	name = "suspicious beacon"
 	desc = "A label on it reads: <i>Warning: Activating this device will send a high-ordinance explosive to your location</i>."
-	origin_tech = "bluespace=1;syndicate=7"
+	origin_tech = "bluespace=5;syndicate=5"
 
 /obj/item/device/radio/beacon/syndicate/bomb/attack_self(mob/user as mob)
 	if(user)

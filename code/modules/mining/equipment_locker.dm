@@ -614,6 +614,7 @@
 	icon = 'icons/obj/items.dmi'
 	icon_state = "resonator"
 	item_state = "resonator"
+	origin_tech = "magnets=3;engineering=3"
 	desc = "A handheld device that creates small fields of energy that resonate until they detonate, crushing rock. It can also be activated without a target to create a field at the user's location, to act as a delayed time trap. It's more effective in a vaccuum."
 	w_class = 3
 	force = 8
@@ -627,7 +628,7 @@
 	name = "upgraded resonator"
 	desc = "An upgraded version of the resonator that can produce more fields at once."
 	icon_state = "resonator_u"
-	origin_tech = "magnets=3;combat=3"
+	origin_tech = "materials=4;powerstorage=3;engineering=3;magnets=3"
 	fieldlimit = 5
 
 /obj/item/weapon/resonator/proc/CreateResonance(var/target, var/creator)
@@ -745,6 +746,7 @@
 	icon = 'icons/obj/hypo.dmi'
 	icon_state = "lazarus_hypo"
 	item_state = "hypo"
+	origin_tech = "biotech=4;magnets=6"
 	throwforce = 0
 	w_class = 2
 	throw_speed = 3
@@ -928,6 +930,7 @@
 	name = "mining jetpack"
 	icon_state = "jetpack-mining"
 	item_state = "jetpack-mining"
+	origin_tech = "materials=4;magnets=4;engineering=5"
 	desc = "A tank of compressed carbon dioxide for miners to use as propulsion in local space. The compact size allows for easy storage at the cost of capacity."
 	volume = 40
 	throw_range = 7
@@ -941,7 +944,7 @@
 	icon_state = "bottle19"
 	desc = "Inject a hivelord core with this stabilizer to preserve its healing powers indefinitely."
 	w_class = 1
-	origin_tech = "biotech=1"
+	origin_tech = "biotech=3"
 
 /obj/item/weapon/hivelordstabilizer/afterattack(obj/item/organ/internal/M, mob/user)
 	var/obj/item/organ/internal/hivelord_core/C = M

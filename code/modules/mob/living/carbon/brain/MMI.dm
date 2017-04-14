@@ -6,7 +6,7 @@
 	icon = 'icons/obj/assemblies.dmi'
 	icon_state = "mmi_empty"
 	w_class = 3
-	origin_tech = "biotech=3"
+	origin_tech = "biotech=2;programming=3;engineering=2"
 
 	//Revised. Brainmob is now contained directly within object of transfer. MMI in this case.
 	var/alien = 0
@@ -174,6 +174,7 @@
 /obj/item/device/mmi/syndie
 	name = "Syndicate Man-Machine Interface"
 	desc = "Syndicate's own brand of MMI. It enforces laws designed to help Syndicate agents achieve their goals upon cyborgs created with it, but doesn't fit in Nanotrasen AI cores."
+	origin_tech = "biotech=4;programming=4;syndicate=2"
 	syndiemmi = 1
 
 /obj/item/device/mmi/attempt_become_organ(obj/item/organ/external/parent,mob/living/carbon/human/H)

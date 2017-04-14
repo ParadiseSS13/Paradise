@@ -62,7 +62,7 @@ var/global/image/fire_overlay = image("icon" = 'icons/goonstation/effects/fire.d
 	var/hit_reaction_chance = 0 //If you want to have something unrelated to blocking/armour piercing etc. Maybe not needed, but trying to think ahead/allow more freedom
 
 	var/toolspeed = 1 // If this item is a tool, the speed multiplier
-	
+
 	/* Species-specific sprites, concept stolen from Paradise//vg/.
 	ex:
 	sprite_sheets = list(
@@ -164,9 +164,6 @@ var/global/image/fire_overlay = image("icon" = 'icons/goonstation/effects/fire.d
 			var/list/techlvls = params2list(origin_tech)
 			for(var/T in techlvls) //This needs to use the better names.
 				msg += "Tech: [CallTechName(T)] | Magnitude: [techlvls[T]] <BR>"
-			msg += "Research reliability: [reliability]% <BR>"
-			if(crit_fail)
-				msg += "<span class='danger'>Critical failure detected in subject!</span><BR>"
 		else
 			msg += "<span class='danger'>No tech origins detected.</span><BR>"
 

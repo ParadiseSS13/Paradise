@@ -165,8 +165,6 @@
 /obj/item/weapon/melee/baton/emp_act(severity)
 	if(bcell)
 		deductcharge(1000 / severity)
-		if(bcell.reliability != 100 && prob(50/severity))
-			bcell.reliability -= 10 / severity
 	..()
 
 /obj/item/weapon/melee/baton/wash(mob/user, atom/source)

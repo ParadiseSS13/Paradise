@@ -4,9 +4,9 @@
 	name = "airlock electronics"
 	icon = 'icons/obj/doors/door_assembly.dmi'
 	icon_state = "door_electronics"
-	w_class = 2 
+	w_class = 2
 	materials = list(MAT_METAL=50, MAT_GLASS=50)
-
+	origin_tech = "engineering=2;programming=1"
 	req_access = list(access_engine)
 
 	var/list/conf_access = null
@@ -64,10 +64,10 @@
 
 /obj/item/weapon/airlock_electronics/Topic(href, href_list)
 	..()
-	
+
 	if(usr.incapacitated() || (!ishuman(usr) && !isrobot(usr)))
 		return 1
-		
+
 	if(href_list["close"])
 		usr << browse(null, "window=airlock")
 		return

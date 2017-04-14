@@ -395,7 +395,7 @@ RCD
 	opacity = 0
 	density = 0
 	anchored = 0.0
-	origin_tech = "materials=2"
+	origin_tech = "materials=3"
 	materials = list(MAT_METAL=16000, MAT_GLASS=8000)
 	var/ammoamt = 20
 

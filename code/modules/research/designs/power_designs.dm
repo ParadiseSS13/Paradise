@@ -28,10 +28,9 @@
 	name = "Hyper-Capacity Power Cell"
 	desc = "A power cell that holds 30000 units of energy"
 	id = "hyper_cell"
-	req_tech = list("powerstorage" = 5, "materials" = 4)
-	reliability = 70
+	req_tech = list("powerstorage" = 5, "materials" = 5, "engineering" = 5)
 	build_type = PROTOLATHE | MECHFAB | PODFAB
-	materials = list(MAT_METAL = 400, MAT_GOLD = 150, MAT_SILVER = 150, MAT_GLASS = 70)
+	materials = list(MAT_METAL = 700, MAT_GOLD = 150, MAT_SILVER = 150, MAT_GLASS = 70)
 	construction_time=100
 	build_path = /obj/item/weapon/stock_parts/cell/hyper
 	category = list("Misc","Power")
@@ -40,8 +39,7 @@
 	name = "Super-Capacity Power Cell"
 	desc = "A power cell that holds 20000 units of energy"
 	id = "super_cell"
-	req_tech = list("powerstorage" = 3, "materials" = 2)
-	reliability = 75
+	req_tech = list("powerstorage" = 3, "materials" = 3)
 	build_type = PROTOLATHE | MECHFAB | PODFAB
 	materials = list(MAT_METAL = 700, MAT_GLASS = 70)
 	construction_time=100
@@ -52,8 +50,7 @@
 	name = "Bluespace Power Cell"
 	desc = "A power cell that holds 40000 units of energy."
 	id = "bluespace_cell"
-	req_tech = list("powerstorage" = 6, "materials" = 5)
-	reliability = 70
+	req_tech = list("powerstorage" = 6, "materials" = 5, "engineering" = 5, "bluespace" = 5)
 	build_type = PROTOLATHE | MECHFAB
 	materials = list(MAT_METAL = 800, MAT_GOLD = 300, MAT_SILVER = 300, MAT_GLASS = 160, MAT_DIAMOND = 160)
 	construction_time=100
@@ -64,9 +61,8 @@
 	name = "Machine Board (PACMAN-type Generator)"
 	desc = "The circuit board that for a PACMAN-type portable generator."
 	id = "pacman"
-	req_tech = list("programming" = 3, "plasmatech" = 3, "powerstorage" = 3, "engineering" = 3)
+	req_tech = list("programming" = 2, "plasmatech" = 3, "powerstorage" = 3, "engineering" = 3)
 	build_type = IMPRINTER
-	reliability = 79
 	materials = list(MAT_GLASS = 1000, "sacid" = 20)
 	build_path = /obj/item/weapon/circuitboard/pacman
 	category = list("Engineering Machinery")
@@ -75,9 +71,8 @@
 	name = "Machine Board (MRSPACMAN-type Generator)"
 	desc = "The circuit board that for a MRSPACMAN-type portable generator."
 	id = "mrspacman"
-	req_tech = list("programming" = 3, "powerstorage" = 5, "engineering" = 5)
+	req_tech = list("programming" = 3, "powerstorage" = 5, "engineering" = 5, "plasmatech" = 4)
 	build_type = IMPRINTER
-	reliability = 74
 	materials = list(MAT_GLASS = 2000, "sacid" = 20)
 	build_path = /obj/item/weapon/circuitboard/pacman/mrs
 	category = list("Engineering Machinery")
@@ -88,7 +83,6 @@
 	id = "superpacman"
 	req_tech = list("programming" = 3, "powerstorage" = 4, "engineering" = 4)
 	build_type = IMPRINTER
-	reliability = 76
 	materials = list(MAT_GLASS = 1000, "sacid" = 20)
 	build_path = /obj/item/weapon/circuitboard/pacman/super
 	category = list("Engineering Machinery")
@@ -97,7 +91,7 @@
 	name = "Machine Design (Tesla Coil Board)"
 	desc = "The circuit board for a tesla coil."
 	id = "tesla_coil"
-	req_tech = list("programming" = 1)
+	req_tech = list("programming" = 3, "powerstorage" = 3, "magnets" = 3)
 	build_type = IMPRINTER
 	materials = list(MAT_GLASS = 1000, "sacid" = 20)
 	build_path = /obj/item/weapon/circuitboard/tesla_coil
@@ -107,7 +101,7 @@
 	name = "Machine Design (Grounding Rod Board)"
 	desc = "The circuit board for a grounding rod."
 	id = "grounding_rod"
-	req_tech = list("programming" = 1)
+	req_tech = list("programming" = 3, "powerstorage" = 3, "magnets" = 3, "plasmatech" = 2)
 	build_type = IMPRINTER
 	materials = list(MAT_GLASS = 1000, "sacid" = 20)
 	build_path = /obj/item/weapon/circuitboard/grounding_rod

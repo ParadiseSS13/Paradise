@@ -233,6 +233,7 @@
 	desc = "Looks like a circuit. Probably is."
 	w_class = 2
 	materials = list(MAT_METAL=50, MAT_GLASS=50)
+	origin_tech = "engineering=2;programming=1"
 	toolspeed = 1
 	usesound = 'sound/items/Deconstruct.ogg'
 

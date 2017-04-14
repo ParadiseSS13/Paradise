@@ -51,8 +51,8 @@ research holder datum.
 									// known is a list of id -> datum mappings
 	var/list/possible_tech = list()			//List of all tech in the game that players have access to (barring special events).
 	var/list/known_tech = list()				//List of locally known tech.
-	var/list/possible_designs = list()		//List of all designs (at base reliability).
-	var/list/known_designs = list()			//List of available designs (at base reliability).
+	var/list/possible_designs = list()		//List of all designs
+	var/list/known_designs = list()			//List of available designs
 
 /datum/research/New()		//Insert techs into possible_tech here. Known_tech automatically updated.
 	// MON DIEU!!!
@@ -102,15 +102,11 @@ research holder datum.
 
 /datum/research/proc/AddDesign2Known(var/datum/design/D)
 	if(D.id in known_designs)
-		// NOTE: This is for reliability only - This is on the chopping block
-		var/datum/design/known = known_designs[D.id]
-		if(D.reliability > known.reliability)
-			known.reliability = D.reliability
 		return
 	// Global datums make me nervous
 	known_designs[D.id] = D
 
-//Refreshes known_tech and known_designs list. Then updates the reliability vars of the designs in the known_designs list.
+//Refreshes known_tech and known_designs list.
 //Input/Output: n/a
 /datum/research/proc/RefreshResearch()
 	for(var/datum/tech/PT in possible_tech)
@@ -122,10 +118,6 @@ research holder datum.
 	for(var/v in known_tech)
 		var/datum/tech/T = known_tech[v]
 		T.level = Clamp(T.level, 0, 20)
-	for(var/v in known_designs)
-		var/datum/design/D = known_designs[v]
-		// NOTE: reliability stuff, axe this later
-		D.CalcReliability(known_tech)
 
 //Refreshes the levels of a given tech.
 //Input: Tech's ID and Level; Output: null
@@ -133,22 +125,20 @@ research holder datum.
 	var/datum/tech/KT = known_tech[ID]
 	if(KT)
 		if(KT.level <= level)
-			// Will bump the tech to (value_of_target - 1) automatically -
-			// after that it'll only bump it up by 1 until it's greater
+			// Will bump the tech to (value_of_target) automatically -
+			// after that it'll bump it up by 1 until it's greater
 			// than the source tech
-			KT.level = max((KT.level + 1), (level - 1))
+			KT.level = max((KT.level + 1), level)
 
-/datum/research/proc/UpdateDesigns(var/obj/item/I, var/list/temp_tech)
-	for(var/T in temp_tech)
-		if(temp_tech[T] - 1 >= known_tech[T])
-			for(var/datum/design/D in known_designs)
-				// NOTE: icky reliability stuff
-				if(D.req_tech[T])
-					D.reliability = min(100, D.reliability + 1)
-					if(D.build_path == I.type)
-						D.reliability = min(100, D.reliability + rand(1,3))
-						if(I.crit_fail)
-							D.reliability = min(100, D.reliability + rand(3, 5))
+//Checks if the origin level can raise current tech levels
+//Input: Tech's ID and Level; Output: TRUE for yes, FALSE for no
+/datum/research/proc/IsTechHigher(ID, level)
+	var/datum/tech/KT = known_tech[ID]
+	if(KT)
+		if(KT.level <= level)
+			return TRUE
+		else
+			return FALSE
 
 /datum/research/proc/FindDesignByID(var/id)
 	return known_designs[id]
@@ -352,7 +342,7 @@ datum/tech/robotics
 	name = "\improper Component Design Disk"
 	desc = "A disk for storing device design data for construction in lathes."
 	icon_state = "datadisk2"
-	materials = list(MAT_METAL=30, MAT_GLASS=10)
+	materials = list(MAT_METAL=100, MAT_GLASS=100)
 	var/datum/design/blueprint
 	// I'm doing this so that disk paths with pre-loaded designs don't get weird names
 	// Otherwise, I'd use "initial()"
