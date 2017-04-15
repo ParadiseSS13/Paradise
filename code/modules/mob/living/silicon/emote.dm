@@ -26,100 +26,51 @@
 
 	switch(act)
 		if("ping","pings")
-			var/M = null
-			if(param)
-				for(var/mob/A in view(null, null))
-					if(param == A.name)
-						M = A
-						break
-			if(!M)
-				param = null
+			var/M = handle_emote_param(param)
 
-			message = "<B>[src]</B> pings[param ? " at [param]" : ""]."
+			message = "<B>[src]</B> pings[M ? " at [M]" : ""]."
 			playsound(src.loc, 'sound/machines/ping.ogg', 50, 0)
 			m_type = 2
 
 		if("buzz","buzzs","buzzes")
-			var/M = null
-			if(param)
-				for(var/mob/A in view(null, null))
-					if(param == A.name)
-						M = A
-						break
-			if(!M)
-				param = null
+			var/M = handle_emote_param(param)
 
-			message = "<B>[src]</B> buzzes[param ? " at [param]" : ""]."
+			message = "<B>[src]</B> buzzes[M ? " at [M]" : ""]."
 			playsound(src.loc, 'sound/machines/buzz-sigh.ogg', 50, 0)
 			m_type = 2
 
 		if("beep","beeps")
-			var/M = null
-			if(param)
-				for(var/mob/A in view(null, null))
-					if(param == A.name)
-						M = A
-						break
-			if(!M)
-				param = null
+			var/M = handle_emote_param(param)
 
-			message = "<B>[src]</B> beeps[param ? " at [param]" : ""]."
+			message = "<B>[src]</B> beeps[M ? " at [M]" : ""]."
 			playsound(src.loc, 'sound/machines/twobeep.ogg', 50, 0)
 			m_type = 2
 
 		if("yes")
-			var/M = null
-			if(param)
-				for(var/mob/A in view(null, null))
-					if(param == A.name)
-						M = A
-						break
-			if(!M)
-				param = null
+			var/M = handle_emote_param(param)
 
-			message = "<B>[src]</B> emits an affirmative blip[param ? " at [param]" : ""]."
+			message = "<B>[src]</B> emits an affirmative blip[M ? " at [M]" : ""]."
 			playsound(src.loc, 'sound/machines/synth_yes.ogg', 50, 0)
 			m_type = 2
 
 		if("no")
-			var/M = null
-			if(param)
-				for(var/mob/A in view(null, null))
-					if(param == A.name)
-						M = A
-						break
-			if(!M)
-				param = null
+			var/M = handle_emote_param(param)
 
-			message = "<B>[src]</B> emits a negative blip[param ? " at [param]" : ""]."
+			message = "<B>[src]</B> emits a negative blip[M ? " at [M]" : ""]."
 			playsound(src.loc, 'sound/machines/synth_no.ogg', 50, 0)
 			m_type = 2
 
 		if("scream", "screams")
-			var/M = null
-			if(param)
-				for(var/mob/A in view(null, null))
-					if(param == A.name)
-						M = A
-						break
-			if(!M)
-				param = null
+			var/M = handle_emote_param(param)
 
-			message = "<B>[src]</B> screams[param ? " at [param]" : ""]!"
+			message = "<B>[src]</B> screams[M ? " at [M]" : ""]!"
 			playsound(src.loc, 'sound/goonstation/voice/robot_scream.ogg', 80, 0)
 			m_type = 2
 
 		if("buzz2")
-			var/M = null
-			if(param)
-				for(var/mob/A in view(null, null))
-					if(param == A.name)
-						M = A
-						break
-			if(!M)
-				param = null
+			var/M = handle_emote_param(param)
 
-			message = "<B>[src]</B> emits an irritated buzzing sound[param ? " at [param]" : ""]."
+			message = "<B>[src]</B> emits an irritated buzzing sound[M ? " at [M]" : ""]."
 			playsound(src.loc, 'sound/machines/buzz-two.ogg', 50, 0)
 			m_type = 2
 

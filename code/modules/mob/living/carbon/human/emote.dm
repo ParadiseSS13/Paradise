@@ -85,144 +85,73 @@
 		if("me")									//OKAY SO RANT TIME, THIS FUCKING HAS TO BE HERE OR A SHITLOAD OF THINGS BREAK
 			return custom_emote(m_type, message)	//DO YOU KNOW WHY SHIT BREAKS? BECAUSE SO MUCH OLDCODE CALLS mob.emote("me",1,"whatever_the_fuck_it_wants_to_emote")
 													//WHO THE FUCK THOUGHT THAT WAS A GOOD FUCKING IDEA!?!?
-
 		if("ping", "pings")
-			var/M = null
-			if(param)
-				for(var/mob/A in view(null, null))
-					if(param == A.name)
-						M = A
-						break
-			if(!M)
-				param = null
+			var/M = handle_emote_param(param) //Check to see if the param is valid (mob with the param name is in view).
 
-			message = "<B>[src]</B> pings[param ? " at [param]" : ""]."
+			message = "<B>[src]</B> pings[M ? " at [M]" : ""]."
 			playsound(loc, 'sound/machines/ping.ogg', 50, 0)
 			m_type = 2
 
 		if("buzz2")
-			var/M = null
-			if(param)
-				for(var/mob/A in view(null, null))
-					if(param == A.name)
-						M = A
-						break
-			if(!M)
-				param = null
+			var/M = handle_emote_param(param)
 
-			message = "<B>[src]</B> emits an irritated buzzing sound[param ? " at [param]" : ""]."
+			message = "<B>[src]</B> emits an irritated buzzing sound[M ? " at [M]" : ""]."
 			playsound(loc, 'sound/machines/buzz-two.ogg', 50, 0)
 			m_type = 2
 
 		if("buzz", "buzzes")
-			var/M = null
-			if(param)
-				for(var/mob/A in view(null, null))
-					if(param == A.name)
-						M = A
-						break
-			if(!M)
-				param = null
+			var/M = handle_emote_param(param)
 
-			message = "<B>[src]</B> buzzes[param ? " at [param]" : ""]."
+			message = "<B>[src]</B> buzzes[M ? " at [M]" : ""]."
 			playsound(loc, 'sound/machines/buzz-sigh.ogg', 50, 0)
 			m_type = 2
 
 		if("beep", "beeps")
-			var/M = null
-			if(param)
-				for(var/mob/A in view(null, null))
-					if(param == A.name)
-						M = A
-						break
-			if(!M)
-				param = null
+			var/M = handle_emote_param(param)
 
-			message = "<B>[src]</B> beeps[param ? " at [param]" : ""]."
+			message = "<B>[src]</B> beeps[M ? " at [M]" : ""]."
 			playsound(loc, 'sound/machines/twobeep.ogg', 50, 0)
 			m_type = 2
 
 		if("drone", "drones", "hum", "hums", "rumble", "rumbles")
-			var/M = null
-			if(param)
-				for(var/mob/A in view(null, null))
-					if(param == A.name)
-						M = A
-						break
-			if(!M)
-				param = null
+			var/M = handle_emote_param(param)
 
-			message = "<B>[src]</B> [param ? "drones at [param]" : "rumbles"]."
+			message = "<B>[src]</B> [M ? "drones at [M]" : "rumbles"]."
 			playsound(loc, 'sound/voice/DraskTalk.ogg', 50, 0)
 			m_type = 2
 
 		if("squish", "squishes")
-			var/M = null
-			if(param)
-				for(var/mob/A in view(null, null))
-					if(param == A.name)
-						M = A
-						break
-			if(!M)
-				param = null
+			var/M = handle_emote_param(param)
 
-			message = "<B>[src]</B> squishes[param ? " at [param]" : ""]."
+			message = "<B>[src]</B> squishes[M ? " at [M]" : ""]."
 			playsound(loc, 'sound/effects/slime_squish.ogg', 50, 0) //Credit to DrMinky (freesound.org) for the sound.
 			m_type = 2
 
 		if("clack", "clacks")
-			var/M = null
-			if(param)
-				for(var/mob/A in view(null, null))
-					if(param == A.name)
-						M = A
-						break
-			if(!M)
-				param = null
+			var/M = handle_emote_param(param)
 
-			message = "<B>[src]</B> clacks their mandibles[param ? " at [param]" : ""]."
+			message = "<B>[src]</B> clacks their mandibles[M ? " at [M]" : ""]."
 			playsound(loc, 'sound/effects/Kidanclack.ogg', 50, 0) //Credit to DrMinky (freesound.org) for the sound.
 			m_type = 2
 
 		if("click", "clicks")
-			var/M = null
-			if(param)
-				for(var/mob/A in view(null, null))
-					if(param == A.name)
-						M = A
-						break
-			if(!M)
-				param = null
+			var/M = handle_emote_param(param)
 
-			message = "<B>[src]</B> clicks their mandibles[param ? " at [param]" : ""]."
+			message = "<B>[src]</B> clicks their mandibles[M ? " at [M]" : ""]."
 			playsound(loc, 'sound/effects/Kidanclack2.ogg', 50, 0) //Credit to DrMinky (freesound.org) for the sound.
 			m_type = 2
 
 		if("yes")
-			var/M = null
-			if(param)
-				for(var/mob/A in view(null, null))
-					if(param == A.name)
-						M = A
-						break
-			if(!M)
-				param = null
+			var/M = handle_emote_param(param)
 
-			message = "<B>[src]</B> emits an affirmative blip[param ? " at [param]" : ""]."
+			message = "<B>[src]</B> emits an affirmative blip[M ? " at [M]" : ""]."
 			playsound(loc, 'sound/machines/synth_yes.ogg', 50, 0)
 			m_type = 2
 
 		if("no")
-			var/M = null
-			if(param)
-				for(var/mob/A in view(null, null))
-					if(param == A.name)
-						M = A
-						break
-			if(!M)
-				param = null
+			var/M = handle_emote_param(param)
 
-			message = "<B>[src]</B> emits a negative blip[param ? " at [param]" : ""]."
+			message = "<B>[src]</B> emits a negative blip[M ? " at [M]" : ""]."
 			playsound(loc, 'sound/machines/synth_no.ogg', 50, 0)
 			m_type = 2
 
@@ -275,30 +204,16 @@
 
 		if("bow", "bows")
 			if(!buckled)
-				var/M = null
-				if(param)
-					for(var/mob/A in view(null, null))
-						if(param == A.name)
-							M = A
-							break
-				if(!M)
-					param = null
+				var/M = handle_emote_param(param)
 
-				message = "<B>[src]</B> bows[param ? " to [param]" : ""]."
+				message = "<B>[src]</B> bows[M ? " to [M]" : ""]."
 			m_type = 1
 
 		if("salute", "salutes")
 			if(!buckled)
-				var/M = null
-				if(param)
-					for(var/mob/A in view(null, null))
-						if(param == A.name)
-							M = A
-							break
-				if(!M)
-					param = null
+				var/M = handle_emote_param(param)
 
-				message = "<B>[src]</B> salutes[param ? " to [param]" : ""]."
+				message = "<B>[src]</B> salutes[M ? " to [M]" : ""]."
 			m_type = 1
 
 		if("choke", "chokes")
@@ -437,20 +352,15 @@
 					m_type = 2
 
 		if("frown", "frowns")
-			message = "<B>[src]</B> frowns."
+			var/M = handle_emote_param(param)
+
+			message = "<B>[src]</B> frowns[M ? " at [M]" : ""]."
 			m_type = 1
 
 		if("nod", "nods")
-			var/M = null
-			if(param)
-				for(var/mob/A in view(null, null))
-					if(param == A.name)
-						M = A
-						break
-			if(!M)
-				param = null
+			var/M = handle_emote_param(param)
 
-			message = "<B>[src]</B> nods[param ? " at [param]" : ""]."
+			message = "<B>[src]</B> nods[M ? " at [M]" : ""]."
 			m_type = 1
 
 		if("blush", "blushes")
@@ -458,16 +368,9 @@
 			m_type = 1
 
 		if("wave", "waves")
-			var/M = null
-			if(param)
-				for(var/mob/A in view(null, null))
-					if(param == A.name)
-						M = A
-						break
-			if(!M)
-				param = null
+			var/M = handle_emote_param(param)
 
-			message = "<B>[src]</B> waves[param ? " at [param]" : ""]."
+			message = "<B>[src]</B> waves[M ? " at [M]" : ""]."
 			m_type = 1
 
 		if("quiver", "quivers")
@@ -503,47 +406,27 @@
 					m_type = 2
 
 		if("glare", "glares")
-			var/M = null
-			if(param)
-				for(var/mob/A in view(null, null))
-					if(param == A.name)
-						M = A
-						break
-			if(!M)
-				param = null
+			var/M = handle_emote_param(param)
 
-			message = "<B>[src]</B> glares[param ? " at [param]" : ""]."
+			message = "<B>[src]</B> glares[M ? " at [M]" : ""]."
 			m_type = 1
 
 		if("stare", "stares")
-			var/M = null
-			if(param)
-				for(var/mob/A in view(null, null))
-					if(param == A.name)
-						M = A
-						break
-			if(!M)
-				param = null
+			var/M = handle_emote_param(param)
 
-			message = "<B>[src]</B> stares[param ? " at [param]" : ""]."
+			message = "<B>[src]</B> stares[M ? " at [M]" : ""]."
 			m_type = 1
 
 		if("look", "looks")
-			var/M = null
-			if(param)
-				for(var/mob/A in view(null, null))
-					if(param == A.name)
-						M = A
-						break
+			var/M = handle_emote_param(param)
 
-			if(!M)
-				param = null
-
-			message = "<B>[src]</B> looks[param ? " at [param]" : ""]."
+			message = "<B>[src]</B> looks[M ? " at [M]" : ""]."
 			m_type = 1
 
 		if("grin", "grins")
-			message = "<B>[src]</B> grins."
+			var/M = handle_emote_param(param)
+
+			message = "<B>[src]</B> grins[M ? " at [M]" : ""]."
 			m_type = 1
 
 		if("cry", "cries")
@@ -559,24 +442,26 @@
 					m_type = 2
 
 		if("sigh", "sighs")
+			var/M = handle_emote_param(param)
 			if(miming)
-				message = "<B>[src]</B> sighs."
+				message = "<B>[src]</B> sighs[M ? " at [M]" : ""]."
 				m_type = 1
 			else
 				if(!muzzled)
-					message = "<B>[src]</B> sighs."
+					message = "<B>[src]</B> sighs[M ? " at [M]" : ""]."
 					m_type = 2
 				else
-					message = "<B>[src]</B> makes a weak noise."
+					message = "<B>[src]</B> makes a weak noise"
 					m_type = 2
 
 		if("laugh", "laughs")
+			var/M = handle_emote_param(param)
 			if(miming)
-				message = "<B>[src]</B> acts out a laugh."
+				message = "<B>[src]</B> acts out a laugh[M ? " at [M]" : ""]."
 				m_type = 1
 			else
 				if(!muzzled)
-					message = "<B>[src]</B> laughs."
+					message = "<B>[src]</B> laughs[M ? " at [M]" : ""]."
 					m_type = 2
 				else
 					message = "<B>[src]</B> makes a noise."
@@ -589,11 +474,12 @@
 				m_type = 1
 
 		if("grumble", "grumbles")
+			var/M = handle_emote_param(param)
 			if(miming)
-				message = "<B>[src]</B> grumbles!"
+				message = "<B>[src]</B> grumbles[M ? " at [M]" : ""]!"
 				m_type = 1
 			if(!muzzled)
-				message = "<B>[src]</B> grumbles!"
+				message = "<B>[src]</B> grumbles[M ? " at [M]" : ""]!"
 				m_type = 2
 			else
 				message = "<B>[src]</B> makes a noise."
@@ -654,16 +540,9 @@
 			m_type = 1
 
 		if("shake", "shakes")
-			var/mob/M = null
-			if(param)
-				for(var/mob/A in view(1, null))
-					if(param == A.name)
-						M = A
-						break
-			if(M == src)
-				M = null
+			var/M = handle_emote_param(param, 1) //Check to see if the param is valid (mob with the param name is in view) but exclude ourselves.
 
-			message = "<B>[src]</B> shakes \his head[param ? " at [param]" : ""]."
+			message = "<B>[src]</B> shakes \his head[M ? " at [M]" : ""]."
 			m_type = 1
 
 		if("shrug", "shrugs")
@@ -681,16 +560,9 @@
 			m_type = 1
 
 		if("smile", "smiles")
-			var/mob/M = null
-			if(param)
-				for(var/mob/A in view(1, null))
-					if(param == A.name)
-						M = A
-						break
-			if(M == src)
-				M = null
+			var/M = handle_emote_param(param, 1)
 
-			message = "<B>[src]</B> smiles[param ? " at [param]" : ""]."
+			message = "<B>[src]</B> smiles[M ? " at [M]" : ""]."
 			m_type = 1
 
 		if("shiver", "shivers")
@@ -754,16 +626,9 @@
 					m_type = 2
 
 		if("wink", "winks")
-			var/mob/M = null
-			if(param)
-				for(var/mob/A in view(1, null))
-					if(param == A.name)
-						M = A
-						break
-			if(M == src)
-				M = null
+			var/M = handle_emote_param(param, 1)
 
-			message = "<B>[src]</B> winks[param ? " at [param]" : ""]."
+			message = "<B>[src]</B> winks[M ? " at [M]" : ""]."
 			m_type = 1
 
 		if("yawn", "yawns")
@@ -783,14 +648,7 @@
 		if("hug", "hugs")
 			m_type = 1
 			if(!restrained())
-				var/M = null
-				if(param)
-					for(var/mob/A in view(1, null))
-						if(param == A.name)
-							M = A
-							break
-				if(M == src)
-					M = null
+				var/M = handle_emote_param(param, 1, 1) //Check to see if the param is valid (mob with the param name is in view) but exclude ourselves and only check mobs in our immediate vicinity (1 tile distance).
 
 				if(M)
 					message = "<B>[src]</B> hugs [M]."
@@ -800,14 +658,7 @@
 		if("handshake")
 			m_type = 1
 			if(!restrained() && !r_hand)
-				var/mob/M = null
-				if(param)
-					for(var/mob/A in view(1, null))
-						if(param == A.name)
-							M = A
-							break
-				if(M == src)
-					M = null
+				var/mob/M = handle_emote_param(param, 1, 1, 1) //Check to see if the param is valid (mob with the param name is in view) but exclude ourselves, only check mobs in our immediate vicinity (1 tile distance) and return the whole mob instead of just its name.
 
 				if(M)
 					if(M.canmove && !M.r_hand && !M.restrained())
@@ -818,12 +669,8 @@
 		if("dap", "daps")
 			m_type = 1
 			if(!restrained())
-				var/M = null
-				if(param)
-					for(var/mob/A in view(1, null))
-						if(param == A.name)
-							M = A
-							break
+				var/M = handle_emote_param(param, null, 1)
+
 				if(M)
 					message = "<B>[src]</B> gives daps to [M]."
 				else
@@ -832,12 +679,8 @@
 		if("slap", "slaps")
 			m_type = 1
 			if(!restrained())
-				var/M = null
-				if(param)
-					for(var/mob/A in view(1, null))
-						if(param == A.name)
-							M = A
-							break
+				var/M = handle_emote_param(param, null, 1)
+
 				if(M)
 					message = "<span class='danger'>[src] slaps [M] across the face. Ouch!</span>"
 				else
@@ -846,21 +689,13 @@
 				playsound(loc, 'sound/effects/snap.ogg', 50, 1)
 
 		if("scream", "screams")
+			var/M = handle_emote_param(param)
 			if(miming)
-				message = "<B>[src]</B> acts out a scream!"
+				message = "<B>[src]</B> acts out a scream[M ? " at [M]" : ""]!"
 				m_type = 1
 			else
-				var/M = null
-				if(param)
-					for(var/mob/A in view(null, null))
-						if(param == A.name)
-							M = A
-							break
-				if(!M)
-					param = null
-
 				if(!muzzled)
-					message = "<B>[src]</B> [species.scream_verb][param ? " at [param]" : ""]!"
+					message = "<B>[src]</B> [species.scream_verb][M ? " at [M]" : ""]!"
 					m_type = 2
 					if(gender == FEMALE)
 						playsound(loc, "[species.female_scream_sound]", 80, 1, 0, pitch = get_age_pitch())
@@ -868,9 +703,8 @@
 						playsound(loc, "[species.male_scream_sound]", 80, 1, 0, pitch = get_age_pitch()) //default to male screams if no gender is present.
 
 				else
-					message = "<B>[src]</B> makes a very loud noise[param ? " at [param]" : ""]."
+					message = "<B>[src]</B> makes a very loud noise[M ? " at [M]" : ""]."
 					m_type = 2
-
 
 		if("snap", "snaps")
 			if(prob(95))
@@ -889,21 +723,13 @@
 					to_chat(usr, "You need at least one hand in good working order to snap your fingers.")
 					return
 
-				var/M = null
-				if(param)
-					for(var/mob/A in view(null, null))
-						if(param == A.name)
-							M = A
-							break
-				if(!M)
-					param = null
+				var/M = handle_emote_param(param)
 
-				message = "<b>[src]</b> snaps \his fingers[param ? " at [param]" : ""]."
+				message = "<b>[src]</b> snaps \his fingers[M ? " at [M]" : ""]."
 				playsound(loc, 'sound/effects/fingersnap.ogg', 50, 1, -3)
 			else
 				message = "<span class='danger'><b>[src]</b> snaps \his fingers right off!</span>"
 				playsound(loc, 'sound/effects/snap.ogg', 50, 1)
-
 
 		// Needed for M_TOXIC_FART
 		if("fart", "farts")
@@ -955,11 +781,7 @@
 		else
 			to_chat(src, "\blue Unusable emote '[act]'. Say *help for a list.")
 
-
-
-
-
-	if(message) //Humans are special fucking snowflakes and have 1000 lines of emotes, they get to handle their own emotes, not call the parent
+	if(message) //Humans are special fucking snowflakes and have 800 lines of emotes, they get to handle their own emotes, not call the parent.
 		log_emote("[name]/[key] : [message]")
 
  //Hearing gasp and such every five seconds is not good emotes were not global for a reason.
