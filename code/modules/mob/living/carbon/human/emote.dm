@@ -96,15 +96,21 @@
 			if(!M)
 				param = null
 
-			if(param)
-				message = "<B>[src]</B> pings at [param]."
-			else
-				message = "<B>[src]</B> pings."
+			message = "<B>[src]</B> pings[param ? " at [param]" : ""]."
 			playsound(loc, 'sound/machines/ping.ogg', 50, 0)
 			m_type = 2
 
 		if("buzz2")
-			message = "<B>[src]</B> emits an irritated buzzing sound."
+			var/M = null
+			if(param)
+				for(var/mob/A in view(null, null))
+					if(param == A.name)
+						M = A
+						break
+			if(!M)
+				param = null
+
+			message = "<B>[src]</B> emits an irritated buzzing sound[param ? " at [param]" : ""]."
 			playsound(loc, 'sound/machines/buzz-two.ogg', 50, 0)
 			m_type = 2
 
@@ -118,10 +124,7 @@
 			if(!M)
 				param = null
 
-			if(param)
-				message = "<B>[src]</B> buzzes at [param]."
-			else
-				message = "<B>[src]</B> buzzes."
+			message = "<B>[src]</B> buzzes[param ? " at [param]" : ""]."
 			playsound(loc, 'sound/machines/buzz-sigh.ogg', 50, 0)
 			m_type = 2
 
@@ -135,10 +138,7 @@
 			if(!M)
 				param = null
 
-			if(param)
-				message = "<B>[src]</B> beeps at [param]."
-			else
-				message = "<B>[src]</B> beeps."
+			message = "<B>[src]</B> beeps[param ? " at [param]" : ""]."
 			playsound(loc, 'sound/machines/twobeep.ogg', 50, 0)
 			m_type = 2
 
@@ -152,10 +152,7 @@
 			if(!M)
 				param = null
 
-			if(param)
-				message = "<B>[src]</B> drones at [param]."
-			else
-				message = "<B>[src]</B> rumbles."
+			message = "<B>[src]</B> [param ? "drones at [param]" : "rumbles"]."
 			playsound(loc, 'sound/voice/DraskTalk.ogg', 50, 0)
 			m_type = 2
 
@@ -169,10 +166,7 @@
 			if(!M)
 				param = null
 
-			if(param)
-				message = "<B>[src]</B> squishes at [param]."
-			else
-				message = "<B>[src]</B> squishes."
+			message = "<B>[src]</B> squishes[param ? " at [param]" : ""]."
 			playsound(loc, 'sound/effects/slime_squish.ogg', 50, 0) //Credit to DrMinky (freesound.org) for the sound.
 			m_type = 2
 
@@ -186,10 +180,7 @@
 			if(!M)
 				param = null
 
-			if(param)
-				message = "<B>[src]</B> clacks their mandibles at [param]."
-			else
-				message = "<B>[src]</B> clacks their mandibles."
+			message = "<B>[src]</B> clacks their mandibles[param ? " at [param]" : ""]."
 			playsound(loc, 'sound/effects/Kidanclack.ogg', 50, 0) //Credit to DrMinky (freesound.org) for the sound.
 			m_type = 2
 
@@ -203,10 +194,7 @@
 			if(!M)
 				param = null
 
-			if(param)
-				message = "<B>[src]</B> clicks their mandibles at [param]."
-			else
-				message = "<B>[src]</B> clicks their mandibles."
+			message = "<B>[src]</B> clicks their mandibles[param ? " at [param]" : ""]."
 			playsound(loc, 'sound/effects/Kidanclack2.ogg', 50, 0) //Credit to DrMinky (freesound.org) for the sound.
 			m_type = 2
 
@@ -220,10 +208,7 @@
 			if(!M)
 				param = null
 
-			if(param)
-				message = "<B>[src]</B> emits an affirmative blip at [param]."
-			else
-				message = "<B>[src]</B> emits an affirmative blip."
+			message = "<B>[src]</B> emits an affirmative blip[param ? " at [param]" : ""]."
 			playsound(loc, 'sound/machines/synth_yes.ogg', 50, 0)
 			m_type = 2
 
@@ -237,10 +222,7 @@
 			if(!M)
 				param = null
 
-			if(param)
-				message = "<B>[src]</B> emits a negative blip at [param]."
-			else
-				message = "<B>[src]</B> emits a negative blip."
+			message = "<B>[src]</B> emits a negative blip[param ? " at [param]" : ""]."
 			playsound(loc, 'sound/machines/synth_no.ogg', 50, 0)
 			m_type = 2
 
@@ -302,10 +284,7 @@
 				if(!M)
 					param = null
 
-				if(param)
-					message = "<B>[src]</B> bows to [param]."
-				else
-					message = "<B>[src]</B> bows."
+				message = "<B>[src]</B> bows[param ? " to [param]" : ""]."
 			m_type = 1
 
 		if("salute", "salutes")
@@ -319,10 +298,7 @@
 				if(!M)
 					param = null
 
-				if(param)
-					message = "<B>[src]</B> salutes to [param]."
-				else
-					message = "<B>[src]</b> salutes."
+				message = "<B>[src]</B> salutes[param ? " to [param]" : ""]."
 			m_type = 1
 
 		if("choke", "chokes")
@@ -465,7 +441,16 @@
 			m_type = 1
 
 		if("nod", "nods")
-			message = "<B>[src]</B> nods."
+			var/M = null
+			if(param)
+				for(var/mob/A in view(null, null))
+					if(param == A.name)
+						M = A
+						break
+			if(!M)
+				param = null
+
+			message = "<B>[src]</B> nods[param ? " at [param]" : ""]."
 			m_type = 1
 
 		if("blush", "blushes")
@@ -473,7 +458,16 @@
 			m_type = 1
 
 		if("wave", "waves")
-			message = "<B>[src]</B> waves."
+			var/M = null
+			if(param)
+				for(var/mob/A in view(null, null))
+					if(param == A.name)
+						M = A
+						break
+			if(!M)
+				param = null
+
+			message = "<B>[src]</B> waves[param ? " at [param]" : ""]."
 			m_type = 1
 
 		if("quiver", "quivers")
@@ -518,10 +512,7 @@
 			if(!M)
 				param = null
 
-			if(param)
-				message = "<B>[src]</B> glares at [param]."
-			else
-				message = "<B>[src]</B> glares."
+			message = "<B>[src]</B> glares[param ? " at [param]" : ""]."
 			m_type = 1
 
 		if("stare", "stares")
@@ -534,10 +525,7 @@
 			if(!M)
 				param = null
 
-			if(param)
-				message = "<B>[src]</B> stares at [param]."
-			else
-				message = "<B>[src]</B> stares."
+			message = "<B>[src]</B> stares[param ? " at [param]" : ""]."
 			m_type = 1
 
 		if("look", "looks")
@@ -551,10 +539,7 @@
 			if(!M)
 				param = null
 
-			if(param)
-				message = "<B>[src]</B> looks at [param]."
-			else
-				message = "<B>[src]</B> looks."
+			message = "<B>[src]</B> looks[param ? " at [param]" : ""]."
 			m_type = 1
 
 		if("grin", "grins")
@@ -669,7 +654,16 @@
 			m_type = 1
 
 		if("shake", "shakes")
-			message = "<B>[src]</B> shakes \his head."
+			var/mob/M = null
+			if(param)
+				for(var/mob/A in view(1, null))
+					if(param == A.name)
+						M = A
+						break
+			if(M == src)
+				M = null
+
+			message = "<B>[src]</B> shakes \his head[param ? " at [param]" : ""]."
 			m_type = 1
 
 		if("shrug", "shrugs")
@@ -687,7 +681,16 @@
 			m_type = 1
 
 		if("smile", "smiles")
-			message = "<B>[src]</B> smiles."
+			var/mob/M = null
+			if(param)
+				for(var/mob/A in view(1, null))
+					if(param == A.name)
+						M = A
+						break
+			if(M == src)
+				M = null
+
+			message = "<B>[src]</B> smiles[param ? " at [param]" : ""]."
 			m_type = 1
 
 		if("shiver", "shivers")
@@ -751,7 +754,16 @@
 					m_type = 2
 
 		if("wink", "winks")
-			message = "<B>[src]</B> winks."
+			var/mob/M = null
+			if(param)
+				for(var/mob/A in view(1, null))
+					if(param == A.name)
+						M = A
+						break
+			if(M == src)
+				M = null
+
+			message = "<B>[src]</B> winks[param ? " at [param]" : ""]."
 			m_type = 1
 
 		if("yawn", "yawns")
@@ -828,19 +840,27 @@
 							break
 				if(M)
 					message = "<span class='danger'>[src] slaps [M] across the face. Ouch!</span>"
-					playsound(loc, 'sound/effects/snap.ogg', 50, 1)
 				else
 					message = "<span class='danger'>[src] slaps \himself!</span>"
-					playsound(loc, 'sound/effects/snap.ogg', 50, 1)
 					adjustFireLoss(4)
+				playsound(loc, 'sound/effects/snap.ogg', 50, 1)
 
 		if("scream", "screams")
 			if(miming)
 				message = "<B>[src]</B> acts out a scream!"
 				m_type = 1
 			else
+				var/M = null
+				if(param)
+					for(var/mob/A in view(null, null))
+						if(param == A.name)
+							M = A
+							break
+				if(!M)
+					param = null
+
 				if(!muzzled)
-					message = "<B>[src]</B> [species.scream_verb]!"
+					message = "<B>[src]</B> [species.scream_verb][param ? " at [param]" : ""]!"
 					m_type = 2
 					if(gender == FEMALE)
 						playsound(loc, "[species.female_scream_sound]", 80, 1, 0, pitch = get_age_pitch())
@@ -848,7 +868,7 @@
 						playsound(loc, "[species.male_scream_sound]", 80, 1, 0, pitch = get_age_pitch()) //default to male screams if no gender is present.
 
 				else
-					message = "<B>[src]</B> makes a very loud noise."
+					message = "<B>[src]</B> makes a very loud noise[param ? " at [param]" : ""]."
 					m_type = 2
 
 
@@ -869,7 +889,16 @@
 					to_chat(usr, "You need at least one hand in good working order to snap your fingers.")
 					return
 
-				message = "<b>[src]</b> snaps \his fingers."
+				var/M = null
+				if(param)
+					for(var/mob/A in view(null, null))
+						if(param == A.name)
+							M = A
+							break
+				if(!M)
+					param = null
+
+				message = "<b>[src]</b> snaps \his fingers[param ? " at [param]" : ""]."
 				playsound(loc, 'sound/effects/fingersnap.ogg', 50, 1, -3)
 			else
 				message = "<span class='danger'><b>[src]</b> snaps \his fingers right off!</span>"
@@ -930,7 +959,7 @@
 
 
 
-	if(message) //Humans are special fucking snowflakes and have 735 lines of emotes, they get to handle their own emotes, not call the parent
+	if(message) //Humans are special fucking snowflakes and have 1000 lines of emotes, they get to handle their own emotes, not call the parent
 		log_emote("[name]/[key] : [message]")
 
  //Hearing gasp and such every five seconds is not good emotes were not global for a reason.
