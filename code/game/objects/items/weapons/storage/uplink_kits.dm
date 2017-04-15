@@ -64,7 +64,8 @@
 				return
 
 			if("darklord")
-				new /obj/item/weapon/twohanded/dualsaber/red(src)
+				new /obj/item/weapon/melee/energy/sword/saber/red(src)
+				new /obj/item/weapon/melee/energy/sword/saber/red(src)
 				new /obj/item/weapon/dnainjector/telemut/darkbundle(src)
 				new /obj/item/clothing/suit/hooded/chaplain_hoodie(src)
 				new /obj/item/weapon/card/id/syndicate(src)
