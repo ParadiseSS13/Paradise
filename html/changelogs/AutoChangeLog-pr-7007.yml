@@ -1,0 +1,4 @@
+author: "uraniummeltdown"
+delete-after: True
+changes: 
+  - rscadd: "You can now create heat-proof glass airlocks by using a sheet of reinforced glass on the assembly during construction. Regular glass airlocks just require a sheet of glass."
