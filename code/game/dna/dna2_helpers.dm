@@ -190,6 +190,10 @@
 	head_organ.g_hair		= GetUIValueRange(DNA_UI_HAIR_G,	255)
 	head_organ.b_hair		= GetUIValueRange(DNA_UI_HAIR_B,	255)
 
+	head_organ.r_hair_sec	= GetUIValueRange(DNA_UI_HAIR2_R,	255)
+	head_organ.g_hair_sec	= GetUIValueRange(DNA_UI_HAIR2_G,	255)
+	head_organ.b_hair_sec	= GetUIValueRange(DNA_UI_HAIR2_B,	255)
+
 	//Facial Hair
 	var/beard = GetUIValueRange(DNA_UI_BEARD_STYLE,facial_hair_styles_list.len)
 	if((beard > 0) && (beard <= facial_hair_styles_list.len))
@@ -198,6 +202,10 @@
 	head_organ.r_facial		= GetUIValueRange(DNA_UI_BEARD_R,	255)
 	head_organ.g_facial		= GetUIValueRange(DNA_UI_BEARD_G,	255)
 	head_organ.b_facial		= GetUIValueRange(DNA_UI_BEARD_B,	255)
+
+	head_organ.r_facial_sec	= GetUIValueRange(DNA_UI_BEARD2_R,	255)
+	head_organ.g_facial_sec	= GetUIValueRange(DNA_UI_BEARD2_G,	255)
+	head_organ.b_facial_sec	= GetUIValueRange(DNA_UI_BEARD2_B,	255)
 
 	//Head Accessories
 	var/headacc = GetUIValueRange(DNA_UI_HACC_STYLE,head_accessory_styles_list.len)
@@ -256,9 +264,17 @@
 	SetUIValueRange(DNA_UI_HAIR_G,	H.g_hair,				255,	1)
 	SetUIValueRange(DNA_UI_HAIR_B,	H.b_hair,				255,	1)
 
+	SetUIValueRange(DNA_UI_HAIR2_R,	H.r_hair_sec,			255,	1)
+	SetUIValueRange(DNA_UI_HAIR2_G,	H.g_hair_sec,			255,	1)
+	SetUIValueRange(DNA_UI_HAIR2_B,	H.b_hair_sec,			255,	1)
+
 	SetUIValueRange(DNA_UI_BEARD_R,	H.r_facial,				255,	1)
 	SetUIValueRange(DNA_UI_BEARD_G,	H.g_facial,				255,	1)
 	SetUIValueRange(DNA_UI_BEARD_B,	H.b_facial,				255,	1)
+
+	SetUIValueRange(DNA_UI_BEARD2_R,	H.r_facial_sec,		255,	1)
+	SetUIValueRange(DNA_UI_BEARD2_G,	H.g_facial_sec,		255,	1)
+	SetUIValueRange(DNA_UI_BEARD2_B,	H.b_facial_sec,		255,	1)
 
 	SetUIValueRange(DNA_UI_HACC_R,	H.r_headacc,			255,	1)
 	SetUIValueRange(DNA_UI_HACC_G,	H.g_headacc,			255,	1)
