@@ -209,7 +209,7 @@
 			if(!istype(M,/obj/effect/decal/cleanable/dirt))//dirt is too common
 				germs++
 
-	if(tool.blood_DNA.len) //germs from blood-stained tools
+	if(tool.blood_DNA && tool.blood_DNA.len) //germs from blood-stained tools
 		germs += 30
 
 	if(E.internal_organs.len)
