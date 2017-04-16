@@ -10,6 +10,40 @@
 	throw_range = 15
 	attack_verb = list("banned")
 
+/obj/item/weapon/glass_shiv
+	name = "glass shiv"
+	icon = 'icons/obj/weapons.dmi'
+	icon_state = "glass_shiv"
+	sharp = 1
+	edge = 1
+	desc = "A shard of glass with tape wrapped around one end."
+	w_class = 1
+	force = 7
+	throwforce = 12
+	armour_penetration = 1
+	materials = list(MAT_GLASS=MINERAL_MATERIAL_AMOUNT)
+	attack_verb = list("stabbed", "slashed", "sliced", "cut")
+	hitsound = 'sound/weapons/bladeslice.ogg'
+
+/obj/item/weapon/shard/attackby(obj/item/I, mob/user, params)
+	..()
+	if(istype(I, /obj/item/stack/tape_roll))
+		var/obj/item/weapon/glass_shiv/S = new /obj/item/weapon/glass_shiv
+
+		if(!remove_item_from_storage(user))
+			user.unEquip(src)
+
+		user.put_in_hands(S)
+		to_chat(user, "<span class='notice'>You wrap some tape around the glass shard.</span>")
+		I:amount -= 5
+
+		I.update_icon()
+
+		if(I:amount <= 0)
+			user.unEquip(I, 1)
+			qdel(I)
+
+		qdel(src)
 
 /obj/item/weapon/banhammer/suicide_act(mob/user)
 		to_chat(viewers(user), "<span class='suicide'>[user] is hitting \himself with the [src.name]! It looks like \he's trying to ban \himself from life.</span>")
