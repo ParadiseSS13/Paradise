@@ -1,0 +1,7 @@
+author: "ZomgPonies"
+delete-after: True
+changes: 
+  - bugfix: "Fixes Superhero ID cards"
+  - bugfix: "Fixes Griffin missing his Freedom Implant"
+  - bugfix: "Fixes ElectroNegmatic's Ability not working at all."
+  - tweak: "Changes LightnIan's ability into a non-damaging stun lasting 2 ticks, with the amount of people affected depending on how long you hold the power in for."
