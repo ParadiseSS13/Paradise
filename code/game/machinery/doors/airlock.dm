@@ -189,7 +189,6 @@
 	opacity = 0
 	assembly_type = /obj/structure/door_assembly/door_assembly_research
 	glass = 1
-	heat_proof = 1
 
 /obj/machinery/door/airlock/glass_mining
 	name = "Maintenance Hatch"
@@ -847,6 +846,7 @@ About the new airlock wires panel:
 				to_chat(user, "\blue You removed the airlock electronics!")
 
 				var/obj/structure/door_assembly/da = new assembly_type(loc)
+				da.heat_proof_finished = heat_proof //tracks whether there's rglass in
 				da.anchored = 1
 				if(mineral)
 					da.glass = mineral
