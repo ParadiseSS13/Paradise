@@ -33,11 +33,13 @@
 			src.reagents.handle_reactions()
 			to_chat(user, "<span class='notice'>You heat [src] with [W]!</span>")
 
+/*
 /obj/effect/decal/cleanable/ex_act()
 	if(reagents)
 		for(var/datum/reagent/R in reagents.reagent_list)
 			R.on_ex_act()
 	..()
+*/
 
 /obj/effect/decal/cleanable/fire_act()
 	if(reagents)
