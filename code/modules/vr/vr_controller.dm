@@ -24,9 +24,6 @@ proc/make_vr_room(name, template, expires)
 		if(landmark.name == "avatarspawn")
 			R.spawn_points.Add(landmark)
 
-//datum/vr_room/process()
-
-
 //Control code for the avatars
 proc/build_virtual_avatar(mob/living/carbon/human/H, location, datum/map_template/vr/level/template)
 	if(!location)
@@ -45,8 +42,6 @@ proc/build_virtual_avatar(mob/living/carbon/human/H, location, datum/map_templat
 	vr_avatar.real_name = H.real_name
 	vr_avatar.undershirt = H.undershirt
 	vr_avatar.underwear = H.underwear
-	//var/obj/item/organ/external/head/hd = H.get_organ("head")
-	//vr_avatar.change_hair(hd.h_style)
 	vr_avatar.UpdateAppearance()
 	vr_avatar.equipOutfit(template.outfit)
 	return vr_avatar
