@@ -1,0 +1,11 @@
+stages:
+ - deploy 
+ 
+run_update: 
+  stage: deploy 
+  script:
+    - cd "c:\users\byond\desktop\paradise-server\"
+    - call "c:\users\byond\desktop\paradise-server\Update Server.bat"
+    - taskkill /f /im dreamdaemon.exe
+  only: 
+    - master 
