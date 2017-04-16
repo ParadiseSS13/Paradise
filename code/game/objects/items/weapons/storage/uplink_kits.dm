@@ -50,11 +50,10 @@
 				return
 
 			if("implant")
+				new /obj/item/weapon/implanter/uplink(src)
 				new /obj/item/weapon/implanter/adrenalin(src)
 				new /obj/item/weapon/implanter/storage(src)
 				new /obj/item/weapon/implanter/freedom(src)
-				new /obj/item/weapon/implanter/emp(src)
-				new /obj/item/organ/internal/cyberimp/eyes/thermals(src)
 				return
 
 			if("hacker")
