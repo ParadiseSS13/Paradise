@@ -6,6 +6,7 @@
 	flags_inv = HIDEEARS|HIDEEYES|HIDEFACE
 	flags_cover = MASKCOVERSMOUTH | MASKCOVERSEYES
 	w_class = 3
+	tint = 2
 	item_state = "gas_alt"
 	gas_transfer_coefficient = 0.01
 	permeability_coefficient = 0.01
@@ -87,11 +88,13 @@
 	name = "\improper SWAT mask"
 	desc = "A close-fitting tactical mask that can be connected to an air supply."
 	icon_state = "swat"
+	tint = 0
 
 /obj/item/clothing/mask/gas/syndicate
 	name = "syndicate mask"
 	desc = "A close-fitting tactical mask that can be connected to an air supply."
 	icon_state = "swat"
+	tint = 0
 	strip_delay = 60
 
 /obj/item/clothing/mask/gas/clown_hat
@@ -99,6 +102,7 @@
 	desc = "A true prankster's facial attire. A clown is incomplete without his wig and mask."
 	icon_state = "clown"
 	item_state = "clown_hat"
+	tint = 0
 	flags = BLOCK_GAS_SMOKE_EFFECT | AIRTIGHT | BLOCKHAIR
 	burn_state = FLAMMABLE
 
@@ -123,6 +127,7 @@
 	desc = "Some pranksters are truly magical."
 	icon_state = "wizzclown"
 	item_state = "wizzclown"
+	tint = 0
 	flags = BLOCK_GAS_SMOKE_EFFECT | AIRTIGHT | BLOCKHAIR
 
 /obj/item/clothing/mask/gas/virusclown_hat
@@ -130,12 +135,14 @@
 	desc = "A true prankster's facial attire. A clown is incomplete without his wig and mask."
 	icon_state = "clown"
 	item_state = "clown_hat"
+	tint = 0
 
 /obj/item/clothing/mask/gas/sexyclown
 	name = "sexy-clown wig and mask"
 	desc = "A feminine clown mask for the dabbling crossdressers or female entertainers."
 	icon_state = "sexyclown"
 	item_state = "sexyclown"
+	tint = 0
 	burn_state = FLAMMABLE
 
 /obj/item/clothing/mask/gas/mime
@@ -143,6 +150,7 @@
 	desc = "The traditional mime's mask. It has an eerie facial posture."
 	icon_state = "mime"
 	item_state = "mime"
+	tint = 0
 	burn_state = FLAMMABLE
 
 /obj/item/clothing/mask/gas/monkeymask
@@ -150,6 +158,7 @@
 	desc = "A mask used when acting as a monkey."
 	icon_state = "monkeymask"
 	item_state = "monkeymask"
+	tint = 0
 	burn_state = FLAMMABLE
 
 /obj/item/clothing/mask/gas/sexymime
@@ -157,23 +166,27 @@
 	desc = "A traditional female mime's mask."
 	icon_state = "sexymime"
 	item_state = "sexymime"
+	tint = 0
 	burn_state = FLAMMABLE
 
 /obj/item/clothing/mask/gas/death_commando
 	name = "Death Commando Mask"
 	icon_state = "death_commando_mask"
 	item_state = "death_commando_mask"
+	tint = 0
 
 /obj/item/clothing/mask/gas/cyborg
 	name = "cyborg visor"
 	desc = "Beep boop"
 	icon_state = "death"
+	tint = 0
 	burn_state = FLAMMABLE
 
 /obj/item/clothing/mask/gas/owl_mask
 	name = "owl mask"
 	desc = "Twoooo!"
 	icon_state = "owl"
+	tint = 0
 	burn_state = FLAMMABLE
 	actions_types = list(/datum/action/item_action/hoot)
 
@@ -196,6 +209,7 @@
 	name = "security gas mask"
 	desc = "A standard issue Security gas mask with integrated 'Compli-o-nator 3000' device, plays over a dozen pre-recorded compliance phrases designed to get scumbags to stand still whilst you taze them. Do not tamper with the device."
 	icon_state = "sechailer"
+	tint = 0
 	var/phrase = 1
 	var/aggressiveness = 1
 	var/safety = 1
@@ -493,4 +507,3 @@
 
 
 // ********************************************************************
-
