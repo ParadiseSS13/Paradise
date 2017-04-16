@@ -193,8 +193,6 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 	var/gen_record = ""
 	var/disabilities = 0
 
-	var/nanotrasen_relation = "Neutral"
-
 	// 0 = character settings, 1 = game preferences
 	var/current_tab = TAB_CHAR
 
@@ -293,7 +291,6 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 			if(species in list("Human", "Drask", "Vox"))
 				dat += "<b>Skin Tone:</b> <a href='?_src_=prefs;preference=s_tone;task=input'>[species == "Vox" ? "[s_tone]" : "[-s_tone + 35]/220"]</a><br>"
 			dat += "<b>Disabilities:</b> <a href='?_src_=prefs;preference=disabilities'>\[Set\]</a><br>"
-			dat += "<b>Nanotrasen Relation:</b> <a href ='?_src_=prefs;preference=nt_relation;task=input'>[nanotrasen_relation]</a><br>"
 			dat += "<a href='byond://?_src_=prefs;preference=flavor_text;task=input'>Set Flavor Text</a><br>"
 			if(lentext(flavor_text) <= 40)
 				if(!lentext(flavor_text))	dat += "\[...\]<br>"
@@ -1717,11 +1714,6 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 					var/new_backbag = input(user, "Choose your character's style of bag:", "Character Preference") as null|anything in backbaglist
 					if(new_backbag)
 						backbag = new_backbag
-
-				if("nt_relation")
-					var/new_relation = input(user, "Choose your relation to NT. Note that this represents what others can find out about your character by researching your background, not what your character actually thinks.", "Character Preference")  as null|anything in list("Loyal", "Supportive", "Neutral", "Skeptical", "Opposed")
-					if(new_relation)
-						nanotrasen_relation = new_relation
 
 				if("flavor_text")
 					var/msg = input(usr,"Set the flavor text in your 'examine' verb. This can also be used for OOC notes and preferences!","Flavor Text",html_decode(flavor_text)) as message

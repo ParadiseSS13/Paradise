@@ -37,7 +37,7 @@
 	var/const/waittime_h = 1800 //upper bound on time before intercept arrives (in tenths of seconds)
 	var/list/player_draft_log = list()
 	var/list/datum/mind/xenos = list()
-	
+
 	var/list/datum/station_goal/station_goals = list() // A list of all station goals for this game mode
 
 /datum/game_mode/proc/announce() //to be calles when round starts
@@ -225,7 +225,7 @@
 
 /datum/game_mode/proc/check_win() //universal trigger to be called at mob death, nuke explosion, etc. To be called from everywhere.
 	return 0
-	
+
 /datum/game_mode/proc/get_players_for_role(var/role, override_jobbans=0)
 	var/list/players = list()
 	var/list/candidates = list()
@@ -399,18 +399,6 @@ proc/display_roundstart_logout_report()
 		if(check_rights(R_ADMIN, 0, M))
 			to_chat(M, msg)
 
-
-proc/get_nt_opposed()
-	var/list/dudes = list()
-	for(var/mob/living/carbon/human/man in player_list)
-		if(man.client)
-			if(man.client.prefs.nanotrasen_relation == "Opposed")
-				dudes += man
-			else if(man.client.prefs.nanotrasen_relation == "Skeptical" && prob(50))
-				dudes += man
-	if(dudes.len == 0) return null
-	return pick(dudes)
-
 //Announces objectives/generic antag text.
 /proc/show_generic_antag_text(var/datum/mind/player)
 	if(player.current)
@@ -491,10 +479,10 @@ proc/get_nt_opposed()
 		var/datum/station_goal/picked = pick_n_take(possible)
 		goal_weights += initial(picked.weight)
 		station_goals += new picked
-	
-	if(station_goals.len)	
+
+	if(station_goals.len)
 		send_station_goals_message()
-	
+
 /datum/game_mode/proc/send_station_goals_message()
 	var/message_text = "<div style='text-align:center;'><img src='ntlogo.png'>"
 	message_text += "<h3>[command_name()] Orders</h3></div><hr>"
@@ -504,10 +492,10 @@ proc/get_nt_opposed()
 		G.on_report()
 		message_text += G.get_report()
 		message_text += "<hr>"
-			
+
 	print_command_report(message_text, "[command_name()] Orders")
 
 /datum/game_mode/proc/declare_station_goal_completion()
 	for(var/V in station_goals)
 		var/datum/station_goal/G = V
-		G.print_result()	
+		G.print_result()
