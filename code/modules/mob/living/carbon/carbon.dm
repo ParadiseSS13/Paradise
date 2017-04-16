@@ -184,6 +184,8 @@
 
 
 /mob/living/carbon/swap_hand()
+	if(loc && !loc.allow_inventory())
+		return
 	var/obj/item/item_in_hand = src.get_active_hand()
 	if(item_in_hand) //this segment checks if the item in your hand is twohanded.
 		if(istype(item_in_hand,/obj/item/weapon/twohanded))
@@ -356,7 +358,6 @@
 
 /mob/living/carbon/proc/setDNA(var/datum/dna/newDNA)
 	dna = newDNA
-
 
 var/list/ventcrawl_machinery = list(/obj/machinery/atmospherics/unary/vent_pump, /obj/machinery/atmospherics/unary/vent_scrubber)
 
@@ -545,6 +546,7 @@ var/list/ventcrawl_machinery = list(/obj/machinery/atmospherics/unary/vent_pump,
 
 	else if(!(I.flags & ABSTRACT)) //can't throw abstract items
 		thrown_thing = I
+		// Not sure if `drop_specific_item` should be used here
 		unEquip(I)
 
 	if(thrown_thing)
@@ -780,7 +782,7 @@ var/list/ventcrawl_machinery = list(/obj/machinery/atmospherics/unary/vent_pump,
 		if(do_after(src, time, 0, target = src))
 			visible_message("<span class='warning'>[src] removes [I]!</span>")
 			to_chat(src, "<span class='notice'>You get rid of [I]!</span>")
-			unEquip(I)
+			drop_specific_item(I)
 
 
 /mob/living/carbon/proc/cuff_resist(obj/item/I, breakouttime = 600, cuff_break = 0)

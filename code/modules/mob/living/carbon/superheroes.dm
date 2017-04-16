@@ -18,9 +18,8 @@
 
 /datum/superheroes/proc/equip(var/mob/living/carbon/human/H)
 	H.rename_character(H.real_name, name)
-	for(var/obj/item/W in H)
-		if(istype(W,/obj/item/organ)) continue
-		H.unEquip(W)
+	for(var/obj/item/W in H.get_all_slots())
+		H.drop_specific_item(W)
 	H.equip_to_slot_or_del(new /obj/item/device/radio/headset(H), slot_l_ear)
 
 /datum/superheroes/proc/assign_genes(var/mob/living/carbon/human/H)
@@ -217,9 +216,8 @@
 		target.s_tone = 35
 		// No `update_dna=0` here because the character is being over-written
 		target.change_eye_color(1,1,1)
-		for(var/obj/item/W in target)
-			if(istype(W,/obj/item/organ)) continue
-			target.unEquip(W)
+		for(var/obj/item/W in target.get_all_slots())
+			target.drop_specific_item(W)
 		target.rename_character(target.real_name, "Generic Henchman ([rand(1, 1000)])")
 		target.equip_to_slot_or_del(new /obj/item/clothing/under/color/grey/greytide(target), slot_w_uniform)
 		target.equip_to_slot_or_del(new /obj/item/clothing/shoes/black/greytide(target), slot_shoes)

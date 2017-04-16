@@ -632,6 +632,10 @@ BLIND     // can't see anything
 	..()
 
 /obj/item/clothing/under/MouseDrop(obj/over_object as obj)
+	if(usr.loc && !usr.loc.allow_inventory())
+		return
+	// ewwww
+	// This belongs on the `MouseDrop_T` of the hand HUD objects, not here
 	if(ishuman(usr))
 		//makes sure that the clothing is equipped so that we can't drag it into our hand from miles away.
 		if(!(src.loc == usr))

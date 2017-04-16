@@ -84,11 +84,11 @@
 
 //Drops the item in our left hand
 /mob/proc/drop_l_hand()
-	return unEquip(l_hand) //All needed checks are in unEquip
+	return drop_slot(slot_l_hand) //All needed checks are in drop_slot
 
 //Drops the item in our right hand
 /mob/proc/drop_r_hand()
-	return unEquip(r_hand) //Why was this not calling unEquip in the first place jesus fuck.
+	return drop_slot(slot_r_hand) //All needed checks are in drop_slot
 
 //Drops the item in our active hand.
 /mob/proc/drop_item() //THIS. DOES. NOT. NEED. AN. ARGUMENT.
@@ -106,7 +106,7 @@
 		return 0
 	return 1
 
-/mob/proc/unEquip(obj/item/I, force) //Force overrides NODROP for things like wizarditis and admin undress.
+/mob/proc/unEquip(obj/item/I, force) //Force overrides NODROP and allow_drop() for things like wizarditis and admin undress.
 	if(!I) //If there's nothing to drop, the drop is automatically succesfull. If(unEquip) should generally be used to check for NODROP.
 		return 1
 
@@ -138,32 +138,33 @@
 	return 1
 
 
-//Outdated but still in use apparently. This should at least be a human proc.
-/mob/proc/get_equipped_items()
-	var/list/items = new/list()
 
-	if(hasvar(src,"back")) if(src:back) items += src:back
-	if(hasvar(src,"belt")) if(src:belt) items += src:belt
-	if(hasvar(src,"l_ear")) if(src:l_ear) items += src:l_ear
-	if(hasvar(src,"r_ear")) if(src:r_ear) items += src:r_ear
-	if(hasvar(src,"glasses")) if(src:glasses) items += src:glasses
-	if(hasvar(src,"gloves")) if(src:gloves) items += src:gloves
-	if(hasvar(src,"head")) if(src:head) items += src:head
-	if(hasvar(src,"shoes")) if(src:shoes) items += src:shoes
-	if(hasvar(src,"wear_id")) if(src:wear_id) items += src:wear_id
-	if(hasvar(src,"wear_mask")) if(src:wear_mask) items += src:wear_mask
-	if(hasvar(src,"wear_suit")) if(src:wear_suit) items += src:wear_suit
-//	if(hasvar(src,"w_radio")) if(src:w_radio) items += src:w_radio  commenting this out since headsets go on your ears now PLEASE DON'T BE MAD KEELIN
-	if(hasvar(src,"w_uniform")) if(src:w_uniform) items += src:w_uniform
+// This *might* start getting excessively confusing
+// `unEquip` removes an object from a slot, and calls `dropped` on it - even
+// if it's going immediately back in your hand
 
-	//if(hasvar(src,"l_hand")) if(src:l_hand) items += src:l_hand
-	//if(hasvar(src,"r_hand")) if(src:r_hand) items += src:r_hand
+// Use `unEquip` if you are moving an item from one spot to another
+// use `drop_specific_item/slot` if you just want it to go on the floor
 
-	return items
+// `unEquip` is used to make a mob drop something, but it is also
+// called when moving items within your inventory
+// This proc is for the latter case
+
+// Returns 1 if the slot is now empty, 0 otherwise
+/mob/proc/drop_specific_item(obj/item/I, force = FALSE)
+	if(!loc.allow_drop())
+		return 0
+	return unEquip(I, force)
+
+/mob/proc/drop_slot(slot, force = FALSE)
+	return drop_specific_item(get_item_by_slot(slot), force)
 
 /obj/item/proc/equip_to_best_slot(mob/M)
 	if(src != M.get_active_hand())
 		to_chat(M, "<span class='warning'>You are not holding anything to equip!</span>")
+		return 0
+	if(M.loc && !M.loc.allow_inventory())
+		to_chat(M, "<span class='warning'>You cannot use items in your current location.</span>")
 		return 0
 
 	if(M.equip_to_appropriate_slot(src))
@@ -199,6 +200,15 @@
 /mob/proc/get_all_slots()
 	return list(wear_mask, back, l_hand, r_hand)
 
+/mob/proc/get_worn_slots()
+	return get_all_slots() - get_storage_slots()
+
+// A list of slots that are just for storage, and not worn
+// So that you can't, for example, hold a rad suit in your hand, and be fine
+// from partyin' with the supermatter
+/mob/proc/get_storage_slots()
+	return list(l_hand, r_hand)
+
 /mob/proc/get_id_card()
 	for(var/obj/item/I in get_all_slots())
 		. = I.GetID()
@@ -212,3 +222,25 @@
 		if(slot_r_hand)
 			return r_hand
 	return null
+
+// Called when a mob moves from a spot where dropping is forbidden, to a spot
+// where dropping is allowed - so taking off your jumpsuit in a mech doesn't let
+// your ID stay on - or let you carry a large O2 tank in suit storage without
+// the hardsuit itself
+/mob/proc/update_item_drops()
+	for(var/i in 1 to slots_amt)
+		var/obj/item/I = get_item_by_slot(i)
+		if(I && !check_slot_validity(I, i))
+			drop_specific_item(I)
+	return
+
+/mob/proc/check_slot_validity(obj/item/I, slot, disable_warning = TRUE)
+	switch(slot)
+		if(slot_wear_mask)
+			if(!(I.slot_flags & SLOT_MASK))
+				return 0
+
+		if(slot_back)
+			if(!(I.slot_flags & SLOT_BACK))
+				return 0
+	return 1

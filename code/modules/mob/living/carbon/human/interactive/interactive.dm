@@ -557,7 +557,7 @@
 		if(BP.can_be_inserted(I))
 			BP.handle_item_insertion(I)
 	else
-		unEquip(I,TRUE)
+		drop_specific_item(I,TRUE)
 	update_hands = 1
 
 /mob/living/carbon/human/interactive/proc/targetRange(towhere)
@@ -714,7 +714,7 @@
 				take_to_slot(C,1)
 				if(!equip_to_appropriate_slot(C))
 					var/obj/item/I = get_item_by_slot(C)
-					unEquip(I)
+					drop_specific_item(I)
 					spawn(5)
 						equip_to_appropriate_slot(C)
 			update_hands = 1
@@ -920,7 +920,7 @@
 /mob/living/carbon/human/interactive/proc/npcDrop(obj/item/A, blacklist = 0)
 	if(blacklist)
 		blacklistItems += A
-	unEquip(A)
+	. = drop_specific_item(A)
 	enforce_hands()
 	update_icons()
 

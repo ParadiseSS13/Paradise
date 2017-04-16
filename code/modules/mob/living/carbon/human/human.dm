@@ -800,7 +800,7 @@
 			if(do_mob(usr, src, POCKET_STRIP_DELAY/delay_denominator)) //placing an item into the pocket is 4 times faster
 				if(pocket_item)
 					if(pocket_item == (pocket_id == slot_r_store ? r_store : l_store)) //item still in the pocket we search
-						unEquip(pocket_item)
+						drop_specific_item(pocket_item)
 						if(thief_mode)
 							usr.put_in_hands(pocket_item)
 						add_logs(usr, src, "stripped", addition="of [pocket_item]", print_attack_log = isLivingSSD(src))
@@ -1399,10 +1399,10 @@
 	if(HULK in mutations)
 		say(pick(";RAAAAAAAARGH!", ";HNNNNNNNNNGGGGGGH!", ";GWAAAAAAAARRRHHH!", "NNNNNNNNGGGGGGGGHH!", ";AAAAAAARRRGH!" ))
 		if(..(I, cuff_break = 1))
-			unEquip(I)
+			drop_specific_item(I)
 	else
 		if(..())
-			unEquip(I)
+			drop_specific_item(I)
 
 /mob/living/carbon/human/get_visible_implants(var/class = 0)
 
@@ -1916,7 +1916,7 @@
 	if(current_size >= STAGE_THREE)
 		var/list/handlist = list(l_hand, r_hand)
 		for(var/obj/item/hand in handlist)
-			if(prob(current_size * 5) && hand.w_class >= ((11-current_size)/2)	&& unEquip(hand))
+			if(prob(current_size * 5) && hand.w_class >= ((11-current_size)/2)	&& drop_specific_item(hand))
 				step_towards(hand, src)
 				to_chat(src, "<span class='warning'>\The [S] pulls \the [hand] from your grip!</span>")
 	apply_effect(current_size * 3, IRRADIATE)
@@ -1938,7 +1938,7 @@
 
 /mob/living/carbon/human/get_permeability_protection()
 	var/list/prot = list("hands"=0, "chest"=0, "groin"=0, "legs"=0, "feet"=0, "arms"=0, "head"=0)
-	for(var/obj/item/I in get_equipped_items())
+	for(var/obj/item/I in get_worn_slots())
 		if(I.body_parts_covered & HANDS)
 			prot["hands"] = max(1 - I.permeability_coefficient, prot["hands"])
 		if(I.body_parts_covered & UPPER_TORSO)

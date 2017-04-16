@@ -649,8 +649,7 @@
 	what.add_fingerprint(src)
 	if(do_mob(src, who, what.strip_delay))
 		if(what && what == who.get_item_by_slot(where) && Adjacent(who))
-			who.unEquip(what)
-			if(silent)
+			if(silent && who.drop_specific_item(what))
 				put_in_hands(what)
 			add_logs(src, who, "stripped", addition="of [what]", print_attack_log = isLivingSSD(who))
 

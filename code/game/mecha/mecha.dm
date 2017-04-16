@@ -634,6 +634,12 @@
 	mechas_list -= src //global mech list
 	return ..()
 
+/obj/mecha/allow_inventory()
+	return TRUE
+
+/obj/spacepod/allow_drop()
+	return FALSE
+
 /obj/mecha/ex_act(severity)
 	log_message("Affected by explosion of severity: [severity].",1)
 	if(prob(deflect_chance))
@@ -1099,7 +1105,6 @@
 	log_message("Now taking air from [use_internal_tank?"internal airtank":"environment"].")
 	return
 
-
 /obj/mecha/MouseDrop_T(mob/M, mob/user)
 	if(user.incapacitated())
 		return
@@ -1232,6 +1237,10 @@
 
 /obj/mecha/proc/pilot_mmi_hud(var/mob/living/carbon/brain/pilot)
 	return
+
+// Stuff that belongs inside the mech, as opposed to stuff that fell while inside the mech
+/obj/mecha/proc/get_intended_components()
+	return list(cell, radio, internal_tank, occupant) + equipment
 
 /obj/mecha/verb/view_stats()
 	set name = "View Stats"

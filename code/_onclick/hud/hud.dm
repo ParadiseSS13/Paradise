@@ -181,6 +181,16 @@
 /datum/hud/proc/persistant_inventory_update()
 	return
 
+/datum/hud/proc/hide_inventory()
+	inventory_shown = 0
+	mymob.client.screen -= toggleable_inventory
+	hidden_inventory_update()
+
+/datum/hud/proc/show_inventory()
+	inventory_shown = 1
+	mymob.client.screen += toggleable_inventory
+	hidden_inventory_update()
+
 //Triggered when F12 is pressed (Unless someone changed something in the DMF)
 /mob/verb/button_pressed_F12()
 	set name = "F12"

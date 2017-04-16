@@ -365,6 +365,12 @@
 		to_chat(user, "\blue You're a robot. No.")
 		return 1//Robots can't interact with storage items.
 
+	// This can be moved up to general `attackby` once storage pick-up is moved
+	// to its `afterattack`
+	if(user && user.loc && !user.loc.allow_inventory())
+		// no afterattack
+		return 1
+
 	if(!can_be_inserted(W))
 		return 0
 

@@ -357,14 +357,17 @@
 	last_special = world.time + 200
 
 	//I'm not sure how much of this is necessary, but I would rather avoid issues.
-	force_fold_out()
+	if(try_fold_out())
+		visible_message("<span class=notice>[src] folds outwards, expanding into a mobile form.</span>", "<span class=notice>You fold outwards, expanding into a mobile form.</span>")
+	else
+		to_chat(src, "<span class=warning>You are unable to fold out!</span>")
 
-	visible_message("<span class=notice>[src] folds outwards, expanding into a mobile form.</span>", "<span class=notice>You fold outwards, expanding into a mobile form.</span>")
-
-/mob/living/silicon/pai/proc/force_fold_out()
+// 1 on success, 0 on failure
+/mob/living/silicon/pai/proc/try_fold_out(force = FALSE)
 	if(istype(card.loc, /mob))
 		var/mob/holder = card.loc
-		holder.unEquip(card)
+		if(!holder.drop_specific_item(card, force = force))
+			return 0
 	else if(istype(card.loc, /obj/item/device/pda))
 		var/obj/item/device/pda/holder = card.loc
 		holder.pai = null
@@ -373,6 +376,7 @@
 
 	card.forceMove(src)
 	card.screen_loc = null
+	return 1
 
 /mob/living/silicon/pai/verb/fold_up()
 	set category = "pAI Commands"

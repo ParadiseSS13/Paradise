@@ -55,6 +55,10 @@
 		overlays = null
 		overlays += image("icon" = "mecha.dmi", "icon_state" = "ripley-g-full")
 
+
+/obj/mecha/working/ripley/get_intended_components()
+	return ..() + cargo
+
 /obj/mecha/working/ripley/firefighter
 	desc = "Standart APLU chassis was refitted with additional thermal protection and cistern."
 	name = "APLU \"Firefighter\""

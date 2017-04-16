@@ -138,9 +138,14 @@
 */
 
 
-
+// Default is to prevent dropping items when you can't touch your inventory
 /atom/proc/allow_drop()
-	return 1
+	return allow_inventory()
+
+// Whether or not mobs are allowed to twiddle with
+// their inventory while inside this atom
+/atom/proc/allow_inventory()
+	return TRUE
 
 /atom/proc/CheckExit()
 	return 1

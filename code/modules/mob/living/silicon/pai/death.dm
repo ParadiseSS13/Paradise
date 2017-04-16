@@ -3,7 +3,7 @@
 		return
 
 	if(!cleanWipe)
-		force_fold_out()
+		try_fold_out(force = TRUE)
 
 	var/turf/T = get_turf_or_move(loc)
 	for(var/mob/M in viewers(T))

@@ -257,8 +257,6 @@
 		return 1
 	if(usr.stat || usr.paralysis || usr.stunned || usr.weakened)
 		return 1
-	if(istype(usr.loc,/obj/mecha)) // stops inventory actions in a mech
-		return 1
 	if(master)
 		var/obj/item/I = usr.get_active_hand()
 		if(I)
@@ -367,8 +365,6 @@
 		return 1
 	if(usr.incapacitated())
 		return 1
-	if(istype(usr.loc,/obj/mecha)) // stops inventory actions in a mech
-		return 1
 	if(usr.attack_ui(slot_id))
 		usr.update_inv_l_hand(0)
 		usr.update_inv_r_hand(0)
@@ -405,8 +401,6 @@
 	if(world.time <= usr.next_move)
 		return 1
 	if(usr.incapacitated())
-		return 1
-	if(istype(usr.loc,/obj/mecha)) // stops inventory actions in a mech
 		return 1
 
 	if(ismob(usr))
