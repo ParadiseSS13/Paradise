@@ -1,0 +1,4 @@
+author: "Twinmold93"
+delete-after: True
+changes: 
+  - bugfix: "Missing sprite for pod pilot Drask now added."
