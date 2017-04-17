@@ -531,17 +531,26 @@
 	//unbuckling yourself
 	if(buckled && last_special <= world.time)
 		resist_buckle()
+		return
 
 	//Breaking out of a container (Locker, sleeper, cryo...)
-	else if(isobj(loc))
+	if(isobj(loc))
 		var/obj/C = loc
 		C.container_resist(src)
+		return
 
-	else if(canmove)
+	if(attempt_vr(src, "vore_resist", args))
+		return TRUE
+
+	if(canmove)
 		if(on_fire)
 			resist_fire() //stop, drop, and roll
-		else if(last_special <= world.time)
+			return
+		if(last_special <= world.time)
 			resist_restraints() //trying to remove cuffs.
+			return
+
+
 
 /*////////////////////
 	RESIST SUBPROCS

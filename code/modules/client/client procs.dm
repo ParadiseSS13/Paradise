@@ -402,6 +402,8 @@
 	if(!tooltips)
 		tooltips = new /datum/tooltip(src)
 
+	hook_vr("client_new", list(src))
+
 //////////////
 //DISCONNECT//
 //////////////

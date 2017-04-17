@@ -17,6 +17,8 @@
 	user.changeNext_move(CLICK_CD_MELEE)
 	if(attempt_harvest(I, user))
 		return
+	if(attempt_vr(src, "vore_attackby", args))
+		return
 	I.attack(src, user)
 
 

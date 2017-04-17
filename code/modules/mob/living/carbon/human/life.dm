@@ -289,9 +289,9 @@
 		breath = get_breath_from_internal(BREATH_VOLUME)
 
 		if(!breath)
-			if(isobj(loc)) //Breathe from loc as object
-				var/obj/loc_as_obj = loc
-				breath = loc_as_obj.handle_internal_lifeform(src, BREATH_MOLES)
+			if(ismovableatom(loc)) //Breathe from loc as object
+				var/atom/movable/loc_as_am = loc
+				breath = loc_as_am.handle_internal_lifeform(src, BREATH_MOLES)
 
 			else if(isturf(loc)) //Breathe from loc as turf
 				var/breath_moles = 0
@@ -306,9 +306,9 @@
 							rupture_lung()																				// GOD FUCKING DAMNIT
 
 		else //Breathe from loc as obj again
-			if(istype(loc, /obj/))
-				var/obj/loc_as_obj = loc
-				loc_as_obj.handle_internal_lifeform(src,0)
+			if(ismovableatom(loc)) //Breathe from loc as object
+				var/atom/movable/loc_as_am = loc
+				breath = loc_as_am.handle_internal_lifeform(src, 0)
 
 	check_breath(breath)
 
