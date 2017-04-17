@@ -1,4 +1,0 @@
-author: "Kyep"
-delete-after: True
-changes: 
-  - rscdel: "Plasma dust no longer creates plasma gas on objects or turfs during reactions."
