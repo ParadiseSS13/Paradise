@@ -54,6 +54,22 @@ obj/structure/transit_tube/ex_act(severity)
 		init_dirs()
 
 
+/obj/structure/transit_tube/CanPass(atom/movable/mover, turf/target)
+	if(istype(mover) && mover.checkpass(PASSGLASS))
+		return 1
+
+	if(istype(mover, /obj/spacepod))//spacepods get an exception because they otherwise could get completely stuck
+		return 1
+
+	if(locate(/obj/structure/transit_tube) in mover.loc)
+		mover << "<span class='warning'>\The [src]'s support pylons block your way.</span>"
+		return 0
+
+	else
+		mover << "<span class='notice'>You slip under \the [src].</span>"
+		return 1
+
+
 // Called to check if a pod should stop upon entering this tube.
 /obj/structure/transit_tube/proc/should_stop_pod(pod, from_dir)
 	return 0
