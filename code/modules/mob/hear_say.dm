@@ -10,6 +10,8 @@
 			//Or someone snoring.  So we make it where they won't hear it.
 			return 0
 
+	message = capitalize(message)
+
 	//make sure the air can transmit speech - hearer's side
 	var/turf/T = get_turf(src)
 	if(T && !isobserver(src))
