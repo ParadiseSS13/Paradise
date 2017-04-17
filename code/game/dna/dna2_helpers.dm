@@ -132,8 +132,11 @@
 		dna.check_integrity()
 		var/mob/living/carbon/human/H = src
 		var/obj/item/organ/external/head/head_organ = H.get_organ("head")
+		var/obj/item/organ/internal/eyes/eye_organ = H.get_int_organ(/obj/item/organ/internal/eyes)
 		var/datum/species/S = H.species
 		dna.write_head_attributes(head_organ)
+		dna.write_eyes_attributes(eye_organ)
+		H.update_eyes()
 
 		H.r_skin		= dna.GetUIValueRange(DNA_UI_SKIN_R,	255)
 		H.g_skin		= dna.GetUIValueRange(DNA_UI_SKIN_G,	255)
