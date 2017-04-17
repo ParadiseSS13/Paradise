@@ -395,12 +395,16 @@ var/ert_request_answered = 0
 
 	belt = /obj/item/weapon/gun/energy/gun/nuclear
 
+	r_hand = /obj/item/weapon/gun/rocketlauncher
+
 	backpack_contents = list(
 		/obj/item/clothing/head/helmet/space/hardsuit/ert/commander = 1,
 		/obj/item/clothing/mask/gas/sechailer/swat = 1,
 		/obj/item/weapon/restraints/handcuffs = 1,
 		/obj/item/weapon/storage/lockbox/mindshield = 1,
-		/obj/item/weapon/gun/energy/pulse/pistol = 1
+		/obj/item/weapon/gun/energy/pulse/pistol = 1,
+		/obj/item/weapon/shield/energy = 1,
+		/obj/item/ammo_casing/rocket = 3
 		)
 
 /datum/outfit/job/centcom/response_team/security
@@ -449,12 +453,17 @@ var/ert_request_answered = 0
 	glasses = /obj/item/clothing/glasses/hud/security/sunglasses
 
 	r_hand = /obj/item/weapon/gun/energy/lasercannon
+	l_hand = /obj/item/weapon/shield/riot
+
+	l_pocket = /obj/item/ammo_box/magazine/m10mm
+	r_pocket = /obj/item/ammo_box/magazine/m10mm
 
 	backpack_contents = list(
 		/obj/item/clothing/head/helmet/space/hardsuit/ert/security = 1,
 		/obj/item/clothing/mask/gas/sechailer = 1,
 		/obj/item/weapon/storage/box/handcuffs = 1,
-		/obj/item/weapon/gun/energy/ionrifle/carbine = 1
+		/obj/item/weapon/gun/energy/ionrifle/carbine = 1,
+		/obj/item/weapon/gun/projectile/automatic/pistol = 1
 	)
 
 /datum/outfit/job/centcom/response_team/security/gamma
@@ -465,14 +474,21 @@ var/ert_request_answered = 0
 	suit = /obj/item/clothing/suit/space/hardsuit/ert/security
 	suit_store = /obj/item/weapon/gun/energy/gun/nuclear
 	glasses = /obj/item/clothing/glasses/hud/security/night
+	mask = /obj/item/clothing/mask/gas/sechailer/swat
 
-	r_hand = /obj/item/weapon/gun/energy/pulse/carbine
+	l_pocket = /obj/item/ammo_box/magazine/m556
+	r_pocket = /obj/item/ammo_box/magazine/m556
+
+	r_hand = /obj/item/weapon/gun/projectile/shotgun/automatic/combat
 
 	backpack_contents = list(
 		/obj/item/clothing/head/helmet/space/hardsuit/ert/security = 1,
-		/obj/item/clothing/mask/gas/sechailer/swat = 1,
+		/obj/item/ammo_box/magazine/m556 = 3,
 		/obj/item/weapon/storage/box/handcuffs = 1,
-		/obj/item/weapon/gun/energy/ionrifle/carbine = 1
+		/obj/item/weapon/gun/energy/ionrifle/carbine = 1,
+		/obj/item/weapon/gun/projectile/automatic/ar = 1,
+		/obj/item/ammo_box/shotgun/buck = 2,
+		/obj/item/weapon/shield/energy = 1
 	)
 
 /datum/outfit/job/centcom/response_team/engineer
@@ -525,7 +541,7 @@ var/ert_request_answered = 0
 /datum/outfit/job/centcom/response_team/engineer/gamma
 	name = "RT Engineer (Gamma)"
 	shoes = /obj/item/clothing/shoes/magboots/advance
-	gloves = /obj/item/clothing/gloves/color/yellow
+	gloves = /obj/item/clothing/gloves/combat
 	suit = /obj/item/clothing/suit/space/hardsuit/ert/engineer
 	suit_store = /obj/item/weapon/tank/emergency_oxygen/double/full
 	glasses = /obj/item/clothing/glasses/meson/night
@@ -538,7 +554,9 @@ var/ert_request_answered = 0
 		/obj/item/clothing/mask/gas/sechailer/swat = 1,
 		/obj/item/weapon/rcd/combat = 1,
 		/obj/item/weapon/rcd_ammo/large = 3,
-		/obj/item/weapon/gun/energy/pulse/pistol = 1
+		/obj/item/weapon/gun/projectile/automatic/lasercarbine = 1,
+		/obj/item/ammo_box/magazine/laser = 2,
+		/obj/item/weapon/shield/energy = 1
 	)
 
 /datum/outfit/job/centcom/response_team/medic
@@ -609,7 +627,9 @@ var/ert_request_answered = 0
 		/obj/item/clothing/head/helmet/space/hardsuit/ert/medical = 1,
 		/obj/item/clothing/mask/gas/sechailer/swat = 1,
 		/obj/item/weapon/storage/firstaid/surgery = 1,
-		/obj/item/weapon/gun/energy/pulse/pistol = 1
+		/obj/item/weapon/gun/projectile/automatic/lasercarbine = 1,
+		/obj/item/ammo_box/magazine/laser = 2,
+		/obj/item/weapon/shield/energy = 1
 	)
 
 /obj/item/device/radio/centcom
