@@ -1,5 +1,0 @@
-author: "KasparoVy"
-delete-after: True
-changes: 
-  - rscadd: "Adds secondary (facial) hair colours to the genome (UI). There are 6 new blocks."
-  - bugfix: "Characters with secondary (facial) hair colours won't find they've turned black after cloning anymore."
