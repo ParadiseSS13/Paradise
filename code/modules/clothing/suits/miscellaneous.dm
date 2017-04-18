@@ -457,6 +457,7 @@
 	icon_state = "black_hoodie"
 	item_state = "blueshieldcoat"
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|ARMS
+	allowed = list(/obj/item/device/flashlight)
 	hoodtype = /obj/item/clothing/head/hood
 	species_fit = list("Vox")
 	sprite_sheets = list(
