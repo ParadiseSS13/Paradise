@@ -231,7 +231,7 @@
 			if(isobj(A))
 				if(A.density && !A.throwpass)	// **TODO: Better behaviour for windows which are dense, but shouldn't always stop movement
 					src.throw_impact(A,speed)
-					
+
 /atom/movable/proc/throw_at_fast(atom/target, range, speed, thrower, no_spin)
 	set waitfor = 0
 	throw_at(target, range, speed, thrower, no_spin)
@@ -387,3 +387,6 @@
 				dense_object_backup = AM
 				break
 	. = dense_object_backup
+
+/atom/movable/proc/handle_internal_lifeform(mob/M, breath_volume)
+	return

@@ -2016,6 +2016,7 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 				if("reload")
 					load_preferences(user)
 					load_character(user)
+					attempt_vr(user.client.prefs_vr, "load_vore", "")
 
 				if("open_load_dialog")
 					if(!IsGuestKey(user.key))
@@ -2030,6 +2031,7 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 						random_character()
 						real_name = random_name(gender)
 						save_character(user)
+					attempt_vr(user.client.prefs_vr, "load_vore", "")
 					close_load_dialog(user)
 
 				if("tab")

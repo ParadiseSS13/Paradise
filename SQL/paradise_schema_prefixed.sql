@@ -531,3 +531,22 @@ CREATE TABLE `SS13_memo` (
   PRIMARY KEY (`ckey`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `SS13_vore`
+--
+
+DROP TABLE IF EXISTS `SS13_vore`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `SS13_vore` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `ckey` varchar(32) NOT NULL,
+  `slot` int(2) NOT NULL,
+  `digestable` tinyint(1) NOT NULL,
+  `belly_prefs` mediumtext NOT NULL,
+  `vore_taste` mediumtext NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `ckey` (`ckey`)
+) ENGINE=InnoDB AUTO_INCREMENT=32446 DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
