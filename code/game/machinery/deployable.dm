@@ -136,6 +136,8 @@ for reference:
 	icon = 'icons/obj/structures.dmi'
 	icon_state = "woodenbarricade"
 	stacktype = /obj/item/stack/sheet/wood
+	burn_state = FLAMMABLE
+	burntime = 25
 
 /obj/structure/barricade/mime
 	name = "floor"

@@ -5,6 +5,8 @@
 	icon_state = "dresser"
 	density = 1
 	anchored = 1
+	burn_state = FLAMMABLE
+	burntime = 25
 
 /obj/structure/dresser/attack_hand(mob/user as mob)
 	if(!Adjacent(user))//no tele-grooming
