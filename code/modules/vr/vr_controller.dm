@@ -60,3 +60,4 @@ proc/spawn_vr_avatar(mob/living/carbon/human/H, datum/vr_room/room)
 //Preloaded rooms
 /hook/roundstart/proc/starting_levels()
 	make_vr_room("Lobby", "lobby", 0)
+	return 1

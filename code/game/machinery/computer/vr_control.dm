@@ -27,6 +27,7 @@
 	switch(alert("What would you like to do?", "VR Control", "Join Room", "Make Room", "Cancel"))
 		if("Join Room")
 			spawn_vr_avatar(user, input(user, "Choose a room to join.","Select Level") as null|anything in vr_rooms)
+			qdel(user)
 		if("Make Room")
 			make_vr_room(input(user, "Name your new Room","Name here.") as null|text, input(user, "Choose a Level to load into your new Room.","Select Level") as null|anything in vr_templates)
 		if("Cancel")
