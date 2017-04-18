@@ -1,4 +1,0 @@
-author: "Krausus"
-delete-after: True
-changes: 
-  - bugfix: "You can no longer squeeze non-match objects into matchboxes."
