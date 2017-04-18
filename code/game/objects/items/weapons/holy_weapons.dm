@@ -283,7 +283,7 @@
 
 /obj/item/weapon/nullrod/whip
 	name = "holy whip"
-	desc = "What a terrible night to be on Space Station 13."
+	desc = "What a terrible night to be on the Cyberiad!"
 	icon_state = "chain"
 	item_state = "chain"
 	slot_flags = SLOT_BELT
