@@ -36,8 +36,8 @@
 /mob/living/carbon/human/virtual_reality/proc/revert_to_reality(remove = 0)
 	if(real_me && mind)
 		mind.transfer_to(real_me)
-		real_me.eye_blind = 2
-		real_me.confused = 2
+		real_me.EyeBlind(2)
+		real_me.Confused(2)
 		if(remove)
 			qdel(src)
 		else
