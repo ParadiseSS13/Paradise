@@ -141,7 +141,7 @@
 			if(pod.efficiency > 5)
 				canpodautoprocess = 1
 
-			tempods.Add(list(list("pod" = "\ref[pod]", "name" = sanitize(capitalize(pod.name)), "biomass" = pod.biomass)))
+			tempods.Add(list(list("pod" = "\ref[pod]", "name" = sanitize(capitalize(pod.name)), "biomass" = pod.meat_level)))
 			data["pods"] = tempods
 
 	data["loading"] = loading
@@ -178,7 +178,7 @@
 			data["realname"] = sanitize(src.active_record.dna.real_name)
 			data["unidentity"] = src.active_record.dna.uni_identity
 			data["strucenzymes"] = src.active_record.dna.struc_enzymes
-		if(selected_pod && (selected_pod in pods) && selected_pod.biomass >= CLONE_BIOMASS)
+		if(selected_pod && (selected_pod in pods) && selected_pod.meat_level >= MEAT_NEEDED_TO_CLONE)
 			data["podready"] = 1
 		else
 			data["podready"] = 0
@@ -314,7 +314,7 @@
 					temp = "<span class=\"bad\">Error: No cloning pod selected.</span>"
 				else if(pod.occupant)
 					temp = "<span class=\"bad\">Error: The cloning pod is currently occupied.</span>"
-				else if(pod.biomass < CLONE_BIOMASS)
+				else if(pod.meat_level <= MEAT_NEEDED_TO_CLONE)
 					temp = "<span class=\"bad\">Error: Not enough biomass.</span>"
 				else if(pod.mess)
 					temp = "<span class=\"bad\">Error: The cloning pod is malfunctioning.</span>"

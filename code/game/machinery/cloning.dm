@@ -3,8 +3,13 @@
 
 //Potential replacement for genetics revives or something I dunno (?)
 
-#define CLONE_BIOMASS 150
-#define BIOMASS_MEAT_AMOUNT 50
+//#define CLONE_BIOMASS 150
+//#define BIOMASS_MEAT_AMOUNT 50
+#define MEAT_NEEDED_TO_CLONE	16
+#define MAXIMUM_MEAT_LEVEL		100
+#define MEAT_USED_PER_TICK		0.6
+#define MEAT_LOW_LEVEL			MAXIMUM_MEAT_LEVEL * 0.15
+#define MAX_FAILED_CLONE_TICKS	200 // vOv
 
 /obj/machinery/clonepod
 	anchored = 1
@@ -21,7 +26,11 @@
 	var/mess = 0 //Need to clean out it if it's full of exploded clone.
 	var/attempting = 0 //One clone attempt at a time thanks
 	var/eject_wait = 0 //Don't eject them as soon as they are created fuckkk
-	var/biomass = 0
+	//var/biomass = 0
+
+	var/meat_level = 0
+	var/failed_tick_counter = 0 // goes up while someone is stuck in there and there's not enough meat to clone them, after so many ticks they'll get dumped out
+
 	var/speed_coeff
 	var/efficiency
 
@@ -43,7 +52,7 @@
 		set_light(0)
 
 /obj/machinery/clonepod/biomass
-	biomass = CLONE_BIOMASS
+	meat_level = MAXIMUM_MEAT_LEVEL / 4
 
 /obj/machinery/clonepod/New()
 	..()
@@ -52,6 +61,8 @@
 	Radio = new /obj/item/device/radio(src)
 	Radio.listening = 0
 	Radio.config(list("Medical" = 0))
+
+	create_reagents(100)
 
 	component_parts = list()
 	component_parts += new /obj/item/weapon/circuitboard/clonepod(null)
@@ -76,7 +87,7 @@
 	component_parts += new /obj/item/weapon/stock_parts/console_screen(null)
 	component_parts += new /obj/item/stack/cable_coil(null, 1)
 	component_parts += new /obj/item/stack/cable_coil(null, 1)
-	biomass = CLONE_BIOMASS
+	meat_level = MAXIMUM_MEAT_LEVEL / 4
 	RefreshParts()
 
 /obj/machinery/clonepod/Destroy()
@@ -181,6 +192,14 @@
 	..()
 	if(mess)
 		to_chat(user, "It's filled with blood and viscera. You swear you can see it moving...")
+
+	to_chat(user, "Biomatter reserves are [round(100 * meat_level / MAXIMUM_MEAT_LEVEL)]% full.")
+
+	if(meat_level <= 0)
+		to_chat(user, "<span class='warning'>Alert: Biomatter reserves depleted.</span>")
+	else if(meat_level <= MEAT_LOW_LEVEL)
+		to_chat(user, "<span class='warning'>Alert: Biomatter reserves low.</span>")
+
 	if(!occupant || stat & (NOPOWER|BROKEN))
 		return
 	if(occupant && occupant.stat != DEAD)
@@ -217,13 +236,13 @@
 		if(!G)
 			return 0
 
-	if(biomass >= CLONE_BIOMASS)
-		biomass -= CLONE_BIOMASS
-	else
+	if(meat_level < MEAT_NEEDED_TO_CLONE)
+		connected_message("Insufficient biomatter to begin.")
 		return 0
 
 	attempting = 1 //One at a time!!
 	locked = 1
+	failed_tick_counter = 0 // make sure we start here
 	countdown.start()
 
 	eject_wait = 1
@@ -285,32 +304,46 @@
 
 	H.suiciding = 0
 	attempting = 0
+
+	if(reagents && reagents.total_volume)
+		reagents.reaction(occupant, 2, 1000)
+		reagents.trans_to(occupant, 1000)
+
 	return 1
 
 //Grow clones to maturity then kick them out.  FREELOADERS
 /obj/machinery/clonepod/process()
-	var/show_message = 0
-	for(var/obj/item/weapon/reagent_containers/food/snacks/meat/meat in range(1, src))
-		qdel(meat)
-		biomass += BIOMASS_MEAT_AMOUNT
-		show_message = 1
-	if(show_message)
-		visible_message("[src] sucks in and processes the nearby biomass.")
-
 	if(stat & NOPOWER) //Autoeject if power is lost
 		if(occupant)
 			locked = 0
 			go_out()
 			connected_message("Clone Ejected: Loss of power.")
+		return
 
-	else if((occupant) && (occupant.loc == src))
-		if((occupant.stat == DEAD) || (occupant.suiciding))  //Autoeject corpses and suiciding dudes.
+	if(occupant && occupant.loc == src)
+		if(occupant.stat == DEAD || occupant.suiciding) // Autoeject corpses and suiciding dudes.
 			locked = 0
 			announce_radio_message("The cloning of <b>[occupant]</b> has been aborted due to unrecoverable tissue failure.")
 			go_out()
 			connected_message("Clone Rejected: Deceased.")
+			return
 
-		else if(occupant.cloneloss > (100 - heal_level))
+		if(failed_tick_counter >= MAX_FAILED_CLONE_TICKS) // you been in there too long, get out
+			locked = 0
+			announce_radio_message("The cloning of <b>[occupant]</b> has been aborted due to low biomatter.")
+			go_out()
+			connected_message("Clone Ejected: Low Biomatter.")
+			return
+
+		if(meat_level <= 0)
+			failed_tick_counter++
+			if(failed_tick_counter == (MAX_FAILED_CLONE_TICKS / 2)) // halfway to ejection.
+				connected_message("Low Biomatter: Preparing to Eject Clone")
+				announce_radio_message("Low Biomatter: Preparing to Eject <b>[occupant]</b>")
+				use_power(200)
+				return
+
+		if(occupant.cloneloss > (100 - heal_level))
 			occupant.Paralyse(4)
 
 			 //Slowly get that clone healed and finished.
@@ -326,15 +359,24 @@
 			//Also heal some oxyloss ourselves just in case!!
 			occupant.adjustOxyLoss(-4)
 
+			meat_level = round(max(0, meat_level - MEAT_USED_PER_TICK), 0.1)
+			if(meat_level <= 0)
+				connected_message("Additional biomatter required to continue.")
+				announce_radio_message("Low Biomatter.")
+				visible_message("<span class='danger'>[src] emits an urgent boop!</span>")
+				playsound(loc, 'sound/machines/buzz-two.ogg', 50, 0)
+				failed_tick_counter++
+
 			use_power(7500) //This might need tweaking.
 
-		else if((occupant.cloneloss <= (100 - heal_level)) && (!eject_wait))
+		else if(occupant.cloneloss <= (100 - heal_level) && !eject_wait)
 			connected_message("Cloning Process Complete.")
 			announce_radio_message("The cloning cycle of <b>[occupant]</b> is complete.")
 			locked = 0
 			go_out()
+			return
 
-	else if((!occupant) || (occupant.loc != src))
+	else
 		occupant = null
 		if(locked)
 			locked = 0
@@ -366,13 +408,6 @@
 			locked = 0
 			to_chat(user, "System unlocked.")
 
-//Removing cloning pod biomass
-	else if(istype(W, /obj/item/weapon/reagent_containers/food/snacks/meat))
-		to_chat(user, "\blue \The [src] processes \the [W].")
-		biomass += BIOMASS_MEAT_AMOUNT
-		user.drop_item()
-		qdel(W)
-		return
 	else if(istype(W, /obj/item/weapon/wrench))
 		if(locked && (anchored || occupant))
 			to_chat(user, "\red Can not do that while [src] is in use.")
@@ -388,6 +423,7 @@
 				user.visible_message("[user] secures [src] to the floor.", "You secure [src] to the floor.")
 			else
 				user.visible_message("[user] unsecures [src] from the floor.", "You unsecure [src] from the floor.")
+
 	else if(istype(W, /obj/item/device/multitool))
 		var/obj/item/device/multitool/M = W
 		M.buffer = src
@@ -395,6 +431,17 @@
 		return
 	else
 		..()
+
+var/list/clonepod_accepted_reagents = list("blood" = 0.5, "synthflesh" = 1, "beff" = 0.75, "pepperoni" = 0.5, "meatslurry" = 1)
+/obj/machinery/clonepod/on_reagent_change()
+	for(var/datum/reagent/R in reagents.reagent_list)
+		if(R && R.id in clonepod_accepted_reagents)
+			meat_level = round(min(meat_level + (R.volume * clonepod_accepted_reagents[R.id]), MAXIMUM_MEAT_LEVEL), 0.1)
+			reagents.del_reagent(R.id)
+
+	if(occupant)
+		reagents.reaction(occupant, 1000) // why was there a 2 here? it was injecting ice cold reagents that burn people
+		reagents.trans_to(occupant, 1000)
 
 /obj/machinery/clonepod/emag_act(user)
 	if(isnull(occupant))
@@ -586,3 +633,153 @@
 		if(istype(A, /obj/machinery/clonepod))
 			A:malfunction()
 */
+
+//WHAT DO YOU WANT FROM ME(AT)
+/obj/machinery/clonegrinder
+	name = "enzymatic reclaimer"
+	desc = "A tank resembling a rather large blender, designed to recover biomatter for use in cloning."
+	icon = 'icons/goonstation/objects/cloning.dmi'
+	icon_state = "grinder0"
+	anchored = 1
+	density = 1
+
+	var/process_timer = 0
+	var/mob/living/occupant = null
+	var/list/meats = list() //Meat that we want to reclaim
+	var/max_meat = 4 //To be honest, I added the meat reclamation thing in part because I wanted a "max_meat" var.
+
+/obj/machinery/clonegrinder/New()
+	..()
+	create_reagents()
+	update_icon(1)
+
+/obj/machinery/clonegrinder/verb/eject()
+	set name = "Eject Grinder"
+	set category = "Object"
+	set src in oview(1)
+
+	if(!usr)
+		return
+	if(usr.incapacitated())
+		return
+	if(process_timer > 0)
+		return
+	go_out()
+	add_fingerprint(usr)
+
+/obj/machinery/clonegrinder/relaymove(mob/user)
+	go_out()
+
+/obj/machinery/clonegrinder/proc/go_out()
+	if(!occupant)
+		return
+	for(var/obj/O in src)
+		O.forceMove(get_turf(src))
+	occupant.forceMove(get_turf(src))
+	occupant = null
+
+/obj/machinery/clonegrinder/process()
+	if(process_timer-- < 1)
+		update_icon(1)
+
+		var/list/pods = list()
+		for(var/obj/machinery/clonepod/pod in orange(4, src))
+			pods += pod
+		if(pods.len)
+			for(var/obj/machinery/clonepod/pod in pods)
+				reagents.trans_to(pod, (reagents.total_volume / max(pods.len, 1))) // give an equal amount of reagents to each pod that happens to be around
+
+		return PROCESS_KILL
+
+	reagents.add_reagent("blood", 2)
+	reagents.add_reagent("meatslurry", 2)
+
+/obj/machinery/clonegrinder/on_reagent_change()
+	update_icon(0)
+
+/obj/machinery/clonegrinder/attack_hand(mob/user)
+	if(process_timer > 0)
+		to_chat(user, "<span class='warning'>[src] is already running!</span>")
+		return
+
+	if(!meats.len && !occupant)
+		to_chat(user, "<span class='warning'>There is nothing loaded to reclaim!</span>")
+		return
+
+	user.visible_message("<span class='notice'>[user] activates [src]!</span>", "<span class='notice'>You activate [src].</span>")
+	if(istype(occupant))
+		add_logs(user, occupant, "enzymatically reclaimed", print_attack_log = 0)
+		if(occupant.stat != DEAD && occupant.ckey)
+			msg_admin_attack("[key_name_admin(user)] activated [src] with [key_name_admin(occupant)] alive inside at [ADMIN_COORDJMP(src)]!")
+		occupant.death(1)
+
+		var/humanOccupant = !issmall(occupant)
+		if(occupant.mind)
+			occupant.ghostize()
+		qdel(occupant)
+
+		process_timer = (humanOccupant ? 2 : 1) * rand(4, 8)
+
+	if(meats.len)
+		for(var/obj/item/theMeat in meats)
+			if(theMeat.reagents)
+				theMeat.reagents.trans_to(src, 5)
+
+			qdel(theMeat)
+			process_timer += 2
+
+		meats.Cut()
+
+	update_icon(1)
+	addAtProcessing()
+
+/obj/machinery/clonegrinder/attackby(obj/item/I, mob/user, params)
+	if(process_timer > 0)
+		to_chat(user, "<span class='warning'>[src] is still running, hold your horses!</span>")
+		return
+
+	if(istype(I, /obj/item/weapon/reagent_containers/food/snacks/meat) || istype(I, /obj/item/organ))
+		if(meats.len >= max_meat)
+			to_chat(user, "<span class='danger'>There is already enough meat in there! You should not exceed the maximum safe meat level!</span>")
+			return
+
+		if(!user.unEquip(I))
+			return
+
+		meats += I
+		I.forceMove(src)
+		user.visible_message("<span class='notice'>[user] loads [I] into [src].", "<span class='notice'>You load [I] into [src].</span>")
+		return
+
+	if(istype(I, /obj/item/weapon/grab))
+		var/obj/item/weapon/grab/G = I
+		if(!iscarbon(G.affecting))
+			to_chat(user, "<span class='warning'>This item is not suitable for [src].</span>")
+			return
+		var/mob/living/carbon/C = G.affecting
+		if(occupant)
+			to_chat(user, "<span class='warning'>There is already somebody in there.</span>")
+			return
+
+		C.visible_message("<span class='danger'>[user] starts to put [C] into [src]!</span>", "<span class='userdanger'>[user] starts putting you into [src]!</span>")
+		add_fingerprint(user)
+		if(do_after(user, 30, target = C) && !occupant)
+			C.visible_message("<span class='danger'>[user] stuffs [C] into [src]!</span>", "<span class='userdanger'>[user] stuffs you into [src]!</span>")
+			add_logs(user, C, "put", addition = " into [src] at [COORD(src)]", print_attack_log = 0)
+			if(C.stat != DEAD && C.ckey)
+				msg_admin_attack("[key_name_admin(user)] forced [key_name_admin(C)] alive into [src] at [ADMIN_COORDJMP(src)]")
+			//C.unequip_all()
+			C.forceMove(src)
+			occupant = C
+			qdel(G)
+
+/obj/machinery/clonegrinder/update_icon(var/update_grindpaddle = 0)
+	var/fluid_level = ((reagents.total_volume >= (reagents.maximum_volume * 0.6)) ? 2 : (reagents.total_volume >= (reagents.maximum_volume * 0.2) ? 1 : 0))
+
+	icon_state = "grinder[fluid_level]"
+
+	if(update_grindpaddle)
+		overlays.Cut()
+		overlays += "grindpaddle[process_timer > 0 ? 1 : 0]"
+
+		overlays += "grindglass[fluid_level]"
