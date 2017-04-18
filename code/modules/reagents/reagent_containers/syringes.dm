@@ -18,6 +18,8 @@
 	sharp = 1
 	var/mode = SYRINGE_DRAW
 	var/projectile_type = /obj/item/projectile/bullet/dart/syringe
+	var/stealth = 0
+	var/bypass_protection = 0
 
 /obj/item/weapon/reagent_containers/syringe/New()
 	..()
@@ -64,7 +66,7 @@
 
 	if(isliving(target))
 		var/mob/living/M = target
-		if(!M.can_inject(user, 1))
+		if(!M.can_inject(user, 1, penetrate_thick = bypass_protection))
 			return
 
 	if(mode == SYRINGE_BROKEN)
@@ -105,7 +107,8 @@
 						time = 0
 					else
 						for(var/mob/O in viewers(world.view, user))
-							O.show_message(text("<span class='danger'>[] is trying to take a blood sample from []!</span>", user, target), 1)
+							if (stealth == 0)
+								O.show_message(text("<span class='danger'>[] is trying to take a blood sample from []!</span>", user, target), 1)
 					if(!do_mob(user, target, time))
 						return
 
@@ -132,9 +135,11 @@
 
 						to_chat(user, "\blue You take a blood sample from [target]")
 						for(var/mob/O in viewers(4, user))
-							O.show_message("\red [user] takes a blood sample from [target].", 1)
+							if (stealth == 0)
+								O.show_message("\red [user] takes a blood sample from [target].", 1)
 					else
-						user.visible_message("<span class='warning'>[user] takes a sample from [target].</span>", "<span class='notice'>You take a sample from [target].</span>")
+						if (stealth == 0)
+							user.visible_message("<span class='warning'>[user] takes a sample from [target].</span>", "<span class='notice'>You take a sample from [target].</span>")
 
 			else //if not mob
 				if(!target.reagents.total_volume)
@@ -183,12 +188,14 @@
 
 			if(ismob(target) && target != user)
 				for(var/mob/O in viewers(world.view, user))
-					O.show_message(text("<span class='danger'>[] is trying to inject []!</span>", user, target), 1)
+					if (stealth == 0)
+						O.show_message(text("<span class='danger'>[] is trying to inject []!</span>", user, target), 1)
 
 				if(!do_mob(user, target, 30)) return
 
 				for(var/mob/O in viewers(world.view, user))
-					O.show_message(text("\red [] injects [] with the syringe!", user, target), 1)
+					if (stealth == 0)
+						O.show_message(text("\red [] injects [] with the syringe!", user, target), 1)
 
 				if(istype(target,/mob/living))
 					var/mob/living/M = target
@@ -238,7 +245,7 @@
 		icon_state = "broken"
 		overlays.Cut()
 		return
-	var/rounded_vol = round(reagents.total_volume,5)
+	var/rounded_vol = round(reagents.total_volume,(volume/3))
 	overlays.Cut()
 	if(ismob(loc))
 		var/injoverlay
@@ -366,6 +373,36 @@
 		icon_state = "[rounded_vol]"
 	item_state = "syringe_[rounded_vol]"
 
+/obj/item/weapon/reagent_containers/syringe/cryo
+	..()
+	name = "Cryo Syringe"
+	desc = "A syringe supercooled to prevent chemical reaction. Due to the cooling system it has a lower than normal capacity."
+	volume = 10
+
+/obj/item/weapon/reagent_containers/syringe/cryo/New()
+	..()
+	reagents.set_reacting(FALSE)
+
+/obj/item/weapon/reagent_containers/syringe/bluespace
+	..()
+	name = "Bluespace Syringe"
+	desc = "A syringe that holds more than its size would suggest"
+	volume = 30
+	amount_per_transfer_from_this = 10
+
+/obj/item/weapon/reagent_containers/syringe/microneedle
+	..()
+	name = "Micro-Needle Syringe"
+	desc = "A syringe with a needle so thin you can hardly see it."
+	stealth = 1
+
+/obj/item/weapon/reagent_containers/syringe/armorpiercing
+	..()
+	name = "Armor-Piercing Syringe"
+	desc = "A syringe with a hyper-sharp, reinforced needle. Due to the reinforcing it has a lower than normal capacity."
+	bypass_protection = 1
+	volume = 10
+	projectile_type = /obj/item/projectile/bullet/dart/syringe/armorpiercing
 
 ////////////////////////////////////////////////////////////////////////////////
 /// Syringes. END

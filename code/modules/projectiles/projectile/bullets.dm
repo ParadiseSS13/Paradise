@@ -252,7 +252,7 @@
 	if(iscarbon(target))
 		var/mob/living/carbon/M = target
 		if(blocked != 100)
-			if(M.can_inject(null,0,hit_zone)) // Pass the hit zone to see if it can inject by whether it hit the head or the body.
+			if(M.can_inject(null,0,hit_zone,penetrate_thick = piercing)) // Pass the hit zone to see if it can inject by whether it hit the head or the body.
 				..()
 				reagents.reaction(M, INGEST)
 				reagents.trans_to(M, reagents.total_volume)
@@ -279,6 +279,9 @@
 	name = "syringe"
 	icon = 'icons/obj/chemical.dmi'
 	icon_state = "syringeproj"
+
+/obj/item/projectile/bullet/dart/syringe/armorpiercing
+	piercing = 1
 
 /obj/item/projectile/bullet/dart/syringe/tranquilizer
 /obj/item/projectile/bullet/dart/syringe/tranquilizer/New()
