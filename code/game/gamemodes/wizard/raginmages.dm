@@ -1,9 +1,8 @@
 /datum/game_mode/wizard/raginmages
 	name = "ragin' mages"
 	config_tag = "raginmages"
-	required_players = 20
+	required_players = 30
 	use_huds = 1
-	var/max_mages = 0
 	var/making_mage = 0
 	var/mages_made = 1
 	var/time_checked = 0
@@ -11,6 +10,8 @@
 	but_wait_theres_more = 1
 	var/delay_per_mage = 4200 // Every 7 minutes by default
 	var/time_till_chaos = 18000 // Half-hour in
+	var/wizard_cap = 0
+	var/max_mages = 0
 
 /datum/game_mode/wizard/raginmages/announce()
 	to_chat(world, "<B>The current game mode is - Ragin' Mages!</B>")
@@ -25,14 +26,13 @@
 	var/obj_count = 1
 	for(var/datum/objective/objective in wizard.objectives)
 		to_chat(wizard.current, "<B>Objective #[obj_count]</B>: [objective.explanation_text]")
-		obj_count++
-	to_chat(wizard.current, "<b>Objective Alpha</b>: Make sure the station pays for its actions against our diplomats")
 	return
 
 /datum/game_mode/wizard/raginmages/check_finished()
 	var/wizards_alive = 0
 	// Accidental pun!
-	var/wizard_cap = (max_mages || (num_players_started() / players_per_mage))
+	var/max_mages = (num_players_started() / players_per_mage)
+	var/wizard_cap = max_mages
 	for(var/datum/mind/wizard in wizards)
 		if(isnull(wizard.current))
 			continue
@@ -121,23 +121,25 @@
 	making_mage = 1
 	var/list/candidates = list()
 	var/mob/dead/observer/harry = null
-	spawn(rand(200, 600))
-		message_admins("SWF is still pissed, sending another wizard - [max_mages - mages_made] left.")
-		//Protip: This returns clients, not ghosts
-		candidates = get_candidate_ghosts(ROLE_WIZARD)
-		if(!candidates.len)
-			message_admins("No applicable clients for the next ragin' mage, asking ghosts instead.")
-			var/time_passed = world.time
-			for(var/mob/dead/observer/G in player_list)
-				if(!jobban_isbanned(G, "wizard") && !jobban_isbanned(G, "Syndicate"))
-					spawn(0)
-						switch(alert(G, "Do you wish to be considered for the position of Space Wizard Foundation 'diplomat'?","Please answer in 30 seconds!","Yes","No"))
-							if("Yes")
-								if((world.time-time_passed)>300)//If more than 30 game seconds passed.
+	if(wizard_cap)
+		spawn(rand(200, 600))
+			message_admins("SWF is still pissed, sending another wizard - [max_mages - mages_made] left.")
+			//Protip: This returns clients, not ghosts
+			candidates = get_candidate_ghosts(ROLE_WIZARD)
+			if(!candidates.len)
+				message_admins("No applicable clients for the next ragin' mage, asking ghosts instead.")
+				var/time_passed = world.time
+				for(var/mob/dead/observer/G in player_list)
+					if(!jobban_isbanned(G, "wizard") && !jobban_isbanned(G, "Syndicate"))
+						spawn(0)
+							switch(alert(G, "Do you wish to be considered for the position of Space Wizard Foundation 'diplomat'?","Please answer in 30 seconds!","Yes","No"))
+								if("Yes")
+									if((world.time-time_passed)>300)//If more than 30 game seconds passed.
+										wizard_cap--
+										continue
+									candidates += G
+								if("No")
 									continue
-								candidates += G
-							if("No")
-								continue
 			sleep(300)
 		if(!candidates.len)
 			message_admins("This is awkward, sleeping until another mage check...")
@@ -179,7 +181,7 @@
 	return new_character
 
 /datum/game_mode/wizard/raginmages/declare_completion()
-	if(finished)
+	if(!wizard_cap)
 		feedback_set_details("round_end_result","loss - wizard killed")
 		to_chat(world, "\red <FONT size = 3><B> The crew has managed to hold off the wizard attack! The Space Wizards Federation has been taught a lesson they will not soon forget!</B></FONT>")
 	..(1)
