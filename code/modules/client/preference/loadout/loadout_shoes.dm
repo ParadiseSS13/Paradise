@@ -24,3 +24,23 @@
 	display_name = "dress shoes"
 	cost = 5
 	path = /obj/item/clothing/shoes/centcom
+
+/datum/gear/shoes/cowboyboots
+	display_name = "cowboy boots"
+	cost = 1
+	path = /obj/item/clothing/shoes/cowboyboots
+
+/datum/gear/shoes/cowboyboots_black
+	display_name = "cowboy boots, black"
+	cost = 1
+	path = /obj/item/clothing/shoes/cowboyboots_black
+
+/datum/gear/shoes/cowboyboots_white
+	display_name = "cowboy boots, white"
+	cost = 1
+	path = /obj/item/clothing/shoes/cowboyboots_white
+
+/datum/gear/shoes/cowboyboots_pink
+	display_name = "cowboy boots, pink"
+	cost = 1
+	path = /obj/item/clothing/shoes/cowboyboots_pink

@@ -188,6 +188,30 @@
 	item_state = "fedora"
 	desc = "There's a new sheriff in town. Pass the whiskey."
 
+/obj/item/clothing/head/cowboyhat_brown
+	name = "cowboy hat"
+	icon_state = "cowboyhat_brown"
+	item_state = "cowboyhat_brown"
+	desc = "For the Rancher in us all."
+
+/obj/item/clothing/head/cowboyhat_black
+	name = "black cowboy hat"
+	icon_state = "cowboyhat_black"
+	item_state = "cowboyhat_black"
+	desc = "This station aint big enough for the two ah' us."
+
+/obj/item/clothing/head/cowboyhat_white
+	name = "white cowboy hat"
+	icon_state = "cowboyhat_white"
+	item_state = "cowboyhat_white"
+	desc = "Authentic Marshall hair case. Now ya can protect this here homestead. Navy Model not included."
+
+/obj/item/clothing/head/cowboyhat_pink
+	name = "cowgirl hat"
+	icon_state = "cowboyhat_pink"
+	item_state = "cowboyhat_pink"
+	desc = "For those buckle bunnies wanta' become a real buckaroo."
+
 /obj/item/clothing/head/fedora
 	name = "fedora"
 	icon_state = "fedora"
