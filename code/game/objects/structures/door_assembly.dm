@@ -13,6 +13,7 @@
 	var/glass_type = "/glass"
 	var/glass = 0 // 0 = glass can be installed. -1 = glass can't be installed. 1 = glass is already installed. Text = mineral plating is installed instead.
 	var/created_name = null
+	var/heat_proof_finished = 0 //whether to heat-proof the finished airlock
 
 /obj/structure/door_assembly/New()
 	update_state()
@@ -176,7 +177,11 @@
 				if(do_after(user, 40 * WT.toolspeed, target = src))
 					if(!src || !WT.isOn()) return
 					to_chat(user, "<span class='notice'>You welded the glass panel out!</span>")
-					new /obj/item/stack/sheet/rglass(src.loc)
+					if(heat_proof_finished)
+						new /obj/item/stack/sheet/rglass(get_turf(src))
+						heat_proof_finished = 0
+					else
+						new /obj/item/stack/sheet/glass(get_turf(src))
 					glass = 0
 			else if(!anchored)
 				user.visible_message("[user] disassembles the airlock assembly.", "You start to disassemble the airlock assembly.")
@@ -257,11 +262,15 @@
 		var/obj/item/stack/sheet/S = W
 		if(S)
 			if(S.amount>=1)
-				if(istype(S, /obj/item/stack/sheet/rglass))
+				if(istype(S, /obj/item/stack/sheet/rglass) || istype(S, /obj/item/stack/sheet/glass))
 					playsound(src.loc, S.usesound, 100, 1)
 					user.visible_message("[user] adds [S.name] to the airlock assembly.", "You start to install [S.name] into the airlock assembly.")
 					if(do_after(user, 40 * S.toolspeed, target = src))
-						to_chat(user, "<span class='notice'>You installed reinforced glass windows into the airlock assembly!</span>")
+						if(S.type == /obj/item/stack/sheet/rglass)
+							to_chat(user, "<span class='notice'>You install reinforced glass windows into the airlock assembly.</span>")
+							heat_proof_finished = 1 //reinforced glass makes the airlock heat-proof
+						else
+							to_chat(user, "<span class='notice'>You install regular glass windows into the airlock assembly.</span>")
 						S.use(1)
 						glass = 1
 				else if(istype(S, /obj/item/stack/sheet/mineral) && S.sheettype)
@@ -292,6 +301,7 @@
 			door.setDir(dir)
 			door.assembly_type = type
 			door.electronics = src.electronics
+			door.heat_proof = heat_proof_finished
 			if(src.electronics.one_access)
 				door.req_access = null
 				door.req_one_access = src.electronics.conf_access
@@ -318,4 +328,4 @@
 			name = "Wired "
 		if(2)
 			name = "Near Finished "
-	name += "[glass == 1 ? "Window " : ""][istext(glass) ? "[glass] Airlock" : base_name] Assembly"
+	name += "[heat_proof_finished ? "Heat-Proofed " : ""][glass == 1 ? "Window " : ""][istext(glass) ? "[glass] Airlock" : base_name] Assembly"
