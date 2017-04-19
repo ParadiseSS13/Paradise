@@ -2252,6 +2252,8 @@
 #include "hyntatmta\code\modules\karma\karma_admin.dm"
 #include "hyntatmta\code\modules\karma\karma_item.dm"
 #include "hyntatmta\code\modules\mob\adminrobot.dm"
+#include "hyntatmta\code\modules\owls\decorations.dm"
+#include "hyntatmta\code\modules\owls\portableowl.dm"
 #include "hyntatmta\code\modules\reagents\reagent_containers\food\drinks.dm"
 #include "hyntatmta\code\modules\reagents\reagent_containers\food\snacks.dm"
 #include "interface\interface.dm"
