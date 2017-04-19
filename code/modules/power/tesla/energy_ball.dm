@@ -1,5 +1,5 @@
-#define TESLA_DEFAULT_POWER 1738260
-#define TESLA_MINI_POWER 869130
+#define TESLA_DEFAULT_POWER 173826
+#define TESLA_MINI_POWER 86913
 
 var/list/blacklisted_tesla_types = typecacheof(list(/obj/machinery/atmospherics,
 										/obj/machinery/power/emitter,
@@ -31,7 +31,7 @@ var/list/blacklisted_tesla_types = typecacheof(list(/obj/machinery/atmospherics,
 	density = 1
 	energy = 0
 	var/list/orbiting_balls = list()
-	var/produced_power
+	var/produced_power = 0
 	var/energy_to_raise = 32
 	var/energy_to_lower = -20
 	
@@ -62,7 +62,11 @@ var/list/blacklisted_tesla_types = typecacheof(list(/obj/machinery/atmospherics,
 		pixel_x = 0
 		pixel_y = 0
 
-		dir = tesla_zap(src, 7, TESLA_DEFAULT_POWER)
+		produced_power = TESLA_DEFAULT_POWER
+		for(var/ball in orbiting_balls)
+			produced_power += TESLA_MINI_POWER
+
+		dir = tesla_zap(src, 7, produced_power)
 
 		pixel_x = -32
 		pixel_y = -32
@@ -119,6 +123,7 @@ var/list/blacklisted_tesla_types = typecacheof(list(/obj/machinery/atmospherics,
 
 	else if(orbiting_balls.len)
 		energy -= orbiting_balls.len * 0.5
+	return 1
 
 /obj/singularity/energy_ball/Bump(atom/A)
 	dust_mobs(A)
@@ -146,7 +151,7 @@ var/list/blacklisted_tesla_types = typecacheof(list(/obj/machinery/atmospherics,
 
 /proc/tesla_zap(var/atom/source, zap_range = 3, power)
 	. = source.dir
-	if(power < 1000)
+	if(power < 100)
 		return
 
 	var/closest_dist = 0
@@ -229,7 +234,7 @@ var/list/blacklisted_tesla_types = typecacheof(list(/obj/machinery/atmospherics,
 		closest_grounding_rod.tesla_act(power)
 
 	else if(closest_mob)
-		var/shock_damage = Clamp(round(power/400), 10, 90) + rand(-5, 5)
+		var/shock_damage = Clamp(round(power/40), 10, 90) + rand(-5, 5)
 		closest_mob.electrocute_act(shock_damage, source, 1, tesla_shock = 1)
 		if(istype(closest_mob, /mob/living/silicon))
 			var/mob/living/silicon/S = closest_mob
