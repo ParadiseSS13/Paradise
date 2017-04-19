@@ -27,7 +27,7 @@
 	item_state = "rapier"
 	flags = CONDUCT
 	force = 15
-	throwforce = 10
+	throwforce = 17
 	w_class = 4
 	block_chance = 50
 	armour_penetration = 75
