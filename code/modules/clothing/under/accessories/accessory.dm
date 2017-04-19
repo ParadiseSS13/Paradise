@@ -122,6 +122,9 @@
 	item_color = "stethoscope"
 
 /obj/item/clothing/accessory/stethoscope/attack(mob/living/carbon/human/M, mob/living/user)
+	if(istype(M, /mob/living/carbon/human/machine))
+		user.visible_message("Somehow, you feel like doing this is pointless.")
+		return
 	if(ishuman(M) && isliving(user))
 		if(user == M)
 			user.visible_message("[user] places \the [src] against \his chest and listens attentively.", "You place \the [src] against your chest...")
