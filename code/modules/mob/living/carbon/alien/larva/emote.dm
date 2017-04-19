@@ -15,7 +15,7 @@
 				return
 			if(src.client)
 				if(client.prefs.muted & MUTE_IC)
-					to_chat(src, "\red You cannot send IC messages (muted).")
+					to_chat(src, "<span class='warning'>You cannot send IC messages (muted).</span>")
 					return
 				if(src.client.handle_spam_prevention(message,MUTE_IC))
 					return

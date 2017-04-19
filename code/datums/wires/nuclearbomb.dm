@@ -52,12 +52,12 @@ var/const/NUCLEARBOMB_WIRE_SAFETY		= 4
 				if(N.safety == 1)
 					if(!N.is_syndicate)
 						set_security_level(N.previous_level)
-					N.visible_message("\blue The [N] quiets down.")
+					N.visible_message("<span class='notice'>The [N] quiets down.</span>")
 					if(!N.lighthack)
 						if(N.icon_state == "nuclearbomb2")
 							N.icon_state = "nuclearbomb1"
 				else
-					N.visible_message("\blue The [N] emits a quiet whirling noise!")
+					N.visible_message("<span class='notice'>The [N] emits a quiet whirling noise!</span>")
 				updateUIs()
 
 /datum/wires/nuclearbomb/UpdateCut(index, mended)

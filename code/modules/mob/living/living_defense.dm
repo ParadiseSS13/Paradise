@@ -81,7 +81,7 @@
 
 		var/throw_damage = I.throwforce*(speed/5)
 
-		src.visible_message("\red [src] has been hit by [I].")
+		src.visible_message("<span class='warning'>[src] has been hit by [I].</span>")
 		var/armor = run_armor_check(zone, "melee", "Your armor has protected your [parse_zone(zone)].", "Your armor has softened hit to your [parse_zone(zone)].", I.armour_penetration)
 
 		apply_damage(throw_damage, dtype, zone, armor, is_sharp(I), has_edge(I), I)
@@ -102,7 +102,7 @@
 			var/momentum = speed/2
 			var/dir = get_dir(I.throw_source, src)
 
-			visible_message("\red [src] staggers under the impact!","\red You stagger under the impact!")
+			visible_message("<span class='warning'>[src] staggers under the impact!</span>","<span class='warning'>You stagger under the impact!</span>")
 			src.throw_at(get_edge_target_turf(src,dir),1,momentum)
 
 			if(!W || !src) return

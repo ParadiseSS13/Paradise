@@ -788,7 +788,7 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 		return
 
 	if(!isnum(desiredLvl))
-		to_chat(user, "\red UpdateJobPreference - desired level was not a number. Please notify coders!")
+		to_chat(user, "<span class='warning'>UpdateJobPreference - desired level was not a number. Please notify coders!</span>")
 		ShowChoices(user)
 		return
 
