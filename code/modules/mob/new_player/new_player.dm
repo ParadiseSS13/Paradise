@@ -24,6 +24,10 @@
 
 
 /mob/new_player/proc/new_player_panel_proc()
+	if(!client)
+		// Ideally, this should never be called on a client-less new_player
+		log_debug("new_player without a client - name: [name], key: [key], gc'd: [qdeleted(src)]")
+		return
 	var/real_name = client.prefs.real_name
 	if(client.prefs.randomslot)
 		real_name = "Random Character Slot"
