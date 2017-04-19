@@ -153,8 +153,16 @@
 
 /obj/structure/glowshroom/attackby(obj/item/I, mob/user)
 	..()
-	if(I.damtype != STAMINA)
-		endurance -= I.force
+	var/force = I.force
+	if(istype(I, /obj/item/weapon/scythe))
+		var/obj/item/weapon/scythe/S = I
+		if(S.extend)	//so folded telescythes won't get damage boosts / insta-clears (they instead will instead be treated like non-scythes)
+			force = force * 4
+			for(var/obj/structure/glowshroom/G in range(1,src))
+				G.endurance -= force
+				G.CheckEndurance()
+	else if(I.damtype != STAMINA)
+		endurance -= force
 		CheckEndurance()
 
 /obj/structure/glowshroom/ex_act(severity)
