@@ -539,12 +539,6 @@ var/global/image/fire_overlay = image("icon" = 'icons/goonstation/effects/fire.d
 		if(A.type == type && !A.blood_overlay)
 			A.blood_overlay = image(I)
 
-/obj/item/singularity_pull(S, current_size)
-	spawn(0) //this is needed or multiple items will be thrown sequentially and not simultaneously
-		if(current_size >= STAGE_FOUR)
-			throw_at(S,14,3)
-		else ..()
-
 /obj/item/proc/pwr_drain()
 	return 0 // Process Kill
 
