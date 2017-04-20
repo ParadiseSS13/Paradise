@@ -189,14 +189,16 @@
 		//it might be 'bubblewrapping' given that this rhymes with 'hugboxing'
 		if((tmob.a_intent == I_HELP || tmob.restrained()) && (a_intent == I_HELP || restrained()))
 			if((canmove && tmob.canmove) && (!tmob.buckled && !tmob.buckled_mob))
-				var/turf/oldloc = loc
-				loc = tmob.loc
-				tmob.loc = oldloc
-				now_pushing = 0
-				for(var/mob/living/carbon/slime/slime in view(1,tmob))
-					if(slime.Victim == tmob)
-						slime.UpdateFeed()
-				return
+				if(!locate(/obj/structure/table/, loc) == !locate(/obj/structure/table/, tmob.loc))
+				//wont let them switch places if one is on a table and the other is not
+					var/turf/oldloc = loc
+					loc = tmob.loc
+					tmob.loc = oldloc
+					now_pushing = 0
+					for(var/mob/living/carbon/slime/slime in view(1,tmob))
+						if(slime.Victim == tmob)
+							slime.UpdateFeed()
+					return
 
 		if(ishuman(tmob) && (FAT in tmob.mutations))
 			if(prob(40) && !(FAT in src.mutations))
