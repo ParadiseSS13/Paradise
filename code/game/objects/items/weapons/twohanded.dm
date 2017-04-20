@@ -228,7 +228,7 @@
 		return
 	..()
 	if((CLUMSY in user.mutations) && (wielded) &&prob(40))
-		to_chat(user, "\red You twirl around a bit before losing your balance and impaling yourself on the [src].")
+		to_chat(user, "<span class='warning'>You twirl around a bit before losing your balance and impaling yourself on the [src].</span>")
 		user.take_organ_damage(20,25)
 		return
 	if((wielded) && prob(50))

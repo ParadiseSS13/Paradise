@@ -79,7 +79,7 @@
 
 	//repair a bit of damage
 	if(prob(1))
-		src.visible_message("\red [bicon(src)] [src] shudders and shakes as some of it's damaged systems come back online.")
+		src.visible_message("<span class='warning'>[bicon(src)] [src] shudders and shakes as some of it's damaged systems come back online.</span>")
 		var/datum/effect/system/spark_spread/s = new /datum/effect/system/spark_spread
 		s.set_up(3, 1, src)
 		s.start()
@@ -94,10 +94,10 @@
 	//sometimes our targetting sensors malfunction, and we attack anyone nearby
 	if(prob(disabled ? 0 : 1))
 		if(hostile_drone)
-			src.visible_message("\blue [bicon(src)] [src] retracts several targetting vanes, and dulls it's running lights.")
+			src.visible_message("<span class='notice'>[bicon(src)] [src] retracts several targetting vanes, and dulls it's running lights.</span>")
 			hostile_drone = 0
 		else
-			src.visible_message("\red [bicon(src)] [src] suddenly lights up, and additional targetting vanes slide into place.")
+			src.visible_message("<span class='warning'>[bicon(src)] [src] suddenly lights up, and additional targetting vanes slide into place.</span>")
 			hostile_drone = 1
 
 	if(health / maxHealth > 0.9)
@@ -118,17 +118,17 @@
 		exploding = 0
 		if(!disabled)
 			if(prob(50))
-				src.visible_message("\blue [bicon(src)] [src] suddenly shuts down!")
+				src.visible_message("<span class='notice'>[bicon(src)] [src] suddenly shuts down!</span>")
 			else
-				src.visible_message("\blue [bicon(src)] [src] suddenly lies still and quiet.")
+				src.visible_message("<span class='notice'>[bicon(src)] [src] suddenly lies still and quiet.</span>")
 			disabled = rand(150, 600)
 			walk(src,0)
 
 	if(exploding && prob(20))
 		if(prob(50))
-			src.visible_message("\red [bicon(src)] [src] begins to spark and shake violenty!")
+			src.visible_message("<span class='warning'>[bicon(src)] [src] begins to spark and shake violenty!</span>")
 		else
-			src.visible_message("\red [bicon(src)] [src] sparks and shakes like it's about to explode!")
+			src.visible_message("<span class='warning'>[bicon(src)] [src] sparks and shakes like it's about to explode!</span>")
 		var/datum/effect/system/spark_spread/s = new /datum/effect/system/spark_spread
 		s.set_up(3, 1, src)
 		s.start()

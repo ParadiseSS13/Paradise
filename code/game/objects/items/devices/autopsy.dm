@@ -138,7 +138,6 @@
 		for(var/chemID in chemtraces)
 			scan_data += chemID
 			scan_data += "<br>"
-
 	user.visible_message("<span class='warning'>[src] rattles and prints out a sheet of paper.</span>")
 
 	playsound(loc, 'sound/goonstation/machines/printer_thermal.ogg', 50, 1)

@@ -98,7 +98,7 @@
 
 	var/turf/T = get_turf_or_move(src.loc)
 	for(var/mob/M in viewers(T))
-		M.show_message("\blue The positronic brain chimes quietly.")
+		M.show_message("<span class='notice'>The positronic brain chimes quietly.</span>")
 	icon_state = "posibrain-occupied"
 
 /obj/item/device/mmi/posibrain/proc/reset_search() //We give the players sixty seconds to decide, then reset the timer.
@@ -109,7 +109,7 @@
 
 	var/turf/T = get_turf_or_move(src.loc)
 	for(var/mob/M in viewers(T))
-		M.show_message("\blue The positronic brain buzzes quietly, and the golden lights fade away. Perhaps you could try again?")
+		M.show_message("<span class='notice'>The positronic brain buzzes quietly, and the golden lights fade away. Perhaps you could try again?</span>")
 
 /obj/item/device/mmi/posibrain/Topic(href,href_list)
 	if("signup" in href_list)
@@ -122,22 +122,22 @@
 		to_chat(O, "Not looking for a ghost, yet.")
 		return
 	if(!istype(O))
-		to_chat(O, "\red Error.")
+		to_chat(O, "<span class='warning'>Error.</span>")
 		return
 	if(O in ghost_volunteers)
-		to_chat(O, "\blue Removed from registration list.")
+		to_chat(O, "<span class='notice'>Removed from registration list.</span>")
 		ghost_volunteers.Remove(O)
 		return
 	if(!check_observer(O))
-		to_chat(O, "\red You cannot be \a [src].")
+		to_chat(O, "<span class='warning'>You cannot be \a [src].</span>")
 		return
 	if(O.has_enabled_antagHUD == 1 && config.antag_hud_restricted)
-		to_chat(O, "\red Upon using the antagHUD you forfeited the ability to join the round.")
+		to_chat(O, "<span class='warning'>Upon using the antagHUD you forfeited the ability to join the round.</span>")
 		return
 	if(jobban_isbanned(O, "Cyborg") || jobban_isbanned(O,"nonhumandept"))
-		to_chat(O, "\red You are job banned from this role.")
+		to_chat(O, "<span class='warning'>You are job banned from this role.</span>")
 		return
-	to_chat(O., "\blue You've been added to the list of ghosts that may become this [src].  Click again to unvolunteer.")
+	to_chat(O., "<span class='notice'>You've been added to the list of ghosts that may become this [src].  Click again to unvolunteer.</span>")
 	ghost_volunteers.Add(O)
 
 
@@ -196,7 +196,7 @@
 		playsound(get_turf(src), 'sound/items/posiping.ogg', 80, 0)
 		var/turf/T = get_turf_or_move(src.loc)
 		for(var/mob/M in viewers(T))
-			M.show_message("\blue The positronic brain pings softly.")
+			M.show_message("<span class='notice'>The positronic brain pings softly.</span>")
 
 /obj/item/device/mmi/posibrain/ipc
 	desc = "A cube of shining metal, four inches to a side and covered in shallow grooves. The speaker switch is set to 'off'."

@@ -130,7 +130,7 @@
 			if(do_after(usr, 20, target = GM))
 				GM.forceMove(src)
 				for(var/mob/C in viewers(src))
-					C.show_message("\red [GM.name] has been placed in the [src] by [user].", 3)
+					C.show_message("<span class='warning'>[GM.name] has been placed in the [src] by [user].</span>", 3)
 				qdel(G)
 				usr.create_attack_log("<font color='red'>Has placed [key_name(GM)] in disposals.</font>")
 				GM.create_attack_log("<font color='orange'>Has been placed in disposals by [key_name(user)]</font>")
@@ -231,7 +231,7 @@
 		return
 
 	if(user && user.loc == src)
-		to_chat(usr, "\red You cannot reach the controls from inside.")
+		to_chat(usr, "<span class='warning'>You cannot reach the controls from inside.</span>")
 		return
 
 	// Clumsy folks can only flush it.
@@ -272,11 +272,11 @@
 
 /obj/machinery/disposal/Topic(href, href_list)
 	if(usr.loc == src)
-		to_chat(usr, "\red You cannot reach the controls from inside.")
+		to_chat(usr, "<span class='warning'>You cannot reach the controls from inside.</span>")
 		return
 
 	if(mode==-1 && !href_list["eject"]) // only allow ejecting if mode is -1
-		to_chat(usr, "\red The disposal units power is disabled.")
+		to_chat(usr, "<span class='warning'>The disposal units power is disabled.</span>")
 		return
 
 	if(..())
@@ -1027,7 +1027,7 @@
 				sortType = O.currTag
 				playsound(src.loc, 'sound/machines/twobeep.ogg', 100, 1)
 				var/tag = uppertext(TAGGERLOCATIONS[O.currTag])
-				to_chat(user, "\blue Changed filter to [tag]")
+				to_chat(user, "<span class='notice'>Changed filter to [tag]</span>")
 				updatedesc()
 
 

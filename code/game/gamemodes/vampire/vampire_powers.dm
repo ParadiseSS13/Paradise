@@ -179,7 +179,7 @@
 		if(do_mob(user, target, 50))
 			if(!affects(target))
 				to_chat(user, "<span class='warning'>Your piercing gaze fails to knock out [target].</span>")
-				to_chat(target, "\blue [user]'s feeble gaze is ineffective.")
+				to_chat(target, "<span class='notice'>[user]'s feeble gaze is ineffective.</span>")
 			else
 				to_chat(user, "<span class='warning'>Your piercing gaze knocks out [target].</span>")
 				to_chat(target, "<span class='warning'>You find yourself unable to move and barely able to speak.</span>")
@@ -488,7 +488,7 @@
 
 	if(!turfs.len)
 		revert_cast(user)
-		to_chat(user, "\red You cannot find darkness to step to.")
+		to_chat(user, "<span class='warning'>You cannot find darkness to step to.</span>")
 		return
 
 	perform(turfs, user = user)
