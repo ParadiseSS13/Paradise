@@ -377,6 +377,117 @@
 	icon_state = "stripedbluescarf"
 	item_color = "stripedbluescarf"
 
+//Cowboy Shirts
+/obj/item/clothing/accessory/cowboyshirt
+	name = "black cowboy shirt"
+	desc = "For a real western look."
+	icon_state = "cowboyshirt"
+	item_state = "cowboyshirt"
+	item_color = "cowboyshirt"
+	species_fit = list("Vox")
+	sprite_sheets = list(
+		"Vox" = 'icons/mob/species/vox/suit.dmi'
+		)
+
+/obj/item/clothing/accessory/cowboyshirt/s
+	name = "shortsleeved black cowboy shirt"
+	desc = "For when it's a hot day in the west."
+	icon_state = "cowboyshirt_s"
+	item_state = "cowboyshirt_s"
+	item_color = "cowboyshirt_s"
+	species_fit = list("Vox")
+	sprite_sheets = list(
+		"Vox" = 'icons/mob/species/vox/suit.dmi'
+		)
+
+/obj/item/clothing/accessory/cowboyshirt/white
+	name = "white cowboy shirt"
+	desc = "For the rancher in us all."
+	icon_state = "cowboyshirt_white"
+	item_state = "cowboyshirt_white"
+	item_color = "cowboyshirt_white"
+	species_fit = list("Vox")
+	sprite_sheets = list(
+		"Vox" = 'icons/mob/species/vox/suit.dmi'
+		)
+
+/obj/item/clothing/accessory/cowboyshirt/whites
+	name = "short sleeved white cowboy shirt"
+	desc = "Best for midday cattle tending."
+	icon_state = "cowboyshirt_whites"
+	item_state = "cowboyshirt_whites"
+	item_color = "cowboyshirt_whites"
+	species_fit = list("Vox")
+	sprite_sheets = list(
+		"Vox" = 'icons/mob/species/vox/suit.dmi'
+		)
+
+/obj/item/clothing/accessory/cowboyshirt/pink
+	name = "pink cowboy shirt"
+	desc = "For only the manliest of men, or girliest of girls."
+	icon_state = "cowboyshirt_pink"
+	item_state = "cowboyshirt_pink"
+	item_color = "cowboyshirt_pink"
+	species_fit = list("Vox")
+	sprite_sheets = list(
+		"Vox" = 'icons/mob/species/vox/suit.dmi'
+		)
+
+/obj/item/clothing/accessory/cowboyshirt/pinks
+	name = "short sleeved pink cowboy shirt"
+	desc = "For a real buckle bunny."
+	icon_state = "cowboyshirt_pinks"
+	item_state = "cowboyshirt_pinks"
+	item_color = "cowboyshirt_pinks"
+	species_fit = list("Vox")
+	sprite_sheets = list(
+		"Vox" = 'icons/mob/species/vox/suit.dmi'
+		)
+
+/obj/item/clothing/accessory/cowboyshirt/navy
+	name = "navy cowboy shirt"
+	desc = "Now yer a real cowboy."
+	icon_state = "cowboyshirt_navy"
+	item_state = "cowboyshirt_navy"
+	item_color = "cowboyshirt_navy"
+	species_fit = list("Vox")
+	sprite_sheets = list(
+		"Vox" = 'icons/mob/species/vox/suit.dmi'
+		)
+
+/obj/item/clothing/accessory/cowboyshirt/navys
+	name = "short sleeved navy cowboy shirt"
+	desc = "Sometimes ya need to roll up your sleeves."
+	icon_state = "cowboyshirt_navys"
+	item_state = "cowboyshirt_navys"
+	item_color = "cowboyshirt_navys"
+	species_fit = list("Vox")
+	sprite_sheets = list(
+		"Vox" = 'icons/mob/species/vox/suit.dmi'
+		)
+
+/obj/item/clothing/accessory/cowboyshirt/red
+	name = "red cowboy shirt"
+	desc = "It's high noon."
+	icon_state = "cowboyshirt_red"
+	item_state = "cowboyshirt_red"
+	item_color = "cowboyshirt_red"
+	species_fit = list("Vox")
+	sprite_sheets = list(
+		"Vox" = 'icons/mob/species/vox/suit.dmi'
+		)
+
+/obj/item/clothing/accessory/cowboyshirt/reds
+	name = "short sleeved red cowboy shirt"
+	desc = "Life on the open range is quite dangeorus, you never know what to expect."
+	icon_state = "cowboyshirt_reds"
+	item_state = "cowboyshirt_reds"
+	item_color = "cowboyshirt_reds"
+	species_fit = list("Vox")
+	sprite_sheets = list(
+		"Vox" = 'icons/mob/species/vox/suit.dmi'
+		)
+
 /obj/item/clothing/accessory/petcollar
 	name = "pet collar"
 	desc = "The latest fashion accessory for your favorite pets!"
