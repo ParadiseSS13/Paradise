@@ -8,8 +8,23 @@
 //	if(findtext(act,"s",-1) && !findtext(act,"_",-2))//Removes ending s's unless they are prefixed with a '_'
 //		act = copytext(act,1,length(act))	//seriously who the fuck wrote this
 	var/muzzled = is_muzzled()
+
+	var/on_CD = 0
 	act = lowertext(act)
+
+	//cooldown system handled by /code/modules/mob/emotes.dm
 	switch(act)
+		if("flip")
+			on_CD = handle_emote_CD()
+
+
+	if(on_CD)
+		return
+
+	switch(act)
+
+
+
 		if("sign")
 			if(!restrained())
 				var/num = null
@@ -104,8 +119,14 @@
 			m_type = 1
 			message = "<B>\The [src]</B> does a flip!"
 			src.SpinAnimation(5,1)
+		if("superflip")
+			m_type = 1
+			message = "<B>The [src]</B> starts flipping!"
+			src.reagents.add_reagent("fliptonium", 100)
+		if("laugh")
+			return //deals with the fliptonium issue
 		if("help")
-			to_chat(src, "burp, flip, deathgasp, choke, collapse, dance, drool, gasp, shiver, gnarl, jump, moan, nod, roar, roll, scratch,\nscretch, shake, sign-#, sit, sulk, sway, tail, twitch, whimper")
+			to_chat(src, "burp, flip, superflip, deathgasp, choke, collapse, dance, drool, gasp, shiver, gnarl, jump, moan, nod, roar, roll, scratch,\nscretch, shake, sign-#, sit, sulk, sway, tail, twitch, whimper")
 
 	if(!stat)
 		if(act == "roar")
