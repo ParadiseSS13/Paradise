@@ -16,6 +16,8 @@
 	switch(act)
 		if("flip")
 			on_CD = handle_emote_CD()
+		if("superflip")
+			on_CD = handle_emote_CD(100)
 
 
 	if(on_CD)
@@ -121,8 +123,8 @@
 			src.SpinAnimation(5,1)
 		if("superflip")
 			m_type = 1
-			message = "<B>The [src]</B> starts flipping!"
-			src.reagents.add_reagent("fliptonium", 100)
+			message = "<B>The [src]</B> gets ready to flip into oblivion!"
+			src.reagents.add_reagent("fliptonium", 1)
 		if("laugh")
 			return //deals with the fliptonium issue
 		if("help")
