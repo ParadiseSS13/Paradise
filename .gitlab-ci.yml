@@ -1,11 +1,18 @@
 stages:
+ - build
  - deploy 
  
+build_maps:
+  stage: build
+  script:
+    - cmd /C dm.sh "cyberiad" paradise.dme
+    - cmd /C dm.sh "metastation" paradise.dme
+    - cmd /C dm.sh "test_away_missions" paradise.dme
+    
 run_update: 
   stage: deploy 
   script:
     - cd "c:\users\byond\desktop\paradise-server\"
     - call "c:\users\byond\desktop\paradise-server\Update Server.bat"
-    - taskkill /f /im dreamdaemon.exe
   only: 
     - master 
