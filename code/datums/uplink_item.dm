@@ -372,6 +372,15 @@ var/list/uplink_items = list()
 	item = /obj/item/weapon/gun/projectile/automatic/pistol
 	cost = 4
 
+/datum/uplink_item/dangerous/shotgun
+	name = "KS-23 Riot control shutgun"
+	reference = "SPS"
+	desc = "A large heavy duty shotgun from the Commis. Holds 4 shotgun shells of any kind. Preloaded with rubber."
+	item = /obj/item/weapon/gun/projectile/shotgun/KS23
+	cost = 12
+	surplus = 20
+
+
 /datum/uplink_item/dangerous/revolver
 	name = "Syndicate .357 Revolver"
 	reference = "SR"
