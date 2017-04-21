@@ -1,7 +1,0 @@
-author: "Lady-Luck"
-delete-after: True
-changes: 
-  - tweak: "Makes several balance adjustments to existing syndicate bundles, generally making them more worthwhile."
-  - rscadd: "Adds an Allies Cocktail object for the Bond bundle."
-  - rscadd: "Adds the 'gadgets' syndicate bundle."
-  - rscdel: "Removes the 'lordsingulo' and 'murder' syndicate bundles."
