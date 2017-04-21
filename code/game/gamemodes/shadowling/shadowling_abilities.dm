@@ -103,10 +103,12 @@
 	for(var/obj/item/F in H)
 		if(F.light_range > 0)
 			extinguishItem(F)
-		if(ishuman(H))
-			var/mob/living/carbon/human/C = H
-			if(C.glowing)
-				C.force_toggle_biolum()
+	if(ishuman(H))
+		var/mob/living/carbon/human/C = H
+		var/obj/item/organ/internal/lantern/L = C.get_int_organ(/obj/item/organ/internal/lantern)
+		if(L && L.glowing)
+			L.toggle_biolum(1)
+			C.visible_message("<span class='danger'>[C] is engulfed in shadows and fades into the darkness.</span>", "<span class='danger'>A sense of dread washes over you as you suddenly dim dark.</span>")
 
 /obj/effect/proc_holder/spell/aoe_turf/veil/cast(list/targets, mob/user = usr)
 	if(!shadowling_check(user))
