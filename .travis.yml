@@ -7,14 +7,9 @@ git:
 
 env:
   global:
-<<<<<<< HEAD
     - BYOND_MAJOR="511"
     - BYOND_MINOR="1379"
-=======
-    - BYOND_MAJOR="510"
-    - BYOND_MINOR="1346"
     - BYOND_MACRO_COUNT=2
->>>>>>> ParadiseSS13/master
   matrix:
     - DM_MAPFILE="cyberiad"
     - DM_MAPFILE="metastation"
