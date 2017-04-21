@@ -1,0 +1,4 @@
+author: "Anticept"
+delete-after: True
+changes: 
+  - tweak: "Alternate Job Preference now defaults to \"Return to Lobby if Preferences Unavailable\". Only affects new players."
