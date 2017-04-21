@@ -63,7 +63,7 @@
 	desc = "Horrendous and awful. It smells like cancer. The fact it has wires attached to it is incidental."
 	var/obj/item/weapon/stock_parts/cell/cell = null
 	var/stun_strength = 5
-	var/stun_cost = 3750
+	var/stun_cost = 2000
 
 /obj/item/clothing/gloves/color/yellow/stun/New()
 	..()

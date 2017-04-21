@@ -23,7 +23,7 @@
 	var/normalspeed = 1
 	var/auto_close_time = 150
 	var/auto_close_time_dangerous = 5
-	var/heat_proof = 0 // For glass airlocks/opacity firedoors
+	var/heat_proof = 0 // For rglass-windowed airlocks and firedoors
 	var/emergency = 0
 	var/air_properties_vary_with_direction = 0
 	var/block_air_zones = 1 //If set, air zones cannot merge across the door even when it is opened.
@@ -310,7 +310,7 @@
 	if(!glass && cameranet)
 		cameranet.updateVisibility(src, 0)
 
-/obj/machinery/door/BlockSuperconductivity()
+/obj/machinery/door/BlockSuperconductivity() // All non-glass airlocks block heat, this is intended.
 	if(opacity || heat_proof)
 		return 1
 	return 0

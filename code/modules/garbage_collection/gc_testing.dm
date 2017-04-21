@@ -11,7 +11,7 @@
 	garbageCollector.del_everything = !garbageCollector.del_everything
 //	to_chat(world, "<b>GC: qdel turned [garbageCollector.del_everything ? "off" : "on"].</b>")
 	log_admin("[key_name(usr)] turned qdel [garbageCollector.del_everything ? "off" : "on"].")
-	message_admins("\blue [key_name_admin(usr)] turned qdel [garbageCollector.del_everything ? "off" : "on"].", 1)
+	message_admins("<span class='notice'>[key_name_admin(usr)] turned qdel [garbageCollector.del_everything ? "off" : "on"].</span>", 1)
 
 /client/proc/cmd_display_del_log()
 	set category = "Debug"

@@ -2582,6 +2582,22 @@ area/security/podbay
 /area/awaycontent/a30
 	icon_state = "awaycontent30"
 
+////////////////////////VR AREAS///////////////////////////////////
+
+/area/vr
+	name = "VR"
+	requires_power = 0
+	dynamic_lighting = 0
+	no_teleportlocs = 1
+
+
+/area/vr/lobby
+	name = "VR Lobby"
+
+/area/vr/roman
+	name = "Roman Arena"
+
+
 /////////////////////////////////////////////////////////////////////
 /*
  Lists of areas to be used with is_type_in_list.

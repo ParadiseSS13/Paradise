@@ -221,7 +221,7 @@
 /obj/item/weapon/robot_module/security/New()
 	..()
 	modules += new /obj/item/weapon/restraints/handcuffs/cable/zipties/cyborg(src)
-	modules += new /obj/item/weapon/melee/baton/loaded/robot(src)
+	modules += new /obj/item/weapon/melee/baton/loaded(src)
 	modules += new /obj/item/weapon/gun/energy/disabler/cyborg(src)
 	modules += new /obj/item/taperoll/police(src)
 	modules += new /obj/item/clothing/mask/gas/sechailer/cyborg(src)

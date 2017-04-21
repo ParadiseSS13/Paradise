@@ -156,7 +156,7 @@
 			feedback_inc("alert_keycard_auth_maintRevoke",1)
 		if("Emergency Response Team")
 			if(is_ert_blocked())
-				to_chat(usr, "\red All Emergency Response Teams are dispatched and can not be called at this time.")
+				to_chat(usr, "<span class='warning'>All Emergency Response Teams are dispatched and can not be called at this time.</span>")
 				return
 			to_chat(usr, "<span class = 'notice'>ERT request transmitted.</span>")
 

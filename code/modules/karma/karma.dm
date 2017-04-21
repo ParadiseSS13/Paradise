@@ -79,7 +79,7 @@ var/list/karma_spenders = list()
 		to_chat(src, "<span class='warning'>You can't spend karma on someone connected from the same IP.</span>")
 		return 0
 	return 1
-	
+
 
 /mob/verb/spend_karma_list()
 	set name = "Award Karma"
@@ -118,8 +118,6 @@ var/list/karma_spenders = list()
 	if(!M)
 		to_chat(usr, "Please right click a mob to award karma directly, or use the 'Award Karma' verb to select a player from the player listing.")
 		return
-	if(!can_give_karma_to_mob(M))
-		return
 	if(alert("Give [M.name] good karma?", "Karma", "Yes", "No") != "Yes")
 		return
 	if(!can_give_karma_to_mob(M))
@@ -154,7 +152,7 @@ var/list/karma_spenders = list()
 /client/proc/verify_karma()
 	var/currentkarma=0
 	if(!dbcon.IsConnected())
-		to_chat(usr, "\red Unable to connect to karma database. Please try again later.<br>")
+		to_chat(usr, "<span class='warning'>Unable to connect to karma database. Please try again later.<br></span>")
 		return
 	else
 		var/DBQuery/query = dbcon.NewQuery("SELECT karma, karmaspent FROM [format_table_name("karmatotals")] WHERE byondkey='[src.ckey]'")
@@ -380,7 +378,7 @@ You've gained <b>[totalkarma]</b> total karma in your time here.<br>"}
 	else if(name == "Nanotrasen Recruiter")
 		cost = 10
 	else
-		to_chat(usr, "\red That job is not refundable.")
+		to_chat(usr, "<span class='warning'>That job is not refundable.</span>")
 		return
 
 	var/DBQuery/query = dbcon.NewQuery("SELECT * FROM [format_table_name("whitelist")] WHERE ckey='[usr.ckey]'")
@@ -401,7 +399,7 @@ You've gained <b>[totalkarma]</b> total karma in your time here.<br>"}
 		else if(type == "species")
 			typelist = splittext(dbspecies,",")
 		else
-			to_chat(usr, "\red Type [type] is not a valid column.")
+			to_chat(usr, "<span class='warning'>Type [type] is not a valid column.</span>")
 
 		if(name in typelist)
 			typelist -= name
@@ -417,10 +415,10 @@ You've gained <b>[totalkarma]</b> total karma in your time here.<br>"}
 				message_admins("[key_name(usr)] has been refunded [cost] karma for [type] [name].")
 				karmacharge(text2num(cost),1)
 		else
-			to_chat(usr, "\red You have not bought [name].")
+			to_chat(usr, "<span class='warning'>You have not bought [name].</span>")
 
 	else
-		to_chat(usr, "\red Your ckey ([dbckey]) was not found.")
+		to_chat(usr, "<span class='warning'>Your ckey ([dbckey]) was not found.</span>")
 
 /client/proc/checkpurchased(var/name = null) // If the first parameter is null, return a full list of purchases
 	var/DBQuery/query = dbcon.NewQuery("SELECT * FROM [format_table_name("whitelist")] WHERE ckey='[usr.ckey]'")

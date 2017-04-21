@@ -157,7 +157,7 @@
 /obj/structure/closet/attack_animal(mob/living/simple_animal/user)
 	if(user.environment_smash)
 		user.do_attack_animation(src)
-		visible_message("\red [user] destroys the [src]. ")
+		visible_message("<span class='warning'>[user] destroys the [src].</span>")
 		for(var/atom/movable/A in src)
 			A.forceMove(loc)
 		qdel(src)
@@ -194,7 +194,7 @@
 					var/desc = input("Please select a telepad.", "RCS") in L
 					E.pad = L[desc]
 					playsound(E.loc, E.usesound, 50, 1)
-					to_chat(user, "\blue Teleporting [name]...")
+					to_chat(user, "<span class='notice'>Teleporting [name]...</span>")
 					E.teleporting = 1
 					if(!do_after(user, 50 * E.toolspeed, target = src))
 						E.teleporting = 0
@@ -216,7 +216,7 @@
 				E.rand_y = rand(50,200)
 				var/L = locate(E.rand_x, E.rand_y, 6)
 				playsound(E.loc, E.usesound, 50, 1)
-				to_chat(user, "\blue Teleporting [name]...")
+				to_chat(user, "<span class='notice'>Teleporting [name]...</span>")
 				E.teleporting = 1
 				if(!do_after(user, 50, E.toolspeed, target = src))
 					E.teleporting = 0

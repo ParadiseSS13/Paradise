@@ -331,7 +331,7 @@ proc/get_radio_key_from_channel(var/channel)
 
 	else //everything else failed, emote is probably invalid
 		if(act == "help")	return //except help, because help is handled individually
-		to_chat(src, "\blue Unusable emote '[act]'. Say *help for a list.")
+		to_chat(src, "<span class='notice'>Unusable emote '[act]'. Say *help for a list.</span>")
 
 /mob/living/whisper(message as text)
 	message = trim_strip_html_properly(message)

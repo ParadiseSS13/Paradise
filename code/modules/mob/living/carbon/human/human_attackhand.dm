@@ -4,7 +4,7 @@
 		return
 
 	if(frozen)
-		to_chat(M, "\red Do not touch Admin-Frozen people.")
+		to_chat(M, "<span class='warning'>Do not touch Admin-Frozen people.</span>")
 		return
 
 	var/mob/living/carbon/human/H = M

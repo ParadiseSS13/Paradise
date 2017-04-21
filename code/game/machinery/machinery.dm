@@ -260,13 +260,13 @@ Class Procs:
 			if(!O)
 				return 1
 			if(!canLink(O))
-				to_chat(usr, "\red You can't link with that device.")
+				to_chat(usr, "<span class='warning'>You can't link with that device.</span>")
 				return 1
 
 			if(unlinkFrom(usr, O))
-				to_chat(usr, "\blue A green light flashes on \the [P], confirming the link was removed.")
+				to_chat(usr, "<span class='notice'>A green light flashes on \the [P], confirming the link was removed.</span>")
 			else
-				to_chat(usr, "\red A red light flashes on \the [P].  It appears something went wrong when unlinking the two devices.")
+				to_chat(usr, "<span class='warning'>A red light flashes on \the [P].  It appears something went wrong when unlinking the two devices.</span>")
 			update_mt_menu=1
 
 		if("link" in href_list)
@@ -274,25 +274,25 @@ Class Procs:
 			if(!O)
 				return 1
 			if(!canLink(O,href_list))
-				to_chat(usr, "\red You can't link with that device.")
+				to_chat(usr, "<span class='warning'>You can't link with that device.</span>")
 				return 1
 			if(isLinkedWith(O))
-				to_chat(usr, "\red A red light flashes on \the [P]. The two devices are already linked.")
+				to_chat(usr, "<span class='warning'>A red light flashes on \the [P]. The two devices are already linked.</span>")
 				return 1
 
 			if(linkWith(usr, O, href_list))
-				to_chat(usr, "\blue A green light flashes on \the [P], confirming the link was added.")
+				to_chat(usr, "<span class='notice'>A green light flashes on \the [P], confirming the link was added.</span>")
 			else
-				to_chat(usr, "\red A red light flashes on \the [P].  It appears something went wrong when linking the two devices.")
+				to_chat(usr, "<span class='warning'>A red light flashes on \the [P].  It appears something went wrong when linking the two devices.</span>")
 			update_mt_menu=1
 
 		if("buffer" in href_list)
 			P.buffer = src
-			to_chat(usr, "\blue A green light flashes, and the device appears in the multitool buffer.")
+			to_chat(usr, "<span class='notice'>A green light flashes, and the device appears in the multitool buffer.</span>")
 			update_mt_menu=1
 
 		if("flush" in href_list)
-			to_chat(usr, "\blue A green light flashes, and the device disappears from the multitool buffer.")
+			to_chat(usr, "<span class='notice'>A green light flashes, and the device disappears from the multitool buffer.</span>")
 			P.buffer = null
 			update_mt_menu=1
 
