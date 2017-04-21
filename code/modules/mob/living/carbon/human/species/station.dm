@@ -473,6 +473,11 @@
 /datum/species/vox/armalis/handle_reagents() //Skip the Vox oxygen reagent toxicity. Armalis are above such things.
 	return 1
 
+#define KIDAN_HUNGERCOST 0.5
+#define KIDAN_MINHUNGER 150
+#define KIDAN_LIGHT 4
+
+
 /datum/species/kidan
 	name = "Kidan"
 	name_plural = "Kidan"
@@ -487,7 +492,7 @@
 
 	flags = IS_WHITELISTED
 	clothing_flags = HAS_UNDERWEAR | HAS_UNDERSHIRT | HAS_SOCKS
-	bodyflags = FEET_CLAWS | HAS_HEAD_ACCESSORY
+	bodyflags = FEET_CLAWS | HAS_HEAD_ACCESSORY | HAS_HEAD_MARKINGS | HAS_BODY_MARKINGS
 	eyes = "kidan_eyes_s"
 	dietflags = DIET_HERB
 	blood_color = "#FB9800"
@@ -503,7 +508,8 @@
 		"kidneys" =  /obj/item/organ/internal/kidneys,
 		"brain" =    /obj/item/organ/internal/brain,
 		"appendix" = /obj/item/organ/internal/appendix,
-		"eyes" =     /obj/item/organ/internal/eyes //Default darksight of 2.
+		"eyes" =     /obj/item/organ/internal/eyes, //Default darksight of 2.
+		"lantern" =  /obj/item/organ/internal/lantern
 		)
 
 	allowed_consumed_mobs = list(/mob/living/simple_animal/diona)
@@ -515,6 +521,35 @@
 		"is cracking their exoskeleton!",
 		"is stabbing themselves with their mandibles!",
 		"is holding their breath!")
+
+	species_abilities = list(
+		/mob/living/carbon/human/proc/toggle_biolum,
+		)
+
+/mob/living/carbon/human/proc/toggle_biolum()
+	set category = "IC"
+	set name = "Toggle Bioluminescence"
+	set desc = "Toggle your bioluminescence effect, at the cost of hunger"
+
+	var/obj/item/organ/internal/lantern/lantern = get_int_organ(/obj/item/organ/internal/lantern)
+
+	if(!lantern)
+		to_chat(src, "<span class='warning'>You are lacking your bioluminescent lantern!</span>")
+		return
+
+	lantern.toggle_biolum()
+
+/mob/living/carbon/human/proc/force_toggle_biolum()
+	var/obj/item/organ/internal/lantern/lantern = get_int_organ(/obj/item/organ/internal/lantern)
+
+	if(!lantern)
+		return
+
+	lantern.toggle_biolum(statoverride = 1)
+
+/datum/species/kidan/handle_death(var/mob/living/carbon/human/H)
+	if(H.glowing)
+		H.force_toggle_biolum()
 
 /datum/species/slime
 	name = "Slime People"

@@ -103,6 +103,10 @@
 	for(var/obj/item/F in H)
 		if(F.light_range > 0)
 			extinguishItem(F)
+		if(ishuman(H))
+			var/mob/living/carbon/human/C = H
+			if(C.glowing)
+				C.force_toggle_biolum()
 
 /obj/effect/proc_holder/spell/aoe_turf/veil/cast(list/targets, mob/user = usr)
 	if(!shadowling_check(user))

@@ -130,6 +130,7 @@
 	var/stunned = 0
 	var/stuttering = 0
 	var/weakened = 0
+	var/glowing = 0
 
 /mob/living
 	// Bitfields
