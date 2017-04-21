@@ -161,7 +161,8 @@
 			for(var/obj/structure/glowshroom/G in range(1,src))
 				G.endurance -= force
 				G.CheckEndurance()
-	else if(I.damtype != STAMINA)
+			return
+	if(I.damtype != STAMINA)
 		endurance -= force
 		CheckEndurance()
 
