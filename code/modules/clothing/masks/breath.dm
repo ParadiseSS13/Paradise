@@ -6,7 +6,7 @@
 	flags = AIRTIGHT
 	flags_cover = MASKCOVERSMOUTH
 	w_class = 2
-	gas_transfer_coefficient = 0.10
+	gas_transfer_coefficient = 0.05
 	permeability_coefficient = 0.50
 	actions_types = list(/datum/action/item_action/adjust)
 	burn_state = FIRE_PROOF
@@ -29,6 +29,7 @@
 	icon_state = "medical"
 	item_state = "medical"
 	permeability_coefficient = 0.01
+	gas_transfer_coefficient = 0
 	put_on_delay = 10
 	species_fit = list("Vox", "Unathi", "Tajaran", "Vulpkanin")
 
@@ -38,5 +39,6 @@
 	icon_state = "voxmask"
 	item_state = "voxmask"
 	permeability_coefficient = 0.01
+	gas_transfer_coefficient = 0
 	species_restricted = list("Vox")
 	actions_types = list()
