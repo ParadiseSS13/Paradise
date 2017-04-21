@@ -1,7 +1,0 @@
-author: "monster860"
-delete-after: True
-changes: 
-  - rscadd: "Adds an in-game way of viewing poll results"
-  - tweak: "The player poll window automatically pops up if there is an active poll you haven't voted on."
-  - rscadd: "Adds an browser popup for creating new polls"
-  - tweak: "Your account needs to be at least 30 days old in order to vote on polls"
