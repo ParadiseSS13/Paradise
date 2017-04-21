@@ -242,20 +242,20 @@ em						{font-style: normal;	font-weight: bold;}
 .yell					{					font-weight: bold;}
 .siliconsay				{font-family: 'Courier New', Courier, monospace;}
 .deadsay				{color: #5c00e6;}
-.radio					{color: #008000;}
+.radio					{color: #408010;}
 .deptradio				{color: #993399;}
-.comradio				{color: #193A7A;}
-.syndradio				{color: #6d3f40;}
+.comradio				{color: #204090;}
+.syndradio				{color: #6D3F40;}
 .dsquadradio				{color: #686868;}
 .resteamradio				{color: #18BC46;}
 .airadio				{color: #FF00FF;}
-.centradio				{color: #5C5C8A;}
+.centradio				{color: #5C5C7C;}
 .secradio				{color: #A30000;}
 .engradio				{color: #A66300;}
-.medradio				{color: #008160;}
+.medradio				{color: #009190;}
 .sciradio				{color: #993399;}
-.supradio				{color: #5F4519;}
-.srvradio				{color: #6eaa2c;}
+.supradio				{color: #7F6539;}
+.srvradio				{color: #80A000;}
 .admin_channel			{color: #9A04D1;	font-weight: bold;}
 .mentor_channel			{color: #775BFF;	font-weight: bold;}
 .mentor_channel_admin      {color: #A35CFF;	font-weight: bold;}

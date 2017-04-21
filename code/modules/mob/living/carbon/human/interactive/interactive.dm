@@ -132,7 +132,6 @@
 	job = myjob.title
 	mind.assigned_role = job
 	myjob.equip(src)
-	myjob.apply_fingerprints(T)
 
 /mob/living/carbon/human/interactive/proc/reset()
 	walk(src, 0)
@@ -193,7 +192,6 @@
 		for(var/obj/item/W in T)
 			qdel(W)
 		T.myjob.equip(T)
-		T.myjob.apply_fingerprints(T)
 		T.doSetup(alt_title)
 
 	var/shouldDoppel = input("Do you want the SNPC to disguise themself as a crewmember?") as anything in list("Yes", "No")
@@ -633,8 +631,6 @@
 										AL.wires.UpdatePulsed(AIRLOCK_WIRE_DOOR_BOLTS)
 									if(!AL.wires.IsIndexCut(AIRLOCK_WIRE_MAIN_POWER1))
 										AL.wires.CutWireIndex(AIRLOCK_WIRE_MAIN_POWER1)
-									if(!AL.wires.IsIndexCut(AIRLOCK_WIRE_MAIN_POWER2))
-										AL.wires.CutWireIndex(AIRLOCK_WIRE_MAIN_POWER2)
 									if(prob(mistake_chance) && !AL.wires.IsIndexCut(AIRLOCK_WIRE_SAFETY))
 										AL.wires.CutWireIndex(AIRLOCK_WIRE_SAFETY)
 									if(prob(mistake_chance) && !AL.wires.IsIndexCut(AIRLOCK_WIRE_ELECTRIFY))

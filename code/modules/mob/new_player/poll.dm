@@ -495,7 +495,7 @@
 			break
 
 		if(!validpoll)
-			to_chat(usr, "\red Poll is not valid.")
+			to_chat(usr, "<span class='warning'>Poll is not valid.</span>")
 			return
 
 		var/DBQuery/select_query2 = dbcon.NewQuery("SELECT id FROM [format_table_name("poll_option")] WHERE id = [optionid] AND pollid = [pollid]")
@@ -508,7 +508,7 @@
 			break
 
 		if(!validoption)
-			to_chat(usr, "\red Poll option is not valid.")
+			to_chat(usr, "<span class='warning'>Poll option is not valid.</span>")
 			return
 
 		var/alreadyvoted = 0
@@ -522,11 +522,11 @@
 				break
 
 		if(!multichoice && alreadyvoted)
-			to_chat(usr, "\red You already voted in this poll.")
+			to_chat(usr, "<span class='warning'>You already voted in this poll.</span>")
 			return
 
 		if(multichoice && (alreadyvoted >= multiplechoiceoptions))
-			to_chat(usr, "\red You already have more than [multiplechoiceoptions] logged votes on this poll. Enough is enough. Contact the database admin if this is an error.")
+			to_chat(usr, "<span class='warning'>You already have more than [multiplechoiceoptions] logged votes on this poll. Enough is enough. Contact the database admin if this is an error.</span>")
 			return
 
 		var/adminrank = "Player"
@@ -537,7 +537,7 @@
 		var/DBQuery/insert_query = dbcon.NewQuery("INSERT INTO [format_table_name("poll_vote")] (id ,datetime ,pollid ,optionid ,ckey ,ip ,adminrank) VALUES (null, Now(), [pollid], [optionid], '[ckey]', '[usr.client.address]', '[adminrank]')")
 		insert_query.Execute()
 
-		to_chat(usr, "\blue Vote successful.")
+		to_chat(usr, "<span class='notice'>Vote successful.</span>")
 		usr << browse(null,"window=playerpoll")
 
 
@@ -562,7 +562,7 @@
 			break
 
 		if(!validpoll)
-			to_chat(usr, "\red Poll is not valid.")
+			to_chat(usr, "<span class='warning'>Poll is not valid.</span>")
 			return
 
 		var/alreadyvoted = 0
@@ -575,7 +575,7 @@
 			break
 
 		if(alreadyvoted)
-			to_chat(usr, "\red You already sent your feedback for this poll.")
+			to_chat(usr, "<span class='warning'>You already sent your feedback for this poll.</span>")
 			return
 
 		var/adminrank = "Player"
@@ -595,7 +595,7 @@
 		var/DBQuery/insert_query = dbcon.NewQuery("INSERT INTO [format_table_name("poll_textreply")] (id ,datetime ,pollid ,ckey ,ip ,replytext ,adminrank) VALUES (null, Now(), [pollid], '[ckey]', '[usr.client.address]', '[replytext]', '[adminrank]')")
 		insert_query.Execute()
 
-		to_chat(usr, "\blue Feedback logging successful.")
+		to_chat(usr, "<span class='notice'>Feedback logging successful.</span>")
 		usr << browse(null,"window=playerpoll")
 
 
@@ -620,7 +620,7 @@
 			break
 
 		if(!validpoll)
-			to_chat(usr, "\red Poll is not valid.")
+			to_chat(usr, "<span class='warning'>Poll is not valid.</span>")
 			return
 
 		var/DBQuery/select_query2 = dbcon.NewQuery("SELECT id FROM [format_table_name("poll_option")] WHERE id = [optionid] AND pollid = [pollid]")
@@ -633,7 +633,7 @@
 			break
 
 		if(!validoption)
-			to_chat(usr, "\red Poll option is not valid.")
+			to_chat(usr, "<span class='warning'>Poll option is not valid.</span>")
 			return
 
 		var/alreadyvoted = 0
@@ -646,7 +646,7 @@
 			break
 
 		if(alreadyvoted)
-			to_chat(usr, "\red You already voted in this poll.")
+			to_chat(usr, "<span class='warning'>You already voted in this poll.</span>")
 			return
 
 		var/adminrank = "Player"
@@ -657,5 +657,5 @@
 		var/DBQuery/insert_query = dbcon.NewQuery("INSERT INTO [format_table_name("poll_vote")] (id ,datetime ,pollid ,optionid ,ckey ,ip ,adminrank, rating) VALUES (null, Now(), [pollid], [optionid], '[ckey]', '[usr.client.address]', '[adminrank]', [(isnull(rating)) ? "null" : rating])")
 		insert_query.Execute()
 
-		to_chat(usr, "\blue Vote successful.")
+		to_chat(usr, "<span class='notice'>Vote successful.</span>")
 		usr << browse(null,"window=playerpoll")

@@ -15,7 +15,7 @@
 		if(T.active_hotspot)
 			burning = 1
 
-	to_chat(usr, "\blue @[target.x],[target.y]: O:[GM.oxygen] T:[GM.toxins] N:[GM.nitrogen] C:[GM.carbon_dioxide] w [GM.temperature] Kelvin, [GM.return_pressure()] kPa [(burning)?("\red BURNING"):(null)]")
+	to_chat(usr, "<span class='notice'>@[target.x],[target.y]: O:[GM.oxygen] T:[GM.toxins] N:[GM.nitrogen] C:[GM.carbon_dioxide] w [GM.temperature] Kelvin, [GM.return_pressure()] kPa [(burning)?("<span class='warning'>BURNING</span>"):(null)]</span>")
 	for(var/datum/gas/trace_gas in GM.trace_gases)
 		to_chat(usr, "[trace_gas.type]: [trace_gas.moles]")
 

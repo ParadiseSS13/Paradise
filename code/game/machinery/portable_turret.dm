@@ -20,7 +20,7 @@
 	var/health = 80			//the turret's health
 	var/locked = 1			//if the turret's behaviour control access is locked
 	var/controllock = 0		//if the turret responds to control panels
-	
+
 	var/installation = /obj/item/weapon/gun/energy/gun/turret		//the type of weapon installed
 	var/gun_charge = 0		//the charge of the gun inserted
 	var/projectile = null	//holder for bullettype
@@ -56,7 +56,7 @@
 
 	var/screen = 0 // Screen 0: main control, screen 1: access levels
 	var/one_access = 0 // Determines if access control is set to req_one_access or req_access
-	
+
 	var/syndicate = 0		//is the turret a syndicate turret?
 	var/faction = ""
 	var/emp_vulnerable = 1 // Can be empd
@@ -94,8 +94,7 @@
 	setup()
 
 /obj/machinery/porta_turret/Destroy()
-	qdel(spark_system)
-	spark_system = null
+	QDEL_NULL(spark_system)
 	return ..()
 
 /obj/machinery/porta_turret/centcom/New()
@@ -337,7 +336,7 @@ var/list/turret_icons
 			//If the turret is destroyed, you can remove it with a crowbar to
 			//try and salvage its components
 			to_chat(user, "<span class='notice'>You begin prying the metal coverings off.</span>")
-			if(do_after(user, 20, target = src))
+			if(do_after(user, 20 * I.toolspeed, target = src))
 				if(prob(70))
 					to_chat(user, "<span class='notice'>You remove the turret and salvage some components.</span>")
 					if(installation)
@@ -369,15 +368,15 @@ var/list/turret_icons
 			)
 
 		wrenching = 1
-		if(do_after(user, 50, target = src))
+		if(do_after(user, 50 * I.toolspeed, target = src))
 			//This code handles moving the turret around. After all, it's a portable turret!
 			if(!anchored)
-				playsound(loc, 'sound/items/Ratchet.ogg', 100, 1)
+				playsound(loc, I.usesound, 100, 1)
 				anchored = 1
 				update_icon()
 				to_chat(user, "<span class='notice'>You secure the exterior bolts on the turret.</span>")
 			else if(anchored)
-				playsound(loc, 'sound/items/Ratchet.ogg', 100, 1)
+				playsound(loc, I.usesound, 100, 1)
 				anchored = 0
 				to_chat(user, "<span class='notice'>You unsecure the exterior bolts on the turret.</span>")
 				update_icon()
@@ -549,8 +548,8 @@ var/list/turret_icons
 /obj/machinery/porta_turret/proc/in_faction(mob/living/target)
 	if(!(faction in target.faction))
 		return 0
-	return 1			
-				
+	return 1
+
 /obj/machinery/porta_turret/proc/assess_and_assign(var/mob/living/L, var/list/targets, var/list/secondarytargets)
 	switch(assess_living(L))
 		if(TURRET_PRIORITY_TARGET)
@@ -582,7 +581,7 @@ var/list/turret_icons
 
 	if(emagged)		// If emagged not even the dead get a rest
 		return L.stat ? TURRET_SECONDARY_TARGET : TURRET_PRIORITY_TARGET
-		
+
 	if(in_faction(L))
 		return TURRET_NOT_TARGET
 
@@ -778,14 +777,14 @@ var/list/turret_icons
 	switch(build_step)
 		if(0)	//first step
 			if(istype(I, /obj/item/weapon/wrench) && !anchored)
-				playsound(loc, 'sound/items/Ratchet.ogg', 100, 1)
+				playsound(loc, I.usesound, 100, 1)
 				to_chat(user, "<span class='notice'>You secure the external bolts.</span>")
 				anchored = 1
 				build_step = 1
 				return
 
 			else if(istype(I, /obj/item/weapon/crowbar) && !anchored)
-				playsound(loc, 'sound/items/Crowbar.ogg', 75, 1)
+				playsound(loc, I.usesound, 75, 1)
 				to_chat(user, "<span class='notice'>You dismantle the turret construction.</span>")
 				new /obj/item/stack/sheet/metal( loc, 5)
 				qdel(src) // qdel
@@ -803,7 +802,7 @@ var/list/turret_icons
 				return
 
 			else if(istype(I, /obj/item/weapon/wrench))
-				playsound(loc, 'sound/items/Ratchet.ogg', 75, 1)
+				playsound(loc, I.usesound, 75, 1)
 				to_chat(user, "<span class='notice'>You unfasten the external bolts.</span>")
 				anchored = 0
 				build_step = 0
@@ -812,7 +811,7 @@ var/list/turret_icons
 
 		if(2)
 			if(istype(I, /obj/item/weapon/wrench))
-				playsound(loc, 'sound/items/Ratchet.ogg', 100, 1)
+				playsound(loc, I.usesound, 100, 1)
 				to_chat(user, "<span class='notice'>You bolt the metal armor into place.</span>")
 				build_step = 3
 				return
@@ -825,8 +824,8 @@ var/list/turret_icons
 					to_chat(user, "<span class='notice'>You need more fuel to complete this task.</span>")
 					return
 
-				playsound(loc, pick('sound/items/Welder.ogg', 'sound/items/Welder2.ogg'), 50, 1)
-				if(do_after(user, 20, target = src))
+				playsound(loc, WT.usesound, 50, 1)
+				if(do_after(user, 20 * WT.toolspeed, target = src))
 					if(!src || !WT.remove_fuel(5, user)) return
 					build_step = 1
 					to_chat(user, "You remove the turret's interior metal armor.")
@@ -857,7 +856,7 @@ var/list/turret_icons
 				return
 
 			else if(istype(I, /obj/item/weapon/wrench))
-				playsound(loc, 'sound/items/Ratchet.ogg', 100, 1)
+				playsound(loc, I.usesound, 100, 1)
 				to_chat(user, "<span class='notice'>You remove the turret's metal armor bolts.</span>")
 				build_step = 2
 				return
@@ -876,7 +875,7 @@ var/list/turret_icons
 
 		if(5)
 			if(istype(I, /obj/item/weapon/screwdriver))
-				playsound(loc, 'sound/items/Screwdriver.ogg', 100, 1)
+				playsound(loc, I.usesound, 100, 1)
 				build_step = 6
 				to_chat(user, "<span class='notice'>You close the internal access hatch.</span>")
 				return
@@ -894,7 +893,7 @@ var/list/turret_icons
 				return
 
 			else if(istype(I, /obj/item/weapon/screwdriver))
-				playsound(loc, 'sound/items/Screwdriver.ogg', 100, 1)
+				playsound(loc, I.usesound, 100, 1)
 				build_step = 5
 				to_chat(user, "<span class='notice'>You open the internal access hatch.</span>")
 				return
@@ -906,8 +905,8 @@ var/list/turret_icons
 				if(WT.get_fuel() < 5)
 					to_chat(user, "<span class='notice'>You need more fuel to complete this task.</span>")
 
-				playsound(loc, pick('sound/items/Welder.ogg', 'sound/items/Welder2.ogg'), 50, 1)
-				if(do_after(user, 30, target = src))
+				playsound(loc, WT.usesound, 50, 1)
+				if(do_after(user, 30 * WT.toolspeed, target = src))
 					if(!src || !WT.remove_fuel(5, user))
 						return
 					build_step = 8
@@ -924,7 +923,7 @@ var/list/turret_icons
 					qdel(src) // qdel
 
 			else if(istype(I, /obj/item/weapon/crowbar))
-				playsound(loc, 'sound/items/Crowbar.ogg', 75, 1)
+				playsound(loc, I.usesound, 75, 1)
 				to_chat(user, "<span class='notice'>You pry off the turret's exterior armor.</span>")
 				new /obj/item/stack/sheet/metal(loc, 2)
 				build_step = 6
@@ -967,46 +966,46 @@ var/list/turret_icons
 
 /atom/movable/porta_turret_cover
 	icon = 'icons/obj/turrets.dmi'
-	
+
 // Syndicate turrets
 /obj/machinery/porta_turret/syndicate
 	projectile = /obj/item/projectile/bullet
 	eprojectile = /obj/item/projectile/bullet
 	shot_sound = 'sound/weapons/Gunshot.ogg'
 	eshot_sound = 'sound/weapons/Gunshot.ogg'
-	
+
 	icon_state = "syndieturret0"
 	var/icon_state_initial = "syndieturret0"
 	var/icon_state_active = "syndieturret1"
 	var/icon_state_destroyed = "syndieturret2"
-	
+
 	syndicate = 1
 	installation = null
 	always_up = 1
 	use_power = 0
 	has_cover = 0
 	raised = 1
-	scan_range = 9	
-	
+	scan_range = 9
+
 	faction = "syndicate"
 	emp_vulnerable = 0
-	
+
 	lethal = 1
 	check_arrest = 0
 	check_records = 0
 	check_weapons = 0
 	check_access = 0
-	check_anomalies = 1	
+	check_anomalies = 1
 	check_synth	= 1
 	ailock = 1
-	
+
 /obj/machinery/porta_turret/syndicate/New()
 	..()
 	if(req_one_access && req_one_access.len)
 		req_one_access.Cut()
 	req_access = list(access_syndicate)
 	one_access = 0
-	
+
 /obj/machinery/porta_turret/syndicate/update_icon()
 	if(stat & BROKEN)
 		icon_state = icon_state_destroyed
@@ -1025,7 +1024,7 @@ var/list/turret_icons
 	health = 40
 	projectile = /obj/item/projectile/bullet/weakbullet3
 	eprojectile = /obj/item/projectile/bullet/weakbullet3
-	
+
 /obj/machinery/porta_turret/syndicate/interior
 	name = "machine gun turret (.45)"
 	desc = "Syndicate interior defense turret chambered for .45 rounds. Designed to down intruders without damaging the hull."

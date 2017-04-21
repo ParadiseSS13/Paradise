@@ -121,6 +121,7 @@
 				/obj/item/weapon/wirecutters = 10,
 				/obj/item/weapon/wrench = 40,
 				/obj/item/weapon/relic = 35,
+				/obj/item/weaponcrafting/receiver = 20,
 				/obj/item/clothing/shoes/brown = 30,
 				/obj/item/seeds/ambrosia/deus = 10,
 				/obj/item/seeds/ambrosia = 20,
@@ -148,7 +149,7 @@
 				/obj/item/weapon/implanter/storage = 1,
 				/obj/item/toy/cards/deck/syndicate = 2,
 				/obj/item/weapon/storage/secure/briefcase/syndie = 2,
-				"" = 90
+				"" = 70
 				)
 
 /obj/effect/spawner/lootdrop/crate_spawner // for ruins
@@ -192,7 +193,7 @@
 				/obj/item/weapon/stock_parts/matter_bin = 1,
 				/obj/item/weapon/stock_parts/micro_laser = 1,
 				/obj/item/weapon/stock_parts/scanning_module = 1,
-				/obj/item/weapon/spacecash/c200 = 1,
+				/obj/item/stack/spacecash/c200 = 1,
 				/obj/item/weapon/airlock_electronics = 1,
 				/obj/item/weapon/gun/energy/kinetic_accelerator = 1,
 				/obj/item/pizzabox = 3,

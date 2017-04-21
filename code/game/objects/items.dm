@@ -19,6 +19,7 @@ var/global/image/fire_overlay = image("icon" = 'icons/goonstation/effects/fire.d
 	var/r_speed = 1.0
 	var/health = null
 	var/hitsound = null
+	var/usesound = null
 	var/w_class = 3
 	var/slot_flags = 0		//This is used to determine on which slots an item can fit.
 	pass_flags = PASSTABLE
@@ -54,12 +55,14 @@ var/global/image/fire_overlay = image("icon" = 'icons/goonstation/effects/fire.d
 	var/strip_delay = DEFAULT_ITEM_STRIP_DELAY
 	var/put_on_delay = DEFAULT_ITEM_PUTON_DELAY
 	var/breakouttime = 0
-
+	var/flags_cover = 0 //for flags such as GLASSESCOVERSEYES
 	var/flags_size = 0 //flag, primarily used for clothing to determine if a fatty can wear something or not.
 
 	var/block_chance = 0
 	var/hit_reaction_chance = 0 //If you want to have something unrelated to blocking/armour piercing etc. Maybe not needed, but trying to think ahead/allow more freedom
 
+	var/toolspeed = 1 // If this item is a tool, the speed multiplier
+	
 	/* Species-specific sprites, concept stolen from Paradise//vg/.
 	ex:
 	sprite_sheets = list(
@@ -388,22 +391,22 @@ var/global/image/fire_overlay = image("icon" = 'icons/goonstation/effects/fire.d
 	if(!usr.canmove || usr.stat || usr.restrained() || !Adjacent(usr))
 		return
 	if((!istype(usr, /mob/living/carbon)) || (istype(usr, /mob/living/carbon/brain)))//Is humanoid, and is not a brain
-		to_chat(usr, "\red You can't pick things up!")
+		to_chat(usr, "<span class='warning'>You can't pick things up!</span>")
 		return
 	if( usr.stat || usr.restrained() )//Is not asleep/dead and is not restrained
-		to_chat(usr, "\red You can't pick things up!")
+		to_chat(usr, "<span class='warning'>You can't pick things up!</span>")
 		return
 	if(src.anchored) //Object isn't anchored
-		to_chat(usr, "\red You can't pick that up!")
+		to_chat(usr, "<span class='warning'>You can't pick that up!</span>")
 		return
 	if(!usr.hand && usr.r_hand) //Right hand is not full
-		to_chat(usr, "\red Your right hand is full.")
+		to_chat(usr, "<span class='warning'>Your right hand is full.</span>")
 		return
 	if(usr.hand && usr.l_hand) //Left hand is not full
-		to_chat(usr, "\red Your left hand is full.")
+		to_chat(usr, "<span class='warning'>Your left hand is full.</span>")
 		return
 	if(!istype(src.loc, /turf)) //Object is on a turf
-		to_chat(usr, "\red You can't pick that up!")
+		to_chat(usr, "<span class='warning'>You can't pick that up!</span>")
 		return
 	//All checks are done, time to pick it up!
 	usr.UnarmedAttack(src)
@@ -429,9 +432,9 @@ var/global/image/fire_overlay = image("icon" = 'icons/goonstation/effects/fire.d
 
 	var/mob/living/carbon/human/H = M
 	if(istype(H) && ( \
-			(H.head && H.head.flags & HEADCOVERSEYES) || \
-			(H.wear_mask && H.wear_mask.flags & MASKCOVERSEYES) || \
-			(H.glasses && H.glasses.flags & GLASSESCOVERSEYES) \
+			(H.head && H.head.flags_cover & HEADCOVERSEYES) || \
+			(H.wear_mask && H.wear_mask.flags_cover & MASKCOVERSEYES) || \
+			(H.glasses && H.glasses.flags_cover & GLASSESCOVERSEYES) \
 		))
 		// you can't stab someone in the eyes wearing a mask!
 		to_chat(user, "<span class='danger'>You're going to need to remove that mask/helmet/glasses first!</span>")

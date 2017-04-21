@@ -6,7 +6,7 @@
 	icon_state = "RPED"
 	item_state = "RPED"
 	w_class = 5
-	can_hold = list("/obj/item/weapon/stock_parts")
+	can_hold = list(/obj/item/weapon/stock_parts)
 	storage_slots = 50
 	use_to_pickup = 1
 	allow_quick_gather = 1
@@ -18,6 +18,8 @@
 	var/works_from_distance = 0
 	var/primary_sound = 'sound/items/rped.ogg'
 	var/alt_sound = null
+	toolspeed = 1
+	usesound = 'sound/items/rped.ogg'
 
 /obj/item/weapon/storage/part_replacer/afterattack(obj/machinery/T as obj, mob/living/carbon/human/user as mob, flag, params)
 	if(flag)
@@ -41,6 +43,8 @@
 	works_from_distance = 1
 	primary_sound = 'sound/items/PSHOOM.ogg'
 	alt_sound = 'sound/items/PSHOOM_2.ogg'
+	usesound = 'sound/items/PSHOOM.ogg'
+	toolspeed = 0.5
 
 /obj/item/weapon/storage/part_replacer/proc/play_rped_sound()
 	//Plays the sound for RPED exchanging or installing parts.
@@ -61,9 +65,12 @@
 	icon = 'icons/obj/stock_parts.dmi'
 	w_class = 2
 	var/rating = 1
-	New()
-		src.pixel_x = rand(-5.0, 5)
-		src.pixel_y = rand(-5.0, 5)
+	toolspeed = 1
+	usesound = 'sound/items/Deconstruct.ogg'
+	
+/obj/item/weapon/stock_parts/New()
+	src.pixel_x = rand(-5.0, 5)
+	src.pixel_y = rand(-5.0, 5)
 
 //Rank 1
 

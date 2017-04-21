@@ -56,7 +56,8 @@
 	reagent_tag = PROCESS_ORG
 	base_color = "#066000"
 	//Default styles for created mobs.
-	default_hair = "Unathi Horns"
+	default_headacc = "Simple"
+	default_headacc_colour = "#404040"
 	butt_sprite = "unathi"
 
 	has_organ = list(
@@ -214,6 +215,9 @@
 	dietflags = DIET_HERB
 	flesh_color = "#8CD7A3"
 	blood_color = "#1D2CBF"
+	base_color = "#38b661" //RGB: 56, 182, 97.
+	default_hair_colour = "#38b661"
+	eyes = "skrell_eyes_s"
 	//Default styles for created mobs.
 	default_hair = "Skrell Male Tentacles"
 	reagent_tag = PROCESS_ORG
@@ -256,6 +260,8 @@
 	refer to them as 'shitbirds' for their violent and offensive nature, as well as their horrible \
 	smell.<br/><br/>Most humans will never meet a Vox raider, instead learning of this insular species through \
 	dealing with their traders and merchants; those that do rarely enjoy the experience."
+
+	brute_mod = 1.2 //20% more brute damage. Fragile bird bones.
 
 	warning_low_pressure = 50
 	hazard_low_pressure = 0
@@ -343,13 +349,13 @@
 		newname += pick(vox_name_syllables)
 	return capitalize(newname)
 
-/datum/species/vox/equip(var/mob/living/carbon/human/H)
-	if(H.mind.assigned_role != "Clown" && H.mind.assigned_role != "Mime")
+/datum/species/vox/after_equip_job(datum/job/J, mob/living/carbon/human/H)
+	if(!H.mind || !H.mind.assigned_role || H.mind.assigned_role != "Clown" && H.mind.assigned_role != "Mime")
 		H.unEquip(H.wear_mask)
 	H.unEquip(H.l_hand)
 
 	H.equip_or_collect(new /obj/item/clothing/mask/breath/vox(H), slot_wear_mask)
-	var/tank_pref = H.client.prefs.speciesprefs
+	var/tank_pref = H.client && H.client.prefs ? H.client.prefs.speciesprefs : null
 	if(tank_pref)//Diseasel, here you go
 		H.equip_or_collect(new /obj/item/weapon/tank/nitrogen(H), slot_l_hand)
 	else
@@ -365,7 +371,7 @@
 	..()
 
 /datum/species/vox/updatespeciescolor(var/mob/living/carbon/human/H, var/owner_sensitive = 1) //Handling species-specific skin-tones for the Vox race.
-	if(H.species.name == "Vox") //Making sure we don't break Armalis.
+	if(H.species.bodyflags & HAS_ICON_SKIN_TONE) //Making sure we don't break Armalis.
 		var/new_icobase = 'icons/mob/human_races/vox/r_vox.dmi' //Default Green Vox.
 		var/new_deform = 'icons/mob/human_races/vox/r_def_vox.dmi' //Default Green Vox.
 		switch(H.s_tone)
@@ -394,6 +400,14 @@
 
 		H.change_icobase(new_icobase, new_deform, owner_sensitive) //Update the icobase/deform of all our organs, but make sure we don't mess with frankenstein limbs in doing so.
 		H.update_dna()
+
+/datum/species/vox/handle_reagents(var/mob/living/carbon/human/H, var/datum/reagent/R)
+	if(R.id == "oxygen") //Armalis are above such petty things.
+		H.adjustToxLoss(1*REAGENTS_EFFECT_MULTIPLIER) //Same as plasma.
+		H.reagents.remove_reagent(R.id, REAGENTS_METABOLISM)
+		return 0 //Handling reagent removal on our own.
+
+	return ..()
 
 /datum/species/vox/armalis/handle_post_spawn(var/mob/living/carbon/human/H)
 	H.verbs += /mob/living/carbon/human/proc/leap
@@ -427,7 +441,8 @@
 	breath_type = "nitrogen"
 	poison_type = "oxygen"
 
-	flags = NO_SCAN | NO_BLOOD | HAS_TAIL | NO_PAIN | IS_WHITELISTED
+	flags = NO_SCAN | NO_BLOOD | NO_PAIN | IS_WHITELISTED
+	bodyflags = HAS_TAIL
 	dietflags = DIET_OMNI	//should inherit this from vox, this is here just in case
 
 	blood_color = "#2299FC"
@@ -455,6 +470,9 @@
 		"is holding their breath!",
 		"is huffing oxygen!")
 
+/datum/species/vox/armalis/handle_reagents() //Skip the Vox oxygen reagent toxicity. Armalis are above such things.
+	return 1
+
 /datum/species/kidan
 	name = "Kidan"
 	name_plural = "Kidan"
@@ -468,12 +486,14 @@
 	brute_mod = 0.8
 
 	flags = IS_WHITELISTED
-	clothing_flags = HAS_SOCKS
-	bodyflags = FEET_CLAWS
-	eyes = "kidan_eyes"
+	clothing_flags = HAS_UNDERWEAR | HAS_UNDERSHIRT | HAS_SOCKS
+	bodyflags = FEET_CLAWS | HAS_HEAD_ACCESSORY
+	eyes = "kidan_eyes_s"
 	dietflags = DIET_HERB
 	blood_color = "#FB9800"
 	reagent_tag = PROCESS_ORG
+	//Default styles for created mobs.
+	default_headacc = "Normal Antennae"
 	butt_sprite = "kidan"
 
 	has_organ = list(
@@ -492,6 +512,8 @@
 		"is attempting to bite their antenna off!",
 		"is jamming their claws into their eye sockets!",
 		"is twisting their own neck!",
+		"is cracking their exoskeleton!",
+		"is stabbing themselves with their mandibles!",
 		"is holding their breath!")
 
 /datum/species/slime
@@ -728,7 +750,7 @@
 		genemutcheck(C,REMOTETALKBLOCK,null,MUTCHK_FORCED)
 	..()
 
-/datum/species/grey/equip(var/mob/living/carbon/human/H)
+/datum/species/grey/after_equip_job(datum/job/J, mob/living/carbon/human/H)
 	var/speech_pref = H.client.prefs.speciesprefs
 	if(speech_pref)
 		H.mind.speech_span = "wingdings"
@@ -887,6 +909,7 @@
 	default_hair = "Blue IPC Screen"
 	virus_immune = 1
 	can_revive_by_healing = 1
+	has_gender = FALSE
 	reagent_tag = PROCESS_SYN
 	male_scream_sound = 'sound/goonstation/voice/robot_scream.ogg'
 	female_scream_sound = 'sound/goonstation/voice/robot_scream.ogg'
@@ -899,7 +922,8 @@
 	has_organ = list(
 		"brain" = /obj/item/organ/internal/brain/mmi_holder/posibrain,
 		"cell" = /obj/item/organ/internal/cell,
-		"optics" = /obj/item/organ/internal/eyes/optical_sensor //Default darksight of 2.
+		"optics" = /obj/item/organ/internal/eyes/optical_sensor, //Default darksight of 2.
+		"charger" = /obj/item/organ/internal/cyberimp/chest/arm_mod/power_cord
 		)
 
 	vision_organ = /obj/item/organ/internal/eyes/optical_sensor

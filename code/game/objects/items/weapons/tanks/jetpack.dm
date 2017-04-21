@@ -19,8 +19,7 @@
 	ion_trail.set_up(src)
 
 /obj/item/weapon/tank/jetpack/Destroy()
-	qdel(ion_trail)
-	ion_trail = null
+	QDEL_NULL(ion_trail)
 	return ..()
 
 /obj/item/weapon/tank/jetpack/ui_action_click(mob/user, actiontype)

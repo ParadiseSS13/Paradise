@@ -20,37 +20,43 @@
 #define DNA_UI_HAIR_R		1
 #define DNA_UI_HAIR_G		2
 #define DNA_UI_HAIR_B		3
-#define DNA_UI_BEARD_R		4
-#define DNA_UI_BEARD_G		5
-#define DNA_UI_BEARD_B		6
-#define DNA_UI_SKIN_TONE	7
-#define DNA_UI_SKIN_R		8
-#define DNA_UI_SKIN_G		9
-#define DNA_UI_SKIN_B		10
-#define DNA_UI_HACC_R		11
-#define DNA_UI_HACC_G		12
-#define DNA_UI_HACC_B		13
-#define DNA_UI_HEAD_MARK_R	14
-#define DNA_UI_HEAD_MARK_G	15
-#define DNA_UI_HEAD_MARK_B	16
-#define DNA_UI_BODY_MARK_R	17
-#define DNA_UI_BODY_MARK_G	18
-#define DNA_UI_BODY_MARK_B	19
-#define DNA_UI_TAIL_MARK_R	20
-#define DNA_UI_TAIL_MARK_G	21
-#define DNA_UI_TAIL_MARK_B	22
-#define DNA_UI_EYES_R		23
-#define DNA_UI_EYES_G		24
-#define DNA_UI_EYES_B		25
-#define DNA_UI_GENDER		26
-#define DNA_UI_BEARD_STYLE	27
-#define DNA_UI_HAIR_STYLE	28
+#define DNA_UI_HAIR2_R		4
+#define DNA_UI_HAIR2_G		5
+#define DNA_UI_HAIR2_B		6
+#define DNA_UI_BEARD_R		7
+#define DNA_UI_BEARD_G		8
+#define DNA_UI_BEARD_B		9
+#define DNA_UI_BEARD2_R		10
+#define DNA_UI_BEARD2_G		11
+#define DNA_UI_BEARD2_B		12
+#define DNA_UI_SKIN_TONE	13
+#define DNA_UI_SKIN_R		14
+#define DNA_UI_SKIN_G		15
+#define DNA_UI_SKIN_B		16
+#define DNA_UI_HACC_R		17
+#define DNA_UI_HACC_G		18
+#define DNA_UI_HACC_B		19
+#define DNA_UI_HEAD_MARK_R	20
+#define DNA_UI_HEAD_MARK_G	21
+#define DNA_UI_HEAD_MARK_B	22
+#define DNA_UI_BODY_MARK_R	23
+#define DNA_UI_BODY_MARK_G	24
+#define DNA_UI_BODY_MARK_B	25
+#define DNA_UI_TAIL_MARK_R	26
+#define DNA_UI_TAIL_MARK_G	27
+#define DNA_UI_TAIL_MARK_B	28
+#define DNA_UI_EYES_R		29
+#define DNA_UI_EYES_G		30
+#define DNA_UI_EYES_B		31
+#define DNA_UI_GENDER		32
+#define DNA_UI_BEARD_STYLE	33
+#define DNA_UI_HAIR_STYLE	34
 /*#define DNA_UI_BACC_STYLE	23*/
-#define DNA_UI_HACC_STYLE	29
-#define DNA_UI_HEAD_MARK_STYLE	30
-#define DNA_UI_BODY_MARK_STYLE	31
-#define DNA_UI_TAIL_MARK_STYLE	32
-#define DNA_UI_LENGTH		32 // Update this when you add something, or you WILL break shit.
+#define DNA_UI_HACC_STYLE	35
+#define DNA_UI_HEAD_MARK_STYLE	36
+#define DNA_UI_BODY_MARK_STYLE	37
+#define DNA_UI_TAIL_MARK_STYLE	38
+#define DNA_UI_LENGTH		38 // Update this when you add something, or you WILL break shit.
 
 #define DNA_SE_LENGTH 55 // Was STRUCDNASIZE, size 27. 15 new blocks added = 42, plus room to grow.
 
@@ -135,6 +141,7 @@ var/global/list/bad_blocks[0]
 	// FIXME:  Species-specific defaults pls
 	var/obj/item/organ/external/head/H = character.get_organ("head")
 	var/obj/item/organ/internal/eyes/eyes_organ = character.get_int_organ(/obj/item/organ/internal/eyes)
+	var/datum/species/S = character.species
 
 	/*// Body Accessory
 	if(!character.body_accessory)
@@ -170,7 +177,11 @@ var/global/list/bad_blocks[0]
 
 	SetUIValueRange(DNA_UI_SKIN_TONE,	35-character.s_tone,	220,	1) // Value can be negative.
 
-	SetUIState(DNA_UI_GENDER, character.gender!=MALE, 1)
+	if(S.has_gender)
+		SetUIState(DNA_UI_GENDER, character.gender!=MALE, 1)
+	else
+		SetUIState(DNA_UI_GENDER, pick(0,1), 1)
+
 	/*SetUIValueRange(DNA_UI_BACC_STYLE,	bodyacc,	facial_hair_styles_list.len,	1)*/
 	SetUIValueRange(DNA_UI_HEAD_MARK_STYLE,	head_marks,		marking_styles_list.len,		1)
 	SetUIValueRange(DNA_UI_BODY_MARK_STYLE,	body_marks,		marking_styles_list.len,		1)
@@ -426,3 +437,7 @@ var/global/list/bad_blocks[0]
 	species = data["species"]
 	b_type = data["b_type"]
 	real_name = data["real_name"]
+
+// a nice hook for if/when we refactor species on dna
+/datum/dna/proc/get_species_name()
+	return species

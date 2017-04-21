@@ -255,9 +255,7 @@
 /obj/effect/beam/i_beam/Destroy()
 	if(master.first == src)
 		master.first = null
-	if(next)
-		qdel(next)
-		next = null
+	QDEL_NULL(next)
 	if(previous)
 		previous.next = null
 		master.last = previous

@@ -87,9 +87,9 @@
 			to_chat(user, "<span class='warning'>You can't shave this corgi, it's already been shaved!</span>")
 			return
 		user.visible_message("[user] starts to shave [src] using \the [O].", "<span class='notice'>You start to shave [src] using \the [O]...</span>")
-		if(do_after(user, 50, target = src))
+		if(do_after(user, 50 * O.toolspeed, target = src))
 			user.visible_message("[user] shaves [src]'s hair using \the [O].")
-			playsound(loc, 'sound/items/Welder2.ogg', 20, 1)
+			playsound(loc, O.usesound, 20, 1)
 			shaved = 1
 			icon_living = "[initial(icon_living)]_shaved"
 			icon_dead = "[initial(icon_living)]_shaved_dead"
@@ -174,7 +174,7 @@
 					var/list/allowed_types = list(
 						/obj/item/clothing/suit/armor/vest,
 						/obj/item/clothing/suit/space/deathsquad,
-						/obj/item/clothing/suit/space/rig/engineering,
+						/obj/item/clothing/suit/space/hardsuit/engineering,
 						/obj/item/device/radio,
 						/obj/item/device/radio/off,
 						/obj/item/clothing/suit/cardborg,
@@ -356,7 +356,7 @@
 				desc = "That's not red paint. That's real corgi blood."
 				valid = 1
 
-			if(/obj/item/clothing/head/helmet/space/rig/engineering)
+			if(/obj/item/clothing/head/helmet/space/hardsuit/engineering)
 				name = "Space Explorer [real_name]"
 				desc = "That's one small step for a corgi. One giant yap for corgikind."
 				valid = 1
@@ -572,7 +572,7 @@
 //Lisa already has a cute bow!
 /mob/living/simple_animal/pet/corgi/Lisa/Topic(href, href_list)
 	if(href_list["remove_inv"] || href_list["add_inv"])
-		to_chat(usr, "\red [src] already has a cute bow!")
+		to_chat(usr, "<span class='warning'>[src] already has a cute bow!</span>")
 		return
 	..()
 
@@ -628,7 +628,7 @@
 /mob/living/simple_animal/pet/corgi/Ian/borgi/proc/explode()
 	for(var/mob/M in viewers(src, null))
 		if(M.client)
-			M.show_message("\red [src] makes an odd whining noise.")
+			M.show_message("<span class='warning'>[src] makes an odd whining noise.</span>")
 	sleep(10)
 	explosion(get_turf(src), 0, 1, 4, 7)
 	death()

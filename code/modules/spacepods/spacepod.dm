@@ -124,22 +124,14 @@
 /obj/spacepod/Destroy()
 	if(equipment_system.cargo_system)
 		equipment_system.cargo_system.removed(null)
-	qdel(equipment_system)
-	equipment_system = null
-	qdel(cargo_hold)
-	cargo_hold = null
-	qdel(battery)
-	battery = null
-	qdel(cabin_air)
-	cabin_air = null
-	qdel(internal_tank)
-	internal_tank = null
-	qdel(pr_int_temp_processor)
-	pr_int_temp_processor = null
-	qdel(pr_give_air)
-	pr_give_air = null
-	qdel(ion_trail)
-	ion_trail = null
+	QDEL_NULL(equipment_system)
+	QDEL_NULL(cargo_hold)
+	QDEL_NULL(battery)
+	QDEL_NULL(cabin_air)
+	QDEL_NULL(internal_tank)
+	QDEL_NULL(pr_int_temp_processor)
+	QDEL_NULL(pr_give_air)
+	QDEL_NULL(ion_trail)
 	occupant_sanity_check()
 	if(pilot)
 		pilot.forceMove(get_turf(src))
@@ -220,8 +212,8 @@
 	user.changeNext_move(CLICK_CD_MELEE)
 	deal_damage(15)
 	playsound(src.loc, 'sound/weapons/slash.ogg', 50, 1, -1)
-	to_chat(user, "\red You slash at \the [src]!")
-	visible_message("\red The [user] slashes at [src.name]'s armor!")
+	to_chat(user, "<span class='warning'>You slash at \the [src]!</span>")
+	visible_message("<span class='warning'>The [user] slashes at [src.name]'s armor!</span>")
 	return
 
 /obj/spacepod/proc/deal_damage(var/damage)
@@ -275,7 +267,7 @@
 	cargo_hold.emp_act(severity)
 
 	if(battery && battery.charge > 0)
-		battery.use((battery.charge / 2) / severity)
+		battery.use((battery.charge/3)/(severity*2))
 	deal_damage(80 / severity)
 	if(empcounter < (40 / severity))
 		empcounter = 40 / severity
@@ -311,14 +303,14 @@
 		if(iscrowbar(W))
 			if(!equipment_system.lock_system || unlocked || hatch_open)
 				hatch_open = !hatch_open
-				playsound(loc, 'sound/items/Crowbar.ogg', 50, 1)
+				playsound(loc, W.usesound, 50, 1)
 				to_chat(user, "<span class='notice'>You [hatch_open ? "open" : "close"] the maintenance hatch.</span>")
 			else
 				to_chat(user, "<span class='warning'>The hatch is locked shut!</span>")
 			return
 		if(istype(W, /obj/item/weapon/stock_parts/cell))
 			if(!hatch_open)
-				to_chat(user, "\red The maintenance hatch is closed!")
+				to_chat(user, "<span class='warning'>The maintenance hatch is closed!</span>")
 				return
 			if(battery)
 				to_chat(user, "<span class='notice'>The pod already has a battery.</span>")
@@ -329,7 +321,7 @@
 			return
 		if(istype(W, /obj/item/device/spacepod_equipment))
 			if(!hatch_open)
-				to_chat(user, "\red The maintenance hatch is closed!")
+				to_chat(user, "<span class='warning'>The maintenance hatch is closed!</span>")
 				return
 			if(!equipment_system)
 				to_chat(user, "<span class='warning'>The pod has no equipment datum, yell at the coders</span>")
@@ -361,19 +353,19 @@
 
 		if(istype(W, /obj/item/weapon/weldingtool))
 			if(!hatch_open)
-				to_chat(user, "\red You must open the maintenance hatch before attempting repairs.")
+				to_chat(user, "<span class='warning'>You must open the maintenance hatch before attempting repairs.</span>")
 				return
 			var/obj/item/weapon/weldingtool/WT = W
 			if(!WT.isOn())
-				to_chat(user, "\red The welder must be on for this task.")
+				to_chat(user, "<span class='warning'>The welder must be on for this task.</span>")
 				return
 			if(health < initial(health))
-				to_chat(user, "\blue You start welding the spacepod...")
-				playsound(loc, 'sound/items/Welder.ogg', 50, 1)
-				if(do_after(user, 20, target = src))
+				to_chat(user, "<span class='notice'>You start welding the spacepod...</span>")
+				playsound(loc, W.usesound, 50, 1)
+				if(do_after(user, 20 * W.toolspeed, target = src))
 					if(!src || !WT.remove_fuel(3, user)) return
 					repair_damage(10)
-					to_chat(user, "\blue You mend some [pick("dents","bumps","damage")] with \the [WT]")
+					to_chat(user, "<span class='notice'>You mend some [pick("dents","bumps","damage")] with \the [WT]</span>")
 				return
 			to_chat(user, "<span class='boldnotice'>\The [src] is fully repaired!</span>")
 			return
@@ -383,7 +375,7 @@
 			if(L.on && equipment_system.lock_system)
 				user.visible_message(user, "<span class='warning'>[user] is drilling through the [src]'s lock!</span>",
 					"<span class='notice'>You start drilling through the [src]'s lock!</span>")
-				if(do_after(user, 100, target = src))
+				if(do_after(user, 100 * W.toolspeed, target = src))
 					qdel(equipment_system.lock_system)
 					equipment_system.lock_system = null
 					user.visible_message(user, "<span class='warning'>[user] has destroyed the [src]'s lock!</span>",

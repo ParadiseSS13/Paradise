@@ -120,3 +120,22 @@ var/global/datum/robolimb/basic_robolimb
 	desc = "This limb has a rubbery fleshtone covering with visible seams."
 	icon = 'icons/mob/human_races/cyberlimbs/zenghu/zenghu_main.dmi'
 	has_subtypes = 2
+
+/datum/robolimb/shellguard
+	company = "Shellguard Munitions Standard Series"
+	desc = "This limb features exposed robust steel and paint to match Shellguards motifs"
+	icon = 'icons/mob/human_races/cyberlimbs/shellguard/shellguard_main.dmi'
+	has_subtypes = 1
+
+/datum/robolimb/shellguard/alt1
+	company = "Shellguard Munitions Elite Series"
+	icon = 'icons/mob/human_races/cyberlimbs/shellguard/shellguard_alt1.dmi'
+	parts = list("head")
+	has_subtypes = null
+
+/datum/robolimb/shellguard/monitor
+	company = "Shellguard Munitions Monitor Series"
+	icon = 'icons/mob/human_races/cyberlimbs/shellguard/shellguard_monitor.dmi'
+	parts = list("head")
+	is_monitor = 1
+	has_subtypes = null

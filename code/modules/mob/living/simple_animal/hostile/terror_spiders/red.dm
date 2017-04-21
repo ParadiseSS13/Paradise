@@ -12,9 +12,8 @@
 /mob/living/simple_animal/hostile/poison/terror_spider/red
 	name = "Red Terror spider"
 	desc = "An ominous-looking red spider, it has eight beady red eyes, and nasty, big, pointy fangs! It looks like it has a vicious streak a mile wide."
-
 	spider_role_summary = "High health, high damage, very slow, melee juggernaut"
-
+	ai_target_method = TS_DAMAGE_BRUTE
 	icon_state = "terror_red"
 	icon_living = "terror_red"
 	icon_dead = "terror_red_dead"
@@ -55,6 +54,6 @@
 		if(health > (maxHealth/2))
 			enrage = 1
 			visible_message("<span class='notice'>[src] retracts its fangs a little.</span>")
-			melee_damage_lower = melee_damage_lower_rage0
-			melee_damage_upper = melee_damage_upper_rage0
+			melee_damage_lower = melee_damage_lower_rage1
+			melee_damage_upper = melee_damage_upper_rage1
 	..()

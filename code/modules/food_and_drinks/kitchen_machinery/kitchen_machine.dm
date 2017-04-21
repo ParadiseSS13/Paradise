@@ -65,7 +65,7 @@
 		if(exchange_parts(user, O))
 			return
 	if(!broken && istype(O, /obj/item/weapon/wrench))
-		playsound(src, 'sound/items/Ratchet.ogg', 50, 1)
+		playsound(src, O.usesound, 50, 1)
 		if(anchored)
 			anchored = 0
 			to_chat(user, "<span class='alert'>\The [src] can now be moved.</span>")
@@ -83,7 +83,7 @@
 				"<span class='notice'>[user] starts to fix part of \the [src].</span>", \
 				"<span class='notice'>You start to fix part of \the [src].</span>" \
 			)
-			if(do_after(user,20, target = src))
+			if(do_after(user, 20 * O.toolspeed, target = src))
 				user.visible_message( \
 					"<span class='notice'>[user] fixes part of \the [src].</span>", \
 					"<span class='notice'>You have fixed part of \the [src].</span>" \
@@ -94,7 +94,7 @@
 				"<span class='notice'>[user] starts to fix part of \the [src].</span>", \
 				"<span class='notice'>You start to fix part of \the [src].</span>" \
 			)
-			if(do_after(user,20, target = src))
+			if(do_after(user, 20 * O.toolspeed, target = src))
 				user.visible_message( \
 					"<span class='notice'>[user] fixes \the [src].</span>", \
 					"<span class='notice'>You have fixed \the [src].</span>" \
@@ -112,7 +112,7 @@
 				"<span class='notice'>[user] starts to clean \the [src].</span>", \
 				"<span class='notice'>You start to clean \the [src].</span>" \
 			)
-			if(do_after(user,20, target = src))
+			if(do_after(user, 20 * O.toolspeed, target = src))
 				user.visible_message( \
 					"<span class='notice'>[user]  has cleaned \the [src].</span>", \
 					"<span class='notice'>You have cleaned \the [src].</span>" \
@@ -155,9 +155,7 @@
 				return 1
 		//G.reagents.trans_to(src,G.amount_per_transfer_from_this)
 	else if(istype(O,/obj/item/weapon/grab))
-		var/obj/item/weapon/grab/G = O
-		to_chat(user, "<span class='alert'>This is ridiculous. You can not fit \the [G.affecting] in this [src].</span>")
-		return 1
+		return special_attack(O, user)
 	else
 		to_chat(user, "<span class='alert'>You have no idea what you can cook with this [O].</span>")
 		return 1
@@ -169,6 +167,10 @@
 /obj/machinery/kitchen_machine/attack_hand(mob/user)
 	user.set_machine(src)
 	interact(user)
+
+/obj/machinery/kitchen_machine/proc/special_attack(obj/item/weapon/grab/G, mob/user)
+	to_chat(user, "<span class='alert'>This is ridiculous. You can not fit [G.affecting] in this [src].</span>")
+	return 0
 
 /********************
 *   Machine Menu	*

@@ -71,7 +71,7 @@
 		M.forceMove(loc)
 		M.disabilities -= MUTE
 		M.take_overall_damage((M.health - health - 100),0) //any new damage the statue incurred is transfered to the mob
-			
+
 	..()
 
 /obj/structure/closet/statue/open()
@@ -114,7 +114,7 @@
 /obj/structure/closet/statue/attackby(obj/item/I as obj, mob/user as mob, params)
 	user.changeNext_move(CLICK_CD_MELEE)
 	health -= I.force
-	visible_message("\red [user] strikes [src] with [I].")
+	visible_message("<span class='warning'>[user] strikes [src] with [I].</span>")
 	check_health()
 
 /obj/structure/closet/statue/MouseDrop_T()
@@ -136,20 +136,5 @@
 	if(user)
 		user.dust()
 	dump_contents()
-	visible_message("\red [src] shatters!. ")
+	visible_message("<span class='warning'>[src] shatters!. </span>")
 	qdel(src)
-
-
-/obj/structure/statue
-	name = "statue"
-	desc = "An incredibly lifelike marble carving"
-	icon = 'icons/obj/statue.dmi'
-	icon_state = "human_male"
-	density = 1
-	anchored = 1
-
-obj/structure/statue/angel
-	icon_state = "angelseen"
-
-obj/structure/statue/corgi
-	icon_state = "corgi"

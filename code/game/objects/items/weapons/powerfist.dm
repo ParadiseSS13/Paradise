@@ -17,9 +17,7 @@
 
 
 /obj/item/weapon/melee/powerfist/Destroy()
-	if(tank)
-		qdel(tank)
-		tank = null
+	QDEL_NULL(tank)
 	return ..()
 
 /obj/item/weapon/melee/powerfist/examine(mob/user)
@@ -46,7 +44,7 @@
 				fisto_setting = 3
 			if(3)
 				fisto_setting = 1
-		playsound(loc, 'sound/items/Ratchet.ogg', 50, 1)
+		playsound(loc, W.usesound, 50, 1)
 		to_chat(user, "<span class='notice'>You tweak \the [src]'s piston valve to [fisto_setting].</span>")
 	else if(istype(W, /obj/item/weapon/screwdriver))
 		if(tank)

@@ -22,6 +22,13 @@
 	filling_color = "#FFA500"
 	bitesize_mod = 2
 
+/obj/item/weapon/reagent_containers/food/snacks/grown/carrot/wedges
+	name = "carrot wedges"
+	desc = "Slices of neatly cut carrot."
+	icon_state = "carrot_wedges"
+	filling_color = "#FFA500"
+	bitesize_mod = 2
+
 /obj/item/weapon/reagent_containers/food/snacks/grown/carrot/attackby(obj/item/I, mob/user, params)
 	if(is_sharp(I))
 		to_chat(user, "<span class='notice'>You sharpen the carrot into a shiv with [I].</span>")
@@ -32,6 +39,7 @@
 		qdel(src)
 	else
 		return ..()
+
 
 // Parsnip
 /obj/item/seeds/carrot/parsnip

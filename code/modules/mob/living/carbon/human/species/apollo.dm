@@ -66,21 +66,21 @@
 
 			M.visible_message("<span class='notice'>[M] begins to violently pull off [H]'s antennae.</span>")
 			to_chat(H, "<span class='danger'><B>[M] grips your antennae and starts violently pulling!<B></span>")
-			do_after(H, 250, target = src)
-			if(p_loc == M.loc && p_loc_m == H.loc)
-				var/obj/item/organ/internal/wryn/hivenode/node = new /obj/item/organ/internal/wryn/hivenode
-				H.remove_language("Wryn Hivemind")
-				node.remove(H)
-				node.loc = M.loc
-				to_chat(M, "<span class='notice'>You hear a loud crunch as you mercilessly pull off [H]'s antennae.</span>")
-				to_chat(H, "<span class='danger'><B>You hear a loud crunch as your antennae is ripped off your head by [M].</span></B>")
-				to_chat(H, "<span class='danger'><span class='danger'><B>It's so quiet...</B></span>")
-				head_organ.h_style = "Bald"
-				H.update_hair()
+			if(do_after(H, 250, target = src))
+				if(p_loc == M.loc && p_loc_m == H.loc)
+					var/obj/item/organ/internal/wryn/hivenode/node = new /obj/item/organ/internal/wryn/hivenode
+					H.remove_language("Wryn Hivemind")
+					node.remove(H)
+					node.loc = M.loc
+					to_chat(M, "<span class='notice'>You hear a loud crunch as you mercilessly pull off [H]'s antennae.</span>")
+					to_chat(H, "<span class='danger'><B>You hear a loud crunch as your antennae is ripped off your head by [M].</span></B>")
+					to_chat(H, "<span class='danger'><span class='danger'><B>It's so quiet...</B></span>")
+					head_organ.h_style = "Bald"
+					H.update_hair()
 
-				M.create_attack_log("<font color='red'>removed antennae [H.name] ([H.ckey])</font>")
-				H.create_attack_log("<font color='orange'>Has had their antennae removed by [M.name] ([M.ckey])</font>")
-				msg_admin_attack("[key_name(M)] removed [key_name(H)]'s antennae")
+					M.create_attack_log("<font color='red'>removed antennae [H.name] ([H.ckey])</font>")
+					H.create_attack_log("<font color='orange'>Has had their antennae removed by [M.name] ([M.ckey])</font>")
+					msg_admin_attack("[key_name(M)] removed [key_name(H)]'s antennae")
 			return 0
 
 /datum/species/nucleation
@@ -122,7 +122,7 @@
 
 /datum/species/nucleation/handle_death(var/mob/living/carbon/human/H)
 	var/turf/T = get_turf(H)
-	H.visible_message("\red[H]'s body explodes, leaving behind a pile of microscopic crystals!")
+	H.visible_message("<span class='warning'>[H]'s body explodes, leaving behind a pile of microscopic crystals!</span>")
 	explosion(T, 0, 0, 2, 2) // Create a small explosion burst upon death
 //	new /obj/item/weapon/shard/supermatter( T )
 	qdel(H)

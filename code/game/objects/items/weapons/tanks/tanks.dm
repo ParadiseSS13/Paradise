@@ -33,9 +33,7 @@
 	return
 
 /obj/item/weapon/tank/Destroy()
-	if(air_contents)
-		qdel(air_contents)
-		air_contents = null
+	QDEL_NULL(air_contents)
 
 	processing_objects.Remove(src)
 
@@ -45,7 +43,7 @@
 /obj/item/weapon/tank/ui_action_click(mob/user)
 	toggle_internals(user)
 
-/obj/item/weapon/tank/proc/toggle_internals(mob/user)
+/obj/item/weapon/tank/proc/toggle_internals(mob/user, silent = FALSE)
 	var/mob/living/carbon/C = user
 	if(!istype(C))
 		return 0
@@ -65,13 +63,16 @@
 
 		if(can_open_valve)
 			if(C.internal)
-				to_chat(C, "<span class='notice'>You switch your internals to [src].</span>")
+				if(!silent)
+					to_chat(C, "<span class='notice'>You switch your internals to [src].</span>")
 			else
-				to_chat(C, "<span class='notice'>You open \the [src] valve.</span>")
+				if(!silent)
+					to_chat(C, "<span class='notice'>You open \the [src] valve.</span>")
 			C.internal = src
 			C.update_internals_hud_icon(1)
 		else
-			to_chat(C, "<span class='notice'>You are not wearing a suitable mask or helmet.</span>")
+			if(!silent)
+				to_chat(C, "<span class='notice'>You are not wearing a suitable mask or helmet.</span>")
 			return 0
 
 	C.update_action_buttons_icon()
@@ -244,7 +245,7 @@
 		if(!istype(loc,/obj/item/device/transfer_valve))
 			message_admins("Explosive tank rupture! last key to touch the tank was [fingerprintslast] (<A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[x];Y=[y];Z=[z]'>JMP</a>)")
 			log_game("Explosive tank rupture! last key to touch the tank was [fingerprintslast] at [x], [y], [z]")
-//		to_chat(world, "\blue[x],[y] tank is exploding: [pressure] kPa")
+//		to_chat(world, "<span class='notice'>[x],[y] tank is exploding: [pressure] kPa</span>")
 		//Give the gas a chance to build up more pressure through reacting
 		air_contents.react()
 		air_contents.react()
@@ -253,7 +254,7 @@
 		var/range = (pressure-TANK_FRAGMENT_PRESSURE)/TANK_FRAGMENT_SCALE
 		var/turf/epicenter = get_turf(loc)
 
-//		to_chat(world, "\blue Exploding Pressure: [pressure] kPa, intensity: [range]")
+//		to_chat(world, "<span class='notice'>Exploding Pressure: [pressure] kPa, intensity: [range]</span>")
 
 		explosion(epicenter, round(range*0.25), round(range*0.5), round(range), round(range*1.5))
 		if(istype(loc,/obj/item/device/transfer_valve))
@@ -262,7 +263,7 @@
 			qdel(src)
 
 	else if(pressure > TANK_RUPTURE_PRESSURE)
-//		to_chat(world, "\blue[x],[y] tank is rupturing: [pressure] kPa, integrity [integrity]")
+//		to_chat(world, "<span class='notice'>[x],[y] tank is rupturing: [pressure] kPa, integrity [integrity]</span>")
 		if(integrity <= 0)
 			var/turf/simulated/T = get_turf(src)
 			if(!T)
@@ -274,7 +275,7 @@
 			integrity--
 
 	else if(pressure > TANK_LEAK_PRESSURE)
-//		to_chat(world, "\blue[x],[y] tank is leaking: [pressure] kPa, integrity [integrity]")
+//		to_chat(world, "<span class='notice'>[x],[y] tank is leaking: [pressure] kPa, integrity [integrity]</span>")
 		if(integrity <= 0)
 			var/turf/simulated/T = get_turf(src)
 			if(!T)

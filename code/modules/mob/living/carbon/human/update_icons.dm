@@ -638,7 +638,7 @@ var/global/list/damage_icon_parts = list()
 			if(w_uniform.flags_size & ONESIZEFITSALL)
 				standing.icon	= 'icons/mob/uniform_fat.dmi'
 			else
-				to_chat(src, "\red You burst out of \the [w_uniform]!")
+				to_chat(src, "<span class='warning'>You burst out of \the [w_uniform]!</span>")
 				unEquip(w_uniform)
 				return
 		else
@@ -957,7 +957,7 @@ var/global/list/damage_icon_parts = list()
 			if(wear_suit.flags_size & ONESIZEFITSALL)
 				standing = image("icon" = 'icons/mob/suit_fat.dmi', "icon_state" = "[wear_suit.icon_state]")
 			else
-				to_chat(src, "\red You burst out of \the [wear_suit]!")
+				to_chat(src, "<span class='warning'>You burst out of \the [wear_suit]!</span>")
 				unEquip(wear_suit)
 				return
 		else
@@ -1202,7 +1202,7 @@ var/global/list/damage_icon_parts = list()
 			var/icon/tail_s = new/icon("icon" = 'icons/effects/species.dmi', "icon_state" = "[tail]_s")
 			if(species.bodyflags & HAS_SKIN_COLOR)
 				tail_s.Blend(rgb(r_skin, g_skin, b_skin), ICON_ADD)
-			if(tail_marking_icon)
+			if(tail_marking_icon && !tail_marking_style.tails_allowed)
 				tail_s.Blend(tail_marking_icon, ICON_OVERLAY)
 			if((!body_accessory || istype(body_accessory, /datum/body_accessory/tail)) && species.bodyflags & TAIL_OVERLAPPED) // If the player has a species whose tail is overlapped by limbs... (having a non-tail body accessory like the snake body will override this)
 				// Gives the underlimbs layer SEW direction icons since it's overlayed by limbs and just about everything else anyway.
@@ -1270,7 +1270,7 @@ var/global/list/damage_icon_parts = list()
 		var/icon/tailw_s = new/icon("icon" = 'icons/effects/species.dmi', "icon_state" = "[tail]w_s")
 		if(species.bodyflags & HAS_SKIN_COLOR)
 			tailw_s.Blend(rgb(r_skin, g_skin, b_skin), ICON_ADD)
-		if(tail_marking_icon)
+		if(tail_marking_icon && !tail_marking_style.tails_allowed)
 			tailw_s.Blend(tail_marking_icon, ICON_OVERLAY)
 		if((!body_accessory || istype(body_accessory, /datum/body_accessory/tail)) && species.bodyflags & TAIL_OVERLAPPED) // If the player has a species whose tail is overlapped by limbs... (having a non-tail body accessory like the snake body will override this)
 			// Gives the underlimbs layer SEW direction icons since it's overlayed by limbs and just about everything else anyway.

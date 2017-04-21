@@ -27,6 +27,7 @@
 	"The tray contains a body that might be responsive."
 	)
 	anchored = 1.0
+	var/open_sound = 'sound/items/Deconstruct.ogg'
 
 /obj/structure/morgue/initialize()
 	. = ..()
@@ -100,11 +101,11 @@
 		for(var/atom/movable/A as mob|obj in connected.loc)
 			if(!( A.anchored ))
 				A.forceMove(src)
-		playsound(loc, 'sound/items/Deconstruct.ogg', 50, 1)
+		playsound(loc, open_sound, 50, 1)
 		qdel(connected)
 		connected = null
 	else
-		playsound(loc, 'sound/items/Deconstruct.ogg', 50, 1)
+		playsound(loc, open_sound, 50, 1)
 		connected = new /obj/structure/m_tray( loc )
 		step(connected, dir)
 		connected.layer = OBJ_LAYER
@@ -159,9 +160,7 @@
 	return
 
 /obj/structure/morgue/Destroy()
-	if(connected)
-		qdel(connected)
-		connected = null
+	QDEL_NULL(connected)
 	return ..()
 
 /obj/structure/morgue/container_resist(var/mob/living/L)
@@ -217,7 +216,7 @@
 	if(user != O)
 		for(var/mob/B in viewers(user, 3))
 			if((B.client && !( B.blinded )))
-				to_chat(B, text("\red [] stuffs [] into []!", user, O, src))
+				to_chat(B, text("<span class='warning'>[] stuffs [] into []!</span>", user, O, src))
 	return
 
 /obj/structure/m_tray/Destroy()
@@ -258,6 +257,7 @@
 	var/cremating = 0
 	var/id = 1
 	var/locked = 0
+	var/open_sound = 'sound/items/Deconstruct.ogg'
 
 /obj/structure/crematorium/proc/update()
 	if(connected)
@@ -299,17 +299,17 @@
 
 /obj/structure/crematorium/attack_hand(mob/user as mob)
 	if(cremating)
-		to_chat(usr, "\red It's locked.")
+		to_chat(usr, "<span class='warning'>It's locked.</span>")
 		return
 	if((connected) && (locked == 0))
 		for(var/atom/movable/A as mob|obj in connected.loc)
 			if(!( A.anchored ))
 				A.forceMove(src)
-		playsound(loc, 'sound/items/Deconstruct.ogg', 50, 1)
+		playsound(loc, open_sound, 50, 1)
 		qdel(connected)
 		connected = null
 	else if(locked == 0)
-		playsound(loc, 'sound/items/Deconstruct.ogg', 50, 1)
+		playsound(loc, open_sound, 50, 1)
 		connected = new /obj/structure/c_tray( loc )
 		step(connected, SOUTH)
 		connected.layer = OBJ_LAYER
@@ -403,9 +403,7 @@
 	return
 
 /obj/structure/crematorium/Destroy()
-	if(connected)
-		qdel(connected)
-		connected = null
+	QDEL_NULL(connected)
 	return ..()
 
 /obj/structure/crematorium/container_resist(var/mob/living/L)
@@ -460,7 +458,7 @@
 	if(user != O)
 		for(var/mob/B in viewers(user, 3))
 			if((B.client && !( B.blinded )))
-				to_chat(B, text("\red [] stuffs [] into []!", user, O, src))
+				to_chat(B, text("<span class='warning'>[] stuffs [] into []!</span>", user, O, src))
 			//Foreach goto(99)
 	return
 
@@ -469,7 +467,7 @@
 		connected.connected = null
 	connected = null
 	return ..()
-	
+
 // Crematorium switch
 /obj/machinery/crema_switch
 	desc = "Burn baby burn!"
@@ -482,7 +480,7 @@
 	var/area/area = null
 	var/otherarea = null
 	var/id = 1
-	
+
 /obj/machinery/crema_switch/attack_ghost(mob/user)
 	if(user.can_advanced_admin_interact())
 		return attack_hand(user)

@@ -15,7 +15,6 @@
 		else
 			new /obj/item/weapon/storage/backpack/satchel_cap(src)
 		new /obj/item/weapon/book/manual/faxes(src)
-		new /obj/item/clothing/head/crown/fancy(src)
 		new /obj/item/weapon/storage/backpack/duffel/captain(src)
 		new /obj/item/clothing/suit/captunic(src)
 		new /obj/item/clothing/suit/captunic/capjacket(src)
@@ -113,7 +112,7 @@
 		new /obj/item/clothing/head/HoS(src)
 		new /obj/item/clothing/head/HoS/beret(src)
 		new /obj/item/clothing/glasses/hud/security/sunglasses(src)
-		new /obj/item/weapon/storage/lockbox/loyalty(src)
+		new /obj/item/weapon/storage/lockbox/mindshield(src)
 		new /obj/item/weapon/storage/box/flashbangs(src)
 		new /obj/item/clothing/mask/gas/sechailer/hos(src)
 		new /obj/item/weapon/shield/riot/tele(src)

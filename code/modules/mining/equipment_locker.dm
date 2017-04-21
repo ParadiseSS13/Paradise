@@ -112,8 +112,14 @@
 		return
 	if(panel_open)
 		if(istype(W, /obj/item/weapon/crowbar))
+			if(inserted_id)
+				inserted_id.forceMove(loc) //Prevents deconstructing the ORM from deleting whatever ID was inside it.
 			empty_content()
 			default_deconstruction_crowbar(W)
+		if(ismultitool(W))
+			input_dir = turn(input_dir, -90)
+			output_dir = turn(output_dir, -90)
+			to_chat(user, "<span class='notice'>You change [src]'s I/O settings, setting the input to [dir2text(input_dir)] and the output to [dir2text(output_dir)].</span>")
 		return
 	if(default_unfasten_wrench(user, W))
 		return
@@ -139,9 +145,12 @@
 	qdel(O)//No refined type? Purge it.
 	return
 
-/obj/machinery/mineral/ore_redemption/attack_hand(user as mob)
+/obj/machinery/mineral/ore_redemption/attack_hand(mob/user)
 	if(..())
 		return
+	interact(user)
+
+/obj/machinery/mineral/ore_redemption/attack_ghost(mob/user)
 	interact(user)
 
 /obj/machinery/mineral/ore_redemption/interact(mob/user)
@@ -194,7 +203,8 @@
 
 /obj/machinery/mineral/ore_redemption/Topic(href, href_list)
 	if(..())
-		return
+		return 1
+
 	if(href_list["choice"])
 		if(istype(inserted_id))
 			if(href_list["choice"] == "eject")
@@ -211,11 +221,12 @@
 			var/obj/item/weapon/card/id/I = usr.get_active_hand()
 			if(istype(I))
 				if(!usr.drop_item())
-					return
+					return 1
 				I.loc = src
 				inserted_id = I
 			else
 				to_chat(usr, "<span class='warning'>No valid ID.</span>")
+
 	if(href_list["release"])
 		if(check_access(inserted_id) || allowed(usr)) //Check the ID inside, otherwise check the user.
 			if(!(text2path(href_list["release"]) in stack_list)) return
@@ -230,6 +241,7 @@
 				stack_list -= text2path(href_list["release"])
 		else
 			to_chat(usr, "<span class='warning'>Required access not found.</span>")
+
 	if(href_list["plasteel"])
 		if(check_access(inserted_id) || allowed(usr))
 			if(!(/obj/item/stack/sheet/metal in stack_list)) return
@@ -246,6 +258,7 @@
 				unload_mineral(plasteelout)
 		else
 			to_chat(usr, "<span class='warning'>Required access not found.</span>")
+
 	if(href_list["plasglass"])
 		if(check_access(inserted_id) || allowed(usr))
 			if(!(/obj/item/stack/sheet/glass in stack_list)) return
@@ -263,7 +276,6 @@
 		else
 			to_chat(usr, "<span class='warning'>Required access not found.</span>")
 	updateUsrDialog()
-	return
 
 /obj/machinery/mineral/ore_redemption/ex_act(severity, target)
 	var/datum/effect/system/spark_spread/s = new /datum/effect/system/spark_spread
@@ -294,6 +306,9 @@
 /obj/machinery/mineral/ore_redemption/power_change()
 	..()
 	update_icon()
+	if(inserted_id && !powered())
+		visible_message("<span class='notice'>The ID slot indicator light flickers on \the [src] as it spits out a card before powering down.</span>")
+		inserted_id.forceMove(loc)
 
 /obj/machinery/mineral/ore_redemption/update_icon()
 	if(powered())
@@ -339,7 +354,7 @@
 		new /datum/data/mining_equipment("Lazarus Capsule", 	/obj/item/device/mobcapsule, 									   800),
 		new /datum/data/mining_equipment("Lazarus Capsule belt",/obj/item/weapon/storage/belt/lazarus,							   200),
 		new /datum/data/mining_equipment("Jetpack",             /obj/item/weapon/tank/jetpack/carbondioxide/mining,               2000),
-		new /datum/data/mining_equipment("Space Cash",    		/obj/item/weapon/spacecash/c1000,                    			  2000),
+		new /datum/data/mining_equipment("Space Cash",    		/obj/item/stack/spacecash/c1000,                    			  2000),
 		new /datum/data/mining_equipment("Diamond Pickaxe",		/obj/item/weapon/pickaxe/diamond,				                  2000),
 		new /datum/data/mining_equipment("Super Resonator",     /obj/item/weapon/resonator/upgraded,                              2500),
 		new /datum/data/mining_equipment("KA White Tracer Rounds",	/obj/item/borg/upgrade/modkit/tracer,								100),
@@ -377,17 +392,22 @@
 /obj/machinery/mineral/equipment_vendor/power_change()
 	..()
 	update_icon()
+	if(inserted_id && !powered())
+		visible_message("<span class='notice'>The ID slot indicator light flickers on \the [src] as it spits out a card before powering down.</span>")
+		inserted_id.forceMove(loc)
 
 /obj/machinery/mineral/equipment_vendor/update_icon()
 	if(powered())
 		icon_state = initial(icon_state)
 	else
 		icon_state = "[initial(icon_state)]-off"
-	return
 
-/obj/machinery/mineral/equipment_vendor/attack_hand(user as mob)
+/obj/machinery/mineral/equipment_vendor/attack_hand(mob/user)
 	if(..())
 		return
+	interact(user)
+
+/obj/machinery/mineral/equipment_vendor/attack_ghost(mob/user)
 	interact(user)
 
 /obj/machinery/mineral/equipment_vendor/interact(mob/user)
@@ -407,11 +427,11 @@
 	var/datum/browser/popup = new(user, "miningvendor", "Mining Equipment Vendor", 400, 350)
 	popup.set_content(dat)
 	popup.open()
-	return
 
 /obj/machinery/mineral/equipment_vendor/Topic(href, href_list)
 	if(..())
-		return
+		return 1
+
 	if(href_list["choice"])
 		if(istype(inserted_id))
 			if(href_list["choice"] == "eject")
@@ -427,24 +447,25 @@
 				inserted_id = I
 			else
 				to_chat(usr, "<span class='danger'>No valid ID.</span>")
+
 	if(href_list["purchase"])
 		if(istype(inserted_id))
 			var/datum/data/mining_equipment/prize = locate(href_list["purchase"])
-			if(!prize || !(prize in prize_list))
+			if(!prize || !(prize in prize_list) || prize.cost > inserted_id.mining_points)
 				return
-			if(prize.cost > inserted_id.mining_points)
-			else
-				inserted_id.mining_points -= prize.cost
-				new prize.equipment_path(src.loc)
-	updateUsrDialog()
-	return
 
-/obj/machinery/mineral/equipment_vendor/attackby(obj/item/I as obj, mob/user as mob, params)
+			inserted_id.mining_points -= prize.cost
+			new prize.equipment_path(src.loc)
+	updateUsrDialog()
+
+/obj/machinery/mineral/equipment_vendor/attackby(obj/item/I, mob/user, params)
 	if(default_deconstruction_screwdriver(user, "mining-open", "mining", I))
 		updateUsrDialog()
 		return
 	if(panel_open)
 		if(istype(I, /obj/item/weapon/crowbar))
+			if(inserted_id)
+				inserted_id.forceMove(loc) //Prevents deconstructing the ORM from deleting whatever ID was inside it.
 			default_deconstruction_crowbar(I)
 		return 1
 	if(istype(I, /obj/item/weapon/mining_voucher))
@@ -510,7 +531,7 @@
 	icon_state = "data"
 	var/points = 500
 
-/obj/item/weapon/card/mining_point_card/attackby(obj/item/I as obj, mob/user as mob, params)
+/obj/item/weapon/card/mining_point_card/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/weapon/card/id))
 		if(points)
 			var/obj/item/weapon/card/id/C = I
@@ -539,7 +560,7 @@
 	throw_range = 5
 	origin_tech = "bluespace=2"
 
-/obj/item/device/wormhole_jaunter/attack_self(mob/user as mob)
+/obj/item/device/wormhole_jaunter/attack_self(mob/user)
 	var/turf/device_turf = get_turf(user)
 	if(!device_turf||is_teleport_allowed(device_turf.z))
 		to_chat(user, "<span class='notice'>You're having difficulties getting the [src.name] to work.</span>")
@@ -620,7 +641,7 @@
 		spawn(burst_time)
 			fieldsactive--
 
-/obj/item/weapon/resonator/attack_self(mob/user as mob)
+/obj/item/weapon/resonator/attack_self(mob/user)
 	if(burst_time == 50)
 		burst_time = 30
 		to_chat(user, "<span class='info'>You set the resonator's fields to detonate after 3 seconds.</span>")
@@ -709,7 +730,7 @@
 	icon_state = "implant"
 	max_w_class = 3
 	storage_slots = 2
-	can_hold = list("/obj/item/weapon/mining_drone_cube","/obj/item/weapon/weldingtool/hugetank")
+	can_hold = list(/obj/item/weapon/mining_drone_cube, /obj/item/weapon/weldingtool/hugetank)
 
 /obj/item/weapon/storage/box/drone_kit/New()
 	..()

@@ -169,6 +169,7 @@
 	force_wielded = 24
 	attack_verb = list("attacked", "chopped", "cleaved", "torn", "cut")
 	hitsound = 'sound/weapons/bladeslice.ogg'
+	usesound = 'sound/items/Crowbar.ogg'
 
 /obj/item/weapon/twohanded/fireaxe/update_icon()  //Currently only here to fuck with the on-mob icons.
 	icon_state = "fireaxe[wielded]"
@@ -227,7 +228,7 @@
 		return
 	..()
 	if((CLUMSY in user.mutations) && (wielded) &&prob(40))
-		to_chat(user, "\red You twirl around a bit before losing your balance and impaling yourself on the [src].")
+		to_chat(user, "<span class='warning'>You twirl around a bit before losing your balance and impaling yourself on the [src].</span>")
 		user.take_organ_damage(20,25)
 		return
 	if((wielded) && prob(50))

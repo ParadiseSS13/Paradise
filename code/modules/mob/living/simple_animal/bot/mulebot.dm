@@ -65,12 +65,8 @@
 
 /mob/living/simple_animal/bot/mulebot/Destroy()
 	unload(0)
-	if(wires)
-		qdel(wires)
-		wires = null
-	if(cell)
-		qdel(cell)
-		cell = null
+	QDEL_NULL(wires)
+	QDEL_NULL(cell)
 	return ..()
 
 /mob/living/simple_animal/bot/mulebot/proc/set_suffix(suffix)
@@ -311,7 +307,7 @@
 			else
 				dat += "<A href='?src=[UID()];op=cellinsert'>Removed</A><BR>"
 
-			dat += wires.GetInteractWindow()
+			wires.Interact(user)
 		else
 			dat += "<div class='notice'>The bot is in maintenance mode and cannot be controlled.</div><BR>"
 

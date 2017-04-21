@@ -34,7 +34,7 @@
 	if(istype(A, /obj/item/weapon/crowbar))
 		if(modkits.len)
 			to_chat(user, "<span class='notice'>You pry the modifications out.</span>")
-			playsound(loc, 'sound/items/Crowbar.ogg', 100, 1)
+			playsound(loc, A.usesound, 100, 1)
 			for(var/obj/item/borg/upgrade/modkit/M in modkits)
 				M.uninstall(src)
 		else
@@ -94,7 +94,7 @@
 		empty()
 
 /obj/item/weapon/gun/energy/kinetic_accelerator/proc/empty()
-	power_supply.use(5000)
+	power_supply.use(500)
 	update_icon()
 
 /obj/item/weapon/gun/energy/kinetic_accelerator/proc/attempt_reload()
@@ -120,7 +120,7 @@
 	return
 
 /obj/item/weapon/gun/energy/kinetic_accelerator/proc/reload()
-	power_supply.give(5000)
+	power_supply.give(500)
 	if(!suppressed)
 		playsound(loc, 'sound/weapons/kenetic_reload.ogg', 60, 1)
 	else if(isliving(loc))
@@ -144,7 +144,7 @@
 /obj/item/ammo_casing/energy/kinetic
 	projectile_type = /obj/item/projectile/kinetic
 	select_name = "kinetic"
-	e_cost = 5000
+	e_cost = 500
 	fire_sound = 'sound/weapons/Kenetic_accel.ogg' // fine spelling there chap
 
 /obj/item/ammo_casing/energy/kinetic/ready_proj(atom/target, mob/living/user, quiet, zone_override = "")
@@ -178,6 +178,17 @@
 	var/turf_aoe = FALSE
 	var/mob_aoe = FALSE
 	var/list/hit_overlays = list()
+
+/obj/item/projectile/kinetic/pod
+	range = 4
+
+/obj/item/projectile/kinetic/pod/regular
+	damage = 50
+	pressure_decrease = 0.5
+
+/obj/item/projectile/kinetic/pod/enhanced
+	turf_aoe = TRUE
+	mob_aoe = TRUE
 
 /obj/item/projectile/kinetic/on_range()
 	strike_thing()
@@ -219,6 +230,7 @@
 	origin_tech = "programming=2;materials=2;magnets=4"
 	require_module = 1
 	module_type = /obj/item/weapon/robot_module/miner
+	usesound = 'sound/items/Screwdriver.ogg'
 	var/denied_type = null
 	var/maximum_of_type = 1
 	var/cost = 30
@@ -255,7 +267,7 @@
 	if(KA.get_remaining_mod_capacity() >= cost)
 		if(.)
 			to_chat(user, "<span class='notice'>You install the modkit.</span>")
-			playsound(loc, 'sound/items/Screwdriver.ogg', 100, 1)
+			playsound(loc, usesound, 100, 1)
 			user.unEquip(src)
 			forceMove(KA)
 			KA.modkits += src

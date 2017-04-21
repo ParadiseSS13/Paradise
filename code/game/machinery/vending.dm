@@ -146,11 +146,8 @@
 			product_records.Add(product)
 
 /obj/machinery/vending/Destroy()
-	qdel(wires) // qdel
-	wires = null
-	if(coin)
-		qdel(coin) // qdel
-		coin = null
+	QDEL_NULL(wires)
+	QDEL_NULL(coin)
 	return ..()
 
 /obj/machinery/vending/ex_act(severity)
@@ -221,8 +218,8 @@
 			if(PDA.id)
 				paid = pay_with_card(PDA.id)
 				handled = 1
-		else if(istype(I, /obj/item/weapon/spacecash))
-			var/obj/item/weapon/spacecash/C = I
+		else if(istype(I, /obj/item/stack/spacecash))
+			var/obj/item/stack/spacecash/C = I
 			paid = pay_with_cash(C, user)
 			handled = 1
 
@@ -237,7 +234,7 @@
 		return
 
 	if(istype(I, /obj/item/weapon/screwdriver) && anchored)
-		playsound(loc, 'sound/items/Screwdriver.ogg', 50, 1)
+		playsound(loc, I.usesound, 50, 1)
 		panel_open = !panel_open
 		to_chat(user, "You [panel_open ? "open" : "close"] the maintenance panel.")
 		overlays.Cut()
@@ -264,7 +261,7 @@
 		I.loc = src
 		coin = I
 		categories |= CAT_COIN
-		to_chat(user, "\blue You insert the [I] into the [src]")
+		to_chat(user, "<span class='notice'>You insert the [I] into the [src]</span>")
 		nanomanager.update_uis(src)
 		return
 	else if(istype(I, refill_canister) && refill_canister != null)
@@ -297,8 +294,8 @@
  *
  *  usr is the mob who gets the change.
  */
-/obj/machinery/vending/proc/pay_with_cash(var/obj/item/weapon/spacecash/cashmoney, mob/user)
-	if(currently_vending.price > cashmoney.get_total())
+/obj/machinery/vending/proc/pay_with_cash(obj/item/stack/spacecash/cashmoney, mob/user)
+	if(currently_vending.price > cashmoney.amount)
 		// This is not a status display message, since it's something the character
 		// themselves is meant to see BEFORE putting the money in
 		to_chat(usr, "[bicon(cashmoney)] <span class='warning'>That is not enough money.</span>")
@@ -310,12 +307,7 @@
 	// just assume that all spacecash that's not something else is a bill
 
 	visible_message("<span class='info'>[usr] inserts a credit chip into [src].</span>")
-	var/left = cashmoney.get_total() - currently_vending.price
-	usr.unEquip(cashmoney)
-	qdel(cashmoney)
-
-	if(left)
-		dispense_cash(left, src.loc, user)
+	cashmoney.use(currently_vending.price)
 
 	// Vending machines have no idea who paid with cash
 	credit_purchase("(cash)")
@@ -391,7 +383,7 @@
 
 /obj/machinery/vending/attack_ai(mob/user)
 	return attack_hand(user)
-	
+
 /obj/machinery/vending/attack_ghost(mob/user)
 	return attack_hand(user)
 
@@ -582,7 +574,7 @@
 
 /obj/machinery/vending/proc/stock(var/datum/data/vending_product/R, var/mob/user)
 	if(panel_open)
-		to_chat(user, "\blue You stock the [src] with \a [R.product_name]")
+		to_chat(user, "<span class='notice'>You stock the [src] with \a [R.product_name]</span>")
 		R.amount++
 	updateUsrDialog()
 
@@ -1166,13 +1158,6 @@
 					/obj/item/weapon/scalpel = 2,/obj/item/weapon/circular_saw = 2,/obj/item/weapon/tank/anesthetic = 2,/obj/item/clothing/mask/breath/medical = 5,
 					/obj/item/weapon/screwdriver = 5,/obj/item/weapon/crowbar = 5)
 	//everything after the power cell had no amounts, I improvised.  -Sayu
-
-
-/obj/machinery/vending/eva
-	name = "\improper Hardsuit Kits"
-	desc = "Conversion kits for your alien hardsuit needs."
-	products = list(/obj/item/device/modkit = 6,/obj/item/device/modkit/tajaran = 6,/obj/item/device/modkit/unathi = 6,/obj/item/device/modkit/skrell = 6,/obj/item/device/modkit/vox = 6)
-
 
 /obj/machinery/vending/sustenance
 	name = "\improper Sustenance Vendor"

@@ -390,7 +390,7 @@
 	icon = 'icons/obj/food/food.dmi'
 	icon_state = "monkeycubebox"
 	storage_slots = 7
-	can_hold = list("/obj/item/weapon/reagent_containers/food/snacks/monkeycube")
+	can_hold = list(/obj/item/weapon/reagent_containers/food/snacks/monkeycube)
 	var/monkey_cube_type = /obj/item/weapon/reagent_containers/food/snacks/monkeycube
 
 /obj/item/weapon/storage/box/monkeycubes/New()
@@ -423,8 +423,12 @@
 	desc = "A box for containing construction permits, used to officially declare built rooms as additions to the station."
 	icon_state = "id"
 
-/obj/item/weapon/storage/box/permits/New() //There's only a few, so blueprints are still useful beyond setting every room's name to PRIMARY FART STORAGE
+/obj/item/weapon/storage/box/permits/New()
 	..()
+	new /obj/item/areaeditor/permit(src)
+	new /obj/item/areaeditor/permit(src)
+	new /obj/item/areaeditor/permit(src)
+	new /obj/item/areaeditor/permit(src)
 	new /obj/item/areaeditor/permit(src)
 	new /obj/item/areaeditor/permit(src)
 	new /obj/item/areaeditor/permit(src)
@@ -561,7 +565,7 @@
 	icon = 'icons/obj/toy.dmi'
 	icon_state = "spbox"
 	storage_slots = 8
-	can_hold = list("/obj/item/toy/snappop")
+	can_hold = list(/obj/item/toy/snappop)
 	New()
 		..()
 		for(var/i=1; i <= storage_slots; i++)
@@ -575,7 +579,9 @@
 	item_state = "zippo"
 	storage_slots = 10
 	w_class = 1
+	max_w_class = 1
 	slot_flags = SLOT_BELT
+	can_hold = list(/obj/item/weapon/match)
 
 	New()
 		..()
@@ -621,7 +627,7 @@
 	item_state = "syringe_kit"
 	foldable = /obj/item/stack/sheet/cardboard //BubbleWrap
 	storage_slots=21
-	can_hold = list("/obj/item/weapon/light/tube", "/obj/item/weapon/light/bulb")
+	can_hold = list(/obj/item/weapon/light/tube, /obj/item/weapon/light/bulb)
 	max_combined_w_class = 21
 	use_to_pickup = 1 // for picking up broken bulbs, not that most people will try
 

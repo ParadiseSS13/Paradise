@@ -347,9 +347,9 @@
 						if(state < GRAB_NECK)
 							to_chat(assailant, "<span class='warning'>You require a better grab to do this.</span>")
 							return
-						if((affected.head && affected.head.flags & HEADCOVERSEYES) || \
-							(affected.wear_mask && affected.wear_mask.flags & MASKCOVERSEYES) || \
-							(affected.glasses && affected.glasses.flags & GLASSESCOVERSEYES))
+						if((affected.head && affected.head.flags_cover & HEADCOVERSEYES) || \
+							(affected.wear_mask && affected.wear_mask.flags_cover & MASKCOVERSEYES) || \
+							(affected.glasses && affected.glasses.flags_cover & GLASSESCOVERSEYES))
 							to_chat(assailant, "<span class='danger'>You're going to need to remove the eye covering first.</span>")
 							return
 						if(!affected.internal_organs_by_name["eyes"])
@@ -364,7 +364,7 @@
 						eyes.damage += rand(3,4)
 						if(eyes.damage >= eyes.min_broken_damage)
 							if(M.stat != 2)
-								to_chat(M, "\red You go blind!")*///This is a demonstration of adding a new damaging type based on intent as well as hitzone.
+								to_chat(M, "<span class='warning'>You go blind!</span>")*///This is a demonstration of adding a new damaging type based on intent as well as hitzone.
 
 															//This specific example would allow you to squish people's eyes with a GRAB_NECK.
 
@@ -444,8 +444,7 @@
 		if(assailant.client)
 			assailant.client.screen -= hud
 		assailant = null
-	qdel(hud)
-	hud = null
+	QDEL_NULL(hud)
 	return ..()
 
 

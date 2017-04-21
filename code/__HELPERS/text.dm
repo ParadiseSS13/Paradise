@@ -64,6 +64,14 @@
 /proc/strip_html(var/t,var/limit=MAX_MESSAGE_LEN)
 	return copytext((sanitize(strip_html_simple(t))),1,limit)
 
+// Used to get a properly sanitized multiline input, of max_length
+/proc/stripped_multiline_input(mob/user, message = "", title = "", default = "", max_length=MAX_MESSAGE_LEN, no_trim=FALSE)
+	var/name = input(user, message, title, default) as message|null
+	if(no_trim)
+		return copytext(html_encode(name), 1, max_length)
+	else
+		return trim(html_encode(name), max_length)
+
 //Runs byond's sanitization proc along-side strip_html_simple
 //I believe strip_html_simple() is required to run first to prevent '<' from displaying as '&lt;' that html_encode() would cause
 /proc/adminscrub(var/t,var/limit=MAX_MESSAGE_LEN)
@@ -378,18 +386,10 @@ proc/checkhtml(var/t)
 	return sanitize(replace_characters(input, list(">"=" ","<"=" ", "\""="'")), max_length, encode, trim, extra)
 
 
-//Replaces \red \blue \green \b etc with span classes for to_chat
+//Replace BYOND text macros with span classes for to_chat
 /proc/replace_text_macro(match, code, rest)
-    var/regex/text_macro = new("(\\xFF.)(.*)$")
-    switch(code)
-        if("\red")
-            return "<span class='warning'>[text_macro.Replace(rest, /proc/replace_text_macro)]</span>"
-        if("\blue", "\green")
-            return "<span class='notice'>[text_macro.Replace(rest, /proc/replace_text_macro)]</span>"
-        if("\b")
-            return "<b>[text_macro.Replace(rest, /proc/replace_text_macro)]</b>"
-        else
-            return text_macro.Replace(rest, /proc/replace_text_macro)
+	var/regex/text_macro = new("(\\xFF.)(.*)$")
+	return text_macro.Replace(rest, /proc/replace_text_macro)
 
 /proc/macro2html(text)
     var/static/regex/text_macro = new("(\\xFF.)(.*)$")
@@ -448,7 +448,7 @@ proc/checkhtml(var/t)
 
 
 // Pencode
-/proc/pencode_to_html(text, mob/user, var/obj/item/weapon/pen/P = null, deffont = "Verdana", signfont = "Times New Roman", crayonfont = "Comic Sans MS")
+/proc/pencode_to_html(text, mob/user, obj/item/weapon/pen/P = null, sign = 1, fields = 1, deffont = PEN_FONT, signfont = SIGNFONT, crayonfont = CRAYON_FONT)
 	text = replacetext(text, "\n",			"<BR>")
 	text = replacetext(text, "\[center\]",	"<center>")
 	text = replacetext(text, "\[/center\]",	"</center>")
@@ -461,8 +461,10 @@ proc/checkhtml(var/t)
 	text = replacetext(text, "\[/u\]",		"</U>")
 	text = replacetext(text, "\[large\]",	"<font size=\"4\">")
 	text = replacetext(text, "\[/large\]",	"</font>")
-	text = replacetext(text, "\[sign\]",	"<font face=\"[signfont]\"><i>[user ? user.real_name : "Anonymous"]</i></font>")
-	text = replacetext(text, "\[field\]",	"<span class=\"paper_field\"></span>")
+	if(sign)
+		text = replacetext(text, "\[sign\]",	"<font face=\"[signfont]\"><i>[user ? user.real_name : "Anonymous"]</i></font>")
+	if(fields)
+		text = replacetext(text, "\[field\]",	"<span class=\"paper_field\"></span>")
 
 	text = replacetext(text, "\[h1\]",	"<H1>")
 	text = replacetext(text, "\[/h1\]",	"</H1>")
@@ -539,3 +541,4 @@ proc/checkhtml(var/t)
 	text = replacetext(text, "<td>",					"\[cell\]")
 	text = replacetext(text, "<img src = ntlogo.png>",	"\[logo\]")
 	return text
+

@@ -371,7 +371,7 @@
 					visible_message("<span class='warning'>[src] has been touched with the stun gloves by [M]!</span>")
 					return
 				else
-					to_chat(M, "\red Not enough charge! ")
+					to_chat(M, "<span class='warning'>Not enough charge! </span>")
 					return
 */
 

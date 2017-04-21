@@ -65,7 +65,7 @@
 			dir = 8
 		else
 			dir = 4
-		playsound(src.loc, 'sound/items/Ratchet.ogg', 50, 1)
+		playsound(src.loc, G.usesound, 50, 1)
 		return
 
 	if(exchange_parts(user, G))
@@ -220,7 +220,7 @@
 	active_power_usage = 500
 	var/printing = null
 	var/printing_text = null
-	var/known_implants = list(/obj/item/weapon/implant/chem, /obj/item/weapon/implant/death_alarm, /obj/item/weapon/implant/loyalty, /obj/item/weapon/implant/tracking)
+	var/known_implants = list(/obj/item/weapon/implant/chem, /obj/item/weapon/implant/death_alarm, /obj/item/weapon/implant/mindshield, /obj/item/weapon/implant/tracking)
 
 /obj/machinery/body_scanconsole/power_change()
 	if(stat & BROKEN)
@@ -293,7 +293,7 @@
 			dir = 8
 		else
 			dir = 4
-		playsound(src.loc, 'sound/items/Ratchet.ogg', 50, 1)
+		playsound(loc, G.usesound, 50, 1)
 
 	if(exchange_parts(user, G))
 		return

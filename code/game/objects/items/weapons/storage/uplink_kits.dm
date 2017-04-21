@@ -1,84 +1,83 @@
 /obj/item/weapon/storage/box/syndicate/
 	New()
 		..()
-		switch(pickweight(list("bloodyspai" = 1, "stealth" = 1, "bond" = 1, "screwed" = 1, "guns" = 1, "murder" = 1, "implant" = 1, "hacker" = 1, "lordsingulo" = 1, "darklord" = 1)))
+		switch(pickweight(list("bloodyspai" = 1, "thief" = 1, "bond" = 1, "sabotage" = 1, "payday" = 1, "implant" = 1, "hacker" = 1, "darklord" = 1, "gadgets" = 1)))
 			if("bloodyspai")
-				new /obj/item/clothing/under/chameleon(src)
+				new /obj/item/weapon/twohanded/garrote(src)
+				new /obj/item/weapon/pinpointer/advpinpointer(src)
 				new /obj/item/clothing/mask/gas/voice(src)
+				new /obj/item/clothing/under/chameleon(src)
 				new /obj/item/weapon/card/id/syndicate(src)
-				new /obj/item/weapon/card/id/syndicate(src)
-				new /obj/item/clothing/shoes/syndigaloshes(src)
+				new /obj/item/weapon/storage/box/syndie_kit/emp(src)
 				new /obj/item/device/camera_bug(src)
 				return
 
-			if("stealth")
+			if("thief")
 				new /obj/item/weapon/gun/energy/kinetic_accelerator/crossbow(src)
-				new /obj/item/weapon/pen/sleepy(src)
 				new /obj/item/device/chameleon(src)
+				new /obj/item/clothing/gloves/color/black/thief(src)
+				new /obj/item/weapon/card/id/syndicate(src)
 				return
 
 			if("bond")
 				new /obj/item/weapon/gun/projectile/automatic/pistol(src)
 				new /obj/item/weapon/suppressor(src)
-				new /obj/item/ammo_box/magazine/m10mm(src)
-				new /obj/item/ammo_box/magazine/m10mm(src)
-				new /obj/item/clothing/under/chameleon(src)
-				new /obj/item/weapon/card/id/syndicate(src)
-
-			if("screwed")
-				new /obj/item/device/radio/beacon/syndicate/bomb(src)
-				new /obj/item/weapon/grenade/syndieminibomb(src)
-				new /obj/item/device/powersink(src)
-				new /obj/item/clothing/suit/space/syndicate/black/red(src)
-				new /obj/item/clothing/head/helmet/space/syndicate/black/red(src)
+				new /obj/item/ammo_box/magazine/m10mm/hp(src)
+				new /obj/item/device/encryptionkey/syndicate(src)
+				new /obj/item/weapon/storage/fancy/cigarettes/cigpack_syndicate(src)
+				new /obj/item/weapon/implanter/krav_maga(src)
+				new /obj/item/weapon/reagent_containers/food/drinks/drinkingglass/alliescocktail(src)
 				return
 
-			if("guns")
+			if("sabotage")
+				new /obj/item/device/powersink(src)
+				new /obj/item/weapon/grenade/syndieminibomb(src)
+				new /obj/item/weapon/card/emag(src)
+				new /obj/item/weapon/grenade/clusterbuster/n2o(src)
+				new /obj/item/weapon/storage/box/syndie_kit/space(src)
+				new /obj/item/clothing/gloves/color/yellow(src)
+				new /obj/item/weapon/rcd/preloaded(src)
+				return
+
+			if("payday")
 				new /obj/item/weapon/gun/projectile/revolver(src)
 				new /obj/item/ammo_box/a357(src)
 				new /obj/item/weapon/card/emag(src)
-				new /obj/item/weapon/grenade/plastic/c4(src)
+				new /obj/item/weapon/grenade/plastic/x4(src)
+				new /obj/item/weapon/card/id/syndicate(src)
 				new /obj/item/clothing/gloves/color/latex/nitrile(src)
 				new /obj/item/clothing/mask/gas/clown_hat(src)
-				new /obj/item/clothing/under/suit_jacket/really_black(src)
-				return
-
-			if("murder")
-				new /obj/item/weapon/melee/energy/sword/saber(src)
-				new /obj/item/clothing/glasses/thermal/syndi(src)
-				new /obj/item/weapon/card/emag(src)
-				new /obj/item/clothing/shoes/syndigaloshes(src)
 				return
 
 			if("implant")
-				new /obj/item/weapon/implanter/freedom(src)
 				new /obj/item/weapon/implanter/uplink(src)
-				new /obj/item/weapon/implanter/emp(src)
 				new /obj/item/weapon/implanter/adrenalin(src)
-				new /obj/item/weapon/implanter/explosive(src)
 				new /obj/item/weapon/implanter/storage(src)
+				new /obj/item/weapon/implanter/freedom(src)
 				return
 
 			if("hacker")
 				new /obj/item/weapon/aiModule/syndicate(src)
-				new /obj/item/weapon/card/emag(src)
 				new /obj/item/device/encryptionkey/binary(src)
 				new /obj/item/weapon/aiModule/toyAI(src)
 				return
 
-			if("lordsingulo")
-				new /obj/item/device/radio/beacon/syndicate(src)
-				new /obj/item/clothing/suit/space/syndicate/black/red(src)
-				new /obj/item/clothing/head/helmet/space/syndicate/black/red(src)
-				new /obj/item/weapon/card/emag(src)
-				return
-
 			if("darklord")
-				new /obj/item/weapon/melee/energy/sword/saber(src)
-				new /obj/item/weapon/melee/energy/sword/saber(src)
+				new /obj/item/weapon/melee/energy/sword/saber/red(src)
+				new /obj/item/weapon/melee/energy/sword/saber/red(src)
 				new /obj/item/weapon/dnainjector/telemut/darkbundle(src)
 				new /obj/item/clothing/suit/hooded/chaplain_hoodie(src)
 				new /obj/item/weapon/card/id/syndicate(src)
+				return
+				
+			if("gadgets")
+				new /obj/item/clothing/gloves/color/yellow/power(src)
+				new /obj/item/weapon/pen/sleepy(src)
+				new /obj/item/clothing/glasses/thermal/syndi(src)
+				new /obj/item/device/flashlight/emp(src)
+				new /obj/item/clothing/shoes/syndigaloshes(src)
+				new /obj/item/weapon/stamp/chameleon(src)
+				new /obj/item/device/multitool/ai_detect(src)
 				return
 
 /obj/item/weapon/storage/box/syndie_kit
@@ -88,7 +87,7 @@
 
 /obj/item/weapon/storage/box/syndie_kit/space
 	name = "Boxed Space Suit and Helmet"
-	can_hold = list("/obj/item/clothing/suit/space/syndicate/black/red", "/obj/item/clothing/head/helmet/space/syndicate/black/red")
+	can_hold = list(/obj/item/clothing/suit/space/syndicate/black/red, /obj/item/clothing/head/helmet/space/syndicate/black/red)
 	max_w_class = 3
 
 /obj/item/weapon/storage/box/syndie_kit/space/New()
@@ -99,34 +98,34 @@
 
 /obj/item/weapon/storage/box/syndie_kit/hardsuit
 	name = "Boxed Blood Red Suit and Helmet"
-	can_hold = list("/obj/item/clothing/suit/space/rig/syndi", "/obj/item/clothing/head/helmet/space/rig/syndi")
+	can_hold = list(/obj/item/clothing/suit/space/hardsuit/syndi, /obj/item/clothing/head/helmet/space/hardsuit/syndi)
 	max_w_class = 3
 
 /obj/item/weapon/storage/box/syndie_kit/hardsuit/New()
 	..()
-	new /obj/item/clothing/suit/space/rig/syndi(src)
-	new /obj/item/clothing/head/helmet/space/rig/syndi(src)
+	new /obj/item/clothing/suit/space/hardsuit/syndi(src)
+	new /obj/item/clothing/head/helmet/space/hardsuit/syndi(src)
 	return
 
 /obj/item/weapon/storage/box/syndie_kit/elite_hardsuit
 	name = "Boxed Elite Syndicate Hardsuit and Helmet"
-	can_hold = list("/obj/item/clothing/suit/space/rig/syndi/elite", "/obj/item/clothing/head/helmet/space/rig/syndi/elite")
+	can_hold = list(/obj/item/clothing/suit/space/hardsuit/syndi/elite, /obj/item/clothing/head/helmet/space/hardsuit/syndi/elite)
 	max_w_class = 3
 
 /obj/item/weapon/storage/box/syndie_kit/elite_hardsuit/New()
 	..()
-	new /obj/item/clothing/suit/space/rig/syndi/elite(src)
-	new /obj/item/clothing/head/helmet/space/rig/syndi/elite(src)
+	new /obj/item/clothing/suit/space/hardsuit/syndi/elite(src)
+	new /obj/item/clothing/head/helmet/space/hardsuit/syndi/elite(src)
 
 /obj/item/weapon/storage/box/syndie_kit/shielded_hardsuit
 	name = "Boxed Shielded Syndicate Hardsuit and Helmet"
-	can_hold = list("/obj/item/clothing/suit/space/rig/shielded/syndi", "/obj/item/clothing/head/helmet/space/rig/shielded/syndi")
+	can_hold = list(/obj/item/clothing/suit/space/hardsuit/shielded/syndi, /obj/item/clothing/head/helmet/space/hardsuit/shielded/syndi)
 	max_w_class = 4
 
 /obj/item/weapon/storage/box/syndie_kit/shielded_hardsuit/New()
 	..()
-	new /obj/item/clothing/suit/space/rig/shielded/syndi(src)
-	new /obj/item/clothing/head/helmet/space/rig/shielded/syndi(src)
+	new /obj/item/clothing/suit/space/hardsuit/shielded/syndi(src)
+	new /obj/item/clothing/head/helmet/space/hardsuit/shielded/syndi(src)
 
 /obj/item/weapon/storage/box/syndie_kit/conversion
 	name = "box (CK)"

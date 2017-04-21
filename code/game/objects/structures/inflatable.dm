@@ -7,7 +7,7 @@
 
 /obj/item/inflatable/attack_self(mob/user)
 	playsound(loc, 'sound/items/zip.ogg', 75, 1)
-	to_chat(user, "\blue You inflate [src].")
+	to_chat(user, "<span class='notice'>You inflate [src].</span>")
 	var/obj/structure/inflatable/R = new /obj/structure/inflatable(user.loc)
 	src.transfer_fingerprints_to(R)
 	R.add_fingerprint(user)
@@ -33,7 +33,7 @@
 	air_update_turf(1)
 	return ..()
 
-/obj/structure/inflatable/CanPass(atom/movable/mover, turf/target, height=0, air_group=0)
+/obj/structure/inflatable/CanPass(atom/movable/mover, turf/target, height=0)
 	return 0
 
 /obj/structure/inflatable/CanAtmosPass(turf/T)
@@ -150,7 +150,7 @@
 
 /obj/item/inflatable/door/attack_self(mob/user)
 	playsound(loc, 'sound/items/zip.ogg', 75, 1)
-	to_chat(user, "\blue You inflate [src].")
+	to_chat(user, "<span class='notice'>You inflate [src].</span>")
 	var/obj/structure/inflatable/door/R = new /obj/structure/inflatable/door(user.loc)
 	src.transfer_fingerprints_to(R)
 	R.add_fingerprint(user)
@@ -178,9 +178,7 @@
 /obj/structure/inflatable/door/attack_hand(mob/user as mob)
 	return TryToSwitchState(user)
 
-/obj/structure/inflatable/door/CanPass(atom/movable/mover, turf/target, height=0, air_group=0)
-	if(air_group)
-		return state
+/obj/structure/inflatable/door/CanPass(atom/movable/mover, turf/target, height=0)
 	if(istype(mover, /obj/effect/beam))
 		return !opacity
 	return !density

@@ -169,14 +169,11 @@
 /mob/living/simple_animal/bot/Destroy()
 	if(paicard)
 		ejectpai()
-	qdel(Radio)
-	Radio = null
-	qdel(access_card)
-	access_card = null
+	QDEL_NULL(Radio)
+	QDEL_NULL(access_card)
 	if(radio_controller && bot_filter)
 		radio_controller.remove_object(bot_core, control_freq)
-	qdel(bot_core)
-	bot_core = null
+	QDEL_NULL(bot_core)
 	return ..()
 
 /mob/living/simple_animal/bot/death(gibbed)
@@ -263,7 +260,7 @@
 		interact(H)
 	else
 		return ..()
-		
+
 /mob/living/simple_animal/bot/attack_ghost(mob/M)
 	interact(M)
 
@@ -326,7 +323,7 @@
 			to_chat(user, "<span class='warning'>Close the access panel before manipulating the personality slot!</span>")
 		else
 			to_chat(user, "<span class='notice'>You attempt to pull [paicard] free...</span>")
-			if(do_after(user, 30, target = src))
+			if(do_after(user, 30 * W.toolspeed, target = src))
 				if(paicard)
 					user.visible_message("<span class='notice'>[user] uses [W] to pull [paicard] out of [bot_name]!</span>","<span class='notice'>You pull [paicard] out of [bot_name] with [W].</span>")
 					ejectpai(user)

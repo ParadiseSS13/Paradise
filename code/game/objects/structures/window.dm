@@ -90,7 +90,7 @@ var/global/wcCommon = pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e", "#8f
 		return !density
 	return 1
 
-/obj/structure/window/CanPass(atom/movable/mover, turf/target, height=0, air_group=0)
+/obj/structure/window/CanPass(atom/movable/mover, turf/target, height=0)
 	if(istype(mover) && mover.checkpass(PASSGLASS))
 		return 1
 	if(dir == SOUTHWEST || dir == SOUTHEAST || dir == NORTHWEST || dir == NORTHEAST)
@@ -108,21 +108,22 @@ var/global/wcCommon = pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e", "#8f
 
 	return 1
 
-/obj/structure/window/hitby(AM as mob|obj)
-	..()
-	var/tforce = 0
-	if(isobj(AM))
-		var/obj/item/I = AM
-		tforce = I.throwforce
-	if(reinf) tforce *= 0.25
-	playsound(loc, 'sound/effects/Glasshit.ogg', 100, 1)
-	health = max(0, health - tforce)
-	if(health <= 7 && !reinf)
-		anchored = 0
-		update_nearby_icons()
-		step(src, get_dir(AM, src))
-	if(health <= 0)
-		destroy()
+/obj/structure/window/hitby(atom/movable/AM)
+	if(!CanPass(AM, get_step(src, AM.dir))) //So thrown objects that cross a tile with non-full windows will no longer hit the window even if it isn't visually obstructing the path.
+		..()
+		var/tforce = 0
+		if(isobj(AM))
+			var/obj/item/I = AM
+			tforce = I.throwforce
+		if(reinf) tforce *= 0.25
+		playsound(loc, 'sound/effects/Glasshit.ogg', 100, 1)
+		health = max(0, health - tforce)
+		if(health <= 7 && !reinf)
+			anchored = 0
+			update_nearby_icons()
+			step(src, get_dir(AM, src))
+		if(health <= 0)
+			destroy()
 
 
 /obj/structure/window/attack_hand(mob/user as mob)
@@ -133,8 +134,8 @@ var/global/wcCommon = pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e", "#8f
 	else if(user.a_intent == I_HARM)
 		user.changeNext_move(CLICK_CD_MELEE)
 		playsound(get_turf(src), 'sound/effects/glassknock.ogg', 80, 1)
-		user.visible_message("\red [user.name] bangs against the [src.name]!", \
-							"\red You bang against the [src.name]!", \
+		user.visible_message("<span class='warning'>[user.name] bangs against the [src.name]!</span>", \
+							"<span class='warning'>You bang against the [src.name]!</span>", \
 							"You hear a banging sound.")
 	else
 		user.changeNext_move(CLICK_CD_MELEE)
@@ -212,24 +213,24 @@ var/global/wcCommon = pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e", "#8f
 	if(istype(W, /obj/item/weapon/screwdriver))
 		if(reinf && state >= 1)
 			state = 3 - state
-			playsound(loc, 'sound/items/Screwdriver.ogg', 75, 1)
+			playsound(loc, W.usesound, 75, 1)
 			to_chat(user, (state == 1 ? "<span class='notice'>You have unfastened the window from the frame.</span>" : "<span class='notice'>You have fastened the window to the frame.</span>"))
 		else if(reinf && state == 0)
 			anchored = !anchored
 			update_nearby_icons()
-			playsound(loc, 'sound/items/Screwdriver.ogg', 75, 1)
+			playsound(loc, W.usesound, 75, 1)
 			to_chat(user, (anchored ? "<span class='notice'>You have fastened the frame to the floor.</span>" : "<span class='notice'>You have unfastened the frame from the floor.</span>"))
 		else if(!reinf)
 			anchored = !anchored
 			update_nearby_icons()
-			playsound(loc, 'sound/items/Screwdriver.ogg', 75, 1)
+			playsound(loc, W.usesound, 75, 1)
 			to_chat(user, (anchored ? "<span class='notice'>You have fastened the window to the floor.</span>" : "<span class='notice'>You have unfastened the window.</span>"))
 	else if(istype(W, /obj/item/weapon/crowbar) && reinf && state <= 1)
 		state = 1 - state
-		playsound(loc, 'sound/items/Crowbar.ogg', 75, 1)
+		playsound(loc, W.usesound, 75, 1)
 		to_chat(user, (state ? "<span class='notice'>You have pried the window into the frame.</span>" : "<span class='notice'>You have pried the window out of the frame.</span>"))
 	else if(istype(W, /obj/item/weapon/wrench) && !anchored && health > 7) //Disassemble deconstructed window into parts
-		playsound(src.loc, 'sound/items/Ratchet.ogg', 50, 1)
+		playsound(src.loc, W.usesound, 50, 1)
 		for(var/i=0;i<sheets;i++)
 			var/obj/item/stack/sheet/glass/NG = new glasstype(src.loc)
 			for(var/obj/item/stack/sheet/glass/G in src.loc) //Stack em up

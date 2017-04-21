@@ -40,7 +40,7 @@
 		to_chat(usr, "[bicon(src)] [src.name] contains:")
 		if(reagents && reagents.reagent_list.len)
 			for(var/datum/reagent/R in reagents.reagent_list)
-				to_chat(user, "\blue [R.volume] units of [R.name]")
+				to_chat(user, "<span class='notice'>[R.volume] units of [R.name]</span>")
 
 
 /obj/item/weapon/extinguisher/New()
@@ -80,8 +80,7 @@
 	//TODO; Add support for reagents in water.
 	if(target.loc == user)//No more spraying yourself when putting your extinguisher away
 		return
-	var/Refill = AttemptRefill(target, user)
-	if(Refill)
+	if(AttemptRefill(target, user))
 		return
 	if(!safety)
 		if(src.reagents.total_volume < 1)

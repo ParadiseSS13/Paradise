@@ -4,7 +4,7 @@
 		return
 
 	if(frozen)
-		to_chat(M, "\red Do not touch Admin-Frozen people.")
+		to_chat(M, "<span class='warning'>Do not touch Admin-Frozen people.</span>")
 		return
 
 	var/mob/living/carbon/human/H = M
@@ -75,10 +75,10 @@
 			if(!check_has_mouth())
 				to_chat(H, "<span class='danger'>They don't have a mouth, you cannot perform CPR!</span>")
 				return
-			if((M.head && (M.head.flags & HEADCOVERSMOUTH)) || (M.wear_mask && (M.wear_mask.flags & MASKCOVERSMOUTH) && !M.wear_mask.mask_adjusted))
+			if((M.head && (M.head.flags_cover & HEADCOVERSMOUTH)) || (M.wear_mask && (M.wear_mask.flags_cover & MASKCOVERSMOUTH) && !M.wear_mask.mask_adjusted))
 				to_chat(M, "<span class='warning'>Remove your mask!</span>")
 				return 0
-			if((head && (head.flags & HEADCOVERSMOUTH)) || (wear_mask && (wear_mask.flags & MASKCOVERSMOUTH) && !wear_mask.mask_adjusted))
+			if((head && (head.flags_cover & HEADCOVERSMOUTH)) || (wear_mask && (wear_mask.flags_cover & MASKCOVERSMOUTH) && !wear_mask.mask_adjusted))
 				to_chat(M, "<span class='warning'>Remove his mask!</span>")
 				return 0
 

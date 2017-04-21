@@ -440,7 +440,8 @@ var/global/list/obj/item/device/pda/PDAs = list()
 		scanmode.scan_atom(A, user)
 
 /obj/item/device/pda/proc/explode() //This needs tuning.
-	if(!src.detonate) return
+	if(!detonate)
+		return
 	var/turf/T = get_turf(src.loc)
 
 	if(ismob(loc))
@@ -466,9 +467,7 @@ var/global/list/obj/item/device/pda/PDAs = list()
 	for(var/A in programs)
 		qdel(A)
 	programs.Cut()
-	if(cartridge)
-		qdel(cartridge)
-		cartridge = null
+	QDEL_NULL(cartridge)
 	return ..()
 
 // Pass along the pulse to atoms in contents, largely added so pAIs are vulnerable to EMP

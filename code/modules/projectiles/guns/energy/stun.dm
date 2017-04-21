@@ -5,22 +5,11 @@
 	item_state = null	//so the human update icon uses the icon_state instead.
 	ammo_type = list(/obj/item/ammo_casing/energy/electrode)
 	ammo_x_offset = 3
-	cell_type = /obj/item/weapon/stock_parts/cell/crap
 
 /obj/item/weapon/gun/energy/taser/mounted
 	name = "mounted taser gun"
 	selfcharge = 1
 	use_external_power = 1
-
-/obj/item/weapon/gun/energy/taser/cyborg
-	name = "taser gun"
-	desc = "A small, low capacity gun used for non-lethal takedowns."
-	icon_state = "taser"
-	cell_type = /obj/item/weapon/stock_parts/cell/secborg
-
-/obj/item/weapon/gun/energy/disabler/cyborg/newshot()
-	..()
-	robocharge()
 
 /obj/item/weapon/gun/energy/shock_revolver
 	name = "tesla revolver"
