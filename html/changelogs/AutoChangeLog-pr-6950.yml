@@ -1,0 +1,8 @@
+author: "Fox McCloud"
+delete-after: True
+changes: 
+  - tweak: "Tesla can now damage blobs"
+  - tweak: "Tesla causes machinery to overload and explode when zapping it"
+  - tweak: "Tesla dissipates energy more slowly and is easier to charge up (making it more deadly when released)"
+  - tweak: "Tesla will now dust mobs it bumps into"
+  - rscadd: "Tesla coils now have wires that can be pulsed to generate a tesla zap"
