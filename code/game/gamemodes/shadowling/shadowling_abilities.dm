@@ -99,16 +99,16 @@
 			hhat.visible_message("<span class='danger'>[hhat]'s light fades and turns off.</span>")
 	return I.light_range
 
-/obj/effect/proc_holder/spell/aoe_turf/veil/proc/extinguishMob(var/mob/living/H)
-	for(var/obj/item/F in H)
+/obj/effect/proc_holder/spell/aoe_turf/veil/proc/extinguishMob(var/mob/living/L)
+	for(var/obj/item/F in L)
 		if(F.light_range > 0)
 			extinguishItem(F)
-	if(ishuman(H))
-		var/mob/living/carbon/human/C = H
-		var/obj/item/organ/internal/lantern/L = C.get_int_organ(/obj/item/organ/internal/lantern)
-		if(L && L.glowing)
-			L.toggle_biolum(1)
-			C.visible_message("<span class='danger'>[C] is engulfed in shadows and fades into the darkness.</span>", "<span class='danger'>A sense of dread washes over you as you suddenly dim dark.</span>")
+	if(ishuman(L))
+		var/mob/living/carbon/human/H = L
+		var/obj/item/organ/internal/lantern/O = H.get_int_organ(/obj/item/organ/internal/lantern)
+		if(O && O.glowing)
+			O.toggle_biolum(1)
+			H.visible_message("<span class='danger'>[H] is engulfed in shadows and fades into the darkness.</span>", "<span class='danger'>A sense of dread washes over you as you suddenly dim dark.</span>")
 
 /obj/effect/proc_holder/spell/aoe_turf/veil/cast(list/targets, mob/user = usr)
 	if(!shadowling_check(user))

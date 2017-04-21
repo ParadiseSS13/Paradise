@@ -14,12 +14,6 @@
 	var/colour
 	var/glowing = 0
 
-/obj/item/organ/internal/lantern/New()
-	. = ..()
-
-	var/image/overlay = new /image(icon, icon_state)
-	overlays |= overlay
-
 /obj/item/organ/internal/lantern/ui_action_click()
 	if(toggle_biolum())
 		if(glowing)
@@ -39,8 +33,7 @@
 			owner.visible_message("<span class='notice'>[owner] fades to dark.</span>")
 			return ..()
 
-		if(owner.nutrition > KIDAN_LANTERN_HUNGERCOST)
-			owner.nutrition -= KIDAN_LANTERN_HUNGERCOST
+		owner.nutrition = max(owner.nutrition - KIDAN_LANTERN_HUNGERCOST, KIDAN_LANTERN_HUNGERCOST)
 
 		var/new_light = calculate_glow(KIDAN_LANTERN_LIGHT)
 
