@@ -23,15 +23,15 @@ var/ert_request_answered = 0
 		return
 
 	if(!ticker)
-		to_chat(usr, "\red The game hasn't started yet!")
+		to_chat(usr, "<span class='warning'>The game hasn't started yet!</span>")
 		return
 
 	if(ticker.current_state == 1)
-		to_chat(usr, "\red The round hasn't started yet!")
+		to_chat(usr, "<span class='warning'>The round hasn't started yet!</span>")
 		return
 
 	if(send_emergency_team)
-		to_chat(usr, "\red Central Command has already dispatched an emergency response team!")
+		to_chat(usr, "<span class='warning'>Central Command has already dispatched an emergency response team!</span>")
 		return
 
 	if(alert("Do you want to dispatch an Emergency Response Team?",,"Yes","No") != "Yes")
@@ -43,7 +43,7 @@ var/ert_request_answered = 0
 				return
 
 	if(send_emergency_team)
-		to_chat(usr, "\red Central Command has already dispatched an emergency response team!")
+		to_chat(usr, "<span class='warning'>Central Command has already dispatched an emergency response team!</span>")
 		return
 
 	var/ert_type = pick_ert_type()

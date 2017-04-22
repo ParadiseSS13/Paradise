@@ -210,10 +210,10 @@
 			return 1	//godmode
 		if(breath.temperature < cold_level_1)
 			if(prob(20))
-				to_chat(src, "\red You feel your face freezing and an icicle forming in your lungs!")
+				to_chat(src, "<span class='warning'>You feel your face freezing and an icicle forming in your lungs!</span>")
 		else if(breath.temperature > heat_level_1)
 			if(prob(20))
-				to_chat(src, "\red You feel your face burning and a searing heat in your lungs!")
+				to_chat(src, "<span class='warning'>You feel your face burning and a searing heat in your lungs!</span>")
 
 		switch(breath.temperature)
 			if(-INFINITY to cold_level_3)

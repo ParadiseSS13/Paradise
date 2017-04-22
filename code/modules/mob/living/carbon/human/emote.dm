@@ -799,7 +799,7 @@
 			to_chat(src, emotelist)
 
 		else
-			to_chat(src, "\blue Unusable emote '[act]'. Say *help for a list.")
+			to_chat(src, "<span class='notice'>Unusable emote '[act]'. Say *help for a list.</span>")
 
 	if(message) //Humans are special fucking snowflakes and have 800 lines of emotes, they get to handle their own emotes, not call the parent.
 		log_emote("[name]/[key] : [message]")

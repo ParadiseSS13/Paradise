@@ -141,7 +141,7 @@
 				set_antag_hud(newtraitor, "hudsyndicate")
 
 				var/obj_count = 1
-				to_chat(newtraitor, "\blue Your current objectives:")
+				to_chat(newtraitor, "<span class='notice'>Your current objectives:</span>")
 				for(var/datum/objective/objective in newtraitor.mind.objectives)
 					to_chat(newtraitor, "<B>Objective #[obj_count]</B>: [objective.explanation_text]")
 					obj_count++

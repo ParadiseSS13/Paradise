@@ -76,9 +76,9 @@ obj/machinery/air_sensor
 				to_chat(usr, "The [src] is bolted to the floor! You can't detach it like this.")
 				return 1
 			playsound(loc, W.usesound, 50, 1)
-			to_chat(user, "\blue You begin to unfasten \the [src]...")
+			to_chat(user, "<span class='notice'>You begin to unfasten \the [src]...</span>")
 			if(do_after(user, 40 * W.toolspeed, target = src))
-				user.visible_message("[user] unfastens \the [src].", "\blue You have unfastened \the [src].", "You hear ratchet.")
+				user.visible_message("[user] unfastens \the [src].", "<span class='notice'>You have unfastened \the [src].</span>", "You hear ratchet.")
 				new /obj/item/pipe_gsensor(src.loc)
 				qdel(src)
 				return 1

@@ -750,7 +750,11 @@
 			var/obj/item/clothing/suit/S = wear_suit
 			if(S.siemens_coefficient <= 0)
 				total_coeff -= 0.95
+			else if(S.siemens_coefficient == (-1))
+				total_coeff -= 1
 		siemens_coeff = total_coeff
+		if(tesla_ignore)
+			siemens_coeff = 0
 	else if(!safety)
 		var/gloves_siemens_coeff = 1
 		var/species_siemens_coeff = 1
@@ -875,7 +879,7 @@
 											sec_hud_set_security_status()
 
 			if(!modified)
-				to_chat(usr, "\red Unable to locate a data core entry for this person.")
+				to_chat(usr, "<span class='warning'>Unable to locate a data core entry for this person.</span>")
 
 	if(href_list["secrecord"])
 		if(hasHUD(usr,"security"))
@@ -905,7 +909,7 @@
 								read = 1
 
 			if(!read)
-				to_chat(usr, "\red Unable to locate a data core entry for this person.")
+				to_chat(usr, "<span class='warning'>Unable to locate a data core entry for this person.</span>")
 
 	if(href_list["secrecordComment"])
 		if(hasHUD(usr,"security"))
@@ -934,7 +938,7 @@
 								to_chat(usr, "<a href='?src=[UID()];secrecordadd=`'>\[Add comment\]</a>")
 
 			if(!read)
-				to_chat(usr, "\red Unable to locate a data core entry for this person.")
+				to_chat(usr, "<span class='warning'>Unable to locate a data core entry for this person.</span>")
 
 	if(href_list["secrecordadd"])
 		if(hasHUD(usr,"security"))
@@ -996,7 +1000,7 @@
 										sec_hud_set_security_status()
 
 			if(!modified)
-				to_chat(usr, "\red Unable to locate a data core entry for this person.")
+				to_chat(usr, "<span class='warning'>Unable to locate a data core entry for this person.</span>")
 
 	if(href_list["medrecord"])
 		if(hasHUD(usr,"medical"))
@@ -1027,7 +1031,7 @@
 								read = 1
 
 			if(!read)
-				to_chat(usr, "\red Unable to locate a data core entry for this person.")
+				to_chat(usr, "<span class='warning'>Unable to locate a data core entry for this person.</span>")
 
 	if(href_list["medrecordComment"])
 		if(hasHUD(usr,"medical"))
@@ -1056,7 +1060,7 @@
 								to_chat(usr, "<a href='?src=[UID()];medrecordadd=`'>\[Add comment\]</a>")
 
 			if(!read)
-				to_chat(usr, "\red Unable to locate a data core entry for this person.")
+				to_chat(usr, "<span class='warning'>Unable to locate a data core entry for this person.</span>")
 
 	if(href_list["medrecordadd"])
 		if(hasHUD(usr,"medical"))
@@ -1433,7 +1437,7 @@
 
 /mob/living/carbon/human/proc/play_xylophone()
 	if(!src.xylophone)
-		visible_message("\red [src] begins playing his ribcage like a xylophone. It's quite spooky.","\blue You begin to play a spooky refrain on your ribcage.","\red You hear a spooky xylophone melody.")
+		visible_message("<span class='warning'>[src] begins playing his ribcage like a xylophone. It's quite spooky.</span>","<span class='notice'>You begin to play a spooky refrain on your ribcage.</span>","<span class='warning'>You hear a spooky xylophone melody.</span>")
 		var/song = pick('sound/effects/xylophone1.ogg','sound/effects/xylophone2.ogg','sound/effects/xylophone3.ogg')
 		playsound(loc, song, 50, 1, -1)
 		xylophone = 1
@@ -1721,16 +1725,16 @@
 	if(usr == src)
 		self = 1
 	if(!self)
-		usr.visible_message("\blue [usr] kneels down, puts \his hand on [src]'s wrist and begins counting their pulse.",\
+		usr.visible_message("<span class='notice'>[usr] kneels down, puts \his hand on [src]'s wrist and begins counting their pulse.</span>",\
 		"You begin counting [src]'s pulse")
 	else
-		usr.visible_message("\blue [usr] begins counting their pulse.",\
+		usr.visible_message("<span class='notice'>[usr] begins counting their pulse.</span>",\
 		"You begin counting your pulse.")
 
 	if(src.pulse)
-		to_chat(usr, "\blue [self ? "You have a" : "[src] has a"] pulse! Counting...")
+		to_chat(usr, "<span class='notice'>[self ? "You have a" : "[src] has a"] pulse! Counting...</span>")
 	else
-		to_chat(usr, "\red [src] has no pulse!")//it is REALLY UNLIKELY that a dead person would check his own pulse
+		to_chat(usr, "<span class='warning'>[src] has no pulse!</span>")//it is REALLY UNLIKELY that a dead person would check his own pulse
 
 		return
 
@@ -1740,7 +1744,7 @@
 	if(usr.l_move_time >= time)	//checks if our mob has moved during the sleep()
 		to_chat(usr, "You moved while counting. Try again.")
 	else
-		to_chat(usr, "\blue [self ? "Your" : "[src]'s"] pulse is [src.get_pulse(GETPULSE_HAND)].")
+		to_chat(usr, "<span class='notice'>[self ? "Your" : "[src]'s"] pulse is [src.get_pulse(GETPULSE_HAND)].</span>")
 
 /mob/living/carbon/human/proc/set_species(var/new_species, var/default_colour, var/delay_icon_update = 0)
 	var/datum/species/oldspecies = species
@@ -2038,7 +2042,7 @@
 	if(status_flags & LEAPING) status_flags &= ~LEAPING
 
 	if(!src.Adjacent(T))
-		to_chat(src, "\red You miss!")
+		to_chat(src, "<span class='warning'>You miss!</span>")
 		return
 
 	T.Weaken(5)
@@ -2051,7 +2055,7 @@
 	var/use_hand = "left"
 	if(l_hand)
 		if(r_hand)
-			to_chat(src, "\red You need to have one hand free to grab someone.")
+			to_chat(src, "<span class='warning'>You need to have one hand free to grab someone.</span>")
 			return
 		else
 			use_hand = "right"
@@ -2077,16 +2081,16 @@
 		return
 
 	if(!canmove)
-		to_chat(src, "\red You cannot do that in your current state.")
+		to_chat(src, "<span class='warning'>You cannot do that in your current state.</span>")
 		return
 
 	var/obj/item/weapon/grab/G = locate() in src
 	if(!G || !istype(G))
-		to_chat(src, "\red You are not grabbing anyone.")
+		to_chat(src, "<span class='warning'>You are not grabbing anyone.</span>")
 		return
 
 	if(G.state < GRAB_AGGRESSIVE)
-		to_chat(src, "\red You must have an aggressive grab to gut your prey!")
+		to_chat(src, "<span class='warning'>You must have an aggressive grab to gut your prey!</span>")
 		return
 
 	last_special = world.time + 50

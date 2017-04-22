@@ -57,7 +57,7 @@
 
 	if(on)
 		on = 0
-		to_chat(user, "\blue You turn off the light")
+		to_chat(user, "<span class='notice'>You turn off the light</span>")
 		set_light(0)
 	else
 		if(!cell)
@@ -65,7 +65,7 @@
 		if(cell.charge <= 0)
 			return
 		on = 1
-		to_chat(user, "\blue You turn on the light")
+		to_chat(user, "<span class='notice'>You turn on the light</span>")
 		set_light(brightness_on)
 
 	updateicon()
