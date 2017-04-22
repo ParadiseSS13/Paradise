@@ -235,23 +235,23 @@
 
 /obj/item/clothing/shoes/cowboyboots
 	name = "cowboy boots"
-	desc = "A pair a' brown boots."
+	desc = "A pair a' dark brown boots."
 	icon_state = "cowboyboots"
 	item_color = "cowboyboots"
 
-/obj/item/clothing/shoes/cowboyboots_black
+/obj/item/clothing/shoes/cowboyboots/black
 	name = "black cowboy boots"
 	desc = "A pair a' black rustlers' boots"
 	icon_state = "cowboyboots_black"
 	item_color = "cowboyboots_black"
 
-/obj/item/clothing/shoes/cowboyboots_white
+/obj/item/clothing/shoes/cowboyboots/white
 	name = "white cowboy boots"
 	desc = "For the rancher in us all."
 	icon_state = "cowboyboots_white"
 	item_color = "cowboyboots_white"
 
-/obj/item/clothing/shoes/cowboyboots_pink
+/obj/item/clothing/shoes/cowboyboots/pink
 	name = "pink cowgirl boots"
 	desc = "For a Rustlin' tustlin' cowgirl."
 	icon_state = "cowboyboots_pink"
