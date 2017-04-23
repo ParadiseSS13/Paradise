@@ -589,19 +589,13 @@ obj/spacepod/proc/add_equipment(mob/user, var/obj/item/device/spacepod_equipment
 			desc = "A rough looking space pod meant for industrial work"
 	update_icons()
 
-/obj/spacepod/proc/can_use_verb()
-	if(usr.incapacitated())
-		to_chat(usr, "<span class='notice'>You cannot do this while unconscious or restrained.</span>")
-		return FALSE
-	return TRUE
-
 /obj/spacepod/verb/toggle_internal_tank()
 	set name = "Toggle internal airtank usage"
 	set category = "Spacepod"
 	set src = usr.loc
 	set popup_menu = 0
 
-	if(!can_use_verb())
+	if(usr.incapacitated())
 		return
 
 	if(usr != src.pilot)
@@ -801,7 +795,7 @@ obj/spacepod/proc/add_equipment(mob/user, var/obj/item/device/spacepod_equipment
 	if(!istype(user))
 		return
 
-	if(!can_use_verb()) // unconscious and restrained people can't let themselves out
+	if(usr.incapacitated()) // unconscious and restrained people can't let themselves out
 		return
 
 	occupant_sanity_check()
@@ -820,7 +814,7 @@ obj/spacepod/proc/add_equipment(mob/user, var/obj/item/device/spacepod_equipment
 	set category = "Spacepod"
 	set src = usr.loc
 
-	if(!can_use_verb())
+	if(usr.incapacitated())
 		return
 
 	if(usr in passengers && usr != src.pilot)
@@ -836,7 +830,7 @@ obj/spacepod/proc/add_equipment(mob/user, var/obj/item/device/spacepod_equipment
 	set category = "Spacepod"
 	set src = usr.loc
 
-	if(!can_use_verb())
+	if(usr.incapacitated())
 		return
 
 	if(usr != src.pilot)
@@ -871,7 +865,7 @@ obj/spacepod/proc/add_equipment(mob/user, var/obj/item/device/spacepod_equipment
 	set category = "Spacepod"
 	set src = usr.loc
 
-	if(!can_use_verb())
+	if(usr.incapacitated())
 		return
 
 	if(usr != src.pilot)
@@ -888,7 +882,7 @@ obj/spacepod/proc/add_equipment(mob/user, var/obj/item/device/spacepod_equipment
 	set category = "Spacepod"
 	set src = usr.loc
 
-	if(!can_use_verb())
+	if(usr.incapacitated())
 		return
 
 	if(usr != src.pilot)
@@ -904,7 +898,7 @@ obj/spacepod/proc/add_equipment(mob/user, var/obj/item/device/spacepod_equipment
 	set category = "Spacepod"
 	set src = usr.loc
 
-	if(!can_use_verb())
+	if(usr.incapacitated())
 		return
 
 	if(usr != src.pilot)
@@ -928,7 +922,7 @@ obj/spacepod/proc/add_equipment(mob/user, var/obj/item/device/spacepod_equipment
 	set src = usr.loc
 	var/mob/user = usr
 
-	if(!can_use_verb())
+	if(usr.incapacitated())
 		return
 
 	to_chat(user, "<span class='notice'>You start rooting around under the seat for lost items</span>")
