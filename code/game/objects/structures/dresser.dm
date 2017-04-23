@@ -82,4 +82,11 @@
 				user.visible_message("[user] has secured the [name]'s bolts.", \
 									 "<span class='notice'>You have secured the [name]'s bolts.</span>")
 				anchored = 1
-//		return ..()
+	else
+		if(iscrowbar(W) && !anchored)
+			playsound(loc, W.usesound, 100, 1)
+			user.visible_message("[user] is attempting to dismantle the [name].", \
+								"<span class='notice'>You begin to dismantle the [name]...</span>")
+			if(do_after(user, 40 * W.toolspeed, target = src))
+				new /obj/item/stack/sheet/wood (loc, 30)
+				qdel(src)
