@@ -594,6 +594,10 @@ obj/spacepod/proc/add_equipment(mob/user, var/obj/item/device/spacepod_equipment
 	set category = "Spacepod"
 	set src = usr.loc
 	set popup_menu = 0
+
+	if(usr.incapacitated())
+		return
+
 	if(usr != src.pilot)
 		to_chat(usr, "<span class='notice'>You can't reach the controls from your chair")
 		return
@@ -791,7 +795,7 @@ obj/spacepod/proc/add_equipment(mob/user, var/obj/item/device/spacepod_equipment
 	if(!istype(user))
 		return
 
-	if(user.stat != CONSCIOUS || user.incapacitated()) // unconscious and restrained people can't let themselves out
+	if(usr.incapacitated()) // unconscious and restrained people can't let themselves out
 		return
 
 	occupant_sanity_check()
@@ -810,6 +814,9 @@ obj/spacepod/proc/add_equipment(mob/user, var/obj/item/device/spacepod_equipment
 	set category = "Spacepod"
 	set src = usr.loc
 
+	if(usr.incapacitated())
+		return
+
 	if(usr in passengers && usr != src.pilot)
 		to_chat(usr, "<span class='notice'>You can't reach the controls from your chair")
 		return
@@ -822,6 +829,9 @@ obj/spacepod/proc/add_equipment(mob/user, var/obj/item/device/spacepod_equipment
 	set name = "Toggle Nearby Pod Doors"
 	set category = "Spacepod"
 	set src = usr.loc
+
+	if(usr.incapacitated())
+		return
 
 	if(usr != src.pilot)
 		to_chat(usr, "<span class='notice'>You can't reach the controls from your chair")
@@ -854,6 +864,10 @@ obj/spacepod/proc/add_equipment(mob/user, var/obj/item/device/spacepod_equipment
 	set desc = "Fire the weapons."
 	set category = "Spacepod"
 	set src = usr.loc
+
+	if(usr.incapacitated())
+		return
+
 	if(usr != src.pilot)
 		to_chat(usr, "<span class='notice'>You can't reach the controls from your chair")
 		return
@@ -867,6 +881,10 @@ obj/spacepod/proc/add_equipment(mob/user, var/obj/item/device/spacepod_equipment
 	set desc = "Unloads the cargo"
 	set category = "Spacepod"
 	set src = usr.loc
+
+	if(usr.incapacitated())
+		return
+
 	if(usr != src.pilot)
 		to_chat(usr, "<span class='notice'>You can't reach the controls from your chair")
 		return
@@ -879,6 +897,10 @@ obj/spacepod/proc/add_equipment(mob/user, var/obj/item/device/spacepod_equipment
 	set name = "Toggle Lights"
 	set category = "Spacepod"
 	set src = usr.loc
+
+	if(usr.incapacitated())
+		return
+
 	if(usr != src.pilot)
 		to_chat(usr, "<span class='notice'>You can't reach the controls from your chair")
 		return
@@ -899,6 +921,10 @@ obj/spacepod/proc/add_equipment(mob/user, var/obj/item/device/spacepod_equipment
 	set category = "Spacepod"
 	set src = usr.loc
 	var/mob/user = usr
+
+	if(usr.incapacitated())
+		return
+
 	to_chat(user, "<span class='notice'>You start rooting around under the seat for lost items</span>")
 	if(do_after(user, 40, target = src))
 		var/obj/badlist = list(internal_tank, cargo_hold, pilot, battery) + passengers + equipment_system.installed_modules
