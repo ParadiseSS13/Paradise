@@ -1,0 +1,5 @@
+author: "Citinited"
+delete-after: True
+changes: 
+  - rscadd: "You can now fully insulate reinforced floors using a sheet of plasteel."
+  - tweak: "Certain floors in the turbine, incinerator, and toxins are now thermally insulated."
