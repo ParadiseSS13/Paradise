@@ -237,7 +237,7 @@ var/round_start_time = 0
 
 	//Plus it provides an easy way to make cinematics for other events. Just use this as a template :)
 //Plus it provides an easy way to make cinematics for other events. Just use this as a template
-/datum/controller/gameticker/proc/station_explosion_cinematic(station_missed = 0, override = null, zlev = 0)
+/datum/controller/gameticker/proc/station_explosion_cinematic(station_missed = 0, override = null, zlev = 2)
 	if(cinematic)
 		return	//already a cinematic in progress!
 
