@@ -41,16 +41,16 @@
 			return 1
 	return 0
 
-/datum/game_mode/proc/declare_job_completion()
+/datum/game_mode/proc/declare_job_completion(/var/mob/player)
 	var/text = "<hr><b><u>Job Completion</u></b>"
-
-	for(var/datum/mind/employee in ticker.minds)
+	if(player.mind)
+		var/datum/mind/employee = player.mind
 
 		if(!employee.job_objectives.len)//If the employee had no objectives, don't need to process this.
-			continue
+			return
 
 		if(!employee.assigned_role=="MODE")//If the employee is a gamemode thing, skip.
-			continue
+			return
 
 		var/tasks_completed=0
 
