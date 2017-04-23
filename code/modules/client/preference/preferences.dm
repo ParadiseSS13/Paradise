@@ -556,7 +556,7 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 	metadata["[tweak]"] = new_metadata
 
 
-/datum/preferences/proc/SetChoices(mob/user, limit = 12, list/splitJobs = list("Civilian","Research Director","AI","Bartender"), width = 760, height = 790)
+/datum/preferences/proc/SetChoices(mob/user, limit = 15, list/splitJobs = list("Civilian","Research Director","AI","Bartender"), width = 760, height = 790)
 	if(!job_master)
 		return
 

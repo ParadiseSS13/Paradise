@@ -39,6 +39,38 @@
 	satchel = /obj/item/weapon/storage/backpack/satchel_med
 	dufflebag = /obj/item/weapon/storage/backpack/duffel/medical
 
+/datum/job/seniormed
+	title = "Senior Consultant"
+	flag = SENIORMED
+	department_flag = MEDSCI
+	total_positions = 1
+	spawn_positions = 1
+	is_medical = 1
+	supervisors = "the chief medical officer"
+	selection_color = "#ffeef0"
+	access = list(access_medical, access_morgue, access_surgery, access_chemistry, access_virology, access_genetics, access_mineral_storeroom)
+	minimal_access = list(access_medical, access_morgue, access_surgery, access_maint_tunnels)
+	minimal_player_age = 30
+	exp_requirements = 3400 // This'll be changed to be karma related once I've worked that bit out.
+	exp_type = EXP_TYPE_CREW
+	outfit = /datum/outfit/job/seniormed
+
+/datum/outfit/job/seniormed // Since nothing actually changes, equipment-wise, could probably just use the regular datum
+	name = "Senior Consultant"
+	jobtype = /datum/job/seniormed
+
+	uniform = /obj/item/clothing/under/rank/medical
+	suit = /obj/item/clothing/suit/storage/labcoat
+	shoes = /obj/item/clothing/shoes/white
+	l_ear = /obj/item/device/radio/headset/headset_med
+	id = /obj/item/weapon/card/id/medical
+	suit_store = /obj/item/device/flashlight/pen
+	l_hand = /obj/item/weapon/storage/firstaid/adv
+	pda = /obj/item/device/pda/medical
+
+	backpack = /obj/item/weapon/storage/backpack/medic
+	satchel = /obj/item/weapon/storage/backpack/satchel_med
+
 /datum/job/doctor
 	title = "Medical Doctor"
 	flag = DOCTOR

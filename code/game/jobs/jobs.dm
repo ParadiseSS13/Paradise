@@ -54,6 +54,9 @@ var/const/MECHANIC			=(1<<4)
 var/const/BRIGDOC			=(1<<5)
 var/const/JUDGE				=(1<<6)
 var/const/PILOT				=(1<<7)
+var/const/SENIORMED			=(1<<8)
+var/const/SENIORENG			=(1<<9)
+var/const/SENIORSEC			=(1<<10)
 
 var/list/assistant_occupations = list(
 )
@@ -71,6 +74,7 @@ var/list/command_positions = list(
 
 var/list/engineering_positions = list(
 	"Chief Engineer",
+	"Senior Engineer",
 	"Station Engineer",
 	"Life Support Specialist",
 	"Mechanic"
@@ -79,6 +83,7 @@ var/list/engineering_positions = list(
 
 var/list/medical_positions = list(
 	"Chief Medical Officer",
+	"Senior Consultant",
 	"Medical Doctor",
 	"Geneticist",
 	"Psychiatrist",
@@ -129,6 +134,7 @@ var/list/service_positions = support_positions - supply_positions + list("Head o
 var/list/security_positions = list(
 	"Head of Security",
 	"Warden",
+	"Senior Officer",
 	"Detective",
 	"Security Officer",
 	"Brig Physician",
@@ -155,6 +161,9 @@ var/list/whitelisted_positions = list(
 	"Brig Physician",
 	"Magistrate",
 	"Security Pod Pilot",
+	"Senior Engineer",
+	"Senior Consultant",
+	"Senior Officer"
 )
 
 

@@ -43,6 +43,40 @@
 	dufflebag = /obj/item/weapon/storage/backpack/duffel/engineering
 	box = /obj/item/weapon/storage/box/engineer
 
+/datum/job/senioreng
+	title = "Senior Engineer" // Chartered Engineer?
+	flag = SENIORENG
+	department_flag = ENGSEC
+	total_positions = 1
+	spawn_positions = 1
+	is_engineering = 1
+	supervisors = "the chief engineer"
+	selection_color = "#fff5cc"
+	access = list(access_eva, access_engine, access_engine_equip, access_tech_storage, access_maint_tunnels, access_external_airlocks, access_construction, access_atmospherics, access_mineral_storeroom)
+	minimal_access = list(access_eva, access_engine, access_engine_equip, access_tech_storage, access_maint_tunnels, access_external_airlocks, access_construction, access_mineral_storeroom)
+	minimal_player_age = 30
+	exp_requirements = 3400 // This'll be changed to be karma related once I've worked that bit out.
+	exp_type = EXP_TYPE_CREW
+	outfit = /datum/outfit/job/senioreng
+
+/datum/outfit/job/senioreng // Since nothing actually changes, equipment-wise, could probably just use the regular datum
+	name = "Senior Engineer"
+	jobtype = /datum/job/senioreng
+
+	uniform = /obj/item/clothing/under/rank/engineer
+	belt = /obj/item/weapon/storage/belt/utility/full
+	shoes = /obj/item/clothing/shoes/workboots
+	head = /obj/item/clothing/head/hardhat
+	l_ear = /obj/item/device/radio/headset/headset_eng
+	id = /obj/item/weapon/card/id/engineering
+	l_pocket = /obj/item/device/t_scanner
+	pda = /obj/item/device/pda/engineering
+
+	backpack = /obj/item/weapon/storage/backpack/industrial
+	satchel = /obj/item/weapon/storage/backpack/satchel_eng
+	dufflebag = /obj/item/weapon/storage/backpack/duffel/engineering
+	box = /obj/item/weapon/storage/box/engineer
+
 
 /datum/job/engineer
 	title = "Station Engineer"
