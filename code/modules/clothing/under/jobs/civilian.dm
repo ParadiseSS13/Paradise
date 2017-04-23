@@ -72,6 +72,7 @@
 
 /obj/item/clothing/under/rank/clown/hit_reaction()
 	playsound(loc, 'sound/items/bikehorn.ogg', 50, 1, -1)
+	score_clownabuse++
 	return 0
 
 /obj/item/clothing/under/rank/head_of_personnel
