@@ -47,10 +47,15 @@ Pipelines + Other Objects -> Pipe network
 	// handled there
 
 /obj/machinery/atmospherics/initialize()
-	..()
-
 	if(can_unwrench)
 		stored = new(src, make_from = src)
+	addAtProcessing()
+	power_change()
+
+/obj/machinery/atmospherics/addAtProcessing()
+	if(use_power)
+		myArea = get_area_master(src)
+	atmospherics_machine_processing += src
 
 /obj/machinery/atmospherics/Destroy()
 	QDEL_NULL(stored)

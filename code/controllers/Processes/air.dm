@@ -24,7 +24,7 @@ var/global/datum/controller/process/air_system/air_master
 
 /datum/controller/process/air_system/setup()
 	name = "air"
-	schedule_interval = 20 // every 2 seconds
+	schedule_interval = 20
 	start_delay = 4
 	air_master = src
 
@@ -43,12 +43,16 @@ var/global/datum/controller/process/air_system/air_master
 	process_high_pressure_delta()
 	process_hotspots()
 	process_super_conductivity()
+	process_pipenet()
+	process_machines()
 	return 1
 
 /datum/controller/process/air_system/statProcess()
 	..()
 	stat(null, "[last_active] active")
 	stat(null, "[last_excited] EG | [last_hpd] HPD | [last_asc] ASC | [last_hotspots] Hot")
+	stat(null, "[pipe_networks.len] pipe nets, [deferred_pipenet_rebuilds.len] deferred")
+	stat(null, "[atmospherics_machine_processing.len] machines")
 
 /datum/controller/process/air_system/proc/process_hotspots()
 	last_hotspots = hotspots.len
@@ -147,3 +151,49 @@ var/global/datum/controller/process/air_system/air_master
 	icemaster.icon_state = "snowfloor"
 	icemaster.layer = TURF_LAYER+0.1
 	icemaster.mouse_opacity = 0
+
+
+/datum/controller/process/air_system/proc/process_pipenet()
+	for(last_object in deferred_pipenet_rebuilds)
+		var/obj/machinery/atmospherics/M = last_object
+		if(istype(M) && isnull(M.gcDestroyed))
+			try
+				M.build_network()
+			catch(var/exception/e)
+				catchException(e, M)
+			SCHECK
+		else
+			catchBadType(M)
+		deferred_pipenet_rebuilds -= M
+
+	for(last_object in pipe_networks)
+		var/datum/pipeline/pipeNetwork = last_object
+		if(istype(pipeNetwork) && isnull(pipeNetwork.gcDestroyed))
+			try
+				pipeNetwork.process()
+			catch(var/exception/e)
+				catchException(e, pipeNetwork)
+			SCHECK
+		else
+			catchBadType(pipeNetwork)
+			pipe_networks -= pipeNetwork
+
+
+/datum/controller/process/air_system/proc/process_machines()
+	for(last_object in atmospherics_machine_processing)
+		var/obj/machinery/M = last_object
+		if(istype(M) && isnull(M.gcDestroyed))
+			try
+				if(M.process() == PROCESS_KILL)
+					atmospherics_machine_processing.Remove(M)
+					continue
+
+				if(M.use_power)
+					M.auto_use_power()
+			catch(var/exception/e)
+				catchException(e, M)
+		else
+			catchBadType(M)
+			atmospherics_machine_processing -= M
+
+		SCHECK

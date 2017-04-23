@@ -20,6 +20,7 @@
 	if(machinery_sort_required)
 		machinery_sort_required = 0
 		machine_processing = dd_sortedObjectList(machine_processing)
+		atmospherics_machine_processing = dd_sortedObjectList(atmospherics_machine_processing)
 
 /datum/controller/process/machinery/proc/process_machines()
 	for(last_object in machine_processing)
