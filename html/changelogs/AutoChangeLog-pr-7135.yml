@@ -1,5 +1,0 @@
-author: "IK3I"
-delete-after: True
-changes: 
-  - bugfix: "flipping aliums now have a cooldown"
-  - rscadd: "Aliums have some more sounds to play with"
