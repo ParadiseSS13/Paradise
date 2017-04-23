@@ -186,7 +186,7 @@ var/global/maint_all_access = 0
 		for(var/obj/machinery/door/airlock/D in A)
 			D.emergency = 1
 			D.update_icon(0)
-	minor_announcement.Announce("Access Restrictions on Maintenance and External Airlocks have been removed.")
+	minor_announcement.Announce("Access restrictions on maintenance and external airlocks have been removed.")
 	maint_all_access = 1
 
 /proc/revoke_maint_all_access()
@@ -194,5 +194,5 @@ var/global/maint_all_access = 0
 		for(var/obj/machinery/door/airlock/D in A)
 			D.emergency = 0
 			D.update_icon(0)
-	minor_announcement.Announce("Access Restrictions on Maintenance and External Airlocks have been re-added.")
+	minor_announcement.Announce("Access restrictions on maintenance and external airlocks have been re-added.")
 	maint_all_access = 0
