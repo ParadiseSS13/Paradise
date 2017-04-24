@@ -148,7 +148,10 @@
 	colour = "soghun"
 	key = "o"
 	flags = RESTRICTED
-	syllables = list("ss","ss","ss","ss","skak","seeki","resh","las","esi","kor","sh")
+	syllables = list("za","az","ze","ez","zi","iz","zo","oz","zu","uz","zs","sz","ha","ah","he","eh","hi","ih", \
+	"ho","oh","hu","uh","hs","sh","la","al","le","el","li","il","lo","ol","lu","ul","ls","sl","ka","ak","ke","ek", \
+	"ki","ik","ko","ok","ku","uk","ks","sk","sa","as","se","es","si","is","so","os","su","us","ss","ss","ra","ar", \
+	"re","er","ri","ir","ro","or","ru","ur","rs","sr","a","a","e","e","i","i","o","o","u","u","s","s" )
 
 /datum/language/unathi/get_random_name()
 
