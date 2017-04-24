@@ -346,15 +346,27 @@
 /obj/screen/zone_sel/robot
 	icon = 'icons/mob/screen_robot.dmi'
 
-/obj/screen/inventory/craft
+/obj/screen/craft
 	name = "crafting menu"
 	icon = 'icons/mob/screen_midnight.dmi'
 	icon_state = "craft"
 	screen_loc = ui_crafting
 
-/obj/screen/inventory/craft/Click()
+/obj/screen/craft/Click()
 	var/mob/living/M = usr
 	M.OpenCraftingMenu()
+
+/obj/screen/language_menu
+	name = "language menu"
+	icon = 'icons/mob/screen_midnight.dmi'
+	icon_state = "talk_wheel"
+	screen_loc = ui_language_menu
+
+/obj/screen/language_menu/Click()
+	var/mob/M = usr
+	if(!istype(M))
+		return
+	M.check_languages()
 
 /obj/screen/inventory
 	var/slot_id	//The indentifier for the slot. It has nothing to do with ID cards.
