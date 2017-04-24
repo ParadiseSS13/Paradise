@@ -56,8 +56,9 @@
 	..()
 	air3.volume = 300
 
-/obj/machinery/atmospherics/trinary/mixer/process()
-	if(!..() || !on)
+/obj/machinery/atmospherics/trinary/mixer/process_atmos()
+	..()
+	if(!on)
 		return 0
 
 	var/output_starting_pressure = air3.return_pressure()

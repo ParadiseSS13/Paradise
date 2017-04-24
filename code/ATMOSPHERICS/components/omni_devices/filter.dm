@@ -42,8 +42,9 @@
 
 	return 0
 
-/obj/machinery/atmospherics/omni/filter/process()
-	if(!..() || !on)
+/obj/machinery/atmospherics/omni/filter/process_atmos()
+	..()
+	if(!on)
 		return 0
 
 	if(!input || !output)
