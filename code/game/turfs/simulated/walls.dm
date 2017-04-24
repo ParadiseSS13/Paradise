@@ -25,6 +25,8 @@
 	var/engraving, engraving_quality //engraving on the wall
 
 	var/sheet_type = /obj/item/stack/sheet/metal
+	var/sheet_amount = 2
+	var/girder_type = /obj/structure/girder
 	var/obj/item/stack/sheet/builtin_sheet = null
 
 	canSmoothWith = list(
@@ -139,13 +141,11 @@
 	ChangeTurf(/turf/simulated/floor/plating)
 
 /turf/simulated/wall/proc/break_wall()
-	builtin_sheet.amount = 2
-	builtin_sheet.loc = src
-	return (new /obj/structure/girder(src))
+	new sheet_type(src, sheet_amount)
+	return new girder_type(src)
 
 /turf/simulated/wall/proc/devastate_wall()
-	builtin_sheet.amount = 2
-	builtin_sheet.loc = src
+	new sheet_type(src, sheet_amount)
 	new /obj/item/stack/sheet/metal(src)
 
 /turf/simulated/wall/ex_act(severity)
