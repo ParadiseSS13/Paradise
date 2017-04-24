@@ -964,8 +964,7 @@ var/global/list/damage_icon_parts = list()
 			standing = image("icon" = 'icons/mob/suit.dmi', "icon_state" = "[wear_suit.icon_state]")
 
 
-		if( istype(wear_suit, /obj/item/clothing/suit/straight_jacket) )
-			unEquip(handcuffed)
+		if(wear_suit.breakouttime)
 			drop_l_hand()
 			drop_r_hand()
 
