@@ -521,12 +521,6 @@
 		"is cracking their exoskeleton!",
 		"is stabbing themselves with their mandibles!",
 		"is holding their breath!")
-
-/datum/species/kidan/handle_death(var/mob/living/carbon/human/H)
-	var/obj/item/organ/internal/lantern/L = H.get_int_organ(/obj/item/organ/internal/lantern)
-	if(L.glowing)
-		L.toggle_biolum(1)
-
 /datum/species/slime
 	name = "Slime People"
 	name_plural = "Slime People"

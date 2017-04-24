@@ -104,6 +104,10 @@
 	//Handle species-specific deaths.
 	if(species) species.handle_death(src)
 
+	var/obj/item/organ/internal/lantern/L = get_int_organ(/obj/item/organ/internal/lantern)
+	if(L && L.glowing)
+		L.toggle_biolum(1)
+
 	//Handle brain slugs.
 	var/obj/item/organ/external/head = get_organ("head")
 	var/mob/living/simple_animal/borer/B
