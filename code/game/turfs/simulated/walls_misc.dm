@@ -1,6 +1,6 @@
 /turf/simulated/wall/cult
-	name = "wall"
-	desc = "The patterns engraved on the wall seem to shift as you try to focus on them. You feel sick"
+	name = "runed metal wall"
+	desc = "A cold metal wall engraved with indecipherable symbols. Studying them causes your head to pound."
 	icon = 'icons/turf/walls/cult_wall.dmi'
 	icon_state = "cult"
 	builtin_sheet = null
@@ -8,7 +8,7 @@
 	smooth = SMOOTH_FALSE
 	sheet_type = /obj/item/stack/sheet/runed_metal
 	sheet_amount = 1
-	girder_type = /obj/structure/cultgirder
+	girder_type = /obj/structure/girder/cult
 
 /turf/simulated/wall/cult/New()
 	..()
@@ -20,6 +20,12 @@
 	name = "runed stone wall"
 	desc = "A cold stone wall engraved with indecipherable symbols. Studying them causes your head to pound."
 
+/turf/simulated/wall/cult/artificer/break_wall()
+	new /obj/effect/overlay/temp/cult/turf(get_turf(src))
+	return null //excuse me we want no runed metal here
+
+/turf/simulated/wall/cult/artificer/devastate_wall()
+	new /obj/effect/overlay/temp/cult/turf(get_turf(src))
 
 /turf/simulated/wall/cult/narsie_act()
 	return
