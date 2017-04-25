@@ -6,4 +6,7 @@
 	if(reagents)
 		reagents.death_metabolize(src)
 
+	for(var/obj/item/organ/O in internal_organs)
+		O.on_owner_death()
+
 	..(gibbed)

@@ -47,6 +47,10 @@
 
 	return ..()
 
+/obj/item/organ/internal/lantern/on_owner_death()
+	if(glowing)
+		toggle_biolum(1)
+
 /obj/item/organ/internal/lantern/proc/toggle_biolum(var/statoverride)
 	if(!statoverride && owner.incapacitated())
 		to_chat(owner, "<span class='warning'>You cannot alter your bioluminescence in your current state.</span>")

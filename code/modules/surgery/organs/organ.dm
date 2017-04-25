@@ -373,3 +373,7 @@ I use this so that this can be made better once the organ overhaul rolls out -- 
 	 	//instantiate the list and call this proc
 		dna.deserialize(data["dna"])
 		..()
+
+//abstract proc called by carbon/death() and carbon/human/death()
+/obj/item/organ/proc/on_owner_death()
+ 	return
