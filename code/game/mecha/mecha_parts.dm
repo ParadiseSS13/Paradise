@@ -17,13 +17,16 @@
 	var/datum/construction/construct
 	flags = CONDUCT
 
-	attackby(obj/item/W as obj, mob/user as mob, params)
-		if(!construct || !construct.action(W, user))
-			..()
-		return
+/obj/item/mecha_parts/chassis/Destroy()
+	QDEL_NULL(construct)
+	return ..()
 
-	attack_hand()
-		return
+/obj/item/mecha_parts/chassis/attackby(obj/item/W, mob/user, params)
+	if(!construct || !construct.action(W, user))
+		..()
+
+/obj/item/mecha_parts/chassis/attack_hand()
+	return
 
 /////////// Ripley
 

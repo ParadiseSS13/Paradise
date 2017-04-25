@@ -95,6 +95,7 @@
 	cl.images -= I
 	cl = null
 	qdel(I)
+	return ..()
 
 /obj/effect/buildmode_line
 	var/image/I
@@ -140,6 +141,8 @@
 /datum/click_intercept/Destroy()
 	for(var/button in buttons)
 		qdel(button)
+	buttons.Cut()
+	return ..()
 
 
 /datum/click_intercept/proc/create_buttons()
@@ -191,7 +194,7 @@
 	Reset()
 	areaimage.loc = null
 	qdel(areaimage)
-	..()
+	return ..()
 
 /datum/click_intercept/buildmode/create_buttons()
 	buttons += new /obj/screen/buildmode/mode(src)
