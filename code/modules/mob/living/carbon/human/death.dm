@@ -101,9 +101,6 @@
 	SetJitter(0)
 	heart_attack = 0
 
-	for(var/obj/item/organ/O in organs) //these are external organs only: arms, legs, etc, internal organs are handled by carbon/death()
-		O.on_owner_death()
-
 	//Handle species-specific deaths.
 	if(species) species.handle_death(src)
 
