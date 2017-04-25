@@ -1,8 +1,9 @@
 /obj/structure/girder
+	name = "girder"
 	icon_state = "girder"
 	anchored = 1
 	density = 1
-	layer = TURF_LAYER + 0.9
+	layer = BELOW_OBJ_LAYER
 	var/state = 0
 	var/health = 200
 	var/metalUsed = 2 //used to determine amount returned in deconstruction
@@ -191,7 +192,7 @@
 
 /obj/structure/girder/narsie_act()
 	if(prob(25))
-		new /obj/structure/cultgirder(loc)
+		new /obj/structure/girder/cult(loc)
 		qdel(src)
 
 /obj/structure/girder/bullet_act(var/obj/item/projectile/Proj)
@@ -223,70 +224,91 @@
 	return
 
 /obj/structure/girder/displaced
+	name = "displaced girder"
 	icon_state = "displaced"
 	anchored = 0
 	health = 50
 
 /obj/structure/girder/reinforced
+	name = "reinforced girder"
 	icon_state = "reinforced"
 	state = 2
 	health = 500
 
-/obj/structure/cultgirder
+/obj/structure/girder/cult
+	name = "runed girder"
+	desc = "Framework made of a strange and shockingly cold metal. It doesn't seem to have any bolts."
 	icon= 'icons/obj/cult.dmi'
 	icon_state= "cultgirder"
 	anchored = 1
 	density = 1
-	var/health = 250
+	metalUsed = 1
+	health = 250
 
-/obj/structure/cultgirder/attackby(obj/item/W as obj, mob/user as mob, params)
-	if(istype(W, /obj/item/weapon/wrench))
-		playsound(loc, W.usesound, 100, 1)
-		to_chat(user, "<span class='notice'>Now disassembling the girder</span>")
-		if(do_after(user, 40 * W.toolspeed, target = src))
-			to_chat(user, "<span class='notice'>You dissasembled the girder!</span>")
-			dismantle()
+/obj/structure/girder/cult/refundMetal(metalAmount)
+	for(var/i=0;i < metalAmount;i++)
+		new /obj/item/stack/sheet/runed_metal(get_turf(src))
+
+/obj/structure/girder/cult/attackby(obj/item/W, mob/user, params)
+	add_fingerprint(user)
+	if(istype(W, /obj/item/weapon/tome) && iscultist(user)) //Cultists can demolish cult girders instantly with their tomes
+		user.visible_message("<span class='warning'>[user] strikes [src] with [W]!</span>", "<span class='notice'>You demolish [src].</span>")
+		refundMetal(metalUsed)
+		qdel(src)
+
+	else if(iswelder(W))
+		var/obj/item/weapon/weldingtool/WT = W
+		if(WT.remove_fuel(0,user))
+			playsound(loc, W.usesound, 50, 1)
+			to_chat(user, "<span class='notice'>You start slicing apart the girder...</span>")
+			if(do_after(user, 40*W.toolspeed, target = src))
+				if(!WT.isOn())
+					return
+				to_chat(user, "<span class='notice'>You slice apart the girder.</span>")
+				var/obj/item/stack/sheet/runed_metal/R = new(get_turf(src))
+				R.amount = 1
+				transfer_fingerprints_to(R)
+				qdel(src)
 
 	else if(istype(W, /obj/item/weapon/gun/energy/plasmacutter))
-		to_chat(user, "<span class='notice'>Now slicing apart the girder</span>")
-		if(do_after(user, 30 * W.toolspeed, target = src))
+		to_chat(user, "<span class='notice'>You start slicing apart the girder...</span>")
+		if(do_after(user, 40* W.toolspeed, target = src))
 			playsound(loc, W.usesound, 100, 1)
-			to_chat(user, "<span class='notice'>You slice apart the girder!</span>")
-			dismantle()
-
-	else if(istype(W, /obj/item/weapon/pickaxe/drill/diamonddrill))
-		to_chat(user, "<span class='notice'>You drill through the girder!</span>")
-		dismantle()
-
-/obj/structure/cultgirder/proc/dismantle()
-	new /obj/effect/decal/remains/human(get_turf(src))
-	qdel(src)
-
-/obj/structure/cultgirder/blob_act()
-	if(prob(40))
-		dismantle()
-
-/obj/structure/cultgirder/bullet_act(var/obj/item/projectile/Proj) //No beam check- How else will you destroy the cult girder with silver bullets?????
-	health -= Proj.damage
-	..()
-	if(health <= 0)
-		dismantle()
-	return
-
-/obj/structure/cultgirder/ex_act(severity)
-	switch(severity)
-		if(1.0)
+			to_chat(user, "<span class='notice'>You slice apart the girder.</span>")
+			var/obj/item/stack/sheet/runed_metal/R = new(get_turf(src))
+			R.amount = 1
+			transfer_fingerprints_to(R)
 			qdel(src)
-			return
-		if(2.0)
-			if(prob(30))
-				new /obj/effect/decal/remains/human(loc)
-				qdel(src)
-			return
-		if(3.0)
-			if(prob(5))
-				new /obj/effect/decal/remains/human(loc)
-				qdel(src)
-			return
-		else
+
+	else if(istype(W, /obj/item/weapon/pickaxe/drill/jackhammer))
+		var/obj/item/weapon/pickaxe/drill/jackhammer/D = W
+		to_chat(user, "<span class='notice'>Your jackhammer smashes through the girder!</span>")
+		var/obj/item/stack/sheet/runed_metal/R = new(get_turf(src))
+		R.amount = 1
+		transfer_fingerprints_to(R)
+		D.playDigSound()
+		qdel(src)
+
+	else if(istype(W, /obj/item/stack/sheet/runed_metal))
+		var/obj/item/stack/sheet/runed_metal/R = W
+		if(R.get_amount() < 1)
+			to_chat(user, "<span class='warning'>You need at least one sheet of runed metal to construct a runed wall!</span>")
+			return 0
+		user.visible_message("<span class='notice'>[user] begins laying runed metal on [src]...</span>", "<span class='notice'>You begin constructing a runed wall...</span>")
+		if(do_after(user, 50, target = src))
+			if(R.get_amount() < 1 || !R)
+				return
+			user.visible_message("<span class='notice'>[user] plates [src] with runed metal.</span>", "<span class='notice'>You construct a runed wall.</span>")
+			R.use(1)
+			var/turf/T = get_turf(src)
+			T.ChangeTurf(/turf/simulated/wall/cult)
+			qdel(src)
+
+/obj/structure/girder/cult/take_damage(amount)
+	health -= amount
+	if(health <= 0)
+		new /obj/item/stack/sheet/runed_metal(get_turf(src))
+		qdel(src)
+
+/obj/structure/girder/cult/narsie_act()
 	return
