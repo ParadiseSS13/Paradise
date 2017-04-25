@@ -24,6 +24,12 @@
 	static_inventory += using
 	move_intent = using
 
+	using = new /obj/screen/language_menu
+	using.icon = ui_style
+	using.color = ui_color
+	using.alpha = ui_alpha
+	static_inventory += using
+
 	using = new /obj/screen/drop()
 	using.icon = ui_style
 	using.screen_loc = ui_drop_throw
