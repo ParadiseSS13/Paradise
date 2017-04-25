@@ -1,0 +1,4 @@
+author: "Flattest"
+delete-after: True
+changes: 
+  - bugfix: "Sleepers spit out their victims when deconstructed now."
