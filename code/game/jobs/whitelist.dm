@@ -21,6 +21,8 @@ var/list/whitelist = list()
 	if(guest_jobbans(rank))
 		if(!config.usewhitelist)
 			return 1
+		if(config.disable_karma)
+			return 1
 		if(check_rights(R_ADMIN, 0, M))
 			return 1
 		if(!dbcon.IsConnected())
@@ -61,6 +63,8 @@ var/list/whitelist = list()
 //todo: admin aliens
 /proc/is_alien_whitelisted(mob/M, var/species)
 	if(!config.usealienwhitelist)
+		return 1
+	if(config.disable_karma)
 		return 1
 	if(species == "human" || species == "Human")
 		return 1
