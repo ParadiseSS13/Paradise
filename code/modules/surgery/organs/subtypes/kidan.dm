@@ -2,12 +2,16 @@
 	alcohol_intensity = 0.5
 	species = "Kidan"
 
+#define KIDAN_LANTERN_HUNGERCOST 0.5
+#define KIDAN_LANTERN_MINHUNGER 150
+#define KIDAN_LANTERN_LIGHT 4
+
 /obj/item/organ/internal/lantern
 	name = "Bioluminescent Lantern"
 	desc = "A specialized tissue that reacts with oxygen, nutriment and blood to produce light in Kidan."
 	icon_state = "kid_lantern"
 	origin_tech = "biotech=2"
-	w_class = 1
+	w_class = WEIGHT_CLASS_TINY
 	parent_organ = "groin"
 	slot = "lantern"
 	actions_types = list(/datum/action/item_action/organ_action/toggle)
@@ -21,17 +25,18 @@
 		else
 			owner.visible_message("<span class='notice'>[owner] fades to dark.</span>", "<span class='notice'>You disable your bioluminescence.</span>")
 
-/obj/item/organ/internal/lantern/process()
+/obj/item/organ/internal/lantern/on_life()
+	..()
 	if(glowing)//i hate this but i couldnt figure out a better way
 		if(owner.nutrition < KIDAN_LANTERN_MINHUNGER)
 			toggle_biolum(1)
 			to_chat(owner, "<span class='warning'>You're too hungry to be bioluminescent!</span>")
-			return ..()
+			return
 
 		if(owner.stat)
 			toggle_biolum(1)
 			owner.visible_message("<span class='notice'>[owner] fades to dark.</span>")
-			return ..()
+			return
 
 		owner.nutrition = max(owner.nutrition - KIDAN_LANTERN_HUNGERCOST, KIDAN_LANTERN_HUNGERCOST)
 
@@ -45,13 +50,13 @@
 			lbody.set_light(new_light,l_color = colour)
 			glowing = new_light
 
-	return ..()
+	return
 
 /obj/item/organ/internal/lantern/on_owner_death()
 	if(glowing)
 		toggle_biolum(1)
 
-/obj/item/organ/internal/lantern/proc/toggle_biolum(var/statoverride)
+/obj/item/organ/internal/lantern/proc/toggle_biolum(statoverride)
 	if(!statoverride && owner.incapacitated())
 		to_chat(owner, "<span class='warning'>You cannot alter your bioluminescence in your current state.</span>")
 		return 0
@@ -76,7 +81,7 @@
 		glowing = 0
 		return 1
 
-/obj/item/organ/internal/lantern/proc/calculate_glow(var/light)
+/obj/item/organ/internal/lantern/proc/calculate_glow(light)
 	if(!light)
 		light = KIDAN_LANTERN_LIGHT //should never happen but just to prevent things from breaking
 
@@ -102,3 +107,7 @@
 			toggle_biolum(1)
 
 	. = ..()
+
+#undef KIDAN_LANTERN_HUNGERCOST
+#undef KIDAN_LANTERN_MINHUNGER
+#undef KIDAN_LANTERN_LIGHT

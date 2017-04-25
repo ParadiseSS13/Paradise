@@ -99,7 +99,7 @@
 			hhat.visible_message("<span class='danger'>[hhat]'s light fades and turns off.</span>")
 	return I.light_range
 
-/obj/effect/proc_holder/spell/aoe_turf/veil/proc/extinguishMob(var/mob/living/L)
+/obj/effect/proc_holder/spell/aoe_turf/veil/proc/extinguishMob(mob/living/L)
 	for(var/obj/item/F in L)
 		if(F.light_range > 0)
 			extinguishItem(F)

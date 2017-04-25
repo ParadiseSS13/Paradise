@@ -473,11 +473,6 @@
 /datum/species/vox/armalis/handle_reagents() //Skip the Vox oxygen reagent toxicity. Armalis are above such things.
 	return 1
 
-#define KIDAN_LANTERN_HUNGERCOST 0.5
-#define KIDAN_LANTERN_MINHUNGER 150
-#define KIDAN_LANTERN_LIGHT 4
-
-
 /datum/species/kidan
 	name = "Kidan"
 	name_plural = "Kidan"
