@@ -1,0 +1,10 @@
+author: "uraniummeltdown"
+delete-after: True
+changes: 
+  - tweak: "Runed girders have a clearer and bigger icon"
+  - bugfix: "Girder subtypes are properly named, \"reinforced girder\" and not \"reinforced\""
+  - tweak: "Summoned cult walls do not drop a girder or runed metal to prevent runed metal farming"
+  - tweak: "Cult walls no longer have blood or human remains in them"
+  - rscadd: "Harvesters can smash more things and can summon cult walls and floors"
+  - bugfix: "Fixed not being able to make a cult wall with runed metal + runed girder"
+  - tweak: "Runed girders will need to be deconstructed with a welder (or plasma cutter or jackhammer) instead of a wrench. Cultists can hit them with their tomes to instantly demolish them."
