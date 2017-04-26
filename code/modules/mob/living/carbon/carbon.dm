@@ -143,16 +143,14 @@
 		return 0
 	if(NO_SHOCK in mutations) //shockproof
 		return 0
-
+	if(tesla_shock && tesla_ignore)
+		return FALSE
 	shock_damage *= siemens_coeff
 	if(shock_damage<1 && !override)
 		return 0
 	if(reagents.has_reagent("teslium"))
 		shock_damage *= 1.5 //If the mob has teslium in their body, shocks are 50% more damaging!
 	take_overall_damage(0,shock_damage, used_weapon = "Electrocution")
-	//src.burn_skin(shock_damage)
-	//src.adjustFireLoss(shock_damage) //burn_skin will do this for us
-	//src.updatehealth()
 	visible_message(
 		"<span class='danger'>[src] was shocked by \the [source]!</span>", \
 		"<span class='userdanger'>You feel a powerful shock coursing through your body!</span>", \
