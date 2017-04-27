@@ -10,7 +10,8 @@
 	max_temperature = 6000
 	hardness = 10
 	sheet_type = /obj/item/stack/sheet/plasteel
-
+	sheet_amount = 1
+	girder_type = /obj/structure/girder/reinforced
 	var/d_state = 0
 	var/can_be_reinforced = 1
 
@@ -313,3 +314,7 @@
 	else
 		smooth = SMOOTH_TRUE
 		icon_state = ""
+
+/turf/simulated/wall/r_wall/devastate_wall()
+	new sheet_type(src, sheet_amount)
+	new /obj/item/stack/sheet/metal(src, 2)
