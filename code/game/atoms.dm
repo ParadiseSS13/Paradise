@@ -76,9 +76,7 @@
 			qdel(AA)
 		alternate_appearances = null
 
-	if(reagents)
-		qdel(reagents)
-		reagents = null
+	QDEL_NULL(reagents)
 	invisibility = 101
 	return ..()
 

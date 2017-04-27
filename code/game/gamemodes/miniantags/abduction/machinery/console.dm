@@ -11,21 +11,6 @@
 	abductor_equipment.Remove(src)
 	return ..()
 
-/obj/machinery/abductor/proc/IsAbductor(mob/living/carbon/human/H)
-	return H.get_species() == "Abductor"
-
-/obj/machinery/abductor/proc/IsAgent(mob/living/carbon/human/H)
-	if(H.get_species() == "Abductor")
-		if(H.mind && H.mind.abductor)
-			return H.mind.abductor.agent
-	return 0
-
-/obj/machinery/abductor/proc/IsScientist(mob/living/carbon/human/H)
-	if(H.get_species() == "Abductor")
-		if(H.mind && H.mind.abductor)
-			return H.mind.abductor.scientist
-	return 0
-
 //Console
 
 /obj/machinery/abductor/console
@@ -33,8 +18,8 @@
 	desc = "Ship command center."
 	icon = 'icons/obj/abductor.dmi'
 	icon_state = "console"
-	density = 1
-	anchored = 1
+	density = TRUE
+	anchored = TRUE
 	var/obj/item/device/abductor/gizmo/gizmo
 	var/obj/item/clothing/suit/armor/abductor/vest/vest
 	var/obj/machinery/abductor/experiment/experiment
@@ -49,7 +34,7 @@
 /obj/machinery/abductor/console/attack_hand(mob/user)
 	if(..())
 		return
-	if(!IsAbductor(user))
+	if(!isabductor(user))
 		to_chat(user, "<span class='warning'>You start mashing alien buttons at random!</span>")
 		if(do_after(user, 100, target = src))
 			TeleporterSend()
@@ -60,10 +45,13 @@
 
 	if(experiment != null)
 		var/points = experiment.points
+		var/credits = experiment.credits
 		dat += "Collected Samples : [points] <br>"
+		dat += "Gear Credits: [credits] <br>"
 		dat += "<b>Transfer data in exchange for supplies:</b><br>"
 		dat += "<a href='?src=[UID()];dispense=baton'>Advanced Baton</A><br>"
 		dat += "<a href='?src=[UID()];dispense=helmet'>Agent Helmet</A><br>"
+		dat += "<a href='?src=[UID()];dispense=vest'>Agent Vest</A><br>"
 		dat += "<a href='?src=[UID()];dispense=silencer'>Radio Silencer</A><br>"
 		dat += "<a href='?src=[UID()];dispense=tool'>Science Tool</A><br>"
 	else
@@ -92,13 +80,13 @@
 
 		dat+="<br>"
 		dat += "<a href='?src=[UID()];select_disguise=1'>Select Agent Vest Disguise</a><br>"
+		dat += "<a href='?src=[UID()];toggle_vest=1'>[vest.flags & NODROP ? "Unlock" : "Lock"] Vest</a><br>"
 	else
 		dat += "<span class='bad'>NO AGENT VEST DETECTED</span>"
 	var/datum/browser/popup = new(user, "computer", "Abductor Console", 400, 500)
 	popup.set_content(dat)
 	popup.set_title_image(user.browse_rsc_icon(src.icon, src.icon_state))
 	popup.open()
-	return
 
 /obj/machinery/abductor/console/Topic(href, href_list)
 	if(..())
@@ -111,6 +99,8 @@
 		TeleporterRetrieve()
 	else if(href_list["flip_vest"])
 		FlipVest()
+	else if(href_list["toggle_vest"])
+		toggle_vest()
 	else if(href_list["select_disguise"])
 		SelectDisguise()
 	else if(href_list["dispense"])
@@ -123,37 +113,28 @@
 				Dispense(/obj/item/device/abductor/silencer)
 			if("tool")
 				Dispense(/obj/item/device/abductor/gizmo)
-	src.updateUsrDialog()
+			if("vest")
+				Dispense(/obj/item/clothing/suit/armor/abductor/vest)
+	updateUsrDialog()
 
 
 /obj/machinery/abductor/console/proc/TeleporterRetrieve()
 	if(gizmo!=null && pad!=null && gizmo.marked)
 		pad.Retrieve(gizmo.marked)
-	return
 
 /obj/machinery/abductor/console/proc/TeleporterSend()
 	if(pad!=null)
 		pad.Send()
-	return
 
 /obj/machinery/abductor/console/proc/FlipVest()
 	if(vest!=null)
 		vest.flip_mode()
-	return
 
-/obj/machinery/abductor/console/proc/SelectDisguise(remote=0)
-	var/list/entries = list()
-	var/tempname
-	var/datum/icon_snapshot/temp
-	for(var/i = 1; i <= disguises.len; i++)
-		temp = disguises[i]
-		tempname = temp.name
-		entries["[tempname]"] = disguises[i]
-	var/entry_name = input( "Choose Disguise", "Disguise") in entries
-	var/datum/icon_snapshot/chosen = entries[entry_name]
+/obj/machinery/abductor/console/proc/SelectDisguise(remote = 0)
+	var/entry_name = input( "Choose Disguise", "Disguise") as null|anything in disguises
+	var/datum/icon_snapshot/chosen = disguises[entry_name]
 	if(chosen && (remote || in_range(usr,src)))
 		vest.SetDisguise(chosen)
-	return
 
 /obj/machinery/abductor/console/proc/SetDroppoint(turf/location,user)
 	if(!istype(location))
@@ -188,13 +169,11 @@
 	entry.icon = target.icon
 	entry.icon_state = target.icon_state
 	entry.overlays = target.get_overlays_copy(list(L_HAND_LAYER,R_HAND_LAYER))
-	for(var/i=1,i<=disguises.len,i++)
-		var/datum/icon_snapshot/temp = disguises[i]
-		if(temp.name == entry.name)
-			disguises[i] = entry
-			return
-	disguises.Add(entry)
-	return
+	//Update old disguise instead of adding new one
+	if(disguises[entry.name])
+		disguises[entry.name] = entry
+		return
+	disguises[entry.name] = entry
 
 /obj/machinery/abductor/console/attackby(obj/O, mob/user, params)
 	if(istype(O, /obj/item/device/abductor/gizmo))
@@ -205,13 +184,16 @@
 	else if(istype(O, /obj/item/clothing/suit/armor/abductor/vest))
 		var/obj/item/clothing/suit/armor/abductor/vest/V = O
 		to_chat(user, "<span class='notice'>You link the vest to the console.</span>")
+		if(istype(vest))
+			if(vest.flags & NODROP)
+				toggle_vest()
 		vest = V
 	else
 		..()
 
 /obj/machinery/abductor/console/proc/Dispense(item,cost=1)
-	if(experiment && experiment.points >= cost)
-		experiment.points-=cost
+	if(experiment && experiment.credits >= cost)
+		experiment.credits -=cost
 		atom_say("Incoming supply!")
 		if(pad)
 			flick("alien-pad", pad)
@@ -220,4 +202,9 @@
 			new item(src.loc)
 	else
 		atom_say("Insufficent data!")
-	return
+
+/obj/machinery/abductor/console/proc/toggle_vest()
+	vest.flags ^= NODROP
+	var/mob/M = vest.loc
+	if(istype(M))
+		to_chat(M, "<span class='notice'>[src] is now [vest.flags & NODROP ? "locked" : "unlocked"].</span>")

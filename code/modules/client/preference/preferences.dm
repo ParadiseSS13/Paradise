@@ -175,7 +175,7 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 	var/job_karma_low = 0
 
 	//Keeps track of preferrence for not getting any wanted jobs
-	var/alternate_option = 0
+	var/alternate_option = 2
 
 	// maps each organ to either null(intact), "cyborg" or "amputated"
 	// will probably not be able to do this for head and torso ;)
@@ -788,7 +788,7 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 		return
 
 	if(!isnum(desiredLvl))
-		to_chat(user, "\red UpdateJobPreference - desired level was not a number. Please notify coders!")
+		to_chat(user, "<span class='warning'>UpdateJobPreference - desired level was not a number. Please notify coders!</span>")
 		ShowChoices(user)
 		return
 

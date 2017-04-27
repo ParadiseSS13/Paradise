@@ -403,7 +403,7 @@
 // Aliens smash the bulb but do not get electrocuted./N
 /obj/machinery/light/attack_alien(mob/living/carbon/alien/humanoid/user)//So larva don't go breaking light bulbs.
 	if(status == LIGHT_EMPTY||status == LIGHT_BROKEN)
-		to_chat(user, "\green That object is useless to you.")
+		to_chat(user, "<span class=notice'>That object is useless to you.</span>")
 		return
 	else if(status == LIGHT_OK||status == LIGHT_BURNED)
 		user.do_attack_animation(src)
@@ -414,7 +414,7 @@
 /obj/machinery/light/attack_animal(mob/living/simple_animal/M)
 	if(M.melee_damage_upper == 0)	return
 	if(status == LIGHT_EMPTY||status == LIGHT_BROKEN)
-		to_chat(M, "\red That object is useless to you.")
+		to_chat(M, "<span class='warning'>That object is useless to you.</span>")
 		return
 	else if(status == LIGHT_OK||status == LIGHT_BURNED)
 		M.do_attack_animation(src)
@@ -532,6 +532,11 @@
 	status = LIGHT_OK
 	on = 1
 	update()
+
+/obj/machinery/light/tesla_act(power, explosive = FALSE)
+	if(explosive)
+		explosion(loc,0,0,0,flame_range = 5, adminlog = 0)
+	qdel(src)
 
 // explosion effect
 // destroy the whole light fixture or just shatter it
@@ -696,7 +701,7 @@
 
 /obj/item/weapon/light/proc/shatter()
 	if(status == LIGHT_OK || status == LIGHT_BURNED)
-		src.visible_message("\red [name] shatters.","\red You hear a small glass object shatter.")
+		src.visible_message("<span class='warning'>[name] shatters.</span>","<span class='warning'>You hear a small glass object shatter.</span>")
 		status = LIGHT_BROKEN
 		force = 5
 		sharp = 1

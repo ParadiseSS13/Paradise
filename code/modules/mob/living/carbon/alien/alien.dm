@@ -220,7 +220,7 @@
 			threatcount += 4
 
 	//Mindshield implants imply trustworthyness
-	if(isloyal(src))
+	if(ismindshielded(src))
 		threatcount -= 1
 
 	return threatcount

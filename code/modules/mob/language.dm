@@ -148,7 +148,10 @@
 	colour = "soghun"
 	key = "o"
 	flags = RESTRICTED
-	syllables = list("ss","ss","ss","ss","skak","seeki","resh","las","esi","kor","sh")
+	syllables = list("za","az","ze","ez","zi","iz","zo","oz","zu","uz","zs","sz","ha","ah","he","eh","hi","ih", \
+	"ho","oh","hu","uh","hs","sh","la","al","le","el","li","il","lo","ol","lu","ul","ls","sl","ka","ak","ke","ek", \
+	"ki","ik","ko","ok","ku","uk","ks","sk","sa","as","se","es","si","is","so","os","su","us","ss","ss","ra","ar", \
+	"re","er","ri","ir","ro","or","ru","ur","rs","sr","a","a","e","e","i","i","o","o","u","u","s","s" )
 
 /datum/language/unathi/get_random_name()
 
@@ -618,34 +621,34 @@
 	return (universal_speak || (speaking && speaking.flags & INNATE) || speaking in languages)
 
 //TBD
+/mob/proc/check_lang_data()
+	. = ""
+
+	for(var/datum/language/L in languages)
+		if(!(L.flags & NONGLOBAL))
+			. += "<b>[L.name] (:[L.key])</b><br/>[L.desc]<br><br>"
+
+/mob/living/check_lang_data()
+	. = ""
+
+	if(default_language)
+		. += "Current default language: [default_language] - <a href='byond://?src=[UID()];default_lang=reset'>reset</a><br><br>"
+
+	for(var/datum/language/L in languages)
+		if(!(L.flags & NONGLOBAL))
+			if(L == default_language)
+				. += "<b>[L.name] (:[L.key])</b> - default - <a href='byond://?src=[UID()];default_lang=reset'>reset</a><br>[L.desc]<br><br>"
+			else
+				. += "<b>[L.name] (:[L.key])</b> - <a href='byond://?src=[UID()];default_lang=[L]'>set default</a><br>[L.desc]<br><br>"
+
 /mob/verb/check_languages()
 	set name = "Check Known Languages"
 	set category = "IC"
 	set src = usr
 
-	var/dat = "<b><font size = 5>Known Languages</font></b><br/><br/>"
-
-	for(var/datum/language/L in languages)
-		if(!(L.flags & NONGLOBAL))
-			dat += "<b>[L.name] (:[L.key])</b><br/>[L.desc]<br/><br/>"
-
-	src << browse(dat, "window=checklanguage")
-	return
-
-/mob/living/check_languages()
-	var/dat = "<b><font size = 5>Known Languages</font></b><br/><br/>"
-
-	if(default_language)
-		dat += "Current default language: [default_language] - <a href='byond://?src=[UID()];default_lang=reset'>reset</a><br/><br/>"
-
-	for(var/datum/language/L in languages)
-		if(!(L.flags & NONGLOBAL))
-			if(L == default_language)
-				dat += "<b>[L.name] (:[L.key])</b> - default - <a href='byond://?src=[UID()];default_lang=reset'>reset</a><br/>[L.desc]<br/><br/>"
-			else
-				dat += "<b>[L.name] (:[L.key])</b> - <a href=\"byond://?src=[UID()];default_lang=[L]\">set default</a><br/>[L.desc]<br/><br/>"
-
-	src << browse(dat, "window=checklanguage")
+	var/datum/browser/popup = new(src, "checklanguage", "Known Languages", 420, 470)
+	popup.set_content(check_lang_data())
+	popup.open()
 
 /mob/living/Topic(href, href_list)
 	if(href_list["default_lang"])

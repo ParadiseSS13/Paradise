@@ -84,7 +84,7 @@
 		if(istype(M, /mob/living/carbon/slime))
 			var/mob/living/carbon/slime/slime = M
 			if(prob(25))
-				to_chat(user, "\red [src] passes right through [M]!")
+				to_chat(user, "<span class='warning'>[src] passes right through [M]!</span>")
 				return
 
 			if(power > 0)

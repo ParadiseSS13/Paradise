@@ -8,7 +8,7 @@
 	else
 		usr.whisper(pick("Hakkrutju gopoenjim.", "Nherasai pivroiashan.", "Firjji prhiv mazenhor.", "Tanah eh wakantahe.", "Obliyae na oraie.", "Miyf hon vnor'c.", "Wakabai hij fen juswix."))
 	for (var/mob/V in viewers(src))
-		V.show_message("\red The markings pulse with a small burst of light, then fall dark.", 3, "\red You hear a faint fizzle.", 2)
+		V.show_message("<span class='warning'>The markings pulse with a small burst of light, then fall dark.</span>", 3, "<span class='warning'>You hear a faint fizzle.</span>", 2)
 	return
 
 /obj/effect/rune/proc/check_icon()
@@ -102,7 +102,7 @@
 	If any are found, the user can choose which rune to send to. Upon activation, the rune teleports everything above it to the selected rune.<br><br>"
 
 	text += "<font color='red'><b>Rite of Enlightenment</b></font><br>This rune is critical to the success of the cult. It will allow you to convert normal crew members into cultists. \
-	To do this, simply place the crew member upon the rune and invoke it. This rune requires two invokers to use. If the target to be converted is loyalty-implanted or a certain assignment, they will \
+	To do this, simply place the crew member upon the rune and invoke it. This rune requires two invokers to use. If the target to be converted is mindshielded or a certain assignment, they will \
 	be unable to be converted. People [ticker.mode.cultdat.entity_title3] wishes sacrificed will also be ineligible for conversion, and anyone with a shielding presence like the null rod will not be converted.<br> \
 	Successful conversions will produce a tome for the new cultist.<br><br>"
 

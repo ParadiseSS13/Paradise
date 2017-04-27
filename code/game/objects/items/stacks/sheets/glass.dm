@@ -38,7 +38,7 @@
 	if(istype(W,/obj/item/stack/cable_coil))
 		var/obj/item/stack/cable_coil/CC = W
 		if(CC.amount < 5)
-			to_chat(user, "\b There is not enough wire in this coil. You need 5 lengths.")
+			to_chat(user, "<b>There is not enough wire in this coil. You need 5 lengths.</b>")
 			return
 		CC.use(5)
 		to_chat(user, "<span class='notice'>You attach wire to the [name].</span>")

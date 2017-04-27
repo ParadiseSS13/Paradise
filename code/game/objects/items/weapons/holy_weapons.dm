@@ -592,7 +592,7 @@
 		to_chat(missionary, "<span class='warning'>Your faith is strong, but their mind is already slaved to someone else's ideals. Perhaps an inquisition would reveal more...</span>")
 		faith -= 25		//same faith cost as losing sight of them mid-conversion, but did you just find someone who can lead you to a fellow traitor?
 		return
-	if(isloyal(target))
+	if(ismindshielded(target))
 		if(prob(20))	//loyalty implants typically overpower this, but you CAN get lucky and convert still (20% chance of success)
 			faith -= 125	//yes, this puts it negative. it's gonna take longer to recharge if you manage to convert a one of these people to balance the new power you gained through them
 			to_chat(missionary, "<span class='notice'>Through sheer willpower, you overcome their closed mind and rally [target] to your cause! You may need a bit longer than usual before your faith is fully recharged, and they won't remain loyal to you for long ...</span>")

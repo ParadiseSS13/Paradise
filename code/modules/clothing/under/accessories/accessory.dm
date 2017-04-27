@@ -243,7 +243,7 @@
 		to_chat(user, "Waving around a badge before swiping an ID would be pretty pointless.")
 		return
 	if(isliving(user))
-		user.visible_message("\red [user] displays their Nanotrasen Internal Security Legal Authorization Badge.\nIt reads: [stored_name], NT Security.","\red You display your Nanotrasen Internal Security Legal Authorization Badge.\nIt reads: [stored_name], NT Security.")
+		user.visible_message("<span class='warning'>[user] displays their Nanotrasen Internal Security Legal Authorization Badge.\nIt reads: [stored_name], NT Security.</span>","<span class='warning'>You display your Nanotrasen Internal Security Legal Authorization Badge.\nIt reads: [stored_name], NT Security.</span>")
 
 /obj/item/clothing/accessory/holobadge/attackby(var/obj/item/O as obj, var/mob/user as mob, params)
 	if(istype(O, /obj/item/weapon/card/id) || istype(O, /obj/item/device/pda))
@@ -268,16 +268,16 @@
 
 /obj/item/clothing/accessory/holobadge/emag_act(user as mob)
 	if(emagged)
-		to_chat(user, "\red [src] is already cracked.")
+		to_chat(user, "<span class='warning'>[src] is already cracked.</span>")
 		return
 	else
 		emagged = 1
-		to_chat(user, "\red You swipe the card and crack the holobadge security checks.")
+		to_chat(user, "<span class='warning'>You swipe the card and crack the holobadge security checks.</span>")
 		return
 
 /obj/item/clothing/accessory/holobadge/attack(mob/living/carbon/human/M, mob/living/user)
 	if(isliving(user))
-		user.visible_message("\red [user] invades [M]'s personal space, thrusting [src] into their face insistently.","\red You invade [M]'s personal space, thrusting [src] into their face insistently. You are the law.")
+		user.visible_message("<span class='warning'>[user] invades [M]'s personal space, thrusting [src] into their face insistently.</span>","<span class='warning'>You invade [M]'s personal space, thrusting [src] into their face insistently. You are the law.</span>")
 
 /obj/item/weapon/storage/box/holobadge
 	name = "holobadge box"
@@ -386,9 +386,7 @@
 	var/obj/item/weapon/card/id/access_id
 
 /obj/item/clothing/accessory/petcollar/Destroy()
-	if(access_id)
-		qdel(access_id)
-		access_id = null
+	QDEL_NULL(access_id)
 	processing_objects -= src
 	return ..()
 

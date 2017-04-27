@@ -90,7 +90,6 @@
 	var/update_overlay = -1
 	var/global/status_overlays = 0
 	var/updating_icon = 0
-	var/standard_max_charge
 	var/datum/wires/apc/wires = null
 	//var/debug = 0
 	var/global/list/status_overlays_lock
@@ -142,9 +141,6 @@
 	apcs += src
 	apcs = sortAtom(apcs)
 	wires = new(src)
-	var/tmp/obj/item/weapon/stock_parts/cell/tmp_cell = new
-	standard_max_charge = tmp_cell.maxcharge
-	qdel(tmp_cell)
 
 	// offset 24 pixels in direction of dir
 	// this allows the APC to be embedded in a wall, yet still inside an area
@@ -178,11 +174,8 @@
 	area.power_change()
 	if(occupier)
 		malfvacate(1)
-	qdel(wires)
-	wires = null
-	if(cell)
-		qdel(cell) // qdel
-		cell = null
+	QDEL_NULL(wires)
+	QDEL_NULL(cell)
 	if(terminal)
 		disconnect_terminal()
 	area.apc -= src
@@ -201,7 +194,7 @@
 	if(cell_type)
 		src.cell = new/obj/item/weapon/stock_parts/cell(src)
 		cell.maxcharge = cell_type	// cell_type is maximum charge (old default was 1000 or 2500 (values one and two respectively)
-		cell.charge = start_charge * cell.maxcharge / 100.0 		// (convert percentage to actual value)
+		cell.charge = start_charge * cell.maxcharge / 100 		// (convert percentage to actual value)
 
 	var/area/A = get_area(src)
 

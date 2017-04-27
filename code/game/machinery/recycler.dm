@@ -29,8 +29,7 @@ var/const/SAFETY_COOLDOWN = 100
 	update_icon()
 
 /obj/machinery/recycler/Destroy()
-	qdel(materials)
-	materials = null
+	QDEL_NULL(materials)
 	return ..()
 
 /obj/machinery/recycler/RefreshParts()

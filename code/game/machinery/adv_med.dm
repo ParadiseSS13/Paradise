@@ -220,7 +220,7 @@
 	active_power_usage = 500
 	var/printing = null
 	var/printing_text = null
-	var/known_implants = list(/obj/item/weapon/implant/chem, /obj/item/weapon/implant/death_alarm, /obj/item/weapon/implant/loyalty, /obj/item/weapon/implant/tracking)
+	var/known_implants = list(/obj/item/weapon/implant/chem, /obj/item/weapon/implant/death_alarm, /obj/item/weapon/implant/mindshield, /obj/item/weapon/implant/tracking)
 
 /obj/machinery/body_scanconsole/power_change()
 	if(stat & BROKEN)

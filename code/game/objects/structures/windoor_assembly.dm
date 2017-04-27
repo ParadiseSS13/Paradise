@@ -34,9 +34,7 @@ obj/structure/windoor_assembly/New(dir=NORTH)
 
 obj/structure/windoor_assembly/Destroy()
 	density = 0
-	if(electronics)
-		qdel(electronics)
-		electronics = null
+	QDEL_NULL(electronics)
 	air_update_turf(1)
 	return ..()
 

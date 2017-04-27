@@ -729,17 +729,11 @@
 	icon_state = "owl"
 	item_color = "owl"
 
-/obj/item/clothing/under/owl/super_hero
-	flags = NODROP
-
 /obj/item/clothing/under/griffin
 	name = "griffon uniform"
 	desc = "A soft brown jumpsuit with a white feather collar made of synthetic feathers and a lust for mayhem."
 	icon_state = "griffin"
 	item_color = "griffin"
-
-/obj/item/clothing/under/griffin/super_hero
-	flags = NODROP
 
 /obj/item/clothing/under/noble_clothes
 	name = "noble clothes"
@@ -761,7 +755,7 @@
 	..()
 
 /obj/item/clothing/under/contortionist/dropped(mob/living/carbon/human/user)
-	if(!user.get_int_organ(/obj/item/organ/internal/gland/ventcrawling))
+	if(!user.get_int_organ(/obj/item/organ/internal/heart/gland/ventcrawling))
 		user.ventcrawler = 0
 	..()
 

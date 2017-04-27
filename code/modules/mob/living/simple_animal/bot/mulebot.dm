@@ -65,12 +65,8 @@
 
 /mob/living/simple_animal/bot/mulebot/Destroy()
 	unload(0)
-	if(wires)
-		qdel(wires)
-		wires = null
-	if(cell)
-		qdel(cell)
-		cell = null
+	QDEL_NULL(wires)
+	QDEL_NULL(cell)
 	return ..()
 
 /mob/living/simple_animal/bot/mulebot/proc/set_suffix(suffix)

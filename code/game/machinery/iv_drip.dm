@@ -15,9 +15,7 @@
 
 /obj/machinery/iv_drip/Destroy()
 	attached = null
-	if(beaker)
-		qdel(beaker)
-		beaker = null
+	QDEL_NULL(beaker)
 	return ..()
 
 /obj/machinery/iv_drip/update_icon()

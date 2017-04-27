@@ -56,6 +56,8 @@
 
 	var/obj/effect/proc_holder/ranged_ability //Any ranged ability the mob has, as a click override
 
+	var/tesla_ignore = FALSE
+
 	var/list/say_log = list() //a log of what we've said, plain text, no spans or junk, essentially just each individual "message"
 
 	var/blood_volume = 0 //how much blood the mob has

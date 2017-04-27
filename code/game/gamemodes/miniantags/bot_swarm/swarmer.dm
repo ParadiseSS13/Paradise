@@ -322,7 +322,7 @@
 	D.pixel_y = target.pixel_y
 	if(do_mob(src, target, 100))
 		if(!src.Adjacent(target))
-			to_chat(src, "<span class='info'>Error:Dismantleing aborted.</span>")
+			to_chat(src, "<span class='info'>Error:Dismantling aborted.</span>")
 		else
 			to_chat(src, "<span class='info'>Dismantling complete.</span>")
 			var/obj/item/stack/sheet/metal/M = new /obj/item/stack/sheet/metal(target.loc)
@@ -437,7 +437,7 @@
 /mob/living/simple_animal/hostile/swarmer/proc/CreateTrap()
 	set name = "Create trap"
 	set category = "Swarmer"
-	set desc = "Creates a simple trap that will non-lethally electrocute anything that steps on it. Costs 5 resources"
+	set desc = "Creates a simple trap that will non-lethally electrocute anything that steps on it. Costs 5 resources."
 	if(locate(/obj/structure/swarmer/trap) in loc)
 		to_chat(src, "<span class='warning'>There is already a trap here. Aborting.</span>")
 		return

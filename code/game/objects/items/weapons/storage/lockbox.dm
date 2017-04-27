@@ -80,16 +80,16 @@
 	max_combined_w_class = 4 //The sum of the w_classes of all the items in this storage item.
 	storage_slots = 1
 
-/obj/item/weapon/storage/lockbox/loyalty
+/obj/item/weapon/storage/lockbox/mindshield
 	name = "Lockbox (Mindshield Implants)"
 	req_access = list(access_security)
 
-/obj/item/weapon/storage/lockbox/loyalty/New()
+/obj/item/weapon/storage/lockbox/mindshield/New()
 	..()
-	new /obj/item/weapon/implantcase/loyalty(src)
-	new /obj/item/weapon/implantcase/loyalty(src)
-	new /obj/item/weapon/implantcase/loyalty(src)
-	new /obj/item/weapon/implanter/loyalty(src)
+	new /obj/item/weapon/implantcase/mindshield(src)
+	new /obj/item/weapon/implantcase/mindshield(src)
+	new /obj/item/weapon/implantcase/mindshield(src)
+	new /obj/item/weapon/implanter/mindshield(src)
 
 /obj/item/weapon/storage/lockbox/clusterbang
 	name = "lockbox (clusterbang)"

@@ -78,9 +78,7 @@
 	var/accepts_rig = 1
 
 /obj/structure/reagent_dispensers/fueltank/Destroy()
-	if(rig)
-		qdel(rig)
-		rig = null
+	QDEL_NULL(rig)
 	return ..()
 
 /obj/structure/reagent_dispensers/fueltank/bullet_act(obj/item/projectile/P)
