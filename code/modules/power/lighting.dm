@@ -533,6 +533,11 @@
 	on = 1
 	update()
 
+/obj/machinery/light/tesla_act(power, explosive = FALSE)
+	if(explosive)
+		explosion(loc,0,0,0,flame_range = 5, adminlog = 0)
+	qdel(src)
+
 // explosion effect
 // destroy the whole light fixture or just shatter it
 

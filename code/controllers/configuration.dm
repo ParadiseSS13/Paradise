@@ -191,6 +191,8 @@
 
 	var/shutdown_on_reboot = 0 // Whether to shut down the world instead of rebooting it
 
+	var/disable_karma = 0 // Disable all karma functions and unlock karma jobs by default
+
 /datum/configuration/New()
 	var/list/L = subtypesof(/datum/game_mode)
 	for(var/T in L)
@@ -592,6 +594,9 @@
 
 				if("shutdown_shell_command")
 					shutdown_shell_command = value
+
+				if("disable_karma")
+					disable_karma = 1
 
 				else
 					diary << "Unknown setting in configuration: '[name]'"
