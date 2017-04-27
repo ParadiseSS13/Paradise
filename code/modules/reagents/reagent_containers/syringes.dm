@@ -70,21 +70,17 @@
 		if(!L.can_inject(user, 1))
 			return
 
+	if(mode == SYRINGE_BROKEN)
+		to_chat(user, "<span class='warning'>This syringe is broken!</span>")
+		return
+
 	switch(mode)
 		if(SYRINGE_DRAW)
 
 			if(reagents.total_volume >= reagents.maximum_volume)
-				to_chat(user, "<span class='notice'>The syringe is full.</span>")
 				return
 
-			if(L) //living mob
-				var/drawn_amount = reagents.maximum_volume - reagents.total_volume
-				if(target != user)
-					target.visible_message("<span class='danger'>[user] is trying to take a blood sample from [target]!</span>", \
-									"<span class='userdanger'>[user] is trying to take a blood sample from [target]!</span>")
-					if(!do_mob(user, target))
 						return
-					if(reagents.total_volume >= reagents.maximum_volume)
 						return
 				if(L.transfer_blood_to(src, drawn_amount))
 					user.visible_message("[user] takes a blood sample from [L].")
@@ -93,30 +89,23 @@
 
 			else //if not mob
 				if(!target.reagents.total_volume)
-					to_chat(user, "<span class='warning'>[target] is empty!</span>")
 					return
 
 				if(!target.is_open_container() && !istype(target,/obj/structure/reagent_dispensers) && !istype(target,/obj/item/slime_extract))
-					to_chat(user, "<span class='warning'>You cannot directly remove reagents from [target]!</span>")
 					return
 
 				var/trans = target.reagents.trans_to(src, amount_per_transfer_from_this) // transfer from, transfer to - who cares?
 
-				to_chat(user, "<span class='notice'>You fill [src] with [trans] units of the solution.</span>")
-			if (reagents.total_volume >= reagents.maximum_volume)
 				mode=!mode
 				update_icon()
 
 		if(SYRINGE_INJECT)
 			if(!reagents.total_volume)
-				to_chat(user, "<span class='notice'>[src] is empty.</span>")
 				return
 
 			if(!target.is_open_container() && !ismob(target) && !istype(target, /obj/item/weapon/reagent_containers/food) && !istype(target, /obj/item/slime_extract) && !istype(target, /obj/item/clothing/mask/cigarette) && !istype(target, /obj/item/weapon/storage/fancy/cigarettes))
-				to_chat(user, "<span class='warning'>You cannot directly fill [target]!</span>")
 				return
 			if(target.reagents.total_volume >= target.reagents.maximum_volume)
-				to_chat(user, "<span class='notice'>[target] is full.</span>")
 				return
 
 			if(L) //living mob
@@ -138,11 +127,7 @@
 					rinject += R.name
 				var/contained = english_list(rinject)
 
-				if(L != user)
-					add_logs(user, L, "injected", src, addition="which had [contained]")
 				else
-					log_attack("<font color='red'>[user.name] ([user.ckey]) injected [L.name] ([L.ckey]) with [src.name], which had [contained] (INTENT: [uppertext(user.a_intent)])</font>")
-					L.attack_log += "\[[time_stamp()]\] <font color='orange'>Injected themselves ([contained]) with [src.name].</font>"
 
 			var/fraction = min(amount_per_transfer_from_this/reagents.total_volume, 1)
 			reagents.reaction(L, INGEST, fraction)
@@ -219,7 +204,7 @@
 		if(SYRINGE_DRAW)
 
 			if(reagents.total_volume >= reagents.maximum_volume)
-				to_chat(user, "\red The syringe is full.")
+				to_chat(user, "<span class='warning'>The syringe is full.</span>")
 				return
 
 			if(ismob(target))
@@ -228,31 +213,31 @@
 					return
 			else //if not mob
 				if(!target.reagents.total_volume)
-					to_chat(user, "\red [target] is empty.")
+					to_chat(user, "<span class='warning'>[target] is empty.</span>")
 					return
 
 				if(!target.is_open_container() && !istype(target,/obj/structure/reagent_dispensers))
-					to_chat(user, "\red You cannot directly remove reagents from this object.")
+					to_chat(user, "<span class='warning'>You cannot directly remove reagents from this object.</span>")
 					return
 
 				var/trans = target.reagents.trans_to(src, amount_per_transfer_from_this) // transfer from, transfer to - who cares?
 
-				to_chat(user, "\blue You fill the syringe with [trans] units of the solution.")
+				to_chat(user, "<span class='notice'>You fill the syringe with [trans] units of the solution.</span>")
 			if(reagents.total_volume >= reagents.maximum_volume)
 				mode=!mode
 				update_icon()
 
 		if(SYRINGE_INJECT)
 			if(!reagents.total_volume)
-				to_chat(user, "\red The Syringe is empty.")
+				to_chat(user, "<span class='warning'>The Syringe is empty.</span>")
 				return
 			if(istype(target, /obj/item/weapon/implantcase/chem))
 				return
 			if(!target.is_open_container() && !ismob(target) && !istype(target, /obj/item/weapon/reagent_containers/food))
-				to_chat(user, "\red You cannot directly fill this object.")
+				to_chat(user, "<span class='warning'>You cannot directly fill this object.</span>")
 				return
 			if(target.reagents.total_volume >= target.reagents.maximum_volume)
-				to_chat(user, "\red [target] is full.")
+				to_chat(user, "<span class='warning'>[target] is full.</span>")
 				return
 
 			if(ismob(target) && target != user)
@@ -260,13 +245,13 @@
 					O.show_message(text("<span class='danger'>[] is trying to inject [] with a giant syringe!</span>", user, target), 1)
 				if(!do_mob(user, target, 300)) return
 				for(var/mob/O in viewers(world.view, user))
-					O.show_message(text("\red [] injects [] with a giant syringe!", user, target), 1)
+					O.show_message(text("<span class='warning'>[] injects [] with a giant syringe!</span>", user, target), 1)
 				reagents.reaction(target, INGEST)
 			if(ismob(target) && target == user)
 				reagents.reaction(target, INGEST)
 			spawn(5)
 				var/trans = reagents.trans_to(target, amount_per_transfer_from_this)
-				to_chat(user, "\blue You inject [trans] units of the solution. The syringe now contains [reagents.total_volume] units.")
+				to_chat(user, "<span class='notice'>You inject [trans] units of the solution. The syringe now contains [reagents.total_volume] units.</span>")
 				if(reagents.total_volume >= reagents.maximum_volume && mode==SYRINGE_INJECT)
 					mode = SYRINGE_DRAW
 					update_icon()
