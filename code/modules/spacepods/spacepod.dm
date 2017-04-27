@@ -315,6 +315,7 @@
 			if(battery)
 				to_chat(user, "<span class='notice'>The pod already has a battery.</span>")
 				return
+			to_chat(user, "<span class='notice'>You insert \the [W] into the pod.</span>")
 			user.drop_item(W)
 			battery = W
 			W.forceMove(src)
