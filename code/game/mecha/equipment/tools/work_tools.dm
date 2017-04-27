@@ -287,7 +287,7 @@
 	name = "mounted MRCD"
 	desc = "An exosuit-mounted Mime Rapid Construction Device. (Can be attached to: Reticence)"
 	icon_state = "mecha_rcd"
-	origin_tech = "materials=4;bluespace=3;magnets=4;powerstorage=4"
+	origin_tech = "materials=4;bluespace=3;magnets=4;powerstorage=4;engineering=4"
 	equip_cooldown = 10
 	energy_drain = 250
 	range = MELEE|RANGED

@@ -379,7 +379,7 @@ to destroy them and players will be able to make replacements.
 	name = "circuit board (Oven)"
 	build_path = /obj/machinery/kitchen_machine/oven
 	board_type = "machine"
-	origin_tech = "programming=1;plasmatech=1"
+	origin_tech = "programming=2;magnets=2"
 	frame_desc = "Requires 2 Micro Lasers, 5 pieces of cable and 1 Console Screen."
 	req_components = list(
 							/obj/item/weapon/stock_parts/micro_laser = 2,
@@ -390,7 +390,7 @@ to destroy them and players will be able to make replacements.
 	name = "circuit board (Grill)"
 	build_path = /obj/machinery/kitchen_machine/grill
 	board_type = "machine"
-	origin_tech = "programming=1;plasmatech=1"
+	origin_tech = "programming=2;magnets=2"
 	frame_desc = "Requires 2 Micro Lasers, 5 pieces of cable and 1 Console Screen."
 	req_components = list(
 							/obj/item/weapon/stock_parts/micro_laser = 2,
@@ -401,7 +401,7 @@ to destroy them and players will be able to make replacements.
 	name = "circuit board (Candy Maker)"
 	build_path = /obj/machinery/kitchen_machine/candy_maker
 	board_type = "machine"
-	origin_tech = "programming=2"
+	origin_tech = "programming=2;magnets=2"
 	frame_desc = "Requires 1 Manipulator, 5 pieces of cable and 1 Console Screen."
 	req_components = list(
 							/obj/item/weapon/stock_parts/manipulator = 1,
@@ -656,7 +656,7 @@ obj/item/weapon/circuitboard/rdserver
 	name = "Circuit board (Spacepod Fabricator)"
 	build_path = /obj/machinery/spod_part_fabricator //ah fuck my life
 	board_type = "machine"
-	origin_tech = "programming=3;engineering=3"
+	origin_tech = "programming=2;engineering=2"
 	frame_desc = "Requires 3 Matter Bins, 2 Manipulators, 2 Micro-Lasers, and 1 Console Screen."
 	req_components = list(
 							/obj/item/weapon/stock_parts/matter_bin = 3,
@@ -781,7 +781,7 @@ obj/item/weapon/circuitboard/rdserver
 	name = "circuit board (Body Scanner)"
 	build_path = /obj/machinery/bodyscanner
 	board_type = "machine"
-	origin_tech = "programming=3;biotech=2;engineering=3;materials=3"
+	origin_tech = "programming=3;biotech=2;engineering=3"
 	frame_desc = "Requires 1 Scanning Module, 2 pieces of cable and 2 Console Screens."
 	req_components = list(
 							/obj/item/weapon/stock_parts/scanning_module = 1,
@@ -792,7 +792,7 @@ obj/item/weapon/circuitboard/rdserver
 	name = "circuit board (Body Scanner Console)"
 	build_path = /obj/machinery/body_scanconsole
 	board_type = "machine"
-	origin_tech = "programming=3;biotech=2;engineering=3;materials=3"
+	origin_tech = "programming=3;biotech=2;engineering=3"
 	frame_desc = "Requires 2 pieces of cable and 2 Console Screens."
 	req_components = list(
 							/obj/item/stack/cable_coil = 2,
@@ -929,7 +929,7 @@ obj/item/weapon/circuitboard/rdserver
 	name = "circuit board (Claw Game)"
 	build_path = /obj/machinery/arcade/claw
 	board_type = "machine"
-	origin_tech = "programming=2"
+	origin_tech = "programming=1"
 	req_components = list(
 							/obj/item/weapon/stock_parts/matter_bin = 1,
 							/obj/item/weapon/stock_parts/manipulator = 1,
@@ -940,7 +940,7 @@ obj/item/weapon/circuitboard/rdserver
 	name = "circuit board (Prize Counter)"
 	build_path = /obj/machinery/prize_counter
 	board_type = "machine"
-	origin_tech = "programming=2;materials=2"
+	origin_tech = "programming=1"
 	req_components = list(
 							/obj/item/weapon/stock_parts/matter_bin = 1,
 							/obj/item/weapon/stock_parts/manipulator = 1,
@@ -951,7 +951,7 @@ obj/item/weapon/circuitboard/rdserver
 	name = "circuit board (Virtual Gameboard)"
 	build_path = /obj/machinery/gameboard
 	board_type = "machine"
-	origin_tech = "programming=2"
+	origin_tech = "programming=1"
 	req_components = list(
 							/obj/item/weapon/stock_parts/micro_laser = 1,
 							/obj/item/stack/cable_coil = 3,

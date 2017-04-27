@@ -295,7 +295,7 @@
 /obj/item/weapon/circuitboard/HONKputer
 	name = "Circuit board (HONKputer)"
 	build_path = /obj/machinery/computer/HONKputer
-	origin_tech = "programming=4"
+	origin_tech = "programming=2"
 	icon = 'icons/obj/machines/HONKputer.dmi'
 	icon_state = "bananium_board"
 	board_type = "honkcomputer"

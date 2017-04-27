@@ -25,7 +25,7 @@
 /obj/item/mecha_parts/mecha_equipment/teleporter/precise
 	name = "upgraded teleporter"
 	desc = "An exosuit module that allows exosuits to teleport to any position in view. This is the high-precision, energy-efficient version."
-	origin_tech = "bluespace=13"
+	origin_tech = "bluespace=7"
 	energy_drain = 1000
 	tele_precision = 1
 

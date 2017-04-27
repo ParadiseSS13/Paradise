@@ -121,7 +121,7 @@
 /obj/item/device/mmi/radio_enabled
 	name = "Radio-enabled Man-Machine Interface"
 	desc = "The Warrior's bland acronym, MMI, obscures the true horror of this monstrosity. This one comes with a built-in radio."
-	origin_tech = "biotech=4"
+	origin_tech = "biotech=2;programming=3;engineering=2;magnets=2"
 
 	var/obj/item/device/radio/radio = null//Let's give it a radio.
 

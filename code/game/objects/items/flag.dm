@@ -156,16 +156,16 @@
 	name = "Nar'Sie Cultist flag"
 	desc = "A flag proudly boasting the logo of the cultists, sworn enemies of NT."
 	icon_state = "cultflag"
-	
+
 //Chameleon
 
 /obj/item/flag/chameleon
 	name = "Chameleon flag"
 	desc = "A poor recreation of the official NT flag. It seems to shimmer a little."
 	icon_state = "ntflag"
-	origin_tech = "materials=3;magnets=4;syndicate=4"
+	origin_tech = "syndicate=4;magnets=4"
 	var/used = 0
-	
+
 /obj/item/flag/chameleon/attack_self(mob/user)
 	if(used)
 		return
@@ -190,7 +190,7 @@
 			icon_state = chosen_flag.icon_state
 			desc = chosen_flag.desc
 			used = 1
-			
+
 /obj/item/flag/chameleon/burn()
 	explosion(loc,1,2,4,4, flame_range = 4)
 	qdel(src)

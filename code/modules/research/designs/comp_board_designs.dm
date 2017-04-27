@@ -266,7 +266,7 @@
 	name = "Console Board (Spacepod Locator)"
 	desc = "Allows for the construction of circuit boards used to build a space-pod locating console"
 	id = "spacepodc"
-	req_tech = list("programming" = 2)
+	req_tech = list("programming" = 4)
 	build_type = IMPRINTER
 	materials = list(MAT_GLASS = 1000, "sacid" = 20)
 	build_path = /obj/item/weapon/circuitboard/pod_locater

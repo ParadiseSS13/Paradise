@@ -15,7 +15,7 @@
 	name = "Advanced Reagent Scanner"
 	desc = "A device for identifying chemicals and their proportions."
 	id = "adv_reagent_scanner"
-	req_tech = list("biotech" = 2, "magnets" = 4)
+	req_tech = list("biotech" = 3, "magnets" = 4, "plasmatech" = 3)
 	build_type = PROTOLATHE
 	materials = list(MAT_METAL = 30, MAT_GLASS = 20)
 	build_path = /obj/item/device/reagent_scanner/adv
@@ -76,7 +76,7 @@
 	name = "Handheld Crew Monitor"
 	desc = "A device for tracking crew members on the station."
 	id = "sensor_device"
-	req_tech = list("biotech" = 4, "magnets" = 3, "materials" = 3)
+	req_tech = list("programming" = 3, "magnets" = 2, "biotech" = 2)
 	build_type = PROTOLATHE
 	materials = list(MAT_METAL = 30, MAT_GLASS = 20)
 	build_path = /obj/item/device/sensor_device
@@ -118,7 +118,7 @@
 	name = "Radio-Enabled Man-Machine Interface"
 	desc = "The Warrior's bland acronym, MMI, obscures the true horror of this monstrosity. This one comes with a built-in radio."
 	id = "mmi_radio"
-	req_tech = list("programming" = 3, "biotech" = 4, "engineering" = 2)
+	req_tech = list("programming" = 3, "biotech" = 2, "engineering" = 2)
 	build_type = PROTOLATHE | MECHFAB
 	materials = list(MAT_METAL = 1200, MAT_GLASS = 500)
 	construction_time = 75
@@ -139,7 +139,7 @@
 	name = "Reagent Scanner"
 	desc = "A device for identifying chemicals."
 	id = "reagent_scanner"
-	req_tech = list("biotech" = 2, "magnets" = 2)
+	req_tech = list("magnets" = 2, "plasmatech" = 2)
 	build_type = PROTOLATHE
 	materials = list(MAT_METAL = 30, MAT_GLASS = 20)
 	build_path = /obj/item/device/reagent_scanner

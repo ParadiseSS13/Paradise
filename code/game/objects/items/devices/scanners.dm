@@ -22,15 +22,12 @@ REAGENT SCANNER
 	var/pulse_duration = 10
 
 /obj/item/device/t_scanner/longer_pulse
-	origin_tech = "magnets=2;engineering=2"
 	pulse_duration = 50
 
 /obj/item/device/t_scanner/extended_range
-	origin_tech = "magnets=1;engineering=3"
 	scan_range = 3
 
 /obj/item/device/t_scanner/extended_range/longer_pulse
-	origin_tech = "magnets=2;engineering=3"
 	scan_range = 3
 	pulse_duration = 50
 
@@ -433,7 +430,7 @@ REAGENT SCANNER
 	throw_speed = 4
 	throw_range = 20
 	materials = list(MAT_METAL=30, MAT_GLASS=20)
-	origin_tech = "magnets=2;biotech=2"
+	origin_tech = "magnets=2;biotech=1;plasmatech=2"
 	var/details = 0
 
 /obj/item/device/reagent_scanner/afterattack(obj/O, mob/user as mob)
@@ -464,7 +461,7 @@ REAGENT SCANNER
 	name = "advanced reagent scanner"
 	icon_state = "adv_spectrometer"
 	details = 1
-	origin_tech = "magnets=4;biotech=2"
+	origin_tech = "magnets=4;biotech=3;plasmatech=3"
 
 /obj/item/device/slime_scanner
 	name = "slime scanner"

@@ -105,7 +105,7 @@
 	name = "Plasma Pistol"
 	desc = "A specialized firearm designed to fire lethal bolts of toxins."
 	id = "ppistol"
-	req_tech = list("combat" = 4, "plasmatech" = 3)
+	req_tech = list("combat" = 5, "magnets" = 5, "powerstorage" = 5)
 	build_type = PROTOLATHE
 	materials = list(MAT_METAL = 5000, MAT_GLASS = 1000, MAT_PLASMA = 3000)
 	build_path = /obj/item/weapon/gun/energy/toxgun
@@ -221,7 +221,7 @@
 	name = "Immolator Laser Gun"
 	desc = "Has fewer shots than a regular laser gun, but ignites the target on hit"
 	id = "immolator"
-	req_tech = list("combat" = 4, "materials" = 5, "powerstorage" = 5, "magnets" = 4)
+	req_tech = list("combat" = 5, "magnets" = 5, "powerstorage" = 5)
 	build_type = PROTOLATHE
 	materials = list(MAT_METAL = 4000, MAT_GLASS = 1000, MAT_SILVER = 3000, MAT_PLASMA = 2000)
 	build_path = /obj/item/weapon/gun/energy/immolator

@@ -116,7 +116,7 @@
 	name = "Machine Board (Body Scanner)"
 	desc = "Allows for the construction of circuit boards used to build a Body Scanner."
 	id = "bodyscanner"
-	req_tech = list("programming" = 3, "biotech" = 2, "materials" = 3, "engineering" = 3)
+	req_tech = list("programming" = 3, "biotech" = 2, "engineering" = 3)
 	build_type = IMPRINTER
 	materials = list(MAT_GLASS = 1000, "sacid" = 20)
 	build_path = /obj/item/weapon/circuitboard/bodyscanner
@@ -126,7 +126,7 @@
 	name = "Machine Board (Body Scanner Console)"
 	desc = "Allows for the construction of circuit boards used to build a Body Scanner Console."
 	id = "bodyscanner_console"
-	req_tech = list("programming" = 3, "biotech" = 2, "materials" = 3, "engineering" = 3)
+	req_tech = list("programming" = 3, "biotech" = 2, "engineering" = 3)
 	build_type = IMPRINTER
 	materials = list(MAT_GLASS = 1000, "sacid" = 20)
 	build_path = /obj/item/weapon/circuitboard/bodyscanner_console
@@ -406,7 +406,7 @@
 	name = "Machine Board (Oven)"
 	desc = "The circuit board for an Oven."
 	id = "oven"
-	req_tech = list("programming" = 1, "plasmatech" = 1)
+	req_tech = list("programming" = 2, "magnets" = 2)
 	build_type = IMPRINTER
 	materials = list(MAT_GLASS = 1000, "sacid" = 20)
 	build_path = /obj/item/weapon/circuitboard/oven
@@ -416,7 +416,7 @@
 	name = "Machine Board (Grill)"
 	desc = "The circuit board for a Grill."
 	id = "grill"
-	req_tech = list("programming" = 1, "plasmatech" = 1)
+	req_tech = list("programming" = 2, "magnets" = 2)
 	build_type = IMPRINTER
 	materials = list(MAT_GLASS = 1000, "sacid" = 20)
 	build_path = /obj/item/weapon/circuitboard/grill
@@ -426,7 +426,7 @@
 	name = "Machine Board (Candy Maker)"
 	desc = "The circuit board for a Candy Maker."
 	id = "candymaker"
-	req_tech = list("programming" = 2)
+	req_tech = list("programming" = 2, "magnets" = 2)
 	build_type = IMPRINTER
 	materials = list(MAT_GLASS = 1000, "sacid" = 20)
 	build_path = /obj/item/weapon/circuitboard/candy_maker
@@ -456,7 +456,7 @@
 	name = "Machine Board (Programmable Unloader)"
 	desc = "The circuit board for a Programmable Unloader."
 	id = "selunload"
-	req_tech = list("programming" = 5)
+	req_tech = "engineering=1;programming=2"
 	build_type = IMPRINTER
 	materials = list(MAT_GLASS = 2000, "sacid" = 20)
 	build_path = /obj/item/weapon/circuitboard/programmable

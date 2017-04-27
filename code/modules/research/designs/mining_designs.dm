@@ -11,16 +11,6 @@
 	build_path = /obj/item/weapon/pickaxe/drill/diamonddrill
 	category = list("Mining")
 
-/datum/design/pick_diamond
-	name = "Diamond Pickaxe"
-	desc = "A pickaxe with a diamond pick head, this is just like minecraft."
-	id = "pick_diamond"
-	req_tech = list("materials" = 6)
-	build_type = PROTOLATHE
-	materials = list(MAT_DIAMOND = 3000)
-	build_path = /obj/item/weapon/pickaxe/diamond
-	category = list("Mining")
-
 /datum/design/drill
 	name = "Mining Drill"
 	desc = "Yours is the drill that will pierce through the rock walls."

@@ -256,7 +256,7 @@
 	icon_state = "lasercarbine"
 	item_state = "laser"
 	w_class = 3
-	origin_tech = "combat=5;materials=5"
+	origin_tech = "combat=4;materials=2"
 	mag_type = /obj/item/ammo_box/magazine/laser
 	fire_sound = 'sound/weapons/emitter2.ogg'
 	can_suppress = 0

@@ -121,7 +121,7 @@
 	icon_state = "immolator"
 	item_state = "laser"
 	ammo_type = list(/obj/item/ammo_casing/energy/immolator)
-	origin_tech = "combat=4;materials=4;magnets=3;plasmatech=2"
+	origin_tech = "combat=4;magnets=4;powerstorage=3"
 	shaded_charge = 1
 
 ////////Laser Tag////////////////////

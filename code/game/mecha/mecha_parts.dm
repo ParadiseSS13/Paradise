@@ -445,7 +445,7 @@
 	icon_state = "mainboard"
 
 /obj/item/weapon/circuitboard/mecha/reticence
-	origin_tech = "programming=4"
+	origin_tech = "programming=3;engineering=3"
 
 /obj/item/weapon/circuitboard/mecha/reticence/peripherals
 	name = "circuit board (Reticence Peripherals Control module)"

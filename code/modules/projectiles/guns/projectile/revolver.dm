@@ -257,7 +257,7 @@
 /obj/item/weapon/gun/projectile/revolver/capgun
 	name = "cap gun"
 	desc = "Looks almost like the real thing! Ages 8 and up."
-	origin_tech = "combat=1;materials=1"
+	origin_tech = null
 	mag_type = /obj/item/ammo_box/magazine/internal/cylinder/cap
 
 /////////////////////////////

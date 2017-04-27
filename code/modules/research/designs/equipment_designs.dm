@@ -145,7 +145,7 @@
 	name = "Night Vision Science Goggles"
 	desc = "Like Science Goggles, but works in darkness."
 	id = "nvscigoggles"
-	req_tech = list("materials" = 5, "magnets" = 5, "engineering" = 4)
+	req_tech = list("magnets" = 5, "plasmatech" = 4, "engineering" = 6)
 	build_type = PROTOLATHE
 	materials = list(MAT_METAL = 250, MAT_GLASS = 300, MAT_PLASMA = 250, MAT_URANIUM = 1000)
 	build_path = /obj/item/clothing/glasses/science/night
@@ -185,7 +185,7 @@
 	name = "Night Vision Hydroponic HUD"
 	desc = "A HUD used to analyze the health and status of plants growing in low-light environments."
 	id = "hydroponic_hud_night"
-	req_tech = list("magnets" = 5, "biotech" = 4)
+	req_tech = list("biotech" = 4, "magnets" = 5, "plasmatech" = 4, "engineering" = 6)
 	build_type = PROTOLATHE
 	materials = list(MAT_METAL = 200, MAT_GLASS = 200, MAT_URANIUM = 1000, MAT_PLASMA = 200)
 	build_path = /obj/item/clothing/glasses/hud/hydroponic/night

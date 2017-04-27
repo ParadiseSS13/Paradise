@@ -86,7 +86,7 @@
 	name = "Core AI Module (Antimov)"
 	desc = "Allows for the construction of a Antimov AI Core Module."
 	id = "antimov_module"
-	req_tech = list("programming" = 4, "materials" = 6, "syndicate" = 2)
+	req_tech = list("programming" = 5, "syndicate" = 2, "materials" = 5)
 	build_type = IMPRINTER
 	materials = list(MAT_GLASS = 1000, "sacid" = 20, MAT_DIAMOND = 100)
 	build_path = /obj/item/weapon/aiModule/antimov

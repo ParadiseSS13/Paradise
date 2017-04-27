@@ -6,7 +6,7 @@
 	name="Space Pod Core"
 	icon_state = "core"
 	flags = CONDUCT
-	origin_tech = "programming=2;materials=3;bluespace=2;engineering=3"
+	origin_tech = "programming=2;materials=2;biotech=2;engineering=2"
 
 /obj/item/pod_parts/pod_frame
 	name = "Space Pod Frame"

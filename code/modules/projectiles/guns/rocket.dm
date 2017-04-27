@@ -9,7 +9,7 @@
 	throw_range = 10
 	force = 5.0
 	flags = CONDUCT
-	origin_tech = "combat=8;materials=5"
+	origin_tech = "combat=6"
 	var/missile_speed = 2
 	var/missile_range = 30
 	var/max_rockets = 1
