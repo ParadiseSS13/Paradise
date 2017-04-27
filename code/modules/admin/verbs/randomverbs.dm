@@ -113,15 +113,9 @@
 
 	if(!msg)
 		return
-<<<<<<< HEAD
 	to_chat(world, "[sanitize(msg)]")
 	log_admin("GlobalNarrate: [key_name(usr)] : [sanitize(msg)]")
 	message_admins("\blue \bold GlobalNarrate: [key_name_admin(usr)]: [sanitize(msg)]<BR>", 1)
-=======
-	to_chat(world, "[msg]")
-	log_admin("GlobalNarrate: [key_name(usr)] : [msg]")
-	message_admins("<span class='boldnotice'>GlobalNarrate: [key_name_admin(usr)]: [msg]<BR></span>", 1)
->>>>>>> refs/remotes/ParadiseSS13/master
 	feedback_add_details("admin_verb","GLN") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
 /client/proc/cmd_admin_direct_narrate(var/mob/M)	// Targetted narrate -- TLE
@@ -142,15 +136,10 @@
 	if( !msg )
 		return
 
-<<<<<<< HEAD
 	to_chat(M, sanitize(msg))
 	log_admin("DirectNarrate: [key_name(usr)] to ([key_name(M)]): [sanitize(msg)]")
 	message_admins("\blue \bold DirectNarrate: [key_name_admin(usr)] to ([key_name_admin(M)]): [sanitize(msg)]<BR>", 1)
-=======
-	to_chat(M, msg)
-	log_admin("DirectNarrate: [key_name(usr)] to ([key_name(M)]): [msg]")
-	message_admins("<span class='boldnotice'>DirectNarrate: [key_name_admin(usr)] to ([key_name_admin(M)]): [msg]<BR></span>", 1)
->>>>>>> refs/remotes/ParadiseSS13/master
+
 	feedback_add_details("admin_verb","DIRN") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
 /client/proc/cmd_admin_godmode(mob/M as mob in mob_list)

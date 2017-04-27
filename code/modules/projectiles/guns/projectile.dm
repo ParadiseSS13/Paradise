@@ -144,9 +144,6 @@
 			user.visible_message("<span class='suicide'>[user] blows \his brains out with the [name]!</span>")
 			return(BRUTELOSS)
 		else
-			user.visible_message("<span class='suicide'>[user] panics and starts choking to death!</span>")
-			return(OXYLOSS)
-		else
 			user.visible_message("<span class='suicide'>[user] is trying to evoke \his Persona with the [name]! It looks like \he's trying to commit anime!</span>")
 			return(BRUTELOSS)
 	else
