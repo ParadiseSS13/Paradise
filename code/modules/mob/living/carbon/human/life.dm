@@ -36,6 +36,7 @@
 		handle_heartattack()
 		handle_drunk()
 		species.handle_life(src)
+		handle_lust()
 
 		if(!client)
 			species.handle_npc(src)
@@ -96,7 +97,7 @@
 				if(1)
 					emote("twitch")
 				if(2 to 3)
-					var/tourettes = pick("SHIT", "PISS", "FUCK", "CUNT", "COCKSUCKER", "MOTHERFUCKER", "TITS")
+					var/tourettes = pick("ГОВНО", "МОЧА", "ЕБАТЬ", "ГОНДОН", "ХУЕСОС", "ПИДАР", "ХУЙ")
 					say("[prob(50) ? ";" : ""][tourettes]")
 			var/x_offset = pixel_x + rand(-2,2) //Should probably be moved into the twitch emote at some point.
 			var/y_offset = pixel_y + rand(-1,1)
@@ -111,32 +112,32 @@
 	if(getBrainLoss() >= 60 && stat != DEAD)
 		speech_problem_flag = 1
 		if(prob(3))
-			var/list/s1 = list("IM A PONY NEEEEEEIIIIIIIIIGH",
-							   "without oxigen blob don't evoluate?",
-							   "CAPTAINS A COMDOM",
-							   "[pick("", "that damn traitor")] [pick("joerge", "george", "gorge", "gdoruge")] [pick("mellens", "melons", "mwrlins")] is grifing me HAL;P!!!",
-							   "can u give me [pick("telikesis","halk","eppilapse")]?",
-							   "THe saiyans screwed",
-							   "Bi is THE BEST OF BOTH WORLDS>",
-							   "I WANNA PET TEH monkeyS",
-							   "stop grifing me!!!!",
-							   "SOTP IT#")
+			var/list/s1 = list("всем привет с вами иивангай и это мой обзор на спесстейшн фертин",
+							   "без кеслорода блоб не растет?",
+							   "КЭП - ГОНДОН",
+							   "[pick("", "етот тритор")] [pick("винс", "винсонт", "винсент", "винсунт")] [pick("антдар", "одар", "удар")] грефонит миня х;алп!!!",
+							   "не могли бы вы меня тыкнуть [pick("теликенезом","хулком","епелепсией")]?",
+							   "Хочешь руки-базуки?",
+							   "Я РОССИЙСКИЙ НОВЫЙ ПИРАТ",
+							   "SONO CHI NO SADAME --- JOOOOOOOOOOOOOOJOOOOOOOOOOOOOOO",
+							   "не грифонь подумой!!!!",
+							   "АСТАНАВИТЕСЬ#")
 
 			var/list/s2 = list("FUS RO DAH",
-							   "fucking 4rries!",
-							   "stat me",
-							   ">my face",
-							   "roll it easy!",
-							   "waaaaaagh!!!",
-							   "red wonz go fasta",
-							   "FOR TEH EMPRAH",
-							   "lol2cat",
-							   "dem dwarfs man, dem dwarfs",
-							   "SPESS MAHREENS",
-							   "hwee did eet fhor khayosss",
-							   "lifelike texture ;_;",
-							   "luv can bloooom",
-							   "PACKETS!!!")
+							   "ебучие фуриебы!",
+							   "чому етот третор токои довольный",
+							   ">мое литсе",
+							   "сделай бочку",
+							   "вааааааааааааааагх!!!",
+							   "хех смотрели филтифренка? мне 15 кстати",
+							   "ЗА ИМПЕРАТОРА!",
+							   "дед, смотри, собака сидит. ЛОЛ.",
+							   "итс э хай нууууууууун",
+							   "МЫ ПЕС МАРИНЫЫЫЫЫЫЫЫЫЫЫ",
+							   "час простаты",
+							   "текстурки-то прошлый век!",
+							   "снек, ты веришь что любов может расцвести на поле боя?",
+							   "МОЙ ПИНГ!!!!!")
 			switch(pick(1,2,3))
 				if(1)
 					say(pick(s1))

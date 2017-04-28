@@ -118,7 +118,7 @@
 		target.SetLockdown(!target.lockcharge)
 		to_chat(target, "[!target.lockcharge ? "<span class='notice'>Your lockdown has been lifted!</span>" : "<span class='alert'>You have been locked down!</span>"]")
 		if(target.connected_ai)
-			to_chat(target.connected_ai, "[!target.lockcharge ? "<span class='notice'>NOTICE - Cyborg lockdown lifted</span>" : "<span class='alert'>ALERT - Cyborg lockdown detected</span>"]: <a href='?src=[target.connected_ai.UID()];track=[html_encode(target.name)]'>[target.name]</a></span><br>")
+			to_chat(target.connected_ai, "[!target.lockcharge ? "<span class='notice'>NOTICE - Cyborg lockdown lifted</span>" : "<span class='alert'>ALERT - Cyborg lockdown detected</span>"]: <a href='?src=[target.connected_ai.UID()];track=[lhtml_encode(target.name)]'>[target.name]</a></span><br>")
 
 	// Remotely hacks the cyborg. Only antag AIs can do this and only to linked cyborgs.
 	else if(href_list["hack"])

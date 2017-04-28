@@ -216,11 +216,11 @@
 	var/beepskyData[0]
 	if(pda.cartridge && istype(pda.cartridge.radio, /obj/item/radio/integrated/beepsky))
 		var/obj/item/radio/integrated/beepsky/SC = pda.cartridge.radio
-		beepskyData["active"] = SC.active ? sanitize(SC.active.name) : null
+		beepskyData["active"] = SC.active ? sanitize_local(SC.active.name) : null
 		has_back = SC.active ? 1 : 0
 		if(SC.active && !isnull(SC.botstatus))
 			var/area/loca = SC.botstatus["loca"]
-			var/loca_name = sanitize(loca.name)
+			var/loca_name = sanitize_local(loca.name)
 			beepskyData["botstatus"] = list("loca" = loca_name, "mode" = SC.botstatus["mode"])
 		else
 			beepskyData["botstatus"] = list("loca" = null, "mode" = -1)
@@ -229,7 +229,7 @@
 			for(var/mob/living/simple_animal/bot/B in SC.botlist)
 				botsCount++
 				if(B.loc)
-					botsData[++botsData.len] = list("Name" = sanitize(B.name), "Location" = sanitize(B.loc.loc.name), "ref" = "\ref[B]")
+					botsData[++botsData.len] = list("Name" = sanitize_local(B.name), "Location" = sanitize_local(B.loc.loc.name), "ref" = "\ref[B]")
 
 		if(!botsData.len)
 			botsData[++botsData.len] = list("Name" = "No bots found", "Location" = "Invalid", "ref"= null)
@@ -264,12 +264,12 @@
 	var/mulebotsData[0]
 	if(pda.cartridge && istype(pda.cartridge.radio, /obj/item/radio/integrated/mule))
 		var/obj/item/radio/integrated/mule/QC = pda.cartridge.radio
-		muleData["active"] = QC.active ? sanitize(QC.active.name) : null
+		muleData["active"] = QC.active ? sanitize_local(QC.active.name) : null
 		has_back = QC.active ? 1 : 0
 		if(QC.active && !isnull(QC.botstatus))
 			var/area/loca = QC.botstatus["loca"]
-			var/loca_name = sanitize(loca.name)
-			muleData["botstatus"] =  list("loca" = loca_name, "mode" = QC.botstatus["mode"],"home"=QC.botstatus["home"],"powr" = QC.botstatus["powr"],"retn" =QC.botstatus["retn"], "pick"=QC.botstatus["pick"], "load" = QC.botstatus["load"], "dest" = sanitize(QC.botstatus["dest"]))
+			var/loca_name = sanitize_local(loca.name)
+			muleData["botstatus"] =  list("loca" = loca_name, "mode" = QC.botstatus["mode"],"home"=QC.botstatus["home"],"powr" = QC.botstatus["powr"],"retn" =QC.botstatus["retn"], "pick"=QC.botstatus["pick"], "load" = QC.botstatus["load"], "dest" = sanitize_local(QC.botstatus["dest"]))
 
 		else
 			muleData["botstatus"] = list("loca" = null, "mode" = -1,"home"=null,"powr" = null,"retn" =null, "pick"=null, "load" = null, "dest" = null)
@@ -279,7 +279,7 @@
 		for(var/mob/living/simple_animal/bot/B in QC.botlist)
 			mulebotsCount++
 			if(B.loc)
-				mulebotsData[++mulebotsData.len] = list("Name" = sanitize(B.name), "Location" = sanitize(B.loc.loc.name), "ref" = "\ref[B]")
+				mulebotsData[++mulebotsData.len] = list("Name" = sanitize_local(B.name), "Location" = sanitize_local(B.loc.loc.name), "ref" = "\ref[B]")
 
 		if(!mulebotsData.len)
 			mulebotsData[++mulebotsData.len] = list("Name" = "No bots found", "Location" = "Invalid", "ref"= null)
@@ -328,7 +328,7 @@
 	for(var/S in shuttle_master.shoppinglist)
 		var/datum/supply_order/SO = S
 		supplyOrderCount++
-		supplyOrderData[++supplyOrderData.len] = list("Number" = SO.ordernum, "Name" = html_encode(SO.object.name), "ApprovedBy" = SO.orderedby, "Comment" = html_encode(SO.comment))
+		supplyOrderData[++supplyOrderData.len] = list("Number" = SO.ordernum, "Name" = lhtml_encode(SO.object.name), "ApprovedBy" = SO.orderedby, "Comment" = lhtml_encode(SO.comment))
 
 	if(!supplyOrderData.len)
 		supplyOrderData[++supplyOrderData.len] = list("Number" = null, "Name" = null, "OrderedBy"=null)
@@ -341,7 +341,7 @@
 	for(var/S in shuttle_master.requestlist)
 		var/datum/supply_order/SO = S
 		requestCount++
-		requestData[++requestData.len] = list("Number" = SO.ordernum, "Name" = html_encode(SO.object.name), "OrderedBy" = SO.orderedby, "Comment" = html_encode(SO.comment))
+		requestData[++requestData.len] = list("Number" = SO.ordernum, "Name" = lhtml_encode(SO.object.name), "OrderedBy" = SO.orderedby, "Comment" = lhtml_encode(SO.comment))
 
 	if(!requestData.len)
 		requestData[++requestData.len] = list("Number" = null, "Name" = null, "orderedBy" = null, "Comment" = null)

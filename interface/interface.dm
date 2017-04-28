@@ -1,7 +1,7 @@
 //Please use mob or src (not usr) in these procs. This way they can be called in the same fashion as procs.
 /client/verb/wiki(query as text)
 	set name = "wiki"
-	set desc = "Type what you want to know about.  This will open the wiki on your web browser."
+	set desc = "Что искать?"
 	set hidden = 1
 	if(config.wikiurl)
 		if(query)
@@ -44,22 +44,22 @@
 
 /client/verb/forum()
 	set name = "forum"
-	set desc = "Visit the forum."
+	set desc = "Посетите наш Discord."
 	set hidden = 1
 	if(config.forumurl)
-		if(alert("This will open the forum in your browser. Are you sure?",,"Yes","No")=="No")
+		if(alert("Это будет открыто в браузере. Продолжить?",,"Да","Нет")=="No")
 			return
 		src << link(config.forumurl)
 	else
-		to_chat(src, "<span class='danger'>The forum URL is not set in the server configuration.</span>")
+		to_chat(src, "<span class='danger'>The Discord URL is not set in the server configuration.</span>")
 	return
 
 /client/verb/rules()
 	set name = "Rules"
-	set desc = "View the server rules."
+	set desc = "Посмотреть правила"
 	set hidden = 1
 	if(config.rulesurl)
-		if(alert("This will open the rules in your browser. Are you sure?",,"Yes","No")=="No")
+		if(alert("Это будет открыто в браузере. Продолжить?",,"Да","Нет")=="No")
 			return
 		src << link(config.rulesurl)
 	else
@@ -68,10 +68,10 @@
 
 /client/verb/donate()
 	set name = "Donate"
-	set desc = "Donate to help with hosting costs."
+	set desc = "Помогите серверу."
 	set hidden = 1
 	if(config.donationsurl)
-		if(alert("This will open the donation page in your browser. Are you sure?",,"Yes","No")=="No")
+		if(alert("Это будет открыто в браузере. Продолжить?",,"Да","Нет")=="No")
 			return
 		src << link(config.donationsurl)
 	else

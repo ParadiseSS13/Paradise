@@ -1,7 +1,7 @@
 /* SmartFridge.  Much todo
 */
 /obj/machinery/smartfridge
-	name = "\improper SmartFridge"
+	name = "SmartFridge"
 	icon = 'icons/obj/vending.dmi'
 	icon_state = "smartfridge"
 	layer = 2.9
@@ -61,7 +61,7 @@
 	return 0
 
 /obj/machinery/smartfridge/seeds
-	name = "\improper MegaSeed Servitor"
+	name = "MegaSeed Servitor"
 	desc = "When you need seeds fast!"
 	icon = 'icons/obj/vending.dmi'
 	icon_state = "seeds"
@@ -74,7 +74,7 @@
 	return 0
 
 /obj/machinery/smartfridge/medbay
-	name = "\improper Refrigerated Medicine Storage"
+	name = "Refrigerated Medicine Storage"
 	desc = "A refrigerated storage unit for storing medicine and chemicals."
 	icon_state = "smartfridge" //To fix the icon in the map editor.
 	icon_on = "smartfridge_chem"
@@ -89,7 +89,7 @@
 	return 0
 
 /obj/machinery/smartfridge/secure/extract
-	name = "\improper Slime Extract Storage"
+	name = "Slime Extract Storage"
 	desc = "A refrigerated storage unit for slime extracts"
 	req_access_txt = "47"
 
@@ -99,7 +99,7 @@
 	return 0
 
 /obj/machinery/smartfridge/secure/medbay
-	name = "\improper Secure Refrigerated Medicine Storage"
+	name = "Secure Refrigerated Medicine Storage"
 	desc = "A refrigerated storage unit for storing medicine and chemicals."
 	icon_state = "smartfridge" //To fix the icon in the map editor.
 	icon_on = "smartfridge_chem"
@@ -115,7 +115,7 @@
 	return 0
 
 /obj/machinery/smartfridge/secure/chemistry
-	name = "\improper Smart Chemical Storage"
+	name = "Smart Chemical Storage"
 	desc = "A refrigerated storage unit for medicine and chemical storage."
 	icon_state = "smartfridge" //To fix the icon in the map editor.
 	icon_on = "smartfridge_chem"
@@ -162,7 +162,7 @@
 	return 0
 
 /obj/machinery/smartfridge/drinks
-	name = "\improper Drink Showcase"
+	name = "Drink Showcase"
 	desc = "A refrigerated storage unit for tasty tasty alcohol."
 
 /obj/machinery/smartfridge/drinks/accept_check(obj/item/O)
@@ -341,7 +341,7 @@
 		var/K = item_quants[i]
 		var/count = item_quants[K]
 		if(count > 0)
-			items.Add(list(list("display_name" = html_encode(capitalize(K)), "vend" = i, "quantity" = count)))
+			items.Add(list(list("display_name" = lhtml_encode(capitalize(K)), "vend" = i, "quantity" = count)))
 
 	if(items.len > 0)
 		data["contents"] = items

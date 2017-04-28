@@ -37,7 +37,7 @@
 //Edbot Assembly
 
 /obj/item/weapon/ed209_assembly
-	name = "\improper ED-209 assembly"
+	name = "ED-209 assembly"
 	desc = "Some sort of bizarre assembly."
 	icon = 'icons/obj/aibots.dmi'
 	icon_state = "ed209_frame"

@@ -30,8 +30,8 @@
 		data["messages"] = tnote
 		for(var/c in tnote)
 			if(c["target"] == active_conversation)
-				data["convo_name"] = sanitize(c["owner"])
-				data["convo_job"] = sanitize(c["job"])
+				data["convo_name"] = sanitize_local(c["owner"])
+				data["convo_job"] = sanitize_local(c["job"])
 				break
 		data["auto_scroll"] = auto_scroll
 		data["latest_post"] = latest_post
@@ -121,7 +121,7 @@
 	var/t = input(U, "Please enter message", name, null) as text|null
 	if(!t)
 		return
-	t = sanitize(copytext(t, 1, MAX_MESSAGE_LEN))
+	t = sanitize_local(copytext(t, 1, MAX_MESSAGE_LEN))
 	t = readd_quotes(t)
 	if(!t || !istype(P))
 		return

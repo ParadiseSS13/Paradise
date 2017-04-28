@@ -47,7 +47,7 @@
 				return
 			if(!in_range(src, user) && src.loc != user)
 				return
-			t = sanitize(copytext(t,1,MAX_MESSAGE_LEN))
+			t = sanitize_local(copytext(t,1,MAX_MESSAGE_LEN))
 			if(t)
 				src.name = "body bag - "
 				src.name += t
