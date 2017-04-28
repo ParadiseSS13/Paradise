@@ -183,7 +183,7 @@
 /obj/item/organ/internal/heart/gland/bloody/activate()
 	if(ishuman(owner))
 		var/mob/living/carbon/human/H = owner
-		H.drip(200)
+		H.bleed(200)
 	owner.visible_message("<span class='danger'>[owner]'s skin erupts with blood!</span>",\
 	"<span class='userdanger'>Blood pours from your skin!</span>")
 
@@ -206,8 +206,7 @@
 		C.Copy(owner)
 		C.Start()
 	owner.adjustBruteLoss(40)
-	var/turf/T = get_turf(owner)
-	T.add_blood_floor(src)
+	owner.add_splatter_floor()
 
 /obj/effect/cocoon/abductor
 	name = "slimy cocoon"

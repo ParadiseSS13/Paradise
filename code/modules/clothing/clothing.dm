@@ -387,6 +387,9 @@ BLIND     // can't see anything
 	..()
 	bloody_shoes = list(BLOOD_STATE_HUMAN = 0, BLOOD_STATE_XENO = 0, BLOOD_STATE_NOT_BLOODY = 0)
 	blood_state = BLOOD_STATE_NOT_BLOODY
+	if(ismob(loc))
+		var/mob/M = loc
+		M.update_inv_shoes()
 
 /obj/item/clothing/shoes/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/weapon/match) && src.loc == user)

@@ -82,6 +82,8 @@
 	playsound(loc, 'sound/effects/splat.ogg', 25, 1)
 	H.forceMove(loc)
 	H.emote("scream")
+	if(ishuman(H))
+		H.add_splatter_floor()
 	H.adjustBruteLoss(30)
 	H.buckled = src
 	H.dir = 2

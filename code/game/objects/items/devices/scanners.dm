@@ -1,4 +1,4 @@
-g/*
+/*
 CONTAINS:
 T-RAY
 DETECTIVE SCANNER
@@ -228,9 +228,8 @@ REAGENT SCANNER
 				break
 		var/blood_id = H.get_blood_id()
 		if(blood_id)
-			if(ishuman(H))
-				if(H.bleed_rate)
-					to_chat(user, "<span class='danger'>Subject is bleeding!</span>")
+			if(H.bleed_rate)
+				to_chat(user, "<span class='danger'>Subject is bleeding!</span>")
 			var/blood_percent =  round((H.blood_volume / BLOOD_VOLUME_NORMAL)*100)
 			var/blood_type = H.b_type
 			if(blood_id != "blood")//special blood substance
@@ -239,10 +238,8 @@ REAGENT SCANNER
 				user.show_message("<span class='danger'>LOW blood level [blood_percent] %, [H.blood_volume] cl,</span> <span class='info'>type: [blood_type]</span>")
 			else if(H.blood_volume <= BLOOD_VOLUME_OKAY)
 				to_chat(user, "<span class='danger'>CRITICAL blood level [blood_percent] %, [H.blood_volume] cl,</span> <span class='info'>type: [blood_type]</span>")
-			else
-			if(H.species.exotic_blood)
-				user.show_message("<span class='warning'>Subject possesses exotic blood.</span>")
-				user.show_message("<span class='warning'>Exotic blood type: [blood_type].</span>")
+
+			user.show_message("<span class='warning'>blood type: [blood_type].</span>")
 
 		if(H.heart_attack && H.stat != DEAD)
 			user.show_message("<span class='userdanger'>Subject suffering from heart attack: Apply defibrillator immediately.</span>")

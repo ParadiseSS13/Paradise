@@ -142,7 +142,7 @@ var/global/list/image/splatter_cache=list()
 	bloodiness = 0
 
 /obj/effect/decal/cleanable/blood/drip/can_bloodcrawl_in()
-	return FALSE
+	return TRUE
 
 /obj/effect/decal/cleanable/trail_holder //not a child of blood on purpose
 	name = "blood"
@@ -157,7 +157,7 @@ var/global/list/image/splatter_cache=list()
 
 
 /obj/effect/decal/cleanable/trail_holder/can_bloodcrawl_in()
-	return FALSE
+	return TRUE
 
 /obj/effect/decal/cleanable/blood/writing
 	icon_state = "tracks"

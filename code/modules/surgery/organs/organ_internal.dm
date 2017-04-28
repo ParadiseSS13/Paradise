@@ -304,7 +304,7 @@
 	if(is_bruised())
 		if(prob(2))
 			spawn owner.custom_emote(1, "coughs up blood!")
-			owner.bleed(10)
+			owner.bleed(1)
 		if(prob(4))
 			spawn owner.custom_emote(1, "gasps for air!")
 			owner.AdjustLoseBreath(5)

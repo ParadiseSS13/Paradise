@@ -31,11 +31,9 @@
 			if(H.can_eat(diet_flags))	//Make sure the species has it's dietflag set, otherwise it can't digest any nutrients
 				if(prob(50))
 					M.adjustBruteLoss(-1)
-				if(H.species.exotic_blood)
-					H.blood_volume += 0.4 //will need exoic blood handling
-				else
-					if(!(H.species.flags & NO_BLOOD))
-						H.blood_volume += 0.4
+					if(!(H.species.flags & NO_BLOOD))//do not restore blood on things with no blood by nature.
+						if(H.blood_volume < BLOOD_VOLUME_NORMAL)
+							H.blood_volume += 0.4
 	..()
 
 /datum/reagent/consumable/nutriment/protein			// Meat-based protein, digestable by carnivores and omnivores, worthless to herbivores
@@ -65,10 +63,8 @@
 		M.satiety += 30
 	if(ishuman(M))
 		var/mob/living/carbon/human/H = M
-		if(H.species.exotic_blood)
-			H.blood_volume += 0.5
-		else
-			if(!(H.species.flags & NO_BLOOD))
+		if(!(H.species.flags & NO_BLOOD))//do not restore blood on things with no blood by nature.
+			if(H.blood_volume < BLOOD_VOLUME_NORMAL)
 				H.blood_volume += 0.5
 	..()
 
@@ -847,7 +843,7 @@
 	if(volume >= 5 && !istype(T, /turf/space))
 		new /obj/effect/decal/cleanable/vomit/green(T)
 		playsound(T, 'sound/effects/splat.ogg', 50, 1, -3)
-		
+
 ////Lavaland Flora Reagents////
 
 /datum/reagent/consumable/entpoly
@@ -878,7 +874,7 @@
 	if(!light_activated)
 		M.set_light(2)
 		light_activated = 1
-	..()	
+	..()
 
 /datum/reagent/consumable/tinlux/on_mob_delete(mob/living/M)
 	M.set_light(0)

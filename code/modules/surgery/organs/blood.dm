@@ -20,21 +20,18 @@
 		bleed_rate = 0
 		return
 
-	if(stat != DEAD && bodytemperature >= 170)	//Dead or cryosleep people do not pump the blood.
-		if(species.exotic_blood)
-			if(blood_volume < max_blood && blood_volume)
-				blood_volume += 0.1 // regenerate blood VERY slowly
-		else
-			//Blood regeneration if there is some space
-			if(blood_volume < max_blood && blood_volume)
-				if(mind) //Handles vampires "eating" blood that isn't their own.
-					if(mind in ticker.mode.vampires)
-						if(nutrition >= NUTRITION_LEVEL_WELL_FED)
-							return //We don't want blood tranfusions making vampires fat.
-						if(blood_data["donor"] != src)
-							nutrition += (15 * REAGENTS_METABOLISM)
-							return //Only process one blood per tick, to maintain the same metabolism as nutriment for non-vampires.
-			blood_volume += 0.1 // regenerate blood VERY slowly
+	if(stat != DEAD && bodytemperature >= 225)	//Dead or cryosleep people do not pump the blood.
+
+		//Blood regeneration if there is some space
+		if(blood_volume < max_blood && blood_volume)
+			if(mind) //Handles vampires "eating" blood that isn't their own.
+				if(mind in ticker.mode.vampires)
+					if(nutrition >= NUTRITION_LEVEL_WELL_FED)
+						return //We don't want blood tranfusions making vampires fat.
+					if(blood_data["donor"] != src)
+						nutrition += (15 * REAGENTS_METABOLISM)
+						return //Only process one blood per tick, to maintain the same metabolism as nutriment for non-vampires.
+		blood_volume += 0.1 // regenerate blood VERY slowly
 
 
 		//Effects of bloodloss
@@ -71,17 +68,17 @@
 				death()
 
 		//Bleeding out
-		var/blood_max = 0
+		var/temp_bleed = 0
 		for(var/obj/item/organ/external/temp in organs)
 			if(!(temp.status & ORGAN_BLEEDING) || temp.status & ORGAN_ROBOT)
 				continue
 			for(var/datum/wound/W in temp.wounds)
 				if(W.bleeding())
-					blood_max += W.damage / 4
+					temp_bleed += W.damage / 4
 			if(temp.open)
-				blood_max += 2  //Yer stomach is cut open
+				temp_bleed += 0.5
 
-		bleed_rate = max(bleed_rate - 0.5, blood_max)//if no wounds, other bleed effects (heparin) naturally decreases
+		bleed_rate = max(bleed_rate - 0.5, temp_bleed)//if no wounds, other bleed effects (heparin) naturally decreases
 
 		if(bleed_rate && !bleedsuppress)
 			bleed(bleed_rate)
@@ -191,7 +188,7 @@
 		return "blood"
 
 /mob/living/carbon/human/get_blood_id()
-	if(species.exotic_blood)
+	if(species.exotic_blood)//some races may bleed water..or kethcup..
 		return species.exotic_blood
 	else if((species && species.flags & NO_BLOOD) || (disabilities & NOCLONE))
 		return
@@ -242,6 +239,7 @@
 			else
 				temp_blood_DNA = list()
 				temp_blood_DNA |= drop.blood_DNA.Copy() //we transfer the dna from the drip to the splatter
+				qdel(drop)
 		else
 			drop = new(T)
 			drop.transfer_mob_blood_dna(src)
@@ -274,5 +272,5 @@
 	if(!T)
 		T = get_turf(src)
 	var/obj/effect/decal/cleanable/blood/oil/B = locate() in T.contents
-	if(!B)//I DEFINED YOUR TYPE JACKASS
+	if(!B)
 		B = new(T)
