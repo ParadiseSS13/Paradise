@@ -455,7 +455,7 @@
 			if(get_dist(src, pulling) > 1 || ((pull_dir - 1) & pull_dir)) // puller and pullee more than one tile away or in diagonal position
 				if(isliving(pulling))
 					var/mob/living/M = pulling
-					if(M.lying && !M.buckled && (prob(M.getBruteLoss() * 200 / M.maxHealth)))
+					if(M.lying && !M.buckled && (prob(M.getBruteLoss() * 150 / M.maxHealth)))
 						M.makeTrail(T)
 					pulling.Move(T, get_dir(pulling, T)) // the pullee tries to reach our previous position
 					if(pulling && get_dist(src, pulling) > 1) // the pullee couldn't keep up
