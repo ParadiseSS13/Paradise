@@ -3249,7 +3249,7 @@
 "bky" = (/obj/machinery/conveyor_switch/oneway{id = "packageSort2"; pixel_x = -2; pixel_y = 12},/obj/machinery/light{icon_state = "tube1"; dir = 4},/turf/simulated/floor/plasteel{dir = 1; icon_state = "warning"},/area/quartermaster/office{name = "\improper Cargo Office"})
 "bkz" = (/obj/machinery/alarm{dir = 4; icon_state = "alarm0"; pixel_x = -22},/obj/machinery/atmospherics/pipe/simple/hidden/supply{req_access_txt = 1},/obj/machinery/light{dir = 8},/obj/machinery/camera{c_tag = "Cargo - Office"; dir = 4; network = list("SS13")},/turf/simulated/floor/plasteel{dir = 8; icon_state = "brown"},/area/quartermaster/office{name = "\improper Cargo Office"})
 "bkA" = (/obj/structure/cable/yellow{d1 = 1; d2 = 2; icon_state = "1-2"},/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{dir = 5},/turf/simulated/floor/plasteel,/area/quartermaster/office{name = "\improper Cargo Office"})
-"bkB" = (/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{dir = 9},/turf/simulated/floor/plasteel,/area/quartermaster/office{name = "\improper Cargo Office"})
+"bkB" = (/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{dir = 9},/mob/living/simple_animal/pet/sloth/paperwork,/turf/simulated/floor/plasteel,/area/quartermaster/office{name = "\improper Cargo Office"})
 "bkC" = (/obj/structure/disposalpipe/segment,/turf/simulated/floor/plasteel,/area/quartermaster/office{name = "\improper Cargo Office"})
 "bkD" = (/obj/structure/filingcabinet/filingcabinet,/turf/simulated/floor/plasteel{dir = 4; icon_state = "brown"},/area/quartermaster/office{name = "\improper Cargo Office"})
 "bkE" = (/turf/simulated/floor/plasteel{icon_state = "bot"},/area/hallway/primary/port)
