@@ -1,0 +1,10 @@
+author: "uraniummeltdown"
+delete-after: True
+changes: 
+  - rscadd: "Examine a girder for (de)construction hints"
+  - rscadd: "Projectiles have a chance to pass through some girders"
+  - rscadd: "You can construct rough iron (false) walls with rods, wood (false) walls with wooden planks on a girder"
+  - rscadd: "Screwdriver a displaced girder to deconstruct it"
+  - tweak: "Increased displaced girder health, decreased reinforced and cult girder health"
+  - tweak: "False wall construction is no longer instant"
+  - tweak: "Girder (de)construction messages should read better"
