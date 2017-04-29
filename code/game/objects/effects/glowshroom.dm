@@ -1,6 +1,6 @@
 //separate dm since hydro is getting bloated already
 
-/obj/effect/glowshroom
+/obj/structure/glowshroom
 	name = "glowshroom"
 	desc = "Mycena Bregprox, a species of mushroom that glows in the dark."
 	anchored = 1
@@ -16,32 +16,30 @@
 	var/spreadIntoAdjacentChance = 60
 	var/obj/item/seeds/myseed = /obj/item/seeds/glowshroom
 
-/obj/effect/glowshroom/glowcap
+/obj/structure/glowshroom/glowcap
 	name = "glowcap"
 	desc = "Mycena Ruthenia, a species of mushroom that, while it does glow in the dark, is not actually bioluminescent."
 	icon_state = "glowcap"
 	myseed = /obj/item/seeds/glowshroom/glowcap
 
-/obj/effect/glowshroom/shadowshroom
+/obj/structure/glowshroom/shadowshroom
 	name = "shadowshroom"
 	desc = "Mycena Umbra, a species of mushroom that emits shadow instead of light."
 	icon_state = "shadowshroom"
 	myseed = /obj/item/seeds/glowshroom/shadowshroom
 
-/obj/effect/glowshroom/single/Spread()
+/obj/structure/glowshroom/single/Spread()
 	return
 
-/obj/effect/glowshroom/examine(mob/user)
+/obj/structure/glowshroom/examine(mob/user)
 	. = ..()
 	to_chat(user, "This is a [generation]\th generation [name]!")
 
-/obj/effect/glowshroom/Destroy()
-	if(myseed)
-		qdel(myseed)
-		myseed = null
+/obj/structure/glowshroom/Destroy()
+	QDEL_NULL(myseed)
 	return ..()
 
-/obj/effect/glowshroom/New(loc, obj/item/seeds/newseed, mutate_stats)
+/obj/structure/glowshroom/New(loc, obj/item/seeds/newseed, mutate_stats)
 	..()
 	if(newseed)
 		myseed = newseed.Copy()
@@ -76,7 +74,7 @@
 
 	addtimer(src, "Spread", delay, FALSE)
 
-/obj/effect/glowshroom/proc/Spread()
+/obj/structure/glowshroom/proc/Spread()
 	var/turf/ownturf = get_turf(src)
 	var/shrooms_planted = 0
 	for(var/i in 1 to myseed.yield)
@@ -90,7 +88,7 @@
 			for(var/turf/simulated/floor/earth in view(3,src))
 				if(!ownturf.CanAtmosPass(earth))
 					continue
-				if(spreadsIntoAdjacent || !locate(/obj/effect/glowshroom) in view(1,earth))
+				if(spreadsIntoAdjacent || !locate(/obj/structure/glowshroom) in view(1,earth))
 					possibleLocs += earth
 				CHECK_TICK
 
@@ -101,7 +99,7 @@
 
 			var/shroomCount = 0 //hacky
 			var/placeCount = 1
-			for(var/obj/effect/glowshroom/shroom in newLoc)
+			for(var/obj/structure/glowshroom/shroom in newLoc)
 				shroomCount++
 			for(var/wallDir in cardinal)
 				var/turf/isWall = get_step(newLoc,wallDir)
@@ -110,7 +108,7 @@
 			if(shroomCount >= placeCount)
 				continue
 
-			var/obj/effect/glowshroom/child = new type(newLoc, myseed, TRUE)
+			var/obj/structure/glowshroom/child = new type(newLoc, myseed, TRUE)
 			child.generation = generation + 1
 			shrooms_planted++
 
@@ -121,7 +119,7 @@
 		myseed.yield -= shrooms_planted
 		addtimer(src, "Spread", delay, FALSE)
 
-/obj/effect/glowshroom/proc/CalcDir(turf/location = loc)
+/obj/structure/glowshroom/proc/CalcDir(turf/location = loc)
 	var/direction = 16
 
 	for(var/wallDir in cardinal)
@@ -129,7 +127,7 @@
 		if(newTurf.density)
 			direction |= wallDir
 
-	for(var/obj/effect/glowshroom/shroom in location)
+	for(var/obj/structure/glowshroom/shroom in location)
 		if(shroom == src)
 			continue
 		if(shroom.floor) //special
@@ -153,13 +151,22 @@
 	floor = 1
 	return 1
 
-/obj/effect/glowshroom/attackby(obj/item/I, mob/user)
+/obj/structure/glowshroom/attackby(obj/item/I, mob/user)
 	..()
+	var/damage_to_do = I.force
+	if(istype(I, /obj/item/weapon/scythe))
+		var/obj/item/weapon/scythe/S = I
+		if(S.extend)	//so folded telescythes won't get damage boosts / insta-clears (they instead will instead be treated like non-scythes)
+			damage_to_do *= 4
+			for(var/obj/structure/glowshroom/G in range(1,src))
+				G.endurance -= damage_to_do
+				G.CheckEndurance()
+			return
 	if(I.damtype != STAMINA)
-		endurance -= I.force
+		endurance -= damage_to_do
 		CheckEndurance()
 
-/obj/effect/glowshroom/ex_act(severity)
+/obj/structure/glowshroom/ex_act(severity)
 	switch(severity)
 		if(1)
 			qdel(src)
@@ -170,11 +177,11 @@
 			if(prob(5))
 				qdel(src)
 
-/obj/effect/glowshroom/temperature_expose(datum/gas_mixture/air, exposed_temperature, exposed_volume)
+/obj/structure/glowshroom/temperature_expose(datum/gas_mixture/air, exposed_temperature, exposed_volume)
 	if(exposed_temperature > 300)
 		endurance -= 5
 		CheckEndurance()
 
-/obj/effect/glowshroom/proc/CheckEndurance()
+/obj/structure/glowshroom/proc/CheckEndurance()
 	if(endurance <= 0)
 		qdel(src)

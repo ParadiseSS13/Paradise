@@ -6,6 +6,7 @@
 	anchored = 1
 	density = 1
 	var/points = 0
+	var/credits = 0
 	var/list/history = list()
 	var/list/abductee_minds = list()
 	var/flash = " - || - "
@@ -19,10 +20,10 @@
 /obj/machinery/abductor/experiment/MouseDrop_T(mob/living/carbon/human/target, mob/user)
 	if(user.stat || user.lying || !Adjacent(user) || !target.Adjacent(user) || !ishuman(target))
 		return
-	if(IsAbductor(target))
+	if(isabductor(target))
 		return
 	if(occupant)
-		to_chat(user, "<span class='notice'>\The [src] is already occupied.</span>")
+		to_chat(user, "<span class='notice'>[src] is already occupied.</span>")
 		return //occupied
 	if(target.buckled)
 		return
@@ -118,7 +119,7 @@
 	if(H.stat == DEAD)
 		atom_say("Specimen deceased - please provide fresh sample.")
 		return "<span class='bad'>Specimen deceased.</span>"
-	var/obj/item/organ/internal/gland/GlandTest = locate() in H.internal_organs
+	var/obj/item/organ/internal/heart/gland/GlandTest = locate() in H.internal_organs
 	if(!GlandTest)
 		atom_say("Experimental dissection not detected!")
 		return "<span class='bad'>No glands detected!</span>"
@@ -147,7 +148,7 @@
 			obj_count++
 		ticker.mode.update_abductor_icons_added(H.mind)
 
-		for(var/obj/item/organ/internal/gland/G in H.internal_organs)
+		for(var/obj/item/organ/internal/heart/gland/G in H.internal_organs)
 			G.Start()
 			point_reward++
 		if(point_reward > 0)
@@ -155,6 +156,7 @@
 			SendBack(H)
 			playsound(src.loc, 'sound/machines/ding.ogg', 50, 1)
 			points += point_reward
+			credits += point_reward
 			return "<span class='good'>Experiment successful! [point_reward] new data-points collected.</span>"
 		else
 			playsound(src.loc, 'sound/machines/buzz-sigh.ogg', 50, 1)
@@ -183,7 +185,7 @@
 		var/obj/item/weapon/grab/grabbed = G
 		if(!ishuman(grabbed.affecting))
 			return
-		if(IsAbductor(grabbed.affecting))
+		if(isabductor(grabbed.affecting))
 			return
 		if(occupant)
 			to_chat(user, "<span class='notice'>The [src] is already occupied!</span>")

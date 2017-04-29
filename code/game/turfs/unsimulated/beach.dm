@@ -2,7 +2,8 @@
 	name = "Beach"
 	icon = 'icons/misc/beach.dmi'
 	var/water_overlay_image = null
-
+	mouse_opacity = 0
+	
 /turf/unsimulated/beach/New()
 	..()
 	if(water_overlay_image)
@@ -11,7 +12,8 @@
 /turf/unsimulated/beach/sand
 	name = "Sand"
 	icon_state = "desert"
-
+	mouse_opacity = 1
+	
 /turf/unsimulated/beach/sand/New()			//adds some aesthetic randomness to the beach sand
 	icon_state = pick("desert", "desert0", "desert1", "desert2", "desert3", "desert4")
 	..()
@@ -59,8 +61,7 @@
 	water_overlay = new(src)
 
 /turf/unsimulated/beach/water/drop/Destroy()
-	qdel(water_overlay)
-	water_overlay = null
+	QDEL_NULL(water_overlay)
 	return ..()
 
 /obj/effect/effect/beach_drop_overlay
@@ -100,3 +101,4 @@
 	density = 1
 	opacity = 1
 	explosion_block = 2
+	mouse_opacity = 1

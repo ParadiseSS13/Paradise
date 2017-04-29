@@ -12,8 +12,7 @@
 	sparks.attach(src)
 
 /obj/item/device/assembly/igniter/Destroy()
-	qdel(sparks)
-	sparks = null
+	QDEL_NULL(sparks)
 	return ..()
 
 

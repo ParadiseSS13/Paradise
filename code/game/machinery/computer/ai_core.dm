@@ -10,12 +10,9 @@
 	var/obj/item/device/mmi/brain = null
 
 /obj/structure/AIcore/Destroy()
-	qdel(laws)
-	qdel(circuit)
-	qdel(brain)
-	laws = null
-	circuit = null
-	brain = null
+	QDEL_NULL(laws)
+	QDEL_NULL(circuit)
+	QDEL_NULL(brain)
 	return ..()
 
 /obj/structure/AIcore/attackby(obj/item/P as obj, mob/user as mob, params)
@@ -24,7 +21,7 @@
 			if(istype(P, /obj/item/weapon/wrench))
 				playsound(loc, P.usesound, 50, 1)
 				if(do_after(user, 20 * P.toolspeed, target = src))
-					to_chat(user, "\blue You wrench the frame into place.")
+					to_chat(user, "<span class='notice'>You wrench the frame into place.</span>")
 					anchored = 1
 					state = 1
 			if(istype(P, /obj/item/weapon/weldingtool))
@@ -35,31 +32,31 @@
 				playsound(loc, WT.usesound, 50, 1)
 				if(do_after(user, 20 * WT.toolspeed, target = src))
 					if(!src || !WT.remove_fuel(0, user)) return
-					to_chat(user, "\blue You deconstruct the frame.")
+					to_chat(user, "<span class='notice'>You deconstruct the frame.</span>")
 					new /obj/item/stack/sheet/plasteel(loc, 4)
 					qdel(src)
 		if(1)
 			if(istype(P, /obj/item/weapon/wrench))
 				playsound(loc, P.usesound, 50, 1)
 				if(do_after(user, 20 * P.toolspeed, target = src))
-					to_chat(user, "\blue You unfasten the frame.")
+					to_chat(user, "<span class='notice'>You unfasten the frame.</span>")
 					anchored = 0
 					state = 0
 			if(istype(P, /obj/item/weapon/circuitboard/aicore) && !circuit)
 				playsound(loc, P.usesound, 50, 1)
-				to_chat(user, "\blue You place the circuit board inside the frame.")
+				to_chat(user, "<span class='notice'>You place the circuit board inside the frame.</span>")
 				icon_state = "1"
 				circuit = P
 				user.drop_item()
 				P.loc = src
 			if(istype(P, /obj/item/weapon/screwdriver) && circuit)
 				playsound(loc, P.usesound, 50, 1)
-				to_chat(user, "\blue You screw the circuit board into place.")
+				to_chat(user, "<span class='notice'>You screw the circuit board into place.</span>")
 				state = 2
 				icon_state = "2"
 			if(istype(P, /obj/item/weapon/crowbar) && circuit)
 				playsound(loc, P.usesound, 50, 1)
-				to_chat(user, "\blue You remove the circuit board.")
+				to_chat(user, "<span class='notice'>You remove the circuit board.</span>")
 				state = 1
 				icon_state = "0"
 				circuit.loc = loc
@@ -67,7 +64,7 @@
 		if(2)
 			if(istype(P, /obj/item/weapon/screwdriver) && circuit)
 				playsound(loc, P.usesound, 50, 1)
-				to_chat(user, "\blue You unfasten the circuit board.")
+				to_chat(user, "<span class='notice'>You unfasten the circuit board.</span>")
 				state = 1
 				icon_state = "1"
 			if(istype(P, /obj/item/stack/cable_coil))
@@ -76,7 +73,7 @@
 					if(do_after(user, 20 * P.toolspeed, target = src))
 						P:amount -= 5
 						if(!P:amount) qdel(P)
-						to_chat(user, "\blue You add cables to the frame.")
+						to_chat(user, "<span class='notice'>You add cables to the frame.</span>")
 						state = 3
 						icon_state = "3"
 		if(3)
@@ -85,7 +82,7 @@
 					to_chat(user, "Get that brain out of there first")
 				else
 					playsound(loc, P.usesound, 50, 1)
-					to_chat(user, "\blue You remove the cables.")
+					to_chat(user, "<span class='notice'>You remove the cables.</span>")
 					state = 2
 					icon_state = "2"
 					var/obj/item/stack/cable_coil/A = new /obj/item/stack/cable_coil( loc )
@@ -98,7 +95,7 @@
 						if(P)
 							P:amount -= 2
 							if(!P:amount) qdel(P)
-							to_chat(user, "\blue You put in the glass panel.")
+							to_chat(user, "<span class='notice'>You put in the glass panel.</span>")
 							state = 4
 							icon_state = "4"
 
@@ -122,14 +119,14 @@
 
 			if(istype(P, /obj/item/device/mmi) || istype(P, /obj/item/device/mmi/posibrain))
 				if(!P:brainmob)
-					to_chat(user, "\red Sticking an empty [P] into the frame would sort of defeat the purpose.")
+					to_chat(user, "<span class='warning'>Sticking an empty [P] into the frame would sort of defeat the purpose.</span>")
 					return
 				if(P:brainmob.stat == 2)
-					to_chat(user, "\red Sticking a dead [P] into the frame would sort of defeat the purpose.")
+					to_chat(user, "<span class='warning'>Sticking a dead [P] into the frame would sort of defeat the purpose.</span>")
 					return
 
 				if(jobban_isbanned(P:brainmob, "AI") || jobban_isbanned(P:brainmob,"nonhumandept"))
-					to_chat(user, "\red This [P] does not seem to fit.")
+					to_chat(user, "<span class='warning'>This [P] does not seem to fit.</span>")
 					return
 
 				if(istype(P, /obj/item/device/mmi/syndie))
@@ -148,7 +145,7 @@
 
 			if(istype(P, /obj/item/weapon/crowbar) && brain)
 				playsound(loc, P.usesound, 50, 1)
-				to_chat(user, "\blue You remove the brain.")
+				to_chat(user, "<span class='notice'>You remove the brain.</span>")
 				brain.loc = loc
 				brain = null
 				icon_state = "3"
@@ -156,7 +153,7 @@
 		if(4)
 			if(istype(P, /obj/item/weapon/crowbar))
 				playsound(loc, P.usesound, 50, 1)
-				to_chat(user, "\blue You remove the glass panel.")
+				to_chat(user, "<span class='notice'>You remove the glass panel.</span>")
 				state = 3
 				if(brain)
 					icon_state = "3b"
@@ -198,19 +195,19 @@
 		card.transfer_ai("INACTIVE","AICARD",src,user)
 	else if(istype(W, /obj/item/weapon/wrench))
 		if(anchored)
-			user.visible_message("\blue \The [user] starts to unbolt \the [src] from the plating...")
+			user.visible_message("<span class='notice'>\The [user] starts to unbolt \the [src] from the plating...</span>")
 			if(!do_after(user, 40 * W.toolspeed, target = src))
-				user.visible_message("\blue \The [user] decides not to unbolt \the [src].")
+				user.visible_message("<span class='notice'>\The [user] decides not to unbolt \the [src].</span>")
 				return
-			user.visible_message("\blue \The [user] finishes unfastening \the [src]!")
+			user.visible_message("<span class='notice'>\The [user] finishes unfastening \the [src]!</span>")
 			anchored = 0
 			return
 		else
-			user.visible_message("\blue \The [user] starts to bolt \the [src] to the plating...")
+			user.visible_message("<span class='notice'>\The [user] starts to bolt \the [src] to the plating...</span>")
 			if(!do_after(user, 40 * W.toolspeed, target = src))
-				user.visible_message("\blue \The [user] decides not to bolt \the [src].")
+				user.visible_message("<span class='notice'>\The [user] decides not to bolt \the [src].</span>")
 				return
-			user.visible_message("\blue \The [user] finishes fastening down \the [src]!")
+			user.visible_message("<span class='notice'>\The [user] finishes fastening down \the [src]!</span>")
 			anchored = 1
 			return
 	else

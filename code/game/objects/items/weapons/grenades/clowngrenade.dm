@@ -61,7 +61,7 @@
 				if((M:shoes.flags&NOSLIP) || (M:species.bodyflags & FEET_NOSLIP))
 					return
 			else
-				to_chat(M, "\red Your feet feel like they're on fire!")
+				to_chat(M, "<span class='warning'>Your feet feel like they're on fire!</span>")
 				M.take_overall_damage(0, max(0, (burned - 2)))
 
 		if(!istype(M, /mob/living/carbon/slime) && !isrobot(M))

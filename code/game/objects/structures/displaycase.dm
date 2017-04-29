@@ -22,6 +22,11 @@ var/global/list/captain_display_cases = list()
 	var/obj/item/device/assembly/prox_sensor/sensor = null
 	var/state = DISPLAYCASE_FRAME_CIRCUIT
 
+/obj/structure/displaycase_frame/Destroy()
+	QDEL_NULL(circuit)
+	QDEL_NULL(sensor)
+	return ..()
+
 /obj/structure/displaycase_frame/attackby(obj/item/weapon/W as obj, mob/user as mob, params)
 	var/pstate = state
 	var/turf/T = get_turf(src)
@@ -116,8 +121,7 @@ var/global/list/captain_display_cases = list()
 
 /obj/structure/displaycase/Destroy()
 	dump()
-	qdel(circuit)
-	circuit = null
+	QDEL_NULL(circuit)
 	return ..()
 
 /obj/structure/displaycase/captains_laser/Destroy()

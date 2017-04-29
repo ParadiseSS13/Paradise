@@ -323,7 +323,7 @@ var/list/teleport_runes = list()
 //Rite of Enlightenment: Converts a normal crewmember to the cult. Faster for every cultist nearby.
 /obj/effect/rune/convert
 	cultist_name = "Rite of Enlightenment"
-	cultist_desc = "converts a normal crewmember on top of it to the cult. Does not work on loyalty-implanted crew."
+	cultist_desc = "converts a normal crewmember on top of it to the cult. Does not work on mindshielded crew."
 	invocation = "Mah'weyh pleggh at e'ntrath!"
 	icon_state = "3"
 	req_cultists = 2
@@ -336,7 +336,7 @@ var/list/teleport_runes = list()
 	var/turf/T = get_turf(src)
 
 	for(var/mob/living/M in T.contents)
-		if(!iscultist(M) && !isloyal(M))
+		if(!iscultist(M) && !ismindshielded(M))
 			convertees.Add(M)
 	if(!convertees.len)
 		fail_invoke()
@@ -937,6 +937,7 @@ var/list/teleport_runes = list()
 	icon_state = "6"
 	construct_invoke = 0
 	color = rgb(200, 0, 0)
+	var/list/summoned_guys = list()
 
 /obj/effect/rune/manifest/New(loc)
 	..()
@@ -968,7 +969,7 @@ var/list/teleport_runes = list()
 		if(O.client && !jobban_isbanned(O, ROLE_CULTIST) && !jobban_isbanned(O, ROLE_SYNDICATE))
 			ghosts_on_rune |= O
 	var/mob/dead/observer/ghost_to_spawn = pick(ghosts_on_rune)
-	var/mob/living/carbon/human/dummy/new_human = new(get_turf(src))
+	var/mob/living/carbon/human/new_human = new(get_turf(src))
 	new_human.real_name = ghost_to_spawn.real_name
 	new_human.alpha = 150 //Makes them translucent
 	new_human.color = "grey" //heh..cult greytide...litterly...
@@ -983,6 +984,7 @@ var/list/teleport_runes = list()
 	N.mouse_opacity = 0
 	new_human.key = ghost_to_spawn.key
 	ticker.mode.add_cultist(new_human.mind, 0)
+	summoned_guys |= new_human
 	to_chat(new_human, "<span class='cultitalic'><b>You are a servant of [ticker.mode.cultdat.entity_title3]. You have been made semi-corporeal by the cult of [ticker.mode.cultdat.entity_name], and you are to serve them at all costs.</b></span>")
 
 	while(user in get_turf(src))
@@ -997,4 +999,13 @@ var/list/teleport_runes = list()
 								  "<span class='cultlarge'>Your link to the world fades. Your form breaks apart.</span>")
 		for(var/obj/I in new_human)
 			new_human.unEquip(I)
+		summoned_guys -= new_human
 		new_human.dust()
+
+/obj/effect/rune/manifest/Destroy()
+	for(var/mob/living/carbon/human/guy in summoned_guys)
+		for(var/obj/I in guy)
+			guy.unEquip(I)
+		guy.dust()
+	summoned_guys.Cut()
+	return ..()

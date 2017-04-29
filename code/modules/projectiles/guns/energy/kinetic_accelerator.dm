@@ -94,7 +94,7 @@
 		empty()
 
 /obj/item/weapon/gun/energy/kinetic_accelerator/proc/empty()
-	power_supply.use(5000)
+	power_supply.use(500)
 	update_icon()
 
 /obj/item/weapon/gun/energy/kinetic_accelerator/proc/attempt_reload()
@@ -120,7 +120,7 @@
 	return
 
 /obj/item/weapon/gun/energy/kinetic_accelerator/proc/reload()
-	power_supply.give(5000)
+	power_supply.give(500)
 	if(!suppressed)
 		playsound(loc, 'sound/weapons/kenetic_reload.ogg', 60, 1)
 	else if(isliving(loc))
@@ -144,7 +144,7 @@
 /obj/item/ammo_casing/energy/kinetic
 	projectile_type = /obj/item/projectile/kinetic
 	select_name = "kinetic"
-	e_cost = 5000
+	e_cost = 500
 	fire_sound = 'sound/weapons/Kenetic_accel.ogg' // fine spelling there chap
 
 /obj/item/ammo_casing/energy/kinetic/ready_proj(atom/target, mob/living/user, quiet, zone_override = "")
@@ -181,7 +181,7 @@
 
 /obj/item/projectile/kinetic/pod
 	range = 4
-	
+
 /obj/item/projectile/kinetic/pod/regular
 	damage = 50
 	pressure_decrease = 0.5

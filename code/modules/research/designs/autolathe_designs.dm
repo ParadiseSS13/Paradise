@@ -608,6 +608,14 @@
 	build_path = /obj/item/weapon/rcd
 	category = list("hacked", "Construction")
 
+/datum/design/rcl
+	name = "Rapid Cable Layer"
+	id = "rcl"
+	build_type = AUTOLATHE
+	materials = list(MAT_METAL = 5000)
+	build_path = /obj/item/weapon/twohanded/rcl
+	category = list("hacked", "Construction")
+
 /datum/design/electropack
 	name = "Electropack"
 	id = "electropack"
@@ -630,6 +638,14 @@
 	build_type = AUTOLATHE
 	materials = list(MAT_METAL = 500)
 	build_path = /obj/item/weapon/restraints/handcuffs
+	category = list("hacked", "Security")
+
+/datum/design/receiver
+	name = "Modular Receiver"
+	id = "receiver"
+	build_type = AUTOLATHE
+	materials = list(MAT_METAL = 15000)
+	build_path = /obj/item/weaponcrafting/receiver
 	category = list("hacked", "Security")
 
 /datum/design/shotgun_slug

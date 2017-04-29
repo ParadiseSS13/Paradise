@@ -56,7 +56,8 @@
 	reagent_tag = PROCESS_ORG
 	base_color = "#066000"
 	//Default styles for created mobs.
-	default_hair = "Unathi Horns"
+	default_headacc = "Simple"
+	default_headacc_colour = "#404040"
 	butt_sprite = "unathi"
 
 	has_organ = list(
@@ -214,6 +215,9 @@
 	dietflags = DIET_HERB
 	flesh_color = "#8CD7A3"
 	blood_color = "#1D2CBF"
+	base_color = "#38b661" //RGB: 56, 182, 97.
+	default_hair_colour = "#38b661"
+	eyes = "skrell_eyes_s"
 	//Default styles for created mobs.
 	default_hair = "Skrell Male Tentacles"
 	reagent_tag = PROCESS_ORG
@@ -256,6 +260,8 @@
 	refer to them as 'shitbirds' for their violent and offensive nature, as well as their horrible \
 	smell.<br/><br/>Most humans will never meet a Vox raider, instead learning of this insular species through \
 	dealing with their traders and merchants; those that do rarely enjoy the experience."
+
+	brute_mod = 1.2 //20% more brute damage. Fragile bird bones.
 
 	warning_low_pressure = 50
 	hazard_low_pressure = 0
@@ -480,12 +486,14 @@
 	brute_mod = 0.8
 
 	flags = IS_WHITELISTED
-	clothing_flags = HAS_SOCKS
-	bodyflags = FEET_CLAWS
-	eyes = "kidan_eyes"
+	clothing_flags = HAS_UNDERWEAR | HAS_UNDERSHIRT | HAS_SOCKS
+	bodyflags = FEET_CLAWS | HAS_HEAD_ACCESSORY
+	eyes = "kidan_eyes_s"
 	dietflags = DIET_HERB
 	blood_color = "#FB9800"
 	reagent_tag = PROCESS_ORG
+	//Default styles for created mobs.
+	default_headacc = "Normal Antennae"
 	butt_sprite = "kidan"
 
 	has_organ = list(
@@ -504,6 +512,8 @@
 		"is attempting to bite their antenna off!",
 		"is jamming their claws into their eye sockets!",
 		"is twisting their own neck!",
+		"is cracking their exoskeleton!",
+		"is stabbing themselves with their mandibles!",
 		"is holding their breath!")
 
 /datum/species/slime

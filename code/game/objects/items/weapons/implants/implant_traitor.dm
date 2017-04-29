@@ -38,7 +38,7 @@
 				removed(M)
 				qdel(src)
 				return -1
-			if(isloyal(H))
+			if(ismindshielded(H))
 				H.visible_message("<span class='warning'>[H] seems to resist the implant!</span>", "<span class='warning'>You feel a strange sensation in your head that quickly dissipates.</span>")
 				removed(M)
 				qdel(src)

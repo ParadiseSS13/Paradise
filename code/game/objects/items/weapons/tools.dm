@@ -472,7 +472,7 @@
 		return TRUE
 	else
 		if(M)
-			to_chat(M, "\blue You need more welding fuel to complete this task.")
+			to_chat(M, "<span class='notice'>You need more welding fuel to complete this task.</span>")
 		return FALSE
 
 //Returns whether or not the welding tool is currently on.

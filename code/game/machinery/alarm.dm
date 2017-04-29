@@ -212,8 +212,7 @@
 	if(radio_controller)
 		radio_controller.remove_object(src, frequency)
 	air_alarm_repository.update_cache(src)
-	qdel(wires)
-	wires = null
+	QDEL_NULL(wires)
 	return ..()
 
 /obj/machinery/alarm/proc/first_run()
@@ -986,10 +985,10 @@
 				else
 					if(allowed(usr) && !wires.IsIndexCut(AALARM_WIRE_IDSCAN))
 						locked = !locked
-						to_chat(user, "\blue You [ locked ? "lock" : "unlock"] the Air Alarm interface.")
+						to_chat(user, "<span class='notice'>You [ locked ? "lock" : "unlock"] the Air Alarm interface.</span>")
 						updateUsrDialog()
 					else
-						to_chat(user, "\red Access denied.")
+						to_chat(user, "<span class='warning'>Access denied.</span>")
 
 
 			return

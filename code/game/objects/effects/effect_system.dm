@@ -877,21 +877,22 @@ steam.start() -- spawns the effect
 // Similar to smoke, but spreads out more
 // metal foams leave behind a foamed metal wall
 
-/obj/effect/effect/foam
+/obj/structure/foam
 	name = "foam"
+	icon = 'icons/effects/effects.dmi'
 	icon_state = "foam"
 	opacity = 0
 	anchored = 1
 	density = 0
 	layer = OBJ_LAYER + 0.9
 	mouse_opacity = 0
+	animate_movement = 0
 	var/amount = 3
 	var/expand = 1
-	animate_movement = 0
 	var/metal = 0
 
 
-/obj/effect/effect/foam/New(loc, var/ismetal=0)
+/obj/structure/foam/New(loc, var/ismetal=0)
 	..(loc)
 	icon_state = "[ismetal ? "m":""]foam"
 	if(!ismetal && reagents)
@@ -918,11 +919,11 @@ steam.start() -- spawns the effect
 
 		flick("[icon_state]-disolve", src)
 		sleep(5)
-		delete()
+		qdel(src)
 	return
 
 // on delete, transfer any reagents to the floor
-/obj/effect/effect/foam/Destroy()
+/obj/structure/foam/Destroy()
 	if(!metal && reagents)
 		reagents.handle_reactions()
 		for(var/atom/A in oview(1, src))
@@ -933,7 +934,7 @@ steam.start() -- spawns the effect
 				reagents.reaction(A, TOUCH, fraction)
 	return ..()
 
-/obj/effect/effect/foam/process()
+/obj/structure/foam/process()
 	if(--amount < 0)
 		return
 
@@ -948,11 +949,11 @@ steam.start() -- spawns the effect
 		if(!T.Enter(src))
 			continue
 
-		var/obj/effect/effect/foam/F = locate() in T
+		var/obj/structure/foam/F = locate() in T
 		if(F)
 			continue
 
-		F = new /obj/effect/effect/foam(T, metal)
+		F = new /obj/structure/foam(T, metal)
 		F.amount = amount
 		if(!metal)
 			F.create_reagents(15)
@@ -963,15 +964,15 @@ steam.start() -- spawns the effect
 
 // foam disolves when heated
 // except metal foams
-/obj/effect/effect/foam/temperature_expose(datum/gas_mixture/air, exposed_temperature, exposed_volume)
+/obj/structure/foam/temperature_expose(datum/gas_mixture/air, exposed_temperature, exposed_volume)
 	if(!metal && prob(max(0, exposed_temperature - 475)))
 		flick("[icon_state]-disolve", src)
 
 		spawn(5)
-			delete()
+			qdel(src)
 
 
-/obj/effect/effect/foam/Crossed(var/atom/movable/AM)
+/obj/structure/foam/Crossed(var/atom/movable/AM)
 	if(metal)
 		return
 
@@ -1016,13 +1017,13 @@ steam.start() -- spawns the effect
 
 /datum/effect/system/foam_spread/start()
 	spawn(0)
-		var/obj/effect/effect/foam/F = locate() in location
+		var/obj/structure/foam/F = locate() in location
 		if(F)
 			F.amount += amount
 			F.amount = min(F.amount, 27)
 			return
 
-		F = new /obj/effect/effect/foam(location, metal)
+		F = new /obj/structure/foam(location, metal)
 		F.amount = amount
 
 		if(!metal)			// don't carry other chemicals if a metal foam
@@ -1154,10 +1155,10 @@ steam.start() -- spawns the effect
 			s.start()
 
 			for(var/mob/M in viewers(5, location))
-				to_chat(M, "\red The solution violently explodes.")
+				to_chat(M, "<span class='warning'>The solution violently explodes.</span>")
 			for(var/mob/M in viewers(1, location))
 				if(prob (50 * amount))
-					to_chat(M, "\red The explosion knocks you down.")
+					to_chat(M, "<span class='warning'>The explosion knocks you down.</span>")
 					M.Weaken(rand(1,5))
 			return
 		else
@@ -1180,7 +1181,7 @@ steam.start() -- spawns the effect
 				flash += (round(amount/4) * flashing_factor)
 
 			for(var/mob/M in viewers(8, location))
-				to_chat(M, "\red The solution violently explodes.")
+				to_chat(M, "<span class='warning'>The solution violently explodes.</span>")
 
 			explosion(location, devastation, heavy, light, flash)
 

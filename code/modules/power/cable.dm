@@ -74,6 +74,12 @@ By design, d1 is the smallest direction and d2 is the highest
 	if(level==1) hide(T.intact)
 	cable_list += src //add it to the global cable list
 
+	// Catches the interim-zone of worldstart and roundstart
+	// I want both the ticker to exist (so mapped-in cables don't trip this)
+	// but also not have started yet (since the zlevel system would handle this on its own otherwise)
+	if((ticker && ticker.current_state < GAME_STATE_PLAYING))
+		attempt_init()
+
 
 /obj/structure/cable/Destroy()					// called when a cable is deleted
 	if(powernet)
@@ -125,7 +131,7 @@ By design, d1 is the smallest direction and d2 is the highest
 			return */
 ///// Z-Level Stuff
 		/* if(breaker_box)
-			to_chat(user, "\red This cable is connected to nearby breaker box. Use breaker box to interact with it.")
+			to_chat(user, "<span class='warning'>This cable is connected to nearby breaker box. Use breaker box to interact with it.</span>")
 			return */
 
 		if(shock(user, 50))
@@ -475,6 +481,7 @@ var/global/list/datum/stack_recipe/cable_coil_recipes = list(
 	item_state = "coil_red"
 	amount = MAXCOIL
 	max_amount = MAXCOIL
+	merge_type = /obj/item/stack/cable_coil // This is here to let its children merge between themselves
 	color = COLOR_RED
 	desc = "A coil of power cable."
 	throwforce = 10

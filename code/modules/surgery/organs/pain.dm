@@ -55,7 +55,7 @@ mob/living/carbon/human/proc/custom_pain(var/message, var/flash_strength)
 		return
 	var/msg = "<span class='danger'>[message]</span>"
 	if(flash_strength >= 1)
-		msg = "\red <font size=3><b>[message]</b></font>"
+		msg = "<span class='warning'><font size=3><b>[message]</b></font></span>"
 
 	// Anti message spam checks
 	if(msg && ((msg != last_pain_message) || (world.time >= next_pain_time)))

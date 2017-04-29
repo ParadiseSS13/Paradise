@@ -103,7 +103,7 @@
 					var/desc = input("Please select a telepad.", "RCS") in L
 					E.pad = L[desc]
 					playsound(E.loc, E.usesound, 50, 1)
-					to_chat(user, "\blue Teleporting [src.name]...")
+					to_chat(user, "<span class='notice'>Teleporting [src.name]...</span>")
 					E.teleporting = 1
 					if(!do_after(user, 50 * E.toolspeed, target = src))
 						E.teleporting = 0
@@ -121,7 +121,7 @@
 				E.rand_y = rand(50,200)
 				var/L = locate(E.rand_x, E.rand_y, 6)
 				playsound(E.loc, E.usesound, 50, 1)
-				to_chat(user, "\blue Teleporting [src.name]...")
+				to_chat(user, "<span class='notice'>Teleporting [src.name]...</span>")
 				E.teleporting = 1
 				if(!do_after(user, 50 * E.toolspeed, target = src))
 					E.teleporting = 0

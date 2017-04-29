@@ -4,7 +4,7 @@
 	icon = 'icons/obj/bureaucracy.dmi'
 
 	usesound = 'sound/items/Deconstruct.ogg'
-	
+
 	var/icon_base
 	var/obj/displayed
 
@@ -198,9 +198,7 @@
 		verbs |= /obj/structure/sign/picture_frame/proc/tilt
 
 /obj/structure/sign/picture_frame/Destroy()
-	if(frame)
-		qdel(frame)
-		frame = null
+	QDEL_NULL(frame)
 	return ..()
 
 /obj/structure/sign/picture_frame/update_icon()

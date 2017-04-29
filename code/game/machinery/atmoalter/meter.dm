@@ -124,11 +124,11 @@
 	if(!istype(W, /obj/item/weapon/wrench))
 		return ..()
 	playsound(loc, W.usesound, 50, 1)
-	to_chat(user, "\blue You begin to unfasten \the [src]...")
+	to_chat(user, "<span class='notice'>You begin to unfasten \the [src]...</span>")
 	if(do_after(user, 40 * W.toolspeed, target = src))
 		user.visible_message( \
 			"[user] unfastens \the [src].", \
-			"\blue You have unfastened \the [src].", \
+			"<span class='notice'>You have unfastened \the [src].</span>", \
 			"You hear ratchet.")
 		new /obj/item/pipe_meter(src.loc)
 		qdel(src)

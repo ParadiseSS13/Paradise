@@ -190,7 +190,7 @@
 	materials = list("$metal" = 200, "$glass" = 200, "$uranium" = 1000, "$plasma" = 200)
 	build_path = /obj/item/clothing/glasses/hud/hydroponic/night
 	category = list("Equipment")
-	
+
 /datum/design/handdrill
 	name = "Hand Drill"
 	desc = "A small electric hand drill with an interchangable screwdriver and bolt bit"
@@ -210,7 +210,7 @@
 	build_type = PROTOLATHE
 	materials = list(MAT_METAL = 4500, MAT_SILVER = 2500, MAT_DIAMOND = 1000)
 	category = list("Equipment")
-	
+
 /datum/design/alienwrench
 	name = "Alien Wrench"
 	desc = "An advanced wrench obtained through Abductor technology."

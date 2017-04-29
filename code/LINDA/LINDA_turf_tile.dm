@@ -70,8 +70,7 @@
 
 /turf/simulated/Destroy()
 	visibilityChanged()
-	if(active_hotspot)
-		qdel(active_hotspot)
+	QDEL_NULL(active_hotspot)
 	return ..()
 
 /turf/simulated/assume_air(datum/gas_mixture/giver)

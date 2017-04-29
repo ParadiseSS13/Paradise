@@ -423,8 +423,12 @@
 	desc = "A box for containing construction permits, used to officially declare built rooms as additions to the station."
 	icon_state = "id"
 
-/obj/item/weapon/storage/box/permits/New() //There's only a few, so blueprints are still useful beyond setting every room's name to PRIMARY FART STORAGE
+/obj/item/weapon/storage/box/permits/New()
 	..()
+	new /obj/item/areaeditor/permit(src)
+	new /obj/item/areaeditor/permit(src)
+	new /obj/item/areaeditor/permit(src)
+	new /obj/item/areaeditor/permit(src)
 	new /obj/item/areaeditor/permit(src)
 	new /obj/item/areaeditor/permit(src)
 	new /obj/item/areaeditor/permit(src)
@@ -575,7 +579,9 @@
 	item_state = "zippo"
 	storage_slots = 10
 	w_class = 1
+	max_w_class = 1
 	slot_flags = SLOT_BELT
+	can_hold = list(/obj/item/weapon/match)
 
 	New()
 		..()
