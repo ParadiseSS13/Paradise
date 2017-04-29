@@ -1,0 +1,5 @@
+author: "FalseIncarnate"
+delete-after: True
+changes: 
+  - bugfix: "Popcorn jellybeans require jellybeans to make."
+  - bugfix: "Gum is no longer invisible, but is still very chewy."
