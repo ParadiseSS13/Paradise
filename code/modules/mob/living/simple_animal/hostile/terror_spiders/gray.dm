@@ -119,7 +119,7 @@
 							GrayCloak()
 						else
 							// otherwise, pick one of the valid turfs with no web to create a web there.
-							new /obj/effect/spider/terrorweb(pick(g_turfs_valid))
+							new /obj/structure/spider/terrorweb(pick(g_turfs_valid))
 							visible_message("<span class='notice'>[src] spins a web.</span>")
 			else
 				if(invisibility == SEE_INVISIBLE_LEVEL_ONE)

@@ -83,7 +83,7 @@
 
 /mob/living/simple_animal/hostile/hivebot/tele/warpbots()
 	icon_state = "def_radar"
-	visible_message("\red The [src] turns on!")
+	visible_message("<span class='warning'>The [src] turns on!</span>")
 	while(bot_amt > 0)
 		bot_amt--
 		switch(bot_type)

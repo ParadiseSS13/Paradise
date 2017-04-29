@@ -172,12 +172,8 @@
 	if(on)
 		var/M = get(paddles, /mob)
 		remove_paddles(M)
-	if(paddles)
-		qdel(paddles)
-		paddles = null
-	if(bcell)
-		qdel(bcell)
-		bcell = null
+	QDEL_NULL(paddles)
+	QDEL_NULL(bcell)
 	return ..()
 
 /obj/item/weapon/defibrillator/proc/deductcharge(var/chrgdeductamt)

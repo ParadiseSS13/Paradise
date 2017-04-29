@@ -403,7 +403,7 @@ var/const/POS_HEADER = {"<html>
 		src.attack_hand(usr)
 		return
 	if(usr != logged_in)
-		to_chat(usr, "\red [logged_in.name] is already logged in.  You cannot use this machine until they log out.")
+		to_chat(usr, "<span class='warning'>[logged_in.name] is already logged in.  You cannot use this machine until they log out.</span>")
 		return
 	if("act" in href_list)
 		switch(href_list["act"])
@@ -431,7 +431,7 @@ var/const/POS_HEADER = {"<html>
 				for(var/list/line in splittext(href_list["csv"],"\n"))
 					var/list/cells = splittext(line,",")
 					if(cells.len<2)
-						to_chat(usr, "\red The CSV must have at least two columns: Product Name, followed by Price (as a number).")
+						to_chat(usr, "<span class='warning'>The CSV must have at least two columns: Product Name, followed by Price (as a number).</span>")
 						src.attack_hand(usr)
 						return
 					var/line_item/LI = new
@@ -445,7 +445,7 @@ var/const/POS_HEADER = {"<html>
 			if("Save Settings")
 				var/datum/money_account/new_linked_account = get_money_account(text2num(href_list["payableto"]),z)
 				if(!new_linked_account)
-					to_chat(usr, "\red Unable to link new account.")
+					to_chat(usr, "<span class='warning'>Unable to link new account.</span>")
 				else
 					linked_account = new_linked_account
 				screen=POS_SCREEN_SETTINGS
@@ -482,7 +482,7 @@ var/const/POS_HEADER = {"<html>
 	if(istype(A,/obj/item/weapon/card/id))
 		var/obj/item/weapon/card/id/I = A
 		if(!logged_in)
-			user.visible_message("\blue The machine beeps, and logs you in","You hear a beep.")
+			user.visible_message("<span class='notice'>The machine beeps, and logs you in</span>","You hear a beep.")
 			logged_in = user
 			screen=POS_SCREEN_ORDER
 			update_icon()
@@ -490,23 +490,23 @@ var/const/POS_HEADER = {"<html>
 			return
 		else
 			if(!linked_account)
-				visible_message("\red The machine buzzes, and flashes \"NO LINKED ACCOUNT\" on the screen.","You hear a buzz.")
+				visible_message("<span class='warning'>The machine buzzes, and flashes \"NO LINKED ACCOUNT\" on the screen.</span>","You hear a buzz.")
 				flick(src,"pos-error")
 				return
 			if(screen!=POS_SCREEN_FINALIZE)
-				visible_message("\blue The machine buzzes.","\red You hear a buzz.")
+				visible_message("<span class='notice'>The machine buzzes.</span>","<span class='warning'>You hear a buzz.</span>")
 				flick(src,"pos-error")
 				return
 			var/datum/money_account/acct = get_card_account(I)
 			if(!acct)
-				visible_message("\red The machine buzzes, and flashes \"NO ACCOUNT\" on the screen.","You hear a buzz.")
+				visible_message("<span class='warning'>The machine buzzes, and flashes \"NO ACCOUNT\" on the screen.</span>","You hear a buzz.")
 				flick(src,"pos-error")
 				return
 			if(credits_needed > acct.money)
-				visible_message("\red The machine buzzes, and flashes \"NOT ENOUGH FUNDS\" on the screen.","You hear a buzz.")
+				visible_message("<span class='warning'>The machine buzzes, and flashes \"NOT ENOUGH FUNDS\" on the screen.</span>","You hear a buzz.")
 				flick(src,"pos-error")
 				return
-			visible_message("\blue The machine beeps, and begins printing a receipt","You hear a beep.")
+			visible_message("<span class='notice'>The machine beeps, and begins printing a receipt</span>","You hear a beep.")
 			PrintReceipt()
 			NewOrder()
 			acct.charge(credits_needed,linked_account,"Purchase at POS #[id].")
@@ -514,17 +514,17 @@ var/const/POS_HEADER = {"<html>
 			screen=POS_SCREEN_ORDER
 	else if(istype(A, /obj/item/stack/spacecash))
 		if(!linked_account)
-			visible_message("\red The machine buzzes, and flashes \"NO LINKED ACCOUNT\" on the screen.","You hear a buzz.")
+			visible_message("<span class='warning'>The machine buzzes, and flashes \"NO LINKED ACCOUNT\" on the screen.</span>","You hear a buzz.")
 			flick(src,"pos-error")
 			return
 		if(!logged_in || screen!=POS_SCREEN_FINALIZE)
-			visible_message("\blue The machine buzzes.","\red You hear a buzz.")
+			visible_message("<span class='notice'>The machine buzzes.</span>","<span class='warning'>You hear a buzz.</span>")
 			flick(src,"pos-error")
 			return
 		var/obj/item/stack/spacecash/C = A
 		credits_held += C.amount
 		if(credits_held >= credits_needed)
-			visible_message("\blue The machine beeps, and begins printing a receipt","You hear a beep and the sound of paper being shredded.")
+			visible_message("<span class='notice'>The machine beeps, and begins printing a receipt</span>","You hear a beep and the sound of paper being shredded.")
 			PrintReceipt()
 			NewOrder()
 			credits_held -= credits_needed

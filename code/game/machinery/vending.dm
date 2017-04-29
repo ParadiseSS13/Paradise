@@ -146,11 +146,8 @@
 			product_records.Add(product)
 
 /obj/machinery/vending/Destroy()
-	qdel(wires) // qdel
-	wires = null
-	if(coin)
-		qdel(coin) // qdel
-		coin = null
+	QDEL_NULL(wires)
+	QDEL_NULL(coin)
 	return ..()
 
 /obj/machinery/vending/ex_act(severity)
@@ -264,7 +261,7 @@
 		I.loc = src
 		coin = I
 		categories |= CAT_COIN
-		to_chat(user, "\blue You insert the [I] into the [src]")
+		to_chat(user, "<span class='notice'>You insert the [I] into the [src]</span>")
 		nanomanager.update_uis(src)
 		return
 	else if(istype(I, refill_canister) && refill_canister != null)
@@ -577,7 +574,7 @@
 
 /obj/machinery/vending/proc/stock(var/datum/data/vending_product/R, var/mob/user)
 	if(panel_open)
-		to_chat(user, "\blue You stock the [src] with \a [R.product_name]")
+		to_chat(user, "<span class='notice'>You stock the [src] with \a [R.product_name]</span>")
 		R.amount++
 	updateUsrDialog()
 
@@ -1161,13 +1158,6 @@
 					/obj/item/weapon/scalpel = 2,/obj/item/weapon/circular_saw = 2,/obj/item/weapon/tank/anesthetic = 2,/obj/item/clothing/mask/breath/medical = 5,
 					/obj/item/weapon/screwdriver = 5,/obj/item/weapon/crowbar = 5)
 	//everything after the power cell had no amounts, I improvised.  -Sayu
-
-
-/obj/machinery/vending/eva
-	name = "\improper Hardsuit Kits"
-	desc = "Conversion kits for your alien hardsuit needs."
-	products = list(/obj/item/device/modkit = 6,/obj/item/device/modkit/tajaran = 6,/obj/item/device/modkit/unathi = 6,/obj/item/device/modkit/skrell = 6,/obj/item/device/modkit/vox = 6)
-
 
 /obj/machinery/vending/sustenance
 	name = "\improper Sustenance Vendor"

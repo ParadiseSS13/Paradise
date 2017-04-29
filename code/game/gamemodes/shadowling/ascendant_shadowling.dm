@@ -32,6 +32,12 @@
 
 	faction = list("faithless")
 
+/mob/living/simple_animal/ascendant_shadowling/New()
+	..()
+	if(prob(35))
+		icon_state = "NurnKal"
+		icon_living = "NurnKal"
+
 /mob/living/simple_animal/ascendant_shadowling/Process_Spacemove(var/movement_dir = 0)
 	return 1 //copypasta from carp code
 

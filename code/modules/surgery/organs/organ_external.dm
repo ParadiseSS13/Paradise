@@ -50,7 +50,7 @@
 	// Internal organs of this body part
 	var/list/internal_organs = list()
 
-	var/damage_msg = "\red You feel an intense pain"
+	var/damage_msg = "<span class='warning'>You feel an intense pain</span>"
 	var/broken_description
 
 	var/open = 0
@@ -108,26 +108,26 @@
 	switch(open)
 		if(0)
 			if(istype(W,/obj/item/weapon/scalpel))
-				spread_germs_to_organ(src,user)
+				spread_germs_to_organ(src,user, W)
 				user.visible_message("<span class='danger'><b>[user]</b> cuts [src] open with [W]!</span>")
 				open++
 				return
 		if(1)
 			if(istype(W,/obj/item/weapon/retractor))
-				spread_germs_to_organ(src,user)
+				spread_germs_to_organ(src,user, W)
 				user.visible_message("<span class='danger'><b>[user]</b> cracks [src] open like an egg with [W]!</span>")
 				open++
 				return
 		if(2)
 			if(istype(W,/obj/item/weapon/hemostat))
-				spread_germs_to_organ(src,user)
+				spread_germs_to_organ(src,user, W)
 				if(contents.len)
 					var/obj/item/removing = pick(contents)
 					var/obj/item/organ/internal/O = removing
 					if(istype(O))
 						O.status |= ORGAN_CUT_AWAY
 						if(!O.sterile)
-							spread_germs_to_organ(O,user) // This wouldn't be any cleaner than the actual surgery
+							spread_germs_to_organ(O,user, W) // This wouldn't be any cleaner than the actual surgery
 					user.put_in_hands(removing)
 					user.visible_message("<span class='danger'><b>[user]</b> extracts [removing] from [src] with [W]!</span>")
 				else
@@ -818,7 +818,7 @@ Note that amputating the affected organ does in fact remove the infection from t
 		return
 	if(owner)
 		owner.visible_message(\
-			"\red You hear a loud cracking sound coming from \the [owner].",\
+			"<span class='warning'>You hear a loud cracking sound coming from \the [owner].</span>",\
 			"<span class='danger'>Something feels like it shattered in your [name]!</span>",\
 			"You hear a sickening crack.")
 		if(owner.species && !(owner.species.flags & NO_PAIN))
@@ -970,13 +970,13 @@ Note that amputating the affected organ does in fact remove the infection from t
 		return
 	if(owner)
 		if(type == "brute")
-			owner.visible_message("\red You hear a sickening cracking sound coming from \the [owner]'s [name].",	\
+			owner.visible_message("<span class='warning'>You hear a sickening cracking sound coming from \the [owner]'s [name].</span>",	\
 			"<span class='danger'>Your [name] becomes a mangled mess!</span>",	\
-			"\red You hear a sickening crack.")
+			"<span class='warning'>You hear a sickening crack.</span>")
 		else
-			owner.visible_message("\red \The [owner]'s [name] melts away, turning into mangled mess!",	\
+			owner.visible_message("<span class='warning'>\The [owner]'s [name] melts away, turning into mangled mess!</span>",	\
 			"<span class='danger'>Your [name] melts away!</span>",	\
-			"\red You hear a sickening sizzle.")
+			"<span class='warning'>You hear a sickening sizzle.</span>")
 	disfigured = 1
 
 /obj/item/organ/external/is_primary_organ(var/mob/living/carbon/human/O = null)

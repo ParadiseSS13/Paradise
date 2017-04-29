@@ -958,13 +958,6 @@
 				adjustToxLoss(-3)
 				lastpuke = 0
 
-	//0.1% chance of playing a scary sound to someone who's in complete darkness
-	if(isturf(loc) && rand(1,1000) == 1)
-		var/turf/currentTurf = loc
-		var/atom/movable/lighting_overlay/L = locate(/atom/movable/lighting_overlay) in currentTurf
-		if(L && L.lum_r + L.lum_g + L.lum_b == 0)
-			playsound_local(src,pick(scarySounds),50, 1, -1)
-
 /mob/living/carbon/human/handle_changeling()
 	if(mind)
 		if(mind.changeling)
@@ -1188,7 +1181,8 @@
 	else
 		AdjustLoseBreath(2, bound_lower = 0, bound_upper = 3)
 		adjustOxyLoss(5)
-		adjustBruteLoss(1)
+		Paralyse(4)
+		adjustBruteLoss(2)
 
 
 

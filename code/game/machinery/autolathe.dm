@@ -67,10 +67,8 @@
 	RefreshParts()
 
 /obj/machinery/autolathe/Destroy()
-	qdel(wires)
-	wires = null
-	qdel(materials)
-	materials = null
+	QDEL_NULL(wires)
+	QDEL_NULL(materials)
 	return ..()
 
 /obj/machinery/autolathe/interact(mob/user)

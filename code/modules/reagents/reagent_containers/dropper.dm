@@ -9,13 +9,18 @@
 	amount_per_transfer_from_this = 5
 	possible_transfer_amounts = list(1,2,3,4,5)
 	volume = 5
-	var/filled = 0
+
+/obj/item/weapon/reagent_containers/dropper/on_reagent_change()
+	if(reagents.total_volume <= 0)
+		icon_state = "[initial(icon_state)]"
+	else
+		icon_state = "[initial(icon_state)]1"
 
 /obj/item/weapon/reagent_containers/dropper/afterattack(obj/target, mob/user , flag)
 	if(!target.reagents)
 		return
 
-	if(filled)
+	if(reagents.total_volume)
 
 		if(target.reagents.total_volume >= target.reagents.maximum_volume)
 			to_chat(user, "<span class='warning'>[target] is full.</span>")
@@ -51,12 +56,7 @@
 					spawn(5)
 						reagents.reaction(safe_thing, TOUCH)
 
-
-
 					to_chat(user, "<span class='notice'>You transfer [trans] units of the solution.</span>")
-					if(reagents.total_volume<=0)
-						filled = 0
-						icon_state = "[initial(icon_state)]"
 					return
 
 
@@ -80,9 +80,6 @@
 
 		trans = reagents.trans_to(target, amount_per_transfer_from_this)
 		to_chat(user, "<span class='notice'>You transfer [trans] units of the solution.</span>")
-		if(reagents.total_volume<=0)
-			filled = 0
-			icon_state = "[initial(icon_state)]"
 
 	else
 
@@ -97,9 +94,6 @@
 		var/trans = target.reagents.trans_to(src, amount_per_transfer_from_this)
 
 		to_chat(user, "<span class='notice'>You fill [src] with [trans] units of the solution.</span>")
-
-		filled = 1
-		icon_state = "[initial(icon_state)][filled]"
 
 /obj/item/weapon/reagent_containers/dropper/cyborg
 	name = "Industrial Dropper"

@@ -13,15 +13,9 @@
 	origin_tech = "materials=1;engineering=1"
 
 /obj/item/device/transfer_valve/Destroy()
-	if(tank_one)
-		qdel(tank_one)
-		tank_one = null
-	if(tank_two)
-		qdel(tank_two)
-		tank_two = null
-	if(attached_device)
-		qdel(attached_device)
-		attached_device = null
+	QDEL_NULL(tank_one)
+	QDEL_NULL(tank_two)
+	QDEL_NULL(attached_device)
 	attacher = null
 	return ..()
 

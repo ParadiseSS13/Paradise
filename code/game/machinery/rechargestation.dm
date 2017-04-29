@@ -159,10 +159,7 @@
 				R.adjustFireLoss(-(repairs))
 				R.updatehealth()
 			if(R.cell)
-				if(R.cell.charge >= R.cell.maxcharge)
-					R.cell.charge = R.cell.maxcharge
-				else
-					R.cell.charge = min(R.cell.charge + recharge_speed, R.cell.maxcharge)
+				R.cell.charge = min(R.cell.charge + recharge_speed, R.cell.maxcharge)
 		else if(istype(occupant, /mob/living/carbon/human))
 			var/mob/living/carbon/human/H = occupant
 			if(H.get_int_organ(/obj/item/organ/internal/cell) && H.nutrition < 450)

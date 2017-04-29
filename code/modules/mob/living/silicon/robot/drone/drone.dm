@@ -115,7 +115,7 @@
 /mob/living/silicon/robot/drone/attackby(obj/item/weapon/W as obj, mob/user as mob, params)
 
 	if(istype(W, /obj/item/borg/upgrade/))
-		to_chat(user, "\red The maintenance drone chassis not compatible with \the [W].")
+		to_chat(user, "<span class='warning'>The maintenance drone chassis not compatible with \the [W].</span>")
 		return
 
 	else if(istype(W, /obj/item/weapon/crowbar))
@@ -127,20 +127,20 @@
 		if(stat == 2)
 
 			if(!config.allow_drone_spawn || emagged || health < -35) //It's dead, Dave.
-				to_chat(user, "\red The interface is fried, and a distressing burned smell wafts from the robot's interior. You're not rebooting this one.")
+				to_chat(user, "<span class='warning'>The interface is fried, and a distressing burned smell wafts from the robot's interior. You're not rebooting this one.</span>")
 				return
 
 			if(!allowed(usr))
-				to_chat(user, "\red Access denied.")
+				to_chat(user, "<span class='warning'>Access denied.</span>")
 				return
 
 			var/delta = (world.time / 10) - last_reboot
 			if(reboot_cooldown > delta)
 				var/cooldown_time = round(reboot_cooldown - ((world.time / 10) - last_reboot), 1)
-				to_chat(usr, "\red The reboot system is currently offline. Please wait another [cooldown_time] seconds.")
+				to_chat(usr, "<span class='warning'>The reboot system is currently offline. Please wait another [cooldown_time] seconds.</span>")
 				return
 
-			user.visible_message("\red \the [user] swipes \his ID card through \the [src], attempting to reboot it.", "\red You swipe your ID card through \the [src], attempting to reboot it.")
+			user.visible_message("<span class='warning'>\the [user] swipes \his ID card through \the [src], attempting to reboot it.</span>", "<span class='warning'>You swipe your ID card through \the [src], attempting to reboot it.</span>")
 			last_reboot = world.time / 10
 			var/drones = 0
 			for(var/mob/living/silicon/robot/drone/D in world)
@@ -151,7 +151,7 @@
 			return
 
 		else
-			user.visible_message("\red \the [user] swipes \his ID card through \the [src], attempting to shut it down.", "\red You swipe your ID card through \the [src], attempting to shut it down.")
+			user.visible_message("<span class='warning'>\the [user] swipes \his ID card through \the [src], attempting to shut it down.</span>", "<span class='warning'>You swipe your ID card through \the [src], attempting to shut it down.</span>")
 
 			if(emagged)
 				return
@@ -159,7 +159,7 @@
 			if(allowed(usr))
 				shut_down()
 			else
-				to_chat(user, "\red Access denied.")
+				to_chat(user, "<span class='warning'>Access denied.</span>")
 
 		return
 
@@ -167,7 +167,7 @@
 
 /mob/living/silicon/robot/drone/emag_act(user as mob)
 	if(!client || stat == 2)
-		to_chat(user, "\red There's not much point subverting this heap of junk.")
+		to_chat(user, "<span class='warning'>There's not much point subverting this heap of junk.</span>")
 		return
 
 	if(!ishuman(user))
@@ -175,12 +175,12 @@
 	var/mob/living/carbon/human/H = user
 
 	if(emagged)
-		to_chat(src, "\red [user] attempts to load subversive software into you, but your hacked subroutined ignore the attempt.")
-		to_chat(user, "\red You attempt to subvert [src], but the sequencer has no effect.")
+		to_chat(src, "<span class='warning'>[user] attempts to load subversive software into you, but your hacked subroutined ignore the attempt.</span>")
+		to_chat(user, "<span class='warning'>You attempt to subvert [src], but the sequencer has no effect.</span>")
 		return
 
-	to_chat(user, "\red You swipe the sequencer across [src]'s interface and watch its eyes flicker.")
-	to_chat(src, "\red You feel a sudden burst of malware loaded into your execute-as-root buffer. Your tiny brain methodically parses, loads and executes the script.")
+	to_chat(user, "<span class='warning'>You swipe the sequencer across [src]'s interface and watch its eyes flicker.</span>")
+	to_chat(src, "<span class='warning'>You feel a sudden burst of malware loaded into your execute-as-root buffer. Your tiny brain methodically parses, loads and executes the script.</span>")
 
 	message_admins("[key_name_admin(user)] emagged drone [key_name_admin(src)].  Laws overridden.")
 	log_game("[key_name(user)] emagged drone [key_name(src)].  Laws overridden.")
@@ -197,7 +197,7 @@
 
 	to_chat(src, "<b>Obey these laws:</b>")
 	laws.show_laws(src)
-	to_chat(src, "\red \b ALERT: [H.real_name] is your new master. Obey your new laws and his commands.")
+	to_chat(src, "<span class='boldwarning'>ALERT: [H.real_name] is your new master. Obey your new laws and his commands.</span>")
 	return
 
 //DRONE LIFE/DEATH
@@ -236,18 +236,18 @@
 /mob/living/silicon/robot/drone/proc/law_resync()
 	if(stat != 2)
 		if(emagged)
-			to_chat(src, "\red You feel something attempting to modify your programming, but your hacked subroutines are unaffected.")
+			to_chat(src, "<span class='warning'>You feel something attempting to modify your programming, but your hacked subroutines are unaffected.</span>")
 		else
-			to_chat(src, "\red A reset-to-factory directive packet filters through your data connection, and you obediently modify your programming to suit it.")
+			to_chat(src, "<span class='warning'>A reset-to-factory directive packet filters through your data connection, and you obediently modify your programming to suit it.</span>")
 			full_law_reset()
 			show_laws()
 
 /mob/living/silicon/robot/drone/proc/shut_down()
 	if(stat != 2)
 		if(emagged)
-			to_chat(src, "\red You feel a system kill order percolate through your tiny brain, but it doesn't seem like a good idea to you.")
+			to_chat(src, "<span class='warning'>You feel a system kill order percolate through your tiny brain, but it doesn't seem like a good idea to you.</span>")
 		else
-			to_chat(src, "\red You feel a system kill order percolate through your tiny brain, and you obediently destroy yourself.")
+			to_chat(src, "<span class='warning'>You feel a system kill order percolate through your tiny brain, and you obediently destroy yourself.</span>")
 			death()
 
 /mob/living/silicon/robot/drone/proc/full_law_reset()
@@ -281,7 +281,7 @@
 
 	if(!player) return
 
-	src.ckey = player.ckey
+	ckey = player.ckey
 
 	if(player.mob && player.mob.mind)
 		player.mob.mind.transfer_to(src)

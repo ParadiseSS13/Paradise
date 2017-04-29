@@ -25,15 +25,10 @@
 
 
 /obj/item/weapon/flamethrower/Destroy()
-	if(weldtool)
-		qdel(weldtool)
-		weldtool = null
-	if(igniter)
-		qdel(igniter)
-		igniter = null
-	if(ptank)
-		qdel(ptank)
-		ptank = null
+	QDEL_NULL(weldtool)
+	QDEL_NULL(igniter)
+	QDEL_NULL(ptank)
+	previousturf = null
 	return ..()
 
 

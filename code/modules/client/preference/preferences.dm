@@ -175,7 +175,7 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 	var/job_karma_low = 0
 
 	//Keeps track of preferrence for not getting any wanted jobs
-	var/alternate_option = 0
+	var/alternate_option = 2
 
 	// maps each organ to either null(intact), "cyborg" or "amputated"
 	// will probably not be able to do this for head and torso ;)
@@ -302,7 +302,7 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 
 			dat += "<h2>Hair & Accessories</h2>"
 
-			if(species in list("Unathi", "Vulpkanin", "Tajaran", "Machine")) //Species that have head accessories.
+			if(species in list("Unathi", "Vulpkanin", "Tajaran", "Machine", "Kidan")) //Species that have head accessories.
 				var/headaccessoryname = "Head Accessory: "
 				if(species == "Unathi")
 					headaccessoryname = "Horns: "
@@ -788,7 +788,7 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 		return
 
 	if(!isnum(desiredLvl))
-		to_chat(user, "\red UpdateJobPreference - desired level was not a number. Please notify coders!")
+		to_chat(user, "<span class='warning'>UpdateJobPreference - desired level was not a number. Please notify coders!</span>")
 		ShowChoices(user)
 		return
 
@@ -862,7 +862,7 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 
 	var/datum/browser/popup = new(user, "records", "<div align='center'>Character Records</div>", 350, 300)
 	popup.set_content(HTML)
-	popup.open(0)	
+	popup.open(0)
 
 /datum/preferences/proc/GetPlayerAltTitle(datum/job/job)
 	return player_alt_titles.Find(job.title) > 0 \
@@ -1425,7 +1425,7 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 						h_style = new_h_style
 
 				if("headaccessory")
-					if(species in list("Unathi", "Vulpkanin", "Tajaran", "Machine")) //Species with head accessories.
+					if(species in list("Unathi", "Vulpkanin", "Tajaran", "Machine", "Kidan")) //Species with head accessories.
 						var/input = "Choose the colour of your your character's head accessory:"
 						var/new_head_accessory = input(user, input, "Character Preference", rgb(r_headacc, g_headacc, b_headacc)) as color|null
 						if(new_head_accessory)
@@ -1434,7 +1434,7 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 							b_headacc = color2B(new_head_accessory)
 
 				if("ha_style")
-					if(species in list("Unathi", "Vulpkanin", "Tajaran", "Machine")) //Species with head accessories.
+					if(species in list("Unathi", "Vulpkanin", "Tajaran", "Machine", "Kidan")) //Species with head accessories.
 						var/list/valid_head_accessory_styles = list()
 						for(var/head_accessory_style in head_accessory_styles_list)
 							var/datum/sprite_accessory/H = head_accessory_styles_list[head_accessory_style]

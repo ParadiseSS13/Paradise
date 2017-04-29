@@ -1,12 +1,11 @@
-/obj/item/organ/internal/gland
+/obj/item/organ/internal/heart/gland
 	name = "fleshy mass"
 	desc = "A nausea-inducing hunk of twisting flesh and metal."
 	icon = 'icons/obj/abductor.dmi'
-	parent_organ = "chest"
-	slot = "gland"
 	icon_state = "gland"
 	status = ORGAN_ROBOT
-	origin_tech = "materials=4;biotech=5;abductor=3"
+	origin_tech = "materials=4;biotech=7;abductor=3"
+	beating = TRUE
 	var/cooldown_low = 300
 	var/cooldown_high = 300
 	var/next_activation = 0
@@ -16,30 +15,33 @@
 	tough = 1 //not easily broken by combat damage
 	sterile = 1 //not very germy
 
-/obj/item/organ/internal/gland/proc/ownerCheck()
+/obj/item/organ/internal/heart/gland/proc/ownerCheck()
 	if(ishuman(owner))
 		return 1
 	if(!human_only && iscarbon(owner))
 		return 1
 	return 0
 
-/obj/item/organ/internal/gland/proc/Start()
+/obj/item/organ/internal/heart/gland/proc/Start()
 	active = 1
 	next_activation = world.time + rand(cooldown_low,cooldown_high)
 
 
-/obj/item/organ/internal/gland/remove(var/mob/living/carbon/M, special = 0)
+/obj/item/organ/internal/heart/gland/remove(var/mob/living/carbon/M, special = 0)
 	active = 0
 	if(initial(uses) == 1)
 		uses = initial(uses)
-	..()
+	. = ..()
 
-/obj/item/organ/internal/gland/insert(var/mob/living/carbon/M, special = 0)
+/obj/item/organ/internal/heart/gland/insert(var/mob/living/carbon/M, special = 0)
 	..()
 	if(special != 2 && uses) // Special 2 means abductor surgery
 		Start()
 
-/obj/item/organ/internal/gland/on_life()
+/obj/item/organ/internal/heart/gland/on_life()
+	if(!beating)
+		// alien glands are immune to stopping.
+		beating = TRUE
 	if(!active)
 		return
 	if(!ownerCheck())
@@ -52,30 +54,28 @@
 	if(!uses)
 		active = 0
 
-/obj/item/organ/internal/gland/proc/activate()
+/obj/item/organ/internal/heart/gland/proc/activate()
 	return
 
-/obj/item/organ/internal/gland/heals
-	origin_tech = "materials=4;biotech=6;abductor=3"
+/obj/item/organ/internal/heart/gland/heals
 	cooldown_low = 200
 	cooldown_high = 400
 	uses = -1
 	icon_state = "health"
 
-/obj/item/organ/internal/gland/heals/activate()
+/obj/item/organ/internal/heart/gland/heals/activate()
 	to_chat(owner, "<span class='notice'>You feel curiously revitalized.</span>")
 	owner.adjustBruteLoss(-20)
 	owner.adjustOxyLoss(-20)
 	owner.adjustFireLoss(-20)
 
-/obj/item/organ/internal/gland/slime
-	origin_tech = "materials=4;biotech=6;abductor=3"
+/obj/item/organ/internal/heart/gland/slime
 	cooldown_low = 600
 	cooldown_high = 1200
 	uses = -1
 	icon_state = "slime"
 
-/obj/item/organ/internal/gland/slime/activate()
+/obj/item/organ/internal/heart/gland/slime/activate()
 	to_chat(owner, "<span class='warning'>You feel nauseous!</span>")
 	owner.vomit(20)
 
@@ -83,14 +83,14 @@
 	Slime.Friends = list(owner)
 	Slime.Leader = owner
 
-/obj/item/organ/internal/gland/mindshock
-	origin_tech = "materials=4;biotech=5;magnets=3;abductor=3"
+/obj/item/organ/internal/heart/gland/mindshock
+	origin_tech = "materials=4;biotech=4;magnets=6;abductor=3"
 	cooldown_low = 300
 	cooldown_high = 300
 	uses = -1
 	icon_state = "mindshock"
 
-/obj/item/organ/internal/gland/mindshock/activate()
+/obj/item/organ/internal/heart/gland/mindshock/activate()
 	to_chat(owner, "<span class='notice'>You get a headache.</span>")
 
 	var/turf/T = get_turf(owner)
@@ -100,40 +100,37 @@
 		to_chat(H, "<span class='alien'>You hear a buzz in your head.</span>")
 		H.AdjustConfused(20)
 
-/obj/item/organ/internal/gland/pop
-	origin_tech = "materials=4;biotech=6;abductor=3"
+/obj/item/organ/internal/heart/gland/pop
 	cooldown_low = 900
 	cooldown_high = 1800
-	uses = 6
+	uses = -1
 	human_only = 1
 	icon_state = "species"
 
-/obj/item/organ/internal/gland/pop/activate()
+/obj/item/organ/internal/heart/gland/pop/activate()
 	to_chat(owner, "<span class='notice'>You feel unlike yourself.</span>")
 	var/species = pick("Unathi","Skrell","Diona","Tajaran","Vulpkanin","Kidan","Grey","Diona")
 	owner.set_species(species)
 
-/obj/item/organ/internal/gland/ventcrawling
+/obj/item/organ/internal/heart/gland/ventcrawling
 	origin_tech = "materials=4;biotech=5;bluespace=3;abductor=3"
 	cooldown_low = 1800
 	cooldown_high = 2400
 	uses = 1
 	icon_state = "vent"
 
-/obj/item/organ/internal/gland/ventcrawling/activate()
+/obj/item/organ/internal/heart/gland/ventcrawling/activate()
 	to_chat(owner, "<span class='notice'>You feel very stretchy.</span>")
 	owner.ventcrawler = 2
-	return
 
 
-/obj/item/organ/internal/gland/viral
-	origin_tech = "materials=4;biotech=6;abductor=3"
+/obj/item/organ/internal/heart/gland/viral
 	cooldown_low = 1800
 	cooldown_high = 2400
 	uses = 1
 	icon_state = "viral"
 
-/obj/item/organ/internal/gland/viral/activate()
+/obj/item/organ/internal/heart/gland/viral/activate()
 	to_chat(owner, "<span class='warning'>You feel sick.</span>")
 	var/virus_type = pick(/datum/disease/beesease, /datum/disease/brainrot, /datum/disease/magnitis)
 	var/datum/disease/D = new virus_type()
@@ -144,51 +141,49 @@
 	owner.med_hud_set_status()
 
 
-/obj/item/organ/internal/gland/emp //TODO : Replace with something more interesting
-	origin_tech = "materials=4;biotech=5;magnets=3;abductor=3"
+/obj/item/organ/internal/heart/gland/emp //TODO : Replace with something more interesting
+	origin_tech = "materials=4;biotech=4;magnets=6;abductor=3"
 	cooldown_low = 900
 	cooldown_high = 1600
 	uses = 10
 	icon_state = "emp"
 
-/obj/item/organ/internal/gland/emp/activate()
+/obj/item/organ/internal/heart/gland/emp/activate()
 	to_chat(owner, "<span class='warning'>You feel a spike of pain in your head.</span>")
 	empulse(get_turf(owner), 2, 5, 1)
 
-/obj/item/organ/internal/gland/spiderman
-	origin_tech = "materials=4;biotech=6;abductor=3"
+/obj/item/organ/internal/heart/gland/spiderman
 	cooldown_low = 450
 	cooldown_high = 900
 	uses = 10
 	icon_state = "spider"
 
-/obj/item/organ/internal/gland/spiderman/activate()
+/obj/item/organ/internal/heart/gland/spiderman/activate()
 	to_chat(owner, "<span class='warning'>You feel something crawling in your skin.</span>")
 	owner.faction |= "spiders"
-	new /obj/effect/spider/spiderling(owner.loc)
+	new /obj/structure/spider/spiderling(owner.loc)
 
-/obj/item/organ/internal/gland/egg
-	origin_tech = "materials=4;biotech=6;abductor=3"
+/obj/item/organ/internal/heart/gland/egg
 	cooldown_low = 300
 	cooldown_high = 400
 	uses = -1
 	icon_state = "egg"
 
-/obj/item/organ/internal/gland/egg/activate()
+/obj/item/organ/internal/heart/gland/egg/activate()
 	to_chat(owner, "<span class='boldannounce'>You lay an egg!</span>")
 	var/obj/item/weapon/reagent_containers/food/snacks/egg/egg = new(owner.loc)
 	egg.reagents.add_reagent("sacid",20)
 	egg.desc += " It smells bad."
 
-/obj/item/organ/internal/gland/bloody
-	origin_tech = "materials=4;biotech=6;abductor=3"
+/obj/item/organ/internal/heart/gland/bloody
 	cooldown_low = 200
 	cooldown_high = 400
 	uses = -1
 
-/obj/item/organ/internal/gland/bloody/activate()
-	owner.adjustBruteLoss(15)
-
+/obj/item/organ/internal/heart/gland/bloody/activate()
+	if(ishuman(owner))
+		var/mob/living/carbon/human/H = owner
+		H.drip(200)
 	owner.visible_message("<span class='danger'>[owner]'s skin erupts with blood!</span>",\
 	"<span class='userdanger'>Blood pours from your skin!</span>")
 
@@ -202,22 +197,22 @@
 			H.w_uniform.add_blood(owner)
 			H.update_inv_w_uniform(0)
 
-/obj/item/organ/internal/gland/bodysnatch
-	origin_tech = "materials=4;biotech=7;abductor=3"
+/obj/item/organ/internal/heart/gland/bodysnatch
 	cooldown_low = 600
 	cooldown_high = 600
 	human_only = 1
 	uses = 1
 
-/obj/item/organ/internal/gland/bodysnatch/activate()
+/obj/item/organ/internal/heart/gland/bodysnatch/activate()
 	to_chat(owner, "<span class='warning'>You feel something moving around inside you...</span>")
 	//spawn cocoon with clone greytide snpc inside
 	if(ishuman(owner))
 		var/obj/effect/cocoon/abductor/C = new (get_turf(owner))
 		C.Copy(owner)
 		C.Start()
-	owner.gib()
-	return
+	owner.adjustBruteLoss(40)
+	var/turf/T = get_turf(owner)
+	T.add_blood_floor(src)
 
 /obj/effect/cocoon/abductor
 	name = "slimy cocoon"
@@ -232,10 +227,17 @@
 	var/mob/living/carbon/human/interactive/greytide/clone = new(src)
 	var/datum/dna/owner_dna = H.dna
 	clone.rename_character(clone.name, owner_dna.real_name)
-	clone.body_accessory = H.body_accessory
 	clone.dna = owner_dna.Clone()
 	clone.set_species(H.species.name)
+	clone.body_accessory = H.body_accessory
 	domutcheck(clone)
+
+	for(var/obj/item/I in clone)
+		if(istype(I, /obj/item/weapon/implant))
+			continue
+		if(istype(I, /obj/item/organ))
+			continue
+		qdel(I)
 
 	//There's no define for this / get all items ?
 	var/list/slots = list(slot_back,slot_w_uniform,slot_wear_suit,\
@@ -245,7 +247,7 @@
 	for(var/slot in slots)
 		var/obj/item/I = H.get_item_by_slot(slot)
 		if(I)
-			clone.equip_to_slot_if_possible(I,slot)
+			clone.equip_to_slot_or_del(new I.type(clone), slot)
 
 /obj/effect/cocoon/abductor/proc/Start()
 	hatch_time = world.time + 600
@@ -259,22 +261,25 @@
 			M.forceMove(get_turf(src))
 		qdel(src)
 
-/obj/item/organ/internal/gland/plasma
-	cooldown_low = 2400
-	cooldown_high = 3000
-	origin_tech = "materials=4;biotech=5;plasmatech=3;abductor=3"
-	uses = 1
 
-/obj/item/organ/internal/gland/plasma/activate()
-	to_chat(owner, "<span class='warning'>You feel bloated.</span>")
-	sleep(150)
-	if(!owner) return
-	to_chat(owner, "<span class='userdanger'>A massive stomachache overcomes you.</span>")
-	sleep(50)
-	if(!owner) return
-	owner.visible_message("<span class='danger'>[owner] explodes in a cloud of plasma!</span>")
-	var/turf/simulated/T = get_turf(owner)
-	if(istype(T))
-		T.atmos_spawn_air(SPAWN_TOXINS|SPAWN_20C,300)
-	owner.gib()
-	return
+/obj/item/organ/internal/heart/gland/plasma
+	cooldown_low = 1200
+	cooldown_high = 1800
+	origin_tech = "materials=4;biotech=4;plasmatech=6;abductor=3"
+	uses = -1
+
+/obj/item/organ/internal/heart/gland/plasma/activate()
+	spawn(0)
+		to_chat(owner, "<span class='warning'>You feel bloated.</span>")
+		sleep(150)
+		if(!owner)
+			return
+		to_chat(owner, "<span class='userdanger'>A massive stomachache overcomes you.</span>")
+		sleep(50)
+		if(!owner)
+			return
+		owner.visible_message("<span class='danger'>[owner] vomits a cloud of plasma!</span>")
+		var/turf/simulated/T = get_turf(owner)
+		if(istype(T))
+			T.atmos_spawn_air(SPAWN_TOXINS|SPAWN_20C,50)
+		owner.vomit()

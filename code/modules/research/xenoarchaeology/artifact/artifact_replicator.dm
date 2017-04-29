@@ -78,19 +78,19 @@
 		viables.Remove(type)
 		construction[button_desc] = type
 
-	fail_message = "\blue [bicon(src)] a [pick("loud","soft","sinister","eery","triumphant","depressing","cheerful","angry")] \
+	fail_message = "<span class='notice'>[bicon(src)] a [pick("loud","soft","sinister","eery","triumphant","depressing","cheerful","angry")] \
 		[pick("horn","beep","bing","bleep","blat","honk","hrumph","ding")] sounds and a \
 		[pick("yellow","purple","green","blue","red","orange","white")] \
 		[pick("light","dial","meter","window","protrusion","knob","antenna","swirly thing")] \
 		[pick("swirls","flashes","whirrs","goes schwing","blinks","flickers","strobes","lights up")] on the \
 		[pick("front","side","top","bottom","rear","inside")] of [src]. A [pick("slot","funnel","chute","tube")] opens up in the \
-		[pick("front","side","top","bottom","rear","inside")]."
+		[pick("front","side","top","bottom","rear","inside")].</span>"
 
 /obj/machinery/replicator/process()
 	if(spawning_types.len && powered())
 		spawn_progress_time += world.time - last_process_time
 		if(spawn_progress_time > max_spawn_time)
-			src.visible_message("\blue [bicon(src)] [src] pings!")
+			src.visible_message("<span class='notice'>[bicon(src)] [src] pings!</span>")
 
 			var/obj/source_material = pop(stored_materials)
 			var/spawn_type = pop(spawning_types)
@@ -113,7 +113,7 @@
 				icon_state = "borgcharger0(old)"
 
 		else if(prob(5))
-			src.visible_message("\blue [bicon(src)] [src] [pick("clicks","whizzes","whirrs","whooshes","clanks","clongs","clonks","bangs")].")
+			src.visible_message("<span class='notice'>[bicon(src)] [src] [pick("clicks","whizzes","whirrs","whooshes","clanks","clongs","clonks","bangs")].</span>")
 
 	last_process_time = world.time
 
@@ -132,7 +132,7 @@
 	user.drop_item()
 	W.loc = src
 	stored_materials.Add(W)
-	src.visible_message("\blue [user] inserts [W] into [src].")
+	src.visible_message("<span class='notice'>[user] inserts [W] into [src].</span>")
 
 /obj/machinery/replicator/Topic(href, href_list)
 
@@ -141,9 +141,9 @@
 		if(index > 0 && index <= construction.len)
 			if(stored_materials.len > spawning_types.len)
 				if(spawning_types.len)
-					src.visible_message("\blue [bicon(src)] a [pick("light","dial","display","meter","pad")] on [src]'s front [pick("blinks","flashes")] [pick("red","yellow","blue","orange","purple","green","white")].")
+					src.visible_message("<span class='notice'>[bicon(src)] a [pick("light","dial","display","meter","pad")] on [src]'s front [pick("blinks","flashes")] [pick("red","yellow","blue","orange","purple","green","white")].</span>")
 				else
-					src.visible_message("\blue [bicon(src)] [src]'s front compartment slides shut.")
+					src.visible_message("<span class='notice'>[bicon(src)] [src]'s front compartment slides shut.</span>")
 
 				spawning_types.Add(construction[construction[index]])
 				spawn_progress_time = 0

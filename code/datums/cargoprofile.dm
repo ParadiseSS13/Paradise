@@ -341,13 +341,13 @@
 							C:broken = 1
 						C.open()
 						C.update_icon()
-						master.visible_message("\red [master] breaks open [C]!")
+						master.visible_message("<span class='warning'>[master] breaks open [C]!</span>")
 					else
-						master.visible_message("\blue [master] is trying to force [C] open!")
+						master.visible_message("<span class='notice'>[master] is trying to force [C] open!</span>")
 
 					master.sleep += 1 // mechanical strain
 					return BIG_OBJECT_WORK
-				master.visible_message("\blue [master] is trying to open [C], but can't!")
+				master.visible_message("<span class='notice'>[master] is trying to open [C], but can't!</span>")
 				master.sleep = 5
 				return 0
 
@@ -647,7 +647,7 @@
 			M.loc = master
 			master.types[M.type] = src
 			M.apply_damage(damage) // todo: ugly
-			M.visible_message("\red [M.name] gets pulled into the machine!")
+			M.visible_message("<span class='warning'>[M.name] gets pulled into the machine!</span>")
 			return MOB_WORK
 	outlet_reaction(var/atom/W,var/turf/D)
 		var/mob/living/M = W
@@ -659,7 +659,7 @@
 		if(bruteloss < 100) // requires tenderization
 			M.apply_damage(rand(5,15),BRUTE)
 			to_chat(M, "The machine is tearing you apart!")
-			master.visible_message("\red [master] makes a squishy grinding noise.")
+			master.visible_message("<span class='warning'>[master] makes a squishy grinding noise.</span>")
 			return
 		M.loc = master.loc
 		M.gib()
@@ -700,7 +700,7 @@
 			M.forceMove(master)
 			master.types[M.type] = src
 			M.apply_damage(damage) // todo: ugly
-			M.visible_message("\red [M.name] gets pulled into the machine!")
+			M.visible_message("<span class='warning'>[M.name] gets pulled into the machine!</span>")
 			return MOB_WORK
 
 	outlet_reaction(var/atom/W,var/turf/D)
@@ -711,7 +711,7 @@
 		D = get_step(D,master.outdir) // throw attempt
 		eject_speed = rand(0,4)
 
-		M.visible_message("\blue [M.name] is ejected from the unloader.")
+		M.visible_message("<span class='notice'>[M.name] is ejected from the unloader.</span>")
 		M.throw_at(D,eject_speed,eject_speed)
 		return
 
@@ -752,7 +752,7 @@
 
 		if(!damage)
 			playsound(master.loc, 'sound/weapons/punchmiss.ogg', 25, 1, -1)
-			master.visible_message("\red \The [src] punched at [M], but whiffed!")
+			master.visible_message("<span class='warning'>\The [src] punched at [M], but whiffed!</span>")
 
 			if(maxpunches > 1 && prob(50)) // Follow through on a miss, 50% chance
 				return punch(M,maxpunches - 1) + 1

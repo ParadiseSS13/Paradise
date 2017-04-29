@@ -62,9 +62,7 @@
 		to_chat(user, "<span class='info'>It contains [loaded.amount]/[max_amount] cables.</span>")
 
 /obj/item/weapon/twohanded/rcl/Destroy()
-	if(loaded)
-		qdel(loaded)
-		loaded = null
+	QDEL_NULL(loaded)
 	last = null
 	active = 0
 	return ..()

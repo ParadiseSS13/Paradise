@@ -173,8 +173,8 @@
 /obj/item/clothing/suit/hooded/cultrobes/berserker
 	name = "flagellant's robes"
 	desc = "Blood-soaked robes infused with dark magic; allows the user to move at inhuman speeds, but at the cost of increased damage."
-	icon_state = "hardsuit-beserker"
-	item_state = "hardsuit-beserker"
+	icon_state = "hardsuit-berserker"
+	item_state = "hardsuit-berserker"
 	flags_inv = HIDEJUMPSUIT
 	allowed = list(/obj/item/weapon/tome,/obj/item/weapon/melee/cultblade)
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|ARMS
@@ -300,7 +300,7 @@
 	var/turf/mobloc = get_turf(C)
 	var/list/turfs = new/list()
 	for(var/turf/T in range(user, outer_tele_radius))
-		if(!is_teleport_allowed(T))
+		if(!is_teleport_allowed(T.z))
 			continue
 		if(get_dir(C, T) != C.dir)
 			continue

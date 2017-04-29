@@ -137,10 +137,14 @@
 		new /obj/item/weapon/dnainjector/m2h(src)
 		new /obj/item/weapon/dnainjector/m2h(src)
 
-/obj/item/weapon/storage/box/gauge
-	name = "box of 12 gauge slugs"
-	desc = "It has a picture of a gun and several warning symbols on the front."
-	materials = list(MAT_METAL=28000)
+/obj/item/weapon/storage/box/slug
+	name = "Ammunition Box (Slug)"
+	desc = "A small box capable of holding seven shotgun shells."
+	icon_state = "slugbox"
+	storage_slots = 7
+	can_hold = list(
+		"/obj/item/ammo_casing/shotgun"
+		)
 
 	New()
 		..()
@@ -151,6 +155,120 @@
 		new /obj/item/ammo_casing/shotgun(src)
 		new /obj/item/ammo_casing/shotgun(src)
 		new /obj/item/ammo_casing/shotgun(src)
+
+/obj/item/weapon/storage/box/buck
+	name = "Ammunition Box (Buckshot)"
+	desc = "A small box capable of holding seven shotgun shells."
+	icon_state = "buckshotbox"
+	storage_slots = 7
+	can_hold = list(
+		"/obj/item/ammo_casing/shotgun"
+		)
+
+	New()
+		..()
+		new /obj/item/ammo_casing/shotgun/buckshot(src)
+		new /obj/item/ammo_casing/shotgun/buckshot(src)
+		new /obj/item/ammo_casing/shotgun/buckshot(src)
+		new /obj/item/ammo_casing/shotgun/buckshot(src)
+		new /obj/item/ammo_casing/shotgun/buckshot(src)
+		new /obj/item/ammo_casing/shotgun/buckshot(src)
+		new /obj/item/ammo_casing/shotgun/buckshot(src)
+
+/obj/item/weapon/storage/box/dragonsbreath
+	name = "Ammunition Box (Dragonsbreath)"
+	desc = "A small box capable of holding seven shotgun shells."
+	icon_state = "dragonsbreathbox"
+	storage_slots = 7
+	can_hold = list(
+		"/obj/item/ammo_casing/shotgun"
+		)
+
+	New()
+		..()
+		new /obj/item/ammo_casing/shotgun/incendiary/dragonsbreath(src)
+		new /obj/item/ammo_casing/shotgun/incendiary/dragonsbreath(src)
+		new /obj/item/ammo_casing/shotgun/incendiary/dragonsbreath(src)
+		new /obj/item/ammo_casing/shotgun/incendiary/dragonsbreath(src)
+		new /obj/item/ammo_casing/shotgun/incendiary/dragonsbreath(src)
+		new /obj/item/ammo_casing/shotgun/incendiary/dragonsbreath(src)
+		new /obj/item/ammo_casing/shotgun/incendiary/dragonsbreath(src)
+
+/obj/item/weapon/storage/box/stun
+	name = "Ammunition Box (Stun shells)"
+	desc = "A small box capable of holding seven shotgun shells."
+	icon_state = "stunbox"
+	storage_slots = 7
+	can_hold = list(
+		"/obj/item/ammo_casing/shotgun"
+		)
+
+	New()
+		..()
+		new /obj/item/ammo_casing/shotgun/stunslug(src)
+		new /obj/item/ammo_casing/shotgun/stunslug(src)
+		new /obj/item/ammo_casing/shotgun/stunslug(src)
+		new /obj/item/ammo_casing/shotgun/stunslug(src)
+		new /obj/item/ammo_casing/shotgun/stunslug(src)
+		new /obj/item/ammo_casing/shotgun/stunslug(src)
+		new /obj/item/ammo_casing/shotgun/stunslug(src)
+
+/obj/item/weapon/storage/box/beanbag
+	name = "Ammunition Box (Beanbag shells)"
+	desc = "A small box capable of holding seven shotgun shells."
+	icon_state = "beanbagbox"
+	storage_slots = 7
+	can_hold = list(
+		"/obj/item/ammo_casing/shotgun"
+		)
+
+	New()
+		..()
+		new /obj/item/ammo_casing/shotgun/beanbag(src)
+		new /obj/item/ammo_casing/shotgun/beanbag(src)
+		new /obj/item/ammo_casing/shotgun/beanbag(src)
+		new /obj/item/ammo_casing/shotgun/beanbag(src)
+		new /obj/item/ammo_casing/shotgun/beanbag(src)
+		new /obj/item/ammo_casing/shotgun/beanbag(src)
+		new /obj/item/ammo_casing/shotgun/beanbag(src)
+
+/obj/item/weapon/storage/box/rubbershot
+	name = "Ammunition Box (Rubbershot shells)"
+	desc = "A small box capable of holding seven shotgun shells."
+	icon_state = "rubbershotbox"
+	storage_slots = 7
+	can_hold = list(
+		"/obj/item/ammo_casing/shotgun"
+		)
+
+	New()
+		..()
+		new /obj/item/ammo_casing/shotgun/rubbershot(src)
+		new /obj/item/ammo_casing/shotgun/rubbershot(src)
+		new /obj/item/ammo_casing/shotgun/rubbershot(src)
+		new /obj/item/ammo_casing/shotgun/rubbershot(src)
+		new /obj/item/ammo_casing/shotgun/rubbershot(src)
+		new /obj/item/ammo_casing/shotgun/rubbershot(src)
+		new /obj/item/ammo_casing/shotgun/rubbershot(src)
+
+/obj/item/weapon/storage/box/tranquilizer
+	name = "Ammunition Box (Tranquilizer darts)"
+	desc = "A small box capable of holding seven shotgun shells."
+	icon_state = "tranqbox"
+	storage_slots = 7
+	can_hold = list(
+		"/obj/item/ammo_casing/shotgun"
+		)
+
+	New()
+		..()
+		new /obj/item/ammo_casing/shotgun/tranquilizer(src)
+		new /obj/item/ammo_casing/shotgun/tranquilizer(src)
+		new /obj/item/ammo_casing/shotgun/tranquilizer(src)
+		new /obj/item/ammo_casing/shotgun/tranquilizer(src)
+		new /obj/item/ammo_casing/shotgun/tranquilizer(src)
+		new /obj/item/ammo_casing/shotgun/tranquilizer(src)
+		new /obj/item/ammo_casing/shotgun/tranquilizer(src)
 
 /obj/item/weapon/storage/box/flashbangs
 	name = "box of flashbangs (WARNING)"
@@ -423,8 +541,12 @@
 	desc = "A box for containing construction permits, used to officially declare built rooms as additions to the station."
 	icon_state = "id"
 
-/obj/item/weapon/storage/box/permits/New() //There's only a few, so blueprints are still useful beyond setting every room's name to PRIMARY FART STORAGE
+/obj/item/weapon/storage/box/permits/New()
 	..()
+	new /obj/item/areaeditor/permit(src)
+	new /obj/item/areaeditor/permit(src)
+	new /obj/item/areaeditor/permit(src)
+	new /obj/item/areaeditor/permit(src)
 	new /obj/item/areaeditor/permit(src)
 	new /obj/item/areaeditor/permit(src)
 	new /obj/item/areaeditor/permit(src)
@@ -575,7 +697,9 @@
 	item_state = "zippo"
 	storage_slots = 10
 	w_class = 1
+	max_w_class = 1
 	slot_flags = SLOT_BELT
+	can_hold = list(/obj/item/weapon/match)
 
 	New()
 		..()

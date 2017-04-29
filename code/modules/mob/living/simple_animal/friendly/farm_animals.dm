@@ -34,7 +34,7 @@
 		for(var/direction in shuffle(list(1,2,4,8,5,6,9,10)))
 			var/step = get_step(src, direction)
 			if(step)
-				if(locate(/obj/effect/spacevine) in step)
+				if(locate(/obj/structure/spacevine) in step)
 					Move(step, get_dir(src, step))
 
 /mob/living/simple_animal/hostile/retaliate/goat/handle_automated_action()
@@ -45,9 +45,9 @@
 	if(enemies.len && prob(10))
 		enemies = list()
 		LoseTarget()
-		src.visible_message("\blue [src] calms down.")
+		src.visible_message("<span class='notice'>[src] calms down.</span>")
 
-	var/obj/effect/spacevine/SV = locate(/obj/effect/spacevine) in loc
+	var/obj/structure/spacevine/SV = locate(/obj/structure/spacevine) in loc
 	if(SV)
 		SV.eat(src)
 
@@ -59,12 +59,12 @@
 
 /mob/living/simple_animal/hostile/retaliate/goat/Retaliate()
 	..()
-	src.visible_message("\red [src] gets an evil-looking gleam in their eye.")
+	src.visible_message("<span class='warning'>[src] gets an evil-looking gleam in their eye.</span>")
 
 /mob/living/simple_animal/hostile/retaliate/goat/Move()
 	..()
 	if(!stat)
-		var/obj/effect/spacevine/SV = locate(/obj/effect/spacevine) in loc
+		var/obj/structure/spacevine/SV = locate(/obj/structure/spacevine) in loc
 		if(SV)
 			SV.eat(src)
 
@@ -78,9 +78,9 @@
 			G.reagents.add_reagent("milk", transfered)
 			milk_content -= transfered
 		else if(G.reagents.total_volume >= G.volume)
-			to_chat(user, "\red \The [O] is full.")
+			to_chat(user, "<span class='warning'>\The [O] is full.</span>")
 		else
-			to_chat(user, "\red The udder is dry. Wait a bit longer...")
+			to_chat(user, "<span class='warning'>The udder is dry. Wait a bit longer...</span>")
 	else
 		..()
 
@@ -124,9 +124,9 @@
 			G.reagents.add_reagent("milk", transfered)
 			milk_content -= transfered
 		else if(G.reagents.total_volume >= G.volume)
-			to_chat(user, "\red \The [O] is full.")
+			to_chat(user, "<span class='warning'>\The [O] is full.</span>")
 		else
-			to_chat(user, "\red The udder is dry. Wait a bit longer...")
+			to_chat(user, "<span class='warning'>The udder is dry. Wait a bit longer...</span>")
 	else
 		..()
 

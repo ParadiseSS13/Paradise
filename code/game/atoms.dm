@@ -76,12 +76,10 @@
 			qdel(AA)
 		alternate_appearances = null
 
-	if(reagents)
-		qdel(reagents)
-		reagents = null
+	QDEL_NULL(reagents)
 	invisibility = 101
 	return ..()
-	
+
 //Hook for running code when a dir change occurs
 /atom/proc/setDir(newdir)
 	dir = newdir
