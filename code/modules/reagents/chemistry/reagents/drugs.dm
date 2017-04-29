@@ -576,23 +576,23 @@
 	addiction_chance = 60
 	metabolization_rate = 0.6
 
-/datum/reagent/lube/ultra/on_mob_life(mob/living/M)
+/datum/reagent/lube/ultra/on_machine_person_life(mob/living/carbon/human/H)
 	var/high_message = pick("You feel your servos whir!", "You feel like you need to go faster.", "You feel like you were just overclocked!")
 	if(prob(1))
 		if(prob(1))
 			high_message = "0100011101001111010101000101010001000001010001110100111101000110010000010101001101010100!"
 	if(prob(5))
-		to_chat(M, "<span class='notice'>[high_message]</span>")
-	M.AdjustParalysis(-2)
-	M.AdjustStunned(-2)
-	M.AdjustWeakened(-2)
-	M.adjustStaminaLoss(-2)
-	M.status_flags |= GOTTAGOREALLYFAST
-	M.Jitter(3)
-	M.adjustBrainLoss(0.5)
+		to_chat(H, "<span class='notice'>[high_message]</span>")
+	H.AdjustParalysis(-2)
+	H.AdjustStunned(-2)
+	H.AdjustWeakened(-2)
+	H.adjustStaminaLoss(-2)
+	H.status_flags |= GOTTAGOREALLYFAST
+	H.Jitter(3)
+	H.adjustBrainLoss(0.5)
 	if(prob(5))
-		M.emote(pick("twitch", "shiver"))
-	..()
+		H.emote(pick("twitch", "shiver"))
+	H.reagents.remove_reagent(id, metabolization_rate)
 
 /datum/reagent/lube/ultra/on_mob_delete(mob/living/M)
 	M.status_flags &= ~GOTTAGOREALLYFAST
@@ -624,15 +624,15 @@
 	addiction_chance = 50
 
 
-/datum/reagent/surge/on_mob_life(mob/living/M)
-	M.Druggy(15)
+/datum/reagent/surge/on_machine_person_life(mob/living/carbon/human/H)
+	H.Druggy(15)
 	var/high_message = pick("You feel calm.", "You feel collected.", "You feel like you need to relax.")
 	if(prob(1))
 		if(prob(1))
 			high_message = "01010100010100100100000101001110010100110100001101000101010011100100010001000101010011100100001101000101."
 	if(prob(5))
-		to_chat(M, "<span class='notice'>[high_message]</span>")
-	..()
+		to_chat(H, "<span class='notice'>[high_message]</span>")
+	H.reagents.remove_reagent(id, metabolization_rate)
 
 /datum/reagent/surge/overdose_process(mob/living/M, severity)
 	//Hit them with the same effects as an electrode!

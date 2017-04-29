@@ -25,7 +25,7 @@
 	virus_immune = 1
 	clothing_flags = HAS_UNDERWEAR | HAS_UNDERSHIRT | HAS_SOCKS
 	dietflags = DIET_OMNI
-	reagent_tag = PROCESS_ORG
+	on_species_life_proc_name = "on_abductor_life"
 	blood_color = "#FF5AFF"
 	female_scream_sound = 'sound/goonstation/voice/male_scream.ogg'
 	female_cough_sounds = list('sound/effects/mob_effects/m_cougha.ogg','sound/effects/mob_effects/m_coughb.ogg', 'sound/effects/mob_effects/m_coughc.ogg')

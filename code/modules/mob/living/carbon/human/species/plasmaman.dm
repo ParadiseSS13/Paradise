@@ -8,7 +8,7 @@
 
 	flags = IS_WHITELISTED | NO_BLOOD | NOTRANSSTING
 	dietflags = DIET_OMNI
-	reagent_tag = PROCESS_ORG
+	on_species_life_proc_name = "on_plasmaman_life"
 
 	//default_mutations=list(SKELETON) // This screws things up
 
@@ -255,13 +255,3 @@
 			if(istype(P))
 				P.Extinguish(H)
 	H.update_fire()
-
-/datum/species/plasmaman/handle_reagents(var/mob/living/carbon/human/H, var/datum/reagent/R)
-	if(R.id == "plasma")
-		H.adjustBruteLoss(-0.5*REAGENTS_EFFECT_MULTIPLIER)
-		H.adjustFireLoss(-0.5*REAGENTS_EFFECT_MULTIPLIER)
-		H.adjustPlasma(20)
-		H.reagents.remove_reagent(R.id, REAGENTS_METABOLISM)
-		return 0 //Handling reagent removal on our own. Prevents plasma from dealing toxin damage to Plasmamen.
-
-	return ..()

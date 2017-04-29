@@ -42,7 +42,7 @@
 
 	oxy_mod = 0
 
-	reagent_tag = PROCESS_ORG
+	on_species_life_proc_name = "on_wryn_life"
 	base_color = "#704300"
 	flesh_color = "#704300"
 	blood_color = "#FFFF99"
@@ -83,6 +83,7 @@
 					msg_admin_attack("[key_name(M)] removed [key_name(H)]'s antennae")
 			return 0
 
+
 /datum/species/nucleation
 	name = "Nucleation"
 	name_plural = "Nucleations"
@@ -105,7 +106,7 @@
 	//Default styles for created mobs.
 	default_hair = "Nucleation Crystals"
 
-	reagent_tag = PROCESS_ORG
+	on_species_life_proc_name = "on_nucleation_life"
 	has_organ = list(
 		"heart" =    /obj/item/organ/internal/heart,
 		"crystallized brain" =    /obj/item/organ/internal/brain/crystal,

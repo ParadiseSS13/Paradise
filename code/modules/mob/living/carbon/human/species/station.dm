@@ -16,9 +16,9 @@
 	While the central Sol government maintains control of its far-flung people, powerful corporate \
 	interests, rampant cyber and bio-augmentation and secretive factions make life on most human \
 	worlds tumultous at best."
-
-	reagent_tag = PROCESS_ORG
 	//Has standard darksight of 2.
+	//on_species_life_proc_name = "on_mob_life"		//Humans are considered the baseline, so they don't get a special effect proc. Change this if you want to give them one.
+
 
 /datum/species/unathi
 	name = "Unathi"
@@ -53,7 +53,7 @@
 	heat_level_3_breathe = 1100 //Default 1000
 
 	flesh_color = "#34AF10"
-	reagent_tag = PROCESS_ORG
+	on_species_life_proc_name = "on_unathi_life"
 	base_color = "#066000"
 	//Default styles for created mobs.
 	default_headacc = "Simple"
@@ -81,6 +81,7 @@
 
 /datum/species/unathi/handle_death(var/mob/living/carbon/human/H)
 	H.stop_tail_wagging(1)
+
 
 /datum/species/tajaran
 	name = "Tajaran"
@@ -114,7 +115,7 @@
 	clothing_flags = HAS_UNDERWEAR | HAS_UNDERSHIRT | HAS_SOCKS
 	bodyflags = FEET_PADDED | HAS_TAIL | HAS_HEAD_ACCESSORY | HAS_HEAD_MARKINGS | HAS_BODY_MARKINGS | HAS_SKIN_COLOR | TAIL_WAGGING | HAS_FUR
 	dietflags = DIET_OMNI
-	reagent_tag = PROCESS_ORG
+	on_species_life_proc_name = "on_tajaran_life"
 	flesh_color = "#AFA59E"
 	base_color = "#424242"
 	butt_sprite = "tajaran"
@@ -142,6 +143,7 @@
 /datum/species/tajaran/handle_death(var/mob/living/carbon/human/H)
 	H.stop_tail_wagging(1)
 
+
 /datum/species/vulpkanin
 	name = "Vulpkanin"
 	name_plural = "Vulpkanin"
@@ -164,7 +166,7 @@
 	clothing_flags = HAS_UNDERWEAR | HAS_UNDERSHIRT | HAS_SOCKS
 	bodyflags = FEET_PADDED | HAS_TAIL | TAIL_WAGGING | TAIL_OVERLAPPED | HAS_HEAD_ACCESSORY | HAS_MARKINGS | HAS_SKIN_COLOR | HAS_FUR
 	dietflags = DIET_OMNI
-	reagent_tag = PROCESS_ORG
+	on_species_life_proc_name = "on_vulpkanin_life"
 	flesh_color = "#966464"
 	base_color = "#CF4D2F"
 	butt_sprite = "vulp"
@@ -191,6 +193,7 @@
 
 /datum/species/vulpkanin/handle_death(var/mob/living/carbon/human/H)
 	H.stop_tail_wagging(1)
+
 
 /datum/species/skrell
 	name = "Skrell"
@@ -220,7 +223,7 @@
 	eyes = "skrell_eyes_s"
 	//Default styles for created mobs.
 	default_hair = "Skrell Male Tentacles"
-	reagent_tag = PROCESS_ORG
+	on_species_life_proc_name = "on_skrell_life"
 	butt_sprite = "skrell"
 
 	has_organ = list(
@@ -239,6 +242,7 @@
 		"is twisting their own neck!",
 		"makes like a fish and suffocates!",
 		"is strangling themselves with their own tendrils!")
+
 
 /datum/species/vox
 	name = "Vox"
@@ -300,7 +304,7 @@
 	default_hair_colour = "#614f19" //R: 97, G: 79, B: 25
 	butt_sprite = "vox"
 
-	reagent_tag = PROCESS_ORG
+	on_species_life_proc_name = "on_vox_life"
 	scream_verb = "shrieks"
 	male_scream_sound = 'sound/voice/shriek1.ogg'
 	female_scream_sound = 'sound/voice/shriek1.ogg'
@@ -401,13 +405,6 @@
 		H.change_icobase(new_icobase, new_deform, owner_sensitive) //Update the icobase/deform of all our organs, but make sure we don't mess with frankenstein limbs in doing so.
 		H.update_dna()
 
-/datum/species/vox/handle_reagents(var/mob/living/carbon/human/H, var/datum/reagent/R)
-	if(R.id == "oxygen") //Armalis are above such petty things.
-		H.adjustToxLoss(1*REAGENTS_EFFECT_MULTIPLIER) //Same as plasma.
-		H.reagents.remove_reagent(R.id, REAGENTS_METABOLISM)
-		return 0 //Handling reagent removal on our own.
-
-	return ..()
 
 /datum/species/vox/armalis/handle_post_spawn(var/mob/living/carbon/human/H)
 	H.verbs += /mob/living/carbon/human/proc/leap
@@ -448,7 +445,7 @@
 	blood_color = "#2299FC"
 	flesh_color = "#808D11"
 
-	reagent_tag = PROCESS_ORG
+	on_species_life_proc_name = "on_vox_armalis_life"
 
 	tail = "armalis_tail"
 	icon_template = 'icons/mob/human_races/r_armalis.dmi'
@@ -470,8 +467,6 @@
 		"is holding their breath!",
 		"is huffing oxygen!")
 
-/datum/species/vox/armalis/handle_reagents() //Skip the Vox oxygen reagent toxicity. Armalis are above such things.
-	return 1
 
 /datum/species/kidan
 	name = "Kidan"
@@ -491,7 +486,7 @@
 	eyes = "kidan_eyes_s"
 	dietflags = DIET_HERB
 	blood_color = "#FB9800"
-	reagent_tag = PROCESS_ORG
+	on_species_life_proc_name = "on_kidan_life"
 	//Default styles for created mobs.
 	default_headacc = "Normal Antennae"
 	butt_sprite = "kidan"
@@ -515,6 +510,7 @@
 		"is cracking their exoskeleton!",
 		"is stabbing themselves with their mandibles!",
 		"is holding their breath!")
+
 
 /datum/species/slime
 	name = "Slime People"
@@ -543,7 +539,7 @@
 	clothing_flags = HAS_UNDERWEAR | HAS_UNDERSHIRT | HAS_SOCKS
 	bodyflags = HAS_SKIN_COLOR | NO_EYES
 	dietflags = DIET_CARN
-	reagent_tag = PROCESS_ORG
+	on_species_life_proc_name = "on_slime_person_life"
 	exotic_blood = "water"
 	//ventcrawler = 1 //ventcrawling commented out
 	butt_sprite = "slime"
@@ -708,6 +704,7 @@
 	if(H in recolor_list)
 		H.toggle_recolor(silent = 1)
 
+
 /datum/species/grey
 	name = "Grey"
 	name_plural = "Greys"
@@ -738,7 +735,7 @@
 	clothing_flags = HAS_UNDERWEAR | HAS_UNDERSHIRT | HAS_SOCKS
 	bodyflags =  HAS_BODY_MARKINGS
 	dietflags = DIET_HERB
-	reagent_tag = PROCESS_ORG
+	on_species_life_proc_name = "on_grey_life"
 	blood_color = "#A200FF"
 
 /datum/species/grey/handle_dna(var/mob/living/carbon/C, var/remove)
@@ -754,6 +751,7 @@
 	var/speech_pref = H.client.prefs.speciesprefs
 	if(speech_pref)
 		H.mind.speech_span = "wingdings"
+
 
 /datum/species/diona
 	name = "Diona"
@@ -800,7 +798,7 @@
 	flesh_color = "#907E4A"
 	butt_sprite = "diona"
 
-	reagent_tag = PROCESS_ORG
+	on_species_life_proc_name = "on_diona_life"
 
 	has_organ = list(
 		"nutrient channel" =   /obj/item/organ/internal/liver/diona,
@@ -873,6 +871,7 @@
 		H.take_overall_damage(10,0)
 		H.traumatic_shock++
 
+
 /datum/species/machine
 	name = "Machine"
 	name_plural = "Machines"
@@ -910,7 +909,8 @@
 	virus_immune = 1
 	can_revive_by_healing = 1
 	has_gender = FALSE
-	reagent_tag = PROCESS_SYN
+	reagent_process_tag = PROCESS_SYN
+	on_species_life_proc_name = "on_machine_person_life"
 	male_scream_sound = 'sound/goonstation/voice/robot_scream.ogg'
 	female_scream_sound = 'sound/goonstation/voice/robot_scream.ogg'
 	male_cough_sounds = list('sound/effects/mob_effects/m_machine_cougha.ogg','sound/effects/mob_effects/m_machine_coughb.ogg', 'sound/effects/mob_effects/m_machine_coughc.ogg')
@@ -961,6 +961,7 @@
 		if(H)
 			H.update_hair()
 			H.update_fhair()
+
 
 /datum/species/drask
 	name = "Drask"
@@ -1016,7 +1017,7 @@
 	hot_env_multiplier = 2
 
 	flesh_color = "#a3d4eb"
-	reagent_tag = PROCESS_ORG
+	on_species_life_proc_name = "on_drask_life"
 	base_color = "#a3d4eb"
 	blood_color = "#a3d4eb"
 	butt_sprite = "drask"

@@ -24,7 +24,7 @@
 	virus_immune = 1
 
 	dietflags = DIET_OMNI		//the mutation process allowed you to now digest all foods regardless of initial race
-	reagent_tag = PROCESS_ORG
+	on_species_life_proc_name = "on_shadow_person_life"
 	suicide_messages = list(
 		"is attempting to bite their tongue off!",
 		"is jamming their claws into their eye sockets!",

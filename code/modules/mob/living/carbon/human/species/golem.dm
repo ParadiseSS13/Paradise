@@ -12,7 +12,7 @@
 
 	virus_immune = 1
 	dietflags = DIET_OMNI		//golems can eat anything because they are magic or something
-	reagent_tag = PROCESS_ORG
+	on_species_life_proc_name = "on_golem_life"
 
 	unarmed_type = /datum/unarmed_attack/punch
 	punchdamagelow = 5

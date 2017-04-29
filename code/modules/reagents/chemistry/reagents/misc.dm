@@ -39,6 +39,11 @@
 	reagent_state = GAS
 	color = "#808080" // rgb: 128, 128, 128
 
+/datum/reagent/oxygen/on_vox_life(mob/living/carbon/human/H)		//normal vox are poisoned by oxygen, but vox armalis seem to shrug it off, hence no override for them
+	H.adjustToxLoss(1*REAGENTS_EFFECT_MULTIPLIER)	//same as plasma
+	H.reagents.remove_reagent(id, metabolization_rate)
+
+
 /datum/reagent/nitrogen
 	name = "Nitrogen"
 	id = "nitrogen"

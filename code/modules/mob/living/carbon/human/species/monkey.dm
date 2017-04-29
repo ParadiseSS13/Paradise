@@ -25,7 +25,7 @@
 
 	tail = "chimptail"
 	bodyflags = FEET_PADDED | HAS_TAIL
-	reagent_tag = PROCESS_ORG
+	on_species_life_proc_name = "on_monkey_life"
 	//Has standard darksight of 2.
 
 	//unarmed_types = list(/datum/unarmed_attack/bite, /datum/unarmed_attack/claws)
@@ -93,6 +93,7 @@
 			return 2
 	return 2
 
+
 /datum/species/monkey/tajaran
 	name = "Farwa"
 	name_plural = "Farwa"
@@ -105,7 +106,7 @@
 	flesh_color = "#AFA59E"
 	base_color = "#000000"
 	tail = "farwatail"
-	reagent_tag = PROCESS_ORG
+	on_species_life_proc_name = "on_farwa_life"
 	has_organ = list(
 		"heart" =    /obj/item/organ/internal/heart,
 		"lungs" =    /obj/item/organ/internal/lungs,
@@ -129,7 +130,7 @@
 	flesh_color = "#966464"
 	base_color = "#000000"
 	tail = "wolpintail"
-	reagent_tag = PROCESS_ORG
+	on_species_life_proc_name = "on_wolpin_life"
 	has_organ = list(
 		"heart" =    /obj/item/organ/internal/heart,
 		"lungs" =    /obj/item/organ/internal/lungs,
@@ -152,7 +153,7 @@
 	default_language = "Neara"
 	flesh_color = "#8CD7A3"
 	blood_color = "#1D2CBF"
-	reagent_tag = PROCESS_ORG
+	on_species_life_proc_name = "on_neara_life"
 	tail = null
 
 	bodyflags = FEET_PADDED
@@ -170,6 +171,6 @@
 	default_language = "Stok"
 	flesh_color = "#34AF10"
 	base_color = "#000000"
-	reagent_tag = PROCESS_ORG
+	on_species_life_proc_name = "on_stok_life"
 
 	bodyflags = FEET_CLAWS | HAS_TAIL

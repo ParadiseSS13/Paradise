@@ -193,6 +193,26 @@
 		holder.remove_reagent("capsaicin", 2)
 	..()
 
+/datum/reagent/consumable/drink/milk/on_skeleton_life(mob/living/carbon/human/H)
+	if(type in subtypesof(/datum/reagent/consumable/drink/milk))		//prevents stacking subtypes for healing purposes. only pure milk gives strong bones and calcium.
+		on_mob_life(H)
+		return
+	H.heal_overall_damage(4,4)
+	if(prob(5))	// 5% chance per proc to find a random limb, and mend it
+		var/list/our_organs = H.organs.Copy()
+		shuffle(our_organs)
+		for(var/obj/item/organ/external/L in our_organs)
+			if(istype(L))
+				if(L.brute_dam < L.min_broken_damage)
+					L.status &= ~ORGAN_BROKEN
+					L.status &= ~ORGAN_SPLINTED
+					L.perma_injury = 0
+				break	// We're only checking one limb here, bucko
+		if(prob(3))
+			H.say(pick("Thanks Mr Skeltal", "Thank for strong bones", "Doot doot!"))
+	H.reagents.remove_reagent(id, metabolization_rate)
+
+
 /datum/reagent/consumable/drink/milk/soymilk
 	name = "Soy Milk"
 	id = "soymilk"
