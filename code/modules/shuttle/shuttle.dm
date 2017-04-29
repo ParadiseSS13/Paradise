@@ -331,11 +331,6 @@
 	if(mode != SHUTTLE_CALL)
 		return
 
-	if(ripples.len)
-		for(var/i in ripples)
-			qdel(i)
-		ripples.Cut()
-
 	timer = world.time - timeLeft(1)
 	mode = SHUTTLE_RECALL
 
@@ -388,7 +383,14 @@
 /obj/docking_port/mobile/proc/create_ripples(obj/docking_port/stationary/S1)
 	var/list/turfs = ripple_area(S1)
 	for(var/i in turfs)
-		ripples += new /obj/effect/ripple(i)
+		ripples += new /obj/effect/overlay/temp/ripple(i)
+
+/obj/docking_port/mobile/proc/remove_ripples()
+	if(ripples.len)
+		for(var/i in ripples)
+			qdel(i)
+		ripples.Cut()
+
 
 /obj/docking_port/mobile/proc/ripple_area(obj/docking_port/stationary/S1)
 	var/list/L0 = return_ordered_turfs(x, y, z, dir, areaInstance)
@@ -412,12 +414,17 @@
 //it handles all the generic behaviour, such as sanity checks, closing doors on the shuttle, stunning mobs, etc
 /obj/docking_port/mobile/proc/dock(obj/docking_port/stationary/S1, force=FALSE)
 	// Crashing this ship with NO SURVIVORS
+	if(S1.get_docked() == src)
+		remove_ripples()
+		return
+
 	if(!force)
 		if(!check_dock(S1))
 			return -1
 
 		if(canMove())
 			return -1
+
 
 //		//rotate transit docking ports, so we don't need zillions of variants
 //		if(istype(S1, /obj/docking_port/stationary/transit))
