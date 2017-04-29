@@ -347,6 +347,7 @@ About the new airlock wires panel:
 
 
 /obj/machinery/door/airlock/Destroy()
+	QDEL_NULL(electronics)
 	QDEL_NULL(wires)
 	if(main_power_timer)
 		deltimer(main_power_timer)
