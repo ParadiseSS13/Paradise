@@ -62,7 +62,7 @@ var/global/image/fire_overlay = image("icon" = 'icons/goonstation/effects/fire.d
 	var/hit_reaction_chance = 0 //If you want to have something unrelated to blocking/armour piercing etc. Maybe not needed, but trying to think ahead/allow more freedom
 
 	var/toolspeed = 1 // If this item is a tool, the speed multiplier
-	
+
 	/* Species-specific sprites, concept stolen from Paradise//vg/.
 	ex:
 	sprite_sheets = list(
@@ -81,6 +81,7 @@ var/global/image/fire_overlay = image("icon" = 'icons/goonstation/effects/fire.d
 		new path(src)
 
 /obj/item/Destroy()
+	QDEL_NULL(hidden_uplink)
 	if(ismob(loc))
 		var/mob/m = loc
 		m.unEquip(src, 1)
