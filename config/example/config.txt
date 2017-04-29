@@ -328,7 +328,7 @@ DISABLE_SPACE_RUINS
 
 ## Hub address for tracking stats
 ## example: Hubmakerckey.Hubname
-#MEDAL_HUB_ADDRESS 
+#MEDAL_HUB_ADDRESS
 
 ## Password for the hub page
 #MEDAL_HUB_PASSWORD
@@ -341,3 +341,6 @@ DISABLE_SPACE_RUINS
 ## A command to run prior to the world shutting down, only used if the above option is enabled
 ## This default value will kill Dream Daemon on Windows machines
 #SHUTDOWN_SHELL_COMMAND taskkill /f /im dreamdaemon.exe
+
+## Uncomment this to disable karma and unlock all karma purchases for players by default
+#DISABLE_KARMA
