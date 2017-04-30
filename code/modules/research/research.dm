@@ -200,63 +200,63 @@ research holder datum.
 
 //Trunk Technologies (don't require any other techs and you start knowning them).
 
-datum/tech/materials
+/datum/tech/materials
 	name = "Materials Research"
 	desc = "Development of new and improved materials."
 	id = "materials"
 	max_level = 7
 
-datum/tech/engineering
+/datum/tech/engineering
 	name = "Engineering Research"
 	desc = "Development of new and improved engineering parts and methods."
 	id = "engineering"
-	max_level = 6
+	max_level = 7
 
-datum/tech/plasmatech
+/datum/tech/plasmatech
 	name = "Plasma Research"
 	desc = "Research into the mysterious substance colloqually known as 'plasma'."
 	id = "plasmatech"
-	max_level = 4
+	max_level = 7
 	rare = 3
 
-datum/tech/powerstorage
+/datum/tech/powerstorage
 	name = "Power Manipulation Technology"
 	desc = "The various technologies behind the storage and generation of electicity."
 	id = "powerstorage"
-	max_level = 6
+	max_level = 7
 
-datum/tech/bluespace
+/datum/tech/bluespace
 	name = "'Blue-space' Research"
 	desc = "Research into the sub-reality known as 'blue-space'."
 	id = "bluespace"
-	max_level = 6
+	max_level = 7
 	rare = 2
 
-datum/tech/biotech
+/datum/tech/biotech
 	name = "Biological Technology"
 	desc = "Research into the deeper mysteries of life and organic substances."
 	id = "biotech"
-	max_level = 5
+	max_level = 7
 
-datum/tech/combat
+/datum/tech/combat
 	name = "Combat Systems Research"
 	desc = "The development of offensive and defensive systems."
 	id = "combat"
-	max_level=6
+	max_level = 7
 
-datum/tech/magnets
+/datum/tech/magnets
 	name = "Electromagnetic Spectrum Research"
 	desc = "Research into the electromagnetic spectrum. No clue how they actually work, though."
 	id = "magnets"
-	max_level = 6
+	max_level = 7
 
-datum/tech/programming
+/datum/tech/programming
 	name = "Data Theory Research"
 	desc = "The development of new computer and artificial intelligence and data storage systems."
 	id = "programming"
-	max_level = 5
+	max_level = 7
 
-datum/tech/syndicate
+/datum/tech/syndicate
 	name = "Illegal Technologies Research"
 	desc = "The study of technologies that violate standard Nanotrasen regulations."
 	id = "syndicate"
