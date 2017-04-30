@@ -4,8 +4,8 @@
 		eyes.update_colour()
 		update_body()
 
-/mob/living/carbon/human/var/list/organs = list()
-/mob/living/carbon/human/var/list/organs_by_name = list() // map organ names to organs
+/mob/living/carbon/human/var/list/bodyparts = list()
+/mob/living/carbon/human/var/list/bodyparts_by_name = list() // map organ names to organs
 
 // Takes care of organ related updates, such as broken and missing limbs
 /mob/living/carbon/human/proc/handle_organs()
@@ -18,7 +18,7 @@
 	last_dam = damage_this_tick
 	if(force_process)
 		bad_external_organs.Cut()
-		for(var/obj/item/organ/external/Ex in organs)
+		for(var/obj/item/organ/external/Ex in bodyparts)
 			bad_external_organs |= Ex
 
 	//processing internal organs is pretty cheap, do that first.
@@ -69,7 +69,7 @@
 		return
 
 	for(var/limb_tag in list("l_leg","r_leg","l_foot","r_foot"))
-		var/obj/item/organ/external/E = organs_by_name[limb_tag]
+		var/obj/item/organ/external/E = bodyparts_by_name[limb_tag]
 		if(!E || (E.status & (ORGAN_DESTROYED|ORGAN_DEAD)) || E.is_malfunctioning())
 			stance_damage += 2 // let it fail even if just foot&leg. Also malfunctioning happens sporadically so it should impact more when it procs
 		else if(E.is_broken() || !E.is_usable())
@@ -100,7 +100,7 @@
 	if(!l_hand && !r_hand)
 		return
 
-	for(var/obj/item/organ/external/E in organs)
+	for(var/obj/item/organ/external/E in bodyparts)
 		if(!E || !E.can_grasp || (E.status & ORGAN_SPLINTED))
 			continue
 
@@ -175,7 +175,7 @@
 /mob/living/carbon/human/proc/handle_trace_chems()
 	//New are added for reagents to random organs.
 	for(var/datum/reagent/A in reagents.reagent_list)
-		var/obj/item/organ/internal/O = pick(organs)
+		var/obj/item/organ/internal/O = pick(bodyparts)
 		O.trace_chemicals[A.name] = 100
 
 /*
@@ -186,7 +186,7 @@ old_ue: Set this to a UE string, and this proc will overwrite the dna of organs 
 */
 /mob/living/carbon/human/proc/sync_organ_dna(var/assimilate = 1, var/old_ue = null)
 	var/ue_to_compare = (old_ue) ? old_ue : dna.unique_enzymes
-	var/list/all_bits = internal_organs|organs
+	var/list/all_bits = internal_organs|bodyparts
 	for(var/obj/item/organ/O in all_bits)
 		if(assimilate || O.dna.unique_enzymes == ue_to_compare)
 			O.set_dna(dna)
@@ -204,9 +204,8 @@ I use this to standardize shadowling dethrall code
 
 /mob/living/carbon/human/has_organic_damage()
 	var/odmg = 0
-	for(var/obj/item/organ/external/O in organs)
+	for(var/obj/item/organ/external/O in bodyparts)
 		if(O.status & ORGAN_ROBOT)
 			odmg += O.brute_dam
 			odmg += O.burn_dam
 	return (health < (100 - odmg))
-

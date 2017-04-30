@@ -2104,15 +2104,10 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 	for(var/name in organ_data)
 
 		var/status = organ_data[name]
-		var/obj/item/organ/external/O = character.organs_by_name[name]
+		var/obj/item/organ/external/O = character.bodyparts_by_name[name]
 		if(O)
 			if(status == "amputated")
-				character.organs_by_name[O.limb_name] = null
-				character.organs -= O
-				if(O.children) // This might need to become recursive.
-					for(var/obj/item/organ/external/child in O.children)
-						character.organs_by_name[child.limb_name] = null
-						character.organs -= child
+				qdel(O.remove(character))
 
 			else if(status == "cyborg")
 				if(rlimb_data[name])

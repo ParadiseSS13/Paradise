@@ -263,11 +263,11 @@
 /obj/effect/proc_holder/spell/targeted/eat/proc/doHeal(var/mob/user)
 	if(ishuman(user))
 		var/mob/living/carbon/human/H = user
-		for(var/name in H.organs_by_name)
+		for(var/name in H.bodyparts_by_name)
 			var/obj/item/organ/external/affecting = null
-			if(!H.organs[name])
+			if(!H.bodyparts_by_name[name])
 				continue
-			affecting = H.organs[name]
+			affecting = H.bodyparts_by_name[name]
 			if(!istype(affecting, /obj/item/organ/external))
 				continue
 			affecting.heal_damage(4, 0)
