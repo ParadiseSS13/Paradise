@@ -8,7 +8,8 @@
 	idle_power_usage = 4
 	active_power_usage = 250
 	var/obj/item/charging = null
-	var/list/allowed_devices = list(/obj/item/weapon/gun/energy, /obj/item/weapon/melee/baton, /obj/item/device/modular_computer, /obj/item/weapon/rcs)
+	var/list/allowed_devices = list(/obj/item/weapon/gun/energy, /obj/item/weapon/melee/baton, /obj/item/device/modular_computer, /obj/item/weapon/rcs, /obj/item/ammo_box/magazine/energy)
+
 	var/icon_state_off = "rechargeroff"
 	var/icon_state_charged = "recharger2"
 	var/icon_state_charging = "recharger1"
@@ -43,6 +44,13 @@
 				if(!E.can_charge)
 					to_chat(user, "<span class='notice'>Your gun has no external power connector.</span>")
 					return 1
+
+			if(istype(G, /obj/item/ammo_box/magazine/energy))
+				var/obj/item/ammo_box/magazine/energy/S = G
+				if(!S.charge)
+					to_chat(user, "This is non-recharable!")
+					return
+
 
 			if(!user.drop_item())
 				return 1
@@ -116,6 +124,18 @@
 					use_power(200)
 					using_power = 1
 
+		if(istype(charging, /obj/item/ammo_box/magazine/energy))
+			var/obj/item/ammo_box/magazine/energy/S = charging
+			if(S.stored_ammo.len < S.max_ammo)
+				S.stored_ammo += new S.ammo_type(src)
+				icon_state = icon_state_charging
+				use_power(S.charge)
+			else
+				icon_state = icon_state_charged
+			return
+
+	update_icon(using_power)
+
 	update_icon(using_power)
 
 /obj/machinery/recharger/emp_act(severity)
@@ -132,6 +152,15 @@
 		var/obj/item/weapon/melee/baton/B = charging
 		if(B.bcell)
 			B.bcell.charge = 0
+
+	else if(istype(charging, /obj/item/ammo_box/magazine/energy))
+		var/obj/item/ammo_box/magazine/energy/S = charging
+		var/lost = (round(S.stored_ammo.len / severity))
+		for(var/i = 1 to lost)
+			var/b = S.stored_ammo[S.stored_ammo.len]
+			S.stored_ammo -= b
+		S.update_icon()
+
 	..(severity)
 
 /obj/machinery/recharger/update_icon(using_power = 0)	//we have an update_icon() in addition to the stuff in process to make it feel a tiny bit snappier.
@@ -154,3 +183,5 @@ obj/machinery/recharger/wallcharger
 	icon_state_idle = "wrecharger0"
 	icon_state_charging = "wrecharger1"
 	icon_state_charged = "wrecharger2"
+
+
