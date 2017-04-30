@@ -456,7 +456,7 @@
 	name = "Machine Board (Programmable Unloader)"
 	desc = "The circuit board for a Programmable Unloader."
 	id = "selunload"
-	req_tech = "engineering=1;programming=2"
+	req_tech = list("engineering" = 1, "programming" = 2)
 	build_type = IMPRINTER
 	materials = list(MAT_GLASS = 2000, "sacid" = 20)
 	build_path = /obj/item/weapon/circuitboard/programmable
