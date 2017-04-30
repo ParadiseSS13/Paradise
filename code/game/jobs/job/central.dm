@@ -34,7 +34,7 @@
 		/obj/item/weapon/implanter/death_alarm = 1
 	)
 
-	implants = list(/obj/item/weapon/implant/loyalty)
+	implants = list(/obj/item/weapon/implant/mindshield)
 
 	backpack = /obj/item/weapon/storage/backpack/satchel
 
@@ -77,6 +77,6 @@
 		/obj/item/weapon/implanter/death_alarm = 1
 	)
 
-	implants = list(/obj/item/weapon/implant/loyalty)
+	implants = list(/obj/item/weapon/implant/mindshield)
 
 	backpack = /obj/item/weapon/storage/backpack/satchel

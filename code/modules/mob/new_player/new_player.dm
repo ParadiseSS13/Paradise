@@ -42,7 +42,7 @@
 	if(!IsGuestKey(src.key))
 		establish_db_connection()
 
-		if(dbcon.IsConnected())
+		if(dbcon.IsConnected() && client.can_vote())
 			var/isadmin = 0
 			if(src.client && src.client.holder)
 				isadmin = 1
@@ -54,9 +54,9 @@
 				break
 
 			if(newpoll)
-				output += "<p><b><a href='byond://?src=[UID()];showpoll=1'>Show Player Polls</A> (NEW!)</b></p>"
+				output += "<p><b><a href='byond://?showpoll=1'>Show Player Polls</A> (NEW!)</b></p>"
 			else
-				output += "<p><a href='byond://?src=[UID()];showpoll=1'>Show Player Polls</A></p>"
+				output += "<p><a href='byond://?showpoll=1'>Show Player Polls</A></p>"
 
 	output += "</center>"
 
@@ -131,7 +131,7 @@
 			observer.started_as_observer = 1
 			close_spawn_windows()
 			var/obj/O = locate("landmark*Observer-Start")
-			to_chat(src, "\blue Now teleporting.")
+			to_chat(src, "<span class='notice'>Now teleporting.</span>")
 			observer.loc = O.loc
 			observer.timeofdeath = world.time // Set the time of death so that the respawn timer works correctly.
 			client.prefs.update_preview_icon(1)
@@ -151,7 +151,7 @@
 
 	if(href_list["late_join"])
 		if(!ticker || ticker.current_state != GAME_STATE_PLAYING)
-			to_chat(usr, "\red The round is either not ready, or has already finished...")
+			to_chat(usr, "<span class='warning'>The round is either not ready, or has already finished...</span>")
 			return
 
 		if(client.prefs.species in whitelisted_species)
@@ -168,7 +168,7 @@
 	if(href_list["SelectedJob"])
 
 		if(!enter_allowed)
-			to_chat(usr, "\blue There is an administrative lock on entering the game!")
+			to_chat(usr, "<span class='notice'>There is an administrative lock on entering the game!</span>")
 			return
 
 		if(client.prefs.randomslot)
@@ -187,61 +187,6 @@
 			client.prefs.process_link(src, href_list)
 	else if(!href_list["late_join"])
 		new_player_panel()
-
-	if(href_list["showpoll"])
-
-		handle_player_polling()
-		return
-
-	if(href_list["pollid"])
-
-		var/pollid = href_list["pollid"]
-		if(istext(pollid))
-			pollid = text2num(pollid)
-		if(isnum(pollid))
-			src.poll_player(pollid)
-		return
-
-	if(href_list["votepollid"] && href_list["votetype"])
-		var/pollid = text2num(href_list["votepollid"])
-		var/votetype = href_list["votetype"]
-		switch(votetype)
-			if("OPTION")
-				var/optionid = text2num(href_list["voteoptionid"])
-				vote_on_poll(pollid, optionid)
-			if("TEXT")
-				var/replytext = href_list["replytext"]
-				log_text_poll_reply(pollid, replytext)
-			if("NUMVAL")
-				var/id_min = text2num(href_list["minid"])
-				var/id_max = text2num(href_list["maxid"])
-
-				if( (id_max - id_min) > 100 )	//Basic exploit prevention
-					to_chat(usr, "The option ID difference is too big. Please contact administration or the database admin.")
-					return
-
-				for(var/optionid = id_min; optionid <= id_max; optionid++)
-					if(!isnull(href_list["o[optionid]"]))	//Test if this optionid was replied to
-						var/rating
-						if(href_list["o[optionid]"] == "abstain")
-							rating = null
-						else
-							rating = text2num(href_list["o[optionid]"])
-							if(!isnum(rating))
-								return
-
-						vote_on_numval_poll(pollid, optionid, rating)
-			if("MULTICHOICE")
-				var/id_min = text2num(href_list["minoptionid"])
-				var/id_max = text2num(href_list["maxoptionid"])
-
-				if( (id_max - id_min) > 100 )	//Basic exploit prevention
-					to_chat(usr, "The option ID difference is too big. Please contact administration or the database admin.")
-					return
-
-				for(var/optionid = id_min; optionid <= id_max; optionid++)
-					if(!isnull(href_list["option_[optionid]"]))	//Test if this optionid was selected
-						vote_on_poll(pollid, optionid, 1)
 
 /mob/new_player/proc/IsJobAvailable(rank)
 	var/datum/job/job = job_master.GetJob(rank)
@@ -285,10 +230,10 @@
 	if(src != usr)
 		return 0
 	if(!ticker || ticker.current_state != GAME_STATE_PLAYING)
-		to_chat(usr, "\red The round is either not ready, or has already finished...")
+		to_chat(usr, "<span class='warning'>The round is either not ready, or has already finished...</span>")
 		return 0
 	if(!enter_allowed)
-		to_chat(usr, "\blue There is an administrative lock on entering the game!")
+		to_chat(usr, "<span class='notice'>There is an administrative lock on entering the game!</span>")
 		return 0
 	if(!IsJobAvailable(rank))
 		to_chat(src, alert("[rank] is not available. Please try another."))

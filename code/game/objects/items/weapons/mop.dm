@@ -18,6 +18,7 @@
 	var/mopspeed = 30
 
 /obj/item/weapon/mop/New()
+	..()
 	create_reagents(mopcap)
 	janitorial_equipment += src
 

@@ -13,7 +13,7 @@
 	materials = list(MAT_METAL=750)
 	origin_tech = "powerstorage=3;syndicate=5"
 	var/drain_rate = 1600000		// amount of power to drain per tick
-	var/apc_drain_rate = 5000 		// Max. amount drained from single APC. In Watts.
+	var/apc_drain_rate = 50 		// Max. amount drained from single APC. In Watts.
 	var/dissipation_rate = 20000	// Passive dissipation of drained power. In Watts.
 	var/power_drained = 0 			// Amount of power drained.
 	var/max_power = 1e10			// Detonation point.
@@ -27,6 +27,8 @@
 /obj/item/device/powersink/Destroy()
 	processing_objects.Remove(src)
 	processing_power_items.Remove(src)
+	PN = null
+	attached = null
 	return ..()
 
 /obj/item/device/powersink/attackby(var/obj/item/I, var/mob/user)
@@ -110,10 +112,10 @@
 			if(istype(T.master, /obj/machinery/power/apc))
 				var/obj/machinery/power/apc/A = T.master
 				if(A.operating && A.cell)
-					var/cur_charge = A.cell.charge / CELLRATE
-					var/drain_val = min(apc_drain_rate, cur_charge)
-					A.cell.use(drain_val * CELLRATE)
-					drained += drain_val
+					A.cell.charge = max(0, A.cell.charge - apc_drain_rate)
+					drained += apc_drain_rate
+					if(A.charging == 2) // If the cell was full
+						A.charging = 1 // It's no longer full
 	power_drained += drained
 	return 1
 

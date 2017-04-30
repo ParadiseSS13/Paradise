@@ -41,8 +41,7 @@
 	..()
 
 /obj/machinery/syndicatebomb/Destroy()
-	qdel(wires)
-	wires = null
+	QDEL_NULL(wires)
 	return ..()
 
 /obj/machinery/syndicatebomb/examine(mob/user)
@@ -102,7 +101,7 @@
 			to_chat(user, "<span class='notice'>[payload] is already loaded into [src], you'll have to remove it first.</span>")
 	else
 		..()
-		
+
 /obj/machinery/syndicatebomb/attack_ghost(mob/user)
 	interact(user)
 
@@ -122,7 +121,7 @@
 				return
 		else if(anchored)
 			to_chat(user, "<span class='notice'>The bomb is bolted to the floor!</span>")
-			
+
 /obj/machinery/syndicatebomb/proc/can_interact(mob/user)
 	if(user.can_advanced_admin_interact())
 		return TRUE

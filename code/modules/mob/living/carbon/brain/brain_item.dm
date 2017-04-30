@@ -123,7 +123,5 @@
 	icon_state = "scroll"
 
 /obj/item/organ/internal/brain/Destroy() //copypasted from MMIs.
-	if(brainmob)
-		qdel(brainmob)
-		brainmob = null
+	QDEL_NULL(brainmob)
 	return ..()

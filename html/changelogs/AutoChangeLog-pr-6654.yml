@@ -1,0 +1,8 @@
+author: "scrubmcnoob"
+delete-after: True
+changes: 
+  - tweak: "Combat Shotguns now more expensive in cargo."
+  - tweak: "Shotgun ammo_boxes are now named and sprited as speedloaders that can speedload into a shotgun. Normal shotgun ammo boxes are just storage items for shells."
+  - rscadd: "Adds in shotgun ammos readily available to be ordered from cargo in bulk and allows the ordering of Riot shotguns."
+  - rscadd: "Adds in a Dragonsbreathe shotgun ammo box."
+  - bugfix: "Tranq darts now have a sprite."

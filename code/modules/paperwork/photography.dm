@@ -30,6 +30,7 @@
 	w_class = 2
 	burn_state = FLAMMABLE
 	burntime = 5
+	var/blueprints = 0 // Does this have the blueprints?
 	var/icon/img	//Big photo image
 	var/scribble	//Scribble on the back.
 	var/icon/tiny
@@ -70,7 +71,7 @@
 				qdel(src)
 
 			else
-				to_chat(user, "\red You must hold \the [P] steady to burn \the [src].")
+				to_chat(user, "<span class='warning'>You must hold \the [P] steady to burn \the [src].</span>")
 
 /obj/item/weapon/photo/examine(mob/user)
 	if(..(user, 1) || isobserver(user))
@@ -151,6 +152,7 @@
 	var/pictures_max = 10
 	var/pictures_left = 10
 	var/on = 1
+	var/blueprints = 0
 	var/icon_on = "camera"
 	var/icon_off = "camera_off"
 	var/size = 3
@@ -253,6 +255,8 @@ var/list/SpookyGhosts = list("ghost","shade","shade2","ghost-narsie","horror","s
 		var/atom/A = sorted[i]
 		if(A)
 			var/icon/img = getFlatIcon(A)//build_composite_icon(A)
+			if(istype(A, /obj/item/areaeditor/blueprints))
+				blueprints = 1
 
 			// If what we got back is actually a picture, draw it.
 			if(istype(img, /icon))
@@ -351,7 +355,7 @@ var/list/SpookyGhosts = list("ghost","shade","shade2","ghost-narsie","horror","s
 		y_c--
 		x_c = x_c - size
 
-	var/datum/picture/P = createpicture(target, user, turfs, mobs, flag)
+	var/datum/picture/P = createpicture(target, user, turfs, mobs, flag, blueprints)
 	printpicture(user, P)
 
 /obj/item/device/camera/proc/createpicture(atom/target, mob/user, list/turfs, mobs, flag)
@@ -388,6 +392,10 @@ var/list/SpookyGhosts = list("ghost","shade","shade2","ghost-narsie","horror","s
 	Photo.loc = user.loc
 	if(!user.get_inactive_hand())
 		user.put_in_inactive_hand(Photo)
+
+	if(blueprints)
+		Photo.blueprints = 1
+		blueprints = 0
 	Photo.construct(P)
 
 /obj/item/weapon/photo/proc/construct(var/datum/picture/P)
@@ -409,6 +417,7 @@ var/list/SpookyGhosts = list("ghost","shade","shade2","ghost-narsie","horror","s
 	p.name = name
 	p.desc = desc
 	p.scribble = scribble
+	p.blueprints = blueprints
 
 	return p
 

@@ -667,11 +667,11 @@
 			return
 
 		if(locked)
-			to_chat(user, "\red The suit cycler is locked.")
+			to_chat(user, "<span class='warning'>The suit cycler is locked.</span>")
 			return
 
 		if(src.contents.len > 0)
-			to_chat(user, "\red There is no room inside the cycler for [G.affecting.name].")
+			to_chat(user, "<span class='warning'>There is no room inside the cycler for [G.affecting.name].</span>")
 			return
 
 		visible_message("[user] starts putting [G.affecting.name] into the suit cycler.")
@@ -698,7 +698,7 @@
 	else if(istype(I,/obj/item/clothing/head/helmet/space))
 
 		if(locked)
-			to_chat(user, "\red The suit cycler is locked.")
+			to_chat(user, "<span class='warning'>The suit cycler is locked.</span>")
 			return
 
 		if(helmet)
@@ -717,7 +717,7 @@
 	else if(istype(I,/obj/item/clothing/suit/space/hardsuit))
 
 		if(locked)
-			to_chat(user, "\red The suit cycler is locked.")
+			to_chat(user, "<span class='warning'>The suit cycler is locked.</span>")
 			return
 
 		if(suit)
@@ -747,11 +747,11 @@
 
 /obj/machinery/suit_cycler/emag_act(user as mob)
 	if(emagged)
-		to_chat(user, "\red The cycler has already been subverted.")
+		to_chat(user, "<span class='warning'>The cycler has already been subverted.</span>")
 		return
 
 	//Clear the access reqs, disable the safeties, and open up all paintjobs.
-	to_chat(user, "\red You run the sequencer across the interface, corrupting the operating protocols.")
+	to_chat(user, "<span class='warning'>You run the sequencer across the interface, corrupting the operating protocols.</span>")
 	departments = list("Engineering","Mining","Medical","Security","Atmos","^%###^%$")
 	emagged = 1
 	safeties = 0
@@ -875,12 +875,12 @@
 			locked = !locked
 			to_chat(usr, "You [locked ? "" : "un"]lock \the [src].")
 		else
-			to_chat(usr, "\red Access denied.")
+			to_chat(usr, "<span class='warning'>Access denied.</span>")
 
 	else if(href_list["begin_decontamination"])
 
 		if(safeties && occupant)
-			to_chat(usr, "\red The cycler has detected an occupant. Please remove the occupant before commencing the decontamination cycle.")
+			to_chat(usr, "<span class='warning'>The cycler has detected an occupant. Please remove the occupant before commencing the decontamination cycle.</span>")
 			return
 
 		active = 1
@@ -979,7 +979,7 @@
 /obj/machinery/suit_cycler/proc/eject_occupant(mob/user as mob)
 
 	if(locked || active)
-		to_chat(user, "\red The cycler is locked.")
+		to_chat(user, "<span class='warning'>The cycler is locked.</span>")
 		return
 
 	if(!occupant)

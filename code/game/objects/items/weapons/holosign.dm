@@ -13,6 +13,12 @@
 	var/list/signs = list()
 	var/max_signs = 20
 
+/obj/item/weapon/holosign_creator/Destroy()
+	for(var/sign in signs)
+		qdel(sign)
+	signs.Cut()
+	return ..()
+
 /obj/item/weapon/holosign_creator/afterattack(atom/target, mob/user, flag)
 	if(flag)
 		var/turf/T = get_turf(target)

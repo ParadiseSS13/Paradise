@@ -863,48 +863,48 @@
 	feedback_inc("mecha_honker_created",1)
 	return
 
-/datum/construction/mecha/recitence_chassis
-	steps = list(list("key"=/obj/item/mecha_parts/part/recitence_torso),//1
-					 list("key"=/obj/item/mecha_parts/part/recitence_left_arm),//2
-					 list("key"=/obj/item/mecha_parts/part/recitence_right_arm),//3
-					 list("key"=/obj/item/mecha_parts/part/recitence_left_leg),//4
-					 list("key"=/obj/item/mecha_parts/part/recitence_right_leg),//5
-					 list("key"=/obj/item/mecha_parts/part/recitence_head)
+/datum/construction/mecha/reticence_chassis
+	steps = list(list("key"=/obj/item/mecha_parts/part/reticence_torso),//1
+					 list("key"=/obj/item/mecha_parts/part/reticence_left_arm),//2
+					 list("key"=/obj/item/mecha_parts/part/reticence_right_arm),//3
+					 list("key"=/obj/item/mecha_parts/part/reticence_left_leg),//4
+					 list("key"=/obj/item/mecha_parts/part/reticence_right_leg),//5
+					 list("key"=/obj/item/mecha_parts/part/reticence_head)
 					)
 
-/datum/construction/mecha/recitence_chassis/action(atom/used_atom,mob/user as mob)
+/datum/construction/mecha/reticence_chassis/action(atom/used_atom,mob/user as mob)
 	return check_all_steps(used_atom,user)
 
-/datum/construction/mecha/recitence_chassis/custom_action(step, atom/used_atom, mob/user)
+/datum/construction/mecha/reticence_chassis/custom_action(step, atom/used_atom, mob/user)
 	user.visible_message("[user] has connected [used_atom] to the [holder].", "You connect [used_atom] to the [holder]")
 	holder.overlays += used_atom.icon_state + "+o"
 	qdel(used_atom)
 	return 1
 
-/datum/construction/mecha/recitence_chassis/spawn_result()
+/datum/construction/mecha/reticence_chassis/spawn_result()
 	var/obj/item/mecha_parts/chassis/const_holder = holder
-	const_holder.construct = new /datum/construction/mecha/recitence(const_holder)
+	const_holder.construct = new /datum/construction/mecha/reticence(const_holder)
 	const_holder.density = 1
 	qdel(src)
 	return
 
-/datum/construction/mecha/recitence
-	result = "/obj/mecha/combat/recitence"
+/datum/construction/mecha/reticence
+	result = "/obj/mecha/combat/reticence"
 	steps = list(list("key"=/obj/effect/dummy/mecha_emote_step),//1
 					 list("key"=/obj/item/clothing/suit/suspenders),//2
 					 list("key"=/obj/effect/dummy/mecha_emote_step),//3
 					 list("key"=/obj/item/clothing/mask/gas/mime),//4
 					 list("key"=/obj/effect/dummy/mecha_emote_step),//5
 					 list("key"=/obj/item/clothing/head/beret),//6
-					 list("key"=/obj/item/weapon/circuitboard/mecha/recitence/targeting),//7
-					 list("key"=/obj/item/weapon/circuitboard/mecha/recitence/peripherals),//8
-					 list("key"=/obj/item/weapon/circuitboard/mecha/recitence/main),//9
+					 list("key"=/obj/item/weapon/circuitboard/mecha/reticence/targeting),//7
+					 list("key"=/obj/item/weapon/circuitboard/mecha/reticence/peripherals),//8
+					 list("key"=/obj/item/weapon/circuitboard/mecha/reticence/main),//9
 					 )
 
-/datum/construction/mecha/recitence/action(atom/used_atom,mob/user)
+/datum/construction/mecha/reticence/action(atom/used_atom,mob/user)
 	return check_step(used_atom,user)
 
-/datum/construction/mecha/recitence/custom_action(step, atom/used_atom, mob/user)
+/datum/construction/mecha/reticence/custom_action(step, atom/used_atom, mob/user)
 	if(!..())
 		return 0
 
@@ -935,9 +935,9 @@
 			qdel(used_atom)
 	return 1
 
-/datum/construction/mecha/recitence/spawn_result()
+/datum/construction/mecha/reticence/spawn_result()
 	..()
-	feedback_inc("mecha_recitence_created",1)
+	feedback_inc("mecha_reticence_created",1)
 	return
 
 /datum/construction/mecha/durand_chassis

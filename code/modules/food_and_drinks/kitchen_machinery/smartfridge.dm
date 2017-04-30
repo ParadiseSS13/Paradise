@@ -50,8 +50,7 @@
 		wires = new/datum/wires/smartfridge(src)
 
 /obj/machinery/smartfridge/Destroy()
-	qdel(wires)
-	wires = null
+	QDEL_NULL(wires)
 	for(var/atom/movable/A in contents)
 		A.forceMove(loc)
 	return ..()

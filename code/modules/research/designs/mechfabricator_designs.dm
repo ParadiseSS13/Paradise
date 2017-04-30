@@ -459,69 +459,69 @@
 	construction_time = 200
 	category = list("H.O.N.K")
 
-//Recitence
-/datum/design/recitence_chassis
-	name = "Exosuit Chassis (\"Recitence\")"
-	id = "recitence_chassis"
+//Reticence
+/datum/design/reticence_chassis
+	name = "Exosuit Chassis (\"Reticence\")"
+	id = "reticence_chassis"
 	build_type = MECHFAB
-	build_path = /obj/item/mecha_parts/chassis/recitence
+	build_path = /obj/item/mecha_parts/chassis/reticence
 	materials = list(MAT_METAL=20000)
 	construction_time = 100
-	category = list("Recitence")
+	category = list("Reticence")
 
-/datum/design/recitence_torso
-	name = "Exosuit Torso (\"Recitence\")"
-	id = "recitence_torso"
+/datum/design/reticence_torso
+	name = "Exosuit Torso (\"Reticence\")"
+	id = "reticence_torso"
 	build_type = MECHFAB
-	build_path = /obj/item/mecha_parts/part/recitence_torso
+	build_path = /obj/item/mecha_parts/part/reticence_torso
 	materials = list(MAT_METAL=20000,MAT_GLASS=10000,MAT_TRANQUILLITE=10000)
 	construction_time = 300
-	category = list("Recitence")
+	category = list("Reticence")
 
-/datum/design/recitence_head
-	name = "Exosuit Head (\"Recitence\")"
-	id = "recitence_head"
+/datum/design/reticence_head
+	name = "Exosuit Head (\"Reticence\")"
+	id = "reticence_head"
 	build_type = MECHFAB
-	build_path = /obj/item/mecha_parts/part/recitence_head
+	build_path = /obj/item/mecha_parts/part/reticence_head
 	materials = list(MAT_METAL=10000,MAT_GLASS=5000,MAT_TRANQUILLITE=5000)
 	construction_time = 200
-	category = list("Recitence")
+	category = list("Reticence")
 
-/datum/design/recitence_left_arm
-	name = "Exosuit Left Arm (\"Recitence\")"
-	id = "recitence_left_arm"
+/datum/design/reticence_left_arm
+	name = "Exosuit Left Arm (\"Reticence\")"
+	id = "reticence_left_arm"
 	build_type = MECHFAB
-	build_path = /obj/item/mecha_parts/part/recitence_left_arm
+	build_path = /obj/item/mecha_parts/part/reticence_left_arm
 	materials = list(MAT_METAL=15000,MAT_TRANQUILLITE=5000)
 	construction_time = 200
-	category = list("Recitence")
+	category = list("Reticence")
 
-/datum/design/recitence_right_arm
-	name = "Exosuit Right Arm (\"Recitence\")"
-	id = "recitence_right_arm"
+/datum/design/reticence_right_arm
+	name = "Exosuit Right Arm (\"Reticence\")"
+	id = "reticence_right_arm"
 	build_type = MECHFAB
-	build_path = /obj/item/mecha_parts/part/recitence_right_arm
+	build_path = /obj/item/mecha_parts/part/reticence_right_arm
 	materials = list(MAT_METAL=15000,MAT_TRANQUILLITE=5000)
 	construction_time = 200
-	category = list("Recitence")
+	category = list("Reticence")
 
-/datum/design/recitence_left_leg
-	name = "Exosuit Left Leg (\"Recitence\")"
-	id = "recitence_left_leg"
+/datum/design/reticence_left_leg
+	name = "Exosuit Left Leg (\"Reticence\")"
+	id = "reticence_left_leg"
 	build_type = MECHFAB
-	build_path =/obj/item/mecha_parts/part/recitence_left_leg
+	build_path =/obj/item/mecha_parts/part/reticence_left_leg
 	materials = list(MAT_METAL=20000,MAT_TRANQUILLITE=5000)
 	construction_time = 200
-	category = list("Recitence")
+	category = list("Reticence")
 
-/datum/design/recitence_right_leg
-	name = "Exosuit Right Leg (\"Recitence\")"
-	id = "recitence_right_leg"
+/datum/design/reticence_right_leg
+	name = "Exosuit Right Leg (\"Reticence\")"
+	id = "reticence_right_leg"
 	build_type = MECHFAB
-	build_path = /obj/item/mecha_parts/part/recitence_right_leg
+	build_path = /obj/item/mecha_parts/part/reticence_right_leg
 	materials = list(MAT_METAL=20000,MAT_TRANQUILLITE=5000)
 	construction_time = 200
-	category = list("Recitence")
+	category = list("Reticence")
 
 //Phazon
 /datum/design/phazon_chassis

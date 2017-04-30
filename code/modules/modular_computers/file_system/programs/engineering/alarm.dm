@@ -16,11 +16,10 @@
 		AH.register(src, /datum/computer_file/program/alarm_monitor/proc/update_icon)
 
 /datum/computer_file/program/alarm_monitor/Destroy()
-	..()
 	for(var/datum/alarm_handler/AH in alarm_handlers)
 		AH.unregister(src)
-	qdel(alarm_handlers)
-	alarm_handlers = null
+	QDEL_NULL(alarm_handlers)
+	return ..()
 
 /datum/computer_file/program/alarm_monitor/proc/update_icon()
 	for(var/datum/alarm_handler/AH in alarm_handlers)

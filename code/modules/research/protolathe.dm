@@ -62,8 +62,7 @@ Note: Must be placed west/left of and R&D console to function.
 	reagents.my_atom = src
 
 /obj/machinery/r_n_d/protolathe/Destroy()
-	qdel(materials)
-	materials = null
+	QDEL_NULL(materials)
 	return ..()
 
 /obj/machinery/r_n_d/protolathe/RefreshParts()

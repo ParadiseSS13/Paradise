@@ -6,6 +6,11 @@
 	anchored = 1
 	density = 0
 	var/health = 15
+	var/master_commander = null
+
+/obj/structure/spider/Destroy()
+	master_commander = null
+	return ..()
 
 //similar to weeds, but only barfed out by nurses manually
 /obj/structure/spider/ex_act(severity)
@@ -78,7 +83,6 @@
 	var/amount_grown = 0
 	var/player_spiders = 0
 	var/faction = list()
-	var/master_commander = null
 
 /obj/structure/spider/eggcluster/New()
 	pixel_x = rand(3,-3)
@@ -110,13 +114,16 @@
 	var/travelling_in_vent = 0
 	var/player_spiders = 0
 	var/faction = list()
-	var/master_commander = null
 	var/selecting_player = 0
 
 /obj/structure/spider/spiderling/New()
 	pixel_x = rand(6,-6)
 	pixel_y = rand(6,-6)
 	processing_objects.Add(src)
+
+/obj/structure/spider/spiderling/Destroy()
+	entry_vent = null
+	return ..()
 
 /obj/structure/spider/spiderling/Bump(atom/user)
 	if(istype(user, /obj/structure/table))

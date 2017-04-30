@@ -572,7 +572,7 @@
 //Lisa already has a cute bow!
 /mob/living/simple_animal/pet/corgi/Lisa/Topic(href, href_list)
 	if(href_list["remove_inv"] || href_list["add_inv"])
-		to_chat(usr, "\red [src] already has a cute bow!")
+		to_chat(usr, "<span class='warning'>[src] already has a cute bow!</span>")
 		return
 	..()
 
@@ -628,7 +628,7 @@
 /mob/living/simple_animal/pet/corgi/Ian/borgi/proc/explode()
 	for(var/mob/M in viewers(src, null))
 		if(M.client)
-			M.show_message("\red [src] makes an odd whining noise.")
+			M.show_message("<span class='warning'>[src] makes an odd whining noise.</span>")
 	sleep(10)
 	explosion(get_turf(src), 0, 1, 4, 7)
 	death()

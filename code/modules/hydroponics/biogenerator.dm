@@ -31,9 +31,8 @@
 	RefreshParts()
 
 /obj/machinery/biogenerator/Destroy()
-	if(beaker)
-		qdel(beaker)
-		beaker = null
+	QDEL_NULL(beaker)
+	QDEL_NULL(files)
 	return ..()
 
 /obj/machinery/biogenerator/ex_act(severity)
@@ -208,7 +207,7 @@
 
 /obj/machinery/biogenerator/attack_hand(mob/user)
 	interact(user)
-	
+
 /obj/machinery/biogenerator/attack_ghost(mob/user)
 	interact(user)
 

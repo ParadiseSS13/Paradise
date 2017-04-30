@@ -35,9 +35,7 @@
 		pointer_icon_state = pick("red_laser","green_laser","blue_laser","purple_laser")
 
 /obj/item/device/laser_pointer/Destroy()
-	if(diode)
-		qdel(diode)
-		diode = null
+	QDEL_NULL(diode)
 	return ..()
 
 /obj/item/device/laser_pointer/upgraded/New()

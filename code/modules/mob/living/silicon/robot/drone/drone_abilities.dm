@@ -10,13 +10,13 @@
 		mail_destination = 0
 		return
 
-	to_chat(src, "\blue You configure your internal beacon, tagging yourself for delivery to '[tag]'.")
+	to_chat(src, "<span class='notice'>You configure your internal beacon, tagging yourself for delivery to '[tag]'.</span>")
 	mail_destination = TAGGERLOCATIONS.Find(tag)
 
 	//Auto flush if we use this verb inside a disposal chute.
 	var/obj/machinery/disposal/D = src.loc
 	if(istype(D))
-		to_chat(src, "\blue \The [D] acknowledges your signal.")
+		to_chat(src, "<span class='notice'>\The [D] acknowledges your signal.</span>")
 		D.flush_count = D.flush_every_ticks
 
 	return
@@ -28,10 +28,10 @@
 
 	if(layer != TURF_LAYER+0.2)
 		layer = TURF_LAYER+0.2
-		to_chat(src, text("\blue You are now hiding."))
+		to_chat(src, text("<span class='notice'>You are now hiding.</span>"))
 	else
 		layer = MOB_LAYER
-		to_chat(src, text("\blue You have stopped hiding."))
+		to_chat(src, text("<span class='notice'>You have stopped hiding.</span>"))
 
 /mob/living/silicon/robot/drone/verb/light()
 	set name = "Light On/Off"
@@ -48,3 +48,54 @@
 		get_scooped(M)
 
 	..()
+
+/mob/living/silicon/robot/drone/verb/customize()
+	set name = "Customize Chassis"
+	set desc = "Reconfigure your chassis into a customized version."
+	set category = "Drone"
+
+	if(!custom_sprite) //Check to see if custom sprite time, checking the appopriate file to change a var
+		var/file = file2text("config/custom_sprites.txt")
+		var/lines = splittext(file, "\n")
+
+		for(var/line in lines)
+		// split & clean up
+			var/list/Entry = splittext(line, ":")
+			for(var/i = 1 to Entry.len)
+				Entry[i] = trim(Entry[i])
+
+			if(Entry.len < 2 || Entry[1] != "drone")
+				continue
+
+			if (Entry[2] == ckey) //Custom holograms
+				custom_sprite = 1  // option is given in hologram menu
+
+	if(!custom_sprite)
+		to_chat(src, "<span class='warning'>Error 404: Custom chassis not found. Revoking customization option.</span>")
+	else
+		icon = 'icons/mob/custom_synthetic/custom-synthetic.dmi'
+		icon_state = "[ckey]-drone"
+		to_chat(src, "<span class='notice'>You reconfigure your chassis and improve the station through your new aesthetics.</span>")
+	verbs -= /mob/living/silicon/robot/drone/verb/customize
+
+/mob/living/silicon/robot/drone/get_scooped(mob/living/carbon/grabber)
+	var/obj/item/weapon/holder/H = ..()
+	if(!istype(H))
+		return
+	if(resting)
+		resting = 0
+	if(custom_sprite)
+		H.icon = 'icons/mob/custom_synthetic/custom-synthetic.dmi'
+		H.icon_override = 'icons/mob/custom_synthetic/custom_head.dmi'
+		H.lefthand_file = 'icons/mob/custom_synthetic/custom_lefthand.dmi'
+		H.righthand_file = 'icons/mob/custom_synthetic/custom_righthand.dmi'
+		H.icon_state = "[icon_state]"
+		H.item_state = "[icon_state]_hand"
+	else
+		H.icon_state = "drone"
+		H.item_state = "drone"
+	grabber.put_in_active_hand(H)//for some reason unless i call this it dosen't work
+	grabber.update_inv_l_hand()
+	grabber.update_inv_r_hand()
+
+	return H
