@@ -327,8 +327,7 @@ var/list/all_supply_groups = list(supply_emergency,supply_security,supply_engine
 
 /datum/supply_packs/security/armory/ballistic
 	name = "Riot Shotguns Crate"
-	contains = list(/obj/item/ammo_box/shotgun/buck,
-					/obj/item/weapon/gun/projectile/shotgun/riot,
+	contains = list(/obj/item/weapon/gun/projectile/shotgun/riot,
 					/obj/item/weapon/gun/projectile/shotgun/riot,
 					/obj/item/weapon/gun/projectile/shotgun/riot,
 					/obj/item/weapon/storage/belt/bandolier,
@@ -339,8 +338,7 @@ var/list/all_supply_groups = list(supply_emergency,supply_security,supply_engine
 
 /datum/supply_packs/security/armory/ballisticauto
 	name = "Combat Shotguns Crate"
-	contains = list(/obj/item/ammo_box/shotgun/buck,
-					/obj/item/weapon/gun/projectile/shotgun/automatic/combat,
+	contains = list(/obj/item/weapon/gun/projectile/shotgun/automatic/combat,
 					/obj/item/weapon/gun/projectile/shotgun/automatic/combat,
 					/obj/item/weapon/gun/projectile/shotgun/automatic/combat,
 					/obj/item/weapon/storage/belt/bandolier,
@@ -351,7 +349,7 @@ var/list/all_supply_groups = list(supply_emergency,supply_security,supply_engine
 
 /datum/supply_packs/security/armory/buckshotammo
 	name = "Buckshot Ammo Crate"
-	contains = list(/obj/item/weapon/storage/box/buck,
+	contains = list(/obj/item/ammo_box/shotgun/buck,
 					/obj/item/weapon/storage/box/buck,
 					/obj/item/weapon/storage/box/buck,
 					/obj/item/weapon/storage/box/buck,
@@ -362,7 +360,7 @@ var/list/all_supply_groups = list(supply_emergency,supply_security,supply_engine
 
 /datum/supply_packs/security/armory/slugammo
 	name = "Slug Ammo Crate"
-	contains = list(/obj/item/weapon/storage/box/slug,
+	contains = list(/obj/item/ammo_box/shotgun,
 					/obj/item/weapon/storage/box/slug,
 					/obj/item/weapon/storage/box/slug,
 					/obj/item/weapon/storage/box/slug,
@@ -374,7 +372,6 @@ var/list/all_supply_groups = list(supply_emergency,supply_security,supply_engine
 /datum/supply_packs/security/armory/expenergy
 	name = "Energy Guns Crate"
 	contains = list(/obj/item/weapon/gun/energy/gun,
-					/obj/item/weapon/gun/energy/gun,
 					/obj/item/weapon/gun/energy/gun)
 	cost = 25
 	containertype = /obj/structure/closet/crate/secure/plasma
