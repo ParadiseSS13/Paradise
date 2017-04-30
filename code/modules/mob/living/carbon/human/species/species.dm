@@ -184,8 +184,8 @@
 
 /datum/species/proc/create_organs(var/mob/living/carbon/human/H) //Handles creation of mob organs.
 
-	LAZYQDELLIST(H.internal_organs)
-	LAZYQDELLIST(H.bodyparts)
+	QDEL_LIST(H.internal_organs)
+	QDEL_LIST(H.bodyparts)
 
 	LAZYREINITLIST(H.bodyparts)
 	LAZYREINITLIST(H.bodyparts_by_name)

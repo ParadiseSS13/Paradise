@@ -65,9 +65,7 @@
 	add_to_all_human_data_huds()
 
 /mob/living/carbon/human/Destroy()
-	for(var/atom/movable/organelle in bodyparts)
-		qdel(organelle)
-	bodyparts.Cut()
+	QDEL_LIST(bodyparts)
 	return ..()
 
 /mob/living/carbon/human/dummy
