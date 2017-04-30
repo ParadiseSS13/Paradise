@@ -141,133 +141,71 @@
 	name = "Ammunition Box (Slug)"
 	desc = "A small box capable of holding seven shotgun shells."
 	icon_state = "slugbox"
-	storage_slots = 7
-	can_hold = list(
-		"/obj/item/ammo_casing/shotgun"
-		)
 
-	New()
-		..()
+/obj/item/weapon/storage/box/slug/New()
+	..()
+	for(var/i in 1 to 7)
 		new /obj/item/ammo_casing/shotgun(src)
-		new /obj/item/ammo_casing/shotgun(src)
-		new /obj/item/ammo_casing/shotgun(src)
-		new /obj/item/ammo_casing/shotgun(src)
-		new /obj/item/ammo_casing/shotgun(src)
-		new /obj/item/ammo_casing/shotgun(src)
-		new /obj/item/ammo_casing/shotgun(src)
+
 
 /obj/item/weapon/storage/box/buck
 	name = "Ammunition Box (Buckshot)"
 	desc = "A small box capable of holding seven shotgun shells."
 	icon_state = "buckshotbox"
-	storage_slots = 7
-	can_hold = list(
-		"/obj/item/ammo_casing/shotgun"
-		)
 
-	New()
-		..()
-		new /obj/item/ammo_casing/shotgun/buckshot(src)
-		new /obj/item/ammo_casing/shotgun/buckshot(src)
-		new /obj/item/ammo_casing/shotgun/buckshot(src)
-		new /obj/item/ammo_casing/shotgun/buckshot(src)
-		new /obj/item/ammo_casing/shotgun/buckshot(src)
-		new /obj/item/ammo_casing/shotgun/buckshot(src)
+/obj/item/weapon/storage/box/buck/New()
+	..()
+	for(var/i in 1 to 7)
 		new /obj/item/ammo_casing/shotgun/buckshot(src)
 
 /obj/item/weapon/storage/box/dragonsbreath
 	name = "Ammunition Box (Dragonsbreath)"
 	desc = "A small box capable of holding seven shotgun shells."
 	icon_state = "dragonsbreathbox"
-	storage_slots = 7
-	can_hold = list(
-		"/obj/item/ammo_casing/shotgun"
-		)
 
-	New()
-		..()
-		new /obj/item/ammo_casing/shotgun/incendiary/dragonsbreath(src)
-		new /obj/item/ammo_casing/shotgun/incendiary/dragonsbreath(src)
-		new /obj/item/ammo_casing/shotgun/incendiary/dragonsbreath(src)
-		new /obj/item/ammo_casing/shotgun/incendiary/dragonsbreath(src)
-		new /obj/item/ammo_casing/shotgun/incendiary/dragonsbreath(src)
-		new /obj/item/ammo_casing/shotgun/incendiary/dragonsbreath(src)
+/obj/item/weapon/storage/box/dragonsbreath/New()
+	..()
+	for(var/i in 1 to 7)
 		new /obj/item/ammo_casing/shotgun/incendiary/dragonsbreath(src)
 
 /obj/item/weapon/storage/box/stun
 	name = "Ammunition Box (Stun shells)"
 	desc = "A small box capable of holding seven shotgun shells."
 	icon_state = "stunbox"
-	storage_slots = 7
-	can_hold = list(
-		"/obj/item/ammo_casing/shotgun"
-		)
 
-	New()
-		..()
-		new /obj/item/ammo_casing/shotgun/stunslug(src)
-		new /obj/item/ammo_casing/shotgun/stunslug(src)
-		new /obj/item/ammo_casing/shotgun/stunslug(src)
-		new /obj/item/ammo_casing/shotgun/stunslug(src)
-		new /obj/item/ammo_casing/shotgun/stunslug(src)
-		new /obj/item/ammo_casing/shotgun/stunslug(src)
+/obj/item/weapon/storage/box/stun/New()
+	..()
+	for(var/i in 1 to 7)
 		new /obj/item/ammo_casing/shotgun/stunslug(src)
 
 /obj/item/weapon/storage/box/beanbag
 	name = "Ammunition Box (Beanbag shells)"
 	desc = "A small box capable of holding seven shotgun shells."
 	icon_state = "beanbagbox"
-	storage_slots = 7
-	can_hold = list(
-		"/obj/item/ammo_casing/shotgun"
-		)
 
-	New()
-		..()
-		new /obj/item/ammo_casing/shotgun/beanbag(src)
-		new /obj/item/ammo_casing/shotgun/beanbag(src)
-		new /obj/item/ammo_casing/shotgun/beanbag(src)
-		new /obj/item/ammo_casing/shotgun/beanbag(src)
-		new /obj/item/ammo_casing/shotgun/beanbag(src)
-		new /obj/item/ammo_casing/shotgun/beanbag(src)
+/obj/item/weapon/storage/box/beanbag/New()
+	..()
+	for(var/i in 1 to 7)
 		new /obj/item/ammo_casing/shotgun/beanbag(src)
 
 /obj/item/weapon/storage/box/rubbershot
 	name = "Ammunition Box (Rubbershot shells)"
 	desc = "A small box capable of holding seven shotgun shells."
 	icon_state = "rubbershotbox"
-	storage_slots = 7
-	can_hold = list(
-		"/obj/item/ammo_casing/shotgun"
-		)
 
-	New()
-		..()
-		new /obj/item/ammo_casing/shotgun/rubbershot(src)
-		new /obj/item/ammo_casing/shotgun/rubbershot(src)
-		new /obj/item/ammo_casing/shotgun/rubbershot(src)
-		new /obj/item/ammo_casing/shotgun/rubbershot(src)
-		new /obj/item/ammo_casing/shotgun/rubbershot(src)
-		new /obj/item/ammo_casing/shotgun/rubbershot(src)
+/obj/item/weapon/storage/box/rubbershot/New()
+	..()
+	for(var/i in 1 to 7)
 		new /obj/item/ammo_casing/shotgun/rubbershot(src)
 
 /obj/item/weapon/storage/box/tranquilizer
 	name = "Ammunition Box (Tranquilizer darts)"
 	desc = "A small box capable of holding seven shotgun shells."
 	icon_state = "tranqbox"
-	storage_slots = 7
-	can_hold = list(
-		"/obj/item/ammo_casing/shotgun"
-		)
 
-	New()
-		..()
-		new /obj/item/ammo_casing/shotgun/tranquilizer(src)
-		new /obj/item/ammo_casing/shotgun/tranquilizer(src)
-		new /obj/item/ammo_casing/shotgun/tranquilizer(src)
-		new /obj/item/ammo_casing/shotgun/tranquilizer(src)
-		new /obj/item/ammo_casing/shotgun/tranquilizer(src)
-		new /obj/item/ammo_casing/shotgun/tranquilizer(src)
+/obj/item/weapon/storage/box/tranquilizer/New()
+	..()
+	for(var/i in 1 to 7)
 		new /obj/item/ammo_casing/shotgun/tranquilizer(src)
 
 /obj/item/weapon/storage/box/flashbangs

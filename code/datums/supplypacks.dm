@@ -327,18 +327,20 @@ var/list/all_supply_groups = list(supply_emergency,supply_security,supply_engine
 
 /datum/supply_packs/security/armory/ballistic
 	name = "Riot Shotguns Crate"
-	contains = list(/obj/item/weapon/gun/projectile/shotgun/riot,
+	contains = list(/obj/item/ammo_box/shotgun/buck,
+					/obj/item/weapon/gun/projectile/shotgun/riot,
 					/obj/item/weapon/gun/projectile/shotgun/riot,
 					/obj/item/weapon/gun/projectile/shotgun/riot,
 					/obj/item/weapon/storage/belt/bandolier,
 					/obj/item/weapon/storage/belt/bandolier,
 					/obj/item/weapon/storage/belt/bandolier)
-	cost = 45
+	cost = 50
 	containername = "riot shotgun crate"
 
 /datum/supply_packs/security/armory/ballisticauto
 	name = "Combat Shotguns Crate"
-	contains = list(/obj/item/weapon/gun/projectile/shotgun/automatic/combat,
+	contains = list(/obj/item/ammo_box/shotgun/buck,
+					/obj/item/weapon/gun/projectile/shotgun/automatic/combat,
 					/obj/item/weapon/gun/projectile/shotgun/automatic/combat,
 					/obj/item/weapon/gun/projectile/shotgun/automatic/combat,
 					/obj/item/weapon/storage/belt/bandolier,
