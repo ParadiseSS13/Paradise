@@ -23,7 +23,7 @@
 #define DECLARE_GLOBAL_CONTROLLER(PROCESS,VARNAME) \
 /datum/controller/process/##PROCESS/assertGlobality(){\
 	if(##VARNAME){\
-		message_admins("Controller '[name]' tried to become global but found another controller there already. Deleting the old controller, '[##VARNAME]'.");\
+		message_admins("Controller '[name]' tried to become global but found another controller there already. Deleting the old controller.");\
 		qdel(##VARNAME);}\
 	##VARNAME = src;}\
 \

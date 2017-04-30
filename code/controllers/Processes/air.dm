@@ -50,9 +50,6 @@ var/global/datum/controller/process/air_system/air_master
 	stat(null, "[last_active] active")
 	stat(null, "[last_excited] EG | [last_hpd] HPD | [last_asc] ASC | [last_hotspots] Hot")
 
-/datum/controller/process/air_system/copyStateFrom()
-	air_master = src
-
 DECLARE_GLOBAL_CONTROLLER(air_system, air_master)
 
 /datum/controller/process/air_system/proc/process_hotspots()
@@ -152,3 +149,5 @@ DECLARE_GLOBAL_CONTROLLER(air_system, air_master)
 	icemaster.icon_state = "snowfloor"
 	icemaster.layer = TURF_LAYER+0.1
 	icemaster.mouse_opacity = 0
+
+DECLARE_GLOBAL_CONTROLLER(air_system, air_master)
