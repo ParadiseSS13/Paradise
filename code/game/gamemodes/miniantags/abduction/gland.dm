@@ -181,9 +181,7 @@
 	uses = -1
 
 /obj/item/organ/internal/heart/gland/bloody/activate()
-	if(ishuman(owner))
-		var/mob/living/carbon/human/H = owner
-		H.bleed(200)
+	owner.blood_volume -= 20
 	owner.visible_message("<span class='danger'>[owner]'s skin erupts with blood!</span>",\
 	"<span class='userdanger'>Blood pours from your skin!</span>")
 
