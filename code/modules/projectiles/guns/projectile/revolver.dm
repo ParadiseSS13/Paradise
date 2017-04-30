@@ -163,6 +163,13 @@
 	can_suppress = 1
 	mag_type = /obj/item/ammo_box/magazine/internal/cylinder/rev762
 
+/obj/item/weapon/gun/projectile/revolver/falcon
+	name = "falcon revolver"
+	desc = "An old favorite favored by outlaws. Chambered in .500 bullets."
+	icon_state = "falcon"
+	origin_tech = "combat=4;syndicate=4"
+	mag_type = /obj/item/ammo_box/magazine/internal/cylinder/falcon
+
 // A gun to play Russian Roulette!
 // You can spin the chamber to randomize the position of the bullet.
 

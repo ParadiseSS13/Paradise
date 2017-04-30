@@ -8,6 +8,9 @@
 	sharp = 1
 	hitsound_wall = "ricochet"
 
+/obj/item/projectile/bullet/strongbullet //ouch
+	damage = 80
+
 /obj/item/projectile/bullet/weakbullet //beanbag, heavy stamina damage
 	name = "beanbag slug"
 	damage = 5

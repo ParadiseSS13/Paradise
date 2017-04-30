@@ -99,6 +99,12 @@
 	caliber = ".45"
 	projectile_type = /obj/item/projectile/bullet/midbullet3
 
+/obj/item/ammo_casing/f500
+	desc = "A .500 bullet casing."
+	caliber = "f500"
+	icon_state = "f-casing"
+	projectile_type = /obj/item/projectile/bullet/strongbullet
+
 /obj/item/ammo_casing/n762
 	desc = "A 7.62x38mmR bullet casing."
 	caliber = "n762"
