@@ -255,8 +255,8 @@
 							emote("gasp")
 						updatehealth()
 
-				if(damage && organs.len)
-					var/obj/item/organ/external/O = pick(organs)
+				if(damage && bodyparts.len)
+					var/obj/item/organ/external/O = pick(bodyparts)
 					if(istype(O)) O.add_autopsy_data("Radiation Poisoning", damage)
 
 /mob/living/carbon/human/breathe()

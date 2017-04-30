@@ -28,7 +28,7 @@ var/list/possibleShadowlingNames = list("U'ruan", "Y`shej", "Nex", "Hel-uae", "N
 				H.visible_message("<span class='warning'>[H]'s things suddenly slip off. They hunch over and vomit up a copious amount of purple goo which begins to shape around them!</span>", \
 									"<span class='shadowling'>You remove any equipment which would hinder your hatching and begin regurgitating the resin which will protect you.</span>")
 
-				for(var/obj/item/I in H.contents - (H.organs | H.internal_organs)) //drops all items except organs
+				for(var/obj/item/I in H.contents - (H.bodyparts | H.internal_organs)) //drops all items except organs
 					H.unEquip(I)
 
 				sleep(50)

@@ -54,9 +54,9 @@
 /obj/item/weapon/paper_bin/attack_hand(mob/user as mob)
 	if(ishuman(user))
 		var/mob/living/carbon/human/H = user
-		var/obj/item/organ/external/temp = H.organs_by_name["r_hand"]
+		var/obj/item/organ/external/temp = H.bodyparts_by_name["r_hand"]
 		if(H.hand)
-			temp = H.organs_by_name["l_hand"]
+			temp = H.bodyparts_by_name["l_hand"]
 		if(temp && !temp.is_usable())
 			to_chat(H, "<span class='notice'>You try to move your [temp.name], but cannot!")
 			return

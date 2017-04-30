@@ -62,7 +62,7 @@ var/global/image/fire_overlay = image("icon" = 'icons/goonstation/effects/fire.d
 	var/hit_reaction_chance = 0 //If you want to have something unrelated to blocking/armour piercing etc. Maybe not needed, but trying to think ahead/allow more freedom
 
 	var/toolspeed = 1 // If this item is a tool, the speed multiplier
-	
+
 	/* Species-specific sprites, concept stolen from Paradise//vg/.
 	ex:
 	sprite_sheets = list(
@@ -81,6 +81,7 @@ var/global/image/fire_overlay = image("icon" = 'icons/goonstation/effects/fire.d
 		new path(src)
 
 /obj/item/Destroy()
+	QDEL_NULL(hidden_uplink)
 	if(ismob(loc))
 		var/mob/m = loc
 		m.unEquip(src, 1)
@@ -185,9 +186,9 @@ var/global/image/fire_overlay = image("icon" = 'icons/goonstation/effects/fire.d
 	if(!user) return 0
 	if(hasorgans(user))
 		var/mob/living/carbon/human/H = user
-		var/obj/item/organ/external/temp = H.organs_by_name["r_hand"]
+		var/obj/item/organ/external/temp = H.bodyparts_by_name["r_hand"]
 		if(user.hand)
-			temp = H.organs_by_name["l_hand"]
+			temp = H.bodyparts_by_name["l_hand"]
 		if(!temp)
 			to_chat(user, "<span class='warning'>You try to use your hand, but it's missing!</span>")
 			return 0
@@ -468,7 +469,7 @@ var/global/image/fire_overlay = image("icon" = 'icons/goonstation/effects/fire.d
 	if(istype(H))
 		var/obj/item/organ/internal/eyes/eyes = H.get_int_organ(/obj/item/organ/internal/eyes)
 		if(!eyes) // should still get stabbed in the head
-			var/obj/item/organ/external/head/head = H.organs_by_name["head"]
+			var/obj/item/organ/external/head/head = H.bodyparts_by_name["head"]
 			head.take_damage(rand(10,14), 1)
 			return
 		eyes.take_damage(rand(3,4), 1)

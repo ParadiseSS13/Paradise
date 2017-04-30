@@ -1,6 +1,13 @@
 /****************************************************
 				BLOOD SYSTEM
 ****************************************************/
+
+/mob/living/carbon/human/var/datum/reagents/vessel	//Container for blood and BLOOD ONLY. Do not transfer other chems here.
+
+//Initializes blood vessels
+/mob/living/carbon/human/proc/make_blood()
+
+	if(vessel)
 /mob/living/carbon/human/proc/suppress_bloodloss(amount)
 	if(bleedsuppress)
 		return
@@ -69,7 +76,7 @@
 
 		//Bleeding out
 		var/temp_bleed = 0
-		for(var/obj/item/organ/external/temp in organs)
+		for(var/obj/item/organ/external/temp in bodyparts)
 			if(!(temp.status & ORGAN_BLEEDING) || temp.status & ORGAN_ROBOT)
 				continue
 			for(var/datum/wound/W in temp.wounds)
