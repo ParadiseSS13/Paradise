@@ -261,7 +261,7 @@
 		I.loc = src
 		coin = I
 		categories |= CAT_COIN
-		to_chat(user, "\blue You insert the [I] into the [src]")
+		to_chat(user, "<span class='notice'>You insert the [I] into the [src]</span>")
 		nanomanager.update_uis(src)
 		return
 	else if(istype(I, refill_canister) && refill_canister != null)
@@ -574,7 +574,7 @@
 
 /obj/machinery/vending/proc/stock(var/datum/data/vending_product/R, var/mob/user)
 	if(panel_open)
-		to_chat(user, "\blue You stock the [src] with \a [R.product_name]")
+		to_chat(user, "<span class='notice'>You stock the [src] with \a [R.product_name]</span>")
 		R.amount++
 	updateUsrDialog()
 
@@ -872,7 +872,7 @@
 	product_ads = "Probably not bad for you!;Don't believe the scientists!;It's good for you!;Don't quit, buy more!;Smoke!;Nicotine heaven.;Best cigarettes since 2150.;Award-winning cigs."
 	vend_delay = 34
 	icon_state = "cigs"
-	products = list(/obj/item/weapon/storage/fancy/cigarettes = 5,/obj/item/weapon/storage/fancy/cigarettes/cigpack_uplift = 3,/obj/item/weapon/storage/fancy/cigarettes/cigpack_robust = 2,/obj/item/weapon/storage/fancy/cigarettes/cigpack_carp = 3,/obj/item/weapon/storage/fancy/cigarettes/cigpack_midori = 1,/obj/item/weapon/storage/fancy/cigarettes/cigpack_random = 2, /obj/item/weapon/reagent_containers/food/pill/patch/nicotine = 10, /obj/item/weapon/storage/box/matches = 10,/obj/item/weapon/lighter/random = 4, /obj/item/device/vape = 3)
+	products = list(/obj/item/weapon/storage/fancy/cigarettes = 5,/obj/item/weapon/storage/fancy/cigarettes/cigpack_uplift = 3,/obj/item/weapon/storage/fancy/cigarettes/cigpack_robust = 2,/obj/item/weapon/storage/fancy/cigarettes/cigpack_carp = 3,/obj/item/weapon/storage/fancy/cigarettes/cigpack_midori = 1,/obj/item/weapon/storage/fancy/cigarettes/cigpack_random = 2, /obj/item/weapon/reagent_containers/food/pill/patch/nicotine = 10, /obj/item/weapon/storage/box/matches = 10,/obj/item/weapon/lighter/random = 4,/obj/item/weapon/storage/fancy/rollingpapers = 5,/obj/item/device/vape = 3)
 	contraband = list(/obj/item/weapon/lighter/zippo = 4, /obj/item/device/vape/random = 1)
 	premium = list(/obj/item/clothing/mask/cigarette/cigar/havana = 2,/obj/item/weapon/storage/fancy/cigarettes/cigpack_robustgold = 1, /obj/item/device/vape/stylish = 1)
 	prices = list(/obj/item/weapon/storage/fancy/cigarettes = 60,/obj/item/weapon/storage/fancy/cigarettes/cigpack_uplift = 60,/obj/item/weapon/storage/fancy/cigarettes/cigpack_robust = 60,/obj/item/weapon/storage/fancy/cigarettes/cigpack_carp = 60,/obj/item/weapon/storage/fancy/cigarettes/cigpack_midori = 60,/obj/item/weapon/storage/fancy/cigarettes/cigpack_random = 150, /obj/item/weapon/reagent_containers/food/pill/patch/nicotine = 15, /obj/item/weapon/storage/box/matches = 10,/obj/item/weapon/lighter/random = 60, /obj/item/device/vape = 700)

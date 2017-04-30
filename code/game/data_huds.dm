@@ -41,7 +41,7 @@
 	hud_icons = list(ID_HUD)
 
 /datum/atom_hud/data/human/security/advanced
-	hud_icons = list(ID_HUD, IMPTRACK_HUD, IMPLOYAL_HUD, IMPCHEM_HUD, WANTED_HUD)
+	hud_icons = list(ID_HUD, IMPTRACK_HUD, IMPMINDSHIELD_HUD, IMPCHEM_HUD, WANTED_HUD)
 
 /datum/atom_hud/data/diagnostic
 	hud_icons = list (DIAG_HUD, DIAG_STAT_HUD, DIAG_BATT_HUD, DIAG_MECH_HUD, DIAG_BOT_HUD, DIAG_TRACK_HUD)
@@ -172,7 +172,7 @@
 
 /mob/living/carbon/human/proc/sec_hud_set_implants()
 	var/image/holder
-	for(var/i in list(IMPTRACK_HUD, IMPLOYAL_HUD, IMPCHEM_HUD))
+	for(var/i in list(IMPTRACK_HUD, IMPMINDSHIELD_HUD, IMPCHEM_HUD))
 		holder = hud_list[i]
 		holder.icon_state = null
 	for(var/obj/item/weapon/implant/I in src)
@@ -180,8 +180,8 @@
 			if(istype(I,/obj/item/weapon/implant/tracking))
 				holder = hud_list[IMPTRACK_HUD]
 				holder.icon_state = "hud_imp_tracking"
-			else if(istype(I,/obj/item/weapon/implant/loyalty))
-				holder = hud_list[IMPLOYAL_HUD]
+			else if(istype(I,/obj/item/weapon/implant/mindshield))
+				holder = hud_list[IMPMINDSHIELD_HUD]
 				holder.icon_state = "hud_imp_loyal"
 			else if(istype(I,/obj/item/weapon/implant/chem))
 				holder = hud_list[IMPCHEM_HUD]

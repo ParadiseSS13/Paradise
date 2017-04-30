@@ -13,6 +13,16 @@
 	return 0		// Proceed with emote
 //--FalseIncarnate
 
+/mob/proc/handle_emote_param(var/target, var/not_self, var/vicinity, var/return_mob) //Only returns not null if the target param is valid.
+	var/view_vicinity = vicinity ? vicinity : null									 //not_self means we'll only return if target is valid and not us
+	if(target)																		 //vicinity is the distance passed to the view proc.
+		for(var/mob/A in view(view_vicinity, null))									 //if set, return_mob will cause this proc to return the mob instead of just its name if the target is valid.
+			if(target == A.name && (!not_self || (not_self && target != name)))
+				if(return_mob)
+					return A
+				else
+					return target
+
 // All mobs should have custom emote, really..
 /mob/proc/custom_emote(var/m_type=1,var/message = null)
 
@@ -86,16 +96,16 @@
 /mob/proc/emote_dead(var/message)
 
 	if(client.prefs.muted & MUTE_DEADCHAT)
-		to_chat(src, "\red You cannot send deadchat emotes (muted).")
+		to_chat(src, "<span class='warning'>You cannot send deadchat emotes (muted).</span>")
 		return
 
 	if(!(client.prefs.toggles & CHAT_DEAD))
-		to_chat(src, "\red You have deadchat muted.")
+		to_chat(src, "<span class='warning'>You have deadchat muted.</span>")
 		return
 
 	if(!src.client.holder)
 		if(!config.dsay_allowed)
-			to_chat(src, "\red Deadchat is globally muted")
+			to_chat(src, "<span class='warning'>Deadchat is globally muted</span>")
 			return
 
 

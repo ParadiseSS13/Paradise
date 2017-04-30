@@ -212,8 +212,8 @@
 	user.changeNext_move(CLICK_CD_MELEE)
 	deal_damage(15)
 	playsound(src.loc, 'sound/weapons/slash.ogg', 50, 1, -1)
-	to_chat(user, "\red You slash at \the [src]!")
-	visible_message("\red The [user] slashes at [src.name]'s armor!")
+	to_chat(user, "<span class='warning'>You slash at \the [src]!</span>")
+	visible_message("<span class='warning'>The [user] slashes at [src.name]'s armor!</span>")
 	return
 
 /obj/spacepod/proc/deal_damage(var/damage)
@@ -310,7 +310,7 @@
 			return
 		if(istype(W, /obj/item/weapon/stock_parts/cell))
 			if(!hatch_open)
-				to_chat(user, "\red The maintenance hatch is closed!")
+				to_chat(user, "<span class='warning'>The maintenance hatch is closed!</span>")
 				return
 			if(battery)
 				to_chat(user, "<span class='notice'>The pod already has a battery.</span>")
@@ -321,7 +321,7 @@
 			return
 		if(istype(W, /obj/item/device/spacepod_equipment))
 			if(!hatch_open)
-				to_chat(user, "\red The maintenance hatch is closed!")
+				to_chat(user, "<span class='warning'>The maintenance hatch is closed!</span>")
 				return
 			if(!equipment_system)
 				to_chat(user, "<span class='warning'>The pod has no equipment datum, yell at the coders</span>")
@@ -353,19 +353,19 @@
 
 		if(istype(W, /obj/item/weapon/weldingtool))
 			if(!hatch_open)
-				to_chat(user, "\red You must open the maintenance hatch before attempting repairs.")
+				to_chat(user, "<span class='warning'>You must open the maintenance hatch before attempting repairs.</span>")
 				return
 			var/obj/item/weapon/weldingtool/WT = W
 			if(!WT.isOn())
-				to_chat(user, "\red The welder must be on for this task.")
+				to_chat(user, "<span class='warning'>The welder must be on for this task.</span>")
 				return
 			if(health < initial(health))
-				to_chat(user, "\blue You start welding the spacepod...")
+				to_chat(user, "<span class='notice'>You start welding the spacepod...</span>")
 				playsound(loc, W.usesound, 50, 1)
 				if(do_after(user, 20 * W.toolspeed, target = src))
 					if(!src || !WT.remove_fuel(3, user)) return
 					repair_damage(10)
-					to_chat(user, "\blue You mend some [pick("dents","bumps","damage")] with \the [WT]")
+					to_chat(user, "<span class='notice'>You mend some [pick("dents","bumps","damage")] with \the [WT]</span>")
 				return
 			to_chat(user, "<span class='boldnotice'>\The [src] is fully repaired!</span>")
 			return
@@ -594,6 +594,10 @@ obj/spacepod/proc/add_equipment(mob/user, var/obj/item/device/spacepod_equipment
 	set category = "Spacepod"
 	set src = usr.loc
 	set popup_menu = 0
+
+	if(usr.incapacitated())
+		return
+
 	if(usr != src.pilot)
 		to_chat(usr, "<span class='notice'>You can't reach the controls from your chair")
 		return
@@ -791,7 +795,7 @@ obj/spacepod/proc/add_equipment(mob/user, var/obj/item/device/spacepod_equipment
 	if(!istype(user))
 		return
 
-	if(user.stat != CONSCIOUS || user.incapacitated()) // unconscious and restrained people can't let themselves out
+	if(usr.incapacitated()) // unconscious and restrained people can't let themselves out
 		return
 
 	occupant_sanity_check()
@@ -810,6 +814,9 @@ obj/spacepod/proc/add_equipment(mob/user, var/obj/item/device/spacepod_equipment
 	set category = "Spacepod"
 	set src = usr.loc
 
+	if(usr.incapacitated())
+		return
+
 	if(usr in passengers && usr != src.pilot)
 		to_chat(usr, "<span class='notice'>You can't reach the controls from your chair")
 		return
@@ -822,6 +829,9 @@ obj/spacepod/proc/add_equipment(mob/user, var/obj/item/device/spacepod_equipment
 	set name = "Toggle Nearby Pod Doors"
 	set category = "Spacepod"
 	set src = usr.loc
+
+	if(usr.incapacitated())
+		return
 
 	if(usr != src.pilot)
 		to_chat(usr, "<span class='notice'>You can't reach the controls from your chair")
@@ -854,6 +864,10 @@ obj/spacepod/proc/add_equipment(mob/user, var/obj/item/device/spacepod_equipment
 	set desc = "Fire the weapons."
 	set category = "Spacepod"
 	set src = usr.loc
+
+	if(usr.incapacitated())
+		return
+
 	if(usr != src.pilot)
 		to_chat(usr, "<span class='notice'>You can't reach the controls from your chair")
 		return
@@ -867,6 +881,10 @@ obj/spacepod/proc/add_equipment(mob/user, var/obj/item/device/spacepod_equipment
 	set desc = "Unloads the cargo"
 	set category = "Spacepod"
 	set src = usr.loc
+
+	if(usr.incapacitated())
+		return
+
 	if(usr != src.pilot)
 		to_chat(usr, "<span class='notice'>You can't reach the controls from your chair")
 		return
@@ -879,6 +897,10 @@ obj/spacepod/proc/add_equipment(mob/user, var/obj/item/device/spacepod_equipment
 	set name = "Toggle Lights"
 	set category = "Spacepod"
 	set src = usr.loc
+
+	if(usr.incapacitated())
+		return
+
 	if(usr != src.pilot)
 		to_chat(usr, "<span class='notice'>You can't reach the controls from your chair")
 		return
@@ -899,6 +921,10 @@ obj/spacepod/proc/add_equipment(mob/user, var/obj/item/device/spacepod_equipment
 	set category = "Spacepod"
 	set src = usr.loc
 	var/mob/user = usr
+
+	if(usr.incapacitated())
+		return
+
 	to_chat(user, "<span class='notice'>You start rooting around under the seat for lost items</span>")
 	if(do_after(user, 40, target = src))
 		var/obj/badlist = list(internal_tank, cargo_hold, pilot, battery) + passengers + equipment_system.installed_modules

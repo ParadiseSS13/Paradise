@@ -7,8 +7,9 @@
 	icon_state = "singularity_s1"
 	anchored = 1
 	density = 1
-	layer = 6
+	layer = MASSIVE_OBJ_LAYER
 	light_range = 6
+	appearance_flags = 0
 	unacidable = 1 //Don't comment this out.
 	var/current_size = 1
 	var/allowed_size = 1
@@ -31,13 +32,13 @@
 
 /obj/singularity/New(loc, var/starting_energy = 50, var/temp = 0)
 	//CARN: admin-alert for chuckle-fuckery.
-	singularities += src
 	admin_investigate_setup()
 
 	src.energy = starting_energy
 	..()
 	processing_objects.Add(src)
 	poi_list |= src
+	singularities += src
 	for(var/obj/machinery/power/singularity_beacon/singubeacon in world)
 		if(singubeacon.active)
 			target = singubeacon
@@ -60,7 +61,17 @@
 		return 0
 
 
-/obj/singularity/attack_hand(mob/user as mob)
+/obj/singularity/attack_hand(mob/user)
+	consume(user)
+	return 1
+
+/obj/singularity/attack_alien(mob/user)
+	consume(user)
+
+/obj/singularity/attack_animal(mob/user)
+	consume(user)
+
+/obj/singularity/attackby(obj/item/weapon/W, mob/user, params)
 	consume(user)
 	return 1
 
@@ -72,16 +83,16 @@
 
 /obj/singularity/ex_act(severity)
 	switch(severity)
-		if(1.0)
+		if(1)
 			if(current_size <= STAGE_TWO)
 				investigate_log("has been destroyed by a heavy explosion.","singulo")
 				qdel(src)
 				return
 			else
 				energy -= round(((energy+1)/2),1)
-		if(2.0)
+		if(2)
 			energy -= round(((energy+1)/3),1)
-		if(3.0)
+		if(3)
 			energy -= round(((energy+1)/4),1)
 	return
 
@@ -119,8 +130,9 @@
 
 /obj/singularity/proc/admin_investigate_setup()
 	last_warning = world.time
-	var/count = locate(/obj/machinery/field/containment) in orange(30, src)
-	if(!count)	message_admins("A singularity has been created without containment fields active at [x], [y], [z] (<A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[x];Y=[y];Z=[z]'>JMP</a>)")
+	var/count = locate(/obj/machinery/field/containment) in urange(30, src, 1)
+	if(!count)
+		message_admins("A singularity has been created without containment fields active at [x], [y], [z] (<A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[x];Y=[y];Z=[z]'>JMP</a>)")
 	investigate_log("was created. [count?"":"<font color='red'>No containment fields were active</font>"]","singulo")
 
 /obj/singularity/proc/dissipate()
@@ -133,7 +145,7 @@
 		dissipate_track++
 
 
-/obj/singularity/proc/expand(var/force_size = 0)
+/obj/singularity/proc/expand(force_size = 0)
 	var/temp_allowed_size = src.allowed_size
 	if(force_size)
 		temp_allowed_size = force_size
@@ -219,8 +231,6 @@
 		investigate_log("collapsed.","singulo")
 		qdel(src)
 		return 0
-	if(energy > 2999 && !consumedSupermatter)
-		energy = 2000
 	switch(energy)//Some of these numbers might need to be changed up later -Mport
 		if(1 to 199)
 			allowed_size = STAGE_ONE
@@ -230,10 +240,11 @@
 			allowed_size = STAGE_THREE
 		if(1000 to 1999)
 			allowed_size = STAGE_FOUR
-		if(2000 to 2999)
-			allowed_size = STAGE_FIVE
-		if(3000 to INFINITY)
-			allowed_size = STAGE_SIX
+		if(2000 to INFINITY)
+			if(energy >= 3000 && consumedSupermatter)
+				allowed_size = STAGE_SIX
+			else
+				allowed_size = STAGE_FIVE
 	if(current_size != allowed_size)
 		expand()
 	return 1
@@ -258,7 +269,8 @@
 					consume(X)
 			CHECK_TICK
 
-/obj/singularity/proc/consume(var/atom/A)
+
+/obj/singularity/proc/consume(atom/A)
 	var/gain = A.singularity_act(current_size)
 	src.energy += gain
 	if(istype(A, /obj/machinery/power/supermatter_shard) && !consumedSupermatter)
@@ -269,7 +281,7 @@
 	return
 
 
-/obj/singularity/proc/move(var/force_move = 0)
+/obj/singularity/proc/move(force_move = 0)
 	if(!move_self)
 		return 0
 
@@ -284,7 +296,7 @@
 	step(src, movement_dir)
 
 
-/obj/singularity/proc/check_turfs_in(var/direction = 0, var/step = 0)
+/obj/singularity/proc/check_turfs_in(direction = 0, step = 0)
 	if(!direction)
 		return 0
 	var/steps = 0
@@ -352,6 +364,7 @@
 			return 0
 	return 1
 
+
 /obj/singularity/proc/event()
 	var/numb = pick(1,2,3,4,5,6)
 	switch(numb)
@@ -382,9 +395,9 @@
 
 
 /obj/singularity/proc/combust_mobs()
-	for(var/mob/living/carbon/C in orange(20, src))
+	for(var/mob/living/carbon/C in urange(20, src, 1))
 		C.visible_message("<span class='warning'>[C]'s skin bursts into flame!</span>", \
-						  "<span class='boldannounce'>You feel an inner fire as your skin is suddenly covered in fire!</span>")
+						  "<span class='userdanger'>You feel an inner fire as your skin bursts into flames!</span>")
 		C.adjust_fire_stacks(5)
 		C.IgniteMob()
 	return
@@ -396,7 +409,7 @@
 			continue
 
 		if(M.stat == CONSCIOUS)
-			if(istype(M,/mob/living/carbon/human))
+			if(ishuman(M))
 				var/mob/living/carbon/human/H = M
 				if(istype(H.glasses, /obj/item/clothing/glasses/meson))
 					var/obj/item/clothing/glasses/meson/MS = H.glasses
@@ -416,11 +429,9 @@
 
 
 /obj/singularity/proc/pulse()
-
 	for(var/obj/machinery/power/rad_collector/R in rad_collectors)
-		if(get_dist(R, src) <= 15) // Better than using orange() every process
+		if(R.z == z && get_dist(R, src) <= 15) // Better than using orange() every process
 			R.receive_pulse(energy)
-	return
 
 /obj/singularity/singularity_act()
 	var/gain = (energy/2)

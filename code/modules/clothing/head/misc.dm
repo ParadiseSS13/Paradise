@@ -379,9 +379,6 @@
 	flags_inv = HIDEMASK|HIDEEARS|HIDEEYES|HIDEFACE
 	actions_types = list(/datum/action/item_action/caw)
 
-/obj/item/clothing/head/griffin/super_hero
-	flags = BLOCKHAIR|NODROP
-
 /obj/item/clothing/head/griffin/attack_self()
 	caw()
 

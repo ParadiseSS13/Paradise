@@ -98,7 +98,7 @@
 /obj/item/weapon/storage/bag/plasticbag/mob_can_equip(M as mob, slot)
 
 	if(slot==slot_head && contents.len)
-		to_chat(M, "\red You need to empty the bag first!")
+		to_chat(M, "<span class='warning'>You need to empty the bag first!</span>")
 		return 0
 	return ..()
 
@@ -220,7 +220,7 @@
 			current += S.amount
 		if(capacity == current)//If it's full, you're done
 			if(!stop_messages)
-				to_chat(usr, "\red The snatcher is full.")
+				to_chat(usr, "<span class='warning'>The snatcher is full.</span>")
 			return 0
 		return 1
 
@@ -451,9 +451,9 @@
 							sleep(rand(2,4))
 		if( droppedSomething )
 			if( foundtable )
-				user.visible_message("\blue [user] unloads their service tray.")
+				user.visible_message("<span class='notice'>[user] unloads their service tray.</span>")
 			else
-				user.visible_message("\blue [user] drops all the items on their tray.")
+				user.visible_message("<span class='notice'>[user] drops all the items on their tray.</span>")
 
 	return ..()
 

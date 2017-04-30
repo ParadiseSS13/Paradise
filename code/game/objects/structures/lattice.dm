@@ -50,7 +50,6 @@
 	return
 
 /obj/structure/lattice/attackby(obj/item/C as obj, mob/user as mob, params)
-
 	if(istype(C, /obj/item/stack/tile/plasteel) || istype(C, /obj/item/stack/rods))
 		var/turf/T = get_turf(src)
 		T.attackby(C, user) //BubbleWrap - hand this off to the underlying turf instead
@@ -62,7 +61,6 @@
 			new /obj/item/stack/rods(src.loc)
 			qdel(src)
 
-	return
 
 /obj/structure/lattice/proc/updateOverlays()
 	//if(!(istype(src.loc, /turf/space)))

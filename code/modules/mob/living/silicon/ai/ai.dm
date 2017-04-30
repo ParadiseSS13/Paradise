@@ -837,7 +837,7 @@ var/list/ai_verbs_default = list(
 			if(network in C.network)
 				U.eyeobj.setLoc(get_turf(C))
 				break
-	to_chat(src, "\blue Switched to [network] camera network.")
+	to_chat(src, "<span class='notice'>Switched to [network] camera network.</span>")
 //End of code by Mord_Sith
 
 
@@ -1023,7 +1023,7 @@ var/list/ai_verbs_default = list(
 
 	var/obj/machinery/power/apc/apc = loc
 	if(!istype(apc))
-		to_chat(src, "\blue You are already in your Main Core.")
+		to_chat(src, "<span class='notice'>You are already in your Main Core.</span>")
 		return
 	apc.malfvacate()
 
@@ -1098,19 +1098,19 @@ var/list/ai_verbs_default = list(
 /mob/living/silicon/ai/attackby(obj/item/weapon/W, mob/user, params)
 	if(istype(W, /obj/item/weapon/wrench))
 		if(anchored)
-			user.visible_message("\blue \The [user] starts to unbolt \the [src] from the plating...")
+			user.visible_message("<span class='notice'>\The [user] starts to unbolt \the [src] from the plating...</span>")
 			if(!do_after(user, 40 * W.toolspeed, target = src))
-				user.visible_message("\blue \The [user] decides not to unbolt \the [src].")
+				user.visible_message("<span class='notice'>\The [user] decides not to unbolt \the [src].</span>")
 				return
-			user.visible_message("\blue \The [user] finishes unfastening \the [src]!")
+			user.visible_message("<span class='notice'>\The [user] finishes unfastening \the [src]!</span>")
 			anchored = 0
 			return
 		else
-			user.visible_message("\blue \The [user] starts to bolt \the [src] to the plating...")
+			user.visible_message("<span class='notice'>\The [user] starts to bolt \the [src] to the plating...</span>")
 			if(!do_after(user, 40 * W.toolspeed, target = src))
-				user.visible_message("\blue \The [user] decides not to bolt \the [src].")
+				user.visible_message("<span class='notice'>\The [user] decides not to bolt \the [src].</span>")
 				return
-			user.visible_message("\blue \The [user] finishes fastening down \the [src]!")
+			user.visible_message("<span class='notice'>\The [user] finishes fastening down \the [src]!</span>")
 			anchored = 1
 			return
 	else

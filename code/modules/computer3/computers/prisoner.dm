@@ -94,7 +94,7 @@
 			if( istype(I) && I.imp_in)
 				var/mob/living/carbon/R = I.imp_in
 				log_say("PrisonComputer3 message: [key_name(usr)]->[key_name(R)] : [warning]")
-				to_chat(R, "\green You hear a voice in your head saying: '[warning]'")
+				to_chat(R, "<span class=notice'>You hear a voice in your head saying: '[warning]'</span>")
 
 		interact()
 		return

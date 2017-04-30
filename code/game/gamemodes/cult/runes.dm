@@ -323,7 +323,7 @@ var/list/teleport_runes = list()
 //Rite of Enlightenment: Converts a normal crewmember to the cult. Faster for every cultist nearby.
 /obj/effect/rune/convert
 	cultist_name = "Rite of Enlightenment"
-	cultist_desc = "converts a normal crewmember on top of it to the cult. Does not work on loyalty-implanted crew."
+	cultist_desc = "converts a normal crewmember on top of it to the cult. Does not work on mindshielded crew."
 	invocation = "Mah'weyh pleggh at e'ntrath!"
 	icon_state = "3"
 	req_cultists = 2
@@ -336,7 +336,7 @@ var/list/teleport_runes = list()
 	var/turf/T = get_turf(src)
 
 	for(var/mob/living/M in T.contents)
-		if(!iscultist(M) && !isloyal(M))
+		if(!iscultist(M) && !ismindshielded(M))
 			convertees.Add(M)
 	if(!convertees.len)
 		fail_invoke()

@@ -844,8 +844,8 @@ var/global/nologevent = 0
 		to_chat(world, "<B>Guests may no longer enter the game.</B>")
 	else
 		to_chat(world, "<B>Guests may now enter the game.</B>")
-	log_admin("[key_name(usr)] toggled guests game entering [guests_allowed?"":"dis"]allowed.")
-	message_admins("\blue [key_name_admin(usr)] toggled guests game entering [guests_allowed?"":"dis"]allowed.", 1)
+	log_admin("[key_name(usr)] toggled guests game entering [guests_allowed ? "" : "dis"]allowed.")
+	message_admins("<span class='notice'>[key_name_admin(usr)] toggled guests game entering [guests_allowed ? "" : "dis"]allowed.</span>", 1)
 	feedback_add_details("admin_verb","TGU") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
 /datum/admins/proc/output_ai_laws()

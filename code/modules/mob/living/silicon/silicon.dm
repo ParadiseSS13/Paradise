@@ -75,7 +75,7 @@
 			Stun(3)
 	flash_eyes(affect_silicon = 1)
 	to_chat(src, "<span class='danger'>*BZZZT*</span>")
-	to_chat(src, "\red Warning: Electromagnetic pulse detected.")
+	to_chat(src, "<span class='warning'>Warning: Electromagnetic pulse detected.</span>")
 	..()
 
 
@@ -167,15 +167,11 @@
 		if(L.name == rem_language)
 			speech_synthesizer_langs -= L
 
-/mob/living/silicon/check_languages()
-	set name = "Check Known Languages"
-	set category = "IC"
-	set src = usr
-
-	var/dat = "<b><font size = 5>Known Languages</font></b><br/><br/>"
+/mob/living/silicon/check_lang_data()
+	. = ""
 
 	if(default_language)
-		dat += "Current default language: [default_language] - <a href='byond://?src=[UID()];default_lang=reset'>reset</a><br/><br/>"
+		. += "Current default language: [default_language] - <a href='byond://?src=[UID()];default_lang=reset'>reset</a><br><br>"
 
 	for(var/datum/language/L in languages)
 		if(!(L.flags & NONGLOBAL))
@@ -186,10 +182,8 @@
 				default_str = " - <a href='byond://?src=[UID()];default_lang=[L]'>set default</a>"
 
 			var/synth = (L in speech_synthesizer_langs)
-			dat += "<b>[L.name] (:[L.key])</b>[synth ? default_str : null]<br/>Speech Synthesizer: <i>[synth ? "YES" : "NOT SUPPORTED"]</i><br/>[L.desc]<br/><br/>"
+			. += "<b>[L.name] (:[L.key])</b>[synth ? default_str : null]<br>Speech Synthesizer: <i>[synth ? "YES" : "NOT SUPPORTED"]</i><br>[L.desc]<br><br>"
 
-	src << browse(dat, "window=checklanguage")
-	return
 
 // this function displays the stations manifest in a separate window
 /mob/living/silicon/proc/show_station_manifest()
