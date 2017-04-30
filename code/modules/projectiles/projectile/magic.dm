@@ -162,7 +162,7 @@ proc/wabbajack(mob/living/M)
 				if(ishuman(M))
 					var/mob/living/carbon/human/H = M
 					// Make sure there are no organs or limbs to drop
-					for(var/t in H.organs)
+					for(var/t in H.bodyparts)
 						qdel(t)
 					for(var/i in H.internal_organs)
 						qdel(i)

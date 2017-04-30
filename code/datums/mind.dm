@@ -1171,7 +1171,7 @@
 				if(ishuman(current))
 					var/mob/living/carbon/human/H = current
 					// Don't "undress" organs right out of the body
-					for(var/obj/item/W in H.contents - (H.organs | H.internal_organs))
+					for(var/obj/item/W in H.contents - (H.bodyparts | H.internal_organs))
 						current.unEquip(W, 1)
 				else
 					for(var/obj/item/W in current)

@@ -654,7 +654,7 @@
 		var/bruteloss = M.bruteloss
 		if(istype(M,/mob/living/carbon/human))
 			var/mob/living/carbon/human/C = M
-			for(var/obj/item/organ/external/L in C.organs)
+			for(var/obj/item/organ/external/L in C.bodyparts)
 				bruteloss += L.brute_dam
 		if(bruteloss < 100) // requires tenderization
 			M.apply_damage(rand(5,15),BRUTE)
