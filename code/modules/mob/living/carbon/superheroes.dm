@@ -14,14 +14,18 @@
 	assign_genes(H)
 	assign_spells(H)
 	equip(H)
+	fixflags(H)
 	assign_id(H)
 
 /datum/superheroes/proc/equip(var/mob/living/carbon/human/H)
 	H.rename_character(H.real_name, name)
-	for(var/obj/item/W in H)
-		if(istype(W,/obj/item/organ)) continue
+	for(var/obj/item/W in H.get_all_slots())
 		H.unEquip(W)
 	H.equip_to_slot_or_del(new /obj/item/device/radio/headset(H), slot_l_ear)
+
+/datum/superheroes/proc/fixflags(var/mob/living/carbon/human/H)
+	for(var/obj/item/W in H.get_all_slots())
+		W.flags |= NODROP
 
 /datum/superheroes/proc/assign_genes(var/mob/living/carbon/human/H)
 	if(default_genes.len)
@@ -42,14 +46,17 @@
 	W.registered_name = H.real_name
 	W.access = list(access_maint_tunnels)
 	if(class == "Superhero")
-		W.name = "[H.real_name]'s ID Card (Superhero)"
 		W.assignment = "Superhero"
+		W.rank = "Superhero"
 		ticker.mode.superheroes += H.mind
 	else if(class == "Supervillain")
-		W.name = "[H.real_name]'s ID Card (Supervillain)"
 		W.assignment = "Supervillain"
+		W.rank = "Supervillain"
 		ticker.mode.supervillains += H.mind
-
+	W.icon_state = "lifetimeid"
+	W.SetOwnerInfo(H)
+	W.UpdateName()
+	W.flags |= NODROP
 	H.equip_to_slot_or_del(W, slot_wear_id)
 	H.regenerate_icons()
 
@@ -66,8 +73,8 @@
 	..()
 
 	H.equip_to_slot_or_del(new /obj/item/clothing/shoes/black/greytide(H), slot_shoes)
-	H.equip_to_slot_or_del(new /obj/item/clothing/under/owl/super_hero(H), slot_w_uniform)
-	H.equip_to_slot_or_del(new /obj/item/clothing/suit/toggle/owlwings/super_hero(H), slot_wear_suit)
+	H.equip_to_slot_or_del(new /obj/item/clothing/under/owl(H), slot_w_uniform)
+	H.equip_to_slot_or_del(new /obj/item/clothing/suit/toggle/owlwings(H), slot_wear_suit)
 	H.equip_to_slot_or_del(new /obj/item/clothing/mask/gas/owl_mask/super_hero(H), slot_wear_mask)
 	H.equip_to_slot_or_del(new /obj/item/weapon/storage/belt/bluespace/owlman(H), slot_belt)
 	H.equip_to_slot_or_del(new /obj/item/clothing/glasses/night(H), slot_glasses)
@@ -84,15 +91,13 @@
 /datum/superheroes/griffin/equip(var/mob/living/carbon/human/H)
 	..()
 
-	H.equip_to_slot_or_del(new /obj/item/clothing/shoes/griffin/super_hero(H), slot_shoes)
-	H.equip_to_slot_or_del(new /obj/item/clothing/under/griffin/super_hero(H), slot_w_uniform)
-	H.equip_to_slot_or_del(new /obj/item/clothing/suit/toggle/owlwings/griffinwings/super_hero(H), slot_wear_suit)
-	H.equip_to_slot_or_del(new /obj/item/clothing/head/griffin/super_hero(H), slot_head)
+	H.equip_to_slot_or_del(new /obj/item/clothing/shoes/griffin(H), slot_shoes)
+	H.equip_to_slot_or_del(new /obj/item/clothing/under/griffin(H), slot_w_uniform)
+	H.equip_to_slot_or_del(new /obj/item/clothing/suit/toggle/owlwings/griffinwings(H), slot_wear_suit)
+	H.equip_to_slot_or_del(new /obj/item/clothing/head/griffin/(H), slot_head)
 
 	var/obj/item/weapon/implant/freedom/L = new/obj/item/weapon/implant/freedom(H)
-	L.imp_in = H
-	L.implanted = 1
-	return 1
+	L.implant(H, H)
 
 
 /datum/superheroes/lightnian
@@ -189,7 +194,7 @@
 					to_chat(target, "<span class='danger'>You feel yourself agreeing with [user], and a surge of loyalty begins building.</span>")
 					target.Weaken(12)
 					sleep(20)
-					if(isloyal(target))
+					if(ismindshielded(target))
 						to_chat(user, "<span class='notice'>They are enslaved by Nanotrasen. You feel their interest in your cause wane and disappear.</span>")
 						user.visible_message("<span class='danger'>[user] stops talking for a moment, then moves back away from [target].</span>")
 						to_chat(target, "<span class='danger'>Your mindshield implant activates, protecting you from conversion.</span>")
@@ -217,18 +222,20 @@
 		target.s_tone = 35
 		// No `update_dna=0` here because the character is being over-written
 		target.change_eye_color(1,1,1)
-		for(var/obj/item/W in target)
-			if(istype(W,/obj/item/organ)) continue
+		for(var/obj/item/W in target.get_all_slots())
 			target.unEquip(W)
 		target.rename_character(target.real_name, "Generic Henchman ([rand(1, 1000)])")
 		target.equip_to_slot_or_del(new /obj/item/clothing/under/color/grey/greytide(target), slot_w_uniform)
 		target.equip_to_slot_or_del(new /obj/item/clothing/shoes/black/greytide(target), slot_shoes)
 		target.equip_to_slot_or_del(new /obj/item/weapon/storage/toolbox/mechanical/greytide(target), slot_l_hand)
-		var/obj/item/weapon/card/id/syndicate/W = new(target)
-		W.registered_name = target.real_name
-		W.access = list(access_maint_tunnels)
-		W.name = "[target.real_name]'s ID Card (Greyshirt)"
-		W.assignment = "Greyshirt"
-		target.equip_to_slot_or_del(W, slot_wear_id)
 		target.equip_to_slot_or_del(new /obj/item/device/radio/headset(target), slot_l_ear)
+		var/obj/item/weapon/card/id/syndicate/W = new(target)
+		W.icon_state = "lifetimeid"
+		W.access = list(access_maint_tunnels)
+		W.assignment = "Greyshirt"
+		W.rank = "Greyshirt"
+		W.flags |= NODROP
+		W.SetOwnerInfo(target)
+		W.UpdateName()
+		target.equip_to_slot_or_del(W, slot_wear_id)
 		target.regenerate_icons()

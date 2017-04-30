@@ -24,9 +24,7 @@
 	..()
 
 /obj/item/weapon/cartridge/Destroy()
-	if(radio)
-		qdel(radio)
-		radio = null
+	QDEL_NULL(radio)
 	for(var/A in programs)
 		qdel(A)
 	programs.Cut()

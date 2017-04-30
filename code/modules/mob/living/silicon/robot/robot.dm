@@ -180,16 +180,15 @@ var/list/robot_verbs_default = list(
 
 			for(var/line in lines)
 			// split & clean up
-				var/list/Entry = splittext(line, ";")
+				var/list/Entry = splittext(line, ":")
 				for(var/i = 1 to Entry.len)
 					Entry[i] = trim(Entry[i])
 
-				if(Entry.len < 2)
-					continue;
+				if(Entry.len < 2 || Entry[1] != "cyborg")		//ignore incorrectly formatted entries or entries that aren't marked for cyborg
+					continue
 
-				if(Entry[1] == src.ckey && Entry[2] == src.real_name) //They're in the list? Custom sprite time, var and icon change required
+				if(Entry[2] == ckey)	//They're in the list? Custom sprite time, var and icon change required
 					custom_sprite = 1
-					icon = 'icons/mob/custom-synthetic.dmi'
 
 	return 1
 
@@ -252,12 +251,10 @@ var/list/robot_verbs_default = list(
 		mmi = null
 	if(connected_ai)
 		connected_ai.connected_robots -= src
-	qdel(wires)
-	wires = null
-	qdel(module)
-	module = null
-	camera = null
-	cell = null
+	QDEL_NULL(wires)
+	QDEL_NULL(module)
+	QDEL_NULL(camera)
+	QDEL_NULL(cell)
 	return ..()
 
 /mob/living/silicon/robot/proc/pick_module()
@@ -265,7 +262,7 @@ var/list/robot_verbs_default = list(
 		return
 	var/list/modules = list("Standard", "Engineering", "Medical", "Miner", "Janitor", "Service", "Security")
 	if(security_level == (SEC_LEVEL_GAMMA || SEC_LEVEL_EPSILON) || crisis)
-		to_chat(src, "\red Crisis mode active. Combat module available.")
+		to_chat(src, "<span class='warning'>Crisis mode active. Combat module available.</span>")
 		modules+="Combat"
 	if(ticker && ticker.mode && ticker.mode.name == "nations")
 		var/datum/game_mode/nations/N = ticker.mode
@@ -429,7 +426,7 @@ var/list/robot_verbs_default = list(
 	set name = "Self Diagnosis"
 
 	if(!is_component_functioning("diagnosis unit"))
-		to_chat(src, "\red Your self-diagnosis component isn't functioning.")
+		to_chat(src, "<span class='warning'>Your self-diagnosis component isn't functioning.</span>")
 
 	var/dat = self_diagnosis()
 	src << browse(dat, "window=robotdiagnosis")
@@ -454,10 +451,10 @@ var/list/robot_verbs_default = list(
 	var/datum/robot_component/C = components[toggle]
 	if(C.toggled)
 		C.toggled = 0
-		to_chat(src, "\red You disable [C.name].")
+		to_chat(src, "<span class='warning'>You disable [C.name].</span>")
 	else
 		C.toggled = 1
-		to_chat(src, "\red You enable [C.name].")
+		to_chat(src, "<span class='warning'>You enable [C.name].</span>")
 
 /mob/living/silicon/robot/proc/sensor_mode()
 	set name = "Set Sensor Augmentation"
@@ -604,7 +601,7 @@ var/list/robot_verbs_default = list(
 					C.brute_damage = WC.brute
 					C.electronics_damage = WC.burn
 
-				to_chat(usr, "\blue You install the [W.name].")
+				to_chat(usr, "<span class='notice'>You install the [W.name].</span>")
 
 				return
 
@@ -805,22 +802,22 @@ var/list/robot_verbs_default = list(
 			var/time = time2text(world.realtime,"hh:mm:ss")
 			lawchanges.Add("[time] <B>:</B> [M.name]([M.key]) emagged [name]([key])")
 			set_zeroth_law("Only [M.real_name] and people he designates as being such are Syndicate Agents.")
-			to_chat(src, "\red ALERT: Foreign software detected.")
+			to_chat(src, "<span class='warning'>ALERT: Foreign software detected.</span>")
 			sleep(5)
-			to_chat(src, "\red Initiating diagnostics...")
+			to_chat(src, "<span class='warning'>Initiating diagnostics...</span>")
 			sleep(20)
-			to_chat(src, "\red SynBorg v1.7 loaded.")
+			to_chat(src, "<span class='warning'>SynBorg v1.7 loaded.</span>")
 			sleep(5)
-			to_chat(src, "\red LAW SYNCHRONISATION ERROR")
+			to_chat(src, "<span class='warning'>LAW SYNCHRONISATION ERROR</span>")
 			sleep(5)
-			to_chat(src, "\red Would you like to send a report to NanoTraSoft? Y/N")
+			to_chat(src, "<span class='warning'>Would you like to send a report to NanoTraSoft? Y/N</span>")
 			sleep(10)
-			to_chat(src, "\red > N")
+			to_chat(src, "<span class='warning'>> N</span>")
 			sleep(20)
-			to_chat(src, "\red ERRORERRORERROR")
+			to_chat(src, "<span class='warning'>ERRORERRORERROR</span>")
 			to_chat(src, "<b>Obey these laws:</b>")
 			laws.show_laws(src)
-			to_chat(src, "\red \b ALERT: [M.real_name] is your new master. Obey your new laws and his commands.")
+			to_chat(src, "<span class='boldwarning'>ALERT: [M.real_name] is your new master. Obey your new laws and his commands.</span>")
 			SetLockdown(0)
 			if(src.module && istype(src.module, /obj/item/weapon/robot_module/miner))
 				for(var/obj/item/weapon/pickaxe/drill/cyborg/D in src.module.modules)
@@ -1013,7 +1010,7 @@ var/list/robot_verbs_default = list(
 
 /mob/living/silicon/robot/proc/installed_modules()
 	if(weapon_lock)
-		to_chat(src, "\red Weapon lock active, unable to use modules! Count:[weaponlock_time]")
+		to_chat(src, "<span class='warning'>Weapon lock active, unable to use modules! Count:[weaponlock_time]</span>")
 		return
 
 	if(!module)
@@ -1252,15 +1249,14 @@ var/list/robot_verbs_default = list(
 		triesleft--
 
 	var/icontype
-
-	if(custom_sprite == 1)
-		icontype = "Custom"
-		triesleft = 0
-	else
-		lockcharge = 1  //Locks borg until it select an icon to avoid secborgs running around with a standard sprite
-		icontype = input("Select an icon! [triesleft ? "You have [triesleft] more chances." : "This is your last try."]", "Robot", null, null) in module_sprites
+	lockcharge = 1  //Locks borg until it select an icon to avoid secborgs running around with a standard sprite
+	icontype = input("Select an icon! [triesleft ? "You have [triesleft] more chances." : "This is your last try."]", "Robot", null, null) in module_sprites
 
 	if(icontype)
+		if(icontype == "Custom")
+			icon = 'icons/mob/custom_synthetic/custom-synthetic.dmi'
+		else
+			icon = 'icons/mob/robots.dmi'
 		icon_state = module_sprites[icontype]
 		if(icontype == "Bro")
 			module.module_type = "Brobot"

@@ -75,9 +75,7 @@
 	plant_hud_set_water()
 
 /obj/machinery/hydroponics/Destroy()
-	if(myseed)
-		qdel(myseed)
-		myseed = null
+	QDEL_NULL(myseed)
 	return ..()
 
 /obj/machinery/hydroponics/constructable/attackby(obj/item/I, mob/user, params)
@@ -485,7 +483,7 @@
 		log_game("[key_name(user)] caused spiderling pests to spawn in a hydro tray")
 		visible_message("<span class='warning'>The pests seem to behave oddly...</span>")
 		for(var/i in 1 to 3)
-			var/obj/effect/spider/spiderling/S = new(get_turf(src))
+			var/obj/structure/spider/spiderling/S = new(get_turf(src))
 			S.grow_as = /mob/living/simple_animal/hostile/poison/giant_spider/hunter
 	else
 		to_chat(user, "<span class='warning'>The pests seem to behave oddly, but quickly settle down...</span>")

@@ -1,6 +1,6 @@
-/obj/mecha/combat/recitence
+/obj/mecha/combat/reticence
 	desc = "A silent, fast, and nigh-invisible miming exosuit. Popular among mimes and mime assassins."
-	name = "\improper Recitence"
+	name = "\improper Reticence"
 	icon_state = "mime"
 	initial_icon = "mime"
 	step_in = 2
@@ -9,7 +9,7 @@
 	deflect_chance = 30
 	damage_absorption = list("brute"=0.75,"fire"=1,"bullet"=0.8,"laser"=0.7,"energy"=0.85,"bomb"=1)
 	max_temperature = 15000
-	wreckage = /obj/effect/decal/mecha_wreckage/recitence
+	wreckage = /obj/effect/decal/mecha_wreckage/reticence
 	operation_req_access = list(access_mime)
 	add_req_access = 0
 	internal_damage_threshold = 60
@@ -18,7 +18,7 @@
 	stepsound = null
 	turnsound = null
 
-/obj/mecha/combat/recitence/loaded/New()
+/obj/mecha/combat/reticence/loaded/New()
 	..()
 	var/obj/item/mecha_parts/mecha_equipment/ME = new /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/carbine/silenced
 	ME.attach(src)

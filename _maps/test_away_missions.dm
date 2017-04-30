@@ -2,7 +2,6 @@
 
 #if !defined(MAP_FILE)
 	#include "map_files\RandomZLevels\beach.dmm"
-	#include "map_files\RandomZLevels\listeningpost.dmm"
 	#include "map_files\RandomZLevels\moonoutpost19.dmm"
 	#include "map_files\RandomZLevels\undergroundoutpost45.dmm"
 	#include "map_files\RandomZLevels\academy.dmm"

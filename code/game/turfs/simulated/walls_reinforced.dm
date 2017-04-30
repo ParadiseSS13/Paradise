@@ -10,7 +10,8 @@
 	max_temperature = 6000
 	hardness = 10
 	sheet_type = /obj/item/stack/sheet/plasteel
-
+	sheet_amount = 1
+	girder_type = /obj/structure/girder/reinforced
 	var/d_state = 0
 	var/can_be_reinforced = 1
 
@@ -267,12 +268,12 @@
 			playsound(get_turf(src), 'sound/weapons/circsawhit.ogg', 50, 1)
 			user.visible_message( \
 				"[user] starts drilling a hole in \the [src].", \
-				"\blue You start drilling a hole in \the [src]. This is going to take a while.", \
+				"<span class='notice'>You start drilling a hole in \the [src]. This is going to take a while.</span>", \
 				"You hear ratchet.")
 			if(do_after(user, 160 * V.toolspeed, target = src))
 				user.visible_message( \
 					"[user] drills a hole in \the [src] and pushes \a [P] into the void", \
-					"\blue You have finished drilling in \the [src] and push the [P] into the void.", \
+					"<span class='notice'>You have finished drilling in \the [src] and push the [P] into the void.</span>", \
 					"You hear ratchet.")
 
 				user.drop_item()
@@ -313,3 +314,7 @@
 	else
 		smooth = SMOOTH_TRUE
 		icon_state = ""
+
+/turf/simulated/wall/r_wall/devastate_wall()
+	new sheet_type(src, sheet_amount)
+	new /obj/item/stack/sheet/metal(src, 2)

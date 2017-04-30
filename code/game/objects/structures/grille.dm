@@ -296,8 +296,16 @@
 	if(ismob(AM))
 		tforce = 5
 	else if(isobj(AM))
-		var/obj/item/I = AM
-		tforce = max(0, I.throwforce * 0.5)
+		if(prob(50))
+			var/obj/item/I = AM
+			tforce = max(0, I.throwforce * 0.5)
+		else if(anchored && !broken)
+			var/turf/T = get_turf(src)
+			var/obj/structure/cable/C = T.get_cable_node()
+			if(C)
+				playsound(loc, 'sound/magic/LightningShock.ogg', 100, 1, extrarange = 5)
+				tesla_zap(src, 3, C.powernet.avail * 0.01) //Zap for 1/100 of the amount of power. At a million watts in the grid, it will be as powerful as a tesla revolver shot.
+				C.powernet.load += C.powernet.avail * 0.0375 // you can gain up to 3.5 via the 4x upgrades power is halved by the pole so thats 2x then 1X then .5X for 3.5x the 3 bounces shock.
 	take_damage(tforce)
 
 /obj/structure/grille/broken // Pre-broken grilles for map placement

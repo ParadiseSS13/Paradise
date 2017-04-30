@@ -68,10 +68,10 @@ var/global/sent_strike_team = 0
 
 			//So they don't forget their code or mission.
 			if(nuke_code)
-				new_commando.mind.store_memory("<B>Nuke Code:</B> \red [nuke_code].")
-			new_commando.mind.store_memory("<B>Mission:</B> \red [input].")
+				new_commando.mind.store_memory("<B>Nuke Code:</B> <span class='warning'>[nuke_code].</span>")
+			new_commando.mind.store_memory("<B>Mission:</B> <span class='warning'>[input].</span>")
 
-			to_chat(new_commando, "\blue You are a Special Ops. [!leader_selected?"commando":"<B>LEADER</B>"] in the service of Central Command. Check the table ahead for detailed instructions.\nYour current mission is: <span class='danger'>[input]</span>")
+			to_chat(new_commando, "<span class='notice'>You are a Special Ops. [!leader_selected ? "commando" : "<B>LEADER</B>"] in the service of Central Command. Check the table ahead for detailed instructions.\nYour current mission is: <span class='danger'>[input]</span></span>")
 
 			commando_number--
 
@@ -92,7 +92,7 @@ var/global/sent_strike_team = 0
 			new /obj/effect/spawner/newbomb/timer/syndicate(L.loc)
 			qdel(L)
 
-	message_admins("\blue [key_name_admin(usr)] has spawned a CentComm strike squad.", 1)
+	message_admins("<span class='notice'>[key_name_admin(usr)] has spawned a CentComm strike squad.</span>", 1)
 	log_admin("[key_name(usr)] used Spawn Death Squad.")
 	return 1
 
@@ -157,7 +157,7 @@ var/global/sent_strike_team = 0
 	equip_to_slot_or_del(new /obj/item/weapon/gun/energy/pulse(src), slot_r_hand)
 
 
-	var/obj/item/weapon/implant/loyalty/L = new/obj/item/weapon/implant/loyalty(src)//Here you go Deuryn
+	var/obj/item/weapon/implant/mindshield/L = new/obj/item/weapon/implant/mindshield(src)
 	L.imp_in = src
 	L.implanted = 1
 	sec_hud_set_implants()

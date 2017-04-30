@@ -559,10 +559,67 @@
 /datum/sprite_accessory/hair/unathi
 	species_allowed = list("Unathi")
 	glasses_over = 1
+	icon = 'icons/mob/body_accessory.dmi'
 
-/datum/sprite_accessory/hair/unathi/una_horns
-	name = "Unathi Horns"
-	icon_state = "soghun_horns"
+/datum/sprite_accessory/hair/unathi/una_side_frills
+	icon = 'icons/mob/human_face.dmi'
+	name = "Unathi Side Frills"
+	icon_state = "unathi_sidefrills"
+	secondary_theme = "webbing"
+
+/datum/sprite_accessory/hair/unathi/una_frills_dorsal
+	icon = 'icons/mob/human_face.dmi'
+	name = "Dorsal Frills"
+	icon_state = "unathi_dorsalfrills"
+	secondary_theme = "webbing"
+
+/datum/sprite_accessory/hair/unathi/simple
+	name = "Simple Horns"
+	icon_state = "horns_simple"
+
+/datum/sprite_accessory/hair/unathi/short
+	name = "Short Horns"
+	icon_state = "horns_short"
+
+/datum/sprite_accessory/hairy/unathi/curled
+	name = "Curled Horns"
+	icon_state = "horns_curled"
+
+/datum/sprite_accessory/hair/unathi/ram
+	name = "Ram Horns"
+	icon_state = "horns_ram"
+
+/datum/sprite_accessory/hair/unathi/double
+	name = "Double Horns"
+	icon_state = "horns_drac"
+
+/datum/sprite_accessory/hair/unathi/lower
+	name = "Lower Horns"
+	icon_state = "horns_lower"
+
+/datum/sprite_accessory/hair/unathi/big
+	name = "Big"
+	icon_state = "horns_big"
+
+/datum/sprite_accessory/hair/unathi/ram2
+	name = "Ram alt."
+	icon_state = "horns_ram2"
+
+/datum/sprite_accessory/hair/unathi/small
+	name = "Small"
+	icon_state = "horns_small"
+
+/datum/sprite_accessory/hair/unathi/chin
+	name = "Chin"
+	icon_state = "horns_chin"
+
+/datum/sprite_accessory/hair/unathi/adorns
+	name = "Adorns"
+	icon_state = "horns_adorns"
+
+/datum/sprite_accessory/hair/unathi/spikes
+	name = "Spikes"
+	icon_state = "horns_spikes"
 
 /datum/sprite_accessory/hair/skrell
 	species_allowed = list("Skrell")
@@ -746,6 +803,20 @@
 	name = "Braided"
 	icon_state = "braided"
 	secondary_theme = "beads"
+
+/datum/sprite_accessory/hair/vulpkanin/vulp_hair_punkbraided
+	name = "Punk Braided"
+	icon_state = "punkbraided"
+	secondary_theme = "flare"
+
+/datum/sprite_accessory/hair/vulpkanin/vulp_hair_short2
+	name = "Short Alt."
+	icon_state = "short2"
+	glasses_over = 1
+
+/datum/sprite_accessory/hair/vulpkanin/vulp_hair_rough
+	name = "Rough-Cropped Mane"
+	icon_state = "rough"
 
 /datum/sprite_accessory/hair/vox
 	species_allowed = list("Vox")
@@ -984,6 +1055,10 @@
 	name = "Tajara Goatee"
 	icon_state = "facial_goatee"
 
+/datum/sprite_accessory/facial_hair/tajara/taj_goatee_faded
+	name = "Tajara Faded Goatee"
+	icon_state = "facial_goatee_faded"
+
 /datum/sprite_accessory/facial_hair/tajara/taj_smallstache
 	name = "Tajara Smallstache"
 	icon_state = "facial_smallstache"
@@ -1048,6 +1123,15 @@
 	name = "Swift"
 	icon_state = "vulp_facial_swift"
 
+/datum/sprite_accessory/facial_hair/vulpkanin/vulp_elder
+	name = "Elder"
+	icon_state = "vulp_facial_elder"
+	secondary_theme = "chin"
+
+/datum/sprite_accessory/facial_hair/vulpkanin/vulp_slash
+	name = "Slash"
+	icon_state = "vulp_facial_slash"
+
 /datum/sprite_accessory/facial_hair/unathi
 	species_allowed = list("Unathi")
 	gender = NEUTER
@@ -1055,38 +1139,73 @@
 
 /datum/sprite_accessory/facial_hair/unathi/una_spines_long
 	name = "Long Spines"
-	icon_state = "soghun_longspines"
+	icon_state = "unathi_longspines"
 
 /datum/sprite_accessory/facial_hair/unathi/una_spines_short
 	name = "Short Spines"
-	icon_state = "soghun_shortspines"
+	icon_state = "unathi_shortspines"
+
+/datum/sprite_accessory/facial_hair/unathi/una_frills_aquaspine
+	name = "Spiny Aquatic Frills"
+	icon_state = "unathi_dracfrills"
 
 /datum/sprite_accessory/facial_hair/unathi/una_frills_aquatic
 	name = "Aquatic Frills"
-	icon_state = "soghun_aquaticfrills"
+	icon_state = "unathi_aquaticfrills"
 
 /datum/sprite_accessory/facial_hair/unathi/una_frills_long
 	name = "Long Frills"
-	icon_state = "soghun_longfrills"
+	icon_state = "unathi_longfrills"
 
 /datum/sprite_accessory/facial_hair/unathi/una_frills_short
 	name = "Short Frills"
-	icon_state = "soghun_shortfrills"
+	icon_state = "unathi_shortfrills"
+
+/datum/sprite_accessory/facial_hair/unathi/una_frills_webbed_aquaspine
+	name = "Spiny Aquatic Webbed Frills"
+	icon_state = "unathi_dracfrills"
+	secondary_theme = "webbing"
 
 /datum/sprite_accessory/facial_hair/unathi/una_frills_webbed_aquatic
 	name = "Aquatic Webbed Frills"
-	icon_state = "soghun_aquaticfrills"
+	icon_state = "unathi_aquaticfrills"
 	secondary_theme = "webbing"
 
 /datum/sprite_accessory/facial_hair/unathi/una_frills_webbed_long
 	name = "Long Webbed Frills"
-	icon_state = "soghun_longfrills"
+	icon_state = "unathi_longfrills"
 	secondary_theme = "webbing"
 
 /datum/sprite_accessory/facial_hair/unathi/una_frills_webbed_short
 	name = "Short Webbed Frills"
-	icon_state = "soghun_shortfrills"
+	icon_state = "unathi_shortfrills"
 	secondary_theme = "webbing"
+
+/datum/sprite_accessory/facial_hair/unathi/una_side_frills
+	name = "Side Frills"
+	icon_state = "unathi_sidefrills"
+	secondary_theme = "webbing"
+
+/datum/sprite_accessory/facial_hair/unathi/una_frills_dorsal
+	over_hair = null
+	name = "Dorsal Frills"
+	icon_state = "unathi_dorsalfrills"
+	secondary_theme = "webbing"
+
+/datum/sprite_accessory/facial_hair/unathi/una_chin_horns
+	name = "Chin Horns"
+	icon = 'icons/mob/body_accessory.dmi'
+	icon_state = "horns_chin"
+
+/datum/sprite_accessory/facial_hair/unathi/una_horn_adorns
+	name = "Horn Adorns"
+	icon = 'icons/mob/body_accessory.dmi'
+	icon_state = "horns_adorns"
+
+/datum/sprite_accessory/facial_hair/unathi/una_spikes
+	name = "Spikes"
+	icon = 'icons/mob/body_accessory.dmi'
+	icon_state = "horns_spikes"
 
 //skin styles - WIP
 //going to have to re-integrate this with surgery
@@ -1132,13 +1251,13 @@
 ///////////////////////////
 /datum/sprite_accessory/underwear
 	icon = 'icons/mob/underwear.dmi'
-	species_allowed = list("Human", "Unathi", "Diona", "Vulpkanin", "Tajaran", "Kidan", "Grey", "Plasmaman", "Machine", "Slime People", "Skeleton", "Drask")
+	species_allowed = list("Human", "Unathi", "Diona", "Vulpkanin", "Tajaran", "Kidan", "Grey", "Plasmaman", "Machine", "Skrell", "Slime People", "Skeleton", "Drask")
 	gender = NEUTER
 
 /datum/sprite_accessory/underwear/nude
 	name = "Nude"
 	icon_state = null
-	species_allowed = list("Human", "Unathi", "Diona", "Vulpkanin", "Tajaran", "Kidan", "Grey", "Plasmaman", "Machine", "Slime People", "Skeleton", "Drask", "Vox")
+	species_allowed = list("Human", "Unathi", "Diona", "Vulpkanin", "Tajaran", "Kidan", "Grey", "Plasmaman", "Machine", "Skrell", "Slime People", "Skeleton", "Drask", "Vox")
 
 /datum/sprite_accessory/underwear/male
 	gender = MALE
@@ -1258,13 +1377,13 @@
 ////////////////////////////
 /datum/sprite_accessory/undershirt
 	icon = 'icons/mob/underwear.dmi'
-	species_allowed = list("Human", "Unathi", "Diona", "Vulpkanin", "Tajaran", "Kidan", "Grey", "Plasmaman", "Machine", "Slime People", "Skeleton", "Drask")
+	species_allowed = list("Human", "Unathi", "Diona", "Vulpkanin", "Tajaran", "Kidan", "Grey", "Plasmaman", "Machine", "Skrell", "Slime People", "Skeleton", "Drask")
 	gender = NEUTER
 
 /datum/sprite_accessory/undershirt/nude
 	name = "Nude"
 	icon_state = null
-	species_allowed = list("Human", "Unathi", "Diona", "Vulpkanin", "Tajaran", "Kidan", "Grey", "Plasmaman", "Machine", "Slime People", "Skeleton", "Drask", "Vox")
+	species_allowed = list("Human", "Unathi", "Diona", "Vulpkanin", "Tajaran", "Kidan", "Grey", "Plasmaman", "Machine", "Skrell", "Slime People", "Skeleton", "Drask", "Vox")
 
 //plain color shirts
 /datum/sprite_accessory/undershirt/shirt_white
@@ -1494,13 +1613,13 @@
 ///////////////////////
 /datum/sprite_accessory/socks
 	icon = 'icons/mob/underwear.dmi'
-	species_allowed = list("Human", "Unathi", "Diona", "Vulpkanin", "Tajaran", "Kidan", "Grey", "Plasmaman", "Machine", "Slime People", "Skeleton", "Drask")
+	species_allowed = list("Human", "Unathi", "Diona", "Vulpkanin", "Tajaran", "Kidan", "Grey", "Plasmaman", "Machine", "Skrell", "Slime People", "Skeleton", "Drask")
 	gender = NEUTER
 
 /datum/sprite_accessory/socks/nude
 	name = "Nude"
 	icon_state = null
-	species_allowed = list("Human", "Unathi", "Diona", "Vulpkanin", "Tajaran", "Kidan", "Grey", "Plasmaman", "Machine", "Slime People", "Skeleton", "Drask", "Vox")
+	species_allowed = list("Human", "Unathi", "Diona", "Vulpkanin", "Tajaran", "Kidan", "Grey", "Plasmaman", "Machine", "Skrell", "Slime People", "Skeleton", "Drask", "Vox")
 
 /datum/sprite_accessory/socks/white_norm
 	name = "Normal White"
@@ -1626,7 +1745,7 @@
 
 /datum/sprite_accessory/head_accessory/none
 	name = "None"
-	species_allowed = list("Human", "Unathi", "Diona", "Grey", "Machine", "Tajaran", "Vulpkanin", "Slime People", "Skeleton", "Vox")
+	species_allowed = list("Human", "Unathi", "Diona", "Grey", "Kidan", "Machine", "Tajaran", "Vulpkanin", "Skrell", "Slime People", "Skeleton", "Vox")
 	icon_state = "accessory_none"
 
 /datum/sprite_accessory/head_accessory/unathi
@@ -1648,6 +1767,38 @@
 /datum/sprite_accessory/head_accessory/unathi/ram
 	name = "Ram"
 	icon_state = "horns_ram"
+
+/datum/sprite_accessory/head_accessory/unathi/double
+	name = "Double"
+	icon_state = "horns_drac"
+
+/datum/sprite_accessory/head_accessory/unathi/lower
+	name = "Lower"
+	icon_state = "horns_lower"
+
+/datum/sprite_accessory/head_accessory/unathi/big
+	name = "Big"
+	icon_state = "horns_big"
+
+/datum/sprite_accessory/head_accessory/unathi/ram2
+	name = "Ram alt."
+	icon_state = "horns_ram2"
+
+/datum/sprite_accessory/head_accessory/unathi/small
+	name = "Small"
+	icon_state = "horns_small"
+
+/datum/sprite_accessory/head_accessory/unathi/chin
+	name = "Chin"
+	icon_state = "horns_chin"
+
+/datum/sprite_accessory/head_accessory/unathi/adorns
+	name = "Adorns"
+	icon_state = "horns_adorns"
+
+/datum/sprite_accessory/head_accessory/unathi/spikes
+	name = "Spikes"
+	icon_state = "horns_spikes"
 
 /datum/sprite_accessory/head_accessory/tajara
 	species_allowed = list("Tajaran")
@@ -1729,6 +1880,20 @@
 	name = "Vulpkanin Nose"
 	icon_state = "markings_face_nose_vulp"
 
+/datum/sprite_accessory/head_accessory/vulpkanin/vulp_nose2
+	name = "Vulpkanin Nose Alt."
+	icon_state = "markings_face_nose2_vulp"
+
+/datum/sprite_accessory/head_accessory/vulpkanin/vulp_elder
+	icon = 'icons/mob/human_face.dmi'
+	name = "Elder"
+	icon_state = "vulp_facial_elder"
+
+/datum/sprite_accessory/head_accessory/vulpkanin/vulp_slash
+	icon = 'icons/mob/human_face.dmi'
+	name = "Slash"
+	icon_state = "vulp_facial_slash"
+
 /datum/sprite_accessory/head_accessory/ipc
 	species_allowed = list("Machine")
 	over_hair = 1
@@ -1749,24 +1914,93 @@
 	name = "Head Light"
 	icon_state = "light"
 
+/datum/sprite_accessory/head_accessory/ipc/ipc_side_lights
+	name = "Side Lights"
+	icon_state = "sidelights"
+
+/datum/sprite_accessory/head_accessory/ipc/ipc_side_cyber_head
+	name = "Cyber Pipes"
+	icon_state = "cyberhead"
+
+/datum/sprite_accessory/head_accessory/ipc/ipc_side_antlers
+	name = "Antlers"
+	icon_state = "antlers"
+
+/datum/sprite_accessory/head_accessory/ipc/ipc_side_drone_eyes
+	name = "Drone Eyes"
+	icon_state = "droneeyes"
+
+/datum/sprite_accessory/head_accessory/ipc/ipc_crowned
+	name = "Crowned"
+	icon_state = "crowned"
+
+/datum/sprite_accessory/head_accessory/kidan
+	icon = 'icons/mob/human_face.dmi'
+	species_allowed = list("Kidan")
+	over_hair = 1
+	do_colouration = 1
+
+/datum/sprite_accessory/head_accessory/kidan/perked_antennae
+	name = "Perked-up Antennae"
+	icon_state = "kidan_perky"
+
+/datum/sprite_accessory/head_accessory/kidan/mopey_antennae
+	name = "Mopey Antennae"
+	icon_state = "kidan_mopey"
+
+/datum/sprite_accessory/head_accessory/kidan/curious_antennae
+	name = "Curious Antennae"
+	icon_state = "kidan_curious"
+
+/datum/sprite_accessory/head_accessory/kidan/mopey_antennae
+	name = "Mopey Antennae"
+	icon_state = "kidan_mopey"
+
+/datum/sprite_accessory/head_accessory/kidan/crescent_antennae
+	name = "Crescent Antennae"
+	icon_state = "kidan_crescent"
+
+/datum/sprite_accessory/head_accessory/kidan/alert_antennae
+	name = "Alert Antennae"
+	icon_state = "kidan_alert"
+
+/datum/sprite_accessory/head_accessory/kidan/normal_antennae
+	name = "Normal Antennae"
+	icon_state = "kidan_normal"
+
+/datum/sprite_accessory/head_accessory/kidan/long_antennae
+	name = "Long Antennae"
+	icon_state = "kidan_long"
+
+/datum/sprite_accessory/head_accessory/kidan/moth_antennae
+	name = "Moth Antennae"
+	icon_state = "kidan_moth"
+
 
 /* BODY MARKINGS */
 
 /datum/sprite_accessory/body_markings
 	icon = 'icons/mob/body_accessory.dmi'
-	species_allowed = list("Unathi", "Tajaran", "Vulpkanin", "Machine", "Vox")
+	species_allowed = list("Unathi", "Tajaran", "Vulpkanin", "Machine", "Vox", "Kidan")
 	icon_state = "accessory_none"
 	marking_location = "body"
 
 /datum/sprite_accessory/body_markings/none
 	name = "None"
-	species_allowed = list("Human", "Unathi", "Diona", "Grey", "Machine", "Tajaran", "Vulpkanin", "Slime People", "Skeleton", "Vox")
+	species_allowed = list("Human", "Unathi", "Diona", "Grey", "Machine", "Tajaran", "Vulpkanin", "Skrell", "Slime People", "Skeleton", "Vox", "Kidan")
 	icon_state = "accessory_none"
 
 /datum/sprite_accessory/body_markings/tiger
 	name = "Tiger Body"
 	species_allowed = list("Unathi", "Tajaran", "Vulpkanin")
 	icon_state = "markings_tiger"
+
+/datum/sprite_accessory/body_markings/kidan
+	species_allowed = list("Kidan")
+
+/datum/sprite_accessory/body_markings/kidan/outline_kid
+	name = "Kidan Outline"
+	icon_state = "markings_outline_kid"
 
 /datum/sprite_accessory/body_markings/unathi
 	species_allowed = list("Unathi")
@@ -1856,6 +2090,13 @@
 	marking_location = "head"
 	species_allowed = list()
 
+/datum/sprite_accessory/body_markings/head/kidan
+	species_allowed = list("Kidan")
+
+/datum/sprite_accessory/body_markings/head/kidan/outline_head_kid
+	name = "Kidan Outline Head"
+	icon_state = "markings_head_outline_kid"
+
 /datum/sprite_accessory/body_markings/head/tajara
 	species_allowed = list("Tajaran")
 
@@ -1914,6 +2155,10 @@
 	name = "Vulpkanin Nose"
 	icon_state = "markings_face_nose_vulp"
 
+/datum/sprite_accessory/body_markings/head/vulpkanin/nose2_default_vulp
+	name = "Vulpkanin Nose Alt."
+	icon_state = "markings_face_nose2_vulp"
+
 /datum/sprite_accessory/body_markings/head/vulpkanin/muzzle_vulp //Companion marking for Vulpkanin Belly Alt..
 	name = "Vulpkanin Muzzle"
 	icon_state = "markings_face_full_vulp"
@@ -1949,6 +2194,7 @@
 /datum/sprite_accessory/body_markings/head/unathi/snout_lower_una_round
 	name = "Unathi Lower Round Snout"
 	icon_state = "markings_face_snout_lower_una"
+	heads_allowed = list("All")
 
 /datum/sprite_accessory/body_markings/head/unathi/banded_una //Companion marking for Unathi Banded.
 	name = "Unathi Banded Head"

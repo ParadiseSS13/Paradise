@@ -108,7 +108,7 @@ Difficulty: Hard
 		..()
 
 /mob/living/simple_animal/hostile/megafauna/hierophant/Destroy()
-	qdel(spawned_rune)
+	QDEL_NULL(spawned_rune)
 	. = ..()
 
 /mob/living/simple_animal/hostile/megafauna/hierophant/devour(mob/living/L)

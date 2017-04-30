@@ -243,7 +243,7 @@
 		playsound(src.loc, W.usesound, 50, 1)
 		playsound(src.loc, "sparks", 50, 1)
 		for(var/mob/O in viewers(user, 4))
-			O.show_message("\blue The [src] was sliced apart by [user]!", 1, "\red You hear [src] coming apart.", 2)
+			O.show_message("<span class='notice'>The [src] was sliced apart by [user]!</span>", 1, "<span class='warning'>You hear [src] coming apart.</span>", 2)
 		destroy()
 		return
 
@@ -494,18 +494,18 @@
 		var/obj/item/weapon/weldingtool/WT = W
 		if(WT.remove_fuel(0, user))
 			if(src.status == 2)
-				to_chat(user, "\blue Now weakening the reinforced table")
+				to_chat(user, "<span class='notice'>Now weakening the reinforced table</span>")
 				playsound(src.loc, WT.usesound, 50, 1)
 				if(do_after(user, 50 * WT.toolspeed, target = src))
 					if(!src || !WT.isOn()) return
-					to_chat(user, "\blue Table weakened")
+					to_chat(user, "<span class='notice'>Table weakened</span>")
 					src.status = 1
 			else
-				to_chat(user, "\blue Now strengthening the reinforced table")
+				to_chat(user, "<span class='notice'>Now strengthening the reinforced table</span>")
 				playsound(src.loc, WT.usesound, 50, 1)
 				if(do_after(user, 50 * WT.toolspeed, target = src))
 					if(!src || !WT.isOn()) return
-					to_chat(user, "\blue Table strengthened")
+					to_chat(user, "<span class='notice'>Table strengthened</span>")
 					src.status = 2
 			return
 		return

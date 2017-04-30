@@ -50,7 +50,7 @@
 
 /datum/gear/uniform/skirt/job/cmo
 	display_name = "skirt, cmo"
-	path = /obj/item/clothing/under/rank/chief_medical_officer
+	path = /obj/item/clothing/under/rank/chief_medical_officer/skirt
 	allowed_roles = list("Chief Medical Officer")
 
 /datum/gear/uniform/skirt/job/chem
