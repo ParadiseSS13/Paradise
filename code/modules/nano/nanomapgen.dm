@@ -57,22 +57,21 @@
 	log_to_dd("NanoMapGen: <B>GENERATE MAP ([startX],[startY],[currentZ]) to ([endX],[endY],[currentZ])</B>")
 	to_chat(usr, "NanoMapGen: <B>GENERATE MAP ([startX],[startY],[currentZ]) to ([endX],[endY],[currentZ])</B>")
 
-	var/count = 0;
 	for(var/WorldX = startX, WorldX <= endX, WorldX++)
 		for(var/WorldY = startY, WorldY <= endY, WorldY++)
+			var/turf/T = locate(WorldX, WorldY, currentZ)
+			var/list/atoms = T.contents + T
+			atoms = sortByVar(atoms, "layer")
+			for(var/atom/A in atoms)
+				if(A.type == /turf/space|| istype(A, /mob) || A.invisibility > 0)
+					continue
 
-			var/atom/Turf = locate(WorldX, WorldY, currentZ)
+				var/icon/TurfIcon = new(A.icon, A.icon_state, A.dir, 1, 0)
+				TurfIcon.Scale(NANOMAP_ICON_SIZE, NANOMAP_ICON_SIZE)
 
-			var/icon/TurfIcon = new(Turf.icon, Turf.icon_state)
-			TurfIcon.Scale(NANOMAP_ICON_SIZE, NANOMAP_ICON_SIZE)
+				Tile.Blend(TurfIcon, ICON_OVERLAY, ((WorldX - 1) * NANOMAP_ICON_SIZE) + (A.pixel_x * NANOMAP_ICON_SIZE / 32), ((WorldY - 1) * NANOMAP_ICON_SIZE) + (A.pixel_y * NANOMAP_ICON_SIZE / 32))
 
-			Tile.Blend(TurfIcon, ICON_OVERLAY, ((WorldX - 1) * NANOMAP_ICON_SIZE), ((WorldY - 1) * NANOMAP_ICON_SIZE))
-
-			count++
-
-			if(count % 8000 == 0)
-				log_to_dd("NanoMapGen: <B>[count] tiles done</B>")
-				sleep(1)
+			CHECK_TICK
 
 	var/mapFilename = "nanomap_z[currentZ]-new.png"
 

@@ -345,6 +345,30 @@
 		return (result + L.Copy(Li, 0))
 	return (result + R.Copy(Ri, 0))
 
+/proc/sortByVar(var/list/L, var/key)
+	if(L.len < 2)
+		return L
+	var/middle = L.len / 2 + 1
+	return mergeVaredLists(sortByVar(L.Copy(0, middle), key), sortByVar(L.Copy(middle), key), key)
+
+/proc/mergeVaredLists(var/list/L, var/list/R, var/key)
+	var/Li=1
+	var/Ri=1
+	var/list/result = new()
+	while(Li <= L.len && Ri <= R.len)
+		var/datum/LO = L[Li]
+		var/datum/RO = R[Ri]
+		if(LO.vars[key] > RO.vars[key])
+			// Works around list += list2 merging lists; it's not pretty but it works
+			result += "temp item"
+			result[result.len] = R[Ri++]
+		else
+			result += "temp item"
+			result[result.len] = L[Li++]
+
+	if(Li <= L.len)
+		return (result + L.Copy(Li, 0))
+	return (result + R.Copy(Ri, 0))
 
 //Mergesort: any value in a list, preserves key=value structure
 /proc/sortAssoc(var/list/L)
