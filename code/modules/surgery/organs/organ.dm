@@ -32,6 +32,13 @@ var/list/organ_cache = list()
 	var/sterile = 0 //can the organ be infected by germs?
 	var/tough = 0 //can organ be easily damaged?
 
+/obj/item/organ/Destroy()
+	processing_objects.Remove(src)
+	owner = null
+	QDEL_LIST_ASSOC_VAL(autopsy_data)
+	QDEL_NULL(dna)
+	return ..()
+
 /obj/item/organ/proc/update_health()
 	return
 

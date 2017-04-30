@@ -120,12 +120,6 @@
 
 	reagents.add_reagent("nutriment", 5)
 
-
-/obj/item/organ/internal/Destroy()
-	if(owner)
-		remove(owner, 1)
-	return ..()
-
 /obj/item/organ/internal/attack(mob/living/carbon/M, mob/user)
 	if(M == user && ishuman(user))
 		var/mob/living/carbon/human/H = user
