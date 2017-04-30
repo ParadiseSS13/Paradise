@@ -165,11 +165,9 @@
 	. = ..()
 	if(ishuman(M))
 		var/mob/living/carbon/human/H = M
-		if(H.stat == DEAD || H.heart_attack)
+		if(H.stat == DEAD)
 			Stop()
 			return
-		if(!special)
-			H.heart_attack = 1
 
 	spawn(120)
 		if(!owner)
@@ -182,15 +180,6 @@
 		spawn(80)
 			if(!owner)
 				Stop()
-
-
-/obj/item/organ/internal/heart/insert(mob/living/carbon/M, special = 0)
-	..()
-	if(ishuman(M) && beating)
-		var/mob/living/carbon/human/H = M
-		if(H.heart_attack)
-			H.heart_attack = 0
-			return
 
 /obj/item/organ/internal/heart/proc/Stop()
 	beating = 0

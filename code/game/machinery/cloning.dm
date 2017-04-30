@@ -34,6 +34,7 @@
 
 	var/obj/effect/countdown/clonepod/countdown
 
+	var/list/brine_types = list("corazone", "salbutamol", "hydrocodone")
 	var/list/missing_organs
 	var/organs_number = 0
 
@@ -86,21 +87,9 @@
 /obj/machinery/clonepod/Destroy()
 	if(connected)
 		connected.pods -= src
-<<<<<<< HEAD
 	QDEL_NULL(Radio)
 	QDEL_NULL(countdown)
-=======
-	if(Radio)
-		qdel(Radio)
-		Radio = null
-	if(countdown)
-		qdel(countdown)
-		countdown = null
-	for(var/i in missing_organs)
-		qdel(i)
-	LAZYCLEARLIST(missing_organs)
-	missing_organs = null
->>>>>>> Cloning now puts you together bit by bit
+	LAZYDESTROYLIST(missing_organs)
 	return ..()
 
 /obj/machinery/clonepod/RefreshParts()
@@ -280,6 +269,7 @@
 	H.sync_organ_dna(1) // It's literally a fresh body as you can get, so all organs properly belong to it
 	H.UpdateAppearance()
 
+	check_brine()
 	//Get the clone body ready
 	maim_clone(H)
 	H.Paralyse(4)
@@ -332,21 +322,24 @@
 			 //Slowly get that clone healed and finished.
 			occupant.adjustCloneLoss(-((speed_coeff/2)))
 
-			var/progress = CLONE_INITIAL_DAMAGE - occupant.getCloneLoss()
-			progress += (100 - MINIMUM_HEAL_LEVEL)
-			var/milestone = CLONE_INITIAL_DAMAGE / organs_number
-			var/installed = organs_number - LAZYLEN(missing_organs)
+			// For human species that lack non-vital parts for some weird reason
+			if(organs_number)
+				var/progress = CLONE_INITIAL_DAMAGE - occupant.getCloneLoss()
+				progress += (100 - MINIMUM_HEAL_LEVEL)
+				var/milestone = CLONE_INITIAL_DAMAGE / organs_number
+// Doing this as a #define so that the value can change when evaluated multiple times
+#define INSTALLED (organs_number - LAZYLEN(missing_organs))
 
-			while((progress / milestone) > installed && LAZYLEN(missing_organs))
-				var/obj/item/organ/I = pick_n_take(missing_organs)
-				I.replaced(occupant)
+				while((progress / milestone) > INSTALLED && LAZYLEN(missing_organs))
+					var/obj/item/organ/I = pick_n_take(missing_organs)
+					I.replaced(occupant)
+
+#undef INSTALLED
 
 			//Premature clones may have brain damage.
 			occupant.adjustBrainLoss(-((speed_coeff/20)*efficiency))
 
-			//So clones don't die of oxyloss in a running pod.
-			if(occupant.reagents.get_reagent_amount("salbutamol") < 5)
-				occupant.reagents.add_reagent("salbutamol", 5)
+			check_brine()
 
 			//Also heal some oxyloss ourselves just in case!!
 			occupant.adjustOxyLoss(-4)
@@ -562,7 +555,10 @@
 		var/obj/item/organ/O = o
 		if(!istype(O) || O.vital)
 			continue
-		var/obj/item/I = O.remove(H, TRUE)
+
+		// Let's non-specially remove all non-vital organs
+		// What could possibly go wrong
+		var/obj/item/I = O.remove(H)
 		// Make this support stuff that turns into items when removed
 		I.forceMove(src)
 		missing_organs += I
@@ -570,11 +566,18 @@
 	var/static/list/zones = list("r_arm", "l_arm", "r_leg", "l_leg")
 	for(var/zone in zones)
 		var/obj/item/organ/external/E = H.get_organ(zone)
-		var/obj/item/I = E.remove(H, TRUE)
+		var/obj/item/I = E.remove(H)
 		I.forceMove(src)
 		missing_organs += I
 
 	organs_number = LAZYLEN(missing_organs)
+
+/obj/machinery/clonepod/proc/check_brine()
+	// Clones are in a pickled bath of mild chemicals, keeping
+	// them alive, despite their lack of internal organs
+	for(var/bt in brine_types)
+		if(occupant.reagents.get_reagent_amount(bt) < 1)
+			occupant.reagents.add_reagent(bt, 1)
 
 /*
  *	Diskette Box
