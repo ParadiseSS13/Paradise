@@ -2107,7 +2107,7 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 		var/obj/item/organ/external/O = character.bodyparts_by_name[name]
 		if(O)
 			if(status == "amputated")
-				O.remove(character)
+				qdel(O.remove(character))
 
 			else if(status == "cyborg")
 				if(rlimb_data[name])
