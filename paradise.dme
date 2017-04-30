@@ -1703,6 +1703,7 @@
 #include "code\modules\mob\living\simple_animal\friendly\pet.dm"
 #include "code\modules\mob\living\simple_animal\friendly\pug.dm"
 #include "code\modules\mob\living\simple_animal\friendly\slime.dm"
+#include "code\modules\mob\living\simple_animal\friendly\sloth.dm"
 #include "code\modules\mob\living\simple_animal\friendly\spiderbot.dm"
 #include "code\modules\mob\living\simple_animal\hostile\alien.dm"
 #include "code\modules\mob\living\simple_animal\hostile\bat.dm"

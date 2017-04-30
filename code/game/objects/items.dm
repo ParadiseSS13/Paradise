@@ -81,6 +81,7 @@ var/global/image/fire_overlay = image("icon" = 'icons/goonstation/effects/fire.d
 		new path(src)
 
 /obj/item/Destroy()
+	QDEL_NULL(hidden_uplink)
 	if(ismob(loc))
 		var/mob/m = loc
 		m.unEquip(src, 1)
