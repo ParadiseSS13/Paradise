@@ -72,6 +72,9 @@ var/const/CALL_SHUTTLE_REASON_LENGTH = 12
 			continue
 		mobile.Remove(thing)
 
+
+DECLARE_GLOBAL_CONTROLLER(shuttle, shuttle_master)
+
 /datum/controller/process/shuttle/proc/initialize_docks()
 	for(var/obj/docking_port/D in world)
 		D.register()

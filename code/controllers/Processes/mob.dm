@@ -34,3 +34,6 @@ var/global/datum/controller/process/mob/mob_master
 			catchBadType(M)
 			mob_list -= M
 	current_cycle++
+
+
+DECLARE_GLOBAL_CONTROLLER(mob, mob_master)
