@@ -120,17 +120,6 @@
 	build_path = /obj/item/weapon/storage/bag/plants/portaseeder
 	category = list("Equipment")
 
-/datum/design/detective_scanner
-	name = "Forensic Scanner"
-	desc = "A high tech scanner designed for forensic evidence collection, DNA recovery, and fiber analysis."
-	id = "detectivescanner"
-	req_tech = list("biotech" = 2, "magnets" = 4)
-	build_type = PROTOLATHE
-	materials = list(MAT_METAL = 6000, MAT_GLASS = 2000)
-	build_path = /obj/item/device/detective_scanner
-	locked = 1      //no validhunting scientists.
-	category = list("Equipment")
-
 /datum/design/sci_goggles
 	name = "Science Goggles"
 	desc = "Goggles fitted with a portable analyzer capable of determining the research worth of an item or components of a machine."
