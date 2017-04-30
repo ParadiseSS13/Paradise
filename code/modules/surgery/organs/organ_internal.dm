@@ -87,6 +87,10 @@
 /obj/item/organ/internal/proc/on_life()
 	return
 
+//abstract proc called by carbon/death()
+/obj/item/organ/internal/proc/on_owner_death()
+ 	return
+
 /obj/item/organ/internal/proc/prepare_eat()
 	if(status == ORGAN_ROBOT)
 		return //no eating cybernetic implants!
