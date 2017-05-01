@@ -1265,7 +1265,7 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 				if("age")
 					var/new_age = input(user, "Choose your character's age:\n([AGE_MIN]-[AGE_MAX])", "Character Preference") as num|null
 					if(new_age)
-						age = max(min( round(text2num(new_age)), AGE_MAX),AGE_MIN)
+						age = max(min(round(text2num(new_age)), AGE_MAX),AGE_MIN)
 				if("species")
 					var/list/new_species = list("Human", "Tajaran", "Skrell", "Unathi", "Diona", "Vulpkanin")
 					var/prev_species = species
@@ -1283,9 +1283,10 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 
 					species = input("Please select a species", "Character Generation", null) in new_species
 					var/datum/species/NS = all_species[species]
-					if(!istype(NS)) //The species was invalid. Set the species to the default and fetch the datum for that species.
-						species = initial(species)
-						NS = all_species[species]
+					if(!istype(NS)) //The species was invalid. Notify the user and fail out.
+						species = prev_species
+						to_chat(user, "<span class='warning'>Invalid species, please pick something else.</span>")
+						return
 					if(prev_species != species)
 						if(NS.has_gender && gender == PLURAL)
 							gender = pick(MALE,FEMALE)
@@ -1359,7 +1360,7 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 						rlimb_data = list()
 
 						if(!(NS.autohiss_basic_map))
-							autohiss_mode = 0
+							autohiss_mode = AUTOHISS_OFF
 				if("speciesprefs")
 					speciesprefs = !speciesprefs //Starts 0, so if someone clicks the button up top there, this won't be 0 anymore. If they click it again, it'll go back to 0.
 				if("language")
@@ -1386,7 +1387,7 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 
 				if("autohiss_mode")
 					if(S.autohiss_basic_map)
-						var/list/autohiss_choice = list("Off" = 0, "Basic" = 1, "Full" = 2)
+						var/list/autohiss_choice = list("Off" = AUTOHISS_OFF, "Basic" = AUTOHISS_BASIC, "Full" = AUTOHISS_FULL)
 						var/new_autohiss_pref = input(user, "Choose your character's auto-accent level:", "Character Preference") as null|anything in autohiss_choice
 						autohiss_mode = autohiss_choice[new_autohiss_pref]
 
