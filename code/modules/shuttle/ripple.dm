@@ -11,13 +11,9 @@
 	layer = RIPPLE_LAYER
 	alpha = 0
 	duration = 3 * SHUTTLE_RIPPLE_TIME
+	mouse_opacity = 1
 
 /obj/effect/overlay/temp/ripple/New()
 	. = ..()
 	smooth_icon(src)
 	animate(src, alpha=255, time=SHUTTLE_RIPPLE_TIME)
-	// In case something goes wrong, delete us in a bit
-	addtimer(src, "delself", 3 * SHUTTLE_RIPPLE_TIME, FALSE)
-
-/obj/effect/overlay/temp/ripple/proc/delself()
-	qdel(src)

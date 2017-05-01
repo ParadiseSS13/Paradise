@@ -460,13 +460,11 @@
 		for(var/turf/T0 in L0)
 			A0.contents += T0
 
+	// Removes ripples
+	remove_ripples()
+
 	//move or squish anything in the way ship at destination
 	roadkill(L0, L1, S1.dir)
-
-	// Removes ripples
-	for(var/i in ripples)
-		qdel(i)
-	ripples.Cut()
 
 	for(var/i in 1 to L0.len)
 		var/turf/T0 = L0[i]
@@ -606,9 +604,9 @@
 
 //used by shuttle subsystem to check timers
 /obj/docking_port/mobile/proc/check()
+	check_effects()
+
 	var/timeLeft = timeLeft(1)
-	if(!ripples.len && (timeLeft <= SHUTTLE_RIPPLE_TIME) && ((mode == SHUTTLE_CALL) || (mode == SHUTTLE_RECALL)))
-		create_ripples(destination)
 
 	if(timeLeft <= 0)
 		switch(mode)
@@ -624,6 +622,12 @@
 		timer = 0
 		destination = null
 
+/obj/docking_port/mobile/proc/check_effects()
+	if(!ripples.len)
+		if((mode == SHUTTLE_CALL) || (mode == SHUTTLE_RECALL))
+			var/tl = timeLeft(1)
+			if(tl <= SHUTTLE_RIPPLE_TIME)
+				create_ripples(destination)
 
 /obj/docking_port/mobile/proc/setTimer(wait)
 	if(timer <= 0)
