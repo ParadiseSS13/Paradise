@@ -232,8 +232,11 @@
 
 	if(!R.dna)
 		R.dna = new /datum/dna()
-
-	var/mob/living/carbon/human/H = new /mob/living/carbon/human(src, R.dna.species)
+	var/mob/living/carbon/human/H = null
+	if(!R.dna.species == "Vox")
+		H = new /mob/living/carbon/human(src, R.dna.species)
+	else
+		H = new /mob/living/carbon/human/interactive/greytide(src, R.dna.species)
 	occupant = H
 
 	if(!R.dna.real_name)	//to prevent null names
