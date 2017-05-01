@@ -45,7 +45,7 @@
 				on_CD = handle_emote_CD()			//proc located in code\modules\mob\emote.dm'
 				found_slime_bodypart = 1
 			else
-				for(var/obj/item/organ/external/L in organs) // if your limbs are squishy you can squish too!
+				for(var/obj/item/organ/external/L in bodyparts) // if your limbs are squishy you can squish too!
 					if(L.dna.species in list("Slime People"))
 						on_CD = handle_emote_CD()
 						found_slime_bodypart = 1

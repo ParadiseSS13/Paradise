@@ -219,7 +219,7 @@
 				"<span class='notice'>You check yourself for injuries.</span>" \
 				)
 
-			for(var/obj/item/organ/external/org in H.organs)
+			for(var/obj/item/organ/external/org in H.bodyparts)
 				var/status = ""
 				var/brutedamage = org.brute_dam
 				var/burndamage = org.burn_dam

@@ -144,6 +144,7 @@
 	icon = 'icons/turf/walls/iron_wall.dmi'
 	icon_state = "iron"
 	sheet_type = /obj/item/stack/rods
+	sheet_amount = 5
 	canSmoothWith = list(/turf/simulated/wall/mineral/iron, /obj/structure/falsewall/iron)
 
 /turf/simulated/wall/mineral/abductor

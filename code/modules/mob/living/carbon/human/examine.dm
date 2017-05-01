@@ -298,7 +298,7 @@
 		var/organ_descriptor = organ_data["descriptor"]
 		is_destroyed["[organ_data["descriptor"]]"] = 1
 
-		var/obj/item/organ/external/E = organs_by_name[organ_tag]
+		var/obj/item/organ/external/E = bodyparts_by_name[organ_tag]
 		if(!E)
 			wound_flavor_text["[organ_tag]"] = "<span class='warning'><b>[t_He] [t_is] missing [t_his] [organ_descriptor].</b></span>\n"
 		else if(E.is_stump())
@@ -306,7 +306,7 @@
 		else
 			continue
 
-	for(var/obj/item/organ/external/temp in organs)
+	for(var/obj/item/organ/external/temp in bodyparts)
 		if(temp && !temp.is_stump())
 			if(temp.status & ORGAN_ROBOT)
 				if(!(temp.brute_dam + temp.burn_dam))

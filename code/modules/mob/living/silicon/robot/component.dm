@@ -230,7 +230,7 @@
 			to_chat(user, "<span class='notice'>External prosthetics:</span>")
 			var/organ_found
 			if(H.internal_organs.len)
-				for(var/obj/item/organ/external/E in H.organs)
+				for(var/obj/item/organ/external/E in H.bodyparts)
 					if(!(E.status & ORGAN_ROBOT))
 						continue
 					organ_found = 1
