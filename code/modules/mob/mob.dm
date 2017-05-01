@@ -11,6 +11,9 @@
 	for(var/mob/dead/observer/M in following_mobs)
 		M.following = null
 	following_mobs = null
+	for(var/I in tkgrabbed_objects)
+		qdel(tkgrabbed_objects[I])
+	tkgrabbed_objects = null
 	if(buckled)
 		buckled.unbuckle_mob()
 	if(viewing_alternate_appearances)

@@ -32,21 +32,15 @@ var/const/tk_maxrange = 15
 		return
 
 	var/obj/item/tk_grab/O = new(src)
-	user.put_in_active_hand(O)
-	O.host = user
-	O.focus_object(src)
-	return
+	O.form_grab(user, src)
 
 /obj/item/attack_tk(mob/user)
 	if(user.stat || !isturf(loc)) return
 	if((TK in user.mutations) && !user.get_active_hand()) // both should already be true to get here
 		var/obj/item/tk_grab/O = new(src)
-		user.put_in_active_hand(O)
-		O.host = user
-		O.focus_object(src)
+		O.form_grab(user, src)
 	else
 		warning("Strange attack_tk(): TK([TK in user.mutations]) empty hand([!user.get_active_hand()])")
-	return
 
 
 /mob/attack_tk(mob/user)
@@ -75,6 +69,12 @@ var/const/tk_maxrange = 15
 	var/atom/movable/focus = null
 	var/mob/living/host = null
 
+/obj/item/tk_grab/Destroy()
+	if(focus)
+		release_object()
+	// Focus is null now
+	host = null
+	return ..()
 
 /obj/item/tk_grab/dropped(mob/user as mob)
 	if(focus && user && loc != user && loc != user.loc) // drop_item() gets called when you tk-attack a table/closet with an item
@@ -93,6 +93,10 @@ var/const/tk_maxrange = 15
 /obj/item/tk_grab/attack_self(mob/user as mob)
 	if(focus)
 		focus.attack_self_tk(user)
+
+/obj/item/tk_grab/override_throw(mob/user, atom/target)
+	afterattack(target, user)
+	return TRUE
 
 /obj/item/tk_grab/afterattack(atom/target as mob|obj|turf|area, mob/living/user as mob|obj, proximity, params)//TODO: go over this
 	if(!target || !user)	return
@@ -122,7 +126,7 @@ var/const/tk_maxrange = 15
 		return // todo: something like attack_self not laden with assumptions inherent to attack_self
 
 
-	if(!istype(target, /turf) && istype(focus,/obj/item) && target.Adjacent(focus))
+	if(istype(focus,/obj/item) && target.Adjacent(focus) && !user.in_throw_mode)
 		var/obj/item/I = focus
 		var/resolved = target.attackby(I, user, params)
 		if(!resolved && target && I)
@@ -137,8 +141,12 @@ var/const/tk_maxrange = 15
 /obj/item/tk_grab/attack(mob/living/M as mob, mob/living/user as mob, def_zone)
 	return
 
+/obj/item/tk_grab/is_equivalent(obj/item/I)
+	. = ..()
+	if(!.)
+		return I == focus
 
-/obj/item/tk_grab/proc/focus_object(var/obj/target, var/mob/living/user)
+/obj/item/tk_grab/proc/focus_object(var/obj/target, var/mob/user)
 	if(!istype(target,/obj))	return//Cant throw non objects atm might let it do mobs later
 	if(target.anchored || !isturf(target.loc))
 		qdel(src)
@@ -146,11 +154,25 @@ var/const/tk_maxrange = 15
 	focus = target
 	update_icon()
 	apply_focus_overlay()
-	return
+	// Make it behave like other equipment
+	if(istype(target, /obj/item))
+		if(target in user.tkgrabbed_objects)
+			// Release the old grab first
+			user.unEquip(user.tkgrabbed_objects[target])
+		user.tkgrabbed_objects[target] = src
 
+/obj/item/tk_grab/proc/release_object()
+	if(!focus)
+		return
+	if(istype(focus, /obj/item))
+		// Delete the key/value pair of item to TK grab
+		host.tkgrabbed_objects -= focus
+	focus = null
+	update_icon()
 
 /obj/item/tk_grab/proc/apply_focus_overlay()
 	if(!focus)	return
+	// Oh jeez ow
 	var/obj/effect/overlay/O = new /obj/effect/overlay(locate(focus.x,focus.y,focus.z))
 	O.name = "sparkles"
 	O.anchored = 1
@@ -162,6 +184,11 @@ var/const/tk_maxrange = 15
 	flick("empdisable",O)
 	spawn(5)
 		qdel(O)
+
+/obj/item/tk_grab/proc/form_grab(mob/user, obj/target)
+	user.put_in_active_hand(src)
+	host = user
+	focus_object(target, user)
 
 
 /obj/item/tk_grab/update_icon()
