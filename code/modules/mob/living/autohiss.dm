@@ -1,6 +1,3 @@
-#define AUTOHISS_NUM 3
-
-
 /mob/living/proc/handle_autohiss(message, datum/language/L)
 	return message // no autohiss at this level
 
