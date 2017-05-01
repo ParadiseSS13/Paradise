@@ -89,7 +89,7 @@
 		connected.pods -= src
 	QDEL_NULL(Radio)
 	QDEL_NULL(countdown)
-	LAZYDESTROYLIST(missing_organs)
+	QDEL_LIST(missing_organs)
 	return ..()
 
 /obj/machinery/clonepod/RefreshParts()
