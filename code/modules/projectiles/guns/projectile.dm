@@ -143,9 +143,6 @@
 			process_fire(user, user, 0, zone_override = "head")
 			user.visible_message("<span class='suicide'>[user] blows \his brains out with the [name]!</span>")
 			return(BRUTELOSS)
-		else
-			user.visible_message("<span class='suicide'>[user] is trying to evoke \his Persona with the [name]! It looks like \he's trying to commit anime!</span>")
-			return(BRUTELOSS)
 	else
 		user.visible_message("<span class='suicide'>[user] is pretending to blow \his brains out with the [name]! It looks like \he's trying to commit suicide!</b></span>")
 		playsound(loc, 'sound/weapons/empty.ogg', 50, 1, -1)

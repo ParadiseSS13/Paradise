@@ -20,3 +20,10 @@
 	icon_state = "atmos"
 	item_state = "atmos_suit"
 	item_color = "atmos"
+
+/obj/item/clothing/under/atmta/adachi
+	name = "Adachi's uniform"
+	desc = "Unique black suit with a white long-sleeved shirt and a crooked red tie"
+	icon_state = "adachi"
+	item_state = "adachi"
+	item_color = "adachi" //WHY. WHY DO WE NEED THIS.
