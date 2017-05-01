@@ -9,6 +9,7 @@
 
 	if(..())
 		. = 1
+		handle_blood()
 		for(var/obj/item/organ/internal/O in internal_organs)
 			O.on_life()
 		handle_changeling()
@@ -196,6 +197,8 @@
 	return
 
 //remember to remove the "proc" of the child procs of these.
+/mob/living/carbon/proc/handle_blood()
+	return
 
 /mob/living/carbon/proc/handle_changeling()
 	return
