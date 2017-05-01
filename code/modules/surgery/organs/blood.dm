@@ -1,13 +1,6 @@
 /****************************************************
 				BLOOD SYSTEM
 ****************************************************/
-
-/mob/living/carbon/human/var/datum/reagents/vessel	//Container for blood and BLOOD ONLY. Do not transfer other chems here.
-
-//Initializes blood vessels
-/mob/living/carbon/human/proc/make_blood()
-
-	if(vessel)
 /mob/living/carbon/human/proc/suppress_bloodloss(amount)
 	if(bleedsuppress)
 		return
@@ -16,7 +9,7 @@
 		spawn(amount)
 			bleedsuppress = 0
 			if(stat != DEAD && bleed_rate)
-				src << "<span class='warning'>The blood soaks through your bandage.</span>"
+				to_chat(src, "<span class='warning'>The blood soaks through your bandage.</span>")
 
 
 
