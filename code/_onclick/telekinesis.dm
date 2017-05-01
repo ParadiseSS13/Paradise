@@ -76,103 +76,98 @@ var/const/tk_maxrange = 15
 	var/mob/living/host = null
 
 
-	dropped(mob/user as mob)
-		if(focus && user && loc != user && loc != user.loc) // drop_item() gets called when you tk-attack a table/closet with an item
-			if(focus.Adjacent(loc))
-				focus.loc = loc
+/obj/item/tk_grab/dropped(mob/user as mob)
+	if(focus && user && loc != user && loc != user.loc) // drop_item() gets called when you tk-attack a table/closet with an item
+		if(focus.Adjacent(loc))
+			focus.loc = loc
 
-		qdel(src)
-		return
+	qdel(src)
 
 
 	//stops TK grabs being equipped anywhere but into hands
-	equipped(var/mob/user, var/slot)
-		if( (slot == slot_l_hand) || (slot== slot_r_hand) )	return
+/obj/item/tk_grab/equipped(var/mob/user, var/slot)
+	if( (slot == slot_l_hand) || (slot== slot_r_hand) )	return
+	qdel(src)
+
+
+/obj/item/tk_grab/attack_self(mob/user as mob)
+	if(focus)
+		focus.attack_self_tk(user)
+
+/obj/item/tk_grab/afterattack(atom/target as mob|obj|turf|area, mob/living/user as mob|obj, proximity, params)//TODO: go over this
+	if(!target || !user)	return
+	if(last_throw+3 > world.time)	return
+	if(!host || host != user)
 		qdel(src)
 		return
-
-
-	attack_self(mob/user as mob)
-		if(focus)
-			focus.attack_self_tk(user)
-
-	afterattack(atom/target as mob|obj|turf|area, mob/living/user as mob|obj, proximity, params)//TODO: go over this
-		if(!target || !user)	return
-		if(last_throw+3 > world.time)	return
-		if(!host || host != user)
-			qdel(src)
-			return
-		if(!(TK in host.mutations))
-			qdel(src)
-			return
-		if(isobj(target) && !isturf(target.loc))
-			return
-
-		var/d = get_dist(user, target)
-		if(focus)
-			d = max(d,get_dist(user,focus)) // whichever is further
-		if(d > tk_maxrange)
-			to_chat(user, "<span class='warning'>Your mind won't reach that far.</span>")
-			return
-
-		if(!focus)
-			focus_object(target, user)
-			return
-
-		if(target == focus)
-			target.attack_self_tk(user)
-			return // todo: something like attack_self not laden with assumptions inherent to attack_self
-
-
-		if(!istype(target, /turf) && istype(focus,/obj/item) && target.Adjacent(focus))
-			var/obj/item/I = focus
-			var/resolved = target.attackby(I, user, params)
-			if(!resolved && target && I)
-				I.afterattack(target,user,1) // for splashing with beakers
-
-
-		else
-			apply_focus_overlay()
-			focus.throw_at(target, 10, 1, user)
-			last_throw = world.time
+	if(!(TK in host.mutations))
+		qdel(src)
+		return
+	if(isobj(target) && !isturf(target.loc))
 		return
 
-	attack(mob/living/M as mob, mob/living/user as mob, def_zone)
+	var/d = get_dist(user, target)
+	if(focus)
+		d = max(d,get_dist(user,focus)) // whichever is further
+	if(d > tk_maxrange)
+		to_chat(user, "<span class='warning'>Your mind won't reach that far.</span>")
 		return
 
+	if(!focus)
+		focus_object(target, user)
+		return
 
-	proc/focus_object(var/obj/target, var/mob/living/user)
-		if(!istype(target,/obj))	return//Cant throw non objects atm might let it do mobs later
-		if(target.anchored || !isturf(target.loc))
-			qdel(src)
-			return
-		focus = target
-		update_icon()
+	if(target == focus)
+		target.attack_self_tk(user)
+		return // todo: something like attack_self not laden with assumptions inherent to attack_self
+
+
+	if(!istype(target, /turf) && istype(focus,/obj/item) && target.Adjacent(focus))
+		var/obj/item/I = focus
+		var/resolved = target.attackby(I, user, params)
+		if(!resolved && target && I)
+			I.afterattack(target,user,1) // for splashing with beakers
+
+
+	else
 		apply_focus_overlay()
+		focus.throw_at(target, 10, 1, user)
+		last_throw = world.time
+
+/obj/item/tk_grab/attack(mob/living/M as mob, mob/living/user as mob, def_zone)
+	return
+
+
+/obj/item/tk_grab/proc/focus_object(var/obj/target, var/mob/living/user)
+	if(!istype(target,/obj))	return//Cant throw non objects atm might let it do mobs later
+	if(target.anchored || !isturf(target.loc))
+		qdel(src)
 		return
-
-
-	proc/apply_focus_overlay()
-		if(!focus)	return
-		var/obj/effect/overlay/O = new /obj/effect/overlay(locate(focus.x,focus.y,focus.z))
-		O.name = "sparkles"
-		O.anchored = 1
-		O.density = 0
-		O.layer = FLY_LAYER
-		O.dir = pick(cardinal)
-		O.icon = 'icons/effects/effects.dmi'
-		O.icon_state = "nothing"
-		flick("empdisable",O)
-		spawn(5)
-			qdel(O)
-		return
-
-
+	focus = target
 	update_icon()
-		overlays.Cut()
-		if(focus && focus.icon && focus.icon_state)
-			overlays += icon(focus.icon,focus.icon_state)
-		return
+	apply_focus_overlay()
+	return
+
+
+/obj/item/tk_grab/proc/apply_focus_overlay()
+	if(!focus)	return
+	var/obj/effect/overlay/O = new /obj/effect/overlay(locate(focus.x,focus.y,focus.z))
+	O.name = "sparkles"
+	O.anchored = 1
+	O.density = 0
+	O.layer = FLY_LAYER
+	O.dir = pick(cardinal)
+	O.icon = 'icons/effects/effects.dmi'
+	O.icon_state = "nothing"
+	flick("empdisable",O)
+	spawn(5)
+		qdel(O)
+
+
+/obj/item/tk_grab/update_icon()
+	overlays.Cut()
+	if(focus && focus.icon && focus.icon_state)
+		overlays += icon(focus.icon,focus.icon_state)
 
 /*Not quite done likely needs to use something thats not get_step_to
 	proc/check_path()
@@ -197,4 +192,3 @@ var/const/tk_maxrange = 15
 				var/Z = source:z
 
 */
-
