@@ -873,8 +873,8 @@
 	action_icon_state = "transmit"
 
 /obj/effect/proc_holder/spell/targeted/shadowlingAscendantTransmit/cast(list/targets, mob/user = usr)
-	for(var/mob/living/target in targets)
+	for(var/mob/living/simple_animal/ascendant_shadowling/target in targets)
 		var/text = stripped_input(target, "What do you want to say to everything on and near [station_name()]?.", "Transmit to World", "")
 		if(!text)
 			return
-		to_chat(world, "<font size=4><span class='shadowling'><b>\"[text]\"</font></span>")
+		target.announce(text)
