@@ -409,6 +409,11 @@ so as to remain in compliance with the most up-to-date laws."
 		impossible for you to get back into the game as your regular character.",, "No", "Yes") ==  "Yes")
 			stone.opt_in = TRUE
 
+/obj/screen/alert/notify_soulstone/Destroy()
+	stoner = null
+	stone = null
+	return ..()
+
 
 //OBJECT-BASED
 

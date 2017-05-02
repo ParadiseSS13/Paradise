@@ -77,20 +77,26 @@
 		if(!M.ckey)
 			to_chat(user, "<span class='warning'>They have no soul!</span>")
 			return
+
+		to_chat(user, "<span class='warning'>You attempt to channel [M]'s soul into [src]. You must give the soul some time to react and stand still...</span>")
+
 		var/mob/player_mob = M
 		if(M.get_ghost())//in case our player ghosted and we need to throw the alert at their ghost instead
 			player_mob = M.get_ghost()
 		var/client/player_client = player_mob.client
-		to_chat(user, "<span class='warning'>You attempt to channel [M]'s soul into [src]. You must give the soul some time to react and stand still...</span>")
 		to_chat(player_mob, "<span class='warning'>[user] is trying to capture your soul into [src]! Click the button in the top right of the game window to respond.</span>")
-		var/obj/screen/alert/notify_soulstone/A = player_mob.throw_alert("\ref[src]_soulstone_thingy", /obj/screen/alert/notify_soulstone)
 		player_client << 'sound/misc/notice2.ogg'
 		window_flash(player_client)
+
+		var/obj/screen/alert/notify_soulstone/A = player_mob.throw_alert("\ref[src]_soulstone_thingy", /obj/screen/alert/notify_soulstone)
 		if(player_client.prefs && player_client.prefs.UI_style)
 			A.icon = ui_style2icon(player_client.prefs.UI_style)
+
+		//pass the stuff to the alert itself
 		A.stone = src
 		A.stoner = user.real_name
 
+		//layer shenanigans to make the alert display the soulstone
 		var/old_layer = layer
 		var/old_plane = plane
 		layer = FLOAT_LAYER
@@ -99,6 +105,7 @@
 		layer = old_layer
 		plane = old_plane
 
+		//give the victim 10 seconds to respond
 		sleep(10 SECONDS)
 
 		if(!opt_in)
