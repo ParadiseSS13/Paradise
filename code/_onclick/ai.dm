@@ -33,9 +33,9 @@
 
 	if(control_disabled || stat)
 		return
-		
+
 	var/turf/pixel_turf = get_turf_pixel(A)
-	if(pixel_turf && !cameranet.checkTurfVis(pixel_turf))
+	if(pixel_turf && !cameranet.checkTurfVis(pixel_turf) && !istype(loc, /obj/item/device/aicard))
 		log_admin("[key_name_admin(src)] might be running a modified client! (failed checkTurfVis on AI click of [A]([COORD(A)])")
 		message_admins("[key_name_admin(src)] might be running a modified client! (failed checkTurfVis on AI click of [A]([ADMIN_COORDJMP(A)]))")
 		send2irc_adminless_only("NOCHEAT", "[key_name(src)] might be running a modified client! (failed checkTurfVis on AI click of [A]([COORD(A)]))")
