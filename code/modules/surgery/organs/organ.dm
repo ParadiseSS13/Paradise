@@ -34,7 +34,8 @@ var/list/organ_cache = list()
 
 /obj/item/organ/Destroy()
 	processing_objects.Remove(src)
-	owner = null
+	if(owner)
+		remove(owner, 1)
 	QDEL_LIST_ASSOC_VAL(autopsy_data)
 	QDEL_NULL(dna)
 	return ..()
