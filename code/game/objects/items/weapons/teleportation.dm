@@ -117,16 +117,23 @@ Frequency:
 				L["[com.id] (Active)"] = com.target
 			else
 				L["[com.id] (Inactive)"] = com.target
-	var/list/turfs = list(	)
-	var/area/A
-	for(var/turf/T in orange(10))
-		if(T.x>world.maxx-8 || T.x<8)	continue	//putting them at the edge is dumb
-		if(T.y>world.maxy-8 || T.y<8)	continue
-		A = get_area(T)
-		if(A.tele_proof == 1) continue // Telescience-proofed areas require a beacon.
-		turfs += T
-	if(turfs.len)
-		L["None (Dangerous)"] = pick(turfs)
+
+	var/list/possible_random_locations = list()
+	for(var/O in orange(10))
+		if(!isturf(O) && !iscarbon(O))
+			continue
+		var/atom/A = O
+		if(A.x > world.maxx - 8 || A.x < 8)
+			continue // putting them at the edge is dumb
+		if(A.y > world.maxy - 8 || A.y < 8)
+			continue
+		var/area/AA = get_area(A)
+		if(AA.tele_proof == 1)
+			continue // Telescience-proofed areas require a beacon.
+		possible_random_locations += A
+
+	if(possible_random_locations.len)
+		L["None (Dangerous)"] = pick(possible_random_locations)
 	var/t1 = input(user, "Please select a teleporter to lock in on.", "Hand Teleporter") as null|anything in L
 	if(!t1 || (user.get_active_hand() != src || user.stat || user.restrained()))
 		return
