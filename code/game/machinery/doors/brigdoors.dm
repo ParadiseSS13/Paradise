@@ -63,6 +63,24 @@
 			stat |= BROKEN
 		update_icon()
 
+/obj/machinery/door_timer/proc/print_report()
+	var/logname = input(usr, "Name of the guilty?","[id] log name")
+	var/logcharges = input(usr, "What are they being charged with?","[id] log charges")
+
+	for(var/obj/machinery/computer/prisoner/C in prisoncomputer_list)
+
+		var/obj/item/weapon/paper/P = new /obj/item/weapon/paper(C.loc)
+		P.name = "[id] log - [logname]"
+		P.info =  "<center><b>[id] - Brig record</b></center><br><hr><br>"
+		P.info += "<center>NSS Cyberaid - Security Department</center><br>"
+		P.info += "<center><small><b>Admission data:</b></small></center><br>"
+		P.info += "<small><b>Log generated at:   </b>		[worldtime2text(world.time)]<br>"
+		P.info += "<b>Suspect:</b>		[logname]<br>"
+		P.info += "<b>Duration:</b>		[timetoset/60/10]<br>"
+		P.info += "<b>Charge(s):</b>		[logcharges] minute(s)<br>"
+		P.info += "<b>Arresting Officer:</b>		[usr.name]<br><hr><br>"
+		P.info += "<small>Disclaimer: This is an automatic generated log file upon activation of a cell timer. Please store this file and save it for record purposes.</small>"
+
 /obj/machinery/door_timer/Destroy()
 	QDEL_NULL(Radio)
 	targets.Cut()
@@ -100,6 +118,8 @@
 /obj/machinery/door_timer/proc/timer_start()
 	if(stat & (NOPOWER|BROKEN))
 		return 0
+
+	print_report()
 
 	// Set releasetime
 	releasetime = world.timeofday + timetoset
