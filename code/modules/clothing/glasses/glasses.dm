@@ -502,6 +502,7 @@
 	desc = "An Ahdominian made veil that allows the user to see while obscuring their eyes."
 	icon_state = "tajblind"
 	item_state = "tajblind"
+	flags_cover = GLASSESCOVERSEYES
 	flags_inv = HIDEEYES
 	actions_types = list(/datum/action/item_action/toggle)
 	up = 0
@@ -529,12 +530,10 @@
 	if(usr.canmove && !usr.incapacitated())
 		if(up)
 			up = !up
-			icon_state = initial(icon_state)
 			tint = initial(tint)
 			to_chat(usr, "You activate [src], allowing you to see.")
 		else
 			up = !up
-			icon_state = initial(icon_state)
 			tint = 3
 			to_chat(usr, "You deactivate [src], obscuring your vision.")
 		var/mob/living/carbon/user = usr
