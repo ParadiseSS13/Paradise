@@ -126,8 +126,7 @@ var/global/list/obj/cortical_stacks = list() //Stacks for 'leave nobody behind' 
 
 	//Now apply cortical stack.
 	var/obj/item/weapon/implant/cortical/I = new(vox)
-	I.imp_in = vox
-	I.implanted = 1
+	I.implant(vox)
 	cortical_stacks += I
 
 	vox.equip_vox_raider()
