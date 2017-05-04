@@ -40,12 +40,16 @@
 	var/list/family = list()
 	var/lives = 9
 	var/memory_saved = 0
+	var/list/children = list() //Actual mob instances of children
+	var/cats_deployed = 0
 
 /mob/living/simple_animal/pet/cat/Runtime/New()
 	Read_Memory()
 	..()
 
 /mob/living/simple_animal/pet/cat/Runtime/Life()
+	if(!cats_deployed && ticker.current_state >= GAME_STATE_SETTING_UP)
+		Deploy_The_Cats()
 	if(!stat && ticker.current_state == GAME_STATE_FINISHED && !memory_saved)
 		Write_Memory()
 	..()
@@ -58,23 +62,8 @@
 /mob/living/simple_animal/pet/cat/Runtime/proc/Read_Memory()
 	var/savefile/S = new /savefile("data/npc_saves/Runtime.sav")
 	S["family"] 			>> family
-	S["lives"]				>> lives
-
 	if(isnull(family))
 		family = list()
-
-	if(isnull(lives))
-		lives = 9
-
-	if(lives <= 0)
-		lives = 10 //Lowers to 9 in Write_Memory
-		Write_Memory(1)
-		qdel(src)
-
-	for(var/cat_type in family)
-		if(family[cat_type] > 0)
-			for(var/i in 1 to family[cat_type])
-				new cat_type(loc)
 
 /mob/living/simple_animal/pet/cat/Runtime/proc/Write_Memory(dead)
 	var/savefile/S = new /savefile("data/npc_saves/Runtime.sav")
@@ -91,6 +80,13 @@
 	S["family"]				<< family
 	memory_saved = 1
 
+/mob/living/simple_animal/pet/cat/Runtime/proc/Deploy_The_Cats()
+	cats_deployed = 1
+	for(var/cat_type in family)
+		if(family[cat_type] > 0)
+			for(var/i in 1 to min(family[cat_type],100)) //Limits to about 500 cats, you wouldn't think this would be needed (BUT IT IS)
+				new cat_type(loc)
+
 /mob/living/simple_animal/pet/cat/handle_automated_action()
 	..()
 
@@ -106,6 +102,12 @@
 
 	//attempt to mate
 	make_babies()
+
+/mob/living/simple_animal/pet/cat/Runtime/make_babies()
+	var/mob/baby = ..()
+	if(baby)
+		children += baby
+		return baby
 
 /mob/living/simple_animal/pet/cat/handle_automated_movement()
 	..()
