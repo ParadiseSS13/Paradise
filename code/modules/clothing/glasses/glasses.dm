@@ -502,6 +502,7 @@
 	desc = "An Ahdominian made veil that allows the user to see while obscuring their eyes."
 	icon_state = "tajblind"
 	item_state = "tajblind"
+	flags_inv = HIDEEYES
 	actions_types = list(/datum/action/item_action/toggle)
 	up = 0
 	tint = 0

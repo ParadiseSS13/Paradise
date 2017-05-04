@@ -141,6 +141,7 @@
 	desc = "An Ahdominian made veil that allows the user to see while obscuring their eyes. This one has an in-built security HUD."
 	icon_state = "tajblind_sec"
 	item_state = "tajblind_sec"
+	flags_inv = HIDEEYES
 	actions_types = list(/datum/action/item_action/toggle)
 	up = 0
 
@@ -152,6 +153,7 @@
 	desc = "An Ahdominian made veil that allows the user to see while obscuring their eyes. This one has an installed medical HUD."
 	icon_state = "tajblind_med"
 	item_state = "tajblind_med"
+	flags_inv = HIDEEYES
 	actions_types = list(/datum/action/item_action/toggle)
 	up = 0
 
