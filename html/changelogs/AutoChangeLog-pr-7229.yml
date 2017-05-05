@@ -1,0 +1,4 @@
+author: "Fethas"
+delete-after: True
+changes: 
+  - tweak: "Magistrate, IAA, and BS will now spawn with the correct color dpet satchal and duffel"
