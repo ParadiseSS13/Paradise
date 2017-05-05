@@ -503,7 +503,6 @@
 	icon_state = "tajblind"
 	item_state = "tajblind"
 	flags_cover = GLASSESCOVERSEYES
-	flags_inv = HIDEEYES
 	actions_types = list(/datum/action/item_action/toggle)
 	up = 0
 	tint = 0
