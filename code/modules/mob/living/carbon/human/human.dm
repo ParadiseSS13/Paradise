@@ -1097,15 +1097,15 @@
 		var/mob/living/carbon/human/P = H.partner
 		if (!(P in view(H.loc)))
 			return
-		var/obj/item/organ/external/temp = H.organs_by_name["r_hand"]
+		var/obj/item/organ/external/temp = H.bodyparts_by_name["r_hand"]
 		var/hashands = (temp && temp.is_usable())
 		if (!hashands)
-			temp = H.organs_by_name["l_hand"]
+			temp = H.bodyparts_by_name["l_hand"]
 			hashands = (temp && temp.is_usable())
-		temp = P.organs_by_name["r_hand"]
+		temp = P.bodyparts_by_name["r_hand"]
 		var/hashands_p = (temp && temp.is_usable())
 		if (!hashands_p)
-			temp = P.organs_by_name["l_hand"]
+			temp = P.bodyparts_by_name["l_hand"]
 			hashands = (temp && temp.is_usable())
 		var/mouthfree = !((H.head && (H.head.flags & HEADCOVERSMOUTH)) || (H.wear_mask && (H.wear_mask.flags & MASKCOVERSMOUTH)))
 		var/mouthfree_p = !( (P.head && (P.head.flags & HEADCOVERSMOUTH)) || (P.wear_mask && (P.wear_mask.flags & MASKCOVERSMOUTH)))
