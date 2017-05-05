@@ -219,9 +219,7 @@
 		apply_to_card(I, H, get_centcom_access("Nanotrasen Navy Officer"), "Nanotrasen Navy Officer")
 
 	var/obj/item/weapon/implant/L = new /obj/item/weapon/implant/mindshield(H)
-	L.imp_in = H
-	L.implanted = 1
-	H.sec_hud_set_implants()
+	L.implant(H)
 
 
 /datum/outfit/admin/nt_special_ops_officer
@@ -330,9 +328,7 @@
 		apply_to_card(I, H, get_centcom_access("Nanotrasen Navy Captain"), "Nanotrasen Navy Captain")
 
 	var/obj/item/weapon/implant/L = new /obj/item/weapon/implant/mindshield(H)
-	L.imp_in = H
-	L.implanted = 1
-	H.sec_hud_set_implants()
+	L.implant(H)
 
 /datum/outfit/admin/nt_diplomat
 	name = "NT Diplomat"
@@ -756,9 +752,7 @@
 		apply_to_card(I, H, get_centcom_access("Emergency Response Team Member"), "Emergency Response Team Member")
 
 	var/obj/item/weapon/implant/L = new /obj/item/weapon/implant/mindshield(H)
-	L.imp_in = H
-	L.implanted = 1
-	H.sec_hud_set_implants()
+	L.implant(H)
 
 /datum/outfit/admin/chrono
 	name = "Chrono Legionnaire"
