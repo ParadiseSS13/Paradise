@@ -1,4 +1,0 @@
-author: "uraniummeltdown"
-delete-after: True
-changes: 
-  - rscdel: "Removed Robocop, Paladin, NT Default as roundstart lawsets."
