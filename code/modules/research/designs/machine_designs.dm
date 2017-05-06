@@ -402,6 +402,16 @@
 	build_path = /obj/item/weapon/circuitboard/microwave
 	category = list("Misc. Machinery")
 
+/datum/design/food_replicator
+	name = "Machine Board (Food Replicator)"
+	desc = "The circuit board for a Food Replicator."
+	id = "food_rep"
+	req_tech = list("programming" = 2, "materials" = 2, "biotech" = 2)
+	build_type = IMPRINTER
+	materials = list(MAT_GLASS = 1000, "sacid" = 20)
+	build_path = /obj/item/weapon/circuitboard/food_replicator
+	category = list("Misc. Machinery")
+
 /datum/design/oven
 	name = "Machine Board (Oven)"
 	desc = "The circuit board for an Oven."

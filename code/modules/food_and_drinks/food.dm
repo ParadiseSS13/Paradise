@@ -13,6 +13,7 @@
 	var/transfer_efficiency = 1.0
 	var/instant_application = 0 //if we want to bypass the forcedfeed delay
 	burn_state = FLAMMABLE
+	var/duped = 0	//if set, this food item is a replication and thus cannot be replicated in the food replicator. Seems silly, but means you need an original food item to copy (sorry science, you still gotta see the chef!)
 
 /obj/item/weapon/reagent_containers/food/New()
 	..()

@@ -1,0 +1,105 @@
+<div class='item'>
+	{{:helper.link('Close', 'gear', {'close' : 1}, null, 'fixedLeft')}}
+</div>
+
+<div class="item">
+	<div class="itemLabel">
+		Food Paste Stored:
+	</div>
+	<div class="itemContent">
+		{{:data.points}} Units
+	</div>
+</div>
+<div class="item">
+	{{if data.loaded}}
+	<div class="itemLabel" style="width: 70%">
+		{{:data.loaded.name}}:
+	</div>
+	<div class="item">
+		{{if data.loaded.recycle_value >= 0}}
+			Recycle Value: <span class='average'>{{:data.loaded.recycle_value}}</span>
+			{{:helper.link('Recycle', 'recycle', { "recycle" : 1 })}}
+			<br>
+		{{/if}}
+		{{if data.loaded.duped}}
+			<span class='bad'>Replication Degradation Detected.</span>
+		{{else}}
+			Replication Cost: <span class='average'>{{:data.loaded.rep_cost}} </span>
+			{{if data.points >= data.loaded.rep_cost}}
+				{{:helper.link('Replicate', 'clone', { "replicate" : 5 })}}
+			{{else}}
+				<span class='bad'>Insufficient Food Paste.</span>
+			{{/if}}
+		{{/if}}
+		<br>
+		{{:helper.link('Eject', 'eject', { "eject" : 1 })}}
+	</div>
+	{{else}}
+		<span class='average'>No dish loaded.</span>
+	{{/if}}
+</div>
+<div class='item'>
+	{{if data.memory}}
+		{{for data.memory}}
+			<div class='itemLabel'>
+				Memory Slot {{:value.slot}}:
+			</div>
+			<div class='item'>
+			{{if value.slot > data.slots}}
+				<span class='average'>Insufficient memory.</span>
+			{{else}}
+				{{if value.item_name}}
+					<span class='highlight'>{{:value.item_name}}</span>
+					{{if value.cost > data.points}}
+						<span class='bad'>({{:value.cost}})</span>
+					{{else}}
+						<span class='good'>({{:value.cost}})</span>
+					{{/if}}
+					<br>
+					{{:helper.link('Replicate', 'clone', { "replicate" : value.slot })}}
+					{{if data.loaded && !data.loaded.duped}}
+						{{:helper.link('Save', 'file-code-o', { "save" : value.slot })}}
+					{{/if}}
+					{{if value.item_name}}
+						{{:helper.link('Erase', 'trash-o', { "erase" : value.slot })}}
+					{{/if}}
+				{{else}}
+					<span class='highlight'>Empty Slot</span>
+					{{if data.loaded}}
+						{{:helper.link('Save', 'file-code-o', { "save" : value.slot })}}
+					{{/if}}
+				{{/if}}
+			{{/if}}
+			</div>
+		{{/for}}
+	{{else}}
+		<span class='bad'>No memory located!</span>
+	{{/if}}
+</div>
+<div class='item'>
+	<div class='itemLabel'>
+		Food Polyhedron Production:
+	</div>
+	<div class='item'>
+		{{if data.points >= 1}}
+			{{:helper.link('Food Sphere (1 paste)', 'print', { "poly" : 1 })}}<br>
+			{{if data.points >= 4}}
+				{{:helper.link('Food Tetrahedron (4 paste)', 'print', { "poly" : 4 })}}<br>
+			{{/if}}
+			{{if data.points >= 6}}
+				{{:helper.link('Food Cube (6 paste)', 'print', { "poly" : 6 })}}<br>
+			{{/if}}
+			{{if data.points >= 8}}
+				{{:helper.link('Food Octahedron (8 paste)', 'print', { "poly" : 8 })}}<br>
+			{{/if}}
+			{{if data.points >= 12}}
+				{{:helper.link('Food Dodecahedron (12 paste)', 'print', { "poly" : 12 })}}<br>
+			{{/if}}
+			{{if data.points >= 20}}
+				{{:helper.link('Food Icosahedron (20 paste)', 'print', { "poly" : 20 })}}
+			{{/if}}
+		{{else}}
+			<span class='average'>Insufficient food paste for polyhedron production.</span>
+		{{/if}}
+	</div>
+</div>
