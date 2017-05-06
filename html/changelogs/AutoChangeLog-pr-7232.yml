@@ -1,6 +1,0 @@
-author: "Fethas"
-delete-after: True
-changes: 
-  - bugfix: "Fixes sacreficed your target not triggering the next objective."
-  - bugfix: "YOU CAN NOW ONLY CONVERT HUMANS NOT MICE!"
-  - tweak: "bloodspill tiles changed from base 100 (plus random number based on players) to 70."
