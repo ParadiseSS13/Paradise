@@ -2185,7 +2185,6 @@
 #include "code\modules\surgery\organs\subtypes\grey.dm"
 #include "code\modules\surgery\organs\subtypes\kidan.dm"
 #include "code\modules\surgery\organs\subtypes\machine.dm"
-#include "code\modules\surgery\organs\subtypes\misc.dm"
 #include "code\modules\surgery\organs\subtypes\nucleation.dm"
 #include "code\modules\surgery\organs\subtypes\shadow.dm"
 #include "code\modules\surgery\organs\subtypes\skrell.dm"
