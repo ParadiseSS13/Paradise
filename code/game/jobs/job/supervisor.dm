@@ -191,6 +191,8 @@ var/datum/announcement/minor/captain_announcement = new(do_newscast = 0)
 	implants = list(/obj/item/weapon/implant/mindshield)
 
 	backpack = /obj/item/weapon/storage/backpack/security
+	satchel = /obj/item/weapon/storage/backpack/satchel_sec
+	dufflebag = /obj/item/weapon/storage/backpack/duffel/security
 
 
 /datum/job/judge
@@ -234,6 +236,9 @@ var/datum/announcement/minor/captain_announcement = new(do_newscast = 0)
 
 	implants = list(/obj/item/weapon/implant/mindshield)
 
+	satchel = /obj/item/weapon/storage/backpack/satchel_sec
+	dufflebag = /obj/item/weapon/storage/backpack/duffel/security
+
 
 
 //var/global/lawyer = 0//Checks for another lawyer //This changed clothes on 2nd lawyer, both IA get the same dreds.
@@ -270,3 +275,6 @@ var/datum/announcement/minor/captain_announcement = new(do_newscast = 0)
 	pda = /obj/item/device/pda/lawyer
 
 	implants = list(/obj/item/weapon/implant/mindshield)
+
+	satchel = /obj/item/weapon/storage/backpack/satchel_sec
+	dufflebag = /obj/item/weapon/storage/backpack/duffel/security
