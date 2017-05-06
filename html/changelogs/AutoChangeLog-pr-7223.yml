@@ -1,0 +1,4 @@
+author: "Allfd"
+delete-after: True
+changes: 
+  - tweak: "Thrown mobs will not step on broken glass while being thrown."
