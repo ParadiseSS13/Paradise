@@ -30,7 +30,7 @@
 	var/attack_same = 0 //Set us to 1 to allow us to attack our own faction, or 2, to only ever attack our own faction
 
 	var/AIStatus = AI_ON //The Status of our AI, can be set to AI_ON (On, usual processing), AI_IDLE (Will not process, but will return to AI_ON if an enemy comes near), AI_OFF (Off, Not processing ever)
-	
+
 	//typecache of things this mob will attack in DestroySurroundings() if it has environment_smash
 	var/list/environment_target_typecache = list(
 	/obj/machinery/door/window,
@@ -44,15 +44,16 @@
 	var/atom/targets_from = null //all range/attack/etc. calculations should be done from this atom, defaults to the mob itself, useful for Vehicles and such
 	var/list/emote_taunt = list()
 	var/taunt_chance = 0
-	
+
 /mob/living/simple_animal/hostile/New()
 	..()
 	if(!targets_from)
 		targets_from = src
 	environment_target_typecache = typecacheof(environment_target_typecache)
-	
+
 /mob/living/simple_animal/hostile/Destroy()
 	targets_from = null
+	target = null
 	return ..()
 
 /mob/living/simple_animal/hostile/Life()
@@ -80,7 +81,7 @@
 			if(AIShouldSleep(possible_targets))	// we try to acquire a new one
 				AIStatus = AI_IDLE				// otherwise we go idle
 	return 1
-	
+
 /mob/living/simple_animal/hostile/attacked_by(obj/item/I, mob/living/user)
 	if(stat == CONSCIOUS && !target && AIStatus != AI_OFF && !client && user)
 		FindTarget(list(user), 1)
@@ -91,8 +92,8 @@
 		if(P.firer && get_dist(src, P.firer) <= aggro_vision_range)
 			FindTarget(list(P.firer), 1)
 		Goto(P.starting, move_to_delay, 3)
-	return ..()	
-	
+	return ..()
+
 //////////////HOSTILE MOB TARGETTING AND AGGRESSION////////////
 
 
@@ -126,7 +127,7 @@
 	var/Target = PickTarget(.)
 	GiveTarget(Target)
 	return Target //We now have a target
-	
+
 /mob/living/simple_animal/hostile/proc/PossibleThreats()
 	. = list()
 	for(var/pos_targ in ListTargets())
@@ -176,24 +177,24 @@
 				if(faction_check && !attack_same)
 					return 0
 			return 1
-		
+
 		if(ishuman(the_target))
 			var/mob/living/carbon/human/H = the_target
 			if(is_type_in_list(src, H.species.ignored_by))
 				return 0
-			
+
 		if(istype(the_target, /obj/mecha))
 			var/obj/mecha/M = the_target
 			if(M.occupant)//Just so we don't attack empty mechs
 				if(CanAttack(M.occupant))
 					return 1
-					
+
 		if(istype(the_target, /obj/spacepod))
 			var/obj/spacepod/S = the_target
 			if(S.pilot) //Just so we don't attack empty pods
 				if(CanAttack(S.pilot))
 					return 1
-					
+
 		if(istype(the_target, /obj/machinery/porta_turret))
 			var/obj/machinery/porta_turret/P = the_target
 			if(P.faction in faction)
@@ -292,7 +293,7 @@
 /mob/living/simple_animal/hostile/death(gibbed)
 	LoseTarget()
 	..(gibbed)
-	
+
 /mob/living/simple_animal/hostile/proc/summon_backup(distance)
 	do_alert_animation(src)
 	playsound(loc, 'sound/machines/chime.ogg', 50, 1, -1)
