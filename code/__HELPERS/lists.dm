@@ -640,4 +640,3 @@ proc/dd_sortedObjectList(list/incoming)
 
 // LAZYING PT 2: THE LAZENING
 #define LAZYREINITLIST(L) LAZYCLEARLIST(L); LAZYINITLIST(L);
-#define LAZYQDELLIST(L) if(L) { for(var/o in L) qdel(o); L.Cut() }

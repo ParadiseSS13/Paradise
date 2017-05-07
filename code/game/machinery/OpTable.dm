@@ -31,8 +31,6 @@
 		computer = null
 	if(victim)
 		victim = null
-	injected_reagents.Cut()
-	injected_reagents = null
 	return ..()
 
 /obj/machinery/optable/ex_act(severity)
