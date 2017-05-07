@@ -213,6 +213,10 @@
 		radio_controller.remove_object(src, frequency)
 	air_alarm_repository.update_cache(src)
 	QDEL_NULL(wires)
+	if(alarm_area && alarm_area.master_air_alarm == src)
+		alarm_area.master_air_alarm = null
+		elect_master(exclude_self = 1)
+	alarm_area = null
 	return ..()
 
 /obj/machinery/alarm/proc/first_run()
@@ -236,8 +240,10 @@
 	return alarm_area.master_air_alarm && !(alarm_area.master_air_alarm.stat & (NOPOWER|BROKEN))
 
 
-/obj/machinery/alarm/proc/elect_master()
+/obj/machinery/alarm/proc/elect_master(exclude_self = 0) //Why is this an alarm and not area proc?
 	for(var/obj/machinery/alarm/AA in alarm_area)
+		if(exclude_self && AA == src)
+			continue
 		if(!(AA.stat & (NOPOWER|BROKEN)))
 			alarm_area.master_air_alarm = AA
 			return 1

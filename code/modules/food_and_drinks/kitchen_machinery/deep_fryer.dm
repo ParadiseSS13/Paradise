@@ -61,7 +61,7 @@
 		head.disfigure("burn")
 		add_logs(user, G.affecting, "deep-fried", addition="'s face")
 		qdel(G) //Removes the grip so the person MIGHT have a small chance to run the fuck away and to prevent rapid dunks.
-		return 1
+		return 0
 	return 0
 
 

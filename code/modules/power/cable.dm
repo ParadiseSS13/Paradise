@@ -521,7 +521,7 @@ var/global/list/datum/stack_recipe/cable_coil_recipes = list(
 /obj/item/stack/cable_coil/attack(mob/M, mob/user)
 	if(ishuman(M))
 		var/mob/living/carbon/human/H = M
-		var/obj/item/organ/external/S = H.organs_by_name[user.zone_sel.selecting]
+		var/obj/item/organ/external/S = H.bodyparts_by_name[user.zone_sel.selecting]
 
 		if(!S)
 			return

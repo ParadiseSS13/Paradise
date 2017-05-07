@@ -66,8 +66,6 @@ var/global/list/default_medbay_channels = list(
 /obj/item/device/radio/New()
 	..()
 	wires = new(src)
-	if(radio_controller)
-		initialize()
 
 	internal_channels = default_internal_channels.Copy()
 	global_radios |= src

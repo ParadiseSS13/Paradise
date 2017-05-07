@@ -65,9 +65,7 @@
 	add_to_all_human_data_huds()
 
 /mob/living/carbon/human/Destroy()
-	for(var/atom/movable/organelle in organs)
-		qdel(organelle)
-	organs = list()
+	QDEL_LIST(bodyparts)
 	return ..()
 
 /mob/living/carbon/human/dummy
@@ -310,7 +308,7 @@
 
 				var/limbs_affected = pick(2,3,4)
 				var/obj/item/organ/external/processing_dismember
-				var/list/valid_limbs = organs.Copy()
+				var/list/valid_limbs = bodyparts.Copy()
 
 				while(limbs_affected != 0 && valid_limbs.len > 0)
 					processing_dismember = pick(valid_limbs)
@@ -328,7 +326,7 @@
 
 			var/limbs_affected = 0
 			var/obj/item/organ/external/processing_dismember
-			var/list/valid_limbs = organs.Copy()
+			var/list/valid_limbs = bodyparts.Copy()
 
 			if(prob(getarmor(null, "bomb")))
 				b_loss = b_loss/1.5
@@ -361,7 +359,7 @@
 
 				var/limbs_affected = pick(0, 1)
 				var/obj/item/organ/external/processing_dismember
-				var/list/valid_limbs = organs.Copy()
+				var/list/valid_limbs = bodyparts.Copy()
 
 				while(limbs_affected != 0 && valid_limbs.len > 0)
 					processing_dismember = pick(valid_limbs)
@@ -1263,20 +1261,20 @@
 		if(istype(organ, /obj/item/organ/external/stump)) //Get rid of all stumps.
 			qdel(organ)
 			H.contents -= organ //Making sure the list entry is removed.
-	for(var/obj/item/organ/organ in H.organs)
+	for(var/obj/item/organ/organ in H.bodyparts)
 		if(istype(organ, /obj/item/organ/external/stump))
 			qdel(organ)
-			H.organs -= organ //Making sure the list entry is removed.
-	for(var/organ_name in H.organs_by_name)
-		var/obj/item/organ/organ = H.organs_by_name[organ_name]
+			H.bodyparts -= organ //Making sure the list entry is removed.
+	for(var/organ_name in H.bodyparts_by_name)
+		var/obj/item/organ/organ = H.bodyparts_by_name[organ_name]
 		if(istype(organ, /obj/item/organ/external/stump) || !organ) //The !organ check is to account for mechanical limb (prostheses) losses, since those are handled in a way that leaves indexed but null list entries instead of stumps.
 			qdel(organ)
-			H.organs_by_name -= organ_name //Making sure the list entry is removed.
+			H.bodyparts_by_name -= organ_name //Making sure the list entry is removed.
 
 	//Replacing lost limbs with the species default.
 	var/mob/living/carbon/human/temp_holder
 	for(var/limb_type in H.species.has_limbs)
-		if(!(limb_type in H.organs_by_name))
+		if(!(limb_type in H.bodyparts_by_name))
 			var/list/organ_data = H.species.has_limbs[limb_type]
 			var/limb_path = organ_data["path"]
 			var/obj/item/organ/external/O = new limb_path(temp_holder)
@@ -1286,7 +1284,7 @@
 			else
 				O = new limb_path(H) //Create the limb on the player.
 				O.owner = H
-				H.organs |= H.organs_by_name[O.limb_name]
+				H.bodyparts |= H.bodyparts_by_name[O.limb_name]
 
 	//Replacing lost organs with the species default.
 	temp_holder = new /mob/living/carbon/human()
@@ -1411,7 +1409,7 @@
 /mob/living/carbon/human/get_visible_implants(var/class = 0)
 
 	var/list/visible_implants = list()
-	for(var/obj/item/organ/external/organ in src.organs)
+	for(var/obj/item/organ/external/organ in bodyparts)
 		for(var/obj/item/weapon/O in organ.implants)
 			if(!istype(O,/obj/item/weapon/implant) && (O.w_class > class) && !istype(O,/obj/item/weapon/shard/shrapnel))
 				visible_implants += O
@@ -1427,7 +1425,7 @@
 
 /mob/living/carbon/human/proc/handle_embedded_objects()
 
-	for(var/obj/item/organ/external/organ in src.organs)
+	for(var/obj/item/organ/external/organ in bodyparts)
 		if(organ.status & ORGAN_SPLINTED) //Splints prevent movement.
 			continue
 		for(var/obj/item/weapon/O in organ.implants)
@@ -2052,7 +2050,7 @@
 	return .
 
 /mob/living/carbon/human/proc/change_icobase(var/new_icobase, var/new_deform, var/owner_sensitive)
-	for(var/obj/item/organ/external/O in organs)
+	for(var/obj/item/organ/external/O in bodyparts)
 		O.change_organ_icobase(new_icobase, new_deform, owner_sensitive) //Change the icobase/deform of all our organs. If owner_sensitive is set, that means the proc won't mess with frankenstein limbs.
 
 /mob/living/carbon/human/serialize()
@@ -2074,8 +2072,8 @@
 	data["uwear"] = underwear
 
 	// Limbs
-	for(var/limb in organs_by_name)
-		var/obj/item/organ/O = organs_by_name[limb]
+	for(var/limb in bodyparts_by_name)
+		var/obj/item/organ/O = bodyparts_by_name[limb]
 		if(!O)
 			limbs_list[limb] = "missing"
 			continue
@@ -2116,7 +2114,7 @@
 	for(var/obj/item/organ/internal/iorgan in internal_organs)
 		qdel(iorgan)
 
-	for(var/obj/item/organ/external/organ in organs)
+	for(var/obj/item/organ/external/organ in bodyparts)
 		qdel(organ)
 
 	for(var/limb in limbs_list)

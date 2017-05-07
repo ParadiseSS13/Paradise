@@ -75,6 +75,7 @@
 	plant_hud_set_water()
 
 /obj/machinery/hydroponics/Destroy()
+	remove_from_all_data_huds()
 	QDEL_NULL(myseed)
 	return ..()
 
