@@ -390,11 +390,10 @@
 		picked_color = input(H, "Which color would you like to paint [target]?", "Recolor") as null|anything in helmets
 		var/obj/item/clothing/head/helmet/space/eva/plasmaman/P = target
 
-		if(picked_color)
-			P.icon_state = helmets[picked_color] + "[P.on]"
-			P.base_state = helmets[picked_color]
-		else
+		if(!picked_color)
 			return
+		P.icon_state = helmets[picked_color] + "[P.on]"
+		P.base_state = helmets[picked_color]
 
 		to_chat(H, "<span class='notice'>You modify the appearance of [target].</span>")
 		P.icon = 'icons/obj/custom_items.dmi'
@@ -410,10 +409,9 @@
 		picked_color = input(H, "Which color would you like to paint [target]?", "Recolor") as null|anything in suits
 		var/obj/item/clothing/suit/space/eva/plasmaman/P = target
 
-		if(picked_color)
-			P.icon_state = suits[picked_color]
-		else
+		if(!picked_color)
 			return
+		P.icon_state = suits[picked_color]
 
 		to_chat(H, "<span class='notice'>You modify the appearance of [target].</span>")
 		P.icon = 'icons/obj/custom_items.dmi'
