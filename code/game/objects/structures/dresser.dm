@@ -61,32 +61,32 @@
 	if(iswrench(W))
 		if(anchored)
 			playsound(loc, W.usesound, 100, 1)
-			user.visible_message("[user] is loosening the [src]'s bolts.", \
-								 "<span class='notice'>You are loosening the [src]'s bolts...</span>")
+			user.visible_message("[user] is loosening [src]'s bolts.", \
+								 "<span class='notice'>You are loosening [src]'s bolts...</span>")
 			if(do_after(user, 40 * W.toolspeed, target = src))
 				if(!loc || !anchored)
 					return
-				user.visible_message("[user] loosened the [src]'s bolts!", \
-									 "<span class='notice'>You loosen the [src]'s bolts!</span>")
+				user.visible_message("[user] loosened [src]'s bolts!", \
+									 "<span class='notice'>You loosen [src]'s bolts!</span>")
 				anchored = 0
 		else
 			if(!isfloorturf(loc))
-				user.visible_message("<span class='warning'>A floor must be present to secure the [name]!</span>")
+				user.visible_message("<span class='warning'>A floor must be present to secure [name]!</span>")
 				return
 			playsound(loc, W.usesound, 100, 1)
-			user.visible_message("[user] is securing the [src]'s bolts...", \
-								 "<span class='notice'>You are securing the [src]'s bolts...</span>")
+			user.visible_message("[user] is securing [src]'s bolts...", \
+								 "<span class='notice'>You are securing [src]'s bolts...</span>")
 			if(do_after(user, 40 * W.toolspeed, target = src))
 				if(!loc || anchored)
 					return
-				user.visible_message("[user] has secured the [src]'s bolts.", \
-									 "<span class='notice'>You have secured the [src]'s bolts.</span>")
+				user.visible_message("[user] has secured [src]'s bolts.", \
+									 "<span class='notice'>You have secured [src]'s bolts.</span>")
 				anchored = 1
 	else
 		if(iscrowbar(W) && !anchored)
 			playsound(loc, W.usesound, 100, 1)
-			user.visible_message("[user] is attempting to dismantle the [src].", \
-								"<span class='notice'>You begin to dismantle the [src]...</span>")
+			user.visible_message("[user] is attempting to dismantle [src].", \
+								"<span class='notice'>You begin to dismantle [src]...</span>")
 			if(do_after(user, 40 * W.toolspeed, target = src))
 				new /obj/item/stack/sheet/wood (loc, 30)
 				qdel(src)
