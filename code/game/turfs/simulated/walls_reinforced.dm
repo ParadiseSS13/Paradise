@@ -33,19 +33,20 @@
 		if(SHEATH)
 			to_chat(user, "<span class='notice'>The support rods have been <i>sliced through</i>, and the outer sheath is <b>connected loosely</b> to the girder.</span>")
 
-/turf/simulated/wall/r_wall/attackby(obj/item/W as obj, mob/user as mob, params)
+/turf/simulated/wall/r_wall/attackby(obj/item/W, mob/user, params)
 	user.changeNext_move(CLICK_CD_MELEE)
 	if(!user.IsAdvancedToolUser())
 		to_chat(user, "<span class='warning'>You don't have the dexterity to do this!</span>")
 		return
 
 	//get the user's location
-	if( !istype(user.loc, /turf) )	return	//can't do this stuff whilst inside objects and such
+	if(!isturf(user.loc))
+		return	//can't do this stuff whilst inside objects and such
 
 	if(rotting)
-		if(istype(W, /obj/item/weapon/weldingtool) )
+		if(iswelder(W))
 			var/obj/item/weapon/weldingtool/WT = W
-			if( WT.remove_fuel(0,user) )
+			if(WT.remove_fuel(0,user))
 				to_chat(user, "<span class='notice'>You burn away the fungi with \the [WT].</span>")
 				playsound(src, WT.usesound, 10, 1)
 				for(var/obj/effect/overlay/wall_rot/WR in src)
@@ -54,14 +55,14 @@
 				return
 		else if(!is_sharp(W) && W.force >= 10 || W.force >= 20)
 			to_chat(user, "<span class='notice'>\The [src] crumbles away under the force of your [W.name].</span>")
-			src.dismantle_wall()
+			dismantle_wall()
 			return
 
 	//THERMITE related stuff. Calls src.thermitemelt() which handles melting simulated walls and the relevant effects
-	if( thermite )
-		if( istype(W, /obj/item/weapon/weldingtool) )
+	if(thermite)
+		if(iswelder(W))
 			var/obj/item/weapon/weldingtool/WT = W
-			if( WT.remove_fuel(0,user) )
+			if(WT.remove_fuel(0,user))
 				thermitemelt(user)
 				return
 
@@ -69,7 +70,7 @@
 			thermitemelt(user)
 			return
 
-		else if( istype(W, /obj/item/weapon/melee/energy/blade) )
+		else if(istype(W, /obj/item/weapon/melee/energy/blade))
 			var/obj/item/weapon/melee/energy/blade/EB = W
 
 			EB.spark_system.start()
@@ -84,7 +85,7 @@
 		to_chat(user, "<span class='notice'>This wall is too thick to slice through. You will need to find a different path.</span>")
 		return
 
-	if(damage && istype(W, /obj/item/weapon/weldingtool))
+	if(damage && iswelder(W))
 		var/obj/item/weapon/weldingtool/WT = W
 		if(WT.remove_fuel(0,user))
 			to_chat(user, "<span class='notice'>You start repairing the damage to [src].</span>")
@@ -101,7 +102,7 @@
 	//DECONSTRUCTION
 	switch(d_state)
 		if(INTACT)
-			if(istype(W, /obj/item/weapon/wirecutters))
+			if(iswirecutter(W))
 				playsound(src, W.usesound, 100, 1)
 				d_state = SUPPORT_LINES
 				update_icon()
@@ -110,7 +111,7 @@
 				return
 
 		if(SUPPORT_LINES)
-			if(istype(W, /obj/item/weapon/screwdriver))
+			if(isscrewdriver(W))
 				to_chat(user, "<span class='notice'>You begin removing the support lines...</span>")
 				playsound(src, W.usesound, 100, 1)
 
@@ -126,13 +127,13 @@
 				if(O.use(1))
 					d_state = INTACT
 					update_icon()
-					src.icon_state = "r_wall"
+					icon_state = "r_wall"
 					to_chat(user, "<span class='notice'>You replace the outer grille.</span>")
 				else
 					to_chat(user, "<span class='warning'>You don't have enough rods for that!</span>")
 
 		if(COVER)
-			if(istype(W, /obj/item/weapon/weldingtool))
+			if(iswelder(W))
 				var/obj/item/weapon/weldingtool/WT = W
 				if(WT.remove_fuel(0,user))
 					to_chat(user, "<span class='notice'>You begin slicing through the metal cover...</span>")
@@ -158,7 +159,7 @@
 				return
 
 		if(CUT_COVER)
-			if(istype(W, /obj/item/weapon/crowbar))
+			if(iscrowbar(W))
 				to_chat(user, "<span class='notice'>You struggle to pry off the cover...</span>")
 				playsound(src, W.usesound, 100, 1)
 
@@ -169,7 +170,7 @@
 				return
 
 		if(BOLTS)
-			if(istype(W, /obj/item/weapon/wrench))
+			if(iswrench(W))
 				to_chat(user, "<span class='notice'>You start loosening the anchoring bolts which secure the support rods to their frame...</span>")
 				playsound(src, W.usesound, 100, 1)
 
@@ -180,7 +181,7 @@
 				return
 
 		if(SUPPORT_RODS)
-			if(istype(W, /obj/item/weapon/weldingtool))
+			if(iswelder(W))
 				var/obj/item/weapon/weldingtool/WT = W
 				if(WT.remove_fuel(0,user))
 					to_chat(user, "<span class='notice'>You begin slicing through the support rods...</span>")
@@ -207,7 +208,7 @@
 				return
 
 		if(SHEATH)
-			if(istype(W, /obj/item/weapon/crowbar))
+			if(iscrowbar(W))
 				to_chat(user, "<span class='notice'>You struggle to pry off the outer sheath...</span>")
 				playsound(src, W.usesound, 100, 1)
 
