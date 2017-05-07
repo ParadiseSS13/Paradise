@@ -367,8 +367,15 @@
 	w_class = 2
 	force = 0
 	throwforce = 0
-	var/list/options = list("Blue", "Gold", "Red")
 	var/picked_color = null
+	var/list/helmets = list(
+		"Blue" = "plasmaman_ikelosdefault_helmet",
+		"Gold" = "plasmaman_ikelosgold_helmet",
+		"Red" = "plasmaman_ikelossecurity_helmet")
+	var/list/suits = list(
+		"Blue" = "plasmaman_ikelosdefault",
+		"Gold" = "plasmaman_ikelosgold",
+		"Red" = "plasmaman_ikelossecurity")
 
 /obj/item/device/fluff/lighty_plasman_modkit/afterattack(atom/target, mob/user, proximity)
 	if(!proximity || !ishuman(user) || user.incapacitated())
@@ -380,21 +387,14 @@
 			to_chat(H, "<span class='notice'>The kit's helmet modifier has already been used.</span>")
 			return
 
-		picked_color = input(H, "Which color would you like to paint [target]?", "Recolor") as null|anything in options
+		picked_color = input(H, "Which color would you like to paint [target]?", "Recolor") as null|anything in helmets
 		var/obj/item/clothing/head/helmet/space/eva/plasmaman/P = target
 
-		switch(picked_color)
-			if("Blue")
-				P.icon_state = "plasmaman_ikelosdefault_helmet[P.on]"
-				P.base_state = "plasmaman_ikelosdefault_helmet"
-			if("Gold")
-				P.icon_state = "plasmaman_ikelosgold_helmet[P.on]"
-				P.base_state = "plasmaman_ikelosgold_helmet"
-			if("Red")
-				P.icon_state = "plasmaman_ikelossecurity_helmet[P.on]"
-				P.base_state = "plasmaman_ikelossecurity_helmet"
-			else
-				return
+		if(picked_color)
+			P.icon_state = helmets[picked_color] + "[P.on]"
+			P.base_state = helmets[picked_color]
+		else
+			return
 
 		to_chat(H, "<span class='notice'>You modify the appearance of [target].</span>")
 		P.icon = 'icons/obj/custom_items.dmi'
@@ -407,18 +407,13 @@
 		if(used & USED_MOD_SUIT)
 			to_chat(user, "<span class='notice'>The kit's suit modifier has already been used.</span>")
 			return
-		picked_color = input(H, "Which color would you like to paint [target]?", "Recolor") as null|anything in options
+		picked_color = input(H, "Which color would you like to paint [target]?", "Recolor") as null|anything in suits
 		var/obj/item/clothing/suit/space/eva/plasmaman/P = target
 
-		switch(picked_color)
-			if("Blue")
-				P.icon_state = "plasmaman_ikelosdefault"
-			if("Gold")
-				P.icon_state = "plasmaman_ikelosgold"
-			if("Red")
-				P.icon_state = "plasmaman_ikelossecurity"
-			else
-				return
+		if(picked_color)
+			P.icon_state = suits[picked_color]
+		else
+			return
 
 		to_chat(H, "<span class='notice'>You modify the appearance of [target].</span>")
 		P.icon = 'icons/obj/custom_items.dmi'
