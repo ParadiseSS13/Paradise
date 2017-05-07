@@ -264,6 +264,7 @@
 				priority_announcement.Announce("The Emergency Shuttle has left the station. Estimate [timeLeft(600)] minutes until the shuttle docks at Central Command.")
 				for(var/mob/M in player_list)
 					if(!isnewplayer(M) && !M.client.karma_spent)
+						to_chat(M, "<i>You have not yet spent your karma for the round, was there a player who was worthy of receiving your reward?<i>")
 
 		if(SHUTTLE_ESCAPE)
 			if(time_left <= 0)
