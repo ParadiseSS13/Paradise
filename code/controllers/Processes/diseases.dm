@@ -35,7 +35,7 @@ var/datum/controller/process/diseases/disease_master
 			catchBadType(thing)
 			processing_diseases.Remove(thing)
 
-DECLARE_GLOBAL_CONTROLLER(disease, disease_master)
+DECLARE_GLOBAL_CONTROLLER(diseases, disease_master)
 
 /datum/controller/process/diseases/proc/register_diseases()
 	for(var/datum/disease/D in world)
