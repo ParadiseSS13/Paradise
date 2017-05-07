@@ -1,5 +1,0 @@
-author: "Purpose2"
-delete-after: True
-changes: 
-  - bugfix: "Fixes the broken wiring re-electrifying the bridge window."
-  - bugfix: "Adds the missing scrubber in Genetics holding pen"
