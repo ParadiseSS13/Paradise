@@ -1,5 +1,0 @@
-author: "Twinmold"
-delete-after: True
-changes: 
-  - bugfix: "No longer able to put grabs into kitchen equipment (deep-fried grab)."
-  - bugfix: "No longer able to put grabs inside of display cases."
