@@ -256,7 +256,7 @@ var/global/list/captain_display_cases = list()
 			new /obj/machinery/constructable_frame/machine_frame(T)
 		qdel(src)
 		return
-	if(istype(W,/obj/item/weapon/grab))
+	if(W.flags & ABSTRACT)
 		to_chat(user, "<span class='danger'>You can't put this into the case.</span>")
 		return
 	if(user.a_intent == I_HARM)
