@@ -105,7 +105,7 @@
 					playsound(E.loc, E.usesound, 50, 1)
 					to_chat(user, "<span class='notice'>Teleporting [src.name]...</span>")
 					E.teleporting = 1
-					if(!do_after(user, 50 * E.toolspeed, target = src))
+					if(!(do_after(user, 50 * E.toolspeed, target = src) && (E.rcell && (E.rcell.charge >= E.chargecost)) && Adjacent(user)))
 						E.teleporting = 0
 						return
 					E.teleporting = 0
@@ -123,7 +123,7 @@
 				playsound(E.loc, E.usesound, 50, 1)
 				to_chat(user, "<span class='notice'>Teleporting [src.name]...</span>")
 				E.teleporting = 1
-				if(!do_after(user, 50 * E.toolspeed, target = src))
+				if(!(do_after(user, 50 * E.toolspeed, target = src) && (E.rcell && (E.rcell.charge >= E.chargecost)) && Adjacent(user)))
 					E.teleporting = 0
 					return
 				E.teleporting = 0

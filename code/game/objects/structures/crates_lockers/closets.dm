@@ -196,7 +196,7 @@
 					playsound(E.loc, E.usesound, 50, 1)
 					to_chat(user, "<span class='notice'>Teleporting [name]...</span>")
 					E.teleporting = 1
-					if(!do_after(user, 50 * E.toolspeed, target = src))
+					if(!(do_after(user, 50 * E.toolspeed, target = src) && (E.rcell && (E.rcell.charge >= E.chargecost)) && Adjacent(user)))
 						E.teleporting = 0
 						return
 					E.teleporting = 0
@@ -218,7 +218,7 @@
 				playsound(E.loc, E.usesound, 50, 1)
 				to_chat(user, "<span class='notice'>Teleporting [name]...</span>")
 				E.teleporting = 1
-				if(!do_after(user, 50, E.toolspeed, target = src))
+				if(!(do_after(user, 50, E.toolspeed, target = src) && (E.rcell && (E.rcell.charge >= E.chargecost)) && Adjacent(user)))
 					E.teleporting = 0
 					return
 				E.teleporting = 0
@@ -327,7 +327,7 @@
 /obj/structure/closet/attack_hand(mob/user)
 	add_fingerprint(user)
 	toggle(user)
-	
+
 /obj/structure/closet/attack_ghost(mob/user)
 	if(user.can_advanced_admin_interact())
 		toggle(user)
