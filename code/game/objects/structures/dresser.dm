@@ -71,7 +71,7 @@
 				anchored = 0
 		else
 			if(!isfloorturf(loc))
-				user.visible_message("<span class='warning'>A floor must be present to secure [name]!</span>")
+				user.visible_message("<span class='warning'>A floor must be present to secure [src]!</span>")
 				return
 			playsound(loc, W.usesound, 100, 1)
 			user.visible_message("[user] is securing [src]'s bolts...", \
