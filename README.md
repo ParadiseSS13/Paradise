@@ -1,6 +1,6 @@
 # Paradise
 
-[Website](http://www.nanotrasen.se/) - [Code](https://github.com/ParadiseSS13/Paradise) - [Discord](https://discordapp.com/invite/gXZMc?utm_source=Discord%20Widget&utm_medium=Connect)
+[Website](http://nanotrasen.se/) - [Code](https://github.com/ParadiseSS13/Paradise) - [Discord](https://discordapp.com/invite/gXZMc?utm_source=Discord%20Widget&utm_medium=Connect)
 
 ---
 
