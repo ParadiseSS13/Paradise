@@ -253,6 +253,15 @@
 	icon_state = "hardsuit0-engineering"
 	item_state = "eng_helm"
 	armor = list(melee = 10, bullet = 5, laser = 10, energy = 5, bomb = 10, bio = 100, rad = 75)
+	sprite_sheets = list(
+		"Unathi" = 'icons/mob/species/unathi/helmet.dmi',
+		"Tajaran" = 'icons/mob/species/tajaran/helmet.dmi',
+		"Skrell" = 'icons/mob/species/skrell/helmet.dmi',
+		"Vox" = 'icons/mob/species/vox/helmet.dmi',
+		"Vulpkanin" = 'icons/mob/species/vulpkanin/helmet.dmi',
+		"Drask" = 'icons/mob/species/drask/helmet.dmi',
+		"Grey" = 'icons/mob/species/grey/helmet.dmi'
+		)
 
 /obj/item/clothing/suit/space/hardsuit/engineering
 	name = "engineering hardsuit"
@@ -261,6 +270,15 @@
 	item_state = "eng_hardsuit"
 	armor = list(melee = 10, bullet = 5, laser = 10, energy = 5, bomb = 10, bio = 100, rad = 75)
 	allowed = list(/obj/item/device/flashlight,/obj/item/weapon/tank,/obj/item/device/t_scanner, /obj/item/weapon/rcd)
+	sprite_sheets = list(
+		"Unathi" = 'icons/mob/species/unathi/suit.dmi',
+		"Tajaran" = 'icons/mob/species/tajaran/suit.dmi',
+		"Skrell" = 'icons/mob/species/skrell/suit.dmi',
+		"Vox" = 'icons/mob/species/vox/suit.dmi',
+		"Vulpkanin" = 'icons/mob/species/vulpkanin/suit.dmi',
+		"Drask" = 'icons/mob/species/drask/suit.dmi',
+		"Grey" = 'icons/mob/species/grey/suit.dmi'
+		)
 
 //Chief Engineer's hardsuit
 /obj/item/clothing/head/helmet/space/hardsuit/elite
