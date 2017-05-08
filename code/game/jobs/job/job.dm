@@ -198,9 +198,7 @@
 	if(implants)
 		for(var/implant_type in implants)
 			var/obj/item/weapon/implant/I = new implant_type(H)
-			I.imp_in = H
-			I.implanted = 1
-			H.sec_hud_set_implants()
+			I.implant(H)
 
 	if(gear_leftovers.len)
 		for(var/datum/gear/G in gear_leftovers)
@@ -228,7 +226,7 @@
 	var/datum/job/J = job_master.GetJobType(jobtype)
 	if(!J)
 		J = job_master.GetJob(H.job)
-		
+
 	var/alt_title
 	if(H.mind)
 		alt_title = H.mind.role_alt_title

@@ -18,6 +18,10 @@
 	var/sound_file = 'sound/misc/briefcase_bees.ogg'
 	var/next_sound = 0
 
+/obj/item/weapon/bee_briefcase/Destroy()
+	blood_list.Cut()
+	return ..()
+
 /obj/item/weapon/bee_briefcase/examine(mob/user)
 	..()
 	if(loc == user)
@@ -70,6 +74,6 @@
 		//Release up to 5 bees per use. Without using strange reagent, that means two uses. WITH strange reagent, you can get more if you don't release the last bee
 		for(var/bee = min(5, bees_left), bee > 0, bee--)
 			var/mob/living/simple_animal/hostile/poison/bees/syndi/B = new /mob/living/simple_animal/hostile/poison/bees/syndi(null)
-			B.master_and_friends = blood_list	//Doesn't automatically add the person who opens the case, so the bees will attack the user unless they gave their blood
+			B.master_and_friends = blood_list.Copy()	//Doesn't automatically add the person who opens the case, so the bees will attack the user unless they gave their blood
 			B.forceMove(get_turf(user))			//RELEASE THE BEES!
 		bees_left -= 5

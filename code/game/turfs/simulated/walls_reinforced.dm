@@ -109,6 +109,7 @@
 					d_state = 0
 					update_icon()
 					src.icon_state = "r_wall"
+					update_icon()
 					to_chat(user, "<span class='notice'>You replace the outer grille.</span>")
 				else
 					to_chat(user, "<span class='warning'>You don't have enough rods for that!</span>")
