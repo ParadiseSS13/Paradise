@@ -45,7 +45,7 @@
  			P.info =  "<center><b>[id] - Brig record</b></center><br><hr><br>"
  			P.info += {"<center>[station_name()] - Security Department</center><br>
  						<center><small><b>Admission data:</b></small></center><br>
- 						<small><b>Log generated at:</b>		[worldtime2text(world.time)]<br>
+ 						<small><b>Log generated at:</b>		[worldtime2text()]<br>
  						<b>Detainee:</b>		[logname]<br>
  						<b>Duration:</b>		[timetoset/60/10] minute(s)<br>
  						<b>Charge(s):</b>	[logcharges]<br>
