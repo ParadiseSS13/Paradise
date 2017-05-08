@@ -72,6 +72,10 @@
 
 /obj/item/clothing/under/rank/clown/hit_reaction()
 	playsound(loc, 'sound/items/bikehorn.ogg', 50, 1, -1)
+	if(ishuman(loc))
+		var/mob/living/carbon/human/H = loc
+		if(H.mind && H.mind.assigned_role == "Clown")
+			score_clownabuse++
 	return 0
 
 /obj/item/clothing/under/rank/head_of_personnel
