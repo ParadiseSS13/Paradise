@@ -1505,7 +1505,10 @@
 			change_gender(pick(MALE,FEMALE))
 		species.handle_pre_change(src)
 
-	species = all_species[new_species]
+	var/datum/species/S = all_species[new_species]
+
+	species = new S.type //Ensures each mob's species isn't on the same memory address, meaning changing the icobase/deform/tail of one mob's species won't affect that of all other mobs of the same species.
+	species.myhuman = src //Update species mob reference.
 
 	if(oldspecies)
 		if(oldspecies.default_genes.len)

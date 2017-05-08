@@ -142,8 +142,8 @@
 	var/default_headacc				//Default head accessory style for newly created humans unless otherwise set.
 	var/default_headacc_colour
 
-	//Defining lists of icon skin tones for species that have them.
-	var/list/icon_skin_tones = list()
+	var/myhuman						//Mob reference.
+	var/list/icon_skin_tones = list()	//Defining lists of icon skin tones for species that have them.
 
                               // Determines the organs that the species spawns with and
 	var/list/has_organ = list(    // which required-organ checks are conducted.
