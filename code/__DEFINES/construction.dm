@@ -10,13 +10,13 @@
 #define GIRDER_DISASSEMBLED 4
 
 //rwall construction states
-#define INTACT 0
-#define SUPPORT_LINES 1
-#define COVER 2
-#define CUT_COVER 3
-#define BOLTS 4
-#define SUPPORT_RODS 5
-#define SHEATH 6
+#define RWALL_INTACT 0
+#define RWALL_SUPPORT_LINES 1
+#define RWALL_COVER 2
+#define RWALL_CUT_COVER 3
+#define RWALL_BOLTS 4
+#define RWALL_SUPPORT_RODS 5
+#define RWALL_SHEATH 6
 
 //plastic flaps construction states
 #define PLASTIC_FLAPS_NORMAL 0
