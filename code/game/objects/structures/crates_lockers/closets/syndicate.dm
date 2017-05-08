@@ -27,6 +27,7 @@
 	new /obj/item/clothing/mask/gas/syndicate(src)
 	new /obj/item/clothing/suit/space/hardsuit/syndi(src)
 	new /obj/item/weapon/tank/jetpack/oxygen/harness(src)
+	new /obj/item/clothing/shoes/magboots/syndie(src)
 
 /obj/structure/closet/syndicate/nuclear
 	desc = "It's a storage unit for a Syndicate boarding party.."
