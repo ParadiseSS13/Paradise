@@ -566,7 +566,7 @@ proc/display_roundstart_logout_report()
 	//Mad-libs for their message
 	var/adjective = pick("strange", "mysterious", "sinister", "un-assuming", "unexpected")
 	var/action_words = pick("aid the fight against Nanotrasen", "repay a debt", "partake in some mischief", "help overthrow the system", "stick it to the man")
-	var/organization = pick("Anti-Fascist Movement", "Syndicate", "Spessmen for the Protesting of Nanotrasen", "Greytider's Union", "Illuminati (in space)")
+	var/organization = pick("Anti-Fascist Movement", "Syndicate", "Spessmen for the Protesting of Nanotrasen", "Greytider's Union", "Illuminati (in space)", "Feministic movement", "Mom's Spaghetti", "Vegans", "Allah")
 	//Stuff to give them a single set of code-words
 	var/list/possible_words = splittext(syndicate_code_phrase, ", ")
 	var/list/possible_reply = splittext(syndicate_code_response, ", ")

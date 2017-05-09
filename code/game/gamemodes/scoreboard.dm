@@ -29,13 +29,6 @@
 		if(I.stat == DEAD && is_station_level(I.z))
 			score_deadcrew++
 
-		if(I && I.mind)
-			if(I.mind.assigned_role == "Clown")
-				for(var/thing in I.attack_log)
-					if(findtext(thing, "<font color='orange'>")) //This has to be the hackiest fucking way _ever_ to see attacks.
-						score_clownabuse++
-
-
 	if(shuttle_master.emergency.mode >= SHUTTLE_ENDGAME)
 		for(var/mob/living/player in mob_list)
 			if(player.client)

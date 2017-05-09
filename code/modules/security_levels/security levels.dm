@@ -34,9 +34,9 @@
 
 				post_status("alert", "outline")
 
-				for(var/obj/machinery/firealarm/FA in world)
+				for(var/obj/machinery/firealarm/FA in machines)
 					if(is_station_contact(FA.z))
-						FA.overlays = list()
+						FA.overlays.Cut()
 						FA.overlays += image('icons/obj/monitors.dmi', "overlay_green")
 
 			if(SEC_LEVEL_BLUE)
@@ -48,9 +48,9 @@
 
 				post_status("alert", "outline")
 
-				for(var/obj/machinery/firealarm/FA in world)
+				for(var/obj/machinery/firealarm/FA in machines)
 					if(is_station_contact(FA.z))
-						FA.overlays = list()
+						FA.overlays.Cut()
 						FA.overlays += image('icons/obj/monitors.dmi', "overlay_blue")
 
 			if(SEC_LEVEL_RED)
@@ -60,16 +60,16 @@
 					security_announcement_down.Announce("The station's self-destruct mechanism has been deactivated, but there is still an immediate and serious threat to the station. Security may have weapons unholstered at all times. Random searches are allowed and advised.","Attention! Code Red!")
 				security_level = SEC_LEVEL_RED
 
-				var/obj/machinery/door/airlock/highsecurity/red/R = locate(/obj/machinery/door/airlock/highsecurity/red) in world
+				var/obj/machinery/door/airlock/highsecurity/red/R = locate(/obj/machinery/door/airlock/highsecurity/red) in airlocks
 				if(R && is_station_level(R.z))
 					R.locked = 0
 					R.update_icon()
 
 				post_status("alert", "redalert")
 
-				for(var/obj/machinery/firealarm/FA in world)
+				for(var/obj/machinery/firealarm/FA in machines)
 					if(is_station_contact(FA.z))
-						FA.overlays = list()
+						FA.overlays.Cut()
 						FA.overlays += image('icons/obj/monitors.dmi', "overlay_red")
 
 			if(SEC_LEVEL_GAMMA)
@@ -91,9 +91,9 @@
 
 				post_status("alert", "gammaalert")
 
-				for(var/obj/machinery/firealarm/FA in world)
+				for(var/obj/machinery/firealarm/FA in machines)
 					if(is_station_contact(FA.z))
-						FA.overlays = list()
+						FA.overlays.Cut()
 						FA.overlays += image('icons/obj/monitors.dmi', "overlay_gamma")
 						FA.update_icon()
 
@@ -103,9 +103,9 @@
 
 				post_status("alert", "epsilonalert")
 
-				for(var/obj/machinery/firealarm/FA in world)
+				for(var/obj/machinery/firealarm/FA in machines)
 					if(is_station_contact(FA.z))
-						FA.overlays = list()
+						FA.overlays.Cut()
 						FA.overlays += image('icons/obj/monitors.dmi', "overlay_epsilon")
 
 			if(SEC_LEVEL_DELTA)
@@ -114,9 +114,9 @@
 
 				post_status("alert", "deltaalert")
 
-				for(var/obj/machinery/firealarm/FA in world)
+				for(var/obj/machinery/firealarm/FA in machines)
 					if(is_station_contact(FA.z))
-						FA.overlays = list()
+						FA.overlays.Cut()
 						FA.overlays += image('icons/obj/monitors.dmi', "overlay_delta")
 
 	else

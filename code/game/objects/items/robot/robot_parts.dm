@@ -10,8 +10,7 @@
 	var/model_info
 	dir = SOUTH
 
-
-/obj/item/robot_parts/New(var/newloc, var/model)
+/obj/item/robot_parts/New(newloc, model)
 	..(newloc)
 	if(model_info && model)
 		model_info = model
@@ -57,8 +56,12 @@
 	desc = "A heavily reinforced case containing cyborg logic boards, with space for a standard power cell."
 	icon_state = "chest"
 	part = list("groin","chest")
-	var/wires = 0.0
+	var/wired = FALSE
 	var/obj/item/weapon/stock_parts/cell/cell = null
+
+/obj/item/robot_parts/chest/Destroy()
+	QDEL_NULL(cell)
+	return ..()
 
 /obj/item/robot_parts/head
 	name = "head"
@@ -67,6 +70,11 @@
 	part = list("head")
 	var/obj/item/device/flash/flash1 = null
 	var/obj/item/device/flash/flash2 = null
+
+/obj/item/robot_parts/head/Destroy()
+	QDEL_NULL(flash1)
+	QDEL_NULL(flash2)
+	return ..()
 
 /obj/item/robot_parts/robot_suit
 	name = "endoskeleton"
@@ -88,89 +96,108 @@
 
 /obj/item/robot_parts/robot_suit/New()
 	..()
-	src.updateicon()
+	updateicon()
+
+/obj/item/robot_parts/robot_suit/Destroy()
+	QDEL_NULL(l_arm)
+	QDEL_NULL(r_arm)
+	QDEL_NULL(l_leg)
+	QDEL_NULL(r_leg)
+	QDEL_NULL(chest)
+	QDEL_NULL(head)
+	forced_ai = null
+	return ..()
 
 /obj/item/robot_parts/robot_suit/proc/updateicon()
-	src.overlays.Cut()
-	if(src.l_arm)
-		src.overlays += "l_arm+o"
-	if(src.r_arm)
-		src.overlays += "r_arm+o"
-	if(src.chest)
-		src.overlays += "chest+o"
-	if(src.l_leg)
-		src.overlays += "l_leg+o"
-	if(src.r_leg)
-		src.overlays += "r_leg+o"
-	if(src.head)
-		src.overlays += "head+o"
+	overlays.Cut()
+	if(l_arm)
+		overlays += "l_arm+o"
+	if(r_arm)
+		overlays += "r_arm+o"
+	if(chest)
+		overlays += "chest+o"
+	if(l_leg)
+		overlays += "l_leg+o"
+	if(r_leg)
+		overlays += "r_leg+o"
+	if(head)
+		overlays += "head+o"
 
 /obj/item/robot_parts/robot_suit/proc/check_completion()
-	if(src.l_arm && src.r_arm)
-		if(src.l_leg && src.r_leg)
-			if(src.chest && src.head)
+	if(l_arm && r_arm)
+		if(l_leg && r_leg)
+			if(chest && head)
 				feedback_inc("cyborg_frames_built",1)
 				return 1
 	return 0
 
-/obj/item/robot_parts/robot_suit/attackby(obj/item/W as obj, mob/user as mob, params)
+/obj/item/robot_parts/robot_suit/attackby(obj/item/W, mob/user, params)
 	..()
 	if(istype(W, /obj/item/stack/sheet/metal) && !l_arm && !r_arm && !l_leg && !r_leg && !chest && !head)
+		var/obj/item/stack/sheet/metal/M = W
 		var/obj/item/weapon/ed209_assembly/B = new /obj/item/weapon/ed209_assembly
-		B.loc = get_turf(src)
+		B.forceMove(get_turf(src))
 		to_chat(user, "You armed the robot frame")
-		W:use(1)
+		M.use(1)
 		if(user.get_inactive_hand()==src)
 			user.unEquip(src)
 			user.put_in_inactive_hand(B)
 		qdel(src)
 	if(istype(W, /obj/item/robot_parts/l_leg))
-		if(src.l_leg)	return
+		if(l_leg)
+			return
 		user.drop_item()
-		W.loc = src
-		src.l_leg = W
-		src.updateicon()
+		W.forceMove(src)
+		l_leg = W
+		updateicon()
 
 	if(istype(W, /obj/item/robot_parts/r_leg))
-		if(src.r_leg)	return
+		if(r_leg)
+			return
 		user.drop_item()
-		W.loc = src
-		src.r_leg = W
-		src.updateicon()
+		W.forceMove(src)
+		r_leg = W
+		updateicon()
 
 	if(istype(W, /obj/item/robot_parts/l_arm))
-		if(src.l_arm)	return
+		if(l_arm)
+			return
 		user.drop_item()
-		W.loc = src
-		src.l_arm = W
-		src.updateicon()
+		W.forceMove(src)
+		l_arm = W
+		updateicon()
 
 	if(istype(W, /obj/item/robot_parts/r_arm))
-		if(src.r_arm)	return
+		if(r_arm)
+			return
 		user.drop_item()
-		W.loc = src
-		src.r_arm = W
-		src.updateicon()
+		W.forceMove(src)
+		r_arm = W
+		updateicon()
 
 	if(istype(W, /obj/item/robot_parts/chest))
-		if(src.chest)	return
-		if(W:wires && W:cell)
+		var/obj/item/robot_parts/chest/CH = W
+		if(chest)
+			return
+		if(CH.wired && CH.cell)
 			user.drop_item()
-			W.loc = src
-			src.chest = W
-			src.updateicon()
-		else if(!W:wires)
+			W.forceMove(src)
+			chest = W
+			updateicon()
+		else if(!CH.wired)
 			to_chat(user, "<span class='notice'>You need to attach wires to it first!</span>")
 		else
 			to_chat(user, "<span class='notice'>You need to attach a cell to it first!</span>")
 
 	if(istype(W, /obj/item/robot_parts/head))
-		if(src.head)	return
-		if(W:flash2 && W:flash1)
+		var/obj/item/robot_parts/head/HD = W
+		if(head)
+			return
+		if(HD.flash2 && HD.flash1)
 			user.drop_item()
-			W.loc = src
-			src.head = W
-			src.updateicon()
+			W.forceMove(src)
+			head = W
+			updateicon()
 		else
 			to_chat(user, "<span class='notice'>You need to attach a flash to it first!</span>")
 
@@ -183,11 +210,11 @@
 	if(istype(W, /obj/item/device/mmi))
 		var/obj/item/device/mmi/M = W
 		if(check_completion())
-			if(!istype(loc,/turf))
-				to_chat(user, "<span class='warning'>You can't put \the [W] in, the frame has to be standing on the ground to be perfectly precise.</span>")
+			if(!isturf(loc))
+				to_chat(user, "<span class='warning'>You can't put [M] in, the frame has to be standing on the ground to be perfectly precise.</span>")
 				return
 			if(!M.brainmob)
-				to_chat(user, "<span class='warning'>Sticking an empty [W] into the frame would sort of defeat the purpose.</span>")
+				to_chat(user, "<span class='warning'>Sticking an empty [M] into the frame would sort of defeat the purpose.</span>")
 				return
 
 			if(!M.brainmob.key)
@@ -202,15 +229,15 @@
 							ghost_can_reenter = 1
 							break
 				if(!ghost_can_reenter)
-					to_chat(user, "<span class='notice'>\The [W] is completely unresponsive; there's no point.</span>")
+					to_chat(user, "<span class='notice'>[M] is completely unresponsive; there's no point.</span>")
 					return
 
 			if(M.brainmob.stat == DEAD)
-				to_chat(user, "<span class='warning'>Sticking a dead [W] into the frame would sort of defeat the purpose.</span>")
+				to_chat(user, "<span class='warning'>Sticking a dead [M] into the frame would sort of defeat the purpose.</span>")
 				return
 
 			if(M.brainmob.mind in ticker.mode.head_revolutionaries)
-				to_chat(user, "<span class='warning'>The frame's firmware lets out a shrill sound, and flashes 'Abnormal Memory Engram'. It refuses to accept the [W].</span>")
+				to_chat(user, "<span class='warning'>The frame's firmware lets out a shrill sound, and flashes 'Abnormal Memory Engram'. It refuses to accept the [M].</span>")
 				return
 
 			if(jobban_isbanned(M.brainmob, "Cyborg") || jobban_isbanned(M.brainmob,"nonhumandept"))
@@ -218,7 +245,8 @@
 				return
 
 			var/mob/living/silicon/robot/O = new /mob/living/silicon/robot(get_turf(loc), unfinished = 1)
-			if(!O)	return
+			if(!O)
+				return
 
 			user.drop_item()
 
@@ -257,9 +285,9 @@
 			O.job = "Cyborg"
 
 			O.cell = chest.cell
-			chest.cell.loc = O
+			chest.cell.forceMove(O)
 			chest.cell = null
-			W.loc = O//Should fix cybros run time erroring when blown up. It got deleted before, along with the frame.
+			M.forceMove(O) //Should fix cybros run time erroring when blown up. It got deleted before, along with the frame.
 			// Since we "magically" installed a cell, we also have to update the correct component.
 			if(O.cell)
 				var/datum/robot_component/cell_component = O.components["power cell"]
@@ -271,7 +299,8 @@
 			feedback_inc("cyborg_birth",1)
 			callHook("borgify", list(O))
 
-			src.loc = O
+			forceMove(O)
+			O.robot_suit = src
 
 			if(!locomotion)
 				O.lockcharge = 1
@@ -308,8 +337,8 @@
 		return
 
 	if(href_list["Name"])
-		var/new_name = reject_bad_name(input(usr, "Enter new designation. Set to blank to reset to default.", "Cyborg Debug", src.created_name),1)
-		if(!in_range(src, usr) && src.loc != usr)
+		var/new_name = reject_bad_name(input(usr, "Enter new designation. Set to blank to reset to default.", "Cyborg Debug", created_name),1)
+		if(!in_range(src, usr) && loc != usr)
 			return
 		if(new_name)
 			created_name = new_name
@@ -337,22 +366,22 @@
 /obj/item/robot_parts/chest/attackby(obj/item/W as obj, mob/user as mob, params)
 	..()
 	if(istype(W, /obj/item/weapon/stock_parts/cell))
-		if(src.cell)
+		if(cell)
 			to_chat(user, "<span class='notice'>You have already inserted a cell!</span>")
 			return
 		else
 			user.drop_item()
-			W.loc = src
-			src.cell = W
+			W.forceMove(src)
+			cell = W
 			to_chat(user, "<span class='notice'>You insert the cell!</span>")
 	if(istype(W, /obj/item/stack/cable_coil))
-		if(src.wires)
+		if(wired)
 			to_chat(user, "<span class='notice'>You have already inserted wire!</span>")
 			return
 		else
 			var/obj/item/stack/cable_coil/coil = W
 			coil.use(1)
-			src.wires = 1.0
+			wired = TRUE
 			to_chat(user, "<span class='notice'>You insert the wire!</span>")
 	return
 
@@ -362,18 +391,18 @@
 		if(istype(user,/mob/living/silicon/robot))
 			to_chat(user, "<span class='warning'>How do you propose to do that?</span>")
 			return
-		else if(src.flash1 && src.flash2)
+		else if(flash1 && flash2)
 			to_chat(user, "<span class='notice'>You have already inserted the eyes!</span>")
 			return
-		else if(src.flash1)
+		else if(flash1)
 			user.drop_item()
-			W.loc = src
-			src.flash2 = W
+			W.forceMove(src)
+			flash2 = W
 			to_chat(user, "<span class='notice'>You insert the flash into the eye socket!</span>")
 		else
 			user.drop_item()
-			W.loc = src
-			src.flash1 = W
+			W.forceMove(src)
+			flash1 = W
 			to_chat(user, "<span class='notice'>You insert the flash into the eye socket!</span>")
 	else if(istype(W, /obj/item/weapon/stock_parts/manipulator))
 		to_chat(user, "<span class='notice'>You install some manipulators and modify the head, creating a functional spider-bot!</span>")
@@ -381,15 +410,10 @@
 		user.drop_item()
 		qdel(W)
 		qdel(src)
-		return
-	return
 
-/obj/item/robot_parts/attackby(obj/item/W as obj, mob/user as mob, params)
-	if(istype(W,/obj/item/weapon/card/emag))
-		if(sabotaged)
-			to_chat(user, "<span class='warning'>[src] is already sabotaged!</span>")
-		else
-			to_chat(user, "<span class='warning'>You slide [W] into the dataport on [src] and short out the safeties.</span>")
-			sabotaged = 1
-		return
-	..()
+/obj/item/robot_parts/emag_act(user)
+	if(sabotaged)
+		to_chat(user, "<span class='warning'>[src] is already sabotaged!</span>")
+	else
+		to_chat(user, "<span class='warning'>You slide the emag into the dataport on [src] and short out the safeties.</span>")
+		sabotaged = 1

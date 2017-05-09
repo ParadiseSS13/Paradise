@@ -294,6 +294,16 @@
 	icon_state = "plasmaman_HoS_helmet0"
 	base_state = "plasmaman_HoS_helmet"
 
+//NT REP
+/obj/item/clothing/suit/space/eva/plasmaman/nt_rep
+	name = "plasmaman NT representative suit"
+	icon_state = "plasmaman_rep"
+
+/obj/item/clothing/head/helmet/space/eva/plasmaman/nt_rep
+	name = "plasmaman NT representative helmet"
+	icon_state = "plasmaman_rep_helmet0"
+	base_state = "plasmaman_rep_helmet"
+
 //SECURITY
 
 /obj/item/clothing/suit/space/eva/plasmaman/security
