@@ -586,6 +586,10 @@ BLIND     // can't see anything
 	var/rolled_down = 0
 	var/basecolor
 
+/obj/item/clothing/under/Destroy()
+	QDEL_LIST(accessories)
+	return ..()
+
 /obj/item/clothing/under/proc/can_attach_accessory(obj/item/clothing/accessory/A)
 	if(istype(A))
 		.=1

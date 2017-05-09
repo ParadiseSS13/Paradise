@@ -15,6 +15,12 @@
 	..()
 	inv_overlay = image("icon" = 'icons/obj/clothing/ties_overlay.dmi', "icon_state" = "[item_color? "[item_color]" : "[icon_state]"]")
 
+/obj/item/clothing/accessory/Destroy()
+	if(has_suit)
+		has_suit.accessories -= src
+		on_removed(null)
+	return ..()
+
 //when user attached an accessory to S
 /obj/item/clothing/accessory/proc/on_attached(obj/item/clothing/under/S, mob/user as mob)
 	if(!istype(S))
@@ -37,7 +43,7 @@
 		to_chat(user, "<span class='notice'>You attach [src] to [has_suit].</span>")
 	src.add_fingerprint(user)
 
-/obj/item/clothing/accessory/proc/on_removed(mob/user as mob)
+/obj/item/clothing/accessory/proc/on_removed(mob/user)
 	if(!has_suit)
 		return
 	has_suit.overlays -= inv_overlay
@@ -53,8 +59,9 @@
 		has_suit.armor[armor_type] -= armor[armor_type]
 
 	has_suit = null
-	usr.put_in_hands(src)
-	src.add_fingerprint(user)
+	if(user)
+		user.put_in_hands(src)
+		add_fingerprint(user)
 
 /obj/item/clothing/accessory/attack(mob/living/carbon/human/H, mob/living/user)
 	// This code lets you put accessories on other people by attacking their sprite with the accessory
