@@ -332,8 +332,10 @@
 /obj/item/weapon/reagent_containers/food/snacks/donut/New()
 	..()
 	if(randomized_sprinkles && prob(30))
-		new /obj/item/weapon/reagent_containers/food/snacks/donut/sprinkles(loc)
-		qdel(src)
+		icon_state = "donut2"
+		name = "frosted donut"
+		reagents.add_reagent("sprinkles", 2)
+		filling_color = "#FF69B4"
 
 /obj/item/weapon/reagent_containers/food/snacks/donut/sprinkles
 	name = "frosted donut"
@@ -2480,6 +2482,20 @@
 	list_reagents = list("nutriment" = 4)
 	filling_color = "FFD700"
 
+//////////////////////////////////
+//		Replicated Food Item	//
+//////////////////////////////////
+
+/obj/item/weapon/reagent_containers/food/snacks/replica_dish
+	name = "replicated dish"
+	desc = "A copy of another dish. This should have been copied over."
+	icon = 'icons/obj/food/food.dmi'
+	icon_state = "badrecipe"
+	list_reagents = list()
+	trash = null
+	dry = 1
+	duped = 1
+	filling_color = "FFD700"
 
 //////////////////////////////////
 //		Food Polyhedrons		//
@@ -2491,6 +2507,7 @@
 	icon = 'icons/obj/food/poly.dmi'
 	icon_state = "food_sphere"
 	list_reagents = list("nutriment" = 1)
+	duped = 1
 	filling_color = "FFD700"
 
 /obj/item/weapon/reagent_containers/food/snacks/food_poly/tetrahedron

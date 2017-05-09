@@ -21,35 +21,27 @@
 	var/recycle_rate = 0.7
 	//reagent_tier is the current tier of unlocked reagent replication. Upgrading the micro-laser improves this, making replications more accurate.
 	var/reagent_tier = 1
-
 	//Tier 0 reagents are free: they don't use food paste to replicate, but are still replicated. These are available at all tiers of upgrade parts.
-	var/list/reagent_tier0 = list("water", "sodiumchloride", "blackpepper", "ice")
 	//Tier 1 reagents are basic food reagents. These are available at all tiers of upgrades parts.
-	var/list/reagent_tier1 = list("nutriment", "protein", "plantmatter", "rice", "sugar")
 	//Tier 2 reagents are less common food reagents, including some condiments, flavorings, and juices. These are available beginning at second tier parts.
-	var/list/reagent_tier2 = list(
-						"ketchup", "berryjuice", "egg", "cocoa", "soysauce", "capsaicin", "tomatojuice", "sprinkles", "cheese", "banana", "toxin",
-						"mashedpotatoes", "poisonberryjuice", "chocolate", "cream", "milk", "soymilk", "lemonjuice", "limejuice", "grapejuice",
-						"orangejuice", "cherryjelly", "watermelonjuice", "vanilla")
 	//Tier 3 reagents are even less common, typically things found in very complex recipes and rarer ingredients. These are available beginning at third tier parts.
-	var/list/reagent_tier3 = list(
-						"vitamin", "frostoil", "porktonium", "msg", "fake_cheese", "slimejelly", "coffee", "gravy", "salglu_solution", "amanitin",
-						"psilocybin", "oculine", "blood", "cholestrol", "minttoxin", "space_drugs", "cola", "dr_gibb", "beans",
-						"plasma", "ether", "morphine", "synaptizine", "mannitol")
 	//Tier 4 reagents are top-quality reagents found in only the best and most complex of recipes and reagents. These are only available with the best upgrade parts to avoid mass production of the chems without effort.
-	var/list/reagent_tier4 = list("omnizine", "weak_omnizine", "sulfonal")
+	var/list/reagent_tiers = list(
+								"tier0" = list("water", "sodiumchloride", "blackpepper", "ice"),
+								"tier1" = list("nutriment", "protein", "plantmatter", "rice", "sugar"),
+								"tier2" = list("ketchup", "berryjuice", "egg", "cocoa", "soysauce", "capsaicin", "tomatojuice", "sprinkles", "cheese", "banana", "toxin",
+												"mashedpotatoes", "poisonberryjuice", "chocolate", "cream", "milk", "soymilk", "lemonjuice", "limejuice", "grapejuice",
+												"orangejuice", "cherryjelly", "watermelonjuice", "vanilla"),
+								"tier3" = list("vitamin", "frostoil", "porktonium", "msg", "fake_cheese", "slimejelly", "coffee", "gravy", "salglu_solution", "amanitin",
+												"psilocybin", "oculine", "blood", "cholestrol", "minttoxin", "space_drugs", "cola", "dr_gibb", "beans",
+												"plasma", "ether", "morphine", "synaptizine", "mannitol"),
+								"tier4" = list("omnizine", "weak_omnizine", "sulfonal")
+								)
 
 	//memory_slots is the number of memory slots you can save dishes to for replication. Upgrading the scanning module improves this, allowing for more stored dish options.
 	var/memory_slots = 1
-
-	//Memory slot breakdown:
-	//"name" stores the dish's displayed name, forn ensuring replicated dishes also are named the same as the original (for renamed dishes mostly)
-	//"item" stores the food item path, for creating the replicated items of the correct type.
-	//"reagents" is a list of all the reagents in the food when it was scanned, though not all reagents may be replicated depending on the reagent_tier and reagents present.
-	var/list/memory1 = list("name" = null, "item" = null, "reagents" = list())
-	var/list/memory2 = list("name" = null, "item" = null, "reagents" = list())
-	var/list/memory3 = list("name" = null, "item" = null, "reagents" = list())
-	var/list/memory4 = list("name" = null, "item" = null, "reagents" = list())
+	var/max_slots = 4			//maximum number of memory_slots. Currently 4, we can change this if we add a 5th tier of stock_parts or want to make it so you unlock multiple slots per tier (you'll need to adjust the RefreshParts proc too for that)
+	var/list/memory	= null		//this gets built in New(), so we can do with with a loop to cut down on what looks like copy-pasta in the defines
 	var/obj/item/weapon/reagent_containers/food/snacks/loaded = null
 
 /obj/machinery/food_replicator/New()
@@ -63,6 +55,19 @@
 	component_parts += new /obj/item/weapon/stock_parts/console_screen(null)
 	component_parts += new /obj/item/stack/cable_coil(null, 5)
 	RefreshParts()
+	if(!memory)
+		memory = list()
+		for(var/i in 1 to max_slots)
+			//memory list breakdown:
+				//"name" is the dish name, used to ensure replicated dishes copy even custom names
+				//"desc" is the dish desc, used to ensure replicated dishes examine the same
+				//"icon" is the dish icon file, used to ensure we can access the proper sprite
+				//"state" is the dish icon_state, used to ensure we look like what we copied
+				//"slice_path" is the dish's sliceable path, if one exists for the original food. This is so you can cut replicated cakes.
+				//"slice_num" is the dish's slices_num, used to ensure we can slice into the proper number of pieces
+				//"reagents" is the complete reagent_list of the dish when saved. This may include reagents we can't replicate at the time.
+			var/list/temp_list = make_memory_entry()
+			memory.Add(list("slot[i]" = temp_list))
 
 /obj/machinery/food_replicator/upgraded/New()
 	..()
@@ -77,7 +82,7 @@
 	RefreshParts()
 
 /obj/machinery/food_replicator/Destroy()
-	clear_memory(-1)		//just in case, probably don't need to do this.
+	clear_memory(null, -1)		//just in case, probably don't need to do this.
 	eject_dish()
 	if(food_paste)			//if we have food paste left, let's just dump a pile of goop on the floor to represent it being wasted
 		if(food_paste >= 100)	//a lot of food paste, better make it a big pile of goop
@@ -95,251 +100,193 @@
 	for(var/obj/item/weapon/stock_parts/micro_laser/ML in component_parts)
 		reagent_tier = ML.rating
 	for(var/obj/item/weapon/stock_parts/scanning_module/SM in component_parts)
+		//adjust this if you change the number of max_slots to not be equal to the highest scanning module rating value
 		memory_slots = SM.rating
 	for(var/obj/item/weapon/stock_parts/matter_bin/MB in component_parts)
 		max_food_paste = MB.rating * 200
 
+//make_memory_entry is used to quickly build a list from provided arguments for use in memory slots or other procs
+//by default, this returns a blank version of the list with the proper associated values defined.
+//calling this with use_loaded = 1 will set the associated values to those of the loaded item (if possible) and return the populated list
+/obj/machinery/food_replicator/proc/make_memory_entry(use_loaded = 0)
+	var/list/temp_list = list("name" = null, "desc" = null, "icon" = null, "state" = null, "slice_path" = null, "slice_num" = null, "reagents" = list())
+	if(use_loaded && loaded)
+		temp_list["name"] = loaded.name
+		temp_list["desc"] = loaded.desc
+		temp_list["icon"] = loaded.icon
+		temp_list["state"] = loaded.icon_state
+		temp_list["slice_path"] = loaded.slice_path
+		temp_list["slice_num"] = loaded.slices_num
+		var/list/temp_reagents = list()
+		for(var/datum/reagent/R in loaded.reagents.reagent_list)
+			temp_reagents["[R.id]"] = R.volume
+		temp_list["reagents"] = temp_reagents
+	return temp_list
+
 //scan_food is used to determine the cost of replicating the loaded food item.
 //if the recycling var is set, it includes reagents from all tiers, even if you can't replicate them yet. Non-tiered reagents still don't count though.
 //this is so don't get double shafted by trying to recycle complex dishes in a low tier replicator (the recycle_rate already punishes you enough).
-/obj/machinery/food_replicator/proc/scan_food(recycling = 0)
+/obj/machinery/food_replicator/proc/scan_food(mob/user, recycling = 0)
 	var/result = 0
 	if(!loaded)
 		return -1
 	if(!loaded.reagents)
-		visible_message("<span class='warning'>[loaded] lacks a reagents holder! Alert a coder!</span>")
+		log_runtime(EXCEPTION("[loaded] lacks a reagents holder"))
 		return -1
 	if(!loaded.reagents.total_volume)
-		visible_message("<span class='warning'>[loaded] contains no reagents at all!</span>")
+		to_chat(user, "<span class='warning'>[loaded] contains no reagents at all!</span>")
 		return -1
-	for(var/datum/reagent/R in loaded.reagents.reagent_list)
-		if(reagent_tier == 4 || recycling)
-			if(R.id in reagent_tier4)
+	var/list/reagent_memory = loaded.reagents.reagent_list.Copy()
+	var/target_tier = reagent_tier
+	if(recycling)
+		target_tier = 4
+	for(var/i in 1 to target_tier)
+		var/list/this_tier = reagent_tiers["tier[i]"]
+		for(var/datum/reagent/R in reagent_memory)
+			if(R.id in this_tier)
 				result += R.volume
-		if(reagent_tier >= 3 || recycling)
-			if(R.id in reagent_tier3)
-				result += R.volume
-		if(reagent_tier >= 2 || recycling)
-			if(R.id in reagent_tier2)
-				result += R.volume
-		if(R.id in reagent_tier1)
-			result += R.volume
 	return result
 
-//get_cost_from_memory is used to determine the cost of replicating the reagents based on the list of reagents supplied.
-/obj/machinery/food_replicator/proc/get_cost_from_memory(list/reagent_memory)
+//get_cost_from_list is used to determine the cost of replicating the reagents based on the list of reagents supplied.
+/obj/machinery/food_replicator/proc/get_cost_from_list(list/reagent_memory)
 	var/result = 0
 	if(!reagent_memory)
 		return -1
-	for(var/datum/reagent/R in reagent_memory)
-		if(reagent_tier == 4)
-			if(R.id in reagent_tier4)
-				result += R.volume
-		if(reagent_tier >= 3)
-			if(R.id in reagent_tier3)
-				result += R.volume
-		if(reagent_tier >= 2)
-			if(R.id in reagent_tier2)
-				result += R.volume
-		if(reagent_tier >= 1)
-			if(R.id in reagent_tier1)
-				result += R.volume
+	for(var/i in 1 to reagent_tier)
+		var/list/this_tier = reagent_tiers["tier[i]"]
+		for(var/id in reagent_memory)
+			if(id in this_tier)
+				result += reagent_memory[id]
 	return result
 
 //save_food is used to store the loaded food item's path and all its reagents (regardless of current replication ability) to a memory slot for later use.
-/obj/machinery/food_replicator/proc/save_food(slot = 0)
+/obj/machinery/food_replicator/proc/save_food(mob/user, slot = 0)
 	if(!loaded)
 		return -1
 	if(!loaded.reagents)
-		visible_message("<span class='warning'>[loaded] lacks a reagents holder! Alert a coder!</span>")
+		log_runtime(EXCEPTION("[loaded] lacks a reagents holder"))
 		return -1
 	if(!loaded.reagents.total_volume)
-		visible_message("<span class='warning'>[loaded] contains no reagents at all!</span>")
+		to_chat(user, "<span class='warning'>[loaded] contains no reagents at all!</span>")
 		return -1
 	if(loaded.duped)
-		visible_message("<span class='warning'>[loaded] exhibits signs of replication degradation, and cannot be saved to memory for future replication.</span>")
+		to_chat(user, "<span class='warning'>[loaded] exhibits signs of replication degradation, and cannot be saved to memory for future replication.</span>")
 		return -1
-	if(!slot)
+	if(!slot || slot > memory_slots)	//nice try.
 		return 0
-	clear_memory(slot, 1)	//safety measure to ensure we don't somehow blend the old and new data
-	var/food_item = loaded.type
-	var/reagent_memory = loaded.reagents.reagent_list.Copy()
-	switch(slot)
-		if(1)
-			memory1["name"] = loaded.name
-			memory1["item"] = food_item
-			memory1["reagents"] = reagent_memory
-		if(2)
-			memory2["name"] = loaded.name
-			memory2["item"] = food_item
-			memory2["reagents"] = reagent_memory
-		if(3)
-			memory3["name"] = loaded.name
-			memory3["item"] = food_item
-			memory3["reagents"] = reagent_memory
-		if(4)
-			memory4["name"] = loaded.name
-			memory4["item"] = food_item
-			memory4["reagents"] = reagent_memory
-		else
-			visible_message("<span class='warning'>Unable to save food configuration: memory index out of bounds. Alert a coder!</span>")
-			return 0
+	clear_memory(user, slot, 1)	//safety measure to ensure we don't somehow blend the old and new data
+	if(slot <= memory_slots)
+		memory["slot[slot]"] = make_memory_entry(1)
+	else
+		to_chat(user, "<span class='warning'>Unable to save food configuration: memory slot locked. Nice Topic exploit attempt!</span>")
+		return 0
 	return 1
 
 //copy_food is used to create a replication of the loaded food
-/obj/machinery/food_replicator/proc/copy_food()
+/obj/machinery/food_replicator/proc/copy_food(mob/user)
 	if(!loaded)
-		visible_message("<span class='warning'>ERROR 404: SNACK NOT FOUND!</span>")
+		to_chat(user, "<span class='warning'>ERROR 404: SNACK NOT FOUND!</span>")
 		return 0
 	if(loaded.duped)
-		visible_message("<span class='warning'>[loaded] exhibits signs of replication degradation, and cannot be replicated.</span>")
-	var/cost = scan_food()
-	if(cost == -1)
-		visible_message("<span class='warning'>There was an error while scanning, aborting replication.</span>")
-		return 0
-	if(!cost)
-		visible_message("<span class='warning'>Scans indicate that the replicator is currently unable to replicate this dish due to hardware constraints.</span>")
-		return 0
-	if(cost > food_paste)
-		visible_message("<span class='warning'>Scans indicate that the replicator lacks sufficient food paste to replicate this dish. Please recycle more food or insert a less complex dish.</span>")
+		to_chat(user, "<span class='warning'>[loaded] exhibits signs of replication degradation, and cannot be replicated.</span>")
+	var/cost = scan_food(user)
+	if(!check_cost(user, cost))
 		return 0
 	operating = 1
 	playsound(loc, 'sound/misc/interference.ogg', 50, 1)
-	var/path_to_dupe = loaded.type
-	var/obj/item/weapon/reagent_containers/food/snacks/dupe = new path_to_dupe()
-	dupe.name = loaded.name		//we even replicate renamed dishes' names!
-	dupe.duped = 1
-	replicate_reagents(loaded.reagents.reagent_list, dupe)
-	handle_emag_effect(dupe)
-	sleep(20)
-	adjust_paste(-cost)
-	use_power(active_power_usage)
-	dupe.forceMove(get_turf(src))
+	var/list/temp_memory = make_memory_entry(1)
+	sleep(20)	//this is to avoid the sounds overlapping
+	create_dish(user, temp_memory, cost)
 	operating = 0
 	playsound(loc, 'sound/machines/ding.ogg', 50, 1)
+	return 1
+
+//create_dish is used to actually produce the desired food item.
+//the supplied list is used to contain the original variables to copy or the path of the proper polygon if skip_rep is set.
+//skip_rep is to be set when making food polyhedrons since they don't copy reagents and vars, and skip_power is to be set when you don't want to drain power (excess paste usage)
+/obj/machinery/food_replicator/proc/create_dish(mob/user, list/dish_config = null, cost = 0, skip_rep = 0, skip_power = 0)
+	if(!dish_config)
+		return 0
+	var/obj/item/weapon/reagent_containers/food/snacks/dupe
+	if(!skip_rep)
+		dupe = new /obj/item/weapon/reagent_containers/food/snacks/replica_dish()
+		dupe.name = dish_config["name"]
+		dupe.desc = dish_config["desc"]
+		dupe.icon = dish_config["icon"]
+		dupe.icon_state = dish_config["state"]
+		dupe.slice_path = dish_config["slice_path"]
+		dupe.slices_num = dish_config["slice_num"]
+		replicate_reagents(user, dish_config["reagents"], dupe)
+	else
+		var/poly_path = dish_config["poly"]
+		dupe = new poly_path()
+	handle_emag_effect(dupe)
+	adjust_paste(-cost)
+	if(!skip_power)
+		use_power(active_power_usage)
+	dupe.forceMove(get_turf(src))
 	return 1
 
 //copy_food_from_memory is used to create a replication of a previously saved food item from the given memory slot
-/obj/machinery/food_replicator/proc/copy_food_from_memory(slot = 0)
-	var/food_item
-	var/dish_name
-	var/list/reagent_memory = list()
-	switch(slot)
-		if(1)
-			dish_name = memory1["name"]
-			food_item = memory1["item"]
-			reagent_memory = memory1["reagents"]
-		if(2)
-			dish_name = memory2["name"]
-			food_item = memory2["item"]
-			reagent_memory = memory2["reagents"]
-		if(3)
-			dish_name = memory3["name"]
-			food_item = memory3["item"]
-			reagent_memory = memory3["reagents"]
-		if(4)
-			dish_name = memory4["name"]
-			food_item = memory4["item"]
-			reagent_memory = memory4["reagents"]
-		else
-			visible_message("<span class='warning'>ERROR 404: MEMORY ADDRESS NOT FOUND!</span>")
-			return 0
-	if(!food_item)
-		visible_message("<span class='warning'>Memory slot [slot] appears to lack a saved food item. Alert a coder if something is saved in that slot!</span>")
+/obj/machinery/food_replicator/proc/copy_food_from_memory(mob/user, slot = 0)
+	var/list/temp_memory = list()
+	if(slot > memory_slots)		//nice try.
 		return 0
-	var/cost = get_cost_from_memory(reagent_memory)
-	if(cost == -1)
-		visible_message("<span class='warning'>There was an error while calculating necessary resources, aborting replication.</span>")
+	if(slot <= max_slots)
+		temp_memory = memory["slot[slot]"]
+	else
+		to_chat(user, "<span class='warning'>ERROR 404: MEMORY ADDRESS NOT FOUND!</span>")
 		return 0
-	if(!cost)
-		visible_message("<span class='warning'>Scans indicate that the replicator is currently unable to replicate this dish due to hardware constraints.</span>")
+	if(!temp_memory["name"])
+		to_chat(user, "<span class='warning'>Memory slot [slot] appears to lack a saved food item. Alert a coder if something is saved in that slot!</span>")
 		return 0
-	if(cost > food_paste)
-		visible_message("<span class='warning'>Scans indicate that the replicator lacks sufficient food paste to replicate this dish. Please recycle more food or select a less complex dish.</span>")
+	var/cost = get_cost_from_list(temp_memory["reagents"])
+	if(!check_cost(user, cost))
 		return 0
 	operating = 1
 	playsound(loc, 'sound/misc/interference.ogg', 50, 1)
-	var/obj/item/weapon/reagent_containers/food/snacks/dupe = new food_item()
-	dupe.name = dish_name		//we even replicate renamed dishes' names!
-	dupe.duped = 1
-	replicate_reagents(reagent_memory, dupe)
-	handle_emag_effect(dupe)
-	sleep(20)
-	adjust_paste(-cost)
-	use_power(active_power_usage)
-	dupe.forceMove(get_turf(src))
+	sleep(20)	//this is to avoid the sounds overlapping
+	create_dish(user, temp_memory, cost)
 	operating = 0
 	playsound(loc, 'sound/machines/ding.ogg', 50, 1)
 	return 1
 
+//check_cost is used to check if the cost has been set and the machine contains enough food paste to meet it. Mostly here to cut down on copied lines
+/obj/machinery/food_replicator/proc/check_cost(mob/user, cost = 0)
+	if(cost == -1)
+		to_chat(user, "<span class='warning'>There was an error while scanning, aborting replication.</span>")
+		return 0
+	if(!cost)
+		to_chat(user, "<span class='warning'>Scans indicate that the replicator is currently unable to replicate this dish due to hardware constraints.</span>")
+		return 0
+	if(cost > food_paste)
+		to_chat(user, "<span class='warning'>Scans indicate that the replicator lacks sufficient food paste to replicate this dish. Please recycle more food or insert a less complex dish.</span>")
+		return 0
+	return 1
+
 //clear_memory is used to clear out a memory slot's data without replacing it.
-/obj/machinery/food_replicator/proc/clear_memory(slot = 0, silent = 0)
+/obj/machinery/food_replicator/proc/clear_memory(mob/user, slot = 0, silent = 0)
 	var/cleared = 0
-	switch(slot)
-		if(-1)	//slot = -1 will clear all slots and won't set cleared so it won't announce
-			memory1["name"] = null
-			memory1["item"] = null
-			memory1["reagents"] = list()
-
-			memory2["name"] = null
-			memory2["item"] = null
-			memory2["reagents"] = list()
-
-			memory3["name"] = null
-			memory3["item"] = null
-			memory3["reagents"] = list()
-
-			memory4["name"] = null
-			memory4["item"] = null
-			memory4["reagents"] = list()
-		if(1)
-			memory1["name"] = null
-			memory1["item"] = null
-			memory1["reagents"] = list()
-			cleared = 1
-		if(2)
-			memory2["name"] = null
-			memory2["item"] = null
-			memory2["reagents"] = list()
-			cleared = 1
-		if(3)
-			memory3["name"] = null
-			memory3["item"] = null
-			memory3["reagents"] = list()
-			cleared = 1
-		if(4)
-			memory4["name"] = null
-			memory4["item"] = null
-			memory4["reagents"] = list()
-			cleared = 1
-	if(cleared && !silent)
-		visible_message("<span class='notice'>Memory Slot [slot] erased and awaiting a new saved dish.</span>")
+	if(slot == -1)	//slot = -1 will clear all slots and won't set cleared so it won't announce (used in Destroy and emp_act)
+		for(var/i in 1 to max_slots)
+			memory["slot[i]"] = make_memory_entry()
+	else if(slot <= max_slots)
+		memory["slot[slot]"] = make_memory_entry()
+		cleared = 1
+	if(cleared && !silent && user)
+		to_chat(user, "<span class='notice'>Memory Slot [slot] erased and awaiting a new saved dish.</span>")
 
 //replicate_reagents is used to handle the replication and filling of reagents from the supplied reagent list to supplied target copy
-/obj/machinery/food_replicator/proc/replicate_reagents(list/reagent_list = null, obj/item/weapon/reagent_containers/food/snacks/target = null)
+/obj/machinery/food_replicator/proc/replicate_reagents(mob/user, list/reagent_list = null, obj/item/weapon/reagent_containers/food/snacks/target = null)
 	if(!reagent_list || !target)
-		visible_message("<span class='warning'>Error in reagent replication subroutines: missing argument(s). Alert a coder!</span>")
+		to_chat(user, "<span class='warning'>Error in reagent replication subroutines: missing argument(s). Alert a coder!</span>")
 		return 0
 	target.reagents.clear_reagents()
-	for(var/datum/reagent/R in reagent_list)
-		//Tier 4 reagents require reagent_tier to be 4 to be added
-		if(reagent_tier == 4)
-			if(R.id in reagent_tier4)
-				target.reagents.add_reagent(R.id, R.volume)
-		//Tier 3 reagents require reagent_tier to be at least 3 to be added
-		if(reagent_tier >= 3)
-			if(R.id in reagent_tier3)
-				target.reagents.add_reagent(R.id, R.volume)
-		//Tier 2 reagents require reagent_tier to be at least 2 to be added
-		if(reagent_tier >= 2)
-			if(R.id in reagent_tier2)
-				target.reagents.add_reagent(R.id, R.volume)
-		//Tier 1 reagents are always able to be added (if reagent_tier is ever less than 1, you're missing parts or someone var-editted badly!)
-		if(R.id in reagent_tier1)
-			target.reagents.add_reagent(R.id, R.volume)
-		//Tier 0 reagents are always able to be added, and they also don't cost anything to replicate so the system ignores them for costs!
-		if(R.id in reagent_tier0)
-			target.reagents.add_reagent(R.id, R.volume)
+	for(var/i in 0 to reagent_tier)
+		var/list/this_tier = reagent_tiers["tier[i]"]
+		for(var/id in reagent_list)
+			if(id in this_tier)
+				target.reagents.add_reagent(id, reagent_list[id])
 	return 1
 
 //handle_emag_effect is used to handle the emagged machine replacing all nutriment, protein, and plantmatter in the produced food with poisons. Delicious...
@@ -356,15 +303,15 @@
 			bait.reagents.add_reagent("carpotoxin", vol/3)
 
 //recycle_food is used to convert the loaded food item into raw food_paste to replicate with
-/obj/machinery/food_replicator/proc/recycle_food()
+/obj/machinery/food_replicator/proc/recycle_food(mob/user)
 	if(!loaded)
 		return 0
 	if(food_paste >= max_food_paste)
-		visible_message("<span class='warning'>Food paste stores filled. Please replicate a dish or produce a food polyhedron before recycling.</span>")
+		to_chat(user, "<span class='warning'>Food paste stores filled. Please replicate a dish or produce a food polyhedron before recycling.</span>")
 		return 0
-	var/base_amount = scan_food(1)
+	var/base_amount = scan_food(user, 1)
 	if(base_amount < 0)
-		visible_message("<span class='warning'>Error encountered while scanning dish to be recycled, aborting recycle subroutine.</span>")
+		to_chat(user, "<span class='warning'>Error encountered while scanning dish to be recycled, aborting recycle subroutine.</span>")
 		return 0
 	var/recycle_value = base_amount * recycle_rate
 	qdel(loaded)
@@ -372,39 +319,39 @@
 	adjust_paste(recycle_value)
 	use_power(active_power_usage/2)		//uses half the power to break down a dish that it takes to produce one
 	playsound(loc, 'sound/misc/interference.ogg', 50, 1)
-	visible_message("<span class='notice'>Recycling complete: [recycle_value] units of food paste salvaged.</span>")
+	to_chat(user, "<span class='notice'>Recycling complete: [recycle_value] units of food paste salvaged.</span>")
 	return 1
 
 //print_poly is used to produce food polys, a polyhedric snack of pure nutriment, from food paste. Food replicators can always make this without a dish loaded or saved to memory.
-/obj/machinery/food_replicator/proc/print_poly(sides = 1, silent = 0)
+/obj/machinery/food_replicator/proc/print_poly(mob/user, sides = 1, silent = 0)
 	if(food_paste < sides)
-		visible_message("<span class='warning'>Scans indicate that the replicator lacks sufficient food paste to produce the desired food polyhedron. Please recycle more food or select fewer sides.</span>")
+		if(!silent && user)
+			to_chat(user, "<span class='warning'>Scans indicate that the replicator lacks sufficient food paste to produce the desired food polyhedron. Please recycle more food or select fewer sides.</span>")
 		return 0
 	operating = 1
 	if(!silent)
 		playsound(loc, 'sound/misc/interference.ogg', 50, 1)
-	var/obj/item/weapon/reagent_containers/food/snacks/food_poly/poly = null
+	var/list/temp_memory = list("poly" = null)
 	switch(sides)
 		if(1)
-			poly = new /obj/item/weapon/reagent_containers/food/snacks/food_poly()
+			temp_memory["poly"] = /obj/item/weapon/reagent_containers/food/snacks/food_poly
 		if(4)
-			poly = new /obj/item/weapon/reagent_containers/food/snacks/food_poly/tetrahedron()
+			temp_memory["poly"] = /obj/item/weapon/reagent_containers/food/snacks/food_poly/tetrahedron
 		if(6)
-			poly = new /obj/item/weapon/reagent_containers/food/snacks/food_poly/cube()
+			temp_memory["poly"] = /obj/item/weapon/reagent_containers/food/snacks/food_poly/cube
 		if(8)
-			poly = new /obj/item/weapon/reagent_containers/food/snacks/food_poly/octahedron()
+			temp_memory["poly"] = /obj/item/weapon/reagent_containers/food/snacks/food_poly/octahedron
 		if(12)
-			poly = new /obj/item/weapon/reagent_containers/food/snacks/food_poly/dodecahedron()
+			temp_memory["poly"] = /obj/item/weapon/reagent_containers/food/snacks/food_poly/dodecahedron
 		if(20)
-			poly = new /obj/item/weapon/reagent_containers/food/snacks/food_poly/icosahedron()
-	//food_polys are always considered duplicated since they are only made by the replicator, so we don't need to set the duped var since it is set in the food_poly define
-	//food_polys don't replicate reagents since they aren't being replicated from something else.
-	handle_emag_effect(poly)
-	sleep(20)
-	adjust_paste(-sides)
-	if(!silent)		//won't use power when we spit out excess (since that runs silently)
-		use_power(active_power_usage)
-	poly.forceMove(get_turf(src))
+			temp_memory["poly"] = /obj/item/weapon/reagent_containers/food/snacks/food_poly/icosahedron
+		else
+			//i'm not unsetting the operating var here on purpose.
+			//attempting to Topic exploit this for free paste is gonna lock down the machine until manually var-editted by an admin.
+			message_admins("[src] in [get_area(loc)] has been operating-locked due to suspected Topic exploiting. The machine cannot be used until the operating var is manually reset as punishment.")
+			log_admin("[src] in [get_area(loc)] has been operating-locked due to suspected Topic exploiting. The machine cannot be used until the operating var is manually reset as punishment.")
+			return 0
+	create_dish(user, temp_memory, sides, skip_rep = 1, skip_power = silent)
 	operating = 0
 	if(!silent)
 		playsound(loc, 'sound/machines/ding.ogg', 50, 1)
@@ -418,17 +365,17 @@
 	if(food_paste > max_food_paste)
 		var/paste_to_waste = food_paste - max_food_paste
 		if(paste_to_waste >= 20)
-			print_poly(20, 1)
+			print_poly(null, 20, 1)
 		else if(paste_to_waste >= 12)
-			print_poly(12, 1)
+			print_poly(null, 12, 1)
 		else if(paste_to_waste >= 8)
-			print_poly(8, 1)
+			print_poly(null, 8, 1)
 		else if(paste_to_waste >= 6)
-			print_poly(6, 1)
+			print_poly(null,6, 1)
 		else if(paste_to_waste >= 4)
-			print_poly(4, 1)
+			print_poly(null, 4, 1)
 		else
-			print_poly(1, 1)
+			print_poly(null, 1, 1)
 
 /obj/machinery/food_replicator/attack_ai(mob/user)
 	return attack_hand(user)
@@ -438,11 +385,6 @@
 		return
 	user.set_machine(src)
 	ui_interact(user)
-
-/obj/machinery/food_replicator/interact(mob/user)
-	if(panel_open || !anchored)
-		return
-	//todo
 
 /obj/machinery/food_replicator/attackby(obj/item/O, mob/user, params)
 	if(operating)
@@ -459,13 +401,15 @@
 		if(loaded)
 			to_chat(user, "<span class='warning'>There is already a dish loaded. Recycle or eject it before adding a new dish.</span>")
 			return
-		var/obj/item/weapon/reagent_containers/food/snacks/to_load = O
-		if(!user.canUnEquip(to_load, 0))
-			to_chat(user, "<span class='warning'>[to_load] is stuck to your hand, you can't seem to put it down!</span>")
+		if(!user.canUnEquip(O, 0))
+			to_chat(user, "<span class='warning'>[O] is stuck to your hand, you can't seem to put it down!</span>")
 			return
-		user.unEquip(to_load)
-		to_load.forceMove(src)
-		loaded = to_load
+		if(istype(O, /obj/item/weapon/reagent_containers/food/snacks/icecream))
+			to_chat(user, "<span class='warning'>[O] would melt instantly in the replicator, so you decide to not waste it.</span>")
+			return
+		user.unEquip(O)
+		O.forceMove(src)
+		loaded = O
 		nanomanager.update_uis(src)
 		return 1
 
@@ -513,14 +457,14 @@
 	switch(severity)
 		if(1)
 			if(prob(50))	//50% chance to wipe a random memory slot we have access to
-				clear_memory(rand(1, memory_slots), 1)
+				clear_memory(null, rand(1, memory_slots), 1)
 			//break the machine so they have to repair it with cables
 			set_broken()
 		if(2)
 			if(prob(50))	//50% chance to wipe all memory slots, otherwise it wipes a random one we have access to
 				clear_memory(-1)
 			else
-				clear_memory(rand(1,memory_slots), 1)
+				clear_memory(null, rand(1,memory_slots), 1)
 			//break the machine so they have to repair it with cables
 			set_broken()
 
@@ -535,8 +479,7 @@
 		icon_state = open_icon
 	else
 		if(stat & NOPOWER)
-			spawn(rand(0, 15))
-				icon_state = off_icon
+			icon_state = off_icon
 		else
 			icon_state = on_icon
 
@@ -563,8 +506,8 @@
 	data["slots"] = memory_slots
 
 	if(loaded)
-		var/recycle_value = scan_food(1) * recycle_rate
-		var/rep_cost = scan_food()
+		var/recycle_value = scan_food(user, 1) * recycle_rate
+		var/rep_cost = scan_food(user)
 
 		var/list/loaded_data = list()
 		loaded_data["name"] = loaded.name
@@ -575,10 +518,11 @@
 		data["loaded"] = loaded_data
 
 	var/list/memory_data = list()
-	memory_data.Add(list(list("slot" = 1, "item_name" = memory1["name"], "cost" = get_cost_from_memory(memory1["reagents"]))))
-	memory_data.Add(list(list("slot" = 2, "item_name" = memory2["name"], "cost" = get_cost_from_memory(memory2["reagents"]))))
-	memory_data.Add(list(list("slot" = 3, "item_name" = memory3["name"], "cost" = get_cost_from_memory(memory3["reagents"]))))
-	memory_data.Add(list(list("slot" = 4, "item_name" = memory4["name"], "cost" = get_cost_from_memory(memory4["reagents"]))))
+	for(var/i in 1 to max_slots)
+		var/list/temp_data = memory["slot[i]"]
+		var/list/reagent_list = temp_data["reagents"]
+		var/cost = get_cost_from_list(reagent_list)
+		memory_data.Add(list(list("slot" = i, "item_name" = temp_data["name"], "cost" = cost)))
 	data["memory"] = memory_data
 
 	return data
@@ -601,7 +545,7 @@
 		return 0
 
 	if(href_list["recycle"])
-		recycle_food()
+		recycle_food(user)
 		return 1
 	if(href_list["eject"])
 		eject_dish()
@@ -609,23 +553,23 @@
 	if(href_list["replicate"])
 		var/which = text2num(href_list["replicate"])
 		if(which == 5)
-			copy_food()
+			copy_food(user)
 		else
-			copy_food_from_memory(which)
+			copy_food_from_memory(user, which)
 		return 1
 	if(href_list["save"])
 		var/which = text2num(href_list["save"])
 		to_chat(user, "<span class='notice'>Saving to slot [which]...</span>")
-		save_food(which)
+		save_food(user, which)
 		return 1
 	if(href_list["erase"])
 		var/which = text2num(href_list["erase"])
 		to_chat(user, "<span class='notice'>Erasing slot [which]...</span>")
-		clear_memory(which)
+		clear_memory(user, which)
 		return 1
 	if(href_list["poly"])
 		var/faces = text2num(href_list["poly"])
 		to_chat(user, "<span class='notice'>Printing food poly with [faces] faces...</span>")
-		print_poly(faces)
+		print_poly(user, faces)
 		return 1
 	return 0

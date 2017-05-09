@@ -17,22 +17,26 @@
 	</div>
 	<div class="item">
 		{{if data.loaded.recycle_value >= 0}}
-			Recycle Value: <span class='average'>{{:data.loaded.recycle_value}}</span>
-			{{:helper.link('Recycle', 'recycle', { "recycle" : 1 })}}
-			<br>
+			<div>
+				Recycle Value: <span class='average'>{{:data.loaded.recycle_value}}</span>
+				{{:helper.link('Recycle', 'recycle', { "recycle" : 1 })}}
+			</div>
 		{{/if}}
-		{{if data.loaded.duped}}
-			<span class='bad'>Replication Degradation Detected.</span>
-		{{else}}
-			Replication Cost: <span class='average'>{{:data.loaded.rep_cost}} </span>
-			{{if data.points >= data.loaded.rep_cost}}
-				{{:helper.link('Replicate', 'clone', { "replicate" : 5 })}}
+		<div>
+			{{if data.loaded.duped}}
+				<span class='bad'>Replication Degradation Detected.</span>
 			{{else}}
-				<span class='bad'>Insufficient Food Paste.</span>
+				Replication Cost: <span class='average'>{{:data.loaded.rep_cost}} </span>
+				{{if data.points >= data.loaded.rep_cost}}
+					{{:helper.link('Replicate', 'clone', { "replicate" : 5 })}}
+				{{else}}
+					<span class='bad'>Insufficient Food Paste.</span>
+				{{/if}}
 			{{/if}}
-		{{/if}}
-		<br>
-		{{:helper.link('Eject', 'eject', { "eject" : 1 })}}
+		</div>
+		<div>
+			{{:helper.link('Eject', 'eject', { "eject" : 1 })}}
+		</div>
 	</div>
 	{{else}}
 		<span class='average'>No dish loaded.</span>
@@ -82,21 +86,21 @@
 	</div>
 	<div class='item'>
 		{{if data.points >= 1}}
-			{{:helper.link('Food Sphere (1 paste)', 'print', { "poly" : 1 })}}<br>
+			<div>{{:helper.link('Food Sphere (1 paste)', 'print', { "poly" : 1 })}}</div>
 			{{if data.points >= 4}}
-				{{:helper.link('Food Tetrahedron (4 paste)', 'print', { "poly" : 4 })}}<br>
+				<div>{{:helper.link('Food Tetrahedron (4 paste)', 'print', { "poly" : 4 })}}</div>
 			{{/if}}
 			{{if data.points >= 6}}
-				{{:helper.link('Food Cube (6 paste)', 'print', { "poly" : 6 })}}<br>
+				<div>{{:helper.link('Food Cube (6 paste)', 'print', { "poly" : 6 })}}</div>
 			{{/if}}
 			{{if data.points >= 8}}
-				{{:helper.link('Food Octahedron (8 paste)', 'print', { "poly" : 8 })}}<br>
+				<div>{{:helper.link('Food Octahedron (8 paste)', 'print', { "poly" : 8 })}}</div>
 			{{/if}}
 			{{if data.points >= 12}}
-				{{:helper.link('Food Dodecahedron (12 paste)', 'print', { "poly" : 12 })}}<br>
+				<div>{{:helper.link('Food Dodecahedron (12 paste)', 'print', { "poly" : 12 })}}</div>
 			{{/if}}
 			{{if data.points >= 20}}
-				{{:helper.link('Food Icosahedron (20 paste)', 'print', { "poly" : 20 })}}
+				<div>{{:helper.link('Food Icosahedron (20 paste)', 'print', { "poly" : 20 })}}</div>
 			{{/if}}
 		{{else}}
 			<span class='average'>Insufficient food paste for polyhedron production.</span>
