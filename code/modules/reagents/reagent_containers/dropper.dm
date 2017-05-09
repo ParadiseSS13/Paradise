@@ -29,7 +29,7 @@
 		if(!reagents.total_volume)
 			return
 		if(user != C)
-			visible_message("<span class='danger'>[user] begins attempting to squirt something into [C]'s eyes!</span>")
+			visible_message("<span class='danger'>[user] begins to drip something into [C]'s eyes!</span>")
 			if(!do_mob(user, C, 30))
 				return
 		if(ishuman(target))
@@ -46,7 +46,7 @@
 					safe_thing = H.head
 
 			if(safe_thing)
-				visible_message("<span class='danger'>[user] tries to squirt something into [H]'s eyes, but fails!</span>")
+				visible_message("<span class='danger'>[user] tries to drip something into [H]'s eyes, but fails!</span>")
 
 				reagents.reaction(safe_thing, TOUCH)
 				to_transfer = reagents.remove_any(amount_per_transfer_from_this)
@@ -54,14 +54,14 @@
 				to_chat(user, "<span class='notice'>You transfer [to_transfer] units of the solution.</span>")
 				return
 
-		visible_message("<span class='danger'>[user] squirts something into [C]'s eyes!</span>")
+		visible_message("<span class='danger'>[user] drips something into [C]'s eyes!</span>")
 		reagents.reaction(C, TOUCH)
 
 		var/list/injected = list()
 		for(var/datum/reagent/R in reagents.reagent_list)
 			injected += R.name
 		var/contained = english_list(injected)
-		add_logs(user, C, "squirted", src, "([contained])")
+		add_logs(user, C, "dripped", src, "([contained])")
 
 		to_transfer = reagents.trans_to(C, amount_per_transfer_from_this)
 		to_chat(user, "<span class='notice'>You transfer [to_transfer] units of the solution.</span>")
