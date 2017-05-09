@@ -1142,6 +1142,14 @@ About the new airlock wires panel:
 		open()
 		safe = TRUE
 
+/obj/machinery/door/airlock/narsie_act()
+	var/turf/T = get_turf(src)
+	if(prob(20))
+		new/obj/machinery/door/airlock/cult(T)
+		qdel(src)
+
+
+
 //////////////////////////////////
 /*
 	Cult Airlocks
