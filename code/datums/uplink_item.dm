@@ -991,6 +991,7 @@ var/list/uplink_items = list()
 	reference = "BRHS"
 	item = /obj/item/weapon/storage/box/syndie_kit/hardsuit
 	cost = 8
+	excludefrom = list(/datum/game_mode/nuclear)
 
 /datum/uplink_item/suits/hardsuit/elite
 	name = "Elite Syndicate Hardsuit"
@@ -1045,6 +1046,14 @@ var/list/uplink_items = list()
 	These reverse-engineered knockoffs of Nanotrasen's 'Advanced Magboots' slow you down in simulated-gravity environments much like the standard issue variety."
 	reference = "BRMB"
 	item = /obj/item/clothing/shoes/magboots/syndie
+	cost = 3
+	excludefrom = list(/datum/game_mode/nuclear)
+
+/datum/uplink_item/device_tools/magboots/advance
+	name = "Advanced Blood-Red Magboots"
+	desc = "Reverse-engineered magboots that appear to be based on an advanced model, as they have a lighter magnetic pull. Property of Gorlex Marauders."
+	reference = "ABRMB"
+	item = /obj/item/clothing/shoes/magboots/syndie/advance
 	cost = 3
 	gamemodes = list(/datum/game_mode/nuclear)
 
