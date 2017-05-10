@@ -440,7 +440,7 @@
 
 
 	for(var/implant in get_visible_implants(0))
-		msg += "<span class='warning'><b>[src] has \a [implant] sticking out of [t_his] flesh!</span>\n"
+		msg += "<span class='warning'><b>[src] has \a [implant] sticking out of [t_his] flesh!</b></span>\n"
 	if(digitalcamo)
 		msg += "[t_He] [t_is] repulsively uncanny!\n"
 	if(!wear_mask && is_thrall(src) && in_range(user,src))
