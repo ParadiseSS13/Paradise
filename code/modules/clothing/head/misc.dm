@@ -185,14 +185,14 @@
 /obj/item/clothing/head/cowboyhat
 	name = "cowboy hat"
 	icon_state = "cowboyhat"
-	item_state = "fedora"
-	desc = "There's a new sheriff in town. Pass the whiskey."
-
-/obj/item/clothing/head/cowboyhat/darkbrown
-	name = "dark brown cowboy hat"
-	icon_state = "cowboyhat_darkbrown"
-	item_state = "cowboyhat_darlbrown"
+	item_state = "cowboyhat"
 	desc = "For the Rancher in us all."
+
+/obj/item/clothing/head/cowboyhat/tan
+	name = "tan cowboy hat"
+	icon_state = "cowboyhat_tan"
+	item_state = "cowboyhat_tan"
+	desc = "There's a new sheriff in town. Pass the whiskey."
 
 /obj/item/clothing/head/cowboyhat/black
 	name = "black cowboy hat"

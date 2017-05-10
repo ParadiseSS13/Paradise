@@ -98,41 +98,41 @@
 	display_name = "cowboy shirt, black"
 	path = /obj/item/clothing/accessory/cowboyshirt
 
-/datum/gear/accessory/cowboyshirt/s
+/datum/gear/accessory/cowboyshirt/short_sleeved
 	display_name = "cowboy shirt, short sleeved black"
-	path = /obj/item/clothing/accessory/cowboyshirt/s
+	path = /obj/item/clothing/accessory/cowboyshirt/short_sleeved
 
 /datum/gear/accessory/cowboyshirt/white
 	display_name = "cowboy shirt, white"
 	path = /obj/item/clothing/accessory/cowboyshirt/white
 
-/datum/gear/accessory/cowboyshirt/whites
+/datum/gear/accessory/cowboyshirt/white/short_sleeved
 	display_name = "cowboy shirt, short sleeved white"
-	path = /obj/item/clothing/accessory/cowboyshirt/whites
+	path = /obj/item/clothing/accessory/cowboyshirt/white/short_sleeved
 
 /datum/gear/accessory/cowboyshirt/pink
 	display_name = "cowboy shirt, pink"
 	path = /obj/item/clothing/accessory/cowboyshirt/pink
 
-/datum/gear/accessory/cowboyshirt/pinks
+/datum/gear/accessory/cowboyshirt/pink/short_sleeved
 	display_name = "cowboy shirt, short sleeved pink"
-	path = /obj/item/clothing/accessory/cowboyshirt/pinks
+	path = /obj/item/clothing/accessory/cowboyshirt/pink/short_sleeved
 
 /datum/gear/accessory/cowboyshirt/red
 	display_name = "cowboy shirt, red"
 	path = /obj/item/clothing/accessory/cowboyshirt/red
 
-/datum/gear/accessory/cowboyshirt/reds
+/datum/gear/accessory/cowboyshirt/red/short_sleeved
 	display_name = "cowboy shirt, short sleeved red"
-	path = /obj/item/clothing/accessory/cowboyshirt/reds
+	path = /obj/item/clothing/accessory/cowboyshirt/red/short_sleeved
 
 /datum/gear/accessory/cowboyshirt/navy
 	display_name = "cowboy shirt, navy"
 	path = /obj/item/clothing/accessory/cowboyshirt/navy
 
-/datum/gear/accessory/cowboyshirt/navys
+/datum/gear/accessory/cowboyshirt/navy/short_sleeved
 	display_name = "cowboy shirt, short sleeved navy"
-	path = /obj/item/clothing/accessory/cowboyshirt/navys
+	path = /obj/item/clothing/accessory/cowboyshirt/navy/short_sleeved
 
 
 

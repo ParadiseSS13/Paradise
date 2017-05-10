@@ -389,7 +389,7 @@
 		"Vox" = 'icons/mob/species/vox/suit.dmi'
 		)
 
-/obj/item/clothing/accessory/cowboyshirt/s
+/obj/item/clothing/accessory/cowboyshirt/short_sleeved
 	name = "shortsleeved black cowboy shirt"
 	desc = "For when it's a hot day in the west."
 	icon_state = "cowboyshirt_s"
@@ -411,7 +411,7 @@
 		"Vox" = 'icons/mob/species/vox/suit.dmi'
 		)
 
-/obj/item/clothing/accessory/cowboyshirt/whites
+/obj/item/clothing/accessory/cowboyshirt/white/short_sleeved
 	name = "short sleeved white cowboy shirt"
 	desc = "Best for midday cattle tending."
 	icon_state = "cowboyshirt_whites"
@@ -433,7 +433,7 @@
 		"Vox" = 'icons/mob/species/vox/suit.dmi'
 		)
 
-/obj/item/clothing/accessory/cowboyshirt/pinks
+/obj/item/clothing/accessory/cowboyshirt/pink/short_sleeved
 	name = "short sleeved pink cowboy shirt"
 	desc = "For a real buckle bunny."
 	icon_state = "cowboyshirt_pinks"
@@ -455,7 +455,7 @@
 		"Vox" = 'icons/mob/species/vox/suit.dmi'
 		)
 
-/obj/item/clothing/accessory/cowboyshirt/navys
+/obj/item/clothing/accessory/cowboyshirt/navy/short_sleeved
 	name = "short sleeved navy cowboy shirt"
 	desc = "Sometimes ya need to roll up your sleeves."
 	icon_state = "cowboyshirt_navys"
@@ -477,7 +477,7 @@
 		"Vox" = 'icons/mob/species/vox/suit.dmi'
 		)
 
-/obj/item/clothing/accessory/cowboyshirt/reds
+/obj/item/clothing/accessory/cowboyshirt/red/short_sleeved
 	name = "short sleeved red cowboy shirt"
 	desc = "Life on the open range is quite dangeorus, you never know what to expect."
 	icon_state = "cowboyshirt_reds"

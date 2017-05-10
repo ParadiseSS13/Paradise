@@ -94,12 +94,12 @@
 	path = /obj/item/clothing/head/soft/yellow
 
 /datum/gear/hat/cowboyhat
-	display_name = "cowboy hat"
+	display_name = "cowboy hat, brown"
 	path = /obj/item/clothing/head/cowboyhat
 
-/datum/gear/hat/cowboyhat/brown
-	display_name = "cowboy hat, dark brown"
-	path = /obj/item/clothing/head/cowboyhat/darkbrown
+/datum/gear/hat/cowboyhat/tan
+	display_name = "cowboy hat, tan"
+	path = /obj/item/clothing/head/cowboyhat/tan
 
 /datum/gear/hat/cowboyhat/black
 	display_name = "cowboy hat, black"
