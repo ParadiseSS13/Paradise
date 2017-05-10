@@ -182,15 +182,16 @@
 	desc = "You shouldn't be seeing this"
 	icon = 'icons/vehicles/spacepod.dmi'
 	icon_state = "cargo_blank"
-	var/obj/storage = null
+	var/obj/storage = list()
 
 /obj/item/device/spacepod_equipment/cargo/proc/passover(var/obj/item/I)
 	return
 
 /obj/item/device/spacepod_equipment/cargo/proc/unload() // called by unload verb
 	if(storage)
-		storage.forceMove(get_turf(my_atom))
-		storage = null
+		for(var/obj/item/weapon/ore/O in storage)
+			storage -= O
+			O.loc = get_turf(my_atom)
 
 /obj/item/device/spacepod_equipment/cargo/removed(var/mob/user) // called when system removed
 	. = ..()
@@ -204,7 +205,8 @@
 
 /obj/item/device/spacepod_equipment/cargo/ore/passover(var/obj/item/I)
 	if(storage && istype(I,/obj/item/weapon/ore))
-		I.forceMove(storage)
+		storage += I
+		I.loc = src
 
 // Crate System
 /obj/item/device/spacepod_equipment/cargo/crate
