@@ -464,11 +464,11 @@ var/list/blood_splatter_icons = list()
 	return 1 //we bloodied the floor
 
 /mob/living/carbon/human/add_blood(list/blood_dna, color)
-	if(wear_suit)//i don't think here is appllying colors either.
+	if(wear_suit)
 		wear_suit.add_blood(blood_dna, color)
 		update_inv_wear_suit()
 	else if(w_uniform)
-		w_uniform.add_blood(blood_dna)
+		w_uniform.add_blood(blood_dna, color)
 		update_inv_w_uniform()
 	if(gloves)
 		var/obj/item/clothing/gloves/G = gloves
@@ -476,8 +476,8 @@ var/list/blood_splatter_icons = list()
 	else
 		hand_blood_color = color
 		bloody_hands = rand(2, 4)
+		transfer_blood_dna(blood_dna)
 
-	transfer_blood_dna(blood_dna)
 	update_inv_gloves()	//handles bloody hands overlays and updating
 	return 1
 
