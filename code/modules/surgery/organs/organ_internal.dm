@@ -120,12 +120,6 @@
 
 	reagents.add_reagent("nutriment", 5)
 
-
-/obj/item/organ/internal/Destroy()
-	if(owner)
-		remove(owner, 1)
-	return ..()
-
 /obj/item/organ/internal/attack(mob/living/carbon/M, mob/user)
 	if(M == user && ishuman(user))
 		var/mob/living/carbon/human/H = user
@@ -296,21 +290,18 @@
 //	. = ..()
 
 
-/obj/item/organ/internal/lungs/process()
+/obj/item/organ/internal/lungs/on_life()
 	..()
-
-	if(!owner)
-		return
 	if(germ_level > INFECTION_LEVEL_ONE)
 		if(prob(5))
 			owner.emote("cough")		//respitory tract infection
 
 	if(is_bruised())
 		if(prob(2))
-			spawn owner.custom_emote(1, "coughs up blood!")
+			owner.custom_emote(1, "coughs up blood!")
 			owner.bleed(1)
 		if(prob(4))
-			spawn owner.custom_emote(1, "gasps for air!")
+			owner.custom_emote(1, "gasps for air!")
 			owner.AdjustLoseBreath(5)
 
 /obj/item/organ/internal/kidneys
@@ -321,13 +312,8 @@
 	parent_organ = "groin"
 	slot = "kidneys"
 
-/obj/item/organ/internal/kidneys/process()
-
+/obj/item/organ/internal/kidneys/on_life()
 	..()
-
-	if(!owner)
-		return
-
 	// Coffee is really bad for you with busted kidneys.
 	// This should probably be expanded in some way, but fucked if I know
 	// what else kidneys can process in our reagent list.
@@ -439,12 +425,8 @@
 	slot = "liver"
 	var/alcohol_intensity = 1
 
-/obj/item/organ/internal/liver/process()
+/obj/item/organ/internal/liver/on_life()
 	..()
-
-	if(!owner)
-		return
-
 	if(germ_level > INFECTION_LEVEL_ONE)
 		if(prob(1))
 			to_chat(owner, "<span class='warning'> Your skin itches.</span>")
