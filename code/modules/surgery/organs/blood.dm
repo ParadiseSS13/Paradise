@@ -24,7 +24,7 @@
 		bleed_rate = 0
 		return
 
-	if(stat != DEAD && bodytemperature >= 225)	//Dead or cryosleep people do not pump the blood.
+	if(bodytemperature >= 225 && !( NOCLONE in mutations)) //cryosleep or husked people do not pump the blood.
 
 		//Blood regeneration if there is some space
 		if(blood_volume < max_blood && blood_volume)
@@ -35,7 +35,8 @@
 					if(blood_data["donor"] != src)
 						nutrition += (15 * REAGENTS_METABOLISM)
 						return //Only process one blood per tick, to maintain the same metabolism as nutriment for non-vampires.
-		blood_volume += 0.1 // regenerate blood VERY slowly
+		if(blood_volume < BLOOD_VOLUME_NORMAL)
+			blood_volume += 0.1 // regenerate blood VERY slowly
 
 
 		//Effects of bloodloss
@@ -194,7 +195,7 @@
 /mob/living/carbon/human/get_blood_id()
 	if(species.exotic_blood)//some races may bleed water..or kethcup..
 		return species.exotic_blood
-	else if((species && species.flags & NO_BLOOD) || (disabilities & NOCLONE))
+	else if((species && species.flags & NO_BLOOD) || (NOCLONE in mutations))
 		return
 	return "blood"
 

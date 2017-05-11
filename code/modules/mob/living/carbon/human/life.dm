@@ -906,7 +906,6 @@
 
 		if(!in_stasis)
 			handle_organs()
-			handle_blood()
 
 
 	else //dead
