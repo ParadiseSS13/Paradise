@@ -387,7 +387,7 @@
 //Cowboy Shirts
 /obj/item/clothing/accessory/cowboyshirt
 	name = "black cowboy shirt"
-	desc = "For a real western look."
+	desc = "For a real western look. Looks like it can clip on to clothes."
 	icon_state = "cowboyshirt"
 	item_state = "cowboyshirt"
 	item_color = "cowboyshirt"
@@ -398,7 +398,7 @@
 
 /obj/item/clothing/accessory/cowboyshirt/short_sleeved
 	name = "shortsleeved black cowboy shirt"
-	desc = "For when it's a hot day in the west."
+	desc = "For when it's a hot day in the west. ooks like it can clip on to clothes."
 	icon_state = "cowboyshirt_s"
 	item_state = "cowboyshirt_s"
 	item_color = "cowboyshirt_s"
@@ -409,7 +409,7 @@
 
 /obj/item/clothing/accessory/cowboyshirt/white
 	name = "white cowboy shirt"
-	desc = "For the rancher in us all."
+	desc = "For the rancher in us all. oks like it can clip on to clothes."
 	icon_state = "cowboyshirt_white"
 	item_state = "cowboyshirt_white"
 	item_color = "cowboyshirt_white"
@@ -420,7 +420,7 @@
 
 /obj/item/clothing/accessory/cowboyshirt/white/short_sleeved
 	name = "short sleeved white cowboy shirt"
-	desc = "Best for midday cattle tending."
+	desc = "Best for midday cattle tending. Looks like it can clip on to clothes."
 	icon_state = "cowboyshirt_whites"
 	item_state = "cowboyshirt_whites"
 	item_color = "cowboyshirt_whites"
@@ -431,7 +431,7 @@
 
 /obj/item/clothing/accessory/cowboyshirt/pink
 	name = "pink cowboy shirt"
-	desc = "For only the manliest of men, or girliest of girls."
+	desc = "For only the manliest of men, or girliest of girls. Looks like it can clip on to clothes."
 	icon_state = "cowboyshirt_pink"
 	item_state = "cowboyshirt_pink"
 	item_color = "cowboyshirt_pink"
@@ -442,7 +442,7 @@
 
 /obj/item/clothing/accessory/cowboyshirt/pink/short_sleeved
 	name = "short sleeved pink cowboy shirt"
-	desc = "For a real buckle bunny."
+	desc = "For a real buckle bunny. Looks like it can clip on to clothes."
 	icon_state = "cowboyshirt_pinks"
 	item_state = "cowboyshirt_pinks"
 	item_color = "cowboyshirt_pinks"
@@ -453,7 +453,7 @@
 
 /obj/item/clothing/accessory/cowboyshirt/navy
 	name = "navy cowboy shirt"
-	desc = "Now yer a real cowboy."
+	desc = "Now yer a real cowboy. Looks like it can clip on to clothes."
 	icon_state = "cowboyshirt_navy"
 	item_state = "cowboyshirt_navy"
 	item_color = "cowboyshirt_navy"
@@ -464,7 +464,7 @@
 
 /obj/item/clothing/accessory/cowboyshirt/navy/short_sleeved
 	name = "short sleeved navy cowboy shirt"
-	desc = "Sometimes ya need to roll up your sleeves."
+	desc = "Sometimes ya need to roll up your sleeves. Looks like it can clip on to clothes."
 	icon_state = "cowboyshirt_navys"
 	item_state = "cowboyshirt_navys"
 	item_color = "cowboyshirt_navys"
@@ -475,7 +475,7 @@
 
 /obj/item/clothing/accessory/cowboyshirt/red
 	name = "red cowboy shirt"
-	desc = "It's high noon."
+	desc = "It's high noon. Looks like it can clip on to clothes."
 	icon_state = "cowboyshirt_red"
 	item_state = "cowboyshirt_red"
 	item_color = "cowboyshirt_red"
@@ -486,7 +486,7 @@
 
 /obj/item/clothing/accessory/cowboyshirt/red/short_sleeved
 	name = "short sleeved red cowboy shirt"
-	desc = "Life on the open range is quite dangeorus, you never know what to expect."
+	desc = "Life on the open range is quite dangeorus, you never know what to expect. Looks like it can clip on to clothes."
 	icon_state = "cowboyshirt_reds"
 	item_state = "cowboyshirt_reds"
 	item_color = "cowboyshirt_reds"
