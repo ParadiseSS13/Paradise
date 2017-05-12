@@ -288,7 +288,8 @@ var/list/robot_verbs_default = list(
 			module_sprites["Basic"] = "robot_old"
 			module_sprites["Android"] = "droid"
 			module_sprites["Default"] = "robot"
-			module_sprites["Noble-STD"] = "Noble-STD"
+			module_sprites["NOBLE-STD"] = "Noble-STD"
+			module_sprites["NOBLE-H-STD"] = "NOBLE-H-STD"
 
 		if("Service")
 			module = new /obj/item/weapon/robot_module/butler(src)
@@ -310,7 +311,8 @@ var/list/robot_verbs_default = list(
 			module_sprites["Advanced Droid"] = "droid-miner"
 			module_sprites["Treadhead"] = "Miner"
 			module_sprites["Standard"] = "robotMine"
-			module_sprites["Noble-DIG"] = "Noble-DIG"
+			module_sprites["NOBLE-DIG"] = "Noble-DIG"
+			module_sprites["NOBLE-H-DIG"] = "NOBLE-H-DIG"
 
 		if("Medical")
 			module = new /obj/item/weapon/robot_module/medical(src)
@@ -322,7 +324,8 @@ var/list/robot_verbs_default = list(
 			module_sprites["Advanced Droid"] = "droid-medical"
 			module_sprites["Needles"] = "medicalrobot"
 			module_sprites["Standard"] = "robotMedi"
-			module_sprites["Noble-MED"] = "Noble-MED"
+			module_sprites["NOBLE-MED"] = "Noble-MED"
+			module_sprites["NOBLE-H-MED"] = "NOBLE-H-MED"
 			status_flags &= ~CANPUSH
 
 		if("Security")
@@ -333,7 +336,8 @@ var/list/robot_verbs_default = list(
 			module_sprites["Black Knight"] = "securityrobot"
 			module_sprites["Bloodhound"] = "bloodhound"
 			module_sprites["Standard"] = "robotSecy"
-			module_sprites["Noble-SEC"] = "Noble-SEC"
+			module_sprites["NOBLE-SEC"] = "Noble-SEC"
+			module_sprites["NOBLE-H-SEC"] = "NOBLE-H-SEC"
 			status_flags &= ~CANPUSH
 
 		if("Engineering")
@@ -345,7 +349,8 @@ var/list/robot_verbs_default = list(
 			module_sprites["Antique"] = "engineerrobot"
 			module_sprites["Landmate"] = "landmate"
 			module_sprites["Standard"] = "robotEngi"
-			module_sprites["Noble-ENG"] = "Noble-ENG"
+			module_sprites["NOBLE-ENG"] = "Noble-ENG"
+			module_sprites["NOBLE-H-ENG"] = "NOBLE-H-ENG"
 			magpulse = 1
 
 		if("Janitor")
@@ -355,7 +360,8 @@ var/list/robot_verbs_default = list(
 			module_sprites["Mopbot"]  = "janitorrobot"
 			module_sprites["Mop Gear Rex"] = "mopgearrex"
 			module_sprites["Standard"] = "robotJani"
-			module_sprites["Noble-CLN"] = "Noble-CLN"
+			module_sprites["NOBLE-CLN"] = "Noble-CLN"
+			module_sprites["NOBLE-H-CLN"] = "NOBLE-H-CLN"
 
 		if("Combat")
 			module = new /obj/item/weapon/robot_module/combat(src)
