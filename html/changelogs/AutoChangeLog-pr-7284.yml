@@ -1,0 +1,5 @@
+author: "Xantholne"
+delete-after: True
+changes: 
+  - bugfix: "Changes name from dark brown to brown for the default cowboy boots"
+  - bugfix: "Gives a hint that the cowboy shirts are meant to be clipped on to your uniform"
