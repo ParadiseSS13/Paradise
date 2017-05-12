@@ -1,0 +1,5 @@
+author: "Fox McCloud"
+delete-after: True
+changes: 
+  - bugfix: "can no longer make lethal medical patches with droppers"
+  - tweak: "dripping reagents on someone with a dropper now incurs a 3 second delay like syringes"
