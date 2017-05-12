@@ -159,7 +159,7 @@
 /atom/proc/AICtrlClick(var/mob/living/silicon/ai/user)
 	if(user.holo)
 		var/obj/machinery/hologram/holopad/H = user.holo
-		H.face_atom(src)
+		H.face_atom(src)//runtime
 	return
 
 /obj/machinery/door/airlock/AICtrlClick() // Bolts doors

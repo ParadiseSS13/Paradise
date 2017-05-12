@@ -30,8 +30,9 @@
 		if(ai.client)
 			ai.client.eye = src
 		//Holopad
-		if(ai.holo)
-			ai.holo.move_hologram()
+		if(istype(ai.current, /obj/machinery/hologram/holopad))
+			var/obj/machinery/hologram/holopad/H = ai.current
+			H.move_hologram(ai, T)
 
 /mob/camera/aiEye/Move()
 	return 0
