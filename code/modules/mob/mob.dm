@@ -7,8 +7,8 @@
 	if(mind && mind.current == src)
 		spellremove(src)
 	mobspellremove(src)
-	for(var/datum/disease/D in viruses)
-		D.cure(0)
+	for(var/infection in viruses)
+		qdel(infection)
 	ghostize()
 	for(var/mob/dead/observer/M in following_mobs)
 		M.following = null
