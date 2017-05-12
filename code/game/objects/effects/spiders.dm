@@ -122,6 +122,7 @@
 	processing_objects.Add(src)
 
 /obj/structure/spider/spiderling/Destroy()
+	processing_objects.Remove(src)
 	entry_vent = null
 	return ..()
 
@@ -234,7 +235,7 @@
 		icon_state = pick("cocoon1","cocoon2","cocoon3")
 
 /obj/structure/spider/cocoon/Destroy()
-	src.visible_message("<span class='danger'>\The [src] splits open.</span>")
+	visible_message("<span class='danger'>[src] splits open.</span>")
 	for(var/atom/movable/A in contents)
-		A.loc = src.loc
+		A.forceMove(loc)
 	return ..()
