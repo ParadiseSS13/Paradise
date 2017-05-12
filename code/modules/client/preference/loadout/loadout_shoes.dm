@@ -26,7 +26,7 @@
 	path = /obj/item/clothing/shoes/centcom
 
 /datum/gear/shoes/cowboyboots
-	display_name = "cowboy boots, dark brown"
+	display_name = "cowboy boots, brown"
 	cost = 1
 	path = /obj/item/clothing/shoes/cowboyboots
 
