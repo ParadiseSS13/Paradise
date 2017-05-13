@@ -47,7 +47,7 @@
  						<center><small><b>Admission data:</b></small></center><br>
  						<small><b>Log generated at:</b>		[worldtime2text()]<br>
  						<b>Detainee:</b>		[logname]<br>
- 						<b>Duration:</b>		[timetoset/60/10] minute(s)<br>
+ 						<b>Duration:</b>		[timetoset/10] seconds<br>
  						<b>Charge(s):</b>	[logcharges]<br>
  						<b>Arresting Officer:</b>		[usr.name]<br><hr><br>
  						<small>This log file was generated automatically upon activation of a cell timer.</small>"}
