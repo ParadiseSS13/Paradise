@@ -141,8 +141,7 @@
 		var/locked = 0
 
 /obj/machinery/shieldgen/Destroy()
-	for(var/obj/machinery/shield/shield_tile in deployed_shields)
-		qdel(shield_tile)
+	QDEL_LIST(deployed_shields)
 	deployed_shields = null
 	return ..()
 

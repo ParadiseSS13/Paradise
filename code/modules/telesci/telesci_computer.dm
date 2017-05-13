@@ -38,7 +38,7 @@
 /obj/machinery/computer/telescience/Destroy()
 	eject()
 	if(inserted_gps)
-		inserted_gps.loc = loc
+		inserted_gps.forceMove(loc)
 		inserted_gps = null
 	return ..()
 

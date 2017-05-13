@@ -21,9 +21,7 @@
 	*/
 
 /obj/item/weapon/camera_assembly/Destroy()
-	for(var/thing in upgrades)
-		qdel(thing)
-	upgrades.Cut()
+	QDEL_LIST(upgrades)
 	return ..()
 
 /obj/item/weapon/camera_assembly/attackby(obj/item/W, mob/living/user, params)
