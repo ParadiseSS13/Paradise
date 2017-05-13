@@ -22,15 +22,12 @@ REAGENT SCANNER
 	var/pulse_duration = 10
 
 /obj/item/device/t_scanner/longer_pulse
-	origin_tech = "magnets=2;engineering=2"
 	pulse_duration = 50
 
 /obj/item/device/t_scanner/extended_range
-	origin_tech = "magnets=1;engineering=3"
 	scan_range = 3
 
 /obj/item/device/t_scanner/extended_range/longer_pulse
-	origin_tech = "magnets=2;engineering=3"
 	scan_range = 3
 	pulse_duration = 50
 
@@ -375,10 +372,9 @@ REAGENT SCANNER
 	throwforce = 5
 	throw_speed = 4
 	throw_range = 20
-	materials = list(MAT_METAL=30, MAT_GLASS=20)
-	origin_tech = "magnets=2;biotech=2"
+	materials = list(MAT_METAL=150, MAT_GLASS=100)
+	origin_tech = "magnets=2;biotech=1;plasmatech=2"
 	var/details = 0
-	var/recent_fail = 0
 
 /obj/item/device/mass_spectrometer/New()
 	..()
@@ -392,9 +388,6 @@ REAGENT SCANNER
 
 /obj/item/device/mass_spectrometer/attack_self(mob/user as mob)
 	if(user.stat)
-		return
-	if(crit_fail)
-		to_chat(user, "<span class='warning'>This device has critically failed and is no longer functional!</span>")
 		return
 	if(!user.IsAdvancedToolUser())
 		to_chat(user, "<span class='warning'>You don't have the dexterity to do this!</span>")
@@ -411,19 +404,10 @@ REAGENT SCANNER
 				break
 		var/dat = "Trace Chemicals Found: "
 		for(var/R in blood_traces)
-			if(prob(reliability))
-				if(details)
-					dat += "[R] ([blood_traces[R]] units) "
-				else
-					dat += "[R] "
-				recent_fail = 0
+			if(details)
+				dat += "[R] ([blood_traces[R]] units) "
 			else
-				if(recent_fail)
-					crit_fail = 1
-					reagents.clear_reagents()
-					return
-				else
-					recent_fail = 1
+				dat += "[R] "
 		to_chat(user, "[dat]")
 		reagents.clear_reagents()
 	return
@@ -432,7 +416,7 @@ REAGENT SCANNER
 	name = "advanced mass-spectrometer"
 	icon_state = "adv_spectrometer"
 	details = 1
-	origin_tech = "magnets=4;biotech=2"
+	origin_tech = "magnets=4;biotech=3;plasmatech=3"
 
 /obj/item/device/reagent_scanner
 	name = "reagent scanner"
@@ -446,9 +430,8 @@ REAGENT SCANNER
 	throw_speed = 4
 	throw_range = 20
 	materials = list(MAT_METAL=30, MAT_GLASS=20)
-	origin_tech = "magnets=2;biotech=2"
+	origin_tech = "magnets=2;biotech=1;plasmatech=2"
 	var/details = 0
-	var/recent_fail = 0
 
 /obj/item/device/reagent_scanner/afterattack(obj/O, mob/user as mob)
 	if(user.stat)
@@ -458,24 +441,13 @@ REAGENT SCANNER
 		return
 	if(!istype(O))
 		return
-	if(crit_fail)
-		to_chat(user, "<span class='warning'>This device has critically failed and is no longer functional!</span>")
-		return
 
 	if(!isnull(O.reagents))
 		var/dat = ""
 		if(O.reagents.reagent_list.len > 0)
 			var/one_percent = O.reagents.total_volume / 100
 			for(var/datum/reagent/R in O.reagents.reagent_list)
-				if(prob(reliability))
-					dat += "<br>[TAB]<span class='notice'>[R][details ? ": [R.volume / one_percent]%" : ""]</span>"
-					recent_fail = 0
-				else if(recent_fail)
-					crit_fail = 1
-					dat = null
-					break
-				else
-					recent_fail = 1
+				dat += "<br>[TAB]<span class='notice'>[R][details ? ": [R.volume / one_percent]%" : ""]</span>"
 		if(dat)
 			to_chat(user, "<span class='notice'>Chemicals found: [dat]</span>")
 		else
@@ -489,13 +461,13 @@ REAGENT SCANNER
 	name = "advanced reagent scanner"
 	icon_state = "adv_spectrometer"
 	details = 1
-	origin_tech = "magnets=4;biotech=2"
+	origin_tech = "magnets=4;biotech=3;plasmatech=3"
 
 /obj/item/device/slime_scanner
 	name = "slime scanner"
 	icon_state = "adv_spectrometer_s"
 	item_state = "analyzer"
-	origin_tech = "biotech=1"
+	origin_tech = "biotech=2"
 	w_class = 2
 	flags = CONDUCT
 	throwforce = 0

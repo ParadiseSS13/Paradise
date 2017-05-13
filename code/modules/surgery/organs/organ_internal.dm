@@ -1,7 +1,7 @@
 #define PROCESS_ACCURACY 10
 
 /obj/item/organ/internal
-	origin_tech = "biotech=2"
+	origin_tech = "biotech=3"
 	force = 1
 	w_class = 2
 	throwforce = 0
@@ -140,7 +140,7 @@
 	organ_tag = "heart"
 	parent_organ = "chest"
 	slot = "heart"
-	origin_tech = "biotech=3"
+	origin_tech = "biotech=5"
 	var/beating = 1
 	dead_icon = "heart-off"
 	var/icon_base = "heart"
@@ -202,7 +202,7 @@
 	desc = "it needs to be pumped..."
 	icon_state = "cursedheart-off"
 	icon_base = "cursedheart"
-	origin_tech = "biotech=5"
+	origin_tech = "biotech=6"
 	actions_types = list(/datum/action/item_action/organ_action/cursed_heart)
 	var/last_pump = 0
 	var/pump_delay = 30 //you can pump 1 second early, for lag, but no more (otherwise you could spam heal)
@@ -499,7 +499,7 @@
 	name = "black tumor"
 	desc = "A tiny black mass with red tendrils trailing from it. It seems to shrivel in the light."
 	icon_state = "blacktumor"
-	origin_tech = "biotech=4"
+	origin_tech = "biotech=5"
 	w_class = 1
 	parent_organ = "head"
 	slot = "brain_tumor"

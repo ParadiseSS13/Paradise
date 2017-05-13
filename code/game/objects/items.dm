@@ -165,9 +165,6 @@ var/global/image/fire_overlay = image("icon" = 'icons/goonstation/effects/fire.d
 			var/list/techlvls = params2list(origin_tech)
 			for(var/T in techlvls) //This needs to use the better names.
 				msg += "Tech: [CallTechName(T)] | Magnitude: [techlvls[T]] <BR>"
-			msg += "Research reliability: [reliability]% <BR>"
-			if(crit_fail)
-				msg += "<span class='danger'>Critical failure detected in subject!</span><BR>"
 		else
 			msg += "<span class='danger'>No tech origins detected.</span><BR>"
 

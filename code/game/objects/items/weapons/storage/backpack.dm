@@ -33,55 +33,39 @@
 /obj/item/weapon/storage/backpack/holding
 	name = "Bag of Holding"
 	desc = "A backpack that opens into a localized pocket of Blue Space."
-	origin_tech = "bluespace=4"
+	origin_tech = "bluespace=5;materials=4;engineering=4;plasmatech=5"
 	icon_state = "holdingpack"
 	max_w_class = 5
 	max_combined_w_class = 35
 	burn_state = FIRE_PROOF
 
-	New()
-		..()
-		return
+/obj/item/weapon/storage/backpack/holding/New()
+	..()
+	return
 
-	attackby(obj/item/weapon/W as obj, mob/user as mob, params)
-		if(crit_fail)
-			to_chat(user, "<span class='warning'>The Bluespace generator isn't working.</span>")
-			return
-		else if(istype(W, /obj/item/weapon/storage/backpack/holding) && !W.crit_fail)
-			var/response = alert(user, "Are you sure you want to put the bag of holding inside another bag of holding?","Are you sure you want to die?","Yes","No")
-			if(response == "Yes")
-				user.visible_message("<span class='warning'>[user] grins as \he begins to put a Bag of Holding into a Bag of Holding!</span>", "<span class='warning'>You begin to put the Bag of Holding into the Bag of Holding!</span>")
-				if(do_after(user, 30, target=src))
-					investigate_log("has become a singularity. Caused by [user.key]","singulo")
-					user.visible_message("<span class='warning'>[user] erupts in evil laughter as \he puts the Bag of Holding into another Bag of Holding!</span>", "<span class='warning'>You can't help but laugh wildly as you put the Bag of Holding into another Bag of Holding, complete darkness surrounding you.</span>","<span class='warning'> You hear the sound of scientific evil brewing! </span>")
-					qdel(W)
-					var/obj/singularity/singulo = new /obj/singularity(get_turf(user))
-					singulo.energy = 300 //To give it a small boost
-					message_admins("[key_name_admin(user)] detonated a bag of holding <A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[x];Y=[y];Z=[z]'>JMP</a>)")
-					log_game("[key_name(user)] detonated a bag of holding")
-					qdel(src)
-				else
-					user.visible_message("After careful consideration, [user] has decided that putting a Bag of Holding inside another Bag of Holding would not yield the ideal outcome.","You come to the realization that this might not be the greatest idea.")
-		else
-			. = ..()
+/obj/item/weapon/storage/backpack/holding/attackby(obj/item/weapon/W, mob/user, params)
+	if(istype(W, /obj/item/weapon/storage/backpack/holding))
+		var/response = alert(user, "Are you sure you want to put the bag of holding inside another bag of holding?","Are you sure you want to die?","Yes","No")
+		if(response == "Yes")
+			user.visible_message("<span class='warning'>[user] grins as \he begins to put a Bag of Holding into a Bag of Holding!</span>", "<span class='warning'>You begin to put the Bag of Holding into the Bag of Holding!</span>")
+			if(do_after(user, 30, target=src))
+				investigate_log("has become a singularity. Caused by [user.key]","singulo")
+				user.visible_message("<span class='warning'>[user] erupts in evil laughter as \he puts the Bag of Holding into another Bag of Holding!</span>", "<span class='warning'>You can't help but laugh wildly as you put the Bag of Holding into another Bag of Holding, complete darkness surrounding you.</span>","<span class='warning'> You hear the sound of scientific evil brewing! </span>")
+				qdel(W)
+				var/obj/singularity/singulo = new /obj/singularity(get_turf(user))
+				singulo.energy = 300 //To give it a small boost
+				message_admins("[key_name_admin(user)] detonated a bag of holding <A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[x];Y=[y];Z=[z]'>JMP</a>)")
+				log_game("[key_name(user)] detonated a bag of holding")
+				qdel(src)
+			else
+				user.visible_message("After careful consideration, [user] has decided that putting a Bag of Holding inside another Bag of Holding would not yield the ideal outcome.","You come to the realization that this might not be the greatest idea.")
+	else
+		. = ..()
 
-	proc/failcheck(mob/user as mob)
-		if(prob(src.reliability)) return 1 //No failure
-		if(prob(src.reliability))
-			to_chat(user, "<span class='warning'>The Bluespace portal resists your attempt to add another item.</span>")//light failure
-
-		else
-			to_chat(user, "<span class='warning'>The Bluespace generator malfunctions!</span>")
-			for(var/obj/O in src.contents) //it broke, delete what was in it
-				qdel(O)
-			crit_fail = 1
-			icon_state = "brokenpack"
-
-	singularity_act(current_size)
-		var/dist = max((current_size - 2),1)
-		explosion(src.loc,(dist),(dist*2),(dist*4))
-		return
-
+/obj/item/weapon/storage/backpack/holding/singularity_act(current_size)
+	var/dist = max((current_size - 2),1)
+	explosion(src.loc,(dist),(dist*2),(dist*4))
+	return
 
 /obj/item/weapon/storage/backpack/santabag
 	name = "Santa's Gift Bag"

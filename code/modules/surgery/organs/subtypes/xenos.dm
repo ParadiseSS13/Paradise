@@ -36,7 +36,7 @@
 /obj/item/organ/internal/xenos/plasmavessel
 	name = "xeno plasma vessel"
 	icon_state = "plasma"
-	origin_tech = "biotech=5;plasmatech=2"
+	origin_tech = "biotech=5;plasmatech=4"
 	w_class = 3
 	parent_organ = "chest"
 	slot = "plasmavessel"
@@ -56,7 +56,7 @@
 /obj/item/organ/internal/xenos/plasmavessel/queen
 	name = "bloated xeno plasma vessel"
 	icon_state = "plasma_large"
-	origin_tech = "biotech=6;plasma=3"
+	origin_tech = "biotech=6;plasmatech=4"
 	stored_plasma = 200
 	max_plasma = 500
 	plasma_rate = 25
@@ -164,5 +164,5 @@
 	parent_organ = "groin"
 	slot = "eggsac"
 	w_class = 4
-	origin_tech = "biotech=8"
+	origin_tech = "biotech=6"
 	alien_powers = list(/mob/living/carbon/alien/humanoid/queen/verb/lay_egg)
