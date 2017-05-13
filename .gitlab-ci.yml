@@ -10,6 +10,7 @@ build_maps:
     - cmd /C dm.sh "test_away_missions" paradise.dme
   except: 
     - master
+    - productionCI
     
 run_update: 
   stage: deploy 
