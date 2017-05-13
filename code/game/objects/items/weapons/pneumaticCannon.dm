@@ -18,9 +18,7 @@
 
 /obj/item/weapon/pneumatic_cannon/Destroy()
 	QDEL_NULL(tank)
-	for(var/obj/item/I in loadedItems)
-		qdel(I)
-	loadedItems.Cut()
+	QDEL_LIST(loadedItems)
 	return ..()
 
 /obj/item/weapon/pneumatic_cannon/examine(mob/user)

@@ -14,9 +14,7 @@
 	var/max_signs = 20
 
 /obj/item/weapon/holosign_creator/Destroy()
-	for(var/sign in signs)
-		qdel(sign)
-	signs.Cut()
+	QDEL_LIST(signs)
 	return ..()
 
 /obj/item/weapon/holosign_creator/afterattack(atom/target, mob/user, flag)

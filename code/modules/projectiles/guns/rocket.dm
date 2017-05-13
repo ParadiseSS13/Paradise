@@ -20,10 +20,8 @@
 	to_chat(user, "<span class='notice'>[rockets.len] / [max_rockets] rockets.</span>")
 
 /obj/item/weapon/gun/rocketlauncher/Destroy()
-	for(var/datum/D in rockets)
-		qdel(D)
+	QDEL_LIST(rockets)
 	rockets = null
-
 	return ..()
 
 /obj/item/weapon/gun/rocketlauncher/update_icon()

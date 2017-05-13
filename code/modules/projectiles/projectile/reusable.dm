@@ -57,7 +57,7 @@
 	newdart.update_icon()
 
 /obj/item/projectile/bullet/reusable/foam_dart/Destroy()
-	pen = null
+	QDEL_NULL(pen)
 	return ..()
 
 /obj/item/projectile/bullet/reusable/foam_dart/riot

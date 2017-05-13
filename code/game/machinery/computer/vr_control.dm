@@ -5,13 +5,6 @@
 
 	light_color = LIGHT_COLOR_DARKGREEN
 
-
-/obj/machinery/computer/vr_control/New()
-	..()
-
-/obj/machinery/computer/vr_control/Destroy()
-	return ..()
-
 /obj/machinery/computer/vr_control/attack_ai(mob/user)
 	attack_hand(user)
 	ui_interact(user)
