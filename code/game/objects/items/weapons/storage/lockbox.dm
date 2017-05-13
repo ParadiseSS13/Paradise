@@ -99,8 +99,7 @@
 	icon_locked = "lockbox_saber"
 	icon_closed= "lockbox_saber_open"
 	desc = "Open only in emergency situation"
-	can_hold=list(
-		/obj/item/weapon/melee/energy/saber)
+	can_hold=list(/obj/item/weapon/melee/energy/saber)
 	req_access = list(access_security)
 
 /obj/item/weapon/storage/lockbox/saber/New()
