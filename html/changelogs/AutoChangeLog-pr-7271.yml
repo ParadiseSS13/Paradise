@@ -1,0 +1,7 @@
+author: "Fethas"
+delete-after: True
+changes: 
+  - bugfix: "fixes a redundent add_cultist proc so cult memorize objectives works on new converts."
+  - bugfix: "fixes an istype with IS_GAMEMODE_CULT"
+  - bugfix: "Narsie now will sometimes make a door a cult door..i thought i had that in the first time."
+  - bugfix: "runed metal can now be only used on cult girders."
