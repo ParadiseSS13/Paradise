@@ -232,3 +232,27 @@
 	desc = "These boots were made for dancing."
 	icon_state = "bsing"
 	put_on_delay = 50
+
+/obj/item/clothing/shoes/cowboyboots
+	name = "cowboy boots"
+	desc = "A pair a' brown boots."
+	icon_state = "cowboyboots"
+	item_color = "cowboyboots"
+
+/obj/item/clothing/shoes/cowboyboots/black
+	name = "black cowboy boots"
+	desc = "A pair a' black rustlers' boots"
+	icon_state = "cowboyboots_black"
+	item_color = "cowboyboots_black"
+
+/obj/item/clothing/shoes/cowboyboots/white
+	name = "white cowboy boots"
+	desc = "For the rancher in us all."
+	icon_state = "cowboyboots_white"
+	item_color = "cowboyboots_white"
+
+/obj/item/clothing/shoes/cowboyboots/pink
+	name = "pink cowgirl boots"
+	desc = "For a Rustlin' tustlin' cowgirl."
+	icon_state = "cowboyboots_pink"
+	item_color = "cowboyboots_pink"
