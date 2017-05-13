@@ -84,7 +84,7 @@
 	slot_flags = SLOT_BELT
 	icon_state_on = "nano_saber1"
 	force = 15
-	force_on = 30
+	force_on = 35
 	throwforce = 8
 	throwforce_on = 20
 	throw_speed = 3
