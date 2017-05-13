@@ -224,7 +224,7 @@
 
 //to add a splatter of blood or other mob liquid.
 /mob/living/proc/add_splatter_floor(turf/T, small_drip)
-	if(get_blood_id() != "blood")
+	if(get_blood_id() != "blood")//is it blood or welding fuel?
 		return
 
 	if(!T)
@@ -232,6 +232,7 @@
 
 	var/list/temp_blood_DNA
 	var/list/b_data = get_blood_data(get_blood_id())
+
 	if(small_drip)
 		// Only a certain number of drips (or one large splatter) can be on a given turf.
 		var/obj/effect/decal/cleanable/blood/drip/drop = locate() in T
@@ -264,6 +265,13 @@
 
 /mob/living/carbon/human/add_splatter_floor(turf/T, small_drip)
 	if(!(species && species.flags & NO_BLOOD))
+		if(species.exotic_blood)
+			if(!T)
+				T = get_turf(src)
+			var/datum/reagent/R = get_blood_id()
+			if(istype(R))
+				R.reaction_turf(T, R.volume)
+			return
 		..()
 
 /mob/living/carbon/alien/add_splatter_floor(turf/T, small_drip)
