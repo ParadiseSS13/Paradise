@@ -838,15 +838,14 @@
 	icon_state = "lasshy_wings"
 	item_state = "lasshy_wings"
 	actions_types = list(/datum/action/item_action/toggle_wings)
-	var/icon/mob
 
 /obj/item/clothing/suit/toggle/lasshy_wings/update_icon(var/mob/living/carbon/human/user) //holy pickles, copied over from /obj/item/clothing/head/kitty
 	if(!istype(user))
 		return
 	var/obj/item/organ/external/head/head_organ = user.get_organ("head")
-	mob = icon("icon" = 'icons/mob/suit.dmi', "icon_state" = icon_state)
-	mob.Blend(rgb(head_organ.r_hair, head_organ.g_hair, head_organ.b_hair), ICON_ADD)
-	icon_override = mob
+	var/icon/icon_blended = icon("icon" = 'icons/mob/suit.dmi', "icon_state" = icon_state)
+	icon_blended.Blend(rgb(head_organ.r_hair, head_organ.g_hair, head_organ.b_hair), ICON_ADD)
+	icon_override = icon_blended
 
 /obj/item/clothing/suit/toggle/lasshy_wings/equipped(var/mob/M, slot)
 	. = ..()
