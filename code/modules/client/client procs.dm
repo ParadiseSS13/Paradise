@@ -282,7 +282,7 @@
 							to_chat(usr, "You do not have enough karma!")
 							return
 						else
-							src.DB_species_unlock("Vulpkanin",70)
+							src.DB_species_unlock("Vulpkanin",75)
 							return
 
 			if(href_list["KarmaBuy3"])
@@ -356,7 +356,7 @@
 		if("usr")		hsrc = mob
 		if("prefs")		return prefs.process_link(usr,href_list)
 		if("vars")		return view_var_Topic(href,href_list,hsrc)
-	
+
 	//Polls and shit
 	if(href_list["showpoll"])
 
@@ -552,7 +552,7 @@
 			winset(src, null, "command=\".configure graphics-hwmode on\"")
 
 	log_client_to_db(tdata)
-	
+
 	. = ..()	//calls mob.Login()
 
 	if(ckey in clientmessages)
