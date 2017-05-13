@@ -40,8 +40,6 @@ var/const/CALL_SHUTTLE_REASON_LENGTH = 12
 	name = "shuttle"
 	schedule_interval = 20
 
-	shuttle_master = src
-
 	var/watch = start_watch()
 	log_startup_progress("Initializing shuttle docks...")
 	initialize_docks()

@@ -149,5 +149,3 @@ DECLARE_GLOBAL_CONTROLLER(air_system, air_master)
 	icemaster.icon_state = "snowfloor"
 	icemaster.layer = TURF_LAYER+0.1
 	icemaster.mouse_opacity = 0
-
-DECLARE_GLOBAL_CONTROLLER(air_system, air_master)
