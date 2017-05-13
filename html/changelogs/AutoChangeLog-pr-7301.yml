@@ -1,0 +1,4 @@
+author: "KasparoVy"
+delete-after: True
+changes: 
+  - bugfix: "Fixes a sprite issue with the Unathi Dorsal Frill's webbing."
