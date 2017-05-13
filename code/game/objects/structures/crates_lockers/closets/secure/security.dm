@@ -121,7 +121,7 @@
 		new /obj/item/taperoll/police(src)
 		new /obj/item/weapon/gun/energy/gun/hos(src)
 		new /obj/item/weapon/door_remote/head_of_security(src)
-
+		new /obj/item/weapon/storage/lockbox/saber(src)
 
 
 /obj/structure/closet/secure_closet/warden
