@@ -14,6 +14,10 @@
 	hold = new/obj/item/weapon/storage/internal(src)
 	hold.storage_slots = slots
 
+/obj/item/clothing/accessory/storage/Destroy()
+	QDEL_NULL(hold)
+	return ..()
+
 /obj/item/clothing/accessory/storage/attack_hand(mob/user as mob)
 	if(has_suit)	//if we are part of a suit
 		hold.open(user)

@@ -94,8 +94,24 @@
 	path = /obj/item/clothing/head/soft/yellow
 
 /datum/gear/hat/cowboyhat
-	display_name = "cowboy hat"
+	display_name = "cowboy hat, brown"
 	path = /obj/item/clothing/head/cowboyhat
+
+/datum/gear/hat/cowboyhat/tan
+	display_name = "cowboy hat, tan"
+	path = /obj/item/clothing/head/cowboyhat/tan
+
+/datum/gear/hat/cowboyhat/black
+	display_name = "cowboy hat, black"
+	path = /obj/item/clothing/head/cowboyhat/black
+
+/datum/gear/hat/cowboyhat/white
+	display_name = "cowboy hat, white"
+	path = /obj/item/clothing/head/cowboyhat/white
+
+/datum/gear/hat/cowboyhat/pink
+	display_name = "cowboy hat, pink"
+	path = /obj/item/clothing/head/cowboyhat/pink
 
 /datum/gear/hat/pr_beret
 	display_name = "beret, purple"
