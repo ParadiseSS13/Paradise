@@ -8,6 +8,8 @@ build_maps:
     - cmd /C dm.sh "cyberiad" paradise.dme
     - cmd /C dm.sh "metastation" paradise.dme
     - cmd /C dm.sh "test_away_missions" paradise.dme
+  except: 
+    - master
     
 run_update: 
   stage: deploy 
