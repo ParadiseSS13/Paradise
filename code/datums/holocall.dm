@@ -33,7 +33,7 @@
 			LAZYADD(H.holo_calls, src)
 
 	if(!dialed_holopads.len)
-		calling_holopad.visible_message("Connection failure.")
+		calling_holopad.atom_say("Connection failure.")
 		qdel(src)
 		return
 
@@ -70,9 +70,9 @@
 /datum/holocall/proc/Disconnect(obj/machinery/hologram/holopad/H)
 	testing("Holocall disconnect")
 	if(H == connected_holopad)
-		calling_holopad.visible_message("[usr] disconnected.")
+		calling_holopad.atom_say("[usr] disconnected.")
 	else if(H == calling_holopad && connected_holopad)
-		connected_holopad.visible_message("[usr] disconnected.")
+		connected_holopad.atom_say("[usr] disconnected.")
 
 	ConnectionFailure(H, TRUE)
 
@@ -81,7 +81,7 @@
 	testing("Holocall connection failure: graceful [graceful]")
 	if(H == connected_holopad || H == calling_holopad)
 		if(!graceful)
-			calling_holopad.visible_message("Connection failure.")
+			calling_holopad.atom_say("Connection failure.")
 		qdel(src)
 		return
 
@@ -89,7 +89,7 @@
 	dialed_holopads -= H
 	if(!dialed_holopads.len)
 		if(graceful)
-			calling_holopad.visible_message("Call rejected.")
+			calling_holopad.atom_say("Call rejected.")
 		log_debug("No recipients, terminating")
 		qdel(src)
 
@@ -151,7 +151,7 @@
 		else
 			. = world.time < (call_start_time + HOLOPAD_MAX_DIAL_TIME)
 			if(!.)
-				calling_holopad.visible_message("No answer recieved.")
+				calling_holopad.atom_say("No answer recieved.")
 				calling_holopad.temp = ""
 
 	if(!.)
