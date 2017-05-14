@@ -120,7 +120,7 @@
 				else
 					security["empty"] = 1
 	return data
-	
+
 /obj/machinery/computer/secure_data/Topic(href, href_list)
 	if(..())
 		return 1
@@ -342,6 +342,18 @@
 					create_record_photo(active1)
 				printing = 0
 
+		else if(href_list["printlogs"])
+			var/obj/item/weapon/paper/P = (input(usr, "Select log to print", "Available Cell Logs") as null|anything in cell_logs)
+			if(!P)
+				return 0
+			playsound(src.loc, "sound/goonstation/machines/printer_dotmatrix.ogg", 50, 1)
+			to_chat(usr, "<span class='danger'>Printing [P.name].</span>")
+			sleep(50)
+			var/obj/item/weapon/paper/LOG = new /obj/item/weapon/paper(src.loc)
+			LOG.name = P.name
+			LOG.info = P.info
+			return 1
+
 		else if(href_list["add_c"])
 			if(istype(active2, /datum/data/record))
 				var/a2 = active2
@@ -354,6 +366,7 @@
 			var/index = min(max(text2num(href_list["del_c"]) + 1, 1), length(active2.fields["comments"]))
 			if(istype(active2, /datum/data/record) && active2.fields["comments"][index])
 				active2.fields["comments"] -= active2.fields["comments"][index]
+				return 0
 
 		if(href_list["field"])
 			if(..())
@@ -454,10 +467,10 @@
 
 /obj/machinery/computer/secure_data/proc/setTemp(text, list/buttons = list())
 	temp = list("text" = text, "buttons" = buttons, "has_buttons" = buttons.len > 0)
-	
-/obj/machinery/computer/secure_data/proc/update_all_mob_security_hud()	
+
+/obj/machinery/computer/secure_data/proc/update_all_mob_security_hud()
 	for(var/mob/living/carbon/human/H in mob_list)
-		H.sec_hud_set_security_status()	
+		H.sec_hud_set_security_status()
 
 /obj/machinery/computer/secure_data/proc/create_record_photo(datum/data/record/R)
 	// basically copy-pasted from the camera code but different enough that it has to be redone

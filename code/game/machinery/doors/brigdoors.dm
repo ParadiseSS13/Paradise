@@ -41,7 +41,7 @@
 
  	for(var/obj/machinery/computer/prisoner/C in prisoncomputer_list)
  			var/obj/item/weapon/paper/P = new /obj/item/weapon/paper(C.loc)
- 			P.name = "[id] log - [logname]"
+ 			P.name = "[id] log - [logname] [worldtime2text()]"
  			P.info =  "<center><b>[id] - Brig record</b></center><br><hr><br>"
  			P.info += {"<center>[station_name()] - Security Department</center><br>
  						<center><small><b>Admission data:</b></small></center><br>
@@ -53,7 +53,7 @@
  						<small>This log file was generated automatically upon activation of a cell timer.</small>"}
 
  			playsound(C.loc, "sound/goonstation/machines/printer_dotmatrix.ogg", 50, 1)
-
+ 			cell_logs += P
  	return 1
 
 /obj/machinery/door_timer/initialize()
