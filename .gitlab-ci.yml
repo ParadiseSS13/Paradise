@@ -16,6 +16,9 @@ run_copy:
   stage: copy
   script:
     - (robocopy /NDL /MIR .\ c:\Users\byond\Desktop\paradise-server\gitrepo\ /xd .git)  ^& IF %ERRORLEVEL% LEQ 4 exit /B 0
+  only: 
+    - master
+
     
 run_update: 
   stage: deploy 
