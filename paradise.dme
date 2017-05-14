@@ -2204,6 +2204,7 @@
 #include "hyntatmta\code\game\machinery\kitchen\glass_recycler.dm"
 #include "hyntatmta\code\game\machinery\kitchen\processor.dm"
 #include "hyntatmta\code\game\objects\items\weapons\vape.dm"
+#include "hyntatmta\code\game\objects\items\weapons\melee\energy.dm"
 #include "hyntatmta\code\game\objects\items\weapons\reagent_containers\champagneglass.dm"
 #include "hyntatmta\code\game\objects\items\weapons\reagent_containers\cocktailglass.dm"
 #include "hyntatmta\code\game\objects\items\weapons\reagent_containers\pitcher.dm"
