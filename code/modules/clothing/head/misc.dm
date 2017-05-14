@@ -198,7 +198,7 @@
 	name = "black cowboy hat"
 	icon_state = "cowboyhat_black"
 	item_state = "cowboyhat_black"
-	desc = "This station aint big enough for the two ah' us."
+	desc = "This station ain't big enough for the two ah' us."
 
 /obj/item/clothing/head/cowboyhat/white
 	name = "white cowboy hat"
