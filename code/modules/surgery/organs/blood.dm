@@ -270,7 +270,7 @@
 				T = get_turf(src)
 			var/datum/reagent/R = get_blood_id()
 			if(istype(R))
-				R.reaction_turf(T, R.volume)
+				R.reaction_turf(T, blood_volume)
 			return
 		..()
 
