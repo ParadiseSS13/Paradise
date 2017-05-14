@@ -95,20 +95,6 @@ var/list/holopads = list()
 	default_deconstruction_crowbar(P)
 
 
-/obj/machinery/hologram/holopad/attack_hand(var/mob/living/carbon/human/user) //Carn: hologram requests.
-	if(!istype(user))
-		return
-	if(alert(user,"Would you like to request an AI's presence?",,"Yes","No") == "Yes")
-		if(last_request + 200 < world.time) //don't spam the AI with requests you jerk!
-			last_request = world.time
-			to_chat(user, "<span class='notice'>You request an AI's presence.</span>")
-			var/area/area = get_area(src)
-			for(var/mob/living/silicon/ai/AI in living_mob_list)
-				if(!AI.client)	continue
-				to_chat(AI, "<span class='info'>Your presence is requested at <a href='?src=[AI.UID()];jumptoholopad=\ref[src]'>\the [area]</a>.</span>")
-		else
-			to_chat(user, "<span class='notice'>A request for AI presence was already sent recently.</span>")
-
 /obj/machinery/hologram/holopad/proc/CheckCallClose()
 	for(var/I in holo_calls)
 		var/datum/holocall/HC = I
@@ -117,16 +103,11 @@ var/list/holopads = list()
 			return TRUE
 	return FALSE
 
-/obj/machinery/hologram/holopad/Click(location,control,params)
-	if(!CheckCallClose())
-		return ..()
-
-/obj/machinery/hologram/holopad/AltClick(mob/living/carbon/human/user)
-	if(!CheckCallClose())
-		interact(user)
-
-/obj/machinery/hologram/holopad/interact(mob/living/carbon/human/user) //Carn: hologram requests.
+/obj/machinery/hologram/holopad/attack_hand(mob/living/carbon/human/user) //Carn: hologram requests.
 	if(!istype(user))
+		return
+
+	if(!CheckCallClose())
 		return
 
 	if(outgoing_call || user.incapacitated() || !(stat & NOPOWER))
@@ -272,8 +253,8 @@ var/list/holopads = list()
 						if(!(pad_close.stat & NOPOWER) && !pad_close.masters[src])
 							pad_close.activate_holo(AI, 1)
 							if(pad_close.masters[src])
-								pad_close.hologram.forceMove(target_turf)
-								pad_close.hologram.dir = newdir//runtime
+								outgoing_call.hologram.forceMove(target_turf)
+								outgoing_call.hologram.dir = newdir//runtime
 
 		clear_holo(master)//If not, we want to get rid of the hologram.
 
@@ -408,22 +389,30 @@ For the other part of the code, check silicon say.dm. Particularly robot talk.*/
 	return ..()
 
 /obj/effect/overlay/holo_pad_hologram/proc/face_atom(var/atom/A)
-	if( !hologram || !A || !hologram.x || !hologram.y || !A.x || !A.y ) return
-	var/dx = A.x - hologram.x
-	var/dy = A.y - hologram.y
+	if( !HC.hologram || !A || !HC.hologram.x || !HC.hologram.y || !A.x || !A.y ) return
+	var/dx = A.x - HC.hologram.x
+	var/dy = A.y - HC.hologram.y
 	if(!dx && !dy) // Wall items are graphically shifted but on the floor
-		if(A.pixel_y > 16)		hologram.dir = NORTH
-		else if(A.pixel_y < -16)hologram.dir = SOUTH
-		else if(A.pixel_x > 16)	hologram.dir = EAST
-		else if(A.pixel_x < -16)hologram.dir = WEST
+		if(A.pixel_y > 16)
+			HC.hologram.dir = NORTH
+		else if(A.pixel_y < -16)
+			HC.hologram.dir = SOUTH
+		else if(A.pixel_x > 16)
+			HC.hologram.dir = EAST
+		else if(A.pixel_x < -16)
+			HC.hologram.dir = WEST
 		return
 
 	if(abs(dx) < abs(dy))
-		if(dy > 0)	hologram.dir = NORTH
-		else		hologram.dir = SOUTH
+		if(dy > 0)
+			HC.hologram.dir = NORTH
+		else
+			HC.hologram.dir = SOUTH
 	else
-		if(dx > 0)	hologram.dir = EAST
-		else		hologram.dir = WEST
+		if(dx > 0)
+			HC.hologram.dir = EAST
+		else
+			HC.hologram.dir = WEST
 /*
  * Other Stuff: Is this even used?
  */
