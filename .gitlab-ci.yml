@@ -1,0 +1,33 @@
+stages:
+ - build
+ - copy
+ - deploy 
+ 
+build_maps:
+  stage: build
+  script:
+    - cmd /C dm.sh "cyberiad" paradise.dme
+    - cmd /C dm.sh "metastation" paradise.dme
+    - cmd /C dm.sh "test_away_missions" paradise.dme
+  except: 
+    - master
+    - productionCI
+run_copy:
+  stage: copy
+  script:
+    - (robocopy /NDL /MIR .\ c:\Users\byond\Desktop\paradise-server\gitrepo\ /xd .git)  ^& IF %ERRORLEVEL% LEQ 4 exit /B 0
+  only: 
+    - master
+
+    
+run_update: 
+  stage: deploy 
+  script:
+    - cd "c:\users\byond\desktop\paradise-server\"
+    - call "c:\users\byond\desktop\paradise-server\Update Server.bat"
+  environment:
+    name: NSSCyberiad 
+  only: 
+    - master 
+  variables:
+    GIT_STRATEGY: "none"
