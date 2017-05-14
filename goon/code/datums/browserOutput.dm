@@ -248,14 +248,13 @@ var/to_chat_src
 			return
 
 		message = replacetext(message, "\n", "<br>")
-		message = replacetext(message, "<iframe", "wew lad some shitcoder here hello fellow guests")
-		message = macro2html(message)
 
+		message = macro2html(message)
 		if(findtext(message, "\improper"))
 			message = replacetext(message, "\improper", "")
 		if(findtext(message, "\proper"))
 			message = replacetext(message, "\proper", "")
-		message = sanitize_local(message)
+
 		var/client/C
 		if(istype(target, /client))
 			C = target
