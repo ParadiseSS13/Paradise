@@ -1,5 +1,6 @@
 stages:
  - build
+ - copy
  - deploy 
  
 build_maps:
@@ -11,11 +12,17 @@ build_maps:
   except: 
     - master
     - productionCI
+run_copy:
+  stage: copy
+  script:
+    - (robocopy /NDL /MIR .\ c:\Users\byond\Desktop\paradise-server\gitrepo\ /xd .git)  ^& IF %ERRORLEVEL% LEQ 4 exit /B 0
     
 run_update: 
   stage: deploy 
   script:
     - cd "c:\users\byond\desktop\paradise-server\"
     - call "c:\users\byond\desktop\paradise-server\Update Server.bat"
+  environment:
+    name: NSSCyberiad 
   only: 
     - master 
