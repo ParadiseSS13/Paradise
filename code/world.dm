@@ -186,7 +186,7 @@ var/world_topic_spam_protect_time = world.timeofday
 					positions["misc"] = list()
 				positions["misc"][name] = rank
 
-		return list2json(positions)
+		return json_encode(positions)
 
 	else if("adminmsg" in input)
 		/*
