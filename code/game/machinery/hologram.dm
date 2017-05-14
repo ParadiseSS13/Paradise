@@ -264,17 +264,16 @@ var/list/holopads = list()
 						if(eye_area != holo_area)
 							return 1
 
-					else
-						var/turf/target_turf = get_turf(AI.eyeobj)
-						var/newdir = AI.holo.dir
-						clear_holo()//If not, we want to get rid of the hologram.
-						var/obj/machinery/hologram/holopad/pad_close = get_closest_atom(/obj/machinery/hologram/holopad, holopads, AI.eyeobj)
-						if(get_dist(pad_close, AI.eyeobj) <= pad_close.holo_range)
-							if(!(pad_close.stat & NOPOWER) && !pad_close.masters[src])
-								pad_close.activate_holo(AI, 1)
-								if(pad_close.masters[src])
-									pad_close.AI.holo.forceMove(target_turf)
-									pad_close.AI.holo.dir = newdir//runtime
+					var/turf/target_turf = get_turf(AI.eyeobj)
+					var/newdir = AI.holo.dir
+					clear_holo()//If not, we want to get rid of the hologram.
+					var/obj/machinery/hologram/holopad/pad_close = get_closest_atom(/obj/machinery/hologram/holopad, holopads, AI.eyeobj)
+					if(get_dist(pad_close, AI.eyeobj) <= pad_close.holo_range)
+						if(!(pad_close.stat & NOPOWER) && !pad_close.masters[src])
+							pad_close.activate_holo(AI, 1)
+							if(pad_close.masters[src])
+								pad_close.hologram.forceMove(target_turf)
+								pad_close.hologram.dir = newdir//runtime
 				else
 					continue
 		clear_holo(master)//If not, we want to get rid of the hologram.
