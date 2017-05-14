@@ -18,10 +18,7 @@
 	..()
 
 /obj/item/weapon/paper_bin/Destroy()
-	if(papers)
-		for(var/i in papers)
-			qdel(i)
-		papers.Cut()
+	QDEL_LIST(papers)
 	return ..()
 
 /obj/item/weapon/paper_bin/burn()

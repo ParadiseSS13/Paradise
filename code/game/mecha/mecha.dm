@@ -610,13 +610,9 @@
 			WR.crowbar_salvage += internal_tank
 			internal_tank.forceMove(WR)
 	else
-		for(var/obj/item/mecha_parts/mecha_equipment/E in equipment)
-			E.forceMove(loc)
-			qdel(E)
-		if(cell)
-			qdel(cell)
-		if(internal_tank)
-			qdel(internal_tank)
+		QDEL_LIST(equipment)
+		QDEL_NULL(cell)
+		QDEL_NULL(internal_tank)
 
 	processing_objects.Remove(src)
 	poi_list.Remove(src)

@@ -17,10 +17,8 @@
 	med_hud_set_status()
 
 /mob/living/carbon/Destroy()
-	for(var/atom/movable/guts in internal_organs)
-		qdel(guts)
-	for(var/atom/movable/food in stomach_contents)
-		qdel(food)
+	QDEL_LIST(internal_organs)
+	QDEL_LIST(stomach_contents)
 	remove_from_all_data_huds()
 	return ..()
 

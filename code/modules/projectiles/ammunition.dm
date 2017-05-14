@@ -103,8 +103,7 @@
 	update_icon()
 
 /obj/item/ammo_box/Destroy()
-	for(var/atom/A in stored_ammo)
-		qdel(A)
+	QDEL_LIST(stored_ammo)
 	stored_ammo = null
 	return ..()
 
@@ -193,4 +192,4 @@
 	var/turf_mag = get_turf(src)
 	for(var/obj/item/ammo in stored_ammo)
 		ammo.forceMove(turf_mag)
-		stored_ammo -= ammo	
+		stored_ammo -= ammo

@@ -227,8 +227,7 @@
 /obj/item/device/mobcapsule/Destroy()
 	if(captured)
 		captured.ghostize()
-		qdel(captured)
-		captured = null
+		QDEL_NULL(captured)
 	return ..()
 
 /obj/item/device/mobcapsule/attack(var/atom/A, mob/user, prox_flag)

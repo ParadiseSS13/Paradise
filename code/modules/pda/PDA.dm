@@ -464,9 +464,7 @@ var/global/list/obj/item/device/pda/PDAs = list()
 		pai.forceMove(T)
 	current_app = null
 	scanmode = null
-	for(var/A in programs)
-		qdel(A)
-	programs.Cut()
+	QDEL_LIST(programs)
 	QDEL_NULL(cartridge)
 	return ..()
 
