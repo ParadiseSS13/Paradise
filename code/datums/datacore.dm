@@ -284,8 +284,8 @@ var/record_id_num = 1001
 		G.fields["photo"]		= get_id_photo(H)
 		G.fields["photo-south"] = "'data:image/png;base64,[icon2base64(icon(G.fields["photo"], dir = SOUTH))]'"
 		G.fields["photo-west"] = "'data:image/png;base64,[icon2base64(icon(G.fields["photo"], dir = WEST))]'"
-		if(H.gen_record && !jobban_isbanned(H, "Records"))
-			G.fields["notes"] = H.gen_record
+		if(H.client.prefs.gen_record && !jobban_isbanned(H, "Records"))
+			G.fields["notes"] = H.client.prefs.gen_record
 		else
 			G.fields["notes"] = "No notes found."
 		general += G
@@ -304,8 +304,8 @@ var/record_id_num = 1001
 		M.fields["alg_d"]		= "No allergies have been detected in this patient."
 		M.fields["cdi"]			= "None"
 		M.fields["cdi_d"]		= "No diseases have been diagnosed at the moment."
-		if(H.med_record && !jobban_isbanned(H, "Records"))
-			M.fields["notes"] = H.med_record
+		if(H.client.prefs.med_record && !jobban_isbanned(H, "Records"))
+			M.fields["notes"] = H.client.prefs.med_record
 		else
 			M.fields["notes"] = "No notes found."
 		medical += M
@@ -319,9 +319,8 @@ var/record_id_num = 1001
 		S.fields["mi_crim_d"]	= "No minor crime convictions."
 		S.fields["ma_crim"]		= "None"
 		S.fields["ma_crim_d"]	= "No major crime convictions."
-		S.fields["notes"]		= "No notes."
-		if(H.sec_record && !jobban_isbanned(H, "Records"))
-			S.fields["notes"] = H.sec_record
+		if(H.client.prefs.sec_record && !jobban_isbanned(H, "Records"))
+			S.fields["notes"] = H.client.prefs.sec_record
 		else
 			S.fields["notes"] = "No notes."
 		security += S
