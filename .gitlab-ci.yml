@@ -29,3 +29,5 @@ run_update:
     name: NSSCyberiad 
   only: 
     - master 
+  variables:
+    GIT_STRATEGY: "none"
