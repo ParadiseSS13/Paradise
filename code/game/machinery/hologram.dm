@@ -274,8 +274,7 @@ var/list/holopads = list()
 							if(pad_close.masters[src])
 								pad_close.hologram.forceMove(target_turf)
 								pad_close.hologram.dir = newdir//runtime
-				else
-					continue
+
 		clear_holo(master)//If not, we want to get rid of the hologram.
 
 	if(outgoing_call)
@@ -390,7 +389,6 @@ For the other part of the code, check silicon say.dm. Particularly robot talk.*/
 	SetLightsAndPower()
 	return TRUE
 
-
 /obj/effect/overlay/holo_pad_hologram
 	var/mob/living/Impersonation
 	var/datum/holocall/HC
@@ -409,8 +407,23 @@ For the other part of the code, check silicon say.dm. Particularly robot talk.*/
 		return Impersonation.examine(user)
 	return ..()
 
+/obj/effect/overlay/holo_pad_hologram/proc/face_atom(var/atom/A)
+	if( !hologram || !A || !hologram.x || !hologram.y || !A.x || !A.y ) return
+	var/dx = A.x - hologram.x
+	var/dy = A.y - hologram.y
+	if(!dx && !dy) // Wall items are graphically shifted but on the floor
+		if(A.pixel_y > 16)		hologram.dir = NORTH
+		else if(A.pixel_y < -16)hologram.dir = SOUTH
+		else if(A.pixel_x > 16)	hologram.dir = EAST
+		else if(A.pixel_x < -16)hologram.dir = WEST
+		return
 
-
+	if(abs(dx) < abs(dy))
+		if(dy > 0)	hologram.dir = NORTH
+		else		hologram.dir = SOUTH
+	else
+		if(dx > 0)	hologram.dir = EAST
+		else		hologram.dir = WEST
 /*
  * Other Stuff: Is this even used?
  */
