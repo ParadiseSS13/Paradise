@@ -1,4 +1,0 @@
-author: "TullyBurnalot"
-delete-after: True
-changes: 
-  - bugfix: "Disposal Bin Light now works with thrown items"
