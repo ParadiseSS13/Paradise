@@ -103,17 +103,21 @@ var/list/holopads = list()
 			return TRUE
 	return FALSE
 
-/obj/machinery/hologram/holopad/attack_hand(mob/living/carbon/human/user) //Carn: hologram requests.
-	if(!istype(user))
+/obj/machinery/hologram/holopad/attack_hand(mob/living/carbon/human/user)
+
+	if(..())
 		return
 
-	if(!CheckCallClose())
-		return
-
-	if(outgoing_call || user.incapacitated() || (stat & NOPOWER))
+	if(CheckCallClose() || outgoing_call)
 		return
 
 	user.set_machine(src)
+	interact(user)
+
+/obj/machinery/hologram/holopad/interact(mob/living/carbon/human/user) //Carn: hologram requests.
+	if(!istype(user))
+		return
+
 	var/dat
 	if(temp)
 		dat = temp
@@ -183,6 +187,7 @@ var/list/holopads = list()
 			callnames -= get_area(src)
 
 			var/result = input(usr, "Choose an area to call", "Holocall") as null|anything in callnames
+
 			if(qdeleted(usr) || !result || outgoing_call)
 				return
 
@@ -254,8 +259,10 @@ var/list/holopads = list()
 							pad_close.activate_holo(AI, 1)
 							if(pad_close.masters[src])
 								outgoing_call.hologram.forceMove(target_turf)
-								outgoing_call.hologram.dir = newdir//runtime
-
+								outgoing_call.hologram.dir = newdir
+								continue
+				else
+					continue
 		clear_holo(master)//If not, we want to get rid of the hologram.
 
 	if(outgoing_call)
@@ -289,13 +296,32 @@ var/list/holopads = list()
 		to_chat(user, "<font color='red'>ERROR:</font> Unable to project hologram.")
 
 	if(!(stat & NOPOWER) && (!AI || AI.eyeobj.loc == loc))//If the projector has power and client eye is on it
-		if (AI && istype(AI.current, /obj/machinery/hologram/holopad))
+		if(AI && istype(AI.current, /obj/machinery/hologram/holopad))
 			to_chat(user, "<span class='danger'>ERROR:</span> \black Image feed in progress.")
 			return
 
+		var/obj/effect/overlay/holo_pad_hologram/hologram = new(loc)//Spawn a blank effect at the location.
+		if(isAI(user))
+			hologram.icon = AI.holo_icon
+		else	//make it like real life
+			hologram.icon = getHologramIcon(get_id_photo(user))
+			hologram.icon_state = user.icon_state
+			hologram.alpha = 100
+			hologram.Impersonation = user
+
+		//hologram.languages = user.languages
+		hologram.mouse_opacity = 0//So you can't click on it.
+		hologram.layer = FLY_LAYER//Above all the other objects/mobs. Or the vast majority of them.
+		hologram.anchored = 1//So space wind cannot drag it.
+		hologram.name = "[user.name] (hologram)"//If someone decides to right click.
+		hologram.set_light(2)	//hologram lighting
+
+		set_holo(user, hologram)
+
 		if(!masters[user])//If there is not already a hologram.
-			create_holo(user)//Create one.
 			visible_message("A holographic image of [user] flicks to life right before your eyes!")
+
+		return hologram
 
 	else
 		to_chat(user, "<span class='danger'>ERROR:</span> \black Unable to project hologram.")
@@ -335,27 +361,6 @@ For the other part of the code, check silicon say.dm. Particularly robot talk.*/
 		AI.current = src
 	SetLightsAndPower()
 	return TRUE
-
-/obj/machinery/hologram/holopad/proc/create_holo(mob/living/user, turf/T = loc)
-	var/obj/effect/overlay/holo_pad_hologram/hologram = new(loc)//Spawn a blank effect at the location.
-	if(isAI(user))
-		var/mob/living/silicon/ai/AI = user
-		hologram.icon = AI.holo_icon
-	else	//make it like real life
-		hologram.icon = user.icon
-		hologram.icon_state = user.icon_state
-		hologram.alpha = 100
-		hologram.Impersonation = user
-
-	//hologram.languages = user.languages
-	hologram.mouse_opacity = 0//So you can't click on it.
-	hologram.layer = FLY_LAYER//Above all the other objects/mobs. Or the vast majority of them.
-	hologram.anchored = 1//So space wind cannot drag it.
-	hologram.name = "[user.name] (hologram)"//If someone decides to right click.
-	hologram.set_light(2)	//hologram lighting
-
-	set_holo(user, hologram)
-	return 1
 
 /obj/machinery/hologram/holopad/proc/clear_holo(mob/living/user)
 	qdel(masters[user]) // Get rid of user's hologram

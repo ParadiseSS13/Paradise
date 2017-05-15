@@ -28,7 +28,7 @@
 
 	for(var/I in callees)
 		var/obj/machinery/hologram/holopad/H = I
-		if(!qdeleted(H) && !(H.stat & NOPOWER))
+		if(!qdeleted(H))// && !(H.stat & NOPOWER))
 			dialed_holopads += H
 			LAZYADD(H.holo_calls, src)
 
@@ -36,8 +36,6 @@
 		calling_holopad.atom_say("Connection failure.")
 		qdel(src)
 		return
-
-	log_debug("Holocall started")
 
 //cleans up ALL references :)
 /datum/holocall/Destroy()
@@ -62,13 +60,10 @@
 		connected_holopad.SetLightsAndPower()
 		connected_holopad = null
 
-	log_debug("Holocall destroyed")
-
 	return ..()
 
 //Gracefully disconnects a holopad `H` from a call. Pads not in the call are ignored. Notifies participants of the disconnection
 /datum/holocall/proc/Disconnect(obj/machinery/hologram/holopad/H)
-	testing("Holocall disconnect")
 	if(H == connected_holopad)
 		calling_holopad.atom_say("[usr] disconnected.")
 	else if(H == calling_holopad && connected_holopad)
@@ -78,7 +73,6 @@
 
 //Forcefully disconnects a holopad `H` from a call. Pads not in the call are ignored.
 /datum/holocall/proc/ConnectionFailure(obj/machinery/hologram/holopad/H, graceful = FALSE)
-	testing("Holocall connection failure: graceful [graceful]")
 	if(H == connected_holopad || H == calling_holopad)
 		if(!graceful)
 			calling_holopad.atom_say("Connection failure.")
@@ -90,12 +84,10 @@
 	if(!dialed_holopads.len)
 		if(graceful)
 			calling_holopad.atom_say("Call rejected.")
-		log_debug("No recipients, terminating")
 		qdel(src)
 
 //Answers a call made to a holopad `H` which cannot be the calling holopad. Pads not in the call are ignored
 /datum/holocall/proc/Answer(obj/machinery/hologram/holopad/H)
-	testing("Holocall answer")
 	if(H == calling_holopad)
 		CRASH("How cute, a holopad tried to answer itself.")
 
@@ -137,7 +129,7 @@
 /datum/holocall/proc/Check()
 	for(var/I in dialed_holopads)
 		var/obj/machinery/hologram/holopad/H = I
-		if(!(H.stat & NOPOWER))
+		if((H.stat & NOPOWER))
 			ConnectionFailure(H)
 
 	if(qdeleted(src))
@@ -155,5 +147,4 @@
 				calling_holopad.temp = ""
 
 	if(!.)
-		log_debug("Holocall Check fail")
 		qdel(src)
