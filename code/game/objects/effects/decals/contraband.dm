@@ -196,6 +196,24 @@ obj/structure/sign/poster/New(serial,var/subtypeIn = -1)
 			if(33)
 				name += " - The Griffin"
 				desc += " The Griffin commands you to be the worst you can be. Will you?"
+			if(34)
+				name += " - Turkeybot"
+				desc += " An advertisement from the Shellguard robotics sales department, showing off the new syndicate turkeybot!"
+			if(35)
+				name += " - Noble Honk"
+				desc += " A rather terrifying poster of a one off Shellguard Noble cyborg prototype."
+			if(36)
+				name += " - Cyborg Report"
+				desc += " A not very motivational poster talking about mining cyborg losses."
+			if(37)
+				name += " - Believe"
+				desc += " A religious poster."
+			if(38)
+				name += " - Honk the Horns"
+				desc += " Top of the charts in clown controlled space for over 25 years."
+			if(39)
+				name += " - Blink"
+				desc += " Maybe this poster will distract you just long enough for them to get you."
 			else
 				name += " - Error (subtype 0 serial_number)"
 				desc += " This is a bug, please report the circumstances under which you encountered this poster at https://github.com/tgstation/-tg-station/issues."
@@ -302,6 +320,39 @@ obj/structure/sign/poster/New(serial,var/subtypeIn = -1)
 			if(33)
 				name += " - The Owl"
 				desc += " The Owl would do his best to protect the station. Will you?"
+			if(34)
+				name += " - Noble-Sec"
+				desc += " A poster showing the release of the highly regarded Noble-Security cyborg."
+			if(35)
+				name += " - Noble-Janitor"
+				desc += " A poster showing the release of the highly regarded Noble-Janatorial cyborg."
+			if(36)
+				name += " - Shellguard Firearm"
+				desc += " An advertisement for a high quality Shellguard munitions pistol."
+			if(37)
+				name += " - Spider Risk"
+				desc += " A poster detailing what to do when giant spiders are seen."
+			if(38)
+				name += " - Chickenbot"
+				desc += " An advertisement from the Shellguard robotics sales department, showing off the new chickenbot."
+			if(39)
+				name += " - Kill Syndicate"
+				desc += " A poster demanding that all crew should be ready to fight the Syndicate."
+			if(40)
+				name += " - Information on Air"
+				desc += " A poster providing visual aid to remind crew of air canisters"
+			if(41)
+				name += " - Information on Air"
+				desc += " A poster providing visual aid to remind crew of air canisters"
+			if(42)
+				name += " - Nanotrasen Album"
+				desc += " Advertisement for Nanotrasens latest motivational music album"
+			if(43)
+				name += " - No to naughty!"
+				desc += " Don't you dare think of using those lusty xeno posters!"
+			if(44)
+				name += " - Stay Healthy!"
+				desc += " A healthy crew is a happy crew!"
 			else
 				name += " - Error (subtype 1 serial_number)"
 				desc += " This is a bug, please report the circumstances under which you encountered this poster at https://github.com/NTStation/NTstation13/issues."
