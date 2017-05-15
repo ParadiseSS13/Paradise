@@ -302,6 +302,27 @@ obj/structure/sign/poster/New(serial,var/subtypeIn = -1)
 			if(33)
 				name += " - The Owl"
 				desc += " The Owl would do his best to protect the station. Will you?"
+			if(34)
+				name += " - Spider Risk"
+				desc += " A poster detailing what to do when giant spiders are seen."
+			if(35)
+				name += " - Kill Syndicate"
+				desc += " A poster demanding that all crew should be ready to fight the Syndicate."
+			if(36)
+				name += " - Information on Air"
+				desc += " A poster providing visual aid to remind crew of air canisters"
+			if(37)
+				name += " - Information on Air"
+				desc += " A poster providing visual aid to remind crew of air canisters"
+			if(38)
+				name += " - Dig For Glory!"
+				desc += " A poster providing trying to convince crew to mine for ore."
+			if(39)
+				name += " - Religious Poster"
+				desc += " A generic religious poser telling you to believe."
+			if(40)
+				name += " - Stay Healthy!"
+				desc += " A healthy crew is a happy crew!"
 			else
 				name += " - Error (subtype 1 serial_number)"
 				desc += " This is a bug, please report the circumstances under which you encountered this poster at https://github.com/NTStation/NTstation13/issues."
