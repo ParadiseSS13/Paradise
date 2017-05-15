@@ -91,21 +91,6 @@
 	new /obj/item/weapon/implantcase/mindshield(src)
 	new /obj/item/weapon/implanter/mindshield(src)
 
-/obj/item/weapon/storage/lockbox/saber
-	name = "Nano Saber lockbox"
-	icon_state = "lockbox_saber"
-	item_state = "syringe_kit"
-	storage_slots = 1
-	icon_locked = "lockbox_saber"
-	icon_closed= "lockbox_saber_open"
-	desc = "Open only in emergency situation"
-	can_hold=list(/obj/item/weapon/melee/energy/saber)
-	req_access = list(access_security)
-
-/obj/item/weapon/storage/lockbox/saber/New()
-	..()
-	new /obj/item/weapon/melee/energy/saber(src)
-
 /obj/item/weapon/storage/lockbox/clusterbang
 	name = "lockbox (clusterbang)"
 	desc = "You have a bad feeling about opening this."

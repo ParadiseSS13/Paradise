@@ -398,7 +398,7 @@
 
 /obj/item/clothing/accessory/cowboyshirt/short_sleeved
 	name = "shortsleeved black cowboy shirt"
-	desc = "For when it's a hot day in the west. ooks like it can clip on to a uniform."
+	desc = "For when it's a hot day in the west. Looks like it can clip on to a uniform."
 	icon_state = "cowboyshirt_s"
 	item_state = "cowboyshirt_s"
 	item_color = "cowboyshirt_s"
@@ -409,7 +409,7 @@
 
 /obj/item/clothing/accessory/cowboyshirt/white
 	name = "white cowboy shirt"
-	desc = "For the rancher in us all. oks like it can clip on to a uniform."
+	desc = "For the rancher in us all. Looks like it can clip on to a uniform."
 	icon_state = "cowboyshirt_white"
 	item_state = "cowboyshirt_white"
 	item_color = "cowboyshirt_white"
