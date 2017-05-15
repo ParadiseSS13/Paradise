@@ -110,7 +110,7 @@ var/list/holopads = list()
 	if(!CheckCallClose())
 		return
 
-	if(outgoing_call || user.incapacitated() || !(stat & NOPOWER))
+	if(outgoing_call || user.incapacitated() || (stat & NOPOWER))
 		return
 
 	user.set_machine(src)
@@ -152,7 +152,7 @@ var/list/holopads = list()
 	if(..() || isAI(usr))
 		return
 	add_fingerprint(usr)
-	if(!(stat & NOPOWER))
+	if(stat & NOPOWER)
 		return
 	if (href_list["AIrequest"])
 		if(last_request + 200 < world.time)
@@ -247,7 +247,7 @@ var/list/holopads = list()
 
 					var/turf/target_turf = get_turf(AI.eyeobj)
 					var/newdir = AI.holo.dir
-					clear_holo()//If not, we want to get rid of the hologram.
+					clear_holo(master)//If not, we want to get rid of the hologram.
 					var/obj/machinery/hologram/holopad/pad_close = get_closest_atom(/obj/machinery/hologram/holopad, holopads, AI.eyeobj)
 					if(get_dist(pad_close, AI.eyeobj) <= pad_close.holo_range)
 						if(!(pad_close.stat & NOPOWER) && !pad_close.masters[src])
