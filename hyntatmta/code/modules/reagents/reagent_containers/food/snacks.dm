@@ -57,3 +57,18 @@
 /obj/item/weapon/reagent_containers/food/snacks/shubacarp/New()
 		..()
 		reagents.add_reagent("nutriment", 10)
+
+/obj/item/weapon/reagent_containers/food/snacks/sopademacaco
+	name = "Sopa de macaco"
+	desc = "Uma delicia! You can see monkey head swimming in this mess"
+	icon = 'hyntatmta/icons/obj/food/food.dmi'
+	icon_state = "sopa"
+	trash = /obj/item/trash/plate
+	filling_color = "cfbe02"
+
+/obj/item/weapon/reagent_containers/food/snacks/sopademacaco/New()
+		..()
+		reagents.add_reagent("nutriment", 15)
+		reagents.add_reagent("banana", 10)
+		reagents.add_reagent("msg", 5)
+		reagents.add_reagent("fartonium", 30)

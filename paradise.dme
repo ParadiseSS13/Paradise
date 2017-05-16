@@ -2228,6 +2228,7 @@
 #include "hyntatmta\code\modules\clothing\under\accessories\badges.dm"
 #include "hyntatmta\code\modules\customitems\item_defines.dm"
 #include "hyntatmta\code\modules\food\recipes_microwave.dm"
+#include "hyntatmta\code\modules\food\recipes_oven.dm"
 #include "hyntatmta\code\modules\karma\karma_admin.dm"
 #include "hyntatmta\code\modules\karma\karma_item.dm"
 #include "hyntatmta\code\modules\mob\adminrobot.dm"
