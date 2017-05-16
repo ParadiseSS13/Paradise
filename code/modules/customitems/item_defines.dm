@@ -830,3 +830,30 @@
 	new /obj/item/weapon/reagent_containers/food/drinks/drinkingglass/shotglass(src)
 	new /obj/item/weapon/reagent_containers/food/drinks/drinkingglass/shotglass(src)
 	new /obj/item/weapon/reagent_containers/food/drinks/bottle/fluff/moonshine(src)
+
+/obj/item/clothing/suit/toggle/lasshy_wings //Ssscratches: Lasshy
+	name = "fairy wings"
+	desc = "Fake but Real(TM) Fairy wings! They even flap a bit."
+	icon = 'icons/obj/custom_items.dmi'
+	icon_state = "lasshy_wings"
+	item_state = "lasshy_wings"
+	actions_types = list(/datum/action/item_action/toggle_wings)
+
+/obj/item/clothing/suit/toggle/lasshy_wings/update_icon(var/mob/living/carbon/human/user) //holy pickles, copied over from /obj/item/clothing/head/kitty
+	if(!istype(user))
+		return
+	var/obj/item/organ/external/head/head_organ = user.get_organ("head")
+	var/icon/icon_blended = icon("icon" = 'icons/mob/suit.dmi', "icon_state" = icon_state)
+	icon_blended.Blend(rgb(head_organ.r_hair, head_organ.g_hair, head_organ.b_hair), ICON_ADD)
+	icon_override = icon_blended
+
+/obj/item/clothing/suit/toggle/lasshy_wings/equipped(var/mob/M, slot)
+	. = ..()
+	if(ishuman(M) && slot == slot_wear_suit)
+		update_icon(M)
+
+/obj/item/clothing/suit/toggle/lasshy_wings/attack_self()
+	. = ..()
+	if(ishuman(loc))
+		var/mob/living/carbon/human/H = loc
+		update_icon(H)

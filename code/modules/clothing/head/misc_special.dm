@@ -179,7 +179,8 @@
 	var/icon/mob
 
 /obj/item/clothing/head/kitty/update_icon(var/mob/living/carbon/human/user)
-	if(!istype(user)) return
+	if(!istype(user))
+		return
 	var/obj/item/organ/external/head/head_organ = user.get_organ("head")
 
 	mob = new/icon("icon" = 'icons/mob/head.dmi', "icon_state" = "kitty")
