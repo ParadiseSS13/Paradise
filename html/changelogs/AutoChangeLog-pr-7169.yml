@@ -1,0 +1,5 @@
+author: "uraniummeltdown"
+delete-after: True
+changes: 
+  - tweak: "You can now resist out of straightjackets"
+  - tweak: "Straightjacketed people can be handcuffed"
