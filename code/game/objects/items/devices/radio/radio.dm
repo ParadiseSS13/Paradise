@@ -267,6 +267,7 @@ var/global/list/default_medbay_channels = list(
 /mob/living/automatedannouncer/Destroy()
 	if(lifetime_timer)
 		deltimer(lifetime_timer)
+		lifetime_timer = null
 	return ..()
 
 /mob/living/automatedannouncer/proc/autocleanup()

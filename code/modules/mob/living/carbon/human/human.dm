@@ -1406,6 +1406,14 @@
 		if(..())
 			unEquip(I)
 
+/mob/living/carbon/human/resist_restraints()
+	if(wear_suit && wear_suit.breakouttime)
+		changeNext_move(CLICK_CD_BREAKOUT)
+		last_special = world.time + CLICK_CD_BREAKOUT
+		cuff_resist(wear_suit)
+	else
+		..()
+
 /mob/living/carbon/human/get_visible_implants(var/class = 0)
 
 	var/list/visible_implants = list()

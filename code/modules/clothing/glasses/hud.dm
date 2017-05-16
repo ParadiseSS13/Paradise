@@ -33,7 +33,8 @@
 	species_fit = list("Vox")
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/species/vox/eyes.dmi',
-		"Drask" = 'icons/mob/species/drask/eyes.dmi'
+		"Drask" = 'icons/mob/species/drask/eyes.dmi',
+		"Grey" = 'icons/mob/species/grey/eyes.dmi'
 		)
 
 /obj/item/clothing/glasses/hud/health/health_advanced
@@ -113,6 +114,12 @@
 	flash_protect = 1
 	tint = 1
 	prescription_upgradable = 1
+	species_fit = list("Vox")
+	sprite_sheets = list(
+		"Vox" = 'icons/mob/species/vox/eyes.dmi',
+		"Drask" = 'icons/mob/species/drask/eyes.dmi',
+		"Grey" = 'icons/mob/species/grey/eyes.dmi'
+	)
 
 /obj/item/clothing/glasses/hud/security/sunglasses/prescription
 	prescription = 1

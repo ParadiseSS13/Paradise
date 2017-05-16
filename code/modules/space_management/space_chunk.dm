@@ -28,9 +28,7 @@
 	set_occupied(FALSE)
 	if(parent)
 		parent.children -= src
-	for(var/datum/space_chunk/child in children)
-		qdel(child)
-	children.Cut()
+	QDEL_LIST(children)
 	parent = null
 	. = ..()
 

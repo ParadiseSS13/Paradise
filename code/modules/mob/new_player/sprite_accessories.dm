@@ -566,6 +566,12 @@
 	name = "Unathi Side Frills"
 	icon_state = "unathi_sidefrills"
 	secondary_theme = "webbing"
+	
+/datum/sprite_accessory/hair/unathi/una_cobra_hood
+    icon = 'icons/mob/human_face.dmi'
+    name = "Unathi Cobra Hood"
+    icon_state = "unathi_cobrahood"
+    secondary_theme = "webbing"
 
 /datum/sprite_accessory/hair/unathi/una_frills_dorsal
 	icon = 'icons/mob/human_face.dmi'

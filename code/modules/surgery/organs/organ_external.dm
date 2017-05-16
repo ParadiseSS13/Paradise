@@ -96,9 +96,7 @@
 	if(owner)
 		owner.bodyparts_by_name[limb_name] = null
 
-	if(children)
-		for(var/obj/item/organ/external/C in children)
-			qdel(C)
+	QDEL_LIST(children)
 
 	if(wound_cleanup_timer)
 		deltimer(wound_cleanup_timer)

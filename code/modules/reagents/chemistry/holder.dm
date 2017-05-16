@@ -747,9 +747,7 @@ atom/proc/create_reagents(max_vol)
 /datum/reagents/Destroy()
 	. = ..()
 	processing_objects -= src
-	for(var/datum/reagent/R in reagent_list)
-		qdel(R)
-	reagent_list.Cut()
+	QDEL_LIST(reagent_list)
 	reagent_list = null
 	if(my_atom && my_atom.reagents == src)
 		my_atom.reagents = null

@@ -49,9 +49,7 @@ var/list/blacklisted_tesla_types = typecacheof(list(/obj/machinery/atmospherics,
 		EB.orbiting_balls -= src
 		orbiting = null
 
-	for(var/ball in orbiting_balls)
-		var/obj/singularity/energy_ball/EB = ball
-		qdel(EB)
+	QDEL_LIST(orbiting_balls)
 
 	return ..()
 

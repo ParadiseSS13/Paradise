@@ -20,6 +20,7 @@ var/global/list/image/splatter_cache=list()
 	var/basecolor="#A10808" // Color when wet.
 	var/amount = 5
 	appearance_flags = NO_CLIENT_COLOR
+	var/dry_timer = 0
 
 /obj/effect/decal/cleanable/blood/New()
 	..()
@@ -41,8 +42,7 @@ var/global/list/image/splatter_cache=list()
 					if(B.blood_DNA)
 						blood_DNA |= B.blood_DNA.Copy()
 					qdel(B)
-	spawn(DRYING_TIME * (amount+1))
-		dry()
+	dry_timer = addtimer(src, "dry", DRYING_TIME * (amount+1))
 
 /obj/effect/decal/cleanable/blood/Destroy()
 	if(GAMEMODE_IS_CULT)
@@ -51,7 +51,9 @@ var/global/list/image/splatter_cache=list()
 		if(T && (is_station_level(T.z)))
 			mode_ticker.bloody_floors -= T
 			mode_ticker.blood_check()
-	.=..()
+	if(dry_timer)
+		deltimer(dry_timer)
+	return ..()
 
 /obj/effect/decal/cleanable/blood/update_icon()
 	if(basecolor == "rainbow") basecolor = "#[pick(list("FF0000","FF7F00","FFFF00","00FF00","0000FF","4B0082","8F00FF"))]"
@@ -137,8 +139,7 @@ var/global/list/image/splatter_cache=list()
 
 /obj/effect/decal/cleanable/blood/drip/New()
 	..()
-	spawn(1)
-		drips |= icon_state
+	drips |= icon_state
 
 /obj/effect/decal/cleanable/blood/writing
 	icon_state = "tracks"
