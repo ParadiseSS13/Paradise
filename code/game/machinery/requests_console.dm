@@ -58,6 +58,8 @@ var/list/obj/machinery/requests_console/allConsoles = list()
 	var/ship_tag_name = ""
 	var/ship_tag_index = 0
 	var/print_cooldown = 0	//cooldown on shipping label printer, stores the  in-game time of when the printer will next be ready
+	var/obj/item/device/radio/Radio
+	var/radiochannel = ""
 
 /obj/machinery/requests_console/power_change()
 	..()
@@ -71,6 +73,10 @@ var/list/obj/machinery/requests_console/allConsoles = list()
 		icon_state = "req_comp[newmessagepriority]"
 
 /obj/machinery/requests_console/New()
+	Radio = new /obj/item/device/radio(src)
+	Radio.listening = 1
+	Radio.config(list("Engineering","Medical","Supply","Command","Science","Service","Security", "AI Private" = 0))
+	Radio.follow_target = src
 	..()
 
 	announcement.title = "[department] announcement"
@@ -101,6 +107,7 @@ var/list/obj/machinery/requests_console/allConsoles = list()
 			req_console_supplies -= department
 		if(departmentType & RC_INFO)
 			req_console_information -= department
+	QDEL_NULL(Radio)
 	return ..()
 
 /obj/machinery/requests_console/attack_ghost(user as mob)
@@ -189,7 +196,24 @@ var/list/obj/machinery/requests_console/allConsoles = list()
 			pass = 1
 		if(pass)
 			screen = RCS_SENTPASS
-			message_log += "<B>Message sent to [recipient]</B><BR>[message]"
+			if(recipient in list("Atmospherics","Mechanic","Engineering","Chief Engineer's Desk"))
+				radiochannel = "Engineering"
+			if(recipient in list("Warden","Security","Brig Medbay","Head of Security's Desk"))
+				radiochannel = "Security"
+			if(recipient in list("Bar","Chapel","Kitchen","Hydroponics","Janitorial"))
+				radiochannel = "Service"
+			if(recipient in list("Virology","Chief Medical Officer's Desk","Medbay",))
+				radiochannel = "Medical"
+			if(recipient in list("Blueshield","NT Representative","Head of Personnel's Desk","Captain's Desk","Bridge"))
+				radiochannel = "Command"
+			if(recipient == "Cargo Bay")
+				radiochannel = "Supply"
+			if(recipient in list("Robotics","Science","Research Director's Desk"))
+				radiochannel = "Science"
+			if(recipient == "AI")
+				radiochannel = "AI Private"
+			message_log += "<B>Message sent to [recipient] at [worldtime2text()]</B><BR>[message]"
+			Radio.autosay("Alert, a new requests console message recieved for [recipient] from [department]", null, "[radiochannel]")
 		else
 			audible_message(text("[bicon(src)] *The Requests Console beeps: '<b>NOTICE:</b> No server detected!'"),,4)
 
