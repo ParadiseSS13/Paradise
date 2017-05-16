@@ -2211,6 +2211,7 @@
 #include "hyntatmta\code\game\objects\items\weapons\reagent_containers\wineglass.dm"
 #include "hyntatmta\code\game\objects\items\weapons\storage\belt.dm"
 #include "hyntatmta\code\game\objects\items\weapons\storage\boxes.dm"
+#include "hyntatmta\code\game\objects\structures\statues.dm"
 #include "hyntatmta\code\game\objects\structures\watercloset.dm"
 #include "hyntatmta\code\modules\admin\verbs\atmta_secrets.dm"
 #include "hyntatmta\code\modules\admin\verbs\striketeam_doom.dm"
