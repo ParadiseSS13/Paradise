@@ -1,0 +1,7 @@
+author: "FreeStylaLT"
+delete-after: True
+changes: 
+  - bugfix: "Fixed broken disposals in brig."
+  - bugfix: "Returned missing Sergeant Araneus to HoS office."
+  - bugfix: "Fixed missing floor tiles in the execution hallway in Brig."
+  - tweak: "Remapped the entire Brig."
