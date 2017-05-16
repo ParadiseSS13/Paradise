@@ -411,7 +411,7 @@
 "ahU" = (/obj/effect/decal/warning_stripes/northwest,/obj/effect/decal/warning_stripes/southeastcorner,/obj/item/device/radio/intercom{dir = 8; name = "station intercom (General)"; pixel_x = -28},/obj/machinery/status_display{density = 0; layer = 4; pixel_x = 0; pixel_y = 32},/turf/simulated/floor/plasteel{icon_state = "dark"},/area/security/securearmoury)
 "ahV" = (/obj/effect/decal/warning_stripes/north,/obj/effect/decal/warning_stripes/south,/turf/simulated/floor/plasteel{icon_state = "dark"},/area/security/securearmoury)
 "ahW" = (/obj/machinery/ai_status_display{pixel_x = 0; pixel_y = 32},/obj/effect/decal/warning_stripes/northeast,/obj/effect/decal/warning_stripes/southwestcorner,/turf/simulated/floor/plasteel{icon_state = "dark"},/area/security/securearmoury)
-"ahX" = (/obj/structure/toilet{pixel_y = 8},/turf/simulated/floor/plasteel{icon_state = "freezerfloor"},/area/security/vacantoffice{name = "\improper Security Toilet"})
+"ahX" = (/obj/structure/toilet{pixel_y = 8},/obj/machinery/newscaster{pixel_x = -30; pixel_y = 0},/turf/simulated/floor/plasteel{icon_state = "freezerfloor"},/area/security/vacantoffice{name = "\improper Security Toilet"})
 "ahY" = (/obj/effect/spawner/window/reinforced,/turf/simulated/floor/plating,/area/security/vacantoffice{name = "\improper Security Toilet"})
 "ahZ" = (/obj/machinery/door/airlock/hatch{req_access_txt = "152"},/turf/simulated/shuttle/plating/vox,/area/shuttle/vox)
 "aia" = (/obj/machinery/atmospherics/unary/vent_scrubber{dir = 4; on = 1; scrub_N2O = 1; scrub_Toxins = 1},/obj/item/device/radio/intercom/locked/prison{pixel_x = -25; pixel_y = 0},/turf/simulated/floor/plating,/area/security/permabrig)
