@@ -82,7 +82,20 @@ var/global/admin_ooc_colour = "#b82e00"
 			if(!config.disable_ooc_emoji)
 				msg = "<span class='emoji_enabled'>[msg]</span>"
 
+			msg = apply_formatting(msg)
+
 			to_chat(C, "<font color='[display_colour]'><span class='ooc'><span class='prefix'>OOC:</span> <EM>[display_name]:</EM> <span class='message'>[msg]</span></span></font>")
+
+/proc/apply_formatting(message)
+	var/static/regex/italics = new("(?<!\\\\)\\*(.*?)(?<!\\\\)\\*", "g")
+	var/static/regex/strikethrough = new("(?<!\\\\)~(?<!\\\\)~(.*?)(?<!\\\\)~(?<!\\\\)~", "g")
+	var/static/regex/escape = new("(?<!\\\\)\\\\(\[~\\*\\\\\])", "g")
+
+	message = italics.Replace(message, "<i>$1</i>")
+	message = strikethrough.Replace(message, "<s>$1</s>")
+	message = escape.Replace(message, "$1")//jesus christ, regex
+
+	return message
 
 /proc/toggle_ooc()
 	config.ooc_allowed = ( !config.ooc_allowed )

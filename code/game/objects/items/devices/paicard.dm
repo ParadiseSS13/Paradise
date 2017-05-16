@@ -31,8 +31,7 @@
 /obj/item/device/paicard/Destroy()
 	if(pai)
 		pai.ghostize()
-		qdel(pai)
-		pai = null
+		QDEL_NULL(pai)
 	QDEL_NULL(radio)
 	return ..()
 

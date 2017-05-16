@@ -37,10 +37,8 @@
 
 /obj/item/weapon/gun/throw/Destroy()
 	QDEL_NULL(to_launch)
-	for(var/atom/A in loaded_projectiles)
-		qdel(A)
+	QDEL_LIST(loaded_projectiles)
 	loaded_projectiles = null
-
 	return ..()
 
 /obj/item/weapon/gun/throw/update_icon()

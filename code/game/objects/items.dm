@@ -85,8 +85,8 @@ var/global/image/fire_overlay = image("icon" = 'icons/goonstation/effects/fire.d
 	if(ismob(loc))
 		var/mob/m = loc
 		m.unEquip(src, 1)
-	for(var/X in actions)
-		qdel(X)
+	QDEL_LIST(actions)
+	master = null
 	return ..()
 
 /obj/item/proc/check_allowed_items(atom/target, not_inside, target_self)

@@ -235,7 +235,7 @@
 
 /obj/item/clothing/shoes/cowboyboots
 	name = "cowboy boots"
-	desc = "A pair a' dark brown boots."
+	desc = "A pair a' brown boots."
 	icon_state = "cowboyboots"
 	item_color = "cowboyboots"
 
