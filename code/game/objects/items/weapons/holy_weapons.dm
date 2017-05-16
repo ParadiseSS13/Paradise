@@ -283,12 +283,16 @@
 
 /obj/item/weapon/nullrod/whip
 	name = "holy whip"
-	desc = "What a terrible night to be on Space Station 13."
+	desc = "What a terrible night to be in spess"
 	icon_state = "chain"
 	item_state = "chain"
 	slot_flags = SLOT_BELT
 	attack_verb = list("whipped", "lashed")
 	hitsound = 'sound/weapons/slash.ogg'
+
+/obj/item/weapon/nullrod/whip/New()
+	..()
+	desc = "What a terrible night to be on the [station_name()]."
 
 /obj/item/weapon/nullrod/whip/afterattack(atom/movable/AM, mob/user, proximity)
 	if(!proximity)
