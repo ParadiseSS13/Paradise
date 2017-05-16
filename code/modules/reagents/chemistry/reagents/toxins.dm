@@ -502,6 +502,24 @@
 	M.adjustToxLoss(1)
 	..()
 
+/datum/reagent/somnistimine
+	name = "Somnistimine"
+	id = "somnistimine"
+	description = "A powerful tranquilizer."
+	reagent_state = LIQUID
+	color = "#2E2E61"
+	metabolization_rate = 0.4
+
+/datum/reagent/somnistimine/on_mob_life(mob/living/M)
+	switch(current_cycle)
+		if(1 to 4)
+			M.AdjustEyeBlurry(5)
+			if(prob(25))
+				M.emote("yawn")
+		if(5 to INFINITY)
+			M.Weaken(3)
+	..()
+
 /datum/reagent/cyanide
 	name = "Cyanide"
 	id = "cyanide"

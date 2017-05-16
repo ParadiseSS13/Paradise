@@ -805,22 +805,22 @@
 	drink_name = "Amasec"
 	drink_desc = "Always handy before COMBAT!!!"
 
-/datum/reagent/consumable/ethanol/neurotoxin
-	name = "Neuro-toxin"
-	id = "neurotoxin"
-	description = "A strong neurotoxin that puts the subject into a death-like state."
+/datum/reagent/consumable/ethanol/brainbleach
+	name = "Brain Bleach"
+	id = "brainbleach"
+	description = "A strong nerve cell killer, that causes brain damage."
 	reagent_state = LIQUID
 	color = "#2E2E61" // rgb: 46, 46, 97
 	dizzy_adj = 6
 	alcohol_perc = 0.7
 	heart_rate_decrease = 1
 	drink_icon = "neurotoxinglass"
-	drink_name = "Neurotoxin"
-	drink_desc = "A drink that is guaranteed to knock you silly."
+	drink_name = "Brain Bleach"
+	drink_desc = "A drink that prunes your excess neurons."
 
-/datum/reagent/consumable/ethanol/neurotoxin/on_mob_life(mob/living/M)
-	M.Weaken(3)
-	if(current_cycle >=55)
+/datum/reagent/consumable/ethanol/brainbleach/on_mob_life(mob/living/M)
+	if(current_cycle >=30)
+		M.AdjustDizzy(1)
 		M.Druggy(55)
 	if(current_cycle >=200)
 		M.adjustToxLoss(2)
