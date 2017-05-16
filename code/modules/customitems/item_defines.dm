@@ -830,3 +830,13 @@
 	new /obj/item/weapon/reagent_containers/food/drinks/drinkingglass/shotglass(src)
 	new /obj/item/weapon/reagent_containers/food/drinks/drinkingglass/shotglass(src)
 	new /obj/item/weapon/reagent_containers/food/drinks/bottle/fluff/moonshine(src)
+
+
+
+/obj/item/clothing/accessory/necklace/locket/fethasnecklace //Fethas: Sefra'neem
+	name = "Orange gemmed locket"
+	desc = "a locket with an orange gem set on the front, the picture inside seems to be of a Tajaran."
+	icon = 'icons/obj/custom_items.dmi'
+	icon_state = "fethasnecklace"
+	item_state = "fethasnecklace"
+	slot_flags = SLOT_MASK | SLOT_TIE
