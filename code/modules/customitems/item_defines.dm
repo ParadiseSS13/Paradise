@@ -835,7 +835,7 @@
 
 /obj/item/clothing/accessory/necklace/locket/fethasnecklace //Fethas: Sefra'neem
 	name = "Orange gemmed locket"
-	desc = "a locket with an orange gem set on the front, the picture inside seems to be of a Tajaran."
+	desc = "a locket with a orange gem set on the front, the picture inside seems to be of a Tajaran."
 	icon = 'icons/obj/custom_items.dmi'
 	icon_state = "fethasnecklace"
 	item_state = "fethasnecklace"
