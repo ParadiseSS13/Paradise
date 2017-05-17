@@ -66,7 +66,7 @@
 			else								//Everyone else fails, skip the emote attempt
 				return
 
-		if("scream", "screams")
+		if("scream", "screams", "slap", "slaps")
 			on_CD = handle_emote_CD(50) //longer cooldown
 		if("fart", "farts", "flip", "flips", "snap", "snaps")
 			on_CD = handle_emote_CD()				//proc located in code\modules\mob\emote.dm
