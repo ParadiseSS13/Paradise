@@ -480,11 +480,6 @@
 	var/mob/living/carbon/human/H = src
 
 	if(H.species.exotic_blood)
-		if(!T)
-			T = get_turf(src)
-		var/datum/reagent/R = chemical_reagents_list[H.get_blood_id()]
-		if(istype(R))
-			R.reaction_turf(T, R.volume)
 		return
 
 	for(var/obj/effect/decal/cleanable/trail_holder/C in loc) //checks for blood splatter already on the floor
