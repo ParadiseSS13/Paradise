@@ -368,8 +368,11 @@
 			breakthrough = 1
 
 		else
-			throwing = 0 //so mechas don't get stuck when landing after being sent by a Mass Driver
+			if(throwing)
+				throwing.finalize(FALSE)
 			crashing = null
+
+		..()
 
 		if(breakthrough)
 			if(crashing)
@@ -524,7 +527,7 @@
 			user.create_attack_log("<font color='red'>attacked [name]</font>")
 	return
 
-/obj/mecha/hitby(atom/movable/A as mob|obj) //wrapper
+/obj/mecha/hitby(atom/movable/A) //wrapper
 	..()
 	log_message("Hit by [A].",1)
 
@@ -537,6 +540,7 @@
 			dam_coeff = B.damage_coeff
 			counter_tracking = 1
 			break
+
 	if(istype(A, /obj/item/mecha_parts/mecha_tracking))
 		if(!counter_tracking)
 			A.forceMove(src)

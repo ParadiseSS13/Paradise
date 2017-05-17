@@ -539,10 +539,10 @@
 	card.forceMove(card.loc)
 	icon_state = "[chassis]"
 
-/mob/living/silicon/pai/Bump(atom/movable/AM as mob|obj, yes)
+/mob/living/silicon/pai/Bump()
 	return
 
-/mob/living/silicon/pai/Bumped(AM as mob|obj)
+/mob/living/silicon/pai/Bumped()
 	return
 
 /mob/living/silicon/pai/start_pulling(var/atom/movable/AM)

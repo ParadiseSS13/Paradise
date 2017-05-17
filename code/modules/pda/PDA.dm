@@ -502,8 +502,3 @@ var/global/list/obj/item/device/pda/PDAs = list()
 /obj/item/device/pda/process()
 	if(current_app)
 		current_app.program_process()
-
-/obj/item/device/pda/hit_check(speed)
-	if(current_app)
-		current_app.program_hit_check()
-	..()
