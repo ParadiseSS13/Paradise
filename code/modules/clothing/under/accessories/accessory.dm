@@ -414,15 +414,15 @@
 		base_icon = icon_state
 
 	if(!("[base_icon]_open" in icon_states(icon)))
-		to_chat(user, "The [src] doesn't seem to open.")
+		to_chat(user, "[src] doesn't seem to open.")
 		return
 
 	open = !open
-	to_chat(user, "You flip the [src] [open?"open":"closed"].")
+	to_chat(user, "You flip [src] [open?"open":"closed"].")
 	if(open)
 		icon_state = "[base_icon]_open"
 		if(held)
-			to_chat(user, "The [held] falls out!")
+			to_chat(user, "[held] falls out!")
 			held.forceMove(get_turf(user))
 			held = null
 	else
@@ -435,7 +435,7 @@
 
 	if(istype(O,/obj/item/weapon/paper) || istype(O, /obj/item/weapon/photo) && !(istype(O, /obj/item/weapon/paper/talisman)))
 		if(held)
-			to_chat(usr, "The [src] already has something inside it.")
+			to_chat(usr, "[src] already has something inside it.")
 		else
 			to_chat(usr, "You slip [O] into [src].")
 			user.drop_item()
