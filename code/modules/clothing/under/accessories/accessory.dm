@@ -390,6 +390,7 @@
 	desc = "A simple necklace."
 	icon_state = "necklace"
 	item_state = "necklace"
+	item_color = "necklace"
 	slot_flags = SLOT_MASK | SLOT_TIE
 
 /obj/item/clothing/accessory/necklace/locket
@@ -397,6 +398,7 @@
 	desc = "A gold locket that seems to have space for a photo within."
 	icon_state = "locket"
 	item_state = "locket"
+	item_color = "locket"
 	slot_flags = SLOT_MASK | SLOT_TIE
 	var/base_icon
 	var/open
@@ -404,6 +406,8 @@
 
 /obj/item/clothing/accessory/necklace/locket/Destroy()
 	QDEL_NULL(held)
+	return ..()
+
 
 /obj/item/clothing/accessory/necklace/locket/attack_self(mob/user as mob)
 	if(!base_icon)
@@ -439,7 +443,6 @@
 			held = O
 	else
 		return ..()
-
 
 //Cowboy Shirts
 /obj/item/clothing/accessory/cowboyshirt
