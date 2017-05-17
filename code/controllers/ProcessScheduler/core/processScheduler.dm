@@ -122,6 +122,7 @@ var/global/datum/controller/processScheduler/processScheduler
 	process.idle()
 	idle.Add(process)
 
+	process.assertGlobality()
 	// Set up process
 	process.setup()
 
@@ -132,6 +133,8 @@ var/global/datum/controller/processScheduler/processScheduler
 	processes.Remove(oldProcess)
 	processes.Add(newProcess)
 
+	oldProcess.releaseGlobality()
+	newProcess.assertGlobality()
 	newProcess.idle()
 	idle.Remove(oldProcess)
 	running.Remove(oldProcess)

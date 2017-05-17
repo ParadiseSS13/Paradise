@@ -82,12 +82,8 @@
 /obj/machinery/clonepod/Destroy()
 	if(connected)
 		connected.pods -= src
-	if(Radio)
-		qdel(Radio)
-		Radio = null
-	if(countdown)
-		qdel(countdown)
-		countdown = null
+	QDEL_NULL(Radio)
+	QDEL_NULL(countdown)
 	return ..()
 
 /obj/machinery/clonepod/RefreshParts()
@@ -104,12 +100,16 @@
 /obj/item/weapon/disk/data
 	name = "Cloning Data Disk"
 	icon_state = "datadisk0" //Gosh I hope syndies don't mistake them for the nuke disk.
-	var/datum/dna2/record/buf=null
+	var/datum/dna2/record/buf = null
 	var/read_only = 0 //Well,it's still a floppy disk
 
 /obj/item/weapon/disk/data/proc/Initialize()
 	buf = new
 	buf.dna=new
+
+/obj/item/weapon/disk/data/Destroy()
+	QDEL_NULL(buf)
+	return ..()
 
 /obj/item/weapon/disk/data/demo
 	name = "data disk - 'God Emperor of Mankind'"
@@ -122,10 +122,11 @@
 	//data = "0C80C80C80C80C80C8000000000000161FBDDEF" - Farmer Jeff
 	buf.dna.real_name="God Emperor of Mankind"
 	buf.dna.unique_enzymes = md5(buf.dna.real_name)
-	buf.dna.UI=list(0x066,0x000,0x033,0x000,0x000,0x000,0xAF0,0x000,0x000,0x000,0x000,0x000,0x000,0x000,0x000,0x000,0x033,0x066,0x0FF,0x4DB,0x002,0x690,0x000,0x000)
+	buf.dna.UI=list(0x066,0x000,0x033,0x000,0x000,0x000,0x000,0x000,0x000,0x000,0x000,0x000,0xAF0,0x000,0x000,0x000,0x000,0x000,0x000,0x000,0x000,0x000,0x033,0x066,0x0FF,0x4DB,0x002,0x690,0x000,0x000,0x000,0x328,0x045,0x5FC,0x053,0x035,0x035,0x035)
 	//buf.dna.UI=list(0x0C8,0x0C8,0x0C8,0x0C8,0x0C8,0x0C8,0x000,0x000,0x000,0x000,0x161,0xFBD,0xDEF) // Farmer Jeff
-	for(var/i in buf.dna.UI.len to DNA_UI_LENGTH)
-		buf.dna.UI += 0x000
+	if(buf.dna.UI.len != DNA_UI_LENGTH) //If there's a disparity b/w the dna UI string lengths, 0-fill the extra blocks in this UI.
+		for(var/i in buf.dna.UI.len to DNA_UI_LENGTH)
+			buf.dna.UI += 0x000
 	buf.dna.ResetSE()
 	buf.dna.UpdateUI()
 
@@ -367,14 +368,14 @@
 
 //Removing cloning pod biomass
 	else if(istype(W, /obj/item/weapon/reagent_containers/food/snacks/meat))
-		to_chat(user, "\blue \The [src] processes \the [W].")
+		to_chat(user, "<span class='notice'>\The [src] processes \the [W].</span>")
 		biomass += BIOMASS_MEAT_AMOUNT
 		user.drop_item()
 		qdel(W)
 		return
 	else if(istype(W, /obj/item/weapon/wrench))
 		if(locked && (anchored || occupant))
-			to_chat(user, "\red Can not do that while [src] is in use.")
+			to_chat(user, "<span class='warning'>Can not do that while [src] is in use.</span>")
 		else
 			if(anchored)
 				anchored = 0

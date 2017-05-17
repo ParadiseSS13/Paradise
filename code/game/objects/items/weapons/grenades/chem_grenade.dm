@@ -27,12 +27,8 @@
 	update_icon()
 
 /obj/item/weapon/grenade/chem_grenade/Destroy()
-	if(nadeassembly)
-		qdel(nadeassembly)
-		nadeassembly = null
-	for(var/thing in beakers)
-		qdel(thing)
-	beakers.Cut()
+	QDEL_NULL(nadeassembly)
+	QDEL_LIST(beakers)
 	return ..()
 
 /obj/item/weapon/grenade/chem_grenade/examine(mob/user)

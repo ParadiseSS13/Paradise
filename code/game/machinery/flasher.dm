@@ -43,9 +43,9 @@
 		add_fingerprint(user)
 		disable = !disable
 		if(disable)
-			user.visible_message("\red [user] has disconnected the [src]'s flashbulb!", "\red You disconnect the [src]'s flashbulb!")
+			user.visible_message("<span class='warning'>[user] has disconnected the [src]'s flashbulb!</span>", "<span class='warning'>You disconnect the [src]'s flashbulb!</span>")
 		if(!disable)
-			user.visible_message("\red [user] has connected the [src]'s flashbulb!", "\red You connect the [src]'s flashbulb!")
+			user.visible_message("<span class='warning'>[user] has connected the [src]'s flashbulb!</span>", "<span class='warning'>You connect the [src]'s flashbulb!</span>")
 
 //Let the AI trigger them directly.
 /obj/machinery/flasher/attack_ai(mob/user)
@@ -101,11 +101,11 @@
 		anchored = !anchored
 
 		if(!anchored)
-			user.show_message(text("\red [src] can now be moved."))
+			user.show_message(text("<span class='warning'>[src] can now be moved.</span>"))
 			overlays.Cut()
 
 		else if(anchored)
-			user.show_message(text("\red [src] is now secured."))
+			user.show_message(text("<span class='warning'>[src] is now secured.</span>"))
 			overlays += "[base_state]-s"
 
 // Flasher button

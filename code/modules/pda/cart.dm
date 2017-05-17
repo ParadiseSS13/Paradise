@@ -24,15 +24,9 @@
 	..()
 
 /obj/item/weapon/cartridge/Destroy()
-	if(radio)
-		qdel(radio)
-		radio = null
-	for(var/A in programs)
-		qdel(A)
-	programs.Cut()
-	for(var/A in messenger_plugins)
-		qdel(A)
-	messenger_plugins.Cut()
+	QDEL_NULL(radio)
+	QDEL_LIST(programs)
+	QDEL_LIST(messenger_plugins)
 	return ..()
 
 /obj/item/weapon/cartridge/proc/update_programs(obj/item/device/pda/pda)

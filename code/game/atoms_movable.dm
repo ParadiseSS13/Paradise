@@ -26,7 +26,7 @@
 
 	// If you're wondering what goofery this is, this is for things that need the environment
 	// around them set up - like `air_update_turf` and the like
-	if((ticker && ticker.current_state == GAME_STATE_PLAYING))
+	if((ticker && ticker.current_state >= GAME_STATE_SETTING_UP))
 		attempt_init()
 
 /atom/movable/Destroy()
@@ -231,7 +231,7 @@
 			if(isobj(A))
 				if(A.density && !A.throwpass)	// **TODO: Better behaviour for windows which are dense, but shouldn't always stop movement
 					src.throw_impact(A,speed)
-					
+
 /atom/movable/proc/throw_at_fast(atom/target, range, speed, thrower, no_spin)
 	set waitfor = 0
 	throw_at(target, range, speed, thrower, no_spin)

@@ -11,12 +11,8 @@
 	var/obj/item/weapon/card/id/stored_card2 = null
 
 /obj/item/weapon/computer_hardware/card_slot/Destroy()
-	if(stored_card)
-		qdel(stored_card)
-		stored_card = null
-	if(stored_card2)
-		qdel(stored_card2)
-		stored_card2 = null
+	QDEL_NULL(stored_card)
+	QDEL_NULL(stored_card2)
 	return ..()
 
 /obj/item/weapon/computer_hardware/card_slot/GetAccess()

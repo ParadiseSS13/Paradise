@@ -69,9 +69,7 @@
 			genes += new /datum/plant_gene/reagent(reag_id, reagents_add[reag_id])
 
 /obj/item/seeds/Destroy()
-	for(var/thing in genes)
-		qdel(thing)
-	genes.Cut()
+	QDEL_LIST(genes)
 	return ..()
 
 /obj/item/seeds/proc/Copy()

@@ -17,10 +17,8 @@
 	med_hud_set_status()
 
 /mob/living/carbon/Destroy()
-	for(var/atom/movable/guts in internal_organs)
-		qdel(guts)
-	for(var/atom/movable/food in stomach_contents)
-		qdel(food)
+	QDEL_LIST(internal_organs)
+	QDEL_LIST(stomach_contents)
 	remove_from_all_data_huds()
 	return ..()
 
@@ -56,7 +54,7 @@
 		last_stomach_attack = world.time
 		for(var/mob/M in hearers(4, src))
 			if(M.client)
-				M.show_message(text("\red You hear something rumbling inside [src]'s stomach..."), 2)
+				M.show_message(text("<span class='warning'>You hear something rumbling inside [src]'s stomach...</span>"), 2)
 
 		var/obj/item/I = user.get_active_hand()
 		if(I && I.force)
@@ -76,7 +74,7 @@
 
 			for(var/mob/M in viewers(user, null))
 				if(M.client)
-					M.show_message(text("\red <B>[user] attacks [src]'s stomach wall with the [I.name]!"), 2)
+					M.show_message(text("<span class='warning'><B>[user] attacks [src]'s stomach wall with the [I.name]!</span>"), 2)
 			playsound(user.loc, 'sound/effects/attackblob.ogg', 50, 1)
 
 			if(prob(src.getBruteLoss() - 50))
@@ -143,16 +141,14 @@
 		return 0
 	if(NO_SHOCK in mutations) //shockproof
 		return 0
-
+	if(tesla_shock && tesla_ignore)
+		return FALSE
 	shock_damage *= siemens_coeff
 	if(shock_damage<1 && !override)
 		return 0
 	if(reagents.has_reagent("teslium"))
 		shock_damage *= 1.5 //If the mob has teslium in their body, shocks are 50% more damaging!
 	take_overall_damage(0,shock_damage, used_weapon = "Electrocution")
-	//src.burn_skin(shock_damage)
-	//src.adjustFireLoss(shock_damage) //burn_skin will do this for us
-	//src.updatehealth()
 	visible_message(
 		"<span class='danger'>[src] was shocked by \the [source]!</span>", \
 		"<span class='userdanger'>You feel a powerful shock coursing through your body!</span>", \
@@ -217,11 +213,11 @@
 		if(src == M && istype(src, /mob/living/carbon/human))
 			var/mob/living/carbon/human/H = src
 			src.visible_message( \
-				text("\blue [src] examines [].",src.gender==MALE?"himself":"herself"), \
-				"\blue You check yourself for injuries." \
+				text("<span class='notice'>[src] examines [].</span>",src.gender==MALE?"himself":"herself"), \
+				"<span class='notice'>You check yourself for injuries.</span>" \
 				)
 
-			for(var/obj/item/organ/external/org in H.organs)
+			for(var/obj/item/organ/external/org in H.bodyparts)
 				var/status = ""
 				var/brutedamage = org.brute_dam
 				var/burndamage = org.burn_dam
@@ -247,7 +243,7 @@
 					status = "weirdly shapen."
 				if(status == "")
 					status = "OK"
-				src.show_message(text("\t []My [] is [].",status=="OK"?"\blue ":"\red ",org.name,status),1)
+				src.show_message(text("\t []My [] is [].",status=="OK"?"<span class='notice'></span>":"<span class='warning'></span>",org.name,status),1)
 			if(staminaloss)
 				if(staminaloss > 30)
 					to_chat(src, "<span class='info'>You're completely exhausted.</span>")
@@ -809,6 +805,10 @@ var/list/ventcrawl_machinery = list(/obj/machinery/atmospherics/unary/vent_pump,
 				legcuffed.dropped()
 				legcuffed = null
 				update_inv_legcuffed()
+				return
+			else
+				unEquip(I)
+				I.dropped()
 				return
 			return 1
 		else

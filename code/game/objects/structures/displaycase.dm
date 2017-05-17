@@ -23,12 +23,8 @@ var/global/list/captain_display_cases = list()
 	var/state = DISPLAYCASE_FRAME_CIRCUIT
 
 /obj/structure/displaycase_frame/Destroy()
-	if(circuit)
-		qdel(circuit)
-		circuit = null
-	if(sensor)
-		qdel(sensor)
-		sensor = null
+	QDEL_NULL(circuit)
+	QDEL_NULL(sensor)
 	return ..()
 
 /obj/structure/displaycase_frame/attackby(obj/item/weapon/W as obj, mob/user as mob, params)
@@ -125,8 +121,7 @@ var/global/list/captain_display_cases = list()
 
 /obj/structure/displaycase/Destroy()
 	dump()
-	qdel(circuit)
-	circuit = null
+	QDEL_NULL(circuit)
 	return ..()
 
 /obj/structure/displaycase/captains_laser/Destroy()
@@ -260,6 +255,9 @@ var/global/list/captain_display_cases = list()
 			circuit = null
 			new /obj/machinery/constructable_frame/machine_frame(T)
 		qdel(src)
+		return
+	if(W.flags & ABSTRACT)
+		to_chat(user, "<span class='danger'>You can't put this into the case.</span>")
 		return
 	if(user.a_intent == I_HARM)
 		if(locked && !destroyed)

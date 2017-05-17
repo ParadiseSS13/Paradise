@@ -91,7 +91,7 @@
 			if(player.current) // Remove mindshield-implanted mobs from the list
 				if(ishuman(player.current))
 					var/mob/living/carbon/human/H = player.current
-					for(var/obj/item/weapon/implant/loyalty/I in H.contents)
+					for(var/obj/item/weapon/implant/mindshield/I in H.contents)
 						if(I && I.implanted)
 							possible_traitors -= player
 
@@ -141,7 +141,7 @@
 				set_antag_hud(newtraitor, "hudsyndicate")
 
 				var/obj_count = 1
-				to_chat(newtraitor, "\blue Your current objectives:")
+				to_chat(newtraitor, "<span class='notice'>Your current objectives:</span>")
 				for(var/datum/objective/objective in newtraitor.mind.objectives)
 					to_chat(newtraitor, "<B>Objective #[obj_count]</B>: [objective.explanation_text]")
 					obj_count++

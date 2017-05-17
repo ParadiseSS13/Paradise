@@ -17,13 +17,16 @@
 	var/datum/construction/construct
 	flags = CONDUCT
 
-	attackby(obj/item/W as obj, mob/user as mob, params)
-		if(!construct || !construct.action(W, user))
-			..()
-		return
+/obj/item/mecha_parts/chassis/Destroy()
+	QDEL_NULL(construct)
+	return ..()
 
-	attack_hand()
-		return
+/obj/item/mecha_parts/chassis/attackby(obj/item/W, mob/user, params)
+	if(!construct || !construct.action(W, user))
+		..()
+
+/obj/item/mecha_parts/chassis/attack_hand()
+	return
 
 /////////// Ripley
 
@@ -223,14 +226,14 @@
 	icon_state = "honker_r_leg"
 
 
-////////// Recitence
+////////// Reticence
 
-/obj/item/mecha_parts/chassis/recitence
-	name = "Recitence Chassis"
+/obj/item/mecha_parts/chassis/reticence
+	name = "Reticence Chassis"
 
-/obj/item/mecha_parts/chassis/recitence/New()
+/obj/item/mecha_parts/chassis/reticence/New()
 	..()
-	construct = new /datum/construction/mecha/recitence_chassis(src)
+	construct = new /datum/construction/mecha/reticence_chassis(src)
 
 /obj/effect/dummy/mecha_emote_step
 	var/emote
@@ -238,37 +241,37 @@
 /obj/effect/dummy/mecha_emote_step/New(e)
 	emote = e
 
-/obj/item/mecha_parts/chassis/recitence/hear_message(mob/living/M, msg)
-	if(!istype(M) || !istype(construct, /datum/construction/mecha/recitence))
+/obj/item/mecha_parts/chassis/reticence/hear_message(mob/living/M, msg)
+	if(!istype(M) || !istype(construct, /datum/construction/mecha/reticence))
 		return
 	// is the current step the dummy emote object?
 	var/list/steps = construct.steps
 	if(steps[steps.len]["key"] == /obj/effect/dummy/mecha_emote_step)
 		construct.action(new /obj/effect/dummy/mecha_emote_step(msg), M)
 
-/obj/item/mecha_parts/part/recitence_torso
-	name = "Recitence Torso"
-	icon_state = "recitence_harness"
+/obj/item/mecha_parts/part/reticence_torso
+	name = "Reticence Torso"
+	icon_state = "reticence_harness"
 
-/obj/item/mecha_parts/part/recitence_head
-	name = "Recitence Head"
-	icon_state = "recitence_head"
+/obj/item/mecha_parts/part/reticence_head
+	name = "Reticence Head"
+	icon_state = "reticence_head"
 
-/obj/item/mecha_parts/part/recitence_left_arm
-	name = "Recitence Left Arm"
-	icon_state = "recitence_l_arm"
+/obj/item/mecha_parts/part/reticence_left_arm
+	name = "Reticence Left Arm"
+	icon_state = "reticence_l_arm"
 
-/obj/item/mecha_parts/part/recitence_right_arm
-	name = "Recitence Right Arm"
-	icon_state = "recitence_r_arm"
+/obj/item/mecha_parts/part/reticence_right_arm
+	name = "Reticence Right Arm"
+	icon_state = "reticence_r_arm"
 
-/obj/item/mecha_parts/part/recitence_left_leg
-	name = "Recitence Left Leg"
-	icon_state = "recitence_l_leg"
+/obj/item/mecha_parts/part/reticence_left_leg
+	name = "Reticence Left Leg"
+	icon_state = "reticence_l_leg"
 
-/obj/item/mecha_parts/part/recitence_right_leg
-	name = "Recitence Right Leg"
-	icon_state = "recitence_r_leg"
+/obj/item/mecha_parts/part/reticence_right_leg
+	name = "Reticence Right Leg"
+	icon_state = "reticence_r_leg"
 
 
 ////////// Phazon
@@ -455,19 +458,19 @@
 	name = "Circuit board (H.O.N.K Central Control module)"
 	icon_state = "mainboard"
 
-/obj/item/weapon/circuitboard/mecha/recitence
+/obj/item/weapon/circuitboard/mecha/reticence
 	origin_tech = "programming=4"
 
-/obj/item/weapon/circuitboard/mecha/recitence/peripherals
-	name = "circuit board (Reticience Peripherals Control module)"
+/obj/item/weapon/circuitboard/mecha/reticence/peripherals
+	name = "circuit board (Reticence Peripherals Control module)"
 	icon_state = "mcontroller"
 
-/obj/item/weapon/circuitboard/mecha/recitence/targeting
-	name = "circuit board (Reticience Weapon Control and Targeting module)"
+/obj/item/weapon/circuitboard/mecha/reticence/targeting
+	name = "circuit board (Reticence Weapon Control and Targeting module)"
 	icon_state = "mcontroller"
 
-/obj/item/weapon/circuitboard/mecha/recitence/main
-	name = "circuit board (Reticience Central Control module)"
+/obj/item/weapon/circuitboard/mecha/reticence/main
+	name = "circuit board (Reticence Central Control module)"
 	icon_state = "mainboard"
 
 /obj/item/weapon/circuitboard/mecha/odysseus

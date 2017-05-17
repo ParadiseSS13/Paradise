@@ -220,7 +220,7 @@
 	active_power_usage = 500
 	var/printing = null
 	var/printing_text = null
-	var/known_implants = list(/obj/item/weapon/implant/chem, /obj/item/weapon/implant/death_alarm, /obj/item/weapon/implant/loyalty, /obj/item/weapon/implant/tracking)
+	var/known_implants = list(/obj/item/weapon/implant/chem, /obj/item/weapon/implant/death_alarm, /obj/item/weapon/implant/mindshield, /obj/item/weapon/implant/tracking)
 
 /obj/machinery/body_scanconsole/power_change()
 	if(stat & BROKEN)
@@ -385,7 +385,7 @@
 		occupantData["implant_len"] = implantData.len
 
 		var/extOrganData[0]
-		for(var/obj/item/organ/external/E in H.organs)
+		for(var/obj/item/organ/external/E in H.bodyparts)
 			var/organData[0]
 			organData["name"] = E.name
 			organData["open"] = E.open
@@ -562,7 +562,7 @@
 			dat += "<th>Other Wounds</th>"
 			dat += "</tr>"
 
-			for(var/obj/item/organ/external/e in occupant.organs)
+			for(var/obj/item/organ/external/e in occupant.bodyparts)
 				dat += "<tr>"
 				var/AN = ""
 				var/open = ""

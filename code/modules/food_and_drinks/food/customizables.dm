@@ -372,8 +372,7 @@
 		overlays += T
 
 /obj/item/weapon/reagent_containers/food/snacks/customizable/Destroy()
-	for(var/obj/item/O in ingredients)
-		qdel(O)
+	QDEL_LIST(ingredients)
 	return ..()
 
 /obj/item/weapon/reagent_containers/food/snacks/customizable/examine(mob/user)

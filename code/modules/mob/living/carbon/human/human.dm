@@ -65,9 +65,7 @@
 	add_to_all_human_data_huds()
 
 /mob/living/carbon/human/Destroy()
-	for(var/atom/movable/organelle in organs)
-		qdel(organelle)
-	organs = list()
+	QDEL_LIST(bodyparts)
 	return ..()
 
 /mob/living/carbon/human/dummy
@@ -310,7 +308,7 @@
 
 				var/limbs_affected = pick(2,3,4)
 				var/obj/item/organ/external/processing_dismember
-				var/list/valid_limbs = organs.Copy()
+				var/list/valid_limbs = bodyparts.Copy()
 
 				while(limbs_affected != 0 && valid_limbs.len > 0)
 					processing_dismember = pick(valid_limbs)
@@ -328,7 +326,7 @@
 
 			var/limbs_affected = 0
 			var/obj/item/organ/external/processing_dismember
-			var/list/valid_limbs = organs.Copy()
+			var/list/valid_limbs = bodyparts.Copy()
 
 			if(prob(getarmor(null, "bomb")))
 				b_loss = b_loss/1.5
@@ -361,7 +359,7 @@
 
 				var/limbs_affected = pick(0, 1)
 				var/obj/item/organ/external/processing_dismember
-				var/list/valid_limbs = organs.Copy()
+				var/list/valid_limbs = bodyparts.Copy()
 
 				while(limbs_affected != 0 && valid_limbs.len > 0)
 					processing_dismember = pick(valid_limbs)
@@ -747,7 +745,11 @@
 			var/obj/item/clothing/suit/S = wear_suit
 			if(S.siemens_coefficient <= 0)
 				total_coeff -= 0.95
+			else if(S.siemens_coefficient == (-1))
+				total_coeff -= 1
 		siemens_coeff = total_coeff
+		if(tesla_ignore)
+			siemens_coeff = 0
 	else if(!safety)
 		var/gloves_siemens_coeff = 1
 		var/species_siemens_coeff = 1
@@ -872,7 +874,7 @@
 											sec_hud_set_security_status()
 
 			if(!modified)
-				to_chat(usr, "\red Unable to locate a data core entry for this person.")
+				to_chat(usr, "<span class='warning'>Unable to locate a data core entry for this person.</span>")
 
 	if(href_list["secrecord"])
 		if(hasHUD(usr,"security"))
@@ -902,7 +904,7 @@
 								read = 1
 
 			if(!read)
-				to_chat(usr, "\red Unable to locate a data core entry for this person.")
+				to_chat(usr, "<span class='warning'>Unable to locate a data core entry for this person.</span>")
 
 	if(href_list["secrecordComment"])
 		if(hasHUD(usr,"security"))
@@ -931,7 +933,7 @@
 								to_chat(usr, "<a href='?src=[UID()];secrecordadd=`'>\[Add comment\]</a>")
 
 			if(!read)
-				to_chat(usr, "\red Unable to locate a data core entry for this person.")
+				to_chat(usr, "<span class='warning'>Unable to locate a data core entry for this person.</span>")
 
 	if(href_list["secrecordadd"])
 		if(hasHUD(usr,"security"))
@@ -993,7 +995,7 @@
 										sec_hud_set_security_status()
 
 			if(!modified)
-				to_chat(usr, "\red Unable to locate a data core entry for this person.")
+				to_chat(usr, "<span class='warning'>Unable to locate a data core entry for this person.</span>")
 
 	if(href_list["medrecord"])
 		if(hasHUD(usr,"medical"))
@@ -1024,7 +1026,7 @@
 								read = 1
 
 			if(!read)
-				to_chat(usr, "\red Unable to locate a data core entry for this person.")
+				to_chat(usr, "<span class='warning'>Unable to locate a data core entry for this person.</span>")
 
 	if(href_list["medrecordComment"])
 		if(hasHUD(usr,"medical"))
@@ -1053,7 +1055,7 @@
 								to_chat(usr, "<a href='?src=[UID()];medrecordadd=`'>\[Add comment\]</a>")
 
 			if(!read)
-				to_chat(usr, "\red Unable to locate a data core entry for this person.")
+				to_chat(usr, "<span class='warning'>Unable to locate a data core entry for this person.</span>")
 
 	if(href_list["medrecordadd"])
 		if(hasHUD(usr,"medical"))
@@ -1168,7 +1170,7 @@
 
 /mob/living/carbon/human/proc/play_xylophone()
 	if(!src.xylophone)
-		visible_message("\red [src] begins playing his ribcage like a xylophone. It's quite spooky.","\blue You begin to play a spooky refrain on your ribcage.","\red You hear a spooky xylophone melody.")
+		visible_message("<span class='warning'>[src] begins playing his ribcage like a xylophone. It's quite spooky.</span>","<span class='notice'>You begin to play a spooky refrain on your ribcage.</span>","<span class='warning'>You hear a spooky xylophone melody.</span>")
 		var/song = pick('sound/effects/xylophone1.ogg','sound/effects/xylophone2.ogg','sound/effects/xylophone3.ogg')
 		playsound(loc, song, 50, 1, -1)
 		xylophone = 1
@@ -1259,20 +1261,20 @@
 		if(istype(organ, /obj/item/organ/external/stump)) //Get rid of all stumps.
 			qdel(organ)
 			H.contents -= organ //Making sure the list entry is removed.
-	for(var/obj/item/organ/organ in H.organs)
+	for(var/obj/item/organ/organ in H.bodyparts)
 		if(istype(organ, /obj/item/organ/external/stump))
 			qdel(organ)
-			H.organs -= organ //Making sure the list entry is removed.
-	for(var/organ_name in H.organs_by_name)
-		var/obj/item/organ/organ = H.organs_by_name[organ_name]
+			H.bodyparts -= organ //Making sure the list entry is removed.
+	for(var/organ_name in H.bodyparts_by_name)
+		var/obj/item/organ/organ = H.bodyparts_by_name[organ_name]
 		if(istype(organ, /obj/item/organ/external/stump) || !organ) //The !organ check is to account for mechanical limb (prostheses) losses, since those are handled in a way that leaves indexed but null list entries instead of stumps.
 			qdel(organ)
-			H.organs_by_name -= organ_name //Making sure the list entry is removed.
+			H.bodyparts_by_name -= organ_name //Making sure the list entry is removed.
 
 	//Replacing lost limbs with the species default.
 	var/mob/living/carbon/human/temp_holder
 	for(var/limb_type in H.species.has_limbs)
-		if(!(limb_type in H.organs_by_name))
+		if(!(limb_type in H.bodyparts_by_name))
 			var/list/organ_data = H.species.has_limbs[limb_type]
 			var/limb_path = organ_data["path"]
 			var/obj/item/organ/external/O = new limb_path(temp_holder)
@@ -1282,7 +1284,7 @@
 			else
 				O = new limb_path(H) //Create the limb on the player.
 				O.owner = H
-				H.organs |= H.organs_by_name[O.limb_name]
+				H.bodyparts |= H.bodyparts_by_name[O.limb_name]
 
 	//Replacing lost organs with the species default.
 	temp_holder = new /mob/living/carbon/human()
@@ -1404,10 +1406,18 @@
 		if(..())
 			unEquip(I)
 
+/mob/living/carbon/human/resist_restraints()
+	if(wear_suit && wear_suit.breakouttime)
+		changeNext_move(CLICK_CD_BREAKOUT)
+		last_special = world.time + CLICK_CD_BREAKOUT
+		cuff_resist(wear_suit)
+	else
+		..()
+
 /mob/living/carbon/human/get_visible_implants(var/class = 0)
 
 	var/list/visible_implants = list()
-	for(var/obj/item/organ/external/organ in src.organs)
+	for(var/obj/item/organ/external/organ in bodyparts)
 		for(var/obj/item/weapon/O in organ.implants)
 			if(!istype(O,/obj/item/weapon/implant) && (O.w_class > class) && !istype(O,/obj/item/weapon/shard/shrapnel))
 				visible_implants += O
@@ -1423,7 +1433,7 @@
 
 /mob/living/carbon/human/proc/handle_embedded_objects()
 
-	for(var/obj/item/organ/external/organ in src.organs)
+	for(var/obj/item/organ/external/organ in bodyparts)
 		if(organ.status & ORGAN_SPLINTED) //Splints prevent movement.
 			continue
 		for(var/obj/item/weapon/O in organ.implants)
@@ -1456,16 +1466,16 @@
 	if(usr == src)
 		self = 1
 	if(!self)
-		usr.visible_message("\blue [usr] kneels down, puts \his hand on [src]'s wrist and begins counting their pulse.",\
+		usr.visible_message("<span class='notice'>[usr] kneels down, puts \his hand on [src]'s wrist and begins counting their pulse.</span>",\
 		"You begin counting [src]'s pulse")
 	else
-		usr.visible_message("\blue [usr] begins counting their pulse.",\
+		usr.visible_message("<span class='notice'>[usr] begins counting their pulse.</span>",\
 		"You begin counting your pulse.")
 
 	if(src.pulse)
-		to_chat(usr, "\blue [self ? "You have a" : "[src] has a"] pulse! Counting...")
+		to_chat(usr, "<span class='notice'>[self ? "You have a" : "[src] has a"] pulse! Counting...</span>")
 	else
-		to_chat(usr, "\red [src] has no pulse!")//it is REALLY UNLIKELY that a dead person would check his own pulse
+		to_chat(usr, "<span class='warning'>[src] has no pulse!</span>")//it is REALLY UNLIKELY that a dead person would check his own pulse
 
 		return
 
@@ -1475,7 +1485,7 @@
 	if(usr.l_move_time >= time)	//checks if our mob has moved during the sleep()
 		to_chat(usr, "You moved while counting. Try again.")
 	else
-		to_chat(usr, "\blue [self ? "Your" : "[src]'s"] pulse is [src.get_pulse(GETPULSE_HAND)].")
+		to_chat(usr, "<span class='notice'>[self ? "Your" : "[src]'s"] pulse is [src.get_pulse(GETPULSE_HAND)].</span>")
 
 /mob/living/carbon/human/proc/set_species(var/new_species, var/default_colour, var/delay_icon_update = 0)
 	var/datum/species/oldspecies = species
@@ -1765,7 +1775,7 @@
 	if(status_flags & LEAPING) status_flags &= ~LEAPING
 
 	if(!src.Adjacent(T))
-		to_chat(src, "\red You miss!")
+		to_chat(src, "<span class='warning'>You miss!</span>")
 		return
 
 	T.Weaken(5)
@@ -1778,7 +1788,7 @@
 	var/use_hand = "left"
 	if(l_hand)
 		if(r_hand)
-			to_chat(src, "\red You need to have one hand free to grab someone.")
+			to_chat(src, "<span class='warning'>You need to have one hand free to grab someone.</span>")
 			return
 		else
 			use_hand = "right"
@@ -1804,16 +1814,16 @@
 		return
 
 	if(!canmove)
-		to_chat(src, "\red You cannot do that in your current state.")
+		to_chat(src, "<span class='warning'>You cannot do that in your current state.</span>")
 		return
 
 	var/obj/item/weapon/grab/G = locate() in src
 	if(!G || !istype(G))
-		to_chat(src, "\red You are not grabbing anyone.")
+		to_chat(src, "<span class='warning'>You are not grabbing anyone.</span>")
 		return
 
 	if(G.state < GRAB_AGGRESSIVE)
-		to_chat(src, "\red You must have an aggressive grab to gut your prey!")
+		to_chat(src, "<span class='warning'>You must have an aggressive grab to gut your prey!</span>")
 		return
 
 	last_special = world.time + 50
@@ -1892,7 +1902,7 @@
 
 
 	//Mindshield implants imply slight trustworthiness
-	if(isloyal(src))
+	if(ismindshielded(src))
 		threatcount -= 1
 
 	//Agent cards lower threatlevel.
@@ -2048,7 +2058,7 @@
 	return .
 
 /mob/living/carbon/human/proc/change_icobase(var/new_icobase, var/new_deform, var/owner_sensitive)
-	for(var/obj/item/organ/external/O in organs)
+	for(var/obj/item/organ/external/O in bodyparts)
 		O.change_organ_icobase(new_icobase, new_deform, owner_sensitive) //Change the icobase/deform of all our organs. If owner_sensitive is set, that means the proc won't mess with frankenstein limbs.
 
 /mob/living/carbon/human/serialize()
@@ -2070,8 +2080,8 @@
 	data["uwear"] = underwear
 
 	// Limbs
-	for(var/limb in organs_by_name)
-		var/obj/item/organ/O = organs_by_name[limb]
+	for(var/limb in bodyparts_by_name)
+		var/obj/item/organ/O = bodyparts_by_name[limb]
 		if(!O)
 			limbs_list[limb] = "missing"
 			continue
@@ -2112,7 +2122,7 @@
 	for(var/obj/item/organ/internal/iorgan in internal_organs)
 		qdel(iorgan)
 
-	for(var/obj/item/organ/external/organ in organs)
+	for(var/obj/item/organ/external/organ in bodyparts)
 		qdel(organ)
 
 	for(var/limb in limbs_list)

@@ -30,7 +30,6 @@ var/global/list/default_medbay_channels = list(
 	var/frequency = PUB_FREQ //common chat
 	var/traitor_frequency = 0 //tune to frequency to unlock traitor supplies
 	var/canhear_range = 3 // the range which mobs can hear this radio from
-	var/obj/item/device/radio/patch_link = null
 	var/datum/wires/radio/wires = null
 	var/b_stat = 0
 	var/broadcasting = 0
@@ -54,34 +53,31 @@ var/global/list/default_medbay_channels = list(
 
 	var/list/internal_channels
 
-/obj/item/device/radio
 	var/datum/radio_frequency/radio_connection
 	var/list/datum/radio_frequency/secure_radio_connections = new
 
-	proc/set_frequency(new_frequency)
-		radio_controller.remove_object(src, frequency)
-		frequency = new_frequency
-		radio_connection = radio_controller.add_object(src, frequency, RADIO_CHAT)
+
+/obj/item/device/radio/proc/set_frequency(new_frequency)
+	radio_controller.remove_object(src, frequency)
+	frequency = new_frequency
+	radio_connection = radio_controller.add_object(src, frequency, RADIO_CHAT)
 
 
 /obj/item/device/radio/New()
 	..()
 	wires = new(src)
-	if(radio_controller)
-		initialize()
 
 	internal_channels = default_internal_channels.Copy()
 	global_radios |= src
 
 /obj/item/device/radio/Destroy()
-	qdel(wires)
-	wires = null
+	QDEL_NULL(wires)
 	if(radio_controller)
 		radio_controller.remove_object(src, frequency)
 		for(var/ch_name in channels)
 			radio_controller.remove_object(src, radiochannels[ch_name])
-	patch_link = null
 	global_radios -= src
+	follow_target = null
 	return ..()
 
 
@@ -271,7 +267,8 @@ var/global/list/default_medbay_channels = list(
 /mob/living/automatedannouncer/Destroy()
 	if(lifetime_timer)
 		deltimer(lifetime_timer)
-	..()
+		lifetime_timer = null
+	return ..()
 
 /mob/living/automatedannouncer/proc/autocleanup()
 	log_runtime(EXCEPTION("An announcer somehow managed to outlive the radio! Deleting!"), src, list("Message: '[message]'"))
@@ -579,9 +576,9 @@ var/global/list/default_medbay_channels = list(
 	. = ..(user, distance)
 	if((in_range(src, user) || loc == user))
 		if(b_stat)
-			user.show_message("\blue \the [src] can be attached and modified!")
+			user.show_message("<span class='notice'>\the [src] can be attached and modified!</span>")
 		else
-			user.show_message("\blue \the [src] can not be modified or attached!")
+			user.show_message("<span class='notice'>\the [src] can not be modified or attached!</span>")
 	return .
 
 /obj/item/device/radio/attackby(obj/item/weapon/W as obj, mob/user as mob, params)
@@ -592,9 +589,9 @@ var/global/list/default_medbay_channels = list(
 	b_stat = !( b_stat )
 	if(!istype(src, /obj/item/device/radio/beacon))
 		if(b_stat)
-			user.show_message("\blue The radio can now be attached and modified!")
+			user.show_message("<span class='notice'>The radio can now be attached and modified!</span>")
 		else
-			user.show_message("\blue The radio can no longer be modified or attached!")
+			user.show_message("<span class='notice'>The radio can no longer be modified or attached!</span>")
 		updateDialog()
 			//Foreach goto(83)
 		add_fingerprint(user)

@@ -83,7 +83,7 @@ emp_act
 		//If a specific bodypart is targetted, check how that bodypart is protected and return the value.
 
 	//If you don't specify a bodypart, it checks ALL your bodyparts for protection, and averages out the values
-	for(var/obj/item/organ/external/organ in organs)
+	for(var/obj/item/organ/external/organ in bodyparts)
 		armorval += getarmor_organ(organ, type)
 		organnum++
 
@@ -100,8 +100,8 @@ emp_act
 		if(bp && istype(bp ,/obj/item/clothing))
 			var/obj/item/clothing/C = bp
 			if(C.body_parts_covered & def_zone.body_part)
-				protection += C.armor[type]	
-				
+				protection += C.armor[type]
+
 	return protection
 
 //this proc returns the Siemens coefficient of electrical resistivity for a particular external organ.
@@ -178,12 +178,12 @@ emp_act
 	if(!istype(affecting))
 		return
 	if(!(affecting.status & ORGAN_ROBOT))
-		to_chat(user, "\red That limb isn't robotic.")
+		to_chat(user, "<span class='warning'>That limb isn't robotic.</span>")
 		return
 	if(affecting.sabotaged)
-		to_chat(user, "\red [src]'s [affecting.name] is already sabotaged!")
+		to_chat(user, "<span class='warning'>[src]'s [affecting.name] is already sabotaged!</span>")
 	else
-		to_chat(user, "\red You sneakily slide the card into the dataport on [src]'s [affecting.name] and short out the safeties.")
+		to_chat(user, "<span class='warning'>You sneakily slide the card into the dataport on [src]'s [affecting.name] and short out the safeties.</span>")
 		affecting.sabotaged = 1
 	return 1
 
@@ -200,7 +200,7 @@ emp_act
 		src.reagents.trans_to (newmeat, round ((src.reagents.total_volume) / 3, 1))
 		src.loc.add_blood(src)
 		--src.meatleft
-		to_chat(user, "\red You hack off a chunk of meat from [src.name]")
+		to_chat(user, "<span class='warning'>You hack off a chunk of meat from [src.name]</span>")
 		if(!src.meatleft)
 			src.create_attack_log("Was chopped up into meat by <b>[key_name(user)]</b>")
 			user.create_attack_log("Chopped up <b>[key_name(src)]</b> into meat</b>")
@@ -345,7 +345,7 @@ emp_act
 			return
 		var/hit_area = affecting.name
 
-		src.visible_message("\red [src] has been hit in the [hit_area] by [I].")
+		src.visible_message("<span class='warning'>[src] has been hit in the [hit_area] by [I].</span>")
 		var/armor = run_armor_check(affecting, "melee", "Your armor has protected your [hit_area].", "Your armor has softened hit to your [hit_area].", I.armour_penetration) //I guess "melee" is the best fit here
 
 		apply_damage(throw_damage, dtype, zone, armor, is_sharp(I), has_edge(I), I)
@@ -378,7 +378,7 @@ emp_act
 			var/momentum = speed/2
 			var/dir = get_dir(I.throw_source, src)
 
-			visible_message("\red [src] staggers under the impact!","\red You stagger under the impact!")
+			visible_message("<span class='warning'>[src] staggers under the impact!</span>","<span class='warning'>You stagger under the impact!</span>")
 			src.throw_at(get_edge_target_turf(src,dir),1,momentum)
 
 			if(!W || !src) return

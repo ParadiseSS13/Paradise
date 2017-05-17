@@ -623,7 +623,7 @@
 	playsound(src.loc, W.usesound, 50, 1)
 	user.visible_message( \
 		"[user] fastens the [src].", \
-		"\blue You have fastened the [src].", \
+		"<span class='notice'>You have fastened the [src].</span>", \
 		"You hear ratchet.")
 	qdel(src)	// remove the pipe item
 
@@ -643,11 +643,11 @@
 	if(!istype(W, /obj/item/weapon/wrench))
 		return ..()
 	if(!locate(/obj/machinery/atmospherics/pipe, src.loc))
-		to_chat(user, "\red You need to fasten it to a pipe")
+		to_chat(user, "<span class='warning'>You need to fasten it to a pipe</span>")
 		return 1
 	new /obj/machinery/meter(loc)
 	playsound(src.loc, W.usesound, 50, 1)
-	to_chat(user, "\blue You have fastened the meter to the pipe")
+	to_chat(user, "<span class='notice'>You have fastened the meter to the pipe.</span>")
 	qdel(src)
 
 /obj/item/pipe_gsensor
@@ -664,7 +664,7 @@
 		return ..()
 	new/obj/machinery/air_sensor( src.loc )
 	playsound(get_turf(src), W.usesound, 50, 1)
-	to_chat(user, "\blue You have fastened the gas sensor")
+	to_chat(user, "<span class='notice'>You have fastened the gas sensor.</span>")
 	qdel(src)
 
 #undef PIPE_SIMPLE_STRAIGHT

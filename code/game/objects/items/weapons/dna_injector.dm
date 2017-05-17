@@ -5,7 +5,7 @@
 	icon_state = "dnainjector"
 	item_state = "dnainjector"
 	var/block = 0
-	var/datum/dna2/record/buf=null
+	var/datum/dna2/record/buf = null
 	throw_speed = 3
 	throw_range = 5
 	w_class = 1
@@ -25,6 +25,10 @@
 		buf.types = datatype
 		buf.dna.ResetSE()
 		SetValue(value)
+
+/obj/item/weapon/dnainjector/Destroy()
+	QDEL_NULL(buf)
+	return ..()
 
 /obj/item/weapon/dnainjector/proc/GetRealBlock(var/selblock)
 	if(selblock==0)
@@ -128,17 +132,17 @@
 
 		if(block)
 			if(GetState() && block == MONKEYBLOCK && ishuman(M))
-				message_admins("[key_name_admin(user)] injected [key_name_admin(M)] with the Isolated [name] \red(MONKEY)")
+				message_admins("[key_name_admin(user)] injected [key_name_admin(M)] with the Isolated [name] <span class='warning'>(MONKEY)</span>")
 				log_attack("[key_name(user)] injected [key_name(M)] with the Isolated [name] (MONKEY)")
-				log_game("[key_name_admin(user)] injected [key_name_admin(M)] with the Isolated [name] \red(MONKEY)")
+				log_game("[key_name_admin(user)] injected [key_name_admin(M)] with the Isolated [name] <span class='warning'>(MONKEY)</span>")
 			else
 				log_attack("[key_name(user)] injected [key_name(M)] with the Isolated [name]")
 
 		else
 			if(GetState(MONKEYBLOCK) && ishuman(M))
-				message_admins("[key_name_admin(user)] injected [key_name_admin(M)] with the Isolated [name] \red(MONKEY)")
+				message_admins("[key_name_admin(user)] injected [key_name_admin(M)] with the Isolated [name] <span class='warning'>(MONKEY)</span>")
 				log_attack("[key_name(user)] injected [key_name(M)] with the Isolated [name] (MONKEY)")
-				log_game("[key_name_admin(user)] injected [key_name_admin(M)] with the Isolated [name] \red(MONKEY)")
+				log_game("[key_name_admin(user)] injected [key_name_admin(M)] with the Isolated [name] <span class='warning'>(MONKEY)</span>")
 			else
 				log_attack("[key_name(user)] injected [key_name(M)] with the Isolated [name]")
 

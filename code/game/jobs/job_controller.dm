@@ -15,7 +15,6 @@ var/global/datum/controller/occupations/job_master
 	//Debug info
 	var/list/job_debug = list()
 
-
 /datum/controller/occupations/proc/SetupOccupations(var/list/faction = list("Station"))
 	occupations = list()
 

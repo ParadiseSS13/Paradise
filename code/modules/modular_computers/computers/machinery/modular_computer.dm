@@ -41,9 +41,7 @@ var/list/global_modular_computers = list()
 	global_modular_computers.Add(src)
 
 /obj/machinery/modular_computer/Destroy()
-	if(cpu)
-		qdel(cpu)
-		cpu = null
+	QDEL_NULL(cpu)
 	return ..()
 
 /obj/machinery/modular_computer/attack_ghost(mob/dead/observer/user)

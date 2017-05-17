@@ -40,8 +40,6 @@ var/const/CALL_SHUTTLE_REASON_LENGTH = 12
 	name = "shuttle"
 	schedule_interval = 20
 
-	shuttle_master = src
-
 	var/watch = start_watch()
 	log_startup_progress("Initializing shuttle docks...")
 	initialize_docks()
@@ -71,6 +69,9 @@ var/const/CALL_SHUTTLE_REASON_LENGTH = 12
 			P.check()
 			continue
 		mobile.Remove(thing)
+
+
+DECLARE_GLOBAL_CONTROLLER(shuttle, shuttle_master)
 
 /datum/controller/process/shuttle/proc/initialize_docks()
 	for(var/obj/docking_port/D in world)
@@ -159,6 +160,8 @@ var/const/CALL_SHUTTLE_REASON_LENGTH = 12
 
 /datum/controller/process/shuttle/proc/canRecall()
 	if(emergency.mode != SHUTTLE_CALL)
+		return
+	if(!emergency.canRecall)
 		return
 	if(ticker.mode.name == "meteor")
 		return

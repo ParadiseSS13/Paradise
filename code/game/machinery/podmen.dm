@@ -76,9 +76,9 @@ Growing it to term with nothing injected will grab a ghost from the observers. *
 
 
 	if(beingharvested)
-		to_chat(user, ("\red You can only harvest the pod once!"))
+		to_chat(user, ("<span class='warning'>You can only harvest the pod once!</span>"))
 	else
-		user.visible_message("\blue [user] carefully begins to open the pod...","\blue You carefully begin to open the pod...")
+		user.visible_message("<span class='notice'>[user] carefully begins to open the pod...</span>","<span class='notice'>You carefully begin to open the pod...</span>")
 		beingharvested = 1
 
 	//If a sample is injected (and revival is allowed) the plant will be controlled by the original donor.
@@ -123,7 +123,7 @@ Growing it to term with nothing injected will grab a ghost from the observers. *
 					ticker.mode:update_all_cult_icons() //So the icon actually appears
 			// -- End mode specific stuff
 
-		to_chat(podman, "\green <B>You awaken slowly, feeling your sap stir into sluggish motion as the warm air caresses your bark.</B>")
+		to_chat(podman, "<span class=notice'><B>You awaken slowly, feeling your sap stir into sluggish motion as the warm air caresses your bark.</B></span>")
 		if(source && ckey && podman.ckey == ckey)
 			to_chat(podman, "<B>Memories of a life as [source] drift oddly through a mind unsuited for them, like a skin of oil over a fathomless lake.</B>")
 		to_chat(podman, "<B>You are now one of the Dionaea, a race of drifting interstellar plantlike creatures that sometimes share their seeds with human traders.</B>")
@@ -132,5 +132,5 @@ Growing it to term with nothing injected will grab a ghost from the observers. *
 	else
 		new /mob/living/carbon/monkey/diona(parent.loc)
 
-	parent.visible_message("\blue The pod disgorges a fully-formed plant creature!")
+	parent.visible_message("<span class='notice'>The pod disgorges a fully-formed plant creature!</span>")
 	parent.update_tray()

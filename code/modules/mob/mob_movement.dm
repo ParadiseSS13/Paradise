@@ -50,12 +50,12 @@
 		var/mob/living/silicon/robot/R = usr
 		var/module = R.get_selected_module()
 		if(!module)
-			to_chat(usr, "\red You have no module selected.")
+			to_chat(usr, "<span class='warning'>You have no module selected.</span>")
 			return
 		R.cycle_modules()
 		R.uneq_numbered(module)
 	else
-		to_chat(usr, "\red This mob type cannot throw items.")
+		to_chat(usr, "<span class='warning'>This mob type cannot throw items.</span>")
 	return
 
 
@@ -63,17 +63,17 @@
 	if(iscarbon(usr))
 		var/mob/living/carbon/C = usr
 		if(!C.get_active_hand())
-			to_chat(usr, "\red You have nothing to drop in your hand.")
+			to_chat(usr, "<span class='warning'>You have nothing to drop in your hand.</span>")
 			return
 		drop_item()
 	else if(isrobot(usr))
 		var/mob/living/silicon/robot/R = usr
 		if(!R.get_selected_module())
-			to_chat(usr, "\red You have no module selected.")
+			to_chat(usr, "<span class='warning'>You have no module selected.</span>")
 			return
 		R.deselect_module(R.get_selected_module())
 	else
-		to_chat(usr, "\red This mob type cannot drop items.")
+		to_chat(usr, "<span class='warning'>This mob type cannot drop items.</span>")
 	return
 
 //This gets called when you press the delete button.
@@ -81,7 +81,7 @@
 	set hidden = 1
 
 	if(!usr.pulling)
-		to_chat(usr, "\blue You are not pulling anything.")
+		to_chat(usr, "<span class='notice'>You are not pulling anything.</span>")
 		return
 	usr.stop_pulling()
 
@@ -212,13 +212,13 @@
 			for(var/mob/M in range(mob, 1))
 				if(M.pulling == mob)
 					if(!M.restrained() && M.stat == 0 && M.canmove && mob.Adjacent(M))
-						to_chat(src, "\blue You're restrained! You can't move!")
+						to_chat(src, "<span class='notice'>You're restrained! You can't move!</span>")
 						return 0
 					else
 						M.stop_pulling()
 
 		if(mob.pinned.len)
-			to_chat(src, "\blue You're pinned to a wall by [mob.pinned[1]]!")
+			to_chat(src, "<span class='notice'>You're pinned to a wall by [mob.pinned[1]]!</span>")
 			return 0
 
 		var/turf/T = mob.loc

@@ -180,7 +180,7 @@
 		C.adjustFireLoss(10)
 		C.ExtinguishMob()
 
-		C.visible_message("\red [user] sprays a cloud of fine ice crystals, engulfing [C]!")
+		C.visible_message("<span class='warning'>[user] sprays a cloud of fine ice crystals, engulfing [C]!</span>")
 		log_admin("[key_name(user)] has used cryokinesis on [key_name(C)] without internals or a suit")
 		msg_admin_attack("[key_name_admin(user)] has cast cryokinesis on [key_name_admin(C)]")
 
@@ -263,11 +263,11 @@
 /obj/effect/proc_holder/spell/targeted/eat/proc/doHeal(var/mob/user)
 	if(ishuman(user))
 		var/mob/living/carbon/human/H = user
-		for(var/name in H.organs_by_name)
+		for(var/name in H.bodyparts_by_name)
 			var/obj/item/organ/external/affecting = null
-			if(!H.organs[name])
+			if(!H.bodyparts_by_name[name])
 				continue
-			affecting = H.organs[name]
+			affecting = H.bodyparts_by_name[name]
 			if(!istype(affecting, /obj/item/organ/external))
 				continue
 			affecting.heal_damage(4, 0)

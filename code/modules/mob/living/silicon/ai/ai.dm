@@ -246,7 +246,7 @@ var/list/ai_verbs_default = list(
 	ai_list -= src
 	shuttle_caller_list -= src
 	shuttle_master.autoEvac()
-	qdel(eyeobj) // No AI, no Eye
+	QDEL_NULL(eyeobj) // No AI, no Eye
 	malfhack = null
 	return ..()
 
@@ -299,22 +299,59 @@ var/list/ai_verbs_default = list(
 			for(var/i = 1 to Entry.len)
 				Entry[i] = trim(Entry[i])
 
-			if(Entry.len < 2)
+			if(Entry.len < 2 || Entry[1] != "ai")			//ignore incorrectly formatted entries or entries that aren't marked for AI
 				continue
 
-			if(Entry.len < 3 && Entry[1] == ckey && Entry[2] == real_name)
-				custom_sprite = 1 //They're in the list? Custom sprite time
-				icon = 'icons/mob/custom-synthetic.dmi'
+			if(Entry[2] == ckey)	//They're in the list? Custom sprite time, var and icon change required
+				custom_sprite = 1
 
+	var/display_choices = list(
+		"Monochrome",
+		"Blue",
+		"Clown",
+		"Inverted",
+		"Text",
+		"Smiley",
+		"Angry",
+		"Dorf",
+		"Matrix",
+		"Bliss",
+		"Firewall",
+		"Green",
+		"Red",
+		"Static",
+		"Triumvirate",
+		"Triumvirate Static",
+		"Red October",
+		"Sparkles",
+		"ANIMA",
+		"President",
+		"NT",
+		"NT2",
+		"Rainbow",
+		"Angel",
+		"Heartline",
+		"Hades",
+		"Helios",
+		"Syndicat Meow",
+		"Too Deep",
+		"Goon",
+		"Murica",
+		"Fuzzy",
+		"Glitchman",
+		"House",
+		"Database"
+		)
+	if(custom_sprite)
+		display_choices += "Custom"
 
 		//if(icon_state == initial(icon_state))
 	var/icontype = ""
-	if(custom_sprite == 1)
-		icontype = ("Custom")//automagically selects custom sprite if one is available
-	else
-		icontype = input("Select an icon!", "AI", null, null) in list("Monochrome", "Blue", "Clown", "Inverted", "Text", "Smiley", "Angry", "Dorf", "Matrix", "Bliss", "Firewall", "Green", "Red", "Static", "Triumvirate", "Triumvirate Static", "Red October", "Sparkles", "ANIMA", "President", "NT", "NT2", "Rainbow", "Angel", "Heartline", "Hades", "Helios", "Syndicat Meow", "Too Deep", "Goon", "Murica", "Fuzzy", "Glitchman", "House", "Database")
+	icontype = input("Select an icon!", "AI", null, null) in display_choices
+	icon = 'icons/mob/AI.dmi'	//reset this in case we were on a custom sprite and want to change to a standard one
 	switch(icontype)
 		if("Custom")
+			icon = 'icons/mob/custom_synthetic/custom-synthetic.dmi'	//set this here so we can use the custom_sprite
 			icon_state = "[ckey]-ai"
 		if("Clown")
 			icon_state = "ai-clown"
@@ -800,7 +837,7 @@ var/list/ai_verbs_default = list(
 			if(network in C.network)
 				U.eyeobj.setLoc(get_turf(C))
 				break
-	to_chat(src, "\blue Switched to [network] camera network.")
+	to_chat(src, "<span class='notice'>Switched to [network] camera network.</span>")
 //End of code by Mord_Sith
 
 
@@ -859,10 +896,10 @@ var/list/ai_verbs_default = list(
 			for(var/i = 1 to Entry.len)
 				Entry[i] = trim(Entry[i])
 
-			if(Entry.len < 3)
+			if(Entry.len < 2 || Entry[1] != "hologram")
 				continue
 
-			if (Entry[1] == ckey && Entry[2] == real_name && Entry[3] == "Hologram") //Custom holograms
+			if (Entry[2] == ckey) //Custom holograms
 				custom_hologram = 1  // option is given in hologram menu
 
 	var/input
@@ -971,10 +1008,10 @@ var/list/ai_verbs_default = list(
 					if("ancient machine")
 						holo_icon = getHologramIcon(icon('icons/mob/ancient_machine.dmi', "ancient_machine"))
 					if("custom")
-						if("[ckey]-ai-holo" in icon_states('icons/mob/custom-synthetic.dmi'))
-							holo_icon = getHologramIcon(icon('icons/mob/custom-synthetic.dmi', "[ckey]-ai-holo"))
-						else if("[ckey]-ai-holo" in icon_states('icons/mob/custom-synthetic64.dmi'))
-							holo_icon = getHologramIcon(icon('icons/mob/custom-synthetic64.dmi', "[ckey]-ai-holo"))
+						if("[ckey]-ai-holo" in icon_states('icons/mob/custom_synthetic/custom-synthetic.dmi'))
+							holo_icon = getHologramIcon(icon('icons/mob/custom_synthetic/custom-synthetic.dmi', "[ckey]-ai-holo"))
+						else if("[ckey]-ai-holo" in icon_states('icons/mob/custom_synthetic/custom-synthetic64.dmi'))
+							holo_icon = getHologramIcon(icon('icons/mob/custom_synthetic/custom-synthetic64.dmi', "[ckey]-ai-holo"))
 						else
 							holo_icon = getHologramIcon(icon('icons/mob/AI.dmi',"holo1"))
 
@@ -986,7 +1023,7 @@ var/list/ai_verbs_default = list(
 
 	var/obj/machinery/power/apc/apc = loc
 	if(!istype(apc))
-		to_chat(src, "\blue You are already in your Main Core.")
+		to_chat(src, "<span class='notice'>You are already in your Main Core.</span>")
 		return
 	apc.malfvacate()
 
@@ -1061,19 +1098,19 @@ var/list/ai_verbs_default = list(
 /mob/living/silicon/ai/attackby(obj/item/weapon/W, mob/user, params)
 	if(istype(W, /obj/item/weapon/wrench))
 		if(anchored)
-			user.visible_message("\blue \The [user] starts to unbolt \the [src] from the plating...")
+			user.visible_message("<span class='notice'>\The [user] starts to unbolt \the [src] from the plating...</span>")
 			if(!do_after(user, 40 * W.toolspeed, target = src))
-				user.visible_message("\blue \The [user] decides not to unbolt \the [src].")
+				user.visible_message("<span class='notice'>\The [user] decides not to unbolt \the [src].</span>")
 				return
-			user.visible_message("\blue \The [user] finishes unfastening \the [src]!")
+			user.visible_message("<span class='notice'>\The [user] finishes unfastening \the [src]!</span>")
 			anchored = 0
 			return
 		else
-			user.visible_message("\blue \The [user] starts to bolt \the [src] to the plating...")
+			user.visible_message("<span class='notice'>\The [user] starts to bolt \the [src] to the plating...</span>")
 			if(!do_after(user, 40 * W.toolspeed, target = src))
-				user.visible_message("\blue \The [user] decides not to bolt \the [src].")
+				user.visible_message("<span class='notice'>\The [user] decides not to bolt \the [src].</span>")
 				return
-			user.visible_message("\blue \The [user] finishes fastening down \the [src]!")
+			user.visible_message("<span class='notice'>\The [user] finishes fastening down \the [src]!</span>")
 			anchored = 1
 			return
 	else

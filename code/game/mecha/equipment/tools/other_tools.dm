@@ -185,7 +185,7 @@
 	icon_state = "repair_droid"
 	origin_tech = "magnets=3;programming=3"
 	equip_cooldown = 20
-	energy_drain = 100
+	energy_drain = 50
 	range = 0
 	var/health_boost = 1
 	var/icon/droid_overlay
