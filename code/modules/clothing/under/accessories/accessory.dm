@@ -402,22 +402,25 @@
 	var/open
 	var/obj/item/held //Item inside locket.
 
+/obj/item/clothing/accessory/necklace/locket/Destroy()
+	QDEL_NULL(held)
+
 /obj/item/clothing/accessory/necklace/locket/attack_self(mob/user as mob)
 	if(!base_icon)
 		base_icon = icon_state
 
 	if(!("[base_icon]_open" in icon_states(icon)))
-		to_chat(user, "\The [src] doesn't seem to open.")
+		to_chat(user, "The [src] doesn't seem to open.")
 		return
 
 	open = !open
-	to_chat(user, "You flip \the [src] [open?"open":"closed"].")
+	to_chat(user, "You flip the [src] [open?"open":"closed"].")
 	if(open)
 		icon_state = "[base_icon]_open"
 		if(held)
-			to_chat(user, "\The [held] falls out!")
-			held.loc = get_turf(user)
-			src.held = null
+			to_chat(user, "The [held] falls out!")
+			held.forceMove(get_turf(user))
+			held = null
 	else
 		icon_state = "[base_icon]"
 
@@ -426,16 +429,16 @@
 		to_chat(user, "You have to open it first.")
 		return
 
-	if(istype(O,/obj/item/weapon/paper) || istype(O, /obj/item/weapon/photo))
+	if(istype(O,/obj/item/weapon/paper) || istype(O, /obj/item/weapon/photo) && !(istype(O, /obj/item/weapon/paper/talisman)))
 		if(held)
-			to_chat(usr, "\The [src] already has something inside it.")
+			to_chat(usr, "The [src] already has something inside it.")
 		else
 			to_chat(usr, "You slip [O] into [src].")
 			user.drop_item()
-			O.loc = src
-			src.held = O
-		return
-	..()
+			O.forceMove(src)
+			held = O
+	else
+		return ..()
 
 
 //Cowboy Shirts
