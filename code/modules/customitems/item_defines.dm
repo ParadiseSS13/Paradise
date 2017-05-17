@@ -410,6 +410,30 @@
 	else
 		to_chat(user, "<span class='warning'>You can't modify [target]!</span>")
 
+/obj/item/device/fluff/k3_webbing_modkit //IK3I: Yakikatachi
+	name = "webbing modkit"
+	desc = "A modkit that can be used to turn certain vests and labcoats into lightweight webbing"
+	icon_state = "modkit"
+	w_class = 2
+	force = 0
+	throwforce = 0
+
+/obj/item/device/fluff/k3_webbing_modkit/afterattack(atom/target, mob/user, proximity)
+	if(!proximity || !ishuman(user) || user.incapacitated())
+		return
+
+	if(istype(target, /obj/item/clothing/suit/storage/labcoat) || istype(target, /obj/item/clothing/suit/storage/hazardvest))
+		var/mob/living/carbon/human/H = user
+		var/obj/item/clothing/suit/storage/S = target
+		var/obj/item/clothing/suit/storage/fluff/k3_webbing/webbing = new(get_turf(target))
+		webbing.allowed = S.allowed
+		to_chat(user, "<span class='notice'>You modify the [S] with [src].</span>")
+		H.update_inv_wear_suit()
+		qdel(S)
+		qdel(src)
+	else
+		to_chat(user, "<span class='warning'>You can't modify [target]!</span>")
+
 //////////////////////////////////
 //////////// Clothing ////////////
 //////////////////////////////////
@@ -648,6 +672,32 @@
 	desc = "A black coat with gold trim and an old US Chevron printed on the back. Edgy."
 	icon = 'icons/obj/custom_items.dmi'
 	icon_state = "shodancoat"
+
+/obj/item/clothing/suit/storage/fluff/k3_webbing
+	name = "vox tactical webbing"
+	desc = "A somewhat worn but well kept set of vox tactical webbing. It has a couple of pouches attached."
+	icon = 'icons/obj/custom_items.dmi'
+	icon_state = "k3_webbing_off"
+	species_fit = list("Vox")
+	sprite_sheets = list("Vox" = 'icons/mob/species/vox/suit.dmi')
+	var/mode = 0
+
+/obj/item/clothing/suit/storage/fluff/k3_webbing/verb/toggle()
+	set name = "Toggle Webbing Lights"
+	set category = "Object"
+	set src in usr
+
+	if (usr.stat || usr.restrained())
+		return 0
+
+	if(mode)
+		to_chat(usr, "<span class='notice'>You turn the lighting system off</span>")
+		icon_state = "k3_webbing_off"
+	else
+		to_chat(usr, "<span class='notice'>you turn the lighting system on</span>")
+		icon_state = "k3_webbing_on"
+	mode = !mode
+	usr.update_inv_wear_suit()
 
 //////////// Uniforms ////////////
 /obj/item/clothing/under/fluff/kharshai // Kharshai: Athena Castile
