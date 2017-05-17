@@ -554,7 +554,8 @@
 			return
 
 		to_chat(user, "<span class='notice'>Mind Reading of <b>[M.name]:</b></span>")
-		var/pain_condition = M.health
+
+		var/pain_condition = M.health / M.maxHealth
 		// lower health means more pain
 		var/list/randomthoughts = list("what to have for lunch","the future","the past","money",
 		"their hair","what to do next","their job","space","amusing things","sad things",
@@ -562,20 +563,20 @@
 		var/thoughts = "thinking about [pick(randomthoughts)]"
 
 		if(M.fire_stacks)
-			pain_condition -= 50
+			pain_condition -= 0.5
 			thoughts = "preoccupied with the fire"
 
 		if(M.radiation)
-			pain_condition -= 25
+			pain_condition -= 0.25
 
 		switch(pain_condition)
-			if(81 to INFINITY)
+			if(0.81 to INFINITY)
 				to_chat(user, "<span class='notice'><b>Condition</b>: [M.name] feels good.</span>")
-			if(61 to 80)
+			if(0.61 to 0.8)
 				to_chat(user, "<span class='notice'><b>Condition</b>: [M.name] is suffering mild pain.</span>")
-			if(41 to 60)
+			if(0.41 to 0.6)
 				to_chat(user, "<span class='notice'><b>Condition</b>: [M.name] is suffering significant pain.</span>")
-			if(21 to 40)
+			if(0.21 to 0.4)
 				to_chat(user, "<span class='notice'><b>Condition</b>: [M.name] is suffering severe pain.</span>")
 			else
 				to_chat(user, "<span class='notice'><b>Condition</b>: [M.name] is suffering excruciating pain.</span>")
