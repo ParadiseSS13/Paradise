@@ -27,7 +27,6 @@
 	stop_automated_movement_when_pulled = 1
 	var/milk_content = 0
 	can_collar = 1
-	blood_volume = BLOOD_VOLUME_NORMAL
 
 /mob/living/simple_animal/hostile/retaliate/goat/handle_automated_movement()
 	..()
@@ -111,7 +110,6 @@
 	var/milk_content = 0
 	can_collar = 1
 	gold_core_spawnable = CHEM_MOB_SPAWN_FRIENDLY
-	blood_volume = BLOOD_VOLUME_NORMAL
 
 /mob/living/simple_animal/cow/New()
 	..()

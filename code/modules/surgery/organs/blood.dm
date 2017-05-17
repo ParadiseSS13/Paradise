@@ -268,9 +268,9 @@
 		if(species.exotic_blood)
 			if(!T)
 				T = get_turf(src)
-			var/datum/reagent/R = get_blood_id()
+			var/datum/reagent/R = chemical_reagents_list[get_blood_id()]
 			if(istype(R))
-				R.reaction_turf(T, blood_volume)
+				R.reaction_turf(T, R.volume)
 			return
 		..()
 

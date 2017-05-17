@@ -587,6 +587,8 @@
 		apply_to_card(I, H, list(access_maint_tunnels), "Legit Xenomorph")
 
 /datum/outfit/admin/soviet
+
+	gloves = /obj/item/clothing/gloves/combat
 	uniform = /obj/item/clothing/under/soviet
 	back = /obj/item/weapon/storage/backpack/satchel
 	head = /obj/item/clothing/head/ushanka
