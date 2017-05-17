@@ -677,27 +677,32 @@
 	name = "vox tactical webbing"
 	desc = "A somewhat worn but well kept set of vox tactical webbing. It has a couple of pouches attached."
 	icon = 'icons/obj/custom_items.dmi'
-	icon_state = "k3_webbing_off"
+	icon_state = "k3_webbing"
 	species_fit = list("Vox")
 	sprite_sheets = list("Vox" = 'icons/mob/species/vox/suit.dmi')
-	var/mode = 0
+	ignore_suitadjust = 0
+	actions_types = list(/datum/action/item_action/toggle)
+	suit_adjusted = 0
 
-/obj/item/clothing/suit/storage/fluff/k3_webbing/verb/toggle()
-	set name = "Toggle Webbing Lights"
-	set category = "Object"
-	set src in usr
+/obj/item/clothing/suit/storage/fluff/k3_webbing/adjustsuit(var/mob/user)
+	if(!user.incapacitated())
+		var/flavour
+		if(suit_adjusted)
+			flavour = "off"
+			icon_state = copytext(icon_state, 1, findtext(icon_state, "_on"))
+			item_state = copytext(item_state, 1, findtext(item_state, "_on"))
+			suit_adjusted = 0 //Lights Off
+		else
+			flavour = "on"
+			icon_state += "_on"
+			item_state += "_on"
+			suit_adjusted = 1 //Lights On
 
-	if (usr.stat || usr.restrained())
-		return 0
-
-	if(mode)
-		to_chat(usr, "<span class='notice'>You turn the lighting system off</span>")
-		icon_state = "k3_webbing_off"
-	else
-		to_chat(usr, "<span class='notice'>you turn the lighting system on</span>")
-		icon_state = "k3_webbing_on"
-	mode = !mode
-	usr.update_inv_wear_suit()
+		for(var/X in actions)
+			var/datum/action/A = X
+			A.UpdateButtonIcon()
+		to_chat(user, "You turn the lighting system on \the [src] [flavour].")
+		user.update_inv_wear_suit()
 
 //////////// Uniforms ////////////
 /obj/item/clothing/under/fluff/kharshai // Kharshai: Athena Castile
