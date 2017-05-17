@@ -45,6 +45,7 @@
 	var/reagent_tag                 //Used for metabolizing reagents.
 	var/hunger_drain = HUNGER_FACTOR
 	var/digestion_ratio = 1 //How quickly the species digests/absorbs reagents.
+	var/taste_sensitivity = TASTE_SENSITIVITY_NORMAL //factor of how much of a reagent is needed for a human to taste it
 
 	var/siemens_coeff = 1 //base electrocution coefficient
 
