@@ -1,0 +1,4 @@
+author: "Travelling Merchant"
+delete-after: True
+changes: 
+  - rscadd: "Adds a hiss emote for Unathi."
