@@ -29,8 +29,9 @@ Possible to do for anyone motivated enough:
 // 1 = AREA BASED
 #define HOLOPAD_PASSIVE_POWER_USAGE 1
 #define HOLOGRAM_POWER_USAGE 2
+#define RANGE_BASED 4
 
-var/const/HOLOPAD_MODE = 0
+var/const/HOLOPAD_MODE = RANGE_BASED
 
 var/list/holopads = list()
 
@@ -225,7 +226,7 @@ var/list/holopads = list()
 	if(user.eyeobj.loc != src.loc)//Set client eye on the object if it's not already.
 		user.eyeobj.setLoc(get_turf(src))
 	else if(!masters[user])//If there is no hologram, possibly make one.
-		activate_holo(user, 0)
+		activate_holo(user, 1)
 	else//If there is a hologram, remove it.
 		clear_holo(user)
 
@@ -239,28 +240,15 @@ var/list/holopads = list()
 		if(!qdeleted(master) && !master.incapacitated() && master.client && (!AI || AI.eyeobj))//If there is an AI attached, it's not incapacitated, it has a client, and the client eye is centered on the projector.
 			if(!(stat & NOPOWER))//If the  machine has power.
 				if(AI)	//ais are range based
-					if((HOLOPAD_MODE == 0 && (get_dist(AI.eyeobj, src) <= holo_range)))
-						return 1
-
-					else if(HOLOPAD_MODE == 1)
-
-						var/area/holo_area = get_area(src)
-						var/area/eye_area = get_area(AI.eyeobj)
-
-						if(eye_area != holo_area)
-							return 1
-
-					var/turf/target_turf = get_turf(AI.eyeobj)
-					var/newdir = AI.holo.dir
-					clear_holo(master)//If not, we want to get rid of the hologram.
-					var/obj/machinery/hologram/holopad/pad_close = get_closest_atom(/obj/machinery/hologram/holopad, holopads, AI.eyeobj)
-					if(get_dist(pad_close, AI.eyeobj) <= pad_close.holo_range)
-						if(!(pad_close.stat & NOPOWER) && !pad_close.masters[src])
-							pad_close.activate_holo(AI, 1)
-							if(pad_close.masters[src])
-								outgoing_call.hologram.forceMove(target_turf)
-								outgoing_call.hologram.dir = newdir
-								continue
+					if(get_dist(AI.eyeobj, src) <= holo_range)
+						continue
+					else
+						var/obj/machinery/hologram/holopad/pad_close = get_closest_atom(/obj/machinery/hologram/holopad, holopads, AI.eyeobj)
+						if(get_dist(pad_close, AI.eyeobj) <= holo_range)
+							var/obj/effect/overlay/holo_pad_hologram/h = masters[master]
+							unset_holo(master)
+							pad_close.set_holo(master, h)
+							continue
 				else
 					continue
 		clear_holo(master)//If not, we want to get rid of the hologram.
@@ -284,7 +272,11 @@ var/list/holopads = list()
 		var/obj/effect/overlay/holo_pad_hologram/H = masters[user]
 		step_to(H, new_turf)
 		H.loc = new_turf
+		var/area/holo_area = get_area(src)
+		var/area/eye_area = new_turf.loc
 
+		if(eye_area != holo_area)
+			clear_holo(user)
 	return 1
 
 /obj/machinery/hologram/holopad/proc/activate_holo(mob/living/user, var/force = 0)
@@ -292,10 +284,9 @@ var/list/holopads = list()
 	if(!istype(AI))
 		AI = null
 
-	if(istype(AI) && !force && AI.eyeobj.loc != src.loc) // allows holopads to pass off holograms to the next holopad in the chain
+	if(AI && !force && AI.eyeobj.loc != src.loc) // allows holopads to pass off holograms to the next holopad in the chain
 		to_chat(user, "<font color='red'>ERROR:</font> Unable to project hologram.")
-
-	if(!(stat & NOPOWER) && (!AI || AI.eyeobj.loc == loc))//If the projector has power and client eye is on it
+	else if(!(stat & NOPOWER) && (!AI || AI.eyeobj.loc == loc))//If the projector has power and client eye is on it
 		if(AI && istype(AI.current, /obj/machinery/hologram/holopad))
 			to_chat(user, "<span class='danger'>ERROR:</span> \black Image feed in progress.")
 			return
@@ -393,31 +384,6 @@ For the other part of the code, check silicon say.dm. Particularly robot talk.*/
 		return Impersonation.examine(user)
 	return ..()
 
-/obj/effect/overlay/holo_pad_hologram/proc/face_atom(var/atom/A)
-	if( !HC.hologram || !A || !HC.hologram.x || !HC.hologram.y || !A.x || !A.y ) return
-	var/dx = A.x - HC.hologram.x
-	var/dy = A.y - HC.hologram.y
-	if(!dx && !dy) // Wall items are graphically shifted but on the floor
-		if(A.pixel_y > 16)
-			HC.hologram.dir = NORTH
-		else if(A.pixel_y < -16)
-			HC.hologram.dir = SOUTH
-		else if(A.pixel_x > 16)
-			HC.hologram.dir = EAST
-		else if(A.pixel_x < -16)
-			HC.hologram.dir = WEST
-		return
-
-	if(abs(dx) < abs(dy))
-		if(dy > 0)
-			HC.hologram.dir = NORTH
-		else
-			HC.hologram.dir = SOUTH
-	else
-		if(dx > 0)
-			HC.hologram.dir = EAST
-		else
-			HC.hologram.dir = WEST
 /*
  * Other Stuff: Is this even used?
  */

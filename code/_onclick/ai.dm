@@ -157,9 +157,6 @@
 	return
 
 /atom/proc/AICtrlClick(var/mob/living/silicon/ai/user)
-	if(user.holo)
-		var/obj/effect/overlay/holo_pad_hologram/H = user.holo
-		H.face_atom(src)
 	return
 
 /obj/machinery/door/airlock/AICtrlClick() // Bolts doors
