@@ -363,11 +363,58 @@
 #undef USED_MOD_HELM
 #undef USED_MOD_SUIT
 
+/obj/item/device/fluff/merchant_sallet_modkit //Travelling Merchant: Trav Noble. This is what they spawn in with
+	name = "sallet modkit"
+	desc = "A modkit that can make most helmets look like a steel sallet."
+	icon_state = "modkit"
+	w_class = 2
+	force = 0
+	throwforce = 0
+
+/obj/item/device/fluff/merchant_sallet_modkit/afterattack(atom/target, mob/user, proximity)
+	if(!proximity || !ishuman(user) || user.incapacitated())
+		return
+
+	var/mob/living/carbon/human/H = user
+	if(istype(target, /obj/item/clothing/head/helmet) && !istype(target, /obj/item/clothing/head/helmet/space))
+		var/obj/item/clothing/head/helmet/helm = target
+		var/obj/item/clothing/head/helmet/fluff/merchant_sallet/sallet = new(get_turf(target))
+		sallet.flags = helm.flags
+		sallet.flags_cover = helm.flags_cover
+		sallet.armor = helm.armor
+		sallet.flags_inv = helm.flags_inv
+		sallet.cold_protection = helm.cold_protection
+		sallet.min_cold_protection_temperature = helm.min_cold_protection_temperature
+		sallet.heat_protection = helm.heat_protection
+		sallet.max_heat_protection_temperature = helm.max_heat_protection_temperature
+		sallet.strip_delay = helm.strip_delay
+		sallet.put_on_delay = helm.put_on_delay
+		sallet.burn_state = helm.burn_state
+		sallet.flags_cover = helm.flags_cover
+		if(helm.up)
+			sallet.flags &= ~helm.visor_flags
+			sallet.flags_inv &= ~helm.visor_flags_inv
+		if(!BLOCKHAIR in sallet.flags)
+			sallet.flags |= BLOCKHAIR
+		for(var/flag in list(HIDEMASK, HIDEFACE, HIDEEYES, HIDEEARS)) //Check for and apply missing flags.
+			if(!(sallet.flags_inv & flag))
+				sallet.flags_inv |= flag
+
+		sallet.add_fingerprint(H)
+		target.transfer_fingerprints_to(sallet)
+		playsound(src.loc, 'sound/items/Screwdriver.ogg', 50, 1)
+		to_chat(user, "<span class='notice'>You modify [target] with [src].</span>")
+		H.update_inv_head()
+		qdel(target)
+		qdel(src)
+	else
+		to_chat(user, "<span class='warning'>You can't modify [target]!</span>")
+
 //////////////////////////////////
 //////////// Clothing ////////////
 //////////////////////////////////
 
-//////////// Gloves ////////////
+//////////// Gloves //////////////
 
 //////////// Eye Wear ////////////
 /obj/item/clothing/glasses/hud/security/sunglasses/fluff/eyepro //T0EPIC4U: Ty Omaha
@@ -440,6 +487,57 @@
 	desc = "A uniquely colored vox leader hat. Has some signs of wear."
 	icon = 'icons/obj/custom_items.dmi'
 	icon_state = "kakicharakiti"
+
+/obj/item/clothing/head/helmet/fluff/merchant_sallet //Travelling Merchant: Trav Noble. This >>IS NOT<< what they spawn in with
+	name = "Steel Sallet"
+	desc = "A heavy steel sallet with the word Noble scratched into the side. Comes with a Bevor attached."
+	icon = 'icons/obj/custom_items.dmi'
+	icon_state = "merchant_sallet_visor_bevor"
+	item_state = "merchant_sallet_visor_bevor"
+	actions_types = list(/datum/action/item_action/toggle_helmet_mode)
+	toggle_cooldown = 20
+	toggle_sound = 'sound/items/ZippoClose.ogg'
+	flags = BLOCKHAIR
+	flags_inv = HIDEEYES|HIDEMASK|HIDEFACE|HIDEEARS
+	var/state = "Visor & Bevor"
+
+/obj/item/clothing/head/helmet/fluff/merchant_sallet/attack_self(mob/user)
+	if(!user.incapacitated() && (world.time > cooldown + toggle_cooldown) && Adjacent(user))
+		var/list/options = list()
+		options["Visor & Bevor"] = list(
+			"icon_state"	= "merchant_sallet_visor_bevor",
+			"visor_flags"	= HIDEEYES,
+			"mask_flags"	= HIDEMASK|HIDEFACE
+			)
+		options["Visor Only"] = list(
+			"icon_state"	= "merchant_sallet_visor",
+			"visor_flags"	= HIDEEYES,
+			"mask_flags"	= HIDEFACE
+			)
+		options["Bevor Only"] = list(
+			"icon_state"	= "merchant_sallet_bevor",
+			"visor_flags"	= null,
+			"mask_flags"	= HIDEMASK|HIDEFACE
+			)
+		options["Neither Visor nor Bevor"] = list(
+			"icon_state"	= "merchant_sallet",
+			"visor_flags"	= null,
+			"mask_flags"	= null
+			)
+
+		var/choice = input(user, "How would you like to adjust the sallet?", "Adjust Sallet") as null|anything in options
+
+		if(choice && choice != state && !user.incapacitated() && Adjacent(user))
+			var/list/new_state = options[choice]
+			var/list/old_state = options[state]
+			icon_state = new_state["icon_state"]
+			flags_inv &= ~(old_state["visor_flags"]|old_state["mask_flags"])
+			state = choice
+			flags_inv |= (new_state["visor_flags"]|new_state["mask_flags"])
+			to_chat(user, "You adjust the sallet.")
+			playsound(src.loc, "[toggle_sound]", 100, 0, 4)
+			user.update_inv_head()
+			return 1
 
 //////////// Suits ////////////
 /obj/item/clothing/suit/fluff
