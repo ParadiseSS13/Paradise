@@ -87,15 +87,6 @@
 	to_chat(src, "You will [(prefs.toggles & DISABLE_KARMA_REMINDER) ? "no longer" : "now"] see the end of round karma reminder.")
 	feedback_add_details("admin_verb","TKarmabugger") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
-/client/verb/togglekarmatextreminder()
-	set name = "Hide/Display Shuttle Karma Reminder"
-	set category = "Preferences"
-	set desc = "Toggles displaying shuttle karma reminder"
-	prefs.toggles ^= DISABLE_KARMA_TEXT_REMINDER
-	prefs.save_preferences(src)
-	to_chat(src, "You will [(prefs.toggles & DISABLE_KARMA_TEXT_REMINDER) ? "no longer" : "now"] see the shuttle karma reminder.")
-	feedback_add_details("admin_verb","TShuttlekarma") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
-
 /client/verb/toggletitlemusic()
 	set name = "Hear/Silence LobbyMusic"
 	set category = "Preferences"
