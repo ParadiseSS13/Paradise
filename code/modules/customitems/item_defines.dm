@@ -701,7 +701,7 @@
 		for(var/X in actions)
 			var/datum/action/A = X
 			A.UpdateButtonIcon()
-		to_chat(user, "You turn the lighting system on \the [src] [flavour].")
+		to_chat(user, "You turn the [src]'s lighting system [flavour].")
 		user.update_inv_wear_suit()
 
 //////////// Uniforms ////////////
