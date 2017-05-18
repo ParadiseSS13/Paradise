@@ -1,0 +1,5 @@
+author: "Purpose2"
+delete-after: True
+changes: 
+  - rscadd: "Adds a subtle chat-window reminder for karma on Shuttle departure. Disable/enable via preferences tab."
+  - rscdel: "Removes the ugly round-end karma popup."
