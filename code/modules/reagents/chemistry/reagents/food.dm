@@ -598,7 +598,7 @@
 	reagent_state = SOLID
 	color = "#50FF00"
 	addiction_chance = 5
-	taste_message = "cheese...?"
+	taste_message = "cheeeeeese...?"
 
 /datum/reagent/consumable/weird_cheese/on_mob_life(mob/living/M)
 	if(prob(5))
@@ -718,7 +718,7 @@
 	description = "An advanced blend of mechanically-recovered meat and textured synthesized protein product notable for its unusual crystalline grain when sliced."
 	reagent_state = SOLID
 	color = "#AC7E67"
-	taste_message = "meat; hopefully"
+	taste_message = "meat - hopefully"
 
 /datum/reagent/consumable/beff/on_mob_life(mob/living/M)
 	if(prob(5))
@@ -801,7 +801,7 @@
 	description = "Pure cholesterol. Probably not very good for you."
 	reagent_state = LIQUID
 	color = "#FFFAC8"
-	taste_message = "heart disease"
+	taste_message = "heart attack"
 
 /datum/reagent/cholesterol/on_mob_life(mob/living/M)
 	if(volume >= 25 && prob(volume*0.15))
@@ -827,7 +827,7 @@
 	description = "Scrapings of some unknown fungus found growing on the station walls."
 	reagent_state = LIQUID
 	color = "#C87D28"
-	taste_message = "puke"
+	taste_message = "mold"
 
 /datum/reagent/fungus/reaction_mob(mob/living/M, method=TOUCH, volume)
 	if(method == INGEST)
@@ -904,7 +904,7 @@
 	id = "entpoly"
 	description = "An ichor, derived from a certain mushroom, makes for a bad time."
 	color = "#1d043d"
-	taste_message = "puke"
+	taste_message = "mold"
 
 /datum/reagent/consumable/entpoly/on_mob_life(mob/living/M)
 	if(current_cycle >= 10)
@@ -923,7 +923,7 @@
 	description = "A stimulating ichor which causes luminescent fungi to grow on the skin. "
 	color = "#b5a213"
 	var/light_activated = 0
-	taste_message = "puke"
+	taste_message = "mold"
 
 /datum/reagent/consumable/tinlux/on_mob_life(mob/living/M)
 	if(!light_activated)

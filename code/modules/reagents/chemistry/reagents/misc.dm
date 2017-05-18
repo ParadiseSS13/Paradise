@@ -133,7 +133,7 @@
 	description = "A tetravalent metalloid, silicon is less reactive than its chemical analog carbon."
 	reagent_state = SOLID
 	color = "#A8A8A8" // rgb: 168, 168, 168
-	taste_message = null
+	taste_message = "metal"
 
 
 /datum/reagent/copper
@@ -266,7 +266,7 @@
 	description = "It's pure liquid colors. That's a thing now."
 	reagent_state = LIQUID
 	color = "#FFFFFF"
-	taste_message = "colors!"
+	taste_message = "the rainbow"
 
 /datum/reagent/colorful_reagent/reaction_mob(mob/living/simple_animal/M, method=TOUCH, volume)
     if(isanimal(M))

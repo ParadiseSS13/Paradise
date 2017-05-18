@@ -67,7 +67,7 @@
 	description = "A chemical that stabilises normally volatile compounds, preventing them from reacting immediately."
 	reagent_state = LIQUID
 	color = "#FFFF00"
-	taste_message = null
+	taste_message = "long-term stability"
 
 /datum/reagent/clf3
 	name = "Chlorine Trifluoride"
@@ -132,7 +132,7 @@
 	color = "#000000"
 	metabolization_rate = 0.05
 	penetrates_skin = 1
-	taste_message = "sand"
+	taste_message = "explosions"
 
 /datum/reagent/blackpowder/reaction_turf(turf/T, volume) //oh shit
 	if(volume >= 5 && !istype(T, /turf/space))

@@ -465,7 +465,7 @@
 	id = "pumpkinjuice"
 	description = "Juiced from real pumpkin."
 	color = "#FFA500"
-	taste_message = "puke"
+	taste_message = "autumn"
 
 /datum/reagent/consumable/drink/blumpkinjuice
 	name = "Blumpkin Juice"
