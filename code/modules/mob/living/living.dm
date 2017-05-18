@@ -867,6 +867,8 @@
 
 	for(var/datum/reagent/R in tastes.reagent_list)
 		taste_sum += R.volume * R.taste_strength
+		if(!R.taste_message)//set to null; no taste, like water
+			continue
 		taste_list[R.taste_message] += R.volume * R.taste_strength
 
 	for(var/R in taste_list)
