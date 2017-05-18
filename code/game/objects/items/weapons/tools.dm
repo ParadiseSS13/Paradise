@@ -511,7 +511,8 @@
 			to_chat(user, "<span class='warning'>You need more fuel!</span>")
 			switched_off(user)
 	else
-		to_chat(user, "<span class='notice'>You switch [src] off.</span>")
+		if(user)
+			to_chat(user, "<span class='notice'>You switch [src] off.</span>")
 		playsound(loc, deac_sound, 50, 1)
 		switched_off(user)
 
