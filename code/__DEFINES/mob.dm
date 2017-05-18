@@ -69,7 +69,7 @@
 
 // Taste sensitivity - the more the more reagents you'll taste
 #define TASTE_SENSITIVITY_NORMAL 1
-#define TASTE_SENSITIVITY_SHARP 3
+#define TASTE_SENSITIVITY_SHARP 1.5
 #define TASTE_SENSITIVITY_DULL 0.75
 #define TASTE_SENSITIVITY_NO_TASTE 0
 
