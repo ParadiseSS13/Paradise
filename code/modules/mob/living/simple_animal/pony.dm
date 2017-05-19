@@ -1,5 +1,5 @@
 /mob/living/simple_animal/pony
-	name = "\improper pony"
+	name = "pony"
 	desc = "A bound spirit"
 	icon = 'icons/mob/pony.dmi'
 //	icon_dead = "shade_dead"

@@ -1,6 +1,6 @@
 /obj/mecha/combat/reticence
 	desc = "A silent, fast, and nigh-invisible miming exosuit. Popular among mimes and mime assassins."
-	name = "\improper Reticence"
+	name = "Reticence"
 	icon_state = "mime"
 	initial_icon = "mime"
 	step_in = 2

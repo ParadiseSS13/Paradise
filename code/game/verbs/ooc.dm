@@ -14,7 +14,11 @@ var/global/admin_ooc_colour = "#b82e00"
 		to_chat(src, "<span class='danger'>Guests may not use OOC.</span>")
 		return
 
-	msg = trim(sanitize(copytext(msg, 1, MAX_MESSAGE_LEN)))
+	if(!check_prisonlist(ckey(key)))
+		to_chat(src, "<span class='danger'>Not-whitelisted may not use OOC.</span>")
+		return
+
+	msg = trim(sanitize_local(copytext(msg, 1, MAX_MESSAGE_LEN)))
 	if(!msg)
 		return
 
@@ -174,7 +178,7 @@ var/global/admin_ooc_colour = "#b82e00"
 		to_chat(src, "<span class='danger'>Guests may not use OOC.</span>")
 		return
 
-	msg = trim(sanitize(copytext(msg, 1, MAX_MESSAGE_LEN)))
+	msg = trim(sanitize_local(copytext(msg, 1, MAX_MESSAGE_LEN)))
 	if(!msg)
 		return
 

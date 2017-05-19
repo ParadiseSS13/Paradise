@@ -236,7 +236,7 @@
 
 //Internal Affairs
 /obj/item/clothing/suit/storage/internalaffairs
-	name = "\improper Internal Affairs jacket"
+	name = "Internal Affairs jacket"
 	desc = "A smooth black jacket."
 	icon_state = "ia_jacket_open"
 	item_state = "ia_jacket_open"
@@ -252,7 +252,7 @@
 		)
 
 /obj/item/clothing/suit/storage/ntrep
-	name = "\improper NanoTrasen Representative jacket"
+	name = "NanoTrasen Representative jacket"
 	desc = "A fancy black jacket, standard issue to NanoTrasen Represenatives."
 	icon_state = "ntrep"
 	item_state = "ntrep"

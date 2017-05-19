@@ -256,7 +256,7 @@ var/list/ai_verbs_default = list(
 	The alternative was to rewrite a bunch of AI code instead here we are.
 */
 /obj/machinery/ai_powersupply
-	name="\improper AI power supply"
+	name="AI power supply"
 	active_power_usage=1000
 	use_power = 2
 	power_channel = EQUIP

@@ -285,7 +285,7 @@
 	icon_state = "shaker"
 	materials = list(MAT_METAL=1500)
 	amount_per_transfer_from_this = 10
-	volume = 100
+	volume = 120
 
 /obj/item/weapon/reagent_containers/food/drinks/flask
 	name = "flask"

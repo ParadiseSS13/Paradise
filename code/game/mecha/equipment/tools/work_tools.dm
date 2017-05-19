@@ -72,7 +72,7 @@
 
 //This is pretty much just for the death-ripley
 /obj/item/mecha_parts/mecha_equipment/hydraulic_clamp/kill
-	name = "\improper KILL CLAMP"
+	name = "KILL CLAMP"
 	desc = "They won't know what clamped them!"
 	energy_drain = 0
 

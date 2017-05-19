@@ -20,11 +20,6 @@
 	exp_requirements = 600
 	exp_type = EXP_TYPE_CREW
 
-	// All science-y guys get bonuses for maxing out their tech.
-	required_objectives = list(
-		/datum/job_objective/further_research
-	)
-
 	outfit = /datum/outfit/job/rd
 
 /datum/outfit/job/rd
@@ -62,10 +57,6 @@
 	minimal_player_age = 3
 	exp_requirements = 300
 	exp_type = EXP_TYPE_CREW
-	// All science-y guys get bonuses for maxing out their tech.
-	required_objectives = list(
-		/datum/job_objective/further_research
-	)
 
 	outfit = /datum/outfit/job/scientist
 
@@ -101,10 +92,6 @@
 	exp_requirements = 180
 	exp_type = EXP_TYPE_CREW
 
-	required_objectives = list(
-		/datum/job_objective/make_cyborg,
-		/datum/job_objective/make_ripley
-	)
 
 	outfit = /datum/outfit/job/roboticist
 

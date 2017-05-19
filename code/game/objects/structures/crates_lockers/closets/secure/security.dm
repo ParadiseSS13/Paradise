@@ -121,7 +121,7 @@
 		new /obj/item/taperoll/police(src)
 		new /obj/item/weapon/gun/energy/gun/hos(src)
 		new /obj/item/weapon/door_remote/head_of_security(src)
-
+		new /obj/item/weapon/storage/lockbox/saber(src)
 
 
 /obj/structure/closet/secure_closet/warden
@@ -253,7 +253,7 @@
 		new /obj/item/clothing/shoes/jackboots/jacksandals(src)
 
 /obj/structure/closet/secure_closet/ntrep
-	name = "\improper Nanotrasen Representative's locker"
+	name = "Nanotrasen Representative's locker"
 	req_access = list(access_ntrep)
 	icon_state = "ntsecure1"
 	icon_closed = "ntsecure"

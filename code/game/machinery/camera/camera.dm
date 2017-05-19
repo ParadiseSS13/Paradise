@@ -223,7 +223,7 @@
 				if(U.name == "Unknown")
 					to_chat(AI, "<b>[U]</b> holds <a href='?_src_=usr;show_paper=1;'>\a [itemname]</a> up to one of your cameras ...")
 				else
-					to_chat(AI, "<b><a href='?src=[AI.UID()];track=[html_encode(U.name)]'>[U]</a></b> holds <a href='?_src_=usr;show_paper=1;'>\a [itemname]</a> up to one of your cameras ...")
+					to_chat(AI, "<b><a href='?src=[AI.UID()];track=[lhtml_encode(U.name)]'>[U]</a></b> holds <a href='?_src_=usr;show_paper=1;'>\a [itemname]</a> up to one of your cameras ...")
 				AI.last_paper_seen = "<HTML><HEAD><TITLE>[itemname]</TITLE></HEAD><BODY><TT>[info]</TT></BODY></HTML>"
 			else if(O.client && O.client.eye == src)
 				to_chat(O, "[U] holds \a [itemname] up to one of the cameras ...")
@@ -387,7 +387,7 @@
 /obj/machinery/camera/proc/nano_structure()
 	var/cam[0]
 	var/turf/T = get_turf(src)
-	cam["name"] = sanitize(c_tag)
+	cam["name"] = sanitize_local(c_tag)
 	cam["deact"] = !can_use()
 	cam["camera"] = "\ref[src]"
 	if(T)

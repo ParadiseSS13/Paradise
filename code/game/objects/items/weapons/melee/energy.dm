@@ -5,6 +5,7 @@
 	w_class = 2
 	var/w_class_on = 4
 	var/icon_state_on = "axe1"
+	var/slot_flags_on = null
 	var/list/attack_verb_on = list("attacked", "slashed", "stabbed", "sliced", "torn", "ripped", "diced", "cut")
 	no_embed = 1 // Physically impossible for energy weapons to embed themselves into people, this should fix that. -- Dave
 	hitsound = 'sound/weapons/blade1.ogg' // Probably more appropriate than the previous hitsound. -- Dave

@@ -735,7 +735,7 @@ var/list/obj/machinery/newscaster/allCasters = list() //Global list that will co
 			to_chat(user, "<FONT COLOR='blue'>There's already a scribble in this page... You wouldn't want to make things too cluttered, would you?</FONT>")
 		else
 			var/s = strip_html( input(user, "Write something", "Newspaper", "") )
-			s = sanitize(copytext(s, 1, MAX_MESSAGE_LEN))
+			s = sanitize_local(copytext(s, 1, MAX_MESSAGE_LEN))
 			if(!s)
 				return
 			if(!in_range(src, usr) && loc != usr)

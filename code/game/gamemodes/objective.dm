@@ -773,9 +773,3 @@ var/list/potential_theft_objectives = subtypesof(/datum/theft_objective) \
 			target_amount = 6
 			itemname = "six flashes"
 	explanation_text = "We are running low on spare parts. Trade for [itemname]."
-
-//wizard
-
-/datum/objective/wizchaos
-	explanation_text = "Wreak havoc upon the station as much you can. Send those wandless Nanotrasen scum a message!"
-	completed = 1

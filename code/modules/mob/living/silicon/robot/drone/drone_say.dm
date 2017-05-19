@@ -1,4 +1,5 @@
 /mob/living/silicon/robot/drone/say(var/message, var/datum/language/speaking = null)
+	message = sanitize_local(message)
 	if(copytext(message, 1, 2) == "*")
 		return emote(copytext(message, 2))
 		

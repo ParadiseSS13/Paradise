@@ -155,8 +155,8 @@
 			occupant.client.view = 12
 			to_chat(occupant, sound('sound/mecha/imag_enh.ogg',volume=50))
 		else
-			occupant.client.view = initial(occupant.client.view)
-
+			occupant.client.view = world.view
+	return
 
 
 /obj/mecha/combat/marauder/get_stats_part()

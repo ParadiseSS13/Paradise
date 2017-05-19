@@ -20,7 +20,7 @@
 	var/noserver = "<span class='alert'>ALERT: No server detected.</span>"
 	var/incorrectkey = "<span class='warning'>ALERT: Incorrect decryption key!</span>"
 	var/defaultmsg = "<span class='notice'>Welcome. Please select an option.</span>"
-	var/rebootmsg = "<span class='warning'>%$&(£: Critical %$$@ Error // !RestArting! <lOadiNg backUp iNput ouTput> - ?pLeaSe wAit!</span>"
+	var/rebootmsg = "<span class='warning'>%$&(ï¿½: Critical %$$@ Error // !RestArting! <lOadiNg backUp iNput ouTput> - ?pLeaSe wAit!</span>"
 	//Computer properties
 	var/screen = 0 		// 0 = Main menu, 1 = Message Logs, 2 = Hacked screen, 3 = Custom Message, 4 = chat room selection, 5 = chat room logs
 	var/hacking = 0		// Is it being hacked into by the AI/Cyborg
@@ -65,7 +65,7 @@
 			MK.loc = src.loc
 			playsound(loc, 'sound/goonstation/machines/printer_dotmatrix.ogg', 50, 1)
 			// Will help make emagging the console not so easy to get away with.
-			MK.info += "<br><br><font color='red'>£%@%(*$%&(£&?*(%&£/{}</font>"
+			MK.info += "<br><br><font color='red'>ï¿½%@%(*$%&(ï¿½&?*(%&ï¿½/{}</font>"
 			update_icon()
 			spawn(100*length(src.linkedServer.decryptkey))
 				UnmagConsole()
@@ -100,7 +100,7 @@
 		message = rebootmsg
 	var/dat = "<head><title>Message Monitor Console</title></head><body>"
 	dat += "<center><h2>Message Monitor Console</h2></center><hr>"
-	dat += "<center><h4><font color='blue'[message]</h5></center>"
+	dat += "<center><h4><font color='blue'[lhtml_encode(message)]</h5></center>"
 
 	if(auth)
 		dat += "<h4><dd><A href='?src=[UID()];auth=1'>&#09;<font color='green'>\[Authenticated\]</font></a>&#09;/"
@@ -462,7 +462,7 @@
 					//Enter message
 					if("Message")
 						custommessage	= input(usr, "Please enter your message.") as text|null
-						custommessage	= sanitize(copytext(custommessage, 1, MAX_MESSAGE_LEN))
+						custommessage	= sanitize_local(copytext(custommessage, 1, MAX_MESSAGE_LEN))
 
 					//Send message
 					if("Send")
