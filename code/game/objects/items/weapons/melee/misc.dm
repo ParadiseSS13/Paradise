@@ -13,7 +13,7 @@
 	w_class = 3
 	origin_tech = "combat=4"
 	attack_verb = list("flogged", "whipped", "lashed", "disciplined")
-	hitsound = 'sound/weapons/slash.ogg' //pls replace
+	hitsound = 'sound/weapons/whip.ogg' //Finally Replaced
 
 
 /obj/item/weapon/melee/chainofcommand/suicide_act(mob/user)
