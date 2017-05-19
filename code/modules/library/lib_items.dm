@@ -295,11 +295,7 @@
 /obj/item/weapon/book/mindbook/attack_self(mob/living/H)
 	if(ishuman(H))
 		var/mob/living/carbon/human/P = H
-		if(!(P.mind && P.mind.assigned_role == "Psychiatrist"))
-			to_chat(P, "The book appears to be completely empty.")
-			P.adjustBrainLoss(5)
-			return
-		else
+		if((P.mind && P.mind.assigned_role == "Psychiatrist") || prob(50))
 			if(hallucinatory_cooldown > world.time)
 				to_chat(P, "The book needs to recharge.")
 				return
@@ -343,6 +339,10 @@
 								victim.AdjustHallucinate(60)
 								hallucinatory_cooldown = world.time + HALCOOL
 								return
+		else
+			to_chat(P, "You cannot make sense of the book's contents. Your head hurts.")
+			P.adjustBrainLoss(10)
+			return
 	else
 		return
 
