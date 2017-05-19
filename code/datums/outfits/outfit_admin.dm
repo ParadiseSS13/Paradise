@@ -616,6 +616,11 @@
 /datum/outfit/admin/soviet/soldier
 	name = "Soviet Soldier"
 
+	gloves = /obj/item/clothing/gloves/combat
+	shoes = /obj/item/clothing/shoes/combat
+	l_ear = /obj/item/device/radio/headset/syndicate
+	glasses = /obj/item/clothing/glasses/sunglasses
+
 	backpack_contents = list(
 		/obj/item/weapon/storage/box/engineer = 1,
 		/obj/item/weapon/card/emag = 1,
