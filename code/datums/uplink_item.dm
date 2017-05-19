@@ -248,7 +248,23 @@ var/list/uplink_items = list()
 	item = /obj/item/weapon/storage/box/syndie_kit/boolets
 	cost = 6
 	job = list("Bartender")
+	
+/datum/uplink_item/jobspecific/shotchop
+	name = "SG AX3"
+	desc = "A modified tube fed semi-automatic combat shotgun with reinforced heat shielding. With an axe on the end. A shotgun axe. What could be more awesome?"
+	reference = "SAXEH"
+	item = /obj/item/weapon/gun/projectile/shotgun/automatic/axe
+	cost = 15
+	surplus = 0
+	hijack_only = 1 //This is a murderbone weapon, as such, it should only be available in those scenarios.
 
+/datum/uplink_item/jobspecific/buckloader
+	name = "Speed Loader - 12g Buckshot"
+	desc = "Speed Loader with 12g Buckshot shells for tube fed shotguns."
+	reference = "12BUCKH"
+	item = /obj/item/ammo_box/shotgun/buck
+	cost = 5
+	hijack_only = 1 //This is a murderbone weapon's ammo, as such, it should only be available in those scenarios.
 
 //Barber
 
