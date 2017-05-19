@@ -330,7 +330,7 @@ var/list/uplink_items = list()
 //Psychiatrist
 /datum/uplink_item/jobspecific/mindbook
 	name = "A Harmless Book"
-	desc = "A harmless-looking book that will let you beam messages straight into the minds of people around you."
+	desc = "A harmless-looking book that will let you beam messages straight into the minds of people around you, or torture them with hallucinations."
 	reference = "MB"
 	item = /obj/item/weapon/book/mindbook
 	cost = 3

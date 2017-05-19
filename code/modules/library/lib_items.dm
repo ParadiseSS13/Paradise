@@ -319,8 +319,15 @@
 				if(isnull(victim))
 					return
 				else
-					to_chat(victim, "<span class='notice'>[message]</span>")
-					return
+					var/list/intensity = list("Peaceful", "Forceful")
+					var/message_intensity = input("Select the intensity of your message!") as null|anything in intensity
+					switch(message_intensity)
+						if("Peaceful")
+							to_chat(victim, "<span class='notice'>[message]</span>")
+							return
+						if("Forceful")
+							to_chat(victim, "<span class='danger'>[message]</span>")
+							return
 	else
 		return
 
