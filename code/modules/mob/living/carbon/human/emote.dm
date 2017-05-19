@@ -66,6 +66,12 @@
 			else								//Everyone else fails, skip the emote attempt
 				return
 
+		if("hiss", "hisses")
+			if(species.name == "Unathi") //Only Unathi can hiss.
+				on_CD = handle_emote_CD()			//proc located in code\modules\mob\emote.dm'
+			else								//Everyone else fails, skip the emote attempt
+				return
+
 		if("scream", "screams")
 			on_CD = handle_emote_CD(50) //longer cooldown
 		if("fart", "farts", "flip", "flips", "snap", "snaps")
@@ -139,6 +145,13 @@
 
 			message = "<B>[src]</B> clicks their mandibles[M ? " at [M]" : ""]."
 			playsound(loc, 'sound/effects/Kidanclack2.ogg', 50, 0) //Credit to DrMinky (freesound.org) for the sound.
+			m_type = 2
+
+		if("hiss", "hisses")
+			var/M = handle_emote_param(param)
+
+			message = "<B>[src]</B> hisses[M ? " at [M]" : ""]."
+			playsound(loc, 'sound/effects/unathihiss.ogg', 50, 0) //Credit to Jamius (freesound.org) for the sound.
 			m_type = 2
 
 		if("yes")

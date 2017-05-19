@@ -208,7 +208,7 @@
 				if(isturf(placed_in))
 					to_chat(H, "<span class='notice'>Placing \the [G] on [placed_in]!</span>")
 				else
-					to_chat(H, "<span class='noticed'>Placing \the [G] in [placed_in.name]]")
+					to_chat(H, "<span class='noticed'>Placing \the [G] in [placed_in.name]")
 				continue
 			if(H.equip_to_appropriate_slot(G))
 				to_chat(H, "<span class='notice'>Placing \the [G] in your inventory!</span>")
