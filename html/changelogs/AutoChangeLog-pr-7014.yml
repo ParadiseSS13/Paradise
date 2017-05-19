@@ -1,6 +1,0 @@
-author: "Purpose2"
-delete-after: True
-changes: 
-  - rscdel: "Coroner no longer alt title for MD"
-  - rscadd: "Adds Coroner job as its own job."
-  - rscadd: "Adds a swanky new office for the Coroner."
