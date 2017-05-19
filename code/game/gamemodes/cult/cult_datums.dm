@@ -86,6 +86,7 @@
 	entity_title1 = "The Silent One"
 	entity_title2 = "The One Who Beckons"
 	entity_title3 = "The Ferryman of Oblivion"
+	entity_icon_state = "legion"
 
 	cult_wall_icon_state = "deathcult"
 	cult_floor_icon_state = "carpet-broken"
@@ -93,13 +94,13 @@
 	artificer_name = "Boneshaper"
 
 	behemoth_name = "Draugr"
-	behemoth_icon_state = "horror"
+	behemoth_icon_state = "Draugr"
 
 	wraith_name = "Wraith"
-	wraith_icon_state = "stand"
+	wraith_icon_state = "Wraith"
 
 	juggernaut_name = "Wight"
-	juggernaut_icon_state = "horror"
+	juggernaut_icon_state = "Draugr"
 
 	harvester_name = "Psychopomp"
 

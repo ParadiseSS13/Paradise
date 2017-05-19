@@ -334,3 +334,52 @@
 
 	else
 		to_chat(C, "<span class='danger'>The veil cannot be torn here!</span>")
+
+
+/obj/item/weapon/melee/cultblade/ghost
+	name = "eldritch sword"
+	force = 15
+	flags = NODROP
+
+	..()
+	qdel(src)
+
+/obj/item/clothing/head/culthood/alt/ghost
+	flags = NODROP
+
+	..()
+	qdel(src)
+
+/obj/item/clothing/suit/cultrobes/alt/ghost
+	flags = NODROP
+
+	..()
+	qdel(src)
+
+/obj/item/clothing/shoes/cult/ghost
+	flags = NODROP
+
+	..()
+	qdel(src)
+
+//CULT
+
+	name = "plasmaman cultist armor"
+	icon_state = "plasmaman_cult"
+	item_state = "plasmaman_cult"
+	desc = "A bulky suit of armour, menacing with red energy. It looks like it would fit a plasmaman."
+	slowdown = 1
+	armor = list(melee = 60, bullet = 50, laser = 30,energy = 15, bomb = 30, bio = 30, rad = 30)
+
+	name = "plasmaman cultist helmet"
+	icon_state = "plasmamanCult_helmet0"
+	base_state = "plasmamanCult_helmet"
+	desc = "A containment suit designed by the followers of Nar-Sie. It glows menacingly with unearthly flames."
+	armor = list(melee = 60, bullet = 50, laser = 30,energy = 15, bomb = 30, bio = 30, rad = 30)
+
+/datum/outfit/ghost_cultist
+	name = "Cultist Ghost"
+
+	suit = /obj/item/clothing/suit/cultrobes/alt/ghost
+	head = /obj/item/clothing/head/culthood/alt/ghost
+	r_hand = /obj/item/weapon/melee/cultblade/ghost

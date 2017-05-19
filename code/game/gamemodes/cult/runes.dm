@@ -118,6 +118,9 @@ structure_check() searches for nearby cultist structures required for the invoca
 	//This proc determines if the rune can be invoked at the time. If there are multiple required cultists, it will find all nearby cultists.
 	var/list/invokers = list() //people eligible to invoke the rune
 	var/list/chanters = list() //people who will actually chant the rune when passed to invoke()
+	if(invisibility == 0)
+		return
+
 	if(user)
 		chanters |= user
 		invokers |= user
@@ -316,6 +319,7 @@ var/list/teleport_runes = list()
 		to_chat(user, "<span class='cult'>You[moveuserlater ? "r vision blurs, and you suddenly appear somewhere else":" send everything above the rune away"].</span>")
 		if(moveuserlater)
 			user.forceMove(get_turf(actual_selected_rune))
+		user.apply_damage(6, BRUTE)
 	else
 		fail_invoke()
 
@@ -767,7 +771,7 @@ var/list/teleport_runes = list()
 			affecting = null //In case it's assigned to a number or something
 			rune_in_use = 0
 			return
-		affecting.apply_damage(1, BRUTE)
+		affecting.apply_damage(prob(3), BRUTE)
 		if(!(user in T.contents))
 			user.visible_message("<span class='warning'>A spectral tendril wraps around [user] and pulls them back to the rune!</span>")
 			Beam(user,icon_state="drainbeam",icon='icons/effects/effects.dmi',time=2)
@@ -818,7 +822,7 @@ var/list/teleport_runes = list()
 						 "<span class='cultitalic'>You channel your life energy into [src], [density ? "preventing" : "allowing"] passage above it.</span>")
 	if(iscarbon(user))
 		var/mob/living/carbon/C = user
-		C.apply_damage(2, BRUTE, pick("l_arm", "r_arm"))
+		C.apply_damage(4, BRUTE, pick("l_arm", "r_arm"))
 
 
 //Rite of Joined Souls: Summons a single cultist.
@@ -889,7 +893,7 @@ var/list/teleport_runes = list()
 			C.Stun(7)
 	for(var/M in invokers)
 		var/mob/living/L = M
-		L.apply_damage(15, BRUTE, pick("l_arm", "r_arm"))
+		L.apply_damage(17, BRUTE, pick("l_arm", "r_arm"))
 		to_chat(L,"<span class='cultitalic'>[src] saps your strength!</span>")
 	qdel(src)
 	explosion(T, -1, 0, 1, 5)
@@ -940,6 +944,8 @@ var/list/teleport_runes = list()
 	construct_invoke = 0
 	color = rgb(200, 0, 0)
 	var/list/summoned_guys = list()
+	var/ghost_limit = 5
+	var/ghosts = 0
 
 /obj/effect/rune/manifest/New(loc)
 	..()
@@ -948,6 +954,11 @@ var/list/teleport_runes = list()
 	notify_ghosts("Manifest rune created in [get_area(src)].", 'sound/effects/ghost2.ogg', source = src)
 
 /obj/effect/rune/manifest/can_invoke(mob/living/user)
+	if(ghosts >= ghost_limit)
+		to_chat(user, "<span class='cultitalic'>You are sustaining too many ghosts to summon more!</span>")
+		fail_invoke()
+		log_game("Manifest rune failed - too many summoned ghosts")
+		return list()
 	if(!(user in get_turf(src)))
 		to_chat(user,"<span class='cultitalic'>You must be standing on [src]!</span>")
 		fail_invoke()
@@ -974,8 +985,12 @@ var/list/teleport_runes = list()
 	var/mob/living/carbon/human/new_human = new(get_turf(src))
 	new_human.real_name = ghost_to_spawn.real_name
 	new_human.alpha = 150 //Makes them translucent
+	new_human.equipOutfit(/datum/outfit/ghost_cultist) //give them armor
 	new_human.color = "grey" //heh..cult greytide...litterly...
 	..()
+
+	playsound(src, 'sound/misc/exit_blood.ogg', 50, 1)
+	user.apply_damage(10, BRUTE)
 	visible_message("<span class='warning'>A cloud of red mist forms above [src], and from within steps... a man.</span>")
 	to_chat(user, "<span class='cultitalic'>Your blood begins flowing into [src]. You must remain in place and conscious to maintain the forms of those summoned. This will hurt you slowly but surely...</span>")
 	var/obj/machinery/shield/N = new(get_turf(src))
@@ -987,6 +1002,7 @@ var/list/teleport_runes = list()
 	new_human.key = ghost_to_spawn.key
 	ticker.mode.add_cultist(new_human.mind, 0)
 	summoned_guys |= new_human
+	ghosts++
 	to_chat(new_human, "<span class='cultitalic'><b>You are a servant of [ticker.mode.cultdat.entity_title3]. You have been made semi-corporeal by the cult of [ticker.mode.cultdat.entity_name], and you are to serve them at all costs.</b></span>")
 
 	while(user in get_turf(src))
@@ -1002,6 +1018,7 @@ var/list/teleport_runes = list()
 		for(var/obj/I in new_human)
 			new_human.unEquip(I)
 		summoned_guys -= new_human
+		ghosts --
 		new_human.dust()
 
 /obj/effect/rune/manifest/Destroy()
