@@ -341,29 +341,34 @@
 	force = 15
 	flags = NODROP
 
+/obj/item/weapon/melee/cultblade/ghost/dropped(mob/living/carbon/human/user)
 	..()
 	qdel(src)
 
 /obj/item/clothing/head/culthood/alt/ghost
 	flags = NODROP
 
+/obj/item/clothing/head/culthood/alt/ghost/dropped(mob/living/carbon/human/user)
 	..()
 	qdel(src)
 
 /obj/item/clothing/suit/cultrobes/alt/ghost
 	flags = NODROP
 
+/obj/item/clothing/suit/cultrobes/alt/ghost/dropped(mob/living/carbon/human/user)
 	..()
 	qdel(src)
 
 /obj/item/clothing/shoes/cult/ghost
 	flags = NODROP
 
+/obj/item/clothing/shoes/cult/ghost/dropped(mob/living/carbon/human/user)
 	..()
 	qdel(src)
 
 //CULT
 
+/obj/item/clothing/suit/space/eva/plasmaman/cultist
 	name = "plasmaman cultist armor"
 	icon_state = "plasmaman_cult"
 	item_state = "plasmaman_cult"
@@ -371,6 +376,7 @@
 	slowdown = 1
 	armor = list(melee = 60, bullet = 50, laser = 30,energy = 15, bomb = 30, bio = 30, rad = 30)
 
+/obj/item/clothing/head/helmet/space/eva/plasmaman/cultist
 	name = "plasmaman cultist helmet"
 	icon_state = "plasmamanCult_helmet0"
 	base_state = "plasmamanCult_helmet"
@@ -380,6 +386,8 @@
 /datum/outfit/ghost_cultist
 	name = "Cultist Ghost"
 
+	uniform = /obj/item/clothing/under/color/black
 	suit = /obj/item/clothing/suit/cultrobes/alt/ghost
+	shoes = /obj/item/clothing/shoes/cult/ghost
 	head = /obj/item/clothing/head/culthood/alt/ghost
 	r_hand = /obj/item/weapon/melee/cultblade/ghost
