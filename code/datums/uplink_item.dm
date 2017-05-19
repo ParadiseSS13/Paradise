@@ -372,6 +372,14 @@ var/list/uplink_items = list()
 	item = /obj/item/weapon/gun/projectile/automatic/pistol
 	cost = 4
 
+/datum/uplink_item/dangerous/shotchop
+	name = "L6 Squad Automatic Weapon"
+	desc = "A fully-loaded Aussec Armoury belt-fed machine gun. This deadly weapon has a massive 50-round magazine of devastating 7.62x51mm ammunition."
+	reference = "SAXE"
+	item = /obj/item/weapon/gun/projectile/shotgun/automatic/axe
+	cost = 20
+	surplus = 0
+
 /datum/uplink_item/dangerous/revolver
 	name = "Syndicate .357 Revolver"
 	reference = "SR"
@@ -622,6 +630,27 @@ var/list/uplink_items = list()
 	reference = "357"
 	item = /obj/item/ammo_box/a357
 	cost = 4
+
+/datum/uplink_item/ammo/buckloader
+	name = "Speed Loader - 12g Buckshot"
+	desc = "Speed Loader with 12g Buckshot shells for tube fed shotguns."
+	reference = "12BUCK"
+	item = /obj/item/ammo_box/shotgun/buck
+	cost = 2
+
+/datum/uplink_item/ammo/breathloader
+	name = "Speed Loader - 12g Dragon's Breath"
+	desc = "Speed Loader with 12g Dragon's Breath shells for tube fed shotguns."
+	reference = "12BREATH"
+	item = /obj/item/ammo_box/shotgun/dragonsbreath
+	cost = 2
+
+/datum/uplink_item/ammo/slugloader
+	name = "Speed Loader - 12g Slugs"
+	desc = "Speed Loader with 12g Slug shells for tube fed shotguns."
+	reference = "12SLUG"
+	item = /obj/item/ammo_box/shotgun
+	cost = 2
 
 /datum/uplink_item/ammo/smg
 	name = "Magazine - .45"
