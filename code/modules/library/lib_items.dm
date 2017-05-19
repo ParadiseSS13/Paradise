@@ -283,6 +283,24 @@
 	else
 		return ..()
 
+/obj/item/weapon/book/mindbook
+	name = "A Harmless Book"
+	icon = 'icons/obj/library.dmi'
+	icon_state ="book"
+	unique = 1
+	forbidden = 1
+
+/obj/item/weapon/book/mindbook/attack_self(var/mob/living/carbon/P as mob)
+	if(!ishuman(P))
+		return
+	if(!(P.mind && P.mind.assigned_role in list("Psychiatrist")))
+		to_chat(P, "The book appears to be completely empty.")
+		P.adjustBrainLoss(5)
+		return
+	else
+		to_chat(P, "Seems to work!")
+		return
+
 
 /*
  * Barcode Scanner
