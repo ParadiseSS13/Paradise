@@ -373,11 +373,11 @@ var/list/uplink_items = list()
 	cost = 4
 
 /datum/uplink_item/dangerous/shotchop
-	name = "L6 Squad Automatic Weapon"
-	desc = "A fully-loaded Aussec Armoury belt-fed machine gun. This deadly weapon has a massive 50-round magazine of devastating 7.62x51mm ammunition."
+	name = "SG AX3"
+	desc = "A modified tube fed semi-automatic combat shotgun with reinforced heat shielding. With an axe on the end. A shotgun axe. What could be more awesome?"
 	reference = "SAXE"
 	item = /obj/item/weapon/gun/projectile/shotgun/automatic/axe
-	cost = 20
+	cost = 15
 	surplus = 0
 
 /datum/uplink_item/dangerous/revolver
