@@ -293,13 +293,34 @@
 /obj/item/weapon/book/mindbook/attack_self(mob/living/H)
 	if(ishuman(H))
 		var/mob/living/carbon/human/P = H
-		if(!(P.mind && P.mind.assigned_role in list("Psychiatrist")))
+		if(!(P.mind && P.mind.assigned_role == "Psychiatrist"))
 			to_chat(P, "The book appears to be completely empty.")
 			P.adjustBrainLoss(5)
 			return
 		else
-			to_chat(P, "Seems to work!")
-			return
+			var/message = input("Torture your victim with voices in their head!")
+			if(!message)
+				return
+
+			var/list/victim_list = list()
+			for(var/mob/living/carbon/human/V in view(P.client.view, P))
+				if(!isliving(V))
+					continue
+				if(!(V.client && V.mind))
+					continue
+				if(PSY_RESIST in V.mutations)
+					continue
+				victim_list += V
+			if(!victim_list.len)
+				to_chat(P, "There are no available victims around!")
+				return
+			else
+				var/victim = input("Select your hapless victim!", "Cancel") as null|mob in victim_list
+				if(isnull(victim))
+					return
+				else
+					to_chat(victim, "<span class='notice'>[message]</span>")
+					return
 	else
 		return
 
