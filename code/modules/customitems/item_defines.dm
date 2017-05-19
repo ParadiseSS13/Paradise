@@ -911,7 +911,6 @@
 		to_chat(user, "Your strange witch hat has now shapeshifted into it's [choice] form!")
 		return 1
 	..()
-	..()
 
 /obj/item/clothing/accessory/necklace/locket/fluff/fethasnecklace //Fethas: Sefra'neem
 	name = "Orange gemmed locket"
