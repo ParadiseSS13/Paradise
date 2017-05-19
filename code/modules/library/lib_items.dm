@@ -10,6 +10,7 @@
 /*
  * Bookcase
  */
+#define HALCOOL 300
 
 /obj/structure/bookcase
 	name = "bookcase"
@@ -289,6 +290,7 @@
 	icon_state ="book"
 	unique = 1
 	forbidden = 1
+	var/hallucinatory_cooldown
 
 /obj/item/weapon/book/mindbook/attack_self(mob/living/H)
 	if(ishuman(H))
@@ -298,36 +300,49 @@
 			P.adjustBrainLoss(5)
 			return
 		else
-			var/message = input("Torture your victim with voices in their head!")
-			if(!message)
-				return
-
-			var/list/victim_list = list()
-			for(var/mob/living/carbon/human/V in view(P.client.view, P))
-				if(!isliving(V))
-					continue
-				if(!(V.client && V.mind))
-					continue
-				if(PSY_RESIST in V.mutations)
-					continue
-				victim_list += V
-			if(!victim_list.len)
-				to_chat(P, "There are no available victims around!")
+			if(hallucinatory_cooldown > world.time)
+				to_chat(P, "The book needs to recharge.")
 				return
 			else
-				var/victim = input("Select your hapless victim!", "Cancel") as null|mob in victim_list
-				if(isnull(victim))
+				var/list/victim_list = list()
+				for(var/mob/living/carbon/human/V in view(P.client.view, P))
+					if(!isliving(V))
+						continue
+					if(!(V.client && V.mind))
+						continue
+					if(PSY_RESIST in V.mutations)
+						continue
+					victim_list += V
+				if(!victim_list.len)
+					to_chat(P, "There are no available victims around!")
 					return
 				else
-					var/list/intensity = list("Peaceful", "Forceful")
-					var/message_intensity = input("Select the intensity of your message!") as null|anything in intensity
-					switch(message_intensity)
-						if("Peaceful")
-							to_chat(victim, "<span class='notice'>[message]</span>")
-							return
-						if("Forceful")
-							to_chat(victim, "<span class='danger'>[message]</span>")
-							return
+					var/mob/living/victim = input("Select your hapless victim!", "Cancel") as null|mob in victim_list
+					if(isnull(victim))
+						return
+					else
+						var/torture = list("Hallucinations", "Voices")
+						var/torture_type = input("Select how best to torture your victim.", "Cancel") as null|anything in torture
+						switch(torture_type)
+							if("Voices")
+								var/message = input("Torture your victim with voices in their head!")
+								if(!message)
+									return
+								else
+									var/list/intensity = list("Peaceful", "Forceful")
+									var/message_intensity = input("Select the intensity of your message!") as null|anything in intensity
+									switch(message_intensity)
+										if("Peaceful")
+											to_chat(victim, "<span class='notice'>[message]</span>")
+											return
+										if("Forceful")
+											to_chat(victim, "<span class='danger'>[message]</span>")
+											return
+							if("Hallucinations")
+								to_chat(victim, "<span class='danger'>You feel a presence bearing down on you...</span>")
+								victim.AdjustHallucinate(60)
+								hallucinatory_cooldown = world.time + HALCOOL
+								return
 	else
 		return
 
