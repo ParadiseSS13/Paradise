@@ -771,6 +771,7 @@ var/list/teleport_runes = list()
 			affecting = null //In case it's assigned to a number or something
 			rune_in_use = 0
 			return
+		affecting.apply_damage(3, BRUTE)
 		if(!(user in T.contents))
 			user.visible_message("<span class='warning'>A spectral tendril wraps around [user] and pulls them back to the rune!</span>")
 			Beam(user,icon_state="drainbeam",icon='icons/effects/effects.dmi',time=2)
