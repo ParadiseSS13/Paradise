@@ -1,0 +1,4 @@
+author: "FlattestGuitar"
+delete-after: True
+changes: 
+  - rscadd: "Adds a jobban-checking verb to the OOC tab."
