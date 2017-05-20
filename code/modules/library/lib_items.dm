@@ -11,7 +11,6 @@
  * Bookcase
  */
 #define HALCOOL 3000
-#define MESSAGE_DELAY 100
 
 /obj/structure/bookcase
 	name = "bookcase"
@@ -327,9 +326,17 @@
 									return
 								var/list/intensity = list("Peaceful", "Forceful")
 								var/message_intensity = input("Select the intensity of your message!") as null|anything in intensity
-								addtimer(src, "send_message", MESSAGE_DELAY, unique = FALSE, message_intensity, victim, message)
+								spawn(100)
+								switch(message_intensity)
+									if("Peaceful")
+										to_chat(victim, "<span class='notice'>[message]</span>")
+										return
+									if("Forceful")
+										to_chat(victim, "<span class='danger'>[message]</span>")
+										return
 							if("Hallucinations")
-								victim.AdjustHallucinate(60)
+								to_chat(P, "<span class='notice'>You torment your foe with mental visions.</span>")
+								victim.AdjustHallucinate(100)
 								hallucinatory_cooldown = world.time + HALCOOL
 								return
 		else
@@ -338,15 +345,6 @@
 			return
 	else
 		return
-
-/obj/item/weapon/book/mindbook/proc/send_message(message_intensity, victim, message)
-	switch(message_intensity)
-		if("Peaceful")
-			to_chat(victim, "<span class='notice'>[message]</span>")
-			return
-		if("Forceful")
-			to_chat(victim, "<span class='danger'>[message]</span>")
-			return
 
 /*
  * Barcode Scanner
