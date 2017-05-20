@@ -527,6 +527,7 @@
 	flags_inv = HIDEGLOVES|HIDESHOES|HIDEJUMPSUIT|HIDETAIL
 	flags_size = ONESIZEFITSALL
 	strip_delay = 60
+	breakouttime = 3000
 
 /obj/item/clothing/suit/ianshirt
 	name = "worn shirt"

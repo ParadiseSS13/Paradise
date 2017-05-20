@@ -1,6 +1,6 @@
 /obj/structure/statue/silver/peysman
 	name = "Oleg Grifov"
-	desc = "You look like an ass. Robuster, Head Admin and Whitelist maintainer of ATMTA station. ''Second Blackwood'' and Head Tiran of server. Left us on 17.05.17 in summer army call. Rest In Pepperoni, sweet Jopa."
+	desc = "Oleg Grifov, the most recognizable character of GospodinPeysman, the third HeadAdmin of ATMTA Station. He resurrected this server by bringing breath of life, online, and enormous events. We'll be waiting for your comeback."
 	icon ='hyntatmta/icons/obj/statues.dmi'
 	icon_state = "peysman"
 	density = 0
