@@ -153,6 +153,14 @@
 	item_color = "ert_uniform"
 	armor = list(melee = 10, bullet = 0, laser = 0, energy = 0, bomb = 0, bio = 0, rad = 0)
 
+/obj/item/clothing/under/rank/blueshield/skirt
+	name = "blueshield skirt"
+	desc = "A short, black and grey with blue markings skirted uniform. For the feminine Blueshield officers."
+	icon_state = "blueshieldf"
+	item_state = "blueshieldf"
+	item_color = "blueshieldf"
+	armor = list(melee = 10, bullet = 0, laser = 0, energy = 0, bomb = 0, bio = 0, rad = 0)
+
 /obj/item/clothing/under/space
 	name = "\improper NASA jumpsuit"
 	desc = "It has a NASA logo on it and is made of space-proofed materials."
