@@ -83,7 +83,9 @@
 		var/dead_notes = input("Insert any relevant notes")
 		var/obj/item/weapon/paper/R = new(user.loc)
 		R.name = "Official Coroner's Report - [dead_name]"
-		R.info = "<b>NanoTrasen Science Station Cyberiad - Coroner's Report</b><br><b>Name of Deceased:</b> [dead_name]</br><b>Rank of Deceased:</b> [dead_rank]<br><b>Time of Death:</b> [dead_tod]<br><b>Cause of Death:</b> [dead_cause]<br><b>Additional Coroner's Notes:</b> [dead_notes]"
+		R.info = "<b>NanoTrasen Science Station Cyberiad - Coroner's Report</b><br><br><b>Name of Deceased:</b> [dead_name]</br><br><b>Rank of Deceased:</b> [dead_rank]<br><br><b>Time of Death:</b> [dead_tod]<br><br><b>Cause of Death:</b> [dead_cause]<br><br><b>Additional Coroner's Notes:</b> [dead_notes]"
+		playsound(loc, 'sound/goonstation/machines/printer_thermal.ogg', 50, 1)
+		sleep(10)
 		user.put_in_hands(R)
 
 /obj/item/weapon/autopsy_scanner/attack_self(mob/user)
