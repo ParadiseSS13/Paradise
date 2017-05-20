@@ -1,0 +1,4 @@
+author: "Xantholne"
+delete-after: True
+changes: 
+  - bugfix: "The Coroner now has an actual job icon."
