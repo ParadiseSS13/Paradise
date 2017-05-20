@@ -268,20 +268,20 @@
 	zone_sel.selecting = "chest"
 	//arms
 	if(prob((SNPC_FUZZY_CHANCE_LOW+SNPC_FUZZY_CHANCE_HIGH)/4))
-		var/obj/item/organ/external/R = organs_by_name["r_arm"]
+		var/obj/item/organ/external/R = bodyparts_by_name["r_arm"]
 		if(R)
 			R.robotize()
 	else
-		var/obj/item/organ/external/L = organs_by_name["l_arm"]
+		var/obj/item/organ/external/L = bodyparts_by_name["l_arm"]
 		if(L)
 			L.robotize()
 	//legs
 	if(prob((SNPC_FUZZY_CHANCE_LOW+SNPC_FUZZY_CHANCE_HIGH)/4))
-		var/obj/item/organ/external/R = organs_by_name["r_leg"]
+		var/obj/item/organ/external/R = bodyparts_by_name["r_leg"]
 		if(R)
 			R.robotize()
 	else
-		var/obj/item/organ/external/L = organs_by_name["l_leg"]
+		var/obj/item/organ/external/L = bodyparts_by_name["l_leg"]
 		if(L)
 			L.robotize()
 	UpdateDamageIcon()
@@ -631,8 +631,6 @@
 										AL.wires.UpdatePulsed(AIRLOCK_WIRE_DOOR_BOLTS)
 									if(!AL.wires.IsIndexCut(AIRLOCK_WIRE_MAIN_POWER1))
 										AL.wires.CutWireIndex(AIRLOCK_WIRE_MAIN_POWER1)
-									if(!AL.wires.IsIndexCut(AIRLOCK_WIRE_MAIN_POWER2))
-										AL.wires.CutWireIndex(AIRLOCK_WIRE_MAIN_POWER2)
 									if(prob(mistake_chance) && !AL.wires.IsIndexCut(AIRLOCK_WIRE_SAFETY))
 										AL.wires.CutWireIndex(AIRLOCK_WIRE_SAFETY)
 									if(prob(mistake_chance) && !AL.wires.IsIndexCut(AIRLOCK_WIRE_ELECTRIFY))

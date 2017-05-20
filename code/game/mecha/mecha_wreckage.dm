@@ -55,7 +55,7 @@
 				else
 					to_chat(user, "You failed to salvage anything valuable from [src].")
 			else
-				to_chat(user, "\blue You need more welding fuel to complete this task.")
+				to_chat(user, "<span class='notice'>You need more welding fuel to complete this task.</span>")
 	else if(istype(W, /obj/item/weapon/wirecutters))
 		if(salvage_num <= 0)
 			to_chat(user, "You don't see anything that can be cut with [W].")
@@ -118,8 +118,8 @@
 	name = "Seraph wreckage"
 	icon_state = "seraph-broken"
 
-/obj/effect/decal/mecha_wreckage/recitence
-	name = "\improper Recitence wreckage"
+/obj/effect/decal/mecha_wreckage/reticence
+	name = "\improper Reticence wreckage"
 	icon_state = "mime-broken"
 
 /obj/effect/decal/mecha_wreckage/ripley

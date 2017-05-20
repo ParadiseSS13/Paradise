@@ -21,7 +21,7 @@
 		for(var/name in H.internal_organs)
 			var/obj/item/organ/internal/I = H.get_int_organ(name)
 			I.damage = max(0, I.damage-5)
-		for(var/obj/item/organ/external/E in H.organs)
+		for(var/obj/item/organ/external/E in H.bodyparts)
 			if(E.mend_fracture())
 				E.perma_injury = 0
 	M.SetEyeBlind(0)

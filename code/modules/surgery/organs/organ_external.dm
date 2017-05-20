@@ -50,7 +50,7 @@
 	// Internal organs of this body part
 	var/list/internal_organs = list()
 
-	var/damage_msg = "\red You feel an intense pain"
+	var/damage_msg = "<span class='warning'>You feel an intense pain</span>"
 	var/broken_description
 
 	var/open = 0
@@ -68,9 +68,24 @@
 	var/can_stand
 	var/wound_cleanup_timer
 
+/obj/item/organ/external/necrotize(update_sprite=TRUE)
+	if(status & (ORGAN_ROBOT|ORGAN_DEAD))
+		return
+	status |= ORGAN_DEAD
+	if(dead_icon)
+		icon_state = dead_icon
+	if(owner)
+		to_chat(owner, "<span class='notice'>You can't feel your [name] anymore...</span>")
+		owner.update_body(update_sprite)
+		owner.bad_external_organs |= src
+		if(vital)
+			owner.death()
+
 /obj/item/organ/external/Destroy()
 	if(parent && parent.children)
 		parent.children -= src
+
+	parent = null
 
 	if(internal_organs)
 		for(var/obj/item/organ/internal/O in internal_organs)
@@ -79,15 +94,19 @@
 			qdel(O)
 
 	if(owner)
-		owner.organs_by_name[limb_name] = null
+		owner.bodyparts_by_name[limb_name] = null
 
-	if(children)
-		for(var/obj/item/organ/external/C in children)
-			qdel(C)
+	QDEL_LIST(children)
 
 	if(wound_cleanup_timer)
 		deltimer(wound_cleanup_timer)
 		wound_cleanup_timer = null
+
+	QDEL_LIST(wounds)
+
+	QDEL_LIST(implants)
+
+	QDEL_NULL(hidden)
 
 	return ..()
 
@@ -95,26 +114,26 @@
 	switch(open)
 		if(0)
 			if(istype(W,/obj/item/weapon/scalpel))
-				spread_germs_to_organ(src,user)
+				spread_germs_to_organ(src,user, W)
 				user.visible_message("<span class='danger'><b>[user]</b> cuts [src] open with [W]!</span>")
 				open++
 				return
 		if(1)
 			if(istype(W,/obj/item/weapon/retractor))
-				spread_germs_to_organ(src,user)
+				spread_germs_to_organ(src,user, W)
 				user.visible_message("<span class='danger'><b>[user]</b> cracks [src] open like an egg with [W]!</span>")
 				open++
 				return
 		if(2)
 			if(istype(W,/obj/item/weapon/hemostat))
-				spread_germs_to_organ(src,user)
+				spread_germs_to_organ(src,user, W)
 				if(contents.len)
 					var/obj/item/removing = pick(contents)
 					var/obj/item/organ/internal/O = removing
 					if(istype(O))
 						O.status |= ORGAN_CUT_AWAY
 						if(!O.sterile)
-							spread_germs_to_organ(O,user) // This wouldn't be any cleaner than the actual surgery
+							spread_germs_to_organ(O,user, W) // This wouldn't be any cleaner than the actual surgery
 					user.put_in_hands(removing)
 					user.visible_message("<span class='danger'><b>[user]</b> extracts [removing] from [src] with [W]!</span>")
 				else
@@ -144,15 +163,15 @@
 	status = status & ~ORGAN_DESTROYED
 	forceMove(owner)
 	if(istype(owner))
-		if(!isnull(owner.organs_by_name[limb_name]))
+		if(!isnull(owner.bodyparts_by_name[limb_name]))
 			log_debug("Duplicate organ in slot \"[limb_name]\", mob '[target]'")
-		owner.organs_by_name[limb_name] = src
-		owner.organs |= src
+		owner.bodyparts_by_name[limb_name] = src
+		owner.bodyparts |= src
 		for(var/atom/movable/stuff in src)
 			stuff.attempt_become_organ(src, owner)
 
 	if(parent_organ)
-		parent = owner.organs_by_name[src.parent_organ]
+		parent = owner.bodyparts_by_name[src.parent_organ]
 		if(parent)
 			if(!parent.children)
 				parent.children = list()
@@ -541,10 +560,7 @@ Note that amputating the affected organ does in fact remove the infection from t
 					parent.germ_level++
 
 	if(germ_level >= INFECTION_LEVEL_THREE && antibiotics < 30)	//overdosing is necessary to stop severe infections
-		if(!(status & ORGAN_DEAD))
-			status |= ORGAN_DEAD
-			to_chat(owner, "<span class='notice'>You can't feel your [name] anymore...</span>")
-			owner.update_body(1)
+		necrotize()
 
 		germ_level++
 		owner.adjustToxLoss(1)
@@ -716,7 +732,7 @@ Note that amputating the affected organ does in fact remove the infection from t
 			if(status & ORGAN_ROBOT)
 				stump.robotize()
 			stump.wounds |= W
-			victim.organs |= stump
+			victim.bodyparts |= stump
 			stump.update_damages()
 		parent = null
 
@@ -808,7 +824,7 @@ Note that amputating the affected organ does in fact remove the infection from t
 		return
 	if(owner)
 		owner.visible_message(\
-			"\red You hear a loud cracking sound coming from \the [owner].",\
+			"<span class='warning'>You hear a loud cracking sound coming from \the [owner].</span>",\
 			"<span class='danger'>Something feels like it shattered in your [name]!</span>",\
 			"You hear a sickening crack.")
 		if(owner.species && !(owner.species.flags & NO_PAIN))
@@ -936,9 +952,9 @@ Note that amputating the affected organ does in fact remove the infection from t
 		thing.forceMove(src)
 
 	release_restraints(victim)
-	victim.organs -= src
+	victim.bodyparts -= src
 	if(is_primary_organ(victim))
-		victim.organs_by_name[limb_name] = null	// Remove from owner's vars.
+		victim.bodyparts_by_name[limb_name] = null	// Remove from owner's vars.
 
 	//Robotic limbs explode if sabotaged.
 	if(is_robotic && sabotaged)
@@ -960,13 +976,13 @@ Note that amputating the affected organ does in fact remove the infection from t
 		return
 	if(owner)
 		if(type == "brute")
-			owner.visible_message("\red You hear a sickening cracking sound coming from \the [owner]'s [name].",	\
+			owner.visible_message("<span class='warning'>You hear a sickening cracking sound coming from \the [owner]'s [name].</span>",	\
 			"<span class='danger'>Your [name] becomes a mangled mess!</span>",	\
-			"\red You hear a sickening crack.")
+			"<span class='warning'>You hear a sickening crack.</span>")
 		else
-			owner.visible_message("\red \The [owner]'s [name] melts away, turning into mangled mess!",	\
+			owner.visible_message("<span class='warning'>\The [owner]'s [name] melts away, turning into mangled mess!</span>",	\
 			"<span class='danger'>Your [name] melts away!</span>",	\
-			"\red You hear a sickening sizzle.")
+			"<span class='warning'>You hear a sickening sizzle.</span>")
 	disfigured = 1
 
 /obj/item/organ/external/is_primary_organ(var/mob/living/carbon/human/O = null)
@@ -974,7 +990,7 @@ Note that amputating the affected organ does in fact remove the infection from t
 		O = owner
 	if(!istype(O)) // You're not the primary organ of ANYTHING, bucko
 		return 0
-	return src == O.organs_by_name[limb_name]
+	return src == O.bodyparts_by_name[limb_name]
 
 // The callback we use to remove wounds from an un-processed limb
 /obj/item/organ/external/proc/cleanup_wounds(var/list/slated_wounds)

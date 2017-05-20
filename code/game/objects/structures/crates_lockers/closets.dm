@@ -34,8 +34,8 @@
 /obj/structure/closet/alter_health()
 	return get_turf(src)
 
-/obj/structure/closet/CanPass(atom/movable/mover, turf/target, height=0, air_group=0)
-	if(air_group || (height==0 || wall_mounted)) return 1
+/obj/structure/closet/CanPass(atom/movable/mover, turf/target, height=0)
+	if(height==0 || wall_mounted) return 1
 	return (!density)
 
 /obj/structure/closet/proc/can_open()
@@ -157,7 +157,7 @@
 /obj/structure/closet/attack_animal(mob/living/simple_animal/user)
 	if(user.environment_smash)
 		user.do_attack_animation(src)
-		visible_message("\red [user] destroys the [src]. ")
+		visible_message("<span class='warning'>[user] destroys the [src].</span>")
 		for(var/atom/movable/A in src)
 			A.forceMove(loc)
 		qdel(src)
@@ -194,7 +194,7 @@
 					var/desc = input("Please select a telepad.", "RCS") in L
 					E.pad = L[desc]
 					playsound(E.loc, E.usesound, 50, 1)
-					to_chat(user, "\blue Teleporting [name]...")
+					to_chat(user, "<span class='notice'>Teleporting [name]...</span>")
 					E.teleporting = 1
 					if(!do_after(user, 50 * E.toolspeed, target = src))
 						E.teleporting = 0
@@ -216,7 +216,7 @@
 				E.rand_y = rand(50,200)
 				var/L = locate(E.rand_x, E.rand_y, 6)
 				playsound(E.loc, E.usesound, 50, 1)
-				to_chat(user, "\blue Teleporting [name]...")
+				to_chat(user, "<span class='notice'>Teleporting [name]...</span>")
 				E.teleporting = 1
 				if(!do_after(user, 50, E.toolspeed, target = src))
 					E.teleporting = 0
@@ -262,7 +262,8 @@
 					return
 		if(isrobot(user))
 			return
-		if(!usr.drop_item())
+		if(!user.drop_item()) //couldn't drop the item
+			to_chat(user, "<span class='notice'>\The [W] is stuck to your hand, you cannot put it in \the [src]!</span>")
 			return
 		if(W)
 			W.forceMove(loc)

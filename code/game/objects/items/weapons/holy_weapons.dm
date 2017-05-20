@@ -3,7 +3,7 @@
 	desc = "A rod of pure obsidian, its very presence disrupts and dampens the powers of Nar-Sie's followers."
 	icon_state = "nullrod"
 	item_state = "nullrod"
-	force = 18
+	force = 15
 	throw_speed = 3
 	throw_range = 4
 	throwforce = 10
@@ -197,7 +197,7 @@
 	item_state = "hfrequency1"
 	desc = "Bad references are the DNA of the soul."
 	attack_verb = list("chopped", "sliced", "cut", "zandatsu'd")
-	
+
 /obj/item/weapon/nullrod/scythe/spellblade
 	icon_state = "spellblade"
 	item_state = "spellblade"
@@ -283,12 +283,16 @@
 
 /obj/item/weapon/nullrod/whip
 	name = "holy whip"
-	desc = "What a terrible night to be on Space Station 13."
+	desc = "What a terrible night to be in spess"
 	icon_state = "chain"
 	item_state = "chain"
 	slot_flags = SLOT_BELT
 	attack_verb = list("whipped", "lashed")
 	hitsound = 'sound/weapons/slash.ogg'
+
+/obj/item/weapon/nullrod/whip/New()
+	..()
+	desc = "What a terrible night to be on the [station_name()]."
 
 /obj/item/weapon/nullrod/whip/afterattack(atom/movable/AM, mob/user, proximity)
 	if(!proximity)
@@ -328,7 +332,7 @@
 	icon = 'icons/obj/toy.dmi'
 	icon_state = "carpplushie"
 	item_state = "carp_plushie"
-	force = 15
+	force = 13
 	attack_verb = list("bitten", "eaten", "fin slapped")
 	hitsound = 'sound/weapons/bite.ogg'
 	var/used_blessing = FALSE
@@ -346,7 +350,7 @@
 	name = "monk's staff"
 	desc = "A long, tall staff made of polished wood. Traditionally used in ancient old-Earth martial arts, now used to harass the clown."
 	w_class = 4
-	force = 15
+	force = 13
 	block_chance = 40
 	slot_flags = SLOT_BACK
 	sharp = 0
@@ -592,7 +596,7 @@
 		to_chat(missionary, "<span class='warning'>Your faith is strong, but their mind is already slaved to someone else's ideals. Perhaps an inquisition would reveal more...</span>")
 		faith -= 25		//same faith cost as losing sight of them mid-conversion, but did you just find someone who can lead you to a fellow traitor?
 		return
-	if(isloyal(target))
+	if(ismindshielded(target))
 		if(prob(20))	//loyalty implants typically overpower this, but you CAN get lucky and convert still (20% chance of success)
 			faith -= 125	//yes, this puts it negative. it's gonna take longer to recharge if you manage to convert a one of these people to balance the new power you gained through them
 			to_chat(missionary, "<span class='notice'>Through sheer willpower, you overcome their closed mind and rally [target] to your cause! You may need a bit longer than usual before your faith is fully recharged, and they won't remain loyal to you for long ...</span>")

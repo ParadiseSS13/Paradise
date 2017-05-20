@@ -35,6 +35,24 @@
 		else
 	..()
 
+/obj/item/weapon/shard/afterattack(atom/movable/AM, mob/user, proximity)
+	if(!proximity || !(src in user))
+		return
+	if(isturf(AM))
+		return
+	if(istype(AM, /obj/item/weapon/storage))
+		return
+	if(ishuman(user))
+		var/mob/living/carbon/human/H = user
+		if(!H.gloves)
+			var/obj/item/organ/external/affecting = H.get_organ("[user.hand ? "l" : "r" ]_hand")
+			if(affecting.status & ORGAN_ROBOT)
+				return
+			to_chat(H, "<span class='warning'>[src] cuts into your hand!</span>")
+			if(affecting.take_damage(force*0.5))
+				H.UpdateDamageIcon()
+				H.updatehealth()
+
 /obj/item/weapon/shard/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/weapon/weldingtool))
 		var/obj/item/weapon/weldingtool/WT = I
@@ -53,7 +71,7 @@
 /obj/item/weapon/shard/Crossed(AM as mob|obj)
 	if(isliving(AM))
 		var/mob/living/M = AM
-		if(M.incorporeal_move || M.flying)//you are incorporal or flying..no shard stepping!
+		if(M.incorporeal_move || M.flying || M.throwing)//you are incorporal or flying or being thrown ..no shard stepping!
 			return
 		to_chat(M, "<span class='danger'>You step on \the [src]!</span>")
 		playsound(src.loc, 'sound/effects/glass_step.ogg', 50, 1) // not sure how to handle metal shards with sounds

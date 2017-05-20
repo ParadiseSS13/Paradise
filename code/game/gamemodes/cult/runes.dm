@@ -323,7 +323,7 @@ var/list/teleport_runes = list()
 //Rite of Enlightenment: Converts a normal crewmember to the cult. Faster for every cultist nearby.
 /obj/effect/rune/convert
 	cultist_name = "Rite of Enlightenment"
-	cultist_desc = "converts a normal crewmember on top of it to the cult. Does not work on loyalty-implanted crew."
+	cultist_desc = "converts a normal crewmember on top of it to the cult. Does not work on mindshielded crew."
 	invocation = "Mah'weyh pleggh at e'ntrath!"
 	icon_state = "3"
 	req_cultists = 2
@@ -336,7 +336,7 @@ var/list/teleport_runes = list()
 	var/turf/T = get_turf(src)
 
 	for(var/mob/living/M in T.contents)
-		if(!iscultist(M) && !isloyal(M))
+		if(!iscultist(M) && !ismindshielded(M) && ishuman(M))
 			convertees.Add(M)
 	if(!convertees.len)
 		fail_invoke()
@@ -415,6 +415,7 @@ var/list/teleport_runes = list()
 
 /obj/effect/rune/sacrifice/proc/sac(var/list/invokers, mob/living/T)
 	var/sacrifice_fulfilled
+	var/datum/game_mode/cult/cult_mode = ticker.mode
 	if(T)
 		if(istype(T, /mob/living/simple_animal/pet/corgi))
 			for(var/M in invokers)
@@ -427,9 +428,13 @@ var/list/teleport_runes = list()
 			if(is_sacrifice_target(T.mind))
 				sacrifice_fulfilled = 1
 		new /obj/effect/overlay/temp/cult/sac(loc)
+		if(ticker && ticker.mode && ticker.mode.name == "cult")
+
+			cult_mode.harvested++
 		for(var/M in invokers)
 			if(sacrifice_fulfilled)
 				to_chat(M, "<span class='cultlarge'>\"Yes! This is the one I desire! You have done well.\"</span>")
+				cult_mode.additional_phase()
 			else
 				if(ishuman(T) || isrobot(T))
 					to_chat(M, "<span class='cultlarge'>\"I accept this sacrifice.\"</span>")
@@ -531,7 +536,7 @@ var/list/teleport_runes = list()
 
 /obj/effect/rune/slaughter
 	cultist_name = "Call Forth The Slaughter (Demons)"
-	cultist_desc = "Calls forth the doom of a eldrtich being. Three slaughter demons will appear to wreak havoc on the station."
+	cultist_desc = "Calls forth the doom of an eldritch being. Three slaughter demons will appear to wreak havoc on the station."
 	invocation = null
 	req_cultists = 9
 	color = rgb(125,23,23)
@@ -934,6 +939,7 @@ var/list/teleport_runes = list()
 	icon_state = "6"
 	construct_invoke = 0
 	color = rgb(200, 0, 0)
+	var/list/summoned_guys = list()
 
 /obj/effect/rune/manifest/New(loc)
 	..()
@@ -949,7 +955,7 @@ var/list/teleport_runes = list()
 		return list()
 	var/list/ghosts_on_rune = list()
 	for(var/mob/dead/observer/O in get_turf(src))
-		if(O.client && !jobban_isbanned(O, ROLE_CULTIST))
+		if(O.client && !jobban_isbanned(O, ROLE_CULTIST) && !jobban_isbanned(O, ROLE_SYNDICATE))
 			ghosts_on_rune |= O
 	if(!ghosts_on_rune.len)
 		to_chat(user, "<span class='cultitalic'>There are no spirits near [src]!</span>")
@@ -962,10 +968,10 @@ var/list/teleport_runes = list()
 	var/mob/living/user = invokers[1]
 	var/list/ghosts_on_rune = list()
 	for(var/mob/dead/observer/O in get_turf(src))
-		if(O.client && !jobban_isbanned(O, ROLE_CULTIST))
+		if(O.client && !jobban_isbanned(O, ROLE_CULTIST) && !jobban_isbanned(O, ROLE_SYNDICATE))
 			ghosts_on_rune |= O
 	var/mob/dead/observer/ghost_to_spawn = pick(ghosts_on_rune)
-	var/mob/living/carbon/human/dummy/new_human = new(get_turf(src))
+	var/mob/living/carbon/human/new_human = new(get_turf(src))
 	new_human.real_name = ghost_to_spawn.real_name
 	new_human.alpha = 150 //Makes them translucent
 	new_human.color = "grey" //heh..cult greytide...litterly...
@@ -980,6 +986,7 @@ var/list/teleport_runes = list()
 	N.mouse_opacity = 0
 	new_human.key = ghost_to_spawn.key
 	ticker.mode.add_cultist(new_human.mind, 0)
+	summoned_guys |= new_human
 	to_chat(new_human, "<span class='cultitalic'><b>You are a servant of [ticker.mode.cultdat.entity_title3]. You have been made semi-corporeal by the cult of [ticker.mode.cultdat.entity_name], and you are to serve them at all costs.</b></span>")
 
 	while(user in get_turf(src))
@@ -994,4 +1001,13 @@ var/list/teleport_runes = list()
 								  "<span class='cultlarge'>Your link to the world fades. Your form breaks apart.</span>")
 		for(var/obj/I in new_human)
 			new_human.unEquip(I)
+		summoned_guys -= new_human
 		new_human.dust()
+
+/obj/effect/rune/manifest/Destroy()
+	for(var/mob/living/carbon/human/guy in summoned_guys)
+		for(var/obj/I in guy)
+			guy.unEquip(I)
+		guy.dust()
+	summoned_guys.Cut()
+	return ..()

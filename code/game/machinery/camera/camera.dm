@@ -28,7 +28,7 @@
 	var/alarm_on = 0
 	var/busy = 0
 	var/emped = 0  //Number of consecutive EMP's on this camera
-	
+
 	var/toggle_message = 'sound/items/Wirecutter.ogg'
 
 /obj/machinery/camera/New()
@@ -47,21 +47,23 @@
 	..()
 	if(is_station_level(z) && prob(3) && !start_active)
 		toggle_cam()
+		wires.CutAll()
 
 /obj/machinery/camera/Destroy()
 	toggle_cam(null, 0) //kick anyone viewing out
-	if(assembly)
-		qdel(assembly)
-		assembly = null
+	QDEL_NULL(assembly)
 	if(istype(bug))
 		bug.bugged_cameras -= src.c_tag
 		if(bug.current == src)
 			bug.current = null
 		bug = null
-	qdel(wires)
-	wires = null
+	QDEL_NULL(wires)
 	cameranet.removeCamera(src) //Will handle removal from the camera network and the chunks, so we don't need to worry about that
 	cameranet.cameras -= src
+	var/area/ai_monitored/A = get_area(src)
+	if(istype(A))
+		A.motioncamera = null
+	area_motion = null
 	return ..()
 
 /obj/machinery/camera/emp_act(severity)
@@ -98,6 +100,11 @@
 					to_chat(O, "The screen bursts into static.")
 			..()
 
+/obj/machinery/camera/tesla_act(var/power)//EMP proof upgrade also makes it tesla immune
+	if(isEmpProof())
+		return
+	..()
+	qdel(src)//to prevent bomb testing camera from exploding over and over forever
 
 /obj/machinery/camera/ex_act(severity, target)
 	if(src.invuln)
@@ -109,7 +116,7 @@
 /obj/machinery/camera/blob_act()
 	qdel(src)
 	return
-	
+
 /obj/machinery/camera/attack_ghost(mob/user)
 	if(panel_open)
 		wires.Interact(user)

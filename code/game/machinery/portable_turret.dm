@@ -103,8 +103,7 @@
 	setup()
 
 /obj/machinery/porta_turret/Destroy()
-	qdel(spark_system)
-	spark_system = null
+	QDEL_NULL(spark_system)
 	return ..()
 
 /obj/machinery/porta_turret/centcom/New()

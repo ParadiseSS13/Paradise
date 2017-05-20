@@ -84,22 +84,28 @@
 	var/active = FALSE
 	var/ghost_alert_delay = 30 SECONDS
 	var/last_ghost_alert
+	var/alert_title = "Ethereal Beacon Active!"
+	var/atom/attack_atom
 
 
 /obj/structure/ghost_beacon/initialize()
 	. = ..()
 	last_ghost_alert = world.time
+	attack_atom = src
 	if(active)
 		processing_objects.Add(src)
 
 /obj/structure/ghost_beacon/Destroy()
 	if(active)
 		processing_objects.Remove(src)
+	attack_atom = null
 	return ..()
 
 /obj/structure/ghost_beacon/attack_ghost(mob/dead/observer/user)
 	if(user.can_advanced_admin_interact())
 		attack_hand(user)
+	else if(attack_atom != src)
+		attack_atom.attack_ghost(user)
 
 /obj/structure/ghost_beacon/attack_hand(mob/user)
 	if(!is_admin(user))
@@ -113,5 +119,5 @@
 
 /obj/structure/ghost_beacon/process()
 	if(last_ghost_alert + ghost_alert_delay < world.time)
-		notify_ghosts("[src] active in [get_area(src)].", 'sound/effects/ghost2.ogg', source = src)
+		notify_ghosts("[src] active in [get_area(src)].", 'sound/effects/ghost2.ogg', title = alert_title, source = attack_atom, action = (attack_atom == src ? NOTIFY_JUMP : NOTIFY_ATTACK))
 		last_ghost_alert = world.time

@@ -78,7 +78,9 @@
 				to_chat(user, "<span class='notice'>The locker is too small to stuff [W:affecting] into!</span>")
 		if(isrobot(user))
 			return
-		user.drop_item()
+		if(!user.drop_item()) //couldn't drop the item
+			to_chat(user, "<span class='notice'>\The [W] is stuck to your hand, you cannot put it in \the [src]!</span>")
+			return
 		if(W)
 			W.forceMove(loc)
 	else if((istype(W, /obj/item/weapon/card/emag)||istype(W, /obj/item/weapon/melee/energy/blade)) && !broken)
@@ -167,7 +169,7 @@
 			locked = 0
 			welded = 0
 			update_icon()
-			to_chat(usr, "\red You successfully break out!")
+			to_chat(usr, "<span class='warning'>You successfully break out!</span>")
 			for(var/mob/O in viewers(L.loc))
 				O.show_message("<span class='danger'>\the [usr] successfully broke out of \the [src]!</span>", 1)
 			if(istype(loc, /obj/structure/bigDelivery)) //Do this to prevent contents from being opened into nullspace (read: bluespace)

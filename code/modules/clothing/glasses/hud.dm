@@ -9,6 +9,7 @@
 
 
 /obj/item/clothing/glasses/hud/equipped(mob/living/carbon/human/user, slot)
+	..()
 	if(HUDType && slot == slot_glasses)
 		var/datum/atom_hud/H = huds[HUDType]
 		H.add_hud_to(user)
@@ -32,7 +33,8 @@
 	species_fit = list("Vox")
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/species/vox/eyes.dmi',
-		"Drask" = 'icons/mob/species/drask/eyes.dmi'
+		"Drask" = 'icons/mob/species/drask/eyes.dmi',
+		"Grey" = 'icons/mob/species/grey/eyes.dmi'
 		)
 
 /obj/item/clothing/glasses/hud/health/health_advanced
@@ -112,6 +114,12 @@
 	flash_protect = 1
 	tint = 1
 	prescription_upgradable = 1
+	species_fit = list("Vox")
+	sprite_sheets = list(
+		"Vox" = 'icons/mob/species/vox/eyes.dmi',
+		"Drask" = 'icons/mob/species/drask/eyes.dmi',
+		"Grey" = 'icons/mob/species/grey/eyes.dmi'
+	)
 
 /obj/item/clothing/glasses/hud/security/sunglasses/prescription
 	prescription = 1
@@ -134,3 +142,27 @@
 	darkness_view = 8
 	invis_view = SEE_INVISIBLE_MINIMUM //don't render darkness while wearing these
 	prescription_upgradable = 0
+
+/obj/item/clothing/glasses/hud/security/tajblind
+	name = "sleek veil"
+	desc = "An Ahdominian made veil that allows the user to see while obscuring their eyes. This one has an in-built security HUD."
+	icon_state = "tajblind_sec"
+	item_state = "tajblind_sec"
+	flags_cover = GLASSESCOVERSEYES
+	actions_types = list(/datum/action/item_action/toggle)
+	up = 0
+
+/obj/item/clothing/glasses/hud/security/tajblind/attack_self()
+	toggle_veil()
+
+/obj/item/clothing/glasses/hud/health/tajblind
+	name = "lightweight veil"
+	desc = "An Ahdominian made veil that allows the user to see while obscuring their eyes. This one has an installed medical HUD."
+	icon_state = "tajblind_med"
+	item_state = "tajblind_med"
+	flags_cover = GLASSESCOVERSEYES
+	actions_types = list(/datum/action/item_action/toggle)
+	up = 0
+
+/obj/item/clothing/glasses/hud/health/tajblind/attack_self()
+	toggle_veil()

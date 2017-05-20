@@ -13,6 +13,10 @@
 	var/list/signs = list()
 	var/max_signs = 20
 
+/obj/item/weapon/holosign_creator/Destroy()
+	QDEL_LIST(signs)
+	return ..()
+
 /obj/item/weapon/holosign_creator/afterattack(atom/target, mob/user, flag)
 	if(flag)
 		var/turf/T = get_turf(target)

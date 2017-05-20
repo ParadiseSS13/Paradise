@@ -1,6 +1,7 @@
 /obj/structure/stool/bed/chair/wheelchair
 	name = "wheelchair"
 	desc = "You sit in this. Either by will or force."
+	icon = 'icons/obj/objects.dmi'
 	icon_state = "wheelchair"
 	anchored = 0
 	movable = 1
@@ -9,7 +10,7 @@
 
 /obj/structure/stool/bed/chair/wheelchair/handle_rotation()
 	overlays = null
-	var/image/O = image(icon = 'icons/obj/objects.dmi', icon_state = "w_overlay", layer = FLY_LAYER, dir = src.dir)
+	var/image/O = image(icon = icon, icon_state = "[icon_state]_overlay", layer = FLY_LAYER, dir = src.dir)
 	overlays += O
 	if(buckled_mob)
 		buckled_mob.dir = dir
@@ -152,10 +153,3 @@
 
 		else
 			. = 1
-
-/obj/structure/stool/bed/chair/wheelchair/bike/handle_rotation()
-	overlays = null
-	var/image/O = image(icon = 'icons/vehicles/motorcycle.dmi', icon_state = "motorcycle_overlay_4d", layer = FLY_LAYER, dir = src.dir)
-	overlays += O
-	if(buckled_mob)
-		buckled_mob.dir = dir

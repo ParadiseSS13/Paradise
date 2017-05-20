@@ -1045,7 +1045,7 @@ var/list/ghostteleportlocs = list()
 
 /area/bridge/meeting_room
 	name = "\improper Heads of Staff Meeting Room"
-	icon_state = "bridge"
+	icon_state = "meeting"
 	music = null
 
 /area/crew_quarters/captain
@@ -2476,11 +2476,6 @@ area/security/podbay
 /area/awaymission/spacebattle/secret
 	name = "\improper Hidden Chamber"
 
-/area/awaymission/listeningpost
-	name = "\improper Listening Post"
-	icon_state = "away"
-	requires_power = 0
-
 /area/awaymission/beach
 	name = "Beach"
 	icon_state = "beach"
@@ -2592,6 +2587,22 @@ area/security/podbay
 
 /area/awaycontent/a30
 	icon_state = "awaycontent30"
+
+////////////////////////VR AREAS///////////////////////////////////
+
+/area/vr
+	name = "VR"
+	requires_power = 0
+	dynamic_lighting = 0
+	no_teleportlocs = 1
+
+
+/area/vr/lobby
+	name = "VR Lobby"
+
+/area/vr/roman
+	name = "Roman Arena"
+
 
 /////////////////////////////////////////////////////////////////////
 /*

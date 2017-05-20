@@ -36,12 +36,9 @@
 	notify_ammo_count(user)
 
 /obj/item/weapon/gun/throw/Destroy()
-	qdel(to_launch)
-	to_launch = null
-	for(var/atom/A in loaded_projectiles)
-		qdel(A)
+	QDEL_NULL(to_launch)
+	QDEL_LIST(loaded_projectiles)
 	loaded_projectiles = null
-
 	return ..()
 
 /obj/item/weapon/gun/throw/update_icon()

@@ -145,11 +145,10 @@ proc/issyndicate(mob/living/M as mob)
 	var/mob/living/carbon/human/M = synd_mind.current
 	var/obj/item/organ/external/head/head_organ = M.get_organ("head")
 
-	M.mutations = list()
-	M.disabilities = 0
-	M.overeatduration = 0
 	M.set_species("Human",1)
 	M.dna.ready_dna(M) // Quadriplegic Nuke Ops won't be participating in the paralympics
+	M.reagents.add_reagent("mutadone", 1) //No fat/blind/colourblind/epileptic/whatever ops.
+	M.overeatduration = 0
 
 	var/hair_c = pick("#8B4513","#000000","#FF4500","#FFD700") // Brown, black, red, blonde
 	var/eye_c = pick("#000000","#8B4513","1E90FF") // Black, brown, blue
@@ -223,7 +222,7 @@ proc/issyndicate(mob/living/M as mob)
 
 /datum/game_mode/proc/greet_syndicate(var/datum/mind/syndicate, var/you_are=1)
 	if(you_are)
-		to_chat(syndicate.current, "\blue You are a [syndicate_name()] agent!")
+		to_chat(syndicate.current, "<span class='notice'>You are a [syndicate_name()] agent!</span>")
 	var/obj_count = 1
 	for(var/datum/objective/objective in syndicate.objectives)
 		to_chat(syndicate.current, "<B>Objective #[obj_count]</B>: [objective.explanation_text]")

@@ -9,8 +9,7 @@
 	pockets.max_combined_w_class = 4
 
 /obj/item/clothing/suit/storage/Destroy()
-	qdel(pockets)
-	pockets = null
+	QDEL_NULL(pockets)
 	return ..()
 
 /obj/item/clothing/suit/storage/attack_hand(mob/user as mob)

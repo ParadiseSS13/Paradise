@@ -28,7 +28,7 @@ var/list/possibleShadowlingNames = list("U'ruan", "Y`shej", "Nex", "Hel-uae", "N
 				H.visible_message("<span class='warning'>[H]'s things suddenly slip off. They hunch over and vomit up a copious amount of purple goo which begins to shape around them!</span>", \
 									"<span class='shadowling'>You remove any equipment which would hinder your hatching and begin regurgitating the resin which will protect you.</span>")
 
-				for(var/obj/item/I in H.contents - (H.organs | H.internal_organs)) //drops all items except organs
+				for(var/obj/item/I in H.contents - (H.bodyparts | H.internal_organs)) //drops all items except organs
 					H.unEquip(I)
 
 				sleep(50)
@@ -155,11 +155,10 @@ var/list/possibleShadowlingNames = list("U'ruan", "Y`shej", "Nex", "Hel-uae", "N
 				for(var/mob/living/M in orange(7, H))
 					M.Weaken(10)
 					to_chat(M, "<span class='userdanger'>An immense pressure slams you onto the ground!</span>")
-				to_chat(world, "<font size=5><span class='shadowling'><b>\"VYSHA NERADA YEKHEZET U'RUU!!\"</font></span>")
-				world << 'sound/hallucinations/veryfar_noise.ogg'
 				for(var/obj/machinery/power/apc/A in apcs)
 					A.overload_lighting()
-				var/mob/A = new /mob/living/simple_animal/ascendant_shadowling(H.loc)
+				var/mob/living/simple_animal/ascendant_shadowling/A = new /mob/living/simple_animal/ascendant_shadowling(H.loc)
+				A.announce("VYSHA NERADA YEKHEZET U'RUU!!", 5, 'sound/hallucinations/veryfar_noise.ogg')
 				for(var/obj/effect/proc_holder/spell/S in H.mind.spell_list)
 					if(S == src) continue
 					H.mind.RemoveSpell(S)

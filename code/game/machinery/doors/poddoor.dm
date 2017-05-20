@@ -3,8 +3,9 @@
 	desc = "That looks like it doesn't open easily."
 	icon = 'icons/obj/doors/rapid_pdoor.dmi'
 	icon_state = "pdoor1"
-	var/id_tag = 1.0
 	explosion_block = 3
+	heat_proof = 1
+	var/id_tag = 1.0
 	var/protected = 1
 
 /obj/machinery/door/poddoor/preopen
@@ -46,25 +47,25 @@
 	src.add_fingerprint(user)
 	if(!( istype(C, /obj/item/weapon/crowbar) || (istype(C, /obj/item/weapon/twohanded/fireaxe) && C:wielded == 1) ))
 		return
-	if((src.density && (stat & NOPOWER) && !( src.operating )))
+	if((src.density && (stat & NOPOWER) && !operating))
 		spawn( 0 )
-			src.operating = 1
+			operating = 1
 			flick("pdoorc0", src)
 			src.icon_state = "pdoor0"
 			src.set_opacity(0)
 			sleep(15)
 			src.density = 0
-			src.operating = 0
+			operating = 0
 			return
 	return
 
 /obj/machinery/door/poddoor/open()
-	if(src.operating == 1) //doors can still open when emag-disabled
+	if(operating || emagged) //doors can still open when emag-disabled
 		return
 	if(!ticker)
 		return 0
-	if(!src.operating) //in case of emag
-		src.operating = 1
+	if(!operating) //in case of emag
+		operating = 1
 	flick("pdoorc0", src)
 	src.icon_state = "pdoor0"
 	src.set_opacity(0)
@@ -74,17 +75,17 @@
 	air_update_turf(1)
 	update_freelook_sight()
 
-	if(operating == 1) //emag again
-		src.operating = 0
+	if(operating) //emag again
+		operating = 0
 	if(autoclose)
 		spawn(150)
 			autoclose()
 	return 1
 
 /obj/machinery/door/poddoor/close()
-	if(src.operating)
+	if(operating)
 		return
-	src.operating = 1
+	operating = 1
 	flick("pdoorc1", src)
 	src.icon_state = "pdoor1"
 	src.set_opacity(initial(opacity))
@@ -95,7 +96,7 @@
 	src.density = 1
 	sleep(5)
 
-	src.operating = 0
+	operating = 0
 	return
 
 /obj/machinery/door/poddoor/multi_tile // Whoever wrote the old code for multi-tile spesspod doors needs to burn in hell.

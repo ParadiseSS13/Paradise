@@ -20,6 +20,10 @@
 				4 = Screwdriver panel closed and is fully built (you cannot attach upgrades)
 	*/
 
+/obj/item/weapon/camera_assembly/Destroy()
+	QDEL_LIST(upgrades)
+	return ..()
+
 /obj/item/weapon/camera_assembly/attackby(obj/item/W, mob/living/user, params)
 
 	switch(state)

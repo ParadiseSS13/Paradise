@@ -422,7 +422,7 @@
 	var/mob/dead/observer/ghost
 	for(var/mob/dead/observer/O in loc)
 		if(!check_observer(O))
-			to_chat(O, "\red You are not eligible to become a golem.")
+			to_chat(O, "<span class='warning'>You are not eligible to become a golem.</span>")
 			continue
 		ghost = O
 		break
@@ -463,13 +463,13 @@
 /obj/effect/golemrune/proc/volunteer(var/mob/dead/observer/O)
 	if(O in ghosts)
 		ghosts.Remove(O)
-		to_chat(O, "\red You are no longer signed up to be a golem.")
+		to_chat(O, "<span class='warning'>You are no longer signed up to be a golem.</span>")
 	else
 		if(!check_observer(O))
-			to_chat(O, "\red You are not eligible to become a golem.")
+			to_chat(O, "<span class='warning'>You are not eligible to become a golem.</span>")
 			return
 		ghosts.Add(O)
-		to_chat(O, "\blue You are signed up to be a golem.")
+		to_chat(O, "<span class='notice'>You are signed up to be a golem.</span>")
 
 
 

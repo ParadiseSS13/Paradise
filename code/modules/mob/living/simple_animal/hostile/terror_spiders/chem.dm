@@ -31,16 +31,3 @@
 		M.EyeBlurry(6)
 		M.Paralyse(5)
 	..()
-
-// Terror Spider, Queen Toxin
-
-/datum/reagent/terror_queen_toxin
-	name = "Terror Queen venom"
-	id = "terror_queen_toxin"
-	description = "A royally potent venom."
-	color = "#CF3600"
-	metabolization_rate = 2
-
-/datum/reagent/terror_queen_toxin/on_mob_life(mob/living/M)
-	// make them hallucinate a lot, like a changeling sting
-	M.AdjustHallucinate(50, bound_upper = 400)

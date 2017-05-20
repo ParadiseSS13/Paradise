@@ -16,8 +16,7 @@
 
 /obj/item/device/assembly/infra/Destroy()
 	if(first)
-		qdel(first)
-		first = null
+		QDEL_NULL(first)
 		last = null
 		fire_location = null
 	return ..()
@@ -255,9 +254,7 @@
 /obj/effect/beam/i_beam/Destroy()
 	if(master.first == src)
 		master.first = null
-	if(next)
-		qdel(next)
-		next = null
+	QDEL_NULL(next)
 	if(previous)
 		previous.next = null
 		master.last = previous

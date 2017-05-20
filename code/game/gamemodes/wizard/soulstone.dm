@@ -51,7 +51,7 @@
 		to_chat(user, "<span class='warning'>There is no power left in the shard.</span>")
 		return
 
-	if(!ishuman(M) || istype(M, /mob/living/carbon/human/dummy)) //If target is not a human or a dummy
+	if(!ishuman(M)) //If target is not a human
 		return ..()
 
 	if(M.has_brain_worms()) //Borer stuff - RR

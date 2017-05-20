@@ -23,7 +23,7 @@
 	var/normalspeed = 1
 	var/auto_close_time = 150
 	var/auto_close_time_dangerous = 5
-	var/heat_proof = 0 // For glass airlocks/opacity firedoors
+	var/heat_proof = 0 // For rglass-windowed airlocks and firedoors
 	var/emergency = 0
 	var/air_properties_vary_with_direction = 0
 	var/block_air_zones = 1 //If set, air zones cannot merge across the door even when it is opened.
@@ -39,7 +39,15 @@
 	else
 		layer = open_layer
 
+	update_dir()
+	update_freelook_sight()
+	airlocks += src
 
+/obj/machinery/door/setDir(newdir)
+	..()
+	update_dir()
+
+/obj/machinery/door/proc/update_dir()
 	if(width > 1)
 		if(dir in list(EAST, WEST))
 			bound_width = width * world.icon_size
@@ -47,10 +55,6 @@
 		else
 			bound_width = world.icon_size
 			bound_height = width * world.icon_size
-
-	update_freelook_sight()
-	airlocks += src
-	return
 
 /obj/machinery/door/initialize()
 	air_update_turf(1)
@@ -67,7 +71,8 @@
 	return ..()
 
 /obj/machinery/door/Bumped(atom/AM)
-	if(p_open || operating) return
+	if(p_open || operating || emagged)
+		return
 	if(isliving(AM))
 		var/mob/living/M = AM
 		if(world.time - M.last_bumped <= 10) return	//Can bump-open one airlock per second. This is to prevent shock spam.
@@ -87,8 +92,7 @@
 	return
 
 
-/obj/machinery/door/CanPass(atom/movable/mover, turf/target, height=0, air_group=0)
-	if(air_group) return 0
+/obj/machinery/door/CanPass(atom/movable/mover, turf/target, height=0)
 	if(istype(mover) && mover.checkpass(PASSGLASS))
 		return !opacity
 	return !density
@@ -96,14 +100,14 @@
 /obj/machinery/door/CanAtmosPass()
 	return !density
 
-/obj/machinery/door/proc/bumpopen(mob/user as mob)
+/obj/machinery/door/proc/bumpopen(mob/user)
 	if(operating)
 		return
 	add_fingerprint(user)
 	if(!requiresID())
 		user = null
 
-	if(density)
+	if(density && !emagged)
 		if(allowed(user) || emergency == 1)
 			open()
 			if(istype(user, /mob/living/simple_animal/bot))
@@ -132,11 +136,12 @@
 	if(istype(I, /obj/item/device/detective_scanner))
 		return
 
-	if(operating || isrobot(user))
+	if(isrobot(user))
 		return //borgs can't attack doors open because it conflicts with their AI-like interaction with them.
 
 	add_fingerprint(user)
-
+	if(operating || emagged)
+		return
 	if(density && (istype(I, /obj/item/weapon/card/emag) || istype(I, /obj/item/weapon/melee/energy/blade)))
 		emag_act(user)
 		return 1
@@ -151,12 +156,12 @@
 	if(density)
 		do_animate("deny")
 
-/obj/machinery/door/emag_act(user as mob)
+/obj/machinery/door/emag_act(mob/user)
 	if(density)
 		flick("door_spark", src)
 		sleep(6)
 		open()
-		operating = -1
+		emagged = 1
 		return 1
 
 /obj/machinery/door/blob_act()
@@ -213,11 +218,11 @@
 /obj/machinery/door/proc/open()
 	if(!density)
 		return 1
-	if(operating > 0)
+	if(operating)
 		return
 	if(!ticker)
 		return 0
-	if(!operating)		operating = 1
+	operating = 1
 
 	do_animate("opening")
 	set_opacity(0)
@@ -240,7 +245,7 @@
 /obj/machinery/door/proc/close()
 	if(density)
 		return 1
-	if(operating > 0)
+	if(operating)
 		return
 	operating = 1
 
@@ -305,7 +310,7 @@
 	if(!glass && cameranet)
 		cameranet.updateVisibility(src, 0)
 
-/obj/machinery/door/BlockSuperconductivity()
+/obj/machinery/door/BlockSuperconductivity() // All non-glass airlocks block heat, this is intended.
 	if(opacity || heat_proof)
 		return 1
 	return 0

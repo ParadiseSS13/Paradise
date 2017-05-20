@@ -103,8 +103,7 @@
 				t_suit = "armor"
 			standing.overlays	+= image("icon" = 'icons/effects/blood.dmi', "icon_state" = "[t_suit]blood")
 
-		if(istype(wear_suit, /obj/item/clothing/suit/straight_jacket))
-			unEquip(handcuffed)
+		if(wear_suit.breakouttime)
 			drop_r_hand()
 			drop_l_hand()
 

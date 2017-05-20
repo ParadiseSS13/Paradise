@@ -258,7 +258,7 @@
 	ammo_type = /obj/item/ammo_casing/c46x30mmtox
 
 /obj/item/ammo_box/magazine/wt550m9/wtic
-	name = "wt550 magazine (Incindiary 4.6x30mm)"
+	name = "wt550 magazine (Incendiary 4.6x30mm)"
 	ammo_type = /obj/item/ammo_casing/c46x30mminc
 
 /obj/item/ammo_box/magazine/uzim9mm

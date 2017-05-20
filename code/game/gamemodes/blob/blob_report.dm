@@ -44,7 +44,7 @@
 					to_chat(aiPlayer, "Laws Updated: [law]")
 
 	print_command_report(intercepttext, interceptname)
-	event_announcement.Announce("A report has been downloaded and printed out at all communications consoles.", "Incoming Classified Message", 'sound/AI/commandreport.ogg')
+	event_announcement.Announce("A report has been downloaded and printed out at all communications consoles.", "Incoming Classified Message", 'sound/AI/commandreport.ogg', from = "[command_name()] Update")
 
 /datum/station_state
 	var/floor = 0
@@ -81,8 +81,10 @@
 		for(var/obj/O in T.contents)
 			if(istype(O, /obj/structure/window))
 				src.window += 1
-			else if(istype(O, /obj/structure/grille) && (!O:destroyed))
-				src.grille += 1
+			else if(istype(O, /obj/structure/grille))
+				var/obj/structure/grille/GR = O
+				if(!GR.broken)
+					grille += 1
 			else if(istype(O, /obj/machinery/door))
 				src.door += 1
 			else if(istype(O, /obj/machinery))

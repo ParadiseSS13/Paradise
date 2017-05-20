@@ -17,8 +17,7 @@
 	song.instrumentExt = "ogg"
 
 /obj/item/device/guitar/Destroy()
-	qdel(song)
-	song = null
+	QDEL_NULL(song)
 	return ..()
 
 /obj/item/device/guitar/attack_self(mob/user as mob)

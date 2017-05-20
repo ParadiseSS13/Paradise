@@ -26,6 +26,10 @@
 		payload_name += " " // formatting, ignore me
 	update_icon()
 
+/obj/item/weapon/grenade/chem_grenade/Destroy()
+	QDEL_NULL(nadeassembly)
+	QDEL_LIST(beakers)
+	return ..()
 
 /obj/item/weapon/grenade/chem_grenade/examine(mob/user)
 	..(user)

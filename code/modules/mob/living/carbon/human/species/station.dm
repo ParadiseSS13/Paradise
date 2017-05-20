@@ -56,7 +56,8 @@
 	reagent_tag = PROCESS_ORG
 	base_color = "#066000"
 	//Default styles for created mobs.
-	default_hair = "Unathi Horns"
+	default_headacc = "Simple"
+	default_headacc_colour = "#404040"
 	butt_sprite = "unathi"
 
 	has_organ = list(
@@ -214,6 +215,9 @@
 	dietflags = DIET_HERB
 	flesh_color = "#8CD7A3"
 	blood_color = "#1D2CBF"
+	base_color = "#38b661" //RGB: 56, 182, 97.
+	default_hair_colour = "#38b661"
+	eyes = "skrell_eyes_s"
 	//Default styles for created mobs.
 	default_hair = "Skrell Male Tentacles"
 	reagent_tag = PROCESS_ORG
@@ -256,6 +260,8 @@
 	refer to them as 'shitbirds' for their violent and offensive nature, as well as their horrible \
 	smell.<br/><br/>Most humans will never meet a Vox raider, instead learning of this insular species through \
 	dealing with their traders and merchants; those that do rarely enjoy the experience."
+
+	brute_mod = 1.2 //20% more brute damage. Fragile bird bones.
 
 	warning_low_pressure = 50
 	hazard_low_pressure = 0
@@ -480,12 +486,14 @@
 	brute_mod = 0.8
 
 	flags = IS_WHITELISTED
-	clothing_flags = HAS_SOCKS
-	bodyflags = FEET_CLAWS
-	eyes = "kidan_eyes"
+	clothing_flags = HAS_UNDERWEAR | HAS_UNDERSHIRT | HAS_SOCKS
+	bodyflags = FEET_CLAWS | HAS_HEAD_ACCESSORY | HAS_HEAD_MARKINGS | HAS_BODY_MARKINGS
+	eyes = "kidan_eyes_s"
 	dietflags = DIET_HERB
 	blood_color = "#FB9800"
 	reagent_tag = PROCESS_ORG
+	//Default styles for created mobs.
+	default_headacc = "Normal Antennae"
 	butt_sprite = "kidan"
 
 	has_organ = list(
@@ -495,7 +503,8 @@
 		"kidneys" =  /obj/item/organ/internal/kidneys,
 		"brain" =    /obj/item/organ/internal/brain,
 		"appendix" = /obj/item/organ/internal/appendix,
-		"eyes" =     /obj/item/organ/internal/eyes //Default darksight of 2.
+		"eyes" =     /obj/item/organ/internal/eyes, //Default darksight of 2.
+		"lantern" =  /obj/item/organ/internal/lantern
 		)
 
 	allowed_consumed_mobs = list(/mob/living/simple_animal/diona)
@@ -504,8 +513,9 @@
 		"is attempting to bite their antenna off!",
 		"is jamming their claws into their eye sockets!",
 		"is twisting their own neck!",
+		"is cracking their exoskeleton!",
+		"is stabbing themselves with their mandibles!",
 		"is holding their breath!")
-
 /datum/species/slime
 	name = "Slime People"
 	name_plural = "Slime People"
@@ -570,8 +580,8 @@
 		H.g_skin = new_color_list[2]
 		H.b_skin = new_color_list[3]
 		if(world.time % SLIMEPERSON_ICON_UPDATE_PERIOD > SLIMEPERSON_ICON_UPDATE_PERIOD - 20) // The 20 is because this gets called every 2 seconds, from the mob controller
-			for(var/organname in H.organs_by_name)
-				var/obj/item/organ/external/E = H.organs_by_name[organname]
+			for(var/organname in H.bodyparts_by_name)
+				var/obj/item/organ/external/E = H.bodyparts_by_name[organname]
 				if(istype(E) && E.dna.species == "Slime People")
 					E.sync_colour_to_human(H)
 			H.update_hair(0)
@@ -624,13 +634,13 @@
 		return
 
 	var/list/missing_limbs = list()
-	for(var/l in organs_by_name)
-		var/obj/item/organ/external/E = organs_by_name[l]
+	for(var/l in bodyparts_by_name)
+		var/obj/item/organ/external/E = bodyparts_by_name[l]
 		if(!istype(E) || istype(E, /obj/item/organ/external/stump))
 			var/list/limblist = species.has_limbs[l]
 			var/obj/item/organ/external/limb = limblist["path"]
 			var/parent_organ = initial(limb.parent_organ)
-			var/obj/item/organ/external/parentLimb = organs_by_name[parent_organ]
+			var/obj/item/organ/external/parentLimb = bodyparts_by_name[parent_organ]
 			if(!istype(parentLimb) || parentLimb.is_stump())
 				continue
 			missing_limbs[initial(limb.name)] = l
@@ -652,7 +662,7 @@
 			to_chat(src, "<span class='warning'>You're too hungry to regenerate a limb!</span>")
 			return
 
-		var/obj/item/organ/external/O = organs_by_name[chosen_limb]
+		var/obj/item/organ/external/O = bodyparts_by_name[chosen_limb]
 
 		var/stored_brute = 0
 		var/stored_burn = 0
@@ -670,7 +680,7 @@
 		var/limb_list = species.has_limbs[chosen_limb]
 		var/obj/item/organ/external/limb_path = limb_list["path"]
 		// Parent check
-		var/obj/item/organ/external/potential_parent = organs_by_name[initial(limb_path.parent_organ)]
+		var/obj/item/organ/external/potential_parent = bodyparts_by_name[initial(limb_path.parent_organ)]
 		if(!istype(potential_parent) || potential_parent.is_stump())
 			to_chat(src, "<span class='danger'>You've lost the organ that you've been growing your new part on!</span>")
 			return // No rayman for you
@@ -889,7 +899,7 @@
 	oxy_mod = 0
 	death_message = "gives one shrill beep before falling limp, their monitor flashing blue before completely shutting off..."
 
-	flags = IS_WHITELISTED | NO_BREATHE | NO_SCAN | NO_BLOOD | NO_PAIN | NO_DNA | RADIMMUNE | ALL_RPARTS| NOTRANSSTING
+	flags = IS_WHITELISTED | NO_BREATHE | NO_SCAN | NO_BLOOD | NO_PAIN | NO_DNA | RADIMMUNE | ALL_RPARTS | NOTRANSSTING
 	clothing_flags = HAS_UNDERWEAR | HAS_UNDERSHIRT | HAS_SOCKS
 	bodyflags = HAS_SKIN_COLOR | HAS_HEAD_MARKINGS | HAS_HEAD_ACCESSORY
 	dietflags = 0		//IPCs can't eat, so no diet

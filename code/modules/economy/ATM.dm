@@ -118,6 +118,9 @@ log transactions
 		to_chat(user, "<span class='warning'>Artificial unit recognized. Artificial units do not currently receive monetary compensation, as per Nanotrasen regulation #1005.</span>")
 		return
 	ui_interact(user)
+	
+/obj/machinery/atm/attack_ghost(mob/user)
+	ui_interact(user)
 
 /obj/machinery/atm/ui_interact(mob/user, ui_key = "main", var/datum/nanoui/ui = null, var/force_open = 1)
 	user.set_machine(src)
@@ -239,9 +242,7 @@ log transactions
 							T.date = current_date_string
 							T.time = worldtime2text()
 							authenticated_account.transaction_log.Add(T)
-
 							to_chat(usr, "[bicon(src)]<span class='notice'>Access granted. Welcome user '[authenticated_account.owner_name].'</span>")
-
 						previous_account_number = tried_account_num
 			if("withdrawal")
 				var/amount = max(text2num(href_list["funds_amount"]),0)

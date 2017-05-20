@@ -36,7 +36,7 @@
 /datum/gear/uniform/skirt/job/atmos
 	display_name = "skirt, atmos"
 	path = /obj/item/clothing/under/rank/atmospheric_technician/skirt
-	allowed_roles = list("Chief Engineer","Atmospheric Technician")
+	allowed_roles = list("Chief Engineer","Life Support Specialist")
 
 /datum/gear/uniform/skirt/job/eng
 	display_name = "skirt, engineer"
@@ -50,7 +50,7 @@
 
 /datum/gear/uniform/skirt/job/cmo
 	display_name = "skirt, cmo"
-	path = /obj/item/clothing/under/rank/chief_medical_officer
+	path = /obj/item/clothing/under/rank/chief_medical_officer/skirt
 	allowed_roles = list("Chief Medical Officer")
 
 /datum/gear/uniform/skirt/job/chem

@@ -13,6 +13,10 @@
 	var/improvised = 0
 	var/garrote_time
 
+/obj/item/weapon/twohanded/garrote/Destroy()
+	strangling = null
+	return ..()
+
 /obj/item/weapon/twohanded/garrote/update_icon()
 	if(strangling) // If we're strangling someone we want our icon to stay wielded
 		icon_state = "garrot_unwrap"
@@ -70,7 +74,7 @@
 		to_chat(user, "<span class='warning'>You cannot use [src] on [M] from that angle!</span>")
 		return
 
-	if(improvised && ((M.head && (M.head.flags & HEADCOVERSMOUTH)) || (M.wear_mask && (M.wear_mask.flags & MASKCOVERSMOUTH)))) // Improvised garrotes are blocked by mouth-covering items.
+	if(improvised && ((M.head && (M.head.flags_cover & HEADCOVERSMOUTH)) || (M.wear_mask && (M.wear_mask.flags_cover & MASKCOVERSMOUTH)))) // Improvised garrotes are blocked by mouth-covering items.
 		to_chat(user, "<span class = 'warning'>[M]'s neck is blocked by something they're wearing!</span>")
 
 	if(strangling)

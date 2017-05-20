@@ -69,8 +69,7 @@
 /obj/item/weapon/watertank/Destroy()
 	if(on)
 		remove_noz()
-		qdel(noz)
-		noz = null
+		QDEL_NULL(noz)
 	return ..()
 
 /obj/item/weapon/watertank/attack_hand(mob/user as mob)
@@ -301,7 +300,7 @@
 		if(!Adj|| !istype(target, /turf))
 			return
 		if(metal_synthesis_cooldown < 5)
-			var/obj/effect/effect/foam/F = new /obj/effect/effect/foam(get_turf(target), 1)
+			var/obj/structure/foam/F = new /obj/structure/foam(get_turf(target), 1)
 			F.amount = 0
 			metal_synthesis_cooldown++
 			spawn(100)

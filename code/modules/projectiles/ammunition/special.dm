@@ -26,7 +26,7 @@
 
 /obj/item/ammo_casing/magic/chaos
 	projectile_type = /obj/item/projectile/magic
-	
+
 /obj/item/ammo_casing/magic/spellblade
 	projectile_type = /obj/item/projectile/magic/spellblade
 
@@ -49,4 +49,4 @@
 	projectile_type = /obj/item/projectile/bullet/midbullet3
 	select_name = "spraydown"
 	fire_sound = 'sound/weapons/gunshot_smg.ogg'
-	e_cost = 200
+	e_cost = 20

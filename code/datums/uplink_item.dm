@@ -319,7 +319,7 @@ var/list/uplink_items = list()
 	cost = 6
 	job = list("Life Support Specialist")
 
-/datum/uplink_item/dangerous/energizedfireaxe
+/datum/uplink_item/jobspecific/energizedfireaxe
 	name = "Energized Fire Axe"
 	desc = "A fire axe with a massive electrical charge built into it. It can release this charge on its first victim and will be rather plain after that."
 	reference = "EFA"
@@ -352,6 +352,7 @@ var/list/uplink_items = list()
 /datum/uplink_item/jobspecific/poison_pen
 	name = "Poison Pen"
 	desc = "Cutting edge of deadly writing implements technology, this gadget will infuse any piece of paper with delayed contact poison."
+	reference = "PP"
 	item = /obj/item/weapon/pen/poison
 	cost = 2
 	excludefrom = list(/datum/game_mode/nuclear)

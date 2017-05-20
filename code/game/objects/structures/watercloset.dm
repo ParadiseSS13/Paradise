@@ -14,9 +14,13 @@
 
 
 /obj/structure/toilet/New()
+	..()
 	open = round(rand(0, 1))
 	update_icon()
 
+/obj/structure/toilet/Destroy()
+	swirlie = null
+	return ..()
 
 /obj/structure/toilet/attack_hand(mob/living/user)
 	if(swirlie)
@@ -388,9 +392,9 @@
 
 	if(ishuman(user))
 		var/mob/living/carbon/human/H = user
-		var/obj/item/organ/external/temp = H.organs_by_name["r_hand"]
+		var/obj/item/organ/external/temp = H.bodyparts_by_name["r_hand"]
 		if(user.hand)
-			temp = H.organs_by_name["l_hand"]
+			temp = H.bodyparts_by_name["l_hand"]
 		if(temp && !temp.is_usable())
 			to_chat(user, "<span class='notice'>You try to move your [temp.name], but cannot!")
 			return

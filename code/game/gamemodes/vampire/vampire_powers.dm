@@ -179,7 +179,7 @@
 		if(do_mob(user, target, 50))
 			if(!affects(target))
 				to_chat(user, "<span class='warning'>Your piercing gaze fails to knock out [target].</span>")
-				to_chat(target, "\blue [user]'s feeble gaze is ineffective.")
+				to_chat(target, "<span class='notice'>[user]'s feeble gaze is ineffective.</span>")
 			else
 				to_chat(user, "<span class='warning'>Your piercing gaze knocks out [target].</span>")
 				to_chat(target, "<span class='warning'>You find yourself unable to move and barely able to speak.</span>")
@@ -294,7 +294,7 @@
 
 /obj/effect/proc_holder/spell/vampire/targetted/enthrall/proc/can_enthrall(mob/living/user, mob/living/carbon/C)
 	var/enthrall_safe = 0
-	for(var/obj/item/weapon/implant/loyalty/L in C)
+	for(var/obj/item/weapon/implant/mindshield/L in C)
 		if(L && L.implanted)
 			enthrall_safe = 1
 			break
@@ -340,7 +340,7 @@
 	H.mind.special_role = SPECIAL_ROLE_VAMPIRE_THRALL
 	to_chat(H, "<span class='danger'>You have been Enthralled by [user]. Follow their every command.</span>")
 	to_chat(user, "<span class='warning'>You have successfully Enthralled [H]. <i>If they refuse to do as you say just adminhelp.</i></span>")
-	log_admin("[ckey(user.key)] has mind-slaved [ckey(H.key)].")
+	add_logs(user, H, "vampire-thralled")
 
 /obj/effect/proc_holder/spell/vampire/self/cloak
 	name = "Cloak of Darkness"
@@ -488,7 +488,7 @@
 
 	if(!turfs.len)
 		revert_cast(user)
-		to_chat(user, "\red You cannot find darkness to step to.")
+		to_chat(user, "<span class='warning'>You cannot find darkness to step to.</span>")
 		return
 
 	perform(turfs, user = user)

@@ -2,20 +2,22 @@
 	name = "gas mask"
 	desc = "A face-covering mask that can be connected to an air supply."
 	icon_state = "gas_alt"
-	flags = MASKCOVERSMOUTH | MASKCOVERSEYES | BLOCK_GAS_SMOKE_EFFECT | AIRTIGHT
+	flags = BLOCK_GAS_SMOKE_EFFECT | AIRTIGHT
 	flags_inv = HIDEEARS|HIDEEYES|HIDEFACE
+	flags_cover = MASKCOVERSMOUTH | MASKCOVERSEYES
 	w_class = 3
 	item_state = "gas_alt"
 	gas_transfer_coefficient = 0.01
 	permeability_coefficient = 0.01
 	burn_state = FIRE_PROOF
-	species_fit = list("Vox", "Unathi", "Tajaran", "Vulpkanin")
+	species_fit = list("Vox", "Unathi", "Tajaran", "Vulpkanin", "Grey")
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/species/vox/mask.dmi',
 		"Unathi" = 'icons/mob/species/unathi/mask.dmi',
 		"Tajaran" = 'icons/mob/species/tajaran/mask.dmi',
 		"Vulpkanin" = 'icons/mob/species/vulpkanin/mask.dmi',
-		"Drask" = 'icons/mob/species/drask/mask.dmi'
+		"Drask" = 'icons/mob/species/drask/mask.dmi',
+		"Grey" = 'icons/mob/species/grey/mask.dmi'
 		)
 
 // **** Welding gas mask ****
@@ -38,7 +40,7 @@
 /obj/item/clothing/mask/gas/welding/proc/toggle()
 	if(up)
 		up = !src.up
-		flags |= (MASKCOVERSEYES)
+		flags_cover |= (MASKCOVERSEYES)
 		flags_inv |= (HIDEEYES)
 		icon_state = initial(icon_state)
 		to_chat(usr, "You flip the [src] down to protect your eyes.")
@@ -46,7 +48,7 @@
 		tint = 2
 	else
 		up = !up
-		flags &= ~(MASKCOVERSEYES)
+		flags_cover &= ~(MASKCOVERSEYES)
 		flags_inv &= ~(HIDEEYES)
 		icon_state = "[initial(icon_state)]up"
 		to_chat(usr, "You push the [src] up out of your face.")
@@ -65,8 +67,9 @@
 	name = "bane mask"
 	desc = "Only when the station is in flames, do you have my permission to robust."
 	icon_state = "bane_mask"
-	flags = MASKCOVERSMOUTH | MASKCOVERSEYES | BLOCK_GAS_SMOKE_EFFECT | AIRTIGHT
+	flags = BLOCK_GAS_SMOKE_EFFECT | AIRTIGHT
 	flags_inv = HIDEEARS|HIDEEYES|HIDEFACE
+	flags_cover = MASKCOVERSMOUTH | MASKCOVERSEYES
 	w_class = 3
 	item_state = "bane_mask"
 	gas_transfer_coefficient = 0.01
@@ -97,7 +100,7 @@
 	desc = "A true prankster's facial attire. A clown is incomplete without his wig and mask."
 	icon_state = "clown"
 	item_state = "clown_hat"
-	flags = MASKCOVERSMOUTH | MASKCOVERSEYES | BLOCK_GAS_SMOKE_EFFECT | AIRTIGHT | BLOCKHAIR
+	flags = BLOCK_GAS_SMOKE_EFFECT | AIRTIGHT | BLOCKHAIR
 	burn_state = FLAMMABLE
 
 /obj/item/clothing/mask/gas/clown_hat/attack_self(mob/user)
@@ -121,7 +124,7 @@
 	desc = "Some pranksters are truly magical."
 	icon_state = "wizzclown"
 	item_state = "wizzclown"
-	flags = MASKCOVERSMOUTH | MASKCOVERSEYES | BLOCK_GAS_SMOKE_EFFECT | AIRTIGHT | BLOCKHAIR
+	flags = BLOCK_GAS_SMOKE_EFFECT | AIRTIGHT | BLOCKHAIR
 
 /obj/item/clothing/mask/gas/virusclown_hat
 	name = "clown wig and mask"
@@ -172,12 +175,11 @@
 	name = "owl mask"
 	desc = "Twoooo!"
 	icon_state = "owl"
-	flags = MASKCOVERSMOUTH | MASKCOVERSEYES | BLOCK_GAS_SMOKE_EFFECT | AIRTIGHT
 	burn_state = FLAMMABLE
 	actions_types = list(/datum/action/item_action/hoot)
 
 /obj/item/clothing/mask/gas/owl_mask/super_hero
-	flags = MASKCOVERSMOUTH | MASKCOVERSEYES | BLOCK_GAS_SMOKE_EFFECT | AIRTIGHT | NODROP
+	flags = BLOCK_GAS_SMOKE_EFFECT | AIRTIGHT | NODROP
 
 /obj/item/clothing/mask/gas/owl_mask/attack_self()
 	hoot()
@@ -381,26 +383,26 @@
 	if(istype(W, /obj/item/weapon/screwdriver))
 		switch(aggressiveness)
 			if(1)
-				to_chat(user, "\blue You set the aggressiveness restrictor to the second position.")
+				to_chat(user, "<span class='notice'>You set the aggressiveness restrictor to the second position.</span>")
 				aggressiveness = 2
 				phrase = 7
 			if(2)
-				to_chat(user, "\blue You set the aggressiveness restrictor to the third position.")
+				to_chat(user, "<span class='notice'>You set the aggressiveness restrictor to the third position.</span>")
 				aggressiveness = 3
 				phrase = 13
 			if(3)
-				to_chat(user, "\blue You set the aggressiveness restrictor to the fourth position.")
+				to_chat(user, "<span class='notice'>You set the aggressiveness restrictor to the fourth position.</span>")
 				aggressiveness = 4
 				phrase = 1
 			if(4)
-				to_chat(user, "\blue You set the aggressiveness restrictor to the first position.")
+				to_chat(user, "<span class='notice'>You set the aggressiveness restrictor to the first position.</span>")
 				aggressiveness = 1
 				phrase = 1
 			if(5)
-				to_chat(user, "\red You adjust the restrictor but nothing happens, probably because its broken.")
+				to_chat(user, "<span class='warning'>You adjust the restrictor but nothing happens, probably because its broken.</span>")
 	else if(istype(W, /obj/item/weapon/wirecutters))
 		if(aggressiveness != 5)
-			to_chat(user, "\red You broke it!")
+			to_chat(user, "<span class='warning'>You broke it!</span>")
 			aggressiveness = 5
 	else
 		..()

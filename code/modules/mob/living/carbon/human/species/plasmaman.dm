@@ -84,9 +84,12 @@
 		if("Captain", "Blueshield")
 			suit=/obj/item/clothing/suit/space/eva/plasmaman/security/captain
 			helm=/obj/item/clothing/head/helmet/space/eva/plasmaman/security/captain
-		if("Head of Personnel", "Nanotrasen Representative")
+		if("Head of Personnel")
 			suit=/obj/item/clothing/suit/space/eva/plasmaman/security/hop
 			helm=/obj/item/clothing/head/helmet/space/eva/plasmaman/security/hop
+		if("Nanotrasen Representative")
+			suit = /obj/item/clothing/suit/space/eva/plasmaman/nt_rep
+			helm = /obj/item/clothing/head/helmet/space/eva/plasmaman/nt_rep
 		if("Medical Doctor","Brig Physician")
 			suit=/obj/item/clothing/suit/space/eva/plasmaman/medical
 			helm=/obj/item/clothing/head/helmet/space/eva/plasmaman/medical
@@ -210,10 +213,10 @@
 			return 1	//godmode
 		if(breath.temperature < cold_level_1)
 			if(prob(20))
-				to_chat(src, "\red You feel your face freezing and an icicle forming in your lungs!")
+				to_chat(src, "<span class='warning'>You feel your face freezing and an icicle forming in your lungs!</span>")
 		else if(breath.temperature > heat_level_1)
 			if(prob(20))
-				to_chat(src, "\red You feel your face burning and a searing heat in your lungs!")
+				to_chat(src, "<span class='warning'>You feel your face burning and a searing heat in your lungs!</span>")
 
 		switch(breath.temperature)
 			if(-INFINITY to cold_level_3)

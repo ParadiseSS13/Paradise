@@ -1,6 +1,6 @@
 //TODO: Flash range does nothing currently
 
-/proc/explosion(turf/epicenter, devastation_range, heavy_impact_range, light_impact_range, flash_range, adminlog = 1, ignorecap = 0, flame_range = 0 ,silent = 0)
+/proc/explosion(turf/epicenter, devastation_range, heavy_impact_range, light_impact_range, flash_range, adminlog = 1, ignorecap = 0, flame_range = 0 ,silent = 0, smoke = 1)
 	src = null	//so we don't abort once src is deleted
 	epicenter = get_turf(epicenter)
 
@@ -64,9 +64,14 @@
 						M << 'sound/effects/explosionfar.ogg'
 
 		if(heavy_impact_range > 1)
-			var/datum/effect/system/explosion/E = new/datum/effect/system/explosion()
-			E.set_up(epicenter)
-			E.start()
+			if(smoke)
+				var/datum/effect/system/explosion/smoke/E = new/datum/effect/system/explosion/smoke()
+				E.set_up(epicenter)
+				E.start()
+			else
+				var/datum/effect/system/explosion/E = new/datum/effect/system/explosion()
+				E.set_up(epicenter)
+				E.start()
 
 		var/x0 = epicenter.x
 		var/y0 = epicenter.y
