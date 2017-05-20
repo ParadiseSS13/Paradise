@@ -10,7 +10,8 @@
 /*
  * Bookcase
  */
-#define HALCOOL 300
+#define HALCOOL 3000
+#define MESSAGE_DELAY 100
 
 /obj/structure/bookcase
 	name = "bookcase"
@@ -302,7 +303,7 @@
 			else
 				var/list/victim_list = list()
 				for(var/mob/living/carbon/human/V in view(P.client.view, P))
-					if(!(V.stat == DEAD))
+					if(V.stat == DEAD)
 						continue
 					if(!(V.client && V.mind))
 						continue
@@ -324,16 +325,9 @@
 								var/message = input("Torture your victim with voices in their head!")
 								if(!message)
 									return
-								else
-									var/list/intensity = list("Peaceful", "Forceful")
-									var/message_intensity = input("Select the intensity of your message!") as null|anything in intensity
-									switch(message_intensity)
-										if("Peaceful")
-											to_chat(victim, "<span class='notice'>[message]</span>")
-											return
-										if("Forceful")
-											to_chat(victim, "<span class='danger'>[message]</span>")
-											return
+								var/list/intensity = list("Peaceful", "Forceful")
+								var/message_intensity = input("Select the intensity of your message!") as null|anything in intensity
+								addtimer(src, "send_message", MESSAGE_DELAY, unique = FALSE, message_intensity, victim, message)
 							if("Hallucinations")
 								victim.AdjustHallucinate(60)
 								hallucinatory_cooldown = world.time + HALCOOL
@@ -345,6 +339,14 @@
 	else
 		return
 
+/obj/item/weapon/book/mindbook/proc/send_message(message_intensity, victim, message)
+	switch(message_intensity)
+		if("Peaceful")
+			to_chat(victim, "<span class='notice'>[message]</span>")
+			return
+		if("Forceful")
+			to_chat(victim, "<span class='danger'>[message]</span>")
+			return
 
 /*
  * Barcode Scanner
