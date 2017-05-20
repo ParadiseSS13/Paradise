@@ -39,8 +39,8 @@
 	response_harm   = "hits"
 	maxHealth = 200
 	health = 200
-	melee_damage_lower = 15
-	melee_damage_upper = 20
+	melee_damage_lower = 5
+	melee_damage_upper = 10
 	heat_damage_per_tick = 20	//amount of damage applied if animal's body temperature is higher than maxbodytemp
 	cold_damage_per_tick = 20	//same as heat_damage_per_tick, only if the bodytemperature it's lower than minbodytemp
 	faction = list("spiders")
@@ -63,7 +63,7 @@
 	health = 40
 	melee_damage_lower = 5
 	melee_damage_upper = 10
-	poison_per_bite = 10
+	poison_per_bite = 5
 	var/atom/cocoon_target
 	poison_type = "ether"
 	var/fed = 0
@@ -76,8 +76,8 @@
 	icon_dead = "hunter_dead"
 	maxHealth = 120
 	health = 120
-	melee_damage_lower = 10
-	melee_damage_upper = 20
+	melee_damage_lower = 1
+	melee_damage_upper = 10
 	poison_per_bite = 5
 	move_to_delay = 5
 
