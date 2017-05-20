@@ -18,7 +18,7 @@
 		"eyes" =     /obj/item/organ/internal/eyes/abductor //3 darksight.
 		)
 
-	flags = HAS_LIPS | NO_BLOOD | NO_BREATHE | NOGUNS
+	species_traits = list(NO_BLOOD, NO_BREATHE, NOGUNS)
 
 	oxy_mod = 0
 

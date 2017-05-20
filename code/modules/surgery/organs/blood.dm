@@ -46,7 +46,7 @@
 // Takes care blood loss and regeneration
 /mob/living/carbon/human/proc/handle_blood()
 	var/blood_volume
-	if(species && species.flags & NO_BLOOD)
+	if(NO_BLOOD in species.species_traits)
 		return
 	if(stat != DEAD && bodytemperature >= 170)	//Dead or cryosleep people do not pump the blood.
 		if(species.exotic_blood)
@@ -85,7 +85,7 @@
 
 
 		//Effects of bloodloss
-		var/oxy_immune = species.flags & NO_BREATHE //Some species have blood, but don't breathe; they should still suffer the effects of bloodloss.
+		var/oxy_immune = (NO_BREATHE in species.species_traits) //Some species have blood, but don't breathe; they should still suffer the effects of bloodloss.
 
 		switch(blood_volume)
 			if(BLOOD_VOLUME_OKAY to BLOOD_VOLUME_SAFE)
@@ -131,7 +131,7 @@
 //Makes a blood drop, leaking certain amount of blood from the mob
 /mob/living/carbon/human/proc/drip(var/amt as num)
 
-	if(species && species.flags & NO_BLOOD) //TODO: Make drips come from the reagents instead.
+	if(NO_BLOOD in species.species_traits) //TODO: Make drips come from the reagents instead.
 		return
 
 	if(!amt)
@@ -213,7 +213,7 @@
 		W.data["trace_chem"] = list2params(temp_chem)
 		vessel.remove_reagent(src.species.exotic_blood,amount) // Removes blood if human
 		return W
-	if(species && species.flags & NO_BLOOD)
+	if(NO_BLOOD in species.species_traits)
 		return null
 	else
 		if(vessel.get_reagent_amount("blood") < amount)
@@ -244,7 +244,7 @@
 	if(!istype(injected)) //Sanity..
 		return
 
-	if(species && species.flags & NO_BLOOD)
+	if(NO_BLOOD in species.species_traits)
 		reagents.add_reagent("blood", amount, injected.data)
 		reagents.update_total()
 		return
@@ -329,7 +329,7 @@ Large: Whether the splat should be big or not
 		if(H.species.exotic_blood)
 			H.vessel.reaction(T, TOUCH)
 			return
-		else if(H.species.flags & NO_BLOOD)
+		else if(NO_BLOOD in H.species.species_traits)
 			return
 	else if(istype(source, /datum/reagent))
 		bld = source

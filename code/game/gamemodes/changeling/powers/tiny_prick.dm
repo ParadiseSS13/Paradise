@@ -81,7 +81,7 @@
 	if(!selected_dna)
 		return
 	var/datum/species/newspecies = all_species[selected_dna.species]
-	if((newspecies.flags & NOTRANSSTING) || newspecies.is_small)
+	if((NOTRANSSTING in newspecies.species_traits) || newspecies.is_small)
 		to_chat(user, "<span class='warning'>The selected DNA is incompatible with our sting.</span>")
 		return
 	..()
@@ -94,7 +94,7 @@
 		return FALSE
 	if(ishuman(target))
 		var/mob/living/carbon/human/H = target
-		if(H.species.flags & NO_DNA)
+		if(NO_DNA in H.species.species_traits)
 			to_chat(user, "<span class='warning'>This won't work on a creature without DNA.</span>")
 			return FALSE
 	return TRUE

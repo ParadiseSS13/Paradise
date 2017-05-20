@@ -37,7 +37,7 @@
 
 	// Failing that...
 	if(!(damagetype & BRUTELOSS) && !(damagetype & FIRELOSS) && !(damagetype & TOXLOSS) && !(damagetype & OXYLOSS))
-		if(species.flags & NO_BREATHE)
+		if(NO_BREATHE in species.species_traits)
 			// the ultimate fallback
 			take_overall_damage(max(dmgamt - getToxLoss() - getFireLoss() - getBruteLoss() - getOxyLoss(), 0), 0)
 		else

@@ -34,7 +34,7 @@
 				if(H.species.exotic_blood)
 					H.vessel.add_reagent(H.species.exotic_blood, 0.4)
 				else
-					if(!(H.species.flags & NO_BLOOD))
+					if(!(NO_BLOOD in H.species.species_traits))
 						H.vessel.add_reagent("blood", 0.4)
 	..()
 
@@ -68,7 +68,7 @@
 		if(H.species.exotic_blood)
 			H.vessel.add_reagent(H.species.exotic_blood, 0.5)
 		else
-			if(!(H.species.flags & NO_BLOOD))
+			if(!(NO_BLOOD in H.species.species_traits))
 				H.vessel.add_reagent("blood", 0.5)
 	..()
 
@@ -847,7 +847,7 @@
 	if(volume >= 5 && !istype(T, /turf/space))
 		new /obj/effect/decal/cleanable/vomit/green(T)
 		playsound(T, 'sound/effects/splat.ogg', 50, 1, -3)
-		
+
 ////Lavaland Flora Reagents////
 
 /datum/reagent/consumable/entpoly
@@ -878,7 +878,7 @@
 	if(!light_activated)
 		M.set_light(2)
 		light_activated = 1
-	..()	
+	..()
 
 /datum/reagent/consumable/tinlux/on_mob_delete(mob/living/M)
 	M.set_light(0)

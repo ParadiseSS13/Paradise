@@ -212,7 +212,7 @@
 		M.adjustFireLoss(-2*REAGENTS_EFFECT_MULTIPLIER)
 	if(ishuman(M))
 		var/mob/living/carbon/human/H = M
-		if(!H.species.exotic_blood && !(H.species.flags & NO_BLOOD) && prob(33))
+		if(!H.species.exotic_blood && !(NO_BLOOD in H.species.species_traits) && prob(33))
 			H.vessel.add_reagent("blood", 1)
 	..()
 

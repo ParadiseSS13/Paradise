@@ -364,7 +364,7 @@
 
 		var/bloodData[0]
 		bloodData["hasBlood"] = 0
-		if(ishuman(H) && H.vessel && !(H.species && H.species.flags & NO_BLOOD))
+		if(ishuman(H) && H.vessel && !(NO_BLOOD in H.species.species_traits))
 			var/blood_type = H.get_blood_name()
 			var/blood_volume = round(H.vessel.get_reagent_amount(blood_type))
 			bloodData["hasBlood"] = 1
