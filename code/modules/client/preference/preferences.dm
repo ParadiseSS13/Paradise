@@ -28,9 +28,11 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 )
 
 /proc/player_old_enough_antag(client/C, role)
-	if(available_in_days_antag(C, role) == 0)
-		return 1	//Available in 0 days = available right now = player is old enough to play.
-	return 0
+	if(available_in_days_antag(C, role))
+		return 0	//available_in_days>0 = still some days required = player not old enough
+	if(role_available_in_playtime(C, role))
+		return 0	//available_in_playtime>0 = still some more playtime required = they are not eligible
+	return 1
 
 /proc/available_in_days_antag(client/C, role)
 	if(!C)
@@ -472,9 +474,15 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 				for(var/i in special_roles)
 					if(jobban_isbanned(user, i))
 						dat += "<b>Be [capitalize(i)]:</b> <font color=red><b> \[BANNED]</b></font><br>"
-					else if(!player_old_enough_antag(user.client,i))
-						var/available_in_days_antag = available_in_days_antag(user.client,i)
-						dat += "<b>Be [capitalize(i)]:</b> <font color=red><b> \[IN [(available_in_days_antag)] DAYS]</b></font><br>"
+					else if(!player_old_enough_antag(user.client, i))
+						var/available_in_days_antag = available_in_days_antag(user.client, i)
+						var/role_available_in_playtime = get_exp_format(role_available_in_playtime(user.client, i))
+						if(available_in_days_antag)
+							dat += "<b>Be [capitalize(i)]:</b> <font color=red><b> \[IN [(available_in_days_antag)] DAYS]</b></font><br>"
+						else if(role_available_in_playtime)
+							dat += "<b>Be [capitalize(i)]:</b> <font color=red><b> \[IN [(role_available_in_playtime)]]</b></font><br>"
+						else
+							dat += "<b>Be [capitalize(i)]:</b> <font color=red><b> \[ERROR]</b></font><br>"
 					else
 						dat += "<b>Be [capitalize(i)]:</b> <a href='?_src_=prefs;preference=be_special;role=[i]'><b>[(i in src.be_special) ? "Yes" : "No"]</b></a><br>"
 			dat += "</td></tr></table>"
