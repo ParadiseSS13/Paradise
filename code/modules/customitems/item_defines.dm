@@ -391,14 +391,10 @@
 		sallet.put_on_delay = helm.put_on_delay
 		sallet.burn_state = helm.burn_state
 		sallet.flags_cover = helm.flags_cover
-		if(helm.up)
-			sallet.flags &= ~helm.visor_flags
-			sallet.flags_inv &= ~helm.visor_flags_inv
-		if(!BLOCKHAIR in sallet.flags)
+		sallet.visor_flags = helm.visor_flags
+		sallet.visor_flags_inv = helm.visor_flags_inv
+		if(!(BLOCKHAIR in sallet.flags))
 			sallet.flags |= BLOCKHAIR
-		for(var/flag in list(HIDEMASK, HIDEFACE, HIDEEYES, HIDEEARS)) //Check for and apply missing flags.
-			if(!(sallet.flags_inv & flag))
-				sallet.flags_inv |= flag
 
 		sallet.add_fingerprint(H)
 		target.transfer_fingerprints_to(sallet)
@@ -529,11 +525,8 @@
 
 		if(choice && choice != state && !user.incapacitated() && Adjacent(user))
 			var/list/new_state = options[choice]
-			var/list/old_state = options[state]
 			icon_state = new_state["icon_state"]
-			flags_inv &= ~(old_state["visor_flags"]|old_state["mask_flags"])
 			state = choice
-			flags_inv |= (new_state["visor_flags"]|new_state["mask_flags"])
 			to_chat(user, "You adjust the sallet.")
 			playsound(src.loc, "[toggle_sound]", 100, 0, 4)
 			user.update_inv_head()

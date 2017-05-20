@@ -26,6 +26,7 @@ var/const/VIROLOGIST		=(1<<6)
 var/const/PSYCHIATRIST		=(1<<7)
 var/const/ROBOTICIST		=(1<<8)
 var/const/PARAMEDIC			=(1<<9)
+var/const/CORONER			=(1<<10)
 
 
 var/const/SUPPORT			=(1<<2)
@@ -85,7 +86,8 @@ var/list/medical_positions = list(
 	"Psychiatrist",
 	"Chemist",
 	"Virologist",
-	"Paramedic"
+	"Paramedic",
+	"Coroner"
 )
 
 
