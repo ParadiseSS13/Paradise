@@ -70,3 +70,16 @@
 
 /obj/item/weapon/gun/energy/pulse/pistol/m1911/isHandgun()
 	return 1
+
+/obj/item/weapon/gun/energy/pulse/turret
+	name = "pulse turret gun"
+	desc = "A heavy, turret-mounted pulse energy cannon."
+	icon_state = "turretlaser"
+	item_state = "turretlaser"
+	slot_flags = null
+	w_class = 5
+	ammo_type = list(/obj/item/ammo_casing/energy/electrode, /obj/item/ammo_casing/energy/laser/pulse)
+	weapon_weight = WEAPON_MEDIUM
+	can_flashlight = 0
+	trigger_guard = TRIGGER_GUARD_NONE
+	ammo_x_offset = 2
