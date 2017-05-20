@@ -302,7 +302,7 @@
 			else
 				var/list/victim_list = list()
 				for(var/mob/living/carbon/human/V in view(P.client.view, P))
-					if(!isliving(V))
+					if(!(V.stat == DEAD))
 						continue
 					if(!(V.client && V.mind))
 						continue
@@ -335,12 +335,11 @@
 											to_chat(victim, "<span class='danger'>[message]</span>")
 											return
 							if("Hallucinations")
-								to_chat(victim, "<span class='danger'>You feel a presence bearing down on you...</span>")
 								victim.AdjustHallucinate(60)
 								hallucinatory_cooldown = world.time + HALCOOL
 								return
 		else
-			to_chat(P, "You cannot make sense of the book's contents. Your head hurts.")
+			to_chat(P, "The book seems to be empty.")
 			P.adjustBrainLoss(10)
 			return
 	else
