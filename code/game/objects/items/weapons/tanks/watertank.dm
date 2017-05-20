@@ -69,8 +69,7 @@
 /obj/item/weapon/watertank/Destroy()
 	if(on)
 		remove_noz()
-		qdel(noz)
-		noz = null
+		QDEL_NULL(noz)
 	return ..()
 
 /obj/item/weapon/watertank/attack_hand(mob/user as mob)

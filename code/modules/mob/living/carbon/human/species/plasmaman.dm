@@ -84,9 +84,12 @@
 		if("Captain", "Blueshield")
 			suit=/obj/item/clothing/suit/space/eva/plasmaman/security/captain
 			helm=/obj/item/clothing/head/helmet/space/eva/plasmaman/security/captain
-		if("Head of Personnel", "Nanotrasen Representative")
+		if("Head of Personnel")
 			suit=/obj/item/clothing/suit/space/eva/plasmaman/security/hop
 			helm=/obj/item/clothing/head/helmet/space/eva/plasmaman/security/hop
+		if("Nanotrasen Representative")
+			suit = /obj/item/clothing/suit/space/eva/plasmaman/nt_rep
+			helm = /obj/item/clothing/head/helmet/space/eva/plasmaman/nt_rep
 		if("Medical Doctor","Brig Physician")
 			suit=/obj/item/clothing/suit/space/eva/plasmaman/medical
 			helm=/obj/item/clothing/head/helmet/space/eva/plasmaman/medical

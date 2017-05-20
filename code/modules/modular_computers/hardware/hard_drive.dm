@@ -119,8 +119,7 @@
 	return null
 
 /obj/item/weapon/computer_hardware/hard_drive/Destroy()
-	for(var/file in stored_files)
-		qdel(file)
+	QDEL_LIST(stored_files)
 	stored_files = null
 	return ..()
 

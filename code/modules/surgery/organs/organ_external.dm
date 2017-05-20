@@ -71,11 +71,11 @@
 /obj/item/organ/external/necrotize(update_sprite=TRUE)
 	if(status & (ORGAN_ROBOT|ORGAN_DEAD))
 		return
-	to_chat(owner, "<span class='notice'>You can't feel your [name] anymore...</span>")
 	status |= ORGAN_DEAD
 	if(dead_icon)
 		icon_state = dead_icon
 	if(owner)
+		to_chat(owner, "<span class='notice'>You can't feel your [name] anymore...</span>")
 		owner.update_body(update_sprite)
 		owner.bad_external_organs |= src
 		if(vital)
@@ -84,6 +84,8 @@
 /obj/item/organ/external/Destroy()
 	if(parent && parent.children)
 		parent.children -= src
+
+	parent = null
 
 	if(internal_organs)
 		for(var/obj/item/organ/internal/O in internal_organs)
@@ -94,13 +96,17 @@
 	if(owner)
 		owner.bodyparts_by_name[limb_name] = null
 
-	if(children)
-		for(var/obj/item/organ/external/C in children)
-			qdel(C)
+	QDEL_LIST(children)
 
 	if(wound_cleanup_timer)
 		deltimer(wound_cleanup_timer)
 		wound_cleanup_timer = null
+
+	QDEL_LIST(wounds)
+
+	QDEL_LIST(implants)
+
+	QDEL_NULL(hidden)
 
 	return ..()
 

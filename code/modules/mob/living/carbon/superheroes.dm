@@ -97,7 +97,7 @@
 	H.equip_to_slot_or_del(new /obj/item/clothing/head/griffin/(H), slot_head)
 
 	var/obj/item/weapon/implant/freedom/L = new/obj/item/weapon/implant/freedom(H)
-	L.implant(H, H)
+	L.implant(H)
 
 
 /datum/superheroes/lightnian

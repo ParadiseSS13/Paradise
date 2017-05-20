@@ -123,8 +123,7 @@
 		if(istype(cl))
 			cl.images -= I
 			cl = null
-		qdel(I)
-		I = null
+		QDEL_NULL(I)
 	return ..()
 
 /datum/click_intercept
@@ -139,9 +138,7 @@
 	holder.screen += buttons
 
 /datum/click_intercept/Destroy()
-	for(var/button in buttons)
-		qdel(button)
-	buttons.Cut()
+	QDEL_LIST(buttons)
 	return ..()
 
 

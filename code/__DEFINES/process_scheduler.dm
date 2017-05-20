@@ -19,3 +19,16 @@
 
 //Timing Controller
 #define GLOBAL_PROC	"some_magic_bullshit"
+
+#define DECLARE_GLOBAL_CONTROLLER(PROCESS,VARNAME) \
+/datum/controller/process/##PROCESS/assertGlobality(){\
+	if(##VARNAME){\
+		message_admins("Controller '[name]' tried to become global but found another controller there already. Deleting the old controller.");\
+		qdel(##VARNAME);}\
+	##VARNAME = src;}\
+\
+/datum/controller/process/##PROCESS/releaseGlobality(){\
+	if(##VARNAME == src)\
+		##VARNAME = null;\
+	else\
+		message_admins("Controller '[name]' asked to release global control in spite of not having it!");}\

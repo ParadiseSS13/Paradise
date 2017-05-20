@@ -37,27 +37,27 @@
 		//  isn't, but I don't want to remove it, just in case.
 		for(var/organ_name in H.bodyparts_by_name)
 			var/obj/item/organ/external/O = H.bodyparts_by_name[organ_name]
-			if(!O) continue
+			if(!O)
+				continue
 			for(var/obj/item/weapon/shard/shrapnel/s in O.implants)
-				if(istype(s))
-					O.implants -= s
-					H.contents -= s
-					qdel(s)
+				O.implants -= s
+				H.contents -= s
+				qdel(s)
 			O.brute_dam = 0
 			O.burn_dam = 0
 			O.damage_state = "00"
 			O.germ_level = 0
-			O.hidden = null
+			QDEL_NULL(O.hidden)
 			O.number_wounds = 0
 			O.open = 0
 			O.perma_injury = 0
 			O.status = 0
-			O.trace_chemicals = list()
-			O.wounds = list()
+			O.trace_chemicals.Cut()
+			QDEL_LIST(O.wounds)
 			O.wound_update_accuracy = 1
 		for(var/obj/item/organ/internal/IO in H.internal_organs)
 			IO.damage = 0
-			IO.trace_chemicals = list()
+			IO.trace_chemicals.Cut()
 		H.updatehealth()
 
 	to_chat(user, "<span class='notice'>We have regenerated.</span>")

@@ -413,13 +413,10 @@
 	R.languages=subject.languages
 	//Add an implant if needed
 	var/obj/item/weapon/implant/health/imp = locate(/obj/item/weapon/implant/health, subject)
-	if(isnull(imp))
+	if(!imp)
 		imp = new /obj/item/weapon/implant/health(subject)
-		imp.implanted = subject
-		R.implant = "\ref[imp]"
-	//Update it if needed
-	else
-		R.implant = "\ref[imp]"
+		imp.implant(subject)
+	R.implant = "\ref[imp]"
 
 	if(!isnull(subject.mind)) //Save that mind so traitors can continue traitoring after cloning.
 		R.mind = "\ref[subject.mind]"
