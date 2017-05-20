@@ -152,7 +152,7 @@
 "cV" = (/obj/effect/decal/cleanable/cobweb2,/turf/unsimulated/floor{name = "plating"},/area/prison/solitary)
 "cW" = (/obj/structure/stool/bed,/turf/unsimulated/floor{icon_state = "floorscorched2"},/area/prison/solitary)
 "cX" = (/obj/effect/decal/cleanable/blood,/turf/unsimulated/floor{name = "plating"},/area/prison/solitary)
-"cY" = (/obj/structure/closet/secure_closet/guncabinet,/obj/item/ammo_box/shotgun/buck,/obj/item/ammo_box/shotgun/buck,/obj/item/ammo_box/shotgun/buck,/obj/item/weapon/gun/projectile/shotgun/automatic/combat,/obj/item/weapon/gun/projectile/shotgun/automatic/combat,/obj/item/weapon/gun/projectile/shotgun/automatic/combat,/turf/simulated/floor/engine,/area/shuttle/gamma/space)
+"cY" = (/obj/structure/closet/secure_closet/guncabinet,/obj/item/weapon/storage/box/buck,/obj/item/weapon/storage/box/buck,/obj/item/weapon/storage/box/buck,/obj/item/weapon/gun/projectile/shotgun/automatic/combat,/obj/item/weapon/gun/projectile/shotgun/automatic/combat,/obj/item/weapon/gun/projectile/shotgun/automatic/combat,/turf/simulated/floor/engine,/area/shuttle/gamma/space)
 "cZ" = (/obj/structure/table/reinforced,/obj/item/weapon/storage/box/mousetraps,/obj/item/weapon/storage/box/trackimp,/turf/unsimulated/floor{tag = "icon-dark"; icon_state = "dark"},/area/admin)
 "da" = (/obj/structure/table/reinforced,/obj/item/weapon/scalpel,/turf/unsimulated/floor{tag = "icon-dark"; icon_state = "dark"},/area/admin)
 "db" = (/turf/simulated/floor/holofloor{tag = "icon-carpet2-0 (EAST)"; icon_state = "carpet2-0"; dir = 4},/area/holodeck/source_theatre)

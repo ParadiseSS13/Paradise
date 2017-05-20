@@ -184,20 +184,12 @@
 
 /datum/species/proc/create_organs(var/mob/living/carbon/human/H) //Handles creation of mob organs.
 
-	for(var/obj/item/organ/internal/iorgan in H.internal_organs)
-		if(iorgan in H.internal_organs)
-			qdel(iorgan)
+	QDEL_LIST(H.internal_organs)
+	QDEL_LIST(H.bodyparts)
 
-	for(var/obj/item/organ/organ in H.contents)
-		if(organ in H.organs)
-			qdel(organ)
-
-	if(H.organs)                  H.organs.Cut()
-	if(H.organs_by_name)          H.organs_by_name.Cut()
-
-	H.organs = list()
-	H.internal_organs = list()
-	H.organs_by_name = list()
+	LAZYREINITLIST(H.bodyparts)
+	LAZYREINITLIST(H.bodyparts_by_name)
+	LAZYREINITLIST(H.internal_organs)
 
 	for(var/limb_type in has_limbs)
 		var/list/organ_data = has_limbs[limb_type]
@@ -210,10 +202,10 @@
 		// organ new code calls `insert` on its own
 		new organ(H)
 
-	for(var/name in H.organs_by_name)
-		H.organs |= H.organs_by_name[name]
+	for(var/name in H.bodyparts_by_name)
+		H.bodyparts |= H.bodyparts_by_name[name]
 
-	for(var/obj/item/organ/external/O in H.organs)
+	for(var/obj/item/organ/external/O in H.bodyparts)
 		O.owner = H
 
 /datum/species/proc/handle_breath(var/datum/gas_mixture/breath, var/mob/living/carbon/human/H)
@@ -551,7 +543,7 @@
 			var/list/cached_overlays = H.healthdoll.cached_healthdoll_overlays
 			// Use the dead health doll as the base, since we have proper "healthy" overlays now
 			H.healthdoll.icon_state = "healthdoll_DEAD"
-			for(var/obj/item/organ/external/O in H.organs)
+			for(var/obj/item/organ/external/O in H.bodyparts)
 				var/damage = O.burn_dam + O.brute_dam
 				var/comparison = (O.max_damage/5)
 				var/icon_num = 0

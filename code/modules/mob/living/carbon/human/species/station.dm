@@ -487,7 +487,7 @@
 
 	flags = IS_WHITELISTED
 	clothing_flags = HAS_UNDERWEAR | HAS_UNDERSHIRT | HAS_SOCKS
-	bodyflags = FEET_CLAWS | HAS_HEAD_ACCESSORY
+	bodyflags = FEET_CLAWS | HAS_HEAD_ACCESSORY | HAS_HEAD_MARKINGS | HAS_BODY_MARKINGS
 	eyes = "kidan_eyes_s"
 	dietflags = DIET_HERB
 	blood_color = "#FB9800"
@@ -503,7 +503,8 @@
 		"kidneys" =  /obj/item/organ/internal/kidneys,
 		"brain" =    /obj/item/organ/internal/brain,
 		"appendix" = /obj/item/organ/internal/appendix,
-		"eyes" =     /obj/item/organ/internal/eyes //Default darksight of 2.
+		"eyes" =     /obj/item/organ/internal/eyes, //Default darksight of 2.
+		"lantern" =  /obj/item/organ/internal/lantern
 		)
 
 	allowed_consumed_mobs = list(/mob/living/simple_animal/diona)
@@ -515,7 +516,6 @@
 		"is cracking their exoskeleton!",
 		"is stabbing themselves with their mandibles!",
 		"is holding their breath!")
-
 /datum/species/slime
 	name = "Slime People"
 	name_plural = "Slime People"
@@ -580,8 +580,8 @@
 		H.g_skin = new_color_list[2]
 		H.b_skin = new_color_list[3]
 		if(world.time % SLIMEPERSON_ICON_UPDATE_PERIOD > SLIMEPERSON_ICON_UPDATE_PERIOD - 20) // The 20 is because this gets called every 2 seconds, from the mob controller
-			for(var/organname in H.organs_by_name)
-				var/obj/item/organ/external/E = H.organs_by_name[organname]
+			for(var/organname in H.bodyparts_by_name)
+				var/obj/item/organ/external/E = H.bodyparts_by_name[organname]
 				if(istype(E) && E.dna.species == "Slime People")
 					E.sync_colour_to_human(H)
 			H.update_hair(0)
@@ -634,13 +634,13 @@
 		return
 
 	var/list/missing_limbs = list()
-	for(var/l in organs_by_name)
-		var/obj/item/organ/external/E = organs_by_name[l]
+	for(var/l in bodyparts_by_name)
+		var/obj/item/organ/external/E = bodyparts_by_name[l]
 		if(!istype(E) || istype(E, /obj/item/organ/external/stump))
 			var/list/limblist = species.has_limbs[l]
 			var/obj/item/organ/external/limb = limblist["path"]
 			var/parent_organ = initial(limb.parent_organ)
-			var/obj/item/organ/external/parentLimb = organs_by_name[parent_organ]
+			var/obj/item/organ/external/parentLimb = bodyparts_by_name[parent_organ]
 			if(!istype(parentLimb) || parentLimb.is_stump())
 				continue
 			missing_limbs[initial(limb.name)] = l
@@ -662,7 +662,7 @@
 			to_chat(src, "<span class='warning'>You're too hungry to regenerate a limb!</span>")
 			return
 
-		var/obj/item/organ/external/O = organs_by_name[chosen_limb]
+		var/obj/item/organ/external/O = bodyparts_by_name[chosen_limb]
 
 		var/stored_brute = 0
 		var/stored_burn = 0
@@ -680,7 +680,7 @@
 		var/limb_list = species.has_limbs[chosen_limb]
 		var/obj/item/organ/external/limb_path = limb_list["path"]
 		// Parent check
-		var/obj/item/organ/external/potential_parent = organs_by_name[initial(limb_path.parent_organ)]
+		var/obj/item/organ/external/potential_parent = bodyparts_by_name[initial(limb_path.parent_organ)]
 		if(!istype(potential_parent) || potential_parent.is_stump())
 			to_chat(src, "<span class='danger'>You've lost the organ that you've been growing your new part on!</span>")
 			return // No rayman for you

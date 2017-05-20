@@ -121,7 +121,7 @@ var/global/list/obj/cortical_stacks = list() //Stacks for 'leave nobody behind' 
 	vox.update_dna()
 	vox.update_eyes()
 
-	for(var/obj/item/organ/external/limb in vox.organs)
+	for(var/obj/item/organ/external/limb in vox.bodyparts)
 		limb.status &= ~(ORGAN_DESTROYED | ORGAN_ROBOT)
 
 	//Now apply cortical stack.

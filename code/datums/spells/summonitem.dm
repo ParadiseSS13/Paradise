@@ -70,8 +70,8 @@
 
 					if(ishuman(M)) //Edge case housekeeping
 						var/mob/living/carbon/human/C = M
-						/*if(C.internal_organs_by_name  && item_to_retrive in C.internal_organs_by_name ) //This won't work, as we use organ datums instead of objects. --DZD
-							C.internal_organs_by_name  -= item_to_retrive
+						/*if(C.internal_bodyparts_by_name  && item_to_retrive in C.internal_bodyparts_by_name ) //This won't work, as we use organ datums instead of objects. --DZD
+							C.internal_bodyparts_by_name  -= item_to_retrive
 							if(istype(marked_item, /obj/item/brain)) //If this code ever runs I will be happy
 								var/obj/item/brain/B = new /obj/item/brain(target.loc)
 								B.transfer_identity(C)

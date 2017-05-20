@@ -204,8 +204,8 @@ REAGENT SCANNER
 		user.show_message("<span class='warning'>Significant brain damage detected. Subject may have had a concussion.</span>")
 	if(ishuman(M))
 		var/mob/living/carbon/human/H = M
-		for(var/name in H.organs_by_name)
-			var/obj/item/organ/external/e = H.organs_by_name[name]
+		for(var/name in H.bodyparts_by_name)
+			var/obj/item/organ/external/e = H.bodyparts_by_name[name]
 			if(!e)
 				continue
 			var/limb = e.name
@@ -215,14 +215,14 @@ REAGENT SCANNER
 			if(e.has_infected_wound())
 				user.show_message("<span class='warning'>Infected wound detected in subject [limb]. Disinfection recommended.</span>")
 
-		for(var/name in H.organs_by_name)
-			var/obj/item/organ/external/e = H.organs_by_name[name]
+		for(var/name in H.bodyparts_by_name)
+			var/obj/item/organ/external/e = H.bodyparts_by_name[name]
 			if(!e)
 				continue
 			if(e.status & ORGAN_BROKEN)
 				user.show_message(text("<span class='warning'>Bone fractures detected. Advanced scanner required for location.</span>"), 1)
 				break
-		for(var/obj/item/organ/external/e in H.organs)
+		for(var/obj/item/organ/external/e in H.bodyparts)
 			for(var/datum/wound/W in e.wounds) if(W.internal)
 				user.show_message(text("<span class='warning'>Internal bleeding detected. Advanced scanner required for location.</span>"), 1)
 				break

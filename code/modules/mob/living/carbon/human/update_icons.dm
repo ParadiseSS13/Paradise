@@ -171,7 +171,7 @@ var/global/list/damage_icon_parts = list()
 	// first check whether something actually changed about damage appearance
 	var/damage_appearance = ""
 
-	for(var/obj/item/organ/external/O in organs)
+	for(var/obj/item/organ/external/O in bodyparts)
 		if(O.is_stump())
 			continue
 		if(O.status & ORGAN_DESTROYED) damage_appearance += "d"
@@ -189,7 +189,7 @@ var/global/list/damage_icon_parts = list()
 	var/image/standing_image = new /image("icon" = standing)
 
 	// blend the individual damage states with our icons
-	for(var/obj/item/organ/external/O in organs)
+	for(var/obj/item/organ/external/O in bodyparts)
 		if(O.is_stump())
 			continue
 		if(!(O.status & ORGAN_DESTROYED))
@@ -240,7 +240,7 @@ var/global/list/damage_icon_parts = list()
 		icon_key += "#000000"
 
 	for(var/organ_tag in species.has_limbs)
-		var/obj/item/organ/external/part = organs_by_name[organ_tag]
+		var/obj/item/organ/external/part = bodyparts_by_name[organ_tag]
 		if(isnull(part) || part.is_stump() || (part.status & ORGAN_DESTROYED))
 			icon_key += "0"
 		else if(part.status & ORGAN_ROBOT)
@@ -269,7 +269,7 @@ var/global/list/damage_icon_parts = list()
 		var/obj/item/organ/external/chest = get_organ("chest")
 		base_icon = chest.get_icon(skeleton)
 
-		for(var/obj/item/organ/external/part in organs)
+		for(var/obj/item/organ/external/part in bodyparts)
 			var/icon/temp = part.get_icon(skeleton)
 			//That part makes left and right legs drawn topmost and lowermost when human looks WEST or EAST
 			//And no change in rendering for other parts (they icon_position is 0, so goes to 'else' part)
@@ -1333,7 +1333,7 @@ var/global/list/damage_icon_parts = list()
 	if(update_icons)   update_icons()
 
 /mob/living/carbon/human/proc/force_update_limbs()
-	for(var/obj/item/organ/external/O in organs)
+	for(var/obj/item/organ/external/O in bodyparts)
 		O.sync_colour_to_human(src)
 	update_body(0)
 

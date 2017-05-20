@@ -42,7 +42,7 @@
 			log_runtime(EXCEPTION("[src] attempted to insert into a [parent_organ], but [parent_organ] wasn't an organ! [atom_loc_line(M)]"), src)
 		else
 			parent.internal_organs |= src
-	//M.internal_organs_by_name[src] |= src(H,1)
+	//M.internal_bodyparts_by_name[src] |= src(H,1)
 	loc = null
 	for(var/X in actions)
 		var/datum/action/A = X
@@ -86,6 +86,10 @@
 
 /obj/item/organ/internal/proc/on_life()
 	return
+
+//abstract proc called by carbon/death()
+/obj/item/organ/internal/proc/on_owner_death()
+ 	return
 
 /obj/item/organ/internal/proc/prepare_eat()
 	if(status == ORGAN_ROBOT)
