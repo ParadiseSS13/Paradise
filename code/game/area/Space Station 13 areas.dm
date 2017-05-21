@@ -491,15 +491,19 @@ var/list/ghostteleportlocs = list()
 
 /area/centcom/control
 	name = "Centcom Control"
+	icon_state = "centcom_ctrl"
 
 /area/centcom/evac
 	name = "Centcom Emergency Shuttle"
+	icon_state = "centcom_evac"
 
 /area/centcom/suppy
 	name = "Centcom Supply Shuttle"
+	icon_state = "centcom_supply"
 
 /area/centcom/ferry
 	name = "Centcom Transport Shuttle"
+	icon_state = "centcom_ferry"
 
 /area/centcom/shuttle
 	name = "Centcom Administration Shuttle"
@@ -512,9 +516,10 @@ var/list/ghostteleportlocs = list()
 
 /area/centcom/specops
 	name = "Centcom Special Ops"
+	icon_state = "centcom_specops"
 
-/area/centcom/creed
-	name = "Creed's Office"
+/area/centcom/gamma
+	icon_state = "centcom_gamma"
 
 /area/centcom/holding
 	name = "Holding Facility"

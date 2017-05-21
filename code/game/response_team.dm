@@ -104,7 +104,7 @@ var/ert_request_answered = 0
 	active_team = response_team_type
 
 	send_emergency_team = 1
-	var/list/ert_candidates = pollCandidates("Join the Emergency Response Team?",, responseteam_age, 600, 1)
+	var/list/ert_candidates = pollCandidates("Join the Emergency Response Team?",, responseteam_age, 600, 1, role_playtime_requirements[ROLE_ERT])
 	if(!ert_candidates.len)
 		active_team.cannot_send_team()
 		send_emergency_team = 0
