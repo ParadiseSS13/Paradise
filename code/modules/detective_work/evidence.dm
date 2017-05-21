@@ -42,9 +42,9 @@
 			var/obj/item/weapon/storage/U = I.loc
 			U.remove_from_storage(I, src)
 		else if(user.l_hand == I)					//in a hand
-			user.drop_l_hand()
+			user.unEquip(user.l_hand, 0)
 		else if(user.r_hand == I)					//in a hand
-			user.drop_r_hand()
+			user.unEquip(user.r_hand, 0)
 		else
 			return
 
@@ -87,7 +87,7 @@
 /obj/item/weapon/storage/box/evidence
 	name = "evidence bag box"
 	desc = "A box claiming to contain evidence bags."
-	
+
 /obj/item/weapon/storage/box/evidence/New()
 	new /obj/item/weapon/evidencebag(src)
 	new /obj/item/weapon/evidencebag(src)

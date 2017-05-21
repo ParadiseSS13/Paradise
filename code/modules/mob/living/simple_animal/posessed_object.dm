@@ -74,9 +74,9 @@
 			forceMove( possessed_item )
 
 	if(l_hand) // Incase object interactions put things directly into our hands. (Like cameras, or gun magizines)
-		drop_l_hand()
+		unEquip(l_hand, 1)
 	if(r_hand)
-		drop_r_hand()
+		unEquip(r_hand, 1)
 
 /mob/living/simple_animal/possessed_object/Login()
 	..()

@@ -846,8 +846,8 @@ var/list/ventcrawl_machinery = list(/obj/machinery/atmospherics/unary/vent_pump,
 			var/obj/item/weapon/twohanded/TH = I //FML
 			if(TH.wielded)
 				TH.unwield()
-		drop_r_hand()
-		drop_l_hand()
+		unEquip(l_hand, 1)
+		unEquip(r_hand, 1)
 		stop_pulling()
 		throw_alert("handcuffed", /obj/screen/alert/restrained/handcuffed, new_master = src.handcuffed)
 	else

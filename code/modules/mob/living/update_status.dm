@@ -70,8 +70,8 @@
 	var/fall_over = !can_stand()
 	var/buckle_lying = !(buckled && !buckled.buckle_lying)
 	if(fall_over || resting || stunned)
-		drop_r_hand()
-		drop_l_hand()
+		unEquip(l_hand, 0)
+		unEquip(r_hand, 0)
 	else
 		lying = 0
 		canmove = 1

@@ -80,10 +80,8 @@
 	if(gibbed && buckled)
 		buckled.unbuckle_mob()
 
-	//Quick fix for corpses kept propped up in chairs. ~Z
-	drop_r_hand()
-	drop_l_hand()
-	//End of fix.
+	unEquip(l_hand, 1)
+	unEquip(r_hand, 1)
 
 	timeofdeath = world.time
 

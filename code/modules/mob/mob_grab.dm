@@ -139,8 +139,8 @@
 			hud.icon_state = "!reinforce"
 
 	if(state >= GRAB_AGGRESSIVE)
-		affecting.drop_r_hand()
-		affecting.drop_l_hand()
+		affecting.unEquip(affecting.l_hand, 0)
+		affecting.unEquip(affecting.l_hand, 0)
 
 
 		//var/announce = 0

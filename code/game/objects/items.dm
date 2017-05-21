@@ -354,6 +354,9 @@ var/global/image/fire_overlay = image("icon" = 'icons/goonstation/effects/fire.d
 // note this isn't called during the initial dressing of a player
 /obj/item/proc/equipped(var/mob/user, var/slot)
 	for(var/X in actions)
+		forceMove(user)
+		layer = 20
+		plane = HUD_PLANE
 		var/datum/action/A = X
 		if(item_action_slot_check(slot, user)) //some items only give their actions buttons when in a specific slot.
 			A.Grant(user)

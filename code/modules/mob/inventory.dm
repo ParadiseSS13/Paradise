@@ -25,10 +25,7 @@
 	if(!put_in_hand_check(W))
 		return 0
 	if(!l_hand)
-		W.forceMove(src)		//TODO: move to equipped?
 		l_hand = W
-		W.layer = 20	//TODO: move to equipped?
-		W.plane = HUD_PLANE	//TODO: move to equipped?
 		W.equipped(src,slot_l_hand)
 		if(pulling == W)
 			stop_pulling()
@@ -41,10 +38,7 @@
 	if(!put_in_hand_check(W))
 		return 0
 	if(!r_hand)
-		W.forceMove(src)
 		r_hand = W
-		W.layer = 20
-		W.plane = HUD_PLANE
 		W.equipped(src,slot_r_hand)
 		if(pulling == W)
 			stop_pulling()
@@ -77,25 +71,12 @@
 	W.plane = initial(W.plane)
 	W.dropped()
 
-/mob/proc/drop_item_v()		//this is dumb.
-	if(stat == CONSCIOUS && isturf(loc))
-		return drop_item()
-	return 0
-
-//Drops the item in our left hand
-/mob/proc/drop_l_hand()
-	return unEquip(l_hand) //All needed checks are in unEquip
-
-//Drops the item in our right hand
-/mob/proc/drop_r_hand()
-	return unEquip(r_hand) //Why was this not calling unEquip in the first place jesus fuck.
-
 //Drops the item in our active hand.
 /mob/proc/drop_item() //THIS. DOES. NOT. NEED. AN. ARGUMENT.
 	if(hand)
-		return drop_l_hand()
+		return unEquip(l_hand)
 	else
-		return drop_r_hand()
+		return unEquip(r_hand)
 
 //Here lie unEquip and before_item_take, already forgotten and not missed.
 
