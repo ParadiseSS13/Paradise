@@ -519,6 +519,7 @@ var/list/ghostteleportlocs = list()
 	icon_state = "centcom_specops"
 
 /area/centcom/gamma
+	name = "Centcom Gamma Armory"
 	icon_state = "centcom_gamma"
 
 /area/centcom/holding
