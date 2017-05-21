@@ -70,6 +70,7 @@ var/global/datum/controller/occupations/job_master
 			return 0
 		if(!is_job_whitelisted(player, rank))
 			return 0
+		if(job.prisonlist_job && check_prisonlist(ckey(player.key))) // And no random prisoners for nice kids
 			return 0
 
 		var/position_limit = job.total_positions
