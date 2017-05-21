@@ -379,6 +379,7 @@ REAGENT SCANNER
 	origin_tech = "magnets=2;biotech=2"
 	var/details = 0
 	var/recent_fail = 0
+	var/datatoprint = ""
 
 /obj/item/device/mass_spectrometer/New()
 	..()
@@ -409,7 +410,7 @@ REAGENT SCANNER
 			else
 				blood_traces = params2list(R.data["trace_chem"])
 				break
-		var/dat = "Trace Chemicals Found: "
+		var/dat = ""
 		for(var/R in blood_traces)
 			if(prob(reliability))
 				if(details)
@@ -425,6 +426,7 @@ REAGENT SCANNER
 				else
 					recent_fail = 1
 		to_chat(user, "[dat]")
+		datatoprint = dat
 		reagents.clear_reagents()
 	return
 
@@ -433,6 +435,19 @@ REAGENT SCANNER
 	icon_state = "adv_spectrometer"
 	details = 1
 	origin_tech = "magnets=4;biotech=2"
+
+/obj/item/device/mass_spectrometer/verb/print_report()
+	set name = "Print Scanner report"
+	set category = "Object"
+
+	usr.visible_message("<span class='warning'>[src] rattles and prints out a sheet of paper.</span>")
+	playsound(loc, 'sound/goonstation/machines/printer_thermal.ogg', 50, 1)
+	sleep(30)
+	var/obj/item/weapon/paper/P = new(usr.loc)
+	P.name = "Mass Spectrometer Scanner Report: [worldtime2text()]"
+	P.info = "<center><b>Mass Spectrometer</b></center><br><center>Data Analysis:</center><br><hr><br><b>Trace chemicals detected:</b><br>[datatoprint]<br><hr>"
+	datatoprint = ""
+	usr.put_in_hands(P)
 
 /obj/item/device/reagent_scanner
 	name = "reagent scanner"
@@ -449,6 +464,7 @@ REAGENT SCANNER
 	origin_tech = "magnets=2;biotech=2"
 	var/details = 0
 	var/recent_fail = 0
+	var/datatoprint = ""
 
 /obj/item/device/reagent_scanner/afterattack(obj/O, mob/user as mob)
 	if(user.stat)
@@ -478,6 +494,7 @@ REAGENT SCANNER
 					recent_fail = 1
 		if(dat)
 			to_chat(user, "<span class='notice'>Chemicals found: [dat]</span>")
+			datatoprint = dat
 		else
 			to_chat(user, "<span class='notice'>No active chemical agents found in [O].</span>")
 	else
@@ -490,6 +507,19 @@ REAGENT SCANNER
 	icon_state = "adv_spectrometer"
 	details = 1
 	origin_tech = "magnets=4;biotech=2"
+
+/obj/item/device/reagent_scanner/verb/print_report()
+	set name = "Print Scanner report"
+	set category = "Object"
+
+	usr.visible_message("<span class='warning'>[src] rattles and prints out a sheet of paper.</span>")
+	playsound(loc, 'sound/goonstation/machines/printer_thermal.ogg', 50, 1)
+	sleep(30)
+	var/obj/item/weapon/paper/P = new(usr.loc)
+	P.name = "Reagent Scanner Report: [worldtime2text()]"
+	P.info = "<center><b>Reagent Scanner</b></center><br><center>Data Analysis:</center><br><hr><br><b>Chemical agents detected:</b><br> [datatoprint]<br><hr>"
+	datatoprint = ""
+	usr.put_in_hands(P)
 
 /obj/item/device/slime_scanner
 	name = "slime scanner"
