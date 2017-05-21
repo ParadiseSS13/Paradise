@@ -1,0 +1,4 @@
+author: "KasparoVy"
+delete-after: True
+changes: 
+  - bugfix: "Fixes a bug where only the fat roundstart disability could be selected."
