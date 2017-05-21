@@ -26,7 +26,6 @@
 		update_revive()
 	med_hud_set_health()
 	med_hud_set_status()
-	handle_hud_icons()
 
 /mob/living/carbon/human/adjustBrainLoss(amount)
 	if(status_flags & GODMODE)
