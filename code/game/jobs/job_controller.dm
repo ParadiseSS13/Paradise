@@ -70,6 +70,7 @@ var/global/datum/controller/occupations/job_master
 			return 0
 		if(!is_job_whitelisted(player, rank))
 			return 0
+			return 0
 
 		var/position_limit = job.total_positions
 		if(!latejoin)
@@ -79,10 +80,6 @@ var/global/datum/controller/occupations/job_master
 			Debug("Player: [player] is now Rank: [rank], JCP:[job.current_positions], JPL:[position_limit]")
 			player.mind.assigned_role = rank
 			player.mind.role_alt_title = GetPlayerAltTitle(player, rank)
-
-
-//			if(!job.prisonlist_job && !check_prisonlist(ckey(player.key))) // And no random prisoners for nice kids
-//				continue
 
 			unassigned -= player
 			job.current_positions++
