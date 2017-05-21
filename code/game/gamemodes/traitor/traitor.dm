@@ -180,6 +180,13 @@
 /datum/game_mode/proc/greet_traitor(var/datum/mind/traitor)
 	to_chat(traitor.current, "<B><font size=3 color=red>You are the traitor.</font></B>")
 	var/obj_count = 1
+	if(istype(traitor.current, /mob/living/silicon))
+		traitor.current << 'sound/voice/AISyndiHack.ogg'
+	else
+		if(traitor.current.isSynthetic())
+			traitor.current << 'sound/voice/AISyndiHack.ogg'
+		else
+			traitor.current << 'sound/voice/syndicate intro.ogg'
 	for(var/datum/objective/objective in traitor.objectives)
 		to_chat(traitor.current, "<B>Objective #[obj_count]</B>: [objective.explanation_text]")
 		obj_count++
