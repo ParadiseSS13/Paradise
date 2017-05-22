@@ -1,0 +1,5 @@
+author: "DarkPyrolord"
+delete-after: True
+changes: 
+  - bugfix: "Rubber pellets should no longer embed."
+  - bugfix: "Bananas fired from the staff of the honkmother should no longer embed, or be called bullets."
