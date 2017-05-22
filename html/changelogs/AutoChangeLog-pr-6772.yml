@@ -1,4 +1,0 @@
-author: "Kyep"
-delete-after: True
-changes: 
-  - rscadd: "Adds mech-mounted variants of the existing tesla, immolator, and x-ray laser guns, with the same material and tech requirements. Admin-only Seraph mech also gets better weapons."
