@@ -107,14 +107,16 @@
 	name = "plasmaman atmospheric suit"
 	icon_state = "plasmamanAtmos_suit"
 	armor = list(melee = 10, bullet = 5, laser = 10, energy = 5, bomb = 10, bio = 100, rad = 0)
-	max_heat_protection_temperature = FIRE_SUIT_MAX_TEMP_PROTECT
+	heat_protection = HEAD												//Uncomment to enable firesuit protection
+	max_heat_protection_temperature = FIRE_IMMUNITY_HELM_MAX_TEMP_PROTECT
 
 /obj/item/clothing/head/helmet/space/eva/plasmaman/atmostech
 	name = "plasmaman atmospheric helmet"
 	icon_state = "plasmamanAtmos_helmet0"
 	base_state = "plasmamanAtmos_helmet"
 	armor = list(melee = 10, bullet = 5, laser = 10, energy = 5, bomb = 10, bio = 100, rad = 0)
-	max_heat_protection_temperature = FIRE_HELM_MAX_TEMP_PROTECT
+	heat_protection = UPPER_TORSO|LOWER_TORSO|LEGS|FEET|ARMS|HANDS					//Uncomment to enable firesuit protection
+	max_heat_protection_temperature = FIRE_IMMUNITY_SUIT_MAX_TEMP_PROTECT
 
 /obj/item/clothing/suit/space/eva/plasmaman/engineer
 	name = "plasmaman engineer suit"
