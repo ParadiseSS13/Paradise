@@ -144,7 +144,7 @@ var/time_last_changed_position = 0
 //Logic check for Topic() if you can open the job
 /obj/machinery/computer/card/proc/can_open_job(datum/job/job)
 	if(job)
-		if(!job_blacklisted(job) && job_in_department(job))
+		if(!job_blacklisted(job) && job_in_department(job, FALSE))
 			if((job.total_positions <= player_list.len * (max_relative_positions / 100)))
 				var/delta = (world.time / 10) - time_last_changed_position
 				if((change_position_cooldown < delta) || (opened_positions[job.title] < 0))
@@ -156,7 +156,7 @@ var/time_last_changed_position = 0
 //Logic check for Topic() if you can close the job
 /obj/machinery/computer/card/proc/can_close_job(datum/job/job)
 	if(job)
-		if(!job_blacklisted(job) && job_in_department(job))
+		if(!job_blacklisted(job) && job_in_department(job, FALSE))
 			if(job.total_positions > job.current_positions)
 				var/delta = (world.time / 10) - time_last_changed_position
 				if((change_position_cooldown < delta) || (opened_positions[job.title] > 0))
@@ -165,7 +165,7 @@ var/time_last_changed_position = 0
 			return -1
 	return 0
 
-/obj/machinery/computer/card/proc/job_in_department(datum/job/targetjob)
+/obj/machinery/computer/card/proc/job_in_department(datum/job/targetjob, includecivs = 1)
 	if(!scan || !scan.access)
 		return 0
 	if(!target_dept)
@@ -174,16 +174,17 @@ var/time_last_changed_position = 0
 		return 0
 	if(!targetjob || !targetjob.title)
 		return 0
-	if(targetjob.title in get_subordinates(scan.assignment))
+	if(targetjob.title in get_subordinates(scan.assignment, includecivs))
 		return 1
 	return 0
 
-/obj/machinery/computer/card/proc/get_subordinates(rank)
+/obj/machinery/computer/card/proc/get_subordinates(rank, addcivs)
 	var/list/jobs_returned = list()
 	for(var/datum/job/thisjob in job_master.occupations)
 		if(rank in thisjob.department_head)
 			jobs_returned += thisjob.title
-	jobs_returned += "Civilian"
+	if(addcivs)
+		jobs_returned += "Civilian"
 	return jobs_returned
 
 /obj/machinery/computer/card/attack_ai(var/mob/user as mob)
@@ -338,7 +339,7 @@ var/time_last_changed_position = 0
 				if(target_dept && modify.assignment == "Unassigned")
 					src.visible_message("<span class='notice'>[src]: Demoted individuals must see the HoP for a new job.</span>")
 					return 0
-				if(!job_in_department(job_master.GetJob(modify.rank)))
+				if(!job_in_department(job_master.GetJob(modify.rank), FALSE))
 					src.visible_message("<span class='notice'>[src]: Cross-department job transfers must be done by the HoP.</span>")
 					return 0
 				if(!job_in_department(job_master.GetJob(t1)))
@@ -367,11 +368,7 @@ var/time_last_changed_position = 0
 
 					modify.access = access
 					modify.rank = t1
-					if(t1 == "Civilian")
-						modify.assignment = "Unassigned"
-						modify.icon_state = "id"
-					else
-						modify.assignment = t1
+					modify.assignment = t1
 
 
 				callHook("reassign_employee", list(modify))
@@ -437,12 +434,30 @@ var/time_last_changed_position = 0
 				modify.access = list()
 				callHook("terminate_employee", list(modify))
 
+		if("demote")
+			if(is_authenticated(usr))
+				if(modify.assignment == "Unassigned")
+					src.visible_message("<span class='notice'>[src]: Unassigned crew cannot be demoted any further. If further action is warranted, ask the Captain about Termination.</span>")
+					return 0
+				if(!job_in_department(job_master.GetJob(modify.rank), FALSE))
+					src.visible_message("<span class='notice'>[src]: Heads may only demote members of their own department.</span>")
+					return 0
+
+				var/list/access = list()
+				var/datum/job/jobdatum = new /datum/job/civilian
+				access = jobdatum.get_access()
+
+				modify.access = access
+				modify.rank = "Civilian"
+				modify.assignment = "Unassigned"
+				modify.icon_state = "id"
+
 		if("make_job_available")
 			// MAKE ANOTHER JOB POSITION AVAILABLE FOR LATE JOINERS
 			if(is_authenticated(usr))
 				var/edit_job_target = href_list["job"]
 				var/datum/job/j = job_master.GetJob(edit_job_target)
-				if(!job_in_department(j))
+				if(!job_in_department(j, FALSE))
 					return 0
 				if(!j)
 					return 0
@@ -460,7 +475,7 @@ var/time_last_changed_position = 0
 			if(is_authenticated(usr))
 				var/edit_job_target = href_list["job"]
 				var/datum/job/j = job_master.GetJob(edit_job_target)
-				if(!job_in_department(j))
+				if(!job_in_department(j, FALSE))
 					return 0
 				if(!j)
 					return 0

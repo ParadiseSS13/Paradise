@@ -143,7 +143,16 @@
             </div>
           </div>
         </form>
-
+      {{/if}}
+        <div class='item'>
+          <div class='itemLabel'>
+            Demotions:
+          </div>
+          <div class='itemContent'>
+            {{:helper.link('Demote ' + data.target_owner, 'gear', {'choice' : 'demote'}, (data.target_rank == "Civilian" || data.target_rank == "Unassigned" || data.target_rank == "Terminated") ? 'disabled' : null, (data.target_rank == "Civilian" || data.target_rank == "Unassigned" || data.target_rank == "Terminated") ? 'disabled' : 'linkDanger')}}
+          </div>
+        </div>
+      {{if !data.target_dept}}
         <div class='item'>
           <div class='itemLabel'>
             Terminations:
