@@ -30,7 +30,7 @@
 	if(pocket.contents.len && (owner.stunned || !findtextEx(head.h_style, "Tentacles")))
 		owner.visible_message("<span class='notice'>Something falls from [owner]'s head!</span>",
 													"<span class='notice'>Something falls from your head!</span>")
-		pocket.empty_object_contents(0, get_turf(owner))
+		empty_contents()
 
 /obj/item/organ/internal/headpocket/ui_action_click()
 	if(!loc)
@@ -38,8 +38,14 @@
 	pocket.MouseDrop(owner)
 
 /obj/item/organ/internal/headpocket/on_owner_death()
-	pocket.empty_object_contents(0, get_turf(owner))
+	empty_contents()
 
 /obj/item/organ/internal/headpocket/remove()
 	pocket.empty_object_contents(0, get_turf(owner))
 	. = ..()
+
+/obj/item/organ/internal/headpocket/proc/empty_contents()
+	pocket.empty_object_contents(0, get_turf(owner))
+
+/obj/item/organ/internal/headpocket/proc/get_contents()
+	return pocket.contents
