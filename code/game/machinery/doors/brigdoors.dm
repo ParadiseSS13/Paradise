@@ -34,7 +34,7 @@
 
 /obj/machinery/door_timer/proc/print_report()
  	var/logname = input(usr, "Name of the guilty?","[id] log name")
- 	var/logcharges = input(usr, "What have they been charged with?","[id] log charges")
+ 	var/logcharges = stripped_multiline_input(usr, "What have they been charged with?","[id] log charges")
 
  	if(!logname || !logcharges)
   		return 0
