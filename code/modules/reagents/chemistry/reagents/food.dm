@@ -718,7 +718,7 @@
 	description = "An advanced blend of mechanically-recovered meat and textured synthesized protein product notable for its unusual crystalline grain when sliced."
 	reagent_state = SOLID
 	color = "#AC7E67"
-	taste_message = "meat - hopefully"
+	taste_message = "meat"
 
 /datum/reagent/consumable/beff/on_mob_life(mob/living/M)
 	if(prob(5))

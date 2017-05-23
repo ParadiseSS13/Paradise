@@ -51,7 +51,7 @@
 	description = "A gooey semi-liquid produced from one of the deadliest lifeforms in existence. SO REAL."
 	reagent_state = LIQUID
 	color = "#801E28" // rgb: 128, 30, 40
-	taste_message = "slimes?"
+	taste_message = "slimes"
 
 /datum/reagent/slimejelly/on_mob_life(mob/living/M)
 	if(prob(10))
@@ -188,6 +188,7 @@
 	description = "A silvery-white metallic chemical element in the actinide series, weakly radioactive."
 	reagent_state = SOLID
 	color = "#B8B8C0" // rgb: 184, 184, 192
+	taste_message = null
 
 /datum/reagent/uranium/on_mob_life(mob/living/M)
 	M.apply_effect(2, IRRADIATE, negate_armor = 1)
@@ -254,10 +255,6 @@
 	if(method == INGEST)
 		if(ishuman(M))
 			var/mob/living/carbon/human/H = M
-
-			if(volume < 10)
-				to_chat(M, "<span class='danger'>The greenish acidic substance stings you, but isn't concentrated enough to harm you!</span>")
-
 			if(volume >=10 && volume <=25)
 				if(!H.unacidable)
 					M.take_organ_damage(0,min(max(volume-10,2)*2,20))
@@ -706,6 +703,7 @@
 	color = "#5F8BE1"
 	metabolization_rate = 0.7
 	can_synth = 0
+	taste_message = null
 
 /datum/reagent/sodium_thiopental/on_mob_life(mob/living/M)
 	switch(current_cycle)
@@ -734,8 +732,8 @@
 	metabolization_rate = 0.8
 	penetrates_skin = 1
 	can_synth = 0
-
 	taste_message = null
+
 /datum/reagent/ketamine/on_mob_life(mob/living/M)
 	switch(current_cycle)
 		if(1 to 5)
@@ -784,6 +782,7 @@
 	description = "A toxin produced by certain mushrooms. Very deadly."
 	reagent_state = LIQUID
 	color = "#D9D9D9"
+	taste_message = null
 
 /datum/reagent/amanitin/on_mob_delete(mob/living/M)
 	M.adjustToxLoss(current_cycle*rand(2,4))
@@ -796,7 +795,7 @@
 	reagent_state = SOLID
 	color = "#D1DED1"
 	metabolization_rate = 0.2
-	taste_message = "puke"
+	taste_message = "battery acid"
 
 /datum/reagent/lipolicide/on_mob_life(mob/living/M)
 	if(!M.nutrition)
@@ -998,6 +997,7 @@
 	reagent_state = LIQUID
 	color = "#60A584"
 	heart_rate_stop = 1
+	taste_message = "sweetness"
 
 /datum/reagent/capulettium/on_mob_life(mob/living/M)
 	switch(current_cycle)
@@ -1021,6 +1021,7 @@
 	reagent_state = LIQUID
 	color = "#60A584"
 	heart_rate_stop = 1
+	taste_message = "sweetness"
 
 /datum/reagent/capulettium_plus/on_mob_life(mob/living/M)
 	M.Silence(2)
@@ -1079,7 +1080,7 @@
 	reagent_state = SOLID
 	color = "#993333"
 	process_flags = ORGANIC | SYNTHETIC
-	taste_message = "<span class='warning'>ANTS; OH GOD!</span>"
+	taste_message = "<span class='warning'>ANTS OH GOD</span>"
 
 /datum/reagent/ants/on_mob_life(mob/living/M)
 	M.adjustBruteLoss(2)
@@ -1101,7 +1102,7 @@
 	metabolization_rate = 0.2
 	var/shock_timer = 0
 	process_flags = ORGANIC | SYNTHETIC
-	taste_message = "electrons"
+	taste_message = "electricity"
 
 /datum/reagent/teslium/on_mob_life(mob/living/M)
 	shock_timer++

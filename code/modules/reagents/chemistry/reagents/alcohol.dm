@@ -9,7 +9,7 @@
 	can_grow_in_plants = 0	//Alcoholic drinks won't be grown in plants (would "water down" random seed chems too much)
 	var/dizzy_adj = 3
 	var/alcohol_perc = 1 //percentage of ethanol in a beverage 0.0 - 1.0
-	taste_message = "strong alcohol"
+	taste_message = "liquid fire"
 
 /datum/reagent/consumable/ethanol/on_mob_life(mob/living/M)
 	M.AdjustDrunk(alcohol_perc)
@@ -75,7 +75,7 @@
 	description = "Just when you thought regular station whiskey was good... This silky, amber goodness has to come along and ruin everything."
 	color = "#664300" // rgb: 102, 67, 0
 	alcohol_perc = 0.5
-	taste_message = "pure class"
+	taste_message = "class"
 
 /datum/reagent/consumable/ethanol/gin
 	name = "Gin"
@@ -423,7 +423,7 @@
 	drink_icon = "gargleblasterglass"
 	drink_name = "Pan-Galactic Gargle Blaster"
 	drink_desc = "Does... does this mean that Arthur and Ford are on the station? Oh joy."
-	taste_message = "the number fourty-two, somehow"
+	taste_message = "the number fourty two"
 
 /datum/reagent/consumable/ethanol/brave_bull
 	name = "Brave Bull"
@@ -474,6 +474,7 @@
 	color = "#664300" // rgb: 102, 67, 0
 	alcohol_perc = 0.5
 	drink_icon = "beepskysmashglass"
+	description = "Whiskey-imbued cream, what else would you expect from the Irish."
 	drink_name = "Beepsky Smash"
 	drink_desc = "Heavy, hot and strong. Just like the Iron fist of the LAW."
 	taste_message = "THE LAW"
@@ -485,7 +486,6 @@
 /datum/reagent/consumable/ethanol/irish_cream
 	name = "Irish Cream"
 	id = "irishcream"
-	description = "Whiskey-imbued cream, what else would you expect from the Irish."
 	reagent_state = LIQUID
 	color = "#664300" // rgb: 102, 67, 0
 	alcohol_perc = 0.3
@@ -528,7 +528,7 @@
 	drink_icon = "glass_clear"
 	drink_name = "Moonshine"
 	drink_desc = "You've really hit rock bottom now... your liver packed its bags and left last night."
-	taste_message = "the proletaryat"
+	taste_message = "prohibition"
 
 /datum/reagent/consumable/ethanol/b52
 	name = "B-52"
@@ -746,7 +746,7 @@
 	drink_icon = "devilskiss"
 	drink_name = "Devils Kiss"
 	drink_desc = "Creepy time!"
-	taste_message = "blood mixed with alcohol"
+	taste_message = "blood"
 
 /datum/reagent/consumable/ethanol/red_mead
 	name = "Red Mead"
@@ -758,7 +758,7 @@
 	drink_icon = "red_meadglass"
 	drink_name = "Red Mead"
 	drink_desc = "A True Vikings Beverage, though its color is strange."
-	taste_message = "blood mixed with alcohol"
+	taste_message = "blood"
 
 /datum/reagent/consumable/ethanol/mead
 	name = "Mead"

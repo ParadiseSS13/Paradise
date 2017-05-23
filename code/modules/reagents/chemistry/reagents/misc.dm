@@ -124,7 +124,7 @@
 	description = "A silvery white and ductile member of the boron group of chemical elements."
 	reagent_state = SOLID
 	color = "#A8A8A8" // rgb: 168, 168, 168
-	taste_message = "metal"
+	taste_message = null
 
 
 /datum/reagent/silicon
@@ -133,7 +133,7 @@
 	description = "A tetravalent metalloid, silicon is less reactive than its chemical analog carbon."
 	reagent_state = SOLID
 	color = "#A8A8A8" // rgb: 168, 168, 168
-	taste_message = "metal"
+	taste_message = "a CPU"
 
 
 /datum/reagent/copper
@@ -388,7 +388,7 @@
 	description = "Hugs, in liquid form.  Yes, the concept of a hug.  As a liquid.  This makes sense in the future."
 	reagent_state = LIQUID
 	color = "#FF97B9"
-	taste_message = "hugs; awww"
+	taste_message = "<font color='pink'><b>hugs</b></font>"
 
 /datum/reagent/love
 	name = "Pure love"
@@ -396,7 +396,7 @@
 	description = "What is this emotion you humans call \"love?\"  Oh, it's this?  This is it? Huh, well okay then, thanks."
 	reagent_state = LIQUID
 	color = "#FF83A5"
-	taste_message = "love; awwwwwww"
+	taste_message = "<font color='pink'><b>love</b></font>"
 
 /datum/reagent/love/on_mob_life(mob/living/M)
 	if(M.a_intent == I_HARM)
@@ -438,7 +438,7 @@
 	description = "A commercial chemical designed to help older men in the bedroom." //not really it just makes you a giant
 	color = "#ff0000"//strong red. rgb 255, 0, 0
 	var/current_size = 1
-	taste_message = "power!"
+	taste_message = "enhancement"
 
 /datum/reagent/growthserum/on_mob_life(mob/living/carbon/H)
 	var/newsize = current_size

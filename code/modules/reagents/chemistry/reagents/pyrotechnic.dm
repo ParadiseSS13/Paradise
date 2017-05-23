@@ -45,7 +45,7 @@
 	reagent_state = SOLID
 	color = "#673910" // rgb: 103, 57, 16
 	process_flags = ORGANIC | SYNTHETIC
-	taste_message = "metal"
+	taste_message = "rust"
 
 /datum/reagent/thermite/reaction_turf(turf/simulated/wall/W, volume)
 	if(volume >= 5 && istype(W))
