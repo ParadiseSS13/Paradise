@@ -252,7 +252,7 @@ var/list/holopads = list()
 
 					var/obj/machinery/hologram/holopad/pad_close = get_closest_atom(/obj/machinery/hologram/holopad, holopads, AI.eyeobj)
 					if(get_dist(pad_close, AI.eyeobj) <= holo_range)
-						unset_holo(AI)
+						pad_close.unset_holo(AI)
 						pad_close.activate_holo(AI, 1)
 				else
 					continue
