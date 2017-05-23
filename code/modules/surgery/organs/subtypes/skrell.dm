@@ -15,20 +15,16 @@
 	var/obj/item/weapon/storage/internal/pocket
 
 /obj/item/organ/internal/headpocket/New()
+	..()
 	pocket = new /obj/item/weapon/storage/internal(src)
 	pocket.storage_slots = 1
-	//fit only pocket sized items
+	// Allow adjacency calculation to work properly
+	loc = owner
+	// Fit only pocket sized items
 	pocket.max_w_class = 2
 	pocket.max_combined_w_class = 2
 	..()
 
 /obj/item/organ/internal/headpocket/ui_action_click()
-	var/obj/item/hand_item = owner.get_active_hand()
-	if(hand_item)
-		// Store item
-		if(pocket.can_be_inserted(hand_item))
-			pocket.handle_item_insertion(hand_item)
-		return
-	// Try to remove item
-	if(pocket.contents.len)
-		pocket.remove_from_storage(pocket.contents.len, get_turf(owner))
+	pocket.MouseDrop(owner)
+	return
