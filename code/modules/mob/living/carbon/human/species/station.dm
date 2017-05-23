@@ -170,8 +170,6 @@
 	butt_sprite = "vulp"
 
 	scream_verb = "yelps"
-	male_scream_sound = 'sound/voice/vulp_yelp.ogg'
-	female_scream_sound = 'sound/voice/vulp_yelp.ogg'
 
 	has_organ = list(
 		"heart" =    /obj/item/organ/internal/heart,
