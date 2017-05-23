@@ -7,7 +7,7 @@
 /obj/item/organ/internal/headpocket
 	name = "headpocket"
 	desc = "Allows Skrell to hide tiny objects within their head tentacles."
-	icon_state = "kid_lantern"
+	icon_state = "skrell_headpocket"
 	origin_tech = "biotech=2"
 	w_class = WEIGHT_CLASS_TINY
 	parent_organ = "head"
