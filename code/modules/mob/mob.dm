@@ -2,13 +2,11 @@
 	mob_list -= src
 	dead_mob_list -= src
 	living_mob_list -= src
-	qdel(hud_used)
-	hud_used = null
+	QDEL_NULL(hud_used)
 	if(mind && mind.current == src)
 		spellremove(src)
 	mobspellremove(src)
-	for(var/infection in viruses)
-		qdel(infection)
+	QDEL_LIST(viruses)
 	ghostize()
 	for(var/mob/dead/observer/M in following_mobs)
 		M.following = null
@@ -870,8 +868,8 @@ var/list/slot_equipment_priority = list( \
 	if(ishuman(src))
 		var/mob/living/carbon/human/H = src
 		if(H.health <= config.health_threshold_softcrit)
-			for(var/name in H.organs_by_name)
-				var/obj/item/organ/external/e = H.organs_by_name[name]
+			for(var/name in H.bodyparts_by_name)
+				var/obj/item/organ/external/e = H.bodyparts_by_name[name]
 				if(e && H.lying)
 					if(((e.status & ORGAN_BROKEN && !(e.status & ORGAN_SPLINTED)) || e.status & ORGAN_BLEEDING) && (H.getBruteLoss() + H.getFireLoss() >= 100))
 						return 1
@@ -1117,7 +1115,7 @@ var/list/slot_equipment_priority = list( \
 		var/mob/living/carbon/human/H = src
 		var/obj/item/organ/external/affected
 
-		for(var/obj/item/organ/external/organ in H.organs) //Grab the organ holding the implant.
+		for(var/obj/item/organ/external/organ in H.bodyparts) //Grab the organ holding the implant.
 			for(var/obj/item/weapon/O in organ.implants)
 				if(O == selection)
 					affected = organ

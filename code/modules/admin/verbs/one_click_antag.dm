@@ -480,13 +480,12 @@ client/proc/one_click_antag()
 	new_vox.update_dna()
 	new_vox.update_eyes()
 
-	for(var/obj/item/organ/external/limb in new_vox.organs)
+	for(var/obj/item/organ/external/limb in new_vox.bodyparts)
 		limb.status &= ~(ORGAN_DESTROYED | ORGAN_ROBOT)
 
 	//Now apply cortical stack.
 	var/obj/item/weapon/implant/cortical/I = new(new_vox)
-	I.imp_in = new_vox
-	I.implanted = 1
+	I.implant(new_vox)
 	cortical_stacks += I
 
 	new_vox.equip_vox_raider()

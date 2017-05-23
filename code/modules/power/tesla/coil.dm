@@ -21,9 +21,7 @@
 	RefreshParts()
 
 /obj/machinery/power/tesla_coil/Destroy()
-	if(wires)
-		qdel(wires)
-		wires = null
+	QDEL_NULL(wires)
 	return ..()
 
 /obj/machinery/power/tesla_coil/RefreshParts()

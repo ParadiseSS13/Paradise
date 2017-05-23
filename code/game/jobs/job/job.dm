@@ -199,9 +199,7 @@
 	if(implants)
 		for(var/implant_type in implants)
 			var/obj/item/weapon/implant/I = new implant_type(H)
-			I.imp_in = H
-			I.implanted = 1
-			H.sec_hud_set_implants()
+			I.implant(H)
 
 	if(gear_leftovers.len)
 		for(var/datum/gear/G in gear_leftovers)
@@ -210,7 +208,7 @@
 				if(isturf(placed_in))
 					to_chat(H, "<span class='notice'>Placing \the [G] on [placed_in]!</span>")
 				else
-					to_chat(H, "<span class='noticed'>Placing \the [G] in [placed_in.name]]")
+					to_chat(H, "<span class='noticed'>Placing \the [G] in [placed_in.name]")
 				continue
 			if(H.equip_to_appropriate_slot(G))
 				to_chat(H, "<span class='notice'>Placing \the [G] in your inventory!</span>")

@@ -19,13 +19,6 @@ FIRE ALARM
 	var/last_process = 0
 	var/wiresexposed = 0
 	var/buildstage = 2 // 2 = complete, 1 = no wires,  0 = circuit gone
-	var/area/master_area
-
-/obj/machinery/firealarm/New()
-	var/area/A = get_area_master(src)
-	if(!istype(A, /area))
-		return
-	master_area = A
 
 /obj/machinery/firealarm/update_icon()
 
@@ -293,14 +286,6 @@ Just a object used in constructing fire alarms
 	use_power = 1
 	idle_power_usage = 2
 	active_power_usage = 6
-
-	var/area/master_area
-
-/obj/machinery/partyalarm/New()
-	var/area/A = get_area_master(src)
-	if(!( istype(A, /area) ))
-		return
-	master_area=A
 
 /obj/machinery/partyalarm/attack_hand(mob/user)
 	if((user.stat && !isobserver(user)) || stat & (NOPOWER|BROKEN))

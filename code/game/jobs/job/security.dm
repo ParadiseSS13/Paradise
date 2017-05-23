@@ -156,8 +156,8 @@
 	title = "Security Officer"
 	flag = OFFICER
 	department_flag = ENGSEC
-	total_positions = 5
-	spawn_positions = 5
+	total_positions = 7
+	spawn_positions = 7
 	is_security = 1
 	supervisors = "the head of security"
 	department_head = list("Head of Security")

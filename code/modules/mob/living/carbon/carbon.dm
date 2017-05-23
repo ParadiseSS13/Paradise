@@ -17,10 +17,8 @@
 	med_hud_set_status()
 
 /mob/living/carbon/Destroy()
-	for(var/atom/movable/guts in internal_organs)
-		qdel(guts)
-	for(var/atom/movable/food in stomach_contents)
-		qdel(food)
+	QDEL_LIST(internal_organs)
+	QDEL_LIST(stomach_contents)
 	remove_from_all_data_huds()
 	return ..()
 
@@ -219,7 +217,7 @@
 				"<span class='notice'>You check yourself for injuries.</span>" \
 				)
 
-			for(var/obj/item/organ/external/org in H.organs)
+			for(var/obj/item/organ/external/org in H.bodyparts)
 				var/status = ""
 				var/brutedamage = org.brute_dam
 				var/burndamage = org.burn_dam
@@ -807,6 +805,10 @@ var/list/ventcrawl_machinery = list(/obj/machinery/atmospherics/unary/vent_pump,
 				legcuffed.dropped()
 				legcuffed = null
 				update_inv_legcuffed()
+				return
+			else
+				unEquip(I)
+				I.dropped()
 				return
 			return 1
 		else

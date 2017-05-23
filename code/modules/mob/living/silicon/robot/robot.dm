@@ -41,6 +41,7 @@ var/list/robot_verbs_default = list(
 	// Components are basically robot organs.
 	var/list/components = list()
 
+	var/obj/item/robot_parts/robot_suit/robot_suit = null //Used for deconstruction to remember what the borg was constructed out of..
 	var/obj/item/device/mmi/mmi = null
 
 	var/obj/item/device/pda/silicon/robot/rbPDA = null
@@ -255,6 +256,7 @@ var/list/robot_verbs_default = list(
 	QDEL_NULL(module)
 	QDEL_NULL(camera)
 	QDEL_NULL(cell)
+	QDEL_NULL(robot_suit)
 	return ..()
 
 /mob/living/silicon/robot/proc/pick_module()
@@ -644,20 +646,13 @@ var/list/robot_verbs_default = list(
 			else if(wiresexposed && wires.IsAllCut())
 				//Cell is out, wires are exposed, remove MMI, produce damaged chassis, baleet original mob.
 				if(!mmi)
-					to_chat(user, "\The [src] has no brain to remove.")
+					to_chat(user, "[src] has no brain to remove.")
 					return
 
-				to_chat(user, "You jam the crowbar into the robot and begin levering [mmi].")
+				to_chat(user, "You jam the crowbar into the robot and begin levering the securing bolts.")
 				if(do_after(user, 30 * W.toolspeed, target = src))
-					to_chat(user, "You damage some parts of the chassis, but eventually manage to rip out [mmi]!")
-					var/obj/item/robot_parts/robot_suit/C = new/obj/item/robot_parts/robot_suit(loc)
-					C.l_leg = new/obj/item/robot_parts/l_leg(C)
-					C.r_leg = new/obj/item/robot_parts/r_leg(C)
-					C.l_arm = new/obj/item/robot_parts/l_arm(C)
-					C.r_arm = new/obj/item/robot_parts/r_arm(C)
-					C.updateicon()
-					new/obj/item/robot_parts/chest(loc)
-					qdel(src)
+					user.visible_message("[user] deconstructs [src]!", "<span class='notice'>You unfasten the securing bolts, and [src] falls to pieces!</span>")
+					deconstruct()
 			else
 				// Okay we're not removing the cell or an MMI, but maybe something else?
 				var/list/removable_components = list()
@@ -1134,6 +1129,49 @@ var/list/robot_verbs_default = list(
 		lamp_button.icon_state = "lamp[lamp_intensity]"
 
 	update_icons()
+
+/mob/living/silicon/robot/proc/deconstruct()
+	var/turf/T = get_turf(src)
+	if(robot_suit)
+		robot_suit.forceMove(T)
+		robot_suit.l_leg.forceMove(T)
+		robot_suit.l_leg = null
+		robot_suit.r_leg.forceMove(T)
+		robot_suit.r_leg = null
+		new /obj/item/stack/cable_coil(T, robot_suit.chest.wired)
+		robot_suit.chest.forceMove(T)
+		robot_suit.chest.wired = FALSE
+		robot_suit.chest = null
+		robot_suit.l_arm.forceMove(T)
+		robot_suit.l_arm = null
+		robot_suit.r_arm.forceMove(T)
+		robot_suit.r_arm = null
+		robot_suit.head.forceMove(T)
+		robot_suit.head.flash1.forceMove(T)
+		robot_suit.head.flash1.burn_out()
+		robot_suit.head.flash1 = null
+		robot_suit.head.flash2.forceMove(T)
+		robot_suit.head.flash2.burn_out()
+		robot_suit.head.flash2 = null
+		robot_suit.head = null
+		robot_suit.updateicon()
+	else
+		new /obj/item/robot_parts/robot_suit(T)
+		new /obj/item/robot_parts/l_leg(T)
+		new /obj/item/robot_parts/r_leg(T)
+		new /obj/item/stack/cable_coil(T, 1)
+		new /obj/item/robot_parts/chest(T)
+		new /obj/item/robot_parts/l_arm(T)
+		new /obj/item/robot_parts/r_arm(T)
+		new /obj/item/robot_parts/head(T)
+		var/b
+		for(b=0, b!=2, b++)
+			var/obj/item/device/flash/F = new /obj/item/device/flash(T)
+			F.burn_out()
+	if(cell) //Sanity check.
+		cell.forceMove(T)
+		cell = null
+	qdel(src)
 
 #define BORG_CAMERA_BUFFER 30
 /mob/living/silicon/robot/Move(a, b, flag)
