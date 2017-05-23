@@ -1,5 +1,3 @@
-#define HEADPOCKET_DAMAGE_THRESHOLD 8
-
 /obj/item/organ/internal/liver/skrell
 	alcohol_intensity = 4
 	species = "Skrell"
@@ -15,7 +13,6 @@
 	species = "Skrell"
 	actions_types = list(/datum/action/item_action/organ_action/toggle)
 	var/obj/item/weapon/storage/internal/pocket
-	var/head_damage = 0
 
 /obj/item/organ/internal/headpocket/New()
 	..()
@@ -30,11 +27,10 @@
 /obj/item/organ/internal/headpocket/on_life()
 	..()
 	var/obj/item/organ/external/head/head = owner.get_organ("head")
-	if(pocket.contents.len &&	(head.brute_dam - head_damage >= HEADPOCKET_DAMAGE_THRESHOLD ||	!findtextEx(head.h_style, "Tentacles")))
+	if(pocket.contents.len && (owner.stunned || !findtextEx(head.h_style, "Tentacles")))
 		owner.visible_message("<span class='notice'>Something falls from [owner]'s head!</span>",
 													"<span class='notice'>Something falls from your head!</span>")
 		pocket.empty_object_contents(0, get_turf(owner))
-	head_damage = head.brute_dam
 
 /obj/item/organ/internal/headpocket/ui_action_click()
 	if(!loc)
@@ -47,5 +43,3 @@
 /obj/item/organ/internal/headpocket/remove()
 	pocket.empty_object_contents(0, get_turf(owner))
 	. = ..()
-
-#undef HEADPOCKET_DAMAGE_THRESHOLD
