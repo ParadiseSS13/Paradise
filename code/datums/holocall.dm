@@ -116,7 +116,7 @@
 	hologram.HC = src
 
 	//eyeobj code is horrid, this is the best copypasta I could make
-	eye = new
+	eye = new()
 	eye.origin = H
 	eye.eye_initialized = TRUE
 	eye.eye_user = user
@@ -124,7 +124,7 @@
 	user.remote_control = eye
 	user.remote_view = 1
 	user.reset_perspective(eye)
-	eye.setLoc(H.loc)
+	eye.setLoc(eye.loc)
 
 //Checks the validity of a holocall and qdels itself if it's not. Returns TRUE if valid, FALSE otherwise
 /datum/holocall/proc/Check()

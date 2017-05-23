@@ -1742,7 +1742,7 @@ var/mob/dview/dview_mob = new
 		if(!istype(A, type))
 			continue
 		var/distance = get_dist(source, A)
-		if(!closest_atom)
+		if(!closest_distance)
 			closest_distance = distance
 			closest_atom = A
 		else

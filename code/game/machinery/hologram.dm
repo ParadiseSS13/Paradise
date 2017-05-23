@@ -29,9 +29,8 @@ Possible to do for anyone motivated enough:
 // 1 = AREA BASED
 #define HOLOPAD_PASSIVE_POWER_USAGE 1
 #define HOLOGRAM_POWER_USAGE 2
-#define RANGE_BASED 4
 
-var/const/HOLOPAD_MODE = RANGE_BASED
+var/const/HOLOPAD_MODE = 0
 
 var/list/holopads = list()
 
@@ -240,14 +239,21 @@ var/list/holopads = list()
 		if(!qdeleted(master) && !master.incapacitated() && master.client && (!AI || AI.eyeobj))//If there is an AI attached, it's not incapacitated, it has a client, and the client eye is centered on the projector.
 			if(!(stat & NOPOWER))//If the  machine has power.
 				if(AI)	//ais are range based
-					if(get_dist(AI.eyeobj, src) <= holo_range)
-						continue
+					if(HOLOPAD_MODE == 0)
+						if(get_dist(AI.eyeobj, src) <= holo_range)
+							return 1
 					else
-						var/obj/machinery/hologram/holopad/pad_close = get_closest_atom(/obj/machinery/hologram/holopad, holopads, AI.eyeobj)
-						if(get_dist(pad_close, AI.eyeobj) <= holo_range)
-							unset_holo(master)
-							activate_holo(master, 1)
-							continue
+						var/area/holo_area = get_area(src)
+						var/area/eye_area = get_area(AI.eyeobj)
+
+						if(eye_area != holo_area)
+							clear_holo(master)
+							return 1
+
+					var/obj/machinery/hologram/holopad/pad_close = get_closest_atom(/obj/machinery/hologram/holopad, holopads, AI.eyeobj)
+					if(get_dist(pad_close, AI.eyeobj) <= holo_range)
+						unset_holo(AI)
+						pad_close.activate_holo(AI, 1)
 				else
 					continue
 		clear_holo(master)//If not, we want to get rid of the hologram.
@@ -270,12 +276,7 @@ var/list/holopads = list()
 	if(masters[user])
 		var/obj/effect/overlay/holo_pad_hologram/H = masters[user]
 		step_to(H, new_turf)
-		H.loc = new_turf
-		var/area/holo_area = get_area(src)
-		var/area/eye_area = new_turf.loc
-
-		if(eye_area != holo_area)
-			clear_holo(user)
+		H.forceMove(new_turf)
 	return 1
 
 /obj/machinery/hologram/holopad/proc/activate_holo(mob/living/user, var/force = 0)
@@ -315,6 +316,7 @@ var/list/holopads = list()
 
 	else
 		to_chat(user, "<span class='danger'>ERROR:</span> \black Unable to project hologram.")
+	return
 
 /*This is the proc for special two-way communication between AI and holopad/people talking near holopad.
 For the other part of the code, check silicon say.dm. Particularly robot talk.*/
