@@ -903,3 +903,13 @@
 		icon_state = options[choice]
 		to_chat(user, "Your strange witch hat has now shapeshifted into it's [choice] form!")
 		return 1
+	..()
+
+/obj/item/clothing/accessory/necklace/locket/fluff/fethasnecklace //Fethas: Sefra'neem
+	name = "Orange gemmed locket"
+	desc = "A locket with a orange gem set on the front, the picture inside seems to be of a Tajaran."
+	icon = 'icons/obj/custom_items.dmi'
+	icon_state = "fethasnecklace"
+	item_state = "fethasnecklace"
+	item_color = "fethasnecklace"
+	slot_flags = SLOT_MASK | SLOT_TIE
