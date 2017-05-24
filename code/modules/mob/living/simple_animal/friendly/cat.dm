@@ -38,7 +38,6 @@
 	gender = FEMALE
 	gold_core_spawnable = CHEM_MOB_SPAWN_INVALID
 	var/list/family = list()
-	var/lives = 9
 	var/memory_saved = 0
 	var/list/children = list() //Actual mob instances of children
 	var/cats_deployed = 0
@@ -54,6 +53,12 @@
 		Write_Memory()
 	..()
 
+/mob/living/simple_animal/pet/cat/Runtime/make_babies()
+	var/mob/baby = ..()
+	if(baby)
+		children += baby
+		return baby
+
 /mob/living/simple_animal/pet/cat/Runtime/death()
 	if(!memory_saved)
 		Write_Memory(1)
@@ -62,21 +67,21 @@
 /mob/living/simple_animal/pet/cat/Runtime/proc/Read_Memory()
 	var/savefile/S = new /savefile("data/npc_saves/Runtime.sav")
 	S["family"] 			>> family
+
 	if(isnull(family))
 		family = list()
 
 /mob/living/simple_animal/pet/cat/Runtime/proc/Write_Memory(dead)
 	var/savefile/S = new /savefile("data/npc_saves/Runtime.sav")
-	if(dead)
-		S["lives"] 				<< lives - 1
 	family = list()
-	for(var/mob/living/simple_animal/pet/cat/C in mob_list)
-		if(istype(C,type) || C.stat || !C.butcher_results || C.name == "SyndiCat")
-			continue
-		if(C.type in family)
-			family[C.type] += 1
-		else
-			family[C.type] = 1
+	if(!dead)
+		for(var/mob/living/simple_animal/pet/cat/kitten/C in children)
+			if(istype(C,type) || C.stat || !C.z || !C.butcher_results)
+				continue
+			if(C.type in family)
+				family[C.type] += 1
+			else
+				family[C.type] = 1
 	S["family"]				<< family
 	memory_saved = 1
 
@@ -87,31 +92,44 @@
 			for(var/i in 1 to min(family[cat_type],100)) //Limits to about 500 cats, you wouldn't think this would be needed (BUT IT IS)
 				new cat_type(loc)
 
-/mob/living/simple_animal/pet/cat/handle_automated_action()
-	..()
+
+/mob/living/simple_animal/pet/cat/Life()
+	if(!stat && !buckled && !client)
+		if(prob(1))
+			custom_emote(1, pick("stretches out for a belly rub.", "wags its tail.", "lies down."))
+			icon_state = "[icon_living]_rest"
+			resting = 1
+			update_canmove()
+		else if (prob(1))
+			custom_emote(1, pick("sits down.", "crouches on its hind legs.", "looks alert."))
+			icon_state = "[icon_living]_sit"
+			resting = 1
+			update_canmove()
+		else if (prob(1))
+			if (resting)
+				custom_emote(1, pick("gets up and meows.", "walks around.", "stops resting."))
+				icon_state = "[icon_living]"
+				resting = 0
+				update_canmove()
+			else
+				custom_emote(1, pick("grooms its fur.", "twitches its whiskers.", "shakes out its coat."))
 
 	//MICE!
-	if(eats_mice && loc && isturf(loc) && !incapacitated())
-		for(var/mob/living/simple_animal/mouse/M in view(1,src))
-			if(!M.stat && Adjacent(M))
-				custom_emote(1, "splats \the [M]!")
-				M.splat()
-				movement_target = null
-				stop_automated_movement = 0
-				break
+	if((src.loc) && isturf(src.loc))
+		if(!stat && !resting && !buckled)
+			for(var/mob/living/simple_animal/mouse/M in view(1,src))
+				if(!M.stat && Adjacent(M))
+					custom_emote(1, "splats \the [M]!")
+					M.splat()
+					movement_target = null
+					stop_automated_movement = 0
+					break
 
-	//attempt to mate
+	..()
+
 	make_babies()
 
-/mob/living/simple_animal/pet/cat/Runtime/make_babies()
-	var/mob/baby = ..()
-	if(baby)
-		children += baby
-		return baby
-
-/mob/living/simple_animal/pet/cat/handle_automated_movement()
-	..()
-	if(eats_mice && !incapacitated())
+	if(!stat && !resting && !buckled)
 		turns_since_scan++
 		if(turns_since_scan > 5)
 			walk_to(src,0)
@@ -129,6 +147,13 @@
 			if(movement_target)
 				stop_automated_movement = 1
 				walk_to(src,movement_target,0,3)
+
+
+/mob/living/simple_animal/pet/cat/Runtime/make_babies()
+	var/mob/baby = ..()
+	if(baby)
+		children += baby
+		return baby
 
 /mob/living/simple_animal/pet/cat/Proc
 	name = "Proc"
