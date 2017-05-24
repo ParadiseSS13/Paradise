@@ -41,7 +41,7 @@
 	empty_contents()
 
 /obj/item/organ/internal/headpocket/remove()
-	pocket.empty_object_contents(0, get_turf(owner))
+	empty_contents()
 	. = ..()
 
 /obj/item/organ/internal/headpocket/proc/empty_contents()
@@ -49,3 +49,15 @@
 
 /obj/item/organ/internal/headpocket/proc/get_contents()
 	return pocket.contents
+
+/obj/item/organ/internal/headpocket/emp_act(severity)
+	pocket.emp_act(severity)
+	..()
+
+/obj/item/organ/internal/headpocket/hear_talk(mob/living/M as mob, msg)
+	pocket.hear_talk(M, msg)
+	..()
+
+/obj/item/organ/internal/headpocket/hear_message(mob/living/M as mob, msg)
+	pocket.hear_message(M, msg)
+	..()
