@@ -6,6 +6,7 @@
 	spawn_positions = 1
 	selection_color = "#ccffcc"
 	supervisors = "your laws"
+	department_head = list("Captain")
 	req_admin_notify = 1
 	minimal_player_age = 30
 	exp_requirements = 1200
@@ -26,6 +27,7 @@
 	total_positions = 1
 	spawn_positions = 1
 	supervisors = "your laws and the AI"	//Nodrak
+	department_head = list("AI")
 	selection_color = "#ddffdd"
 	minimal_player_age = 21
 	exp_requirements = 300

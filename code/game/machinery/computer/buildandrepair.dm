@@ -30,14 +30,14 @@
 	var/frame_desc = null
 	var/contain_parts = 1
 	toolspeed = 1
-	usesound = 'sound/items/Deconstruct.ogg' 
+	usesound = 'sound/items/Deconstruct.ogg'
 
 /obj/item/weapon/circuitboard/computer
-	board_type = "computer"	
-	
+	board_type = "computer"
+
 /obj/item/weapon/circuitboard/machine
-	board_type = "machine"	
-	
+	board_type = "machine"
+
 /obj/item/weapon/circuitboard/message_monitor
 	name = "Circuit board (Message Monitor)"
 	build_path = /obj/machinery/computer/message_monitor
@@ -80,6 +80,26 @@
 /obj/item/weapon/circuitboard/card
 	name = "Circuit board (ID Computer)"
 	build_path = /obj/machinery/computer/card
+/obj/item/weapon/circuitboard/card/minor
+	name = "Circuit board (Dept ID Computer)"
+	build_path = /obj/machinery/computer/card/minor
+	var/target_dept = TARGET_DEPT_GENERIC
+/obj/item/weapon/circuitboard/card/minor/hos
+	name = "Circuit board (Sec ID Computer)"
+	build_path = /obj/machinery/computer/card/minor/hos
+	target_dept = TARGET_DEPT_SEC
+/obj/item/weapon/circuitboard/card/minor/cmo
+	name = "Circuit board (Medical ID Computer)"
+	build_path = /obj/machinery/computer/card/minor/cmo
+	target_dept = TARGET_DEPT_MED
+/obj/item/weapon/circuitboard/card/minor/rd
+	name = "Circuit board (Science ID Computer)"
+	build_path = /obj/machinery/computer/card/minor/rd
+	target_dept = TARGET_DEPT_SCI
+/obj/item/weapon/circuitboard/card/minor/ce
+	name = "Circuit board (Engineering ID Computer)"
+	build_path = /obj/machinery/computer/card/minor/ce
+	target_dept = TARGET_DEPT_ENG
 /obj/item/weapon/circuitboard/card/centcom
 	name = "Circuit board (CentComm ID Computer)"
 	build_path = /obj/machinery/computer/card/centcom

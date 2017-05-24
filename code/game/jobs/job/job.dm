@@ -10,6 +10,7 @@
 	//Bitflags for the job
 	var/flag = 0
 	var/department_flag = 0
+	var/department_head = list()
 
 	//Players will be allowed to spawn in as jobs that are set to "Station"
 	var/list/faction = list("Station")
