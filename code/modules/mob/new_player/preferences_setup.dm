@@ -17,7 +17,7 @@
 	underwear = random_underwear(gender, species)
 	undershirt = random_undershirt(gender, species)
 	socks = random_socks(gender, species)
-	if(body_accessory_by_species[species] || check_rights(R_ADMIN, 0, usr))
+	if(body_accessory_by_species[species])
 		body_accessory = random_body_accessory(species)
 		if(body_accessory == "None") //Required to prevent a bug where the information/icons in the character preferences screen wouldn't update despite the data being changed.
 			body_accessory = null
