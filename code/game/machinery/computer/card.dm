@@ -337,10 +337,10 @@ var/time_last_changed_position = 0
 			if(is_authenticated(usr) && modify)
 				var/t1 = href_list["assign_target"]
 				if(target_dept && modify.assignment == "Unassigned")
-					src.visible_message("<span class='notice'>[src]: Demoted individuals must see the HoP for a new job.</span>")
+					visible_message("<span class='notice'>[src]: Demoted individuals must see the HoP for a new job.</span>")
 					return 0
 				if(!job_in_department(job_master.GetJob(modify.rank), FALSE))
-					src.visible_message("<span class='notice'>[src]: Cross-department job transfers must be done by the HoP.</span>")
+					visible_message("<span class='notice'>[src]: Cross-department job transfers must be done by the HoP.</span>")
 					return 0
 				if(!job_in_department(job_master.GetJob(t1)))
 					return 0
@@ -381,7 +381,7 @@ var/time_last_changed_position = 0
 					if(temp_name)
 						modify.registered_name = temp_name
 					else
-						src.visible_message("<span class='notice'>[src] buzzes rudely.</span>")
+						visible_message("<span class='notice'>[src] buzzes rudely.</span>")
 			nanomanager.update_uis(src)
 
 		if("account")
@@ -437,10 +437,10 @@ var/time_last_changed_position = 0
 		if("demote")
 			if(is_authenticated(usr))
 				if(modify.assignment == "Unassigned")
-					src.visible_message("<span class='notice'>[src]: Unassigned crew cannot be demoted any further. If further action is warranted, ask the Captain about Termination.</span>")
+					visible_message("<span class='notice'>[src]: Unassigned crew cannot be demoted any further. If further action is warranted, ask the Captain about Termination.</span>")
 					return 0
 				if(!job_in_department(job_master.GetJob(modify.rank), FALSE))
-					src.visible_message("<span class='notice'>[src]: Heads may only demote members of their own department.</span>")
+					visible_message("<span class='notice'>[src]: Heads may only demote members of their own department.</span>")
 					return 0
 
 				var/list/access = list()
@@ -501,17 +501,16 @@ var/time_last_changed_position = 0
 	change_position_cooldown = -1
 	blacklisted = list()
 
-
 /obj/machinery/computer/card/minor
 	name = "department management console"
-	target_dept = 1
+	target_dept = TARGET_DEPT_GENERIC
 	desc = "You can use this to change ID's for specific departments."
 	icon_screen = "idminor"
 	circuit = /obj/item/weapon/circuitboard/card/minor
 
 /obj/machinery/computer/card/minor/hos
 	name = "security management console"
-	target_dept = 2
+	target_dept = TARGET_DEPT_SEC
 	icon_screen = "idhos"
 	light_color = LIGHT_COLOR_RED
 	req_access = list(access_hos)
@@ -519,14 +518,14 @@ var/time_last_changed_position = 0
 
 /obj/machinery/computer/card/minor/cmo
 	name = "medical management console"
-	target_dept = 3
+	target_dept = TARGET_DEPT_MED
 	icon_screen = "idcmo"
 	req_access = list(access_cmo)
 	circuit = /obj/item/weapon/circuitboard/card/minor/cmo
 
 /obj/machinery/computer/card/minor/rd
 	name = "science management console"
-	target_dept = 4
+	target_dept = TARGET_DEPT_SCI
 	icon_screen = "idrd"
 	light_color = LIGHT_COLOR_PINK
 	req_access = list(access_rd)
@@ -534,7 +533,7 @@ var/time_last_changed_position = 0
 
 /obj/machinery/computer/card/minor/ce
 	name = "engineering management console"
-	target_dept = 5
+	target_dept = TARGET_DEPT_ENG
 	icon_screen = "idce"
 	light_color = COLOR_YELLOW
 	req_access = list(access_ce)
