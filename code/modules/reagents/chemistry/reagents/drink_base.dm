@@ -2,7 +2,6 @@
 	name = "Drink"
 	id = "drink"
 	description = "Uh, some kind of drink."
-	reagent_state = LIQUID
 	color = "#E78108" // rgb: 231, 129, 8
 	var/adj_dizzy = 0
 	var/adj_drowsy = 0

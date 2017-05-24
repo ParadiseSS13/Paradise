@@ -20,7 +20,6 @@
 	name = "Nutriment"
 	id = "nutriment"
 	description = "A questionable mixture of various pure nutrients commonly found in processed foods."
-	reagent_state = SOLID
 	nutriment_factor = 15 * REAGENTS_METABOLISM
 	color = "#664330" // rgb: 102, 67, 48
 
@@ -54,7 +53,6 @@
 	name = "Vitamin"
 	id = "vitamin"
 	description = "All the best vitamins, minerals, and carbohydrates the body needs in pure form."
-	reagent_state = SOLID
 	color = "#664330" // rgb: 102, 67, 48
 
 /datum/reagent/consumable/vitamin/on_mob_life(mob/living/M)
@@ -76,7 +74,6 @@
 	name = "Sugar"
 	id = "sugar"
 	description = "The organic compound commonly known as table sugar and sometimes called saccharose. This white, odorless, crystalline powder has a pleasing, sweet taste."
-	reagent_state = SOLID
 	color = "#FFFFFF" // rgb: 255, 255, 255
 	nutriment_factor = 5 * REAGENTS_METABOLISM
 	overdose_threshold = 200 // Hyperglycaemic shock
@@ -108,7 +105,6 @@
 	name = "Soysauce"
 	id = "soysauce"
 	description = "A salty sauce made from the soy plant."
-	reagent_state = LIQUID
 	nutriment_factor = 2 * REAGENTS_METABOLISM
 	color = "#792300" // rgb: 121, 35, 0
 
@@ -116,7 +112,6 @@
 	name = "Ketchup"
 	id = "ketchup"
 	description = "Ketchup, catsup, whatever. It's tomato paste."
-	reagent_state = LIQUID
 	nutriment_factor = 5 * REAGENTS_METABOLISM
 	color = "#731008" // rgb: 115, 16, 8
 
@@ -124,7 +119,6 @@
 	name = "Capsaicin Oil"
 	id = "capsaicin"
 	description = "This is what makes chilis hot."
-	reagent_state = LIQUID
 	color = "#B31008" // rgb: 179, 16, 8
 
 /datum/reagent/consumable/capsaicin/on_mob_life(mob/living/M)
@@ -153,7 +147,6 @@
 	name = "Condensed Capsaicin"
 	id = "condensedcapsaicin"
 	description = "This shit goes in pepperspray."
-	reagent_state = LIQUID
 	color = "#B31008" // rgb: 179, 16, 8
 
 /datum/reagent/consumable/condensedcapsaicin/on_mob_life(mob/living/M)
@@ -220,7 +213,6 @@
 	name = "Frost Oil"
 	id = "frostoil"
 	description = "A special oil that noticably chills the body. Extraced from Icepeppers."
-	reagent_state = LIQUID
 	color = "#8BA6E9" // rgb: 139, 166, 233
 	process_flags = ORGANIC | SYNTHETIC
 
@@ -259,7 +251,6 @@
 	name = "Salt"
 	id = "sodiumchloride"
 	description = "Sodium chloride, common table salt."
-	reagent_state = SOLID
 	color = "#B1B0B0"
 	overdose_threshold = 100
 
@@ -272,13 +263,11 @@
 	name = "Black Pepper"
 	id = "blackpepper"
 	description = "A powder ground from peppercorns. *AAAACHOOO*"
-	reagent_state = SOLID
 
 /datum/reagent/consumable/cocoa
 	name = "Cocoa Powder"
 	id = "cocoa"
 	description = "A fatty, bitter paste made from cocoa beans."
-	reagent_state = SOLID
 	nutriment_factor = 5 * REAGENTS_METABOLISM
 	color = "#302000" // rgb: 48, 32, 0
 
@@ -286,7 +275,6 @@
 	name = "Vanilla Powder"
 	id = "vanilla"
 	description = "A fatty, bitter paste made from vanilla pods."
-	reagent_state = SOLID
 	nutriment_factor = 5 * REAGENTS_METABOLISM
 	color = "#FFFACD"
 
@@ -294,7 +282,6 @@
 	name = "Hot Chocolate"
 	id = "hot_coco"
 	description = "Made with love! And cocoa beans."
-	reagent_state = LIQUID
 	nutriment_factor = 2 * REAGENTS_METABOLISM
 	color = "#403010" // rgb: 64, 48, 16
 
@@ -319,7 +306,6 @@
 	name = "Corn Oil"
 	id = "cornoil"
 	description = "An oil derived from various types of corn."
-	reagent_state = LIQUID
 	nutriment_factor = 20 * REAGENTS_METABOLISM
 	color = "#302000" // rgb: 48, 32, 0
 
@@ -340,21 +326,18 @@
 	name = "Denatured Enzyme"
 	id = "enzyme"
 	description = "Heated beyond usefulness, this enzyme is now worthless."
-	reagent_state = LIQUID
 	color = "#282314" // rgb: 54, 94, 48
 
 /datum/reagent/consumable/dry_ramen
 	name = "Dry Ramen"
 	id = "dry_ramen"
 	description = "Space age food, since August 25, 1958. Contains dried noodles, vegetables, and chemicals that boil in contact with water."
-	reagent_state = SOLID
 	color = "#302000" // rgb: 48, 32, 0
 
 /datum/reagent/consumable/hot_ramen
 	name = "Hot Ramen"
 	id = "hot_ramen"
 	description = "The noodles are boiled, the flavors are artificial, just like being back in school."
-	reagent_state = LIQUID
 	nutriment_factor = 5 * REAGENTS_METABOLISM
 	color = "#302000" // rgb: 48, 32, 0
 
@@ -367,7 +350,6 @@
 	name = "Hell Ramen"
 	id = "hell_ramen"
 	description = "The noodles are boiled, the flavors are artificial, just like being back in school."
-	reagent_state = LIQUID
 	nutriment_factor = 5 * REAGENTS_METABOLISM
 	color = "#302000" // rgb: 48, 32, 0
 
@@ -379,7 +361,6 @@
 	name = "flour"
 	id = "flour"
 	description = "This is what you rub all over yourself to pretend to be a ghost."
-	reagent_state = SOLID
 	color = "#FFFFFF" // rgb: 0, 0, 0
 
 /datum/reagent/consumable/flour/reaction_turf(turf/T, volume)
@@ -390,7 +371,6 @@
 	name = "Rice"
 	id = "rice"
 	description = "Enjoy the great taste of nothing."
-	reagent_state = SOLID
 	nutriment_factor = 3 * REAGENTS_METABOLISM
 	color = "#FFFFFF" // rgb: 0, 0, 0
 
@@ -398,21 +378,18 @@
 	name = "Cherry Jelly"
 	id = "cherryjelly"
 	description = "Totally the best. Only to be spread on foods with excellent lateral symmetry."
-	reagent_state = LIQUID
 	color = "#801E28" // rgb: 128, 30, 40
 
 /datum/reagent/consumable/bluecherryjelly
 	name = "Blue Cherry Jelly"
 	id = "bluecherryjelly"
 	description = "Blue and tastier kind of cherry jelly."
-	reagent_state = LIQUID
 	color = "#00F0FF"
 
 /datum/reagent/consumable/egg
 	name = "Egg"
 	id = "egg"
 	description = "A runny and viscous mixture of clear and yellow fluids."
-	reagent_state = LIQUID
 	color = "#F0C814"
 
 /datum/reagent/consumable/egg/on_mob_life(mob/living/M)
@@ -426,14 +403,12 @@
 	name = "Corn Starch"
 	id = "corn_starch"
 	description = "The powdered starch of maize, derived from the kernel's endosperm. Used as a thickener for gravies and puddings."
-	reagent_state = LIQUID
 	color = "#C8A5DC"
 
 /datum/reagent/consumable/corn_syrup
 	name = "Corn Syrup"
 	id = "corn_syrup"
 	description = "A sweet syrup derived from corn starch that has had its starches converted into maltose and other sugars."
-	reagent_state = LIQUID
 	color = "#C8A5DC"
 
 /datum/reagent/consumable/corn_syrup/on_mob_life(mob/living/M)
@@ -444,7 +419,6 @@
 	name = "Very-high-fructose corn syrup"
 	id = "vhfcs"
 	description = "An incredibly sweet syrup, created from corn syrup treated with enzymes to convert its sugars into fructose."
-	reagent_state = LIQUID
 	color = "#C8A5DC"
 
 /datum/reagent/consumable/vhfcs/on_mob_life(mob/living/M)
@@ -455,7 +429,6 @@
 	name = "Honey"
 	id = "honey"
 	description = "A sweet substance produced by bees through partial digestion. Bee barf."
-	reagent_state = LIQUID
 	color = "#d3a308"
 	nutriment_factor = 15 * REAGENTS_METABOLISM
 
@@ -470,7 +443,6 @@
 	name = "Chocolate"
 	id = "chocolate"
 	description = "Chocolate is a delightful product derived from the seeds of the theobroma cacao tree."
-	reagent_state = LIQUID
 	nutriment_factor = 5 * REAGENTS_METABOLISM		//same as pure cocoa powder, because it makes no sense that chocolate won't fill you up and make you fat
 	color = "#2E2418"
 	drink_icon = "chocolateglass"
@@ -489,7 +461,6 @@
 	name = "Mugwort"
 	id = "mugwort"
 	description = "A rather bitter herb once thought to hold magical protective properties."
-	reagent_state = LIQUID
 	color = "#21170E"
 
 /datum/reagent/consumable/mugwort/on_mob_life(mob/living/M)
@@ -505,7 +476,6 @@
 	name = "Porktonium"
 	id = "porktonium"
 	description = "A highly-radioactive pork byproduct first discovered in hotdogs."
-	reagent_state = LIQUID
 	color = "#AB5D5D"
 	metabolization_rate = 0.2
 	overdose_threshold = 133
@@ -521,7 +491,6 @@
 	name = "Chicken soup"
 	id = "chicken_soup"
 	description = "An old household remedy for mild illnesses."
-	reagent_state = LIQUID
 	color = "#B4B400"
 	metabolization_rate = 0.2
 	nutriment_factor = 2
@@ -530,7 +499,6 @@
 	name = "Cheese"
 	id = "cheese"
 	description = "Some cheese. Pour it out to make it solid."
-	reagent_state = SOLID
 	color = "#FFFF00"
 
 /datum/reagent/consumable/cheese/on_mob_life(mob/living/M)
@@ -546,7 +514,6 @@
 	name = "Cheese substitute"
 	id = "fake_cheese"
 	description = "A cheese-like substance derived loosely from actual cheese."
-	reagent_state = LIQUID
 	color = "#B2B139"
 	overdose_threshold = 50
 
@@ -559,7 +526,6 @@
 	name = "Weird cheese"
 	id = "weird_cheese"
 	description = "Hell, I don't even know if this IS cheese. Whatever it is, it ain't normal. If you want to, pour it out to make it solid."
-	reagent_state = SOLID
 	color = "#50FF00"
 	addiction_chance = 5
 
@@ -576,7 +542,6 @@
 	name = "Refried beans"
 	id = "beans"
 	description = "A dish made of mashed beans cooked with lard."
-	reagent_state = LIQUID
 	color = "#684435"
 
 /datum/reagent/consumable/beans/on_mob_life(mob/living/M)
@@ -588,14 +553,12 @@
 	name = "Bread"
 	id = "bread"
 	description = "Bread! Yep, bread."
-	reagent_state = SOLID
 	color = "#9C5013"
 
 /datum/reagent/consumable/soybeanoil
 	name = "Space-soybean oil"
 	id = "soybeanoil"
 	description = "An oil derived from extra-terrestrial soybeans."
-	reagent_state = LIQUID
 	color = "#B1B0B0"
 
 /datum/reagent/consumable/soybeanoil/on_mob_life(mob/living/M)
@@ -609,7 +572,6 @@
 	name = "Partially hydrogenated space-soybean oil"
 	id = "hydrogenated_soybeanoil"
 	description = "An oil derived from extra-terrestrial soybeans, with additional hydrogen atoms added to convert it into a saturated form."
-	reagent_state = LIQUID
 	color = "#B1B0B0"
 	metabolization_rate = 0.2
 	overdose_threshold = 75
@@ -641,7 +603,6 @@
 	name = "Meat Slurry"
 	id = "meatslurry"
 	description = "A paste comprised of highly-processed organic material. Uncomfortably similar to deviled ham spread."
-	reagent_state = LIQUID
 	color = "#EBD7D7"
 
 /datum/reagent/consumable/meatslurry/on_mob_life(mob/living/M)
@@ -658,21 +619,18 @@
 	name = "Mashed potatoes"
 	id = "mashedpotatoes"
 	description = "A starchy food paste made from boiled potatoes."
-	reagent_state = SOLID
 	color = "#D6D9C1"
 
 /datum/reagent/consumable/gravy
 	name = "Gravy"
 	id = "gravy"
 	description = "A savory sauce made from a simple meat-dripping roux and milk."
-	reagent_state = LIQUID
 	color = "#B4641B"
 
 /datum/reagent/consumable/beff
 	name = "Beff"
 	id = "beff"
 	description = "An advanced blend of mechanically-recovered meat and textured synthesized protein product notable for its unusual crystalline grain when sliced."
-	reagent_state = SOLID
 	color = "#AC7E67"
 
 /datum/reagent/consumable/beff/on_mob_life(mob/living/M)
@@ -689,7 +647,6 @@
 	name = "Pepperoni"
 	id = "pepperoni"
 	description = "An Italian-American variety of salami usually made from beef and pork"
-	reagent_state = SOLID
 	color = "#AC7E67"
 
 /datum/reagent/consumable/pepperoni/reaction_mob(mob/living/M, method=TOUCH, volume)
@@ -720,7 +677,6 @@
 	name = "????"
 	id = "????"
 	description = "A gross and unidentifiable substance."
-	reagent_state = LIQUID
 	color = "#63DE63"
 
 /datum/reagent/questionmark/reaction_mob(mob/living/M, method=TOUCH, volume)
@@ -734,7 +690,6 @@
 	name = "Monosodium glutamate"
 	id = "msg"
 	description = "Monosodium Glutamate is a sodium salt known chiefly for its use as a controversial flavor enhancer."
-	reagent_state = LIQUID
 	color = "#F5F5F5"
 	metabolization_rate = 0.2
 
@@ -755,7 +710,6 @@
 	name = "cholesterol"
 	id = "cholesterol"
 	description = "Pure cholesterol. Probably not very good for you."
-	reagent_state = LIQUID
 	color = "#FFFAC8"
 
 /datum/reagent/cholesterol/on_mob_life(mob/living/M)
@@ -780,7 +734,6 @@
 	name = "Space fungus"
 	id = "fungus"
 	description = "Scrapings of some unknown fungus found growing on the station walls."
-	reagent_state = LIQUID
 	color = "#C87D28"
 
 /datum/reagent/fungus/reaction_mob(mob/living/M, method=TOUCH, volume)
@@ -799,7 +752,6 @@
 	name = "Ectoplasm"
 	id = "ectoplasm"
 	description = "A bizarre gelatinous substance supposedly derived from ghosts."
-	reagent_state = LIQUID
 	color = "#8EAE7B"
 	process_flags = ORGANIC | SYNTHETIC		//Because apparently ghosts in the shell
 
@@ -828,7 +780,6 @@
 	name = "Vomit"
 	id = "vomit"
 	description = "Looks like someone lost their lunch. And then collected it. Yuck."
-	reagent_state = LIQUID
 	color = "#FFFF00"
 
 /datum/reagent/vomit/reaction_turf(turf/T, volume)
@@ -840,14 +791,13 @@
 	name = "Green vomit"
 	id = "green_vomit"
 	description = "Whoa, that can't be natural. That's horrible."
-	reagent_state = LIQUID
 	color = "#78FF74"
 
 /datum/reagent/greenvomit/reaction_turf(turf/T, volume)
 	if(volume >= 5 && !istype(T, /turf/space))
 		new /obj/effect/decal/cleanable/vomit/green(T)
 		playsound(T, 'sound/effects/splat.ogg', 50, 1, -3)
-		
+
 ////Lavaland Flora Reagents////
 
 /datum/reagent/consumable/entpoly
@@ -878,7 +828,7 @@
 	if(!light_activated)
 		M.set_light(2)
 		light_activated = 1
-	..()	
+	..()
 
 /datum/reagent/consumable/tinlux/on_mob_delete(mob/living/M)
 	M.set_light(0)

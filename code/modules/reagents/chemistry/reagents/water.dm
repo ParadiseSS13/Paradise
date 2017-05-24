@@ -11,7 +11,6 @@
 	name = "Water"
 	id = "water"
 	description = "A ubiquitous chemical substance that is composed of hydrogen and oxygen."
-	reagent_state = LIQUID
 	color = "#0064C8" // rgb: 0, 100, 200
 	var/cooling_temperature = 2
 	process_flags = ORGANIC | SYNTHETIC
@@ -59,7 +58,6 @@
 	name = "Space Lube"
 	id = "lube"
 	description = "Lubricant is a substance introduced between two moving surfaces to reduce the friction and wear between them. giggity."
-	reagent_state = LIQUID
 	color = "#1BB1AB"
 
 /datum/reagent/lube/reaction_turf(turf/simulated/T, volume)
@@ -71,7 +69,6 @@
 	name = "Space cleaner"
 	id = "cleaner"
 	description = "A compound used to clean things. Now with 50% more sodium hypochlorite!"
-	reagent_state = LIQUID
 	color = "#61C2C2"
 
 /datum/reagent/space_cleaner/reaction_obj(obj/O, volume)
@@ -133,7 +130,6 @@
 	data = list("donor"=null,"viruses"=null,"blood_DNA"=null,"blood_type"=null,"blood_colour"="#A10808","resistances"=null,"trace_chem"=null,"mind"=null,"ckey"=null,"gender"=null,"real_name"=null,"cloneable"=null,"factions"=null)
 	name = "Blood"
 	id = "blood"
-	reagent_state = LIQUID
 	color = "#C80000" // rgb: 200, 0, 0
 	drink_icon = "glass_red"
 	drink_name = "Glass of Tomato juice"
@@ -236,7 +232,6 @@
 	name = "Fish Water"
 	id = "fishwater"
 	description = "Smelly water from a fish tank. Gross!"
-	reagent_state = LIQUID
 	color = "#757547"
 
 /datum/reagent/fishwater/reaction_mob(mob/living/M, method=TOUCH, volume)
@@ -255,7 +250,6 @@
 	name = "Toilet Water"
 	id = "toiletwater"
 	description = "Filthy water scoured from a nasty toilet bowl. Absolutely disgusting."
-	reagent_state = LIQUID
 	color = "#757547"
 
 /datum/reagent/fishwater/toiletwater/reaction_mob(mob/living/M, method=TOUCH, volume) //For shennanigans
@@ -265,7 +259,6 @@
 	name = "Water"
 	id = "holywater"
 	description = "A ubiquitous chemical substance that is composed of hydrogen and oxygen."
-	reagent_state = LIQUID
 	color = "#0064C8" // rgb: 0, 100, 200
 	process_flags = ORGANIC | SYNTHETIC
 	drink_icon = "glass_clear"
@@ -387,7 +380,6 @@
 	id = "liquidgibs"
 	color = "#FF9966"
 	description = "You don't even want to think about what's in here."
-	reagent_state = LIQUID
 
 /datum/reagent/liquidgibs/reaction_turf(turf/T, volume) //yes i took it from synthflesh...
 	if(volume >= 5 && !istype(T, /turf/space))
@@ -398,14 +390,12 @@
 	name = "Lye"
 	id = "lye"
 	description = "Also known as sodium hydroxide."
-	reagent_state = LIQUID
 	color = "#FFFFD6" // very very light yellow
 
 /datum/reagent/drying_agent
 	name = "Drying agent"
 	id = "drying_agent"
 	description = "Can be used to dry things."
-	reagent_state = LIQUID
 	color = "#A70FFF"
 
 /datum/reagent/drying_agent/reaction_turf(turf/simulated/T, volume)
