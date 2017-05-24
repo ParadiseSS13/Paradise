@@ -29,8 +29,10 @@ Possible to do for anyone motivated enough:
 // 1 = AREA BASED
 #define HOLOPAD_PASSIVE_POWER_USAGE 1
 #define HOLOGRAM_POWER_USAGE 2
+#define RANGE_BASED 0
+#define AREA_BASED 1
 
-var/const/HOLOPAD_MODE = 0
+var/const/HOLOPAD_MODE = RANGE_BASED
 
 var/list/holopads = list()
 
@@ -197,13 +199,13 @@ var/list/holopads = list()
 				new /datum/holocall(usr, src, callnames[result])
 
 	else if(href_list["connectcall"])
-		var/datum/holocall/call_to_connect = locate(href_list["connectcall"])
+		var/datum/holocall/call_to_connect = locateUID("connectcall")
 		if(!qdeleted(call_to_connect))
 			call_to_connect.Answer(src)
 		temp = ""
 
 	else if(href_list["disconnectcall"])
-		var/datum/holocall/call_to_disconnect = locate(href_list["disconnectcall"])
+		var/datum/holocall/call_to_disconnect = locateUID("disconnectcall")
 		if(!qdeleted(call_to_disconnect))
 			call_to_disconnect.Disconnect(src)
 		temp = ""
@@ -217,7 +219,7 @@ var/list/holopads = list()
 
 //do not allow AIs to answer calls or people will use it to meta the AI sattelite
 /obj/machinery/hologram/holopad/attack_ai(mob/living/silicon/ai/user)
-	if (!istype(user))
+	if(!istype(user))
 		return
 	/*There are pretty much only three ways to interact here.
 	I don't need to check for client since they're clicking on an object.
@@ -237,12 +239,12 @@ var/list/holopads = list()
 			AI = null
 
 		if(!qdeleted(master) && !master.incapacitated() && master.client && (!AI || AI.eyeobj))//If there is an AI attached, it's not incapacitated, it has a client, and the client eye is centered on the projector.
-			if(!(stat & NOPOWER))//If the  machine has power.
+			if(!(stat & NOPOWER))//If the  machine has power
 				if(AI)	//ais are range based
-					if(HOLOPAD_MODE == 0)
+					if(HOLOPAD_MODE == RANGE_BASED)
 						if(get_dist(AI.eyeobj, src) <= holo_range)
-							return 1
-					else
+							continue
+					else if(HOLOPAD_MODE == AREA_BASED)
 						var/area/holo_area = get_area(src)
 						var/area/eye_area = get_area(AI.eyeobj)
 
@@ -251,8 +253,8 @@ var/list/holopads = list()
 							return 1
 
 					var/obj/machinery/hologram/holopad/pad_close = get_closest_atom(/obj/machinery/hologram/holopad, holopads, AI.eyeobj)
-					if(get_dist(pad_close, AI.eyeobj) <= holo_range)
-						pad_close.unset_holo(AI)
+					if(get_dist(pad_close, AI.eyeobj) <= pad_close.holo_range)
+						unset_holo(AI)
 						pad_close.activate_holo(AI, 1)
 				else
 					continue
@@ -276,18 +278,17 @@ var/list/holopads = list()
 	if(masters[user])
 		var/obj/effect/overlay/holo_pad_hologram/H = masters[user]
 		step_to(H, new_turf)
-		H.forceMove(new_turf)
+		H.loc = new_turf
 	return 1
 
 /obj/machinery/hologram/holopad/proc/activate_holo(mob/living/user, var/force = 0)
 	var/mob/living/silicon/ai/AI = user
 	if(!istype(AI))
 		AI = null
-
 	if(AI && !force && AI.eyeobj.loc != src.loc) // allows holopads to pass off holograms to the next holopad in the chain
 		to_chat(user, "<font color='red'>ERROR:</font> Unable to project hologram.")
-	else if(!(stat & NOPOWER) && (!AI || AI.eyeobj.loc == loc))//If the projector has power and client eye is on it
-		if(AI && istype(AI.current, /obj/machinery/hologram/holopad))
+	if(!(stat & NOPOWER) && (!AI || force))
+		if(AI && (istype(AI.current, /obj/machinery/hologram/holopad)))
 			to_chat(user, "<span class='danger'>ERROR:</span> \black Image feed in progress.")
 			return
 
@@ -315,8 +316,8 @@ var/list/holopads = list()
 		return hologram
 
 	else
-		to_chat(user, "<span class='danger'>ERROR:</span> \black Unable to project hologram.")
-	return
+		to_chat(user, "<span class='danger'>ERROR:</span> \black Hologram Projection Malfunction.")
+		clear_holo(user)//safety check
 
 /*This is the proc for special two-way communication between AI and holopad/people talking near holopad.
 For the other part of the code, check silicon say.dm. Particularly robot talk.*/
