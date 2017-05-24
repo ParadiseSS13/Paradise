@@ -1,4 +1,0 @@
-author: "Purpose2"
-delete-after: True
-changes: 
-  - rscadd: "Adds functionality for the Atmos/Engineering Minimap to update to the right station."
