@@ -87,3 +87,10 @@
 /obj/item/weapon/implanter/death_alarm/New()
 	imp = new /obj/item/weapon/implant/death_alarm(src)
 	..()
+
+/obj/item/weapon/implanter/teleport
+	name = "implanter (teleport)"
+
+/obj/item/weapon/implanter/teleport/New()
+	imp = new /obj/item/weapon/implant/teleport(src)
+	..()
