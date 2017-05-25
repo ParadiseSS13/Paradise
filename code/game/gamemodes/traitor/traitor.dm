@@ -51,7 +51,7 @@
 		traitor.special_role = SPECIAL_ROLE_TRAITOR
 		var/datum/mindslaves/slaved = new()
 		slaved.masters += traitor
-		traitor.som = slaved //we MIGT want to mindslave someone
+		traitor.som = slaved //we MIGHT want to mindslave someone
 		traitor.restricted_roles = restricted_jobs
 		possible_traitors.Remove(traitor)
 
@@ -340,13 +340,13 @@
 
 			to_chat(traitor_mob, "The Syndicate have cunningly disguised a Syndicate Uplink as your [R.name] [T.loc]. Simply enter the code \"[pda_pass]\" into the ringtone select to unlock its hidden features.")
 			traitor_mob.mind.store_memory("<B>Uplink Passcode:</B> [pda_pass] ([R.name] [T.loc]).")
-	if(!safety)//If they are not a rev. Can be added on to.
+	if(!safety)
 		give_codewords(traitor_mob)
 
 	// Tell them about people they might want to contact.
 	var/mob/living/carbon/human/M = get_nt_opposed()
 	if(M && M != traitor_mob)
-		to_chat(traitor_mob, "We have received credible reports that [M.real_name] might be willing to help our cause. If you need assistance, consider contacting them.")
+		to_chat(traitor_mob, "We have received somewhat credible reports that [M.real_name] could possibly be willing to perhaps help our cause. <span class='warning'>If you </span><span class='danger'>need</span><span class='warning'> assistance, consider contacting them.</span>")
 		traitor_mob.mind.store_memory("<b>Potential Collaborator</b>: [M.real_name]")
 		//let's also inform their contact that they might be called upon, but leave it vague.
 		inform_collab(M)
