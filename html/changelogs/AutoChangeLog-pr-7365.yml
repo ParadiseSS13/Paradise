@@ -1,0 +1,4 @@
+author: "Kyep"
+delete-after: True
+changes: 
+  - bugfix: "Fixed some mapping bugs on Centcom, e.g: shuttle medbay no longer has black walls."
