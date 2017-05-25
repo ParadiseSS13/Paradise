@@ -320,6 +320,11 @@ var/list/teleport_runes = list()
 		if(moveuserlater)
 			user.forceMove(get_turf(actual_selected_rune))
 		user.apply_damage(6, BRUTE)
+		var/mob/living/carbon/human/H = user
+		if(user.z != T.z)
+			H.drip(60)
+		else
+			H.drip(rand(10,56))
 	else
 		fail_invoke()
 
@@ -370,11 +375,11 @@ var/list/teleport_runes = list()
 //Rite of Tribute: Sacrifices a crew member to Nar-Sie. Places them into a soul shard if they're in their body.
 /obj/effect/rune/sacrifice
 	cultist_name = "Rite of Tribute"
-	cultist_desc = "sacrifices a crew member to your god. May place them into a soul shard if their spirit remains in their body."
+	cultist_desc = "sacrifices a crew member to your god. May place them into a soul shard if their spirit remains in their body. Target must be alive."
 	icon_state = "3"
-	allow_excess_invokers = 1
 	invocation = "Barhah hra zar'garis!"
 	rune_in_use = 0
+	req_cultists = 2
 
 /obj/effect/rune/sacrifice/New()
 	..()
@@ -408,9 +413,16 @@ var/list/teleport_runes = list()
 			for(var/M in invokers)
 				to_chat(M, "<span class='cultitalic'>[offering] is too greatly linked to the world! You need three acolytes!</span>")
 			fail_invoke()
-			log_game("Sacrifice rune failed - not enough acolytes and target is living")
+			log_game("Sacrifice rune failed - not enough acolytes.")
 			rune_in_use = 0
 			return
+	if(offering.stat == DEAD)
+		for(var/M in invokers)
+			to_chat(M, "<span class='cultitalic'>[offering] is no use to our lord dead!</span>")
+		fail_invoke()
+		log_game("Sacrifice rune failed - target dead.")
+		rune_in_use = 0
+		return
 	visible_message("<span class='warning'>[src] pulses blood red!</span>")
 	color = rgb(126, 23, 23)
 	..()
