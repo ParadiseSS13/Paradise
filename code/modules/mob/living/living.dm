@@ -59,6 +59,15 @@
 		return 0
 	if(!..())
 		return 0
+	if(ishuman(src))
+		var/obj/item/hand_item = src.get_active_hand()
+		if(hand_item && istype(hand_item, /obj/item/weapon/gun) && A != hand_item)
+			if(src.a_intent == I_HELP || !ismob(A))
+				visible_message("<b>[src]</b> points to [A] with [hand_item]")
+				return 1
+			A.visible_message("<span class='warning'><b>[src] points [hand_item] at [A]!</span>",
+												"<span class='danger'><font size=4><b>[src] points [hand_item] at you!</span>")
+			return 1
 	visible_message("<b>[src]</b> points to [A]")
 	return 1
 
