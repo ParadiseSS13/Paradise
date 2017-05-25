@@ -1,0 +1,11 @@
+author: "Purpose2"
+delete-after: True
+changes: 
+  - rscadd: "Metastation - Adds the Paramedic's cart and locker."
+  - rscadd: "Metastation - Adds a backup set of paramedic keys in the CMO's office."
+  - bugfix: "Metastation - Engine no longer hotwired."
+  - bugfix: "Metastation - Turbine doors now function properly."
+  - bugfix: "Metastation - Toxin Mixing's Controller is now accessible."
+  - tweak: "Metastation - Moved Containment out a single tile, to fix irregularities with Singularity setups."
+  - rscdel: "Metastation - Reduced redundant redundancies in the Atmos/Wiring."
+  - rscdel: "Metastation - removed blob spawn that was only a few tiles from Cryostorage...."
