@@ -1,67 +1,75 @@
 /mob/living/carbon/human/movement_delay()
-	var/tally = 0
+	. = 0
+	. += ..()
 
-	if(species.slowdown)
-		tally = species.slowdown
+	var/gravity = 1
 
 	if(!has_gravity(src))
-		return -1 // It's hard to be slowed down in space by... anything
+		gravity = 0
 
-	if(flying) return -1
+	if(flying)
+		gravity = 0
 
 	if(embedded_flag)
 		handle_embedded_objects() //Moving with objects stuck in you can cause bad times.
 
 	if(slowed)
-		tally += 10
+		. += 10
 
-	var/health_deficiency = (maxHealth - health + staminaloss)
-	if(reagents)
-		for(var/datum/reagent/R in reagents.reagent_list)
-			if(R.shock_reduction)
-				health_deficiency -= R.shock_reduction
-	if(health_deficiency >= 40)
-		tally += (health_deficiency / 25)
+	if(gravity)
+		if(species.slowdown)
+			. = species.slowdown
 
-	var/hungry = (500 - nutrition)/5 // So overeat would be 100 and default level would be 80
-	if(hungry >= 70)
-		tally += hungry/50
+		var/health_deficiency = (maxHealth - health + staminaloss)
+		if(reagents)
+			for(var/datum/reagent/R in reagents.reagent_list)
+				if(R.shock_reduction)
+					health_deficiency -= R.shock_reduction
+		if(health_deficiency >= 40)
+			. += (health_deficiency / 25)
 
-	if(wear_suit)
-		tally += wear_suit.slowdown
+		var/hungry = (500 - nutrition)/5 // So overeat would be 100 and default level would be 80
+		if(hungry >= 70)
+			. += hungry/50
 
-	if(!buckled)
-		if(shoes)
-			tally += shoes.slowdown
+		if(wear_suit)
+			. += wear_suit.slowdown
 
-	if(shock_stage >= 10) tally += 3
+		if(!buckled)
+			if(shoes)
+				. += shoes.slowdown
 
-	if(back)
-		tally += back.slowdown
+		if(shock_stage >= 10)
+			. += 3
 
-	if(l_hand && (l_hand.flags & HANDSLOW))
-		tally += l_hand.slowdown
-	if(r_hand && (r_hand.flags & HANDSLOW))
-		tally += r_hand.slowdown
+		if(back)
+			. += back.slowdown
 
-	if(FAT in src.mutations)
-		tally += 1.5
-	if(bodytemperature < BODYTEMP_COLD_DAMAGE_LIMIT)
-		tally += (BODYTEMP_COLD_DAMAGE_LIMIT - bodytemperature) / COLD_SLOWDOWN_FACTOR
+		if(l_hand && (l_hand.flags & HANDSLOW))
+			. += l_hand.slowdown
+		if(r_hand && (r_hand.flags & HANDSLOW))
+			. += r_hand.slowdown
 
-	tally += 2*stance_damage //damaged/missing feet or legs is slow
+		if(FAT in src.mutations)
+			. += 1.5
 
-	if(RUN in mutations)
-		tally = -1
-	if(status_flags & IGNORESLOWDOWN) // make sure this is always at the end so we don't have ignore slowdown getting ignored itself
-		tally = -1
+		if(bodytemperature < BODYTEMP_COLD_DAMAGE_LIMIT)
+			. += (BODYTEMP_COLD_DAMAGE_LIMIT - bodytemperature) / COLD_SLOWDOWN_FACTOR
 
-	if(status_flags & GOTTAGOFAST)
-		tally -= 1
-	if(status_flags & GOTTAGOREALLYFAST)
-		tally -= 2
+		. += 2 * stance_damage //damaged/missing feet or legs is slow
 
-	return (tally + config.human_delay)
+		if(RUN in mutations)
+			. = -1
+
+		if(status_flags & IGNORESLOWDOWN) // make sure this is always at the end so we don't have ignore slowdown getting ignored itself
+			. = -1
+
+		if(status_flags & GOTTAGOFAST)
+			. -= 1
+		if(status_flags & GOTTAGOREALLYFAST)
+			. -= 2
+
+	. += config.human_delay
 
 /mob/living/carbon/human/Process_Spacemove(movement_dir = 0)
 

@@ -250,20 +250,6 @@
 	else if(bodytemperature > maxbodytemp)
 		adjustBruteLoss(heat_damage_per_tick)
 
-/mob/living/simple_animal/Bumped(AM as mob|obj)
-	if(!AM) return
-
-	if(resting || buckled)
-		return
-
-	if(isturf(src.loc))
-		if((status_flags & CANPUSH) && ismob(AM))
-			var/newamloc = src.loc
-			src.loc = AM:loc
-			AM:loc = newamloc
-		else
-			..()
-
 /mob/living/simple_animal/gib()
 	if(icon_gib)
 		flick(icon_gib, src)

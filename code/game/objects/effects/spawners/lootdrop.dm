@@ -67,7 +67,7 @@
 				/obj/item/clothing/gloves/color/black = 20,
 				/obj/item/clothing/head/hardhat = 10,
 				/obj/item/clothing/head/hardhat/red = 10,
-				/obj/item/clothing/head/that{throwforce = 1; throwing = 1} = 10,
+				/obj/item/clothing/head/that = 10,
 				/obj/item/clothing/head/ushanka = 10,
 				/obj/item/clothing/head/welding = 10,
 				/obj/item/clothing/mask/gas = 10,

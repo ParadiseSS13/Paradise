@@ -329,16 +329,17 @@ var/global/list/ts_spiderling_list = list()
 /mob/living/simple_animal/hostile/poison/terror_spider/proc/spider_special_action()
 	return
 
-/mob/living/simple_animal/hostile/poison/terror_spider/Bump(atom/A)
-	if(istype(A, /obj/machinery/door/airlock))
-		var/obj/machinery/door/airlock/L = A
+/mob/living/simple_animal/hostile/poison/terror_spider/ObjBump(obj/O)
+	if(istype(O, /obj/machinery/door/airlock))
+		var/obj/machinery/door/airlock/L = O
 		if(L.density)
-			try_open_airlock(L)
-	if(istype(A, /obj/machinery/door/firedoor))
-		var/obj/machinery/door/firedoor/F = A
+			return try_open_airlock(L)
+	if(istype(O, /obj/machinery/door/firedoor))
+		var/obj/machinery/door/firedoor/F = O
 		if(F.density && !F.welded)
 			F.open()
-	..()
+			return 1
+	. = ..()
 
 /mob/living/simple_animal/hostile/poison/terror_spider/proc/msg_terrorspiders(msgtext)
 	for(var/mob/living/simple_animal/hostile/poison/terror_spider/T in ts_spiderlist)
@@ -362,6 +363,7 @@ var/global/list/ts_spiderling_list = list()
 		to_chat(src, "<span class='warning'>The door is bolted shut.</span>")
 	else if(D.allowed(src))
 		D.open(1)
+		return 1
 	else if(D.arePowerSystemsOn() && (spider_opens_doors != 2))
 		to_chat(src, "<span class='warning'>The door's motors resist your efforts to force it.</span>")
 	else if(!spider_opens_doors)
@@ -370,3 +372,4 @@ var/global/list/ts_spiderling_list = list()
 		visible_message("<span class='danger'>[src] pries open the door!</span>")
 		playsound(src.loc, "sparks", 100, 1)
 		D.open(1)
+		return 1
