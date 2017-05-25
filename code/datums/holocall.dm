@@ -69,6 +69,8 @@
 	else if(H == calling_holopad && connected_holopad)
 		connected_holopad.atom_say("[usr] disconnected.")
 
+	user.unset_machine(H)
+
 	ConnectionFailure(H, TRUE)
 
 //Forcefully disconnects a holopad `H` from a call. Pads not in the call are ignored.
@@ -115,6 +117,7 @@
 	hologram = H.activate_holo(user)
 	hologram.HC = src
 
+	user.unset_machine(H)
 	//eyeobj code is horrid, this is the best copypasta I could make
 	eye = new()
 	eye.origin = H

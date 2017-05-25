@@ -244,19 +244,16 @@ var/list/holopads = list()
 					if(HOLOPAD_MODE == RANGE_BASED)
 						if(get_dist(AI.eyeobj, src) <= holo_range)
 							continue
-					else if(HOLOPAD_MODE == AREA_BASED)
-						var/area/holo_area = get_area(src)
-						var/area/eye_area = get_area(AI.eyeobj)
 
-						if(eye_area != holo_area)
-							return 1
+					if(!(AI.current))//if the ai jumped to core
+						clear_holo(AI)
+						return 1
 
 					var/obj/machinery/hologram/holopad/pad_close = get_closest_atom(/obj/machinery/hologram/holopad, holopads, AI.eyeobj)
 					if(get_dist(pad_close, AI.eyeobj) <= pad_close.holo_range)
 						clear_holo(AI)
 						pad_close.activate_holo(AI, 1)
 				else
-
 					continue
 
 		clear_holo(master)//If is a non AI holo clear it.
@@ -280,6 +277,13 @@ var/list/holopads = list()
 		var/obj/effect/overlay/holo_pad_hologram/H = masters[user]
 		step_to(H, new_turf)
 		H.loc = new_turf
+		if(ishuman(user))
+			var/area/holo_area = get_area(src)
+			var/area/eye_area = get_area(new_turf.loc)
+
+			if(eye_area != holo_area)
+				clear_holo(user)
+
 	return 1
 
 /obj/machinery/hologram/holopad/proc/activate_holo(mob/living/user, var/force = 0)
@@ -302,7 +306,6 @@ var/list/holopads = list()
 			hologram.alpha = 100
 			hologram.Impersonation = user
 
-		//hologram.languages = user.languages
 		hologram.mouse_opacity = 0//So you can't click on it.
 		hologram.layer = FLY_LAYER//Above all the other objects/mobs. Or the vast majority of them.
 		hologram.anchored = 1//So space wind cannot drag it.
@@ -353,6 +356,7 @@ For the other part of the code, check silicon say.dm. Particularly robot talk.*/
 	var/mob/living/silicon/ai/AI = user
 	if(istype(AI))
 		AI.current = src
+		h.forceMove(get_turf(AI.eyeobj))
 	SetLightsAndPower()
 	return TRUE
 
