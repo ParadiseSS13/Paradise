@@ -256,6 +256,7 @@ var/list/holopads = list()
 						clear_holo(AI)
 						pad_close.activate_holo(AI, 1)
 				else
+
 					continue
 
 		clear_holo(master)//If is a non AI holo clear it.
