@@ -491,6 +491,7 @@
 	throw_speed = 1
 	throw_range = 5
 	w_class = 4 // can't fit in backpacks
+	block_chance = 20
 	force_unwielded = 15 //still pretty robust
 	force_wielded = 40  //you'll gouge their eye out! Or a limb...maybe even their entire body!
 	wieldsound = 'sound/weapons/chainsawstart.ogg'
@@ -501,6 +502,11 @@
 	sharp = 1
 	edge = 1
 	no_embed = 1
+	
+/obj/item/weapon/twohanded/chainsaw/hit_reaction(mob/living/carbon/human/owner, attack_text, final_block_chance, damage, attack_type)
+	if(attack_type == PROJECTILE_ATTACK)
+		final_block_chance = 0 //Don't bring a chainsaw to a gunfight
+	return ..()
 
 /obj/item/weapon/twohanded/chainsaw/update_icon()
 	if(wielded)
