@@ -453,14 +453,10 @@
 		sallet.put_on_delay = helm.put_on_delay
 		sallet.burn_state = helm.burn_state
 		sallet.flags_cover = helm.flags_cover
-		if(helm.up)
-			sallet.flags &= ~helm.visor_flags
-			sallet.flags_inv &= ~helm.visor_flags_inv
-		if(!BLOCKHAIR in sallet.flags)
+		sallet.visor_flags = helm.visor_flags
+		sallet.visor_flags_inv = helm.visor_flags_inv
+		if(!(BLOCKHAIR in sallet.flags))
 			sallet.flags |= BLOCKHAIR
-		for(var/flag in list(HIDEMASK, HIDEFACE, HIDEEYES, HIDEEARS)) //Check for and apply missing flags.
-			if(!(sallet.flags_inv & flag))
-				sallet.flags_inv |= flag
 
 		sallet.add_fingerprint(H)
 		target.transfer_fingerprints_to(sallet)
@@ -591,11 +587,8 @@
 
 		if(choice && choice != state && !user.incapacitated() && Adjacent(user))
 			var/list/new_state = options[choice]
-			var/list/old_state = options[state]
 			icon_state = new_state["icon_state"]
-			flags_inv &= ~(old_state["visor_flags"]|old_state["mask_flags"])
 			state = choice
-			flags_inv |= (new_state["visor_flags"]|new_state["mask_flags"])
 			to_chat(user, "You adjust the sallet.")
 			playsound(src.loc, "[toggle_sound]", 100, 0, 4)
 			user.update_inv_head()
@@ -982,21 +975,13 @@
 		icon_state = options[choice]
 		to_chat(user, "Your strange witch hat has now shapeshifted into it's [choice] form!")
 		return 1
-
-/obj/item/weapon/reagent_containers/food/drinks/bottle/fluff/moonshine //nethiafins : Serhij Zozulia
-	name = "Cloudy Bottle"
-	desc = "The contents of this bottle are vile. You should only drink it when you hit rock bottom."
-	icon = 'icons/obj/custom_items.dmi'
-	icon_state = "questionable_liquid"
-	item_state = "questionable_liquid"
-	amount_per_transfer_from_this = 5
-	list_reagents = list("moonshine" = 100)
-
-/obj/item/weapon/storage/box/fluff/moonshine_kit //nethiafins : Serhij Zozulia
-	name = "Moonshine Serving box"
-
-/obj/item/weapon/storage/box/fluff/moonshine_kit/New()
 	..()
-	new /obj/item/weapon/reagent_containers/food/drinks/drinkingglass/shotglass(src)
-	new /obj/item/weapon/reagent_containers/food/drinks/drinkingglass/shotglass(src)
-	new /obj/item/weapon/reagent_containers/food/drinks/bottle/fluff/moonshine(src)
+
+/obj/item/clothing/accessory/necklace/locket/fluff/fethasnecklace //Fethas: Sefra'neem
+	name = "Orange gemmed locket"
+	desc = "A locket with a orange gem set on the front, the picture inside seems to be of a Tajaran."
+	icon = 'icons/obj/custom_items.dmi'
+	icon_state = "fethasnecklace"
+	item_state = "fethasnecklace"
+	item_color = "fethasnecklace"
+	slot_flags = SLOT_MASK | SLOT_TIE

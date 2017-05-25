@@ -10,6 +10,7 @@
 	//Bitflags for the job
 	var/flag = 0
 	var/department_flag = 0
+	var/department_head = list()
 
 	//Players will be allowed to spawn in as jobs that are set to "Station"
 	var/list/faction = list("Station")
@@ -207,7 +208,7 @@
 				if(isturf(placed_in))
 					to_chat(H, "<span class='notice'>Placing \the [G] on [placed_in]!</span>")
 				else
-					to_chat(H, "<span class='noticed'>Placing \the [G] in [placed_in.name]]")
+					to_chat(H, "<span class='noticed'>Placing \the [G] in [placed_in.name]")
 				continue
 			if(H.equip_to_appropriate_slot(G))
 				to_chat(H, "<span class='notice'>Placing \the [G] in your inventory!</span>")

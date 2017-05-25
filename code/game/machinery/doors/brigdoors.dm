@@ -28,8 +28,33 @@
 	var/list/obj/machinery/targets = list()
 	var/timetoset = 0		// Used to set releasetime upon starting the timer
 	var/obj/item/device/radio/Radio
+	var/printed = 0
 	maptext_height = 26
 	maptext_width = 32
+
+/obj/machinery/door_timer/proc/print_report()
+ 	var/logname = input(usr, "Name of the guilty?","[id] log name")
+ 	var/logcharges = stripped_multiline_input(usr, "What have they been charged with?","[id] log charges")
+
+ 	if(!logname || !logcharges)
+  		return 0
+
+ 	for(var/obj/machinery/computer/prisoner/C in prisoncomputer_list)
+ 			var/obj/item/weapon/paper/P = new /obj/item/weapon/paper(C.loc)
+ 			P.name = "[id] log - [logname] [worldtime2text()]"
+ 			P.info =  "<center><b>[id] - Brig record</b></center><br><hr><br>"
+ 			P.info += {"<center>[station_name()] - Security Department</center><br>
+ 						<center><small><b>Admission data:</b></small></center><br>
+ 						<small><b>Log generated at:</b>		[worldtime2text()]<br>
+ 						<b>Detainee:</b>		[logname]<br>
+ 						<b>Duration:</b>		[timetoset/10] seconds<br>
+ 						<b>Charge(s):</b>	[logcharges]<br>
+ 						<b>Arresting Officer:</b>		[usr.name]<br><hr><br>
+ 						<small>This log file was generated automatically upon activation of a cell timer.</small>"}
+
+ 			playsound(C.loc, "sound/goonstation/machines/printer_dotmatrix.ogg", 50, 1)
+ 			cell_logs += P
+ 	return 1
 
 /obj/machinery/door_timer/initialize()
 	..()
@@ -98,8 +123,14 @@
 
 // Closes and locks doors, power check
 /obj/machinery/door_timer/proc/timer_start()
+
 	if(stat & (NOPOWER|BROKEN))
 		return 0
+
+	if(!printed)
+		if(!print_report())
+			timing = 0
+			return 0
 
 	// Set releasetime
 	releasetime = world.timeofday + timetoset
@@ -134,6 +165,7 @@
 
 	// Reset releasetime
 	releasetime = 0
+	printed = 0
 
 	for(var/obj/machinery/door/window/brigdoor/door in targets)
 		if(!door.density)
@@ -277,6 +309,7 @@
 				F.flash()
 
 		if(href_list["change"])
+			printed = 1
 			timer_start()
 
 	add_fingerprint(usr)

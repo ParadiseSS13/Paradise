@@ -5,6 +5,7 @@
 	total_positions = -1
 	spawn_positions = -1
 	supervisors = "the head of personnel"
+	department_head = list("Head of Personnel")
 	selection_color = "#dddddd"
 	access = list()			//See /datum/job/assistant/get_access()
 	minimal_access = list()	//See /datum/job/assistant/get_access()
