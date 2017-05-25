@@ -249,16 +249,16 @@ var/list/holopads = list()
 						var/area/eye_area = get_area(AI.eyeobj)
 
 						if(eye_area != holo_area)
-							clear_holo(master)
 							return 1
 
 					var/obj/machinery/hologram/holopad/pad_close = get_closest_atom(/obj/machinery/hologram/holopad, holopads, AI.eyeobj)
 					if(get_dist(pad_close, AI.eyeobj) <= pad_close.holo_range)
-						unset_holo(AI)
+						clear_holo(AI)
 						pad_close.activate_holo(AI, 1)
 				else
 					continue
-		clear_holo(master)//If not, we want to get rid of the hologram.
+
+		clear_holo(master)//If is a non AI holo clear it.
 
 	if(outgoing_call)
 		outgoing_call.Check()

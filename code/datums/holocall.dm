@@ -123,8 +123,8 @@
 	eye.name = "Camera Eye ([user.name])"
 	user.remote_control = eye
 	user.remote_view = 1
-	user.reset_perspective(eye)
-	eye.setLoc(eye.loc)
+	user.reset_perspective(get_turf(H))
+	eye.setLoc(get_turf(H))
 
 //Checks the validity of a holocall and qdels itself if it's not. Returns TRUE if valid, FALSE otherwise
 /datum/holocall/proc/Check()
@@ -140,7 +140,7 @@
 
 	if(.)
 		if(connected_holopad)
-			. = !qdeleted(connected_holopad) && !(calling_holopad.stat & NOPOWER)
+			. = !qdeleted(connected_holopad) && !(connected_holopad.stat & NOPOWER)
 		else
 			. = world.time < (call_start_time + HOLOPAD_MAX_DIAL_TIME)
 			if(!.)
