@@ -10,7 +10,7 @@ z3 = derelict telecomms satellite
 z4 = engineering ship
 z5 = mining
 z6 = russian derelict
-z7 = empty
+z7 = space ruins
 */
 
 #if !defined(MAP_FILE)
