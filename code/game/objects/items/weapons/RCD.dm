@@ -279,8 +279,7 @@ RCD
 					return 0
 				activate()
 				var/turf/T1 = get_turf(A)
-				qdel(A)
-				A = null
+				QDEL_NULL(A)
 				for(var/obj/structure/window/W in T1.contents)
 					W.disassembled = 1
 					W.density = 0
