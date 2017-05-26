@@ -444,6 +444,17 @@
 
 	dat += "<tr><td><B>Head:</B></td><td><A href='?src=[UID()];item=[slot_head]'>[(head && !(head.flags&ABSTRACT)) ? head : "<font color=grey>Empty</font>"]</A></td></tr>"
 
+	var/obj/item/organ/internal/headpocket/C = get_int_organ(/obj/item/organ/internal/headpocket)
+	if(C)
+		if(slot_wear_mask in obscured)
+			dat += "<tr><td><font color=grey>&nbsp;&#8627;<B>Headpocket:</B></font></td><td><font color=grey>Obscured</font></td></tr>"
+		else
+			var/list/items = C.get_contents()
+			if(items.len)
+				dat += "<tr><td>&nbsp;&#8627;<B>Headpocket:</B></td><td><A href='?src=[UID()];dislodge_headpocket=1'>Dislodge Items</A></td></tr>"
+			else
+				dat += "<tr><td>&nbsp;&#8627;<B>Headpocket:</B></td><td><font color=grey>Empty</font></td></tr>"
+
 	if(slot_wear_mask in obscured)
 		dat += "<tr><td><font color=grey><B>Mask:</B></font></td><td><font color=grey>Obscured</font></td></tr>"
 	else
@@ -738,6 +749,16 @@
 			if(istype(w_uniform, /obj/item/clothing/under))
 				var/obj/item/clothing/under/U = w_uniform
 				U.set_sensors(usr)
+
+		if(href_list["dislodge_headpocket"])
+			usr.visible_message("<span class='danger'>[usr] is trying to remove something from [src]'s head!</span>",
+													"<span class='danger'>You start to dislodge whatever's inside [src]'s headpocket!</span>")
+			if(do_mob(usr, src, POCKET_STRIP_DELAY))
+				usr.visible_message("<span class='danger'>[usr] has dislodged something from [src]'s head!</span>",
+														"<span class='danger'>You have dislodged everything from [src]'s headpocket!</span>")
+				var/obj/item/organ/internal/headpocket/C = get_int_organ(/obj/item/organ/internal/headpocket)
+				C.empty_contents()
+				add_logs(usr, src, "stripped", addition="of headpocket items", print_attack_log=isLivingSSD(src))
 
 		if(href_list["strip_accessory"])
 			if(istype(w_uniform, /obj/item/clothing/under))
