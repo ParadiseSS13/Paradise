@@ -66,6 +66,7 @@
 			return 1
 		A.visible_message("<span class='danger'>[src] points [hand_item] at [A]!</span>",
 											"<span class='userdanger'>[src] points [hand_item] at you!</span>")
+		A << 'sound/weapons/TargetOn.ogg'
 		return 1
 	visible_message("<b>[src]</b> points to [A]")
 	return 1
