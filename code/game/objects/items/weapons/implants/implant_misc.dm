@@ -66,3 +66,35 @@
 	name = "cortical stack"
 	desc = "A fist-sized mass of biocircuits and chips."
 	icon_state = "implant_evil"
+
+/obj/item/weapon/implant/teleport
+	name = "teleport implant"
+	desc = "Teleport to random location."
+	icon_state = "teleport"
+	origin_tech = "materials=2;biotech=4;combat=3;syndicate=4"
+	uses = 3
+
+/obj/item/weapon/implant/teleport/get_data()
+	var/dat = {"<b>Implant Specifications:</b><BR>
+				<b>Name:</b> Cybersun Industries Teleport Implant<BR>
+				<b>Life:</b> Five days.<BR>
+				<b>Important Notes:</b> <font color='red'>Illegal</font><BR>
+				<HR>
+				<b>Implant Details:</b> Made from components salvaged from a nuke disk<BR>
+				<b>Function:</b> Teleports user to a random location<BR>
+				<b>Integrity:</b> Implant can only be used three times before reserves are depleted."}
+	return dat
+
+/obj/item/weapon/implant/teleport/activate()
+	if(uses < 1)
+		return 0
+	uses--
+	imp_in.visible_message("<span class='warning'>[imp_in] disappears in a flash of light!</span>", "<span class='warning'>You activate [src], teleporting you to a random location</span>")
+	imp_in.forceMove(get_turf(pick(blobstart)))
+
+/obj/item/weapon/implant/teleport/emp_act(severity)
+	if(uses < 1)
+		return
+	uses--
+	imp_in.visible_message("<span class='warning'>[imp_in] disappears in a flash of light!</span>", "<span class='warning'>[src] malfunctions, teleporting you!</span>")
+	imp_in.forceMove(locate(rand(1,255), rand(1,255), 1)) // Teleport user to random location on z-1

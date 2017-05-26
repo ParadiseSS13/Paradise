@@ -1205,6 +1205,13 @@ var/list/uplink_items = list()
 	cost = 2
 	gamemodes = list(/datum/game_mode/nuclear)
 
+/datum/uplink_item/implants/teleport
+	name = "Teleporter Implant"
+	desc = "Salvaged from components of a stolen (outdated) nuke disk, this implant will, upon activation, teleport you to a random location on the station."
+	reference = "TI"
+	item = /obj/item/weapon/implanter/teleport
+	cost = 5
+
 // Cybernetics
 /datum/uplink_item/cyber_implants
 	category = "Cybernetic Implants"
