@@ -1,6 +1,0 @@
-author: "Tayyyyyyy, PhantasmicDream"
-delete-after: True
-changes: 
-  - rscadd: "Skrell can put a pocket sized item in their head tentacles, which can be dislodged via stunning, stripping, or death"
-  - tweak: "Skrell can no longer have their tentacles shaved off"
-  - bugfix: "Minor grammar fix for putting stuff that's too big into containers"
