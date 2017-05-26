@@ -2,6 +2,9 @@
 /mob/living/Destroy()
 	if(ranged_ability)
 		ranged_ability.remove_ranged_ability(src)
+	if(buckled)
+		buckled.unbuckle_mob(src,force=1)
+	QDEL_NULL(riding_datum)
 	return ..()
 
 /mob/living/ghostize(can_reenter_corpse = 1)
@@ -942,3 +945,8 @@
 		to_chat(src, "<span class='warning'>You don't have the dexterity to do this!</span>")
 		return 0
 	return 1
+
+/mob/living/post_buckle_mob(mob/living/M)
+	if(riding_datum)
+		riding_datum.handle_vehicle_offsets()
+		riding_datum.handle_vehicle_layer()

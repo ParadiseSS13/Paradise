@@ -2,7 +2,6 @@
 	name = "ambulance"
 	desc = "what the paramedic uses to run over people to take to medbay."
 	icon_state = "docwagon2"
-	keytype = /obj/item/key/ambulance
 	var/obj/structure/stool/bed/amb_trolley/bed = null
 
 
@@ -11,23 +10,9 @@
 	desc = "A keyring with a small steel key, and tag with a red cross on it."
 	icon_state = "keydoc"
 
-
-/obj/vehicle/ambulance/handle_vehicle_offsets()
-	..()
-	if(buckled_mob)
-		switch(buckled_mob.dir)
-			if(SOUTH)
-				buckled_mob.pixel_x = 0
-				buckled_mob.pixel_y = 7
-			if(WEST)
-				buckled_mob.pixel_x = 13
-				buckled_mob.pixel_y = 7
-			if(NORTH)
-				buckled_mob.pixel_x = 0
-				buckled_mob.pixel_y = 4
-			if(EAST)
-				buckled_mob.pixel_x = -13
-				buckled_mob.pixel_y = 7
+/obj/vehicle/janicart/buckle_mob()
+	. = ..()
+	riding_datum = new/datum/riding/janicart
 
 /obj/vehicle/ambulance/Move(newloc, Dir)
 	var/oldloc = loc

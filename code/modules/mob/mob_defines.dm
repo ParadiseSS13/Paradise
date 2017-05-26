@@ -196,5 +196,7 @@
 	var/list/permanent_huds = list()
 
 	var/list/actions = list()
-	
+
 	var/list/progressbars = null	//for stacking do_after bars
+
+	var/list/can_ride_typecache = list()

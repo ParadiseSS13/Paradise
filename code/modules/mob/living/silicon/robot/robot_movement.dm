@@ -16,8 +16,10 @@
 
 	return tally+config.robot_delay
 
-/mob/living/silicon/robot/Move()
-	..()
+/mob/living/silicon/robot/Moved()
+	. = ..()
+	if(riding_datum)
+		riding_datum.on_vehicle_move()
 
 /mob/living/silicon/robot/mob_negates_gravity()
 	return magpulse

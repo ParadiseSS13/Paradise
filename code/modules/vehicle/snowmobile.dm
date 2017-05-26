@@ -3,9 +3,10 @@
 	desc = "Wheeeeeeeeeeee."
 	icon = 'icons/obj/vehicles.dmi'
 	icon_state = "snowmobile"
-	keytype = /obj/item/key/snowmobile
-	generic_pixel_x = 0
-	generic_pixel_y = 4
+
+/obj/vehicle/snowmobile/buckle_mob()
+	. = ..()
+	riding_datum = new/datum/riding/snowmobile
 
 /obj/vehicle/snowmobile/blue
 	name = "blue snowmobile"

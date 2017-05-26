@@ -124,18 +124,11 @@
 	desc = "A boat used for traversing lava."
 	icon_state = "goliath_boat"
 	icon = 'icons/obj/lavaland/dragonboat.dmi'
-	keytype = /obj/item/weapon/oar
 	burn_state = LAVA_PROOF | FIRE_PROOF
 
-/obj/vehicle/lavaboat/relaymove(mob/user, direction)
-	var/turf/next = get_step(src, direction)
-	var/turf/current = get_turf(src)
-
-	if(istype(next, /turf/unsimulated/floor/lava) || istype(current, /turf/unsimulated/floor/lava)) //We can move from land to lava, or lava to land, but not from land to land
-		..()
-	else
-		to_chat(user, "<span class='warning'>Boats don't go on land!</span>")
-		return 0
+/obj/vehicle/lavaboat/buckle_mob(mob/living/M, force = 0, check_loc = 1)
+	. = ..()
+	riding_datum = new/datum/riding/boat
 
 /obj/item/weapon/oar
 	name = "oar"
@@ -178,11 +171,11 @@
 /obj/vehicle/lavaboat/dragon
 	name = "mysterious boat"
 	desc = "This boat moves where you will it, without the need for an oar."
-	keytype = null
 	icon_state = "dragon_boat"
-	generic_pixel_y = 2
-	generic_pixel_x = 1
-	vehicle_move_delay = 1
+
+/obj/vehicle/lavaboat/dragon/buckle_mob(mob/living/M, force = 0, check_loc = 1)
+	..()
+	riding_datum = new/datum/riding/boat/dragon
 
 // Wisp Lantern
 /obj/item/device/wisp_lantern

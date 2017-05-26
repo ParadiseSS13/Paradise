@@ -381,6 +381,8 @@ var/global/chicken_count = 0
 	maxHealth = 50
 	can_collar = 1
 	gold_core_spawnable = CHEM_MOB_SPAWN_FRIENDLY
+	tame = 1
+	saddled = 1
 
 /mob/living/simple_animal/walrus
 	name = "walrus"

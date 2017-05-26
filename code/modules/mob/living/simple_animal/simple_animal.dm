@@ -80,6 +80,10 @@
 	var/deathmessage = ""
 	var/death_sound = null //The sound played on death
 
+	//domestication
+	var/tame = 0
+	var/saddled = 0
+
 
 /mob/living/simple_animal/New()
 	..()
@@ -721,3 +725,36 @@
 
 /mob/living/simple_animal/SetEarDeaf()
 	return
+
+//ANIMAL RIDING
+//ANIMAL RIDING
+/mob/living/simple_animal/unbuckle_mob(mob/living/buckled_mob, force = 0, check_loc = 1)
+	if(riding_datum)
+		riding_datum.restore_position(buckled_mob)
+	. = ..()
+
+
+/mob/living/simple_animal/user_buckle_mob(mob/living/M, mob/user)
+	if(riding_datum)
+		if(user.incapacitated())
+			return
+		for(var/atom/movable/A in get_turf(src))
+			if(A != src && A != M && A.density)
+				return
+		M.loc = get_turf(src)
+		riding_datum.handle_vehicle_offsets()
+		riding_datum.ridden = src
+
+/mob/living/simple_animal/relaymove(mob/user, direction)
+	if(tame && riding_datum)
+		riding_datum.handle_ride(user, direction)
+
+/mob/living/simple_animal/Moved()
+	. = ..()
+	if(riding_datum)
+		riding_datum.on_vehicle_move()
+
+
+/mob/living/simple_animal/buckle_mob(mob/living/buckled_mob, force = 0, check_loc = 1)
+	. = ..()
+	riding_datum = new/datum/riding/animal

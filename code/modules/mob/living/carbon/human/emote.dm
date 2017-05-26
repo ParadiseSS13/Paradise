@@ -778,6 +778,12 @@
 					if(M == src)
 						continue
 					M.reagents.add_reagent("jenkem", 1)
+		if("spin")
+			var/M = handle_emote_param(param, null, 1)
+
+			if(M)
+				message = "<B>[src]</B> spins around dizzily!"
+			spin(20, 1)
 
 		if("help")
 			var/emotelist = "aflap(s), airguitar, blink(s), blink(s)_r, blush(es), bow(s)-(none)/mob, burp(s), choke(s), chuckle(s), clap(s), collapse(s), cough(s),cry, cries, custom, dance, dap(s)(none)/mob," \

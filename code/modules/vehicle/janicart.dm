@@ -3,27 +3,14 @@
 	name = "janicart (pimpin' ride)"
 	desc = "A brave janitor cyborg gave its life to produce such an amazing combination of speed and utility."
 	icon_state = "pussywagon"
-	keytype = /obj/item/key/janitor
 	var/obj/item/weapon/storage/bag/trash/mybag = null
 	var/floorbuffer = 0
 
 
-/obj/vehicle/janicart/handle_vehicle_offsets()
-	..()
-	if(buckled_mob)
-		switch(buckled_mob.dir)
-			if(NORTH)
-				buckled_mob.pixel_x = 0
-				buckled_mob.pixel_y = 4
-			if(EAST)
-				buckled_mob.pixel_x = -12
-				buckled_mob.pixel_y = 7
-			if(SOUTH)
-				buckled_mob.pixel_x = 0
-				buckled_mob.pixel_y = 7
-			if(WEST)
-				buckled_mob.pixel_x = 12
-				buckled_mob.pixel_y = 7
+/obj/vehicle/janicart/buckle_mob()
+	. = ..()
+	riding_datum = new/datum/riding/janicart
+
 
 
 /obj/item/key/janitor
@@ -61,17 +48,22 @@
 
 /obj/vehicle/janicart/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/weapon/storage/bag/trash))
-		if(keytype == /obj/item/key/janitor)
-			if(!user.drop_item())
-				return
-			to_chat(user, "<span class='notice'>You hook the trashbag onto \the [name].</span>")
-			I.loc = src
-			mybag = I
+		if(mybag)
+			to_chat(user, "<span class='warning'>[src] already has a trashbag hooked!</span>")
+			return
+		if(!user.drop_item())
+			return
+		to_chat(user, "<span class='notice'>You hook the trashbag onto [src].</span>")
+		I.loc = src
+		mybag = I
+		update_icon()
 	else if(istype(I, /obj/item/janiupgrade))
-		if(keytype == /obj/item/key/janitor)
-			floorbuffer = 1
-			qdel(I)
-			to_chat(user,"<span class='notice'>You upgrade \the [name] with the floor buffer.</span>")
+		if(floorbuffer)
+			to_chat(user, "<span class='warning'>[src] already has a floor buffer!</span>")
+			return
+		floorbuffer = TRUE
+		qdel(I)
+		to_chat(user, "<span class='notice'>You upgrade [src] with the floor buffer.</span>")
 	update_icon()
 
 	..()

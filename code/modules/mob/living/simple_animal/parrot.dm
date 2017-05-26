@@ -106,7 +106,8 @@
 	verbs.Add(/mob/living/simple_animal/parrot/proc/steal_from_ground, \
 			  /mob/living/simple_animal/parrot/proc/steal_from_mob, \
 			  /mob/living/simple_animal/parrot/verb/drop_held_item_player, \
-			  /mob/living/simple_animal/parrot/proc/perch_player)
+			  /mob/living/simple_animal/parrot/proc/perch_player, \
+			  /mob/living/simple_animal/parrot/proc/perch_mob_player)
 
 /mob/living/simple_animal/parrot/Destroy()
 	hear_radio_list -= src
@@ -117,6 +118,11 @@
 		held_item.loc = src.loc
 		held_item = null
 	walk(src,0)
+	if(buckled)
+		buckled.buckled_mob = null
+	buckled = null
+	pixel_x = initial(pixel_x)
+	pixel_y = initial(pixel_y)
 	..()
 
 /mob/living/simple_animal/parrot/Stat()
@@ -654,6 +660,43 @@
 	held_item.loc = src.loc
 	held_item = null
 	return 1
+
+/mob/living/simple_animal/parrot/proc/perch_mob_player()
+	set name = "Sit on Human's Shoulder"
+	set category = "Parrot"
+	set desc = "Sit on a nice comfy human being!"
+
+	if(stat || !client)
+		return
+
+	if(icon_state == "parrot_fly")
+		for(var/mob/living/carbon/human/H in view(src,1))
+			if(H.buckled_mob) //Already has a parrot, or is being eaten by a slime
+				continue
+			perch_on_human(H)
+			return
+		to_chat(src, "<span class='warning'>There is nobody nearby that you can sit on!</span>")
+	else
+		icon_state = "parrot_fly"
+		parrot_state = PARROT_WANDER
+		if(buckled)
+			to_chat(src, "<span class='notice'>You are no longer sitting on [buckled]'s shoulder.</span>")
+			buckled.buckled_mob = null
+		buckled = null
+		pixel_x = initial(pixel_x)
+		pixel_y = initial(pixel_y)
+
+/mob/living/simple_animal/parrot/proc/perch_on_human(mob/living/carbon/human/H)
+	if(!H)
+		return
+	loc = get_turf(H)
+	H.buckle_mob(src, force=1)
+	pixel_y = 9
+	pixel_x = pick(-8,8) //pick left or right shoulder
+	icon_state = "parrot_sit"
+	parrot_state = PARROT_PERCH
+	to_chat(src, "<span class='notice'>You sit on [H]'s shoulder.</span>")
+
 
 /mob/living/simple_animal/parrot/proc/perch_player()
 	set name = "Sit"

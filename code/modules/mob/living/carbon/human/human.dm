@@ -2073,3 +2073,43 @@
 	update_icons()
 
 	..()
+
+/mob/living/carbon/human/MouseDrop_T(mob/living/target, mob/living/user)
+
+	var/obj/item/weapon/grab/G = user.get_active_hand()
+	if((target != pulling) || (G.state < GRAB_AGGRESSIVE) || (user != target))	//Get consent first :^)
+		. = ..()
+		return
+	buckle_mob(target, TRUE, TRUE)
+	. = ..()
+
+/mob/living/carbon/human/buckle_mob(mob/living/M, force = FALSE, check_loc = TRUE)
+	if(!force)//humans are only meant to be ridden through piggybacking and special cases
+		return
+	if(!is_type_in_typecache(M, can_ride_typecache))
+		M.visible_message("<span class='warning'>[M] really can't seem to mount [src]...</span>")
+		return
+	if(!riding_datum)
+		riding_datum = new /datum/riding/human(src)
+	if(buckled_mob && ((M in buckled_mob) || buckled || (M.stat != CONSCIOUS)))
+		return
+	visible_message("<span class='notice'>[M] starts to climb onto [src]...</span>")
+	if(do_after(M, 15, target = src))
+		if(iscarbon(M))
+			if(M.incapacitated(FALSE, TRUE) || incapacitated(FALSE, TRUE))
+				M.visible_message("<span class='warning'>[M] can't hang onto [src]!</span>")
+				return
+			if(!riding_datum.equip_buckle_inhands(M, 2))	//MAKE SURE THIS IS LAST!!
+				M.visible_message("<span class='warning'>[M] can't climb onto [src]!</span>")
+				return
+		. = ..(M, force, check_loc)
+		stop_pulling()
+	else
+		visible_message("<span class='warning'>[M] fails to climb onto [src]!</span>")
+
+/mob/living/carbon/human/unbuckle_mob(mob/living/M, force=FALSE)
+	if(iscarbon(M))
+		if(riding_datum)
+			riding_datum.unequip_buckle_inhands(M)
+			riding_datum.restore_position(M)
+	. = ..(M, force)

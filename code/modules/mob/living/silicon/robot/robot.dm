@@ -89,6 +89,10 @@ var/list/robot_verbs_default = list(
 	var/datum/action/item_action/toggle_research_scanner/scanner = null
 	var/list/module_actions = list()
 
+	can_buckle = TRUE
+	buckle_lying = FALSE
+	can_ride_typecache = list(/mob/living/carbon/human)
+
 /mob/living/silicon/robot/New(loc,var/syndie = 0,var/unfinished = 0, var/alien = 0)
 	spark_system = new /datum/effect/system/spark_spread()
 	spark_system.set_up(5, 0, src)
@@ -147,6 +151,15 @@ var/list/robot_verbs_default = list(
 	diag_hud_set_borgcell()
 	scanner = new(src)
 	scanner.Grant(src)
+
+/mob/living/silicon/robot/buckle_mob(mob/living/M, force = FALSE, check_loc = TRUE)
+	if(!is_type_in_typecache(M, can_ride_typecache))
+		M.visible_message("<span class='warning'>[M] really can't seem to mount the [src]...</span>")
+		return
+	if(!riding_datum)
+		riding_datum = new /datum/riding/cyborg
+		riding_datum.ridden = src
+
 
 /mob/living/silicon/robot/proc/init(var/alien=0)
 	aiCamera = new/obj/item/device/camera/siliconcam/robot_camera(src)
@@ -548,7 +561,17 @@ var/list/robot_verbs_default = list(
 /mob/living/silicon/robot/bullet_act(var/obj/item/projectile/Proj)
 	..(Proj)
 	updatehealth()
-	if(prob(75) && Proj.damage > 0) spark_system.start()
+	if(prob(75) && Proj.damage > 0)
+		spark_system.start()
+		if(prob(Proj.damage*1.5))
+			for(var/mob/living/M in buckled_mob)
+				M.visible_message("<span class='warning'>[M] is knocked off of [src]!</span>")
+				unbuckle_mob(M)
+				M.Weaken(2)
+	if(Proj.stun || Proj.weaken)
+		for(var/mob/living/M in buckled_mob)
+			unbuckle_mob(M)
+			M.visible_message("<span class='warning'>[M] is knocked off of [src] by the [Proj]!</span>")
 	return 2
 
 
@@ -903,6 +926,11 @@ var/list/robot_verbs_default = list(
 				adjustCloneLoss(damage)
 			if(STAMINA)
 				adjustStaminaLoss(damage)
+		if(prob(damage))
+			for(var/mob/living/N in buckled_mob)
+				N.Weaken(1)
+				unbuckle_mob(N)
+				N.visible_message("<span class='warning'>[N] is knocked off of [src] by [M]!</span>")
 		updatehealth()
 
 /mob/living/silicon/robot/attack_ghost(mob/user)
@@ -1464,6 +1492,12 @@ var/list/robot_verbs_default = list(
 			disable_component("comms", 160)
 		if(2)
 			disable_component("comms", 60)
+	for(var/mob/living/M in buckled_mob)
+		if(prob(severity*50))
+			unbuckle_mob(M)
+			M.Weaken(2)
+			M.visible_message("<span class='warning'>[M] is thrown off of [src]!</span>")
+
 /mob/living/silicon/robot/rejuvenate()
 	..()
 	var/brute = 1000
@@ -1476,3 +1510,39 @@ var/list/robot_verbs_default = list(
 		borked_part.wrapped = new borked_part.external_type
 		borked_part.heal_damage(brute,burn)
 		borked_part.install()
+
+/mob/living/silicon/robot/MouseDrop_T(mob/living/M, mob/living/user)
+	. = ..()
+	if(!(M in buckled_mob))
+		buckle_mob(M)
+
+/mob/living/silicon/robot/buckle_mob(mob/living/M, force = FALSE, check_loc = TRUE)
+	if(!is_type_in_typecache(M, can_ride_typecache))
+		M.visible_message("<span class='warning'>[M] really can't seem to mount the [src]...</span>")
+		return
+	if(!riding_datum)
+		riding_datum = new /datum/riding/cyborg(src)
+	if(buckled_mob)
+		if(M in buckled_mob)
+			return
+	if(stat)
+		return
+	if(incapacitated())
+		return
+	if(M.restrained())
+		return
+	if(module)
+		if(!module.allow_riding)
+			M.visible_message("<span class='boldwarning'>Unfortunately, [M] just can't seem to hold onto [src]!</span>")
+			return
+	if(iscarbon(M) && (!riding_datum.equip_buckle_inhands(M, 1)))
+		M.visible_message("<span class='boldwarning'>[M] can't climb onto [src] because their hands are full!</span>")
+		return
+	. = ..(M, force, check_loc)
+
+/mob/living/silicon/robot/unbuckle_mob(mob/user)
+	if(iscarbon(user))
+		if(riding_datum)
+			riding_datum.unequip_buckle_inhands(user)
+			riding_datum.restore_position(user)
+	. = ..(user)

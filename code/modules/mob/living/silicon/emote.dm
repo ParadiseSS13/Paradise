@@ -74,7 +74,18 @@
 			playsound(src.loc, 'sound/machines/buzz-two.ogg', 50, 0)
 			m_type = 2
 
+		if("spin")
+			var/M = handle_emote_param(param, null, 1)
 
+			if(M)
+				message = "<B>[src]</B> spins around dizzily!"
+			spin(20, 1)
+			if(istype(src, /mob/living/silicon/robot))
+				var/mob/living/silicon/robot/R = src
+				if(R.buckled_mob)
+	 			for(var/mob/H in R.buckled_mob)
+	 				if(R.riding_datum)
+	 					R.riding_datum.force_dismount(H)
 		if("help")
 			to_chat(src, "yes, no, beep, ping, buzz, scream, buzz2")
 
