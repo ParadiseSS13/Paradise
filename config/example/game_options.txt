@@ -47,7 +47,7 @@ HUMAN_DELAY 1.5
 ROBOT_DELAY 1.5
 MONKEY_DELAY 1.5
 ALIEN_DELAY 1.5
-METROID_DELAY 1.5
+SLIME_DELAY 1.5
 ANIMAL_DELAY 1.5
 
 ## Comment for "normal" explosions, which ignore obstacles
