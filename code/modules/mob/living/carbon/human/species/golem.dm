@@ -95,6 +95,7 @@
 	desc = "the imposing face of an adamantine golem"
 	icon_state = "golem"
 	item_state = "golem"
+	tint = 0
 	unacidable = 1
 	flags = ABSTRACT | NODROP
 
