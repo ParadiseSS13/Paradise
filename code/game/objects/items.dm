@@ -20,7 +20,7 @@ var/global/image/fire_overlay = image("icon" = 'icons/goonstation/effects/fire.d
 	var/health = null
 	var/hitsound = null
 	var/usesound = null
-	var/w_class = 3
+	var/w_class = WEIGHT_CLASS_NORMAL
 	var/slot_flags = 0		//This is used to determine on which slots an item can fit.
 	pass_flags = PASSTABLE
 	pressure_resistance = 3
@@ -146,16 +146,18 @@ var/global/image/fire_overlay = image("icon" = 'icons/goonstation/effects/fire.d
 /obj/item/examine(mob/user, var/distance = -1)
 	var/size
 	switch(src.w_class)
-		if(1.0)
+		if(WEIGHT_CLASS_TINY)
 			size = "tiny"
-		if(2.0)
+		if(WEIGHT_CLASS_SMALL)
 			size = "small"
-		if(3.0)
+		if(WEIGHT_CLASS_NORMAL)
 			size = "normal-sized"
-		if(4.0)
+		if(WEIGHT_CLASS_BULKY)
 			size = "bulky"
-		if(5.0)
+		if(WEIGHT_CLASS_HUGE)
 			size = "huge"
+		if(WEIGHT_CLASS_GIGANTIC)
+			size = "gigantic"
 
 	. = ..(user, distance, "", "It is a [size] item.")
 
@@ -519,7 +521,7 @@ var/global/image/fire_overlay = image("icon" = 'icons/goonstation/effects/fire.d
 /obj/item/throw_impact(atom/A)
 	if(A && !qdeleted(A))
 		var/itempush = 1
-		if(w_class < 4)
+		if(w_class < WEIGHT_CLASS_BULKY)
 			itempush = 0 // too light to push anything
 		return A.hitby(src, 0, itempush)
 

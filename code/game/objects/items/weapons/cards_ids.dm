@@ -15,7 +15,7 @@
 	name = "card"
 	desc = "A card."
 	icon = 'icons/obj/card.dmi'
-	w_class = 1
+	w_class = WEIGHT_CLASS_TINY
 	var/associated_account_number = 0
 
 	var/list/files = list(  )

@@ -3,7 +3,7 @@
 	icon = 'icons/obj/kitchen.dmi'
 	icon_state = "whetstone"
 	desc = "A block of stone used to sharpen things."
-	w_class = 2
+	w_class = WEIGHT_CLASS_SMALL
 	usesound = 'sound/items/Screwdriver.ogg'
 	var/used = 0
 	var/increment = 4

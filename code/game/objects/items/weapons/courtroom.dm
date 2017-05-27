@@ -9,7 +9,7 @@
 	icon_state = "gavelhammer"
 	force = 5.0
 	throwforce = 6.0
-	w_class = 2
+	w_class = WEIGHT_CLASS_SMALL
 	attack_verb = list("bashed", "battered", "judged", "whacked")
 	burn_state = FLAMMABLE
 
@@ -25,7 +25,7 @@
 	icon_state = "gavelblock"
 	force = 2.0
 	throwforce = 2.0
-	w_class = 1
+	w_class = WEIGHT_CLASS_TINY
 	burn_state = FLAMMABLE
 
 /obj/item/weapon/gavelblock/attackby(obj/item/I, mob/user, params)
