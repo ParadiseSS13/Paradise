@@ -272,3 +272,10 @@
 	result_amount = 3
 	min_temp = 370
 	mix_message = "The solution gently swirls with a metallic sheen."
+
+/datum/chemical_reaction/corazone
+	name = "Corazone"
+	id = "corazone"
+	result = "corazone"
+	result_amount = 3
+	required_reagents = list("phenol" = 2, "lithium" = 1)

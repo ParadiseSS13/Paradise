@@ -683,9 +683,9 @@
 		if(species)
 			species_siemens_coeff = species.siemens_coeff
 		siemens_coeff = gloves_siemens_coeff * species_siemens_coeff
-	if(heart_attack)
+	if(undergoing_cardiac_arrest())
 		if(shock_damage * siemens_coeff >= 1 && prob(25))
-			heart_attack = 0
+			set_heartattack(FALSE)
 			if(stat == CONSCIOUS)
 				to_chat(src, "<span class='notice'>You feel your heart beating again!</span>")
 	. = ..()

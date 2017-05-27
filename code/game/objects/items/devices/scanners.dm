@@ -240,7 +240,7 @@ REAGENT SCANNER
 			if(H.species.exotic_blood)
 				user.show_message("<span class='warning'>Subject possesses exotic blood.</span>")
 				user.show_message("<span class='warning'>Exotic blood type: [blood_type].</span>")
-		if(H.heart_attack && H.stat != DEAD)
+		if(H.undergoing_cardiac_arrest() && H.stat != DEAD)
 			user.show_message("<span class='userdanger'>Subject suffering from heart attack: Apply defibrillator immediately.</span>")
 		user.show_message("<span class='notice'>Subject's pulse: <font color='[H.pulse == PULSE_THREADY || H.pulse == PULSE_NONE ? "red" : "blue"]'>[H.get_pulse(GETPULSE_TOOL)] bpm.</font></span>")
 		var/implant_detect
