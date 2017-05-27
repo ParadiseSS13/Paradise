@@ -24,7 +24,7 @@
 		notetext = input(usr,"Write your note","Add Note") as message|null
 		if(!notetext)
 			return
-	notetext = sanitizeSQL(notetext)
+	notetext = sanitizeSQL(sanitize(notetext))
 	if(!timestamp)
 		timestamp = SQLtime()
 	if(!adminckey)
