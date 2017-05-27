@@ -1177,7 +1177,7 @@
 
 
 /mob/living/carbon/human/proc/can_heartattack()
-	if(species.flags & NO_BLOOD)
+	if(species.flags & (NO_BLOOD|NO_INTORGANS))
 		return FALSE
 	return TRUE
 
