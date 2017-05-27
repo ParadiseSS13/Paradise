@@ -831,7 +831,8 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 	return 1
 
 /datum/preferences/proc/ShowDisabilityState(mob/user,flag,label)
-	if(flag==DISABILITY_FLAG_FAT && species!=("Human" || "Tajaran" || "Grey"))
+	var/datum/species/S = all_species[species]
+	if(flag==DISABILITY_FLAG_FAT && !(S.flags & CAN_BE_FAT))
 		return "<li><i>[species] cannot be fat.</i></li>"
 	return "<li><b>[label]:</b> <a href=\"?_src_=prefs;task=input;preference=disabilities;disability=[flag]\">[disabilities & flag ? "Yes" : "No"]</a></li>"
 
@@ -1093,7 +1094,7 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 			if("input")
 				var/dflag=text2num(href_list["disability"])
 				if(dflag >= 0)
-					if(dflag==DISABILITY_FLAG_FAT && (S.flags & CAN_BE_FAT))
+					if(!(dflag==DISABILITY_FLAG_FAT && !(S.flags & CAN_BE_FAT))) //If the disability isn't fatness, toggle it. If it IS fatness, check to see if the species can be fat before going ahead.
 						disabilities ^= text2num(href_list["disability"]) //MAGIC
 				SetDisabilities(user)
 			else

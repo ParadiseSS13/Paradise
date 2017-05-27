@@ -145,6 +145,8 @@
 	name = "rubber pellet"
 	damage = 3
 	stamina = 25
+	embed = 0
+	sharp = 0
 	icon_state = "bullet-r"
 
 /obj/item/projectile/bullet/stunshot//taser slugs for shotguns, nothing special
@@ -201,11 +203,14 @@
 	stun = 4
 
 /obj/item/projectile/bullet/honker
+	name = "banana"
 	damage = 0
 	weaken = 5
 	stun = 5
 	forcedodge = 1
 	nodamage = 1
+	embed = 0
+	sharp = 0
 	pass_flags = PASSTABLE | PASSGLASS | PASSGRILLE
 	hitsound = 'sound/items/bikehorn.ogg'
 	icon = 'icons/obj/hydroponics/harvest.dmi'
