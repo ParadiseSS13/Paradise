@@ -80,6 +80,7 @@
 	var/base_state = "plasmaman_helmet"
 	var/brightness_on = 4 //luminosity when on
 	var/on = 0
+	flash_protect = 2
 	actions_types = list(/datum/action/item_action/toggle_helmet_light)
 
 /obj/item/clothing/head/helmet/space/eva/plasmaman/attack_self(mob/user)
