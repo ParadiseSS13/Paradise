@@ -379,6 +379,9 @@ REAGENT SCANNER
 	origin_tech = "magnets=2;biotech=2"
 	var/details = 0
 	var/recent_fail = 0
+	var/datatoprint = ""
+	var/scanning = 1
+	actions_types = list(/datum/action/item_action/print_report)
 
 /obj/item/device/mass_spectrometer/New()
 	..()
@@ -409,13 +412,13 @@ REAGENT SCANNER
 			else
 				blood_traces = params2list(R.data["trace_chem"])
 				break
-		var/dat = "Trace Chemicals Found: "
+		var/dat = ""
 		for(var/R in blood_traces)
 			if(prob(reliability))
 				if(details)
 					dat += "[R] ([blood_traces[R]] units) "
 				else
-					dat += "[R] "
+					dat += "[R] <br>"
 				recent_fail = 0
 			else
 				if(recent_fail)
@@ -424,8 +427,14 @@ REAGENT SCANNER
 					return
 				else
 					recent_fail = 1
-		to_chat(user, "[dat]")
-		reagents.clear_reagents()
+		if(dat)
+			to_chat(user, "Trace chemicals detected in blood sample: [dat]")
+			datatoprint = dat
+			scanning = 0
+			reagents.clear_reagents()
+		else
+			reagents.clear_reagents()
+			to_chat(user, "<span class='notice'>No trace chemicals detected in blood sample.</span>")
 	return
 
 /obj/item/device/mass_spectrometer/adv
@@ -433,6 +442,28 @@ REAGENT SCANNER
 	icon_state = "adv_spectrometer"
 	details = 1
 	origin_tech = "magnets=4;biotech=2"
+
+/obj/item/device/mass_spectrometer/proc/print_report()
+	if(!scanning)
+		usr.visible_message("<span class='warning'>[src] rattles and prints out a sheet of paper.</span>")
+		playsound(loc, 'sound/goonstation/machines/printer_thermal.ogg', 50, 1)
+		sleep(50)
+
+		var/obj/item/weapon/paper/P = new(get_turf(src))
+		P.name = "Mass Spectrometer Scanner Report: [worldtime2text()]"
+		P.info = "<center><b>Mass Spectrometer</b></center><br><center>Data Analysis:</center><br><hr><br><b>Trace chemicals detected:</b><br>[datatoprint]<br><hr>"
+
+		if(ismob(loc))
+			var/mob/M = loc
+			M.put_in_hands(P)
+			to_chat(M, "<span class='notice'>Report printed. Log cleared.<span>")
+			datatoprint = ""
+			scanning = 1
+	else
+		to_chat(usr, "<span class='notice'>[src] has no logs or is already in use.</span>")
+
+/obj/item/device/mass_spectrometer/ui_action_click()
+	print_report()
 
 /obj/item/device/reagent_scanner
 	name = "reagent scanner"
@@ -449,6 +480,9 @@ REAGENT SCANNER
 	origin_tech = "magnets=2;biotech=2"
 	var/details = 0
 	var/recent_fail = 0
+	var/datatoprint = ""
+	var/scanning = 1
+	actions_types = list(/datum/action/item_action/print_report)
 
 /obj/item/device/reagent_scanner/afterattack(obj/O, mob/user as mob)
 	if(user.stat)
@@ -461,7 +495,6 @@ REAGENT SCANNER
 	if(crit_fail)
 		to_chat(user, "<span class='warning'>This device has critically failed and is no longer functional!</span>")
 		return
-
 	if(!isnull(O.reagents))
 		var/dat = ""
 		if(O.reagents.reagent_list.len > 0)
@@ -478,11 +511,12 @@ REAGENT SCANNER
 					recent_fail = 1
 		if(dat)
 			to_chat(user, "<span class='notice'>Chemicals found: [dat]</span>")
+			datatoprint = dat
+			scanning = 0
 		else
 			to_chat(user, "<span class='notice'>No active chemical agents found in [O].</span>")
 	else
 		to_chat(user, "<span class='notice'>No significant chemical agents found in [O].</span>")
-
 	return
 
 /obj/item/device/reagent_scanner/adv
@@ -490,6 +524,28 @@ REAGENT SCANNER
 	icon_state = "adv_spectrometer"
 	details = 1
 	origin_tech = "magnets=4;biotech=2"
+
+/obj/item/device/reagent_scanner/proc/print_report()
+	if(!scanning)
+		usr.visible_message("<span class='warning'>[src] rattles and prints out a sheet of paper.</span>")
+		playsound(loc, 'sound/goonstation/machines/printer_thermal.ogg', 50, 1)
+		sleep(50)
+
+		var/obj/item/weapon/paper/P = new(get_turf(src))
+		P.name = "Reagent Scanner Report: [worldtime2text()]"
+		P.info = "<center><b>Reagent Scanner</b></center><br><center>Data Analysis:</center><br><hr><br><b>Chemical agents detected:</b><br> [datatoprint]<br><hr>"
+
+		if(ismob(loc))
+			var/mob/M = loc
+			M.put_in_hands(P)
+			to_chat(M, "<span class='notice'>Report printed. Log cleared.<span>")
+			datatoprint = ""
+			scanning = 1
+	else
+		to_chat(usr, "<span class='notice'>[src]  has no logs or is already in use.</span>")
+
+/obj/item/device/reagent_scanner/ui_action_click()
+	print_report()
 
 /obj/item/device/slime_scanner
 	name = "slime scanner"

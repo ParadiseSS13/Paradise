@@ -182,6 +182,16 @@
 	armor = list(melee = 10, bullet = 0, laser = 0, energy = 0, bomb = 0, bio = 10, rad = 0)
 	flags_size = ONESIZEFITSALL
 
+/obj/item/clothing/under/rank/security/brigphys/skirt
+	desc = "A skirted Brig Physician uniform. It has both security and medical protection."
+	name = "brig physician's jumpskirt"
+	icon_state = "brig_physf"
+	item_state = "brig_physf"
+	item_color = "brig_physf"
+	permeability_coefficient = 0.50
+	armor = list(melee = 10, bullet = 0, laser = 0, energy = 0, bomb = 0, bio = 10, rad = 0)
+	flags_size = ONESIZEFITSALL
+
 //Pod Pilot
 /obj/item/clothing/under/rank/security/pod_pilot
 	desc = "Suit for your regular pod pilot."

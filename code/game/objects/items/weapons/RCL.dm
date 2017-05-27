@@ -115,7 +115,7 @@
 				last = C
 				break
 
-/obj/item/weapon/twohanded/rcl/moved(mob/user, turf/old_loc, direct)
+/obj/item/weapon/twohanded/rcl/on_mob_move(direct, mob/user)
 	if(active)
 		trigger(user)
 

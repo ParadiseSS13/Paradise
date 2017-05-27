@@ -546,12 +546,10 @@
 				to_chat(user, "<span class='notice'>You successfully pull the coin out before the [src] could swallow it.</span>")
 			else
 				to_chat(user, "<span class='notice'>You weren't able to pull the coin out fast enough, the machine ate it, string and all.</span>")
-				coin = null
-				qdel(coin)
+				QDEL_NULL(coin)
 				categories &= ~CAT_COIN
 		else
-			coin = null
-			qdel(coin)
+			QDEL_NULL(coin)
 			categories &= ~CAT_COIN
 
 	R.amount--

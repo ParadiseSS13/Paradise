@@ -151,7 +151,7 @@ var/list/tape_roll_applications = list()
 	if(!density) return 1
 	if(height==0) return 1
 
-	if((mover.pass_flags & PASSTABLE || istype(mover, /obj/effect/meteor) || mover.throwing == 1) )
+	if((mover.pass_flags & PASSTABLE || istype(mover, /obj/effect/meteor) || mover.throwing))
 		return 1
 	else if(ismob(mover) && allowed(mover))
 		return 1

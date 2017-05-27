@@ -449,7 +449,7 @@
 	..()
 	retalTarget(user)
 
-/mob/living/carbon/human/interactive/hitby(atom/movable/AM)
+/mob/living/carbon/human/interactive/hitby(atom/movable/AM, skipcatch, hitpush, blocked)
 	..()
 	var/mob/living/carbon/C = locate(/mob/living/carbon) in view(SNPC_MIN_RANGE_FIND, src)
 	if(C)

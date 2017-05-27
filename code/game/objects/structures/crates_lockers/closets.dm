@@ -56,7 +56,7 @@
 		if(throwing) // you keep some momentum when getting out of a thrown closet
 			step(AM, dir)
 	if(throwing)
-		throwing = 0
+		throwing.finalize(FALSE)
 
 /obj/structure/closet/proc/open()
 	if(opened)
@@ -327,7 +327,7 @@
 /obj/structure/closet/attack_hand(mob/user)
 	add_fingerprint(user)
 	toggle(user)
-	
+
 /obj/structure/closet/attack_ghost(mob/user)
 	if(user.can_advanced_admin_interact())
 		toggle(user)

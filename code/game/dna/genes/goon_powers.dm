@@ -278,6 +278,10 @@
 	var/list/targets = new /list()
 	var/list/possible_targets = new /list()
 
+	if(!check_mouth(user))
+		revert_cast(user)
+		return
+
 	for(var/atom/movable/O in view_or_range(range, user, selection_type))
 		if((O in user) && is_type_in_list(O,own_blacklist))
 			continue
@@ -294,7 +298,20 @@
 		revert_cast(user)
 		return
 
+	if(!check_mouth(user))
+		revert_cast(user)
+		return
+
 	perform(targets, user = user)
+
+/obj/effect/proc_holder/spell/targeted/eat/proc/check_mouth(mob/user = usr)
+	var/can_eat = 1
+	if(iscarbon(user))
+		var/mob/living/carbon/C = user
+		if((C.head && (C.head.flags_cover & HEADCOVERSMOUTH)) || (C.wear_mask && (C.wear_mask.flags_cover & MASKCOVERSMOUTH) && !C.wear_mask.mask_adjusted))
+			to_chat(C, "<span class='warning'>Your mouth is covered, preventing you from eating!</span>")
+			can_eat = 0
+	return can_eat
 
 /obj/effect/proc_holder/spell/targeted/eat/cast(list/targets, mob/user = usr)
 	if(!targets.len)
