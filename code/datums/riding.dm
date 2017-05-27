@@ -150,7 +150,7 @@
 
 
 /datum/riding/janicart/get_offsets(pass_index) // list(dir = x, y, layer)
-	return list("[NORTH]" = list(0, 4), "[SOUTH]" = list(-12, 7), "[EAST]" = list(0, 7), "[WEST]" = list( 12, 7))
+	return list("[NORTH]" = list(0, 4), "[SOUTH]" = list(0, 7), "[EAST]" = list(-12, 7), "[WEST]" = list( 12, 7))
 
 
 
@@ -226,7 +226,7 @@
 	keytype = /obj/item/key/ambulance
 
 /datum/riding/ambulance/get_offsets(pass_index) // list(dir = x, y, layer)
-	return list("[NORTH]" = list(0, 4), "[SOUTH]" = list(-12, 7), "[EAST]" = list(0, 7), "[WEST]" = list( 12, 7))
+	return list("[NORTH]" = list(0, 4), "[SOUTH]" = list(0, 7), "[EAST]" = list(-12, 7), "[WEST]" = list( 12, 7))
 
 ///////////////BOATS////////////
 /datum/riding/boat
