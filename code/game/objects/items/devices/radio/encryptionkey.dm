@@ -5,7 +5,7 @@
 	icon = 'icons/obj/radio.dmi'
 	icon_state = "cypherkey"
 	item_state = ""
-	w_class = 1
+	w_class = WEIGHT_CLASS_TINY
 	var/translate_binary = 0
 	var/translate_hive = 0
 	var/syndie = 0
