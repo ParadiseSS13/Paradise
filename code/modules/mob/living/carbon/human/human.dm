@@ -2076,7 +2076,7 @@
 
 /mob/living/carbon/human/MouseDrop_T(mob/living/target, mob/living/user)
 
-	var/obj/item/weapon/grab/G = user.get_active_hand()
+	var/obj/item/weapon/grab/G = locate() in src
 	if((target != pulling) || (G.state < GRAB_AGGRESSIVE) || (user != target))	//Get consent first :^)
 		. = ..()
 		return

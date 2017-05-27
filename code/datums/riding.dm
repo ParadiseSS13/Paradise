@@ -81,7 +81,7 @@
 		return
 	next_vehicle_move = world.time + vehicle_move_delay
 	if(keycheck(user))
-		if(!Process_Spacemove(direction) || !isturf(ridden.loc))
+		if(!ridden.Process_Spacemove(direction) || !isturf(ridden.loc))
 			return
 		step(ridden, direction)
 
@@ -404,6 +404,7 @@
 
 /obj/item/riding_offhand/dropped()
 	selfdeleting = TRUE
+	qdel(src)
 	. = ..()
 
 /obj/item/riding_offhand/equipped()
@@ -416,4 +417,5 @@
 	if(selfdeleting)
 		if(rider in ridden.buckled_mob)
 			ridden.unbuckle_mob(rider)
+			qdel(src)
 	. = ..()
