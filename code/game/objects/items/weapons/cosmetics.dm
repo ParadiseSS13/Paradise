@@ -3,7 +3,7 @@
 	desc = "A generic brand of lipstick."
 	icon = 'icons/obj/items.dmi'
 	icon_state = "lipstick"
-	w_class = 1
+	w_class = WEIGHT_CLASS_TINY
 	var/colour = "red"
 	var/open = 0
 
@@ -86,7 +86,7 @@
 	icon = 'icons/obj/items.dmi'
 	icon_state = "razor"
 	flags = CONDUCT
-	w_class = 1
+	w_class = WEIGHT_CLASS_TINY
 	usesound = 'sound/items/Welder2.ogg'
 	toolspeed = 1
 

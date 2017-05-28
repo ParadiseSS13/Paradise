@@ -298,7 +298,7 @@ var/global/list/datum/stack_recipe/runed_metal_recipes = list ( \
 	desc = "Someone's been drinking their milk."
 	force = 7
 	throwforce = 5
-	w_class = 3
+	w_class = WEIGHT_CLASS_NORMAL
 	throw_speed = 1
 	throw_range = 3
 	origin_tech = "materials=2;biotech=2"

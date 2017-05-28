@@ -4,7 +4,7 @@
 	icon = 'icons/obj/wizard.dmi'
 	icon_state = "scroll"
 	var/uses = 4.0
-	w_class = 2
+	w_class = WEIGHT_CLASS_SMALL
 	item_state = "paper"
 	throw_speed = 4
 	throw_range = 20

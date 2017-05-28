@@ -155,7 +155,7 @@
 	icon = 'icons/obj/lavaland/ash_flora.dmi'
 	icon_state = "mushroom_shavings"
 	list_reagents = list("sugar" = 3, "ethanol" = 2, "stabilizing_agent" = 3, "minttoxin" = 2)
-	w_class = 1
+	w_class = WEIGHT_CLASS_TINY
 
 /obj/item/weapon/reagent_containers/food/snacks/ash_flora/New()
 	..()
@@ -194,7 +194,7 @@
 	desc = "A bowl made out of mushrooms. Not food, though it might have contained some at some point."
 	icon = 'icons/obj/lavaland/ash_flora.dmi'
 	icon_state = "mushroom_bowl"
-	w_class = 2
+	w_class = WEIGHT_CLASS_SMALL
 
 //what you can craft with these things
 /datum/crafting_recipe/mushroom_bowl

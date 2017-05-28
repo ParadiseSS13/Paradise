@@ -5,7 +5,7 @@
 	flags = BLOCK_GAS_SMOKE_EFFECT | AIRTIGHT
 	flags_inv = HIDEEARS|HIDEEYES|HIDEFACE
 	flags_cover = MASKCOVERSMOUTH | MASKCOVERSEYES
-	w_class = 3
+	w_class = WEIGHT_CLASS_NORMAL
 	item_state = "gas_alt"
 	gas_transfer_coefficient = 0.01
 	permeability_coefficient = 0.01
@@ -70,7 +70,7 @@
 	flags = BLOCK_GAS_SMOKE_EFFECT | AIRTIGHT
 	flags_inv = HIDEEARS|HIDEEYES|HIDEFACE
 	flags_cover = MASKCOVERSMOUTH | MASKCOVERSEYES
-	w_class = 3
+	w_class = WEIGHT_CLASS_NORMAL
 	item_state = "bane_mask"
 	gas_transfer_coefficient = 0.01
 	permeability_coefficient = 0.01
@@ -494,4 +494,3 @@
 
 
 // ********************************************************************
-

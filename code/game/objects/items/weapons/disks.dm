@@ -1,5 +1,5 @@
 /obj/item/weapon/disk
 	icon = 'icons/obj/module.dmi'
-	w_class = 1
+	w_class = WEIGHT_CLASS_TINY
 	item_state = "card-id"
 	icon_state = "datadisk0"
