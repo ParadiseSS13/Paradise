@@ -62,7 +62,7 @@
 	flags = null //non-conductive
 	force = 0
 	throwforce = 0
-	w_class = 2 //Fits in boxes.
+	w_class = WEIGHT_CLASS_SMALL //Fits in boxes.
 	materials = list()
 	attack_verb = list("tapped")
 

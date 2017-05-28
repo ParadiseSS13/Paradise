@@ -3,7 +3,7 @@
 /obj/item/organ/internal
 	origin_tech = "biotech=2"
 	force = 1
-	w_class = 2
+	w_class = WEIGHT_CLASS_SMALL
 	throwforce = 0
 	var/zone = "chest"
 	var/slot
@@ -500,7 +500,7 @@
 	desc = "A tiny black mass with red tendrils trailing from it. It seems to shrivel in the light."
 	icon_state = "blacktumor"
 	origin_tech = "biotech=4"
-	w_class = 1
+	w_class = WEIGHT_CLASS_TINY
 	parent_organ = "head"
 	slot = "brain_tumor"
 	health = 3
@@ -532,7 +532,7 @@
 	desc = "A tiny yellow mass shaped like..a banana?"
 	icon_state = "honktumor"
 	origin_tech = "biotech=1"
-	w_class = 1
+	w_class = WEIGHT_CLASS_TINY
 	parent_organ = "head"
 	slot = "brain_tumor"
 	health = 3
@@ -619,7 +619,7 @@
 	desc = "Let they who is worthy wear the beard of Thorbjorndottir."
 	icon_state = "liver"
 	origin_tech = "biotech=1"
-	w_class = 1
+	w_class = WEIGHT_CLASS_TINY
 	parent_organ = "head"
 	slot = "hair_organ"
 

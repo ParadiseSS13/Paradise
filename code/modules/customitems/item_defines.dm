@@ -20,7 +20,7 @@
 	icon_state = "tatgun"
 	force = 0
 	throwforce = 0
-	w_class = 1
+	w_class = WEIGHT_CLASS_TINY
 	var/tattoo_name = "tiger stripe tattoo" // Tat name for visible messages
 	var/tattoo_icon = "Tiger-stripe Tattoo" // body_accessory.dmi, new icons defined in sprite_accessories.dm
 	var/tattoo_r = 1 // RGB values for the body markings
@@ -221,7 +221,7 @@
 	item_state = "lunch_box"
 	force = 5
 	throwforce = 5
-	w_class = 3
+	w_class = WEIGHT_CLASS_NORMAL
 	max_combined_w_class = 9
 	storage_slots = 3
 
@@ -248,7 +248,7 @@
 	hitsound = 'sound/weapons/tap.ogg'
 	force = 0
 	throwforce = 0
-	w_class = 2
+	w_class = WEIGHT_CLASS_SMALL
 	var/used = 0
 
 /obj/item/fluff/wingler_comb/attack_self(mob/user)
@@ -268,7 +268,7 @@
 	desc = "Some sci-fi looking parts for a stun baton."
 	icon = 'icons/obj/custom_items.dmi'
 	icon_state = "scifikit"
-	w_class = 2
+	w_class = WEIGHT_CLASS_SMALL
 
 /obj/item/device/fluff/desolate_baton_kit/afterattack(atom/target, mob/user, proximity)
 	if(!proximity || !ishuman(user) || user.incapacitated())
@@ -293,7 +293,7 @@
 	name = "welding helmet modkit"
 	desc = "Some spraypaint and a stencil, perfect for painting flames onto a welding helmet!"
 	icon_state = "modkit"
-	w_class = 2
+	w_class = WEIGHT_CLASS_SMALL
 	force = 0
 	throwforce = 0
 
@@ -318,7 +318,7 @@
 	name = "plasmaman suit modkit"
 	desc = "A kit containing nanites that are able to modify the look of a plasmaman suit and helmet without exposing the wearer to hostile environments."
 	icon_state = "modkit"
-	w_class = 2
+	w_class = WEIGHT_CLASS_SMALL
 	force = 0
 	throwforce = 0
 
@@ -367,7 +367,7 @@
 	name = "sallet modkit"
 	desc = "A modkit that can make most helmets look like a steel sallet."
 	icon_state = "modkit"
-	w_class = 2
+	w_class = WEIGHT_CLASS_SMALL
 	force = 0
 	throwforce = 0
 

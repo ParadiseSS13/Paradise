@@ -27,7 +27,7 @@
 	desc = "A bulky, heavy-duty piece of exclusive Nanotrasen armor. YOU are in charge!"
 	icon_state = "caparmor"
 	item_state = "capspacesuit"
-	w_class = 4
+	w_class = WEIGHT_CLASS_BULKY
 	allowed = list(/obj/item/weapon/tank, /obj/item/device/flashlight,/obj/item/weapon/gun/energy, /obj/item/weapon/gun/projectile, /obj/item/ammo_box, /obj/item/ammo_casing, /obj/item/weapon/melee/baton,/obj/item/weapon/restraints/handcuffs)
 	armor = list(melee = 40, bullet = 50, laser = 50, energy = 25, bomb = 50, bio = 100, rad = 50)
 	species_restricted = list("exclude", "Diona", "Wryn")
@@ -86,7 +86,7 @@
 	blood_overlay_type = "coat"
 	flags_inv = 0
 	slowdown = 0
-	w_class = 3
+	w_class = WEIGHT_CLASS_NORMAL
 
 //Space santa outfit suit
 /obj/item/clothing/head/helmet/space/santahat
@@ -123,7 +123,7 @@
 	desc = "Yarr."
 	icon_state = "pirate"
 	item_state = "pirate"
-	w_class = 3
+	w_class = WEIGHT_CLASS_NORMAL
 	allowed = list(/obj/item/weapon/gun,/obj/item/ammo_box,/obj/item/ammo_casing,/obj/item/weapon/melee/baton,/obj/item/weapon/restraints/handcuffs,/obj/item/weapon/tank)
 	slowdown = 0
 	armor = list(melee = 30, bullet = 50, laser = 30, energy = 15, bomb = 30, bio = 30, rad = 30)

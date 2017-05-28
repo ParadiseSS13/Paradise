@@ -10,7 +10,7 @@
 	throwforce = 5
 	throw_speed = 2
 	throw_range = 5
-	w_class = 3
+	w_class = WEIGHT_CLASS_NORMAL
 	var/created_name = "Cleanbot"
 
 /obj/item/weapon/bucket_sensor/attackby(obj/item/W, mob/user as mob, params)
@@ -204,7 +204,7 @@
 	throwforce = 10
 	throw_speed = 2
 	throw_range = 5
-	w_class = 3
+	w_class = WEIGHT_CLASS_NORMAL
 	var/created_name = "Floorbot"
 
 /obj/item/weapon/toolbox_tiles_sensor
@@ -216,7 +216,7 @@
 	throwforce = 10
 	throw_speed = 2
 	throw_range = 5
-	w_class = 3
+	w_class = WEIGHT_CLASS_NORMAL
 	var/created_name = "Floorbot"
 
 /obj/item/weapon/storage/toolbox/mechanical/attackby(obj/item/stack/tile/plasteel/T, mob/user, params)
@@ -286,7 +286,7 @@
 	var/build_step = 0
 	var/created_name = "Medibot" //To preserve the name if it's a unique medbot I guess
 	var/skin = null //Same as medbot, set to tox or ointment for the respective kits.
-	w_class = 3
+	w_class = WEIGHT_CLASS_NORMAL
 	var/treatment_brute = "salglu_solution"
 	var/treatment_oxy = "salbutamol"
 	var/treatment_fire = "salglu_solution"
