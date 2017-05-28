@@ -183,14 +183,14 @@
  */
 /obj/structure/m_tray
 	name = "morgue tray"
-	desc = "Apply corpse before closing."
+	desc = "Apply corpse before closing. May float away in no-gravity."
 	icon = 'icons/obj/stationobjs.dmi'
 	icon_state = "morguet"
 	density = 1
 	layer = 2.0
 	var/obj/structure/morgue/connected = null
 	anchored = 1.0
-	throwpass = 1
+	pass_flags = LETPASSTHROW
 
 
 /obj/structure/m_tray/attack_hand(mob/user as mob)
@@ -432,7 +432,7 @@
 	layer = 2.0
 	var/obj/structure/crematorium/connected = null
 	anchored = 1.0
-	throwpass = 1
+	pass_flags = LETPASSTHROW
 
 /obj/structure/c_tray/attack_hand(mob/user as mob)
 	if(connected)

@@ -317,3 +317,6 @@ a {
 		Item.forceMove(new_loc)
 		if(burn)
 			Item.fire_act() //Set them on fire, too
+
+/obj/proc/on_mob_move(dir, mob/user)
+	return

@@ -2,13 +2,11 @@
 	mob_list -= src
 	dead_mob_list -= src
 	living_mob_list -= src
-	qdel(hud_used)
-	hud_used = null
+	QDEL_NULL(hud_used)
 	if(mind && mind.current == src)
 		spellremove(src)
 	mobspellremove(src)
-	for(var/infection in viruses)
-		qdel(infection)
+	QDEL_LIST(viruses)
 	ghostize()
 	for(var/mob/dead/observer/M in following_mobs)
 		M.following = null
@@ -426,7 +424,7 @@ var/list/slot_equipment_priority = list( \
 					return 0
 				if(slot_flags & SLOT_DENYPOCKET)
 					return
-				if( w_class <= 2 || (slot_flags & SLOT_POCKET) )
+				if( w_class <= WEIGHT_CLASS_SMALL || (slot_flags & SLOT_POCKET) )
 					return 1
 			if(slot_r_store)
 				if(H.r_store)
@@ -437,7 +435,7 @@ var/list/slot_equipment_priority = list( \
 					return 0
 				if(slot_flags & SLOT_DENYPOCKET)
 					return 0
-				if( w_class <= 2 || (slot_flags & SLOT_POCKET) )
+				if( w_class <= WEIGHT_CLASS_SMALL || (slot_flags & SLOT_POCKET) )
 					return 1
 				return 0
 			if(slot_s_store)
@@ -449,7 +447,7 @@ var/list/slot_equipment_priority = list( \
 					if(!disable_warning)
 						to_chat(usr, "You somehow have a suit with no defined allowed items for suit storage, stop that.")
 					return 0
-				if(src.w_class > 4)
+				if(src.w_class > WEIGHT_CLASS_BULKY)
 					if(!disable_warning)
 						to_chat(usr, "The [name] is too big to attach.")
 					return 0
@@ -1010,9 +1008,10 @@ var/list/slot_equipment_priority = list( \
 	drop_l_hand()
 	drop_r_hand()
 
-/mob/proc/facedir(var/ndir)
-	if(!canface())	return 0
-	dir = ndir
+/mob/proc/facedir(ndir)
+	if(!canface())
+		return 0
+	setDir(ndir)
 	client.move_delay += movement_delay()
 	return 1
 

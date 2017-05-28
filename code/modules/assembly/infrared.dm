@@ -16,8 +16,7 @@
 
 /obj/item/device/assembly/infra/Destroy()
 	if(first)
-		qdel(first)
-		first = null
+		QDEL_NULL(first)
 		last = null
 		fire_location = null
 	return ..()

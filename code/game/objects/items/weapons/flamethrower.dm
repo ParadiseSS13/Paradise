@@ -11,7 +11,7 @@
 	throwforce = 10.0
 	throw_speed = 1
 	throw_range = 5
-	w_class = 3
+	w_class = WEIGHT_CLASS_NORMAL
 	materials = list(MAT_METAL=500)
 	origin_tech = "combat=1;plasmatech=1"
 	var/status = 0

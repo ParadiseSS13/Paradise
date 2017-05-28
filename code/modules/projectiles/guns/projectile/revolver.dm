@@ -270,7 +270,7 @@
 	desc = "A true classic."
 	icon_state = "dshotgun"
 	item_state = "shotgun"
-	w_class = 4
+	w_class = WEIGHT_CLASS_BULKY
 	force = 10
 	flags = CONDUCT
 	slot_flags = SLOT_BACK
@@ -325,7 +325,7 @@
 	desc = "Essentially a tube that aims shotgun shells."
 	icon_state = "ishotgun"
 	item_state = "shotgun"
-	w_class = 4
+	w_class = WEIGHT_CLASS_BULKY
 	force = 10
 	slot_flags = null
 	origin_tech = "combat=2;materials=2"
@@ -373,7 +373,7 @@
 	icon_state = "cane"
 	item_state = "stick"
 	sawn_state = SAWN_OFF
-	w_class = 2
+	w_class = WEIGHT_CLASS_SMALL
 	force = 10
 	can_unsuppress = 0
 	slot_flags = null

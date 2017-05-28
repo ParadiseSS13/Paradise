@@ -141,7 +141,7 @@
 	name = "pewter cup"
 	desc = "Everyone gets a trophy."
 	icon_state = "pewter_cup"
-	w_class = 1
+	w_class = WEIGHT_CLASS_TINY
 	force = 1
 	throwforce = 1
 	amount_per_transfer_from_this = 5
@@ -154,7 +154,7 @@
 	name = "gold cup"
 	desc = "You're winner!"
 	icon_state = "golden_cup"
-	w_class = 4
+	w_class = WEIGHT_CLASS_BULKY
 	force = 14
 	throwforce = 10
 	amount_per_transfer_from_this = 20
@@ -165,7 +165,7 @@
 	name = "silver cup"
 	desc = "Best loser!"
 	icon_state = "silver_cup"
-	w_class = 3
+	w_class = WEIGHT_CLASS_NORMAL
 	force = 10
 	throwforce = 8
 	amount_per_transfer_from_this = 15
@@ -176,7 +176,7 @@
 	name = "bronze cup"
 	desc = "At least you ranked!"
 	icon_state = "bronze_cup"
-	w_class = 2
+	w_class = WEIGHT_CLASS_SMALL
 	force = 5
 	throwforce = 4
 	amount_per_transfer_from_this = 10
@@ -349,4 +349,4 @@
 	desc = "A bowl made out of mushrooms. Not food, though it might have contained some at some point."
 	icon = 'icons/obj/lavaland/ash_flora.dmi'
 	icon_state = "mushroom_bowl"
-	w_class = 2
+	w_class = WEIGHT_CLASS_SMALL

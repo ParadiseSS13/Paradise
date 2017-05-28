@@ -7,7 +7,7 @@
 	icon_state = "trade_card"
 	force = 0
 	throwforce = 1
-	w_class = 1
+	w_class = WEIGHT_CLASS_TINY
 	var/datum/mob_hunt/mob_data
 
 /obj/item/weapon/nanomob_card/proc/update_info()

@@ -7,7 +7,7 @@
 	flags = CONDUCT
 	slot_flags = SLOT_BACK
 	hitsound = 'sound/weapons/smash.ogg'
-	w_class = 3
+	w_class = WEIGHT_CLASS_NORMAL
 
 	pressure_resistance = ONE_ATMOSPHERE*5
 

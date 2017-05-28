@@ -123,7 +123,6 @@
 
 //Attempt to eat things we bump into, Mobs, Walls, Clowns
 /mob/living/simple_animal/hostile/spaceWorm/wormHead/Bump(atom/obstacle)
-
 	attemptToEat(obstacle)
 
 //Attempt to eat things, only the head can eat

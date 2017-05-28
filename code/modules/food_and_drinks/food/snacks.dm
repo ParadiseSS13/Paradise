@@ -130,7 +130,7 @@
 			istype(W, /obj/item/weapon/hatchet) \
 		)
 		inaccurate = 1
-	else if(W.w_class <= 2 && istype(src,/obj/item/weapon/reagent_containers/food/snacks/sliceable))
+	else if(W.w_class <= WEIGHT_CLASS_SMALL && istype(src,/obj/item/weapon/reagent_containers/food/snacks/sliceable))
 		if(!iscarbon(user))
 			return 1
 		to_chat(user, "<span class='warning'>You slip [W] inside [src].</span>")

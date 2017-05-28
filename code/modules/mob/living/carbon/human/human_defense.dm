@@ -313,85 +313,37 @@ emp_act
 	return 1*/
 
 //this proc handles being hit by a thrown atom
-/mob/living/carbon/human/hitby(atom/movable/AM as mob|obj,var/speed = 5)
+/mob/living/carbon/human/hitby(atom/movable/AM, skipcatch = 0, hitpush = 1, blocked = 0)
+	var/obj/item/I
+	var/throwpower = 30
 	if(istype(AM, /obj/item))
-		var/obj/item/I = AM
-
-		if(in_throw_mode && !get_active_hand() && speed <= 5)	//empty active hand and we're in throw mode
-			if(canmove && !restrained())
-				if(isturf(I.loc))
-					put_in_active_hand(I)
-					visible_message("<span class='warning'>[src] catches [I]!</span>")
-					throw_mode_off()
-					return
-
-		var/zone = ran_zone("chest", 65)
-		var/dtype = BRUTE
-		if(istype(I, /obj/item/weapon))
-			var/obj/item/weapon/W = I
-			dtype = W.damtype
-		var/throw_damage = I.throwforce*(speed/5)
-
-		I.throwing = 0		//it hit, so stop moving
-
-		if((I.thrower != src) && check_shields(throw_damage, "\the [I.name]", I, THROWN_PROJECTILE_ATTACK))
-			return
-
-		var/obj/item/organ/external/affecting = get_organ(zone)
-		if(!affecting)
-			var/missverb = (I.gender == PLURAL) ? "whizz" : "whizzes"
-			visible_message("<span class='notice'>\The [I] [missverb] past [src]'s missing [parse_zone(zone)]!</span>",
-				"<span class='notice'>\The [I] [missverb] past your missing [parse_zone(zone)]!</span>")
-			return
-		var/hit_area = affecting.name
-
-		src.visible_message("<span class='warning'>[src] has been hit in the [hit_area] by [I].</span>")
-		var/armor = run_armor_check(affecting, "melee", "Your armor has protected your [hit_area].", "Your armor has softened hit to your [hit_area].", I.armour_penetration) //I guess "melee" is the best fit here
-
-		apply_damage(throw_damage, dtype, zone, armor, is_sharp(I), has_edge(I), I)
-
-		if(ismob(I.thrower))
-			var/mob/M = I.thrower
-			if(M)
-				add_logs(M, src, "hit", I, " (thrown)", print_attack_log = I.throwforce)
-
-		//thrown weapon embedded object code.
-		if(dtype == BRUTE && istype(I))
+		I = AM
+		throwpower = I.throwforce
+		if(I.thrownby == src) //No throwing stuff at yourself to trigger reactions
+			return ..()
+	if(check_shields(throwpower, "\the [AM.name]", AM, THROWN_PROJECTILE_ATTACK))
+		hitpush = 0
+		skipcatch = 1
+		blocked = 1
+	/*else if(I)
+		if(I.throw_speed >= EMBED_THROWSPEED_THRESHOLD)
 			if(!I.is_robot_module())
+				var/armor = run_armor_check(affecting, "melee", "Your armor has protected your [hit_area].", "Your armor has softened hit to your [hit_area].", I.armour_penetration) //I guess "melee" is the best fit here
 				var/sharp = is_sharp(I)
-				var/damage = throw_damage
+				var/damage = throwpower * (I.throw_speed / 5)
 				if(armor)
-					damage /= armor+1
+					damage /= armor + 1
 
 				//blunt objects should really not be embedding in things unless a huge amount of force is involved
-				var/embed_chance = sharp? damage/I.w_class : damage/(I.w_class*3)
-				var/embed_threshold = sharp? 5*I.w_class : 15*I.w_class
+				var/embed_chance = sharp? damage / I.w_class : damage/(I.w_class * 3)
+				var/embed_threshold = sharp? 5 * I.w_class : 15 * I.w_class
 
 				//Sharp objects will always embed if they do enough damage.
 				//Thrown sharp objects have some momentum already and have a small chance to embed even if the damage is below the threshold
-				if(((sharp && prob(damage/(10*I.w_class)*100)) || (damage > embed_threshold && prob(embed_chance))) && (I.no_embed == 0))
-					affecting.embed(I)
 
-		// Begin BS12 momentum-transfer code.
-		if(I.throw_source && speed >= 15)
-			var/obj/item/weapon/W = I
-			var/momentum = speed/2
-			var/dir = get_dir(I.throw_source, src)
-
-			visible_message("<span class='warning'>[src] staggers under the impact!</span>","<span class='warning'>You stagger under the impact!</span>")
-			src.throw_at(get_edge_target_turf(src,dir),1,momentum)
-
-			if(!W || !src) return
-
-			if(W.loc == src && W.sharp) //Projectile is embedded and suitable for pinning.
-				var/turf/T = near_wall(dir,2)
-
-				if(T)
-					src.loc = T
-					visible_message("<span class='warning'>[src] is pinned to the wall by [I]!</span>","<span class='warning'>You are pinned to the wall by [I]!</span>")
-					src.anchored = 1
-					src.pinned += I
-
+				if(((sharp && prob(damage / (10 * I.w_class) * 100)) || (damage > embed_threshold && prob(embed_chance))) && (I.no_embed == 0))
+					affecting.embed(I)*/
+	return ..()
 
 /mob/living/carbon/human/proc/bloody_hands(var/mob/living/source, var/amount = 2)
 

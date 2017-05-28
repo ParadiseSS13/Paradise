@@ -13,8 +13,6 @@ var/list/sleptDestroy = list()	//Same as above but these are paths that slept du
 
 var/list/noqdelhint = list()    // list of all types that do not return a QDEL_HINT
 
-var/global/datum/controller/process/garbage_collector/garbageCollector
-
 // The time a datum was destroyed by the GC, or null if it hasn't been
 /datum/var/gcDestroyed
 // Whether a datum was hard-deleted by the GC; 0 if not, 1 if it was queued, -1 if directly deleted

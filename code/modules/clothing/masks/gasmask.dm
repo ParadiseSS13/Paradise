@@ -5,18 +5,19 @@
 	flags = BLOCK_GAS_SMOKE_EFFECT | AIRTIGHT
 	flags_inv = HIDEEARS|HIDEEYES|HIDEFACE
 	flags_cover = MASKCOVERSMOUTH | MASKCOVERSEYES
-	w_class = 3
+	w_class = WEIGHT_CLASS_NORMAL
 	item_state = "gas_alt"
 	gas_transfer_coefficient = 0.01
 	permeability_coefficient = 0.01
 	burn_state = FIRE_PROOF
-	species_fit = list("Vox", "Unathi", "Tajaran", "Vulpkanin")
+	species_fit = list("Vox", "Unathi", "Tajaran", "Vulpkanin", "Grey")
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/species/vox/mask.dmi',
 		"Unathi" = 'icons/mob/species/unathi/mask.dmi',
 		"Tajaran" = 'icons/mob/species/tajaran/mask.dmi',
 		"Vulpkanin" = 'icons/mob/species/vulpkanin/mask.dmi',
-		"Drask" = 'icons/mob/species/drask/mask.dmi'
+		"Drask" = 'icons/mob/species/drask/mask.dmi',
+		"Grey" = 'icons/mob/species/grey/mask.dmi'
 		)
 
 // **** Welding gas mask ****
@@ -69,7 +70,7 @@
 	flags = BLOCK_GAS_SMOKE_EFFECT | AIRTIGHT
 	flags_inv = HIDEEARS|HIDEEYES|HIDEFACE
 	flags_cover = MASKCOVERSMOUTH | MASKCOVERSEYES
-	w_class = 3
+	w_class = WEIGHT_CLASS_NORMAL
 	item_state = "bane_mask"
 	gas_transfer_coefficient = 0.01
 	permeability_coefficient = 0.01
@@ -493,4 +494,3 @@
 
 
 // ********************************************************************
-

@@ -291,7 +291,6 @@
 			user.visible_message("[user] places [I] into [case]!", "<span class='notice'>You place [I] into [case].</span>")
 		else
 			qdel(I)
-		//target.sec_hud_set_implants()
 		return 1
 	else
 		user.visible_message("<span class='notice'> [user] could not find anything inside [target]'s [affected.name], and pulls \the [tool] out.</span>", \

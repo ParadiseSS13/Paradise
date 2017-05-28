@@ -6,6 +6,7 @@
 	spawn_positions = 1
 	is_engineering = 1
 	supervisors = "the captain"
+	department_head = list("Captain")
 	selection_color = "#ffeeaa"
 	req_admin_notify = 1
 	access = list(access_engine, access_engine_equip, access_tech_storage, access_maint_tunnels,
@@ -52,6 +53,7 @@
 	spawn_positions = 5
 	is_engineering = 1
 	supervisors = "the chief engineer"
+	department_head = list("Chief Engineer")
 	selection_color = "#fff5cc"
 	access = list(access_eva, access_engine, access_engine_equip, access_tech_storage, access_maint_tunnels, access_external_airlocks, access_construction, access_atmospherics, access_mineral_storeroom)
 	minimal_access = list(access_eva, access_engine, access_engine_equip, access_tech_storage, access_maint_tunnels, access_external_airlocks, access_construction, access_mineral_storeroom)
@@ -89,6 +91,7 @@
 	spawn_positions = 2
 	is_engineering = 1
 	supervisors = "the chief engineer"
+	department_head = list("Chief Engineer")
 	selection_color = "#fff5cc"
 	access = list(access_eva, access_engine, access_engine_equip, access_tech_storage, access_maint_tunnels, access_external_airlocks, access_construction, access_atmospherics, access_mineral_storeroom)
 	minimal_access = list(access_eva, access_atmospherics, access_maint_tunnels, access_external_airlocks, access_emergency_storage, access_construction, access_mineral_storeroom)
@@ -119,6 +122,7 @@
 	spawn_positions = 1
 	is_engineering = 1
 	supervisors = "the chief engineer"
+	department_head = list("Chief Engineer")
 	selection_color = "#fff5cc"
 	access = list(access_engine, access_engine_equip, access_tech_storage, access_maint_tunnels, access_mechanic, access_external_airlocks, access_mineral_storeroom)
 	minimal_access = list(access_maint_tunnels, access_emergency_storage, access_mechanic, access_external_airlocks, access_mineral_storeroom)

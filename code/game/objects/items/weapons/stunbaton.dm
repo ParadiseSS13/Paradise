@@ -7,7 +7,7 @@
 	slot_flags = SLOT_BELT
 	force = 10
 	throwforce = 7
-	w_class = 3
+	w_class = WEIGHT_CLASS_NORMAL
 	origin_tech = "combat=2"
 	attack_verb = list("beaten")
 	var/stunforce = 7
@@ -190,7 +190,7 @@
 	icon_state = "stunprod_nocell"
 	base_icon = "stunprod"
 	item_state = "prod"
-	w_class = 3
+	w_class = WEIGHT_CLASS_NORMAL
 	force = 3
 	throwforce = 5
 	stunforce = 5

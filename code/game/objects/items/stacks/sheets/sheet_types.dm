@@ -154,6 +154,7 @@ var/global/list/datum/stack_recipe/wood_recipes = list(
 	new /datum/stack_recipe("wooden chair", /obj/structure/stool/bed/chair/wood/normal, 3, time = 10, one_per_turf = 1, on_floor = 1),
 	new /datum/stack_recipe("wooden barricade", /obj/structure/barricade/wooden, 5, time = 50, one_per_turf = 1, on_floor = 1),
 	new /datum/stack_recipe("bookcase", /obj/structure/bookcase, 5, time = 50, one_per_turf = 1, on_floor = 1),
+	new /datum/stack_recipe("dresser", /obj/structure/dresser, 30, time = 50, one_per_turf = 1, on_floor = 1),
 	new /datum/stack_recipe("drying rack", /obj/machinery/smartfridge/drying_rack, 10, time = 15, one_per_turf = 1, on_floor = 1),
 	new /datum/stack_recipe("dog bed", /obj/structure/stool/bed/dogbed, 10, time = 10, one_per_turf = 1, on_floor = 1), \
 	new /datum/stack_recipe("rifle stock", /obj/item/weaponcrafting/stock, 10, time = 40),
@@ -297,7 +298,7 @@ var/global/list/datum/stack_recipe/runed_metal_recipes = list ( \
 	desc = "Someone's been drinking their milk."
 	force = 7
 	throwforce = 5
-	w_class = 3
+	w_class = WEIGHT_CLASS_NORMAL
 	throw_speed = 1
 	throw_range = 3
 	origin_tech = "materials=2;biotech=2"

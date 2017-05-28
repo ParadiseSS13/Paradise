@@ -1,9 +1,9 @@
 /obj/item/weapon/storage/hidden/implant
 	name = "bluespace pocket"
 	storage_slots = 2
-	max_w_class = 3
-	max_combined_w_class = 6
-	w_class = 4
+	max_w_class = WEIGHT_CLASS_NORMAL
+	max_combined_w_class = WEIGHT_CLASS_GIGANTIC
+	w_class = WEIGHT_CLASS_BULKY
 	cant_hold = list(/obj/item/weapon/disk/nuclear)
 	silent = 1
 

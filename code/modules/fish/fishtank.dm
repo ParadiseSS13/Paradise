@@ -11,7 +11,7 @@
 	icon_state = "tank1"
 	density = 0
 	anchored = 0
-	throwpass = 0
+	pass_flags = 0
 
 	var/tank_type = ""			// Type of aquarium, used for icon updating
 	var/water_capacity = 0		// Number of units the tank holds (varies with tank type)
@@ -38,8 +38,7 @@
 	icon_state = "bowl1"
 	density = 0					// Small enough to not block stuff
 	anchored = 0				// Small enough to move even when filled
-	throwpass = 1				// Just like at the county fair, you can't seem to throw the ball in to win the goldfish
-	pass_flags = PASSTABLE		// Small enough to pull onto a table
+	pass_flags = PASSTABLE | LETPASSTHROW // Just like at the county fair, you can't seem to throw the ball in to win the goldfish, and it's small enough to pull onto a table
 
 	tank_type = "bowl"
 	water_capacity = 50			// Not very big, therefore it can't hold much
@@ -57,7 +56,7 @@
 	icon_state = "tank1"
 	density = 1
 	anchored = 1
-	throwpass = 1				// You can throw objects over this, despite it's density, because it's short enough.
+	pass_flags = LETPASSTHROW
 
 	tank_type = "tank"
 	water_capacity = 200		// Decent sized, holds almost 2 full buckets
@@ -75,7 +74,7 @@
 	icon_state = "wall1"
 	density = 1
 	anchored = 1
-	throwpass = 0				// This thing is the size of a wall, you can't throw past it.
+	pass_flags = 0				// This thing is the size of a wall, you can't throw past it.
 
 	tank_type = "wall"
 	water_capacity = 500		// This thing fills an entire tile, it holds a lot.
