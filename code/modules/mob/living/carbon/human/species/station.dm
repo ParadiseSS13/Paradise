@@ -273,7 +273,7 @@
 
 	atmos_requirements = list(
 		"min_oxy" = 0,
-		"max_oxy" = 1,
+		"max_oxy" = 0.005,
 		"min_nitro" = 16,
 		"max_nitro" = 0,
 		"min_tox" = 0,
@@ -453,6 +453,19 @@
 
 	tail = "armalis_tail"
 	icon_template = 'icons/mob/human_races/r_armalis.dmi'
+
+	atmos_requirements = list(
+		"min_oxy" = 0,
+		"max_oxy" = 1,
+		"min_nitro" = 16,
+		"max_nitro" = 0,
+		"min_tox" = 0,
+		"max_tox" = 0.005,
+		"min_co2" = 0,
+	 	"max_co2" = 10,
+	 	"sa_para" = 1,
+		"sa_sleep" = 5
+		)
 
 	has_organ = list(
 		"heart" =    /obj/item/organ/internal/heart,
