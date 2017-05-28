@@ -15,6 +15,9 @@
 	alien_organs += new /obj/item/organ/internal/xenos/resinspinner
 	..()
 
+/mob/living/carbon/alien/humanoid/drone/movement_delay()
+	. = ..()
+
 //Drones use the same base as generic humanoids.
 //Drone verbs
 

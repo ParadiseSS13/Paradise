@@ -1008,9 +1008,10 @@ var/list/slot_equipment_priority = list( \
 	drop_l_hand()
 	drop_r_hand()
 
-/mob/proc/facedir(var/ndir)
-	if(!canface())	return 0
-	dir = ndir
+/mob/proc/facedir(ndir)
+	if(!canface())
+		return 0
+	setDir(ndir)
 	client.move_delay += movement_delay()
 	return 1
 

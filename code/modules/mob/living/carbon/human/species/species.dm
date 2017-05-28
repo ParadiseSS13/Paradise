@@ -380,6 +380,72 @@
 			if(heat_level_3_breathe to INFINITY)
 				H.apply_damage(hot_env_multiplier*HEAT_GAS_DAMAGE_LEVEL_3, BURN, "head", used_weapon = "Excessive Heat")
 
+////////////////
+// MOVE SPEED //
+////////////////
+
+/datum/species/proc/movement_delay(mob/living/carbon/human/H)
+	. = 0	//We start at 0.
+	var/flight = 0	//Check for flight and flying items
+	var/ignoreslow = 0
+	var/gravity = 0
+
+	if(H.flying)
+		flight = 1
+
+	if((H.status_flags & IGNORESLOWDOWN) || (RUN in H.mutations))
+		ignoreslow = 1
+
+	if(has_gravity(H))
+		gravity = 1
+
+	if(H.embedded_flag)
+		H.handle_embedded_objects() //Moving with objects stuck in you can cause bad times.
+
+	if(!ignoreslow && gravity)
+		if(slowdown)
+			. = slowdown
+
+		if(H.wear_suit)
+			. += H.wear_suit.slowdown
+		if(!H.buckled)
+			if(H.shoes)
+				. += H.shoes.slowdown
+		if(H.back)
+			. += H.back.slowdown
+		if(H.l_hand && (H.l_hand.flags & HANDSLOW))
+			. += H.l_hand.slowdown
+		if(H.r_hand && (H.r_hand.flags & HANDSLOW))
+			. += H.r_hand.slowdown
+
+		var/health_deficiency = (H.maxHealth - H.health + H.staminaloss)
+		var/hungry = (500 - H.nutrition)/5 // So overeat would be 100 and default level would be 80
+		if(H.reagents)
+			for(var/datum/reagent/R in H.reagents.reagent_list)
+				if(R.shock_reduction)
+					health_deficiency -= R.shock_reduction
+		if(health_deficiency >= 40)
+			if(flight)
+				. += (health_deficiency / 75)
+			else
+				. += (health_deficiency / 25)
+		if(H.shock_stage >= 10)
+			. += 3
+		. += 2 * H.stance_damage //damaged/missing feet or legs is slow
+
+		if((hungry >= 70) && !flight)
+			. += hungry/50
+		if(FAT in H.mutations)
+			. += (1.5 - flight)
+		if(H.bodytemperature < BODYTEMP_COLD_DAMAGE_LIMIT)
+			. += (BODYTEMP_COLD_DAMAGE_LIMIT - H.bodytemperature) / COLD_SLOWDOWN_FACTOR
+
+		if(H.status_flags & GOTTAGOFAST)
+			. -= 1
+		if(H.status_flags & GOTTAGOREALLYFAST)
+			. -= 2
+	return .
+
 /datum/species/proc/handle_post_spawn(var/mob/living/carbon/C) //Handles anything not already covered by basic species assignment.
 	grant_abilities(C)
 	return

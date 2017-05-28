@@ -82,6 +82,7 @@
 
 	var/current_pda_messaging = null
 	var/custom_sprite = 0
+	var/slowdown = 0
 
 /mob/living/silicon/pai/New(var/obj/item/device/paicard)
 	loc = paicard
@@ -116,6 +117,19 @@
 		var/datum/data/pda/app/chatroom/C = pda.find_program(/datum/data/pda/app/chatroom)
 		C.toff = 1
 	..()
+
+/mob/living/silicon/pai/movement_delay()
+	. = ..()
+	. += slowdown
+	. += 1 //A bit slower than humans, so they're easier to smash
+
+/mob/living/silicon/pai/Process_Spacemove(movement_dir = 0)
+	. = ..()
+	if(!.)
+		slowdown = 2
+		return TRUE
+	slowdown = initial(slowdown)
+	return TRUE
 
 /mob/living/silicon/pai/update_icons()
 	if(stat == DEAD)

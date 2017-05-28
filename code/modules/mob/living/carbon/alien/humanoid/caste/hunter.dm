@@ -13,6 +13,10 @@
 	alien_organs += new /obj/item/organ/internal/xenos/plasmavessel/hunter
 	..()
 
+/mob/living/carbon/alien/humanoid/hunter/movement_delay()
+	. = -1		//hunters are sanic
+	. += ..()	//but they still need to slow down on stun
+
 /mob/living/carbon/alien/humanoid/hunter/handle_regular_hud_updates()
 	..() //-Yvarov
 
