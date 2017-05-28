@@ -71,7 +71,7 @@
 /datum/gear/uniform/skirt/job/phys
 	display_name = "skirt, physician"
 	path = /obj/item/clothing/under/rank/security/brigphys/skirt
-	allowed_roles = list("Brig Physician" , "Chief Medical Officer")
+	allowed_roles = list("Brig Physician")
 
 /datum/gear/uniform/skirt/job/sci
 	display_name = "skirt, scientist"
