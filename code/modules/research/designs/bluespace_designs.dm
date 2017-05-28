@@ -66,7 +66,7 @@
 	build_path = /obj/item/weapon/storage/bag/ore/holding
 	category = list("Bluespace")
 
-/datum/design/miningsatchel_holding
+/datum/design/plantbag_holding
 	name = "Plant Bag of Holding"
 	desc = "A plant bag that can hold an infinite amount of plants."
 	id = "plantbag_holding"
