@@ -919,7 +919,6 @@
 
 /mob/living/movement_delay(ignorewalk = 0)
 	. = ..()
-
 	if(isturf(loc))
 		var/turf/T = loc
 		. += T.slowdown
