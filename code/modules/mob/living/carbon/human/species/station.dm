@@ -273,7 +273,7 @@
 
 	atmos_requirements = list(
 		"min_oxy" = 0,
-		"max_oxy" = 0.005,
+		"max_oxy" = 0.75,
 		"min_nitro" = 16,
 		"max_nitro" = 0,
 		"min_tox" = 0,
