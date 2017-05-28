@@ -7,7 +7,7 @@
 	flags_cover = MASKCOVERSMOUTH | MASKCOVERSEYES
 	w_class = 3
 	item_state = "gas_alt"
-	gas_transfer_coefficient = 0.01
+	gas_transfer_coefficient = 0
 	permeability_coefficient = 0.01
 	burn_state = FIRE_PROOF
 	species_fit = list("Vox", "Unathi", "Tajaran", "Vulpkanin", "Grey")
@@ -72,7 +72,7 @@
 	flags_cover = MASKCOVERSMOUTH | MASKCOVERSEYES
 	w_class = 3
 	item_state = "bane_mask"
-	gas_transfer_coefficient = 0.01
+	gas_transfer_coefficient = 0
 	permeability_coefficient = 0.01
 
 
@@ -494,4 +494,3 @@
 
 
 // ********************************************************************
-

@@ -274,6 +274,7 @@
 		environment = loc.return_air()
 
 	var/datum/gas_mixture/breath
+	var/datum/gas_mixture/internal_breath
 
 	if(health <= config.health_threshold_crit)
 		AdjustLoseBreath(1)
@@ -286,26 +287,42 @@
 			var/obj/loc_as_obj = loc
 			loc_as_obj.handle_internal_lifeform(src, 0)
 	else
-		breath = get_breath_from_internal(BREATH_VOLUME)
+		internal_breath = get_breath_from_internal(BREATH_VOLUME)
+		var/moles_leaked = 0
 
-		if(!breath)
-			if(isobj(loc)) //Breathe from loc as object
-				var/obj/loc_as_obj = loc
-				breath = loc_as_obj.handle_internal_lifeform(src, BREATH_MOLES)
+		if(internal_breath && !(head && head.flags & STOPSPRESSUREDMAGE))
+			var/gas_transfer_coefficient = wear_mask.gas_transfer_coefficient
+			var/percent_leaked = gas_transfer_coefficient / (1 - gas_transfer_coefficient)
+			moles_leaked = internal_breath.total_moles() * percent_leaked
 
-			else if(isturf(loc)) //Breathe from loc as turf
-				var/breath_moles = 0
-				if(environment)
-					breath_moles = environment.total_moles()*BREATH_PERCENTAGE
+		if(isobj(loc)) //Breathe from loc as object
+			var/obj/loc_as_obj = loc
+			breath = loc_as_obj.handle_internal_lifeform(src, internal_breath ? moles_leaked : BREATH_MOLES)
+			if(breath)
+				breath.merge(internal_breath)
+			else
+				if(internal_breath)
+					breath = internal_breath
 
-				breath = loc.remove_air(breath_moles)
+		else if(isturf(loc)) //Breathe from loc as turf
+			var/breath_moles = 0
+			if(environment)
+				breath_moles = environment.total_moles()*BREATH_PERCENTAGE
 
-				if(!is_lung_ruptured())																					// THIS FUCKING EXCERPT, THIS LITTLE FUCKING EXCERPT, SNOWFLAKED
-					if(!breath || breath.total_moles() < BREATH_MOLES / 5 || breath.total_moles() > BREATH_MOLES * 5)	// RIGHT IN THE CENTER OF THE FUCKING BREATHE PROC
-						if(prob(5))																						// IT IS THE ONLY FUCKING REASONS HUMAN OVERRIDE breathe()
-							rupture_lung()																				// GOD FUCKING DAMNIT
+			breath = loc.remove_air(internal_breath ? moles_leaked : breath_moles)
 
-		else //Breathe from loc as obj again
+			if(breath)
+				breath.merge(internal_breath)
+			else
+				if(internal_breath)
+					breath = internal_breath
+
+			if(!is_lung_ruptured())																					// THIS FUCKING EXCERPT, THIS LITTLE FUCKING EXCERPT, SNOWFLAKED
+				if(!breath || breath.total_moles() < BREATH_MOLES / 5 || breath.total_moles() > BREATH_MOLES * 5)	// RIGHT IN THE CENTER OF THE FUCKING BREATHE PROC
+					if(prob(5))																						// IT IS THE ONLY FUCKING REASONS HUMAN OVERRIDE breathe()
+						rupture_lung()																				// GOD FUCKING DAMNIT
+
+		if(internal_breath) //Breathe from loc as obj again
 			if(istype(loc, /obj/))
 				var/obj/loc_as_obj = loc
 				loc_as_obj.handle_internal_lifeform(src,0)
@@ -345,10 +362,16 @@
 		if(null_internals) //something wants internals gone
 			internal = null //so do it
 
-
-	if(internal) //check for hud updates every time this is called
+	if(internal)
 		update_internals_hud_icon(1)
-		return internal.remove_air_volume(volume_needed) //returns the valid air
+		var/datum/gas_mixture/breath
+		var/datum/gas_mixture/breath_lost
+		var/gas_transfer_coefficient = wear_mask.gas_transfer_coefficient
+		breath = internal.remove_air_volume(volume_needed)
+		if(breath && gas_transfer_coefficient > 0)
+			breath_lost = breath.remove_ratio(gas_transfer_coefficient)
+			loc.assume_air(breath_lost)
+		return breath
 	else
 		update_internals_hud_icon(0)
 
