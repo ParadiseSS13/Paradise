@@ -587,7 +587,6 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 		var/name = initial(O.name)
 		if(name != "Naked")
 			choices[initial(O.name)] = type
-
 	var/dostrip = 0
 	switch(alert("Strip [M] before dressing?", "Strip?", "Yes", "No", "Cancel"))
 		if("Yes")

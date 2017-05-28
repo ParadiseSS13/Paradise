@@ -59,3 +59,37 @@
 /obj/item/weapon/implanter/storage/New()
 	imp = new /obj/item/weapon/implant/storage(src)
 	..()
+
+//
+
+/obj/item/weapon/implanter/storageninja
+	name = "implanter (ninja storage)"
+
+/obj/item/weapon/implanter/storageninja/New()
+	imp = new /obj/item/weapon/implant/storage/ninja(src)
+	..()
+
+/obj/item/weapon/implant/storage/ninja
+	name = "storage implant"
+	desc = "Stores items in a bluespace pocket."
+	icon_state = "storage"
+	origin_tech = "materials=2;magnets=4;bluespace=4;syndicate=4"
+	item_color = "r"
+	storage = /obj/item/weapon/storage/hidden/implant/ninja
+
+/obj/item/weapon/implant/storage/ninja/New()
+	..()
+	qdel(storage)
+	storage = new /obj/item/weapon/storage/hidden/implant/ninja(src)
+
+/obj/item/weapon/storage/hidden/implant/ninja
+	name = "bluespace pocket"
+	storage_slots = 12
+	max_w_class = 4
+	max_combined_w_class = 16
+	w_class = 4
+
+/obj/item/weapon/storage/hidden/implant/ninja/New()
+	..()
+	new /obj/item/weapon/storage/box/zipties(src)
+

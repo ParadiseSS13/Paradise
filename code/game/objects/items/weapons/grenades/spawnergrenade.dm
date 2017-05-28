@@ -43,6 +43,12 @@
 	deliveryamt = 5
 	origin_tech = "materials=3;magnets=4;syndicate=4"
 
+/obj/item/weapon/grenade/spawnergrenade/spider
+	name = "spider delivery grenade"
+	spawner_type = /mob/living/simple_animal/hostile/poison/giant_spider
+	deliveryamt = 2
+	origin_tech = "materials=3;magnets=4;syndicate=4"
+
 /obj/item/weapon/grenade/spawnergrenade/feral_cats
 	name = "feral cat delivery grenade"
 	desc = "This grenade contains 8 dehydrated feral cats in a similar manner to dehydrated monkeys, which, upon detonation, will be rehydrated by a small reservoir of water contained within the grenade. These cats will then attack anything in sight."

@@ -190,9 +190,12 @@
 /obj/item/weapon/stock_parts/cell/ninja
 	name = "spider-clan power cell"
 	desc = "A standard ninja-suit power cell."
-	maxcharge = 10000
-	rating = 3
-	materials = list(MAT_GLASS=60)
+	origin_tech = "powerstorage=5"
+	icon_state = "scell"
+	maxcharge = 20000
+	materials = list(MAT_GLASS=70)
+	rating = 4
+	chargerate = 2000
 
 /obj/item/weapon/stock_parts/cell/emproof
 	name = "\improper EMP-proof cell"

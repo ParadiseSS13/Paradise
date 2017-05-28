@@ -1425,6 +1425,7 @@
 #include "code\modules\martial_arts\krav_maga.dm"
 #include "code\modules\martial_arts\martial.dm"
 #include "code\modules\martial_arts\mimejutsu.dm"
+#include "code\modules\martial_arts\ninjitsu.dm"
 #include "code\modules\martial_arts\plasma_fist.dm"
 #include "code\modules\martial_arts\sleeping_carp.dm"
 #include "code\modules\martial_arts\wrestleing.dm"

@@ -168,6 +168,28 @@
 	new /obj/effect/decal/cleanable/ash(get_turf(src))
 	qdel(src)
 
+/obj/item/weapon/ninjitsu_scroll
+	name = "ninjitsu scroll"
+	desc = "A scroll filled with strange markings. It seems to be drawings of some sort of martial art."
+	icon = 'icons/obj/wizard.dmi'
+	icon_state = "scroll2"
+
+/obj/item/weapon/ninjitsu_scroll/attack_self(mob/living/carbon/human/user as mob)
+	if(!istype(user) || !user)
+		return
+	learn_ninjitsu(user)
+
+/obj/item/weapon/ninjitsu_scroll/proc/learn_ninjitsu(mob/living/carbon/human/user as mob)
+	if(!istype(user) || !user)
+		return
+	to_chat(user, "<span class='sciradio'>You have learned the ancient martial art of the Space Ninja! \
+					Your hand-to-hand combat has become much more effective, and you are now able to deflect 75% of projectiles directed toward you.</span>")
+	var/datum/martial_art/ninjitsu/theninjitsu = new(null)
+	theninjitsu.teach(user)
+	user.drop_item()
+	visible_message("<span class='warning'>[src] lights up in fire and quickly burns to ash.</span>")
+	qdel(src)
+
 /obj/item/weapon/twohanded/bostaff
 	name = "bo staff"
 	desc = "A long, tall staff made of polished wood. Traditionally used in ancient old-Earth martial arts. Can be wielded to both kill and incapacitate."

@@ -1173,3 +1173,32 @@
 	suit = /obj/item/clothing/suit/wizrobe/marisa
 	shoes = /obj/item/clothing/shoes/sandal/marisa
 	head = /obj/item/clothing/head/wizard/marisa
+
+
+/datum/outfit/admin/ninja
+	name = "Space Ninja"
+	uniform = /obj/item/clothing/under/syndicate/combat
+	back = /obj/item/weapon/rig/light/ninja
+	l_ear = /obj/item/device/radio/headset/syndicate
+	mask = /obj/item/clothing/mask/gas/voice/space_ninja
+	glasses = /obj/item/clothing/glasses/hud/security/night
+	id = /obj/item/weapon/card/id/syndicate
+	suit_store = /obj/item/weapon/tank/emergency_oxygen/double/full
+	l_pocket = /obj/item/weapon/implanter/storageninja
+	belt = /obj/item/weapon/storage/belt/utility/full/multitool
+	pda = /obj/item/weapon/pinpointer/advpinpointer
+
+/datum/outfit/admin/ninja/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
+	. = ..()
+	if(visualsOnly)
+		return
+	var/obj/item/weapon/implant/explosive/E = new/obj/item/weapon/implant/explosive(H)
+	E.implant(H)
+	var/obj/item/weapon/ninjitsu_scroll/R = new /obj/item/weapon/ninjitsu_scroll(H)
+	R.learn_ninjitsu(H)
+	H.faction |= "spiders"
+
+	var/obj/item/weapon/card/id/I = H.wear_id
+	if(istype(I))
+		apply_to_card(I, H, list(access_maint_tunnels, access_syndicate), name, "syndie")
+

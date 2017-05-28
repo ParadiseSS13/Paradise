@@ -54,12 +54,13 @@
 	range = 7
 
 /obj/item/projectile/energy/shuriken
+	icon = 'icons/obj/ninjaobjects.dmi'
 	name = "shuriken"
-	icon_state = "toxin"
-	damage = 10
-	damage_type = TOX
-	weaken = 5
-	stutter = 5
+	icon_state = "shuriken"
+	damage = 40
+	damage_type = BURN
+	weaken = 10
+	stutter = 10
 
 /obj/item/projectile/energy/bolt
 	name = "bolt"

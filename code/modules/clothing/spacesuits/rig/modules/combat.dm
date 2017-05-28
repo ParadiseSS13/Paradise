@@ -35,6 +35,17 @@
 		list("EMP grenade", "EMP grenade", /obj/item/weapon/grenade/empgrenade, 3),
 		)
 
+/obj/item/rig_module/grenade_launcher/ninja
+	name = "mounted grenade launcher"
+	desc = "A shoulder-mounted micro-explosive dispenser."
+	interface_name = "ninja grenade launcher"
+	interface_desc = "Discharges loaded grenades against the wearer's location."
+	charges = list(
+		list("Knockout",   "Knockout",   /obj/item/weapon/grenade/clusterbuster/n2o,  1),
+		list("Spider", "Spider", /obj/item/weapon/grenade/spawnergrenade/spider, 1),
+		list("Smoke", "Smoke", /obj/item/weapon/grenade/clusterbuster/smoke, 2)
+		)
+
 /obj/item/rig_module/grenade_launcher/accepts_item(var/obj/item/input_device, var/mob/living/user)
 
 	if(!istype(input_device) || !istype(user))
@@ -119,6 +130,12 @@
 		gun.attack_self(holder.wearer)
 		return 1
 
+	if(istype(gun, /obj/item/weapon/gun/energy/kinetic_accelerator))
+		var/obj/item/weapon/gun/energy/kinetic_accelerator/E = gun
+		if(E.overheat)
+			to_chat(holder.wearer, "<span class='danger'>The weapon needs to cool down first.</span>")
+			holder.cell.use(use_power_cost*-10) // in cases where the gun does not fire, refund the rigsuit its firing cost.
+			return 0
 	gun.afterattack(target,holder.wearer)
 	return 1
 
@@ -159,12 +176,12 @@
 	deactivate_string = "Cancel Blade"
 
 	interface_name = "spider fang blade"
-	interface_desc = "A lethal energy projector that can shape a blade projected from the hand of the wearer or launch radioactive darts."
+	interface_desc = "A lethal energy projector that can shape a blade projected from the hand of the wearer or launch massive energy shurikens."
 
 	usable = 0
 	selectable = 1
 	toggleable = 1
-	use_power_cost = 50
+	use_power_cost = 100
 	active_power_cost = 10
 	passive_power_cost = 0
 

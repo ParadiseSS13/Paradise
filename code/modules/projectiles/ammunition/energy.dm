@@ -168,6 +168,9 @@
 	e_cost = 500
 	select_name = "toxic dart"
 
+/obj/item/ammo_casing/energy/dart/shuriken
+	projectile_type = /obj/item/projectile/energy/shuriken
+
 /obj/item/ammo_casing/energy/instakill
 	projectile_type = /obj/item/projectile/beam/instakill
 	e_cost = 0

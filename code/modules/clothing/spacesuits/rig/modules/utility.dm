@@ -149,14 +149,14 @@
 
 	//just over a syringe worth of each. Want more? Go refill. Gives the ninja another reason to have to show their face.
 	charges = list(
-		list("saline-glucose",   "salglu_solution", 0, 20),
+		list("saline-glucose",   "salglu_solution", 0, 40),
 		list("salicylic acid",   "sal_acid",        0, 20),
 		list("salbutamol",       "salbutamol",      0, 20),
 		list("antibiotics",      "spaceacillin",    0, 20),
 		list("charcoal",         "charcoal",        0, 20),
 		list("nutrients",        "nutriment",       0, 80),
 		list("potasssium iodide","potass_iodide",   0, 20),
-		list("radium",           "radium",          0, 20)
+		list("stimulants",       "stimulative_agent", 0, 20)
 		)
 
 

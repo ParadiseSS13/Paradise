@@ -82,24 +82,31 @@
 	chest_type = /obj/item/clothing/suit/space/new_rig/light/ninja
 	glove_type = /obj/item/clothing/gloves/rig/light/ninja
 
+	cell_type =  /obj/item/weapon/stock_parts/cell/ninja
+
 	req_access = list(access_syndicate)
 
 	initial_modules = list(
-		/obj/item/rig_module/teleporter,
 		/obj/item/rig_module/stealth_field,
+		/obj/item/rig_module/teleporter,
 		/obj/item/rig_module/mounted/energy_blade,
 		/obj/item/rig_module/vision,
 		/obj/item/rig_module/voice,
-		/obj/item/rig_module/chem_dispenser,
-		/obj/item/rig_module/grenade_launcher,
-		/obj/item/rig_module/fabricator,
-		/obj/item/rig_module/ai_container,
-		// /obj/item/rig_module/power_sink,
+		/obj/item/rig_module/chem_dispenser/ninja,
+		/obj/item/rig_module/grenade_launcher/ninja,
 		/obj/item/rig_module/datajack,
+		/obj/item/rig_module/maneuvering_jets,
 		/obj/item/rig_module/self_destruct
 		)
 
 	..()
+
+/obj/item/weapon/rig/light/ninja/emp_act(severity)
+	cell.charge = 0
+	if(selected_module)
+		selected_module.deactivate()
+	..()
+
 
 /obj/item/clothing/gloves/rig/light/ninja
 	name = "insulated gloves"
