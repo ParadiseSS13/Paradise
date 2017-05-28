@@ -42,9 +42,6 @@
 	alien_organs += new /obj/item/organ/internal/xenos/neurotoxin
 	..()
 
-/mob/living/carbon/alien/humanoid/sentinel/movement_delay()
-	. = ..()
-
 /mob/living/carbon/alien/humanoid/sentinel/handle_regular_hud_updates()
 	..() //-Yvarov
 

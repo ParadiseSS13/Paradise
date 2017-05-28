@@ -122,14 +122,7 @@
 	. = ..()
 	. += slowdown
 	. += 1 //A bit slower than humans, so they're easier to smash
-
-/mob/living/silicon/pai/Process_Spacemove(movement_dir = 0)
-	. = ..()
-	if(!.)
-		slowdown = 2
-		return TRUE
-	slowdown = initial(slowdown)
-	return TRUE
+	. += config.robot_delay
 
 /mob/living/silicon/pai/update_icons()
 	if(stat == DEAD)

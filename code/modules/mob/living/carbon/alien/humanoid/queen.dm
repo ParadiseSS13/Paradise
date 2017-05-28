@@ -29,8 +29,8 @@
 	..()
 
 /mob/living/carbon/alien/humanoid/queen/movement_delay()
-	. += 4
 	. = ..()
+	. += 3
 
 /mob/living/carbon/alien/humanoid/queen/handle_regular_hud_updates()
 	..() //-Yvarov
