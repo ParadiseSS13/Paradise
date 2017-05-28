@@ -61,6 +61,8 @@ var/global/image/fire_overlay = image("icon" = 'icons/goonstation/effects/fire.d
 	var/block_chance = 0
 	var/hit_reaction_chance = 0 //If you want to have something unrelated to blocking/armour piercing etc. Maybe not needed, but trying to think ahead/allow more freedom
 
+	var/mob/thrownby = null
+
 	var/toolspeed = 1 // If this item is a tool, the speed multiplier
 
 	/* Species-specific sprites, concept stolen from Paradise//vg/.
@@ -85,8 +87,8 @@ var/global/image/fire_overlay = image("icon" = 'icons/goonstation/effects/fire.d
 	if(ismob(loc))
 		var/mob/m = loc
 		m.unEquip(src, 1)
-	for(var/X in actions)
-		qdel(X)
+	QDEL_LIST(actions)
+	master = null
 	return ..()
 
 /obj/item/proc/check_allowed_items(atom/target, not_inside, target_self)
@@ -217,7 +219,8 @@ var/global/image/fire_overlay = image("icon" = 'icons/goonstation/effects/fire.d
 		var/obj/item/weapon/storage/S = src.loc
 		S.remove_from_storage(src)
 
-	src.throwing = 0
+	if(throwing)
+		throwing.finalize(FALSE)
 	if(loc == user)
 		if(!user.unEquip(src))
 			return 0
@@ -230,36 +233,6 @@ var/global/image/fire_overlay = image("icon" = 'icons/goonstation/effects/fire.d
 	add_fingerprint(user)
 	user.put_in_active_hand(src)
 	return 1
-
-
-/obj/item/attack_alien(mob/user as mob)
-
-	if(isalien(user)) // -- TLE
-		var/mob/living/carbon/alien/A = user
-
-		if(!A.has_fine_manipulation)
-			if(src in A.contents) // To stop Aliens having items stuck in their pockets
-				A.unEquip(src)
-			to_chat(user, "Your claws aren't capable of such fine manipulation.")
-			return
-
-	if(istype(src.loc, /obj/item/weapon/storage))
-		for(var/mob/M in range(1, src.loc))
-			if(M.s_active == src.loc)
-				if(M.client)
-					M.client.screen -= src
-	src.throwing = 0
-	if(src.loc == user)
-		if(!user.unEquip(src))
-			return
-	else
-		if(istype(src.loc, /mob/living))
-			return
-		src.pickup(user)
-
-	user.put_in_active_hand(src)
-	return
-
 
 /obj/item/attack_alien(mob/user as mob)
 	var/mob/living/carbon/alien/A = user
@@ -321,9 +294,6 @@ var/global/image/fire_overlay = image("icon" = 'icons/goonstation/effects/fire.d
 	return 0
 
 /obj/item/proc/talk_into(mob/M, var/text, var/channel=null)
-	return
-
-/obj/item/proc/moved(mob/user, old_loc)
 	return
 
 /obj/item/proc/dropped(mob/user)
@@ -545,6 +515,23 @@ var/global/image/fire_overlay = image("icon" = 'icons/goonstation/effects/fire.d
 		if(current_size >= STAGE_FOUR)
 			throw_at(S,14,3)
 		else ..()
+
+/obj/item/throw_impact(atom/A)
+	if(A && !qdeleted(A))
+		var/itempush = 1
+		if(w_class < 4)
+			itempush = 0 // too light to push anything
+		return A.hitby(src, 0, itempush)
+
+/obj/item/throw_at(atom/target, range, speed, mob/thrower, spin=1, diagonals_first = 0, datum/callback/callback)
+	thrownby = thrower
+	callback = CALLBACK(src, .proc/after_throw, callback) //replace their callback with our own
+	. = ..(target, range, speed, thrower, spin, diagonals_first, callback)
+
+/obj/item/proc/after_throw(datum/callback/callback)
+	if(callback) //call the original callback
+		. = callback.Invoke()
+	throw_speed = initial(throw_speed) //explosions change this.
 
 /obj/item/proc/pwr_drain()
 	return 0 // Process Kill

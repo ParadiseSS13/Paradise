@@ -1332,7 +1332,7 @@
 		to_chat(current, "<font color=\"cultitalic\"><b><i>You catch a glimpse of the Realm of [ticker.mode.cultdat.entity_name], [ticker.mode.cultdat.entity_title2]. You now see how flimsy the world is, you see that it should be open to the knowledge of [ticker.mode.cultdat.entity_name].</b></i></font>")
 		to_chat(current, "<font color=\"cultitalic\"><b><i>Assist your new compatriots in their dark dealings. Their goal is yours, and yours is theirs. You serve the Dark One above all else. Bring It back.</b></i></font>")
 		var/datum/game_mode/cult/cult = ticker.mode
-		if(istype(cult))
+		if(GAMEMODE_IS_CULT)
 			cult.memorize_cult_objectives(src)
 		else
 			var/explanation = "Summon [ticker.mode.cultdat.entity_name] via the use of the appropriate rune. It will only work if nine cultists stand on and around it."

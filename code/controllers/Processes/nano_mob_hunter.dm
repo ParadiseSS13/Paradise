@@ -15,7 +15,6 @@ var/global/datum/controller/process/mob_hunt/mob_hunt_server
 /datum/controller/process/mob_hunt/setup()
 	name = "Nano-Mob Hunter GO Server"
 	start_delay = 20
-	mob_hunt_server = src
 
 /datum/controller/process/mob_hunt/doWork()
 	if(reset_cooldown)		//if reset_cooldown is set (we are on cooldown, duh), reduce the remaining cooldown every cycle
@@ -25,6 +24,8 @@ var/global/datum/controller/process/mob_hunt/mob_hunt_server
 	client_mob_update()
 	if(normal_spawns.len < max_normal_spawns)
 		spawn_mob()
+
+DECLARE_GLOBAL_CONTROLLER(mob_hunt, mob_hunt_server)
 
 //leaving this here in case admins want to use it for a random mini-event or something
 /datum/controller/process/mob_hunt/proc/server_crash(recover_time = 3000)

@@ -536,7 +536,7 @@ var/list/teleport_runes = list()
 
 /obj/effect/rune/slaughter
 	cultist_name = "Call Forth The Slaughter (Demons)"
-	cultist_desc = "Calls forth the doom of a eldrtich being. Three slaughter demons will appear to wreak havoc on the station."
+	cultist_desc = "Calls forth the doom of an eldritch being. Three slaughter demons will appear to wreak havoc on the station."
 	invocation = null
 	req_cultists = 9
 	color = rgb(125,23,23)

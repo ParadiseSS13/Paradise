@@ -28,9 +28,7 @@
 
 /obj/item/weapon/grenade/chem_grenade/Destroy()
 	QDEL_NULL(nadeassembly)
-	for(var/thing in beakers)
-		qdel(thing)
-	beakers.Cut()
+	QDEL_LIST(beakers)
 	return ..()
 
 /obj/item/weapon/grenade/chem_grenade/examine(mob/user)

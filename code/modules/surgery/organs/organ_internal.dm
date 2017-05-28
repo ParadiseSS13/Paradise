@@ -69,9 +69,8 @@
 		A.Remove(M)
 	return src
 
-/obj/item/organ/internal/replaced(var/mob/living/carbon/human/target,var/obj/item/organ/external/affected)
+/obj/item/organ/internal/replaced(var/mob/living/carbon/human/target)
     insert(target)
-    ..()
 
 /obj/item/organ/internal/item_action_slot_check(slot, mob/user)
 	return
@@ -155,11 +154,9 @@
 	. = ..()
 	if(ishuman(M))
 		var/mob/living/carbon/human/H = M
-		if(H.stat == DEAD || H.heart_attack)
+		if(H.stat == DEAD)
 			Stop()
 			return
-		if(!special)
-			H.heart_attack = 1
 
 	spawn(120)
 		if(!owner)
@@ -172,15 +169,6 @@
 		spawn(80)
 			if(!owner)
 				Stop()
-
-
-/obj/item/organ/internal/heart/insert(mob/living/carbon/M, special = 0)
-	..()
-	if(ishuman(M) && beating)
-		var/mob/living/carbon/human/H = M
-		if(H.heart_attack)
-			H.heart_attack = 0
-			return
 
 /obj/item/organ/internal/heart/proc/Stop()
 	beating = 0

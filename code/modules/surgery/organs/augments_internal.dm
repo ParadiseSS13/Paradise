@@ -249,9 +249,9 @@
 	if(istype(owner, /mob/living/carbon/human))
 		var/mob/living/carbon/human/H = owner
 		if(H.stat != DEAD && prob(50 / severity))
-			H.heart_attack = 1
+			H.set_heartattack(TRUE)
 			spawn(600 / severity)
-				H.heart_attack = 0
+				H.set_heartattack(FALSE)
 				if(H.stat == CONSCIOUS)
 					to_chat(H, "<span class='notice'>You feel your heart beating again!</span>")
 

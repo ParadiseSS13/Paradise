@@ -9,6 +9,10 @@
 	actions_types = list(/datum/action/item_action/accessory/holster)
 	w_class = 3 // so it doesn't fit in pockets
 
+/obj/item/clothing/accessory/holster/Destroy()
+	QDEL_NULL(holstered)
+	return ..()
+
 //subtypes can override this to specify what can be holstered
 /obj/item/clothing/accessory/holster/proc/can_holster(obj/item/weapon/gun/W)
 	if(!W.isHandgun())
