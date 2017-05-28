@@ -498,7 +498,7 @@
 	icon_state = "hoop"
 	anchored = 1
 	density = 1
-	throwpass = 1
+	pass_flags = LETPASSTHROW
 
 /obj/structure/holohoop/attackby(obj/item/weapon/W as obj, mob/user as mob, params)
 	if(istype(W, /obj/item/weapon/grab) && get_dist(src,user)<2)
