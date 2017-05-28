@@ -116,6 +116,20 @@ var/list/holopads = list()
 	user.set_machine(src)
 	interact(user)
 
+/obj/machinery/hologram/holopad/attack_hand(mob/living/carbon/human/user)
+
+	if(..())
+		return
+	if(isAI(user))
+		hangup_all_calls()
+		return
+
+//Stop ringing the AI!!
+/obj/machinery/hologram/holopad/proc/hangup_all_calls()
+	for(var/I in holo_calls)
+		var/datum/holocall/HC = I
+		HC.Disconnect(src)
+
 /obj/machinery/hologram/holopad/interact(mob/living/carbon/human/user) //Carn: hologram requests.
 	if(!istype(user))
 		return
@@ -263,6 +277,11 @@ var/list/holopads = list()
 
 	for(var/I in holo_calls)
 		var/datum/holocall/HC = I
+		//Sanity check and skip if no longer valid call
+		if(!HC.Check())
+			atom_say("Call was terminated at remote terminal.")
+			continue
+
 		if(HC.connected_holopad != src)
 			if(force_answer_call && world.time > (HC.call_start_time + (HOLOPAD_MAX_DIAL_TIME / 2)))
 				HC.Answer(src)
