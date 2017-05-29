@@ -67,6 +67,7 @@
 		if(R.drink_icon)
 			icon_state = R.drink_icon
 		else
+			icon_state = "glass_empty"
 			var/image/I = image(icon, "glassoverlay")
 			I.color = mix_color_from_reagents(reagents.reagent_list)
 			overlays += I
@@ -85,6 +86,6 @@
 
 /obj/item/weapon/reagent_containers/food/drinks/drinkingglass/devilskiss
 	list_reagents = list("devilskiss" = 50)
-	
+
 /obj/item/weapon/reagent_containers/food/drinks/drinkingglass/alliescocktail
 	list_reagents = list("alliescocktail" = 50)
