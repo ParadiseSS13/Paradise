@@ -578,16 +578,8 @@
 
 	if(pulledby && moving_diagonally != FIRST_DIAG_STEP && get_dist(src, pulledby) > 1) //seperated from our puller and not in the middle of a diagonal move
 		pulledby.stop_pulling()
-			var/pull_dir = get_dir(src, pulling)
-			if(get_dist(src, pulling) > 1 || ((pull_dir - 1) & pull_dir)) // puller and pullee more than one tile away or in diagonal position
-				if(isliving(pulling))
-					var/mob/living/M = pulling
-					if(M.lying && !M.buckled && (prob(M.getBruteLoss() * 200 / M.maxHealth)))
-						M.makeTrail(T)
-					pulling.Move(T, get_dir(pulling, T)) // the pullee tries to reach our previous position
-					if(pulling && get_dist(src, pulling) > 1) // the pullee couldn't keep up
-						stop_pulling()
 
+	if(s_active && !(s_active in contents) && get_turf(s_active) != get_turf(src))	//check !( s_active in contents ) first so we hopefully don't have to call get_turf() so much.
 		s_active.close(src)
 
 	if(update_slimes)
