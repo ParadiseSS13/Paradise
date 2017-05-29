@@ -2,10 +2,40 @@
 	Rapid Pipe Dispenser
 */
 
+#define SIMPLE_BENT				1
+#define SIMPLE_CAP				20
+#define SUPPLY_BENT				25
+#define SUPPLY_CAP				32
+#define SCRUBBERS_BENT			27
+#define SCRUBBERS_CAP			33
+#define HE_BENT					3
+#define HE_EXCHANGER			17
+#define CONNECTOR				4
+#define UNARY_VENT				7
+#define PASSIVE_VENT			37
+#define GAS_SCRUBBER			10
+#define INJECTOR				34
+#define GAS_SENSOR				98
+#define METER					99
+#define DISPOSALS_JUNCTION		2
+#define DISPOSALS_BIN			6
+#define DISPOSALS_OUTLET		7
+#define DISPOSALS_CHUTE			8
+#define ATMOS_MODE				1
+#define DISPOSALS_MODE			2
+#define ROTATION_MODE			3
+#define FLIP_MODE				4
+#define DELETE_MODE				5
+#define ATMOS_PIPING			1
+#define SUPPLY_PIPING			2
+#define SCRUBBERS_PIPING		3
+#define DEVICES					4
+#define HEAT_PIPING				5
+
 /obj/item/weapon/rpd
 	name = "rapid pipe dispenser"
 	desc = "This device can rapidly dispense atmospherics and disposals piping, manipulate loose piping, and recycle any detached pipes it is applied to."
-	icon = 'icons/obj/tools.dmi' //Apparently we can't use double quotes here
+	icon = 'icons/obj/tools.dmi'
 	icon_state = "rpd"
 	opacity = 0
 	density = 0
@@ -15,289 +45,248 @@
 	throwforce = 10
 	throw_speed = 3
 	throw_range = 5
-	w_class = 3
+	w_class = WEIGHT_CLASS_NORMAL
 	materials = list(MAT_METAL = 30000, MAT_GLASS = 5000)
 	origin_tech = "engineering=4;materials=2"
+	var/datum/effect/system/spark_spread/spark_system
+	var/cooldown //Waiting for something to complete?
 	var/iconrotation = 0 //used to orient icons and pipes
-	var/initialised //This stops us unnecessarily checking the cache for icons
-	var/mode = 1 //Disposals, atmospherics
-	var/pipemenu = 1 //For nanoUI menus
+	var/mode = 1 //Disposals, atmospherics, etc.
 	var/pipetype = 1//For nanoUI menus
 	var/whatpipe = 0 //What kind of pipe is it? See code/game/machinery/pipe/construction.dm for a list of defines
-	var/whatdpipe = 0 //What kind of disposals pipe is it? See code/game/machinery/pipe/pipe_dispenser.dm for a list of defines
-	var/cooldown = 0 //Waiting for something to complete?
+	var/whatdpipe = 0 //What kind of disposals pipe is it? See code/game/machinery/pipe/dispenser.dm for a list of defines
 	var/spawndelay = 4 //Adding a *slight* delay to the RPD, shouldn't be very noticeable
 	var/walldelay = 40 //How long should drilling into a wall take?
-	var/datum/effect/system/spark_spread/spark_system
 
 /obj/item/weapon/rpd/New()
+	..()
 	spark_system = new /datum/effect/system/spark_spread()
 	spark_system.set_up(1, 0, src)
 	spark_system.attach(src)
 
-//List of things follow here
-
-//Pipename, pipe type (see construction.dm), pipe category, number of unique orientations, name of pipe icon, is this pipe bendy?
-var/list/pipelist = list(
-	list("key1" = "Straight pipe",				"key2" = "0",	"key3" = "1",	"key4" = "2",	"key5" = "simple",			"key6" = "0"),
-	list("key1" = "Bent pipe",					"key2" = "1",	"key3" = "1",	"key4" = "4",	"key5" = "simple",			"key6" = "1"),
-	list("key1" = "T-manifold",					"key2" = "5",	"key3" = "1",	"key4" = "4",	"key5" = "manifold",		"key6" = "0"),
-	list("key1" = "4-way manifold",				"key2" = "19",	"key3" = "1",	"key4" = "1",	"key5" = "manifold4w",		"key6" = "0"),
-	list("key1" = "Pipe cap",					"key2" = "20",	"key3" = "1",	"key4" = "4",	"key5" = "cap",				"key6" = "0"),
-	list("key1" = "Manual valve",				"key2" = "8",	"key3" = "1",	"key4" = "2",	"key5" = "mvalve",			"key6" = "0"),
-	list("key1" = "Digital valve",				"key2" = "35",	"key3" = "1",	"key4" = "2",	"key5" = "dvalve",			"key6" = "0"),
-	list("key1" = "Manual T-valve",				"key2" = "18",	"key3" = "1",	"key4" = "4",	"key5" = "tvalve",			"key6" = "0"),
-	list("key1" = "Digital T-valve",			"key2" = "38",	"key3" = "1",	"key4" = "4",	"key5" = "dtvalve",			"key6" = "0"),
-	list("key1" = "Straight supply pipe",		"key2" = "24",	"key3" = "2",	"key4" = "2",	"key5" = "simple",			"key6" = "0"),
-	list("key1" = "Bent supply pipe",			"key2" = "25",	"key3" = "2",	"key4" = "4",	"key5" = "simple",			"key6" = "1"),
-	list("key1" = "Supply T-manifold",			"key2" = "28",	"key3" = "2",	"key4" = "4",	"key5" = "manifold",		"key6" = "0"),
-	list("key1" = "4-way supply manifold",		"key2" = "30",	"key3" = "2",	"key4" = "1",	"key5" = "manifold4w",		"key6" = "0"),
-	list("key1" = "Supply pipe cap",			"key2" = "32",	"key3" = "2",	"key4" = "4",	"key5" = "cap",				"key6" = "0"),
-	list("key1" = "Straight scrubbers pipe",	"key2" = "26",	"key3" = "3",	"key4" = "2",	"key5" = "simple",			"key6" = "0"),
-	list("key1" = "Bent scrubbers pipe",		"key2" = "27",	"key3" = "3",	"key4" = "4",	"key5" = "simple",			"key6" = "1"),
-	list("key1" = "Scrubbers T-manifold",		"key2" = "29",	"key3" = "3",	"key4" = "4",	"key5" = "manifold",		"key6" = "0"),
-	list("key1" = "4-way scrubbers manifold",	"key2" = "31",	"key3" = "3",	"key4" = "1",	"key5" = "manifold4w",		"key6" = "0"),
-	list("key1" = "Scrubbers pipe cap",			"key2" = "33",	"key3" = "3",	"key4" = "4",	"key5" = "cap",				"key6" = "0"),
-	list("key1" = "Universal pipe adapter",		"key2" = "23",	"key3" = "4",	"key4" = "2",	"key5" = "universal",		"key6" = "0"),
-	list("key1" = "Unary vent",					"key2" = "7",	"key3" = "4",	"key4" = "4",	"key5" = "uvent",			"key6" = "0"),
-	list("key1" = "Scrubber",					"key2" = "10",	"key3" = "4",	"key4" = "4",	"key5" = "scrubber",		"key6" = "0"),
-	list("key1" = "Air injector",				"key2" = "34",	"key3" = "4",	"key4" = "4",	"key5" = "injector",		"key6" = "0"),
-	list("key1" = "Gas pump",					"key2" = "9",	"key3" = "4",	"key4" = "4",	"key5" = "pump",			"key6" = "0"),
-	list("key1" = "Volume pump",				"key2" = "16",	"key3" = "4",	"key4" = "4",	"key5" = "volumepump",		"key6" = "0"),
-	list("key1" = "Passive gate",				"key2" = "15",	"key3" = "4",	"key4" = "4",	"key5" = "passivegate",		"key6" = "0"),
-	list("key1" = "Connector",					"key2" = "4",	"key3" = "4",	"key4" = "4",	"key5" = "connector",		"key6" = "0"),
-	list("key1" = "Gas sensor",					"key2" = "98",	"key3" = "4",	"key4" = "1",	"key5" = "sensor",			"key6" = "0"),
-	list("key1" = "Meter",						"key2" = "99",	"key3" = "4",	"key4" = "1",	"key5" = "meter",			"key6" = "0"),
-	list("key1" = "Gas filter",					"key2" = "13",	"key3" = "4",	"key4" = "4",	"key5" = "filter",			"key6" = "0"),
-	list("key1" = "Gas mixer",					"key2" = "14",	"key3" = "4",	"key4" = "4",	"key5" = "mixer",			"key6" = "0"),
-	list("key1" = "Dual-port vent pump",		"key2" = "36",	"key3" = "4",	"key4" = "2",	"key5" = "dual-port vent",	"key6" = "0"),
-	list("key1" = "Passive vent",				"key2" = "37",	"key3" = "4",	"key4" = "4",	"key5" = "passive vent",	"key6" = "0"),
-	list("key1" = "Straight HE pipe",			"key2" = "2",	"key3" = "5",	"key4" = "2",	"key5" = "he",				"key6" = "0"),
-	list("key1" = "Bent HE pipe",				"key2" = "3",	"key3" = "5",	"key4" = "4",	"key5" = "he",				"key6" = "1"),
-	list("key1" = "Junction",					"key2" = "6",	"key3" = "5",	"key4" = "4",	"key5" = "junction",		"key6" = "0"),
-	list("key1" = "Heat exchanger",				"key2" = "17",	"key3" = "5",	"key4" = "4",	"key5" = "heunary",			"key6" = "0"))
-
-//Pipename, pipe type, number of unique orientations, name of pipe icon
-var/list/dpipelist = list(
-	list("key1" = "Straight pipe",	"key2" = "0",	"key3" = "2",	"key4" = "conpipe-s"),
-	list("key1" = "Bent pipe",		"key2" = "1",	"key3" = "4",	"key4" = "conpipe-c"),
-	list("key1" = "Junction",		"key2" = "2",	"key3" = "4",	"key4" = "conpipe-j1"),
-	list("key1" = "Y-junction",		"key2" = "4",	"key3" = "4",	"key4" = "conpipe-y"),
-	list("key1" = "Trunk",			"key2" = "5",	"key3" = "4",	"key4" = "conpipe-t"),
-	list("key1" = "Bin",			"key2" = "6",	"key3" = "1",	"key4" = "condisposal"),
-	list("key1" = "Outlet",			"key2" = "7",	"key3" = "4",	"key4" = "outlet"),
-	list("key1" = "Chute",			"key2" = "8",	"key3" = "4",	"key4" = "intake"))
-
 //Procs
 
-/obj/item/weapon/rpd/proc/Activaterpd(soundfile, delay)
-	playsound(loc, soundfile, 50, 1)
+/obj/item/weapon/rpd/proc/Activaterpd(delay)
+	playsound(loc, "sound/machines/click.ogg", 50, 1)
 	if(prob(15))
 		spark_system.start()
 	if(delay)
-		cooldown = 1
-		spawn(spawndelay)
-		cooldown = 0
-	return
+		cooldown = TRUE
+		sleep(spawndelay)
+		cooldown = null
 
 /obj/item/weapon/rpd/proc/Checkifbent(x)
-	if(x in list(1,3,25,27))
-		return 1
-	else
-		return 0
+	return(x in list(SIMPLE_BENT, HE_BENT, SUPPLY_BENT, SCRUBBERS_BENT))
 
-//This proc puts each necessary icon into the initial user's cache for later use. It then sets initialised = 1 to avoid calling itself unnecessarily.
-/obj/item/weapon/rpd/proc/Initialiseicons()
-	var/F
-	var/I
-	var/list/filenames
-	var/disposalsfile = "icons/obj/pipes/disposal.dmi"
-	var/pipefile = "icons/obj/pipe-item.dmi"
-	for(I in pipelist)
-		if(I["key6"] == "1")//Bendy pipe icons
-			filenames += list(
-			list(pipefile, I["key5"], I["key5"] + "-southeast.png", SOUTHEAST),
-			list(pipefile, I["key5"], I["key5"] + "-southwest.png", SOUTHWEST),
-			list(pipefile, I["key5"], I["key5"] + "-northwest.png", NORTHWEST),
-			list(pipefile, I["key5"], I["key5"] + "-northeast.png", NORTHEAST))
-			continue
-		if(I["key4"] == "2" || I["key4"] == "4") //Dual state icons
-			filenames += list(
-			list(pipefile, I["key5"], I["key5"] + "-north.png", NORTH),
-			list(pipefile, I["key5"], I["key5"] + "-east.png", EAST))
-		if(I["key4"] == "4")//All other pipes that need icons
-			filenames += list(
-			list(pipefile, I["key5"], I["key5"] + "-south.png", SOUTH),
-			list(pipefile, I["key5"], I["key5"] + "-west.png", WEST))
-	for(I in dpipelist)
-		if(I["key3"] == "2" || I["key3"] == "4")
-			filenames += list(
-			list(disposalsfile, I["key4"], I["key4"] + "-north.png", NORTH),
-			list(disposalsfile, I["key4"], I["key4"] + "-east.png", EAST))
-		if(I["key3"] == "4")
-			filenames += list(
-			list(disposalsfile, I["key4"], I["key4"] + "-south.png", SOUTH),
-			list(disposalsfile, I["key4"], I["key4"] + "-west.png", WEST))
-	for(F in filenames)
-		var/icon/iconfile = icon(F[1], icon_state = F[2], dir = F[4])
-		usr << browse_rsc(iconfile, F[3])
-	initialised = 1
-	return
+/obj/item/weapon/rpd/proc/Checkifdense(x) //We need to check if the targetted turf is already dense, in case some goofball sticks 100 bins in front of security or something
+	return(x in list(DISPOSALS_BIN, DISPOSALS_OUTLET, DISPOSALS_CHUTE))
 
 /obj/item/weapon/rpd/proc/Manipulatepipes(subject, targetturf, atmosverb, disposalsverb)
 	if(istype(subject, /obj/item/pipe))
 		call(subject, atmosverb)()
 	else if(istype(subject, /obj/structure/disposalconstruct/))
 		call(subject, disposalsverb)()
-	else
-		return
+
+//Lists of things
+
+var/list/pipelist = list( //id refers to the pipe_type found in construction.dm, icon refers to the name of the icon state in icons/obj/pipe-item.dmi. Icons are made with the asset-cache
+	list("pipename" = "Straight pipe", "id" = 0, "category" = ATMOS_PIPING, "orientations" = 2, "icon" = "simple"),
+	list("pipename" = "Bent pipe", "id" = 1, "category" = ATMOS_PIPING, "orientations" = 4, "icon" = "simple", "bendy" = 1),
+	list("pipename" = "T-manifold", "id" = 5, "category" = ATMOS_PIPING, "orientations" = 4, "icon" = "manifold"),
+	list("pipename" = "4-way manifold", "id" = 19, "category" = ATMOS_PIPING, "orientations" = 1, "icon" = "manifold4w"),
+	list("pipename" = "Pipe cap", "id" = 20, "category" = ATMOS_PIPING, "orientations" = 4, "icon" = "cap"),
+	list("pipename" = "Manual valve", "id" = 8, "category" = ATMOS_PIPING, "orientations" = 2, "icon" = "mvalve"),
+	list("pipename" = "Digital valve", "id" = 35, "category" = ATMOS_PIPING, "orientations" = 2, "icon" = "dvalve"),
+	list("pipename" = "Manual T-valve", "id" = 18, "category" = ATMOS_PIPING, "orientations" = 4, "icon" = "tvalve"),
+	list("pipename" = "Digital T-valve", "id" = 38, "category" = ATMOS_PIPING, "orientations" = 4, "icon" = "dtvalve"),
+	list("pipename" = "Straight supply pipe", "id" = 24, "category" = SUPPLY_PIPING, "orientations" = 2, "icon" = "simple"),
+	list("pipename" = "Bent supply pipe", "id" = 25, "category" = SUPPLY_PIPING, "orientations" = 4, "icon" = "simple", "bendy" = 1),
+	list("pipename" = "Supply T-manifold", "id" = 28, "category" = SUPPLY_PIPING, "orientations" = 4, "icon" = "manifold"),
+	list("pipename" = "4-way supply manifold", "id" = 30, "category" = SUPPLY_PIPING, "orientations" = 1, "icon" = "manifold4w"),
+	list("pipename" = "Supply pipe cap", "id" = 32, "category" = SUPPLY_PIPING, "orientations" = 4, "icon" = "cap"),
+	list("pipename" = "Straight scrubbers pipe", "id" = 26, "category" = SCRUBBERS_PIPING, "orientations" = 2, "icon" = "simple"),
+	list("pipename" = "Bent scrubbers pipe", "id" = 27, "category" = SCRUBBERS_PIPING, "orientations" = 4, "icon" = "simple", "bendy" = 1),
+	list("pipename" = "Scrubbers T-manifold", "id" = 29, "category" = SCRUBBERS_PIPING, "orientations" = 4, "icon" = "manifold"),
+	list("pipename" = "4-way scrubbers manifold", "id" = 31, "category" = SCRUBBERS_PIPING, "orientations" = 1, "icon" = "manifold4w"),
+	list("pipename" = "Scrubbers pipe cap", "id" = 33, "category" = SCRUBBERS_PIPING, "orientations" = 4, "icon" = "cap"),
+	list("pipename" = "Universal pipe adapter", "id" = 23, "category" = DEVICES, "orientations" = 2, "icon" = "universal"),
+	list("pipename" = "Connector", "id" = 4, "category" = DEVICES, "orientations" = 4, "icon" = "connector"),
+	list("pipename" = "Unary vent", "id" = 7, "category" = DEVICES, "orientations" = 4, "icon" = "uvent"),
+	list("pipename" = "Scrubber", "id" = 10, "category" = DEVICES, "orientations" = 4, "icon" = "scrubber"),
+	list("pipename" = "Gas pump", "id" = 9, "category" = DEVICES, "orientations" = 4, "icon" = "pump"),
+	list("pipename" = "Volume pump", "id" = 16, "category" = DEVICES, "orientations" = 4, "icon" = "volumepump"),
+	list("pipename" = "Passive gate", "id" = 15, "category" = DEVICES, "orientations" = 4, "icon" = "passivegate"),
+	list("pipename" = "Gas filter", "id" = 13, "category" = DEVICES, "orientations" = 4, "icon" = "filter"),
+	list("pipename" = "Gas mixer", "id" = 14, "category" = DEVICES, "orientations" = 4, "icon" = "mixer"),
+	list("pipename" = "Gas sensor", "id" = 98, "category" = DEVICES, "orientations" = 1, "icon" = "sensor"),
+	list("pipename" = "Meter", "id" = 99, "category" = DEVICES, "orientations" = 1, "icon" = "meter"),
+	list("pipename" = "Passive vent", "id" = 37, "category" = DEVICES, "orientations" = 4, "icon" = "passive vent"),
+	list("pipename" = "Dual-port vent pump", "id" = 36, "category" = DEVICES, "orientations" = 2, "icon" = "dual-port vent"),
+	list("pipename" = "Air injector", "id" = 34, "category" = DEVICES, "orientations" = 4, "icon" = "injector"),
+	list("pipename" = "Straight HE pipe", "id" = 2, "category" = HEAT_PIPING, "orientations" = 2, "icon" = "he"),
+	list("pipename" = "Bent HE pipe", "id" = 3, "category" = HEAT_PIPING, "orientations" = 4, "icon" = "he", "bendy" = 1),
+	list("pipename" = "Junction", "id" = 6, "category" = HEAT_PIPING, "orientations" = 4, "icon" = "junction"),
+	list("pipename" = "Heat exchanger", "id" = 17, "category" = HEAT_PIPING, "orientations" = 4, "icon" = "heunary"))
+var/list/dpipelist = list(
+	list("pipename" = "Straight pipe", "id" = 0, "orientations" = 2, "icon" = "conpipe-s"),
+	list("pipename" = "Bent pipe", "id" = 1, "orientations" = 4, "icon" = "conpipe-c"),
+	list("pipename" = "Junction", "id" = 2, "orientations" = 4, "icon" = "conpipe-j1"),
+	list("pipename" = "Y-junction", "id" = 4, "orientations" = 4, "icon" = "conpipe-y"),
+	list("pipename" = "Trunk", "id" = 5, "orientations" = 4, "icon" = "conpipe-t"),
+	list("pipename" = "Bin", "id" = 6, "orientations" = 1, "icon" = "condisposal"),
+	list("pipename" = "Outlet", "id" = 7, "orientations" = 4, "icon" = "outlet"),
+	list("pipename" = "Chute", "id" = 8, "orientations" = 4, "icon" = "intake"))
+var/list/mainmenu = list(
+	list("category" = "Atmospherics", "mode" = 1, "icon" = "wrench"),
+	list("category" = "Disposals", "mode" = 2, "icon" = "recycle"),
+	list("category" = "Rotate", "mode" = 3, "icon" = "rotate-right"),
+	list("category" = "Flip", "mode" = 4, "icon" = "exchange"),
+	list("category" = "Recycle", "mode" = 5, "icon" = "trash"))
+var/list/pipemenu = list(
+	list("pipecategory" = "Normal", "pipemode" = 1),
+	list("pipecategory" = "Supply", "pipemode" = 2),
+	list("pipecategory" = "Scrubber", "pipemode" = 3),
+	list("pipecategory" = "Devices", "pipemode" = 4),
+	list("pipecategory" = "Heat exchange", "pipemode" = 5))
 
 //NanoUI stuff
 
-/obj/item/weapon/rpd/attack_self(mob/user as mob)
+/obj/item/weapon/rpd/attack_self(mob/user)
 	ui_interact(user)
 
 /obj/item/weapon/rpd/ui_interact(mob/user, ui_key = "main", var/datum/nanoui/ui = null, var/force_open = 1, var/datum/topic_state/state = inventory_state)
 	ui = nanomanager.try_update_ui(user, src, ui_key, ui, force_open)
 	if(!ui)
-		ui = new(user, src, ui_key, "rpd.tmpl", "[name]", 600, 650, state = state)
+		ui = new(user, src, ui_key, "rpd.tmpl", "[name]", 400, 650, state = state)
 		ui.open()
-		if(!initialised)
-			Initialiseicons()
 		ui.set_auto_update(1)
 
 /obj/item/weapon/rpd/ui_data(mob/user, ui_key = "main", datum/topic_state/state = inventory_state)
 	var/data[0]
 	data["dpipelist"] = dpipelist
 	data["iconrotation"] = iconrotation
+	data["mainmenu"] = mainmenu
 	data["mode"] = mode
 	data["pipelist"] = pipelist
 	data["pipemenu"] = pipemenu
 	data["pipetype"] = pipetype
 	data["whatdpipe"] = whatdpipe
 	data["whatpipe"] = whatpipe
-	data["mainmenu"] = list(
-	list("key1" = "Atmospherics piping", "key2" = "1", "key3" = "wrench"),
-	list("key1" = "Disposals piping", "key2" = "2", "key3" = "recycle"),
-	list("key1" = "Rotate mode", "key2" = "3", "key3" = "rotate-right"),
-	list("key1" = "Flip mode", "key2" = "4", "key3" = "exchange"),
-	list("key1" = "Recycle mode", "key2" = "5", "key3" = "trash"))
-	data["mainmenu"] = list(
-	list("key1" = "Atmospherics piping", "key2" = "1", "key3" = "wrench"),
-	list("key1" = "Disposals piping", "key2" = "2", "key3" = "recycle"),
-	list("key1" = "Rotate mode", "key2" = "3", "key3" = "rotate-right"),
-	list("key1" = "Flip mode", "key2" = "4", "key3" = "exchange"),
-	list("key1" = "Recycle mode", "key2" = "5", "key3" = "trash"))
-	data["pipemenu"] = list(
-	list("key1" = "Normal pipes", "key2" = "1"),
-	list("key1" = "Supply pipes", "key2" = "2"),
-	list("key1" = "Scrubber pipes", "key2" = "3"),
-	list("key1" = "Devices", "key2" = "4"),
-	list("key1" = "HE pipes", "key2" = "5"))
 	return data
 
 /obj/item/weapon/rpd/Topic(href, href_list, nowindow, state)
+	..()
 	if(href_list["iconrotation"])
-		iconrotation = text2num(href_list["iconrotation"])
+		iconrotation = text2num(sanitize(href_list["iconrotation"]))
 	else if(href_list["whatpipe"])
-		whatpipe = text2num(href_list["whatpipe"])
+		whatpipe = text2num(sanitize(href_list["whatpipe"]))
 	else if(href_list["whatdpipe"])
-		whatdpipe = text2num(href_list["whatdpipe"])
+		whatdpipe = text2num(sanitize(href_list["whatdpipe"]))
 	else if(href_list["pipetype"])
-		pipetype = text2num(href_list["pipetype"])
+		pipetype = text2num(sanitize(href_list["pipetype"]))
 	else if(href_list["mode"])
-		mode = text2num(href_list["mode"])
-	else if(href_list["refresh"])
-		to_chat(usr, "<span class = 'notice'>You press the reset button, refreshing all settings on the [src].</span>")
-		iconrotation = 0
-		mode = 1
-		pipemenu = 1
-		pipetype = 1
-		whatpipe = 0
-		whatdpipe = 0
-		cooldown = 0
-		Initialiseicons()
+		mode = text2num(sanitize(href_list["mode"]))
 	else
 		return
 	nanomanager.update_uis(src)
-	return
 
 //What the RPD actually does
 
-/obj/item/weapon/rpd/afterattack(atom/target, mob/user as mob, proximity)
+/obj/item/weapon/rpd/afterattack(atom/target, mob/user, proximity)
+	..()
 	var/turf/T = get_turf(target)
-	if(!proximity || cooldown == 1)
+	if(ismob(target) || istype(target, /obj/structure/window) || !proximity || cooldown)
 		return
-	else if(!isturf(target) && !istype(target, /obj/item/pipe) && !istype(target, /obj/item/pipe_meter) && !istype(target, /obj/item/pipe_gsensor) && !istype(target, /obj/structure/disposalconstruct) || istype(target, /turf/simulated/shuttle))
-		return
-	else if(mode == 1) //Atmos mode
+	if(mode == ATMOS_MODE)
 		if(istype(T, /turf/simulated/wall)) //Drilling into walls takes time and we don't want to do anything else while drilling
-			cooldown = 1
+			cooldown = TRUE
 			playsound(get_turf(src), "sound/weapons/circsawhit.ogg", 50, 1)
-			usr.visible_message("<span class = 'notice'>[usr] starts drilling a hole in [T]...</span>", "<span class = 'notice'>You start drilling a hole in [T]...</span>", "<span class = 'warning'>You hear a drill.</span>")
-			if(do_after(usr, walldelay, target = T))
-				usr.visible_message("<span class = 'notice'>[usr] finishes drilling a hole in [T]!</span>", "<span class = 'notice'>You finish drilling a hole in [T]!</span>", "<span class = 'warning'>You hear clanking.</span>")
-			else
-				cooldown = 0
+			user.visible_message("<span class = 'notice'>[user] starts drilling a hole in [T]...</span>", "<span class = 'notice'>You start drilling a hole in [T]...</span>", "<span class = 'warning'>You hear a drill.</span>")
+			if(!do_after(user, walldelay, target = T))
+				cooldown = null
 				return
-		if(whatpipe == 98)//need to check if it's a meter or a gas sensor separately ayylmao
+			user.visible_message("<span class = 'notice'>[user] finishes drilling a hole in [T]!</span>", "<span class = 'notice'>You finish drilling a hole in [T]!</span>", "<span class = 'warning'>You hear clanking.</span>")
+		if(whatpipe == GAS_SENSOR)//need to check if it's a meter or a gas sensor separately ayylmao
 			new /obj/item/pipe_gsensor(T)
-			to_chat(usr, "<span class = 'notice'>[src] dispenses a sensor!</span>")
-		else if(whatpipe == 99)
+			to_chat(user, "<span class = 'notice'>[src] dispenses a sensor!</span>")
+		else if(whatpipe == METER)
 			new /obj/item/pipe_meter(T)
-			to_chat(usr, "<span class = 'notice'>[src] dispenses a meter!</span>")
+			to_chat(user, "<span class = 'notice'>[src] dispenses a meter!</span>")
 		else
-			var/obj/item/pipe/P = new(T, pipe_type=whatpipe, dir = usr.dir) //Now we make the pipes
-			if(iconrotation == 0 && Checkifbent(P.pipe_type) == 1) //Automatic rotation of dispensed pipes
-				P.dir = turn(usr.dir, 135)
-			else if(iconrotation == 0 && P.pipe_type in list(4, 7, 10, 17, 20, 32, 33, 34, 37)) //Some pipes dispense oppositely to what you'd expect, but we don't want to do anything if they selected a direction
+			var/obj/item/pipe/P = new(T, pipe_type = whatpipe, dir = user.dir) //Now we make the pipes
+			if(iconrotation == 0 && Checkifbent(P.pipe_type)) //Automatic rotation of dispensed pipes
+				P.dir = turn(user.dir, 135)
+			else if(iconrotation == 0 && P.pipe_type in list(CONNECTOR, UNARY_VENT, GAS_SCRUBBER, HE_EXCHANGER, SIMPLE_CAP, SUPPLY_CAP, SCRUBBERS_CAP, INJECTOR, PASSIVE_VENT)) //Some pipes dispense oppositely to what you'd expect, but we don't want to do anything if they selected a direction
 				call(P, /obj/item/pipe/verb/flip)()
-			else if(iconrotation != 0 && Checkifbent(P.pipe_type) == 1) //If they selected a rotation and the pipe is bent
+			else if(iconrotation != 0 && Checkifbent(P.pipe_type)) //If they selected a rotation and the pipe is bent
 				P.dir = turn(iconrotation, -45)
 			else if(iconrotation != 0)
 				P.dir = iconrotation
 			P.update()
-			to_chat(usr, "<span class = 'notice'>[src] rapidly dispenses [P]!</span>")
-		Activaterpd("sound/machines/click.ogg", 1)
-	else if(mode == 2) //Disposals mode
+			to_chat(user, "<span class = 'notice'>[src] rapidly dispenses [P]!</span>")
+		Activaterpd(1)
+	else if(mode == DISPOSALS_MODE)
 		if(istype(T, /turf/simulated/wall))
-			to_chat(usr, "<span class = 'warning'>That type of pipe won't fit on [T]!</span>")
+			to_chat(user, "<span class = 'warning'>That type of pipe won't fit on [T]!</span>")
 			return
-		if(is_blocked_turf(T) == 1 && whatdpipe in list(6, 7, 8))//We need to check if the targetted turf is already dense, in case some goofball sticks 100 bins in front of security or something
-			to_chat(usr, "<span class = 'warning'>You can't dispense that on [T] because something is in the way!</span>")
+		if(is_blocked_turf(T) && Checkifdense(whatdpipe))
+			to_chat(user, "<span class = 'warning'>You can't dispense that on [T] because something is in the way!</span>")
 			return
 		var/obj/structure/disposalconstruct/P = new(T) //Now we make the pipe
 		P.dir = iconrotation
 		P.ptype = whatdpipe
-		if(whatdpipe in list(6, 7, 8)) //To properly set density of our bins/chutes/outlets
+		if(Checkifdense(whatdpipe)) //To properly set density of our bins/chutes/outlets
 			P.density = 1
 		if(iconrotation == 0) //Automatic rotation
-			P.dir = usr.dir
-		if(iconrotation == 0 && whatdpipe != 2) //Disposals pipes are in the opposite direction to atmos pipes, so we need to flip them. Junctions don't have this quirk though
+			P.dir = user.dir
+		if(iconrotation == 0 && whatdpipe != DISPOSALS_JUNCTION) //Disposals pipes are in the opposite direction to atmos pipes, so we need to flip them. Junctions don't have this quirk though
 			call(P, /obj/structure/disposalconstruct/verb/flip)()
 		P.update()
-		to_chat(usr, "<span class = 'notice'>[src] rapidly dispenses [P]!</span>")
-		Activaterpd("sound/machines/click.ogg", 1)
-		return
-	else if(mode == 3) //Rotate mode
+		to_chat(user, "<span class = 'notice'>[src] rapidly dispenses [P]!</span>")
+		Activaterpd(1)
+	else if(mode == ROTATION_MODE)
 		for(var/obj/W in T)
 			Manipulatepipes(W, T, /obj/item/pipe/verb/rotate, /obj/structure/disposalconstruct/verb/rotate)
-		return
-	else if(mode == 4) //Flip mode
+	else if(mode == FLIP_MODE)
 		for(var/obj/W in T)
 			Manipulatepipes(W, T, /obj/item/pipe/verb/flip, /obj/structure/disposalconstruct/verb/flip)
-		return
-	else if(mode == 5) //Delete mode
+	else if(mode == DELETE_MODE)
 		var/eaten
 		for(var/obj/W in T)
-			if(istype(W, /obj/item/pipe) || istype(W, /obj/item/pipe_meter) || istype(W, /obj/item/pipe_gsensor) || istype(W, /obj/structure/disposalconstruct) && W.anchored == 0)
+			if(istype(W, /obj/item/pipe) || istype(W, /obj/item/pipe_meter) || istype(W, /obj/item/pipe_gsensor) || istype(W, /obj/structure/disposalconstruct) && !W.anchored)
 				qdel(W)
-				eaten = 1
-		if(eaten == 1)
-			to_chat(usr, "<span class = 'notice'>[src] sucks up the loose pipes on [T]!</span>")
-			Activaterpd("sound/items/Deconstruct.ogg", 1)
+				eaten = TRUE
+		if(eaten)
+			to_chat(user, "<span class='notice'>[src] sucks up the loose pipes on [T].")
 		else
-			to_chat(usr, "<span class = 'notice'>There were no loose pipes on [T].</span>")
-		return
-	else //Finished.
-		return
+			to_chat(user, "<span class='notice'>There were no loose pipes on [T].</span>")
+
+#undef SIMPLE_BENT
+#undef SIMPLE_CAP
+#undef SUPPLY_BENT
+#undef SUPPLY_CAP
+#undef SCRUBBERS_BENT
+#undef SCRUBBERS_CAP
+#undef HE_BENT
+#undef HE_EXCHANGER
+#undef CONNECTOR
+#undef UNARY_VENT
+#undef PASSIVE_VENT
+#undef GAS_SCRUBBER
+#undef INJECTOR
+#undef GAS_SENSOR
+#undef METER
+#undef DISPOSALS_JUNCTION
+#undef DISPOSALS_BIN
+#undef DISPOSALS_OUTLET
+#undef DISPOSALS_CHUTE
+#undef ATMOS_MODE
+#undef DISPOSALS_MODE
+#undef ROTATION_MODE
+#undef FLIP_MODE
+#undef DELETE_MODE
+#undef ATMOS_PIPING
+#undef SUPPLY_PIPING
+#undef SCRUBBERS_PIPING
+#undef DEVICES
+#undef HEAT_PIPING
