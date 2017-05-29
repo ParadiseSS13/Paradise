@@ -3,7 +3,7 @@
 	name = "tape roll"
 	icon = 'icons/policetape.dmi'
 	icon_state = "rollstart"
-	w_class = 1
+	w_class = WEIGHT_CLASS_TINY
 	var/turf/start
 	var/turf/end
 	var/tape_type = /obj/item/tape
@@ -151,7 +151,7 @@ var/list/tape_roll_applications = list()
 	if(!density) return 1
 	if(height==0) return 1
 
-	if((mover.pass_flags & PASSTABLE || istype(mover, /obj/effect/meteor) || mover.throwing == 1) )
+	if((mover.pass_flags & PASSTABLE || istype(mover, /obj/effect/meteor) || mover.throwing))
 		return 1
 	else if(ismob(mover) && allowed(mover))
 		return 1
@@ -201,5 +201,3 @@ var/list/tape_roll_applications = list()
 
 	qdel(src)
 	return
-
-

@@ -17,7 +17,7 @@ RCD
 	throwforce = 10.0
 	throw_speed = 3
 	throw_range = 5
-	w_class = 3
+	w_class = WEIGHT_CLASS_NORMAL
 	materials = list(MAT_METAL = 30000)
 	origin_tech = "engineering=4;materials=2"
 	toolspeed = 1
@@ -279,8 +279,7 @@ RCD
 					return 0
 				activate()
 				var/turf/T1 = get_turf(A)
-				qdel(A)
-				A = null
+				QDEL_NULL(A)
 				for(var/obj/structure/window/W in T1.contents)
 					W.disassembled = 1
 					W.density = 0

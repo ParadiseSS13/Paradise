@@ -9,7 +9,7 @@
 	throwforce = 10.0
 	throw_speed = 2
 	throw_range = 7
-	w_class = 4
+	w_class = WEIGHT_CLASS_BULKY
 	materials = list(MAT_METAL = 500)
 	origin_tech = "combat=1"
 	attack_verb = list("robusted")
@@ -85,7 +85,7 @@
 	new /obj/item/weapon/wirecutters(src, "red")
 	new /obj/item/device/multitool(src)
 	new /obj/item/clothing/gloves/combat(src)
-	
+
 /obj/item/weapon/storage/toolbox/drone
 	name = "mechanical toolbox"
 	icon_state = "blue"

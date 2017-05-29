@@ -7,7 +7,7 @@
 	var/slots = 3
 	var/obj/item/weapon/storage/internal/hold
 	actions_types = list(/datum/action/item_action/accessory/storage)
-	w_class = 3 // so it doesn't fit in pockets
+	w_class = WEIGHT_CLASS_NORMAL // so it doesn't fit in pockets
 
 /obj/item/clothing/accessory/storage/New()
 	..()

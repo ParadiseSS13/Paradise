@@ -14,7 +14,7 @@ LINEN BINS
 	throwforce = 1
 	throw_speed = 1
 	throw_range = 2
-	w_class = 1
+	w_class = WEIGHT_CLASS_TINY
 	item_color = "white"
 	burn_state = FLAMMABLE
 	slot_flags = SLOT_BACK
@@ -204,7 +204,7 @@ LINEN BINS
 		sheets.Add(I)
 		amount++
 		to_chat(user, "<span class='notice'>You put [I] in [src].</span>")
-	else if(amount && !hidden && I.w_class < 4)	//make sure there's sheets to hide it among, make sure nothing else is hidden in there.
+	else if(amount && !hidden && I.w_class < WEIGHT_CLASS_BULKY)	//make sure there's sheets to hide it among, make sure nothing else is hidden in there.
 		user.drop_item()
 		I.loc = src
 		hidden = I

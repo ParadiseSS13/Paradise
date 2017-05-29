@@ -1023,3 +1023,11 @@
 /datum/reagent/medicine/earthsblood/overdose_process(mob/living/M)
 	M.SetHallucinate(min(max(0, M.hallucination + 10), 50))
 	M.adjustToxLoss(5 * REAGENTS_EFFECT_MULTIPLIER)
+
+/datum/reagent/medicine/corazone
+	name = "Corazone"
+	id = "corazone"
+	description = "A medication used to treat pain, fever, and inflammation, along with heart attacks."
+	color = "#F5F5F5"
+
+// This reagent's effects are handled in heart attack handling code

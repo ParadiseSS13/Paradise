@@ -7,7 +7,7 @@
 	flags = OPENCONTAINER | NOBLUDGEON
 	slot_flags = SLOT_BELT
 	throwforce = 0
-	w_class = 2
+	w_class = WEIGHT_CLASS_SMALL
 	throw_speed = 3
 	throw_range = 7
 	var/spray_maxrange = 3 //what the sprayer will set spray_currentrange to in the attack_self.
@@ -145,7 +145,7 @@
 	icon_state = "chemsprayer"
 	item_state = "chemsprayer"
 	throwforce = 0
-	w_class = 3
+	w_class = WEIGHT_CLASS_NORMAL
 	spray_maxrange = 7
 	spray_currentrange = 7
 	amount_per_transfer_from_this = 10

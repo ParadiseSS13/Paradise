@@ -1032,7 +1032,7 @@
 	if(stat == DEAD)
 		return PULSE_NONE	//that's it, you're dead, nothing can influence your pulse
 
-	if(heart_attack)
+	if(undergoing_cardiac_arrest())
 		return PULSE_NONE
 
 	var/temp = PULSE_NORM
@@ -1175,14 +1175,37 @@
 	return stuttering
 
 
+
+/mob/living/carbon/human/proc/can_heartattack()
+	if(species.flags & (NO_BLOOD|NO_INTORGANS))
+		return FALSE
+	return TRUE
+
+/mob/living/carbon/human/proc/undergoing_cardiac_arrest()
+	if(!can_heartattack())
+		return FALSE
+	var/obj/item/organ/internal/heart/heart = get_int_organ(/obj/item/organ/internal/heart)
+	if(istype(heart) && heart.beating)
+		return FALSE
+	return TRUE
+
+/mob/living/carbon/human/proc/set_heartattack(status)
+	if(!can_heartattack())
+		return FALSE
+
+	var/obj/item/organ/internal/heart/heart = get_int_organ(/obj/item/organ/internal/heart)
+	if(!istype(heart))
+		return FALSE
+
+	heart.beating = !status
+
 /mob/living/carbon/human/proc/handle_heartattack()
-	if(!heart_attack)
+	if(!can_heartattack() || !undergoing_cardiac_arrest() || reagents.has_reagent("corazone"))
 		return
-	else
-		AdjustLoseBreath(2, bound_lower = 0, bound_upper = 3)
-		adjustOxyLoss(5)
-		Paralyse(4)
-		adjustBruteLoss(2)
+	AdjustLoseBreath(2, bound_lower = 0, bound_upper = 3)
+	adjustOxyLoss(5)
+	Paralyse(4)
+	adjustBruteLoss(2)
 
 
 

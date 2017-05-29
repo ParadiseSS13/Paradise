@@ -9,7 +9,7 @@
 	item_state = "flashbang"
 	var/bomb_state = "chembomb"
 	var/payload_name = null // used for spawned grenades
-	w_class = 2
+	w_class = WEIGHT_CLASS_SMALL
 	force = 2
 	var/prime_sound = 'sound/items/Screwdriver2.ogg'
 	var/stage = EMPTY

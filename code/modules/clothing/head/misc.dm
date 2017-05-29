@@ -380,7 +380,7 @@
 	throwforce = 3.0
 	throw_speed = 2
 	throw_range = 5
-	w_class = 2
+	w_class = WEIGHT_CLASS_SMALL
 	attack_verb = list("warned", "cautioned", "smashed")
 	burn_state = FIRE_PROOF
 

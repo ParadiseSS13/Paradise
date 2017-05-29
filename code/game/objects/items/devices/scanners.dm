@@ -14,7 +14,7 @@ REAGENT SCANNER
 	icon_state = "t-ray0"
 	var/on = 0
 	slot_flags = SLOT_BELT
-	w_class = 2
+	w_class = WEIGHT_CLASS_SMALL
 	item_state = "electronic"
 	materials = list(MAT_METAL=150)
 	origin_tech = "magnets=1;engineering=1"
@@ -117,7 +117,7 @@ REAGENT SCANNER
 	flags = CONDUCT
 	slot_flags = SLOT_BELT
 	throwforce = 3
-	w_class = 1
+	w_class = WEIGHT_CLASS_TINY
 	throw_speed = 5
 	throw_range = 10
 	materials = list(MAT_METAL=200)
@@ -240,7 +240,7 @@ REAGENT SCANNER
 			if(H.species.exotic_blood)
 				user.show_message("<span class='warning'>Subject possesses exotic blood.</span>")
 				user.show_message("<span class='warning'>Exotic blood type: [blood_type].</span>")
-		if(H.heart_attack && H.stat != DEAD)
+		if(H.undergoing_cardiac_arrest() && H.stat != DEAD)
 			user.show_message("<span class='userdanger'>Subject suffering from heart attack: Apply defibrillator immediately.</span>")
 		user.show_message("<span class='notice'>Subject's pulse: <font color='[H.pulse == PULSE_THREADY || H.pulse == PULSE_NONE ? "red" : "blue"]'>[H.get_pulse(GETPULSE_TOOL)] bpm.</font></span>")
 		var/implant_detect
@@ -294,7 +294,7 @@ REAGENT SCANNER
 	name = "Health Analyzer Upgrade"
 	icon_state = "healthupgrade"
 	desc = "An upgrade unit that can be installed on a health analyzer for expanded functionality."
-	w_class = 1
+	w_class = WEIGHT_CLASS_TINY
 	origin_tech = "magnets=2;biotech=2"
 	usesound = 'sound/items/Deconstruct.ogg'
 
@@ -303,7 +303,7 @@ REAGENT SCANNER
 	name = "analyzer"
 	icon_state = "atmos"
 	item_state = "analyzer"
-	w_class = 2
+	w_class = WEIGHT_CLASS_SMALL
 	flags = CONDUCT
 	slot_flags = SLOT_BELT
 	throwforce = 0
@@ -369,7 +369,7 @@ REAGENT SCANNER
 	name = "mass-spectrometer"
 	icon_state = "spectrometer"
 	item_state = "analyzer"
-	w_class = 2
+	w_class = WEIGHT_CLASS_SMALL
 	flags = CONDUCT | OPENCONTAINER
 	slot_flags = SLOT_BELT
 	throwforce = 5
@@ -470,7 +470,7 @@ REAGENT SCANNER
 	desc = "A hand-held reagent scanner which identifies chemical agents."
 	icon_state = "spectrometer"
 	item_state = "analyzer"
-	w_class = 2
+	w_class = WEIGHT_CLASS_SMALL
 	flags = CONDUCT
 	slot_flags = SLOT_BELT
 	throwforce = 5
@@ -552,7 +552,7 @@ REAGENT SCANNER
 	icon_state = "adv_spectrometer_s"
 	item_state = "analyzer"
 	origin_tech = "biotech=1"
-	w_class = 2
+	w_class = WEIGHT_CLASS_SMALL
 	flags = CONDUCT
 	throwforce = 0
 	throw_speed = 3
