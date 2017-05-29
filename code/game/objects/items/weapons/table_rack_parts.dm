@@ -103,7 +103,8 @@
 		qdel(src)
 
 /obj/item/weapon/rack_parts/attack_self(mob/user as mob)
-	var/obj/structure/rack/R = new /obj/structure/rack(user.loc)
-	R.add_fingerprint(user)
-	user.drop_item()
-	qdel(src)
+	if(do_after(user, 20, target = loc))
+		var/obj/structure/rack/R = new /obj/structure/rack(user.loc)
+		R.add_fingerprint(user)
+		user.drop_item()
+		qdel(src)
