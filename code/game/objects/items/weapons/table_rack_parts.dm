@@ -88,9 +88,10 @@
 	for(var/obj/structure/table/T in user.loc)
 		to_chat(user, "<span class=warning>You can't build tables on top of tables!</span>")
 		return
-	new result(user.loc)
-	user.drop_item()
-	qdel(src)
+	if(do_after(user, 20, target = loc))
+		new result(user.loc)
+		user.drop_item()
+		qdel(src)
 
 /*
  * Rack Parts
