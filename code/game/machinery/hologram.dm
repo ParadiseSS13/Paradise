@@ -65,18 +65,24 @@ var/list/holopads = list()
 
 /obj/machinery/hologram/holopad/Destroy()
 	if(outgoing_call)
-		LAZYADD(holo_calls, outgoing_call)
-		outgoing_call = null
+		outgoing_call.ConnectionFailure(src)
 
 	for(var/I in holo_calls)
 		var/datum/holocall/HC = I
 		HC.ConnectionFailure(src)
-	LAZYCLEARLIST(holo_calls)
 
 	for (var/I in masters)
 		clear_holo(I)
 	holopads -= src
 	return ..()
+
+/obj/machinery/hologram/holopad/power_change()
+	if (powered())
+		stat &= ~NOPOWER
+	else
+		stat |= ~NOPOWER
+		if(outgoing_call)
+			outgoing_call.ConnectionFailure(src)
 
 /obj/machinery/hologram/holopad/RefreshParts()
 	var/holograph_range = 4
@@ -116,7 +122,7 @@ var/list/holopads = list()
 	user.set_machine(src)
 	interact(user)
 
-/obj/machinery/hologram/holopad/attack_hand(mob/living/carbon/human/user)
+/obj/machinery/hologram/holopad/AltClick(mob/living/carbon/human/user)
 
 	if(..())
 		return
