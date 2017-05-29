@@ -108,8 +108,8 @@ var/global/list/datum/stack_recipe/human_recipes = list( \
 	desc = "Long stringy filaments which presumably came from a watcher's wings."
 	singular_name = "watcher sinew"
 	icon_state = "sinew"
-	origin_tech = "biotech=4"	
-	
+	origin_tech = "biotech=4"
+
 var/global/list/datum/stack_recipe/sinew_recipes = list ( \
 	new/datum/stack_recipe("sinew restraints", /obj/item/weapon/restraints/handcuffs/sinew, 1, on_floor = 1), \
 	)
@@ -117,7 +117,7 @@ var/global/list/datum/stack_recipe/sinew_recipes = list ( \
 /obj/item/stack/sheet/sinew/New(var/loc, var/amount=null)
 	recipes = sinew_recipes
 	return ..()
-	
+
 /obj/item/stack/sheet/animalhide/goliath_hide
 	name = "goliath hide plates"
 	desc = "Pieces of a goliath's rocky hide, these might be able to make your suit a bit more durable to attack from the local fauna."
@@ -125,7 +125,7 @@ var/global/list/datum/stack_recipe/sinew_recipes = list ( \
 	icon_state = "goliath_hide"
 	singular_name = "hide plate"
 	flags = NOBLUDGEON
-	w_class = 3
+	w_class = WEIGHT_CLASS_NORMAL
 	layer = MOB_LAYER
 
 /obj/item/stack/sheet/animalhide/ashdrake
@@ -135,9 +135,9 @@ var/global/list/datum/stack_recipe/sinew_recipes = list ( \
 	icon_state = "dragon_hide"
 	singular_name = "drake plate"
 	flags = NOBLUDGEON
-	w_class = 3
+	w_class = WEIGHT_CLASS_NORMAL
 	layer = MOB_LAYER
-	
+
 //Step one - dehairing.
 
 /obj/item/stack/sheet/animalhide/attackby(obj/item/weapon/W as obj, mob/user as mob, params)

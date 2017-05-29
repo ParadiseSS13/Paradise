@@ -10,7 +10,7 @@
 	throwforce = 10.0
 	throw_speed = 1
 	throw_range = 7
-	w_class = 4
+	w_class = WEIGHT_CLASS_BULKY
 
 	var/charges = 0		//how many restocking "charges" the refill has
 
@@ -86,4 +86,3 @@
 /obj/item/weapon/vending_refill/chinese
 	machine_name = "MrChangs"
 	charges = 8// of 24
-

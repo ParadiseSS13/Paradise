@@ -8,7 +8,7 @@
 	item_state = "gun"
 	mag_type = /obj/item/ammo_box/magazine/internal/grenadelauncher
 	fire_sound = 'sound/weapons/grenadelaunch.ogg'
-	w_class = 3
+	w_class = WEIGHT_CLASS_NORMAL
 
 /obj/item/weapon/gun/projectile/revolver/grenadelauncher/attackby(var/obj/item/A, mob/user, params)
 	..()
@@ -57,7 +57,7 @@
 	desc = "A weapon favored by carp hunters. Fires specialized spears using kinetic energy."
 	icon_state = "speargun"
 	item_state = "speargun"
-	w_class = 4
+	w_class = WEIGHT_CLASS_BULKY
 	force = 10
 	can_suppress = 0
 	mag_type = /obj/item/ammo_box/magazine/internal/speargun

@@ -3,7 +3,7 @@
 	desc = "An arcane weapon wielded by the followers of a cult."
 	icon_state = "cultblade"
 	item_state = "cultblade"
-	w_class = 4
+	w_class = WEIGHT_CLASS_BULKY
 	force = 30
 	throwforce = 10
 	sharp = 1
@@ -38,7 +38,7 @@
 	desc = "A strange dagger said to be used by sinister groups for \"preparing\" a corpse before sacrificing it to their dark gods."
 	icon = 'icons/obj/wizard.dmi'
 	icon_state = "render"
-	w_class = 2
+	w_class = WEIGHT_CLASS_SMALL
 	force = 15
 	throwforce = 25
 	var/cooldown = 0
@@ -123,7 +123,7 @@
 	icon_state = "cult_armour"
 	item_state = "cult_armour"
 	desc = "A bulky suit of armour, bristling with spikes. It looks space proof."
-	w_class = 3
+	w_class = WEIGHT_CLASS_NORMAL
 	allowed = list(/obj/item/weapon/tome,/obj/item/weapon/melee/cultblade,/obj/item/weapon/tank)
 	slowdown = 1
 	armor = list(melee = 60, bullet = 50, laser = 30, energy = 15, bomb = 30, bio = 30, rad = 30)
@@ -133,7 +133,7 @@
 	desc = "Empowered garb which creates a powerful shield around the user."
 	icon_state = "cult_armour"
 	item_state = "cult_armour"
-	w_class = 4
+	w_class = WEIGHT_CLASS_BULKY
 	armor = list(melee = 50, bullet = 40, laser = 50, energy = 30, bomb = 50, bio = 30, rad = 30)
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|ARMS
 	allowed = list(/obj/item/weapon/tome,/obj/item/weapon/melee/cultblade)

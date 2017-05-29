@@ -6,7 +6,7 @@
 	icon_state = "handcuff"
 	flags = CONDUCT
 	throwforce = 0
-	w_class = 3
+	w_class = WEIGHT_CLASS_NORMAL
 	origin_tech = "materials=1"
 	slowdown = 7
 	breakouttime = 300	//Deciseconds = 30s = 0.5 minute
@@ -196,7 +196,7 @@
 	desc = "A specialized hard-light bola designed to ensnare fleeing criminals and aid in arrests."
 	icon_state = "ebola"
 	hitsound = 'sound/weapons/tase.ogg'
-	w_class = 2
+	w_class = WEIGHT_CLASS_SMALL
 	breakouttime = 60
 
 /obj/item/weapon/restraints/legcuffs/bola/energy/throw_impact(atom/hit_atom)

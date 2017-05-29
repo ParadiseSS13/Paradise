@@ -10,9 +10,9 @@
 	item_state = "backpack"
 	lefthand_file = 'icons/mob/inhands/clothing_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/clothing_righthand.dmi'
-	w_class = 4
+	w_class = WEIGHT_CLASS_BULKY
 	slot_flags = SLOT_BACK	//ERROOOOO
-	max_w_class = 3
+	max_w_class = WEIGHT_CLASS_NORMAL
 	max_combined_w_class = 21
 	storage_slots = 21
 	burn_state = FLAMMABLE
@@ -35,7 +35,7 @@
 	desc = "A backpack that opens into a localized pocket of Blue Space."
 	origin_tech = "bluespace=4"
 	icon_state = "holdingpack"
-	max_w_class = 5
+	max_w_class = WEIGHT_CLASS_HUGE
 	max_combined_w_class = 35
 	burn_state = FIRE_PROOF
 
@@ -88,8 +88,8 @@
 	desc = "Space Santa uses this to deliver toys to all the nice children in space on Christmas! Wow, it's pretty big!"
 	icon_state = "giftbag0"
 	item_state = "giftbag"
-	w_class = 4
-	max_w_class = 3
+	w_class = WEIGHT_CLASS_BULKY
+	max_w_class = WEIGHT_CLASS_NORMAL
 	max_combined_w_class = 400 // can store a ton of shit!
 
 /obj/item/weapon/storage/backpack/cultpack
@@ -243,7 +243,7 @@
 	name = "smuggler's satchel"
 	desc = "A very slim satchel that can easily fit into tight spaces."
 	icon_state = "satchel-flat"
-	w_class = 3 //Can fit in backpacks itself.
+	w_class = WEIGHT_CLASS_NORMAL //Can fit in backpacks itself.
 	max_combined_w_class = 15
 	level = 1
 	cant_hold = list(/obj/item/weapon/storage/backpack/satchel_flat) //muh recursive backpacks

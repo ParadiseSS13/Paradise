@@ -13,7 +13,7 @@ RSF
 	anchored = 0.0
 	var/matter = 0
 	var/mode = 1
-	w_class = 3
+	w_class = WEIGHT_CLASS_NORMAL
 
 /obj/item/weapon/rsf/New()
 	desc = "A RSF. It currently holds [matter]/30 fabrication-units."

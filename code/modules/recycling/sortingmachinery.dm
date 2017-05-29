@@ -216,7 +216,7 @@
 	//The whole system for the sorttype var is determined based on the order of this list,
 	//disposals must always be 1, since anything that's untagged will automatically go to disposals, or sorttype = 1 --Superxpdude
 
-	w_class = 1
+	w_class = WEIGHT_CLASS_TINY
 	item_state = "electronic"
 	flags = CONDUCT
 	slot_flags = SLOT_BELT

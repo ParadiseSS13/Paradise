@@ -60,7 +60,7 @@
 	item_state = "bike_horn"
 	hitsound = null
 	throwforce = 3
-	w_class = 1
+	w_class = WEIGHT_CLASS_TINY
 	throw_speed = 3
 	throw_range = 15
 	attack_verb = list("HONKED")

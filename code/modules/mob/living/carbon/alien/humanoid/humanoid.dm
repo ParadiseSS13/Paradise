@@ -26,16 +26,8 @@
 
 
 /mob/living/carbon/alien/humanoid/movement_delay()
-	var/tally = 0
-	if(istype(src, /mob/living/carbon/alien/humanoid/queen))
-		tally += 4
-	if(istype(src, /mob/living/carbon/alien/humanoid/drone))
-		tally += 0
-	if(istype(src, /mob/living/carbon/alien/humanoid/sentinel))
-		tally += 0
-	if(istype(src, /mob/living/carbon/alien/humanoid/hunter))
-		tally = -2 // hunters go supersuperfast
-	return (tally + move_delay_add + config.alien_delay)
+	. = ..()
+	. += move_delay_add + config.alien_delay //move_delay_add is used to slow aliens with stuns
 
 /mob/living/carbon/alien/humanoid/Process_Spacemove(var/check_drift = 0)
 	if(..())

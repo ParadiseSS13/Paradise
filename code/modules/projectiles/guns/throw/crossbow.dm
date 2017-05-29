@@ -153,7 +153,7 @@
 	icon_state = "bolt"
 	item_state = "bolt"
 	throwforce = 20
-	w_class = 3
+	w_class = WEIGHT_CLASS_NORMAL
 	sharp = 1
 	edge = 0
 

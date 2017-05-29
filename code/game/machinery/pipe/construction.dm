@@ -49,7 +49,7 @@
 	icon = 'icons/obj/pipe-item.dmi'
 	icon_state = "simple"
 	item_state = "buildpipe"
-	w_class = 3
+	w_class = WEIGHT_CLASS_NORMAL
 	level = 2
 	var/flipped = 0
 
@@ -635,7 +635,7 @@
 	icon = 'icons/obj/pipe-item.dmi'
 	icon_state = "meter"
 	item_state = "buildpipe"
-	w_class = 4
+	w_class = WEIGHT_CLASS_BULKY
 
 /obj/item/pipe_meter/attackby(var/obj/item/weapon/W as obj, var/mob/user as mob, params)
 	..()
@@ -656,7 +656,7 @@
 	icon = 'icons/obj/stationobjs.dmi'
 	icon_state = "gsensor0"
 	item_state = "buildpipe"
-	w_class = 4
+	w_class = WEIGHT_CLASS_BULKY
 
 /obj/item/pipe_gsensor/attackby(var/obj/item/weapon/W as obj, var/mob/user as mob)
 	..()

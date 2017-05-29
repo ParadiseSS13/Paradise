@@ -1,6 +1,6 @@
 /obj/item/flag
 	icon = 'icons/obj/flag.dmi'
-	w_class = 4
+	w_class = WEIGHT_CLASS_BULKY
 	burntime = 20
 	burn_state = FLAMMABLE
 
@@ -156,7 +156,7 @@
 	name = "Nar'Sie Cultist flag"
 	desc = "A flag proudly boasting the logo of the cultists, sworn enemies of NT."
 	icon_state = "cultflag"
-	
+
 //Chameleon
 
 /obj/item/flag/chameleon
@@ -165,7 +165,7 @@
 	icon_state = "ntflag"
 	origin_tech = "materials=3;magnets=4;syndicate=4"
 	var/used = 0
-	
+
 /obj/item/flag/chameleon/attack_self(mob/user)
 	if(used)
 		return
@@ -190,7 +190,7 @@
 			icon_state = chosen_flag.icon_state
 			desc = chosen_flag.desc
 			used = 1
-			
+
 /obj/item/flag/chameleon/burn()
 	explosion(loc,1,2,4,4, flame_range = 4)
 	qdel(src)

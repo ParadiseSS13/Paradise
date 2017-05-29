@@ -5,7 +5,7 @@
 	icon_state = "toyhammer"
 	slot_flags = SLOT_BELT
 	throwforce = 0
-	w_class = 1
+	w_class = WEIGHT_CLASS_TINY
 	throw_speed = 7
 	throw_range = 15
 	attack_verb = list("banned")
@@ -23,7 +23,7 @@
 	slot_flags = SLOT_BELT
 	force = 2
 	throwforce = 1
-	w_class = 3
+	w_class = WEIGHT_CLASS_NORMAL
 	hitsound = 'sound/weapons/bladeslice.ogg'
 	attack_verb = list("attacked", "slashed", "stabbed", "sliced", "torn", "ripped", "diced", "cut")
 
@@ -44,7 +44,7 @@
 	throwforce = 10
 	sharp = 1
 	edge = 1
-	w_class = 3
+	w_class = WEIGHT_CLASS_NORMAL
 	attack_verb = list("attacked", "slashed", "stabbed", "sliced", "torn", "ripped", "diced", "cut")
 	block_chance = 50
 
@@ -68,7 +68,7 @@
 	throwforce = 10
 	sharp = 1
 	edge = 1
-	w_class = 3
+	w_class = WEIGHT_CLASS_NORMAL
 	hitsound = 'sound/weapons/bladeslice.ogg'
 	attack_verb = list("attacked", "slashed", "stabbed", "sliced", "torn", "ripped", "diced", "cut")
 	block_chance = 50
@@ -89,7 +89,7 @@
 	item_state = "harpoon"
 	force = 20
 	throwforce = 15
-	w_class = 3
+	w_class = WEIGHT_CLASS_NORMAL
 	attack_verb = list("jabbed","stabbed","ripped")
 
 obj/item/weapon/wirerod
@@ -100,7 +100,7 @@ obj/item/weapon/wirerod
 	flags = CONDUCT
 	force = 9
 	throwforce = 10
-	w_class = 3
+	w_class = WEIGHT_CLASS_NORMAL
 	materials = list(MAT_METAL=1150, MAT_GLASS=75)
 	attack_verb = list("hit", "bludgeoned", "whacked", "bonked")
 

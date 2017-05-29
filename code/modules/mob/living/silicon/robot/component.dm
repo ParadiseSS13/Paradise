@@ -171,7 +171,7 @@
 	flags = CONDUCT
 	slot_flags = SLOT_BELT
 	throwforce = 3
-	w_class = 2
+	w_class = WEIGHT_CLASS_SMALL
 	throw_speed = 5
 	throw_range = 10
 	origin_tech = "magnets=1;biotech=1"

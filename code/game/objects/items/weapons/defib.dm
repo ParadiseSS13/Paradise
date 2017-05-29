@@ -9,7 +9,7 @@
 	slot_flags = SLOT_BACK
 	force = 5
 	throwforce = 6
-	w_class = 4
+	w_class = WEIGHT_CLASS_BULKY
 	origin_tech = "biotech=4"
 	actions_types = list(/datum/action/item_action/toggle_paddles)
 	species_fit = list("Vox")
@@ -206,7 +206,7 @@
 	desc = "A belt-equipped defibrillator that can be rapidly deployed."
 	icon_state = "defibcompact"
 	item_state = "defibcompact"
-	w_class = 3
+	w_class = WEIGHT_CLASS_NORMAL
 	slot_flags = SLOT_BELT
 	origin_tech = "biotech=4"
 
@@ -251,7 +251,7 @@
 	item_state = "defibpaddles"
 	force = 0
 	throwforce = 6
-	w_class = 4
+	w_class = WEIGHT_CLASS_BULKY
 	toolspeed = 1
 
 	var/revivecost = 1000
@@ -446,7 +446,7 @@
 	icon_state = "defibpaddles0"
 	item_state = "defibpaddles0"
 	force = 0
-	w_class = 4
+	w_class = WEIGHT_CLASS_BULKY
 	var/revivecost = 1000
 	var/cooldown = 0
 	var/busy = 0

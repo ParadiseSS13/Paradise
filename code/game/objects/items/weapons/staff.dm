@@ -7,7 +7,7 @@
 	throwforce = 5.0
 	throw_speed = 1
 	throw_range = 5
-	w_class = 2
+	w_class = WEIGHT_CLASS_SMALL
 	armour_penetration = 100
 	attack_verb = list("bludgeoned", "whacked", "disciplined")
 	burn_state = FLAMMABLE
@@ -73,4 +73,4 @@
 	throwforce = 5.0
 	throw_speed = 1
 	throw_range = 5
-	w_class = 2
+	w_class = WEIGHT_CLASS_SMALL

@@ -83,10 +83,11 @@
 	if(bodytemperature >= 330.23) // 135 F
 		return -1	// slimes become supercharged at high temperatures
 
-	. = ..(1)
+	. = ..()
 
 	var/health_deficiency = (100 - health)
-	if(health_deficiency >= 45) . += (health_deficiency / 25)
+	if(health_deficiency >= 45)
+		. += (health_deficiency / 25)
 
 	if(bodytemperature < 183.222)
 		. += (283.222 - bodytemperature) / 10 * 1.75
@@ -101,7 +102,7 @@
 	if(health <= 0) // if damaged, the slime moves twice as slow
 		. *= 2
 
-	return . + config.slime_delay
+	. += config.slime_delay
 
 /mob/living/carbon/slime/ObjBump(obj/O)
 	if(!client && powerlevel > 0)

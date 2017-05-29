@@ -104,7 +104,7 @@ var/global/list/datum/stack_recipe/abductor_recipes = list ( \
 /obj/item/stack/sheet/mineral
 	force = 5.0
 	throwforce = 5
-	w_class = 3
+	w_class = WEIGHT_CLASS_NORMAL
 	throw_speed = 3
 	throw_range = 3
 
@@ -240,7 +240,7 @@ var/global/list/datum/stack_recipe/abductor_recipes = list ( \
 	singular_name = "alien alloy sheet"
 	force = 5
 	throwforce = 5
-	w_class = 3
+	w_class = WEIGHT_CLASS_NORMAL
 	throw_speed = 1
 	throw_range = 3
 	origin_tech = "materials=6;abductor=1"

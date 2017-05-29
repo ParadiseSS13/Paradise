@@ -2,8 +2,8 @@
 	var/active = 0
 	var/force_on = 30 //force when active
 	var/throwforce_on = 20
-	w_class = 2
-	var/w_class_on = 4
+	w_class = WEIGHT_CLASS_SMALL
+	var/w_class_on = WEIGHT_CLASS_BULKY
 	var/icon_state_on = "axe1"
 	var/slot_flags_on = null
 	var/list/attack_verb_on = list("attacked", "slashed", "stabbed", "sliced", "torn", "ripped", "diced", "cut")
@@ -62,8 +62,8 @@
 	throwforce_on = 30
 	throw_speed = 3
 	throw_range = 5
-	w_class = 3
-	w_class_on = 5
+	w_class = WEIGHT_CLASS_NORMAL
+	w_class_on = WEIGHT_CLASS_HUGE
 	hitsound = "swing_hit"
 	flags = CONDUCT
 	armour_penetration = 100
@@ -130,7 +130,7 @@
 	icon_state_on = "esaw_1"
 	hitcost = 75 //Costs more than a standard cyborg esword
 	item_color = null
-	w_class = 3
+	w_class = WEIGHT_CLASS_NORMAL
 
 /obj/item/weapon/melee/energy/sword/cyborg/saw/New()
 	..()
@@ -208,7 +208,7 @@
 	throwforce = 1//Throwing or dropping the item deletes it.
 	throw_speed = 3
 	throw_range = 1
-	w_class = 4//So you can't hide it in your pocket or some such.
+	w_class = WEIGHT_CLASS_BULKY //So you can't hide it in your pocket or some such.
 	armour_penetration = 50
 	attack_verb = list("attacked", "slashed", "stabbed", "sliced", "torn", "ripped", "diced", "cut")
 	var/datum/effect/system/spark_spread/spark_system

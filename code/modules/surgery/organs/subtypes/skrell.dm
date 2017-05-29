@@ -21,7 +21,7 @@
 	// Allow adjacency calculation to work properly
 	loc = owner
 	// Fit only pocket sized items
-	pocket.max_w_class = 2
+	pocket.max_w_class = WEIGHT_CLASS_SMALL
 	pocket.max_combined_w_class = 2
 
 /obj/item/organ/internal/headpocket/on_life()

@@ -3,7 +3,7 @@
 	name = "tape roll"
 	icon = 'icons/policetape.dmi'
 	icon_state = "rollstart"
-	w_class = 1
+	w_class = WEIGHT_CLASS_TINY
 	var/turf/start
 	var/turf/end
 	var/tape_type = /obj/item/tape
@@ -201,5 +201,3 @@ var/list/tape_roll_applications = list()
 
 	qdel(src)
 	return
-
-
