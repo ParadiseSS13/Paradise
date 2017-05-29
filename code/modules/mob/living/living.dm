@@ -492,7 +492,6 @@
 	if(iscarbon(src))
 		var/mob/living/carbon/C = src
 		C.handcuffed = initial(C.handcuffed)
-		C.heart_attack = 0
 
 		for(var/datum/disease/D in C.viruses)
 			D.cure(0)
@@ -500,6 +499,7 @@
 		// restore all of the human's blood and reset their shock stage
 		if(ishuman(src))
 			human_mob = src
+			human_mob.set_heartattack(FALSE)
 			human_mob.restore_blood()
 			human_mob.shock_stage = 0
 			human_mob.decaylevel = 0

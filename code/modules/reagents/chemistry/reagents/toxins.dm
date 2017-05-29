@@ -648,8 +648,8 @@
 		M.Weaken(2)
 		if(ishuman(M))
 			var/mob/living/carbon/human/H = M
-			if(!H.heart_attack)
-				H.heart_attack = 1 // rip in pepperoni
+			if(!H.undergoing_cardiac_arrest())
+				H.set_heartattack(TRUE) // rip in pepperoni
 	..()
 
 /datum/reagent/pancuronium
