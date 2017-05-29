@@ -162,6 +162,9 @@
 				G.endurance -= damage_to_do
 				G.CheckEndurance()
 			return
+	if(istype(I, /obj/item/weapon/wirecutters))
+		endurance -= 15 // two hits
+		CheckEndurance()
 	if(I.damtype != STAMINA)
 		endurance -= damage_to_do
 		CheckEndurance()
