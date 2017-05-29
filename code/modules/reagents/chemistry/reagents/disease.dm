@@ -141,11 +141,11 @@
 	can_synth = 0
 
 /datum/reagent/concentrated_initro/on_mob_life(mob/living/M)
-	if(volume >=5)
+	if(volume >= 5)
 		if(ishuman(M))
 			var/mob/living/carbon/human/H = M
-			if(!H.heart_attack)
-				H.heart_attack = 1 // rip in pepperoni
+			if(!H.undergoing_cardiac_arrest())
+				H.set_heartattack(TRUE) // rip in pepperoni
 
 //virus foods
 

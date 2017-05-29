@@ -175,27 +175,15 @@
 	item_color = "noble_boot"
 	item_state = "noble_boot"
 
-
 /obj/item/clothing/shoes/attackby(obj/item/I, mob/user, params)
-	if(istype(I, /obj/item/shoe_silencer))
-		silence_steps = 1
-		shoe_sound = null
-		user.unEquip(I)
-		qdel(I)
-	else . = ..()
-
-/obj/item/shoe_silencer
-	name = "shoe rags"
-	desc = "Looks sneaky."
-	icon_state = "sheet-cloth"
-
-/datum/crafting_recipe/shoe_rags
-	name = "Shoe Rags"
-	result = /obj/item/shoe_silencer
-	reqs = list(/obj/item/stack/tape_roll = 10)
-	tools = list(/obj/item/weapon/wirecutters)
-	time = 40
-	category = CAT_MISC
+	if(istype(I, /obj/item/stack/tape_roll))
+		var/obj/item/stack/tape_roll/TR = I
+		if((!silence_steps || shoe_sound) && TR.use(4))
+			silence_steps = 1
+			shoe_sound = null
+			to_chat(user, "You tape the soles of [src] to silence their footsteps.")
+	else
+		return ..()
 
 /obj/item/clothing/shoes/sandal/white
 	name = "White Sandals"
@@ -232,3 +220,27 @@
 	desc = "These boots were made for dancing."
 	icon_state = "bsing"
 	put_on_delay = 50
+
+/obj/item/clothing/shoes/cowboyboots
+	name = "cowboy boots"
+	desc = "A pair a' brown boots."
+	icon_state = "cowboyboots"
+	item_color = "cowboyboots"
+
+/obj/item/clothing/shoes/cowboyboots/black
+	name = "black cowboy boots"
+	desc = "A pair a' black rustlers' boots"
+	icon_state = "cowboyboots_black"
+	item_color = "cowboyboots_black"
+
+/obj/item/clothing/shoes/cowboyboots/white
+	name = "white cowboy boots"
+	desc = "For the rancher in us all."
+	icon_state = "cowboyboots_white"
+	item_color = "cowboyboots_white"
+
+/obj/item/clothing/shoes/cowboyboots/pink
+	name = "pink cowgirl boots"
+	desc = "For a Rustlin' tustlin' cowgirl."
+	icon_state = "cowboyboots_pink"
+	item_color = "cowboyboots_pink"

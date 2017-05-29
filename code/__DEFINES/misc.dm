@@ -330,3 +330,6 @@
 
 // The number of station goals generated each round.
 #define STATION_GOAL_BUDGET 1
+
+#define FIRST_DIAG_STEP 1
+#define SECOND_DIAG_STEP 2

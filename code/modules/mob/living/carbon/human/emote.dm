@@ -45,7 +45,7 @@
 				on_CD = handle_emote_CD()			//proc located in code\modules\mob\emote.dm'
 				found_slime_bodypart = 1
 			else
-				for(var/obj/item/organ/external/L in organs) // if your limbs are squishy you can squish too!
+				for(var/obj/item/organ/external/L in bodyparts) // if your limbs are squishy you can squish too!
 					if(L.dna.species in list("Slime People"))
 						on_CD = handle_emote_CD()
 						found_slime_bodypart = 1
@@ -62,6 +62,12 @@
 
 		if("click", "clicks")
 			if(species.name == "Kidan")	//Only Kidan can click and rightfully so.
+				on_CD = handle_emote_CD()			//proc located in code\modules\mob\emote.dm'
+			else								//Everyone else fails, skip the emote attempt
+				return
+
+		if("hiss", "hisses")
+			if(species.name == "Unathi") //Only Unathi can hiss.
 				on_CD = handle_emote_CD()			//proc located in code\modules\mob\emote.dm'
 			else								//Everyone else fails, skip the emote attempt
 				return
@@ -139,6 +145,13 @@
 
 			message = "<B>[src]</B> clicks their mandibles[M ? " at [M]" : ""]."
 			playsound(loc, 'sound/effects/Kidanclack2.ogg', 50, 0) //Credit to DrMinky (freesound.org) for the sound.
+			m_type = 2
+
+		if("hiss", "hisses")
+			var/M = handle_emote_param(param)
+
+			message = "<B>[src]</B> hisses[M ? " at [M]" : ""]."
+			playsound(loc, 'sound/effects/unathihiss.ogg', 50, 0) //Credit to Jamius (freesound.org) for the sound.
 			m_type = 2
 
 		if("yes")

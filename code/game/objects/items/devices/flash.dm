@@ -4,7 +4,7 @@
 	icon_state = "flash"
 	item_state = "flashtool"	//looks exactly like a flash (and nothing like a flashbang)
 	throwforce = 0
-	w_class = 1
+	w_class = WEIGHT_CLASS_TINY
 	throw_speed = 3
 	throw_range = 7
 	flags = CONDUCT

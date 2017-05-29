@@ -883,12 +883,23 @@
 	category = list("Exosuit Equipment")
 
 /datum/design/mech_laser
-	name = "Exosuit Weapon (CH-PS \"Immolator\" Laser)"
+	name = "Exosuit Weapon (CH-PL \"Firedart\" Laser)"
 	desc = "Allows for the construction of CH-PS Laser."
 	id = "mech_laser"
 	build_type = MECHFAB
 	req_tech = list("combat" = 3, "magnets" = 3)
 	build_path = /obj/item/mecha_parts/mecha_equipment/weapon/energy/laser
+	materials = list(MAT_METAL=10000)
+	construction_time = 100
+	category = list("Exosuit Equipment")
+
+/datum/design/mech_disabler
+	name = "Exosuit Weapon (CH-PD Disabler)"
+	desc = "Allows for the construction of CH-PD Disabler."
+	id = "mech_laser"
+	build_type = MECHFAB
+	req_tech = list("combat" = 3, "magnets" = 3)
+	build_path = /obj/item/mecha_parts/mecha_equipment/weapon/energy/laser/disabler
 	materials = list(MAT_METAL=10000)
 	construction_time = 100
 	category = list("Exosuit Equipment")
@@ -956,6 +967,28 @@
 	req_tech = list("powerstorage"= 3, "engineering" = 3, "materials" = 3, "combat" = 1, "plasmatech" = 2)
 	build_path = /obj/item/mecha_parts/mecha_equipment/weapon/energy/plasma
 	materials = list(MAT_METAL=1500, MAT_GLASS=500, MAT_PLASMA=200)
+	construction_time = 100
+	category = list("Exosuit Equipment")
+
+/datum/design/mech_tesla
+	name = "Exosuit Weapon (P-X Tesla Cannon)"
+	desc = "Allows for the construction of P-X Tesla Cannon."
+	id = "mech_tesla"
+	build_type = MECHFAB
+	req_tech = list("combat" = 6, "magnets" = 5, "materials" = 5)
+	build_path = /obj/item/mecha_parts/mecha_equipment/weapon/energy/tesla
+	materials = list(MAT_METAL = 10000, MAT_GLASS = 10000, MAT_SILVER = 10000)
+	construction_time = 100
+	category = list("Exosuit Equipment")
+
+/datum/design/mech_immolator
+	name = "Exosuit Weapon (ZFI Immolation Beam Gun)"
+	desc = "Allows for the construction of ZFI Immolation Beam Gun."
+	id = "mech_tesla"
+	build_type = MECHFAB
+	req_tech = list("combat" = 4, "materials" = 4, "plasmatech" = 2, "magnets" = 3)
+	build_path = /obj/item/mecha_parts/mecha_equipment/weapon/energy/immolator
+	materials = list(MAT_METAL = 4000, MAT_GLASS = 1000, MAT_SILVER = 3000, MAT_PLASMA = 2000)
 	construction_time = 100
 	category = list("Exosuit Equipment")
 

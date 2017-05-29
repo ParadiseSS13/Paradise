@@ -94,55 +94,52 @@
 
 
 /obj/machinery/shield/hitby(AM as mob|obj)
-
-	//Super realistic, resource-intensive, real-time damage calculations.
+	..()
 	var/tforce = 0
 	if(ismob(AM))
 		tforce = 40
-	else
-		tforce = AM:throwforce
+	else if(isobj(AM))
+		var/obj/O = AM
+		tforce = O.throwforce
 
-	src.health -= tforce
+	health -= tforce
 
 	//This seemed to be the best sound for hitting a force field.
-	playsound(src.loc, 'sound/effects/EMPulse.ogg', 100, 1)
+	playsound(loc, 'sound/effects/EMPulse.ogg', 100, 1)
 
 	//Handle the destruction of the shield
-	if(src.health <= 0)
+	if(health <= 0)
 		visible_message("<span class='notice'>The [src] dissipates</span>")
 		qdel(src)
 		return
 
 	//The shield becomes dense to absorb the blow.. purely asthetic.
 	opacity = 1
-	spawn(20) if(src) opacity = 0
-
-	..()
-	return
-
+	spawn(20)
+		if(src)
+			opacity = 0
 
 
 /obj/machinery/shieldgen
-		name = "Emergency shield projector"
-		desc = "Used to seal minor hull breaches."
-		icon = 'icons/obj/objects.dmi'
-		icon_state = "shieldoff"
-		density = 1
-		opacity = 0
-		anchored = 0
-		pressure_resistance = 2*ONE_ATMOSPHERE
-		req_access = list(access_engine)
-		var/const/max_health = 100
-		var/health = max_health
-		var/active = 0
-		var/malfunction = 0 //Malfunction causes parts of the shield to slowly dissapate
-		var/list/deployed_shields = list()
-		var/is_open = 0 //Whether or not the wires are exposed
-		var/locked = 0
+	name = "Emergency shield projector"
+	desc = "Used to seal minor hull breaches."
+	icon = 'icons/obj/objects.dmi'
+	icon_state = "shieldoff"
+	density = 1
+	opacity = 0
+	anchored = 0
+	pressure_resistance = 2*ONE_ATMOSPHERE
+	req_access = list(access_engine)
+	var/const/max_health = 100
+	var/health = max_health
+	var/active = 0
+	var/malfunction = 0 //Malfunction causes parts of the shield to slowly dissapate
+	var/list/deployed_shields = list()
+	var/is_open = 0 //Whether or not the wires are exposed
+	var/locked = 0
 
 /obj/machinery/shieldgen/Destroy()
-	for(var/obj/machinery/shield/shield_tile in deployed_shields)
-		qdel(shield_tile)
+	QDEL_LIST(deployed_shields)
 	deployed_shields = null
 	return ..()
 

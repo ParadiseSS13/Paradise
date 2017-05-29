@@ -26,7 +26,7 @@
 	plane = HUD_PLANE
 	item_state = "nothing"
 	icon = 'icons/mob/screen_gen.dmi'
-	w_class = 5
+	w_class = WEIGHT_CLASS_BULKY
 
 
 /obj/item/weapon/grab/New(var/mob/user, var/mob/victim)
@@ -352,7 +352,7 @@
 							(affected.glasses && affected.glasses.flags_cover & GLASSESCOVERSEYES))
 							to_chat(assailant, "<span class='danger'>You're going to need to remove the eye covering first.</span>")
 							return
-						if(!affected.internal_organs_by_name["eyes"])
+						if(!affected.internal_bodyparts_by_name["eyes"])
 							to_chat(assailant, "<span class='danger'>You cannot locate any eyes on [affecting]!</span>")
 							return
 						assailant.visible_message("<span class='danger'>[assailant] presses \his fingers into [affecting]'s eyes!</span>")

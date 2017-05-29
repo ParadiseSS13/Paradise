@@ -10,7 +10,7 @@
 	icon_state = "egg_scoop"
 	slot_flags = SLOT_BELT
 	throwforce = 0
-	w_class = 2
+	w_class = WEIGHT_CLASS_SMALL
 	throw_speed = 3
 	throw_range = 7
 
@@ -21,7 +21,7 @@
 	icon_state = "net"
 	slot_flags = SLOT_BELT
 	throwforce = 0
-	w_class = 2
+	w_class = WEIGHT_CLASS_SMALL
 	throw_speed = 3
 	throw_range = 7
 
@@ -35,7 +35,7 @@
 	icon = 'icons/obj/fish_items.dmi'
 	icon_state = "fish_food"
 	throwforce = 1
-	w_class = 2
+	w_class = WEIGHT_CLASS_SMALL
 	throw_speed = 3
 	throw_range = 7
 
@@ -46,7 +46,7 @@
 	icon_state = "brush"
 	slot_flags = SLOT_BELT
 	throwforce = 0
-	w_class = 2
+	w_class = WEIGHT_CLASS_SMALL
 	throw_speed = 3
 	throw_range = 7
 	attack_verb = list("scrubbed", "brushed", "scraped")
@@ -90,7 +90,7 @@
 	icon = 'icons/obj/fish_items.dmi'
 	icon_state = "fish"
 	throwforce = 1
-	w_class = 2
+	w_class = WEIGHT_CLASS_SMALL
 	throw_speed = 3
 	throw_range = 7
 	force = 1

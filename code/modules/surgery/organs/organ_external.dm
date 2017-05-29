@@ -71,11 +71,11 @@
 /obj/item/organ/external/necrotize(update_sprite=TRUE)
 	if(status & (ORGAN_ROBOT|ORGAN_DEAD))
 		return
-	to_chat(owner, "<span class='notice'>You can't feel your [name] anymore...</span>")
 	status |= ORGAN_DEAD
 	if(dead_icon)
 		icon_state = dead_icon
 	if(owner)
+		to_chat(owner, "<span class='notice'>You can't feel your [name] anymore...</span>")
 		owner.update_body(update_sprite)
 		owner.bad_external_organs |= src
 		if(vital)
@@ -85,6 +85,8 @@
 	if(parent && parent.children)
 		parent.children -= src
 
+	parent = null
+
 	if(internal_organs)
 		for(var/obj/item/organ/internal/O in internal_organs)
 			internal_organs -= O
@@ -92,15 +94,19 @@
 			qdel(O)
 
 	if(owner)
-		owner.organs_by_name[limb_name] = null
+		owner.bodyparts_by_name[limb_name] = null
 
-	if(children)
-		for(var/obj/item/organ/external/C in children)
-			qdel(C)
+	QDEL_LIST(children)
 
 	if(wound_cleanup_timer)
 		deltimer(wound_cleanup_timer)
 		wound_cleanup_timer = null
+
+	QDEL_LIST(wounds)
+
+	QDEL_LIST(implants)
+
+	QDEL_NULL(hidden)
 
 	return ..()
 
@@ -157,15 +163,15 @@
 	status = status & ~ORGAN_DESTROYED
 	forceMove(owner)
 	if(istype(owner))
-		if(!isnull(owner.organs_by_name[limb_name]))
+		if(!isnull(owner.bodyparts_by_name[limb_name]))
 			log_debug("Duplicate organ in slot \"[limb_name]\", mob '[target]'")
-		owner.organs_by_name[limb_name] = src
-		owner.organs |= src
+		owner.bodyparts_by_name[limb_name] = src
+		owner.bodyparts |= src
 		for(var/atom/movable/stuff in src)
 			stuff.attempt_become_organ(src, owner)
 
 	if(parent_organ)
-		parent = owner.organs_by_name[src.parent_organ]
+		parent = owner.bodyparts_by_name[src.parent_organ]
 		if(parent)
 			if(!parent.children)
 				parent.children = list()
@@ -726,7 +732,7 @@ Note that amputating the affected organ does in fact remove the infection from t
 			if(status & ORGAN_ROBOT)
 				stump.robotize()
 			stump.wounds |= W
-			victim.organs |= stump
+			victim.bodyparts |= stump
 			stump.update_damages()
 		parent = null
 
@@ -946,9 +952,9 @@ Note that amputating the affected organ does in fact remove the infection from t
 		thing.forceMove(src)
 
 	release_restraints(victim)
-	victim.organs -= src
+	victim.bodyparts -= src
 	if(is_primary_organ(victim))
-		victim.organs_by_name[limb_name] = null	// Remove from owner's vars.
+		victim.bodyparts_by_name[limb_name] = null	// Remove from owner's vars.
 
 	//Robotic limbs explode if sabotaged.
 	if(is_robotic && sabotaged)
@@ -984,7 +990,7 @@ Note that amputating the affected organ does in fact remove the infection from t
 		O = owner
 	if(!istype(O)) // You're not the primary organ of ANYTHING, bucko
 		return 0
-	return src == O.organs_by_name[limb_name]
+	return src == O.bodyparts_by_name[limb_name]
 
 // The callback we use to remove wounds from an un-processed limb
 /obj/item/organ/external/proc/cleanup_wounds(var/list/slated_wounds)

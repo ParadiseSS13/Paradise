@@ -104,9 +104,9 @@
 /obj/structure/alien/resin/hitby(atom/movable/AM)
 	..()
 	var/tforce = 0
-	if(!isobj(AM))
+	if(ismob(AM))
 		tforce = 10
-	else
+	else if(isobj(AM))
 		var/obj/O = AM
 		tforce = O.throwforce
 	playsound(loc, 'sound/effects/attackblob.ogg', 100, 1)

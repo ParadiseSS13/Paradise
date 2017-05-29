@@ -6,7 +6,7 @@
 	name = "mecha part"
 	icon = 'icons/mecha/mech_construct.dmi'
 	icon_state = "blank"
-	w_class = 6
+	w_class = WEIGHT_CLASS_GIGANTIC
 	flags = CONDUCT
 	origin_tech = "programming=2;materials=2"
 
@@ -379,7 +379,7 @@
 	board_type = "other"
 	flags = CONDUCT
 	force = 5.0
-	w_class = 2
+	w_class = WEIGHT_CLASS_SMALL
 	throwforce = 5.0
 	throw_speed = 3
 	throw_range = 15
@@ -487,5 +487,3 @@
 /obj/item/weapon/circuitboard/mecha/pod
 	name = "Circuit board (Space Pod Mainboard)"
 	icon_state = "mainboard"
-
-

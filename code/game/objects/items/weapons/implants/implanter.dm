@@ -6,7 +6,7 @@
 	item_state = "syringe_0"
 	throw_speed = 3
 	throw_range = 5
-	w_class = 2
+	w_class = WEIGHT_CLASS_SMALL
 	origin_tech = "materials=1;biotech=3;programming=2"
 	materials = list(MAT_METAL=600, MAT_GLASS=200)
 	toolspeed = 1

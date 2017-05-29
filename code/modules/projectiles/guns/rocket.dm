@@ -4,7 +4,7 @@
 	desc = "Say hello to my little friend"
 	icon_state = "rocket"
 	item_state = "rocket"
-	w_class = 4
+	w_class = WEIGHT_CLASS_BULKY
 	throw_speed = 2
 	throw_range = 10
 	force = 5.0
@@ -20,10 +20,8 @@
 	to_chat(user, "<span class='notice'>[rockets.len] / [max_rockets] rockets.</span>")
 
 /obj/item/weapon/gun/rocketlauncher/Destroy()
-	for(var/datum/D in rockets)
-		qdel(D)
+	QDEL_LIST(rockets)
 	rockets = null
-
 	return ..()
 
 /obj/item/weapon/gun/rocketlauncher/update_icon()

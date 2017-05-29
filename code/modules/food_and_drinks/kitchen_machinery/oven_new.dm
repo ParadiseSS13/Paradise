@@ -63,5 +63,5 @@
 		C.Weaken(2)
 		add_logs(user, G.affecting, "smashed", addition="'s head on [src]")
 		qdel(G) //Removes the grip to prevent rapid bashes. With the weaken, you PROBABLY can't run unless they are slow to grab you again...
-		return 1
+		return 0
 	return 0

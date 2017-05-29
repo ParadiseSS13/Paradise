@@ -8,7 +8,7 @@
 	name = "fiber wire"
 	desc = "A length of razor-thin wire with an elegant wooden handle on either end.<br>You suspect you'd have to be behind the target to use this weapon effectively."
 	icon_state = "garrot_wrap"
-	w_class = 1
+	w_class = WEIGHT_CLASS_TINY
 	var/mob/living/carbon/human/strangling
 	var/improvised = 0
 	var/garrote_time

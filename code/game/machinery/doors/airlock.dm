@@ -347,6 +347,7 @@ About the new airlock wires panel:
 
 
 /obj/machinery/door/airlock/Destroy()
+	QDEL_NULL(electronics)
 	QDEL_NULL(wires)
 	if(main_power_timer)
 		deltimer(main_power_timer)
@@ -1140,6 +1141,14 @@ About the new airlock wires panel:
 		electrified_until = 0
 		open()
 		safe = TRUE
+
+/obj/machinery/door/airlock/narsie_act()
+	var/turf/T = get_turf(src)
+	if(prob(20))
+		new/obj/machinery/door/airlock/cult(T)
+		qdel(src)
+
+
 
 //////////////////////////////////
 /*

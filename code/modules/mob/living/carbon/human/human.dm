@@ -65,9 +65,7 @@
 	add_to_all_human_data_huds()
 
 /mob/living/carbon/human/Destroy()
-	for(var/atom/movable/organelle in organs)
-		qdel(organelle)
-	organs = list()
+	QDEL_LIST(bodyparts)
 	return ..()
 
 /mob/living/carbon/human/dummy
@@ -149,93 +147,6 @@
 /mob/living/carbon/human/stok/New(var/new_loc)
 	..(new_loc, "Stok")
 
-/mob/living/carbon/human/Bump(atom/movable/AM, yes)
-	if(!(yes) || now_pushing || buckled)
-		return 0
-	now_pushing = 1
-	if(ismob(AM))
-		var/mob/tmob = AM
-
-		//BubbleWrap - Should stop you pushing a restrained person out of the way
-		//i still don't get it, is this supposed to be 'bubblewrapping' or was it made by a guy named 'BubbleWrap'
-		if(ishuman(tmob))
-			for(var/mob/M in range(tmob, 1))
-
-				if(tmob.pinned.len || (M.pulling == tmob && (tmob.restrained() && !M.restrained()) && M.stat == CONSCIOUS))
-					if(!(world.time % 5)) //tmob is pinned to wall, or is restrained and pulled by a concious unrestrained human
-						to_chat(src, "<span class='danger'>[tmob] is restrained, you cannot push past.</span>")
-					now_pushing = 0
-					return 0
-
-				//I have to fucking document this somewhere- the above if(tmob.pinned.len || etc) check above had
-				//locate(/obj/item/weapon/grab, tmob.grabbed_by.len)) at the end of it
-				//FIRST OF ALL, THAT IS NOT HOW YOU FUCKING USE LOCATE()
-				//SECOND OF ALL, OH GOD, WHY WOULD YOU EVER WANT GRABBED MOBS TO BE UNABLE TO BE PUSHED PAST GOD
-
-				if(tmob.pulling == M && (M.restrained() && !tmob.restrained()) && tmob.stat == CONSCIOUS)
-					if(!(world.time % 5))
-						to_chat(src, "<span class='danger'>[tmob] is restraining [M], you cannot push past.</span>")
-					now_pushing = 0
-					return 0
-
-		//Leaping mobs just land on the tile, no pushing, no anything.
-		if(status_flags & LEAPING)
-			loc = tmob.loc
-			status_flags &= ~LEAPING
-			now_pushing = 0
-			return
-
-		//BubbleWrap: people in handcuffs are always switched around as if they were on 'help' intent to prevent a person being pulled from being seperated from their puller
-		//it might be 'bubblewrapping' given that this rhymes with 'hugboxing'
-		if((tmob.a_intent == I_HELP || tmob.restrained()) && (a_intent == I_HELP || restrained()))
-			if((canmove && tmob.canmove) && (!tmob.buckled && !tmob.buckled_mob))
-				var/turf/oldloc = loc
-				loc = tmob.loc
-				tmob.loc = oldloc
-				now_pushing = 0
-				for(var/mob/living/carbon/slime/slime in view(1,tmob))
-					if(slime.Victim == tmob)
-						slime.UpdateFeed()
-				return
-
-		if(ishuman(tmob) && (FAT in tmob.mutations))
-			if(prob(40) && !(FAT in src.mutations))
-				to_chat(src, "<span class='danger'>You fail to push [tmob]'s fat ass out of the way.</span>")
-				now_pushing = 0
-				return
-
-
-		//anti-riot equipment is also anti-push
-		if(tmob.r_hand && (prob(tmob.r_hand.block_chance * 2)) && !istype(tmob.r_hand, /obj/item/clothing))
-			now_pushing = 0
-			return
-		if(tmob.l_hand && (prob(tmob.l_hand.block_chance * 2)) && !istype(tmob.l_hand, /obj/item/clothing))
-			now_pushing = 0
-			return
-
-		if(!(tmob.status_flags & CANPUSH))
-			now_pushing = 0
-			return
-
-		tmob.LAssailant = src
-
-	now_pushing = 0
-	spawn(0)
-		..()
-		if(!istype(AM, /atom/movable))
-			return
-		if(!now_pushing)
-			now_pushing = 1
-
-			if(!AM.anchored)
-				var/t = get_dir(src, AM)
-				if(istype(AM, /obj/structure/window/full))
-					for(var/obj/structure/window/win in get_step(AM, t))
-						now_pushing = 0
-						return
-				step(AM, t)
-			now_pushing = 0
-
 /mob/living/carbon/human/Stat()
 	..()
 	statpanel("Status")
@@ -310,7 +221,7 @@
 
 				var/limbs_affected = pick(2,3,4)
 				var/obj/item/organ/external/processing_dismember
-				var/list/valid_limbs = organs.Copy()
+				var/list/valid_limbs = bodyparts.Copy()
 
 				while(limbs_affected != 0 && valid_limbs.len > 0)
 					processing_dismember = pick(valid_limbs)
@@ -328,7 +239,7 @@
 
 			var/limbs_affected = 0
 			var/obj/item/organ/external/processing_dismember
-			var/list/valid_limbs = organs.Copy()
+			var/list/valid_limbs = bodyparts.Copy()
 
 			if(prob(getarmor(null, "bomb")))
 				b_loss = b_loss/1.5
@@ -361,7 +272,7 @@
 
 				var/limbs_affected = pick(0, 1)
 				var/obj/item/organ/external/processing_dismember
-				var/list/valid_limbs = organs.Copy()
+				var/list/valid_limbs = bodyparts.Copy()
 
 				while(limbs_affected != 0 && valid_limbs.len > 0)
 					processing_dismember = pick(valid_limbs)
@@ -532,6 +443,17 @@
 	dat += "</td></tr><tr><td>&nbsp;</td></tr>"
 
 	dat += "<tr><td><B>Head:</B></td><td><A href='?src=[UID()];item=[slot_head]'>[(head && !(head.flags&ABSTRACT)) ? head : "<font color=grey>Empty</font>"]</A></td></tr>"
+
+	var/obj/item/organ/internal/headpocket/C = get_int_organ(/obj/item/organ/internal/headpocket)
+	if(C)
+		if(slot_wear_mask in obscured)
+			dat += "<tr><td><font color=grey>&nbsp;&#8627;<B>Headpocket:</B></font></td><td><font color=grey>Obscured</font></td></tr>"
+		else
+			var/list/items = C.get_contents()
+			if(items.len)
+				dat += "<tr><td>&nbsp;&#8627;<B>Headpocket:</B></td><td><A href='?src=[UID()];dislodge_headpocket=1'>Dislodge Items</A></td></tr>"
+			else
+				dat += "<tr><td>&nbsp;&#8627;<B>Headpocket:</B></td><td><font color=grey>Empty</font></td></tr>"
 
 	if(slot_wear_mask in obscured)
 		dat += "<tr><td><font color=grey><B>Mask:</B></font></td><td><font color=grey>Obscured</font></td></tr>"
@@ -761,9 +683,9 @@
 		if(species)
 			species_siemens_coeff = species.siemens_coeff
 		siemens_coeff = gloves_siemens_coeff * species_siemens_coeff
-	if(heart_attack)
+	if(undergoing_cardiac_arrest())
 		if(shock_damage * siemens_coeff >= 1 && prob(25))
-			heart_attack = 0
+			set_heartattack(FALSE)
 			if(stat == CONSCIOUS)
 				to_chat(src, "<span class='notice'>You feel your heart beating again!</span>")
 	. = ..()
@@ -827,6 +749,16 @@
 			if(istype(w_uniform, /obj/item/clothing/under))
 				var/obj/item/clothing/under/U = w_uniform
 				U.set_sensors(usr)
+
+		if(href_list["dislodge_headpocket"])
+			usr.visible_message("<span class='danger'>[usr] is trying to remove something from [src]'s head!</span>",
+													"<span class='danger'>You start to dislodge whatever's inside [src]'s headpocket!</span>")
+			if(do_mob(usr, src, POCKET_STRIP_DELAY))
+				usr.visible_message("<span class='danger'>[usr] has dislodged something from [src]'s head!</span>",
+														"<span class='danger'>You have dislodged everything from [src]'s headpocket!</span>")
+				var/obj/item/organ/internal/headpocket/C = get_int_organ(/obj/item/organ/internal/headpocket)
+				C.empty_contents()
+				add_logs(usr, src, "stripped", addition="of headpocket items", print_attack_log=isLivingSSD(src))
 
 		if(href_list["strip_accessory"])
 			if(istype(w_uniform, /obj/item/clothing/under))
@@ -1263,20 +1195,20 @@
 		if(istype(organ, /obj/item/organ/external/stump)) //Get rid of all stumps.
 			qdel(organ)
 			H.contents -= organ //Making sure the list entry is removed.
-	for(var/obj/item/organ/organ in H.organs)
+	for(var/obj/item/organ/organ in H.bodyparts)
 		if(istype(organ, /obj/item/organ/external/stump))
 			qdel(organ)
-			H.organs -= organ //Making sure the list entry is removed.
-	for(var/organ_name in H.organs_by_name)
-		var/obj/item/organ/organ = H.organs_by_name[organ_name]
+			H.bodyparts -= organ //Making sure the list entry is removed.
+	for(var/organ_name in H.bodyparts_by_name)
+		var/obj/item/organ/organ = H.bodyparts_by_name[organ_name]
 		if(istype(organ, /obj/item/organ/external/stump) || !organ) //The !organ check is to account for mechanical limb (prostheses) losses, since those are handled in a way that leaves indexed but null list entries instead of stumps.
 			qdel(organ)
-			H.organs_by_name -= organ_name //Making sure the list entry is removed.
+			H.bodyparts_by_name -= organ_name //Making sure the list entry is removed.
 
 	//Replacing lost limbs with the species default.
 	var/mob/living/carbon/human/temp_holder
 	for(var/limb_type in H.species.has_limbs)
-		if(!(limb_type in H.organs_by_name))
+		if(!(limb_type in H.bodyparts_by_name))
 			var/list/organ_data = H.species.has_limbs[limb_type]
 			var/limb_path = organ_data["path"]
 			var/obj/item/organ/external/O = new limb_path(temp_holder)
@@ -1286,7 +1218,7 @@
 			else
 				O = new limb_path(H) //Create the limb on the player.
 				O.owner = H
-				H.organs |= H.organs_by_name[O.limb_name]
+				H.bodyparts |= H.bodyparts_by_name[O.limb_name]
 
 	//Replacing lost organs with the species default.
 	temp_holder = new /mob/living/carbon/human()
@@ -1408,10 +1340,18 @@
 		if(..())
 			unEquip(I)
 
+/mob/living/carbon/human/resist_restraints()
+	if(wear_suit && wear_suit.breakouttime)
+		changeNext_move(CLICK_CD_BREAKOUT)
+		last_special = world.time + CLICK_CD_BREAKOUT
+		cuff_resist(wear_suit)
+	else
+		..()
+
 /mob/living/carbon/human/get_visible_implants(var/class = 0)
 
 	var/list/visible_implants = list()
-	for(var/obj/item/organ/external/organ in src.organs)
+	for(var/obj/item/organ/external/organ in bodyparts)
 		for(var/obj/item/weapon/O in organ.implants)
 			if(!istype(O,/obj/item/weapon/implant) && (O.w_class > class) && !istype(O,/obj/item/weapon/shard/shrapnel))
 				visible_implants += O
@@ -1427,7 +1367,7 @@
 
 /mob/living/carbon/human/proc/handle_embedded_objects()
 
-	for(var/obj/item/organ/external/organ in src.organs)
+	for(var/obj/item/organ/external/organ in bodyparts)
 		if(organ.status & ORGAN_SPLINTED) //Splints prevent movement.
 			continue
 		for(var/obj/item/weapon/O in organ.implants)
@@ -2052,7 +1992,7 @@
 	return .
 
 /mob/living/carbon/human/proc/change_icobase(var/new_icobase, var/new_deform, var/owner_sensitive)
-	for(var/obj/item/organ/external/O in organs)
+	for(var/obj/item/organ/external/O in bodyparts)
 		O.change_organ_icobase(new_icobase, new_deform, owner_sensitive) //Change the icobase/deform of all our organs. If owner_sensitive is set, that means the proc won't mess with frankenstein limbs.
 
 /mob/living/carbon/human/serialize()
@@ -2074,8 +2014,8 @@
 	data["uwear"] = underwear
 
 	// Limbs
-	for(var/limb in organs_by_name)
-		var/obj/item/organ/O = organs_by_name[limb]
+	for(var/limb in bodyparts_by_name)
+		var/obj/item/organ/O = bodyparts_by_name[limb]
 		if(!O)
 			limbs_list[limb] = "missing"
 			continue
@@ -2116,7 +2056,7 @@
 	for(var/obj/item/organ/internal/iorgan in internal_organs)
 		qdel(iorgan)
 
-	for(var/obj/item/organ/external/organ in organs)
+	for(var/obj/item/organ/external/organ in bodyparts)
 		qdel(organ)
 
 	for(var/limb in limbs_list)

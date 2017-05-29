@@ -12,14 +12,12 @@
 	pixel_x = -16
 	maxHealth = 200
 	health = 200
-	move_delay_add = 1
 	large = 1
 
 /mob/living/carbon/alien/humanoid/sentinel/praetorian
 	name = "alien praetorian"
 	maxHealth = 200
 	health = 200
-	move_delay_add = 1
 	large = 1
 
 /mob/living/carbon/alien/humanoid/sentinel/large/update_icons()

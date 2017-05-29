@@ -43,7 +43,7 @@
 /obj/structure/flora/tree/palm/New()
 	..()
 	icon_state = pick("palm1","palm2")
-	pixel_x = 0	
+	pixel_x = 0
 
 //grass
 /obj/structure/flora/grass
@@ -209,7 +209,7 @@
 	icon_state = "plant-1"
 	anchored = 0
 	layer = 5
-	w_class = 5
+	w_class = WEIGHT_CLASS_HUGE
 	force = 10
 	throwforce = 13
 	throw_speed = 2

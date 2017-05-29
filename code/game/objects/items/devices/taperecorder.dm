@@ -3,7 +3,7 @@
 	desc = "A device that can record to cassette tapes, and play them. It automatically translates the content in playback."
 	icon_state = "taperecorder_empty"
 	item_state = "analyzer"
-	w_class = 2
+	w_class = WEIGHT_CLASS_SMALL
 	slot_flags = SLOT_BELT
 	materials = list(MAT_METAL=60, MAT_GLASS=30)
 	force = 2
@@ -155,8 +155,7 @@
 		return
 	else if(playing)
 		playing = 0
-		var/turf/T = get_turf(src)
-		T.visible_message("<font color=Maroon><B>Tape Recorder</B>: Playback stopped.</font>")
+		atom_say("Playback stopped.")
 	update_icon()
 
 
@@ -185,19 +184,18 @@
 			break
 		if(mytape.storedinfo.len < i)
 			break
-		var/turf/T = get_turf(src)
-		T.visible_message("<font color=Maroon><B>Tape Recorder</B>: [mytape.storedinfo[i]]</font>")
+		atom_say("[mytape.storedinfo[i]]")
 		if(mytape.storedinfo.len < i + 1)
 			playsleepseconds = 1
 			sleep(10)
 			T = get_turf(src)
-			T.visible_message("<font color=Maroon><B>Tape Recorder</B>: End of recording.</font>")
+			atom_say("End of recording.")
 		else
 			playsleepseconds = mytape.timestamp[i + 1] - mytape.timestamp[i]
 		if(playsleepseconds > 14)
 			sleep(10)
 			T = get_turf(src)
-			T.visible_message("<font color=Maroon><B>Tape Recorder</B>: Skipping [playsleepseconds] seconds of silence</font>")
+			atom_say("Skipping [playsleepseconds] seconds of silence.")
 			playsleepseconds = 1
 		i++
 
@@ -251,7 +249,7 @@
 	desc = "A magnetic tape that can hold up to ten minutes of content."
 	icon_state = "tape_white"
 	item_state = "analyzer"
-	w_class = 1
+	w_class = WEIGHT_CLASS_TINY
 	materials = list(MAT_METAL=20, MAT_GLASS=5)
 	force = 1
 	throwforce = 0

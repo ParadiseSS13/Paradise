@@ -269,7 +269,7 @@
 	desc = "A key for a spacepod lock."
 	icon = 'icons/vehicles/spacepod.dmi'
 	icon_state = "podkey"
-	w_class = 1
+	w_class = WEIGHT_CLASS_TINY
 	var/id = 0
 
 // Key - Lock Interactions

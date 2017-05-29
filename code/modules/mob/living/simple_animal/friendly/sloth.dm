@@ -21,7 +21,7 @@
 	melee_damage_upper = 18
 	health = 50
 	maxHealth = 50
-	speed = 1
+	speed = 2
 
 
 //Cargo Sloth

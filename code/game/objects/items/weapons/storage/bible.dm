@@ -4,7 +4,7 @@
 	icon_state ="bible"
 	throw_speed = 1
 	throw_range = 5
-	w_class = 3
+	w_class = WEIGHT_CLASS_NORMAL
 	burn_state = FLAMMABLE
 	var/mob/affecting = null
 	var/deity_name = "Christ"
@@ -32,7 +32,7 @@
 	if(ishuman(M))
 		var/mob/living/carbon/human/H = M
 		var/heal_amt = 10
-		for(var/obj/item/organ/external/affecting in H.organs)
+		for(var/obj/item/organ/external/affecting in H.bodyparts)
 			if(affecting.heal_damage(heal_amt, heal_amt))
 				H.UpdateDamageIcon()
 	return

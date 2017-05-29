@@ -14,7 +14,7 @@ REAGENT SCANNER
 	icon_state = "t-ray0"
 	var/on = 0
 	slot_flags = SLOT_BELT
-	w_class = 2
+	w_class = WEIGHT_CLASS_SMALL
 	item_state = "electronic"
 	materials = list(MAT_METAL=150)
 	origin_tech = "magnets=1;engineering=1"
@@ -117,7 +117,7 @@ REAGENT SCANNER
 	flags = CONDUCT
 	slot_flags = SLOT_BELT
 	throwforce = 3
-	w_class = 1
+	w_class = WEIGHT_CLASS_TINY
 	throw_speed = 5
 	throw_range = 10
 	materials = list(MAT_METAL=200)
@@ -204,8 +204,8 @@ REAGENT SCANNER
 		user.show_message("<span class='warning'>Significant brain damage detected. Subject may have had a concussion.</span>")
 	if(ishuman(M))
 		var/mob/living/carbon/human/H = M
-		for(var/name in H.organs_by_name)
-			var/obj/item/organ/external/e = H.organs_by_name[name]
+		for(var/name in H.bodyparts_by_name)
+			var/obj/item/organ/external/e = H.bodyparts_by_name[name]
 			if(!e)
 				continue
 			var/limb = e.name
@@ -215,14 +215,14 @@ REAGENT SCANNER
 			if(e.has_infected_wound())
 				user.show_message("<span class='warning'>Infected wound detected in subject [limb]. Disinfection recommended.</span>")
 
-		for(var/name in H.organs_by_name)
-			var/obj/item/organ/external/e = H.organs_by_name[name]
+		for(var/name in H.bodyparts_by_name)
+			var/obj/item/organ/external/e = H.bodyparts_by_name[name]
 			if(!e)
 				continue
 			if(e.status & ORGAN_BROKEN)
 				user.show_message(text("<span class='warning'>Bone fractures detected. Advanced scanner required for location.</span>"), 1)
 				break
-		for(var/obj/item/organ/external/e in H.organs)
+		for(var/obj/item/organ/external/e in H.bodyparts)
 			for(var/datum/wound/W in e.wounds) if(W.internal)
 				user.show_message(text("<span class='warning'>Internal bleeding detected. Advanced scanner required for location.</span>"), 1)
 				break
@@ -240,7 +240,7 @@ REAGENT SCANNER
 			if(H.species.exotic_blood)
 				user.show_message("<span class='warning'>Subject possesses exotic blood.</span>")
 				user.show_message("<span class='warning'>Exotic blood type: [blood_type].</span>")
-		if(H.heart_attack && H.stat != DEAD)
+		if(H.undergoing_cardiac_arrest() && H.stat != DEAD)
 			user.show_message("<span class='userdanger'>Subject suffering from heart attack: Apply defibrillator immediately.</span>")
 		user.show_message("<span class='notice'>Subject's pulse: <font color='[H.pulse == PULSE_THREADY || H.pulse == PULSE_NONE ? "red" : "blue"]'>[H.get_pulse(GETPULSE_TOOL)] bpm.</font></span>")
 		var/implant_detect
@@ -294,7 +294,7 @@ REAGENT SCANNER
 	name = "Health Analyzer Upgrade"
 	icon_state = "healthupgrade"
 	desc = "An upgrade unit that can be installed on a health analyzer for expanded functionality."
-	w_class = 1
+	w_class = WEIGHT_CLASS_TINY
 	origin_tech = "magnets=2;biotech=2"
 	usesound = 'sound/items/Deconstruct.ogg'
 
@@ -303,7 +303,7 @@ REAGENT SCANNER
 	name = "analyzer"
 	icon_state = "atmos"
 	item_state = "analyzer"
-	w_class = 2
+	w_class = WEIGHT_CLASS_SMALL
 	flags = CONDUCT
 	slot_flags = SLOT_BELT
 	throwforce = 0
@@ -369,7 +369,7 @@ REAGENT SCANNER
 	name = "mass-spectrometer"
 	icon_state = "spectrometer"
 	item_state = "analyzer"
-	w_class = 2
+	w_class = WEIGHT_CLASS_SMALL
 	flags = CONDUCT | OPENCONTAINER
 	slot_flags = SLOT_BELT
 	throwforce = 5
@@ -379,6 +379,9 @@ REAGENT SCANNER
 	origin_tech = "magnets=2;biotech=2"
 	var/details = 0
 	var/recent_fail = 0
+	var/datatoprint = ""
+	var/scanning = 1
+	actions_types = list(/datum/action/item_action/print_report)
 
 /obj/item/device/mass_spectrometer/New()
 	..()
@@ -409,13 +412,13 @@ REAGENT SCANNER
 			else
 				blood_traces = params2list(R.data["trace_chem"])
 				break
-		var/dat = "Trace Chemicals Found: "
+		var/dat = ""
 		for(var/R in blood_traces)
 			if(prob(reliability))
 				if(details)
 					dat += "[R] ([blood_traces[R]] units) "
 				else
-					dat += "[R] "
+					dat += "[R] <br>"
 				recent_fail = 0
 			else
 				if(recent_fail)
@@ -424,8 +427,14 @@ REAGENT SCANNER
 					return
 				else
 					recent_fail = 1
-		to_chat(user, "[dat]")
-		reagents.clear_reagents()
+		if(dat)
+			to_chat(user, "Trace chemicals detected in blood sample: [dat]")
+			datatoprint = dat
+			scanning = 0
+			reagents.clear_reagents()
+		else
+			reagents.clear_reagents()
+			to_chat(user, "<span class='notice'>No trace chemicals detected in blood sample.</span>")
 	return
 
 /obj/item/device/mass_spectrometer/adv
@@ -434,12 +443,34 @@ REAGENT SCANNER
 	details = 1
 	origin_tech = "magnets=4;biotech=2"
 
+/obj/item/device/mass_spectrometer/proc/print_report()
+	if(!scanning)
+		usr.visible_message("<span class='warning'>[src] rattles and prints out a sheet of paper.</span>")
+		playsound(loc, 'sound/goonstation/machines/printer_thermal.ogg', 50, 1)
+		sleep(50)
+
+		var/obj/item/weapon/paper/P = new(get_turf(src))
+		P.name = "Mass Spectrometer Scanner Report: [worldtime2text()]"
+		P.info = "<center><b>Mass Spectrometer</b></center><br><center>Data Analysis:</center><br><hr><br><b>Trace chemicals detected:</b><br>[datatoprint]<br><hr>"
+
+		if(ismob(loc))
+			var/mob/M = loc
+			M.put_in_hands(P)
+			to_chat(M, "<span class='notice'>Report printed. Log cleared.<span>")
+			datatoprint = ""
+			scanning = 1
+	else
+		to_chat(usr, "<span class='notice'>[src] has no logs or is already in use.</span>")
+
+/obj/item/device/mass_spectrometer/ui_action_click()
+	print_report()
+
 /obj/item/device/reagent_scanner
 	name = "reagent scanner"
 	desc = "A hand-held reagent scanner which identifies chemical agents."
 	icon_state = "spectrometer"
 	item_state = "analyzer"
-	w_class = 2
+	w_class = WEIGHT_CLASS_SMALL
 	flags = CONDUCT
 	slot_flags = SLOT_BELT
 	throwforce = 5
@@ -449,6 +480,9 @@ REAGENT SCANNER
 	origin_tech = "magnets=2;biotech=2"
 	var/details = 0
 	var/recent_fail = 0
+	var/datatoprint = ""
+	var/scanning = 1
+	actions_types = list(/datum/action/item_action/print_report)
 
 /obj/item/device/reagent_scanner/afterattack(obj/O, mob/user as mob)
 	if(user.stat)
@@ -461,7 +495,6 @@ REAGENT SCANNER
 	if(crit_fail)
 		to_chat(user, "<span class='warning'>This device has critically failed and is no longer functional!</span>")
 		return
-
 	if(!isnull(O.reagents))
 		var/dat = ""
 		if(O.reagents.reagent_list.len > 0)
@@ -478,11 +511,12 @@ REAGENT SCANNER
 					recent_fail = 1
 		if(dat)
 			to_chat(user, "<span class='notice'>Chemicals found: [dat]</span>")
+			datatoprint = dat
+			scanning = 0
 		else
 			to_chat(user, "<span class='notice'>No active chemical agents found in [O].</span>")
 	else
 		to_chat(user, "<span class='notice'>No significant chemical agents found in [O].</span>")
-
 	return
 
 /obj/item/device/reagent_scanner/adv
@@ -491,12 +525,34 @@ REAGENT SCANNER
 	details = 1
 	origin_tech = "magnets=4;biotech=2"
 
+/obj/item/device/reagent_scanner/proc/print_report()
+	if(!scanning)
+		usr.visible_message("<span class='warning'>[src] rattles and prints out a sheet of paper.</span>")
+		playsound(loc, 'sound/goonstation/machines/printer_thermal.ogg', 50, 1)
+		sleep(50)
+
+		var/obj/item/weapon/paper/P = new(get_turf(src))
+		P.name = "Reagent Scanner Report: [worldtime2text()]"
+		P.info = "<center><b>Reagent Scanner</b></center><br><center>Data Analysis:</center><br><hr><br><b>Chemical agents detected:</b><br> [datatoprint]<br><hr>"
+
+		if(ismob(loc))
+			var/mob/M = loc
+			M.put_in_hands(P)
+			to_chat(M, "<span class='notice'>Report printed. Log cleared.<span>")
+			datatoprint = ""
+			scanning = 1
+	else
+		to_chat(usr, "<span class='notice'>[src]  has no logs or is already in use.</span>")
+
+/obj/item/device/reagent_scanner/ui_action_click()
+	print_report()
+
 /obj/item/device/slime_scanner
 	name = "slime scanner"
 	icon_state = "adv_spectrometer_s"
 	item_state = "analyzer"
 	origin_tech = "biotech=1"
-	w_class = 2
+	w_class = WEIGHT_CLASS_SMALL
 	flags = CONDUCT
 	throwforce = 0
 	throw_speed = 3

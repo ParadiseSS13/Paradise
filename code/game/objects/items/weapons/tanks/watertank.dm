@@ -5,7 +5,7 @@
 	icon = 'icons/obj/watertank.dmi'
 	icon_state = "waterbackpack"
 	item_state = "waterbackpack"
-	w_class = 4
+	w_class = WEIGHT_CLASS_BULKY
 	slot_flags = SLOT_BACK
 	slowdown = 1
 	actions_types = list(/datum/action/item_action/toggle_mister)
@@ -69,8 +69,7 @@
 /obj/item/weapon/watertank/Destroy()
 	if(on)
 		remove_noz()
-		qdel(noz)
-		noz = null
+		QDEL_NULL(noz)
 	return ..()
 
 /obj/item/weapon/watertank/attack_hand(mob/user as mob)
@@ -113,7 +112,7 @@
 	icon = 'icons/obj/watertank.dmi'
 	icon_state = "mister"
 	item_state = "mister"
-	w_class = 4
+	w_class = WEIGHT_CLASS_BULKY
 	amount_per_transfer_from_this = 50
 	possible_transfer_amounts = list(25,50,100)
 	volume = 500
@@ -221,7 +220,7 @@
 	power = 8
 	precision = 1
 	cooling_power = 5
-	w_class = 5
+	w_class = WEIGHT_CLASS_HUGE
 	flags = NODROP //Necessary to ensure that the nozzle and tank never seperate
 	var/obj/item/weapon/watertank/tank
 	var/nozzle_mode = 0

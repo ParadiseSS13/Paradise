@@ -659,16 +659,13 @@
 			if("remove")
 				for(var/obj/item/weapon/implant/mindshield/I in H.contents)
 					if(I && I.implanted)
-						I.removed(H)
 						qdel(I)
 				to_chat(H, "<span class='notice'><Font size =3><B>Your mindshield implant has been deactivated.</B></FONT></span>")
 				log_admin("[key_name(usr)] has deactivated [key_name(current)]'s mindshield implant")
 				message_admins("[key_name_admin(usr)] has deactivated [key_name_admin(current)]'s mindshield implant")
 			if("add")
 				var/obj/item/weapon/implant/mindshield/L = new/obj/item/weapon/implant/mindshield(H)
-				L.imp_in = H
-				L.implanted = 1
-				H.sec_hud_set_implants()
+				L.implant(H)
 
 				log_admin("[key_name(usr)] has given [key_name(current)] a mindshield implant")
 				message_admins("[key_name_admin(usr)] has given [key_name_admin(current)] a mindshield implant")
@@ -1171,7 +1168,7 @@
 				if(ishuman(current))
 					var/mob/living/carbon/human/H = current
 					// Don't "undress" organs right out of the body
-					for(var/obj/item/W in H.contents - (H.organs | H.internal_organs))
+					for(var/obj/item/W in H.contents - (H.bodyparts | H.internal_organs))
 						current.unEquip(W, 1)
 				else
 					for(var/obj/item/W in current)
@@ -1335,7 +1332,7 @@
 		to_chat(current, "<font color=\"cultitalic\"><b><i>You catch a glimpse of the Realm of [ticker.mode.cultdat.entity_name], [ticker.mode.cultdat.entity_title2]. You now see how flimsy the world is, you see that it should be open to the knowledge of [ticker.mode.cultdat.entity_name].</b></i></font>")
 		to_chat(current, "<font color=\"cultitalic\"><b><i>Assist your new compatriots in their dark dealings. Their goal is yours, and yours is theirs. You serve the Dark One above all else. Bring It back.</b></i></font>")
 		var/datum/game_mode/cult/cult = ticker.mode
-		if(istype(cult))
+		if(GAMEMODE_IS_CULT)
 			cult.memorize_cult_objectives(src)
 		else
 			var/explanation = "Summon [ticker.mode.cultdat.entity_name] via the use of the appropriate rune. It will only work if nine cultists stand on and around it."
