@@ -1,0 +1,4 @@
+author: "Purpose2"
+delete-after: True
+changes: 
+  - tweak: "Headset encryption keys are now 'small' items."
