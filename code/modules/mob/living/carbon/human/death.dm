@@ -99,7 +99,7 @@
 	stat = DEAD
 	SetDizzy(0)
 	SetJitter(0)
-	heart_attack = 0
+	set_heartattack(FALSE)
 
 	//Handle species-specific deaths.
 	if(species) species.handle_death(src)

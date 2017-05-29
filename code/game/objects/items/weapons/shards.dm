@@ -7,7 +7,7 @@
 	sharp = 1
 	edge = 1
 	desc = "Could probably be used as ... a throwing weapon?"
-	w_class = 1
+	w_class = WEIGHT_CLASS_TINY
 	force = 5.0
 	throwforce = 10.0
 	item_state = "shard-glass"

@@ -6,7 +6,7 @@
 	force = 5
 	sharp = 1
 	edge = 1
-	w_class = 2
+	w_class = WEIGHT_CLASS_SMALL
 	hitsound = 'sound/weapons/bladeslice.ogg'
 	attack_verb = list("slices", "cuts", "stabs", "jabs")
 	toolspeed = 1

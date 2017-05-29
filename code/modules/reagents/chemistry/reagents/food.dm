@@ -768,8 +768,8 @@
 		M.Weaken(1)
 		if(ishuman(M))
 			var/mob/living/carbon/human/H = M
-			if(!H.heart_attack)
-				H.heart_attack = 1
+			if(!H.undergoing_cardiac_arrest())
+				H.set_heartattack(TRUE)
 	..()
 
 /datum/reagent/fungus

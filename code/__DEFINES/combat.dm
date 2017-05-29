@@ -70,3 +70,6 @@
  #define WEAPON_LIGHT 0
  #define WEAPON_MEDIUM 1
  #define WEAPON_HEAVY 2
+
+// Embedded objects
+#define EMBED_THROWSPEED_THRESHOLD 15

@@ -294,7 +294,7 @@ var/list/organ_cache = list()
 
 /obj/item/organ/internal/heart/emp_act(intensity)
 	if(owner && robotic == 2)
-		owner.heart_attack = 1
+		Stop() // In the name of looooove~!
 		owner.visible_message("<span class='danger'>[owner] clutches their chest and gasps!</span>","<span class='userdanger'>You clutch your chest in pain!</span>")
 	else if(owner && robotic == 1)
 		take_damage(11,1)
@@ -324,18 +324,8 @@ var/list/organ_cache = list()
 	owner = null
 	return src
 
-/obj/item/organ/proc/replaced(var/mob/living/carbon/human/target,var/obj/item/organ/external/affected)
-
-	if(!istype(target)) return
-
-	owner = target
-	processing_objects -= src
-	affected.internal_organs |= src
-	if(!target.get_int_organ(src))
-		target.internal_organs += src
-	loc = target
-	if(robotic)
-		status |= ORGAN_ROBOT
+/obj/item/organ/proc/replaced(var/mob/living/carbon/human/target)
+	return // Nothing uses this, it is always overridden
 
 
 /obj/item/organ/proc/surgeryize()

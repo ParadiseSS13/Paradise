@@ -297,8 +297,8 @@
 		tforce = 5
 	else if(isobj(AM))
 		if(prob(50))
-			var/obj/item/I = AM
-			tforce = max(0, I.throwforce * 0.5)
+			var/obj/O = AM
+			tforce = max(0, O.throwforce * 0.5)
 		else if(anchored && !broken)
 			var/turf/T = get_turf(src)
 			var/obj/structure/cable/C = T.get_cable_node()

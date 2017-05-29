@@ -5,7 +5,7 @@
 	icon = 'icons/obj/tiles.dmi'
 	icon_state = "tile"
 	item_state = "tile"
-	w_class = 3
+	w_class = WEIGHT_CLASS_NORMAL
 	force = 1
 	throwforce = 1
 	throw_speed = 5

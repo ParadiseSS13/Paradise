@@ -4,7 +4,7 @@
 	icon_state = "armcannon"
 	force = 5
 	flags = NODROP
-	w_class = 5
+	w_class = WEIGHT_CLASS_HUGE
 	can_flashlight = 0
 	selfcharge = 1
 	trigger_guard = TRIGGER_GUARD_ALLOW_ALL // Has no trigger at all, uses neural signals instead
@@ -20,7 +20,7 @@
 	item_state = "armcannonlase"
 	force = 5
 	flags = NODROP
-	w_class = 5
+	w_class = WEIGHT_CLASS_HUGE
 	materials = null
 	selfcharge = 1
 	trigger_guard = TRIGGER_GUARD_ALLOW_ALL

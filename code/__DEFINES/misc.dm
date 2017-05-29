@@ -330,6 +330,10 @@
 
 // The number of station goals generated each round.
 #define STATION_GOAL_BUDGET 1
+
+#define FIRST_DIAG_STEP 1
+#define SECOND_DIAG_STEP 2
+
 //Bloody shoes/footprints
 #define MAX_SHOE_BLOODINESS			100
 #define BLOODY_FOOTPRINT_BASE_ALPHA	150

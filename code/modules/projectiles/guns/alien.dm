@@ -3,7 +3,7 @@
 	desc = "A vicious alien projectile weapon. Parts of it quiver gelatinously, as though the thing is insectile and alive."
 	icon_state = "spikethrower"
 	item_state = "spikethrower"
-	w_class = 2
+	w_class = WEIGHT_CLASS_SMALL
 	fire_sound_text = "a strange noise"
 	mag_type = /obj/item/ammo_box/magazine/internal/spikethrower
 	burst_size = 2
@@ -52,7 +52,7 @@
 	sharp = 1
 	edge = 0
 	throwforce = 5
-	w_class = 3
+	w_class = WEIGHT_CLASS_NORMAL
 	caliber = "spike"
 	icon_state = "bolt"
 	fire_sound = 'sound/weapons/bladeslice.ogg'

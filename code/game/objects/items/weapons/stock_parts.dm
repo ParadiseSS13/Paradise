@@ -5,7 +5,7 @@
 	desc = "Special mechanical module made to store, sort, and apply standard machine parts."
 	icon_state = "RPED"
 	item_state = "RPED"
-	w_class = 5
+	w_class = WEIGHT_CLASS_HUGE
 	can_hold = list(/obj/item/weapon/stock_parts)
 	storage_slots = 50
 	use_to_pickup = 1
@@ -13,7 +13,7 @@
 	allow_quick_empty = 1
 	collection_mode = 1
 	display_contents_with_number = 1
-	max_w_class = 3
+	max_w_class = WEIGHT_CLASS_NORMAL
 	max_combined_w_class = 100
 	var/works_from_distance = 0
 	var/primary_sound = 'sound/items/rped.ogg'
@@ -36,9 +36,9 @@
 	name = "bluespace rapid part exchange device"
 	desc = "A version of the RPED that allows for replacement of parts and scanning from a distance, along with higher capacity for parts."
 	icon_state = "BS_RPED"
-	w_class = 3
+	w_class = WEIGHT_CLASS_NORMAL
 	storage_slots = 400
-	max_w_class = 3
+	max_w_class = WEIGHT_CLASS_NORMAL
 	max_combined_w_class = 800
 	works_from_distance = 1
 	primary_sound = 'sound/items/PSHOOM.ogg'
@@ -63,11 +63,11 @@
 	desc = "What?"
 	gender = PLURAL
 	icon = 'icons/obj/stock_parts.dmi'
-	w_class = 2
+	w_class = WEIGHT_CLASS_SMALL
 	var/rating = 1
 	toolspeed = 1
 	usesound = 'sound/items/Deconstruct.ogg'
-	
+
 /obj/item/weapon/stock_parts/New()
 	src.pixel_x = rand(-5.0, 5)
 	src.pixel_y = rand(-5.0, 5)

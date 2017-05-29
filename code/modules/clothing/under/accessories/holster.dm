@@ -7,7 +7,7 @@
 	var/holster_allow = /obj/item/weapon/gun
 	var/obj/item/weapon/gun/holstered = null
 	actions_types = list(/datum/action/item_action/accessory/holster)
-	w_class = 3 // so it doesn't fit in pockets
+	w_class = WEIGHT_CLASS_NORMAL // so it doesn't fit in pockets
 
 /obj/item/clothing/accessory/holster/Destroy()
 	QDEL_NULL(holstered)

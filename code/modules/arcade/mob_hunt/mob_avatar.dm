@@ -42,9 +42,9 @@
 		attempt_capture(P, -20)		//attempting a melee capture reduces the mob's effective run_chance by 20% to balance the risk of triggering a trap mob
 		return 1
 
-/obj/effect/nanomob/hitby(obj/item/O)
-	if(istype(O, /obj/item/device/pda))
-		var/obj/item/device/pda/P = O
+/obj/effect/nanomob/hitby(atom/movable/AM)
+	if(istype(AM, /obj/item/device/pda))
+		var/obj/item/device/pda/P = AM
 		attempt_capture(P)			//attempting a ranged capture does not affect the mob's effective run_chance but does prevent you from being shocked by a trap mob
 		return 1
 

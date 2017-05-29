@@ -5,7 +5,7 @@
 	item_state = "hierophant_staff"
 	icon = 'icons/obj/guns/magic.dmi'
 	slot_flags = SLOT_BACK
-	w_class = 4
+	w_class = WEIGHT_CLASS_BULKY
 	force = 20
 	hitsound = "swing_hit"
 	//hitsound = 'sound/weapons/sonic_jackhammer.ogg'

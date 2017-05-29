@@ -10,7 +10,7 @@ var/global/list/obj/item/device/pda/PDAs = list()
 	icon = 'icons/obj/pda.dmi'
 	icon_state = "pda"
 	item_state = "electronic"
-	w_class = 1
+	w_class = WEIGHT_CLASS_TINY
 	slot_flags = SLOT_ID | SLOT_BELT | SLOT_PDA
 
 	//Main variables
@@ -502,8 +502,3 @@ var/global/list/obj/item/device/pda/PDAs = list()
 /obj/item/device/pda/process()
 	if(current_app)
 		current_app.program_process()
-
-/obj/item/device/pda/hit_check(speed)
-	if(current_app)
-		current_app.program_hit_check()
-	..()
