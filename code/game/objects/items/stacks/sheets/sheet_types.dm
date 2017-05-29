@@ -278,6 +278,14 @@ var/global/list/datum/stack_recipe/runed_metal_recipes = list ( \
 	if(!iscultist(user))
 		to_chat(user, "<span class='warning'>Only one with forbidden knowledge could hope to work this metal...</span>")
 		return
+	if(!is_level_reachable(user.z))
+		to_chat(user, "<span class='warning'>The energies of this place interfere with the metal shaping!</span>")
+		return
+
+	if(ishuman(user))
+		var/mob/living/carbon/human/H = user
+		to_chat(H, "<span class='warning'>One of your fingers slice on the metal and it seems to absorb some blood..</span>")
+		H.drip(10)
 	return ..()
 
 /obj/item/stack/sheet/runed_metal/fifty
