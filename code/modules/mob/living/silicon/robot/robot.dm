@@ -89,8 +89,8 @@ var/list/robot_verbs_default = list(
 	var/datum/action/item_action/toggle_research_scanner/scanner = null
 	var/list/module_actions = list()
 
-	can_buckle = TRUE
-	buckle_lying = FALSE
+	can_buckle = 1
+	buckle_lying = 0
 	can_ride_typecache = list(/mob/living/carbon/human)
 
 /mob/living/silicon/robot/New(loc,var/syndie = 0,var/unfinished = 0, var/alien = 0)
@@ -152,13 +152,41 @@ var/list/robot_verbs_default = list(
 	scanner = new(src)
 	scanner.Grant(src)
 
+/mob/living/silicon/robot/MouseDrop_T(mob/living/M, mob/living/user)
+	. = ..()
+	if(!(M in buckled_mob) && isliving(M))
+		buckle_mob(M)
+
 /mob/living/silicon/robot/buckle_mob(mob/living/M, force = FALSE, check_loc = TRUE)
 	if(!is_type_in_typecache(M, can_ride_typecache))
 		M.visible_message("<span class='warning'>[M] really can't seem to mount the [src]...</span>")
 		return
 	if(!riding_datum)
-		riding_datum = new /datum/riding/cyborg
-		riding_datum.ridden = src
+		riding_datum = new /datum/riding/cyborg(src)
+	if(buckled_mob)
+		if(M in buckled_mob)
+			return
+	if(stat)
+		return
+	if(incapacitated())
+		return
+	if(M.restrained())
+		return
+	if(module)
+		if(!module.allow_riding)
+			M.visible_message("<span class='boldwarning'>Unfortunately, [M] just can't seem to hold onto [src]!</span>")
+			return
+	if(iscarbon(M) && (!riding_datum.equip_buckle_inhands(M, 1)))
+		M.visible_message("<span class='boldwarning'>[M] can't climb onto [src] because their hands are full!</span>")
+		return
+	. = ..(M, force, check_loc)
+
+/mob/living/silicon/robot/unbuckle_mob(mob/user)
+	if(iscarbon(user))
+		if(riding_datum)
+			riding_datum.unequip_buckle_inhands(user)
+			riding_datum.restore_position(user)
+	. = ..(user)
 
 
 /mob/living/silicon/robot/proc/init(var/alien=0)
