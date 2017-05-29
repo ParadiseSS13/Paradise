@@ -35,7 +35,7 @@
 
 	for(var/atom/movable/O in src)
 		O.loc = src.loc
-		if(prob(40))
+		if(prob(70))
 			var/obj/item/device/assembly/signaler/anomaly/A = new /obj/item/device/assembly/signaler/anomaly(src.loc)
 			A.code = aSignal.code
 
