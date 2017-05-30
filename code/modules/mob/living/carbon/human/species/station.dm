@@ -545,6 +545,7 @@
 	bodyflags = HAS_SKIN_COLOR | NO_EYES
 	dietflags = DIET_CARN
 	reagent_tag = PROCESS_ORG
+	blood_color = "#d7d0ca"
 	exotic_blood = "water"
 	//ventcrawler = 1 //ventcrawling commented out
 	butt_sprite = "slime"
@@ -898,6 +899,7 @@
 	tox_mod = 0
 	clone_mod = 0
 	oxy_mod = 0
+	exotic_blood = "oil"
 	death_message = "gives one shrill beep before falling limp, their monitor flashing blue before completely shutting off..."
 
 	flags = IS_WHITELISTED | NO_BREATHE | NO_SCAN | NO_BLOOD | NO_PAIN | NO_DNA | RADIMMUNE | ALL_RPARTS | NOTRANSSTING

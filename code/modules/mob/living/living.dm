@@ -629,6 +629,13 @@
 							TH.color = H.species.blood_color
 
 /mob/living/carbon/human/makeTrail(turf/T)
+	if(species.exotic_blood)
+		if(!T)
+			T = get_turf(src)
+		var/datum/reagent/R = chemical_reagents_list[get_blood_id()]
+		if(istype(R))
+			R.reaction_turf(T, 10)
+			return
 	if((species.flags & NO_BLOOD) || !bleed_rate || bleedsuppress)
 		return
 	..()
