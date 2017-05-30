@@ -36,6 +36,7 @@
 	icon = 'icons/obj/toy.dmi'
 	icon_state = "waterballoon-e"
 	item_state = "balloon-empty"
+	var/burst = 0
 
 /obj/item/toy/balloon/New()
 	create_reagents(10)
@@ -84,16 +85,17 @@
 	return
 
 /obj/item/toy/balloon/throw_impact(atom/hit_atom)
-	if(reagents.total_volume >= 1)
-		visible_message("<span class='warning'>The [src] bursts!</span>","You hear a pop and a splash.")
-		reagents.reaction(get_turf(hit_atom))
-		for(var/atom/A in get_turf(hit_atom))
-			reagents.reaction(A)
-		icon_state = "burst"
-		spawn(5)
-			if(src)
-				qdel(src)
-	return
+	if(!burst)
+		if(reagents.total_volume >= 1)
+			visible_message("<span class='warning'>\The [src] bursts!</span>","You hear a pop and a splash.")
+			burst = 1
+			reagents.reaction(get_turf(hit_atom))
+			for(var/atom/A in get_turf(hit_atom))
+				reagents.reaction(A)
+			icon_state = "burst"
+			spawn(5)
+				if(src)
+					qdel(src)
 
 /obj/item/toy/balloon/update_icon()
 	if(src.reagents.total_volume >= 1)
