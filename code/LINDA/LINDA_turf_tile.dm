@@ -266,6 +266,8 @@
 	return null
 
 /turf/simulated/proc/tile_graphic()
+	if (air == null)
+		return null
 	if(air.toxins > MOLES_PLASMA_VISIBLE)
 		mouse_opacity = 0
 		return "plasma"
