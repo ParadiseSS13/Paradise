@@ -80,15 +80,16 @@
 /obj/item/toy/cards/singlecard/cas
 	name = "CAS card"
 	desc = "A CAS card."
+	icon = 'hyntatmta/icons/obj/cas.dmi'
 	icon_state = "cas_white"
 	var/blank = 0
 
 /obj/item/toy/cards/singlecard/cas/examine(mob/user)
 	if(ishuman(user))
 		if(in_range(user, src))
-			user << "<span class='notice'>The card reads: [cardname]</span>"
+			to_chat(user, "<span class='notice'>The card reads: [cardname]</span>")
 		else
-			user << "<span class='warning'>You need to get closer to check the card!</span>"
+			to_chat(user, "<span class='warning'>You need to get closer to check the card!</span>")
 
 /obj/item/toy/cards/singlecard/cas/Flip()
 	return
@@ -96,7 +97,7 @@
 /obj/item/toy/cards/singlecard/cas/attackby(obj/item/I, mob/living/user, params)
 	if(istype(I, /obj/item/weapon/pen))
 		if(!blank)
-			user << "You cannot write on that card."
+			to_chat(user, "You cannot write on that card.")
 			return
 		var/cardtext = stripped_input(user, "What do you wish to write on the card?", "Card Writing", "", 50)
 		if(!cardtext)
