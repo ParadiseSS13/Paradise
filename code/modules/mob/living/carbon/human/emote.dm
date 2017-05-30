@@ -789,6 +789,8 @@
 				emotelist += "\nMachine specific emotes :- beep(s)-(none)/mob, buzz(es)-none/mob, no-(none)/mob, ping(s)-(none)/mob, yes-(none)/mob"
 			else if(species.name == "Slime People")
 				emotelist += "\nSlime people specific emotes :- squish(es)-(none)/mob"
+ 			else if(species.name == "Drask")	 
+				emotelist += "/nDrask specific emotes :- drone(s)-(none)/mob, hum(s)-(none)/mob, rumble(s)-(none)/mob"
 			to_chat(src, emotelist)
 
 		else
