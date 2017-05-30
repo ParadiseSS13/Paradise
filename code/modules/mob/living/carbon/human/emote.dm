@@ -745,7 +745,7 @@
 				playsound(loc, 'sound/effects/snap.ogg', 50, 1)
 
 		// Needed for M_TOXIC_FART
-\		if("fart", "farts")
+		if("fart", "farts")
 			if(reagents.has_reagent("simethicone"))
 				return
 //			playsound(loc, 'sound/effects/fart.ogg', 50, 1, -3) //Admins still vote no to fun
