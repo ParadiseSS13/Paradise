@@ -23,7 +23,8 @@
 	 "sodiumchloride" = list("saltshakersmall", "salt shaker", "Salt. From space oceans, presumably"),
 	 "blackpepper" = list("peppermillsmall", "pepper mill", "Often used to flavor food or make people sneeze"),
 	 "cornoil" = list("oliveoil", "corn oil bottle", "A delicious oil used in cooking. Made from corn"),
-	 "sugar" = list("emptycondiment", "sugar bottle", "Tasty spacey sugar!"))
+	 "sugar" = list("emptycondiment", "sugar bottle", "Tasty spacey sugar!"),
+	 "msg" = list ("emptycondiment", "taste enchancer bottle", "Gets the best taste out of your food"))
 	var/originalname = "condiment" //Can't use initial(name) for this. This stores the name set by condimasters.
 
 /obj/item/weapon/reagent_containers/food/condiment/attackby(obj/item/weapon/W, mob/user, params)
@@ -119,6 +120,24 @@
 	name = "sugar bottle"
 	desc = "Tasty spacey sugar!"
 	list_reagents = list("sugar" = 50)
+	
+/obj/item/weapon/reagent_containers/food/condiment/ketchup
+        name = "ketchup bottle"
+        desc = "You feel more American already."
+        icon_state = "ketchup"
+        list_reagents = list("ketchup" = 50)
+        
+/obj/item/weapon/reagent_containers/food/condiment/hotsauce
+        name = "hotsauce bottle"
+        desc = "You can almost TASTE the stomach ulcers now"
+        icon_state = "hotsauce"
+        list_reagents = list("capsaicin" = 50)
+        
+/obj/item/weapon/reagent_containers/food/condiment/coldsauce
+        name = "coldsauce bottle"
+        desc = "Leaves the tongue numb in it's passage"
+        icon_state = "coldsauce"
+        list_reagents = list("frostoil" = 50)
 
 /obj/item/weapon/reagent_containers/food/condiment/saltshaker		//Seperate from above since it's a small shaker rather then
 	name = "salt shaker"											//	a large one.
@@ -187,6 +206,11 @@
 	icon_state = "soysauce"
 	list_reagents = list("soysauce" = 50)
 	possible_states = list()
+	
+/obj/item/weapon/reagent_containers/food/condiment/tasteenchancer
+        name = "taste enchancer"
+        desc = "gets the best taste out of your food"
+        list_reagents = list("msg" = 50)
 
 /obj/item/weapon/reagent_containers/food/condiment/syndisauce
 	name = "\improper Chef Excellence's Special Sauce"

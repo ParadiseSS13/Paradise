@@ -934,6 +934,19 @@ var/list/all_supply_groups = list(supply_emergency,supply_security,supply_engine
 	cost = 60
 	containername = "Pizza crate"
 
+/datum/supply_packs/organic/condiments
+        name = "Condiments crate"
+        contains = list(/obj/item/weapon/reagent_containers/food/condiment/coldsauce,
+                                        /obj/item/weapon/reagent_containers/food/condiment/hotsauce,
+                                        /obj/item/weapon/reagent_containers/food/condiment/tasteenchancer,
+                                        /obj/item/weapon/reagent_containers/food/condiment/sugar,
+                                        /obj/item/weapon/reagent_containers/food/condiment/soysauce,
+                                        /obj/item/weapon/reagent_containers/food/condiment/ketchup,
+                                        /obj/item/weapon/reagent_containers/food/condiment/peppermill,
+                                        /obj/item/weapon/reagent_containers/food/condiment/saltshaker)
+       cost = 20
+       containername = "Condiments crate"
+       
 /datum/supply_packs/organic/monkey
 	name = "Monkey Crate"
 	contains = list (/obj/item/weapon/storage/box/monkeycubes)
