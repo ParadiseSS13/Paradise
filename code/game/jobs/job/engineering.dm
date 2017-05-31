@@ -138,7 +138,7 @@
 	head = /obj/item/clothing/head/hardhat
 	l_ear = /obj/item/device/radio/headset/headset_eng
 	id = /obj/item/weapon/card/id/engineering
-	r_pocket = /obj/item/device/t_scanner
+	r_pocket = /obj/item/device/gps/engineering
 	pda = /obj/item/device/pda/engineering
 	backpack_contents = list(
 		/obj/item/weapon/pod_paint_bucket = 1
