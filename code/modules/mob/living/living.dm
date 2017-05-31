@@ -629,7 +629,7 @@
 							TH.color = H.species.blood_color
 
 /mob/living/carbon/human/makeTrail(turf/T)
-	if(species.exotic_blood)
+	if(species.exotic_blood && bleed_rate)
 		if(!T)
 			T = get_turf(src)
 		var/datum/reagent/R = chemical_reagents_list[get_blood_id()]
