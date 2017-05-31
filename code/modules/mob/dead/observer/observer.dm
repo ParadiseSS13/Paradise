@@ -182,7 +182,7 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 	if(P)
 		if(!P.control_computer)
 			P.find_control_computer(urgent=1)
-		if(P.control_computer)
+		if(P.control_computer || istype(P, /obj/machinery/cryopod/robot))
 			P.despawn_occupant()
 	return
 

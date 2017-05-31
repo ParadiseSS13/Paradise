@@ -188,7 +188,6 @@
 		/obj/item/weapon/hand_tele,
 		/obj/item/weapon/card/id/captains_spare,
 		/obj/item/device/aicard,
-		/obj/item/device/mmi,
 		/obj/item/device/paicard,
 		/obj/item/weapon/gun,
 		/obj/item/weapon/pinpointer,
@@ -734,5 +733,6 @@
 		qdel(I)
 	R.module.remove_subsystems_and_actions(R)
 	qdel(R.module)
+	qdel(occupant)
 
 	return ..()
