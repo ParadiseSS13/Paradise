@@ -22,7 +22,7 @@
 	name = "Alien Organ Manipulation"
 	possible_locs = list("chest", "head", "groin", "eyes", "mouth")
 	allowed_mob = list(/mob/living/carbon/alien/humanoid)
-	steps = list(/datum/surgery_step/saw_carapace,/datum/surgery_step/cut_carapace, /datum/surgery_step/retract_carapace,/datum/surgery_step/internal/manipulate_organs)
+	steps = list(/datum/surgery_step/saw_carapace,/datum/surgery_step/cut_carapace, /datum/surgery_step/retract_carapace, /datum/surgery_step/manipulate_organs_alien)
 
 
 /datum/surgery/organ_manipulation/can_start(mob/user, mob/living/carbon/target)
@@ -529,3 +529,108 @@
 		self_msg = "<span class='warning'> Your hand slips, damaging several organs [target]'s lower abdomen with [tool]!</span>"
 	user.visible_message(msg, self_msg)
 	return 0
+
+/datum/surgery_step/manipulate_organs_alien
+	name = "manipulate organs"
+	allowed_tools = list(/obj/item/organ/internal = 100, /obj/item/weapon/reagent_containers/food/snacks/organ = 0)
+	var/implements_extract = list(/obj/item/weapon/hemostat = 100, /obj/item/weapon/kitchen/utensil/fork = 55)
+	var/implements_finsh = list(/obj/item/weapon/scalpel/manager = 120,/obj/item/weapon/retractor = 100 ,/obj/item/weapon/crowbar = 75)
+	var/current_type
+	var/obj/item/organ/internal/I = null
+	time = 64
+/datum/surgery_step/manipulate_organs_alien/New()
+	..()
+	allowed_tools = allowed_tools + implements_extract + implements_finsh
+/datum/surgery_step/manipulate_organs_alien/begin_step(mob/living/user, mob/living/carbon/target, target_zone, obj/item/tool,datum/surgery/surgery)
+	if(is_int_organ(tool))
+		current_type = "insert"
+		I = tool
+		if(target_zone != I.parent_organ || target.get_organ_slot(I.slot))
+			to_chat(user, "<span class='notice'>There is no room for [I] in [target]'s [parse_zone(target_zone)]!</span>")
+			return -1
+		if(target.get_int_organ(I))
+			to_chat(user, "<span class='warning'> \The [target] already has [I].</span>")
+			return -1
+		user.visible_message("[user] starts transplanting \the [tool] into [target]'s [parse_zone(target_zone)].", \
+		"You start transplanting \the [tool] into [target]'s [parse_zone(target_zone)].")
+
+	else if(implement_type in implements_finsh)
+		current_type = "finish"
+		var/msg = "[user] starts pulling [target]'s carapace back into place with \the [tool], it seals itself."
+		var/self_msg = "You start pulling [target]'s carapace back into place with \the [tool], it seals itself."
+		user.visible_message(msg, self_msg)
+	else if(implement_type in implements_extract)
+		current_type = "extract"
+		var/list/organs = target.get_organs_zone(target_zone)
+		if(!organs.len)
+			to_chat(user, "<span class='notice'>There are no removeable organs in [target]'s [parse_zone(target_zone)]!</span>")
+			return -1
+		for(var/obj/item/organ/internal/O in organs)
+			O.on_find(user)
+			organs -= O
+			organs[O.name] = O
+		I = input("Remove which organ?", "Surgery", null, null) as null|anything in organs
+		if(I && user && target && user.Adjacent(target) && user.get_active_hand() == tool)
+			I = organs[I]
+			if(!I) return -1
+			user.visible_message("[user] starts to separate [target]'s [I] with \the [tool].", \
+			"You start to separate [target]'s [I] with \the [tool] for removal." )
+		else
+			return -1
+
+	else if(istype(tool, /obj/item/weapon/reagent_containers/food/snacks/organ))
+		to_chat(user, "<span class='warning'>[tool] was biten by someone! It's too damaged to use!</span>")
+		return -1
+	..()
+/datum/surgery_step/manipulate_organs_alien/end_step(mob/living/user, mob/living/carbon/target, target_zone, obj/item/tool,datum/surgery/surgery)
+
+	if(current_type == "insert")
+		I = tool
+		user.drop_item()
+		I.insert(target)
+		spread_germs_to_organ(I, user)
+		if(!user.canUnEquip(I, 0))
+			to_chat(user, "<span class='warning'>[I] is stuck to your hand, you can't put it in [target]!</span>")
+			return 0
+		user.visible_message("<span class='notice'> [user] has transplanted \the [tool] into [target]'s [parse_zone(target_zone)].</span>", \
+		"<span class='notice'> You have transplanted \the [tool] into [target]'s [parse_zone(target_zone)].</span>")
+		I.status &= ~ORGAN_CUT_AWAY
+
+	else if(current_type == "extract")
+		if(I && I.owner == target)
+			user.visible_message("<span class='notice'> [user] has separated and extracts [target]'s [I] with \the [tool].</span>" , \
+			"<span class='notice'> You have separated and extracted [target]'s [I] with \the [tool].</span>")
+
+			add_logs(user, target, "surgically removed [I.name] from", addition="INTENT: [uppertext(user.a_intent)]")
+			spread_germs_to_organ(I, user)
+			I.status |= ORGAN_CUT_AWAY
+			var/obj/item/thing = I.remove(target)
+			if(!istype(thing))
+				thing.forceMove(get_turf(target))
+			else
+				user.put_in_hands(thing)
+		else
+			user.visible_message("<span class='notice'>[user] can't seem to extract anything from [target]'s [parse_zone(target_zone)]!</span>",
+				"<span class='notice'>You can't extract anything from [target]'s [parse_zone(target_zone)]!</span>")
+	else if(current_type == "finish")
+
+		var/msg = "<span class='notice'>[user] pulls [target]'s flesh back into place with \the [tool].</span>"
+		var/self_msg = "<span class='notice'>You pull [target]'s flesh back into place with \the [tool].</span>"
+		user.visible_message(msg, self_msg)
+
+		return 1
+	return 0
+/datum/surgery_step/manipulate_organs_alien/fail_step(mob/living/user, mob/living/carbon/target, target_zone, obj/item/tool,datum/surgery/surgery)
+	if(current_type == "insert")
+		user.visible_message("<span class='warning'> [user]'s hand slips, damaging \the [tool]!</span>", \
+		"<span class='warning'> Your hand slips, damaging \the [tool]!</span>")
+		return 0
+	else if(current_type == "extract")
+		user.visible_message("[user] can't seem to extract anything from [target]'s [parse_zone(target_zone)]!",
+		"<span class='notice'>You can't extract anything from [target]'s [parse_zone(target_zone)]!</span>")
+		return 0
+	else if(current_type == "finish")
+		var/msg = "<span class='warning'> [user]'s hand slips, tearing the skin!</span>"
+		var/self_msg = "<span class='warning'> Your hand slips, tearing skin!</span>"
+		user.visible_message(msg, self_msg)
+		return 0
