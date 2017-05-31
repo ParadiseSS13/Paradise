@@ -1,8 +1,0 @@
-author: "Xantholne"
-delete-after: True
-changes: 
-  - bugfix: "Virologists actually spawn with their skirt"
-  - bugfix: "Coroner now can finally spawn with some Medical loadout clothes."
-  - bugfix: "Medical Doctors will stop spawning with Chemist/Virologist Skirts"
-  - bugfix: "CMOs won't spawn with a virologist skirt anymore."
-  - bugfix: "Virologists and Chemists wont spawn with a Medical Doctor skirt anymore."
