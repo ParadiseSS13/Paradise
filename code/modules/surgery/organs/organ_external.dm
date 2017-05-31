@@ -192,8 +192,13 @@
 /****************************************************
 			   DAMAGE PROCS
 ****************************************************/
-
 /obj/item/organ/external/take_damage(brute, burn, sharp, edge, used_weapon = null, list/forbidden_limbs = list())
+	real_heal_damage(brute, burn, FALSE, TRUE)
+
+/obj/item/organ/external/proc/heal_damage(brute, burn, internal = 0, robo_repair = 0)
+	real_take_damage(brute, burn, TRUE, TRUE)
+
+/obj/item/organ/external/proc/real_take_damage(brute, burn, sharp, edge, used_weapon = null, list/forbidden_limbs = list())
 	if((brute <= 0) && (burn <= 0))
 		return 0
 
@@ -298,7 +303,7 @@
 #undef LIMB_DMG_PROB
 #undef LIMB_NO_BONE_DMG_PROB
 
-/obj/item/organ/external/proc/heal_damage(brute, burn, internal = 0, robo_repair = 0)
+/obj/item/organ/external/proc/real_heal_damage(brute, burn, internal = 0, robo_repair = 0)
 	if(status & ORGAN_ROBOT && !robo_repair)
 		return
 

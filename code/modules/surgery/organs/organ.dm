@@ -236,6 +236,7 @@ var/list/organ_cache = list()
 /obj/item/organ/proc/take_damage(amount, var/silent=0)
 	if(tough)
 		return
+	amount = -amount
 	if(status & ORGAN_ROBOT)
 		damage = between(0, damage + (amount * 0.8), max_damage)
 	else
