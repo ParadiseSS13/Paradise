@@ -383,7 +383,7 @@
 		var/datum/fish/parent2 = pick(breed_candidates)
 		if(!parent2.crossbreeder)						//second fish refuses to crossbreed, spawn a dud
 			egg_list.Add(/obj/item/fish_eggs)
-		else if(parent1 == parent2)						//both fish are the same type
+		else if(parent1.type == parent2.type)						//both fish are the same type
 			if(prob(90))									//90% chance to get that type of egg
 				egg_list.Add(parent1.egg_item)
 			else											//10% chance to get a dud
