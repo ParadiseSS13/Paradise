@@ -1,0 +1,4 @@
+author: "FalseIncarnate"
+delete-after: True
+changes: 
+  - bugfix: "Shrimp and electric eels properly lay their own eggs again if they have a suitable partner."
