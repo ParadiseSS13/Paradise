@@ -364,6 +364,7 @@
 	last_special = world.time + 200
 
 	//I'm not sure how much of this is necessary, but I would rather avoid issues.
+	density = 1
 	force_fold_out()
 
 	visible_message("<span class=notice>[src] folds outwards, expanding into a mobile form.</span>", "<span class=notice>You fold outwards, expanding into a mobile form.</span>")
@@ -396,6 +397,7 @@
 		to_chat(src, "<span class=warning>You must wait before returning to your card form!</span>")
 		return
 
+	density = 0
 	close_up()
 
 /mob/living/silicon/pai/proc/choose_chassis()
@@ -561,7 +563,6 @@
 
 /mob/living/silicon/pai/update_canmove(delay_action_updates = 0)
 	. = ..()
-	density = 0 //this is reset every canmove update otherwise
 
 /mob/living/silicon/pai/examine(mob/user)
 	to_chat(user, "<span class='info'>*---------*</span>")
