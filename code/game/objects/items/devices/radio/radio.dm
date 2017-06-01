@@ -602,7 +602,7 @@ var/global/list/default_medbay_channels = list(
 	var/emp
 	on = 0
 	emp++
-	spawn(70)
+	spawn(rand(100, 200))
 		emp--
 		if(!emp)
 			on = 1
