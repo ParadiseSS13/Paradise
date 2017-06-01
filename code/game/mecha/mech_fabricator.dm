@@ -39,7 +39,7 @@
 								"Gygax",
 								"Durand",
 								"H.O.N.K",
-								"Recitence",
+								"Reticence",
 								"Phazon",
 								"Exosuit Equipment",
 								"Cyborg Upgrade Modules",
@@ -262,13 +262,13 @@
 		return 1
 	return interact(user)
 
-/obj/machinery/mecha_part_fabricator/interact(mob/user as mob)
+/obj/machinery/mecha_part_fabricator/interact(mob/user)
 	var/dat, left_part
 	if(..())
 		return
 	user.set_machine(src)
 	var/turf/exit = get_step(src,SOUTH)
-	if(exit.density)
+	if(isliving(user) && exit.density)
 		visible_message("[bicon(src)] <b>\The [src]</b> beeps, \"Error! Part outlet is obstructed.\"")
 		return
 	if(temp)

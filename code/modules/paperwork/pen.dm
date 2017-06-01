@@ -17,7 +17,7 @@
 	item_state = "pen"
 	slot_flags = SLOT_BELT | SLOT_EARS
 	throwforce = 0
-	w_class = 1
+	w_class = WEIGHT_CLASS_TINY
 	throw_speed = 3
 	throw_range = 7
 	materials = list(MAT_METAL=10)
@@ -167,7 +167,7 @@
 		force = 18
 		sharp = 1
 		edge = 1
-		w_class = 3
+		w_class = WEIGHT_CLASS_NORMAL
 		name = "energy dagger"
 		hitsound = 'sound/weapons/blade1.ogg'
 		throwforce = 35
@@ -182,3 +182,22 @@
 	else
 		icon_state = initial(icon_state) //looks like a normal pen when off.
 		item_state = initial(item_state)
+
+/obj/item/proc/on_write(obj/item/weapon/paper/P, mob/user)
+	return
+
+/obj/item/weapon/pen/poison
+	var/uses_left = 3
+
+/obj/item/weapon/pen/poison/on_write(obj/item/weapon/paper/P, mob/user)
+	if(P.contact_poison_volume)
+		to_chat(user, "<span class='warning'>[P] is already coated.</span>")
+	else if(uses_left)
+		uses_left--
+		P.contact_poison = "amanitin"
+		P.contact_poison_volume = 15
+		P.contact_poison_poisoner = user.name
+		add_logs(user, P, "used poison pen on")
+		to_chat(user, "<span class='warning'>You apply the poison to [P].</span>")
+	else
+		to_chat(user, "<span class='warning'>[src] clicks. It seems to be depleted.</span>")

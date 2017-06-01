@@ -260,13 +260,13 @@ Class Procs:
 			if(!O)
 				return 1
 			if(!canLink(O))
-				to_chat(usr, "\red You can't link with that device.")
+				to_chat(usr, "<span class='warning'>You can't link with that device.</span>")
 				return 1
 
 			if(unlinkFrom(usr, O))
-				to_chat(usr, "\blue A green light flashes on \the [P], confirming the link was removed.")
+				to_chat(usr, "<span class='notice'>A green light flashes on \the [P], confirming the link was removed.</span>")
 			else
-				to_chat(usr, "\red A red light flashes on \the [P].  It appears something went wrong when unlinking the two devices.")
+				to_chat(usr, "<span class='warning'>A red light flashes on \the [P].  It appears something went wrong when unlinking the two devices.</span>")
 			update_mt_menu=1
 
 		if("link" in href_list)
@@ -274,25 +274,25 @@ Class Procs:
 			if(!O)
 				return 1
 			if(!canLink(O,href_list))
-				to_chat(usr, "\red You can't link with that device.")
+				to_chat(usr, "<span class='warning'>You can't link with that device.</span>")
 				return 1
 			if(isLinkedWith(O))
-				to_chat(usr, "\red A red light flashes on \the [P]. The two devices are already linked.")
+				to_chat(usr, "<span class='warning'>A red light flashes on \the [P]. The two devices are already linked.</span>")
 				return 1
 
 			if(linkWith(usr, O, href_list))
-				to_chat(usr, "\blue A green light flashes on \the [P], confirming the link was added.")
+				to_chat(usr, "<span class='notice'>A green light flashes on \the [P], confirming the link was added.</span>")
 			else
-				to_chat(usr, "\red A red light flashes on \the [P].  It appears something went wrong when linking the two devices.")
+				to_chat(usr, "<span class='warning'>A red light flashes on \the [P].  It appears something went wrong when linking the two devices.</span>")
 			update_mt_menu=1
 
 		if("buffer" in href_list)
 			P.buffer = src
-			to_chat(usr, "\blue A green light flashes, and the device appears in the multitool buffer.")
+			to_chat(usr, "<span class='notice'>A green light flashes, and the device appears in the multitool buffer.</span>")
 			update_mt_menu=1
 
 		if("flush" in href_list)
-			to_chat(usr, "\blue A green light flashes, and the device disappears from the multitool buffer.")
+			to_chat(usr, "<span class='notice'>A green light flashes, and the device disappears from the multitool buffer.</span>")
 			P.buffer = null
 			update_mt_menu=1
 
@@ -395,21 +395,28 @@ Class Procs:
 
 /obj/machinery/proc/default_deconstruction_crowbar(var/obj/item/weapon/crowbar/C, var/ignore_panel = 0)
 	if(istype(C) && (panel_open || ignore_panel))
-		playsound(loc, 'sound/items/Crowbar.ogg', 50, 1)
-		var/obj/machinery/constructable_frame/machine_frame/M = new /obj/machinery/constructable_frame/machine_frame(loc)
-		M.state = 2
-		M.icon_state = "box_1"
-		for(var/obj/item/I in component_parts)
-			if(I.reliability != 100 && crit_fail)
-				I.crit_fail = 1
-			I.forceMove(loc)
-		qdel(src)
+		playsound(loc, C.usesound, 50, 1)
+		deconstruct()
 		return 1
 	return 0
 
+/obj/machinery/proc/deconstruct(disassembled = TRUE)
+	on_deconstruction()
+	spawn_frame()
+	for(var/obj/item/I in component_parts)
+		if(I.reliability != 100 && crit_fail)
+			I.crit_fail = 1
+		I.forceMove(loc)
+	qdel(src)
+
+/obj/machinery/proc/spawn_frame()
+	var/obj/machinery/constructable_frame/machine_frame/M = new /obj/machinery/constructable_frame/machine_frame(loc)
+	M.state = 2
+	M.icon_state = "box_1"
+
 /obj/machinery/proc/default_deconstruction_screwdriver(var/mob/user, var/icon_state_open, var/icon_state_closed, var/obj/item/weapon/screwdriver/S)
 	if(istype(S))
-		playsound(loc, 'sound/items/Screwdriver.ogg', 50, 1)
+		playsound(loc, S.usesound, 50, 1)
 		if(!panel_open)
 			panel_open = 1
 			icon_state = icon_state_open
@@ -423,7 +430,7 @@ Class Procs:
 
 /obj/machinery/proc/default_change_direction_wrench(var/mob/user, var/obj/item/weapon/wrench/W)
 	if(panel_open && istype(W))
-		playsound(loc, 'sound/items/Ratchet.ogg', 50, 1)
+		playsound(loc, W.usesound, 50, 1)
 		dir = turn(dir,-90)
 		to_chat(user, "<span class='notice'>You rotate [src].</span>")
 		return 1
@@ -432,14 +439,14 @@ Class Procs:
 /obj/proc/default_unfasten_wrench(mob/user, obj/item/weapon/wrench/W, time = 20)
 	if(istype(W))
 		to_chat(user, "<span class='notice'>Now [anchored ? "un" : ""]securing [name].</span>")
-		playsound(loc, 'sound/items/Ratchet.ogg', 50, 1)
-		if(do_after(user, time, target = src))
+		playsound(loc, W.usesound, 50, 1)
+		if(do_after(user, time * W.toolspeed, target = src))
 			to_chat(user, "<span class='notice'>You've [anchored ? "un" : ""]secured [name].</span>")
 			anchored = !anchored
 			if(istype(src, /obj/machinery))
 				var/obj/machinery/M = src
 				M.power_change() //Turn on or off the machine depending on the status of power in the new area.
-			playsound(loc, 'sound/items/Deconstruct.ogg', 50, 1)
+			playsound(loc, W.usesound, 50, 1)
 		return 1
 	return 0
 
@@ -485,18 +492,6 @@ Class Procs:
 	..(user)
 	if(user.research_scanner && component_parts)
 		display_parts(user)
-
-/obj/machinery/proc/dismantle()
-	playsound(loc, 'sound/items/Crowbar.ogg', 50, 1)
-	var/obj/machinery/constructable_frame/machine_frame/M = new /obj/machinery/constructable_frame/machine_frame(loc)
-	M.state = 2
-	M.icon_state = "box_1"
-	for(var/obj/I in component_parts)
-		if(I.reliability != 100 && crit_fail)
-			I.crit_fail = 1
-		I.loc = loc
-	qdel(src)
-	return 1
 
 /obj/machinery/proc/on_assess_perp(mob/living/carbon/human/perp)
 	return 0
@@ -569,19 +564,20 @@ Class Procs:
 	return 0
 
 //called on machinery construction (i.e from frame to machinery) but not on initialization
-/obj/machinery/proc/construction()
+/obj/machinery/proc/on_construction()
+	return
+
+/obj/machinery/proc/on_deconstruction()
 	return
 
 /obj/machinery/proc/can_be_overridden()
 	. = 1
 
-/obj/machinery/tesla_act(var/power)
+/obj/machinery/tesla_act(power, explosive = FALSE)
 	..()
-	if(prob(85))
-		emp_act(2)
+	if(prob(85) && explosive)
+		explosion(loc, 1, 2, 4, flame_range = 2, adminlog = 0, smoke = 0)
 	else if(prob(50))
-		ex_act(3)
-	else if(prob(90))
-		ex_act(2)
+		emp_act(2)
 	else
-		ex_act(1)
+		ex_act(2)

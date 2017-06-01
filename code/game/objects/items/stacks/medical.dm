@@ -4,7 +4,7 @@
 	icon = 'icons/obj/items.dmi'
 	amount = 6
 	max_amount = 6
-	w_class = 1
+	w_class = WEIGHT_CLASS_TINY
 	throw_speed = 3
 	throw_range = 7
 	var/heal_brute = 0
@@ -152,8 +152,6 @@
 	icon_state = "burnkit"
 	heal_burn = 25
 
-
-
 //Medical Herbs//
 
 
@@ -161,8 +159,8 @@
 	name = "\improper Comfrey leaf"
 	singular_name = "Comfrey leaf"
 	desc = "A soft leaf that is rubbed on bruises."
-	icon = 'icons/obj/hydroponics_products.dmi'
-	icon_state = "alien3-product"
+	icon = 'icons/obj/hydroponics/harvest.dmi'
+	icon_state = "tea_aspera_leaves"
 	color = "#378C61"
 	heal_brute = 12
 
@@ -171,14 +169,13 @@
 	name = "\improper Aloe Vera leaf"
 	singular_name = "Aloe Vera leaf"
 	desc = "A cold leaf that is rubbed on burns."
-	icon = 'icons/obj/hydroponics_products.dmi'
-	icon_state = "ambrosia-product"
+	icon = 'icons/obj/hydroponics/harvest.dmi'
+	icon_state = "ambrosiavulgaris"
 	color = "#4CC5C7"
 	heal_burn = 12
 
 
-
-//Splits//
+//Splints//
 
 
 /obj/item/stack/medical/splint
@@ -206,14 +203,14 @@
 				to_chat(user, "<span class='notice'>You remove the splint from [H]'s [limb].</span>")
 			return
 		if(M == user)
-			user.visible_message("<span class='notice'>[user] starts to apply [src] to [H]'s [limb].</span>", \
-								 "<span class='notice'>You start to apply [src] to [H]'s [limb].</span>", \
+			user.visible_message("<span class='notice'>[user] starts to apply [src] to their [limb].</span>", \
+								 "<span class='notice'>You start to apply [src] to your [limb].</span>", \
 								 "<span class='notice'>You hear something being wrapped.</span>")
 			if(!do_mob(user, H, self_delay))
 				return
 		else
-			user.visible_message("<span class='green'>[user] applies [src] to their [limb].</span>", \
-								 "<span class='green'>You apply [src] to your [limb].</span>", \
+			user.visible_message("<span class='green'>[user] applies [src] to [H]'s [limb].</span>", \
+								 "<span class='green'>You apply [src] to [H]'s [limb].</span>", \
 								 "<span class='green'>You hear something being wrapped.</span>")
 
 		affecting.status |= ORGAN_SPLINTED

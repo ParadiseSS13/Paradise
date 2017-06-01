@@ -22,7 +22,7 @@
 			if(slot_l_store)
 				if(l_store)
 					return
-				if(W.w_class > 3)
+				if(W.w_class > WEIGHT_CLASS_NORMAL)
 					return
 				unEquip(W)
 				l_store = W
@@ -30,7 +30,7 @@
 			if(slot_r_store)
 				if(r_store)
 					return
-				if(W.w_class > 3)
+				if(W.w_class > WEIGHT_CLASS_NORMAL)
 					return
 				unEquip(W)
 				r_store = W

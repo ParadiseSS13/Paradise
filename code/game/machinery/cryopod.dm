@@ -29,14 +29,14 @@
 	var/allow_items = 1
 
 /obj/machinery/computer/cryopod/attack_ai()
-	src.attack_hand()
+	attack_hand()
 
 /obj/machinery/computer/cryopod/attack_hand(mob/user = usr)
 	if(stat & (NOPOWER|BROKEN))
 		return
 
 	user.set_machine(src)
-	src.add_fingerprint(usr)
+	add_fingerprint(usr)
 
 	var/dat
 
@@ -60,7 +60,7 @@
 
 	var/mob/user = usr
 
-	src.add_fingerprint(user)
+	add_fingerprint(user)
 
 	if(href_list["log"])
 
@@ -120,7 +120,7 @@
 			I.loc = get_turf(src)
 			frozen_items -= I
 
-	src.updateUsrDialog()
+	updateUsrDialog()
 	return
 
 /obj/item/weapon/circuitboard/cryopodcontrol
@@ -178,7 +178,7 @@
 	var/time_till_despawn = 9000 // This is reduced by 90% if a player manually enters cryo
 	var/willing_time_divisor = 10
 	var/time_entered = 0          // Used to keep track of the safe period.
-	var/obj/item/device/radio/intercom/announce //
+	var/obj/item/device/radio/intercom/announce
 
 	var/obj/machinery/computer/cryopod/control_computer
 	var/last_no_computer_message = 0
@@ -192,12 +192,18 @@
 		/obj/item/device/paicard,
 		/obj/item/weapon/gun,
 		/obj/item/weapon/pinpointer,
-		/obj/item/clothing/suit,
 		/obj/item/clothing/shoes/magboots,
 		/obj/item/areaeditor/blueprints,
 		/obj/item/clothing/head/helmet/space,
+		/obj/item/clothing/suit/space,
+		/obj/item/clothing/suit/armor,
+		/obj/item/weapon/defibrillator/compact,
+		/obj/item/weapon/reagent_containers/hypospray/CMO,
+		/obj/item/clothing/accessory/medal/gold/captain,
+		/obj/item/clothing/gloves/color/black/krav_maga/sec,
 		/obj/item/weapon/storage/internal,
-		/obj/item/device/spacepod_key
+		/obj/item/device/spacepod_key,
+		/obj/item/weapon/nullrod
 	)
 	// These items will NOT be preserved
 	var/list/do_not_preserve_items = list (
@@ -230,8 +236,8 @@
 
 	// Don't send messages unless we *need* the computer, and less than five minutes have passed since last time we messaged
 	if(!control_computer && urgent && last_no_computer_message + 5*60*10 < world.time)
-		log_admin("Cryopod in [src.loc.loc] could not find control computer!")
-		message_admins("Cryopod in [src.loc.loc] could not find control computer!")
+		log_admin("Cryopod in [loc.loc] could not find control computer!")
+		message_admins("Cryopod in [loc.loc] could not find control computer!")
 		last_no_computer_message = world.time
 
 	return control_computer != null
@@ -290,8 +296,13 @@
 					continue
 				O.loc = src
 
+	for(var/obj/machinery/computer/cloning/cloner in machines)
+		for(var/datum/dna2/record/R in cloner.records)
+			if(occupant.mind == locate(R.mind))
+				cloner.records.Remove(R)
+
 	//Delete all items not on the preservation list.
-	var/list/items = src.contents
+	var/list/items = contents
 	items -= occupant // Don't delete the occupant
 	items -= announce // or the autosay radio.
 
@@ -317,7 +328,19 @@
 				control_computer.frozen_items += W
 				W.loc = null
 			else
-				W.loc = src.loc
+				W.loc = loc
+
+	// Skip past any cult sacrifice objective using this person
+	if(GAMEMODE_IS_CULT && is_sacrifice_target(occupant.mind))
+		var/datum/game_mode/cult/cult_mode = ticker.mode
+		var/list/p_s_t = cult_mode.get_possible_sac_targets()
+		if(p_s_t.len)
+			cult_mode.sacrifice_target = pick(p_s_t)
+			for(var/datum/mind/H in ticker.mode.cult)
+				if(H.current)
+					to_chat(H.current, "<span class='danger'>[ticker.mode.cultdat.entity_name]</span> murmurs, <span class='cultlarge'>[occupant] is beyond your reach. Sacrifice [cult_mode.sacrifice_target.current] instead...</span></span>")
+		else
+			cult_mode.bypass_phase()
 
 	//Update any existing objectives involving this mob.
 	for(var/datum/objective/O in all_objectives)
@@ -328,7 +351,8 @@
 		else if(O.target && istype(O.target,/datum/mind))
 			if(O.target == occupant.mind)
 				if(O.owner && O.owner.current)
-					to_chat(O.owner.current, "<span class='userdanger'>You get the feeling your target is no longer within reach. Time for Plan [pick("A","B","C","D","X","Y","Z")]. Objectives updated!</span>")
+					to_chat(O.owner.current, "<BR><span class='userdanger'>You get the feeling your target is no longer within reach. Time for Plan [pick("A","B","C","D","X","Y","Z")]. Objectives updated!</span>")
+					O.owner.current << 'sound/ambience/alarm4.ogg'
 				O.target = null
 				spawn(1) //This should ideally fire after the occupant is deleted.
 					if(!O) return
@@ -438,7 +462,7 @@
 			if(do_after(user, 20, target = G:affecting))
 				if(!M || !G || !G:affecting) return
 
-				if(src.occupant)
+				if(occupant)
 					to_chat(user, "<span class='boldnotice'>\The [src] is in use.</span>")
 					return
 
@@ -474,7 +498,7 @@
 			message_admins("[key_name_admin(M)] has entered a stasis pod. (<A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[x];Y=[y];Z=[z]'>JMP</a>)")
 
 			//Despawning occurs when process() is called with an occupant without a client.
-			src.add_fingerprint(M)
+			add_fingerprint(M)
 
 
 /obj/machinery/cryopod/MouseDrop_T(atom/movable/O as mob|obj, mob/user as mob)
@@ -525,6 +549,9 @@
 		willing = 1
 
 	if(willing)
+		if(!Adjacent(L))
+			to_chat(user, "<span class='boldnotice'>You're not close enough to \the [src].</span>")
+			return
 		if(L == user)
 			visible_message("[user] starts climbing into the cryo pod.")
 		else
@@ -533,7 +560,7 @@
 		if(do_after(user, 20, target = L))
 			if(!L) return
 
-			if(src.occupant)
+			if(occupant)
 				to_chat(user, "<span class='boldnotice'>\The [src] is in use.</span>")
 				return
 			L.forceMove(src)
@@ -565,7 +592,7 @@
 		message_admins("<span class='notice'>[key_name_admin(L)] has entered a stasis pod.</span>")
 
 		//Despawning occurs when process() is called with an occupant without a client.
-		src.add_fingerprint(L)
+		add_fingerprint(L)
 
 	return
 
@@ -587,14 +614,14 @@
 		icon_state = base_icon_state
 
 	//Eject any items that aren't meant to be in the pod.
-	var/list/items = src.contents
+	var/list/items = contents
 	if(occupant) items -= occupant
 	if(announce) items -= announce
 
 	for(var/obj/item/W in items)
 		W.loc = get_turf(src)
 
-	src.go_out()
+	go_out()
 	add_fingerprint(usr)
 
 	name = initial(name)
@@ -608,7 +635,7 @@
 	if(usr.stat != 0 || !check_occupant_allowed(usr))
 		return
 
-	if(src.occupant)
+	if(occupant)
 		to_chat(usr, "<span class='boldnotice'>\The [src] is in use.</span>")
 		return
 
@@ -624,13 +651,13 @@
 		if(!usr || !usr.client)
 			return
 
-		if(src.occupant)
+		if(occupant)
 			to_chat(usr, "<span class='boldnotice'>\The [src] is in use.</span>")
 			return
 
 		usr.stop_pulling()
 		usr.forceMove(src)
-		src.occupant = usr
+		occupant = usr
 		time_till_despawn = initial(time_till_despawn) / willing_time_divisor
 
 		if(orient_right)
@@ -643,7 +670,7 @@
 		occupant = usr
 		time_entered = world.time
 
-		src.add_fingerprint(usr)
+		add_fingerprint(usr)
 		name = "[name] ([usr.name])"
 
 	return

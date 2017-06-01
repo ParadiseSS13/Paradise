@@ -1,5 +1,5 @@
 //I will need to recode parts of this but I am way too tired atm
-/obj/effect/blob
+/obj/structure/blob
 	name = "blob"
 	icon = 'icons/mob/blob.dmi'
 	light_range = 3
@@ -13,7 +13,7 @@
 	var/fire_resist = 1
 
 
-/obj/effect/blob/New(loc)
+/obj/structure/blob/New(loc)
 	blobs += src
 	src.dir = pick(1, 2, 4, 8)
 	src.update_icon()
@@ -23,37 +23,40 @@
 	return
 
 
-/obj/effect/blob/Destroy()
+/obj/structure/blob/Destroy()
 	blobs -= src
 	if(isturf(loc)) //Necessary because Expand() is retarded and spawns a blob and then deletes it
 		playsound(src.loc, 'sound/effects/splat.ogg', 50, 1)
 	return ..()
 
 
-/obj/effect/blob/CanPass(atom/movable/mover, turf/target, height=0)
+/obj/structure/blob/CanPass(atom/movable/mover, turf/target, height=0)
 	if(height==0)	return 1
 	if(istype(mover) && mover.checkpass(PASSBLOB))	return 1
 	return 0
 
-/obj/effect/blob/CanAStarPass(ID, dir, caller)
+/obj/structure/blob/CanAStarPass(ID, dir, caller)
 	. = 0
 	if(ismovableatom(caller))
 		var/atom/movable/mover = caller
 		. = . || mover.checkpass(PASSBLOB)
 
-/obj/effect/blob/process()
+/obj/structure/blob/process()
 	Life()
 	return
 
-/obj/effect/blob/fire_act(datum/gas_mixture/air, exposed_temperature, exposed_volume)
+/obj/structure/blob/fire_act(datum/gas_mixture/air, exposed_temperature, exposed_volume)
 	..()
 	var/damage = Clamp(0.01 * exposed_temperature, 0, 4)
 	take_damage(damage, BURN)
 
-/obj/effect/blob/proc/Life()
+/obj/structure/blob/blob_act()
 	return
 
-/obj/effect/blob/proc/RegenHealth()
+/obj/structure/blob/proc/Life()
+	return
+
+/obj/structure/blob/proc/RegenHealth()
 	// All blobs heal over time when pulsed, but it has a cool down
 	if(health_timestamp > world.time)
 		return 0
@@ -63,7 +66,7 @@
 		health_timestamp = world.time + 10 // 1 seconds
 
 
-/obj/effect/blob/proc/Pulse(var/pulse = 0, var/origin_dir = 0, var/a_color)//Todo: Fix spaceblob expand
+/obj/structure/blob/proc/Pulse(var/pulse = 0, var/origin_dir = 0, var/a_color)//Todo: Fix spaceblob expand
 
 	set background = BACKGROUND_ENABLED
 
@@ -83,7 +86,7 @@
 		var/dirn = pick(dirs)
 		dirs.Remove(dirn)
 		var/turf/T = get_step(src, dirn)
-		var/obj/effect/blob/B = (locate(/obj/effect/blob) in T)
+		var/obj/structure/blob/B = (locate(/obj/structure/blob) in T)
 		if(!B)
 			expand(T,1,a_color)//No blob here so try and expand
 			return
@@ -94,11 +97,11 @@
 	return
 
 
-/obj/effect/blob/proc/run_action()
+/obj/structure/blob/proc/run_action()
 	return 0
 
 
-/obj/effect/blob/proc/expand(var/turf/T = null, var/prob = 1, var/a_color)
+/obj/structure/blob/proc/expand(var/turf/T = null, var/prob = 1, var/a_color)
 	if(prob && !prob(health))	return
 	if(istype(T, /turf/space) && prob(75)) 	return
 	if(!T)
@@ -107,11 +110,11 @@
 			var/dirn = pick(dirs)
 			dirs.Remove(dirn)
 			T = get_step(src, dirn)
-			if(!(locate(/obj/effect/blob) in T))	break
+			if(!(locate(/obj/structure/blob) in T))	break
 			else	T = null
 
 	if(!T)	return 0
-	var/obj/effect/blob/normal/B = new /obj/effect/blob/normal(src.loc, min(src.health, 30))
+	var/obj/structure/blob/normal/B = new /obj/structure/blob/normal(src.loc, min(src.health, 30))
 	B.color = a_color
 	B.density = 1
 	if(T.Enter(B,src))//Attempt to move into the tile
@@ -126,22 +129,25 @@
 		A.blob_act()
 	return 1
 
-/obj/effect/blob/ex_act(severity)
+/obj/structure/blob/ex_act(severity)
 	..()
 	var/damage = 150 - 20 * severity
 	take_damage(damage, BRUTE)
 
-/obj/effect/blob/bullet_act(var/obj/item/projectile/Proj)
+/obj/structure/blob/bullet_act(var/obj/item/projectile/Proj)
 	..()
 	take_damage(Proj.damage, Proj.damage_type)
 	return 0
 
-/obj/effect/blob/Crossed(var/mob/living/L)
+/obj/structure/blob/Crossed(var/mob/living/L)
 	..()
 	L.blob_act()
 
+/obj/structure/blob/tesla_act(power)
+	..()
+	take_damage(power/400, BURN)
 
-/obj/effect/blob/attackby(var/obj/item/weapon/W, var/mob/living/user, params)
+/obj/structure/blob/attackby(var/obj/item/weapon/W, var/mob/living/user, params)
 	user.changeNext_move(CLICK_CD_MELEE)
 	user.do_attack_animation(src)
 	playsound(src.loc, 'sound/effects/attackblob.ogg', 50, 1)
@@ -150,7 +156,7 @@
 		playsound(src.loc, 'sound/items/Welder.ogg', 100, 1)
 	take_damage(W.force, W.damtype)
 
-/obj/effect/blob/attack_animal(mob/living/simple_animal/M as mob)
+/obj/structure/blob/attack_animal(mob/living/simple_animal/M as mob)
 	M.changeNext_move(CLICK_CD_MELEE)
 	M.do_attack_animation(src)
 	playsound(src.loc, 'sound/effects/attackblob.ogg', 50, 1)
@@ -159,7 +165,7 @@
 	take_damage(damage, BRUTE)
 	return
 
-/obj/effect/blob/attack_alien(mob/living/carbon/alien/humanoid/M as mob)
+/obj/structure/blob/attack_alien(mob/living/carbon/alien/humanoid/M as mob)
 	M.changeNext_move(CLICK_CD_MELEE)
 	M.do_attack_animation(src)
 	playsound(src.loc, 'sound/effects/attackblob.ogg', 50, 1)
@@ -168,7 +174,7 @@
 	take_damage(damage, BRUTE)
 	return
 
-/obj/effect/blob/proc/take_damage(damage, damage_type)
+/obj/structure/blob/proc/take_damage(damage, damage_type)
 	if(!damage || damage_type == STAMINA) // Avoid divide by zero errors
 		return
 	switch(damage_type)
@@ -179,38 +185,38 @@
 	health -= damage
 	update_icon()
 
-/obj/effect/blob/proc/change_to(var/type)
+/obj/structure/blob/proc/change_to(var/type)
 	if(!ispath(type))
 		error("[type] is an invalid type for the blob.")
-	var/obj/effect/blob/B = new type(src.loc)
-	if(!istype(type, /obj/effect/blob/core) || !istype(type, /obj/effect/blob/node))
+	var/obj/structure/blob/B = new type(src.loc)
+	if(!istype(type, /obj/structure/blob/core) || !istype(type, /obj/structure/blob/node))
 		B.color = color
 	else
 		B.adjustcolors(color)
 	qdel(src)
 
-/obj/effect/blob/proc/adjustcolors(var/a_color)
+/obj/structure/blob/proc/adjustcolors(var/a_color)
 	if(a_color)
 		color = a_color
 	return
 
-/obj/effect/blob/examine(mob/user)
+/obj/structure/blob/examine(mob/user)
 	..(user)
 	to_chat(user, "It looks like it's of a [get_chem_name()] kind.")
 
 
-/obj/effect/blob/proc/get_chem_name()
+/obj/structure/blob/proc/get_chem_name()
 	for(var/mob/camera/blob/B in mob_list)
 		if(lowertext(B.blob_reagent_datum.color) == lowertext(src.color)) // Goddamit why we use strings for these
 			return B.blob_reagent_datum.name
 	return "unknown"
 
-/obj/effect/blob/normal
+/obj/structure/blob/normal
 	icon_state = "blob"
 	light_range = 0
 	health = 21
 
-/obj/effect/blob/normal/update_icon()
+/obj/structure/blob/normal/update_icon()
 	if(health <= 0)
 		qdel(src)
 	else if(health <= 15)

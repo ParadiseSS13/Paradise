@@ -110,7 +110,8 @@
 	message = "<span class='revennotice'>You toggle your night vision.</span>"
 	action_icon_state = "r_nightvision"
 	action_background_icon_state = "bg_revenant"
-
+	non_night_vision = INVISIBILITY_REVENANT
+	night_vision = SEE_INVISIBLE_OBSERVER_NOLIGHTING
 
 //Transmit: the revemant's only direct way to communicate. Sends a single message silently to a single mob
 /obj/effect/proc_holder/spell/targeted/revenant_transmit
@@ -127,12 +128,12 @@
 /obj/effect/proc_holder/spell/targeted/revenant_transmit/cast(list/targets, mob/living/simple_animal/revenant/user = usr)
 	for(var/mob/living/M in targets)
 		spawn(0)
-			var/msg = stripped_input(usr, "What do you wish to tell [M]?", null, "")
+			var/msg = stripped_input(user, "What do you wish to tell [M]?", null, "")
 			if(!msg)
 				charge_counter = charge_max
 				return
 			log_say("RevenantTransmit: [key_name(user)]->[key_name(M)] : [msg]")
-			to_chat(usr, "<span class='revennotice'><b>You transmit to [M]:</b> [msg]</span>")
+			to_chat(user, "<span class='revennotice'><b>You transmit to [M]:</b> [msg]</span>")
 			to_chat(M, "<span class='revennotice'><b>An alien voice resonates from all around...</b></span><i> [msg]</I>")
 
 

@@ -10,7 +10,7 @@
 	slot_flags = SLOT_BELT
 	force = 10
 	throwforce = 7
-	w_class = 3
+	w_class = WEIGHT_CLASS_NORMAL
 	origin_tech = "combat=4"
 	attack_verb = list("flogged", "whipped", "lashed", "disciplined")
 	hitsound = 'sound/weapons/slash.ogg' //pls replace
@@ -28,14 +28,14 @@
 	flags = CONDUCT
 	force = 15
 	throwforce = 10
-	w_class = 4
+	w_class = WEIGHT_CLASS_BULKY
 	block_chance = 50
 	armour_penetration = 75
 	sharp = 1
 	edge = 1
 	origin_tech = "combat=5"
 	attack_verb = list("lunged at", "stabbed")
-	hitsound = 'sound/weapons/slash.ogg'
+	hitsound = 'sound/weapons/rapierhit.ogg'
 	materials = list(MAT_METAL = 1000)
 
 /obj/item/weapon/melee/rapier/hit_reaction(mob/living/carbon/human/owner, attack_text, final_block_chance, damage, attack_type)
@@ -50,7 +50,7 @@
 	item_state = "icepick"
 	force = 15
 	throwforce = 10
-	w_class = 2
+	w_class = WEIGHT_CLASS_SMALL
 	attack_verb = list("stabbed", "jabbed", "iced,")
 
 /obj/item/weapon/melee/candy_sword
@@ -60,5 +60,5 @@
 	item_state = "candy_sword"
 	force = 10
 	throwforce = 7
-	w_class = 3
+	w_class = WEIGHT_CLASS_NORMAL
 	attack_verb = list("slashed", "stabbed", "sliced", "caned")

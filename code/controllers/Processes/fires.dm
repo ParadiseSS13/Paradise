@@ -6,7 +6,6 @@ var/global/datum/controller/process/fire/fire_master
 /datum/controller/process/fire/setup()
 	name = "fire"
 	schedule_interval = 20 //every 2 seconds
-	fire_master = src
 	log_startup_progress("Fire process starting up.")
 
 /datum/controller/process/fire/statProcess()
@@ -21,3 +20,5 @@ var/global/datum/controller/process/fire/fire_master
 				SCHECK
 		else
 			burning.Remove(burningobj)
+
+DECLARE_GLOBAL_CONTROLLER(fire, fire_master)

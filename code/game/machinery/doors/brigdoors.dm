@@ -28,8 +28,33 @@
 	var/list/obj/machinery/targets = list()
 	var/timetoset = 0		// Used to set releasetime upon starting the timer
 	var/obj/item/device/radio/Radio
+	var/printed = 0
 	maptext_height = 26
 	maptext_width = 32
+
+/obj/machinery/door_timer/proc/print_report()
+ 	var/logname = input(usr, "Name of the guilty?","[id] log name")
+ 	var/logcharges = stripped_multiline_input(usr, "What have they been charged with?","[id] log charges")
+
+ 	if(!logname || !logcharges)
+  		return 0
+
+ 	for(var/obj/machinery/computer/prisoner/C in prisoncomputer_list)
+ 			var/obj/item/weapon/paper/P = new /obj/item/weapon/paper(C.loc)
+ 			P.name = "[id] log - [logname] [worldtime2text()]"
+ 			P.info =  "<center><b>[id] - Brig record</b></center><br><hr><br>"
+ 			P.info += {"<center>[station_name()] - Security Department</center><br>
+ 						<center><small><b>Admission data:</b></small></center><br>
+ 						<small><b>Log generated at:</b>		[worldtime2text()]<br>
+ 						<b>Detainee:</b>		[logname]<br>
+ 						<b>Duration:</b>		[timetoset/10] seconds<br>
+ 						<b>Charge(s):</b>	[logcharges]<br>
+ 						<b>Arresting Officer:</b>		[usr.name]<br><hr><br>
+ 						<small>This log file was generated automatically upon activation of a cell timer.</small>"}
+
+ 			playsound(C.loc, "sound/goonstation/machines/printer_dotmatrix.ogg", 50, 1)
+ 			cell_logs += P
+ 	return 1
 
 /obj/machinery/door_timer/initialize()
 	..()
@@ -37,6 +62,7 @@
 	Radio = new /obj/item/device/radio(src)
 	Radio.listening = 0
 	Radio.config(list("Security" = 0))
+	Radio.follow_target = src
 
 	pixel_x = ((dir & 3)? (0) : (dir == 4 ? 32 : -32))
 	pixel_y = ((dir & 3)? (dir ==1 ? 24 : -32) : (0))
@@ -62,6 +88,10 @@
 			stat |= BROKEN
 		update_icon()
 
+/obj/machinery/door_timer/Destroy()
+	QDEL_NULL(Radio)
+	targets.Cut()
+	return ..()
 
 //Main door timer loop, if it's timing and time is >0 reduce time by 1.
 // if it's less than 0, open door, reset timer
@@ -93,8 +123,14 @@
 
 // Closes and locks doors, power check
 /obj/machinery/door_timer/proc/timer_start()
+
 	if(stat & (NOPOWER|BROKEN))
 		return 0
+
+	if(!printed)
+		if(!print_report())
+			timing = 0
+			return 0
 
 	// Set releasetime
 	releasetime = world.timeofday + timetoset
@@ -129,6 +165,7 @@
 
 	// Reset releasetime
 	releasetime = 0
+	printed = 0
 
 	for(var/obj/machinery/door/window/brigdoor/door in targets)
 		if(!door.density)
@@ -172,8 +209,10 @@
 
 //Allows AIs to use door_timer, see human attack_hand function below
 /obj/machinery/door_timer/attack_ai(mob/user)
-	return attack_hand(user)
+	interact(user)
 
+/obj/machinery/door_timer/attack_ghost(mob/user)
+	interact(user)
 
 //Allows humans to use door_timer
 //Opens dialog window when someone clicks on door timer
@@ -182,7 +221,9 @@
 /obj/machinery/door_timer/attack_hand(mob/user)
 	if(..())
 		return
+	interact(user)
 
+/obj/machinery/door_timer/interact(mob/user)
 	// Used for the 'time left' display
 	var/second = round(timeleft() % 60)
 	var/minute = round((timeleft() - second) / 60)
@@ -239,9 +280,10 @@
 // Also updates dialog window and timer icon
 /obj/machinery/door_timer/Topic(href, href_list)
 	if(..())
-		return
-	if(!allowed(usr))
-		return
+		return 1
+
+	if(!allowed(usr) && !usr.can_admin_interact())
+		return 1
 
 	usr.set_machine(src)
 
@@ -267,6 +309,7 @@
 				F.flash()
 
 		if(href_list["change"])
+			printed = 1
 			timer_start()
 
 	add_fingerprint(usr)

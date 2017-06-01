@@ -43,16 +43,34 @@
 	var/obj/item/weapon/reagent_containers/food/snacks/deepfryholder/type = new(get_turf(src))
 	return type
 
+/obj/machinery/cooker/deepfryer/special_attack(obj/item/weapon/grab/G, mob/user)
+	if(ishuman(G.affecting))
+		if(G.state < GRAB_AGGRESSIVE)
+			to_chat(user, "<span class='warning'>You need a better grip to do that!</span>")
+			return 0
+		var/mob/living/carbon/human/C = G.affecting
+		var/obj/item/organ/external/head/head = C.get_organ("head")
+		if(!head)
+			to_chat(user, "<span class='warning'>This person doesn't have a head!</span>")
+			return 0
+		C.visible_message("<span class='danger'>[user] dunks [C]'s face into [src]!</span>", \
+						"<span class='userdanger'>[user] dunks your face into [src]!</span>")
+		C.emote("scream")
+		user.changeNext_move(CLICK_CD_MELEE)
+		C.apply_damage(25, BURN, "head") //25 fire damage and disfigurement because your face was just deep fried!
+		head.disfigure("burn")
+		add_logs(user, G.affecting, "deep-fried", addition="'s face")
+		qdel(G) //Removes the grip so the person MIGHT have a small chance to run the fuck away and to prevent rapid dunks.
+		return 0
+	return 0
+
+
 /obj/machinery/cooker/deepfryer/checkSpecials(obj/item/I)
 	if(!I)
 		return 0
 	for(var/Type in subtypesof(/datum/deepfryer_special))
 		var/datum/deepfryer_special/P = new Type()
-		if(istype(I, /obj/item/weapon/reagent_containers/food/snacks/grown))
-			var/obj/item/weapon/reagent_containers/food/snacks/grown/G = I
-			if(G.seed.kitchen_tag != P.input)
-				continue
-		else if(!istype(I, P.input))
+		if(!istype(I, P.input))
 			continue
 		return P
 	return 0
@@ -80,7 +98,7 @@
 	output = /obj/item/weapon/reagent_containers/food/snacks/fried_shrimp
 
 /datum/deepfryer_special/banana
-	input = "banana"
+	input = /obj/item/weapon/reagent_containers/food/snacks/grown/banana
 	output = /obj/item/weapon/reagent_containers/food/snacks/friedbanana
 
 /datum/deepfryer_special/potato_chips
@@ -88,7 +106,7 @@
 	output = /obj/item/weapon/reagent_containers/food/snacks/chips
 
 /datum/deepfryer_special/corn_chips
-	input = "corn"
+	input = /obj/item/weapon/reagent_containers/food/snacks/grown/corn
 	output = /obj/item/weapon/reagent_containers/food/snacks/cornchips
 
 /datum/deepfryer_special/fried_tofu
@@ -98,3 +116,11 @@
 /datum/deepfryer_special/chimichanga
 	input = /obj/item/weapon/reagent_containers/food/snacks/burrito
 	output = /obj/item/weapon/reagent_containers/food/snacks/chimichanga
+
+/datum/deepfryer_special/fries
+	input = /obj/item/weapon/reagent_containers/food/snacks/grown/potato/wedges
+	output = /obj/item/weapon/reagent_containers/food/snacks/fries
+
+/datum/deepfryer_special/carrotfries
+	input = /obj/item/weapon/reagent_containers/food/snacks/grown/carrot/wedges
+	output = /obj/item/weapon/reagent_containers/food/snacks/carrotfries

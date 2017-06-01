@@ -4,7 +4,7 @@
 	icon_state = "paper_bin1"
 	item_state = "sheet-metal"
 	throwforce = 1
-	w_class = 3
+	w_class = WEIGHT_CLASS_NORMAL
 	throw_speed = 3
 	throw_range = 7
 	pressure_resistance = 8
@@ -18,10 +18,7 @@
 	..()
 
 /obj/item/weapon/paper_bin/Destroy()
-	if(papers)
-		for(var/i in papers)
-			qdel(i)
-		papers.Cut()
+	QDEL_LIST(papers)
 	return ..()
 
 /obj/item/weapon/paper_bin/burn()
@@ -54,9 +51,9 @@
 /obj/item/weapon/paper_bin/attack_hand(mob/user as mob)
 	if(ishuman(user))
 		var/mob/living/carbon/human/H = user
-		var/obj/item/organ/external/temp = H.organs_by_name["r_hand"]
+		var/obj/item/organ/external/temp = H.bodyparts_by_name["r_hand"]
 		if(H.hand)
-			temp = H.organs_by_name["l_hand"]
+			temp = H.bodyparts_by_name["l_hand"]
 		if(temp && !temp.is_usable())
 			to_chat(H, "<span class='notice'>You try to move your [temp.name], but cannot!")
 			return

@@ -42,6 +42,7 @@
 		materials[MAT_TRANQUILLITE] = new /datum/material/tranquillite()
 
 /datum/material_container/Destroy()
+	QDEL_LIST_ASSOC_VAL(materials)
 	owner = null
 	return ..()
 
@@ -132,6 +133,8 @@
 
 //For spawning mineral sheets; internal use only
 /datum/material_container/proc/retrieve(sheet_amt, datum/material/M)
+	if(!M.sheet_type)
+		return 0
 	if(sheet_amt > 0)
 		if(M.amount < (sheet_amt * MINERAL_MATERIAL_AMOUNT))
 			sheet_amt = round(M.amount / MINERAL_MATERIAL_AMOUNT)
@@ -272,3 +275,9 @@
 	..()
 	material_type = MAT_TRANQUILLITE
 	sheet_type = /obj/item/stack/sheet/mineral/tranquillite
+
+/datum/material/biomass
+
+/datum/material/biomass/New()
+	..()
+	material_type = MAT_BIOMASS

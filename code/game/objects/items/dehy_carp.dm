@@ -8,6 +8,11 @@
 	var/mob/owner = null	// Carp doesn't attack owner, set when using in hand
 	var/owned = 1	// Boolean, no owner to begin with
 
+
+/obj/item/toy/carpplushie/dehy_carp/Destroy()
+	owner = null
+	return ..()
+
 // Attack self
 /obj/item/toy/carpplushie/dehy_carp/attack_self(mob/user as mob)
 	src.add_fingerprint(user)	// Anyone can add their fingerprints to it with this

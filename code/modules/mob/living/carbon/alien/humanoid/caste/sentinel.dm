@@ -12,14 +12,12 @@
 	pixel_x = -16
 	maxHealth = 200
 	health = 200
-	move_delay_add = 1
 	large = 1
 
 /mob/living/carbon/alien/humanoid/sentinel/praetorian
 	name = "alien praetorian"
 	maxHealth = 200
 	health = 200
-	move_delay_add = 1
 	large = 1
 
 /mob/living/carbon/alien/humanoid/sentinel/large/update_icons()
@@ -73,7 +71,7 @@
 
 	if(powerc(250))
 		adjustToxLoss(-250)
-		to_chat(src, "\green You begin to evolve!")
+		to_chat(src, "<span class=notice'>You begin to evolve!</span>")
 		for(var/mob/O in viewers(src, null))
 			O.show_message(text("<span class='alertalien'>[src] begins to twist and contort!</span>"), 1)
 		var/mob/living/carbon/alien/humanoid/sentinel/praetorian/new_xeno = new(loc)

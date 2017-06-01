@@ -75,7 +75,7 @@
 			Stun(3)
 	flash_eyes(affect_silicon = 1)
 	to_chat(src, "<span class='danger'>*BZZZT*</span>")
-	to_chat(src, "\red Warning: Electromagnetic pulse detected.")
+	to_chat(src, "<span class='warning'>Warning: Electromagnetic pulse detected.</span>")
 	..()
 
 
@@ -167,15 +167,11 @@
 		if(L.name == rem_language)
 			speech_synthesizer_langs -= L
 
-/mob/living/silicon/check_languages()
-	set name = "Check Known Languages"
-	set category = "IC"
-	set src = usr
-
-	var/dat = "<b><font size = 5>Known Languages</font></b><br/><br/>"
+/mob/living/silicon/check_lang_data()
+	. = ""
 
 	if(default_language)
-		dat += "Current default language: [default_language] - <a href='byond://?src=[UID()];default_lang=reset'>reset</a><br/><br/>"
+		. += "Current default language: [default_language] - <a href='byond://?src=[UID()];default_lang=reset'>reset</a><br><br>"
 
 	for(var/datum/language/L in languages)
 		if(!(L.flags & NONGLOBAL))
@@ -186,10 +182,8 @@
 				default_str = " - <a href='byond://?src=[UID()];default_lang=[L]'>set default</a>"
 
 			var/synth = (L in speech_synthesizer_langs)
-			dat += "<b>[L.name] (:[L.key])</b>[synth ? default_str : null]<br/>Speech Synthesizer: <i>[synth ? "YES" : "NOT SUPPORTED"]</i><br/>[L.desc]<br/><br/>"
+			. += "<b>[L.name] (:[L.key])</b>[synth ? default_str : null]<br>Speech Synthesizer: <i>[synth ? "YES" : "NOT SUPPORTED"]</i><br>[L.desc]<br><br>"
 
-	src << browse(dat, "window=checklanguage")
-	return
 
 // this function displays the stations manifest in a separate window
 /mob/living/silicon/proc/show_station_manifest()
@@ -200,31 +194,6 @@
 	dat += "<br>"
 	src << browse(dat, "window=airoster")
 	onclose(src, "airoster")
-
-/mob/living/silicon/Bump(atom/movable/AM as mob|obj, yes)  //Allows the AI to bump into mobs if it's itself pushed
-        if((!( yes ) || now_pushing))
-                return
-        now_pushing = 1
-        if(ismob(AM))
-                var/mob/tmob = AM
-                if(!(tmob.status_flags & CANPUSH))
-                        now_pushing = 0
-                        return
-        now_pushing = 0
-        ..()
-        if(!istype(AM, /atom/movable))
-                return
-        if(!now_pushing)
-                now_pushing = 1
-                if(!AM.anchored)
-                        var/t = get_dir(src, AM)
-                        if(istype(AM, /obj/structure/window))
-                                if(AM:ini_dir == NORTHWEST || AM:ini_dir == NORTHEAST || AM:ini_dir == SOUTHWEST || AM:ini_dir == SOUTHEAST)
-                                        for(var/obj/structure/window/win in get_step(AM,t))
-                                                now_pushing = 0
-                                                return
-                        step(AM, t)
-                now_pushing = null
 
 /mob/living/silicon/assess_threat() //Secbots won't hunt silicon units
 	return -10

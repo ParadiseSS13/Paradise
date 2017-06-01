@@ -10,7 +10,6 @@ var/global/datum/controller/process/sun/sun
 /datum/controller/process/sun/setup()
 	name = "sun"
 	schedule_interval = 600 // every 60 seconds
-	sun = src
 	log_startup_progress("Sun ticker starting up.")
 
 	angle = rand (0,360)			// the station position to the sun is randomised at round start
@@ -22,6 +21,7 @@ var/global/datum/controller/process/sun/sun
 	calc_position()
 	update_solar_machinery()
 
+DECLARE_GLOBAL_CONTROLLER(sun, sun)
 
 // calculate the sun's position given the time of day
 // at the standard rate (100%) the angle is increase/decreased by 6 degrees every minute.

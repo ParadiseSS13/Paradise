@@ -177,8 +177,8 @@ var/list/potential_theft_objectives = subtypesof(/datum/theft_objective) \
 
 /datum/objective/hijack
 	martyr_compatible = 0 //Technically you won't get both anyway.
-	explanation_text = "Hijack the shuttle by escaping on it with no loyalist NanoTrasen crew on board and alive. \
-	Syndicate agents, other enemies of NanoTrasen, cyborgs, and pets may be allowed to escape alive."
+	explanation_text = "Hijack the shuttle by escaping on it with no loyalist Nanotrasen crew on board and alive. \
+	Syndicate agents, other enemies of Nanotrasen, cyborgs, and pets may be allowed to escape alive."
 
 /datum/objective/hijack/check_completion()
 	if(!owner.current || owner.current.stat)
@@ -192,22 +192,10 @@ var/list/potential_theft_objectives = subtypesof(/datum/theft_objective) \
 	if(shuttle_master.emergency.areaInstance != A)
 		return 0
 
-	for(var/mob/living/player in player_list)
-		if(player.mind && player.mind != owner)
-			if(player.stat != DEAD)
-				if(issilicon(player)) //Borgs are technically dead anyways
-					continue
-				if(isanimal(player)) //Poly does not own the shuttle
-					continue
-				if(player.mind.special_role && !(player.mind.special_role == SPECIAL_ROLE_ERT)) //Is antag, and not ERT
-					continue
-
-				if(get_area(player) == A)
-					return 0
-	return 1
+	return shuttle_master.emergency.is_hijacked()
 
 /datum/objective/hijackclone
-	explanation_text = "Hijack the emergency shuttle by ensuring only you (or your copies) escape."
+	explanation_text = "Hijack the shuttle by ensuring only you (or your copies) escape."
 	martyr_compatible = 0
 
 /datum/objective/hijackclone/check_completion()
@@ -396,8 +384,17 @@ var/list/potential_theft_objectives = subtypesof(/datum/theft_objective) \
 	return steal_target
 
 /datum/objective/steal/check_completion()
-	if(!steal_target) return 1 // Free Objective
-	return steal_target.check_completion(owner)
+	if(!steal_target)
+		return 1 // Free Objective
+
+	var/list/all_items = owner.current.GetAllContents()
+
+	for(var/obj/I in all_items)
+		if(istype(I, steal_target.typepath))
+			return steal_target.check_special_completion(I)
+		if(I.type in steal_target.altitems)
+			return steal_target.check_special_completion(I)
+
 
 /datum/objective/steal/exchange
 	martyr_compatible = 0
@@ -501,7 +498,7 @@ var/list/potential_theft_objectives = subtypesof(/datum/theft_objective) \
 /datum/objective/blood/proc/gen_amount_goal(low = 150, high = 400)
 	target_amount = rand(low,high)
 	target_amount = round(round(target_amount/5)*5)
-	explanation_text = "Accumulate atleast [target_amount] units of blood in total."
+	explanation_text = "Accumulate at least [target_amount] total units of blood."
 	return target_amount
 
 /datum/objective/blood/check_completion()

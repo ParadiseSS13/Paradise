@@ -14,9 +14,13 @@
 
 
 /obj/structure/toilet/New()
+	..()
 	open = round(rand(0, 1))
 	update_icon()
 
+/obj/structure/toilet/Destroy()
+	swirlie = null
+	return ..()
 
 /obj/structure/toilet/attack_hand(mob/living/user)
 	if(swirlie)
@@ -52,7 +56,7 @@
 	if(istype(I, /obj/item/weapon/crowbar))
 		to_chat(user, "<span class='notice'>You start to [cistern ? "replace the lid on the cistern" : "lift the lid off the cistern"]...</span>")
 		playsound(loc, 'sound/effects/stonedoor_openclose.ogg', 50, 1)
-		if(do_after(user, 30, target = src))
+		if(do_after(user, 30 * I.toolspeed, target = src))
 			user.visible_message("[user] [cistern ? "replaces the lid on the cistern" : "lifts the lid off the cistern"]!", "<span class='notice'>You [cistern ? "replace the lid on the cistern" : "lift the lid off the cistern"]!</span>", "<span class='italics'>You hear grinding porcelain.</span>")
 			cistern = !cistern
 			update_icon()
@@ -102,10 +106,10 @@
 				to_chat(user, "<span class='warning'>You need a tighter grip!</span>")
 
 	if(cistern)
-		if(I.w_class > 3)
+		if(I.w_class > WEIGHT_CLASS_NORMAL)
 			to_chat(user, "<span class='warning'>[I] does not fit!</span>")
 			return
-		if(w_items + I.w_class > 5)
+		if(w_items + I.w_class > WEIGHT_CLASS_HUGE)
 			to_chat(user, "<span class='warning'>The cistern is full!</span>")
 			return
 		if(!user.drop_item())
@@ -388,9 +392,9 @@
 
 	if(ishuman(user))
 		var/mob/living/carbon/human/H = user
-		var/obj/item/organ/external/temp = H.organs_by_name["r_hand"]
+		var/obj/item/organ/external/temp = H.bodyparts_by_name["r_hand"]
 		if(user.hand)
-			temp = H.organs_by_name["l_hand"]
+			temp = H.bodyparts_by_name["l_hand"]
 		if(temp && !temp.is_usable())
 			to_chat(user, "<span class='notice'>You try to move your [temp.name], but cannot!")
 			return

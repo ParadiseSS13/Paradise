@@ -18,7 +18,7 @@
  */
 /obj/item/weapon/kitchen/utensil
 	force = 5.0
-	w_class = 1
+	w_class = WEIGHT_CLASS_TINY
 	throwforce = 0.0
 	throw_speed = 3
 	throw_range = 5
@@ -91,7 +91,7 @@
 	desc = "A general purpose Chef's Knife made by SpaceCook Incorporated. Guaranteed to stay sharp for years to come."
 	flags = CONDUCT
 	force = 10
-	w_class = 2
+	w_class = WEIGHT_CLASS_SMALL
 	throwforce = 10
 	hitsound = 'sound/weapons/bladeslice.ogg'
 	throw_speed = 3
@@ -122,7 +122,7 @@
 	desc = "The unearthly energies that once powered this blade are now dormant."
 	icon = 'icons/obj/wizard.dmi'
 	icon_state = "render"
-	w_class = 3
+	w_class = WEIGHT_CLASS_NORMAL
 
 /obj/item/weapon/kitchen/knife/butcher
 	name = "butcher's cleaver"
@@ -132,7 +132,7 @@
 	force = 15
 	throwforce = 8
 	attack_verb = list("cleaved", "slashed", "stabbed", "sliced", "torn", "ripped", "diced", "cut")
-	w_class = 3
+	w_class = WEIGHT_CLASS_NORMAL
 
 /obj/item/weapon/kitchen/knife/butcher/meatcleaver
 	name = "Meat Cleaver"
@@ -152,6 +152,17 @@
 	origin_tech = "materials=2;combat=4"
 	attack_verb = list("slashed", "stabbed", "sliced", "torn", "ripped", "cut")
 
+/obj/item/weapon/kitchen/knife/carrotshiv
+	name = "carrot shiv"
+	icon_state = "carrotshiv"
+	item_state = "carrotshiv"
+	desc = "Unlike other carrots, you should probably keep this far away from your eyes."
+	force = 8
+	throwforce = 12 //fuck git
+	materials = list()
+	origin_tech = "biotech=3;combat=2"
+	attack_verb = list("shanked", "shivved")
+
 /*
  * Rolling Pins
  */
@@ -164,7 +175,7 @@
 	throwforce = 10.0
 	throw_speed = 3
 	throw_range = 7
-	w_class = 3
+	w_class = WEIGHT_CLASS_NORMAL
 	attack_verb = list("bashed", "battered", "bludgeoned", "thrashed", "whacked")
 
 /* Trays moved to /obj/item/weapon/storage/bag */
@@ -181,7 +192,7 @@
 	throwforce = 5
 	throw_speed = 3
 	throw_range = 3
-	w_class = 2
+	w_class = WEIGHT_CLASS_SMALL
 	attack_verb = list("bashed", "battered", "bludgeoned", "thrashed", "smashed")
 
 /obj/item/weapon/kitchen/mould/bear

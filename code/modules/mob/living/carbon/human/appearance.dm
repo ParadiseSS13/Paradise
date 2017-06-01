@@ -15,8 +15,8 @@
 	return 1
 
 /mob/living/carbon/human/proc/change_gender(var/new_gender, var/update_dna = 1)
-	var/obj/item/organ/external/head/H = organs_by_name["head"]
-	if(gender == new_gender)
+	var/obj/item/organ/external/head/H = bodyparts_by_name["head"]
+	if(gender == new_gender || (gender == PLURAL && species.has_gender))
 		return
 
 	gender = new_gender

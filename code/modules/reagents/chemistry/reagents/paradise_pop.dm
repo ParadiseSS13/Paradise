@@ -88,16 +88,15 @@
 
 /datum/reagent/consumable/drink/blackeye_brew/on_mob_life(mob/living/M)
 	if(prob(25))
-		var/list/tider_talk = list("CLOWN IS VALID, RIGHT?",
-									"SHITMINS! SHITMINS! SHITMINS!",
-									"FURRIES ARE OPPRESSED!",
-									"I OWN THIS SERVER NOW, I JUST BOUGHT IT.",
+		var/list/tider_talk = list("I OWN THIS STATION NOW, I JUST BOUGHT IT.",
 									"SECRET TECHNIQUE: TOOLBOX TO THE FACE!",
 									"SECRET TECHNIQUE: PLASMA CANISTER FIRE!",
 									"SECRET TECHNIQUE: TABLE AND DISPOSAL!",
-									"[pick("MY BROTHER", " MY DOG", "MY BEST FRIEND", "THE BORER", "GEORGE MELONS", "SHITMINS")] DID IT!",
-									"WHAT DO YOU MEAN [pick("Barrack Obama", "John Cena", "Hughe Jass", "Hitler", "xX360noscopeXx")] ISN'T AN ACCEPTABLE NAME?",
-									"WHAT THE FUCK DID YOU JUST FUCKING SAY ABOUT ME, YOU LITTLE BITCH? I'LL HAVE YOU KNOW I GRADUATED TOP OF MY CLASS IN...")
+									"[pick("MY BROTHER", " MY DOG", "MY BEST FRIEND", "THE BORER", "GEORGE MELONS", "BADMINS")] DID IT!",
+									";s WHATS SPACE LAW?!",
+									"I BOUGHT THESE GLOVES, NOT STEAL THEM",
+									"THIS DOOR WAS SHOCKED WHEN I GOT HERE",
+									"ANIMALS ARE NOT CREW")
 		M.say(pick(tider_talk))
 	..()
 

@@ -74,7 +74,9 @@
 
 	/////////////////////////
 
-	if(istype(M, /mob/living/simple_animal))
+	if(isanimal(M))
+		var/mob/living/simple_animal/S = M
+		S.attacked_by(src, user)
 		return 0 // No sanic-speed double-attacks for you - simple mobs will handle being attacked on their own
 	var/power = force
 
@@ -82,7 +84,7 @@
 		if(istype(M, /mob/living/carbon/slime))
 			var/mob/living/carbon/slime/slime = M
 			if(prob(25))
-				to_chat(user, "\red [src] passes right through [M]!")
+				to_chat(user, "<span class='warning'>[src] passes right through [M]!</span>")
 				return
 
 			if(power > 0)
@@ -159,13 +161,13 @@
 
 		for(var/mob/O in viewers(messagesource, null))
 			if(attack_verb.len)
-				O.show_message("<span class='danger'>[M] has been [pick(attack_verb)] with [src][showname] </span>", 1)
+				O.show_message("<span class='combat danger'>[M] has been [pick(attack_verb)] with [src][showname] </span>", 1)
 			else
-				O.show_message("<span class='danger'>[M] has been attacked with [src][showname] </span>", 1)
+				O.show_message("<span class='combat danger'>[M] has been attacked with [src][showname] </span>", 1)
 
 		if(!showname && user)
 			if(user.client)
-				to_chat(user, "<span class='danger'>You attack [M] with [src]. </span>")
+				to_chat(user, "<span class='combat danger'>You attack [M] with [src]. </span>")
 
 
 

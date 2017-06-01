@@ -1,4 +1,5 @@
 /obj/structure/closet/secure_closet/freezer
+	desc = "It's a card-locked refrigerative storage unit. This one is lead-lined."
 
 /obj/structure/closet/secure_closet/freezer/update_icon()
 	if(broken)
@@ -87,11 +88,14 @@
 	icon_off = "fridge1"
 	req_access = list(access_heads_vault)
 
-
-	New()
-		..()
-		dispense_cash(6700, src)
-
+/obj/structure/closet/secure_closet/freezer/money/New()
+	..()
+	for(var/i in 1 to 3)
+		new /obj/item/stack/spacecash/c1000(src)
+	for(var/i in 1 to 5)
+		new /obj/item/stack/spacecash/c500(src)
+	for(var/i in 1 to 6)
+		new /obj/item/stack/spacecash/c200(src)
 
 
 

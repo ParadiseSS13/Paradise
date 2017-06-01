@@ -3,8 +3,9 @@
 	gender = PLURAL
 	singular_name = "wired glass floor tile"
 	desc = "A glass tile, which is wired, somehow."
+	icon = 'icons/obj/tiles.dmi'
 	icon_state = "glass_wire"
-	w_class = 3
+	w_class = WEIGHT_CLASS_NORMAL
 	force = 3.0
 	throwforce = 5.0
 	throw_speed = 5

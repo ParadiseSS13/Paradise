@@ -33,7 +33,7 @@
 /obj/structure/beebox
 	name = "apiary"
 	desc = "Dr Miles Manners is just your average Wasp themed super hero by day, but by night he becomes DR BEES!"
-	icon = 'icons/obj/apiary_bees.dmi'
+	icon = 'icons/obj/hydroponics/equipment.dmi'
 	icon_state = "beebox"
 	anchored = 1
 	density = 1
@@ -51,11 +51,13 @@
 
 /obj/structure/beebox/Destroy()
 	processing_objects.Remove(src)
+	for(var/mob/living/simple_animal/hostile/poison/bees/B in bees)
+		B.beehome = null
 	bees.Cut()
 	bees = null
-	honeycombs.Cut()
-	honeycombs = null
-	queen_bee = null
+	QDEL_LIST(honeycombs)
+	QDEL_LIST(honey_frames)
+	QDEL_NULL(queen_bee)
 	return ..()
 
 

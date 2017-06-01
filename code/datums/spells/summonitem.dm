@@ -15,9 +15,9 @@
 
 	action_icon_state = "summons"
 
-/obj/effect/proc_holder/spell/targeted/summonitem/cast(list/targets)
-	for(var/mob/living/user in targets)
-		var/list/hand_items = list(user.get_active_hand(),user.get_inactive_hand())
+/obj/effect/proc_holder/spell/targeted/summonitem/cast(list/targets, mob/user = usr)
+	for(var/mob/living/target in targets)
+		var/list/hand_items = list(target.get_active_hand(),target.get_inactive_hand())
 		var/butterfingers = 0
 		var/message
 
@@ -26,6 +26,10 @@
 			for(var/obj/item in hand_items)
 				if(istype(item, /obj/item/organ/internal/brain)) //Yeah, sadly this doesn't work due to the organ system.
 					break
+				if(ABSTRACT in item.flags)
+					continue
+				if(NODROP in item.flags)
+					message += "This feels very redundant, but you go through with it anyway.<br>"
 				marked_item = 		item
 				message += "You mark [item] for recall.</span>"
 				name = "Recall [item]"
@@ -36,6 +40,7 @@
 					message = "<span class='caution'>You aren't holding anything that can be marked for recall.</span>"
 				else
 					message = "<span class='notice'>You must hold the desired item in your hands to mark it for recall.</span>"
+
 		else if(marked_item && marked_item in hand_items) //unlinking item to the spell
 			message = "<span class='notice'>You remove the mark on [marked_item] to use elsewhere.</span>"
 			name = "Instant Summons"
@@ -56,7 +61,7 @@
 
 					if(issilicon(M)) //Items in silicons warp the whole silicon
 						M.loc.visible_message("<span class='warning'>[M] suddenly disappears!</span>")
-						M.loc = user.loc
+						M.loc = target.loc
 						M.loc.visible_message("<span class='caution'>[M] suddenly appears!</span>")
 						item_to_retrive = null
 						break
@@ -65,13 +70,13 @@
 
 					if(ishuman(M)) //Edge case housekeeping
 						var/mob/living/carbon/human/C = M
-						/*if(C.internal_organs_by_name  && item_to_retrive in C.internal_organs_by_name ) //This won't work, as we use organ datums instead of objects. --DZD
-							C.internal_organs_by_name  -= item_to_retrive
+						/*if(C.internal_bodyparts_by_name  && item_to_retrive in C.internal_bodyparts_by_name ) //This won't work, as we use organ datums instead of objects. --DZD
+							C.internal_bodyparts_by_name  -= item_to_retrive
 							if(istype(marked_item, /obj/item/brain)) //If this code ever runs I will be happy
-								var/obj/item/brain/B = new /obj/item/brain(user.loc)
+								var/obj/item/brain/B = new /obj/item/brain(target.loc)
 								B.transfer_identity(C)
 								C.death()
-								add_logs(user, C, "magically debrained", addition="INTENT: [uppertext(user.a_intent)]")*/
+								add_logs(target, C, "magically debrained", addition="INTENT: [uppertext(target.a_intent)]")*/
 						if(C.stomach_contents && item_to_retrive in C.stomach_contents)
 							C.stomach_contents -= item_to_retrive
 
@@ -91,19 +96,21 @@
 			item_to_retrive.loc.visible_message("<span class='warning'>The [item_to_retrive.name] suddenly disappears!</span>")
 
 
-			if(user.hand) //left active hand
-				if(!user.equip_to_slot_if_possible(item_to_retrive, slot_l_hand, 0, 1, 1))
-					if(!user.equip_to_slot_if_possible(item_to_retrive, slot_r_hand, 0, 1, 1))
+			if(target.hand) //left active hand
+				if(!target.equip_to_slot_if_possible(item_to_retrive, slot_l_hand, 0, 1, 1))
+					if(!target.equip_to_slot_if_possible(item_to_retrive, slot_r_hand, 0, 1, 1))
 						butterfingers = 1
 			else			//right active hand
-				if(!user.equip_to_slot_if_possible(item_to_retrive, slot_r_hand, 0, 1, 1))
-					if(!user.equip_to_slot_if_possible(item_to_retrive, slot_l_hand, 0, 1, 1))
+				if(!target.equip_to_slot_if_possible(item_to_retrive, slot_r_hand, 0, 1, 1))
+					if(!target.equip_to_slot_if_possible(item_to_retrive, slot_l_hand, 0, 1, 1))
 						butterfingers = 1
 			if(butterfingers)
-				item_to_retrive.loc = user.loc
+				item_to_retrive.loc = target.loc
 				item_to_retrive.loc.visible_message("<span class='caution'>The [item_to_retrive.name] suddenly appears!</span>")
+				playsound(get_turf(target),'sound/magic/SummonItems_generic.ogg',50,1)
 			else
-				item_to_retrive.loc.visible_message("<span class='caution'>The [item_to_retrive.name] suddenly appears in [user]'s hand!</span>")
+				item_to_retrive.loc.visible_message("<span class='caution'>The [item_to_retrive.name] suddenly appears in [target]'s hand!</span>")
+				playsound(get_turf(target),'sound/magic/SummonItems_generic.ogg',50,1)
 
 		if(message)
-			to_chat(user, message)
+			to_chat(target, message)

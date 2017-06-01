@@ -16,7 +16,7 @@
 	power_monitors += src
 	power_monitors = sortAtom(power_monitors)
 	power_monitor = new(src)
-	
+
 /obj/machinery/computer/monitor/initialize()
 	..()
 	powermonitor_repository.update_cache()
@@ -25,8 +25,7 @@
 /obj/machinery/computer/monitor/Destroy()
 	power_monitors -= src
 	powermonitor_repository.update_cache()
-	qdel(power_monitor)
-	power_monitor = null
+	QDEL_NULL(power_monitor)
 	return ..()
 
 /obj/machinery/computer/monitor/power_change()

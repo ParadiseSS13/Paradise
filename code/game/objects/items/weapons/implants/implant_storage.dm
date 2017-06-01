@@ -1,9 +1,9 @@
 /obj/item/weapon/storage/hidden/implant
 	name = "bluespace pocket"
 	storage_slots = 2
-	max_w_class = 3
-	max_combined_w_class = 6
-	w_class = 4
+	max_w_class = WEIGHT_CLASS_NORMAL
+	max_combined_w_class = WEIGHT_CLASS_GIGANTIC
+	w_class = WEIGHT_CLASS_BULKY
 	cant_hold = list(/obj/item/weapon/disk/nuclear)
 	silent = 1
 
@@ -48,6 +48,10 @@
 		return 1
 
 	return ..()
+
+/obj/item/weapon/implant/storage/proc/get_contents() //Used for swiftly returning a list of the implant's contents i.e. for checking a theft objective's completion.
+	if(storage && storage.contents)
+		return storage.contents
 
 /obj/item/weapon/implanter/storage
 	name = "implanter (storage)"

@@ -1,6 +1,6 @@
 "a" = (/turf/simulated/floor/plating,/area/centcom)
 "b" = (/turf/simulated/floor/plating,/area/start)
-"c" = (/turf/simulated/floor,/area/centcom)
+"c" = (/turf/simulated/floor/plasteel,/area/centcom)
 "d" = (/turf/simulated/wall/mineral/alien,/area/centcom)
 "e" = (/obj/structure/falsewall/alien,/turf/simulated/floor/plating,/area/centcom)
 "f" = (/turf/simulated/wall/mineral/diamond,/area/centcom)

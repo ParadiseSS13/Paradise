@@ -178,6 +178,7 @@
 	..()
 
 /datum/reagent/phlogiston/reaction_mob(mob/living/M, method=TOUCH, volume)
+	M.adjust_fire_stacks(1)
 	M.IgniteMob()
 	..()
 
@@ -285,15 +286,6 @@
 		var/mob/living/carbon/C = M
 		C.adjustPlasma(20)
 	..()
-
-/datum/reagent/plasma_dust/reaction_obj(obj/O, volume)
-	if((!O) || (!volume))
-		return 0
-	O.atmos_spawn_air(SPAWN_TOXINS|SPAWN_20C, volume)
-
-/datum/reagent/plasma_dust/reaction_turf(turf/simulated/T, volume)
-	if(istype(T))
-		T.atmos_spawn_air(SPAWN_TOXINS|SPAWN_20C, volume)
 
 /datum/reagent/plasma_dust/reaction_mob(mob/living/M, method=TOUCH, volume)//Splashing people with plasma dust is stronger than fuel!
 	if(method == TOUCH)

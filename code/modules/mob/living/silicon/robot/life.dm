@@ -229,7 +229,7 @@
 		weaponlock_time --
 		if(weaponlock_time <= 0)
 			if(src.client)
-				to_chat(src, "\red <B>Weapon Lock Timed Out!")
+				to_chat(src, "<span class='warning'><B>Weapon Lock Timed Out!</span>")
 			weapon_lock = 0
 			weaponlock_time = 120
 

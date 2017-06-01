@@ -8,7 +8,7 @@
 #define UPLOAD_LIMIT		10485760	//Restricts client uploads to the server to 10MB //Boosted this thing. What's the worst that can happen?
 #define MIN_CLIENT_VERSION	0		//Just an ambiguously low version for now, I don't want to suddenly stop people playing.
 									//I would just like the code ready should it ever need to be used.
-#define SUGGESTED_CLIENT_VERSION	510		// only integers (e.g: 510, 511) useful here. Does not properly handle minor versions (e.g: 510.58, 511.848)
+#define SUGGESTED_CLIENT_VERSION	511		// only integers (e.g: 510, 511) useful here. Does not properly handle minor versions (e.g: 510.58, 511.848)
 
 	/*
 	When somebody clicks a link in game, this Topic is called first.
@@ -97,122 +97,154 @@
 	if(config && config.log_hrefs && href_logfile)
 		to_chat(href_logfile, "<small>[time2text(world.timeofday,"hh:mm")] [src] (usr:[usr])</small> || [hsrc ? "[hsrc] " : ""][href]<br>")
 
-	switch(href_list["karmashop"])
-		if("tab")
-			karma_tab = text2num(href_list["tab"])
-			karmashopmenu()
+	if(href_list["karmashop"])
+		if(config.disable_karma)
 			return
-		if("shop")
-			if(href_list["KarmaBuy"])
-				var/karma=verify_karma()
-				switch(href_list["KarmaBuy"])
-					if("1")
-						if(karma <5)
-							to_chat(usr, "You do not have enough karma!")
-							return
-						else
-							DB_job_unlock("Barber",5)
-							return
-					if("2")
-						if(karma <5)
-							to_chat(usr, "You do not have enough karma!")
-							return
-						else
-							DB_job_unlock("Brig Physician",5)
-							return
-					if("3")
-						if(karma <30)
-							to_chat(usr, "You do not have enough karma!")
-							return
-						else
-							DB_job_unlock("Nanotrasen Representative",30)
-							return
-					if("5")
-						if(karma <30)
-							to_chat(usr, "You do not have enough karma!")
-							return
-						else
-							DB_job_unlock("Blueshield",30)
-							return
-					if("6")
-						if(karma <30)
-							to_chat(usr, "You do not have enough karma!")
-							return
-						else
-							DB_job_unlock("Mechanic",30)
-							return
-					if("7")
-						if(karma <45)
-							to_chat(usr, "You do not have enough karma!")
-							return
-						else
-							DB_job_unlock("Magistrate",45)
-							return
-					if("9")
-						if(karma <30)
-							to_chat(usr, "You do not have enough karma!")
-							return
-						else
-							DB_job_unlock("Security Pod Pilot",30)
-							return
-			if(href_list["KarmaBuy2"])
-				var/karma=verify_karma()
-				switch(href_list["KarmaBuy2"])
-					if("1")
-						if(karma <15)
-							to_chat(usr, "You do not have enough karma!")
-							return
-						else
-							DB_species_unlock("Machine",15)
-							return
-					if("2")
-						if(karma <30)
-							to_chat(usr, "You do not have enough karma!")
-							return
-						else
-							DB_species_unlock("Kidan",30)
-							return
-					if("3")
-						if(karma <30)
-							to_chat(usr, "You do not have enough karma!")
-							return
-						else
-							DB_species_unlock("Grey",30)
-							return
-					if("4")
-						if(karma <45)
-							to_chat(usr, "You do not have enough karma!")
-							return
-						else
-							DB_species_unlock("Vox",45)
-							return
-					if("5")
-						if(karma <45)
-							to_chat(usr, "You do not have enough karma!")
-							return
-						else
-							DB_species_unlock("Slime People",45)
-							return
-					if("6")
-						if(karma <100)
-							to_chat(usr, "You do not have enough karma!")
-							return
-						else
-							DB_species_unlock("Plasmaman",100)
-							return
-					if("7")
-						if(karma <30)
-							to_chat(usr, "You do not have enough karma!")
-							return
-						else
-							DB_species_unlock("Drask",30)
-							return
-			if(href_list["KarmaRefund"])
-				var/type = href_list["KarmaRefundType"]
-				var/job = href_list["KarmaRefund"]
-				var/cost = href_list["KarmaRefundCost"]
-				karmarefund(type,job,cost)
+
+		switch(href_list["karmashop"])
+			if("tab")
+				karma_tab = text2num(href_list["tab"])
+				karmashopmenu()
 				return
+			if("shop")
+				if(href_list["KarmaBuy"])
+					var/karma=verify_karma()
+					switch(href_list["KarmaBuy"])
+						if("1")
+							if(karma <5)
+								to_chat(usr, "You do not have enough karma!")
+								return
+							else
+								if(alert("Are you sure you want to unlock Barber?", "Confirmation", "No", "Yes") != "Yes")
+									return
+								DB_job_unlock("Barber",5)
+								return
+						if("2")
+							if(karma <5)
+								to_chat(usr, "You do not have enough karma!")
+								return
+							else
+								if(alert("Are you sure you want to unlock Brig Physician?", "Confirmation", "No", "Yes") != "Yes")
+									return
+								DB_job_unlock("Brig Physician",5)
+								return
+						if("3")
+							if(karma <30)
+								to_chat(usr, "You do not have enough karma!")
+								return
+							else
+								if(alert("Are you sure you want to unlock Nanotrasen Representative?", "Confirmation", "No", "Yes") != "Yes")
+									return
+								DB_job_unlock("Nanotrasen Representative",30)
+								return
+						if("5")
+							if(karma <30)
+								to_chat(usr, "You do not have enough karma!")
+								return
+							else
+								if(alert("Are you sure you want to unlock Blueshield?", "Confirmation", "No", "Yes") != "Yes")
+									return
+								DB_job_unlock("Blueshield",30)
+								return
+						if("6")
+							if(karma <30)
+								to_chat(usr, "You do not have enough karma!")
+								return
+							else
+								if(alert("Are you sure you want to unlock Mechanic?", "Confirmation", "No", "Yes") != "Yes")
+									return
+								DB_job_unlock("Mechanic",30)
+								return
+						if("7")
+							if(karma <45)
+								to_chat(usr, "You do not have enough karma!")
+								return
+							else
+								if(alert("Are you sure you want to unlock Magistrate?", "Confirmation", "No", "Yes") != "Yes")
+									return
+								DB_job_unlock("Magistrate",45)
+								return
+						if("9")
+							if(karma <30)
+								to_chat(usr, "You do not have enough karma!")
+								return
+							else
+								if(alert("Are you sure you want to unlock Security Pod Pilot?", "Confirmation", "No", "Yes") != "Yes")
+									return
+								DB_job_unlock("Security Pod Pilot",30)
+								return
+				if(href_list["KarmaBuy2"])
+					var/karma=verify_karma()
+					switch(href_list["KarmaBuy2"])
+						if("1")
+							if(karma <15)
+								to_chat(usr, "You do not have enough karma!")
+								return
+							else
+								if(alert("Are you sure you want to unlock Machine People?", "Confirmation", "No", "Yes") != "Yes")
+									return
+								DB_species_unlock("Machine",15)
+								return
+						if("2")
+							if(karma <30)
+								to_chat(usr, "You do not have enough karma!")
+								return
+							else
+								if(alert("Are you sure you want to unlock Kidan?", "Confirmation", "No", "Yes") != "Yes")
+									return
+								DB_species_unlock("Kidan",30)
+								return
+						if("3")
+							if(karma <30)
+								to_chat(usr, "You do not have enough karma!")
+								return
+							else
+								if(alert("Are you sure you want to unlock Grey?", "Confirmation", "No", "Yes") != "Yes")
+									return
+								DB_species_unlock("Grey",30)
+								return
+						if("4")
+							if(karma <45)
+								to_chat(usr, "You do not have enough karma!")
+								return
+							else
+								if(alert("Are you sure you want to unlock Vox?", "Confirmation", "No", "Yes") != "Yes")
+									return
+								DB_species_unlock("Vox",45)
+								return
+						if("5")
+							if(karma <45)
+								to_chat(usr, "You do not have enough karma!")
+								return
+							else
+								if(alert("Are you sure you want to unlock Slime People?", "Confirmation", "No", "Yes") != "Yes")
+									return
+								DB_species_unlock("Slime People",45)
+								return
+						if("6")
+							if(karma <100)
+								to_chat(usr, "You do not have enough karma!")
+								return
+							else
+								if(alert("Are you sure you want to unlock Plasmaman?", "Confirmation", "No", "Yes") != "Yes")
+									return
+								DB_species_unlock("Plasmaman",100)
+								return
+						if("7")
+							if(karma <30)
+								to_chat(usr, "You do not have enough karma!")
+								return
+							else
+								if(alert("Are you sure you want to unlock Drask?", "Confirmation", "No", "Yes") != "Yes")
+									return
+								DB_species_unlock("Drask",30)
+								return
+				if(href_list["KarmaRefund"])
+					var/type = href_list["KarmaRefundType"]
+					var/job = href_list["KarmaRefund"]
+					var/cost = href_list["KarmaRefundCost"]
+					karmarefund(type,job,cost)
+					return
 
 	switch(href_list["_src_"])
 		if("holder")	hsrc = holder
@@ -220,6 +252,73 @@
 		if("prefs")		return prefs.process_link(usr,href_list)
 		if("vars")		return view_var_Topic(href,href_list,hsrc)
 
+	//Polls and shit
+	if(href_list["showpoll"])
+		handle_player_polling()
+		return
+	if(href_list["createpollwindow"])
+		create_poll_window()
+		return
+	if(href_list["createpoll"])
+		create_poll_function(href_list)
+		return
+	if(href_list["pollid"])
+		var/pollid = href_list["pollid"]
+		if(istext(pollid))
+			pollid = text2num(pollid)
+		if(isnum(pollid))
+			poll_player(pollid)
+		return
+	if(href_list["pollresults"])
+		var/pollid = href_list["pollresults"]
+		if(istext(pollid))
+			pollid = text2num(pollid)
+		if(isnum(pollid))
+			poll_results(pollid)
+	if(href_list["votepollid"] && href_list["votetype"])
+		if(!can_vote())
+			return // No voting.
+		var/pollid = text2num(href_list["votepollid"])
+		var/votetype = href_list["votetype"]
+		switch(votetype)
+			if("OPTION")
+				var/optionid = text2num(href_list["voteoptionid"])
+				vote_on_poll(pollid, optionid)
+			if("TEXT")
+				var/replytext = href_list["replytext"]
+				log_text_poll_reply(pollid, replytext)
+			if("NUMVAL")
+				var/id_min = text2num(href_list["minid"])
+				var/id_max = text2num(href_list["maxid"])
+
+				if( (id_max - id_min) > 100 )	//Basic exploit prevention
+					to_chat(usr, "The option ID difference is too big. Please contact administration or the database admin.")
+					return
+
+				for(var/optionid = id_min; optionid <= id_max; optionid++)
+					if(!isnull(href_list["o[optionid]"]))	//Test if this optionid was replied to
+						var/rating
+						if(href_list["o[optionid]"] == "abstain")
+							rating = null
+						else
+							rating = text2num(href_list["o[optionid]"])
+							if(!isnum(rating))
+								return
+
+						vote_on_numval_poll(pollid, optionid, rating)
+			if("MULTICHOICE")
+				var/id_min = text2num(href_list["minoptionid"])
+				var/id_max = text2num(href_list["maxoptionid"])
+
+				if( (id_max - id_min) > 100 )	//Basic exploit prevention
+					to_chat(usr, "The option ID difference is too big. Please contact administration or the database admin.")
+					return
+
+				for(var/optionid = id_min; optionid <= id_max; optionid++)
+					if(!isnull(href_list["option_[optionid]"]))	//Test if this optionid was selected
+						vote_on_poll(pollid, optionid, 1)
+		src << browse(null, "window=playerpoll")
+		handle_player_polling()
 
 	switch(href_list["action"])
 		if("openLink")
@@ -232,6 +331,10 @@
 		to_chat(src, "Become a BYOND member to access member-perks and features, as well as support the engine that makes this game possible. <a href='http://www.byond.com/membership'>Click here to find out more</a>.")
 		return 0
 	return 1
+
+//Like for /atoms, but clients are their own snowflake FUCK
+/client/proc/setDir(newdir)
+	dir = newdir
 
 /client/proc/handle_spam_prevention(var/message, var/mute_type, var/throttle = 0)
 	if(throttle)
@@ -294,7 +397,7 @@
 		preload_rsc = pick(config.resource_urls)
 	else preload_rsc = 1 // If config.resource_urls is not set, preload like normal.
 
-	to_chat(src, "\red If the title screen is black, resources are still downloading. Please be patient until the title screen appears.")
+	to_chat(src, "<span class='warning'>If the title screen is black, resources are still downloading. Please be patient until the title screen appears.</span>")
 
 
 	clients += src
@@ -316,7 +419,6 @@
 	prefs.last_ip = address				//these are gonna be used for banning
 	prefs.last_id = computer_id			//these are gonna be used for banning
 
-	. = ..()	//calls mob.Login()
 	spawn() // Goonchat does some non-instant checks in start()
 		chatOutput.start()
 
@@ -331,6 +433,7 @@
 		world.update_status()
 
 	if(holder)
+		on_holder_add()
 		add_admin_verbs()
 		admin_memo_output("Show", 0, 1)
 
@@ -342,6 +445,8 @@
 			winset(src, null, "command=\".configure graphics-hwmode on\"")
 
 	log_client_to_db(tdata)
+
+	. = ..()	//calls mob.Login()
 
 	if(ckey in clientmessages)
 		for(var/message in clientmessages[ckey])
@@ -404,18 +509,21 @@
 	if(IsGuestKey(key))
 		return
 
+
 	establish_db_connection()
 	if(!dbcon.IsConnected())
 		return
 
+
 	var/DBQuery/query = dbcon.NewQuery("SELECT id, datediff(Now(),firstseen) as age FROM [format_table_name("player")] WHERE ckey = '[ckey]'")
 	query.Execute()
 	var/sql_id = 0
-	player_age = 0	// New players won't have an entry so knowing we have a connection we set this to zero to be updated if their is a record.
+	player_age = 0	// New players won't have an entry so knowing we have a connection we set this to zero to be updated if there is a record.
 	while(query.NextRow())
 		sql_id = query.item[1]
 		player_age = text2num(query.item[2])
 		break
+
 
 	var/DBQuery/query_ip = dbcon.NewQuery("SELECT ckey FROM [format_table_name("player")] WHERE ip = '[address]'")
 	query_ip.Execute()
@@ -424,12 +532,14 @@
 		if(ckey != query_ip.item[1])
 			related_accounts_ip.Add("[query_ip.item[1]]")
 
+
 	var/DBQuery/query_cid = dbcon.NewQuery("SELECT ckey FROM [format_table_name("player")] WHERE computerid = '[computer_id]'")
 	query_cid.Execute()
 	related_accounts_cid = list()
 	while(query_cid.NextRow())
 		if(ckey != query_cid.item[1])
 			related_accounts_cid.Add("[query_cid.item[1]]")
+
 
 	var/admin_rank = "Player"
 	if(holder)
@@ -439,14 +549,17 @@
 		if(check_randomizer(connectiontopic))
 			return
 
+
 	//Log all the alts
 	if(related_accounts_cid.len)
 		log_access("Alts: [key_name(src)]:[jointext(related_accounts_cid, " - ")]")
+
 
 	var/watchreason = check_watchlist(ckey)
 	if(watchreason)
 		message_admins("<font color='red'><B>Notice: </B></font><font color='blue'>[key_name_admin(src)] is on the watchlist and has just connected - Reason: [watchreason]</font>")
 		send2irc(config.admin_notify_irc, "Watchlist - [key_name(src)] is on the watchlist and has just connected - Reason: [watchreason]")
+
 
 	//Just the standard check to see if it's actually a number
 	if(sql_id)
@@ -463,16 +576,23 @@
 	if(sql_id)
 		//Player already identified previously, we need to just update the 'lastseen', 'ip' and 'computer_id' variables
 		var/DBQuery/query_update = dbcon.NewQuery("UPDATE [format_table_name("player")] SET lastseen = Now(), ip = '[sql_ip]', computerid = '[sql_computerid]', lastadminrank = '[sql_admin_rank]' WHERE id = [sql_id]")
-		query_update.Execute()
+		if(!query_update.Execute())
+			var/err = query_update.ErrorMsg()
+			log_game("SQL ERROR during log_client_to_db (update). Error : \[[err]\]\n")
+			message_admins("SQL ERROR during log_client_to_db (update). Error : \[[err]\]\n")
 	else
 		//New player!! Need to insert all the stuff
 		var/DBQuery/query_insert = dbcon.NewQuery("INSERT INTO [format_table_name("player")] (id, ckey, firstseen, lastseen, ip, computerid, lastadminrank) VALUES (null, '[ckey]', Now(), Now(), '[sql_ip]', '[sql_computerid]', '[sql_admin_rank]')")
-		query_insert.Execute()
+		if(!query_insert.Execute())
+			var/err = query_insert.ErrorMsg()
+			log_game("SQL ERROR during log_client_to_db (insert). Error : \[[err]\]\n")
+			message_admins("SQL ERROR during log_client_to_db (insert). Error : \[[err]\]\n")
 
 	//Logging player access
 	var/serverip = "[world.internet_address]:[world.port]"
 	var/DBQuery/query_accesslog = dbcon.NewQuery("INSERT INTO `[format_table_name("connection_log")]`(`id`,`datetime`,`serverip`,`ckey`,`ip`,`computerid`) VALUES(null,Now(),'[serverip]','[ckey]','[sql_ip]','[sql_computerid]');")
 	query_accesslog.Execute()
+
 
 #undef TOPIC_SPAM_DELAY
 #undef UPLOAD_LIMIT
@@ -621,3 +741,9 @@
 		if(lang.flags & RESTRICTED)
 			message += " (RESTRICTED)"
 		to_chat(world, "[message]")
+
+/client/proc/colour_transition(var/list/colour_to = null, var/time = 10) //Call this with no parameters to reset to default.
+	animate(src, color=colour_to, time=time, easing=SINE_EASING)
+
+/client/proc/on_varedit()
+	var_edited = TRUE

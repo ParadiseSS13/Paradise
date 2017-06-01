@@ -884,3 +884,9 @@ proc/sort_atoms_by_layer(var/list/atoms)
 		icon = J
 		return J
 	return 0
+	
+//Hook, override to run code on- wait this is images
+//Images have dir without being an atom, so they get their own definition.
+//Lame.
+/image/proc/setDir(newdir)
+	dir = newdir

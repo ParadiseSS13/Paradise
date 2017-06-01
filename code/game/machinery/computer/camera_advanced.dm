@@ -28,8 +28,7 @@
 /obj/machinery/computer/camera_advanced/Destroy()
 	if(current_user)
 		current_user.unset_machine()
-	if(eyeobj)
-		qdel(eyeobj)
+	QDEL_NULL(eyeobj)
 	return ..()
 
 /obj/machinery/computer/camera_advanced/on_unset_machine(mob/M)
@@ -37,18 +36,19 @@
 		off_action.Activate()
 
 /obj/machinery/computer/camera_advanced/attack_hand(mob/user)
-	if(..())
-		return
-	if(!iscarbon(user))
-		return
 	if(current_user)
 		to_chat(user, "The console is already in use!")
 		return
-
+	if(!iscarbon(user))
+		return
+	if(..())
+		return
 	user.set_machine(src)
+
 	if(!eyeobj)
 		CreateEye()
-	if(!eyeobj.initialized)
+
+	if(!eyeobj.eye_initialized)
 		var/camera_location
 		for(var/obj/machinery/camera/C in cameranet.cameras)
 			if(!C.can_use())
@@ -57,7 +57,7 @@
 				camera_location = get_turf(C)
 				break
 		if(camera_location)
-			eyeobj.initialized = 1
+			eyeobj.eye_initialized = 1
 			give_eye_control(user)
 			eyeobj.setLoc(camera_location)
 		else
@@ -66,6 +66,7 @@
 			user.unset_machine()
 	else
 		give_eye_control(user)
+		eyeobj.setLoc(eyeobj.loc)
 
 
 /obj/machinery/computer/camera_advanced/proc/give_eye_control(mob/user)
@@ -77,7 +78,6 @@
 	user.remote_view = 1
 	user.remote_control = eyeobj
 	user.reset_perspective(eyeobj)
-	eyeobj.setLoc(eyeobj.loc)
 
 /mob/camera/aiEye/remote
 	name = "Inactive Camera Eye"
@@ -86,9 +86,14 @@
 	var/acceleration = 1
 	var/mob/living/carbon/human/eye_user = null
 	var/obj/machinery/computer/camera_advanced/origin
-	var/initialized = 0
+	var/eye_initialized = 0
 	var/visible_icon = 0
 	var/image/user_image = null
+
+/mob/camera/aiEye/remote/Destroy()
+	eye_user = null
+	origin = null
+	return ..()
 
 /mob/camera/aiEye/remote/GetViewerClient()
 	if(eye_user)
@@ -102,12 +107,11 @@
 		T = get_turf(T)
 		loc = T
 		cameranet.visibility(src)
-		if(eye_user.client)
-			if(visible_icon)
+		if(visible_icon)
+			if(eye_user.client)
 				eye_user.client.images -= user_image
 				user_image = image(icon,loc,icon_state,FLY_LAYER)
 				eye_user.client.images += user_image
-			eye_user.client.eye = src
 
 /mob/camera/aiEye/remote/relaymove(mob/user,direct)
 	var/initial = initial(sprint)
@@ -140,14 +144,16 @@
 	remote_eye.origin.current_user = null
 	remote_eye.origin.jump_action.Remove(C)
 	remote_eye.eye_user = null
-	C.reset_perspective(null)
 	if(C.client)
-		C.client.images -= remote_eye.user_image
+		C.reset_perspective(null)
+		if(remote_eye.visible_icon)
+			C.client.images -= remote_eye.user_image
 		for(var/datum/camerachunk/chunk in remote_eye.visibleCameraChunks)
 			C.client.images -= chunk.obscured
 	C.remote_control = null
 	C.unset_machine()
 	src.Remove(C)
+	playsound(remote_eye.origin, 'sound/machines/terminal_off.ogg', 25, 0)
 
 /datum/action/innate/camera_jump
 	name = "Jump To Camera"
@@ -175,7 +181,14 @@
 			T[text("[][]", netcam.c_tag, (netcam.can_use() ? null : " (Deactivated)"))] = netcam
 
 
+	playsound(origin, 'sound/machines/terminal_prompt.ogg', 25, 0)
 	var/camera = input("Choose which camera you want to view", "Cameras") as null|anything in T
 	var/obj/machinery/camera/final = T[camera]
+	playsound(origin, "terminal_type", 25, 0)
 	if(final)
+		playsound(origin, 'sound/machines/terminal_prompt_confirm.ogg', 25, 0)
 		remote_eye.setLoc(get_turf(final))
+		C.overlay_fullscreen("flash", /obj/screen/fullscreen/flash/noise)
+		C.clear_fullscreen("flash", 3) //Shorter flash than normal since it's an ~~advanced~~ console!
+	else
+		playsound(origin, 'sound/machines/terminal_prompt_deny.ogg', 25, 0)

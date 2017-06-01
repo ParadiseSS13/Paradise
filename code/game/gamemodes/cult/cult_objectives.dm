@@ -21,7 +21,7 @@
 		if("convert")
 			explanation = "We must increase our influence before we can summon [ticker.mode.cultdat.entity_name], Convert [convert_target] crew members. Take it slowly to avoid raising suspicions."
 		if("bloodspill")
-			spilltarget = 100 + rand(0,player_list.len * 3)
+			spilltarget = 70 + rand(0,player_list.len * 3)
 			explanation = "We must prepare this place for [ticker.mode.cultdat.entity_title1]'s coming. Spill blood and gibs over [spilltarget] floor tiles."
 		if("sacrifice")
 			explanation = "We need to sacrifice [sacrifice_target.name], the [sacrifice_target.assigned_role], for his blood is the key that will lead our master to this realm. You will need 3 cultists around a Sacrifice rune to perform the ritual."
@@ -145,6 +145,19 @@
 	message_admins("Last Cult Objective: [last_objective]")
 	log_admin("Last Cult Objective: [last_objective]")
 
+/datum/game_mode/cult/proc/get_possible_sac_targets()
+	var/list/possible_sac_targets = list()
+	for(var/mob/living/carbon/human/player in player_list)
+		if(player.mind && !is_convertable_to_cult(player.mind) && (player.stat != DEAD))
+			possible_sac_targets += player.mind
+	if(!possible_sac_targets.len)
+	//There are no living Unconvertables on the station. Looking for a Sacrifice Target among the ordinary crewmembers
+		for(var/mob/living/carbon/human/player in player_list)
+			if(is_secure_level(player.z)) //We can't sacrifice people that are on the centcom z-level
+				continue
+			if(player.mind && !(player.mind in cult) && (player.stat != DEAD))//make DAMN sure they are not dead
+				possible_sac_targets += player.mind
+	return possible_sac_targets
 
 /datum/game_mode/cult/proc/pick_objective()
 	var/list/possible_objectives = list()
@@ -153,27 +166,12 @@
 		possible_objectives |= "bloodspill"
 
 	if(!sacrificed.len)
-		var/list/possible_targets = list()
-		for(var/mob/living/carbon/human/player in player_list)
-			if(is_secure_level(player.z)) //We can't sacrifice people that are on the centcom z-level
-				continue
-			if(player.mind && !is_convertable_to_cult(player.mind) && (player.stat != DEAD))
-				possible_targets += player.mind
-
-		if(!possible_targets.len)
-			//There are no living Unconvertables on the station. Looking for a Sacrifice Target among the ordinary crewmembers
-			for(var/mob/living/carbon/human/player in player_list)
-				if(is_secure_level(player.z)) //We can't sacrifice people that are on the centcom z-level
-					continue
-				if(player.mind && !(player.mind in cult) && (player.stat != DEAD))//make DAMN sure they are not dead
-					possible_targets += player.mind
-
+		var/list/possible_targets = get_possible_sac_targets()
 		if(possible_targets.len > 0)
 			sacrifice_target = pick(possible_targets)
 			possible_objectives |= "sacrifice"
 		else
-			message_admins("Didn't find a suitable sacrifice target...what the hell? Shout at a coder.")
-			log_admin("Didn't find a suitable sacrifice target...what the hell? Shout at a coder.")
+			log_runtime(EXCEPTION("Didn't find a suitable sacrifice target...what the hell? Shout at a coder."))
 
 	if(!mass_convert)
 		var/living_crew = 0
@@ -194,7 +192,7 @@
 				log_admin("There are [total] players, too little for the mass convert objective!")
 			else
 				possible_objectives |= "convert"
-				convert_target = round(total / 2)
+				convert_target = rand(9,15)
 
 	if(!possible_objectives.len)//No more possible objectives, time to summon Nar-Sie
 		message_admins("No suitable objectives left! Nar-Sie objective unlocked.")
