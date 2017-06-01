@@ -4,7 +4,7 @@
 	icon = 'icons/obj/chronos.dmi'
 	icon_state = "chronogun"
 	item_state = "chronogun"
-	w_class = 3
+	w_class = WEIGHT_CLASS_NORMAL
 
 	var/mob/living/current_target
 	var/last_check = 0
@@ -103,7 +103,7 @@
 	target.adjustFireLoss(-4)
 	if(ishuman(target))
 		var/var/mob/living/carbon/human/H = target
-		for(var/obj/item/organ/external/E in H.organs)
+		for(var/obj/item/organ/external/E in H.bodyparts)
 			if(prob(10))
 				if(E.mend_fracture())
 					E.perma_injury = 0

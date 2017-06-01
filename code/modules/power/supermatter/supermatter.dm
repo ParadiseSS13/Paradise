@@ -64,6 +64,7 @@
 
 /obj/machinery/power/supermatter_shard/New()
 	. = ..()
+	poi_list |= src
 	radio = new(src)
 	radio.listening = 0
 	investigate_log("has been created.", "supermatter")
@@ -71,8 +72,8 @@
 
 /obj/machinery/power/supermatter_shard/Destroy()
 	investigate_log("has been destroyed.", "supermatter")
-	qdel(radio)
-	radio = null
+	QDEL_NULL(radio)
+	poi_list.Remove(src)
 	return ..()
 
 /obj/machinery/power/supermatter_shard/proc/explode()

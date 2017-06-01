@@ -4,7 +4,7 @@
 	max_damage = 200
 	icon_state = "brain2"
 	force = 1.0
-	w_class = 2
+	w_class = WEIGHT_CLASS_SMALL
 	throwforce = 1.0
 	throw_speed = 3
 	throw_range = 5
@@ -73,7 +73,7 @@
 		var/mob/living/simple_animal/borer/borer = owner.has_brain_worms()
 
 		if(borer)
-			borer.detatch() //Should remove borer if the brain is removed - RR
+			borer.detach() //Should remove borer if the brain is removed - RR
 		if(owner.mind && !non_primary)//don't transfer if the owner does not have a mind.
 			B.transfer_identity(user)
 
@@ -116,12 +116,6 @@
 	mmi_icon_state = "slime_mmi"
 //	parent_organ = "chest" Hello I am from the ministry of rubber forehead aliens how are you
 
-/obj/item/organ/internal/brain/slime/take_damage(var/amount, var/silent = 1)
-	//Slimes are 150% more vulnerable to brain damage
-	damage = between(0, src.damage + (1.5*amount), max_damage) //Since they take the damage twice, this is +150%
-	return ..()
-
-
 /obj/item/organ/internal/brain/golem
 	name = "Runic mind"
 	desc = "A tightly furled roll of paper, covered with indecipherable runes."
@@ -129,7 +123,5 @@
 	icon_state = "scroll"
 
 /obj/item/organ/internal/brain/Destroy() //copypasted from MMIs.
-	if(brainmob)
-		qdel(brainmob)
-		brainmob = null
+	QDEL_NULL(brainmob)
 	return ..()

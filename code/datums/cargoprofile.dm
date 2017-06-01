@@ -147,7 +147,7 @@
 	name = "Exotic materials"
 	id = "exotics"
 	blacklist = null
-	whitelist = list(/obj/item/weapon/coin, /obj/item/weapon/spacecash, /obj/item/seeds,
+	whitelist = list(/obj/item/weapon/coin, /obj/item/stack/spacecash, /obj/item/seeds,
 					/obj/item/stack/sheet/mineral,/obj/item/stack/sheet/wood,/obj/item/stack/sheet/leather)
 
 /datum/cargoprofile/organics
@@ -245,8 +245,8 @@
 	id = "trash"
 	//Note that this filters out blueprints because they are a paper item.  Do NOT throw out the station blueprints unless you be trollin'.
 	blacklist = null
-	whitelist = list(/obj/item/trash,/obj/item/toy,/obj/item/weapon/reagent_containers/food/snacks/ectoplasm,/obj/item/weapon/bananapeel,/obj/item/weapon/broken_bottle,/obj/item/weapon/bikehorn,
-					/obj/item/weapon/cigbutt,/obj/item/weapon/contraband,/obj/item/weapon/corncob,/obj/item/weapon/paper,/obj/item/weapon/shard,
+	whitelist = list(/obj/item/trash,/obj/item/toy,/obj/item/weapon/reagent_containers/food/snacks/ectoplasm,/obj/item/weapon/grown/bananapeel,/obj/item/weapon/broken_bottle,/obj/item/weapon/bikehorn,
+					/obj/item/weapon/cigbutt,/obj/item/weapon/contraband,/obj/item/weapon/grown/corncob,/obj/item/weapon/paper,/obj/item/weapon/shard,
 					/obj/item/weapon/sord,/obj/item/weapon/photo,/obj/item/weapon/folder,
 					/obj/item/areaeditor/blueprints,/obj/item/weapon/contraband,/obj/item/weapon/kitchen,/obj/item/weapon/book,/obj/item/clothing/mask/facehugger)
 
@@ -267,9 +267,9 @@
 	whitelist = list(/obj/item/device,/obj/item/weapon/card,/obj/item/weapon/cartridge,/obj/item/weapon/cautery,/obj/item/weapon/stock_parts/cell,/obj/item/weapon/circuitboard,
 					/obj/item/weapon/aiModule,/obj/item/weapon/airalarm_electronics,/obj/item/weapon/airlock_electronics,/obj/item/weapon/circular_saw,
 					/obj/item/weapon/crowbar,/obj/item/weapon/disk,/obj/item/weapon/firealarm_electronics,/obj/item/weapon/hand_tele,
-					/obj/item/weapon/hand_labeler,/obj/item/weapon/hemostat,/obj/item/weapon/mop,/obj/item/weapon/locator,/obj/item/weapon/minihoe,
+					/obj/item/weapon/hand_labeler,/obj/item/weapon/hemostat,/obj/item/weapon/mop,/obj/item/weapon/locator,/obj/item/weapon/cultivator,
 					/obj/item/stack/packageWrap,/obj/item/weapon/pen,/obj/item/weapon/pickaxe,/obj/item/weapon/pinpointer,
-					/obj/item/weapon/rcd,/obj/item/weapon/rcd_ammo,/obj/item/weapon/retractor,/obj/item/weapon/rsf,/obj/item/weapon/rsp,/obj/item/weapon/scalpel,
+					/obj/item/weapon/rcd,/obj/item/weapon/rcd_ammo,/obj/item/weapon/retractor,/obj/item/weapon/rsf,/obj/item/weapon/scalpel,
 					/obj/item/weapon/screwdriver,/obj/item/weapon/shovel,/obj/item/weapon/soap,/obj/item/weapon/stamp,/obj/item/weapon/storage/bag/tray,/obj/item/weapon/weldingtool,
 					/obj/item/weapon/wirecutters,/obj/item/weapon/wrench,/obj/item/weapon/extinguisher)
 
@@ -341,13 +341,13 @@
 							C:broken = 1
 						C.open()
 						C.update_icon()
-						master.visible_message("\red [master] breaks open [C]!")
+						master.visible_message("<span class='warning'>[master] breaks open [C]!</span>")
 					else
-						master.visible_message("\blue [master] is trying to force [C] open!")
+						master.visible_message("<span class='notice'>[master] is trying to force [C] open!</span>")
 
 					master.sleep += 1 // mechanical strain
 					return BIG_OBJECT_WORK
-				master.visible_message("\blue [master] is trying to open [C], but can't!")
+				master.visible_message("<span class='notice'>[master] is trying to open [C], but can't!</span>")
 				master.sleep = 5
 				return 0
 
@@ -647,19 +647,19 @@
 			M.loc = master
 			master.types[M.type] = src
 			M.apply_damage(damage) // todo: ugly
-			M.visible_message("\red [M.name] gets pulled into the machine!")
+			M.visible_message("<span class='warning'>[M.name] gets pulled into the machine!</span>")
 			return MOB_WORK
 	outlet_reaction(var/atom/W,var/turf/D)
 		var/mob/living/M = W
 		var/bruteloss = M.bruteloss
 		if(istype(M,/mob/living/carbon/human))
 			var/mob/living/carbon/human/C = M
-			for(var/obj/item/organ/external/L in C.organs)
+			for(var/obj/item/organ/external/L in C.bodyparts)
 				bruteloss += L.brute_dam
 		if(bruteloss < 100) // requires tenderization
 			M.apply_damage(rand(5,15),BRUTE)
 			to_chat(M, "The machine is tearing you apart!")
-			master.visible_message("\red [master] makes a squishy grinding noise.")
+			master.visible_message("<span class='warning'>[master] makes a squishy grinding noise.</span>")
 			return
 		M.loc = master.loc
 		M.gib()
@@ -700,7 +700,7 @@
 			M.forceMove(master)
 			master.types[M.type] = src
 			M.apply_damage(damage) // todo: ugly
-			M.visible_message("\red [M.name] gets pulled into the machine!")
+			M.visible_message("<span class='warning'>[M.name] gets pulled into the machine!</span>")
 			return MOB_WORK
 
 	outlet_reaction(var/atom/W,var/turf/D)
@@ -711,7 +711,7 @@
 		D = get_step(D,master.outdir) // throw attempt
 		eject_speed = rand(0,4)
 
-		M.visible_message("\blue [M.name] is ejected from the unloader.")
+		M.visible_message("<span class='notice'>[M.name] is ejected from the unloader.</span>")
 		M.throw_at(D,eject_speed,eject_speed)
 		return
 
@@ -752,7 +752,7 @@
 
 		if(!damage)
 			playsound(master.loc, 'sound/weapons/punchmiss.ogg', 25, 1, -1)
-			master.visible_message("\red \The [src] punched at [M], but whiffed!")
+			master.visible_message("<span class='warning'>\The [src] punched at [M], but whiffed!</span>")
 
 			if(maxpunches > 1 && prob(50)) // Follow through on a miss, 50% chance
 				return punch(M,maxpunches - 1) + 1

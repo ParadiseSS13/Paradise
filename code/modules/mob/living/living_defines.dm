@@ -33,6 +33,7 @@
 	var/floating = 0
 	var/mob_size = MOB_SIZE_HUMAN
 	var/metabolism_efficiency = 1 //more or less efficiency to metabolize helpful/harmful reagents and regulate body temperature..
+	var/digestion_ratio = 1 //controls how quickly reagents metabolize; largely governered by species attributes.
 	var/nightvision = 0
 
 	var/bloodcrawl = 0 //0 No blood crawling, 1 blood crawling, 2 blood crawling+mob devour
@@ -51,3 +52,10 @@
 	var/list/surgeries = list()	//a list of surgery datums. generally empty, they're added when the player wants them.
 
 	var/gene_stability = DEFAULT_GENE_STABILITY
+	var/ignore_gene_stability = 0
+
+	var/obj/effect/proc_holder/ranged_ability //Any ranged ability the mob has, as a click override
+
+	var/tesla_ignore = FALSE
+
+	var/list/say_log = list() //a log of what we've said, plain text, no spans or junk, essentially just each individual "message"

@@ -28,10 +28,6 @@
 /datum/surgery_step/generic/cut_face
 	name = "make incision"
 	allowed_tools = list(
-	/obj/item/weapon/scalpel/laser3 = 115, \
-	/obj/item/weapon/scalpel/laser2 = 110, \
-	/obj/item/weapon/scalpel/laser1 = 105, \
-	/obj/item/weapon/scalpel/manager = 120, \
 	/obj/item/weapon/scalpel = 100,		\
 	/obj/item/weapon/kitchen/knife = 75,	\
 	/obj/item/weapon/shard = 50, 		\
@@ -62,7 +58,7 @@
 /datum/surgery_step/face/mend_vocal
 	name = "mend vocal cords"
 	allowed_tools = list(
-	/obj/item/weapon/scalpel/manager = 120, \
+	/obj/item/weapon/scalpel/laser/manager = 100, \
 	/obj/item/weapon/hemostat = 100, 	\
 	/obj/item/stack/cable_coil = 75, 	\
 	/obj/item/device/assembly/mousetrap = 10	//I don't know. Don't ask me. But I'm leaving it because hilarity.
@@ -89,7 +85,7 @@
 /datum/surgery_step/face/fix_face
 	name = "reshape face"
 	allowed_tools = list(
-	/obj/item/weapon/scalpel/manager = 120, \
+	/obj/item/weapon/scalpel/laser/manager = 100, \
 	/obj/item/weapon/retractor = 100, 	\
 	/obj/item/weapon/crowbar = 55,	\
 	/obj/item/weapon/kitchen/utensil/fork = 75)
@@ -116,9 +112,7 @@
 /datum/surgery_step/face/cauterize
 	name = "close incision"
 	allowed_tools = list(
-	/obj/item/weapon/scalpel/laser3 = 115, \
-	/obj/item/weapon/scalpel/laser2 = 110, \
-	/obj/item/weapon/scalpel/laser1 = 105, \
+	/obj/item/weapon/scalpel/laser = 100, \
 	/obj/item/weapon/cautery = 100,			\
 	/obj/item/clothing/mask/cigarette = 75,	\
 	/obj/item/weapon/lighter = 50,			\

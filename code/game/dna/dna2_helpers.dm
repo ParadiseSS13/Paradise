@@ -22,27 +22,27 @@
 
 // Give Random Bad Mutation to M
 /proc/randmutb(var/mob/living/M)
-	if(!M) return
+	if(!M || !M.dna) return
 	M.dna.check_integrity()
 	var/block = pick(bad_blocks)
 	M.dna.SetSEState(block, 1)
 
 // Give Random Good Mutation to M
 /proc/randmutg(var/mob/living/M)
-	if(!M) return
+	if(!M || !M.dna) return
 	M.dna.check_integrity()
 	var/block = pick(good_blocks)
 	M.dna.SetSEState(block, 1)
 
 // Random Appearance Mutation
 /proc/randmuti(var/mob/living/M)
-	if(!M) return
+	if(!M || !M.dna) return
 	M.dna.check_integrity()
 	M.dna.SetUIValue(rand(1,DNA_UI_LENGTH),rand(1,4095))
 
 // Scramble UI or SE.
 /proc/scramble(var/UI, var/mob/M, var/prob)
-	if(!M)	return
+	if(!M || !M.dna)	return
 	M.dna.check_integrity()
 	if(UI)
 		for(var/i = 1, i <= DNA_UI_LENGTH-1, i++)
@@ -132,7 +132,11 @@
 		dna.check_integrity()
 		var/mob/living/carbon/human/H = src
 		var/obj/item/organ/external/head/head_organ = H.get_organ("head")
+		var/obj/item/organ/internal/eyes/eye_organ = H.get_int_organ(/obj/item/organ/internal/eyes)
+		var/datum/species/S = H.species
 		dna.write_head_attributes(head_organ)
+		dna.write_eyes_attributes(eye_organ)
+		H.update_eyes()
 
 		H.r_skin		= dna.GetUIValueRange(DNA_UI_SKIN_R,	255)
 		H.g_skin		= dna.GetUIValueRange(DNA_UI_SKIN_G,	255)
@@ -144,10 +148,11 @@
 
 		H.s_tone   = 35 - dna.GetUIValueRange(DNA_UI_SKIN_TONE, 220) // Value can be negative.
 
-		if(dna.GetUIState(DNA_UI_GENDER))
-			H.change_gender(FEMALE, 0)
-		else
-			H.change_gender(MALE, 0)
+		if(S.has_gender)
+			if(dna.GetUIState(DNA_UI_GENDER))
+				H.change_gender(FEMALE, 0)
+			else
+				H.change_gender(MALE, 0)
 
 		//Head Markings
 		var/head_marks = dna.GetUIValueRange(DNA_UI_HEAD_MARK_STYLE, marking_styles_list.len)
@@ -188,6 +193,10 @@
 	head_organ.g_hair		= GetUIValueRange(DNA_UI_HAIR_G,	255)
 	head_organ.b_hair		= GetUIValueRange(DNA_UI_HAIR_B,	255)
 
+	head_organ.r_hair_sec	= GetUIValueRange(DNA_UI_HAIR2_R,	255)
+	head_organ.g_hair_sec	= GetUIValueRange(DNA_UI_HAIR2_G,	255)
+	head_organ.b_hair_sec	= GetUIValueRange(DNA_UI_HAIR2_B,	255)
+
 	//Facial Hair
 	var/beard = GetUIValueRange(DNA_UI_BEARD_STYLE,facial_hair_styles_list.len)
 	if((beard > 0) && (beard <= facial_hair_styles_list.len))
@@ -196,6 +205,10 @@
 	head_organ.r_facial		= GetUIValueRange(DNA_UI_BEARD_R,	255)
 	head_organ.g_facial		= GetUIValueRange(DNA_UI_BEARD_G,	255)
 	head_organ.b_facial		= GetUIValueRange(DNA_UI_BEARD_B,	255)
+
+	head_organ.r_facial_sec	= GetUIValueRange(DNA_UI_BEARD2_R,	255)
+	head_organ.g_facial_sec	= GetUIValueRange(DNA_UI_BEARD2_G,	255)
+	head_organ.b_facial_sec	= GetUIValueRange(DNA_UI_BEARD2_B,	255)
 
 	//Head Accessories
 	var/headacc = GetUIValueRange(DNA_UI_HACC_STYLE,head_accessory_styles_list.len)
@@ -254,9 +267,17 @@
 	SetUIValueRange(DNA_UI_HAIR_G,	H.g_hair,				255,	1)
 	SetUIValueRange(DNA_UI_HAIR_B,	H.b_hair,				255,	1)
 
+	SetUIValueRange(DNA_UI_HAIR2_R,	H.r_hair_sec,			255,	1)
+	SetUIValueRange(DNA_UI_HAIR2_G,	H.g_hair_sec,			255,	1)
+	SetUIValueRange(DNA_UI_HAIR2_B,	H.b_hair_sec,			255,	1)
+
 	SetUIValueRange(DNA_UI_BEARD_R,	H.r_facial,				255,	1)
 	SetUIValueRange(DNA_UI_BEARD_G,	H.g_facial,				255,	1)
 	SetUIValueRange(DNA_UI_BEARD_B,	H.b_facial,				255,	1)
+
+	SetUIValueRange(DNA_UI_BEARD2_R,	H.r_facial_sec,		255,	1)
+	SetUIValueRange(DNA_UI_BEARD2_G,	H.g_facial_sec,		255,	1)
+	SetUIValueRange(DNA_UI_BEARD2_B,	H.b_facial_sec,		255,	1)
 
 	SetUIValueRange(DNA_UI_HACC_R,	H.r_headacc,			255,	1)
 	SetUIValueRange(DNA_UI_HACC_G,	H.g_headacc,			255,	1)

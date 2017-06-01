@@ -5,7 +5,7 @@
 	desc = "The Warrior's bland acronym, MMI, obscures the true horror of this monstrosity."
 	icon = 'icons/obj/assemblies.dmi'
 	icon_state = "mmi_empty"
-	w_class = 3
+	w_class = WEIGHT_CLASS_NORMAL
 	origin_tech = "biotech=3"
 
 	//Revised. Brainmob is now contained directly within object of transfer. MMI in this case.
@@ -167,12 +167,8 @@
 	if(isrobot(loc))
 		var/mob/living/silicon/robot/borg = loc
 		borg.mmi = null
-	if(brainmob)
-		qdel(brainmob)
-		brainmob = null
-	if(held_brain)
-		qdel(held_brain)
-		held_brain = null
+	QDEL_NULL(brainmob)
+	QDEL_NULL(held_brain)
 	return ..()
 
 /obj/item/device/mmi/syndie

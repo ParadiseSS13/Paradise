@@ -398,3 +398,11 @@
 	if(isnull(caught) || !istype(caught) || !isnull(caught.gcDestroyed))
 		return // Only bother with types we can identify and that don't belong
 	catchException("Type [caught.type] does not belong in process' queue")
+
+// This is called to make a controller THE global authority on a global variable - like `air_master`
+/datum/controller/process/proc/assertGlobality()
+	return
+
+// Called to let another instance of the controller have the fun
+/datum/controller/process/proc/releaseGlobality()
+	return

@@ -29,6 +29,8 @@
 	var/busy = 0
 	var/emped = 0  //Number of consecutive EMP's on this camera
 
+	var/toggle_message = 'sound/items/Wirecutter.ogg'
+
 /obj/machinery/camera/New()
 	..()
 	wires = new(src)
@@ -45,21 +47,23 @@
 	..()
 	if(is_station_level(z) && prob(3) && !start_active)
 		toggle_cam()
+		wires.CutAll()
 
 /obj/machinery/camera/Destroy()
 	toggle_cam(null, 0) //kick anyone viewing out
-	if(assembly)
-		qdel(assembly)
-		assembly = null
+	QDEL_NULL(assembly)
 	if(istype(bug))
 		bug.bugged_cameras -= src.c_tag
 		if(bug.current == src)
 			bug.current = null
 		bug = null
-	qdel(wires)
-	wires = null
+	QDEL_NULL(wires)
 	cameranet.removeCamera(src) //Will handle removal from the camera network and the chunks, so we don't need to worry about that
 	cameranet.cameras -= src
+	var/area/ai_monitored/A = get_area(src)
+	if(istype(A))
+		A.motioncamera = null
+	area_motion = null
 	return ..()
 
 /obj/machinery/camera/emp_act(severity)
@@ -96,6 +100,11 @@
 					to_chat(O, "The screen bursts into static.")
 			..()
 
+/obj/machinery/camera/tesla_act(var/power)//EMP proof upgrade also makes it tesla immune
+	if(isEmpProof())
+		return
+	..()
+	qdel(src)//to prevent bomb testing camera from exploding over and over forever
 
 /obj/machinery/camera/ex_act(severity, target)
 	if(src.invuln)
@@ -108,7 +117,11 @@
 	qdel(src)
 	return
 
-/obj/machinery/camera/attack_alien(mob/living/carbon/alien/humanoid/user as mob)
+/obj/machinery/camera/attack_ghost(mob/user)
+	if(panel_open)
+		wires.Interact(user)
+
+/obj/machinery/camera/attack_alien(mob/living/carbon/alien/humanoid/user)
 	if(!istype(user))
 		return
 	user.do_attack_animation(src)
@@ -123,7 +136,7 @@
 	src.view_range = num
 	cameranet.updateVisibility(src, 0)
 
-/obj/machinery/camera/attackby(W as obj, mob/living/user as mob, params)
+/obj/machinery/camera/attackby(obj/item/W, mob/living/user as mob, params)
 	var/msg = "<span class='notice'>You attach [W] into the assembly inner circuits.</span>"
 	var/msg2 = "<span class='notice'>The camera already has that upgrade!</span>"
 
@@ -134,7 +147,7 @@
 		panel_open = !panel_open
 		user.visible_message("<span class='warning'>[user] screws the camera's panel [panel_open ? "open" : "closed"]!</span>",
 		"<span class='notice'>You screw the camera's panel [panel_open ? "open" : "closed"].</span>")
-		playsound(src.loc, 'sound/items/Screwdriver.ogg', 50, 1)
+		playsound(src.loc, W.usesound, 50, 1)
 
 	else if((istype(W, /obj/item/weapon/wirecutters) || istype(W, /obj/item/device/multitool)) && panel_open)
 		wires.Interact(user)
@@ -234,7 +247,7 @@
 		var/datum/effect/system/spark_spread/spark_system = new /datum/effect/system/spark_spread()
 		spark_system.set_up(5, 0, loc)
 		spark_system.start()
-		playsound(loc, 'sound/weapons/blade1.ogg', 50, 1)
+		playsound(loc, W.usesound, 50, 1)
 		playsound(loc, "sparks", 50, 1)
 		visible_message("<span class='notice'>[user] has sliced the camera apart with an energy blade!</span>")
 		qdel(src)
@@ -271,7 +284,7 @@
 		else
 			visible_message("<span class='danger'>\The [src] [change_msg]!</span>")
 
-		playsound(src.loc, 'sound/items/Wirecutter.ogg', 100, 1)
+		playsound(src.loc, toggle_message, 100, 1)
 
 	// now disconnect anyone using the camera
 	//Apparently, this will disconnect anyone even if the camera was re-activated.
@@ -351,9 +364,9 @@
 		return 0
 
 	to_chat(user, "<span class='notice'>You start to weld [src]...</span>")
-	playsound(src.loc, 'sound/items/Welder.ogg', 50, 1)
+	playsound(src.loc, WT.usesound, 50, 1)
 	busy = 1
-	if(do_after(user, 100, target = src))
+	if(do_after(user, 100 * WT.toolspeed, target = src))
 		busy = 0
 		if(!WT.isOn())
 			return 0

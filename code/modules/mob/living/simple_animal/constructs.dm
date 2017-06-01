@@ -29,10 +29,17 @@
 
 /mob/living/simple_animal/hostile/construct/New()
 	..()
-	name = "[ticker.mode.cultdat.get_name(const_type)] ([rand(1, 1000)])"
-	real_name = ticker.mode.cultdat.get_name(const_type)
-	icon_living = ticker.mode.cultdat.get_icon(const_type)
-	icon_state = ticker.mode.cultdat.get_icon(const_type)
+	if(!ticker.mode)//work around for maps with runes and cultdat is not loaded all the way
+		name = "[const_type] ([rand(1, 1000)])"
+		real_name = const_type
+		icon_living = const_type
+		icon_state = const_type
+	else
+		name = "[ticker.mode.cultdat.get_name(const_type)] ([rand(1, 1000)])"
+		real_name = ticker.mode.cultdat.get_name(const_type)
+		icon_living = ticker.mode.cultdat.get_icon(const_type)
+		icon_state = ticker.mode.cultdat.get_icon(const_type)
+
 	for(var/spell in construct_spells)
 		AddSpell(new spell(null))
 
@@ -296,11 +303,13 @@
 	melee_damage_upper = 5
 	attacktext = "prods"
 	speed = 0
-	environment_smash = 1
+	environment_smash = 3
 	see_in_dark = 8
 	attack_sound = 'sound/weapons/tap.ogg'
 	const_type = "harvester"
-	construct_spells = list(/obj/effect/proc_holder/spell/targeted/smoke/disable)
+	construct_spells = list(/obj/effect/proc_holder/spell/aoe_turf/conjure/wall,
+							/obj/effect/proc_holder/spell/aoe_turf/conjure/floor,
+							/obj/effect/proc_holder/spell/targeted/smoke/disable)
 	retreat_distance = 2 //AI harvesters will move in and out of combat, like wraiths, but shittier
 	playstyle_string = "<B>You are a Harvester. You are not strong, but your powers of domination will assist you in your role: \
 						Bring those who still cling to this world of illusion back to the master so they may know Truth.</B>"
@@ -312,7 +321,7 @@
 
 /mob/living/simple_animal/hostile/construct/harvester/hostile //actually hostile, will move around, hit things
 	AIStatus = AI_ON
-
+	environment_smash = 1 //only token destruction, don't smash the cult wall NO STOP
 
 ////////////////Glow////////////////////
 /mob/living/simple_animal/hostile/construct/proc/updateglow()

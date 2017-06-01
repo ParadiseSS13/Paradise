@@ -171,7 +171,7 @@ var/global/list/damage_icon_parts = list()
 	// first check whether something actually changed about damage appearance
 	var/damage_appearance = ""
 
-	for(var/obj/item/organ/external/O in organs)
+	for(var/obj/item/organ/external/O in bodyparts)
 		if(O.is_stump())
 			continue
 		if(O.status & ORGAN_DESTROYED) damage_appearance += "d"
@@ -189,7 +189,7 @@ var/global/list/damage_icon_parts = list()
 	var/image/standing_image = new /image("icon" = standing)
 
 	// blend the individual damage states with our icons
-	for(var/obj/item/organ/external/O in organs)
+	for(var/obj/item/organ/external/O in bodyparts)
 		if(O.is_stump())
 			continue
 		if(!(O.status & ORGAN_DESTROYED))
@@ -240,7 +240,7 @@ var/global/list/damage_icon_parts = list()
 		icon_key += "#000000"
 
 	for(var/organ_tag in species.has_limbs)
-		var/obj/item/organ/external/part = organs_by_name[organ_tag]
+		var/obj/item/organ/external/part = bodyparts_by_name[organ_tag]
 		if(isnull(part) || part.is_stump() || (part.status & ORGAN_DESTROYED))
 			icon_key += "0"
 		else if(part.status & ORGAN_ROBOT)
@@ -269,7 +269,7 @@ var/global/list/damage_icon_parts = list()
 		var/obj/item/organ/external/chest = get_organ("chest")
 		base_icon = chest.get_icon(skeleton)
 
-		for(var/obj/item/organ/external/part in organs)
+		for(var/obj/item/organ/external/part in bodyparts)
 			var/icon/temp = part.get_icon(skeleton)
 			//That part makes left and right legs drawn topmost and lowermost when human looks WEST or EAST
 			//And no change in rendering for other parts (they icon_position is 0, so goes to 'else' part)
@@ -298,9 +298,9 @@ var/global/list/damage_icon_parts = list()
 				base_icon.MapColors(rgb(tone[1],0,0),rgb(0,tone[2],0),rgb(0,0,tone[3]))
 
 		//Handle husk overlay.
-		if(husk && ("overlay_husk" in icon_states(species.icobase)))
+		if(husk && ("overlay_husk" in icon_states(chest.icobase)))
 			var/icon/mask = new(base_icon)
-			var/icon/husk_over = new(species.icobase,"overlay_husk")
+			var/icon/husk_over = new(chest.icobase,"overlay_husk")
 			mask.MapColors(0,0,0,1, 0,0,0,1, 0,0,0,1, 0,0,0,1, 0,0,0,0)
 			husk_over.Blend(mask, ICON_ADD)
 			base_icon.Blend(husk_over, ICON_OVERLAY)
@@ -638,7 +638,7 @@ var/global/list/damage_icon_parts = list()
 			if(w_uniform.flags_size & ONESIZEFITSALL)
 				standing.icon	= 'icons/mob/uniform_fat.dmi'
 			else
-				to_chat(src, "\red You burst out of \the [w_uniform]!")
+				to_chat(src, "<span class='warning'>You burst out of \the [w_uniform]!</span>")
 				unEquip(w_uniform)
 				return
 		else
@@ -957,15 +957,14 @@ var/global/list/damage_icon_parts = list()
 			if(wear_suit.flags_size & ONESIZEFITSALL)
 				standing = image("icon" = 'icons/mob/suit_fat.dmi', "icon_state" = "[wear_suit.icon_state]")
 			else
-				to_chat(src, "\red You burst out of \the [wear_suit]!")
+				to_chat(src, "<span class='warning'>You burst out of \the [wear_suit]!</span>")
 				unEquip(wear_suit)
 				return
 		else
 			standing = image("icon" = 'icons/mob/suit.dmi', "icon_state" = "[wear_suit.icon_state]")
 
 
-		if( istype(wear_suit, /obj/item/clothing/suit/straight_jacket) )
-			unEquip(handcuffed)
+		if(wear_suit.breakouttime)
 			drop_l_hand()
 			drop_r_hand()
 
@@ -1197,12 +1196,12 @@ var/global/list/damage_icon_parts = list()
 			else // Otherwise, since the user's tail isn't overlapped by limbs, go ahead and use default icon generation.
 				overlays_standing[TAIL_LAYER] = image(accessory_s, "pixel_x" = body_accessory.pixel_x_offset, "pixel_y" = body_accessory.pixel_y_offset)
 
-	else if(species.tail && species.bodyflags & HAS_TAIL) //no tailless tajaran
+	else if(tail && species.bodyflags & HAS_TAIL) //no tailless tajaran
 		if(!wear_suit || !(wear_suit.flags_inv & HIDETAIL) && !istype(wear_suit, /obj/item/clothing/suit/space))
-			var/icon/tail_s = new/icon("icon" = 'icons/effects/species.dmi', "icon_state" = "[species.tail]_s")
+			var/icon/tail_s = new/icon("icon" = 'icons/effects/species.dmi', "icon_state" = "[tail]_s")
 			if(species.bodyflags & HAS_SKIN_COLOR)
 				tail_s.Blend(rgb(r_skin, g_skin, b_skin), ICON_ADD)
-			if(tail_marking_icon)
+			if(tail_marking_icon && !tail_marking_style.tails_allowed)
 				tail_s.Blend(tail_marking_icon, ICON_OVERLAY)
 			if((!body_accessory || istype(body_accessory, /datum/body_accessory/tail)) && species.bodyflags & TAIL_OVERLAPPED) // If the player has a species whose tail is overlapped by limbs... (having a non-tail body accessory like the snake body will override this)
 				// Gives the underlimbs layer SEW direction icons since it's overlayed by limbs and just about everything else anyway.
@@ -1266,11 +1265,11 @@ var/global/list/damage_icon_parts = list()
 		else // Otherwise, since the user's tail isn't overlapped by limbs, go ahead and use default icon generation.
 			overlays_standing[TAIL_LAYER] = image(accessory_s, "pixel_x" = body_accessory.pixel_x_offset, "pixel_y" = body_accessory.pixel_y_offset)
 
-	else if(species.tail && species.bodyflags & HAS_TAIL)
-		var/icon/tailw_s = new/icon("icon" = 'icons/effects/species.dmi', "icon_state" = "[species.tail]w_s")
+	else if(tail && species.bodyflags & HAS_TAIL)
+		var/icon/tailw_s = new/icon("icon" = 'icons/effects/species.dmi', "icon_state" = "[tail]w_s")
 		if(species.bodyflags & HAS_SKIN_COLOR)
 			tailw_s.Blend(rgb(r_skin, g_skin, b_skin), ICON_ADD)
-		if(tail_marking_icon)
+		if(tail_marking_icon && !tail_marking_style.tails_allowed)
 			tailw_s.Blend(tail_marking_icon, ICON_OVERLAY)
 		if((!body_accessory || istype(body_accessory, /datum/body_accessory/tail)) && species.bodyflags & TAIL_OVERLAPPED) // If the player has a species whose tail is overlapped by limbs... (having a non-tail body accessory like the snake body will override this)
 			// Gives the underlimbs layer SEW direction icons since it's overlayed by limbs and just about everything else anyway.
@@ -1333,7 +1332,7 @@ var/global/list/damage_icon_parts = list()
 	if(update_icons)   update_icons()
 
 /mob/living/carbon/human/proc/force_update_limbs()
-	for(var/obj/item/organ/external/O in organs)
+	for(var/obj/item/organ/external/O in bodyparts)
 		O.sync_colour_to_human(src)
 	update_body(0)
 

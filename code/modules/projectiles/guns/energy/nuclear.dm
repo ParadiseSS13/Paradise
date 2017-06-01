@@ -31,20 +31,20 @@
 	desc = "A small, pistol-sized energy gun with a built-in flashlight. It has two settings: stun and kill."
 	icon_state = "mini"
 	item_state = "gun"
-	w_class = 2
+	w_class = WEIGHT_CLASS_SMALL
 	ammo_x_offset = 2
 	charge_sections = 3
 	can_flashlight = 0 // Can't attach or detach the flashlight, and override it's icon update
 
 /obj/item/weapon/gun/energy/gun/mini/New()
-	F = new /obj/item/device/flashlight/seclite(src)
+	gun_light = new /obj/item/device/flashlight/seclite(src)
 	..()
-	power_supply.maxcharge = 6000
-	power_supply.charge = 6000
+	power_supply.maxcharge = 600
+	power_supply.charge = 600
 
 /obj/item/weapon/gun/energy/gun/mini/update_icon()
 	..()
-	if(F && F.on)
+	if(gun_light && gun_light.on)
 		overlays += "mini-light"
 
 /obj/item/weapon/gun/energy/gun/hos
@@ -71,7 +71,7 @@
 	icon_state = "turretlaser"
 	item_state = "turretlaser"
 	slot_flags = null
-	w_class = 5
+	w_class = WEIGHT_CLASS_HUGE
 	ammo_type = list(/obj/item/ammo_casing/energy/electrode, /obj/item/ammo_casing/energy/laser)
 	weapon_weight = WEAPON_MEDIUM
 	can_flashlight = 0

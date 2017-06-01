@@ -1,7 +1,7 @@
 /*
 
 ===============================================================================
-                         How Garbage Collection Works                          
+                         How Garbage Collection Works
 ===============================================================================
 
 In BYOND, there are exactly two ways anything gets deleted:
@@ -31,8 +31,8 @@ that can't be. There are two main procs involved in this process:
 /proc/qdel(datumToDelete)
   This is, effectively, a replacement for del that tells an object to prepare itself to be soft deleted by calling its
   Destroy() proc. Depending on the qdel hint returned by Destroy(), qdel will queue the object in the garbage collector
-  (to be hard deleted if it isn't soft deleted), directly delete the object, pool the object, or ignore the object and
-  assume it will handle deleting itself. An object passed into qdel will have its gcDestroyed var set, so 
+  (to be hard deleted if it isn't soft deleted), directly delete the object, or ignore the object and
+  assume it will handle deleting itself. An object passed into qdel will have its gcDestroyed var set, so
   isnull(gcDestroyed) will be true if an object is not being destroyed, and false if it is (which means you should get
   rid of the reference you have to it).
 
@@ -50,7 +50,7 @@ that can't be. There are two main procs involved in this process:
   should use a Del proc for any necessary cleanup, as a Destroy proc on them will not automatically get called.
 
   When called by qdel, Destroy is expected to return a qdel hint, which determines whether the object should be directly
-  deleted, queued for deletion, pooled, or ignored entirely; which of these are appropriate will vary, though objects
+  deleted, queued for deletion, or ignored entirely; which of these are appropriate will vary, though objects
   should be pooled or queued whenever possible. The full list of qdel hints are in the code for the qdel proc.
 
 As mentioned above, gcDestroyed can be used to tell whether an object is being destroyed. This is important, because if
@@ -61,8 +61,5 @@ reference immediately.
 
 The inner workings of the GC itself and the stuff related to testing it probably don't need a detailed description - if
 you intend to work with them, it would be best to read the code to understand what they do.
-
-Pooling is related to GC, in that it's meant to reduce deletion overhead, but it does so by re-using objects instead of
-deleting them at all. Explaining pooling is outside the scope of this file.
 
 */

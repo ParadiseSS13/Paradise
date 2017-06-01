@@ -11,14 +11,47 @@
 /turf/simulated/floor/wood/attackby(obj/item/C, mob/user, params)
 	if(..())
 		return
-	if(istype(C, /obj/item/weapon/screwdriver))
-		if(broken || burnt)
-			return
-		to_chat(user, "<span class='danger'>You unscrew the planks.</span>")
-		new floor_tile(src)
-		make_plating()
-		playsound(src, 'sound/items/Screwdriver.ogg', 80, 1)
+	if(isscrewdriver(C))
+		pry_tile(C, user)
 		return
+
+/turf/simulated/floor/wood/try_replace_tile(obj/item/stack/tile/T, mob/user, params)
+	if(T.turf_type == type)
+		return
+	var/obj/item/weapon/tool
+	if(isscrewdriver(user.get_inactive_hand()))
+		tool = user.get_inactive_hand()
+	if(!tool && iscrowbar(user.get_inactive_hand()))
+		tool = user.get_inactive_hand()
+	if(!tool)
+		return
+	var/turf/simulated/floor/plating/P = pry_tile(tool, user, TRUE)
+	if(!istype(P))
+		return
+	P.attackby(T, user, params)
+
+/turf/simulated/floor/wood/pry_tile(obj/item/C, mob/user, silent = FALSE)
+	var/is_screwdriver = isscrewdriver(C)
+	playsound(src, C.usesound, 80, 1)
+	return remove_tile(user, silent, make_tile = is_screwdriver)
+
+/turf/simulated/floor/wood/remove_tile(mob/user, silent = FALSE, make_tile = TRUE)
+	if(broken || burnt)
+		broken = 0
+		burnt = 0
+		if(user && !silent)
+			to_chat(user, "<span class='danger'>You remove the broken planks.</span>")
+	else
+		if(make_tile)
+			if(user && !silent)
+				to_chat(user, "<span class='danger'>You unscrew the planks.</span>")
+			if(builtin_tile)
+				builtin_tile.forceMove(src)
+				builtin_tile = null
+		else
+			if(user && !silent)
+				to_chat(user, "<span class='danger'>You forcefully pry off the planks, destroying them in the process.</span>")
+	return make_plating()
 
 /turf/simulated/floor/grass
 	name = "grass patch"
@@ -43,7 +76,35 @@
 		new /obj/item/weapon/ore/glass(src)
 		new /obj/item/weapon/ore/glass(src) //Make some sand if you shovel grass
 		to_chat(user, "<span class='notice'>You shovel the grass.</span>")
+		playsound(src, 'sound/effects/shovel_dig.ogg', 50, 1)
 		make_plating()
+
+// NEEDS TO BE UPDATED
+/turf/simulated/floor/basalt //By your powers combined, I am captain planet
+	name = "volcanic floor"
+	icon = 'icons/turf/floors.dmi'
+	icon_state = "basalt0"
+	oxygen = 14
+	nitrogen = 23
+	temperature = 300
+
+/turf/simulated/floor/basalt/attackby(obj/item/W, mob/user, params)
+	if(..())
+		return
+	if(istype(W, /obj/item/weapon/shovel))
+		new /obj/item/weapon/ore/glass/basalt(src)
+		new /obj/item/weapon/ore/glass/basalt(src)
+		user.visible_message("<span class='notice'>[user] digs up [src].</span>", "<span class='notice'>You uproot [src].</span>")
+		playsound(src, 'sound/effects/shovel_dig.ogg', 50, 1)
+		make_plating()
+
+/turf/simulated/floor/basalt/New()
+	..()
+	if(prob(15))
+		icon_state = "basalt[rand(0, 12)]"
+		switch(icon_state)
+			if("basalt1", "basalt2", "basalt3")
+				set_light(1, 1)
 
 /turf/simulated/floor/carpet
 	name = "Carpet"

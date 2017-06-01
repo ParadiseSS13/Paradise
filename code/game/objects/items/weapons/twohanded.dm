@@ -109,7 +109,7 @@
 
 ///////////OFFHAND///////////////
 /obj/item/weapon/twohanded/offhand
-	w_class = 5
+	w_class = WEIGHT_CLASS_HUGE
 	icon_state = "offhand"
 	name = "offhand"
 	flags = ABSTRACT
@@ -123,7 +123,7 @@
 ///////////Two hand required objects///////////////
 //This is for objects that require two hands to even pick up
 /obj/item/weapon/twohanded/required/
-	w_class = 5
+	w_class = WEIGHT_CLASS_HUGE
 
 /obj/item/weapon/twohanded/required/attack_self()
 	return
@@ -163,12 +163,13 @@
 	throwforce = 15
 	sharp = 1
 	edge = 1
-	w_class = 4
+	w_class = WEIGHT_CLASS_BULKY
 	slot_flags = SLOT_BACK
 	force_unwielded = 5
 	force_wielded = 24
 	attack_verb = list("attacked", "chopped", "cleaved", "torn", "cut")
 	hitsound = 'sound/weapons/bladeslice.ogg'
+	usesound = 'sound/items/Crowbar.ogg'
 
 /obj/item/weapon/twohanded/fireaxe/update_icon()  //Currently only here to fuck with the on-mob icons.
 	icon_state = "fireaxe[wielded]"
@@ -198,7 +199,7 @@
 	throwforce = 5.0
 	throw_speed = 1
 	throw_range = 5
-	w_class = 2
+	w_class = WEIGHT_CLASS_SMALL
 	force_unwielded = 3
 	force_wielded = 34
 	wieldsound = 'sound/weapons/saberon.ogg'
@@ -227,7 +228,7 @@
 		return
 	..()
 	if((CLUMSY in user.mutations) && (wielded) &&prob(40))
-		to_chat(user, "\red You twirl around a bit before losing your balance and impaling yourself on the [src].")
+		to_chat(user, "<span class='warning'>You twirl around a bit before losing your balance and impaling yourself on the [src].</span>")
 		user.take_organ_damage(20,25)
 		return
 	if((wielded) && prob(50))
@@ -285,7 +286,7 @@
 	name = "spear"
 	desc = "A haphazardly-constructed yet still deadly weapon of ancient design."
 	force = 10
-	w_class = 4
+	w_class = WEIGHT_CLASS_BULKY
 	slot_flags = SLOT_BACK
 	force_unwielded = 10
 	force_wielded = 18
@@ -431,7 +432,8 @@
 	icon_state = "gchainsaw_off"
 	flags = CONDUCT
 	force = 13
-	w_class = 5
+	var/force_on = 21
+	w_class = WEIGHT_CLASS_HUGE
 	throwforce = 13
 	throw_speed = 2
 	throw_range = 4
@@ -449,8 +451,8 @@
 	to_chat(user, "As you pull the starting cord dangling from [src], [on ? "it begins to whirr." : "the chain stops moving."]")
 	if(on)
 		playsound(loc, 'sound/weapons/chainsawstart.ogg', 50, 1)
-	force = on ? 21 : 13
-	throwforce = on ? 21 : 13
+	force = on ? force_on : initial(force)
+	throwforce = on ? force_on : initial(force)
 	icon_state = "gchainsaw_[on ? "on" : "off"]"
 
 	if(hitsound == "swing_hit")
@@ -469,6 +471,14 @@
 	name = "OOOH BABY"
 	desc = "<span class='warning'>VRRRRRRR!!!</span>"
 	armour_penetration = 100
+	force_on = 30
+
+/obj/item/weapon/twohanded/required/chainsaw/doomslayer/hit_reaction(mob/living/carbon/human/owner, attack_text, final_block_chance, damage, attack_type)
+	if(attack_type == PROJECTILE_ATTACK)
+		owner.visible_message("<span class='danger'>Ranged attacks just make [owner] angrier!</span>")
+		playsound(src, pick('sound/weapons/bulletflyby.ogg','sound/weapons/bulletflyby2.ogg','sound/weapons/bulletflyby3.ogg'), 75, 1)
+		return 1
+	return 0
 
 
 ///CHAINSAW///
@@ -480,7 +490,7 @@
 	throwforce = 15
 	throw_speed = 1
 	throw_range = 5
-	w_class = 4 // can't fit in backpacks
+	w_class = WEIGHT_CLASS_BULKY // can't fit in backpacks
 	force_unwielded = 15 //still pretty robust
 	force_wielded = 40  //you'll gouge their eye out! Or a limb...maybe even their entire body!
 	wieldsound = 'sound/weapons/chainsawstart.ogg'
@@ -535,7 +545,7 @@
 	force_wielded = 20
 	throwforce = 15
 	throw_range = 1
-	w_class = 5
+	w_class = WEIGHT_CLASS_HUGE
 	var/charged = 5
 	origin_tech = "combat=5;bluespace=4"
 
@@ -600,7 +610,7 @@
 	force_wielded = 25
 	throwforce = 30
 	throw_range = 7
-	w_class = 5
+	w_class = WEIGHT_CLASS_HUGE
 	//var/charged = 5
 	origin_tech = "combat=5;powerstorage=5"
 
@@ -648,7 +658,7 @@
 	force_wielded = 30
 	throwforce = 15
 	throw_range = 1
-	w_class = 5
+	w_class = WEIGHT_CLASS_HUGE
 	var/charged = 5
 	origin_tech = "combat=5;bluespace=4"
 
@@ -709,7 +719,7 @@
 	throwforce = 15
 	sharp = 1
 	edge = 1
-	w_class = 5
+	w_class = WEIGHT_CLASS_HUGE
 	armour_penetration = 20
 	slot_flags = SLOT_BACK
 	force_unwielded  = 5

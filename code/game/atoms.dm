@@ -9,7 +9,6 @@
 	var/blood_color
 	var/last_bumped = 0
 	var/pass_flags = 0
-	var/throwpass = 0
 	var/germ_level = GERM_LEVEL_AMBIENT // The higher the germ level, the more germ on the atom.
 	var/simulated = 1 //filter for actions - used by lighting overlays
 	var/atom_say_verb = "says"
@@ -36,6 +35,8 @@
 	var/list/original_atom
 
 	var/allow_spin = 1 //Set this to 1 for a _target_ that is being thrown at; if an atom has this set to 1 then atoms thrown AT it will not spin; currently used for the singularity. -Fox
+
+	var/admin_spawned = 0	//was this spawned by an admin? used for stat tracking stuff.
 
 /atom/proc/onCentcom()
 	var/turf/T = get_turf(src)
@@ -74,11 +75,13 @@
 			qdel(AA)
 		alternate_appearances = null
 
-	if(reagents)
-		qdel(reagents)
-		reagents = null
+	QDEL_NULL(reagents)
 	invisibility = 101
 	return ..()
+
+//Hook for running code when a dir change occurs
+/atom/proc/setDir(newdir)
+	dir = newdir
 
 /atom/proc/CheckParts(list/parts_list)
 	for(var/A in parts_list)
@@ -220,11 +223,6 @@
 /atom/proc/relaymove()
 	return
 
-//called to set the atom's dir and used to add behaviour to dir-changes - Not fully used (yet)
-/atom/proc/set_dir(new_dir)
-	. = new_dir != dir
-	dir = new_dir
-
 /atom/proc/ex_act()
 	return
 
@@ -237,10 +235,13 @@
 /atom/proc/emag_act()
 	return
 
-/atom/proc/hitby(atom/movable/AM as mob|obj)
-	if(density)
-		AM.throwing = 0
-	return
+/atom/proc/hitby(atom/movable/AM, skipcatch, hitpush, blocked)
+	if(density && !has_gravity(AM)) //thrown stuff bounces off dense stuff in no grav, unless the thrown stuff ends up inside what it hit(embedding, bola, etc...).
+		addtimer(src, "hitby_react", 2, TRUE, AM)
+
+/atom/proc/hitby_react(atom/movable/AM)
+	if(AM && isturf(AM.loc))
+		step(AM, turn(AM.dir, 180))
 
 /atom/proc/add_hiddenprint(mob/living/M as mob)
 	if(isnull(M)) return
@@ -464,3 +465,8 @@
 
 /atom/proc/speech_bubble(var/bubble_state = "",var/bubble_loc = src, var/list/bubble_recipients = list())
 	return
+
+/atom/on_varedit(modified_var)
+	if(!Debug2)
+		admin_spawned = TRUE
+	..()

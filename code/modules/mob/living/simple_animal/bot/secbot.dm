@@ -72,6 +72,13 @@
 	harmbaton = 1
 	emagged = 2
 
+/mob/living/simple_animal/bot/secbot/armsky
+	name = "Sergeant-at-Armsky"
+	health = 45
+	idcheck = 1
+	arrest_type = 1
+	weaponscheck = 1
+
 /mob/living/simple_animal/bot/secbot/New()
 	..()
 	icon_state = "[base_icon][on]"
@@ -119,7 +126,7 @@ Maintenance panel panel is [open ? "opened" : "closed"]"},
 
 "<A href='?src=[UID()];power=1'>[on ? "On" : "Off"]</A>" )
 
-	if(!locked || issilicon(user) || check_rights(R_ADMIN, 0, user))
+	if(!locked || issilicon(user) || user.can_admin_interact())
 		dat += text({"<BR>
 Arrest Unidentifiable Persons: []<BR>
 Arrest for Unauthorized Weapons: []<BR>
@@ -211,8 +218,8 @@ Auto Patrol: []"},
 /mob/living/simple_animal/bot/secbot/hitby(atom/movable/AM, skipcatch = 0, hitpush = 1, blocked = 0)
 	if(istype(AM, /obj/item))
 		var/obj/item/I = AM
-		if(I.throwforce < src.health && I.thrower && (istype(I.thrower, /mob/living/carbon/human)))
-			var/mob/living/carbon/human/H = I.thrower
+		if(I.throwforce < src.health && I.thrownby && ishuman(I.thrownby))
+			var/mob/living/carbon/human/H = I.thrownby
 			retaliate(H)
 	..()
 

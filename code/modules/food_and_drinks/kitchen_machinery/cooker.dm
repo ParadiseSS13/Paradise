@@ -41,6 +41,8 @@
 		return 0
 	if(istype(check, /obj/item/weapon/reagent_containers/food/snacks))
 		return 1
+	if(istype(check, /obj/item/weapon/grab))
+		return special_attack(check, user)
 	to_chat(user, "<span class ='notice'>You can only process food!</span>")
 	return 0
 
@@ -143,6 +145,9 @@
 		newfood.cooktype[thiscooktype] = 1
 		turnoff(I)
 		//qdel(I)
+
+/obj/machinery/cooker/proc/special_attack(obj/item/weapon/grab/G, mob/user)
+	return 0
 
 // MAKE SURE TO OVERRIDE THESE ON THE MACHINE IF IT HAS SPECIAL FOOD INTERACTIONS!
 // FAILURE TO OVERRIDE WILL RESULT IN FAILURE TO PROPERLY HANDLE SPECIAL INTERACTIONS!		--FalseIncarnate

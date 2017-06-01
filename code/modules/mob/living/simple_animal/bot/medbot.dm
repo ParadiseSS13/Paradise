@@ -149,7 +149,7 @@
 	else
 		dat += "None Loaded"
 	dat += "<br>Behaviour controls are [locked ? "locked" : "unlocked"]<hr>"
-	if(!locked || issilicon(user) || check_rights(R_ADMIN, 0, user))
+	if(!locked || issilicon(user) || user.can_admin_interact())
 		dat += "<TT>Healing Threshold: "
 		dat += "<a href='?src=[UID()];adj_threshold=-10'>--</a> "
 		dat += "<a href='?src=[UID()];adj_threshold=-5'>-</a> "

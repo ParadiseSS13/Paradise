@@ -1,0 +1,32 @@
+<!--
+Title: Satellite Control UI
+Used In File(s): \code\modules\station_goals\shield.dm
+-->
+{{if data.notice}}
+	<div class="notice">{{:data.notice}}</div>
+{{/if}}
+<h3>Satellite Network Control</h3>
+{{for data.satellites}}
+	<div class="item">
+		<div class="itemLabel">
+			#{{:value.id}} - {{:value.mode}}
+		</div>
+		<div class="itemContent">
+			
+			{{:helper.link(value.active ? 'Deactivate' : 'Activate', null, {'toggle' : 1, 'id' : value.id})}}
+		</div>
+	</div>
+{{/for}}
+{{if data.meteor_shield}}
+<div class="item">
+	<div class="itemLabel">
+		Station Shield Coverage:
+	</div>
+	<div class="itemContent">
+		{{:helper.displayBar(data.meteor_shield_coverage, 0, data.meteor_shield_coverage_max, data.meteor_shield_coverage_percentage >= 100 ? 'good' : 'average')}}
+		<div class="statusValue">
+			{{:data.meteor_shield_coverage_percentage}}%
+		</div>
+	</div>
+</div>
+{{/if}}

@@ -5,7 +5,7 @@
 	item_state = "balaclava"
 	flags = BLOCKHAIR
 	flags_inv = HIDEFACE
-	w_class = 2
+	w_class = WEIGHT_CLASS_SMALL
 	actions_types = list(/datum/action/item_action/adjust)
 	adjusted_flags = SLOT_HEAD
 	species_fit = list("Vox", "Unathi", "Tajaran", "Vulpkanin")
@@ -27,7 +27,7 @@
 	item_state = "luchag"
 	flags = BLOCKHAIR
 	flags_inv = HIDEFACE
-	w_class = 2
+	w_class = WEIGHT_CLASS_SMALL
 	species_fit = list("Vox", "Unathi", "Tajaran", "Vulpkanin")
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/species/vox/mask.dmi',

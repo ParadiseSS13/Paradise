@@ -97,10 +97,7 @@
 /datum/surgery_step/cavity/close_space
 	name = "close cavity space"
 	allowed_tools = list(
-	/obj/item/weapon/scalpel/laser3 = 115, \
-	/obj/item/weapon/scalpel/laser2 = 110, \
-	/obj/item/weapon/scalpel/laser1 = 105, \
-	/obj/item/weapon/scalpel/manager = 120, \
+	/obj/item/weapon/scalpel/laser = 100, \
 	/obj/item/weapon/cautery = 100,			\
 	/obj/item/clothing/mask/cigarette = 75,	\
 	/obj/item/weapon/lighter = 50,			\
@@ -294,7 +291,6 @@
 			user.visible_message("[user] places [I] into [case]!", "<span class='notice'>You place [I] into [case].</span>")
 		else
 			qdel(I)
-		//target.sec_hud_set_implants()
 		return 1
 	else
 		user.visible_message("<span class='notice'> [user] could not find anything inside [target]'s [affected.name], and pulls \the [tool] out.</span>", \
@@ -354,7 +350,7 @@
 	name = "remove embedded objects"
 	time = 32
 	allowed_tools = list(
-	/obj/item/weapon/scalpel/manager = 120, \
+	/obj/item/weapon/scalpel/laser/manager = 100, \
 	/obj/item/weapon/hemostat = 100,	\
 	/obj/item/stack/cable_coil = 75, 	\
 	/obj/item/device/assembly/mousetrap = 20
@@ -386,7 +382,7 @@
 				var/mob/living/simple_animal/borer/worm = H.has_brain_worms()
 				if(worm.controlling)
 					target.release_control()
-				worm.detatch()
+				worm.detach()
 				worm.leave_host()
 				user.visible_message("a slug like creature wiggles out of [H]'s [target_zone]!")
 

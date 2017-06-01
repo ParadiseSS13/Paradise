@@ -38,6 +38,9 @@
 	var/list/player_draft_log = list()
 	var/list/datum/mind/xenos = list()
 
+	var/list/datum/station_goal/station_goals = list() // A list of all station goals for this game mode
+	var/list/chumps = list()
+
 /datum/game_mode/proc/announce() //to be calles when round starts
 	to_chat(world, "<B>Notice</B>: [src] did not define announce()")
 
@@ -69,6 +72,8 @@
 ///post_setup()
 ///Everyone should now be on the station and have their normal gear.  This is the place to give the special roles extra things
 /datum/game_mode/proc/post_setup()
+	setup_chumps()
+
 	spawn (ROUNDSTART_LOGOUT_REPORT_TIME)
 		display_roundstart_logout_report()
 
@@ -78,10 +83,45 @@
 //	if(revdata)
 //		feedback_set_details("revision","[revdata.revision]")
 	feedback_set_details("server_ip","[world.internet_address]:[world.port]")
+	generate_station_goals()
 	start_state = new /datum/station_state()
 	start_state.count()
 	return 1
 
+//setup_chumps()
+//Prepares fake potential collaborators to cut down on metagaming the round type as being a traitor subtype. Overriden in traitor game modes since they have real collaborators
+/datum/game_mode/proc/setup_chumps()
+	var/max_chumps = 1
+	if(config.traitor_scaling)
+		max_chumps = max(1, round((num_players())/(5)))
+	else
+		max_chumps = max(1, min(num_players(), 5))
+	var/tries_left = 5	//limits the number of tries so we don't get stuck looping indefinitely. resets on successfully finding a new chump
+	while(chumps.len < max_chumps)
+		if(!tries_left)			//ran out of unique chumps (or just bad luck with the pick() in get_nt_opposed()) so there may end up being fewer chumps in some rounds.
+			break
+		var/mob/living/carbon/human/chump = get_nt_opposed()
+		if(isnull(chump))	//no possible chumps so just end it here.
+			break
+		if(chump in chumps)
+			tries_left--		//this chump already was picked, try again!
+		else
+			chumps += chump
+			tries_left = 5		//reset our tries since we found a new chump
+	//make sure we have chumps before we try misinforming them. if we don't make a note of it.
+	if(!chumps.len)
+		message_admins("<span class='notice'>Game mode failed to find ANY chumps. Possible causes: no one is opposed/skeptical, or FalseIncarnate can't code.</span>")
+		log_admin("Game mode failed to find ANY chumps. Possible causes: no one is opposed/skeptical, or FalseIncarnate can't code.")
+		return 0
+	//we've got chumps! misinform them!
+	for(var/mob/living/carbon/human/chump in chumps)
+		if(prob(33))
+			spawn(rand(3000, 18000))	//5-30 minute delay to throw off would-be autotraitor metagamers
+				inform_collab(chump)
+		else
+			spawn(rand(10, 100))		//same delay as if the mode were traitor
+				inform_collab(chump)
+	return 1
 
 ///process()
 ///Called by the gameticker
@@ -397,15 +437,20 @@ proc/display_roundstart_logout_report()
 			to_chat(M, msg)
 
 
-proc/get_nt_opposed()
+/proc/get_nt_opposed()
 	var/list/dudes = list()
 	for(var/mob/living/carbon/human/man in player_list)
 		if(man.client)
+			//don't try picking someone like the captain or a security officer for potential collaborators, even if they ARE opposed to Nanotrasen for some reason
+			if(man.mind && man.mind.assigned_role)
+				if((man.mind.assigned_role in ticker.mode.protected_jobs) || (man.mind.assigned_role in ticker.mode.restricted_jobs))
+					continue
 			if(man.client.prefs.nanotrasen_relation == "Opposed")
 				dudes += man
 			else if(man.client.prefs.nanotrasen_relation == "Skeptical" && prob(50))
 				dudes += man
-	if(dudes.len == 0) return null
+	if(dudes.len == 0)
+		return null
 	return pick(dudes)
 
 //Announces objectives/generic antag text.
@@ -422,7 +467,7 @@ proc/get_nt_opposed()
 	if(!player || !player.current) return
 
 	var/obj_count = 1
-	to_chat(player.current, "\blue Your current objectives:")
+	to_chat(player.current, "<span class='notice'>Your current objectives:</span>")
 	for(var/datum/objective/objective in player.objectives)
 		to_chat(player.current, "<B>Objective #[obj_count]</B>: [objective.explanation_text]")
 		obj_count++
@@ -437,7 +482,7 @@ proc/get_nt_opposed()
 			nukecode = bomb.r_code
 	return nukecode
 
-/datum/game_mode/proc/replace_jobbaned_player(mob/living/M, role_type)
+/datum/game_mode/proc/replace_jobbanned_player(mob/living/M, role_type)
 	var/list/mob/dead/observer/candidates = pollCandidates("Do you want to play as a [role_type]?", role_type, 0, 100)
 	var/mob/dead/observer/theghost = null
 	if(candidates.len)
@@ -475,3 +520,60 @@ proc/get_nt_opposed()
 			text += "<br><b>Objective #[count]</b>: [objective.explanation_text] <span class='boldannounce'>Fail.</span>"
 		count++
 	return text
+
+/datum/game_mode/proc/generate_station_goals()
+	var/list/possible = list()
+	for(var/T in subtypesof(/datum/station_goal))
+		var/datum/station_goal/G = T
+		if(config_tag in initial(G.gamemode_blacklist))
+			continue
+		possible += T
+	var/goal_weights = 0
+	while(possible.len && goal_weights < STATION_GOAL_BUDGET)
+		var/datum/station_goal/picked = pick_n_take(possible)
+		goal_weights += initial(picked.weight)
+		station_goals += new picked
+
+	if(station_goals.len)
+		send_station_goals_message()
+
+/datum/game_mode/proc/send_station_goals_message()
+	var/message_text = "<div style='text-align:center;'><img src='ntlogo.png'>"
+	message_text += "<h3>[command_name()] Orders</h3></div><hr>"
+	message_text += "<b>Special Orders for [station_name()]:</b><br><br>"
+
+	for(var/datum/station_goal/G in station_goals)
+		G.on_report()
+		message_text += G.get_report()
+		message_text += "<hr>"
+
+	print_command_report(message_text, "[command_name()] Orders")
+
+/datum/game_mode/proc/declare_station_goal_completion()
+	for(var/V in station_goals)
+		var/datum/station_goal/G = V
+		G.print_result()
+
+
+/datum/game_mode/proc/inform_collab(mob/living/carbon/human/M)
+	if(!M)
+		return
+	//Mad-libs for their message
+	var/adjective = pick("strange", "mysterious", "sinister", "un-assuming", "unexpected")
+	var/action_words = pick("aid the fight against Nanotrasen", "repay a debt", "partake in some mischief", "help overthrow the system", "stick it to the man")
+	var/organization = pick("Anti-Fascist Movement", "Syndicate", "Spessmen for the Protesting of Nanotrasen", "Greytider's Union", "Illuminati (in space)")
+	//Stuff to give them a single set of code-words
+	var/list/possible_words = splittext(syndicate_code_phrase, ", ")
+	var/list/possible_reply = splittext(syndicate_code_response, ", ")
+	var/index = rand(1, possible_words.len)
+	var/my_word = possible_words[index]
+	var/my_reply
+	if(possible_reply.len < index)		//just in case we had a longer code word list than the response list
+		my_reply = pick(possible_reply)
+	else
+		my_reply = possible_reply[index]
+
+	to_chat(M, "You suddenly remember \an [adjective] note you received earlier informing you that a chance to [action_words] may present itself today. An agent of the [organization] may contact you for help.")
+	to_chat(M, "The note had the words \"[my_word]\" and \"[my_reply]\" written at the bottom, which you memorized just in case.")
+	to_chat(M, "<span class='warning'>You are NOT an antagonist, so self-antagging rules still apply to you. Use your good judgement and ahelp if you are unsure of what you are allowed to do.</span>")
+	M.mind.store_memory("<b>Important Words</b>: \"[my_word]\", \"[my_reply]\"")

@@ -6,26 +6,6 @@
  */
 
 /*
- * Banana Peals
- */
-
-/obj/item/weapon/bananapeel
-	name = "banana peel"
-	desc = "A peel from a banana."
-	icon = 'icons/obj/items.dmi'
-	icon_state = "banana_peel"
-	item_state = "banana_peel"
-	w_class = 1
-	throwforce = 0
-	throw_speed = 4
-	throw_range = 20
-
-/obj/item/weapon/bananapeel/Crossed(AM as mob|obj)
-	if(istype(AM, /mob/living/carbon))
-		var/mob/living/carbon/M =	AM
-		M.slip("banana peel", 4, 2)
-
-/*
  * Soap
  */
 /obj/item/weapon/soap/Crossed(AM as mob|obj) //EXACTLY the same as bananapeel for now, so it makes sense to put it in the same dm -- Urist
@@ -33,7 +13,7 @@
 		var/mob/living/carbon/M = AM
 		M.slip("soap", 4, 2)
 
-/obj/item/weapon/soap/afterattack(atom/target, mob/user as mob, proximity)
+/obj/item/weapon/soap/afterattack(atom/target, mob/user, proximity)
 	if(!proximity) return
 	//I couldn't feasibly  fix the overlay bugs caused by cleaning items we are wearing.
 	//So this is a workaround. This also makes more sense from an IC standpoint. ~Carn
@@ -57,11 +37,14 @@
 			var/obj/effect/decal/cleanable/C = locate() in target
 			qdel(C)
 			target.clean_blood()
+			if(istype(target, /turf/simulated))
+				var/turf/simulated/T = target
+				T.dirt = 0
 	return
 
 /obj/item/weapon/soap/attack(mob/target as mob, mob/user as mob)
 	if(target && user && ishuman(target) && ishuman(user) && !target.stat && !user.stat && user.zone_sel &&user.zone_sel.selecting == "mouth" )
-		user.visible_message("\red \the [user] washes \the [target]'s mouth out with [src.name]!")
+		user.visible_message("<span class='warning'>\the [user] washes \the [target]'s mouth out with [src.name]!</span>")
 		return
 	..()
 
@@ -77,7 +60,7 @@
 	item_state = "bike_horn"
 	hitsound = null
 	throwforce = 3
-	w_class = 1
+	w_class = WEIGHT_CLASS_TINY
 	throw_speed = 3
 	throw_range = 15
 	attack_verb = list("HONKED")

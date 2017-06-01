@@ -29,7 +29,7 @@
 	if(type == /area)	// override defaults for space. TODO: make space areas of type /area/space rather than /area
 		requires_power = 1
 		always_unpowered = 1
-		lighting_use_dynamic = 1
+		dynamic_lighting = 1
 		power_light = 0
 		power_equip = 0
 		power_environ = 0
@@ -53,7 +53,7 @@
 
 
 /area/proc/atmosalert(danger_level, var/alarm_source)
-	if(danger_level == 0)
+	if(danger_level == ATMOS_ALARM_NONE)
 		atmosphere_alarm.clearAlarm(src, alarm_source)
 	else
 		atmosphere_alarm.triggerAlarm(src, alarm_source, severity = danger_level)
@@ -64,10 +64,10 @@
 			danger_level = max(danger_level, AA.danger_level)
 
 	if(danger_level != atmosalm)
-		if(danger_level < 1 && atmosalm >= 1)
+		if(danger_level < ATMOS_ALARM_WARNING && atmosalm >= ATMOS_ALARM_WARNING)
 			//closing the doors on red and opening on green provides a bit of hysteresis that will hopefully prevent fire doors from opening and closing repeatedly due to noise
 			air_doors_open()
-		else if(danger_level >= 2 && atmosalm < 2)
+		else if(danger_level >= ATMOS_ALARM_DANGER && atmosalm < ATMOS_ALARM_DANGER)
 			air_doors_close()
 
 		atmosalm = danger_level
@@ -80,26 +80,28 @@
 	return 0
 
 /area/proc/air_doors_close()
-	if(!src.air_doors_activated)
-		src.air_doors_activated = 1
-		for(var/obj/machinery/door/firedoor/E in src.all_doors)
-			if(!E.blocked)
-				if(E.operating)
-					E.nextstate = CLOSED
-				else if(!E.density)
+	if(!air_doors_activated)
+		air_doors_activated = TRUE
+		for(var/obj/machinery/door/firedoor/D in src)
+			if(!D.welded)
+				D.activate_alarm()
+				if(D.operating)
+					D.nextstate = CLOSED
+				else if(!D.density)
 					spawn(0)
-						E.close()
+						D.close()
 
 /area/proc/air_doors_open()
-	if(src.air_doors_activated)
-		src.air_doors_activated = 0
-		for(var/obj/machinery/door/firedoor/E in src.all_doors)
-			if(!E.blocked)
-				if(E.operating)
-					E.nextstate = OPEN
-				else if(E.density)
+	if(air_doors_activated)
+		air_doors_activated = FALSE
+		for(var/obj/machinery/door/firedoor/D in src)
+			if(!D.welded)
+				D.deactivate_alarm()
+				if(D.operating)
+					D.nextstate = OPEN
+				else if(D.density)
 					spawn(0)
-						E.open()
+						D.open()
 
 
 /area/proc/fire_alert()
@@ -145,46 +147,33 @@
 	if(!eject)
 		eject = 1
 		updateicon()
-	return
 
 /area/proc/readyreset()
 	if(eject)
 		eject = 0
 		updateicon()
-	return
 
 /area/proc/radiation_alert()
 	if(!radalert)
 		radalert = 1
 		updateicon()
-	return
 
 /area/proc/reset_radiation_alert()
 	if(radalert)
 		radalert = 0
 		updateicon()
-	return
 
 /area/proc/partyalert()
-	if(!( party ))
+	if(!party)
 		party = 1
 		updateicon()
 		mouse_opacity = 0
-	return
 
 /area/proc/partyreset()
 	if(party)
 		party = 0
 		mouse_opacity = 0
 		updateicon()
-		for(var/obj/machinery/door/firedoor/D in src)
-			if(!D.blocked)
-				if(D.operating)
-					D.nextstate = OPEN
-				else if(D.density)
-					spawn(0)
-						D.open()
-	return
 
 /area/proc/updateicon()
 	if(radalert) // always show the radiation alert, regardless of power

@@ -38,6 +38,7 @@ emp_act
 
 	var/obj/item/organ/external/organ = get_organ(check_zone(def_zone))
 	if(isnull(organ))
+		. = bullet_act(P, "chest") //act on chest instead
 		return
 
 	//Shrapnel
@@ -57,6 +58,18 @@ emp_act
 
 	return (..(P , def_zone))
 
+/mob/living/carbon/human/check_projectile_dismemberment(obj/item/projectile/P, def_zone)
+	var/obj/item/organ/external/affecting = get_organ(check_zone(def_zone))
+	if(affecting && !affecting.cannot_amputate && affecting.get_damage() >= (affecting.max_damage - P.dismemberment))
+		var/damtype = DROPLIMB_EDGE
+		switch(P.damage_type)
+			if(BRUTE)
+				damtype = DROPLIMB_BLUNT
+			if(BURN)
+				damtype = DROPLIMB_BURN
+
+		affecting.droplimb(FALSE, damtype)
+
 /mob/living/carbon/human/getarmor(var/def_zone, var/type)
 	var/armorval = 0
 	var/organnum = 0
@@ -70,9 +83,10 @@ emp_act
 		//If a specific bodypart is targetted, check how that bodypart is protected and return the value.
 
 	//If you don't specify a bodypart, it checks ALL your bodyparts for protection, and averages out the values
-	for(var/obj/item/organ/external/organ in organs)
+	for(var/obj/item/organ/external/organ in bodyparts)
 		armorval += getarmor_organ(organ, type)
 		organnum++
+
 	return (armorval/max(organnum, 1))
 
 
@@ -87,6 +101,7 @@ emp_act
 			var/obj/item/clothing/C = bp
 			if(C.body_parts_covered & def_zone.body_part)
 				protection += C.armor[type]
+
 	return protection
 
 //this proc returns the Siemens coefficient of electrical resistivity for a particular external organ.
@@ -163,12 +178,12 @@ emp_act
 	if(!istype(affecting))
 		return
 	if(!(affecting.status & ORGAN_ROBOT))
-		to_chat(user, "\red That limb isn't robotic.")
+		to_chat(user, "<span class='warning'>That limb isn't robotic.</span>")
 		return
 	if(affecting.sabotaged)
-		to_chat(user, "\red [src]'s [affecting.name] is already sabotaged!")
+		to_chat(user, "<span class='warning'>[src]'s [affecting.name] is already sabotaged!</span>")
 	else
-		to_chat(user, "\red You sneakily slide the card into the dataport on [src]'s [affecting.name] and short out the safeties.")
+		to_chat(user, "<span class='warning'>You sneakily slide the card into the dataport on [src]'s [affecting.name] and short out the safeties.</span>")
 		affecting.sabotaged = 1
 	return 1
 
@@ -185,10 +200,10 @@ emp_act
 		src.reagents.trans_to (newmeat, round ((src.reagents.total_volume) / 3, 1))
 		src.loc.add_blood(src)
 		--src.meatleft
-		to_chat(user, "\red You hack off a chunk of meat from [src.name]")
+		to_chat(user, "<span class='warning'>You hack off a chunk of meat from [src.name]</span>")
 		if(!src.meatleft)
-			src.attack_log += "\[[time_stamp()]\] Was chopped up into meat by <b>[key_name(user)]</b>"
-			user.attack_log += "\[[time_stamp()]\] Chopped up <b>[key_name(src)]</b> into meat</b>"
+			src.create_attack_log("Was chopped up into meat by <b>[key_name(user)]</b>")
+			user.create_attack_log("Chopped up <b>[key_name(src)]</b> into meat</b>")
 			msg_admin_attack("[key_name_admin(user)] chopped up [key_name_admin(src)] into meat")
 			if(!iscarbon(user))
 				LAssailant = null
@@ -213,9 +228,9 @@ emp_act
 
 	if(! I.discrete)
 		if(I.attack_verb.len)
-			visible_message("<span class='danger'>[src] has been [pick(I.attack_verb)] in the [hit_area] with [I.name] by [user]!</span>")
+			visible_message("<span class='combat danger'>[src] has been [pick(I.attack_verb)] in the [hit_area] with [I.name] by [user]!</span>")
 		else
-			visible_message("<span class='danger'>[src] has been attacked in the [hit_area] with [I.name] by [user]!</span>")
+			visible_message("<span class='combat danger'>[src] has been attacked in the [hit_area] with [I.name] by [user]!</span>")
 
 	var/armor = run_armor_check(affecting, "melee", "Your armor has protected your [hit_area].", "Your armor has softened hit to your [hit_area].", armour_penetration = I.armour_penetration)
 	var/weapon_sharp = is_sharp(I)
@@ -251,8 +266,8 @@ emp_act
 				if("head")//Harder to score a stun but if you do it lasts a bit longer
 					if(stat == CONSCIOUS && armor < 50)
 						if(prob(I.force))
-							visible_message("<span class='danger'>[src] has been knocked down!</span>", \
-											"<span class='userdanger'>[src] has been knocked down!</span>")
+							visible_message("<span class='combat danger'>[src] has been knocked down!</span>", \
+											"<span class='combat userdanger'>[src] has been knocked down!</span>")
 							apply_effect(5, WEAKEN, armor)
 							AdjustConfused(15)
 						if(prob(I.force + ((100 - health)/2)) && src != user && I.damtype == BRUTE)
@@ -271,8 +286,8 @@ emp_act
 
 				if("upper body")//Easier to score a stun but lasts less time
 					if(stat == CONSCIOUS && I.force && prob(I.force + 10))
-						visible_message("<span class='danger'>[src] has been knocked down!</span>", \
-										"<span class='userdanger'>[src] has been knocked down!</span>")
+						visible_message("<span class='combat danger'>[src] has been knocked down!</span>", \
+										"<span class='combat userdanger'>[src] has been knocked down!</span>")
 						apply_effect(5, WEAKEN, armor)
 
 					if(bloody)
@@ -298,85 +313,37 @@ emp_act
 	return 1*/
 
 //this proc handles being hit by a thrown atom
-/mob/living/carbon/human/hitby(atom/movable/AM as mob|obj,var/speed = 5)
+/mob/living/carbon/human/hitby(atom/movable/AM, skipcatch = 0, hitpush = 1, blocked = 0)
+	var/obj/item/I
+	var/throwpower = 30
 	if(istype(AM, /obj/item))
-		var/obj/item/I = AM
-
-		if(in_throw_mode && !get_active_hand() && speed <= 5)	//empty active hand and we're in throw mode
-			if(canmove && !restrained())
-				if(isturf(I.loc))
-					put_in_active_hand(I)
-					visible_message("<span class='warning'>[src] catches [I]!</span>")
-					throw_mode_off()
-					return
-
-		var/zone = ran_zone("chest", 65)
-		var/dtype = BRUTE
-		if(istype(I, /obj/item/weapon))
-			var/obj/item/weapon/W = I
-			dtype = W.damtype
-		var/throw_damage = I.throwforce*(speed/5)
-
-		I.throwing = 0		//it hit, so stop moving
-
-		if((I.thrower != src) && check_shields(throw_damage, "\the [I.name]", I, THROWN_PROJECTILE_ATTACK))
-			return
-
-		var/obj/item/organ/external/affecting = get_organ(zone)
-		if(!affecting)
-			var/missverb = (I.gender == PLURAL) ? "whizz" : "whizzes"
-			visible_message("<span class='notice'>\The [I] [missverb] past [src]'s missing [parse_zone(zone)]!</span>",
-				"<span class='notice'>\The [I] [missverb] past your missing [parse_zone(zone)]!</span>")
-			return
-		var/hit_area = affecting.name
-
-		src.visible_message("\red [src] has been hit in the [hit_area] by [I].")
-		var/armor = run_armor_check(affecting, "melee", "Your armor has protected your [hit_area].", "Your armor has softened hit to your [hit_area].", I.armour_penetration) //I guess "melee" is the best fit here
-
-		apply_damage(throw_damage, dtype, zone, armor, is_sharp(I), has_edge(I), I)
-
-		if(ismob(I.thrower))
-			var/mob/M = I.thrower
-			if(M)
-				add_logs(M, src, "hit", I, " (thrown)", print_attack_log = I.throwforce)
-
-		//thrown weapon embedded object code.
-		if(dtype == BRUTE && istype(I))
+		I = AM
+		throwpower = I.throwforce
+		if(I.thrownby == src) //No throwing stuff at yourself to trigger reactions
+			return ..()
+	if(check_shields(throwpower, "\the [AM.name]", AM, THROWN_PROJECTILE_ATTACK))
+		hitpush = 0
+		skipcatch = 1
+		blocked = 1
+	/*else if(I)
+		if(I.throw_speed >= EMBED_THROWSPEED_THRESHOLD)
 			if(!I.is_robot_module())
+				var/armor = run_armor_check(affecting, "melee", "Your armor has protected your [hit_area].", "Your armor has softened hit to your [hit_area].", I.armour_penetration) //I guess "melee" is the best fit here
 				var/sharp = is_sharp(I)
-				var/damage = throw_damage
+				var/damage = throwpower * (I.throw_speed / 5)
 				if(armor)
-					damage /= armor+1
+					damage /= armor + 1
 
 				//blunt objects should really not be embedding in things unless a huge amount of force is involved
-				var/embed_chance = sharp? damage/I.w_class : damage/(I.w_class*3)
-				var/embed_threshold = sharp? 5*I.w_class : 15*I.w_class
+				var/embed_chance = sharp? damage / I.w_class : damage/(I.w_class * 3)
+				var/embed_threshold = sharp? 5 * I.w_class : 15 * I.w_class
 
 				//Sharp objects will always embed if they do enough damage.
 				//Thrown sharp objects have some momentum already and have a small chance to embed even if the damage is below the threshold
-				if(((sharp && prob(damage/(10*I.w_class)*100)) || (damage > embed_threshold && prob(embed_chance))) && (I.no_embed == 0))
-					affecting.embed(I)
 
-		// Begin BS12 momentum-transfer code.
-		if(I.throw_source && speed >= 15)
-			var/obj/item/weapon/W = I
-			var/momentum = speed/2
-			var/dir = get_dir(I.throw_source, src)
-
-			visible_message("\red [src] staggers under the impact!","\red You stagger under the impact!")
-			src.throw_at(get_edge_target_turf(src,dir),1,momentum)
-
-			if(!W || !src) return
-
-			if(W.loc == src && W.sharp) //Projectile is embedded and suitable for pinning.
-				var/turf/T = near_wall(dir,2)
-
-				if(T)
-					src.loc = T
-					visible_message("<span class='warning'>[src] is pinned to the wall by [I]!</span>","<span class='warning'>You are pinned to the wall by [I]!</span>")
-					src.anchored = 1
-					src.pinned += I
-
+				if(((sharp && prob(damage / (10 * I.w_class) * 100)) || (damage > embed_threshold && prob(embed_chance))) && (I.no_embed == 0))
+					affecting.embed(I)*/
+	return ..()
 
 /mob/living/carbon/human/proc/bloody_hands(var/mob/living/source, var/amount = 2)
 
@@ -436,8 +403,8 @@ emp_act
 		visible_message("<span class='danger'>[src] has been hit by [M.name].</span>", \
 								"<span class='userdanger'>[src] has been hit by [M.name].</span>")
 
-		attack_log += text("\[[time_stamp()]\] <font color='orange'>Has been attacked by \the [M] controlled by [key_name(M.occupant)] (INTENT: [uppertext(M.occupant.a_intent)])</font>")
-		M.occupant.attack_log += text("\[[time_stamp()]\] <font color='red'>Attacked [src] with \the [M] (INTENT: [uppertext(M.occupant.a_intent)])</font>")
+		create_attack_log("<font color='orange'>Has been attacked by \the [M] controlled by [key_name(M.occupant)] (INTENT: [uppertext(M.occupant.a_intent)])</font>")
+		M.occupant.create_attack_log("<font color='red'>Attacked [src] with \the [M] (INTENT: [uppertext(M.occupant.a_intent)])</font>")
 		msg_admin_attack("[key_name_admin(M.occupant)] attacked [key_name_admin(src)] with \the [M] (INTENT: [uppertext(M.occupant.a_intent)])")
 
 	else

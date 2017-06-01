@@ -132,7 +132,6 @@
 	job = myjob.title
 	mind.assigned_role = job
 	myjob.equip(src)
-	myjob.apply_fingerprints(T)
 
 /mob/living/carbon/human/interactive/proc/reset()
 	walk(src, 0)
@@ -193,7 +192,6 @@
 		for(var/obj/item/W in T)
 			qdel(W)
 		T.myjob.equip(T)
-		T.myjob.apply_fingerprints(T)
 		T.doSetup(alt_title)
 
 	var/shouldDoppel = input("Do you want the SNPC to disguise themself as a crewmember?") as anything in list("Yes", "No")
@@ -270,20 +268,20 @@
 	zone_sel.selecting = "chest"
 	//arms
 	if(prob((SNPC_FUZZY_CHANCE_LOW+SNPC_FUZZY_CHANCE_HIGH)/4))
-		var/obj/item/organ/external/R = organs_by_name["r_arm"]
+		var/obj/item/organ/external/R = bodyparts_by_name["r_arm"]
 		if(R)
 			R.robotize()
 	else
-		var/obj/item/organ/external/L = organs_by_name["l_arm"]
+		var/obj/item/organ/external/L = bodyparts_by_name["l_arm"]
 		if(L)
 			L.robotize()
 	//legs
 	if(prob((SNPC_FUZZY_CHANCE_LOW+SNPC_FUZZY_CHANCE_HIGH)/4))
-		var/obj/item/organ/external/R = organs_by_name["r_leg"]
+		var/obj/item/organ/external/R = bodyparts_by_name["r_leg"]
 		if(R)
 			R.robotize()
 	else
-		var/obj/item/organ/external/L = organs_by_name["l_leg"]
+		var/obj/item/organ/external/L = bodyparts_by_name["l_leg"]
 		if(L)
 			L.robotize()
 	UpdateDamageIcon()
@@ -349,10 +347,10 @@
 			favoured_types = list(/obj/item/weapon/mop, /obj/item/weapon/reagent_containers/glass/bucket, /obj/item/weapon/reagent_containers/spray/cleaner, /obj/effect/decal/cleanable)
 			functions += "dojanitor"
 		if("Clown")
-			favoured_types = list(/obj/item/weapon/soap, /obj/item/weapon/reagent_containers/food/snacks/grown/banana, /obj/item/weapon/bananapeel)
+			favoured_types = list(/obj/item/weapon/soap, /obj/item/weapon/reagent_containers/food/snacks/grown/banana, /obj/item/weapon/grown/bananapeel)
 			functions += "clowning"
 		if("Botanist")
-			favoured_types = list(/obj/machinery/portable_atmospherics/hydroponics,  /obj/item/weapon/reagent_containers, /obj/item/weapon)
+			favoured_types = list(/obj/machinery/hydroponics,  /obj/item/weapon/reagent_containers, /obj/item/weapon)
 			functions += "botany"
 			restrictedJob = 1
 		else
@@ -451,7 +449,7 @@
 	..()
 	retalTarget(user)
 
-/mob/living/carbon/human/interactive/hitby(atom/movable/AM)
+/mob/living/carbon/human/interactive/hitby(atom/movable/AM, skipcatch, hitpush, blocked)
 	..()
 	var/mob/living/carbon/C = locate(/mob/living/carbon) in view(SNPC_MIN_RANGE_FIND, src)
 	if(C)
@@ -633,8 +631,6 @@
 										AL.wires.UpdatePulsed(AIRLOCK_WIRE_DOOR_BOLTS)
 									if(!AL.wires.IsIndexCut(AIRLOCK_WIRE_MAIN_POWER1))
 										AL.wires.CutWireIndex(AIRLOCK_WIRE_MAIN_POWER1)
-									if(!AL.wires.IsIndexCut(AIRLOCK_WIRE_MAIN_POWER2))
-										AL.wires.CutWireIndex(AIRLOCK_WIRE_MAIN_POWER2)
 									if(prob(mistake_chance) && !AL.wires.IsIndexCut(AIRLOCK_WIRE_SAFETY))
 										AL.wires.CutWireIndex(AIRLOCK_WIRE_SAFETY)
 									if(prob(mistake_chance) && !AL.wires.IsIndexCut(AIRLOCK_WIRE_ELECTRIFY))

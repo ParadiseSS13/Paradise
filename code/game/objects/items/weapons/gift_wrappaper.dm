@@ -31,7 +31,7 @@
 		user.put_in_active_hand(gift)
 		src.gift.add_fingerprint(user)
 	else
-		to_chat(user, "\blue The gift was empty!")
+		to_chat(user, "<span class='notice'>The gift was empty!</span>")
 	qdel(src)
 	return
 
@@ -42,16 +42,16 @@
 /obj/effect/spresent/relaymove(mob/user as mob)
 	if(user.stat)
 		return
-	to_chat(user, "\blue You cant move.")
+	to_chat(user, "<span class='notice'>You cant move.</span>")
 
 /obj/effect/spresent/attackby(obj/item/weapon/W as obj, mob/user as mob, params)
 	..()
 
 	if(!istype(W, /obj/item/weapon/wirecutters))
-		to_chat(user, "\blue I need wirecutters for that.")
+		to_chat(user, "<span class='notice'>I need wirecutters for that.</span>")
 		return
 
-	to_chat(user, "\blue You cut open the present.")
+	to_chat(user, "<span class='notice'>You cut open the present.</span>")
 
 	for(var/mob/M in src) //Should only be one but whatever.
 		M.loc = src.loc
@@ -71,7 +71,7 @@
 		/obj/item/weapon/pen/invisible,
 		/obj/item/weapon/lipstick/random,
 		/obj/item/weapon/grenade/smokebomb,
-		/obj/item/weapon/corncob,
+		/obj/item/weapon/grown/corncob,
 		/obj/item/weapon/contraband/poster,
 		/obj/item/weapon/bikehorn,
 		/obj/item/weapon/beach_ball,
@@ -85,8 +85,8 @@
 		/obj/random/mech,
 		/obj/item/toy/spinningtoy,
 		/obj/item/toy/sword,
-		/obj/item/weapon/reagent_containers/food/snacks/grown/ambrosiadeus,
-		/obj/item/weapon/reagent_containers/food/snacks/grown/ambrosiavulgaris,
+		/obj/item/weapon/reagent_containers/food/snacks/grown/ambrosia/deus,
+		/obj/item/weapon/reagent_containers/food/snacks/grown/ambrosia/vulgaris,
 		/obj/item/device/paicard,
 		/obj/item/device/violin,
 		/obj/item/device/guitar,

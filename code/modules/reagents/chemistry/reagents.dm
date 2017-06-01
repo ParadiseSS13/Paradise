@@ -1,7 +1,3 @@
-#define SOLID 1
-#define LIQUID 2
-#define GAS 3
-
 /datum/reagent
 	var/name = "Reagent"
 	var/id = "reagent"
@@ -30,7 +26,7 @@
 	var/last_addiction_dose = 0
 	var/overdosed = 0 // You fucked up and this is now triggering it's overdose effects, purge that shit quick.
 	var/current_cycle = 1
-	var/drink_icon = "glass_brown" // what icon state/name/description a drinking glass will use if this is the master reagent.
+	var/drink_icon = null
 	var/drink_name = "Glass of ..what?"
 	var/drink_desc = "You can't really tell what this is."
 
@@ -73,7 +69,7 @@
 
 /datum/reagent/proc/on_mob_life(mob/living/M)
 	current_cycle++
-	holder.remove_reagent(id, metabolization_rate * M.metabolism_efficiency) //By default it slowly disappears.
+	holder.remove_reagent(id, metabolization_rate * M.metabolism_efficiency * M.digestion_ratio) //By default it slowly disappears.
 
 /datum/reagent/proc/on_mob_death(mob/living/M)	//use this to have chems have a "death-triggered" effect
 	return

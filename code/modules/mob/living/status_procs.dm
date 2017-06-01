@@ -140,12 +140,14 @@
 /mob/living/proc/StartResting(updating = 1)
 	var/val_change = !resting
 	resting = TRUE
+
 	if(updating && val_change)
 		update_canmove()
 
 /mob/living/proc/StopResting(updating = 1)
 	var/val_change = !!resting
 	resting = FALSE
+
 	if(updating && val_change)
 		update_canmove()
 
@@ -352,19 +354,19 @@
 
 // SLEEPING
 
-/mob/living/Sleeping(amount, updating = 1)
-	SetSleeping(max(sleeping, amount), updating)
+/mob/living/Sleeping(amount, updating = 1, no_alert = FALSE)
+	SetSleeping(max(sleeping, amount), updating, no_alert)
 
-/mob/living/SetSleeping(amount, updating = 1)
+/mob/living/SetSleeping(amount, updating = 1, no_alert = FALSE)
 	sleeping = max(amount, 0)
-	update_sleeping_effects()
+	update_sleeping_effects(no_alert)
 	if(updating)
 		update_stat()
 		update_canmove()
 
-/mob/living/AdjustSleeping(amount, bound_lower = 0, bound_upper = INFINITY, updating = 1)
+/mob/living/AdjustSleeping(amount, bound_lower = 0, bound_upper = INFINITY, updating = 1, no_alert = FALSE)
 	var/new_value = directional_bounded_sum(sleeping, amount, bound_lower, bound_upper)
-	SetSleeping(new_value, updating)
+	SetSleeping(new_value, updating, no_alert)
 
 // SLOWED
 

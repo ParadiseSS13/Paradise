@@ -14,9 +14,6 @@ var/global/datum/controller/process/npcpool/npc_master
 	schedule_interval = 100
 	start_delay = 17
 	log_startup_progress("NPC pool ticker starting up.")
-	if(npc_master)
-		qdel(npc_master) //only one mob master
-	npc_master = src
 
 /datum/controller/process/npcpool/copyStateFrom(var/datum/controller/process/npcpool/target)
 	canBeUsed = target.canBeUsed
@@ -26,6 +23,9 @@ var/global/datum/controller/process/npcpool/npc_master
 	needsHelp_non = target.needsHelp_non
 	botPool_l = target.botPool_l
 	botPool_l_non = target.botPool_l_non
+
+
+DECLARE_GLOBAL_CONTROLLER(npcpool, npc_master)
 
 /datum/controller/process/npcpool/proc/insertBot(toInsert)
 	if(istype(toInsert, /mob/living/carbon/human/interactive))

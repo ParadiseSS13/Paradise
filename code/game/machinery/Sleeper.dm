@@ -78,6 +78,11 @@
 	max_chem = E * 20
 	min_health = -E * 25
 
+/obj/machinery/sleeper/Destroy()
+	for(var/mob/M in contents)
+		M.forceMove(get_turf(src))
+	return ..()
+
 /obj/machinery/sleeper/relaymove(mob/user as mob)
 	if(user.incapacitated())
 		return 0 //maybe they should be able to get out with cuffs, but whatever
@@ -312,7 +317,7 @@
 		else
 			orient = "RIGHT"
 			dir = 4
-		playsound(src.loc, 'sound/items/Ratchet.ogg', 50, 1)
+		playsound(src.loc, G.usesound, 50, 1)
 		return
 
 	if(exchange_parts(user, G))
@@ -519,7 +524,7 @@
 
 	if(do_after(user, 20, target = L))
 		if(src.occupant)
-			to_chat(user, "<span class='boldnotice'>>The sleeper is already occupied!</span>")
+			to_chat(user, "<span class='boldnotice'>The sleeper is already occupied!</span>")
 			return
 		if(!L) return
 		L.forceMove(src)

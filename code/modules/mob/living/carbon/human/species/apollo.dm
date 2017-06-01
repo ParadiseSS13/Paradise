@@ -9,7 +9,6 @@
 	punchdamagelow = 0
 	punchdamagehigh = 1
 	//primitive = /mob/living/carbon/monkey/wryn
-	darksight = 3
 	slowdown = 1
 	warning_low_pressure = -300
 	hazard_low_pressure = 1
@@ -32,14 +31,16 @@
 	has_organ = list(
 		"heart" =    /obj/item/organ/internal/heart,
 		"brain" =    /obj/item/organ/internal/brain,
-		"eyes" =     /obj/item/organ/internal/eyes,
+		"eyes" =     /obj/item/organ/internal/eyes/wryn, //3 darksight.
 		"appendix" = /obj/item/organ/internal/appendix,
 		"antennae" =    /obj/item/organ/internal/wryn/hivenode
 		)
 
-	flags = IS_WHITELISTED | HAS_LIPS | NO_BREATHE | HAS_SKIN_COLOR | NO_SCAN | NO_SCAN | HIVEMIND
+	flags = IS_WHITELISTED | HAS_LIPS | NO_BREATHE | HAS_SKIN_COLOR | NO_SCAN | HIVEMIND
 	clothing_flags = HAS_UNDERWEAR | HAS_UNDERSHIRT | HAS_SOCKS
 	dietflags = DIET_HERB		//bees feed off nectar, so bee people feed off plants too
+
+	oxy_mod = 0
 
 	reagent_tag = PROCESS_ORG
 	base_color = "#704300"
@@ -65,21 +66,21 @@
 
 			M.visible_message("<span class='notice'>[M] begins to violently pull off [H]'s antennae.</span>")
 			to_chat(H, "<span class='danger'><B>[M] grips your antennae and starts violently pulling!<B></span>")
-			do_after(H, 250, target = src)
-			if(p_loc == M.loc && p_loc_m == H.loc)
-				var/obj/item/organ/internal/wryn/hivenode/node = new /obj/item/organ/internal/wryn/hivenode
-				H.remove_language("Wryn Hivemind")
-				node.remove(H)
-				node.loc = M.loc
-				to_chat(M, "<span class='notice'>You hear a loud crunch as you mercilessly pull off [H]'s antennae.</span>")
-				to_chat(H, "<span class='danger'><B>You hear a loud crunch as your antennae is ripped off your head by [M].</span></B>")
-				to_chat(H, "<span class='danger'><span class='danger'><B>It's so quiet...</B></span>")
-				head_organ.h_style = "Bald"
-				H.update_hair()
+			if(do_after(H, 250, target = src))
+				if(p_loc == M.loc && p_loc_m == H.loc)
+					var/obj/item/organ/internal/wryn/hivenode/node = new /obj/item/organ/internal/wryn/hivenode
+					H.remove_language("Wryn Hivemind")
+					node.remove(H)
+					node.loc = M.loc
+					to_chat(M, "<span class='notice'>You hear a loud crunch as you mercilessly pull off [H]'s antennae.</span>")
+					to_chat(H, "<span class='danger'><B>You hear a loud crunch as your antennae is ripped off your head by [M].</span></B>")
+					to_chat(H, "<span class='danger'><span class='danger'><B>It's so quiet...</B></span>")
+					head_organ.h_style = "Bald"
+					H.update_hair()
 
-				M.attack_log += text("\[[time_stamp()]\] <font color='red'>removed antennae [H.name] ([H.ckey])</font>")
-				H.attack_log += text("\[[time_stamp()]\] <font color='orange'>Has had their antennae removed by [M.name] ([M.ckey])</font>")
-				msg_admin_attack("[key_name(M)] removed [key_name(H)]'s antennae")
+					M.create_attack_log("<font color='red'>removed antennae [H.name] ([H.ckey])</font>")
+					H.create_attack_log("<font color='orange'>Has had their antennae removed by [M.name] ([M.ckey])</font>")
+					msg_admin_attack("[key_name(M)] removed [key_name(H)]'s antennae")
 			return 0
 
 /datum/species/nucleation
@@ -87,7 +88,7 @@
 	name_plural = "Nucleations"
 	icobase = 'icons/mob/human_races/r_nucleation.dmi'
 	unarmed_type = /datum/unarmed_attack/punch
-	blurb = "A sub-race of unforunates who have been exposed to too much supermatter radiation. As a result, \
+	blurb = "A sub-race of unfortunates who have been exposed to too much supermatter radiation. As a result, \
 	supermatter crystal clusters have begun to grow across their bodies. Research to find a cure for this ailment \
 	has been slow, and so this is a common fate for veteran engineers. The supermatter crystals produce oxygen, \
 	negating the need for the individual to breathe. Their massive change in biology, however, renders most medicines \
@@ -97,6 +98,7 @@
 	language = "Sol Common"
 	burn_mod = 4 // holy shite, poor guys wont survive half a second cooking smores
 	brute_mod = 2 // damn, double wham, double dam
+	oxy_mod = 0
 	flags = IS_WHITELISTED | NO_BREATHE | NO_BLOOD | NO_PAIN | HAS_LIPS | NO_SCAN
 	dietflags = DIET_OMNI		//still human at their core, so they maintain their eating habits and diet
 
@@ -106,8 +108,8 @@
 	reagent_tag = PROCESS_ORG
 	has_organ = list(
 		"heart" =    /obj/item/organ/internal/heart,
-		"crystalized brain" =    /obj/item/organ/internal/brain/crystal,
-		"eyes" =     /obj/item/organ/internal/eyes/luminescent_crystal,
+		"crystallized brain" =    /obj/item/organ/internal/brain/crystal,
+		"eyes" =     /obj/item/organ/internal/eyes/luminescent_crystal, //Standard darksight of 2.
 		"strange crystal" = /obj/item/organ/internal/nucleation/strange_crystal,
 		"resonant crystal" = /obj/item/organ/internal/nucleation/resonant_crystal
 		)
@@ -120,7 +122,7 @@
 
 /datum/species/nucleation/handle_death(var/mob/living/carbon/human/H)
 	var/turf/T = get_turf(H)
-	H.visible_message("\red[H]'s body explodes, leaving behind a pile of microscopic crystals!")
+	H.visible_message("<span class='warning'>[H]'s body explodes, leaving behind a pile of microscopic crystals!</span>")
 	explosion(T, 0, 0, 2, 2) // Create a small explosion burst upon death
 //	new /obj/item/weapon/shard/supermatter( T )
 	qdel(H)

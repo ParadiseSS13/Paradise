@@ -8,7 +8,7 @@
 	icon = 'icons/obj/device.dmi'
 	name = "control wand"
 	desc = "Remotely controls airlocks."
-	w_class = 1
+	w_class = WEIGHT_CLASS_TINY
 	var/mode = WAND_OPEN
 	var/region_access = 1 //See access.dm
 	var/obj/item/weapon/card/id/ID
@@ -19,9 +19,7 @@
 	ID.access = get_region_accesses(region_access)
 
 /obj/item/weapon/door_remote/Destroy()
-	if(ID)
-		qdel(ID)
-		ID = null
+	QDEL_NULL(ID)
 	return ..()
 
 /obj/item/weapon/door_remote/attack_self(mob/user)

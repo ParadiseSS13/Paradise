@@ -36,6 +36,14 @@
 	..()
 	icon_state = "tree_[rand(1, 6)]"
 
+/obj/structure/flora/tree/palm
+	icon = 'icons/misc/beach2.dmi'
+	icon_state = "palm1"
+
+/obj/structure/flora/tree/palm/New()
+	..()
+	icon_state = pick("palm1","palm2")
+	pixel_x = 0
 
 //grass
 /obj/structure/flora/grass
@@ -201,7 +209,7 @@
 	icon_state = "plant-1"
 	anchored = 0
 	layer = 5
-	w_class = 5
+	w_class = WEIGHT_CLASS_HUGE
 	force = 10
 	throwforce = 13
 	throw_speed = 2
@@ -306,12 +314,12 @@
 	if(istype(I, /obj/item/weapon/hatchet) && !stump)
 		if(indestructable)
 			//this bush marks the edge of the map, you can't destroy it
-			to_chat(user, "\red You flail away at the undergrowth, but it's too thick here.")
+			to_chat(user, "<span class='warning'>You flail away at the undergrowth, but it's too thick here.</span>")
 		else
-			user.visible_message("<span class='danger'>[user] begins clearing away [src].</b>","\red <b>You begin clearing away [src].</span>")
+			user.visible_message("<span class='danger'>[user] begins clearing away [src].</b>","<span class='warning'><b>You begin clearing away [src].</span></span>")
 			spawn(rand(15,30))
 				if(get_dist(user,src) < 2)
-					to_chat(user, "\blue You clear away [src].")
+					to_chat(user, "<span class='notice'>You clear away [src].</span>")
 					var/obj/item/stack/sheet/wood/W = new(src.loc)
 					W.amount = rand(3,15)
 					if(prob(50))

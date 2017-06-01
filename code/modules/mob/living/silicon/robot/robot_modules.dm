@@ -32,11 +32,8 @@
 	emag.name = "Placeholder Emag Item"
 
 /obj/item/weapon/robot_module/Destroy()
-	for(var/module in modules)
-		qdel(module)
-	modules.Cut()
-	qdel(emag)
-	emag = null
+	QDEL_LIST(modules)
+	QDEL_NULL(emag)
 	return ..()
 
 /obj/item/weapon/robot_module/proc/fix_modules()
@@ -115,8 +112,8 @@
 	..()
 	modules += new /obj/item/weapon/melee/baton/loaded(src)
 	modules += new /obj/item/weapon/extinguisher(src)
-	modules += new /obj/item/weapon/wrench(src)
-	modules += new /obj/item/weapon/crowbar(src)
+	modules += new /obj/item/weapon/wrench/cyborg(src)
+	modules += new /obj/item/weapon/crowbar/cyborg(src)
 	modules += new /obj/item/device/healthanalyzer(src)
 	emag = new /obj/item/weapon/melee/energy/sword/cyborg(src)
 
@@ -193,18 +190,18 @@
 	modules += new /obj/item/weapon/rcd/borg(src)
 	modules += new /obj/item/weapon/extinguisher(src)
 	modules += new /obj/item/weapon/weldingtool/largetank/cyborg(src)
-	modules += new /obj/item/weapon/screwdriver(src)
-	modules += new /obj/item/weapon/wrench(src)
-	modules += new /obj/item/weapon/crowbar(src)
-	modules += new /obj/item/weapon/wirecutters(src)
-	modules += new /obj/item/device/multitool(src)
+	modules += new /obj/item/weapon/screwdriver/cyborg(src)
+	modules += new /obj/item/weapon/wrench/cyborg(src)
+	modules += new /obj/item/weapon/crowbar/cyborg(src)
+	modules += new /obj/item/weapon/wirecutters/cyborg(src)
+	modules += new /obj/item/device/multitool/cyborg(src)
 	modules += new /obj/item/device/t_scanner(src)
 	modules += new /obj/item/device/analyzer(src)
 	modules += new /obj/item/taperoll/engineering(src)
 	modules += new /obj/item/weapon/gripper(src)
 	modules += new /obj/item/weapon/matter_decompiler(src)
 	modules += new /obj/item/device/floor_painter(src)
-
+	modules += new /obj/item/areaeditor/blueprints/cyborg(src)
 	emag = new /obj/item/borg/stun(src)
 
 	for(var/G in stacktypes) //Attempt to unify Engi-Borg material stacks into fewer lines. See Line 492 for example. Variables changed out of paranoia.
@@ -222,7 +219,7 @@
 /obj/item/weapon/robot_module/security/New()
 	..()
 	modules += new /obj/item/weapon/restraints/handcuffs/cable/zipties/cyborg(src)
-	modules += new /obj/item/weapon/melee/baton/loaded/robot(src)
+	modules += new /obj/item/weapon/melee/baton/loaded(src)
 	modules += new /obj/item/weapon/gun/energy/disabler/cyborg(src)
 	modules += new /obj/item/taperoll/police(src)
 	modules += new /obj/item/clothing/mask/gas/sechailer/cyborg(src)
@@ -353,7 +350,7 @@
 	modules += new /obj/item/weapon/gun/energy/printer(src)
 	modules += new /obj/item/weapon/gun/projectile/revolver/grenadelauncher/multi/cyborg(src)
 	modules += new /obj/item/weapon/card/emag(src)
-	modules += new /obj/item/weapon/crowbar(src)
+	modules += new /obj/item/weapon/crowbar/cyborg(src)
 	modules += new /obj/item/weapon/pinpointer/operative(src)
 	emag = null
 
@@ -391,7 +388,7 @@
 	modules += new /obj/item/weapon/surgicaldrill(src)
 	modules += new /obj/item/weapon/melee/energy/sword/cyborg/saw(src) //Energy saw -- primary weapon
 	modules += new /obj/item/weapon/card/emag(src)
-	modules += new /obj/item/weapon/crowbar(src)
+	modules += new /obj/item/weapon/crowbar/cyborg(src)
 	modules += new /obj/item/weapon/pinpointer/operative(src)
 	emag = null
 
@@ -411,7 +408,7 @@
 	modules += new /obj/item/weapon/pickaxe/drill/jackhammer(src)
 	modules += new /obj/item/borg/combat/shield(src)
 	modules += new /obj/item/borg/combat/mobility(src)
-	modules += new /obj/item/weapon/wrench(src)
+	modules += new /obj/item/weapon/wrench/cyborg(src)
 	emag = new /obj/item/weapon/gun/energy/lasercannon/cyborg(src)
 
 	fix_modules()
@@ -427,7 +424,7 @@
 	modules += new /obj/item/weapon/pickaxe/drill/jackhammer(src)
 	modules += new /obj/item/borg/combat/shield(src)
 	modules += new /obj/item/borg/combat/mobility(src)
-	modules += new /obj/item/weapon/wrench(src)
+	modules += new /obj/item/weapon/wrench/cyborg(src)
 	emag = new /obj/item/weapon/gun/energy/lasercannon/cyborg(src)
 
 	fix_modules()
@@ -474,11 +471,11 @@
 
 /obj/item/weapon/robot_module/drone/New()
 	modules += new /obj/item/weapon/weldingtool/largetank/cyborg(src)
-	modules += new /obj/item/weapon/screwdriver(src)
-	modules += new /obj/item/weapon/wrench(src)
-	modules += new /obj/item/weapon/crowbar(src)
-	modules += new /obj/item/weapon/wirecutters(src)
-	modules += new /obj/item/device/multitool(src)
+	modules += new /obj/item/weapon/screwdriver/cyborg(src)
+	modules += new /obj/item/weapon/wrench/cyborg(src)
+	modules += new /obj/item/weapon/crowbar/cyborg(src)
+	modules += new /obj/item/weapon/wirecutters/cyborg(src)
+	modules += new /obj/item/device/multitool/cyborg(src)
 	modules += new /obj/item/device/lightreplacer(src)
 	modules += new /obj/item/weapon/gripper(src)
 	modules += new /obj/item/weapon/matter_decompiler(src)

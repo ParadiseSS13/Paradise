@@ -171,7 +171,7 @@
 		if(gene.is_active(src))
 			speech_problem_flag = 1
 			gene.OnMobLife(src)
-	if(gene_stability < GENETIC_DAMAGE_STAGE_1)
+	if(!ignore_gene_stability && gene_stability < GENETIC_DAMAGE_STAGE_1)
 		var/instability = DEFAULT_GENE_STABILITY - gene_stability
 		if(prob(instability * 0.1))
 			adjustFireLoss(min(5, instability * 0.67))
@@ -255,8 +255,8 @@
 							emote("gasp")
 						updatehealth()
 
-				if(damage && organs.len)
-					var/obj/item/organ/external/O = pick(organs)
+				if(damage && bodyparts.len)
+					var/obj/item/organ/external/O = pick(bodyparts)
 					if(istype(O)) O.add_autopsy_data("Radiation Poisoning", damage)
 
 /mob/living/carbon/human/breathe()
@@ -675,14 +675,14 @@
 	// nutrition decrease
 	if(nutrition > 0 && stat != DEAD)
 		// THEY HUNGER
-		var/hunger_rate = HUNGER_FACTOR
+		var/hunger_rate = hunger_drain
 		if(satiety > 0)
 			satiety--
 		if(satiety < 0)
 			satiety++
 			if(prob(round(-satiety/40)))
 				Jitter(5)
-			hunger_rate = 3 * HUNGER_FACTOR
+			hunger_rate = 3 * hunger_drain
 		nutrition = max(0, nutrition - hunger_rate)
 
 	if(nutrition > NUTRITION_LEVEL_FULL)
@@ -958,13 +958,6 @@
 				adjustToxLoss(-3)
 				lastpuke = 0
 
-	//0.1% chance of playing a scary sound to someone who's in complete darkness
-	if(isturf(loc) && rand(1,1000) == 1)
-		var/turf/currentTurf = loc
-		var/atom/movable/lighting_overlay/L = locate(/atom/movable/lighting_overlay) in currentTurf
-		if(L && L.lum_r + L.lum_g + L.lum_b == 0)
-			playsound_local(src,pick(scarySounds),50, 1, -1)
-
 /mob/living/carbon/human/handle_changeling()
 	if(mind)
 		if(mind.changeling)
@@ -1039,7 +1032,7 @@
 	if(stat == DEAD)
 		return PULSE_NONE	//that's it, you're dead, nothing can influence your pulse
 
-	if(heart_attack)
+	if(undergoing_cardiac_arrest())
 		return PULSE_NONE
 
 	var/temp = PULSE_NORM
@@ -1102,7 +1095,7 @@
 			if(istype(loc,/obj/item/bodybag))
 				return
 			var/obj/item/clothing/mask/M = H.wear_mask
-			if(M && (M.flags & MASKCOVERSMOUTH))
+			if(M && (M.flags_cover & MASKCOVERSMOUTH))
 				return
 			if(H.species && H.species.flags & NO_BREATHE)
 				return //no puking if you can't smell!
@@ -1182,13 +1175,37 @@
 	return stuttering
 
 
+
+/mob/living/carbon/human/proc/can_heartattack()
+	if(species.flags & (NO_BLOOD|NO_INTORGANS))
+		return FALSE
+	return TRUE
+
+/mob/living/carbon/human/proc/undergoing_cardiac_arrest()
+	if(!can_heartattack())
+		return FALSE
+	var/obj/item/organ/internal/heart/heart = get_int_organ(/obj/item/organ/internal/heart)
+	if(istype(heart) && heart.beating)
+		return FALSE
+	return TRUE
+
+/mob/living/carbon/human/proc/set_heartattack(status)
+	if(!can_heartattack())
+		return FALSE
+
+	var/obj/item/organ/internal/heart/heart = get_int_organ(/obj/item/organ/internal/heart)
+	if(!istype(heart))
+		return FALSE
+
+	heart.beating = !status
+
 /mob/living/carbon/human/proc/handle_heartattack()
-	if(!heart_attack)
+	if(!can_heartattack() || !undergoing_cardiac_arrest() || reagents.has_reagent("corazone"))
 		return
-	else
-		AdjustLoseBreath(2, bound_lower = 0, bound_upper = 3)
-		adjustOxyLoss(5)
-		adjustBruteLoss(1)
+	AdjustLoseBreath(2, bound_lower = 0, bound_upper = 3)
+	adjustOxyLoss(5)
+	Paralyse(4)
+	adjustBruteLoss(2)
 
 
 

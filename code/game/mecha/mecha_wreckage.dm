@@ -35,7 +35,7 @@
 		var/obj/item/weapon/weldingtool/WT = W
 		if(salvage_num <= 0)
 			user.visible_message("[user] begins to slice apart the now completely stripped [src].", "You begin to slice apart the [src].", "You hear the sound of a welder nearby.")
-			if(WT.remove_fuel(0,user) && do_after(user,80,target=src))
+			if(WT.remove_fuel(0,user) && do_after(user, 80 * WT.toolspeed, target = src))
 				user.visible_message("The now-dilapidated [src] falls apart in a clatter.", "As you slice apart the final support structures, the [src] falls apart in a heap.", "You hear metal clanking to the floor.")
 				new /obj/item/stack/sheet/metal(src.loc)
 				var/obj/item/stack/rods/rods = new /obj/item/stack/rods(src.loc)
@@ -55,7 +55,7 @@
 				else
 					to_chat(user, "You failed to salvage anything valuable from [src].")
 			else
-				to_chat(user, "\blue You need more welding fuel to complete this task.")
+				to_chat(user, "<span class='notice'>You need more welding fuel to complete this task.</span>")
 	else if(istype(W, /obj/item/weapon/wirecutters))
 		if(salvage_num <= 0)
 			to_chat(user, "You don't see anything that can be cut with [W].")
@@ -118,8 +118,8 @@
 	name = "Seraph wreckage"
 	icon_state = "seraph-broken"
 
-/obj/effect/decal/mecha_wreckage/recitence
-	name = "\improper Recitence wreckage"
+/obj/effect/decal/mecha_wreckage/reticence
+	name = "\improper Reticence wreckage"
 	icon_state = "mime-broken"
 
 /obj/effect/decal/mecha_wreckage/ripley

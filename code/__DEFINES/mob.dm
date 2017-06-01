@@ -47,12 +47,14 @@
 
 #define HUMAN_STRIP_DELAY 40 //takes 40ds = 4s to strip someone.
 #define ALIEN_SELECT_AFK_BUFFER 1 // How many minutes that a person can be AFK before not being allowed to be an alien.
-#define SHOES_SLOWDOWN -1.0			// How much shoes slow you down by default. Negative values speed you up
+#define SHOES_SLOWDOWN 0			// How much shoes slow you down by default. Negative values speed you up
 
 
 //Mob attribute defaults.
 #define DEFAULT_MARKING_STYLES list("head" = "None", "body" = "None", "tail" = "None") //Marking styles. Use instead of initial() for m_styles.
 #define DEFAULT_MARKING_COLOURS list("head" = "#000000", "body" = "#000000", "tail" = "#000000") //Marking colours. Use instead of initial() for m_colours.
+
+#define OXYCONCEN_PLASMEN_IGNITION 0.5 //Moles of oxygen in the air needed to light up a poorly clothed Plasmaman. Same as LINDA requirements for plasma burning.
 
 ////////REAGENT STUFF////////
 // How many units of reagent are consumed per tick, by default.
@@ -122,6 +124,9 @@
 #define islarva(A)		(istype((A), /mob/living/carbon/alien/larva))
 #define isslime(A)		(istype((A), /mob/living/carbon/slime))
 
+//Human sub-species
+#define isabductor(A) (is_species(A, "Abductor"))
+
 #define isanimal(A)		(istype((A), /mob/living/simple_animal))
 #define iscorgi(A)		(istype((A), /mob/living/simple_animal/pet/corgi))
 #define ismouse(A)		(istype((A), /mob/living/simple_animal/mouse))
@@ -129,10 +134,20 @@
 #define isswarmer(A)	(istype((A), /mob/living/simple_animal/hostile/swarmer))
 #define isguardian(A)	(istype((A), /mob/living/simple_animal/hostile/guardian))
 
+
+
 #define issilicon(A)	(istype((A), /mob/living/silicon))
 #define isAI(A)			(istype((A), /mob/living/silicon/ai))
 #define isrobot(A)		(istype((A), /mob/living/silicon/robot))
 #define ispAI(A)		(istype((A), /mob/living/silicon/pai))
+
+// For the tcomms monitor
+#define ispathhuman(A)		(ispath(A, /mob/living/carbon/human))
+#define ispathbrain(A)		(ispath(A, /mob/living/carbon/brain))
+#define ispathslime(A)		(ispath(A, /mob/living/carbon/slime))
+#define ispathbot(A)			(ispath(A, /mob/living/simple_animal/bot))
+#define ispathsilicon(A)	(ispath(A, /mob/living/silicon))
+#define ispathanimal(A)		(ispath(A, /mob/living/simple_animal))
 
 #define isAutoAnnouncer(A)	(istype((A), /mob/living/automatedannouncer))
 

@@ -38,8 +38,7 @@
 	var/continuous_rounds = 0			// Gamemodes which end instantly will instead keep on going until the round ends by escape shuttle or nuke.
 	var/allow_Metadata = 0				// Metadata is supported.
 	var/popup_admin_pm = 0				//adminPMs to non-admins show in a pop-up 'reply' window when set to 1.
-	var/Ticklag = 0.9
-	var/Tickcomp = 0
+	var/Ticklag = 0.5
 	var/socket_talk	= 0					// use socket_talk to communicate with other processes
 	var/list/resource_urls = null
 	var/antag_hud_allowed = 0      // Ghosts can turn on Antagovision to see a HUD of who is the bad guys this round.
@@ -186,6 +185,12 @@
 	var/disable_cid_warn_popup = 0 //disables the annoying "You have already logged in this round, disconnect or be banned" popup, because it annoys the shit out of me when testing.
 
 	var/max_loadout_points = 5 // How many points can be spent on extra items in character setup
+
+	var/disable_ooc_emoji = 0 // prevents people from using emoji in OOC
+
+	var/shutdown_on_reboot = 0 // Whether to shut down the world instead of rebooting it
+
+	var/disable_karma = 0 // Disable all karma functions and unlock karma jobs by default
 
 /datum/configuration/New()
 	var/list/L = subtypesof(/datum/game_mode)
@@ -439,9 +444,6 @@
 				if("socket_talk")
 					socket_talk = text2num(value)
 
-				if("tickcomp")
-					Tickcomp = 1
-
 				if("allow_antag_hud")
 					config.antag_hud_allowed = 1
 
@@ -573,6 +575,24 @@
 
 				if("round_abandon_penalty_period")
 					config.round_abandon_penalty_period = MinutesToTicks(text2num(value))
+
+				if("medal_hub_address")
+					global.medal_hub = value
+
+				if("medal_hub_password")
+					global.medal_pass = value
+
+				if("disable_ooc_emoji")
+					config.disable_ooc_emoji = 1
+
+				if("shutdown_on_reboot")
+					config.shutdown_on_reboot = 1
+
+				if("shutdown_shell_command")
+					shutdown_shell_command = value
+
+				if("disable_karma")
+					disable_karma = 1
 
 				else
 					diary << "Unknown setting in configuration: '[name]'"

@@ -137,20 +137,76 @@
 		new /obj/item/weapon/dnainjector/m2h(src)
 		new /obj/item/weapon/dnainjector/m2h(src)
 
-/obj/item/weapon/storage/box/gauge
-	name = "box of 12 gauge slugs"
-	desc = "It has a picture of a gun and several warning symbols on the front."
-	materials = list(MAT_METAL=28000)
+/obj/item/weapon/storage/box/slug
+	name = "Ammunition Box (Slug)"
+	desc = "A small box capable of holding seven shotgun shells."
+	icon_state = "slugbox"
 
-	New()
-		..()
+/obj/item/weapon/storage/box/slug/New()
+	..()
+	for(var/i in 1 to 7)
 		new /obj/item/ammo_casing/shotgun(src)
-		new /obj/item/ammo_casing/shotgun(src)
-		new /obj/item/ammo_casing/shotgun(src)
-		new /obj/item/ammo_casing/shotgun(src)
-		new /obj/item/ammo_casing/shotgun(src)
-		new /obj/item/ammo_casing/shotgun(src)
-		new /obj/item/ammo_casing/shotgun(src)
+
+
+/obj/item/weapon/storage/box/buck
+	name = "Ammunition Box (Buckshot)"
+	desc = "A small box capable of holding seven shotgun shells."
+	icon_state = "buckshotbox"
+
+/obj/item/weapon/storage/box/buck/New()
+	..()
+	for(var/i in 1 to 7)
+		new /obj/item/ammo_casing/shotgun/buckshot(src)
+
+/obj/item/weapon/storage/box/dragonsbreath
+	name = "Ammunition Box (Dragonsbreath)"
+	desc = "A small box capable of holding seven shotgun shells."
+	icon_state = "dragonsbreathbox"
+
+/obj/item/weapon/storage/box/dragonsbreath/New()
+	..()
+	for(var/i in 1 to 7)
+		new /obj/item/ammo_casing/shotgun/incendiary/dragonsbreath(src)
+
+/obj/item/weapon/storage/box/stun
+	name = "Ammunition Box (Stun shells)"
+	desc = "A small box capable of holding seven shotgun shells."
+	icon_state = "stunbox"
+
+/obj/item/weapon/storage/box/stun/New()
+	..()
+	for(var/i in 1 to 7)
+		new /obj/item/ammo_casing/shotgun/stunslug(src)
+
+/obj/item/weapon/storage/box/beanbag
+	name = "Ammunition Box (Beanbag shells)"
+	desc = "A small box capable of holding seven shotgun shells."
+	icon_state = "beanbagbox"
+
+/obj/item/weapon/storage/box/beanbag/New()
+	..()
+	for(var/i in 1 to 7)
+		new /obj/item/ammo_casing/shotgun/beanbag(src)
+
+/obj/item/weapon/storage/box/rubbershot
+	name = "Ammunition Box (Rubbershot shells)"
+	desc = "A small box capable of holding seven shotgun shells."
+	icon_state = "rubbershotbox"
+
+/obj/item/weapon/storage/box/rubbershot/New()
+	..()
+	for(var/i in 1 to 7)
+		new /obj/item/ammo_casing/shotgun/rubbershot(src)
+
+/obj/item/weapon/storage/box/tranquilizer
+	name = "Ammunition Box (Tranquilizer darts)"
+	desc = "A small box capable of holding seven shotgun shells."
+	icon_state = "tranqbox"
+
+/obj/item/weapon/storage/box/tranquilizer/New()
+	..()
+	for(var/i in 1 to 7)
+		new /obj/item/ammo_casing/shotgun/tranquilizer(src)
 
 /obj/item/weapon/storage/box/flashbangs
 	name = "box of flashbangs (WARNING)"
@@ -390,68 +446,45 @@
 	icon = 'icons/obj/food/food.dmi'
 	icon_state = "monkeycubebox"
 	storage_slots = 7
-	can_hold = list("/obj/item/weapon/reagent_containers/food/snacks/monkeycube")
-	New()
-		..()
-		for(var/i = 1; i <= 5; i++)
-			new /obj/item/weapon/reagent_containers/food/snacks/monkeycube/wrapped(src)
-/obj/item/weapon/storage/box/farwacubes
+	can_hold = list(/obj/item/weapon/reagent_containers/food/snacks/monkeycube)
+	var/monkey_cube_type = /obj/item/weapon/reagent_containers/food/snacks/monkeycube
+
+/obj/item/weapon/storage/box/monkeycubes/New()
+	..()
+	for(var/i in 1 to 5)
+		new monkey_cube_type(src)
+
+/obj/item/weapon/storage/box/monkeycubes/farwacubes
 	name = "farwa cube box"
 	desc = "Drymate brand farwa cubes. Just add water!"
-	icon = 'icons/obj/food/food.dmi'
-	icon_state = "monkeycubebox"
-	storage_slots = 7
-	can_hold = list("/obj/item/weapon/reagent_containers/food/snacks/monkeycube/wrapped/farwacube")
-	New()
-		..()
-		for(var/i = 1; i <= 5; i++)
-			new /obj/item/weapon/reagent_containers/food/snacks/monkeycube/wrapped/farwacube(src)
+	monkey_cube_type = /obj/item/weapon/reagent_containers/food/snacks/monkeycube/farwacube
 
-/obj/item/weapon/storage/box/stokcubes
+/obj/item/weapon/storage/box/monkeycubes/stokcubes
 	name = "stok cube box"
 	desc = "Drymate brand stok cubes. Just add water!"
-	icon = 'icons/obj/food/food.dmi'
-	icon_state = "monkeycubebox"
-	storage_slots = 7
-	can_hold = list("/item/weapon/reagent_containers/food/snacks/monkeycube/wrapped/stokcube")
-	New()
-		..()
-		for(var/i = 1; i <= 5; i++)
-			new /obj/item/weapon/reagent_containers/food/snacks/monkeycube/wrapped/stokcube(src)
+	monkey_cube_type = /obj/item/weapon/reagent_containers/food/snacks/monkeycube/stokcube
 
-/obj/item/weapon/storage/box/neaeracubes
+/obj/item/weapon/storage/box/monkeycubes/neaeracubes
 	name = "neaera cube box"
 	desc = "Drymate brand neaera cubes. Just add water!"
-	icon = 'icons/obj/food/food.dmi'
-	icon_state = "monkeycubebox"
-	storage_slots = 7
-	can_hold = list("/obj/item/weapon/reagent_containers/food/snacks/monkeycube/wrapped/neaeracube")
-	New()
-		..()
-		for(var/i = 1; i <= 5; i++)
-			new /obj/item/weapon/reagent_containers/food/snacks/monkeycube/wrapped/neaeracube(src)
+	monkey_cube_type = /obj/item/weapon/reagent_containers/food/snacks/monkeycube/neaeracube
 
-
-/obj/item/weapon/storage/box/wolpincubes
+/obj/item/weapon/storage/box/monkeycubes/wolpincubes
 	name = "wolpin cube box"
 	desc = "Drymate brand wolpin cubes. Just add water!"
-	icon = 'icons/obj/food/food.dmi'
-	icon_state = "monkeycubebox"
-	storage_slots = 7
-	can_hold = list("/obj/item/weapon/reagent_containers/food/snacks/monkeycube/wrapped/wolpincube")
-	New()
-		..()
-		for(var/i = 1; i <= 5; i++)
-			new /obj/item/weapon/reagent_containers/food/snacks/monkeycube/wrapped/wolpincube(src)
-
+	monkey_cube_type = /obj/item/weapon/reagent_containers/food/snacks/monkeycube/wolpincube
 
 /obj/item/weapon/storage/box/permits
 	name = "box of construction permits"
 	desc = "A box for containing construction permits, used to officially declare built rooms as additions to the station."
 	icon_state = "id"
 
-/obj/item/weapon/storage/box/permits/New() //There's only a few, so blueprints are still useful beyond setting every room's name to PRIMARY FART STORAGE
+/obj/item/weapon/storage/box/permits/New()
 	..()
+	new /obj/item/areaeditor/permit(src)
+	new /obj/item/areaeditor/permit(src)
+	new /obj/item/areaeditor/permit(src)
+	new /obj/item/areaeditor/permit(src)
 	new /obj/item/areaeditor/permit(src)
 	new /obj/item/areaeditor/permit(src)
 	new /obj/item/areaeditor/permit(src)
@@ -588,7 +621,7 @@
 	icon = 'icons/obj/toy.dmi'
 	icon_state = "spbox"
 	storage_slots = 8
-	can_hold = list("/obj/item/toy/snappop")
+	can_hold = list(/obj/item/toy/snappop)
 	New()
 		..()
 		for(var/i=1; i <= storage_slots; i++)
@@ -601,8 +634,10 @@
 	icon_state = "matchbox"
 	item_state = "zippo"
 	storage_slots = 10
-	w_class = 1
+	w_class = WEIGHT_CLASS_TINY
+	max_w_class = WEIGHT_CLASS_TINY
 	slot_flags = SLOT_BELT
+	can_hold = list(/obj/item/weapon/match)
 
 	New()
 		..()
@@ -648,7 +683,7 @@
 	item_state = "syringe_kit"
 	foldable = /obj/item/stack/sheet/cardboard //BubbleWrap
 	storage_slots=21
-	can_hold = list("/obj/item/weapon/light/tube", "/obj/item/weapon/light/bulb")
+	can_hold = list(/obj/item/weapon/light/tube, /obj/item/weapon/light/bulb)
 	max_combined_w_class = 21
 	use_to_pickup = 1 // for picking up broken bulbs, not that most people will try
 

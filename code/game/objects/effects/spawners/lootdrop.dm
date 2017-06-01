@@ -67,7 +67,7 @@
 				/obj/item/clothing/gloves/color/black = 20,
 				/obj/item/clothing/head/hardhat = 10,
 				/obj/item/clothing/head/hardhat/red = 10,
-				/obj/item/clothing/head/that{throwforce = 1; throwing = 1} = 10,
+				/obj/item/clothing/head/that = 10,
 				/obj/item/clothing/head/ushanka = 10,
 				/obj/item/clothing/head/welding = 10,
 				/obj/item/clothing/mask/gas = 10,
@@ -103,8 +103,8 @@
 				/obj/item/weapon/hand_labeler = 10,
 				/obj/item/weapon/paper/crumpled = 10,
 				/obj/item/weapon/pen = 10,
-				 /obj/item/weapon/minihoe = 10,
-				/obj/item/weapon/plantspray/pests = 10,
+				 /obj/item/weapon/cultivator = 10,
+				/obj/item/weapon/reagent_containers/spray/pestspray = 10,
 				/obj/item/weapon/stock_parts/cell = 30,
 				/obj/item/weapon/storage/belt/utility = 20,
 				/obj/item/weapon/storage/box = 20,
@@ -121,14 +121,15 @@
 				/obj/item/weapon/wirecutters = 10,
 				/obj/item/weapon/wrench = 40,
 				/obj/item/weapon/relic = 35,
+				/obj/item/weaponcrafting/receiver = 20,
 				/obj/item/clothing/shoes/brown = 30,
-				/obj/item/seeds/ambrosiadeusseed = 10,
-				/obj/item/seeds/ambrosiavulgarisseed = 20,
+				/obj/item/seeds/ambrosia/deus = 10,
+				/obj/item/seeds/ambrosia = 20,
 				/obj/item/clothing/under/color/black = 30,
 				/obj/item/stack/tape_roll = 10,
 				////////////////CONTRABAND STUFF//////////////////
 				/obj/item/weapon/grenade/clown_grenade = 3,
-				/obj/item/seeds/ambrosiavulgarisseed/cruciatus = 3,
+				/obj/item/seeds/ambrosia/cruciatus = 3,
 				/obj/item/weapon/gun/projectile/automatic/pistol/empty = 1,
 				/obj/item/ammo_box/magazine/m10mm = 4,
 				/obj/item/weapon/soap/syndie = 7,
@@ -148,7 +149,7 @@
 				/obj/item/weapon/implanter/storage = 1,
 				/obj/item/toy/cards/deck/syndicate = 2,
 				/obj/item/weapon/storage/secure/briefcase/syndie = 2,
-				"" = 90
+				"" = 70
 				)
 
 /obj/effect/spawner/lootdrop/crate_spawner // for ruins
@@ -192,8 +193,8 @@
 				/obj/item/weapon/stock_parts/matter_bin = 1,
 				/obj/item/weapon/stock_parts/micro_laser = 1,
 				/obj/item/weapon/stock_parts/scanning_module = 1,
-				/obj/item/weapon/spacecash/c200 = 1,
+				/obj/item/stack/spacecash/c200 = 1,
 				/obj/item/weapon/airlock_electronics = 1,
-				/obj/item/weapon/gun/energy/kinetic_accelerator/super = 1,
+				/obj/item/weapon/gun/energy/kinetic_accelerator = 1,
 				/obj/item/pizzabox = 3,
 				)

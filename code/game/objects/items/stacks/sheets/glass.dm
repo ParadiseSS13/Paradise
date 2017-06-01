@@ -22,6 +22,10 @@
 	origin_tech = "materials=1"
 	var/created_window = /obj/structure/window/basic
 	var/full_window = /obj/structure/window/full/basic
+	merge_type = /obj/item/stack/sheet/glass
+
+/obj/item/stack/sheet/glass/fifty
+	amount = 50
 
 /obj/item/stack/sheet/glass/cyborg
 	materials = list()
@@ -34,7 +38,7 @@
 	if(istype(W,/obj/item/stack/cable_coil))
 		var/obj/item/stack/cable_coil/CC = W
 		if(CC.amount < 5)
-			to_chat(user, "\b There is not enough wire in this coil. You need 5 lengths.")
+			to_chat(user, "<b>There is not enough wire in this coil. You need 5 lengths.</b>")
 			return
 		CC.use(5)
 		to_chat(user, "<span class='notice'>You attach wire to the [name].</span>")
@@ -152,6 +156,7 @@
 	origin_tech = "materials=2"
 	var/created_window = /obj/structure/window/reinforced
 	var/full_window = /obj/structure/window/full/reinforced
+	merge_type = /obj/item/stack/sheet/rglass
 
 /obj/item/stack/sheet/rglass/cyborg
 	materials = list()

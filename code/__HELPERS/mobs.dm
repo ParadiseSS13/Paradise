@@ -250,13 +250,13 @@ Proc for attack log creation, because really why not
 */
 
 proc/add_logs(mob/user, mob/target, what_done, var/object=null, var/addition=null, var/admin=1, var/print_attack_log = 1)//print_attack_log notifies admins with attack logs on
-	var/list/ignore=list("shaked", "CPRed", "grabbed", "punched", "disarmed")
+	var/list/ignore=list("shaked", "CPRed", "grabbed", "disarmed")
 	if(!user)
 		return
 	if(ismob(user))
-		user.attack_log += text("\[[time_stamp()]\] <font color='red'>Has [what_done] [key_name(target)][object ? " with [object]" : " "][addition]</font>")
+		user.create_attack_log("<font color='red'>Has [what_done] [key_name(target)][object ? " with [object]" : " "][addition]</font>")
 	if(ismob(target))
-		target.attack_log += text("\[[time_stamp()]\] <font color='orange'>Has been [what_done] by [key_name(user)][object ? " with [object]" : " "][addition]</font>")
+		target.create_attack_log("<font color='orange'>Has been [what_done] by [key_name(user)][object ? " with [object]" : " "][addition]</font>")
 	if(admin)
 		log_attack("<font color='red'>[key_name(user)] [what_done] [key_name(target)][object ? " with [object]" : " "][addition]</font>")
 	if(istype(target) && (target.key))
@@ -363,6 +363,13 @@ proc/add_logs(mob/user, mob/target, what_done, var/object=null, var/addition=nul
 	if(progress)
 		qdel(progbar)
 
+/proc/is_species(A, species_name)
+	. = FALSE
+	if(ishuman(A))
+		var/mob/living/carbon/human/H = A
+		if(H.get_species() == species_name)
+			. = TRUE
+
 /proc/admin_mob_info(mob/M, mob/user = usr)
 	if(!ismob(M))
 		to_chat(user, "This can only be used on instances of type /mob")
@@ -433,3 +440,27 @@ proc/add_logs(mob/user, mob/target, what_done, var/object=null, var/addition=nul
 			break
 	if(!.)
 		to_chat(user, "<span class='warning'>No mob located in [A].</span>")
+
+// Suppress the mouse macros
+/client/var/next_mouse_macro_warning
+/mob/proc/LogMouseMacro(verbused, params)
+	if(!client)
+		return
+	if(!client.next_mouse_macro_warning) // Log once
+		log_admin("[key_name(usr)] attempted to use a mouse macro: [verbused] [params]")
+		message_admins("[key_name_admin(usr)] attempted to use a mouse macro: [verbused] [html_encode(params)]")
+	if(client.next_mouse_macro_warning < world.time) // Warn occasionally
+		usr << 'sound/misc/sadtrombone.ogg'
+		client.next_mouse_macro_warning = world.time + 600
+/mob/verb/ClickSubstitute(params as command_text)
+	set hidden = 1
+	set name = ".click"
+	LogMouseMacro(".click", params)
+/mob/verb/DblClickSubstitute(params as command_text)
+	set hidden = 1
+	set name = ".dblclick"
+	LogMouseMacro(".dblclick", params)
+/mob/verb/MouseSubstitute(params as command_text)
+	set hidden = 1
+	set name = ".mouse"
+	LogMouseMacro(".mouse", params)

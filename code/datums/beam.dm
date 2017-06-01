@@ -15,7 +15,6 @@
 	var/static_beam = 0
 	var/beam_type = /obj/effect/ebeam //must be subtype
 
-
 /datum/beam/New(beam_origin,beam_target,beam_icon='icons/effects/beam.dmi',beam_icon_state="b_beam",time=50,maxdistance=10,btype = /obj/effect/ebeam)
 	endtime = world.time+time
 	origin = beam_origin
@@ -29,7 +28,6 @@
 	icon = beam_icon
 	icon_state = beam_icon_state
 	beam_type = btype
-
 
 /datum/beam/proc/Start()
 	Draw()
@@ -45,22 +43,18 @@
 
 	qdel(src)
 
-
 /datum/beam/proc/End()
 	finished = 1
-
 
 /datum/beam/proc/Reset()
 	for(var/obj/effect/ebeam/B in elements)
 		qdel(B)
-
 
 /datum/beam/Destroy()
 	Reset()
 	target = null
 	origin = null
 	return ..()
-
 
 /datum/beam/proc/Draw()
 	var/Angle = round(Get_Angle(origin,target))
@@ -115,17 +109,18 @@
 		X.pixel_x = Pixel_x
 		X.pixel_y = Pixel_y
 
-
 /obj/effect/ebeam
 	mouse_opacity = 0
 	anchored = 1
 	var/datum/beam/owner
 
-
 /obj/effect/ebeam/Destroy()
 	owner = null
 	return ..()
-
+	
+/obj/effect/ebeam/deadly/Crossed(atom/A)
+	..()
+	A.ex_act(1)
 
 /atom/proc/Beam(atom/BeamTarget,icon_state="b_beam",icon='icons/effects/beam.dmi',time=50, maxdistance=10,beam_type=/obj/effect/ebeam)
 	var/datum/beam/newbeam = new(src,BeamTarget,icon,icon_state,time,maxdistance,beam_type)

@@ -30,6 +30,7 @@
 	var/lastattacker = null
 	var/lastattacked = null
 	var/attack_log = list( )
+	var/last_log = 0
 	var/obj/machinery/machine = null
 	var/other_mobs = null
 	var/memory = ""
@@ -69,6 +70,7 @@
 	var/charges = 0.0
 	var/nutrition = NUTRITION_LEVEL_FED + 50 //Carbon
 	var/satiety = 0 //Carbon
+	var/hunger_drain = HUNGER_FACTOR // how quickly the mob gets hungry; largely utilized by species.
 
 	var/overeatduration = 0		// How long this guy is overeating //Carbon
 	var/intent = null//Living
@@ -194,3 +196,5 @@
 	var/list/permanent_huds = list()
 
 	var/list/actions = list()
+	
+	var/list/progressbars = null	//for stacking do_after bars

@@ -71,21 +71,30 @@
 	input = /obj/item/weapon/reagent_containers/food/snacks/meat
 	output = /obj/item/weapon/reagent_containers/food/snacks/meatball
 
-/datum/food_processor_process/potato
-	input = "potato"
-	output = /obj/item/weapon/reagent_containers/food/snacks/fries
+/datum/food_processor_process/sweetpotato
+	input = /obj/item/weapon/reagent_containers/food/snacks/grown/potato/sweet
+	output = /obj/item/weapon/reagent_containers/food/snacks/yakiimo
 
-/datum/food_processor_process/carrot
-	input = "carrot"
-	output = /obj/item/weapon/reagent_containers/food/snacks/carrotfries
+/datum/food_processor_process/potato
+	input = /obj/item/weapon/reagent_containers/food/snacks/grown/potato
+	output = /obj/item/weapon/reagent_containers/food/snacks/tatortot
 
 /datum/food_processor_process/soybeans
-	input = "soybeans"
+	input = /obj/item/weapon/reagent_containers/food/snacks/grown/soybeans
 	output = /obj/item/weapon/reagent_containers/food/snacks/soydope
 
 /datum/food_processor_process/spaghetti
 	input = /obj/item/weapon/reagent_containers/food/snacks/doughslice
 	output = /obj/item/weapon/reagent_containers/food/snacks/spagetti
+
+/datum/food_processor_process/parsnip
+	input = /obj/item/weapon/reagent_containers/food/snacks/grown/parsnip
+	output = /obj/item/weapon/reagent_containers/food/snacks/roastparsnip
+
+/datum/food_processor_process/carrot
+	input =  /obj/item/weapon/reagent_containers/food/snacks/grown/carrot
+	output = /obj/item/weapon/reagent_containers/food/snacks/grown/carrot/wedges
+
 /////////////////////////
 ///END OBJECT RECIPIES///
 /////////////////////////
@@ -142,14 +151,10 @@
 
 //END RECIPE DATUMS
 
-/obj/machinery/processor/proc/select_recipe(var/X)
+/obj/machinery/processor/proc/select_recipe(X)
 	for(var/Type in subtypesof(/datum/food_processor_process) - /datum/food_processor_process/mob)
 		var/datum/food_processor_process/P = new Type()
-		if(istype(X, /obj/item/weapon/reagent_containers/food/snacks/grown))
-			var/obj/item/weapon/reagent_containers/food/snacks/grown/G = X
-			if(G.seed.kitchen_tag != P.input)
-				continue
-		else if(!istype(X, P.input))
+		if(!istype(X, P.input))
 			continue
 		return P
 	return 0

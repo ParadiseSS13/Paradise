@@ -4,7 +4,7 @@
 	name = "airlock electronics"
 	icon = 'icons/obj/doors/door_assembly.dmi'
 	icon_state = "door_electronics"
-	w_class = 2 
+	w_class = WEIGHT_CLASS_SMALL
 	materials = list(MAT_METAL=50, MAT_GLASS=50)
 
 	req_access = list(access_engine)
@@ -14,6 +14,8 @@
 	var/last_configurator = null
 	var/locked = TRUE
 	var/const/max_brain_damage = 60 // Maximum brain damage a mob can have until it can't use the electronics
+	toolspeed = 1
+	usesound = 'sound/items/Deconstruct.ogg'
 
 /obj/item/weapon/airlock_electronics/attack_self(mob/user)
 	if(!ishuman(user) && !isrobot(user))
@@ -62,10 +64,10 @@
 
 /obj/item/weapon/airlock_electronics/Topic(href, href_list)
 	..()
-	
+
 	if(usr.incapacitated() || (!ishuman(usr) && !isrobot(usr)))
 		return 1
-		
+
 	if(href_list["close"])
 		usr << browse(null, "window=airlock")
 		return
@@ -104,4 +106,3 @@
 			conf_access -= req
 			if(!conf_access.len)
 				conf_access = null
-

@@ -1,7 +1,7 @@
 var/global/default_martial_art = new/datum/martial_art
 /mob/living/carbon/human
 
-	hud_possible = list(HEALTH_HUD,STATUS_HUD,ID_HUD,WANTED_HUD,IMPLOYAL_HUD,IMPCHEM_HUD,IMPTRACK_HUD,SPECIALROLE_HUD,NATIONS_HUD)
+	hud_possible = list(HEALTH_HUD,STATUS_HUD,ID_HUD,WANTED_HUD,IMPMINDSHIELD_HUD,IMPCHEM_HUD,IMPTRACK_HUD,SPECIALROLE_HUD,NATIONS_HUD)
 
 	//Marking colour and style
 	var/list/m_colours = DEFAULT_MARKING_COLOURS //All colours set to #000000.
@@ -72,3 +72,4 @@ var/global/default_martial_art = new/datum/martial_art
 	var/fire_sprite = "Standing"
 
 	var/datum/body_accessory/body_accessory = null
+	var/tail // Name of tail image in species effects icon file.

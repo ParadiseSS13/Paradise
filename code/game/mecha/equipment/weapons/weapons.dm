@@ -68,17 +68,23 @@
 
 /obj/item/mecha_parts/mecha_equipment/weapon/energy/laser
 	equip_cooldown = 8
-	name = "CH-PS \"Immolator\" Laser"
+	name = "CH-PS \"Firedart\" Laser"
 	icon_state = "mecha_laser"
 	energy_drain = 30
 	projectile = /obj/item/projectile/beam
 	fire_sound = 'sound/weapons/Laser.ogg'
 
+/obj/item/mecha_parts/mecha_equipment/weapon/energy/laser/disabler
+	name = "CH-PD Disabler"
+	projectile = /obj/item/projectile/beam/disabler
+	projectiles_per_shot = 2
+	projectile_delay = 1
+
 /obj/item/mecha_parts/mecha_equipment/weapon/energy/laser/heavy
 	equip_cooldown = 10
 	name = "CH-LC \"Solaris\" Laser Cannon"
 	icon_state = "mecha_laser"
-	energy_drain = 40
+	energy_drain = 60
 	projectile = /obj/item/projectile/beam/laser/heavylaser
 	fire_sound = 'sound/weapons/lasercannonfire.ogg'
 
@@ -89,6 +95,41 @@
 	energy_drain = 120
 	projectile = /obj/item/projectile/ion
 	fire_sound = 'sound/weapons/Laser.ogg'
+
+/obj/item/mecha_parts/mecha_equipment/weapon/energy/tesla
+	equip_cooldown = 35
+	name = "P-X Tesla Cannon"
+	desc = "A weapon for combat exosuits. Fires bolts of electricity similar to the experimental tesla engine"
+	icon_state = "mecha_laser"
+	origin_tech = "materials=4;combat=5;magnets=4"
+	energy_drain = 500
+	projectile = /obj/item/projectile/energy/shock_revolver
+	fire_sound = 'sound/magic/lightningbolt.ogg'
+
+/obj/item/mecha_parts/mecha_equipment/weapon/energy/xray
+	equip_cooldown = 35
+	name = "S-1 X-Ray Projector"
+	desc = "A weapon for combat exosuits. Fires beams of X-Rays that pass through solid matter."
+	icon_state = "mecha_laser"
+	origin_tech = "materials=3;combat=5;magnets=2;syndicate=2"
+	energy_drain = 80
+	projectile = /obj/item/projectile/beam/xray
+	fire_sound = 'sound/weapons/laser3.ogg'
+
+/obj/item/mecha_parts/mecha_equipment/weapon/energy/xray/triple
+	name = "X-XR Triple-barrel X-Ray Stream Projector"
+	projectiles_per_shot = 3
+	projectile_delay = 1
+
+/obj/item/mecha_parts/mecha_equipment/weapon/energy/immolator
+	equip_cooldown = 35
+	name = "ZFI Immolation Beam Gun"
+	desc = "A weapon for combat exosuits. Fires beams of extreme heat that set targets on fire."
+	icon_state = "mecha_laser"
+	origin_tech = "materials=4;combat=4;magnets=3;plasmatech=2"
+	energy_drain = 80
+	projectile = /obj/item/projectile/beam/immolator
+	fire_sound = 'sound/weapons/laser3.ogg'
 
 /obj/item/mecha_parts/mecha_equipment/weapon/energy/pulse
 	equip_cooldown = 30
@@ -111,15 +152,15 @@
 	if(ismob(A))
 		var/mob/M = A
 		if(istype(firer, /mob))
-			M.attack_log += "\[[time_stamp()]\] <b>[firer]/[firer.ckey]</b> shot <b>[M]/[M.ckey]</b> with a <b>[src]</b>"
-			firer.attack_log += "\[[time_stamp()]\] <b>[firer]/[firer.ckey]</b> shot <b>[M]/[M.ckey]</b> with a <b>[src]</b>"
+			M.create_attack_log("<b>[firer]/[firer.ckey]</b> shot <b>[M]/[M.ckey]</b> with a <b>[src]</b>")
+			firer.create_attack_log("<b>[firer]/[firer.ckey]</b> shot <b>[M]/[M.ckey]</b> with a <b>[src]</b>")
 			log_attack("<font color='red'>[firer] ([firer.ckey]) shot [M] ([M.ckey]) with a [src]</font>")
 			if(!iscarbon(firer))
 				M.LAssailant = null
 			else
 				M.LAssailant = firer
 		else
-			M.attack_log += "\[[time_stamp()]\] <b>UNKNOWN SUBJECT (No longer exists)</b> shot <b>[M]/[M.ckey]</b> with a <b>[src]</b>"
+			M.create_attack_log("<b>UNKNOWN SUBJECT (No longer exists)</b> shot <b>[M]/[M.ckey]</b> with a <b>[src]</b>")
 			log_attack("<font color='red'>UNKNOWN shot [M] ([M.ckey]) with a [src]</font>")
 	if(life <= 0)
 		qdel(src)
@@ -183,7 +224,7 @@
 				spawn(20)
 					if(thingy)
 						walk(thingy,0)
-	for(var/obj/mecha/combat/recitence/R in oview(6, chassis))
+	for(var/obj/mecha/combat/reticence/R in oview(6, chassis))
 		R.occupant_message("\The [R] has protected you from [chassis]'s HONK at the cost of some power.")
 		R.use_power(R.get_charge() / 4)
 
@@ -237,14 +278,14 @@
 
 /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/carbine/silenced
 	name = "\improper S.H.H. \"Quietus\" Carbine"
-	fire_sound = "sound/weapons/Gunshot_silenced.ogg"
+	fire_sound = 'sound/weapons/Gunshot_silenced.ogg'
 	icon_state = "mecha_mime"
 	equip_cooldown = 15
 	projectile = /obj/item/projectile/bullet/mime
 	projectiles = 20
 	projectile_energy_cost = 50
 
-/obj/item/mecha_parts/mecha_equipment/weapon/ballistic/carbine/silenced/can_attach(obj/mecha/combat/recitence/M as obj)
+/obj/item/mecha_parts/mecha_equipment/weapon/ballistic/carbine/silenced/can_attach(obj/mecha/combat/reticence/M as obj)
 	if(..())
 		if(istype(M))
 			return 1
@@ -273,8 +314,12 @@
 	variance = 6
 	projectile_delay = 2
 
+/obj/item/mecha_parts/mecha_equipment/weapon/ballistic/lmg/dual
+	name = "XMG-9 Autocannon"
+	projectiles_per_shot = 6
+
 /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/missile_rack
-	name = "SRM-8 Missile Rack"
+	name = "SRM-8 Light Missile Rack"
 	icon_state = "mecha_missilerack"
 	projectile = /obj/item/missile
 	fire_sound = 'sound/effects/bang.ogg'
@@ -283,6 +328,7 @@
 	equip_cooldown = 60
 	var/missile_speed = 2
 	var/missile_range = 30
+	var/heavy_missile = 0
 
 /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/missile_rack/action(target, params)
 	if(!action_checks(target))
@@ -290,6 +336,8 @@
 	set_ready_state(0)
 	var/obj/item/missile/M = new projectile(chassis.loc)
 	M.primed = 1
+	if(heavy_missile)
+		M.heavy_missile = 1
 	playsound(chassis, fire_sound, 50, 1)
 	M.throw_at(target, missile_range, missile_speed, chassis)
 	projectiles--
@@ -300,16 +348,23 @@
 	do_after_cooldown()
 	return
 
+/obj/item/mecha_parts/mecha_equipment/weapon/ballistic/missile_rack/heavy
+	name = "SRX-13 Heavy Missile Launcher"
+	heavy_missile = 1
 
 /obj/item/missile
 	icon = 'icons/obj/grenade.dmi'
 	icon_state = "missile"
 	var/primed = null
+	var/heavy_missile = 0
 	throwforce = 15
 
 /obj/item/missile/throw_impact(atom/hit_atom)
 	if(primed)
-		explosion(hit_atom, 0, 0, 2, 4, 0)
+		if(heavy_missile)
+			explosion(hit_atom, 2, 3, 4, 6, 0)
+		else
+			explosion(hit_atom, 0, 0, 2, 4, 0)
 		qdel(src)
 	else
 		..()
@@ -358,7 +413,7 @@
 /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/missile_rack/banana_mortar
 	name = "Banana Mortar"
 	icon_state = "mecha_bananamrtr"
-	projectile = /obj/item/weapon/bananapeel
+	projectile = /obj/item/weapon/grown/bananapeel
 	fire_sound = 'sound/items/bikehorn.ogg'
 	projectiles = 15
 	missile_speed = 1.5
@@ -375,7 +430,7 @@
 	if(!action_checks(target))
 		return
 	set_ready_state(0)
-	var/obj/item/weapon/bananapeel/B = new projectile(chassis.loc)
+	var/obj/item/weapon/grown/bananapeel/B = new projectile(chassis.loc)
 	playsound(chassis, fire_sound, 60, 1)
 	B.throw_at(target, missile_range, missile_speed, chassis)
 	projectiles--
@@ -448,7 +503,7 @@
 	desc = "A device that shoots resonant plasma bursts at extreme velocity. The blasts are capable of crushing rock and demloishing solid obstacles."
 	icon_state = "mecha_plasmacutter"
 	item_state = "plasmacutter"
-	energy_drain = 60
+	energy_drain = 30
 	origin_tech = "materials=3;combat=2;powerstorage=3;plasmatech=3"
 	projectile = /obj/item/projectile/plasma/adv/mech
 	fire_sound = 'sound/weapons/laser.ogg'

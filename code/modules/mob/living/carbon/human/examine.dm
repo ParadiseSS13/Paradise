@@ -33,7 +33,7 @@
 
 	var/msg = "<span class='info'>*---------*\nThis is "
 
-	if(skipjumpsuit && skipface) //big suits/masks/helmets make it hard to tell their gender
+	if((skipjumpsuit && skipface)) //big suits/masks/helmets make it hard to tell their gender
 		t_He = "They"
 		t_his = "their"
 		t_him = "them"
@@ -51,6 +51,12 @@
 				t_He = "She"
 				t_his = "her"
 				t_him = "her"
+			if(PLURAL)
+				t_He = "They"
+				t_his = "their"
+				t_him = "them"
+				t_has = "have"
+				t_is = "are"
 
 	msg += "<EM>[name]</EM>"
 
@@ -289,7 +295,7 @@
 		var/organ_descriptor = organ_data["descriptor"]
 		is_destroyed["[organ_data["descriptor"]]"] = 1
 
-		var/obj/item/organ/external/E = organs_by_name[organ_tag]
+		var/obj/item/organ/external/E = bodyparts_by_name[organ_tag]
 		if(!E)
 			wound_flavor_text["[organ_tag]"] = "<span class='warning'><b>[t_He] [t_is] missing [t_his] [organ_descriptor].</b></span>\n"
 		else if(E.is_stump())
@@ -297,7 +303,7 @@
 		else
 			continue
 
-	for(var/obj/item/organ/external/temp in organs)
+	for(var/obj/item/organ/external/temp in bodyparts)
 		if(temp && !temp.is_stump())
 			if(temp.status & ORGAN_ROBOT)
 				if(!(temp.brute_dam + temp.burn_dam))
@@ -434,10 +440,10 @@
 
 
 	for(var/implant in get_visible_implants(0))
-		msg += "<span class='warning'><b>[src] has \a [implant] sticking out of [t_his] flesh!</span>\n"
+		msg += "<span class='warning'><b>[src] has \a [implant] sticking out of [t_his] flesh!</b></span>\n"
 	if(digitalcamo)
 		msg += "[t_He] [t_is] repulsively uncanny!\n"
-	if(!wear_mask && is_thrall(src) && in_range(user,src))
+	if(!(skipface || ( wear_mask && ( wear_mask.flags_inv & HIDEFACE || wear_mask.flags_cover & MASKCOVERSMOUTH) ) ) && is_thrall(src) && in_range(user,src))
 		msg += "Their features seem unnaturally tight and drawn.\n"
 	if(decaylevel == 1)
 		msg += "[t_He] [t_is] starting to smell.\n"
@@ -494,7 +500,8 @@
 		msg += "<span class = 'deptradio'>Medical records:</span> <a href='?src=[UID()];medrecord=`'>\[View\]</a> <a href='?src=[UID()];medrecordadd=`'>\[Add comment\]</a>\n"
 
 
-	if(print_flavor_text()) msg += "[print_flavor_text()]\n"
+	if(print_flavor_text() && !skipface)
+		msg += "[print_flavor_text()]\n"
 
 	msg += "*---------*</span>"
 	if(pose)

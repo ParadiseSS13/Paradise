@@ -118,7 +118,7 @@
 
 		//Bleeding out
 		var/blood_max = 0
-		for(var/obj/item/organ/external/temp in organs)
+		for(var/obj/item/organ/external/temp in bodyparts)
 			if(!(temp.status & ORGAN_BLEEDING) || temp.status & ORGAN_ROBOT)
 				continue
 			for(var/datum/wound/W in temp.wounds)
@@ -186,6 +186,16 @@
 		temp_chem += R.id
 		temp_chem[R.id] = R.volume
 	B.data["trace_chem"] = list2params(temp_chem)
+	if(mind)
+		B.data["mind"] = mind
+	if(ckey)
+		B.data["ckey"] = ckey
+
+	if(!suiciding)
+		B.data["cloneable"] = 1
+	B.data["gender"] = gender
+	B.data["real_name"] = real_name
+	B.data["factions"] = faction
 	return B
 
 //For humans, blood does not appear from blue, it comes from vessels.

@@ -154,9 +154,9 @@
 				investigate_log("turned <font color='green'>on</font> by [key_name(usr)]","singulo")
 			update_icon()
 		else
-			to_chat(user, "\red The controls are locked!")
+			to_chat(user, "<span class='warning'>The controls are locked!</span>")
 	else
-		to_chat(user, "\red The [src] needs to be firmly secured to the floor first.")
+		to_chat(user, "<span class='warning'>The [src] needs to be firmly secured to the floor first.</span>")
 		return 1
 
 
@@ -236,20 +236,20 @@
 		switch(state)
 			if(0)
 				state = 1
-				playsound(src.loc, 'sound/items/Ratchet.ogg', 75, 1)
+				playsound(src.loc, W.usesound, 75, 1)
 				user.visible_message("[user.name] secures [src.name] to the floor.", \
 					"You secure the external reinforcing bolts to the floor.", \
 					"You hear a ratchet")
 				src.anchored = 1
 			if(1)
 				state = 0
-				playsound(src.loc, 'sound/items/Ratchet.ogg', 75, 1)
+				playsound(src.loc,W.usesound, 75, 1)
 				user.visible_message("[user.name] unsecures [src.name] reinforcing bolts from the floor.", \
 					"You undo the external reinforcing bolts.", \
 					"You hear a ratchet")
 				src.anchored = 0
 			if(2)
-				to_chat(user, "\red The [src.name] needs to be unwelded from the floor.")
+				to_chat(user, "<span class='warning'>The [src.name] needs to be unwelded from the floor.</span>")
 		return
 
 	if(istype(W, /obj/item/weapon/weldingtool))
@@ -259,38 +259,38 @@
 			return
 		switch(state)
 			if(0)
-				to_chat(user, "\red The [src.name] needs to be wrenched to the floor.")
+				to_chat(user, "<span class='warning'>The [src.name] needs to be wrenched to the floor.</span>")
 			if(1)
 				if(WT.remove_fuel(0,user))
-					playsound(src.loc, 'sound/items/Welder2.ogg', 50, 1)
+					playsound(src.loc, WT.usesound, 50, 1)
 					user.visible_message("[user.name] starts to weld the [src.name] to the floor.", \
 						"You start to weld the [src] to the floor.", \
 						"You hear welding")
-					if(do_after(user,20, target = src))
+					if(do_after(user, 20 * WT.toolspeed, target = src))
 						if(!src || !WT.isOn()) return
 						state = 2
 						to_chat(user, "You weld the [src] to the floor.")
 						connect_to_network()
 				else
-					to_chat(user, "\red You need more welding fuel to complete this task.")
+					to_chat(user, "<span class='warning'>You need more welding fuel to complete this task.</span>")
 			if(2)
 				if(WT.remove_fuel(0,user))
-					playsound(src.loc, 'sound/items/Welder2.ogg', 50, 1)
+					playsound(src.loc, WT.usesound, 50, 1)
 					user.visible_message("[user.name] starts to cut the [src.name] free from the floor.", \
 						"You start to cut the [src] free from the floor.", \
 						"You hear welding")
-					if(do_after(user,20, target = src))
+					if(do_after(user, 20 * WT.toolspeed, target = src))
 						if(!src || !WT.isOn()) return
 						state = 1
 						to_chat(user, "You cut the [src] free from the floor.")
 						disconnect_from_network()
 				else
-					to_chat(user, "\red You need more welding fuel to complete this task.")
+					to_chat(user, "<span class='warning'>You need more welding fuel to complete this task.</span>")
 		return
 
 	if(istype(W, /obj/item/weapon/card/id) || istype(W, /obj/item/device/pda))
 		if(emagged)
-			to_chat(user, "\red The lock seems to be broken")
+			to_chat(user, "<span class='warning'>The lock seems to be broken</span>")
 			return
 		if(src.allowed(user))
 			if(active)
@@ -298,9 +298,9 @@
 				to_chat(user, "The controls are now [src.locked ? "locked." : "unlocked."]")
 			else
 				src.locked = 0 //just in case it somehow gets locked
-				to_chat(user, "\red The controls can only be locked when the [src] is online")
+				to_chat(user, "<span class='warning'>The controls can only be locked when the [src] is online</span>")
 		else
-			to_chat(user, "\red Access denied.")
+			to_chat(user, "<span class='warning'>Access denied.</span>")
 		return
 
 	if(default_deconstruction_screwdriver(user, "emitter_open", "emitter", W))
@@ -319,4 +319,4 @@
 		locked = 0
 		emagged = 1
 		if(user)
-			user.visible_message("[user.name] emags the [src.name].","\red You short out the lock.")
+			user.visible_message("[user.name] emags the [src.name].","<span class='warning'>You short out the lock.</span>")

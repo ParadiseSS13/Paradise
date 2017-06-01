@@ -3,7 +3,7 @@
 /obj/item/organ/internal
 	origin_tech = "biotech=2"
 	force = 1
-	w_class = 2
+	w_class = WEIGHT_CLASS_SMALL
 	throwforce = 0
 	var/zone = "chest"
 	var/slot
@@ -11,14 +11,9 @@
 	var/non_primary = 0
 
 /obj/item/organ/internal/New(var/mob/living/carbon/holder)
+	..()
 	if(istype(holder))
 		insert(holder)
-	..()
-
-/obj/item/organ/internal/Destroy()
-	if(owner)
-		remove(owner, 1)
-	return ..()
 
 /obj/item/organ/internal/proc/insert(mob/living/carbon/M, special = 0, var/dont_remove_slot = 0)
 	if(!iscarbon(M) || owner == M)
@@ -42,7 +37,7 @@
 			log_runtime(EXCEPTION("[src] attempted to insert into a [parent_organ], but [parent_organ] wasn't an organ! [atom_loc_line(M)]"), src)
 		else
 			parent.internal_organs |= src
-	//M.internal_organs_by_name[src] |= src(H,1)
+	//M.internal_bodyparts_by_name[src] |= src(H,1)
 	loc = null
 	for(var/X in actions)
 		var/datum/action/A = X
@@ -74,9 +69,8 @@
 		A.Remove(M)
 	return src
 
-/obj/item/organ/internal/replaced(var/mob/living/carbon/human/target,var/obj/item/organ/external/affected)
+/obj/item/organ/internal/replaced(var/mob/living/carbon/human/target)
     insert(target)
-    ..()
 
 /obj/item/organ/internal/item_action_slot_check(slot, mob/user)
 	return
@@ -86,6 +80,10 @@
 
 /obj/item/organ/internal/proc/on_life()
 	return
+
+//abstract proc called by carbon/death()
+/obj/item/organ/internal/proc/on_owner_death()
+ 	return
 
 /obj/item/organ/internal/proc/prepare_eat()
 	if(status == ORGAN_ROBOT)
@@ -115,12 +113,6 @@
 	..()
 
 	reagents.add_reagent("nutriment", 5)
-
-
-/obj/item/organ/internal/Destroy()
-	if(owner)
-		remove(owner, 1)
-	return ..()
 
 /obj/item/organ/internal/attack(mob/living/carbon/M, mob/user)
 	if(M == user && ishuman(user))
@@ -162,11 +154,9 @@
 	. = ..()
 	if(ishuman(M))
 		var/mob/living/carbon/human/H = M
-		if(H.stat == DEAD || H.heart_attack)
+		if(H.stat == DEAD)
 			Stop()
 			return
-		if(!special)
-			H.heart_attack = 1
 
 	spawn(120)
 		if(!owner)
@@ -180,15 +170,6 @@
 			if(!owner)
 				Stop()
 
-
-/obj/item/organ/internal/heart/insert(mob/living/carbon/M, special = 0)
-	..()
-	if(ishuman(M) && beating)
-		var/mob/living/carbon/human/H = M
-		if(H.heart_attack)
-			H.heart_attack = 0
-			return
-
 /obj/item/organ/internal/heart/proc/Stop()
 	beating = 0
 	update_icon()
@@ -201,7 +182,7 @@
 
 /obj/item/organ/internal/heart/prepare_eat()
 	var/obj/S = ..()
-	S.icon_state = "heart-off"
+	S.icon_state = dead_icon
 	return S
 
 /obj/item/organ/internal/heart/cursed
@@ -292,21 +273,18 @@
 //	. = ..()
 
 
-/obj/item/organ/internal/lungs/process()
+/obj/item/organ/internal/lungs/on_life()
 	..()
-
-	if(!owner)
-		return
 	if(germ_level > INFECTION_LEVEL_ONE)
 		if(prob(5))
 			owner.emote("cough")		//respitory tract infection
 
 	if(is_bruised())
 		if(prob(2))
-			spawn owner.custom_emote(1, "coughs up blood!")
+			owner.custom_emote(1, "coughs up blood!")
 			owner.drip(10)
 		if(prob(4))
-			spawn owner.custom_emote(1, "gasps for air!")
+			owner.custom_emote(1, "gasps for air!")
 			owner.AdjustLoseBreath(5)
 
 /obj/item/organ/internal/kidneys
@@ -317,13 +295,8 @@
 	parent_organ = "groin"
 	slot = "kidneys"
 
-/obj/item/organ/internal/kidneys/process()
-
+/obj/item/organ/internal/kidneys/on_life()
 	..()
-
-	if(!owner)
-		return
-
 	// Coffee is really bad for you with busted kidneys.
 	// This should probably be expanded in some way, but fucked if I know
 	// what else kidneys can process in our reagent list.
@@ -343,16 +316,47 @@
 	parent_organ = "head"
 	slot = "eyes"
 	var/list/eye_colour = list(0,0,0)
+	var/list/colourmatrix = null
+	var/list/colourblind_matrix = MATRIX_GREYSCALE //Special colourblindness parameters. By default, it's black-and-white.
+	var/colourblind_darkview = null
+	var/dependent_disabilities = null //Gets set by eye-dependent disabilities such as colourblindness so the eyes can transfer the disability during transplantation.
+	var/dark_view = 2 //Default dark_view for Humans.
+	var/weld_proof = null //If set, the eyes will not take damage during welding. eg. IPC optical sensors do not take damage when they weld things while all other eyes will.
 
 /obj/item/organ/internal/eyes/proc/update_colour()
 	dna.write_eyes_attributes(src)
 
-/obj/item/organ/internal/eyes/insert(mob/living/carbon/M, special = 0)
+/obj/item/organ/internal/eyes/proc/get_colourmatrix() //Returns a special colour matrix if the eyes are organic and the mob is colourblind, otherwise it uses the current one.
+	if(!robotic && owner.disabilities & COLOURBLIND)
+		return colourblind_matrix
+	else
+		return colourmatrix
+
+/obj/item/organ/internal/eyes/proc/get_dark_view() //Returns dark_view (if the eyes are organic) for see_invisible handling in species.dm to be autoprocessed by life().
+	if(!robotic && colourblind_darkview && owner.disabilities & COLOURBLIND) //Returns special darkview value if colourblind and it exists, otherwise reuse current.
+		return colourblind_darkview
+	else
+		return dark_view
+
+/obj/item/organ/internal/eyes/insert(mob/living/carbon/human/M, special = 0)
 	..()
 	if(istype(M) && eye_colour)
-		var/mob/living/carbon/human/H = M
-		// Apply our eye colour to the target.
-		H.update_body()
+		M.update_body() //Apply our eye colour to the target.
+
+	if(!(M.disabilities & COLOURBLIND) && (dependent_disabilities & COLOURBLIND)) //If the eyes are colourblind and we're not, carry over the gene.
+		dependent_disabilities &= ~COLOURBLIND
+		M.dna.SetSEState(COLOURBLINDBLOCK,1)
+		genemutcheck(M,COLOURBLINDBLOCK,null,MUTCHK_FORCED)
+	else
+		M.update_client_colour() //If we're here, that means the mob acquired the colourblindness gene while they didn't have eyes. Better handle it.
+
+/obj/item/organ/internal/eyes/remove(mob/living/carbon/human/M, special = 0)
+	if(!special && (M.disabilities & COLOURBLIND)) //If special is set, that means these eyes are getting deleted (i.e. during set_species())
+		if(!(dependent_disabilities & COLOURBLIND)) //We only want to change COLOURBLINDBLOCK and such it the eyes are being surgically removed.
+			dependent_disabilities |= COLOURBLIND
+		M.dna.SetSEState(COLOURBLINDBLOCK,0)
+		genemutcheck(M,COLOURBLINDBLOCK,null,MUTCHK_FORCED)
+	. = ..()
 
 /obj/item/organ/internal/eyes/surgeryize()
 	if(!owner)
@@ -362,6 +366,39 @@
 	owner.SetEyeBlurry(0)
 	owner.SetEyeBlind(0)
 
+/obj/item/organ/internal/robotize(var/icon_bypass) //If icon bypass isn't null, skip the processing here and go straight to the parent call.
+	if(!icon_bypass && !(status & ORGAN_ROBOT)) //Don't override the icons for the already-mechanical IPC organs.
+		var/list/states = icon_states('icons/obj/surgery.dmi') //Insensitive to specially-defined icon files for species like the Drask or whomever else. Everyone gets the same robotic heart.
+		if(slot == "heart" && ("[slot]-prosthetic-on" in states) && ("[slot]-prosthetic-off" in states)) //Give the robotic heart its robotic heart icons if they exist.
+			var/obj/item/organ/internal/heart/H = src
+			H.icon = icon('icons/obj/surgery.dmi')
+			H.icon_base = "[slot]-prosthetic"
+			H.dead_icon = "[slot]-prosthetic-off"
+			H.update_icon()
+		else if("[slot]-prosthetic" in states) //Give the robotic organ its robotic organ icons if they exist.
+			icon = icon('icons/obj/surgery.dmi')
+			icon_state = "[slot]-prosthetic"
+		name = "mechanical [slot]"
+	..() //Go apply all the organ flags/robotic statuses.
+
+/obj/item/organ/internal/eyes/robotize()
+	colourmatrix = null
+	dark_view = 2
+	..() //Make sure the organ's got the robotic status indicators before updating the client colour.
+	if(owner)
+		owner.update_client_colour(0) //Since both mechassisted and mechanical eyes give dark_view of 2 and full colour vision atm, just having this here is fine as mechassist() will call it anyway.
+
+/obj/item/organ/internal/mechassist()
+	..() //Go back, call robotize(), adjust the robotic status indicators and the organ damage parameters.
+	var/list/states = icon_states(icon) //Sensitive to specially-defined icon files since the organs are not fully synthetic.
+	if(slot == "heart" && ("[organ_tag]-assisted-on" in states) && ("[organ_tag]-assisted-off" in states)) //Give the mechassisted heart its mechassisted heart icons if they exist.
+		var/obj/item/organ/internal/heart/H = src
+		H.icon_base = "[organ_tag]-assisted"
+		H.dead_icon = "[organ_tag]-assisted-off"
+		H.update_icon()
+	else if("[organ_tag]-assisted" in states) //Give the mechassisted organ its mechassisted organ icons if they exist.
+		icon_state = "[organ_tag]-assisted"
+	name = "mechanically assisted [initial(name)]" //Avoid setting the organ's name to something like "mechanically assisted mechanical eyes".
 
 /obj/item/organ/internal/liver
 	name = "liver"
@@ -371,13 +408,8 @@
 	slot = "liver"
 	var/alcohol_intensity = 1
 
-/obj/item/organ/internal/liver/process()
-
+/obj/item/organ/internal/liver/on_life()
 	..()
-
-	if(!owner)
-		return
-
 	if(germ_level > INFECTION_LEVEL_ONE)
 		if(prob(1))
 			to_chat(owner, "<span class='warning'> Your skin itches.</span>")
@@ -456,7 +488,7 @@
 	desc = "A tiny black mass with red tendrils trailing from it. It seems to shrivel in the light."
 	icon_state = "blacktumor"
 	origin_tech = "biotech=4"
-	w_class = 1
+	w_class = WEIGHT_CLASS_TINY
 	parent_organ = "head"
 	slot = "brain_tumor"
 	health = 3
@@ -488,7 +520,7 @@
 	desc = "A tiny yellow mass shaped like..a banana?"
 	icon_state = "honktumor"
 	origin_tech = "biotech=1"
-	w_class = 1
+	w_class = WEIGHT_CLASS_TINY
 	parent_organ = "head"
 	slot = "brain_tumor"
 	health = 3
@@ -526,7 +558,7 @@
 /obj/item/organ/internal/honktumor/process()
 	if(isturf(loc))
 		visible_message("<span class='warning'>[src] honks in on itself!</span>")
-		new /obj/item/weapon/bananapeel(get_turf(loc))
+		new /obj/item/weapon/grown/bananapeel(get_turf(loc))
 		qdel(src)
 
 
@@ -575,7 +607,7 @@
 	desc = "Let they who is worthy wear the beard of Thorbjorndottir."
 	icon_state = "liver"
 	origin_tech = "biotech=1"
-	w_class = 1
+	w_class = WEIGHT_CLASS_TINY
 	parent_organ = "head"
 	slot = "hair_organ"
 

@@ -34,6 +34,7 @@ obj/structure/windoor_assembly/New(dir=NORTH)
 
 obj/structure/windoor_assembly/Destroy()
 	density = 0
+	QDEL_NULL(electronics)
 	air_update_turf(1)
 	return ..()
 
@@ -45,11 +46,10 @@ obj/structure/windoor_assembly/Destroy()
 /obj/structure/windoor_assembly/update_icon()
 	icon_state = "[facing]_[secure ? "secure_" : ""]windoor_assembly[state]"
 
-/obj/structure/windoor_assembly/CanPass(atom/movable/mover, turf/target, height=0, air_group=0)
+/obj/structure/windoor_assembly/CanPass(atom/movable/mover, turf/target, height=0)
 	if(istype(mover) && mover.checkpass(PASSGLASS))
 		return 1
 	if(get_dir(loc, target) == dir) //Make sure looking at appropriate border
-		if(air_group) return 0
 		return !density
 	else
 		return 1
@@ -78,9 +78,9 @@ obj/structure/windoor_assembly/Destroy()
 				var/obj/item/weapon/weldingtool/WT = W
 				if(WT.remove_fuel(0,user))
 					user.visible_message("<span class='warning'>[user] dissassembles the windoor assembly.</span>", "<span class='notice'>You start to dissassemble the windoor assembly.</span>")
-					playsound(src.loc, 'sound/items/Welder2.ogg', 50, 1)
+					playsound(src.loc, WT.usesound, 50, 1)
 
-					if(do_after(user, 40, target = src))
+					if(do_after(user, 40 * WT.toolspeed, target = src))
 						if(!src || !WT.isOn()) return
 						to_chat(user, "<span class='notice'>You dissasembled the windoor assembly!</span>")
 						var/obj/item/stack/sheet/rglass/RG = new (get_turf(src), 5)
@@ -98,10 +98,10 @@ obj/structure/windoor_assembly/Destroy()
 					if(WD.dir == src.dir)
 						to_chat(user, "<span class='warning'>There is already a windoor in that location.</span>")
 						return
-				playsound(src.loc, 'sound/items/Ratchet.ogg', 100, 1)
+				playsound(src.loc, W.usesound, 100, 1)
 				user.visible_message("[user] secures the windoor assembly to the floor.", "You start to secure the windoor assembly to the floor.")
 
-				if(do_after(user, 40, target = src))
+				if(do_after(user, 40 * W.toolspeed, target = src))
 					if(!src || src.anchored)
 						return
 					for(var/obj/machinery/door/window/WD in src.loc)
@@ -117,10 +117,10 @@ obj/structure/windoor_assembly/Destroy()
 
 			//Unwrenching an unsecure assembly un-anchors it. Step 4 undone
 			else if(istype(W, /obj/item/weapon/wrench) && anchored)
-				playsound(src.loc, 'sound/items/Ratchet.ogg', 100, 1)
+				playsound(loc, W.usesound, 100, 1)
 				user.visible_message("[user] unsecures the windoor assembly to the floor.", "You start to unsecure the windoor assembly to the floor.")
 
-				if(do_after(user, 40, target = src))
+				if(do_after(user, 40 * W.toolspeed, target = src))
 					if(!src || !src.anchored)
 						return
 					to_chat(user, "<span class='notice'>You've unsecured the windoor assembly!</span>")
@@ -138,9 +138,10 @@ obj/structure/windoor_assembly/Destroy()
 					return
 				to_chat(user, "<span class='notice'>You start to reinforce the windoor with plasteel.</span>")
 
-				if(do_after(user,40, target = src))
+				if(do_after(user, 40 * P.toolspeed, target = src))
 					if(!src || secure)
 						return
+					playsound(loc, P.usesound, 100, 1)
 
 					P.use(2)
 					to_chat(user, "<span class='notice'>You reinforce the windoor.</span>")
@@ -154,12 +155,13 @@ obj/structure/windoor_assembly/Destroy()
 			else if(istype(W, /obj/item/stack/cable_coil) && anchored)
 				user.visible_message("[user] wires the windoor assembly.", "You start to wire the windoor assembly.")
 
-				if(do_after(user, 40, target = src))
+				if(do_after(user, 40 * W.toolspeed, target = src))
 					if(!src || !src.anchored || src.state != "01")
 						return
 					var/obj/item/stack/cable_coil/CC = W
 					CC.use(1)
 					to_chat(user, "<span class='notice'>You wire the windoor!</span>")
+					playsound(loc, CC.usesound, 100, 1)
 					src.state = "02"
 					if(src.secure)
 						src.name = "secure wired windoor assembly"
@@ -172,10 +174,10 @@ obj/structure/windoor_assembly/Destroy()
 
 			//Removing wire from the assembly. Step 5 undone.
 			if(istype(W, /obj/item/weapon/wirecutters))
-				playsound(src.loc, 'sound/items/Wirecutter.ogg', 100, 1)
+				playsound(src.loc, W.usesound, 100, 1)
 				user.visible_message("[user] cuts the wires from the airlock assembly.", "You start to cut the wires from airlock assembly.")
 
-				if(do_after(user, 40, target = src))
+				if(do_after(user, 40 * W.toolspeed, target = src))
 					if(!src || src.state != "02")
 						return
 
@@ -189,12 +191,12 @@ obj/structure/windoor_assembly/Destroy()
 
 			//Adding airlock electronics for access. Step 6 complete.
 			else if(istype(W, /obj/item/weapon/airlock_electronics))
-				playsound(src.loc, 'sound/items/Screwdriver.ogg', 100, 1)
+				playsound(src.loc, W.usesound, 100, 1)
 				user.visible_message("[user] installs the electronics into the airlock assembly.", "You start to install electronics into the airlock assembly.")
 				user.drop_item()
 				W.loc = src
 
-				if(do_after(user, 40, target = src))
+				if(do_after(user, 40 * W.toolspeed, target = src))
 					if(!src || src.electronics)
 						W.loc = src.loc
 						return
@@ -209,10 +211,10 @@ obj/structure/windoor_assembly/Destroy()
 				if(!electronics)
 					return
 
-				playsound(src.loc, 'sound/items/Screwdriver.ogg', 100, 1)
+				playsound(src.loc, W.usesound, 100, 1)
 				user.visible_message("[user] removes the electronics from the airlock assembly.", "You start to uninstall electronics from the airlock assembly.")
 
-				if(do_after(user, 40, target = src))
+				if(do_after(user, 40 * W.toolspeed, target = src))
 					if(!src || !electronics)
 						return
 					to_chat(user, "<span class='notice'>You've removed the airlock electronics!</span>")
@@ -239,10 +241,10 @@ obj/structure/windoor_assembly/Destroy()
 					to_chat(usr, "<span class='danger'>The assembly is missing electronics.</span>")
 					return
 				usr << browse(null, "window=windoor_access")
-				playsound(src.loc, 'sound/items/Crowbar.ogg', 100, 1)
+				playsound(src.loc, W.usesound, 100, 1)
 				user.visible_message("[user] pries the windoor into the frame.", "You start prying the windoor into the frame.")
 
-				if(do_after(user, 40, target = src))
+				if(do_after(user, 40 * W.toolspeed, target = src))
 
 					if(src.loc && src.electronics)
 
