@@ -115,15 +115,14 @@
 			custom_emote(1, pick("grooms its fur.", "twitches its whiskers.", "shakes out its coat."))
 
 	//MICE!
-	if(eats_mice && loc && isturf(loc) && !incapacitated())
-		if(!stat && !resting && !buckled)
-			for(var/mob/living/simple_animal/mouse/M in view(1,src))
-				if(!M.stat && Adjacent(M))
-					custom_emote(1, "splats \the [M]!")
-					M.splat()
-					movement_target = null
-					stop_automated_movement = 0
-					break
+	if(eats_mice && isturf(loc) && !incapacitated())
+		for(var/mob/living/simple_animal/mouse/M in view(1,src))
+			if(!M.stat && Adjacent(M))
+				custom_emote(1, "splats \the [M]!")
+				M.splat()
+				movement_target = null
+				stop_automated_movement = 0
+				break
 	make_babies()
 
 /mob/living/simple_animal/pet/cat/handle_automated_movement()
