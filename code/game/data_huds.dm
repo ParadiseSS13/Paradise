@@ -41,10 +41,10 @@
 	hud_icons = list(ID_HUD)
 
 /datum/atom_hud/data/human/security/advanced
-	hud_icons = list(ID_HUD, IMPTRACK_HUD, IMPLOYAL_HUD, IMPCHEM_HUD, WANTED_HUD)
+	hud_icons = list(ID_HUD, IMPTRACK_HUD, IMPMINDSHIELD_HUD, IMPCHEM_HUD, WANTED_HUD)
 
 /datum/atom_hud/data/diagnostic
-	hud_icons = list (DIAG_HUD, DIAG_STAT_HUD, DIAG_BATT_HUD, DIAG_MECH_HUD, DIAG_BOT_HUD)
+	hud_icons = list (DIAG_HUD, DIAG_STAT_HUD, DIAG_BATT_HUD, DIAG_MECH_HUD, DIAG_BOT_HUD, DIAG_TRACK_HUD)
 
 /datum/atom_hud/data/hydroponic
 	hud_icons = list (PLANT_NUTRIENT_HUD, PLANT_WATER_HUD, PLANT_STATUS_HUD, PLANT_HEALTH_HUD, PLANT_TOXIN_HUD, PLANT_PEST_HUD, PLANT_WEED_HUD)
@@ -139,6 +139,7 @@
 /mob/living/carbon/proc/med_hud_set_status()
 	var/image/holder = hud_list[STATUS_HUD]
 	//var/image/holder2 = hud_list[STATUS_HUD_OOC]
+	var/mob/living/simple_animal/borer/B = has_brain_worms()
 	if(stat == 2)
 		holder.icon_state = "huddead"
 		//holder2.icon_state = "huddead"
@@ -146,13 +147,8 @@
 		holder.icon_state = "hudxeno"
 	else if(check_virus())
 		holder.icon_state = "hudill"
-	else if(has_brain_worms())
-		var/mob/living/simple_animal/borer/B = has_brain_worms()
-		if(B.controlling)
-			holder.icon_state = "hudbrainworm"
-		else
-			holder.icon_state = "hudhealthy"
-			//holder2.icon_state = "hudhealthy"
+	else if(has_brain_worms() && B != null && B.controlling)
+		holder.icon_state = "hudbrainworm"
 	else
 		holder.icon_state = "hudhealthy"
 		//holder2.icon_state = "hudhealthy"
@@ -176,7 +172,7 @@
 
 /mob/living/carbon/human/proc/sec_hud_set_implants()
 	var/image/holder
-	for(var/i in list(IMPTRACK_HUD, IMPLOYAL_HUD, IMPCHEM_HUD))
+	for(var/i in list(IMPTRACK_HUD, IMPMINDSHIELD_HUD, IMPCHEM_HUD))
 		holder = hud_list[i]
 		holder.icon_state = null
 	for(var/obj/item/weapon/implant/I in src)
@@ -184,8 +180,8 @@
 			if(istype(I,/obj/item/weapon/implant/tracking))
 				holder = hud_list[IMPTRACK_HUD]
 				holder.icon_state = "hud_imp_tracking"
-			else if(istype(I,/obj/item/weapon/implant/loyalty))
-				holder = hud_list[IMPLOYAL_HUD]
+			else if(istype(I,/obj/item/weapon/implant/mindshield))
+				holder = hud_list[IMPMINDSHIELD_HUD]
 				holder.icon_state = "hud_imp_loyal"
 			else if(istype(I,/obj/item/weapon/implant/chem))
 				holder = hud_list[IMPCHEM_HUD]
@@ -287,6 +283,17 @@
 	if(internal_damage)
 		holder.icon_state = "hudwarn"
 
+/obj/mecha/proc/diag_hud_set_mechtracking() //Shows tracking beacons on the mech
+	var/image/holder = hud_list[DIAG_TRACK_HUD]
+	var/new_icon_state //This var exists so that the holder's icon state is set only once in the event of multiple mech beacons.
+	for(var/obj/item/mecha_parts/mecha_tracking/T in trackers)
+		if(T.ai_beacon) //Beacon with AI uplink
+			new_icon_state = "hudtrackingai"
+			break //Immediately terminate upon finding an AI beacon to ensure it is always shown over the normal one, as mechs can have several trackers.
+		else
+			new_icon_state = "hudtracking"
+	holder.icon_state = new_icon_state
+
 /*~~~~~~~~~
 	Bots!
 ~~~~~~~~~~*/
@@ -355,17 +362,17 @@
 			return "zero"
 	return "zero"
 
-/obj/machinery/portable_atmospherics/hydroponics/proc/plant_hud_set_nutrient()
+/obj/machinery/hydroponics/proc/plant_hud_set_nutrient()
 	var/image/holder = hud_list[PLANT_NUTRIENT_HUD]
 	holder.icon_state = "hudnutrient[RoundPlantBar(nutrilevel/maxnutri)]"
 
-/obj/machinery/portable_atmospherics/hydroponics/proc/plant_hud_set_water()
+/obj/machinery/hydroponics/proc/plant_hud_set_water()
 	var/image/holder = hud_list[PLANT_WATER_HUD]
 	holder.icon_state = "hudwater[RoundPlantBar(waterlevel/maxwater)]"
 
-/obj/machinery/portable_atmospherics/hydroponics/proc/plant_hud_set_status()
+/obj/machinery/hydroponics/proc/plant_hud_set_status()
 	var/image/holder = hud_list[PLANT_STATUS_HUD]
-	if(!seed)
+	if(!myseed)
 		holder.icon_state = ""
 		return
 	if(harvest)
@@ -376,28 +383,28 @@
 		return
 	holder.icon_state = ""
 
-/obj/machinery/portable_atmospherics/hydroponics/proc/plant_hud_set_health()
+/obj/machinery/hydroponics/proc/plant_hud_set_health()
 	var/image/holder = hud_list[PLANT_HEALTH_HUD]
-	if(!seed)
+	if(!myseed)
 		holder.icon_state = ""
 		return
-	holder.icon_state = "hudplanthealth[RoundPlantBar(health/seed.get_trait(TRAIT_ENDURANCE))]"
+	holder.icon_state = "hudplanthealth[RoundPlantBar(plant_health/myseed.endurance)]"
 
-/obj/machinery/portable_atmospherics/hydroponics/proc/plant_hud_set_toxin()
+/obj/machinery/hydroponics/proc/plant_hud_set_toxin()
 	var/image/holder = hud_list[PLANT_TOXIN_HUD]
-	if(toxins < 1)	// You don't want to see these icons if the value is small
+	if(toxic < 10)	// You don't want to see these icons if the value is small
 		holder.icon_state = ""
 		return
-	holder.icon_state = "hudtoxin[RoundPlantBar(toxins/10)]"
+	holder.icon_state = "hudtoxin[RoundPlantBar(toxic/100)]"
 
-/obj/machinery/portable_atmospherics/hydroponics/proc/plant_hud_set_pest()
+/obj/machinery/hydroponics/proc/plant_hud_set_pest()
 	var/image/holder = hud_list[PLANT_PEST_HUD]
 	if(pestlevel < 1)	// You don't want to see these icons if the value is small
 		holder.icon_state = ""
 		return
 	holder.icon_state = "hudpest[RoundPlantBar(pestlevel/10)]"
 
-/obj/machinery/portable_atmospherics/hydroponics/proc/plant_hud_set_weed()
+/obj/machinery/hydroponics/proc/plant_hud_set_weed()
 	var/image/holder = hud_list[PLANT_WEED_HUD]
 	if(weedlevel < 1)	// You don't want to see these icons if the value is small
 		holder.icon_state = ""

@@ -32,10 +32,11 @@ var/bomb_set
 	r_code = "[rand(10000, 99999.0)]"//Creates a random code upon object spawn.
 	wires = new/datum/wires/nuclearbomb(src)
 	previous_level = get_security_level()
+	poi_list |= src
 
 /obj/machinery/nuclearbomb/Destroy()
-	qdel(wires)
-	wires = null
+	QDEL_NULL(wires)
+	poi_list.Remove(src)
 	return ..()
 
 /obj/machinery/nuclearbomb/process()
@@ -56,12 +57,12 @@ var/bomb_set
 				panel_open = 1
 				overlays += image(icon, "npanel_open")
 				to_chat(user, "You unscrew the control panel of [src].")
-				playsound(src, 'sound/items/Screwdriver.ogg', 50, 1)
+				playsound(src, O.usesound, 50, 1)
 			else
 				panel_open = 0
 				overlays -= image(icon, "npanel_open")
 				to_chat(user, "You screw the control panel of [src] back on.")
-				playsound(src, 'sound/items/Screwdriver.ogg', 50, 1)
+				playsound(src, O.usesound, 50, 1)
 		else
 			if(panel_open == 0)
 				to_chat(user, "[src] emits a buzzing noise, the panel staying locked in.")
@@ -69,7 +70,7 @@ var/bomb_set
 				panel_open = 0
 				overlays -= image(icon, "npanel_open")
 				to_chat(user, "You screw the control panel of [src] back on.")
-				playsound(src, 'sound/items/Screwdriver.ogg', 50, 1)
+				playsound(src, O.usesound, 50, 1)
 			flick("nuclearbombc", src)
 		return
 
@@ -91,7 +92,7 @@ var/bomb_set
 					var/obj/item/weapon/weldingtool/WT = O
 					if(!WT.isOn()) return
 					if(WT.get_fuel() < 5) // uses up 5 fuel.
-						to_chat(user, "\red You need more fuel to complete this task.")
+						to_chat(user, "<span class='warning'>You need more fuel to complete this task.</span>")
 						return
 
 					user.visible_message("[user] starts cutting loose the anchoring bolt covers on [src].", "You start cutting loose the anchoring bolt covers with [O]...")
@@ -118,7 +119,7 @@ var/bomb_set
 					var/obj/item/weapon/weldingtool/WT = O
 					if(!WT.isOn()) return
 					if(WT.get_fuel() < 5) // uses up 5 fuel.
-						to_chat(user, "\red You need more fuel to complete this task.")
+						to_chat(user, "<span class='warning'>You need more fuel to complete this task.</span>")
 						return
 
 					user.visible_message("[user] starts cutting apart the anchoring system sealant on [src].", "You start cutting apart the anchoring system's sealant with [O]...")
@@ -165,9 +166,9 @@ var/bomb_set
 	else if(deployable)
 		if(removal_stage < 5)
 			anchored = 1
-			visible_message("\red With a steely snap, bolts slide out of [src] and anchor it to the flooring!")
+			visible_message("<span class='warning'>With a steely snap, bolts slide out of [src] and anchor it to the flooring!</span>")
 		else
-			visible_message("\red \The [src] makes a highly unpleasant crunching noise. It looks like the anchoring bolts have been cut.")
+			visible_message("<span class='warning'>\The [src] makes a highly unpleasant crunching noise. It looks like the anchoring bolts have been cut.</span>")
 		if(!lighthack)
 			flick("nuclearbombc", src)
 			icon_state = "nuclearbomb1"
@@ -219,10 +220,10 @@ var/bomb_set
 		return
 
 	if(deployable)
-		to_chat(usr, "\red You close several panels to make [src] undeployable.")
+		to_chat(usr, "<span class='warning'>You close several panels to make [src] undeployable.</span>")
 		deployable = 0
 	else
-		to_chat(usr, "\red You adjust some panels to make [src] deployable.")
+		to_chat(usr, "<span class='warning'>You adjust some panels to make [src] deployable.</span>")
 		deployable = 1
 	return
 
@@ -281,7 +282,7 @@ var/bomb_set
 					nanomanager.update_uis(src)
 					return
 				if(safety)
-					to_chat(usr, "\red The safety is still on.")
+					to_chat(usr, "<span class='warning'>The safety is still on.</span>")
 					nanomanager.update_uis(src)
 					return
 				timing = !(timing)
@@ -311,16 +312,16 @@ var/bomb_set
 			if(href_list["anchor"])
 				if(removal_stage == 5)
 					anchored = 0
-					visible_message("\red \The [src] makes a highly unpleasant crunching noise. It looks like the anchoring bolts have been cut.")
+					visible_message("<span class='warning'>\The [src] makes a highly unpleasant crunching noise. It looks like the anchoring bolts have been cut.</span>")
 					nanomanager.update_uis(src)
 					return
 
 				if(!isinspace())
 					anchored = !(anchored)
 					if(anchored)
-						visible_message("\red With a steely snap, bolts slide out of [src] and anchor it to the flooring.")
+						visible_message("<span class='warning'>With a steely snap, bolts slide out of [src] and anchor it to the flooring.</span>")
 					else
-						visible_message("\red The anchoring bolts slide back into the depths of [src].")
+						visible_message("<span class='warning'>The anchoring bolts slide back into the depths of [src].</span>")
 				else
 					to_chat(usr, "<span class='warning'>There is nothing to anchor to!</span>")
 
@@ -335,6 +336,11 @@ var/bomb_set
 	else
 		return ..()
 	return
+
+/obj/machinery/nuclearbomb/tesla_act(power, explosive)
+	..()
+	if(explosive)
+		qdel(src)//like the singulo, tesla deletes it. stops it from exploding over and over
 
 #define NUKERANGE 80
 /obj/machinery/nuclearbomb/proc/explode()
@@ -392,14 +398,12 @@ var/bomb_set
 /obj/item/weapon/disk/nuclear
 	name = "nuclear authentication disk"
 	desc = "Better keep this safe."
-	icon = 'icons/obj/items.dmi'
 	icon_state = "nucleardisk"
-	item_state = "card-id"
-	w_class = 1
 
 /obj/item/weapon/disk/nuclear/New()
 	..()
 	processing_objects.Add(src)
+	poi_list |= src
 
 /obj/item/weapon/disk/nuclear/process()
 	var/turf/disk_loc = get_turf(src)
@@ -415,10 +419,12 @@ var/bomb_set
 	if(force)
 		message_admins("[src] has been !!force deleted!! in ([diskturf ? "[diskturf.x], [diskturf.y] ,[diskturf.z] - <A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[diskturf.x];Y=[diskturf.y];Z=[diskturf.z]'>JMP</a>":"nonexistent location"]).")
 		log_game("[src] has been !!force deleted!! in ([diskturf ? "[diskturf.x], [diskturf.y] ,[diskturf.z]":"nonexistent location"]).")
+		poi_list.Remove(src)
 		processing_objects.Remove(src)
 		return ..()
 
 	if(blobstart.len > 0)
+		poi_list.Remove(src)
 		var/obj/item/weapon/disk/nuclear/NEWDISK = new(pick(blobstart))
 		transfer_fingerprints_to(NEWDISK)
 		message_admins("[src] has been destroyed at ([diskturf.x], [diskturf.y], [diskturf.z] - <A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[diskturf.x];Y=[diskturf.y];Z=[diskturf.z]'>JMP</a>). Moving it to ([NEWDISK.x], [NEWDISK.y], [NEWDISK.z] - <A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[NEWDISK.x];Y=[NEWDISK.y];Z=[NEWDISK.z]'>JMP</a>).")

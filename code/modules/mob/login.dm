@@ -72,6 +72,8 @@
 		for(var/datum/alternate_appearance/AA in viewing_alternate_appearances)
 			AA.display_to(list(src))
 
+	update_client_colour(0)
+
 	callHook("mob_login", list("client" = client, "mob" = src))
 
 // Calling update_interface() in /mob/Login() causes the Cyborg to immediately be ghosted; because of winget().

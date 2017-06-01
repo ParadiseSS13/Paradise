@@ -80,7 +80,7 @@
 
 			var/obj/item/rig_module/mod = W
 			to_chat(user, "You begin installing \the [mod] into \the [src].")
-			if(!do_after(user,40, target = src))
+			if(!do_after(user, 40 * W.toolspeed, target = src))
 				return
 			if(!user || !W)
 				return
@@ -141,7 +141,7 @@
 						if(user.r_hand && user.l_hand)
 							cell.forceMove(get_turf(user))
 						else
-							cell.forceMove(user.put_in_hands(cell))
+							user.put_in_hands(cell)
 						cell = null
 					else
 						to_chat(user, "There is nothing loaded in that mount.")

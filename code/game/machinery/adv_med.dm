@@ -65,7 +65,7 @@
 			dir = 8
 		else
 			dir = 4
-		playsound(src.loc, 'sound/items/Ratchet.ogg', 50, 1)
+		playsound(src.loc, G.usesound, 50, 1)
 		return
 
 	if(exchange_parts(user, G))
@@ -220,7 +220,7 @@
 	active_power_usage = 500
 	var/printing = null
 	var/printing_text = null
-	var/known_implants = list(/obj/item/weapon/implant/chem, /obj/item/weapon/implant/death_alarm, /obj/item/weapon/implant/loyalty, /obj/item/weapon/implant/tracking)
+	var/known_implants = list(/obj/item/weapon/implant/chem, /obj/item/weapon/implant/death_alarm, /obj/item/weapon/implant/mindshield, /obj/item/weapon/implant/tracking)
 
 /obj/machinery/body_scanconsole/power_change()
 	if(stat & BROKEN)
@@ -293,7 +293,7 @@
 			dir = 8
 		else
 			dir = 4
-		playsound(src.loc, 'sound/items/Ratchet.ogg', 50, 1)
+		playsound(loc, G.usesound, 50, 1)
 
 	if(exchange_parts(user, G))
 		return
@@ -385,7 +385,7 @@
 		occupantData["implant_len"] = implantData.len
 
 		var/extOrganData[0]
-		for(var/obj/item/organ/external/E in H.organs)
+		for(var/obj/item/organ/external/E in H.bodyparts)
 			var/organData[0]
 			organData["name"] = E.name
 			organData["open"] = E.open
@@ -453,6 +453,7 @@
 		occupantData["intOrgan"] = intOrganData
 
 		occupantData["blind"] = (H.disabilities & BLIND)
+		occupantData["colourblind"] = (H.disabilities & COLOURBLIND)
 		occupantData["nearsighted"] = (H.disabilities & NEARSIGHTED)
 
 	data["occupant"] = occupantData
@@ -472,7 +473,7 @@
 			printing = 1
 			visible_message("<span class='notice'>\The [src] rattles and prints out a sheet of paper.</span>")
 			var/obj/item/weapon/paper/P = new /obj/item/weapon/paper(loc)
-			playsound(loc, "sound/goonstation/machines/printer_dotmatrix.ogg", 50, 1)
+			playsound(loc, 'sound/goonstation/machines/printer_dotmatrix.ogg', 50, 1)
 			P.info = "<CENTER><B>Body Scan - [href_list["name"]]</B></CENTER><BR>"
 			P.info += "<b>Time of scan:</b> [worldtime2text(world.time)]<br><br>"
 			P.info += "[printing_text]"
@@ -561,7 +562,7 @@
 			dat += "<th>Other Wounds</th>"
 			dat += "</tr>"
 
-			for(var/obj/item/organ/external/e in occupant.organs)
+			for(var/obj/item/organ/external/e in occupant.bodyparts)
 				dat += "<tr>"
 				var/AN = ""
 				var/open = ""
@@ -639,6 +640,8 @@
 			dat += "</table>"
 			if(occupant.disabilities & BLIND)
 				dat += "<font color='red'>Cataracts detected.</font><BR>"
+			if(occupant.disabilities & COLOURBLIND)
+				dat += "<font color='red'>Photoreceptor abnormalities detected.</font><BR>"
 			if(occupant.disabilities & NEARSIGHTED)
 				dat += "<font color='red'>Retinal misalignment detected.</font><BR>"
 		else

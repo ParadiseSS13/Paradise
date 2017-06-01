@@ -72,8 +72,11 @@
 	if(..(user, 1))
 		to_chat(user, "A light switch. It is [on? "on" : "off"].")
 
+/obj/machinery/light_switch/attack_ghost(mob/user)
+	if(user.can_advanced_admin_interact())
+		return attack_hand(user)
+		
 /obj/machinery/light_switch/attack_hand(mob/user)
-
 	on = !on
 	updateicon()
 
@@ -149,8 +152,8 @@
 		return 1
 
 	if(istype(W, /obj/item/weapon/wrench))
-		playsound(get_turf(src), 'sound/items/Ratchet.ogg', 50, 1)
-		if(do_after(user, 30, target = src))
+		playsound(get_turf(src), W.usesound, 50, 1)
+		if(do_after(user, 30 * W.toolspeed, target = src))
 			to_chat(user, "<span class='notice'>You detach \the [src] from the wall.</span>")
 			new/obj/item/mounted/frame/light_switch(get_turf(src))
 			qdel(src)

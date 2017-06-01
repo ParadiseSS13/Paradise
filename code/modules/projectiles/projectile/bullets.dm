@@ -42,6 +42,7 @@
 	damage = 5
 	weaken = 3
 	stamina = 60
+	icon_state = "bullet-r"
 
 /obj/item/projectile/bullet/weakbullet2/rubber //detective's bullets that don't embed
 	embed = 0
@@ -50,6 +51,13 @@
 /obj/item/projectile/bullet/weakbullet3
 	damage = 20
 
+/obj/item/projectile/bullet/weakbullet4
+	name = "rubber bullet"
+	damage = 5
+	stamina = 30
+	icon_state = "bullet-r"
+	embed = 0
+	sharp = 0
 
 /obj/item/projectile/bullet/toxinbullet
 	damage = 15
@@ -73,13 +81,14 @@
 
 /obj/item/projectile/bullet/pellet
 	name = "pellet"
-	damage = 15
+	damage = 12.5
 
 /obj/item/projectile/bullet/pellet/weak
 	damage = 6
 
 /obj/item/projectile/bullet/pellet/weak/New()
-	range = rand(8)
+	range = rand(1, 8)
+	..()
 
 /obj/item/projectile/bullet/pellet/weak/on_range()
  	var/datum/effect/system/spark_spread/sparks = new /datum/effect/system/spark_spread
@@ -91,7 +100,8 @@
 	damage = 3
 
 /obj/item/projectile/bullet/pellet/overload/New()
-	range = rand(10)
+	range = rand(1, 10)
+	..()
 
 /obj/item/projectile/bullet/pellet/overload/on_hit(atom/target, blocked = 0)
  	..()
@@ -135,6 +145,9 @@
 	name = "rubber pellet"
 	damage = 3
 	stamina = 25
+	embed = 0
+	sharp = 0
+	icon_state = "bullet-r"
 
 /obj/item/projectile/bullet/stunshot//taser slugs for shotguns, nothing special
 	name = "stunshot"
@@ -190,14 +203,17 @@
 	stun = 4
 
 /obj/item/projectile/bullet/honker
+	name = "banana"
 	damage = 0
 	weaken = 5
 	stun = 5
 	forcedodge = 1
 	nodamage = 1
+	embed = 0
+	sharp = 0
 	pass_flags = PASSTABLE | PASSGLASS | PASSGRILLE
 	hitsound = 'sound/items/bikehorn.ogg'
-	icon = 'icons/obj/harvest.dmi'
+	icon = 'icons/obj/hydroponics/harvest.dmi'
 	icon_state = "banana"
 	range = 200
 
@@ -234,8 +250,8 @@
 
 /obj/item/projectile/bullet/dart/New()
 	..()
-	flags |= NOREACT
 	create_reagents(50)
+	reagents.set_reacting(FALSE)
 
 /obj/item/projectile/bullet/dart/on_hit(var/atom/target, var/blocked = 0, var/hit_zone)
 	if(iscarbon(target))
@@ -251,7 +267,7 @@
 				target.visible_message("<span class='danger'>The [name] was deflected!</span>", \
 									"<span class='userdanger'>You were protected against the [name]!</span>")
 	..(target, blocked, hit_zone)
-	flags &= ~NOREACT
+	reagents.set_reacting(TRUE)
 	reagents.handle_reactions()
 	return 1
 

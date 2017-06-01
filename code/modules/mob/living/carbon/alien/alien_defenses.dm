@@ -1,5 +1,5 @@
-/mob/living/carbon/alien/hitby(atom/movable/AM)
-	..(AM, 1)
+/mob/living/carbon/alien/hitby(atom/movable/AM, skipcatch, hitpush)
+	..(AM, hitpush = 0)
 
 /*Code for aliens attacking aliens. Because aliens act on a hivemind, I don't see them as very aggressive with each other.
 As such, they can either help or harm other aliens. Help works like the human help command while harm is a simple nibble.

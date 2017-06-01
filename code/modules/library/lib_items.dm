@@ -31,7 +31,7 @@
 			I.forceMove(src)
 	update_icon()
 
-/obj/structure/bookcase/attackby(obj/O as obj, mob/user as mob, params)
+/obj/structure/bookcase/attackby(obj/item/O as obj, mob/user as mob, params)
 	if(busy) //So that you can't mess with it while deconstructing
 		return 1
 	if(is_type_in_list(O, allowed_books))
@@ -51,11 +51,11 @@
 	else if(istype(O, /obj/item/weapon/wrench))
 		user.visible_message("<span class='warning'>[user] starts disassembling \the [src].</span>", \
 		"<span class='notice'>You start disassembling \the [src].</span>")
-		playsound(get_turf(src), 'sound/items/Ratchet.ogg', 50, 1)
+		playsound(get_turf(src), O.usesound, 50, 1)
 		busy = 1
 
-		if(do_after(user,50, target = src))
-			playsound(get_turf(src), 'sound/items/Deconstruct.ogg', 75, 1)
+		if(do_after(user, 50 * O.toolspeed, target = src))
+			playsound(get_turf(src), O.usesound, 75, 1)
 			user.visible_message("<span class='warning'>[user] disassembles \the [src].</span>", \
 			"<span class='notice'>You disassemble \the [src].</span>")
 			busy = 0
@@ -167,7 +167,7 @@
 	icon_state ="book"
 	throw_speed = 1
 	throw_range = 5
-	w_class = 3		 //upped to three because books are, y'know, pretty big. (and you could hide them inside eachother recursively forever)
+	w_class = WEIGHT_CLASS_NORMAL		 //upped to three because books are, y'know, pretty big. (and you could hide them inside eachother recursively forever)
 	attack_verb = list("bashed", "whacked", "educated")
 	burn_state = FLAMMABLE
 
@@ -201,7 +201,7 @@
 /obj/item/weapon/book/attackby(obj/item/weapon/W as obj, mob/user as mob, params)
 	if(carved)
 		if(!store)
-			if(W.w_class < 3)
+			if(W.w_class < WEIGHT_CLASS_NORMAL)
 				user.drop_item()
 				W.forceMove(src)
 				store = W
@@ -276,7 +276,7 @@
 		if(carved)
 			return 1
 		to_chat(user, "<span class='notice'>You begin to carve out [title].</span>")
-		if(do_after(user, 30, target = src))
+		if(do_after(user, 30 * W.toolspeed, target = src))
 			to_chat(user, "<span class='notice'>You carve out the pages from [title]! You didn't want to read it anyway.</span>")
 			carved = 1
 			return 1
@@ -293,7 +293,7 @@
 	icon_state ="scanner"
 	throw_speed = 1
 	throw_range = 5
-	w_class = 1
+	w_class = WEIGHT_CLASS_TINY
 	var/obj/machinery/computer/library/checkout/computer // Associated computer - Modes 1 to 3 use this
 	var/obj/item/weapon/book/book	 //  Currently scanned book
 	var/mode = 0 					// 0 - Scan only, 1 - Scan and Set Buffer, 2 - Scan and Attempt to Check In, 3 - Scan and Attempt to Add to Inventory

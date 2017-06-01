@@ -4,7 +4,7 @@
 	icon = 'icons/obj/candle.dmi'
 	icon_state = "candle1"
 	item_state = "candle1"
-	w_class = 1
+	w_class = WEIGHT_CLASS_TINY
 	var/wax = 200
 	var/lit = 0
 	var/infinite = 0
@@ -16,6 +16,10 @@
 	if(start_lit)
 		// No visible message
 		light(show_message = 0)
+
+/obj/item/candle/Destroy()
+	processing_objects.Remove(src)
+	return ..()
 
 /obj/item/candle/update_icon()
 	var/i

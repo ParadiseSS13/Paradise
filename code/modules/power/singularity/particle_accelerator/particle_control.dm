@@ -30,8 +30,7 @@
 /obj/machinery/particle_accelerator/control_box/Destroy()
 	if(active)
 		toggle_power()
-	qdel(wires)
-	wires = null
+	QDEL_NULL(wires)
 	return ..()
 
 /obj/machinery/particle_accelerator/control_box/attack_ghost(user as mob)
@@ -68,11 +67,8 @@
 		if(stat & NOPOWER)
 			icon_state = "[reference]w"
 			return
-		else if(use_power)
-			if(assembled)
-				icon_state = "[reference]p"
-			else
-				icon_state = "u[reference]p"
+		else if(use_power && assembled)
+			icon_state = "[reference]p"
 		else
 			switch(construction_state)
 				if(0)

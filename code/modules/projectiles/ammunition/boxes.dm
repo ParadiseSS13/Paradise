@@ -35,6 +35,12 @@
 	ammo_type = /obj/item/ammo_casing/c45
 	max_ammo = 20
 
+/obj/item/ammo_box/rubber45
+	name = "ammo box (.45 rubber)"
+	icon_state = "45box-r"
+	ammo_type = /obj/item/ammo_casing/rubber45
+	max_ammo = 16
+
 /obj/item/ammo_box/a40mm
 	name = "ammo box (40mm grenades)"
 	icon_state = "40mm"
@@ -52,43 +58,58 @@
 
 /obj/item/ammo_box/n762
 	name = "ammo box (7.62x38mmR)"
-	icon_state = "10mmbox"
+	icon_state = "riflebox"
 	origin_tech = "combat=2"
 	ammo_type = /obj/item/ammo_casing/n762
 	max_ammo = 14
 
 /obj/item/ammo_box/shotgun
-	name = "Ammunition Box (slug)"
-	icon_state = "9mmbox"
+	name = "Shotgun Speedloader (slug)"
+	icon_state = "slugloader"
 	origin_tech = "combat=2"
 	ammo_type = /obj/item/ammo_casing/shotgun
 	max_ammo = 7
 	materials = list(MAT_METAL=28000)
+	multiple_sprites = 1
 
 /obj/item/ammo_box/shotgun/buck
-	name = "Ammunition Box (buckshot)"
+	name = "Shotgun Speedloader (buckshot)"
+	icon_state = "buckloader"
 	ammo_type = /obj/item/ammo_casing/shotgun/buckshot
 
+
+/obj/item/ammo_box/shotgun/dragonsbreath
+	name = "Shotgun Speedloader (dragonsbreath)"
+	icon_state = "dragonsbreathloader"
+	ammo_type = /obj/item/ammo_casing/shotgun/incendiary/dragonsbreath
+
+
 /obj/item/ammo_box/shotgun/stun
-	name = "Ammunition Box (stun shells)"
+	name = "Shotgun Speedloader (stun shells)"
+	icon_state = "stunloader"
 	ammo_type = /obj/item/ammo_casing/shotgun/stunslug
-	materials = list(MAT_METAL=1750)
+
 
 /obj/item/ammo_box/shotgun/beanbag
-	name = "Ammunition Box (beanbag shells)"
+	name = "Shotgun Speedloader (beanbag shells)"
+	icon_state = "beanbagloader"
 	ammo_type = /obj/item/ammo_casing/shotgun/beanbag
 	materials = list(MAT_METAL=1750)
 
+
 /obj/item/ammo_box/shotgun/rubbershot
-	name = "Ammunition Box (rubbershot shells)"
+	name = "Shotgun Speedloader (rubbershot shells)"
+	icon_state = "rubbershotloader"
 	ammo_type = /obj/item/ammo_casing/shotgun/rubbershot
-	materials = list(MAT_METAL=28000)
+	materials = list(MAT_METAL=1750)
+
 
 /obj/item/ammo_box/shotgun/tranquilizer
-	name = "Ammunition Box (tranquilizer darts)"
-	icon_state = "45box"
+	name = "Shotgun Speedloader (tranquilizer darts)"
+	icon_state = "tranqloader"
 	ammo_type = /obj/item/ammo_casing/shotgun/tranquilizer
 	materials = list(MAT_METAL=1750)
+
 
 //FOAM DARTS
 /obj/item/ammo_box/foambox

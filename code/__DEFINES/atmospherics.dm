@@ -115,3 +115,8 @@
 // Atmos pipe limits
 #define MAX_OUTPUT_PRESSURE					4500 // (kPa) What pressure pumps and powered equipment max out at.
 #define MAX_TRANSFER_RATE					200 // (L/s) Maximum speed powered equipment can work at.
+
+// Atmos alarm defines
+#define ATMOS_ALARM_NONE					0
+#define ATMOS_ALARM_WARNING					1
+#define ATMOS_ALARM_DANGER					2

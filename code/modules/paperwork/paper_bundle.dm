@@ -5,7 +5,7 @@
 	icon_state = "paper"
 	item_state = "paper"
 	throwforce = 0
-	w_class = 1
+	w_class = WEIGHT_CLASS_TINY
 	throw_range = 2
 	throw_speed = 1
 	layer = 4
@@ -94,7 +94,7 @@
 				qdel(src)
 
 			else
-				to_chat(user, "\red You must hold \the [P] steady to burn \the [src].")
+				to_chat(user, "<span class='warning'>You must hold \the [P] steady to burn \the [src].</span>")
 
 /obj/item/weapon/paper_bundle/examine(mob/user)
 	if(..(user, 1))

@@ -42,7 +42,6 @@
 	var/area/my_area = get_area(src)
 
 	if(!lacks_power())
-
 		if(aiRestorePowerRoutine == 2)
 			to_chat(src, "Alert cancelled. Power has been restored without our assistance.")
 			aiRestorePowerRoutine = 0
@@ -53,8 +52,6 @@
 			aiRestorePowerRoutine = 0
 			clear_fullscreen("blind")
 			update_sight()
-
-
 	else
 		overlay_fullscreen("blind", /obj/screen/fullscreen/blind)
 
@@ -74,6 +71,8 @@
 					if(!lacks_power())
 						to_chat(src, "Alert cancelled. Power has been restored without our assistance.")
 						aiRestorePowerRoutine = 0
+						clear_fullscreen("blind")
+						update_sight()
 						return
 					to_chat(src, "Fault confirmed: missing external power. Shutting down main control system to save power.")
 					sleep(20)
@@ -112,6 +111,7 @@
 							to_chat(src, "Alert cancelled. Power has been restored without our assistance.")
 							aiRestorePowerRoutine = 0
 							clear_fullscreen("blind")
+							update_sight()
 							return
 
 						switch(PRP)

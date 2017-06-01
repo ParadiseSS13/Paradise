@@ -30,6 +30,12 @@
 	else
 		power_supply = new(src)
 	power_supply.give(power_supply.maxcharge)
+	update_ammo_types()
+	if(selfcharge)
+		processing_objects.Add(src)
+	update_icon()
+
+/obj/item/weapon/gun/energy/proc/update_ammo_types()
 	var/obj/item/ammo_casing/energy/shot
 	for(var/i = 1, i <= ammo_type.len, i++)
 		var/shottype = ammo_type[i]
@@ -38,9 +44,6 @@
 	shot = ammo_type[select]
 	fire_sound = shot.fire_sound
 	fire_delay = shot.delay
-	if(selfcharge)
-		processing_objects.Add(src)
-	update_icon()
 
 /obj/item/weapon/gun/energy/Destroy()
 	if(selfcharge)
@@ -58,9 +61,9 @@
 		var/obj/item/ammo_casing/energy/E = ammo_type[select]
 		if(use_external_power)
 			var/obj/item/weapon/stock_parts/cell/external = get_external_power_supply()
-			if(!external || !external.use((E.e_cost)/10)) //Take power from the borg...
+			if(!external || !external.use(E.e_cost)) //Take power from the borg...
 				return								//Note, uses /10 because of shitty mods to the cell system
-		power_supply.give(1000) //... to recharge the shot
+		power_supply.give(100) //... to recharge the shot
 		update_icon()
 
 /obj/item/weapon/gun/energy/attack_self(mob/living/user as mob)
@@ -129,9 +132,9 @@
 				overlays += image(icon = icon, icon_state = iconState, pixel_x = ammo_x_offset * (i -1))
 		else
 			overlays += image(icon = icon, icon_state = "[icon_state]_[modifystate ? "[shot.select_name]_" : ""]charge[ratio]")
-	if(F && can_flashlight)
+	if(gun_light && can_flashlight)
 		var/iconF = "flight"
-		if(F.on)
+		if(gun_light.on)
 			iconF = "flight_on"
 		overlays += image(icon = icon, icon_state = iconF, pixel_x = flight_x_offset, pixel_y = flight_y_offset)
 	if(itemState)
@@ -160,12 +163,20 @@
 		playsound(loc, 'sound/weapons/empty.ogg', 50, 1, -1)
 		return (OXYLOSS)
 
+/obj/item/weapon/gun/energy/on_varedit(modified_var)
+	if(modified_var == "selfcharge")
+		if(selfcharge)
+			processing_objects.Add(src)
+		else
+			processing_objects.Remove(src)
+	..()
+
 /obj/item/weapon/gun/energy/proc/robocharge()
 	if(isrobot(loc))
 		var/mob/living/silicon/robot/R = loc
 		if(R && R.cell)
 			var/obj/item/ammo_casing/energy/shot = ammo_type[select] //Necessary to find cost of shot
-			if(R.cell.use(shot.e_cost/10)) 		//Take power from the borg... //Divided by 10 because cells and charge costs are fucked.
+			if(R.cell.use(shot.e_cost)) 		//Take power from the borg...
 				power_supply.give(shot.e_cost)	//... to recharge the shot
 
 /obj/item/weapon/gun/energy/proc/get_external_power_supply()

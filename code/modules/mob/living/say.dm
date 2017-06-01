@@ -14,6 +14,7 @@ var/list/department_radio_keys = list(
 	  ":u" = "Supply",		"#u" = "Supply",		".u" = "Supply",
 	  ":z" = "Service",		"#z" = "Service",		".z" = "Service",
 	  ":p" = "AI Private",	"#p" = "AI Private",	".p" = "AI Private",
+	  ":x" = "cords",		"#x" = "cords",			".x" = "cords",
 
 	  ":R" = "right ear",	"#R" = "right ear",		".R" = "right ear",
 	  ":L" = "left ear",	"#L" = "left ear",		".L" = "left ear",
@@ -30,7 +31,8 @@ var/list/department_radio_keys = list(
 	  ":Z" = "Service",		"#Z" = "Service",		".Z" = "Service",
 	  ":P" = "AI Private",	"#P" = "AI Private",	".P" = "AI Private",
 	  ":-" = "Special Ops",	"#-" = "Special Ops",	".-" = "Special Ops",
-	  ":_" = "SyndTeam",	"#_" = "SyndTeam",		"._" = "SyndTeam"
+	  ":_" = "SyndTeam",	"#_" = "SyndTeam",		"._" = "SyndTeam",
+	  ":X" = "cords",		"#X" = "cords",			".X" = "cords"
 )
 
 
@@ -106,13 +108,14 @@ proc/get_radio_key_from_channel(var/channel)
 	return returns
 
 
-/mob/living/say(var/message, var/datum/language/speaking = null, var/verb = "says", var/alt_name="")
+/mob/living/say(var/message, var/datum/language/speaking = null, var/verb = "says", var/alt_name = "", var/sanitize = TRUE, var/ignore_speech_problems = FALSE, var/ignore_atmospherics = FALSE)
 	if(client)
 		if(client.prefs.muted & MUTE_IC)
 			to_chat(src, "<span class='danger'>You cannot speak in IC (Muted).</span>")
 			return
 
-	message = trim_strip_html_properly(message)
+	if(sanitize)
+		message = trim_strip_html_properly(message)
 
 	if(stat)
 		if(stat == DEAD)
@@ -147,6 +150,15 @@ proc/get_radio_key_from_channel(var/channel)
 		speaking.broadcast(src,trim(message))
 		return 1
 
+	if(message_mode == "cords")
+		if(iscarbon(src))
+			var/mob/living/carbon/C = src
+			var/obj/item/organ/internal/vocal_cords/V = C.get_int_organ(/obj/item/organ/internal/vocal_cords)
+			if(V && V.can_speak_with())
+				C.say(V.handle_speech(message), sanitize = FALSE, ignore_speech_problems = TRUE, ignore_atmospherics = TRUE)
+				V.speak_with(message) //words come before actions
+		return 1
+
 	verb = say_quote(message, speaking)
 
 	if(is_muzzled())
@@ -162,7 +174,7 @@ proc/get_radio_key_from_channel(var/channel)
 
 	message = handle_autohiss(message, speaking)
 
-	if(speaking && !(speaking.flags & NO_STUTTER))
+	if(!ignore_speech_problems && (speaking && !(speaking.flags & NO_STUTTER)))
 		var/list/handle_s = handle_speech_problems(message, verb)
 		message = handle_s[1]
 		verb = handle_s[2]
@@ -217,12 +229,13 @@ proc/get_radio_key_from_channel(var/channel)
 		//make sure the air can transmit speech - speaker's side
 		var/datum/gas_mixture/environment = T.return_air()
 		var/pressure = environment ? environment.return_pressure() : 0
-		if(pressure < SOUND_MINIMUM_PRESSURE)
-			message_range = 1
+		if(!ignore_atmospherics)
+			if(pressure < SOUND_MINIMUM_PRESSURE)
+				message_range = 1
 
-		if(pressure < ONE_ATMOSPHERE * 0.4) //sound distortion pressure, to help clue people in that the air is thin, even if it isn't a vacuum yet
-			italics = 1
-			sound_vol *= 0.5 //muffle the sound a bit, so it's like we're actually talking through contact
+			if(pressure < ONE_ATMOSPHERE * 0.4) //sound distortion pressure, to help clue people in that the air is thin, even if it isn't a vacuum yet
+				italics = 1
+				sound_vol *= 0.5 //muffle the sound a bit, so it's like we're actually talking through contact
 
 		var/list/hear = hear(message_range, T)
 		var/list/hearturfs = list()
@@ -268,6 +281,9 @@ proc/get_radio_key_from_channel(var/channel)
 		spawn(0)
 			if(O) //It's possible that it could be deleted in the meantime.
 				O.hear_talk(src, message, verb, speaking)
+
+	//Log of what we've said, plain message, no spans or junk
+	say_log += message
 
 	log_say("[name]/[key] : [message]")
 	return 1
@@ -315,7 +331,7 @@ proc/get_radio_key_from_channel(var/channel)
 
 	else //everything else failed, emote is probably invalid
 		if(act == "help")	return //except help, because help is handled individually
-		to_chat(src, "\blue Unusable emote '[act]'. Say *help for a list.")
+		to_chat(src, "<span class='notice'>Unusable emote '[act]'. Say *help for a list.</span>")
 
 /mob/living/whisper(message as text)
 	message = trim_strip_html_properly(message)

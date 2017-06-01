@@ -4,7 +4,7 @@
 
 /obj/item/clothing/head/helmet/space/new_rig
 	name = "helmet"
-	flags =  HEADCOVERSEYES | BLOCKHAIR | HEADCOVERSMOUTH | THICKMATERIAL
+	flags =  BLOCKHAIR | THICKMATERIAL | NODROP
 	flags_inv = 		 HIDEEARS|HIDEEYES|HIDEFACE|HIDEMASK
 	body_parts_covered = HEAD
 	heat_protection =    HEAD
@@ -12,11 +12,12 @@
 	var/brightness_on = 4
 	var/on = 0
 	sprite_sheets = list(
-		"Tajara" = 'icons/mob/species/tajaran/helmet.dmi',
+		"Tajaran" = 'icons/mob/species/tajaran/helmet.dmi',
 		"Skrell" = 'icons/mob/species/skrell/helmet.dmi',
 		"Unathi" = 'icons/mob/species/unathi/helmet.dmi'
 		)
 	species_restricted = null
+	actions_types = list(/datum/action/item_action/toggle_helmet_light)
 
 	flash_protect = 2
 
@@ -28,13 +29,17 @@
 	toggle_light(user)
 
 /obj/item/clothing/head/helmet/space/new_rig/proc/toggle_light(mob/user)
-	on = !on
-	icon_state = "rig[on]-[item_color]"
+	if(flags & AIRTIGHT) //Could also check for STOPSPRESSUREDMAGE, but one is enough, both get toggled when the seal gets toggled.
 
-	if(on)
-		set_light(brightness_on)
+		on = !on
+		icon_state = "[item_color][on]"
+
+		if(on)
+			set_light(brightness_on)
+		else
+			set_light(0)
 	else
-		set_light(0)
+		to_chat(user, "<span class='warning'>You cannot turn the light on while the suit isn't sealed.</span>")
 
 	if(istype(user,/mob/living/carbon/human))
 		var/mob/living/carbon/human/H = user
@@ -42,7 +47,7 @@
 
 /obj/item/clothing/gloves/rig
 	name = "gauntlets"
-	flags = THICKMATERIAL
+	flags = THICKMATERIAL | NODROP
 	body_parts_covered = HANDS
 	heat_protection =    HANDS
 	cold_protection =    HANDS
@@ -51,11 +56,18 @@
 
 /obj/item/clothing/shoes/magboots/rig
 	name = "boots"
+	flags = NODROP
 	body_parts_covered = FEET
 	cold_protection = FEET
 	heat_protection = FEET
 	species_restricted = null
 	gender = PLURAL
+
+/obj/item/clothing/shoes/magboots/rig/attack_self(mob/user)
+	if(flags & AIRTIGHT) //Could also check for STOPSPRESSUREDMAGE, but one is enough, both get toggled when the seal gets toggled.
+		..(user)
+	else
+		to_chat(user, "<span class='warning'>You cannot activate mag-pulse traction system while the suit is not sealed.</span>")
 
 /obj/item/clothing/suit/space/new_rig
 	name = "chestpiece"
@@ -64,14 +76,14 @@
 	heat_protection =    UPPER_TORSO|LOWER_TORSO|LEGS|ARMS
 	cold_protection =    UPPER_TORSO|LOWER_TORSO|LEGS|ARMS
 	flags_inv =          HIDEJUMPSUIT|HIDETAIL
-	flags =              STOPSPRESSUREDMAGE | THICKMATERIAL | AIRTIGHT
+	flags =              STOPSPRESSUREDMAGE | THICKMATERIAL | AIRTIGHT | NODROP
 	slowdown = 0
-	//will reach 10 breach damage after 25 laser carbine blasts, 3 revolver hits, or ~1 PTR hit. Completely immune to smg or sts hits.
-	breach_threshold = 38
+	breach_threshold = 20
 	resilience = 0.2
 	can_breach = 1
+	var/obj/item/weapon/rig/holder
 	sprite_sheets = list(
-		"Tajara" = 'icons/mob/species/tajaran/suit.dmi',
+		"Tajaran" = 'icons/mob/species/tajaran/suit.dmi',
 		"Unathi" = 'icons/mob/species/unathi/suit.dmi'
 		)
 

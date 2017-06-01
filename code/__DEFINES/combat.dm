@@ -24,6 +24,7 @@
 #define FIRELOSS 2
 #define TOXLOSS 4
 #define OXYLOSS 8
+#define SHAME 16
 
 //Bitflags defining which status effects could be or are inflicted on a mob
 #define CANSTUN		1
@@ -69,3 +70,6 @@
  #define WEAPON_LIGHT 0
  #define WEAPON_MEDIUM 1
  #define WEAPON_HEAVY 2
+
+// Embedded objects
+#define EMBED_THROWSPEED_THRESHOLD 15

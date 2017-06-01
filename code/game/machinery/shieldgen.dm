@@ -29,8 +29,8 @@
 	..()
 	move_update_air(T)
 
-/obj/machinery/shield/CanPass(atom/movable/mover, turf/target, height, air_group)
-	if(!height || air_group) return 0
+/obj/machinery/shield/CanPass(atom/movable/mover, turf/target, height)
+	if(!height) return 0
 	else return ..()
 
 /obj/machinery/shield/CanAtmosPass(var/turf/T)
@@ -49,7 +49,7 @@
 
 
 	if(src.health <= 0)
-		visible_message("\blue The [src] dissipates")
+		visible_message("<span class='notice'>The [src] dissipates</span>")
 		qdel(src)
 		return
 
@@ -62,7 +62,7 @@
 	health -= Proj.damage
 	..()
 	if(health <=0)
-		visible_message("\blue The [src] dissipates")
+		visible_message("<span class='notice'>The [src] dissipates</span>")
 		qdel(src)
 		return
 	opacity = 1
@@ -94,55 +94,52 @@
 
 
 /obj/machinery/shield/hitby(AM as mob|obj)
-
-	//Super realistic, resource-intensive, real-time damage calculations.
+	..()
 	var/tforce = 0
 	if(ismob(AM))
 		tforce = 40
-	else
-		tforce = AM:throwforce
+	else if(isobj(AM))
+		var/obj/O = AM
+		tforce = O.throwforce
 
-	src.health -= tforce
+	health -= tforce
 
 	//This seemed to be the best sound for hitting a force field.
-	playsound(src.loc, 'sound/effects/EMPulse.ogg', 100, 1)
+	playsound(loc, 'sound/effects/EMPulse.ogg', 100, 1)
 
 	//Handle the destruction of the shield
-	if(src.health <= 0)
-		visible_message("\blue The [src] dissipates")
+	if(health <= 0)
+		visible_message("<span class='notice'>The [src] dissipates</span>")
 		qdel(src)
 		return
 
 	//The shield becomes dense to absorb the blow.. purely asthetic.
 	opacity = 1
-	spawn(20) if(src) opacity = 0
-
-	..()
-	return
-
+	spawn(20)
+		if(src)
+			opacity = 0
 
 
 /obj/machinery/shieldgen
-		name = "Emergency shield projector"
-		desc = "Used to seal minor hull breaches."
-		icon = 'icons/obj/objects.dmi'
-		icon_state = "shieldoff"
-		density = 1
-		opacity = 0
-		anchored = 0
-		pressure_resistance = 2*ONE_ATMOSPHERE
-		req_access = list(access_engine)
-		var/const/max_health = 100
-		var/health = max_health
-		var/active = 0
-		var/malfunction = 0 //Malfunction causes parts of the shield to slowly dissapate
-		var/list/deployed_shields = list()
-		var/is_open = 0 //Whether or not the wires are exposed
-		var/locked = 0
+	name = "Emergency shield projector"
+	desc = "Used to seal minor hull breaches."
+	icon = 'icons/obj/objects.dmi'
+	icon_state = "shieldoff"
+	density = 1
+	opacity = 0
+	anchored = 0
+	pressure_resistance = 2*ONE_ATMOSPHERE
+	req_access = list(access_engine)
+	var/const/max_health = 100
+	var/health = max_health
+	var/active = 0
+	var/malfunction = 0 //Malfunction causes parts of the shield to slowly dissapate
+	var/list/deployed_shields = list()
+	var/is_open = 0 //Whether or not the wires are exposed
+	var/locked = 0
 
 /obj/machinery/shieldgen/Destroy()
-	for(var/obj/machinery/shield/shield_tile in deployed_shields)
-		qdel(shield_tile)
+	QDEL_LIST(deployed_shields)
 	deployed_shields = null
 	return ..()
 
@@ -218,14 +215,14 @@
 		return
 
 	if(src.active)
-		user.visible_message("\blue [bicon(src)] [user] deactivated the shield generator.", \
-			"\blue [bicon(src)] You deactivate the shield generator.", \
+		user.visible_message("<span class='notice'>[bicon(src)] [user] deactivated the shield generator.</span>", \
+			"<span class='notice'>[bicon(src)] You deactivate the shield generator.</span>", \
 			"You hear heavy droning fade out.")
 		src.shields_down()
 	else
 		if(anchored)
-			user.visible_message("\blue [bicon(src)] [user] activated the shield generator.", \
-				"\blue [bicon(src)] You activate the shield generator.", \
+			user.visible_message("<span class='notice'>[bicon(src)] [user] activated the shield generator.</span>", \
+				"<span class='notice'>[bicon(src)] You activate the shield generator.</span>", \
 				"You hear heavy droning.")
 			src.shields_up()
 		else
@@ -238,24 +235,25 @@
 		update_icon()
 
 	else if(istype(W, /obj/item/weapon/screwdriver))
-		playsound(src.loc, 'sound/items/Screwdriver.ogg', 100, 1)
+		playsound(src.loc, W.usesound, 100, 1)
 		if(is_open)
-			to_chat(user, "\blue You close the panel.")
+			to_chat(user, "<span class='notice'>You close the panel.</span>")
 			is_open = 0
 		else
-			to_chat(user, "\blue You open the panel and expose the wiring.")
+			to_chat(user, "<span class='notice'>You open the panel and expose the wiring.</span>")
 			is_open = 1
 
 	else if(istype(W, /obj/item/stack/cable_coil) && malfunction && is_open)
 		var/obj/item/stack/cable_coil/coil = W
-		to_chat(user, "\blue You begin to replace the wires.")
+		to_chat(user, "<span class='notice'>You begin to replace the wires.</span>")
 		//if(do_after(user, min(60, round( ((maxhealth/health)*10)+(malfunction*10) ), target = src)) //Take longer to repair heavier damage
-		if(do_after(user, 30, target = src))
+		if(do_after(user, 30 * coil.toolspeed, target = src))
 			if(!src || !coil) return
 			coil.use(1)
 			health = max_health
 			malfunction = 0
-			to_chat(user, "\blue You repair the [src]!")
+			playsound(loc, coil.usesound, 50, 1)
+			to_chat(user, "<span class='notice'>You repair the [src]!</span>")
 			update_icon()
 
 	else if(istype(W, /obj/item/weapon/wrench))
@@ -263,16 +261,16 @@
 			to_chat(user, "The bolts are covered, unlocking this would retract the covers.")
 			return
 		if(anchored)
-			playsound(src.loc, 'sound/items/Ratchet.ogg', 100, 1)
-			to_chat(user, "\blue You unsecure the [src] from the floor!")
+			playsound(src.loc, W.usesound, 100, 1)
+			to_chat(user, "<span class='notice'>You unsecure the [src] from the floor!</span>")
 			if(active)
-				to_chat(user, "\blue The [src] shuts off!")
+				to_chat(user, "<span class='notice'>The [src] shuts off!</span>")
 				src.shields_down()
 			anchored = 0
 		else
 			if(istype(get_turf(src), /turf/space)) return //No wrenching these in space!
-			playsound(src.loc, 'sound/items/Ratchet.ogg', 100, 1)
-			to_chat(user, "\blue You secure the [src] to the floor!")
+			playsound(src.loc, W.usesound, 100, 1)
+			to_chat(user, "<span class='notice'>You secure the [src] to the floor!</span>")
 			anchored = 1
 
 
@@ -281,7 +279,7 @@
 			src.locked = !src.locked
 			to_chat(user, "The controls are now [src.locked ? "locked." : "unlocked."]")
 		else
-			to_chat(user, "\red Access denied.")
+			to_chat(user, "<span class='warning'>Access denied.</span>")
 
 	else
 		..()
@@ -349,13 +347,13 @@
 
 /obj/machinery/shieldwallgen/attack_hand(mob/user as mob)
 	if(state != 1)
-		to_chat(user, "\red The shield generator needs to be firmly secured to the floor first.")
+		to_chat(user, "<span class='warning'>The shield generator needs to be firmly secured to the floor first.</span>")
 		return 1
 	if(src.locked && !istype(user, /mob/living/silicon))
-		to_chat(user, "\red The controls are locked!")
+		to_chat(user, "<span class='warning'>The controls are locked!</span>")
 		return 1
 	if(power != 1)
-		to_chat(user, "\red The shield generator needs to be powered by wire underneath.")
+		to_chat(user, "<span class='warning'>The shield generator needs to be powered by wire underneath.</span>")
 		return 1
 
 	if(src.active >= 1)
@@ -401,7 +399,7 @@
 		src.active = 2
 	if(src.active >= 1)
 		if(src.power == 0)
-			src.visible_message("\red The [src.name] shuts down due to lack of power!", \
+			src.visible_message("<span class='warning'>The [src.name] shuts down due to lack of power!</span>", \
 				"You hear heavy droning fade out")
 			icon_state = "Shield_Gen"
 			src.active = 0
@@ -460,14 +458,14 @@
 
 		else if(state == 0)
 			state = 1
-			playsound(src.loc, 'sound/items/Ratchet.ogg', 75, 1)
+			playsound(src.loc, W.usesound, 75, 1)
 			to_chat(user, "You secure the external reinforcing bolts to the floor.")
 			src.anchored = 1
 			return
 
 		else if(state == 1)
 			state = 0
-			playsound(src.loc, 'sound/items/Ratchet.ogg', 75, 1)
+			playsound(src.loc, W.usesound, 75, 1)
 			to_chat(user, "You undo the external reinforcing bolts.")
 			src.anchored = 0
 			return
@@ -477,7 +475,7 @@
 			src.locked = !src.locked
 			to_chat(user, "Controls are now [src.locked ? "locked." : "unlocked."]")
 		else
-			to_chat(user, "\red Access denied.")
+			to_chat(user, "<span class='warning'>Access denied.</span>")
 
 	else
 		add_fingerprint(user)
@@ -599,8 +597,8 @@
 	return
 
 
-/obj/machinery/shieldwall/CanPass(atom/movable/mover, turf/target, height=0, air_group=0)
-	if(air_group || (height==0)) return 1
+/obj/machinery/shieldwall/CanPass(atom/movable/mover, turf/target, height=0)
+	if(height==0) return 1
 
 	if(istype(mover) && mover.checkpass(PASSGLASS))
 		return prob(20)

@@ -38,7 +38,7 @@
 	var/selection_prompt = "Choose your weapon, nerdwad"
 	var/creation_delay = 2400
 	var/list/choosable_items = list(
-	    "A coder forgot to set this" = /obj/item/weapon/bananapeel
+	    "A coder forgot to set this" = /obj/item/weapon/grown/bananapeel
 	)
 	var/creation_message = "A dank smoke comes out, and you pass out. When you come to, you notice a %ITEM%!"
 
@@ -261,7 +261,7 @@ var/list/blacklisted_pylon_turfs = typecacheof(list(
 /obj/item/weapon/storage/box/cult
 	name = "Dark Forge Cache"
 	can_hold = list("/obj/item/clothing/suit/space/cult", "/obj/item/clothing/head/helmet/space/cult")
-	max_w_class = 3
+	max_w_class = WEIGHT_CLASS_NORMAL
 
 /obj/item/weapon/storage/box/cult/New()
 	..()

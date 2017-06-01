@@ -7,7 +7,7 @@
 	flags = CONDUCT
 	force = 1
 	throwforce = 2
-	w_class = 1
+	w_class = WEIGHT_CLASS_TINY
 	var/string_attached
 	var/list/sideslist = list("heads","tails")
 	var/cmineral = null
@@ -134,7 +134,7 @@
 								"uranium" = /obj/item/clothing/gloves/ring/uranium)
 			var/typekey = typelist[cmineral]
 			if(ispath(typekey))
-				to_chat(user, "\blue You make [src] into a ring.")
+				to_chat(user, "<span class='notice'>You make [src] into a ring.</span>")
 				new typekey(get_turf(loc))
 				qdel(src)
 	else ..()

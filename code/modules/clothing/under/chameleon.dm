@@ -25,14 +25,14 @@
 	attackby(obj/item/clothing/under/U as obj, mob/user as mob, params)
 		..()
 		if(istype(U, /obj/item/clothing/under/chameleon))
-			to_chat(user, "\red Nothing happens.")
+			to_chat(user, "<span class='warning'>Nothing happens.</span>")
 			return
 		if(istype(U, /obj/item/clothing/under))
 			if(src.clothing_choices.Find(U))
-				to_chat(user, "\red Pattern is already recognised by the suit.")
+				to_chat(user, "<span class='warning'>Pattern is already recognised by the suit.</span>")
 				return
 			src.clothing_choices += U
-			to_chat(user, "\red Pattern absorbed by the suit.")
+			to_chat(user, "<span class='warning'>Pattern absorbed by the suit.</span>")
 
 
 	emp_act(severity)
@@ -56,7 +56,7 @@
 		set src in usr
 
 		if(icon_state == "psyche")
-			to_chat(usr, "\red Your suit is malfunctioning")
+			to_chat(usr, "<span class='warning'>Your suit is malfunctioning</span>")
 			return
 
 		var/obj/item/clothing/under/A

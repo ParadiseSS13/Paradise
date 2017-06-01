@@ -64,7 +64,7 @@ proc/issyndicate(mob/living/M as mob)
 		operative_mind.special_role = null
 		for(var/datum/objective/nuclear/O in operative_mind.objectives)
 			operative_mind.objectives -= O
-		operative_mind.current.attack_log += "\[[time_stamp()]\] <span class='danger'>No longer nuclear operative</span>"
+		operative_mind.current.create_attack_log("<span class='danger'>No longer nuclear operative</span>")
 		if(issilicon(operative_mind.current))
 			to_chat(operative_mind.current, "<span class='userdanger'>You have been turned into a robot! You are no longer a Syndicate operative.</span>")
 		else
@@ -145,11 +145,10 @@ proc/issyndicate(mob/living/M as mob)
 	var/mob/living/carbon/human/M = synd_mind.current
 	var/obj/item/organ/external/head/head_organ = M.get_organ("head")
 
-	M.mutations = list()
-	M.disabilities = 0
-	M.overeatduration = 0
 	M.set_species("Human",1)
 	M.dna.ready_dna(M) // Quadriplegic Nuke Ops won't be participating in the paralympics
+	M.reagents.add_reagent("mutadone", 1) //No fat/blind/colourblind/epileptic/whatever ops.
+	M.overeatduration = 0
 
 	var/hair_c = pick("#8B4513","#000000","#FF4500","#FFD700") // Brown, black, red, blonde
 	var/eye_c = pick("#000000","#8B4513","1E90FF") // Black, brown, blue
@@ -223,7 +222,7 @@ proc/issyndicate(mob/living/M as mob)
 
 /datum/game_mode/proc/greet_syndicate(var/datum/mind/syndicate, var/you_are=1)
 	if(you_are)
-		to_chat(syndicate.current, "\blue You are a [syndicate_name()] agent!")
+		to_chat(syndicate.current, "<span class='notice'>You are a [syndicate_name()] agent!</span>")
 	var/obj_count = 1
 	for(var/datum/objective/objective in syndicate.objectives)
 		to_chat(syndicate.current, "<B>Objective #[obj_count]</B>: [objective.explanation_text]")
@@ -246,9 +245,7 @@ proc/issyndicate(mob/living/M as mob)
 	synd_mob.equip_to_slot_or_del(new /obj/item/clothing/shoes/combat(synd_mob), slot_shoes)
 	synd_mob.equip_or_collect(new /obj/item/clothing/gloves/combat(synd_mob), slot_gloves)
 	synd_mob.equip_to_slot_or_del(new /obj/item/weapon/card/id/syndicate(synd_mob), slot_wear_id)
-	if(synd_mob.backbag == 2) synd_mob.equip_to_slot_or_del(new /obj/item/weapon/storage/backpack(synd_mob), slot_back)
-	if(synd_mob.backbag == 3) synd_mob.equip_to_slot_or_del(new /obj/item/weapon/storage/backpack/satchel_norm(synd_mob), slot_back)
-	if(synd_mob.backbag == 4) synd_mob.equip_to_slot_or_del(new /obj/item/weapon/storage/backpack/satchel(synd_mob), slot_back)
+	synd_mob.equip_to_slot_or_del(new /obj/item/weapon/storage/backpack(synd_mob), slot_back)
 	synd_mob.equip_to_slot_or_del(new /obj/item/weapon/reagent_containers/food/pill/initropidril(synd_mob), slot_in_backpack)
 	synd_mob.equip_to_slot_or_del(new /obj/item/weapon/gun/projectile/automatic/pistol(synd_mob), slot_belt)
 	synd_mob.equip_to_slot_or_del(new /obj/item/weapon/storage/box/engineer(synd_mob.back), slot_in_backpack)
@@ -300,7 +297,7 @@ proc/issyndicate(mob/living/M as mob)
 
 /datum/game_mode/nuclear/declare_completion()
 	var/disk_rescued = 1
-	for(var/obj/item/weapon/disk/nuclear/D in world)
+	for(var/obj/item/weapon/disk/nuclear/D in poi_list)
 		if(!D.onCentcom())
 			disk_rescued = 0
 			break

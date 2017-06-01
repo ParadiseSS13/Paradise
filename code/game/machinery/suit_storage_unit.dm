@@ -41,33 +41,33 @@
 	MASK_TYPE = /obj/item/clothing/mask/gas
 
 /obj/machinery/suit_storage_unit/engine
-	SUIT_TYPE = /obj/item/clothing/suit/space/rig/engineering
-	HELMET_TYPE = /obj/item/clothing/head/helmet/space/rig/engineering
+	SUIT_TYPE = /obj/item/clothing/suit/space/hardsuit/engineering
+	HELMET_TYPE = /obj/item/clothing/head/helmet/space/hardsuit/engineering
 	MASK_TYPE = /obj/item/clothing/mask/breath
 
 /obj/machinery/suit_storage_unit/ce
-	SUIT_TYPE = /obj/item/clothing/suit/space/rig/elite
-	HELMET_TYPE = /obj/item/clothing/head/helmet/space/rig/elite
+	SUIT_TYPE = /obj/item/clothing/suit/space/hardsuit/elite
+	HELMET_TYPE = /obj/item/clothing/head/helmet/space/hardsuit/elite
 	MASK_TYPE = /obj/item/clothing/mask/breath
 
 /obj/machinery/suit_storage_unit/security
-	SUIT_TYPE = /obj/item/clothing/suit/space/rig/security
-	HELMET_TYPE = /obj/item/clothing/head/helmet/space/rig/security
+	SUIT_TYPE = /obj/item/clothing/suit/space/hardsuit/security
+	HELMET_TYPE = /obj/item/clothing/head/helmet/space/hardsuit/security
 	MASK_TYPE = /obj/item/clothing/mask/gas/sechailer
 
 /obj/machinery/suit_storage_unit/atmos
-	SUIT_TYPE = /obj/item/clothing/suit/space/rig/atmos
-	HELMET_TYPE = /obj/item/clothing/head/helmet/space/rig/atmos
+	SUIT_TYPE = /obj/item/clothing/suit/space/hardsuit/atmos
+	HELMET_TYPE = /obj/item/clothing/head/helmet/space/hardsuit/atmos
 	MASK_TYPE = /obj/item/clothing/mask/gas
 
 /obj/machinery/suit_storage_unit/mining
-	SUIT_TYPE = /obj/item/clothing/suit/space/rig/mining
-	HELMET_TYPE = /obj/item/clothing/head/helmet/space/rig/mining
+	SUIT_TYPE = /obj/item/clothing/suit/space/hardsuit/mining
+	HELMET_TYPE = /obj/item/clothing/head/helmet/space/hardsuit/mining
 	MASK_TYPE = /obj/item/clothing/mask/breath
 
 /obj/machinery/suit_storage_unit/cmo
-	SUIT_TYPE = /obj/item/clothing/suit/space/rig/medical
-	HELMET_TYPE = /obj/item/clothing/head/helmet/space/rig/medical
+	SUIT_TYPE = /obj/item/clothing/suit/space/hardsuit/medical
+	HELMET_TYPE = /obj/item/clothing/head/helmet/space/hardsuit/medical
 	MASK_TYPE = /obj/item/clothing/mask/breath
 
 /obj/machinery/suit_storage_unit/New()
@@ -503,7 +503,7 @@
 		return
 	if(istype(I, /obj/item/weapon/screwdriver))
 		src.panelopen = !src.panelopen
-		playsound(src.loc, 'sound/items/Screwdriver.ogg', 100, 1)
+		playsound(src.loc, I.usesound, 100, 1)
 		to_chat(user, text("<font color='blue'>You [] the unit's maintenance panel.</font>",(src.panelopen ? "open up" : "close") ))
 		src.updateUsrDialog()
 		return
@@ -628,7 +628,7 @@
 	var/target_species = "Human"
 
 	var/mob/living/carbon/human/occupant = null
-	var/obj/item/clothing/suit/space/rig/suit = null
+	var/obj/item/clothing/suit/space/hardsuit/suit = null
 	var/obj/item/clothing/head/helmet/space/helmet = null
 
 /obj/machinery/suit_cycler/engineering
@@ -667,11 +667,11 @@
 			return
 
 		if(locked)
-			to_chat(user, "\red The suit cycler is locked.")
+			to_chat(user, "<span class='warning'>The suit cycler is locked.</span>")
 			return
 
 		if(src.contents.len > 0)
-			to_chat(user, "\red There is no room inside the cycler for [G.affecting.name].")
+			to_chat(user, "<span class='warning'>There is no room inside the cycler for [G.affecting.name].</span>")
 			return
 
 		visible_message("[user] starts putting [G.affecting.name] into the suit cycler.")
@@ -698,7 +698,7 @@
 	else if(istype(I,/obj/item/clothing/head/helmet/space))
 
 		if(locked)
-			to_chat(user, "\red The suit cycler is locked.")
+			to_chat(user, "<span class='warning'>The suit cycler is locked.</span>")
 			return
 
 		if(helmet)
@@ -714,17 +714,17 @@
 		src.updateUsrDialog()
 		return
 
-	else if(istype(I,/obj/item/clothing/suit/space/rig))
+	else if(istype(I,/obj/item/clothing/suit/space/hardsuit))
 
 		if(locked)
-			to_chat(user, "\red The suit cycler is locked.")
+			to_chat(user, "<span class='warning'>The suit cycler is locked.</span>")
 			return
 
 		if(suit)
 			to_chat(user, "The cycler already contains a hardsuit.")
 			return
 
-		var/obj/item/clothing/suit/space/rig/S = I
+		var/obj/item/clothing/suit/space/hardsuit/S = I
 
 		if(S.helmet)
 			to_chat(user, "\The [S] will not fit into the cycler with a helmet attached.")
@@ -747,11 +747,11 @@
 
 /obj/machinery/suit_cycler/emag_act(user as mob)
 	if(emagged)
-		to_chat(user, "\red The cycler has already been subverted.")
+		to_chat(user, "<span class='warning'>The cycler has already been subverted.</span>")
 		return
 
 	//Clear the access reqs, disable the safeties, and open up all paintjobs.
-	to_chat(user, "\red You run the sequencer across the interface, corrupting the operating protocols.")
+	to_chat(user, "<span class='warning'>You run the sequencer across the interface, corrupting the operating protocols.</span>")
 	departments = list("Engineering","Mining","Medical","Security","Atmos","^%###^%$")
 	emagged = 1
 	safeties = 0
@@ -875,12 +875,12 @@
 			locked = !locked
 			to_chat(usr, "You [locked ? "" : "un"]lock \the [src].")
 		else
-			to_chat(usr, "\red Access denied.")
+			to_chat(usr, "<span class='warning'>Access denied.</span>")
 
 	else if(href_list["begin_decontamination"])
 
 		if(safeties && occupant)
-			to_chat(usr, "\red The cycler has detected an occupant. Please remove the occupant before commencing the decontamination cycle.")
+			to_chat(usr, "<span class='warning'>The cycler has detected an occupant. Please remove the occupant before commencing the decontamination cycle.</span>")
 			return
 
 		active = 1
@@ -979,7 +979,7 @@
 /obj/machinery/suit_cycler/proc/eject_occupant(mob/user as mob)
 
 	if(locked || active)
-		to_chat(user, "\red The cycler is locked.")
+		to_chat(user, "<span class='warning'>The cycler is locked.</span>")
 		return
 
 	if(!occupant)
@@ -1049,60 +1049,60 @@
 		if("Engineering")
 			if(helmet)
 				helmet.name = "engineering hardsuit helmet"
-				helmet.icon_state = "rig0-engineering"
+				helmet.icon_state = "hardsuit0-engineering"
 				helmet.item_state = "eng_helm"
 				helmet.item_color = "engineering"
 			if(suit)
 				suit.name = "engineering hardsuit"
-				suit.icon_state = "rig-engineering"
+				suit.icon_state = "hardsuit-engineering"
 				suit.item_state = "eng_hardsuit"
 		if("Mining")
 			if(helmet)
 				helmet.name = "mining hardsuit helmet"
-				helmet.icon_state = "rig0-mining"
+				helmet.icon_state = "hardsuit0-mining"
 				helmet.item_state = "mining_helm"
 				helmet.item_color = "mining"
 			if(suit)
 				suit.name = "mining hardsuit"
-				suit.icon_state = "rig-mining"
+				suit.icon_state = "hardsuit-mining"
 				suit.item_state = "mining_hardsuit"
 		if("Medical")
 			if(helmet)
 				helmet.name = "medical hardsuit helmet"
-				helmet.icon_state = "rig0-medical"
+				helmet.icon_state = "hardsuit0-medical"
 				helmet.item_state = "medical_helm"
 				helmet.item_color = "medical"
 			if(suit)
 				suit.name = "medical hardsuit"
-				suit.icon_state = "rig-medical"
+				suit.icon_state = "hardsuit-medical"
 				suit.item_state = "medical_hardsuit"
 		if("Security")
 			if(helmet)
 				helmet.name = "security hardsuit helmet"
-				helmet.icon_state = "rig0-sec"
+				helmet.icon_state = "hardsuit0-sec"
 				helmet.item_state = "sec_helm"
 				helmet.item_color = "sec"
 			if(suit)
 				suit.name = "security hardsuit"
-				suit.icon_state = "rig-sec"
+				suit.icon_state = "hardsuit-sec"
 				suit.item_state = "sec_hardsuit"
 		if("Atmos")
 			if(helmet)
 				helmet.name = "atmospherics hardsuit helmet"
-				helmet.icon_state = "rig0-atmos"
+				helmet.icon_state = "hardsuit0-atmos"
 				helmet.item_state = "atmos_helm"
 				helmet.item_color = "atmos"
 			if(suit)
 				suit.name = "atmospherics hardsuit"
-				suit.icon_state = "rig-atmos"
+				suit.icon_state = "hardsuit-atmos"
 				suit.item_state = "atmos_hardsuit"
 		if("^%###^%$")
 			if(helmet)
 				helmet.name = "blood-red hardsuit helmet"
-				helmet.icon_state = "rig0-syndie"
+				helmet.icon_state = "hardsuit0-syndie"
 				helmet.item_state = "syndie_helm"
 				helmet.item_color = "syndie"
 			if(suit)
 				suit.name = "blood-red hardsuit"
 				suit.item_state = "syndie_hardsuit"
-				suit.icon_state = "rig-syndie"
+				suit.icon_state = "hardsuit-syndie"

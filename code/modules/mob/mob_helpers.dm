@@ -17,13 +17,32 @@
 
 /mob/living/carbon/human/isSynthetic()
 	// If they are 100% robotic, they count as synthetic.
-	for(var/obj/item/organ/external/E in organs)
+	for(var/obj/item/organ/external/E in bodyparts)
 		if(!(E.status & ORGAN_ROBOT))
 			return 0
 	return 1
 
-/proc/isloyal(A) //Checks to see if the person contains a mindshield implant, then checks that the implant is actually inside of them
-	for(var/obj/item/weapon/implant/loyalty/L in A)
+/mob/proc/get_screen_colour()
+
+/mob/proc/update_client_colour(var/time = 10) //Update the mob's client.color with an animation the specified time in length.
+	if(!client) //No client_colour without client. If the player logs back in they'll be back through here anyway.
+		return
+	client.colour_transition(get_screen_colour(), time = time) //Get the colour matrix we're going to transition to depending on relevance (magic glasses first, eyes second).
+
+/mob/living/carbon/human/get_screen_colour() //Fetch the colour matrix from wherever (e.g. eyes) so it can be compared to client.color.
+	. = ..()
+	if(.)
+		return .
+
+	var/obj/item/clothing/glasses/worn_glasses = glasses
+	var/obj/item/organ/internal/eyes/eyes = get_int_organ(/obj/item/organ/internal/eyes)
+	if(istype(worn_glasses) && worn_glasses.color_view) //Check to see if they got those magic glasses and they're augmenting the colour of what the wearer sees. If they're not, color_view should be null.
+		return worn_glasses.color_view
+	else if(eyes) //If they're not, check to see if their eyes got one of them there colour matrices. Will be null if eyes are robotic/the mob isn't colourblind and they have no default colour matrix.
+		return eyes.get_colourmatrix()
+
+/proc/ismindshielded(A) //Checks to see if the person contains a mindshield implant, then checks that the implant is actually inside of them
+	for(var/obj/item/weapon/implant/mindshield/L in A)
 		if(L && L.implanted)
 			return 1
 	return 0
@@ -291,10 +310,10 @@ proc/muffledspeech(phrase)
 
 
 /mob/proc/abiotic(var/full_body = 0)
-	if(full_body && ((src.l_hand && !(src.l_hand.flags & ABSTRACT)) || (src.r_hand && !(src.r_hand.flags & ABSTRACT)) || (src.back || src.wear_mask)))
+	if(full_body && ((l_hand && !(l_hand.flags & ABSTRACT)) || (r_hand && !(r_hand.flags & ABSTRACT)) || (back || wear_mask)))
 		return 1
 
-	if((src.l_hand && !(src.l_hand.flags & ABSTRACT)) || (src.r_hand && !(src.r_hand.flags & ABSTRACT)))
+	if((l_hand && !(l_hand.flags & ABSTRACT)) || (r_hand && !(r_hand.flags & ABSTRACT)))
 		return 1
 
 	return 0
@@ -361,9 +380,16 @@ var/list/intents = list(I_HELP,I_DISARM,I_GRAB,I_HARM)
 	set name = "Rest"
 	set category = "IC"
 
-	resting = !resting
-	update_canmove()
-	to_chat(src, "<span class='notice'>You are now [resting ? "resting" : "getting up"].</span>")
+	if(world.time < client.move_delay)
+		return
+
+	if(!resting)
+		client.move_delay = world.time + 20
+		to_chat(src, "<span class='notice'>You are now resting.</span>")
+		StartResting()
+	else if(resting)
+		to_chat(src, "<span class='notice'>You are now getting up.</span>")
+		StopResting()
 
 /proc/is_blind(A)
 	if(iscarbon(A))
@@ -423,9 +449,9 @@ var/list/intents = list(I_HELP,I_DISARM,I_GRAB,I_HARM)
 				if(istype(subject, /mob/dead/observer))
 					DM = subject
 				if(check_rights(R_ADMIN|R_MOD,0,M)) 							// What admins see
-					lname = "[keyname][(DM && DM.anonsay) ? "*" : (DM ? "" : "^")] ([name])"
+					lname = "[keyname][(DM && DM.client && DM.client.prefs.ghost_anonsay) ? "*" : (DM ? "" : "^")] ([name])"
 				else
-					if(DM && DM.anonsay)						// If the person is actually observer they have the option to be anonymous
+					if(DM && DM.client && DM.client.prefs.ghost_anonsay)	// If the person is actually observer they have the option to be anonymous
 						lname = "Ghost of [name]"
 					else if(DM)									// Non-anons
 						lname = "[keyname] ([name])"
@@ -434,20 +460,24 @@ var/list/intents = list(I_HELP,I_DISARM,I_GRAB,I_HARM)
 				lname = "<span class='name'>[lname]</span> "
 			to_chat(M, "<span class='deadsay'>[lname][follow][message]</span>")
 
-/proc/notify_ghosts(var/message, var/ghost_sound = null, var/enter_link = null, var/atom/source = null, var/image/alert_overlay = null, var/attack_not_jump = 0) //Easy notification of ghosts.
+/proc/notify_ghosts(message, ghost_sound = null, enter_link = null, title = null, atom/source = null, image/alert_overlay = null, flashwindow = TRUE, var/action = NOTIFY_JUMP) //Easy notification of ghosts.
 	for(var/mob/dead/observer/O in player_list)
 		if(O.client)
 			to_chat(O, "<span class='ghostalert'>[message][(enter_link) ? " [enter_link]" : ""]<span>")
 			if(ghost_sound)
 				O << sound(ghost_sound)
+			if(flashwindow)
+				window_flash(O.client)
 			if(source)
-				var/obj/screen/alert/notify_jump/A = O.throw_alert("\ref[source]_notify_jump", /obj/screen/alert/notify_jump)
+				var/obj/screen/alert/notify_action/A = O.throw_alert("\ref[source]_notify_action", /obj/screen/alert/notify_action)
 				if(A)
 					if(O.client.prefs && O.client.prefs.UI_style)
 						A.icon = ui_style2icon(O.client.prefs.UI_style)
+					if(title)
+						A.name = title
 					A.desc = message
-					A.attack_not_jump = attack_not_jump
-					A.jump_target = source
+					A.action = action
+					A.target = source
 					if(!alert_overlay)
 						var/old_layer = source.layer
 						var/old_plane = source.plane
@@ -596,3 +626,6 @@ var/list/intents = list(I_HELP,I_DISARM,I_GRAB,I_HARM)
 		return FALSE
 	// Cast to 1/0
 	return !!(client.prefs.toggles & toggleflag)
+
+
+#define isterrorspider(A) (istype((A), /mob/living/simple_animal/hostile/poison/terror_spider))

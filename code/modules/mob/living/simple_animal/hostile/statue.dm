@@ -39,6 +39,7 @@
 
 	search_objects = 1 // So that it can see through walls
 
+	see_invisible = SEE_INVISIBLE_OBSERVER_NOLIGHTING
 	sight = SEE_SELF|SEE_MOBS|SEE_OBJS|SEE_TURFS
 	anchored = 1
 	status_flags = GODMODE // Cannot push also
@@ -55,9 +56,6 @@
 	AddSpell(new /obj/effect/proc_holder/spell/aoe_turf/flicker_lights(null))
 	AddSpell(new /obj/effect/proc_holder/spell/aoe_turf/blindness(null))
 	AddSpell(new /obj/effect/proc_holder/spell/targeted/night_vision(null))
-
-	// Give nightvision
-	see_invisible = SEE_INVISIBLE_OBSERVER_NOLIGHTING
 
 	// Set creator
 	if(creator)
@@ -163,7 +161,7 @@
 	clothes_req = 0
 	range = 14
 
-/obj/effect/proc_holder/spell/aoe_turf/flicker_lights/cast(list/targets)
+/obj/effect/proc_holder/spell/aoe_turf/flicker_lights/cast(list/targets, mob/user = usr)
 	for(var/turf/T in targets)
 		for(var/obj/machinery/light/L in T)
 			L.flicker()
@@ -179,9 +177,9 @@
 	clothes_req = 0
 	range = 10
 
-/obj/effect/proc_holder/spell/aoe_turf/blindness/cast(list/targets)
+/obj/effect/proc_holder/spell/aoe_turf/blindness/cast(list/targets, mob/user = usr)
 	for(var/mob/living/L in living_mob_list)
-		if(L == usr)
+		if(L == user)
 			continue
 		var/turf/T = get_turf(L.loc)
 		if(T && T in targets)
@@ -190,7 +188,7 @@
 
 //Toggle Night Vision
 /obj/effect/proc_holder/spell/targeted/night_vision
-	name = "Toggle Nightvision \[ON\]"
+	name = "Toggle Nightvision"
 	desc = "Toggle your nightvision mode."
 
 	charge_max = 10
@@ -199,17 +197,15 @@
 	message = "<span class='notice'>You toggle your night vision!</span>"
 	range = -1
 	include_user = 1
+	var/non_night_vision = SEE_INVISIBLE_LIVING
+	var/night_vision = SEE_INVISIBLE_OBSERVER_NOLIGHTING
 
-/obj/effect/proc_holder/spell/targeted/night_vision/cast(list/targets)
-
+/obj/effect/proc_holder/spell/targeted/night_vision/cast(list/targets, mob/user = usr)
 	for(var/mob/living/target in targets)
-		if(target.see_invisible == SEE_INVISIBLE_LIVING)
-			target.see_invisible = SEE_INVISIBLE_OBSERVER_NOLIGHTING
-			name = "Toggle Nightvision \[ON\]"
+		if(target.see_invisible == non_night_vision)
+			target.see_invisible = night_vision
 		else
-			target.see_invisible = SEE_INVISIBLE_LIVING
-			name = "Toggle Nightvision \[OFF\]"
-	return
+			target.see_invisible = non_night_vision
 
 /mob/living/simple_animal/hostile/statue/sentience_act()
 	faction -= "neutral"

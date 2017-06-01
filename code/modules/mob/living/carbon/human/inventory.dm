@@ -23,7 +23,7 @@
 
 
 /mob/living/carbon/human/proc/has_organ(name)
-	var/obj/item/organ/external/O = organs_by_name[name]
+	var/obj/item/organ/external/O = bodyparts_by_name[name]
 
 	return (O && !(O.status & ORGAN_DESTROYED)  && !O.is_stump())
 
@@ -119,6 +119,7 @@
 		if(G.vision_flags || G.darkness_view || G.invis_override || G.invis_view)
 			update_sight()
 		update_inv_glasses()
+		update_client_colour()
 	else if(I == head)
 		head = null
 		if(I.flags & BLOCKHAIR || I.flags & BLOCKHEADHAIR)
@@ -271,6 +272,7 @@
 			if(G.vision_flags || G.darkness_view || G.invis_override || G.invis_view)
 				update_sight()
 			update_inv_glasses(redraw_mob)
+			update_client_colour()
 		if(slot_gloves)
 			gloves = W
 			update_inv_gloves(redraw_mob)
@@ -544,7 +546,7 @@
 				return 0
 			if(I.slot_flags & SLOT_DENYPOCKET)
 				return
-			if(I.w_class <= 2 || (I.slot_flags & SLOT_POCKET))
+			if(I.w_class <= WEIGHT_CLASS_SMALL || (I.slot_flags & SLOT_POCKET))
 				return 1
 		if(slot_r_store)
 			if(I.flags & NODROP)
@@ -557,7 +559,7 @@
 				return 0
 			if(I.slot_flags & SLOT_DENYPOCKET)
 				return 0
-			if(I.w_class <= 2 || (I.slot_flags & SLOT_POCKET))
+			if(I.w_class <= WEIGHT_CLASS_SMALL || (I.slot_flags & SLOT_POCKET))
 				return 1
 			return 0
 		if(slot_s_store)
@@ -573,7 +575,7 @@
 				if(!disable_warning)
 					to_chat(src, "You somehow have a suit with no defined allowed items for suit storage, stop that.")
 				return 0
-			if(I.w_class > 4)
+			if(I.w_class > WEIGHT_CLASS_BULKY)
 				if(!disable_warning)
 					to_chat(src, "The [name] is too big to attach.")
 				return 0
@@ -613,3 +615,17 @@
 			return 1
 
 	return 0 //Unsupported slot
+
+/mob/living/carbon/human/proc/equipOutfit(outfit, visualsOnly = FALSE)
+	var/datum/outfit/O = null
+
+	if(ispath(outfit))
+		O = new outfit
+	else
+		O = outfit
+		if(!istype(O))
+			return 0
+	if(!O)
+		return 0
+
+	return O.equip(src, visualsOnly)

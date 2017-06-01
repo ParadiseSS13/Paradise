@@ -126,7 +126,7 @@
 	icon_state = "emergency"
 	flags = CONDUCT
 	slot_flags = SLOT_BELT
-	w_class = 2
+	w_class = WEIGHT_CLASS_SMALL
 	force = 4.0
 	distribute_pressure = ONE_ATMOSPHERE*O2STANDARD
 	volume = 3 //Tiny. Real life equivalents only have 21 breaths of oxygen in them. They're EMERGENCY tanks anyway -errorage (dangercon 2011)
@@ -184,7 +184,6 @@
 	name = "vox specialized nitrogen tank"
 	desc = "A high-tech nitrogen tank designed specifically for Vox."
 	icon_state = "emergency_vox"
-	item_state = "emergency_vox"
 	volume = 25
 
 /obj/item/weapon/tank/emergency_oxygen/vox/New()

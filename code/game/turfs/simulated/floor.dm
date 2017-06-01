@@ -41,13 +41,11 @@ var/list/icons_to_ignore_at_floor_init = list("damaged1","damaged2","damaged3","
 		builtin_tile = new floor_tile
 
 /turf/simulated/floor/Destroy()
-	if(builtin_tile)
-		qdel(builtin_tile)
-		builtin_tile = null
+	QDEL_NULL(builtin_tile)
 	return ..()
 
 
-//turf/simulated/floor/CanPass(atom/movable/mover, turf/target, height=0, air_group=0)
+//turf/simulated/floor/CanPass(atom/movable/mover, turf/target, height=0)
 //	if((istype(mover, /obj/machinery/vehicle) && !(src.burnt)))
 //		if(!( locate(/obj/machinery/mass_driver, src) ))
 //			return 0
@@ -138,24 +136,11 @@ var/list/icons_to_ignore_at_floor_init = list("damaged1","damaged2","damaged3","
 		return 1
 	if(..())
 		return 1
-	if(intact && istype(C, /obj/item/weapon/crowbar))
-		if(broken || burnt)
-			broken = 0
-			burnt = 0
-			to_chat(user, "<span class='danger'>You remove the broken plating.</span>")
-		else
-			if(istype(src, /turf/simulated/floor/wood))
-				to_chat(user, "<span class='danger'>You forcefully pry off the planks, destroying them in the process.</span>")
-			else if(!builtin_tile)
-				to_chat(user, "<span class='notice'>You are unable to pry up \the [src] with a crowbar.</span>")
-				return 1
-			else
-				to_chat(user, "<span class='danger'>You remove \the [builtin_tile.singular_name].</span>")
-				builtin_tile.loc = src
-				builtin_tile = null //deassociate tile, it no longer belongs to this turf
-		make_plating()
-		playsound(src, 'sound/items/Crowbar.ogg', 80, 1)
+	if(intact && iscrowbar(C))
+		pry_tile(C, user)
 		return 1
+	if(intact && istype(C, /obj/item/stack/tile))
+		try_replace_tile(C, user, params)
 	if(istype(C, /obj/item/pipe))
 		var/obj/item/pipe/P = C
 		if(P.pipe_type != -1) // ANY PIPE
@@ -180,6 +165,37 @@ var/list/icons_to_ignore_at_floor_init = list("damaged1","damaged2","damaged3","
 			P.loc = src
 			return 1
 	return 0
+
+/turf/simulated/floor/proc/try_replace_tile(obj/item/stack/tile/T, mob/user, params)
+	if(T.turf_type == type)
+		return
+	var/obj/item/weapon/crowbar/CB
+	if(iscrowbar(user.get_inactive_hand()))
+		CB = user.get_inactive_hand()
+	if(!CB)
+		return
+	var/turf/simulated/floor/plating/P = pry_tile(CB, user, TRUE)
+	if(!istype(P))
+		return
+	P.attackby(T, user, params)
+
+/turf/simulated/floor/proc/pry_tile(obj/item/C, mob/user, silent = FALSE)
+	playsound(src, C.usesound, 80, 1)
+	return remove_tile(user, silent)
+
+/turf/simulated/floor/proc/remove_tile(mob/user, silent = FALSE, make_tile = TRUE)
+	if(broken || burnt)
+		broken = 0
+		burnt = 0
+		if(user && !silent)
+			to_chat(user, "<span class='danger'>You remove the broken plating.</span>")
+	else
+		if(user && !silent)
+			to_chat(user, "<span class='danger'>You remove the floor tile.</span>")
+		if(builtin_tile && make_tile)
+			builtin_tile.forceMove(src)
+			builtin_tile = null
+	return make_plating()
 
 /turf/simulated/floor/singularity_pull(S, current_size)
 	if(current_size == STAGE_THREE)

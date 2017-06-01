@@ -7,6 +7,9 @@
 
 	default_language = "Galactic Common"
 	flags = NO_BREATHE | NO_BLOOD | RADIMMUNE | NOGUNS
+
+	oxy_mod = 0
+
 	virus_immune = 1
 	dietflags = DIET_OMNI		//golems can eat anything because they are magic or something
 	reagent_tag = PROCESS_ORG
@@ -37,7 +40,8 @@
 
 	has_organ = list(
 		"brain" = /obj/item/organ/internal/brain/golem
-		)
+		) //Has standard darksight of 2.
+
 	suicide_messages = list(
 		"is crumbling into dust!",
 		"is smashing their body apart!")

@@ -106,7 +106,7 @@
 	icon_state = "judge"
 	item_state = "judge"
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|ARMS
-	allowed = list(/obj/item/weapon/storage/fancy/cigarettes,/obj/item/weapon/spacecash)
+	allowed = list(/obj/item/weapon/storage/fancy/cigarettes,/obj/item/stack/spacecash)
 	flags_inv = HIDEJUMPSUIT
 
 
@@ -135,7 +135,7 @@
 	icon_state = "syndicate-black-red"
 	item_state = "syndicate-black-red"
 	desc = "A plastic replica of the syndicate space suit, you'll look just like a real murderous syndicate agent in this! This is a toy, it is not made for use in space!"
-	w_class = 3
+	w_class = WEIGHT_CLASS_NORMAL
 	allowed = list(/obj/item/device/flashlight,/obj/item/weapon/tank/emergency_oxygen,/obj/item/toy)
 	flags_inv = HIDEGLOVES|HIDESHOES|HIDEJUMPSUIT
 	burn_state = FIRE_PROOF
@@ -421,7 +421,7 @@
 /obj/item/clothing/suit/hooded/wintercoat/hydro
 	name = "hydroponics winter coat"
 	icon_state = "wintercoat_hydro"
-	allowed = list(/obj/item/weapon/reagent_containers/spray, /obj/item/device/analyzer/plant_analyzer, /obj/item/seeds, /obj/item/weapon/reagent_containers/glass/bottle, /obj/item/weapon/hatchet, /obj/item/weapon/storage/bag/plants)
+	allowed = list(/obj/item/weapon/reagent_containers/spray, /obj/item/device/plant_analyzer, /obj/item/seeds, /obj/item/weapon/reagent_containers/glass/bottle, /obj/item/weapon/hatchet, /obj/item/weapon/storage/bag/plants)
 	hoodtype = /obj/item/clothing/head/winterhood/hydro
 
 /obj/item/clothing/head/winterhood/hydro
@@ -457,6 +457,7 @@
 	icon_state = "black_hoodie"
 	item_state = "blueshieldcoat"
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|ARMS
+	allowed = list(/obj/item/device/flashlight, /obj/item/weapon/tank/emergency_oxygen)
 	hoodtype = /obj/item/clothing/head/hood
 	species_fit = list("Vox")
 	sprite_sheets = list(
@@ -526,6 +527,7 @@
 	flags_inv = HIDEGLOVES|HIDESHOES|HIDEJUMPSUIT|HIDETAIL
 	flags_size = ONESIZEFITSALL
 	strip_delay = 60
+	breakouttime = 3000
 
 /obj/item/clothing/suit/ianshirt
 	name = "worn shirt"
@@ -712,7 +714,7 @@
 	desc = "A soft white robe made of a synthetic fiber that provides improved protection against biohazards. Possessing multiple overlapping layers, yet light enough to allow complete freedom of movement, it denotes its wearer as a master physician."
 	icon_state = "mercy_hoodie"
 	item_state = "mercy_hoodie"
-	w_class = 4//bulky item
+	w_class = WEIGHT_CLASS_BULKY
 	gas_transfer_coefficient = 0.01
 	permeability_coefficient = 0.01
 	flags_size = ONESIZEFITSALL
@@ -727,7 +729,8 @@
 	icon_state = "mercy_hood"
 	item_state = "mercy_hood"
 	permeability_coefficient = 0.01
-	flags = HEADCOVERSEYES | HEADCOVERSMOUTH | BLOCKHAIR
+	flags = BLOCKHAIR
+	flags_cover = HEADCOVERSEYES | HEADCOVERSMOUTH
 	armor = list(melee = 0, bullet = 0, laser = 0, energy = 0, bomb = 0, bio = 100, rad = 20)
 	flags_inv = HIDEMASK|HIDEEARS|HIDEEYES
 
@@ -773,6 +776,13 @@
 	adjust_flavour = null
 	burn_state = FIRE_PROOF
 
+/obj/item/clothing/suit/jacket/leather/overcoat
+	name = "leather overcoat"
+	desc = "That's a damn fine coat."
+	icon_state = "leathercoat"
+	body_parts_covered = UPPER_TORSO|LOWER_TORSO|ARMS|LEGS
+	cold_protection = UPPER_TORSO|LOWER_TORSO|ARMS|LEGS
+
 /obj/item/clothing/suit/officercoat
 	name = "Clown Officer's Coat"
 	desc = "A classy clown officer's overcoat, also designed by Hugo Boss."
@@ -809,17 +819,12 @@
 	allowed = list(/obj/item/weapon/gun/energy,/obj/item/weapon/reagent_containers/spray/pepper,/obj/item/weapon/gun/projectile,/obj/item/ammo_box,/obj/item/ammo_casing,/obj/item/weapon/melee/baton,/obj/item/weapon/restraints/handcuffs,/obj/item/device/flashlight/seclite)
 	actions_types = list(/datum/action/item_action/toggle_wings)
 
-/obj/item/clothing/suit/toggle/owlwings/super_hero
-	flags = NODROP
 
 /obj/item/clothing/suit/toggle/owlwings/griffinwings
 	name = "griffon cloak"
 	desc = "A plush white cloak made of synthetic feathers. Soft to the touch, stylish, and a 2 meter wing span that will drive your captives mad."
 	icon_state = "griffin_wings"
 	item_state = "griffin_wings"
-
-/obj/item/clothing/suit/toggle/owlwings/griffinwings/super_hero
-	flags = NODROP
 
 /obj/item/clothing/suit/toggle/attack_self()
 	if(icon_state == initial(icon_state))

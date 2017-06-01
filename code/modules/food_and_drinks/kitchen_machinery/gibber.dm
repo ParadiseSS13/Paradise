@@ -28,7 +28,8 @@
 	if(contents.len)
 		for(var/atom/movable/A in contents)
 			A.loc = get_turf(src)
-	if(occupant)	occupant = null
+	if(occupant)
+		occupant = null
 	return ..()
 
 /obj/machinery/gibber/RefreshParts() //If you want to make the machine upgradable, this is where you would change any vars basd on its stock parts.
@@ -122,7 +123,7 @@
 		return
 
 	if(!ishuman(victim) || issmall(victim))
-		to_chat(user, "<span class='danger'>This is not suitable for the [src]]!</span>")
+		to_chat(user, "<span class='danger'>This is not suitable for the [src]!</span>")
 		return
 
 	if(victim.abiotic(1))
@@ -132,7 +133,7 @@
 	user.visible_message("<span class='danger'>[user] starts to put [victim] into the [src]!</span>")
 	add_fingerprint(user)
 	if(do_after(user, 30, target = victim) && user.Adjacent(src) && victim.Adjacent(user) && !occupant)
-		user.visible_message("<span class='danger'>[user] stuffs [victim] into the [src]]!</span>")
+		user.visible_message("<span class='danger'>[user] stuffs [victim] into the [src]!</span>")
 
 		victim.forceMove(src)
 		occupant = victim
@@ -258,8 +259,8 @@
 	new /obj/effect/decal/cleanable/blood/gibs(src)
 
 	if(!UserOverride)
-		occupant.attack_log += "\[[time_stamp()]\] Was gibbed by [key_name(user)]" //One shall not simply gib a mob unnoticed!
-		user.attack_log += "\[[time_stamp()]\] Gibbed [key_name(occupant)]"
+		occupant.create_attack_log("Was gibbed by [key_name(user)]") //One shall not simply gib a mob unnoticed!)
+		user.create_attack_log("Gibbed [key_name(occupant)]")
 
 		if(occupant.ckey)
 			msg_admin_attack("[key_name_admin(user)] gibbed [key_name_admin(occupant)]")
@@ -270,7 +271,7 @@
 			occupant.LAssailant = user
 
 	else //this looks ugly but it's better than a copy-pasted startgibbing proc override
-		occupant.attack_log += "\[[time_stamp()]\] Was gibbed by <b>an autogibber (\the [src])</b>"
+		occupant.create_attack_log("Was gibbed by <b>an autogibber (\the [src])</b>")
 
 	occupant.emote("scream")
 	playsound(get_turf(src), 'sound/goonstation/effects/gib.ogg', 50, 1)

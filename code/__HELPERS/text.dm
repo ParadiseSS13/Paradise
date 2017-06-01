@@ -64,6 +64,14 @@
 /proc/strip_html(var/t,var/limit=MAX_MESSAGE_LEN)
 	return copytext((sanitize(strip_html_simple(t))),1,limit)
 
+// Used to get a properly sanitized multiline input, of max_length
+/proc/stripped_multiline_input(mob/user, message = "", title = "", default = "", max_length=MAX_MESSAGE_LEN, no_trim=FALSE)
+	var/name = input(user, message, title, default) as message|null
+	if(no_trim)
+		return copytext(html_encode(name), 1, max_length)
+	else
+		return trim(html_encode(name), max_length)
+
 //Runs byond's sanitization proc along-side strip_html_simple
 //I believe strip_html_simple() is required to run first to prevent '<' from displaying as '&lt;' that html_encode() would cause
 /proc/adminscrub(var/t,var/limit=MAX_MESSAGE_LEN)
@@ -378,18 +386,10 @@ proc/checkhtml(var/t)
 	return sanitize(replace_characters(input, list(">"=" ","<"=" ", "\""="'")), max_length, encode, trim, extra)
 
 
-//Replaces \red \blue \green \b etc with span classes for to_chat
+//Replace BYOND text macros with span classes for to_chat
 /proc/replace_text_macro(match, code, rest)
-    var/regex/text_macro = new("(\\xFF.)(.*)$")
-    switch(code)
-        if("\red")
-            return "<span class='warning'>[text_macro.Replace(rest, /proc/replace_text_macro)]</span>"
-        if("\blue", "\green")
-            return "<span class='notice'>[text_macro.Replace(rest, /proc/replace_text_macro)]</span>"
-        if("\b")
-            return "<b>[text_macro.Replace(rest, /proc/replace_text_macro)]</b>"
-        else
-            return text_macro.Replace(rest, /proc/replace_text_macro)
+	var/regex/text_macro = new("(\\xFF.)(.*)$")
+	return text_macro.Replace(rest, /proc/replace_text_macro)
 
 /proc/macro2html(text)
     var/static/regex/text_macro = new("(\\xFF.)(.*)$")
@@ -431,3 +431,114 @@ proc/checkhtml(var/t)
 			text = copytext(text, 1, index) + repl_chars[char] + copytext(text, index+keylength)
 			index = findtext(text, char)
 	return text
+
+//Checks if any of a given list of needles is in the haystack
+/proc/text_in_list(haystack, list/needle_list, start=1, end=0)
+	for(var/needle in needle_list)
+		if(findtext(haystack, needle, start, end))
+			return 1
+	return 0
+
+//Like above, but case sensitive
+/proc/text_in_list_case(haystack, list/needle_list, start=1, end=0)
+	for(var/needle in needle_list)
+		if(findtextEx(haystack, needle, start, end))
+			return 1
+	return 0
+
+
+// Pencode
+/proc/pencode_to_html(text, mob/user, obj/item/weapon/pen/P = null, sign = 1, fields = 1, deffont = PEN_FONT, signfont = SIGNFONT, crayonfont = CRAYON_FONT)
+	text = replacetext(text, "\n",			"<BR>")
+	text = replacetext(text, "\[center\]",	"<center>")
+	text = replacetext(text, "\[/center\]",	"</center>")
+	text = replacetext(text, "\[br\]",		"<BR>")
+	text = replacetext(text, "\[b\]",		"<B>")
+	text = replacetext(text, "\[/b\]",		"</B>")
+	text = replacetext(text, "\[i\]",		"<I>")
+	text = replacetext(text, "\[/i\]",		"</I>")
+	text = replacetext(text, "\[u\]",		"<U>")
+	text = replacetext(text, "\[/u\]",		"</U>")
+	text = replacetext(text, "\[large\]",	"<font size=\"4\">")
+	text = replacetext(text, "\[/large\]",	"</font>")
+	if(sign)
+		text = replacetext(text, "\[sign\]",	"<font face=\"[signfont]\"><i>[user ? user.real_name : "Anonymous"]</i></font>")
+	if(fields)
+		text = replacetext(text, "\[field\]",	"<span class=\"paper_field\"></span>")
+
+	text = replacetext(text, "\[h1\]",	"<H1>")
+	text = replacetext(text, "\[/h1\]",	"</H1>")
+	text = replacetext(text, "\[h2\]",	"<H2>")
+	text = replacetext(text, "\[/h2\]",	"</H2>")
+	text = replacetext(text, "\[h3\]",	"<H3>")
+	text = replacetext(text, "\[/h3\]",	"</H3>")
+
+	if(istype(P, /obj/item/toy/crayon)) // If it is a crayon, and he still tries to use these, make them empty!
+		text = replacetext(text, "\[*\]", 		"")
+		text = replacetext(text, "\[hr\]",		"")
+		text = replacetext(text, "\[small\]", 	"")
+		text = replacetext(text, "\[/small\]", 	"")
+		text = replacetext(text, "\[list\]", 	"")
+		text = replacetext(text, "\[/list\]", 	"")
+		text = replacetext(text, "\[table\]", 	"")
+		text = replacetext(text, "\[/table\]", 	"")
+		text = replacetext(text, "\[row\]", 	"")
+		text = replacetext(text, "\[cell\]", 	"")
+		text = replacetext(text, "\[logo\]", 	"")
+
+		text = "<font face=\"[crayonfont]\" color=[P ? P.colour : "black"]><b>[text]</b></font>"
+	else 	// They are using "not a crayon" - formatting is OK and such
+		text = replacetext(text, "\[*\]",		"<li>")
+		text = replacetext(text, "\[hr\]",		"<HR>")
+		text = replacetext(text, "\[small\]",	"<font size = \"1\">")
+		text = replacetext(text, "\[/small\]",	"</font>")
+		text = replacetext(text, "\[list\]",	"<ul>")
+		text = replacetext(text, "\[/list\]",	"</ul>")
+		text = replacetext(text, "\[table\]",	"<table border=1 cellspacing=0 cellpadding=3 style='border: 1px solid black;'>")
+		text = replacetext(text, "\[/table\]",	"</td></tr></table>")
+		text = replacetext(text, "\[grid\]",	"<table>")
+		text = replacetext(text, "\[/grid\]",	"</td></tr></table>")
+		text = replacetext(text, "\[row\]",		"</td><tr>")
+		text = replacetext(text, "\[cell\]",	"<td>")
+		text = replacetext(text, "\[logo\]",	"<img src = ntlogo.png>")
+
+		text = "<font face=\"[deffont]\" color=[P ? P.colour : "black"]>[text]</font>"
+
+	text = copytext(text, 1, MAX_PAPER_MESSAGE_LEN)
+	return text
+
+/proc/html_to_pencode(text)
+	text = replacetext(text, "<BR>",								"\n")
+	text = replacetext(text, "<center>",							"\[center\]")
+	text = replacetext(text, "</center>",							"\[/center\]")
+	text = replacetext(text, "<BR>",								"\[br\]")
+	text = replacetext(text, "<B>",									"\[b\]")
+	text = replacetext(text, "</B>",								"\[/b\]")
+	text = replacetext(text, "<I>",									"\[i\]")
+	text = replacetext(text, "</I>",								"\[/i\]")
+	text = replacetext(text, "<U>",									"\[u\]")
+	text = replacetext(text, "</U>",								"\[/u\]")
+	text = replacetext(text, "<font size=\"4\">",					"\[large\]")
+	text = replacetext(text, "<span class=\"paper_field\"></span>",	"\[field\]")
+
+	text = replacetext(text, "<H1>",	"\[h1\]")
+	text = replacetext(text, "</H1>",	"\[/h1\]")
+	text = replacetext(text, "<H2>",	"\[h2\]")
+	text = replacetext(text, "</H2>",	"\[/h2\]")
+	text = replacetext(text, "<H3>",	"\[h3\]")
+	text = replacetext(text, "</H3>",	"\[/h3\]")
+
+	text = replacetext(text, "<li>",					"\[*\]")
+	text = replacetext(text, "<HR>",					"\[hr\]")
+	text = replacetext(text, "<font size = \"1\">",		"\[small\]")
+	text = replacetext(text, "<ul>",					"\[list\]")
+	text = replacetext(text, "</ul>",					"\[/list\]")
+	text = replacetext(text, "<table border=1 cellspacing=0 cellpadding=3 style='border: 1px solid black;'>",	"\[table\]")
+	text = replacetext(text, "</td></tr></table>",		"\[/table\]")
+	text = replacetext(text, "<table>",					"\[grid\]")
+	text = replacetext(text, "</td></tr></table>",		"\[/grid\]")
+	text = replacetext(text, "</td><tr>",				"\[row\]")
+	text = replacetext(text, "<td>",					"\[cell\]")
+	text = replacetext(text, "<img src = ntlogo.png>",	"\[logo\]")
+	return text
+

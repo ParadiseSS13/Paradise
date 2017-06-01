@@ -10,11 +10,11 @@ var/list/possibleShadowlingNames = list("U'ruan", "Y`shej", "Nex", "Hel-uae", "N
 	include_user = 1
 	action_icon_state = "hatch"
 
-/obj/effect/proc_holder/spell/targeted/shadowling_hatch/cast(list/targets)
-	if(usr.stat || !ishuman(usr) || !usr || !is_shadow(usr || isinspace(usr)))
+/obj/effect/proc_holder/spell/targeted/shadowling_hatch/cast(list/targets, mob/user = usr)
+	if(user.stat || !ishuman(user) || !user || !is_shadow(user || isinspace(user)))
 		return
-	if(!isturf(usr.loc))
-		to_chat(usr, "<span class='warning'>You can't hatch here!</span>")
+	if(!isturf(user.loc))
+		to_chat(user, "<span class='warning'>You can't hatch here!</span>")
 		return
 	for(var/mob/living/carbon/human/H in targets)
 		var/hatch_or_no = alert(H,"Are you sure you want to hatch? You cannot undo this!",,"Yes","No")
@@ -28,13 +28,13 @@ var/list/possibleShadowlingNames = list("U'ruan", "Y`shej", "Nex", "Hel-uae", "N
 				H.visible_message("<span class='warning'>[H]'s things suddenly slip off. They hunch over and vomit up a copious amount of purple goo which begins to shape around them!</span>", \
 									"<span class='shadowling'>You remove any equipment which would hinder your hatching and begin regurgitating the resin which will protect you.</span>")
 
-				for(var/obj/item/I in H.contents - (H.organs | H.internal_organs)) //drops all items except organs
+				for(var/obj/item/I in H.contents - (H.bodyparts | H.internal_organs)) //drops all items except organs
 					H.unEquip(I)
 
 				sleep(50)
 				var/turf/simulated/floor/F
-				var/turf/shadowturf = get_turf(usr)
-				for(F in orange(1, usr))
+				var/turf/shadowturf = get_turf(user)
+				for(F in orange(1, user))
 					new /obj/structure/alien/resin/wall/shadowling(F)
 				for(var/obj/structure/alien/resin/wall/shadowling/R in shadowturf) //extremely hacky
 					qdel(R)
@@ -68,7 +68,7 @@ var/list/possibleShadowlingNames = list("U'ruan", "Y`shej", "Nex", "Hel-uae", "N
 				var/newNameId = pick(possibleShadowlingNames)
 				possibleShadowlingNames.Remove(newNameId)
 				H.real_name = newNameId
-				H.name = usr.real_name
+				H.name = user.real_name
 				H.SetStunned(0)
 				to_chat(H, "<i><b><font size=3>YOU LIVE!!!</i></b></font>")
 
@@ -83,13 +83,13 @@ var/list/possibleShadowlingNames = list("U'ruan", "Y`shej", "Nex", "Hel-uae", "N
 				H.socks = "None"
 				H.faction |= "faithless"
 
-				H.equip_to_slot_or_del(new /obj/item/clothing/under/shadowling(usr), slot_w_uniform)
-				H.equip_to_slot_or_del(new /obj/item/clothing/shoes/shadowling(usr), slot_shoes)
-				H.equip_to_slot_or_del(new /obj/item/clothing/suit/space/shadowling(usr), slot_wear_suit)
-				H.equip_to_slot_or_del(new /obj/item/clothing/head/shadowling(usr), slot_head)
-				H.equip_to_slot_or_del(new /obj/item/clothing/gloves/shadowling(usr), slot_gloves)
-				H.equip_to_slot_or_del(new /obj/item/clothing/mask/gas/shadowling(usr), slot_wear_mask)
-				H.equip_to_slot_or_del(new /obj/item/clothing/glasses/shadowling(usr), slot_glasses)
+				H.equip_to_slot_or_del(new /obj/item/clothing/under/shadowling(user), slot_w_uniform)
+				H.equip_to_slot_or_del(new /obj/item/clothing/shoes/shadowling(user), slot_shoes)
+				H.equip_to_slot_or_del(new /obj/item/clothing/suit/space/shadowling(user), slot_wear_suit)
+				H.equip_to_slot_or_del(new /obj/item/clothing/head/shadowling(user), slot_head)
+				H.equip_to_slot_or_del(new /obj/item/clothing/gloves/shadowling(user), slot_gloves)
+				H.equip_to_slot_or_del(new /obj/item/clothing/mask/gas/shadowling(user), slot_wear_mask)
+				H.equip_to_slot_or_del(new /obj/item/clothing/glasses/shadowling(user), slot_glasses)
 				H.set_species("Shadowling")	//can't be a shadowling without being a shadowling
 
 				H.mind.RemoveSpell(src)
@@ -116,8 +116,8 @@ var/list/possibleShadowlingNames = list("U'ruan", "Y`shej", "Nex", "Hel-uae", "N
 	include_user = 1
 	action_icon_state = "ascend"
 
-/obj/effect/proc_holder/spell/targeted/shadowling_ascend/cast(list/targets)
-	var/mob/living/carbon/human/H = usr
+/obj/effect/proc_holder/spell/targeted/shadowling_ascend/cast(list/targets, mob/user = usr)
+	var/mob/living/carbon/human/H = user
 	if(!shadowling_check(H))
 		return
 	for(H in targets)
@@ -155,11 +155,10 @@ var/list/possibleShadowlingNames = list("U'ruan", "Y`shej", "Nex", "Hel-uae", "N
 				for(var/mob/living/M in orange(7, H))
 					M.Weaken(10)
 					to_chat(M, "<span class='userdanger'>An immense pressure slams you onto the ground!</span>")
-				to_chat(world, "<font size=5><span class='shadowling'><b>\"VYSHA NERADA YEKHEZET U'RUU!!\"</font></span>")
-				world << 'sound/hallucinations/veryfar_noise.ogg'
 				for(var/obj/machinery/power/apc/A in apcs)
 					A.overload_lighting()
-				var/mob/A = new /mob/living/simple_animal/ascendant_shadowling(H.loc)
+				var/mob/living/simple_animal/ascendant_shadowling/A = new /mob/living/simple_animal/ascendant_shadowling(H.loc)
+				A.announce("VYSHA NERADA YEKHEZET U'RUU!!", 5, 'sound/hallucinations/veryfar_noise.ogg')
 				for(var/obj/effect/proc_holder/spell/S in H.mind.spell_list)
 					if(S == src) continue
 					H.mind.RemoveSpell(S)

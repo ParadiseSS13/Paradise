@@ -41,6 +41,7 @@ var/list/robot_verbs_default = list(
 	// Components are basically robot organs.
 	var/list/components = list()
 
+	var/obj/item/robot_parts/robot_suit/robot_suit = null //Used for deconstruction to remember what the borg was constructed out of..
 	var/obj/item/device/mmi/mmi = null
 
 	var/obj/item/device/pda/silicon/robot/rbPDA = null
@@ -180,16 +181,15 @@ var/list/robot_verbs_default = list(
 
 			for(var/line in lines)
 			// split & clean up
-				var/list/Entry = splittext(line, ";")
+				var/list/Entry = splittext(line, ":")
 				for(var/i = 1 to Entry.len)
 					Entry[i] = trim(Entry[i])
 
-				if(Entry.len < 2)
-					continue;
+				if(Entry.len < 2 || Entry[1] != "cyborg")		//ignore incorrectly formatted entries or entries that aren't marked for cyborg
+					continue
 
-				if(Entry[1] == src.ckey && Entry[2] == src.real_name) //They're in the list? Custom sprite time, var and icon change required
+				if(Entry[2] == ckey)	//They're in the list? Custom sprite time, var and icon change required
 					custom_sprite = 1
-					icon = 'icons/mob/custom-synthetic.dmi'
 
 	return 1
 
@@ -252,12 +252,11 @@ var/list/robot_verbs_default = list(
 		mmi = null
 	if(connected_ai)
 		connected_ai.connected_robots -= src
-	qdel(wires)
-	wires = null
-	qdel(module)
-	module = null
-	camera = null
-	cell = null
+	QDEL_NULL(wires)
+	QDEL_NULL(module)
+	QDEL_NULL(camera)
+	QDEL_NULL(cell)
+	QDEL_NULL(robot_suit)
 	return ..()
 
 /mob/living/silicon/robot/proc/pick_module()
@@ -265,7 +264,7 @@ var/list/robot_verbs_default = list(
 		return
 	var/list/modules = list("Standard", "Engineering", "Medical", "Miner", "Janitor", "Service", "Security")
 	if(security_level == (SEC_LEVEL_GAMMA || SEC_LEVEL_EPSILON) || crisis)
-		to_chat(src, "\red Crisis mode active. Combat module available.")
+		to_chat(src, "<span class='warning'>Crisis mode active. Combat module available.</span>")
 		modules+="Combat"
 	if(ticker && ticker.mode && ticker.mode.name == "nations")
 		var/datum/game_mode/nations/N = ticker.mode
@@ -289,6 +288,7 @@ var/list/robot_verbs_default = list(
 			module_sprites["Basic"] = "robot_old"
 			module_sprites["Android"] = "droid"
 			module_sprites["Default"] = "robot"
+			module_sprites["Noble-STD"] = "Noble-STD"
 
 		if("Service")
 			module = new /obj/item/weapon/robot_module/butler(src)
@@ -299,6 +299,7 @@ var/list/robot_verbs_default = list(
 			module_sprites["Rich"] = "maximillion"
 			module_sprites["Default"] = "Service2"
 			module_sprites["Standard"] = "robotServ"
+			module_sprites["Noble-SRV"] = "Noble-SRV"
 
 		if("Miner")
 			module = new /obj/item/weapon/robot_module/miner(src)
@@ -309,6 +310,7 @@ var/list/robot_verbs_default = list(
 			module_sprites["Advanced Droid"] = "droid-miner"
 			module_sprites["Treadhead"] = "Miner"
 			module_sprites["Standard"] = "robotMine"
+			module_sprites["Noble-DIG"] = "Noble-DIG"
 
 		if("Medical")
 			module = new /obj/item/weapon/robot_module/medical(src)
@@ -320,6 +322,7 @@ var/list/robot_verbs_default = list(
 			module_sprites["Advanced Droid"] = "droid-medical"
 			module_sprites["Needles"] = "medicalrobot"
 			module_sprites["Standard"] = "robotMedi"
+			module_sprites["Noble-MED"] = "Noble-MED"
 			status_flags &= ~CANPUSH
 
 		if("Security")
@@ -330,6 +333,7 @@ var/list/robot_verbs_default = list(
 			module_sprites["Black Knight"] = "securityrobot"
 			module_sprites["Bloodhound"] = "bloodhound"
 			module_sprites["Standard"] = "robotSecy"
+			module_sprites["Noble-SEC"] = "Noble-SEC"
 			status_flags &= ~CANPUSH
 
 		if("Engineering")
@@ -341,6 +345,7 @@ var/list/robot_verbs_default = list(
 			module_sprites["Antique"] = "engineerrobot"
 			module_sprites["Landmate"] = "landmate"
 			module_sprites["Standard"] = "robotEngi"
+			module_sprites["Noble-ENG"] = "Noble-ENG"
 			magpulse = 1
 
 		if("Janitor")
@@ -350,6 +355,7 @@ var/list/robot_verbs_default = list(
 			module_sprites["Mopbot"]  = "janitorrobot"
 			module_sprites["Mop Gear Rex"] = "mopgearrex"
 			module_sprites["Standard"] = "robotJani"
+			module_sprites["Noble-CLN"] = "Noble-CLN"
 
 		if("Combat")
 			module = new /obj/item/weapon/robot_module/combat(src)
@@ -422,7 +428,7 @@ var/list/robot_verbs_default = list(
 	set name = "Self Diagnosis"
 
 	if(!is_component_functioning("diagnosis unit"))
-		to_chat(src, "\red Your self-diagnosis component isn't functioning.")
+		to_chat(src, "<span class='warning'>Your self-diagnosis component isn't functioning.</span>")
 
 	var/dat = self_diagnosis()
 	src << browse(dat, "window=robotdiagnosis")
@@ -447,10 +453,10 @@ var/list/robot_verbs_default = list(
 	var/datum/robot_component/C = components[toggle]
 	if(C.toggled)
 		C.toggled = 0
-		to_chat(src, "\red You disable [C.name].")
+		to_chat(src, "<span class='warning'>You disable [C.name].</span>")
 	else
 		C.toggled = 1
-		to_chat(src, "\red You enable [C.name].")
+		to_chat(src, "<span class='warning'>You enable [C.name].</span>")
 
 /mob/living/silicon/robot/proc/sensor_mode()
 	set name = "Set Sensor Augmentation"
@@ -546,38 +552,6 @@ var/list/robot_verbs_default = list(
 	return 2
 
 
-/mob/living/silicon/robot/Bump(atom/movable/AM as mob|obj, yes)
-	spawn( 0 )
-		if((!( yes ) || now_pushing))
-			return
-		now_pushing = 1
-		if(ismob(AM))
-			var/mob/tmob = AM
-			if(istype(tmob, /mob/living/carbon/human) && (FAT in tmob.mutations))
-				if(prob(20))
-					to_chat(usr, "<span class='danger'>You fail to push [tmob]'s fat ass out of the way.</span>")
-					now_pushing = 0
-					return
-			if(!(tmob.status_flags & CANPUSH))
-				now_pushing = 0
-				return
-		now_pushing = 0
-		..()
-		if(!istype(AM, /atom/movable))
-			return
-		if(!now_pushing)
-			now_pushing = 1
-			if(!AM.anchored)
-				var/t = get_dir(src, AM)
-				if(istype(AM, /obj/structure/window/full))
-					for(var/obj/structure/window/win in get_step(AM,t))
-						now_pushing = 0
-						return
-				step(AM, t)
-			now_pushing = null
-		return
-	return
-
 /mob/living/silicon/robot/attackby(obj/item/weapon/W as obj, mob/user as mob, params)
 	if(istype(W, /obj/item/weapon/restraints/handcuffs)) // fuck i don't even know why isrobot() in handcuff code isn't working so this will have to do
 		return
@@ -597,7 +571,7 @@ var/list/robot_verbs_default = list(
 					C.brute_damage = WC.brute
 					C.electronics_damage = WC.burn
 
-				to_chat(usr, "\blue You install the [W.name].")
+				to_chat(usr, "<span class='notice'>You install the [W.name].</span>")
 
 				return
 
@@ -610,7 +584,7 @@ var/list/robot_verbs_default = list(
 		var/obj/item/weapon/weldingtool/WT = W
 		user.changeNext_move(CLICK_CD_MELEE)
 		if(WT.remove_fuel(0))
-			playsound(src.loc, 'sound/items/Welder2.ogg', 50, 1)
+			playsound(src.loc, W.usesound, 50, 1)
 			adjustBruteLoss(-30)
 			updatehealth()
 			add_fingerprint(user)
@@ -640,20 +614,13 @@ var/list/robot_verbs_default = list(
 			else if(wiresexposed && wires.IsAllCut())
 				//Cell is out, wires are exposed, remove MMI, produce damaged chassis, baleet original mob.
 				if(!mmi)
-					to_chat(user, "\The [src] has no brain to remove.")
+					to_chat(user, "[src] has no brain to remove.")
 					return
 
-				to_chat(user, "You jam the crowbar into the robot and begin levering [mmi].")
-				if(do_after(user,3 SECONDS, target = src))
-					to_chat(user, "You damage some parts of the chassis, but eventually manage to rip out [mmi]!")
-					var/obj/item/robot_parts/robot_suit/C = new/obj/item/robot_parts/robot_suit(loc)
-					C.l_leg = new/obj/item/robot_parts/l_leg(C)
-					C.r_leg = new/obj/item/robot_parts/r_leg(C)
-					C.l_arm = new/obj/item/robot_parts/l_arm(C)
-					C.r_arm = new/obj/item/robot_parts/r_arm(C)
-					C.updateicon()
-					new/obj/item/robot_parts/chest(loc)
-					qdel(src)
+				to_chat(user, "You jam the crowbar into the robot and begin levering the securing bolts.")
+				if(do_after(user, 30 * W.toolspeed, target = src))
+					user.visible_message("[user] deconstructs [src]!", "<span class='notice'>You unfasten the securing bolts, and [src] falls to pieces!</span>")
+					deconstruct()
 			else
 				// Okay we're not removing the cell or an MMI, but maybe something else?
 				var/list/removable_components = list()
@@ -798,22 +765,22 @@ var/list/robot_verbs_default = list(
 			var/time = time2text(world.realtime,"hh:mm:ss")
 			lawchanges.Add("[time] <B>:</B> [M.name]([M.key]) emagged [name]([key])")
 			set_zeroth_law("Only [M.real_name] and people he designates as being such are Syndicate Agents.")
-			to_chat(src, "\red ALERT: Foreign software detected.")
+			to_chat(src, "<span class='warning'>ALERT: Foreign software detected.</span>")
 			sleep(5)
-			to_chat(src, "\red Initiating diagnostics...")
+			to_chat(src, "<span class='warning'>Initiating diagnostics...</span>")
 			sleep(20)
-			to_chat(src, "\red SynBorg v1.7 loaded.")
+			to_chat(src, "<span class='warning'>SynBorg v1.7 loaded.</span>")
 			sleep(5)
-			to_chat(src, "\red LAW SYNCHRONISATION ERROR")
+			to_chat(src, "<span class='warning'>LAW SYNCHRONISATION ERROR</span>")
 			sleep(5)
-			to_chat(src, "\red Would you like to send a report to NanoTraSoft? Y/N")
+			to_chat(src, "<span class='warning'>Would you like to send a report to NanoTraSoft? Y/N</span>")
 			sleep(10)
-			to_chat(src, "\red > N")
+			to_chat(src, "<span class='warning'>> N</span>")
 			sleep(20)
-			to_chat(src, "\red ERRORERRORERROR")
+			to_chat(src, "<span class='warning'>ERRORERRORERROR</span>")
 			to_chat(src, "<b>Obey these laws:</b>")
 			laws.show_laws(src)
-			to_chat(src, "\red \b ALERT: [M.real_name] is your new master. Obey your new laws and his commands.")
+			to_chat(src, "<span class='boldwarning'>ALERT: [M.real_name] is your new master. Obey your new laws and his commands.</span>")
 			SetLockdown(0)
 			if(src.module && istype(src.module, /obj/item/weapon/robot_module/miner))
 				for(var/obj/item/weapon/pickaxe/drill/cyborg/D in src.module.modules)
@@ -938,9 +905,11 @@ var/list/robot_verbs_default = list(
 				adjustStaminaLoss(damage)
 		updatehealth()
 
+/mob/living/silicon/robot/attack_ghost(mob/user)
+	if(wiresexposed)
+		wires.Interact(user)
 
 /mob/living/silicon/robot/attack_hand(mob/user)
-
 	add_fingerprint(user)
 
 	if(opened && !wiresexposed && (!istype(user, /mob/living/silicon)))
@@ -1004,7 +973,7 @@ var/list/robot_verbs_default = list(
 
 /mob/living/silicon/robot/proc/installed_modules()
 	if(weapon_lock)
-		to_chat(src, "\red Weapon lock active, unable to use modules! Count:[weaponlock_time]")
+		to_chat(src, "<span class='warning'>Weapon lock active, unable to use modules! Count:[weaponlock_time]</span>")
 		return
 
 	if(!module)
@@ -1129,6 +1098,49 @@ var/list/robot_verbs_default = list(
 
 	update_icons()
 
+/mob/living/silicon/robot/proc/deconstruct()
+	var/turf/T = get_turf(src)
+	if(robot_suit)
+		robot_suit.forceMove(T)
+		robot_suit.l_leg.forceMove(T)
+		robot_suit.l_leg = null
+		robot_suit.r_leg.forceMove(T)
+		robot_suit.r_leg = null
+		new /obj/item/stack/cable_coil(T, robot_suit.chest.wired)
+		robot_suit.chest.forceMove(T)
+		robot_suit.chest.wired = FALSE
+		robot_suit.chest = null
+		robot_suit.l_arm.forceMove(T)
+		robot_suit.l_arm = null
+		robot_suit.r_arm.forceMove(T)
+		robot_suit.r_arm = null
+		robot_suit.head.forceMove(T)
+		robot_suit.head.flash1.forceMove(T)
+		robot_suit.head.flash1.burn_out()
+		robot_suit.head.flash1 = null
+		robot_suit.head.flash2.forceMove(T)
+		robot_suit.head.flash2.burn_out()
+		robot_suit.head.flash2 = null
+		robot_suit.head = null
+		robot_suit.updateicon()
+	else
+		new /obj/item/robot_parts/robot_suit(T)
+		new /obj/item/robot_parts/l_leg(T)
+		new /obj/item/robot_parts/r_leg(T)
+		new /obj/item/stack/cable_coil(T, 1)
+		new /obj/item/robot_parts/chest(T)
+		new /obj/item/robot_parts/l_arm(T)
+		new /obj/item/robot_parts/r_arm(T)
+		new /obj/item/robot_parts/head(T)
+		var/b
+		for(b=0, b!=2, b++)
+			var/obj/item/device/flash/F = new /obj/item/device/flash(T)
+			F.burn_out()
+	if(cell) //Sanity check.
+		cell.forceMove(T)
+		cell = null
+	qdel(src)
+
 #define BORG_CAMERA_BUFFER 30
 /mob/living/silicon/robot/Move(a, b, flag)
 	var/oldLoc = src.loc
@@ -1243,15 +1255,14 @@ var/list/robot_verbs_default = list(
 		triesleft--
 
 	var/icontype
-
-	if(custom_sprite == 1)
-		icontype = "Custom"
-		triesleft = 0
-	else
-		lockcharge = 1  //Locks borg until it select an icon to avoid secborgs running around with a standard sprite
-		icontype = input("Select an icon! [triesleft ? "You have [triesleft] more chances." : "This is your last try."]", "Robot", null, null) in module_sprites
+	lockcharge = 1  //Locks borg until it select an icon to avoid secborgs running around with a standard sprite
+	icontype = input("Select an icon! [triesleft ? "You have [triesleft] more chances." : "This is your last try."]", "Robot", null, null) in module_sprites
 
 	if(icontype)
+		if(icontype == "Custom")
+			icon = 'icons/mob/custom_synthetic/custom-synthetic.dmi'
+		else
+			icon = 'icons/mob/robots.dmi'
 		icon_state = module_sprites[icontype]
 		if(icontype == "Bro")
 			module.module_type = "Brobot"

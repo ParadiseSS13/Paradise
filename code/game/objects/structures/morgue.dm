@@ -27,6 +27,7 @@
 	"The tray contains a body that might be responsive."
 	)
 	anchored = 1.0
+	var/open_sound = 'sound/items/Deconstruct.ogg'
 
 /obj/structure/morgue/initialize()
 	. = ..()
@@ -100,11 +101,11 @@
 		for(var/atom/movable/A as mob|obj in connected.loc)
 			if(!( A.anchored ))
 				A.forceMove(src)
-		playsound(loc, 'sound/items/Deconstruct.ogg', 50, 1)
+		playsound(loc, open_sound, 50, 1)
 		qdel(connected)
 		connected = null
 	else
-		playsound(loc, 'sound/items/Deconstruct.ogg', 50, 1)
+		playsound(loc, open_sound, 50, 1)
 		connected = new /obj/structure/m_tray( loc )
 		step(connected, dir)
 		connected.layer = OBJ_LAYER
@@ -159,9 +160,7 @@
 	return
 
 /obj/structure/morgue/Destroy()
-	if(connected)
-		qdel(connected)
-		connected = null
+	QDEL_NULL(connected)
 	return ..()
 
 /obj/structure/morgue/container_resist(var/mob/living/L)
@@ -184,14 +183,14 @@
  */
 /obj/structure/m_tray
 	name = "morgue tray"
-	desc = "Apply corpse before closing."
+	desc = "Apply corpse before closing. May float away in no-gravity."
 	icon = 'icons/obj/stationobjs.dmi'
 	icon_state = "morguet"
 	density = 1
 	layer = 2.0
 	var/obj/structure/morgue/connected = null
 	anchored = 1.0
-	throwpass = 1
+	pass_flags = LETPASSTHROW
 
 
 /obj/structure/m_tray/attack_hand(mob/user as mob)
@@ -217,7 +216,7 @@
 	if(user != O)
 		for(var/mob/B in viewers(user, 3))
 			if((B.client && !( B.blinded )))
-				to_chat(B, text("\red [] stuffs [] into []!", user, O, src))
+				to_chat(B, text("<span class='warning'>[] stuffs [] into []!</span>", user, O, src))
 	return
 
 /obj/structure/m_tray/Destroy()
@@ -258,6 +257,7 @@
 	var/cremating = 0
 	var/id = 1
 	var/locked = 0
+	var/open_sound = 'sound/items/Deconstruct.ogg'
 
 /obj/structure/crematorium/proc/update()
 	if(connected)
@@ -299,17 +299,17 @@
 
 /obj/structure/crematorium/attack_hand(mob/user as mob)
 	if(cremating)
-		to_chat(usr, "\red It's locked.")
+		to_chat(usr, "<span class='warning'>It's locked.</span>")
 		return
 	if((connected) && (locked == 0))
 		for(var/atom/movable/A as mob|obj in connected.loc)
 			if(!( A.anchored ))
 				A.forceMove(src)
-		playsound(loc, 'sound/items/Deconstruct.ogg', 50, 1)
+		playsound(loc, open_sound, 50, 1)
 		qdel(connected)
 		connected = null
 	else if(locked == 0)
-		playsound(loc, 'sound/items/Deconstruct.ogg', 50, 1)
+		playsound(loc, open_sound, 50, 1)
 		connected = new /obj/structure/c_tray( loc )
 		step(connected, SOUTH)
 		connected.layer = OBJ_LAYER
@@ -382,8 +382,8 @@
 			if(M.stat!=2)
 				M.emote("scream")
 			if(istype(user))
-				M.attack_log += "\[[time_stamp()]\] <font color='orange'>Has been cremated by [user.name] ([user.ckey])</font>"
-				user.attack_log +="\[[time_stamp()]\] <font color='red'>Cremated [M.name] ([M.ckey])</font>"
+				M.create_attack_log("<font color='orange'>Has been cremated by [user.name] ([user.ckey])</font>")
+				user.create_attack_log("<font color='red'>Cremated [M.name] ([M.ckey])</font>")
 				log_attack("[user.name] ([user.ckey]) cremated [M.name] ([M.ckey])")
 			M.death(1)
 			if(!M || !isnull(M.gcDestroyed))
@@ -403,9 +403,7 @@
 	return
 
 /obj/structure/crematorium/Destroy()
-	if(connected)
-		qdel(connected)
-		connected = null
+	QDEL_NULL(connected)
 	return ..()
 
 /obj/structure/crematorium/container_resist(var/mob/living/L)
@@ -434,7 +432,7 @@
 	layer = 2.0
 	var/obj/structure/crematorium/connected = null
 	anchored = 1.0
-	throwpass = 1
+	pass_flags = LETPASSTHROW
 
 /obj/structure/c_tray/attack_hand(mob/user as mob)
 	if(connected)
@@ -460,7 +458,7 @@
 	if(user != O)
 		for(var/mob/B in viewers(user, 3))
 			if((B.client && !( B.blinded )))
-				to_chat(B, text("\red [] stuffs [] into []!", user, O, src))
+				to_chat(B, text("<span class='warning'>[] stuffs [] into []!</span>", user, O, src))
 			//Foreach goto(99)
 	return
 
@@ -470,15 +468,31 @@
 	connected = null
 	return ..()
 
-/obj/machinery/crema_switch/attack_hand(mob/user as mob)
-	if(allowed(usr))
+// Crematorium switch
+/obj/machinery/crema_switch
+	desc = "Burn baby burn!"
+	name = "crematorium igniter"
+	icon = 'icons/obj/power.dmi'
+	icon_state = "crema_switch"
+	anchored = 1.0
+	req_access = list(access_crematorium)
+	var/on = 0
+	var/area/area = null
+	var/otherarea = null
+	var/id = 1
+
+/obj/machinery/crema_switch/attack_ghost(mob/user)
+	if(user.can_advanced_admin_interact())
+		return attack_hand(user)
+
+/obj/machinery/crema_switch/attack_hand(mob/user)
+	if(allowed(usr) || user.can_advanced_admin_interact())
 		for(var/obj/structure/crematorium/C in world)
 			if(C.id == id)
 				if(!C.cremating)
 					C.cremate(user)
 	else
-		to_chat(usr, "\red Access denied.")
-	return
+		to_chat(usr, "<span class='warning'>Access denied.</span>")
 
 /mob/proc/update_morgue()
 	if(stat == DEAD)

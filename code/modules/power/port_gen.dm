@@ -288,12 +288,12 @@
 				disconnect_from_network()
 				to_chat(user, "<span class='notice'>You unsecure the generator from the floor.</span>")
 
-			playsound(src.loc, 'sound/items/Deconstruct.ogg', 50, 1)
+			playsound(src.loc, O.usesound, 50, 1)
 			anchored = !anchored
 
 		else if(istype(O, /obj/item/weapon/screwdriver))
 			panel_open = !panel_open
-			playsound(src.loc, 'sound/items/Screwdriver.ogg', 50, 1)
+			playsound(src.loc, O.usesound, 50, 1)
 			if(panel_open)
 				to_chat(user, "<span class='notice'>You open the access panel.</span>")
 			else

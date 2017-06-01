@@ -125,7 +125,7 @@
 	icon_state = "arm_blade"
 	item_state = "arm_blade"
 	flags = ABSTRACT | NODROP
-	w_class = 5
+	w_class = WEIGHT_CLASS_HUGE
 	sharp = 1
 	edge = 1
 	force = 25
@@ -279,7 +279,7 @@
 	name = "flesh mass"
 	icon_state = "lingspacehelmet"
 	desc = "A covering of pressure and temperature-resistant organic tissue with a glass-like chitin front."
-	flags = HEADCOVERSEYES | BLOCKHAIR | HEADCOVERSMOUTH | STOPSPRESSUREDMAGE | NODROP
+	flags = BLOCKHAIR | STOPSPRESSUREDMAGE | NODROP
 	armor = list(melee = 0, bullet = 0, laser = 0, energy = 0, bomb = 0, bio = 0, rad = 0)
 
 /obj/item/clothing/head/helmet/space/changeling/dropped()
@@ -330,7 +330,7 @@
 	name = "chitinous mass"
 	desc = "A tough, hard covering of black chitin with transparent chitin in front."
 	icon_state = "lingarmorhelmet"
-	flags = HEADCOVERSEYES | BLOCKHAIR | NODROP
+	flags = BLOCKHAIR | NODROP
 	armor = list(melee = 30, bullet = 30, laser = 40, energy = 20, bomb = 10, bio = 4, rad = 0)
 	flags_inv = HIDEEARS
 

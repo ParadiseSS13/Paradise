@@ -72,6 +72,10 @@
 
 /obj/item/clothing/under/rank/clown/hit_reaction()
 	playsound(loc, 'sound/items/bikehorn.ogg', 50, 1, -1)
+	if(ishuman(loc))
+		var/mob/living/carbon/human/H = loc
+		if(H.mind && H.mind.assigned_role == "Clown")
+			score_clownabuse++
 	return 0
 
 /obj/item/clothing/under/rank/head_of_personnel
@@ -113,6 +117,14 @@
 	icon_state = "internalaffairs"
 	item_state = "internalaffairs"
 	item_color = "internalaffairs"
+	flags_size = ONESIZEFITSALL
+
+/obj/item/clothing/under/rank/ntrep/skirt
+	desc = "A silky smooth black and gold representative uniform with blue markings."
+	name = "representative skirt"
+	icon_state = "ntrepf"
+	item_state = "ntrepf"
+	item_color = "ntrepf"
 	flags_size = ONESIZEFITSALL
 
 /obj/item/clothing/under/rank/janitor

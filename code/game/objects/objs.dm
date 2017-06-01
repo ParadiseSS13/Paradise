@@ -61,8 +61,6 @@
 	nanomanager.close_uis(src)
 	return ..()
 
-/obj/item/proc/is_used_on(obj/O, mob/user)
-
 /obj/proc/process()
 	set waitfor = 0
 	processing_objects.Remove(src)
@@ -319,3 +317,6 @@ a {
 		Item.forceMove(new_loc)
 		if(burn)
 			Item.fire_act() //Set them on fire, too
+
+/obj/proc/on_mob_move(dir, mob/user)
+	return

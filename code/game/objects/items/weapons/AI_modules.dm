@@ -14,7 +14,7 @@ AI MODULES
 	desc = "An AI Module for transmitting encrypted instructions to the AI."
 	flags = CONDUCT
 	force = 5.0
-	w_class = 2
+	w_class = WEIGHT_CLASS_SMALL
 	throwforce = 5.0
 	throw_speed = 3
 	throw_range = 15
@@ -367,7 +367,7 @@ AI MODULES
 	log_law_changes(target, sender)
 
 	lawchanges.Add("The law is '[newFreeFormLaw]'")
-	to_chat(target, "\red BZZZZT")
+	to_chat(target, "<span class='warning'>BZZZZT</span>")
 	var/law = "[newFreeFormLaw]"
 	target.add_ion_law(law)
 	target.show_laws()
