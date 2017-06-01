@@ -93,29 +93,29 @@
 				new cat_type(loc)
 
 
-/mob/living/simple_animal/pet/cat/Life()
-	if(!stat && !buckled && !client)
-		if(prob(1))
-			custom_emote(1, pick("stretches out for a belly rub.", "wags its tail.", "lies down."))
-			icon_state = "[icon_living]_rest"
-			resting = 1
+/mob/living/simple_animal/pet/cat/handle_automated_action()
+	..()
+	if(prob(1))
+		custom_emote(1, pick("stretches out for a belly rub.", "wags its tail.", "lies down."))
+		icon_state = "[icon_living]_rest"
+		resting = 1
+		update_canmove()
+	else if (prob(1))
+		custom_emote(1, pick("sits down.", "crouches on its hind legs.", "looks alert."))
+		icon_state = "[icon_living]_sit"
+		resting = 1
+		update_canmove()
+	else if (prob(1))
+		if (resting)
+			custom_emote(1, pick("gets up and meows.", "walks around.", "stops resting."))
+			icon_state = "[icon_living]"
+			resting = 0
 			update_canmove()
-		else if (prob(1))
-			custom_emote(1, pick("sits down.", "crouches on its hind legs.", "looks alert."))
-			icon_state = "[icon_living]_sit"
-			resting = 1
-			update_canmove()
-		else if (prob(1))
-			if (resting)
-				custom_emote(1, pick("gets up and meows.", "walks around.", "stops resting."))
-				icon_state = "[icon_living]"
-				resting = 0
-				update_canmove()
-			else
-				custom_emote(1, pick("grooms its fur.", "twitches its whiskers.", "shakes out its coat."))
+		else
+			custom_emote(1, pick("grooms its fur.", "twitches its whiskers.", "shakes out its coat."))
 
 	//MICE!
-	if((src.loc) && isturf(src.loc))
+	if(eats_mice && loc && isturf(loc) && !incapacitated())
 		if(!stat && !resting && !buckled)
 			for(var/mob/living/simple_animal/mouse/M in view(1,src))
 				if(!M.stat && Adjacent(M))
@@ -124,11 +124,10 @@
 					movement_target = null
 					stop_automated_movement = 0
 					break
-
-	..()
-
 	make_babies()
 
+/mob/living/simple_animal/pet/cat/handle_automated_movement()
+	..()
 	if(!stat && !resting && !buckled)
 		turns_since_scan++
 		if(turns_since_scan > 5)
