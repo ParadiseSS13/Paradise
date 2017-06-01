@@ -163,7 +163,7 @@
 	name = "Chameleon flag"
 	desc = "A poor recreation of the official NT flag. It seems to shimmer a little."
 	icon_state = "ntflag"
-	origin_tech = "materials=3;magnets=4;syndicate=4"
+	origin_tech = "syndicate=4;magnets=4"
 	var/used = 0
 
 /obj/item/flag/chameleon/attack_self(mob/user)

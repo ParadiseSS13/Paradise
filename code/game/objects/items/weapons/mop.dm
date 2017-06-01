@@ -78,6 +78,7 @@
 	mopcap = 15
 	icon_state = "advmop"
 	item_state = "mop"	//meh will do for now until TG makes one
+	origin_tech = "materials=3;engineering=3"
 	force = 6
 	throwforce = 8
 	throw_range = 4

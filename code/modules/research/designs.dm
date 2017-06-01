@@ -2,7 +2,7 @@
 
 /***************************************************************
 **						Design Datums						  **
-**	All the data for building stuff and tracking reliability. **
+**	All the data for building stuff. **
 ***************************************************************/
 /*
 For the materials datum, it assumes you need reagents unless specified otherwise. To designate a material that isn't a reagent,
@@ -23,9 +23,6 @@ The currently supporting non-reagent materials:
 Don't add new keyword/IDs if they are made from an existing one (such as rods which are made from metal). Only add raw materials.
 
 Design Guidlines
-- The reliability formula for all R&D built items is reliability (a fixed number) + total tech levels required to make it +
-reliability_mod (starts at 0, gets improved through experimentation). Example: PACMAN generator. 79 base reliablity + 6 tech
-(3 plasmatech, 3 powerstorage) + 0 (since it's completely new) = 85% reliability. Reliability is the chance it works CORRECTLY.
 - When adding new designs, check rdreadme.dm to see what kind of things have already been made and where new stuff is needed.
 - A single sheet of anything is 2000 units of material. Materials besides metal/glass require help from other jobs (mining for
 other types of metals and chemistry for reagents).
@@ -39,7 +36,6 @@ other types of metals and chemistry for reagents).
 	var/desc = "Desc"					//Description of the created object.
 	var/id = "id"						//ID of the created object for easy refernece. Alphanumeric, lower-case, no symbols
 	var/list/req_tech = list()			//IDs of that techs the object originated from and the minimum level requirements.
-	var/reliability = 100				//Reliability of the device.
 	var/build_type = null				//Flag as to what kind machine the design is built in. See defines.
 	var/list/materials = list()			//List of materials. Format: "id" = amount.
 	var/construction_time				//Amount of time required for building the object
@@ -51,14 +47,3 @@ other types of metals and chemistry for reagents).
 	var/list/reagents = list()			//List of reagents. Format: "id" = amount.
 	var/maxstack = 1
 	var/lathe_time_factor = 1			//How many times faster than normal is this to build on the protolathe
-
-//A proc to calculate the reliability of a design based on tech levels and innate modifiers.
-//Input: A list of /datum/tech; Output: The new reliabilty.
-/datum/design/proc/CalcReliability(var/list/temp_techs)
-	var/new_reliability
-	for(var/datum/tech/T in temp_techs)
-		if(T.id in req_tech)
-			new_reliability += T.level
-	new_reliability = Clamp(new_reliability, reliability, 100)
-	reliability = new_reliability
-	return

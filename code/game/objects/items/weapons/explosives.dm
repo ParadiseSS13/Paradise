@@ -6,7 +6,7 @@
 	flags = NOBLUDGEON
 	det_time = 10
 	display_timer = 0
-	origin_tech = "syndicate=2"
+	origin_tech = "syndicate=1"
 	toolspeed = 1
 	var/atom/target = null
 	var/image_overlay = null

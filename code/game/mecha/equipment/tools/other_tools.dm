@@ -7,7 +7,7 @@
 	name = "mounted teleporter"
 	desc = "An exosuit module that allows exosuits to teleport to any position in view."
 	icon_state = "mecha_teleport"
-	origin_tech = "bluespace=10"
+	origin_tech = "bluespace=7"
 	equip_cooldown = 150
 	energy_drain = 8000
 	range = RANGED
@@ -25,7 +25,7 @@
 /obj/item/mecha_parts/mecha_equipment/teleporter/precise
 	name = "upgraded teleporter"
 	desc = "An exosuit module that allows exosuits to teleport to any position in view. This is the high-precision, energy-efficient version."
-	origin_tech = "bluespace=13"
+	origin_tech = "bluespace=7"
 	energy_drain = 1000
 	tele_precision = 1
 
@@ -36,7 +36,7 @@
 	name = "mounted wormhole generator"
 	desc = "An exosuit module that allows generating of small quasi-stable wormholes."
 	icon_state = "mecha_wholegen"
-	origin_tech = "bluespace=3"
+	origin_tech = "bluespace=4;magnets=4;plasmatech=2"
 	equip_cooldown = 50
 	energy_drain = 300
 	range = RANGED
@@ -82,7 +82,7 @@
 	name = "mounted gravitational catapult"
 	desc = "An exosuit mounted Gravitational Catapult."
 	icon_state = "mecha_teleport"
-	origin_tech = "bluespace=2;magnets=3"
+	origin_tech = "bluespace=3;magnets=3;engineering=4"
 	equip_cooldown = 10
 	energy_drain = 100
 	range = MELEE|RANGED
@@ -145,7 +145,7 @@
 	name = "Armor Booster Module (Close Combat Weaponry)"
 	desc = "Boosts exosuit armor against armed melee attacks. Requires energy to operate."
 	icon_state = "mecha_abooster_ccw"
-	origin_tech = "materials=3"
+	origin_tech = "materials=4;combat=4"
 	equip_cooldown = 10
 	energy_drain = 50
 	range = 0
@@ -163,7 +163,7 @@
 	name = "Armor Booster Module (Ranged Weaponry)"
 	desc = "Boosts exosuit armor against ranged attacks. Completely blocks taser shots. Requires energy to operate."
 	icon_state = "mecha_abooster_proj"
-	origin_tech = "materials=4"
+	origin_tech = "materials=4;combat=3;engineering=3"
 	equip_cooldown = 10
 	energy_drain = 50
 	range = 0
@@ -183,7 +183,7 @@
 	name = "Repair Droid"
 	desc = "Automated repair droid. Scans exosuit for damage and repairs it. Can fix almost all types of external or internal damage."
 	icon_state = "repair_droid"
-	origin_tech = "magnets=3;programming=3"
+	origin_tech ="magnets=3;programming=3;engineering=4"
 	equip_cooldown = 20
 	energy_drain = 50
 	range = 0
