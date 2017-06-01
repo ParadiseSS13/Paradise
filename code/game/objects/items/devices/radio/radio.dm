@@ -37,7 +37,7 @@ var/global/list/default_medbay_channels = list(
 	var/list/channels = list() //see communications.dm for full list. First channes is a "default" for :h
 	var/subspace_transmission = 0
 	var/syndie = 0//Holder to see if it's a syndicate encrpyed radio
-	var/emp = 0 //How many times this is affected by EMPs
+	var/disable_timer = 0 //How many times this is disabled by EMPs
 
 	var/is_special = 0 //For electropacks mostly, skips Topic() checks
 
@@ -601,7 +601,7 @@ var/global/list/default_medbay_channels = list(
 
 /obj/item/device/radio/emp_act(severity)
 	on = 0
-	emp++
+	disable_timer++
 	addtimer(src, "enable_radio", rand(100, 200))
 
 	if(listening)
@@ -614,9 +614,9 @@ var/global/list/default_medbay_channels = list(
 	..()
 
 /obj/item/device/radio/proc/enable_radio()
-	if(emp > 0)
-		emp--
-	if(!emp)
+	if(disable_timer > 0)
+		disable_timer--
+	if(!disable_timer)
 		on = 1
 
 ///////////////////////////////
