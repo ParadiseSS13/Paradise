@@ -600,9 +600,9 @@ var/global/list/default_medbay_channels = list(
 
 /obj/item/device/radio/emp_act(severity)
 	frequency = get_random_freq()
-	if(listening == 1)
-		visible_message("<span class='warning'>\The [src] screeches violently!</span>")
-			
+	if(listening)
+		visible_message("<span class='warning'>[src] buzzes violently!</span>")
+
 	broadcasting = 0
 	listening = 0
 	for(var/ch_name in channels)
@@ -610,7 +610,7 @@ var/global/list/default_medbay_channels = list(
 	..()
 
 /obj/item/device/radio/proc/get_random_freq()
-	var/rand_freq = round(rand(1440, 1480), 10) + pick(1, 3, 5, 9)
+	var/rand_freq = round(rand(PUBLIC_LOW_FREQ, PUBLIC_HIGH_FREQ - 9), 10) + pick(1, 3, 5, 9)
 	return rand_freq
 
 ///////////////////////////////
