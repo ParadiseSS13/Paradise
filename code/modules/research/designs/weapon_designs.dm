@@ -209,17 +209,6 @@
 	build_path = /obj/item/ammo_casing/shotgun/techshell
 	category = list("Weapons")
 
-/datum/design/xray
-	name = "Xray Laser Gun"
-	desc = "Not quite as menacing as it sounds"
-	id = "xray"
-	req_tech = list("combat" = 6, "materials" = 5, "biotech" = 5, "powerstorage" = 4)
-	build_type = PROTOLATHE
-	materials = list(MAT_GOLD = 5000,MAT_URANIUM = 10000, MAT_METAL = 4000)
-	build_path = /obj/item/weapon/gun/energy/xray
-	locked = 1
-	category = list("Weapons")
-
 /datum/design/immolator
 	name = "Immolator Laser Gun"
 	desc = "Has fewer shots than a regular laser gun, but ignites the target on hit"
