@@ -1,0 +1,4 @@
+author: "Alexshreds"
+delete-after: True
+changes: 
+  - bugfix: "Ian's hardsuit is no longer invisible"
