@@ -1,0 +1,4 @@
+author: "Kyep"
+delete-after: True
+changes: 
+  - bugfix: "ERTs no longer start penniless, unable to afford even basic food, or coffee."
