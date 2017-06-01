@@ -599,7 +599,14 @@ var/global/list/default_medbay_channels = list(
 	else return
 
 /obj/item/device/radio/emp_act(severity)
-	frequency = get_random_freq()
+	var/emp
+	on = 0
+	emp++
+	spawn(70)
+		emp--
+		if(!emp)
+			on = 1
+
 	if(listening)
 		visible_message("<span class='warning'>[src] buzzes violently!</span>")
 
@@ -608,10 +615,6 @@ var/global/list/default_medbay_channels = list(
 	for(var/ch_name in channels)
 		channels[ch_name] = 0
 	..()
-
-/obj/item/device/radio/proc/get_random_freq()
-	var/rand_freq = round(rand(PUBLIC_LOW_FREQ, PUBLIC_HIGH_FREQ - 9), 10) + pick(1, 3, 5, 9)
-	return rand_freq
 
 ///////////////////////////////
 //////////Borg Radios//////////
