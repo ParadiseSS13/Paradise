@@ -1,7 +1,0 @@
-author: "FreeStylaLT"
-delete-after: True
-changes: 
-  - bugfix: "Gamma armory no longer affected by brig events."
-  - tweak: "Outer armory windoor access has been lowered to Security Officer+, instead of Warden+."
-  - tweak: "Removed a redundant door in the brig's main hallway."
-  - tweak: "Removed a redundant fire alarm, placed it elsewhere in the north hallway."
