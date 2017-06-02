@@ -12,14 +12,29 @@
 /obj/docking_port/mobile/supply
 	name = "supply shuttle"
 	id = "supply"
-	callTime = 1200
-
 	dir = 8
 	travelDir = 90
 	width = 12
 	dwidth = 5
 	height = 7
 	roundstart_move = "supply_away"
+
+/obj/docking_port/mobile/supply/timeLeft(divisor)
+    switch(security_level)
+        if(0)
+            callTime = 600
+        if(1)
+            callTime = 1800
+        if(2)
+            callTime = 3600
+        else
+            callTime = 7200
+    if(divisor <= 0)
+        divisor = 10
+    if(!timer)
+        return round(callTime/divisor, 1)
+    return max( round((timer+callTime-world.time)/divisor,1), 0 )
+
 
 /obj/docking_port/mobile/supply/register()
 	if(!..())
