@@ -12,6 +12,7 @@ var/global/list/obj/item/device/pda/PDAs = list()
 	item_state = "electronic"
 	w_class = WEIGHT_CLASS_TINY
 	slot_flags = SLOT_ID | SLOT_BELT | SLOT_PDA
+	origin_tech = "programming=2"
 
 	//Main variables
 	var/owner = null
