@@ -33,6 +33,11 @@
 		to_chat(user, "<span class='warning'>An overwhelming sense of nausea overpowers you!</span>")
 		user.Dizzy(120)
 
+	if(HULK in user.mutations)
+		to_chat(user, "<span class='danger'>\"you can't seem to hold the blade properly!.\"</span>")
+		user.unEquip(src, 1)
+
+
 /obj/item/weapon/melee/cultblade/dagger
 	name = "sacrificial dagger"
 	desc = "A strange dagger said to be used by sinister groups for \"preparing\" a corpse before sacrificing it to their dark gods."

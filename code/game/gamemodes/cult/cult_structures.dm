@@ -54,6 +54,9 @@
 	to_chat(user, "<span class='notice'>\The [src] is [anchored ? "":"not "]secured to the floor.</span>")
 
 /obj/structure/cult/functional/attackby(obj/I, mob/user, params)
+	if(HULK in user.mutations)
+		to_chat(user, "<span class='danger'>\"you can seem to work the structure right with your bulky hands!.\"</span>")
+		return
 	if(istype(I, /obj/item/weapon/tome) && iscultist(user))
 		anchored = !anchored
 		to_chat(user, "<span class='notice'>You [anchored ? "":"un"]secure \the [src] [anchored ? "to":"from"] the floor.</span>")
