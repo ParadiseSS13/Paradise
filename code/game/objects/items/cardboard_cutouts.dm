@@ -5,7 +5,7 @@
 	icon = 'icons/obj/cardboard_cutout.dmi'
 	icon_state = "cutout_basic"
 	burn_state = FLAMMABLE
-	w_class = 4
+	w_class = WEIGHT_CLASS_BULKY
 	var/list/possible_appearances = list("Assistant", "Clown", "Mime",
 		"Traitor", "Nuke Op", "Cultist", "Clockwork Cultist",
 		"Revolutionary", "Wizard", "Shadowling", "Xenomorph", "Swarmer",
@@ -88,7 +88,7 @@
 	switch(new_appearance)
 		if("Assistant")
 			name = "[pick(first_names_male)] [pick(last_names)]"
-			desc = "A cardboat cutout of an assistant."
+			desc = "A cardboard cutout of an assistant."
 			icon_state = "cutout_greytide"
 		if("Clown")
 			name = pick(clown_names)
