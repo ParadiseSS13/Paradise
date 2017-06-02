@@ -5,6 +5,8 @@
 /obj/item/clothing/accessory/lawyers_badge
 	name = "attorney's badge"
 	desc = "Fills you with the conviction of JUSTICE. Lawyers tend to want to show it to everyone they meet."
+	icon = 'hyntatmta/icons/obj/clothing/ties.dmi'
+	icon_override = 'hyntatmta/icons/mob/ties.dmi'
 	icon_state = "lawyerbadge"
 	item_color = "lawyerbadge"
 
