@@ -198,3 +198,27 @@
 				/obj/item/weapon/gun/energy/kinetic_accelerator = 1,
 				/obj/item/pizzabox = 3,
 				)
+
+/obj/effect/spawner/lootdrop/three_course_meal
+	name = "three course meal spawner"
+	lootcount = 3
+	lootdoubles = FALSE
+	var/soups = list(
+			/obj/item/weapon/reagent_containers/food/snacks/beetsoup,
+			/obj/item/weapon/reagent_containers/food/snacks/stew,
+			/obj/item/weapon/reagent_containers/food/snacks/hotchili,
+			/obj/item/weapon/reagent_containers/food/snacks/nettlesoup,
+			/obj/item/weapon/reagent_containers/food/snacks/meatballsoup)
+	var/salads = list(
+			/obj/item/weapon/reagent_containers/food/snacks/herbsalad,
+			/obj/item/weapon/reagent_containers/food/snacks/validsalad,
+			/obj/item/weapon/reagent_containers/food/snacks/aesirsalad)
+	var/mains = list(
+			/obj/item/weapon/reagent_containers/food/snacks/enchiladas,
+			/obj/item/weapon/reagent_containers/food/snacks/stewedsoymeat,
+			/obj/item/weapon/reagent_containers/food/snacks/bigbiteburger,
+			/obj/item/weapon/reagent_containers/food/snacks/superbiteburger)
+
+/obj/effect/spawner/lootdrop/three_course_meal/New()
+	loot = list(pick(soups) = 1,pick(salads) = 1,pick(mains) = 1)
+	. = ..()
