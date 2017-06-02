@@ -62,7 +62,6 @@
 	origin.loc = get_turf(src)
 	user.unEquip(src)
 	user.visible_message("<span class='notice'>[user] puts [src] down.</span>", "<span class='notice'>You put [src] down.</span>")
-	qdel(src)
 
 /obj/item/weapon/stool/attack(mob/M as mob, mob/user as mob)
 	if(prob(5) && istype(M,/mob/living))
@@ -75,3 +74,17 @@
 		T.Weaken(5)
 		return
 	..()
+
+/obj/item/weapon/stool/dropped(mob/user) //Make sure we aren't leaving un-deconstructible stools.
+	..()
+	if(!user.in_throw_mode) //If this stool isn't getting thrown, turn it back into a structure.
+		origin.forceMove(user.loc)
+		qdel(src)
+
+/obj/item/weapon/stool/throw_impact(atom/hit_atom) //Thrown but uncaught stools will automatically turn into the structure version as soon as the throw is over.
+	..()
+	if(!iscarbon(loc)) //If it wasn't caught by someone, put the structure version down.
+		var/atom/A = get_turf(src)
+		sleep(6) //Gets the work done at the last frame of the 'impact spin' animation so it doesn't look janky.
+		origin.forceMove(A)
+		qdel(src)
