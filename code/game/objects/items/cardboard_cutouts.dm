@@ -9,7 +9,7 @@
 	var/list/possible_appearances = list("Assistant", "Clown", "Mime",
 		"Traitor", "Nuke Op", "Cultist", "Clockwork Cultist",
 		"Revolutionary", "Wizard", "Shadowling", "Xenomorph", "Swarmer",
-		"Ash Walker", "Deathsquad Officer", "Ian", "Slaughter Demon",
+		"Ash Walker", "Commando", "Ian", "Slaughter Demon",
 		"Laughter Demon", "Xenomorph Maid", "Private Security Officer")
 	var/pushed_over = FALSE //If the cutout is pushed over and has to be righted
 	var/deceptive = FALSE //If the cutout actually appears as what it portray and not a discolored version
@@ -140,9 +140,9 @@
 			name = random_name(pick(MALE,FEMALE),"Unathi")
 			desc = "A cardboard cutout of an ash walker."
 			icon_state = "cutout_free_antag"
-		if("Deathsquad Officer")
+		if("Commando")
 			name = pick(commando_names)
-			desc = "A cardboard cutout of a death commando."
+			desc = "A cardboard cutout of a strange commando."
 			icon_state = "cutout_deathsquad"
 		if("Ian")
 			name = "Ian"
