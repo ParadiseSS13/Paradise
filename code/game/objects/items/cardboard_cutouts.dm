@@ -34,7 +34,7 @@
 /obj/item/cardboard_cutout/attack_self(mob/living/user)
 	if(!pushed_over)
 		return
-	user << "<span class='notice'>You right [src].</span>"
+	to_chat(user, "<span class='notice'>You right [src].</span>")
 	desc = initial(desc)
 	icon = initial(icon)
 	icon_state = initial(icon_state) //This resets a cutout to its blank state - this is intentional to allow for resetting
@@ -165,7 +165,6 @@
 		if("Private Security Officer")
 			name = "Private Security Officer"
 			desc = "A cardboard cutout of a private security officer."
-			icon = 'icons/mob/mob.dmi'
 			icon_state = "cutout_ntsec"
 	return 1
 
