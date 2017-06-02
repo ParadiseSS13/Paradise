@@ -195,6 +195,8 @@ var/ert_request_answered = 0
 	ticker.mode.ert += M.mind
 	M.forceMove(spawn_location)
 
+	job_master.CreateMoneyAccount(M, class, null)
+
 	active_team.equip_officer(class, M)
 
 	return M
@@ -332,6 +334,8 @@ var/ert_request_answered = 0
 	W.name = "[H.real_name]'s ID Card ([rt_job])"
 	W.access = get_centcom_access(W.assignment)
 	W.photo = get_id_photo(H)
+	if(H.mind && H.mind.initial_account && H.mind.initial_account.account_number)
+		W.associated_account_number = H.mind.initial_account.account_number
 
 /datum/outfit/job/centcom/response_team/imprint_pda(mob/living/carbon/human/H)
 	var/obj/item/device/pda/PDA = H.wear_pda

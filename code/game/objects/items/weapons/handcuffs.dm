@@ -11,7 +11,7 @@
 	throw_speed = 2
 	throw_range = 5
 	materials = list(MAT_METAL=500)
-	origin_tech = "materials=1"
+	origin_tech = "engineering=3;combat=3"
 	breakouttime = 600 //Deciseconds = 60s = 1 minutes
 	var/cuffsound = 'sound/weapons/handcuffs.ogg'
 	var/trashtype = null //For disposable cuffs
@@ -75,6 +75,7 @@
 	name = "cable restraints"
 	desc = "Looks like some cables tied together. Could be used to tie something up."
 	icon_state = "cuff_white"
+	origin_tech = "engineering=2"
 	materials = list(MAT_METAL=150, MAT_GLASS=75)
 	breakouttime = 300 //Deciseconds = 30s
 	cuffsound = 'sound/weapons/cablecuff.ogg'

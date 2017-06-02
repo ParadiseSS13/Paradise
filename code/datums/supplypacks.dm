@@ -250,6 +250,17 @@ var/list/all_supply_groups = list(supply_emergency,supply_security,supply_engine
 	cost = 10
 	containername = "disabler crate"
 
+/datum/supply_packs/security/forensics
+	name = "Forensics Crate"
+	contains = list(/obj/item/device/detective_scanner,
+					/obj/item/weapon/storage/box/evidence,
+					/obj/item/device/camera,
+					/obj/item/device/taperecorder,
+					/obj/item/toy/crayon/white,
+					/obj/item/clothing/head/det_hat)
+	cost = 20
+	containername = "forensics crate"
+
 ///// Armory stuff
 
 /datum/supply_packs/security/armory
@@ -895,6 +906,13 @@ var/list/all_supply_groups = list(supply_emergency,supply_security,supply_engine
 	containername = "tank transfer valves crate"
 	access = access_rd
 
+/datum/supply_packs/science/prototype
+	name = "Machine Prototype Crate"
+	contains = list(/obj/item/device/machineprototype)
+	cost = 80
+	containertype = /obj/structure/closet/crate/secure/scisec
+	containername = "machine prototype crate"
+	access = access_research
 
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////// Organic /////////////////////////////////////////

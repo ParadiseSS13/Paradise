@@ -67,7 +67,7 @@
 	hitsound = "swing_hit"
 	flags = CONDUCT
 	armour_penetration = 100
-	origin_tech = "combat=3"
+	origin_tech = "combat=4;magnets=3"
 	attack_verb = list("attacked", "chopped", "cleaved", "torn", "cut")
 	attack_verb_on = list()
 	sharp = 1
@@ -87,7 +87,7 @@
 	throw_range = 5
 	hitsound = "swing_hit"
 	armour_penetration = 35
-	origin_tech = "magnets=3;syndicate=4"
+	origin_tech = "combat=3;magnets=4;syndicate=4"
 	block_chance = 50
 	sharp = 1
 	edge = 1
@@ -124,7 +124,6 @@
 	sharp = 1
 	edge = 1
 	hitsound = 'sound/weapons/circsawhit.ogg'
-	origin_tech = "materials=3;biotech=3;syndicate=3"
 	icon = 'icons/obj/surgery.dmi'
 	icon_state = "esaw_0"
 	icon_state_on = "esaw_1"

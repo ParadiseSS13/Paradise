@@ -11,7 +11,7 @@
 	item_state = "electronic"
 	flags = CONDUCT | NOBLUDGEON
 	slot_flags = SLOT_BELT
-	origin_tech = "magnets=4;biotech=2"
+	origin_tech = "engineering=4;biotech=2;programming=5"
 	var/scanning = 0
 	var/list/log = list()
 	actions_types = list(/datum/action/item_action/print_report)

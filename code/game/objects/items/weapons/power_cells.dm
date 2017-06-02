@@ -15,7 +15,6 @@
 	materials = list(MAT_METAL=700, MAT_GLASS=50)
 	var/rigged = 0		// true if rigged to explode
 	var/chargerate = 100 //how much power is given every tick in a recharger
-	var/minor_fault = 0 //If not 100% reliable, it will build up faults.
 	var/self_recharge = 0 //does it self recharge, over time, or not?
 	var/grown_battery = FALSE // If it's a grown that acts as a battery, add a wire overlay to it.
 
@@ -102,7 +101,7 @@
 
 /obj/item/weapon/stock_parts/cell/super
 	name = "super-capacity power cell"
-	origin_tech = "powerstorage=5"
+	origin_tech = "powerstorage=3;materials=3"
 	icon_state = "scell"
 	maxcharge = 20000
 	materials = list(MAT_GLASS=300)
@@ -115,7 +114,7 @@
 
 /obj/item/weapon/stock_parts/cell/hyper
 	name = "hyper-capacity power cell"
-	origin_tech = "powerstorage=6"
+	origin_tech = "powerstorage=4;engineering=4;materials=4"
 	icon_state = "hpcell"
 	maxcharge = 30000
 	materials = list(MAT_GLASS=400)
@@ -128,7 +127,7 @@
 
 /obj/item/weapon/stock_parts/cell/bluespace
 	name = "bluespace power cell"
-	origin_tech = "powerstorage=7"
+	origin_tech = "powerstorage=5;bluespace=4;materials=4;engineering=4"
 	icon_state = "bscell"
 	maxcharge = 40000
 	materials = list(MAT_GLASS=600)
@@ -142,7 +141,7 @@
 /obj/item/weapon/stock_parts/cell/infinite
 	name = "infinite-capacity power cell!"
 	icon_state = "icell"
-	origin_tech =  null
+	origin_tech =  "powerstorage=7"
 	maxcharge = 30000
 	materials = list(MAT_GLASS=1000)
 	rating = 6
@@ -161,13 +160,12 @@
 	maxcharge = 300
 	materials = list()
 	rating = 1
-	minor_fault = 1
 	grown_battery = TRUE //it has the overlays for wires
 
 /obj/item/weapon/stock_parts/cell/high/slime
 	name = "charged slime core"
 	desc = "A yellow slime core infused with plasma, it crackles with power."
-	origin_tech = "powerstorage=2;biotech=4"
+	origin_tech = "powerstorage=5;biotech=4"
 	icon = 'icons/mob/slimes.dmi'
 	icon_state = "yellow slime extract"
 	materials = list()

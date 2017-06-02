@@ -3,6 +3,7 @@
 	desc = "A suspicious revolver. Uses .357 ammo."
 	icon_state = "revolver"
 	mag_type = /obj/item/ammo_box/magazine/internal/cylinder
+	origin_tech = "combat=3;materials=2"
 
 /obj/item/weapon/gun/projectile/revolver/New()
 	..()
@@ -88,7 +89,6 @@
 	desc = "A cheap Martian knock-off of a classic law enforcement firearm. Uses .38-special rounds."
 	name = ".38 Mars Special"
 	icon_state = "detective"
-	origin_tech = "combat=2;materials=2"
 	mag_type = /obj/item/ammo_box/magazine/internal/cylinder/rev38
 	unique_rename = 1
 	unique_reskin = 1
@@ -146,7 +146,6 @@
 	name = "Unica 6 auto-revolver"
 	desc = "A retro high-powered autorevolver typically used by officers of the New Russia military. Uses .357 ammo."	//>10mm hole >.357
 	icon_state = "mateba"
-	origin_tech = "combat=2;materials=2"
 
 /obj/item/weapon/gun/projectile/revolver/golden
 	name = "Golden revolver"
@@ -258,7 +257,7 @@
 /obj/item/weapon/gun/projectile/revolver/capgun
 	name = "cap gun"
 	desc = "Looks almost like the real thing! Ages 8 and up."
-	origin_tech = "combat=1;materials=1"
+	origin_tech = null
 	mag_type = /obj/item/ammo_box/magazine/internal/cylinder/cap
 
 /////////////////////////////
@@ -274,7 +273,6 @@
 	force = 10
 	flags = CONDUCT
 	slot_flags = SLOT_BACK
-	origin_tech = "combat=3;materials=1"
 	mag_type = /obj/item/ammo_box/magazine/internal/shot/dual
 	sawn_desc = "Omar's coming!"
 	unique_rename = 1
@@ -328,7 +326,6 @@
 	w_class = WEIGHT_CLASS_BULKY
 	force = 10
 	slot_flags = null
-	origin_tech = "combat=2;materials=2"
 	mag_type = /obj/item/ammo_box/magazine/internal/shot/improvised
 	sawn_desc = "I'm just here for the gasoline."
 	unique_rename = 0

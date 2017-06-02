@@ -205,7 +205,7 @@
 	wieldsound = 'sound/weapons/saberon.ogg'
 	unwieldsound = 'sound/weapons/saberoff.ogg'
 	armour_penetration = 35
-	origin_tech = "magnets=3;syndicate=4"
+	origin_tech = "magnets=4;syndicate=5"
 	attack_verb = list("attacked", "slashed", "stabbed", "sliced", "torn", "ripped", "diced", "cut")
 	block_chance = 75
 	sharp = 1
@@ -547,7 +547,7 @@
 	throw_range = 1
 	w_class = WEIGHT_CLASS_HUGE
 	var/charged = 5
-	origin_tech = "combat=5;bluespace=4"
+	origin_tech = "combat=4;bluespace=4;plasmatech=7"
 
 /obj/item/weapon/twohanded/singularityhammer/New()
 	..()
@@ -612,7 +612,7 @@
 	throw_range = 7
 	w_class = WEIGHT_CLASS_HUGE
 	//var/charged = 5
-	origin_tech = "combat=5;powerstorage=5"
+	origin_tech = "combat=4;powerstorage=7"
 
 /obj/item/weapon/twohanded/mjollnir/proc/shock(mob/living/target as mob)
 	var/datum/effect/system/spark_spread/s = new /datum/effect/system/spark_spread()

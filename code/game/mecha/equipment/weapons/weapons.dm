@@ -70,6 +70,7 @@
 	equip_cooldown = 8
 	name = "CH-PS \"Firedart\" Laser"
 	icon_state = "mecha_laser"
+	origin_tech = "magnets=3;combat=3;engineering=3"
 	energy_drain = 30
 	projectile = /obj/item/projectile/beam
 	fire_sound = 'sound/weapons/Laser.ogg'
@@ -84,6 +85,7 @@
 	equip_cooldown = 10
 	name = "CH-LC \"Solaris\" Laser Cannon"
 	icon_state = "mecha_laser"
+	origin_tech = "magnets=4;combat=4;engineering=3"
 	energy_drain = 60
 	projectile = /obj/item/projectile/beam/laser/heavylaser
 	fire_sound = 'sound/weapons/lasercannonfire.ogg'
@@ -92,6 +94,7 @@
 	equip_cooldown = 40
 	name = "mkIV Ion Heavy Cannon"
 	icon_state = "mecha_ion"
+	origin_tech = "materials=4;combat=5;magnets=4"
 	energy_drain = 120
 	projectile = /obj/item/projectile/ion
 	fire_sound = 'sound/weapons/Laser.ogg'
@@ -170,6 +173,7 @@
 /obj/item/mecha_parts/mecha_equipment/weapon/energy/taser
 	name = "PBT \"Pacifier\" Mounted Taser"
 	icon_state = "mecha_taser"
+	origin_tech = "combat=3"
 	energy_drain = 20
 	equip_cooldown = 8
 	projectile = /obj/item/projectile/energy/electrode
@@ -270,6 +274,7 @@
 /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/carbine
 	name = "FNX-66 Carbine"
 	icon_state = "mecha_carbine"
+	origin_tech = "materials=4;combat=4"
 	equip_cooldown = 5
 	projectile = /obj/item/projectile/bullet/incendiary/shell/dragonsbreath
 	fire_sound = 'sound/weapons/Gunshot.ogg'
@@ -294,6 +299,7 @@
 /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/scattershot
 	name = "LBX AC 10 \"Scattershot\""
 	icon_state = "mecha_scatter"
+	origin_tech = "combat=4"
 	equip_cooldown = 20
 	projectile = /obj/item/projectile/bullet/midbullet
 	fire_sound = 'sound/weapons/Gunshot.ogg'
@@ -305,6 +311,7 @@
 /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/lmg
 	name = "Ultra AC 2"
 	icon_state = "mecha_uac2"
+	origin_tech = "combat=4"
 	equip_cooldown = 10
 	projectile = /obj/item/projectile/bullet/weakbullet3
 	fire_sound = 'sound/weapons/Gunshot.ogg'
@@ -321,6 +328,7 @@
 /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/missile_rack
 	name = "SRM-8 Light Missile Rack"
 	icon_state = "mecha_missilerack"
+	origin_tech = "combat=5;materials=4;engineering=4"
 	projectile = /obj/item/missile
 	fire_sound = 'sound/effects/bang.ogg'
 	projectiles = 8
@@ -373,6 +381,7 @@
 /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/missile_rack/flashbang
 	name = "SGL-6 Grenade Launcher"
 	icon_state = "mecha_grenadelnchr"
+	origin_tech = "combat=4;engineering=4"
 	projectile = /obj/item/weapon/grenade/flashbang
 	fire_sound = 'sound/effects/bang.ogg'
 	projectiles = 6
@@ -398,6 +407,7 @@
 /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/missile_rack/flashbang/clusterbang//Because I am a heartless bastard -Sieve
 	name = "SOB-3 Grenade Launcher"
 	desc = "A weapon for combat exosuits. Launches primed clusterbangs. You monster."
+	origin_tech = "combat=4;materials=4"
 	projectiles = 3
 	projectile = /obj/item/weapon/grenade/clusterbuster
 	projectile_energy_cost = 1600 //getting off cheap seeing as this is 3 times the flashbangs held in the grenade launcher.
@@ -504,7 +514,7 @@
 	icon_state = "mecha_plasmacutter"
 	item_state = "plasmacutter"
 	energy_drain = 30
-	origin_tech = "materials=3;combat=2;powerstorage=3;plasmatech=3"
+	origin_tech = "materials=3;plasmatech=4;engineering=3"
 	projectile = /obj/item/projectile/plasma/adv/mech
 	fire_sound = 'sound/weapons/laser.ogg'
 
