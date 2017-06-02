@@ -2,13 +2,9 @@
 	Rapid Pipe Dispenser
 */
 
-#define SIMPLE_BENT				1
 #define SIMPLE_CAP				20
-#define SUPPLY_BENT				25
 #define SUPPLY_CAP				32
-#define SCRUBBERS_BENT			27
 #define SCRUBBERS_CAP			33
-#define HE_BENT					3
 #define HE_EXCHANGER			17
 #define CONNECTOR				4
 #define UNARY_VENT				7
@@ -18,9 +14,6 @@
 #define GAS_SENSOR				98
 #define METER					99
 #define DISPOSALS_JUNCTION		2
-#define DISPOSALS_BIN			6
-#define DISPOSALS_OUTLET		7
-#define DISPOSALS_CHUTE			8
 #define ATMOS_MODE				1
 #define DISPOSALS_MODE			2
 #define ROTATION_MODE			3
@@ -50,12 +43,13 @@
 	origin_tech = "engineering=4;materials=2"
 	var/datum/effect/system/spark_spread/spark_system
 	var/cooldown //Waiting for something to complete?
+	var/lastused
 	var/iconrotation = 0 //used to orient icons and pipes
 	var/mode = 1 //Disposals, atmospherics, etc.
 	var/pipetype = 1//For nanoUI menus
 	var/whatpipe = 0 //What kind of pipe is it? See code/game/machinery/pipe/construction.dm for a list of defines
 	var/whatdpipe = 0 //What kind of disposals pipe is it? See code/game/machinery/pipe/dispenser.dm for a list of defines
-	var/spawndelay = 4 //Adding a *slight* delay to the RPD, shouldn't be very noticeable
+	var/spawndelay = 4 //How long should we have to wait between dispensing pipes?
 	var/walldelay = 40 //How long should drilling into a wall take?
 
 /obj/item/weapon/rpd/New()
@@ -71,17 +65,9 @@
 	if(prob(15))
 		spark_system.start()
 	if(delay)
-		cooldown = TRUE
-		sleep(spawndelay)
-		cooldown = null
+		lastused = world.time
 
-/obj/item/weapon/rpd/proc/Checkifbent(x)
-	return(x in list(SIMPLE_BENT, HE_BENT, SUPPLY_BENT, SCRUBBERS_BENT))
-
-/obj/item/weapon/rpd/proc/Checkifdense(x) //We need to check if the targetted turf is already dense, in case some goofball sticks 100 bins in front of security or something
-	return(x in list(DISPOSALS_BIN, DISPOSALS_OUTLET, DISPOSALS_CHUTE))
-
-/obj/item/weapon/rpd/proc/Manipulatepipes(subject, targetturf, atmosverb, disposalsverb)
+/obj/item/weapon/rpd/proc/Manipulatepipes(subject, atmosverb, disposalsverb)
 	if(istype(subject, /obj/item/pipe))
 		call(subject, atmosverb)()
 	else if(istype(subject, /obj/structure/disposalconstruct/))
@@ -195,30 +181,28 @@ var/list/pipemenu = list(
 /obj/item/weapon/rpd/afterattack(atom/target, mob/user, proximity)
 	..()
 	var/turf/T = get_turf(target)
-	if(ismob(target) || istype(target, /obj/structure/window) || !proximity || cooldown)
+	if(src.loc != user || ismob(target) || istype(target, /obj/structure/window) || !proximity || world.time < lastused + spawndelay)
 		return
 	if(mode == ATMOS_MODE)
-		if(istype(T, /turf/simulated/wall)) //Drilling into walls takes time and we don't want to do anything else while drilling
-			cooldown = TRUE
+		if(istype(T, /turf/simulated/wall)) //Drilling into walls takes time
 			playsound(get_turf(src), "sound/weapons/circsawhit.ogg", 50, 1)
 			user.visible_message("<span class = 'notice'>[user] starts drilling a hole in [T]...</span>", "<span class = 'notice'>You start drilling a hole in [T]...</span>", "<span class = 'warning'>You hear a drill.</span>")
 			if(!do_after(user, walldelay, target = T))
-				cooldown = null
 				return
 			user.visible_message("<span class = 'notice'>[user] finishes drilling a hole in [T]!</span>", "<span class = 'notice'>You finish drilling a hole in [T]!</span>", "<span class = 'warning'>You hear clanking.</span>")
-		if(whatpipe == GAS_SENSOR)//need to check if it's a meter or a gas sensor separately ayylmao
+		if(whatpipe == GAS_SENSOR)
 			new /obj/item/pipe_gsensor(T)
-			to_chat(user, "<span class = 'notice'>[src] dispenses a sensor!</span>")
+			to_chat(user, "<span class = 'notice'>[src] rapidly dispenses a sensor!</span>")
 		else if(whatpipe == METER)
 			new /obj/item/pipe_meter(T)
-			to_chat(user, "<span class = 'notice'>[src] dispenses a meter!</span>")
+			to_chat(user, "<span class = 'notice'>[src] rapidly dispenses a meter!</span>")
 		else
 			var/obj/item/pipe/P = new(T, pipe_type = whatpipe, dir = user.dir) //Now we make the pipes
-			if(iconrotation == 0 && Checkifbent(P.pipe_type)) //Automatic rotation of dispensed pipes
+			if(iconrotation == 0 && P.is_bent_pipe()) //Automatic rotation of dispensed pipes
 				P.dir = turn(user.dir, 135)
 			else if(iconrotation == 0 && P.pipe_type in list(CONNECTOR, UNARY_VENT, GAS_SCRUBBER, HE_EXCHANGER, SIMPLE_CAP, SUPPLY_CAP, SCRUBBERS_CAP, INJECTOR, PASSIVE_VENT)) //Some pipes dispense oppositely to what you'd expect, but we don't want to do anything if they selected a direction
 				call(P, /obj/item/pipe/verb/flip)()
-			else if(iconrotation != 0 && Checkifbent(P.pipe_type)) //If they selected a rotation and the pipe is bent
+			else if(iconrotation != 0 && P.is_bent_pipe()) //If they selected a rotation and the pipe is bent
 				P.dir = turn(iconrotation, -45)
 			else if(iconrotation != 0)
 				P.dir = iconrotation
@@ -226,48 +210,40 @@ var/list/pipemenu = list(
 			to_chat(user, "<span class = 'notice'>[src] rapidly dispenses [P]!</span>")
 		Activaterpd(1)
 	else if(mode == DISPOSALS_MODE)
-		if(istype(T, /turf/simulated/wall))
+		if(istype(T, /turf/simulated/wall)) //No disposals pipes on walls
 			to_chat(user, "<span class = 'warning'>That type of pipe won't fit on [T]!</span>")
-			return
-		if(is_blocked_turf(T) && Checkifdense(whatdpipe))
-			to_chat(user, "<span class = 'warning'>You can't dispense that on [T] because something is in the way!</span>")
 			return
 		var/obj/structure/disposalconstruct/P = new(T) //Now we make the pipe
 		P.dir = iconrotation
 		P.ptype = whatdpipe
-		if(Checkifdense(whatdpipe)) //To properly set density of our bins/chutes/outlets
-			P.density = 1
 		if(iconrotation == 0) //Automatic rotation
 			P.dir = user.dir
 		if(iconrotation == 0 && whatdpipe != DISPOSALS_JUNCTION) //Disposals pipes are in the opposite direction to atmos pipes, so we need to flip them. Junctions don't have this quirk though
-			call(P, /obj/structure/disposalconstruct/verb/flip)()
+			P.flip()
 		P.update()
 		to_chat(user, "<span class = 'notice'>[src] rapidly dispenses [P]!</span>")
 		Activaterpd(1)
 	else if(mode == ROTATION_MODE)
 		for(var/obj/W in T)
-			Manipulatepipes(W, T, /obj/item/pipe/verb/rotate, /obj/structure/disposalconstruct/verb/rotate)
+			Manipulatepipes(W, /obj/item/pipe/verb/rotate, /obj/structure/disposalconstruct/verb/rotate)
 	else if(mode == FLIP_MODE)
 		for(var/obj/W in T)
-			Manipulatepipes(W, T, /obj/item/pipe/verb/flip, /obj/structure/disposalconstruct/verb/flip)
+			Manipulatepipes(W, /obj/item/pipe/verb/flip, /obj/structure/disposalconstruct/verb/flip)
 	else if(mode == DELETE_MODE)
 		var/eaten
 		for(var/obj/W in T)
 			if(istype(W, /obj/item/pipe) || istype(W, /obj/item/pipe_meter) || istype(W, /obj/item/pipe_gsensor) || istype(W, /obj/structure/disposalconstruct) && !W.anchored)
-				qdel(W)
+				QDEL_NULL(W)
 				eaten = TRUE
 		if(eaten)
 			to_chat(user, "<span class='notice'>[src] sucks up the loose pipes on [T].")
+			Activaterpd()
 		else
 			to_chat(user, "<span class='notice'>There were no loose pipes on [T].</span>")
 
-#undef SIMPLE_BENT
 #undef SIMPLE_CAP
-#undef SUPPLY_BENT
 #undef SUPPLY_CAP
-#undef SCRUBBERS_BENT
 #undef SCRUBBERS_CAP
-#undef HE_BENT
 #undef HE_EXCHANGER
 #undef CONNECTOR
 #undef UNARY_VENT
@@ -277,9 +253,6 @@ var/list/pipemenu = list(
 #undef GAS_SENSOR
 #undef METER
 #undef DISPOSALS_JUNCTION
-#undef DISPOSALS_BIN
-#undef DISPOSALS_OUTLET
-#undef DISPOSALS_CHUTE
 #undef ATMOS_MODE
 #undef DISPOSALS_MODE
 #undef ROTATION_MODE
