@@ -62,10 +62,12 @@
 
 /obj/item/clothing/suit/lightrig/hacker
 	siemens_coefficient = 0.4
+	var/holder = null //holder is required for suits
 
 /obj/item/clothing/shoes/lightrig/hacker
 	siemens_coefficient = 0.4
 	flags = NOSLIP //All the other rigs have magboots anyways, hopefully gives the hacker suit something more going for it.
+	var/magboot_state = null //magboot_state must be defined for all shoes
 
 /obj/item/clothing/gloves/lightrig/hacker
 	siemens_coefficient = 0
