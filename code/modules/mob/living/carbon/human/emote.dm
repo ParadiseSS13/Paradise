@@ -795,8 +795,11 @@
 				emotelist += "\nKidan specific emotes :- click(s), clack(s)"
 			else if(species.name == "Unathi")
 				emotelist += "\nUnathi specific emotes :- hiss(es)"
-			if(!species.name == "Slime People" && found_slime_bodypart)
-				emotelist += "\nSlime people body part specific emotes :- squish(es)-(none)/mob"
+			if (!(species.name == "Slime People"))
+				for(var/obj/item/organ/external/L in bodyparts) // if your limbs are squishy you can squish too!
+					if(L.dna.species in list("Slime People"))
+						emotelist += "\nSlime people body part specific emotes :- squish(es)-(none)/mob"
+						break
 			to_chat(src, emotelist)
 
 		else
