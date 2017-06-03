@@ -1,0 +1,4 @@
+author: "FlattestGuitar"
+delete-after: True
+changes: 
+  - bugfix: "PACMAN boards and pico manipulators now have proper research levels"
