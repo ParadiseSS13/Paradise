@@ -10,7 +10,7 @@
 		"Traitor", "Nuke Op", "Cultist", "Clockwork Cultist",
 		"Revolutionary", "Wizard", "Shadowling", "Xenomorph", "Swarmer",
 		"Ash Walker", "Commando", "Ian", "Slaughter Demon",
-		"Laughter Demon", "Xenomorph Maid", "Private Security Officer")
+		"Laughter Demon", "Xenomorph Maid", "Private Security Officer", "Terror Spider")
 	var/pushed_over = FALSE //If the cutout is pushed over and has to be righted
 	var/deceptive = FALSE //If the cutout actually appears as what it portray and not a discolored version
 	var/lastattacker = null
@@ -153,11 +153,13 @@
 			desc = "A cardboard cutout of a slaughter demon."
 			icon = 'icons/mob/mob.dmi'
 			icon_state = "daemon"
+			dir = "SOUTH"
 		if("Laughter Demon")
 			name = "laughter demon"
 			desc = "A cardboard cutout of a laughter demon."
 			icon = 'icons/mob/mob.dmi'
 			icon_state = "bowmon"
+			dir = "SOUTH"
 		if("Xenomorph Maid")
 			name = "lusty xenomorph maid ([rand(1, 999)])"
 			desc = "A cardboard cutout of a xenomorph maid."
@@ -166,9 +168,16 @@
 			name = "Private Security Officer"
 			desc = "A cardboard cutout of a private security officer."
 			icon_state = "cutout_ntsec"
+		if("Terror Spider")
+			name = "Gray Terror Spider"
+			desc = "A cardboard cutout of a laughter demon."
+			icon = 'icons/mob/terrorspider.dmi'
+			icon_state = "terror_gray"
+			dir = "SOUTH"
+
 	return 1
 
-/obj/item/cardboard_cutout/setDir(newdir)
+/obj/item/cardboard_cutout/setDir()
 	dir = SOUTH
 
 /obj/item/cardboard_cutout/adaptive //Purchased by Syndicate agents, these cutouts are indistinguishable from normal cutouts but aren't discolored when their appearance is changed
