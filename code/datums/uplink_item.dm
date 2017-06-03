@@ -999,6 +999,7 @@ var/list/uplink_items = list()
 	item = /obj/item/weapon/storage/box/syndie_kit/elite_hardsuit
 	cost = 8
 	reference = "ESHS"
+	excludefrom = list()
 	gamemodes = list(/datum/game_mode/nuclear)
 
 /datum/uplink_item/suits/hardsuit/shielded
@@ -1007,6 +1008,7 @@ var/list/uplink_items = list()
 	item = /obj/item/weapon/storage/box/syndie_kit/shielded_hardsuit
 	cost = 30
 	reference = "SHS"
+	excludefrom = list()
 	gamemodes = list(/datum/game_mode/nuclear)
 
 
@@ -1055,6 +1057,7 @@ var/list/uplink_items = list()
 	reference = "ABRMB"
 	item = /obj/item/clothing/shoes/magboots/syndie/advance
 	cost = 3
+	excludefrom = list()
 	gamemodes = list(/datum/game_mode/nuclear)
 
 /datum/uplink_item/device_tools/plastic_explosives
