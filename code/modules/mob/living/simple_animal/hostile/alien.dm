@@ -141,7 +141,7 @@
 	name = "lusty xenomorph maid"
 	melee_damage_lower = 0
 	melee_damage_upper = 0
-	a_intent = "help"
+	a_intent = I_HELP
 	friendly = "caresses"
 	environment_smash = 0
 	icon_state = "maid"

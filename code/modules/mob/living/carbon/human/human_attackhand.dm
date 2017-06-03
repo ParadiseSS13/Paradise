@@ -18,7 +18,7 @@
 
 	..()
 
-	if((M != src) && M.a_intent != "help" && check_shields(0, M.name, attack_type = UNARMED_ATTACK))
+	if((M != src) && M.a_intent != I_HELP && check_shields(0, M.name, attack_type = UNARMED_ATTACK))
 		add_logs(M, src, "attempted to touch")
 		visible_message("<span class='warning'>[M] attempted to touch [src]!</span>")
 		return 0
