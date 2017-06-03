@@ -170,7 +170,7 @@
 			icon_state = "cutout_ntsec"
 		if("Terror Spider")
 			name = "Gray Terror Spider"
-			desc = "A cardboard cutout of a laughter demon."
+			desc = "A cardboard cutout of a terror spider."
 			icon = 'icons/mob/terrorspider.dmi'
 			icon_state = "terror_gray"
 			dir = "SOUTH"
