@@ -1091,3 +1091,64 @@
 		M.electrocute_act(rand(5,20), "Teslium in their body", 1, 1) //Override because it's caused from INSIDE of you
 		playsound(M, "sparks", 50, 1)
 	..()
+
+/datum/reagent/peaceborg/confuse
+	name = "Dizzying Solution"
+	id = "dizzysolution"
+	description = "Makes the target off balance and dizzy"
+	metabolization_rate = 1.5 * REAGENTS_METABOLISM
+
+/datum/reagent/peaceborg/confuse/on_mob_life(mob/living/M)
+	M.AdjustConfused(3, bound_lower = 0, bound_upper = 5)
+	M.AdjustDizzy(3, bound_lower = 0, bound_upper = 5)
+	if(prob(20))
+		to_chat(M, "You feel confused and disorientated.")
+	..()
+
+/datum/reagent/peaceborg/tire
+	name = "Tiring Solution"
+	id = "tiresolution"
+	description = "An extremely weak stamina-toxin that tires out the target. Completely harmless."
+	metabolization_rate = 1.5 * REAGENTS_METABOLISM
+
+/datum/reagent/peaceborg/tire/on_mob_life(mob/living/M)
+	var/healthcomp = (100 - M.health)	//DOES NOT ACCOUNT FOR ADMINBUS THINGS THAT MAKE YOU HAVE MORE THAN 200/210 HEALTH, OR SOMETHING OTHER THAN A HUMAN PROCESSING THIS.
+	if(M.staminaloss < (45 - healthcomp))	//At 50 health you would have 200 - 150 health meaning 50 compensation. 60 - 50 = 10, so would only do 10-19 stamina.)
+		M.adjustStaminaLoss(10)
+	if(prob(30))
+		to_chat(M, "You should sit down and take a rest...")
+	..()
+
+/datum/reagent/chloralhydrate
+	name = "Chloral Hydrate"
+	id = "chloralhydrate"
+	description = "A powerful sedative that induces confusion and drowsiness before putting its target to sleep."
+	reagent_state = SOLID
+	color = "#000067" // rgb: 0, 0, 103
+	metabolization_rate = 1.5 * REAGENTS_METABOLISM
+
+/datum/reagent/chloralhydrate/on_mob_life(mob/living/M)
+	switch(current_cycle)
+		if(1 to 10)
+			M.AdjustConfused(2)
+			M.AdjustDrowsy(2)
+		if(10 to 50)
+			M.Sleeping(2)
+		if(51 to INFINITY)
+			M.Sleeping(2)
+			M.adjustToxLoss((current_cycle - 50)*REAGENTS_EFFECT_MULTIPLIER)
+	..()
+
+/datum/reagent/chloralhydrate/delayed
+	id = "chloralhydrate2"
+
+/datum/reagent/chloralhydrate/on_mob_life(mob/living/M)
+	switch(current_cycle)
+		if(1 to 10)
+			return
+		if(10 to 20)
+			M.AdjustConfused(1)
+			M.AdjustDrowsy(1)
+		if(20 to INFINITY)
+			M.Sleeping(2)
+	..()
