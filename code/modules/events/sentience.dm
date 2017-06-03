@@ -12,7 +12,7 @@
 			potential += L
 
 	var/mob/living/simple_animal/SA = pick(potential)
-	var/mob/living/simple_animal/SG = pick(candidates)
+	var/mob/SG = pick(candidates)
 
 	if(!SA || !SG) //if you can't find either a simple animal or a player, end
 		return FALSE
