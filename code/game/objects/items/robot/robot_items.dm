@@ -188,7 +188,7 @@
 			"<span class='danger'>The siren pierces your hearing!</span>")
 		for(var/mob/living/carbon/M in get_mobs_in_view(9, user))
 			if(!M.check_ear_prot())
-				M.adjustConfused(6)
+				M.AdjustConfused(6)
 		audible_message("<font color='red' size='7'>HUMAN HARM</font>")
 		playsound(get_turf(src), 'sound/AI/harmalarm.ogg', 70, 3)
 		cooldown = world.time + 200
