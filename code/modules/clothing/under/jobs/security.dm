@@ -10,56 +10,68 @@
  * Security
  */
 /obj/item/clothing/under/rank/warden
-	desc = "It's made of a slightly sturdier material than standard jumpsuits, to allow for more robust protection. It has the word \"Warden\" written on the shoulders."
+	desc = "It's made of a slightly sturdier material than standard jumpsuits, to allow for more robust protection. It has the word \"Warden\" written on the shoulders. Its sensors are locked in the [Fully On] position."
 	name = "warden's jumpsuit"
 	icon_state = "warden"
 	item_state = "r_suit"
 	item_color = "warden"
+	has_sensor = 2
+	sensor_mode = 3
 	armor = list(melee = 10, bullet = 0, laser = 0, energy = 0, bomb = 0, bio = 0, rad = 0)
 	flags_size = ONESIZEFITSALL
 	strip_delay = 50
 
 /obj/item/clothing/under/rank/warden/skirt
-	desc = "Standard feminine fashion for a Warden. It is made of sturdier material than standard jumpskirts. It has the word \"Warden\" written on the shoulders."
+	desc = "Standard feminine fashion for a Warden. It is made of sturdier material than standard jumpskirts. It has the word \"Warden\" written on the shoulders. Its sensors are locked in the [Fully On] position."
 	name = "warden's jumpskirt"
 	icon_state = "wardenf"
 	item_state = "r_suit"
 	item_color = "wardenf"
+	has_sensor = 2
+	sensor_mode = 3
 	flags_size = null
 
 /obj/item/clothing/under/rank/security
 	name = "security officer's jumpsuit"
-	desc = "It's made of a slightly sturdier material than standard jumpsuits, to allow for robust protection."
+	desc = "It's made of a slightly sturdier material than standard jumpsuits, to allow for robust protection. Its sensors are locked in the [Fully On] position."
 	icon_state = "security"
 	item_state = "r_suit"
 	item_color = "secred"
+	has_sensor = 2
+	sensor_mode = 3
 	armor = list(melee = 10, bullet = 0, laser = 0, energy = 0, bomb = 0, bio = 0, rad = 0)
 	flags_size = ONESIZEFITSALL
 	strip_delay = 50
 
 /obj/item/clothing/under/rank/security/skirt
 	name = "security officer's jumpskirt"
-	desc = "Standard feminine fashion for Security Officers.  It's made of sturdier material than the standard jumpskirts."
+	desc = "Standard feminine fashion for Security Officers.  It's made of sturdier material than the standard jumpskirts. Its sensors are locked in the [Fully On] position."
 	icon_state = "secredf"
 	item_state = "r_suit"
 	item_color = "secredf"
+	has_sensor = 2
+	sensor_mode = 3
 	flags_size = null
 
 /obj/item/clothing/under/rank/dispatch
 	name = "dispatcher's uniform"
-	desc = "A dress shirt and khakis with a security patch sewn on."
+	desc = "A dress shirt and khakis with a security patch sewn on. Its sensors are locked in the [Fully On] position."
 	icon_state = "dispatch"
 	item_state = "dispatch"
 	item_color = "dispatch"
+	has_sensor = 2
+	sensor_mode = 3
 	armor = list(melee = 10, bullet = 0, laser = 0, energy = 0, bomb = 0, bio = 0, rad = 0)
 	flags_size = ONESIZEFITSALL
 
 /obj/item/clothing/under/rank/security2
 	name = "security officer's uniform"
-	desc = "It's made of a slightly sturdier material, to allow for robust protection."
+	desc = "It's made of a slightly sturdier material, to allow for robust protection. Its sensors are locked in the [Fully On] position."
 	icon_state = "redshirt2"
 	item_state = "r_suit"
 	item_color = "redshirt2"
+	has_sensor = 2
+	sensor_mode = 3
 	armor = list(melee = 10, bullet = 0, laser = 0, energy = 0, bomb = 0, bio = 0, rad = 0)
 	flags_size = ONESIZEFITSALL
 
@@ -78,10 +90,12 @@
  */
 /obj/item/clothing/under/det
 	name = "hard-worn suit"
-	desc = "Someone who wears this means business."
+	desc = "Someone who wears this means business. Its sensors are locked in the [Fully On] position."
 	icon_state = "detective"
 	item_state = "det"
 	item_color = "detective"
+	has_sensor = 2
+	sensor_mode = 3
 	armor = list(melee = 10, bullet = 0, laser = 0, energy = 0, bomb = 0, bio = 0, rad = 0)
 	flags_size = ONESIZEFITSALL
 	strip_delay = 50
@@ -94,21 +108,25 @@
  * Head of Security
  */
 /obj/item/clothing/under/rank/head_of_security
-	desc = "It's a jumpsuit worn by those few with the dedication to achieve the position of \"Head of Security\". It has additional armor to protect the wearer."
+	desc = "It's a jumpsuit worn by those few with the dedication to achieve the position of \"Head of Security\". It has additional armor to protect the wearer. Its sensors are locked in the [Fully On] position."
 	name = "head of security's jumpsuit"
 	icon_state = "hos"
 	item_state = "r_suit"
 	item_color = "hosred"
+	has_sensor = 2
+	sensor_mode = 3
 	armor = list(melee = 10, bullet = 0, laser = 0, energy = 0, bomb = 0, bio = 0, rad = 0)
 	flags_size = ONESIZEFITSALL
 	strip_delay = 60
 
 /obj/item/clothing/under/rank/head_of_security/skirt
-	desc = "It's a fashionable jumpskirt worn by those few with the dedication to achieve the position of \"Head of Security\". It has additional armor to protect the wearer."
+	desc = "It's a fashionable jumpskirt worn by those few with the dedication to achieve the position of \"Head of Security\". It has additional armor to protect the wearer. Its sensors are locked in the [Fully On] position."
 	name = "head of security's jumpskirt"
 	icon_state = "hosredf"
 	item_state = "r_suit"
 	item_color = "hosredf"
+	has_sensor = 2
+	sensor_mode = 3
 	flags_size = null
 
 /obj/item/clothing/under/rank/head_of_security/corp
@@ -118,11 +136,13 @@
 
 //Jensen cosplay gear
 /obj/item/clothing/under/rank/head_of_security/jensen
-	desc = "You never asked for anything that stylish."
+	desc = "You never asked for anything that stylish. Its sensors are locked in the [Fully On] position."
 	name = "head of security's jumpsuit"
 	icon_state = "jensen"
 	item_state = "jensen"
 	item_color = "jensen"
+	has_sensor = 2
+	sensor_mode = 3
 	flags_size = ONESIZEFITSALL
 
 //Paradise Station
@@ -151,51 +171,51 @@
 
 /obj/item/clothing/under/rank/security/formal
 	name = "security suit"
-	desc = "A formal security suit for officers complete with nanotrasen belt buckle."
+	desc = "A formal security suit for officers complete with nanotrasen belt buckle. Its sensors are locked in the [Fully On] position."
 	icon_state = "security_formal"
 	item_state = "gy_suit"
 	item_color = "security_formal"
+	has_sensor = 2
+	sensor_mode = 3
 
 /obj/item/clothing/under/rank/warden/formal
 	name = "warden's suit"
-	desc = "A formal security suit for the warden with blue desginations and '/Warden/' stiched into the shoulders."
+	desc = "A formal security suit for the warden with blue desginations and '/Warden/' stiched into the shoulders. Its sensors are locked in the [Fully On] position."
 	icon_state = "warden_formal"
 	item_state = "gy_suit"
 	item_color = "warden_formal"
+	has_sensor = 2
+	sensor_mode = 3
 
 /obj/item/clothing/under/rank/head_of_security/formal
 	name = "head of security's suit"
-	desc = "A security suit decorated for those few with the dedication to achieve the position of Head of Security."
+	desc = "A security suit decorated for those few with the dedication to achieve the position of Head of Security. Its sensors are locked in the [Fully On] position."
 	icon_state = "hos_formal"
 	item_state = "gy_suit"
 	item_color = "hos_formal"
+	has_sensor = 2
+	sensor_mode = 3
 
 
 //Brig Physician
 /obj/item/clothing/under/rank/security/brigphys
-	desc = "Jumpsuit for Brig Physician it has both medical and security protection."
+	desc = "Jumpsuit for Brig Physician it has both medical and security protection. Its sensors are locked in the [Fully On] position."
 	name = "brig physician's jumpsuit"
 	icon_state = "brig_phys"
 	item_state = "brig_phys"
 	item_color = "brig_phys"
-	permeability_coefficient = 0.50
-	armor = list(melee = 10, bullet = 0, laser = 0, energy = 0, bomb = 0, bio = 10, rad = 0)
-	flags_size = ONESIZEFITSALL
-
-/obj/item/clothing/under/rank/security/brigphys/skirt
-	desc = "A skirted Brig Physician uniform. It has both security and medical protection."
-	name = "brig physician's jumpskirt"
-	icon_state = "brig_physf"
-	item_state = "brig_physf"
-	item_color = "brig_physf"
+	has_sensor = 2
+	sensor_mode = 3
 	permeability_coefficient = 0.50
 	armor = list(melee = 10, bullet = 0, laser = 0, energy = 0, bomb = 0, bio = 10, rad = 0)
 	flags_size = ONESIZEFITSALL
 
 //Pod Pilot
 /obj/item/clothing/under/rank/security/pod_pilot
-	desc = "Suit for your regular pod pilot."
+	desc = "Suit for your regular pod pilot. Its sensors are locked in the [Fully On] position."
 	name = "pod pilot's jumpsuit"
 	icon_state = "pod_pilot"
 	item_state = "pod_pilot"
 	item_color = "pod_pilot"
+	has_sensor = 2
+	sensor_mode = 3
