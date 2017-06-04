@@ -262,7 +262,11 @@ var/list/robot_verbs_default = list(
 /mob/living/silicon/robot/proc/pick_module()
 	if(module)
 		return
-	var/list/modules = list("Standard", "Engineering", "Medical", "Miner", "Janitor", "Service", "Security", "Peacekeeper")
+	var/list/modules = list("Standard", "Engineering", "Medical", "Miner", "Janitor", "Service")
+	if(!config.forbid_secborg)
+		modules += "Security"
+	if(!config.forbid_peaceborg)
+		modules += "Peacekeeper"
 	if(security_level == (SEC_LEVEL_GAMMA || SEC_LEVEL_EPSILON) || crisis)
 		to_chat(src, "<span class='warning'>Crisis mode active. Combat module available.</span>")
 		modules += "Combat"
