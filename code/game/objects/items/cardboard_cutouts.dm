@@ -7,10 +7,9 @@
 	burn_state = FLAMMABLE
 	w_class = WEIGHT_CLASS_BULKY
 	var/list/possible_appearances = list("Assistant", "Clown", "Mime",
-		"Traitor", "Nuke Op", "Cultist", "Clockwork Cultist",
-		"Revolutionary", "Wizard", "Shadowling", "Xenomorph", "Swarmer",
-		"Ash Walker", "Deathsquad Officer", "Ian", "Slaughter Demon",
-		"Laughter Demon", "Xenomorph Maid", "Private Security Officer", "Terror Spider")
+		"Traitor", "Nuke Op", "Cultist", "Revolutionary", "Wizard", "Shadowling", "Xenomorph", "Swarmer",
+		"Deathsquad Officer", "Ian", "Slaughter Demon",
+		"Laughter Demon", "Xenomorph Maid", "Security Officer", "Terror Spider")
 	var/pushed_over = FALSE //If the cutout is pushed over and has to be righted
 	var/deceptive = FALSE //If the cutout actually appears as what it portray and not a discolored version
 	var/lastattacker = null
@@ -115,10 +114,10 @@
 			name = "Unknown"
 			desc = "A cardboard cutout of a cultist."
 			icon_state = "cutout_cultist"
-		if("Clockwork Cultist")
-			name = "[random_name(pick(MALE,FEMALE))]"
-			desc = "A cardboard cutout of a servant of Ratvar."
-			icon_state = "cutout_servant"
+		//if("Clockwork Cultist")
+		//	name = "[random_name(pick(MALE,FEMALE))]"
+		//	desc = "A cardboard cutout of a servant of Ratvar."
+		//	icon_state = "cutout_servant"
 		if("Revolutionary")
 			name = "Unknown"
 			desc = "A cardboard cutout of a revolutionary."
@@ -135,16 +134,16 @@
 			name = "alien hunter ([rand(1, 999)])"
 			desc = "A cardboard cutout of a xenomorph."
 			icon_state = "cutout_fukken_xeno"
-			if(prob(25))
+			if(prob(10))
 				alpha = 75 //Spooky sneaking!
 		if("Swarmer")
 			name = "Swarmer ([rand(1, 999)])"
 			desc = "A cardboard cutout of a swarmer."
 			icon_state = "cutout_swarmer"
-		if("Ash Walker")
-			name = random_name(pick(MALE,FEMALE),"Unathi")
-			desc = "A cardboard cutout of an ash walker."
-			icon_state = "cutout_free_antag"
+		//if("Ash Walker")
+		//	name = random_name(pick(MALE,FEMALE),"Unathi")
+		//	desc = "A cardboard cutout of an ash walker."
+		//	icon_state = "cutout_free_antag"
 		if("Deathsquad Officer")
 			name = pick(commando_names)
 			desc = "A cardboard cutout of a death commando."
@@ -169,7 +168,7 @@
 			name = "lusty xenomorph maid ([rand(1, 999)])"
 			desc = "A cardboard cutout of a xenomorph maid."
 			icon_state = "cutout_lusty"
-		if("Private Security Officer")
+		if("Security Officer")
 			name = "Private Security Officer"
 			desc = "A cardboard cutout of a private security officer."
 			icon_state = "cutout_ntsec"
