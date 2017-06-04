@@ -800,9 +800,9 @@
 				emotelist += "\nSlime people specific emotes :- squish(es)-(none)/mob"
 			else
 				for(var/obj/item/organ/external/L in bodyparts) // if your limbs are squishy you can squish too!
-				if(L.dna.species in list("Slime People"))
-					emotelist += "\nSlime people body part specific emotes :- squish(es)-(none)/mob"
-					break
+					if(L.dna.species in list("Slime People"))
+						emotelist += "\nSlime people body part specific emotes :- squish(es)-(none)/mob"
+						break
 
 			to_chat(src, emotelist)
 		else
