@@ -143,9 +143,9 @@
 	return ..(gibbed)
 
 /mob/living/carbon/human/update_revive()
-	..()
+	. = ..()
 	// Update healthdoll
-	if(healthdoll)
+	if(. && healthdoll)
 		// We're alive again, so re-build the entire healthdoll
 		healthdoll.cached_healthdoll_overlays.Cut()
 

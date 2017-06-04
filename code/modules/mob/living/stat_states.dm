@@ -37,9 +37,9 @@
 // handles revival through other means than cloning or adminbus (defib, IPC repair)
 /mob/living/proc/update_revive(updating = TRUE)
 	if(stat != DEAD)
-		return
+		return 0
 	if(!can_be_revived())
-		return
+		return 0
 	add_logs(src, null, "came back to life at [atom_loc_line(get_turf(src))]", admin=0, print_attack_log = 0)
 	stat = CONSCIOUS
 	dead_mob_list -= src
@@ -49,3 +49,4 @@
 		update_canmove()
 	// update_blind_effects()
 	updatehealth()
+	return 1
