@@ -219,6 +219,7 @@
 
 /obj/item/weapon/storage/box/syndie_kit/cutouts/New()
 	..()
+	name = "Fortified Artistic Box"
 	for(var/i in 1 to 3)
 		new/obj/item/cardboard_cutout/adaptive(src)
-	new/obj/item/toy/crayon/rainbow(src)
+	new/obj/item/toy/crayon/spraycan(src)
