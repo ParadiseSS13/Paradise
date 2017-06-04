@@ -49,4 +49,11 @@
 		update_canmove()
 	// update_blind_effects()
 	updatehealth()
+
+	for(var/s in ownedSoullinks)
+		var/datum/soullink/S = s
+		S.ownerRevives(src)
+	for(var/s in sharedSoullinks)
+		var/datum/soullink/S = s
+		S.sharerRevives(src)
 	return 1

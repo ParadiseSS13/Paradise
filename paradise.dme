@@ -218,7 +218,7 @@
 #include "code\datums\recipe.dm"
 #include "code\datums\ruins.dm"
 #include "code\datums\shuttles.dm"
-#include "code\datums\soullink.dm
+#include "code\datums\soullink.dm"
 #include "code\datums\spell.dm"
 #include "code\datums\statclick.dm"
 #include "code\datums\supplypacks.dm"
@@ -322,7 +322,7 @@
 #include "code\datums\spells\touch_attacks.dm"
 #include "code\datums\spells\trigger.dm"
 #include "code\datums\spells\turf_teleport.dm"
-#include "code\datums\spells\wizard.dm""
+#include "code\datums\spells\wizard.dm"
 #include "code\datums\vr\level.dm"
 #include "code\datums\weather\weather.dm"
 #include "code\datums\weather\weather_types.dm"
