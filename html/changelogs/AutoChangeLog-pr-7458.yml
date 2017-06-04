@@ -1,5 +1,0 @@
-author: "Crazylemon64"
-delete-after: True
-changes: 
-  - bugfix: "Clone's hearts now start operational"
-  - bugfix: "EMP'd clone pods can now be emptied again"
