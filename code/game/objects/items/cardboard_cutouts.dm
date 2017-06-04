@@ -9,14 +9,14 @@
 	var/list/possible_appearances = list("Assistant", "Clown", "Mime",
 		"Traitor", "Nuke Op", "Cultist", "Clockwork Cultist",
 		"Revolutionary", "Wizard", "Shadowling", "Xenomorph", "Swarmer",
-		"Ash Walker", "Commando", "Ian", "Slaughter Demon",
+		"Ash Walker", "Deathsquad Officer", "Ian", "Slaughter Demon",
 		"Laughter Demon", "Xenomorph Maid", "Private Security Officer", "Terror Spider")
 	var/pushed_over = FALSE //If the cutout is pushed over and has to be righted
 	var/deceptive = FALSE //If the cutout actually appears as what it portray and not a discolored version
 	var/lastattacker = null
 
 /obj/item/cardboard_cutout/attack_hand(mob/living/user)
-	if(user.a_intent == "help" || pushed_over)
+	if(user.a_intent == I_HELP || pushed_over)
 		return ..()
 	user.visible_message("<span class='warning'>[user] pushes over [src]!</span>", "<span class='danger'>You push over [src]!</span>")
 	playsound(src, 'sound/weapons/Genhit.ogg', 50, 1)
@@ -72,6 +72,11 @@
 /obj/item/cardboard_cutout/proc/change_appearance(obj/item/toy/crayon/crayon, mob/living/user)
 	if(!crayon || !user)
 		return
+	if(istype(crayon, /obj/item/toy/crayon/spraycan))
+		var/obj/item/toy/crayon/spraycan/can = crayon
+		if(can.capped)
+			to_chat(user, "<span class='warning'>The cap is on [src] remove it first!</span>")
+			return
 	if(pushed_over)
 		to_chat(user, "<span class='warning'>Right [src] first!</span>")
 		return
@@ -103,7 +108,7 @@
 			desc = "A cardboard cutout of a traitor."
 			icon_state = "cutout_traitor"
 		if("Nuke Op")
-			name = "[pick("Unknown", "COMMS", "Telecomms", "AI", "stealthy op", "STEALTH", "sneakybeaky", "MEDIC", "Medic")]"
+			name = "[pick("Unknown", "COMMS", "Telecomms", "AI", "stealthy op", "STEALTH", "sneakybeaky", "MEDIC", "Medic", "Gonk op")]"
 			desc = "A cardboard cutout of a nuclear operative."
 			icon_state = "cutout_fluke"
 		if("Cultist")
@@ -140,9 +145,9 @@
 			name = random_name(pick(MALE,FEMALE),"Unathi")
 			desc = "A cardboard cutout of an ash walker."
 			icon_state = "cutout_free_antag"
-		if("Commando")
+		if("Deathsquad Officer")
 			name = pick(commando_names)
-			desc = "A cardboard cutout of a strange commando."
+			desc = "A cardboard cutout of a death commando."
 			icon_state = "cutout_deathsquad"
 		if("Ian")
 			name = "Ian"
