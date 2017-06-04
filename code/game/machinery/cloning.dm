@@ -249,7 +249,13 @@
 	else
 		H.real_name = R.dna.real_name
 
-	H.dna = R.dna.Clone()
+	// 15 damage at level 1 parts - "2" efficiency
+	// 0 damage at level 4 parts - "8" efficiency
+	var/datum/dna/newdna = R.dna.Clone()
+	newdna.base_stability -= max(15*((6-(efficiency - 2))/6), 0)
+	H.gene_stability = newdna.base_stability
+	H.dna = newdna
+
 
 	for(var/datum/language/L in R.languages)
 		H.add_language(L.name)
