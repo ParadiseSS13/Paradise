@@ -105,6 +105,19 @@
 	update_icon()
 	//much roomier now that we've managed to remove two tools
 
+/obj/item/weapon/storage/belt/utility/response_team
+
+/obj/item/weapon/storage/belt/utility/response_team/full/New()
+	..()
+	new /obj/item/weapon/screwdriver/power(src)
+	new /obj/item/weapon/crowbar/power(src)
+	new /obj/item/weapon/weldingtool/experimental(src)
+	new /obj/item/device/multitool(src)
+	new /obj/item/stack/cable_coil(src, 30, pick(COLOR_RED, COLOR_YELLOW, COLOR_ORANGE))
+	new /obj/item/weapon/extinguisher/mini(src)
+	new /obj/item/device/analyzer(src)
+	update_icon()
+
 /obj/item/weapon/storage/belt/medical
 	use_to_pickup = 1 //Allow medical belt to pick up medicine
 	name = "medical belt"
