@@ -274,6 +274,15 @@
 	item_state = "assault"
 	storage_slots = 6
 
+/obj/item/weapon/storage/belt/military/assault/full/New()
+	..()
+	new /obj/item/weapon/gun/projectile/automatic/pistol/deagle(src)
+	new /obj/item/weapon/grenade/plastic/x4(src)
+	new /obj/item/weapon/grenade/plastic/x4(src)
+	new /obj/item/weapon/grenade/plastic/x4(src)
+	new /obj/item/weapon/kitchen/knife/combat(src)
+	new /obj/item/weapon/implanter/adrenalin (src)
+
 /obj/item/weapon/storage/belt/janitor
 	name = "janibelt"
 	desc = "A belt used to hold most janitorial supplies."

@@ -295,6 +295,24 @@
 	new /obj/item/ammo_box/magazine/m12g/stun(src)
 	new /obj/item/ammo_box/magazine/m12g/dragon(src)
 
+/obj/item/weapon/storage/backpack/duffel/syndie/ammo/assault
+	desc = "A large duffelbag, packed to the brim with everything you need to wreck havoc."
+
+/obj/item/weapon/storage/backpack/duffel/syndie/ammo/assault/New()
+	..()
+	new /obj/item/weapon/storage/box/syndidonkpockets(src)
+	new /obj/item/weapon/storage/firstaid/adv(src)
+	new /obj/item/ammo_box/magazine/m50(src)
+	new /obj/item/ammo_box/magazine/m50(src)
+	new /obj/item/weapon/gun/projectile/revolver/grenadelauncher(src)
+	new /obj/item/ammo_box/a40mm(src)
+	new /obj/item/ammo_box/a40mm(src)
+	new /obj/item/ammo_box/magazine/mm556x45(src)
+	new /obj/item/ammo_box/magazine/mm556x45(src)
+	new /obj/item/ammo_box/magazine/mm556x45(src)
+	new /obj/item/ammo_box/magazine/mm556x45(src)
+	new /obj/item/ammo_box/magazine/mm556x45(src)
+
 /obj/item/weapon/storage/backpack/duffel/syndie/surgery
 	name = "surgery duffelbag"
 	desc = "A suspicious looking duffelbag for holding surgery tools."
