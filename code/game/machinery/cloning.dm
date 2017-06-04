@@ -462,12 +462,14 @@
 		return
 
 	if(grab_ghost_when == CLONER_MATURE_CLONE)
-		clonemind.transfer_to(occupant)
-		occupant.grab_ghost()
-		update_clone_antag(occupant)
-		to_chat(occupant, "<span class='notice'><b>There is a bright flash!</b><br>\
-			<i>You feel like a new being.</i></span>")
-		occupant.flash_eyes(visual = 1)
+		if(!(clonemind.current && clonemind.current.stat != DEAD))
+			// Make sure they aren't just mostly dead (e.g. defibbed or something)
+			clonemind.transfer_to(occupant)
+			occupant.grab_ghost()
+			update_clone_antag(occupant)
+			to_chat(occupant, "<span class='notice'><b>There is a bright flash!</b><br>\
+				<i>You feel like a new being.</i></span>")
+			occupant.flash_eyes(visual = 1)
 
 	for(var/i in missing_organs)
 		qdel(i)
