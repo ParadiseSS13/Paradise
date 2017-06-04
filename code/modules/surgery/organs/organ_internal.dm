@@ -170,6 +170,10 @@
 			if(!owner)
 				Stop()
 
+/obj/item/organ/internal/heart/safe_replace(mob/living/carbon/human/target)
+	Restart()
+	..()
+
 /obj/item/organ/internal/heart/proc/Stop()
 	beating = 0
 	update_icon()
