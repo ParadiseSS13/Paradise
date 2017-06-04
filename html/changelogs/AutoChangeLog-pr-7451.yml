@@ -1,0 +1,4 @@
+author: "FreeStylaLT"
+delete-after: True
+changes: 
+  - bugfix: "Cell 6 is now connected to the atmos system properly."
