@@ -250,8 +250,17 @@
 
 /obj/effect/proc_holder/spell/vampire/self/screech/cast(list/targets, mob/user = usr)
 	user.visible_message("<span class='warning'>[user] lets out an ear piercing shriek!</span>", "<span class='warning'>You let out a loud shriek.</span>", "<span class='warning'>You hear a loud painful shriek!</span>")
-	for(var/mob/living/carbon/C in hearers(4))
-		if(C == user)
+	for(var/mob/living/M in get_mobs_in_view(4, user))
+		if(issilicon(M))
+			to_chat(S, "<span class='warning'><b>ERROR $!(@ ERROR )#^! SENSORY OVERLOAD \[$(!@#</b></span>")
+			S << 'sound/misc/interference.ogg'
+			playsound(S, 'sound/machines/warning-buzzer.ogg', 50, 1)
+			var/datum/effect/system/spark_spread/sp = new /datum/effect/system/spark_spread
+			sp.set_up(5, 1, S)
+			sp.start()
+			S.Weaken(6)
+		if(iscarbon(M))
+			if(C == user)
 			continue
 		if(ishuman(C) && (C:l_ear || C:r_ear) && istype((C:l_ear || C:r_ear), /obj/item/clothing/ears/earmuffs))
 			continue
