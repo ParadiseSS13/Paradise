@@ -56,6 +56,21 @@
 
 	air_contents.trace_gases += trace_gas
 
+/obj/item/weapon/tank/anesthetic/vox
+	name = "vox anesthetic tank"
+	desc = "A tank with an N2O/N2 gas mix."
+	icon_state = "oxygen_fr"
+	item_state = "an_tank"
+
+/obj/item/weapon/tank/anesthetic/vox/New()
+	..()
+
+	air_contents.nitrogen = (3*ONE_ATMOSPHERE)*70/(R_IDEAL_GAS_EQUATION*T20C) * O2STANDARD
+
+	var/datum/gas/sleeping_agent/trace_gas = new()
+	trace_gas.moles = (3*ONE_ATMOSPHERE)*70/(R_IDEAL_GAS_EQUATION*T20C) * N2STANDARD
+
+	air_contents.trace_gases += trace_gas
 /*
  * Air
  */
