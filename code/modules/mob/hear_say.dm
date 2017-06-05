@@ -177,7 +177,10 @@
 			formattingEnd = findtext(message,">",formattingStart,0)
 			if(!formattingEnd)
 				break
-			message = copytext(message,1,formattingStart+1) + copytext(message,formattingEnd+1,0)
+			if(formattingEnd == len(message)
+				message = copytext(message,1,formattingStart+1) //Special case so ending formatting isen't bugged
+			else
+				message = copytext(message,1,formattingStart+1) + copytext(message,formattingEnd+1,0)
 		var/list/punctuation = list(",", "!", ".", ";", "?")
 		var/list/messages = splittext(message, " ")
 		var/R = rand(1, messages.len)
