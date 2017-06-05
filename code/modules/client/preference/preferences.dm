@@ -62,7 +62,6 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 #define RETURN_TO_LOBBY 2
 
 #define MAX_SAVE_SLOTS 20 // Save slots for regular players
-#define MAX_SAVE_SLOTS_MEMBER 20 // Save slots for BYOND members
 
 
 #define TAB_CHAR 0
@@ -211,9 +210,6 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 	// jukebox volume
 	var/volume = 100
 
-	// BYOND membership
-	var/unlock_content = 0
-
 	//Gear stuff
 	var/list/gear = list()
 	var/gear_tab = "General"
@@ -224,9 +220,6 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 	max_gear_slots = config.max_loadout_points
 	if(istype(C))
 		if(!IsGuestKey(C.key))
-			unlock_content = C.IsByondMember()
-			if(unlock_content)
-				max_save_slots = MAX_SAVE_SLOTS_MEMBER
 			if(C.donator_level >= DONATOR_LEVEL_ONE)
 				max_gear_slots += 5
 
@@ -454,8 +447,6 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 				dat += "<b>OOC:</b> <span style='border: 1px solid #161616; background-color: [ooccolor ? ooccolor : normal_ooc_colour];'>&nbsp;&nbsp;&nbsp;</span> <a href='?_src_=prefs;preference=ooccolor;task=input'><b>Change</b></a><br>"
 			if(config.allow_Metadata)
 				dat += "<b>OOC notes:</b> <a href='?_src_=prefs;preference=metadata;task=input'><b>Edit</b></a><br>"
-			if(unlock_content)
-				dat += "<b>BYOND Membership Publicity:</b> <a href='?_src_=prefs;preference=publicity'><b>[(toggles & MEMBER_PUBLIC) ? "Public" : "Hidden"]</b></a><br>"
 			if(user.client.donator_level >= DONATOR_LEVEL_ONE)
 				dat += "<b>Donator Publicity:</b> <a href='?_src_=prefs;preference=donor_public'><b>[(toggles & DONATOR_PUBLIC) ? "Public" : "Hidden"]</b></a><br>"
 
@@ -1939,10 +1930,6 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 
 		else
 			switch(href_list["preference"])
-				if("publicity")
-					if(unlock_content)
-						toggles ^= MEMBER_PUBLIC
-
 				if("donor_public")
 					if(user.client.donator_level >= DONATOR_LEVEL_ONE)
 						toggles ^= DONATOR_PUBLIC

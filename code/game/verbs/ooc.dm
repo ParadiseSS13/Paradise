@@ -1,5 +1,4 @@
 var/global/normal_ooc_colour = "#002eb8"
-var/global/member_ooc_colour = "#035417"
 var/global/mentor_ooc_colour = "#0099cc"
 var/global/moderator_ooc_colour = "#184880"
 var/global/admin_ooc_colour = "#b82e00"
@@ -53,19 +52,9 @@ var/global/admin_ooc_colour = "#b82e00"
 			else
 				display_colour = admin_ooc_colour
 
-	if(prefs.unlock_content)
-		if(display_colour == normal_ooc_colour)
-			if((prefs.toggles & MEMBER_PUBLIC))
-				display_colour = member_ooc_colour
-
 	for(var/client/C in clients)
 		if(C.prefs.toggles & CHAT_OOC)
 			var/display_name = src.key
-
-			if(prefs.unlock_content)
-				if(prefs.toggles & MEMBER_PUBLIC)
-					var/icon/byond = icon('icons/member_content.dmi', "blag")
-					display_name = "[bicon(byond)][display_name]"
 
 			if(donator_level >= DONATOR_LEVEL_ONE)
 				if((prefs.toggles & DONATOR_PUBLIC))
