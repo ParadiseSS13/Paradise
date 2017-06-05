@@ -323,6 +323,8 @@
 		new /obj/item/weapon/implantcase/death_alarm(src)
 		new /obj/item/weapon/implantcase/death_alarm(src)
 		new /obj/item/weapon/implantcase/death_alarm(src)
+		new /obj/item/weapon/implantcase/death_alarm(src)
+		new /obj/item/weapon/implantcase/death_alarm(src)
 		new /obj/item/weapon/implanter(src)
 
 /obj/item/weapon/storage/box/tapes
@@ -366,22 +368,6 @@
 		new /obj/item/weapon/reagent_containers/food/drinks/drinkingglass(src)
 		new /obj/item/weapon/reagent_containers/food/drinks/drinkingglass(src)
 		new /obj/item/weapon/reagent_containers/food/drinks/drinkingglass(src)
-
-/obj/item/weapon/storage/box/cdeathalarm_kit
-	name = "Death Alarm Kit"
-	desc = "Box of stuff used to implant death alarms."
-	icon_state = "implant"
-	item_state = "syringe_kit"
-
-	New()
-		..()
-		new /obj/item/weapon/implanter(src)
-		new /obj/item/weapon/implantcase/death_alarm(src)
-		new /obj/item/weapon/implantcase/death_alarm(src)
-		new /obj/item/weapon/implantcase/death_alarm(src)
-		new /obj/item/weapon/implantcase/death_alarm(src)
-		new /obj/item/weapon/implantcase/death_alarm(src)
-		new /obj/item/weapon/implantcase/death_alarm(src)
 
 /obj/item/weapon/storage/box/condimentbottles
 	name = "box of condiment bottles"
