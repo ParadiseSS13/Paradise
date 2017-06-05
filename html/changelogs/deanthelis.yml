@@ -1,0 +1,37 @@
+################################
+# Example Changelog File
+#
+# Note: This file, and files beginning with ".", and files that don't end in ".yml" will not be read. If you change this file, you will look really dumb.
+#
+# Your changelog will be merged with a master changelog. (New stuff added only, and only on the date entry for the day it was merged.)
+# When it is, any changes listed below will disappear.
+#
+# Valid Prefixes: 
+#   bugfix
+#   wip (For works in progress)
+#   tweak
+#   soundadd
+#   sounddel
+#   rscadd (general adding of nice things)
+#   rscdel (general deleting of nice things)
+#   imageadd
+#   imagedel
+#   spellcheck (typo fixes)
+#   experiment
+#################################
+
+# Your name. Remove the quotation mark and put in your name when copy+pasting the example changelog.
+author: Deanthelis
+
+# Optional: Remove this file after generating master changelog.  Useful for PR changelogs that won't get used again.
+delete-after: True
+
+# Any changes you've made.  See valid prefix list above.
+# INDENT WITH TWO SPACES.  NOT TABS.  SPACES.
+# SCREW THIS UP AND IT WON'T WORK.
+# Also, this gets changed to [] after reading.  Just remove the brackets when you add new shit.
+# Please surround your changes in  double quotes ("). It works without them, but if you use certain characters it screws up compiling. The quotes will not show up in the changelog.
+changes: 
+  - rscadd: "Added the Clown Piano to the game. Instead of a 50/50 chance of the Bar piano being a Space Piano or a Space Minimoog, it is now a 50% chance of a Space Minimoog, and a 25% chance of a Space Piano or Clown Piano. It is functionally identical for the player when creating songs."
+  - soundadd: "Added a set of sounds, using the existing piano sounds as a template, for the clown piano to use. Yes, it is bike horns. A full eight octaves of bike horns."
+  - imageadd: "Added the Clown Piano and Broken Clown Piano sprites, which is an unholy abomination and should probably be replaced by someone who can do sprite art properly."
