@@ -459,9 +459,10 @@
 #include "code\game\gamemodes\miniantags\revenant\revenant_spawn_event.dm"
 #include "code\game\gamemodes\miniantags\slaughter\bloodcrawl.dm"
 #include "code\game\gamemodes\miniantags\slaughter\slaughter.dm"
-#include "code\game\gamemodes\nations\nations.dm"
-#include "code\game\gamemodes\nations\nationsdatums.dm"
-#include "code\game\gamemodes\nations\nationsprocs.dm"
+//#include "code\game\gamemodes\nations\nations.dm"  
+//i can be as salty as I want, eat my poo
+//#include "code\game\gamemodes\nations\nationsdatums.dm"
+//#include "code\game\gamemodes\nations\nationsprocs.dm"
 #include "code\game\gamemodes\nuclear\nuclear.dm"
 #include "code\game\gamemodes\nuclear\nuclear_challenge.dm"
 #include "code\game\gamemodes\nuclear\nuclearbomb.dm"
