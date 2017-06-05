@@ -969,6 +969,9 @@
 				locked = !locked
 				update_icon()
 
+	else if(href_list["updatepower"])
+		update()
+
 	return 0
 
 /obj/machinery/power/apc/proc/toggle_breaker()
