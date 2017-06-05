@@ -25,7 +25,7 @@
 
 /******************** Nanotrasen/Malf ********************/
 /datum/ai_laws/nanotrasen
-	name = "NT Default"
+	name = "NT Recommended"
 	selectable = 1
 
 /datum/ai_laws/nanotrasen/New()
