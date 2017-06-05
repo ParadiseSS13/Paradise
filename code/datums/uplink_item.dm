@@ -949,6 +949,14 @@ var/list/uplink_items = list()
 	item = /obj/item/weapon/storage/backpack/duffel/syndie/surgery
 	cost = 4
 
+/datum/uplink_item/device_tools/syndiesleeperboard
+	name = "Syndicate Sleeper Board"
+	desc = "The circuit board required to build the Syndicate Sleeper, allowing agents to self-heal in the field."
+	reference = "SYSB"
+	item = /obj/item/weapon/circuitboard/sleeper/syndicate
+	cost = 2
+	excludefrom = list(/datum/game_mode/nuclear)
+
 /datum/uplink_item/device_tools/military_belt
 	name = "Military Belt"
 	desc = "A robust seven-slot red belt made for carrying a broad variety of weapons, ammunition and explosives"
