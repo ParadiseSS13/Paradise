@@ -455,7 +455,7 @@ turf/simulated/proc/super_conduct()
 					else
 						mimic_temperature_solid(neighbor, neighbor.thermal_conductivity)
 
-	radiate_to_spess()
+	radiate_to_space()
 
 	//Conduct with air on my tile if I have it
 	if(air)
@@ -487,7 +487,7 @@ turf/simulated/proc/consider_superconductivity(starting)
 	air_master.active_super_conductivity |= src
 	return 1
 
-turf/simulated/proc/radiate_to_spess() //Radiate excess tile heat to space
+turf/simulated/proc/radiate_to_space() //Radiate excess tile heat to space
 	if(temperature > T0C) //Considering 0 degC as te break even point for radiation in and out
 		var/delta_temperature = (temperature_archived - 2.7) //hardcoded space temperature
 		if((heat_capacity > 0) && (abs(delta_temperature) > MINIMUM_TEMPERATURE_DELTA_TO_CONSIDER))

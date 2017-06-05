@@ -99,7 +99,7 @@
 	operating = 0
 	return
 
-/obj/machinery/door/poddoor/multi_tile // Whoever wrote the old code for multi-tile spesspod doors needs to burn in hell.
+/obj/machinery/door/poddoor/multi_tile // Whoever wrote the old code for multi-tile spacepod doors needs to burn in hell.
 	name = "Large Pod Door"
 
 /obj/machinery/door/poddoor/multi_tile/four_tile_ver/
