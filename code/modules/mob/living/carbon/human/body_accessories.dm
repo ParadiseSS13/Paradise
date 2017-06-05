@@ -139,3 +139,8 @@ var/global/list/body_accessory_by_species = list("None" = null)
 	icon_state = "vulptail6"
 	animated_icon_state = "vulptail6_a"
 	allowed_species = list("Vulpkanin")
+
+//hair
+/datum/sprite_accessory/hair/skrell/zeke_fluff_tentacle //Zeke Fluff hair
+	name = "Zeke's Tentacles"
+	icon_state = "zeke_fluff_hair"

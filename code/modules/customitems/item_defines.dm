@@ -960,6 +960,26 @@
 		return 1
 	..()
 
+/obj/item/fluff/zekemirror //phantasmicdream : Zeke Valross
+	name = "engraved hand mirror"
+	desc = "A very classy hand mirror, with fancy detailing."
+	icon = 'icons/obj/custom_items.dmi'
+	icon_state = "hand_mirror"
+	attack_verb = list("smacked")
+	hitsound = 'sound/weapons/tap.ogg'
+	force = 0
+	throwforce = 0
+	w_class = 2
+
+/obj/item/fluff/zekemirror/attack_self(mob/user)
+	var/mob/living/carbon/human/target = user
+	if(!istype(target) || target.get_species() != "Skrell") // It'd be strange to see other races with head tendrils.
+		return
+
+	if(target.change_hair("Zeke's Tentacles"))
+		to_chat(target, "<span class='notice'>You take time to admire yourself in the [src], brushing your tendrils down and revealing their true length.</span>")
+
+
 /obj/item/clothing/accessory/necklace/locket/fluff/fethasnecklace //Fethas: Sefra'neem
 	name = "Orange gemmed locket"
 	desc = "A locket with a orange gem set on the front, the picture inside seems to be of a Tajaran."
@@ -968,3 +988,5 @@
 	item_state = "fethasnecklace"
 	item_color = "fethasnecklace"
 	slot_flags = SLOT_MASK | SLOT_TIE
+
+
