@@ -399,9 +399,6 @@
 	if(has_gravity(H))
 		gravity = 1
 
-	if(H.embedded_flag)
-		H.handle_embedded_objects() //Moving with objects stuck in you can cause bad times.
-
 	if(!ignoreslow && gravity)
 		if(slowdown)
 			. = slowdown

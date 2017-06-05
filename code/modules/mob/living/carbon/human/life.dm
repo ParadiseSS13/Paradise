@@ -40,6 +40,10 @@
 		if(!client)
 			species.handle_npc(src)
 
+	if(stat != DEAD)
+		//Stuff jammed in your limbs hurts
+		handle_embedded_objects()
+
 	if(stat == DEAD)
 		handle_decay()
 
@@ -839,13 +843,6 @@
 			blinded = 1
 			stat = UNCONSCIOUS
 
-		if(embedded_flag && !(mob_master.current_cycle % 10))
-			var/list/E
-			E = get_visible_implants(0)
-			if(!E.len)
-				embedded_flag = 0
-
-
 		//Vision //god knows why this is here
 		var/obj/item/organ/vision
 		if(species.vision_organ)
@@ -957,6 +954,22 @@
 				vomit(20, 0, 1, 0, 1)
 				adjustToxLoss(-3)
 				lastpuke = 0
+
+/mob/living/carbon/human/proc/handle_embedded_objects()
+	for(var/X in bodyparts)
+		var/obj/item/organ/external/BP = X
+		for(var/obj/item/I in BP.embedded_objects)
+			if(prob(I.embedded_pain_chance))
+				BP.take_damage(I.w_class*I.embedded_pain_multiplier)
+				to_chat(src, "<span class='userdanger'>[I] embedded in your [BP.name] hurts!</span>")
+
+			if(prob(I.embedded_fall_chance))
+				BP.take_damage(I.w_class*I.embedded_fall_pain_multiplier)
+				BP.embedded_objects -= I
+				I.loc = get_turf(src)
+				visible_message("<span class='danger'>[I] falls out of [name]'s [BP.name]!</span>","<span class='userdanger'>[I] falls out of your [BP.name]!</span>")
+				if(!has_embedded_objects())
+					clear_alert("embeddedobject")
 
 /mob/living/carbon/human/handle_changeling()
 	if(mind)
