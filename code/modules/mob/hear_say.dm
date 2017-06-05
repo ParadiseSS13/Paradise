@@ -167,22 +167,22 @@
 
 /mob/proc/hear_sleep(var/message)
 	var/heard = ""
-	var/formattingStart = 0
-	var/formattingEnd = 0
+	var/opentag = 0
+	var/closetag = 0
 	if(prob(15))
 		while(1) //Remove the HTML formatting so people don't hear colour
-			formattingStart = findtext(message,"<",1,0)
-			if(!formattingStart)
+			opentag = findtext(message,"<",1,0)
+			if(!opentag)
 				break
-			formattingEnd = findtext(message,">",formattingStart,0)
-			if(!formattingEnd)
+			closetag = findtext(message,">",opentag,0)
+			if(!closetag)
 				break
-			if(formattingEnd == lentext(message))
-				message = copytext(message,1,formattingStart) //Special case for start/end formatting
-			else if(formattingStart == 1)
-				message = copytext(message,(formattingEnd+1),0)
+			if(closetag == lentext(message))
+				message = copytext(message,1,opentag) //Special case for start/end formatting
+			else if(opentag == 1)
+				message = copytext(message,(closetag+1),0)
 			else
-				message = copytext(message,1,formattingStart) + copytext(message,(formattingEnd+1),0)
+				message = copytext(message,1,opentag) + copytext(message,(closetag+1),0)
 		var/list/punctuation = list(",", "!", ".", ";", "?")
 		var/list/messages = splittext(message, " ")
 		var/R = rand(1, messages.len)
