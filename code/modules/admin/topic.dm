@@ -1790,9 +1790,13 @@
 			H = M
 			ptypes += "Brain Damage"
 			ptypes += "Honk Tumor"
+			ptypes += "Hallucinate"
+			ptypes += "Starvation"
 			ptypes += "Cluwne"
 			ptypes += "Mutagen Cookie"
 			ptypes += "Hellwater Cookie"
+			ptypes += "Assassin"
+			ptypes += "Lynch"
 		var/punishment = input(owner, "How would you like to smite [M]?", "Its good to be baaaad...", "") as null|anything in ptypes
 		if(!(punishment in ptypes))
 			return
@@ -1820,6 +1824,12 @@
 					to_chat(H, "<span class='userdanger'>Life seems funnier, somehow.</span>")
 					organ.insert(H)
 				logmsg = "a honk tumor."
+			if("Hallucinate")
+				H.Hallucinate(1000)
+				logmsg = "hallucinations."
+			if("Starvation")
+				H.nutrition = NUTRITION_LEVEL_CURSED;
+				logmsg = "starvation."
 			if("Cluwne")
 				H.makeCluwne()
 				logmsg = "cluwned."
@@ -1828,6 +1838,7 @@
 				evilcookie.reagents.add_reagent("mutagen", 10)
 				evilcookie.desc = "It has a faint green glow."
 				evilcookie.bitesize = 100
+				evilcookie.flags = NODROP
 				H.drop_l_hand()
 				H.equip_to_slot_or_del(evilcookie, slot_l_hand)
 				logmsg = "a mutagen cookie."
@@ -1836,9 +1847,55 @@
 				evilcookie.reagents.add_reagent("hell_water", 25)
 				evilcookie.desc = "Sulphur-flavored."
 				evilcookie.bitesize = 100
+				evilcookie.flags = NODROP
 				H.drop_l_hand()
 				H.equip_to_slot_or_del(evilcookie, slot_l_hand)
 				logmsg = "a hellwater cookie."
+			if("Assassin")
+				logmsg = "assassin."
+				var/list/possible_traitors = list()
+				for(var/mob/living/player in mob_list)
+					if(player.client && player.mind && !player.mind.special_role && player.stat != DEAD && player != H)
+						if(ishuman(player))
+							if(player.client && (ROLE_TRAITOR in player.client.prefs.be_special) && !jobban_isbanned(player, ROLE_TRAITOR) && !jobban_isbanned(player, "Syndicate"))
+								possible_traitors += player.mind
+				for(var/datum/mind/player in possible_traitors)
+					if(player.current)
+						if(ismindshielded(player.current))
+							possible_traitors -= player
+				if(possible_traitors.len > 0)
+					var/datum/mind/newtraitormind = pick(possible_traitors)
+					var/mob/living/newtraitor = newtraitormind.current
+					var/datum/objective/assassinate/kill_objective = new
+					kill_objective.owner = newtraitormind
+					kill_objective.target = H.mind
+					kill_objective.explanation_text = "Assassinate [H.real_name], the [H.mind.assigned_role]."
+					newtraitormind.objectives += kill_objective
+					ticker.mode.equip_traitor(newtraitor)
+					ticker.mode.traitors |= newtraitor.mind
+					to_chat(newtraitor, "<span class='danger'>ATTENTION:</span> It is time to pay your debt to the Syndicate...")
+					to_chat(newtraitor, "<B>You are now a traitor.</B>")
+					to_chat(newtraitor, "<B>Goal: <span class='danger'>KILL [H.real_name]</span>, currently in [get_area(H.loc)]</B>");
+					newtraitor.mind.special_role = SPECIAL_ROLE_TRAITOR
+					var/datum/atom_hud/antag/tatorhud = huds[ANTAG_HUD_TRAITOR]
+					tatorhud.join_hud(newtraitor)
+					ticker.mode.set_antag_hud(newtraitor, "hudsyndicate")
+				else
+					to_chat(usr, "ERROR: Failed to create a traitor.")
+					return
+			if("Lynch")
+				logmsg = "lynch."
+				for(var/datum/mind/m in ticker.minds)
+					if(!m.current)
+						continue
+					if(istype(m.current, /mob/dead/observer))
+						continue
+					if(m == H.mind)
+						continue
+					if(ismindshielded(m.current))
+						continue
+					to_chat(m.current, "<BR><span class='userdanger'>The gods have given you a task: find [H.real_name], located in [get_area(H.loc)], and slay them!</span>");
+					to_chat(m.current, "<span class='userdanger'>Do not harm anyone other than [H.real_name] while carrying out this task.</span><BR>");
 			if("Gib")
 				logmsg = "gibbed."
 				M.gib(FALSE)
