@@ -143,7 +143,7 @@ var/list/uplink_items = list()
 	item = /obj/item/weapon/grenade/spawnergrenade/feral_cats
 	reference = "CCLG"
 	cost = 5
-	job = list("Psychiatrist")//why? Becuase its funny that a person in charge of your mental wellbeing has a cat granade..
+	job = list("Psychiatrist", "Assistant")//why? Becuase its funny that a person in charge of your mental wellbeing has a cat granade..
 
 //Chef
 /datum/uplink_item/jobspecific/specialsauce
