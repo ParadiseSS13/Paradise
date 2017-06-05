@@ -38,3 +38,8 @@
 	name = "nicotine patch"
 	desc = "Helps temporarily curb the cravings of nicotine dependency."
 	list_reagents = list("nicotine" = 20)
+
+/obj/item/weapon/reagent_containers/food/pill/patch/perfluorodecalin
+	name = "perfluorodecalin patch"
+	desc = "This experimental perfluoronated solvent has applications in liquid breathing and tissue oxygenation. Use with caution."
+	list_reagents = list("perfluorodecalin" = 20)

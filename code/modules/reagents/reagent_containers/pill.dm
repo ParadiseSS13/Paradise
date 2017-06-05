@@ -109,3 +109,33 @@
 	desc = "Used to treat respiratory distress."
 	icon_state = "pill8"
 	list_reagents = list("salbutamol" = 20)
+
+/obj/item/weapon/reagent_containers/food/pill/hydrocodone
+	name = "Hydrocodone pill"
+	desc = "An extremely effective painkiller; may have long term abuse consequences."
+	icon_state = "pill2"
+	list_reagents = list("hydrocodone" = 20)
+
+/obj/item/weapon/reagent_containers/food/pill/oculine
+	name = "Oculine pill"
+	desc = "Oculine is a saline eye medication with mydriatic and antibiotic effects."
+	icon_state = "pill3"
+	list_reagents = list("oculine" = 20)
+
+/obj/item/weapon/reagent_containers/food/pill/mitocholide
+	name = "Mitocholide pill"
+	desc = "A specialized drug that stimulates the mitochondria of cells to encourage healing of internal organs."
+	icon_state = "pill4"
+	list_reagents = list("mitocholide" = 20)
+
+/obj/item/weapon/reagent_containers/food/pill/pen_acid
+	name = "Pentetic Acid pill"
+	desc = "Pentetic Acid is an aggressive chelation agent. May cause tissue damage. Use with caution."
+	icon_state = "pill5"
+	list_reagents = list("pen_acid" = 20)
+
+/obj/item/weapon/reagent_containers/food/pill/pen_acid
+	name = "Pentetic Acid pill"
+	desc = "Pentetic Acid is an aggressive chelation agent. May cause tissue damage. Use with caution."
+	icon_state = "pill5"
+	list_reagents = list("pen_acid" = 20)

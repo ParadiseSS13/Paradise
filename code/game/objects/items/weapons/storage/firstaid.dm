@@ -290,3 +290,23 @@
 	new /obj/item/weapon/reagent_containers/food/pill/salicylic(src)
 	new /obj/item/weapon/reagent_containers/food/pill/salicylic(src)
 	new /obj/item/weapon/reagent_containers/food/pill/salicylic(src)
+
+/obj/item/weapon/storage/pill_bottle/syndiepill
+
+/obj/item/weapon/storage/pill_bottle/syndiepill/New()
+	..()
+	new /obj/item/weapon/reagent_containers/food/pill/mitocholide(src)
+	new /obj/item/weapon/reagent_containers/food/pill/mitocholide(src)
+	new /obj/item/weapon/reagent_containers/food/pill/pen_acid(src)
+	new /obj/item/weapon/reagent_containers/food/pill/pen_acid(src)
+	new /obj/item/weapon/reagent_containers/food/pill/salicylic(src)
+	new /obj/item/weapon/reagent_containers/food/pill/salicylic(src)
+	new /obj/item/weapon/reagent_containers/food/pill/hydrocodone(src)
+	new /obj/item/weapon/reagent_containers/food/pill/oculine(src)
+	new /obj/item/weapon/reagent_containers/food/pill/patch/synthflesh(src)
+	new /obj/item/weapon/reagent_containers/food/pill/patch/synthflesh(src)
+	new /obj/item/weapon/reagent_containers/food/pill/patch/synthflesh(src)
+	new /obj/item/weapon/reagent_containers/food/pill/patch/synthflesh(src)
+	new /obj/item/weapon/reagent_containers/food/pill/patch/perfluorodecalin(src)
+	new /obj/item/weapon/reagent_containers/food/pill/patch/perfluorodecalin(src)
+

@@ -142,6 +142,7 @@
 				/obj/item/weapon/dnascrambler = 1,
 				/obj/item/weapon/storage/backpack/satchel_flat = 2,
 				/obj/item/weapon/storage/toolbox/syndicate = 2,
+				/obj/item/weapon/storage/pill_bottle/syndiepill = 2,
 				/obj/item/weapon/storage/backpack/duffel/syndie/surgery_fake = 2,
 				/obj/item/weapon/storage/belt/military = 2,
 				/obj/item/weapon/storage/box/syndie_kit/space = 2,

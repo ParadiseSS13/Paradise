@@ -942,6 +942,13 @@ var/list/uplink_items = list()
 	item = /obj/item/weapon/storage/toolbox/syndicate
 	cost = 1
 
+/datum/uplink_item/device_tools/pillbox
+	name = "Pillbox Full of Meds"
+	desc = "The pillbox that is filled with all essential meds for special cases. For example when medbay has quite a grudge on you."
+	reference = "PLBX"
+	item = /obj/item/weapon/storage/pill_bottle/syndiepill
+	cost = 2
+
 /datum/uplink_item/device_tools/surgerybag
 	name = "Syndicate Surgery Duffelbag"
 	desc = "The Syndicate surgery duffelbag is a toolkit containing all surgery tools, a straitjacket, and a muzzle."
