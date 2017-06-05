@@ -97,19 +97,18 @@
 	icon = 'icons/obj/shards.dmi'
 	icon_state = "shrapnellarge"
 	desc = "A bunch of tiny bits of shattered metal."
+	embedded_fall_chance = 0
 
 /obj/item/weapon/shard/shrapnel/New()
-
-	src.icon_state = pick("shrapnellarge", "shrapnelmedium", "shrapnelsmall")
-	switch(src.icon_state)
+	..()
+	icon_state = pick("shrapnellarge", "shrapnelmedium", "shrapnelsmall")
+	switch(icon_state)
 		if("shrapnelsmall")
-			src.pixel_x = rand(-12, 12)
-			src.pixel_y = rand(-12, 12)
+			pixel_x = rand(-12, 12)
+			pixel_y = rand(-12, 12)
 		if("shrapnelmedium")
-			src.pixel_x = rand(-8, 8)
-			src.pixel_y = rand(-8, 8)
+			pixel_x = rand(-8, 8)
+			pixel_y = rand(-8, 8)
 		if("shrapnellarge")
-			src.pixel_x = rand(-5, 5)
-			src.pixel_y = rand(-5, 5)
-		else
-	return
+			pixel_x = rand(-5, 5)
+			pixel_y = rand(-5, 5)

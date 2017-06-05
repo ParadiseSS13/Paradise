@@ -750,6 +750,14 @@ var/list/uplink_items = list()
 	cost = 17
 	excludefrom = list(/datum/game_mode/nuclear)
 
+/datum/uplink_item/stealthy_weapons/throwingweapons
+	name = "Box of Throwing Weapons"
+	desc = "A box of shurikens and reinforced bolas from ancient Earth martial arts. They are highly effective \
+			 throwing weapons. The bolas can knock a target down and the shurikens will embed into limbs."
+	reference = "STK"
+	item = /obj/item/weapon/storage/box/syndie_kit/throwing_weapons
+	cost = 3
+
 /datum/uplink_item/stealthy_weapons/edagger
 	name = "Energy Dagger"
 	desc = "A dagger made of energy that looks and functions as a pen when off."
