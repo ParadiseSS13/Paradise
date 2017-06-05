@@ -174,6 +174,15 @@
 		return 0
 	if(!..())
 		return 0
+	var/obj/item/hand_item = get_active_hand()
+	if(istype(hand_item, /obj/item/weapon/gun) && A != hand_item)
+		if(a_intent == I_HELP || !ismob(A))
+			visible_message("<b>[src]</b> points to [A] with [hand_item]")
+			return 1
+		A.visible_message("<span class='danger'>[src] points [hand_item] at [A]!</span>",
+											"<span class='userdanger'>[src] points [hand_item] at you!</span>")
+		A << 'sound/weapons/TargetOn.ogg'
+		return 1
 	visible_message("<b>[src]</b> points to [A]")
 	return 1
 
@@ -492,7 +501,6 @@
 	if(iscarbon(src))
 		var/mob/living/carbon/C = src
 		C.handcuffed = initial(C.handcuffed)
-		C.heart_attack = 0
 
 		for(var/datum/disease/D in C.viruses)
 			D.cure(0)
@@ -500,6 +508,7 @@
 		// restore all of the human's blood and reset their shock stage
 		if(ishuman(src))
 			human_mob = src
+			human_mob.set_heartattack(FALSE)
 			human_mob.restore_blood()
 			human_mob.shock_stage = 0
 			human_mob.decaylevel = 0
@@ -919,7 +928,6 @@
 
 /mob/living/movement_delay(ignorewalk = 0)
 	. = ..()
-
 	if(isturf(loc))
 		var/turf/T = loc
 		. += T.slowdown

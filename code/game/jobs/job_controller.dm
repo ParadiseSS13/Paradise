@@ -580,7 +580,7 @@ var/global/datum/controller/occupations/job_master
 	H.mind.store_memory(remembered_info)
 
 	// If they're head, give them the account info for their department
-	if(job.head_position)
+	if(job && job.head_position)
 		remembered_info = ""
 		var/datum/money_account/department_account = department_accounts[job.department]
 

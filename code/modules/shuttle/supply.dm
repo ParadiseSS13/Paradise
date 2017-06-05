@@ -183,18 +183,17 @@
 									objective.unit_completed(cost)
 						msg += "<span class='good'>+[cost]</span>: [tech.name] - new data.<br>"
 
-				// Sell max reliablity designs
+				// Sell designs
 				if(istype(thing, /obj/item/weapon/disk/design_disk))
 					var/obj/item/weapon/disk/design_disk/disk = thing
-					if(!disk.blueprint) continue
+					if(!disk.blueprint)
+						continue
 					var/datum/design/design = disk.blueprint
-					if(design.id in shuttle_master.researchDesigns) continue
-
-					if(initial(design.reliability) < 100 && design.reliability >= 100)
-						// Maxed out reliability designs only.
-						shuttle_master.points += shuttle_master.points_per_design
-						shuttle_master.researchDesigns += design.id
-						msg += "<span class='good'>+[shuttle_master.points_per_design]</span>: Reliable [design.name] design.<br>"
+					if(design.id in shuttle_master.researchDesigns)
+						continue
+					shuttle_master.points += shuttle_master.points_per_design
+					shuttle_master.researchDesigns += design.id
+					msg += "<span class='good'>+[shuttle_master.points_per_design]</span>: [design.name] design.<br>"
 
 				// Sell exotic plants
 				if(istype(thing, /obj/item/seeds))

@@ -62,7 +62,7 @@
 	flags = null //non-conductive
 	force = 0
 	throwforce = 0
-	w_class = 2 //Fits in boxes.
+	w_class = WEIGHT_CLASS_SMALL //Fits in boxes.
 	materials = list()
 	attack_verb = list("tapped")
 
@@ -115,7 +115,8 @@
 	base_state = "plasmamanAtmos_helmet"
 	armor = list(melee = 10, bullet = 5, laser = 10, energy = 5, bomb = 10, bio = 100, rad = 0)
 	max_heat_protection_temperature = FIRE_IMMUNITY_HELM_MAX_TEMP_PROTECT
-
+	flash_protect = 2
+	
 /obj/item/clothing/suit/space/eva/plasmaman/engineer
 	name = "plasmaman engineer suit"
 	icon_state = "plasmamanEngineer_suit"
@@ -126,7 +127,8 @@
 	icon_state = "plasmamanEngineer_helmet0"
 	base_state = "plasmamanEngineer_helmet"
 	armor = list(melee = 10, bullet = 5, laser = 10, energy = 5, bomb = 10, bio = 100, rad = 75)
-
+	flash_protect = 2
+	
 /obj/item/clothing/suit/space/eva/plasmaman/engineer/ce
 	name = "plasmaman chief engineer suit"
 	icon_state = "plasmaman_CE"
@@ -138,7 +140,7 @@
 	icon_state = "plasmaman_CE_helmet0"
 	base_state = "plasmaman_CE_helmet"
 	max_heat_protection_temperature = FIRE_IMMUNITY_HELM_MAX_TEMP_PROTECT
-
+	flash_protect = 2
 
 //SERVICE
 /obj/item/clothing/suit/space/eva/plasmaman/assistant

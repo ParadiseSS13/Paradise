@@ -20,7 +20,7 @@
 	icon_state = "tatgun"
 	force = 0
 	throwforce = 0
-	w_class = 1
+	w_class = WEIGHT_CLASS_TINY
 	var/tattoo_name = "tiger stripe tattoo" // Tat name for visible messages
 	var/tattoo_icon = "Tiger-stripe Tattoo" // body_accessory.dmi, new icons defined in sprite_accessories.dm
 	var/tattoo_r = 1 // RGB values for the body markings
@@ -221,7 +221,7 @@
 	item_state = "lunch_box"
 	force = 5
 	throwforce = 5
-	w_class = 3
+	w_class = WEIGHT_CLASS_NORMAL
 	max_combined_w_class = 9
 	storage_slots = 3
 
@@ -248,7 +248,7 @@
 	hitsound = 'sound/weapons/tap.ogg'
 	force = 0
 	throwforce = 0
-	w_class = 2
+	w_class = WEIGHT_CLASS_SMALL
 	var/used = 0
 
 /obj/item/fluff/wingler_comb/attack_self(mob/user)
@@ -268,7 +268,7 @@
 	desc = "Some sci-fi looking parts for a stun baton."
 	icon = 'icons/obj/custom_items.dmi'
 	icon_state = "scifikit"
-	w_class = 2
+	w_class = WEIGHT_CLASS_SMALL
 
 /obj/item/device/fluff/desolate_baton_kit/afterattack(atom/target, mob/user, proximity)
 	if(!proximity || !ishuman(user) || user.incapacitated())
@@ -293,7 +293,7 @@
 	name = "welding helmet modkit"
 	desc = "Some spraypaint and a stencil, perfect for painting flames onto a welding helmet!"
 	icon_state = "modkit"
-	w_class = 2
+	w_class = WEIGHT_CLASS_SMALL
 	force = 0
 	throwforce = 0
 
@@ -318,7 +318,7 @@
 	name = "plasmaman suit modkit"
 	desc = "A kit containing nanites that are able to modify the look of a plasmaman suit and helmet without exposing the wearer to hostile environments."
 	icon_state = "modkit"
-	w_class = 2
+	w_class = WEIGHT_CLASS_SMALL
 	force = 0
 	throwforce = 0
 
@@ -367,7 +367,7 @@
 	name = "sallet modkit"
 	desc = "A modkit that can make most helmets look like a steel sallet."
 	icon_state = "modkit"
-	w_class = 2
+	w_class = WEIGHT_CLASS_SMALL
 	force = 0
 	throwforce = 0
 
@@ -402,6 +402,30 @@
 		to_chat(user, "<span class='notice'>You modify [target] with [src].</span>")
 		H.update_inv_head()
 		qdel(target)
+		qdel(src)
+	else
+		to_chat(user, "<span class='warning'>You can't modify [target]!</span>")
+
+/obj/item/device/fluff/k3_webbing_modkit //IK3I: Yakikatachi
+	name = "webbing modkit"
+	desc = "A modkit that can be used to turn certain vests and labcoats into lightweight webbing"
+	icon_state = "modkit"
+	w_class = 2
+	force = 0
+	throwforce = 0
+
+/obj/item/device/fluff/k3_webbing_modkit/afterattack(atom/target, mob/user, proximity)
+	if(!proximity || !ishuman(user) || user.incapacitated())
+		return
+
+	if(istype(target, /obj/item/clothing/suit/storage/labcoat) || istype(target, /obj/item/clothing/suit/storage/hazardvest))
+		var/mob/living/carbon/human/H = user
+		var/obj/item/clothing/suit/storage/S = target
+		var/obj/item/clothing/suit/storage/fluff/k3_webbing/webbing = new(get_turf(target))
+		webbing.allowed = S.allowed
+		to_chat(user, "<span class='notice'>You modify the [S] with [src].</span>")
+		H.update_inv_wear_suit()
+		qdel(S)
 		qdel(src)
 	else
 		to_chat(user, "<span class='warning'>You can't modify [target]!</span>")
@@ -641,6 +665,37 @@
 	desc = "A black coat with gold trim and an old US Chevron printed on the back. Edgy."
 	icon = 'icons/obj/custom_items.dmi'
 	icon_state = "shodancoat"
+
+/obj/item/clothing/suit/storage/fluff/k3_webbing
+	name = "vox tactical webbing"
+	desc = "A somewhat worn but well kept set of vox tactical webbing. It has a couple of pouches attached."
+	icon = 'icons/obj/custom_items.dmi'
+	icon_state = "k3_webbing"
+	species_fit = list("Vox")
+	sprite_sheets = list("Vox" = 'icons/mob/species/vox/suit.dmi')
+	ignore_suitadjust = 0
+	actions_types = list(/datum/action/item_action/toggle)
+	suit_adjusted = 0
+
+/obj/item/clothing/suit/storage/fluff/k3_webbing/adjustsuit(var/mob/user)
+	if(!user.incapacitated())
+		var/flavour
+		if(suit_adjusted)
+			flavour = "off"
+			icon_state = copytext(icon_state, 1, findtext(icon_state, "_on"))
+			item_state = copytext(item_state, 1, findtext(item_state, "_on"))
+			suit_adjusted = 0 //Lights Off
+		else
+			flavour = "on"
+			icon_state += "_on"
+			item_state += "_on"
+			suit_adjusted = 1 //Lights On
+
+		for(var/X in actions)
+			var/datum/action/A = X
+			A.UpdateButtonIcon()
+		to_chat(user, "You turn the [src]'s lighting system [flavour].")
+		user.update_inv_wear_suit()
 
 //////////// Uniforms ////////////
 /obj/item/clothing/under/fluff/kharshai // Kharshai: Athena Castile

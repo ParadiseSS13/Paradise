@@ -5,7 +5,7 @@
 	implant_overlay = "eye_implant_overlay"
 	slot = "eye_sight"
 	parent_organ = "eyes"
-	w_class = 1
+	w_class = WEIGHT_CLASS_TINY
 
 	var/vision_flags = 0
 	var/dark_view = 0
@@ -42,7 +42,7 @@
 	desc = "These cybernetic eye implants will give you X-ray vision. Blinking is futile."
 	eye_colour = list(0, 0, 0)
 	implant_color = "#000000"
-	origin_tech = "materials=6;programming=4;biotech=6;magnets=5"
+	origin_tech = "materials=4;programming=4;biotech=6;magnets=4"
 	vision_flags = SEE_MOBS | SEE_OBJS | SEE_TURFS
 	dark_view = 8
 	see_invisible = SEE_INVISIBLE_MINIMUM
@@ -54,7 +54,7 @@
 	implant_color = "#FFCC00"
 	vision_flags = SEE_MOBS
 	flash_protect = -1
-	origin_tech = "materials=6;programming=4;biotech=5;magnets=5;syndicate=4"
+	origin_tech = "materials=5;programming=4;biotech=4;magnets=4;syndicate=1"
 	aug_message = "You see prey everywhere you look..."
 
 // HUD implants
@@ -83,7 +83,7 @@
 	desc = "These cybernetic eye implants will display a medical HUD over everything you see."
 	eye_colour = list(0,0,208)
 	implant_color = "#00FFFF"
-	origin_tech = "materials=4;programming=3;biotech=4"
+	origin_tech = "materials=4;programming=4;biotech=4"
 	aug_message = "You suddenly see health bars floating above people's heads..."
 	HUD_type = DATA_HUD_MEDICAL_ADVANCED
 
@@ -92,7 +92,7 @@
 	desc = "These cybernetic eye implants will display a security HUD over everything you see."
 	eye_colour = list(208,0,0)
 	implant_color = "#CC0000"
-	origin_tech = "materials=4;programming=4;biotech=3;combat=1"
+	origin_tech = "materials=4;programming=4;biotech=3;combat=3"
 	aug_message = "Job indicator icons pop up in your vision. That is not a certified surgeon..."
 	HUD_type = DATA_HUD_SECURITY_ADVANCED
 
@@ -101,7 +101,7 @@
 	name = "welding shield implant"
 	desc = "These reactive micro-shields will protect you from welders and flashes without obscuring your vision."
 	slot = "eye_shield"
-	origin_tech = "materials=4;biotech=3"
+	origin_tech = "materials=4;biotech=3;engineering=4;plasmatech=3"
 	implant_color = "#101010"
 	flash_protect = 2
 	// Welding with thermals will still hurt your eyes a bit.

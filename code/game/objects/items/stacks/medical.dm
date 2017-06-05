@@ -4,7 +4,7 @@
 	icon = 'icons/obj/items.dmi'
 	amount = 6
 	max_amount = 6
-	w_class = 1
+	w_class = WEIGHT_CLASS_TINY
 	throw_speed = 3
 	throw_range = 7
 	var/heal_brute = 0
@@ -75,7 +75,7 @@
 	singular_name = "gauze length"
 	desc = "Some sterile gauze to wrap around bloody stumps."
 	icon_state = "gauze"
-	origin_tech = "biotech=1"
+	origin_tech = "biotech=2"
 
 /obj/item/stack/medical/bruise_pack/attack(mob/living/M, mob/user)
 	if(..())
@@ -121,7 +121,7 @@
 	gender = PLURAL
 	singular_name = "ointment"
 	icon_state = "ointment"
-	origin_tech = "biotech=1"
+	origin_tech = "biotech=2"
 
 /obj/item/stack/medical/ointment/attack(mob/living/M, mob/user)
 	if(..())

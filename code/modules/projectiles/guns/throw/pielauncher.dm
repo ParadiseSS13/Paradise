@@ -2,7 +2,7 @@
 	name = "pie cannon"
 	desc = "A projectile weapon that fires pies."
 	icon_state = "piecannon"
-	w_class = 5
+	w_class = WEIGHT_CLASS_HUGE
 	throw_speed = 2
 	throw_range = 3
 	force = 5

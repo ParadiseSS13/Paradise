@@ -79,10 +79,10 @@
 	force = 15.0
 	throwforce = 10.0
 	item_state = "pickaxe"
-	w_class = 4
+	w_class = WEIGHT_CLASS_BULKY
 	materials = list(MAT_METAL=2000) //one sheet, but where can you make them?
 	var/digspeed = 40 //moving the delay to an item var so R&D can make improved picks. --NEO
-	origin_tech = "materials=1;engineering=1"
+	origin_tech = "materials=2;engineering=3"
 	attack_verb = list("hit", "pierced", "sliced", "attacked")
 	var/list/digsound = list('sound/effects/picaxe1.ogg','sound/effects/picaxe2.ogg','sound/effects/picaxe3.ogg')
 	var/drill_verb = "picking"
@@ -100,7 +100,7 @@
 	icon_state = "spickaxe"
 	item_state = "spickaxe"
 	digspeed = 30 //mines faster than a normal pickaxe, bought from mining vendor
-	origin_tech = "materials=3;engineering=2"
+	origin_tech = "materials=3;engineering=4"
 	desc = "A silver-plated pickaxe that mines slightly faster than standard-issue."
 	toolspeed = 0.75
 
@@ -109,7 +109,7 @@
 	icon_state = "gpickaxe"
 	item_state = "gpickaxe"
 	digspeed = 20
-	origin_tech = "materials=4;engineering=2"
+	origin_tech = "materials=4;engineering=4"
 	desc = "A gold-plated pickaxe that mines faster than standard-issue."
 	toolspeed = 0.6
 
@@ -118,7 +118,7 @@
 	icon_state = "dpickaxe"
 	item_state = "dpickaxe"
 	digspeed = 20 //mines twice as fast as a normal pickaxe, bought from mining vendor
-	origin_tech = "materials=4;engineering=3"
+	origin_tech = "materials=5;engineering=4"
 	desc = "A pickaxe with a diamond pick head. Extremely robust at cracking rock walls and digging up dirt."
 	toolspeed = 0.5
 
@@ -130,7 +130,7 @@
 	digsound = list('sound/weapons/drill.ogg')
 	hitsound = 'sound/weapons/drill.ogg'
 	usesound = 'sound/weapons/drill.ogg'
-	origin_tech = "materials=2;powerstorage=3;engineering=2"
+	origin_tech = "materials=2;powerstorage=2;engineering=3"
 	desc = "An electric mining drill for the especially scrawny."
 	toolspeed = 0.5
 
@@ -143,16 +143,16 @@
 	name = "diamond-tipped mining drill"
 	icon_state = "diamonddrill"
 	digspeed = 10
-	origin_tech = "materials=6;powerstorage=4;engineering=5"
+	origin_tech = "materials=6;powerstorage=4;engineering=4"
 	desc = "Yours is the drill that will pierce the heavens!"
 	toolspeed = 0.25
 
 /obj/item/weapon/pickaxe/diamonddrill/traitor //Pocket-sized traitor diamond drill.
 	name = "supermatter drill"
 	icon_state = "smdrill"
-	origin_tech = "materials=6;powerstorage=4;engineering=5;syndicate=3"
+	origin_tech = "materials=6;powerstorage=4;engineering=4;syndicate=3"
 	desc = "Microscopic supermatter crystals cover the head of this tiny drill."
-	w_class = 2
+	w_class = WEIGHT_CLASS_SMALL
 
 /obj/item/weapon/pickaxe/drill/cyborg/diamond //This is the BORG version!
 	name = "diamond-tipped cyborg mining drill" //To inherit the NODROP flag, and easier to change borg specific drill mechanics.
@@ -165,7 +165,7 @@
 	icon_state = "jackhammer"
 	item_state = "jackhammer"
 	digspeed = 5 //the epitome of powertools. extremely fast mining, laughs at puny walls
-	origin_tech = "materials=3;powerstorage=2;engineering=2"
+	origin_tech = "materials=6;powerstorage=4;engineering=5;magnets=4"
 	digsound = list('sound/weapons/sonic_jackhammer.ogg')
 	hitsound = 'sound/weapons/sonic_jackhammer.ogg'
 	usesound = 'sound/weapons/sonic_jackhammer.ogg'
@@ -184,9 +184,9 @@
 	force = 8.0
 	throwforce = 4.0
 	item_state = "shovel"
-	w_class = 3
+	w_class = WEIGHT_CLASS_NORMAL
 	materials = list(MAT_METAL=50)
-	origin_tech = "materials=1;engineering=1"
+	origin_tech = "materials=2;engineering=2"
 	attack_verb = list("bashed", "bludgeoned", "thrashed", "whacked")
 	usesound = 'sound/effects/shovel_dig.ogg'
 	toolspeed = 1
@@ -198,7 +198,7 @@
 	item_state = "spade"
 	force = 5.0
 	throwforce = 7.0
-	w_class = 2
+	w_class = WEIGHT_CLASS_SMALL
 	toolspeed = 2
 
 
@@ -219,7 +219,7 @@
 	desc = "It allows you to store and deploy lazarus-injected creatures easier."
 	icon = 'icons/obj/mobcap.dmi'
 	icon_state = "mobcap0"
-	w_class = 1
+	w_class = WEIGHT_CLASS_TINY
 	throw_range = 20
 	var/mob/living/simple_animal/captured = null
 	var/colorindex = 0
@@ -282,7 +282,7 @@
 	desc = "An emergency shelter stored within a pocket of bluespace."
 	icon_state = "capsule"
 	icon = 'icons/obj/mining.dmi'
-	w_class = 1
+	w_class = WEIGHT_CLASS_TINY
 	origin_tech = "engineering=3;bluespace=3"
 	var/template_id = "shelter_alpha"
 	var/datum/map_template/shelter/template

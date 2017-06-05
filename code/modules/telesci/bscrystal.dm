@@ -4,8 +4,8 @@
 	desc = "A glowing bluespace crystal, not much is known about how they work. It looks very delicate."
 	icon = 'icons/obj/telescience.dmi'
 	icon_state = "bluespace_crystal"
-	w_class = 1
-	origin_tech = "bluespace=4;materials=3"
+	w_class = WEIGHT_CLASS_TINY
+	origin_tech = "bluespace=6;materials=3"
 	points = 50
 	var/blink_range = 8 // The teleport range when crushed/thrown at someone.
 	refined_type = /obj/item/stack/sheet/bluespace_crystal
@@ -44,7 +44,7 @@
 /obj/item/weapon/ore/bluespace_crystal/artificial
 	name = "artificial bluespace crystal"
 	desc = "An artificially made bluespace crystal, it looks delicate."
-	origin_tech = "bluespace=2"
+	origin_tech = "bluespace=3;plasmatech=4"
 	blink_range = 4 // Not as good as the organic stuff!
 	points = 0 // nice try
 	refined_type = null
@@ -58,7 +58,7 @@ var/global/list/datum/stack_recipe/bluespace_crystal_recipes = list(new/datum/st
 	icon = 'icons/obj/telescience.dmi'
 	icon_state = "polycrystal"
 	desc = "A stable polycrystal, made of fused-together bluespace crystals. You could probably break one off."
-	origin_tech = "bluespace=4;materials=3"
+	origin_tech = "bluespace=6;materials=3"
 	attack_verb = list("bluespace polybashed", "bluespace polybattered", "bluespace polybludgeoned", "bluespace polythrashed", "bluespace polysmashed")
 	toolspeed = 1
 	usesound = 'sound/items/Deconstruct.ogg'

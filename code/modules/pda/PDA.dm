@@ -10,8 +10,9 @@ var/global/list/obj/item/device/pda/PDAs = list()
 	icon = 'icons/obj/pda.dmi'
 	icon_state = "pda"
 	item_state = "electronic"
-	w_class = 1
+	w_class = WEIGHT_CLASS_TINY
 	slot_flags = SLOT_ID | SLOT_BELT | SLOT_PDA
+	origin_tech = "programming=2"
 
 	//Main variables
 	var/owner = null
@@ -302,21 +303,29 @@ var/global/list/obj/item/device/pda/PDAs = list()
 
 /obj/item/device/pda/AltClick(mob/user)
 	..()
-	if(issilicon(usr))
+	if(issilicon(user))
 		return
 
 	if(can_use(user))
 		if(id)
-			remove_id()
+			remove_id(user)
 		else
 			to_chat(user, "<span class='warning'>This PDA does not have an ID in it!</span>")
 
-/obj/item/device/pda/proc/remove_id()
+/obj/item/device/pda/CtrlClick(mob/user)
+	..()
+	if(issilicon(user))
+		return
+
+	if(can_use(user))
+		remove_pen(user)
+
+/obj/item/device/pda/proc/remove_id(mob/user)
 	if(id)
 		if(ismob(loc))
 			var/mob/M = loc
 			M.put_in_hands(id)
-			to_chat(usr, "<span class='notice'>You remove the ID from the [name].</span>")
+			to_chat(user, "<span class='notice'>You remove the ID from the [name].</span>")
 		else
 			id.forceMove(get_turf(src))
 		overlays -= image('icons/goonstation/objects/pda_overlay.dmi', id.icon_state)
@@ -332,36 +341,37 @@ var/global/list/obj/item/device/pda/PDAs = list()
 
 	if( can_use(usr) )
 		if(id)
-			remove_id()
+			remove_id(usr)
 		else
 			to_chat(usr, "<span class='notice'>This PDA does not have an ID in it.</span>")
 	else
 		to_chat(usr, "<span class='notice'>You cannot do this while restrained.</span>")
 
-
 /obj/item/device/pda/verb/verb_remove_pen()
 	set category = "Object"
 	set name = "Remove pen"
 	set src in usr
+	remove_pen(usr)
 
-	if(issilicon(usr))
+/obj/item/device/pda/proc/remove_pen(mob/user)
+
+	if(issilicon(user))
 		return
 
-	if( can_use(usr) )
+	if( can_use(user) )
 		var/obj/item/weapon/pen/O = locate() in src
 		if(O)
+			to_chat(user, "<span class='notice'>You remove the [O] from [src].</span>")
 			if(istype(loc, /mob))
 				var/mob/M = loc
 				if(M.get_active_hand() == null)
 					M.put_in_hands(O)
-					to_chat(usr, "<span class='notice'>You remove \the [O] from \the [src].</span>")
 					return
 			O.forceMove(get_turf(src))
 		else
-			to_chat(usr, "<span class='notice'>This PDA does not have a pen in it.</span>")
+			to_chat(user, "<span class='warning'>This PDA does not have a pen in it.</span>")
 	else
-		to_chat(usr, "<span class='notice'>You cannot do this while restrained.</span>")
-
+		to_chat(user, "<span class='notice'>You cannot do this while restrained.</span>")
 
 /obj/item/device/pda/proc/id_check(mob/user as mob, choice as num)//To check for IDs; 1 for in-pda use, 2 for out of pda use.
 	if(choice == 1)

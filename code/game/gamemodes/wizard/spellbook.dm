@@ -497,7 +497,7 @@
 	icon_state ="book"
 	throw_speed = 2
 	throw_range = 5
-	w_class = 1
+	w_class = WEIGHT_CLASS_TINY
 	var/uses = 10
 	var/temp = null
 	var/op = 1

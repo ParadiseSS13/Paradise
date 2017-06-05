@@ -14,7 +14,7 @@ REAGENT SCANNER
 	icon_state = "t-ray0"
 	var/on = 0
 	slot_flags = SLOT_BELT
-	w_class = 2
+	w_class = WEIGHT_CLASS_SMALL
 	item_state = "electronic"
 	materials = list(MAT_METAL=150)
 	origin_tech = "magnets=1;engineering=1"
@@ -22,15 +22,12 @@ REAGENT SCANNER
 	var/pulse_duration = 10
 
 /obj/item/device/t_scanner/longer_pulse
-	origin_tech = "magnets=2;engineering=2"
 	pulse_duration = 50
 
 /obj/item/device/t_scanner/extended_range
-	origin_tech = "magnets=1;engineering=3"
 	scan_range = 3
 
 /obj/item/device/t_scanner/extended_range/longer_pulse
-	origin_tech = "magnets=2;engineering=3"
 	scan_range = 3
 	pulse_duration = 50
 
@@ -117,7 +114,7 @@ REAGENT SCANNER
 	flags = CONDUCT
 	slot_flags = SLOT_BELT
 	throwforce = 3
-	w_class = 1
+	w_class = WEIGHT_CLASS_TINY
 	throw_speed = 5
 	throw_range = 10
 	materials = list(MAT_METAL=200)
@@ -240,7 +237,7 @@ REAGENT SCANNER
 			if(H.species.exotic_blood)
 				user.show_message("<span class='warning'>Subject possesses exotic blood.</span>")
 				user.show_message("<span class='warning'>Exotic blood type: [blood_type].</span>")
-		if(H.heart_attack && H.stat != DEAD)
+		if(H.undergoing_cardiac_arrest() && H.stat != DEAD)
 			user.show_message("<span class='userdanger'>Subject suffering from heart attack: Apply defibrillator immediately.</span>")
 		user.show_message("<span class='notice'>Subject's pulse: <font color='[H.pulse == PULSE_THREADY || H.pulse == PULSE_NONE ? "red" : "blue"]'>[H.get_pulse(GETPULSE_TOOL)] bpm.</font></span>")
 		var/implant_detect
@@ -294,7 +291,7 @@ REAGENT SCANNER
 	name = "Health Analyzer Upgrade"
 	icon_state = "healthupgrade"
 	desc = "An upgrade unit that can be installed on a health analyzer for expanded functionality."
-	w_class = 1
+	w_class = WEIGHT_CLASS_TINY
 	origin_tech = "magnets=2;biotech=2"
 	usesound = 'sound/items/Deconstruct.ogg'
 
@@ -303,7 +300,7 @@ REAGENT SCANNER
 	name = "analyzer"
 	icon_state = "atmos"
 	item_state = "analyzer"
-	w_class = 2
+	w_class = WEIGHT_CLASS_SMALL
 	flags = CONDUCT
 	slot_flags = SLOT_BELT
 	throwforce = 0
@@ -369,16 +366,15 @@ REAGENT SCANNER
 	name = "mass-spectrometer"
 	icon_state = "spectrometer"
 	item_state = "analyzer"
-	w_class = 2
+	w_class = WEIGHT_CLASS_SMALL
 	flags = CONDUCT | OPENCONTAINER
 	slot_flags = SLOT_BELT
 	throwforce = 5
 	throw_speed = 4
 	throw_range = 20
-	materials = list(MAT_METAL=30, MAT_GLASS=20)
-	origin_tech = "magnets=2;biotech=2"
+	materials = list(MAT_METAL=150, MAT_GLASS=100)
+	origin_tech = "magnets=2;biotech=1;plasmatech=2"
 	var/details = 0
-	var/recent_fail = 0
 	var/datatoprint = ""
 	var/scanning = 1
 	actions_types = list(/datum/action/item_action/print_report)
@@ -396,9 +392,6 @@ REAGENT SCANNER
 /obj/item/device/mass_spectrometer/attack_self(mob/user as mob)
 	if(user.stat)
 		return
-	if(crit_fail)
-		to_chat(user, "<span class='warning'>This device has critically failed and is no longer functional!</span>")
-		return
 	if(!user.IsAdvancedToolUser())
 		to_chat(user, "<span class='warning'>You don't have the dexterity to do this!</span>")
 		return
@@ -414,34 +407,19 @@ REAGENT SCANNER
 				break
 		var/dat = ""
 		for(var/R in blood_traces)
-			if(prob(reliability))
-				if(details)
-					dat += "[R] ([blood_traces[R]] units) "
-				else
-					dat += "[R] <br>"
-				recent_fail = 0
+			if(details)
+				dat += "[R] ([blood_traces[R]] units) "
 			else
-				if(recent_fail)
-					crit_fail = 1
-					reagents.clear_reagents()
-					return
-				else
-					recent_fail = 1
-		if(dat)
-			to_chat(user, "Trace chemicals detected in blood sample: [dat]")
-			datatoprint = dat
-			scanning = 0
-			reagents.clear_reagents()
-		else
-			reagents.clear_reagents()
-			to_chat(user, "<span class='notice'>No trace chemicals detected in blood sample.</span>")
+				dat += "[R] "
+		to_chat(user, "[dat]")
+		reagents.clear_reagents()
 	return
 
 /obj/item/device/mass_spectrometer/adv
 	name = "advanced mass-spectrometer"
 	icon_state = "adv_spectrometer"
 	details = 1
-	origin_tech = "magnets=4;biotech=2"
+	origin_tech = "magnets=4;biotech=3;plasmatech=3"
 
 /obj/item/device/mass_spectrometer/proc/print_report()
 	if(!scanning)
@@ -470,16 +448,15 @@ REAGENT SCANNER
 	desc = "A hand-held reagent scanner which identifies chemical agents."
 	icon_state = "spectrometer"
 	item_state = "analyzer"
-	w_class = 2
+	w_class = WEIGHT_CLASS_SMALL
 	flags = CONDUCT
 	slot_flags = SLOT_BELT
 	throwforce = 5
 	throw_speed = 4
 	throw_range = 20
 	materials = list(MAT_METAL=30, MAT_GLASS=20)
-	origin_tech = "magnets=2;biotech=2"
+	origin_tech = "magnets=2;biotech=1;plasmatech=2"
 	var/details = 0
-	var/recent_fail = 0
 	var/datatoprint = ""
 	var/scanning = 1
 	actions_types = list(/datum/action/item_action/print_report)
@@ -492,23 +469,13 @@ REAGENT SCANNER
 		return
 	if(!istype(O))
 		return
-	if(crit_fail)
-		to_chat(user, "<span class='warning'>This device has critically failed and is no longer functional!</span>")
-		return
+
 	if(!isnull(O.reagents))
 		var/dat = ""
 		if(O.reagents.reagent_list.len > 0)
 			var/one_percent = O.reagents.total_volume / 100
 			for(var/datum/reagent/R in O.reagents.reagent_list)
-				if(prob(reliability))
-					dat += "<br>[TAB]<span class='notice'>[R][details ? ": [R.volume / one_percent]%" : ""]</span>"
-					recent_fail = 0
-				else if(recent_fail)
-					crit_fail = 1
-					dat = null
-					break
-				else
-					recent_fail = 1
+				dat += "<br>[TAB]<span class='notice'>[R][details ? ": [R.volume / one_percent]%" : ""]</span>"
 		if(dat)
 			to_chat(user, "<span class='notice'>Chemicals found: [dat]</span>")
 			datatoprint = dat
@@ -523,7 +490,7 @@ REAGENT SCANNER
 	name = "advanced reagent scanner"
 	icon_state = "adv_spectrometer"
 	details = 1
-	origin_tech = "magnets=4;biotech=2"
+	origin_tech = "magnets=4;biotech=3;plasmatech=3"
 
 /obj/item/device/reagent_scanner/proc/print_report()
 	if(!scanning)
@@ -551,8 +518,8 @@ REAGENT SCANNER
 	name = "slime scanner"
 	icon_state = "adv_spectrometer_s"
 	item_state = "analyzer"
-	origin_tech = "biotech=1"
-	w_class = 2
+	origin_tech = "biotech=2"
+	w_class = WEIGHT_CLASS_SMALL
 	flags = CONDUCT
 	throwforce = 0
 	throw_speed = 3
