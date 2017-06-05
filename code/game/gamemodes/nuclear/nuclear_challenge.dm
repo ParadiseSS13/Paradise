@@ -43,7 +43,7 @@
 	if(!check_allowed(user) || !war_declaration)
 		return
 
-	event_announcement.Announce(war_declaration, "Declaration of War", 'sound/effects/siren.ogg')
+	event_announcement.Announce(war_declaration, "Declaration of War", 'sound/effects/siren-spooky.ogg')
 
 	to_chat(user, "You've attracted the attention of powerful forces within the syndicate. A bonus bundle of telecrystals has been granted to your team. Great things await you if you complete the mission.")
 
