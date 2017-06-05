@@ -345,7 +345,7 @@ var/list/teleport_runes = list()
 	var/turf/T = get_turf(src)
 
 	for(var/mob/living/M in T.contents)
-		if(!iscultist(M) && !ismindshielded(M) && ishuman(M))
+		if(!iscultist(M) && !ismindshielded(M) && ishuman(M) && !istype(M, /mob/living/carbon/human/golem))
 			convertees.Add(M)
 	if(!convertees.len)
 		fail_invoke()
@@ -433,6 +433,10 @@ var/list/teleport_runes = list()
 	var/sacrifice_fulfilled
 	var/datum/game_mode/cult/cult_mode = ticker.mode
 	if(T)
+		if(istype(T, /mob/living/carbon/human/golem))
+			for(var/M in invokers)
+				var/mob/living/L = M
+				to_chat(L, "<span class='cultlarge'>\"This creature has no soul!\"</span>")
 		if(istype(T, /mob/living/simple_animal/pet/corgi))
 			for(var/M in invokers)
 				var/mob/living/L = M
