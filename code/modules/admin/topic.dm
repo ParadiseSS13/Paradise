@@ -1885,17 +1885,15 @@
 					return
 			if("Lynch")
 				logmsg = "lynch."
-				for(var/datum/mind/m in ticker.minds)
-					if(!m.current)
+				for(var/datum/mind/crew in ticker.minds)
+					if(!crew.current)
 						continue
-					if(istype(m.current, /mob/dead/observer))
+					if(!isliving(crew.current))
 						continue
-					if(m == H.mind)
+					if(crew == H.mind)
 						continue
-					if(ismindshielded(m.current))
-						continue
-					to_chat(m.current, "<BR><span class='userdanger'>The gods have given you a task: find [H.real_name], located in [get_area(H.loc)], and slay them!</span>");
-					to_chat(m.current, "<span class='userdanger'>Do not harm anyone other than [H.real_name] while carrying out this task.</span><BR>");
+					to_chat(crew.current, "<BR><span class='userdanger'>The gods have given you a task: find [H.real_name], located in [get_area(H.loc)], and slay them!</span>");
+					to_chat(crew.current, "<span class='userdanger'>Do not harm anyone other than [H.real_name] while carrying out this task.</span><BR>");
 			if("Gib")
 				logmsg = "gibbed."
 				M.gib(FALSE)
