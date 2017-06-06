@@ -1,0 +1,4 @@
+author: "Kyep"
+delete-after: True
+changes: 
+  - bugfix: "Instagib lasers now work against non-carbon mobs, such as animals and borgs."
