@@ -246,6 +246,12 @@
 
 	return 1
 
+/proc/makepowernets_zlevel(zlevel)
+	for(var/obj/structure/cable/PC in cable_list)
+		if(PC.z == zlevel)
+			makepowernet_for(PC)
+	return 1
+
 /proc/makepowernet_for(var/obj/structure/cable/PC)
 	if(!PC.powernet)
 		var/datum/powernet/NewPN = new()
@@ -317,7 +323,7 @@
 //source is an object caused electrocuting (airlock, grille, etc)
 //No animations will be performed by this proc.
 /proc/electrocute_mob(mob/living/carbon/M as mob, var/power_source, var/obj/source, var/siemens_coeff = 1.0)
-	if(!istype(M)) 
+	if(!istype(M))
 		return 0
 	if(istype(M.loc,/obj/mecha))
 		return 0	//feckin mechs are dumb
@@ -325,7 +331,7 @@
 		var/mob/living/carbon/human/H = M
 		if(H.gloves)
 			var/obj/item/clothing/gloves/G = H.gloves
-			if(G.siemens_coefficient == 0)	
+			if(G.siemens_coefficient == 0)
 				return 0		//to avoid spamming with insulated glvoes on
 
 	var/area/source_area
