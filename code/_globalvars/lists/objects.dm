@@ -18,6 +18,7 @@ var/global/list/cell_logs = list()
 var/global/list/all_areas = list()
 var/global/list/machines = list()
 var/global/list/machine_processing = list()
+var/global/list/atmospherics_machine_processing = list()
 var/global/list/fast_processing = list()
 var/global/list/processing_power_items = list() //items that ask to be called every cycle
 var/global/list/rcd_list = list() //list of Rapid Construction Devices.
@@ -42,4 +43,3 @@ var/global/list/global_radios = list()				//list of all radios, across all z-lev
 
 var/global/list/meteor_list = list()				//list of all meteors
 var/global/list/poi_list = list()					//list of points of interest for observe/follow
-
