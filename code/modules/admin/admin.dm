@@ -79,6 +79,7 @@ var/global/nologevent = 0
 	if(M.client)
 		body += "| <A HREF='?_src_=holder;sendtoprison=\ref[M]'>Prison</A> | "
 		body += "\ <A href='?_src_=holder;sendbacktolobby=\ref[M]'>Send back to Lobby</A> | "
+		body += "\ <A href='?_src_=holder;togglessdguard=[M.UID()]'>Toggle SSD Guard</A> | "
 		var/muted = M.client.prefs.muted
 		body += {"<br><b>Mute: </b>
 			\[<A href='?_src_=holder;mute=\ref[M];mute_type=[MUTE_IC]'><font color='[(muted & MUTE_IC)?"red":"blue"]'>IC</font></a> |

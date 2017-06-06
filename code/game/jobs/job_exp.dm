@@ -198,6 +198,21 @@ var/global/list/role_playtime_requirements = list(
 	var/exp_living = text2num(play_records[EXP_TYPE_LIVING])
 	return exp_living
 
+/client/proc/can_harm_ssds()
+	if(!config.use_exp_tracking)
+		return 1
+	if(!config.use_exp_ssd_protect)
+		return 1
+	if(bypass_ssd_guard)
+		return 1
+	if(mob && mob.job in security_positions)
+		return 1
+	if(config.use_exp_restrictions_admin_bypass && check_rights(R_ADMIN, 0, mob))
+		return 1
+	if(get_exp_living_num() >= (config.use_exp_ssd_protect * 60))
+		return 1
+	return 0
+
 /proc/get_exp_format(var/expnum)
 	if(expnum > 60)
 		return num2text(round(expnum / 60)) + "h"

@@ -1252,6 +1252,27 @@
 		NP.ckey = M.ckey
 		qdel(M)
 
+	else if(href_list["togglessdguard"])
+		if(!check_rights(R_ADMIN))
+			return
+
+		var/mob/M = locateUID(href_list["togglessdguard"])
+
+		if(!M.client)
+			to_chat(usr, "<span class='warning'>[M] doesn't have an attached client.</span>")
+			return
+
+		var/onoff = "DISABLED"
+		if(M.client.bypass_ssd_guard)
+			M.client.bypass_ssd_guard = FALSE
+			onoff = "ENABLED"
+		else
+			M.client.bypass_ssd_guard = TRUE
+			to_chat(M, "<span class='warning'>You have been given temporary permission to interact with SSD players.</span>")
+
+		log_admin("[key_name(usr)] has [onoff] SSD Guard for [key_name(M)].")
+		message_admins("[key_name_admin(usr)] has [onoff] SSD Guard for [key_name(M)]")
+
 	else if(href_list["tdome1"])
 		if(!check_rights(R_SERVER|R_EVENT))	return
 

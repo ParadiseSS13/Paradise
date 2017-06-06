@@ -23,6 +23,8 @@ JOBS_HAVE_MINIMAL_ACCESS
 #USE_EXP_RESTRICTIONS
 ##Allows admins to bypass job playtime requirements.
 USE_EXP_RESTRICTIONS_ADMIN_BYPASS
+##Required number of hours playtime before someone can attack or loot from SSDs. Comment to disable.
+#USE_EXP_SSD_PROTECT 5
 
 ## Unhash this entry to have certain antagonist roles require your account to be at least a certain number of days old to select. You can configure the exact age requirement for different antag roles by editing special_role_times in /code/modules/client/preferences.dm.
 ## See USE_AGE_RESTRICTION_FOR_JOBS for more information
