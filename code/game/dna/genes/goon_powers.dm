@@ -414,9 +414,6 @@
 					else
 						M.stop_pulling()
 
-		if(user.pinned.len)
-			failure = 1
-
 		user.visible_message("<span class='danger'>[user.name]</b> takes a huge leap!</span>")
 		playsound(user.loc, 'sound/weapons/thudswoosh.ogg', 50, 1)
 		if(failure)
