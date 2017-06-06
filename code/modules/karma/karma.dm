@@ -145,7 +145,69 @@ var/list/karma_spenders = list()
 	karma_diary << "[M.name] ([M.key]) [assigned_role]/[special_role]: [M.client.karma] - [time2text(world.timeofday, "hh:mm:ss")] given by [key]"
 
 	sql_report_karma(src, M)
+/*
+/mob/verb/reduce_karma_list()
+	set name = "Reduce Karma"
+	set desc = "Let the gods know whether someone's been really bad. Can only be used once per round."
+	set category = "OOC"
 
+	if(!can_give_karma())
+		return
+
+	var/list/karma_list = list()
+	for(var/mob/M in player_list)
+		if(!(M.client && M.mind))
+			continue
+		if(M == src)
+			continue
+		if(!isobserver(src) && isNonCrewAntag(M))
+			continue
+		karma_list += M
+
+	if(!karma_list.len)
+		to_chat(usr, "<span class='warning'>There's no-one to blame here.</span>")
+		return
+
+	var/pickedmob = input("Who's been really bad today?", "Reduce Karma", "Cancel") as null|mob in karma_list
+
+	if(isnull(pickedmob))
+		return
+
+	reduce_karma(pickedmob)
+
+/mob/verb/reduce_karma(var/mob/M)
+	set name = "Reduce Player Karma"
+	set desc = "Let the gods know whether someone's been really bad. Can only be used once per round."
+	set category = "OOC"
+
+	if(!M)
+		to_chat(usr, "Please right click a mob to reduce their karma directly, or use the 'Reduce Karma' verb to select a player from the player listing.")
+		return
+	if(config.disable_karma)
+		to_chat(usr, "<span class='warning'>Karma is disabled.</span>")
+		return
+	if(alert("Reduce [M.name]'s karma?", "Karma", "Yes", "No") != "Yes")
+		return
+	if(!can_give_karma_to_mob(M))
+		return
+
+	M.client.karma -= 1
+	to_chat(usr, "[M.name] lost his bit of karma. You should be really proud of yourself.")
+	client.karma_spent = 1
+	karma_spenders += ckey
+
+	var/special_role = "None"
+	var/assigned_role = "None"
+	var/karma_diary = file("data/logs/karma_[time2text(world.realtime, "YYYY/MM-Month/DD-Day")].log")
+	if(M.mind)
+		if(M.mind.special_role)
+			special_role = M.mind.special_role
+		if(M.mind.assigned_role)
+			assigned_role = M.mind.assigned_role
+	karma_diary << "[M.name] ([M.key]) [assigned_role]/[special_role]: [M.client.karma] - [time2text(world.timeofday, "hh:mm:ss")] taken away by [key]"
+
+	sql_report_karma(src, M)
+*/
 /client/verb/check_karma()
 	set name = "Check Karma"
 	set desc = "Reports how much karma you have accrued."
