@@ -960,7 +960,7 @@
 		return 1
 	..()
 
-/obj/item/fluff/zekemirror //phantasmicdream : Zeke Valross
+/obj/item/fluff/zekemirror //phantasmicdream : Zeke Varloss
 	name = "engraved hand mirror"
 	desc = "A very classy hand mirror, with fancy detailing."
 	icon = 'icons/obj/custom_items.dmi'
