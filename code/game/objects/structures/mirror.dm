@@ -12,14 +12,6 @@
 /obj/structure/mirror/attack_hand(mob/user as mob)
 	if(shattered)	return
 
-	if(ishuman(user))
-		var/datum/nano_module/appearance_changer/AC = ui_users[user]
-		if(!AC)
-			AC = new(src, user)
-			AC.name = "SalonPro Nano-Mirror&trade;"
-			AC.flags = APPEARANCE_ALL_BODY
-			ui_users[user] = AC
-		AC.ui_interact(user)
 
 /obj/structure/mirror/proc/shatter()
 	if(shattered)	return
