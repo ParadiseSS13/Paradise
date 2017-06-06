@@ -214,4 +214,14 @@
 		return
 	pump()
 
+
+// KS-23 SHOTGUN //
+
+/obj/item/weapon/gun/projectile/shotgun/KS23 //for use by tratiros
+	name = "KS-23"
+	desc = "A sturdy shotgun from a regime long gone. Imported from Communist Canada for use by the Syndicate. Uses shotgun shells."
+	icon_state = "KS23"
+	mag_type = /obj/item/ammo_box/magazine/internal/shot/KS
+
+
 // DOUBLE BARRELED SHOTGUN, IMPROVISED SHOTGUN, and CANE SHOTGUN are in revolver.dm
