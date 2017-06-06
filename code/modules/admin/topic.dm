@@ -1546,7 +1546,7 @@
 					to_chat(X, take_msg)
 				else if(is_mhelp && check_rights(R_MOD|R_MENTOR, 0, X.mob))
 					to_chat(X, take_msg)
-			to_chat(M, "<span class='notice'><b>Your question is being attended to by [key_name(usr.client)]. Thanks for your patience!</b></span>")
+			to_chat(M, "<span class='notice'><b>Your question is being attended to by [key_name(usr.client, null, 0)]. Thanks for your patience!</b></span>")
 		else
 			to_chat(usr, "<span class='warning'>Unable to locate mob.</span>")
 

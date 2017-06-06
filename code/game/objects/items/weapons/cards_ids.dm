@@ -299,7 +299,7 @@
 /obj/item/weapon/card/id/syndicate
 	name = "agent card"
 	var/list/initial_access = list(access_maint_tunnels, access_syndicate, access_external_airlocks)
-	origin_tech = "syndicate=3"
+	origin_tech = "syndicate=1"
 	var/registered_user = null
 	untrackable = 1
 
