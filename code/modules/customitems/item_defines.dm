@@ -977,7 +977,7 @@
 		return
 
 	if(target.change_hair("Zeke's Tentacles"))
-		to_chat(target, "<span class='notice'>You take time to admire yourself in the [src], brushing your tendrils down and revealing their true length.</span>")
+		to_chat(target, "<span class='notice'>You take time to admire yourself in [src], brushing your tendrils down and revealing their true length.</span>")
 
 
 /obj/item/clothing/accessory/necklace/locket/fluff/fethasnecklace //Fethas: Sefra'neem
