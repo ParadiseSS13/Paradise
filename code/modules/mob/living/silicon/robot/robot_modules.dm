@@ -483,7 +483,7 @@
 	modules += new /obj/item/weapon/soap(src)
 	modules += new /obj/item/device/t_scanner(src)
 
-	emag = new /obj/item/weapon/pickaxe/drill/cyborg/diamond(src)
+	emag = new /obj/item/weapon/extinguisher(src)
 
 	for(var/T in stacktypes)
 		var/obj/item/stack/sheet/W = new T(src)
