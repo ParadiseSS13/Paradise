@@ -1310,3 +1310,9 @@
 	component_parts += new /obj/item/weapon/vending_refill/crittercare(0)
 	component_parts += new /obj/item/weapon/vending_refill/crittercare(0)
 	component_parts += new /obj/item/weapon/vending_refill/crittercare(0)
+
+/obj/machinery/vending/vr
+	name = "\improper Robotech Deluxe"
+	desc = "A storage unit for NanoTrasen. Simulated. Reality. System."
+	icon_state = "robotics"
+	products = list(/obj/item/clothing/glasses/vr_headset = 100)

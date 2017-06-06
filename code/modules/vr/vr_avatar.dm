@@ -1,7 +1,8 @@
 
 
 /mob/living/carbon/human/virtual_reality
-	var/mob/living/carbon/human/real_me //The human controlling us, can be any human (including virtual ones... inception...)
+	var/mob/living/carbon/human/real_me
+	var/datum/vr_room/myroom
 	var/datum/action/quit_vr/quit_action
 	var/datum/action/back_to_lobby/back_to_lobby
 	var/datum/action/detach_from_avatar/detach_from_avatar
@@ -16,11 +17,25 @@
 	..()
 
 /mob/living/carbon/human/virtual_reality/death()
-	return_to_lobby()
+	qdel(src)
 	return ..()
 
 /mob/living/carbon/human/virtual_reality/Destroy()
-	return_to_lobby()
+	if(src.ckey)
+		return_to_lobby()
+	var/mob/living/carbon/human/virtual_reality/vr = src
+	var/list/corpse_equipment = vr.get_all_slots()
+	for(var/A in corpse_equipment)
+		var/obj/O = A
+		if(myroom.template.death_type == VR_DROP_ALL)
+			vr.unEquip(O)
+		else if(myroom.template.death_type == VR_DROP_BLACKLIST && !(O.type in myroom.template.drop_blacklist))
+			vr.unEquip(O)
+		else if(myroom.template.death_type == VR_DROP_WHITELIST && (O.type in myroom.template.drop_whitelist))
+			vr.unEquip(O)
+	myroom.players.Remove(src)
+	if((myroom.players.len == 0) && (myroom.expires == 1))
+		myroom.delete_timer = addtimer(myroom, "cleanup", 3 MINUTES)
 	return ..()
 
 /mob/living/carbon/human/virtual_reality/ghost()
@@ -33,9 +48,9 @@
 		H.ghost()
 	qdel(src)
 
-/mob/living/carbon/human/virtual_reality/proc/revert_to_reality(remove = 0)
-	if(real_me && mind)
-		mind.transfer_to(real_me)
+/mob/living/carbon/human/virtual_reality/proc/revert_to_reality(var/remove)
+	if(real_me && ckey)
+		real_me.ckey = ckey
 		real_me.EyeBlind(2)
 		real_me.Confused(2)
 		if(remove)
@@ -46,10 +61,11 @@
 /mob/living/carbon/human/virtual_reality/proc/return_to_lobby()
 	if(real_me && mind)
 		var/mob/living/carbon/human/virtual_reality/new_vr
-		new_vr = spawn_vr_avatar(src, "Lobby")
-		var/obj/item/clothing/glasses/vr_goggles/g = new_vr.real_me.glasses
+		var/datum/vr_room/lobby = vr_rooms_offical["Lobby"]
+		new_vr = spawn_vr_avatar(src, lobby)
+		var/obj/item/clothing/glasses/vr_headset/g = new_vr.real_me.glasses
 		g.vr_human = new_vr
-		qdel(src)
+
 
 /datum/action/quit_vr
 	name = "Quit Virtual Reality"
@@ -69,7 +85,7 @@
 	if(..())
 		if(istype(owner, /mob/living/carbon/human/virtual_reality))
 			var/mob/living/carbon/human/virtual_reality/vr = owner
-			vr.return_to_lobby()
+			qdel(vr)
 		else
 			Remove(owner)
 
@@ -80,7 +96,7 @@
 	if(..())
 		if(istype(owner, /mob/living/carbon/human/virtual_reality))
 			var/mob/living/carbon/human/virtual_reality/vr = owner
-			var/obj/item/clothing/glasses/vr_goggles/g = vr.real_me.glasses
+			var/obj/item/clothing/glasses/vr_headset/g = vr.real_me.glasses
 			g.vr_human = vr
 			vr.revert_to_reality(0)
 		else

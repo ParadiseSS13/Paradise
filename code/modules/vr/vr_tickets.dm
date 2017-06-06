@@ -1,9 +1,16 @@
 /obj/machinery/computer/vr_control
-	name = "VR console"
-	desc = "A list and control panel for all virtual servers."
+	name = "VR Tickt Machine"
+	desc = "Your one stop shot for VR arena tickets"
 	icon_screen = "comm_logs"
 
 	light_color = LIGHT_COLOR_DARKGREEN
+
+
+/obj/machinery/computer/vr_control/New()
+	..()
+
+/obj/machinery/computer/vr_control/Destroy()
+	return ..()
 
 /obj/machinery/computer/vr_control/attack_ai(mob/user)
 	attack_hand(user)

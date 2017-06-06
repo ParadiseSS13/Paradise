@@ -1,7 +1,7 @@
 //Glorified teleporter that puts you in a new human body.
 // it's """VR"""
 
-/obj/item/clothing/glasses/vr_goggles
+/obj/item/clothing/glasses/vr_headset
 	desc = "A long time ago, people used these glasses to makes images from screens threedimensional."
 	name = "3D glasses"
 	icon_state = "3d"
@@ -16,26 +16,27 @@
 	var/mob/living/carbon/human/virtual_reality/vr_human
 
 
-/obj/item/clothing/glasses/vr_goggles/Destroy()
-	..()
+/obj/item/clothing/glasses/vr_headset/Destroy()
 	vr_human.revert_to_reality(1)
 	cleanup_vr_avatar()
-
-/obj/item/clothing/glasses/vr_goggles/dropped()
 	..()
+
+/obj/item/clothing/glasses/vr_headset/dropped()
 	if(vr_human)
 		vr_human.revert_to_reality(0)
+	..()
 
-/obj/item/clothing/glasses/vr_goggles/proc/cleanup_vr_avatar()
+/obj/item/clothing/glasses/vr_headset/proc/cleanup_vr_avatar()
 	if(vr_human)
 		vr_human = null
 
-/obj/item/clothing/glasses/vr_goggles/equipped()
+/obj/item/clothing/glasses/vr_headset/equipped()
 	..()
 	var/mob/living/carbon/human/H = loc
+	var/datum/vr_room/lobby = vr_rooms_offical["Lobby"]
 	spawn(1)
 		if(H.glasses == src)
 			if(vr_human == null)
-				vr_human = spawn_vr_avatar(H, "Lobby")
+				vr_human = spawn_vr_avatar(H, lobby)
 			else
 				control_remote(H, vr_human)

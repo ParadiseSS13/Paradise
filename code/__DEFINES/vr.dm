@@ -1,0 +1,5 @@
+#define VR_DROP_NONE 1
+#define VR_DROP_ALL 2
+#define VR_DROP_BLACKLIST 3
+#define VR_DROP_WHITELIST 4
+
