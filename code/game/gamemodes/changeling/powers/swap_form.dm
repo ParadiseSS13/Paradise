@@ -45,7 +45,7 @@
 		changeling.absorb_dna(target, user)
 	changeling.trim_dna()
 
-	var/mob/dead/observer/ghost = target.ghostize(0)
+	var/mob/dead/observer/ghost = target.ghostize(1)
 	user.mind.transfer_to(target)
 	if(ghost && ghost.mind)
 		ghost.mind.transfer_to(user)
