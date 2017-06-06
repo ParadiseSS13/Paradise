@@ -20,6 +20,7 @@
 
 /obj/machinery/chem_master/New()
 	create_reagents(100)
+	reagents.set_reacting(FALSE)
 	overlays += "waitlight"
 
 /obj/machinery/chem_master/ex_act(severity)
