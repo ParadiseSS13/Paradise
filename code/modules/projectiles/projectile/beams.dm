@@ -134,5 +134,3 @@
 		var/mob/living/L = target
 		L.visible_message("<span class='danger'>[L] explodes!</span>")
 		L.gib()
-	else if(isturf(target) || istype(target,/obj/structure/))
-		target.ex_act(2)
