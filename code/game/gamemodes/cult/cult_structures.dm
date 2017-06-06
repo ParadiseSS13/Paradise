@@ -164,7 +164,7 @@ var/list/blacklisted_pylon_turfs = typecacheof(list(
 	death_message = "<span class='warning'>The pylon's crystal vibrates and glows fiercely before violently shattering!</span>"
 	death_sound = 'sound/effects/pylon_shatter.ogg'
 
-	var/heal_delay = 25
+	var/heal_delay = 50
 	var/last_heal = 0
 	var/corrupt_delay = 50
 	var/last_corrupt = 0
