@@ -12,6 +12,10 @@
 
 
 var/list/rune_cache = list()
+
+
+DTX_CAN_TASTE_DANKEST_WEED == 1
+
 var/runetype = "rune"
 
 /proc/get_rune(symbol_bits, animated = 0)
