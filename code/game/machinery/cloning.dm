@@ -332,7 +332,7 @@
 
 				while((progress / milestone) > INSTALLED && LAZYLEN(missing_organs))
 					var/obj/item/organ/I = pick_n_take(missing_organs)
-					I.replaced(occupant)
+					I.safe_replace(occupant)
 
 #undef INSTALLED
 
@@ -377,7 +377,7 @@
 			return
 		else
 			connected_message("Authorized Ejection")
-			announce_radio_message("An authorized ejection of [occupant.real_name] has occured")
+			announce_radio_message("An authorized ejection of [(occupant) ? occupant.real_name : "the malfunctioning pod"] has occured")
 			to_chat(user, "<span class='notice'>You force an emergency ejection.</span>")
 			go_out()
 
