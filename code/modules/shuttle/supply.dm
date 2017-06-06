@@ -345,8 +345,8 @@
 	slip.info +="CONTENTS:<br><ul>"
 
 	//we now create the actual contents
-	var/list/contains
-	if(istype(object, /datum/supply_packs/misc/randomised))
+	var/list/contains // TODO: de-snowflake-ify randomisation
+	if(istype(object, /datum/supply_packs/misc/randomised) || istype(object, /datum/supply_packs/engineering/randomised/powergamermitts))
 		var/datum/supply_packs/misc/randomised/SO = object
 		contains = list()
 		if(object.contains.len)

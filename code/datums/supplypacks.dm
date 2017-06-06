@@ -496,11 +496,11 @@ var/list/all_supply_groups = list(supply_emergency,supply_security,supply_engine
 	cost = 10
 	containername = "electrical maintenance crate"
 
-/datum/supply_packs/engineering/powergamermitts
+/datum/supply_packs/engineering/randomised/powergamermitts
 	name = "Insulated Gloves Crate"
+	var/num_contained = 4
 	contains = list(/obj/item/clothing/gloves/color/yellow,
-					/obj/item/clothing/gloves/color/yellow,
-					/obj/item/clothing/gloves/color/yellow)
+					/obj/item/clothing/gloves/color/fyellow)
 	cost = 20	//Made of pure-grade bullshittinium
 	containername = "insulated gloves crate"
 	containertype = /obj/structure/closet/crate/engineering/electrical
