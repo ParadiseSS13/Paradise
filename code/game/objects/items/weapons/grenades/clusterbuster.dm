@@ -252,6 +252,10 @@
 	desc = "For when you need to knock out EVERYONE."
 	payload = /obj/item/weapon/grenade/gas/knockout
 
+/obj/item/weapon/grenade/clusterbuster/glass
+	name = "Glass Grenade"
+	desc = "Useful for impaling EVERYONE." // Coders have worse grammer than spriting ability. Thats me!
+	payload = /obj/item/weapon/shard
 ////////////Clusterbuster of Clusterbusters////////////
 
 /obj/item/weapon/grenade/clusterbuster/mega_fox
