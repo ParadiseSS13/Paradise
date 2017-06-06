@@ -969,7 +969,7 @@
 	hitsound = 'sound/weapons/tap.ogg'
 	force = 0
 	throwforce = 0
-	w_class = 2
+	w_class = WEIGHT_CLASS_SMALL
 
 /obj/item/fluff/zekemirror/attack_self(mob/user)
 	var/mob/living/carbon/human/target = user
