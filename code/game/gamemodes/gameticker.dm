@@ -237,7 +237,7 @@ var/round_start_time = 0
 
 	//Plus it provides an easy way to make cinematics for other events. Just use this as a template :)
 //Plus it provides an easy way to make cinematics for other events. Just use this as a template
-/datum/controller/gameticker/proc/station_explosion_cinematic(station_missed = 0, override = null)
+/datum/controller/gameticker/proc/station_explosion_cinematic(station_missed = 0, override = null, zlev = 2)
 	if(cinematic)
 		return	//already a cinematic in progress!
 
@@ -251,24 +251,18 @@ var/round_start_time = 0
 	cinematic.screen_loc = "1,0"
 
 	var/obj/structure/stool/bed/temp_buckle = new(src)
-	if(station_missed)
-		for(var/mob/M in mob_list)
-			M.buckled = temp_buckle				//buckles the mob so it can't do anything
-			if(M.client)
-				M.client.screen += cinematic	//show every client the cinematic
-	else	//nuke kills everyone on z-level 1 to prevent "hurr-durr I survived"
-		for(var/mob/M in mob_list)
-			M.buckled = temp_buckle
-			if(M.stat != DEAD)
-				var/turf/T = get_turf(M)
-				if(T && is_station_level(T.z) && !istype(M.loc, /obj/structure/closet/secure_closet/freezer))
-					var/mob/ghost = M.ghostize()
-					M.dust() //no mercy
-					if(ghost && ghost.client) //Play the victims an uninterrupted cinematic.
-						ghost.client.screen += cinematic
-					CHECK_TICK
-			if(M && M.client) //Play the survivors a cinematic.
-				M.client.screen += cinematic
+	for(var/mob/M in mob_list)
+		M.buckled = temp_buckle
+		if(M.stat != DEAD)
+			var/turf/T = get_turf(M)
+			if(T && T.z == zlev && !istype(M.loc, /obj/structure/closet/secure_closet/freezer))
+				var/mob/ghost = M.ghostize()
+				M.dust() //no mercy
+				if(ghost && ghost.client) //Play the victims an uninterrupted cinematic.
+					ghost.client.screen += cinematic
+				CHECK_TICK
+		if(M && M.client) //Play the survivors a cinematic.
+			M.client.screen += cinematic
 
 	//Now animate the cinematic
 	switch(station_missed)

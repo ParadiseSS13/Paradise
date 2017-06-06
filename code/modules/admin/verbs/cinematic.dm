@@ -14,4 +14,7 @@
 					override = input(src, "mode = ?","Enter Parameter", null) as anything in list("nuclear emergency", "fake", "no override")
 				if(0)
 					override = input(src, "mode = ?","Enter Parameter", null) as anything in list("blob", "nuclear emergency", "AI malfunction", "no override")
-			ticker.station_explosion_cinematic(parameter, override)
+			if(mob)
+				ticker.station_explosion_cinematic(parameter, override, mob.z)
+			else
+				ticker.station_explosion_cinematic(parameter, override, 0)
