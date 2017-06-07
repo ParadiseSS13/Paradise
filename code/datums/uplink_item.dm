@@ -53,6 +53,7 @@ var/list/uplink_items = list()
 	var/list/gamemodes = list() // Empty list means it is in all the gamemodes. Otherwise place the gamemode name here.
 	var/list/excludefrom = list() //Empty list does nothing. Place the name of gamemode you don't want this item to be available in here. This is so you dont have to list EVERY mode to exclude something.
 	var/list/job = null
+	var/list/species = null //Similar to job specific items
 	var/surplus = 100 //Chance of being included in the surplus crate (when pick() selects it)
 	var/hijack_only = 0 //can this item be purchased only during hijackings?
 
@@ -358,6 +359,11 @@ var/list/uplink_items = list()
 	excludefrom = list(/datum/game_mode/nuclear)
 	job = list("Head of Personnel", "Quartermaster", "Cargo Technician")
 
+
+
+//Work in Progress, species specific antag tools
+/datum/uplink_item/speciesspecific
+	category = "Species Specific Tools"
 
 // DANGEROUS WEAPONS
 
