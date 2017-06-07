@@ -313,8 +313,8 @@
 	supervisors = "the head of personnel"
 	department_head = list("Head of Personnel")
 	selection_color = "#dddddd"
-	access = list(access_janitor, access_maint_tunnels)
-	minimal_access = list(access_janitor, access_maint_tunnels)
+	access = list(access_janitor, access_medical, access_maint_tunnels)
+	minimal_access = list(access_janitor, access_medical, access_maint_tunnels)
 	alt_titles = list("Custodial Technician")
 	outfit = /datum/outfit/job/janitor
 
