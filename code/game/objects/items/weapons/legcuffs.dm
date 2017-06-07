@@ -7,7 +7,7 @@
 	flags = CONDUCT
 	throwforce = 0
 	w_class = WEIGHT_CLASS_NORMAL
-	origin_tech = "materials=1"
+	origin_tech = "engineering=3;combat=3"
 	slowdown = 7
 	breakouttime = 300	//Deciseconds = 30s = 0.5 minute
 
@@ -17,6 +17,7 @@
 	throw_range = 1
 	icon_state = "beartrap"
 	desc = "A trap used to catch bears and other legged creatures."
+	origin_tech = "engineering=4"
 	var/armed = 0
 	var/trap_damage = 20
 	var/obj/item/weapon/grenade/iedcasing/IED = null

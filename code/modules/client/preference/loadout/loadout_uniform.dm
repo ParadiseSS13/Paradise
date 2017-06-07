@@ -61,12 +61,12 @@
 /datum/gear/uniform/skirt/job/viro
 	display_name = "skirt, virologist"
 	path = /obj/item/clothing/under/rank/virologist/skirt
-	allowed_roles = list("Chief Medical Officer","Medical Doctor")
+	allowed_roles = list("Virologist")
 
 /datum/gear/uniform/skirt/job/med
 	display_name = "skirt, medical"
 	path = /obj/item/clothing/under/rank/medical/skirt
-	allowed_roles = list("Chief Medical Officer","Medical Doctor","Chemist","Psychiatrist","Paramedic","Brig Physician")
+	allowed_roles = list("Chief Medical Officer","Medical Doctor","Psychiatrist","Paramedic","Coroner")
 
 /datum/gear/uniform/skirt/job/phys
 	display_name = "skirt, physician"

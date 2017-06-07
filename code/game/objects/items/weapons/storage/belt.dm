@@ -509,20 +509,8 @@
 	w_class = WEIGHT_CLASS_BULKY
 	max_w_class = WEIGHT_CLASS_SMALL
 	max_combined_w_class = 21 // = 14 * 1.5, not 14 * 2.  This is deliberate
-	origin_tech = "bluespace=4"
+	origin_tech = "bluespace=5;materials=4;engineering=4;plasmatech=5"
 	can_hold = list()
-
-	proc/failcheck(mob/user as mob)
-		if(prob(src.reliability)) return 1 //No failure
-		if(prob(src.reliability))
-			to_chat(user, "<span class='warning'>The Bluespace portal resists your attempt to add another item.</span>")//light failure
-
-		else
-			to_chat(user, "<span class='warning'>The Bluespace generator malfunctions!</span>")
-			for(var/obj/O in src.contents) //it broke, delete what was in it
-				qdel(O)
-			crit_fail = 1
-			return 0
 
 /obj/item/weapon/storage/belt/bluespace/owlman
 	name = "Owlman's utility belt"
@@ -532,7 +520,7 @@
 	storage_slots = 6
 	max_w_class = WEIGHT_CLASS_NORMAL
 	max_combined_w_class = 18
-	origin_tech = "bluespace=4;syndicate=2"
+	origin_tech = "bluespace=5;materials=4;engineering=4;plasmatech=5"
 	allow_quick_empty = 1
 	can_hold = list(
 		/obj/item/weapon/grenade/smokebomb,

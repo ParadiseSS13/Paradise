@@ -35,20 +35,20 @@
 	name = "manhack delivery grenade"
 	spawner_type = /mob/living/simple_animal/hostile/viscerator
 	deliveryamt = 5
-	origin_tech = "materials=3;magnets=4;syndicate=4"
+	origin_tech = "materials=3;magnets=4;syndicate=3"
 
 /obj/item/weapon/grenade/spawnergrenade/spesscarp
 	name = "carp delivery grenade"
 	spawner_type = /mob/living/simple_animal/hostile/carp
 	deliveryamt = 5
-	origin_tech = "materials=3;magnets=4;syndicate=4"
+	origin_tech = "materials=3;magnets=4;syndicate=3"
 
 /obj/item/weapon/grenade/spawnergrenade/feral_cats
 	name = "feral cat delivery grenade"
 	desc = "This grenade contains 8 dehydrated feral cats in a similar manner to dehydrated monkeys, which, upon detonation, will be rehydrated by a small reservoir of water contained within the grenade. These cats will then attack anything in sight."
 	spawner_type = /mob/living/simple_animal/hostile/feral_cat
 	deliveryamt = 5
-	origin_tech = "materials=3;magnets=4;syndicate=4"
+	origin_tech = "materials=3;magnets=4;syndicate=3"
 
 /obj/item/weapon/grenade/spawnergrenade/feral_cats/prime()			//Own proc for this because the regular one would flash people which was dumb.
 	update_mob()

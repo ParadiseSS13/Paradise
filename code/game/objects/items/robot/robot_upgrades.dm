@@ -6,6 +6,7 @@
 	desc = "Protected by FRM."
 	icon = 'icons/obj/module.dmi'
 	icon_state = "cyborg_upgrade"
+	origin_tech = "programming=2"
 	var/locked = 0
 	var/installed = 0
 	var/require_module = 0
@@ -103,6 +104,7 @@
 	desc = "Used to kick in a robot's VTEC systems, increasing their speed."
 	icon_state = "cyborg_upgrade2"
 	require_module = 1
+	origin_tech = "engineering=4;materials=5;programming=4"
 
 /obj/item/borg/upgrade/vtec/action(var/mob/living/silicon/robot/R)
 	if(..())
@@ -120,6 +122,7 @@
 	name = "cyborg rapid disabler cooling module"
 	desc = "Used to cool a mounted disabler, increasing the potential current in it and thus its recharge rate."
 	icon_state = "cyborg_upgrade3"
+	origin_tech = "engineering=4;powerstorage=4;combat=4"
 	require_module = 1
 	module_type = /obj/item/weapon/robot_module/security
 
@@ -144,6 +147,7 @@
 	name = "ion thruster upgrade"
 	desc = "A energy-operated thruster system for cyborgs."
 	icon_state = "cyborg_upgrade3"
+	origin_tech = "engineering=4;powerstorage=4"
 
 /obj/item/borg/upgrade/thrusters/action(mob/living/silicon/robot/R)
 	if(..())
@@ -160,6 +164,7 @@
 	name = "mining cyborg diamond drill"
 	desc = "A diamond drill replacement for the mining module's standard drill."
 	icon_state = "cyborg_upgrade3"
+	origin_tech = "engineering=4;materials=5"
 	require_module = 1
 	module_type = /obj/item/weapon/robot_module/miner
 
@@ -181,6 +186,7 @@
 	name = "mining cyborg satchel of holding"
 	desc = "A satchel of holding replacement for mining cyborg's ore satchel module."
 	icon_state = "cyborg_upgrade3"
+	origin_tech = "engineering=4;materials=4;bluespace=4"
 	require_module = 1
 	module_type = /obj/item/weapon/robot_module/miner
 
@@ -200,6 +206,7 @@
 	name = "illegal equipment module"
 	desc = "Unlocks the hidden, deadlier functions of a cyborg"
 	icon_state = "cyborg_upgrade3"
+	origin_tech = "combat=4;syndicate=1"
 	require_module = 1
 
 /obj/item/borg/upgrade/syndicate/action(mob/living/silicon/robot/R)

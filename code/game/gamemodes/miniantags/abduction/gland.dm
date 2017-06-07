@@ -113,7 +113,7 @@
 	owner.set_species(species)
 
 /obj/item/organ/internal/heart/gland/ventcrawling
-	origin_tech = "materials=4;biotech=5;bluespace=3;abductor=3"
+	origin_tech = "materials=4;biotech=5;bluespace=4;abductor=3"
 	cooldown_low = 1800
 	cooldown_high = 2400
 	uses = 1

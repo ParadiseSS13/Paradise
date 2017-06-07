@@ -360,6 +360,68 @@
 		return
 	to_chat(user, "<span class='warning'>You can't modify [target]!</span>")
 
+/obj/item/device/fluff/lighty_plasman_modkit // LightFire53: Ikelos
+	name = "plasmaman suit modkit"
+	desc = "A kit containing nanites that are able to modify the look of a plasmaman suit and helmet without exposing the wearer to hostile environments."
+	icon_state = "modkit"
+	w_class = 2
+	force = 0
+	throwforce = 0
+	var/picked_color = null
+	var/list/helmets = list(
+		"Blue" = "plasmaman_ikelosdefault_helmet",
+		"Gold" = "plasmaman_ikelosgold_helmet",
+		"Red" = "plasmaman_ikelossecurity_helmet")
+	var/list/suits = list(
+		"Blue" = "plasmaman_ikelosdefault",
+		"Gold" = "plasmaman_ikelosgold",
+		"Red" = "plasmaman_ikelossecurity")
+
+/obj/item/device/fluff/lighty_plasman_modkit/afterattack(atom/target, mob/user, proximity)
+	if(!proximity || !ishuman(user) || user.incapacitated())
+		return
+	var/mob/living/carbon/human/H = user
+
+	if(istype(target, /obj/item/clothing/head/helmet/space/eva/plasmaman))
+		if(used & USED_MOD_HELM)
+			to_chat(H, "<span class='notice'>The kit's helmet modifier has already been used.</span>")
+			return
+
+		picked_color = input(H, "Which color would you like to paint [target]?", "Recolor") as null|anything in helmets
+		var/obj/item/clothing/head/helmet/space/eva/plasmaman/P = target
+
+		if(!picked_color)
+			return
+		P.icon_state = helmets[picked_color] + "[P.on]"
+		P.base_state = helmets[picked_color]
+
+		to_chat(H, "<span class='notice'>You modify the appearance of [target].</span>")
+		P.icon = 'icons/obj/custom_items.dmi'
+		used |= USED_MOD_HELM
+
+		if(P == H.head)
+			H.update_inv_head()
+		return
+	if(istype(target, /obj/item/clothing/suit/space/eva/plasmaman))
+		if(used & USED_MOD_SUIT)
+			to_chat(user, "<span class='notice'>The kit's suit modifier has already been used.</span>")
+			return
+		picked_color = input(H, "Which color would you like to paint [target]?", "Recolor") as null|anything in suits
+		var/obj/item/clothing/suit/space/eva/plasmaman/P = target
+
+		if(!picked_color)
+			return
+		P.icon_state = suits[picked_color]
+
+		to_chat(H, "<span class='notice'>You modify the appearance of [target].</span>")
+		P.icon = 'icons/obj/custom_items.dmi'
+		used |= USED_MOD_SUIT
+
+		if(P == H.wear_suit)
+			H.update_inv_wear_suit()
+		return
+	to_chat(user, "<span class='warning'>You can't modify [target]!</span>")
+
 #undef USED_MOD_HELM
 #undef USED_MOD_SUIT
 
@@ -705,6 +767,16 @@
 	icon_state = "castile_dress"
 	item_state = "castile_dress"
 	item_color = "castile_dress"
+
+/obj/item/clothing/under/fluff/xantholne //Xantholne: Meex Zwichsnicrur
+	name = "Stripped Shorts and Shirt"
+	desc = "A silky pair of dark shorts with a matching shirt. The shirt's collar has a tag on the inside that reads 'Meexy' on it."
+	icon = 'icons/obj/custom_items.dmi'
+	lefthand_file = 'icons/mob/inhands/fluff_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/fluff_righthand.dmi'
+	icon_state = "xantholne"
+	item_state = "xantholne"
+	item_color = "xantholne"
 
 /obj/item/clothing/under/fluff/elishirt // FlattestGuitar9: Eli Randolph
 	name = "casual dress shirt"
