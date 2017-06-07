@@ -762,7 +762,7 @@ var/list/uplink_items = list()
 	desc = "A syringe disguised as a functional pen. It's filled with a potent anaesthetic. \ The pen holds two doses of the mixture. The pen can be refilled."
 	reference = "SP"
 	item = /obj/item/weapon/pen/sleepy
-	cost = 8
+	cost = 24
 	excludefrom = list(/datum/game_mode/nuclear)
 
 /datum/uplink_item/stealthy_weapons/foampistol
