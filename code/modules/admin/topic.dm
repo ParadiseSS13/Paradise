@@ -1791,7 +1791,8 @@
 			ptypes += "Brain Damage"
 			ptypes += "Honk Tumor"
 			ptypes += "Hallucinate"
-			ptypes += "Starvation"
+			ptypes += "Cold"
+			ptypes += "Hunger"
 			ptypes += "Cluwne"
 			ptypes += "Mutagen Cookie"
 			ptypes += "Hellwater Cookie"
@@ -1827,9 +1828,12 @@
 			if("Hallucinate")
 				H.Hallucinate(1000)
 				logmsg = "hallucinations."
-			if("Starvation")
-				H.nutrition = NUTRITION_LEVEL_CURSED;
+			if("Hunger")
+				H.nutrition = NUTRITION_LEVEL_CURSED
 				logmsg = "starvation."
+			if("Cold")
+				H.reagents.add_reagent("frostoil", 40)
+				H.reagents.add_reagent("ice", 40)
 			if("Cluwne")
 				H.makeCluwne()
 				logmsg = "cluwned."
@@ -1854,7 +1858,7 @@
 			if("Assassin")
 				logmsg = "assassin."
 				var/list/possible_traitors = list()
-				for(var/mob/living/player in mob_list)
+				for(var/mob/living/player in living_mob_list)
 					if(player.client && player.mind && !player.mind.special_role && player.stat != DEAD && player != H)
 						if(ishuman(player))
 							if(player.client && (ROLE_TRAITOR in player.client.prefs.be_special) && !jobban_isbanned(player, ROLE_TRAITOR) && !jobban_isbanned(player, "Syndicate"))
@@ -1863,7 +1867,7 @@
 					if(player.current)
 						if(ismindshielded(player.current))
 							possible_traitors -= player
-				if(possible_traitors.len > 0)
+				if(possible_traitors.len)
 					var/datum/mind/newtraitormind = pick(possible_traitors)
 					var/mob/living/newtraitor = newtraitormind.current
 					var/datum/objective/assassinate/kill_objective = new
