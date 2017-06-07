@@ -75,6 +75,7 @@
 				/obj/item/clothing/under/rank/vice = 10,
 				/obj/item/device/assembly/prox_sensor = 40,
 				/obj/item/device/assembly/timer = 30,
+				/obj/item/device/flash = 2,
 				/obj/item/device/flashlight = 40,
 				/obj/item/device/flashlight/pen = 10,
 				/obj/item/device/multitool = 20,
