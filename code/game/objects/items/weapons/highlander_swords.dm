@@ -17,6 +17,13 @@
 	desc = "Imbues the wielder with legendary martial prowress and a nigh-unquenchable thirst for glorious battle!"
 	var/datum/martial_art/highlander/style = new
 
+/obj/item/weapon/claymore/highlander/Destroy()
+	if(ishuman(loc))	//just in case it gets destroyed while in someone's possession, such as due to acid or something?
+		var/mob/living/carbon/human/H = loc
+		style.remove(H)
+	QDEL_NULL(style)
+	return ..()
+
 /obj/item/weapon/claymore/highlander/equipped(mob/user, slot)
 	if(!ishuman(user))
 		return
@@ -32,8 +39,6 @@
 			//if we have a highlander sword in the other hand, relearn the style from that sword.
 			sword.style.teach(H, 1)
 
-	return
-
 /obj/item/weapon/claymore/highlander/dropped(mob/user)
 	if(!ishuman(user))
 		return
@@ -43,4 +48,3 @@
 	if(sword)
 		//if we have a highlander sword in the other hand, relearn the style from that sword.
 		sword.style.teach(H, 1)
-	return
