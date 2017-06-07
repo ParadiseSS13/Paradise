@@ -150,7 +150,7 @@
 				/obj/item/weapon/implanter/storage = 1,
 				/obj/item/toy/cards/deck/syndicate = 2,
 				/obj/item/weapon/storage/secure/briefcase/syndie = 2,
-				"" = 70
+				"" = 68
 				)
 
 /obj/effect/spawner/lootdrop/crate_spawner // for ruins
