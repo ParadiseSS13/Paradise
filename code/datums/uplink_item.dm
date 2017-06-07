@@ -925,7 +925,8 @@ var/list/uplink_items = list()
 /datum/uplink_item/stealthy_tools/cutouts
 	name = "Adaptive Cardboard Cutouts"
 	desc = "These cardboard cutouts are coated with a thin material that prevents discoloration and makes the images on them appear more lifelike. This pack contains three as well as a \
-	crayon for changing their appearances."
+	spraycan for changing their appearances."
+	reference = "ADCC"
 	item = /obj/item/weapon/storage/box/syndie_kit/cutouts
 	cost = 1
 	surplus = 20
