@@ -1,7 +1,0 @@
-author: "tigercat2000"
-delete-after: True
-changes: 
-  - rscadd: "Luxury versions of the bluespace shelter capsule! Currently not obtainable."
-  - rscadd: "Black Carpet can now be crafted using a stack of carpet and a crayon."
-  - rscadd: "Black fancy tables can now be crafted using Black Carpet."
-  - rscadd: "Shower curtains can now be recoloured with crayons, unscrewed from the floor, disassembled with wire cutters, and reassembled using cloth, plastic, and a metal rod."
