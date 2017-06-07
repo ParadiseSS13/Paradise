@@ -183,33 +183,31 @@ var/list/pipemenu = list(
 	var/turf/T = get_turf(target)
 	if(src.loc != user || ismob(target) || istype(target, /obj/structure/window) || !proximity || world.time < lastused + spawndelay)
 		return
-	if(mode == ATMOS_MODE)
+	if(mode == ATMOS_MODE && !istype(T, /turf/simulated/shuttle)) //No pipes on shuttles nerds
 		if(istype(T, /turf/simulated/wall)) //Drilling into walls takes time
-			playsound(get_turf(src), "sound/weapons/circsawhit.ogg", 50, 1)
+			playsound(loc, "sound/weapons/circsawhit.ogg", 50, 1)
 			user.visible_message("<span class = 'notice'>[user] starts drilling a hole in [T]...</span>", "<span class = 'notice'>You start drilling a hole in [T]...</span>", "<span class = 'warning'>You hear a drill.</span>")
 			if(!do_after(user, walldelay, target = T))
 				return
 			user.visible_message("<span class = 'notice'>[user] finishes drilling a hole in [T]!</span>", "<span class = 'notice'>You finish drilling a hole in [T]!</span>", "<span class = 'warning'>You hear clanking.</span>")
+		var/obj/item/pipe/P
 		if(whatpipe == GAS_SENSOR)
-			new /obj/item/pipe_gsensor(T)
-			to_chat(user, "<span class = 'notice'>[src] rapidly dispenses a sensor!</span>")
+			P = new /obj/item/pipe_gsensor(T)
 		else if(whatpipe == METER)
-			new /obj/item/pipe_meter(T)
-			to_chat(user, "<span class = 'notice'>[src] rapidly dispenses a meter!</span>")
+			P = new /obj/item/pipe_meter(T)
 		else
-			var/obj/item/pipe/P = new(T, pipe_type = whatpipe, dir = user.dir) //Now we make the pipes
+			P = new(T, pipe_type = whatpipe, dir = user.dir)
 			if(iconrotation == 0 && P.is_bent_pipe()) //Automatic rotation of dispensed pipes
 				P.dir = turn(user.dir, 135)
 			else if(iconrotation == 0 && P.pipe_type in list(CONNECTOR, UNARY_VENT, GAS_SCRUBBER, HE_EXCHANGER, SIMPLE_CAP, SUPPLY_CAP, SCRUBBERS_CAP, INJECTOR, PASSIVE_VENT)) //Some pipes dispense oppositely to what you'd expect, but we don't want to do anything if they selected a direction
-				call(P, /obj/item/pipe/verb/flip)()
+				P.flip()
 			else if(iconrotation != 0 && P.is_bent_pipe()) //If they selected a rotation and the pipe is bent
 				P.dir = turn(iconrotation, -45)
 			else if(iconrotation != 0)
 				P.dir = iconrotation
-			P.update()
-			to_chat(user, "<span class = 'notice'>[src] rapidly dispenses [P]!</span>")
+		to_chat(user, "<span class = 'notice'>[src] rapidly dispenses [P]!</span>")
 		Activaterpd(1)
-	else if(mode == DISPOSALS_MODE)
+	else if(mode == DISPOSALS_MODE && !istype(T, /turf/simulated/shuttle))
 		if(istype(T, /turf/simulated/wall)) //No disposals pipes on walls
 			to_chat(user, "<span class = 'warning'>That type of pipe won't fit on [T]!</span>")
 			return
