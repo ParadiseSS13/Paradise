@@ -1797,6 +1797,7 @@
 			ptypes += "Mutagen Cookie"
 			ptypes += "Hellwater Cookie"
 			ptypes += "Assassin"
+			ptypes += "Priest"
 			ptypes += "Lynch"
 		var/punishment = input(owner, "How would you like to smite [M]?", "Its good to be baaaad...", "") as null|anything in ptypes
 		if(!(punishment in ptypes))
@@ -1855,6 +1856,44 @@
 				H.drop_l_hand()
 				H.equip_to_slot_or_del(evilcookie, slot_l_hand)
 				logmsg = "a hellwater cookie."
+			if("Priest")
+				logmsg = "priest."
+				H.mutations |= NOCLONE
+				message_admins("[key_name_admin(owner)] is sending a dark priest to assassinate [key_name_admin(M)]...")
+				var/list/candidates = pollCandidates("Do you want to play as a murderous dark priest?")
+				if(!candidates.len)
+					to_chat(usr, "ERROR: Could not create priest. No valid candidates.")
+					return
+				var/mob/C = pick(candidates)
+				var/key_of_priest = C.key
+				if(!key_of_priest)
+					to_chat(usr, "ERROR: Could not create priest. Could not pick key.")
+					return
+				var/datum/mind/priest_mind = new /datum/mind(key_of_priest)
+				priest_mind.active = 1
+				var/mob/living/carbon/human/priest_mob = new /mob/living/carbon/human(pick(latejoin))
+				priest_mind.transfer_to(priest_mob)
+				var/datum/outfit/admin/dark_priest/O = new /datum/outfit/admin/dark_priest
+				priest_mob.equipOutfit(O, FALSE)
+				var/obj/item/weapon/pinpointer/advpinpointer/N = new /obj/item/weapon/pinpointer/advpinpointer(priest_mob)
+				priest_mob.equip_to_slot_or_del(N, slot_r_store)
+				N.active = 1
+				N.mode = 2
+				N.target = H
+				N.point_at(N.target)
+				var/datum/objective/assassinate/kill_objective = new
+				kill_objective.owner = priest_mind
+				kill_objective.target = H.mind
+				kill_objective.explanation_text = "Murder [H.real_name], the [H.mind.assigned_role], in the name of the dark gods."
+				priest_mind.objectives += kill_objective
+				ticker.mode.traitors |= priest_mob.mind
+				to_chat(priest_mob, "<span class='danger'>ATTENTION:</span> You are now a dark priest!")
+				to_chat(priest_mob, "<B>Goal: <span class='danger'>MURDER [H.real_name]</span>, currently in [get_area(H.loc)], in the name of the dark gods. </B>");
+				to_chat(priest_mob, "<B>The gods will prevent their revival.</B>");
+				priest_mob.mind.special_role = SPECIAL_ROLE_TRAITOR
+				var/datum/atom_hud/antag/tatorhud = huds[ANTAG_HUD_TRAITOR]
+				tatorhud.join_hud(priest_mob)
+				ticker.mode.set_antag_hud(priest_mob, "hudsyndicate")
 			if("Assassin")
 				logmsg = "assassin."
 				var/list/possible_traitors = list()
