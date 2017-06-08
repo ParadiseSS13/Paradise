@@ -171,6 +171,14 @@
 	can_hold = list(/obj/item/weapon/reagent_containers/food/snacks/grown,/obj/item/seeds,/obj/item/weapon/grown,/obj/item/weapon/reagent_containers/food/snacks/ash_flora)
 	burn_state = FLAMMABLE
 
+/obj/item/weapon/storage/bag/plants/holding
+	name = "plant bag of holding"
+	desc = "A revolution in convenience, this satchel allows for infinite plant storage. It's been outfitted with anti-malfunction safety measures."
+	storage_slots = INFINITY
+	max_combined_w_class = INFINITY
+	origin_tech = "bluespace=3"
+	icon_state = "satchel_bspace"
+
 /obj/item/weapon/storage/bag/plants/portaseeder
 	name = "portable seed extractor"
 	desc = "For the enterprising botanist on the go. Less efficient than the stationary model, it creates one seed per plant."
