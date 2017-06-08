@@ -397,7 +397,10 @@ var/list/blood_splatter_icons = list()
 /obj/effect/decal/cleanable/blood/splatter/transfer_mob_blood_dna(mob/living/L)
 	..(L)
 	var/list/b_data = L.get_blood_data(L.get_blood_id())
-	basecolor = b_data["blood_color"]
+	if(b_data)
+		basecolor = b_data["blood_color"]
+	else
+		basecolor = "#A10808"
 	update_icon()
 
 /obj/effect/decal/cleanable/blood/footprints/transfer_mob_blood_dna(mob/living/L)
@@ -421,9 +424,12 @@ var/list/blood_splatter_icons = list()
 	var/list/blood_dna = M.get_blood_dna_list()
 	if(!blood_dna)
 		return 0
+	var/bloodcolor = "#A10808"
 	var/list/b_data = M.get_blood_data(M.get_blood_id())
+	if(b_data)
+		bloodcolor = b_data["blood_color"]
 
-	return add_blood(blood_dna, b_data["blood_color"])
+	return add_blood(blood_dna, bloodcolor)
 
 //to add blood onto something, with blood dna info to include.
 /atom/proc/add_blood(list/blood_dna, color)
