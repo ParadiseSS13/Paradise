@@ -296,7 +296,7 @@ Des: Removes all infected images from the alien.
 	return 0
 
 /mob/living/carbon/alien/getTrail()
-	if(getBruteLoss() < 150)
+	if(getBruteLoss() < 200)
 		return pick("xltrails_1", "xltrails_2")
 	else
 		return pick("xttrails_1", "xttrails_2")

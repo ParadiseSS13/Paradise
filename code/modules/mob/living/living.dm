@@ -605,10 +605,6 @@
 	if(!has_gravity(src))
 		return
 	var/blood_exists = 0
-	var/mob/living/carbon/human/H = src
-
-	if(H.species.exotic_blood)
-		return
 
 	for(var/obj/effect/decal/cleanable/trail_holder/C in loc) //checks for blood splatter already on the floor
 		blood_exists = 1
@@ -634,18 +630,14 @@
 						TH.existing_dirs += newdir
 						TH.overlays.Add(image('icons/effects/blood.dmi', trail_type, dir = newdir))
 						TH.transfer_mob_blood_dna(src)
-						if(istype(H) && H.species.blood_color)
-							TH.color = H.species.blood_color
+						if(ishuman(src))
+							var/mob/living/carbon/human/H = src
+							if(H.species.blood_color)
+								TH.color = H.species.blood_color
 
 /mob/living/carbon/human/makeTrail(turf/T)
-	if(species.exotic_blood && bleed_rate)
-		if(!T)
-			T = get_turf(src)
-		var/datum/reagent/R = chemical_reagents_list[get_blood_id()]
-		if(istype(R))
-			R.reaction_turf(T, 10)
-			return
-	if((species.flags & NO_BLOOD) || !bleed_rate || bleedsuppress)
+
+	if((species.flags & NO_BLOOD) || species.exotic_blood || !bleed_rate || bleedsuppress)
 		return
 	..()
 

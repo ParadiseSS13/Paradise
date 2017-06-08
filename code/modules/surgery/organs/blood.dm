@@ -100,6 +100,13 @@
 
 /mob/living/carbon/human/bleed(amt)
 	if(!(species && species.flags & NO_BLOOD))
+		if(species.exotic_blood)
+			if(!T)
+				T = get_turf(src)
+			var/datum/reagent/R = chemical_reagents_list[get_blood_id()]
+			if(istype(R))
+				R.reaction_turf(T, blood_volume)
+			return
 		..()
 
 /mob/living/proc/restore_blood()
@@ -265,13 +272,6 @@
 
 /mob/living/carbon/human/add_splatter_floor(turf/T, small_drip)
 	if(!(species && species.flags & NO_BLOOD))
-		if(species.exotic_blood)
-			if(!T)
-				T = get_turf(src)
-			var/datum/reagent/R = chemical_reagents_list[get_blood_id()]
-			if(istype(R))
-				R.reaction_turf(T, blood_volume)
-			return
 		..()
 
 /mob/living/carbon/alien/add_splatter_floor(turf/T, small_drip)

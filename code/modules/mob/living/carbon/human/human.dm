@@ -34,7 +34,6 @@
 	create_reagents(330)
 
 	prev_gender = gender // Debug for plural genders
-	restore_blood()
 
 	martial_art = default_martial_art
 
@@ -1233,34 +1232,6 @@
 				I = new organ(H) //Create the organ inside the player.
 				I.insert(H)
 
-/mob/living/carbon/human/revive()
-
-	if(species && !(species.flags & NO_BLOOD))
-		restore_blood()
-
-	//Fix up all organs and replace lost ones.
-	restore_all_organs() //Rejuvenate and reset all existing organs.
-	check_and_regenerate_organs(src) //Regenerate limbs and organs only if they're really missing.
-	surgeries.Cut() //End all surgeries.
-	update_revive()
-
-	if(species.name != "Skeleton" && (SKELETON in mutations))
-		mutations.Remove(SKELETON)
-	if(NOCLONE in mutations)
-		mutations.Remove(NOCLONE)
-	if(HUSK in mutations)
-		mutations.Remove(HUSK)
-
-	if(!client || !key) //Don't boot out anyone already in the mob.
-		for(var/obj/item/organ/internal/brain/H in world)
-			if(H.brainmob)
-				if(H.brainmob.real_name == src.real_name)
-					if(H.brainmob.mind)
-						H.brainmob.mind.transfer_to(src)
-						qdel(H)
-
-	..()
-
 /mob/living/carbon/human/proc/is_lung_ruptured()
 	var/obj/item/organ/internal/lungs/L = get_int_organ(/obj/item/organ/internal/lungs)
 	if(!L)
@@ -1443,7 +1414,6 @@
 
 	tail = species.tail
 
-	restore_blood()
 	maxHealth = species.total_health
 
 	toxins_alert = 0
@@ -1540,7 +1510,6 @@
 		overlays.Cut()
 		update_mutantrace(1)
 		regenerate_icons()
-		restore_blood()
 
 	if(!delay_icon_update)
 		UpdateAppearance()

@@ -23,8 +23,6 @@
 				var/radiation = min(H.radiation, 25 * weakness)
 				H.apply_effect(-radiation,IRRADIATE,0)
 				H.bodytemperature = initial(H.bodytemperature)
-				spawn(1)
-					H.restore_blood()
 			//
 			C.adjustOxyLoss(-25 * weakness)
 			C.adjustToxLoss(-25 * weakness)
