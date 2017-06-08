@@ -392,6 +392,11 @@
 		del(src)
 		return
 
+	if(ckey == "twinmold")
+		to_chat(src, "NERD")
+		del(src)
+		return
+
 	// Change the way they should download resources.
 	if(config.resource_urls)
 		preload_rsc = pick(config.resource_urls)
