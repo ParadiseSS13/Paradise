@@ -34,11 +34,13 @@
 		real_name = const_type
 		icon_living = const_type
 		icon_state = const_type
+		desc = const_type
 	else
 		name = "[ticker.mode.cultdat.get_name(const_type)] ([rand(1, 1000)])"
 		real_name = ticker.mode.cultdat.get_name(const_type)
 		icon_living = ticker.mode.cultdat.get_icon(const_type)
 		icon_state = ticker.mode.cultdat.get_icon(const_type)
+		desc = ticker.mode.cultdat.get_desc(const_type)
 
 	for(var/spell in construct_spells)
 		AddSpell(new spell(null))
@@ -181,7 +183,7 @@
 /mob/living/simple_animal/hostile/construct/builder
 	name = "Artificer"
 	real_name = "Artificer"
-	desc = "A bulbous construct dedicated to building and maintaining The Cult of Nar-Sie's armies"
+	desc = "you shouldn't be seeing this"
 	icon = 'icons/mob/mob.dmi'
 	icon_state = "artificer"
 	icon_living = "artificer"
@@ -259,7 +261,7 @@
 /mob/living/simple_animal/hostile/construct/behemoth
 	name = "Behemoth"
 	real_name = "Behemoth"
-	desc = "The pinnacle of occult technology, Behemoths are the ultimate weapon in the Cult of Nar-Sie's arsenal."
+	desc = "you shouldn't be seeing this"
 	icon = 'icons/mob/mob.dmi'
 	icon_state = "behemoth"
 	icon_living = "behemoth"
@@ -293,7 +295,7 @@
 /mob/living/simple_animal/hostile/construct/harvester
 	name = "Harvester"
 	real_name = "Harvester"
-	desc = "A harbinger of Nar-Sie's enlightenment. It'll be all over soon."
+	desc = "you shouldn't be seeing this"
 	icon = 'icons/mob/mob.dmi'
 	icon_state = "harvester"
 	icon_living = "harvester"
