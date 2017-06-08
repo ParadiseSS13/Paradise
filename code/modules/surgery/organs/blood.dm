@@ -100,14 +100,11 @@
 
 /mob/living/carbon/human/bleed(amt)
 	if(!(species && species.flags & NO_BLOOD))
+		..()
 		if(species.exotic_blood)
-			if(!T)
-				T = get_turf(src)
 			var/datum/reagent/R = chemical_reagents_list[get_blood_id()]
 			if(istype(R))
-				R.reaction_turf(T, blood_volume)
-			return
-		..()
+				R.reaction_turf(get_turf(src), blood_volume)
 
 /mob/living/proc/restore_blood()
 	blood_volume = initial(blood_volume)

@@ -15,11 +15,6 @@
 	if(istype(holder))
 		insert(holder)
 
-/obj/item/organ/internal/Destroy()
-	if(owner)
-		remove(owner, 1)
-	return ..()
-
 /obj/item/organ/internal/proc/insert(mob/living/carbon/M, special = 0, var/dont_remove_slot = 0)
 	if(!iscarbon(M) || owner == M)
 		return
@@ -226,13 +221,11 @@
 	if(world.time > (last_pump + pump_delay))
 		if(ishuman(owner) && owner.client) //While this entire item exists to make people suffer, they can't control disconnects.
 			var/mob/living/carbon/human/H = owner
-			if(H.species.flags & NO_BLOOD)
-				to_chat(H, "<span class='userdanger'>You have no blood to pump!</span>")
-				return
-			H.blood_volume = max(H.blood_volume - blood_loss, 0)
-			to_chat(H, "<span class='userdanger'>You have to keep pumping your blood!</span>")
-			if(H.client)
-				H.client.color = "red" //bloody screen so real
+			if(!(H.species.flags & NO_BLOOD))
+				H.blood_volume = max(H.blood_volume - blood_loss, 0)
+				to_chat(H, "<span class='userdanger'>You have to keep pumping your blood!</span>")
+				if(H.client)
+					H.client.color = "red" //bloody screen so real
 		else
 			last_pump = world.time //lets be extra fair *sigh*
 
@@ -261,15 +254,14 @@
 
 		var/mob/living/carbon/human/H = owner
 		if(istype(H))
-			if(H.species.flags & NO_BLOOD)
-				return
-			H.blood_volume = min(H.blood_volume + cursed_heart.blood_loss*0.5, BLOOD_VOLUME_MAXIMUM)
-			if(owner.client)
-				owner.client.color = ""
+			if(!(H.species.flags & NO_BLOOD))
+				H.blood_volume = min(H.blood_volume + cursed_heart.blood_loss*0.5, BLOOD_VOLUME_MAXIMUM)
+				if(owner.client)
+					owner.client.color = ""
 
-			H.adjustBruteLoss(-cursed_heart.heal_brute)
-			H.adjustFireLoss(-cursed_heart.heal_burn)
-			H.adjustOxyLoss(-cursed_heart.heal_oxy)
+				H.adjustBruteLoss(-cursed_heart.heal_brute)
+				H.adjustFireLoss(-cursed_heart.heal_burn)
+				H.adjustOxyLoss(-cursed_heart.heal_oxy)
 
 /obj/item/organ/internal/lungs
 	name = "lungs"
