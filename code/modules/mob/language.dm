@@ -389,6 +389,26 @@
 	key = "0"
 	syllables = list ("honk","squeak","bonk","toot","narf","zub","wee","wub","norf")
 
+/datum/language/istketbo
+	name = "Istket'bo"
+	desc = "A subtle language commonly heard whispered on rim worlds. Speech often sounds like light wailing."
+	speech_verb = "murmurs"
+	exclaim_verb = "shrieks"
+	ask_verb = "wails"
+	whisper_verb = "spooks"
+	colour = "istketbo"
+	key = "bo"
+	syllables = list("ouo","ugg","uga","boo","bo","ix","ea","rie","ee","ien","oom","ang","ger","arv","ave","dy","ket","aul","ron","ead","gob","hob","ack","lan","bre","asm","gei","ist","oky","sku","kur","rif","oll","ire","lin","inn","ost","oo","ou")
+
+/datum/language/isichul
+	name = "Isichul"
+	desc = "A bright language invented in the treetops of Isicoo. Utilizes a combination of rolling and clicking sounds."
+	exclaim_verb = "chirps"
+	whisper_verb = "croons"
+	colour = "isichul"
+	key = "is"
+	syllables = list("chi","i","ou","chou","coo","chu","tii","tee","e","ep","ea","lea","su","sou","osi","iss","ise","ira","aki","ack","irr","wyr","wys","su","si","in")
+
 /datum/language/wryn
 	name = "Wryn Hivemind"
 	desc = "Wryn have the strange ability to commune over a psychic hivemind."
