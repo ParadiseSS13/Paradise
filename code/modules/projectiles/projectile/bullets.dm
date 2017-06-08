@@ -288,7 +288,8 @@
 /obj/item/projectile/bullet/dart/syringe/tranquilizer
 /obj/item/projectile/bullet/dart/syringe/tranquilizer/New()
 	..()
-	reagents.add_reagent("haloperidol", 15)
+	reagents.add_reagent("mutadone", 5)
+	reagents.add_reagent("haloperidol", 5)
 
 /obj/item/projectile/bullet/neurotoxin
 	name = "neurotoxin spit"
