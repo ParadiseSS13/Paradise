@@ -943,6 +943,22 @@ var/list/all_supply_groups = list(supply_emergency,supply_security,supply_engine
 	containername = "food crate"
 	announce_beacons = list("Kitchen" = list("Kitchen"))
 
+/datum/supply_packs/organic/condiment
+	name = "Condiment Kit"
+	contains = list(/obj/item/weapon/reagent_containers/food/condiment/saltshaker,
+					/obj/item/weapon/reagent_containers/food/condiment/ketchup,
+					/obj/item/weapon/reagent_containers/food/condiment/hotsauce,
+					/obj/item/weapon/reagent_containers/food/condiment/coldsauce,
+					/obj/item/weapon/reagent_containers/food/condiment/borksauce,
+					/obj/item/weapon/reagent_containers/food/condiment/peppermill,
+					/obj/item/weapon/reagent_containers/food/condiment/soysauce,
+					/obj/item/weapon/reagent_containers/food/condiment/sugar,)
+	cost = 15
+	containertype = /obj/structure/closet/crate/secure
+	containername = "Condiment Kit"
+	access = access_kitchen
+	announce_beacons = list("Kitchen" = list("Kitchen"))
+
 /datum/supply_packs/organic/pizza
 	name = "Pizza Crate"
 	contains = list(/obj/item/pizzabox/margherita,
