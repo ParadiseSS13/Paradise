@@ -103,8 +103,8 @@
 		..()
 		if(species.exotic_blood)
 			var/datum/reagent/R = chemical_reagents_list[get_blood_id()]
-			if(istype(R))
-				R.reaction_turf(get_turf(src), blood_volume)
+			if(istype(R) && isturf(loc))
+				R.reaction_turf(get_turf(src), amt)
 
 /mob/living/proc/restore_blood()
 	blood_volume = initial(blood_volume)
