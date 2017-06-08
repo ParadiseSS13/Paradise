@@ -28,22 +28,25 @@ Bonus
 /datum/symptom/visionloss/Activate(datum/disease/advance/A)
 	..()
 	if(prob(SYMPTOM_ACTIVATION_PROB))
-		var/mob/living/M = A.affected_mob
+		var/mob/living/carbon/M = A.affected_mob
+		var/obj/item/organ/internal/eyes/eyes = M.get_int_organ(/obj/item/organ/internal/eyes)
+		if(!eyes) //NO EYES, NO PROBLEM! Rip out your eyes today to prevent future blindness!
+			return
 		switch(A.stage)
 			if(1, 2)
 				to_chat(M, "<span class='warning'>Your eyes itch.</span>")
 			if(3, 4)
 				to_chat(M, "<span class='warning'><b>Your eyes burn!</b></span>")
-				M.blur_eyes(10)
-				M.adjust_eye_damage(1)
+				M.EyeBlurry(20)
+				eyes.take_damage(1)
 			else
 				to_chat(M, "<span class='userdanger'>Your eyes burn horrificly!</span>")
-				M.blur_eyes(20)
-				M.adjust_eye_damage(5)
-				if(M.eye_damage >= 10)
-					M.become_nearsighted()
-					if(prob(M.eye_damage - 10 + 1))
-						if(M.become_blind())
+				M.EyeBlurry(30)
+				eyes.take_damage(5)
+				if(eyes.damage >= 10)
+					M.BecomeNearsighted()
+					if(prob(eyes.damage - 10 + 1))
+						if(M.BecomeBlind())
 							to_chat(M, "<span class='userdanger'>You go blind!</span>")
 
 
