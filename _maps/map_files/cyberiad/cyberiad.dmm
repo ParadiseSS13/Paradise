@@ -2915,7 +2915,7 @@
 "bes" = (/obj/item/device/radio/intercom{name = "station intercom (General)"; pixel_y = -28},/turf/simulated/shuttle/floor,/area/shuttle/arrival/station)
 "bet" = (/obj/structure/table/woodentable,/obj/item/device/flashlight/lamp{pixel_y = 10},/obj/structure/disposalpipe/segment,/obj/item/device/eftpos,/turf/simulated/floor/plasteel{icon_state = "grimy"},/area/chapel/office)
 "beu" = (/obj/structure/table/woodentable,/obj/item/weapon/pen,/obj/item/weapon/reagent_containers/food/drinks/bottle/holywater,/turf/simulated/floor/plasteel{icon_state = "grimy"},/area/chapel/office)
-"bev" = (/obj/structure/table/woodentable,/obj/item/device/soulstone/anybody/chaplain,/obj/item/weapon/nullrod,/turf/simulated/floor/plasteel{icon_state = "grimy"},/area/chapel/office)
+"bev" = (/obj/structure/table/woodentable,/obj/item/weapon/nullrod,/turf/simulated/floor/plasteel{icon_state = "grimy"},/area/chapel/office)
 "bew" = (/obj/machinery/hologram/holopad,/turf/simulated/floor/plasteel{icon_state = "grimy"},/area/chapel/office)
 "bex" = (/obj/machinery/requests_console{department = "Arrival Shuttle"; name = "Arrival Shuttle Requests Console"; pixel_y = -30},/turf/simulated/shuttle/floor,/area/shuttle/arrival/station)
 "bey" = (/obj/structure/shuttle/engine/propulsion{dir = 4; icon_state = "burst_l"},/turf/space,/area/shuttle/arrival/station)
