@@ -406,7 +406,10 @@ var/list/blood_splatter_icons = list()
 /obj/effect/decal/cleanable/blood/footprints/transfer_mob_blood_dna(mob/living/L)
 	..(L)
 	var/list/b_data = L.get_blood_data(L.get_blood_id())
-	basecolor = b_data["blood_color"]
+	if(b_data)
+		basecolor = b_data["blood_color"]
+	else
+		basecolor = "#A10808"
 	update_icon()
 
 //to add blood dna info to the object's blood_DNA list
@@ -438,15 +441,15 @@ var/list/blood_splatter_icons = list()
 /obj/add_blood(list/blood_dna, color)
 	return transfer_blood_dna(blood_dna)
 
-/obj/item/add_blood(list/blood_dna, color)
+/obj/item/add_blood(list/blood_DNA, color)
 	var/blood_count = !blood_DNA ? 0 : blood_DNA.len
 	if(!..())
 		return 0
 	if(!blood_count)//apply the blood-splatter overlay if it isn't already in there
-		add_blood_overlay(blood_DNA, color)
+		add_blood_overlay(color)
 	return 1 //we applied blood to the item
 
-/obj/item/proc/add_blood_overlay(list/blood_dna, color)
+/obj/item/proc/add_blood_overlay(color)
 	if(initial(icon) && initial(icon_state))
 		//try to find a pre-processed blood-splatter. otherwise, make a new one
 		var/index = blood_splatter_index()

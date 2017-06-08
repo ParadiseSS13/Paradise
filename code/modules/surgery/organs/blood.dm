@@ -184,7 +184,10 @@
 		blood_data["blood_type"] = copytext(src.dna.b_type,1,0)
 		blood_data["gender"] = gender
 		blood_data["real_name"] = real_name
-		blood_data["blood_color"] = species.blood_color
+		if(species.blood_color)
+			blood_data["blood_color"] = species.blood_color
+		else
+			blood_data["blood_color"] = "#A10808"
 		blood_data["factions"] = faction
 		return blood_data
 

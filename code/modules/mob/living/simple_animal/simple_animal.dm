@@ -414,7 +414,7 @@
 		user.changeNext_move(CLICK_CD_MELEE)
 		if(attempt_harvest(O, user))
 			return
-			user.do_attack_animation(src)
+		user.do_attack_animation(src)
 		if(istype(O) && istype(user) && !O.attack(src, user))
 			var/damage = 0
 			if(O.force)

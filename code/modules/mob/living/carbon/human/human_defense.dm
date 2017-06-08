@@ -250,7 +250,7 @@ emp_act
 		I.add_mob_blood(src)	//Make the weapon bloody, not the person.
 //		if(user.hand)	user.update_inv_l_hand()	//updates the attacker's overlay for the (now bloodied) weapon
 //		else			user.update_inv_r_hand()	//removed because weapons don't have on-mob blood overlays
-		if(prob(33))
+		if(prob(I.force * 2)) //blood spatter!
 			bloody = 1
 			var/turf/location = loc
 			if(istype(location, /turf/simulated))
@@ -273,7 +273,16 @@ emp_act
 							ticker.mode.remove_revolutionary(mind)
 
 					if(bloody)//Apply blood
-						add_mob_blood(src)
+						if(wear_mask)
+							wear_mask.add_mob_blood(src)
+							update_inv_wear_mask(0)
+						if(head)
+							head.add_mob_blood(src)
+							update_inv_head(0,0)
+						if(glasses && prob(33))
+							glasses.add_mob_blood(src)
+							update_inv_glasses(0)
+
 
 				if("upper body")//Easier to score a stun but lasts less time
 					if(stat == CONSCIOUS && I.force && prob(I.force + 10))
@@ -282,7 +291,13 @@ emp_act
 						apply_effect(5, WEAKEN, armor)
 
 					if(bloody)
-						bloody_body(src)
+						if(wear_suit)
+							wear_suit.add_mob_blood(src)
+							update_inv_wear_suit(0)
+						if(w_uniform)
+							w_uniform.add_mob_blood(src)
+							update_inv_w_uniform(0)
+
 
 
 	if(Iforce > 10 || Iforce >= 5 && prob(33))
