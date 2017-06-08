@@ -1,0 +1,4 @@
+author: "Alexshreds"
+delete-after: True
+changes: 
+  - bugfix: "Hyphema and Ocular Restoration are now possible to evolve from viruses"
