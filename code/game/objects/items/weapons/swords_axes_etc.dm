@@ -56,7 +56,7 @@
 					if(H.check_shields(0, "[user]'s [name]", src, MELEE_ATTACK))
 						return 0
 				playsound(get_turf(src), 'sound/effects/woodhit.ogg', 75, 1, -1)
-				target.Weaken(3)
+				target.Weaken(2)
 				add_logs(user, target, "stunned", object="[src]")
 				src.add_fingerprint(user)
 				target.visible_message("<span class ='danger'>[user] has knocked down [target] with \the [src]!</span>", \
