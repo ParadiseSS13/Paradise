@@ -95,36 +95,40 @@
 //do the monkey dance
 /datum/teleport/proc/doTeleport()
 
-	var/turf/destturf
+	var/atom/dest
 	var/turf/curturf = get_turf(teleatom)
 	var/area/destarea = get_area(destination)
-	if(precision)
+	if(precision && isturf(destination))
 		var/list/posturfs = list()
 		var/center = get_turf(destination)
 		if(!center)
 			center = destination
 		for(var/turf/T in range(precision,center))
 			posturfs.Add(T)
-		destturf = safepick(posturfs)
+		dest = safepick(posturfs)
 	else
-		destturf = get_turf(destination)
+		dest = destination
 
-	if(!destturf || !curturf)
+	if(!dest || !curturf)
 		return 0
 
 	playSpecials(curturf,effectin,soundin)
 
 	if(force_teleport)
-		teleatom.forceMove(destturf)
-		playSpecials(destturf,effectout,soundout)
+		teleatom.forceMove(dest)
+		playSpecials(dest,effectout,soundout)
 	else
-		if(teleatom.Move(destturf))
-			playSpecials(destturf,effectout,soundout)
+		if(teleatom.Move(dest))
+			playSpecials(dest,effectout,soundout)
 
 	if(isliving(teleatom))
 		var/mob/living/L = teleatom
 		if(L.buckled)
 			L.buckled.unbuckle_mob()
+
+	if(iscarbon(dest))
+		var/mob/living/carbon/C = dest
+		C.stomach_contents += teleatom
 
 	destarea.Entered(teleatom)
 
