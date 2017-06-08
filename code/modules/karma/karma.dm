@@ -191,7 +191,7 @@ var/list/karma_spenders = list()
 	if(!can_give_karma_to_mob(M))
 		return
 
-	M.client.karmacharge(1)
+	M.client.karmatrah(1,0,M.client)
 	to_chat(usr, "[M.name] lost his bit of karma. You should be really proud of yourself.")
 	client.karma_spent = 1
 	karma_spenders += ckey
@@ -415,6 +415,27 @@ You've gained <b>[totalkarma]</b> total karma in your time here.<br>"}
 		else
 			to_chat(usr, "You have been [refund ? "refunded" : "charged"] [cost] karma.")
 			message_admins("[key_name(usr)] has been [refund ? "refunded" : "charged"] [cost] karma.")
+			return
+			
+/client/proc/karmatrah(var/cost,var/refund = 0, var/client/C)
+	var/DBQuery/query = dbcon.NewQuery("SELECT * FROM [format_table_name("karmatotals")] WHERE byondkey='[C.ckey]'")
+	query.Execute()
+
+	while(query.NextRow())
+		var/spent = text2num(query.item[4])
+		if(refund)
+			spent -= cost
+		else
+			spent += cost
+		query = dbcon.NewQuery("UPDATE [format_table_name("karmatotals")] SET karmaspent=[spent] WHERE byondkey='[C.ckey]'")
+		if(!query.Execute())
+			var/err = query.ErrorMsg()
+			log_game("SQL ERROR during karmaspent updating (updating existing entry). Error: \[[err]\]\n")
+			message_admins("SQL ERROR during karmaspent updating (updating existing entry). Error: \[[err]\]\n")
+			return
+		else
+			to_chat(usr, "You have been [refund ? "refunded" : "charged"] [cost] karma.")
+			message_admins("[key_name(C)] has been [refund ? "refunded" : "charged"] [cost] karma.")
 			return
 /*
 /client/proc/karmarefund(var/type,var/name,var/cost)
