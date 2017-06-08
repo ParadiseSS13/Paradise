@@ -962,6 +962,45 @@ var/list/ventcrawl_machinery = list(/obj/machinery/atmospherics/unary/vent_pump,
 /mob/living/carbon/proc/eat(var/obj/item/weapon/reagent_containers/food/toEat, mob/user, var/bitesize_override)
 	if(!istype(toEat))
 		return 0
+
+	var/skip_check = 0
+	//skip the check if:
+	if(istype(toEat, /obj/item/weapon/reagent_containers/food/pill/patch))
+		//the item being fed is a patch (they typically aren't applied to the mouth anyways)
+		skip_check = 1
+
+	if(!skip_check)
+		var/covered = 0
+		var/snowflek = 0
+		if(head && (head.flags_cover & HEADCOVERSMOUTH))
+			if(istype(head, /obj/item/clothing/head/helmet/space/eva/plasmaman))
+				snowflek = 1
+			else
+				covered = 1
+		if(wear_mask && (wear_mask.flags_cover & MASKCOVERSMOUTH) && !wear_mask.mask_adjusted)
+			if(snowflek)
+				if(!istype(wear_mask, /obj/item/clothing/mask/breath))
+					covered = 1
+			else
+				covered = 1
+		if(covered)
+			if(user == src)
+				to_chat(user, "<span class='warning'>Your mouth is covered, preventing you from ingesting [toEat]!</span>")
+			else
+				if(prob(5) && !istype(toEat, /obj/item/weapon/reagent_containers/food/drinks))	//don't annoy them with a drink, but do annoy them with food and pills (5% chance)
+					var/list/possible_quips = list("CHOO CHOO! Here comes the train! Open the tunnel!",
+													"NNNEEEARRROW! Here comes the airplane! Open the hanger!",
+													"This is NTV DELICIOUS, requesting permission to dock. Clear the docking zone.",
+													"LET ME FEED YOU!",
+													"There are starving children in the Epsilon Indi system, so eat up!")
+					if(istype(toEat, /obj/item/weapon/reagent_containers/food/pill))
+						possible_quips -= "LET ME FEED YOU!"
+						possible_quips += "TAKE YOUR MEDICINE!"
+					user.say(pick(possible_quips))
+				visible_message("<span class='warning'>[user] pushes [toEat] into the face of [src], but their mouth is covered!</span>")
+			return 0
+
+
 	var/fullness = nutrition + 10
 	if(istype(toEat, /obj/item/weapon/reagent_containers/food/snacks))
 		for(var/datum/reagent/consumable/C in reagents.reagent_list) //we add the nutrition value of what we're currently digesting
