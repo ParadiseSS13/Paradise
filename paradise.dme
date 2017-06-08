@@ -1138,6 +1138,7 @@
 #include "code\modules\client\client defines.dm"
 #include "code\modules\client\client procs.dm"
 #include "code\modules\client\message.dm"
+#include "code\modules\client\view.dm"
 #include "code\modules\client\preference\preferences.dm"
 #include "code\modules\client\preference\preferences_mysql.dm"
 #include "code\modules\client\preference\preferences_spawnpoints.dm"
