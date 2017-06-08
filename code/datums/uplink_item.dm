@@ -248,7 +248,23 @@ var/list/uplink_items = list()
 	item = /obj/item/weapon/storage/box/syndie_kit/boolets
 	cost = 6
 	job = list("Bartender")
+	
+/datum/uplink_item/jobspecific/shotchop
+	name = "SG AX3"
+	desc = "A modified tube fed semi-automatic combat shotgun with reinforced heat shielding. With an axe on the end. A shotgun axe. What could be more awesome?"
+	reference = "SAXEH"
+	item = /obj/item/weapon/gun/projectile/shotgun/automatic/axe
+	cost = 15
+	surplus = 0
+	hijack_only = 1 //This is a murderbone weapon, as such, it should only be available in those scenarios.
 
+/datum/uplink_item/jobspecific/buckloader
+	name = "Speed Loader - 12g Buckshot"
+	desc = "Speed Loader with 12g Buckshot shells for tube fed shotguns."
+	reference = "12BUCKH"
+	item = /obj/item/ammo_box/shotgun/buck
+	cost = 5
+	hijack_only = 1 //This is a murderbone weapon's ammo, as such, it should only be available in those scenarios.
 
 //Barber
 
@@ -371,6 +387,14 @@ var/list/uplink_items = list()
 	desc = "A small, easily concealable handgun that uses 10mm auto rounds in 8-round magazines and is compatible with suppressors."
 	item = /obj/item/weapon/gun/projectile/automatic/pistol
 	cost = 4
+
+/datum/uplink_item/dangerous/shotchop
+	name = "SG AX3"
+	desc = "A modified tube fed semi-automatic combat shotgun with reinforced heat shielding. With an axe on the end. A shotgun axe. What could be more awesome?"
+	reference = "SAXE"
+	item = /obj/item/weapon/gun/projectile/shotgun/automatic/axe
+	cost = 15
+	surplus = 0
 
 /datum/uplink_item/dangerous/revolver
 	name = "Syndicate .357 Revolver"
@@ -622,6 +646,27 @@ var/list/uplink_items = list()
 	reference = "357"
 	item = /obj/item/ammo_box/a357
 	cost = 4
+
+/datum/uplink_item/ammo/buckloader
+	name = "Speed Loader - 12g Buckshot"
+	desc = "Speed Loader with 12g Buckshot shells for tube fed shotguns."
+	reference = "12BUCK"
+	item = /obj/item/ammo_box/shotgun/buck
+	cost = 2
+
+/datum/uplink_item/ammo/breathloader
+	name = "Speed Loader - 12g Dragon's Breath"
+	desc = "Speed Loader with 12g Dragon's Breath shells for tube fed shotguns."
+	reference = "12BREATH"
+	item = /obj/item/ammo_box/shotgun/dragonsbreath
+	cost = 2
+
+/datum/uplink_item/ammo/slugloader
+	name = "Speed Loader - 12g Slugs"
+	desc = "Speed Loader with 12g Slug shells for tube fed shotguns."
+	reference = "12SLUG"
+	item = /obj/item/ammo_box/shotgun
+	cost = 2
 
 /datum/uplink_item/ammo/smg
 	name = "Magazine - .45"

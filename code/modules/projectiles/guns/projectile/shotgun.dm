@@ -175,6 +175,18 @@
 	mag_type = /obj/item/ammo_box/magazine/internal/shot/com
 	w_class = WEIGHT_CLASS_HUGE
 
+/obj/item/weapon/gun/projectile/shotgun/automatic/axe
+	name = "SG AX3"
+	desc = "Its a shotgun. Its an axe. It's a shotgun axe!"
+	icon_state = "axeshotgun"
+	origin_tech = "combat=5;materials=2"
+	mag_type = /obj/item/ammo_box/magazine/internal/shot/com
+	force = 15
+	sharp = 1
+	edge = 1
+	attack_verb = list("chopped", "sliced")
+	w_class = 5
+
 //Dual Feed Shotgun
 
 /obj/item/weapon/gun/projectile/shotgun/automatic/dual_tube
