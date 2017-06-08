@@ -326,7 +326,7 @@ var/list/teleport_runes = list()
 	cultist_desc = "converts a normal crewmember on top of it to the cult. Does not work on mindshielded crew."
 	invocation = "Mah'weyh pleggh at e'ntrath!"
 	icon_state = "3"
-	req_cultists = 2
+	req_cultists = 1
 
 /obj/effect/rune/convert/do_invoke_glow()
 	return
