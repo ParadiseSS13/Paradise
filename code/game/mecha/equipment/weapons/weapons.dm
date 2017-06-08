@@ -77,6 +77,7 @@
 
 /obj/item/mecha_parts/mecha_equipment/weapon/energy/laser/disabler
 	name = "CH-PD Disabler"
+	origin_tech = "combat=3"
 	projectile = /obj/item/projectile/beam/disabler
 	projectiles_per_shot = 2
 	projectile_delay = 1
@@ -104,7 +105,7 @@
 	name = "P-X Tesla Cannon"
 	desc = "A weapon for combat exosuits. Fires bolts of electricity similar to the experimental tesla engine"
 	icon_state = "mecha_laser"
-	origin_tech = "materials=4;combat=5;magnets=4"
+	origin_tech = "materials=4;engineering=4;combat=6;magnets=6"
 	energy_drain = 500
 	projectile = /obj/item/projectile/energy/shock_revolver
 	fire_sound = 'sound/magic/lightningbolt.ogg'
@@ -129,7 +130,7 @@
 	name = "ZFI Immolation Beam Gun"
 	desc = "A weapon for combat exosuits. Fires beams of extreme heat that set targets on fire."
 	icon_state = "mecha_laser"
-	origin_tech = "materials=4;combat=4;magnets=3;plasmatech=2"
+	origin_tech = "materials=4;engineering=4;combat=6;magnets=6"
 	energy_drain = 80
 	projectile = /obj/item/projectile/beam/immolator
 	fire_sound = 'sound/weapons/laser3.ogg'

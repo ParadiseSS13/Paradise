@@ -145,7 +145,7 @@ var/list/karma_spenders = list()
 	karma_diary << "[M.name] ([M.key]) [assigned_role]/[special_role]: [M.client.karma] - [time2text(world.timeofday, "hh:mm:ss")] given by [key]"
 
 	sql_report_karma(src, M)
-/*
+
 /mob/verb/reduce_karma_list()
 	set name = "Reduce Karma"
 	set desc = "Let the gods know whether someone's been really bad. Can only be used once per round."
@@ -191,7 +191,7 @@ var/list/karma_spenders = list()
 	if(!can_give_karma_to_mob(M))
 		return
 
-	M.client.karma -= 1
+	M.client.karmacharge(1)
 	to_chat(usr, "[M.name] lost his bit of karma. You should be really proud of yourself.")
 	client.karma_spent = 1
 	karma_spenders += ckey
@@ -207,7 +207,7 @@ var/list/karma_spenders = list()
 	karma_diary << "[M.name] ([M.key]) [assigned_role]/[special_role]: [M.client.karma] - [time2text(world.timeofday, "hh:mm:ss")] taken away by [key]"
 
 	sql_report_karma(src, M)
-*/
+
 /client/verb/check_karma()
 	set name = "Check Karma"
 	set desc = "Reports how much karma you have accrued."
