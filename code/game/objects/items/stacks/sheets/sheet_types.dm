@@ -237,6 +237,7 @@ var/global/list/datum/stack_recipe/cardboard_recipes = list (
 	new /datum/stack_recipe("folder", /obj/item/weapon/folder),
 	new /datum/stack_recipe("cardboard tube", /obj/item/weapon/c_tube),
 	new /datum/stack_recipe("cardboard box", /obj/structure/closet/cardboard, 4),
+	new/datum/stack_recipe("cardboard cutout", /obj/item/cardboard_cutout, 5),
 )
 
 /obj/item/stack/sheet/cardboard	//BubbleWrap
