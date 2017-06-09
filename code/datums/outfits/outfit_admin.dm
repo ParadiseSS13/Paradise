@@ -1207,5 +1207,5 @@
 	var/obj/item/device/radio/headset/R = H.l_ear
 	if(istype(R))
 		R.flags |= NODROP
-	var/obj/item/weapon/implant/explosive/E = new(H)
-	E.implant(H)
+	var/obj/item/weapon/implant/dust/D = new /obj/item/weapon/implant/dust(H)
+	D.implant(H)
