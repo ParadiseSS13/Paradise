@@ -1,0 +1,4 @@
+author: "Kyep"
+delete-after: True
+changes: 
+  - rscadd: "glowshrooms are now destroyable with two hits from a wirecutter."
