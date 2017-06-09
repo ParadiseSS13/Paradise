@@ -1,0 +1,4 @@
+author: "tigercat2000"
+delete-after: True
+changes: 
+  - rscadd: "You can now zoom in with the Set View Range option in your Preferences tab!"
