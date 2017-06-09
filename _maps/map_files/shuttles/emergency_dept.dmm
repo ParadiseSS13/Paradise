@@ -88,8 +88,8 @@
 "bJ" = (/obj/item/device/radio/intercom{dir = 4; name = "station intercom (General)"; pixel_x = 28},/obj/item/weapon/extinguisher,/turf/simulated/floor/plasteel,/area/shuttle/escape)
 "bK" = (/obj/structure/closet/cardboard,/obj/machinery/light/spot{tag = "icon-tube1 (WEST)"; icon_state = "tube1"; dir = 8},/turf/simulated/floor/plasteel,/area/shuttle/escape)
 "bL" = (/obj/machinery/recharge_station,/turf/simulated/floor/plasteel,/area/shuttle/escape)
-"bM" = (/obj/structure/table,/obj/item/weapon/storage/firstaid/fire,/obj/item/weapon/storage/firstaid/regular{pixel_x = 2; pixel_y = 3},/turf/simulated/floor/plasteel,/area/shuttle/escape)
-"bN" = (/obj/structure/table,/obj/item/weapon/storage/firstaid/o2{layer = 2.8; pixel_x = 4; pixel_y = 6},/obj/item/weapon/storage/firstaid/regular{pixel_x = 2; pixel_y = 6},/obj/item/weapon/storage/firstaid/regular{pixel_x = -2; pixel_y = 4},/obj/item/bodybag/cryobag{pixel_x = 5},/turf/simulated/floor/plasteel,/area/shuttle/escape)
+"bM" = (/obj/structure/table,/obj/item/weapon/storage/firstaid/o2{layer = 2.8; pixel_x = 4; pixel_y = 6},/obj/item/weapon/storage/firstaid/regular{pixel_x = 2; pixel_y = 6},/obj/item/weapon/storage/firstaid/regular{pixel_x = -2; pixel_y = 4},/obj/item/bodybag/cryobag{pixel_x = 5},/obj/item/weapon/storage/firstaid/fire,/obj/item/weapon/storage/firstaid/regular{pixel_x = 2; pixel_y = 3},/turf/simulated/floor/plasteel,/area/shuttle/escape)
+"bN" = (/obj/structure/stool/bed/roller,/turf/simulated/floor/plasteel,/area/shuttle/escape)
 "bO" = (/obj/machinery/sleeper,/obj/machinery/light/spot{tag = "icon-tube1 (EAST)"; icon_state = "tube1"; dir = 4},/turf/simulated/floor/plasteel,/area/shuttle/escape)
 "bP" = (/turf/space,/turf/simulated/shuttle/wall{icon_state = "swall_f5"; dir = 2},/area/shuttle/escape)
 "bQ" = (/obj/structure/window/reinforced{dir = 1},/obj/structure/shuttle/engine/heater,/turf/simulated/floor/plating/airless,/area/shuttle/escape)
@@ -120,7 +120,8 @@ bwaUaUaUaUaUaUaUaUaUaUaUac
 aSaebxbyaBbzbAbBaBbCacaebD
 bEaUaUaUbgbFbGbHbgaUaUbIap
 acaUaUaUbgbFbGbHbgaUaUbJap
-apbKbLbLaJbFbGbHaJbMbNbOap
+apbKbLbLaJbFbGbHaJbNbMbOap
 bPaxbQbQawaeaeaeawbRbRaxbS
 aabPbTbTbSbUbUbUbPbTbTbSaa
 "}
+
