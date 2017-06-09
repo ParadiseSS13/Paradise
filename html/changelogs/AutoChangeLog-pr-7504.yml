@@ -1,4 +1,0 @@
-author: "Kyep"
-delete-after: True
-changes: 
-  - rscadd: "New 'department' shuttle, which can be sent by CC instead of the regular evac shuttle."
