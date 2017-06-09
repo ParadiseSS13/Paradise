@@ -45,7 +45,7 @@
 
 /mob/living/carbon/update_inv_r_hand(ignore_cuffs)
 	if(handcuffed && !ignore_cuffs)
-		drop_r_hand()
+		unEquip(r_hand, 1)
 		return
 	if(r_hand)
 		if(client && hud_used && hud_used.hud_version != HUD_STYLE_NOHUD)
@@ -54,7 +54,7 @@
 
 /mob/living/carbon/update_inv_l_hand(ignore_cuffs)
 	if(handcuffed && !ignore_cuffs)
-		drop_l_hand()
+		unEquip(l_hand, 1)
 		return
 	if(l_hand)
 		if(client && hud_used && hud_used.hud_version != HUD_STYLE_NOHUD)

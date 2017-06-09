@@ -963,18 +963,15 @@ var/global/list/damage_icon_parts = list()
 		else
 			standing = image("icon" = 'icons/mob/suit.dmi', "icon_state" = "[wear_suit.icon_state]")
 
-
 		if(wear_suit.breakouttime)
-			drop_l_hand()
-			drop_r_hand()
-
+			unEquip(l_hand, 1)
+			unEquip(r_hand, 1)
 
 		if(wear_suit.blood_DNA)
 			var/obj/item/clothing/suit/S = wear_suit
 			var/image/bloodsies = image("icon" = species.blood_mask, "icon_state" = "[S.blood_overlay_type]blood")
 			bloodsies.color = wear_suit.blood_color
 			standing.overlays	+= bloodsies
-
 
 		overlays_standing[SUIT_LAYER]	= standing
 

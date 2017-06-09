@@ -316,14 +316,22 @@
 			uniform.attackby(W,src)
 		else
 			to_chat(src, "<span class='warning'>You are trying to equip this item to an unsupported inventory slot. Report this to a coder!</span>")
-			return
+
+/mob/living/carbon/human/put_in_l_hand(var/obj/item/W)
+	if(!get_limb_by_name("l_hand"))
+		return 0
+	..()
+
+/mob/living/carbon/human/put_in_r_hand(var/obj/item/W)
+	if(!get_limb_by_name("r_hand"))
+		return 0
+	..()
 
 /mob/living/carbon/human/put_in_hands(obj/item/W)
 	if(!W)		return 0
 	if(put_in_active_hand(W))			return 1
 	else if(put_in_inactive_hand(W))	return 1
-	else
-		..()
+	return 0
 
 // Return the item currently in the slot ID
 /mob/living/carbon/human/get_item_by_slot(slot_id)

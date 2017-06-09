@@ -44,7 +44,8 @@
 	layer = 19
 
 /obj/screen/drop/Click()
-	usr.drop_item_v()
+	if(!usr.stat == CONSCIOUS && isturf(loc))
+		usr.drop_item()
 
 /obj/screen/grab
 	name = "grab"

@@ -131,11 +131,20 @@
 	if(owner)
 		if(owner.gloves)
 			owner.unEquip(owner.gloves)
-		if(owner.l_hand)
-			owner.unEquip(owner.l_hand,1)
-		if(owner.r_hand)
-			owner.unEquip(owner.r_hand,1)
 
+		var/obj/itm
+		if(istype(src, /obj/item/organ/external/hand/right))
+			itm = owner.r_hand
+			if(owner.unEquip(owner.r_hand, 1))
+				if(!(initial(itm.flags) & NODROP))
+					itm.flags ^= NODROP
+			owner.unEquip(owner.l_hand,0)
+		else
+			itm = owner.l_hand
+			if(owner.unEquip(owner.l_hand, 1))
+				if(!(initial(itm.flags) & NODROP))
+					itm.flags ^= NODROP
+			owner.unEquip(owner.r_hand,0)
 	. = ..()
 
 /obj/item/organ/external/hand/right

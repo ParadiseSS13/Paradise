@@ -1004,9 +1004,9 @@ var/list/slot_equipment_priority = list( \
 	if(restrained())					return 0
 	return 1
 
-/mob/proc/fall(var/forced)
-	drop_l_hand()
-	drop_r_hand()
+/mob/proc/fall(var/forced) // Assume this is used in an override?
+	unEquip(l_hand, 0)
+	unEquip(l_hand, 0)
 
 /mob/proc/facedir(ndir)
 	if(!canface())

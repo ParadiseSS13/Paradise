@@ -104,8 +104,9 @@
 			standing.overlays	+= image("icon" = 'icons/effects/blood.dmi', "icon_state" = "[t_suit]blood")
 
 		if(wear_suit.breakouttime)
-			drop_r_hand()
-			drop_l_hand()
+			unEquip(l_hand, 1)
+			unEquip(r_hand, 1)
+
 
 		overlays_standing[X_SUIT_LAYER]	= standing
 	else
