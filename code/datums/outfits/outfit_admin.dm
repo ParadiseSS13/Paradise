@@ -1200,8 +1200,12 @@
 	if(istype(I))
 		apply_to_card(I, H, get_all_accesses(), "Dark Priest", "syndie")
 	var/obj/item/weapon/nullrod/armblade/B = H.r_hand
-	B.force = 20
-	B.name = "blessing of the reaper"
-	B.desc = "Sometimes, someone's just gotta die."
+	if(istype(B))
+		B.force = 20
+		B.name = "blessing of the reaper"
+		B.desc = "Sometimes, someone's just gotta die."
+	var/obj/item/device/radio/headset/R = H.l_ear
+	if(istype(R))
+		R.flags |= NODROP
 	var/obj/item/weapon/implant/explosive/E = new(H)
 	E.implant(H)

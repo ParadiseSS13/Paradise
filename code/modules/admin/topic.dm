@@ -1881,6 +1881,7 @@
 				N.mode = 2
 				N.target = H
 				N.point_at(N.target)
+				N.flags |= NODROP
 				var/datum/objective/assassinate/kill_objective = new
 				kill_objective.owner = priest_mind
 				kill_objective.target = H.mind
