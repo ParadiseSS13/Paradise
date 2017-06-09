@@ -1,5 +1,0 @@
-author: "Fox McCloud"
-delete-after: True
-changes: 
-  - rscdel: "Remove adrenaline and freedom implants from R&D"
-  - rscadd: "Added chem and tracking implants to R&D"
