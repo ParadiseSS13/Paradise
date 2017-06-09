@@ -42,7 +42,6 @@
 	materials = list(MAT_METAL = 30000, MAT_GLASS = 5000)
 	origin_tech = "engineering=4;materials=2"
 	var/datum/effect/system/spark_spread/spark_system
-	var/cooldown //Waiting for something to complete?
 	var/lastused
 	var/iconrotation = 0 //used to orient icons and pipes
 	var/mode = 1 //Disposals, atmospherics, etc.
@@ -233,6 +232,7 @@ var/list/pipemenu = list(
 			if(istype(W, /obj/item/pipe) || istype(W, /obj/item/pipe_meter) || istype(W, /obj/item/pipe_gsensor) || istype(W, /obj/structure/disposalconstruct) && !W.anchored)
 				QDEL_NULL(W)
 				eaten = TRUE
+				..()
 		if(eaten)
 			to_chat(user, "<span class='notice'>[src] sucks up the loose pipes on [T].")
 			Activaterpd()
