@@ -157,10 +157,10 @@
 		log_message("Toggled zoom mode.")
 		occupant_message("<font color='[zoom?"blue":"red"]'>Zoom mode [zoom?"en":"dis"]abled.</font>")
 		if(zoom)
-			occupant.client.view = 12
+			occupant.client.AddViewMod("mecha", 12)
 			to_chat(occupant, sound('sound/mecha/imag_enh.ogg',volume=50))
 		else
-			occupant.client.view = initial(occupant.client.view)
+			occupant.client.RemoveViewMod("mecha")
 
 
 
