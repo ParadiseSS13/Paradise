@@ -1,0 +1,4 @@
+author: "Alexshreds"
+delete-after: True
+changes: 
+  - tweak: "Taking mhelps no longer gives mhelping players your IC name"
