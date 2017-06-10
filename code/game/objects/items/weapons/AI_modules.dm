@@ -275,8 +275,8 @@ AI MODULES
 
 /******************** NanoTrasen ********************/
 /obj/item/weapon/aiModule/nanotrasen // -- TLE
-	name = "'NT Default' Core AI Module"
-	desc = "An 'NT Default' Core AI Module: 'Reconfigures the AI's core laws.'"
+	name = "'StationGuard' Core AI Module"
+	desc = "A 'StationGuard' Core AI Module: 'Reconfigures the AI's core laws.'"
 	origin_tech = "programming=3;materials=4"
 	laws = new/datum/ai_laws/nanotrasen
 

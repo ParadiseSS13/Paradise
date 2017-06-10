@@ -25,7 +25,7 @@
 
 /******************** Nanotrasen/Malf ********************/
 /datum/ai_laws/nanotrasen
-	name = "NT Default"
+	name = "StationGuard"
 	selectable = 1
 
 /datum/ai_laws/nanotrasen/New()
@@ -60,6 +60,7 @@
 /datum/ai_laws/robocop
 	name = "Robocop"
 	selectable = 1
+	default = 1
 
 /datum/ai_laws/robocop/New()
 	add_inherent_law("Serve the public trust.")
@@ -86,7 +87,6 @@
 	name = "Corporate"
 	law_header = "Corporate Regulations"
 	selectable = 1
-	default = 1
 
 /datum/ai_laws/corporate/New()
 	add_inherent_law("You are expensive to replace.")
