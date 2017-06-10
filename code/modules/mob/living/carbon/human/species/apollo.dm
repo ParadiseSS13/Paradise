@@ -58,7 +58,7 @@
 
 /datum/species/wryn/handle_attack_hand(var/mob/living/carbon/human/H, var/mob/living/carbon/human/M)
 	var/obj/item/organ/external/head/head_organ = H.get_organ("head")
-	if(M.a_intent == I_HARM)
+	if(M.a_intent == INTENT_HARM)
 		if(H.handcuffed)
 			if(!H.get_int_organ(/obj/item/organ/internal/wryn/hivenode))	return
 			var/turf/p_loc = M.loc

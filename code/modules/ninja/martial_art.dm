@@ -162,7 +162,7 @@
 	if(!istype(A, /mob/living/carbon/human)) // Special moves only work on humans.
 		user.pointed(A)
 		return 0
-	if(user.a_intent == "help") // No special move for help intent.
+	if(user.a_intent == INTENT_HELP) // No special move for help intent.
 		user.pointed(A)
 		return 0
 	if(!(A in range(1,user))) // Is the target within one tile of us?
@@ -173,10 +173,10 @@
 	var/mob/living/carbon/human/target = A
 
 	switch(user.a_intent)
-		if("disarm")
+		if(INTENT_DISARM)
 			user_martial_art.wrist_wrench(user, target)
-		if("grab")
+		if(INTENT_GRAB)
 			user_martial_art.choke_hold(user, target)
-		if("harm")
+		if(INTENT_HARM)
 			user_martial_art.palm_strike(user, target)
 	return 1
