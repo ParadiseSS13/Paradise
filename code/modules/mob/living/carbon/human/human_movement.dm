@@ -47,12 +47,12 @@
 		if(T.footstep_sounds["human"])
 			var/S = pick(T.footstep_sounds["human"])
 			if(S)
-				if(m_intent == "run")
+				if(m_intent == MOVE_INTENT_RUN)
 					if(!(step_count % 2)) //every other turf makes a sound
 						return 0
 
 				var/range = -(world.view - 2)
-				if(m_intent == "walk")
+				if(m_intent == MOVE_INTENT_WALK)
 					range -= 0.333
 				if(!shoes)
 					range -= 0.333
@@ -65,7 +65,7 @@
 					//-(7 - 2) = (-5) = -5 | -5 - (0.333 * 2) = -5.666 | (7 + -5.666) = 1.334 | 1.334 * 3 = 4.002 | range(4.002) = range(4)
 
 				var/volume = 13
-				if(m_intent == "walk")
+				if(m_intent == MOVE_INTENT_WALK)
 					volume -= 4
 				if(!shoes)
 					volume -= 4

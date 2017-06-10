@@ -76,7 +76,7 @@
 	var/intent = null//Living
 	var/shakecamera = 0
 	var/a_intent = INTENT_HELP//Living
-	var/m_intent = "run"//Living
+	var/m_intent = MOVE_INTENT_RUN//Living
 	var/lastKnownIP = null
 	var/atom/movable/buckled = null//Living
 	var/obj/item/l_hand = null//Living
@@ -196,5 +196,5 @@
 	var/list/permanent_huds = list()
 
 	var/list/actions = list()
-	
+
 	var/list/progressbars = null	//for stacking do_after bars

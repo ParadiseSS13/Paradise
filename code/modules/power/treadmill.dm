@@ -70,11 +70,11 @@
 				// a reasonable approximation of movement speed
 				var/mob_speed = M.movement_delay()
 				switch(M.m_intent)
-					if("run")
+					if(MOVE_INTENT_RUN)
 						if(M.drowsyness > 0)
 							mob_speed += 6
 						mob_speed += config.run_speed - 1
-					if("walk")
+					if(MOVE_INTENT_WALK)
 						mob_speed += config.walk_speed - 1
 				mob_speed = BASE_MOVE_DELAY / max(1, BASE_MOVE_DELAY + mob_speed)
 				speed = min(speed + inertia * mob_speed, mob_speed)

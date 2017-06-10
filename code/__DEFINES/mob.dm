@@ -97,6 +97,10 @@
 #define INTENT_GRAB		"grab"
 #define INTENT_HARM		"harm"
 
+// Movement Intents
+#define MOVE_INTENT_WALK "walk"
+#define MOVE_INTENT_RUN  "run"
+
 // AI wire/radio settings
 #define AI_CHECK_WIRELESS 1
 #define AI_CHECK_RADIO 2
