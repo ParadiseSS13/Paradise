@@ -88,6 +88,7 @@ CREATE TABLE `SS13_characters` (
   `socks` mediumtext NOT NULL,
   `body_accessory` mediumtext NOT NULL,
   `gear` mediumtext NOT NULL,
+  `autohiss` tinyint(1) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=18747 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -264,7 +265,7 @@ CREATE TABLE `SS13_player` (
   `UI_style` varchar(10) DEFAULT 'Midnight',
   `UI_style_color` varchar(7) DEFAULT '#ffffff',
   `UI_style_alpha` smallint(4) DEFAULT '255',
-  `be_role` mediumtext NOT NULL,
+  `be_role` mediumtext,
   `default_slot` smallint(4) DEFAULT '1',
   `toggles` mediumint(8) DEFAULT '383',
   `sound` mediumint(8) DEFAULT '31',

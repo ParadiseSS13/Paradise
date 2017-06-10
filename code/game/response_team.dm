@@ -104,7 +104,7 @@ var/ert_request_answered = 0
 	active_team = response_team_type
 
 	send_emergency_team = 1
-	var/list/ert_candidates = pollCandidates("Join the Emergency Response Team?",, responseteam_age, 600, 1)
+	var/list/ert_candidates = pollCandidates("Join the Emergency Response Team?",, responseteam_age, 600, 1, role_playtime_requirements[ROLE_ERT])
 	if(!ert_candidates.len)
 		active_team.cannot_send_team()
 		send_emergency_team = 0
@@ -194,6 +194,8 @@ var/ert_request_answered = 0
 		ticker.minds += M.mind //Adds them to regular mind list.
 	ticker.mode.ert += M.mind
 	M.forceMove(spawn_location)
+
+	job_master.CreateMoneyAccount(M, class, null)
 
 	active_team.equip_officer(class, M)
 
@@ -332,6 +334,8 @@ var/ert_request_answered = 0
 	W.name = "[H.real_name]'s ID Card ([rt_job])"
 	W.access = get_centcom_access(W.assignment)
 	W.photo = get_id_photo(H)
+	if(H.mind && H.mind.initial_account && H.mind.initial_account.account_number)
+		W.associated_account_number = H.mind.initial_account.account_number
 
 /datum/outfit/job/centcom/response_team/imprint_pda(mob/living/carbon/human/H)
 	var/obj/item/device/pda/PDA = H.wear_pda

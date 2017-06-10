@@ -109,7 +109,7 @@
 
 ///////////OFFHAND///////////////
 /obj/item/weapon/twohanded/offhand
-	w_class = 5
+	w_class = WEIGHT_CLASS_HUGE
 	icon_state = "offhand"
 	name = "offhand"
 	flags = ABSTRACT
@@ -123,7 +123,7 @@
 ///////////Two hand required objects///////////////
 //This is for objects that require two hands to even pick up
 /obj/item/weapon/twohanded/required/
-	w_class = 5
+	w_class = WEIGHT_CLASS_HUGE
 
 /obj/item/weapon/twohanded/required/attack_self()
 	return
@@ -163,7 +163,7 @@
 	throwforce = 15
 	sharp = 1
 	edge = 1
-	w_class = 4
+	w_class = WEIGHT_CLASS_BULKY
 	slot_flags = SLOT_BACK
 	force_unwielded = 5
 	force_wielded = 24
@@ -199,13 +199,13 @@
 	throwforce = 5.0
 	throw_speed = 1
 	throw_range = 5
-	w_class = 2
+	w_class = WEIGHT_CLASS_SMALL
 	force_unwielded = 3
 	force_wielded = 34
 	wieldsound = 'sound/weapons/saberon.ogg'
 	unwieldsound = 'sound/weapons/saberoff.ogg'
 	armour_penetration = 35
-	origin_tech = "magnets=3;syndicate=4"
+	origin_tech = "magnets=4;syndicate=5"
 	attack_verb = list("attacked", "slashed", "stabbed", "sliced", "torn", "ripped", "diced", "cut")
 	block_chance = 75
 	sharp = 1
@@ -286,7 +286,7 @@
 	name = "spear"
 	desc = "A haphazardly-constructed yet still deadly weapon of ancient design."
 	force = 10
-	w_class = 4
+	w_class = WEIGHT_CLASS_BULKY
 	slot_flags = SLOT_BACK
 	force_unwielded = 10
 	force_wielded = 18
@@ -433,7 +433,7 @@
 	flags = CONDUCT
 	force = 13
 	var/force_on = 21
-	w_class = 5
+	w_class = WEIGHT_CLASS_HUGE
 	throwforce = 13
 	throw_speed = 2
 	throw_range = 4
@@ -490,7 +490,7 @@
 	throwforce = 15
 	throw_speed = 1
 	throw_range = 5
-	w_class = 4 // can't fit in backpacks
+	w_class = WEIGHT_CLASS_BULKY // can't fit in backpacks
 	force_unwielded = 15 //still pretty robust
 	force_wielded = 40  //you'll gouge their eye out! Or a limb...maybe even their entire body!
 	wieldsound = 'sound/weapons/chainsawstart.ogg'
@@ -545,9 +545,9 @@
 	force_wielded = 20
 	throwforce = 15
 	throw_range = 1
-	w_class = 5
+	w_class = WEIGHT_CLASS_HUGE
 	var/charged = 5
-	origin_tech = "combat=5;bluespace=4"
+	origin_tech = "combat=4;bluespace=4;plasmatech=7"
 
 /obj/item/weapon/twohanded/singularityhammer/New()
 	..()
@@ -610,9 +610,9 @@
 	force_wielded = 25
 	throwforce = 30
 	throw_range = 7
-	w_class = 5
+	w_class = WEIGHT_CLASS_HUGE
 	//var/charged = 5
-	origin_tech = "combat=5;powerstorage=5"
+	origin_tech = "combat=4;powerstorage=7"
 
 /obj/item/weapon/twohanded/mjollnir/proc/shock(mob/living/target as mob)
 	var/datum/effect/system/spark_spread/s = new /datum/effect/system/spark_spread()
@@ -658,7 +658,7 @@
 	force_wielded = 30
 	throwforce = 15
 	throw_range = 1
-	w_class = 5
+	w_class = WEIGHT_CLASS_HUGE
 	var/charged = 5
 	origin_tech = "combat=5;bluespace=4"
 
@@ -719,7 +719,7 @@
 	throwforce = 15
 	sharp = 1
 	edge = 1
-	w_class = 5
+	w_class = WEIGHT_CLASS_HUGE
 	armour_penetration = 20
 	slot_flags = SLOT_BACK
 	force_unwielded  = 5

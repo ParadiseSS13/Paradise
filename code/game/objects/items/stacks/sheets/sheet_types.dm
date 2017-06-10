@@ -237,6 +237,7 @@ var/global/list/datum/stack_recipe/cardboard_recipes = list (
 	new /datum/stack_recipe("folder", /obj/item/weapon/folder),
 	new /datum/stack_recipe("cardboard tube", /obj/item/weapon/c_tube),
 	new /datum/stack_recipe("cardboard box", /obj/structure/closet/cardboard, 4),
+	new/datum/stack_recipe("cardboard cutout", /obj/item/cardboard_cutout, 5),
 )
 
 /obj/item/stack/sheet/cardboard	//BubbleWrap
@@ -306,7 +307,7 @@ var/global/list/datum/stack_recipe/runed_metal_recipes = list ( \
 	desc = "Someone's been drinking their milk."
 	force = 7
 	throwforce = 5
-	w_class = 3
+	w_class = WEIGHT_CLASS_NORMAL
 	throw_speed = 1
 	throw_range = 3
 	origin_tech = "materials=2;biotech=2"

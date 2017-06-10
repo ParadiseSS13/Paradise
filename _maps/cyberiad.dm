@@ -23,7 +23,7 @@ z7 = empty
         #include "map_files\cyberiad\z7.dmm"
 
         #define MAP_FILE "cyberiad.dmm"
-        #define MAP_NAME "NSS Cyberiad"
+        #define MAP_NAME "Cyberiad"
         #define MAP_TRANSITION_CONFIG list(\
 DECLARE_LEVEL(MAIN_STATION, CROSSLINKED, list(STATION_LEVEL,STATION_CONTACT,REACHABLE,AI_OK)),\
 DECLARE_LEVEL(CENTCOMM, SELFLOOPING, list(ADMIN_LEVEL, BLOCK_TELEPORT, IMPEDES_MAGIC)),\

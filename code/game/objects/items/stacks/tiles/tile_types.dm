@@ -5,7 +5,7 @@
 	icon = 'icons/obj/tiles.dmi'
 	icon_state = "tile"
 	item_state = "tile"
-	w_class = 3
+	w_class = WEIGHT_CLASS_NORMAL
 	force = 1
 	throwforce = 1
 	throw_speed = 5
@@ -99,6 +99,11 @@
 	icon_state = "tile-carpet"
 	turf_type = /turf/simulated/floor/carpet
 	burn_state = FLAMMABLE
+
+/obj/item/stack/tile/carpet/black
+	name = "black carpet"
+	icon_state = "tile-carpet-black"
+	turf_type = /turf/simulated/floor/carpet/black
 
 //Plasteel
 /obj/item/stack/tile/plasteel

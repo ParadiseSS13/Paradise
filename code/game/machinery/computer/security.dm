@@ -120,7 +120,7 @@
 				else
 					security["empty"] = 1
 	return data
-	
+
 /obj/machinery/computer/secure_data/Topic(href, href_list)
 	if(..())
 		return 1
@@ -141,6 +141,12 @@
 					qdel(R)
 				update_all_mob_security_hud()
 				setTemp("<h3>All records deleted.</h3>")
+			if("del_alllogs2")
+				if(cell_logs.len)
+					setTemp("<h3>All cell logs deleted.</h3>")
+					cell_logs.Cut()
+				else
+					to_chat(usr, "<span class='notice'>Error; No cell logs to delete.</span>")
 			if("del_r2")
 				if(active2)
 					qdel(active2)
@@ -254,6 +260,12 @@
 			buttons[++buttons.len] = list("name" = "No", "icon" = "times", "href" = null, "status" = null)
 			setTemp("<h3>Are you sure you wish to delete all records?</h3>", buttons)
 
+		else if(href_list["del_alllogs"])
+			var/list/buttons = list()
+			buttons[++buttons.len] = list("name" = "Yes", "icon" = "check", "href" = "del_alllogs2=1", "status" = null)
+			buttons[++buttons.len] = list("name" = "No", "icon" = "times", "href" = null, "status" = null)
+			setTemp("<h3>Are you sure you wish to delete all cell logs?</h3>", buttons)
+
 		else if(href_list["del_rg"])
 			if(active1)
 				var/list/buttons = list()
@@ -341,6 +353,24 @@
 				if(istype(active1, /datum/data/record) && data_core.general.Find(active1))
 					create_record_photo(active1)
 				printing = 0
+
+		else if(href_list["printlogs"])
+			if(cell_logs.len && !printing)
+				var/obj/item/weapon/paper/P = input(usr, "Select log to print", "Available Cell Logs") as null|anything in cell_logs
+				if(!P)
+					return 0
+				printing = 1
+				playsound(loc, "sound/goonstation/machines/printer_dotmatrix.ogg", 50, 1)
+				to_chat(usr, "<span class='notice'>Printing file [P.name].</span>")
+				sleep(50)
+				var/obj/item/weapon/paper/log = new /obj/item/weapon/paper(loc)
+				log.name = P.name
+				log.info = P.info
+				printing = 0
+				return 1
+			else
+				to_chat(usr, "<span class='notice'>[src] has no logs stored or is already printing.</span>")
+
 
 		else if(href_list["add_c"])
 			if(istype(active2, /datum/data/record))
@@ -454,10 +484,10 @@
 
 /obj/machinery/computer/secure_data/proc/setTemp(text, list/buttons = list())
 	temp = list("text" = text, "buttons" = buttons, "has_buttons" = buttons.len > 0)
-	
-/obj/machinery/computer/secure_data/proc/update_all_mob_security_hud()	
+
+/obj/machinery/computer/secure_data/proc/update_all_mob_security_hud()
 	for(var/mob/living/carbon/human/H in mob_list)
-		H.sec_hud_set_security_status()	
+		H.sec_hud_set_security_status()
 
 /obj/machinery/computer/secure_data/proc/create_record_photo(datum/data/record/R)
 	// basically copy-pasted from the camera code but different enough that it has to be redone

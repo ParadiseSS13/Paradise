@@ -48,7 +48,7 @@
 	var/obj/item/r_hand_obj = null
 	implant_color = "#DE7E00"
 	slot = "brain_antidrop"
-	origin_tech = "materials=5;programming=4;biotech=4"
+	origin_tech = "materials=4;programming=5;biotech=4"
 	actions_types = list(/datum/action/item_action/organ_action/toggle)
 
 /obj/item/organ/internal/cyberimp/brain/anti_drop/ui_action_click()
@@ -126,7 +126,7 @@
 	desc = "This implant will automatically give you back control over your central nervous system, reducing downtime when stunned."
 	implant_color = "#FFFF00"
 	slot = "brain_antistun"
-	origin_tech = "materials=6;programming=4;biotech=5"
+	origin_tech = "materials=5;programming=4;biotech=5"
 
 /obj/item/organ/internal/cyberimp/brain/anti_stun/on_life()
 	..()
@@ -168,7 +168,7 @@
 	var/synthesizing = 0
 	var/poison_amount = 5
 	slot = "stomach"
-	origin_tech = "materials=5;programming=3;biotech=4"
+	origin_tech = "materials=2;powerstorage=2;biotech=2"
 
 /obj/item/organ/internal/cyberimp/chest/nutriment/on_life()
 	if(!owner)
@@ -197,14 +197,14 @@
 	implant_color = "#006607"
 	hunger_threshold = NUTRITION_LEVEL_HUNGRY
 	poison_amount = 10
-	origin_tech = "materials=5;programming=3;biotech=5"
+	origin_tech = "materials=4;powerstorage=3;biotech=3"
 
 /obj/item/organ/internal/cyberimp/chest/reviver
 	name = "Reviver implant"
 	desc = "This implant will attempt to revive you if you lose consciousness. For the faint of heart!"
 	icon_state = "chest_implant"
 	implant_color = "#AD0000"
-	origin_tech = "materials=6;programming=3;biotech=6;syndicate=4"
+	origin_tech = "materials=5;programming=4;biotech=4"
 	slot = "heartdrive"
 	var/revive_cost = 0
 	var/reviving = 0
@@ -249,9 +249,9 @@
 	if(istype(owner, /mob/living/carbon/human))
 		var/mob/living/carbon/human/H = owner
 		if(H.stat != DEAD && prob(50 / severity))
-			H.heart_attack = 1
+			H.set_heartattack(TRUE)
 			spawn(600 / severity)
-				H.heart_attack = 0
+				H.set_heartattack(FALSE)
 				if(H.stat == CONSCIOUS)
 					to_chat(H, "<span class='notice'>You feel your heart beating again!</span>")
 
@@ -338,7 +338,7 @@
 	name = "Arm-cannon laser implant"
 	desc = "A variant of the arm cannon implant that fires lethal laser beams. The cannon emerges from the subject's arms and remains in the shoulders when not in use."
 	icon_state = "armcannon_lase_implant"
-	origin_tech = "materials=5;combat=5;biotech=4;powerstorage=4;syndicate=5"//this is kinda nutty and i might lower it
+	origin_tech = "materials=4;combat=4;biotech=4;powerstorage=4;syndicate=3"
 	actions_types = list(/datum/action/item_action/organ_action/toggle)
 
 /obj/item/organ/internal/cyberimp/chest/arm_mod/lase/New()

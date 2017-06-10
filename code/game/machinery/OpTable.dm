@@ -14,6 +14,7 @@
 	var/obj/machinery/computer/operating/computer = null
 	buckle_lying = 90
 	var/no_icon_updates = 0 //set this to 1 if you don't want the icons ever changing
+	var/list/injected_reagents = list()
 
 /obj/machinery/optable/New()
 	..()
@@ -97,8 +98,18 @@
 		icon_state = "table2-idle"
 	return 0
 
+/obj/machinery/optable/Crossed(atom/movable/AM)
+	. = ..()
+	if(iscarbon(AM) && LAZYLEN(injected_reagents))
+		to_chat(AM, "<span class='danger'>You feel a series of tiny pricks!</span>")
+
 /obj/machinery/optable/process()
 	check_victim()
+	if(LAZYLEN(injected_reagents))
+		for(var/mob/living/carbon/C in get_turf(src))
+			for(var/chemical in injected_reagents)
+				if(C.reagents.get_reagent_amount(chemical) < 1)
+					C.reagents.add_reagent(chemical, 1)
 
 /obj/machinery/optable/proc/take_victim(mob/living/carbon/C, mob/living/carbon/user as mob)
 	if(C == user)

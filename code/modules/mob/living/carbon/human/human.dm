@@ -147,93 +147,6 @@
 /mob/living/carbon/human/stok/New(var/new_loc)
 	..(new_loc, "Stok")
 
-/mob/living/carbon/human/Bump(atom/movable/AM, yes)
-	if(!(yes) || now_pushing || buckled)
-		return 0
-	now_pushing = 1
-	if(ismob(AM))
-		var/mob/tmob = AM
-
-		//BubbleWrap - Should stop you pushing a restrained person out of the way
-		//i still don't get it, is this supposed to be 'bubblewrapping' or was it made by a guy named 'BubbleWrap'
-		if(ishuman(tmob))
-			for(var/mob/M in range(tmob, 1))
-
-				if(tmob.pinned.len || (M.pulling == tmob && (tmob.restrained() && !M.restrained()) && M.stat == CONSCIOUS))
-					if(!(world.time % 5)) //tmob is pinned to wall, or is restrained and pulled by a concious unrestrained human
-						to_chat(src, "<span class='danger'>[tmob] is restrained, you cannot push past.</span>")
-					now_pushing = 0
-					return 0
-
-				//I have to fucking document this somewhere- the above if(tmob.pinned.len || etc) check above had
-				//locate(/obj/item/weapon/grab, tmob.grabbed_by.len)) at the end of it
-				//FIRST OF ALL, THAT IS NOT HOW YOU FUCKING USE LOCATE()
-				//SECOND OF ALL, OH GOD, WHY WOULD YOU EVER WANT GRABBED MOBS TO BE UNABLE TO BE PUSHED PAST GOD
-
-				if(tmob.pulling == M && (M.restrained() && !tmob.restrained()) && tmob.stat == CONSCIOUS)
-					if(!(world.time % 5))
-						to_chat(src, "<span class='danger'>[tmob] is restraining [M], you cannot push past.</span>")
-					now_pushing = 0
-					return 0
-
-		//Leaping mobs just land on the tile, no pushing, no anything.
-		if(status_flags & LEAPING)
-			loc = tmob.loc
-			status_flags &= ~LEAPING
-			now_pushing = 0
-			return
-
-		//BubbleWrap: people in handcuffs are always switched around as if they were on 'help' intent to prevent a person being pulled from being seperated from their puller
-		//it might be 'bubblewrapping' given that this rhymes with 'hugboxing'
-		if((tmob.a_intent == I_HELP || tmob.restrained()) && (a_intent == I_HELP || restrained()))
-			if((canmove && tmob.canmove) && (!tmob.buckled && !tmob.buckled_mob))
-				var/turf/oldloc = loc
-				loc = tmob.loc
-				tmob.loc = oldloc
-				now_pushing = 0
-				for(var/mob/living/carbon/slime/slime in view(1,tmob))
-					if(slime.Victim == tmob)
-						slime.UpdateFeed()
-				return
-
-		if(ishuman(tmob) && (FAT in tmob.mutations))
-			if(prob(40) && !(FAT in src.mutations))
-				to_chat(src, "<span class='danger'>You fail to push [tmob]'s fat ass out of the way.</span>")
-				now_pushing = 0
-				return
-
-
-		//anti-riot equipment is also anti-push
-		if(tmob.r_hand && (prob(tmob.r_hand.block_chance * 2)) && !istype(tmob.r_hand, /obj/item/clothing))
-			now_pushing = 0
-			return
-		if(tmob.l_hand && (prob(tmob.l_hand.block_chance * 2)) && !istype(tmob.l_hand, /obj/item/clothing))
-			now_pushing = 0
-			return
-
-		if(!(tmob.status_flags & CANPUSH))
-			now_pushing = 0
-			return
-
-		tmob.LAssailant = src
-
-	now_pushing = 0
-	spawn(0)
-		..()
-		if(!istype(AM, /atom/movable))
-			return
-		if(!now_pushing)
-			now_pushing = 1
-
-			if(!AM.anchored)
-				var/t = get_dir(src, AM)
-				if(istype(AM, /obj/structure/window/full))
-					for(var/obj/structure/window/win in get_step(AM, t))
-						now_pushing = 0
-						return
-				step(AM, t)
-			now_pushing = 0
-
 /mob/living/carbon/human/Stat()
 	..()
 	statpanel("Status")
@@ -531,6 +444,17 @@
 
 	dat += "<tr><td><B>Head:</B></td><td><A href='?src=[UID()];item=[slot_head]'>[(head && !(head.flags&ABSTRACT)) ? head : "<font color=grey>Empty</font>"]</A></td></tr>"
 
+	var/obj/item/organ/internal/headpocket/C = get_int_organ(/obj/item/organ/internal/headpocket)
+	if(C)
+		if(slot_wear_mask in obscured)
+			dat += "<tr><td><font color=grey>&nbsp;&#8627;<B>Headpocket:</B></font></td><td><font color=grey>Obscured</font></td></tr>"
+		else
+			var/list/items = C.get_contents()
+			if(items.len)
+				dat += "<tr><td>&nbsp;&#8627;<B>Headpocket:</B></td><td><A href='?src=[UID()];dislodge_headpocket=1'>Dislodge Items</A></td></tr>"
+			else
+				dat += "<tr><td>&nbsp;&#8627;<B>Headpocket:</B></td><td><font color=grey>Empty</font></td></tr>"
+
 	if(slot_wear_mask in obscured)
 		dat += "<tr><td><font color=grey><B>Mask:</B></font></td><td><font color=grey>Obscured</font></td></tr>"
 	else
@@ -759,9 +683,9 @@
 		if(species)
 			species_siemens_coeff = species.siemens_coeff
 		siemens_coeff = gloves_siemens_coeff * species_siemens_coeff
-	if(heart_attack)
+	if(undergoing_cardiac_arrest())
 		if(shock_damage * siemens_coeff >= 1 && prob(25))
-			heart_attack = 0
+			set_heartattack(FALSE)
 			if(stat == CONSCIOUS)
 				to_chat(src, "<span class='notice'>You feel your heart beating again!</span>")
 	. = ..()
@@ -825,6 +749,16 @@
 			if(istype(w_uniform, /obj/item/clothing/under))
 				var/obj/item/clothing/under/U = w_uniform
 				U.set_sensors(usr)
+
+		if(href_list["dislodge_headpocket"])
+			usr.visible_message("<span class='danger'>[usr] is trying to remove something from [src]'s head!</span>",
+													"<span class='danger'>You start to dislodge whatever's inside [src]'s headpocket!</span>")
+			if(do_mob(usr, src, POCKET_STRIP_DELAY))
+				usr.visible_message("<span class='danger'>[usr] has dislodged something from [src]'s head!</span>",
+														"<span class='danger'>You have dislodged everything from [src]'s headpocket!</span>")
+				var/obj/item/organ/internal/headpocket/C = get_int_organ(/obj/item/organ/internal/headpocket)
+				C.empty_contents()
+				add_logs(usr, src, "stripped", addition="of headpocket items", print_attack_log=isLivingSSD(src))
 
 		if(href_list["strip_accessory"])
 			if(istype(w_uniform, /obj/item/clothing/under))
@@ -2051,8 +1985,8 @@
 			to_chat(src, "<span class='warning'>Your fingers don't fit in the trigger guard!</span>")
 			return 0
 
-	if(martial_art && martial_art.name == "The Sleeping Carp") //great dishonor to famiry
-		to_chat(src, "<span class='warning'>Use of ranged weaponry would bring dishonor to the clan.</span>")
+	if(martial_art && martial_art.no_guns) //great dishonor to famiry
+		to_chat(src, "<span class='warning'>[martial_art.no_guns_message]</span>")
 		return 0
 
 	return .

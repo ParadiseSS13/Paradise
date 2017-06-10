@@ -9,7 +9,7 @@
 	item_state = "flashbang"
 	var/bomb_state = "chembomb"
 	var/payload_name = null // used for spawned grenades
-	w_class = 2
+	w_class = WEIGHT_CLASS_SMALL
 	force = 2
 	var/prime_sound = 'sound/items/Screwdriver2.ogg'
 	var/stage = EMPTY
@@ -332,7 +332,7 @@
 	bomb_state = "largebomb"
 	allowed_containers = list(/obj/item/weapon/reagent_containers/glass,/obj/item/weapon/reagent_containers/food/condiment,
 								/obj/item/weapon/reagent_containers/food/drinks)
-	origin_tech = "combat=3;materials=3"
+	origin_tech = "combat=3;engineering=3"
 	affected_area = 4
 
 

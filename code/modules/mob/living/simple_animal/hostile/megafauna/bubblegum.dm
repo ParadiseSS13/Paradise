@@ -103,7 +103,7 @@ Difficulty: Hard
 					triple_charge()
 			else
 				spawn(0)
-					warp_charge()			
+					warp_charge()
 
 /mob/living/simple_animal/hostile/megafauna/bubblegum/New()
 	..()
@@ -186,7 +186,7 @@ Difficulty: Hard
 		shake_camera(L, 4, 3)
 		shake_camera(src, 2, 3)
 		var/throwtarget = get_edge_target_turf(src, get_dir(src, get_step_away(L, src)))
-		L.throw_at_fast(throwtarget, 3)
+		L.throw_at(throwtarget, 3)
 
 	charging = 0
 

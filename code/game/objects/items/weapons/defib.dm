@@ -9,7 +9,7 @@
 	slot_flags = SLOT_BACK
 	force = 5
 	throwforce = 6
-	w_class = 4
+	w_class = WEIGHT_CLASS_BULKY
 	origin_tech = "biotech=4"
 	actions_types = list(/datum/action/item_action/toggle_paddles)
 	species_fit = list("Vox")
@@ -112,8 +112,6 @@
 /obj/item/weapon/defibrillator/emp_act(severity)
 	if(bcell)
 		deductcharge(1000 / severity)
-		if(bcell.reliability != 100 && prob(50/severity))
-			bcell.reliability -= 10 / severity
 	if(safety)
 		safety = 0
 		src.visible_message("<span class='notice'>[src] beeps: Safety protocols disabled!</span>")
@@ -206,9 +204,9 @@
 	desc = "A belt-equipped defibrillator that can be rapidly deployed."
 	icon_state = "defibcompact"
 	item_state = "defibcompact"
-	w_class = 3
+	w_class = WEIGHT_CLASS_NORMAL
 	slot_flags = SLOT_BELT
-	origin_tech = "biotech=4"
+	origin_tech = "biotech=5"
 
 /obj/item/weapon/defibrillator/compact/item_action_slot_check(slot, mob/user)
 	if(slot == slot_belt)
@@ -251,7 +249,7 @@
 	item_state = "defibpaddles"
 	force = 0
 	throwforce = 6
-	w_class = 4
+	w_class = WEIGHT_CLASS_BULKY
 	toolspeed = 1
 
 	var/revivecost = 1000
@@ -330,8 +328,8 @@
 			H.updatehealth() //forces health update before next life tick
 			playsound(get_turf(src), 'sound/machines/defib_zap.ogg', 50, 1, -1)
 			H.emote("gasp")
-			if(!H.heart_attack && (prob(10) || defib.combat)) // Your heart explodes.
-				H.heart_attack = 1
+			if(!H.undergoing_cardiac_arrest() && (prob(10) || defib.combat)) // Your heart explodes.
+				H.set_heartattack(TRUE)
 			add_logs(user, M, "stunned", object="defibrillator")
 			defib.deductcharge(revivecost)
 			cooldown = 1
@@ -368,7 +366,7 @@
 								busy = 0
 								update_icon()
 								return
-					if(H.heart_attack)
+					if(H.undergoing_cardiac_arrest())
 						if(!H.get_int_organ(/obj/item/organ/internal/heart) && !H.get_int_organ(/obj/item/organ/internal/brain/slime)) //prevents defibing someone still alive suffering from a heart attack attack if they lack a heart
 							user.visible_message("<span class='boldnotice'>[defib] buzzes: Resuscitation failed - Failed to pick up any heart electrical activity.</span>")
 							playsound(get_turf(src), 'sound/machines/defib_failed.ogg', 50, 0)
@@ -376,7 +374,7 @@
 							update_icon()
 							return
 						else
-							H.heart_attack = 0
+							H.set_heartattack(FALSE)
 							user.visible_message("<span class='boldnotice'>[defib] pings: Cardiac arrhythmia corrected.</span>")
 							M.visible_message("<span class='warning'>[M]'s body convulses a bit.")
 							playsound(get_turf(src), 'sound/machines/defib_zap.ogg', 50, 1, -1)
@@ -446,7 +444,7 @@
 	icon_state = "defibpaddles0"
 	item_state = "defibpaddles0"
 	force = 0
-	w_class = 4
+	w_class = WEIGHT_CLASS_BULKY
 	var/revivecost = 1000
 	var/cooldown = 0
 	var/busy = 0
@@ -474,8 +472,8 @@
 			H.adjustStaminaLoss(50)
 			H.Weaken(5)
 			H.updatehealth() //forces health update before next life tick
-			if(!H.heart_attack && prob(10)) // Your heart explodes.
-				H.heart_attack = 1
+			if(!H.undergoing_cardiac_arrest() && prob(10)) // Your heart explodes.
+				H.set_heartattack(TRUE)
 			playsound(get_turf(src), 'sound/machines/defib_zap.ogg', 50, 1, -1)
 			H.emote("gasp")
 			add_logs(user, M, "stunned", object="defibrillator")

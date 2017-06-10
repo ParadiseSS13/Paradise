@@ -3,8 +3,8 @@
 	desc = "A cube of shining metal, four inches to a side and covered in shallow grooves."
 	icon = 'icons/obj/assemblies.dmi'
 	icon_state = "posibrain"
-	w_class = 3
-	origin_tech = "biotech=3;programming=2"
+	w_class = WEIGHT_CLASS_NORMAL
+	origin_tech = "biotech=3;programming=3;plasmatech=2"
 
 	var/searching = 0
 	var/askDelay = 10 * 60 * 1
@@ -37,7 +37,7 @@
 		silenced = !silenced
 		to_chat(user, "<span class='notice'>You toggle the speaker [silenced ? "off" : "on"].</span>")
 		if(brainmob && brainmob.key)
-			to_chat(brainmob, "<span class='warning'>Your internal speaker has been toggled [silenced ? "off" : "on"].</span>")		
+			to_chat(brainmob, "<span class='warning'>Your internal speaker has been toggled [silenced ? "off" : "on"].</span>")
 
 /obj/item/device/mmi/posibrain/proc/request_player()
 	for(var/mob/dead/observer/O in player_list)
