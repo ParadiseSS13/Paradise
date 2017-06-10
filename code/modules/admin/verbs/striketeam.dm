@@ -98,7 +98,7 @@ var/global/sent_strike_team = 0
 
 /client/proc/create_death_commando(obj/spawn_location, leader_selected = 0)
 	var/mob/living/carbon/human/new_commando = new(spawn_location.loc)
-	var/commando_leader_rank = "Commando Leader"
+	var/commando_leader_rank = "Lead Commando"
 	var/commando_rank = "Commando"
 	var/commando_name = pick(last_names)
 

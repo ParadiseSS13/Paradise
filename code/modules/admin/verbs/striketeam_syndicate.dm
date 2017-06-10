@@ -93,7 +93,7 @@ var/global/sent_syndicate_strike_team = 0
 
 /client/proc/create_syndicate_death_commando(obj/spawn_location, syndicate_leader_selected = 0)
 	var/mob/living/carbon/human/new_syndicate_commando = new(spawn_location.loc)
-	var/syndicate_commando_leader_rank = "Commando Leader"
+	var/syndicate_commando_leader_rank = "Lead Commando"
 	var/syndicate_commando_rank = "Commando"
 	var/syndicate_commando_name = pick(last_names)
 
