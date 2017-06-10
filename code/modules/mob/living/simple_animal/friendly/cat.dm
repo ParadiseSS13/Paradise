@@ -147,12 +147,6 @@
 				walk_to(src,movement_target,0,3)
 
 
-/mob/living/simple_animal/pet/cat/Runtime/make_babies()
-	var/mob/baby = ..()
-	if(baby)
-		children += baby
-		return baby
-
 /mob/living/simple_animal/pet/cat/Proc
 	name = "Proc"
 
