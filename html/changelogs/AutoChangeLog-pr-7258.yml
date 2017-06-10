@@ -1,5 +1,0 @@
-author: "KasparoVy"
-delete-after: True
-changes: 
-  - bugfix: "Adds some sanity checking to the RCS."
-  - bugfix: "The cargo shuttle no longer permits RCS telepads."
