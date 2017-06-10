@@ -363,7 +363,7 @@
 		dat += "<font color='red'>The station is currently undergoing evacuation procedures.</font><br>"
 
 	if(length(job_master.prioritized_jobs))
-		dat += "<font color='green'>The station has flagged these jobs as high priority: "
+		dat += "<font color='lime'>The station has flagged these jobs as high priority: "
 		var/amt = length(job_master.prioritized_jobs)
 		var/amt_count
 		for(var/datum/job/a in job_master.prioritized_jobs)
@@ -422,7 +422,10 @@
 		dat += "<fieldset style='border: 2px solid [color]; display: inline'>"
 		dat += "<legend align='center' style='color: [color]'>[jobcat]</legend>"
 		for(var/datum/job/job in categorizedJobs[jobcat]["jobs"])
-			dat += "<a href='byond://?src=[UID()];SelectedJob=[job.title]'>[job.title] ([job.current_positions]) (Active: [activePlayers[job]])</a><br>"
+			if(job in job_master.prioritized_jobs)
+				dat += "<a href='byond://?src=[UID()];SelectedJob=[job.title]'><font color='lime'><B>[job.title] ([job.current_positions]) (Active: [activePlayers[job]])</B></font></a><br>"
+			else
+				dat += "<a href='byond://?src=[UID()];SelectedJob=[job.title]'>[job.title] ([job.current_positions]) (Active: [activePlayers[job]])</a><br>"
 		dat += "</fieldset><br>"
 
 	dat += "</td></tr></table></center>"
