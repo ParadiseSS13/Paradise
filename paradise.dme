@@ -806,6 +806,7 @@
 #include "code\game\objects\items\weapons\garrote.dm"
 #include "code\game\objects\items\weapons\gift_wrappaper.dm"
 #include "code\game\objects\items\weapons\handcuffs.dm"
+#include "code\game\objects\items\weapons\highlander_swords.dm"
 #include "code\game\objects\items\weapons\holosign.dm"
 #include "code\game\objects\items\weapons\holy_weapons.dm"
 #include "code\game\objects\items\weapons\kitchen.dm"
