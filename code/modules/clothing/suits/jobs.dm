@@ -101,6 +101,30 @@
 		"Vox" = 'icons/mob/species/vox/suit.dmi'
 		)
 
+//Chaplain
+/obj/item/clothing/suit/hooded/monk
+	name = "monk robe"
+	desc = "Wooden board not included."
+	icon_state = "monkrobe"
+	item_state = "monkrobe"
+	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|ARMS|HANDS
+	flags_inv = HIDESHOES|HIDEJUMPSUIT
+	hoodtype = /obj/item/clothing/head/monk_hood
+	allowed = list(/obj/item/weapon/storage/bible, /obj/item/weapon/nullrod, /obj/item/weapon/reagent_containers/food/drinks/bottle/holywater, /obj/item/weapon/storage/fancy/candle_box, /obj/item/candle, /obj/item/weapon/tank/emergency_oxygen)
+
+/obj/item/clothing/suit/witchhunter
+	name = "witchunter garb"
+	desc = "Dosen't weigh the same a a duck."
+	icon_state = "witchhunter"
+	item_state = "witchhunter"
+	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|ARMS
+	allowed = list(/obj/item/weapon/storage/bible, /obj/item/weapon/nullrod, /obj/item/weapon/reagent_containers/food/drinks/bottle/holywater, /obj/item/weapon/storage/fancy/candle_box, /obj/item/candle, /obj/item/weapon/tank/emergency_oxygen)
+
+  //Chef
+  /obj/item/clothing/suit/toggle/chef
+  	name = "chef's apron"
+
+
 //Chef
 /obj/item/clothing/suit/chef
 	name = "chef's apron"
