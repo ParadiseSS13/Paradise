@@ -1985,7 +1985,7 @@
 			to_chat(src, "<span class='warning'>Your fingers don't fit in the trigger guard!</span>")
 			return 0
 
-	if(martial_art && !martial_art.can_use_guns) //great dishonor to famiry
+	if(martial_art && martial_art.no_guns) //great dishonor to famiry
 		to_chat(src, "<span class='warning'>[martial_art.no_guns_message]</span>")
 		return 0
 

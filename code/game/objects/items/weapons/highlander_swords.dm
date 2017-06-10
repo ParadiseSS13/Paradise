@@ -5,7 +5,7 @@
 /datum/martial_art/highlander
 	name = "Highlander Style"
 	deflection_chance = 100
-	can_use_guns = 0
+	no_guns = TRUE
 	no_guns_message = "You'd never stoop so low as to use the weapon of a COWARD!"
 
 
