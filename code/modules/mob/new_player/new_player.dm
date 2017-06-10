@@ -362,6 +362,18 @@
 	else if(shuttle_master.emergency.mode >= SHUTTLE_CALL)
 		dat += "<font color='red'>The station is currently undergoing evacuation procedures.</font><br>"
 
+	if(length(job_master.prioritized_jobs))
+		dat += "<font color='green'>The station has flagged these jobs as high priority: "
+		var/amt = length(job_master.prioritized_jobs)
+		var/amt_count
+		for(var/datum/job/a in job_master.prioritized_jobs)
+			amt_count++
+			if(amt_count != amt)
+				dat += " [a.title], "
+			else
+				dat += " [a.title]. </font><br>"
+
+
 	dat += "Choose from the following open positions:<br><br>"
 
 	var/list/activePlayers = list()
