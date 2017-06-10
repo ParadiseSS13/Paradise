@@ -110,6 +110,7 @@
 /obj/machinery/door_timer/Destroy()
 	QDEL_NULL(Radio)
 	targets.Cut()
+	prisoner = null
 	return ..()
 
 //Main door timer loop, if it's timing and time is >0 reduce time by 1.
