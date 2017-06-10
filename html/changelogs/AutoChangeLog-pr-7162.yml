@@ -1,0 +1,5 @@
+author: "Alffd"
+delete-after: True
+changes: 
+  - rscadd: "Ports Incoming5643's persistence features for Runtime from TG"
+  - rscadd: "Ports additional cat NPC emotes from TG"
