@@ -4,7 +4,7 @@
 	icon_state = "muzzle"
 	item_state = "muzzle"
 	flags_cover = MASKCOVERSMOUTH
-	w_class = 2
+	w_class = WEIGHT_CLASS_SMALL
 	gas_transfer_coefficient = 0.90
 	put_on_delay = 20
 	var/resist_time = 0 //deciseconds of how long you need to gnaw to get rid of the gag, 0 to make it impossible to remove
@@ -24,14 +24,14 @@
 	name = "gag"
 	desc = "Stick this in their mouth to stop the noise."
 	icon_state = "gag"
-	w_class = 1
+	w_class = WEIGHT_CLASS_TINY
 
 /obj/item/clothing/mask/muzzle/tapegag
 	name = "tape gag"
 	desc = "MHPMHHH!"
 	icon_state = "tapegag"
 	item_state = null
-	w_class = 1
+	w_class = WEIGHT_CLASS_TINY
 	resist_time = 150
 	mute = 0
 	species_fit = list("Vox", "Unathi", "Tajaran", "Vulpkanin")
@@ -59,7 +59,7 @@
 	desc = "A sterile mask designed to help prevent the spread of diseases."
 	icon_state = "sterile"
 	item_state = "sterile"
-	w_class = 1
+	w_class = WEIGHT_CLASS_TINY
 	flags_cover = MASKCOVERSMOUTH
 	gas_transfer_coefficient = 0.90
 	permeability_coefficient = 0.01
@@ -109,7 +109,7 @@
 	icon_state = "blueneckscarf"
 	item_state = "blueneckscarf"
 	flags_cover = MASKCOVERSMOUTH
-	w_class = 2
+	w_class = WEIGHT_CLASS_SMALL
 	gas_transfer_coefficient = 0.90
 
 /obj/item/clothing/mask/redscarf
@@ -118,7 +118,7 @@
 	icon_state = "redwhite_scarf"
 	item_state = "redwhite_scarf"
 	flags_cover = MASKCOVERSMOUTH
-	w_class = 2
+	w_class = WEIGHT_CLASS_SMALL
 	gas_transfer_coefficient = 0.90
 
 /obj/item/clothing/mask/greenscarf
@@ -127,7 +127,7 @@
 	icon_state = "green_scarf"
 	item_state = "green_scarf"
 	flags_cover = MASKCOVERSMOUTH
-	w_class = 2
+	w_class = WEIGHT_CLASS_SMALL
 	gas_transfer_coefficient = 0.90
 
 /obj/item/clothing/mask/ninjascarf
@@ -136,7 +136,7 @@
 	icon_state = "ninja_scarf"
 	item_state = "ninja_scarf"
 	flags_cover = MASKCOVERSMOUTH
-	w_class = 2
+	w_class = WEIGHT_CLASS_SMALL
 	gas_transfer_coefficient = 0.90
 
 
@@ -147,7 +147,7 @@
 	item_state = "pig"
 	flags = BLOCKHAIR
 	flags_inv = HIDEFACE
-	w_class = 2
+	w_class = WEIGHT_CLASS_SMALL
 
 
 /obj/item/clothing/mask/horsehead
@@ -157,7 +157,7 @@
 	item_state = "horsehead"
 	flags = BLOCKHAIR
 	flags_inv = HIDEFACE
-	w_class = 2
+	w_class = WEIGHT_CLASS_SMALL
 	var/voicechange = 0
 	var/temporaryname = " the Horse"
 	var/originalname = ""
@@ -247,7 +247,7 @@
 	icon_state = "fawkes"
 	item_state = "fawkes"
 	flags_inv = HIDEFACE
-	w_class = 2
+	w_class = WEIGHT_CLASS_SMALL
 
 /obj/item/clothing/mask/gas/clown_hat/pennywise
 	name = "Pennywise Mask"
@@ -263,7 +263,7 @@
 	desc = "A colorful bandana."
 	flags_inv = HIDEFACE
 	flags_cover = MASKCOVERSMOUTH
-	w_class = 1
+	w_class = WEIGHT_CLASS_TINY
 	slot_flags = SLOT_MASK
 	adjusted_flags = SLOT_HEAD
 	icon_state = "bandbotany"

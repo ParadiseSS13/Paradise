@@ -69,7 +69,7 @@
 				new /obj/item/clothing/suit/hooded/chaplain_hoodie(src)
 				new /obj/item/weapon/card/id/syndicate(src)
 				return
-				
+
 			if("gadgets")
 				new /obj/item/clothing/gloves/color/yellow/power(src)
 				new /obj/item/weapon/pen/sleepy(src)
@@ -88,7 +88,7 @@
 /obj/item/weapon/storage/box/syndie_kit/space
 	name = "Boxed Space Suit and Helmet"
 	can_hold = list(/obj/item/clothing/suit/space/syndicate/black/red, /obj/item/clothing/head/helmet/space/syndicate/black/red)
-	max_w_class = 3
+	max_w_class = WEIGHT_CLASS_NORMAL
 
 /obj/item/weapon/storage/box/syndie_kit/space/New()
 	..()
@@ -99,7 +99,7 @@
 /obj/item/weapon/storage/box/syndie_kit/hardsuit
 	name = "Boxed Blood Red Suit and Helmet"
 	can_hold = list(/obj/item/clothing/suit/space/hardsuit/syndi, /obj/item/clothing/head/helmet/space/hardsuit/syndi)
-	max_w_class = 3
+	max_w_class = WEIGHT_CLASS_NORMAL
 
 /obj/item/weapon/storage/box/syndie_kit/hardsuit/New()
 	..()
@@ -110,7 +110,7 @@
 /obj/item/weapon/storage/box/syndie_kit/elite_hardsuit
 	name = "Boxed Elite Syndicate Hardsuit and Helmet"
 	can_hold = list(/obj/item/clothing/suit/space/hardsuit/syndi/elite, /obj/item/clothing/head/helmet/space/hardsuit/syndi/elite)
-	max_w_class = 3
+	max_w_class = WEIGHT_CLASS_NORMAL
 
 /obj/item/weapon/storage/box/syndie_kit/elite_hardsuit/New()
 	..()
@@ -120,7 +120,7 @@
 /obj/item/weapon/storage/box/syndie_kit/shielded_hardsuit
 	name = "Boxed Shielded Syndicate Hardsuit and Helmet"
 	can_hold = list(/obj/item/clothing/suit/space/hardsuit/shielded/syndi, /obj/item/clothing/head/helmet/space/hardsuit/shielded/syndi)
-	max_w_class = 4
+	max_w_class = WEIGHT_CLASS_BULKY
 
 /obj/item/weapon/storage/box/syndie_kit/shielded_hardsuit/New()
 	..()
@@ -216,3 +216,13 @@
 		B.deity_name = "Success"
 		B.icon_state = "greentext"
 		B.item_state = "greentext"
+
+
+/obj/item/weapon/storage/box/syndie_kit/cutouts
+	name = "Fortified Artistic Box"
+
+/obj/item/weapon/storage/box/syndie_kit/cutouts/New()
+	..()
+	for(var/i in 1 to 3)
+		new/obj/item/cardboard_cutout/adaptive(src)
+	new/obj/item/toy/crayon/spraycan(src)

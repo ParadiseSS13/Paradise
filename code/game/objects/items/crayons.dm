@@ -7,7 +7,7 @@
 	desc = "A colourful crayon. Looks tasty. Mmmm..."
 	icon = 'icons/obj/crayons.dmi'
 	icon_state = "crayonred"
-	w_class = 1
+	w_class = WEIGHT_CLASS_TINY
 	slot_flags = SLOT_BELT | SLOT_EARS
 	attack_verb = list("attacked", "coloured")
 	toolspeed = 1

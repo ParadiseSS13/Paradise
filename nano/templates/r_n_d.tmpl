@@ -53,7 +53,6 @@
 					{{:helper.link('Clear Disk', 'trash', {'clear_tech': 1})}}
 				{{else}}
 					<div class='line'>Name: {{:data.disk_data.name}}</div>
-					<div class='line'>Reliability: {{:data.disk_data.reliability}}</div>
 					<div class='line'>
 						{{for data.disk_data.lathe_types}}
 							{{if index == 0}}
@@ -96,7 +95,6 @@
 		{{else}}
 			<h3>Deconstruction Menu:</h3>
 			<div class='line'>Name: {{:data.loaded_item.name}}</div>
-			<div class='line'>Reliability: {{:data.loaded_item.reliability}}</div>
 			<h3>Origin Tech:</h3>
 			{{for data.loaded_item.origin_tech}}
 				<div class='item'>

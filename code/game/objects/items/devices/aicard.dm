@@ -3,11 +3,11 @@
 	icon = 'icons/obj/aicards.dmi'
 	icon_state = "aicard" // aicard-full
 	item_state = "electronic"
-	w_class = 2
+	w_class = WEIGHT_CLASS_SMALL
 	slot_flags = SLOT_BELT
 	flags = NOBLUDGEON
 	var/flush = null
-	origin_tech = "programming=4;materials=4"
+	origin_tech = "programming=3;materials=3"
 
 
 /obj/item/device/aicard/afterattack(atom/target, mob/user, proximity)

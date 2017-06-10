@@ -369,17 +369,21 @@
 /obj/machinery/fishtank/proc/breed_fish()
 	var/list/breed_candidates = fish_list.Copy()
 	var/datum/fish/parent1 = pick_n_take(breed_candidates)
-	var/datum/fish/parent2 = null
 	if(!parent1.crossbreeder)							//fish with crossbreed = 0 will only breed with their own species, and only leave duds if they can't breed
-		if(parent1 in breed_candidates)
+		var/match_found = 0
+		for(var/datum/fish/possible in breed_candidates)
+			if(parent1.type == possible.type)
+				match_found = 1
+				break
+		if(match_found)
 			egg_list.Add(parent1.egg_item)
 		else
 			egg_list.Add(/obj/item/fish_eggs)
 	else
-		parent2 = pick(breed_candidates)
+		var/datum/fish/parent2 = pick(breed_candidates)
 		if(!parent2.crossbreeder)						//second fish refuses to crossbreed, spawn a dud
 			egg_list.Add(/obj/item/fish_eggs)
-		else if(parent1 == parent2)						//both fish are the same type
+		else if(parent1.type == parent2.type)						//both fish are the same type
 			if(prob(90))									//90% chance to get that type of egg
 				egg_list.Add(parent1.egg_item)
 			else											//10% chance to get a dud

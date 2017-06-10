@@ -307,6 +307,23 @@
 				/obj/item/weapon/bikehorn)
 	category = CAT_MISC
 
+/datum/crafting_recipe/blackcarpet
+	name = "Black Carpet"
+	result = /obj/item/stack/tile/carpet/black
+	time = 20
+	reqs = list(/obj/item/stack/tile/carpet = 1)
+	tools = list(/obj/item/toy/crayon)
+	category = CAT_MISC
+
+/datum/crafting_recipe/showercurtain
+	name = "Shower Curtains"
+	result = /obj/structure/curtain
+	time = 20
+	reqs = list(/obj/item/stack/sheet/cloth = 2,
+				/obj/item/stack/sheet/plastic = 2,
+				/obj/item/stack/rods = 1)
+	category = CAT_MISC
+
 /datum/crafting_recipe/bonfire
 	name = "Bonfire"
 	time = 60

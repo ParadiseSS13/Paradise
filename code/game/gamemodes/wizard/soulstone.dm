@@ -4,9 +4,9 @@
 	icon_state = "soulstone"
 	item_state = "electronic"
 	desc = "A fragment of the legendary treasure known simply as the 'Soul Stone'. The shard still flickers with a fraction of the full artifact's power."
-	w_class = 1
+	w_class = WEIGHT_CLASS_TINY
 	slot_flags = SLOT_BELT
-	origin_tech = "bluespace=4;materials=4"
+	origin_tech = "bluespace=4;materials=5"
 	var/imprinted = "empty"
 
 	var/usability = TRUE // Can this soul stone be used by anyone, or only cultists/wizards?

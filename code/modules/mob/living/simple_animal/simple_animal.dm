@@ -434,11 +434,11 @@
 
 
 /mob/living/simple_animal/movement_delay()
-	var/tally = 0 //Incase I need to add stuff other than "speed" later
+	. = ..()
 
-	tally = speed
+	. = speed
 
-	return tally+config.animal_delay
+	. += config.animal_delay
 
 /mob/living/simple_animal/Stat()
 	..()
@@ -592,7 +592,7 @@
 			alone = 0
 			continue
 	if(alone && partner && children < 3)
-		new childtype(loc)
+		return new childtype(loc)
 
 /mob/living/simple_animal/say_quote(var/message)
 	var/verb = "says"

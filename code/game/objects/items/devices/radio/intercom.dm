@@ -3,7 +3,7 @@
 	desc = "Talk through this."
 	icon_state = "intercom"
 	anchored = 1
-	w_class = 4
+	w_class = WEIGHT_CLASS_BULKY
 	canhear_range = 2
 	flags = CONDUCT
 	var/number = 0
@@ -231,8 +231,9 @@
 	icon = 'icons/obj/doors/door_assembly.dmi'
 	icon_state = "door_electronics"
 	desc = "Looks like a circuit. Probably is."
-	w_class = 2
+	w_class = WEIGHT_CLASS_SMALL
 	materials = list(MAT_METAL=50, MAT_GLASS=50)
+	origin_tech = "engineering=2;programming=1"
 	toolspeed = 1
 	usesound = 'sound/items/Deconstruct.ogg'
 

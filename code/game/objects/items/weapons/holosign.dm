@@ -5,11 +5,11 @@
 	icon_state = "signmaker"
 	item_state = "electronic"
 	force = 5
-	w_class = 2
+	w_class = WEIGHT_CLASS_SMALL
 	throwforce = 0
 	throw_speed = 3
 	throw_range = 7
-	origin_tech = "programming=3"
+	origin_tech = "magnets=1;programming=3"
 	var/list/signs = list()
 	var/max_signs = 20
 

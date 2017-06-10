@@ -12,7 +12,7 @@
 	response_help = "pets"
 	emote_hear = list("chitters")
 	maxHealth = 250
-	health = 200
+	health = 250
 	harm_intent_damage = 3
 	melee_damage_lower = 15
 	melee_damage_upper = 20

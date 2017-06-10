@@ -9,7 +9,7 @@
 	slot_flags = SLOT_BACK
 	force = 5
 	throwforce = 6
-	w_class = 4
+	w_class = WEIGHT_CLASS_BULKY
 	origin_tech = "biotech=4"
 	actions_types = list(/datum/action/item_action/toggle_paddles)
 	species_fit = list("Vox")
@@ -112,8 +112,6 @@
 /obj/item/weapon/defibrillator/emp_act(severity)
 	if(bcell)
 		deductcharge(1000 / severity)
-		if(bcell.reliability != 100 && prob(50/severity))
-			bcell.reliability -= 10 / severity
 	if(safety)
 		safety = 0
 		src.visible_message("<span class='notice'>[src] beeps: Safety protocols disabled!</span>")
@@ -206,9 +204,9 @@
 	desc = "A belt-equipped defibrillator that can be rapidly deployed."
 	icon_state = "defibcompact"
 	item_state = "defibcompact"
-	w_class = 3
+	w_class = WEIGHT_CLASS_NORMAL
 	slot_flags = SLOT_BELT
-	origin_tech = "biotech=4"
+	origin_tech = "biotech=5"
 
 /obj/item/weapon/defibrillator/compact/item_action_slot_check(slot, mob/user)
 	if(slot == slot_belt)
@@ -251,7 +249,7 @@
 	item_state = "defibpaddles"
 	force = 0
 	throwforce = 6
-	w_class = 4
+	w_class = WEIGHT_CLASS_BULKY
 	toolspeed = 1
 
 	var/revivecost = 1000
@@ -446,7 +444,7 @@
 	icon_state = "defibpaddles0"
 	item_state = "defibpaddles0"
 	force = 0
-	w_class = 4
+	w_class = WEIGHT_CLASS_BULKY
 	var/revivecost = 1000
 	var/cooldown = 0
 	var/busy = 0
