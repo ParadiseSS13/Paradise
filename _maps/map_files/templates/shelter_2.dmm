@@ -1,0 +1,41 @@
+"a" = (/turf/simulated/wall/survival,/area/survivalpod)
+"b" = (/obj/structure/sign/mining/survival{dir = 8},/turf/simulated/wall/survival,/area/survivalpod)
+"c" = (/obj/machinery/smartfridge/survival_pod/loaded,/turf/simulated/floor/pod,/area/survivalpod)
+"d" = (/turf/simulated/floor/pod,/area/survivalpod)
+"e" = (/obj/machinery/door/window/survival_pod{dir = 1},/turf/simulated/floor/carpet/black,/area/survivalpod)
+"f" = (/obj/machinery/light,/turf/simulated/floor/carpet/black,/area/survivalpod)
+"g" = (/obj/structure/sign/mining/survival{tag = "icon-survival (NORTH)"; icon_state = "survival"; dir = 1},/turf/simulated/wall/survival,/area/survivalpod)
+"h" = (/obj/structure/fans,/turf/simulated/floor/pod,/area/survivalpod)
+"i" = (/obj/machinery/sleeper/survival_pod,/turf/simulated/floor/pod,/area/survivalpod)
+"j" = (/obj/structure/table/survival_pod,/obj/item/weapon/storage/firstaid/regular,/obj/item/weapon/storage/firstaid/brute{pixel_x = 4; pixel_y = -2},/turf/simulated/floor/pod,/area/survivalpod)
+"k" = (/obj/structure/table/wood/fancy/black{pixel_y = -9},/obj/structure/window/reinforced/survival_pod{dir = 1},/obj/machinery/microwave,/turf/simulated/floor/carpet/black,/area/survivalpod)
+"l" = (/obj/structure/sink/kitchen{dir = 4; pixel_x = -11},/turf/simulated/floor/carpet/black,/area/survivalpod)
+"m" = (/obj/structure/sign/mining/survival,/turf/simulated/wall/survival,/area/survivalpod)
+"n" = (/obj/structure/curtain/black,/obj/machinery/shower{pixel_y = 20},/turf/simulated/floor/pod{pixel_y = 0},/area/survivalpod)
+"o" = (/obj/structure/window/reinforced/survival_pod{dir = 8},/obj/machinery/door/window/survival_pod{dir = 1},/turf/simulated/floor/carpet/black,/area/survivalpod)
+"p" = (/obj/structure/window/reinforced/survival_pod{dir = 8},/turf/simulated/floor/carpet/black,/area/survivalpod)
+"q" = (/obj/structure/window/reinforced/survival_pod{dir = 9},/turf/simulated/floor/carpet/black,/area/survivalpod)
+"r" = (/turf/simulated/floor/carpet/black,/area/survivalpod)
+"s" = (/obj/item/device/gps/computer,/turf/simulated/floor/pod,/area/survivalpod)
+"t" = (/obj/structure/stool/bed/pod,/obj/item/weapon/bedsheet/brown,/turf/simulated/floor/pod,/area/survivalpod)
+"u" = (/obj/structure/tubes,/obj/item/weapon/twohanded/required/kirbyplants,/turf/simulated/floor/pod,/area/survivalpod)
+"v" = (/obj/structure/window/reinforced/survival_pod{dir = 1},/obj/structure/displaycase{desc = "A display case containing an expensive forgery, probably."; locked = 1; pixel_y = -4; req_access_txt = "48"; start_showpiece_type = /obj/item/fakeartefact},/turf/simulated/floor/carpet/black{dir = 1},/area/survivalpod)
+"w" = (/obj/structure/fans/tiny,/obj/machinery/door/airlock/survival_pod,/turf/simulated/floor/pod,/area/survivalpod)
+"x" = (/obj/structure/sign/mining/survival{tag = "icon-survival (EAST)"; icon_state = "survival"; dir = 4},/turf/simulated/wall/survival,/area/survivalpod)
+"y" = (/obj/structure/toilet/secret{pixel_y = 12},/turf/simulated/floor/pod,/area/survivalpod)
+"z" = (/obj/structure/window/reinforced/survival_pod{dir = 1},/obj/item/cardboard_cutout{desc = "A cardboard cutout of a xenomorph maid."; icon_state = "cutout_lusty"; name = "lusty xenomorph maid"}, /turf/simulated/floor/carpet/black,/area/survivalpod)
+"A" = (/obj/structure/table/wood/fancy/black,/obj/machinery/light{dir = 4},/obj/item/weapon/reagent_containers/food/drinks/drinkingglass{pixel_x = 6; pixel_y = 3},/obj/item/weapon/reagent_containers/food/drinks/bottle/wine,/turf/simulated/floor/carpet/black,/area/survivalpod)
+"B" = (/obj/structure/table/wood/fancy/black,/obj/item/weapon/reagent_containers/food/drinks/drinkingglass{pixel_x = -4; pixel_y = 1},/obj/effect/spawner/lootdrop/three_course_meal,/turf/simulated/floor/carpet/black,/area/survivalpod)
+"C" = (/obj/structure/stool/bed/chair/comfy/black{dir = 1},/turf/simulated/floor/carpet/black,/area/survivalpod)
+"D" = (/obj/structure/sign/mining,/turf/simulated/wall/survival,/area/survivalpod)
+
+(1,1,1) = {"
+agagaga
+bhcsnyx
+aidtoza
+bjdupAx
+akevqBa
+blfrrCx
+amawaDa
+"}
+

@@ -1546,7 +1546,7 @@
 					to_chat(X, take_msg)
 				else if(is_mhelp && check_rights(R_MOD|R_MENTOR, 0, X.mob))
 					to_chat(X, take_msg)
-			to_chat(M, "<span class='notice'><b>Your question is being attended to by [key_name(usr.client)]. Thanks for your patience!</b></span>")
+			to_chat(M, "<span class='notice'><b>Your question is being attended to by [key_name(usr.client, null, 0)]. Thanks for your patience!</b></span>")
 		else
 			to_chat(usr, "<span class='warning'>Unable to locate mob.</span>")
 
@@ -1790,9 +1790,15 @@
 			H = M
 			ptypes += "Brain Damage"
 			ptypes += "Honk Tumor"
+			ptypes += "Hallucinate"
+			ptypes += "Cold"
+			ptypes += "Hunger"
 			ptypes += "Cluwne"
 			ptypes += "Mutagen Cookie"
 			ptypes += "Hellwater Cookie"
+			ptypes += "Assassin"
+			ptypes += "Priest"
+			ptypes += "Lynch"
 		var/punishment = input(owner, "How would you like to smite [M]?", "Its good to be baaaad...", "") as null|anything in ptypes
 		if(!(punishment in ptypes))
 			return
@@ -1820,6 +1826,15 @@
 					to_chat(H, "<span class='userdanger'>Life seems funnier, somehow.</span>")
 					organ.insert(H)
 				logmsg = "a honk tumor."
+			if("Hallucinate")
+				H.Hallucinate(1000)
+				logmsg = "hallucinations."
+			if("Hunger")
+				H.nutrition = NUTRITION_LEVEL_CURSED
+				logmsg = "starvation."
+			if("Cold")
+				H.reagents.add_reagent("frostoil", 40)
+				H.reagents.add_reagent("ice", 40)
 			if("Cluwne")
 				H.makeCluwne()
 				logmsg = "cluwned."
@@ -1828,6 +1843,7 @@
 				evilcookie.reagents.add_reagent("mutagen", 10)
 				evilcookie.desc = "It has a faint green glow."
 				evilcookie.bitesize = 100
+				evilcookie.flags = NODROP
 				H.drop_l_hand()
 				H.equip_to_slot_or_del(evilcookie, slot_l_hand)
 				logmsg = "a mutagen cookie."
@@ -1836,9 +1852,92 @@
 				evilcookie.reagents.add_reagent("hell_water", 25)
 				evilcookie.desc = "Sulphur-flavored."
 				evilcookie.bitesize = 100
+				evilcookie.flags = NODROP
 				H.drop_l_hand()
 				H.equip_to_slot_or_del(evilcookie, slot_l_hand)
 				logmsg = "a hellwater cookie."
+			if("Priest")
+				logmsg = "priest."
+				H.mutations |= NOCLONE
+				message_admins("[key_name_admin(owner)] is sending a dark priest to assassinate [key_name_admin(M)]...")
+				var/list/candidates = pollCandidates("Do you want to play as a murderous dark priest?")
+				if(!candidates.len)
+					to_chat(usr, "ERROR: Could not create priest. No valid candidates.")
+					return
+				var/mob/C = pick(candidates)
+				var/key_of_priest = C.key
+				if(!key_of_priest)
+					to_chat(usr, "ERROR: Could not create priest. Could not pick key.")
+					return
+				var/datum/mind/priest_mind = new /datum/mind(key_of_priest)
+				priest_mind.active = 1
+				var/mob/living/carbon/human/priest_mob = new /mob/living/carbon/human(pick(latejoin))
+				priest_mind.transfer_to(priest_mob)
+				var/datum/outfit/admin/dark_priest/O = new /datum/outfit/admin/dark_priest
+				priest_mob.equipOutfit(O, FALSE)
+				var/obj/item/weapon/pinpointer/advpinpointer/N = new /obj/item/weapon/pinpointer/advpinpointer(priest_mob)
+				priest_mob.equip_to_slot_or_del(N, slot_r_store)
+				N.active = 1
+				N.mode = 2
+				N.target = H
+				N.point_at(N.target)
+				N.flags |= NODROP
+				var/datum/objective/assassinate/kill_objective = new
+				kill_objective.owner = priest_mind
+				kill_objective.target = H.mind
+				kill_objective.explanation_text = "Murder [H.real_name], the [H.mind.assigned_role], in the name of the dark gods."
+				priest_mind.objectives += kill_objective
+				ticker.mode.traitors |= priest_mob.mind
+				to_chat(priest_mob, "<span class='danger'>ATTENTION:</span> You are now a dark priest!")
+				to_chat(priest_mob, "<B>Goal: <span class='danger'>MURDER [H.real_name]</span>, currently in [get_area(H.loc)], in the name of the dark gods. </B>");
+				to_chat(priest_mob, "<B>The gods will prevent their revival.</B>");
+				priest_mob.mind.special_role = SPECIAL_ROLE_TRAITOR
+				var/datum/atom_hud/antag/tatorhud = huds[ANTAG_HUD_TRAITOR]
+				tatorhud.join_hud(priest_mob)
+				ticker.mode.set_antag_hud(priest_mob, "hudsyndicate")
+			if("Assassin")
+				logmsg = "assassin."
+				var/list/possible_traitors = list()
+				for(var/mob/living/player in living_mob_list)
+					if(player.client && player.mind && !player.mind.special_role && player.stat != DEAD && player != H)
+						if(ishuman(player))
+							if(player.client && (ROLE_TRAITOR in player.client.prefs.be_special) && !jobban_isbanned(player, ROLE_TRAITOR) && !jobban_isbanned(player, "Syndicate"))
+								possible_traitors += player.mind
+				for(var/datum/mind/player in possible_traitors)
+					if(player.current)
+						if(ismindshielded(player.current))
+							possible_traitors -= player
+				if(possible_traitors.len)
+					var/datum/mind/newtraitormind = pick(possible_traitors)
+					var/mob/living/newtraitor = newtraitormind.current
+					var/datum/objective/assassinate/kill_objective = new
+					kill_objective.owner = newtraitormind
+					kill_objective.target = H.mind
+					kill_objective.explanation_text = "Assassinate [H.real_name], the [H.mind.assigned_role]."
+					newtraitormind.objectives += kill_objective
+					ticker.mode.equip_traitor(newtraitor)
+					ticker.mode.traitors |= newtraitor.mind
+					to_chat(newtraitor, "<span class='danger'>ATTENTION:</span> It is time to pay your debt to the Syndicate...")
+					to_chat(newtraitor, "<B>You are now a traitor.</B>")
+					to_chat(newtraitor, "<B>Goal: <span class='danger'>KILL [H.real_name]</span>, currently in [get_area(H.loc)]</B>");
+					newtraitor.mind.special_role = SPECIAL_ROLE_TRAITOR
+					var/datum/atom_hud/antag/tatorhud = huds[ANTAG_HUD_TRAITOR]
+					tatorhud.join_hud(newtraitor)
+					ticker.mode.set_antag_hud(newtraitor, "hudsyndicate")
+				else
+					to_chat(usr, "ERROR: Failed to create a traitor.")
+					return
+			if("Lynch")
+				logmsg = "lynch."
+				for(var/datum/mind/crew in ticker.minds)
+					if(!crew.current)
+						continue
+					if(!isliving(crew.current))
+						continue
+					if(crew == H.mind)
+						continue
+					to_chat(crew.current, "<BR><span class='userdanger'>The gods have given you a task: find [H.real_name], located in [get_area(H.loc)], and slay them!</span>");
+					to_chat(crew.current, "<span class='userdanger'>Do not harm anyone other than [H.real_name] while carrying out this task.</span><BR>");
 			if("Gib")
 				logmsg = "gibbed."
 				M.gib(FALSE)

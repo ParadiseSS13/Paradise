@@ -592,7 +592,7 @@
 			alone = 0
 			continue
 	if(alone && partner && children < 3)
-		new childtype(loc)
+		return new childtype(loc)
 
 /mob/living/simple_animal/say_quote(var/message)
 	var/verb = "says"

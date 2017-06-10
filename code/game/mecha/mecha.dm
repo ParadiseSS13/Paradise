@@ -1309,7 +1309,7 @@
 		dir = dir_in
 
 	if(L && L.client)
-		L.client.view = world.view
+		L.client.RemoveViewMod("mecha")
 
 /////////////////////////
 ////// Access stuff /////

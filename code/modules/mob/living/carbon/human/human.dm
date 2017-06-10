@@ -1985,8 +1985,8 @@
 			to_chat(src, "<span class='warning'>Your fingers don't fit in the trigger guard!</span>")
 			return 0
 
-	if(martial_art && martial_art.name == "The Sleeping Carp") //great dishonor to famiry
-		to_chat(src, "<span class='warning'>Use of ranged weaponry would bring dishonor to the clan.</span>")
+	if(martial_art && martial_art.no_guns) //great dishonor to famiry
+		to_chat(src, "<span class='warning'>[martial_art.no_guns_message]</span>")
 		return 0
 
 	return .

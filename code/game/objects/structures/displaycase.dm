@@ -105,19 +105,21 @@ var/global/list/captain_display_cases = list()
 	var/ue = null
 	var/image/occupant_overlay = null
 	var/obj/item/weapon/airlock_electronics/circuit
+	var/start_showpiece_type = null //add type for items on display
+
+/obj/structure/displaycase/New()
+	. = ..()
+	if(start_showpiece_type)
+		occupant = new start_showpiece_type(src)
+	update_icon()
 
 /obj/structure/displaycase/captains_laser
 	name = "captain's display case"
 	desc = "A display case for the captain's antique laser gun. Hooked up with an anti-theft system."
 	burglar_alarm = 1
-
-/obj/structure/displaycase/captains_laser/New()
-	captain_display_cases += src
-	req_access = list(access_captain)
 	locked = 1
-	spawn(5)
-		occupant = new /obj/item/weapon/gun/energy/laser/captain(src)
-		update_icon()
+	req_access = list(access_captain)
+	start_showpiece_type = /obj/item/weapon/gun/energy/laser/captain
 
 /obj/structure/displaycase/Destroy()
 	dump()
