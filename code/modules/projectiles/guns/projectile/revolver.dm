@@ -218,7 +218,7 @@
 /obj/item/weapon/gun/projectile/revolver/russian/afterattack(atom/target as mob|obj|turf, mob/living/user as mob|obj, flag, params)
 	if(flag)
 		if(!(target in user.contents) && ismob(target))
-			if(user.a_intent == I_HARM) // Flogging action
+			if(user.a_intent == INTENT_HARM) // Flogging action
 				return
 
 	if(isliving(user))

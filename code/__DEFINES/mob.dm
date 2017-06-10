@@ -92,10 +92,10 @@
 #define APPEARANCE_ALL 32767
 
 // Intents
-#define I_HELP		"help"
-#define I_DISARM	"disarm"
-#define I_GRAB		"grab"
-#define I_HARM		"harm"
+#define INTENT_HELP		"help"
+#define INTENT_DISARM	"disarm"
+#define INTENT_GRAB		"grab"
+#define INTENT_HARM		"harm"
 
 // AI wire/radio settings
 #define AI_CHECK_WIRELESS 1

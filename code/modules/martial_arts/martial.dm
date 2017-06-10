@@ -207,7 +207,7 @@
 		to_chat(user, "<span class='warning'>It would be dishonorable to attack a foe while they cannot retaliate.</span>")
 		return
 	switch(user.a_intent)
-		if(I_DISARM)
+		if(INTENT_DISARM)
 			if(!wielded)
 				return ..()
 			if(!ishuman(target))

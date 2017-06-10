@@ -90,7 +90,7 @@
 		if(target_zone == surgery.location)
 			initiate(user, target, target_zone, tool, surgery)
 			return 1//returns 1 so we don't stab the guy in the dick or wherever.
-	if(isrobot(user) && user.a_intent != I_HARM) //to save asimov borgs a LOT of heartache
+	if(isrobot(user) && user.a_intent != INTENT_HARM) //to save asimov borgs a LOT of heartache
 		return 1
 	return 0
 

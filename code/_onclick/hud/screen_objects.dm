@@ -70,14 +70,14 @@
 		var/_y = text2num(params2list(params)["icon-y"])
 
 		if(_x<=16 && _y<=16)
-			usr.a_intent_change(I_HARM)
+			usr.a_intent_change(INTENT_HARM)
 		else if(_x<=16 && _y>=17)
-			usr.a_intent_change(I_HELP)
+			usr.a_intent_change(INTENT_HELP)
 		else if(_x>=17 && _y<=16)
-			usr.a_intent_change(I_GRAB)
+			usr.a_intent_change(INTENT_GRAB)
 
 		else if(_x>=17 && _y>=17)
-			usr.a_intent_change(I_DISARM)
+			usr.a_intent_change(INTENT_DISARM)
 
 	else
 		usr.a_intent_change("right")

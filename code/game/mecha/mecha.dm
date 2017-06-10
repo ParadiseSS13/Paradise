@@ -748,7 +748,7 @@
 				to_chat(user, "There's not enough wire to finish the task.")
 		return
 
-	else if(isscrewdriver(W) && user.a_intent != I_HARM)
+	else if(isscrewdriver(W) && user.a_intent != INTENT_HARM)
 		if(hasInternalDamage(MECHA_INT_TEMP_CONTROL))
 			clearInternalDamage(MECHA_INT_TEMP_CONTROL)
 			to_chat(user, "<span class='notice'>You repair the damaged temperature controller.</span>")
@@ -776,7 +776,7 @@
 				to_chat(user, "<span class='notice'>There's already a powercell installed.</span>")
 		return
 
-	else if(iswelder(W) && user.a_intent != I_HARM)
+	else if(iswelder(W) && user.a_intent != INTENT_HARM)
 		var/obj/item/weapon/weldingtool/WT = W
 		if(health<initial(health))
 			if (WT.remove_fuel(0,user))
