@@ -240,6 +240,9 @@
 	if(locate(/obj/effect/rune) in runeturf)
 		to_chat(user, "<span class='cult'>There is already a rune here.</span>")
 		return
+	if(!is_station_level(user.z) && !is_mining_level(user.z) && !is_admin_level(user.z))
+		to_chat(user, "<span class='warning'>The veil is not weak enough to create a working rune here.</span>")
+		return
 	for(var/T in subtypesof(/obj/effect/rune) - /obj/effect/rune/malformed)
 		var/obj/effect/rune/R = T
 		if(initial(R.cultist_name))
