@@ -34,6 +34,7 @@
 
 	var/emagged = 0               //is it getting ready to explode?
 	var/obj/item/device/mmi/mmi = null
+	var/emagged_master = null //for administrative purposes, to see who emagged the spiderbot; also for a holder for if someone emags an empty frame first then inserts an MMI.
 
 /mob/living/simple_animal/spiderbot/Destroy()
 	if(emagged)
@@ -134,6 +135,7 @@
 		emagged = 1
 		to_chat(user, "<span class='notice'>You short out the security protocols and rewrite [src]'s internal memory.</span>")
 		to_chat(src, "<span class='userdanger'>You have been emagged; you are now completely loyal to [user] and their every order!</span>")
+		emagged_master = user.name
 		add_logs(user, src, "emagged")
 		maxHealth = 60
 		health = 60
@@ -146,6 +148,8 @@
 	mind.key = M.brainmob.key
 	ckey = M.brainmob.ckey
 	name = "Spider-bot ([M.brainmob.name])"
+	if(emagged)
+		to_chat(src, "<span class='userdanger'>You have been emagged; you are now completely loyal to [emagged_master] and their every order!</span>")
 
 /mob/living/simple_animal/spiderbot/proc/update_icon()
 	if(mmi)
