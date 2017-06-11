@@ -206,7 +206,7 @@
 	name = "illegal equipment module"
 	desc = "Unlocks the hidden, deadlier functions of a cyborg"
 	icon_state = "cyborg_upgrade3"
-	origin_tech = "combat=4;syndicate=1"
+	origin_tech = "combat=4;syndicate=3"
 	require_module = 1
 
 /obj/item/borg/upgrade/syndicate/action(mob/living/silicon/robot/R)
