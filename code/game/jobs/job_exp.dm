@@ -203,7 +203,6 @@ var/global/list/role_playtime_requirements = list(
 	var/playtime = get_exp_living_num()
 	var/hours = round(playtime / 60)
 	if(isleader)
-		return "LR [hours]"
 		if(hours >= 300)
 			return "Major"
 		else if(hours >= 150)
@@ -211,7 +210,6 @@ var/global/list/role_playtime_requirements = list(
 		else
 			return "Lieutenant"
 	else
-		return "TR [hours]"
 		if(hours >= 400)
 			return "Master Sergeant"
 		else if(hours >= 300)
