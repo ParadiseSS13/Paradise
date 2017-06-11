@@ -453,11 +453,12 @@ var/list/blood_splatter_icons = list()
 	if(initial(icon) && initial(icon_state))
 		//try to find a pre-processed blood-splatter. otherwise, make a new one
 		var/index = blood_splatter_index()
+		var/icon/blood = icon('icons/effects/blood.dmi', "itemblood")
 		var/icon/blood_splatter_icon = blood_splatter_icons[index]
 		if(!blood_splatter_icon)
 			blood_splatter_icon = icon(initial(icon), initial(icon_state), , 1)		//we only want to apply blood-splatters to the initial icon_state for each object
-			blood_splatter_icon.Blend(color, ICON_ADD) 			//fills the icon_state with white (except where it's transparent)
-			blood_splatter_icon.Blend(icon('icons/effects/blood.dmi', "itemblood"), ICON_MULTIPLY) //adds blood and the remaining white areas become transparant
+			blood.Blend(color, ICON_ADD)
+			blood_splatter_icon.Blend(blood, ICON_MULTIPLY)
 			blood_splatter_icon = fcopy_rsc(blood_splatter_icon)
 			blood_splatter_icons[index] = blood_splatter_icon
 		overlays += blood_splatter_icon
