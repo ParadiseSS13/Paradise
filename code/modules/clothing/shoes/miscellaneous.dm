@@ -14,7 +14,7 @@
 		trampling_coefficient += 0.25
 		can_be_spiked = FALSE
 		spiked = TRUE
-		slowdown = SHOES_SLOWDOWN + 1
+		slowdown += 1
 		shoe_sound = "jackboot"
 		silence_steps = TRUE //Looks dumb but prevents you hearing footsteps on top of shoe_sound
 	else
