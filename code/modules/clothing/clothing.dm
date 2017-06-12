@@ -372,6 +372,8 @@ BLIND     // can't see anything
 	var/silence_steps = 0
 	var/shoe_sound_footstep = 1
 	var/shoe_sound = null
+	var/spiked
+	var/can_be_spiked
 	var/trampling_coefficient = 1 //The bigger this is, the more damage trampling will do
 
 	permeability_coefficient = 0.50

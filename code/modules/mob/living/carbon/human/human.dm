@@ -1,5 +1,5 @@
-#define TRAMPLING_DAMAGE	rand(4, 6)
-#define STOMP_COOLDOWN		8
+#define TRAMPLING_DAMAGE	rand(4, 8) / 2 //Average of 3
+#define STOMP_COOLDOWN		15
 
 /mob/living/carbon/human
 	name = "unknown"
@@ -558,12 +558,16 @@
 			return
 		if(!(M.is_fat()) && M.a_intent == INTENT_HELP) //If they're fat or are on a non-help intent, then we can continue. Otherwise we don't trample them
 			return
+		if(M.buckled || M.throwing) //If they're buckled into something or being thrown, they will not stomp
+			return
 		if(src.incapacitated() && !(M.incapacitated())) //If the victim is incapacitated and the assailant is not incapacitated. This also catches weird fringe cases where you might end up stomping yourself
 			M.trample(src)
 
-/mob/living/carbon/human/proc/trample(var/mob/living/carbon/human/H)//H is the target
+/mob/living/carbon/human/proc/trample(var/mob/living/carbon/human/H)
 	var/D = TRAMPLING_DAMAGE
 	var/armour = H.run_armor_check()
+	if(src.is_fat()) //Being fat makes you tread with more force
+		D += 1
 	if(src.shoes)
 		var/obj/item/clothing/shoes/S = src.shoes
 		if(S.trampling_coefficient == 0) //No point treading on them if we're going to do 0 damage
@@ -571,8 +575,6 @@
 		D *= S.trampling_coefficient
 	else
 		D *= 0.25 //Standing on someone without shoes isn't that damaging
-	if(src.is_fat()) //Being fat makes you tread with more force
-		D *= 1.5
 	if(H.stat == DEAD)
 		H.visible_message("<span class = 'warning'>[src] treads upon [H]'s lifeless form.</span>", "<span class = 'warning'>[src] further violates your corpse.</span>", "<span class = 'warning'>You hear a fleshy thud.</span>")
 	else

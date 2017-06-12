@@ -9,6 +9,13 @@
 
 /obj/item/mouse_drag_pointer = MOUSE_ACTIVE_POINTER
 
+/obj/item/weapon/hobnails
+	icon = 'icons/obj/shards.dmi'
+	icon_state = "shrapnellarge"
+	name = "hobnails"
+	desc = "These look like they could be driven into some boots..."
+	w_class = WEIGHT_CLASS_SMALL
+
 /obj/item/weapon/beach_ball
 	icon = 'icons/misc/beach.dmi'
 	icon_state = "ball"
@@ -22,3 +29,4 @@
 	throw_speed = 1
 	throw_range = 20
 	flags = CONDUCT
+

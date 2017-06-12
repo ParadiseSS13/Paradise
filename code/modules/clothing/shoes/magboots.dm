@@ -6,7 +6,7 @@
 	var/magboot_state = "magboots"
 	var/magpulse = 0
 	var/slowdown_active = 2
-	trampling_coefficient = 1.5 //They're essentially lumps of metal
+	trampling_coefficient = 1.25 //They're essentially lumps of metal
 	actions_types = list(/datum/action/item_action/toggle)
 	strip_delay = 70
 	put_on_delay = 70

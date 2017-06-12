@@ -1,3 +1,25 @@
+/obj/item/clothing/shoes/attackby(obj/item/I, mob/user, params)
+	if(istype(I, /obj/item/stack/tape_roll) && !spiked)
+		var/obj/item/stack/tape_roll/TR = I
+		if((!silence_steps || shoe_sound) && TR.use(4))
+			silence_steps = 1
+			shoe_sound = null
+			to_chat(user, "You tape the soles of [src] to silence their footsteps.")
+	if(istype(I, /obj/item/weapon/hobnails) && can_be_spiked == TRUE)
+		user.unEquip(I)
+		I.forceMove(src)
+		to_chat(user, "<span class = 'notice'>You drive [I] through the soles of [src].</span>")
+		name = "hobnailed [name]"
+		desc = "[desc]\nSeveral crudely-fashioned spikes are protruding from the soles."
+		trampling_coefficient += 0.25
+		can_be_spiked = FALSE
+		spiked = TRUE
+		slowdown = SHOES_SLOWDOWN + 1
+		shoe_sound = "jackboot"
+		silence_steps = TRUE //Looks dumb but prevents you hearing footsteps on top of shoe_sound
+	else
+		return ..()
+
 /obj/item/clothing/shoes/syndigaloshes
 	desc = "A pair of brown shoes. They seem to have extra grip."
 	name = "brown shoes"
@@ -24,6 +46,7 @@
 	armor = list(melee = 25, bullet = 25, laser = 25, energy = 25, bomb = 50, bio = 10, rad = 0)
 	strip_delay = 70
 	burn_state = FIRE_PROOF
+	can_be_spiked = TRUE
 
 /obj/item/clothing/shoes/combat/swat //overpowered boots for death squads
 	name = "\improper SWAT shoes"
@@ -33,8 +56,10 @@
 	trampling_coefficient = 2
 	flags = NOSLIP
 
+/obj/item/clothing/shoes/combat/mantreads //because why not
+	name = "mantreads"
 	desc = "It's time to stamp out your foes."
-	trampling_coefficient = 25
+	trampling_coefficient = 40
 
 /obj/item/clothing/shoes/sandal
 	desc = "A pair of rather plain, wooden sandals."
@@ -94,6 +119,7 @@
 	var/footstep = 1
 	silence_steps = 1
 	shoe_sound = "jackboot"
+	can_be_spiked = TRUE
 
 /obj/item/clothing/shoes/jackboots/jacksandals
 	name = "jacksandals"
@@ -117,6 +143,7 @@
 	min_cold_protection_temperature = SHOES_MIN_TEMP_PROTECT
 	heat_protection = FEET|LEGS
 	max_heat_protection_temperature = SHOES_MAX_TEMP_PROTECT
+	can_be_spiked = TRUE
 
 /obj/item/clothing/shoes/cult
 	name = "boots"
@@ -129,6 +156,7 @@
 	min_cold_protection_temperature = SHOES_MIN_TEMP_PROTECT
 	heat_protection = FEET
 	max_heat_protection_temperature = SHOES_MAX_TEMP_PROTECT
+	can_be_spiked = TRUE
 
 /obj/item/clothing/shoes/cyborg
 	name = "cyborg boots"
@@ -162,6 +190,7 @@
 	item_state = "roman"
 	strip_delay = 100
 	put_on_delay = 100
+	can_be_spiked = TRUE
 
 /obj/item/clothing/shoes/centcom
 	name = "dress shoes"
@@ -181,16 +210,6 @@
 	icon_state = "noble_boot"
 	item_color = "noble_boot"
 	item_state = "noble_boot"
-
-/obj/item/clothing/shoes/attackby(obj/item/I, mob/user, params)
-	if(istype(I, /obj/item/stack/tape_roll))
-		var/obj/item/stack/tape_roll/TR = I
-		if((!silence_steps || shoe_sound) && TR.use(4))
-			silence_steps = 1
-			shoe_sound = null
-			to_chat(user, "You tape the soles of [src] to silence their footsteps.")
-	else
-		return ..()
 
 /obj/item/clothing/shoes/sandal/white
 	name = "White Sandals"
