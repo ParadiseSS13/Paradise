@@ -7,7 +7,7 @@
 			to_chat(user, "You tape the soles of [src] to silence their footsteps.")
 	if(istype(I, /obj/item/weapon/hobnails) && can_be_spiked == TRUE)
 		user.unEquip(I)
-		I.forceMove(src)
+		I.forceMove()
 		to_chat(user, "<span class = 'notice'>You drive [I] through the soles of [src].</span>")
 		name = "hobnailed [name]"
 		desc = "[desc]\nSeveral crudely-fashioned spikes are protruding from the soles."

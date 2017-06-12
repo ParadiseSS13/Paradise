@@ -560,16 +560,16 @@
 			return
 		if(M.buckled || M.throwing) //If they're buckled into something or being thrown, they will not stomp
 			return
-		if(src.incapacitated() && !(M.incapacitated())) //If the victim is incapacitated and the assailant is not incapacitated. This also catches weird fringe cases where you might end up stomping yourself
+		if(incapacitated() && !(M.incapacitated())) //If the victim is incapacitated and the assailant is not incapacitated. This also catches weird fringe cases where you might end up stomping yourself
 			M.trample(src)
 
 /mob/living/carbon/human/proc/trample(var/mob/living/carbon/human/H)
 	var/D = TRAMPLING_DAMAGE
 	var/armour = H.run_armor_check()
-	if(src.is_fat()) //Being fat makes you tread with more force
+	if(is_fat()) //Being fat makes you tread with more force
 		D += 1
-	if(src.shoes)
-		var/obj/item/clothing/shoes/S = src.shoes
+	if(shoes)
+		var/obj/item/clothing/shoes/S = shoes
 		if(S.trampling_coefficient == 0) //No point treading on them if we're going to do 0 damage
 			return
 		D *= S.trampling_coefficient
@@ -578,7 +578,7 @@
 	if(H.stat == DEAD)
 		H.visible_message("<span class = 'warning'>[src] treads upon [H]'s lifeless form.</span>", "<span class = 'warning'>[src] further violates your corpse.</span>", "<span class = 'warning'>You hear a fleshy thud.</span>")
 	else
-		H.visible_message("<span class = 'warning'>[src] stomps on [H]!</span>", "<span class = 'danger'>[src] squashes you under their feet!</span>", "<span class = 'warning'>You hear a fleshy thud.</span>")
+		H.visible_message("<span class = 'danger'>[src] stomps on [H]!</span>", "<span class = 'userdanger'>[src] squashes you under their feet!</span>", "<span class = 'warning'>You hear a fleshy thud.</span>")
 	playsound(H, 'sound/effects/hit_kick.ogg', 50, 1, -1)
 	H.apply_damage(D, blocked = armour, used_weapon = "stomping")
 	laststomped = world.time
