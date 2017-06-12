@@ -716,3 +716,18 @@
 	qdel(R.module)
 
 	return ..()
+
+/proc/cryo_ssd(var/mob/living/carbon/person_to_cryo)
+	if(istype(person_to_cryo.loc, /obj/machinery/cryopod))
+		return 0
+	var/list/free_cryopods = list()
+	for(var/obj/machinery/cryopod/P in machines)
+		if(!P.occupant && istype(get_area(P), /area/crew_quarters/sleep))
+			free_cryopods += P
+	var/obj/machinery/cryopod/target_cryopod = null
+	if(free_cryopods.len)
+		target_cryopod = safepick(free_cryopods)
+		if(target_cryopod.check_occupant_allowed(person_to_cryo))
+			target_cryopod.take_occupant(person_to_cryo, 1)
+			return 1
+	return 0

@@ -882,57 +882,27 @@ Traitors and the like can also be revived with the previous role mostly intact.
 	message_admins("[key_name_admin(usr)] blanked all telecomms scripts.")
 	feedback_add_details("admin_verb","RAT") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
-/client/proc/cryo_ssds()
+/client/proc/list_ssds()
 	set category = "Admin"
-	set name = "Cryo SSDs"
-	set desc = "Sends SSD players to cryo"
+	set name = "List SSDs"
+	set desc = "Lists SSD players"
 
 	if(!check_rights(R_ADMIN))
 		return
 
-	var/confirm = alert(src, "You sure you want to teleport 10+m SSD players into cryo?", "Confirm", "Yes", "No")
-	if(confirm != "Yes")
-		return
-
-	var/list/people_to_cryo = list()
+	var/msg = "<html><head><title>SSD Report</title></head><body>"
+	msg += "<TABLE border='1'>SSD Players:"
+	var/mins_ssd
 	for(var/mob/living/carbon/human/H in living_mob_list)
 		if(!H.player_logged)
 			continue
 		if(!H.last_logout)
 			continue
-		if((H.last_logout + 6000) > world.time)
-			continue
-		if(!is_station_level(H.z))
-			continue
-		if(!isLivingSSD(H))
-			continue
-		if(H.anchored)
-			continue
-		if(H.stunned)
-			continue
-		if(H.handcuffed)
-			continue
-		if(H.buckled)
-			continue
-		if(H.pulledby)
-			continue
-		people_to_cryo += H
-	var/list/free_cryopods = list()
-	for(var/obj/machinery/cryopod/P in machines)
-		if(!P.occupant && istype(get_area(P), /area/crew_quarters/sleep))
-			free_cryopods += P
-	var/obj/machinery/cryopod/target_cryopod = null
-	var/people_cryoed = 0
-	for(var/mob/living/carbon/human/T in people_to_cryo)
-		if(free_cryopods.len)
-			target_cryopod = safepick(free_cryopods)
-			if(target_cryopod.check_occupant_allowed(T))
-				target_cryopod.take_occupant(T, 1)
-				people_cryoed++
-	to_chat(usr, "<span class='warning'>Sent [people_cryoed] people to cryostorage.</span>")
-	log_admin("[key_name(usr)] sent SSDs to cryo.")
-	message_admins("[key_name_admin(usr)] sent SSDs to cryo.")
-	feedback_add_details("admin_verb","SSDCRY") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
+		mins_ssd = round((world.time - H.last_logout) / 600)
+		msg += "<TR><TD>[H.key]</TD><TD>[H]</TD><TD>[H.job]</TD><TD>[mins_ssd] mins</TD><TD>[get_area(H)]<TD><A HREF='?_src_=holder;adminplayeropts=\ref[H]'>PP</A></TD>"
+		msg += "<TD><A href='?_src_=holder;cryossd=[H.UID()]'>Cryo</A></TD></TR>"
+	msg += "</TABLE></BODY></HTML>"
+	src << browse(msg, "window=Player_ssd_check")
 
 /client/proc/toggle_ert_calling()
 	set category = "Event"

@@ -105,6 +105,9 @@ var/global/nologevent = 0
 		<A href='?_src_=holder;Bless=[M.UID()]'>Bless</A> |
 		<A href='?_src_=holder;Smite=[M.UID()]'>Smite</A>
 	"}
+	if(isLivingSSD(M))
+		if(!istype(M.loc, /obj/machinery/cryopod))
+			body += {" | <A href='?_src_=holder;cryossd=[M.UID()]'>Cryo</A> "}
 
 	if(M.client)
 		if(!istype(M, /mob/new_player))
