@@ -30,7 +30,11 @@
 	desc = "High speed, no drag combat boots."
 	permeability_coefficient = 0.01
 	armor = list(melee = 40, bullet = 30, laser = 25, energy = 25, bomb = 50, bio = 30, rad = 30)
+	trampling_coefficient = 2
 	flags = NOSLIP
+
+	desc = "It's time to stamp out your foes."
+	trampling_coefficient = 25
 
 /obj/item/clothing/shoes/sandal
 	desc = "A pair of rather plain, wooden sandals."
@@ -38,6 +42,7 @@
 	icon_state = "wizard"
 	strip_delay = 50
 	put_on_delay = 50
+	trampling_coefficient = 0.5 //Soft shoes
 
 /obj/item/clothing/shoes/sandal/marisa
 	desc = "A pair of magic, black shoes."
@@ -135,12 +140,14 @@
 	desc = "Fluffy!"
 	icon_state = "slippers"
 	item_state = "slippers"
+	trampling_coefficient = 0
 
 /obj/item/clothing/shoes/slippers_worn
 	name = "worn bunny slippers"
 	desc = "Fluffy..."
 	icon_state = "slippers_worn"
 	item_state = "slippers_worn"
+	trampling_coefficient = 0
 
 /obj/item/clothing/shoes/laceup
 	name = "laceup shoes"
