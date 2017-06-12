@@ -216,6 +216,9 @@
 			if(!((CULT_ELDERGOD in cult_mode.objectives) || (CULT_SLAUGHTER in cult_mode.objectives)))
 				to_chat(user, "<span class='warning'>[cult_mode.cultdat.entity_name]'s power does not wish to be unleashed!</span>")
 				return 0
+			if(!is_station_level(user.z))
+				to_chat(user, "<span class='cultlarge'>\"The veil is too strong here! The station is the best ritual location!\"</span>")
+				return 0
 		var/confirm_final = alert(user, "This is the FINAL step to summon your deities power, it is a long, painful ritual and the crew will be alerted to your presence", "Are you prepared for the final battle?", "My life for [cult_mode.cultdat.entity_name]!", "No")
 		if(confirm_final == "No" || confirm_final == null)
 			to_chat(user, "<span class='cult'>You decide to prepare further before scribing the rune.</span>")

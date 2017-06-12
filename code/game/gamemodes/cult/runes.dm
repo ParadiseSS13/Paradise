@@ -323,6 +323,7 @@ var/list/teleport_runes = list()
 		var/mob/living/carbon/human/H = user
 		if(user.z != T.z)
 			H.drip(60)
+			user.apply_damage(15, BRUTE)
 		else
 			H.drip(rand(10,56))
 	else
@@ -874,6 +875,12 @@ var/list/teleport_runes = list()
 		fail_invoke()
 		log_game("Summon Cultist rune failed - target in away mission")
 		return
+	if(cultist_to_summon.restrained())
+		to_chat(user, "<span class='cultitalic'>The summoning of [cultist_to_summon] is being blocked somehow!</span>")
+		fail_invoke()
+		log_game("Summon Cultist rune failed - target restrained mission")
+		return
+
 	cultist_to_summon.visible_message("<span class='warning'>[cultist_to_summon] suddenly disappears in a flash of red light!</span>", \
 									  "<span class='cultitalic'><b>Overwhelming vertigo consumes you as you are hurled through the air!</b></span>")
 	..()
