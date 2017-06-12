@@ -62,8 +62,8 @@
 	flags = BLOCKHAIR
 	flags_cover = HEADCOVERSEYES
 
-/obj/item/clothing/head/witchunter_hat
-	name = "witchunter hat"
+/obj/item/clothing/head/witchhunter_hat
+	name = "witchhunter hat"
 	desc = "This hat saw much use back in the day."
 	icon_state = "witchhunterhat"
 	item_state = "witchhunterhat"

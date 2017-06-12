@@ -17,7 +17,7 @@
 	new /obj/item/clothing/suit/hooded/chaplain_hoodie(src)
 	new /obj/item/clothing/suit/hooded/monk(src)
 	new /obj/item/clothing/suit/witchhunter(src)
-	new /obj/item/clothing/head/witchunter_hat(src)
+	new /obj/item/clothing/head/witchhunter_hat(src)
 	new /obj/item/clothing/suit/holidaypriest(src)
 	new /obj/item/clothing/under/wedding/bride_white(src)
 	new /obj/item/weapon/storage/backpack/cultpack (src)
