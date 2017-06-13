@@ -102,19 +102,19 @@
 	icon_state = "c20r[magazine ? "-[Ceiling(get_ammo(0)/4)*4]" : ""][chambered ? "" : "-e"][suppressed ? "-suppressed" : ""]"
 
 /obj/item/weapon/gun/projectile/automatic/wt550
-	name = "security auto rifle"
-	desc = "An outdated personal defense weapon utilized by law enforcement. The WT-550 Automatic Rifle fires 4.6x30mm rounds."
+	name = "security Assault Pistol"
+	desc = "An outdated personal defense weapon utilized by law enforcement reintroduced into service as an assault pistol. The WT-550 Automatic Rifle fires 4.6x30mm rounds."
 	icon_state = "wt550"
 	item_state = "arg"
 	mag_type = /obj/item/ammo_box/magazine/wt550m9
 	fire_delay = 2
-	can_suppress = 0
+	can_suppress = 1
 	burst_size = 1
 	actions_types = list()
 
 /obj/item/weapon/gun/projectile/automatic/wt550/update_icon()
 	..()
-	icon_state = "wt550[magazine ? "-[Ceiling(get_ammo(0)/4)*4]" : ""]"
+	icon_state = "wt550[magazine ? "-[Ceiling(get_ammo(0)/4)*4]" : ""][suppressed ? "-s" : ""]"
 
 /obj/item/weapon/gun/projectile/automatic/mini_uzi
 	name = "\improper 'Type U3' Uzi"
@@ -265,3 +265,38 @@
 /obj/item/weapon/gun/projectile/automatic/lasercarbine/update_icon()
 	..()
 	icon_state = "lasercarbine[magazine ? "-[Ceiling(get_ammo(0)/5)*5]" : ""]"
+
+/obj/item/weapon/gun/projectile/automatic/m4
+	name = "tran sol combat rifle"
+	desc = "An anchient yet robust assault rile used by Tran-Solar Federation's ground fighting forces."
+	icon_state = "m-4"
+	item_state = "arg"
+	slot_flags = 0
+	w_class = WEIGHT_CLASS_HUGE
+	origin_tech = "combat=6;engineering=4"
+	mag_type = /obj/item/ammo_box/magazine/stan
+	fire_sound = 'sound/weapons/Gunshot_smg.ogg'
+	can_suppress = 1
+	burst_size = 3
+	fire_delay = 1
+
+/obj/item/weapon/gun/projectile/automatic/m4/update_icon()
+	if(magazine)
+		if(magazine.max_ammo>29)
+			icon_state = "[initial(icon_state)]-l[suppressed ? "-su" : ""]"
+		else
+			icon_state = "[initial(icon_state)]-s[suppressed ? "-su" : ""]"
+	else
+		icon_state = "[initial(icon_state)]-e[suppressed ? "-su" : ""]"
+
+/obj/item/weapon/gun/projectile/automatic/m4/sp1
+	name = "sporting rifle"
+	desc = "A sporting version of the assault rile used by Tran-Solar Federation's ground fighting forces."
+	icon_state = "SP-1"
+	burst_size = 1
+	actions_types = list()
+
+
+/obj/item/weapon/gun/projectile/automatic/m4/sp1/New()
+	magazine = new /obj/item/ammo_box/magazine/stan/short(src)
+	..()

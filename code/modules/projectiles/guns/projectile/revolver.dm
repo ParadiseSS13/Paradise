@@ -406,3 +406,62 @@
 
 	if(desc)
 		to_chat(user, desc)
+
+//	Dominator
+
+/obj/item/weapon/gun/projectile/revolver/doublebarrel/dominator
+	name = "Dominator"
+	desc = "Death comes for you."
+	icon_state = "dominator"
+	item_state = "shotgun"
+	w_class = WEIGHT_CLASS_NORMAL
+	force = 10
+	mag_type = /obj/item/ammo_box/magazine/internal/shot/dominator
+	unique_rename = 0
+	unique_reskin = 0
+	can_unsuppress = 0
+	suppressed = 1
+	fire_sound = 'sound/weapons/Gunshot_silenced.ogg'
+
+/obj/item/weapon/gun/projectile/revolver/doublebarrel/Dominator/sawoff()
+	return
+
+/////////////////
+// Dart Pistol //
+/////////////////
+
+
+/obj/item/weapon/gun/projectile/revolver/tranqpistol
+	name = "Tranqualiser Pistol"
+	desc = "A new tranqualiser pistol meant to help subdue wild prisoners.."
+	icon_state = "tranq-pistol"
+	force = 10
+	mag_type = /obj/item/ammo_box/magazine/internal/dart
+
+/obj/item/weapon/gun/projectile/revolver/tranqpistol/update_icon()
+	if(get_ammo() > 0)
+		icon_state = "[initial(icon_state)][chambered.BB ? "-l" : ""][chambered ? "-c" : ""]"
+	else
+		icon_state = "[initial(icon_state)]"
+
+
+/obj/item/weapon/gun/projectile/revolver/tranqpistol/attackby(obj/item/A, mob/user, params)
+	..()
+	if(istype(A, /obj/item/ammo_box) || istype(A, /obj/item/ammo_casing))
+		chamber_round()
+		update_icon()
+
+/obj/item/weapon/gun/projectile/revolver/tranqpistol/attack_self(mob/living/user)
+	var/num_unloaded = 0
+	while(get_ammo() > 0)
+		var/obj/item/ammo_casing/CB
+		CB = magazine.get_round(0)
+		chambered = null
+		update_icon()
+		CB.loc = get_turf(loc)
+		CB.update_icon()
+		num_unloaded++
+	if(num_unloaded)
+		to_chat(user, "<span class = 'notice'>You open \the [src] and unload the shell.</span>")
+	else
+		to_chat(user, "<span class='notice'>[src] is empty.</span>")

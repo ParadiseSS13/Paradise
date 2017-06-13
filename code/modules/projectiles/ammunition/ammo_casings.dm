@@ -265,11 +265,23 @@
 	reagents.add_reagent("sodium_thiopental", 6)
 
 /obj/item/ammo_casing/shotgun/tranquilizer
-	name = "tranquilizer darts"
-	desc = "A tranquilizer round used to subdue individuals utilizing stimulants."
+	name = "anti-stimulant darts"
+	desc = "A anti-stimulant round used to subdue individuals utilizing stimulants."
 	icon_state = "nshell"
 	projectile_type = /obj/item/projectile/bullet/dart/syringe/tranquilizer
 	materials = list(MAT_METAL=250)
+
+/obj/item/ammo_casing/shotgun/dart/speacial
+	caliber = "dart"
+	icon_state = "emptiedart"
+	projectile_type = /obj/item/projectile/bullet/dart/g20
+
+/obj/item/ammo_casing/shotgun/dart/speacial/tranquilizer
+	icon_state = "tranqdart"
+
+/obj/item/ammo_casing/shotgun/dart/speacial/tranquilizer/New()
+	..()
+	reagents.add_reagent("ketamine", 10)
 
 /obj/item/ammo_casing/a556
 	desc = "A 5.56mm bullet casing."

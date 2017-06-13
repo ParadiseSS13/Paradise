@@ -271,6 +271,10 @@
 	reagents.handle_reactions()
 	return 1
 
+/obj/item/projectile/bullet/dart/g20
+	damage = 0
+	icon_state = "tranq"
+
 /obj/item/projectile/bullet/dart/metalfoam
 
 /obj/item/projectile/bullet/dart/metalfoam/New()

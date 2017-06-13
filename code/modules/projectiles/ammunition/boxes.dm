@@ -110,6 +110,13 @@
 	ammo_type = /obj/item/ammo_casing/shotgun/tranquilizer
 	materials = list(MAT_METAL=1750)
 
+/obj/item/ammo_box/tranqdarts
+	name = "ammo box (20G tranquilizer darts)"
+	icon_state = "tranqbox"
+	origin_tech = "combat=2"
+	ammo_type = /obj/item/ammo_casing/shotgun/dart/speacial/tranquilizer
+	max_ammo = 20
+
 
 //FOAM DARTS
 /obj/item/ammo_box/foambox
