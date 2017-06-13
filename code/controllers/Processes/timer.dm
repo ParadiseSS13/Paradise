@@ -98,3 +98,11 @@ DECLARE_GLOBAL_CONTROLLER(timer, timer_master)
 			qdel(event)
 			return 1
 	return 0
+
+/proc/getRemainingTime(timer)
+	if(timer == 0)
+		return 0
+	for(var/datum/timedevent/event in timer_master.processing_timers)
+		if(event.id == timer)
+			return event.timeToRun - world.time
+	return 0
