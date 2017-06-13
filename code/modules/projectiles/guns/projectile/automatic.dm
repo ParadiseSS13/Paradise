@@ -276,7 +276,7 @@
 	origin_tech = "combat=6;engineering=4"
 	mag_type = /obj/item/ammo_box/magazine/stan
 	fire_sound = 'sound/weapons/Gunshot_smg.ogg'
-	can_suppress = 1
+	can_suppress = TRUE
 	burst_size = 3
 	fire_delay = 1
 
@@ -291,7 +291,7 @@
 
 /obj/item/weapon/gun/projectile/automatic/m4/sp1
 	name = "sporting rifle"
-	desc = "A sporting version of the assault rile used by Tran-Solar Federation's ground fighting forces."
+	desc = "A sporting version of the assault rifle used by Tran-Solar Federation's ground fighting forces."
 	icon_state = "SP-1"
 	burst_size = 3
 	actions_types = list()
@@ -319,7 +319,7 @@
 /obj/item/device/fullautoupgrade
 	name = "Full Auto Sporting Rifle Upgrade"
 	icon_state = "auto-upgrade"
-	desc = "An upgrade unit that can be installed on a sporting rifles to make them fully automatic."
+	desc = "An upgrade unit that can be installed on sporting rifles to make them fully automatic."
 	w_class = WEIGHT_CLASS_SMALL
 	origin_tech = "combat=5"
 	usesound = 'sound/items/Deconstruct.ogg'
