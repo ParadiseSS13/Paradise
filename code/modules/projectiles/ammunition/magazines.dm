@@ -121,7 +121,7 @@
 
 /obj/item/ammo_box/magazine/internal/dart
 	name = "single shot dart gun internal magazine"
-	ammo_type = /obj/item/ammo_casing/shotgun/dart/speacial/tranquilizer
+	ammo_type = /obj/item/ammo_casing/shotgun/dart/special/tranquilizer
 	caliber = "dart"
 	max_ammo = 1
 
