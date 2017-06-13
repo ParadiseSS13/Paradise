@@ -417,10 +417,10 @@
 	w_class = WEIGHT_CLASS_NORMAL
 	force = 10
 	mag_type = /obj/item/ammo_box/magazine/internal/shot/dominator
-	unique_rename = 0
-	unique_reskin = 0
-	can_unsuppress = 0
-	suppressed = 1
+	unique_rename = FALSE
+	unique_reskin = FALSE
+	can_unsuppress = FALSE
+	suppressed = TRUE
 	fire_sound = 'sound/weapons/Gunshot_silenced.ogg'
 
 /obj/item/weapon/gun/projectile/revolver/doublebarrel/Dominator/sawoff()
@@ -433,7 +433,7 @@
 
 /obj/item/weapon/gun/projectile/revolver/tranqpistol
 	name = "tranquilizer pistol"
-	desc = "A new tranquilizer pistol meant to help subdue wild prisoners.."
+	desc = "A new tranquilizer pistol meant to help subdue wild prisoners..."
 	icon_state = "tranq-pistol"
 	force = 10
 	mag_type = /obj/item/ammo_box/magazine/internal/dart
