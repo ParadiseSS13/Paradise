@@ -114,7 +114,7 @@
 	name = "ammo box (20G tranquilizer darts)"
 	icon_state = "tranqbox"
 	origin_tech = "combat=2"
-	ammo_type = /obj/item/ammo_casing/shotgun/dart/speacial/tranquilizer
+	ammo_type = /obj/item/ammo_casing/shotgun/dart/special/tranquilizer
 	max_ammo = 20
 
 

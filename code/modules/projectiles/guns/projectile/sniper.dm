@@ -155,8 +155,8 @@
 	item_state = "ARC"
 	mag_type = /obj/item/ammo_box/magazine/dragon
 	fire_delay = 10
-	can_unsuppress = 1
-	can_suppress = 1
+	can_unsuppress = TRUE
+	can_suppress = TRUE
 	zoom_amt = 5 //A good zoom, but not a full screen.
 
 /obj/item/weapon/gun/projectile/automatic/sniper_rifle/dragon/update_icon()
@@ -197,8 +197,8 @@
 	mag_type = /obj/item/ammo_box/magazine/tranq
 	recoil = 0
 	fire_delay = 10
-	can_unsuppress = 0
-	can_suppress = 0
+	can_unsuppress = FALSE
+	can_suppress = FALSE
 	zoom_amt = 5 //Same as the Dragon
 	weapon_weight = WEAPON_LIGHT
 	w_class = WEIGHT_CLASS_NORMAL
