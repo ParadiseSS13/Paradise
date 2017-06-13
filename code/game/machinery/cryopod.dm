@@ -550,7 +550,7 @@
 			to_chat(user, "<span class='notice'>You stop [L == user ? "climbing into the cryo pod." : "putting [L] into the cryo pod."]</span>")
 
 /obj/machinery/cryopod/proc/take_occupant(var/mob/living/carbon/E, var/willing_factor = 1)
-	if(src.occupant)
+	if(occupant)
 		return
 	if(!E)
 		return

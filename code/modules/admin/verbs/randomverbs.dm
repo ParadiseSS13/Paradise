@@ -891,16 +891,34 @@ Traitors and the like can also be revived with the previous role mostly intact.
 		return
 
 	var/msg = "<html><head><title>SSD Report</title></head><body>"
-	msg += "<TABLE border='1'>SSD Players:"
+	msg += "SSD Players:<BR><TABLE border='1'>"
+	msg += "<TR><TD><B>Key</B></TD><TD><B>Real Name</B></TD><TD><B>Job</B></TD><TD><B>Mins SSD</B></TD><TD><B>Special Role</B></TD><TD><B>Area</B></TD><TD><B>PPN</B></TD><TD><B>Cryo</B></TD></TR>"
 	var/mins_ssd
+	var/job_string
+	var/key_string
+	var/role_string
 	for(var/mob/living/carbon/human/H in living_mob_list)
 		if(!H.player_logged)
 			continue
 		if(!H.last_logout)
 			continue
 		mins_ssd = round((world.time - H.last_logout) / 600)
-		msg += "<TR><TD>[H.key]</TD><TD>[H]</TD><TD>[H.job]</TD><TD>[mins_ssd] mins</TD><TD>[get_area(H)]<TD><A HREF='?_src_=holder;adminplayeropts=\ref[H]'>PP</A></TD>"
-		msg += "<TD><A href='?_src_=holder;cryossd=[H.UID()]'>Cryo</A></TD></TR>"
+		job_string = H.job
+		key_string = H.key
+		if(job_string in command_positions)
+			job_string = "<U>" + job_string + "</U>"
+		role_string = ""
+		if(H.mind)
+			role_string = "[H.mind.special_role]"
+			if(!H.key && H.mind.key)
+				key_string = H.mind.key
+		msg += "<TR><TD>[key_string]</TD><TD>[H.real_name]</TD><TD>[job_string]</TD><TD>[mins_ssd]</TD><TD><U>[role_string]</U></TD>"
+		msg += "<TD>[get_area(H)]</TD><TD><A HREF='?_src_=holder;adminplayeropts=\ref[H]'>PP</A></TD>"
+		if(istype(H.loc, /obj/machinery/cryopod))
+			msg += "<TD>In Cryo</TD>"
+		else
+			msg += "<TD><A href='?_src_=holder;cryossd=[H.UID()]'>Cryo</A></TD>"
+		msg += "</TR>"
 	msg += "</TABLE></BODY></HTML>"
 	src << browse(msg, "window=Player_ssd_check")
 
