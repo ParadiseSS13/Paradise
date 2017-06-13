@@ -448,6 +448,7 @@ var/list/teleport_runes = list()
 			sacrificed.Add(T.mind)
 			if(is_sacrifice_target(T.mind))
 				sacrifice_fulfilled = 1
+
 		new /obj/effect/overlay/temp/cult/sac(loc)
 		if(ticker && ticker.mode && ticker.mode.name == "cult")
 
@@ -875,19 +876,23 @@ var/list/teleport_runes = list()
 		fail_invoke()
 		log_game("Summon Cultist rune failed - target in away mission")
 		return
-	if(cultist_to_summon.restrained())
-		to_chat(user, "<span class='cultitalic'>The summoning of [cultist_to_summon] is being blocked somehow!</span>")
+	if((cultist_to_summon.reagents.has_reagent("holywater") || cultist_to_summon.restrained()) && invokers < 3)
+		to_chat(user, "<span class='cultitalic'>The summoning of [cultist_to_summon] is being blocked somehow! You need 3 chanters to counter it!</span>")
 		fail_invoke()
-		log_game("Summon Cultist rune failed - target restrained mission")
+		new /obj/effect/overlay/temp/cult/sparks(get_turf(cultist_to_summon)) //observer warning
+		log_game("Summon Cultist rune failed - holywater in target")
 		return
 
-	cultist_to_summon.visible_message("<span class='warning'>[cultist_to_summon] suddenly disappears in a flash of red light!</span>", \
-									  "<span class='cultitalic'><b>Overwhelming vertigo consumes you as you are hurled through the air!</b></span>")
 	..()
-	visible_message("<span class='warning'>A foggy shape materializes atop [src] and solidifes into [cultist_to_summon]!</span>")
-	user.apply_damage(10, BRUTE, "head")
-	cultist_to_summon.forceMove(get_turf(src))
-	qdel(src)
+	if(do_after(user, 20, target = loc))
+		cultist_to_summon.visible_message("<span class='warning'>[cultist_to_summon] suddenly disappears in a flash of red light!</span>", \
+										  "<span class='cultitalic'><b>Overwhelming vertigo consumes you as you are hurled through the air!</b></span>")
+		visible_message("<span class='warning'>A foggy shape materializes atop [src] and solidifes into [cultist_to_summon]!</span>")
+		for(var/M in invokers)
+			var/mob/living/L = M
+			L.apply_damage(10, BRUTE, "head")
+		cultist_to_summon.forceMove(get_turf(src))
+		qdel(src)
 
 //Rite of Boiling Blood: Deals extremely high amounts of damage to non-cultists nearby
 /obj/effect/rune/blood_boil

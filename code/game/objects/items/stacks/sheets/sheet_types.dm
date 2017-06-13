@@ -257,13 +257,13 @@ var/global/list/datum/stack_recipe/cardboard_recipes = list (
  * Runed Metal
  */
 
-var/global/list/datum/stack_recipe/runed_metal_recipes = list ( \
-	new/datum/stack_recipe("runed door", /obj/machinery/door/airlock/cult, 1, time = 50, one_per_turf = 1, on_floor = 1),
-	new/datum/stack_recipe("runed girder", /obj/structure/girder/cult, 1, time = 50, one_per_turf = 1, on_floor = 1), \
-	new/datum/stack_recipe("pylon", /obj/structure/cult/functional/pylon, 3, time = 40, one_per_turf = 1, on_floor = 1), \
-	new/datum/stack_recipe("forge", /obj/structure/cult/functional/forge, 5, time = 40, one_per_turf = 1, on_floor = 1), \
-	new/datum/stack_recipe("archives", /obj/structure/cult/functional/tome, 2, time = 40, one_per_turf = 1, on_floor = 1), \
-	new/datum/stack_recipe("altar", /obj/structure/cult/functional/talisman, 5, time = 40, one_per_turf = 1, on_floor = 1), \
+var/global/list/datum/stack_recipe/cult = list ( \
+	new/datum/stack_recipe/cult("runed door", /obj/machinery/door/airlock/cult, 1, time = 50, one_per_turf = 1, on_floor = 1),
+	new/datum/stack_recipe/cult("runed girder", /obj/structure/girder/cult, 1, time = 50, one_per_turf = 1, on_floor = 1), \
+	new/datum/stack_recipe/cult("pylon", /obj/structure/cult/functional/pylon, 3, time = 40, one_per_turf = 1, on_floor = 1), \
+	new/datum/stack_recipe/cult("forge", /obj/structure/cult/functional/forge, 5, time = 40, one_per_turf = 1, on_floor = 1), \
+	new/datum/stack_recipe/cult("archives", /obj/structure/cult/functional/tome, 2, time = 40, one_per_turf = 1, on_floor = 1), \
+	new/datum/stack_recipe/cult("altar", /obj/structure/cult/functional/talisman, 5, time = 40, one_per_turf = 1, on_floor = 1), \
 	)
 
 /obj/item/stack/sheet/runed_metal
@@ -283,19 +283,24 @@ var/global/list/datum/stack_recipe/runed_metal_recipes = list ( \
 		to_chat(user, "<span class='warning'>The energies of this place interfere with the metal shaping!</span>")
 		return
 
-	if(ishuman(user))
-		var/mob/living/carbon/human/H = user
-		to_chat(H, "<span class='warning'>One of your fingers slice on the metal and it seems to absorb some blood..</span>")
-		H.drip(10)
 	return ..()
+
+/datum/stack_recipe/cult
+   one_per_turf = 1
+   on_floor = 1
+
+/datum/stack_recipe/cult/post_build(obj/item/stack/S, obj/result)
+   if(ishuman(S.loc))
+      var/mob/living/carbon/human/H = S.loc
+      H.drip(20)
+   ..()
 
 /obj/item/stack/sheet/runed_metal/fifty
 	amount = 50
 
 /obj/item/stack/sheet/runed_metal/New(var/loc, var/amount=null)
-	recipes = runed_metal_recipes
+	recipes = cult
 	return ..()
-
 /*
  * Bones
  */
