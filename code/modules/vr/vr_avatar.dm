@@ -21,10 +21,14 @@
 	return ..()
 
 /mob/living/carbon/human/virtual_reality/Destroy()
+	myroom.players.Remove(src)
+	if((myroom.players.len == 0) && (myroom.expires == 1))
+		myroom.delete_timer = addtimer(myroom, "cleanup", 3 MINUTES)
 	if(src.ckey)
 		return_to_lobby()
 	var/mob/living/carbon/human/virtual_reality/vr = src
 	var/list/corpse_equipment = vr.get_all_slots()
+	corpse_equipment += vr.get_equipped_items()
 	for(var/A in corpse_equipment)
 		var/obj/O = A
 		if(myroom.template.death_type == VR_DROP_ALL)
@@ -33,9 +37,8 @@
 			vr.unEquip(O)
 		else if(myroom.template.death_type == VR_DROP_WHITELIST && (O.type in myroom.template.drop_whitelist))
 			vr.unEquip(O)
-	myroom.players.Remove(src)
-	if((myroom.players.len == 0) && (myroom.expires == 1))
-		myroom.delete_timer = addtimer(myroom, "cleanup", 3 MINUTES)
+		else
+			qdel(O)
 	return ..()
 
 /mob/living/carbon/human/virtual_reality/ghost()
@@ -63,7 +66,7 @@
 		var/mob/living/carbon/human/virtual_reality/new_vr
 		var/datum/vr_room/lobby = vr_rooms_offical["Lobby"]
 		new_vr = spawn_vr_avatar(src, lobby)
-		var/obj/item/clothing/glasses/vr_headset/g = new_vr.real_me.glasses
+		var/obj/item/clothing/glasses/vr_goggles/g = new_vr.real_me.glasses
 		g.vr_human = new_vr
 
 
@@ -96,7 +99,7 @@
 	if(..())
 		if(istype(owner, /mob/living/carbon/human/virtual_reality))
 			var/mob/living/carbon/human/virtual_reality/vr = owner
-			var/obj/item/clothing/glasses/vr_headset/g = vr.real_me.glasses
+			var/obj/item/clothing/glasses/vr_goggles/g = vr.real_me.glasses
 			g.vr_human = vr
 			vr.revert_to_reality(0)
 		else

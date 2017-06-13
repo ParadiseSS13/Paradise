@@ -1315,4 +1315,4 @@
 	name = "\improper Robotech Deluxe"
 	desc = "A storage unit for NanoTrasen. Simulated. Reality. System."
 	icon_state = "robotics"
-	products = list(/obj/item/clothing/glasses/vr_headset = 100)
+	products = list(/obj/item/clothing/glasses/vr_goggles = 100)

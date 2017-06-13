@@ -12,12 +12,13 @@ var/roomcap = 20
 	var/list/players = list()
 	var/expires = 1
 	var/delete_timer = null
+	var/round_timer = 0
+	var/round_stage = 0
 
 /datum/vr_room/proc/cleanup()
 	space_manager.free_space(src.chunk)
 	vr_rooms.Remove(src.name)
 	qdel(src)
-
 
 proc/make_vr_room(name, template, expires)
 	var/datum/vr_room/R = new
