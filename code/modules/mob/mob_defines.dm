@@ -75,8 +75,8 @@
 	var/overeatduration = 0		// How long this guy is overeating //Carbon
 	var/intent = null//Living
 	var/shakecamera = 0
-	var/a_intent = I_HELP//Living
-	var/m_intent = "run"//Living
+	var/a_intent = INTENT_HELP//Living
+	var/m_intent = MOVE_INTENT_RUN//Living
 	var/lastKnownIP = null
 	var/atom/movable/buckled = null//Living
 	var/obj/item/l_hand = null//Living

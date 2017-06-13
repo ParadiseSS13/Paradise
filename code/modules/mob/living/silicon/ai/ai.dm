@@ -677,7 +677,7 @@ var/list/ai_verbs_default = list(
 
 	switch(M.a_intent)
 
-		if(I_HELP)
+		if(INTENT_HELP)
 			visible_message("<span class='notice'>[M] caresses [src]'s plating with its scythe like arm.</span>")
 
 		else //harm

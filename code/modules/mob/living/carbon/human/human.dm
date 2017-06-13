@@ -338,7 +338,7 @@
 /mob/living/carbon/human/attack_larva(mob/living/carbon/alien/larva/L as mob)
 
 	switch(L.a_intent)
-		if(I_HELP)
+		if(INTENT_HELP)
 			visible_message("<span class='notice'>[L] rubs its head against [src].</span>")
 
 
@@ -2258,8 +2258,8 @@
 			to_chat(src, "<span class='warning'>Your fingers don't fit in the trigger guard!</span>")
 			return 0
 
-	if(martial_art && martial_art.name == "The Sleeping Carp") //great dishonor to famiry
-		to_chat(src, "<span class='warning'>Use of ranged weaponry would bring dishonor to the clan.</span>")
+	if(martial_art && martial_art.no_guns) //great dishonor to famiry
+		to_chat(src, "<span class='warning'>[martial_art.no_guns_message]</span>")
 		return 0
 
 	return .

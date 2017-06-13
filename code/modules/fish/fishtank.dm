@@ -513,7 +513,7 @@
 
 /obj/machinery/fishtank/attack_animal(mob/living/simple_animal/M as mob)
 	if(istype(M, /mob/living/simple_animal/pet/cat))
-		if(M.a_intent == I_HELP)							//Cats can try to fish in open tanks on help intent
+		if(M.a_intent == INTENT_HELP)							//Cats can try to fish in open tanks on help intent
 			if(lid_switch)									//Can't fish in a closed tank. Fishbowls are ALWAYS open.
 				M.visible_message("[M.name] stares at into \the [src] while sitting perfectly still.", "The lid is closed, so you stare into \the [src] intently.")
 			else
@@ -535,7 +535,7 @@
 		else
 			attack_generic(M, M.harm_intent_damage)
 	else if(istype(M, /mob/living/simple_animal/hostile/bear))
-		if(M.a_intent == I_HELP)							//Bears can try to fish in open tanks on help intent
+		if(M.a_intent == INTENT_HELP)							//Bears can try to fish in open tanks on help intent
 			if(lid_switch)									//Can't fish in a closed tank. Fishbowls are ALWAYS open.
 				M.visible_message("[M.name] scrapes it's claws along \the [src]'s lid.", "The lid is closed, so you scrape your claws against \the [src]'s lid.")
 			else
@@ -555,7 +555,7 @@
 	else
 		if(M.melee_damage_upper > 0)						//If the simple_animal has a melee_damage_upper defined, use that for the damage
 			attack_generic(M, M.melee_damage_upper)
-		else if(M.a_intent == I_HARM)						//Let any simple_animal try to break tanks when on harm intent
+		else if(M.a_intent == INTENT_HARM)						//Let any simple_animal try to break tanks when on harm intent
 			if(M.harm_intent_damage <= 0) return			//If it doesn't do damage, don't bother with the attack
 			attack_generic(M, M.harm_intent_damage)
 	check_health()
@@ -575,7 +575,7 @@
 		user.say(pick(";RAAAAAAAARGH!", ";HNNNNNNNNNGGGGGGH!", ";GWAAAAAAAARRRHHH!", "NNNNNNNNGGGGGGGGHH!", ";AAAAAAARRRGH!"))
 		user.visible_message("<span class='danger'>[user] smashes through [src]!</span>")
 		destroy()
-	else if(usr.a_intent == I_HARM)
+	else if(usr.a_intent == INTENT_HARM)
 		user.changeNext_move(CLICK_CD_MELEE)
 		playsound(get_turf(src), 'sound/effects/glassknock.ogg', 80, 1)
 		usr.visible_message("<span class='danger'>[usr.name] bangs against the [src.name]!</span>", \
@@ -611,7 +611,7 @@
 	//Welders repair damaged tanks on help intent, damage on all others
 	if(istype(O, /obj/item/weapon/weldingtool))
 		var/obj/item/weapon/weldingtool/W = O
-		if(user.a_intent == I_HELP)
+		if(user.a_intent == INTENT_HELP)
 			if(W.isOn())
 				if(cur_health < max_health)
 					playsound(loc, W.usesound, 50, 1)

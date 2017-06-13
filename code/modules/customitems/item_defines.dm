@@ -30,7 +30,7 @@
 	usesound = 'sound/items/Welder2.ogg'
 
 /obj/item/device/fluff/tattoo_gun/attack(mob/living/carbon/M as mob, mob/user as mob)
-	if(user.a_intent == "harm")
+	if(user.a_intent == INTENT_HARM)
 		user.visible_message("<span class='warning'>[user] stabs [M] with the [src]!</span>", "<span class='warning'>You stab [M] with the [src]!</span>")
 		to_chat(M, "<span class='userdanger'>[user] stabs you with the [src]!<br></span><span class = 'warning'>You feel a tiny prick!</span>")
 		return

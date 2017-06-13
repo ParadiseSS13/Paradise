@@ -34,9 +34,9 @@
 	if(.)
 		if(nutrition && stat != DEAD)
 			nutrition -= hunger_drain / 10
-			if(m_intent == "run")
+			if(m_intent == MOVE_INTENT_RUN)
 				nutrition -= hunger_drain / 10
-		if((FAT in mutations) && m_intent == "run" && bodytemperature <= 360)
+		if((FAT in mutations) && m_intent == MOVE_INTENT_RUN && bodytemperature <= 360)
 			bodytemperature += 2
 
 		// Moving around increases germ_level faster
@@ -939,7 +939,7 @@ var/list/ventcrawl_machinery = list(/obj/machinery/atmospherics/unary/vent_pump,
 
 
 /mob/living/carbon/proc/slip(var/description, var/stun, var/weaken, var/tilesSlipped, var/walkSafely, var/slipAny)
-	if(flying || buckled || (walkSafely && m_intent == "walk"))
+	if(flying || buckled || (walkSafely && m_intent == MOVE_INTENT_WALK))
 		return 0
 	if((lying) && (!(tilesSlipped)))
 		return 0

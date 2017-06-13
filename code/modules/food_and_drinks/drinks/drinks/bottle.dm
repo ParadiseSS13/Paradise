@@ -47,7 +47,7 @@
 	if(!target)
 		return
 
-	if(user.a_intent != I_HARM || !isGlass)
+	if(user.a_intent != INTENT_HARM || !isGlass)
 		return ..()
 
 	force = 15 //Smashing bottles over someoen's head hurts.

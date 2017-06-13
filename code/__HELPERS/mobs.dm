@@ -464,3 +464,7 @@ proc/add_logs(mob/user, mob/target, what_done, var/object=null, var/addition=nul
 	set hidden = 1
 	set name = ".mouse"
 	LogMouseMacro(".mouse", params)
+
+/proc/update_all_mob_security_hud()
+	for(var/mob/living/carbon/human/H in mob_list)
+		H.sec_hud_set_security_status()

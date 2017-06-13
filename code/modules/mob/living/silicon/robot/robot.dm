@@ -575,7 +575,7 @@ var/list/robot_verbs_default = list(
 
 				return
 
-	if(istype(W, /obj/item/weapon/weldingtool) && user.a_intent == I_HELP)
+	if(istype(W, /obj/item/weapon/weldingtool) && user.a_intent == INTENT_HELP)
 		if(W == module_active)
 			return
 		if(!getBruteLoss())
@@ -594,7 +594,7 @@ var/list/robot_verbs_default = list(
 			return
 
 
-	else if(istype(W, /obj/item/stack/cable_coil) && user.a_intent == I_HELP && (wiresexposed || istype(src,/mob/living/silicon/robot/drone)))
+	else if(istype(W, /obj/item/stack/cable_coil) && user.a_intent == INTENT_HELP && (wiresexposed || istype(src,/mob/living/silicon/robot/drone)))
 		if(!getFireLoss())
 			to_chat(user, "<span class='notice'>Nothing to fix!</span>")
 			return
@@ -818,15 +818,15 @@ var/list/robot_verbs_default = list(
 
 	switch(M.a_intent)
 
-		if(I_HELP)
+		if(INTENT_HELP)
 			for(var/mob/O in viewers(src, null))
 				if((O.client && !( O.blinded )))
 					O.show_message(text("<span class='notice'>[M] caresses [src]'s plating with its scythe like arm.</span>"), 1)
 
-		if(I_GRAB)
+		if(INTENT_GRAB)
 			grabbedby(M)
 
-		if(I_HARM)
+		if(INTENT_HARM)
 			M.do_attack_animation(src)
 			var/damage = rand(10, 20)
 			if(prob(90))
@@ -842,7 +842,7 @@ var/list/robot_verbs_default = list(
 				visible_message("<span class='danger'>[M] took a swipe at [src]!</span>", \
 								"<span class='userdanger'>[M] took a swipe at [src]!</span>")
 
-		if(I_DISARM)
+		if(INTENT_DISARM)
 			if(!(lying))
 				M.do_attack_animation(src)
 				if(prob(85))
@@ -923,7 +923,7 @@ var/list/robot_verbs_default = list(
 			diag_hud_set_borgcell()
 
 	if(!opened && (!istype(user, /mob/living/silicon)))
-		if(user.a_intent == I_HELP)
+		if(user.a_intent == INTENT_HELP)
 			user.visible_message("<span class='notice'>[user] pets [src]!</span>", \
 								"<span class='notice'>You pet [src]!</span>")
 

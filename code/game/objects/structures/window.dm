@@ -141,7 +141,7 @@ var/global/wcResearch = pick(list("#ee82ee"))
 		user.say(pick(";RAAAAAAAARGH!", ";HNNNNNNNNNGGGGGGH!", ";GWAAAAAAAARRRHHH!", "NNNNNNNNGGGGGGGGHH!", ";AAAAAAARRRGH!"))
 		user.visible_message("<span class='danger'>[user] smashes through [src]!</span>")
 		destroy()
-	else if(user.a_intent == I_HARM)
+	else if(user.a_intent == INTENT_HARM)
 		user.changeNext_move(CLICK_CD_MELEE)
 		playsound(get_turf(src), 'sound/effects/glassknock.ogg', 80, 1)
 		user.visible_message("<span class='warning'>[user.name] bangs against the [src.name]!</span>", \

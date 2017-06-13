@@ -162,6 +162,8 @@
 				G.endurance -= damage_to_do
 				G.CheckEndurance()
 			return
+	else if(I.sharp)
+		damage_to_do = I.force * 3 // wirecutter: 6->18, knife 10->30, hatchet 12->36
 	if(I.damtype != STAMINA)
 		endurance -= damage_to_do
 		CheckEndurance()
