@@ -271,15 +271,15 @@
 	projectile_type = /obj/item/projectile/bullet/dart/syringe/tranquilizer
 	materials = list(MAT_METAL=250)
 
-/obj/item/ammo_casing/shotgun/dart/speacial
+/obj/item/ammo_casing/shotgun/dart/special
 	caliber = "dart"
 	icon_state = "emptiedart"
 	projectile_type = /obj/item/projectile/bullet/dart/g20
 
-/obj/item/ammo_casing/shotgun/dart/speacial/tranquilizer
+/obj/item/ammo_casing/shotgun/dart/special/tranquilizer
 	icon_state = "tranqdart"
 
-/obj/item/ammo_casing/shotgun/dart/speacial/tranquilizer/New()
+/obj/item/ammo_casing/shotgun/dart/special/tranquilizer/New()
 	..()
 	reagents.add_reagent("ketamine", 10)
 

@@ -150,7 +150,7 @@
 
 /obj/item/weapon/gun/projectile/automatic/sniper_rifle/dragon
 	name = "dragon"
-	desc = "cheap and effective, what more could you want from a DMR"
+	desc = "Cheap and effective, what more could you want from a DMR"
 	icon_state = "dragon"
 	item_state = "ARC"
 	mag_type = /obj/item/ammo_box/magazine/dragon
@@ -207,7 +207,7 @@
 	name = "Tranquilizer rounds"
 	icon_state = "oldrifle"
 	origin_tech = "combat=6"
-	ammo_type = /obj/item/ammo_casing/shotgun/dart/speacial/tranquilizer
+	ammo_type = /obj/item/ammo_casing/shotgun/dart/special/tranquilizer
 	max_ammo = 5
 	caliber = "dart"
 
@@ -216,3 +216,6 @@
 		icon_state = "[initial(icon_state)]-4"
 	else
 		icon_state = "[initial(icon_state)]-0"
+
+
+

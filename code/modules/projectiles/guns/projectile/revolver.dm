@@ -432,7 +432,7 @@
 
 
 /obj/item/weapon/gun/projectile/revolver/tranqpistol
-	name = "Tranqualiser Pistol"
+	name = "Tranquilizer Pistol"
 	desc = "A new tranqualiser pistol meant to help subdue wild prisoners.."
 	icon_state = "tranq-pistol"
 	force = 10
@@ -462,6 +462,6 @@
 		CB.update_icon()
 		num_unloaded++
 	if(num_unloaded)
-		to_chat(user, "<span class = 'notice'>You open \the [src] and unload the shell.</span>")
+		to_chat(user, "<span class = 'notice'>You open the [src] and unload the shell.</span>")
 	else
 		to_chat(user, "<span class='notice'>[src] is empty.</span>")
