@@ -150,7 +150,7 @@
 
 /obj/item/weapon/gun/projectile/automatic/sniper_rifle/dragon
 	name = "dragon"
-	desc = "Cheap and effective, what more could you want from a DMR"
+	desc = "Cheap and effective, what more could you want from a DMR."
 	icon_state = "dragon"
 	item_state = "ARC"
 	mag_type = /obj/item/ammo_box/magazine/dragon
