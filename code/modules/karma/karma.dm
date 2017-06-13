@@ -143,7 +143,7 @@ var/list/karma_spenders = list()
 		if(M.mind.assigned_role)
 			assigned_role = M.mind.assigned_role
 	karma_diary << "[M.name] ([M.key]) [assigned_role]/[special_role]: [M.client.karma] - [time2text(world.timeofday, "hh:mm:ss")] given by [key]"
-
+	message_admins("[usr] gave [M.client] good karma.")
 	sql_report_karma(src, M)
 
 /mob/verb/reduce_karma_list()
@@ -191,7 +191,7 @@ var/list/karma_spenders = list()
 	if(!can_give_karma_to_mob(M))
 		return
 
-	M.client.karmatrah(1,0,M.client)
+	M.client.karmatrah(2,0,M.client)
 	to_chat(usr, "[M.name] lost his bit of karma. You should be really proud of yourself.")
 	client.karma_spent = 1
 	karma_spenders += ckey
@@ -416,7 +416,7 @@ You've gained <b>[totalkarma]</b> total karma in your time here.<br>"}
 			to_chat(usr, "You have been [refund ? "refunded" : "charged"] [cost] karma.")
 			message_admins("[key_name(usr)] has been [refund ? "refunded" : "charged"] [cost] karma.")
 			return
-			
+
 /client/proc/karmatrah(var/cost,var/refund = 0, var/client/C)
 	var/DBQuery/query = dbcon.NewQuery("SELECT * FROM [format_table_name("karmatotals")] WHERE byondkey='[C.ckey]'")
 	query.Execute()
@@ -434,8 +434,7 @@ You've gained <b>[totalkarma]</b> total karma in your time here.<br>"}
 			message_admins("SQL ERROR during karmaspent updating (updating existing entry). Error: \[[err]\]\n")
 			return
 		else
-			to_chat(usr, "You have been [refund ? "refunded" : "charged"] [cost] karma.")
-			message_admins("[key_name(C)] has been [refund ? "refunded" : "charged"] [cost] karma.")
+			message_admins("[usr] reduced [C.ckey]'s karma.")
 			return
 /*
 /client/proc/karmarefund(var/type,var/name,var/cost)
