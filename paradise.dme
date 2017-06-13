@@ -2156,7 +2156,7 @@
 #include "code\modules\vehicle\vehicle.dm"
 #include "code\modules\vr\vr_avatar.dm"
 #include "code\modules\vr\vr_controller.dm"
-#include "code\modules\vr\vr_headset.dm"
+#include "code\modules\vr\vr_goggles.dm"
 #include "code\modules\vr\vr_outfits.dm"
 #include "code\modules\vr\vr_tickets.dm"
 #include "goon\code\datums\browserOutput.dm"
