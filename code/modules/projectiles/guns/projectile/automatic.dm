@@ -102,7 +102,7 @@
 	icon_state = "c20r[magazine ? "-[Ceiling(get_ammo(0)/4)*4]" : ""][chambered ? "" : "-e"][suppressed ? "-suppressed" : ""]"
 
 /obj/item/weapon/gun/projectile/automatic/wt550
-	name = "security Assault Pistol"
+	name = "security assault pistol"
 	desc = "An outdated personal defense weapon utilized by law enforcement reintroduced into service as an assault pistol. The WT-550 Automatic Rifle fires 4.6x30mm rounds."
 	icon_state = "wt550"
 	item_state = "arg"
@@ -268,7 +268,7 @@
 
 /obj/item/weapon/gun/projectile/automatic/m4
 	name = "tran sol combat rifle"
-	desc = "An anchient yet robust assault rile used by Tran-Solar Federation's ground fighting forces."
+	desc = "An ancient yet robust assault rile used by Tran-Solar Federation's ground fighting forces."
 	icon_state = "m-4"
 	item_state = "arg"
 	slot_flags = 0

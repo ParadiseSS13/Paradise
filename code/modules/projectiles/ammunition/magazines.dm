@@ -127,6 +127,7 @@
 
 /obj/item/ammo_box/magazine/internal/shot/dominator
 	name = "quad shotgun internal magazine"
+	ammo_type = /obj/item/ammo_casing/shotgun/buckshot
 	max_ammo = 4
 
 /obj/item/ammo_box/magazine/internal/grenadelauncher
@@ -391,7 +392,7 @@
 	multiple_sprites = 2
 
 /obj/item/ammo_box/magazine/stan
-	name = "toploader magazine (5.56mm)"
+	name = "assault rifle magazine (5.56mm)"
 	icon_state = "stan"
 	origin_tech = "combat=5"
 	ammo_type = /obj/item/ammo_casing/a556
@@ -402,6 +403,7 @@
 	icon_state = "[initial(icon_state)]-[Ceiling(ammo_count(0)/max_ammo)]"
 
 /obj/item/ammo_box/magazine/stan/short
+	name = "short assault rifle magazine (5.56mm)"
 	icon_state = "stan-s"
 	max_ammo = 10
 
