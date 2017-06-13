@@ -462,7 +462,7 @@
 		CB.update_icon()
 		num_unloaded++
 	if(num_unloaded)
-		to_chat(user, "<span class = 'notice'>You open the [src] and unload the shell.</span>")
+		to_chat(user, "<span class = 'notice'>You open [src] and unload the shell.</span>")
 	else
 		to_chat(user, "<span class='notice'>[src] is empty.</span>")
 
