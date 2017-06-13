@@ -432,7 +432,7 @@
 
 
 /obj/item/weapon/gun/projectile/revolver/tranqpistol
-	name = "Tranquilizer Pistol"
+	name = "tranquilizer pistol"
 	desc = "A new tranqualiser pistol meant to help subdue wild prisoners.."
 	icon_state = "tranq-pistol"
 	force = 10
