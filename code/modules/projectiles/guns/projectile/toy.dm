@@ -1,6 +1,6 @@
 /obj/item/weapon/gun/projectile/automatic/toy
 	name = "foam force SMG"
-	desc = "A prototype three-round burst toy submachine gun. Ages 8 and up."
+	desc = "A prototype two-round burst toy submachine gun. Ages 8 and up."
 	icon = 'icons/obj/guns/toy.dmi'
 	icon_state = "saber"
 	item_state = "gun"
@@ -8,12 +8,21 @@
 	fire_sound = 'sound/weapons/Gunshot_smg.ogg'
 	force = 0
 	throwforce = 0
-	burst_size = 3
+	burst_size = 2
 	can_suppress = 0
 	clumsy_check = 0
 	needs_permit = 0
 
 /obj/item/weapon/gun/projectile/automatic/toy/process_chamber(eject_casing = 0, empty_chamber = 1)
+	..()
+
+/obj/item/weapon/gun/projectile/automatic/toy/riot
+	name = "riot foam force SMG"
+	desc = "A prototype two-round burst riot control submachine gun. Ages 18 and up."
+	mag_type = /obj/item/ammo_box/magazine/toy/smg
+
+/obj/item/weapon/gun/projectile/automatic/toy/riot/New()
+	magazine = new /obj/item/ammo_box/magazine/toy/smg/riot(src)
 	..()
 
 /obj/item/weapon/gun/projectile/automatic/toy/pistol
