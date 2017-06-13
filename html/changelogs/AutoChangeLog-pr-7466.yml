@@ -1,5 +1,0 @@
-author: "Vivalas"
-delete-after: True
-changes: 
-  - rscadd: "Brig timers will now update the records of those who are imprisoned in their cell, as long as their name is entered correctly."
-  - rscadd: "Sentences and arresting officers are announced over the security channel by brig timers, as well as the names of those who end timers manually."

@@ -1,4 +1,0 @@
-author: "KasparoVy"
-delete-after: True
-changes: 
-  - bugfix: "Moves a hidden emergency locker to where it is visible."
