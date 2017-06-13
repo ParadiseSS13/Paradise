@@ -266,7 +266,7 @@
 
 /obj/item/ammo_casing/shotgun/tranquilizer
 	name = "anti-stimulant darts"
-	desc = "A anti-stimulant round used to subdue individuals utilizing stimulants."
+	desc = "An anti-stimulant round used to subdue individuals utilizing stimulants."
 	icon_state = "nshell"
 	projectile_type = /obj/item/projectile/bullet/dart/syringe/tranquilizer
 	materials = list(MAT_METAL=250)
