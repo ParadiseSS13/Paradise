@@ -433,7 +433,7 @@
 
 /obj/item/weapon/gun/projectile/revolver/tranqpistol
 	name = "tranquilizer pistol"
-	desc = "A new tranqualiser pistol meant to help subdue wild prisoners.."
+	desc = "A new tranquilizer pistol meant to help subdue wild prisoners.."
 	icon_state = "tranq-pistol"
 	force = 10
 	mag_type = /obj/item/ammo_box/magazine/internal/dart
