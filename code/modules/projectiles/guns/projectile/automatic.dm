@@ -293,10 +293,33 @@
 	name = "sporting rifle"
 	desc = "A sporting version of the assault rile used by Tran-Solar Federation's ground fighting forces."
 	icon_state = "SP-1"
-	burst_size = 1
+	burst_size = 3
 	actions_types = list()
+	var/fullauto = FALSE
 
 
 /obj/item/weapon/gun/projectile/automatic/m4/sp1/New()
 	magazine = new /obj/item/ammo_box/magazine/stan/short(src)
+	burst_select()
 	..()
+
+/obj/item/weapon/gun/projectile/automatic/m4/sp1/attackby(obj/item/A, mob/user, params)
+	..()
+	if(istype(A, /obj/item/device/fullautoupgrade))
+		if(fullauto == FALSE)
+			qdel(A)
+			fullauto = TRUE
+			var/datum/action/B = new /datum/action/item_action/toggle_firemode(src)
+			if(loc == user)
+				B.Grant(user)
+			to_chat(user, "<span class='notice'>You intall the new trigger group to the rifle, making it automatic.</span>")
+		else
+			to_chat(user, "<span class='notice'>This rifle is already automatic.</span>")
+
+/obj/item/device/fullautoupgrade
+	name = "Full Auto Sporting Rifle Upgrade"
+	icon_state = "auto-upgrade"
+	desc = "An upgrade unit that can be installed on a sporting rifles to make them fully automatic."
+	w_class = WEIGHT_CLASS_SMALL
+	origin_tech = "combat=5"
+	usesound = 'sound/items/Deconstruct.ogg'

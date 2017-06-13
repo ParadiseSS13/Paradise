@@ -227,3 +227,14 @@
 	build_path = /obj/item/weapon/gun/energy/immolator
 	locked = 1
 	category = list("Weapons")
+
+/datum/design/fullauto_upgrade
+	name = "Full Auto Sporting Rifle Upgrade"
+	desc = "A lower body reciver for an sporting rifle to make it fully automatic."
+	id = "fullauto_upgrade"
+	req_tech = list("combat" = 6, "materials" = 4)
+	build_type = PROTOLATHE
+	materials = list(MAT_METAL = 1000, MAT_GLASS = 500, MAT_SILVER = 500)
+	build_path = /obj/item/device/fullautoupgrade
+	locked = 1
+	category = list("Weapons")
