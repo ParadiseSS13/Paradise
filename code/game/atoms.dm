@@ -441,27 +441,13 @@ var/list/blood_splatter_icons = list()
 /obj/add_blood(list/blood_dna, color)
 	return transfer_blood_dna(blood_dna)
 
-/obj/item/add_blood(list/blood_DNA, color)
+/obj/item/add_blood(list/blood_dna, color)
 	var/blood_count = !blood_DNA ? 0 : blood_DNA.len
 	if(!..())
 		return 0
 	if(!blood_count)//apply the blood-splatter overlay if it isn't already in there
 		add_blood_overlay(color)
 	return 1 //we applied blood to the item
-
-/obj/item/proc/add_blood_overlay(color)
-	if(initial(icon) && initial(icon_state))
-		//try to find a pre-processed blood-splatter. otherwise, make a new one
-		var/index = blood_splatter_index()
-		var/icon/blood = icon('icons/effects/blood.dmi', "itemblood")
-		var/icon/blood_splatter_icon = blood_splatter_icons[index]
-		if(!blood_splatter_icon)
-			blood_splatter_icon = icon(initial(icon), initial(icon_state), , 1)		//we only want to apply blood-splatters to the initial icon_state for each object
-			blood.Blend(color, ICON_ADD)
-			blood_splatter_icon.Blend(blood, ICON_MULTIPLY)
-			blood_splatter_icon = fcopy_rsc(blood_splatter_icon)
-			blood_splatter_icons[index] = blood_splatter_icon
-		overlays += blood_splatter_icon
 
 /obj/item/clothing/gloves/add_blood(list/blood_dna, color)
 	. = ..()
@@ -478,20 +464,38 @@ var/list/blood_splatter_icons = list()
 /mob/living/carbon/human/add_blood(list/blood_dna, color)
 	if(wear_suit)
 		wear_suit.add_blood(blood_dna, color)
-		update_inv_wear_suit()
+		wear_suit.blood_color = color
+		update_inv_wear_suit(1)
 	else if(w_uniform)
 		w_uniform.add_blood(blood_dna, color)
-		update_inv_w_uniform()
+		w_uniform.blood_color = color
+		update_inv_w_uniform(1)
 	if(gloves)
 		var/obj/item/clothing/gloves/G = gloves
 		G.add_blood(blood_dna, color)
+		G.blood_color = color
 	else
 		hand_blood_color = color
 		bloody_hands = rand(2, 4)
 		transfer_blood_dna(blood_dna)
 
-	update_inv_gloves()	//handles bloody hands overlays and updating
+	update_inv_gloves(1)	//handles bloody hands overlays and updating
 	return 1
+
+/obj/item/proc/add_blood_overlay(color)
+	if(initial(icon) && initial(icon_state))
+		//try to find a pre-processed blood-splatter. otherwise, make a new one
+		var/index = blood_splatter_index()
+		var/icon/blood = icon('icons/effects/blood.dmi', "itemblood")
+		to_chat(world, "color is: [color]")
+		var/icon/blood_splatter_icon = blood_splatter_icons[index]
+		if(!blood_splatter_icon)
+			blood_splatter_icon = icon(initial(icon), initial(icon_state), , 1)		//we only want to apply blood-splatters to the initial icon_state for each object
+			blood.Blend(color, ICON_ADD)
+			blood_splatter_icon.Blend(blood, ICON_MULTIPLY)
+			blood_splatter_icon = fcopy_rsc(blood_splatter_icon)
+			blood_splatter_icons[index] = blood_splatter_icon
+		overlays += blood_splatter_icon
 
 /atom/proc/clean_blood()
 	src.germ_level = 0

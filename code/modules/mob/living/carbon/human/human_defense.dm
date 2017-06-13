@@ -296,7 +296,7 @@ emp_act
 							update_inv_wear_suit(0)
 						if(w_uniform)
 							w_uniform.add_mob_blood(src)
-							update_inv_w_uniform(0)
+							update_inv_w_uniform(1)
 
 
 
