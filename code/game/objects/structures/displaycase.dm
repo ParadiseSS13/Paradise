@@ -320,8 +320,8 @@ var/global/list/captain_display_cases = list()
 					to_chat(src, "[bicon(src)] <span class='warning'>\The [src] is empty!</span>")
 		else
 			user.changeNext_move(CLICK_CD_MELEE)
-			user.visible_message("[user.name] gently runs \his hands over \the [src] in appreciation of its contents.", \
-				"You gently run your hands over \the [src] in appreciation of its contents.", \
+			user.visible_message("[user.name] gently runs \his hands over [src] in appreciation of its contents.", \
+				"You gently run your hands over [src] in appreciation of its contents.", \
 				"You hear someone streaking glass with their greasy hands.")
 
 #undef DISPLAYCASE_FRAME_CIRCUIT
