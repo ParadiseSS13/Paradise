@@ -287,8 +287,7 @@
 	flick("bottler_on", src)
 	spawn(45)
 		for(var/i = 1, i <= slots.len, i++)
-			qdel(slots[i])
-			slots[i] = null
+			QDEL_NULL(slots[i])
 		bottling = 0
 		drink_container.forceMove(loc)
 		updateUsrDialog()

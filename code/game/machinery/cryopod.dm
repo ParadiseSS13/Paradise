@@ -317,8 +317,7 @@
 		if(istype(W,/obj/item/device/pda))
 			var/obj/item/device/pda/P = W
 			if(P.id)
-				qdel(P.id)
-				P.id = null
+				QDEL_NULL(P.id)
 			qdel(P)
 
 		if(!preserve)
@@ -421,8 +420,7 @@
 			occupant.ghostize(0) // Players despawned too early may not re-enter the game
 		else
 			occupant.ghostize(1)
-	qdel(occupant)
-	occupant = null
+	QDEL_NULL(occupant)
 	name = initial(name)
 
 

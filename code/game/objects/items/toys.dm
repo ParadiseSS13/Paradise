@@ -1288,8 +1288,7 @@ obj/item/toy/cards/deck/syndicate/black
 
 	if(stored_minature)
 		to_chat(user, "<span class='danger'>\The [src] makes a violent grinding noise as it tears apart the miniature figure inside!</span>")
-		qdel(stored_minature)
-		stored_minature = null
+		QDEL_NULL(stored_minature)
 		playsound(user, 'sound/goonstation/effects/gib.ogg', 20, 1)
 		cooldown = world.time
 
