@@ -16,6 +16,7 @@
 	var/obj/item/weapon/card/id/ID
 	var/datum/money_account/linked_account
 	var/datum/money_account/D
+	var/datum/spacelaw/C
 
 	var/list/comittedcrimes = list()
 	var/list/possible_violations = list()
@@ -89,7 +90,7 @@ obj/item/device/mobileticketplatform/New()
 	ticketamount = 0
 	ticketdescription = ""
 
-	for(var/datum/spacelaw/C in comittedcrimes)
+	for(C in comittedcrimes)
 		ticketreason += "[C.name]<br>"
 		ticketamount += C.max_fine
 		ticketdescription += "<small>[C.desc]</small><br>"
@@ -98,7 +99,7 @@ obj/item/device/mobileticketplatform/New()
 /obj/item/device/mobileticketplatform/proc/print_ticket(mob/user) // Ticket Reciepts
 		var/ticketid = rand(1111,9999)
 		var/entry = {"<center><h3>Infringement Notice #[ticketid]<br></h3></center><small><b>Issued to:	</b>[ID.registered_name]<br><b>Rank:	</b>[ID.rank] <br><b>Issued at:	</b> [worldtime2text()]<br>
-					 <b>Reason for issue:	</b>[ticketreason]<br><b>Description of Space Law article:	</b>[ticketdescription]<br><b>Ticket Amount:	</b>[ticketamount]<br><b>Issuing Officer:</b>	[usr]</small><hr>"}
+					 <b>Reason for issue:	</b>[ticketreason]<br><b>Description of Space Law article:	</b>[ticketdescription]<br><b>Ticket Amount (Cr):	</b>[ticketamount]<br><b>Issuing Officer:</b>	[usr]</small>"}
 		to_chat(user, "Printing the log, standby...")
 		sleep(50)
 		playsound(loc, "sound/goonstation/machines/printer_dotmatrix.ogg", 50, 1)
@@ -114,15 +115,20 @@ obj/item/device/mobileticketplatform/New()
 
 /obj/item/device/mobileticketplatform/proc/add_charge(mob/user)
 	possible_violations.Cut()//Clear the LIST
+
 	switch(alert("Select Space Law Category.", "Space Law", "Minor", "Custom Article", "Abort"))
 		if("Abort")
 			return
 		if("Minor")
 			for(var/minorcrimes in subtypesof(/datum/spacelaw/minor))
 				possible_violations += new minorcrimes()
-		if("Custom")
-			ticketreason = input(user, "Please select custom article to add for [ID.registered_name]") as null|text
-			ticketamount = input(user, "Please select amount to fine for [ID.registered_name]") as num
+		if("Custom Article")
+			var/datum/spacelaw/S = new()
+			S.name = input(user, "Please select custom article to add for [ID.registered_name]") as null|text
+			S.max_fine = input(user, "Please select amount to fine for [ID.registered_name]") as num
+			S.desc = S.name
+			comittedcrimes.Add(S)
+			clearstringandtime()
 
 	var/datum/spacelaw/selectedcrime = input(user, "Please select article to add for [ID.registered_name]") as null|anything in possible_violations
 	if(!isnull(selectedcrime))
@@ -163,7 +169,6 @@ obj/item/device/mobileticketplatform/New()
 	if(screen == 0)
 		dat = {"<h1>Please select option:</h1><br>
 				<h2><a href='?src=[UID()];screen=1'>View Issued Tickets</a><h2>
-				<h2><a href='?src=[UID()];screen=3'>Access Settings</a><h2>
 				<h2><a href='?src=[UID()];screen=2'>Issue Ticket</a><h2>"}
 
 	if(screen == 1)
@@ -187,18 +192,14 @@ obj/item/device/mobileticketplatform/New()
 					<center><h1>Information Field:</h1></center>
 					<b>Charged with violation of:<br></b> <a href='?src=[UID()]'>[ticketreason]</a><br>
 					<b>Article:	</b><a href='?src=[UID()]'>[ticketdescription]</a><br>
-					<b>Amount:	</b><a href='?src=[UID()];action=selectamount'>[ticketamount]</a>Credits<br><br>
+					<b>Charged with amount of (Cr):	</b><a href='?src=[UID()]'>[ticketamount]</a>Credits<br><br>
 					<b>Issuing Officer:	</b>[usr]
 					<hr><b>Menu:</b><br>
 					<a href='?src=[UID()];action=addcharge'>Add Charge</a><br>
 					<a href='?src=[UID()];action=removecharge'>Remove Charge</a><br>
 					<h1><a href='?src=[UID()];action=printticket'>Authorize Ticket</a></h1>
+					<br><a href='?src=[UID()];action=abort'>Abort</a>
 					<br><a href='?src=[UID()];screen=0'>Back</a><br>"}
-	if(screen == 3)
-		dat = {"<center><h3>Settings Panel</h3></center><hr><br>
-				<b>Current Linked Account:	</b>  <a href='?src=[UID()];action=selectaccount'>[linked_account.owner_name]</a><br>
-				<h2><a href='?src=[UID()];action=selectaccount'>Change Account</a></h2><br>
-				<a href='?src=[UID()];screen=0'>Back</a><br>"}
 
 	if(screen == 4)
 		dat = "<h1>Processing Request Standby...</h1>"
@@ -224,24 +225,17 @@ obj/item/device/mobileticketplatform/New()
 				if(ID && ticketreason && ticketamount)
 					if(!printing)
 						pay_ticket(usr)	//Payment of tickets
+						screen = 4
 					else
 						to_chat(usr,"<span class='warning'>[src] is already processing, please wait!</span>")
 				else
 					to_chat(usr, "<span class='warning'>Cannot issue ticket without all credentials!</span>")
-			if("selectaccount")
-				var/selected_account = input(usr, "Select Account to deposit space credits to.", "Select Account") as null|anything in department_accounts
-				if(selected_account)
-					linked_account = selected_account
-				else
-					linked_account = station_account
 			if("addcharge")
 				add_charge(usr)
 			if("removecharge")
 				remove_charge(usr)
-			if("selectamount")
-				var/amounttoticket = input(usr,"How big would you like the fine to be?") as num
-				if(!isnull(amounttoticket))
-					amounttoticket = ticketamount
+			if("abort")
+				reset()
 	if(usr)
 		attack_self(usr)
 	return
