@@ -143,7 +143,7 @@ var/list/karma_spenders = list()
 		if(M.mind.assigned_role)
 			assigned_role = M.mind.assigned_role
 	karma_diary << "[M.name] ([M.key]) [assigned_role]/[special_role]: [M.client.karma] - [time2text(world.timeofday, "hh:mm:ss")] given by [key]"
-	message_admins("[usr] gave [M.client] good karma.")
+	message_admins("[usr.ckey] gave [M.client] good karma.")
 	sql_report_karma(src, M)
 
 /mob/verb/reduce_karma_list()
@@ -434,7 +434,7 @@ You've gained <b>[totalkarma]</b> total karma in your time here.<br>"}
 			message_admins("SQL ERROR during karmaspent updating (updating existing entry). Error: \[[err]\]\n")
 			return
 		else
-			message_admins("[usr] reduced [C.ckey]'s karma.")
+			message_admins("[usr.ckey] reduced [C.ckey]'s karma.")
 			return
 /*
 /client/proc/karmarefund(var/type,var/name,var/cost)
