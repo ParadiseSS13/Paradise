@@ -788,8 +788,8 @@
 	filling_color = "#B8E6B5"
 	list_reagents = list("nutriment" = 10, "vitamin" = 1)
 
-/obj/item/weapon/reagent_containers/food/snacks/soylenviridians
-	name = "Soylen Virdians"
+/obj/item/weapon/reagent_containers/food/snacks/soylentviridians
+	name = "Soylent Virdians"
 	desc = "Not made of people. Honest." //Actually honest for once.
 	icon_state = "soylent_yellow"
 	trash = /obj/item/trash/waffles
