@@ -20,7 +20,7 @@
 	toolspeed = 0.75
 
 /obj/item/weapon/scissors/attack(mob/living/carbon/M as mob, mob/user as mob)
-	if(user.a_intent != "help")
+	if(user.a_intent != INTENT_HELP)
 		..()
 		return
 	if(!(M in view(1))) //Adjacency test
@@ -101,7 +101,7 @@
 	var/is_cutting = 0 //to prevent spam clicking this for huge accumulation of losebreath.
 
 /obj/item/weapon/scissors/safety/attack(mob/living/carbon/M as mob, mob/user as mob)
-	if(user.a_intent != "help")
+	if(user.a_intent != INTENT_HELP)
 		..()
 		return
 	if(!(M in view(1)))

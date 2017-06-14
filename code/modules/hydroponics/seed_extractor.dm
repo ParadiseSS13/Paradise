@@ -102,7 +102,7 @@
 			to_chat(user, "<span class='notice'>You add [O] to [name].</span>")
 			updateUsrDialog()
 		return
-	else if(user.a_intent != I_HARM)
+	else if(user.a_intent != INTENT_HARM)
 		to_chat(user, "<span class='warning'>You can't extract any seeds from \the [O.name]!</span>")
 	else
 		return ..()

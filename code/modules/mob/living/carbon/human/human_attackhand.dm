@@ -18,7 +18,7 @@
 
 	..()
 
-	if((M != src) && M.a_intent != "help" && check_shields(0, M.name, attack_type = UNARMED_ATTACK))
+	if((M != src) && M.a_intent != INTENT_HELP && check_shields(0, M.name, attack_type = UNARMED_ATTACK))
 		add_logs(M, src, "attempted to touch")
 		visible_message("<span class='warning'>[M] attempted to touch [src]!</span>")
 		return 0
@@ -53,7 +53,7 @@
 	species.handle_attack_hand(src,M)
 
 	switch(M.a_intent)
-		if(I_HELP)
+		if(INTENT_HELP)
 			if(attacker_style && attacker_style.help_act(H, src))//adminfu only...
 				return 1
 			if(can_operate(src))
@@ -99,14 +99,14 @@
 			else
 				to_chat(M, "<span class='danger'>You need to stay still while performing CPR!</span>")
 
-		if(I_GRAB)
+		if(INTENT_GRAB)
 			if(attacker_style && attacker_style.grab_act(H, src))
 				return 1
 			else
 				src.grabbedby(M)
 				return 1
 
-		if(I_HARM)
+		if(INTENT_HARM)
 			//Vampire code
 			if(M.mind && M.mind.vampire && (M.mind in ticker.mode.vampires) && !M.mind.vampire.draining && M.zone_sel && M.zone_sel.selecting == "head" && src != M)
 				if(species && species.flags & NO_BLOOD)//why this hell were we never checkinf for this?
@@ -168,7 +168,7 @@
 					forcesay(hit_appends)
 
 
-		if(I_DISARM)
+		if(INTENT_DISARM)
 			if(attacker_style && attacker_style.disarm_act(H, src))
 				return 1
 			else

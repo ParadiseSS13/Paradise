@@ -127,10 +127,10 @@
 
 	switch(M.a_intent)
 
-		if(I_HELP)
+		if(INTENT_HELP)
 			help_shake_act(M)
 
-		if(I_GRAB)
+		if(INTENT_GRAB)
 			grabbedby(M)
 
 		else

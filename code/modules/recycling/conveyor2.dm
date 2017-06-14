@@ -140,7 +140,7 @@
 			update_move_direction()
 			to_chat(user, "<span class='notice'>You rotate [src].</span>")
 
-	else if(user.a_intent != "harm")
+	else if(user.a_intent != INTENT_HARM)
 		if(user.drop_item())
 			I.forceMove(loc)
 	else

@@ -261,7 +261,7 @@ var/global/list/captain_display_cases = list()
 	if(W.flags & ABSTRACT)
 		to_chat(user, "<span class='danger'>You can't put this into the case.</span>")
 		return
-	if(user.a_intent == I_HARM)
+	if(user.a_intent == INTENT_HARM)
 		if(locked && !destroyed)
 			src.health -= W.force
 			src.healthcheck()
@@ -285,14 +285,14 @@ var/global/list/captain_display_cases = list()
 			update_icon()
 
 /obj/structure/displaycase/attack_hand(mob/user as mob)
-	if(destroyed || (!locked && user.a_intent == I_HARM))
+	if(destroyed || (!locked && user.a_intent == INTENT_HARM))
 		if(occupant)
 			dump()
 			to_chat(user, "<span class='danger'>You smash your fist into the delicate electronics at the bottom of the case, and deactivate the hover field.</span>")
 			src.add_fingerprint(user)
 			update_icon()
 	else
-		if(user.a_intent == I_HARM)
+		if(user.a_intent == INTENT_HARM)
 			user.changeNext_move(CLICK_CD_MELEE)
 			user.do_attack_animation(src)
 			user.visible_message("<span class='danger'>[user.name] kicks \the [src]!</span>", \

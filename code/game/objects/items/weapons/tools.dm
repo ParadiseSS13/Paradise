@@ -155,7 +155,7 @@
 		src.pixel_y = rand(0, 16)
 
 /obj/item/weapon/screwdriver/attack(mob/living/carbon/M, mob/living/carbon/user)
-	if(!istype(M) || user.a_intent == I_HELP)
+	if(!istype(M) || user.a_intent == INTENT_HELP)
 		return ..()
 	if(user.zone_sel.selecting != "eyes" && user.zone_sel.selecting != "head")
 		return ..()
@@ -404,7 +404,7 @@
 		if(!S)
 			return
 
-		if(!(S.status & ORGAN_ROBOT) || user.a_intent != I_HELP || S.open == 2)
+		if(!(S.status & ORGAN_ROBOT) || user.a_intent != INTENT_HELP || S.open == 2)
 			return ..()
 
 		if(!isOn())		//why wasn't this being checked already?
