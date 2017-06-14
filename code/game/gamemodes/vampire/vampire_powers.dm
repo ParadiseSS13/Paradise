@@ -215,7 +215,7 @@
 	stat_allowed = 1
 
 /obj/effect/proc_holder/spell/vampire/mob_aoe/glare/cast(list/targets, mob/user = usr)
-	user.visible_message("<span class='warning'><b>[user]'s eyes emit a blinding flash!</b></span>")
+	user.visible_message("<span class='warning'>[user]'s eyes emit a blinding flash!</span>")
 	if(istype(user:glasses, /obj/item/clothing/glasses/sunglasses/blindfold))
 		to_chat(user, "<span class='warning'>You're blindfolded!</span>")
 		return

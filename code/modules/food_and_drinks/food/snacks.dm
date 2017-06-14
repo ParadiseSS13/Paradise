@@ -1443,7 +1443,7 @@
 
 /obj/item/weapon/reagent_containers/food/snacks/spesslaw
 	name = "Spesslaw"
-	desc = "A lawyers favourite."
+	desc = "A lawyer's favourite."
 	icon_state = "spesslaw"
 	filling_color = "#DE4545"
 	list_reagents = list("nutriment" = 8, "synaptizine" = 10, "vitamin" = 6)
@@ -1904,7 +1904,7 @@
 
 /obj/item/weapon/reagent_containers/food/snacks/sliceable/applecake
 	name = "Apple Cake"
-	desc = "A cake centerd with Apple."
+	desc = "A cake centered with Apple."
 	icon_state = "applecake"
 	slice_path = /obj/item/weapon/reagent_containers/food/snacks/applecakeslice
 	slices_num = 5
