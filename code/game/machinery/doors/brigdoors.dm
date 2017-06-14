@@ -115,18 +115,18 @@
 
  ///////////////////////////////////////////////////////CRIMES AND MODIFIERS/////////////////////////////////////////////////
 
-/obj/machinery/door_timer/proc/clearstringandtime() //Updating comitted crimes string list
+/obj/machinery/door_timer/proc/clearstringandtime() //Updating comitted crimes
 	detaineecrimes = ""//Empty the string list so we can fill it again
 	suggestedbrigtime = 0
 	timetoset = 0
 	for(var/datum/spacelaw/C in comittedcrimes)
 		detaineecrimes += "[C.name]<br>"
 		suggestedbrigtime += C.max_brig
-		if(istype(C, /datum/spacelaw/modifiers/multiply/))
-			var/newbrigtime = suggestedbrigtime * C.maxM_brig
-			suggestedbrigtime += round(newbrigtime)
+		if(!C.maxM_brig < 5)
+			suggestedbrigtime = suggestedbrigtime * C.maxM_brig
+		else
+			suggestedbrigtime = suggestedbrigtime + C.maxM_brig
 		timeset(suggestedbrigtime * 60)
-
 
 /obj/machinery/door_timer/proc/add_charge(mob/user) //Adding Charges
 	possible_laws.Cut()//Clear the LIST
@@ -142,16 +142,16 @@
 				if("Minor")
 					for(var/minorcrimes in subtypesof(/datum/spacelaw/minor))
 						possible_laws += new minorcrimes()
-				else if("Medium")
+				if("Medium")
 					for(var/mediumcrimes in subtypesof(/datum/spacelaw/medium))
 						possible_laws += new mediumcrimes()
-				else if("Major")
-					for(var/majorcrimes in subtypesof(/datum/spacelaw/major/))
+				if("Major")
+					for(var/majorcrimes in subtypesof(/datum/spacelaw/major))
 						possible_laws += new majorcrimes()
-				else if("Abort")
+				if("Abort")
 					return
 		if("Modifiers")
-			for(var/modifiers in subtypesof(/datum/spacelaw/modifiers/))
+			for(var/modifiers in subtypesof(/datum/spacelaw/modifiers))
 				possible_laws += new modifiers()
 		if("Custom")
 			var/datum/spacelaw/S = new()
@@ -167,6 +167,7 @@
 	if(!isnull(selectedcrime))
 		comittedcrimes.Add(selectedcrime)
 		clearstringandtime()
+		possible_laws.Cut()
 	else
 		return
 
@@ -361,18 +362,16 @@
 	//Used for 'set timer'
 	var/setsecond = round((timetoset / 10) % 60)
 	var/setminute = round(((timetoset / 10) - setsecond) / 60)
-	//Used for storing the UI
-	var/dat
+
 	user.set_machine(src)
 
-	dat = {"<center><h2>Timer System:<br>
+	var/dat = {"<center><h2>Timer System:<br>
 			<b>Door [id]</b></h2></center><hr>"}
 
 	if(screen)//Main Menu
-		dat += {"<br><b>Detainee Name:</b>	<a href='?src=[UID()]'>[detaineename]</a>	<a href='?src=[UID()];pickname=1'>Set Name</a><br>
-				<b>Charged with violation of:</b><br><a href='?src=[UID()]'>[detaineecrimes]</a><br>
+		dat += {"<br><b>Detainee Name:</b>	<a href='?src=[UID()]'>[detaineename]</a>	<a href='?src=[UID()];pickname=1'>Set Name</a>
+				<br><b>Charged with violation of:</b><br><a href='?src=[UID()]'>[detaineecrimes]</a><br>
 				<b>Suggested Brig Time:	</b><a href='?src=[UID()]'>[suggestedbrigtime] minute(s)</a><br><hr>"}
-
 		dat += "<h2><b>Crimes and modifiers</b></h2>"
 		dat += "<a href='?src=[UID()];pickcharges=1'>Add</a><br>"
 		dat += "<a href='?src=[UID()];removecharges=1'>Remove</a>"
@@ -401,7 +400,6 @@
 		else
 			dat += "<br><A href='?src=[UID()];closet=1'>Open Locker</A>"
 
-	usr.set_machine(src)
 	var/datum/browser/popup = new(user, "door_timer", name, 400, 500)
 	popup.set_content(dat)
 	popup.open()
@@ -435,7 +433,10 @@
 
 	if(href_list["change"])
 		var/newtime = input(usr, "How many minutes would you like to set the timer to(minutes)?") as num
-		timeset(newtime * 60)
+		if(!timing)
+			timeset(newtime * 60)
+		else
+			releasetime = newtime
 
 	if(href_list["flash"]) //Flash Button
 		for(var/obj/machinery/flasher/F in targets)
