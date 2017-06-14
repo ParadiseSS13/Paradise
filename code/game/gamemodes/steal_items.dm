@@ -31,6 +31,11 @@
 	typepath = /obj/item/weapon/gun/energy/laser/captain
 	protected_jobs = list("Captain")
 
+/datum/theft_objective/captains_jetpack
+	name = "the captain's deluxe jetpack"
+	typepath = /obj/item/weapon/tank/jetpack/oxygen/captain
+	protected_jobs = list("Captain")
+
 /datum/theft_objective/hoslaser
 	name = "the head of security's recreated antique laser gun"
 	typepath = /obj/item/weapon/gun/energy/gun/hos
