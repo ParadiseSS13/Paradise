@@ -1,7 +1,7 @@
 
 /obj/item/weapon/reagent_containers/food/snacks/carpmeat
 	name = "carp fillet"
-	desc = "A fillet of spess carp meat"
+	desc = "A fillet of spess carp meat."
 	icon = 'icons/obj/food/seafood.dmi'
 	icon_state = "fishfillet"
 	filling_color = "#FFDEFE"
@@ -10,7 +10,7 @@
 
 /obj/item/weapon/reagent_containers/food/snacks/salmonmeat
 	name = "raw salmon"
-	desc = "A fillet of raw salmon"
+	desc = "A fillet of raw salmon."
 	icon = 'icons/obj/food/seafood.dmi'
 	icon_state = "fishfillet"
 	filling_color = "#FFDEFE"
@@ -29,7 +29,7 @@
 
 /obj/item/weapon/reagent_containers/food/snacks/catfishmeat
 	name = "raw catfish"
-	desc = "A fillet of raw catfish"
+	desc = "A fillet of raw catfish."
 	icon = 'icons/obj/food/seafood.dmi'
 	icon_state = "fishfillet"
 	filling_color = "#FFDEFE"
