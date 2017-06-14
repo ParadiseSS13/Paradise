@@ -111,11 +111,15 @@
 	materials = list(MAT_METAL=1750)
 
 /obj/item/ammo_box/tranqdarts
-	name = "ammo box (20G tranquilizer darts)"
-	icon_state = "tranqbox"
+	name = "ammo box (9x39mm darts)"
+	icon_state = "dartbox"
 	origin_tech = "combat=2"
+	ammo_type = /obj/item/ammo_casing/shotgun/dart/special
+	max_ammo = 10
+
+/obj/item/ammo_box/tranqdarts/loaded
+	icon_state = "tranqbox"
 	ammo_type = /obj/item/ammo_casing/shotgun/dart/special/tranquilizer
-	max_ammo = 20
 
 
 //FOAM DARTS

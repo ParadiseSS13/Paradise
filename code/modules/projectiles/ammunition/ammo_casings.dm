@@ -272,16 +272,15 @@
 	materials = list(MAT_METAL=250)
 
 /obj/item/ammo_casing/shotgun/dart/special
-	caliber = "dart"
-	icon_state = "emptiedart"
-	projectile_type = /obj/item/projectile/bullet/dart/g20
+	icon_state = "dart-casing"
+	desc = "A dart for use in high caliber rifles. Can be injected with up to 30 units of any chemical."
+	projectile_type = /obj/item/projectile/bullet/dart/rifle
+	caliber = "9x39"
 
 /obj/item/ammo_casing/shotgun/dart/special/tranquilizer
-	icon_state = "tranqdart"
-
-/obj/item/ammo_casing/shotgun/dart/special/tranquilizer/New()
-	..()
-	reagents.add_reagent("ketamine", 10)
+	icon_state = "tranq-casing"
+	desc = "A tranquilizer round used to subdue individuals."
+	projectile_type = /obj/item/projectile/bullet/dart/rifle/tranq
 
 /obj/item/ammo_casing/a556
 	desc = "A 5.56mm bullet casing."

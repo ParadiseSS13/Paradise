@@ -209,7 +209,7 @@
 	origin_tech = "combat=6"
 	ammo_type = /obj/item/ammo_casing/shotgun/dart/special/tranquilizer
 	max_ammo = 5
-	caliber = "dart"
+	caliber = "9x39"
 
 /obj/item/ammo_box/magazine/tranq/update_icon()
 	if(ammo_count())

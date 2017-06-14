@@ -19,6 +19,7 @@
 /obj/item/weapon/gun/projectile/automatic/toy/riot
 	name = "riot foam force SMG"
 	desc = "A prototype two-round burst riot control submachine gun. Ages 18 and up."
+	icon_state = "saberred"
 	mag_type = /obj/item/ammo_box/magazine/toy/smg
 
 /obj/item/weapon/gun/projectile/automatic/toy/riot/New()
