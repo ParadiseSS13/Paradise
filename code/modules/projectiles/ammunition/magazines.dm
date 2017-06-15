@@ -136,6 +136,12 @@
 	caliber = "40mm"
 	max_ammo = 1
 
+/obj/item/ammo_box/magazine/internal/gp25
+	name = "grenade launcher internal magazine"
+	ammo_type = /obj/item/ammo_casing/a25mm
+	caliber = "25mm"
+	max_ammo = 1
+
 /obj/item/ammo_box/magazine/internal/cylinder/grenadelauncher/multi
 	ammo_type = /obj/item/ammo_casing/a40mm
 	max_ammo = 6
@@ -406,6 +412,20 @@
 	name = "short assault rifle magazine (5.56mm)"
 	icon_state = "stan-s"
 	max_ammo = 10
+
+/obj/item/ammo_box/magazine/a939
+	name = "assault rifle magazine (9x39mm)"
+	icon_state = "9mm-rifle"
+	origin_tech = "combat=5"
+	ammo_type = /obj/item/ammo_casing/a939
+	caliber = "9x39"
+	max_ammo = 30
+
+/obj/item/ammo_box/magazine/a939/update_icon()
+	icon_state = "[initial(icon_state)]-[Ceiling(ammo_count(0)/max_ammo)]"
+
+/obj/item/ammo_box/magazine/a939/lethal
+	ammo_type = /obj/item/ammo_casing/a939/lethal
 
 /obj/item/ammo_box/magazine/m12g
 	name = "shotgun magazine (12g slugs)"

@@ -287,6 +287,18 @@
 	caliber = "a556"
 	projectile_type = /obj/item/projectile/bullet/heavybullet
 
+/obj/item/ammo_casing/a939
+	desc = "A 9x39mm bullet casing."
+	caliber = "9x39"
+	icon_state = "762-rubber"
+	projectile_type = /obj/item/projectile/bullet/heavybullet3
+
+/obj/item/ammo_casing/a939/lethal
+	desc = "A 9x39mm bullet casing."
+	caliber = "9x39"
+	icon_state = "762-casing"
+	projectile_type = /obj/item/projectile/bullet/heavybullet2
+
 /obj/item/ammo_casing/shotgun/fakebeanbag
 	name = "beanbag shell"
 	desc = "A weak beanbag shell."
@@ -321,6 +333,31 @@
 	caliber = "40mm"
 	icon_state = "40mmHE"
 	projectile_type = /obj/item/projectile/bullet/a40mm
+
+/obj/item/ammo_casing/a25mm
+	name = "25mm Flash shell"
+	desc = "A cased flashbang grenade that can only be activated once fired out of a grenade launcher."
+	caliber = "25mm"
+	icon_state = "25mmflash"
+	projectile_type = /obj/item/projectile/bullet/reusable/flash25
+
+/obj/item/ammo_casing/a25mm/tear
+	name = "25mm Tear Gas shell"
+	desc = "A cased tear gas grenade that can only be activated once fired out of a grenade launcher."
+	icon_state = "25mmtear"
+	projectile_type = /obj/item/projectile/bullet/reusable/flash25/tear
+
+/obj/item/ammo_casing/a25mm/thud
+	name = "25mm Thud shell"
+	desc = "A solid grenade that can be fired out of a grenade launcher."
+	icon_state = "25mmthud"
+	projectile_type = /obj/item/projectile/bullet/reusable/flash25/thud
+
+/obj/item/ammo_casing/a25mm/he
+	name = "25mm HE shell"
+	desc = "A cased high explosive grenade that can only be activated once fired out of a grenade launcher."
+	icon_state = "25mmHE"
+	projectile_type = /obj/item/projectile/bullet/a25mmhe
 
 /obj/item/ammo_casing/caseless/foam_dart
 	name = "foam dart"

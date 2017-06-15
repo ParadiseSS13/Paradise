@@ -141,6 +141,14 @@
 /obj/item/projectile/bullet/heavybullet
 	damage = 35
 
+/obj/item/projectile/bullet/heavybullet2
+	damage = 35
+	stamina = 25
+
+/obj/item/projectile/bullet/heavybullet3
+	damage = 10
+	stamina = 65
+
 /obj/item/projectile/bullet/rpellet
 	name = "rubber pellet"
 	damage = 3

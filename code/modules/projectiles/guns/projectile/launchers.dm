@@ -83,3 +83,21 @@
 		to_chat(user, "<span class='notice'>You load [num_loaded] spear\s into \the [src].</span>")
 		update_icon()
 		chamber_round()
+
+/obj/item/weapon/gun/projectile/automatic/speargun/gp25
+	desc = "A caseless front loading grenade launcher."
+	name = "grenade launcher"
+	icon_state = "riotgun"
+	item_state = "gun"
+	mag_type = /obj/item/ammo_box/magazine/internal/gp25
+	w_class = WEIGHT_CLASS_BULKY
+	origin_tech = "combat=4;engineering=4"
+
+
+/obj/item/weapon/gun/projectile/automatic/speargun/gp25/attackby(obj/item/A, mob/user, params)
+	if(!chambered)
+		var/num_loaded = magazine.attackby(A, user, params, 1)
+		if(num_loaded)
+			to_chat(user, "<span class='notice'>You load [num_loaded] grenade\s into \the [src].</span>")
+			update_icon()
+			chamber_round()

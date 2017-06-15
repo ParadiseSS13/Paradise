@@ -323,3 +323,65 @@
 	w_class = WEIGHT_CLASS_SMALL
 	origin_tech = "combat=5"
 	usesound = 'sound/items/Deconstruct.ogg'
+
+
+
+
+/obj/item/weapon/gun/projectile/automatic/a95
+	name = "\improper A-95 Carbine"
+	desc = "A three-round burst 9mm carbine. Has an affixed underbarrel grenade launcher."
+	icon_state = "A-91"
+	item_state = "m90"
+	origin_tech = "combat=5;materials=2;syndicate=1"
+	mag_type = /obj/item/ammo_box/magazine/a939
+	fire_sound = 'sound/weapons/Gunshot_smg.ogg'
+	can_suppress = TRUE
+	var/obj/item/weapon/gun/projectile/automatic/speargun/gp25/underbarrel
+	burst_size = 3
+	fire_delay = 1
+
+
+/obj/item/weapon/gun/projectile/automatic/a95/New()
+	..()
+	underbarrel = new /obj/item/weapon/gun/projectile/automatic/speargun/gp25(src)
+	update_icon()
+
+/obj/item/weapon/gun/projectile/automatic/a95/afterattack(var/atom/target, var/mob/living/user, flag, params)
+	if(select == 2)
+		underbarrel.afterattack(target, user, flag, params)
+	else
+		..()
+		return
+
+/obj/item/weapon/gun/projectile/automatic/a95/attackby(var/obj/item/A, mob/user, params)
+	if(istype(A, /obj/item/ammo_casing))
+		if(istype(A, underbarrel.magazine.ammo_type))
+			underbarrel.attack_self()
+			underbarrel.attackby(A, user, params)
+	else
+		..()
+
+/obj/item/weapon/gun/projectile/automatic/a95/update_icon()
+	overlays.Cut()
+	icon_state = "[initial(icon_state)][magazine ? "" : "-e"]"
+	if(suppressed)
+		overlays += image(icon = icon, icon_state = "a91suppresor", pixel_x = 5)
+
+/obj/item/weapon/gun/projectile/automatic/a95/burst_select()
+	var/mob/living/carbon/human/user = usr
+	switch(select)
+		if(0)
+			select = 1
+			burst_size = initial(burst_size)
+			fire_delay = initial(fire_delay)
+			to_chat(user, "<span class='notice'>You switch to [burst_size] round burst.</span>")
+		if(1)
+			select = 2
+			to_chat(user, "<span class='notice'>You switch to grenades.</span>")
+		if(2)
+			select = 0
+			burst_size = 1
+			fire_delay = 0
+			to_chat(user, "<span class='notice'>You switch to semi-auto.</span>")
+	playsound(user, 'sound/weapons/empty.ogg', 100, 1)
+	update_icon()

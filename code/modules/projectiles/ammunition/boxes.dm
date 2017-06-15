@@ -41,12 +41,41 @@
 	ammo_type = /obj/item/ammo_casing/rubber45
 	max_ammo = 16
 
+/obj/item/ammo_box/rubber939
+	name = "ammo box (9x39mm rubber)"
+	icon_state = "9x39_rubber"
+	ammo_type = /obj/item/ammo_casing/a939
+	max_ammo = 30
+
+/obj/item/ammo_box/lethal939
+	name = "ammo box (9x39mm lethal)"
+	icon_state = "9x39_lethal"
+	ammo_type = /obj/item/ammo_casing/a939/lethal
+	max_ammo = 30
+
 /obj/item/ammo_box/a40mm
 	name = "ammo box (40mm grenades)"
 	icon_state = "40mm"
 	ammo_type = /obj/item/ammo_casing/a40mm
 	max_ammo = 4
 	multiple_sprites = 1
+
+/obj/item/ammo_box/a40mm/a25
+	name = "ammo box (25mm grenades)"
+	icon_state = "25mmflash"
+	ammo_type = /obj/item/ammo_casing/a25mm
+
+/obj/item/ammo_box/a40mm/a25/tear
+	icon_state = "25mmtear"
+	ammo_type = /obj/item/ammo_casing/a25mm/tear
+
+/obj/item/ammo_box/a40mm/a25/thud
+	icon_state = "25mmthud"
+	ammo_type = /obj/item/ammo_casing/a25mm/thud
+
+/obj/item/ammo_box/a40mm/a25/he
+	icon_state = "25mmHE"
+	ammo_type = /obj/item/ammo_casing/a25mm/he
 
 /obj/item/ammo_box/a762
 	name = "stripper clip (7.62mm)"
