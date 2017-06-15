@@ -328,7 +328,7 @@
 
 
 /obj/item/weapon/gun/projectile/automatic/a95
-	name = "\improper A-95 Carbine"
+	name = "A-95 Carbine"
 	desc = "A three-round burst 9mm carbine. Has an affixed underbarrel grenade launcher."
 	icon_state = "A-91"
 	item_state = "m90"
@@ -338,7 +338,7 @@
 	can_suppress = TRUE
 	var/obj/item/weapon/gun/projectile/automatic/speargun/gp25/underbarrel
 	burst_size = 3
-	fire_delay = 1
+	fire_delay = 2
 
 
 /obj/item/weapon/gun/projectile/automatic/a95/New()
