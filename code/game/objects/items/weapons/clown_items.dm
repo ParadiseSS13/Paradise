@@ -68,6 +68,11 @@
 	var/honk_sound = 'sound/items/bikehorn.ogg'
 	var/cooldowntime = 20
 
+/obj/item/weapon/bikehorn/syndie
+	desc = "For those with a rapier wit, and cutting satire."
+	force = 25
+	no_embed = 1
+
 /obj/item/weapon/bikehorn/attack(mob/living/carbon/M, mob/living/carbon/user)
 	if(!spam_flag)
 		playsound(loc, honk_sound, 50, 1, -1) //plays instead of tap.ogg!

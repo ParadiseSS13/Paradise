@@ -128,6 +128,14 @@ var/list/uplink_items = list()
 	cost = 5
 	job = list("Clown")
 
+/datum/uplink_item/jobspecific/syndie_horn
+	name = "Sharpened Bike Horn"
+	desc = "A bike horn that has been specially sharpened to ensure that laughter isn't the best medicine, it is the leading cause of requiring it."
+	reference = "SH"
+	item = /obj/item/weapon/bikehorn/syndie
+	cost = 5
+	job = list("Clown")
+
 //mime
 /datum/uplink_item/job_specific/caneshotgun
 	name = "Cane Shotgun + Assassination Darts"
