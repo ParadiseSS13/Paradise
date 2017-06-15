@@ -273,7 +273,7 @@ Des: Removes all infected images from the alien.
 		if(T.footstep_sounds["xeno"])
 			var/S = pick(T.footstep_sounds["xeno"])
 			if(S)
-				if(m_intent == "run")
+				if(m_intent == MOVE_INTENT_RUN)
 					if(!(step_count % 2)) //every other turf makes a sound
 						return 0
 
@@ -281,7 +281,7 @@ Des: Removes all infected images from the alien.
 				range -= 0.666 //-(7 - 2) = (-5) = -5 | -5 - (0.666) = -5.666 | (7 + -5.666) = 1.334 | 1.334 * 3 = 4.002 | range(4.002) = range(4)
 				var/volume = 5
 
-				if(m_intent == "walk")
+				if(m_intent == MOVE_INTENT_WALK)
 					return 0 //silent when walking
 
 				if(buckled || lying || throwing)

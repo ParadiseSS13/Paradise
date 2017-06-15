@@ -327,6 +327,10 @@ var/list/organ_cache = list()
 /obj/item/organ/proc/replaced(var/mob/living/carbon/human/target)
 	return // Nothing uses this, it is always overridden
 
+// A version of `replaced` that "flattens" the process of insertion, making organs "Plug'n'play"
+// (Particularly the heart, which stops beating when removed)
+/obj/item/organ/proc/safe_replace(var/mob/living/carbon/human/target)
+	replaced(target)
 
 /obj/item/organ/proc/surgeryize()
 	return

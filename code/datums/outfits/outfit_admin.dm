@@ -1173,3 +1173,39 @@
 	suit = /obj/item/clothing/suit/wizrobe/marisa
 	shoes = /obj/item/clothing/shoes/sandal/marisa
 	head = /obj/item/clothing/head/wizard/marisa
+
+
+/datum/outfit/admin/dark_priest
+	name = "Dark Priest"
+
+	uniform = /obj/item/clothing/under/color/black
+	suit = /obj/item/clothing/suit/hooded/chaplain_hoodie
+	back = /obj/item/weapon/storage/backpack
+	head = /obj/item/clothing/head/chaplain_hood
+	gloves = /obj/item/clothing/gloves/color/black
+	shoes = /obj/item/clothing/shoes/black
+	l_ear = /obj/item/device/radio/headset/syndicate
+	id = /obj/item/weapon/card/id/syndicate
+	r_hand = /obj/item/weapon/nullrod/armblade
+	backpack_contents = list(
+		/obj/item/weapon/storage/box/survival = 1,
+		/obj/item/device/flashlight = 1,
+	)
+
+/datum/outfit/admin/dark_priest/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
+	. = ..()
+	if(visualsOnly)
+		return
+	var/obj/item/weapon/card/id/I = H.wear_id
+	if(istype(I))
+		apply_to_card(I, H, get_all_accesses(), "Dark Priest", "syndie")
+	var/obj/item/weapon/nullrod/armblade/B = H.r_hand
+	if(istype(B))
+		B.force = 20
+		B.name = "blessing of the reaper"
+		B.desc = "Sometimes, someone's just gotta die."
+	var/obj/item/device/radio/headset/R = H.l_ear
+	if(istype(R))
+		R.flags |= NODROP
+	var/obj/item/weapon/implant/dust/D = new /obj/item/weapon/implant/dust(H)
+	D.implant(H)

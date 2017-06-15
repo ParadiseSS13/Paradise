@@ -296,7 +296,7 @@
 		to_chat(M, mymessage)
 
 /obj/spacepod/attackby(obj/item/W as obj, mob/user as mob, params)
-	if(user.a_intent == I_HARM)
+	if(user.a_intent == INTENT_HARM)
 		..()
 		deal_damage(W.force)
 	else
@@ -408,7 +408,7 @@ obj/spacepod/proc/add_equipment(mob/user, var/obj/item/device/spacepod_equipment
 		cargo_hold.max_combined_w_class += SPE.storage_mod["w_class"]
 
 /obj/spacepod/attack_hand(mob/user as mob)
-	if(user.a_intent == I_GRAB && unlocked)
+	if(user.a_intent == INTENT_GRAB && unlocked)
 		var/mob/target
 		if(pilot)
 			target = pilot

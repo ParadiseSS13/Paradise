@@ -160,13 +160,13 @@
 
 	switch(M.a_intent)
 
-		if(I_HELP)
+		if(INTENT_HELP)
 			help_shake_act(M)
 
-		if(I_GRAB)
+		if(INTENT_GRAB)
 			grabbedby(M)
 
-		if(I_HARM)
+		if(INTENT_HARM)
 			M.do_attack_animation(src)
 			var/damage = rand(1, 9)
 			if(prob(90))
@@ -191,7 +191,7 @@
 				playsound(loc, 'sound/weapons/punchmiss.ogg', 25, 1, -1)
 				visible_message("<span class='danger'>[M] has attempted to punch [src]!</span>")
 
-		if(I_DISARM)
+		if(INTENT_DISARM)
 			if(!lying)
 				if(prob(5))//Very small chance to push an alien down.
 					Paralyse(2)

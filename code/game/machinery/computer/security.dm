@@ -485,10 +485,6 @@
 /obj/machinery/computer/secure_data/proc/setTemp(text, list/buttons = list())
 	temp = list("text" = text, "buttons" = buttons, "has_buttons" = buttons.len > 0)
 
-/obj/machinery/computer/secure_data/proc/update_all_mob_security_hud()
-	for(var/mob/living/carbon/human/H in mob_list)
-		H.sec_hud_set_security_status()
-
 /obj/machinery/computer/secure_data/proc/create_record_photo(datum/data/record/R)
 	// basically copy-pasted from the camera code but different enough that it has to be redone
 	var/icon/photoimage = get_record_photo(R)

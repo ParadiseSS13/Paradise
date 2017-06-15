@@ -14,7 +14,7 @@
 	icon_state = "daemon"
 	icon_living = "daemon"
 	speed = 1
-	a_intent = I_HARM
+	a_intent = INTENT_HARM
 	stop_automated_movement = 1
 	status_flags = CANPUSH
 	attack_sound = 'sound/misc/demon_attack1.ogg'
