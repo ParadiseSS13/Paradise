@@ -1,0 +1,4 @@
+author: "Kyep"
+delete-after: True
+changes: 
+  - rscadd: "HoPs can now set jobs as 'priority'. Priority jobs are highlighted on the latejoin screen. This allows HoPs to proactively broadcast that they need more people to fill those jobs - and reduces the chance of critical crew shortages."
