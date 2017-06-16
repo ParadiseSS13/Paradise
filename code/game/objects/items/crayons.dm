@@ -214,7 +214,7 @@
 
 /obj/item/toy/crayon/spraycan/New()
 	..()
-	name = "NanoTrasen-brand Rapid Paint Applicator"
+	name = "Nanotrasen-brand Rapid Paint Applicator"
 	update_icon()
 
 /obj/item/toy/crayon/spraycan/attack_self(mob/living/user as mob)

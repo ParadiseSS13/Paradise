@@ -161,10 +161,10 @@
 	)
 	result = /obj/item/weapon/reagent_containers/food/snacks/eggplantparm
 
-/datum/recipe/microwave/soylenviridians
+/datum/recipe/microwave/soylentviridians
 	reagents = list("flour" = 10)
 	items = list(/obj/item/weapon/reagent_containers/food/snacks/grown/soybeans)
-	result = /obj/item/weapon/reagent_containers/food/snacks/soylenviridians
+	result = /obj/item/weapon/reagent_containers/food/snacks/soylentviridians
 
 /datum/recipe/microwave/soylentgreen
 	reagents = list("flour" = 10)
