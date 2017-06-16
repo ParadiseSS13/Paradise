@@ -1,4 +1,0 @@
-author: "TullyBurnalot"
-delete-after: True
-changes: 
-  - rscadd: "Autopsy Scanners will now print out Coroner Reports when a pen is used on them"
