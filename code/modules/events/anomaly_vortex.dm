@@ -1,7 +1,7 @@
 /datum/event/anomaly/anomaly_vortex
 	startWhen = 20
 	announceWhen = 3
-	endWhen = 80
+	endWhen = 800
 
 /datum/event/anomaly/anomaly_vortex/announce()
 	event_announcement.Announce("Localized high-intensity vortex anomaly detected on long range scanners. Expected location: [impact_area.name]", "Anomaly Alert")
