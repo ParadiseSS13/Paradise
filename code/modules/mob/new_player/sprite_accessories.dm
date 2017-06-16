@@ -566,7 +566,7 @@
 	name = "Unathi Side Frills"
 	icon_state = "unathi_sidefrills"
 	secondary_theme = "webbing"
-	
+
 /datum/sprite_accessory/hair/unathi/una_cobra_hood
     icon = 'icons/mob/human_face.dmi'
     name = "Unathi Cobra Hood"
@@ -741,6 +741,8 @@
 	name = "Tajara Finger Curls"
 	icon_state = "hair_fingerwave"
 	glasses_over = null
+
+
 
 /datum/sprite_accessory/hair/vulpkanin
 	species_allowed = list("Vulpkanin")
@@ -926,6 +928,15 @@
 	name = "Nucleation Neutron Bomb"
 	icon_state = "nuc_neutron"
 
+
+
+/datum/sprite_accessory/hair/fluff
+	glasses_over = 1
+
+/datum/sprite_accessory/hair/fluff/zeke_fluff_tentacle //Zeke Fluff hair
+	name = "Zeke's Tentacles"
+	icon_state = "zeke_fluff_hair"
+	species_allowed = list("Skrell")
 
 /*
 ///////////////////////////////////
