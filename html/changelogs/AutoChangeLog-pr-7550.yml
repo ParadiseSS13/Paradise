@@ -1,6 +1,0 @@
-author: "Purpose2"
-delete-after: True
-changes: 
-  - bugfix: "Soylen Viridians are now correctly Soylent Viridians. Nanotrasen will still not confirm rumours of the contents of these nor Soylent Greens however."
-  - bugfix: "Nanotrasen is now more consistent with brand management."
-  - bugfix: "An array of typos, grammatical tweaks and other pedantic fixes."

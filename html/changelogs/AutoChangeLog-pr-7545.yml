@@ -1,4 +1,0 @@
-author: "FreeStylaLT"
-delete-after: True
-changes: 
-  - tweak: "Changed Araneus' spawn location so he wouldn't break tables at round-start anymore"
