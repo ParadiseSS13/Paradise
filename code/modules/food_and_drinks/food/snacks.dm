@@ -1013,10 +1013,10 @@
 	filling_color = "#C4BF76"
 	list_reagents = list("nutriment" = 2)
 
-/obj/item/weapon/reagent_containers/food/snacks/spagetti
-	name = "Spagetti"
+/obj/item/weapon/reagent_containers/food/snacks/spaghetti
+	name = "Spaghetti"
 	desc = "A bundle of raw spaghetti."
-	icon_state = "spagetti"
+	icon_state = "spaghetti"
 	filling_color = "#EDDD00"
 	list_reagents = list("nutriment" = 1, "vitamin" = 1)
 
@@ -1400,10 +1400,10 @@
 	trash = /obj/item/trash/plate
 	list_reagents = list("nutriment" = 8)
 
-/obj/item/weapon/reagent_containers/food/snacks/boiledspagetti
-	name = "Boiled Spagetti"
+/obj/item/weapon/reagent_containers/food/snacks/boiledspaghetti
+	name = "Boiled Spaghetti"
 	desc = "A plain dish of noodles, this sucks."
-	icon_state = "spagettiboiled"
+	icon_state = "spaghettiboiled"
 	trash = /obj/item/trash/plate
 	filling_color = "#FCEE81"
 	list_reagents = list("nutriment" = 2, "vitamin" = 1)
@@ -1425,7 +1425,7 @@
 	list_reagents = list("nutriment" = 7, "vitamin" = 2)
 
 /obj/item/weapon/reagent_containers/food/snacks/pastatomato
-	name = "Spagetti"
+	name = "spaghetti"
 	desc = "Spaghetti and crushed tomatoes. Just like your abusive father used to make!"
 	icon_state = "pastatomato"
 	trash = /obj/item/trash/plate
@@ -1433,10 +1433,10 @@
 	bitesize = 4
 	list_reagents = list("nutriment" = 6, "tomatojuice" = 10, "vitamin" = 4)
 
-/obj/item/weapon/reagent_containers/food/snacks/meatballspagetti
-	name = "Spagetti & Meatballs"
+/obj/item/weapon/reagent_containers/food/snacks/meatballspaghetti
+	name = "spaghetti & Meatballs"
 	desc = "Now thats a nic'e meatball!"
-	icon_state = "meatballspagetti"
+	icon_state = "meatballspaghetti"
 	trash = /obj/item/trash/plate
 	filling_color = "#DE4545"
 	list_reagents = list("nutriment" = 8, "synaptizine" = 5, "vitamin" = 4)
