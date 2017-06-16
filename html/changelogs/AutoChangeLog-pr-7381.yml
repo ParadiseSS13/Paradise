@@ -1,0 +1,4 @@
+author: "Purpose2"
+delete-after: True
+changes: 
+  - rscadd: "Adds a jobs board to the Newscaster. See what roles are available before seeing the HoP!"
