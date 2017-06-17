@@ -54,6 +54,10 @@
 		message_admins("[key_name_admin(hound)] has put [key_name_admin(patient)] in their dogborg sleeper. [ADMIN_FLW(hound)] [ADMIN_JMP(hound)]")
 		//TODO playsound(hound, )
 
+/obj/item/device/dogborg/sleeper/container_resist()
+	if(do_after(src,(2*60*10), target = src)) //minutes * 60seconds * 10deciseconds
+		go_out()
+
 /obj/item/device/dogborg/sleeper/proc/go_out(target)
 	hound = loc
 	if(length(contents) > 0)
