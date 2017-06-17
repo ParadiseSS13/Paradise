@@ -359,3 +359,6 @@
 				dense_object_backup = AM
 				break
 	. = dense_object_backup
+
+/atom/movable/proc/handle_internal_lifeform(mob/M, breath_volume)
+	return
