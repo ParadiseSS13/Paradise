@@ -1,5 +1,5 @@
 /obj/item/device/mobileticketplatform
-	name = "Mobile Ticketing Platform"
+	name = "handheld ticket dispenser"
 	desc = "A device that allows security personnel to issue tickes for violation of Space Law."
 	icon_state = "atmos"
 	item_state = "analyzer"
@@ -82,7 +82,7 @@ obj/item/device/mobileticketplatform/New()
 			reset()
 	else
 		to_chat(user, "<span class='warning'>Unable to access account. Check security settings and try again.</span>")
-
+	screen = 0
 ///////////////////////////////////////////////////////TICKETS AND CHARGES/////////////////////////////////////////////////
 
 /obj/item/device/mobileticketplatform/proc/clearstringandtime()
@@ -125,10 +125,11 @@ obj/item/device/mobileticketplatform/New()
 		if("Custom Article")
 			var/datum/spacelaw/S = new()
 			S.name = input(user, "Please select custom article to add for [ID.registered_name]") as null|text
-			S.max_fine = input(user, "Please select amount to fine for [ID.registered_name]") as num
-			S.desc = S.name
-			comittedcrimes.Add(S)
-			clearstringandtime()
+			if(!isnull(S.name))
+				S.max_fine = input(user, "Please select amount to fine for [ID.registered_name]") as num
+				S.desc = S.name
+				comittedcrimes.Add(S)
+				clearstringandtime()
 
 	var/datum/spacelaw/selectedcrime = input(user, "Please select article to add for [ID.registered_name]") as null|anything in possible_violations
 	if(!isnull(selectedcrime))
@@ -203,8 +204,6 @@ obj/item/device/mobileticketplatform/New()
 
 	if(screen == 4)
 		dat = "<h1>Processing Request Standby...</h1>"
-		sleep(50)
-		screen = 0
 
 	var/datum/browser/popup = new(user, "menu", name, 400, 400)
 	popup.set_content(dat)
@@ -225,7 +224,6 @@ obj/item/device/mobileticketplatform/New()
 				if(ID && ticketreason && ticketamount)
 					if(!printing)
 						pay_ticket(usr)	//Payment of tickets
-						screen = 4
 					else
 						to_chat(usr,"<span class='warning'>[src] is already processing, please wait!</span>")
 				else

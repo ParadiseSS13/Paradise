@@ -1,12 +1,12 @@
 datum/spacelaw/modifiers/surrender
 	name = "Modifier 102 Surrender"
 	desc = "Coming to the brig, confessing what you've done and taking the punishment. Getting arrested without a fuss is not surrender. For this, you have to actually come to the Brig yourself."
-	maxM_brig = 0.25
+	maxM_brig = 0.75
 
 datum/spacelaw/modifiers/coorporation
 	name = "Modifier 104 Cooperation with prosecution or security"
 	desc = "Being helpful to the members of security, revealing things during questioning or providing names of head revolutionaries."
-	maxM_brig = 0.25
+	maxM_brig = 0.75
 
 datum/spacelaw/modifiers/refusaltocorporate
 	name = "Modifier 110 Refusal to Cooperate"
