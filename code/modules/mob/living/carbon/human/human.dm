@@ -1,4 +1,4 @@
-#define TRAMPLING_DAMAGE	rand(4, 8) / 2 //Average of 3
+#define TRAMPLING_DAMAGE	2
 #define STOMP_COOLDOWN		15
 
 /mob/living/carbon/human
