@@ -9,11 +9,12 @@
 	suffix = "lobby.dmm"
 	name = "Virtual Hub Facility"
 	description = "This is the lobby. The hub for all things VR."
-	death_type = VR_DROP_NONE
+	death_type = VR_DROP_WHITELIST
+	drop_whitelist = list(/obj/item/weapon/reagent_containers/food/drinks/drinkingglass)
 	outfit = /datum/outfit/vr/vr_basic
 
 /datum/map_template/vr/level/roman
-	id = "roman"
+	id = "roman1"
 	suffix = "blood_and_sand.dmm"
 	name = "Blood and Sand Arena"
 	description = "To the Death!"

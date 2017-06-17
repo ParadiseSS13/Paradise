@@ -24,6 +24,8 @@
 	myroom.players.Remove(src)
 	if((myroom.players.len == 0) && (myroom.expires == 1))
 		myroom.delete_timer = addtimer(myroom, "cleanup", 3 MINUTES)
+	else if((myroom.players.len == 1) && (myroom.expires == 2))
+		myroom.round_timer = addtimer(myroom, "vr_round", 10 SECONDS)
 	if(src.ckey)
 		return_to_lobby()
 	var/mob/living/carbon/human/virtual_reality/vr = src

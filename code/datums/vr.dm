@@ -4,10 +4,10 @@
 	var/description = "This is a placeholder. Please contact your virtual adminsitrator if you see this."
 	var/outfit = null
 	var/death_type = VR_DROP_ALL
-	var/drop_whitelist = null
-	var/drop_blacklist = null
-	var/loot_common = null
-	var/loot_rare = null
+	var/list/drop_whitelist = null
+	var/list/drop_blacklist = null
+	var/list/loot_common = null
+	var/list/loot_rare = null
 	var/prefix = null
 	var/suffix = null
 

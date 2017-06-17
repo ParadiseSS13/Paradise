@@ -1,45 +1,68 @@
 "a" = (/turf/space,/area/space)
 "b" = (/turf/unsimulated/wall/metal,/area/vr/lobby)
-"c" = (/turf/unsimulated/floor{tag = "icon-dark"; icon_state = "dark"},/area/vr/lobby)
-"d" = (/turf/unsimulated/wall/fakeglass{dir = 8; icon_state = "fakewindows3"; tag = "icon-fakewindows (WEST)"},/area/vr/lobby)
-"e" = (/turf/unsimulated/floor{icon_state = "gcircuit"},/area/vr/lobby)
-"f" = (/obj/machinery/telecomms/processor/preset_cent,/turf/unsimulated/floor{tag = "icon-dark"; icon_state = "dark"},/area/vr/lobby)
-"g" = (/turf/unsimulated/floor{icon_state = "light_on"},/area/vr/lobby)
-"h" = (/turf/unsimulated/wall/fakeglass{dir = 1; icon_state = "fakewindows"; tag = "icon-fakewindows (WEST)"},/area/vr/lobby)
-"i" = (/turf/unsimulated/wall/fakeglass{dir = 0; icon_state = "fakewindows"; tag = "icon-fakewindows (EAST)"},/area/vr/lobby)
-"j" = (/obj/machinery/telecomms/server/presets/centcomm,/turf/unsimulated/floor{icon_state = "gcircuit"},/area/vr/lobby)
-"k" = (/obj/machinery/telecomms/relay/preset/centcom,/turf/unsimulated/floor{icon_state = "gcircuit"},/area/vr/lobby)
-"l" = (/obj/machinery/telecomms/hub/preset_cent,/turf/unsimulated/floor{tag = "icon-dark"; icon_state = "dark"},/area/vr/lobby)
-"m" = (/obj/machinery/computer/vr_control,/turf/unsimulated/floor{tag = "icon-dark"; icon_state = "dark"},/area/vr/lobby)
-"n" = (/turf/unsimulated/wall/fakeglass{icon_state = "fakewindows"; dir = 8},/area/vr/lobby)
-"o" = (/turf/unsimulated/wall/fakeglass{tag = "icon-fakewindows (EAST)"; icon_state = "fakewindows"; dir = 4},/area/vr/lobby)
-"p" = (/obj/effect/landmark{name = "avatarspawn"},/turf/unsimulated/floor{icon_state = "gcircuit"},/area/vr/lobby)
-"q" = (/turf/unsimulated/wall/fakeglass,/area/vr/lobby)
+"c" = (/obj/machinery/computer/security/telescreen/entertainment,/turf/unsimulated/wall/metal,/area/vr/lobby)
+"d" = (/obj/structure/table/reinforced,/obj/machinery/chem_dispenser/soda,/turf/unsimulated/floor{dir = 2; icon_state = "wood"},/area/vr/lobby)
+"e" = (/obj/structure/table/reinforced,/turf/unsimulated/floor{dir = 2; icon_state = "wood"},/area/vr/lobby)
+"f" = (/obj/structure/table/reinforced,/obj/machinery/chem_dispenser/beer,/turf/unsimulated/floor{dir = 2; icon_state = "wood"},/area/vr/lobby)
+"g" = (/turf/unsimulated/floor{dir = 2; icon_state = "wood"},/area/vr/lobby)
+"h" = (/obj/structure/stool/bed/chair{dir = 1},/turf/unsimulated/floor{dir = 2; icon_state = "wood"},/area/vr/lobby)
+"i" = (/obj/structure/table/reinforced,/obj/item/weapon/reagent_containers/food/drinks/drinkingglass,/obj/item/weapon/reagent_containers/food/drinks/drinkingglass,/obj/item/weapon/reagent_containers/food/drinks/drinkingglass,/obj/item/weapon/reagent_containers/food/drinks/drinkingglass,/obj/item/weapon/reagent_containers/food/drinks/drinkingglass,/turf/unsimulated/floor{dir = 2; icon_state = "wood"},/area/vr/lobby)
+"j" = (/obj/structure/stool/bed/chair{dir = 4},/turf/unsimulated/floor{dir = 2; icon_state = "wood"},/area/vr/lobby)
+"k" = (/turf/unsimulated/wall/fakeglass{icon_state = "fakewindows"; dir = 8},/area/vr/lobby)
+"l" = (/turf/unsimulated/wall/fakeglass{tag = "icon-fakewindows (EAST)"; icon_state = "fakewindows"; dir = 4},/area/vr/lobby)
+"m" = (/obj/structure/stool/bed/chair{dir = 8},/turf/unsimulated/floor{dir = 2; icon_state = "wood"},/area/vr/lobby)
+"n" = (/obj/machinery/computer/vr_pvp,/turf/unsimulated/floor{dir = 2; icon_state = "wood"},/area/vr/lobby)
+"o" = (/mob/living/simple_animal/bot/cleanbot,/turf/unsimulated/floor{dir = 2; icon_state = "wood"},/area/vr/lobby)
+"p" = (/obj/structure/stool/bed/chair,/turf/unsimulated/floor{dir = 2; icon_state = "wood"},/area/vr/lobby)
+"q" = (/obj/machinery/door/airlock/multi_tile/glass,/turf/unsimulated/floor{tag = "icon-dark"; icon_state = "dark"},/area/vr/lobby)
+"r" = (/turf/unsimulated/floor{tag = "icon-dark"; icon_state = "dark"},/area/vr/lobby)
+"s" = (/turf/unsimulated/wall/fakeglass{dir = 8; icon_state = "fakewindows3"; tag = "icon-fakewindows (WEST)"},/area/vr/lobby)
+"t" = (/turf/unsimulated/floor{icon_state = "gcircuit"},/area/vr/lobby)
+"u" = (/obj/machinery/telecomms/processor/preset_cent,/turf/unsimulated/floor{tag = "icon-dark"; icon_state = "dark"},/area/vr/lobby)
+"v" = (/turf/unsimulated/floor{icon_state = "light_on"},/area/vr/lobby)
+"w" = (/turf/unsimulated/wall/fakeglass{dir = 1; icon_state = "fakewindows"; tag = "icon-fakewindows (WEST)"},/area/vr/lobby)
+"x" = (/turf/unsimulated/wall/fakeglass{dir = 0; icon_state = "fakewindows"; tag = "icon-fakewindows (EAST)"},/area/vr/lobby)
+"y" = (/obj/machinery/telecomms/server/presets/centcomm,/turf/unsimulated/floor{icon_state = "gcircuit"},/area/vr/lobby)
+"z" = (/obj/machinery/telecomms/relay/preset/centcom,/turf/unsimulated/floor{icon_state = "gcircuit"},/area/vr/lobby)
+"A" = (/obj/machinery/telecomms/hub/preset_cent,/turf/unsimulated/floor{tag = "icon-dark"; icon_state = "dark"},/area/vr/lobby)
+"B" = (/obj/machinery/computer/vr_control,/turf/unsimulated/floor{tag = "icon-dark"; icon_state = "dark"},/area/vr/lobby)
+"C" = (/obj/effect/landmark{name = "avatarspawn"},/turf/unsimulated/floor{icon_state = "gcircuit"},/area/vr/lobby)
+"D" = (/turf/unsimulated/wall/fakeglass,/area/vr/lobby)
 
 (1,1,1) = {"
 aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
 aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-aaaaaaaaaaaaaaaaaaaaaaabbbbaaaaaaaaaaaaaaaaaaaaaaa
-aaaaaaaaaaaaaaaaaaaaaabbccbbaaaaaaaaaaaaaaaaaaaaaa
-aaaaaaaaaaaaaaaaaaaabbbdeedbbbaaaaaaaaaaaaaaaaaaaa
-aabbbbbbbbbbbbbbbbbbbeefeefeebbbbbbbbbbbbbbbbbbbaa
-aabbcecececececbbbeeeegheehgeeeebbbcecececececbbaa
-aabcgegegegegegcbbegcgcieeicgcgebbcgegegegegegcbaa
-aabeejekejekejeebbeceeeleeleeecebbeejekejekejeebaa
-aabcgegegegegegcbeegecgheehgcegeebcgegegegegegcbaa
-aabbcecececececbbegcegcieeicgecgebbcecececececbbaa
-aaabdmdmdmdmdmdbdfnolnobccbnolnofdbdmdmdmdmdmdbaaa
-aaabeeeeeeeeeeeceeeeeeecppceeeeeeeceeeeeeeeeeebaaa
-aaabeeeeeeeeeeeceeeeeeecppceeeeeeeceeeeeeeeeeebaaa
-aaabbbbbbbbbbbbbdfnolnobccbnolnofdbbbbbbbbbbbbbaaa
-aaaaaaaaaaaaaaabbegcegcheehcgecgebbaaaaaaaaaaaaaaa
-aaaaaaaaaaaaaaaabeegecgqeeigcegeebaaaaaaaaaaaaaaaa
-aaaaaaaaaaaaaaaabbeceeeleeleeecebbaaaaaaaaaaaaaaaa
-aaaaaaaaaaaaaaaaabegcgcheehcgcgebaaaaaaaaaaaaaaaaa
-aaaaaaaaaaaaaaaaabeeeegqeeigeeeebaaaaaaaaaaaaaaaaa
-aaaaaaaaaaaaaaaaabbbbeefeefeebbbbaaaaaaaaaaaaaaaaa
-aaaaaaaaaaaaaaaaaaaabbbdeedbbbaaaaaaaaaaaaaaaaaaaa
-aaaaaaaaaaaaaaaaaaaaaabbccbbaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaabbbcbbbbcbbbaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaabdeeefdeeefbaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaabghhhgghhhgbaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaabggggggggggbaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaabigjbklbmgibaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaabigjcnncmgibaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaabggggggggggbaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaabopppggpppobaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaabbeeeggeeebbaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaabbcbqrbcbbaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaabbbsttsbbbaaaaaaaaaaaaaaaaaaaa
+aabbbbbbbbbbbbbbbbbbbttuttuttbbbbbbbbbbbbbbbbbbbaa
+aabbrtrtrtrtrtrbbbttttvwttwvttttbbbrtrtrtrtrtrbbaa
+aabrvtvtvtvtvtvrbbtvrvrxttxrvrvtbbrvtvtvtvtvtvrbaa
+aabttytztytztyttbbtrtttAttAtttrtbbttytztytztyttbaa
+aabrvtvtvtvtvtvrbttvtrvwttwvrtvttbrvtvtvtvtvtvrbaa
+aabbrtrtrtrtrtrbbtvrtvrxttxrvtrvtbbrtrtrtrtrtrbbaa
+aaabsBsBsBsBsBsbsuklAklbrrbklAklusbsBsBsBsBsBsbaaa
+aaabtttttttttttrtttttttrCCrtttttttrtttttttttttbaaa
+aaabtttttttttttrtttttttrCCrtttttttrtttttttttttbaaa
+aaabbbbbbbbbbbbbsuklAklbrrbklAklusbbbbbbbbbbbbbaaa
+aaaaaaaaaaaaaaabbtvrtvrwttwrvtrvtbbaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaabttvtrvDttxvrtvttbaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaabbtrtttAttAtttrtbbaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaabtvrvrwttwrvrvtbaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaabttttvDttxvttttbaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaabbbbttuttuttbbbbaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaabbbsttsbbbaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaabbrrbbaaaaaaaaaaaaaaaaaaaaaa
 aaaaaaaaaaaaaaaaaaaaaaabbbbaaaaaaaaaaaaaaaaaaaaaaa
 aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
 "}

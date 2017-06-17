@@ -5,15 +5,17 @@
 
 	light_color = LIGHT_COLOR_DARKGREEN
 
+/obj/machinery/computer/vr_control/New()
+	..()
+
+/obj/machinery/computer/vr_control/Destroy()
+	return ..()
+
 /obj/machinery/computer/vr_control/attack_ai(mob/user)
-	attack_hand(user)
 	ui_interact(user)
 
 
 /obj/machinery/computer/vr_control/attack_hand(mob/user)
-	add_fingerprint(user)
-	if(stat & (BROKEN|NOPOWER))
-		return
 	ui_interact(user)
 
 /obj/machinery/computer/vr_control/ui_interact(mob/user, ui_key = "main", var/datum/nanoui/ui = null, var/force_open = 1)
@@ -26,7 +28,7 @@
 				qdel(user)
 		if("Make Room")
 			var/name = input(user, "Name your new Room","Name here.") as null|text
-			var/datum/vr_room/room = input(user, "Choose a Level to load into your new Room.","Select Level") as null|anything in vr_templates
+			var/datum/vr_room/room = input(user, "Choose a Level to load into your new Room.","Select Level") as null|anything in vr_templates - "lobby"
 			make_vr_room(name, room, 1)
 		if("Cancel")
 			return
