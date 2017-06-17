@@ -60,10 +60,10 @@
 	if(!M.buckled && !M.has_buckled_mobs())
 		var/mob_swap
 		//the puller can always swap with it's victim if on grab intent
-		if(M.pulledby == src && a_intent == I_GRAB)
+		if(M.pulledby == src && a_intent == INTENT_GRAB)
 			mob_swap = 1
 		//restrained people act if they were on 'help' intent to prevent a person being pulled from being seperated from their puller
-		else if((M.restrained() || M.a_intent == I_HELP) && (restrained() || a_intent == I_HELP))
+		else if((M.restrained() || M.a_intent == INTENT_HELP) && (restrained() || a_intent == INTENT_HELP))
 			mob_swap = 1
 		if(mob_swap)
 			//switch our position with M
@@ -176,7 +176,7 @@
 		return 0
 	var/obj/item/hand_item = get_active_hand()
 	if(istype(hand_item, /obj/item/weapon/gun) && A != hand_item)
-		if(a_intent == I_HELP || !ismob(A))
+		if(a_intent == INTENT_HELP || !ismob(A))
 			visible_message("<b>[src]</b> points to [A] with [hand_item]")
 			return 1
 		A.visible_message("<span class='danger'>[src] points [hand_item] at [A]!</span>",
@@ -987,11 +987,11 @@
 		. += config.run_speed
 	else
 		switch(m_intent)
-			if("run")
+			if(MOVE_INTENT_RUN)
 				if(drowsyness > 0)
 					. += 6
 				. += config.run_speed
-			if("walk")
+			if(MOVE_INTENT_WALK)
 				. += config.walk_speed
 
 

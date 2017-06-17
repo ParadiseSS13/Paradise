@@ -48,7 +48,7 @@ ROBOT_DELAY 1.5
 MONKEY_DELAY 1.5
 ALIEN_DELAY 1.5
 SLIME_DELAY 1.5
-ANIMAL_DELAY 1.5
+ANIMAL_DELAY 2.5
 
 ## Comment for "normal" explosions, which ignore obstacles
 ## Uncomment for explosions that react to doors and walls
