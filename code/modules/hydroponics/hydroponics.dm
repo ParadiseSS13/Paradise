@@ -442,8 +442,7 @@
 
 /obj/machinery/hydroponics/proc/mutateweed() // If the weeds gets the mutagent instead. Mind you, this pretty much destroys the old plant
 	if( weedlevel > 5 )
-		if(myseed)
-			QDEL_NULL(myseed)
+		QDEL_NULL(myseed)
 		var/newWeed = pick(/obj/item/seeds/liberty, /obj/item/seeds/angel, /obj/item/seeds/nettle/death, /obj/item/seeds/kudzu)
 		myseed = new newWeed
 		dead = 0
@@ -911,7 +910,8 @@
 			plant_health = 0
 			if(harvest)
 				harvest = FALSE //To make sure they can't just put in another seed and insta-harvest it
-			QDEL_NULL(myseed)
+			qdel(myseed)
+			myseed = null
 			plant_hud_set_health()
 			plant_hud_set_status()
 		adjustWeeds(-10) //Has a side effect of cleaning up those nasty weeds

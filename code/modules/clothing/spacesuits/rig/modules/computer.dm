@@ -163,11 +163,8 @@
 					to_chat(user, "<span class='danger'>You cannot eject your currently stored AI. Purge it manually.</span>")
 				return 0
 			to_chat(user, "<span class='danger'>You purge the remaining scraps of data from your previous AI, freeing it for use.</span>")
-			if(integrated_ai)
-				integrated_ai.ghostize()
-				QDEL_NULL(integrated_ai)
-			if(ai_card)
-				QDEL_NULL(ai_card)
+			QDEL_NULL(integrated_ai)
+			QDEL_NULL(ai_card)
 		else if(user)
 			user.put_in_hands(ai_card)
 		else

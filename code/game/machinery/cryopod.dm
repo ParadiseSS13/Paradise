@@ -316,8 +316,7 @@
 
 		if(istype(W,/obj/item/device/pda))
 			var/obj/item/device/pda/P = W
-			if(P.id)
-				QDEL_NULL(P.id)
+			QDEL_NULL(P.id)
 			qdel(P)
 
 		if(!preserve)
