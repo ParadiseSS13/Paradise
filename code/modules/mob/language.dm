@@ -639,7 +639,7 @@
 			if(L == default_language)
 				. += "<b>[L.name] (:[L.key])</b> - default - <a href='byond://?src=[UID()];default_lang=reset'>reset</a><br>[L.desc]<br><br>"
 			else
-				. += "<b>[L.name] (:[L.key])</b> - <a href='byond://?src=[UID()];default_lang=[L]'>set default</a><br>[L.desc]<br><br>"
+				. += "<b>[L.name] (:[L.key])</b> - <a href=\"byond://?src=[UID()];default_lang=[L]\">set default</a><br>[L.desc]<br><br>"
 
 /mob/verb/check_languages()
 	set name = "Check Known Languages"

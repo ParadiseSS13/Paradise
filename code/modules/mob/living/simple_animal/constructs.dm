@@ -302,7 +302,6 @@
 	melee_damage_lower = 1
 	melee_damage_upper = 5
 	attacktext = "prods"
-	speed = 0
 	environment_smash = 3
 	see_in_dark = 8
 	attack_sound = 'sound/weapons/tap.ogg'

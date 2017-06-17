@@ -949,7 +949,7 @@ var/list/ventcrawl_machinery = list(/obj/machinery/atmospherics/unary/vent_pump,
 		for(var/t = 0, t<=tilesSlipped, t++)
 			spawn (t) step(src, src.dir)
 	stop_pulling()
-	to_chat(src, "<span class='notice'>You slipped on the [description]!</span>")
+	to_chat(src, "<span class='notice'>You slipped on [description]!</span>")
 	playsound(src.loc, 'sound/misc/slip.ogg', 50, 1, -3)
 	if(stun)
 		Stun(stun)

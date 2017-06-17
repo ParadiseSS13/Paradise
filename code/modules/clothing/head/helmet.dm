@@ -228,29 +228,29 @@ obj/item/clothing/head/blob
 //Commander
 /obj/item/clothing/head/helmet/ert/command
 	name = "emergency response team commander helmet"
-	desc = "An in-atmosphere helmet worn by the commander of a NanoTrasen Emergency Response Team. Has blue highlights."
+	desc = "An in-atmosphere helmet worn by the commander of a Nanotrasen Emergency Response Team. Has blue highlights."
 	icon_state = "erthelmet_cmd"
 
 //Security
 /obj/item/clothing/head/helmet/ert/security
 	name = "emergency response team security helmet"
-	desc = "An in-atmosphere helmet worn by security members of the NanoTrasen Emergency Response Team. Has red highlights."
+	desc = "An in-atmosphere helmet worn by security members of the Nanotrasen Emergency Response Team. Has red highlights."
 	icon_state = "erthelmet_sec"
 
 //Engineer
 /obj/item/clothing/head/helmet/ert/engineer
 	name = "emergency response team engineer helmet"
-	desc = "An in-atmosphere helmet worn by engineering members of the NanoTrasen Emergency Response Team. Has orange highlights."
+	desc = "An in-atmosphere helmet worn by engineering members of the Nanotrasen Emergency Response Team. Has orange highlights."
 	icon_state = "erthelmet_eng"
 
 //Medical
 /obj/item/clothing/head/helmet/ert/medical
 	name = "emergency response team medical helmet"
-	desc = "A set of armor worn by medical members of the NanoTrasen Emergency Response Team. Has red and white highlights."
+	desc = "A set of armor worn by medical members of the Nanotrasen Emergency Response Team. Has red and white highlights."
 	icon_state = "erthelmet_med"
 
 //Janitorial
 /obj/item/clothing/head/helmet/ert/janitor
 	name = "emergency response team janitor helmet"
-	desc = "A set of armor worn by janitorial members of the NanoTrasen Emergency Response Team. Has red and white highlights."
+	desc = "A set of armor worn by janitorial members of the Nanotrasen Emergency Response Team. Has red and white highlights."
 	icon_state = "erthelmet_jan"
