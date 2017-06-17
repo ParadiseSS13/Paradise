@@ -385,8 +385,8 @@
 		return
 
 	//Poster stuff
-	else if(istype(W,/obj/item/weapon/contraband/poster))
-		place_poster(W,user)
+	else if(istype(W, /obj/item/weapon/poster))
+		place_poster(W, user)
 		return
 
 	//Bone White - Place pipes on walls

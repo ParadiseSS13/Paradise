@@ -95,7 +95,7 @@
 				/obj/item/clothing/head/cone = 10,
 				/obj/item/weapon/coin/silver = 10,
 				/obj/item/weapon/coin/twoheaded = 10,
-				/obj/item/weapon/contraband/poster = 10,
+				/obj/item/weapon/poster/random_contraband = 10,
 				/obj/item/weapon/crowbar = 10,
 				/obj/item/weapon/crowbar/red = 10,
 				/obj/item/weapon/extinguisher = 90,

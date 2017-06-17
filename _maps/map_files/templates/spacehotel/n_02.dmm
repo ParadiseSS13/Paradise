@@ -1,7 +1,7 @@
 "a" = (/turf/template_noop,/area/template_noop)
 "b" = (/obj/effect/decal/cleanable/flour{desc = "Probably."},/obj/effect/decal/cleanable/pie_smudge,/turf/template_noop,/area/template_noop)
 "c" = (/obj/effect/decal/cleanable/pie_smudge,/obj/effect/decal/cleanable/flour,/obj/item/weapon/grown/bananapeel{layer = 2.6},/turf/template_noop,/area/template_noop)
-"d" = (/obj/structure/sign/poster{dir = 8; pixel_x = -32},/turf/unsimulated/floor/carpet,/area/template_noop)
+"d" = (/obj/structure/sign/poster/random{dir = 8; pixel_x = -32},/turf/unsimulated/floor/carpet,/area/template_noop)
 "e" = (/turf/unsimulated/floor/carpet,/area/template_noop)
 "f" = (/obj/effect/decal/cleanable/pie_smudge,/obj/effect/decal/cleanable/flour,/turf/unsimulated/floor/carpet,/area/template_noop)
 "g" = (/obj/structure/dresser,/turf/unsimulated/floor/carpet,/area/template_noop)

@@ -449,7 +449,7 @@
 "iG" = (/obj/structure/window/reinforced{dir = 4},/obj/structure/window/reinforced{dir = 8},/obj/structure/window/reinforced{dir = 1},/obj/structure/grille,/turf/simulated/floor/engine,/area/awaymission/BMPship/Aft)
 "iH" = (/obj/machinery/light/small{dir = 1},/turf/simulated/floor/engine,/area/awaymission/BMPship/Aft)
 "iI" = (/obj/item/weapon/storage/box/matches,/obj/item/weapon/storage/fancy/cigarettes/dromedaryco,/turf/simulated/floor/plating,/area/awaymission/BMPship/Aft)
-"iJ" = (/obj/item/weapon/contraband/poster,/turf/simulated/floor/plating,/area/awaymission/BMPship/Aft)
+"iJ" = (/obj/item/weapon/poster/random_contraband,/turf/simulated/floor/plating,/area/awaymission/BMPship/Aft)
 "iK" = (/turf/simulated/floor/plating,/area/awaymission)
 "iL" = (/obj/structure/table,/obj/item/weapon/reagent_containers/food/drinks/cans/beer,/obj/item/weapon/grenade/chem_grenade/drugs,/turf/simulated/floor/plating,/area/awaymission)
 "iM" = (/turf/simulated/mineral/random/high_chance_clown,/area/awaymission)

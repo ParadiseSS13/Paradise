@@ -72,7 +72,7 @@
 		/obj/item/weapon/lipstick/random,
 		/obj/item/weapon/grenade/smokebomb,
 		/obj/item/weapon/grown/corncob,
-		/obj/item/weapon/contraband/poster,
+		/obj/item/weapon/poster/random_contraband,
 		/obj/item/weapon/bikehorn,
 		/obj/item/weapon/beach_ball,
 		/obj/item/weapon/beach_ball/holoball,
