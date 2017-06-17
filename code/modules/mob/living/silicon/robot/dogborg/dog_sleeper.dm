@@ -14,6 +14,7 @@
 	var/min_health = -100
 	var/patient_laststat = null
 	var/list/injection_chems = list()
+	var/show_patient = TRUE
 
 	var/cleaning = 0
 	var/list/items_preserved = list()
@@ -52,18 +53,20 @@
 		user.visible_message("<span class='warning'>[hound]'s medical pod lights up as [target] slips inside into their [name].</span>",
 							"<span class='notice'>Your medical pod lights up as [target] slips into your [name]. Life support functions engaged.</span>")
 		message_admins("[key_name_admin(hound)] has put [key_name_admin(patient)] in their dogborg sleeper. [ADMIN_FLW(hound)] [ADMIN_JMP(hound)]")
-		//TODO playsound(hound, )
+		playsound(hound, 'sound/effects/dognom.ogg', 100, 1)
 
-/obj/item/device/dogborg/sleeper/container_resist()
-	if(do_after(src,(2*60*10), target = src)) //minutes * 60seconds * 10deciseconds
-		go_out()
+/obj/item/device/dogborg/sleeper/container_resist(mob/living/L)
+	hound.visible_message("<span class='warning'>[L] starts to climb out of [hound]'s [name].</span>")
+	if(do_after_visual(L, (1 MINUTES), target = hound ? hound : get_turf(src)))
+		hound.visible_message("<span class='danger'>[L] climbs out of [hound]'s [name].</span>")
+		go_out(L)
 
 /obj/item/device/dogborg/sleeper/proc/go_out(target)
 	hound = loc
 	if(length(contents) > 0)
-		hound.visible_message("<span class='warning'>[hound] empties out their contents via their ejection port.</span>",
-							"<span class='notice'>You empty your contents via your ejection port.</span>")
 		if(target)
+			hound.visible_message("<span class='warning'>[hound] ejects [target] via their ejection port.</span>",
+								"<span class='notice'>You eject [target] via your ejection port.</span>")
 			if(ishuman(target))
 				var/mob/living/carbon/human/person = target
 				person.forceMove(get_turf(src))
@@ -72,6 +75,8 @@
 				var/obj/T = target
 				T.loc = hound.loc
 		else
+			hound.visible_message("<span class='warning'>[hound] empties out their contents via their ejection port.</span>",
+								"<span class='notice'>You empty your contents via your ejection port.</span>")
 			for(var/C in contents)
 				if(ishuman(C))
 					var/mob/living/carbon/human/person = C
@@ -101,20 +106,22 @@
 		return 0
 
 	. = ""
-	. += "<h3>Injector</h3>"
 
-	if(patient && patient.health > min_health)
-		for(var/re in injection_chems)
-			var/datum/reagent/C = chemical_reagents_list[re]
-			if(C)
-				. += "<br><a href='?src=[UID()];inject=[C.id]'>Inject [C]</a>"
-	else
-		for(var/re in injection_chems)
-			var/datum/reagent/C = chemical_reagents_list[re]
-			if(C)
-				. += "<BR><span class='linkOff'>Inject [C]</span>"
+	if(length(injection_chems))
+		. += "<h3>Injector</h3>"
 
-	. += "<h3>[src] Status</h3>"
+		if(patient && patient.health > min_health)
+			for(var/re in injection_chems)
+				var/datum/reagent/C = chemical_reagents_list[re]
+				if(C)
+					. += "<br><a href='?src=[UID()];inject=[C.id]'>Inject [C]</a>"
+		else
+			for(var/re in injection_chems)
+				var/datum/reagent/C = chemical_reagents_list[re]
+				if(C)
+					. += "<BR><span class='linkOff'>Inject [C]</span>"
+
+	. += "<h3>[name] Status</h3>"
 	. += "<a id='refbutton' href='?src=[UID()];refresh=1'>Refresh</a>"
 	. += "<a href='?src=[UID()];eject=1'>Eject All</a>"
 	if(!cleaning)
@@ -136,48 +143,56 @@
 	if(length(items_preserved))
 		. += "<span class='bad'>[length(items_preserved)] uncleanable object(s).</span><br>"
 
-	if(!patient)
-		. += "[src] Unoccupied"
+	if(show_patient)
+		. += get_patient_data()
 	else
-		. += "[patient] => "
+		. += "Items: [length(contents)]"
 
-		switch(patient.stat)
-			if(0)
-				. += "<span class='good'>Conscious</span>"
-			if(1)
-				. += "<span class='average'>Unconscious</span>"
-			else
-				. += "<span class='bad'>DEAD</span>"
-
-		var/pulsecolor = (patient.pulse == PULSE_NONE || patient.pulse == PULSE_THREADY ? "color:red;" : "color:white;")
-		var/healthcolor = (patient.health > 0 ? "color:white;" : "color:red;")
-		var/brutecolor = (patient.getBruteLoss() < 60 ? "color:gray;" : "color:red;")
-		var/o2color = (patient.getOxyLoss() < 60 ? "color:gray;" : "color:red;")
-		var/toxcolor = (patient.getToxLoss() < 60 ? "color:gray;" : "color:red;")
-		var/burncolor = (patient.getFireLoss() < 60 ? "color:gray;" : "color:red;")
-
-		. += "<span style='[pulsecolor]'>\t-Pulse, bpm: [patient.get_pulse(GETPULSE_TOOL)]</span><BR>"
-		. += "<span style='[healthcolor]'>\t-Overall Health %: [round(patient.health)]</span><BR>"
-		. += "<span style='[brutecolor]'>\t-Brute Damage %: [patient.getBruteLoss()]</span><BR>"
-		. += "<span style='[o2color]'>\t-Respiratory Damage %: [patient.getOxyLoss()]</span><BR>"
-		. += "<span style='[toxcolor]'>\t-Toxin Content %: [patient.getToxLoss()]</span><BR>"
-		. += "<span style='[burncolor]'>\t-Burn Severity %: [patient.getFireLoss()]</span><BR>"
-
-		if(round(patient.paralysis / 4) >= 1)
-			. += text("<hr>Patient paralyzed for: []<br>", round(patient.paralysis / 4) >= 1 ? "[round(patient.paralysis / 4)] seconds" : "None")
-		if(patient.getBrainLoss())
-			. += "<div class='line'><span class='average'>Significant brain damage detected.</span></div><br>"
-		if(patient.getCloneLoss())
-			. += "<div class='line'><span class='average'>Patient may be improperly cloned.</span></div><br>"
-		if(patient.reagents.reagent_list.len)
-			for(var/datum/reagent/R in patient.reagents.reagent_list)
-				. += "<div class='line'><div style='width: 170px;' class='statusLabel'>[R.name]:</div><div class='statusValue'>[round(R.volume, 0.1)] units</div></div><br>"
 	. += "</div>"
 
 	var/datum/browser/popup = new(user, "sleeper", "Sleeper Console", 520, 540)	//Set up the popup browser window
 	popup.set_title_image(user.browse_rsc_icon(icon, icon_state))
 	popup.set_content(.)
 	popup.open()
+
+/obj/item/device/dogborg/sleeper/proc/get_patient_data()
+	if(!patient)
+		return "[src] Unoccupied"
+
+	. += "[patient] => "
+
+	switch(patient.stat)
+		if(0)
+			. += "<span class='good'>Conscious</span>"
+		if(1)
+			. += "<span class='average'>Unconscious</span>"
+		else
+			. += "<span class='bad'>DEAD</span>"
+
+	var/pulsecolor = (patient.pulse == PULSE_NONE || patient.pulse == PULSE_THREADY ? "color:red;" : "color:white;")
+	var/healthcolor = (patient.health > 0 ? "color:white;" : "color:red;")
+	var/brutecolor = (patient.getBruteLoss() < 60 ? "color:gray;" : "color:red;")
+	var/o2color = (patient.getOxyLoss() < 60 ? "color:gray;" : "color:red;")
+	var/toxcolor = (patient.getToxLoss() < 60 ? "color:gray;" : "color:red;")
+	var/burncolor = (patient.getFireLoss() < 60 ? "color:gray;" : "color:red;")
+
+	. += "<span style='[pulsecolor]'>\t-Pulse, bpm: [patient.get_pulse(GETPULSE_TOOL)]</span><BR>"
+	. += "<span style='[healthcolor]'>\t-Overall Health %: [round(patient.health)]</span><BR>"
+	. += "<span style='[brutecolor]'>\t-Brute Damage %: [patient.getBruteLoss()]</span><BR>"
+	. += "<span style='[o2color]'>\t-Respiratory Damage %: [patient.getOxyLoss()]</span><BR>"
+	. += "<span style='[toxcolor]'>\t-Toxin Content %: [patient.getToxLoss()]</span><BR>"
+	. += "<span style='[burncolor]'>\t-Burn Severity %: [patient.getFireLoss()]</span><BR>"
+
+	if(round(patient.paralysis / 4) >= 1)
+		. += text("<hr>Patient paralyzed for: []<br>", round(patient.paralysis / 4) >= 1 ? "[round(patient.paralysis / 4)] seconds" : "None")
+	if(patient.getBrainLoss())
+		. += "<div class='line'><span class='average'>Significant brain damage detected.</span></div><br>"
+	if(patient.getCloneLoss())
+		. += "<div class='line'><span class='average'>Patient may be improperly cloned.</span></div><br>"
+	if(patient.reagents.reagent_list.len)
+		for(var/datum/reagent/R in patient.reagents.reagent_list)
+			. += "<div class='line'><div style='width: 170px;' class='statusLabel'>[R.name]:</div><div class='statusValue'>[round(R.volume, 0.1)] units</div></div><br>"
+
 
 /obj/item/device/dogborg/sleeper/Topic(href, href_list)
 	if(..())
@@ -265,6 +280,10 @@
 				patient_laststat = patient.stat
 			//Update icon
 			hound.update_icons()
+		if(cleaning && (!hound.sleeper_r || hound.sleeper_g))
+			hound.sleeper_r = 1
+			hound.sleeper_g = 0
+			hound.update_icons()
 		//Return original patient
 		return patient
 
@@ -283,8 +302,8 @@
 		hound.update_icons()
 		return C
 
-	//Cleaning looks better with red on, even with people in it
-	if(cleaning)
+	//Cleaning looks better with red on, even with nobody in it
+	if(cleaning && !patient)
 		hound.sleeper_r = 1
 		hound.sleeper_g = 0
 
@@ -389,6 +408,7 @@
 	inject_amount = 10
 	min_health = -100
 	injection_chems = null //So they don't have all the same chems as the medihound!
+	show_patient = FALSE
 	var/max_item_count = 32
 
 /obj/item/device/dogborg/sleeper/compactor/afterattack(atom/movable/target, mob/living/silicon/user, proximity)//GARBO NOMS
@@ -411,7 +431,7 @@
 		if(do_after(user, 30, target = target) && length(contents) < max_item_count)
 			target.forceMove(src)
 			user.visible_message("<span class='warning'>[hound]'s garbage processor groans lightly as [target] slips inside.</span>", "<span class='notice'>Your garbage compactor groans lightly as [target] slips inside.</span>")
-			//playsound(hound, 'sound/vore/gulp.ogg', 50, 1)
+			playsound(hound, 'sound/effects/dognom.ogg', 50, 1)
 			if(length(contents) > 11) //grow that tum after a certain junk amount
 				hound.sleeper_r = 1
 				hound.update_icons()
@@ -431,4 +451,4 @@
 			update_patient()
 			processing_objects.Add(src)
 			user.visible_message("<span class='warning'>[hound]'s [name] groans lightly as [trashman] slips inside.</span>", "<span class='notice'>Your garbage compactor groans lightly as [trashman] slips inside.</span>")
-			//playsound(hound, 'sound/vore/gulp.ogg', 80, 1)
+			playsound(hound, 'sound/effects/dognom.ogg', 80, 1)
