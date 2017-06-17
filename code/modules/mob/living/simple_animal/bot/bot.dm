@@ -256,7 +256,7 @@
 		new /obj/effect/decal/cleanable/blood/oil(loc)
 
 /mob/living/simple_animal/bot/attack_hand(mob/living/carbon/human/H)
-	if(H.a_intent == "help")
+	if(H.a_intent == INTENT_HELP)
 		interact(H)
 	else
 		return ..()
@@ -329,7 +329,7 @@
 					ejectpai(user)
 	else
 		user.changeNext_move(CLICK_CD_MELEE)
-		if(istype(W, /obj/item/weapon/weldingtool) && user.a_intent != "harm")
+		if(istype(W, /obj/item/weapon/weldingtool) && user.a_intent != INTENT_HARM)
 			if(health >= maxHealth)
 				to_chat(user, "<span class='warning'>[src] does not need a repair!</span>")
 				return

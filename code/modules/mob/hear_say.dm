@@ -168,6 +168,7 @@
 /mob/proc/hear_sleep(var/message)
 	var/heard = ""
 	if(prob(15))
+		message = strip_html_properly(message)
 		var/list/punctuation = list(",", "!", ".", ";", "?")
 		var/list/messages = splittext(message, " ")
 		var/R = rand(1, messages.len)

@@ -103,10 +103,11 @@ var/global/list/body_accessory_by_species = list("None" = null)
 
 
 /datum/body_accessory/tail/wingler_tail // Jay wingler fluff tail
-	name = "Jay Wingler Tail"
+	name = "Striped Tail"
 
 	icon_state = "winglertail"
 	animated_icon_state = "winglertail_a"
+	allowed_species = list("Tajaran")
 
 
 //Vulpkanin
