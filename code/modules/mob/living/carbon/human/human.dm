@@ -558,7 +558,7 @@
 			return
 		if(!(M.is_fat()) && M.a_intent == INTENT_HELP) //If they're fat or are on a non-help intent, then we can continue. Otherwise we don't trample them
 			return
-		if(M.buckled || M.throwing) //If they're buckled into something or being thrown, they will not stomp
+		if(M.buckled || M.throwing || M.m_intent == MOVE_INTENT_WALK) //If they're buckled into something, being thrown, or walking, they will not stomp
 			return
 		if(incapacitated() && !(M.incapacitated())) //If the victim is incapacitated and the assailant is not incapacitated. This also catches weird fringe cases where you might end up stomping yourself
 			M.trample(src)
