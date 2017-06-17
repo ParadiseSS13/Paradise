@@ -26,7 +26,7 @@
 	modules += new /obj/item/device/dogborg/sleeper/K9(src) //Eat criminals. Bring them to the brig.
 	modules += new /obj/item/weapon/gun/energy/disabler/cyborg(src) //They /are/ a security borg, after all.
 	..()
-	emag 	 = new /obj/item/weapon/gun/energy/laser/mounted(src) //Emag. Not a big problem.
+	emag	 = new /obj/item/weapon/gun/energy/laser/mounted(src) //Emag. Not a big problem.
 
 /obj/item/weapon/robot_module/dog/knine/respawn_consumable(mob/living/silicon/robot/R, amount)
 	var/obj/item/device/flash/F = locate() in modules
@@ -60,6 +60,7 @@
 	modules += new /obj/item/weapon/reagent_containers/syringe(src) //In case the chemist is nice!
 	modules += new /obj/item/weapon/reagent_containers/glass/beaker(src)//For holding the chemicals when the chemist is nice
 	..()
+	emag = null
 
 //Janitorial
 /obj/item/weapon/robot_module/dog/scrubpup
@@ -81,6 +82,7 @@
 	modules += new /obj/item/weapon/holosign_creator(src)
 	modules += new /obj/item/device/dogborg/sleeper/compactor(src)
 	..()
+	emag = null
 
 /obj/item/weapon/robot_module/dog/scrubpup/respawn_consumable(mob/living/silicon/robot/R, amount)
 	var/obj/item/device/lightreplacer/LR = locate() in modules
