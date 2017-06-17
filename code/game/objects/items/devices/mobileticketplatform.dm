@@ -1,12 +1,11 @@
-/obj/item/device/mobileticketplatform
+/obj/item/device/ticket_machine
 	name = "handheld ticket dispenser"
-	desc = "A device that allows security personnel to issue tickes for violation of Space Law."
+	desc = "A device that allows for security personnel to issue tickes for violation of Space Law."
 	icon_state = "atmos"
 	item_state = "analyzer"
-	w_class = 2
+	w_class = WEIGHT_CLASS_SMALL
 	slot_flags = SLOT_BELT
 
-	//Variables
 	var/ticketreason = null
 	var/ticketamount = null
 	var/screen = 0
@@ -18,16 +17,16 @@
 	var/datum/money_account/D
 	var/datum/spacelaw/C
 
-	var/list/comittedcrimes = list()
+	var/list/committedcrimes = list()
 	var/list/possible_violations = list()
 	var/printing = 0
 	req_access = list(access_brig)
 
-obj/item/device/mobileticketplatform/New()
+obj/item/device/ticket_machine/New()
 	..()
 	linked_account = department_accounts["Security"]
 
-/obj/item/device/mobileticketplatform/proc/reset() //Reset the device
+/obj/item/device/ticket_machine/proc/reset() //Reset the device
 	ticketamount = null
 	ID = null
 	ticketreason = null
@@ -36,19 +35,19 @@ obj/item/device/mobileticketplatform/New()
 	screen = 0
 	printing = 0
 
-/obj/item/device/mobileticketplatform/attackby(obj/O, mob/user, params) //Get credentials
+/obj/item/device/ticket_machine/attackby(obj/O, mob/user, params) //Get credentials
 	if(istype(O, /obj/item/weapon/card/id))
 		visible_message("<span class='info'>[user] swipes a card through [src].</span>")
 		if(ID)
-			to_chat(user, "<span class='warning'>Idenfication Card already scanned!</span>")
+			to_chat(user, "<span class='warning'>Identification Card already scanned!</span>")
 		else
 			ID = O
 			D = get_money_account(ID.associated_account_number)
-			to_chat(user, "<span class='warning'>Idenfication Card scanned!</span>")
+			to_chat(user, "<span class='warning'>Identification Card scanned!</span>")
 
 ///////////////////////////////////////////////////////PAYMENT/////////////////////////////////////////////////
 
-/obj/item/device/mobileticketplatform/proc/pay_ticket(mob/user)
+/obj/item/device/ticket_machine/proc/pay_ticket(mob/user)
 	printing = 1
 	screen = 4
 	sleep(50)
@@ -78,25 +77,25 @@ obj/item/device/mobileticketplatform/New()
 			linked_account.transaction_log.Add(T)
 			print_ticket(usr)
 		else
-			to_chat(user, "<span class='warning'>Unable to process requests. User account contains insuffecient funds. Brigging is required.</span>")
+			to_chat(user, "<span class='warning'>Unable to process requests. User account contains insuffecient funds. Incarceration is suggested.</span>")
 			reset()
 	else
 		to_chat(user, "<span class='warning'>Unable to access account. Check security settings and try again.</span>")
 	screen = 0
 ///////////////////////////////////////////////////////TICKETS AND CHARGES/////////////////////////////////////////////////
 
-/obj/item/device/mobileticketplatform/proc/clearstringandtime()
+/obj/item/device/ticket_machine/proc/clearstringandtime()
 	ticketreason = ""//Empty the string list so we can fill it again
 	ticketamount = 0
 	ticketdescription = ""
 
-	for(C in comittedcrimes)
+	for(C in committedcrimes)
 		ticketreason += "[C.name]<br>"
 		ticketamount += C.max_fine
 		ticketdescription += "<small>[C.desc]</small><br>"
 
 
-/obj/item/device/mobileticketplatform/proc/print_ticket(mob/user) // Ticket Reciepts
+/obj/item/device/ticket_machine/proc/print_ticket(mob/user) // Ticket Reciepts
 		var/ticketid = rand(1111,9999)
 		var/entry = {"<center><h3>Infringement Notice #[ticketid]<br></h3></center><small><b>Issued to:	</b>[ID.registered_name]<br><b>Rank:	</b>[ID.rank] <br><b>Issued at:	</b> [worldtime2text()]<br>
 					 <b>Reason for issue:	</b>[ticketreason]<br><b>Description of Space Law article:	</b>[ticketdescription]<br><b>Ticket Amount (Cr):	</b>[ticketamount]<br><b>Issuing Officer:</b>	[usr]</small>"}
@@ -113,7 +112,7 @@ obj/item/device/mobileticketplatform/New()
 		ticket_logs.Add(P)
 		reset()
 
-/obj/item/device/mobileticketplatform/proc/add_charge(mob/user)
+/obj/item/device/ticket_machine/proc/add_charge(mob/user)
 	possible_violations.Cut()//Clear the LIST
 
 	switch(alert("Select Space Law Category.", "Space Law", "Minor", "Custom Article", "Abort"))
@@ -125,34 +124,34 @@ obj/item/device/mobileticketplatform/New()
 		if("Custom Article")
 			var/datum/spacelaw/S = new()
 			S.name = input(user, "Please select custom article to add for [ID.registered_name]") as null|text
-			if(!isnull(S.name))
+			if(S.name)
 				S.max_fine = input(user, "Please select amount to fine for [ID.registered_name]") as num
 				S.desc = S.name
-				comittedcrimes.Add(S)
+				committedcrimes.Add(S)
 				clearstringandtime()
 
 	var/datum/spacelaw/selectedcrime = input(user, "Please select article to add for [ID.registered_name]") as null|anything in possible_violations
 	if(!isnull(selectedcrime))
-		comittedcrimes.Add(selectedcrime)
+		committedcrimes.Add(selectedcrime)
 		clearstringandtime()
 	else
 		return
 
-/obj/item/device/mobileticketplatform/proc/remove_charge(mob/user)
-	if(comittedcrimes.len)
-		var/datum/spacelaw/removecrime = input(usr, "Please select charge to remove for [ID.registered_name]") as null|anything in comittedcrimes
+/obj/item/device/ticket_machine/proc/remove_charge(mob/user)
+	if(committedcrimes.len)
+		var/datum/spacelaw/removecrime = input(usr, "Please select charge to remove for [ID.registered_name]") as null|anything in committedcrimes
 		if(isnull(removecrime))
 			to_chat(user,"<span class='warning'>Please select a proper charge to remove!</span>")
 			return
 		else
-			comittedcrimes -= removecrime
+			committedcrimes -= removecrime
 			clearstringandtime()
 	else
 		to_chat(user,"<span class='warning'>No charges to remove!</span>")
 
 ///////////////////////////////////////////////////////UI/////////////////////////////////////////////////
 
-/obj/item/device/mobileticketplatform/attack_self(var/mob/user)
+/obj/item/device/ticket_machine/attack_self(var/mob/user)
 	if(..())
 		return
 
@@ -164,7 +163,7 @@ obj/item/device/mobileticketplatform/New()
 	user.set_machine(src)
 	interact(user)
 
-/obj/item/device/mobileticketplatform/interact(mob/user as mob)
+/obj/item/device/ticket_machine/interact(mob/user as mob)
 	var/dat
 
 	if(screen == 0)
@@ -184,7 +183,7 @@ obj/item/device/mobileticketplatform/New()
 
 	if(screen == 2)
 		if(!ID)
-			dat = {"<h1>Please swipe ID of the datainee to begin ticketing.</h1><br>
+			dat = {"<h1>Please swipe the ID of the detainee to begin ticketing.</h1><br>
 					<h2><a href='?src=[UID()];screen=2'>Refresh</a><h2>
 					<a href='?src=[UID()];screen=0'>Back</a><br>"}
 		else
@@ -210,7 +209,7 @@ obj/item/device/mobileticketplatform/New()
 	popup.open()
 	onclose(user, "menu")
 
-/obj/item/device/mobileticketplatform/Topic(href, href_list) //Button actions
+/obj/item/device/ticket_machine/Topic(href, href_list) //Button actions
 	..()
 	if(!allowed(usr) && !usr.can_admin_interact())
 		return 1
