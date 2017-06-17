@@ -179,6 +179,7 @@
 	shoes = /obj/item/clothing/shoes/jackboots
 	head = /obj/item/clothing/head/helmet
 	l_ear = /obj/item/device/radio/headset/headset_sec/alt
+	glasses = /obj/item/clothing/glasses/hud/security/sunglasses
 	id = /obj/item/weapon/card/id/security
 	l_pocket = /obj/item/device/flash
 	suit_store = /obj/item/weapon/gun/energy/gun/advtaser
