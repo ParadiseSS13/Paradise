@@ -35,7 +35,7 @@
 
 
 /obj/item/weapon/gun/projectile/automatic/pistol/civi
-	name = "civilian pistol"
+	name = "Stimpson" //If it ain't jammin' on the third round, it ain't a Stimpson -Frosty
 	desc = "A remake of the stechkin in 9mm with some slight alterations."
 	icon_state = "civi"
 	mag_type = /obj/item/ammo_box/magazine/pistolm9mm
