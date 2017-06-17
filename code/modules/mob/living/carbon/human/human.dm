@@ -564,6 +564,10 @@
 			M.trample(src)
 
 /mob/living/carbon/human/proc/trample(var/mob/living/carbon/human/H)
+	if(!(H.client)) //If they're SSD, we merely trip over them
+		H.visible_message("<span class = 'warning'>[src] trips on [H]!</span>", "<span class = 'warning'>[src] trips over you!</span>", "<span class = 'warning'>You hear someone stumbling!</span>")
+		Weaken(3)
+		return
 	var/D = TRAMPLING_DAMAGE
 	var/armour = H.run_armor_check()
 	if(is_fat()) //Being fat makes you tread with more force
