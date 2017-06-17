@@ -71,7 +71,7 @@
 	ui_interact(user)
 
 /obj/machinery/computer/security/attackby(obj/item/I, user as mob, params)
-	if(istype(I, /obj/item/weapon/screwdriver/))
+	if(isscrewdriver(I))
 		..()
 	else if(I.GetAccess()) // If hit by something with access.
 		attack_hand(user)
