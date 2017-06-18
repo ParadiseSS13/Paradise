@@ -201,7 +201,7 @@
 		user.sight |= SEE_MOBS
 		icon_state = "lantern"
 		wisp.orbit(user, 20, forceMove = TRUE)
-		feedback_add_details("wisp_lantern","F") // freed
+		feedback_report("wisp_lantern","F") // freed
 
 	else
 		to_chat(user, "<span class='notice'>You return the wisp to the lantern.</span>")
@@ -216,7 +216,7 @@
 		wisp.stop_orbit()
 		wisp.loc = src
 		icon_state = "lantern-blue"
-		feedback_add_details("wisp_lantern","R") // returned
+		feedback_report("wisp_lantern","R") // returned
 
 /obj/item/device/wisp_lantern/New()
 	..()
@@ -264,7 +264,7 @@
 	smoke.start()
 
 	user.forceMove(get_turf(linked))
-	feedback_add_details("warp_cube","[src.type]")
+	feedback_report("warp_cube","[src.type]")
 
 	var/datum/effect/system/harmless_smoke_spread/smoke2 = new /datum/effect/system/harmless_smoke_spread()
 	smoke2.set_up(1, 0, user.loc)
@@ -353,7 +353,7 @@
 
 /obj/item/device/immortality_talisman/attack_self(mob/user)
 	if(cooldown < world.time)
-		feedback_add_details("immortality_talisman","U") // usage
+		feedback_report("immortality_talisman","U") // usage
 		cooldown = world.time + 600
 		user.visible_message("<span class='danger'>[user] vanishes from reality, leaving a a hole in their place!</span>")
 		var/obj/effect/immortality_talisman/Z = new(get_turf(src.loc))

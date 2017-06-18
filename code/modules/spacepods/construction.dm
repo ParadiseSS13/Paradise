@@ -225,5 +225,5 @@
 
 	spawn_result(mob/user as mob)
 		..()
-		feedback_inc("spacepod_created",1)
+		feedback_report("spacepod_created")
 		return

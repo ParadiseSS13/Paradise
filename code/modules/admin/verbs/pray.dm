@@ -20,7 +20,7 @@
 			to_chat(X, msg)
 	to_chat(usr, "Your prayers have been received by the gods.")
 
-	feedback_add_details("admin_verb","PR") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
+	feedback_report("admin_verb","PR") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 	//log_admin("HELP: [key_name(src)]: [msg]")
 
 /proc/Centcomm_announce(var/text , var/mob/Sender)

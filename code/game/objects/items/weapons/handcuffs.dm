@@ -42,9 +42,9 @@
 			apply_cuffs(C,user)
 			to_chat(user, "<span class='notice'>You handcuff [C].</span>")
 			if(istype(src, /obj/item/weapon/restraints/handcuffs/cable))
-				feedback_add_details("handcuffs","C")
+				feedback_report("handcuffs","C")
 			else
-				feedback_add_details("handcuffs","H")
+				feedback_report("handcuffs","H")
 
 			add_logs(user, C, "handcuffed", src)
 		else

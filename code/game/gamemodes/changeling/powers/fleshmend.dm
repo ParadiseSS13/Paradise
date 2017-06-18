@@ -21,5 +21,5 @@
 			user.adjustOxyLoss(-10)
 			sleep(10)
 
-	feedback_add_details("changeling_powers","RR")
+	feedback_report("changeling_powers","RR")
 	return 1

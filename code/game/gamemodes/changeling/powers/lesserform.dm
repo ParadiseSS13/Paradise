@@ -30,5 +30,5 @@
 		implants += W
 	H.monkeyize()
 	changeling.purchasedpowers += new /obj/effect/proc_holder/changeling/humanform(null)
-	feedback_add_details("changeling_powers","LF")
+	feedback_report("changeling_powers","LF")
 	return 1

@@ -36,5 +36,5 @@
 	for(var/datum/disease/D in user.viruses)
 		D.cure()
 
-	feedback_add_details("changeling_powers","AP")
+	feedback_report("changeling_powers","AP")
 	return 1

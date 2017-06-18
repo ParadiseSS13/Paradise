@@ -51,7 +51,7 @@
 					to_chat(user, "<span class='notice'>This spell cannot be strengthened any further.</span>")
 				return 1
 	//No same spell found - just learn it
-	feedback_add_details("wizard_spell_learned",log_name)
+	feedback_report("wizard_spell_learned",log_name)
 	user.mind.AddSpell(S)
 	to_chat(user, "<span class='notice'>You have learned [S.name].</span>")
 	return 1
@@ -258,7 +258,7 @@
 
 /datum/spellbook_entry/item/Buy(var/mob/living/carbon/human/user,var/obj/item/weapon/spellbook/book)
 	new item_path(get_turf(user))
-	feedback_add_details("wizard_spell_learned",log_name)
+	feedback_report("wizard_spell_learned",log_name)
 	return 1
 
 /datum/spellbook_entry/item/GetInfo()
@@ -460,7 +460,7 @@
 		return 1
 
 /datum/spellbook_entry/summon/guns/Buy(var/mob/living/carbon/human/user,var/obj/item/weapon/spellbook/book)
-	feedback_add_details("wizard_spell_learned",log_name)
+	feedback_report("wizard_spell_learned",log_name)
 	user.rightandwrong(0)
 	book.uses += 1
 	active = 1
@@ -483,7 +483,7 @@
 		return 1
 
 /datum/spellbook_entry/summon/magic/Buy(var/mob/living/carbon/human/user,var/obj/item/weapon/spellbook/book)
-	feedback_add_details("wizard_spell_learned",log_name)
+	feedback_report("wizard_spell_learned",log_name)
 	user.rightandwrong(1)
 	book.uses += 1
 	active = 1

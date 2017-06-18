@@ -278,7 +278,7 @@
 
 /datum/construction/reversible/mecha/ripley/spawn_result()
 	..()
-	feedback_inc("mecha_ripley_created",1)
+	feedback_report("mecha_ripley_created")
 	return
 
 
@@ -559,7 +559,7 @@
 
 /datum/construction/reversible/mecha/gygax/spawn_result()
 	..()
-	feedback_inc("mecha_gygax_created",1)
+	feedback_report("mecha_gygax_created")
 	return
 
 /datum/construction/mecha/firefighter_chassis
@@ -782,7 +782,7 @@
 
 /datum/construction/reversible/mecha/firefighter/spawn_result()
 	..()
-	feedback_inc("mecha_firefighter_created",1)
+	feedback_report("mecha_firefighter_created")
 	return
 
 
@@ -860,7 +860,7 @@
 
 /datum/construction/mecha/honker/spawn_result()
 	..()
-	feedback_inc("mecha_honker_created",1)
+	feedback_report("mecha_honker_created")
 	return
 
 /datum/construction/mecha/reticence_chassis
@@ -937,7 +937,7 @@
 
 /datum/construction/mecha/reticence/spawn_result()
 	..()
-	feedback_inc("mecha_reticence_created",1)
+	feedback_report("mecha_reticence_created")
 	return
 
 /datum/construction/mecha/durand_chassis
@@ -1216,7 +1216,7 @@
 
 /datum/construction/reversible/mecha/durand/spawn_result()
 	..()
-	feedback_inc("mecha_durand_created",1)
+	feedback_report("mecha_durand_created")
 	return
 
 //PHAZON
@@ -1541,7 +1541,7 @@
 
 /datum/construction/reversible/mecha/phazon/spawn_result()
 	..()
-	feedback_inc("mecha_phazon_created",1)
+	feedback_report("mecha_phazon_created")
 	return
 
 //ODYSSEUS
@@ -1752,5 +1752,5 @@
 
 /datum/construction/reversible/mecha/odysseus/spawn_result()
 	..()
-	feedback_inc("mecha_odysseus_created",1)
+	feedback_report("mecha_odysseus_created")
 	return
