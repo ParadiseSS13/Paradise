@@ -1,0 +1,4 @@
+author: "Citinited"
+delete-after: True
+changes: 
+  - bugfix: "Using a screwdriver on a camera console will now deconstruct it instead of opening the camera window."
