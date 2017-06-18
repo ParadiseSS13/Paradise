@@ -1,6 +1,5 @@
 var/list/forbidden_varedit_object_types = list(
 										/datum/admins,						//Admins editing their own admin-power object? Yup, sounds like a good idea.
-										/obj/machinery/blackbox_recorder,	//Prevents people messing with feedback gathering
 										/datum/feedback_variable			//Prevents people messing with feedback gathering
 									)
 
@@ -131,7 +130,7 @@ var/list/forbidden_varedit_object_types = list(
 			L[var_value] = mod_list_add_ass() //haha
 		if("No")
 			L += var_value
-			
+
 /client/proc/mod_list(var/list/L)
 	if(!check_rights(R_VAREDIT))	return
 
