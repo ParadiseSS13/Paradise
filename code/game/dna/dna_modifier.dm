@@ -327,7 +327,7 @@
 
 	if(ishuman(occupant))
 		var/mob/living/carbon/human/H = occupant
-		if((H.species.flags & NO_DNA))
+		if(NO_DNA in H.species.species_traits)
 			return 1
 
 	var/radiation_protection = occupant.run_armor_check(null, "rad", "Your clothes feel warm.", "Your clothes feel warm.")

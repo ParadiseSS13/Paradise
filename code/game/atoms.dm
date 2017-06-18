@@ -374,7 +374,7 @@
 
 	blood_color = "#A10808"
 	if(istype(M))
-		if(M.species.flags & NO_BLOOD)
+		if(NO_BLOOD in M.species.species_traits)
 			return 0
 		M.check_dna()
 		blood_color = M.species.blood_color

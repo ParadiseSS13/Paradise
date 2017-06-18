@@ -208,7 +208,7 @@
 
 /obj/item/organ/internal/heart/cursed/attack(mob/living/carbon/human/H, mob/living/carbon/human/user, obj/target)
 	if(H == user && istype(H))
-		if(H.species.flags & NO_BLOOD || H.species.exotic_blood)
+		if((NO_BLOOD in H.species.species_traits) || H.species.exotic_blood)
 			to_chat(H, "<span class = 'userdanger'>\The [src] is not compatible with your form!</span>")
 			return
 		playsound(user,'sound/effects/singlebeat.ogg', 40, 1)

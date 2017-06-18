@@ -13,7 +13,7 @@
 	blood_color = "#FFFFFF"
 	flesh_color = "#E6E6C6"
 
-	flags = NO_BREATHE | NO_BLOOD | RADIMMUNE
+	species_traits = list(NO_BREATHE, NO_BLOOD, RADIMMUNE)
 
 	oxy_mod = 0
 

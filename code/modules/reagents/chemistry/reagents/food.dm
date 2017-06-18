@@ -34,7 +34,7 @@
 				if(H.species.exotic_blood)
 					H.vessel.add_reagent(H.species.exotic_blood, 0.4)
 				else
-					if(!(H.species.flags & NO_BLOOD))
+					if(!(NO_BLOOD in H.species.species_traits))
 						H.vessel.add_reagent("blood", 0.4)
 	..()
 
@@ -68,7 +68,7 @@
 		if(H.species.exotic_blood)
 			H.vessel.add_reagent(H.species.exotic_blood, 0.5)
 		else
-			if(!(H.species.flags & NO_BLOOD))
+			if(!(NO_BLOOD in H.species.species_traits))
 				H.vessel.add_reagent("blood", 0.5)
 	..()
 

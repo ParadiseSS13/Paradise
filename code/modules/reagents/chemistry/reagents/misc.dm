@@ -147,7 +147,7 @@
 /datum/reagent/iron/on_mob_life(mob/living/M)
 	if(ishuman(M))
 		var/mob/living/carbon/human/H = M
-		if(!H.species.exotic_blood && !(H.species.flags & NO_BLOOD))
+		if(!H.species.exotic_blood && !(NO_BLOOD in H.species.species_traits))
 			H.vessel.add_reagent("blood", 0.8)
 	..()
 

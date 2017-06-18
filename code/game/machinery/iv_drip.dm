@@ -140,7 +140,7 @@
 			if(NOCLONE in T.mutations)
 				return
 
-			if(T.species.flags & NO_BLOOD)
+			if(NO_BLOOD in T.species.species_traits)
 				return
 
 			if(T.species.exotic_blood)

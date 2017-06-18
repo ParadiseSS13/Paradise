@@ -98,7 +98,7 @@
 					var/time = 30
 					if(istype(target,/mob/living/carbon/human))
 						var/mob/living/carbon/human/H = T
-						if(H.species.flags & NO_BLOOD)
+						if(NO_BLOOD in H.species.species_traits)
 							to_chat(usr, "<span class='warning'>You are unable to locate any blood.</span>")
 							return
 					if(target == user)
