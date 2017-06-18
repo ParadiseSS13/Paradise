@@ -1,6 +1,6 @@
 //Sleeper
 /obj/item/device/dogborg/sleeper
-	name = "Medbelly"
+	name = "Medical Pod mk.K-9 "
 	desc = "Equipment for a medical hound. A mounted sleeper that stabilizes patients and can inject reagents in the borg's reserves."
 	icon = 'icons/mob/dogborg.dmi'
 	icon_state = "sleeper"
@@ -430,7 +430,7 @@
 		user.visible_message("<span class='warning'>[hound] is loading [target] into their [name].</span>", "<span class='notice'>You start loading [target] into your [name]...</span>")
 		if(do_after(user, 30, target = target) && length(contents) < max_item_count)
 			target.forceMove(src)
-			user.visible_message("<span class='warning'>[hound]'s garbage processor groans lightly as [target] slips inside.</span>", "<span class='notice'>Your garbage compactor groans lightly as [target] slips inside.</span>")
+			user.visible_message("<span class='warning'>[hound]'s garbage processor whirrs lightly as [target] is pulled inside.</span>", "<span class='notice'>Your garbage compactor whirrs lightly as [target] is pulled inside.</span>")
 			playsound(hound, 'sound/effects/dognom.ogg', 50, 1)
 			if(length(contents) > 11) //grow that tum after a certain junk amount
 				hound.sleeper_r = 1
@@ -450,5 +450,5 @@
 			trashman.reset_perspective(src)
 			update_patient()
 			processing_objects.Add(src)
-			user.visible_message("<span class='warning'>[hound]'s [name] groans lightly as [trashman] slips inside.</span>", "<span class='notice'>Your garbage compactor groans lightly as [trashman] slips inside.</span>")
+			user.visible_message("<span class='warning'>[hound]'s [name] groans whirrs as [trashman] is pulled inside.</span>", "<span class='notice'>Your garbage compactor whirrs lightly as [trashman] is pulled inside.</span>")
 			playsound(hound, 'sound/effects/dognom.ogg', 80, 1)

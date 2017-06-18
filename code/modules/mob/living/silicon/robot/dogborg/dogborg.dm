@@ -60,7 +60,7 @@
 	modules += new /obj/item/weapon/reagent_containers/syringe(src) //In case the chemist is nice!
 	modules += new /obj/item/weapon/reagent_containers/glass/beaker(src)//For holding the chemicals when the chemist is nice
 	..()
-	emag = null
+	emag = null //suggestion?
 
 //Janitorial
 /obj/item/weapon/robot_module/dog/scrubpup
@@ -72,7 +72,7 @@
 					)
 	channels = list("Service" = 1)
 	can_be_pushed = FALSE
-	clean_on_walk = TRUE
+	clean_on_walk = TRUE//subject to change to diffreniat from janiborg
 
 /obj/item/weapon/robot_module/dog/scrubpup/New(var/mob/living/silicon/robot/R)
 	modules += new /obj/item/device/lightreplacer(src)
@@ -82,7 +82,7 @@
 	modules += new /obj/item/weapon/holosign_creator(src)
 	modules += new /obj/item/device/dogborg/sleeper/compactor(src)
 	..()
-	emag = null
+	emag = null //suggestion?
 
 /obj/item/weapon/robot_module/dog/scrubpup/respawn_consumable(mob/living/silicon/robot/R, amount)
 	var/obj/item/device/lightreplacer/LR = locate() in modules
