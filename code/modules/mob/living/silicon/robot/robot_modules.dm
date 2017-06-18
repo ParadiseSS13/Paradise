@@ -6,15 +6,22 @@
 	item_state = "electronic"
 	flags = CONDUCT
 
-	var/list/modules = list()
-	var/obj/item/emag = null
-	var/list/subsystems = list()
-	var/list/module_actions = list()
-
 	var/module_type = "NoMod" // For icon usage
 
-	var/list/stacktypes
-	var/channels = list()
+	var/sprite_override = FALSE
+	var/list/sprites = list()
+	var/custom_icon = null
+
+	var/list/modules = list()
+	var/list/module_actions = list()
+	var/list/channels = list()
+	var/list/subsystems = list()
+	var/list/stacktypes = list()
+
+	var/obj/item/emag = null
+
+	var/can_be_pushed = TRUE
+	var/clean_on_walk = FALSE
 
 
 /obj/item/weapon/robot_module/emp_act(severity)
@@ -30,6 +37,18 @@
 	modules += new /obj/item/device/flash/cyborg(src)
 	emag = new /obj/item/toy/sword(src)
 	emag.name = "Placeholder Emag Item"
+
+/obj/item/weapon/robot_module/proc/init(mob/living/silicon/robot/R)
+	if(!can_be_pushed)
+		R.status_flags &= ~CANPUSH
+
+	//languages
+	add_languages(R)
+	//subsystems
+	add_subsystems_and_actions(R)
+
+/obj/item/weapon/robot_module/proc/override_sprite(mob/living/silicon/robot/R)
+	return
 
 /obj/item/weapon/robot_module/Destroy()
 	QDEL_LIST(modules)
@@ -104,9 +123,21 @@
 		qdel(A)
 	R.module_actions.Cut()
 
+/obj/item/weapon/robot_module/proc/get_standard_pixel_x_offset(mob/living/silicon/robot/R)
+	return 0
+/obj/item/weapon/robot_module/proc/get_standard_pixel_y_offset(mob/living/silicon/robot/R)
+	return 0
+
 /obj/item/weapon/robot_module/standard
 	name = "standard robot module"
 	module_type = "Standard"
+	channels = list("Service" = 1)
+	sprites = list(
+		"Basic" = "robot_old",
+		"Android" = "droid",
+		"Default" = "robot",
+		"Noble-STD" = "Noble-STD"
+	)
 
 /obj/item/weapon/robot_module/standard/New()
 	..()
@@ -122,6 +153,15 @@
 /obj/item/weapon/robot_module/medical
 	name = "medical robot module"
 	module_type = "Medical"
+	channels = list("Medical" = 1)
+	sprites = list(
+		"Basic" = "Medbot",
+		"Surgeon" = "surgeon",
+		"Advanced Droid" = "droid-medical",
+		"Needles" = "medicalrobot",
+		"Standard" = "robotMedi",
+		"Noble-MED" = "Noble-MED"
+	)
 	subsystems = list(/mob/living/silicon/proc/subsystem_crew_monitor)
 	stacktypes = list(
 		/obj/item/stack/medical/bruise_pack/advanced = 5,
@@ -129,6 +169,7 @@
 		/obj/item/stack/medical/splint = 5,
 		/obj/item/stack/nanopaste = 5
 		)
+	can_be_pushed = FALSE
 
 /obj/item/weapon/robot_module/medical/New()
 	..()
@@ -162,6 +203,11 @@
 
 	fix_modules()
 
+/obj/item/weapon/robot_module/medical/init(mob/living/silicon/robot/R)
+	. = ..()
+	if(R.camera && "Robots" in R.camera.network)
+		R.camera.network.Add("Medical")
+
 /obj/item/weapon/robot_module/medical/respawn_consumable(mob/living/silicon/robot/R)
 	if(emag)
 		var/obj/item/weapon/reagent_containers/spray/PS = emag
@@ -171,6 +217,14 @@
 /obj/item/weapon/robot_module/engineering
 	name = "engineering robot module"
 	module_type = "Engineer"
+	channels = list("Engineering" = 1)
+	sprites = list(
+		"Basic" = "Engineering",
+		"Antique" = "engineerrobot",
+		"Landmate" = "landmate",
+		"Standard" = "robotEngi",
+		"Noble-ENG" = "Noble-ENG"
+	)
 	subsystems = list(/mob/living/silicon/proc/subsystem_power_monitor)
 	module_actions = list(
 		/datum/action/innate/robot_sight/meson,
@@ -211,10 +265,26 @@
 
 	fix_modules()
 
+/obj/item/weapon/robot_module/engineering/init(mob/living/silicon/robot/R)
+	. = ..()
+	if(R.camera && "Robots" in R.camera.network)
+		R.camera.network.Add("Engineering")
+	R.magpulse = 1
+
 /obj/item/weapon/robot_module/security
 	name = "security robot module"
 	module_type = "Security"
+	channels = list("Security" = 1)
+	sprites = list(
+		"Basic" = "secborg",
+		"Red Knight" = "Security",
+		"Black Knight" = "securityrobot",
+		"Bloodhound" = "bloodhound",
+		"Standard" = "robotSecy",
+		"Noble-SEC" = "Noble-SEC"
+	)
 	subsystems = list(/mob/living/silicon/proc/subsystem_crew_monitor)
+	can_be_pushed = FALSE
 
 /obj/item/weapon/robot_module/security/New()
 	..()
@@ -230,6 +300,15 @@
 /obj/item/weapon/robot_module/janitor
 	name = "janitorial robot module"
 	module_type = "Janitor"
+	channels = list("Service" = 1)
+	sprites = list(
+		"Basic" = "JanBot2",
+		"Mopbot"  = "janitorrobot",
+		"Mop Gear Rex" = "mopgearrex",
+		"Standard" = "robotJani",
+		"Noble-CLN" = "Noble-CLN"
+	)
+	clean_on_walk = TRUE
 
 /obj/item/weapon/robot_module/janitor/New()
 	..()
@@ -248,6 +327,16 @@
 /obj/item/weapon/robot_module/butler
 	name = "service robot module"
 	module_type = "Service"
+	channels = list("Service" = 1)
+	sprites = list(
+		"Waitress" = "Service",
+		"Kent" = "toiletbot",
+		"Bro" = "Brobot",
+		"Rich" = "maximillion",
+		"Default" = "Service2",
+		"Standard" = "robotServ",
+		"Noble-SRV" = "Noble-SRV"
+	)
 
 /obj/item/weapon/robot_module/butler/New()
 	..()
@@ -305,6 +394,14 @@
 /obj/item/weapon/robot_module/miner
 	name = "miner robot module"
 	module_type = "Miner"
+	channels = list("Supply" = 1)
+	sprites = list(
+		"Basic" = "Miner_old",
+		"Advanced Droid" = "droid-miner",
+		"Treadhead" = "Miner",
+		"Standard" = "robotMine",
+		"Noble-DIG" = "Noble-DIG"
+	)
 	module_actions = list(
 		/datum/action/innate/robot_sight/meson,
 	)
@@ -323,6 +420,11 @@
 	emag = new /obj/item/borg/stun(src)
 
 	fix_modules()
+
+/obj/item/weapon/robot_module/miner/init(mob/living/silicon/robot/R)
+	. = ..()
+	if(R.camera && "Robots" in R.camera.network)
+		R.camera.network.Add("Mining Outpost")
 
 /obj/item/weapon/robot_module/deathsquad
 	name = "NT advanced combat module"
@@ -397,9 +499,12 @@
 /obj/item/weapon/robot_module/combat
 	name = "combat robot module"
 	module_type = "Malf"
+	channels = list("Security" = 1)
+	sprite_override = TRUE
 	module_actions = list(
 		/datum/action/innate/robot_sight/thermal,
 	)
+	can_be_pushed = FALSE
 
 /obj/item/weapon/robot_module/combat/New()
 	..()
@@ -413,9 +518,14 @@
 
 	fix_modules()
 
+/obj/item/weapon/robot_module/combat/override_sprite(mob/living/silicon/robot/R)
+	R.icon_state = "droidcombat"
+
 /obj/item/weapon/robot_module/peacekeeper
 	name = "peacekeeper robot module"
 	module_type = "Malf"
+	sprite_override = TRUE
+	can_be_pushed = FALSE
 
 /obj/item/weapon/robot_module/peacekeeper/New()
 	..()
@@ -429,12 +539,17 @@
 
 	fix_modules()
 
+/obj/item/weapon/robot_module/peacekeeper/override_sprite(mob/living/silicon/robot/R)
+	R.icon_state = "droidpeace"
+
 /obj/item/weapon/robot_module/alien/hunter
 	name = "alien hunter module"
 	module_type = "Standard"
+	sprite_override = TRUE
 	module_actions = list(
 		/datum/action/innate/robot_sight/thermal/alien,
 	)
+
 
 /obj/item/weapon/robot_module/alien/hunter/New()
 	modules += new /obj/item/weapon/melee/energy/alien/claws(src)
@@ -454,6 +569,12 @@
 /obj/item/weapon/robot_module/alien/hunter/add_languages(var/mob/living/silicon/robot/R)
 	..()
 	R.add_language("xenocommon", 1)
+
+/obj/item/weapon/robot_module/alien/hunter/override_sprite(mob/living/silicon/robot/R)
+	R.icon = 'icons/mob/alien.dmi'
+	R.icon_state = "xenoborg-state-a"
+	R.modtype = "Xeno-Hu"
+	feedback_inc("xeborg_hunter",1)
 
 /obj/item/weapon/robot_module/drone
 	name = "drone module"
