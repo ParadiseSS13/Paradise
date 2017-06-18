@@ -164,6 +164,15 @@
 		// as cloneloss
 		adjustCloneLoss(0.1)
 
+mob/living/carbon/human/proc/Irradiate(var/D)
+	adjustToxLoss(D)
+	updatehealth()
+
+mob/living/carbon/human/proc/RadiationWeakening(var/T)
+	if(!lying)
+		show_message("<span class='alert'>You feel weak.</span>")
+	Weaken(T)
+
 /mob/living/carbon/human/handle_mutations_and_radiation()
 	for(var/datum/dna/gene/gene in dna_genes)
 		if(!gene.block)
@@ -188,76 +197,59 @@
 				spawn(300)
 					if(gene_stability < GENETIC_DAMAGE_STAGE_3)
 						gib()
-
-	if(!(species.flags & RADIMMUNE))
-		if(radiation)
-
-			if(get_int_organ(/obj/item/organ/internal/nucleation/resonant_crystal))
-				var/rads = radiation/25
-				radiation -= rads
-				radiation -= 0.1
-				reagents.add_reagent("radium", rads/10)
-				if( prob(10) )
-					to_chat(src, "<span class='notice'>You feel relaxed.</span>")
-				return
-
-			if(radiation > 100)
-				radiation = 100
-				Weaken(10)
-				if(!lying)
-					to_chat(src, "<span class='alert'>You feel weak.</span>")
-					emote("collapse")
-
-			if(radiation < 0)
-				radiation = 0
-
-			else
-				var/damage = 0
-				switch(radiation)
-					if(0 to 49)
-						radiation--
-						if(prob(25))
-							adjustToxLoss(1)
-							damage = 1
-							updatehealth()
-
-					if(50 to 74)
-						radiation -= 2
-						damage = 1
-						adjustToxLoss(1)
-						if(prob(5))
-							radiation -= 5
-							Weaken(3)
-							if(!lying)
-								to_chat(src, "<span class='alert'>You feel weak.</span>")
-								emote("collapse")
-						updatehealth()
-
-					if(75 to 100)
-						radiation -= 3
-						adjustToxLoss(3)
-						damage = 3
-						if(prob(1))
-							to_chat(src, "<span class='alert'>You mutate!</span>")
-							randmutb(src)
-							domutcheck(src,null)
-							emote("gasp")
-						updatehealth()
-
-					else
-						radiation -= 5
-						adjustToxLoss(5)
-						damage = 5
-						if(prob(1))
-							to_chat(src, "<span class='alert'>You mutate!</span>")
-							randmutb(src)
-							domutcheck(src,null)
-							emote("gasp")
-						updatehealth()
-
-				if(damage && bodyparts.len)
-					var/obj/item/organ/external/O = pick(bodyparts)
-					if(istype(O)) O.add_autopsy_data("Radiation Poisoning", damage)
+	if(!radiation)
+		return
+	if(get_int_organ(/obj/item/organ/internal/nucleation/resonant_crystal))
+		var/rads = radiation/25
+		radiation -= rads
+		radiation -= 0.1
+		reagents.add_reagent("radium", rads/10)
+		if(prob(10))
+			show_message("<span class='notice'>You feel relaxed.</span>")
+		return
+	var/damage = 0
+	if(radiation > 100)
+		radiation = 100
+		if(species.flags & RADIMMUNE)
+			return
+		RadiationWeakening(10)
+		damage = 3
+		Irradiate(damage)
+	else if(radiation >= 75)
+		radiation -= 3
+		if(species.flags & RADIMMUNE)
+			return
+		if(prob(1))
+			show_message("<span class='alert'>You mutate!</span>")
+			randmutb(src)
+			domutcheck(src,null)
+			emote("gasp")
+		if(prob(5))
+			RadiationWeakening(3)
+		damage = 3
+		Irradiate(damage)
+	else if(radiation >= 50)
+		radiation -= 2
+		if(species.flags & RADIMMUNE)
+			return
+		if(prob(5))
+			radiation -= 5
+			RadiationWeakening(3)
+		damage = 1
+		Irradiate(damage)
+	else if(radiation > 0)
+		radiation --
+		if(species.flags & RADIMMUNE)
+			return
+		if(prob(25))
+			damage = 1
+			Irradiate(damage)
+	else
+		radiation = 0
+	if(damage && bodyparts.len)
+		var/obj/item/organ/external/O = pick(bodyparts)
+		if(istype(O))
+			O.add_autopsy_data("Radiation Poisoning", damage)
 
 /mob/living/carbon/human/breathe()
 
