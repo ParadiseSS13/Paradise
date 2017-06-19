@@ -157,8 +157,7 @@
 						if(R.fields["name"] == active1.fields["name"] && R.fields["id"] == active1.fields["id"])
 							qdel(R)
 					QDEL_NULL(active1)
-				if(active2)
-					QDEL_NULL(active2)
+				QDEL_NULL(active2)
 				update_all_mob_security_hud()
 				screen = SEC_DATA_R_LIST
 			if("criminal")

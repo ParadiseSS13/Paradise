@@ -28,8 +28,8 @@
 
 			sleep(10)
 			to_chat(usr, "<span style='color: #0000ff;'>Disconnecting neural-net interface...</span> <span style='color: #32CD32'><b>Success</b>.</span>")
-			if(usr.hud_used)
-				QDEL_NULL(usr.hud_used)
+
+			QDEL_NULL(usr.hud_used)
 			usr.create_mob_hud()
 			usr.regenerate_icons()
 
@@ -63,8 +63,8 @@
 
 			sleep(5)
 			to_chat(usr, "<span style='color: #0000ff;'>Suit secured, extending neural-net interface...</span>")
-			if(usr.hud_used)
-				QDEL_NULL(usr.hud_used)
+
+			QDEL_NULL(usr.hud_used)
 			usr.hud_used = new /datum/hud/human(usr, 'icons/mob/screen_ninja.dmi', "#ffffff", 255)
 			if(usr.hud_used)
 				usr.hud_used.show_hud(usr.hud_used.hud_version)

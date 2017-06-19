@@ -286,8 +286,7 @@
 		drink_container.desc = "[recipe_to_use.description]"
 	flick("bottler_on", src)
 	spawn(45)
-		for(var/i = 1, i <= slots.len, i++)
-			QDEL_NULL(slots[i])
+		QDEL_LIST_ASSOC_VAL(slots)
 		bottling = 0
 		drink_container.forceMove(loc)
 		updateUsrDialog()

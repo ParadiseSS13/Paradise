@@ -31,10 +31,8 @@
 /obj/machinery/lapvend/proc/reset_order()
 	state = 0
 	devtype = 0
-	if(fabricated_laptop)
-		QDEL_NULL(fabricated_laptop)
-	if(fabricated_tablet)
-		QDEL_NULL(fabricated_tablet)
+	QDEL_NULL(fabricated_laptop)
+	QDEL_NULL(fabricated_tablet)
 	dev_cpu = 1
 	dev_battery = 1
 	dev_disk = 1

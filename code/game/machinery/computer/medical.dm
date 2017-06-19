@@ -198,8 +198,7 @@
 							if("op")
 								active2.fields["b_type"] = "O+"
 				if("del_r2")
-					if(active2)
-						QDEL_NULL(active2)
+					QDEL_NULL(active2)
 
 	if(href_list["scan"])
 		if(scan)
