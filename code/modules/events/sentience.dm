@@ -4,11 +4,13 @@
 	var/ghostmsg = "Do you want to awaken as a sentient being?"
 	var/list/candidates = pollCandidates(ghostmsg, ROLE_SENTIENT, 1)
 	var/list/potential = list()
+	var/sentience_type = SENTIENCE_ORGANIC
+
 	for(var/mob/living/simple_animal/L in living_mob_list)
 		var/turf/T = get_turf(L)
 		if (T.z != 1)
 			continue
-		if(!(L in player_list) && !L.mind)
+		if(!(L in player_list) && !L.mind && (L.sentience_type == sentience_type))
 			potential += L
 
 	var/mob/living/simple_animal/SA = pick(potential)
