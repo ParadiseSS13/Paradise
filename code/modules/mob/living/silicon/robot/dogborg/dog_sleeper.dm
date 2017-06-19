@@ -50,8 +50,8 @@
 		target.reset_perspective(src)
 		update_patient()
 		processing_objects.Add(src)
-		user.visible_message("<span class='warning'>[hound]'s medical pod lights up as [target] slips inside into their [name].</span>",
-							"<span class='notice'>Your medical pod lights up as [target] slips into your [name]. Life support functions engaged.</span>")
+		user.visible_message("<span class='warning'>[hound]'s [src] lights up as [target] slips inside into their [name].</span>",
+							"<span class='notice'>Your [src] lights up as [target] slips into your [name]. Life support functions engaged.</span>")
 		message_admins("[key_name_admin(hound)] has put [key_name_admin(patient)] in their dogborg sleeper. [ADMIN_FLW(hound)] [ADMIN_JMP(hound)]")
 		playsound(hound, 'sound/effects/dognom.ogg', 100, 1)
 
@@ -65,8 +65,8 @@
 	hound = loc
 	if(length(contents) > 0)
 		if(target)
-			hound.visible_message("<span class='warning'>[hound] ejects [target] via their ejection port.</span>",
-								"<span class='notice'>You eject [target] via your ejection port.</span>")
+			hound.visible_message("<span class='warning'>[hound] ejects [target] from the [src].</span>",
+								"<span class='notice'>You eject [target] from the [src].</span>")
 			if(ishuman(target))
 				var/mob/living/carbon/human/person = target
 				person.forceMove(get_turf(src))
@@ -75,8 +75,8 @@
 				var/obj/T = target
 				T.loc = hound.loc
 		else
-			hound.visible_message("<span class='warning'>[hound] empties out their contents via their ejection port.</span>",
-								"<span class='notice'>You empty your contents via your ejection port.</span>")
+			hound.visible_message("<span class='warning'>[hound] empties out of the [src].</span>",
+								"<span class='notice'>You empty your contents of the [src].</span>")
 			for(var/C in contents)
 				if(ishuman(C))
 					var/mob/living/carbon/human/person = C
@@ -378,8 +378,6 @@
 		patient.AdjustStunned(-4)
 		patient.AdjustWeakened(-4)
 		drain()
-		// if((patient.reagents.get_reagent_amount("inaprovaline") < 5) && (patient.health < patient.maxHealth)) //Stop pumping full HP people full of drugs. Don't heal people you're digesting, meanie.
-		// 	patient.reagents.add_reagent("inaprovaline", 5)
 		return
 
 	if(!patient && !cleaning) //We think we're done working.
@@ -435,20 +433,3 @@
 			if(length(contents) > 11) //grow that tum after a certain junk amount
 				hound.sleeper_r = 1
 				hound.update_icons()
-
-	else if(ishuman(target))
-		var/mob/living/carbon/human/trashman = target
-		if(patient)
-			to_chat(user, "<span class='warning'>Your [name] is already occupied.</span>")
-			return
-		if(trashman.buckled)
-			to_chat(user, "<span class='warning'>[trashman] is buckled and can not be put into your [name].</span>")
-			return
-		user.visible_message("<span class='warning'>[hound.name] is loading [trashman] into their [name].</span>", "<span class='notice'>You start loading [trashman] into your [name]...</span>")
-		if(do_after(user, 30, target = trashman) && !patient && !trashman.buckled && length(contents) < max_item_count)
-			trashman.forceMove(src)
-			trashman.reset_perspective(src)
-			update_patient()
-			processing_objects.Add(src)
-			user.visible_message("<span class='warning'>[hound]'s [name] groans whirrs as [trashman] is pulled inside.</span>", "<span class='notice'>Your garbage compactor whirrs lightly as [trashman] is pulled inside.</span>")
-			playsound(hound, 'sound/effects/dognom.ogg', 80, 1)

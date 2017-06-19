@@ -10,6 +10,34 @@
 	attack_verb = list("chomped", "bit", "ripped", "mauled", "enforced")
 	w_class = WEIGHT_CLASS_NORMAL
 
+/obj/item/weapon/dogborg/jaws/sec
+	name = "vice jaws"
+	icon = 'icons/mob/dogborg.dmi'
+	icon_state = "jaws"
+	desc = "The jaws of the law."
+	flags = CONDUCT
+	force = 10
+	damtype = STAMINA
+	throwforce = 0
+	hitsound = 'sound/weapons/bite.ogg'
+	attack_verb = list("chomped", "bit", "ripped", "mauled", "enforced")
+	w_class = WEIGHT_CLASS_NORMAL
+
+
+/obj/item/weapon/dogborg/jaws/sec/afterattack(mob/living/carbon/human/target, mob/living/silicon/user, proximity)
+
+	if(..() || !ishuman(target))//if it gets caught or the target can't be cuffed,
+		return//abort
+	var/mob/living/carbon/human/C = target
+	if(!C.legcuffed)
+		user.changeNext_move(CLICK_CD_MELEE)
+		visible_message("<span class='danger'>[src] latches onto [C] ankles dispensing an energy bola!</span>")
+		C.legcuffed = new /obj/item/weapon/restraints/legcuffs/bola/energy(C)
+		C.update_inv_legcuffed()
+		feedback_add_details("ankle bit","B")
+		to_chat(C, "<span class='userdanger'>[src] bites your ankles dispensing an energy bola!</span>")
+		C.Weaken(1)
+
 /obj/item/weapon/dogborg/jaws/small
 	name = "puppy jaws"
 	icon = 'icons/mob/dogborg.dmi'
@@ -47,14 +75,14 @@
 
 //Boop
 /obj/item/device/dogborg/boop_module
-	name = "boop module"
+	name = "scent module"
 	icon = 'icons/mob/dogborg.dmi'
 	icon_state = "nose"
-	desc = "The BOOP module, a simple reagent and atmosphere sniffer."
+	desc = "The SCENT module, a simple reagent and atmosphere sniffer."
 	flags = CONDUCT | NOBLUDGEON
 	force = 0
 	throwforce = 0
-	attack_verb = list("nuzzled", "nosed", "booped")
+	attack_verb = list("nosed", "booped")
 	w_class = WEIGHT_CLASS_TINY
 
 /obj/item/device/dogborg/boop_module/attack_self(mob/user)
@@ -69,7 +97,7 @@
 	user.changeNext_move(CLICK_CD_MELEE)
 	user.visible_message("<span class='notice'>[user] sniffs the air.</span>", "<span class='notice'>You sniff the air...</span>")
 
-	user << "<span class='notice'><B>Smells like:</B></span>"
+	to_chat(user, "<span class='notice'><B>Smells like:</B></span>")
 	if(abs(pressure - ONE_ATMOSPHERE) < 10)
 		to_chat(user, "<span class='notice'>Pressure: [round(pressure,0.1)] kPa</span>")
 	else
@@ -128,11 +156,136 @@
 	else
 		to_chat(user, "<span class='notice'>No significant chemical agents smelled in [O].</span>")
 
-s
+/obj/item/device/dogborg/boop_module/sec //no report printing for this..just relay results.
+	name = "forensic module"
+	icon = 'icons/mob/dogborg.dmi'
+	icon_state = "nose"
+	desc = "The forensic module, a basic forensic module."
+	flags = CONDUCT | NOBLUDGEON
+	force = 0
+	throwforce = 0
+	attack_verb = list("nosed", "booped")
+	w_class = WEIGHT_CLASS_TINY
+	var/scanning = 0
+
+/obj/item/device/dogborg/boop_module/sec/afterattack(obj/O, mob/user, proximity)
+	scan(O, user)
+
+/obj/item/device/dogborg/boop_module/sec/proc/scan(var/atom/A, var/mob/user)
+
+	if(!scanning)
+		// Can remotely scan objects and mobs.
+		if(!in_range(A, user) && !(A in view(world.view, user)))
+			return
+		if(loc != user)
+			return
+
+		scanning = 1
+
+		user.changeNext_move(CLICK_CD_MELEE)
+		user.visible_message("<span class='notice'>[user] sniffs at [A].</span>", "<span class='notice'>You sniff [A]...</span>")
+
+
+		// GATHER INFORMATION
+
+		//Make our lists
+		var/list/fingerprints = list()
+		var/list/blood = list()
+		var/list/fibers = list()
+		var/list/reagents = list()
+
+		var/target_name = A.name
+
+		// Start gathering
+
+		if(A.blood_DNA && A.blood_DNA.len)
+			blood = A.blood_DNA.Copy()
+
+		if(A.suit_fibers && A.suit_fibers.len)
+			fibers = A.suit_fibers.Copy()
+
+		if(ishuman(A))
+
+			var/mob/living/carbon/human/H = A
+			if(istype(H.dna, /datum/dna) && !H.gloves)
+				fingerprints += md5(H.dna.uni_identity)
+
+		else if(!ismob(A))
+
+			if(A.fingerprints && A.fingerprints.len)
+				fingerprints = A.fingerprints.Copy()
+
+			// Only get reagents from non-mobs.
+			if(A.reagents && A.reagents.reagent_list.len)
+
+				for(var/datum/reagent/R in A.reagents.reagent_list)
+					reagents[R.name] = R.volume
+
+					// Get blood data from the blood reagent.
+					if(istype(R, /datum/reagent/blood))
+
+						if(R.data["blood_DNA"] && R.data["blood_type"])
+							var/blood_DNA = R.data["blood_DNA"]
+							var/blood_type = R.data["blood_type"]
+							blood[blood_DNA] = blood_type
+
+		// We gathered everything. Create a fork and slowly display the results to the holder of the scanner.
+
+		spawn(0)
+
+			var/found_something = 0
+
+			// Fingerprints
+			if(fingerprints && fingerprints.len)
+				sleep(30)
+				to_chat(user, "<span class='info'><B>Prints:</B></span>")
+				for(var/finger in fingerprints)
+					to_chat(user, "[finger]")
+				found_something = 1
+
+			// Blood
+			if(blood && blood.len)
+				sleep(30)
+				to_chat(user, "<span class='info'><B>Blood:</B></span>")
+				found_something = 1
+				for(var/B in blood)
+					to_chat(user, "Type: <font color='red'>[blood[B]]</font> DNA: <font color='red'>[B]</font>")
+
+			//Fibers
+			if(fibers && fibers.len)
+				sleep(30)
+				to_chat(user, "<span class='info'><B>Fibers:</B></span>")
+				for(var/fiber in fibers)
+					to_chat(user, "[fiber]")
+				found_something = 1
+
+			//Reagents
+			if(reagents && reagents.len)
+				sleep(30)
+				to_chat(user, "<span class='info'><B>Reagents:</B></span>")
+				for(var/R in reagents)
+					to_chat(user, "Reagent: <font color='red'>[R]</font> Volume: <font color='red'>[reagents[R]]</font>")
+				found_something = 1
+
+			// Get a new user
+			var/mob/holder = null
+			if(ismob(src.loc))
+				holder = src.loc
+
+			if(!found_something)
+				if(holder)
+					to_chat(holder, "<span class='notice'>Unable to locate any fingerprints, materials, fibers, or blood on \the [target_name]!</span>")
+			else
+				if(holder)
+					to_chat(holder, "<span class='notice'>You finish scanning \the [target_name].</span>")
+
+			scanning = 0
+			return
+
 //Tongue stuff
 /obj/item/device/dogborg/tongue
 	name = "synthetic tongue"
-	desc = "Useful for slurping mess off the floor before affectionally licking the crew members in the face."
+	desc = "Useful for cleaning mess off the floor before affectionally licking the crew members in the face with much static and metal."
 	icon = 'icons/mob/dogborg.dmi'
 	icon_state = "synthtongue"
 	hitsound = 'sound/effects/attackblob.ogg'
@@ -152,7 +305,7 @@ s
 			icon_state = "syndietongue"
 		else
 			name = "synthetic tongue"
-			desc = "Useful for slurping mess off the floor before affectionally licking the crew members in the face."
+			desc = "Useful for cleaning mess off the floor before affectionally licking the crew members in the face face with much static and metal"
 			icon_state = "synthtongue"
 		update_icon()
 

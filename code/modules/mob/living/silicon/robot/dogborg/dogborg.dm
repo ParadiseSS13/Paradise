@@ -17,10 +17,10 @@
 	can_be_pushed = FALSE
 
 /obj/item/weapon/robot_module/dog/knine/New(mob/living/silicon/robot/R)
-	modules += new /obj/item/weapon/restraints/handcuffs/cable/zipties/cyborg(src) //You need cuffs to be a proper sec borg!
 	modules += new /obj/item/weapon/dogborg/jaws/big(src) //In case there's some kind of hostile mob.
-	modules += new /obj/item/weapon/melee/baton/loaded(src) //Since the pounce module refused to work, they get a stunbaton instead.
-	modules += new /obj/item/device/dogborg/boop_module(src) //Boop people on the nose.
+	modules += new /obj/item/weapon/dogborg/jaws/sec(src)
+	//modules += new /obj/item/weapon/melee/baton/loaded(src) //Since the pounce module refused to work, they get a stunbaton instead.
+	modules += new /obj/item/device/dogborg/boop_module/sec(src) //Boop people on the nose.
 	modules += new /obj/item/device/dogborg/tongue(src) //This is so they can clean up bloody evidence after it's examined, and so they can lick crew.
 	modules += new /obj/item/taperoll/police(src) //Block out crime scenes.
 	modules += new /obj/item/device/dogborg/sleeper/K9(src) //Eat criminals. Bring them to the brig.
