@@ -129,8 +129,8 @@ var/list/uplink_items = list()
 	job = list("Clown")
 
 /datum/uplink_item/jobspecific/syndie_horn
-	name = "Sharpened Bike Horn"
-	desc = "A bike horn that has been specially sharpened to ensure that laughter isn't the best medicine, it is the leading cause of requiring it."
+	name = "Supersonic Bike Horn"
+	desc = "You must always honk the crew, and not through inaction allow the crew to escape honks. A useful but noisy melee weapon for when your jokes need an edge."
 	reference = "SH"
 	item = /obj/item/weapon/bikehorn/syndie
 	cost = 5

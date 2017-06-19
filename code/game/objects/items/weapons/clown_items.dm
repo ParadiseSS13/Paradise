@@ -69,9 +69,11 @@
 	var/cooldowntime = 20
 
 /obj/item/weapon/bikehorn/syndie
-	desc = "For those with a rapier wit, and cutting satire."
+	desc = "Guaranteed to make you the subject of a Doctor Doctor joke."
+	attack_verb = list("VIOLENTLY HONKED", "VICIOUSLY MOCKED")
+	origin_tech = "combat=3;syndicate=1"
 	force = 25
-	no_embed = 1
+	no_embed = TRUE
 
 /obj/item/weapon/bikehorn/attack(mob/living/carbon/M, mob/living/carbon/user)
 	if(!spam_flag)
