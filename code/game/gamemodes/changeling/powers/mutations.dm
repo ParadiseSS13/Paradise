@@ -313,12 +313,12 @@
 			if(iscarbon(L))
 				var/mob/living/carbon/C = L
 				switch(firer.a_intent)
-					if(I_HELP)
+					if(INTENT_HELP)
 						C.visible_message("<span class='danger'>[L] is pulled by [H]'s tentacle!</span>","<span class='userdanger'>A tentacle grabs you and pulls you towards [H]!</span>")
 						C.throw_at(get_step_towards(H,C), 8, 2)
 						return 1
 
-					if(I_DISARM)
+					if(INTENT_DISARM)
 						var/obj/item/I = C.get_active_hand()
 						if(I)
 							if(C.drop_item())
@@ -332,12 +332,12 @@
 							to_chat(firer, "<span class='danger'>[C] has nothing in hand to disarm!<span>")
 							return 0
 
-					if(I_GRAB)
+					if(INTENT_GRAB)
 						C.visible_message("<span class='danger'>[L] is grabbed by [H]'s tentacle!</span>","<span class='userdanger'>A tentacle grabs you and pulls you towards [H]!</span>")
 						C.throw_at(get_step_towards(H,C), 8, 2, callback=CALLBACK(H, /mob/proc/tentacle_grab, C))
 						return 1
 
-					if(I_HARM)
+					if(INTENT_HARM)
 						C.visible_message("<span class='danger'>[L] is thrown towards [H] by a tentacle!</span>","<span class='userdanger'>A tentacle grabs you and throws you towards [H]!</span>")
 						C.throw_at(get_step_towards(H,C), 8, 2, callback=CALLBACK(H, /mob/proc/tentacle_stab, C))
 						return 1
