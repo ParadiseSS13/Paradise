@@ -19,22 +19,27 @@
 	maptext_width = 32
 
 	var/id = null     		// id of door it controls.
+	var/detaineename = ""
+	var/issuingofficer = ""
+	var/detaineecrimes = ""
+
+	var/obj/item/device/radio/Radio
+	var/datum/data/record/prisoner
+	var/obj/item/weapon/paper/P
+	var/datum/spacelaw/selecteddatum
+
+	var/screen = 1
+	var/suggestedbrigtime = 0
 	var/releasetime = 0		// when world.timeofday reaches it - release the prisoner
 	var/timing = 0    		// boolean, true/1 timer is on, false/0 means it's not timing
 	var/picture_state		// icon_state of alert picture, if not displaying text/numbers
 	var/timetoset = 0		// Used to set releasetime upon starting the timer
-	var/obj/item/device/radio/Radio
-	var/screen = 1
-
-	var/detaineename = null
-	var/detaineecrimes = ""
-	var/list/comittedcrimes = list()
-	var/suggestedbrigtime = 0
-	var/list/possible_laws = list()
 	var/alreadyrunning = 0
-	var/obj/item/weapon/paper/P
+
 	var/list/obj/machinery/targets = list()
-	var/datum/data/record/prisoner
+	var/list/comittedcrimes = list()
+	var/list/possible_modifiers = list()
+
 
 ///////////////////////////////////////////////////////ON SPAWN/////////////////////////////////////////////////
 
@@ -99,7 +104,7 @@
 
 /obj/machinery/door_timer/proc/update_record(mob/user)
 	var/datum/data/record/R = find_security_record("name", detaineename)
-	Radio.autosay("Detainee: [detaineename] has been incarcerated for; [timetoset/10] seconds for the charges of; [detaineecrimes]\
+	Radio.autosay("Detainee [detaineename] has been incarcerated for [timetoset/10] seconds for the charges of, '[detaineecrimes]'\
 	Arresting Officer: [user.name].[R ? "" : " Detainee record not found, manual record update required."]", name, "Security", list(z))
 
 	if(R)
@@ -122,7 +127,7 @@
 	suggestedbrigtime = 0
 	timetoset = 0
 	for(var/datum/spacelaw/C in comittedcrimes)
-		detaineecrimes += "[C.name]<br>"
+		detaineecrimes += "#[C.name],	"
 		suggestedbrigtime += C.max_brig
 		if(C.maxM_brig < 2)
 			suggestedbrigtime = suggestedbrigtime * C.maxM_brig
@@ -131,47 +136,38 @@
 		timeset(suggestedbrigtime * 60)
 
 /obj/machinery/door_timer/proc/add_charge(mob/user) //Adding Charges
-	possible_laws.Cut()
 
 	if(detaineename == "")
 		add_name(usr)
 
-	switch(alert("Select Space Law Category.", "Space Law", "Crimes", "Modifiers", "Custom", "Abort"))
+	switch(alert("Select Action to proceed.", "Space Law", "Space Law Categories", "Custom Charge", "Abort"))
 		if("Abort")
 			return
-		if("Crimes")
-			switch(alert("Select Article to add.", "Space Law", "Minor", "Medium", "Major", "Abort"))
-				if("Minor")
-					for(var/minorcrimes in subtypesof(/datum/spacelaw/minor))
-						possible_laws += new minorcrimes()
-				if("Medium")
-					for(var/mediumcrimes in subtypesof(/datum/spacelaw/medium))
-						possible_laws += new mediumcrimes()
-				if("Major")
-					for(var/majorcrimes in subtypesof(/datum/spacelaw/major))
-						possible_laws += new majorcrimes()
-				if("Abort")
-					return
-		if("Modifiers")
-			for(var/modifiers in subtypesof(/datum/spacelaw/modifiers))
-				possible_laws += new modifiers()
-		if("Custom")
-			var/datum/spacelaw/S = new()
-			S.name = input(user, "Please select custom article to add for [detaineename]") as null|text
-			if(S.name)
-				S.max_brig = input(user, "Please select an amount to add to the brigtime [detaineename]") as num
-				comittedcrimes.Add(S)
-				clearstringandtime()
-		if("Abort")
-			return
+		if("Custom Charge")
+			selecteddatum = new /datum/spacelaw/
+			selecteddatum.name = input(user, "Please select custom article to add for [detaineename]") as null|text
+			if(selecteddatum.name)
+				selecteddatum.max_brig = input(user, "Please select an amount to add to the brigtime of [detaineename]. The current brigtime is [suggestedbrigtime].") as num
 
-	var/datum/spacelaw/selectedcrime = input(user, "Please select article to add for [detaineename]") as null|anything in possible_laws
-	if(!isnull(selectedcrime))
-		comittedcrimes.Add(selectedcrime)
-		clearstringandtime()
-		possible_laws.Cut()
-	else
+		if("Space Law Categories")
+			switch(alert("Select severity of the charge", "Possible Options", "Minor", "Medium", "Major"))
+				if("Minor")
+					selecteddatum = new /datum/spacelaw/minor
+
+				if("Medium")
+					selecteddatum = new /datum/spacelaw/medium
+
+				if("Major")
+					selecteddatum = new /datum/spacelaw/major
+
+			selecteddatum.name = input(user, "Please select custom article to add for [detaineename]") as null|anything in selecteddatum.listofcrimes
+
+	if(!selecteddatum.name)
 		return
+	else
+		comittedcrimes.Add(selecteddatum)
+		clearstringandtime()
+		return 1
 
 /obj/machinery/door_timer/proc/remove_charge(mob/user) //Removing Charges
 	if(comittedcrimes.len)
@@ -222,6 +218,7 @@
 		return 0
 
 	releasetime = world.timeofday + timetoset
+	issuingofficer = "[usr.name]"
 
 	if(!alreadyrunning)
 		print_report(usr)
@@ -371,9 +368,10 @@
 			<b>Door [id]</b></h2></center><hr>"}
 
 	if(screen)//Main Menu
-		dat += {"<br><b>Detainee Name:</b>	<a href='?src=[UID()]'>[detaineename]</a>	<a href='?src=[UID()];pickname=1'>Set Name</a>
-				<br><b>Charged with violation of:</b><br><a href='?src=[UID()]'>[detaineecrimes]</a><br>
-				<b>Suggested Brig Time:	</b><a href='?src=[UID()]'>[suggestedbrigtime] minute(s)</a><hr>"}
+		dat += {"<br><b>Detainee Name:	</b><i>[detaineename]</i>			<a href='?src=[UID()];pickname=1'>Set Name</a>
+				<br><b>Charged with violation of:	</b><br><i>[detaineecrimes]</i><br>
+				<b>Suggested Brig Time:	</b><i>[suggestedbrigtime] minute(s)<i><br>
+				<b>Issuing Officer:	</b><i>[usr.name]</i>"}
 		dat += "<h2><b>Crimes and modifiers</b></h2>"
 		dat += "<a href='?src=[UID()];pickcharges=1'>Add</a><br>"
 		dat += "<a href='?src=[UID()];removecharges=1'>Remove</a>"
@@ -384,7 +382,7 @@
 	if(!screen) //Prisoner Menu
 		dat += "<center><h1>Time Left: [(minute ? text("[minute]:") : null)][second]</h1></center>"
 		dat += {"<center><b><h2>Current Detainee Information</h2></b><hr></center><br><b>Detainee Name:	</b>[detaineename]<br><b>Charged with violation of:	</b><br>[detaineecrimes]
-				<b>Duration brigged:	</b>[suggestedbrigtime] minute(s)"}
+				<br><b>Duration brigged:	</b>[timetoset/10] seconds<br><b>Brigging Officer:</b>	[issuingofficer]"}
 		dat += "<hr><h2><br><a href='?src=[UID()];timingstop=1'>Stop Timer and open door</a></h2>"
 		dat += "Set Timer: [(setminute ? text("[setminute]:") : null)][setsecond]  <a href='?src=[UID()];change=1'>Set Time</a><br/>"
 

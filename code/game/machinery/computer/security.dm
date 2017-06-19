@@ -45,7 +45,7 @@
 	ui_interact(user)
 
 /obj/machinery/computer/secure_data/proc/createlog(toprint)
-	if(isnull(toprint))
+	if(!toprint)
 		return 0
 	else
 		var/obj/item/weapon/paper/P = toprint

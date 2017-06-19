@@ -1,3 +1,4 @@
+
 /obj/item/device/ticket_machine
 	name = "handheld ticket dispenser"
 	desc = "A device that allows for security personnel to issue tickes for violation of Space Law."
@@ -8,17 +9,17 @@
 
 	var/ticketreason = null
 	var/ticketamount = null
-	var/screen = 0
 	var/ticketdescription = null
+	var/screen = 0
 	var/ticketid = null
 
 	var/obj/item/weapon/card/id/ID
 	var/datum/money_account/linked_account
 	var/datum/money_account/D
+	var/datum/spacelaw/selecteddatum
 	var/datum/spacelaw/C
 
 	var/list/committedcrimes = list()
-	var/list/possible_violations = list()
 	var/printing = 0
 	req_access = list(access_brig)
 
@@ -90,17 +91,16 @@ obj/item/device/ticket_machine/New()
 	ticketdescription = ""
 
 	for(C in committedcrimes)
-		ticketreason += "[C.name]<br>"
+		ticketreason += "#[C.name], "
 		ticketamount += C.max_fine
-		ticketdescription += "<small>[C.desc]</small><br>"
-
+		ticketdescription += "[C.reason], "
 
 /obj/item/device/ticket_machine/proc/print_ticket(mob/user) // Ticket Reciepts
 		var/ticketid = rand(1111,9999)
 		var/entry = {"<center><h3>Infringement Notice #[ticketid]<br></h3></center><small><b>Issued to:	</b>[ID.registered_name]<br><b>Rank:	</b>[ID.rank] <br><b>Issued at:	</b> [worldtime2text()]<br>
-					 <b>Reason for issue:	</b>[ticketreason]<br><b>Description of Space Law article:	</b>[ticketdescription]<br><b>Ticket Amount (Cr):	</b>[ticketamount]<br><b>Issuing Officer:</b>	[usr]</small>"}
+					 <b>Charged with:	</b>[ticketreason]<br><b>Reason for the ticket:	</b>[ticketdescription]<br><b>Ticket Amount (Cr):	</b>[ticketamount]<br><b>Issuing Officer:</b>	[usr]</small>"}
 		to_chat(user, "Printing the log, standby...")
-		sleep(50)
+		spawn(50)
 		playsound(loc, "sound/goonstation/machines/printer_dotmatrix.ogg", 50, 1)
 
 		var/obj/item/weapon/paper/P = new /obj/item/weapon/paper(get_turf(src))
@@ -113,29 +113,37 @@ obj/item/device/ticket_machine/New()
 		reset()
 
 /obj/item/device/ticket_machine/proc/add_charge(mob/user)
-	possible_violations.Cut()//Clear the LIST
 
-	switch(alert("Select Space Law Category.", "Space Law", "Minor", "Custom Article", "Abort"))
+	switch(alert("Select Action to Proceed.", "Space Law", "Custom Crime", "Minor Crimes", "Abort"))
 		if("Abort")
 			return
-		if("Minor")
-			for(var/minorcrimes in subtypesof(/datum/spacelaw/minor))
-				possible_violations += new minorcrimes()
-		if("Custom Article")
-			var/datum/spacelaw/S = new()
-			S.name = input(user, "Please select custom article to add for [ID.registered_name]") as null|text
-			if(S.name)
-				S.max_fine = input(user, "Please select amount to fine for [ID.registered_name]") as num
-				S.desc = S.name
-				committedcrimes.Add(S)
-				clearstringandtime()
 
-	var/datum/spacelaw/selectedcrime = input(user, "Please select article to add for [ID.registered_name]") as null|anything in possible_violations
-	if(!isnull(selectedcrime))
-		committedcrimes.Add(selectedcrime)
-		clearstringandtime()
-	else
+		if("Custom Crime")
+			selecteddatum = new /datum/spacelaw
+			selecteddatum.name = input(user, "Please select custom article to add for [ID.registered_name]") as null|text
+
+			if(selecteddatum.name)
+				selecteddatum.max_fine = input(user, "Please select amount to the fine for [ID.registered_name]. Current fine is [ticketamount].") as num
+			else
+				return
+
+			if(selecteddatum.max_fine >= 0)
+				selecteddatum.reason = stripped_multiline_input(user, "Please state the reason for the ticket for [ID.registered_name]")
+			else
+				to_chat(user,"<span class='warning'>Fine cannot be lower than 0!</span>")
+				return
+
+		if("Minor Crimes")
+			selecteddatum = new /datum/spacelaw/minor
+			selecteddatum.name = input(user, "Please select custom article to add for [ID.registered_name]") as null|anything in selecteddatum.listofcrimes
+			selecteddatum.reason = input(user, "Please state the reason for the ticket for [ID.registered_name]") as null|text
+
+	if(!selecteddatum.name)
 		return
+	else
+		committedcrimes.Add(selecteddatum)
+		clearstringandtime()
+		return 1
 
 /obj/item/device/ticket_machine/proc/remove_charge(mob/user)
 	if(committedcrimes.len)
@@ -188,11 +196,11 @@ obj/item/device/ticket_machine/New()
 					<a href='?src=[UID()];screen=0'>Back</a><br>"}
 		else
 			dat = {"<center><h3>Mobile Ticketing Platform v.1.062</h3><h1><br>Identification Field:</h1></center>
-					<b>Name:	</b>[ID.registered_name]<br><b>Rank:	</b>[ID.rank]<br><b>Account number:	</b>[ID.associated_account_number]<br>
+					<b>Name:	</b><i>[ID.registered_name]</i><br><b>Rank:	</b><i>[ID.rank]</i><br><b>Account number:	</b><i>[ID.associated_account_number]</i><br>
 					<center><h1>Information Field:</h1></center>
-					<b>Charged with violation of:<br></b> <a href='?src=[UID()]'>[ticketreason]</a><br>
-					<b>Article:	</b><a href='?src=[UID()]'>[ticketdescription]</a><br>
-					<b>Charged with amount of (Cr):	</b><a href='?src=[UID()]'>[ticketamount]</a>Credits<br><br>
+					<b>Charged with violation of:	</b><i>[ticketreason]</i><br>
+					<b>Charged with amount of (Cr):	</b><i>[ticketamount]</i><br>
+					<b>Reason for the ticket:	</b><i>[ticketdescription]</i><br>
 					<b>Issuing Officer:	</b>[usr]
 					<hr><b>Menu:</b><br>
 					<a href='?src=[UID()];action=addcharge'>Add Charge</a><br>
