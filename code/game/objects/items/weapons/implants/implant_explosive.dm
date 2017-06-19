@@ -159,6 +159,11 @@
 		return 0
 	to_chat(imp_in, "<span class='notice'>Your dusting implant activates!</span>")
 	imp_in.visible_message("<span class = 'warning'>[imp_in] burns up in a flash!</span>")
+	for(var/obj/item/I in imp_in.contents)
+		if(I == src)
+			continue
+		if(I.flags & NODROP)
+			qdel(I)
 	imp_in.dust()
 
 /obj/item/weapon/implant/dust/emp_act(severity)
