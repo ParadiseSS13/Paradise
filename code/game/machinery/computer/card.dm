@@ -86,7 +86,9 @@ var/time_last_changed_position = 0
 			"current_positions" = job.current_positions,
 			"total_positions" = job.total_positions,
 			"can_open" = can_open_job(job),
-			"can_close" = can_close_job(job))))
+			"can_close" = can_close_job(job),
+			"can_prioritize" = can_prioritize_job(job)
+			)))
 
 	return formatted
 
@@ -164,6 +166,18 @@ var/time_last_changed_position = 0
 				return -2
 			return -1
 	return 0
+
+/obj/machinery/computer/card/proc/can_prioritize_job(datum/job/job)
+	if(job)
+		if(!job_blacklisted(job) && job_in_department(job, FALSE))
+			if(job in job_master.prioritized_jobs)
+				return 2
+			else
+				if(job_master.prioritized_jobs.len >= 3)
+					return 0
+				return 1
+	return -1
+
 
 /obj/machinery/computer/card/proc/job_in_department(datum/job/targetjob, includecivs = 1)
 	if(!scan || !scan.access)
@@ -488,7 +502,25 @@ var/time_last_changed_position = 0
 				opened_positions[edit_job_target]--
 				log_game("[key_name(usr)] has closed a job slot for job \"[j]\".")
 				nanomanager.update_uis(src)
-
+		if("prioritize_job")
+			// TOGGLE WHETHER JOB APPEARS AS PRIORITIZED IN THE LOBBY
+			if(is_authenticated(usr) && !target_dept)
+				var/priority_target = href_list["job"]
+				var/datum/job/j = job_master.GetJob(priority_target)
+				if(!j)
+					return 0
+				if(!job_in_department(j))
+					return 0
+				var/priority = TRUE
+				if(j in job_master.prioritized_jobs)
+					job_master.prioritized_jobs -= j
+					priority = FALSE
+				else if(job_master.prioritized_jobs.len < 3)
+					job_master.prioritized_jobs += j
+				else
+					return 0
+				log_game("[key_name(usr)] [priority ?  "prioritized" : "unprioritized"] the job \"[j.title]\".")
+				playsound(src, 'sound/machines/terminal_prompt_confirm.ogg', 50, 0)
 	if(modify)
 		modify.name = text("[modify.registered_name]'s ID Card ([modify.assignment])")
 
