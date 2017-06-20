@@ -17,19 +17,10 @@
 	burntime = 30
 	buildstackamount = 2
 	var/movable = 0 // For mobility checks
-	var/x_offset = 0
-	var/y_offset = -6
+	buckle_offset = -6
 
 /obj/structure/stool/bed/MouseDrop(atom/over_object)
 	..(over_object, skip_fucking_stool_shit = 1)
-
-/obj/structure/stool/bed/post_buckle_mob(mob/living/M)
-	if(M == buckled_mob)
-		M.pixel_y = y_offset
-		M.pixel_x = x_offset
-	else
-		M.pixel_y = M.get_standard_pixel_y_offset()
-		M.pixel_x = M.get_standard_pixel_x_offset()
 
 /obj/structure/stool/psychbed
 	name = "psych bed"
@@ -46,7 +37,7 @@
 	anchored = 0
 	buildstackamount = 10
 	buildstacktype = /obj/item/stack/sheet/wood
-	y_offset = 0
+	buckle_offset = 0
 
 /obj/structure/stool/bed/dogbed/ian
 	name = "Ian's bed"
