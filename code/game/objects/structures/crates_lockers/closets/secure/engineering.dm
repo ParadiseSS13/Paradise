@@ -143,3 +143,18 @@
 		new /obj/item/weapon/watertank/atmos(src)
 		new /obj/item/clothing/suit/fire/atmos(src)
 		new /obj/item/clothing/head/hardhat/atmos(src)
+
+/obj/structure/closet/secure_closet/mechanic_personal
+	name = "mechanic storage locker"
+	req_access = list(access_mechanic)
+	icon_state = "mechanic1"
+	icon_closed = "mechanic"
+	icon_locked = "mechanic1"
+	icon_opened = "mechanicopen"
+	icon_broken = "mechanicbroken"
+	icon_off = "mechanicoff"
+
+	New()
+		..()
+		new /obj/item/clothing/suit/space/hardsuit/mechanic(src)
+		new /obj/item/clothing/head/helmet/space/hardsuit/mechanic(src)
