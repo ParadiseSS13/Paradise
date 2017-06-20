@@ -36,6 +36,8 @@ To draw a rune, use an arcane tome.
 	var/req_keyword = 0 //If the rune requires a keyword - go figure amirite
 	var/keyword //The actual keyword for the rune
 
+	var/invoke_damage = 0 //how much damage invokers take when invoking it
+
 
 /obj/effect/rune/New(loc, set_keyword)
 	..()
@@ -149,11 +151,14 @@ structure_check() searches for nearby cultist structures required for the invoca
 
 /obj/effect/rune/proc/invoke(var/list/invokers)
 	//This proc contains the effects of the rune as well as things that happen afterwards. If you want it to spawn an object and then delete itself, have both here.
-	if(invocation)
-		for(var/M in invokers)
-			var/mob/living/L = M
+	for(var/M in invokers)
+		var/mob/living/L = M
+		if(invocation)
 			L.say(invocation)
 			L.changeNext_move(CLICK_CD_MELEE)//THIS IS WHY WE CAN'T HAVE NICE THINGS
+		if(invoke_damage)
+			L.apply_damage(invoke_damage, BRUTE)
+			to_chat(L, "<span class='cultitalic'>[src] saps your strength!</span>")
 	do_invoke_glow()
 
 /obj/effect/rune/proc/burn_invokers(var/list/mobstoburn)
@@ -184,13 +189,13 @@ structure_check() searches for nearby cultist structures required for the invoca
 	cultist_name = "malformed rune"
 	cultist_desc = "a senseless rune written in gibberish. No good can come from invoking this."
 	invocation = "Ra'sha yoka!"
+	invoke_damage = 30
 
 /obj/effect/rune/malformed/invoke(var/list/invokers)
 	..()
 	for(var/M in invokers)
 		var/mob/living/L = M
-		to_chat(M, "<span class='cultitalic'><b>You feel your life force draining. [ticker.mode.cultdat.entity_title3] is displeased.</b></span>")
-		L.apply_damage(30, BRUTE)
+		to_chat(L, "<span class='cultitalic'><b>You feel your life force draining. [ticker.mode.cultdat.entity_title3] is displeased.</b></span>")
 	qdel(src)
 
 /mob/proc/null_rod_check() //The null rod, if equipped, will protect the holder from the effects of most runes
@@ -254,6 +259,7 @@ var/list/teleport_runes = list()
 	invocation = "Sas'so c'arta forbici!"
 	icon_state = "2"
 	req_keyword = 1
+	invoke_damage = 6 //but theres some checks for z-level
 	var/listkey
 
 /obj/effect/rune/teleport/New(loc, set_keyword)
@@ -319,7 +325,6 @@ var/list/teleport_runes = list()
 		to_chat(user, "<span class='cult'>You[moveuserlater ? "r vision blurs, and you suddenly appear somewhere else":" send everything above the rune away"].</span>")
 		if(moveuserlater)
 			user.forceMove(get_turf(actual_selected_rune))
-		user.apply_damage(6, BRUTE)
 		var/mob/living/carbon/human/H = user
 		if(user.z != T.z)
 			H.drip(60)
@@ -482,7 +487,7 @@ var/list/teleport_runes = list()
 
 //Ritual of Dimensional Rending: Calls forth the avatar of Nar-Sie upon the station.
 /obj/effect/rune/narsie
-	cultist_name = "Tear Reality (God)"
+	cultist_name = "Summon Your God"
 	cultist_desc = "tears apart dimensional barriers, calling forth your god. Requires 9 invokers."
 	invocation = "TOK-LYR RQA-NAP G'OLT-ULOFT!!"
 	req_cultists = 9
@@ -826,6 +831,7 @@ var/list/teleport_runes = list()
 	cultist_desc = "when invoked, makes an invisible wall to block passage. Can be invoked again to reverse this."
 	invocation = "Khari'd! Eske'te tannin!"
 	icon_state = "1"
+	invoke_damage = 4
 
 /obj/effect/rune/wall/examine(mob/user)
 	..()
@@ -838,9 +844,6 @@ var/list/teleport_runes = list()
 	density = !density
 	user.visible_message("<span class='warning'>[user] places their hands on [src], and [density ? "the air above it begins to shimmer" : "the shimmer above it fades"].</span>", \
 						 "<span class='cultitalic'>You channel your life energy into [src], [density ? "preventing" : "allowing"] passage above it.</span>")
-	if(iscarbon(user))
-		var/mob/living/carbon/C = user
-		C.apply_damage(4, BRUTE, pick("l_arm", "r_arm"))
 
 
 //Rite of Joined Souls: Summons a single cultist.
@@ -851,6 +854,7 @@ var/list/teleport_runes = list()
 	req_cultists = 2
 	allow_excess_invokers = 1
 	icon_state = "5"
+	invoke_damage = 10
 
 /obj/effect/rune/summon/invoke(var/list/invokers)
 	var/mob/living/user = invokers[1]
@@ -888,9 +892,7 @@ var/list/teleport_runes = list()
 		cultist_to_summon.visible_message("<span class='warning'>[cultist_to_summon] suddenly disappears in a flash of red light!</span>", \
 										  "<span class='cultitalic'><b>Overwhelming vertigo consumes you as you are hurled through the air!</b></span>")
 		visible_message("<span class='warning'>A foggy shape materializes atop [src] and solidifes into [cultist_to_summon]!</span>")
-		for(var/M in invokers)
-			var/mob/living/L = M
-			L.apply_damage(10, BRUTE, "head")
+
 		cultist_to_summon.forceMove(get_turf(src))
 		qdel(src)
 
@@ -902,6 +904,7 @@ var/list/teleport_runes = list()
 	icon_state = "4"
 	construct_invoke = 0
 	req_cultists = 3
+	invoke_damage = 17
 
 /obj/effect/rune/blood_boil/do_invoke_glow()
 	return
@@ -919,10 +922,6 @@ var/list/teleport_runes = list()
 			to_chat(C, "<span class='cultlarge'>Your blood boils in your veins!</span>")
 			C.take_overall_damage(45,45)
 			C.Stun(7)
-	for(var/M in invokers)
-		var/mob/living/L = M
-		L.apply_damage(17, BRUTE, pick("l_arm", "r_arm"))
-		to_chat(L,"<span class='cultitalic'>[src] saps your strength!</span>")
 	qdel(src)
 	explosion(T, -1, 0, 1, 5)
 
@@ -974,6 +973,7 @@ var/list/teleport_runes = list()
 	var/list/summoned_guys = list()
 	var/ghost_limit = 5
 	var/ghosts = 0
+	invoke_damage = 10
 
 /obj/effect/rune/manifest/New(loc)
 	..()
@@ -1018,7 +1018,6 @@ var/list/teleport_runes = list()
 	..()
 
 	playsound(src, 'sound/misc/exit_blood.ogg', 50, 1)
-	user.apply_damage(10, BRUTE)
 	visible_message("<span class='warning'>A cloud of red mist forms above [src], and from within steps... a man.</span>")
 	to_chat(user, "<span class='cultitalic'>Your blood begins flowing into [src]. You must remain in place and conscious to maintain the forms of those summoned. This will hurt you slowly but surely...</span>")
 	var/obj/machinery/shield/N = new(get_turf(src))
