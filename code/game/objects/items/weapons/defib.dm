@@ -350,8 +350,7 @@
 					H.key = ghost.key
 					log_runtime(EXCEPTION("Ghost of name [ghost.name] is bound to [H.real_name], but lacks a client. Deleting ghost."), src)
 
-					qdel(ghost)
-					ghost = null
+					QDEL_NULL(ghost)
 				var/tplus = world.time - H.timeofdeath
 				var/tlimit = 1800 //past this much time the patient is unrecoverable (in deciseconds)
 				var/tloss = 600 //brain damage starts setting in on the patient after some time left rotting
@@ -500,8 +499,7 @@
 					H.key = ghost.key
 					log_runtime(EXCEPTION("Ghost of name [ghost.name] is bound to [H.real_name], but lacks a client. Deleting ghost."), H)
 
-					qdel(ghost)
-					ghost = null
+					QDEL_NULL(ghost)
 				var/tplus = world.time - H.timeofdeath
 				var/tlimit = 1800 //past this much time the patient is unrecoverable (in deciseconds)
 				var/tloss = 600 //brain damage starts setting in on the patient after some time left rotting
