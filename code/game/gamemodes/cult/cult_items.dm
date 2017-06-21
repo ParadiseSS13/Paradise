@@ -326,7 +326,7 @@
 		if(uses <= 0)
 			icon_state ="shifter_drained"
 		playsound(mobloc, "sparks", 50, 1)
-		C.apply_damage(6, "BRUTE")
+		C.apply_damage(2, "BRUTE")
 		new /obj/effect/overlay/temp/cult/phase/out(mobloc)
 
 		var/atom/movable/pulled = handle_teleport_grab(destination, C)

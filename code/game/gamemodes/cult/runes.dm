@@ -327,10 +327,10 @@ var/list/teleport_runes = list()
 			user.forceMove(get_turf(actual_selected_rune))
 		var/mob/living/carbon/human/H = user
 		if(user.z != T.z)
-			H.drip(60)
-			user.apply_damage(15, BRUTE)
+			H.drip(30)
+			user.apply_damage(5, BRUTE)
 		else
-			H.drip(rand(10,56))
+			H.drip(rand(10,20))
 	else
 		fail_invoke()
 
@@ -487,7 +487,7 @@ var/list/teleport_runes = list()
 
 //Ritual of Dimensional Rending: Calls forth the avatar of Nar-Sie upon the station.
 /obj/effect/rune/narsie
-	cultist_name = "Summon Your God"
+	cultist_name = "Tear Reality(God)"
 	cultist_desc = "tears apart dimensional barriers, calling forth your god. Requires 9 invokers."
 	invocation = "TOK-LYR RQA-NAP G'OLT-ULOFT!!"
 	req_cultists = 9
@@ -794,7 +794,7 @@ var/list/teleport_runes = list()
 			affecting = null //In case it's assigned to a number or something
 			rune_in_use = 0
 			return
-		affecting.apply_damage(3, BRUTE)
+		affecting.apply_damage(1, BRUTE)
 		if(!(user in T.contents))
 			user.visible_message("<span class='warning'>A spectral tendril wraps around [user] and pulls them back to the rune!</span>")
 			Beam(user,icon_state="drainbeam",icon='icons/effects/effects.dmi',time=2)
@@ -831,7 +831,7 @@ var/list/teleport_runes = list()
 	cultist_desc = "when invoked, makes an invisible wall to block passage. Can be invoked again to reverse this."
 	invocation = "Khari'd! Eske'te tannin!"
 	icon_state = "1"
-	invoke_damage = 4
+	invoke_damage = 2
 
 /obj/effect/rune/wall/examine(mob/user)
 	..()
@@ -855,6 +855,7 @@ var/list/teleport_runes = list()
 	allow_excess_invokers = 1
 	icon_state = "5"
 	invoke_damage = 10
+	var/summontime = 0
 
 /obj/effect/rune/summon/invoke(var/list/invokers)
 	var/mob/living/user = invokers[1]
@@ -888,7 +889,10 @@ var/list/teleport_runes = list()
 		return
 
 	..()
-	if(do_after(user, 20, target = loc))
+	if(cultist_to_summon.reagents.has_reagent("holywater") || cultist_to_summon.restrained())
+		summontime = 20
+
+	if(do_after(user, summontime, target = loc))
 		cultist_to_summon.visible_message("<span class='warning'>[cultist_to_summon] suddenly disappears in a flash of red light!</span>", \
 										  "<span class='cultitalic'><b>Overwhelming vertigo consumes you as you are hurled through the air!</b></span>")
 		visible_message("<span class='warning'>A foggy shape materializes atop [src] and solidifes into [cultist_to_summon]!</span>")
@@ -904,7 +908,7 @@ var/list/teleport_runes = list()
 	icon_state = "4"
 	construct_invoke = 0
 	req_cultists = 3
-	invoke_damage = 17
+	invoke_damage = 15
 
 /obj/effect/rune/blood_boil/do_invoke_glow()
 	return
