@@ -297,21 +297,6 @@ emp_act
 	if(Iforce > 10 || Iforce >= 5 && prob(33))
 		forcesay(hit_appends)	//forcesay checks stat already
 
-/*	//Melee weapon embedded object code. Commented out, as most people on the forums seem to find this annoying and think it does not contribute to general gameplay. - Dave
-	if(I.damtype == BRUTE && !I.is_robot_module())
-		var/damage = I.force
-		if(armor)
-			damage /= armor+1
-
-		//blunt objects should really not be embedding in things unless a huge amount of force is involved
-		var/embed_chance = weapon_sharp? damage/I.w_class : damage/(I.w_class*3)
-		var/embed_threshold = weapon_sharp? 5*I.w_class : 15*I.w_class
-
-		//Sharp objects will always embed if they do enough damage.
-		if(((weapon_sharp && damage > (10*I.w_class)) || (damage > embed_threshold && prob(embed_chance))) && (I.no_embed == 0) )
-			affecting.embed(I)
-	return 1*/
-
 //this proc handles being hit by a thrown atom
 /mob/living/carbon/human/hitby(atom/movable/AM, skipcatch = 0, hitpush = 1, blocked = 0)
 	var/obj/item/I
@@ -325,24 +310,6 @@ emp_act
 		hitpush = 0
 		skipcatch = 1
 		blocked = 1
-	/*else if(I)
-		if(I.throw_speed >= EMBED_THROWSPEED_THRESHOLD)
-			if(!I.is_robot_module())
-				var/armor = run_armor_check(affecting, "melee", "Your armor has protected your [hit_area].", "Your armor has softened hit to your [hit_area].", I.armour_penetration) //I guess "melee" is the best fit here
-				var/sharp = is_sharp(I)
-				var/damage = throwpower * (I.throw_speed / 5)
-				if(armor)
-					damage /= armor + 1
-
-				//blunt objects should really not be embedding in things unless a huge amount of force is involved
-				var/embed_chance = sharp? damage / I.w_class : damage/(I.w_class * 3)
-				var/embed_threshold = sharp? 5 * I.w_class : 15 * I.w_class
-
-				//Sharp objects will always embed if they do enough damage.
-				//Thrown sharp objects have some momentum already and have a small chance to embed even if the damage is below the threshold
-
-				if(((sharp && prob(damage / (10 * I.w_class) * 100)) || (damage > embed_threshold && prob(embed_chance))) && (I.no_embed == 0))
-					affecting.embed(I)*/
 	return ..()
 
 /mob/living/carbon/human/proc/bloody_hands(var/mob/living/source, var/amount = 2)

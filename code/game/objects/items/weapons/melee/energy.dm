@@ -6,7 +6,6 @@
 	var/w_class_on = WEIGHT_CLASS_BULKY
 	var/icon_state_on = "axe1"
 	var/list/attack_verb_on = list("attacked", "slashed", "stabbed", "sliced", "torn", "ripped", "diced", "cut")
-	no_embed = 1 // Physically impossible for energy weapons to embed themselves into people, this should fix that. -- Dave
 	hitsound = 'sound/weapons/blade1.ogg' // Probably more appropriate than the previous hitsound. -- Dave
 	usesound = 'sound/weapons/blade1.ogg'
 	toolspeed = 1
