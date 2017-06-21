@@ -8,6 +8,7 @@
 	name = "Unknown"
 	var/mobname = "Unknown"  //Unused now but it'd fuck up maps to remove it now
 	var/mob_species = null //Set to make a mob of another race, currently used only in ruins
+	var/mob_gender = MALE
 	var/corpseuniform = null //Set this to an object path to have the slot filled with said object on the corpse.
 	var/corpsesuit = null
 	var/corpseshoes = null
@@ -28,6 +29,8 @@
 	var/coffin = 0
 	var/brute_damage = 0
 	var/oxy_damage = 0
+	var/flavour_text = "The mapper forgot to set this!" //For ghost spawns
+	var/objectives = null
 
 /obj/effect/landmark/corpse/initialize()
 	if(istype(src,/obj/effect/landmark/corpse/clown))
@@ -35,13 +38,14 @@
 		C.chooseRank()
 	createCorpse()
 
-/obj/effect/landmark/corpse/proc/createCorpse() //Creates a mob and checks for gear in each slot before attempting to equip it.
+/obj/effect/landmark/corpse/proc/createCorpse(ckey = null) //Creates a mob and checks for gear in each slot before attempting to equip it.
 	var/mob/living/carbon/human/human/M = new /mob/living/carbon/human/human (src.loc)
 	M.real_name = src.name
-	M.death(1) //Kills the new mob
-	M.adjustOxyLoss(oxy_damage)
-	M.adjustBruteLoss(brute_damage)
-	M.timeofdeath = timeofdeath
+	if(!ckey)
+		M.death(1) //Kills the new mob
+		M.adjustOxyLoss(oxy_damage)
+		M.adjustBruteLoss(brute_damage)
+		M.timeofdeath = timeofdeath
 	if(mob_species)
 		M.set_species(mob_species)
 	if(corpseuniform)
@@ -91,7 +95,18 @@
 	if(coffin == 1)
 		var/obj/structure/closet/coffin/sarcophagus/sarc = locate(/obj/structure/closet/coffin/sarcophagus) in loc
 		if(sarc) M.loc = sarc
+	if(ckey)
+		M.ckey = ckey
+		M << "[flavour_text]"
+		if(objectives)
+			var/datum/mind/MM = M.mind
+			for(var/objective in objectives)
+				MM.objectives += new/datum/objective(objective)
+		special(M)
 	qdel(src)
+
+/obj/effect/landmark/corpse/proc/special(mob/M)
+	return
 
 // I'll work on making a list of corpses people request for maps, or that I think will be commonly used. Syndicate operatives for example.
 /obj/effect/landmark/corpse/damaged

@@ -58,6 +58,10 @@ var/global/pipe_processing_killed = 0
 		seedRuins(level_name_to_num(EMPTY_AREA), rand(0, 3), /area/space, space_ruins_templates)
 		log_startup_progress("Loaded random space levels in [stop_watch(timer)]s.")
 
+		log_startup_progress("Generating lavaland level...")
+		spawn_rivers()
+		seedRuins(5, 5, /area/lavaland/surface/outdoors, lava_ruins_templates)
+		log_startup_progress("Loaded random lava ruins in [stop_watch(timer)]s.")
 		// We'll keep this around for the time when we finally expunge all
 		// code that checks on hard-defined z positions
 
@@ -73,8 +77,8 @@ var/global/pipe_processing_killed = 0
 	setupfactions()
 	setup_economy()
 
-	for(var/i=0, i<max_secret_rooms, i++)
-		make_mining_asteroid_secret()
+	/*for(var/i=0, i<max_secret_rooms, i++)
+		make_mining_asteroid_secret()*/
 
 	populate_spawn_points()
 

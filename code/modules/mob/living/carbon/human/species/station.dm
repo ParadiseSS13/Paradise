@@ -82,6 +82,11 @@
 /datum/species/unathi/handle_death(var/mob/living/carbon/human/H)
 	H.stop_tail_wagging(1)
 
+/datum/species/unathi/ashwalker
+	name = "Unathi"
+	name_plural = "Unathi"
+	flags = NO_BREATHE | HAS_LIPS
+
 /datum/species/tajaran
 	name = "Tajaran"
 	name_plural = "Tajaran"

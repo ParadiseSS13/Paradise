@@ -123,7 +123,10 @@
 		banned = generateMapList("config/spaceRuinBlacklist.txt")
 	else
 		banned = generateMapList("config/example/spaceRuinBlacklist.txt")
-	//banned += generateMapList("config/lavaRuinBlacklist.txt")
+	if(fexists("config/lavaRuinBlacklist.txt"))
+		banned += generateMapList("config/lavaRuinBlacklist.txt")
+	else
+		banned += generateMapList("config/example/lavaRuinBlacklist.txt")
 
 	for(var/item in subtypesof(/datum/map_template/ruin))
 		var/datum/map_template/ruin/ruin_type = item
@@ -138,10 +141,10 @@
 		map_templates[R.name] = R
 		ruins_templates[R.name] = R
 
-		/*
+
 		if(istype(R, /datum/map_template/ruin/lavaland))
 			lava_ruins_templates[R.name] = R
-		*/
+
 		if(istype(R, /datum/map_template/ruin/space))
 			space_ruins_templates[R.name] = R
 
