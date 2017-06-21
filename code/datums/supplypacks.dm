@@ -418,6 +418,154 @@ var/list/all_supply_groups = list(supply_emergency,supply_security,supply_engine
 	cost = 30
 	containername = "auto rifle ammo crate"
 
+/////// Shazbot's Armory
+
+/datum/supply_packs/security/pump
+	name = "Pump Action Shotgun Crate"
+	contains = list(/obj/item/weapon/gun/projectile/shotgun,
+					/obj/item/weapon/gun/projectile/shotgun,
+					/obj/item/weapon/gun/projectile/shotgun)
+	cost = 30
+	containername = "civilian pump action crate"
+
+/datum/supply_packs/security/pistol
+	name = "Stimpson Crate"
+	contains = list(/obj/item/weapon/gun/projectile/automatic/pistol/civi/cargo,
+					/obj/item/weapon/gun/projectile/automatic/pistol/civi/cargo)
+	cost = 25
+	containername = "Stimpson crate"
+
+/datum/supply_packs/security/shortmagpistol
+	name = "Stimpson Short Magazine Crate"
+	contains = list(/obj/item/ammo_box/magazine/pistolm9mm/short,
+					/obj/item/ammo_box/magazine/pistolm9mm/short,
+					/obj/item/ammo_box/magazine/pistolm9mm/short,
+					/obj/item/ammo_box/magazine/pistolm9mm/short,
+					/obj/item/ammo_box/magazine/pistolm9mm/short)
+	cost = 20	//30 rounds in total, with +5 points for every larger size in magazines.
+	containername = "Stimpson short magazine crate"
+
+/datum/supply_packs/security/stanmagpistol
+	name = "Stimpson Standart Magazine Crate"
+	contains = list(/obj/item/ammo_box/magazine/pistolm9mm,
+					/obj/item/ammo_box/magazine/pistolm9mm)
+	cost = 25
+	containername = "Stimpson standart magazine crate"
+
+/datum/supply_packs/security/longmagpistol
+	name = "Stimpson Long Magazine Crate"
+	contains = list(/obj/item/ammo_box/magazine/pistolm9mm/large)
+	cost = 30
+	containername = "Stimpson long magazine crate"
+
+/datum/supply_packs/security/armory/sp1
+	name = "Sporting Rifle Crate"
+	contains = list(/obj/item/weapon/gun/projectile/automatic/m4/sp1,
+					/obj/item/weapon/gun/projectile/automatic/m4/sp1)
+	cost = 80 //same cost as combat shotguns, much great potential firepower, but lower initial firepower.
+	containername = "sporting rifle crate"
+
+/datum/supply_packs/security/armory/sp1mag
+	name = "Rifle Ammo Crate"
+	contains = list(/obj/item/ammo_box/magazine/stan/short,
+					/obj/item/ammo_box/magazine/stan/short)
+	cost = 25 //10 round short mags are prohibitve and cheap-ish
+	containername = "sporting rifle magazine crate"
+
+/datum/supply_packs/security/armory/sp1magl
+	name = "Rifle Extended Ammo Crate"
+	contains = list(/obj/item/ammo_box/magazine/stan,
+					/obj/item/ammo_box/magazine/stan)
+	cost = 90 //30 round mags make this a proper assault rifle
+	containername = "sporting rifle extended magazine crate"
+
+/datum/supply_packs/security/armory/a95
+	name = "A-95 Crate"
+	contains = list(/obj/item/weapon/gun/projectile/automatic/a95)
+	cost = 150 //A great rifle with few downsides, but cost
+	containername = "A-95 crate"
+
+/datum/supply_packs/security/armory/a95mag
+	name = "A-95 Rubber Ammo Crate"
+	contains = list(/obj/item/ammo_box/magazine/a939,
+					/obj/item/ammo_box/magazine/a939)
+	cost = 80
+	containername = "A-95 rubber magazine crate"
+
+/datum/supply_packs/security/armory/a95maglethal
+	name = "A-95 Lethal Ammo Crate"
+	contains = list(/obj/item/ammo_box/magazine/a939/lethal,
+					/obj/item/ammo_box/magazine/a939/lethal)
+	cost = 100
+	containername = "A-95 lethal magazine crate"
+
+/datum/supply_packs/security/armory/a95grenades
+	name = "A-95 Flashbang Grenades Crate"
+	contains = list(/obj/item/ammo_box/a40mm/a25)
+	cost = 80
+	containername = "A-95 flashbang grenades crate"
+
+
+/datum/supply_packs/security/armory/tranqrifle
+	name = "Tranquilizer Rifle Crate"
+	contains = list(/obj/item/weapon/gun/projectile/automatic/sniper_rifle/tranq)
+	cost = 80
+	containername = "tranquilizer rifle crate"
+
+/datum/supply_packs/security/armory/tranqriflemag
+	name = "Tranquilizer Rifle Magazines Crate"
+	contains = list(/obj/item/ammo_box/magazine/tranq,
+					/obj/item/ammo_box/magazine/tranq)
+	cost = 40
+	containername = "tranquilizer rifle magazines crate"
+
+/datum/supply_packs/security/armory/tranqammo
+	name = "Tranquilizer Rifle Ammo Crate"
+	contains = list(/obj/item/ammo_box/tranqdarts,
+					/obj/item/ammo_box/tranqdarts)
+	cost = 30
+	containername = "tranquilizer rifle ammo crate"
+
+/datum/supply_packs/security/armory/tranqpistol
+	name = "Tranquilizer Pistol Crate"
+	contains = list(/obj/item/weapon/gun/projectile/revolver/tranqpistol,
+					/obj/item/weapon/gun/projectile/revolver/tranqpistol,
+					/obj/item/weapon/gun/projectile/revolver/tranqpistol)
+	cost = 20
+	containername = "tranquilizer pistol crate"
+
+/datum/supply_packs/security/riotsmg
+	name = "Riot Control SMG Crate"
+	contains = list(/obj/item/weapon/gun/projectile/automatic/toy/riot,
+					/obj/item/ammo_box/magazine/toy/smg/riot,
+					/obj/item/ammo_box/magazine/toy/smg/riot)
+	cost = 25
+	containername = "riot control smg crate"
+
+/datum/supply_packs/security/enforcer
+	name = "Enforcer Pistol Crate"
+	contains = list(/obj/item/weapon/gun/projectile/automatic/pistol/enforcer45,
+					/obj/item/weapon/gun/projectile/automatic/pistol/enforcer45,
+					/obj/item/weapon/gun/projectile/automatic/pistol/enforcer45)
+	cost = 45
+	containername = "Enforcer pistol crate"
+
+/datum/supply_packs/security/enforcermag
+	name = "Enforcer Rubber Ammo Crate"
+	contains = list(/obj/item/ammo_box/magazine/m45/enforcer45,
+					/obj/item/ammo_box/magazine/m45/enforcer45,
+					/obj/item/ammo_box/magazine/m45/enforcer45)
+	cost = 30
+	containername = "enforcer rubber ammo crate"
+
+/datum/supply_packs/security/enforcermaglethal
+	name = "Enforcer Lethal Ammo Crate"
+	contains = list(/obj/item/ammo_box/magazine/m45/enforcer45/lethal,
+					/obj/item/ammo_box/magazine/m45/enforcer45/lethal,
+					/obj/item/ammo_box/magazine/m45/enforcer45/lethal)
+	cost = 40
+	containername = "enforcer lethal ammo crate"
+
 /////// Implants & etc
 
 /datum/supply_packs/security/armory/mindshield

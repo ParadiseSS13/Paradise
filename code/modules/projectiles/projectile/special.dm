@@ -43,6 +43,18 @@
 	explosion(target, -1, 0, 2, 1, 0, flame_range = 3)
 	return 1
 
+/obj/item/projectile/bullet/a25mmhe
+	name ="25mm grenade"
+	desc = "USE A WEEL GUN"
+	icon_state= "25mmHE"
+	damage = 60
+	flag = "bullet"
+
+/obj/item/projectile/bullet/a25mmhe/on_hit(atom/target, blocked = 0)
+	..()
+	explosion(target, -1, 0, 2, 1, 0, flame_range = 2)
+	return 1
+
 /obj/item/projectile/temp
 	name = "temperature beam"
 	icon_state = "temp_4"

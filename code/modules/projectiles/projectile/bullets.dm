@@ -141,6 +141,14 @@
 /obj/item/projectile/bullet/heavybullet
 	damage = 35
 
+/obj/item/projectile/bullet/heavybullet2
+	damage = 35
+	stamina = 25
+
+/obj/item/projectile/bullet/heavybullet3
+	damage = 10
+	stamina = 65
+
 /obj/item/projectile/bullet/rpellet
 	name = "rubber pellet"
 	damage = 3
@@ -270,6 +278,17 @@
 	reagents.set_reacting(TRUE)
 	reagents.handle_reactions()
 	return 1
+
+/obj/item/projectile/bullet/dart/rifle
+	damage = 0
+	icon_state = "dart"
+
+/obj/item/projectile/bullet/dart/rifle/tranq
+	icon_state = "tranq"
+
+/obj/item/projectile/bullet/dart/rifle/tranq/New()
+	..()
+	reagents.add_reagent("ketamine", 10)
 
 /obj/item/projectile/bullet/dart/metalfoam
 

@@ -119,10 +119,27 @@
 	ammo_type = /obj/item/ammo_casing/shotgun/rubbershot
 	max_ammo = 6
 
+/obj/item/ammo_box/magazine/internal/dart
+	name = "single shot dart gun internal magazine"
+	ammo_type = /obj/item/ammo_casing/shotgun/dart/special/tranquilizer
+	caliber = "9x39"
+	max_ammo = 1
+
+/obj/item/ammo_box/magazine/internal/shot/dominator
+	name = "quad shotgun internal magazine"
+	ammo_type = /obj/item/ammo_casing/shotgun/buckshot
+	max_ammo = 4
+
 /obj/item/ammo_box/magazine/internal/grenadelauncher
 	name = "grenade launcher internal magazine"
 	ammo_type = /obj/item/ammo_casing/a40mm
 	caliber = "40mm"
+	max_ammo = 1
+
+/obj/item/ammo_box/magazine/internal/gp25
+	name = "grenade launcher internal magazine"
+	ammo_type = /obj/item/ammo_casing/a25mm
+	caliber = "25mm"
 	max_ammo = 1
 
 /obj/item/ammo_box/magazine/internal/cylinder/grenadelauncher/multi
@@ -202,6 +219,19 @@
 /obj/item/ammo_box/magazine/m10mm/empty/update_icon()
 	icon_state = "[initial(icon_state)]-[stored_ammo.len ? "8" : "0"]"
 
+/obj/item/ammo_box/magazine/m10mmL
+	name = "large pistol magazine (10mm)"
+	desc = "A gun magazine."
+	icon_state = "9x19L"
+	origin_tech = "combat=2"
+	ammo_type = /obj/item/ammo_casing/c10mm
+	caliber = "10mm"
+	max_ammo = 18
+
+/obj/item/ammo_box/magazine/m10mmL/update_icon()
+	..()
+	icon_state = "[initial(icon_state)]-[Ceiling(ammo_count(0)/18)]"
+
 /obj/item/ammo_box/magazine/m45
 	name = "handgun magazine (.45)"
 	icon_state = "45"
@@ -209,6 +239,7 @@
 	caliber = ".45"
 	max_ammo = 8
 	multiple_sprites = 1
+
 /obj/item/ammo_box/magazine/m45/enforcer45
 	name = "handgun magazine (.45)"
 	icon_state = "enforcer"
@@ -310,6 +341,18 @@
 	..()
 	icon_state = "9x19p-[ammo_count() ? "8" : "0"]"
 
+/obj/item/ammo_box/magazine/pistolm9mm/short
+	name = "shortend pistol magazine (9mm)"
+	max_ammo = 6
+
+/obj/item/ammo_box/magazine/pistolm9mm/large
+	name = "long pistol magazine (9mm)"
+	max_ammo = 30
+
+/obj/item/ammo_box/magazine/pistolm9mm/large/update_icon()
+	..()
+	icon_state = "9x19L-[ammo_count() ? "1" : "0"]"
+
 /obj/item/ammo_box/magazine/smgm45
 	name = "SMG magazine (.45)"
 	icon_state = "c20r45"
@@ -354,6 +397,36 @@
 	caliber = "a556"
 	max_ammo = 30
 	multiple_sprites = 2
+
+/obj/item/ammo_box/magazine/stan
+	name = "assault rifle magazine (5.56mm)"
+	icon_state = "stan"
+	origin_tech = "combat=5"
+	ammo_type = /obj/item/ammo_casing/a556
+	caliber = "a556"
+	max_ammo = 30
+
+/obj/item/ammo_box/magazine/stan/update_icon()
+	icon_state = "[initial(icon_state)]-[Ceiling(ammo_count(0)/max_ammo)]"
+
+/obj/item/ammo_box/magazine/stan/short
+	name = "short assault rifle magazine (5.56mm)"
+	icon_state = "stan-s"
+	max_ammo = 10
+
+/obj/item/ammo_box/magazine/a939
+	name = "assault rifle magazine (9x39mm)"
+	icon_state = "9mm-rifle"
+	origin_tech = "combat=5"
+	ammo_type = /obj/item/ammo_casing/a939
+	caliber = "9x39"
+	max_ammo = 30
+
+/obj/item/ammo_box/magazine/a939/update_icon()
+	icon_state = "[initial(icon_state)]-[Ceiling(ammo_count(0)/max_ammo)]"
+
+/obj/item/ammo_box/magazine/a939/lethal
+	ammo_type = /obj/item/ammo_casing/a939/lethal
 
 /obj/item/ammo_box/magazine/m12g
 	name = "shotgun magazine (12g slugs)"

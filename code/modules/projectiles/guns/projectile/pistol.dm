@@ -18,6 +18,53 @@
 	icon_state = "[initial(icon_state)][chambered ? "" : "-e"][suppressed ? "-suppressed" : ""]"
 	return
 
+/obj/item/weapon/gun/projectile/automatic/pistol/auto
+	name = "stechkin mkII pistol"
+	desc = "A larger version of the classic stechkin, meant to be used by assault parties."
+	icon_state = "auto-pistol"
+	origin_tech = "combat=4;materials=2;syndicate=4"
+	mag_type = /obj/item/ammo_box/magazine/m10mmL
+	burst_size = 3
+	fire_delay = 1
+	actions_types = list(/datum/action/item_action/toggle_firemode)
+
+/obj/item/weapon/gun/projectile/automatic/pistol/update_icon()
+	..()
+	icon_state = "[initial(icon_state)][magazine ? "-18" : ""][chambered ? "" : "-e"][suppressed ? "-s" : ""]"
+	return
+
+
+/obj/item/weapon/gun/projectile/automatic/pistol/civi
+	name = "Stimpson" //If it ain't jammin' on the third round, it ain't a Stimpson -Frosty
+	desc = "A remake of the stechkin in 9mm with some slight alterations."
+	icon_state = "civi"
+	mag_type = /obj/item/ammo_box/magazine/pistolm9mm
+	var/mag_icon = ""
+
+/obj/item/weapon/gun/projectile/automatic/pistol/civi/update_icon()
+	..()
+	if(magazine)
+		if(magazine.max_ammo == 30)
+			mag_icon = "-l"
+		else
+			mag_icon = ""
+	else
+		mag_icon = ""
+	icon_state = "[initial(icon_state)][mag_icon][suppressed ? "-s" : ""][chambered ? "" : "-e"]"
+	return
+
+/obj/item/weapon/gun/projectile/automatic/pistol/civi/cargo //The crew version with only 6 rounds
+
+/obj/item/weapon/gun/projectile/automatic/pistol/civi/cargo/New()
+	magazine = new /obj/item/ammo_box/magazine/pistolm9mm/short(src)
+	..()
+
+/obj/item/weapon/gun/projectile/automatic/pistol/civi/long //Syndi/military version with 30 rounds
+
+/obj/item/weapon/gun/projectile/automatic/pistol/civi/long/New()
+	magazine = new /obj/item/ammo_box/magazine/pistolm9mm/large(src)
+	..()
+
 /obj/item/weapon/gun/projectile/automatic/pistol/m1911
 	name = "\improper M1911"
 	desc = "A classic .45 handgun with a small magazine capacity."
@@ -47,6 +94,10 @@
 	force = 10
 	mag_type = /obj/item/ammo_box/magazine/m45/enforcer45
 	can_suppress = 0
+
+/obj/item/weapon/gun/projectile/automatic/pistol/enforcer45/update_icon()
+	..()
+	icon_state = "[initial(icon_state)][chambered ? "" : "-e"]"
 
 /obj/item/weapon/gun/projectile/automatic/pistol/deagle/update_icon()
 	..()

@@ -102,19 +102,19 @@
 	icon_state = "c20r[magazine ? "-[Ceiling(get_ammo(0)/4)*4]" : ""][chambered ? "" : "-e"][suppressed ? "-suppressed" : ""]"
 
 /obj/item/weapon/gun/projectile/automatic/wt550
-	name = "security auto rifle"
-	desc = "An outdated personal defense weapon utilized by law enforcement. The WT-550 Automatic Rifle fires 4.6x30mm rounds."
+	name = "security assault pistol"
+	desc = "An outdated personal defense weapon utilized by law enforcement reintroduced into service as an assault pistol. The WT-550 assault pistol fires 4.6x30mm rounds."
 	icon_state = "wt550"
 	item_state = "arg"
 	mag_type = /obj/item/ammo_box/magazine/wt550m9
 	fire_delay = 2
-	can_suppress = 0
+	can_suppress = TRUE
 	burst_size = 1
 	actions_types = list()
 
 /obj/item/weapon/gun/projectile/automatic/wt550/update_icon()
 	..()
-	icon_state = "wt550[magazine ? "-[Ceiling(get_ammo(0)/4)*4]" : ""]"
+	icon_state = "wt550[magazine ? "-[Ceiling(get_ammo(0)/4)*4]" : ""][suppressed ? "-s" : ""]"
 
 /obj/item/weapon/gun/projectile/automatic/mini_uzi
 	name = "\improper 'Type U3' Uzi"
@@ -265,3 +265,123 @@
 /obj/item/weapon/gun/projectile/automatic/lasercarbine/update_icon()
 	..()
 	icon_state = "lasercarbine[magazine ? "-[Ceiling(get_ammo(0)/5)*5]" : ""]"
+
+/obj/item/weapon/gun/projectile/automatic/m4
+	name = "tran sol combat rifle"
+	desc = "An ancient yet robust assault rile used by Tran-Solar Federation's ground fighting forces."
+	icon_state = "m-4"
+	item_state = "arg"
+	slot_flags = 0
+	w_class = WEIGHT_CLASS_HUGE
+	origin_tech = "combat=6;engineering=4"
+	mag_type = /obj/item/ammo_box/magazine/stan
+	fire_sound = 'sound/weapons/Gunshot_smg.ogg'
+	can_suppress = TRUE
+	burst_size = 3
+	fire_delay = 1
+
+/obj/item/weapon/gun/projectile/automatic/m4/update_icon()
+	if(magazine)
+		if(magazine.max_ammo>29)
+			icon_state = "[initial(icon_state)]-l[suppressed ? "-su" : ""]"
+		else
+			icon_state = "[initial(icon_state)]-s[suppressed ? "-su" : ""]"
+	else
+		icon_state = "[initial(icon_state)]-e[suppressed ? "-su" : ""]"
+
+/obj/item/weapon/gun/projectile/automatic/m4/sp1
+	name = "sporting rifle"
+	desc = "A sporting version of the assault rifle used by Tran-Solar Federation's ground fighting forces."
+	icon_state = "SP-1"
+	burst_size = 3
+	actions_types = list()
+	var/fullauto = FALSE
+
+
+/obj/item/weapon/gun/projectile/automatic/m4/sp1/New()
+	magazine = new /obj/item/ammo_box/magazine/stan/short(src)
+	burst_select()
+	..()
+
+/obj/item/weapon/gun/projectile/automatic/m4/sp1/attackby(obj/item/A, mob/user, params)
+	..()
+	if(istype(A, /obj/item/device/fullautoupgrade))
+		if(fullauto == FALSE)
+			qdel(A)
+			fullauto = TRUE
+			var/datum/action/B = new /datum/action/item_action/toggle_firemode(src)
+			if(loc == user)
+				B.Grant(user)
+			to_chat(user, "<span class='notice'>You intall the new trigger group to the rifle, making it automatic.</span>")
+		else
+			to_chat(user, "<span class='notice'>This rifle is already automatic.</span>")
+
+/obj/item/device/fullautoupgrade
+	name = "Full Auto Sporting Rifle Upgrade"
+	icon_state = "auto-upgrade"
+	desc = "An upgrade unit that can be installed on sporting rifles to make them fully automatic."
+	w_class = WEIGHT_CLASS_SMALL
+	origin_tech = "combat=5"
+	usesound = 'sound/items/Deconstruct.ogg'
+
+
+
+
+/obj/item/weapon/gun/projectile/automatic/a95
+	name = "A-95 Carbine"
+	desc = "A three-round burst 9mm carbine. Has an affixed underbarrel grenade launcher."
+	icon_state = "A-91"
+	item_state = "m90"
+	origin_tech = "combat=5;materials=2;syndicate=1"
+	mag_type = /obj/item/ammo_box/magazine/a939
+	fire_sound = 'sound/weapons/Gunshot_smg.ogg'
+	can_suppress = TRUE
+	var/obj/item/weapon/gun/projectile/automatic/speargun/gp25/underbarrel
+	burst_size = 3
+	fire_delay = 2
+
+
+/obj/item/weapon/gun/projectile/automatic/a95/New()
+	..()
+	underbarrel = new /obj/item/weapon/gun/projectile/automatic/speargun/gp25(src)
+	update_icon()
+
+/obj/item/weapon/gun/projectile/automatic/a95/afterattack(var/atom/target, var/mob/living/user, flag, params)
+	if(select == 2)
+		underbarrel.afterattack(target, user, flag, params)
+	else
+		..()
+		return
+
+/obj/item/weapon/gun/projectile/automatic/a95/attackby(var/obj/item/A, mob/user, params)
+	if(istype(A, /obj/item/ammo_casing))
+		if(istype(A, underbarrel.magazine.ammo_type))
+			underbarrel.attack_self()
+			underbarrel.attackby(A, user, params)
+	else
+		..()
+
+/obj/item/weapon/gun/projectile/automatic/a95/update_icon()
+	overlays.Cut()
+	icon_state = "[initial(icon_state)][magazine ? "" : "-e"]"
+	if(suppressed)
+		overlays += image(icon = icon, icon_state = "a91suppresor", pixel_x = 5)
+
+/obj/item/weapon/gun/projectile/automatic/a95/burst_select()
+	var/mob/living/carbon/human/user = usr
+	switch(select)
+		if(0)
+			select = 1
+			burst_size = initial(burst_size)
+			fire_delay = initial(fire_delay)
+			to_chat(user, "<span class='notice'>You switch to [burst_size] round burst.</span>")
+		if(1)
+			select = 2
+			to_chat(user, "<span class='notice'>You switch to grenades.</span>")
+		if(2)
+			select = 0
+			burst_size = 1
+			fire_delay = 0
+			to_chat(user, "<span class='notice'>You switch to semi-auto.</span>")
+	playsound(user, 'sound/weapons/empty.ogg', 100, 1)
+	update_icon()

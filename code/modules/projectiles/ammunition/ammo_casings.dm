@@ -265,16 +265,39 @@
 	reagents.add_reagent("sodium_thiopental", 6)
 
 /obj/item/ammo_casing/shotgun/tranquilizer
-	name = "tranquilizer darts"
-	desc = "A tranquilizer round used to subdue individuals utilizing stimulants."
+	name = "anti-stimulant darts"
+	desc = "An anti-stimulant round used to subdue individuals utilizing stimulants."
 	icon_state = "nshell"
 	projectile_type = /obj/item/projectile/bullet/dart/syringe/tranquilizer
 	materials = list(MAT_METAL=250)
+
+/obj/item/ammo_casing/shotgun/dart/special
+	icon_state = "dart-casing"
+	desc = "A dart for use in high caliber rifles. Can be injected with up to 30 units of any chemical."
+	projectile_type = /obj/item/projectile/bullet/dart/rifle
+	caliber = "9x39"
+
+/obj/item/ammo_casing/shotgun/dart/special/tranquilizer
+	icon_state = "tranq-casing"
+	desc = "A tranquilizer round used to subdue individuals."
+	projectile_type = /obj/item/projectile/bullet/dart/rifle/tranq
 
 /obj/item/ammo_casing/a556
 	desc = "A 5.56mm bullet casing."
 	caliber = "a556"
 	projectile_type = /obj/item/projectile/bullet/heavybullet
+
+/obj/item/ammo_casing/a939
+	desc = "A 9x39mm bullet casing."
+	caliber = "9x39"
+	icon_state = "762-rubber"
+	projectile_type = /obj/item/projectile/bullet/heavybullet3
+
+/obj/item/ammo_casing/a939/lethal
+	desc = "A 9x39mm bullet casing."
+	caliber = "9x39"
+	icon_state = "762-casing"
+	projectile_type = /obj/item/projectile/bullet/heavybullet2
 
 /obj/item/ammo_casing/shotgun/fakebeanbag
 	name = "beanbag shell"
@@ -310,6 +333,31 @@
 	caliber = "40mm"
 	icon_state = "40mmHE"
 	projectile_type = /obj/item/projectile/bullet/a40mm
+
+/obj/item/ammo_casing/a25mm
+	name = "25mm Flash shell"
+	desc = "A cased flashbang grenade that can only be activated once fired out of a grenade launcher."
+	caliber = "25mm"
+	icon_state = "25mmflash"
+	projectile_type = /obj/item/projectile/bullet/reusable/flash25
+
+/obj/item/ammo_casing/a25mm/tear
+	name = "25mm Tear Gas shell"
+	desc = "A cased tear gas grenade that can only be activated once fired out of a grenade launcher."
+	icon_state = "25mmtear"
+	projectile_type = /obj/item/projectile/bullet/reusable/flash25/tear
+
+/obj/item/ammo_casing/a25mm/thud
+	name = "25mm Thud shell"
+	desc = "A solid grenade that can be fired out of a grenade launcher."
+	icon_state = "25mmthud"
+	projectile_type = /obj/item/projectile/bullet/reusable/flash25/thud
+
+/obj/item/ammo_casing/a25mm/he
+	name = "25mm HE shell"
+	desc = "A cased high explosive grenade that can only be activated once fired out of a grenade launcher."
+	icon_state = "25mmHE"
+	projectile_type = /obj/item/projectile/bullet/a25mmhe
 
 /obj/item/ammo_casing/caseless/foam_dart
 	name = "foam dart"
