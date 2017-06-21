@@ -73,7 +73,6 @@
 	attack_verb = list("VIOLENTLY HONKED", "VICIOUSLY MOCKED")
 	origin_tech = "combat=3;syndicate=1"
 	force = 25
-	no_embed = TRUE
 
 /obj/item/weapon/bikehorn/attack(mob/living/carbon/M, mob/living/carbon/user)
 	if(!spam_flag)
