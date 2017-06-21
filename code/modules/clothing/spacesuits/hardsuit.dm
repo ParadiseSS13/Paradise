@@ -626,20 +626,3 @@
 	item_state = "syndie_helm"
 	item_color = "syndi"
 	armor = list(melee = 40, bullet = 50, laser = 30, energy = 15, bomb = 35, bio = 100, rad = 50)
-
-//Mechanic hardsuit
-/obj/item/clothing/head/helmet/space/hardsuit/mechanic
-	name = "mechanic hardsuit helmet"
-	desc = "A special hardsuit for the mechanic, complete with gears and steam punk goggles welded on to the outside."
-	icon_state = "hardsuit0-mechanic"
-	item_state = "hardsuit0-mechanic"
-	item_color = "mechanic"
-	armor = list(melee = 10, bullet = 5, laser = 10, energy = 5, bomb = 10, bio = 100, rad = 50)
-
-/obj/item/clothing/suit/space/hardsuit/mechanic
-	name = "mechanic hardsuit"
-	desc = "You have absolutely no idea if these gears even do anything."
-	icon_state = "hardsuit-mechanic"
-	item_state = "hardsuit-mechanic"
-	armor = list(melee = 10, bullet = 5, laser = 10, energy = 5, bomb = 10, bio = 100, rad = 50)
-	allowed = list(/obj/item/device/flashlight,/obj/item/weapon/tank,/obj/item/device/t_scanner, /obj/item/weapon/rcd)

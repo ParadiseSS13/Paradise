@@ -264,3 +264,37 @@
 	max_heat_protection_temperature = FIRE_IMMUNITY_HELM_MAX_TEMP_PROTECT
 	unacidable = 1
 	strip_delay = 130
+
+/obj/item/clothing/head/helmet/space/eva/mechanic
+	name = "mechanic eva helmet"
+	desc = "A steampunk styled helmet for the mechanic."
+	icon_state = "hardsuit0-mechanic"
+	item_state = "hardsuit0-mechanic"
+	species_restricted = list("exclude","Diona","Wryn")
+	species_fit = null
+	sprite_sheets = null
+	sprite_sheets_obj = null
+	species_fit = list("Tajaran", "Unathi", "Vox", "Vulpkanin")
+	sprite_sheets = list(
+		"Tajaran" = 'icons/mob/species/tajaran/helmet.dmi',
+		"Unathi" = 'icons/mob/species/unathi/helmet.dmi',
+		"Vox" = 'icons/mob/species/vox/helmet.dmi',
+		"Vulpkanin" = 'icons/mob/species/vulpkanin/helmet.dmi'
+		)
+
+/obj/item/clothing/suit/space/eva/mechanic
+	name = "mechanic eva suit"
+	desc = "A steampunk themed space suit for the mechanic. You aren't too sure if the gears even do anything."
+	icon_state = "hardsuit-mechanic"
+	item_state = "hardsuit-mechanic"
+	species_restricted = list("exclude","Diona","Wryn")
+	species_fit = null
+	sprite_sheets = null
+	sprite_sheets_obj = null
+	species_fit = list("Tajaran", "Unathi", "Vox", "Vulpkanin")
+	sprite_sheets = list(
+		"Tajaran" = 'icons/mob/species/tajaran/suit.dmi',
+		"Unathi" = 'icons/mob/species/unathi/suit.dmi',
+		"Vox" = 'icons/mob/species/vox/suit.dmi',
+		"Vulpkanin" = 'icons/mob/species/vulpkanin/suit.dmi'
+		)

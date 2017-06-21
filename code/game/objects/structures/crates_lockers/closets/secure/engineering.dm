@@ -156,5 +156,5 @@
 
 	New()
 		..()
-		new /obj/item/clothing/suit/space/hardsuit/mechanic(src)
-		new /obj/item/clothing/head/helmet/space/hardsuit/mechanic(src)
+		new /obj/item/clothing/suit/space/eva/mechanic(src)
+		new /obj/item/clothing/head/helmet/space/eva/mechanic(src)
