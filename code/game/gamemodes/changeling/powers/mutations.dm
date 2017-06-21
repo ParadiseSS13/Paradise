@@ -283,8 +283,6 @@
 		if(!is_sharp(I))
 			I = l_hand
 		if(!is_sharp(I))
-			C.visible_message("<span class='danger'>[C] falls at [src]'s feet!</span>", "<span class='userdanger'>You are thrown at [src]'s feet!</span>")
-			C.Weaken(2)
 			return
 
 		C.visible_message("<span class='danger'>[src] impales [C] with [I]!</span>", "<span class='userdanger'>[src] impales you with [I]!</span>")
