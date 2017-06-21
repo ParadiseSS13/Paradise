@@ -168,7 +168,7 @@
 	affected.status &= ~ORGAN_BROKEN
 	affected.status &= ~ORGAN_SPLINTED
 	affected.perma_injury = 0
-
+	target.handle_splints()
 	return 1
 
 /datum/surgery_step/finish_bone/fail_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool)

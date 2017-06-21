@@ -12,14 +12,24 @@
 
 	number_wounds = 0
 	var/force_process = 0
+	var/splint_process = 0
 	var/damage_this_tick = getBruteLoss() + getFireLoss() + getToxLoss()
 	if(damage_this_tick > last_dam)
 		force_process = 1
+	if(splinted_limbs.len)
+		splint_process = 1
 	last_dam = damage_this_tick
 	if(force_process)
 		bad_external_organs.Cut()
 		for(var/obj/item/organ/external/Ex in bodyparts)
 			bad_external_organs |= Ex
+
+	else if(splint_process) //we don't need to process every organ if it's just one limb splinted
+		for(var/obj/item/organ/external/splinted in splinted_limbs)
+			if(!(splinted.status & ORGAN_SPLINTED))
+				splinted_limbs -= splinted
+				continue
+			bad_external_organs |= splinted
 
 	//processing internal organs is pretty cheap, do that first.
 	for(var/obj/item/organ/internal/I in internal_organs)
@@ -210,3 +220,9 @@ I use this to standardize shadowling dethrall code
 			odmg += O.brute_dam
 			odmg += O.burn_dam
 	return (health < (100 - odmg))
+
+/mob/living/carbon/human/proc/handle_splints() //proc that rebuilds the list of splints on this person, for ease of processing
+	splinted_limbs.Cut()
+	for(var/obj/item/organ/external/limb in bodyparts)
+		if(limb.status & ORGAN_SPLINTED)
+			splinted_limbs += limb

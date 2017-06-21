@@ -68,6 +68,8 @@
 	var/can_stand
 	var/wound_cleanup_timer
 
+	var/splinted_count = 0 //Time when this organ was last splinted
+
 /obj/item/organ/external/necrotize(update_sprite=TRUE)
 	if(status & (ORGAN_ROBOT|ORGAN_DEAD))
 		return
@@ -468,6 +470,8 @@ This function completely restores a damaged organ to perfect condition.
 
 		//Infections
 		update_germs()
+		//Splints
+		update_splints()
 	else
 		..()
 
@@ -679,6 +683,17 @@ Note that amputating the affected organ does in fact remove the infection from t
 	else
 		tbrute = 3
 	return "[tbrute][tburn]"
+
+/obj/item/organ/external/proc/update_splints() //we're processing splints like this instead of on a per step basis for efficiency
+	if(!(status & ORGAN_SPLINTED))
+		return
+	if(owner.step_count >= splinted_count + SPLINT_LIFE)
+		status &= ~ORGAN_SPLINTED //oh no, we actually need surgery now!
+		owner.visible_message("<span class=danger>[owner] screams in pain as their splint pops off their [src.name]!</span>","<span class=userdanger>You scream in pain as your splint pops off your [src.name]!")
+		owner.emote("scream")
+		owner.Stun(2)
+		owner.handle_splints()
+
 
 /****************************************************
 			   DISMEMBERMENT
