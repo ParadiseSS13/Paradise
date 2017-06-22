@@ -686,7 +686,7 @@ Note that amputating the affected organ does in fact remove the infection from t
 		tbrute = 3
 	return "[tbrute][tburn]"
 
-/obj/item/organ/external/proc/update_splints() //we're processing splints like this instead of on a per step basis for efficiency
+/obj/item/organ/external/proc/update_splints()
 	if(!(status & ORGAN_SPLINTED))
 		return
 	if(owner.step_count >= splinted_count + SPLINT_LIFE)
