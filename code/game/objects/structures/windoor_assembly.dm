@@ -247,6 +247,9 @@ obj/structure/windoor_assembly/Destroy()
 				if(do_after(user, 40 * W.toolspeed, target = src))
 
 					if(src.loc && src.electronics)
+						for(var/obj/machinery/door/window/WD in loc)
+							if(WD.dir == dir)
+								return
 
 						density = 1 //Shouldn't matter but just incase
 						to_chat(user, "<span class='notice'>You finish the windoor!</span>")

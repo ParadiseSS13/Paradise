@@ -785,12 +785,26 @@
 			+ " handshake-mob, hug(s)-(none)/mob, johnny, jump, laugh(s), look(s)-(none)/mob, moan(s), mumble(s), nod(s), pale(s), point(s)-atom, quiver(s), raise(s), salute(s)-(none)/mob, scream(s), shake(s)," \
 			+ " shiver(s), shrug(s), sigh(s), signal(s)-#1-10,slap(s)-(none)/mob, smile(s),snap(s), sneeze(s), sniff(s), snore(s), stare(s)-(none)/mob, swag(s), tremble(s), twitch(es), twitch(es)_s," \
 			+ " wag(s), wave(s),  whimper(s), wink(s), yawn(s)"
-			if(species.name == "Machine")
-				emotelist += "\nMachine specific emotes :- beep(s)-(none)/mob, buzz(es)-none/mob, no-(none)/mob, ping(s)-(none)/mob, yes-(none)/mob"
-			else if(species.name == "Slime People")
-				emotelist += "\nSlime people specific emotes :- squish(es)-(none)/mob"
-			to_chat(src, emotelist)
 
+			switch(species.name)
+				if("Machine")
+					emotelist += "\nMachine specific emotes :- beep(s)-(none)/mob, buzz(es)-none/mob, no-(none)/mob, ping(s)-(none)/mob, yes-(none)/mob, buzz2-(none)/mob"
+				if("Drask")
+					emotelist += "\nDrask specific emotes :- drone(s)-(none)/mob, hum(s)-(none)/mob, rumble(s)-(none)/mob"
+				if("Kidan")
+					emotelist += "\nKidan specific emotes :- click(s), clack(s)"
+				if("Unathi")
+					emotelist += "\nUnathi specific emotes :- hiss(es)"
+
+			if (species.name == "Slime People")
+				emotelist += "\nSlime people specific emotes :- squish(es)-(none)/mob"
+			else
+				for(var/obj/item/organ/external/L in bodyparts) // if your limbs are squishy you can squish too!
+					if(L.dna.species in list("Slime People"))
+						emotelist += "\nSlime people body part specific emotes :- squish(es)-(none)/mob"
+						break
+
+			to_chat(src, emotelist)
 		else
 			to_chat(src, "<span class='notice'>Unusable emote '[act]'. Say *help for a list.</span>")
 

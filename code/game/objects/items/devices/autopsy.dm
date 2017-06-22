@@ -74,6 +74,21 @@
 		if(O.trace_chemicals[V] > 0 && !chemtraces.Find(V))
 			chemtraces += V
 
+/obj/item/weapon/autopsy_scanner/attackby(obj/item/weapon/P, mob/user)
+	if(istype(P, /obj/item/weapon/pen))
+		var/dead_name = input("Insert name of deceased individual")
+		var/dead_rank = input("Insert rank of deceased individual")
+		var/dead_tod = input("Insert time of death")
+		var/dead_cause = input("Insert cause of death")
+		var/dead_chems = input("Insert any chemical traces")
+		var/dead_notes = input("Insert any relevant notes")
+		var/obj/item/weapon/paper/R = new(user.loc)
+		R.name = "Official Coroner's Report - [dead_name]"
+		R.info = "<b>NanoTrasen Science Station Cyberiad - Coroner's Report</b><br><br><b>Name of Deceased:</b> [dead_name]</br><br><b>Rank of Deceased:</b> [dead_rank]<br><br><b>Time of Death:</b> [dead_tod]<br><br><b>Cause of Death:</b> [dead_cause]<br><br><b>Trace Chemicals:</b> [dead_chems]<br><br><b>Additional Coroner's Notes:</b> [dead_notes]<br><br><b>Coroner's Signature:</b> <span class=\"paper_field\">"
+		playsound(loc, 'sound/goonstation/machines/printer_thermal.ogg', 50, 1)
+		sleep(10)
+		user.put_in_hands(R)
+
 /obj/item/weapon/autopsy_scanner/attack_self(mob/user)
 	if(!wdata.len && !chemtraces.len)
 		return
