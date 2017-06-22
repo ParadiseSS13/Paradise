@@ -47,7 +47,7 @@
 	explanation_text += " [things] as you can!"
 
 /datum/objective/sentFluff/fear
-	explanation_text = "In your new found sentience you have learnd"
+	explanation_text = "In your new found sentience you have learned"
 
 /datum/objective/sentFluff/fear/New()
 	var/list/jobs = job_master.occupations.Copy()
@@ -64,5 +64,5 @@
 	explanation_text = "You MUST find your special "
 
 /datum/objective/sentFluff/toy/New()
-	var/toy = pick(list("shoe","rubber duck","bike horn","bar of soap", "hat", "par of pants"))
+	var/toy = pick(list("shoe","rubber duck","bike horn","bar of soap", "hat", "pair of pants"))
 	explanation_text += " [toy] and not lose it! EVER!"
