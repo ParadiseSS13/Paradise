@@ -35,9 +35,12 @@
 	update_body()
 	return 1
 
-/mob/living/carbon/human/proc/change_hair(var/hair_style)
+/mob/living/carbon/human/proc/change_hair(var/hair_style, var/fluff)
 	var/obj/item/organ/external/head/H = get_organ("head")
-	if(!hair_style || !H || H.h_style == hair_style || !(hair_style in hair_styles_list))
+
+	if(!hair_style || !H || H.h_style == hair_style)
+		return
+	if(!(fluff || (hair_style in hair_styles_list)))
 		return
 
 	H.h_style = hair_style

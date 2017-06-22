@@ -1048,7 +1048,7 @@
 	if(!istype(target) || target.get_species() != "Skrell") // It'd be strange to see other races with head tendrils.
 		return
 
-	if(target.change_hair("Zeke's Tentacles"))
+	if(target.change_hair("Zekes Tentacles", 1))
 		to_chat(target, "<span class='notice'>You take time to admire yourself in [src], brushing your tendrils down and revealing their true length.</span>")
 
 

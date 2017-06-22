@@ -17,20 +17,21 @@
 	conversion in savefile.dm
 */
 
-/proc/init_sprite_accessory_subtypes(var/prototype, var/list/L, var/list/male, var/list/female, var/list/fluff)
+/proc/init_sprite_accessory_subtypes(var/prototype, var/list/L, var/list/male, var/list/female, var/list/full_list)
 	if(!istype(L))	L = list()
 	if(!istype(male))	male = list()
 	if(!istype(female))	female = list()
-	if(!istype(fluff))	fluff = list()
+	if(!istype(full_list))	full_list = list()
 
 	for(var/path in subtypesof(prototype))
 		var/datum/sprite_accessory/D = new path()
 
 		if(D.name)
 			if(D.fluff)
-				fluff[D.name] = D
+				full_list[D.name] = D
 			else
 				L[D.name] = D
+				full_list[D.name] = D
 
 			switch(D.gender)
 				if(MALE)	male[D.name] = D
@@ -54,7 +55,7 @@
 	var/marking_location //Specifies which bodypart a body marking is located on.
 	var/secondary_theme = null //If exists, there's a secondary colour to that hair style and the secondary theme's icon state's suffix is equal to this.
 	var/no_sec_colour = null //If exists, prohibit the colouration of the secondary theme.
-	var/fluff
+	var/fluff = 0
 	// Whether or not the accessory can be affected by colouration
 	var/do_colouration = 1
 
@@ -935,12 +936,12 @@
 
 
 /datum/sprite_accessory/hair/fluff
-	fluff = 1
 
 /datum/sprite_accessory/hair/fluff/zeke_fluff_tentacle //Zeke Fluff hair
-	name = "Zeke's Tentacles"
+	name = "Zekes Tentacles"
 	icon_state = "zeke_fluff_hair"
 	species_allowed = list("Skrell")
+	fluff = 1
 
 /*
 ///////////////////////////////////
