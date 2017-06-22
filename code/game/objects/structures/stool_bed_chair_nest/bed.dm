@@ -139,5 +139,4 @@
 	to_chat(user, "<span class='notice'>You deploy the roller bed.</span>")
 	var/obj/structure/stool/bed/roller/R = new /obj/structure/stool/bed/roller(user.loc)
 	R.add_fingerprint(user)
-	qdel(held)
-	held = null
+	QDEL_NULL(held)

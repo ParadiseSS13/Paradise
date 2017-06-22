@@ -18,7 +18,7 @@
 	melee_damage_upper = 15
 	attacktext = "punches"
 	attack_sound = 'sound/weapons/punch1.ogg'
-	a_intent = I_HARM
+	a_intent = INTENT_HARM
 	unsuitable_atmos_damage = 15
 	faction = list("russian")
 	status_flags = CANPUSH

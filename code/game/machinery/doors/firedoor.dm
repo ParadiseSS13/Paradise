@@ -112,7 +112,7 @@
 	add_fingerprint(user)
 	user.changeNext_move(CLICK_CD_MELEE)
 
-	if(can_force && (!glass || user.a_intent != I_HELP))
+	if(can_force && (!glass || user.a_intent != INTENT_HELP))
 		user.visible_message("<span class='notice'>[user] begins forcing \the [src].</span>", \
 							 "<span class='notice'>You begin forcing \the [src].</span>")
 		if(do_after(user, force_open_time, target = src))

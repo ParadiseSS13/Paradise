@@ -198,7 +198,7 @@
 
 /obj/item/weapon/reagent_containers/food/condiment/pack
 	name = "condiment pack"
-	desc = "A small plastic pack with condiments to put on your food"
+	desc = "A small plastic pack with condiments to put on your food."
 	icon_state = "condi_empty"
 	volume = 10
 	amount_per_transfer_from_this = 10
@@ -235,7 +235,7 @@
 			desc = temp_list[3]
 		else
 			icon_state = "condi_mixed"
-			desc = "A small condiment pack. The label says it contains [originalname]"
+			desc = "A small condiment pack. The label says it contains [originalname]."
 	else
 		icon_state = "condi_empty"
 		desc = "A small condiment pack. It is empty."
