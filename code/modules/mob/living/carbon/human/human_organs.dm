@@ -12,24 +12,19 @@
 
 	number_wounds = 0
 	var/force_process = 0
-	var/splint_process = 0
 	var/damage_this_tick = getBruteLoss() + getFireLoss() + getToxLoss()
 	if(damage_this_tick > last_dam)
 		force_process = 1
-	if(splinted_limbs.len)
-		splint_process = 1
 	last_dam = damage_this_tick
 	if(force_process)
 		bad_external_organs.Cut()
 		for(var/obj/item/organ/external/Ex in bodyparts)
 			bad_external_organs |= Ex
 
-	else if(splint_process) //we don't need to process every organ if it's just one limb splinted
+	if(splinted_limbs.len) //clean up the splinted limbs list
 		for(var/obj/item/organ/external/splinted in splinted_limbs)
 			if(!(splinted.status & ORGAN_SPLINTED))
 				splinted_limbs -= splinted
-				continue
-			bad_external_organs |= splinted
 
 	//processing internal organs is pretty cheap, do that first.
 	for(var/obj/item/organ/internal/I in internal_organs)

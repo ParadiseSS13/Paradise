@@ -35,12 +35,16 @@
 
 /mob/living/carbon/human/Move(NewLoc, direct)
 	. = ..()
-	if(shoes && .) // did we actually move?
-		if(!lying && !buckled)
-			if(!has_gravity(loc))
-				return
-			var/obj/item/clothing/shoes/S = shoes
-			S.step_action(src)
+	if(.) // did we actually move?
+		if(!lying && !buckled && !throwing)
+			for(var/obj/item/organ/external/splinted in splinted_limbs)
+				splinted.update_splints()
+		if(!shoes)
+			return
+		if(!has_gravity(loc))
+			return
+		var/obj/item/clothing/shoes/S = shoes
+		S.step_action(src)
 
 /mob/living/carbon/human/handle_footstep(turf/T)
 	if(..())

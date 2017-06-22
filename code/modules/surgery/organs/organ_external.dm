@@ -222,6 +222,10 @@
 
 	if(status & ORGAN_BROKEN && prob(40) && brute)
 		owner.emote("scream")	//getting hit on broken hand hurts
+	if(status & ORGAN_SPLINTED && prob((brute + burn)*4)) //taking damage to splinted limbs removes the splints
+		status &= ~ORGAN_SPLINTED
+		owner.visible_message("<span class=danger>The splint on [owner]'s left arm unravels from their [src.name]!</span>","<span class=userdanger>The splint on your [src.name] unravels!")
+		owner.handle_splints()
 	if(used_weapon)
 		add_autopsy_data("[used_weapon]", brute + burn)
 
@@ -470,8 +474,6 @@ This function completely restores a damaged organ to perfect condition.
 
 		//Infections
 		update_germs()
-		//Splints
-		update_splints()
 	else
 		..()
 
