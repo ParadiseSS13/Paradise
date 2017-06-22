@@ -17,16 +17,20 @@
 	conversion in savefile.dm
 */
 
-/proc/init_sprite_accessory_subtypes(var/prototype, var/list/L, var/list/male, var/list/female)
+/proc/init_sprite_accessory_subtypes(var/prototype, var/list/L, var/list/male, var/list/female, var/list/fluff)
 	if(!istype(L))	L = list()
 	if(!istype(male))	male = list()
 	if(!istype(female))	female = list()
+	if(!istype(fluff))	fluff = list()
 
 	for(var/path in subtypesof(prototype))
 		var/datum/sprite_accessory/D = new path()
 
 		if(D.name)
-			L[D.name] = D
+			if(D.fluff)
+				fluff[D.name] = D
+			else
+				L[D.name] = D
 
 			switch(D.gender)
 				if(MALE)	male[D.name] = D
@@ -50,7 +54,7 @@
 	var/marking_location //Specifies which bodypart a body marking is located on.
 	var/secondary_theme = null //If exists, there's a secondary colour to that hair style and the secondary theme's icon state's suffix is equal to this.
 	var/no_sec_colour = null //If exists, prohibit the colouration of the secondary theme.
-
+	var/fluff
 	// Whether or not the accessory can be affected by colouration
 	var/do_colouration = 1
 
@@ -65,7 +69,7 @@
 
 /datum/sprite_accessory/hair
 	icon = 'icons/mob/human_face.dmi'	  // default icon for all hairs
-	var/glasses_over //Hair styles with hair that don't overhang the arms of glasses should have glasses_over set to a positive value.
+	var/glasses_over //Hair styles with hair that don't overhang the arms of glasses should have glasses_over set to a positive value
 
 /datum/sprite_accessory/hair/bald
 	name = "Bald"
@@ -931,7 +935,7 @@
 
 
 /datum/sprite_accessory/hair/fluff
-	glasses_over = 1
+	fluff = 1
 
 /datum/sprite_accessory/hair/fluff/zeke_fluff_tentacle //Zeke Fluff hair
 	name = "Zeke's Tentacles"
