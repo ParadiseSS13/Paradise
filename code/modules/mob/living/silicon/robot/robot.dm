@@ -262,136 +262,57 @@ var/list/robot_verbs_default = list(
 /mob/living/silicon/robot/proc/pick_module()
 	if(module)
 		return
-	var/list/modules = list("Standard", "Engineering", "Medical", "Miner", "Janitor", "Service", "Security")
+	var/list/modules = list("Standard" = /obj/item/weapon/robot_module/standard,
+							"Engineering" = /obj/item/weapon/robot_module/engineering,
+							"Medical" = /obj/item/weapon/robot_module/medical,
+							"Miner" = /obj/item/weapon/robot_module/miner,
+							"Janitor" = /obj/item/weapon/robot_module/janitor,
+							"Service" = /obj/item/weapon/robot_module/butler,
+							"Security" = /obj/item/weapon/robot_module/security,
+							"K9" = /obj/item/weapon/robot_module/dog/knine,
+							"Medihound" = /obj/item/weapon/robot_module/dog/medihound,
+							"Janihound" = /obj/item/weapon/robot_module/dog/scrubpup)
+
 	if(security_level == (SEC_LEVEL_GAMMA || SEC_LEVEL_EPSILON) || crisis)
 		to_chat(src, "<span class='warning'>Crisis mode active. Combat module available.</span>")
-		modules+="Combat"
-	if(ticker && ticker.mode && ticker.mode.name == "nations")
+		modules["Combat"] = /obj/item/weapon/robot_module/combat
+
+	if(GAMEMODE_IS_NATIONS)
 		var/datum/game_mode/nations/N = ticker.mode
 		if(N.kickoff)
-			modules = list("Peacekeeper")
+			modules = list("Peacekeeper" = /obj/item/weapon/robot_module/peacekeeper)
+
 	if(mmi != null && mmi.alien)
-		modules = "Hunter"
+		modules = list("Hunter" = /obj/item/weapon/robot_module/alien/hunter)
+
 	modtype = input("Please, select a module!", "Robot", null, null) as null|anything in modules
 	if(!modtype)
 		return
+
 	designation = modtype
 	var/module_sprites[0] //Used to store the associations between sprite names and sprite index.
 
 	if(module)
 		return
 
-	switch(modtype)
-		if("Standard")
-			module = new /obj/item/weapon/robot_module/standard(src)
-			module.channels = list("Service" = 1)
-			module_sprites["Basic"] = "robot_old"
-			module_sprites["Android"] = "droid"
-			module_sprites["Default"] = "robot"
-			module_sprites["Noble-STD"] = "Noble-STD"
-
-		if("Service")
-			module = new /obj/item/weapon/robot_module/butler(src)
-			module.channels = list("Service" = 1)
-			module_sprites["Waitress"] = "Service"
-			module_sprites["Kent"] = "toiletbot"
-			module_sprites["Bro"] = "Brobot"
-			module_sprites["Rich"] = "maximillion"
-			module_sprites["Default"] = "Service2"
-			module_sprites["Standard"] = "robotServ"
-			module_sprites["Noble-SRV"] = "Noble-SRV"
-
-		if("Miner")
-			module = new /obj/item/weapon/robot_module/miner(src)
-			module.channels = list("Supply" = 1)
-			if(camera && "Robots" in camera.network)
-				camera.network.Add("Mining Outpost")
-			module_sprites["Basic"] = "Miner_old"
-			module_sprites["Advanced Droid"] = "droid-miner"
-			module_sprites["Treadhead"] = "Miner"
-			module_sprites["Standard"] = "robotMine"
-			module_sprites["Noble-DIG"] = "Noble-DIG"
-
-		if("Medical")
-			module = new /obj/item/weapon/robot_module/medical(src)
-			module.channels = list("Medical" = 1)
-			if(camera && "Robots" in camera.network)
-				camera.network.Add("Medical")
-			module_sprites["Basic"] = "Medbot"
-			module_sprites["Surgeon"] = "surgeon"
-			module_sprites["Advanced Droid"] = "droid-medical"
-			module_sprites["Needles"] = "medicalrobot"
-			module_sprites["Standard"] = "robotMedi"
-			module_sprites["Noble-MED"] = "Noble-MED"
-			status_flags &= ~CANPUSH
-
-		if("Security")
-			module = new /obj/item/weapon/robot_module/security(src)
-			module.channels = list("Security" = 1)
-			module_sprites["Basic"] = "secborg"
-			module_sprites["Red Knight"] = "Security"
-			module_sprites["Black Knight"] = "securityrobot"
-			module_sprites["Bloodhound"] = "bloodhound"
-			module_sprites["Standard"] = "robotSecy"
-			module_sprites["Noble-SEC"] = "Noble-SEC"
-			status_flags &= ~CANPUSH
-
-		if("Engineering")
-			module = new /obj/item/weapon/robot_module/engineering(src)
-			module.channels = list("Engineering" = 1)
-			if(camera && "Robots" in camera.network)
-				camera.network.Add("Engineering")
-			module_sprites["Basic"] = "Engineering"
-			module_sprites["Antique"] = "engineerrobot"
-			module_sprites["Landmate"] = "landmate"
-			module_sprites["Standard"] = "robotEngi"
-			module_sprites["Noble-ENG"] = "Noble-ENG"
-			magpulse = 1
-
-		if("Janitor")
-			module = new /obj/item/weapon/robot_module/janitor(src)
-			module.channels = list("Service" = 1)
-			module_sprites["Basic"] = "JanBot2"
-			module_sprites["Mopbot"]  = "janitorrobot"
-			module_sprites["Mop Gear Rex"] = "mopgearrex"
-			module_sprites["Standard"] = "robotJani"
-			module_sprites["Noble-CLN"] = "Noble-CLN"
-
-		if("Combat")
-			module = new /obj/item/weapon/robot_module/combat(src)
-			module.channels = list("Security" = 1)
-			icon_state =  "droidcombat"
-
-		if("Peacekeeper")
-			module = new /obj/item/weapon/robot_module/peacekeeper(src)
-			module.channels = list()
-			icon_state = "droidpeace"
-
-		if("Hunter")
-			module = new /obj/item/weapon/robot_module/alien/hunter(src)
-			icon = "icons/mob/alien.dmi"
-			icon_state = "xenoborg-state-a"
-			modtype = "Xeno-Hu"
-			feedback_inc("xeborg_hunter",1)
-
-
-	//languages
-	module.add_languages(src)
-	//subsystems
-	module.add_subsystems_and_actions(src)
+	var/module_path = modules[modtype]
+	module = new module_path(src)
+	module.init(src)
+	module_sprites = module.sprites.Copy()
 
 	//Custom_sprite check and entry
 	if(custom_sprite == 1)
 		module_sprites["Custom"] = "[src.ckey]-[modtype]"
 
+	if(module.sprite_override)
+		module.override_sprite(src)
+		module_sprites.Cut()
+
 	hands.icon_state = lowertext(module.module_type)
 	feedback_inc("cyborg_[lowertext(modtype)]",1)
 	rename_character(real_name, get_default_name())
 
-	if(modtype == "Medical" || modtype == "Security" || modtype == "Combat" || modtype == "Peacekeeper")
-		status_flags &= ~CANPUSH
-
-	choose_icon(6,module_sprites)
+	choose_icon(6, module_sprites, module.custom_icon)
 	radio.config(module.channels)
 	notify_ai(2)
 
@@ -939,10 +860,13 @@ var/list/robot_verbs_default = list(
 	return 0
 
 /mob/living/silicon/robot/update_icons()
-
 	overlays.Cut()
 	if(stat != DEAD && !(paralysis || stunned || weakened || low_power_mode)) //Not dead, not stunned.
 		overlays += "eyes-[icon_state]"
+		if(sleeper_g)
+			overlays += "[module.module_type]-sleeper_g"
+		else if(sleeper_r)
+			overlays += "[module.module_type]-sleeper_r"
 	else
 		overlays -= "eyes"
 
@@ -1146,46 +1070,45 @@ var/list/robot_verbs_default = list(
 	var/oldLoc = src.loc
 	. = ..()
 	if(.)
-		if(src.camera)
+		if(camera)
 			if(!updating)
 				updating = 1
 				spawn(BORG_CAMERA_BUFFER)
 					if(oldLoc != src.loc)
 						cameranet.updatePortableCamera(src.camera)
 					updating = 0
-	if(module)
-		if(module.type == /obj/item/weapon/robot_module/janitor)
-			var/turf/tile = loc
-			if(isturf(tile))
-				tile.clean_blood()
-				if(istype(tile, /turf/simulated))
-					var/turf/simulated/S = tile
-					S.dirt = 0
-				for(var/A in tile)
-					if(istype(A, /obj/effect))
-						if(is_cleanable(A))
-							qdel(A)
-					else if(istype(A, /obj/item))
-						var/obj/item/cleaned_item = A
-						cleaned_item.clean_blood()
-					else if(istype(A, /mob/living/carbon/human))
-						var/mob/living/carbon/human/cleaned_human = A
-						if(cleaned_human.lying)
-							if(cleaned_human.head)
-								cleaned_human.head.clean_blood()
-								cleaned_human.update_inv_head(0,0)
-							if(cleaned_human.wear_suit)
-								cleaned_human.wear_suit.clean_blood()
-								cleaned_human.update_inv_wear_suit(0,0)
-							else if(cleaned_human.w_uniform)
-								cleaned_human.w_uniform.clean_blood()
-								cleaned_human.update_inv_w_uniform(0,0)
-							if(cleaned_human.shoes)
-								cleaned_human.shoes.clean_blood()
-								cleaned_human.update_inv_shoes(0,0)
-							cleaned_human.clean_blood()
-							to_chat(cleaned_human, "<span class='danger'>[src] cleans your face!</span>")
-		return
+
+	if(module && module.clean_on_walk)
+		var/turf/tile = loc
+		if(isturf(tile))
+			tile.clean_blood()
+			if(istype(tile, /turf/simulated))
+				var/turf/simulated/S = tile
+				S.dirt = 0
+			for(var/A in tile)
+				if(istype(A, /obj/effect))
+					if(is_cleanable(A))
+						qdel(A)
+				else if(istype(A, /obj/item))
+					var/obj/item/cleaned_item = A
+					cleaned_item.clean_blood()
+				else if(istype(A, /mob/living/carbon/human))
+					var/mob/living/carbon/human/cleaned_human = A
+					if(cleaned_human.lying)
+						if(cleaned_human.head)
+							cleaned_human.head.clean_blood()
+							cleaned_human.update_inv_head(0,0)
+						if(cleaned_human.wear_suit)
+							cleaned_human.wear_suit.clean_blood()
+							cleaned_human.update_inv_wear_suit(0,0)
+						else if(cleaned_human.w_uniform)
+							cleaned_human.w_uniform.clean_blood()
+							cleaned_human.update_inv_w_uniform(0,0)
+						if(cleaned_human.shoes)
+							cleaned_human.shoes.clean_blood()
+							cleaned_human.update_inv_shoes(0,0)
+						cleaned_human.clean_blood()
+						to_chat(cleaned_human, "<span class='danger'>[src] cleans your face!</span>")
 #undef BORG_CAMERA_BUFFER
 
 /mob/living/silicon/robot/proc/self_destruct()
@@ -1245,9 +1168,8 @@ var/list/robot_verbs_default = list(
 	lockcharge = state
 	update_canmove()
 
-/mob/living/silicon/robot/proc/choose_icon(var/triesleft, var/list/module_sprites)
-
-	if(triesleft<1 || !module_sprites.len)
+/mob/living/silicon/robot/proc/choose_icon(var/triesleft, var/list/module_sprites, var/custom_icon)
+	if(triesleft < 1 || !module_sprites.len)
 		return
 	else
 		triesleft--
@@ -1257,10 +1179,15 @@ var/list/robot_verbs_default = list(
 	icontype = input("Select an icon! [triesleft ? "You have [triesleft] more chances." : "This is your last try."]", "Robot", null, null) in module_sprites
 
 	if(icontype)
-		if(icontype == "Custom")
-			icon = 'icons/mob/custom_synthetic/custom-synthetic.dmi'
+		if(custom_icon)
+			icon = custom_icon
 		else
-			icon = 'icons/mob/robots.dmi'
+			if(icontype == "Custom")
+				icon = 'icons/mob/custom_synthetic/custom-synthetic.dmi'
+			else
+				icon = 'icons/mob/robots.dmi'
+		pixel_x = module.get_standard_pixel_x_offset()
+		pixel_y = module.get_standard_pixel_y_offset()
 		icon_state = module_sprites[icontype]
 		if(icontype == "Bro")
 			module.module_type = "Brobot"
@@ -1277,7 +1204,7 @@ var/list/robot_verbs_default = list(
 	if(triesleft >= 1)
 		var/choice = input("Look at your icon - is this what you want?") in list("Yes","No")
 		if(choice=="No")
-			choose_icon(triesleft, module_sprites)
+			choose_icon(triesleft, module_sprites, custom_icon)
 			return
 		else
 			triesleft = 0
@@ -1474,3 +1401,24 @@ var/list/robot_verbs_default = list(
 		borked_part.wrapped = new borked_part.external_type
 		borked_part.heal_damage(brute,burn)
 		borked_part.install()
+
+/mob/living/silicon/robot/get_standard_pixel_x_offset()
+	return !module ? initial(pixel_x) : module.get_standard_pixel_x_offset(src)
+/mob/living/silicon/robot/get_standard_pixel_y_offset()
+	return !module ? initial(pixel_y) : module.get_standard_pixel_y_offset(src)
+
+/mob/living/silicon/robot/return_air()
+	//we always have nominal air and temperature
+	var/datum/gas_mixture/GM = new
+	GM.oxygen = MOLES_O2STANDARD
+	GM.nitrogen = MOLES_N2STANDARD
+	GM.temperature = T20C
+	return GM
+
+/mob/living/silicon/robot/handle_internal_lifeform(mob/M, breath_volume)
+	//we always have nominal air and temperature
+	var/datum/gas_mixture/GM = new
+	GM.oxygen = MOLES_O2STANDARD
+	GM.nitrogen = MOLES_N2STANDARD
+	GM.temperature = T20C
+	return GM

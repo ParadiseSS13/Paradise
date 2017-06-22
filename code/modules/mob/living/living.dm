@@ -778,9 +778,12 @@
 	gib()
 	return
 
-/atom/movable/proc/do_attack_animation(atom/A, end_pixel_y)
+/atom/movable/proc/do_attack_animation(atom/A, end_pixel_x, end_pixel_y)
 	var/pixel_x_diff = 0
 	var/pixel_y_diff = 0
+	var/final_pixel_x = initial(pixel_x)
+	if(end_pixel_x)
+		final_pixel_x = end_pixel_x
 	var/final_pixel_y = initial(pixel_y)
 	if(end_pixel_y)
 		final_pixel_y = end_pixel_y
@@ -797,12 +800,13 @@
 		pixel_x_diff = -8
 
 	animate(src, pixel_x = pixel_x + pixel_x_diff, pixel_y = pixel_y + pixel_y_diff, time = 2)
-	animate(pixel_x = initial(pixel_x), pixel_y = final_pixel_y, time = 2)
+	animate(pixel_x = final_pixel_x, pixel_y = final_pixel_y, time = 2)
 
 
 /mob/living/do_attack_animation(atom/A)
+	var/final_pixel_x = get_standard_pixel_x_offset(lying)
 	var/final_pixel_y = get_standard_pixel_y_offset(lying)
-	..(A, final_pixel_y)
+	..(A, final_pixel_x, final_pixel_y)
 	floating = 0 // If we were without gravity, the bouncing animation got stopped, so we make sure we restart the bouncing after the next movement.
 
 	// What icon do we use for the attack?
@@ -842,16 +846,20 @@
 		I.pixel_z = 16
 
 	// And animate the attack!
-	animate(I, alpha = 175, pixel_x = 0, pixel_y = 0, pixel_z = 0, time = 3)
+	animate(I, alpha = 175, pixel_x = get_standard_pixel_x_offset(), pixel_y = get_standard_pixel_y_offset(), pixel_z = 0, time = 3)
 
-/atom/movable/proc/receive_damage(atom/A)
+/atom/movable/proc/receive_damage(atom/A, pixel_x_override = null, pixel_y_override = null)
 	var/pixel_x_diff = rand(-3,3)
 	var/pixel_y_diff = rand(-3,3)
+	if(pixel_x_override == null)
+		pixel_x_override = initial(pixel_x)
+	if(pixel_y_override == null)
+		pixel_y_override = initial(pixel_y)
 	animate(src, pixel_x = pixel_x + pixel_x_diff, pixel_y = pixel_y + pixel_y_diff, time = 2)
-	animate(pixel_x = initial(pixel_x), pixel_y = initial(pixel_y), time = 2)
+	animate(pixel_x = pixel_x_override, pixel_y = pixel_y_override, time = 2)
 
-/mob/living/receive_damage(atom/A)
-	..()
+/mob/living/receive_damage(atom/A, pixel_x_override, pixel_y_override)
+	..(A, get_standard_pixel_x_offset(), get_standard_pixel_y_offset())
 	floating = 0 // If we were without gravity, the bouncing animation got stopped, so we make sure we restart the bouncing after the next movement.
 
 /mob/living/proc/do_jitter_animation(jitteriness)
@@ -859,12 +867,13 @@
 	var/pixel_x_diff = rand(-amplitude, amplitude)
 	var/pixel_y_diff = rand(-amplitude/3, amplitude/3)
 	animate(src, pixel_x = pixel_x + pixel_x_diff, pixel_y = pixel_y + pixel_y_diff , time = 2, loop = 6)
-	animate(pixel_x = initial(pixel_x) , pixel_y = initial(pixel_y) , time = 2)
+	animate(pixel_x = get_standard_pixel_x_offset(), pixel_y = get_standard_pixel_y_offset(), time = 2)
 	floating = 0 // If we were without gravity, the bouncing animation got stopped, so we make sure we restart the bouncing after the next movement.
 
-
+// This proc FUCKING SUCKS ASS
 /mob/living/proc/get_temperature(datum/gas_mixture/environment)
 	var/loc_temp = T0C
+
 	if(istype(loc, /obj/mecha))
 		var/obj/mecha/M = loc
 		loc_temp =  M.return_temperature()
@@ -874,6 +883,9 @@
 		loc_temp = S.return_temperature()
 
 	else if(istype(loc, /obj/structure/transit_tube_pod))
+		loc_temp = environment.temperature
+
+	else if(istype(loc, /obj/item/device/dogborg/sleeper))
 		loc_temp = environment.temperature
 
 	else if(istype(get_turf(src), /turf/space))
