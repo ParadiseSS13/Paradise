@@ -37,7 +37,7 @@
 	var/alreadyrunning = 0
 
 	var/list/obj/machinery/targets = list()
-	var/list/comittedcrimes = list()
+	var/list/committedcrimes = list()
 	var/list/possible_modifiers = list()
 
 
@@ -122,11 +122,11 @@
 	return 1
  ///////////////////////////////////////////////////////CRIMES AND MODIFIERS/////////////////////////////////////////////////
 
-/obj/machinery/door_timer/proc/clearstringandtime() //Updating comitted crimes
+/obj/machinery/door_timer/proc/clearstringandtime() //Updating committed crimes
 	detaineecrimes = ""//Empty the string list so we can fill it again
 	suggestedbrigtime = 0
 	timetoset = 0
-	for(var/datum/spacelaw/C in comittedcrimes)
+	for(var/datum/spacelaw/C in committedcrimes)
 		detaineecrimes += "#[C.name],	"
 		suggestedbrigtime += C.max_brig
 		if(C.maxM_brig < 2)
@@ -147,7 +147,7 @@
 			selecteddatum = new /datum/spacelaw/
 			selecteddatum.name = input(user, "Please select custom article to add for [detaineename]") as null|text
 			if(selecteddatum.name)
-				selecteddatum.max_brig = input(user, "Please select an amount to add to the brigtime of [detaineename]. The current brigtime is [suggestedbrigtime].") as num
+				selecteddatum.max_brig = input(user, "Please select an amount to add to the incarceration duration of [detaineename]. The current incarceration duration is [suggestedbrigtime].") as num
 
 		if("Space Law Categories")
 			switch(alert("Select severity of the charge", "Possible Options", "Minor", "Medium", "Major"))
@@ -165,18 +165,18 @@
 	if(!selecteddatum.name)
 		return
 	else
-		comittedcrimes.Add(selecteddatum)
+		committedcrimes.Add(selecteddatum)
 		clearstringandtime()
 		return 1
 
 /obj/machinery/door_timer/proc/remove_charge(mob/user) //Removing Charges
-	if(comittedcrimes.len)
-		var/datum/spacelaw/removecrime = input(usr, "Please select charge to remove for [detaineename]") as null|anything in comittedcrimes
+	if(committedcrimes.len)
+		var/datum/spacelaw/removecrime = input(usr, "Please select charge to remove for [detaineename]") as null|anything in committedcrimes
 		if(isnull(removecrime))
 			to_chat(user,"<span class='warning'>Please select a proper charge to remove!</span>")
 			return
 		else
-			comittedcrimes -= removecrime
+			committedcrimes -= removecrime
 			clearstringandtime()
 	else
 		to_chat(user,"<span class='warning'>No charges to remove!</span>")
@@ -250,7 +250,7 @@
 	if(stat & (NOPOWER|BROKEN))
 		return 0
 
-	comittedcrimes.Cut()
+	committedcrimes.Cut()
 	detaineecrimes = ""
 	detaineename = ""
 	suggestedbrigtime = 0

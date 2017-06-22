@@ -1,4 +1,3 @@
-
 /obj/item/device/ticket_machine
 	name = "handheld ticket dispenser"
 	desc = "A device that allows for security personnel to issue tickes for violation of Space Law."
@@ -51,7 +50,6 @@ obj/item/device/ticket_machine/New()
 /obj/item/device/ticket_machine/proc/pay_ticket(mob/user)
 	printing = 1
 	screen = 4
-	sleep(50)
 	if(linked_account)
 		if(ticketamount <= D.money)
 			playsound(src, 'sound/machines/chime.ogg', 50, 1)
@@ -100,9 +98,8 @@ obj/item/device/ticket_machine/New()
 		var/entry = {"<center><h3>Infringement Notice #[ticketid]<br></h3></center><small><b>Issued to:	</b>[ID.registered_name]<br><b>Rank:	</b>[ID.rank] <br><b>Issued at:	</b> [worldtime2text()]<br>
 					 <b>Charged with:	</b>[ticketreason]<br><b>Reason for the ticket:	</b>[ticketdescription]<br><b>Ticket Amount (Cr):	</b>[ticketamount]<br><b>Issuing Officer:</b>	[usr]</small>"}
 		to_chat(user, "Printing the log, standby...")
-		spawn(50)
 		playsound(loc, "sound/goonstation/machines/printer_dotmatrix.ogg", 50, 1)
-
+		sleep(50)
 		var/obj/item/weapon/paper/P = new /obj/item/weapon/paper(get_turf(src))
 		P.name = "Ticket [ticketid] - [ID.registered_name] at: [worldtime2text()]"
 		P.info += {"<center>[station_name()] - Security Department</center>
