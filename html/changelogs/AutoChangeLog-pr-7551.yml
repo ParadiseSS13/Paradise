@@ -1,4 +1,0 @@
-author: "Kyep"
-delete-after: True
-changes: 
-  - bugfix: "Smite/Bless commands are now restricted to Game Admins. (admins with R_EVENT)"
