@@ -10,6 +10,8 @@
 	vital = 0
 	var/non_primary = 0
 
+	germ_mod = 0.5 //curing infected internal organs should be hard, outside surgery
+
 /obj/item/organ/internal/New(var/mob/living/carbon/holder)
 	..()
 	if(istype(holder))
