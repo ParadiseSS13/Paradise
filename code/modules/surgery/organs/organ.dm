@@ -216,6 +216,7 @@ var/list/organ_cache = list()
 
 	if(germ_level < INFECTION_LEVEL_ONE)
 		germ_level = 0	//cure instantly
+		return
 	else if(germ_level < INFECTION_LEVEL_TWO)
 		germ_level -= 12 * germ_mod	//at germ_level == 500, this should cure the infection in 30 seconds, for one external infection
 	else
