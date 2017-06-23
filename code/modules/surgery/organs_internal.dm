@@ -71,6 +71,7 @@
 	var/implements_extract = list(/obj/item/weapon/hemostat = 100, /obj/item/weapon/kitchen/utensil/fork = 55)
 	var/implements_mend = list(/obj/item/stack/medical/bruise_pack = 20,/obj/item/stack/medical/bruise_pack/advanced = 100,/obj/item/stack/nanopaste = 100)
 	var/implements_clean = list(/obj/item/weapon/reagent_containers/dropper = 100,
+								/obj/item/weapon/reagent_containers/syringe = 100,
 								/obj/item/weapon/reagent_containers/glass/bottle = 75,
 								/obj/item/weapon/reagent_containers/food/drinks/drinkingglass = 70,
 								/obj/item/weapon/reagent_containers/food/drinks/bottle = 65,
@@ -129,13 +130,16 @@
 
 		for(var/obj/item/organ/internal/I in affected.internal_organs)
 			if(I)
-				if(C.reagents.total_volume < GHETTO_DISINFECT_AMOUNT)
+				if(C.reagents.total_volume <= 0) //end_step handles if there is not enough reagent
 					user.visible_message("[user] notices [tool] is empty.", \
-					"You notice [tool] is empty")
+					"You notice [tool] is empty.")
 					return 0
 
 				var/msg = "[user] starts pouring some of [tool] over [target]'s [I.name]."
 				var/self_msg = "You start pouring some of [tool] over [target]'s [I.name]."
+				if(istype(C,/obj/item/weapon/reagent_containers/syringe))
+					msg = "[user] begins injecting [tool] into [target]'s [I.name]."
+					self_msg = "You begin injecting [tool] into [target]'s [I.name]."
 				user.visible_message(msg, self_msg)
 				if(H && affected)
 					H.custom_pain("Something burns horribly in your [affected.name]!",1)
@@ -289,23 +293,34 @@
 		var/obj/item/weapon/reagent_containers/C = tool
 		var/datum/reagents/R = C.reagents
 		var/ethanol = 0 //how much alcohol is in the thing
+		var/spaceacillin = 0 //how much actual antibiotic is in the thing
 
 		if(R.reagent_list.len)
 			for(var/datum/reagent/consumable/ethanol/alcohol in R.reagent_list)
 				ethanol += alcohol.alcohol_perc * 300
 			ethanol /= R.reagent_list.len
 
+			spaceacillin = R.get_reagent_amount("spaceacillin")
+
+
 		for(var/obj/item/organ/internal/I in affected.internal_organs)
 			if(I)
 				if(R.total_volume < GHETTO_DISINFECT_AMOUNT)
-					user.visible_message("[user] notices there is not enough of [tool].", \
-					"You notice there is not enough of [tool].")
+					user.visible_message("[user] notices there is not enough in [tool].", \
+					"You notice there is not enough in [tool].")
 					return 0
 				if(I.germ_level < INFECTION_LEVEL_ONE / 2)
 					to_chat(user, "[I] does not appear to be infected.")
 				if(I.germ_level >= INFECTION_LEVEL_ONE / 2)
-					I.germ_level = max(I.germ_level-ethanol, 0)
-					user.visible_message("<span class='notice'> [user] has poured some of [tool] over [target]'s [I.name].</span>",
+					if(spaceacillin >= GHETTO_DISINFECT_AMOUNT)
+						I.germ_level = 0
+					else
+						I.germ_level = max(I.germ_level-ethanol, 0)
+					if(istype(C,/obj/item/weapon/reagent_containers/syringe))
+						user.visible_message("<span class='notice'> [user] has injected [tool] into [target]'s [I.name].</span>",
+					"<span class='notice'> You have injected [tool] into [target]'s [I.name].</span>")
+					else
+						user.visible_message("<span class='notice'> [user] has poured some of [tool] over [target]'s [I.name].</span>",
 					"<span class='notice'> You have poured some of [tool] over [target]'s [I.name].</span>")
 					R.trans_to(target, GHETTO_DISINFECT_AMOUNT)
 					R.reaction(target, INGEST)
