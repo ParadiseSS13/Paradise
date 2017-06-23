@@ -13,7 +13,6 @@ AI clicks again on the holopad to display a hologram. hologram stays as long as 
 AI can use the directional keys to move the hologram around, provided the above conditions are met and the AI in question is the holopad's master.
 Only one AI may project from a holopad at any given time.
 AI may cancel the hologram at any time by clicking on the holopad once more.
-
 Possible to do for anyone motivated enough:
 	Give an AI variable for different hologram icons.
 	Itegrate EMP effect to disable the unit.
@@ -276,16 +275,6 @@ var/list/holopads = list()
 				else
 					continue
 
-/obj/machinery/hologram/holopad/proc/clear_holo()
-//	hologram.set_light(0)//Clear lighting.	//handled by the lighting controller when its ower is deleted
-	QDEL_NULL(hologram)//Get rid of hologram.
-	if(master.holo == src)
-		master.holo = null
-	master = null//Null the master, since no-one is using it now.
-	set_light(0)			//pad lighting (hologram lighting will be handled automatically since its owner was deleted)
-	icon_state = "holopad0"
-	use_power = 1//Passive power usage.
-	return 1
 		clear_holo(master)//If is a non AI holo clear it.
 
 	if(outgoing_call)
