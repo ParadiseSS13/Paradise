@@ -70,6 +70,7 @@
 
 	// the world.time since the mob has been brigged, or -1 if not at all
 	var/brigged_since = -1
+	var/suicided = FALSE
 
 	New(var/key)
 		src.key = key
