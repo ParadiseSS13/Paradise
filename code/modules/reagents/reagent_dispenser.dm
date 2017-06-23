@@ -229,21 +229,21 @@
 	if(iswrench(W))
 		if(anchored)
 			playsound(loc, W.usesound, 100, 1)
-			user.visible_message("[user] is loosening [src]'s floor casters.", \
-								 "<span class='notice'>You are loosening [src]'s floor casters...</span>")
+			user.visible_message("[user] starts loosening [src]'s floor casters.", \
+								 "<span class='notice'>You start loosening [src]'s floor casters...</span>")
 			if(do_after(user, 40 * W.toolspeed, target = src))
 				if(!loc || !anchored)
 					return
-				user.visible_message("[user] loosened [src]'s floor casters!", \
-									 "<span class='notice'>You loosen [src]'s floor casters!</span>")
+				user.visible_message("[user] loosened [src]'s floor casters.", \
+									 "<span class='notice'>You loosen [src]'s floor casters.</span>")
 				anchored = 0
 		else
 			if(!isfloorturf(loc))
 				user.visible_message("<span class='warning'>A floor must be present to secure [src]!</span>")
 				return
 			playsound(loc, W.usesound, 100, 1)
-			user.visible_message("[user] is securing [src]'s floor casters...", \
-								 "<span class='notice'>You are securing [src]'s floor casters...</span>")
+			user.visible_message("[user] start securing [src]'s floor casters...", \
+								 "<span class='notice'>You start securing [src]'s floor casters...</span>")
 			if(do_after(user, 40 * W.toolspeed, target = src))
 				if(!loc || anchored)
 					return
