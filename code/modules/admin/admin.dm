@@ -101,10 +101,10 @@ var/global/nologevent = 0
 		<br><br>
 		[check_rights(R_ADMIN,0) ? "<A href='?_src_=holder;traitor=\ref[M]'>Traitor panel</A> | " : "" ]
 		<A href='?_src_=holder;narrateto=\ref[M]'>Narrate to</A> |
-		<A href='?_src_=holder;subtlemessage=\ref[M]'>Subtle message</A> |
-		<A href='?_src_=holder;Bless=[M.UID()]'>Bless</A> |
-		<A href='?_src_=holder;Smite=[M.UID()]'>Smite</A>
+		<A href='?_src_=holder;subtlemessage=\ref[M]'>Subtle message</A>
 	"}
+	if(check_rights(R_EVENT))
+		body += {" | <A href='?_src_=holder;Bless=[M.UID()]'>Bless</A> | <A href='?_src_=holder;Smite=[M.UID()]'>Smite</A>"}
 
 	if(M.client)
 		if(!istype(M, /mob/new_player))
