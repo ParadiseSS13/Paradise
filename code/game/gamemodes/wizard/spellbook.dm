@@ -78,8 +78,7 @@
 		if(initial(S.name) == initial(aspell.name))
 			spell_levels = aspell.spell_level
 			user.mind.spell_list.Remove(aspell)
-			qdel(S)
-			S = null
+			QDEL_NULL(S)
 			return cost * (spell_levels+1)
 	return -1
 

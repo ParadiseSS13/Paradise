@@ -453,7 +453,7 @@
 		else if(TK in user.mutations)
 			to_chat(user, "You telekinetically remove the light [fitting].")
 		else
-			if(user.a_intent == I_DISARM || user.a_intent == I_GRAB)
+			if(user.a_intent == INTENT_DISARM || user.a_intent == INTENT_GRAB)
 				to_chat(user, "You try to remove the light [fitting], but you burn your hand on it!")
 
 				var/obj/item/organ/external/affecting = H.get_organ("[user.hand ? "l" : "r" ]_hand")
@@ -696,7 +696,7 @@
 	if(!proximity) return
 	if(istype(target, /obj/machinery/light))
 		return
-	if(user.a_intent != I_HARM)
+	if(user.a_intent != INTENT_HARM)
 		return
 
 	shatter()

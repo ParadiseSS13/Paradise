@@ -421,7 +421,7 @@ BLIND     // can't see anything
 		if(!istype(H) || !istype(T))
 			return 0
 
-		if(H.m_intent == "run")
+		if(H.m_intent == MOVE_INTENT_RUN)
 			if(shoe_sound_footstep >= 2)
 				if(T.shoe_running_volume)
 					playsound(src, shoe_sound, T.shoe_running_volume, 1)

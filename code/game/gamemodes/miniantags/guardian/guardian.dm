@@ -11,7 +11,7 @@
 	icon_living = "magicOrange"
 	icon_dead = "magicOrange"
 	speed = 0
-	a_intent = I_HARM
+	a_intent = INTENT_HARM
 	stop_automated_movement = 1
 	floating = 1
 	attack_sound = 'sound/weapons/punch1.ogg'
@@ -218,7 +218,7 @@
 //Fire. Low damage, low resistance, sets mobs on fire when bumping
 
 /mob/living/simple_animal/hostile/guardian/fire
-	a_intent = I_HELP
+	a_intent = INTENT_HELP
 	melee_damage_lower = 10
 	melee_damage_upper = 10
 	attack_sound = 'sound/items/Welder.ogg'
@@ -340,7 +340,7 @@
 //Healer
 
 /mob/living/simple_animal/hostile/guardian/healer
-	a_intent = I_HARM
+	a_intent = INTENT_HARM
 	friendly = "heals"
 	speed = 0
 	melee_damage_lower = 15
@@ -362,7 +362,7 @@
 	icon_state = "seal"
 	attacktext = "slaps"
 	speak_emote = list("barks")
-	a_intent = I_HARM
+	a_intent = INTENT_HARM
 	friendly = "heals"
 	speed = 0
 	melee_damage_lower = 0
@@ -398,7 +398,7 @@
 /mob/living/simple_animal/hostile/guardian/healer/ToggleMode()
 	if(src.loc == summoner)
 		if(toggle)
-			a_intent = I_HARM
+			a_intent = INTENT_HARM
 			speed = 0
 			damage_transfer = 0.7
 			if(src.adminseal)
@@ -408,7 +408,7 @@
 			to_chat(src, "<span class='danger'><B>You switch to combat mode.</span></B>")
 			toggle = FALSE
 		else
-			a_intent = I_HELP
+			a_intent = INTENT_HELP
 			speed = 1
 			damage_transfer = 1
 			if(src.adminseal)
@@ -490,7 +490,7 @@
 	armour_penetration = 100
 
 /mob/living/simple_animal/hostile/guardian/ranged
-	a_intent = I_HELP
+	a_intent = INTENT_HELP
 	friendly = "quietly assesses"
 	melee_damage_lower = 10
 	melee_damage_upper = 10

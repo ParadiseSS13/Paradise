@@ -600,13 +600,13 @@
 				thoughts = "haunted by their own mortality"
 
 		switch(M.a_intent)
-			if(I_HELP)
+			if(INTENT_HELP)
 				to_chat(user, "<span class='notice'><b>Mood</b>: You sense benevolent thoughts from [M.name].</span>")
-			if(I_DISARM)
+			if(INTENT_DISARM)
 				to_chat(user, "<span class='notice'><b>Mood</b>: You sense cautious thoughts from [M.name].</span>")
-			if(I_GRAB)
+			if(INTENT_GRAB)
 				to_chat(user, "<span class='notice'><b>Mood</b>: You sense hostile thoughts from [M.name].</span>")
-			if(I_HARM)
+			if(INTENT_HARM)
 				to_chat(user, "<span class='notice'><b>Mood</b>: You sense cruel thoughts from [M.name].</span>")
 				for(var/mob/living/L in view(7,M))
 					if(L == M)

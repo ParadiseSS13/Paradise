@@ -89,7 +89,7 @@
 		return FALSE
 	if(cell)
 		var/mob/living/carbon/human/H = loc
-		if(H.a_intent == I_HARM)
+		if(H.a_intent == INTENT_HARM)
 			var/mob/living/carbon/C = A
 			if(cell.use(stun_cost))
 				var/datum/effect/system/spark_spread/s = new /datum/effect/system/spark_spread
