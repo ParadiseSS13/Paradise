@@ -276,6 +276,16 @@ var/list/holopads = list()
 				else
 					continue
 
+/obj/machinery/hologram/holopad/proc/clear_holo()
+//	hologram.set_light(0)//Clear lighting.	//handled by the lighting controller when its ower is deleted
+	QDEL_NULL(hologram)//Get rid of hologram.
+	if(master.holo == src)
+		master.holo = null
+	master = null//Null the master, since no-one is using it now.
+	set_light(0)			//pad lighting (hologram lighting will be handled automatically since its owner was deleted)
+	icon_state = "holopad0"
+	use_power = 1//Passive power usage.
+	return 1
 		clear_holo(master)//If is a non AI holo clear it.
 
 	if(outgoing_call)

@@ -296,8 +296,7 @@
 							var/datum/plant_gene/core/gene = disk.gene
 							gene.value = min(gene.value, max_extract_pot)
 						disk.update_name()
-						qdel(seed)
-						seed = null
+						QDEL_NULL(seed)
 						update_icon()
 				if("replace")
 					if(disk && disk.gene && istype(disk.gene, G.type) && istype(G, /datum/plant_gene/core))
