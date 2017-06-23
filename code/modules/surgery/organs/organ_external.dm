@@ -953,6 +953,8 @@ Note that amputating the affected organ does in fact remove the infection from t
 
 	status |= ORGAN_DESTROYED
 	victim.bad_external_organs -= src
+	if(status & ORGAN_SPLINTED)
+		victim.splinted_limbs -= src
 
 	for(var/implant in implants) //todo: check if this can be left alone
 		qdel(implant)
