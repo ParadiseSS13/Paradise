@@ -223,6 +223,34 @@
 	user.put_in_hands(S)
 	paper_cups--
 
+/obj/structure/reagent_dispensers/water_cooler/attackby(obj/item/weapon/W, mob/living/user, params)
+	add_fingerprint(user)
+	user.changeNext_move(CLICK_CD_MELEE)
+	if(iswrench(W))
+		if(anchored)
+			playsound(loc, W.usesound, 100, 1)
+			user.visible_message("[user] is loosening [src]'s floor casters.", \
+								 "<span class='notice'>You are loosening [src]'s floor casters...</span>")
+			if(do_after(user, 40 * W.toolspeed, target = src))
+				if(!loc || !anchored)
+					return
+				user.visible_message("[user] loosened [src]'s floor casters!", \
+									 "<span class='notice'>You loosen [src]'s floor casters!</span>")
+				anchored = 0
+		else
+			if(!isfloorturf(loc))
+				user.visible_message("<span class='warning'>A floor must be present to secure [src]!</span>")
+				return
+			playsound(loc, W.usesound, 100, 1)
+			user.visible_message("[user] is securing [src]'s floor casters...", \
+								 "<span class='notice'>You are securing [src]'s floor casters...</span>")
+			if(do_after(user, 40 * W.toolspeed, target = src))
+				if(!loc || anchored)
+					return
+				user.visible_message("[user] has secured [src]'s floor casters.", \
+									 "<span class='notice'>You have secured [src]'s floor casters.</span>")
+				anchored = 1
+
 /obj/structure/reagent_dispensers/beerkeg
 	name = "beer keg"
 	desc = "Beer is liquid bread, it's good for you..."
