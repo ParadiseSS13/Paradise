@@ -1,0 +1,4 @@
+author: "Purpose2"
+delete-after: True
+changes: 
+  - bugfix: "RCDs can no longer construct multiple airlocks on a single tile"
