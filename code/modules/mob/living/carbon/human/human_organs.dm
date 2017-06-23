@@ -21,11 +21,6 @@
 		for(var/obj/item/organ/external/Ex in bodyparts)
 			bad_external_organs |= Ex
 
-	if(splinted_limbs.len) //clean up the splinted limbs list
-		for(var/obj/item/organ/external/splinted in splinted_limbs)
-			if(!(splinted.status & ORGAN_SPLINTED))
-				splinted_limbs -= splinted
-
 	//processing internal organs is pretty cheap, do that first.
 	for(var/obj/item/organ/internal/I in internal_organs)
 		I.process()

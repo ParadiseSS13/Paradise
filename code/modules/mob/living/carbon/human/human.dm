@@ -66,6 +66,7 @@
 
 /mob/living/carbon/human/Destroy()
 	QDEL_LIST(bodyparts)
+	QDEL_LIST(splinted_limbs)
 	return ..()
 
 /mob/living/carbon/human/dummy

@@ -688,6 +688,7 @@ Note that amputating the affected organ does in fact remove the infection from t
 
 /obj/item/organ/external/proc/update_splints()
 	if(!(status & ORGAN_SPLINTED))
+		owner.splinted_limbs -= src
 		return
 	if(owner.step_count >= splinted_count + SPLINT_LIFE)
 		status &= ~ORGAN_SPLINTED //oh no, we actually need surgery now!
