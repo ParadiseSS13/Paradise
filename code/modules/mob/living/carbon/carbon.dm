@@ -881,8 +881,10 @@ var/list/ventcrawl_machinery = list(/obj/machinery/atmospherics/unary/vent_pump,
 
 /mob/living/carbon/get_standard_pixel_y_offset(lying = 0)
 	if(lying)
-		if(buckled)	return initial(pixel_y)
-		return -6
+		if(buckled)
+			return buckled.buckle_offset //tg just has this whole block removed, always returning -6. Paradise is special.
+		else
+			return -6
 	else
 		return initial(pixel_y)
 
