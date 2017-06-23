@@ -12,6 +12,7 @@
 	var/apply_method = "swallow"
 	var/transfer_efficiency = 1.0
 	var/instant_application = 0 //if we want to bypass the forcedfeed delay
+	var/taste = TRUE//whether you can taste eating from this
 	burn_state = FLAMMABLE
 
 /obj/item/weapon/reagent_containers/food/New()
