@@ -209,16 +209,7 @@ var/list/uplink_items = list()
 	reference = "RL"
 	item = /obj/item/device/rad_laser
 	cost = 5
-	job = list(
-		"Chief Medical Officer",
-		"Medical Doctor",
-		"Geneticist",
-		"Psychiatrist",
-		"Chemist",
-		"Paramedic",
-		"Coroner",
-		"Virologist",
-		"Brig Physician") // in the very rare instance that this is possible
+	job = list("Chief Medical Officer", "Medical Doctor", "Geneticist", "Psychiatrist",	"Chemist", "Paramedic", "Coroner", "Virologist")
 
 /datum/uplink_item/dangerous/cat_grenade
 	name = "Feral Cat Delivery Grenade"
@@ -276,9 +267,7 @@ var/list/uplink_items = list()
 	reference = "PG"
 	item = /obj/item/clothing/gloves/color/yellow/power
 	cost = 10
-	job = list(
-		"Station Engineer",
-		"Chief Engineer")
+	job = list("Station Engineer", "Chief Engineer")
 
 //RD
 
@@ -333,18 +322,7 @@ var/list/uplink_items = list()
 	reference = "ST"
 	item = /obj/item/weapon/reagent_containers/hypospray/autoinjector/stimulants
 	cost = 7
-	job = list(
-		"Scientist",
-		"Research Director",
-		"Geneticist",
-		"Chief Medical Officer",
-		"Medical Doctor",
-		"Psychiatrist",
-		"Chemist",
-		"Paramedic",
-		"Coroner",
-		"Virologist",
-		"Brig Physician")
+	job = list("Scientist", "Research Director", "Geneticist", "Chief Medical Officer", "Medical Doctor", "Psychiatrist", "Chemist", "Paramedic", "Coroner", "Virologist")
 
 //Tator Poison Bottles
 
@@ -354,15 +332,7 @@ var/list/uplink_items = list()
 	reference = "TPB"
 	item = /obj/item/weapon/reagent_containers/glass/bottle/traitor
 	cost = 2
-	job = list(
-		"Research Director",
-		"Chief Medical Officer",
-		"Medical Doctor",
-		"Psychiatrist",
-		"Paramedic",
-		"Virologist",
-		"Bartender",
-		"Chef")
+	job = list("Research Director", "Chief Medical Officer", "Medical Doctor", "Psychiatrist", "Paramedic", "Virologist", "Bartender", "Chef")
 
 // Paper contact poison pen
 
@@ -373,10 +343,7 @@ var/list/uplink_items = list()
 	item = /obj/item/weapon/pen/poison
 	cost = 2
 	excludefrom = list(/datum/game_mode/nuclear)
-	job = list(
-		"Head of Personnel",
-		"Quartermaster",
-		"Cargo Technician")
+	job = list("Head of Personnel", "Quartermaster", "Cargo Technician")
 
 
 // DANGEROUS WEAPONS
