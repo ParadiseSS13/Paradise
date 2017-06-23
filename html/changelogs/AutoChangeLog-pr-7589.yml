@@ -1,0 +1,4 @@
+author: "Vivalas"
+delete-after: True
+changes: 
+  - bugfix: "Buckling mobs to beds now displays them correctly."
