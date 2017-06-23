@@ -11,6 +11,7 @@
 	for(var/mob/dead/observer/M in following_mobs)
 		M.following = null
 	following_mobs = null
+	QDEL_LIST_ASSOC_VAL(tkgrabbed_objects)
 	for(var/I in tkgrabbed_objects)
 		qdel(tkgrabbed_objects[I])
 	tkgrabbed_objects = null
