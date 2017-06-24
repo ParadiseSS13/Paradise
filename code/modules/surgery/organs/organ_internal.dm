@@ -301,7 +301,6 @@
 			owner.custom_emote(1, "coughs up blood!")
 			owner.drip(10)
 		if(prob(4))
-
 			owner.custom_emote(1, "gasps for air!")
 			owner.AdjustLoseBreath(5)
 
