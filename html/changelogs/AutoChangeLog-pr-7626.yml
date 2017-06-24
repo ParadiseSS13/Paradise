@@ -1,0 +1,4 @@
+author: "SamHPurp"
+delete-after: True
+changes: 
+  - bugfix: "The Coroner will respect the CMO's Authoritah."
