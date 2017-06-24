@@ -1,0 +1,4 @@
+author: "Kyep"
+delete-after: True
+changes: 
+  - bugfix: "Activating a dust implant no longer causes NODROP items to drop."
