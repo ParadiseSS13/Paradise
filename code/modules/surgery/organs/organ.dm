@@ -218,7 +218,7 @@ var/list/organ_cache = list()
 		germ_level = 0	//cure instantly
 		return
 	else if(germ_level < INFECTION_LEVEL_TWO)
-		germ_level -= 12 * germ_mod	//at germ_level == 500, this should cure the infection in 30 seconds for external infection
+		germ_level -= 7 * germ_mod	//at germ_level == 500, this should cure the infection in 50 seconds for external infection
 	else
 		germ_level -= 4 * germ_mod	// at germ_level == 1000, this will cure the infection in 2 minute for external infection
 						// Let's not drag this on, but curing every infection in the body with 25u of spaceacillin is a bit silly.
