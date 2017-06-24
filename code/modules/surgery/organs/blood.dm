@@ -88,7 +88,7 @@
 		var/oxy_immune = species.flags & NO_BREATHE //Some species have blood, but don't breathe; they should still suffer the effects of bloodloss.
 		if(can_heartattack()) //if we have no need for a heart it doesn't affect blood volume
 			var/obj/item/organ/internal/heart/heart = get_int_organ(/obj/item/organ/internal/heart)
-			if(heart) //I'm a tinman
+			if(heart && heart.beating) //Let's not make heart attacks worse...
 				blood_volume = max(0,round(blood_volume - blood_volume * (heart.damage / (heart.max_damage * 2)))) //up tp -50% blood_volume for a totalled heart
 
 		switch(blood_volume)
