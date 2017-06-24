@@ -223,3 +223,7 @@
 /datum/gear/uniform/pants/caopants
 	display_name = "pants, camo"
 	path = /obj/item/clothing/under/pants/camo
+
+/datum/gear/uniform/sweater
+	display_name = "stylish sweater"
+	path = /obj/item/clothing/under/sweater

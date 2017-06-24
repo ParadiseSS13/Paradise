@@ -314,6 +314,13 @@
 	item_state = "lb_suit"
 	item_color = "overalls"
 
+/obj/item/clothing/under/sweater
+	name = "stylish sweater"
+	desc = "Comfortable, warm and fashionable! What more could you want?"
+	icon_state = "sweater"
+	item_state = "sweater"
+	item_color = "sweater"
+
 /obj/item/clothing/under/pirate
 	name = "pirate outfit"
 	desc = "Yarr."
