@@ -232,7 +232,6 @@ var/list/pipemenu = list(
 			if(istype(W, /obj/item/pipe) || istype(W, /obj/item/pipe_meter) || istype(W, /obj/item/pipe_gsensor) || istype(W, /obj/structure/disposalconstruct) && !W.anchored)
 				QDEL_NULL(W)
 				eaten = TRUE
-				..()
 		if(eaten)
 			to_chat(user, "<span class='notice'>[src] sucks up the loose pipes on [T].")
 			Activaterpd()
