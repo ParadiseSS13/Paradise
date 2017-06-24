@@ -181,7 +181,7 @@
 	icon_state = "nuke"
 
 /obj/structure/sign/clown
-	name = "\improper mech painting"
+	name = "\improper clown painting"
 	desc = "A painting of the clown and mime. Awwww."
 	icon_state = "clown"
 
@@ -189,6 +189,11 @@
 	name = "\improper singulo painting"
 	desc = "A mesmerizing painting of a singularity. It seems to suck you in..."
 	icon_state = "singulo"
+
+/obj/structure/sign/bob
+	name = "\improper calming painting"
+	desc = "We don't make mistakes, just happy little accidents."
+	icon_state = "bob"
 
 /obj/structure/sign/barber
 	name = "\improper barber shop sign"
