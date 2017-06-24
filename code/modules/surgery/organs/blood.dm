@@ -89,7 +89,7 @@
 		if(can_heartattack()) //if we have no need for a heart it doesn't affect blood volume
 			var/obj/item/organ/internal/heart/heart = get_int_organ(/obj/item/organ/internal/heart)
 			if(heart && heart.beating) //Let's not make heart attacks worse...
-				blood_volume = max(0,round(blood_volume - blood_volume * (heart.damage / (heart.max_damage * 2)))) //up tp -50% blood_volume for a totalled heart
+				blood_volume *= (1 - (heart.damage / (heart.max_damage * 2))) //up tp -50% blood_volume for a totalled heart
 
 		switch(blood_volume)
 			if(BLOOD_VOLUME_OKAY to BLOOD_VOLUME_SAFE)

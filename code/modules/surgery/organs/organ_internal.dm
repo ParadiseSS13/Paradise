@@ -185,7 +185,7 @@
 
 /obj/item/organ/internal/heart/necrotize()
 	..()
-	beating = FALSE
+	owner.set_heartattack(TRUE)
 
 /obj/item/organ/internal/heart/proc/Stop()
 	beating = FALSE
