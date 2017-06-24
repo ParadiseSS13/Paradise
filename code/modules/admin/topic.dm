@@ -1741,6 +1741,9 @@
 			btypes += "Heal Over Time"
 			btypes += "Permanent Regeneration"
 			btypes += "Super Powers"
+			btypes += "Scarab Guardian"
+			btypes += "Human Protector"
+			btypes += "Pet"
 		var/blessing = input(owner, "How would you like to bless [M]?", "Its good to be good...", "") as null|anything in btypes
 		if(!(blessing in btypes))
 			return
@@ -1766,6 +1769,7 @@
 				H.dna.SetSEState(REGENERATEBLOCK, 1)
 				genemutcheck(H, REGENERATEBLOCK,  null, MUTCHK_FORCED)
 				H.update_mutations()
+				H.gene_stability = 100
 				logmsg = "permanent regeneration."
 			if("Super Powers")
 				var/list/default_genes = list(REGENERATEBLOCK, NOBREATHBLOCK, COLDBLOCK)
@@ -1773,7 +1777,44 @@
 					H.dna.SetSEState(gene, 1)
 					genemutcheck(H, gene,  null, MUTCHK_FORCED)
 					H.update_mutations()
+				H.gene_stability = 100
 				logmsg = "superpowers."
+			if("Scarab Guardian")
+				var/obj/item/weapon/guardiancreator/biological/scarab = new /obj/item/weapon/guardiancreator/biological(H)
+				var/list/possible_guardians = list("Chaos", "Standard", "Ranged", "Support", "Explosive", "Random")
+				var/typechoice = input("Select Guardian Type", "Type") as null|anything in possible_guardians
+				if(isnull(typechoice))
+					return
+				if(typechoice != "Random")
+					possible_guardians -= "Random"
+					scarab.possible_guardians = list()
+					scarab.possible_guardians += typechoice
+				scarab.attack_self(H)
+				spawn(700)
+					qdel(scarab)
+				logmsg = "scarab guardian."
+			if("Pet")
+				var/pets = subtypesof(/mob/living/simple_animal/pet)
+				var/petchoice = input("Select pet type", "Pets") as null|anything in pets
+				if(isnull(petchoice))
+					return
+				var/mob/living/simple_animal/pet/P = new petchoice(H.loc)
+				var/list/mob/dead/observer/candidates = pollCandidates("Do you want to play as [P], pet of [H]?", poll_time = 100, min_hours = 10)
+				var/mob/dead/observer/theghost = null
+				if(candidates.len)
+					theghost = pick(candidates)
+					P.key = theghost.key
+					P.master_commander = H
+					spawn(30)
+						var/newname = sanitize(copytext(input(P, "You are [P], pet of [H]. Would you like to change your name to something else?", "Name change", P.name) as null|text,1,MAX_NAME_LEN))
+						if(newname && newname != P.name)
+							P.name = newname
+							if(P.mind)
+								P.mind.name = newname
+				logmsg = "pet ([P])."
+			if("Human Protector")
+				usr.client.create_eventmob_for(H, 0)
+				logmsg = "syndie protector."
 		if(logmsg)
 			log_admin("[key_name(owner)] answered [key_name(M)]'s prayer with a blessing: [logmsg]")
 			message_admins("[key_name_admin(owner)] answered [key_name_admin(M)]'s prayer with a blessing: [logmsg]")
@@ -1859,55 +1900,7 @@
 			if("Hunter")
 				logmsg = "hunter."
 				H.mutations |= NOCLONE
-				var/admin_outfits = subtypesof(/datum/outfit/admin)
-				var/hunter_outfits = list()
-				for(var/type in admin_outfits)
-					var/datum/outfit/admin/O = type
-					var/is_hunter_outfit = initial(O.is_hunter_outfit)
-					if(is_hunter_outfit)
-						hunter_outfits[initial(O.name)] = type
-				var/dresscode = input("Select hunter type", "Contract Killers") as null|anything in hunter_outfits
-				if(isnull(dresscode))
-					return
-				var/datum/outfit/O = hunter_outfits[dresscode]
-				message_admins("[key_name_admin(owner)] is sending a dark hunter ([dresscode]) to assassinate [key_name_admin(M)]...")
-				var/list/candidates = pollCandidates("Play as a murderous [dresscode]?")
-				if(!candidates.len)
-					to_chat(usr, "ERROR: Could not create dark hunter. No valid candidates.")
-					return
-				var/mob/C = pick(candidates)
-				var/key_of_hunter = C.key
-				if(!key_of_hunter)
-					to_chat(usr, "ERROR: Could not create dark hunter. Could not pick key.")
-					return
-				var/datum/mind/hunter_mind = new /datum/mind(key_of_hunter)
-				hunter_mind.active = 1
-				var/mob/living/carbon/human/hunter_mob = new /mob/living/carbon/human(pick(latejoin))
-				hunter_mind.transfer_to(hunter_mob)
-				hunter_mob.equipOutfit(O, FALSE)
-				var/obj/item/weapon/pinpointer/advpinpointer/N = new /obj/item/weapon/pinpointer/advpinpointer(hunter_mob)
-				hunter_mob.equip_to_slot_or_del(N, slot_in_backpack)
-				N.active = 1
-				N.mode = 2
-				N.target = H
-				N.point_at(N.target)
-				N.flags |= NODROP
-				if(!locate(/obj/item/weapon/implant/dust, hunter_mob))
-					var/obj/item/weapon/implant/dust/D = new /obj/item/weapon/implant/dust(hunter_mob)
-					D.implant(hunter_mob)
-				var/datum/objective/assassinate/kill_objective = new
-				kill_objective.owner = hunter_mind
-				kill_objective.target = H.mind
-				kill_objective.explanation_text = "Kill [H.real_name], the [H.mind.assigned_role]."
-				hunter_mind.objectives += kill_objective
-				ticker.mode.traitors |= hunter_mob.mind
-				to_chat(hunter_mob, "<span class='danger'>ATTENTION:</span> You are now on a mission!")
-				to_chat(hunter_mob, "<B>Goal: <span class='danger'>MURDER [H.real_name]</span>, currently in [get_area(H.loc)]. </B>");
-				to_chat(hunter_mob, "<B>If you kill them, they cannot be revived.</B>");
-				hunter_mob.mind.special_role = SPECIAL_ROLE_TRAITOR
-				var/datum/atom_hud/antag/tatorhud = huds[ANTAG_HUD_TRAITOR]
-				tatorhud.join_hud(hunter_mob)
-				ticker.mode.set_antag_hud(hunter_mob, "hudsyndicate")
+				usr.client.create_eventmob_for(H, 1)
 			if("Crew Traitor")
 				logmsg = "crew traitor."
 				var/list/possible_traitors = list()
@@ -3339,6 +3332,65 @@
 		// Refresh the page
 		src.view_flagged_books()
 
+/client/proc/create_eventmob_for(var/mob/living/carbon/human/H, var/killthem = 0)
+	if(!check_rights(R_EVENT))
+		return
+	var/admin_outfits = subtypesof(/datum/outfit/admin)
+	var/hunter_outfits = list()
+	for(var/type in admin_outfits)
+		var/datum/outfit/admin/O = type
+		var/is_hunter_outfit = initial(O.is_hunter_outfit)
+		if(is_hunter_outfit)
+			hunter_outfits[initial(O.name)] = type
+	var/dresscode = input("Select type", "Contracted Agents") as null|anything in hunter_outfits
+	if(isnull(dresscode))
+		return
+	var/datum/outfit/O = hunter_outfits[dresscode]
+	message_admins("[key_name_admin(mob)] is sending a ([dresscode]) to [killthem ? "assassinate" : "protect"] [key_name_admin(H)]...")
+	var/list/candidates = pollCandidates("Play as a [killthem ? "murderous" : "protective"] [dresscode]?")
+	if(!candidates.len)
+		to_chat(usr, "ERROR: Could not create eventmob. No valid candidates.")
+		return
+	var/mob/C = pick(candidates)
+	var/key_of_hunter = C.key
+	if(!key_of_hunter)
+		to_chat(usr, "ERROR: Could not create eventmob. Could not pick key.")
+		return
+	var/datum/mind/hunter_mind = new /datum/mind(key_of_hunter)
+	hunter_mind.active = 1
+	var/mob/living/carbon/human/hunter_mob = new /mob/living/carbon/human(pick(latejoin))
+	hunter_mind.transfer_to(hunter_mob)
+	hunter_mob.equipOutfit(O, FALSE)
+	var/obj/item/weapon/pinpointer/advpinpointer/N = new /obj/item/weapon/pinpointer/advpinpointer(hunter_mob)
+	hunter_mob.equip_to_slot_or_del(N, slot_in_backpack)
+	N.active = 1
+	N.mode = 2
+	N.target = H
+	N.point_at(N.target)
+	if(!locate(/obj/item/weapon/implant/dust, hunter_mob))
+		var/obj/item/weapon/implant/dust/D = new /obj/item/weapon/implant/dust(hunter_mob)
+		D.implant(hunter_mob)
+	if(killthem)
+		var/datum/objective/assassinate/kill_objective = new
+		kill_objective.owner = hunter_mind
+		kill_objective.target = H.mind
+		kill_objective.explanation_text = "Kill [H.real_name], the [H.mind.assigned_role]."
+		hunter_mind.objectives += kill_objective
+	else
+		var/datum/objective/protect/protect_objective = new
+		protect_objective.owner = hunter_mind
+		protect_objective.target = H.mind
+		protect_objective.explanation_text = "Protect [H.real_name], the [H.mind.assigned_role]."
+		hunter_mind.objectives += protect_objective
+	ticker.mode.traitors |= hunter_mob.mind
+	to_chat(hunter_mob, "<span class='danger'>ATTENTION:</span> You are now on a mission!")
+	to_chat(hunter_mob, "<B>Goal: <span class='danger'>[killthem ? "MURDER" : "PROTECT"] [H.real_name]</span>, currently in [get_area(H.loc)]. </B>");
+	if(killthem)
+		to_chat(hunter_mob, "<B>If you kill them, they cannot be revived.</B>");
+	hunter_mob.mind.special_role = SPECIAL_ROLE_TRAITOR
+	var/datum/atom_hud/antag/tatorhud = huds[ANTAG_HUD_TRAITOR]
+	tatorhud.join_hud(hunter_mob)
+	ticker.mode.set_antag_hud(hunter_mob, "hudsyndicate")
 
 /proc/admin_jump_link(var/atom/target)
 	if(!target) return

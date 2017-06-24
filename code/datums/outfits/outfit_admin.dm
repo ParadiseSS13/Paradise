@@ -371,6 +371,7 @@
 
 /datum/outfit/admin/pirate
 	name = "Space Pirate"
+	is_hunter_outfit = 1
 
 	uniform = /obj/item/clothing/under/pirate
 	back = /obj/item/weapon/storage/backpack/satchel
@@ -392,12 +393,14 @@
 
 /datum/outfit/admin/pirate/first_mate
 	name = "Space Pirate First Mate"
+	is_hunter_outfit = 1
 
 	glasses = /obj/item/clothing/glasses/eyepatch
 	head = /obj/item/clothing/head/bandana
 
 /datum/outfit/admin/pirate/captain
 	name = "Space Pirate Captain"
+	is_hunter_outfit = 1
 
 	suit = /obj/item/clothing/suit/pirate_black
 	head = /obj/item/clothing/head/pirate
