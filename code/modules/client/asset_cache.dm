@@ -314,7 +314,6 @@ proc/getFilesSlow(var/client/client, var/list/files, var/register_asset = TRUE)
 		if(state in list("he", "simple"))
 			for(var/D in alldirs)
 				assets["[state]-[dir2text(D)].png"] = icon('icons/obj/pipe-item.dmi', state, D)
-				continue
 		for(var/D in cardinal)
 			assets["[state]-[dir2text(D)].png"] = icon('icons/obj/pipe-item.dmi', state, D)
 	for(var/state in icon_states('icons/obj/pipes/disposal.dmi'))
@@ -327,7 +326,6 @@ proc/getFilesSlow(var/client/client, var/list/files, var/register_asset = TRUE)
 
 /datum/asset/rpd/send(client)
 	send_asset_list(client, assets, verify)
-
 
 //Mob Hunt sprites for UIs
 /datum/asset/mob_hunt
