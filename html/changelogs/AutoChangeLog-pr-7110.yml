@@ -1,5 +1,0 @@
-author: "Allfd"
-delete-after: True
-changes: 
-  - rscadd: "Ported growl and howl sounds from Goon"
-  - rscadd: "Added growl and howl emotes to Vulpkanin"
