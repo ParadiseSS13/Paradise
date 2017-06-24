@@ -140,9 +140,18 @@
 	parent_organ = "chest"
 	slot = "heart"
 	origin_tech = "biotech=5"
-	var/beating = 1
+	var/beating = TRUE
 	dead_icon = "heart-off"
 	var/icon_base = "heart"
+
+/obj/item/organ/internal/heart/on_life()
+	if(damage >= max_damage / 2) //heart problems suck
+		if(prob(2))
+			to_chat(owner, "<span class='danger'>Your heart is racing in your chest!</span>")
+		if(prob(1))
+			to_chat(owner, "<span class='danger'>Your heart feels like it is trying to bust out of your chest!</span>")
+			owner.custom_emote(1, "pants loudly.")
+			owner.Stun(1)
 
 /obj/item/organ/internal/heart/update_icon()
 	if(beating)
@@ -174,13 +183,17 @@
 	Restart()
 	..()
 
+/obj/item/organ/internal/heart/necrotize()
+	..()
+	beating = FALSE
+
 /obj/item/organ/internal/heart/proc/Stop()
-	beating = 0
+	beating = FALSE
 	update_icon()
 	return 1
 
 /obj/item/organ/internal/heart/proc/Restart()
-	beating = 1
+	beating = TRUE
 	update_icon()
 	return 1
 
@@ -288,6 +301,7 @@
 			owner.custom_emote(1, "coughs up blood!")
 			owner.drip(10)
 		if(prob(4))
+
 			owner.custom_emote(1, "gasps for air!")
 			owner.AdjustLoseBreath(5)
 
