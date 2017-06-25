@@ -304,7 +304,7 @@
 	r_headacc		= sanitize_integer(r_headacc, 0, 255, initial(r_headacc))
 	g_headacc		= sanitize_integer(g_headacc, 0, 255, initial(g_headacc))
 	b_headacc		= sanitize_integer(b_headacc, 0, 255, initial(b_headacc))
-	h_style			= sanitize_inlist(h_style, hair_styles_list, initial(h_style))
+	h_style			= sanitize_inlist(h_style, hair_styles_public_list, initial(h_style))
 	f_style			= sanitize_inlist(f_style, facial_hair_styles_list, initial(f_style))
 	for(var/marking_location in m_styles)
 		m_styles[marking_location] = sanitize_inlist(m_styles[marking_location], marking_styles_list, DEFAULT_MARKING_STYLES[marking_location])

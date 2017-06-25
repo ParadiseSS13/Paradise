@@ -936,12 +936,12 @@
 
 
 /datum/sprite_accessory/hair/fluff
+	fluff = 1
 
 /datum/sprite_accessory/hair/fluff/zeke_fluff_tentacle //Zeke Fluff hair
 	name = "Zekes Tentacles"
 	icon_state = "zeke_fluff_hair"
 	species_allowed = list("Skrell")
-	fluff = 1
 
 /*
 ///////////////////////////////////

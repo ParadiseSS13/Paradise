@@ -21,7 +21,7 @@
 
 	gender = new_gender
 
-	var/datum/sprite_accessory/hair/current_hair = hair_styles_list[H.h_style]
+	var/datum/sprite_accessory/hair/current_hair = hair_styles_public_list[H.h_style]
 	if(current_hair.gender != NEUTER && current_hair.gender != gender)
 		reset_head_hair()
 
@@ -40,7 +40,7 @@
 
 	if(!hair_style || !H || H.h_style == hair_style)
 		return
-	if(!(fluff || (hair_style in hair_styles_list)))
+	if(!(fluff || (hair_style in hair_styles_public_list)))
 		return
 
 	H.h_style = hair_style
@@ -359,8 +359,8 @@
 	if(!H)
 		return //No head, no hair.
 
-	for(var/hairstyle in hair_styles_list)
-		var/datum/sprite_accessory/S = hair_styles_list[hairstyle]
+	for(var/hairstyle in hair_styles_public_list)
+		var/datum/sprite_accessory/S = hair_styles_public_list[hairstyle]
 
 		if(hairstyle == "Bald") //Just in case.
 			valid_hairstyles += hairstyle

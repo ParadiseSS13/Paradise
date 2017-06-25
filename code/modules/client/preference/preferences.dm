@@ -337,7 +337,7 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 			dat += "<b>Hair:</b> "
 			dat += "<a href='?_src_=prefs;preference=h_style;task=input'>[h_style]</a>"
 			dat += "<a href='?_src_=prefs;preference=hair;task=input'>Color</a> [color_square(r_hair, g_hair, b_hair)]"
-			var/datum/sprite_accessory/temp_hair_style = hair_styles_list[h_style]
+			var/datum/sprite_accessory/temp_hair_style = hair_styles_public_list[h_style]
 			if(temp_hair_style && temp_hair_style.secondary_theme && !temp_hair_style.no_sec_colour)
 				dat += " <a href='?_src_=prefs;preference=secondary_hair;task=input'>Color #2</a> [color_square(r_hair_sec, g_hair_sec, b_hair_sec)]"
 			dat += "<br>"
@@ -1421,7 +1421,7 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 
 				if("secondary_hair")
 					if(species in list("Human", "Unathi", "Tajaran", "Skrell", "Machine", "Vulpkanin", "Vox"))
-						var/datum/sprite_accessory/hair_style = hair_styles_list[h_style]
+						var/datum/sprite_accessory/hair_style = hair_styles_public_list[h_style]
 						if(hair_style.secondary_theme && !hair_style.no_sec_colour)
 							var/new_hair = input(user, "Choose your character's secondary hair colour:", "Character Preference", rgb(r_hair_sec, g_hair_sec, b_hair_sec)) as color|null
 							if(new_hair)
@@ -1431,8 +1431,8 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 
 				if("h_style")
 					var/list/valid_hairstyles = list()
-					for(var/hairstyle in hair_styles_list)
-						var/datum/sprite_accessory/SA = hair_styles_list[hairstyle]
+					for(var/hairstyle in hair_styles_public_list)
+						var/datum/sprite_accessory/SA = hair_styles_public_list[hairstyle]
 
 						if(hairstyle == "Bald") //Just in case.
 							valid_hairstyles += hairstyle
@@ -1835,7 +1835,7 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 						if("Normal")
 							if(limb == "head")
 								m_styles["head"] = "None"
-								h_style = hair_styles_list["Bald"]
+								h_style = hair_styles_public_list["Bald"]
 								f_style = facial_hair_styles_list["Shaved"]
 							organ_data[limb] = null
 							rlimb_data[limb] = null
@@ -1886,7 +1886,7 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 								if(limb == "head")
 									ha_style = "None"
 									alt_head = null
-									h_style = hair_styles_list["Bald"]
+									h_style = hair_styles_public_list["Bald"]
 									f_style = facial_hair_styles_list["Shaved"]
 									m_styles["head"] = "None"
 							rlimb_data[limb] = choice
