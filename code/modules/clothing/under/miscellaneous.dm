@@ -793,8 +793,8 @@
 	name = "black victorian dress"
 	desc = "a victorian style dress, fancy!."
 	icon_state = "victorianblackdress"
-	item_state = "VictorianBlackDress"
-	item_color = "VictorianBlackDress"
+	item_state = "Victorianblackdress"
+	item_color = "Victorianblackdress"
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO
 
 /obj/item/clothing/under/victdress/red
