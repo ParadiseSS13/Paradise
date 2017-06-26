@@ -11,6 +11,7 @@
 #define MAX_PAPER_FIELDS 50
 #define MAX_BOOK_MESSAGE_LEN 9216
 #define MAX_NAME_LEN 26
+#define MAX_AI_LAW_LEN 144
 
 // Version check, terminates compilation if someone is using a version of BYOND that's too old
 #if DM_VERSION < 510

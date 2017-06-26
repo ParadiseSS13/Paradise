@@ -92,8 +92,14 @@
 	if(non_whitespace)		return text		//only accepts the text if it has some non-spaces
 
 // Used to get a sanitized input.
-/proc/stripped_input(var/mob/user, var/message = "", var/title = "", var/default = "", var/max_length=MAX_MESSAGE_LEN)
-	var/name = input(user, message, title, default)
+/proc/stripped_input(var/mob/user, var/message = "", var/title = "", var/default = "", var/max_length = MAX_MESSAGE_LEN)
+	var/name = input(user, message, title, default)//as input - default
+
+	return strip_html_properly(name, max_length)
+
+// Used to get a sanitized input, just like stripped_input(), but displays a much larger window for the message. Use for larger blocks of text.
+/proc/stripped_input_message(var/mob/user, var/message = "", var/title = "", var/default = "", var/max_length = MAX_MESSAGE_LEN)
+	var/name = input(user, message, title, default) as message
 	return strip_html_properly(name, max_length)
 
 //Filters out undesirable characters from names
@@ -541,4 +547,3 @@ proc/checkhtml(var/t)
 	text = replacetext(text, "<td>",					"\[cell\]")
 	text = replacetext(text, "<img src = ntlogo.png>",	"\[logo\]")
 	return text
-
