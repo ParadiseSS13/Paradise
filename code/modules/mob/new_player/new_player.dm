@@ -302,7 +302,9 @@
 		AnnounceArrival(character, rank, join_message)
 		callHook("latespawn", list(character))
 
-
+	var/datum/job/thisjob = job_master.GetJob(rank)
+	if(!thisjob.is_position_available() && thisjob in job_master.prioritized_jobs)
+		job_master.prioritized_jobs -= thisjob
 	qdel(src)
 
 
