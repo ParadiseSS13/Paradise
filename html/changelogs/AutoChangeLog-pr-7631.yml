@@ -1,0 +1,5 @@
+author: "Kyep"
+delete-after: True
+changes: 
+  - rscadd: "Playing as a drone now requires 10h of playtime."
+  - bugfix: "Admin-ghosts can now interact with (ie: activate) the drone fab without having to spawn in as engineer to do so."
