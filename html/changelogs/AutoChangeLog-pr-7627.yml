@@ -1,0 +1,4 @@
+author: "Kyep"
+delete-after: True
+changes: 
+  - rscadd: "ID card consoles can now be used to prioritize any on-station job, including head jobs and karma jobs."
