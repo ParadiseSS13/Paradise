@@ -1,4 +1,0 @@
-author: "Kyep"
-delete-after: True
-changes: 
-  - bugfix: "Prioritized jobs now lose their priority status once all their slots are filled. In the event someone with a formerly prioritized job cryos, the HoP may want to re-prioritize the job."
