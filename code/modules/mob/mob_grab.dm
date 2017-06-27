@@ -408,7 +408,7 @@
 	if(ishuman(attacker) && (/datum/dna/gene/basic/grant_spell/mattereater in attacker.active_genes)) // MATTER EATER CARES NOT OF YOUR FORM
 		return 1
 
-	if(ishuman(attacker) && (FAT in attacker.mutations) && iscarbon(prey) && !isalien(prey)) //Fat people eating carbon mobs but not xenos
+	if(ishuman(attacker) && (FAT in attacker.mutations) && iscarbon(prey) && issmall(prey) && !issmall(attacker)) //Fat people eating monkeys
 		return 1
 
 	if(isalien(attacker) && iscarbon(prey)) //Xenomorphs eating carbon mobs
