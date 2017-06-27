@@ -373,8 +373,8 @@
 	color = "#FF83A5"
 
 /datum/reagent/love/on_mob_life(mob/living/M)
-	if(M.a_intent == I_HARM)
-		M.a_intent = I_HELP
+	if(M.a_intent == INTENT_HARM)
+		M.a_intent = INTENT_HELP
 
 	if(prob(8))
 		var/lovely_phrase = pick("appreciated", "loved", "pretty good", "really nice", "pretty happy with yourself, even though things haven't always gone as well as they could")

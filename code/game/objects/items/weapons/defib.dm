@@ -319,7 +319,7 @@
 		to_chat(user, "<span class='notice'>The instructions on [defib] don't mention how to revive that...</span>")
 		return
 	else
-		if(user.a_intent == I_HARM && !defib.safety)
+		if(user.a_intent == INTENT_HARM && !defib.safety)
 			busy = 1
 			H.visible_message("<span class='danger'>[user] has touched [H.name] with [src]!</span>", \
 					"<span class='userdanger'>[user] has touched [H.name] with [src]!</span>")
@@ -349,8 +349,7 @@
 				H.key = ghost.key
 				log_runtime(EXCEPTION("Ghost of name [ghost.name] is bound to [H.real_name], but lacks a client. Deleting ghost."), src)
 
-				qdel(ghost)
-				ghost = null
+				QDEL_NULL(ghost)
 			var/tplus = world.time - H.timeofdeath
 			var/tlimit = 1800 //past this much time the patient is unrecoverable (in deciseconds)
 			var/tloss = 600 //brain damage starts setting in on the patient after some time left rotting
@@ -461,7 +460,7 @@
 		to_chat(user, "<span class='notice'>This unit is only designed to work on humanoid lifeforms.</span>")
 		return
 	else
-		if(user.a_intent == I_HARM  && !safety)
+		if(user.a_intent == INTENT_HARM  && !safety)
 			busy = 1
 			H.visible_message("<span class='danger'>[user] has touched [H.name] with [src]!</span>", \
 					"<span class='userdanger'>[user] has touched [H.name] with [src]!</span>")
@@ -495,8 +494,7 @@
 				H.key = ghost.key
 				log_runtime(EXCEPTION("Ghost of name [ghost.name] is bound to [H.real_name], but lacks a client. Deleting ghost."), H)
 
-				qdel(ghost)
-				ghost = null
+				QDEL_NULL(ghost)
 			var/tplus = world.time - H.timeofdeath
 			var/tlimit = 1800 //past this much time the patient is unrecoverable (in deciseconds)
 			var/tloss = 600 //brain damage starts setting in on the patient after some time left rotting

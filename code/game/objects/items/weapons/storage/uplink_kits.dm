@@ -216,3 +216,13 @@
 		B.deity_name = "Success"
 		B.icon_state = "greentext"
 		B.item_state = "greentext"
+
+
+/obj/item/weapon/storage/box/syndie_kit/cutouts
+	name = "Fortified Artistic Box"
+
+/obj/item/weapon/storage/box/syndie_kit/cutouts/New()
+	..()
+	for(var/i in 1 to 3)
+		new/obj/item/cardboard_cutout/adaptive(src)
+	new/obj/item/toy/crayon/spraycan(src)

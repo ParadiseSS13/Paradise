@@ -1,0 +1,4 @@
+author: "Alexshreds"
+delete-after: True
+changes: 
+  - tweak: "EMPs now disable radios for a period of time"

@@ -898,7 +898,7 @@
 	desc = "Allows for the construction of CH-PD Disabler."
 	id = "mech_laser"
 	build_type = MECHFAB
-	req_tech = list("combat" = 3, "magnets" = 3)
+	req_tech = list("combat" = 3)
 	build_path = /obj/item/mecha_parts/mecha_equipment/weapon/energy/laser/disabler
 	materials = list(MAT_METAL=10000)
 	construction_time = 100
@@ -977,7 +977,7 @@
 	build_type = MECHFAB
 	req_tech = list("combat" = 6, "magnets" = 5, "materials" = 5)
 	build_path = /obj/item/mecha_parts/mecha_equipment/weapon/energy/tesla
-	materials = list(MAT_METAL = 10000, MAT_GLASS = 10000, MAT_SILVER = 10000)
+	materials = list(MAT_METAL=20000,MAT_SILVER=8000)
 	construction_time = 100
 	category = list("Exosuit Equipment")
 
@@ -986,9 +986,9 @@
 	desc = "Allows for the construction of ZFI Immolation Beam Gun."
 	id = "mech_tesla"
 	build_type = MECHFAB
-	req_tech = list("combat" = 4, "materials" = 4, "plasmatech" = 2, "magnets" = 3)
+	req_tech = list("combat" = 6, "magnets" = 5, "materials" = 5)
 	build_path = /obj/item/mecha_parts/mecha_equipment/weapon/energy/immolator
-	materials = list(MAT_METAL = 4000, MAT_GLASS = 1000, MAT_SILVER = 3000, MAT_PLASMA = 2000)
+	materials = list(MAT_METAL = 10000, MAT_SILVER = 8000, MAT_PLASMA = 8000)
 	construction_time = 100
 	category = list("Exosuit Equipment")
 

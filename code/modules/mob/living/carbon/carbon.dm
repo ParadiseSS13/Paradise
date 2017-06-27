@@ -34,9 +34,9 @@
 	if(.)
 		if(nutrition && stat != DEAD)
 			nutrition -= hunger_drain / 10
-			if(m_intent == "run")
+			if(m_intent == MOVE_INTENT_RUN)
 				nutrition -= hunger_drain / 10
-		if((FAT in mutations) && m_intent == "run" && bodytemperature <= 360)
+		if((FAT in mutations) && m_intent == MOVE_INTENT_RUN && bodytemperature <= 360)
 			bodytemperature += 2
 
 		// Moving around increases germ_level faster
@@ -535,17 +535,18 @@ var/list/ventcrawl_machinery = list(/obj/machinery/atmospherics/unary/vent_pump,
 	return
 
 /mob/living/carbon/throw_item(atom/target)
-	throw_mode_off()
-	if(!target || !isturf(loc))
-		return
-	if(istype(target, /obj/screen))
+	if(!target || !isturf(loc) || istype(target, /obj/screen))
+		throw_mode_off()
 		return
 
-	var/atom/movable/thrown_thing
 	var/obj/item/I = src.get_active_hand()
 
-	if(!I || (I.flags & NODROP))
+	if(!I || I.override_throw(src, target) || (I.flags & NODROP))
+		throw_mode_off()
 		return
+
+	throw_mode_off()
+	var/atom/movable/thrown_thing
 
 	if(istype(I, /obj/item/weapon/grab))
 		var/obj/item/weapon/grab/G = I
@@ -881,8 +882,10 @@ var/list/ventcrawl_machinery = list(/obj/machinery/atmospherics/unary/vent_pump,
 
 /mob/living/carbon/get_standard_pixel_y_offset(lying = 0)
 	if(lying)
-		if(buckled)	return initial(pixel_y)
-		return -6
+		if(buckled)
+			return buckled.buckle_offset //tg just has this whole block removed, always returning -6. Paradise is special.
+		else
+			return -6
 	else
 		return initial(pixel_y)
 
@@ -936,7 +939,7 @@ var/list/ventcrawl_machinery = list(/obj/machinery/atmospherics/unary/vent_pump,
 
 
 /mob/living/carbon/proc/slip(var/description, var/stun, var/weaken, var/tilesSlipped, var/walkSafely, var/slipAny)
-	if(flying || buckled || (walkSafely && m_intent == "walk"))
+	if(flying || buckled || (walkSafely && m_intent == MOVE_INTENT_WALK))
 		return 0
 	if((lying) && (!(tilesSlipped)))
 		return 0
@@ -949,7 +952,7 @@ var/list/ventcrawl_machinery = list(/obj/machinery/atmospherics/unary/vent_pump,
 		for(var/t = 0, t<=tilesSlipped, t++)
 			spawn (t) step(src, src.dir)
 	stop_pulling()
-	to_chat(src, "<span class='notice'>You slipped on the [description]!</span>")
+	to_chat(src, "<span class='notice'>You slipped on [description]!</span>")
 	playsound(src.loc, 'sound/misc/slip.ogg', 50, 1, -3)
 	if(stun)
 		Stun(stun)
