@@ -21,6 +21,7 @@
 	var/follow = 0					 // Applies to HIVEMIND languages - should a follow link be included for dead mobs?
 	var/english_names = 0			 // Do we want English names by default, no matter what?
 	var/list/scramble_cache = list()
+	var/species = list()			// Choosable by the Species in the list if it's restricted to species usage.
 
 /datum/language/proc/get_random_name(gender, name_count=2, syllable_count=4)
 	if(!syllables || !syllables.len || english_names)
@@ -182,6 +183,14 @@
 		new_name += ..(gender,1)
 	return new_name
 
+/datum/language/tajaran/semi
+	name = "Siik'Maas"
+	desc = "A subtype of Siik'tajr, heavily based on tail movements that was used during the Tajaran rebellion."
+	signlang_verb = list("uses their tail to convey", "gestures with their tail", "gestures with their tail elaborately")
+	flags = NONVERBAL | RACERESTRICTED
+	key = "jn"
+	species = list("Tajaran")
+
 /datum/language/vulpkanin
 	name = "Canilunzt"
 	desc = "The guttural language spoken and utilized by the inhabitants of Vazzend system, composed of growls, barks, yaps, and heavy utilization of ears and tail movements.Vulpkanin speak this language with ease."
@@ -219,6 +228,14 @@
 	syllables = list("ti","ti","ti","hi","hi","ki","ki","ki","ki","ya","ta","ha","ka","ya", "yi", "chi","cha","kah", \
 	"SKRE","AHK","EHK","RAWK","KRA","AAA","EEE","KI","II","KRI","KA")
 
+	/datum/language/vox/semi
+		name = "Vox-apgin"
+		desc = "A more elaborate variante of Vox-pidgin, using a short range psyonic ability, similar origin as the latent abilities of Vox Apex"
+		signlang_verb = list("holds their temples", "seems to focus on something")
+		flags = NONVERBAL | RACERESTRICTED | WHITELISTED
+		key = "vn"
+		species = list("Vox", "Vox Armalis")
+
 /datum/language/vox/get_random_name()
 	return ..(FEMALE,1,6)
 
@@ -232,6 +249,14 @@
 	key = "q"
 	flags = RESTRICTED
 	syllables = list("hs","zt","kr","st","sh")
+
+/datum/language/diona/semi
+	name = "Rootsong"
+	desc = "A Rootspeak dialect, using floral aroma to convey an even deeper meaning to the creaking, subvocal sound generated to communicate."
+	signlang_verb = list("gives off an interesting odour", "smells flowery")
+	flags = NONVERBAL | RACERESTRICTED
+	key = "qn"
+	species = list("Diona")
 
 /datum/language/diona/get_random_name()
 	var/new_name = "[pick(list("To Sleep Beneath","Wind Over","Embrace of","Dreams of","Witnessing","To Walk Beneath","Approaching the"))]"
@@ -248,6 +273,14 @@
 	key = "5"
 	flags = RESTRICTED | WHITELISTED
 	syllables = list("02011","01222","10100","10210","21012","02011","21200","1002","2001","0002","0012","0012","000","120","121","201","220","10","11","0")
+
+/datum/language/trinary/semi
+	name = "Trinary Stream"
+	desc = "A modification of trinary to include visual signals to raise the ammount of data transfered during talk, resulting in less conversation time and more time used for work."
+	signlang_verb = list("rapidly flickers their display", "illuminates in different colours")
+	flags = NONVERBAL | RACERESTRICTED | WHITELISTED
+	key = "5n"
+	species = list("Machine")
 
 /datum/language/trinary/get_random_name()
 	var/new_name
@@ -267,6 +300,14 @@
 	key = "4"
 	flags = RESTRICTED | WHITELISTED
 	syllables = list("click","clack")
+
+/datum/language/kidan/semi
+	name = "Glowtin"
+	desc = "A dialect of Chittin spoken by Kidan which posses bioluminescent tissue."
+	signlang_verb = list("blinks their bioluminescence", "changes their luminosity repeatently")
+	flags = NONVERBAL | RACERESTRICTED | WHITELISTED
+	key = "4n"
+	species = list("Kidan")
 
 /datum/language/slime
 	name = "Bubblish"

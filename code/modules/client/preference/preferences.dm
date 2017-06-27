@@ -1363,7 +1363,7 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 						speciesprefs = 0 //My Vox tank shouldn't change how my future Grey talks.
 
 						body_accessory = null //no vulptail on humans damnit
-
+						language = "None"			//equally, no species specific language on the wrong species.
 						//Reset prosthetics.
 						organ_data = list()
 						rlimb_data = list()
@@ -1390,7 +1390,10 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 					for(var/L in all_languages)
 						var/datum/language/lang = all_languages[L]
 						if(!(lang.flags & RESTRICTED))
-							new_languages += lang.name
+							if(!(lang.flags & RACERESTRICTED))
+								new_languages += lang.name
+							else if(species in lang.species)
+								new_languages += lang.name
 
 					language = input("Please select a secondary language", "Character Generation", null) in new_languages
 
