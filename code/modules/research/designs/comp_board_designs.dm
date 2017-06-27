@@ -142,6 +142,26 @@
 	build_path = /obj/item/weapon/circuitboard/card
 	category = list("Computer Boards")
 
+/datum/design/idcardconsole/ce
+	name = "Console Board (ID Computer - CE Access)"
+	id = "idcardconsolece"
+	build_path = /obj/item/weapon/circuitboard/card/minor/ce
+
+/datum/design/idcardconsole/rd
+	name = "Console Board (ID Computer - RD Access)"
+	id = "idcardconsolerd"
+	build_path = /obj/item/weapon/circuitboard/card/minor/rd
+
+/datum/design/idcardconsole/hos
+	name = "Console Board (ID Computer - HoS Access)"
+	id = "idcardconsolehos"
+	build_path = /obj/item/weapon/circuitboard/card/minor/hos
+
+/datum/design/idcardconsole/cmo
+	name = "Console Board (ID Computer - CMO Access)"
+	id = "idcardconsolecmo"
+	build_path = /obj/item/weapon/circuitboard/card/minor/cmo
+
 /datum/design/mechapower
 	name = "Console Board (Mech Bay Power Control Console)"
 	desc = "Allows for the construction of circuit boards used to build a mech bay power control console."
