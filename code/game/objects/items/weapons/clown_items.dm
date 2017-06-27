@@ -68,6 +68,12 @@
 	var/honk_sound = 'sound/items/bikehorn.ogg'
 	var/cooldowntime = 20
 
+/obj/item/weapon/bikehorn/syndie
+	desc = "Guaranteed to make you the subject of a Doctor Doctor joke."
+	attack_verb = list("VIOLENTLY HONKED", "VICIOUSLY MOCKED")
+	origin_tech = "combat=3;syndicate=1"
+	force = 25
+
 /obj/item/weapon/bikehorn/attack(mob/living/carbon/M, mob/living/carbon/user)
 	if(!spam_flag)
 		playsound(loc, honk_sound, 50, 1, -1) //plays instead of tap.ogg!

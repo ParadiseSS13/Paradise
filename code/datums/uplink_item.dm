@@ -128,6 +128,14 @@ var/list/uplink_items = list()
 	cost = 5
 	job = list("Clown")
 
+/datum/uplink_item/jobspecific/syndie_horn
+	name = "Supersonic Bike Horn"
+	desc = "You must always honk the crew, and not through inaction allow the crew to escape honks. A useful but noisy melee weapon for when your jokes need an edge."
+	reference = "SH"
+	item = /obj/item/weapon/bikehorn/syndie
+	cost = 5
+	job = list("Clown")
+
 //mime
 /datum/uplink_item/job_specific/caneshotgun
 	name = "Cane Shotgun + Assassination Darts"
