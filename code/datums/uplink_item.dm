@@ -1088,6 +1088,7 @@ var/list/uplink_items = list()
 	reference = "SNGB"
 	item = /obj/item/device/radio/beacon/syndicate
 	cost = 14
+	surplus = 0
 
 /datum/uplink_item/device_tools/syndicate_bomb
 	name = "Syndicate Bomb"
