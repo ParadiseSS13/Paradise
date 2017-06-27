@@ -1,6 +1,0 @@
-author: "Kyep"
-delete-after: True
-changes: 
-  - rscadd: "Admins may now spawn 'Gimmick' teams, including Janitorial ERT, Paranormal ERT, and more. Any admin outfit, any mission, spawned anywhere."
-  - rscadd: "Paranormal ERT outfit now exists. It acts like a red security ERT, except with focus on fighting paranormal threats."
-  - bugfix: "Janitorial ERT now gets ERT headset, not centcom headset. Also, they now get a survival box, and a flashlight."
