@@ -1,0 +1,5 @@
+author: "Kyep"
+delete-after: True
+changes: 
+  - rscadd: "Gamma ship now looks like a real supply pod/ship, doesn't encourage wizards/vampires to hide in it, and has been updated with a wall-mounted charger and smarter layout."
+  - bugfix: "Fixed a bug causing gamma armory mech recharger to be unusable after gamma alert was declared."
