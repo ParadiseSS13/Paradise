@@ -1,5 +1,0 @@
-author: "Fox McCloud"
-delete-after: True
-changes: 
-  - rscadd: "Can now augment all non-head limbs with surgery"
-  - rscadd: "Can select the company design of a limb by using a robot part in your hands"
