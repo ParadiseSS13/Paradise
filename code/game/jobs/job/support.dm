@@ -9,7 +9,7 @@
 	supervisors = "the head of personnel"
 	department_head = list("Head of Personnel")
 	selection_color = "#dddddd"
-	access = list(access_hydroponics, access_bar, access_kitchen, access_morgue, access_weapons, access_mineral_storeroom)
+	access = list(access_hydroponics, access_bar, access_kitchen, access_weapons, access_mineral_storeroom)
 	minimal_access = list(access_bar, access_maint_tunnels, access_weapons, access_mineral_storeroom)
 	outfit = /datum/outfit/job/bartender
 
