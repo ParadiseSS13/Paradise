@@ -193,6 +193,8 @@
 
 /obj/item/organ/external/head/remove()
 	if(owner)
+		if(owner.buckled && owner.noosed)
+			owner.buckled.unbuckle_mob(owner,force=1)
 		if(!istype(dna))
 			dna = owner.dna.Clone()
 		name = "[dna.real_name]'s head"
