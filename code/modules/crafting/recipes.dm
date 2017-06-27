@@ -330,3 +330,14 @@
 	reqs = list(/obj/item/weapon/grown/log = 5)
 	result = /obj/structure/bonfire
 	category = CAT_PRIMAL
+
+/datum/crafting_recipe/hobnails
+	name = "Hobnails"
+	result = /obj/item/weapon/hobnails
+	time = 20
+	reqs = list(/obj/item/stack/rods = 2,
+				/obj/item/stack/sheet/metal = 1)
+	tools = list(/obj/item/weapon/weldingtool,
+				/obj/item/weapon/wrench,
+				/obj/item/weapon/wirecutters)
+	category = CAT_MISC

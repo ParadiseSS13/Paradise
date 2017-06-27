@@ -59,6 +59,8 @@ var/global/default_martial_art = new/datum/martial_art
 
 	var/name_override //For temporary visible name changes
 
+	var/laststomped = 0 //For stomping unfortunate souls
+
 	var/xylophone = 0 //For the spoooooooky xylophone cooldown
 
 	var/mob/remoteview_target = null
