@@ -32,6 +32,8 @@ var/list/organ_cache = list()
 	var/sterile = 0 //can the organ be infected by germs?
 	var/tough = 0 //can organ be easily damaged?
 
+	var/germ_mod = 1 //modifier for antibiotic's effects on this organ
+
 /obj/item/organ/Destroy()
 	processing_objects.Remove(src)
 	if(owner)
@@ -214,11 +216,12 @@ var/list/organ_cache = list()
 
 	if(germ_level < INFECTION_LEVEL_ONE)
 		germ_level = 0	//cure instantly
+		return
 	else if(germ_level < INFECTION_LEVEL_TWO)
-		germ_level -= 24	//at germ_level == 500, this should cure the infection in 15 seconds
+		germ_level -= 7 * germ_mod	//at germ_level == 500, this should cure the infection in 50 seconds for external infection
 	else
-		germ_level -= 8	// at germ_level == 1000, this will cure the infection in 1 minute, 15 seconds
-						// Let's not drag this on, medbay has only so much antibiotics
+		germ_level -= 4 * germ_mod	// at germ_level == 1000, this will cure the infection in 2 minute for external infection
+						// Let's not drag this on, but curing every infection in the body with 25u of spaceacillin is a bit silly.
 
 //Adds autopsy data for used_weapon.
 /obj/item/organ/proc/add_autopsy_data(var/used_weapon, var/damage)
