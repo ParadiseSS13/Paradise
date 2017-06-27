@@ -852,7 +852,6 @@ Note that amputating the affected organ does in fact remove the infection from t
 	status &= ~ORGAN_BROKEN
 	return 1
 
-// I put these two next to each other to highlight that both exist. This should likely be resolved.
 /obj/item/organ/external/robotize(company, make_tough = 0, convert_all = 1)
 	..()
 	//robot limbs take reduced damage

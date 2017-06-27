@@ -9,6 +9,8 @@
 		var/obj/item/organ/external/affected = H.get_organ(user.zone_sel.selecting)
 		if(!affected)
 			return 0
+		if(affected.status & ORGAN_BROKEN) //The arm has to be in prime condition to augment it.
+			return 0
 		if(affected.status & ORGAN_ROBOT)
 			return 0
 		return 1
