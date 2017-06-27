@@ -493,6 +493,16 @@
 	armor = list(melee = 30, bullet = 15, laser = 30, energy = 10, bomb = 10, bio = 100, rad = 50)
 	allowed = list(/obj/item/weapon/gun,/obj/item/device/flashlight,/obj/item/weapon/tank,/obj/item/weapon/melee/baton,/obj/item/weapon/reagent_containers/spray/pepper,/obj/item/ammo_box,/obj/item/ammo_casing,/obj/item/weapon/restraints/handcuffs)
 
+/obj/item/clothing/head/helmet/space/hardsuit/security/pod
+	name = "pod pilot hardsuit helmet"
+	desc = "A special helmet designed for work in a hazardous, low pressure environment. Has an additional layer of armor. This one was made for a pilot."
+	icon_state = "hardsuit0-pod"
+	item_color = "pod"
+
+/obj/item/clothing/suit/space/hardsuit/security/pod
+	icon_state = "hardsuit-pod"
+	name = "pod pilot hardsuit"
+	desc = "A special suit that protects against hazardous, low pressure environments. Has an additional layer of armor.This one was made for a pilot."
 
 //Atmospherics hardsuit (BS12)
 /obj/item/clothing/head/helmet/space/hardsuit/atmos

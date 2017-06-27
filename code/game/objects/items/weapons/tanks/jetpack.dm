@@ -109,6 +109,12 @@
 	..()
 	air_contents.oxygen = (6*ONE_ATMOSPHERE)*volume/(R_IDEAL_GAS_EQUATION*T20C)
 
+/obj/item/weapon/tank/jetpack/oxygen/red
+	name = "Security Jetpack (Oxygen)"
+	desc = "A tank of compressed oxygen for use as propulsion in zero-gravity areas. This one has been painted red. Use with caution."
+	icon_state = "jetpack-red"
+	item_state = "jetpack-red"
+
 /obj/item/weapon/tank/jetpack/oxygen/harness
 	name = "jet harness (oxygen)"
 	desc = "A lightweight tactical harness, used by those who don't want to be weighed down by traditional jetpacks."
