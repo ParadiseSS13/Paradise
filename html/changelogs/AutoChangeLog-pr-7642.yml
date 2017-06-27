@@ -1,0 +1,4 @@
+author: "ProperPants"
+delete-after: True
+changes: 
+  - rscadd: "Plasmaman virologists now spawn with a medical plasmasuit instead of an assistant one."
