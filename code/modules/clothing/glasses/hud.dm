@@ -141,6 +141,24 @@
 		"Vox" = 'icons/mob/species/vox/eyes.dmi'
 		)
 
+/obj/item/clothing/glasses/hud/security/sunglasses/noir
+	name = "noir sunglasses"
+	desc = "Somehow these seem even more out-of-date than normal sunglasses. It comes with a built in security heads-up display"
+	icon_state = "sun"
+	item_state = "sunglasses"
+	actions_types = list(/datum/action/item_action/noir)
+
+/obj/item/clothing/glasses/hud/security/sunglasses/noir/attack_self()
+	toggle_noir()
+
+/obj/item/clothing/glasses/hud/security/sunglasses/noir/item_action_slot_check(slot)
+	if(slot == slot_glasses)
+		return 1
+
+/obj/item/clothing/glasses/hud/security/sunglasses/noir/proc/toggle_noir()
+	color_view = color_view ? null : MATRIX_GREYSCALE //Toggles between null and grayscale, with null being the default option.
+	usr.update_client_colour()
+
 /obj/item/clothing/glasses/hud/hydroponic/night
 	name = "Night Vision Hydroponic HUD"
 	desc = "A hydroponic HUD fitted with a light amplifier."
