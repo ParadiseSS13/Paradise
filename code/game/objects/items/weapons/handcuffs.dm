@@ -104,6 +104,10 @@
 /obj/item/weapon/restraints/handcuffs/cable/white
 	color = COLOR_WHITE
 
+/obj/item/weapon/restraints/handcuffs/cable/random/New()
+	color = pick(COLOR_RED, COLOR_BLUE, COLOR_GREEN, COLOR_WHITE, COLOR_PINK, COLOR_YELLOW, COLOR_CYAN)
+	..()
+
 /obj/item/weapon/restraints/handcuffs/alien
 	icon_state = "handcuffAlien"
 

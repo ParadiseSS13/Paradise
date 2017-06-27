@@ -147,6 +147,29 @@
 	colour = "#DA00FF"
 	colourName = "purple"
 
+/obj/item/toy/crayon/random/New()
+	icon_state = pick(list("crayonred", "crayonorange", "crayonyellow", "crayongreen", "crayonblue", "crayonpurple"))
+	switch(icon_state)
+		if("crayonred")
+			colour = "#DA0000"
+			colourName = "red"
+		if("crayonorange")
+			colour = "#FF9300"
+			colourName = "orange"
+		if("crayonyellow")
+			colour = "#FFF200"
+			colourName = "yellow"
+		if("crayongreen")
+			colour = "#A8E61D"
+			colourName = "green"
+		if("crayonblue")
+			colour = "#00B7EF"
+			colourName = "blue"
+		if("crayonpurple")
+			colour = "#DA00FF"
+			colourName = "purple"
+	..()
+
 /obj/item/toy/crayon/white
 	icon_state = "crayonwhite"
 	colour = "#FFFFFF"

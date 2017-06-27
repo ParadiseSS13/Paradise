@@ -1,7 +1,0 @@
-author: "Crazylemon64"
-delete-after: True
-changes: 
-  - rscadd: "TK can now manipulate adjacent tiles. Use throw mode to override this if you want to move an object a single tile."
-  - rscadd: "TK can now remotely manipulate item stacks."
-  - rscadd: "TK can now remotely operate an RCD"
-  - bugfix: "TK now behaves more consistently regarding interacting with various objects remotely"
