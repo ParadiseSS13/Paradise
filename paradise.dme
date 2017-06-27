@@ -1047,6 +1047,7 @@
 #include "code\modules\admin\verbs\dice.dm"
 #include "code\modules\admin\verbs\freeze.dm"
 #include "code\modules\admin\verbs\getlogs.dm"
+#include "code\modules\admin\verbs\gimmick_team.dm"
 #include "code\modules\admin\verbs\honksquad.dm"
 #include "code\modules\admin\verbs\infiltratorteam_syndicate.dm"
 #include "code\modules\admin\verbs\map_template_loadverb.dm"
