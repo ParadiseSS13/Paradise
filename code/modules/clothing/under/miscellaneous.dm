@@ -787,3 +787,38 @@
 	lefthand_file = 'icons/goonstation/mob/inhands/clothing_lefthand.dmi'
 	righthand_file = 'icons/goonstation/mob/inhands/clothing_righthand.dmi'
 	flags = NODROP
+
+
+/obj/item/clothing/under/victdress
+	name = "black victorian dress"
+	desc = "a victorian style dress, fancy!."
+	icon_state = "victorianblackdress"
+	item_state = "Victorianblackdress"
+	item_color = "Victorianblackdress"
+	body_parts_covered = UPPER_TORSO|LOWER_TORSO
+
+/obj/item/clothing/under/victdress/red
+	name = "red victorian dress"
+	icon_state = "victorianreddress"
+	item_state = "victorianreddress"
+	item_color = "victorianreddress"
+
+/obj/item/clothing/under/victsuit
+	name = "victorian suit"
+	desc = "a victorian style suit, fancy!."
+	icon_state = "victorianvest"
+	item_state = "victorianvest"
+	item_color = "victorianvest"
+	body_parts_covered = UPPER_TORSO|LOWER_TORSO
+
+/obj/item/clothing/under/victsuit/redblk
+	name = "red and black victorian suit"
+	icon_state = "victorianblred"
+	item_state = "victorianblred"
+	item_color = "victorianblred"
+
+/obj/item/clothing/under/victsuit/red
+	name = "red victorian suit"
+	icon_state = "victorianredvest"
+	item_state = "victorianredvest"
+	item_color = "victorianredvest"
