@@ -99,13 +99,13 @@
 
 	if(arm_item)
 		if(!owner.unEquip(arm_item))
-			owner << "<span class='warning'>Your [arm_item] interferes with [src]!</span>"
+			to_chat(owner, "<span class='warning'>Your [arm_item] interferes with [src]!</span>")
 			return
 		else
-			owner << "<span class='notice'>You drop [arm_item] to activate [src]!</span>"
+			to_chat(owner, "<span class='notice'>You drop [arm_item] to activate [src]!</span>")
 
 	if(parent_organ == "r_arm" ? !owner.put_in_r_hand(holder) : !owner.put_in_l_hand(holder))
-		owner << "<span class='warning'>Your [src] fails to activate!</span>"
+		to_chat(owner, "<span class='warning'>Your [src] fails to activate!</span>")
 		return
 
 	// Activate the hand that now holds our item.
