@@ -952,13 +952,13 @@
 
 /obj/item/clothing/suit/tailcoat
 	name = "victorian tailcoat"
-	desc = "a fancy victorian tailcoat."
+	desc = "A fancy victorian tailcoat."
 	icon_state = "tailcoat"
 	item_state = "tailcoat"
 
 /obj/item/clothing/suit/victcoat
 	name = "ladies victorian coat"
-	desc = "a fancy victorian coat."
+	desc = "A fancy victorian coat."
 	icon_state = "ladiesvictoriancoat"
 	item_state = "ladiesvictoriancoat"
 
