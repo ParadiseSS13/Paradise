@@ -269,7 +269,7 @@
 	construction_time = 35
 	materials = list(MAT_METAL = 600, MAT_GLASS = 250)
 	build_path = /obj/item/organ/internal/cyberimp/mouth/breathing_tube
-	category = list("Misc", "Medical Designs")
+	category = list("Misc", "Medical")
 
 /datum/design/cyberimp_toolset
 	name = "Toolset Arm Implant"
@@ -280,7 +280,7 @@
 	materials = list (MAT_METAL = 2500, MAT_GLASS = 1500, MAT_SILVER = 1500)
 	construction_time = 200
 	build_path = /obj/item/organ/internal/cyberimp/arm/toolset
-	category = list("Misc", "Medical Designs")
+	ccategory = list("Misc", "Medical")
 
 /datum/design/cyberimp_medical_hud
 	name = "Medical HUD implant"
