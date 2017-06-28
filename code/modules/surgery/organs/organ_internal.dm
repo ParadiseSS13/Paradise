@@ -5,7 +5,6 @@
 	force = 1
 	w_class = WEIGHT_CLASS_SMALL
 	throwforce = 0
-	var/zone = "chest"
 	var/slot
 	// DO NOT add slots with matching names to different zones - it will break internal_organs_slot list!
 	vital = 0

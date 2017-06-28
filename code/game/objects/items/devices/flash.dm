@@ -201,4 +201,37 @@
 	icon_state = "memorizer"
 	item_state = "nullrod"
 
+/obj/item/device/flash/armimplant
+	name = "photon projector"
+	desc = "A high-powered photon projector implant normally used for lighting purposes, but also doubles as a flashbulb weapon. Self-repair protocals fix the flashbulb if it ever burns out."
+	var/flashcd = 20
+	var/overheat = 0
+	var/obj/item/organ/internal/cyberimp/arm/flash/I = null
+
+/obj/item/device/flash/armimplant/Destroy()
+	I = null
+	return ..()
+
+/obj/item/device/flash/armimplant/burn_out()
+	if(I && I.owner)
+		to_chat(I.owner, "<span class='warning'>Your photon projector implant overheats and deactivates!</span>")
+		I.Retract()
+	overheat = FALSE
+	addtimer(src, "cooldown", flashcd * 2)
+
+/obj/item/device/flash/armimplant/try_use_flash(mob/user = null)
+	if(overheat)
+		if(I && I.owner)
+			to_chat(I.owner, "<span class='warning'>Your photon projector is running too hot to be used again so quickly!</span>")
+		return FALSE
+	overheat = TRUE
+	addtimer(src, "cooldown", flashcd)
+	playsound(src.loc, 'sound/weapons/flash.ogg', 100, 1)
+	update_icon(1)
+	return TRUE
+
+/obj/item/device/flash/armimplant/proc/cooldown()
+	overheat = FALSE
+
+
 /obj/item/device/flash/synthetic //just a regular flash now
