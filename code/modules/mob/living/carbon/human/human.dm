@@ -428,7 +428,7 @@
 
 /mob/living/carbon/human/show_inv(mob/user)
 	user.set_machine(src)
-	var/has_breathable_mask = istype(wear_mask, /obj/item/clothing/mask)
+	var/has_breathable_mask = istype(wear_mask, /obj/item/clothing/mask) || get_organ_slot("breathing_tube")
 	var/list/obscured = check_obscured_slots()
 
 	var/dat = {"<table>

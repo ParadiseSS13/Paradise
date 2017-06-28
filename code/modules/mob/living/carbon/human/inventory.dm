@@ -151,7 +151,7 @@
 			update_hair()	//rebuild hair
 			update_fhair()
 			update_head_accessory()
-		if(internal)
+		if(internal && !get_organ_slot("breathing_tube"))
 			internal = null
 			update_internals_hud_icon(0)
 		wear_mask_update(I, toggle_off = FALSE)

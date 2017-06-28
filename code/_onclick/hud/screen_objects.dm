@@ -108,11 +108,12 @@
 		icon_state = "internal0"
 	else
 		var/no_mask = FALSE
-		if(!C.wear_mask || !(C.wear_mask.flags & AIRTIGHT))
-			if(ishuman(C))
-				var/mob/living/carbon/human/H = C
-				if(!H.head || !(H.head.flags & AIRTIGHT))
-					no_mask = TRUE
+		if(!C.get_organ_slot("breathing_tube"))
+			if(!C.wear_mask || !(C.wear_mask.flags & AIRTIGHT))
+				if(ishuman(C))
+					var/mob/living/carbon/human/H = C
+					if(!H.head || !(H.head.flags & AIRTIGHT))
+						no_mask = TRUE
 
 		if(no_mask)
 			to_chat(C, "<span class='notice'>You are not wearing a suitable mask or helmet.</span>")

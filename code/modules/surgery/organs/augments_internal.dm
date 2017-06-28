@@ -144,6 +144,24 @@
 	spawn(90 / severity)
 		crit_fail = 0
 
+
+//[[[[MOUTH]]]]
+/obj/item/organ/internal/cyberimp/mouth
+	parent_organ = "mouth"
+
+/obj/item/organ/internal/cyberimp/mouth/breathing_tube
+	name = "breathing tube implant"
+	desc = "This simple implant adds an internals connector to your back, allowing you to use internals without a mask and protecting you from being choked."
+	icon_state = "implant_mask"
+	slot = "breathing_tube"
+	w_class = WEIGHT_CLASS_TINY
+	origin_tech = "materials=2;biotech=3"
+
+/obj/item/organ/internal/cyberimp/mouth/breathing_tube/emp_act(severity)
+	if(prob(60/severity) && owner)
+		to_chat(owner, "<span class='warning'>Your breathing tube suddenly closes!</span>")
+		owner.AdjustLoseBreath(2)
+
 /obj/item/organ/internal/cyberimp/brain/clown_voice
 	name = "Comical implant"
 	desc = "<span class='sans'>Uh oh.</span>"
