@@ -280,7 +280,7 @@
 	materials = list (MAT_METAL = 2500, MAT_GLASS = 1500, MAT_SILVER = 1500)
 	construction_time = 200
 	build_path = /obj/item/organ/internal/cyberimp/arm/toolset
-	ccategory = list("Misc", "Medical")
+	category = list("Misc", "Medical")
 
 /datum/design/cyberimp_medical_hud
 	name = "Medical HUD implant"
