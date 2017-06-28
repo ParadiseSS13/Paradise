@@ -1,6 +1,6 @@
 // This is for Travis testing. DO NOT SET THIS AS THE GAME'S MAP NORMALLY!
 
-#if !defined(MAP_FILE)
+#if !defined(USING_MAP_DATUM)
 	#include "map_files\RandomZLevels\beach.dmm"
 	#include "map_files\RandomZLevels\moonoutpost19.dmm"
 	#include "map_files\RandomZLevels\undergroundoutpost45.dmm"
@@ -12,9 +12,9 @@
 
 	#include "map_files\RandomZLevels\evil_santa.dmm"
 
-	#define MAP_FILE "beach.dmm"
-	#define MAP_NAME "Away Missions Test"
 	#define MAP_TRANSITION_CONFIG list(AWAY_MISSION = UNAFFECTED, AWAY_MISSION = UNAFFECTED, AWAY_MISSION = UNAFFECTED, AWAY_MISSION = UNAFFECTED, AWAY_MISSION = UNAFFECTED, AWAY_MISSION = UNAFFECTED, AWAY_MISSION = UNAFFECTED, AWAY_MISSION = UNAFFECTED, AWAY_MISSION = UNAFFECTED, AWAY_MISSION = UNAFFECTED)
+
+	#define USING_MAP_DATUM /datum/map
 
 #elif !defined(MAP_OVERRIDE)
 	#warn a map has already been included.

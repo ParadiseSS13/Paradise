@@ -119,6 +119,11 @@
 						FA.overlays.Cut()
 						FA.overlays += image('icons/obj/monitors.dmi', "overlay_delta")
 
+		if(level >= SEC_LEVEL_RED)
+			atc.reroute_traffic(yes = TRUE) // Tell them fuck off we're busy.
+		else
+			atc.reroute_traffic(yes = FALSE)
+
 	else
 		return
 
