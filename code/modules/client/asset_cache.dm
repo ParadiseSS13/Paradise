@@ -302,6 +302,31 @@ proc/getFilesSlow(var/client/client, var/list/files, var/register_asset = TRUE)
 	send_asset_list(client, assets, verify)
 
 
+//Pipe sprites for UIs
+/datum/asset/rpd
+	var/assets = list()
+	var/verify = FALSE
+
+/datum/asset/rpd/register()
+	for(var/state in icon_states('icons/obj/pipe-item.dmi'))
+		if(!(state in list("cap", "connector", "dtvalve", "dual-port vent", "dvalve", "filter", "he", "heunary", "injector", "junction", "manifold", "mixer", "tvalve", "mvalve", "passive vent", "passivegate", "pump", "scrubber", "simple", "universal", "uvent", "volumepump"))) //Basically all the pipes we want sprites for
+			continue
+		if(state in list("he", "simple"))
+			for(var/D in alldirs)
+				assets["[state]-[dir2text(D)].png"] = icon('icons/obj/pipe-item.dmi', state, D)
+		for(var/D in cardinal)
+			assets["[state]-[dir2text(D)].png"] = icon('icons/obj/pipe-item.dmi', state, D)
+	for(var/state in icon_states('icons/obj/pipes/disposal.dmi'))
+		if(!(state in list("conpipe-c", "conpipe-j1", "conpipe-s", "conpipe-t", "conpipe-y", "intake", "outlet"))) //Pipes we want sprites for
+			continue
+		for(var/D in cardinal)
+			assets["[state]-[dir2text(D)].png"] = icon('icons/obj/pipes/disposal.dmi', state, D)
+	for(var/asset_name in assets)
+		register_asset(asset_name, assets[asset_name])
+
+/datum/asset/rpd/send(client)
+	send_asset_list(client, assets, verify)
+
 //Mob Hunt sprites for UIs
 /datum/asset/mob_hunt
 	var/assets = list()

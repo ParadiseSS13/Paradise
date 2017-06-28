@@ -200,3 +200,5 @@
 	var/list/actions = list()
 
 	var/list/progressbars = null	//for stacking do_after bars
+
+	var/list/tkgrabbed_objects = list() // Assoc list of items to TK grabs
