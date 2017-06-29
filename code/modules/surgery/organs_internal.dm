@@ -68,7 +68,7 @@
 /datum/surgery_step/internal/manipulate_organs
 	name = "manipulate organs"
 	allowed_tools = list(/obj/item/organ/internal = 100, /obj/item/weapon/reagent_containers/food/snacks/organ = 0)
-	var/implements_extract = list(/obj/item/weapon/hemostat = 100, /obj/item/weapon/kitchen/utensil/fork = 55)
+	var/implements_extract = list(/obj/item/weapon/hemostat = 100, /obj/item/weapon/wirecutters = 75, /obj/item/weapon/kitchen/utensil/fork = 55)
 	var/implements_mend = list(/obj/item/stack/medical/bruise_pack = 20,/obj/item/stack/medical/bruise_pack/advanced = 100,/obj/item/stack/nanopaste = 100)
 	var/implements_clean = list(/obj/item/weapon/reagent_containers/dropper = 100,
 								/obj/item/weapon/reagent_containers/glass/bottle = 75,
