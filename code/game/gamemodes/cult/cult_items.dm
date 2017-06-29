@@ -34,7 +34,7 @@
 		user.Dizzy(120)
 
 	if(HULK in user.mutations)
-		to_chat(user, "<span class='danger'>\"you can't seem to hold the blade properly!.\"</span>")
+		to_chat(user, "<span class='danger'>\"you can't seem to hold the blade properly!\"</span>")
 		user.unEquip(src, 1)
 
 
@@ -50,6 +50,17 @@
 
 /obj/item/weapon/melee/cultblade/dagger/afterattack(mob/living/target as mob, mob/living/carbon/human/user as mob)
 	..()
+	if(!iscultist(user))
+		user.Weaken(5)
+		user.unEquip(src, 1)
+		user.visible_message("<span class='warning'>A powerful force shoves [user] away from [target]!</span>", \
+							 "<span class='cultlarge'>\"You shouldn't play with sharp things. You'll poke someone's eye out.\"</span>")
+		if(ishuman(user))
+			var/mob/living/carbon/human/H = user
+			H.apply_damage(rand(force/2, force), BRUTE, pick("l_arm", "r_arm"))
+		else
+			user.adjustBruteLoss(rand(force/2,force))
+
 	var/mob/living/carbon/human/bleeder = target
 	if(!(cooldown > world.time) && ((bleeder.stat != DEAD) && !(bleeder.species.flags & NO_BLOOD)))
 		user.visible_message("<span class='danger'>The runes on the blade absorb the blood of [target]!</span>")
@@ -386,7 +397,7 @@
 	name = "plasmaman cultist helmet"
 	icon_state = "plasmamanCult_helmet0"
 	base_state = "plasmamanCult_helmet"
-	desc = "A containment suit designed by the followers of Nar-Sie. It glows menacingly with unearthly flames."
+	desc = "A helmet designed by the followers of Nar-Sie. It glows menacingly with unearthly flames."
 	armor = list(melee = 60, bullet = 50, laser = 30,energy = 15, bomb = 30, bio = 30, rad = 30)
 
 /datum/outfit/ghost_cultist

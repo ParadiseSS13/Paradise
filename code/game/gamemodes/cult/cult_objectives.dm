@@ -135,9 +135,9 @@
 
 	switch(last_objective)
 		if("harvest")
-			explanation = "[ticker.mode.cultdat.entity_title1] hungers for thier first meal of this never-ending day. Offer them [harvest_target] humans in sacrifice."
+			explanation = "[ticker.mode.cultdat.entity_title1] hungers for their first meal of this never-ending day. Offer them [harvest_target] humans in sacrifice."
 		if("hijack")
-			explanation = "[ticker.mode.cultdat.entity_name] wishes for thier troops to start the assault on Centcom immediately. Hijack the escape shuttle and don't let a single non-cultist board it."
+			explanation = "[ticker.mode.cultdat.entity_name] wishes for their troops to start the assault on Centcom immediately. Hijack the escape shuttle and don't let a single non-cultist board it."
 		if("massacre")
 			explanation = "[ticker.mode.cultdat.entity_name] wants to watch you as you massacre the remaining humans on the station (until less than [massacre_target] humans are left alive)."
 
