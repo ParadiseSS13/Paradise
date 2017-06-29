@@ -352,7 +352,7 @@
 	allowed_tools = list(
 	/obj/item/weapon/scalpel/laser/manager = 100, \
 	/obj/item/weapon/hemostat = 100,	\
-	/obj/item/stack/cable_coil = 75, 	\
+	/obj/item/weapon/wirecutters = 75, 	\
 	/obj/item/device/assembly/mousetrap = 20
 	)
 	var/obj/item/organ/external/L = null
