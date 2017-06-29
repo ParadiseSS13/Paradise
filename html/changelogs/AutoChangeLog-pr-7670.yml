@@ -1,7 +1,0 @@
-author: "Kluys"
-delete-after: True
-changes: 
-  - rscadd: "Bob ross painting in the captains office called \"calming painting\".
-
-Also changes around the entertainment monitor and light switch to accomodate."
-  - bugfix: "Clown painting was named \"\\improper mech painting\""
