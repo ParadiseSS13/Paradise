@@ -5,4 +5,4 @@
 # Ranks can be anything defined in admin_ranks.txt           	     #
 ######################################################################
 
-# example - Admin
+# example - Hosting Provider

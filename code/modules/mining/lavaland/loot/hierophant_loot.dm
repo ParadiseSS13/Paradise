@@ -52,7 +52,7 @@
 		friendly_fire_check = !friendly_fire_check
 		to_chat(user, "<span class='warning'>You toggle friendly fire [friendly_fire_check ? "off":"on"]!</span>")
 		return
-	if(user.get_active_hand() != src && user.get_inactive_hand() != src) //you need to hold the staff to teleport
+	if(user.is_in_active_hand(src) && user.is_in_inactive_hand(src)) //you need to hold the staff to teleport
 		to_chat(user, "<span class='warning'>You need to hold the staff in your hands to [rune ? "teleport with it" : "create a rune"]!</span>")
 		return
 	if(!rune)
