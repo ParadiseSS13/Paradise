@@ -268,6 +268,17 @@
 	flags = RESTRICTED | WHITELISTED
 	syllables = list("click","clack")
 
+/datum/language/moth
+	name = "Gypsikin"
+	desc = "The noise made by rubbing its furry antennae together is actually a complex form of communication for Kidan."
+	speech_verb = "rubs its antennae together"
+	ask_verb = "rubs its antennae together"
+	exclaim_verb = "rubs its antennae together"
+	colour = "kidan"
+	key = "m"
+	flags = RESTRICTED | WHITELISTED
+	syllables = list("buzzes","flutters")
+
 /datum/language/slime
 	name = "Bubblish"
 	desc = "The language of slimes. It's a mixture of bubbling noises and pops. Very difficult to speak without mechanical aid for humans."

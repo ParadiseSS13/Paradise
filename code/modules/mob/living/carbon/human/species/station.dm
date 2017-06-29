@@ -517,6 +517,61 @@
 		"is cracking their exoskeleton!",
 		"is stabbing themselves with their mandibles!",
 		"is holding their breath!")
+
+/datum/species/moth
+	name = "Lymantria"
+	name_plural = "Lymantrias"
+	icobase = 'icons/mob/human_races/r_moth.dmi'
+	deform = 'icons/mob/human_races/r_def_moth.dmi'
+	path = /mob/living/carbon/human/kidan
+	default_language = "Galactic Common"
+	language = "Gypsikin"
+	unarmed_type = /datum/unarmed_attack/claws
+	tail = "mothwings"
+
+	brute_mod = 0.9
+
+	clothing_flags = HAS_UNDERWEAR | HAS_UNDERSHIRT | HAS_SOCKS
+	bodyflags = FEET_CLAWS | HAS_HEAD_ACCESSORY | HAS_SKIN_COLOR | HAS_BODY_MARKINGS | HAS_TAIL | HAS_TAIL_MARKINGS | TAIL_OVERLAPPED
+	eyes = "moth_eyes_s"
+	dietflags = DIET_HERB
+	blood_color = "#ffff00"
+	reagent_tag = PROCESS_ORG
+	butt_sprite = "kidan" //need to replace this when we get a buttsprite for them
+	default_headacc = "Moth Antennae"
+
+	has_organ = list(
+		"heart" =    /obj/item/organ/internal/heart,
+		"lungs" =    /obj/item/organ/internal/lungs,
+		"liver" =    /obj/item/organ/internal/liver,
+		"kidneys" =  /obj/item/organ/internal/kidneys,
+		"brain" =    /obj/item/organ/internal/brain,
+		"appendix" = /obj/item/organ/internal/appendix,
+		"eyes" =     /obj/item/organ/internal/eyes,
+		)
+
+	suicide_messages = list(
+		"is jamming their claws into their eye sockets!",
+		"is twisting their own neck!",
+		"is cracking their exoskeleton!",
+		"is holding their breath!")
+
+/datum/species/moth/handle_life(var/mob/living/carbon/human/H)
+
+	var/light_amount = 0 //how much light there is in the place, affects receiving nutrition and healing
+	if(isturf(H.loc)) //else, there's considered to be no light
+		var/turf/T = H.loc
+		light_amount = min(T.get_lumcount() * 10, 5)  //hardcapped so it's not abused by having a ton of flashlights
+
+
+	if((light_amount >= 5) && !H.suiciding) //if there's enough light, heal
+		slowdown = 0
+		H.clear_alert("nolight")
+	else
+		slowdown = 3
+		H.throw_alert("nolight", /obj/screen/alert/nolight)
+
+
 /datum/species/slime
 	name = "Slime People"
 	name_plural = "Slime People"

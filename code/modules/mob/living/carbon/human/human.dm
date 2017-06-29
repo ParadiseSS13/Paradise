@@ -96,6 +96,9 @@
 /mob/living/carbon/human/kidan/New(var/new_loc)
 	..(new_loc, "Kidan")
 
+/mob/living/carbon/human/moth/New(var/new_loc)
+	..(new_loc, "Lymantria")
+
 /mob/living/carbon/human/plasma/New(var/new_loc)
 	..(new_loc, "Plasmaman")
 

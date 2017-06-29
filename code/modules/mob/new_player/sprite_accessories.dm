@@ -566,7 +566,7 @@
 	name = "Unathi Side Frills"
 	icon_state = "unathi_sidefrills"
 	secondary_theme = "webbing"
-	
+
 /datum/sprite_accessory/hair/unathi/una_cobra_hood
     icon = 'icons/mob/human_face.dmi'
     name = "Unathi Cobra Hood"
@@ -1982,6 +1982,15 @@
 	name = "Moth Antennae"
 	icon_state = "kidan_moth"
 
+/datum/sprite_accessory/head_accessory/moth
+	icon = 'icons/mob/human_face.dmi'
+	species_allowed = list("Lymantria")
+	over_hair = 1
+	do_colouration = 1
+
+/datum/sprite_accessory/head_accessory/moth/antennae
+	name = "Moth Antennae"
+	icon_state = "moth_antennae"
 
 /* BODY MARKINGS */
 
@@ -2003,6 +2012,13 @@
 
 /datum/sprite_accessory/body_markings/kidan
 	species_allowed = list("Kidan")
+
+/datum/sprite_accessory/body_markings/moth
+	species_allowed = list("Lymantria")
+
+/datum/sprite_accessory/body_markings/moth/fluff
+	name = "Fluff"
+	icon_state = "markings_mothfluff"
 
 /datum/sprite_accessory/body_markings/kidan/outline_kid
 	name = "Kidan Outline"
@@ -2344,6 +2360,13 @@
 /datum/sprite_accessory/body_markings/tail/vox/vox_stripe
 	name = "Vox Tail Stripe"
 	icon_state = "markings_voxtail_stripe"
+
+/datum/sprite_accessory/body_markings/tail/moth
+	species_allowed = list("Lymantria")
+
+/datum/sprite_accessory/body_markings/tail/moth/wing
+	name = "Moth Wings"
+	icon_state = "markings_mothwings"
 
 /datum/sprite_accessory/body_markings/tail/vulpkanin
 	species_allowed = list("Vulpkanin")
