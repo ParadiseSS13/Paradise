@@ -531,9 +531,6 @@
 	tail = "mothwings"
 
 
-
-	brute_mod = 0.9
-
 	clothing_flags = HAS_UNDERWEAR | HAS_UNDERSHIRT | HAS_SOCKS
 	bodyflags = FEET_CLAWS | HAS_HEAD_ACCESSORY | HAS_SKIN_COLOR | HAS_BODY_MARKINGS | HAS_TAIL | HAS_TAIL_MARKINGS
 	eyes = "moth_eyes_s"
@@ -561,15 +558,18 @@
 
 /datum/species/moth/handle_life(var/mob/living/carbon/human/H)
 
-	var/light_amount = 0 //how much light there is in the place, affects receiving nutrition and healing
+	var/light_amount = 0 //how much light there is in the place
 	if(isturf(H.loc)) //else, there's considered to be no light
 		var/turf/T = H.loc
 		light_amount = min(T.get_lumcount() * 10, 5)  //hardcapped so it's not abused by having a ton of flashlights
 
 
-	if((light_amount >= 5) && !H.suiciding) //if there's enough light, heal
+	if(light_amount >= 5) //if there's enough light, heal
 		slowdown = 0
 		H.clear_alert("nolight")
+	else if (light_amount >= 3)
+		slowdown = (5-light_amount)
+		H.throw_alert("nolight", /obj/screen/alert/nolight)
 	else
 		slowdown = 3
 		H.throw_alert("nolight", /obj/screen/alert/nolight)

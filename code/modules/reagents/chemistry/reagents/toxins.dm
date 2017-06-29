@@ -971,7 +971,7 @@
 			C.adjustToxLoss(2)
 		if(ishuman(M))
 			var/mob/living/carbon/human/H = M
-			if(H.get_species() == "Kidan") //RIP
+			if(H.get_species() == "Kidan" | H.get_species() == "Lymantria") //RIP
 				H.adjustToxLoss(20)
 
 /datum/reagent/capulettium

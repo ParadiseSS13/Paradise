@@ -270,13 +270,13 @@
 
 /datum/language/moth
 	name = "Gypsikin"
-	desc = "The noise made by rubbing its furry antennae together is actually a complex form of communication for Kidan."
-	speech_verb = "rubs its antennae together"
-	ask_verb = "rubs its antennae together"
-	exclaim_verb = "rubs its antennae together"
-	colour = "kidan"
+	desc = "The noise made vibrating air inside hollow chanbers."
+	speech_verb = "buzzes"
+	ask_verb = "buzzes"
+	exclaim_verb = "buzzes loudly"
+	colour = "moth"
 	key = "m"
-	flags = RESTRICTED | WHITELISTED
+	flags = RESTRICTED
 	syllables = list("buzzes","flutters")
 
 /datum/language/slime
