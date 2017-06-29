@@ -36,6 +36,23 @@
 /obj/item/stack/attack_self(mob/user)
 	list_recipes(user)
 
+/obj/item/stack/attack_self_tk(mob/user)
+	list_recipes(user)
+
+/obj/item/stack/attack_tk(mob/user)
+	if(user.stat || !isturf(loc)) return
+	// Allow remote stack splitting, because telekinetic inventory managing
+	// is really cool
+	if(src in user.tkgrabbed_objects)
+		var/obj/item/stack/F = split(user, 1)
+		F.attack_tk(user)
+		if(src && user.machine == src)
+			spawn(0)
+				interact(user)
+	else
+		..()
+
+
 /obj/item/stack/proc/list_recipes(mob/user, recipes_sublist)
 	if(!recipes)
 		return
@@ -107,7 +124,7 @@
 
 /obj/item/stack/Topic(href, href_list)
 	..()
-	if(usr.incapacitated() || usr.get_active_hand() != src)
+	if(usr.incapacitated() || !usr.is_in_active_hand(src))
 		return 0
 
 	if(href_list["sublist"] && !href_list["make"])
@@ -124,6 +141,7 @@
 
 		var/datum/stack_recipe/R = recipes_list[text2num(href_list["make"])]
 		var/multiplier = text2num(href_list["multiplier"])
+		var/atom/creation_loc = (loc == usr) ? usr.loc : loc
 		if(!multiplier)
 			multiplier = 1
 
@@ -134,11 +152,11 @@
 				to_chat(usr, "<span class='warning'>You haven't got enough [src] to build \the [R.title]!</span>")
 			return 0
 
-		if(R.one_per_turf && (locate(R.result_type) in usr.loc))
+		if(R.one_per_turf && (locate(R.result_type) in creation_loc))
 			to_chat(usr, "<span class='warning'>There is another [R.title] here!</span>")
 			return 0
 
-		if(R.on_floor && !istype(usr.loc, /turf/simulated))
+		if(R.on_floor && !istype(creation_loc, /turf/simulated))
 			to_chat(usr, "<span class='warning'>\The [R.title] must be constructed on the floor!</span>")
 			return 0
 
@@ -150,7 +168,7 @@
 		if(amount < R.req_amount * multiplier)
 			return
 
-		var/atom/O = new R.result_type(usr.loc)
+		var/atom/O = new R.result_type(creation_loc)
 		O.dir = usr.dir
 		if(R.max_res_amount > 1)
 			var/obj/item/stack/new_item = O
@@ -215,7 +233,7 @@
 	return max_amount
 
 /obj/item/stack/proc/split(mob/user, amt)
-	var/obj/item/stack/F = new type(user, amt)
+	var/obj/item/stack/F = new type(loc, amt)
 	F.copy_evidences(src)
 	if(isliving(user))
 		add_fingerprint(user)
@@ -224,7 +242,7 @@
 	return F
 
 /obj/item/stack/attack_hand(mob/user)
-	if(user.get_inactive_hand() == src)
+	if(user.is_in_inactive_hand(src))
 		var/obj/item/stack/F = split(user, 1)
 		user.put_in_hands(F)
 		if(src && usr.machine == src)
@@ -241,7 +259,7 @@
 			return 1
 
 		var/to_transfer
-		if(user.get_inactive_hand() == src)
+		if(user.is_in_inactive_hand(src))
 			var/desired = input("How much would you like to transfer from this stack?", "How much?", 1) as null|num
 			if(!desired)
 				return

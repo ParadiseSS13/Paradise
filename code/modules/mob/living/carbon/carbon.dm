@@ -535,17 +535,18 @@ var/list/ventcrawl_machinery = list(/obj/machinery/atmospherics/unary/vent_pump,
 	return
 
 /mob/living/carbon/throw_item(atom/target)
-	throw_mode_off()
-	if(!target || !isturf(loc))
-		return
-	if(istype(target, /obj/screen))
+	if(!target || !isturf(loc) || istype(target, /obj/screen))
+		throw_mode_off()
 		return
 
-	var/atom/movable/thrown_thing
 	var/obj/item/I = src.get_active_hand()
 
-	if(!I || (I.flags & NODROP))
+	if(!I || I.override_throw(src, target) || (I.flags & NODROP))
+		throw_mode_off()
 		return
+
+	throw_mode_off()
+	var/atom/movable/thrown_thing
 
 	if(istype(I, /obj/item/weapon/grab))
 		var/obj/item/weapon/grab/G = I
@@ -881,8 +882,10 @@ var/list/ventcrawl_machinery = list(/obj/machinery/atmospherics/unary/vent_pump,
 
 /mob/living/carbon/get_standard_pixel_y_offset(lying = 0)
 	if(lying)
-		if(buckled)	return initial(pixel_y)
-		return -6
+		if(buckled)
+			return buckled.buckle_offset //tg just has this whole block removed, always returning -6. Paradise is special.
+		else
+			return -6
 	else
 		return initial(pixel_y)
 
