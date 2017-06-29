@@ -362,6 +362,7 @@ var/global/list/damage_icon_parts = list()
 /mob/living/carbon/human/proc/update_markings(var/update_icons=1)
 	//Reset our markings.
 	overlays_standing[MARKINGS_LAYER]	= null
+	overlays_standing[FLUFF_LAYER]	= null
 
 	//Base icon.
 	var/icon/markings_standing	= new/icon('icons/mob/body_accessory.dmi',"accessory_none_s")
@@ -386,8 +387,10 @@ var/global/list/damage_icon_parts = list()
 			if(head_marking_style.do_colouration)
 				h_marking_s.Blend(m_colours["head"], ICON_ADD)
 			markings_standing.Blend(h_marking_s, ICON_OVERLAY)
-
-	overlays_standing[MARKINGS_LAYER]	= image(markings_standing)
+	if(species.name == "Lymantria")
+		overlays_standing[FLUFF_LAYER]	= image(markings_standing)
+	else
+		overlays_standing[MARKINGS_LAYER]	= image(markings_standing)
 
 	if(update_icons)   update_icons()
 
@@ -1162,6 +1165,7 @@ var/global/list/damage_icon_parts = list()
 	overlays_standing[TAIL_LAYER] = null /* This will be one of two things:
 											If the species' tail is overlapped by limbs, this will be only the N direction icon so tails can still appear on the outside of uniforms and such.
 											Otherwise, since the user's tail isn't overlapped by limbs, it will be a full icon with all directions. */
+	overlays_standing[WING_LAYER] = null	//Because it is easier to add something to an existing proc, even if the name doesn't match or make sence.
 
 	var/icon/tail_marking_icon
 	var/datum/sprite_accessory/body_markings/tail/tail_marking_style
@@ -1193,6 +1197,8 @@ var/global/list/damage_icon_parts = list()
 				over.Insert(new/icon(accessory_s, dir=NORTH), dir=NORTH)
 
 				overlays_standing[TAIL_LAYER] = image(over, "pixel_x" = body_accessory.pixel_x_offset, "pixel_y" = body_accessory.pixel_y_offset)
+			else if(species.name == "Lymantria") //currently the only race with wings, but it can be made to read a list
+				overlays_standing[WING_LAYER] = image(accessory_s, "pixel_x" = body_accessory.pixel_x_offset, "pixel_y" = body_accessory.pixel_y_offset)
 			else // Otherwise, since the user's tail isn't overlapped by limbs, go ahead and use default icon generation.
 				overlays_standing[TAIL_LAYER] = image(accessory_s, "pixel_x" = body_accessory.pixel_x_offset, "pixel_y" = body_accessory.pixel_y_offset)
 
@@ -1217,6 +1223,8 @@ var/global/list/damage_icon_parts = list()
 				over.Insert(new/icon(tail_s, dir=NORTH), dir=NORTH)
 
 				overlays_standing[TAIL_LAYER] = image(over)
+			else if(species.name == "Lymantria") //currently the only race with wings, but it can be made to read a list
+				overlays_standing[WING_LAYER] = image(tail_s)
 			else // Otherwise, since the user's tail isn't overlapped by limbs, go ahead and use default icon generation.
 				overlays_standing[TAIL_LAYER] = image(tail_s)
 

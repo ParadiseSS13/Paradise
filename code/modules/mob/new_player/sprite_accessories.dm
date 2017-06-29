@@ -1985,7 +1985,6 @@
 /datum/sprite_accessory/head_accessory/moth
 	icon = 'icons/mob/human_face.dmi'
 	species_allowed = list("Lymantria")
-	over_hair = 1
 	do_colouration = 1
 
 /datum/sprite_accessory/head_accessory/moth/antennae
@@ -2018,7 +2017,7 @@
 
 /datum/sprite_accessory/body_markings/moth/fluff
 	name = "Fluff"
-	icon_state = "markings_mothfluff"
+	icon_state = "mothfluff"
 
 /datum/sprite_accessory/body_markings/kidan/outline_kid
 	name = "Kidan Outline"

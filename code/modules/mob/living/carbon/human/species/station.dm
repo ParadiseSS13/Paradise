@@ -484,6 +484,7 @@
 	language = "Chittin"
 	unarmed_type = /datum/unarmed_attack/claws
 
+
 	brute_mod = 0.8
 
 	flags = IS_WHITELISTED
@@ -523,16 +524,18 @@
 	name_plural = "Lymantrias"
 	icobase = 'icons/mob/human_races/r_moth.dmi'
 	deform = 'icons/mob/human_races/r_def_moth.dmi'
-	path = /mob/living/carbon/human/kidan
+	path = /mob/living/carbon/human/moth
 	default_language = "Galactic Common"
 	language = "Gypsikin"
 	unarmed_type = /datum/unarmed_attack/claws
 	tail = "mothwings"
 
+
+
 	brute_mod = 0.9
 
 	clothing_flags = HAS_UNDERWEAR | HAS_UNDERSHIRT | HAS_SOCKS
-	bodyflags = FEET_CLAWS | HAS_HEAD_ACCESSORY | HAS_SKIN_COLOR | HAS_BODY_MARKINGS | HAS_TAIL | HAS_TAIL_MARKINGS | TAIL_OVERLAPPED
+	bodyflags = FEET_CLAWS | HAS_HEAD_ACCESSORY | HAS_SKIN_COLOR | HAS_BODY_MARKINGS | HAS_TAIL | HAS_TAIL_MARKINGS
 	eyes = "moth_eyes_s"
 	dietflags = DIET_HERB
 	blood_color = "#ffff00"
