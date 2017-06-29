@@ -169,6 +169,8 @@
 	base_color = "#CF4D2F"
 	butt_sprite = "vulp"
 
+	scream_verb = "yelps"
+
 	has_organ = list(
 		"heart" =    /obj/item/organ/internal/heart,
 		"lungs" =    /obj/item/organ/internal/lungs,

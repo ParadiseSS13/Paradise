@@ -33,6 +33,9 @@
 	component_parts += new /obj/item/weapon/stock_parts/capacitor(null)
 	component_parts += new /obj/item/stack/cable_coil(null, 1)
 	RefreshParts()
+	update_recharge_turf()
+
+/obj/machinery/mech_bay_recharge_port/proc/update_recharge_turf()
 	recharging_turf = get_step(loc, dir)
 
 /obj/machinery/mech_bay_recharge_port/upgraded/New()
@@ -46,7 +49,7 @@
 	component_parts += new /obj/item/weapon/stock_parts/capacitor/super(null)
 	component_parts += new /obj/item/stack/cable_coil(null, 1)
 	RefreshParts()
-	recharging_turf = get_step(loc, dir)
+	update_recharge_turf()
 
 /obj/machinery/mech_bay_recharge_port/RefreshParts()
 	var/MC
