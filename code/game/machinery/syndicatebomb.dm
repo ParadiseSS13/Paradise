@@ -406,6 +406,128 @@
 	range_light = 4
 	range_flame = 2
 
+/obj/item/weapon/bombcore/chemical
+	name = "chemical payload"
+	desc = "An explosive payload designed to spread chemicals, dangerous or otherwise, across a large area. It is able to hold up to four chemical containers, and must be loaded before use."
+	origin_tech = "combat=4;materials=3"
+	icon_state = "chemcore"
+	var/list/beakers = list()
+	var/max_beakers = 1
+	var/spread_range = 5
+	var/temp_boost = 50
+	var/time_release = 0
+
+/obj/item/weapon/bombcore/chemical/detonate()
+
+	if(time_release > 0)
+		var/total_volume = 0
+		for(var/obj/item/weapon/reagent_containers/RC in beakers)
+			total_volume += RC.reagents.total_volume
+
+		if(total_volume < time_release) // If it's empty, the detonation is complete.
+			if(loc && istype(loc, /obj/machinery/syndicatebomb))
+				qdel(loc)
+			qdel(src)
+			return
+
+		var/fraction = time_release/total_volume
+		var/datum/reagents/reactants = new(time_release)
+		reactants.my_atom = src
+		for(var/obj/item/weapon/reagent_containers/RC in beakers)
+			RC.reagents.trans_to(reactants, RC.reagents.total_volume*fraction, 1, 1, 1)
+		chem_splash(get_turf(src), spread_range, list(reactants), temp_boost)
+
+		// Detonate it again in one second, until it's out of juice.
+		addtimer(src, "detonate", 10)
+
+	// If it's not a time release bomb, do normal explosion
+
+	var/list/reactants = list()
+
+	for(var/obj/item/weapon/reagent_containers/glass/G in beakers)
+		reactants += G.reagents
+
+	for(var/obj/item/slime_extract/S in beakers)
+		if(S.Uses)
+			for(var/obj/item/weapon/reagent_containers/glass/G in beakers)
+				G.reagents.trans_to(S, G.reagents.total_volume)
+
+			if(S && S.reagents && S.reagents.total_volume)
+				reactants += S.reagents
+
+	if(!chem_splash(get_turf(src), spread_range, reactants, temp_boost))
+		playsound(loc, 'sound/items/Screwdriver2.ogg', 50, 1)
+		return // The Explosion didn't do anything. No need to log, or disappear.
+
+	if(adminlog)
+		message_admins(adminlog)
+		log_game(adminlog)
+
+	playsound(loc, 'sound/effects/bamf.ogg', 75, 1, 5)
+
+	if(loc && istype(loc, /obj/machinery/syndicatebomb))
+		qdel(loc)
+	qdel(src)
+
+/obj/item/weapon/bombcore/chemical/attackby(obj/item/I, mob/user, params)
+	if(istype(I, /obj/item/weapon/crowbar) && beakers.len > 0)
+		playsound(loc, I.usesound, 50, 1)
+		for (var/obj/item/B in beakers)
+			B.loc = get_turf(src)
+			beakers -= B
+		return
+	else if(istype(I, /obj/item/weapon/reagent_containers/glass/beaker) || istype(I, /obj/item/weapon/reagent_containers/glass/bottle))
+		if(beakers.len < max_beakers)
+			if(!user.drop_item())
+				return
+			beakers += I
+			to_chat(user, "<span class='notice'>You load [src] with [I].</span>")
+			I.loc = src
+		else
+			to_chat(user, "<span class='warning'>The [I] wont fit! The [src] can only hold up to [max_beakers] containers.</span>")
+			return
+	..()
+
+/obj/item/weapon/bombcore/chemical/CheckParts(list/parts_list)
+	..()
+	// Using different grenade casings, causes the payload to have different properties.
+	var/obj/item/weapon/stock_parts/matter_bin/MB = locate(/obj/item/weapon/stock_parts/matter_bin) in src
+	if(MB)
+		max_beakers += MB.rating	// max beakers = 2-5.
+		qdel(MB)
+	for(var/obj/item/weapon/grenade/chem_grenade/G in src)
+
+		if(istype(G, /obj/item/weapon/grenade/chem_grenade/large))
+			var/obj/item/weapon/grenade/chem_grenade/large/LG = G
+			max_beakers += 1 // Adding two large grenades only allows for a maximum of 7 beakers.
+			spread_range += 2 // Extra range, reduced density.
+			temp_boost += 50 // maximum of +150K blast using only large beakers. Not enough to self ignite.
+			for(var/obj/item/slime_extract/S in LG.beakers) // And slime cores.
+				if(beakers.len < max_beakers)
+					beakers += S
+					S.loc = src
+				else
+					S.loc = get_turf(src)
+
+		if(istype(G, /obj/item/weapon/grenade/chem_grenade/cryo))
+			spread_range -= 1 // Reduced range, but increased density.
+			temp_boost -= 100 // minimum of -150K blast.
+
+		if(istype(G, /obj/item/weapon/grenade/chem_grenade/pyro))
+			temp_boost += 150 // maximum of +350K blast, which is enough to self ignite. Which means a self igniting bomb can't take advantage of other grenade casing properties. Sorry?
+
+		if(istype(G, /obj/item/weapon/grenade/chem_grenade/adv_release))
+			time_release += 50 // A typical bomb, using basic beakers, will explode over 2-4 seconds. Using two will make the reaction last for less time, but it will be more dangerous overall.
+
+		for(var/obj/item/weapon/reagent_containers/glass/B in G)
+			if(beakers.len < max_beakers)
+				beakers += B
+				B.loc = src
+			else
+				B.loc = get_turf(src)
+
+		qdel(G)
+
 ///Syndicate Detonator (aka the big red button)///
 
 /obj/item/device/syndicatedetonator
