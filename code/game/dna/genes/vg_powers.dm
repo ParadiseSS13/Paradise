@@ -211,11 +211,11 @@
 /obj/effect/proc_holder/spell/targeted/remotetalk/choose_targets(mob/user = usr)
 	var/list/targets = new /list()
 	var/list/validtargets = new /list()
-	for(var/mob/M in view(user.client.view, user))
+	var/turf/T = get_turf(user)
+	for(var/mob/M in range(14, T))
 		if(M && M.mind)
 			if(M == user)
 				continue
-
 			validtargets += M
 
 	if(!validtargets.len)
@@ -237,14 +237,15 @@
 	if(!say)
 		return
 	say = strip_html(say)
+	say = pencode_to_html(say, usr, format = 0, fields = 0)
 
 	for(var/mob/living/target in targets)
 		log_say("Project Mind: [key_name(user)]->[key_name(target)]: [say]")
 		if(REMOTE_TALK in target.mutations)
-			target.show_message("<span class='notice'>You hear [user.real_name]'s voice: [say]</span>")
+			target.show_message("<span class='abductor'>You hear [user.real_name]'s voice: [say]</span>")
 		else
-			target.show_message("<span class='notice'>You hear a voice that seems to echo around the room: [say]</span>")
-		user.show_message("<span class='notice'>You project your mind into [target.real_name]: [say]</span>")
+			target.show_message("<span class='abductor'>You hear a voice that seems to echo around the room: [say]</span>")
+		user.show_message("<span class='abductor'>You project your mind into [target.name]: [say]</span>")
 		for(var/mob/dead/observer/G in player_list)
 			G.show_message("<i>Telepathic message from <b>[user]</b> ([ghost_follow_link(user, ghost=G)]) to <b>[target]</b> ([ghost_follow_link(target, ghost=G)]): [say]</i>")
 
