@@ -332,6 +332,12 @@ var/global/list/default_medbay_channels = list(
 	var/datum/radio_frequency/connection = message_mode
 	var/turf/position = get_turf(src)
 
+	var/jammed = FALSE
+	for(var/obj/item/device/jammer/jammer in active_jammers)
+		if(get_dist(position, get_turf(jammer)) < jammer.range)
+			jammed = TRUE
+			break
+
 	//#### Tagging the signal with all appropriate identity values ####//
 
 	// ||-- The mob's name identity --||
@@ -344,6 +350,9 @@ var/global/list/default_medbay_channels = list(
 
 
 	var/jobname // the mob's "job"
+
+	if(jammed)
+		message = Gibberish(message, 100)
 
 	// --- Human: use their actual job ---
 	if(ishuman(M))
