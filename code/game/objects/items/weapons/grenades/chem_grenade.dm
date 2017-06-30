@@ -382,7 +382,7 @@
 	var/unit_spread = 10 // Amount of units per repeat. Can be altered with a multitool.
 
 /obj/item/weapon/grenade/chem_grenade/adv_release/attackby(obj/item/I, mob/user, params)
-	if(istype(I, /obj/item/device/multitool))
+	if(ismultitool(I))
 		switch(unit_spread)
 			if(0 to 24)
 				unit_spread += 5

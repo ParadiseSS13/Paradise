@@ -470,7 +470,7 @@
 	qdel(src)
 
 /obj/item/weapon/bombcore/chemical/attackby(obj/item/I, mob/user, params)
-	if(istype(I, /obj/item/weapon/crowbar) && beakers.len > 0)
+	if(iscrowbar(I) && beakers.len > 0)
 		playsound(loc, I.usesound, 50, 1)
 		for (var/obj/item/B in beakers)
 			B.loc = get_turf(src)
