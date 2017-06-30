@@ -20,7 +20,8 @@
 		"Skrell" = 'icons/mob/species/skrell/helmet.dmi',
 		"Vox" = 'icons/mob/species/vox/helmet.dmi',
 		"Vulpkanin" = 'icons/mob/species/vulpkanin/helmet.dmi',
-		"Drask" = 'icons/mob/species/drask/helmet.dmi'
+		"Drask" = 'icons/mob/species/drask/helmet.dmi',
+		"Grey" = 'icons/mob/species/grey/helmet.dmi'
 		)
 	sprite_sheets_obj = list(
 		"Unathi" = 'icons/obj/clothing/species/unathi/hats.dmi',
@@ -76,7 +77,7 @@
 		"Skrell" = 'icons/mob/species/skrell/suit.dmi',
 		"Vox" = 'icons/mob/species/vox/suit.dmi',
 		"Vulpkanin" = 'icons/mob/species/vulpkanin/suit.dmi',
-		"Drask" = 'icons/mob/species/drask/suit.dmi'
+		"Drask" = 'icons/mob/species/drask/suit.dmi',
 		)
 	sprite_sheets_obj = list(
 		"Unathi" = 'icons/obj/clothing/species/unathi/suits.dmi',
@@ -440,7 +441,10 @@
 	heat_protection = HEAD												//Uncomment to enable firesuit protection
 	max_heat_protection_temperature = FIRE_IMMUNITY_HELM_MAX_TEMP_PROTECT
 	unacidable = 1
-	sprite_sheets = null
+	species_fit = list("Grey")
+	sprite_sheets = list(
+		"Grey" = 'icons/mob/species/grey/helmet.dmi'
+		)
 
 /obj/item/clothing/suit/space/hardsuit/wizard
 	icon_state = "hardsuit-wiz"
@@ -538,7 +542,6 @@
 	icon_state = "hardsuit0-hos"
 	item_color = "hos"
 	armor = list(melee = 45, bullet = 25, laser = 30,energy = 10, bomb = 25, bio = 100, rad = 50)
-	sprite_sheets = null
 
 
 /obj/item/clothing/suit/space/hardsuit/security/hos

@@ -8,9 +8,10 @@
 	permeability_coefficient = 0.01
 	armor = list(melee = 40, bullet = 50, laser = 50, energy = 25, bomb = 50, bio = 100, rad = 50)
 	species_restricted = list("exclude", "Diona", "Wryn")
-	species_fit = list("Vox")
+	species_fit = list("Vox", "Grey")
 	sprite_sheets = list(
-		"Vox" = 'icons/mob/species/vox/helmet.dmi'
+		"Vox" = 'icons/mob/species/vox/helmet.dmi',
+		"Grey" = 'icons/mob/species/grey/helmet.dmi'
 		)
 
 /obj/item/clothing/head/helmet/space/capspace/equipped(mob/living/carbon/human/user, slot)
@@ -136,9 +137,10 @@
 	desc = "A paramedic EVA helmet. Used in the recovery of bodies from space."
 	icon_state = "paramedic-eva-helmet"
 	item_state = "paramedic-eva-helmet"
-	species_fit = list("Vox")
+	species_fit = list("Vox", "Grey")
 	sprite_sheets = list(
-		"Vox" = 'icons/mob/species/vox/helmet.dmi'
+		"Vox" = 'icons/mob/species/vox/helmet.dmi',
+		"Grey" = 'icons/mob/species/grey/helmet.dmi'
 		)
 	sprite_sheets_obj = list(
 		"Vox" = 'icons/obj/clothing/species/vox/hats.dmi'
@@ -187,12 +189,13 @@
 	armor = list(melee = 0, bullet = 0, laser = 0, energy = 0, bomb = 0, bio = 100, rad = 20)
 	flash_protect = 0
 	species_restricted = list("exclude", "Diona", "Wryn")
-	species_fit = list("Tajaran", "Unathi", "Vox", "Vulpkanin")
+	species_fit = list("Tajaran", "Unathi", "Vox", "Vulpkanin", "Grey")
 	sprite_sheets = list(
 		"Tajaran" = 'icons/mob/species/tajaran/helmet.dmi',
 		"Unathi" = 'icons/mob/species/unathi/helmet.dmi',
 		"Vox" = 'icons/mob/species/vox/helmet.dmi',
-		"Vulpkanin" = 'icons/mob/species/vulpkanin/helmet.dmi'
+		"Vulpkanin" = 'icons/mob/species/vulpkanin/helmet.dmi',
+		"Grey" = 'icons/mob/species/grey/helmet.dmi'
 		)
 	sprite_sheets_obj = list(
 		"Vox" = 'icons/obj/clothing/species/vox/hats.dmi',
