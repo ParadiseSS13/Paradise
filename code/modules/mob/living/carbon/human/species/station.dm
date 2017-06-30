@@ -534,7 +534,7 @@
 		"appendix" = /obj/item/organ/internal/appendix,
 		"eyes" =     /obj/item/organ/internal/eyes, //Default darksight of 2.
 		"lantern" =  /obj/item/organ/internal/lantern
-		)
+		) //it has been causing errors when I just have it equal to default_organs, I will fix this duplicate as soon as posible
 
 
 	allowed_consumed_mobs = list(/mob/living/simple_animal/diona)
