@@ -326,7 +326,7 @@ var/global/list/multiverse = list()
 		M.set_species(user.get_species()) //duplicate the sword user's species.
 	else
 		if(prob(50))
-			var/list/all_species = list("Human","Unathi","Skrell","Tajaran","Kidan","Golem","Diona","Machine","Slime People","Grey","Vulpkanin","Lymantria")
+			var/list/all_species = list("Human","Unathi","Skrell","Tajaran","Kidan","Golem","Diona","Machine","Slime People","Grey","Vulpkanin")
 			M.set_species(pick(all_species))
 	M.real_name = user.real_name //this is clear down here in case the user happens to become a golem; that way they have the proper name.
 	M.name = user.real_name

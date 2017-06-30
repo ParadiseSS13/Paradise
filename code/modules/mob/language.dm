@@ -268,17 +268,6 @@
 	flags = RESTRICTED | WHITELISTED
 	syllables = list("click","clack")
 
-/datum/language/moth
-	name = "Gypsikin"
-	desc = "The noise made vibrating air inside hollow chanbers."
-	speech_verb = "buzzes"
-	ask_verb = "buzzes"
-	exclaim_verb = "buzzes loudly"
-	colour = "moth"
-	key = "m"
-	flags = RESTRICTED
-	syllables = list("buzzes","flutters")
-
 /datum/language/slime
 	name = "Bubblish"
 	desc = "The language of slimes. It's a mixture of bubbling noises and pops. Very difficult to speak without mechanical aid for humans."

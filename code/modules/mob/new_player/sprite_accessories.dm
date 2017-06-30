@@ -1982,12 +1982,7 @@
 	name = "Moth Antennae"
 	icon_state = "kidan_moth"
 
-/datum/sprite_accessory/head_accessory/moth
-	icon = 'icons/mob/human_face.dmi'
-	species_allowed = list("Lymantria")
-	do_colouration = 1
-
-/datum/sprite_accessory/head_accessory/moth/antennae
+/datum/sprite_accessory/head_accessory/kidan/antennae
 	name = "Moth Antennae"
 	icon_state = "moth_antennae"
 
@@ -2012,12 +2007,10 @@
 /datum/sprite_accessory/body_markings/kidan
 	species_allowed = list("Kidan")
 
-/datum/sprite_accessory/body_markings/moth
-	species_allowed = list("Lymantria")
-
-/datum/sprite_accessory/body_markings/moth/fluff
+/datum/sprite_accessory/body_markings/kidan/fluff
 	name = "Fluff"
 	icon_state = "mothfluff"
+	species_allowed = list("Kidan", "outside") //So we don't need to make a new variable, but can still get it outside of uniforms.
 
 /datum/sprite_accessory/body_markings/kidan/outline_kid
 	name = "Kidan Outline"
@@ -2345,6 +2338,14 @@
 	marking_location = "tail"
 	tails_allowed = null
 
+/datum/sprite_accessory/body_markings/tail/kidan
+	species_allowed = list("Kidan")
+
+/datum/sprite_accessory/body_markings/tail/kidan/wing
+	name = "Moth Wings"
+	icon_state = "markings_mothwings"
+	species_allowed = list("Kidan", "Wing") //So we don't need to make a new variable
+
 /datum/sprite_accessory/body_markings/tail/vox
 	species_allowed = list("Vox")
 
@@ -2359,13 +2360,6 @@
 /datum/sprite_accessory/body_markings/tail/vox/vox_stripe
 	name = "Vox Tail Stripe"
 	icon_state = "markings_voxtail_stripe"
-
-/datum/sprite_accessory/body_markings/tail/moth
-	species_allowed = list("Lymantria")
-
-/datum/sprite_accessory/body_markings/tail/moth/wing
-	name = "Moth Wings"
-	icon_state = "markings_mothwings"
 
 /datum/sprite_accessory/body_markings/tail/vulpkanin
 	species_allowed = list("Vulpkanin")

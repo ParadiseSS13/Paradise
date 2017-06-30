@@ -22,6 +22,13 @@
 	if(thrust)
 		if((movement_dir || thrust.stabilizers) && thrust.allow_thrust(0.01, src))
 			return 1
+	if(species.can_fly)
+		var/turf/proj_turf = get_turf(src)
+		var/datum/gas_mixture/environment = proj_turf.return_air()
+		var/pressure = environment.return_pressure()
+		if(pressure > 50)
+			return 1
+
 	return 0
 
 /mob/living/carbon/human/mob_has_gravity()

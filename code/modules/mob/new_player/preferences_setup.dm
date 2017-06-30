@@ -16,7 +16,7 @@
 		body_accessory = random_body_accessory(species)
 		if(body_accessory == "None") //Required to prevent a bug where the information/icons in the character preferences screen wouldn't update despite the data being changed.
 			body_accessory = null
-	if(species in list("Human", "Drask", "Vox"))
+	if(species in list("Human", "Drask", "Vox", "Kidan"))
 		s_tone = random_skin_tone(species)
 	h_style = random_hair_style(gender, species, robohead)
 	f_style = random_facial_hair_style(gender, species, robohead)
