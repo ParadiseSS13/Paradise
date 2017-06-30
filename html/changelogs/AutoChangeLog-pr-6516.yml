@@ -1,0 +1,7 @@
+author: "fludd12"
+delete-after: True
+changes: 
+  - tweak: "Greys treat Sulfuric Acid as if it were water. They also treat water as if it were sulfuric acid."
+  - experiment: "Grey language is now Z-level wide, but requires you to be able to put a finger to your temple. (Requires at least one hand not disabled and not stunned.)"
+  - tweak: "Remote Talk is buffed to have a range of two screens, and has some minor formatting changes!"
+  - bugfix: "Remote Talk no longer lets you magically know the true name of whoever you speak with."
