@@ -468,5 +468,6 @@ emp_act
 	..()
 
 /mob/living/carbon/human/water_act(volume, temperature, source)
+	..()
 	species.water_act(src,volume,temperature,source)
 
