@@ -294,11 +294,17 @@ You are weak to holy things and starlight. Don't go into space and avoid the Cha
 			break
 		if(H.stat < DEAD)
 			blood = min(20, H.vessel.get_reagent_amount("blood"))	// if they have less than 20 blood, give them the remnant else they get 20 blood
-			bloodtotal += blood / 2	//divide by 2 to counted the double suction since removing cloneloss -Melandor0
-			bloodusable += blood / 2
-		else
+			if(H.ckey)
+				bloodtotal += blood / 2	//divide by 2 to counted the double suction since removing cloneloss -Melandor0
+				bloodusable += blood / 2
+			else
+				to_chat(owner, "<span class='notice'>This blood helps sate your hunger, but you can gain nothing more from something so weak minded.</span>")
+		else if(H.ckey)
 			blood = min(5, H.vessel.get_reagent_amount("blood"))	// The dead only give 5 bloods
 			bloodtotal += blood
+		else
+			to_chat(owner, "<span class='notice'>This blood was barely enough to sustain you before it grew cold.</span>")
+			break
 		if(old_bloodtotal != bloodtotal)
 			to_chat(owner, "<span class='notice'><b>You have accumulated [bloodtotal] [bloodtotal > 1 ? "units" : "unit"] of blood[bloodusable != old_bloodusable ? ", and have [bloodusable] left to use" : ""].</b></span>")
 		check_vampire_upgrade()
