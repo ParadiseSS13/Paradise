@@ -305,7 +305,7 @@
 		message_admins(adminlog)
 		log_game(adminlog)
 	explosion(get_turf(src), range_heavy, range_medium, range_light, flame_range = range_flame)
-	if(loc && istype(loc,/obj/machinery/syndicatebomb/))
+	if(loc && istype(loc, /obj/machinery/syndicatebomb))
 		qdel(loc)
 	qdel(src)
 
@@ -532,7 +532,7 @@
 
 /obj/item/device/syndicatedetonator
 	name = "big red button"
-	desc = "Your standard issue bomb synchronizing button. Five second safety delay to prevent 'accidents'"
+	desc = "Your standard issue bomb synchronizing button. Five second safety delay to prevent 'accidents'."
 	icon = 'icons/obj/assemblies.dmi'
 	icon_state = "bigred"
 	item_state = "electronic"
