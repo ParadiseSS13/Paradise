@@ -199,6 +199,11 @@
 		Topic(src, list("src" = UID(), "command"="lights", "activate" = "0"), 1)
 	return
 
+/obj/machinery/ai_slipper/AICtrlClick() //Turns liquid dispenser on or off
+	ToggleOn()
+
+/obj/machinery/ai_slipper/AIAltClick() //Dispenses liquid if on
+	Activate()
 
 //
 // Override AdjacentQuick for AltClicking
