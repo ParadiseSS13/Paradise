@@ -2008,9 +2008,8 @@
 	species_allowed = list("Kidan")
 
 /datum/sprite_accessory/body_markings/kidan/fluff
-	name = "Fluff"
-	icon_state = "mothfluff"
-	species_allowed = list("Kidan", "outside") //So we don't need to make a new variable, but can still get it outside of uniforms.
+	name = "Moth Fluff"
+	icon_state = "outside_mothfluff"
 
 /datum/sprite_accessory/body_markings/kidan/outline_kid
 	name = "Kidan Outline"
@@ -2343,8 +2342,7 @@
 
 /datum/sprite_accessory/body_markings/tail/kidan/wing
 	name = "Moth Wings"
-	icon_state = "markings_mothwings"
-	species_allowed = list("Kidan", "Wing") //So we don't need to make a new variable
+	icon_state = "wings_mothwings"
 
 /datum/sprite_accessory/body_markings/tail/vox
 	species_allowed = list("Vox")

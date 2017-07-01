@@ -366,8 +366,7 @@ var/global/list/damage_icon_parts = list()
 
 	//outside of uniform check var
 
-	var/outside_uniform = FALSE
-	var/outside = "outside"
+	var/list/outside = list()
 
 	//Base icon.
 	var/icon/markings_standing	= new/icon('icons/mob/body_accessory.dmi',"accessory_none_s")
@@ -377,8 +376,7 @@ var/global/list/damage_icon_parts = list()
 	if(chest_organ && !chest_organ.is_stump() && !(chest_organ.status & ORGAN_DESTROYED) && m_styles["body"])
 		var/body_marking = m_styles["body"]
 		var/datum/sprite_accessory/body_marking_style = marking_styles_list[body_marking]
-		if(outside in body_marking_style.species_allowed)
-			outside_uniform = FALSE
+		outside = splittext(body_marking_style.icon_state, "_")
 		if(body_marking_style && body_marking_style.species_allowed && (species.name in body_marking_style.species_allowed))
 			var/icon/b_marking_s = new/icon("icon" = body_marking_style.icon, "icon_state" = "[body_marking_style.icon_state]_s")
 			if(body_marking_style.do_colouration)
@@ -394,7 +392,7 @@ var/global/list/damage_icon_parts = list()
 			if(head_marking_style.do_colouration)
 				h_marking_s.Blend(m_colours["head"], ICON_ADD)
 			markings_standing.Blend(h_marking_s, ICON_OVERLAY)
-	if(outside_uniform)
+	if(outside[1] == "outside")
 		overlays_standing[FLUFF_LAYER]	= image(markings_standing)
 	else
 		overlays_standing[MARKINGS_LAYER]	= image(markings_standing)
@@ -1182,7 +1180,7 @@ var/global/list/damage_icon_parts = list()
 		tail_marking_icon = new/icon("icon" = tail_marking_style.icon, "icon_state" = "[tail_marking_style.icon_state]_s")
 		tail_marking_icon.Blend(m_colours["tail"], ICON_ADD)
 
-	var/wings = FALSE
+	var/list/wing = list()
 
 	if(body_accessory)
 		if(body_accessory.try_restrictions(src))
@@ -1191,8 +1189,7 @@ var/global/list/damage_icon_parts = list()
 				accessory_s.Blend(rgb(r_skin, g_skin, b_skin), body_accessory.blend_mode)
 			if(tail_marking_icon && (body_accessory.name in tail_marking_style.tails_allowed))
 				accessory_s.Blend(tail_marking_icon, ICON_OVERLAY)
-			if("wing" in tail_marking_style.tails_allowed) //check to see if they are wings
-				wings = TRUE
+			wing = splittext(tail_marking_style.icon_state, "_")
 			if((!body_accessory || istype(body_accessory, /datum/body_accessory/tail)) && species.bodyflags & TAIL_OVERLAPPED) // If the player has a species whose tail is overlapped by limbs... (having a non-tail body accessory like the snake body will override this)
 				// Gives the underlimbs layer SEW direction icons since it's overlayed by limbs and just about everything else anyway.
 				var/icon/under = new/icon("icon" = 'icons/mob/body_accessory.dmi', "icon_state" = "accessory_none_s")
@@ -1208,7 +1205,7 @@ var/global/list/damage_icon_parts = list()
 				over.Insert(new/icon(accessory_s, dir=NORTH), dir=NORTH)
 
 				overlays_standing[TAIL_LAYER] = image(over, "pixel_x" = body_accessory.pixel_x_offset, "pixel_y" = body_accessory.pixel_y_offset)
-			else if(wings) //So wings are outside of everything but backpacks
+			else if(wing[1] == "wings") //check to see if they are wings
 				overlays_standing[WING_LAYER] = image(accessory_s, "pixel_x" = body_accessory.pixel_x_offset, "pixel_y" = body_accessory.pixel_y_offset)
 			else // Otherwise, since the user's tail isn't overlapped by limbs, go ahead and use default icon generation.
 				overlays_standing[TAIL_LAYER] = image(accessory_s, "pixel_x" = body_accessory.pixel_x_offset, "pixel_y" = body_accessory.pixel_y_offset)
@@ -1220,8 +1217,7 @@ var/global/list/damage_icon_parts = list()
 				tail_s.Blend(rgb(r_skin, g_skin, b_skin), ICON_ADD)
 			if(tail_marking_icon && !tail_marking_style.tails_allowed)
 				tail_s.Blend(tail_marking_icon, ICON_OVERLAY)
-			if("wing" in tail_marking_style.tails_allowed) //check to see if they are wings
-				wings = TRUE
+			wing = splittext(tail_marking_style.icon_state, "_")
 			if((!body_accessory || istype(body_accessory, /datum/body_accessory/tail)) && species.bodyflags & TAIL_OVERLAPPED) // If the player has a species whose tail is overlapped by limbs... (having a non-tail body accessory like the snake body will override this)
 				// Gives the underlimbs layer SEW direction icons since it's overlayed by limbs and just about everything else anyway.
 				var/icon/under = new/icon("icon" = 'icons/effects/species.dmi', "icon_state" = "blank")
@@ -1236,7 +1232,7 @@ var/global/list/damage_icon_parts = list()
 				over.Insert(new/icon(tail_s, dir=NORTH), dir=NORTH)
 
 				overlays_standing[TAIL_LAYER] = image(over)
-			else if(wings) //So wings are outside of everything but backpacks
+			else if(wing[1] == "wings") //check to see if they are wings
 				overlays_standing[WING_LAYER] = image(tail_s)
 			else // Otherwise, since the user's tail isn't overlapped by limbs, go ahead and use default icon generation.
 				overlays_standing[TAIL_LAYER] = image(tail_s)
