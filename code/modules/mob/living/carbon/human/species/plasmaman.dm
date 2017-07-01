@@ -103,6 +103,9 @@
 		if("Chief Medical Officer")
 			suit=/obj/item/clothing/suit/space/eva/plasmaman/medical/cmo
 			helm=/obj/item/clothing/head/helmet/space/eva/plasmaman/medical/cmo
+		if("Coroner")
+			suit=/obj/item/clothing/suit/space/eva/plasmaman/medical/coroner
+			helm=/obj/item/clothing/head/helmet/space/eva/plasmaman/medical/coroner
 		if("Bartender", "Chef")
 			suit=/obj/item/clothing/suit/space/eva/plasmaman/service
 			helm=/obj/item/clothing/head/helmet/space/eva/plasmaman/service

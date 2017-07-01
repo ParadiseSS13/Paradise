@@ -116,7 +116,7 @@
 	armor = list(melee = 10, bullet = 5, laser = 10, energy = 5, bomb = 10, bio = 100, rad = 0)
 	max_heat_protection_temperature = FIRE_IMMUNITY_HELM_MAX_TEMP_PROTECT
 	flash_protect = 2
-	
+
 /obj/item/clothing/suit/space/eva/plasmaman/engineer
 	name = "plasmaman engineer suit"
 	icon_state = "plasmamanEngineer_suit"
@@ -128,7 +128,7 @@
 	base_state = "plasmamanEngineer_helmet"
 	armor = list(melee = 10, bullet = 5, laser = 10, energy = 5, bomb = 10, bio = 100, rad = 75)
 	flash_protect = 2
-	
+
 /obj/item/clothing/suit/space/eva/plasmaman/engineer/ce
 	name = "plasmaman chief engineer suit"
 	icon_state = "plasmaman_CE"
@@ -268,6 +268,15 @@
 	name = "plasmaman chief medical officer helmet"
 	icon_state = "plasmaman_CMO_helmet0"
 	base_state = "plasmaman_CMO_helmet"
+
+/obj/item/clothing/suit/space/eva/plasmaman/medical/coroner
+	name = "plasmaman coroner suit"
+	icon_state = "plasmaman_Coroner"
+
+/obj/item/clothing/head/helmet/space/eva/plasmaman/medical/coroner
+	name = "plasmaman coroner helmet"
+	icon_state = "plasmaman_Coroner_helmet0"
+	base_state = "plasmaman_Coroner_helmet"
 
 /obj/item/clothing/suit/space/eva/plasmaman/science
 	name = "plasmaman scientist suit"
