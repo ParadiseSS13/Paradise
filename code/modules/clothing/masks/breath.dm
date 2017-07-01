@@ -31,7 +31,7 @@
 	item_state = "medical"
 	permeability_coefficient = 0.01
 	put_on_delay = 10
-	species_fit = list("Vox", "Unathi", "Tajaran", "Vulpkanin")
+	species_fit = list("Vox", "Unathi", "Tajaran", "Vulpkanin", "Grey")
 
 /obj/item/clothing/mask/breath/vox
 	desc = "A weirdly-shaped breath mask."
