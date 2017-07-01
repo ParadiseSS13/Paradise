@@ -68,7 +68,7 @@
 	icon_living = "brainslug"
 	icon_dead = "brainslug_dead"
 	speed = 5
-	a_intent = I_HARM
+	a_intent = INTENT_HARM
 	stop_automated_movement = 1
 	status_flags = CANPUSH
 	attacktext = "nips"

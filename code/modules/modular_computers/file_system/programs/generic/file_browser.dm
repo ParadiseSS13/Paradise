@@ -43,7 +43,7 @@
 			if(!istype(file))
 				data["error"] = "I/O ERROR: Unable to open file."
 			else
-				data["filedata"] = pencode_to_html(file.stored_data, sign = 0, fields = 0)
+				data["filedata"] = pencode_to_html(file.stored_data, format = 1, sign = 0, fields = 0)
 				data["filename"] = "[file.filename].[file.filetype]"
 	else
 		if(!computer || !HDD)

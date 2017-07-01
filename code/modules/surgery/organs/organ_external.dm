@@ -46,6 +46,7 @@
 
 	var/obj/item/organ/external/parent
 	var/list/obj/item/organ/external/children
+	var/list/convertable_children = list()
 
 	// Internal organs of this body part
 	var/list/internal_organs = list()
@@ -194,6 +195,10 @@
 ****************************************************/
 
 /obj/item/organ/external/take_damage(brute, burn, sharp, edge, used_weapon = null, list/forbidden_limbs = list())
+	if(tough)
+		brute = max(0, brute - 5)
+		burn = max(0, burn - 4)
+
 	if((brute <= 0) && (burn <= 0))
 		return 0
 
@@ -841,19 +846,18 @@ Note that amputating the affected organ does in fact remove the infection from t
 	status &= ~ORGAN_BROKEN
 	return 1
 
-// I put these two next to each other to highlight that both exist. This should likely be resolved.
-/obj/item/organ/external/robotize()
+/obj/item/organ/external/robotize(company, make_tough = 0, convert_all = 1)
 	..()
 	//robot limbs take reduced damage
-	brute_mod = 0.66
-	burn_mod = 0.66
+	if(!make_tough)
+		brute_mod = 0.66
+		burn_mod = 0.66
+		fail_at_full_damage = 1
+	else
+		tough = 1
 	// Robot parts also lack bones
 	// This is so surgery isn't kaput, let's see how this does
 	encased = null
-	fail_at_full_damage = 1
-
-/obj/item/organ/external/robotize(var/company)
-	..()
 
 	if(company && istext(company))
 		set_company(company)
@@ -861,8 +865,8 @@ Note that amputating the affected organ does in fact remove the infection from t
 	cannot_break = 1
 	get_icon()
 	for(var/obj/item/organ/external/T in children)
-		if(T)
-			T.robotize()
+		if((convert_all) || (T.type in convertable_children))
+			T.robotize(company, make_tough, convert_all)
 
 
 
@@ -894,12 +898,12 @@ Note that amputating the affected organ does in fact remove the infection from t
 	return 0
 
 /obj/item/organ/external/proc/is_usable()
-	if((status & ORGAN_ROBOT) && get_damage() >= max_damage) //robot limbs just become inoperable at max damage
+	if(((status & ORGAN_ROBOT) && get_damage() >= max_damage) && !tough) //robot limbs just become inoperable at max damage
 		return
 	return !(status & (ORGAN_DESTROYED|ORGAN_MUTATED|ORGAN_DEAD))
 
 /obj/item/organ/external/proc/is_malfunctioning()
-	return ((status & ORGAN_ROBOT) && (brute_dam + burn_dam) >= 10 && prob(brute_dam + burn_dam))
+	return ((status & ORGAN_ROBOT) && (brute_dam + burn_dam) >= 10 && prob(brute_dam + burn_dam) && !tough)
 
 /obj/item/organ/external/proc/open_enough_for_surgery()
 	return (encased ? (open == 3) : (open == 2))

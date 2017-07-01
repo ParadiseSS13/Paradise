@@ -307,7 +307,7 @@
 
 	var/mob/living/L = A
 	if(!L.ckey)	return
-	if((oldarea.has_gravity == 0) && (newarea.has_gravity == 1) && (L.m_intent == "run")) // Being ready when you change areas gives you a chance to avoid falling all together.
+	if((oldarea.has_gravity == 0) && (newarea.has_gravity == 1) && (L.m_intent == MOVE_INTENT_RUN)) // Being ready when you change areas gives you a chance to avoid falling all together.
 		thunk(L)
 
 	// Ambience goes down here -- make sure to list each area seperately for ease of adding things in later, thanks! Note: areas adjacent to each other should have the same sounds to prevent cutoff when possible.- LastyScratch
@@ -344,7 +344,7 @@
 	if(istype(get_turf(M), /turf/space)) // Can't fall onto nothing.
 		return
 
-	if((istype(M,/mob/living/carbon/human/)) && (M.m_intent == "run")).
+	if((istype(M,/mob/living/carbon/human/)) && (M.m_intent == MOVE_INTENT_RUN)).
 		M.Stun(5)
 		M.Weaken(5)
 

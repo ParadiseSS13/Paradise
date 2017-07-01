@@ -2154,7 +2154,7 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 
 			else if(status == "cyborg")
 				if(rlimb_data[name])
-					O.robotize(rlimb_data[name])
+					O.robotize(rlimb_data[name], convert_all = 0)
 				else
 					O.robotize()
 		else

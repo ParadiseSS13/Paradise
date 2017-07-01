@@ -20,7 +20,7 @@
 	toolspeed = 0.75
 
 /obj/item/weapon/scissors/attack(mob/living/carbon/M as mob, mob/user as mob)
-	if(user.a_intent != "help")
+	if(user.a_intent != INTENT_HELP)
 		..()
 		return
 	if(!(M in view(1))) //Adjacency test
@@ -95,13 +95,12 @@
 		user.visible_message("<span class='notice'>[user] finishes cutting [M]'s hair!</span>")
 
 /obj/item/weapon/scissors/safety //Totally safe, I assure you.
-	name = "safety scissors"
 	desc = "The blades of the scissors appear to be made of some sort of ultra-strong metal alloy."
 	force = 18 //same as e-daggers
 	var/is_cutting = 0 //to prevent spam clicking this for huge accumulation of losebreath.
 
 /obj/item/weapon/scissors/safety/attack(mob/living/carbon/M as mob, mob/user as mob)
-	if(user.a_intent != "help")
+	if(user.a_intent != INTENT_HELP)
 		..()
 		return
 	if(!(M in view(1)))

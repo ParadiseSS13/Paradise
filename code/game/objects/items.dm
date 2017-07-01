@@ -569,3 +569,10 @@ var/global/image/fire_overlay = image("icon" = 'icons/goonstation/effects/fire.d
 
 /obj/item/proc/is_crutch() //Does an item prop up a human mob and allow them to stand if they are missing a leg/foot?
 	return 0
+
+// Return true if you don't want regular throw handling
+/obj/item/proc/override_throw(mob/user, atom/target)
+	return FALSE
+
+/obj/item/proc/is_equivalent(obj/item/I)
+	return I == src

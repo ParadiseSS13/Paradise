@@ -420,9 +420,9 @@
 		return
 	doing |= SNPC_SPECIAL
 
-	var/static/list/customableTypes = list(/obj/item/weapon/reagent_containers/food/snacks/customizable,/obj/item/weapon/reagent_containers/food/snacks/breadslice,/obj/item/weapon/reagent_containers/food/snacks/bun,/obj/item/weapon/reagent_containers/food/snacks/sliceable/flatdough,/obj/item/weapon/reagent_containers/food/snacks/boiledspagetti,/obj/item/trash/plate,/obj/item/trash/bowl)
+	var/static/list/customableTypes = list(/obj/item/weapon/reagent_containers/food/snacks/customizable,/obj/item/weapon/reagent_containers/food/snacks/breadslice,/obj/item/weapon/reagent_containers/food/snacks/bun,/obj/item/weapon/reagent_containers/food/snacks/sliceable/flatdough,/obj/item/weapon/reagent_containers/food/snacks/boiledspaghetti,/obj/item/trash/plate,/obj/item/trash/bowl)
 
-	var/static/list/rawtypes = list(/obj/item/weapon/reagent_containers/food/snacks/grown, /obj/item/weapon/reagent_containers/food/snacks/rawcutlet, /obj/item/weapon/reagent_containers/food/snacks/rawsticks, /obj/item/weapon/reagent_containers/food/snacks/salmonmeat, /obj/item/weapon/reagent_containers/food/snacks/carpmeat, /obj/item/weapon/reagent_containers/food/snacks/catfishmeat, /obj/item/weapon/reagent_containers/food/snacks/spagetti, /obj/item/weapon/reagent_containers/food/snacks/dough, /obj/item/weapon/reagent_containers/food/snacks/sliceable/flatdough, /obj/item/weapon/reagent_containers/food/snacks/doughslice, /obj/item/weapon/reagent_containers/food/snacks/meat, /obj/item/weapon/reagent_containers/food/snacks/boiledrice, /obj/item/weapon/reagent_containers/food/snacks/cheesewedge, /obj/item/weapon/reagent_containers/food/snacks/raw_bacon)
+	var/static/list/rawtypes = list(/obj/item/weapon/reagent_containers/food/snacks/grown, /obj/item/weapon/reagent_containers/food/snacks/rawcutlet, /obj/item/weapon/reagent_containers/food/snacks/rawsticks, /obj/item/weapon/reagent_containers/food/snacks/salmonmeat, /obj/item/weapon/reagent_containers/food/snacks/carpmeat, /obj/item/weapon/reagent_containers/food/snacks/catfishmeat, /obj/item/weapon/reagent_containers/food/snacks/spaghetti, /obj/item/weapon/reagent_containers/food/snacks/dough, /obj/item/weapon/reagent_containers/food/snacks/sliceable/flatdough, /obj/item/weapon/reagent_containers/food/snacks/doughslice, /obj/item/weapon/reagent_containers/food/snacks/meat, /obj/item/weapon/reagent_containers/food/snacks/boiledrice, /obj/item/weapon/reagent_containers/food/snacks/cheesewedge, /obj/item/weapon/reagent_containers/food/snacks/raw_bacon)
 
 	try
 		var/list/allContents = getAllContents()
@@ -638,7 +638,7 @@
 	if(canmove)
 		if((graytide || (TRAITS & TRAIT_MEAN)) || retal)
 			interest += targetInterestShift
-			a_intent = "harm"
+			a_intent = INTENT_HARM
 			zone_sel.selecting = pick("chest","r_leg","l_leg","r_arm","l_arm","head")
 			doing |= SNPC_FIGHTING
 			if(retal)
@@ -746,7 +746,7 @@
 						tryWalk(TARGET)
 					else
 						if(Adjacent(TARGET))
-							a_intent = pick("disarm", "harm")
+							a_intent = pick(INTENT_DISARM, INTENT_HARM)
 							M.attack_hand(src)
 			timeout++
 		else if(timeout >= 10 || !(targetRange(M) > 14))

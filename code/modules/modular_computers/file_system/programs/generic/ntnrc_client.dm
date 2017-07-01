@@ -213,8 +213,7 @@
 		if("PRG_deletechannel")
 			. = 1
 			if(channel && ((channel.operator == src) || netadmin_mode))
-				qdel(channel)
-				channel = null
+				QDEL_NULL(channel)
 		if("PRG_setpassword")
 			. = 1
 			if(!channel || ((channel.operator != src) && !netadmin_mode))

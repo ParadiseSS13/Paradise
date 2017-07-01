@@ -192,7 +192,7 @@ emp_act
 /mob/living/carbon/human/proc/attacked_by(var/obj/item/I, var/mob/living/user, var/def_zone)
 	if(!I || !user)	return 0
 
-	if((istype(I, /obj/item/weapon/kitchen/knife/butcher/meatcleaver) || istype(I, /obj/item/weapon/twohanded/chainsaw)) && src.stat == DEAD && user.a_intent == I_HARM)
+	if((istype(I, /obj/item/weapon/kitchen/knife/butcher/meatcleaver) || istype(I, /obj/item/weapon/twohanded/chainsaw)) && src.stat == DEAD && user.a_intent == INTENT_HARM)
 		var/obj/item/weapon/reagent_containers/food/snacks/meat/human/newmeat = new /obj/item/weapon/reagent_containers/food/snacks/meat/human(get_turf(src.loc))
 		newmeat.name = src.real_name + newmeat.name
 		newmeat.subjectname = src.real_name
@@ -359,7 +359,7 @@ emp_act
 	if(penetrated_dam) SS.create_breaches(damtype, penetrated_dam)
 
 /mob/living/carbon/human/mech_melee_attack(obj/mecha/M)
-	if(M.occupant.a_intent == I_HARM)
+	if(M.occupant.a_intent == INTENT_HARM)
 		if(M.damtype == "brute")
 			step_away(src,M,15)
 		var/obj/item/organ/external/affecting = get_organ(pick("chest", "chest", "chest", "head"))
@@ -402,5 +402,5 @@ emp_act
 
 /mob/living/carbon/human/water_act(volume, temperature, source)
 	..()
-	if(temperature >= 330)	bodytemperature = bodytemperature + (temperature - bodytemperature)
-	if(temperature <= 280)	bodytemperature = bodytemperature - (bodytemperature - temperature)
+	species.water_act(src,volume,temperature,source)
+

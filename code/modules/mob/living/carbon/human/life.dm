@@ -195,73 +195,47 @@
 
 	if(!(species.flags & RADIMMUNE))
 		if(radiation)
-
-			if(get_int_organ(/obj/item/organ/internal/nucleation/resonant_crystal))
-				var/rads = radiation/25
-				radiation -= rads
-				radiation -= 0.1
-				reagents.add_reagent("radium", rads/10)
-				if( prob(10) )
-					to_chat(src, "<span class='notice'>You feel relaxed.</span>")
-				return
-
 			if(radiation > 100)
-				radiation = 100
-				Weaken(10)
-				if(!lying)
-					to_chat(src, "<span class='alert'>You feel weak.</span>")
+				if(!weakened)
 					emote("collapse")
+				Weaken(10)
+				to_chat(src, "<span class='danger'>You feel weak.</span>")
 
-			if(radiation < 0)
-				radiation = 0
+			radiation = Clamp(radiation, 0, 100)
 
-			else
-				var/damage = 0
-				switch(radiation)
-					if(0 to 49)
-						radiation--
-						if(prob(25))
-							adjustToxLoss(1)
-							damage = 1
-							updatehealth()
-
-					if(50 to 74)
-						radiation -= 2
-						damage = 1
+			var/autopsy_damage = 0
+			switch(radiation)
+				if(0 to 50)
+					radiation = max(radiation-1, 0)
+					if(prob(25))
 						adjustToxLoss(1)
-						if(prob(5))
-							radiation -= 5
-							Weaken(3)
-							if(!lying)
-								to_chat(src, "<span class='alert'>You feel weak.</span>")
-								emote("collapse")
-						updatehealth()
+						autopsy_damage = 1
 
-					if(75 to 100)
-						radiation -= 3
-						adjustToxLoss(3)
-						damage = 3
-						if(prob(1))
-							to_chat(src, "<span class='alert'>You mutate!</span>")
-							randmutb(src)
-							domutcheck(src,null)
-							emote("gasp")
-						updatehealth()
+				if(50 to 75)
+					radiation = max(radiation-2, 0)
+					adjustToxLoss(1)
+					autopsy_damage = 1
+					if(prob(5))
+						radiation = max(radiation-5, 0)
+						if(!weakened)
+							emote("collapse")
+						Weaken(3)
+						to_chat(src, "<span class='danger'>You feel weak.</span>")
 
-					else
-						radiation -= 5
-						adjustToxLoss(5)
-						damage = 5
-						if(prob(1))
-							to_chat(src, "<span class='alert'>You mutate!</span>")
-							randmutb(src)
-							domutcheck(src,null)
-							emote("gasp")
-						updatehealth()
+				if(75 to 100)
+					radiation = max(radiation-3, 0)
+					adjustToxLoss(3)
+					autopsy_damage = 3
+					if(prob(1))
+						to_chat(src, "<span class='danger'>You mutate!</span>")
+						randmutb(src)
+						domutcheck(src, null)
+						emote("gasp")
 
-				if(damage && bodyparts.len)
-					var/obj/item/organ/external/O = pick(bodyparts)
-					if(istype(O)) O.add_autopsy_data("Radiation Poisoning", damage)
+			if(autopsy_damage && bodyparts.len)
+				var/obj/item/organ/external/O = pick(bodyparts)
+				if(istype(O))
+					O.add_autopsy_data("Radiation Poisoning", autopsy_damage)
 
 /mob/living/carbon/human/breathe()
 
@@ -1113,7 +1087,7 @@
 			if(H.species && H.species.flags & NO_BREATHE)
 				return //no puking if you can't smell!
 			// Humans can lack a mind datum, y'know
-			if(H.mind && H.mind.assigned_role == "Detective")
+			if(H.mind && (H.mind.assigned_role == "Detective" || H.mind.assigned_role == "Coroner"))
 				return //too cool for puke
 			to_chat(H, "<spawn class='warning'>You smell something foul...")
 			H.fakevomit()
