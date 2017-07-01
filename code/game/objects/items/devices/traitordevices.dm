@@ -159,7 +159,7 @@ effective or pretty fucking useless.
 	return ..()
 
 /obj/item/device/jammer/attack_self(mob/user)
-	to_chat(user,"<span class='notice'>You [active ? "deactivate" : "activate"] the [src]<span>")
+	to_chat(user,"<span class='notice'>You [active ? "deactivate" : "activate"] the [src].</span>")
 	active = !active
 	if(active)
 		active_jammers |= src

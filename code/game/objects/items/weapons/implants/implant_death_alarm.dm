@@ -35,7 +35,7 @@
 	var/mob/M = imp_in
 	var/area/t = get_area(M)
 
-	var/obj/item/device/radio/headset/a = new /obj/item/device/radio/headset(null)
+	var/obj/item/device/radio/headset/a = new /obj/item/device/radio/headset(src)
 	a.follow_target = M
 
 	switch(cause)
@@ -52,7 +52,7 @@
 		else
 			a.autosay("[mobname] has died-zzzzt in-in-in...", "[mobname]'s Death Alarm")
 			qdel(src)
-			
+
 	qdel(a)
 
 /obj/item/weapon/implant/death_alarm/emp_act(severity)			//for some reason alarms stop going off in case they are emp'd, even without this

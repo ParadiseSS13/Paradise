@@ -247,6 +247,13 @@ var/global/list/default_medbay_channels = list(
 	A.name = from
 	A.role = role
 	A.message = message
+	var/jammed = FALSE
+	for(var/obj/item/device/jammer/jammer in active_jammers)
+		if(get_dist(get_turf(src), get_turf(jammer)) < jammer.range)
+			jammed = TRUE
+			break
+	if(jammed)
+		message = Gibberish(message, 100)
 	Broadcast_Message(connection, A,
 						0, "*garbled automated announcement*", src,
 						message, from, "Automated Announcement", from, "synthesized voice",
