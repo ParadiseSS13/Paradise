@@ -24,13 +24,13 @@
 
 	light_color = LIGHT_COLOR_RED
 
-/obj/machinery/computer/secure_data/proc/createlog(toprint)
+/obj/machinery/computer/secure_data/proc/createlog(mob/user, toprint)
 	if(!toprint)
 		return 0
 	else
 		var/obj/item/weapon/paper/P = toprint
 		playsound(loc, "sound/goonstation/machines/printer_dotmatrix.ogg", 50, 1)
-		to_chat(usr, "<span class='notice'>Printing file [P.name].</span>")
+		to_chat(user, "<span class='notice'>Printing file [P.name].</span>")
 		sleep(50)
 		var/obj/item/weapon/paper/P2 = new /obj/item/weapon/paper(loc)
 		P2.name = P.name
@@ -371,7 +371,7 @@
 		else if(href_list["printlogs"])
 			if(cell_logs.len)
 				var/toprint = input(usr, "Select log to print", "Available Cell Logs") as null|anything in cell_logs
-				createlog(toprint)
+				createlog(usr, toprint)
 			else
 				to_chat(usr, "<span class='notice'>[src] has no logs stored or is already printing.</span>")
 
