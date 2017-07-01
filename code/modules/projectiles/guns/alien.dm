@@ -101,6 +101,5 @@
 	flag = "bullet"
 	pass_flags = PASSTABLE | PASSGLASS | PASSGRILLE
 
-	embed = 0
 	weaken = 5
 	stun = 5

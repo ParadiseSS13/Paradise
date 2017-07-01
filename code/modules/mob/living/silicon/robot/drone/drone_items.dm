@@ -260,10 +260,6 @@
 			stored_comms["glass"]++
 		else if(istype(W,/obj/item/ammo_casing))
 			stored_comms["metal"]++
-		else if(istype(W,/obj/item/weapon/shard/shrapnel))
-			stored_comms["metal"]++
-			stored_comms["metal"]++
-			stored_comms["metal"]++
 		else if(istype(W,/obj/item/weapon/shard))
 			stored_comms["glass"]++
 			stored_comms["glass"]++

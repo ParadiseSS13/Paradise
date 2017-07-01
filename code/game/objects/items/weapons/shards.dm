@@ -89,26 +89,3 @@
 					H.UpdateDamageIcon()
 				H.updatehealth()
 	..()
-
-// Shrapnel
-
-/obj/item/weapon/shard/shrapnel
-	name = "shrapnel"
-	icon = 'icons/obj/shards.dmi'
-	icon_state = "shrapnellarge"
-	desc = "A bunch of tiny bits of shattered metal."
-	embedded_fall_chance = 0
-
-/obj/item/weapon/shard/shrapnel/New()
-	..()
-	icon_state = pick("shrapnellarge", "shrapnelmedium", "shrapnelsmall")
-	switch(icon_state)
-		if("shrapnelsmall")
-			pixel_x = rand(-12, 12)
-			pixel_y = rand(-12, 12)
-		if("shrapnelmedium")
-			pixel_x = rand(-8, 8)
-			pixel_y = rand(-8, 8)
-		if("shrapnellarge")
-			pixel_x = rand(-5, 5)
-			pixel_y = rand(-5, 5)

@@ -8,7 +8,7 @@ emp_act
 
 */
 
-/mob/living/carbon/human/bullet_act(var/obj/item/projectile/P, var/def_zone)
+/mob/living/carbon/human/bullet_act(obj/item/projectile/P, def_zone)
 
 	if(istype(P, /obj/item/projectile/energy) || istype(P, /obj/item/projectile/beam))
 		if(check_reflect(def_zone)) // Checks if you've passed a reflection% check
@@ -40,20 +40,6 @@ emp_act
 	if(isnull(organ))
 		. = bullet_act(P, "chest") //act on chest instead
 		return
-
-	//Shrapnel
-	if(P.damage_type == BRUTE)
-		var/armor = getarmor_organ(organ, "bullet")
-		if((P.embed && prob(20 + max(P.damage - armor, -10))))
-			var/obj/item/weapon/shard/shrapnel/SP = new()
-			SP.name = "[P.name] shrapnel"
-			if(P.ammo_casing && P.ammo_casing.caliber)
-				SP.desc = "[SP.desc] It looks like it is a [P.ammo_casing.caliber] caliber round."
-			else
-				SP.desc = "[SP.desc] The round's caliber is unidentifiable."
-			throw_alert("embeddedobject", /obj/screen/alert/embeddedobject)
-			organ.embedded_objects |= SP
-			SP.forceMove(src)
 
 	organ.add_autopsy_data(P.name, P.damage) // Add the bullet's name to the autopsy data
 

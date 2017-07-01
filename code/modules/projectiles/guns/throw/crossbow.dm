@@ -170,8 +170,6 @@
 /obj/item/weapon/arrow/rod/removed()
 	if(superheated) // The rod has been superheated - we don't want it to be useable when removed from the bow.
 		visible_message("[src] shatters into a scattering of overstressed metal shards as it leaves the crossbow.")
-		var/obj/item/weapon/shard/shrapnel/S = new /obj/item/weapon/shard/shrapnel
-		S.loc = get_turf(src)
 		qdel(src)
 
 #undef XBOW_TENSION_20
