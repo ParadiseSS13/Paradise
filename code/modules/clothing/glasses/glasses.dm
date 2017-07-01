@@ -69,7 +69,6 @@
 	attack_verb = list("sliced")
 	hitsound = 'sound/weapons/bladeslice.ogg'
 	sharp = 1
-	edge = 1
 
 /obj/item/clothing/glasses/meson/cyber
 	name = "Eye Replacement Implant"

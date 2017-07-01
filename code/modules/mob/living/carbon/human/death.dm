@@ -28,7 +28,7 @@
 		// Only make the limb drop if it's not too damaged
 		if(prob(100 - E.get_damage()))
 			// Override the current limb status and don't cause an explosion
-			E.droplimb(DROPLIMB_EDGE)
+			E.droplimb(DROPLIMB_SHARP)
 
 	for(var/mob/M in src)
 		if(M in stomach_contents)

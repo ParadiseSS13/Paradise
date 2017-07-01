@@ -89,7 +89,6 @@
 	attack_verb = list("chopped", "torn", "cut")
 	hitsound = 'sound/weapons/bladeslice.ogg'
 	sharp = 1
-	edge = 1
 
 /obj/item/weapon/hatchet/suicide_act(mob/user)
 	user.visible_message("<span class='suicide'>[user] is chopping at \himself with the [src.name]! It looks like \he's trying to commit suicide.</span>")
@@ -119,7 +118,6 @@
 	attack_verb = list("chopped", "sliced", "cut", "reaped")
 	hitsound = 'sound/weapons/bladeslice.ogg'
 	sharp = 1
-	edge = 1
 	var/extend = 1
 
 /obj/item/weapon/scythe/suicide_act(mob/user)
@@ -128,7 +126,7 @@
 		var/mob/living/carbon/human/H = user
 		var/obj/item/organ/external/affecting = H.get_organ("head")
 		if(affecting)
-			affecting.droplimb(1, DROPLIMB_EDGE)
+			affecting.droplimb(1, DROPLIMB_SHARP)
 			playsound(loc, pick('sound/misc/desceration-01.ogg','sound/misc/desceration-02.ogg','sound/misc/desceration-01.ogg'), 50, 1, -1)
 	return (BRUTELOSS)
 
@@ -139,7 +137,6 @@
 	desc = "A sharp and curved blade on a collapsable fibre metal handle, this tool is the pinnacle of covert reaping technology."
 	force = 3
 	sharp = 0
-	edge = 0
 	w_class = WEIGHT_CLASS_SMALL
 	extend = 0
 	slot_flags = SLOT_BELT
@@ -172,7 +169,6 @@
 		//Collapse sound (blade sheath)
 		playsound(src.loc, 'sound/weapons/blade_sheath.ogg', 50, 1)		//Sound credit to Q.K. of Freesound.org
 	sharp = extend
-	edge = extend
 	if(ishuman(user))
 		var/mob/living/carbon/human/H = user
 		H.update_inv_l_hand()

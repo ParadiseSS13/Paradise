@@ -100,7 +100,6 @@
 	attack_verb = list("slashed", "stabbed", "sliced", "torn", "ripped", "diced", "cut")
 	no_embed = 1
 	sharp = 1
-	edge = 1
 
 /obj/item/weapon/kitchen/knife/suicide_act(mob/user)
 	user.visible_message(pick("<span class='suicide'>[user] is slitting \his wrists with the [src.name]! It looks like \he's trying to commit suicide.</span>", \
@@ -114,7 +113,6 @@
 	icon_state = "pknife"
 	item_state = "knife"
 	sharp = 0
-	edge = 0
 
 /obj/item/weapon/kitchen/knife/ritual
 	name = "ritual knife"

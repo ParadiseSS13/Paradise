@@ -231,7 +231,6 @@ var/global/list/multiverse = list()
 	force = 20
 	throwforce = 10
 	sharp = 1
-	edge = 1
 	w_class = WEIGHT_CLASS_SMALL
 	attack_verb = list("attacked", "slashed", "stabbed", "sliced", "torn", "ripped", "diced", "cut")
 	var/faction = list("unassigned")

@@ -77,7 +77,6 @@
 	desc = "Stab, stab, stab."
 	icon_state = "arrow"
 	force = 10
-	sharp = 1
 	projectile_type = /obj/item/projectile/bullet/reusable/arrow
 	caliber = "arrow"
 

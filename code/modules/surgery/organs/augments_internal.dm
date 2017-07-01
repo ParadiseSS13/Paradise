@@ -315,10 +315,10 @@
 	if(prob(50))
 		if(lasthand == "r_hand")
 			var/obj/item/organ/external/limb = owner.get_organ("r_arm")
-			limb.droplimb(0, DROPLIMB_EDGE)
+			limb.droplimb(0, DROPLIMB_SHARP)
 		else if(lasthand == "l_hand")
 			var/obj/item/organ/external/limb = owner.get_organ("l_arm")
-			limb.droplimb(0, DROPLIMB_EDGE)
+			limb.droplimb(0, DROPLIMB_SHARP)
 		owner.say("I HAVE BEEN DISARMED!!!")
 	owner.adjustFireLoss(25)//severely injure him!
 	overloaded = TRUE

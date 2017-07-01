@@ -43,7 +43,6 @@
 	force = 40
 	throwforce = 10
 	sharp = 1
-	edge = 1
 	w_class = WEIGHT_CLASS_NORMAL
 	attack_verb = list("attacked", "slashed", "stabbed", "sliced", "torn", "ripped", "diced", "cut")
 	block_chance = 50
@@ -67,7 +66,6 @@
 	force = 40
 	throwforce = 10
 	sharp = 1
-	edge = 1
 	w_class = WEIGHT_CLASS_NORMAL
 	hitsound = 'sound/weapons/bladeslice.ogg'
 	attack_verb = list("attacked", "slashed", "stabbed", "sliced", "torn", "ripped", "diced", "cut")
@@ -83,7 +81,6 @@
 /obj/item/weapon/harpoon
 	name = "harpoon"
 	sharp = 1
-	edge = 0
 	desc = "Tharr she blows!"
 	icon_state = "harpoon"
 	item_state = "harpoon"

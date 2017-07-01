@@ -228,7 +228,6 @@
 	hitsound = 'sound/items/Wirecutter.ogg'
 	usesound = 'sound/items/Wirecutter.ogg'
 	sharp = 1
-	edge = 1
 	toolspeed = 1
 
 /obj/item/weapon/wirecutters/New(loc, param_color = null)
