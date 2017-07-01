@@ -387,6 +387,7 @@ var/ert_request_answered = 0
 		/obj/item/clothing/head/helmet/space/hardsuit/ert/commander = 1,
 		/obj/item/clothing/mask/gas/sechailer/swat = 1,
 		/obj/item/weapon/restraints/handcuffs = 1,
+		/obj/item/clothing/shoes/magboots = 1,
 		/obj/item/weapon/storage/lockbox/mindshield = 1
 	)
 
@@ -403,6 +404,7 @@ var/ert_request_answered = 0
 		/obj/item/clothing/head/helmet/space/hardsuit/ert/commander = 1,
 		/obj/item/clothing/mask/gas/sechailer/swat = 1,
 		/obj/item/weapon/restraints/handcuffs = 1,
+		/obj/item/clothing/shoes/magboots/advance = 1,
 		/obj/item/weapon/storage/lockbox/mindshield = 1,
 		/obj/item/weapon/gun/energy/pulse/pistol = 1
 		)
@@ -457,6 +459,7 @@ var/ert_request_answered = 0
 	backpack_contents = list(
 		/obj/item/clothing/head/helmet/space/hardsuit/ert/security = 1,
 		/obj/item/clothing/mask/gas/sechailer = 1,
+		/obj/item/clothing/shoes/magboots = 1,
 		/obj/item/weapon/storage/box/handcuffs = 1,
 		/obj/item/weapon/gun/energy/ionrifle/carbine = 1
 	)
@@ -475,6 +478,7 @@ var/ert_request_answered = 0
 	backpack_contents = list(
 		/obj/item/clothing/head/helmet/space/hardsuit/ert/security = 1,
 		/obj/item/clothing/mask/gas/sechailer/swat = 1,
+		/obj/item/clothing/shoes/magboots/advance = 1,
 		/obj/item/weapon/storage/box/handcuffs = 1,
 		/obj/item/weapon/gun/energy/ionrifle/carbine = 1
 	)
@@ -594,7 +598,8 @@ var/ert_request_answered = 0
 		/obj/item/weapon/storage/firstaid/toxin = 1,
 		/obj/item/weapon/storage/firstaid/adv = 1,
 		/obj/item/weapon/storage/firstaid/surgery = 1,
-		/obj/item/weapon/gun/energy/gun = 1
+		/obj/item/weapon/gun/energy/gun = 1,
+		/obj/item/clothing/shoes/magboots = 1
 	)
 
 /datum/outfit/job/centcom/response_team/medic/gamma
@@ -613,6 +618,7 @@ var/ert_request_answered = 0
 		/obj/item/clothing/head/helmet/space/hardsuit/ert/medical = 1,
 		/obj/item/clothing/mask/gas/sechailer/swat = 1,
 		/obj/item/weapon/storage/firstaid/surgery = 1,
+		/obj/item/clothing/shoes/magboots/advance = 1,
 		/obj/item/weapon/gun/energy/pulse/pistol = 1
 	)
 
