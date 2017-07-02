@@ -11,8 +11,6 @@
 	damage = 5
 	stamina = 80
 
-/obj/item/projectile/bullet/weakbullet/rubber //beanbag that shells that don't embed
-
 /obj/item/projectile/bullet/weakbullet/booze
 
 /obj/item/projectile/bullet/weakbullet/booze/on_hit(atom/target, blocked = 0)
@@ -38,8 +36,6 @@
 	weaken = 3
 	stamina = 60
 	icon_state = "bullet-r"
-
-/obj/item/projectile/bullet/weakbullet2/rubber //detective's bullets that don't embed
 
 /obj/item/projectile/bullet/weakbullet3
 	damage = 20
@@ -269,6 +265,7 @@
 	icon_state = "syringeproj"
 
 /obj/item/projectile/bullet/dart/syringe/tranquilizer
+
 /obj/item/projectile/bullet/dart/syringe/tranquilizer/New()
 	..()
 	reagents.add_reagent("haloperidol", 15)
