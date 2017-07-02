@@ -172,6 +172,8 @@
 	base_color = "#CF4D2F"
 	butt_sprite = "vulp"
 
+	scream_verb = "yelps"
+
 	has_organ = list(
 		"heart" =    /obj/item/organ/internal/heart,
 		"lungs" =    /obj/item/organ/internal/lungs,
@@ -754,6 +756,11 @@
 		C.dna.SetSEState(REMOTETALKBLOCK,0,1)
 		genemutcheck(C,REMOTETALKBLOCK,null,MUTCHK_FORCED)
 	..()
+
+/datum/species/grey/water_act(var/mob/living/carbon/C, volume, temperature, source)
+	..()
+	C.take_organ_damage(5,min(volume,20))
+	C.emote("scream")
 
 /datum/species/grey/after_equip_job(datum/job/J, mob/living/carbon/human/H)
 	var/speech_pref = H.client.prefs.speciesprefs

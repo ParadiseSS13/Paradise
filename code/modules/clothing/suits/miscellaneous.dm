@@ -949,3 +949,20 @@
 	linked_staff.faith += 5
 	if(linked_staff.faith >= 100)	//if this charge puts the staff at or above full, notify the wearer
 		to_chat(H, "<span class='notice'>Faith renewed; ready to convert new followers.</span>")
+
+/obj/item/clothing/suit/tailcoat
+	name = "victorian tailcoat"
+	desc = "A fancy victorian tailcoat."
+	icon_state = "tailcoat"
+	item_state = "tailcoat"
+
+/obj/item/clothing/suit/victcoat
+	name = "ladies victorian coat"
+	desc = "A fancy victorian coat."
+	icon_state = "ladiesvictoriancoat"
+	item_state = "ladiesvictoriancoat"
+
+/obj/item/clothing/suit/victcoat/red
+	name = "ladies red victorian coat"
+	icon_state = "ladiesredvictoriancoat"
+	item_state = "ladiesredvictoriancoat"

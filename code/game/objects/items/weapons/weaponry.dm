@@ -130,6 +130,21 @@ obj/item/weapon/wirerod/attackby(obj/item/I, mob/user, params)
 		qdel(I)
 		qdel(src)
 
+/obj/item/weapon/throwing_star
+	name = "throwing star"
+	desc = "An ancient weapon still used to this day due to it's ease of lodging itself into victim's body parts"
+	icon_state = "throwingstar"
+	item_state = "eshield0"
+	force = 2
+	throwforce = 20 //This is never used on mobs since this has a 100% embed chance.
+	throw_speed = 4
+	embedded_pain_multiplier = 4
+	w_class = WEIGHT_CLASS_SMALL
+	embed_chance = 100
+	embedded_fall_chance = 0 //Hahaha!
+	sharp = 1
+	edge = 1
+	materials = list(MAT_METAL=500, MAT_GLASS=500)
 
 /obj/item/weapon/spear/kidan
 	icon_state = "kidanspear"

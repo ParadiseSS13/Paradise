@@ -112,6 +112,20 @@
 	else
 		to_chat(user, "<span class='notice'>The [src] is out of ink!</span>")
 
+/obj/item/device/fluff/bird_painter // BirdtTalon: Kahkiri
+	name = "Orb of Onyx"
+	desc = "It is imbued with such dark power as to corrupt the very appearance of those who gaze into its depths."
+	icon_state = "bird_orb"
+	icon = 'icons/obj/custom_items.dmi'
+
+/obj/item/device/fluff/bird_painter/attack_self(mob/user)
+	if(ishuman(user))
+		var/mob/living/carbon/human/H = user
+		H.s_tone = -115
+		H.regenerate_icons()
+		to_chat(user, "You use [src] on yourself.")
+		qdel(src)
+
 /obj/item/weapon/claymore/fluff // MrBarrelrolll: Maximus Greenwood
 	name = "Greenwood's Blade"
 	desc = "A replica claymore with strange markings scratched into the blade."
@@ -1001,6 +1015,12 @@
 	desc = "Battered, Sol-made military radio backpack that had its speakers fried from playing Vox opera. The words 'Swift-Talon' are crudely scratched onto its side."
 	icon = 'icons/obj/custom_items.dmi'
 	icon_state = "voxcaster_fluff"
+
+/obj/item/weapon/storage/backpack/fluff/ssscratches_back //Ssscratches: Lasshy-Bot
+	name = "CatPack"
+	desc = "It's a backpack, but it's also a cat."
+	icon = 'icons/obj/custom_items.dmi'
+	icon_state = "ssscratches_backpack"
 
 /obj/item/clothing/head/wizard/fake/fluff/dreamy //phantasmicdream : Dreamy Rockwall
 	name = "strange witch hat"

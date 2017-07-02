@@ -16,11 +16,9 @@
 	return 0
 
 /mob/living/carbon/human/isSynthetic()
-	// If they are 100% robotic, they count as synthetic.
-	for(var/obj/item/organ/external/E in bodyparts)
-		if(!(E.status & ORGAN_ROBOT))
-			return 0
-	return 1
+	if(get_species() == "Machine")
+		return 1
+	return 0
 
 /mob/proc/get_screen_colour()
 

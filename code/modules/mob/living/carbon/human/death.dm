@@ -90,8 +90,10 @@
 		if(src)			qdel(src)
 
 /mob/living/carbon/human/death(gibbed)
-	if(stat == DEAD)	return
-	if(healths)		healths.icon_state = "health5"
+	if(stat == DEAD)
+		return
+	if(healths)
+		healths.icon_state = "health5"
 
 	if(!gibbed)
 		emote("deathgasp") //let the world KNOW WE ARE DEAD
@@ -102,21 +104,8 @@
 	set_heartattack(FALSE)
 
 	//Handle species-specific deaths.
-	if(species) species.handle_death(src)
-
-	//Handle brain slugs.
-	var/obj/item/organ/external/head = get_organ("head")
-	var/mob/living/simple_animal/borer/B
-
-	if(istype(head))
-		for(var/I in head.implants)
-			if(istype(I,/mob/living/simple_animal/borer))
-				B = I
-	if(B)
-		if(B.controlling && B.host == src)
-			B.detach()
-
-		verbs -= /mob/living/carbon/proc/release_control
+	if(species)
+		species.handle_death(src)
 
 	callHook("death", list(src, gibbed))
 
@@ -143,9 +132,9 @@
 	return ..(gibbed)
 
 /mob/living/carbon/human/update_revive()
-	..()
+	. = ..()
 	// Update healthdoll
-	if(healthdoll)
+	if(. && healthdoll)
 		// We're alive again, so re-build the entire healthdoll
 		healthdoll.cached_healthdoll_overlays.Cut()
 

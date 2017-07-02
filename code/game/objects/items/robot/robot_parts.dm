@@ -7,7 +7,7 @@
 	slot_flags = SLOT_BELT
 	var/list/part = null
 	var/sabotaged = 0 //Emagging limbs can have repercussions when installed as prosthetics.
-	var/model_info
+	var/model_info = "Unbranded"
 	dir = SOUTH
 
 /obj/item/robot_parts/New(newloc, model)
@@ -23,33 +23,38 @@
 	else
 		name = "robot [initial(name)]"
 
+/obj/item/robot_parts/attack_self(mob/user)
+	var/choice = input(user, "Select the company appearance for this limb.", "Limb Company Selection") as null|anything in selectable_robolimbs
+	if(!choice)
+		return
+	if(loc != user)
+		return
+	model_info = choice
+	to_chat(usr, "<span class='notice'>You change the company limb model to [choice].</span>")
+
 /obj/item/robot_parts/l_arm
 	name = "left arm"
 	desc = "A skeletal limb wrapped in pseudomuscles, with a low-conductivity case."
 	icon_state = "l_arm"
 	part = list("l_arm","l_hand")
-	model_info = 1
 
 /obj/item/robot_parts/r_arm
 	name = "right arm"
 	desc = "A skeletal limb wrapped in pseudomuscles, with a low-conductivity case."
 	icon_state = "r_arm"
 	part = list("r_arm","r_hand")
-	model_info = 1
 
 /obj/item/robot_parts/l_leg
 	name = "left leg"
 	desc = "A skeletal limb wrapped in pseudomuscles, with a low-conductivity case."
 	icon_state = "l_leg"
 	part = list("l_leg","l_foot")
-	model_info = 1
 
 /obj/item/robot_parts/r_leg
 	name = "right leg"
 	desc = "A skeletal limb wrapped in pseudomuscles, with a low-conductivity case."
 	icon_state = "r_leg"
 	part = list("r_leg","r_foot")
-	model_info = 1
 
 /obj/item/robot_parts/chest
 	name = "torso"
@@ -80,6 +85,7 @@
 	name = "endoskeleton"
 	desc = "A complex metal backbone with standard limb sockets and pseudomuscle anchors."
 	icon_state = "robo_suit"
+	model_info = null
 	var/obj/item/robot_parts/l_arm/l_arm = null
 	var/obj/item/robot_parts/r_arm/r_arm = null
 	var/obj/item/robot_parts/l_leg/l_leg = null
@@ -107,6 +113,9 @@
 	QDEL_NULL(head)
 	forced_ai = null
 	return ..()
+
+/obj/item/robot_parts/robot_suit/attack_self(mob/user)
+	return
 
 /obj/item/robot_parts/robot_suit/proc/updateicon()
 	overlays.Cut()

@@ -7,7 +7,6 @@
 	var/icon_state_on = "axe1"
 	var/slot_flags_on = null
 	var/list/attack_verb_on = list("attacked", "slashed", "stabbed", "sliced", "torn", "ripped", "diced", "cut")
-	no_embed = 1 // Physically impossible for energy weapons to embed themselves into people, this should fix that. -- Dave
 	hitsound = 'sound/weapons/blade1.ogg' // Probably more appropriate than the previous hitsound. -- Dave
 	usesound = 'sound/weapons/blade1.ogg'
 	toolspeed = 1
@@ -26,6 +25,7 @@
 		force = force_on
 		throwforce = throwforce_on
 		hitsound = 'sound/weapons/blade1.ogg'
+		throw_speed = 4
 		if(attack_verb_on.len)
 			attack_verb = attack_verb_on
 		if(!item_color)
@@ -39,6 +39,7 @@
 		force = initial(force)
 		throwforce = initial(throwforce)
 		hitsound = initial(hitsound)
+		throw_speed = initial(throw_speed)
 		if(attack_verb_on.len)
 			attack_verb = list()
 		icon_state = initial(icon_state)
@@ -86,6 +87,8 @@
 	throw_speed = 3
 	throw_range = 5
 	hitsound = "swing_hit"
+	embed_chance = 75
+	embedded_impact_pain_multiplier = 10
 	armour_penetration = 35
 	origin_tech = "combat=3;magnets=4;syndicate=4"
 	block_chance = 50

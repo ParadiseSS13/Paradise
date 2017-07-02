@@ -203,7 +203,7 @@
 
 
 /obj/item/weapon/paper/proc/parsepencode(var/t, var/obj/item/weapon/pen/P, mob/user as mob)
-	t = pencode_to_html(t, usr, P, TRUE, TRUE, deffont, signfont, crayonfont)
+	t = pencode_to_html(t, usr, P, TRUE, TRUE, TRUE, deffont, signfont, crayonfont)
 
 //Count the fields
 	var/laststart = 1
