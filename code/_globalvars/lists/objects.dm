@@ -14,6 +14,7 @@ var/global/list/janitorial_equipment = list()		//list of janitorial equipment
 var/global/list/crafting_recipes = list() //list of all crafting recipes
 var/global/list/prisoncomputer_list = list()
 var/global/list/cell_logs = list()
+var/global/list/ticket_logs = list()
 
 var/global/list/all_areas = list()
 var/global/list/machines = list()
