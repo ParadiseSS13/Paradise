@@ -149,7 +149,7 @@ var/list/karma_spenders = list()
 /mob/verb/reduce_karma_list()
 	set name = "Reduce Karma"
 	set desc = "Let the gods know whether someone's been really bad. Can only be used once per round."
-	set category = "OOC"
+	set category = "Special Verbs"
 
 	if(!can_give_karma())
 		return
@@ -178,7 +178,7 @@ var/list/karma_spenders = list()
 /mob/verb/reduce_karma(var/mob/M)
 	set name = "Reduce Player Karma"
 	set desc = "Let the gods know whether someone's been really bad. Can only be used once per round."
-	set category = "OOC"
+	set category = "Special Verbs"
 
 	if(!M)
 		to_chat(usr, "Please right click a mob to reduce their karma directly, or use the 'Reduce Karma' verb to select a player from the player listing.")
