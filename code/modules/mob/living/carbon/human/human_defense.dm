@@ -8,7 +8,7 @@ emp_act
 
 */
 
-/mob/living/carbon/human/bullet_act(var/obj/item/projectile/P, var/def_zone)
+/mob/living/carbon/human/bullet_act(obj/item/projectile/P, def_zone)
 
 	if(istype(P, /obj/item/projectile/energy) || istype(P, /obj/item/projectile/beam))
 		if(check_reflect(def_zone)) // Checks if you've passed a reflection% check
@@ -40,19 +40,6 @@ emp_act
 	if(isnull(organ))
 		. = bullet_act(P, "chest") //act on chest instead
 		return
-
-	//Shrapnel
-	if(P.damage_type == BRUTE)
-		var/armor = getarmor_organ(organ, "bullet")
-		if((P.embed && prob(20 + max(P.damage - armor, -10))))
-			var/obj/item/weapon/shard/shrapnel/SP = new()
-			(SP.name) = "[P.name] shrapnel"
-			if(P.ammo_casing && P.ammo_casing.caliber)
-				(SP.desc) = "[SP.desc] It looks like it is a [P.ammo_casing.caliber] caliber round."
-			else
-				(SP.desc) = "[SP.desc] The round's caliber is unidentifiable."
-			(SP.loc) = organ
-			organ.embed(SP)
 
 	organ.add_autopsy_data(P.name, P.damage) // Add the bullet's name to the autopsy data
 
@@ -297,21 +284,6 @@ emp_act
 	if(Iforce > 10 || Iforce >= 5 && prob(33))
 		forcesay(hit_appends)	//forcesay checks stat already
 
-/*	//Melee weapon embedded object code. Commented out, as most people on the forums seem to find this annoying and think it does not contribute to general gameplay. - Dave
-	if(I.damtype == BRUTE && !I.is_robot_module())
-		var/damage = I.force
-		if(armor)
-			damage /= armor+1
-
-		//blunt objects should really not be embedding in things unless a huge amount of force is involved
-		var/embed_chance = weapon_sharp? damage/I.w_class : damage/(I.w_class*3)
-		var/embed_threshold = weapon_sharp? 5*I.w_class : 15*I.w_class
-
-		//Sharp objects will always embed if they do enough damage.
-		if(((weapon_sharp && damage > (10*I.w_class)) || (damage > embed_threshold && prob(embed_chance))) && (I.no_embed == 0) )
-			affecting.embed(I)
-	return 1*/
-
 //this proc handles being hit by a thrown atom
 /mob/living/carbon/human/hitby(atom/movable/AM, skipcatch = 0, hitpush = 1, blocked = 0)
 	var/obj/item/I
@@ -325,24 +297,19 @@ emp_act
 		hitpush = 0
 		skipcatch = 1
 		blocked = 1
-	/*else if(I)
+	else if(I)
 		if(I.throw_speed >= EMBED_THROWSPEED_THRESHOLD)
-			if(!I.is_robot_module())
-				var/armor = run_armor_check(affecting, "melee", "Your armor has protected your [hit_area].", "Your armor has softened hit to your [hit_area].", I.armour_penetration) //I guess "melee" is the best fit here
-				var/sharp = is_sharp(I)
-				var/damage = throwpower * (I.throw_speed / 5)
-				if(armor)
-					damage /= armor + 1
-
-				//blunt objects should really not be embedding in things unless a huge amount of force is involved
-				var/embed_chance = sharp? damage / I.w_class : damage/(I.w_class * 3)
-				var/embed_threshold = sharp? 5 * I.w_class : 15 * I.w_class
-
-				//Sharp objects will always embed if they do enough damage.
-				//Thrown sharp objects have some momentum already and have a small chance to embed even if the damage is below the threshold
-
-				if(((sharp && prob(damage / (10 * I.w_class) * 100)) || (damage > embed_threshold && prob(embed_chance))) && (I.no_embed == 0))
-					affecting.embed(I)*/
+			if(can_embed(I))
+				if(prob(I.embed_chance))
+					throw_alert("embeddedobject", /obj/screen/alert/embeddedobject)
+					var/obj/item/organ/external/L = pick(bodyparts)
+					L.embedded_objects |= I
+//					I.add_mob_blood(src)//it embedded itself in you, of course it's bloody!
+					I.forceMove(src)
+					L.take_damage(I.w_class*I.embedded_impact_pain_multiplier)
+					visible_message("<span class='danger'>[I] embeds itself in [src]'s [L.name]!</span>","<span class='userdanger'>[I] embeds itself in your [L.name]!</span>")
+					hitpush = 0
+					skipcatch = 1 //can't catch the now embedded item
 	return ..()
 
 /mob/living/carbon/human/proc/bloody_hands(var/mob/living/source, var/amount = 2)

@@ -780,7 +780,7 @@ var/global/list/multiverse = list()
 			to_chat(target, "<span class='userdanger'>You suddenly feel very hot</span>")
 			target.bodytemperature += 50
 			GiveHint(target)
-		else if(can_puncture(I))
+		else if(is_pointed(I))
 			to_chat(target, "<span class='userdanger'>You feel a stabbing pain in [parse_zone(user.zone_sel.selecting)]!</span>")
 			target.Weaken(2)
 			GiveHint(target)
