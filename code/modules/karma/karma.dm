@@ -279,7 +279,6 @@ You've gained <b>[totalkarma]</b> total karma in your time here.<br>"}
 			dat += {"
 
 			<a href='?src=[UID()];karmashop=shop;KarmaBuy2=10'>Unlock Diona -- 25KP</a><br>
-			<a href='?src=[UID()];karmashop=shop;KarmaBuy2=3'>Unlock Grey -- 30KP</a><br>
 			<a href='?src=[UID()];karmashop=shop;KarmaBuy2=1'>Unlock Machine People -- 30KP</a><br>
 			<a href='?src=[UID()];karmashop=shop;KarmaBuy2=7'>Unlock Drask -- 30KP</a><br>
 			<a href='?src=[UID()];karmashop=shop;KarmaBuy2=2'>Unlock Kidan -- 30KP</a><br>
@@ -289,6 +288,7 @@ You've gained <b>[totalkarma]</b> total karma in your time here.<br>"}
 			<a href='?src=[UID()];karmashop=shop;KarmaBuy2=13'>Unlock Skrell -- 45KP</a><br>
 			<a href='?src=[UID()];karmashop=shop;KarmaBuy2=5'>Unlock Slime People -- 50KP</a><br>
 			<a href='?src=[UID()];karmashop=shop;KarmaBuy2=9'>Unlock Tajaran -- 60KP</a><br>
+			<a href='?src=[UID()];karmashop=shop;KarmaBuy2=3'>Unlock Grey -- 60KP</a><br>
 			<a href='?src=[UID()];karmashop=shop;KarmaBuy2=11'>Unlock Nucleation -- 70KP</a><br>
 			<a href='?src=[UID()];karmashop=shop;KarmaBuy2=14'>Unlock Vulpkanin -- 75KP</a><br>
 			<a href='?src=[UID()];karmashop=shop;KarmaBuy2=8'>Unlock Unathi -- 80KP</a><br>
@@ -306,6 +306,7 @@ You've gained <b>[totalkarma]</b> total karma in your time here.<br>"}
 			<a href='?src=[UID()];karmashop=shop;KarmaBuy3=1'>Unlock DIO Set -- 15KP</a><br>
 			<a href='?src=[UID()];karmashop=shop;KarmaBuy3=2'>Unlock Slastena Set -- 15KP</a>(for Chef and Civilians only)<br>
 			<a href='?src=[UID()];karmashop=shop;KarmaBuy3=0002'>Unlock Sergeant's Helmet -- 30KP</a>(for Head of Security and Warden only)<br>
+			<a href='?src=[UID()];karmashop=shop;KarmaBuy3=0003'>Unlock Victorian Clothes -- 40KP</a><br>
 			"}
 
 	dat += "<br><B>PLEASE NOTE THAT PEOPLE WHO TRY TO GAME THE KARMA SYSTEM WILL END UP ON THE WALL OF SHAME. THIS INCLUDES BUT IS NOT LIMITED TO TRADES, OOC KARMA BEGGING, CODE EXPLOITS, ETC.</B>"

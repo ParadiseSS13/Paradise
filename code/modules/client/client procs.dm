@@ -191,13 +191,13 @@
 							DB_species_unlock("Kidan",30)
 							return
 					if("3")
-						if(karma <30)
+						if(karma <60)
 							to_chat(usr, "You do not have enough karma!")
 							return
 						else
 							if(alert("Are you sure you want to unlock Grey?", "Confirmation", "No", "Yes") != "Yes")
 								return
-							DB_species_unlock("Grey",30)
+							DB_species_unlock("Grey",60)
 							return
 					if("4")
 						if(karma <40)
@@ -350,6 +350,18 @@
 							src.DB_item_unlock("0003", 5)
 							src.DB_item_unlock("5002", 5)
 							src.DB_item_unlock("7002", 5)
+					if("0003")
+						if(karma < 40)
+							to_chat(usr, "What a pityful shame. Thou has not enough karma.")
+						else
+							src.DB_item_unlock("4009", 5)
+							src.DB_item_unlock("4010", 5)
+							src.DB_item_unlock("4011", 5)
+							src.DB_item_unlock("5003", 5)
+							src.DB_item_unlock("5004", 5)
+							src.DB_item_unlock("5005", 5)
+							src.DB_item_unlock("5006", 5)
+							src.DB_item_unlock("5007", 5)
 
 	switch(href_list["_src_"])
 		if("holder")	hsrc = holder

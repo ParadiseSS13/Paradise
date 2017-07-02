@@ -98,3 +98,51 @@
 	wl_id = "7002"
 	path = /obj/item/clothing/shoes/atmta/slastena
 	allowed_roles = list("Civilian", "Chef")
+
+/datum/gear/karma/victorian_tailcoat
+	display_name = "victorian tailcoat"
+	cost = 1
+	wl_id = "4009"
+	path = /obj/item/clothing/suit/tailcoat
+
+/datum/gear/karma/victorian_ladycoat
+	display_name = "ladies victorian tailcoat"
+	cost = 1
+	wl_id = "4010"
+	path = /obj/item/clothing/suit/victcoat
+
+/datum/gear/karma/victorian_redladycoat
+	display_name = "ladies red victorian tailcoat"
+	cost = 1
+	wl_id = "4011"
+	path = /obj/item/clothing/suit/victcoat/red
+
+/datum/gear/karma/victorian_blackdress
+	display_name = "black victorian dress"
+	cost = 1
+	wl_id = "5003"
+	path = /obj/item/clothing/under/victdress
+
+/datum/gear/karma/victorian_reddress
+	display_name = "red victorian dress"
+	cost = 1
+	wl_id = "5004"
+	path = /obj/item/clothing/under/victdress/red
+
+/datum/gear/karma/victorian_suit
+	display_name = "victorian suit"
+	cost = 1
+	wl_id = "5005"
+	path = /obj/item/clothing/under/victsuit
+
+/datum/gear/karma/victorian_redblksuit
+	display_name = "victorian red and black suit"
+	cost = 1
+	wl_id = "5006"
+	path = /obj/item/clothing/under/victsuit/redblk
+
+/datum/gear/karma/victorian_redsuit
+	display_name = "victorian red suit"
+	cost = 1
+	wl_id = "5007"
+	path = /obj/item/clothing/under/victsuit/red
