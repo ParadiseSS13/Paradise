@@ -278,6 +278,15 @@
 	icon_state = "plasmaman_Coroner_helmet0"
 	base_state = "plasmaman_Coroner_helmet"
 
+/obj/item/clothing/suit/space/eva/plasmaman/medical/virologist
+	name = "plasmaman virologist suit"
+	icon_state = "plasmaman_Virologist"
+
+/obj/item/clothing/head/helmet/space/eva/plasmaman/medical/virologist
+	name = "plasmaman virologist helmet"
+	icon_state = "plasmaman_Virologist_helmet0"
+	base_state = "plasmaman_Virologist_helmet"
+
 /obj/item/clothing/suit/space/eva/plasmaman/science
 	name = "plasmaman scientist suit"
 	icon_state = "plasmamanScience_suit"
@@ -286,6 +295,15 @@
 	name = "plasmaman scientist helmet"
 	icon_state = "plasmamanScience_helmet0"
 	base_state = "plasmamanScience_helmet"
+
+/obj/item/clothing/suit/space/eva/plasmaman/science/geneticist
+	name = "plasmaman geneticist suit"
+	icon_state = "plasmaman_Geneticist"
+
+/obj/item/clothing/head/helmet/space/eva/plasmaman/science/geneticist
+	name = "plasmaman geneticist helmet"
+	icon_state = "plasmaman_Geneticist_helmet0"
+	base_state = "plasmaman_Geneticist_helmet"
 
 /obj/item/clothing/suit/space/eva/plasmaman/science/rd
 	name = "plasmaman research director suit"
