@@ -98,7 +98,6 @@
 	throw_range = 6
 	materials = list(MAT_METAL=12000)
 	attack_verb = list("slashed", "stabbed", "sliced", "torn", "ripped", "diced", "cut")
-	no_embed = 1
 	sharp = 1
 
 /obj/item/weapon/kitchen/knife/suicide_act(mob/user)

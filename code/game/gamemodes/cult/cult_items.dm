@@ -40,6 +40,7 @@
 	w_class = WEIGHT_CLASS_SMALL
 	force = 15
 	throwforce = 25
+	embed_chance = 75
 	var/cooldown = 0
 
 /obj/item/weapon/melee/cultblade/dagger/afterattack(mob/living/target as mob, mob/living/carbon/human/user as mob)

@@ -157,6 +157,22 @@
 	new /obj/item/weapon/grenade/empgrenade(src)
 	new /obj/item/weapon/implanter/emp/(src)
 
+/obj/item/weapon/storage/box/syndie_kit/throwing_weapons
+	name = "boxed throwing kit"
+	can_hold = list(/obj/item/weapon/throwing_star, /obj/item/weapon/restraints/legcuffs/bola/tactical)
+	max_combined_w_class = 16
+	max_w_class = WEIGHT_CLASS_NORMAL
+
+/obj/item/weapon/storage/box/syndie_kit/throwing_weapons/New()
+	..()
+	new /obj/item/weapon/throwing_star(src)
+	new /obj/item/weapon/throwing_star(src)
+	new /obj/item/weapon/throwing_star(src)
+	new /obj/item/weapon/throwing_star(src)
+	new /obj/item/weapon/throwing_star(src)
+	new /obj/item/weapon/restraints/legcuffs/bola/tactical(src)
+	new /obj/item/weapon/restraints/legcuffs/bola/tactical(src)
+
 /obj/item/weapon/storage/box/syndie_kit/sarin
 	name = "Sarin Gas Grenades"
 

@@ -8,7 +8,6 @@
 	//why are these here and not in human_defines.dm
 	//var/list/hud_list[10]
 	var/datum/species/species //Contains icon generation and language information, set during New().
-	var/embedded_flag		//To check if we've need to roll for damage on movement while an item is imbedded in us.
 	var/obj/item/weapon/rig/wearing_rig // This is very not good, but it's much much better than calling get_rig() every update_canmove() call.
 
 /mob/living/carbon/human/New(var/new_loc, var/new_species = null, var/delay_ready_dna = 0)
@@ -700,6 +699,28 @@
 			if(G && G.pickpocket)
 				thief_mode = 1
 
+		if(href_list["embedded_object"])
+			var/obj/item/organ/external/L = locate(href_list["embedded_limb"]) in bodyparts
+			if(!L)
+				return
+			var/obj/item/I = locate(href_list["embedded_object"]) in L.embedded_objects
+			if(!I || I.loc != src) //no item, no limb, or item is not in limb or in the person anymore
+				return
+			var/time_taken = I.embedded_unsafe_removal_time*I.w_class
+			usr.visible_message("<span class='warning'>[usr] attempts to remove [I] from their [L.name].</span>","<span class='notice'>You attempt to remove [I] from your [L.name]... (It will take [time_taken/10] seconds.)</span>")
+			if(do_after(usr, time_taken, needhand = 1, target = src))
+				if(!I || !L || I.loc != src || !(I in L.embedded_objects))
+					return
+				L.embedded_objects -= I
+				L.take_damage(I.embedded_unsafe_removal_pain_multiplier*I.w_class)//It hurts to rip it out, get surgery you dingus.
+				I.forceMove(get_turf(src))
+				usr.put_in_hands(I)
+				usr.emote("scream")
+				usr.visible_message("[usr] successfully rips [I] out of their [L.name]!","<span class='notice'>You successfully remove [I] from your [L.name].</span>")
+				if(!has_embedded_objects())
+					clear_alert("embeddedobject")
+			return
+
 		if(href_list["item"])
 			var/slot = text2num(href_list["item"])
 			if(slot in check_obscured_slots())
@@ -1348,45 +1369,12 @@
 	else
 		..()
 
-/mob/living/carbon/human/get_visible_implants(var/class = 0)
-
-	var/list/visible_implants = list()
-	for(var/obj/item/organ/external/organ in bodyparts)
-		for(var/obj/item/weapon/O in organ.implants)
-			if(!istype(O,/obj/item/weapon/implant) && (O.w_class > class) && !istype(O,/obj/item/weapon/shard/shrapnel))
-				visible_implants += O
-
-	return(visible_implants)
-
 /mob/living/carbon/human/generate_name()
 	name = species.makeName(gender,src)
 	real_name = name
 	if(dna)
 		dna.real_name = name
 	return name
-
-/mob/living/carbon/human/proc/handle_embedded_objects()
-
-	for(var/obj/item/organ/external/organ in bodyparts)
-		if(organ.status & ORGAN_SPLINTED) //Splints prevent movement.
-			continue
-		for(var/obj/item/weapon/O in organ.implants)
-			if(!istype(O,/obj/item/weapon/implant) && prob(5)) //Moving with things stuck in you could be bad.
-				// All kinds of embedded objects cause bleeding.
-				var/msg = null
-				switch(rand(1,3))
-					if(1)
-						msg ="<span class='warning'>A spike of pain jolts your [organ.name] as you bump [O] inside.</span>"
-					if(2)
-						msg ="<span class='warning'>Your movement jostles [O] in your [organ.name] painfully.</span>"
-					if(3)
-						msg ="<span class='warning'>[O] in your [organ.name] twists painfully as you move.</span>"
-				to_chat(src, msg)
-
-				organ.take_damage(rand(1,3), 0, 0)
-				if(!(organ.status & ORGAN_ROBOT)) //There is no blood in protheses.
-					organ.status |= ORGAN_BLEEDING
-					src.adjustToxLoss(rand(1,3))
 
 /mob/living/carbon/human/verb/check_pulse()
 	set category = null

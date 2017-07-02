@@ -53,8 +53,6 @@
 	var/lastpuke = 0
 	var/unacidable = 0
 	var/can_strip = 1
-	var/list/pinned = list()            //List of things pinning this creature to walls (see living_defense.dm)
-	var/list/embedded = list()          //Embedded items, since simple mobs don't have organs.
 	var/list/languages = list()         // For speaking/listening.
 	var/list/abilities = list()         // For species-derived or admin-given powers.
 	var/list/speak_emote = list("says") // Verbs used when speaking. Defaults to 'say' if speak_emote is null.

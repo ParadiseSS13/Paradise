@@ -399,9 +399,6 @@
 	if(has_gravity(H))
 		gravity = 1
 
-	if(H.embedded_flag)
-		H.handle_embedded_objects() //Moving with objects stuck in you can cause bad times.
-
 	if(!ignoreslow && gravity)
 		if(slowdown)
 			. = slowdown
@@ -741,3 +738,9 @@ It'll return null if the organ doesn't correspond, so include null checks when u
 
 	if(H.see_override)	//Override all
 		H.see_invisible = H.see_override
+
+/datum/species/proc/water_act(mob/living/carbon/human/M, volume, temperature, source)
+	if(temperature >= 330)
+		M.bodytemperature = M.bodytemperature + (temperature - M.bodytemperature)
+	if(temperature <= 280)
+		M.bodytemperature = M.bodytemperature - (M.bodytemperature - temperature)
