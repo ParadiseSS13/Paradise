@@ -43,8 +43,7 @@
 	if(targloc == curloc)
 		if(target) //if the target is right on our location we go straight to bullet_act()
 			target.bullet_act(BB, BB.def_zone)
-		qdel(BB)
-		BB = null
+		QDEL_NULL(BB)
 		return 1
 
 	BB.preparePixelProjectile(target, targloc, user, params, spread)

@@ -43,9 +43,7 @@
 
 
 /mob/living/carbon/human/proc/remake_hud() //used for preference changes mid-round; can't change hud icons without remaking the hud.
-	if(hud_used)
-		qdel(hud_used)
-		hud_used = null
+	QDEL_NULL(hud_used)
 	create_mob_hud()
 	if(hud_used)
 		hud_used.show_hud(hud_used.hud_version)

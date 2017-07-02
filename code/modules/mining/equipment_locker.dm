@@ -1040,8 +1040,7 @@
 		mark = 0
 		if(L.mob_size >= MOB_SIZE_LARGE)
 			L.underlays -= marked_image
-			qdel(marked_image)
-			marked_image = null
+			QDEL_NULL(marked_image)
 			var/backstab = check_target_facings(user, L)
 			var/def_check = L.getarmor(type = "bomb")
 			if(backstab == FACING_INIT_FACING_TARGET_TARGET_FACING_PERPENDICULAR || backstab == FACING_SAME_DIR)
