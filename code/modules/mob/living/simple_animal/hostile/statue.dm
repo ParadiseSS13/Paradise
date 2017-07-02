@@ -47,6 +47,8 @@
 	var/cannot_be_seen = 1
 	var/mob/living/creator = null
 
+	sentience_type = SENTIENCE_OTHER
+
 
 // No movement while seen code.
 

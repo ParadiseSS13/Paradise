@@ -25,7 +25,7 @@
 	loot = list(/obj/effect/landmark/mobcorpse/russian,
 			/obj/item/weapon/kitchen/knife)
 	del_on_death = 1
-
+	sentience_type = SENTIENCE_OTHER
 
 /mob/living/simple_animal/hostile/russian/ranged
 	icon_state = "russianranged"
