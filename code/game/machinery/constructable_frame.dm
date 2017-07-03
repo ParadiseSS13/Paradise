@@ -1001,3 +1001,17 @@ obj/item/weapon/circuitboard/rdserver
 	name = "circuit board ([new_name])"
 	if(user)
 		to_chat(user, "<span class='notice'>You set the board to [new_name].</span>")
+
+/obj/item/weapon/circuitboard/food_replicator
+	name = "circuit board: Food Replicator"
+	build_path = /obj/machinery/food_replicator
+	board_type = "machine"
+	origin_tech = "programming=2;materials=2;biotech=2"
+	frame_desc = "Requires 1 Manipulator, 1 Micro-Laser, 1 Scanning Module, 1 Matter Bin, 1 Console Screen and 5 pieces of cable."
+	req_components = list(
+							/obj/item/weapon/stock_parts/micro_laser = 1,
+							/obj/item/weapon/stock_parts/manipulator = 1,
+							/obj/item/weapon/stock_parts/scanning_module = 1,
+							/obj/item/weapon/stock_parts/matter_bin = 1,
+							/obj/item/weapon/stock_parts/console_screen = 1,
+							/obj/item/stack/cable_coil = 5)

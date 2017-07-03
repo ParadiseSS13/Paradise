@@ -166,6 +166,9 @@
 	var/reagents_per_slice = reagents.total_volume/slices_num
 	for(var/i=1 to (slices_num-slices_lost))
 		var/obj/slice = new slice_path (loc)
+		if(istype(slice, /obj/item/weapon/reagent_containers/food))
+			var/obj/item/weapon/reagent_containers/food/food_slice = slice
+			food_slice.duped = duped
 		reagents.trans_to(slice,reagents_per_slice)
 	qdel(src)
 
@@ -337,7 +340,7 @@
 /obj/item/weapon/reagent_containers/food/snacks/donut/sprinkles
 	name = "frosted donut"
 	icon_state = "donut2"
-	list_reagents = list("nutriment" = 3, "sugar" = 2, "spinkles" = 2)
+	list_reagents = list("nutriment" = 3, "sugar" = 2, "sprinkles" = 2)
 	filling_color = "#FF69B4"
 	randomized_sprinkles = 0
 
@@ -2478,3 +2481,61 @@
 	icon_state = "tatortot"
 	list_reagents = list("nutriment" = 4)
 	filling_color = "FFD700"
+
+//////////////////////////////////
+//		Replicated Food Item	//
+//////////////////////////////////
+
+/obj/item/weapon/reagent_containers/food/snacks/replica_dish
+	name = "replicated dish"
+	desc = "A copy of another dish. This should have been copied over."
+	icon = 'icons/obj/food/food.dmi'
+	icon_state = "badrecipe"
+	list_reagents = list()
+	trash = null
+	dry = 1
+	duped = 1
+	filling_color = "FFD700"
+
+//////////////////////////////////
+//		Food Polyhedrons		//
+//////////////////////////////////
+
+/obj/item/weapon/reagent_containers/food/snacks/food_poly
+	name = "food sphere"
+	desc = "Three-dimensional food! This one is a sphere!"
+	icon = 'icons/obj/food/poly.dmi'
+	icon_state = "food_sphere"
+	list_reagents = list("nutriment" = 1)
+	duped = 1
+	filling_color = "FFD700"
+
+/obj/item/weapon/reagent_containers/food/snacks/food_poly/tetrahedron
+	name = "food tetrahedron"
+	desc = "Three-dimensional food! This one is a tetrahedron!"
+	icon_state = "food_tetra"
+	list_reagents = list("nutriment" = 4)
+
+/obj/item/weapon/reagent_containers/food/snacks/food_poly/cube
+	name = "food cube"
+	desc = "Three-dimensional food! This one is a cube!"
+	icon_state = "food_cube"
+	list_reagents = list("nutriment" = 6)
+
+/obj/item/weapon/reagent_containers/food/snacks/food_poly/octahedron
+	name = "food octahedron"
+	desc = "Three-dimensional food! This one is a octahedron!"
+	icon_state = "food_octa"
+	list_reagents = list("nutriment" = 8)
+
+/obj/item/weapon/reagent_containers/food/snacks/food_poly/dodecahedron
+	name = "food dodecahedron"
+	desc = "Three-dimensional food! This one is a dodecahedron!"
+	icon_state = "food_dodeca"
+	list_reagents = list("nutriment" = 12)
+
+/obj/item/weapon/reagent_containers/food/snacks/food_poly/icosahedron
+	name = "food icosahedron"
+	desc = "Three-dimensional food! This one is a icosahedron!"
+	icon_state = "food_icosa"
+	list_reagents = list("nutriment" = 20)

@@ -288,7 +288,8 @@
 			fail()
 			return
 	else
-		var/halftime = round(recipe.time/10/2)
+		var/time_needed = recipe.time / efficiency
+		var/halftime = round(time_needed/10/2)
 		if(!wzhzhzh(halftime))
 			abort()
 			return
@@ -301,8 +302,6 @@
 		stop()
 		if(cooked)
 			cooked.forceMove(loc)
-		for(var/i=1,i<efficiency,i++)
-			cooked = new cooked.type(loc)
 		if(byproduct)
 			new byproduct(loc)
 		return
