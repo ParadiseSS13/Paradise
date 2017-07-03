@@ -396,7 +396,7 @@
 			organData["broken"] = E.min_broken_damage
 
 			var/shrapnelData[0]
-			for(var/obj/I in E.implants)
+			for(var/obj/I in E.embedded_objects)
 				var/shrapnelSubData[0]
 				shrapnelSubData["name"] = I.name
 
@@ -600,7 +600,7 @@
 						infected = "Septic:"
 
 				var/unknown_body = 0
-				for(var/I in e.implants)
+				for(var/I in e.embedded_objects)
 					unknown_body++
 
 				if(unknown_body || e.hidden)

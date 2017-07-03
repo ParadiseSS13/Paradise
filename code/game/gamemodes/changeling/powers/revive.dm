@@ -37,10 +37,6 @@
 			var/obj/item/organ/external/O = H.bodyparts_by_name[organ_name]
 			if(!O)
 				continue
-			for(var/obj/item/weapon/shard/shrapnel/s in O.implants)
-				O.implants -= s
-				H.contents -= s
-				qdel(s)
 			O.brute_dam = 0
 			O.burn_dam = 0
 			O.damage_state = "00"
@@ -56,6 +52,7 @@
 		for(var/obj/item/organ/internal/IO in H.internal_organs)
 			IO.damage = 0
 			IO.trace_chemicals.Cut()
+		H.remove_all_embedded_objects()
 		H.updatehealth()
 
 	to_chat(user, "<span class='notice'>We have regenerated.</span>")

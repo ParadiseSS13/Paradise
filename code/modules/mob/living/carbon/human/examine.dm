@@ -382,6 +382,9 @@
 			else
 				wound_flavor_text["[temp.limb_name]"] = ""
 
+			for(var/obj/item/I in temp.embedded_objects)
+				msg += "<B>[t_He] [t_has] \a [bicon(I)] [I] embedded in [t_his] [temp.name]!</B>\n"
+
 	//Handles the text strings being added to the actual description.
 	//If they have something that covers the limb, and it is not missing, put flavortext.  If it is covered but bleeding, add other flavortext.
 	var/display_chest = 0

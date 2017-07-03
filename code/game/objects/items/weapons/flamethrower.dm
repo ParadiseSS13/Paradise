@@ -62,7 +62,7 @@
 /obj/item/weapon/flamethrower/afterattack(atom/target, mob/user, flag)
 	if(flag) return // too close
 	// Make sure our user is still holding us
-	if(user && user.get_active_hand() == src)
+	if(user && user.is_in_active_hand(src))
 		var/turf/target_turf = get_turf(target)
 		if(target_turf)
 			var/turflist = getline(user, target_turf)

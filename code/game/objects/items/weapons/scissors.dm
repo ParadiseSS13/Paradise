@@ -95,7 +95,6 @@
 		user.visible_message("<span class='notice'>[user] finishes cutting [M]'s hair!</span>")
 
 /obj/item/weapon/scissors/safety //Totally safe, I assure you.
-	name = "safety scissors"
 	desc = "The blades of the scissors appear to be made of some sort of ultra-strong metal alloy."
 	force = 18 //same as e-daggers
 	var/is_cutting = 0 //to prevent spam clicking this for huge accumulation of losebreath.

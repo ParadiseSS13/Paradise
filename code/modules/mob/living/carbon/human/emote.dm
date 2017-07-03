@@ -37,7 +37,17 @@
 			if(species.name == "Drask")		//Only Drask can make whale noises
 				on_CD = handle_emote_CD()			//proc located in code\modules\mob\emote.dm
 			else
+				return				
+		if("howl", "howls")
+			if (species.name == "Vulpkanin")		//Only Vulpkanin can howl
+				on_CD = handle_emote_CD(100)
+			else
 				return
+		if("growl", "growls")
+			if (species.name == "Vulpkanin")		//Only Vulpkanin can growl
+				on_CD = handle_emote_CD()
+			else
+				return				
 		if("squish", "squishes")
 			var/found_slime_bodypart = 0
 
@@ -76,7 +86,7 @@
 			on_CD = handle_emote_CD(50) //longer cooldown
 		if("fart", "farts", "flip", "flips", "snap", "snaps")
 			on_CD = handle_emote_CD()				//proc located in code\modules\mob\emote.dm
-		if("cough", "coughs")
+		if("cough", "coughs", "slap", "slaps")
 			on_CD = handle_emote_CD()
 		if("sneeze", "sneezes")
 			on_CD = handle_emote_CD()
@@ -91,8 +101,21 @@
 		if("me")									//OKAY SO RANT TIME, THIS FUCKING HAS TO BE HERE OR A SHITLOAD OF THINGS BREAK
 			return custom_emote(m_type, message)	//DO YOU KNOW WHY SHIT BREAKS? BECAUSE SO MUCH OLDCODE CALLS mob.emote("me",1,"whatever_the_fuck_it_wants_to_emote")
 													//WHO THE FUCK THOUGHT THAT WAS A GOOD FUCKING IDEA!?!?
-		if("ping", "pings")
+													
+		if("howl", "howls")
 			var/M = handle_emote_param(param) //Check to see if the param is valid (mob with the param name is in view).
+			message = "<B>[src]</B> howls[M ? " at [M]" : ""]!"
+			playsound(loc, 'sound/goonstation/voice/howl.ogg', 100, 0, 10)
+			m_type = 2
+
+		if("growl", "growls")
+			var/M = handle_emote_param(param)
+			message = "<B>[src]</B> growls[M ? " at [M]" : ""]."
+			playsound(loc, "growls", 80, 0)
+			m_type = 2
+			
+		if("ping", "pings")
+			var/M = handle_emote_param(param)
 
 			message = "<B>[src]</B> pings[M ? " at [M]" : ""]."
 			playsound(loc, 'sound/machines/ping.ogg', 50, 0)
@@ -795,6 +818,8 @@
 					emotelist += "\nKidan specific emotes :- click(s), clack(s)"
 				if("Unathi")
 					emotelist += "\nUnathi specific emotes :- hiss(es)"
+				if("Vulpkanin")
+					emotelist += "\nVulpkanin specific emotes :- growl(s)-none/mob, howl(s)-none/mob"
 
 			if (species.name == "Slime People")
 				emotelist += "\nSlime people specific emotes :- squish(es)-(none)/mob"

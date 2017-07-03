@@ -4,7 +4,6 @@
 	damage = 60
 	damage_type = BRUTE
 	flag = "bullet"
-	embed = 1
 	sharp = 1
 	hitsound_wall = "ricochet"
 
@@ -14,11 +13,9 @@
 	stamina = 80
 
 /obj/item/projectile/bullet/weakbullet/rubber //beanbag that shells that don't embed
-	embed = 0
 	sharp = 0
 
 /obj/item/projectile/bullet/weakbullet/booze
-	embed = 0
 
 /obj/item/projectile/bullet/weakbullet/booze/on_hit(atom/target, blocked = 0)
 	if(..(target, blocked))
@@ -45,7 +42,6 @@
 	icon_state = "bullet-r"
 
 /obj/item/projectile/bullet/weakbullet2/rubber //detective's bullets that don't embed
-	embed = 0
 	sharp = 0
 
 /obj/item/projectile/bullet/weakbullet3
@@ -56,7 +52,6 @@
 	damage = 5
 	stamina = 30
 	icon_state = "bullet-r"
-	embed = 0
 	sharp = 0
 
 /obj/item/projectile/bullet/toxinbullet
@@ -145,7 +140,6 @@
 	name = "rubber pellet"
 	damage = 3
 	stamina = 25
-	embed = 0
 	sharp = 0
 	icon_state = "bullet-r"
 
@@ -157,7 +151,6 @@
 	stutter = 5
 	jitter = 20
 	range = 7
-	embed = 0
 	sharp = 0
 	icon_state = "spark"
 	color = "#FFFF00"
@@ -209,7 +202,6 @@
 	stun = 5
 	forcedodge = 1
 	nodamage = 1
-	embed = 0
 	sharp = 0
 	pass_flags = PASSTABLE | PASSGLASS | PASSGRILLE
 	hitsound = 'sound/items/bikehorn.ogg'
@@ -244,7 +236,6 @@
 	name = "dart"
 	icon_state = "cbbolt"
 	damage = 6
-	embed = 0
 	sharp = 0
 	var/piercing = 0
 
@@ -307,7 +298,6 @@
 	name = "cap"
 	damage = 0
 	nodamage = 1
-	embed = 0
 	sharp = 0
 
 /obj/item/projectile/bullet/cap/fire()

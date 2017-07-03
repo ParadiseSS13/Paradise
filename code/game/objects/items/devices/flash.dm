@@ -39,6 +39,11 @@
 			overcharged = 1
 			overlays += "overcharge"
 
+/obj/item/device/flash/random/New()
+	..()
+	if(prob(25))
+		broken = 1
+		icon_state = "[initial(icon_state)]burnt"
 
 /obj/item/device/flash/proc/burn_out() //Made so you can override it if you want to have an invincible flash from R&D or something.
 	broken = 1
