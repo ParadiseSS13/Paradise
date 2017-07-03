@@ -170,10 +170,10 @@
 /datum/reagent/consumable/drink/jolly
 	name = "Jolly Juice"
 	id = "jolly"
-	description = "Juice that make you go HONK!!"
+	description = "Juice that makes you go HONK!!"
 	drink_icon = "jolly_juice"
 	drink_name = "Jolly Juice"
-	drink_desc = "HOINK!!!"
+	drink_desc = "HONK!!!"
 
 /datum/reagent/consumable/drink/jolly/on_mob_life(mob/living/M)
 	if(ishuman(M) && M.job in list("Clown"))
