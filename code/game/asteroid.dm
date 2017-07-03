@@ -87,7 +87,7 @@ var/global/max_secret_rooms = 6
 		if("cavein")
 			theme = "cavein"
 			walltypes = list(/turf/simulated/mineral/random/high_chance=1)
-			floortypes = list(/turf/simulated/floor/plating/airless/asteroid, /turf/simulated/floor/beach/sand)
+			floortypes = list(/turf/simulated/floor/plating/asteroid/basalt, /turf/simulated/floor/beach/sand)
 			treasureitems = list(/obj/mecha/working/ripley/mining=1, /obj/item/weapon/pickaxe/drill/diamonddrill=2,
 							/obj/item/weapon/resonator/upgraded=1, /obj/item/weapon/pickaxe/drill/jackhammer=5)
 			fluffitems = list(/obj/effect/decal/cleanable/blood=3,/obj/effect/decal/remains/human=1,/obj/item/clothing/under/overalls=1,
@@ -96,7 +96,7 @@ var/global/max_secret_rooms = 6
 		if("xenoden")
 			theme = "xenoden"
 			walltypes = list(/turf/simulated/mineral/random/high_chance=1)
-			floortypes = list(/turf/simulated/floor/plating/airless/asteroid, /turf/simulated/floor/beach/sand)
+			floortypes = list(/turf/simulated/floor/plating/asteroid/basalt, /turf/simulated/floor/beach/sand)
 			treasureitems = list(/obj/item/clothing/mask/facehugger=1,/obj/item/stack/sheet/animalhide/xeno=2,/obj/item/clothing/suit/xenos=2,/obj/item/clothing/head/xenos=2,/obj/item/weapon/guardiancreator/biological/choose=1)
 			fluffitems = list(/obj/effect/decal/remains/human=1,/obj/effect/decal/cleanable/blood/xeno=5)
 
@@ -139,7 +139,7 @@ var/global/max_secret_rooms = 6
 	possiblethemes -= theme //once a theme is selected, it's out of the running!
 	var/floor = pick(floortypes)
 
-	turfs = get_area_turfs(/area/mine/dangerous/unexplored)
+	turfs = get_area_turfs(/area/lavaland/surface/outdoors)
 
 	if(!turfs.len)
 		return 0
@@ -161,26 +161,30 @@ var/global/max_secret_rooms = 6
 		surroundings += range(7, locate(T.x,T.y+y_size,T.z))
 		surroundings += range(7, locate(T.x+x_size,T.y+y_size,T.z))
 
-		if(locate(/area/mine/dangerous/explored) in surroundings)
-			valid = 0
-			continue
-
-		if(locate(/area/mine/abandoned) in surroundings)
-			valid = 0
-			continue
-
-		if(locate(/turf/space) in surroundings)
-			valid = 0
-			continue
-
-		if(locate(/area/asteroid/artifactroom) in surroundings)
-			valid = 0
-			continue
-
-		if(locate(/turf/simulated/floor/plating/airless/asteroid) in range(5,T))//A little less strict than the other checks due to tunnels
-			valid = 0
-			continue
-
+		// if(locate(/area/mine/dangerous/explored) in surroundings)
+		// 	valid = 0
+		// 	continue
+		//
+		// if(locate(/area/mine/abandoned) in surroundings)
+		// 	valid = 0
+		// 	continue
+		//
+		// if(locate(/turf/space) in surroundings)
+		// 	valid = 0
+		// 	continue
+		//
+		// if(locate(/area/asteroid/artifactroom) in surroundings)
+		// 	valid = 0
+		// 	continue
+		//
+		// if(locate(/turf/simulated/floor/plating/asteroid/basalt) in range(5,T))//A little less strict than the other checks due to tunnels
+		// 	valid = 0
+		// 	continue
+		for(var/turf/check in surroundings)
+			var/area/new_area = get_area(check)
+			if(!(istype(new_area, /area/lavaland/surface/outdoors)))
+				valid = 0
+				break
 	if(!T)
 		return 0
 

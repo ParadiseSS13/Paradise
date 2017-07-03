@@ -24,6 +24,8 @@ var/global/list/rockTurfEdgeCache = list(
 	var/mineralType = null
 	var/mineralAmt = 3
 	var/mineralName = null
+	var/environment_type
+	var/turf/simulated/floor/plating/asteroid/turf_type = /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface //For basalt vs normal asteroid
 	var/spread = 0 //will the seam spread?
 	var/spreadChance = 0 //the percentual chance of an ore spreading to the neighbouring tiles
 	var/last_act = 0
@@ -73,7 +75,7 @@ var/global/list/rockTurfEdgeCache = list(
 		icon_state = "rock"
 	return
 
-/turf/simulated/mineral/proc/Spread(var/turf/T)
+/turf/simulated/mineral/Spread(var/turf/T)
 	new src.type(T)
 
 /hook/startup/proc/add_mineral_edges()
@@ -650,6 +652,137 @@ var/global/list/rockTurfEdgeCache = list(
 			if("Hivelord")
 				new /mob/living/simple_animal/hostile/asteroid/hivelord(T)
 	return
+
+/**********************Lavaland Turfs**************************/
+
+///////Surface. The surface is warm, but survivable without a suit. Internals are required. The floors break to chasms, which drop you into the underground.
+/turf/simulated/floor/plating/asteroid/basalt
+	name = "volcanic floor"
+	baseturf = /turf/simulated/floor/plating/asteroid/basalt
+	icon = 'icons/turf/floors.dmi'
+	icon_state = "basalt"
+	icon_plating = "basalt"
+
+/turf/simulated/floor/plating/asteroid/basalt/lava //lava underneath
+	baseturf = /turf/simulated/floor/plating/lava/smooth
+
+/turf/simulated/floor/plating/asteroid/basalt/airless
+	oxygen = 0.01
+	nitrogen = 0.01
+	temperature = TCMB
+
+/turf/simulated/mineral/volcanic
+	environment_type = "basalt"
+	turf_type = /turf/simulated/floor/plating/asteroid/basalt
+	baseturf = /turf/simulated/floor/plating/asteroid/basalt
+	oxygen = 14
+	nitrogen = 23
+	temperature = 300
+/turf/simulated/mineral/volcanic/New()
+	..()
+	if(prob(20))
+		icon_state = "[environment_type][rand(0,12)]"
+
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface
+	oxygen = 14
+	nitrogen = 23
+	temperature = 300
+	baseturf = /turf/simulated/floor/plating/lava/smooth/lava_land_surface
+
+/turf/simulated/chasm/straight_down/lava_land_surface
+	oxygen = 14
+	nitrogen = 23
+	temperature = 300
+	baseturf = /turf/simulated/chasm/straight_down/lava_land_surface
+
+/turf/simulated/mineral/volcanic/lava_land_surface
+	environment_type = "basalt"
+	turf_type = /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface
+	baseturf = /turf/simulated/chasm/straight_down/lava_land_surface
+
+/turf/simulated/mineral/random/volcanic
+	environment_type = "basalt"
+	turf_type = /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface
+	baseturf = /turf/simulated/floor/plating/lava/smooth/lava_land_surface
+	oxygen = 14
+	nitrogen = 23
+	temperature = 300
+
+	mineralChance = 10
+	mineralSpawnChanceList = list(
+		/turf/simulated/mineral/uranium/volcanic = 5, /turf/simulated/mineral/diamond/volcanic = 1, /turf/simulated/mineral/gold/volcanic = 10,
+		/turf/simulated/mineral/silver/volcanic = 12, /turf/simulated/mineral/plasma/volcanic = 20, /turf/simulated/mineral/iron/volcanic = 40,
+		/turf/simulated/mineral/gibtonite/volcanic = 4, /turf/simulated/mineral/bscrystal/volcanic = 1)
+
+/turf/simulated/floor/plating/lava/smooth/lava_land_surface
+	oxygen = 14
+	nitrogen = 23
+	temperature = 300
+	baseturf = /turf/simulated/chasm/straight_down/lava_land_surface
+
+/turf/simulated/mineral/gibtonite/volcanic
+	environment_type = "basalt"
+	turf_type = /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface
+	baseturf = /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface
+	oxygen = 14
+	nitrogen = 23
+	temperature = 300
+
+/turf/simulated/mineral/uranium/volcanic
+	environment_type = "basalt"
+	turf_type = /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface
+	baseturf = /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface
+	oxygen = 14
+	nitrogen = 23
+	temperature = 300
+
+/turf/simulated/mineral/diamond/volcanic
+	environment_type = "basalt"
+	turf_type = /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface
+	baseturf = /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface
+	oxygen = 14
+	nitrogen = 23
+	temperature = 300
+
+/turf/simulated/mineral/gold/volcanic
+	environment_type = "basalt"
+	turf_type = /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface
+	baseturf = /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface
+	oxygen = 14
+	nitrogen = 23
+	temperature = 300
+
+/turf/simulated/mineral/silver/volcanic
+	environment_type = "basalt"
+	turf_type = /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface
+	baseturf = /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface
+	oxygen = 14
+	nitrogen = 23
+	temperature = 300
+
+/turf/simulated/mineral/plasma/volcanic
+	environment_type = "basalt"
+	turf_type = /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface
+	baseturf = /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface
+	oxygen = 14
+	nitrogen = 23
+	temperature = 300
+
+/turf/simulated/mineral/iron/volcanic
+	environment_type = "basalt"
+	turf_type = /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface
+	baseturf = /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface
+	oxygen = 14
+	nitrogen = 23
+	temperature = 300
+
+/turf/simulated/mineral/bscrystal/volcanic
+	environment_type = "basalt"
+	turf_type = /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface
+	baseturf = /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface
+	oxygen = 14
+	nitrogen = 23
+	temperature = 300
 
 #undef NORTH_EDGING
 #undef SOUTH_EDGING
