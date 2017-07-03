@@ -1,5 +1,0 @@
-author: "fludd12"
-delete-after: True
-changes: 
-  - bugfix: "Greys are now PROPERLY immune to sulfuric acid."
-  - bugfix: "Greys don't pretend to touch their heads when they don't manage to anymore."
