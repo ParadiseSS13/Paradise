@@ -284,25 +284,20 @@
 
 // Other computer monitors.
 /obj/machinery/computer/security/telescreen
-	name = "\improper Telescreen"
+	name = "\improper telescreen"
 	desc = "Used for watching camera networks."
-	icon = 'icons/obj/stationobjs.dmi'
-	icon_state = "telescreen"
+	icon_state = "telescreen_console"
+	icon_screen = "telescreen"
+	icon_keyboard = null
 	light_range_on = 0
 	network = list("SS13")
 	density = 0
 
-/obj/machinery/computer/security/telescreen/update_icon()
-	icon_state = initial(icon_state)
-	if(stat & BROKEN)
-		icon_state += "b"
-	return
-
 /obj/machinery/computer/security/telescreen/entertainment
 	name = "entertainment monitor"
 	desc = "Damn, they better have Paradise TV on these things."
-	icon = 'icons/obj/status_display.dmi'
-	icon_state = "entertainment"
+	icon_state = "entertainment_console"
+	icon_screen = "entertainment"
 	light_color = "#FFEEDB"
 	light_range_on = 0
 	network = list("news")
@@ -310,7 +305,7 @@
 
 /obj/machinery/computer/security/wooden_tv
 	name = "security camera monitor"
-	desc = "An old TV hooked into the stations camera network."
+	desc = "An old TV hooked into the station's camera network."
 	icon_state = "television"
 	icon_keyboard = null
 	icon_screen = "detective_tv"
