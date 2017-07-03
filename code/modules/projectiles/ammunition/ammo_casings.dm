@@ -271,11 +271,6 @@
 	projectile_type = /obj/item/projectile/bullet/dart/syringe/tranquilizer
 	materials = list(MAT_METAL=250)
 
-/obj/item/ammo_casing/a556
-	desc = "A 5.56mm bullet casing."
-	caliber = "a556"
-	projectile_type = /obj/item/projectile/bullet/heavybullet
-
 /obj/item/ammo_casing/shotgun/fakebeanbag
 	name = "beanbag shell"
 	desc = "A weak beanbag shell."

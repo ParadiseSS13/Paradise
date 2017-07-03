@@ -104,7 +104,7 @@ obj/item/projectile/bullet/saw/incen/Move()
 	icon_state = "a762-50"
 	origin_tech = "combat=2"
 	ammo_type = /obj/item/ammo_casing/mm556x45
-	caliber = "mm55645"
+	caliber = "a556"
 	max_ammo = 50
 
 /obj/item/ammo_box/magazine/mm556x45/bleeding
@@ -136,7 +136,7 @@ obj/item/projectile/bullet/saw/incen/Move()
 /obj/item/ammo_casing/mm556x45
 	desc = "A 556x45mm bullet casing."
 	icon_state = "762-casing"
-	caliber = "mm55645"
+	caliber = "a556"
 	projectile_type = /obj/item/projectile/bullet/saw
 
 /obj/item/ammo_casing/mm556x45/bleeding
