@@ -451,7 +451,8 @@
 	r_hand = /obj/item/weapon/twohanded/fireaxe
 	backpack_contents = list(
 		/obj/item/weapon/storage/box/survival = 1,
-		/obj/item/device/flashlight = 1
+		/obj/item/device/flashlight = 1,
+		/obj/item/weapon/reagent_containers/food/drinks/bottle/jollyjuice = 1
 	)
 
 /datum/outfit/admin/tunnel_clown/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)

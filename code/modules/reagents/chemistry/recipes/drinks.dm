@@ -617,8 +617,8 @@
 	name = "Banana Honk"
 	id = "bananahonk"
 	result = "bananahonk"
-	required_reagents = list("banana" = 1, "cream" = 1, "sugar" = 1)
-	result_amount = 3
+	required_reagents = list("banana" = 1, "cream" = 1, "sugar" = 1, "jolly" = 1)
+	result_amount = 4
 	mix_sound = 'sound/goonstation/misc/drinkfizz.ogg'
 
 /datum/chemical_reaction/silencer
