@@ -350,7 +350,7 @@
 	name = "toploader magazine (5.56mm)"
 	icon_state = "5.56m"
 	origin_tech = "combat=5;syndicate=1"
-	ammo_type = /obj/item/ammo_casing/a556
+	ammo_type = /obj/item/ammo_casing/mm556x45
 	caliber = "a556"
 	max_ammo = 30
 	multiple_sprites = 2
