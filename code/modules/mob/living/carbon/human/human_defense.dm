@@ -281,7 +281,7 @@ emp_act
 					if(bloody)
 						if(wear_suit)
 							wear_suit.add_mob_blood(src)
-							update_inv_wear_suit(0)
+							update_inv_wear_suit(1)
 						if(w_uniform)
 							w_uniform.add_mob_blood(src)
 							update_inv_w_uniform(1)

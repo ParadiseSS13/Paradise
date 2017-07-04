@@ -473,6 +473,14 @@ var/list/blood_splatter_icons = list()
 		w_uniform.add_blood(blood_dna, color)
 		w_uniform.blood_color = color
 		update_inv_w_uniform(1)
+	if(head)
+		head.add_blood(blood_dna, color)
+		head.blood_color = color
+		update_inv_head(0,0)
+	if(glasses)
+		glasses.add_blood(blood_dna, color)
+		glasses.blood_color = color
+		update_inv_glasses(0)
 	if(gloves)
 		var/obj/item/clothing/gloves/G = gloves
 		G.add_blood(blood_dna, color)
@@ -486,8 +494,6 @@ var/list/blood_splatter_icons = list()
 	return 1
 
 /obj/item/proc/add_blood_overlay(color)
-	if(blood_overlay)
-		return
 	if(initial(icon) && initial(icon_state))
 		//try to find a pre-processed blood-splatter. otherwise, make a new one
 		var/index = blood_splatter_index()
@@ -499,15 +505,53 @@ var/list/blood_splatter_icons = list()
 			blood_splatter_icon = fcopy_rsc(blood_splatter_icon)
 			blood_splatter_icons[index] = blood_splatter_icon
 
-			blood_overlay = image(blood_splatter_icon)
-			blood_overlay.color = color
-			overlays += blood_overlay
+		var/image/blood_image = image(blood_splatter_icon)
+		blood_image.color = color
+		overlays += blood_image
 
 /atom/proc/clean_blood()
-	src.germ_level = 0
-	if(istype(blood_DNA, /list))
-		qdel(blood_DNA)
+	germ_level = 0
+	if(islist(blood_DNA))
+		blood_DNA = null
 		return 1
+
+
+/obj/item/clean_blood()
+	. = ..()
+	if(.)
+		if(initial(icon) && initial(icon_state))
+			var/index = blood_splatter_index()
+			var/icon/blood_splatter_icon = blood_splatter_icons[index]
+			if(blood_splatter_icon)
+				overlays -= blood_splatter_icon
+
+/obj/item/clothing/gloves/clean_blood()
+	. = ..()
+	if(.)
+		transfer_blood = 0
+
+
+/obj/item/clothing/shoes/clean_blood()
+	..()
+	bloody_shoes = list(BLOOD_STATE_HUMAN = 0, BLOOD_STATE_XENO = 0, BLOOD_STATE_NOT_BLOODY = 0)
+	blood_state = BLOOD_STATE_NOT_BLOODY
+	if(ismob(loc))
+		var/mob/M = loc
+		M.update_inv_shoes()
+
+
+/mob/living/carbon/human/clean_blood()
+	var/mob/living/carbon/human/H = src
+	if(H.gloves)
+		if(H.gloves.clean_blood())
+			H.update_inv_gloves()
+	else
+		..() // Clear the Blood_DNA list
+		if(H.bloody_hands)
+			H.bloody_hands = 0
+			H.update_inv_gloves()
+	update_icons()	//apply the now updated overlays to the mob
+
 
 /atom/proc/add_vomit_floor(mob/living/carbon/M as mob, var/toxvomit = 0)
 	if( istype(src, /turf/simulated) )
