@@ -321,12 +321,15 @@
 		fish_names_list += list("[fish_type.fish_name]" = fish_type)
 	var/caught_fish = input("Select a fish to catch.", "Fishing") as null|anything in fish_names_list		//Select a fish from the tank
 	if(caught_fish)
-		user.visible_message("[user.name] harvests \a [caught_fish] from \the [src].", "You scoop \a [caught_fish] out of \the [src].")
-		var/datum/fish/fish_type = fish_names_list[caught_fish]
-		var/fish_item = fish_type.fish_item
-		if(fish_item)
-			new fish_item(get_turf(user))			//Spawn the appropriate fish_item at the user's feet.
-		kill_fish(fish_type)						//Kill the caught fish from the tank
+		if(fish_count > 0 && fish_list.Find(fish_names_list[caught_fish]) > 0)									//Can't catch non-existent fish!
+			user.visible_message("[user.name] harvests \a [caught_fish] from \the [src].", "You scoop \a [caught_fish] out of \the [src].")
+			var/datum/fish/fish_type = fish_names_list[caught_fish]
+			var/fish_item = fish_type.fish_item
+			if(fish_item)
+				new fish_item(get_turf(user))			//Spawn the appropriate fish_item at the user's feet.
+			kill_fish(fish_type)						//Kill the caught fish from the tank
+		else
+			to_chat(usr, "There are no [caught_fish] in \the [src] to catch!")
 
 /obj/machinery/fishtank/proc/destroy(var/deconstruct = 0)
 	var/turf/T = get_turf(src)										//Store the tank's turf for atmos updating after deletion of tank
