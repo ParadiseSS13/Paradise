@@ -1,0 +1,4 @@
+author: "Ionward"
+delete-after: True
+changes: 
+  - bugfix: "Greys now have properly fitting sprites for most head clothing items!"
