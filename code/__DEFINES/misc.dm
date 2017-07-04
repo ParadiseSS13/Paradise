@@ -216,32 +216,34 @@
 #define MUTATIONS_LAYER			6
 #define DAMAGE_LAYER			7
 #define UNIFORM_LAYER			8
-#define ID_LAYER				9
-#define SHOES_LAYER				10
-#define GLOVES_LAYER			11
-#define EARS_LAYER				12
-#define SUIT_LAYER				13
-#define BELT_LAYER				14	//Possible make this an overlay of somethign required to wear a belt?
-#define SUIT_STORE_LAYER		15
-#define BACK_LAYER				16
-#define HEAD_ACCESSORY_LAYER	17
-#define FHAIR_LAYER				18
-#define GLASSES_LAYER			19
-#define HAIR_LAYER				20	//TODO: make part of head layer?
-#define HEAD_ACC_OVER_LAYER		21	//Select-layer rendering.
-#define FHAIR_OVER_LAYER		22	//Select-layer rendering.
-#define GLASSES_OVER_LAYER		23	//Select-layer rendering.
-#define TAIL_LAYER				24	//bs12 specific. this hack is probably gonna come back to haunt me
-#define FACEMASK_LAYER			25
-#define HEAD_LAYER				26
-#define COLLAR_LAYER			27
-#define HANDCUFF_LAYER			28
-#define LEGCUFF_LAYER			29
-#define L_HAND_LAYER			30
-#define R_HAND_LAYER			31
-#define TARGETED_LAYER			32	//BS12: Layer for the target overlay from weapon targeting system
-#define FIRE_LAYER				33	//If you're on fire
-#define TOTAL_LAYERS			33
+#define FLUFF_LAYER				9	// So we can have some fluff outside the uniform but not take over another layer
+#define ID_LAYER				10
+#define SHOES_LAYER				11
+#define GLOVES_LAYER			12
+#define EARS_LAYER				13
+#define SUIT_LAYER				14
+#define BELT_LAYER				15
+#define SUIT_STORE_LAYER		16	//Possible make this an overlay of somethign required to wear a belt?
+#define WING_LAYER				17 	//For wings, above all equipment, but under backpack
+#define BACK_LAYER				18
+#define HEAD_ACCESSORY_LAYER	19
+#define FHAIR_LAYER				20
+#define GLASSES_LAYER			21
+#define HAIR_LAYER				22	//TODO: make part of head layer?
+#define HEAD_ACC_OVER_LAYER		23	//Select-layer rendering.
+#define FHAIR_OVER_LAYER		24	//Select-layer rendering.
+#define GLASSES_OVER_LAYER		25	//Select-layer rendering.
+#define TAIL_LAYER				26	//bs12 specific. this hack is probably gonna come back to haunt me
+#define FACEMASK_LAYER			27
+#define HEAD_LAYER				28
+#define COLLAR_LAYER			29
+#define HANDCUFF_LAYER			30
+#define LEGCUFF_LAYER			31
+#define L_HAND_LAYER			32
+#define R_HAND_LAYER			33
+#define TARGETED_LAYER			34	//BS12: Layer for the target overlay from weapon targeting system
+#define FIRE_LAYER				35	//If you're on fire
+#define TOTAL_LAYERS			35
 
 ///Access Region Codes///
 #define REGION_ALL			0

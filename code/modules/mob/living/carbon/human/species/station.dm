@@ -479,18 +479,19 @@
 /datum/species/kidan
 	name = "Kidan"
 	name_plural = "Kidan"
-	icobase = 'icons/mob/human_races/r_kidan.dmi'
-	deform = 'icons/mob/human_races/r_def_kidan.dmi'
+	icobase = 'icons/mob/human_races/kidan/r_kidan.dmi'
+	deform = 'icons/mob/human_races/kidan/r_def_kidan.dmi'
 	path = /mob/living/carbon/human/kidan
 	default_language = "Galactic Common"
 	language = "Chittin"
 	unarmed_type = /datum/unarmed_attack/claws
 
+
 	brute_mod = 0.8
 
 	flags = IS_WHITELISTED
 	clothing_flags = HAS_UNDERWEAR | HAS_UNDERSHIRT | HAS_SOCKS
-	bodyflags = FEET_CLAWS | HAS_HEAD_ACCESSORY | HAS_HEAD_MARKINGS | HAS_BODY_MARKINGS
+	bodyflags = FEET_CLAWS | HAS_HEAD_ACCESSORY | HAS_HEAD_MARKINGS | HAS_BODY_MARKINGS | HAS_ICON_SKIN_TONE
 	eyes = "kidan_eyes_s"
 	dietflags = DIET_HERB
 	blood_color = "#FB9800"
@@ -498,8 +499,14 @@
 	//Default styles for created mobs.
 	default_headacc = "Normal Antennae"
 	butt_sprite = "kidan"
+	has_sub = TRUE
 
-	has_organ = list(
+	icon_skin_tones = list(
+		1 = "Ant",
+		2 = "Moth"
+		)
+
+	var/list/default_organs = list(
 		"heart" =    /obj/item/organ/internal/heart,
 		"lungs" =    /obj/item/organ/internal/lungs,
 		"liver" =    /obj/item/organ/internal/liver/kidan,
@@ -510,6 +517,28 @@
 		"lantern" =  /obj/item/organ/internal/lantern
 		)
 
+	var/list/moth_organs = list(
+		"heart" =    /obj/item/organ/internal/heart,
+		"lungs" =    /obj/item/organ/internal/lungs,
+		"liver" =    /obj/item/organ/internal/liver/kidan,
+		"kidneys" =  /obj/item/organ/internal/kidneys,
+		"brain" =    /obj/item/organ/internal/brain,
+		"appendix" = /obj/item/organ/internal/appendix,
+		"eyes" =     /obj/item/organ/internal/eyes, //Default darksight of 2.
+		)
+
+	has_organ = list(
+		"heart" =    /obj/item/organ/internal/heart,
+		"lungs" =    /obj/item/organ/internal/lungs,
+		"liver" =    /obj/item/organ/internal/liver/kidan,
+		"kidneys" =  /obj/item/organ/internal/kidneys,
+		"brain" =    /obj/item/organ/internal/brain,
+		"appendix" = /obj/item/organ/internal/appendix,
+		"eyes" =     /obj/item/organ/internal/eyes, //Default darksight of 2.
+		"lantern" =  /obj/item/organ/internal/lantern
+		) //it has been causing errors when I just have it equal to default_organs, I will fix this duplicate as soon as posible
+
+
 	allowed_consumed_mobs = list(/mob/living/simple_animal/diona)
 
 	suicide_messages = list(
@@ -519,6 +548,28 @@
 		"is cracking their exoskeleton!",
 		"is stabbing themselves with their mandibles!",
 		"is holding their breath!")
+
+/datum/species/kidan/updatespeciescolor(var/mob/living/carbon/human/H, var/owner_sensitive = 1) //Handling species-specific skin-tones for the Vox race.
+	var/new_icobase = 'icons/mob/human_races/kidan/r_kidan.dmi'
+	var/new_deform = 'icons/mob/human_races/kidan/r_def_kidan.dmi' //Default kidan.
+	bodyflags = FEET_CLAWS | HAS_HEAD_ACCESSORY | HAS_HEAD_MARKINGS | HAS_BODY_MARKINGS | HAS_ICON_SKIN_TONE
+	can_fly = FALSE
+	switch(H.s_tone)
+		if(2) //Moth
+			has_organ = moth_organs
+			new_icobase = 'icons/mob/human_races/kidan/r_moth.dmi'
+			new_deform = 'icons/mob/human_races/kidan/r_moth.dmi'
+			bodyflags += HAS_TAIL | HAS_TAIL_MARKINGS | HAS_SKIN_COLOR
+			H.tail = "mothwings"
+			can_fly = TRUE
+			eyes = "moth_eyes_s"
+		else  //Default.
+			eyes = "kidan_eyes_s"
+			has_organ = default_organs
+
+	H.change_icobase(new_icobase, new_deform, owner_sensitive) //Update the icobase/deform of all our organs, but make sure we don't mess with frankenstein limbs in doing so.
+	H.update_dna()
+
 /datum/species/slime
 	name = "Slime People"
 	name_plural = "Slime People"

@@ -566,7 +566,7 @@
 	name = "Unathi Side Frills"
 	icon_state = "unathi_sidefrills"
 	secondary_theme = "webbing"
-	
+
 /datum/sprite_accessory/hair/unathi/una_cobra_hood
     icon = 'icons/mob/human_face.dmi'
     name = "Unathi Cobra Hood"
@@ -1982,6 +1982,9 @@
 	name = "Moth Antennae"
 	icon_state = "kidan_moth"
 
+/datum/sprite_accessory/head_accessory/kidan/antennae
+	name = "Moth Antennae"
+	icon_state = "moth_antennae"
 
 /* BODY MARKINGS */
 
@@ -2003,6 +2006,10 @@
 
 /datum/sprite_accessory/body_markings/kidan
 	species_allowed = list("Kidan")
+
+/datum/sprite_accessory/body_markings/kidan/fluff
+	name = "Moth Fluff"
+	icon_state = "outside_mothfluff"
 
 /datum/sprite_accessory/body_markings/kidan/outline_kid
 	name = "Kidan Outline"
@@ -2329,6 +2336,13 @@
 	icon_state = "accessory_none"
 	marking_location = "tail"
 	tails_allowed = null
+
+/datum/sprite_accessory/body_markings/tail/kidan
+	species_allowed = list("Kidan")
+
+/datum/sprite_accessory/body_markings/tail/kidan/wing
+	name = "Moth Wings"
+	icon_state = "wings_mothwings"
 
 /datum/sprite_accessory/body_markings/tail/vox
 	species_allowed = list("Vox")
