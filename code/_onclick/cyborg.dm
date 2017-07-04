@@ -169,6 +169,12 @@
 /obj/machinery/turretid/BorgAltClick() //turret lethal on/off. Forwards to AI code.
 	AIAltClick()
 
+/obj/machinery/ai_slipper/BorgCtrlClick() //Turns liquid dispenser on or off
+	ToggleOn()
+
+/obj/machinery/ai_slipper/BorgAltClick() //Dispenses liquid if on
+	Activate()
+
 /*
 	As with AI, these are not used in click code,
 	because the code for robots is specific, not generic.

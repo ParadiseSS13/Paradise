@@ -1,0 +1,5 @@
+author: "Fox McCloud"
+delete-after: True
+changes: 
+  - tweak: "love just got more powerful; it now prevents a mob from being on anything other than help intent"
+  - tweak: "IPCs can now process the love reagent"

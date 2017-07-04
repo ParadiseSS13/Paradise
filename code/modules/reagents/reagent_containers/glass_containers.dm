@@ -40,7 +40,8 @@
 		/obj/machinery/biogenerator,
 		/obj/machinery/hydroponics,
 		/obj/machinery/constructable_frame,
-		/obj/machinery/icemachine)
+		/obj/machinery/icemachine,
+		/obj/item/weapon/bombcore/chemical)
 
 /obj/item/weapon/reagent_containers/glass/New()
 	..()

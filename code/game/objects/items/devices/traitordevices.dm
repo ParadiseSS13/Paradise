@@ -146,3 +146,22 @@ effective or pretty fucking useless.
 	attack_self(usr)
 	add_fingerprint(usr)
 	return
+
+/obj/item/device/jammer
+	name = "radio jammer"
+	desc = "Device used to disrupt nearby radio communication."
+	icon_state = "jammer"
+	var/active = FALSE
+	var/range = 12
+
+/obj/item/device/jammer/Destroy()
+	active_jammers -= src
+	return ..()
+
+/obj/item/device/jammer/attack_self(mob/user)
+	to_chat(user,"<span class='notice'>You [active ? "deactivate" : "activate"] the [src].</span>")
+	active = !active
+	if(active)
+		active_jammers |= src
+	else
+		active_jammers -= src

@@ -9,6 +9,10 @@
 	var/obj/machinery/camera/camera
 	var/has_camera = TRUE
 	strip_delay = 130
+	species_fit = list("Grey")
+	sprite_sheets = list(
+		"Grey" = 'icons/mob/species/grey/helmet.dmi'
+		)
 
 /obj/item/clothing/head/helmet/space/hardsuit/ert/attack_self(mob/user)
 	if(camera || !has_camera)

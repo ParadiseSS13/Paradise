@@ -324,6 +324,30 @@
 				/obj/item/stack/rods = 1)
 	category = CAT_MISC
 
+/datum/crafting_recipe/chemical_payload
+	name = "Chemical Payload (C4)"
+	result = /obj/item/weapon/bombcore/chemical
+	reqs = list(
+		/obj/item/weapon/stock_parts/matter_bin = 1,
+		/obj/item/weapon/grenade/plastic/c4 = 1,
+		/obj/item/weapon/grenade/chem_grenade = 2
+	)
+	parts = list(/obj/item/weapon/stock_parts/matter_bin = 1, /obj/item/weapon/grenade/chem_grenade = 2)
+	time = 30
+	category = CAT_WEAPON
+
+/datum/crafting_recipe/chemical_payload2
+	name = "Chemical Payload (gibtonite)"
+	result = /obj/item/weapon/bombcore/chemical
+	reqs = list(
+		/obj/item/weapon/stock_parts/matter_bin = 1,
+		/obj/item/weapon/twohanded/required/gibtonite = 1,
+		/obj/item/weapon/grenade/chem_grenade = 2
+	)
+	parts = list(/obj/item/weapon/stock_parts/matter_bin = 1, /obj/item/weapon/grenade/chem_grenade = 2)
+	time = 50
+	category = CAT_WEAPON
+
 /datum/crafting_recipe/bonfire
 	name = "Bonfire"
 	time = 60

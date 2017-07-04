@@ -791,10 +791,10 @@
 
 /obj/item/clothing/under/victdress
 	name = "black victorian dress"
-	desc = "a victorian style dress, fancy!."
+	desc = "A victorian style dress, fancy!"
 	icon_state = "victorianblackdress"
-	item_state = "Victorianblackdress"
-	item_color = "Victorianblackdress"
+	item_state = "victorianblackdress"
+	item_color = "victorianblackdress"
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO
 
 /obj/item/clothing/under/victdress/red
@@ -805,7 +805,7 @@
 
 /obj/item/clothing/under/victsuit
 	name = "victorian suit"
-	desc = "a victorian style suit, fancy!."
+	desc = "A victorian style suit, fancy!"
 	icon_state = "victorianvest"
 	item_state = "victorianvest"
 	item_color = "victorianvest"
@@ -822,3 +822,11 @@
 	icon_state = "victorianredvest"
 	item_state = "victorianredvest"
 	item_color = "victorianredvest"
+
+/obj/item/clothing/under/medigown
+	name = "medical gown"
+	desc = "a flimsy examination gown, the back ties never close."
+	icon_state = "medicalgown"
+	item_state = "medicalgown"
+	item_color = "medicalgown"
+	body_parts_covered = UPPER_TORSO|LOWER_TORSO

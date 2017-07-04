@@ -1,0 +1,4 @@
+author: "Fox McCloud"
+delete-after: True
+changes: 
+  - rscadd: "Adds in radio jammers to the traitor uplink"
