@@ -1,6 +1,0 @@
-author: "Fox McCloud"
-delete-after: True
-changes: 
-  - bugfix: "Re-enables object embedding system; embedding objects now cause more damage than before"
-  - rscadd: "Adds in throwing stars kit to the traitor uplink"
-  - rscdel: "bullets no longer leave shrapnel"

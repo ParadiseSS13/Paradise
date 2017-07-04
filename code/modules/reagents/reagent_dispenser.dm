@@ -29,6 +29,7 @@
 
 /obj/structure/reagent_dispensers/proc/boom()
 	visible_message("<span class='danger'>[src] ruptures!</span>")
+	chem_splash(loc, 5, list(reagents))
 	qdel(src)
 
 /obj/structure/reagent_dispensers/ex_act(severity)
@@ -52,15 +53,6 @@
 	name = "water tank"
 	desc = "A water tank."
 	icon_state = "water"
-
-/obj/structure/reagent_dispensers/watertank/boom()
-	playsound(loc, 'sound/effects/spray2.ogg', 50, 1, -6)
-	new /obj/effect/effect/water(loc)
-	for(var/turf/simulated/T in view(5, loc))
-		T.MakeSlippery()
-		for(var/mob/living/L in T)
-			L.adjust_fire_stacks(-20)
-	..()
 
 /obj/structure/reagent_dispensers/watertank/high
 	name = "high-capacity water tank"

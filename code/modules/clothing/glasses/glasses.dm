@@ -89,7 +89,8 @@
 	scan_reagents = 1 //You can see reagents while wearing science goggles
 	species_fit = list("Vox")
 	sprite_sheets = list(
-		"Vox" = 'icons/mob/species/vox/eyes.dmi'
+		"Vox" = 'icons/mob/species/vox/eyes.dmi',
+		"Grey" = 'icons/mob/species/grey/eyes.dmi'
 		)
 	actions_types = list(/datum/action/item_action/toggle_research_scanner)
 
@@ -137,7 +138,8 @@
 	item_state = "eyepatch"
 	species_fit = list("Vox")
 	sprite_sheets = list(
-		"Vox" = 'icons/mob/species/vox/eyes.dmi'
+		"Vox" = 'icons/mob/species/vox/eyes.dmi',
+		"Grey" = 'icons/mob/species/grey/eyes.dmi'
 		)
 
 /obj/item/clothing/glasses/monocle
@@ -149,7 +151,8 @@
 	species_fit = list("Vox")
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/species/vox/eyes.dmi',
-		"Drask" = 'icons/mob/species/drask/eyes.dmi'
+		"Drask" = 'icons/mob/species/drask/eyes.dmi',
+		"Grey" = 'icons/mob/species/grey/eyes.dmi'
 		)
 
 /obj/item/clothing/glasses/material
@@ -162,7 +165,8 @@
 	species_fit = list("Vox")
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/species/vox/eyes.dmi',
-		"Drask" = 'icons/mob/species/drask/eyes.dmi'
+		"Drask" = 'icons/mob/species/drask/eyes.dmi',
+		"Grey" = 'icons/mob/species/grey/eyes.dmi'
 		)
 
 /obj/item/clothing/glasses/material/cyber
@@ -181,7 +185,8 @@
 	prescription = 1
 	species_fit = list("Vox")
 	sprite_sheets = list(
-		"Vox" = 'icons/mob/species/vox/eyes.dmi'
+		"Vox" = 'icons/mob/species/vox/eyes.dmi',
+		"Grey" = 'icons/mob/species/grey/eyes.dmi'
 		)
 
 /obj/item/clothing/glasses/regular/hipster
@@ -197,7 +202,8 @@
 	item_state = "3d"
 	species_fit = list("Vox")
 	sprite_sheets = list(
-		"Vox" = 'icons/mob/species/vox/eyes.dmi'
+		"Vox" = 'icons/mob/species/vox/eyes.dmi',
+		"Grey" = 'icons/mob/species/grey/eyes.dmi'
 		)
 
 /obj/item/clothing/glasses/gglasses
@@ -207,7 +213,8 @@
 	item_state = "gglasses"
 	species_fit = list("Vox")
 	sprite_sheets = list(
-		"Vox" = 'icons/mob/species/vox/eyes.dmi'
+		"Vox" = 'icons/mob/species/vox/eyes.dmi',
+		"Grey" = 'icons/mob/species/grey/eyes.dmi'
 		)
 	prescription_upgradable = 1
 
@@ -378,7 +385,8 @@
 	flash_protect = -1
 	species_fit = list("Vox")
 	sprite_sheets = list(
-		"Vox" = 'icons/mob/species/vox/eyes.dmi'
+		"Vox" = 'icons/mob/species/vox/eyes.dmi',
+		"Grey" = 'icons/mob/species/grey/eyes.dmi'
 		)
 
 	emp_act(severity)
