@@ -78,6 +78,25 @@
 	else
 		..()
 
+/obj/machinery/computer/security/telescreen/attackby(obj/item/I, mob/user, params)
+	if(ismultitool(I))
+		var/direction = input(user, "Which direction?", "Select direction!") as null|anything in list("North", "East", "South", "West", "Centre")
+		if(!direction)
+			return
+		pixel_x = 0
+		pixel_y = 0
+		switch(direction)
+			if("North")
+				pixel_y = 32
+			if("East")
+				pixel_x = 32
+			if("South")
+				pixel_y = -32
+			if("West")
+				pixel_x = -32
+	else
+		..()
+
 /obj/machinery/computer/security/emag_act(user as mob)
 	if(!emagged)
 		emagged = 1
