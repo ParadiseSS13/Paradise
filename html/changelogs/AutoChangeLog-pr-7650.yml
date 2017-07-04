@@ -1,0 +1,7 @@
+author: "Fox McCloud"
+delete-after: True
+changes: 
+  - rscadd: "Adds in breathing tube augment to R&D"
+  - rscadd: "Adds in arm toolset augment to R&D"
+  - tweak: "IPC cell charging device is now inside their right arm, as opposed to chest"
+  - rscadd: "IPC cell charging device can now be produced in mech fabricators"
