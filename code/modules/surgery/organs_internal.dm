@@ -14,7 +14,7 @@
 
 /datum/surgery/organ_manipulation_boneless
 	name = "Organ Manipulation"
-	possible_locs = list("chest","head","groin", "eyes", "mouth")
+	possible_locs = list("chest","head","groin", "eyes", "mouth", "l_arm", "r_arm")
 	steps = list(/datum/surgery_step/generic/cut_open,/datum/surgery_step/generic/clamp_bleeders, /datum/surgery_step/generic/retract_skin, /datum/surgery_step/internal/manipulate_organs,/datum/surgery_step/generic/cauterize)
 	requires_organic_bodypart = 1
 
