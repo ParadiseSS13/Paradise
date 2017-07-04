@@ -1,0 +1,8 @@
+author: "Fox McCloud"
+delete-after: True
+changes: 
+  - rscadd: "Syndicate bombs now have visible timers for observers"
+  - rscadd: "Syndicate bombs tick more often"
+  - rscadd: "Syndnicate bombs can be deconstructed into plasteel if it is fully defused and has no bomb core"
+  - rscadd: "Can make Cryo, Pyro, and time released chemical grenades at R&D"
+  - rscadd: "Can make syndicate chemical bombs utilizing crafting"
