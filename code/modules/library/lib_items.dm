@@ -10,6 +10,7 @@
 /*
  * Bookcase
  */
+#define HALCOOL 3000
 
 /obj/structure/bookcase
 	name = "bookcase"
@@ -283,6 +284,67 @@
 	else
 		return ..()
 
+/obj/item/weapon/book/mindbook
+	name = "A Harmless Book"
+	icon = 'icons/obj/library.dmi'
+	icon_state ="book"
+	unique = 1
+	forbidden = 1
+	var/hallucinatory_cooldown
+
+/obj/item/weapon/book/mindbook/attack_self(mob/living/H)
+	if(ishuman(H))
+		var/mob/living/carbon/human/P = H
+		if((P.mind && P.mind.assigned_role == "Psychiatrist") || prob(50))
+			if(hallucinatory_cooldown > world.time)
+				to_chat(P, "The book needs to recharge.")
+				return
+			else
+				var/list/victim_list = list()
+				for(var/mob/living/carbon/human/V in view(P.client.view, P))
+					if(V.stat == DEAD)
+						continue
+					if(!(V.client && V.mind))
+						continue
+					if(PSY_RESIST in V.mutations)
+						continue
+					victim_list += V
+				if(!victim_list.len)
+					to_chat(P, "There are no available victims around!")
+					return
+				else
+					var/mob/living/victim = input("Select your hapless victim!", "Cancel") as null|mob in victim_list
+					if(isnull(victim))
+						return
+					else
+						var/torture = list("Hallucinations", "Voices")
+						var/torture_type = input("Select how best to torture your victim.", "Cancel") as null|anything in torture
+						switch(torture_type)
+							if("Voices")
+								var/message = input("Torture your victim with voices in their head!")
+								if(!message)
+									return
+								var/list/intensity = list("Peaceful", "Forceful")
+								var/message_intensity = input("Select the intensity of your message!") as null|anything in intensity
+								spawn(100)
+								switch(message_intensity)
+									if("Peaceful")
+										to_chat(victim, "<span class='notice'>[message]</span>")
+										return
+									if("Forceful")
+										to_chat(victim, "<span class='danger'>[message]</span>")
+										return
+							if("Hallucinations")
+								to_chat(P, "<span class='notice'>You torment your foe with mental visions.</span>")
+								victim.AdjustHallucinate(100)
+								hallucinatory_cooldown = world.time + HALCOOL
+								return
+		else
+			to_chat(P, "The book seems to be empty.")
+			P.adjustBrainLoss(10)
+			return
+	else
+		return
 
 /*
  * Barcode Scanner
