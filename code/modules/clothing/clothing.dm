@@ -332,7 +332,7 @@ BLIND     // can't see anything
 		mask_adjusted = 1
 		if(adjusted_flags)
 			slot_flags = adjusted_flags
-		if(ishuman(user) && H.internal && user.wear_mask == src) /*If the user was wearing the mask providing internals on their face at the time it was adjusted, turn off internals.
+		if(ishuman(user) && H.internal && !H.get_organ_slot("breathing_tube") && user.wear_mask == src) /*If the user was wearing the mask providing internals on their face at the time it was adjusted, turn off internals.
 																	Otherwise, they adjusted it while it was in their hands or some such so we won't be needing to turn off internals.*/
 			H.update_internals_hud_icon(0)
 			H.internal = null

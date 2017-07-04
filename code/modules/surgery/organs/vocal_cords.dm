@@ -38,7 +38,6 @@ var/static/regex/multispin_words = regex("like a record baby")
 /obj/item/organ/internal/vocal_cords //organs that are activated through speech with the :x channel
 	name = "vocal cords"
 	icon_state = "appendix"
-	zone = "mouth"
 	slot = "vocal_cords"
 	parent_organ = "mouth"
 	var/spans = null

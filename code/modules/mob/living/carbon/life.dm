@@ -183,9 +183,10 @@
 	if(internal)
 		if(internal.loc != src)
 			internal = null
-		if(!wear_mask || !(wear_mask.flags & AIRTIGHT)) //not wearing mask or non-breath mask
-			if(!head || !(head.flags & AIRTIGHT)) //not wearing helmet or non-breath helmet
-				internal = null //turn off internals
+		if(!get_organ_slot("breathing_tube"))
+			if(!wear_mask || !(wear_mask.flags & AIRTIGHT)) //not wearing mask or non-breath mask
+				if(!head || !(head.flags & AIRTIGHT)) //not wearing helmet or non-breath helmet
+					internal = null //turn off internals
 
 		if(internal)
 			update_internals_hud_icon(1)
