@@ -1124,6 +1124,13 @@ var/list/uplink_items = list()
 	cost = 1
 	surplus = 0
 
+/datum/uplink_item/device_tools/jammer
+	name = "Radio Jammer"
+	desc = "This device will disrupt any nearby outgoing radio communication when activated."
+	reference = "RJ"
+	item = /obj/item/device/jammer
+	cost = 5
+
 /datum/uplink_item/device_tools/teleporter
 	name = "Teleporter Circuit Board"
 	desc = "A printed circuit board that completes the teleporter onboard the mothership. Advise you test fire the teleporter before entering it, as malfunctions can occur."
