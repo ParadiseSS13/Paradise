@@ -337,30 +337,31 @@ var/list/intents = list(INTENT_HELP,INTENT_DISARM,INTENT_GRAB,INTENT_HARM)
 	set name = "a-intent"
 	set hidden = 1
 
-	if(ishuman(src) || isalienadult(src) || isbrain(src))
-		switch(input)
-			if(INTENT_HELP,INTENT_DISARM,INTENT_GRAB,INTENT_HARM)
-				a_intent = input
-			if("right")
-				a_intent = intent_numeric((intent_numeric(a_intent)+1) % 4)
-			if("left")
-				a_intent = intent_numeric((intent_numeric(a_intent)+3) % 4)
-		if(hud_used && hud_used.action_intent)
-			hud_used.action_intent.icon_state = "[a_intent]"
+	if(can_change_intents)
+		if(ishuman(src) || isalienadult(src) || isbrain(src))
+			switch(input)
+				if(INTENT_HELP,INTENT_DISARM,INTENT_GRAB,INTENT_HARM)
+					a_intent = input
+				if("right")
+					a_intent = intent_numeric((intent_numeric(a_intent)+1) % 4)
+				if("left")
+					a_intent = intent_numeric((intent_numeric(a_intent)+3) % 4)
+			if(hud_used && hud_used.action_intent)
+				hud_used.action_intent.icon_state = "[a_intent]"
 
-	else if(isrobot(src) || islarva(src))
-		switch(input)
-			if(INTENT_HELP)
-				a_intent = INTENT_HELP
-			if(INTENT_HARM)
-				a_intent = INTENT_HARM
-			if("right","left")
-				a_intent = intent_numeric(intent_numeric(a_intent) - 3)
-		if(hud_used && hud_used.action_intent)
-			if(a_intent == INTENT_HARM)
-				hud_used.action_intent.icon_state = "harm"
-			else
-				hud_used.action_intent.icon_state = "help"
+		else if(isrobot(src) || islarva(src))
+			switch(input)
+				if(INTENT_HELP)
+					a_intent = INTENT_HELP
+				if(INTENT_HARM)
+					a_intent = INTENT_HARM
+				if("right","left")
+					a_intent = intent_numeric(intent_numeric(a_intent) - 3)
+			if(hud_used && hud_used.action_intent)
+				if(a_intent == INTENT_HARM)
+					hud_used.action_intent.icon_state = "harm"
+				else
+					hud_used.action_intent.icon_state = "help"
 
 
 /mob/living/verb/mob_sleep()
