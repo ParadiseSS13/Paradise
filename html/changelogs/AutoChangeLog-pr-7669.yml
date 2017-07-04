@@ -1,4 +1,0 @@
-author: "Vivalas"
-delete-after: True
-changes: 
-  - bugfix: "\"Tweaks\" SecHUDs to only display criminal status of people if their face is uncovered or they have no ID."
