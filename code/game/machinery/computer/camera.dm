@@ -284,14 +284,14 @@
 
 // Other computer monitors.
 /obj/machinery/computer/security/telescreen
-	name = "\improper telescreen"
+	name = "telescreen"
 	desc = "Used for watching camera networks."
 	icon_state = "telescreen_console"
 	icon_screen = "telescreen"
 	icon_keyboard = null
 	light_range_on = 0
-	network = list("SS13")
 	density = 0
+	circuit = /obj/item/weapon/circuitboard/camera/telescreen
 
 /obj/machinery/computer/security/telescreen/entertainment
 	name = "entertainment monitor"
@@ -302,6 +302,7 @@
 	light_range_on = 0
 	network = list("news")
 	luminosity = 0
+	circuit = /obj/item/weapon/circuitboard/camera/telescreen/entertainment
 
 /obj/machinery/computer/security/wooden_tv
 	name = "security camera monitor"
@@ -312,6 +313,7 @@
 	light_color = "#3848B3"
 	light_power_on = 0.5
 	network = list("SS13")
+	circuit = /obj/item/weapon/circuitboard/camera/wooden_tv
 
 /obj/machinery/computer/security/mining
 	name = "outpost camera monitor"
@@ -320,6 +322,7 @@
 	icon_screen = "mining"
 	light_color = "#F9BBFC"
 	network = list("Mining Outpost")
+	circuit = /obj/item/weapon/circuitboard/camera/mining
 
 /obj/machinery/computer/security/engineering
 	name = "engineering camera monitor"
@@ -328,3 +331,4 @@
 	icon_screen = "engie_cams"
 	light_color = "#FAC54B"
 	network = list("Power Alarms","Atmosphere Alarms","Fire Alarms")
+	circuit = /obj/item/weapon/circuitboard/camera/engineering
