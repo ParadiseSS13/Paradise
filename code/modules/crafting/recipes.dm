@@ -14,6 +14,11 @@
 	//If a recipe does not require it's chems adjusted, don't bother declaring this for the recipe, as it will call this placeholder
 	return
 
+/datum/crafting_recipe/proc/check_crafting(mob/user)
+	//This proc is used for special requirements - the crafter's location or something else.
+	//Return a text with whatever went wrong if it fails. Return nothing otherwise.
+	return
+
 /datum/crafting_recipe/IED
 	name = "IED"
 	result = /obj/item/weapon/grenade/iedcasing/filled
@@ -354,3 +359,15 @@
 	reqs = list(/obj/item/weapon/grown/log = 5)
 	result = /obj/structure/bonfire
 	category = CAT_PRIMAL
+
+/datum/crafting_recipe/noose
+	name = "Noose"
+	time = 60
+	reqs = list(/obj/item/stack/cable_coil = 15)
+	result = /obj/structure/stool/bed/noose
+	category = CAT_MISC
+
+/datum/crafting_recipe/noose/check_crafting(mob/user)
+	var/turf/T = get_turf(user)
+	if(!(locate(/obj/structure/stool) in T) && !(locate(/obj/structure/table) in T) && !(locate(/obj/structure/toilet) in T))//this will catch chairs, toilets, beds, tables and stools
+		return "you need to be standing on top of a chair, table or a toilet to make a noose"
