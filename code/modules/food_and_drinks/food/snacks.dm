@@ -962,7 +962,7 @@
 
 /obj/item/weapon/reagent_containers/food/snacks/chinese/sweetsourchickenball
 	name = "Sweet & Sour Chicken Balls"
-	desc = "A well known delicious meal."
+	desc = "Is this chicken cooked? The odds are better than wok paper scissors."
 	icon_state = "chickenball"
 	junkiness = 25
 	list_reagents = list("nutriment" = 2, "msg" = 4, "sugar" = 2)
