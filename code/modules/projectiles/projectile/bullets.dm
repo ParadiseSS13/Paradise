@@ -4,16 +4,12 @@
 	damage = 60
 	damage_type = BRUTE
 	flag = "bullet"
-	sharp = 1
 	hitsound_wall = "ricochet"
 
 /obj/item/projectile/bullet/weakbullet //beanbag, heavy stamina damage
 	name = "beanbag slug"
 	damage = 5
 	stamina = 80
-
-/obj/item/projectile/bullet/weakbullet/rubber //beanbag that shells that don't embed
-	sharp = 0
 
 /obj/item/projectile/bullet/weakbullet/booze
 
@@ -41,9 +37,6 @@
 	stamina = 60
 	icon_state = "bullet-r"
 
-/obj/item/projectile/bullet/weakbullet2/rubber //detective's bullets that don't embed
-	sharp = 0
-
 /obj/item/projectile/bullet/weakbullet3
 	damage = 20
 
@@ -52,7 +45,6 @@
 	damage = 5
 	stamina = 30
 	icon_state = "bullet-r"
-	sharp = 0
 
 /obj/item/projectile/bullet/toxinbullet
 	damage = 15
@@ -140,7 +132,6 @@
 	name = "rubber pellet"
 	damage = 3
 	stamina = 25
-	sharp = 0
 	icon_state = "bullet-r"
 
 /obj/item/projectile/bullet/stunshot//taser slugs for shotguns, nothing special
@@ -151,7 +142,6 @@
 	stutter = 5
 	jitter = 20
 	range = 7
-	sharp = 0
 	icon_state = "spark"
 	color = "#FFFF00"
 
@@ -202,7 +192,6 @@
 	stun = 5
 	forcedodge = 1
 	nodamage = 1
-	sharp = 0
 	pass_flags = PASSTABLE | PASSGLASS | PASSGRILLE
 	hitsound = 'sound/items/bikehorn.ogg'
 	icon = 'icons/obj/hydroponics/harvest.dmi'
@@ -236,7 +225,6 @@
 	name = "dart"
 	icon_state = "cbbolt"
 	damage = 6
-	sharp = 0
 	var/piercing = 0
 
 /obj/item/projectile/bullet/dart/New()
@@ -277,6 +265,7 @@
 	icon_state = "syringeproj"
 
 /obj/item/projectile/bullet/dart/syringe/tranquilizer
+
 /obj/item/projectile/bullet/dart/syringe/tranquilizer/New()
 	..()
 	reagents.add_reagent("ether", 15)
@@ -298,7 +287,6 @@
 	name = "cap"
 	damage = 0
 	nodamage = 1
-	sharp = 0
 
 /obj/item/projectile/bullet/cap/fire()
 	loc = null

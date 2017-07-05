@@ -306,9 +306,10 @@
 		var/null_internals = 0      //internals are invalid, therefore turn them off
 		var/skip_contents_check = 0 //rigsuit snowflake, oxygen tanks aren't stored inside the mob, so the 'contents.Find' check has to be skipped.
 
-		if(!(wear_mask && wear_mask.flags & AIRTIGHT)) //if NOT (wear_mask AND wear_mask.flags CONTAIN AIRTIGHT)
-			if(!(head && head.flags & AIRTIGHT)) //if NOT (head AND head.flags CONTAIN AIRTIGHT)
-				null_internals = 1 //not wearing a mask or suitable helmet
+		if(!get_organ_slot("breathing_tube"))
+			if(!(wear_mask && wear_mask.flags & AIRTIGHT)) //if NOT (wear_mask AND wear_mask.flags CONTAIN AIRTIGHT)
+				if(!(head && head.flags & AIRTIGHT)) //if NOT (head AND head.flags CONTAIN AIRTIGHT)
+					null_internals = 1 //not wearing a mask or suitable helmet
 
 		if(istype(back, /obj/item/weapon/rig)) //wearing a rigsuit
 			var/obj/item/weapon/rig/rig = back //needs to be typecasted because this doesn't use get_rig() for some reason

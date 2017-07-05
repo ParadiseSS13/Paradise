@@ -397,10 +397,12 @@
 	reagent_state = LIQUID
 	color = "#FF83A5"
 	taste_message = "<font color='pink'><b>love</b></font>"
+	process_flags = ORGANIC | SYNTHETIC // That's the power of love~
 
 /datum/reagent/love/on_mob_life(mob/living/M)
-	if(M.a_intent == INTENT_HARM)
-		M.a_intent = INTENT_HELP
+	if(M.a_intent != INTENT_HELP)
+		M.a_intent_change(INTENT_HELP)
+	M.can_change_intents = 0 //Now you have no choice but to be helpful.
 
 	if(prob(8))
 		var/lovely_phrase = pick("appreciated", "loved", "pretty good", "really nice", "pretty happy with yourself, even though things haven't always gone as well as they could")
@@ -417,8 +419,13 @@
 					break
 	..()
 
+/datum/reagent/love/on_mob_delete(mob/living/M)
+	M.can_change_intents = 1
+	..()
+
 /datum/reagent/love/reaction_mob(mob/living/M, method=TOUCH, volume)
 	to_chat(M, "<span class='notice'>You feel loved!</span>")
+
 
 /datum/reagent/royal_bee_jelly
 	name = "royal bee jelly"

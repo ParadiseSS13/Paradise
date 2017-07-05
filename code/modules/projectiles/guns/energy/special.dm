@@ -144,7 +144,6 @@
 	attack_verb = list("attacked", "slashed", "cut", "sliced")
 	force = 12
 	sharp = 1
-	edge = 1
 	can_charge = 0
 
 /obj/item/weapon/gun/energy/plasmacutter/examine(mob/user)

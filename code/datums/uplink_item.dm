@@ -332,7 +332,7 @@ var/list/uplink_items = list()
 	reference = "TPB"
 	item = /obj/item/weapon/reagent_containers/glass/bottle/traitor
 	cost = 2
-	job = list("Research Director", "Chief Medical Officer", "Medical Doctor", "Psychiatrist", "Paramedic", "Virologist", "Bartender", "Chef")
+	job = list("Research Director", "Chief Medical Officer", "Medical Doctor", "Psychiatrist", "Chemist", "Paramedic", "Virologist", "Bartender", "Chef")
 
 // Paper contact poison pen
 
@@ -1123,6 +1123,13 @@ var/list/uplink_items = list()
 	item = /obj/item/stack/telecrystal
 	cost = 1
 	surplus = 0
+
+/datum/uplink_item/device_tools/jammer
+	name = "Radio Jammer"
+	desc = "This device will disrupt any nearby outgoing radio communication when activated."
+	reference = "RJ"
+	item = /obj/item/device/jammer
+	cost = 5
 
 /datum/uplink_item/device_tools/teleporter
 	name = "Teleporter Circuit Board"

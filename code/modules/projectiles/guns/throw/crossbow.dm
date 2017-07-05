@@ -155,7 +155,6 @@
 	throwforce = 20
 	w_class = WEIGHT_CLASS_NORMAL
 	sharp = 1
-	edge = 0
 
 /obj/item/weapon/arrow/proc/removed() //Helper for metal rods falling apart.
 	return

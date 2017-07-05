@@ -620,7 +620,7 @@
 		return
 
 	var/area/t = get_area(M)
-	var/obj/item/device/radio/headset/a = new /obj/item/device/radio/headset(null)
+	var/obj/item/device/radio/headset/a = new /obj/item/device/radio/headset(src)
 	if(istype(t, /area/syndicate_station) || istype(t, /area/syndicate_mothership) || istype(t, /area/shuttle/syndicate_elite) )
 		//give the syndicats a bit of stealth
 		a.autosay("[M] has been vandalized in Space!", "[M]'s Death Alarm")

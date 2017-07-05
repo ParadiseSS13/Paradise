@@ -5,8 +5,8 @@
 	force = 1
 	w_class = WEIGHT_CLASS_SMALL
 	throwforce = 0
-	var/zone = "chest"
 	var/slot
+	// DO NOT add slots with matching names to different zones - it will break internal_organs_slot list!
 	vital = 0
 	var/non_primary = 0
 
@@ -29,6 +29,7 @@
 	owner = M
 
 	M.internal_organs |= src
+	M.internal_organs_slot[slot] = src
 	var/obj/item/organ/external/parent
 	if(istype(M, /mob/living/carbon/human))
 		var/mob/living/carbon/human/H = M
@@ -52,6 +53,8 @@
 	owner = null
 	if(M)
 		M.internal_organs -= src
+		if(M.internal_organs_slot[slot] == src)
+			M.internal_organs_slot.Remove(slot)
 		if(vital && !special)
 			if(M.stat != DEAD)//safety check!
 				M.death()

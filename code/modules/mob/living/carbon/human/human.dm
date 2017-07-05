@@ -228,7 +228,7 @@
 				while(limbs_affected != 0 && valid_limbs.len > 0)
 					processing_dismember = pick(valid_limbs)
 					if(processing_dismember.limb_name != "chest" && processing_dismember.limb_name != "head" && processing_dismember.limb_name != "groin")
-						processing_dismember.droplimb(1,DROPLIMB_EDGE,0,1)
+						processing_dismember.droplimb(1,DROPLIMB_SHARP,0,1)
 						valid_limbs -= processing_dismember
 						limbs_affected -= 1
 					else valid_limbs -= processing_dismember
@@ -254,7 +254,7 @@
 			while(limbs_affected != 0 && valid_limbs.len > 0)
 				processing_dismember = pick(valid_limbs)
 				if(processing_dismember.limb_name != "chest" && processing_dismember.limb_name != "head" && processing_dismember.limb_name != "groin")
-					processing_dismember.droplimb(1,DROPLIMB_EDGE,0,1)
+					processing_dismember.droplimb(1,DROPLIMB_SHARP,0,1)
 					valid_limbs -= processing_dismember
 					limbs_affected -= 1
 				else valid_limbs -= processing_dismember
@@ -279,7 +279,7 @@
 				while(limbs_affected != 0 && valid_limbs.len > 0)
 					processing_dismember = pick(valid_limbs)
 					if(processing_dismember.limb_name != "chest" && processing_dismember.limb_name != "head" && processing_dismember.limb_name != "groin")
-						processing_dismember.droplimb(1,DROPLIMB_EDGE,0,1)
+						processing_dismember.droplimb(1,DROPLIMB_SHARP,0,1)
 						valid_limbs -= processing_dismember
 						limbs_affected -= 1
 					else valid_limbs -= processing_dismember
@@ -430,7 +430,7 @@
 
 /mob/living/carbon/human/show_inv(mob/user)
 	user.set_machine(src)
-	var/has_breathable_mask = istype(wear_mask, /obj/item/clothing/mask)
+	var/has_breathable_mask = istype(wear_mask, /obj/item/clothing/mask) || get_organ_slot("breathing_tube")
 	var/list/obscured = check_obscured_slots()
 
 	var/dat = {"<table>
@@ -599,7 +599,7 @@
 	return
 
 //repurposed proc. Now it combines get_id_name() and get_face_name() to determine a mob's name variable. Made into a seperate proc as it'll be useful elsewhere
-/mob/living/carbon/human/get_visible_name()
+/mob/living/carbon/human/get_visible_name(var/id_override = FALSE)
 	if(name_override)
 		return name_override
 	if(wear_mask && (wear_mask.flags_inv & HIDEFACE))	//Wearing a mask which hides our face, use id-name if possible
@@ -608,7 +608,7 @@
 		return get_id_name("Unknown")		//Likewise for hats
 	var/face_name = get_face_name()
 	var/id_name = get_id_name("")
-	if(id_name && (id_name != face_name))
+	if(id_name && (id_name != face_name) && !id_override)
 		return "[face_name] (as [id_name])"
 	return face_name
 
