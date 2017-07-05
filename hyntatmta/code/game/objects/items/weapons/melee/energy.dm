@@ -19,7 +19,6 @@
 	origin_tech = "combat=4"
 	attack_verb = list("attacked", "stabbed")
 	sharp = 1
-	edge = 1
 
 /obj/item/weapon/melee/energy/sword/saber/hos/attack_self(mob/living/carbon/user)
 	if(user.disabilities & CLUMSY && prob(50))
