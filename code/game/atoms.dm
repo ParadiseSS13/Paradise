@@ -541,15 +541,16 @@ var/list/blood_splatter_icons = list()
 
 
 /mob/living/carbon/human/clean_blood()
-	var/mob/living/carbon/human/H = src
-	if(H.gloves)
-		if(H.gloves.clean_blood())
-			H.update_inv_gloves()
+	if(gloves)
+		if(gloves.clean_blood())
+			clean_blood()
+			update_inv_gloves()
+		gloves.germ_level = 0
 	else
 		..() // Clear the Blood_DNA list
-		if(H.bloody_hands)
-			H.bloody_hands = 0
-			H.update_inv_gloves()
+		if(bloody_hands)
+			bloody_hands = 0
+			update_inv_gloves()
 	update_icons()	//apply the now updated overlays to the mob
 
 
