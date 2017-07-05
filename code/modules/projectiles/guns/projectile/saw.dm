@@ -1,12 +1,12 @@
 /obj/item/weapon/gun/projectile/automatic/l6_saw
 	name = "\improper L6 SAW"
-	desc = "A heavily modified .308 light machine gun, designated 'L6 SAW'. Has 'Aussec Armoury - 2531' engraved on the receiver below the designation."
+	desc = "A heavily modified 5.56 light machine gun, designated 'L6 SAW'. Has 'Aussec Armoury - 2531' engraved on the receiver below the designation."
 	icon_state = "l6closed100"
 	item_state = "l6closedmag"
 	w_class = WEIGHT_CLASS_HUGE
 	slot_flags = 0
 	origin_tech = "combat=6;engineering=3;syndicate=6"
-	mag_type = /obj/item/ammo_box/magazine/win308
+	mag_type = /obj/item/ammo_box/magazine/mm556x45
 	weapon_weight = WEAPON_MEDIUM
 	fire_sound = 'sound/weapons/Gunshot3.ogg'
 	var/cover_open = 0
@@ -99,59 +99,59 @@ obj/item/projectile/bullet/saw/incen/Move()
 
 //magazines//
 
-/obj/item/ammo_box/magazine/win308
-	name = "box magazine (.308)"
+/obj/item/ammo_box/magazine/mm556x45
+	name = "box magazine (5.56x45mm)"
 	icon_state = "a762-50"
 	origin_tech = "combat=2"
-	ammo_type = /obj/item/ammo_casing/win308
-	caliber = ".308"
+	ammo_type = /obj/item/ammo_casing/mm556x45
+	caliber = "mm55645"
 	max_ammo = 50
 
-/obj/item/ammo_box/magazine/win308/bleeding
-	name = "box magazine (Bleeding .308)"
+/obj/item/ammo_box/magazine/mm556x45/bleeding
+	name = "box magazine (Bleeding 5.56x45mm)"
 	origin_tech = "combat=3"
-	ammo_type = /obj/item/ammo_casing/win308/bleeding
+	ammo_type = /obj/item/ammo_casing/mm556x45/bleeding
 
-/obj/item/ammo_box/magazine/win308/hollow
-	name = "box magazine (Hollow-Point .308)"
+/obj/item/ammo_box/magazine/mm556x45/hollow
+	name = "box magazine (Hollow-Point 5.56x45mm)"
 	origin_tech = "combat=3"
-	ammo_type = /obj/item/ammo_casing/win308/hollow
+	ammo_type = /obj/item/ammo_casing/mm556x45/hollow
 
-/obj/item/ammo_box/magazine/win308/ap
-	name = "box magazine (Armor Penetrating .308)"
+/obj/item/ammo_box/magazine/mm556x45/ap
+	name = "box magazine (Armor Penetrating 5.56x45mm)"
 	origin_tech = "combat=4"
-	ammo_type = /obj/item/ammo_casing/win308/ap
+	ammo_type = /obj/item/ammo_casing/mm556x45/ap
 
-/obj/item/ammo_box/magazine/win308/incen
-	name = "box magazine (Incendiary .308)"
+/obj/item/ammo_box/magazine/mm556x45/incen
+	name = "box magazine (Incendiary 5.56x45mm)"
 	origin_tech = "combat=4"
-	ammo_type = /obj/item/ammo_casing/win308/incen
+	ammo_type = /obj/item/ammo_casing/mm556x45/incen
 
-/obj/item/ammo_box/magazine/win308/update_icon()
+/obj/item/ammo_box/magazine/mm556x45/update_icon()
 	..()
 	icon_state = "a762-[round(ammo_count(),10)]"
 
 //casings//
 
-/obj/item/ammo_casing/win308
-	desc = "A .308 bullet casing."
+/obj/item/ammo_casing/mm556x45
+	desc = "A 556x45mm bullet casing."
 	icon_state = "762-casing"
-	caliber = ".308win"
+	caliber = "mm55645"
 	projectile_type = /obj/item/projectile/bullet/saw
 
-/obj/item/ammo_casing/win308/bleeding
-	desc = "A .308 bullet casing with specialized inner-casing, that when it makes contact with a target, release tiny shrapnel to induce internal bleeding."
+/obj/item/ammo_casing/mm556x45/bleeding
+	desc = "A 556x45mm bullet casing with specialized inner-casing, that when it makes contact with a target, release tiny shrapnel to induce internal bleeding."
 	icon_state = "762-casing"
 	projectile_type = /obj/item/projectile/bullet/saw/bleeding
 
-/obj/item/ammo_casing/win308/hollow
-	desc = "A .308 bullet casing designed to cause more damage to unarmored targets."
+/obj/item/ammo_casing/mm556x45/hollow
+	desc = "A 556x45mm bullet casing designed to cause more damage to unarmored targets."
 	projectile_type = /obj/item/projectile/bullet/saw/hollow
 
-/obj/item/ammo_casing/win308/ap
-	desc = "A .308 bullet casing designed with a hardened-tipped core to help penetrate armored targets."
+/obj/item/ammo_casing/mm556x45/ap
+	desc = "A 556x45mm bullet casing designed with a hardened-tipped core to help penetrate armored targets."
 	projectile_type = /obj/item/projectile/bullet/saw/ap
 
-/obj/item/ammo_casing/win308/incen
-	desc = "A .308 bullet casing designed with a chemical-filled capsule on the tip that when bursted, reacts with the atmosphere to produce a fireball, engulfing the target in flames. "
+/obj/item/ammo_casing/mm556x45/incen
+	desc = "A 556x45mm bullet casing designed with a chemical-filled capsule on the tip that when bursted, reacts with the atmosphere to produce a fireball, engulfing the target in flames. "
 	projectile_type = /obj/item/projectile/bullet/saw/incen
