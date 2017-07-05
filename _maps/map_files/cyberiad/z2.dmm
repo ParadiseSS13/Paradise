@@ -544,10 +544,10 @@
 "kx" = (/obj/structure/table/woodentable,/obj/item/weapon/reagent_containers/food/snacks/mushroompizzaslice{pixel_x = -5; pixel_y = 5},/turf/unsimulated/floor{icon_state = "bar"; dir = 2},/area/syndicate_mothership)
 "ky" = (/obj/structure/table/woodentable,/obj/item/weapon/reagent_containers/food/drinks/cans/beer{pixel_x = 5; pixel_y = -2},/obj/item/toy/cards/deck/syndicate{pixel_x = -6; pixel_y = 6},/turf/unsimulated/floor{icon_state = "bar"; dir = 2},/area/syndicate_mothership)
 "kz" = (/obj/effect/decal/warning_stripes/southeast,/turf/simulated/floor/plating/airless,/area/syndicate_mothership)
-"kA" = (/turf/simulated/floor/pod,/turf/space,/obj/machinery/porta_turret/syndicate/pod,/turf/simulated/shuttle/wall{dir = 8; icon_state = "diagonalWall3"},/area/shuttle/assault_pod)
+"kA" = (/turf/simulated/floor/pod,/turf/space,/obj/machinery/porta_turret/syndicate/pod,/turf/simulated/shuttle/wall{density = 0; dir = 8; icon_state = "diagonalWall3"},/area/shuttle/assault_pod)
 "kB" = (/turf/simulated/shuttle/wall{icon_state = "wall3"},/area/shuttle/assault_pod)
 "kC" = (/obj/machinery/door/airlock/centcom{aiControlDisabled = 1; name = "Assault Pod"; opacity = 1; req_one_access_txt = "150"},/turf/simulated/floor/plating,/area/shuttle/assault_pod)
-"kD" = (/turf/simulated/floor/pod,/turf/space,/obj/machinery/porta_turret/syndicate/pod,/turf/simulated/shuttle/wall{dir = 1; icon_state = "diagonalWall3"},/area/shuttle/assault_pod)
+"kD" = (/turf/simulated/floor/pod,/turf/space,/obj/machinery/porta_turret/syndicate/pod,/turf/simulated/shuttle/wall{density = 0; dir = 1; icon_state = "diagonalWall3"},/area/shuttle/assault_pod)
 "kE" = (/obj/effect/decal/warning_stripes/southwest,/turf/simulated/floor/plating/airless,/area/syndicate_mothership)
 "kF" = (/turf/unsimulated/wall/fakeglass{tag = "icon-fakewindows2 (NORTH)"; icon_state = "fakewindows2"; dir = 1},/area/syndicate_mothership)
 "kG" = (/turf/unsimulated/floor{icon_state = "floor"},/area/syndicate_mothership)
@@ -590,8 +590,8 @@
 "lr" = (/obj/structure/sign/double/map/left{pixel_y = -32},/obj/effect/decal/warning_stripes/west,/obj/machinery/light,/obj/structure/rack/skeletal_bar/left,/obj/item/weapon/reagent_containers/food/drinks/bottle/vodka,/turf/unsimulated/floor{dir = 2; icon_state = "wood"},/area/syndicate_mothership)
 "ls" = (/obj/structure/sign/double/map/right{pixel_y = -32},/obj/structure/rack/skeletal_bar/right,/obj/item/weapon/reagent_containers/food/drinks/bottle/gin,/turf/unsimulated/floor{dir = 2; icon_state = "wood"},/area/syndicate_mothership)
 "lt" = (/obj/machinery/door/airlock/multi_tile/glass{name = "Equipment Room"; opacity = 0; req_access_txt = "150"},/turf/unsimulated/floor{icon_state = "bar"; dir = 2},/area/syndicate_mothership)
-"lu" = (/turf/simulated/floor/pod,/turf/space,/obj/machinery/porta_turret/syndicate/pod,/turf/simulated/shuttle/wall{tag = "icon-diagonalWall3"; icon_state = "diagonalWall3"; dir = 2},/area/shuttle/assault_pod)
-"lv" = (/turf/simulated/floor/pod,/turf/space,/obj/machinery/porta_turret/syndicate/pod,/turf/simulated/shuttle/wall{dir = 4; icon_state = "diagonalWall3"},/area/shuttle/assault_pod)
+"lu" = (/turf/simulated/floor/pod,/turf/space,/obj/machinery/porta_turret/syndicate/pod,/turf/simulated/shuttle/wall{density = 0; dir = 2; icon_state = "diagonalWall3"; tag = "icon-diagonalWall3"},/area/shuttle/assault_pod)
+"lv" = (/turf/simulated/floor/pod,/turf/space,/obj/machinery/porta_turret/syndicate/pod,/turf/simulated/shuttle/wall{density = 0; dir = 4; icon_state = "diagonalWall3"},/area/shuttle/assault_pod)
 "lw" = (/turf/unsimulated/wall/splashscreen,/area/start)
 "lx" = (/obj/docking_port/stationary/transit{dir = 2; dwidth = 3; height = 5; id = "engineering_transit"; name = "engineering in transit"; turf_type = /turf/space/transit/horizontal; width = 7},/turf/space/transit/horizontal,/area/space)
 "ly" = (/turf/unsimulated/floor{dir = 2; icon_state = "stage_stairs"},/area/syndicate_mothership)
@@ -1742,3 +1742,4 @@ abababababababababababababababababababababababababababababababababababababababab
 ababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababab
 ababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababab
 "}
+
