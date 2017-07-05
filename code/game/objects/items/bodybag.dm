@@ -137,3 +137,40 @@
 			else
 				to_chat(user, "<span class='warning'>Access denied.</span>")
 			return
+
+
+/obj/structure/closet/body_bag/cryobag/cryopod
+	name = "stasis bag"
+	desc = "A bigger brother to the stasis bag. This one is both studier and reusable. It still does cause genetic damage however."
+	icon = 'icons/obj/cryobag.dmi'
+	sound = 'sound/machines/click.ogg'
+	density = 1
+
+	open()
+		if(opened)
+			return 0
+		if(!can_open())
+			return 0
+		dump_contents()
+		icon_state = icon_opened
+		opened = 1
+		if(sound)
+			playsound(loc, sound, 15, 1, -3)
+		else
+			playsound(loc, 'sound/machines/click.ogg', 15, 1, -3)
+		density = 0
+		return 1
+	MouseDrop(obj/over_object as obj)
+		if(istype(over_object, /obj/vehicle/ambulance))
+			var/obj/vehicle/ambulance/amb = over_object
+			if(amb.bed)
+				amb.bed = null
+				to_chat(usr, "You unhook the bed to the ambulance.")
+			else
+				amb.bed = src
+				to_chat(usr, "You hook the bed to the ambulance.")
+	close()
+		if(..())
+			density = 1
+			return 1
+		return 0
