@@ -1,0 +1,4 @@
+author: "Purpose2"
+delete-after: True
+changes: 
+  - bugfix: "Anomalies will once again drop cores."
