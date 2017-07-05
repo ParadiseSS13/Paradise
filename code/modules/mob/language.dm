@@ -296,13 +296,6 @@
 	flags = RESTRICTED | HIVEMIND
 
 /datum/language/grey/broadcast(mob/living/speaker, message, speaker_mask)
-	var/their = "their"
-	if(speaker.gender == "female")
-		their = "her"
-	if(speaker.gender == "male")
-		their = "his"
-
-	speaker.visible_message("<span class='notice'>[speaker] touches [their] fingers to [their] temple.</span>")
 	..(speaker,message,speaker.real_name)
 
 /datum/language/grey/check_can_speak(mob/living/speaker)
@@ -316,6 +309,14 @@
 	if(speaker.incapacitated(ignore_lying = 1))
 		to_chat(speaker,"<span class='warning'>You can't communicate while unable to move your hands to your head!</span>")
 		return FALSE
+
+	var/their = "their"
+	if(speaker.gender == "female")
+		their = "her"
+	if(speaker.gender == "male")
+		their = "his"
+	speaker.visible_message("<span class='notice'>[speaker] touches [their] fingers to [their] temple.</span>") //If placed in grey/broadcast, it will happen regardless of the success of the action.
+
 	return TRUE
 
 /datum/language/grey/check_special_condition(mob/living/carbon/human/other, mob/living/carbon/human/speaker)

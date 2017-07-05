@@ -1,0 +1,4 @@
+author: "Fethas"
+delete-after: True
+changes: 
+  - bugfix: "fixes issue with hand teleporter not working in active hands"

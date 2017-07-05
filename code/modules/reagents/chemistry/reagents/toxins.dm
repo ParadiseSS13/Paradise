@@ -229,6 +229,8 @@
 	if(method == TOUCH)
 		if(ishuman(M))
 			var/mob/living/carbon/human/H = M
+			if(H.get_species() == "Grey")
+				return
 
 			if(volume > 25)
 
@@ -255,6 +257,13 @@
 	if(method == INGEST)
 		if(ishuman(M))
 			var/mob/living/carbon/human/H = M
+
+			if(H.get_species() == "Grey")
+				return
+
+			if(volume < 10)
+				to_chat(M, "<span class='danger'>The greenish acidic substance stings you, but isn't concentrated enough to harm you!</span>")
+
 			if(volume >=10 && volume <=25)
 				if(!H.unacidable)
 					M.take_organ_damage(0,min(max(volume-10,2)*2,20))
