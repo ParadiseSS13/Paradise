@@ -1090,7 +1090,7 @@
 			// Humans can lack a mind datum, y'know
 			if(H.mind && (H.mind.assigned_role == "Detective" || H.mind.assigned_role == "Coroner"))
 				return //too cool for puke
-			to_chat(H, "<span class='warning'>You smell something foul...")
+			to_chat(H, "<span class='warning'>You smell something foul...</span>")
 			H.fakevomit()
 
 /mob/living/carbon/human/proc/handle_heartbeat()
