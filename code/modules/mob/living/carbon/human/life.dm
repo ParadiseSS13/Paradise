@@ -259,7 +259,7 @@
 	if(losebreath > 0)
 		AdjustLoseBreath(-1)
 		if(prob(10))
-			spawn emote("gasp")
+			emote("gasp")
 		if(istype(loc, /obj/))
 			var/obj/loc_as_obj = loc
 			loc_as_obj.handle_internal_lifeform(src, 0)
@@ -1090,7 +1090,7 @@
 			// Humans can lack a mind datum, y'know
 			if(H.mind && (H.mind.assigned_role == "Detective" || H.mind.assigned_role == "Coroner"))
 				return //too cool for puke
-			to_chat(H, "<spawn class='warning'>You smell something foul...")
+			to_chat(H, "<span class='warning'>You smell something foul...")
 			H.fakevomit()
 
 /mob/living/carbon/human/proc/handle_heartbeat()
