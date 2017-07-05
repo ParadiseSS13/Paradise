@@ -71,7 +71,6 @@
 	attack_verb = list("attacked", "chopped", "cleaved", "torn", "cut")
 	attack_verb_on = list()
 	sharp = 1
-	edge = 1
 
 /obj/item/weapon/melee/energy/axe/suicide_act(mob/user)
 	user.visible_message("<span class='suicide'>[user] swings the [src.name] towards /his head! It looks like \he's trying to commit suicide.</span>")
@@ -92,7 +91,6 @@
 	origin_tech = "combat=3;magnets=4;syndicate=4"
 	block_chance = 50
 	sharp = 1
-	edge = 1
 	var/hacked = 0
 	var/blade_color
 
@@ -124,7 +122,6 @@
 	force_on = 30
 	force = 18 //About as much as a spear
 	sharp = 1
-	edge = 1
 	hitsound = 'sound/weapons/circsawhit.ogg'
 	icon = 'icons/obj/surgery.dmi'
 	icon_state = "esaw_0"
@@ -212,7 +209,6 @@
 	w_class = WEIGHT_CLASS_BULKY //So you can't hide it in your pocket or some such.
 	var/datum/effect/system/spark_spread/spark_system
 	sharp = 1
-	edge = 1
 
 //Most of the other special functions are handled in their own files. aka special snowflake code so kewl
 /obj/item/weapon/melee/energy/blade/New()

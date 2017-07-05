@@ -538,7 +538,7 @@
 
 	add_logs(user, target, "surgically removed [affected.name] from", addition="INTENT: [uppertext(user.a_intent)]")//log it
 
-	var/atom/movable/thing = affected.droplimb(1,DROPLIMB_EDGE)
+	var/atom/movable/thing = affected.droplimb(1,DROPLIMB_SHARP)
 	if(istype(thing,/obj/item))
 		user.put_in_hands(thing)
 

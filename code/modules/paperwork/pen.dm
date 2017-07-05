@@ -155,7 +155,6 @@
 		on = 0
 		force = initial(force)
 		sharp = 0
-		edge = 0
 		w_class = initial(w_class)
 		name = initial(name)
 		hitsound = initial(hitsound)
@@ -167,7 +166,6 @@
 		on = 1
 		force = 18
 		sharp = 1
-		edge = 1
 		w_class = WEIGHT_CLASS_NORMAL
 		name = "energy dagger"
 		hitsound = 'sound/weapons/blade1.ogg'

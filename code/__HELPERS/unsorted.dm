@@ -1202,16 +1202,11 @@ var/global/list/common_tools = list(
 		return 0
 
 //Whether or not the given item counts as sharp in terms of dealing damage
-/proc/is_sharp(obj/O as obj)
-	if(!O) return 0
-	if(O.sharp) return 1
-	if(O.edge) return 1
-	return 0
-
-//Whether or not the given item counts as cutting with an edge in terms of removing limbs
-/proc/has_edge(obj/O as obj)
-	if(!O) return 0
-	if(O.edge) return 1
+/proc/is_sharp(obj/O)
+	if(!O)
+		return 0
+	if(O.sharp)
+		return 1
 	return 0
 
 /proc/is_surgery_tool(obj/item/W as obj)
