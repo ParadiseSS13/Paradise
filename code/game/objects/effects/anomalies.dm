@@ -37,6 +37,7 @@
 
 	if(aSignal)
 		aSignal.forceMove(T)
+		aSignal = null
 
 	qdel(src)
 
