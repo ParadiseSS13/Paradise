@@ -24,7 +24,7 @@
 			/obj/item/stack/sheet/glass = list("silicon" = 20),
 			/obj/item/stack/sheet/rglass = list("silicon" = 20, "iron" = 20),
 			/obj/item/stack/sheet/mineral/uranium = list("uranium" = 20),
-			/obj/item/stack/sheet/mineral/bananium = list("banana" = 20),
+			/obj/item/stack/sheet/mineral/bananium = list("jolly" = 20),
 			/obj/item/stack/sheet/mineral/tranquillite = list("nothing" = 20),
 			/obj/item/stack/sheet/mineral/silver = list("silver" = 20),
 			/obj/item/stack/sheet/mineral/gold = list("gold" = 20),

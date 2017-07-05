@@ -15,7 +15,7 @@ var/list/standard_chemicals = list("slimejelly","blood","water","lube","charcoal
 								"cryoxadone","spaceacillin","carpotoxin","lsd","fluorosurfactant",
 								"fluorosurfactant","ethanol","ammonia","diethylamine","antihol","pancuronium",
 								"lipolicide","condensedcapsaicin","frostoil","amanitin","psilocybin",
-								"enzyme","nothing","salglu_solution","antifreeze","neurotoxin")
+								"enzyme","nothing","jolly","salglu_solution","antifreeze","neurotoxin")
 // Rare chemicals
 var/list/rare_chemicals = list("minttoxin","nanites","xenomicrobes","adminordrazine")
 // Standard medicines
@@ -25,13 +25,13 @@ var/list/standard_medicines = list("charcoal","toxin","cyanide","morphine","epin
 								"potass_iodide","pen_acid","mannitol","oculine","styptic_powder",
 								"methamphetamine","spaceacillin","carpotoxin","lsd","ethanol","ammonia",
 								"diethylamine","antihol","pancuronium","lipolicide","condensedcapsaicin",
-								"frostoil","amanitin","psilocybin","nothing","salglu_solution","neurotoxin")
+								"frostoil","amanitin","psilocybin","nothing","jolly","salglu_solution","neurotoxin")
 // Rare medicines
 var/list/rare_medicines = list("nanites","xenomicrobes","minttoxin","adminordrazine","blood")
 // Drinks
 var/list/drinks = list("beer2","hot_coco","orangejuice","tomatojuice","limejuice","carrotjuice",
 					"berryjuice","poisonberryjuice","watermelonjuice","lemonjuice","banana",
-					"nothing","potato","milk","soymilk","cream","coffee","tea","icecoffee",
+					"nothing","jolly","potato","milk","soymilk","cream","coffee","tea","icecoffee",
 					"icetea","cola","nuka_cola","spacemountainwind","thirteenloko","dr_gibb",
 					"space_up","lemon_lime","beer","whiskey","gin","rum","vodka","holywater",
 					"tequila","vermouth","wine","tonic","kahlua","cognac","ale","sodawater",
