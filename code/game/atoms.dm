@@ -505,9 +505,9 @@ var/list/blood_splatter_icons = list()
 			blood_splatter_icon = fcopy_rsc(blood_splatter_icon)
 			blood_splatter_icons[index] = blood_splatter_icon
 
-		var/image/blood_image = image(blood_splatter_icon)
-		blood_image.color = color
-		overlays += blood_image
+		blood_overlay = image(blood_splatter_icon)
+		blood_overlay.color = color
+		overlays += blood_overlay
 
 /atom/proc/clean_blood()
 	germ_level = 0
@@ -519,11 +519,8 @@ var/list/blood_splatter_icons = list()
 /obj/item/clean_blood()
 	. = ..()
 	if(.)
-		if(initial(icon) && initial(icon_state))
-			var/index = blood_splatter_index()
-			var/icon/blood_splatter_icon = blood_splatter_icons[index]
-			if(blood_splatter_icon)
-				overlays -= blood_splatter_icon
+		if(blood_overlay)
+			overlays -= blood_overlay
 
 /obj/item/clothing/gloves/clean_blood()
 	. = ..()
