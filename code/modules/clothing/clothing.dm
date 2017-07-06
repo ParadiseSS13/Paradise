@@ -382,15 +382,6 @@ BLIND     // can't see anything
 		"Vox" = 'icons/mob/species/vox/shoes.dmi'
 		)
 
-
-/obj/item/clothing/shoes/clean_blood()
-	..()
-	bloody_shoes = list(BLOOD_STATE_HUMAN = 0, BLOOD_STATE_XENO = 0, BLOOD_STATE_NOT_BLOODY = 0)
-	blood_state = BLOOD_STATE_NOT_BLOODY
-	if(ismob(loc))
-		var/mob/M = loc
-		M.update_inv_shoes()
-
 /obj/item/clothing/shoes/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/weapon/match) && src.loc == user)
 		var/obj/item/weapon/match/M = I
