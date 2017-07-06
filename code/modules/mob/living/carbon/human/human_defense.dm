@@ -10,7 +10,7 @@ emp_act
 
 /mob/living/carbon/human/bullet_act(obj/item/projectile/P, def_zone)
 
-	if(istype(P, /obj/item/projectile/energy) || istype(P, /obj/item/projectile/beam))
+	if(P.is_reflectable)
 		if(check_reflect(def_zone)) // Checks if you've passed a reflection% check
 			visible_message("<span class='danger'>The [P.name] gets reflected by [src]!</span>", \
 							"<span class='userdanger'>The [P.name] gets reflected by [src]!</span>")
