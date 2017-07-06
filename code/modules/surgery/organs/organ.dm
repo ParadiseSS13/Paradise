@@ -234,7 +234,7 @@ var/list/organ_cache = list()
 	W.time_inflicted = world.time
 
 //Note: external organs have their own version of this proc
-/obj/item/organ/proc/take_damage(amount, var/silent=0)
+/obj/item/organ/proc/take_damage(amount, silent = 0)
 	if(tough)
 		return
 	if(status & ORGAN_ROBOT)

@@ -49,8 +49,6 @@
 	name = "alloy spike"
 	desc = "A broadhead spike made out of a weird silvery metal."
 	projectile_type = /obj/item/projectile/bullet/spike
-	sharp = 1
-	edge = 0
 	throwforce = 5
 	w_class = WEIGHT_CLASS_NORMAL
 	caliber = "spike"

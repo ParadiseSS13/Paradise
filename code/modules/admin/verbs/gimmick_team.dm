@@ -12,6 +12,7 @@
 		return
 	if(alert("Do you want to spawn a Gimmick Team at YOUR CURRENT LOCATION?",,"Yes","No")=="No")
 		return
+	var/turf/T = get_turf(mob)
 	var/pick_manually = 0
 	if(alert("Pick the team members manually? If you select yes, you pick from ghosts. If you select no, ghosts get offered the chance to join.",,"Yes","No")=="Yes")
 		pick_manually = 1
@@ -34,6 +35,9 @@
 	var/dresscode = input("Select Outfit", "Dress-a-mob") as null|anything in outfit_list
 	if(isnull(dresscode))
 		return
+	var/is_syndicate = 0
+	if(alert("Do you want these characters automatically classified as antagonists?",,"Yes","No")=="Yes")
+		is_syndicate = 1
 
 	var/list/players_to_spawn = list()
 	if(pick_manually)
@@ -55,7 +59,8 @@
 		return 0
 
 	var/datum/outfit/O = outfit_list[dresscode]
-	var/turf/T = get_turf(mob)
+
+	var/players_spawned = 0
 	for(var/mob/thisplayer in players_to_spawn)
 		var/mob/living/carbon/human/H = new /mob/living/carbon/human(T)
 		H.name = random_name(pick(MALE,FEMALE))
@@ -67,13 +72,20 @@
 		H.mind_initialize()
 		H.mind.assigned_role = "MODE"
 		H.mind.special_role = "Event Character"
-		ticker.mode.traitors |= H.mind //Adds them to extra antag list
 
 		H.key = thisplayer.key
 
 		H.equipOutfit(O, FALSE)
 
 		to_chat(H, "<BR><span class='danger'><B>[themission]</B></span>")
+		H.mind.store_memory("<B>[themission]</B><BR><BR>")
+
+		if(is_syndicate)
+			ticker.mode.traitors |= H.mind //Adds them to extra antag list
+
+		players_spawned++
+		if(players_spawned >= teamsize)
+			break
 
 
 	message_admins("[key_name_admin(src)] has spawned a Gimmick Team.", 1)

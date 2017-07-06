@@ -516,7 +516,6 @@
 	var/attack_sound = "punch"
 	var/miss_sound = 'sound/weapons/punchmiss.ogg'
 	var/sharp = 0
-	var/edge = 0
 
 /datum/unarmed_attack/punch
 	attack_verb = list("punch")
@@ -532,7 +531,6 @@
 	attack_sound = 'sound/weapons/slice.ogg'
 	miss_sound = 'sound/weapons/slashmiss.ogg'
 	sharp = 1
-	edge = 1
 
 /datum/unarmed_attack/claws/armalis
 	attack_verb = list("slash", "claw")

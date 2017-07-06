@@ -219,8 +219,8 @@
 
 	..()
 
-/obj/item/organ/external/head/take_damage(brute, burn, sharp, edge, used_weapon = null, list/forbidden_limbs = list())
-	..(brute, burn, sharp, edge, used_weapon, forbidden_limbs)
+/obj/item/organ/external/head/take_damage(brute, burn, sharp, used_weapon = null, list/forbidden_limbs = list())
+	..(brute, burn, sharp, used_weapon, forbidden_limbs)
 	if(!disfigured)
 		if(brute_dam > 40)
 			if(prob(50))

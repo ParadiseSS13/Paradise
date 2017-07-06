@@ -21,7 +21,7 @@
 	poi_list |= src
 
 /obj/effect/anomaly/Destroy()
-	QDEL_NULL(aSignal)
+	aSignal = null
 	poi_list.Remove(src)
 	return ..()
 

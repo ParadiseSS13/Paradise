@@ -108,7 +108,7 @@ var/const/INGEST = 2
 
 	return the_id
 
-/datum/reagents/proc/trans_to(target, amount=1, multiplier=1, preserve_data=1)//if preserve_data=0, the reagents data will be lost. Usefull if you use data for some strange stuff and don't want it to be transferred.
+/datum/reagents/proc/trans_to(target, amount=1, multiplier=1, preserve_data=1, no_react = 0)//if preserve_data=0, the reagents data will be lost. Usefull if you use data for some strange stuff and don't want it to be transferred.
 	if(!target)
 		return
 	if(total_volume <= 0)
@@ -139,13 +139,14 @@ var/const/INGEST = 2
 		if(preserve_data)
 			trans_data = copy_data(current_reagent)
 
-		R.add_reagent(current_reagent.id, (current_reagent_transfer * multiplier), trans_data, chem_temp)
+		R.add_reagent(current_reagent.id, (current_reagent_transfer * multiplier), trans_data, chem_temp, no_react = 1)
 		remove_reagent(current_reagent.id, current_reagent_transfer)
 
 	update_total()
 	R.update_total()
-	R.handle_reactions()
-	handle_reactions()
+	if(!no_react)
+		R.handle_reactions()
+		handle_reactions()
 	return amount
 
 /datum/reagents/proc/copy_to(obj/target, amount=1, multiplier=1, preserve_data=1, safety = 0)
@@ -533,7 +534,7 @@ var/const/INGEST = 2
 		var/amt = list_reagents[r_id]
 		add_reagent(r_id, amt, data)
 
-/datum/reagents/proc/add_reagent(reagent, amount, list/data=null, reagtemp = 300)
+/datum/reagents/proc/add_reagent(reagent, amount, list/data=null, reagtemp = 300, no_react = 0)
 	if(!isnum(amount))
 		return 1
 	update_total()
@@ -550,7 +551,8 @@ var/const/INGEST = 2
 			update_total()
 			my_atom.on_reagent_change()
 			R.on_merge(data)
-			handle_reactions()
+			if(!no_react)
+				handle_reactions()
 			return 0
 
 	var/datum/reagent/D = chemical_reagents_list[reagent]
@@ -566,7 +568,8 @@ var/const/INGEST = 2
 
 		update_total()
 		my_atom.on_reagent_change()
-		handle_reactions()
+		if(!no_react)
+			handle_reactions()
 		return 0
 	else
 		warning("[my_atom] attempted to add a reagent called '[reagent]' which doesn't exist. ([usr])")

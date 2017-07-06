@@ -120,6 +120,7 @@
 
 	var/has_enabled_antagHUD = 0
 	var/antagHUD = 0
+	var/can_change_intents = 1 //all mobs can change intents by default.
 
 //Generic list for proc holders. Only way I can see to enable certain verbs/procs. Should be modified if needed.
 	var/proc_holder_list[] = list()

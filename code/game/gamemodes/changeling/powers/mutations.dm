@@ -128,7 +128,6 @@
 	flags = ABSTRACT | NODROP
 	w_class = WEIGHT_CLASS_HUGE
 	sharp = 1
-	edge = 1
 	force = 25
 	throwforce = 0 //Just to be on the safe side
 	throw_range = 0

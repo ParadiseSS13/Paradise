@@ -194,7 +194,7 @@
 			   DAMAGE PROCS
 ****************************************************/
 
-/obj/item/organ/external/take_damage(brute, burn, sharp, edge, used_weapon = null, list/forbidden_limbs = list())
+/obj/item/organ/external/take_damage(brute, burn, sharp, used_weapon = null, list/forbidden_limbs = list())
 	if(tough)
 		brute = max(0, brute - 5)
 		burn = max(0, burn - 4)
@@ -276,7 +276,7 @@
 				if(possible_points.len)
 					//And pass the pain around
 					var/obj/item/organ/external/target = pick(possible_points)
-					target.take_damage(brute, burn, sharp, edge, used_weapon, forbidden_limbs + src)
+					target.take_damage(brute, burn, sharp, used_weapon, forbidden_limbs + src)
 				if(fail_at_full_damage == 2 && body_part != UPPER_TORSO && body_part != LOWER_TORSO)
 					var/losstype
 					if(burn > brute)
@@ -292,8 +292,8 @@
 	if(owner && loc == owner)
 		if(!cannot_amputate && config.limbs_can_break && (brute_dam) >= (max_damage * config.organ_health_multiplier))
 			if(prob(brute / 2))
-				if(edge)
-					droplimb(0,DROPLIMB_EDGE)
+				if(sharp)
+					droplimb(0, DROPLIMB_SHARP)
 
 	if(owner_old) owner_old.updatehealth()
 	return update_icon()
@@ -690,10 +690,10 @@ Note that amputating the affected organ does in fact remove the infection from t
 		return
 
 	if(!disintegrate)
-		disintegrate = DROPLIMB_EDGE
+		disintegrate = DROPLIMB_SHARP
 
 	switch(disintegrate)
-		if(DROPLIMB_EDGE)
+		if(DROPLIMB_SHARP)
 			if(!clean)
 				var/gore_sound = "[(status & ORGAN_ROBOT) ? "tortured metal" : "ripping tendons and flesh"]"
 				owner.visible_message(
@@ -742,7 +742,7 @@ Note that amputating the affected organ does in fact remove the infection from t
 			victim.regenerate_icons()
 		dir = 2
 	switch(disintegrate)
-		if(DROPLIMB_EDGE)
+		if(DROPLIMB_SHARP)
 			compile_icon()
 			add_blood(victim.blood_DNA, victim.species.blood_color)
 			var/matrix/M = matrix()
