@@ -772,6 +772,30 @@
 		to_chat(user, "You turn the [src]'s lighting system [flavour].")
 		user.update_inv_wear_suit()
 
+/obj/item/clothing/suit/hooded/hoodie/fluff/xantholne // Xantholne: Meex Zwichsnicrur
+	name = "stripped winter coat"
+	desc = "A velvety smooth black winter coat with white and red stripes on the side."
+	icon = 'icons/obj/custom_items.dmi'
+	icon_state = "xantholne_wintercoat"
+	hoodtype = /obj/item/clothing/head/hood/fluff/xantholne
+	body_parts_covered = UPPER_TORSO|LOWER_TORSO|ARMS
+	cold_protection = UPPER_TORSO|LOWER_TORSO|ARMS
+	min_cold_protection_temperature = FIRE_SUIT_MIN_TEMP_PROTECT
+	armor = list(melee = 0, bullet = 0, laser = 0, energy = 0, bomb = 0, bio = 10, rad = 0)
+	allowed = list(/obj/item/device/flashlight, /obj/item/weapon/tank/emergency_oxygen, /obj/item/toy, /obj/item/weapon/storage/fancy/cigarettes, /obj/item/weapon/lighter)
+
+
+/obj/item/clothing/head/hood/fluff/xantholne // Xantholne: Meex Zwichsnicrur
+	name = "black winter hood"
+	desc = "A black hood attached to a stripped winter coat."
+	icon = 'icons/obj/custom_items.dmi'
+	icon_state = "xantholne_winterhood"
+	body_parts_covered = HEAD
+	cold_protection = HEAD
+	min_cold_protection_temperature = FIRE_SUIT_MIN_TEMP_PROTECT
+	flags = NODROP|BLOCKHAIR
+	flags_inv = HIDEEARS
+
 //////////// Uniforms ////////////
 /obj/item/clothing/under/fluff/kharshai // Kharshai: Athena Castile
 	name = "Castile formal outfit"
