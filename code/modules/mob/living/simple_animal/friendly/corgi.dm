@@ -60,7 +60,8 @@
 	if(can_collar)
 		dat += "<tr><td>&nbsp;</td></tr>"
 		dat += "<tr><td><B>Collar:</B></td><td><A href='?src=[UID()];item=[slot_collar]'>[(collar && !(collar.flags&ABSTRACT)) ? collar : "<font color=grey>Empty</font>"]</A></td></tr>"
-
+	if(facehugger)
+		dat += "<tr><td><B>Facehugger:</B></td><td><A href='?src=[UID()];["remove_hugger"]=remove_hugger'>[facehugger]</A></td></tr>"
 	dat += {"</table>
 	<A href='?src=[user.UID()];mach_close=mob\ref[src]'>Close</A>
 	"}
@@ -103,11 +104,10 @@
 
 /mob/living/simple_animal/pet/corgi/Topic(href, href_list)
 	if(usr.stat) return
-
+	if(!Adjacent(usr) || !(ishuman(usr) || isrobot(usr) ||  isalienadult(usr)))
+		return
 	//Removing from inventory
 	if(href_list["remove_inv"])
-		if(!Adjacent(usr) || !(ishuman(usr) || isrobot(usr) ||  isalienadult(usr)))
-			return
 		var/remove_from = href_list["remove_inv"]
 		switch(remove_from)
 			if("head")
@@ -143,14 +143,9 @@
 				else
 					to_chat(usr, "<span class='danger'>There is nothing to remove from its [remove_from].</span>")
 					return
-
 		show_inv(usr)
-
 	//Adding things to inventory
 	else if(href_list["add_inv"])
-		if(!Adjacent(usr) || !(ishuman(usr) || isrobot(usr) ||  isalienadult(usr)))
-			return
-
 		var/add_to = href_list["add_inv"]
 
 		switch(add_to)
@@ -201,7 +196,16 @@
 					item_to_add.loc = src
 					src.inventory_back = item_to_add
 					regenerate_icons()
-
+		show_inv(usr)
+//Removing facehuggers
+	else if(href_list["remove_hugger"])
+		if(!facehugger)
+			return
+		var/obj/item/F = facehugger
+		F.forceMove(src.loc)
+		facehugger = null
+		to_chat(usr, "<span class = 'notice'>You remove [F] from [src]'s face. [src] pants for air and barks.</span>")
+		regenerate_icons()
 		show_inv(usr)
 	else
 		..()
