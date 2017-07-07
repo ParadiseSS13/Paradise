@@ -221,7 +221,7 @@
 
 	if(air.temperature < T0C && air.return_pressure() > 10)
 		icy = 1
-	else
+	else if(air.temperature > T0C)
 		icy = 0
 
 	update_visuals()
