@@ -3240,6 +3240,18 @@
 		src.admincaster_signature = adminscrub(input(usr, "Provide your desired signature", "Network Identity Handler", ""))
 		src.access_news_network()
 
+	else if(href_list["ac_del_comment"])
+		var/datum/feed_comment/FC = locate(href_list["ac_del_comment"])
+		var/datum/feed_message/FM = locate(href_list["ac_del_comment_msg"])
+		FM.comments -= FC
+		qdel(FC)
+		src.access_news_network()
+
+	else if(href_list["ac_lock_comment"])
+		var/datum/feed_message/FM = locate(href_list["ac_lock_comment"])
+		FM.locked ^= 1
+		src.access_news_network()
+
 	if(href_list["secretsmenu"])
 		switch(href_list["secretsmenu"])
 			if("tab")
