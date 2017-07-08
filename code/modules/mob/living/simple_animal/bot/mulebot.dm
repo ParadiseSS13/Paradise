@@ -512,6 +512,7 @@
 						var/obj/effect/decal/cleanable/blood/tracks/B = new(loc)
 						if(blood_DNA && blood_DNA.len)
 							B.blood_DNA |= blood_DNA.Copy()
+						B.basecolor = currentBloodColor
 						var/newdir = get_dir(next, loc)
 						if(newdir == dir)
 							B.setDir(newdir)
@@ -522,6 +523,7 @@
 							else if(newdir == 12)
 								newdir = 4
 							B.setDir(newdir)
+						B.update_icon()
 						bloodiness--
 
 					var/oldloc = loc
@@ -715,6 +717,7 @@
 	var/list/blood_dna = H.get_blood_dna_list()
 	if(blood_dna)
 		transfer_blood_dna(blood_dna)
+		currentBloodColor = H.species.blood_color
 		return
 
 /mob/living/simple_animal/bot/mulebot/bot_control_message(command, mob/user, user_turf)
