@@ -1,5 +1,5 @@
 /obj/machinery/vending/glass_shelf
-	name = "Glass shelf"
+	name = "Glass vendor"
 	desc = "Used to store every type of glasses."
 	icon = 'hyntatmta/icons/obj/structures/vending.dmi'
 	icon_state = "glass_shelf"
