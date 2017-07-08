@@ -666,6 +666,16 @@
 
 	return
 
+/mob/living/simple_animal/bot/mulebot/Move(turf/simulated/next)
+	. = ..()
+
+	if(. && istype(next))
+		if(bloodiness)
+			bloodiness--
+		for(var/mob/living/carbon/human/H in next)
+			if(H != load)
+				RunOver(H)
+
 // called when bot bumps into anything
 /mob/living/simple_animal/bot/mulebot/Bump(atom/obs)
 	if(!wires.MobAvoid())	// usually just bumps, but if avoidance disabled knock over mobs
@@ -695,21 +705,17 @@
 	H.apply_damage(0.5*damage, BRUTE, "l_arm", run_armor_check("l_arm", "melee"))
 	H.apply_damage(0.5*damage, BRUTE, "r_arm", run_armor_check("r_arm", "melee"))
 
-	var/obj/effect/decal/cleanable/blood/B = new(loc)
 
 	var/turf/T = get_turf(src)
-	T.add_mob_blood(H)
+	H.add_mob_blood(H)
+	H.add_splatter_floor(T)
 
 	bloodiness += 4
 
-	currentBloodColor = "#A10808"
-	if(istype(H))
-		if(H.blood_DNA)
-			B.transfer_blood_dna(H.blood_DNA)
-			currentBloodColor = H.species.blood_color
-			return
-	B.basecolor = currentBloodColor
-	B.update_icon()
+	var/list/blood_dna = H.get_blood_dna_list()
+	if(blood_dna)
+		transfer_blood_dna(blood_dna)
+		return
 
 /mob/living/simple_animal/bot/mulebot/bot_control_message(command, mob/user, user_turf)
 	switch(command)

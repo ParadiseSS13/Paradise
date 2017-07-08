@@ -609,21 +609,21 @@
 
 	for(var/obj/effect/decal/cleanable/trail_holder/C in loc) //checks for blood splatter already on the floor
 		blood_exists = 1
-	if(isturf(src.loc))
+	if(isturf(loc))
 		var/trail_type = getTrail()
 		if(trail_type)
 			var/brute_ratio = round(getBruteLoss()/maxHealth, 0.1)
 			if(blood_volume && blood_volume > max(BLOOD_VOLUME_NORMAL*(1 - brute_ratio * 0.25), 0))//don't leave trail if blood volume below a threshold
 				blood_volume = max(blood_volume - max(1, brute_ratio * 2), 0) 					//that depends on our brute damage.
-				var/newdir = get_dir(T, src.loc)
+				var/newdir = get_dir(T, loc)
 				if(newdir != src.dir)
-					newdir = newdir | src.dir
+					newdir = newdir | dir
 					if(newdir == 3) //N + S
 						newdir = NORTH
 					else if(newdir == 12) //E + W
 						newdir = EAST
 				if((newdir in cardinal) && (prob(50)))
-					newdir = turn(get_dir(T, src.loc), 180)
+					newdir = turn(get_dir(T, loc), 180)
 				if(!blood_exists)
 					new /obj/effect/decal/cleanable/trail_holder(loc)
 				for(var/obj/effect/decal/cleanable/trail_holder/TH in loc)

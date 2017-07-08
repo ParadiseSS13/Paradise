@@ -485,10 +485,12 @@ var/list/blood_splatter_icons = list()
 		var/obj/item/clothing/gloves/G = gloves
 		G.add_blood(blood_dna, color)
 		G.blood_color = color
+		verbs += /mob/living/carbon/human/proc/bloody_doodle
 	else
 		hand_blood_color = color
 		bloody_hands = rand(2, 4)
 		transfer_blood_dna(blood_dna)
+		verbs += /mob/living/carbon/human/proc/bloody_doodle
 
 	update_inv_gloves(1)	//handles bloody hands overlays and updating
 	return 1

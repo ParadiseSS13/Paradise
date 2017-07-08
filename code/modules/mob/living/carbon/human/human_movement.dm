@@ -37,9 +37,9 @@
 	. = ..()
 	if(.) // did we actually move?
 		if(!lying && !buckled)
+			var/obj/item/clothing/shoes/S = shoes
 			if(!has_gravity(loc))
 				return
-			var/obj/item/clothing/shoes/S = shoes
 			//Bloody footprints
 			var/turf/T = get_turf(src)
 			var/obj/item/organ/external/l_foot = get_organ("l_foot")

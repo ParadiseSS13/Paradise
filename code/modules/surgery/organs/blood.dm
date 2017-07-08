@@ -24,7 +24,7 @@
 		bleed_rate = 0
 		return
 
-	if(bodytemperature >= 225 && !( NOCLONE in mutations)) //cryosleep or husked people do not pump the blood.
+	if(bodytemperature >= 225 && !(NOCLONE in mutations)) //cryosleep or husked people do not pump the blood.
 
 		//Blood regeneration if there is some space
 		if(blood_volume < max_blood && blood_volume)
@@ -92,11 +92,11 @@
 /mob/living/carbon/proc/bleed(amt)
 	if(blood_volume)
 		blood_volume = max(blood_volume - amt, 0)
-		if(isturf(src.loc)) //Blood loss still happens in locker, floor stays clean
+		if(isturf(loc)) //Blood loss still happens in locker, floor stays clean
 			if(amt >= 10)
-				add_splatter_floor(src.loc)
+				add_splatter_floor(loc)
 			else
-				add_splatter_floor(src.loc, 1)
+				add_splatter_floor(loc, 1)
 
 /mob/living/carbon/human/bleed(amt)
 	if(!(species && species.flags & NO_BLOOD))
