@@ -244,3 +244,12 @@
 	desc = "For a Rustlin' tustlin' cowgirl."
 	icon_state = "cowboyboots_pink"
 	item_color = "cowboyboots_pink"
+
+/obj/item/clothing/shoes/footwraps
+ 	name = "cloth footwraps"
+ 	desc = "A roll of treated canvas used for wrapping claws or paws"
+ 	icon_state = "clothwrap"
+ 	item_state = "clothwrap"
+ 	force = 0
+ 	silence_steps = 1
+ 	w_class = WEIGHT_CLASS_SMALL
