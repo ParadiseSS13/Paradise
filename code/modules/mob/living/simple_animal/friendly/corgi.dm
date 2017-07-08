@@ -61,7 +61,7 @@
 		dat += "<tr><td>&nbsp;</td></tr>"
 		dat += "<tr><td><B>Collar:</B></td><td><A href='?src=[UID()];item=[slot_collar]'>[(collar && !(collar.flags&ABSTRACT)) ? collar : "<font color=grey>Empty</font>"]</A></td></tr>"
 	if(facehugger)
-		dat += "<tr><td><B>Facehugger:</B></td><td><A href='?src=[UID()];["remove_hugger"]=remove_hugger'>[facehugger]</A></td></tr>"
+		dat += "<tr><td><B>Facehugger:</B></td><td><A href='?src=[UID()];remove_hugger=1'>[facehugger]</A></td></tr>"
 	dat += {"</table>
 	<A href='?src=[user.UID()];mach_close=mob\ref[src]'>Close</A>
 	"}
@@ -104,7 +104,7 @@
 
 /mob/living/simple_animal/pet/corgi/Topic(href, href_list)
 	if(usr.stat) return
-	if(!Adjacent(usr) || !(ishuman(usr) || isrobot(usr) ||  isalienadult(usr)))
+	if((!ishuman(usr) && !isrobot(usr)) || !Adjacent(usr))
 		return
 	//Removing from inventory
 	if(href_list["remove_inv"])
