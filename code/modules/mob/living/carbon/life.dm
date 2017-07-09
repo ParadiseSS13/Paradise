@@ -195,6 +195,15 @@
 
 	return
 
+/mob/living/carbon/handle_diseases()
+	for(var/thing in viruses)
+		var/datum/disease/D = thing
+		if(prob(D.infectivity))
+			D.spread()
+
+		if(stat != DEAD)
+			D.stage_act()
+
 //remember to remove the "proc" of the child procs of these.
 
 /mob/living/carbon/proc/handle_changeling()

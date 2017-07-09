@@ -502,7 +502,8 @@
 		var/mob/living/carbon/C = src
 		C.handcuffed = initial(C.handcuffed)
 
-		for(var/datum/disease/D in C.viruses)
+		for(var/thing in C.viruses)
+			var/datum/disease/D = thing
 			D.cure(0)
 
 		// restore all of the human's blood and reset their shock stage

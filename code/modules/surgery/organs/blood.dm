@@ -167,7 +167,8 @@
 	B.data["donor"] = src
 	B.data["viruses"] = list()
 
-	for(var/datum/disease/D in viruses)
+	for(var/thing in viruses)
+		var/datum/disease/D = thing
 		B.data["viruses"] += D.Copy()
 	if(resistances && resistances.len)
 		B.data["resistances"] = resistances.Copy()
