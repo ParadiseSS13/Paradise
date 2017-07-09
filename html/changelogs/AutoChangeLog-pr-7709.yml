@@ -1,0 +1,4 @@
+author: "Fox McCloud"
+delete-after: True
+changes: 
+  - tweak: "Advanced mop slightly slower at cleaning and holds less reagents, but now regenerates water if turned on"
