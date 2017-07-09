@@ -1,0 +1,4 @@
+author: "Citinited"
+delete-after: True
+changes: 
+  - bugfix: "Rainbow and mime crayons will now change colour as intended."
