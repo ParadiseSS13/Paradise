@@ -6,8 +6,8 @@ var/list/possible_changeling_IDs = list("Alpha","Beta","Gamma","Delta","Epsilon"
 /datum/game_mode/changeling
 	name = "changeling"
 	config_tag = "changeling"
-	restricted_jobs = list("AI", "Cyborg")
-	protected_jobs = list("Security Officer", "Warden", "Detective", "Head of Security", "Captain", "Blueshield", "Nanotrasen Representative", "Security Pod Pilot", "Magistrate", "Brig Physician", "Internal Affairs Agent", "D-class Prisoner", "Nanotrasen Navy Officer", "Special Operations Officer")
+	restricted_jobs = list("AI", "Cyborg", "D-Class Prisoner")
+	protected_jobs = list("Security Officer", "Warden", "Detective", "Head of Security", "Captain", "Blueshield", "Nanotrasen Representative", "Security Pod Pilot", "Magistrate", "Brig Physician", "Internal Affairs Agent", "D-Class Prisoner", "Nanotrasen Navy Officer", "Special Operations Officer")
 	protected_species = list("Machine", "Slime People", "Plasmaman")
 	required_players = 5
 	required_enemies = 1
