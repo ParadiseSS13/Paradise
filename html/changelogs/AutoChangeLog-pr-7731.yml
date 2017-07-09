@@ -1,4 +1,0 @@
-author: "Fox McCloud"
-delete-after: True
-changes: 
-  - bugfix: "Blood (on the floor) that has viruses in it will now properly infect you, if you get near"
