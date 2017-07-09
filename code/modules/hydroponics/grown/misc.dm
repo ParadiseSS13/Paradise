@@ -137,3 +137,34 @@
 	playsound(src, 'sound/goonstation/misc/fuse.ogg', seed.potency, 0)
 	reagents.chem_temp = 1000 //Sets off the black powder
 	reagents.handle_reactions()
+
+	//cucumber
+	/obj/item/seeds/cucumber
+		name = "pack of cucumber seeds"
+		desc = "contains cucumber seeds"
+		icon_state = "seed-cucumber"
+		species = "potato" // have no proper grow/dead sprites for cucumber, decided to go with the potato ones for now. The rest works though.
+		plantname = "cucumber plant"
+		product = /obj/item/weapon/reagent_containers/food/snacks/grown/cucumber
+		lifespan = 20
+		endurance = 20
+		maturation = 10
+		production = 1
+		yield = 2
+		potency = 10
+		growthstages = 2
+		growing_icon = 'icons/obj/hydroponics/growing_vegetables.dmi'
+		reagents_add = list("water" = 2)
+
+
+	/obj/item/weapon/reagent_containers/food/snacks/grown/cucumber
+		seed = /obj/item/seeds/cucumber
+		name = "cucumber"
+		desc = "a fresh cucumber"
+		icon_state = "cucumber"
+		bitesize = 4
+		slice_path = /obj/item/weapon/reagent_containers/food/snacks/cucumberslice
+		slices_num = 5
+		dried_type = null
+		w_class = WEIGHT_CLASS_TINY
+		filling_color = "#93e638"
