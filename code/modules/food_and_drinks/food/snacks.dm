@@ -960,6 +960,13 @@
 	junkiness = 25
 	list_reagents = list("nutriment" = 1, "beans" = 3, "msg" = 4, "sugar" = 2)
 
+/obj/item/weapon/reagent_containers/food/snacks/chinese/sweetsourchickenball
+	name = "Sweet & Sour Chicken Balls"
+	desc = "Is this chicken cooked? The odds are better than wok paper scissors."
+	icon_state = "chickenball"
+	junkiness = 25
+	list_reagents = list("nutriment" = 2, "msg" = 4, "sugar" = 2)
+
 /obj/item/weapon/reagent_containers/food/snacks/chinese/tao
 	name = "Admiral Yamamoto carp"
 	desc = "Tastes like chicken."

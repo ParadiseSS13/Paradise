@@ -31,13 +31,13 @@
 
 
 /obj/effect/anomaly/proc/anomalyNeutralize()
-	new /obj/effect/effect/bad_smoke(loc)
+	var/turf/T = get_turf(src)
 
-	for(var/atom/movable/O in src)
-		O.loc = src.loc
-		if(prob(70))
-			var/obj/item/device/assembly/signaler/anomaly/A = new /obj/item/device/assembly/signaler/anomaly(src.loc)
-			A.code = aSignal.code
+	new /obj/effect/effect/bad_smoke(T)
+
+	if(aSignal)
+		aSignal.forceMove(T)
+		aSignal = null
 
 	qdel(src)
 

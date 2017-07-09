@@ -165,7 +165,7 @@ var/time_last_changed_position = 0
 /obj/machinery/computer/card/proc/can_close_job(datum/job/job)
 	if(job)
 		if(!job_blacklisted_full(job) && !job_blacklisted_partial(job) && job_in_department(job, FALSE))
-			if(job.total_positions > job.current_positions)
+			if(job.total_positions > job.current_positions && !(job in job_master.prioritized_jobs))
 				var/delta = (world.time / 10) - time_last_changed_position
 				if((change_position_cooldown < delta) || (opened_positions[job.title] > 0))
 					return 1
@@ -180,6 +180,8 @@ var/time_last_changed_position = 0
 				return 2
 			else
 				if(job_master.prioritized_jobs.len >= 3)
+					return 0
+				if(job.total_positions <= job.current_positions)
 					return 0
 				return 1
 	return -1

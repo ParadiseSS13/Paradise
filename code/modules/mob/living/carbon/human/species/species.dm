@@ -233,8 +233,7 @@
 
 	if(O2_pp < atmos_requirements["min_oxy"])
 		if(prob(20))
-			spawn(0)
-				H.emote("gasp")
+			H.emote("gasp")
 
 		H.failed_last_breath = 1
 		if(O2_pp > 0)
@@ -256,8 +255,7 @@
 
 	if(N2_pp < atmos_requirements["min_nitro"])
 		if(prob(20))
-			spawn(0)
-				H.emote("gasp")
+			H.emote("gasp")
 
 		H.failed_last_breath = 1
 		if(N2_pp > 0)
@@ -279,8 +277,7 @@
 
 	if(Tox_pp < atmos_requirements["min_tox"])
 		if(prob(20))
-			spawn(0)
-				H.emote("gasp")
+			H.emote("gasp")
 
 		H.failed_last_breath = 1
 		if(Tox_pp > 0)
@@ -303,8 +300,7 @@
 
 	if(CO2_pp < atmos_requirements["min_co2"])
 		if(prob(20))
-			spawn(0)
-				H.emote("gasp")
+			H.emote("gasp")
 
 		H.failed_last_breath = 1
 		if(CO2_pp)
@@ -322,8 +318,7 @@
 			if(world.time - H.co2overloadtime > 300) // They've been in here 30s now, lets start to kill them for their own good!
 				H.adjustOxyLoss(8)
 		if(prob(20)) // Lets give them some chance to know somethings not right though I guess.
-			spawn(0)
-				H.emote("cough")
+			H.emote("cough")
 	else
 		H.clear_alert("co2")
 		H.co2overloadtime = 0
@@ -349,8 +344,7 @@
 					H.AdjustSleeping(8, bound_lower = 0, bound_upper = 10)
 			else if(SA_pp > 0.01)	// There is sleeping gas in their lungs, but only a little, so give them a bit of a warning
 				if(prob(20))
-					spawn(0)
-						H.emote(pick("giggle", "laugh"))
+					H.emote(pick("giggle", "laugh"))
 
 	handle_temperature(breath, H)
 	return 1

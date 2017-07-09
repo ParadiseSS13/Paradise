@@ -19,8 +19,7 @@
 		if(isturf(loc))
 			var/atom/movable/thing = I.remove(src)
 			thing.forceMove(get_turf(src))
-			spawn()
-				thing.throw_at(get_edge_target_turf(src,pick(alldirs)),rand(1,3),5)
+			thing.throw_at(get_edge_target_turf(src,pick(alldirs)),rand(1,3),5)
 
 	for(var/obj/item/organ/external/E in bodyparts)
 		if(istype(E, /obj/item/organ/external/chest))
