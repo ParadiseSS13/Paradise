@@ -1,0 +1,9 @@
+author: "Fox McCloud"
+delete-after: True
+changes: 
+  - rscadd: "adds in electric guitars"
+  - rscadd: "can now craft violins and electric guitars"
+  - rscadd: "purchase electric guitars at the cargo store"
+  - rscadd: "service borgs now have an electric guitar, too"
+  - tweak: "lowered the price of instruments, at cargo store, to 500"
+  - bugfix: "Fixed violins not having an in-hand icon"
