@@ -140,7 +140,7 @@
 //syndicate water flower
 /obj/item/weapon/reagent_containers/spray/syndiwaterflower
 	name = "water flower"
-	desc = "A seemingly innocent sunflower...with a serious twist."
+	desc = "A seemingly innocent sunflower... with a serious twist."
 	icon = 'icons/obj/hydroponics/harvest.dmi'
 	icon_state = "sunflower"
 	item_state = "sunflower"

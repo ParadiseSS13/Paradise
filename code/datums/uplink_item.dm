@@ -130,7 +130,7 @@ var/list/uplink_items = list()
 
 /datum/uplink_item/jobspecific/syndiwaterflower
 	name = "Syndicate Water Flower"
-	desc = "A subtly-altered and seemingly innocuous waterflower. Engineered to hold more and dispense a greater quantity of reagents than it's non-altered equivalent. Contains pepper spray as standard."
+	desc = "A subtly-altered and seemingly innocuous waterflower. Engineered to hold more and dispense a greater quantity of reagents than its non-altered equivalent. Contains pepper spray as standard."
 	reference = "SWF"
 	item = /obj/item/weapon/reagent_containers/spray/syndiwaterflower
 	cost = 5
