@@ -86,7 +86,7 @@
 	ruined = initial(selected.ruined)
 
 /obj/structure/sign/poster/attackby(obj/item/I, mob/user, params)
-	if(istype(I, /obj/item/weapon/wirecutters))
+	if(iswirecutter(I))
 		playsound(loc, I.usesound, 100, 1)
 		if(ruined)
 			to_chat(user, "<span class='notice'>You remove the remnants of the poster.</span>")
@@ -152,12 +152,12 @@
 			return
 
 	flick("poster_being_set", D)
-	D.loc = temp_loc
+	D.forceMove(temp_loc)
 	qdel(P)	//delete it now to cut down on sanity checks afterwards. Agouri's code supports rerolling it anyway
 	playsound(D.loc, 'sound/items/poster_being_created.ogg', 100, 1)
 
 	if(do_after(user, PLACE_SPEED, target = src))
-		if(!exists(D))
+		if(!D || qdeleted(D))
 			return
 
 		if(iswallturf(src) && user && user.loc == temp_loc)	//Let's check if everything is still there
