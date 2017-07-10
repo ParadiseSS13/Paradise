@@ -206,6 +206,12 @@
 	desc = "A bottle of the ever-changing quantum hair dye."
 	list_reagents = list("hair_dye" = 50)
 
+/obj/item/weapon/reagent_containers/glass/bottle/reagent/sulfur
+	name = "sulfur bottle"
+	desc = "A small bottle of sulfur."
+	icon_state = "bottle"
+	list_reagents = list("sulfur" = 30)
+
 ////////////////////Traitor Poison Bottle//////////////////////////////
 
 /obj/item/weapon/reagent_containers/glass/bottle/traitor
