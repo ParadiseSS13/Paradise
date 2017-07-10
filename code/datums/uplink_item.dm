@@ -320,7 +320,7 @@ var/list/uplink_items = list()
 	desc = "A kit containing the highly dangerous Gravitokinetic Bipotential SADS+ virus. If not cured in time, it will cause the infected person(s) to explode! Treatments are included in the case of accidental self-infection."
 	reference = "GBS"
 	item = /obj/item/weapon/storage/box/syndie_kit/gbskit
-	cost = 20
+	cost = 18
 	job = list("Virologist")
 	hijack_only = TRUE
 
