@@ -1,5 +1,5 @@
 // This is synced up to the poster placing animation.
-#define PLACE_SPEED 24
+#define PLACE_SPEED 30
 
 // The poster item
 
