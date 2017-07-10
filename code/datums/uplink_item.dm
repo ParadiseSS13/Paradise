@@ -128,6 +128,14 @@ var/list/uplink_items = list()
 	cost = 5
 	job = list("Clown")
 
+/datum/uplink_item/jobspecific/syndiwaterflower
+	name = "Syndicate Water Flower"
+	desc = "A subtly-altered and seemingly innocuous waterflower. Engineered to hold more and dispense a greater quantity of reagents than it's non-altered equivalent. Contains pepper spray as standard."
+	reference = "SWF"
+	item = /obj/item/weapon/reagent_containers/spray/syndiwaterflower
+	cost = 5
+	job = list("Clown")
+
 //mime
 /datum/uplink_item/jobspecific/caneshotgun
 	name = "Cane Shotgun + Assassination Darts"
