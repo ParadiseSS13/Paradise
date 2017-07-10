@@ -218,7 +218,6 @@
 	name = "Cucumber Slice"
 	desc = "A slice of cucumber."
 	icon_state = "cucumberslice"
-	list_reagents = list("nutriment" = 0.01)
 	filling_color = "#93e638"
 	bitesize = 100
 
