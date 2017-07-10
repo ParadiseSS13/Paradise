@@ -42,6 +42,37 @@
 	filling_color = "#90EE90"
 	bitesize_mod = 2
 
+// Cucumber
+//cucumber
+/obj/item/seeds/cucumber
+	name = "pack of cucumber seeds"
+	desc = "contains cucumber seeds"
+	icon_state = "seed-cucumber"
+	species = "eggy" // This will most likely change at some point. Just for the growing/dead plant sprites
+	plantname = "cucumber plant"
+	product = /obj/item/weapon/reagent_containers/food/snacks/grown/cucumber
+	lifespan = 20
+	endurance = 20
+	maturation = 10
+	production = 1
+	yield = 2
+	potency = 10
+	growthstages = 2
+	growing_icon = 'icons/obj/hydroponics/growing_vegetables.dmi'
+	reagents_add = list("water" = 2, "nutriment" = 4)
+
+
+/obj/item/weapon/reagent_containers/food/snacks/grown/cucumber
+	seed = /obj/item/seeds/cucumber
+	name = "cucumber"
+	desc = "a fresh cucumber"
+	icon_state = "cucumber"
+	bitesize = 10
+	slice_path = /obj/item/weapon/reagent_containers/food/snacks/cucumberslice
+	slices_num = 5
+	dried_type = null
+	w_class = WEIGHT_CLASS_SMALL
+	filling_color = "#93e638"
 
 // Sugarcane
 /obj/item/seeds/sugarcane
