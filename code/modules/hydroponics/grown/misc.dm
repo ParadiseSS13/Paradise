@@ -45,8 +45,8 @@
 // Cucumber
 //cucumber
 /obj/item/seeds/cucumber
-	name = "pack of cucumber seeds"
-	desc = "contains cucumber seeds"
+	name = "Pack of cucumber seeds"
+	desc = "Contains cucumber seeds."
 	icon_state = "seed-cucumber"
 	species = "eggy" // This will most likely change at some point. Just for the growing/dead plant sprites
 	plantname = "cucumber plant"
@@ -59,13 +59,13 @@
 	potency = 10
 	growthstages = 2
 	growing_icon = 'icons/obj/hydroponics/growing_vegetables.dmi'
-	reagents_add = list("water" = 2, "nutriment" = 4)
+	reagents_add = list("water" = 0.02, "plantmatter" = 0.04, "vitamin" = 0.01)
 
 
 /obj/item/weapon/reagent_containers/food/snacks/grown/cucumber
 	seed = /obj/item/seeds/cucumber
-	name = "cucumber"
-	desc = "a fresh cucumber"
+	name = "Cucumber"
+	desc = "A fresh cucumber."
 	icon_state = "cucumber"
 	bitesize = 10
 	slice_path = /obj/item/weapon/reagent_containers/food/snacks/cucumberslice
