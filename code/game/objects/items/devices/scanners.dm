@@ -185,7 +185,8 @@ REAGENT SCANNER
 	if(istype(M, /mob/living/carbon))
 		if(upgraded)
 			chemscan(user, M)
-		for(var/datum/disease/D in M.viruses)
+		for(var/thing in M.viruses)
+			var/datum/disease/D = thing
 			if(!(D.visibility_flags & HIDDEN_SCANNER))
 				to_chat(user, "<span class='alert'><b>Warning: [D.form] detected</b>\nName: [D.name].\nType: [D.spread_text].\nStage: [D.stage]/[D.max_stages].\nPossible Cure: [D.cure_text]</span>")
 	if(M.getStaminaLoss())

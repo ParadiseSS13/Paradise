@@ -25,15 +25,15 @@
 			continue
 		if(!is_station_level(T.z))
 			continue
-		var/foundAlready = 0	// don't infect someone that already has the virus
-		for(var/datum/disease/D in H.viruses)
-			foundAlready = 1
+		var/foundAlready = FALSE	// don't infect someone that already has the virus
+		for(var/thing in H.viruses)
+			foundAlready = TRUE
 			break
 		if(H.stat == DEAD || foundAlready)
 			continue
 
 		var/datum/disease/D
 		D = new virus_type()
-		D.carrier = 1
+		D.carrier = TRUE
 		H.AddDisease(D)
 		break

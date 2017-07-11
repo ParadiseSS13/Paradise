@@ -30,11 +30,13 @@
 	if(!iscarbon(user))
 		return
 
-	for(var/datum/disease/D in viruses)
+	for(var/thing in viruses)
+		var/datum/disease/D = thing
 		if(D.IsSpreadByTouch())
 			user.ContractDisease(D)
 
-	for(var/datum/disease/D in user.viruses)
+	for(var/thing in user.viruses)
+		var/datum/disease/D = thing
 		if(D.IsSpreadByTouch())
 			ContractDisease(D)
 	return 0

@@ -345,7 +345,14 @@
 		occupantData["health"] = H.health
 		occupantData["maxHealth"] = H.maxHealth
 
-		occupantData["hasVirus"] = H.viruses.len
+		var/found_disease = FALSE
+		for(var/thing in H.viruses)
+			var/datum/disease/D = thing
+			if(D.visibility_flags & HIDDEN_SCANNER || D.visibility_flags & HIDDEN_PANDEMIC)
+				continue
+			found_disease = TRUE
+			break
+		occupantData["hasVirus"] = found_disease
 
 		occupantData["bruteLoss"] = H.getBruteLoss()
 		occupantData["oxyLoss"] = H.getOxyLoss()
@@ -497,8 +504,15 @@
 					t1 = "*dead*"
 			dat += "[occupant.health > 50 ? "<font color='blue'>" : "<font color='red'>"]\tHealth %: [occupant.health], ([t1])</font><br>"
 
-			if(occupant.viruses.len)
-				dat += "<font color='red'>Viral pathogen detected in blood stream.</font><BR>"
+			var/found_disease = FALSE
+			for(var/thing in occupant.viruses)
+				var/datum/disease/D = thing
+				if(D.visibility_flags & HIDDEN_SCANNER || D.visibility_flags & HIDDEN_PANDEMIC)
+					continue
+				found_disease = TRUE
+				break
+			if(found_disease)
+				dat += "<font color='red'>Disease detected in occupant.</font><BR>"
 
 			var/extra_font = null
 			extra_font = (occupant.getBruteLoss() < 60 ? "<font color='blue'>" : "<font color='red'>")
