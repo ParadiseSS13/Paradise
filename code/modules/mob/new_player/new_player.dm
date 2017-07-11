@@ -112,7 +112,7 @@
 
 	if(href_list["ready"])
 		if(!check_prisonlist(ckey(key)))
-			to_chat(usr, "Looks like you're unwhitelisted. You will start the game as D-class prisoner.")
+			to_chat(usr, "Looks like you're unwhitelisted. You will start the game as D-Class Prisoner.")
 		else
 			ready = !ready
 		new_player_panel_proc()
@@ -199,6 +199,7 @@
 	if(!is_job_whitelisted(src, rank))	 return 0
 	if(!job.player_old_enough(client))	return 0
 	if(job.admin_only && !(check_rights(R_EVENT, 0))) return 0
+	if(job.prisonlist_job && check_prisonlist(ckey(key)) && !(check_rights(R_MENTOR, 0))) return 0
 	if(!job.prisonlist_job && !check_prisonlist(ckey(key)) && !(check_rights(R_MENTOR, 0))) return 0
 
 	if(config.assistantlimit)
