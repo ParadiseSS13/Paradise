@@ -195,47 +195,62 @@
 
 	if(!(species.flags & RADIMMUNE))
 		if(radiation)
-			if(radiation > 100)
-				if(!weakened)
-					emote("collapse")
-				Weaken(10)
-				to_chat(src, "<span class='danger'>You feel weak.</span>")
-
-			radiation = Clamp(radiation, 0, 100)
+			radiation = Clamp(radiation, 0, 200)
 
 			var/autopsy_damage = 0
 			switch(radiation)
-				if(0 to 50)
+				if(1 to 49)
 					radiation = max(radiation-1, 0)
 					if(prob(25))
 						adjustToxLoss(1)
-						autopsy_damage = 1
+						adjustFireLoss(1)
+						autopsy_damage = 2
 
-				if(50 to 75)
+				if(50 to 74)
 					radiation = max(radiation-2, 0)
 					adjustToxLoss(1)
-					autopsy_damage = 1
+					adjustFireLoss(1)
+					autopsy_damage = 2
 					if(prob(5))
 						radiation = max(radiation-5, 0)
-						if(!weakened)
-							emote("collapse")
 						Weaken(3)
 						to_chat(src, "<span class='danger'>You feel weak.</span>")
+						emote("collapse")
 
 				if(75 to 100)
-					radiation = max(radiation-3, 0)
-					adjustToxLoss(3)
-					autopsy_damage = 3
-					if(prob(1))
+					radiation = max(radiation-2, 0)
+					adjustToxLoss(2)
+					adjustFireLoss(2)
+					autopsy_damage = 4
+					if(prob(2))
 						to_chat(src, "<span class='danger'>You mutate!</span>")
 						randmutb(src)
 						domutcheck(src, null)
-						emote("gasp")
 
-			if(autopsy_damage && bodyparts.len)
-				var/obj/item/organ/external/O = pick(bodyparts)
-				if(istype(O))
-					O.add_autopsy_data("Radiation Poisoning", autopsy_damage)
+				if(101 to 150)
+					radiation = max(radiation-3, 0)
+					adjustToxLoss(2)
+					adjustFireLoss(3)
+					autopsy_damage = 5
+					if(prob(4))
+						to_chat(src, "<span class='danger'>You mutate!</span>")
+						randmutb(src)
+						domutcheck(src, null)
+
+				if(151 to INFINITY)
+					radiation = max(radiation-3, 0)
+					adjustToxLoss(2)
+					adjustFireLoss(3)
+					autopsy_damage = 5
+					if(prob(6))
+						to_chat(src, "<span class='danger'>You mutate!</span>")
+						randmutb(src)
+						domutcheck(src, null)
+
+			if(autopsy_damage)
+				var/obj/item/organ/external/chest/chest = get_organ("chest")
+				if(chest)
+					chest.add_autopsy_data("Radiation Poisoning", autopsy_damage)
 
 /mob/living/carbon/human/breathe()
 
@@ -878,7 +893,6 @@
 
 		if(!in_stasis)
 			handle_organs()
-			handle_blood()
 
 
 	else //dead
@@ -1025,8 +1039,7 @@
 
 	var/temp = PULSE_NORM
 
-	var/blood_type = get_blood_name()
-	if(round(vessel.get_reagent_amount(blood_type)) <= BLOOD_VOLUME_BAD)	//how much blood do we have
+	if(blood_volume <= BLOOD_VOLUME_BAD)//how much blood do we have
 		temp = PULSE_THREADY	//not enough :(
 
 	if(status_flags & FAKEDEATH)

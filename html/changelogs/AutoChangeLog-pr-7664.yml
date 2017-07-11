@@ -1,4 +1,0 @@
-author: "Kyep"
-delete-after: True
-changes: 
-  - bugfix: "It is no longer possible to prioritize a job with no open slots, or close any job slots for a job that is already prioritized, as either of these actions could lead to a situation where a job is prioritized without people being able to join as it."

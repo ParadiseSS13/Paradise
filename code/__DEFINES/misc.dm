@@ -335,3 +335,15 @@
 #define SECOND_DIAG_STEP 2
 
 #define ARBITRARY_VIEWRANGE_NOHUD 2
+#define SECOND_DIAG_STEP 2
+
+//Bloody shoes/footprints
+#define MAX_SHOE_BLOODINESS			100
+#define BLOODY_FOOTPRINT_BASE_ALPHA	150
+#define BLOOD_GAIN_PER_STEP			100
+#define BLOOD_LOSS_PER_STEP			5
+
+//Bloody shoe blood states
+#define BLOOD_STATE_HUMAN			"blood"
+#define BLOOD_STATE_XENO			"xeno"
+#define BLOOD_STATE_NOT_BLOODY		"no blood whatsoever"

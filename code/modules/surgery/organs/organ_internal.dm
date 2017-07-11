@@ -224,10 +224,11 @@
 	if(world.time > (last_pump + pump_delay))
 		if(ishuman(owner) && owner.client) //While this entire item exists to make people suffer, they can't control disconnects.
 			var/mob/living/carbon/human/H = owner
-			H.vessel.remove_reagent("blood", blood_loss)
-			to_chat(H, "<span class='userdanger'>You have to keep pumping your blood!</span>")
-			if(H.client)
-				H.client.color = "red" //bloody screen so real
+			if(!(H.species.flags & NO_BLOOD))
+				H.blood_volume = max(H.blood_volume - blood_loss, 0)
+				to_chat(H, "<span class='userdanger'>You have to keep pumping your blood!</span>")
+				if(H.client)
+					H.client.color = "red" //bloody screen so real
 		else
 			last_pump = world.time //lets be extra fair *sigh*
 
@@ -256,13 +257,14 @@
 
 		var/mob/living/carbon/human/H = owner
 		if(istype(H))
-			H.vessel.add_reagent("blood", (cursed_heart.blood_loss*0.5))//gain half the blood back from a failure
-			if(owner.client)
-				owner.client.color = ""
+			if(!(H.species.flags & NO_BLOOD))
+				H.blood_volume = min(H.blood_volume + cursed_heart.blood_loss*0.5, BLOOD_VOLUME_MAXIMUM)
+				if(owner.client)
+					owner.client.color = ""
 
-			H.adjustBruteLoss(-cursed_heart.heal_brute)
-			H.adjustFireLoss(-cursed_heart.heal_burn)
-			H.adjustOxyLoss(-cursed_heart.heal_oxy)
+				H.adjustBruteLoss(-cursed_heart.heal_brute)
+				H.adjustFireLoss(-cursed_heart.heal_burn)
+				H.adjustOxyLoss(-cursed_heart.heal_oxy)
 
 /obj/item/organ/internal/lungs
 	name = "lungs"
@@ -289,7 +291,7 @@
 	if(is_bruised())
 		if(prob(2))
 			owner.custom_emote(1, "coughs up blood!")
-			owner.drip(10)
+			owner.bleed(1)
 		if(prob(4))
 			owner.custom_emote(1, "gasps for air!")
 			owner.AdjustLoseBreath(5)
