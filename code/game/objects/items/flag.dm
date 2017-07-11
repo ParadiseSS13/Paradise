@@ -10,10 +10,25 @@
 		user.visible_message("<span class='notice'>[user] lights the [name] with [W].</span>")
 		fire_act()
 
+/obj/item/flag/fire_act()
+	..()
+	update_icons()
+
+/obj/item/flag/extinguish()
+	..()
+	update_icons()
+
 /obj/item/flag/proc/update_icons()
-	overlays = null
-	overlays += image('icons/obj/flag.dmi', src , "fire")
-	item_state = "[icon_state]_fire"
+	if(burn_state == ON_FIRE)
+		overlays += image('icons/obj/flag.dmi', src , "fire")
+		item_state = "[icon_state]_fire"
+	else
+		overlays -= image('icons/obj/flag.dmi', src , "fire")
+		item_state = initial(icon_state)
+	if(ismob(loc))
+		var/mob/M = loc
+		M.update_inv_r_hand()
+		M.update_inv_l_hand()
 
 /obj/item/flag/nt
 	name = "Nanotrasen flag"
