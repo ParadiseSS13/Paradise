@@ -23,6 +23,7 @@
 	icon = 'icons/obj/inflatable.dmi'
 	icon_state = "wall"
 
+	var/max_temperature = 400
 	var/health = 50.0
 
 /obj/structure/inflatable/initialize(location)
@@ -61,6 +62,12 @@
 
 /obj/structure/inflatable/blob_act()
 	deflate(1)
+
+/obj/structure/inflatable/temperature_expose(datum/gas_mixture/air, temperature, volume)
+	if(temperature > max_temperature)
+		health -= (rand(10, 20) * (temperature / max_temperature))
+	if(health <= 0)
+		deflate(1)
 
 /obj/structure/inflatable/attack_hand(mob/user as mob)
 	add_fingerprint(user)
