@@ -70,7 +70,7 @@
 	for newly tested posibrains to remain with the company."
 	history = "" // To be written someday.
 	work = "research giant"
-	headquarters = "Luna"
+	headquarters = "Earth"
 	motto = ""
 
 	ship_prefixes = list("NSV" = "exploration", "NTV" = "hauling", "NDV" = "patrol", "NRV" = "emergency response")
@@ -80,11 +80,8 @@
 		"NCS Northern Star in Vir",
 		"NCS Southern Cross in Vir",
 		"NDV Icarus in Nyx",
-		"NAS Vir Central Command",
-		"a dockyard orbiting Sif",
 		"an asteroid orbiting Kara",
 		"an asteroid orbiting Rota",
-		"Vir Interstellar Spaceport"
 		)
 
 /datum/lore/organization/tsc/nanotrasen/New()
@@ -133,7 +130,9 @@
 	motto = ""
 
 	ship_prefixes = list("VTV" = "transportation", "VMV" = "medical resupply")
-	destination_names = list()
+	destination_names = list(
+	"a outpost on Jargon 4"
+	)
 
 /datum/lore/organization/tsc/zeng_hu
 	name = "Zeng-Hu pharmaceuticals"
@@ -169,7 +168,9 @@
 	motto = ""
 
 	ship_prefixes = list("WTV" = "freight")
-	destination_names = list()
+	destination_names = list(
+	"a station near Kelune"
+	)
 
 /datum/lore/organization/tsc/bishop
 	name = "Bishop Cybernetics"
@@ -217,7 +218,6 @@
 		"Gunboat Diplomat",
 		"A Ship With A View",
 		"Cantankerous",
-		"I Thought He Was With You",
 		"Never Talk To Strangers",
 		"Sacrificial Victim",
 		"Unwitting Accomplice",
@@ -231,15 +231,12 @@
 		"Gravitas Free Zone",
 		"Absolutely No You-Know-What",
 		"Existence Is Pain",
-		"I'm Walking Here",
 		"Screw Loose",
 		"Of Course I Still Love You",
 		"Limiting Factor",
 		"So Much For Subtley",
 		"Unfortunate Conflict Of Evidence",
 		"Prime Mover",
-		"It's One Of Ours",
-		"Thank You And Goodnight",
 		"Boo!",
 		"Reasonable Excuse",
 		"Honest Mistake",
@@ -257,7 +254,9 @@
 
 
 		)
-	destination_names = list()
+	destination_names = list(
+		"a dockyard on New Canaan"
+	)
 
 /datum/lore/organization/tsc/xion
 	name = "Xion Manufacturing Group"
@@ -276,46 +275,195 @@
 
 // Governments
 
-/datum/lore/organization/gov/sifgov
-	name = "Sif Governmental Authority"
-	short_name = "SifGov"
-	desc = "SifGov is the sole governing administration for the Vir system, based in New Reykjavik, Sif.  It is a representative \
-	democratic government, and a fully recognized member of the Solar Confederate Government.  Anyone operating inside of Vir must \
-	comply with SifGov's legislation and regulations."
-	history = "" // Todo like the rest of them
-	work = "governing body of Sif"
-	headquarters = "New Reykjavik, Sif"
-	motto = ""
-	autogenerate_destination_names = FALSE
-
-	ship_prefixes = list("SGA" = "hauling", "SGA" = "energy relay")
-	destination_names = list(
-						"New Reykjavik on Sif",
-						"Radiance Energy Chain",
-						"a dockyard orbiting Sif",
-						"a telecommunications satellite",
-						"Vir Interstellar Spaceport"
-						)
 
 /datum/lore/organization/gov/solgov
 	name = "Solar Confederate Government"
 	short_name = "SolGov"
 	acronym = "SCG"
-	desc = "SolGov is a decentralized confederation of human governmental entities based on Luna, Sol, which defines top-level law for their member states.  \
-	Member states receive various benefits such as defensive pacts, trade agreements, social support and funding, and being able to participate \
-	in the Colonial Assembly.  The majority, but not all human territories are members of SolGov.  As such, SolGov is a major power and \
-	defacto represents humanity on the galactic stage."
+	desc = "Colloquially known as SolGov, the TSF is an authoritarian republic that manages the areas in and around the Sol system.\
+			 Despite being a highly militant organization headed by the government of Earth,\
+			 SolGov is usually conservative with its power and mostly serves as a mediator and peacekeeper in galactic affairs."
 	history = "" // Todo
 	work = "governing polity of humanity's Confederation"
 	headquarters = "Luna"
 	motto = "Nil Mortalibus Ardui Est" // Latin, because latin.  Says 'Nothing is too steep for mortals'.
 	autogenerate_destination_names = TRUE
 
-	ship_prefixes = list("SCG-T" = "transportation", "SCG-D" = "diplomatic", "SCG-F" = "freight")
+	ship_prefixes = list("FSS-T" = "transportation", "FSS-D" = "diplomatic", "FSS-F" = "freight")
 	destination_names = list(
 						"Venus",
 						"Earth",
 						"Luna",
 						"Mars",
-						"Titan"
+						"Titan",
+						"Ahdomai",
+						"Kelune",
+						"Dalstadt",
+						"New Canaan",
+						"Jargon 4",
+						"Hoorlm",
+						"Xarxis 5",
+						"Aurum",
+						"Moghes"
+
+						)
+
+/datum/lore/organization/gov/tajara
+	name = "The Alchemist's Council"
+	short_name = "The Council"
+	acronym = "AC"
+	desc = "The Alchemist's Council is a science-oriented organization of scholars, researchers, and entrepreneurs. \
+			Though dedicated to industrializing the Tajaran world of Ahdomai, it is seen as one of the few remaining centralized powers of the Tajara peoples \
+			due to the collapse of Ahdomai's provisional government."
+	history = "" // Todo
+	work = "governing boyd of the Tajara"
+	headquarters = "Ahdomai"
+	motto = ""
+	autogenerate_destination_names = TRUE
+
+	ship_prefixes = list("FSS-T" = "transportation", "FSS-D" = "diplomatic", "FSS-F" = "freight")//copyed from solgov until new ones can be thought of
+	destination_names = list(
+						"Venus",
+						"Earth",
+						"Luna",
+						"Mars",
+						"Titan",
+						"Ahdomai",
+						"Kelune",
+						"Dalstadt",
+						"New Canaan",
+						"Jargon 4",
+						"Hoorlm",
+						"Xarxis 5",
+						"Aurum",
+						"Moghes"
+
+						)
+
+/datum/lore/organization/gov/vulp
+	name = "The Assembly"
+	short_name = "Assembly"
+	acronym = "ASB"
+	desc = "A unifying body created to stave off extinction from a solar event,\
+		 The Assembly is the loose federal coalition of the Vulpkanin. It holds little centralized authority and mostly serves as a diplomatic body,\
+		  primarily concerned with facilitating trade between Vulpkanin colonies and Nanotrasen."
+	history = "" // Todo
+	work = "governing body of the Vulpakanin"
+	headquarters = "Kelune and Dalstadt"
+	motto = ""
+	autogenerate_destination_names = TRUE
+
+	ship_prefixes = list("FSS-T" = "transportation", "FSS-D" = "diplomatic", "FSS-F" = "freight")//copyed from solgov until new ones can be thought of
+	destination_names = list(
+						"Venus",
+						"Earth",
+						"Luna",
+						"Mars",
+						"Titan",
+						"Ahdomai",
+						"Kelune",
+						"Dalstadt",
+						"New Canaan",
+						"Jargon 4",
+						"Hoorlm",
+						"Xarxis 5",
+						"Aurum",
+						"Moghes",
+
+						)
+
+/datum/lore/organization/gov/synth
+	name = "Synthetic Union"
+	short_name = "Synthtica"
+	acronym = "SYN"
+	desc = "A defensive coalition of synthetics based out of New Canaan,\
+			 the Synthetic Union is an organization which aims to establish and consolidate synthetic rights across the galaxy.\
+			  Despite its synth oriented focus, the Synthetic Union has cordial relations with most governing bodies."
+	history = "" // Todo
+	work = "Union of Machines"
+	headquarters = "New Canaan"
+	motto = ""
+	autogenerate_destination_names = TRUE
+
+	ship_prefixes = list("01" = "transportation", "10" = "diplomatic", "112" = "freight")//copyed from solgov until new ones can be thought of
+	destination_names = list(
+						"Venus",
+						"Earth",
+						"Luna",
+						"Mars",
+						"Titan",
+						"Ahdomai",
+						"Kelune",
+						"Dalstadt",
+						"New Canaan",
+						"Jargon 4",
+						"Hoorlm",
+						"Xarxis 5",
+						"Aurum",
+						"Moghes"
+
+						)
+
+/datum/lore/organization/gov/grey
+	name = "The Technocracy"
+	short_name = "Technocracy"
+	acronym = "AYY"
+	desc = "A defensive coalition of synthetics based out of New Canaan,\
+			 the Synthetic Union is an organization which aims to establish and consolidate synthetic rights across the galaxy.\
+			  Despite its synth oriented focus, the Synthetic Union has cordial relations with most governing bodies."
+	history = "" // Todo
+	work = "Grey Council"
+	headquarters = ""
+	motto = ""
+	autogenerate_destination_names = TRUE
+
+	ship_prefixes = list("GT" = "transportation", "GD" = "diplomatic", "GF" = "freight")//copyed from solgov until new ones can be thought of
+	destination_names = list(
+						"Venus",
+						"Earth",
+						"Luna",
+						"Mars",
+						"Titan",
+						"Ahdomai",
+						"Kelune",
+						"Dalstadt",
+						"New Canaan",
+						"Jargon 4",
+						"Hoorlm",
+						"Xarxis 5",
+						"Aurum",
+						"Moghes"
+
+						)
+
+/datum/lore/organization/gov/vox
+	name = "The Shoal"
+	short_name = "Shoal"
+	acronym = "SHA"
+	desc = "The Shoal is the primary ark ship of the reclusive Vox species.\
+			 Little is known about The Shoal's political structure as Vox typically shy away from diplomatic engagements.\
+			 Subsequently, it is considered a politically neutral entity in galactic affairs by most governments.."
+	history = "" // Todo
+	work = "Traders"
+	headquarters = "Shoal"
+	motto = ""
+	autogenerate_destination_names = FALSE
+
+	ship_prefixes = list("Legitimate Transport" = "transportation", "Legitimate Trader" = "freight")
+	destination_names = list(
+						"Venus",
+						"Earth",
+						"Luna",
+						"Mars",
+						"Titan",
+						"Ahdomai",
+						"Kelune",
+						"Dalstadt",
+						"New Canaan",
+						"Jargon 4",
+						"Hoorlm",
+						"Xarxis 5",
+						"Aurum",
+						"Moghes",
+
 						)
