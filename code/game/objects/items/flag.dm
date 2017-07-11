@@ -10,7 +10,7 @@
 		user.visible_message("<span class='notice'>[user] lights the [name] with [W].</span>")
 		fire_act()
 
-/obj/item/flag/fire_act()
+/obj/item/flag/fire_act(global_overlay = FALSE)
 	..()
 	update_icons()
 
