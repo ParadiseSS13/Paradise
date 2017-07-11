@@ -67,7 +67,7 @@
     /obj/item/stack/tape_roll = 20,
     /obj/item/weapon/hatchet = 20,
     /obj/item/clothing/gloves/color/yellow = 30,
-    /obj/item/weapon/contraband/poster = 30,
+    /obj/item/weapon/poster/random_contraband = 30,
     /obj/item/clothing/mask/breath = 20,
     /obj/item/weapon/screwdriver = 20,
     /obj/item/clothing/head/welding = 20,

@@ -481,7 +481,7 @@
 		var/obj/item/weapon/storage/pill_bottle/dice/D = new(src)
 		load(D)
 	else
-		var/obj/item/device/guitar/G = new(src)
+		var/obj/item/device/instrument/guitar/G = new(src)
 		load(G)
 
 //Fans
