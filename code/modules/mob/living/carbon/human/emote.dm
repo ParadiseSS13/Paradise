@@ -1,3 +1,9 @@
+/mob/living/carbon/human/proc/emote_zap()
+	if(src.back && istype(src.back, /obj/item/device/radio/electropack))
+		var/obj/item/device/radio/electropack/E = src.back
+		if(E.sonic)
+			E.do_shock()
+
 /mob/living/carbon/human/emote(var/act,var/m_type=1,var/message = null,var/force)
 
 	if(stat == DEAD)
@@ -107,14 +113,10 @@
 			if(!muzzled)
 				message = "<B>[src]</B> howls[M ? " at [M]" : ""]!"
 				playsound(loc, 'sound/goonstation/voice/howl.ogg', 100, 0, 10)
-				if(src.back && istype(src.back, /obj/item/device/radio/electropack))
-					var/obj/item/device/radio/electropack/E = src.back
-					if(E.sonic)
-						E.do_shock()
 			else
 				message = "<B>[src]</B> makes an odd animal like noise."
 			m_type = 2
-
+			emote_zap()
 		if("growl", "growls")
 			var/M = handle_emote_param(param)
 			message = "<B>[src]</B> growls[M ? " at [M]" : ""]."
@@ -162,6 +164,7 @@
 			message = "<B>[src]</B> squishes[M ? " at [M]" : ""]."
 			playsound(loc, 'sound/effects/slime_squish.ogg', 50, 0) //Credit to DrMinky (freesound.org) for the sound.
 			m_type = 2
+			emote_zap()
 
 		if("clack", "clacks")
 			var/M = handle_emote_param(param)
@@ -744,6 +747,7 @@
 						playsound(loc, "[species.female_scream_sound]", 80, 1, 0, pitch = get_age_pitch())
 					else
 						playsound(loc, "[species.male_scream_sound]", 80, 1, 0, pitch = get_age_pitch()) //default to male screams if no gender is present.
+					emote_zap()
 
 				else
 					message = "<B>[src]</B> makes a very loud noise[M ? " at [M]" : ""]."
