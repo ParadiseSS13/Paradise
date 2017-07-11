@@ -1040,6 +1040,11 @@
 
 	var/temp = PULSE_NORM
 
+	if(can_heartattack())
+		var/obj/item/organ/internal/heart/heart = get_int_organ(/obj/item/organ/internal/heart)
+		if(heart && heart.damage >= heart.max_damage / 2)
+			temp = PULSE_2FAST //thump-thump-thump-thump, ruh roh
+
 	var/blood_type = get_blood_name()
 	if(round(vessel.get_reagent_amount(blood_type)) <= BLOOD_VOLUME_BAD)	//how much blood do we have
 		temp = PULSE_THREADY	//not enough :(
