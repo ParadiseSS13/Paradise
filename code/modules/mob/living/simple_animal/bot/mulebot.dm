@@ -508,23 +508,6 @@
 					return
 				if(istype(next, /turf/simulated))
 //					to_chat(world, "at ([x],[y]) moving to ([next.x],[next.y])")
-					if(bloodiness)
-						var/obj/effect/decal/cleanable/blood/tracks/B = new(loc)
-						if(blood_DNA && blood_DNA.len)
-							B.blood_DNA |= blood_DNA.Copy()
-						B.basecolor = currentBloodColor
-						var/newdir = get_dir(next, loc)
-						if(newdir == dir)
-							B.setDir(newdir)
-						else
-							newdir = newdir | dir
-							if(newdir == 3)
-								newdir = 1
-							else if(newdir == 12)
-								newdir = 4
-							B.setDir(newdir)
-						B.update_icon()
-						bloodiness--
 
 					var/oldloc = loc
 					var/moved = step_towards(src, next)	// attempt to move
@@ -673,10 +656,24 @@
 
 	if(. && istype(next))
 		if(bloodiness)
+			var/obj/effect/decal/cleanable/blood/tracks/B = locate() in next
+			if(!B)
+				B = new /obj/effect/decal/cleanable/blood/tracks(loc)
+			if(blood_DNA && blood_DNA.len)
+				B.blood_DNA |= blood_DNA.Copy()
+			B.basecolor = currentBloodColor
+			var/newdir = get_dir(next, loc)
+			if(newdir == dir)
+				B.setDir(newdir)
+			else
+				newdir = newdir | dir
+				if(newdir == 3)
+					newdir = 1
+				else if(newdir == 12)
+					newdir = 4
+				B.setDir(newdir)
+			B.update_icon()
 			bloodiness--
-		for(var/mob/living/carbon/human/H in next)
-			if(H != load)
-				RunOver(H)
 
 // called when bot bumps into anything
 /mob/living/simple_animal/bot/mulebot/Bump(atom/obs)
