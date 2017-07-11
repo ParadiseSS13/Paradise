@@ -294,3 +294,9 @@ Des: Removes all infected images from the alien.
 				playsound(T, S, volume, 1, range)
 				return 1
 	return 0
+
+/mob/living/carbon/alien/getTrail()
+	if(getBruteLoss() < 200)
+		return pick("xltrails_1", "xltrails_2")
+	else
+		return pick("xttrails_1", "xttrails_2")

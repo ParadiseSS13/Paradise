@@ -30,8 +30,6 @@
 		var/mob/living/carbon/human/H = user
 		H.restore_blood()
 		H.shock_stage = 0
-		spawn(1)
-			H.fixblood()
 		H.species.create_organs(H)
 		// Now that recreating all organs is necessary, the rest of this organ stuff probably
 		//  isn't, but I don't want to remove it, just in case.

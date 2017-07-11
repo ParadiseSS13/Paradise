@@ -577,9 +577,9 @@ Note that amputating the affected organ does in fact remove the infection from t
 			var/bicardose = owner.reagents.get_reagent_amount("styptic_powder")
 			if(!bicardose)	//styptic powder stops internal wounds from growing bigger with time, and also stop bleeding
 				W.open_wound(0.1 * wound_update_accuracy)
-				owner.vessel.remove_reagent("blood",0.05 * W.damage * wound_update_accuracy)
+				owner.blood_volume -= (0.05 * W.damage * wound_update_accuracy)
 
-			owner.vessel.remove_reagent("blood",0.02 * W.damage * wound_update_accuracy)
+			owner.blood_volume -= (0.02 * W.damage * wound_update_accuracy)
 			if(prob(1 * wound_update_accuracy))
 				owner.custom_pain("You feel a stabbing pain in your [name]!",1)
 
@@ -744,7 +744,7 @@ Note that amputating the affected organ does in fact remove the infection from t
 	switch(disintegrate)
 		if(DROPLIMB_SHARP)
 			compile_icon()
-			add_blood(victim)
+			add_blood(victim.blood_DNA, victim.species.blood_color)
 			var/matrix/M = matrix()
 			M.Turn(rand(180))
 			src.transform = M

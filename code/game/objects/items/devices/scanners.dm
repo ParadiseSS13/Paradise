@@ -14,6 +14,7 @@ REAGENT SCANNER
 	icon_state = "t-ray0"
 	var/on = 0
 	slot_flags = SLOT_BELT
+	w_class = 2
 	w_class = WEIGHT_CLASS_SMALL
 	item_state = "electronic"
 	materials = list(MAT_METAL=150)
@@ -223,20 +224,21 @@ REAGENT SCANNER
 			for(var/datum/wound/W in e.wounds) if(W.internal)
 				user.show_message(text("<span class='warning'>Internal bleeding detected. Advanced scanner required for location.</span>"), 1)
 				break
-		if(H.vessel)
-			var/blood_type = H.get_blood_name()
-			var/blood_volume = round(H.vessel.get_reagent_amount(blood_type))
-			var/blood_percent =  blood_volume / BLOOD_VOLUME_NORMAL
-			blood_percent *= 100
-			if(blood_volume <= 500)
-				user.show_message("<span class='warning'><b>Warning: Blood Level LOW: [blood_percent]% [blood_volume]cl</span>")
-			else if(blood_volume <= 336)
-				user.show_message("<span class='warning'><b>Warning: Blood Level CRITICAL: [blood_percent]% [blood_volume]cl</span>")
-			else
-				user.show_message("<span class='notice'>Blood Level Normal: [blood_percent]% [blood_volume]cl</span>")
-			if(H.species.exotic_blood)
-				user.show_message("<span class='warning'>Subject possesses exotic blood.</span>")
-				user.show_message("<span class='warning'>Exotic blood type: [blood_type].</span>")
+		var/blood_id = H.get_blood_id()
+		if(blood_id)
+			if(H.bleed_rate)
+				to_chat(user, "<span class='danger'>Subject is bleeding!</span>")
+			var/blood_percent =  round((H.blood_volume / BLOOD_VOLUME_NORMAL)*100)
+			var/blood_type = H.b_type
+			if(blood_id != "blood")//special blood substance
+				blood_type = blood_id
+			if(H.blood_volume <= BLOOD_VOLUME_SAFE && H.blood_volume > BLOOD_VOLUME_OKAY)
+				user.show_message("<span class='danger'>LOW blood level [blood_percent] %, [H.blood_volume] cl,</span> <span class='info'>type: [blood_type]</span>")
+			else if(H.blood_volume <= BLOOD_VOLUME_OKAY)
+				to_chat(user, "<span class='danger'>CRITICAL blood level [blood_percent] %, [H.blood_volume] cl,</span> <span class='info'>type: [blood_type]</span>")
+
+			user.show_message("<span class='warning'>blood type: [blood_type].</span>")
+
 		if(H.undergoing_cardiac_arrest() && H.stat != DEAD)
 			user.show_message("<span class='userdanger'>Subject suffering from heart attack: Apply defibrillator immediately.</span>")
 		user.show_message("<span class='notice'>Subject's pulse: <font color='[H.pulse == PULSE_THREADY || H.pulse == PULSE_NONE ? "red" : "blue"]'>[H.get_pulse(GETPULSE_TOOL)] bpm.</font></span>")
