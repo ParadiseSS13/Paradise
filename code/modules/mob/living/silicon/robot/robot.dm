@@ -300,6 +300,7 @@ var/list/robot_verbs_default = list(
 			module_sprites["Default"] = "Service2"
 			module_sprites["Standard"] = "robotServ"
 			module_sprites["Noble-SRV"] = "Noble-SRV"
+			module_sprites["Michiru"] = "maidbot"
 
 		if("Miner")
 			module = new /obj/item/weapon/robot_module/miner(src)
