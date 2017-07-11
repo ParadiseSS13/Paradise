@@ -1,5 +1,8 @@
 /obj/item/flag
 	icon = 'icons/obj/flag.dmi'
+	icon_state = "ntflag"
+	lefthand_file = 'icons/mob/inhands/flags_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/flags_righthand.dmi'
 	w_class = WEIGHT_CLASS_BULKY
 	burntime = 20
 	burn_state = FLAMMABLE
