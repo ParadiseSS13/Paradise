@@ -310,18 +310,15 @@
 */
 
 
-/mob/living/silicon/robot/drone/Bump(atom/movable/AM as mob|obj, yes)
-	if(!yes || ( \
-	 !istype(AM,/obj/machinery/door) && \
-	 !istype(AM,/obj/machinery/recharge_station) && \
-	 !istype(AM,/obj/machinery/disposal/deliveryChute) && \
-	 !istype(AM,/obj/machinery/teleport/hub) && \
-	 !istype(AM,/obj/effect/portal)
-	)) return
-	..()
-	return
+/mob/living/silicon/robot/drone/Bump(atom/movable/AM, yes)
+	if(istype(AM, /obj/machinery/door) \
+	|| istype(AM, /obj/machinery/recharge_station) \
+	|| istype(AM, /obj/machinery/disposal/deliveryChute) \
+	|| istype(AM, /obj/machinery/teleport/hub) \
+	|| istype(AM, /obj/effect/portal))
+		return ..()
 
-/mob/living/silicon/robot/drone/Bumped(AM as mob|obj)
+/mob/living/silicon/robot/drone/Bumped(atom/movable/AM)
 	return
 
 /mob/living/silicon/robot/drone/start_pulling(var/atom/movable/AM)
@@ -330,7 +327,7 @@
 		..()
 	else if(istype(AM,/obj/item))
 		var/obj/item/O = AM
-		if(O.w_class > 2)
+		if(O.w_class > WEIGHT_CLASS_SMALL)
 			to_chat(src, "<span class='warning'>You are too small to pull that.</span>")
 			return
 		else

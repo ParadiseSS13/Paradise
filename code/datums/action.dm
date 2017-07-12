@@ -145,7 +145,7 @@
 	name = "Pull The Starting Cord"
 
 /datum/action/item_action/print_report
-	name = "Print Forensic Report"
+	name = "Print Report"
 
 /datum/action/item_action/toggle_gunlight
 	name = "Toggle Gunlight"

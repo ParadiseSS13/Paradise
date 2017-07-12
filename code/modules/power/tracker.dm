@@ -81,4 +81,5 @@
 	name = "tracker electronics"
 	icon = 'icons/obj/doors/door_assembly.dmi'
 	icon_state = "door_electronics"
-	w_class = 2
+	w_class = WEIGHT_CLASS_SMALL
+	origin_tech = "engineering=2;programming=1"

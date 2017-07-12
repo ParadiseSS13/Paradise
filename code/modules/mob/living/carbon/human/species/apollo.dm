@@ -58,7 +58,7 @@
 
 /datum/species/wryn/handle_attack_hand(var/mob/living/carbon/human/H, var/mob/living/carbon/human/M)
 	var/obj/item/organ/external/head/head_organ = H.get_organ("head")
-	if(M.a_intent == I_HARM)
+	if(M.a_intent == INTENT_HARM)
 		if(H.handcuffed)
 			if(!H.get_int_organ(/obj/item/organ/internal/wryn/hivenode))	return
 			var/turf/p_loc = M.loc
@@ -99,7 +99,7 @@
 	burn_mod = 4 // holy shite, poor guys wont survive half a second cooking smores
 	brute_mod = 2 // damn, double wham, double dam
 	oxy_mod = 0
-	flags = IS_WHITELISTED | NO_BREATHE | NO_BLOOD | NO_PAIN | HAS_LIPS | NO_SCAN
+	flags = IS_WHITELISTED | NO_BREATHE | NO_BLOOD | NO_PAIN | HAS_LIPS | NO_SCAN | RADIMMUNE
 	dietflags = DIET_OMNI		//still human at their core, so they maintain their eating habits and diet
 
 	//Default styles for created mobs.
@@ -110,8 +110,7 @@
 		"heart" =    /obj/item/organ/internal/heart,
 		"crystallized brain" =    /obj/item/organ/internal/brain/crystal,
 		"eyes" =     /obj/item/organ/internal/eyes/luminescent_crystal, //Standard darksight of 2.
-		"strange crystal" = /obj/item/organ/internal/nucleation/strange_crystal,
-		"resonant crystal" = /obj/item/organ/internal/nucleation/resonant_crystal
+		"strange crystal" = /obj/item/organ/internal/nucleation/strange_crystal
 		)
 	vision_organ = /obj/item/organ/internal/eyes/luminescent_crystal
 

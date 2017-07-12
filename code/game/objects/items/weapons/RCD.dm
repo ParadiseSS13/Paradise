@@ -6,7 +6,7 @@ RCD
 */
 /obj/item/weapon/rcd
 	name = "rapid-construction-device (RCD)"
-	desc = "A device used to rapidly build and deconstruct walls and floors."
+	desc = "A device used to rapidly build and deconstruct walls, floors and airlocks."
 	icon = 'icons/obj/tools.dmi'
 	icon_state = "rcd"
 	opacity = 0
@@ -17,7 +17,7 @@ RCD
 	throwforce = 10.0
 	throw_speed = 3
 	throw_range = 5
-	w_class = 3
+	w_class = WEIGHT_CLASS_NORMAL
 	materials = list(MAT_METAL = 30000)
 	origin_tech = "engineering=4;materials=2"
 	toolspeed = 1
@@ -68,7 +68,7 @@ RCD
 	if(istype(W, /obj/item/weapon/rcd_ammo))
 		var/obj/item/weapon/rcd_ammo/R = W
 		if((matter + R.ammoamt) > max_matter)
-			to_chat(user, "<span class='notice'>The RCD cant hold any more matter-units.</span>")
+			to_chat(user, "<span class='notice'>The RCD can't hold any more matter-units.</span>")
 			return
 		matter += R.ammoamt
 		user.drop_item()
@@ -82,6 +82,9 @@ RCD
 
 /obj/item/weapon/rcd/attack_self(mob/user)
 	//Change the mode
+	ui_interact(user)
+
+/obj/item/weapon/rcd/attack_self_tk(mob/user)
 	ui_interact(user)
 
 /obj/item/weapon/rcd/ui_interact(mob/user, ui_key = "main", var/datum/nanoui/ui = null, var/force_open = 1, var/datum/topic_state/state = inventory_state)
@@ -199,7 +202,8 @@ RCD
 					to_chat(user, "Building Wall ...")
 					playsound(loc, 'sound/machines/click.ogg', 50, 1)
 					if(do_after(user, 20 * toolspeed, target = A))
-						if(!useResource(3, user)) return 0
+						if(!useResource(3, user))
+							return 0
 						activate()
 						var/turf/AT = A
 						AT.ChangeTurf(/turf/simulated/wall)
@@ -212,7 +216,10 @@ RCD
 					to_chat(user, "Building Airlock...")
 					playsound(loc, 'sound/machines/click.ogg', 50, 1)
 					if(do_after(user, 50 * toolspeed, target = A))
-						if(!useResource(10, user)) return 0
+						for(var/obj/machinery/door/airlock/D in A.contents)
+							return 0
+						if(!useResource(10, user))
+							return 0
 						activate()
 						var/obj/machinery/door/airlock/T = new door_type(A)
 						T.name = door_name
@@ -233,7 +240,8 @@ RCD
 					to_chat(user, "Deconstructing Wall...")
 					playsound(loc, 'sound/machines/click.ogg', 50, 1)
 					if(do_after(user, 40 * toolspeed, target = A))
-						if(!useResource(5, user)) return 0
+						if(!useResource(5, user))
+							return 0
 						activate()
 						var/turf/AT = A
 						AT.ChangeTurf(/turf/simulated/floor/plating)
@@ -245,7 +253,8 @@ RCD
 					to_chat(user, "Deconstructing Floor...")
 					playsound(loc, 'sound/machines/click.ogg', 50, 1)
 					if(do_after(user, 50 * toolspeed, target = A))
-						if(!useResource(5, user)) return 0
+						if(!useResource(5, user))
+							return 0
 						activate()
 						var/turf/AT = A
 						AT.ChangeTurf(/turf/space)
@@ -257,7 +266,8 @@ RCD
 					to_chat(user, "Deconstructing Airlock...")
 					playsound(loc, 'sound/machines/click.ogg', 50, 1)
 					if(do_after(user, 50 * toolspeed, target = A))
-						if(!useResource(20, user)) return 0
+						if(!useResource(20, user))
+							return 0
 						activate()
 						qdel(A)
 						return 1
@@ -279,8 +289,7 @@ RCD
 					return 0
 				activate()
 				var/turf/T1 = get_turf(A)
-				qdel(A)
-				A = null
+				QDEL_NULL(A)
 				for(var/obj/structure/window/W in T1.contents)
 					W.disassembled = 1
 					W.density = 0
@@ -362,7 +371,7 @@ RCD
 
 /obj/item/weapon/rcd/borg/New()
 	..()
-	desc = "A device used to rapidly build and deconstruct walls and floors."
+	desc = "A device used to rapidly build and deconstruct walls, floors and airlocks."
 	canRwall = 1
 
 
@@ -395,7 +404,7 @@ RCD
 	opacity = 0
 	density = 0
 	anchored = 0.0
-	origin_tech = "materials=2"
+	origin_tech = "materials=3"
 	materials = list(MAT_METAL=16000, MAT_GLASS=8000)
 	var/ammoamt = 20
 

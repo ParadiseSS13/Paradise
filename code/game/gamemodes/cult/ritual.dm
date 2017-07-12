@@ -24,7 +24,7 @@
 	icon_state ="tome"
 	throw_speed = 2
 	throw_range = 5
-	w_class = 2
+	w_class = WEIGHT_CLASS_SMALL
 	var/scribereduct = 0
 	var/canbypass = 0 //ADMINBUS
 

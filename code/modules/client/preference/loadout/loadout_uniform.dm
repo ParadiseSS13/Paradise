@@ -61,12 +61,17 @@
 /datum/gear/uniform/skirt/job/viro
 	display_name = "skirt, virologist"
 	path = /obj/item/clothing/under/rank/virologist/skirt
-	allowed_roles = list("Chief Medical Officer","Medical Doctor")
+	allowed_roles = list("Virologist")
 
 /datum/gear/uniform/skirt/job/med
 	display_name = "skirt, medical"
 	path = /obj/item/clothing/under/rank/medical/skirt
-	allowed_roles = list("Chief Medical Officer","Medical Doctor","Chemist","Psychiatrist","Paramedic","Brig Physician")
+	allowed_roles = list("Chief Medical Officer","Medical Doctor","Psychiatrist","Paramedic","Coroner")
+
+/datum/gear/uniform/skirt/job/phys
+	display_name = "skirt, physician"
+	path = /obj/item/clothing/under/rank/security/brigphys/skirt
+	allowed_roles = list("Brig Physician")
 
 /datum/gear/uniform/skirt/job/sci
 	display_name = "skirt, scientist"
@@ -97,6 +102,17 @@
 	display_name = "skirt, hos"
 	path = /obj/item/clothing/under/rank/head_of_security/skirt
 	allowed_roles = list("Head of Security")
+
+/datum/gear/uniform/skirt/job/ntrep
+	display_name = "skirt, nt rep"
+	path = /obj/item/clothing/under/rank/ntrep/skirt
+	allowed_roles = list("Nanotrasen Representative")
+
+/datum/gear/uniform/skirt/job/blueshield
+	display_name = "skirt, blueshield"
+	path = /obj/item/clothing/under/rank/blueshield/skirt
+	allowed_roles = list("Blueshield")
+
 
 /datum/gear/uniform/medical
 	subtype_path = /datum/gear/uniform/medical

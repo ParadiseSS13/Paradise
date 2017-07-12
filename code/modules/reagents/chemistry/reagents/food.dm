@@ -32,11 +32,9 @@
 			if(H.can_eat(diet_flags))	//Make sure the species has it's dietflag set, otherwise it can't digest any nutrients
 				if(prob(50))
 					M.adjustBruteLoss(-1)
-				if(H.species.exotic_blood)
-					H.vessel.add_reagent(H.species.exotic_blood, 0.4)
-				else
-					if(!(H.species.flags & NO_BLOOD))
-						H.vessel.add_reagent("blood", 0.4)
+					if(!(H.species.flags & NO_BLOOD))//do not restore blood on things with no blood by nature.
+						if(H.blood_volume < BLOOD_VOLUME_NORMAL)
+							H.blood_volume += 0.4
 	..()
 
 /datum/reagent/consumable/nutriment/protein			// Meat-based protein, digestable by carnivores and omnivores, worthless to herbivores
@@ -69,11 +67,9 @@
 		M.satiety += 30
 	if(ishuman(M))
 		var/mob/living/carbon/human/H = M
-		if(H.species.exotic_blood)
-			H.vessel.add_reagent(H.species.exotic_blood, 0.5)
-		else
-			if(!(H.species.flags & NO_BLOOD))
-				H.vessel.add_reagent("blood", 0.5)
+		if(!(H.species.flags & NO_BLOOD))//do not restore blood on things with no blood by nature.
+			if(H.blood_volume < BLOOD_VOLUME_NORMAL)
+				H.blood_volume += 0.5
 	..()
 
 /datum/reagent/consumable/sugar
@@ -817,8 +813,8 @@
 		M.Weaken(1)
 		if(ishuman(M))
 			var/mob/living/carbon/human/H = M
-			if(!H.heart_attack)
-				H.heart_attack = 1
+			if(!H.undergoing_cardiac_arrest())
+				H.set_heartattack(TRUE)
 	..()
 
 /datum/reagent/fungus

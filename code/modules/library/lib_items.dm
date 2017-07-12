@@ -167,7 +167,7 @@
 	icon_state ="book"
 	throw_speed = 1
 	throw_range = 5
-	w_class = 3		 //upped to three because books are, y'know, pretty big. (and you could hide them inside eachother recursively forever)
+	w_class = WEIGHT_CLASS_NORMAL		 //upped to three because books are, y'know, pretty big. (and you could hide them inside eachother recursively forever)
 	attack_verb = list("bashed", "whacked", "educated")
 	burn_state = FLAMMABLE
 
@@ -201,7 +201,7 @@
 /obj/item/weapon/book/attackby(obj/item/weapon/W as obj, mob/user as mob, params)
 	if(carved)
 		if(!store)
-			if(W.w_class < 3)
+			if(W.w_class < WEIGHT_CLASS_NORMAL)
 				user.drop_item()
 				W.forceMove(src)
 				store = W
@@ -293,7 +293,7 @@
 	icon_state ="scanner"
 	throw_speed = 1
 	throw_range = 5
-	w_class = 1
+	w_class = WEIGHT_CLASS_TINY
 	var/obj/machinery/computer/library/checkout/computer // Associated computer - Modes 1 to 3 use this
 	var/obj/item/weapon/book/book	 //  Currently scanned book
 	var/mode = 0 					// 0 - Scan only, 1 - Scan and Set Buffer, 2 - Scan and Attempt to Check In, 3 - Scan and Attempt to Add to Inventory

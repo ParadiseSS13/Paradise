@@ -15,7 +15,7 @@
 	name = "card"
 	desc = "A card."
 	icon = 'icons/obj/card.dmi'
-	w_class = 1
+	w_class = WEIGHT_CLASS_TINY
 	var/associated_account_number = 0
 
 	var/list/files = list(  )
@@ -299,7 +299,7 @@
 /obj/item/weapon/card/id/syndicate
 	name = "agent card"
 	var/list/initial_access = list(access_maint_tunnels, access_syndicate, access_external_airlocks)
-	origin_tech = "syndicate=3"
+	origin_tech = "syndicate=1"
 	var/registered_user = null
 	untrackable = 1
 

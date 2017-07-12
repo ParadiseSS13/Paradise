@@ -176,7 +176,7 @@
 	icon_state = "securitybelt"
 	item_state = "security"//Could likely use a better one.
 	storage_slots = 5
-	max_w_class = 3
+	max_w_class = WEIGHT_CLASS_NORMAL
 	use_item_overlays = 1
 	can_hold = list(
 		/obj/item/weapon/grenade/flashbang,
@@ -249,7 +249,7 @@
 	icon_state = "militarybelt"
 	item_state = "military"
 	max_w_class = WEIGHT_CLASS_SMALL
-	
+
 /obj/item/weapon/storage/belt/military/abductor
 	name = "agent belt"
 	desc = "A belt used by abductor agents."
@@ -280,7 +280,7 @@
 	icon_state = "janibelt"
 	item_state = "janibelt"
 	storage_slots = 6
-	max_w_class = 4 // Set to this so the  light replacer can fit.
+	max_w_class = WEIGHT_CLASS_BULKY // Set to this so the  light replacer can fit.
 	use_item_overlays = 1
 	can_hold = list(
 		/obj/item/weapon/grenade/chem_grenade/cleaner,
@@ -306,8 +306,8 @@
 	desc = "For the mining master, holds your lazarus capsules."
 	icon_state = "lazarusbelt"
 	item_state = "lazbelt"
-	w_class = 4
-	max_w_class = 1
+	w_class = WEIGHT_CLASS_BULKY
+	max_w_class = WEIGHT_CLASS_TINY
 	max_combined_w_class = 6
 	storage_slots = 6
 	can_hold = list(/obj/item/device/mobcapsule)
@@ -379,7 +379,7 @@
 	icon_state = "holster"
 	item_state = "holster"
 	storage_slots = 1
-	max_w_class = 3
+	max_w_class = WEIGHT_CLASS_NORMAL
 	can_hold = list(
 		/obj/item/weapon/gun/projectile/automatic/pistol,
 		/obj/item/weapon/gun/projectile/revolver/detective
@@ -417,7 +417,7 @@
 	icon_state = "fannypack_leather"
 	item_state = "fannypack_leather"
 	storage_slots = 3
-	max_w_class = 2
+	max_w_class = WEIGHT_CLASS_SMALL
 
 /obj/item/weapon/storage/belt/fannypack/black
 	name = "black fannypack"
@@ -475,8 +475,8 @@
 	icon_state = "sheath"
 	item_state = "sheath"
 	storage_slots = 1
-	w_class = 4
-	max_w_class = 4
+	w_class = WEIGHT_CLASS_BULKY
+	max_w_class = WEIGHT_CLASS_BULKY
 	can_hold = list(/obj/item/weapon/melee/rapier)
 
 /obj/item/weapon/storage/belt/rapier/update_icon()
@@ -506,23 +506,11 @@
 	icon_state = "holdingbelt"
 	item_state = "holdingbelt"
 	storage_slots = 14
-	w_class = 4
-	max_w_class = 2
+	w_class = WEIGHT_CLASS_BULKY
+	max_w_class = WEIGHT_CLASS_SMALL
 	max_combined_w_class = 21 // = 14 * 1.5, not 14 * 2.  This is deliberate
-	origin_tech = "bluespace=4"
+	origin_tech = "bluespace=5;materials=4;engineering=4;plasmatech=5"
 	can_hold = list()
-
-	proc/failcheck(mob/user as mob)
-		if(prob(src.reliability)) return 1 //No failure
-		if(prob(src.reliability))
-			to_chat(user, "<span class='warning'>The Bluespace portal resists your attempt to add another item.</span>")//light failure
-
-		else
-			to_chat(user, "<span class='warning'>The Bluespace generator malfunctions!</span>")
-			for(var/obj/O in src.contents) //it broke, delete what was in it
-				qdel(O)
-			crit_fail = 1
-			return 0
 
 /obj/item/weapon/storage/belt/bluespace/owlman
 	name = "Owlman's utility belt"
@@ -530,9 +518,9 @@
 	icon_state = "securitybelt"
 	item_state = "security"
 	storage_slots = 6
-	max_w_class = 3
+	max_w_class = WEIGHT_CLASS_NORMAL
 	max_combined_w_class = 18
-	origin_tech = "bluespace=4;syndicate=2"
+	origin_tech = "bluespace=5;materials=4;engineering=4;plasmatech=5"
 	allow_quick_empty = 1
 	can_hold = list(
 		/obj/item/weapon/grenade/smokebomb,

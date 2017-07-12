@@ -3,7 +3,7 @@
 	desc = "A folded membrane which rapidly expands into a large cubical shape on activation."
 	icon = 'icons/obj/inflatable.dmi'
 	icon_state = "folded_wall"
-	w_class = 3
+	w_class = WEIGHT_CLASS_NORMAL
 
 /obj/item/inflatable/attack_self(mob/user)
 	playsound(loc, 'sound/items/zip.ogg', 75, 1)
@@ -96,7 +96,7 @@
 /obj/structure/inflatable/attackby(obj/item/weapon/W as obj, mob/user as mob, params)
 	if(!istype(W))
 		return
-	if(can_puncture(W))
+	if(is_pointed(W))
 		visible_message("<span class='danger'>[user] pierces [src] with [W]!</span>")
 		deflate(1)
 	if(W.damtype == BRUTE || W.damtype == BURN)
@@ -279,7 +279,7 @@
 	icon_state = "inf_box"
 	item_state = "syringe_kit"
 	max_combined_w_class = 21
-	w_class = 3
+	w_class = WEIGHT_CLASS_NORMAL
 
 /obj/item/weapon/storage/briefcase/inflatable/New()
 	..()

@@ -119,6 +119,14 @@
 	item_color = "internalaffairs"
 	flags_size = ONESIZEFITSALL
 
+/obj/item/clothing/under/rank/ntrep/skirt
+	desc = "A silky smooth black and gold representative uniform with blue markings."
+	name = "representative skirt"
+	icon_state = "ntrepf"
+	item_state = "ntrepf"
+	item_color = "ntrepf"
+	flags_size = ONESIZEFITSALL
+
 /obj/item/clothing/under/rank/janitor
 	desc = "It's the official uniform of the station's janitor. It has minor protection from biohazards."
 	name = "janitor's jumpsuit"

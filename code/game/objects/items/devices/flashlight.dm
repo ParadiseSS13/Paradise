@@ -4,7 +4,7 @@
 	icon = 'icons/obj/lighting.dmi'
 	icon_state = "flashlight"
 	item_state = "flashlight"
-	w_class = 2
+	w_class = WEIGHT_CLASS_SMALL
 	flags = CONDUCT
 	slot_flags = SLOT_BELT
 	materials = list(MAT_METAL=50, MAT_GLASS=20)
@@ -88,7 +88,7 @@
 	desc = "A pen-sized light, used by medical staff."
 	icon_state = "penlight"
 	item_state = ""
-	w_class = 1
+	w_class = WEIGHT_CLASS_TINY
 	slot_flags = SLOT_BELT | SLOT_EARS
 	flags = CONDUCT
 	brightness_on = 2
@@ -109,7 +109,7 @@
 	item_state = ""
 	flags = CONDUCT
 	brightness_on = 2
-	w_class = 1
+	w_class = WEIGHT_CLASS_TINY
 
 // the desk lamps are a bit special
 /obj/item/device/flashlight/lamp
@@ -118,7 +118,7 @@
 	icon_state = "lamp"
 	item_state = "lamp"
 	brightness_on = 5
-	w_class = 4
+	w_class = WEIGHT_CLASS_BULKY
 	flags = CONDUCT
 	materials = list()
 	on = 1
@@ -153,7 +153,7 @@ obj/item/device/flashlight/lamp/bananalamp
 /obj/item/device/flashlight/flare
 	name = "flare"
 	desc = "A red Nanotrasen issued flare. There are instructions on the side, it reads 'pull cord, make light'."
-	w_class = 2
+	w_class = WEIGHT_CLASS_SMALL
 	brightness_on = 8 // Made it brighter (from 7 to 8).
 	light_color = "#ff0000" // changed colour to a more brighter red.
 	icon_state = "flare"
@@ -214,7 +214,7 @@ obj/item/device/flashlight/lamp/bananalamp
 /obj/item/device/flashlight/flare/torch
 	name = "torch"
 	desc = "A torch fashioned from some leaves and a log."
-	w_class = 4
+	w_class = WEIGHT_CLASS_BULKY
 	brightness_on = 7
 	icon_state = "torch"
 	item_state = "torch"
@@ -227,7 +227,7 @@ obj/item/device/flashlight/lamp/bananalamp
 	icon = 'icons/obj/lighting.dmi'
 	icon_state = "floor1" //not a slime extract sprite but... something close enough!
 	item_state = "slime"
-	w_class = 1
+	w_class = WEIGHT_CLASS_TINY
 	brightness_on = 6
 	light_color = "#FFBF00"
 	materials = list()
@@ -243,7 +243,7 @@ obj/item/device/flashlight/lamp/bananalamp
 	return //Bio-luminescence does not toggle.
 
 /obj/item/device/flashlight/emp
-	origin_tech = "magnets=4;syndicate=5"
+	origin_tech = "magnets=3;syndicate=1"
 
 	var/emp_max_charges = 4
 	var/emp_cur_charges = 4

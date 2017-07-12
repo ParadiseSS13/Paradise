@@ -7,7 +7,7 @@
 	flags = CONDUCT
 	force = 1
 	throwforce = 2
-	w_class = 1
+	w_class = WEIGHT_CLASS_TINY
 	var/string_attached
 	var/list/sideslist = list("heads","tails")
 	var/cmineral = null

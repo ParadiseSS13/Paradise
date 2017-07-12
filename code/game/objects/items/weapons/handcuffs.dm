@@ -7,11 +7,11 @@
 	flags = CONDUCT
 	slot_flags = SLOT_BELT
 	throwforce = 5
-	w_class = 2
+	w_class = WEIGHT_CLASS_SMALL
 	throw_speed = 2
 	throw_range = 5
 	materials = list(MAT_METAL=500)
-	origin_tech = "materials=1"
+	origin_tech = "engineering=3;combat=3"
 	breakouttime = 600 //Deciseconds = 60s = 1 minutes
 	var/cuffsound = 'sound/weapons/handcuffs.ogg'
 	var/trashtype = null //For disposable cuffs
@@ -75,6 +75,7 @@
 	name = "cable restraints"
 	desc = "Looks like some cables tied together. Could be used to tie something up."
 	icon_state = "cuff_white"
+	origin_tech = "engineering=2"
 	materials = list(MAT_METAL=150, MAT_GLASS=75)
 	breakouttime = 300 //Deciseconds = 30s
 	cuffsound = 'sound/weapons/cablecuff.ogg'
@@ -102,6 +103,10 @@
 
 /obj/item/weapon/restraints/handcuffs/cable/white
 	color = COLOR_WHITE
+
+/obj/item/weapon/restraints/handcuffs/cable/random/New()
+	color = pick(COLOR_RED, COLOR_BLUE, COLOR_GREEN, COLOR_WHITE, COLOR_PINK, COLOR_YELLOW, COLOR_CYAN)
+	..()
 
 /obj/item/weapon/restraints/handcuffs/alien
 	icon_state = "handcuffAlien"

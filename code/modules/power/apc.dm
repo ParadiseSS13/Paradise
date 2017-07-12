@@ -122,7 +122,8 @@
 	desc = "Heavy-duty switching circuits for power control."
 	icon = 'icons/obj/module.dmi'
 	icon_state = "power_mod"
-	w_class = 2
+	w_class = WEIGHT_CLASS_SMALL
+	origin_tech = "engineering=2;programming=1"
 	item_state = "electronic"
 	flags = CONDUCT
 	usesound = 'sound/items/Deconstruct.ogg'
@@ -621,7 +622,7 @@
 		if(((stat & BROKEN) || malfhack) \
 				&& !opened \
 				&& ( \
-					(W.force >= 5 && W.w_class >= 3.0) \
+					(W.force >= 5 && W.w_class >= WEIGHT_CLASS_NORMAL) \
 					|| istype(W,/obj/item/weapon/crowbar) \
 				) \
 				&& prob(20) )

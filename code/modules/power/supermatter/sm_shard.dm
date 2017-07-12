@@ -7,7 +7,7 @@
 	icon_state = "supermatter"
 	sharp = 1
 	edge = 1
-	w_class = 2
+	w_class = WEIGHT_CLASS_SMALL
 	flags = CONDUCT
 	light_color = "#8A8A00"
 	var/brightness = 2
@@ -85,7 +85,7 @@
 	icon = 'icons/obj/weapons.dmi'
 	icon_state = "tongs"
 	edge = 1
-	w_class = 2
+	w_class = WEIGHT_CLASS_SMALL
 	flags = CONDUCT
 	var/obj/item/held = null // The item currently being held
 

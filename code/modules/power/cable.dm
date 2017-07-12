@@ -485,7 +485,7 @@ var/global/list/datum/stack_recipe/cable_coil_recipes = list(
 	color = COLOR_RED
 	desc = "A coil of power cable."
 	throwforce = 10
-	w_class = 2
+	w_class = WEIGHT_CLASS_SMALL
 	throw_speed = 2
 	throw_range = 5
 	materials = list(MAT_METAL=10, MAT_GLASS=5)
@@ -525,7 +525,7 @@ var/global/list/datum/stack_recipe/cable_coil_recipes = list(
 
 		if(!S)
 			return
-		if(!(S.status & ORGAN_ROBOT) || user.a_intent != I_HELP || S.open == 2)
+		if(!(S.status & ORGAN_ROBOT) || user.a_intent != INTENT_HELP || S.open == 2)
 			return ..()
 
 		if(S.burn_dam)
@@ -568,9 +568,9 @@ var/global/list/datum/stack_recipe/cable_coil_recipes = list(
 
 /obj/item/stack/cable_coil/proc/update_wclass()
 	if(amount == 1)
-		w_class = 1
+		w_class = WEIGHT_CLASS_TINY
 	else
-		w_class = 2
+		w_class = WEIGHT_CLASS_SMALL
 
 /obj/item/stack/cable_coil/examine(mob/user)
 	if(!..(user, 1))

@@ -15,7 +15,7 @@
 	desc = "A camera film cartridge. Insert it into a camera to reload it."
 	icon_state = "film"
 	item_state = "electropack"
-	w_class = 1
+	w_class = WEIGHT_CLASS_TINY
 	burn_state = FLAMMABLE
 
 
@@ -27,7 +27,7 @@
 	icon = 'icons/obj/items.dmi'
 	icon_state = "photo"
 	item_state = "paper"
-	w_class = 2
+	w_class = WEIGHT_CLASS_SMALL
 	burn_state = FLAMMABLE
 	burntime = 5
 	var/blueprints = 0 // Does this have the blueprints?
@@ -64,7 +64,7 @@
 				user.visible_message("[class][user] burns right through \the [src], turning it to ash. It flutters through the air before settling on the floor in a heap.", \
 				"[class]You burn right through \the [src], turning it to ash. It flutters through the air before settling on the floor in a heap.")
 
-				if(user.get_inactive_hand() == src)
+				if(user.is_in_inactive_hand(src))
 					user.unEquip(src)
 
 				new /obj/effect/decal/cleanable/ash(get_turf(src))
@@ -146,7 +146,7 @@
 	desc = "A polaroid camera. 10 photos left."
 	icon_state = "camera"
 	item_state = "electropack"
-	w_class = 2
+	w_class = WEIGHT_CLASS_SMALL
 	slot_flags = SLOT_BELT
 	var/list/matter = list("metal" = 2000)
 	var/pictures_max = 10
@@ -508,7 +508,7 @@ var/list/SpookyGhosts = list("ghost","shade","shade2","ghost-narsie","horror","s
 	desc = "video camera that can send live feed to the entertainment network."
 	icon_state = "videocam"
 	item_state = "videocam"
-	w_class = 2
+	w_class = WEIGHT_CLASS_SMALL
 	slot_flags = SLOT_BELT
 	materials = list(MAT_METAL=2000)
 	var/on = 0

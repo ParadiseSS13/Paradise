@@ -327,9 +327,7 @@ var/round_start_time = 0
 	//If its actually the end of the round, wait for it to end.
 	//Otherwise if its a verb it will continue on afterwards.
 	spawn(300)
-		if(cinematic)
-			qdel(cinematic)		//end the cinematic
-			cinematic = null
+		QDEL_NULL(cinematic)		//end the cinematic
 		if(temp_buckle)
 			qdel(temp_buckle)	//release everybody
 
@@ -406,18 +404,6 @@ var/round_start_time = 0
 		if(F.name == name)
 			return F
 
-/datum/controller/gameticker/proc/karmareminder()
-	for(var/mob/living/player in player_list)
-
-		if(player.client)
-			if(player.client.karma_spent == 0)
-				if(!player.get_preference(DISABLE_KARMA_REMINDER))
-					var/dat
-					dat += {"<html><head><title>Karma Reminder</title></head><body><h1><B>Karma Reminder</B></h1><br>
-					You have not yet spent your karma for the round, surely there is a player who was worthy of receiving<br>
-					your reward? Look under 'OOC' for the 'Award Karma' button, and use it once a round for best results!</table></body></html>"}
-					player << browse(dat, "window=karmareminder;size=400x300")
-
 
 /datum/controller/gameticker/proc/declare_completion()
 	nologevent = 1 //end of round murder and shenanigans are legal; there's no need to jam up attack logs past this point.
@@ -472,7 +458,6 @@ var/round_start_time = 0
 			call(mode, handler)()
 
 	scoreboard()
-	karmareminder()
 
 	// Declare the completion of the station goals
 	mode.declare_station_goal_completion()

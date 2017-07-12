@@ -18,7 +18,7 @@
 	density = 1
 	anchored = 1.0
 	layer = 2.8
-	throwpass = 1	//You can throw objects over this, despite it's density.")
+	pass_flags = LETPASSTHROW
 	climbable = 1
 
 	var/parts = /obj/item/weapon/table_parts
@@ -127,7 +127,8 @@
 	return
 
 /obj/structure/table/CanPass(atom/movable/mover, turf/target, height=0)
-	if(height==0) return 1
+	if(height == 0)
+		return 1
 	if(istype(mover,/obj/item/projectile))
 		return (check_cover(mover,target))
 	if(ismob(mover))
@@ -135,6 +136,8 @@
 		if(M.flying)
 			return 1
 	if(istype(mover) && mover.checkpass(PASSTABLE))
+		return 1
+	if(mover.throwing)
 		return 1
 	if(locate(/obj/structure/table) in get_turf(mover))
 		return 1
@@ -409,6 +412,35 @@
 /obj/structure/table/woodentable/poker/narsie_act()
 	return
 
+/*
+ * Fancy Tables
+ */
+
+/obj/structure/table/wood/fancy
+	name = "fancy table"
+	desc = "A standard metal table frame covered with an amazingly fancy, patterned cloth."
+	icon = 'icons/obj/structures.dmi'
+	icon_state = "fancy_table"
+	parts = /obj/item/weapon/table_parts/fancy
+	canSmoothWith = list(/obj/structure/table/wood/fancy, /obj/structure/table/wood/fancy/black)
+
+/obj/structure/table/wood/fancy/New()
+	icon = 'icons/obj/smooth_structures/fancy_table.dmi' //so that the tables place correctly in the map editor
+	..()
+
+/obj/structure/table/wood/fancy/black
+	icon_state = "fancy_table_black"
+	parts = /obj/item/weapon/table_parts/fancy/black
+
+/obj/structure/table/wood/fancy/black/New()
+	..()
+	icon = 'icons/obj/smooth_structures/fancy_table_black.dmi' //so that the tables place correctly in the map editor
+
+
+/*
+ * Glass Tables
+ */
+
 /obj/structure/glasstable_frame
 	name = "glass table frame"
 	desc = "A metal frame for a glass table."
@@ -526,7 +558,7 @@
 	icon_state = "rack"
 	density = 1
 	anchored = 1.0
-	throwpass = 1	//You can throw objects over this, despite it's density.
+	pass_flags = LETPASSTHROW
 	var/parts = /obj/item/weapon/rack_parts
 	var/health = 5
 
@@ -562,6 +594,8 @@
 	if(src.density == 0) //Because broken racks -Agouri |TODO: SPRITE!|
 		return 1
 	if(istype(mover) && mover.checkpass(PASSTABLE))
+		return 1
+	if(mover.throwing)
 		return 1
 	else
 		return 0

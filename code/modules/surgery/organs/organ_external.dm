@@ -46,6 +46,7 @@
 
 	var/obj/item/organ/external/parent
 	var/list/obj/item/organ/external/children
+	var/list/convertable_children = list()
 
 	// Internal organs of this body part
 	var/list/internal_organs = list()
@@ -58,7 +59,7 @@
 	var/encased       // Needs to be opened with a saw to access the organs.
 
 	var/obj/item/hidden = null
-	var/list/implants = list()
+	var/list/embedded_objects = list()
 
 	// how often wounds should be updated, a higher number means less often
 	var/wound_update_accuracy = 1
@@ -104,7 +105,7 @@
 
 	QDEL_LIST(wounds)
 
-	QDEL_LIST(implants)
+	QDEL_LIST(embedded_objects)
 
 	QDEL_NULL(hidden)
 
@@ -193,7 +194,11 @@
 			   DAMAGE PROCS
 ****************************************************/
 
-/obj/item/organ/external/take_damage(brute, burn, sharp, edge, used_weapon = null, list/forbidden_limbs = list())
+/obj/item/organ/external/take_damage(brute, burn, sharp, used_weapon = null, list/forbidden_limbs = list())
+	if(tough)
+		brute = max(0, brute - 5)
+		burn = max(0, burn - 4)
+
 	if((brute <= 0) && (burn <= 0))
 		return 0
 
@@ -271,7 +276,7 @@
 				if(possible_points.len)
 					//And pass the pain around
 					var/obj/item/organ/external/target = pick(possible_points)
-					target.take_damage(brute, burn, sharp, edge, used_weapon, forbidden_limbs + src)
+					target.take_damage(brute, burn, sharp, used_weapon, forbidden_limbs + src)
 				if(fail_at_full_damage == 2 && body_part != UPPER_TORSO && body_part != LOWER_TORSO)
 					var/losstype
 					if(burn > brute)
@@ -287,8 +292,8 @@
 	if(owner && loc == owner)
 		if(!cannot_amputate && config.limbs_can_break && (brute_dam) >= (max_damage * config.organ_health_multiplier))
 			if(prob(brute / 2))
-				if(edge)
-					droplimb(0,DROPLIMB_EDGE)
+				if(sharp)
+					droplimb(0, DROPLIMB_SHARP)
 
 	if(owner_old) owner_old.updatehealth()
 	return update_icon()
@@ -357,12 +362,6 @@ This function completely restores a damaged organ to perfect condition.
 
 	for(var/obj/item/organ/external/EO in contents)
 		EO.rejuvenate()
-
-	// remove embedded objects and drop them on the floor
-	for(var/obj/implanted_object in implants)
-		if(!istype(implanted_object,/obj/item/weapon/implant))	// We don't want to remove REAL implants. Just shrapnel etc.
-			implanted_object.loc = owner.loc
-			implants -= implanted_object
 
 	owner.updatehealth()
 	update_icon()
@@ -578,9 +577,9 @@ Note that amputating the affected organ does in fact remove the infection from t
 			var/bicardose = owner.reagents.get_reagent_amount("styptic_powder")
 			if(!bicardose)	//styptic powder stops internal wounds from growing bigger with time, and also stop bleeding
 				W.open_wound(0.1 * wound_update_accuracy)
-				owner.vessel.remove_reagent("blood",0.05 * W.damage * wound_update_accuracy)
+				owner.blood_volume -= (0.05 * W.damage * wound_update_accuracy)
 
-			owner.vessel.remove_reagent("blood",0.02 * W.damage * wound_update_accuracy)
+			owner.blood_volume -= (0.02 * W.damage * wound_update_accuracy)
 			if(prob(1 * wound_update_accuracy))
 				owner.custom_pain("You feel a stabbing pain in your [name]!",1)
 
@@ -691,10 +690,10 @@ Note that amputating the affected organ does in fact remove the infection from t
 		return
 
 	if(!disintegrate)
-		disintegrate = DROPLIMB_EDGE
+		disintegrate = DROPLIMB_SHARP
 
 	switch(disintegrate)
-		if(DROPLIMB_EDGE)
+		if(DROPLIMB_SHARP)
 			if(!clean)
 				var/gore_sound = "[(status & ORGAN_ROBOT) ? "tortured metal" : "ripping tendons and flesh"]"
 				owner.visible_message(
@@ -743,9 +742,9 @@ Note that amputating the affected organ does in fact remove the infection from t
 			victim.regenerate_icons()
 		dir = 2
 	switch(disintegrate)
-		if(DROPLIMB_EDGE)
+		if(DROPLIMB_SHARP)
 			compile_icon()
-			add_blood(victim)
+			add_blood(victim.blood_DNA, victim.species.blood_color)
 			var/matrix/M = matrix()
 			M.Turn(rand(180))
 			src.transform = M
@@ -847,19 +846,18 @@ Note that amputating the affected organ does in fact remove the infection from t
 	status &= ~ORGAN_BROKEN
 	return 1
 
-// I put these two next to each other to highlight that both exist. This should likely be resolved.
-/obj/item/organ/external/robotize()
+/obj/item/organ/external/robotize(company, make_tough = 0, convert_all = 1)
 	..()
 	//robot limbs take reduced damage
-	brute_mod = 0.66
-	burn_mod = 0.66
+	if(!make_tough)
+		brute_mod = 0.66
+		burn_mod = 0.66
+		fail_at_full_damage = 1
+	else
+		tough = 1
 	// Robot parts also lack bones
 	// This is so surgery isn't kaput, let's see how this does
 	encased = null
-	fail_at_full_damage = 1
-
-/obj/item/organ/external/robotize(var/company)
-	..()
 
 	if(company && istext(company))
 		set_company(company)
@@ -867,8 +865,8 @@ Note that amputating the affected organ does in fact remove the infection from t
 	cannot_break = 1
 	get_icon()
 	for(var/obj/item/organ/external/T in children)
-		if(T)
-			T.robotize()
+		if((convert_all) || (T.type in convertable_children))
+			T.robotize(company, make_tough, convert_all)
 
 
 
@@ -900,26 +898,12 @@ Note that amputating the affected organ does in fact remove the infection from t
 	return 0
 
 /obj/item/organ/external/proc/is_usable()
-	if((status & ORGAN_ROBOT) && get_damage() >= max_damage) //robot limbs just become inoperable at max damage
+	if(((status & ORGAN_ROBOT) && get_damage() >= max_damage) && !tough) //robot limbs just become inoperable at max damage
 		return
 	return !(status & (ORGAN_DESTROYED|ORGAN_MUTATED|ORGAN_DEAD))
 
 /obj/item/organ/external/proc/is_malfunctioning()
-	return ((status & ORGAN_ROBOT) && (brute_dam + burn_dam) >= 10 && prob(brute_dam + burn_dam))
-
-/obj/item/organ/external/proc/embed(var/obj/item/weapon/W, var/silent = 0)
-	if(!owner || loc != owner)
-		return
-	if(!silent)
-		owner.visible_message("<span class='danger'>\The [W] sticks in the wound!</span>")
-	implants += W
-	owner.embedded_flag = 1
-	owner.verbs += /mob/proc/yank_out_object
-	W.add_blood(owner)
-	if(ismob(W.loc))
-		var/mob/living/H = W.loc
-		H.drop_item()
-	W.loc = owner
+	return ((status & ORGAN_ROBOT) && (brute_dam + burn_dam) >= 10 && prob(brute_dam + burn_dam) && !tough)
 
 /obj/item/organ/external/proc/open_enough_for_surgery()
 	return (encased ? (open == 3) : (open == 2))
@@ -931,13 +915,16 @@ Note that amputating the affected organ does in fact remove the infection from t
 	var/is_robotic = status & ORGAN_ROBOT
 	var/mob/living/carbon/human/victim = owner
 
+	for(var/obj/item/I in embedded_objects)
+		embedded_objects -= I
+		I.forceMove(src)
+	if(!owner.has_embedded_objects())
+		owner.clear_alert("embeddedobject")
+
 	. = ..()
 
 	status |= ORGAN_DESTROYED
 	victim.bad_external_organs -= src
-
-	for(var/implant in implants) //todo: check if this can be left alone
-		qdel(implant)
 
 	// Attached organs also fly off.
 	if(!ignore_children)
@@ -1018,3 +1005,22 @@ Note that amputating the affected organ does in fact remove the infection from t
 	..() // Parent call loads in the DNA
 	if(data["dna"])
 		sync_colour_to_dna()
+
+//Remove all embedded objects from all limbs on the carbon mob
+/mob/living/carbon/human/proc/remove_all_embedded_objects()
+	var/turf/T = get_turf(src)
+
+	for(var/X in bodyparts)
+		var/obj/item/organ/external/L = X
+		for(var/obj/item/I in L.embedded_objects)
+			L.embedded_objects -= I
+			I.forceMove(T)
+
+	clear_alert("embeddedobject")
+
+/mob/living/carbon/human/proc/has_embedded_objects()
+	. = 0
+	for(var/X in bodyparts)
+		var/obj/item/organ/external/L = X
+		for(var/obj/item/I in L.embedded_objects)
+			return 1

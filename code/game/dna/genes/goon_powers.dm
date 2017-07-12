@@ -278,6 +278,10 @@
 	var/list/targets = new /list()
 	var/list/possible_targets = new /list()
 
+	if(!check_mouth(user))
+		revert_cast(user)
+		return
+
 	for(var/atom/movable/O in view_or_range(range, user, selection_type))
 		if((O in user) && is_type_in_list(O,own_blacklist))
 			continue
@@ -294,7 +298,20 @@
 		revert_cast(user)
 		return
 
+	if(!check_mouth(user))
+		revert_cast(user)
+		return
+
 	perform(targets, user = user)
+
+/obj/effect/proc_holder/spell/targeted/eat/proc/check_mouth(mob/user = usr)
+	var/can_eat = 1
+	if(iscarbon(user))
+		var/mob/living/carbon/C = user
+		if((C.head && (C.head.flags_cover & HEADCOVERSMOUTH)) || (C.wear_mask && (C.wear_mask.flags_cover & MASKCOVERSMOUTH) && !C.wear_mask.mask_adjusted))
+			to_chat(C, "<span class='warning'>Your mouth is covered, preventing you from eating!</span>")
+			can_eat = 0
+	return can_eat
 
 /obj/effect/proc_holder/spell/targeted/eat/cast(list/targets, mob/user = usr)
 	if(!targets.len)
@@ -339,7 +356,7 @@
 				return
 			user.visible_message("<span class='danger'>[user] [pick("chomps","bites")] off [the_item]'s [limb]!</span>")
 			playsound(user.loc, 'sound/items/eatfood.ogg', 50, 0)
-			limb.droplimb(0, DROPLIMB_EDGE)
+			limb.droplimb(0, DROPLIMB_SHARP)
 			doHeal(user)
 	else
 		user.visible_message("<span class='danger'>[user] eats \the [the_item].</span>")
@@ -396,9 +413,6 @@
 						failure = 1
 					else
 						M.stop_pulling()
-
-		if(user.pinned.len)
-			failure = 1
 
 		user.visible_message("<span class='danger'>[user.name]</b> takes a huge leap!</span>")
 		playsound(user.loc, 'sound/weapons/thudswoosh.ogg', 50, 1)
@@ -554,7 +568,8 @@
 			return
 
 		to_chat(user, "<span class='notice'>Mind Reading of <b>[M.name]:</b></span>")
-		var/pain_condition = M.health
+
+		var/pain_condition = M.health / M.maxHealth
 		// lower health means more pain
 		var/list/randomthoughts = list("what to have for lunch","the future","the past","money",
 		"their hair","what to do next","their job","space","amusing things","sad things",
@@ -562,33 +577,33 @@
 		var/thoughts = "thinking about [pick(randomthoughts)]"
 
 		if(M.fire_stacks)
-			pain_condition -= 50
+			pain_condition -= 0.5
 			thoughts = "preoccupied with the fire"
 
 		if(M.radiation)
-			pain_condition -= 25
+			pain_condition -= 0.25
 
 		switch(pain_condition)
-			if(81 to INFINITY)
+			if(0.81 to INFINITY)
 				to_chat(user, "<span class='notice'><b>Condition</b>: [M.name] feels good.</span>")
-			if(61 to 80)
+			if(0.61 to 0.8)
 				to_chat(user, "<span class='notice'><b>Condition</b>: [M.name] is suffering mild pain.</span>")
-			if(41 to 60)
+			if(0.41 to 0.6)
 				to_chat(user, "<span class='notice'><b>Condition</b>: [M.name] is suffering significant pain.</span>")
-			if(21 to 40)
+			if(0.21 to 0.4)
 				to_chat(user, "<span class='notice'><b>Condition</b>: [M.name] is suffering severe pain.</span>")
 			else
 				to_chat(user, "<span class='notice'><b>Condition</b>: [M.name] is suffering excruciating pain.</span>")
 				thoughts = "haunted by their own mortality"
 
 		switch(M.a_intent)
-			if(I_HELP)
+			if(INTENT_HELP)
 				to_chat(user, "<span class='notice'><b>Mood</b>: You sense benevolent thoughts from [M.name].</span>")
-			if(I_DISARM)
+			if(INTENT_DISARM)
 				to_chat(user, "<span class='notice'><b>Mood</b>: You sense cautious thoughts from [M.name].</span>")
-			if(I_GRAB)
+			if(INTENT_GRAB)
 				to_chat(user, "<span class='notice'><b>Mood</b>: You sense hostile thoughts from [M.name].</span>")
-			if(I_HARM)
+			if(INTENT_HARM)
 				to_chat(user, "<span class='notice'><b>Mood</b>: You sense cruel thoughts from [M.name].</span>")
 				for(var/mob/living/L in view(7,M))
 					if(L == M)
@@ -642,20 +657,20 @@
 	action_icon_state = "superfart"
 
 /obj/effect/proc_holder/spell/aoe_turf/superfart/invocation(mob/user = usr)
-	invocation = "<span class='warning'><b>[user]</b> hunches down and grits their teeth!</span>"
-	invocation_emote_self = invocation
+	invocation = "<span class='warning'>[user] hunches down and grits their teeth!</span>"
+	invocation_emote_self = "<span class='warning'>You hunch down and grit your teeth!</span>"
 	..(user)
 
-/obj/effect/proc_holder/spell/aoe_turf/superfart/cast(list/targets)
-	var/UT = get_turf(usr)
-
-	if(do_after(usr, 30, target = usr))
+/obj/effect/proc_holder/spell/aoe_turf/superfart/cast(list/targets, mob/user)
+	var/UT = get_turf(user)
+	if(do_after(user, 30, target = user))
+		var/fartsize = pick("tremendous","gigantic","colossal")
 		playsound(UT, 'sound/goonstation/effects/superfart.ogg', 50, 0)
-		usr.visible_message("<span class='warning'><b>[usr]</b> unleashes a [pick("tremendous","gigantic","colossal")] fart!</span>", "<span class='warning'>You hear a [pick("tremendous","gigantic","colossal")] fart.</span>")
+		user.visible_message("<span class='warning'><b>[user]</b> unleashes a [fartsize] fart!</span>", "<span class='warning'>You hear a [fartsize] fart.</span>")
 		for(var/T in targets)
 			for(var/mob/living/M in T)
 				shake_camera(M, 10, 5)
-				if(M == usr)
+				if(M == user)
 					continue
 				to_chat(M, "<span class='warning'>You are sent flying!</span>")
 				M.Weaken(5)
@@ -663,4 +678,4 @@
 				step_away(M, UT, 15)
 				step_away(M, UT, 15)
 	else
-		to_chat(usr, "<span class='warning'>You were interrupted and couldn't fart! Rude!</span>")
+		to_chat(user, "<span class='warning'>You were interrupted and couldn't fart! Rude!</span>")

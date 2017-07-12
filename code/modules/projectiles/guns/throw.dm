@@ -16,10 +16,10 @@
 	return
 
 /obj/item/weapon/gun/throw/proc/get_throwrange()
-	return projectile_speed
+	return projectile_range
 
 /obj/item/weapon/gun/throw/proc/get_throwspeed()
-	return projectile_range
+	return projectile_speed
 
 /obj/item/weapon/gun/throw/proc/modify_projectile(obj/item/I, on_chamber = 0)
 	return
@@ -80,7 +80,7 @@
 	to_launch = null
 	modify_projectile(I)
 	playsound(user, fire_sound, 50, 1)
-	I.throw_at(target, get_throwrange(), get_throwspeed(), user, 1)
+	I.throw_at(target, get_throwrange(), get_throwspeed(), user, FALSE)
 	message_admins("[key_name_admin(user)] fired \a [I] from a [src].")
 	log_game("[key_name_admin(user)] used \a [src].")
 	process_chamber()

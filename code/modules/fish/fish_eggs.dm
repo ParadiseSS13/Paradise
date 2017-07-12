@@ -4,7 +4,7 @@
 	desc = "Eggs laid by a fish. This cluster seems... empty?"
 	icon = 'icons/obj/fish_items.dmi'
 	icon_state = "eggs"
-	w_class = 2
+	w_class = WEIGHT_CLASS_SMALL
 	var/datum/fish/fish_type = null			//Holds the datum of the fish that the egg is for, null means dud eggs
 
 /obj/item/fish_eggs/goldfish
@@ -66,4 +66,3 @@
 	desc = "A cluster of bright neon eggs belonging to a bio-luminescent species of fish."
 	icon_state = "glofish_eggs"
 	fish_type = /datum/fish/glofish
-

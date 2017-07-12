@@ -20,7 +20,7 @@ LIGHTERS ARE IN LIGHTERS.DM
 	throw_speed = 0.5
 	item_state = "cigoff"
 	slot_flags = SLOT_EARS|SLOT_MASK
-	w_class = 1
+	w_class = WEIGHT_CLASS_TINY
 	body_parts_covered = null
 	attack_verb = list("burnt", "singed")
 	var/lit = 0
@@ -285,7 +285,7 @@ LIGHTERS ARE IN LIGHTERS.DM
 	desc = "A manky old cigarette butt."
 	icon = 'icons/obj/clothing/masks.dmi'
 	icon_state = "cigbutt"
-	w_class = 1
+	w_class = WEIGHT_CLASS_TINY
 	throwforce = 1
 
 /obj/item/weapon/cigbutt/New()
@@ -389,7 +389,7 @@ LIGHTERS ARE IN LIGHTERS.DM
 	desc = "A thin piece of paper used to make fine smokeables."
 	icon = 'icons/obj/cigarettes.dmi'
 	icon_state = "cig_paper"
-	w_class = 1
+	w_class = WEIGHT_CLASS_TINY
 
 /obj/item/weapon/rollingpaper/afterattack(atom/target, mob/user, proximity)
 	if(!proximity)

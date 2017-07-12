@@ -15,8 +15,8 @@
 		if(4)
 			new /obj/item/weapon/dragons_blood(src)
 
-// Spectral Blade			
-			
+// Spectral Blade
+
 /obj/item/weapon/melee/ghost_sword
 	name = "spectral blade"
 	desc = "A rusted and dulled blade. It doesn't look like it'd do much damage. It glows weakly."
@@ -24,8 +24,7 @@
 	item_state = "spectral"
 	flags = CONDUCT
 	sharp = 1
-	edge = 1
-	w_class = 4
+	w_class = WEIGHT_CLASS_BULKY
 	force = 1
 	throwforce = 1
 	hitsound = 'sound/effects/ghost2.ogg'
@@ -71,7 +70,7 @@
 	var/turf/T = get_turf(src)
 	var/list/contents = T.GetAllContents()
 	var/mob/dead/observer/current_spirits = list()
-	
+
 	for(var/mob/dead/observer/O in player_list)
 		if(is_type_in_list(O.following, contents))
 			ghost_counter++
@@ -145,7 +144,7 @@
 	stage4	= list("<span class='danger'>Your blood burns.</span>")
 	stage5	= list("<span class='danger'>You're a fucking dragon. However, any previous allegiances you held still apply. It'd be incredibly rude to eat your still human friends for no reason.</span>")
 	new_form = /mob/living/simple_animal/hostile/megafauna/dragon/lesser
-	
+
 //Lava Staff
 
 /obj/item/weapon/lava_staff
@@ -156,7 +155,7 @@
 	icon = 'icons/obj/guns/magic.dmi'
 	slot_flags = SLOT_BACK
 	item_state = "staffofstorms"
-	w_class = 4
+	w_class = WEIGHT_CLASS_BULKY
 	force = 25
 	damtype = BURN
 	hitsound = 'sound/weapons/sear.ogg'

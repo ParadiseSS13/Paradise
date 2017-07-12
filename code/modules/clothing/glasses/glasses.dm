@@ -35,7 +35,7 @@
 	desc = "Used for seeing walls, floors, and stuff through anything."
 	icon_state = "meson"
 	item_state = "glasses"
-	origin_tech = "magnets=2;engineering=2"
+	origin_tech = "magnets=1;engineering=2"
 	vision_flags = SEE_TURFS
 	invis_view = SEE_INVISIBLE_MINIMUM //don't render darkness while wearing these
 	prescription_upgradable = 1
@@ -51,6 +51,7 @@
 	desc = "An Optical Meson Scanner fitted with an amplified visible light spectrum overlay, providing greater visual clarity in darkness."
 	icon_state = "nvgmeson"
 	item_state = "glasses"
+	origin_tech = "magnets=4;engineering=5;plasmatech=4"
 	darkness_view = 8
 	prescription_upgradable = 0
 
@@ -68,7 +69,6 @@
 	attack_verb = list("sliced")
 	hitsound = 'sound/weapons/bladeslice.ogg'
 	sharp = 1
-	edge = 1
 
 /obj/item/clothing/glasses/meson/cyber
 	name = "Eye Replacement Implant"
@@ -84,11 +84,13 @@
 	desc = "A pair of snazzy goggles used to protect against chemical spills. Fitted with an analyzer for scanning items and reagents."
 	icon_state = "purple"
 	item_state = "glasses"
+	origin_tech = "magnets=2;engineering=1"
 	prescription_upgradable = 0
 	scan_reagents = 1 //You can see reagents while wearing science goggles
 	species_fit = list("Vox")
 	sprite_sheets = list(
-		"Vox" = 'icons/mob/species/vox/eyes.dmi'
+		"Vox" = 'icons/mob/species/vox/eyes.dmi',
+		"Grey" = 'icons/mob/species/grey/eyes.dmi'
 		)
 	actions_types = list(/datum/action/item_action/toggle_research_scanner)
 
@@ -119,7 +121,7 @@
 	desc = "You can totally see in the dark now!"
 	icon_state = "night"
 	item_state = "glasses"
-	origin_tech = "magnets=2"
+	origin_tech = "materials=4;magnets=4;plasmatech=4;engineering=4"
 	darkness_view = 8
 	invis_view = SEE_INVISIBLE_MINIMUM //don't render darkness while wearing these
 	species_fit = list("Vox")
@@ -136,7 +138,8 @@
 	item_state = "eyepatch"
 	species_fit = list("Vox")
 	sprite_sheets = list(
-		"Vox" = 'icons/mob/species/vox/eyes.dmi'
+		"Vox" = 'icons/mob/species/vox/eyes.dmi',
+		"Grey" = 'icons/mob/species/grey/eyes.dmi'
 		)
 
 /obj/item/clothing/glasses/monocle
@@ -148,7 +151,8 @@
 	species_fit = list("Vox")
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/species/vox/eyes.dmi',
-		"Drask" = 'icons/mob/species/drask/eyes.dmi'
+		"Drask" = 'icons/mob/species/drask/eyes.dmi',
+		"Grey" = 'icons/mob/species/grey/eyes.dmi'
 		)
 
 /obj/item/clothing/glasses/material
@@ -161,7 +165,8 @@
 	species_fit = list("Vox")
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/species/vox/eyes.dmi',
-		"Drask" = 'icons/mob/species/drask/eyes.dmi'
+		"Drask" = 'icons/mob/species/drask/eyes.dmi',
+		"Grey" = 'icons/mob/species/grey/eyes.dmi'
 		)
 
 /obj/item/clothing/glasses/material/cyber
@@ -180,7 +185,8 @@
 	prescription = 1
 	species_fit = list("Vox")
 	sprite_sheets = list(
-		"Vox" = 'icons/mob/species/vox/eyes.dmi'
+		"Vox" = 'icons/mob/species/vox/eyes.dmi',
+		"Grey" = 'icons/mob/species/grey/eyes.dmi'
 		)
 
 /obj/item/clothing/glasses/regular/hipster
@@ -196,7 +202,8 @@
 	item_state = "3d"
 	species_fit = list("Vox")
 	sprite_sheets = list(
-		"Vox" = 'icons/mob/species/vox/eyes.dmi'
+		"Vox" = 'icons/mob/species/vox/eyes.dmi',
+		"Grey" = 'icons/mob/species/grey/eyes.dmi'
 		)
 
 /obj/item/clothing/glasses/gglasses
@@ -206,7 +213,8 @@
 	item_state = "gglasses"
 	species_fit = list("Vox")
 	sprite_sheets = list(
-		"Vox" = 'icons/mob/species/vox/eyes.dmi'
+		"Vox" = 'icons/mob/species/vox/eyes.dmi',
+		"Grey" = 'icons/mob/species/grey/eyes.dmi'
 		)
 	prescription_upgradable = 1
 
@@ -377,7 +385,8 @@
 	flash_protect = -1
 	species_fit = list("Vox")
 	sprite_sheets = list(
-		"Vox" = 'icons/mob/species/vox/eyes.dmi'
+		"Vox" = 'icons/mob/species/vox/eyes.dmi',
+		"Grey" = 'icons/mob/species/grey/eyes.dmi'
 		)
 
 	emp_act(severity)

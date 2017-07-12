@@ -155,7 +155,7 @@
 	name = "first-aid kit"
 	icon_state = "bezerk"
 	desc = "I hope you've got insurance."
-	max_w_class = 3
+	max_w_class = WEIGHT_CLASS_NORMAL
 	treatment_oxy = "perfluorodecalin"
 	treatment_brute = "styptic_powder"
 	treatment_fire = "silver_sulfadiazine"
@@ -181,7 +181,7 @@
 	name = "field surgery kit"
 	icon_state = "duffel-med"
 	desc = "A kit for surgery in the field."
-	max_w_class = 4
+	max_w_class = WEIGHT_CLASS_BULKY
 	max_combined_w_class = 21
 	storage_slots = 10
 	can_hold = list(/obj/item/roller,/obj/item/weapon/bonesetter,/obj/item/weapon/bonegel, /obj/item/weapon/scalpel, /obj/item/weapon/hemostat,
@@ -209,7 +209,7 @@
 	icon_state = "pill_canister"
 	icon = 'icons/obj/chemical.dmi'
 	item_state = "contsolid"
-	w_class = 2
+	w_class = WEIGHT_CLASS_SMALL
 	can_hold = list(/obj/item/weapon/reagent_containers/food/pill, /obj/item/weapon/dice, /obj/item/weapon/paper)
 	allow_quick_gather = 1
 	use_to_pickup = 1

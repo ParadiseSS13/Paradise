@@ -4,8 +4,6 @@
 	damage = 60
 	damage_type = BRUTE
 	flag = "bullet"
-	embed = 1
-	sharp = 1
 	hitsound_wall = "ricochet"
 
 /obj/item/projectile/bullet/weakbullet //beanbag, heavy stamina damage
@@ -13,12 +11,7 @@
 	damage = 5
 	stamina = 80
 
-/obj/item/projectile/bullet/weakbullet/rubber //beanbag that shells that don't embed
-	embed = 0
-	sharp = 0
-
 /obj/item/projectile/bullet/weakbullet/booze
-	embed = 0
 
 /obj/item/projectile/bullet/weakbullet/booze/on_hit(atom/target, blocked = 0)
 	if(..(target, blocked))
@@ -44,10 +37,6 @@
 	stamina = 60
 	icon_state = "bullet-r"
 
-/obj/item/projectile/bullet/weakbullet2/rubber //detective's bullets that don't embed
-	embed = 0
-	sharp = 0
-
 /obj/item/projectile/bullet/weakbullet3
 	damage = 20
 
@@ -56,8 +45,6 @@
 	damage = 5
 	stamina = 30
 	icon_state = "bullet-r"
-	embed = 0
-	sharp = 0
 
 /obj/item/projectile/bullet/toxinbullet
 	damage = 15
@@ -155,8 +142,6 @@
 	stutter = 5
 	jitter = 20
 	range = 7
-	embed = 0
-	sharp = 0
 	icon_state = "spark"
 	color = "#FFFF00"
 
@@ -201,6 +186,7 @@
 	stun = 4
 
 /obj/item/projectile/bullet/honker
+	name = "banana"
 	damage = 0
 	weaken = 5
 	stun = 5
@@ -239,8 +225,6 @@
 	name = "dart"
 	icon_state = "cbbolt"
 	damage = 6
-	embed = 0
-	sharp = 0
 	var/piercing = 0
 
 /obj/item/projectile/bullet/dart/New()
@@ -281,6 +265,7 @@
 	icon_state = "syringeproj"
 
 /obj/item/projectile/bullet/dart/syringe/tranquilizer
+
 /obj/item/projectile/bullet/dart/syringe/tranquilizer/New()
 	..()
 	reagents.add_reagent("haloperidol", 15)
@@ -302,8 +287,6 @@
 	name = "cap"
 	damage = 0
 	nodamage = 1
-	embed = 0
-	sharp = 0
 
 /obj/item/projectile/bullet/cap/fire()
 	loc = null

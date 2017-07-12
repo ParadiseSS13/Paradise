@@ -31,6 +31,7 @@ Property of Nanotrasen</font><br>
 			{{if data.wanted_issue}}
 				<div class='line'>{{:helper.link('Read Wanted issue', 'exclamation-triangle', {'view_wanted' : 1})}}</div>
 			{{/if}}
+			<div class='line'>{{:helper.link('View available NT jobs', 'share', {'jobs' : 1})}}</div>
 			<div class='line'>{{:helper.link('Create feed channel', 'plus', {'create_channel' : 1})}}</div>
 			<div class='line'>{{:helper.link('View feed channels', 'arrow-right', {'view' : 1})}}</div>
 			<div class='line'>{{:helper.link('Submit new feed story', 'share', {'create_feed_story' : 1})}}</div>
@@ -296,6 +297,23 @@ Property of Nanotrasen</font><br>
 		</div>
 		<div class='item'>
 			<div class='line'>{{:helper.link('Back', 'arrow-left', {'setScreen' : 0})}}</div>
+		</div>
+	{{else data.screen == 12}} <!-- NEWSCASTER_JOBS -->
+		<center><h3 class='good'>CAREERS AT NANOTRASEN</h3>
+		<i><font size=1>Work for a better future.</font></i></center>
+		<hr>
+		{{for data.jobs}}
+			<div class='jobValues'>
+				{{:value.title}}<br>
+			</div>
+			{{empty}}
+				<i>No available jobs...</i>
+		{{/for}}
+		
+		<hr>
+		<div class='item'>
+			<div class='line'>{{:helper.link('Refresh', 'refresh', {'refresh' : 0})}}</div>
+			<div class='line'>{{:helper.link('Back', 'arrow-left', {'setScreen' : 1})}}</div>
 		</div>
 	{{/if}}
 {{/if}}

@@ -78,8 +78,7 @@
 		if(initial(S.name) == initial(aspell.name))
 			spell_levels = aspell.spell_level
 			user.mind.spell_list.Remove(aspell)
-			qdel(S)
-			S = null
+			QDEL_NULL(S)
 			return cost * (spell_levels+1)
 	return -1
 
@@ -497,7 +496,7 @@
 	icon_state ="book"
 	throw_speed = 2
 	throw_range = 5
-	w_class = 1
+	w_class = WEIGHT_CLASS_TINY
 	var/uses = 10
 	var/temp = null
 	var/op = 1

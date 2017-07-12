@@ -178,6 +178,7 @@ nanoui is used to open and update nano browser uis
 	var/name = "[src_object]"
 	var/list/config_data = list(
 			"title" = title,
+			"map" = MAP_NAME,
 			"srcObject" = list("name" = name),
 			"stateKey" = state_key,
 			"status" = status,

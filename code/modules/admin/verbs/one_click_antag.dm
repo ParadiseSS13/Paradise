@@ -35,6 +35,9 @@ client/proc/one_click_antag()
 	var/list/mob/living/carbon/human/candidates = list()
 	var/mob/living/carbon/human/H = null
 
+	log_admin("[key_name(owner)] tried making Traitors with One-Click-Antag")
+	message_admins("[key_name_admin(owner)] tried making Traitors with One-Click-Antag")
+
 	for(var/mob/living/carbon/human/applicant in player_list)
 		if(ROLE_TRAITOR in applicant.client.prefs.be_special)
 			if(player_old_enough_antag(applicant.client,ROLE_TRAITOR))
@@ -69,6 +72,9 @@ client/proc/one_click_antag()
 	var/list/mob/living/carbon/human/candidates = list()
 	var/mob/living/carbon/human/H = null
 
+	log_admin("[key_name(owner)] tried making Changelings with One-Click-Antag")
+	message_admins("[key_name_admin(owner)] tried making Changelings with One-Click-Antag")
+
 	for(var/mob/living/carbon/human/applicant in player_list)
 		if(ROLE_CHANGELING in applicant.client.prefs.be_special)
 			if(player_old_enough_antag(applicant.client,ROLE_CHANGELING))
@@ -101,6 +107,9 @@ client/proc/one_click_antag()
 	var/list/mob/living/carbon/human/candidates = list()
 	var/mob/living/carbon/human/H = null
 
+	log_admin("[key_name(owner)] tried making Revolutionaries with One-Click-Antag")
+	message_admins("[key_name_admin(owner)] tried making Revolutionaries with One-Click-Antag")
+
 	for(var/mob/living/carbon/human/applicant in player_list)
 		if(ROLE_REV in applicant.client.prefs.be_special)
 			if(player_old_enough_antag(applicant.client,ROLE_REV))
@@ -127,6 +136,9 @@ client/proc/one_click_antag()
 
 	var/list/candidates = pollCandidates("Do you wish to be considered for the position of a Wizard Foundation 'diplomat'?", "wizard")
 
+	log_admin("[key_name(owner)] tried making a Wizard with One-Click-Antag")
+	message_admins("[key_name_admin(owner)] tried making a Wizard with One-Click-Antag")
+
 	if(candidates.len)
 		var/mob/dead/observer/selected = pick(candidates)
 		candidates -= selected
@@ -145,6 +157,9 @@ client/proc/one_click_antag()
 
 	var/list/mob/living/carbon/human/candidates = list()
 	var/mob/living/carbon/human/H = null
+
+	log_admin("[key_name(owner)] tried making a Cult with One-Click-Antag")
+	message_admins("[key_name_admin(owner)] tried making a Cult with One-Click-Antag")
 
 	for(var/mob/living/carbon/human/applicant in player_list)
 		if(ROLE_CULTIST in applicant.client.prefs.be_special)
@@ -176,6 +191,9 @@ client/proc/one_click_antag()
 	var/list/mob/candidates = list()
 	var/mob/theghost = null
 	var/time_passed = world.time
+
+	log_admin("[key_name(owner)] tried making a Nuke Op Team with One-Click-Antag")
+	message_admins("[key_name_admin(owner)] tried making a Nuke Op Team with One-Click-Antag")
 
 	for(var/mob/G in respawnable_list)
 		if(istype(G) && G.client && (ROLE_OPERATIVE in G.client.prefs.be_special))
@@ -265,10 +283,18 @@ client/proc/one_click_antag()
 //Abductors
 /datum/admins/proc/makeAbductorTeam()
 	new /datum/event/abductor
+
+	log_admin("[key_name(owner)] tried making Abductors with One-Click-Antag")
+	message_admins("[key_name_admin(owner)] tried making Abductors with One-Click-Antag")
+
 	return 1
 
 /datum/admins/proc/makeAliens()
 	var/datum/event/alien_infestation/E = new /datum/event/alien_infestation
+
+	log_admin("[key_name(owner)] tried making Aliens with One-Click-Antag")
+	message_admins("[key_name_admin(owner)] tried making Aliens with One-Click-Antag")
+
 	E.spawncount = 3
 	// TODO The fact we have to do this rather than just have events start
 	// when we ask them to, is bad.
@@ -288,6 +314,9 @@ client/proc/one_click_antag()
 	var/input = "Purify the station."
 	if(prob(10))
 		input = "Save Runtime and any other cute things on the station."
+
+	log_admin("[key_name(owner)] tried making a Death Squad with One-Click-Antag")
+	message_admins("[key_name_admin(owner)] tried making a Death Squad with One-Click-Antag")
 
 	var/syndicate_leader_selected = 0 //when the leader is chosen. The last person spawned.
 
@@ -400,6 +429,9 @@ client/proc/one_click_antag()
 
 	var/leader_chosen = 0 //when the leader is chosen. The last person spawned.
 
+	log_admin("[key_name(owner)] tried making Vox Raiders with One-Click-Antag")
+	message_admins("[key_name_admin(owner)] tried making Vox Raiders with One-Click-Antag")
+
 	//Generates a list of candidates from active ghosts.
 	for(var/mob/G in respawnable_list)
 		if(istype(G) && G.client && (ROLE_RAIDER in G.client.prefs.be_special))
@@ -502,6 +534,9 @@ client/proc/one_click_antag()
 	var/list/mob/living/carbon/human/candidates = list()
 	var/mob/living/carbon/human/H = null
 
+	log_admin("[key_name(owner)] tried making Vampires with One-Click-Antag")
+	message_admins("[key_name_admin(owner)] tried making Vampires with One-Click-Antag")
+
 	for(var/mob/living/carbon/human/applicant in player_list)
 		if(ROLE_VAMPIRE in applicant.client.prefs.be_special)
 			if(player_old_enough_antag(applicant.client,ROLE_VAMPIRE))
@@ -532,6 +567,9 @@ client/proc/one_click_antag()
 	var/list/mob/candidates = list()
 	var/mob/theghost = null
 	var/time_passed = world.time
+
+	log_admin("[key_name(owner)] tried making Thunderdome Teams with One-Click-Antag")
+	message_admins("[key_name_admin(owner)] tried making Thunderdone Teams with One-Click-Antag")
 
 	//Generates a list of candidates from active ghosts.
 	for(var/mob/G in respawnable_list)

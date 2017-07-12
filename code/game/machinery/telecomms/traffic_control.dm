@@ -192,7 +192,7 @@
 	add_fingerprint(user)
 	user.set_machine(src)
 
-	if(!allowed(user) && !emagged)
+	if(!allowed(user) && !emagged && !user.can_admin_interact())
 		to_chat(user, "<span class='danger'>Access Denied.</span>")
 		return 0
 

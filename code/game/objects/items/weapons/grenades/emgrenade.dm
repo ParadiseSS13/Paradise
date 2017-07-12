@@ -3,7 +3,7 @@
 	desc = "It is designed to wreak havoc on electronic systems."
 	icon_state = "emp"
 	item_state = "emp"
-	origin_tech = "materials=2;magnets=3"
+	origin_tech = "magnets=3;combat=2"
 
 /obj/item/weapon/grenade/empgrenade/prime()
 	update_mob()

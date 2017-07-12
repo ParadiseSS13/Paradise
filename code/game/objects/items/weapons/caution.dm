@@ -7,7 +7,7 @@
 	throwforce = 3.0
 	throw_speed = 1
 	throw_range = 5
-	w_class = 2
+	w_class = WEIGHT_CLASS_SMALL
 	attack_verb = list("warned", "cautioned", "smashed")
 
 	proximity_sign
@@ -44,7 +44,7 @@
 			if(armed)
 				if(istype(AM, /mob/living/carbon) && !istype(AM, /mob/living/carbon/brain))
 					var/mob/living/carbon/C = AM
-					if(C.m_intent != "walk")
+					if(C.m_intent != MOVE_INTENT_WALK)
 						src.visible_message("The [src.name] beeps, \"Running on wet floors is hazardous to your health.\"")
 						explosion(src.loc,-1,0,2)
 						if(ishuman(C))

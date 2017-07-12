@@ -20,14 +20,15 @@
 		"Skrell" = 'icons/mob/species/skrell/helmet.dmi',
 		"Vox" = 'icons/mob/species/vox/helmet.dmi',
 		"Vulpkanin" = 'icons/mob/species/vulpkanin/helmet.dmi',
-		"Drask" = 'icons/mob/species/drask/helmet.dmi'
+		"Drask" = 'icons/mob/species/drask/helmet.dmi',
+		"Grey" = 'icons/mob/species/grey/helmet.dmi'
 		)
 	sprite_sheets_obj = list(
 		"Unathi" = 'icons/obj/clothing/species/unathi/hats.dmi',
 		"Tajaran" = 'icons/obj/clothing/species/tajaran/hats.dmi',
 		"Skrell" = 'icons/obj/clothing/species/skrell/hats.dmi',
 		"Vox" = 'icons/obj/clothing/species/vox/hats.dmi',
-		"Vulpkanin" = 'icons/obj/clothing/species/vulpkanin/hats.dmi',
+		"Vulpkanin" = 'icons/obj/clothing/species/vulpkanin/hats.dmi'
 		)
 
 /obj/item/clothing/head/helmet/space/hardsuit/equip_to_best_slot(mob/M)
@@ -83,7 +84,7 @@
 		"Tajaran" = 'icons/obj/clothing/species/tajaran/suits.dmi',
 		"Skrell" = 'icons/obj/clothing/species/skrell/suits.dmi',
 		"Vox" = 'icons/obj/clothing/species/vox/suits.dmi',
-		"Vulpkanin" = 'icons/obj/clothing/species/vulpkanin/suits.dmi',
+		"Vulpkanin" = 'icons/obj/clothing/species/vulpkanin/suits.dmi'
 		)
 
 	//Breach thresholds, should ideally be inherited by most (if not all) hardsuits.
@@ -352,7 +353,7 @@
 	icon_state = "hardsuit1-syndi"
 	item_state = "syndie_hardsuit"
 	item_color = "syndi"
-	w_class = 3
+	w_class = WEIGHT_CLASS_NORMAL
 	var/on = 1
 	actions_types = list(/datum/action/item_action/toggle_hardsuit_mode)
 	armor = list(melee = 40, bullet = 50, laser = 30, energy = 15, bomb = 35, bio = 100, rad = 50)
@@ -440,14 +441,17 @@
 	heat_protection = HEAD												//Uncomment to enable firesuit protection
 	max_heat_protection_temperature = FIRE_IMMUNITY_HELM_MAX_TEMP_PROTECT
 	unacidable = 1
-	sprite_sheets = null
+	species_fit = list("Grey")
+	sprite_sheets = list(
+		"Grey" = 'icons/mob/species/grey/helmet.dmi'
+		)
 
 /obj/item/clothing/suit/space/hardsuit/wizard
 	icon_state = "hardsuit-wiz"
 	name = "gem-encrusted hardsuit"
 	desc = "A bizarre gem-encrusted suit that radiates magical energies."
 	item_state = "wiz_hardsuit"
-	w_class = 3
+	w_class = WEIGHT_CLASS_NORMAL
 	unacidable = 1
 	armor = list(melee = 40, bullet = 40, laser = 40, energy = 20, bomb = 35, bio = 100, rad = 50)
 	allowed = list(/obj/item/weapon/teleportation_scroll,/obj/item/weapon/tank)
@@ -538,7 +542,6 @@
 	icon_state = "hardsuit0-hos"
 	item_color = "hos"
 	armor = list(melee = 45, bullet = 25, laser = 30,energy = 10, bomb = 25, bio = 100, rad = 50)
-	sprite_sheets = null
 
 
 /obj/item/clothing/suit/space/hardsuit/security/hos

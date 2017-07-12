@@ -1,12 +1,12 @@
 #define PROCESS_ACCURACY 10
 
 /obj/item/organ/internal
-	origin_tech = "biotech=2"
+	origin_tech = "biotech=3"
 	force = 1
-	w_class = 2
+	w_class = WEIGHT_CLASS_SMALL
 	throwforce = 0
-	var/zone = "chest"
 	var/slot
+	// DO NOT add slots with matching names to different zones - it will break internal_organs_slot list!
 	vital = 0
 	var/non_primary = 0
 
@@ -29,6 +29,7 @@
 	owner = M
 
 	M.internal_organs |= src
+	M.internal_organs_slot[slot] = src
 	var/obj/item/organ/external/parent
 	if(istype(M, /mob/living/carbon/human))
 		var/mob/living/carbon/human/H = M
@@ -52,6 +53,8 @@
 	owner = null
 	if(M)
 		M.internal_organs -= src
+		if(M.internal_organs_slot[slot] == src)
+			M.internal_organs_slot.Remove(slot)
 		if(vital && !special)
 			if(M.stat != DEAD)//safety check!
 				M.death()
@@ -69,9 +72,8 @@
 		A.Remove(M)
 	return src
 
-/obj/item/organ/internal/replaced(var/mob/living/carbon/human/target,var/obj/item/organ/external/affected)
+/obj/item/organ/internal/replaced(var/mob/living/carbon/human/target)
     insert(target)
-    ..()
 
 /obj/item/organ/internal/item_action_slot_check(slot, mob/user)
 	return
@@ -140,7 +142,7 @@
 	organ_tag = "heart"
 	parent_organ = "chest"
 	slot = "heart"
-	origin_tech = "biotech=3"
+	origin_tech = "biotech=5"
 	var/beating = 1
 	dead_icon = "heart-off"
 	var/icon_base = "heart"
@@ -155,11 +157,9 @@
 	. = ..()
 	if(ishuman(M))
 		var/mob/living/carbon/human/H = M
-		if(H.stat == DEAD || H.heart_attack)
+		if(H.stat == DEAD)
 			Stop()
 			return
-		if(!special)
-			H.heart_attack = 1
 
 	spawn(120)
 		if(!owner)
@@ -173,14 +173,9 @@
 			if(!owner)
 				Stop()
 
-
-/obj/item/organ/internal/heart/insert(mob/living/carbon/M, special = 0)
+/obj/item/organ/internal/heart/safe_replace(mob/living/carbon/human/target)
+	Restart()
 	..()
-	if(ishuman(M) && beating)
-		var/mob/living/carbon/human/H = M
-		if(H.heart_attack)
-			H.heart_attack = 0
-			return
 
 /obj/item/organ/internal/heart/proc/Stop()
 	beating = 0
@@ -202,7 +197,7 @@
 	desc = "it needs to be pumped..."
 	icon_state = "cursedheart-off"
 	icon_base = "cursedheart"
-	origin_tech = "biotech=5"
+	origin_tech = "biotech=6"
 	actions_types = list(/datum/action/item_action/organ_action/cursed_heart)
 	var/last_pump = 0
 	var/pump_delay = 30 //you can pump 1 second early, for lag, but no more (otherwise you could spam heal)
@@ -229,10 +224,11 @@
 	if(world.time > (last_pump + pump_delay))
 		if(ishuman(owner) && owner.client) //While this entire item exists to make people suffer, they can't control disconnects.
 			var/mob/living/carbon/human/H = owner
-			H.vessel.remove_reagent("blood", blood_loss)
-			to_chat(H, "<span class='userdanger'>You have to keep pumping your blood!</span>")
-			if(H.client)
-				H.client.color = "red" //bloody screen so real
+			if(!(H.species.flags & NO_BLOOD))
+				H.blood_volume = max(H.blood_volume - blood_loss, 0)
+				to_chat(H, "<span class='userdanger'>You have to keep pumping your blood!</span>")
+				if(H.client)
+					H.client.color = "red" //bloody screen so real
 		else
 			last_pump = world.time //lets be extra fair *sigh*
 
@@ -261,13 +257,14 @@
 
 		var/mob/living/carbon/human/H = owner
 		if(istype(H))
-			H.vessel.add_reagent("blood", (cursed_heart.blood_loss*0.5))//gain half the blood back from a failure
-			if(owner.client)
-				owner.client.color = ""
+			if(!(H.species.flags & NO_BLOOD))
+				H.blood_volume = min(H.blood_volume + cursed_heart.blood_loss*0.5, BLOOD_VOLUME_MAXIMUM)
+				if(owner.client)
+					owner.client.color = ""
 
-			H.adjustBruteLoss(-cursed_heart.heal_brute)
-			H.adjustFireLoss(-cursed_heart.heal_burn)
-			H.adjustOxyLoss(-cursed_heart.heal_oxy)
+				H.adjustBruteLoss(-cursed_heart.heal_brute)
+				H.adjustFireLoss(-cursed_heart.heal_burn)
+				H.adjustOxyLoss(-cursed_heart.heal_oxy)
 
 /obj/item/organ/internal/lungs
 	name = "lungs"
@@ -294,7 +291,7 @@
 	if(is_bruised())
 		if(prob(2))
 			owner.custom_emote(1, "coughs up blood!")
-			owner.drip(10)
+			owner.bleed(1)
 		if(prob(4))
 			owner.custom_emote(1, "gasps for air!")
 			owner.AdjustLoseBreath(5)
@@ -499,8 +496,8 @@
 	name = "black tumor"
 	desc = "A tiny black mass with red tendrils trailing from it. It seems to shrivel in the light."
 	icon_state = "blacktumor"
-	origin_tech = "biotech=4"
-	w_class = 1
+	origin_tech = "biotech=5"
+	w_class = WEIGHT_CLASS_TINY
 	parent_organ = "head"
 	slot = "brain_tumor"
 	health = 3
@@ -532,7 +529,7 @@
 	desc = "A tiny yellow mass shaped like..a banana?"
 	icon_state = "honktumor"
 	origin_tech = "biotech=1"
-	w_class = 1
+	w_class = WEIGHT_CLASS_TINY
 	parent_organ = "head"
 	slot = "brain_tumor"
 	health = 3
@@ -619,7 +616,7 @@
 	desc = "Let they who is worthy wear the beard of Thorbjorndottir."
 	icon_state = "liver"
 	origin_tech = "biotech=1"
-	w_class = 1
+	w_class = WEIGHT_CLASS_TINY
 	parent_organ = "head"
 	slot = "hair_organ"
 

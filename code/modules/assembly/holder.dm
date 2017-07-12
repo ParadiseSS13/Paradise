@@ -5,7 +5,7 @@
 	item_state = "assembly"
 	flags = CONDUCT
 	throwforce = 5
-	w_class = 2
+	w_class = WEIGHT_CLASS_SMALL
 	throw_speed = 3
 	throw_range = 10
 
@@ -100,7 +100,7 @@
 			a_left.hear_talk(M, msg)
 		if(a_right)
 			a_right.hear_talk(M, msg)
-	
+
 	hear_message(mob/living/M as mob, msg)
 		if(a_left)
 			a_left.hear_message(M, msg)
@@ -210,8 +210,3 @@
 					qdel(src)
 					return
 		return
-
-
-
-
-

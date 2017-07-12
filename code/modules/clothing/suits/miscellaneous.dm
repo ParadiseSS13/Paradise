@@ -135,7 +135,7 @@
 	icon_state = "syndicate-black-red"
 	item_state = "syndicate-black-red"
 	desc = "A plastic replica of the syndicate space suit, you'll look just like a real murderous syndicate agent in this! This is a toy, it is not made for use in space!"
-	w_class = 3
+	w_class = WEIGHT_CLASS_NORMAL
 	allowed = list(/obj/item/device/flashlight,/obj/item/weapon/tank/emergency_oxygen,/obj/item/toy)
 	flags_inv = HIDEGLOVES|HIDESHOES|HIDEJUMPSUIT
 	burn_state = FIRE_PROOF
@@ -714,7 +714,7 @@
 	desc = "A soft white robe made of a synthetic fiber that provides improved protection against biohazards. Possessing multiple overlapping layers, yet light enough to allow complete freedom of movement, it denotes its wearer as a master physician."
 	icon_state = "mercy_hoodie"
 	item_state = "mercy_hoodie"
-	w_class = 4//bulky item
+	w_class = WEIGHT_CLASS_BULKY
 	gas_transfer_coefficient = 0.01
 	permeability_coefficient = 0.01
 	flags_size = ONESIZEFITSALL
@@ -949,3 +949,20 @@
 	linked_staff.faith += 5
 	if(linked_staff.faith >= 100)	//if this charge puts the staff at or above full, notify the wearer
 		to_chat(H, "<span class='notice'>Faith renewed; ready to convert new followers.</span>")
+
+/obj/item/clothing/suit/tailcoat
+	name = "victorian tailcoat"
+	desc = "A fancy victorian tailcoat."
+	icon_state = "tailcoat"
+	item_state = "tailcoat"
+
+/obj/item/clothing/suit/victcoat
+	name = "ladies victorian coat"
+	desc = "A fancy victorian coat."
+	icon_state = "ladiesvictoriancoat"
+	item_state = "ladiesvictoriancoat"
+
+/obj/item/clothing/suit/victcoat/red
+	name = "ladies red victorian coat"
+	icon_state = "ladiesredvictoriancoat"
+	item_state = "ladiesredvictoriancoat"

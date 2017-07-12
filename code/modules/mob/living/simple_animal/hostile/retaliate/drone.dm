@@ -15,7 +15,7 @@
 	response_harm = "hits the"
 	speak = list("ALERT.","Hostile-ile-ile entities dee-twhoooo-wected.","Threat parameterszzzz- szzet.","Bring sub-sub-sub-systems uuuup to combat alert alpha-a-a.")
 	emote_see = list("beeps menacingly","whirrs threateningly","scans its immediate vicinity")
-	a_intent = I_HARM
+	a_intent = INTENT_HARM
 	stop_automated_movement_when_pulled = 0
 	health = 300
 	maxHealth = 300
@@ -258,7 +258,7 @@
 		if(spawnees & 512)
 			C = new(src.loc)
 			C.name = "Corrupted drone morality core"
-			C.origin_tech = "illegal=[rand(3,6)]"
+			C.origin_tech = "syndicate=[rand(3,6)]"
 
 	return ..()
 

@@ -634,8 +634,8 @@
 	icon_state = "matchbox"
 	item_state = "zippo"
 	storage_slots = 10
-	w_class = 1
-	max_w_class = 1
+	w_class = WEIGHT_CLASS_TINY
+	max_w_class = WEIGHT_CLASS_TINY
 	slot_flags = SLOT_BELT
 	can_hold = list(/obj/item/weapon/match)
 

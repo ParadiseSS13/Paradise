@@ -68,7 +68,7 @@
 	return
 
 /obj/machinery/biogenerator/attackby(obj/item/O, mob/user, params)
-	if(user.a_intent == I_HARM)
+	if(user.a_intent == INTENT_HARM)
 		return ..()
 
 	if(processing)

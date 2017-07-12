@@ -137,7 +137,7 @@
 /datum/gear/hat/med_beret
 	display_name = "medical beret"
 	path = /obj/item/clothing/head/beret/med
-	allowed_roles = list("Chief Medical Officer", "Medical Doctor" , "Virologist", "Brig Physician")
+	allowed_roles = list("Chief Medical Officer", "Medical Doctor" , "Virologist", "Brig Physician" , "Coroner")
 
 /datum/gear/hat/surgicalcap_purple
 	display_name = "surgical cap, purple"

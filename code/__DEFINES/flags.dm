@@ -77,11 +77,12 @@
 #define SAFE	16
 
 //flags for pass_flags
-#define PASSTABLE	1
-#define PASSGLASS	2
-#define PASSGRILLE	4
-#define PASSBLOB	8
-#define PASSMOB		16
+#define PASSTABLE		1
+#define PASSGLASS		2
+#define PASSGRILLE		4
+#define PASSBLOB		8
+#define PASSMOB			16
+#define LETPASSTHROW	32
 
 //turf-only flags
 #define NOJAUNT		1

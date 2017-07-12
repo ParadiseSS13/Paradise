@@ -270,20 +270,20 @@
 	if(prob((SNPC_FUZZY_CHANCE_LOW+SNPC_FUZZY_CHANCE_HIGH)/4))
 		var/obj/item/organ/external/R = bodyparts_by_name["r_arm"]
 		if(R)
-			R.robotize()
+			R.robotize(make_tough = 1)
 	else
 		var/obj/item/organ/external/L = bodyparts_by_name["l_arm"]
 		if(L)
-			L.robotize()
+			L.robotize(make_tough = 1)
 	//legs
 	if(prob((SNPC_FUZZY_CHANCE_LOW+SNPC_FUZZY_CHANCE_HIGH)/4))
 		var/obj/item/organ/external/R = bodyparts_by_name["r_leg"]
 		if(R)
-			R.robotize()
+			R.robotize(make_tough = 1)
 	else
 		var/obj/item/organ/external/L = bodyparts_by_name["l_leg"]
 		if(L)
-			L.robotize()
+			L.robotize(make_tough = 1)
 	UpdateDamageIcon()
 	regenerate_icons()
 
@@ -431,7 +431,7 @@
 	var/mob/living/M = target
 	if(istype(M))
 		if(health > 0)
-			if(M.a_intent == "help" && !incapacitated())
+			if(M.a_intent == INTENT_HELP && !incapacitated())
 				chatter()
 				if(istype(target, /mob/living/carbon) && !retal && prob(SNPC_FUZZY_CHANCE_LOW))
 					var/mob/living/carbon/C = target
@@ -439,7 +439,7 @@
 						tryWalk(target)
 					else
 						C.help_shake_act(src)
-			if(M.a_intent == "harm")
+			if(M.a_intent == INTENT_HARM)
 				retal = 1
 				retal_target = target
 
@@ -449,7 +449,7 @@
 	..()
 	retalTarget(user)
 
-/mob/living/carbon/human/interactive/hitby(atom/movable/AM)
+/mob/living/carbon/human/interactive/hitby(atom/movable/AM, skipcatch, hitpush, blocked)
 	..()
 	var/mob/living/carbon/C = locate(/mob/living/carbon) in view(SNPC_MIN_RANGE_FIND, src)
 	if(C)
@@ -658,7 +658,7 @@
 	if(grabbed_by.len > 0)
 		for(var/obj/item/weapon/grab/G in grabbed_by)
 			if(Adjacent(G))
-				a_intent = "disarm"
+				a_intent = INTENT_DISARM
 				G.assailant.attack_hand(src)
 				inactivity_period = 10
 

@@ -14,7 +14,7 @@
 	icon_state = "daemon"
 	icon_living = "daemon"
 	speed = 1
-	a_intent = I_HARM
+	a_intent = INTENT_HARM
 	stop_automated_movement = 1
 	status_flags = CANPUSH
 	attack_sound = 'sound/misc/demon_attack1.ogg'
@@ -83,7 +83,7 @@
 /mob/living/simple_animal/slaughter/Life()
 	..()
 	if(boost<world.time)
-		speed = 2
+		speed = 1
 	else
 		speed = 0
 
@@ -230,7 +230,7 @@
 	desc = "Still it beats furiously, emanating an aura of utter hate."
 	icon = 'icons/obj/surgery.dmi'
 	icon_state = "demon_heart"
-	origin_tech = "combat=5;biotech=8"
+	origin_tech = "combat=5;biotech=7"
 
 /obj/item/organ/internal/heart/demon/update_icon()
 	return //always beating visually

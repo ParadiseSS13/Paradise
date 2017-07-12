@@ -5,7 +5,7 @@
 	item_state = "bl_suit"
 	item_color = "black"
 	desc = "It's a plain jumpsuit. It seems to have a small dial on the wrist."
-	origin_tech = "syndicate=3"
+	origin_tech = "syndicate=2"
 	var/list/clothing_choices = list()
 	burn_state = FIRE_PROOF
 	armor = list(melee = 10, bullet = 10, laser = 10, energy = 0, bomb = 0, bio = 0, rad = 0)

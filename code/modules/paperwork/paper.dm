@@ -10,7 +10,7 @@
 	icon_state = "paper"
 	item_state = "paper"
 	throwforce = 0
-	w_class = 1
+	w_class = WEIGHT_CLASS_TINY
 	throw_range = 1
 	throw_speed = 1
 	layer = 4
@@ -203,7 +203,7 @@
 
 
 /obj/item/weapon/paper/proc/parsepencode(var/t, var/obj/item/weapon/pen/P, mob/user as mob)
-	t = pencode_to_html(t, usr, P, TRUE, TRUE, deffont, signfont, crayonfont)
+	t = pencode_to_html(t, usr, P, TRUE, TRUE, TRUE, deffont, signfont, crayonfont)
 
 //Count the fields
 	var/laststart = 1

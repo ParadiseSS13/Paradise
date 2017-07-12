@@ -3,7 +3,7 @@
 	desc = "Used by obese officers to save their breath for running."
 	icon_state = "voice0"
 	item_state = "flashtool"	//looks exactly like a flash (and nothing like a flashbang)
-	w_class = 1
+	w_class = WEIGHT_CLASS_TINY
 	flags = CONDUCT
 
 	var/spamcheck = 0
@@ -28,4 +28,3 @@
 	if(!emagged)
 		to_chat(user, "<span class='warning'>You overload \the [src]'s voice synthesizer.</span>")
 		emagged = 1
-

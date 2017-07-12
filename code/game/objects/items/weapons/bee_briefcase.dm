@@ -11,7 +11,7 @@
 	force = 10
 	throw_speed = 2
 	throw_range = 4
-	w_class = 4
+	w_class = WEIGHT_CLASS_BULKY
 	attack_verb = list("bashed", "battered", "bludgeoned", "thrashed", "whacked")
 	var/bees_left = 10
 	var/list/blood_list = list()

@@ -521,7 +521,7 @@
 	desc = "A token to redeem a piece of equipment. Use it on a mining equipment vendor."
 	icon = 'icons/obj/items.dmi'
 	icon_state = "mining_voucher"
-	w_class = 1
+	w_class = WEIGHT_CLASS_TINY
 
 /**********************Mining Point Card**********************/
 
@@ -555,7 +555,7 @@
 	icon_state = "Jaunter"
 	item_state = "electronic"
 	throwforce = 0
-	w_class = 2
+	w_class = WEIGHT_CLASS_SMALL
 	throw_speed = 3
 	throw_range = 5
 	origin_tech = "bluespace=2"
@@ -614,8 +614,9 @@
 	icon = 'icons/obj/items.dmi'
 	icon_state = "resonator"
 	item_state = "resonator"
+	origin_tech = "magnets=3;engineering=3"
 	desc = "A handheld device that creates small fields of energy that resonate until they detonate, crushing rock. It can also be activated without a target to create a field at the user's location, to act as a delayed time trap. It's more effective in a vaccuum."
-	w_class = 3
+	w_class = WEIGHT_CLASS_NORMAL
 	force = 8
 	throwforce = 10
 	var/cooldown = 0
@@ -627,7 +628,7 @@
 	name = "upgraded resonator"
 	desc = "An upgraded version of the resonator that can produce more fields at once."
 	icon_state = "resonator_u"
-	origin_tech = "magnets=3;combat=3"
+	origin_tech = "materials=4;powerstorage=3;engineering=3;magnets=3"
 	fieldlimit = 5
 
 /obj/item/weapon/resonator/proc/CreateResonance(var/target, var/creator)
@@ -711,7 +712,7 @@
 /obj/item/weapon/mining_drone_cube
 	name = "mining drone cube"
 	desc = "Compressed mining drone, ready for deployment. Just press the button to activate!"
-	w_class = 2
+	w_class = WEIGHT_CLASS_SMALL
 	icon = 'icons/obj/aibots.dmi'
 	icon_state = "minedronecube"
 	item_state = "electronic"
@@ -728,7 +729,7 @@
 	name = "Drone Kit"
 	desc = "A boxed kit that includes one mining drone cube and a welding tool with an increased capacity."
 	icon_state = "implant"
-	max_w_class = 3
+	max_w_class = WEIGHT_CLASS_NORMAL
 	storage_slots = 2
 	can_hold = list(/obj/item/weapon/mining_drone_cube, /obj/item/weapon/weldingtool/hugetank)
 
@@ -745,8 +746,9 @@
 	icon = 'icons/obj/hypo.dmi'
 	icon_state = "lazarus_hypo"
 	item_state = "hypo"
+	origin_tech = "biotech=4;magnets=6"
 	throwforce = 0
-	w_class = 2
+	w_class = WEIGHT_CLASS_SMALL
 	throw_speed = 3
 	throw_range = 5
 	var/loaded = 1
@@ -806,7 +808,7 @@
 	name = "manual mining scanner"
 	icon_state = "mining1"
 	item_state = "analyzer"
-	w_class = 2
+	w_class = WEIGHT_CLASS_SMALL
 	flags = CONDUCT
 	slot_flags = SLOT_BELT
 	var/cooldown = 0
@@ -838,7 +840,7 @@
 	name = "advanced automatic mining scanner"
 	icon_state = "mining0"
 	item_state = "analyzer"
-	w_class = 2
+	w_class = WEIGHT_CLASS_SMALL
 	flags = CONDUCT
 	slot_flags = SLOT_BELT
 	var/cooldown = 35
@@ -928,10 +930,11 @@
 	name = "mining jetpack"
 	icon_state = "jetpack-mining"
 	item_state = "jetpack-mining"
+	origin_tech = "materials=4;magnets=4;engineering=5"
 	desc = "A tank of compressed carbon dioxide for miners to use as propulsion in local space. The compact size allows for easy storage at the cost of capacity."
 	volume = 40
 	throw_range = 7
-	w_class = 3 //same as syndie harness
+	w_class = WEIGHT_CLASS_NORMAL //same as syndie harness
 
 /*********************Hivelord stabilizer****************/
 
@@ -940,8 +943,8 @@
 	icon = 'icons/obj/chemical.dmi'
 	icon_state = "bottle19"
 	desc = "Inject a hivelord core with this stabilizer to preserve its healing powers indefinitely."
-	w_class = 1
-	origin_tech = "biotech=1"
+	w_class = WEIGHT_CLASS_TINY
+	origin_tech = "biotech=3"
 
 /obj/item/weapon/hivelordstabilizer/afterattack(obj/item/organ/internal/M, mob/user)
 	var/obj/item/organ/internal/hivelord_core/C = M
@@ -963,7 +966,7 @@
 	 \n<span class='info'>Mark a mob with the destabilizing force, then hit them in melee to activate it for extra damage. Extra damage if backstabbed in this fashion. \
 	 This weapon is only particularly effective against large creatures.</span>"
 	force = 20 //As much as a bone spear, but this is significantly more annoying to carry around due to requiring the use of both hands at all times
-	w_class = 4
+	w_class = WEIGHT_CLASS_BULKY
 	slot_flags = SLOT_BACK
 	force_unwielded = 20 //It's never not wielded so these are the same
 	force_wielded = 20
@@ -975,7 +978,6 @@
 	hitsound = 'sound/weapons/bladeslice.ogg'
 	attack_verb = list("smashes", "crushes", "cleaves", "chops", "pulps")
 	sharp = 1
-	edge = 1
 	var/charged = 1
 	var/charge_time = 16
 	var/atom/mark = null
@@ -1037,8 +1039,7 @@
 		mark = 0
 		if(L.mob_size >= MOB_SIZE_LARGE)
 			L.underlays -= marked_image
-			qdel(marked_image)
-			marked_image = null
+			QDEL_NULL(marked_image)
 			var/backstab = check_target_facings(user, L)
 			var/def_check = L.getarmor(type = "bomb")
 			if(backstab == FACING_INIT_FACING_TARGET_TARGET_FACING_PERPENDICULAR || backstab == FACING_SAME_DIR)

@@ -7,6 +7,7 @@
 	spawn_positions = 1
 	is_service = 1
 	supervisors = "the head of personnel"
+	department_head = list("Head of Personnel")
 	selection_color = "#dddddd"
 	access = list(access_morgue, access_chapel_office, access_crematorium, access_maint_tunnels)
 	minimal_access = list(access_morgue, access_chapel_office, access_crematorium, access_maint_tunnels)

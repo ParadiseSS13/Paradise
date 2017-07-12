@@ -423,7 +423,7 @@
 	hitsound = 'sound/weapons/bladeslice.ogg'
 	force = 40
 	throwforce = 10
-	w_class = 4
+	w_class = WEIGHT_CLASS_BULKY
 	attack_verb = list("attacked", "slashed", "stabbed", "sliced", "torn", "ripped", "diced", "cut")
 	block_chance = 50
 
@@ -442,7 +442,7 @@
 	throw_speed = 1
 	throw_range = 5
 	throwforce = 0
-	w_class = 2
+	w_class = WEIGHT_CLASS_SMALL
 	armour_penetration = 50
 	block_chance = 50
 	var/active = 0
@@ -466,13 +466,13 @@
 	if(active)
 		force = 30
 		icon_state = "sword[item_color]"
-		w_class = 4
+		w_class = WEIGHT_CLASS_BULKY
 		playsound(user, 'sound/weapons/saberon.ogg', 50, 1)
 		to_chat(user, "<span class='notice'>[src] is now active.</span>")
 	else
 		force = 3
 		icon_state = "sword0"
-		w_class = 2
+		w_class = WEIGHT_CLASS_SMALL
 		playsound(user, 'sound/weapons/saberoff.ogg', 50, 1)
 		to_chat(user, "<span class='notice'>[src] can now be concealed.</span>")
 	if(istype(user,/mob/living/carbon/human))
@@ -489,7 +489,7 @@
 	name = "basketball"
 	item_state = "basketball"
 	desc = "Here's your chance, do your dance at the Space Jam."
-	w_class = 4 //Stops people from hiding it in their bags/pockets
+	w_class = WEIGHT_CLASS_BULKY //Stops people from hiding it in their bags/pockets
 
 /obj/structure/holohoop
 	name = "basketball hoop"
@@ -498,7 +498,7 @@
 	icon_state = "hoop"
 	anchored = 1
 	density = 1
-	throwpass = 1
+	pass_flags = LETPASSTHROW
 
 /obj/structure/holohoop/attackby(obj/item/weapon/W as obj, mob/user as mob, params)
 	if(istype(W, /obj/item/weapon/grab) && get_dist(src,user)<2)
@@ -546,7 +546,7 @@
 	power_channel = ENVIRON
 
 /obj/machinery/readybutton/attack_ai(mob/user as mob)
-	to_chat(user, "The station AI is not to interact with these devices")
+	to_chat(user, "The station AI is not to interact with these devices.")
 	return
 
 /obj/machinery/readybutton/attackby(obj/item/weapon/W as obj, mob/user as mob, params)

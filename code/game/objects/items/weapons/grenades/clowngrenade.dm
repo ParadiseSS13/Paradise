@@ -3,7 +3,7 @@
 	desc = "HONK! brand Bananas. In a special applicator for rapid slipping of wide areas."
 	icon_state = "banana"
 	item_state = "flashbang"
-	w_class = 2
+	w_class = WEIGHT_CLASS_SMALL
 	force = 2.0
 	var/stage = 0
 	var/state = 0

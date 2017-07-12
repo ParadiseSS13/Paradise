@@ -14,7 +14,7 @@
 
 	using = new /obj/screen/mov_intent()
 	using.icon = 'icons/mob/screen_alien.dmi'
-	using.icon_state = (mymob.m_intent == "run" ? "running" : "walking")
+	using.icon_state = (mymob.m_intent == MOVE_INTENT_RUN ? "running" : "walking")
 	static_inventory += using
 	move_intent = using
 

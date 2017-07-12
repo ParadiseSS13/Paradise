@@ -5,7 +5,7 @@
 	icon = 'icons/obj/device.dmi'
 	icon_state = "hydro"
 	item_state = "analyzer"
-	w_class = 1
+	w_class = WEIGHT_CLASS_TINY
 	slot_flags = SLOT_BELT
 	origin_tech = "magnets=2;biotech=2"
 	materials = list(MAT_METAL=30, MAT_GLASS=20)
@@ -24,7 +24,7 @@
 	flags = OPENCONTAINER
 	slot_flags = SLOT_BELT
 	throwforce = 0
-	w_class = 2
+	w_class = WEIGHT_CLASS_SMALL
 	throw_speed = 3
 	throw_range = 10
 
@@ -46,7 +46,7 @@
 	flags = OPENCONTAINER
 	slot_flags = SLOT_BELT
 	throwforce = 0
-	w_class = 2
+	w_class = WEIGHT_CLASS_SMALL
 	throw_speed = 3
 	throw_range = 10
 
@@ -68,7 +68,7 @@
 	flags = CONDUCT
 	force = 5
 	throwforce = 7
-	w_class = 2
+	w_class = WEIGHT_CLASS_SMALL
 	materials = list(MAT_METAL=50)
 	attack_verb = list("slashed", "sliced", "cut", "clawed")
 	hitsound = 'sound/weapons/bladeslice.ogg'
@@ -80,7 +80,7 @@
 	icon_state = "hatchet"
 	flags = CONDUCT
 	force = 12
-	w_class = 1
+	w_class = WEIGHT_CLASS_TINY
 	throwforce = 15
 	throw_speed = 3
 	throw_range = 4
@@ -89,7 +89,6 @@
 	attack_verb = list("chopped", "torn", "cut")
 	hitsound = 'sound/weapons/bladeslice.ogg'
 	sharp = 1
-	edge = 1
 
 /obj/item/weapon/hatchet/suicide_act(mob/user)
 	user.visible_message("<span class='suicide'>[user] is chopping at \himself with the [src.name]! It looks like \he's trying to commit suicide.</span>")
@@ -111,7 +110,7 @@
 	throwforce = 5
 	throw_speed = 2
 	throw_range = 3
-	w_class = 4
+	w_class = WEIGHT_CLASS_BULKY
 	flags = CONDUCT
 	armour_penetration = 20
 	slot_flags = SLOT_BACK
@@ -119,7 +118,6 @@
 	attack_verb = list("chopped", "sliced", "cut", "reaped")
 	hitsound = 'sound/weapons/bladeslice.ogg'
 	sharp = 1
-	edge = 1
 	var/extend = 1
 
 /obj/item/weapon/scythe/suicide_act(mob/user)
@@ -128,7 +126,7 @@
 		var/mob/living/carbon/human/H = user
 		var/obj/item/organ/external/affecting = H.get_organ("head")
 		if(affecting)
-			affecting.droplimb(1, DROPLIMB_EDGE)
+			affecting.droplimb(1, DROPLIMB_SHARP)
 			playsound(loc, pick('sound/misc/desceration-01.ogg','sound/misc/desceration-02.ogg','sound/misc/desceration-01.ogg'), 50, 1, -1)
 	return (BRUTELOSS)
 
@@ -139,8 +137,7 @@
 	desc = "A sharp and curved blade on a collapsable fibre metal handle, this tool is the pinnacle of covert reaping technology."
 	force = 3
 	sharp = 0
-	edge = 0
-	w_class = 2
+	w_class = WEIGHT_CLASS_SMALL
 	extend = 0
 	slot_flags = SLOT_BELT
 	origin_tech = "materials=3;combat=3"
@@ -154,7 +151,7 @@
 		icon_state = "tscythe1"
 		item_state = "scythe0"	//use the normal scythe in-hands
 		slot_flags = SLOT_BACK	//won't fit on belt, but can be worn on belt when extended
-		w_class = 4		//won't fit in backpacks while extended
+		w_class = WEIGHT_CLASS_BULKY		//won't fit in backpacks while extended
 		force = 15		//slightly better than normal scythe damage
 		attack_verb = list("chopped", "sliced", "cut", "reaped")
 		hitsound = 'sound/weapons/bladeslice.ogg'
@@ -165,14 +162,13 @@
 		icon_state = "tscythe0"
 		item_state = null	//no sprite for folded version, like a tele-baton
 		slot_flags = SLOT_BELT	//can be worn on belt again, but no longer makes sense to wear on the back
-		w_class = 2
+		w_class = WEIGHT_CLASS_SMALL
 		force = 3
 		attack_verb = list("hit", "poked")
 		hitsound = "swing_hit"
 		//Collapse sound (blade sheath)
 		playsound(src.loc, 'sound/weapons/blade_sheath.ogg', 50, 1)		//Sound credit to Q.K. of Freesound.org
 	sharp = extend
-	edge = extend
 	if(ishuman(user))
 		var/mob/living/carbon/human/H = user
 		H.update_inv_l_hand()
@@ -200,7 +196,7 @@
 	icon = 'icons/obj/chemical.dmi'
 	icon_state = "bottle16"
 	volume = 50
-	w_class = 1
+	w_class = WEIGHT_CLASS_TINY
 	amount_per_transfer_from_this = 10
 	possible_transfer_amounts = list(1,2,5,10,15,25,50)
 
@@ -249,7 +245,7 @@
 	icon = 'icons/obj/chemical.dmi'
 	icon_state = "bottle16"
 	volume = 50
-	w_class = 1
+	w_class = WEIGHT_CLASS_TINY
 	amount_per_transfer_from_this = 10
 	possible_transfer_amounts = list(1,2,5,10,15,25,50)
 

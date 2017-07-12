@@ -1,3 +1,41 @@
+// Playtime requirements for special roles (hours)
+
+var/global/list/role_playtime_requirements = list(
+	// CREW-FRIENDLY ROLES
+	ROLE_PAI = 0,
+	ROLE_POSIBRAIN = 5, // Same as cyborg job.
+	ROLE_SENTIENT = 5,
+	ROLE_ERT = 10, // High, because they're team-based, and we want ERT to be robust
+	ROLE_TRADER = 5,
+	ROLE_DRONE = 10, // High, because they're like mini engineering cyborgs that can ignore the AI, ventcrawl, and respawn themselves
+
+	// SOLO ANTAGS
+	ROLE_TRAITOR = 3,
+	ROLE_CHANGELING = 3,
+	ROLE_WIZARD = 3,
+	ROLE_VAMPIRE = 3,
+	ROLE_BLOB = 3,
+	ROLE_REVENANT = 3,
+	ROLE_BORER = 3,
+	ROLE_NINJA = 3,
+	ROLE_MORPH = 3,
+	ROLE_DEMON = 3,
+
+	// DUO ANTAGS
+	ROLE_GUARDIAN = 5,
+	ROLE_GSPIDER = 5,
+
+	// TEAM ANTAGS
+	// Higher numbers here, because they require more experience to be played correctly
+	ROLE_SHADOWLING = 10,
+	ROLE_REV = 10,
+	ROLE_OPERATIVE = 10,
+	ROLE_CULTIST = 10,
+	ROLE_RAIDER = 10,
+	ROLE_ALIEN = 10,
+	ROLE_ABDUCTOR = 10,
+)
+
 // Admin Verbs
 
 /client/proc/cmd_mentor_check_player_exp()	//Allows admins to determine who the newer players are.
@@ -53,6 +91,27 @@
 
 // Procs
 
+/proc/role_available_in_playtime(client/C, role)
+	if(!C)
+		return 0
+	if(!role)
+		return 0
+	if(!config.use_exp_restrictions)
+		return 0
+	if(config.use_exp_restrictions_admin_bypass && check_rights(R_ADMIN, 0, C.mob))
+		return 0
+	var/list/play_records = params2list(C.prefs.exp)
+	var/isexempt = text2num(play_records[EXP_TYPE_EXEMPT])
+	if(isexempt)
+		return 0
+	var/minimal_player_hrs = role_playtime_requirements[role]
+	if(!minimal_player_hrs)
+		return 0
+	var/req_mins = minimal_player_hrs * 60
+	var/my_exp = text2num(play_records[EXP_TYPE_CREW])
+	if(!isnum(my_exp))
+		return req_mins
+	return max(0, req_mins - my_exp)
 
 /datum/job/proc/available_in_playtime(client/C)
 	if(!C)

@@ -4,13 +4,14 @@
 	icon = 'icons/obj/items.dmi'
 	amount = 6
 	max_amount = 6
-	w_class = 1
+	w_class = WEIGHT_CLASS_TINY
 	throw_speed = 3
 	throw_range = 7
 	var/heal_brute = 0
 	var/heal_burn = 0
 	var/self_delay = 20
 	var/unique_handling = 0 //some things give a special prompt, do we want to bypass some checks in parent?
+	var/stop_bleeding = 0
 
 /obj/item/stack/medical/attack(mob/living/M, mob/user)
 	if(!iscarbon(M) && !isanimal(M))
@@ -36,6 +37,14 @@
 		if(affecting.status & ORGAN_ROBOT)
 			to_chat(user, "<span class='danger'>This can't be used on a robotic limb.</span>")
 			return 1
+
+		if(stop_bleeding)
+			if(H.bleedsuppress)
+				to_chat(user, "<span class='warning'>[H]'s bleeding is already bandaged!</span>")
+				return 1
+			else if(!H.bleed_rate)
+				to_chat(user, "<span class='warning'>[H] isn't bleeding!</span>")
+				return 1
 
 		if(M == user && !unique_handling)
 			user.visible_message("<span class='notice'>[user] starts to apply [src] on [H]...</span>")
@@ -75,7 +84,8 @@
 	singular_name = "gauze length"
 	desc = "Some sterile gauze to wrap around bloody stumps."
 	icon_state = "gauze"
-	origin_tech = "biotech=1"
+	origin_tech = "biotech=2"
+	stop_bleeding = 1800
 
 /obj/item/stack/medical/bruise_pack/attack(mob/living/M, mob/user)
 	if(..())
@@ -96,6 +106,9 @@
 				user.visible_message("<span class='green'>[user] bandages the wounds on [H]'s [affecting.name].", \
 								 	 "<span class='green'>You bandage the wounds on [H]'s [affecting.name].</span>" )
 
+				if(stop_bleeding)
+					if(!H.bleedsuppress) //so you can't stack bleed suppression
+						H.suppress_bloodloss(stop_bleeding)
 				affecting.heal_damage(heal_brute, heal_burn)
 				H.UpdateDamageIcon()
 				use(1)
@@ -121,7 +134,7 @@
 	gender = PLURAL
 	singular_name = "ointment"
 	icon_state = "ointment"
-	origin_tech = "biotech=1"
+	origin_tech = "biotech=2"
 
 /obj/item/stack/medical/ointment/attack(mob/living/M, mob/user)
 	if(..())

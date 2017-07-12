@@ -368,8 +368,11 @@
 			breakthrough = 1
 
 		else
-			throwing = 0 //so mechas don't get stuck when landing after being sent by a Mass Driver
+			if(throwing)
+				throwing.finalize(FALSE)
 			crashing = null
+
+		..()
 
 		if(breakthrough)
 			if(crashing)
@@ -524,7 +527,7 @@
 			user.create_attack_log("<font color='red'>attacked [name]</font>")
 	return
 
-/obj/mecha/hitby(atom/movable/A as mob|obj) //wrapper
+/obj/mecha/hitby(atom/movable/A) //wrapper
 	..()
 	log_message("Hit by [A].",1)
 
@@ -537,6 +540,7 @@
 			dam_coeff = B.damage_coeff
 			counter_tracking = 1
 			break
+
 	if(istype(A, /obj/item/mecha_parts/mecha_tracking))
 		if(!counter_tracking)
 			A.forceMove(src)
@@ -598,7 +602,6 @@
 				WR.crowbar_salvage += E
 				E.forceMove(WR)
 				E.equip_ready = 1
-				E.reliability = round(rand(E.reliability/3,E.reliability))
 			else
 				E.forceMove(loc)
 				qdel(E)
@@ -745,7 +748,7 @@
 				to_chat(user, "There's not enough wire to finish the task.")
 		return
 
-	else if(isscrewdriver(W) && user.a_intent != I_HARM)
+	else if(isscrewdriver(W) && user.a_intent != INTENT_HARM)
 		if(hasInternalDamage(MECHA_INT_TEMP_CONTROL))
 			clearInternalDamage(MECHA_INT_TEMP_CONTROL)
 			to_chat(user, "<span class='notice'>You repair the damaged temperature controller.</span>")
@@ -773,7 +776,7 @@
 				to_chat(user, "<span class='notice'>There's already a powercell installed.</span>")
 		return
 
-	else if(iswelder(W) && user.a_intent != I_HARM)
+	else if(iswelder(W) && user.a_intent != INTENT_HARM)
 		var/obj/item/weapon/weldingtool/WT = W
 		if(health<initial(health))
 			if (WT.remove_fuel(0,user))
@@ -1306,7 +1309,7 @@
 		dir = dir_in
 
 	if(L && L.client)
-		L.client.view = world.view
+		L.client.RemoveViewMod("mecha")
 
 /////////////////////////
 ////// Access stuff /////

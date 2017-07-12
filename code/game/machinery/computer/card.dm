@@ -14,13 +14,20 @@ var/time_last_changed_position = 0
 	var/obj/item/weapon/card/id/modify = null
 	var/mode = 0.0
 	var/printing = null
+	var/target_dept = 0 //Which department this computer has access to. 0=all departments
 
 	//Cooldown for closing positions in seconds
 	//if set to -1: No cooldown... probably a bad idea
 	//if set to 0: Not able to close "original" positions. You can only close positions that you have opened before
 	var/change_position_cooldown = 60
-	//Jobs you cannot open new positions for
-	var/list/blacklisted = list(
+	// Jobs that do not appear in the list at all.
+	var/list/blacklisted_full = list(
+		/datum/job/ntnavyofficer,
+		/datum/job/ntspecops,
+		/datum/job/civilian
+	)
+	// Jobs that appear in the list, and you can prioritize, but not open/close slots for
+	var/list/blacklisted_partial = list(
 		/datum/job/ai,
 		/datum/job/cyborg,
 		/datum/job/captain,
@@ -36,12 +43,8 @@ var/time_last_changed_position = 0
 		/datum/job/brigdoc,
 		/datum/job/mechanic,
 		/datum/job/barber,
-		/datum/job/chaplain,
-		/datum/job/ntnavyofficer,
-		/datum/job/ntspecops,
-		/datum/job/civilian
+		/datum/job/chaplain
 	)
-
 	//The scaling factor of max total positions in relation to the total amount of people on board the station in %
 	var/max_relative_positions = 30 //30%: Seems reasonable, limit of 6 @ 20 players
 
@@ -65,24 +68,29 @@ var/time_last_changed_position = 0
 /obj/machinery/computer/card/proc/format_jobs(list/jobs)
 	var/list/formatted = list()
 	for(var/job in jobs)
-		formatted.Add(list(list(
-			"display_name" = replacetext(job, " ", "&nbsp;"),
-			"target_rank" = get_target_rank(),
-			"job" = job)))
+		if(job_in_department(job_master.GetJob(job)))
+			formatted.Add(list(list(
+				"display_name" = replacetext(job, " ", "&nbsp;"),
+				"target_rank" = get_target_rank(),
+				"job" = job)))
 
 	return formatted
 
 /obj/machinery/computer/card/proc/format_job_slots()
 	var/list/formatted = list()
 	for(var/datum/job/job in job_master.occupations)
-		if(job_blacklisted(job))
+		if(job_blacklisted_full(job))
+			continue
+		if(!job_in_department(job))
 			continue
 		formatted.Add(list(list(
 			"title" = job.title,
 			"current_positions" = job.current_positions,
 			"total_positions" = job.total_positions,
 			"can_open" = can_open_job(job),
-			"can_close" = can_close_job(job))))
+			"can_close" = can_close_job(job),
+			"can_prioritize" = can_prioritize_job(job)
+			)))
 
 	return formatted
 
@@ -92,7 +100,6 @@ var/time_last_changed_position = 0
 		formatted.Add(list(list(
 			"display_name" = get_skin_desc(skin),
 			"skin" = skin)))
-
 	return formatted
 
 /obj/machinery/computer/card/verb/eject_id()
@@ -100,7 +107,7 @@ var/time_last_changed_position = 0
 	set name = "Eject ID Card"
 	set src in oview(1)
 
-	if(usr.restrained())	
+	if(usr.restrained())
 		return
 
 	if(scan)
@@ -134,14 +141,18 @@ var/time_last_changed_position = 0
 	nanomanager.update_uis(src)
 	attack_hand(user)
 
-//Check if you can't open a new position for a certain job
-/obj/machinery/computer/card/proc/job_blacklisted(datum/job/job)
-	return (job.type in blacklisted)
+//Check if you can't touch a job in any way whatsoever
+/obj/machinery/computer/card/proc/job_blacklisted_full(datum/job/job)
+	return (job.type in blacklisted_full)
+
+//Check if you can't open/close positions for a certain job
+/obj/machinery/computer/card/proc/job_blacklisted_partial(datum/job/job)
+	return (job.type in blacklisted_partial)
 
 //Logic check for Topic() if you can open the job
 /obj/machinery/computer/card/proc/can_open_job(datum/job/job)
 	if(job)
-		if(!job_blacklisted(job))
+		if(!job_blacklisted_full(job) && !job_blacklisted_partial(job) && job_in_department(job, FALSE))
 			if((job.total_positions <= player_list.len * (max_relative_positions / 100)))
 				var/delta = (world.time / 10) - time_last_changed_position
 				if((change_position_cooldown < delta) || (opened_positions[job.title] < 0))
@@ -153,14 +164,50 @@ var/time_last_changed_position = 0
 //Logic check for Topic() if you can close the job
 /obj/machinery/computer/card/proc/can_close_job(datum/job/job)
 	if(job)
-		if(!job_blacklisted(job))
-			if(job.total_positions > job.current_positions)
+		if(!job_blacklisted_full(job) && !job_blacklisted_partial(job) && job_in_department(job, FALSE))
+			if(job.total_positions > job.current_positions && !(job in job_master.prioritized_jobs))
 				var/delta = (world.time / 10) - time_last_changed_position
 				if((change_position_cooldown < delta) || (opened_positions[job.title] > 0))
 					return 1
 				return -2
 			return -1
 	return 0
+
+/obj/machinery/computer/card/proc/can_prioritize_job(datum/job/job)
+	if(job)
+		if(!job_blacklisted_full(job) && job_in_department(job, FALSE))
+			if(job in job_master.prioritized_jobs)
+				return 2
+			else
+				if(job_master.prioritized_jobs.len >= 3)
+					return 0
+				if(job.total_positions <= job.current_positions)
+					return 0
+				return 1
+	return -1
+
+
+/obj/machinery/computer/card/proc/job_in_department(datum/job/targetjob, includecivs = 1)
+	if(!scan || !scan.access)
+		return 0
+	if(!target_dept)
+		return 1
+	if(!scan.assignment)
+		return 0
+	if(!targetjob || !targetjob.title)
+		return 0
+	if(targetjob.title in get_subordinates(scan.assignment, includecivs))
+		return 1
+	return 0
+
+/obj/machinery/computer/card/proc/get_subordinates(rank, addcivs)
+	var/list/jobs_returned = list()
+	for(var/datum/job/thisjob in job_master.occupations)
+		if(rank in thisjob.department_head)
+			jobs_returned += thisjob.title
+	if(addcivs)
+		jobs_returned += "Civilian"
+	return jobs_returned
 
 /obj/machinery/computer/card/attack_ai(var/mob/user as mob)
 	return attack_hand(user)
@@ -198,6 +245,7 @@ var/time_last_changed_position = 0
 	data["centcom_access"] = is_centcom()
 	data["all_centcom_access"] = null
 	data["regions"] = null
+	data["target_dept"] = target_dept
 
 	data["engineering_jobs"] = format_jobs(engineering_positions)
 	data["medical_jobs"] = format_jobs(medical_positions)
@@ -267,7 +315,7 @@ var/time_last_changed_position = 0
 				else
 					modify.forceMove(get_turf(src))
 					modify = null
-			else if(Adjacent(usr))	
+			else if(Adjacent(usr))
 				var/obj/item/I = usr.get_active_hand()
 				if(istype(I, /obj/item/weapon/card/id))
 					usr.drop_item()
@@ -284,7 +332,7 @@ var/time_last_changed_position = 0
 				else
 					scan.forceMove(get_turf(src))
 					scan = null
-			else if(Adjacent(usr))			
+			else if(Adjacent(usr))
 				var/obj/item/I = usr.get_active_hand()
 				if(istype(I, /obj/item/weapon/card/id))
 					usr.drop_item()
@@ -292,7 +340,7 @@ var/time_last_changed_position = 0
 					scan = I
 
 		if("access")
-			if(href_list["allowed"])
+			if(href_list["allowed"] && !target_dept)
 				if(is_authenticated(usr))
 					var/access_type = text2num(href_list["access_target"])
 					var/access_allowed = text2num(href_list["allowed"])
@@ -302,13 +350,22 @@ var/time_last_changed_position = 0
 							modify.access += access_type
 
 		if("skin")
-			var/skin = href_list["skin_target"]
-			if(is_authenticated(usr) && modify && ((skin in get_station_card_skins()) || ((skin in get_centcom_card_skins()) && is_centcom())))
-				modify.icon_state = href_list["skin_target"]
+			if(!target_dept)
+				var/skin = href_list["skin_target"]
+				if(is_authenticated(usr) && modify && ((skin in get_station_card_skins()) || ((skin in get_centcom_card_skins()) && is_centcom())))
+					modify.icon_state = href_list["skin_target"]
 
 		if("assign")
 			if(is_authenticated(usr) && modify)
 				var/t1 = href_list["assign_target"]
+				if(target_dept && modify.assignment == "Unassigned")
+					visible_message("<span class='notice'>[src]: Demoted individuals must see the HoP for a new job.</span>")
+					return 0
+				if(!job_in_department(job_master.GetJob(modify.rank), FALSE))
+					visible_message("<span class='notice'>[src]: Cross-department job transfers must be done by the HoP.</span>")
+					return 0
+				if(!job_in_department(job_master.GetJob(t1)))
+					return 0
 				if(t1 == "Custom")
 					var/temp_t = sanitize(copytext(input("Enter a custom job assignment.","Assignment"),1,MAX_MESSAGE_LEN))
 					//let custom jobs function as an impromptu alt title, mainly for sechuds
@@ -332,24 +389,25 @@ var/time_last_changed_position = 0
 						access = jobdatum.get_access()
 
 					modify.access = access
-					modify.assignment = t1
 					modify.rank = t1
+					modify.assignment = t1
+
 
 				callHook("reassign_employee", list(modify))
 
 		if("reg")
-			if(is_authenticated(usr))
+			if(is_authenticated(usr) && !target_dept)
 				var/t2 = modify
 				if((modify == t2 && (in_range(src, usr) || (istype(usr, /mob/living/silicon))) && istype(loc, /turf)))
 					var/temp_name = reject_bad_name(href_list["reg"])
 					if(temp_name)
 						modify.registered_name = temp_name
 					else
-						src.visible_message("<span class='notice'>[src] buzzes rudely.</span>")
+						visible_message("<span class='notice'>[src] buzzes rudely.</span>")
 			nanomanager.update_uis(src)
 
 		if("account")
-			if(is_authenticated(usr))
+			if(is_authenticated(usr) && !target_dept)
 				var/t2 = modify
 				if((modify == t2 && (in_range(src, usr) || (istype(usr, /mob/living/silicon))) && istype(loc, /turf)))
 					var/account_num = text2num(href_list["account"])
@@ -360,7 +418,7 @@ var/time_last_changed_position = 0
 			mode = text2num(href_list["mode_target"])
 
 		if("print")
-			if(!printing)
+			if(!printing && !target_dept)
 				printing = 1
 				playsound(loc, 'sound/goonstation/machines/printer_dotmatrix.ogg', 50, 1)
 				spawn(50)
@@ -393,17 +451,36 @@ var/time_last_changed_position = 0
 						P.info += "</div>"
 
 		if("terminate")
-			if(is_authenticated(usr))
+			if(is_authenticated(usr) && !target_dept)
 				modify.assignment = "Terminated"
 				modify.access = list()
-
 				callHook("terminate_employee", list(modify))
+
+		if("demote")
+			if(is_authenticated(usr))
+				if(modify.assignment == "Unassigned")
+					visible_message("<span class='notice'>[src]: Unassigned crew cannot be demoted any further. If further action is warranted, ask the Captain about Termination.</span>")
+					return 0
+				if(!job_in_department(job_master.GetJob(modify.rank), FALSE))
+					visible_message("<span class='notice'>[src]: Heads may only demote members of their own department.</span>")
+					return 0
+
+				var/list/access = list()
+				var/datum/job/jobdatum = new /datum/job/civilian
+				access = jobdatum.get_access()
+
+				modify.access = access
+				modify.rank = "Civilian"
+				modify.assignment = "Unassigned"
+				modify.icon_state = "id"
 
 		if("make_job_available")
 			// MAKE ANOTHER JOB POSITION AVAILABLE FOR LATE JOINERS
 			if(is_authenticated(usr))
 				var/edit_job_target = href_list["job"]
 				var/datum/job/j = job_master.GetJob(edit_job_target)
+				if(!job_in_department(j, FALSE))
+					return 0
 				if(!j)
 					return 0
 				if(can_open_job(j) != 1)
@@ -420,6 +497,8 @@ var/time_last_changed_position = 0
 			if(is_authenticated(usr))
 				var/edit_job_target = href_list["job"]
 				var/datum/job/j = job_master.GetJob(edit_job_target)
+				if(!job_in_department(j, FALSE))
+					return 0
 				if(!j)
 					return 0
 				if(can_close_job(j) != 1)
@@ -431,7 +510,25 @@ var/time_last_changed_position = 0
 				opened_positions[edit_job_target]--
 				log_game("[key_name(usr)] has closed a job slot for job \"[j]\".")
 				nanomanager.update_uis(src)
-
+		if("prioritize_job")
+			// TOGGLE WHETHER JOB APPEARS AS PRIORITIZED IN THE LOBBY
+			if(is_authenticated(usr) && !target_dept)
+				var/priority_target = href_list["job"]
+				var/datum/job/j = job_master.GetJob(priority_target)
+				if(!j)
+					return 0
+				if(!job_in_department(j))
+					return 0
+				var/priority = TRUE
+				if(j in job_master.prioritized_jobs)
+					job_master.prioritized_jobs -= j
+					priority = FALSE
+				else if(job_master.prioritized_jobs.len < 3)
+					job_master.prioritized_jobs += j
+				else
+					return 0
+				log_game("[key_name(usr)] [priority ?  "prioritized" : "unprioritized"] the job \"[j.title]\".")
+				playsound(src, 'sound/machines/terminal_prompt_confirm.ogg', 50, 0)
 	if(modify)
 		modify.name = text("[modify.registered_name]'s ID Card ([modify.assignment])")
 
@@ -442,4 +539,43 @@ var/time_last_changed_position = 0
 	circuit = /obj/item/weapon/circuitboard/card/centcom
 	req_access = list(access_cent_commander)
 	change_position_cooldown = -1
-	blacklisted = list()
+	blacklisted_full = list()
+	blacklisted_partial = list()
+
+/obj/machinery/computer/card/minor
+	name = "department management console"
+	target_dept = TARGET_DEPT_GENERIC
+	desc = "You can use this to change ID's for specific departments."
+	icon_screen = "idminor"
+	circuit = /obj/item/weapon/circuitboard/card/minor
+
+/obj/machinery/computer/card/minor/hos
+	name = "security management console"
+	target_dept = TARGET_DEPT_SEC
+	icon_screen = "idhos"
+	light_color = LIGHT_COLOR_RED
+	req_access = list(access_hos)
+	circuit = /obj/item/weapon/circuitboard/card/minor/hos
+
+/obj/machinery/computer/card/minor/cmo
+	name = "medical management console"
+	target_dept = TARGET_DEPT_MED
+	icon_screen = "idcmo"
+	req_access = list(access_cmo)
+	circuit = /obj/item/weapon/circuitboard/card/minor/cmo
+
+/obj/machinery/computer/card/minor/rd
+	name = "science management console"
+	target_dept = TARGET_DEPT_SCI
+	icon_screen = "idrd"
+	light_color = LIGHT_COLOR_PINK
+	req_access = list(access_rd)
+	circuit = /obj/item/weapon/circuitboard/card/minor/rd
+
+/obj/machinery/computer/card/minor/ce
+	name = "engineering management console"
+	target_dept = TARGET_DEPT_ENG
+	icon_screen = "idce"
+	light_color = COLOR_YELLOW
+	req_access = list(access_ce)
+	circuit = /obj/item/weapon/circuitboard/card/minor/ce

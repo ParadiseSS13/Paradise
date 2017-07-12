@@ -167,18 +167,16 @@
 	..()
 
 //When an object is thrown at the window
-/obj/machinery/door/window/hitby(AM as mob|obj)
-
+/obj/machinery/door/window/hitby(atom/movable/AM)
 	..()
 	var/tforce = 0
 	if(ismob(AM))
 		tforce = 40
-	else
-		tforce = AM:throwforce
+	else if(isobj(AM))
+		var/obj/O = AM
+		tforce = O.throwforce
 	playsound(loc, 'sound/effects/Glasshit.ogg', 100, 1)
 	take_damage(tforce)
-	//..() //Does this really need to be here twice? The parent proc doesn't even do anything yet. - Nodrak
-	return
 
 /obj/machinery/door/window/mech_melee_attack(obj/mecha/M)
 	if(M.damtype == "brute")

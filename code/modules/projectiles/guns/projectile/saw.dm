@@ -3,9 +3,9 @@
 	desc = "A heavily modified 5.56 light machine gun, designated 'L6 SAW'. Has 'Aussec Armoury - 2531' engraved on the receiver below the designation."
 	icon_state = "l6closed100"
 	item_state = "l6closedmag"
-	w_class = 5
+	w_class = WEIGHT_CLASS_HUGE
 	slot_flags = 0
-	origin_tech = "combat=5;materials=1;syndicate=2"
+	origin_tech = "combat=6;engineering=3;syndicate=6"
 	mag_type = /obj/item/ammo_box/magazine/mm556x45
 	weapon_weight = WEAPON_MEDIUM
 	fire_sound = 'sound/weapons/Gunshot3.ogg'
@@ -67,9 +67,9 @@
 
 /obj/item/projectile/bullet/saw/bleeding/on_hit(atom/target, blocked = 0, hit_zone)
 	. = ..()
-	if((blocked != 100) && istype(target, /mob/living/carbon/human))
-		var/mob/living/carbon/human/H = target
-		H.drip(350)
+	if((blocked != 100) && iscarbon(target))
+		var/mob/living/carbon/C = target
+		C.bleed(35)
 
 /obj/item/projectile/bullet/saw/hollow
 	damage = 60

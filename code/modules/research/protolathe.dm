@@ -72,10 +72,10 @@ Note: Must be placed west/left of and R&D console to function.
 	for(var/obj/item/weapon/stock_parts/matter_bin/M in component_parts)
 		T += M.rating
 	materials.max_amount = T * 75000
-	T = 0
+	T = 1.2
 	for(var/obj/item/weapon/stock_parts/manipulator/M in component_parts)
-		T += (M.rating/3)
-	efficiency_coeff = max(T, 1)
+		T -= M.rating/10
+	efficiency_coeff = min(max(0, T), 1)
 
 /obj/machinery/r_n_d/protolathe/proc/check_mat(datum/design/being_built, var/M)	// now returns how many times the item can be built with the material
 	var/A = materials.amount(M)
@@ -103,8 +103,6 @@ Note: Must be placed west/left of and R&D console to function.
 			for(var/obj/I in component_parts)
 				if(istype(I, /obj/item/weapon/reagent_containers/glass/beaker))
 					reagents.trans_to(I, reagents.total_volume)
-				if(I.reliability != 100 && crit_fail)
-					I.crit_fail = 1
 				I.loc = src.loc
 			for(var/obj/item/weapon/reagent_containers/glass/G in component_parts)
 				reagents.trans_to(G, G.reagents.maximum_volume)

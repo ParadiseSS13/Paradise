@@ -14,7 +14,7 @@
 #define ORGAN_MUTATED    2048
 #define ORGAN_ASSISTED   4096
 
-#define DROPLIMB_EDGE 0
+#define DROPLIMB_SHARP 0
 #define DROPLIMB_BLUNT 1
 #define DROPLIMB_BURN 2
 
@@ -47,7 +47,7 @@
 
 #define HUMAN_STRIP_DELAY 40 //takes 40ds = 4s to strip someone.
 #define ALIEN_SELECT_AFK_BUFFER 1 // How many minutes that a person can be AFK before not being allowed to be an alien.
-#define SHOES_SLOWDOWN -1.0			// How much shoes slow you down by default. Negative values speed you up
+#define SHOES_SLOWDOWN 0			// How much shoes slow you down by default. Negative values speed you up
 
 
 //Mob attribute defaults.
@@ -98,10 +98,14 @@
 #define APPEARANCE_ALL 32767
 
 // Intents
-#define I_HELP		"help"
-#define I_DISARM	"disarm"
-#define I_GRAB		"grab"
-#define I_HARM		"harm"
+#define INTENT_HELP		"help"
+#define INTENT_DISARM	"disarm"
+#define INTENT_GRAB		"grab"
+#define INTENT_HARM		"harm"
+
+// Movement Intents
+#define MOVE_INTENT_WALK "walk"
+#define MOVE_INTENT_RUN  "run"
 
 // AI wire/radio settings
 #define AI_CHECK_WIRELESS 1

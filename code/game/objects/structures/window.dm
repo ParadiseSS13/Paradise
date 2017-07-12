@@ -109,21 +109,23 @@ var/global/wcCommon = pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e", "#8f
 	return 1
 
 /obj/structure/window/hitby(atom/movable/AM)
-	if(!CanPass(AM, get_step(src, AM.dir))) //So thrown objects that cross a tile with non-full windows will no longer hit the window even if it isn't visually obstructing the path.
-		..()
-		var/tforce = 0
-		if(isobj(AM))
-			var/obj/item/I = AM
-			tforce = I.throwforce
-		if(reinf) tforce *= 0.25
-		playsound(loc, 'sound/effects/Glasshit.ogg', 100, 1)
-		health = max(0, health - tforce)
-		if(health <= 7 && !reinf)
-			anchored = 0
-			update_nearby_icons()
-			step(src, get_dir(AM, src))
-		if(health <= 0)
-			destroy()
+	..()
+	var/tforce = 0
+	if(ismob(AM))
+		tforce = 10
+	else if(isobj(AM))
+		var/obj/O = AM
+		tforce = O.throwforce
+	if(reinf)
+		tforce *= 0.25
+	playsound(loc, 'sound/effects/Glasshit.ogg', 100, 1)
+	health = max(0, health - tforce)
+	if(health <= 7 && !reinf)
+		anchored = 0
+		update_nearby_icons()
+		step(src, get_dir(AM, src))
+	if(health <= 0)
+		destroy()
 
 
 /obj/structure/window/attack_hand(mob/user as mob)
@@ -131,7 +133,7 @@ var/global/wcCommon = pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e", "#8f
 		user.say(pick(";RAAAAAAAARGH!", ";HNNNNNNNNNGGGGGGH!", ";GWAAAAAAAARRRHHH!", "NNNNNNNNGGGGGGGGHH!", ";AAAAAAARRRGH!"))
 		user.visible_message("<span class='danger'>[user] smashes through [src]!</span>")
 		destroy()
-	else if(user.a_intent == I_HARM)
+	else if(user.a_intent == INTENT_HARM)
 		user.changeNext_move(CLICK_CD_MELEE)
 		playsound(get_turf(src), 'sound/effects/glassknock.ogg', 80, 1)
 		user.visible_message("<span class='warning'>[user.name] bangs against the [src.name]!</span>", \

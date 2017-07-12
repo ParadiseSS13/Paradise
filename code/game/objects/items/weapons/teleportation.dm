@@ -17,12 +17,12 @@
 	var/broadcasting = null
 	var/listening = 1.0
 	flags = CONDUCT
-	w_class = 2
+	w_class = WEIGHT_CLASS_SMALL
 	item_state = "electronic"
 	throw_speed = 4
 	throw_range = 20
 	materials = list(MAT_METAL=400)
-	origin_tech = "magnets=1"
+	origin_tech = "magnets=3;bluespace=2"
 
 /obj/item/weapon/locator/attack_self(mob/user as mob)
 	add_fingerprint(usr)
@@ -98,11 +98,11 @@ Frequency:
 	icon_state = "hand_tele"
 	item_state = "electronic"
 	throwforce = 0
-	w_class = 2
+	w_class = WEIGHT_CLASS_SMALL
 	throw_speed = 3
 	throw_range = 5
 	materials = list(MAT_METAL=10000)
-	origin_tech = "magnets=1;bluespace=3"
+	origin_tech = "magnets=3;bluespace=4"
 	var/active_portals = 0
 
 /obj/item/weapon/hand_tele/attack_self(mob/user as mob)
@@ -128,7 +128,7 @@ Frequency:
 	if(turfs.len)
 		L["None (Dangerous)"] = pick(turfs)
 	var/t1 = input(user, "Please select a teleporter to lock in on.", "Hand Teleporter") as null|anything in L
-	if(!t1 || (user.get_active_hand() != src || user.stat || user.restrained()))
+	if(!t1 || (!user.is_in_active_hand(src) || user.stat || user.restrained()))
 		return
 	if(active_portals >= 3)
 		user.show_message("<span class='notice'>\The [src] is recharging!</span>")

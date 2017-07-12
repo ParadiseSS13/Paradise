@@ -172,6 +172,8 @@
 	base_color = "#CF4D2F"
 	butt_sprite = "vulp"
 
+	scream_verb = "yelps"
+
 	has_organ = list(
 		"heart" =    /obj/item/organ/internal/heart,
 		"lungs" =    /obj/item/organ/internal/lungs,
@@ -234,7 +236,8 @@
 		"kidneys" =  /obj/item/organ/internal/kidneys,
 		"brain" =    /obj/item/organ/internal/brain,
 		"appendix" = /obj/item/organ/internal/appendix,
-		"eyes" =     /obj/item/organ/internal/eyes //Default darksight of 2.
+		"eyes" =     /obj/item/organ/internal/eyes, //Default darksight of 2.
+		"headpocket" = /obj/item/organ/internal/headpocket
 		)
 
 	suicide_messages = list(
@@ -520,6 +523,7 @@
 		"is cracking their exoskeleton!",
 		"is stabbing themselves with their mandibles!",
 		"is holding their breath!")
+
 /datum/species/slime
 	name = "Slime People"
 	name_plural = "Slime People"
@@ -548,6 +552,7 @@
 	bodyflags = HAS_SKIN_COLOR | NO_EYES
 	dietflags = DIET_CARN
 	reagent_tag = PROCESS_ORG
+	blood_color = "#0064C8"
 	exotic_blood = "water"
 	//ventcrawler = 1 //ventcrawling commented out
 	butt_sprite = "slime"
@@ -576,7 +581,7 @@
 #define SLIMEPERSON_BLOOD_SCALING_FACTOR 5 // Used to adjust how much of an effect the blood has on the rate of color change. Higher is slower.
 	// Slowly shifting to the color of the reagents
 	if((H in recolor_list) && H.reagents.total_volume > SLIMEPERSON_COLOR_SHIFT_TRIGGER)
-		var/blood_amount = H.vessel.total_volume
+		var/blood_amount = H.blood_volume
 		var/r_color = mix_color_from_reagents(H.reagents.reagent_list)
 		var/new_body_color = BlendRGB(r_color, rgb(H.r_skin, H.g_skin, H.b_skin), (blood_amount*SLIMEPERSON_BLOOD_SCALING_FACTOR)/((blood_amount*SLIMEPERSON_BLOOD_SCALING_FACTOR)+(H.reagents.total_volume)))
 		var/list/new_color_list = ReadRGB(new_body_color)
@@ -754,6 +759,11 @@
 		genemutcheck(C,REMOTETALKBLOCK,null,MUTCHK_FORCED)
 	..()
 
+/datum/species/grey/water_act(var/mob/living/carbon/C, volume, temperature, source)
+	..()
+	C.take_organ_damage(5,min(volume,20))
+	C.emote("scream")
+
 /datum/species/grey/after_equip_job(datum/job/J, mob/living/carbon/human/H)
 	var/speech_pref = H.client.prefs.speciesprefs
 	if(speech_pref)
@@ -847,22 +857,19 @@
 	return ..()
 
 /datum/species/diona/handle_life(var/mob/living/carbon/human/H)
+	H.radiation = Clamp(H.radiation, 0, 100) //We have to clamp this first, then decrease it, or there's a few edge cases of massive heals if we clamp and decrease at the same time.
 	var/rads = H.radiation / 25
-	H.apply_effect(-rads,IRRADIATE,0)
-	H.nutrition += rads
+	H.radiation = max(H.radiation-rads, 0)
+	H.nutrition = min(H.nutrition+rads, NUTRITION_LEVEL_WELL_FED+10)
 	H.adjustBruteLoss(-(rads))
-	H.adjustOxyLoss(-(rads))
 	H.adjustToxLoss(-(rads))
 
 	var/light_amount = 0 //how much light there is in the place, affects receiving nutrition and healing
 	if(isturf(H.loc)) //else, there's considered to be no light
 		var/turf/T = H.loc
 		light_amount = min(T.get_lumcount() * 10, 5)  //hardcapped so it's not abused by having a ton of flashlights
-	H.nutrition += light_amount
+	H.nutrition = min(H.nutrition+light_amount, NUTRITION_LEVEL_WELL_FED+10)
 	H.traumatic_shock -= light_amount
-
-	if(H.nutrition > NUTRITION_LEVEL_WELL_FED)
-		H.nutrition = NUTRITION_LEVEL_WELL_FED
 
 	if(light_amount > 0)
 		H.clear_alert("nolight")
@@ -873,8 +880,7 @@
 
 		H.adjustBruteLoss(-(light_amount/2))
 		H.adjustFireLoss(-(light_amount/4))
-		H.adjustOxyLoss(-(light_amount))
-	if(H.nutrition < 200)
+	if(H.nutrition < NUTRITION_LEVEL_STARVING+50)
 		H.take_overall_damage(10,0)
 		H.traumatic_shock++
 
@@ -904,7 +910,7 @@
 	oxy_mod = 0
 	death_message = "gives one shrill beep before falling limp, their monitor flashing blue before completely shutting off..."
 
-	flags = IS_WHITELISTED | NO_BREATHE | NO_SCAN | NO_BLOOD | NO_PAIN | NO_DNA | RADIMMUNE | ALL_RPARTS| NOTRANSSTING
+	flags = IS_WHITELISTED | NO_BREATHE | NO_SCAN | NO_BLOOD | NO_PAIN | NO_DNA | RADIMMUNE | ALL_RPARTS | NOTRANSSTING
 	clothing_flags = HAS_UNDERWEAR | HAS_UNDERSHIRT | HAS_SOCKS
 	bodyflags = HAS_SKIN_COLOR | HAS_HEAD_MARKINGS | HAS_HEAD_ACCESSORY
 	dietflags = 0		//IPCs can't eat, so no diet
@@ -929,7 +935,7 @@
 		"brain" = /obj/item/organ/internal/brain/mmi_holder/posibrain,
 		"cell" = /obj/item/organ/internal/cell,
 		"optics" = /obj/item/organ/internal/eyes/optical_sensor, //Default darksight of 2.
-		"charger" = /obj/item/organ/internal/cyberimp/chest/arm_mod/power_cord
+		"charger" = /obj/item/organ/internal/cyberimp/arm/power_cord
 		)
 
 	vision_organ = /obj/item/organ/internal/eyes/optical_sensor

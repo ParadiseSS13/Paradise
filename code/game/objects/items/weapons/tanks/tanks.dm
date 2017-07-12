@@ -7,7 +7,7 @@
 	flags = CONDUCT
 	slot_flags = SLOT_BACK
 	hitsound = 'sound/weapons/smash.ogg'
-	w_class = 3
+	w_class = WEIGHT_CLASS_NORMAL
 
 	pressure_resistance = ONE_ATMOSPHERE*5
 
@@ -54,7 +54,9 @@
 		C.update_internals_hud_icon(0)
 	else
 		var/can_open_valve = 0
-		if(C.wear_mask && C.wear_mask.flags & AIRTIGHT)
+		if(C.get_organ_slot("breathing_tube"))
+			can_open_valve = 1
+		else if(C.wear_mask && C.wear_mask.flags & AIRTIGHT)
 			can_open_valve = 1
 		else if(ishuman(C))
 			var/mob/living/carbon/human/H = C

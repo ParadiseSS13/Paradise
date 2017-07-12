@@ -229,6 +229,8 @@
 	if(method == TOUCH)
 		if(ishuman(M))
 			var/mob/living/carbon/human/H = M
+			if(H.get_species() == "Grey")
+				return
 
 			if(volume > 25)
 
@@ -255,6 +257,10 @@
 	if(method == INGEST)
 		if(ishuman(M))
 			var/mob/living/carbon/human/H = M
+
+			if(H.get_species() == "Grey")
+				return
+
 			if(volume >=10 && volume <=25)
 				if(!H.unacidable)
 					M.take_organ_damage(0,min(max(volume-10,2)*2,20))
@@ -658,8 +664,8 @@
 		M.Weaken(2)
 		if(ishuman(M))
 			var/mob/living/carbon/human/H = M
-			if(!H.heart_attack)
-				H.heart_attack = 1 // rip in pepperoni
+			if(!H.undergoing_cardiac_arrest())
+				H.set_heartattack(TRUE) // rip in pepperoni
 	..()
 
 /datum/reagent/pancuronium

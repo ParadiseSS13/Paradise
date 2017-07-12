@@ -83,79 +83,45 @@
 	if(bodytemperature >= 330.23) // 135 F
 		return -1	// slimes become supercharged at high temperatures
 
-	var/tally = 0
+	. = ..()
 
 	var/health_deficiency = (100 - health)
-	if(health_deficiency >= 45) tally += (health_deficiency / 25)
+	if(health_deficiency >= 45)
+		. += (health_deficiency / 25)
 
 	if(bodytemperature < 183.222)
-		tally += (283.222 - bodytemperature) / 10 * 1.75
+		. += (283.222 - bodytemperature) / 10 * 1.75
 
 	if(reagents)
 		if(reagents.has_reagent("methamphetamine")) // Meth slows slimes down
-			tally *= 2
+			. *= 2
 
 		if(reagents.has_reagent("frostoil")) // Frostoil also makes them move VEEERRYYYYY slow
-			tally *= 5
+			. *= 5
 
 	if(health <= 0) // if damaged, the slime moves twice as slow
-		tally *= 2
+		. *= 2
 
-	return tally + config.slime_delay
+	. += config.slime_delay
 
-/mob/living/carbon/slime/Bump(atom/movable/AM as mob|obj, yes)
-	if((!(yes) || now_pushing))
-		return
-	now_pushing = 1
-
-	if(isobj(AM))
-		if(!client && powerlevel > 0)
-			var/probab = 10
-			switch(powerlevel)
-				if(1 to 2)	probab = 20
-				if(3 to 4)	probab = 30
-				if(5 to 6)	probab = 40
-				if(7 to 8)	probab = 60
-				if(9)		probab = 70
-				if(10)		probab = 95
-			if(prob(probab))
-				if(istype(AM, /obj/structure/window) || istype(AM, /obj/structure/grille))
-					if(nutrition <= get_hunger_nutrition() && !Atkcool)
-						if(is_adult || prob(5))
-							AM.attack_slime(src)
-							spawn()
-								Atkcool = 1
-								sleep(45)
-								Atkcool = 0
-
-	if(ismob(AM))
-		var/mob/tmob = AM
-
-		if(is_adult)
-			if(istype(tmob, /mob/living/carbon/human))
-				if(prob(90))
-					now_pushing = 0
-					return
-		else
-			if(istype(tmob, /mob/living/carbon/human))
-				now_pushing = 0
-				return
-
-	now_pushing = 0
-	..()
-	if(!istype(AM, /atom/movable))
-		return
-	if(!( now_pushing ))
-		now_pushing = 1
-		if(!( AM.anchored ))
-			var/t = get_dir(src, AM)
-			if(istype(AM, /obj/structure/window))
-				if(AM:ini_dir == NORTHWEST || AM:ini_dir == NORTHEAST || AM:ini_dir == SOUTHWEST || AM:ini_dir == SOUTHEAST)
-					for(var/obj/structure/window/win in get_step(AM,t))
-						now_pushing = 0
-						return
-			step(AM, t)
-		now_pushing = null
+/mob/living/carbon/slime/ObjBump(obj/O)
+	if(!client && powerlevel > 0)
+		var/chance = 10
+		switch(powerlevel)
+			if(1 to 2)	chance = 20
+			if(3 to 4)	chance = 30
+			if(5 to 6)	chance = 40
+			if(7 to 8)	chance = 60
+			if(9)		chance = 70
+			if(10)		chance = 95
+		if(prob(chance))
+			if(istype(O, /obj/structure/window) || istype(O, /obj/structure/grille))
+				if(nutrition <= get_hunger_nutrition() && !Atkcool)
+					if(is_adult || prob(5))
+						O.attack_slime(src)
+						Atkcool = 1
+						spawn(45)
+							Atkcool = 0
 
 /mob/living/carbon/slime/Process_Spacemove(var/movement_dir = 0)
 	return 2
@@ -275,7 +241,7 @@
 
 	switch(L.a_intent)
 
-		if(I_HELP)
+		if(INTENT_HELP)
 			visible_message("<span class='notice'>[L] rubs its head against [src].</span>")
 
 
@@ -315,11 +281,9 @@
 				if(prob(90) && !client)
 					Discipline++
 
-				spawn()
-					SStun = 1
-					sleep(rand(45,60))
-					if(src)
-						SStun = 0
+				SStun = 1
+				spawn(rand(45,60))
+					SStun = 0
 
 				Victim = null
 				anchored = 0
@@ -343,11 +307,9 @@
 						if(Discipline == 1)
 							attacked = 0
 
-				spawn()
-					SStun = 1
-					sleep(rand(55,65))
-					if(src)
-						SStun = 0
+				SStun = 1
+				spawn(rand(55,65))
+					SStun = 0
 
 				Victim = null
 				anchored = 0
@@ -356,7 +318,7 @@
 			return
 	else
 		if(stat == DEAD && surgeries.len)
-			if(M.a_intent == I_HELP)
+			if(M.a_intent == INTENT_HELP)
 				for(var/datum/surgery/S in surgeries)
 					if(S.next_step(M, src))
 						return 1
@@ -377,10 +339,10 @@
 
 	switch(M.a_intent)
 
-		if(I_HELP)
+		if(INTENT_HELP)
 			help_shake_act(M)
 
-		if(I_GRAB)
+		if(INTENT_GRAB)
 			grabbedby(M)
 
 		else
@@ -427,10 +389,10 @@
 		return
 
 	switch(M.a_intent)
-		if(I_HELP)
+		if(INTENT_HELP)
 			visible_message("<span class='notice'>[M] caresses [src] with its scythe like arm.</span>")
 
-		if(I_HARM)
+		if(INTENT_HARM)
 			M.do_attack_animation(src)
 			if(prob(95))
 				attacked += 10
@@ -450,10 +412,10 @@
 				visible_message("<span class='danger'>[M] has attempted to lunge at [name]!</span>", \
 						"<span class='userdanger'>[M] has attempted to lunge at [name]!</span>")
 
-		if(I_GRAB)
+		if(INTENT_GRAB)
 			grabbedby(M)
 
-		if(I_DISARM)
+		if(INTENT_DISARM)
 			M.do_attack_animation(src)
 			playsound(loc, 'sound/weapons/pierce.ogg', 25, 1, -1)
 			var/damage = 5
@@ -473,9 +435,8 @@
 							if(Discipline == 1)
 								attacked = 0
 
-				spawn()
-					SStun = 1
-					sleep(rand(5,20))
+				SStun = 1
+				spawn(rand(5,20))
 					SStun = 0
 
 				spawn(0)
@@ -494,7 +455,7 @@
 
 /mob/living/carbon/slime/attackby(obj/item/W, mob/user, params)
 	if(stat == DEAD && surgeries.len)
-		if(user.a_intent == I_HELP)
+		if(user.a_intent == INTENT_HELP)
 			for(var/datum/surgery/S in surgeries)
 				if(S.next_step(user, src))
 					return 1
@@ -525,9 +486,8 @@
 					Target = null
 					anchored = 0
 
-					spawn()
-						SStun = 1
-						sleep(rand(5,20))
+					SStun = 1
+					spawn(rand(5,20))
 						SStun = 0
 
 					spawn(0)
@@ -547,9 +507,8 @@
 						Discipline++
 					if(Discipline == 1)
 						attacked = 0
-					spawn()
-						SStun = 1
-						sleep(rand(5,20))
+					SStun = 1
+					spawn(rand(5,20))
 						SStun = 0
 
 					Victim = null

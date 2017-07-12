@@ -14,7 +14,7 @@
 	slot_flags = SLOT_BACK
 	req_one_access = list()
 	req_access = list()
-	w_class = 4
+	w_class = WEIGHT_CLASS_BULKY
 
 	// These values are passed on to all component pieces.
 	armor = list(melee = 10, bullet = 5, laser = 10, energy = 5, bomb = 10, bio = 100, rad = 75)
@@ -978,17 +978,8 @@
 					else
 						M.stop_pulling()
 
-	if(wearer.pinned.len)
-		to_chat(src, "<span class='notice'>Your host is pinned to a wall by [wearer.pinned[1]]</span>!")
-		return 0
-
 	// AIs are a bit slower than regular and ignore move intent.
 	wearer_move_delay = world.time + ai_controlled_move_delay
-
-	var/tickcomp = 0
-	if(config.Tickcomp)
-		tickcomp = ((1/(world.tick_lag))*1.3) - 1.3
-		wearer_move_delay += tickcomp
 
 	if(wearer.buckled)							//if we're buckled to something, tell it we moved.
 		return wearer.buckled.relaymove(wearer, direction)

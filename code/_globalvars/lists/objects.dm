@@ -12,6 +12,8 @@ var/global/list/airlocks = list()					//list of all airlocks
 var/global/list/singularities = list()				//list of all singularities
 var/global/list/janitorial_equipment = list()		//list of janitorial equipment
 var/global/list/crafting_recipes = list() //list of all crafting recipes
+var/global/list/prisoncomputer_list = list()
+var/global/list/cell_logs = list()
 
 var/global/list/all_areas = list()
 var/global/list/machines = list()
@@ -40,4 +42,6 @@ var/global/list/global_radios = list()				//list of all radios, across all z-lev
 
 var/global/list/meteor_list = list()				//list of all meteors
 var/global/list/poi_list = list()					//list of points of interest for observe/follow
+var/global/list/active_jammers = list()             // List of active radio jammers
 
+var/global/list/active_diseases = list() 			//List of Active disease in all mobs; purely for quick referencing.

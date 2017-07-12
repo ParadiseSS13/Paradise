@@ -7,7 +7,7 @@
 	icon_state ="scroll2"
 	throw_speed = 1
 	throw_range = 5
-	w_class = 1
+	w_class = WEIGHT_CLASS_TINY
 	var/used = 0
 
 
@@ -119,7 +119,7 @@
 	item_state = "render"
 	force = 15
 	throwforce = 10
-	w_class = 3
+	w_class = WEIGHT_CLASS_NORMAL
 	hitsound = 'sound/weapons/bladeslice.ogg'
 	var/charged = 1
 	var/spawn_type = /obj/singularity/narsie/wizard
@@ -231,8 +231,7 @@ var/global/list/multiverse = list()
 	force = 20
 	throwforce = 10
 	sharp = 1
-	edge = 1
-	w_class = 2
+	w_class = WEIGHT_CLASS_SMALL
 	attack_verb = list("attacked", "slashed", "stabbed", "sliced", "torn", "ripped", "diced", "cut")
 	var/faction = list("unassigned")
 	var/cooldown = 0
@@ -465,7 +464,7 @@ var/global/list/multiverse = list()
 			if("cyborg")
 				if(M.get_species() != "Machine")
 					for(var/obj/item/organ/O in M.bodyparts)
-						O.robotize()
+						O.robotize(make_tough = 1)
 				M.equip_to_slot_or_del(new /obj/item/clothing/glasses/thermal/eyepatch(M), slot_glasses)
 				M.equip_to_slot_or_del(sword, slot_r_hand)
 
@@ -526,7 +525,7 @@ var/global/list/multiverse = list()
 				M.equip_to_slot_or_del(sword, slot_r_hand)
 				for(var/obj/item/carried_item in M.contents)
 					if(!istype(carried_item, /obj/item/weapon/implant))
-						carried_item.add_blood(M)
+						carried_item.add_mob_blood(M)
 
 			if("pirate")
 				M.equip_to_slot_or_del(new /obj/item/clothing/under/pirate(M), slot_w_uniform)
@@ -616,7 +615,7 @@ var/global/list/multiverse = list()
 	icon_state = "necrostone"
 	item_state = "electronic"
 	origin_tech = "bluespace=4;materials=4"
-	w_class = 1
+	w_class = WEIGHT_CLASS_TINY
 	var/list/spooky_scaries = list()
 	var/unlimited = 0
 	var/heresy = 0
@@ -753,7 +752,7 @@ var/global/list/multiverse = list()
 	icon_state = "nyacrostone"
 	item_state = "electronic"
 	origin_tech = "bluespace=4;materials=4"
-	w_class = 1
+	w_class = WEIGHT_CLASS_TINY
 	heresy = 1
 	unlimited = 1
 
@@ -780,7 +779,7 @@ var/global/list/multiverse = list()
 			to_chat(target, "<span class='userdanger'>You suddenly feel very hot</span>")
 			target.bodytemperature += 50
 			GiveHint(target)
-		else if(can_puncture(I))
+		else if(is_pointed(I))
 			to_chat(target, "<span class='userdanger'>You feel a stabbing pain in [parse_zone(user.zone_sel.selecting)]!</span>")
 			target.Weaken(2)
 			GiveHint(target)
@@ -793,7 +792,7 @@ var/global/list/multiverse = list()
 		return
 
 	if(!link)
-		if(I.loc == user && istype(I) && I.w_class <= 2)
+		if(I.loc == user && istype(I) && I.w_class <= WEIGHT_CLASS_SMALL)
 			user.drop_item()
 			I.loc = src
 			link = I

@@ -12,7 +12,7 @@
 /datum/surgery/cybernetic_repair/internal
 	name = "Internal Component Manipulation"
 	steps = list(/datum/surgery_step/robotics/external/unscrew_hatch,/datum/surgery_step/robotics/external/open_hatch,/datum/surgery_step/robotics/manipulate_robotic_organs)
-	possible_locs = list("eyes", "chest","head","groin")
+	possible_locs = list("eyes", "chest","head","groin","l_arm","r_arm")
 	requires_organic_bodypart = 0
 
 /datum/surgery/cybernetic_amputation
@@ -538,7 +538,7 @@
 
 	add_logs(user, target, "surgically removed [affected.name] from", addition="INTENT: [uppertext(user.a_intent)]")//log it
 
-	var/atom/movable/thing = affected.droplimb(1,DROPLIMB_EDGE)
+	var/atom/movable/thing = affected.droplimb(1,DROPLIMB_SHARP)
 	if(istype(thing,/obj/item))
 		user.put_in_hands(thing)
 

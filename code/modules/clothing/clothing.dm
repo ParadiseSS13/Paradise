@@ -85,7 +85,7 @@
 //Ears: currently only used for headsets and earmuffs
 /obj/item/clothing/ears
 	name = "ears"
-	w_class = 1
+	w_class = WEIGHT_CLASS_TINY
 	throwforce = 2
 	slot_flags = SLOT_EARS
 	burn_state = FIRE_PROOF
@@ -128,7 +128,7 @@
 
 /obj/item/clothing/ears/offear
 	name = "Other ear"
-	w_class = 5
+	w_class = WEIGHT_CLASS_HUGE
 	icon = 'icons/mob/screen_gen.dmi'
 	icon_state = "block"
 	slot_flags = SLOT_EARS | SLOT_TWOEARS
@@ -145,7 +145,7 @@
 /obj/item/clothing/glasses
 	name = "glasses"
 	icon = 'icons/obj/clothing/glasses.dmi'
-	w_class = 2
+	w_class = WEIGHT_CLASS_SMALL
 	flags_cover = GLASSESCOVERSEYES
 	slot_flags = SLOT_EYES
 	materials = list(MAT_GLASS = 250)
@@ -177,7 +177,7 @@ BLIND     // can't see anything
 /obj/item/clothing/gloves
 	name = "gloves"
 	gender = PLURAL //Carn: for grammarically correct text-parsing
-	w_class = 2
+	w_class = WEIGHT_CLASS_SMALL
 	icon = 'icons/obj/clothing/gloves.dmi'
 	siemens_coefficient = 0.50
 	body_parts_covered = HANDS
@@ -332,7 +332,7 @@ BLIND     // can't see anything
 		mask_adjusted = 1
 		if(adjusted_flags)
 			slot_flags = adjusted_flags
-		if(ishuman(user) && H.internal && user.wear_mask == src) /*If the user was wearing the mask providing internals on their face at the time it was adjusted, turn off internals.
+		if(ishuman(user) && H.internal && !H.get_organ_slot("breathing_tube") && user.wear_mask == src) /*If the user was wearing the mask providing internals on their face at the time it was adjusted, turn off internals.
 																	Otherwise, they adjusted it while it was in their hands or some such so we won't be needing to turn off internals.*/
 			H.update_internals_hud_icon(0)
 			H.internal = null
@@ -372,6 +372,8 @@ BLIND     // can't see anything
 	var/silence_steps = 0
 	var/shoe_sound_footstep = 1
 	var/shoe_sound = null
+	var/blood_state = BLOOD_STATE_NOT_BLOODY
+	var/list/bloody_shoes = list(BLOOD_STATE_HUMAN = 0, BLOOD_STATE_XENO = 0, BLOOD_STATE_NOT_BLOODY = 0)
 
 	permeability_coefficient = 0.50
 	slowdown = SHOES_SLOWDOWN
@@ -421,7 +423,7 @@ BLIND     // can't see anything
 		if(!istype(H) || !istype(T))
 			return 0
 
-		if(H.m_intent == "run")
+		if(H.m_intent == MOVE_INTENT_RUN)
 			if(shoe_sound_footstep >= 2)
 				if(T.shoe_running_volume)
 					playsound(src, shoe_sound, T.shoe_running_volume, 1)
@@ -543,7 +545,7 @@ BLIND     // can't see anything
 	desc = "A suit that protects against low pressure environments. Has a big 13 on the back."
 	icon_state = "space"
 	item_state = "s_suit"
-	w_class = 4//bulky item
+	w_class = WEIGHT_CLASS_BULKY
 	gas_transfer_coefficient = 0.01
 	permeability_coefficient = 0.02
 	flags = STOPSPRESSUREDMAGE | THICKMATERIAL

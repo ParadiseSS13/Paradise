@@ -310,6 +310,7 @@
 				temp = "<span class=\"bad\">Error: No cloning pod detected.</span>"
 			else
 				var/obj/machinery/clonepod/pod = selected_pod
+				var/cloneresult
 				if(!selected_pod)
 					temp = "<span class=\"bad\">Error: No cloning pod selected.</span>"
 				else if(pod.occupant)
@@ -320,13 +321,16 @@
 					temp = "<span class=\"bad\">Error: The cloning pod is malfunctioning.</span>"
 				else if(!config.revival_cloning)
 					temp = "<span class=\"bad\">Error: Unable to initiate cloning cycle.</span>"
-				else if(pod.growclone(C))
-					temp = "Initiating cloning cycle..."
-					records.Remove(C)
-					qdel(C)
-					menu = 1
 				else
-					temp = "[C.name] => <font class='bad'>Initialisation failure.</font>"
+					cloneresult = pod.growclone(C)
+					if(cloneresult)
+						if(cloneresult > 0)
+							temp = "Initiating cloning cycle..."
+						records.Remove(C)
+						qdel(C)
+						menu = 1
+					else
+						temp = "[C.name] => <font class='bad'>Initialisation failure.</font>"
 
 		else
 			temp = "<span class=\"bad\">Error: Data corruption.</span>"

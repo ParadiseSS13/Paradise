@@ -9,9 +9,9 @@
 	throwforce = 10.0
 	throw_speed = 2
 	throw_range = 7
-	w_class = 4
+	w_class = WEIGHT_CLASS_BULKY
 	materials = list(MAT_METAL = 500)
-	origin_tech = "combat=1"
+	origin_tech = "combat=1;engineering=1"
 	attack_verb = list("robusted")
 	hitsound = 'sound/weapons/smash.ogg'
 
@@ -71,7 +71,7 @@
 	name = "suspicious looking toolbox"
 	icon_state = "syndicate"
 	item_state = "toolbox_syndi"
-	origin_tech = "combat=1;syndicate=1"
+	origin_tech = "combat=2;syndicate=1;engineering=2"
 	silent = 1
 	force = 15.0
 	throwforce = 18.0
@@ -85,7 +85,7 @@
 	new /obj/item/weapon/wirecutters(src, "red")
 	new /obj/item/device/multitool(src)
 	new /obj/item/clothing/gloves/combat(src)
-	
+
 /obj/item/weapon/storage/toolbox/drone
 	name = "mechanical toolbox"
 	icon_state = "blue"

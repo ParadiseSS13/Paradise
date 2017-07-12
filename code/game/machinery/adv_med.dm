@@ -345,7 +345,14 @@
 		occupantData["health"] = H.health
 		occupantData["maxHealth"] = H.maxHealth
 
-		occupantData["hasVirus"] = H.viruses.len
+		var/found_disease = FALSE
+		for(var/thing in H.viruses)
+			var/datum/disease/D = thing
+			if(D.visibility_flags & HIDDEN_SCANNER || D.visibility_flags & HIDDEN_PANDEMIC)
+				continue
+			found_disease = TRUE
+			break
+		occupantData["hasVirus"] = found_disease
 
 		occupantData["bruteLoss"] = H.getBruteLoss()
 		occupantData["oxyLoss"] = H.getOxyLoss()
@@ -364,14 +371,12 @@
 
 		var/bloodData[0]
 		bloodData["hasBlood"] = 0
-		if(ishuman(H) && H.vessel && !(H.species && H.species.flags & NO_BLOOD))
-			var/blood_type = H.get_blood_name()
-			var/blood_volume = round(H.vessel.get_reagent_amount(blood_type))
+		if(ishuman(H) && !(H.species && H.species.flags & NO_BLOOD))
 			bloodData["hasBlood"] = 1
-			bloodData["volume"] = blood_volume
-			bloodData["percent"] = round(((blood_volume / BLOOD_VOLUME_NORMAL)*100))
+			bloodData["volume"] = H.blood_volume
+			bloodData["percent"] = round(((H.blood_volume / BLOOD_VOLUME_NORMAL)*100))
 			bloodData["pulse"] = H.get_pulse(GETPULSE_TOOL)
-			bloodData["bloodLevel"] = blood_volume
+			bloodData["bloodLevel"] = H.blood_volume
 			bloodData["bloodMax"] = H.max_blood
 		occupantData["blood"] = bloodData
 
@@ -398,7 +403,7 @@
 			organData["broken"] = E.min_broken_damage
 
 			var/shrapnelData[0]
-			for(var/obj/I in E.implants)
+			for(var/obj/I in E.embedded_objects)
 				var/shrapnelSubData[0]
 				shrapnelSubData["name"] = I.name
 
@@ -499,8 +504,15 @@
 					t1 = "*dead*"
 			dat += "[occupant.health > 50 ? "<font color='blue'>" : "<font color='red'>"]\tHealth %: [occupant.health], ([t1])</font><br>"
 
-			if(occupant.viruses.len)
-				dat += "<font color='red'>Viral pathogen detected in blood stream.</font><BR>"
+			var/found_disease = FALSE
+			for(var/thing in occupant.viruses)
+				var/datum/disease/D = thing
+				if(D.visibility_flags & HIDDEN_SCANNER || D.visibility_flags & HIDDEN_PANDEMIC)
+					continue
+				found_disease = TRUE
+				break
+			if(found_disease)
+				dat += "<font color='red'>Disease detected in occupant.</font><BR>"
 
 			var/extra_font = null
 			extra_font = (occupant.getBruteLoss() < 60 ? "<font color='blue'>" : "<font color='red'>")
@@ -532,14 +544,11 @@
 			if(occupant.has_brain_worms())
 				dat += "Large growth detected in frontal lobe, possibly cancerous. Surgical removal is recommended.<br>"
 
-			if(occupant.vessel)
-				var/blood_type = occupant.get_blood_name()
-				var/blood_volume = round(occupant.vessel.get_reagent_amount(blood_type))
-				var/blood_percent =  blood_volume / BLOOD_VOLUME_NORMAL
-				blood_percent *= 100
+			var/blood_percent =  round((occupant.blood_volume / BLOOD_VOLUME_NORMAL))
+			blood_percent *= 100
 
-				extra_font = (blood_volume > 448 ? "<font color='blue'>" : "<font color='red'>")
-				dat += "[extra_font]\tBlood Level %: [blood_percent] ([blood_volume] units)</font><br>"
+			extra_font = (occupant.blood_volume > 448 ? "<font color='blue'>" : "<font color='red'>")
+			dat += "[extra_font]\tBlood Level %: [blood_percent] ([occupant.blood_volume] units)</font><br>"
 
 			if(occupant.reagents)
 				dat += "Epinephrine units: [occupant.reagents.get_reagent_amount("Epinephrine")] units<BR>"
@@ -605,7 +614,7 @@
 						infected = "Septic:"
 
 				var/unknown_body = 0
-				for(var/I in e.implants)
+				for(var/I in e.embedded_objects)
 					unknown_body++
 
 				if(unknown_body || e.hidden)

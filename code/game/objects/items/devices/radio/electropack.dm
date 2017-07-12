@@ -6,7 +6,7 @@
 	frequency = 1449
 	flags = CONDUCT
 	slot_flags = SLOT_BACK
-	w_class = 5
+	w_class = WEIGHT_CLASS_HUGE
 	materials = list(MAT_METAL=10000, MAT_GLASS=2500)
 	var/code = 2
 

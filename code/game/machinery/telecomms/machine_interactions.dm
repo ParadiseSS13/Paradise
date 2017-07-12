@@ -68,8 +68,6 @@
 					// Drop all the component stuff
 					if(component_parts)
 						for(var/obj/I in component_parts)
-							if(I.reliability != 100 && crit_fail)
-								I.crit_fail = 1
 							I.loc = src.loc
 					else
 						// If the machine wasn't made during runtime, probably doesn't have components:

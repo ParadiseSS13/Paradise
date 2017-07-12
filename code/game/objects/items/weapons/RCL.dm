@@ -10,7 +10,7 @@
 	throw_speed = 1
 	throw_range = 7
 	w_class = WEIGHT_CLASS_NORMAL
-	origin_tech = "engineering=4;materials=4"
+	origin_tech = "engineering=4;materials=2"
 	var/max_amount = 90
 	var/active = 0
 	var/obj/structure/cable/last = null
@@ -115,7 +115,7 @@
 				last = C
 				break
 
-/obj/item/weapon/twohanded/rcl/moved(mob/user, turf/old_loc, direct)
+/obj/item/weapon/twohanded/rcl/on_mob_move(direct, mob/user)
 	if(active)
 		trigger(user)
 

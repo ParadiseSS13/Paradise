@@ -191,7 +191,6 @@ datum/genesequence
 				visible_message("<span class='notice'>[bicon(src)] [src] clones something from a reconstituted gene sequence!</span>")
 				playsound(src.loc, 'sound/effects/screech.ogg', 50, 1, -3)
 				pod1.occupant = new cloned_genesequence.spawned_type(pod1)
-				pod1.locked = 1
 				pod1.icon_state = "pod_1"
 				//pod1.occupant.name = "[pod1.occupant.name] ([rand(0,999)])"
 				pod1.biomass -= CLONE_BIOMASS

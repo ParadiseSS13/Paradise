@@ -29,6 +29,7 @@
 	name = "\improper Health Scanner HUD"
 	desc = "A heads-up display that scans the humans in view and provides accurate data about their health status."
 	icon_state = "healthhud"
+	origin_tech = "magnets=3;biotech=2"
 	HUDType = DATA_HUD_MEDICAL_ADVANCED
 	species_fit = list("Vox")
 	sprite_sheets = list(
@@ -48,6 +49,7 @@
 	desc = "An advanced medical head-up display that allows doctors to find patients in complete darkness."
 	icon_state = "healthhudnight"
 	item_state = "glasses"
+	origin_tech = "magnets=4;biotech=4;plasmatech=4;engineering=5"
 	darkness_view = 8
 	invis_view = SEE_INVISIBLE_MINIMUM //don't render darkness while wearing these
 	prescription_upgradable = 0
@@ -56,10 +58,12 @@
 	name = "Diagnostic HUD"
 	desc = "A heads-up display capable of analyzing the integrity and status of robotics and exosuits."
 	icon_state = "diagnostichud"
+	origin_tech = "magnets=2;engineering=2"
 	HUDType = DATA_HUD_DIAGNOSTIC
 	species_fit = list("Vox")
 	sprite_sheets = list(
-		"Vox" = 'icons/mob/species/vox/eyes.dmi'
+		"Vox" = 'icons/mob/species/vox/eyes.dmi',
+		"Grey" = 'icons/mob/species/grey/eyes.dmi'
 		)
 
 /obj/item/clothing/glasses/hud/diagnostic/night
@@ -67,6 +71,7 @@
 	desc = "A robotics diagnostic HUD fitted with a light amplifier."
 	icon_state = "diagnostichudnight"
 	item_state = "glasses"
+	origin_tech = "magnets=4;powerstorage=4;plasmatech=4;engineering=5"
 	darkness_view = 8
 	invis_view = SEE_INVISIBLE_MINIMUM //don't render darkness while wearing these
 	prescription_upgradable = 0
@@ -75,12 +80,14 @@
 	name = "\improper Security HUD"
 	desc = "A heads-up display that scans the humans in view and provides accurate data about their ID status and security records."
 	icon_state = "securityhud"
+	origin_tech = "magnets=3;combat=2"
 	var/global/list/jobs[0]
 	HUDType = DATA_HUD_SECURITY_ADVANCED
 	species_fit = list("Vox")
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/species/vox/eyes.dmi',
-		"Drask" = 'icons/mob/species/drask/eyes.dmi'
+		"Drask" = 'icons/mob/species/drask/eyes.dmi',
+		"Grey" = 'icons/mob/species/grey/eyes.dmi'
 		)
 
 /obj/item/clothing/glasses/hud/security/chameleon
@@ -102,6 +109,7 @@
 	name = "\improper Night Vision Security HUD"
 	desc = "An advanced heads-up display which provides id data and vision in complete darkness."
 	icon_state = "securityhudnight"
+	origin_tech = "magnets=4;combat=4;plasmatech=4;engineering=5"
 	darkness_view = 8
 	invis_view = SEE_INVISIBLE_MINIMUM //don't render darkness while wearing these
 	prescription_upgradable = 0
@@ -110,6 +118,7 @@
 	name = "HUDSunglasses"
 	desc = "Sunglasses with a HUD."
 	icon_state = "sunhud"
+	origin_tech = "magnets=3;combat=3;engineering=3"
 	darkness_view = 1
 	flash_protect = 1
 	tint = 1
@@ -131,7 +140,8 @@
 	HUDType = DATA_HUD_HYDROPONIC
 	species_fit = list("Vox")
 	sprite_sheets = list(
-		"Vox" = 'icons/mob/species/vox/eyes.dmi'
+		"Vox" = 'icons/mob/species/vox/eyes.dmi',
+		"Grey" = 'icons/mob/species/grey/eyes.dmi'
 		)
 
 /obj/item/clothing/glasses/hud/hydroponic/night

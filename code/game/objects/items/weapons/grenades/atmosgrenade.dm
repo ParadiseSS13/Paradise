@@ -4,7 +4,7 @@
 /obj/item/weapon/grenade/gas
 	name = "Plasma Fire Grenade"
 	desc = "A compressed plasma grenade, used to start horrific plasma fires."
-	origin_tech = "materials=3;magnets=4;syndicate=4"
+	origin_tech = "materials=3;magnets=4;syndicate=3"
 	icon = 'icons/obj/grenade.dmi'
 	icon_state = "syndicate"
 	item_state = "flashbang"

@@ -10,6 +10,7 @@
 	//Bitflags for the job
 	var/flag = 0
 	var/department_flag = 0
+	var/department_head = list()
 
 	//Players will be allowed to spawn in as jobs that are set to "Station"
 	var/list/faction = list("Station")
@@ -205,15 +206,15 @@
 			var/atom/placed_in = H.equip_or_collect(G.spawn_item(null, H.client.prefs.gear[G.display_name]))
 			if(istype(placed_in))
 				if(isturf(placed_in))
-					to_chat(H, "<span class='notice'>Placing \the [G] on [placed_in]!</span>")
+					to_chat(H, "<span class='notice'>Placing [G.display_name] on [placed_in]!</span>")
 				else
-					to_chat(H, "<span class='noticed'>Placing \the [G] in [placed_in.name]]")
+					to_chat(H, "<span class='noticed'>Placing [G.display_name] in [placed_in.name]")
 				continue
 			if(H.equip_to_appropriate_slot(G))
-				to_chat(H, "<span class='notice'>Placing \the [G] in your inventory!</span>")
+				to_chat(H, "<span class='notice'>Placing [G.display_name] in your inventory!</span>")
 				continue
 			if(H.put_in_hands(G))
-				to_chat(H, "<span class='notice'>Placing \the [G] in your hands!</span>")
+				to_chat(H, "<span class='notice'>Placing [G.display_name] in your hands!</span>")
 				continue
 			to_chat(H, "<span class='danger'>Failed to locate a storage object on your mob, either you spawned with no hands free and no backpack or this is a bug.</span>")
 			qdel(G)

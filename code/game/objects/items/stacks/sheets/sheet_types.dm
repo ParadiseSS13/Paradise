@@ -123,6 +123,7 @@ var/global/list/datum/stack_recipe/metal_recipes = list(
  */
 var/global/list/datum/stack_recipe/plasteel_recipes = list(
 	new /datum/stack_recipe("AI core", /obj/structure/AIcore, 4, time = 50, one_per_turf = 1),
+	new /datum/stack_recipe("bomb assembly", /obj/machinery/syndicatebomb/empty, 10, time = 50),
 	new /datum/stack_recipe("Surgery Table", /obj/machinery/optable, 5, time = 50, one_per_turf = 1, on_floor = 1),
 	new /datum/stack_recipe("Metal crate", /obj/structure/closet/crate, 10, time = 50, one_per_turf = 1),
 	new /datum/stack_recipe("Mass Driver frame", /obj/machinery/mass_driver_frame, 3, time = 50, one_per_turf = 1)
@@ -237,6 +238,7 @@ var/global/list/datum/stack_recipe/cardboard_recipes = list (
 	new /datum/stack_recipe("folder", /obj/item/weapon/folder),
 	new /datum/stack_recipe("cardboard tube", /obj/item/weapon/c_tube),
 	new /datum/stack_recipe("cardboard box", /obj/structure/closet/cardboard, 4),
+	new/datum/stack_recipe("cardboard cutout", /obj/item/cardboard_cutout, 5),
 )
 
 /obj/item/stack/sheet/cardboard	//BubbleWrap
@@ -298,7 +300,7 @@ var/global/list/datum/stack_recipe/runed_metal_recipes = list ( \
 	desc = "Someone's been drinking their milk."
 	force = 7
 	throwforce = 5
-	w_class = 3
+	w_class = WEIGHT_CLASS_NORMAL
 	throw_speed = 1
 	throw_range = 3
 	origin_tech = "materials=2;biotech=2"

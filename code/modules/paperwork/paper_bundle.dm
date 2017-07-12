@@ -5,7 +5,7 @@
 	icon_state = "paper"
 	item_state = "paper"
 	throwforce = 0
-	w_class = 1
+	w_class = WEIGHT_CLASS_TINY
 	throw_range = 2
 	throw_speed = 1
 	layer = 4
@@ -87,7 +87,7 @@
 				user.visible_message("[class][user] burns right through \the [src], turning it to ash. It flutters through the air before settling on the floor in a heap.", \
 				"[class]You burn right through \the [src], turning it to ash. It flutters through the air before settling on the floor in a heap.")
 
-				if(user.get_inactive_hand() == src)
+				if(user.is_in_inactive_hand(src))
 					user.unEquip(src)
 
 				new /obj/effect/decal/cleanable/ash(get_turf(src))

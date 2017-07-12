@@ -19,7 +19,7 @@
 	icon = 'icons/obj/device.dmi'
 	icon_state = "sampler0"
 	item_state = "screwdriver_brown"
-	w_class = 1
+	w_class = WEIGHT_CLASS_TINY
 	//slot_flags = SLOT_BELT
 	var/sampled_turf = ""
 	var/num_stored_bags = 10
@@ -73,7 +73,7 @@
 			filled_bag.icon_state = "evidence"
 			var/image/I = image("icon"=R, "layer"=FLOAT_LAYER)
 			filled_bag.underlays += I
-			filled_bag.w_class = 1
+			filled_bag.w_class = WEIGHT_CLASS_TINY
 
 			to_chat(user, "<span class='notice'>You take a core sample of the [item_to_sample].</span>")
 	else

@@ -1,23 +1,18 @@
 
 /mob
 	var/bloody_hands = 0
-	var/mob/living/carbon/human/bloody_hands_mob
-	var/track_blood = 0
 	var/list/feet_blood_DNA
-	var/track_blood_type
 	var/feet_blood_color
+	var/blood_state = BLOOD_STATE_NOT_BLOODY
+	var/list/bloody_feet = list(BLOOD_STATE_HUMAN = 0, BLOOD_STATE_XENO = 0, BLOOD_STATE_NOT_BLOODY = 0)
 
 /obj/item/clothing/gloves
 	var/transfer_blood = 0
-	var/mob/living/carbon/human/bloody_hands_mob
-
-/obj/item/clothing/shoes/
-	var/track_blood = 0
 
 /obj/item/weapon/reagent_containers/glass/rag
 	name = "damp rag"
 	desc = "For cleaning up messes, you suppose."
-	w_class = 1
+	w_class = WEIGHT_CLASS_TINY
 	icon = 'icons/obj/toy.dmi'
 	icon_state = "rag"
 	amount_per_transfer_from_this = 5

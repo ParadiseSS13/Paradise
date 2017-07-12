@@ -68,6 +68,7 @@ var/list/obj/machinery/newscaster/allCasters = list() //Global list that will co
 #define NEWSCASTER_D_NOTICE_FC	9	// D-Notice feed channel
 #define NEWSCASTER_W_ISSUE_H	10	// Wanted Issue handler
 #define NEWSCASTER_W_ISSUE		11	// STATIONWIDE WANTED ISSUE
+#define NEWSCASTER_JOBS			12	// Available jobs
 
 /obj/machinery/newscaster
 	name = "newscaster"
@@ -94,6 +95,21 @@ var/list/obj/machinery/newscaster/allCasters = list() //Global list that will co
 	var/silence = 0
 	var/temp = null
 	var/temp_back_screen = NEWSCASTER_MAIN
+	var/list/jobblacklist = list(
+		/datum/job/ai,
+		/datum/job/cyborg,
+		/datum/job/captain,
+		/datum/job/judge,
+		/datum/job/blueshield,
+		/datum/job/nanotrasenrep,
+		/datum/job/pilot,
+		/datum/job/brigdoc,
+		/datum/job/mechanic,
+		/datum/job/barber,
+		/datum/job/chaplain,
+		/datum/job/ntnavyofficer,
+		/datum/job/ntspecops,
+		/datum/job/civilian)
 
 	var/static/REDACTED = "<b class='bad'>\[REDACTED\]</b>"
 	light_range = 0
@@ -252,6 +268,14 @@ var/list/obj/machinery/newscaster/allCasters = list() //Global list that will co
 			data["criminal"] = news_network.wanted_issue.author
 			data["description"] = news_network.wanted_issue.body
 			data["photo"] = news_network.wanted_issue.img ? icon2base64(news_network.wanted_issue.img) : 0
+		if(12)
+			var/list/jobs = list()
+			data["jobs"] = jobs
+			for(var/datum/job/job in job_master.occupations)
+				if(job_blacklisted(job))
+					continue
+				if(job.is_position_available())
+					jobs[++jobs.len] = list("title" = job.title)
 	return data
 
 /obj/machinery/newscaster/Topic(href, href_list)
@@ -535,6 +559,9 @@ var/list/obj/machinery/newscaster/allCasters = list() //Global list that will co
 		if(can_scan(usr))
 			scan_user(usr) //Newscaster scans you
 
+	else if(href_list["jobs"])
+		screen = NEWSCASTER_JOBS
+
 	nanomanager.update_uis(src)
 	return 1
 
@@ -607,7 +634,7 @@ var/list/obj/machinery/newscaster/allCasters = list() //Global list that will co
 	desc = "An issue of The Griffon, the newspaper circulating aboard Nanotrasen Space Stations."
 	icon = 'icons/obj/bureaucracy.dmi'
 	icon_state = "newspaper"
-	w_class = 2	//Let's make it fit in trashbags!
+	w_class = WEIGHT_CLASS_SMALL	//Let's make it fit in trashbags!
 	attack_verb = list("bapped")
 	var/screen = 0
 	var/pages = 0
@@ -747,6 +774,9 @@ var/list/obj/machinery/newscaster/allCasters = list() //Global list that will co
 
 
 ////////////////////////////////////helper procs
+
+/obj/machinery/newscaster/proc/job_blacklisted(datum/job/job)
+	return (job.type in jobblacklist)
 
 /obj/machinery/newscaster/proc/scan_user(mob/user)
 	if(ishuman(user))                      							 //User is a human

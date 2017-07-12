@@ -5,7 +5,7 @@
 	..()
 	pockets = new/obj/item/weapon/storage/internal(src)
 	pockets.storage_slots = 2	//two slots
-	pockets.max_w_class = 2		//fit only pocket sized items
+	pockets.max_w_class = WEIGHT_CLASS_SMALL		//fit only pocket sized items
 	pockets.max_combined_w_class = 4
 
 /obj/item/clothing/suit/storage/Destroy()

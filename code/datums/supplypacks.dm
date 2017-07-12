@@ -250,6 +250,17 @@ var/list/all_supply_groups = list(supply_emergency,supply_security,supply_engine
 	cost = 10
 	containername = "disabler crate"
 
+/datum/supply_packs/security/forensics
+	name = "Forensics Crate"
+	contains = list(/obj/item/device/detective_scanner,
+					/obj/item/weapon/storage/box/evidence,
+					/obj/item/device/camera,
+					/obj/item/device/taperecorder,
+					/obj/item/toy/crayon/white,
+					/obj/item/clothing/head/det_hat)
+	cost = 20
+	containername = "forensics crate"
+
 ///// Armory stuff
 
 /datum/supply_packs/security/armory
@@ -895,6 +906,13 @@ var/list/all_supply_groups = list(supply_emergency,supply_security,supply_engine
 	containername = "tank transfer valves crate"
 	access = access_rd
 
+/datum/supply_packs/science/prototype
+	name = "Machine Prototype Crate"
+	contains = list(/obj/item/device/machineprototype)
+	cost = 80
+	containertype = /obj/structure/closet/crate/secure/scisec
+	containername = "machine prototype crate"
+	access = access_research
 
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////// Organic /////////////////////////////////////////
@@ -914,6 +932,7 @@ var/list/all_supply_groups = list(supply_emergency,supply_security,supply_engine
 					/obj/item/weapon/reagent_containers/food/condiment/soymilk,
 					/obj/item/weapon/reagent_containers/food/condiment/saltshaker,
 					/obj/item/weapon/reagent_containers/food/condiment/peppermill,
+					/obj/item/weapon/kitchen/rollingpin,
 					/obj/item/weapon/storage/fancy/egg_box,
 					/obj/item/weapon/reagent_containers/food/condiment/enzyme,
 					/obj/item/weapon/reagent_containers/food/condiment/sugar,
@@ -1320,7 +1339,7 @@ var/list/all_supply_groups = list(supply_emergency,supply_security,supply_engine
 	/obj/item/weapon/reagent_containers/glass/paint/black,
 	/obj/item/weapon/reagent_containers/glass/paint/white,
 	/obj/item/weapon/reagent_containers/glass/paint/remover,
-	/obj/item/weapon/contraband/poster/legit,
+	/obj/item/weapon/poster/random_official,
 	/obj/item/stack/wrapping_paper,
 	/obj/item/stack/wrapping_paper,
 	/obj/item/stack/wrapping_paper)
@@ -1329,11 +1348,11 @@ var/list/all_supply_groups = list(supply_emergency,supply_security,supply_engine
 
 /datum/supply_packs/misc/posters
 	name = "Corporate Posters Crate"
-	contains = list(/obj/item/weapon/contraband/poster/legit,
-					/obj/item/weapon/contraband/poster/legit,
-					/obj/item/weapon/contraband/poster/legit,
-					/obj/item/weapon/contraband/poster/legit,
-					/obj/item/weapon/contraband/poster/legit)
+	contains = list(/obj/item/weapon/poster/random_official,
+					/obj/item/weapon/poster/random_official,
+					/obj/item/weapon/poster/random_official,
+					/obj/item/weapon/poster/random_official,
+					/obj/item/weapon/poster/random_official)
 	cost = 8
 	containername = "corporate posters crate"
 
@@ -1495,7 +1514,7 @@ var/list/all_supply_groups = list(supply_emergency,supply_security,supply_engine
 /datum/supply_packs/misc/randomised/contraband
 	num_contained = 5
 	contains = list(/obj/item/weapon/storage/pill_bottle/random_drug_bottle,
-					/obj/item/weapon/contraband/poster,
+					/obj/item/weapon/poster/random_contraband,
 					/obj/item/weapon/storage/fancy/cigarettes/dromedaryco,
 					/obj/item/weapon/storage/fancy/cigarettes/cigpack_shadyjims)
 	name = "Contraband Crate"

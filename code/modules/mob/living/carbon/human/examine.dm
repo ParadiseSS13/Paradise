@@ -382,6 +382,9 @@
 			else
 				wound_flavor_text["[temp.limb_name]"] = ""
 
+			for(var/obj/item/I in temp.embedded_objects)
+				msg += "<B>[t_He] [t_has] \a [bicon(I)] [I] embedded in [t_his] [temp.name]!</B>\n"
+
 	//Handles the text strings being added to the actual description.
 	//If they have something that covers the limb, and it is not missing, put flavortext.  If it is covered but bleeding, add other flavortext.
 	var/display_chest = 0
@@ -438,9 +441,11 @@
 	if(display_gloves)
 		msg += "<span class='warning'><b>[src] has blood running from under [t_his] gloves!</b></span>\n"
 
+	if(blood_volume < BLOOD_VOLUME_SAFE)
+		msg += "[t_He] [t_has] pale skin.\n"
+	if(bleedsuppress)
+		msg += "[t_He] [t_is] bandaged with something.\n"
 
-	for(var/implant in get_visible_implants(0))
-		msg += "<span class='warning'><b>[src] has \a [implant] sticking out of [t_his] flesh!</b></span>\n"
 	if(digitalcamo)
 		msg += "[t_He] [t_is] repulsively uncanny!\n"
 	if(!(skipface || ( wear_mask && ( wear_mask.flags_inv & HIDEFACE || wear_mask.flags_cover & MASKCOVERSMOUTH) ) ) && is_thrall(src) && in_range(user,src))

@@ -17,18 +17,21 @@
 	dna_cost = -1
 	genetic_damage = 1000
 
+	var/silent = FALSE
 	var/weapon_type
 	var/weapon_name_simple
 
 /obj/effect/proc_holder/changeling/weapon/try_to_sting(var/mob/user, var/mob/target)
 	if(istype(user.l_hand, weapon_type)) //Not the nicest way to do it, but eh
 		qdel(user.l_hand)
-		user.visible_message("<span class='warning'>With a sickening crunch, [user] reforms his [weapon_name_simple] into an arm!</span>", "<span class='notice'>We assimilate the [weapon_name_simple] back into our body.</span>", "<span class='warning>You hear organic matter ripping and tearing!</span>")
+		if(!silent)
+			user.visible_message("<span class='warning'>With a sickening crunch, [user] reforms his [weapon_name_simple] into an arm!</span>", "<span class='notice'>We assimilate the [weapon_name_simple] back into our body.</span>", "<span class='warning>You hear organic matter ripping and tearing!</span>")
 		user.update_inv_l_hand()
 		return
 	if(istype(user.r_hand, weapon_type))
 		qdel(user.r_hand)
-		user.visible_message("<span class='warning'>With a sickening crunch, [user] reforms his [weapon_name_simple] into an arm!</span>", "<span class='notice'>We assimilate the [weapon_name_simple] back into our body.</span>", "<span class='warning>You hear organic matter ripping and tearing!</span>")
+		if(!silent)
+			user.visible_message("<span class='warning'>With a sickening crunch, [user] reforms his [weapon_name_simple] into an arm!</span>", "<span class='notice'>We assimilate the [weapon_name_simple] back into our body.</span>", "<span class='warning>You hear organic matter ripping and tearing!</span>")
 		user.update_inv_r_hand()
 		return
 	..(user, target)
@@ -37,7 +40,7 @@
 	if(!user.drop_item())
 		to_chat(user, "The [user.get_active_hand()] is stuck to your hand, you cannot grow a [weapon_name_simple] over it!")
 		return
-	var/obj/item/W = new weapon_type(user)
+	var/obj/item/W = new weapon_type(user, silent)
 	user.put_in_hands(W)
 	return W
 
@@ -73,10 +76,8 @@
 		H.update_fhair()
 
 		if(blood_on_castoff)
-			var/turf/simulated/T = get_turf(H)
-			if(istype(T))
-				T.add_blood(H) //So real blood decals
-				playsound(H.loc, 'sound/effects/splat.ogg', 50, 1) //So real sounds
+			H.add_splatter_floor()
+			playsound(H.loc, 'sound/effects/splat.ogg', 50, 1) //So real sounds
 
 		changeling.geneticdamage += genetic_damage //Casting off a space suit leaves you weak for a few seconds.
 		changeling.chem_recharge_slowdown -= recharge_slowdown
@@ -125,9 +126,8 @@
 	icon_state = "arm_blade"
 	item_state = "arm_blade"
 	flags = ABSTRACT | NODROP
-	w_class = 5
+	w_class = WEIGHT_CLASS_HUGE
 	sharp = 1
-	edge = 1
 	force = 25
 	throwforce = 0 //Just to be on the safe side
 	throw_range = 0
@@ -173,6 +173,178 @@
 		//user.say("Heeeeeeeeeerrre's Johnny!")
 		user.visible_message("<span class='warning'>[user] forces the airlock to open with \his [src]!</span>", "<span class='warning'>We force the airlock to open.</span>", "<span class='warning'>You hear a metal screeching sound.</span>")
 		A.open(2)
+
+/***************************************\
+|***********COMBAT TENTACLES*************|
+\***************************************/
+
+/obj/effect/proc_holder/changeling/weapon/tentacle
+	name = "Tentacle"
+	desc = "We ready a tentacle to grab items or victims with."
+	helptext = "We can use it once to retrieve a distant item. If used on living creatures, the effect depends on the intent: \
+	Help will simply drag them closer, Disarm will grab whatever they are holding instead of them, Grab will put the victim in our hold after catching it, \
+	and Harm will stun it, and stab it if we are also holding a sharp weapon. Cannot be used while in lesser form."
+	chemical_cost = 10
+	dna_cost = 2
+	genetic_damage = 5
+	req_human = 1
+	max_genetic_damage = 10
+	weapon_type = /obj/item/weapon/gun/magic/tentacle
+	weapon_name_simple = "tentacle"
+	silent = TRUE
+
+/obj/item/weapon/gun/magic/tentacle
+	name = "tentacle"
+	desc = "A fleshy tentacle that can stretch out and grab things or people."
+	icon = 'icons/obj/weapons.dmi'
+	icon_state = "tentacle"
+	item_state = "tentacle"
+	flags = ABSTRACT | NODROP | NOBLUDGEON
+	w_class = WEIGHT_CLASS_HUGE
+	ammo_type = /obj/item/ammo_casing/magic/tentacle
+	fire_sound = 'sound/effects/splat.ogg'
+	force = 0
+	max_charges = 1
+	throwforce = 0 //Just to be on the safe side
+	throw_range = 0
+	throw_speed = 0
+
+/obj/item/weapon/gun/magic/tentacle/New(location,silent)
+	..()
+	if(ismob(loc))
+		if(!silent)
+			loc.visible_message("<span class='warning'>[loc.name]\'s arm starts stretching inhumanly!</span>", "<span class='warning'>Our arm twists and mutates, transforming it into a tentacle.</span>", "<span class='italics'>You hear organic matter ripping and tearing!</span>")
+		else
+			to_chat(loc, "<span class='notice'>You prepare to extend a tentacle.</span>")
+
+/obj/item/weapon/gun/magic/tentacle/dropped()
+	. = ..()
+	qdel(src)
+
+/obj/item/weapon/gun/magic/tentacle/shoot_with_empty_chamber(mob/living/user as mob|obj)
+	to_chat(user, "<span class='warning'>The [name] is not ready yet.<span>")
+
+/obj/item/weapon/gun/magic/tentacle/suicide_act(mob/user)
+	user.visible_message("<span class='suicide'>[user] coils [src] tightly around \his neck! It looks like \he's trying to commit suicide.</span>")
+	return (OXYLOSS)
+
+/obj/item/ammo_casing/magic/tentacle
+	name = "tentacle"
+	desc = "a tentacle."
+	projectile_type = /obj/item/projectile/tentacle
+	caliber = "tentacle"
+	icon_state = "tentacle_end"
+	var/obj/item/weapon/gun/magic/tentacle/gun //the item that shot it
+
+/obj/item/ammo_casing/magic/tentacle/New(obj/item/weapon/gun/magic/tentacle/tentacle_gun)
+	gun = tentacle_gun
+	..()
+
+/obj/item/ammo_casing/magic/tentacle/Destroy()
+	gun = null
+	return ..()
+
+/obj/item/projectile/tentacle
+	name = "tentacle"
+	icon_state = "tentacle_end"
+	pass_flags = PASSTABLE
+	damage = 0
+	damage_type = BRUTE
+	range = 8
+	hitsound = 'sound/weapons/thudswoosh.ogg'
+	var/chain
+	var/obj/item/ammo_casing/magic/tentacle/source //the item that shot it
+
+/obj/item/projectile/tentacle/New(obj/item/ammo_casing/magic/tentacle/tentacle_casing)
+	source = tentacle_casing
+	..()
+
+/obj/item/projectile/tentacle/fire(setAngle)
+	if(firer)
+		chain = firer.Beam(src, icon_state = "tentacle", time = INFINITY, maxdistance = INFINITY, beam_sleep_time = 1)
+	..()
+
+/obj/item/projectile/tentacle/proc/reset_throw(mob/living/carbon/human/H)
+	if(H.in_throw_mode)
+		H.throw_mode_off() //Don't annoy the changeling if he doesn't catch the item
+
+/mob/proc/tentacle_grab(mob/living/carbon/C)
+	if(Adjacent(C))
+		var/obj/item/weapon/grab/G = C.grabbedby(src,1)
+		if(istype(G))
+			G.state = GRAB_AGGRESSIVE //Instant aggressive grab
+
+/mob/proc/tentacle_stab(mob/living/carbon/C)
+	if(Adjacent(C))
+		var/obj/item/I = r_hand
+		if(!is_sharp(I))
+			I = l_hand
+		if(!is_sharp(I))
+			return
+
+		C.visible_message("<span class='danger'>[src] impales [C] with [I]!</span>", "<span class='userdanger'>[src] impales you with [I]!</span>")
+		C.apply_damage(I.force, BRUTE, "chest")
+		do_attack_animation(C)
+		add_blood(C)
+		playsound(get_turf(src), I.hitsound, 75, 1)
+
+
+/obj/item/projectile/tentacle/on_hit(atom/target, blocked = 0)
+	qdel(source.gun) //one tentacle only unless you miss
+	if(blocked >= 100)
+		return 0
+	var/mob/living/carbon/human/H = firer
+	if(istype(target, /obj/item))
+		var/obj/item/I = target
+		if(!I.anchored)
+			to_chat(firer, "<span class='notice'>You pull [I] towards yourself.</span>")
+			H.throw_mode_on()
+			I.throw_at(H, 10, 2)
+			. = 1
+
+	else if(isliving(target))
+		var/mob/living/L = target
+		if(!L.anchored && !L.throwing)//avoid double hits
+			if(iscarbon(L))
+				var/mob/living/carbon/C = L
+				switch(firer.a_intent)
+					if(INTENT_HELP)
+						C.visible_message("<span class='danger'>[L] is pulled by [H]'s tentacle!</span>","<span class='userdanger'>A tentacle grabs you and pulls you towards [H]!</span>")
+						C.throw_at(get_step_towards(H,C), 8, 2)
+						return 1
+
+					if(INTENT_DISARM)
+						var/obj/item/I = C.get_active_hand()
+						if(I)
+							if(C.drop_item())
+								C.visible_message("<span class='danger'>[I] is yanked out of [C]'s hand by [src]!</span>","<span class='userdanger'>A tentacle pulls [I] away from you!</span>")
+								on_hit(I) //grab the item as if you had hit it directly with the tentacle
+								return 1
+							else
+								to_chat(firer, "<span class='danger'>You can't seem to pry [I] out of [C]'s hands!<span>")
+								return 0
+						else
+							to_chat(firer, "<span class='danger'>[C] has nothing in hand to disarm!<span>")
+							return 0
+
+					if(INTENT_GRAB)
+						C.visible_message("<span class='danger'>[L] is grabbed by [H]'s tentacle!</span>","<span class='userdanger'>A tentacle grabs you and pulls you towards [H]!</span>")
+						C.throw_at(get_step_towards(H,C), 8, 2, callback=CALLBACK(H, /mob/proc/tentacle_grab, C))
+						return 1
+
+					if(INTENT_HARM)
+						C.visible_message("<span class='danger'>[L] is thrown towards [H] by a tentacle!</span>","<span class='userdanger'>A tentacle grabs you and throws you towards [H]!</span>")
+						C.throw_at(get_step_towards(H,C), 8, 2, callback=CALLBACK(H, /mob/proc/tentacle_stab, C))
+						return 1
+			else
+				L.visible_message("<span class='danger'>[L] is pulled by [H]'s tentacle!</span>","<span class='userdanger'>A tentacle grabs you and pulls you towards [H]!</span>")
+				L.throw_at(get_step_towards(H,L), 8, 2)
+				. = 1
+
+/obj/item/projectile/tentacle/Destroy()
+	qdel(chain)
+	source = null
+	return ..()
 
 
 /***************************************\

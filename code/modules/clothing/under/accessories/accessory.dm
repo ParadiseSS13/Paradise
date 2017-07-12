@@ -6,7 +6,7 @@
 	item_state = ""	//no inhands
 	item_color = "bluetie"
 	slot_flags = SLOT_TIE
-	w_class = 2
+	w_class = WEIGHT_CLASS_SMALL
 	var/slot = "decor"
 	var/obj/item/clothing/under/has_suit = null		//the suit the tie may be attached to
 	var/image/inv_overlay = null	//overlay used when attached to clothing.
@@ -384,6 +384,66 @@
 	icon_state = "stripedbluescarf"
 	item_color = "stripedbluescarf"
 
+//Necklaces
+/obj/item/clothing/accessory/necklace
+	name = "necklace"
+	desc = "A simple necklace."
+	icon_state = "necklace"
+	item_state = "necklace"
+	item_color = "necklace"
+	slot_flags = SLOT_MASK | SLOT_TIE
+
+/obj/item/clothing/accessory/necklace/locket
+	name = "gold locket"
+	desc = "A gold locket that seems to have space for a photo within."
+	icon_state = "locket"
+	item_state = "locket"
+	item_color = "locket"
+	slot_flags = SLOT_MASK | SLOT_TIE
+	var/base_icon
+	var/open
+	var/obj/item/held //Item inside locket.
+
+/obj/item/clothing/accessory/necklace/locket/Destroy()
+	QDEL_NULL(held)
+	return ..()
+
+
+/obj/item/clothing/accessory/necklace/locket/attack_self(mob/user as mob)
+	if(!base_icon)
+		base_icon = icon_state
+
+	if(!("[base_icon]_open" in icon_states(icon)))
+		to_chat(user, "[src] doesn't seem to open.")
+		return
+
+	open = !open
+	to_chat(user, "You flip [src] [open?"open":"closed"].")
+	if(open)
+		icon_state = "[base_icon]_open"
+		if(held)
+			to_chat(user, "[held] falls out!")
+			held.forceMove(get_turf(user))
+			held = null
+	else
+		icon_state = "[base_icon]"
+
+/obj/item/clothing/accessory/necklace/locket/attackby(var/obj/item/O as obj, mob/user as mob)
+	if(!open)
+		to_chat(user, "You have to open it first.")
+		return
+
+	if(istype(O,/obj/item/weapon/paper) || istype(O, /obj/item/weapon/photo) && !(istype(O, /obj/item/weapon/paper/talisman)))
+		if(held)
+			to_chat(usr, "[src] already has something inside it.")
+		else
+			to_chat(usr, "You slip [O] into [src].")
+			user.drop_item()
+			O.forceMove(src)
+			held = O
+	else
+		return ..()
+
 //Cowboy Shirts
 /obj/item/clothing/accessory/cowboyshirt
 	name = "black cowboy shirt"
@@ -560,7 +620,7 @@
 		return
 
 	var/area/t = get_area(M)
-	var/obj/item/device/radio/headset/a = new /obj/item/device/radio/headset(null)
+	var/obj/item/device/radio/headset/a = new /obj/item/device/radio/headset(src)
 	if(istype(t, /area/syndicate_station) || istype(t, /area/syndicate_mothership) || istype(t, /area/shuttle/syndicate_elite) )
 		//give the syndicats a bit of stealth
 		a.autosay("[M] has been vandalized in Space!", "[M]'s Death Alarm")

@@ -250,20 +250,6 @@
 	else if(bodytemperature > maxbodytemp)
 		adjustBruteLoss(heat_damage_per_tick)
 
-/mob/living/simple_animal/Bumped(AM as mob|obj)
-	if(!AM) return
-
-	if(resting || buckled)
-		return
-
-	if(isturf(src.loc))
-		if((status_flags & CANPUSH) && ismob(AM))
-			var/newamloc = src.loc
-			src.loc = AM:loc
-			AM:loc = newamloc
-		else
-			..()
-
 /mob/living/simple_animal/gib()
 	if(icon_gib)
 		flick(icon_gib, src)
@@ -318,12 +304,12 @@
 
 	switch(M.a_intent)
 
-		if(I_HELP)
+		if(INTENT_HELP)
 			if(health > 0)
 				visible_message("<span class='notice'> [M] [response_help] [src].</span>")
 				playsound(loc, 'sound/weapons/thudswoosh.ogg', 50, 1, -1)
 
-		if(I_GRAB)
+		if(INTENT_GRAB)
 			if(M == src || anchored)
 				return
 			if(!(status_flags & CANPUSH))
@@ -340,7 +326,7 @@
 			visible_message("<span class='warning'>[M] has grabbed [src] passively!</span>")
 			playsound(loc, 'sound/weapons/thudswoosh.ogg', 50, 1, -1)
 
-		if(I_HARM, I_DISARM)
+		if(INTENT_HARM, INTENT_DISARM)
 			M.do_attack_animation(src)
 			visible_message("<span class='danger'>[M] [response_harm] [src]!</span>")
 			playsound(loc, "punch", 25, 1, -1)
@@ -352,13 +338,13 @@
 
 	switch(M.a_intent)
 
-		if(I_HELP)
+		if(INTENT_HELP)
 
 			visible_message("<span class='notice'>[M] caresses [src] with its scythe like arm.</span>")
-		if(I_GRAB)
+		if(INTENT_GRAB)
 			grabbedby(M)
 
-		if(I_HARM, I_DISARM)
+		if(INTENT_HARM, INTENT_DISARM)
 			M.do_attack_animation(src)
 			var/damage = rand(15, 30)
 			visible_message("<span class='danger'>[M] has slashed at [src]!</span>", \
@@ -371,7 +357,7 @@
 /mob/living/simple_animal/attack_larva(mob/living/carbon/alien/larva/L as mob)
 
 	switch(L.a_intent)
-		if(I_HELP)
+		if(INTENT_HELP)
 			visible_message("<span class='notice'>[L] rubs its head against [src].</span>")
 
 
@@ -436,6 +422,13 @@
 					damage = O.force
 					if(O.damtype == STAMINA)
 						damage = 0
+					if(O.damtype == BRUTE)
+						if(prob(33))
+							O.add_mob_blood(src)
+							var/turf/location = get_turf(src)
+							add_splatter_floor(location)
+							if(get_dist(user, src) <= 1)	//people with TK won't get smeared with blood
+								user.add_mob_blood(src)
 					visible_message("<span class='danger'>[user] has [O.attack_verb.len ? "[pick(O.attack_verb)]": "attacked"] [src] with [O]!</span>",\
 									"<span class='userdanger'>[user] has [O.attack_verb.len ? "[pick(O.attack_verb)]": "attacked"] you with [O]!</span>")
 				else
@@ -446,13 +439,12 @@
 									"<span class='warning'>This weapon is ineffective, it does no damage.</span>")
 			adjustBruteLoss(damage)
 
-
 /mob/living/simple_animal/movement_delay()
-	var/tally = 0 //Incase I need to add stuff other than "speed" later
+	. = ..()
 
-	tally = speed
+	. = speed
 
-	return tally+config.animal_delay
+	. += config.animal_delay
 
 /mob/living/simple_animal/Stat()
 	..()
@@ -606,7 +598,7 @@
 			alone = 0
 			continue
 	if(alone && partner && children < 3)
-		new childtype(loc)
+		return new childtype(loc)
 
 /mob/living/simple_animal/say_quote(var/message)
 	var/verb = "says"

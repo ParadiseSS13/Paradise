@@ -34,9 +34,9 @@
 	if(.)
 		if(nutrition && stat != DEAD)
 			nutrition -= hunger_drain / 10
-			if(m_intent == "run")
+			if(m_intent == MOVE_INTENT_RUN)
 				nutrition -= hunger_drain / 10
-		if((FAT in mutations) && m_intent == "run" && bodytemperature <= 360)
+		if((FAT in mutations) && m_intent == MOVE_INTENT_RUN && bodytemperature <= 360)
 			bodytemperature += 2
 
 		// Moving around increases germ_level faster
@@ -107,7 +107,7 @@
 		for(var/i=0 to distance)
 			if(blood)
 				if(T)
-					T.add_blood_floor(src)
+					add_splatter_floor(T)
 				if(stun)
 					adjustBruteLoss(3)
 			else
@@ -126,8 +126,7 @@
 		if(isturf(loc))
 			I.remove(src)
 			I.forceMove(get_turf(src))
-			spawn()
-				I.throw_at(get_edge_target_turf(src,pick(alldirs)),rand(1,3),5)
+			I.throw_at(get_edge_target_turf(src,pick(alldirs)),rand(1,3),5)
 
 	for(var/mob/M in src)
 		if(M in src.stomach_contents)
@@ -244,6 +243,10 @@
 				if(status == "")
 					status = "OK"
 				src.show_message(text("\t []My [] is [].",status=="OK"?"<span class='notice'></span>":"<span class='warning'></span>",org.name,status),1)
+
+				for(var/obj/item/I in org.embedded_objects)
+					to_chat(src, "\t <a href='byond://?src=[UID()];embedded_object=[I.UID()];embedded_limb=[org.UID()]' class='warning'>There is \a [I] embedded in your [org.name]!</a>")
+
 			if(staminaloss)
 				if(staminaloss > 30)
 					to_chat(src, "<span class='info'>You're completely exhausted.</span>")
@@ -474,23 +477,31 @@ var/list/ventcrawl_machinery = list(/obj/machinery/atmospherics/unary/vent_pump,
 		if(istype(loc, /obj/machinery/atmospherics))
 			add_ventcrawl(loc)
 
-/mob/living/carbon/clean_blood()
-	. = ..()
-	if(ishuman(src))
-		var/mob/living/carbon/human/H = src
-		if(H.gloves)
-			if(H.gloves.clean_blood())
-				H.update_inv_gloves(0,0)
-			H.gloves.germ_level = 0
-		else
-			if(H.bloody_hands)
-				H.bloody_hands = 0
-				H.update_inv_gloves(0,0)
-			H.germ_level = 0
-	update_icons()	//apply the now updated overlays to the mob
-
 
 //Throwing stuff
+
+/mob/living/carbon/throw_impact(atom/hit_atom, throwingdatum)
+	. = ..()
+	var/hurt = TRUE
+	/*if(istype(throwingdatum, /datum/thrownthing))
+		var/datum/thrownthing/D = throwingdatum
+		if(isrobot(D.thrower))
+			var/mob/living/silicon/robot/R = D.thrower
+			if(!R.emagged)
+				hurt = FALSE*/
+	if(hit_atom.density && isturf(hit_atom))
+		if(hurt)
+			Weaken(1)
+			take_organ_damage(10)
+	if(iscarbon(hit_atom) && hit_atom != src)
+		var/mob/living/carbon/victim = hit_atom
+		if(hurt)
+			victim.take_organ_damage(10)
+			take_organ_damage(10)
+			victim.Weaken(1)
+			Weaken(1)
+			visible_message("<span class='danger'>[src] crashes into [victim], knocking them both over!</span>", "<span class='userdanger'>You violently crash into [victim]!</span>")
+		playsound(src, 'sound/weapons/punch1.ogg', 50, 1)
 
 /mob/living/carbon/proc/toggle_throw_mode()
 	if(in_throw_mode)
@@ -512,17 +523,18 @@ var/list/ventcrawl_machinery = list(/obj/machinery/atmospherics/unary/vent_pump,
 	return
 
 /mob/living/carbon/throw_item(atom/target)
-	throw_mode_off()
-	if(!target || !isturf(loc))
-		return
-	if(istype(target, /obj/screen))
+	if(!target || !isturf(loc) || istype(target, /obj/screen))
+		throw_mode_off()
 		return
 
-	var/atom/movable/thrown_thing
 	var/obj/item/I = src.get_active_hand()
 
-	if(!I || (I.flags & NODROP))
+	if(!I || I.override_throw(src, target) || (I.flags & NODROP))
+		throw_mode_off()
 		return
+
+	throw_mode_off()
+	var/atom/movable/thrown_thing
 
 	if(istype(I, /obj/item/weapon/grab))
 		var/obj/item/weapon/grab/G = I
@@ -626,9 +638,10 @@ var/list/ventcrawl_machinery = list(/obj/machinery/atmospherics/unary/vent_pump,
 								"<span class='userdanger'>[usr] tries to [internal ? "close" : "open"] the valve on [src]'s [ITEM].</span>")
 
 				var/no_mask
-				if(!(wear_mask && wear_mask.flags & AIRTIGHT))
-					if(!(head && head.flags & AIRTIGHT))
-						no_mask = 1
+				if(!get_organ_slot("breathing_tube"))
+					if(!(wear_mask && wear_mask.flags & AIRTIGHT))
+						if(!(head && head.flags & AIRTIGHT))
+							no_mask = 1
 				if(no_mask)
 					to_chat(usr, "<span class='warning'>[src] is not wearing a suitable mask or helmet!</span>")
 					return
@@ -639,9 +652,10 @@ var/list/ventcrawl_machinery = list(/obj/machinery/atmospherics/unary/vent_pump,
 						update_internals_hud_icon(0)
 					else
 						var/no_mask2
-						if(!(wear_mask && wear_mask.flags & AIRTIGHT))
-							if(!(head && head.flags & AIRTIGHT))
-								no_mask2 = 1
+						if(!get_organ_slot("breathing_tube"))
+							if(!(wear_mask && wear_mask.flags & AIRTIGHT))
+								if(!(head && head.flags & AIRTIGHT))
+									no_mask2 = 1
 						if(no_mask2)
 							to_chat(usr, "<span class='warning'>[src] is not wearing a suitable mask or helmet!</span>")
 							return
@@ -858,8 +872,10 @@ var/list/ventcrawl_machinery = list(/obj/machinery/atmospherics/unary/vent_pump,
 
 /mob/living/carbon/get_standard_pixel_y_offset(lying = 0)
 	if(lying)
-		if(buckled)	return initial(pixel_y)
-		return -6
+		if(buckled)
+			return buckled.buckle_offset //tg just has this whole block removed, always returning -6. Paradise is special.
+		else
+			return -6
 	else
 		return initial(pixel_y)
 
@@ -913,7 +929,7 @@ var/list/ventcrawl_machinery = list(/obj/machinery/atmospherics/unary/vent_pump,
 
 
 /mob/living/carbon/proc/slip(var/description, var/stun, var/weaken, var/tilesSlipped, var/walkSafely, var/slipAny)
-	if(flying || buckled || (walkSafely && m_intent == "walk"))
+	if(flying || buckled || (walkSafely && m_intent == MOVE_INTENT_WALK))
 		return 0
 	if((lying) && (!(tilesSlipped)))
 		return 0
@@ -926,7 +942,7 @@ var/list/ventcrawl_machinery = list(/obj/machinery/atmospherics/unary/vent_pump,
 		for(var/t = 0, t<=tilesSlipped, t++)
 			spawn (t) step(src, src.dir)
 	stop_pulling()
-	to_chat(src, "<span class='notice'>You slipped on the [description]!</span>")
+	to_chat(src, "<span class='notice'>You slipped on [description]!</span>")
 	playsound(src.loc, 'sound/misc/slip.ogg', 50, 1, -3)
 	if(stun)
 		Stun(stun)

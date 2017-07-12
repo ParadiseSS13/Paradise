@@ -112,7 +112,7 @@
 		var/obj/item/organ/external/O = get_organ(organ_name)
 
 		if(amount > 0)
-			O.take_damage(amount, 0, sharp=is_sharp(damage_source), edge=has_edge(damage_source), used_weapon=damage_source)
+			O.take_damage(amount, 0, sharp=is_sharp(damage_source), used_weapon=damage_source)
 		else
 			//if you don't want to heal robot organs, they you will have to check that yourself before using this proc.
 			O.heal_damage(-amount, 0, internal=0, robo_repair=(O.status & ORGAN_ROBOT))
@@ -126,7 +126,7 @@
 		var/obj/item/organ/external/O = get_organ(organ_name)
 
 		if(amount > 0)
-			O.take_damage(0, amount, sharp=is_sharp(damage_source), edge=has_edge(damage_source), used_weapon=damage_source)
+			O.take_damage(0, amount, sharp=is_sharp(damage_source), used_weapon=damage_source)
 		else
 			//if you don't want to heal robot organs, they you will have to check that yourself before using this proc.
 			O.heal_damage(0, -amount, internal=0, robo_repair=(O.status & ORGAN_ROBOT))
@@ -240,7 +240,7 @@
 	if(!parts.len)
 		return
 	var/obj/item/organ/external/picked = pick(parts)
-	if(picked.take_damage(brute,burn,sharp,edge))
+	if(picked.take_damage(brute, burn, sharp))
 		UpdateDamageIcon()
 	updatehealth()
 	speech_problem_flag = 1
@@ -285,7 +285,7 @@
 		var/burn_was = picked.burn_dam
 
 
-		update |= picked.take_damage(brute_per_part,burn_per_part,sharp,edge,used_weapon)
+		update |= picked.take_damage(brute_per_part, burn_per_part, sharp, used_weapon)
 
 		brute	-= (picked.brute_dam - brute_was)
 		burn	-= (picked.burn_dam - burn_was)
@@ -299,15 +299,6 @@
 
 
 ////////////////////////////////////////////
-
-/*
-This function restores the subjects blood to max.
-*/
-/mob/living/carbon/human/proc/restore_blood()
-	if(!(species.flags & NO_BLOOD))
-		var/blood_type = get_blood_name()
-		var/blood_volume = vessel.get_reagent_amount(blood_type)
-		vessel.add_reagent(blood_type, BLOOD_VOLUME_NORMAL - blood_volume)
 
 /*
 This function restores all organs.
@@ -333,7 +324,7 @@ This function restores all organs.
 
 	return bodyparts_by_name[zone]
 
-/mob/living/carbon/human/apply_damage(damage = 0, damagetype = BRUTE, def_zone = null, blocked = 0, sharp = 0, edge = 0, obj/used_weapon = null)
+/mob/living/carbon/human/apply_damage(damage = 0, damagetype = BRUTE, def_zone = null, blocked = 0, sharp = 0, obj/used_weapon = null)
 	//Handle other types of damage
 	if((damagetype != BRUTE) && (damagetype != BURN))
 		..(damage, damagetype, def_zone, blocked)
@@ -364,7 +355,7 @@ This function restores all organs.
 			if(species)
 				damage = damage * species.brute_mod
 
-			if(organ.take_damage(damage, 0, sharp, edge, used_weapon))
+			if(organ.take_damage(damage, 0, sharp, used_weapon))
 				UpdateDamageIcon()
 
 			if(LAssailant && ishuman(LAssailant)) //superheros still get the comical hit markers
@@ -389,7 +380,7 @@ This function restores all organs.
 			if(species)
 				damage = damage * species.burn_mod
 
-			if(organ.take_damage(0, damage, sharp, edge, used_weapon))
+			if(organ.take_damage(0, damage, sharp, used_weapon))
 				UpdateDamageIcon()
 
 	// Will set our damageoverlay icon to the next level, which will then be set back to the normal level the next mob.Life().

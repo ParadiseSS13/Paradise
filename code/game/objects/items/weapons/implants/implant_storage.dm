@@ -1,9 +1,9 @@
 /obj/item/weapon/storage/hidden/implant
 	name = "bluespace pocket"
 	storage_slots = 2
-	max_w_class = 3
-	max_combined_w_class = 6
-	w_class = 4
+	max_w_class = WEIGHT_CLASS_NORMAL
+	max_combined_w_class = WEIGHT_CLASS_GIGANTIC
+	w_class = WEIGHT_CLASS_BULKY
 	cant_hold = list(/obj/item/weapon/disk/nuclear)
 	silent = 1
 
@@ -12,7 +12,7 @@
 	name = "storage implant"
 	desc = "Stores up to two big items in a bluespace pocket."
 	icon_state = "storage"
-	origin_tech = "materials=2;magnets=4;bluespace=4;syndicate=4"
+	origin_tech = "materials=2;magnets=4;bluespace=5;syndicate=4"
 	item_color = "r"
 	var/obj/item/weapon/storage/hidden/implant/storage
 

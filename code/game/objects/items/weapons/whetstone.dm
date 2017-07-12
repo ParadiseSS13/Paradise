@@ -3,7 +3,7 @@
 	icon = 'icons/obj/kitchen.dmi'
 	icon_state = "whetstone"
 	desc = "A block of stone used to sharpen things."
-	w_class = 2
+	w_class = WEIGHT_CLASS_SMALL
 	usesound = 'sound/items/Screwdriver.ogg'
 	var/used = 0
 	var/increment = 4
@@ -19,7 +19,7 @@
 	if(I.force >= max || I.throwforce >= max)//no esword sharpening
 		to_chat(user, "<span class='notice'>[I] is much too powerful to sharpen further.</span>")
 		return
-	if(requires_sharpness && !I.edge)
+	if(requires_sharpness && !I.sharp)
 		to_chat(user, "<span class='notice'>You can only sharpen items that are already sharp, such as knives.</span>")
 		return
 	if(istype(I, /obj/item/weapon/twohanded))//some twohanded items should still be sharpenable, but handle force differently. therefore i need this stuff
@@ -39,7 +39,6 @@
 		return
 	user.visible_message("<span class='notice'>[user] sharpens [I] with [src]!</span>", "<span class='notice'>You sharpen [I], making it much more deadly than before.</span>")
 	if(!requires_sharpness)
-		I.edge = 1
 		I.sharp = 1
 	I.force = Clamp(I.force + increment, 0, max)
 	I.throwforce = Clamp(I.throwforce + increment, 0, max)

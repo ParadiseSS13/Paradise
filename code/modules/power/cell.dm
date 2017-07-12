@@ -22,13 +22,6 @@
 	if(maxcharge < amount)
 		return 0
 	var/power_used = min(maxcharge-charge,amount)
-	if(crit_fail)
-		return 0
-	if(!prob(reliability))
-		minor_fault++
-		if(prob(minor_fault))
-			crit_fail = 1
-			return 0
 	charge += power_used
 	return power_used
 
@@ -38,8 +31,6 @@
 			to_chat(user, "[desc]\nThe manufacturer's label states this cell has a power rating of [maxcharge], and that you should not swallow it.\nThe charge meter reads [round(src.percent() )]%.")
 		else
 			to_chat(user, "This power cell has an exciting chrome finish, as it is an uber-capacity cell type! It has a power rating of [maxcharge]!\nThe charge meter reads [round(src.percent() )]%.")
-	if(crit_fail)
-		to_chat(user, "<span class='warning'>This power cell seems to be faulty.</span>")
 
 /obj/item/weapon/stock_parts/cell/attack_self(mob/user as mob)
 	src.add_fingerprint(user)

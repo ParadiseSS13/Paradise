@@ -33,8 +33,8 @@
 	icon_state = "trashbag"
 	item_state = "trashbag"
 
-	w_class = 1
-	max_w_class = 2
+	w_class = WEIGHT_CLASS_TINY
+	max_w_class = WEIGHT_CLASS_SMALL
 	storage_slots = 30
 	can_hold = list() // any
 	cant_hold = list(/obj/item/weapon/disk/nuclear)
@@ -46,16 +46,16 @@
 
 /obj/item/weapon/storage/bag/trash/update_icon()
 	if(contents.len == 0)
-		w_class = 1
+		w_class = WEIGHT_CLASS_TINY
 		icon_state = "[initial(icon_state)]"
 	else if(contents.len < 12)
-		w_class = 4
+		w_class = WEIGHT_CLASS_BULKY
 		icon_state = "[initial(icon_state)]1"
 	else if(contents.len < 21)
-		w_class = 4
+		w_class = WEIGHT_CLASS_BULKY
 		icon_state = "[initial(icon_state)]2"
 	else
-		w_class = 4
+		w_class = WEIGHT_CLASS_BULKY
 		icon_state = "[initial(icon_state)]3"
 
 /obj/item/weapon/storage/bag/trash/cyborg
@@ -72,6 +72,7 @@
 	name = "trash bag of holding"
 	desc = "The latest and greatest in custodial convenience, a trashbag that is capable of holding vast quantities of garbage."
 	icon_state = "bluetrashbag"
+	origin_tech = "materials=4;bluespace=4;engineering=4;plasmatech=3"
 	max_combined_w_class = 60
 	storage_slots = 60
 
@@ -88,8 +89,8 @@
 	item_state = "plasticbag"
 	slot_flags = SLOT_HEAD|SLOT_BELT
 	throwforce = 0
-	w_class = 4
-	max_w_class = 2
+	w_class = WEIGHT_CLASS_BULKY
+	max_w_class = WEIGHT_CLASS_SMALL
 	storage_slots = 7
 	display_contents_with_number = 0 //or else this will lead to stupid behavior.
 	can_hold = list() // any
@@ -131,11 +132,12 @@
 	desc = "This little bugger can be used to store and transport ores."
 	icon = 'icons/obj/mining.dmi'
 	icon_state = "satchel"
+	origin_tech = "engineering=2"
 	slot_flags = SLOT_BELT | SLOT_POCKET
-	w_class = 3
+	w_class = WEIGHT_CLASS_NORMAL
 	storage_slots = 50
 	max_combined_w_class = 200 //Doesn't matter what this is, so long as it's more or equal to storage_slots * ore.w_class
-	max_w_class = 3
+	max_w_class = WEIGHT_CLASS_NORMAL
 	can_hold = list(/obj/item/weapon/ore)
 
 /obj/item/weapon/storage/bag/ore/cyborg
@@ -147,7 +149,7 @@
 	desc = "A revolution in convenience, this satchel allows for infinite ore storage. It's been outfitted with anti-malfunction safety measures."
 	storage_slots = INFINITY
 	max_combined_w_class = INFINITY
-	origin_tech = "bluespace=3"
+	origin_tech = "bluespace=4;materials=3;engineering=3"
 	icon_state = "satchel_bspace"
 
 /obj/item/weapon/storage/bag/ore/holding/cyborg
@@ -164,8 +166,8 @@
 	icon_state = "plantbag"
 	storage_slots = 100 //the number of plant pieces it can carry.
 	max_combined_w_class = 100 //Doesn't matter what this is, so long as it's more or equal to storage_slots * plants.w_class
-	max_w_class = 3
-	w_class = 1
+	max_w_class = WEIGHT_CLASS_NORMAL
+	w_class = WEIGHT_CLASS_TINY
 	can_hold = list(/obj/item/weapon/reagent_containers/food/snacks/grown,/obj/item/seeds,/obj/item/weapon/grown,/obj/item/weapon/reagent_containers/food/snacks/ash_flora)
 	burn_state = FLAMMABLE
 
@@ -202,7 +204,7 @@
 	desc = "A patented Nanotrasen storage system designed for any kind of mineral sheet."
 
 	var/capacity = 300; //the number of sheets it can carry.
-	w_class = 3
+	w_class = WEIGHT_CLASS_NORMAL
 
 	allow_quick_empty = 1 // this function is superceded
 	New()
@@ -343,8 +345,8 @@
 	desc = "A bag for carrying lots of cash. It's got a big dollar sign printed on the front."
 	storage_slots = 50; //the number of cash pieces it can carry.
 	max_combined_w_class = 200 //Doesn't matter what this is, so long as it's more or equal to storage_slots * cash.w_class
-	max_w_class = 3
-	w_class = 1
+	max_w_class = WEIGHT_CLASS_NORMAL
+	w_class = WEIGHT_CLASS_TINY
 	can_hold = list(/obj/item/weapon/coin,/obj/item/stack/spacecash)
 
 // -----------------------------
@@ -359,8 +361,8 @@
 	display_contents_with_number = 0 //This would look really stupid otherwise
 	storage_slots = 7
 	max_combined_w_class = 21
-	max_w_class = 3
-	w_class = 4 //Bigger than a book because physics
+	max_w_class = WEIGHT_CLASS_NORMAL
+	w_class = WEIGHT_CLASS_BULKY //Bigger than a book because physics
 	can_hold = list(/obj/item/weapon/book, /obj/item/weapon/storage/bible, /obj/item/weapon/tome, /obj/item/weapon/spellbook)
 	burn_state = FLAMMABLE
 
@@ -376,7 +378,7 @@
 	throwforce = 10.0
 	throw_speed = 3
 	throw_range = 5
-	w_class = 4
+	w_class = WEIGHT_CLASS_BULKY
 	flags = CONDUCT
 	materials = list(MAT_METAL=3000)
 
@@ -469,7 +471,7 @@
 	desc = "A bag for storing pills, patches, and bottles."
 	storage_slots = 50
 	max_combined_w_class = 200
-	w_class = 1
+	w_class = WEIGHT_CLASS_TINY
 	can_hold = list(/obj/item/weapon/reagent_containers/food/pill,/obj/item/weapon/reagent_containers/glass/beaker,/obj/item/weapon/reagent_containers/glass/bottle)
 	burn_state = FLAMMABLE
 /*
@@ -483,6 +485,6 @@
 	desc = "A bag for the safe transportation and disposal of biowaste and other biological materials."
 	storage_slots = 25
 	max_combined_w_class = 200
-	w_class = 1
+	w_class = WEIGHT_CLASS_TINY
 	can_hold = list(/obj/item/slime_extract,/obj/item/weapon/reagent_containers/food/snacks/monkeycube,/obj/item/weapon/reagent_containers/syringe,/obj/item/weapon/reagent_containers/glass/beaker,/obj/item/weapon/reagent_containers/glass/bottle,/obj/item/weapon/reagent_containers/blood,/obj/item/weapon/reagent_containers/hypospray/autoinjector)
 	burn_state = FLAMMABLE

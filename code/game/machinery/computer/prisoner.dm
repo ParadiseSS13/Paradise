@@ -20,6 +20,14 @@
 /obj/machinery/computer/prisoner/attack_ai(var/mob/user as mob)
 	return src.attack_hand(user)
 
+/obj/machinery/computer/prisoner/New()
+ 	prisoncomputer_list += src
+ 	return ..()
+
+/obj/machinery/computer/prisoner/Destroy()
+ 	prisoncomputer_list -= src
+ 	return ..()
+
 /obj/machinery/computer/prisoner/attack_hand(var/mob/user as mob)
 	if(..())
 		return 1

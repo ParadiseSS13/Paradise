@@ -25,13 +25,12 @@
 	ts_spiderling_list -= src
 	return ..()
 
-/obj/structure/spider/spiderling/terror_spiderling/Bump(atom/A)
-	if(istype(A, /obj/structure/table))
-		forceMove(A.loc)
-	else if(istype(A, /obj/machinery/recharge_station))
+/obj/structure/spider/spiderling/terror_spiderling/Bump(obj/O)
+	if(istype(O, /obj/structure/table))
+		forceMove(O.loc)
+	else if(istype(O, /obj/machinery/recharge_station))
 		qdel(src)
-	else
-		..()
+	. = ..()
 
 /obj/structure/spider/spiderling/terror_spiderling/process()
 	if(travelling_in_vent)

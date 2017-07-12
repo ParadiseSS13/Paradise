@@ -87,7 +87,7 @@ var/list/karma_spenders = list()
 /mob/verb/spend_karma_list()
 	set name = "Award Karma"
 	set desc = "Let the gods know whether someone's been nice. Can only be used once per round."
-	set category = "OOC"
+	set category = "Special Verbs"
 
 	if(!can_give_karma())
 		return
@@ -116,7 +116,7 @@ var/list/karma_spenders = list()
 /mob/verb/spend_karma(var/mob/M)
 	set name = "Award Karma to Player"
 	set desc = "Let the gods know whether someone's been nice. Can only be used once per round."
-	set category = "OOC"
+	set category = "Special Verbs"
 
 	if(!M)
 		to_chat(usr, "Please right click a mob to award karma directly, or use the 'Award Karma' verb to select a player from the player listing.")
@@ -149,7 +149,7 @@ var/list/karma_spenders = list()
 /client/verb/check_karma()
 	set name = "Check Karma"
 	set desc = "Reports how much karma you have accrued."
-	set category = "OOC"
+	set category = "Special Verbs"
 
 	if(config.disable_karma)
 		to_chat(src, "<span class='warning'>Karma is disabled.</span>")

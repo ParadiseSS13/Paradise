@@ -8,10 +8,10 @@
 	mag_type = /obj/item/ammo_box/magazine/sniper_rounds
 	fire_delay = 40
 	burst_size = 1
-	origin_tech = "combat=8"
+	origin_tech = "combat=7"
 	can_unsuppress = 1
 	can_suppress = 1
-	w_class = 3
+	w_class = WEIGHT_CLASS_NORMAL
 	zoomable = TRUE
 	zoom_amt = 7 //Long range, enough to see in front of you, but no tiles behind you.
 	slot_flags = SLOT_BACK
@@ -26,7 +26,7 @@
 /obj/item/weapon/gun/projectile/automatic/sniper_rifle/syndicate
 	name = "syndicate sniper rifle"
 	desc = "Syndicate flavoured sniper rifle, it packs quite a punch, a punch to your face"
-	origin_tech = "combat=8;syndicate=4"
+	origin_tech = "combat=7;syndicate=6"
 
 //Normal Boolets
 /obj/item/ammo_box/magazine/sniper_rounds
@@ -101,7 +101,6 @@
 	name = "sniper rounds (Bleed)"
 	desc = "Haemorrhage sniper rounds, leaves your target in a pool of crimson pain"
 	icon_state = "haemorrhage"
-	origin_tech = "combat=7;syndicate=5"
 	ammo_type = /obj/item/ammo_casing/haemorrhage
 	max_ammo = 5
 
@@ -120,9 +119,9 @@
 	breakthings = FALSE
 
 /obj/item/projectile/bullet/sniper/haemorrhage/on_hit(atom/target, blocked = 0, hit_zone)
-	if((blocked != 100) && istype(target, /mob/living/carbon/human))
-		var/mob/living/carbon/human/H = target
-		H.drip(1000)
+	if((blocked != 100) && iscarbon(target))
+		var/mob/living/carbon/C = target
+		C.bleed(100)
 
 	return ..()
 
@@ -131,6 +130,7 @@
 	name = "sniper rounds (penetrator)"
 	desc = "An extremely powerful round capable of passing straight through cover and anyone unfortunate enough to be behind it."
 	ammo_type = /obj/item/ammo_casing/penetrator
+	origin_tech = "combat=6;syndicate=3"
 	max_ammo = 5
 
 /obj/item/ammo_casing/penetrator
