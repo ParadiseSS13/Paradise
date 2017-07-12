@@ -2058,3 +2058,7 @@
 	update_icons()
 
 	..()
+
+/mob/living/carbon/human/proc/special_post_clone_handling()
+	if(mind && mind.assigned_role == "Cluwne") //HUNKE your suffering never stops
+		makeCluwne()
