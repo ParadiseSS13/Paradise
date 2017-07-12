@@ -76,6 +76,8 @@
 	var/brain_mod = 1    // Brain damage damage reduction/amplification
 	var/stun_mod = 1	 // If a species is more/less impacated by stuns/weakens/paralysis
 
+	var/blood_damage_type = OXY //What type of damage does this species take if it's low on blood?
+
 	var/total_health = 100
 	var/punchdamagelow = 0       //lowest possible punch damage
 	var/punchdamagehigh = 9      //highest possible punch damage
@@ -464,7 +466,11 @@
 // Return 1 if it should do normal processing too
 // Return 0 if it shouldn't deplete and do its normal effect
 // Other return values will cause weird badness
-/datum/species/proc/handle_reagents(var/mob/living/carbon/human/H, var/datum/reagent/R)
+/datum/species/proc/handle_reagents(mob/living/carbon/human/H, datum/reagent/R)
+	if(R.id == exotic_blood)
+		H.blood_volume = min(H.blood_volume + round(R.volume, 0.1), BLOOD_VOLUME_MAXIMUM)
+		H.reagents.del_reagent(R.id)
+		return 0
 	return 1
 
 // For special snowflake species effects

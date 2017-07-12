@@ -421,8 +421,6 @@
 				organStatus["robotic"] = 1
 			if(E.status & ORGAN_SPLINTED)
 				organStatus["splinted"] = 1
-			if(E.status & ORGAN_BLEEDING)
-				organStatus["bleeding"] = 1
 			if(E.status & ORGAN_DEAD)
 				organStatus["dead"] = 1
 
@@ -589,8 +587,6 @@
 					lung_ruptured = "Lung ruptured:"
 				if(e.status & ORGAN_SPLINTED)
 					splint = "Splinted:"
-				if(e.status & ORGAN_BLEEDING)
-					bled = "Bleeding:"
 				if(e.status & ORGAN_BROKEN)
 					AN = "[e.broken_description]:"
 				if(e.status & ORGAN_ROBOT)

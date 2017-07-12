@@ -96,22 +96,18 @@
 		var/obj/item/organ/external/affecting = H.get_organ(user.zone_sel.selecting)
 
 		if(affecting.open == 0)
-			var/bandaged = affecting.bandage()
-			var/disinfected = affecting.disinfect()
+			affecting.bandage()
+			affecting.disinfect()
 
-			if(!(bandaged || disinfected))
-				to_chat(user, "<span class='warning'>The wounds on [H]'s [affecting.name] have already been bandaged.</span>")
-				return 1
-			else
-				user.visible_message("<span class='green'>[user] bandages the wounds on [H]'s [affecting.name].", \
-								 	 "<span class='green'>You bandage the wounds on [H]'s [affecting.name].</span>" )
+			user.visible_message("<span class='green'>[user] bandages the wounds on [H]'s [affecting.name].", \
+							 	 "<span class='green'>You bandage the wounds on [H]'s [affecting.name].</span>" )
 
-				if(stop_bleeding)
-					if(!H.bleedsuppress) //so you can't stack bleed suppression
-						H.suppress_bloodloss(stop_bleeding)
-				affecting.heal_damage(heal_brute, heal_burn)
-				H.UpdateDamageIcon()
-				use(1)
+			if(stop_bleeding)
+				if(!H.bleedsuppress) //so you can't stack bleed suppression
+					H.suppress_bloodloss(stop_bleeding)
+			affecting.heal_damage(heal_brute, heal_burn)
+			H.UpdateDamageIcon()
+			use(1)
 		else
 			to_chat(user, "<span class='warning'>[affecting] is cut open, you'll need more than a bandage!</span>")
 
@@ -122,6 +118,7 @@
 	desc = "An advanced trauma kit for severe injuries."
 	icon_state = "traumakit"
 	heal_brute = 25
+	stop_bleeding = 0
 
 
 
@@ -145,15 +142,13 @@
 		var/obj/item/organ/external/affecting = H.get_organ(user.zone_sel.selecting)
 
 		if(affecting.open == 0)
-			if(!affecting.salve())
-				to_chat(user, "<span class='warning'>The wounds on [H]'s [affecting.name] have already been salved.</span>")
-				return 1
-			else
-				user.visible_message("<span class='green'>[user] salves the wounds on [H]'s [affecting.name].", \
-								 	 "<span class='green'>You salve the wounds on [H]'s [affecting.name].</span>" )
-				affecting.heal_damage(heal_brute, heal_burn)
-				H.UpdateDamageIcon()
-				use(1)
+			affecting.salve()
+
+			user.visible_message("<span class='green'>[user] salves the wounds on [H]'s [affecting.name].", \
+							 	 "<span class='green'>You salve the wounds on [H]'s [affecting.name].</span>" )
+			affecting.heal_damage(heal_brute, heal_burn)
+			H.UpdateDamageIcon()
+			use(1)
 		else
 			to_chat(user, "<span class='warning'>[affecting] is cut open, you'll need more than some ointment!</span>")
 
