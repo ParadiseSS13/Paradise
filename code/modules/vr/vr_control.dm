@@ -25,7 +25,7 @@
 			room = vr_rooms[room]
 			spawn_vr_avatar(user, room)
 			if(!(user.ckey))
-				qdel(user)
+				user.death()
 		if("Make Room")
 			var/name = input(user, "Name your new Room","Name here.") as null|text
 			var/datum/vr_room/room = input(user, "Choose a Level to load into your new Room.","Select Level") as null|anything in vr_templates - "lobby"

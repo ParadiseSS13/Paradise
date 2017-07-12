@@ -14,6 +14,7 @@
 
 	var/you_die_in_the_game_you_die_for_real = FALSE
 	var/mob/living/carbon/human/virtual_reality/vr_human
+	var/user_health = 0
 
 
 /obj/item/clothing/glasses/vr_goggles/Destroy()
@@ -40,3 +41,8 @@
 				vr_human = spawn_vr_avatar(H, lobby)
 			else
 				control_remote(H, vr_human)
+	user_health = H.health
+
+/obj/item/clothing/glasses/vr_goggles/hit_reaction(mob/living/carbon/human/owner)
+	if(user_health - owner.health > 50)
+		vr_human.revert_to_reality(0)

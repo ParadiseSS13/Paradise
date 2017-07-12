@@ -26,7 +26,7 @@ var/roomcap = 20
 		//delare winner here.
 
 	for(var/mob/living/carbon/human/virtual_reality/player in players)
-		qdel(player)
+		player.death()
 
 	if(name == "Roman")
 		template = pick("roman1")
@@ -64,7 +64,10 @@ var/roomcap = 20
 				spawn_vr_avatar(player, src)
 				player.equip_to_slot_if_possible(new /obj/item/device/observer, slot_r_ear, 1, 1, 1)
 
-	round_timer = addtimer(src, "vr_round", 5 MINUTES)
+	if(players.len > 0)
+		round_timer = addtimer(src, "vr_round", 5 MINUTES)
+	else
+		round_timer = addtimer(src, "vr_round", 1 MINUTES)
 
 proc/make_vr_room(name, template, expires)
 	var/datum/vr_room/R = new
@@ -82,7 +85,7 @@ proc/make_vr_room(name, template, expires)
 		vr_rooms_offical[R.name] = R
 	else if (expires == 2)
 		vr_rooms_offical[R.name] = R
-		R.round_timer = addtimer(R, "vr_round", 2 MINUTES)
+		R.round_timer = addtimer(R, "vr_round", 1 MINUTES)
 
 	for(var/atom/landmark in R.chunk.search_chunk(landmarks_list))
 		if(landmark.name == "avatarspawn")
@@ -109,7 +112,8 @@ proc/build_virtual_avatar(mob/living/carbon/human/H, location, datum/vr_room/roo
 		vr_avatar.real_me = V.real_me
 	else
 		vr_avatar.real_me = H
-	vr_avatar.species = new /datum/species/human()
+	//vr_avatar.species = new /datum/species/human()
+
 	//vr_avatar.species.name = H.species.name
 	//vr_avatar.species.name_plural = H.species.name_plural
 	//vr_avatar.species.icobase = H.species.icobase
@@ -117,9 +121,9 @@ proc/build_virtual_avatar(mob/living/carbon/human/H, location, datum/vr_room/roo
 	//vr_avatar.species.butt_sprite = H.species.butt_sprite
 	//vr_avatar.tail = H.species.tail
 	//vr_avatar.sync_organ_dna()
-	vr_avatar.set_species(H.species.name)
+	//vr_avatar.set_species(H.species.name)
 	vr_avatar.dna = H.dna.Clone()
-	//vr_avatar.update_mutantrace(1)
+	//vr_avatar.u/pdate_mutantrace(1)
 	//vr_avatar.regenerate_icons()
 	vr_avatar.UpdateAppearance()
 	//domutcheck(vr_avatar, null)

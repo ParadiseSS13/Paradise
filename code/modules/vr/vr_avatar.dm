@@ -17,10 +17,6 @@
 	..()
 
 /mob/living/carbon/human/virtual_reality/death()
-	qdel(src)
-	return ..()
-
-/mob/living/carbon/human/virtual_reality/Destroy()
 	myroom.players.Remove(src)
 	if((myroom.players.len == 0) && (myroom.expires == 1))
 		myroom.delete_timer = addtimer(myroom, "cleanup", 3 MINUTES)
@@ -31,8 +27,7 @@
 	var/mob/living/carbon/human/virtual_reality/vr = src
 	var/list/corpse_equipment = vr.get_all_slots()
 	corpse_equipment += vr.get_equipped_items()
-	for(var/A in corpse_equipment)
-		var/obj/O = A
+	for(var/obj/O in corpse_equipment)
 		if(myroom.template.death_type == VR_DROP_ALL)
 			vr.unEquip(O)
 		else if(myroom.template.death_type == VR_DROP_BLACKLIST && !(O.type in myroom.template.drop_blacklist))
@@ -41,6 +36,10 @@
 			vr.unEquip(O)
 		else
 			qdel(O)
+	qdel(src)
+	return ..()
+
+/mob/living/carbon/human/virtual_reality/Destroy()
 	return ..()
 
 /mob/living/carbon/human/virtual_reality/ghost()
@@ -51,7 +50,7 @@
 	revert_to_reality(FALSE)
 	if(H)
 		H.ghost()
-	qdel(src)
+	src.death()
 
 /mob/living/carbon/human/virtual_reality/proc/revert_to_reality(var/remove)
 	if(real_me && ckey)
@@ -59,7 +58,7 @@
 		real_me.EyeBlind(2)
 		real_me.Confused(2)
 		if(remove)
-			qdel(src)
+			src.death()
 		else
 			return src
 
@@ -90,7 +89,7 @@
 	if(..())
 		if(istype(owner, /mob/living/carbon/human/virtual_reality))
 			var/mob/living/carbon/human/virtual_reality/vr = owner
-			qdel(vr)
+			vr.death()
 		else
 			Remove(owner)
 
