@@ -327,10 +327,10 @@ var/list/teleport_runes = list()
 			user.forceMove(get_turf(actual_selected_rune))
 		var/mob/living/carbon/human/H = user
 		if(user.z != T.z)
-			H.drip(30)
+			H.bleed(30)
 			user.apply_damage(5, BRUTE)
 		else
-			H.drip(rand(10,20))
+			H.bleed(rand(10,20))
 	else
 		fail_invoke()
 

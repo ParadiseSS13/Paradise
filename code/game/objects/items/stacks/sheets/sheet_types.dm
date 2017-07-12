@@ -293,7 +293,7 @@ var/global/list/datum/stack_recipe/cult = list ( \
 /datum/stack_recipe/cult/post_build(obj/item/stack/S, obj/result)
    if(ishuman(S.loc))
       var/mob/living/carbon/human/H = S.loc
-      H.drip(10)
+      H.bleed(10)
    ..()
 
 /obj/item/stack/sheet/runed_metal/fifty
