@@ -1,7 +1,7 @@
 /mob/living/carbon/human/proc/emote_zap()
-	if(src.back && istype(src.back, /obj/item/device/radio/electropack))
-		var/obj/item/device/radio/electropack/E = src.back
-		if(E.sonic)
+	if(back && istype(back, /obj/item/device/radio/electropack))
+		var/obj/item/device/radio/electropack/E = back
+		if(E.noise_suppression)
 			E.do_shock()
 
 /mob/living/carbon/human/emote(var/act,var/m_type=1,var/message = null,var/force)

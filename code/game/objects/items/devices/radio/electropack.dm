@@ -9,7 +9,7 @@
 	w_class = WEIGHT_CLASS_HUGE
 	materials = list(MAT_METAL=10000, MAT_GLASS=2500)
 	var/code = 2
-	var/sonic = 0
+	var/noise_suppression = FALSE
 
 	is_special = 1
 
@@ -71,8 +71,8 @@
 	else if(href_list["power"])
 		on = !on
 
-	else if(href_list["sonic"])
-		sonic = !sonic
+	else if(href_list["noise_suppression"])
+		noise_suppression = !noise_suppression
 
 	add_fingerprint(usr)
 
@@ -119,6 +119,6 @@
 	data["power"] = on
 	data["freq"] = format_frequency(frequency)
 	data["code"] = code
-	data["sonic"] = sonic
+	data["noise_suppression"] = noise_suppression
 
 	return data
