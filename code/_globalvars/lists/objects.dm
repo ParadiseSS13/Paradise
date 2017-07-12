@@ -42,4 +42,6 @@ var/global/list/global_radios = list()				//list of all radios, across all z-lev
 
 var/global/list/meteor_list = list()				//list of all meteors
 var/global/list/poi_list = list()					//list of points of interest for observe/follow
+var/global/list/active_jammers = list()             // List of active radio jammers
 
+var/global/list/active_diseases = list() 			//List of Active disease in all mobs; purely for quick referencing.

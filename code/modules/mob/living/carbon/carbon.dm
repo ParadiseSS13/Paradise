@@ -107,7 +107,7 @@
 		for(var/i=0 to distance)
 			if(blood)
 				if(T)
-					T.add_blood_floor(src)
+					add_splatter_floor(T)
 				if(stun)
 					adjustBruteLoss(3)
 			else
@@ -126,8 +126,7 @@
 		if(isturf(loc))
 			I.remove(src)
 			I.forceMove(get_turf(src))
-			spawn()
-				I.throw_at(get_edge_target_turf(src,pick(alldirs)),rand(1,3),5)
+			I.throw_at(get_edge_target_turf(src,pick(alldirs)),rand(1,3),5)
 
 	for(var/mob/M in src)
 		if(M in src.stomach_contents)
@@ -244,6 +243,10 @@
 				if(status == "")
 					status = "OK"
 				src.show_message(text("\t []My [] is [].",status=="OK"?"<span class='notice'></span>":"<span class='warning'></span>",org.name,status),1)
+
+				for(var/obj/item/I in org.embedded_objects)
+					to_chat(src, "\t <a href='byond://?src=[UID()];embedded_object=[I.UID()];embedded_limb=[org.UID()]' class='warning'>There is \a [I] embedded in your [org.name]!</a>")
+
 			if(staminaloss)
 				if(staminaloss > 30)
 					to_chat(src, "<span class='info'>You're completely exhausted.</span>")
@@ -474,21 +477,6 @@ var/list/ventcrawl_machinery = list(/obj/machinery/atmospherics/unary/vent_pump,
 		if(istype(loc, /obj/machinery/atmospherics))
 			add_ventcrawl(loc)
 
-/mob/living/carbon/clean_blood()
-	. = ..()
-	if(ishuman(src))
-		var/mob/living/carbon/human/H = src
-		if(H.gloves)
-			if(H.gloves.clean_blood())
-				H.update_inv_gloves(0,0)
-			H.gloves.germ_level = 0
-		else
-			if(H.bloody_hands)
-				H.bloody_hands = 0
-				H.update_inv_gloves(0,0)
-			H.germ_level = 0
-	update_icons()	//apply the now updated overlays to the mob
-
 
 //Throwing stuff
 
@@ -650,9 +638,10 @@ var/list/ventcrawl_machinery = list(/obj/machinery/atmospherics/unary/vent_pump,
 								"<span class='userdanger'>[usr] tries to [internal ? "close" : "open"] the valve on [src]'s [ITEM].</span>")
 
 				var/no_mask
-				if(!(wear_mask && wear_mask.flags & AIRTIGHT))
-					if(!(head && head.flags & AIRTIGHT))
-						no_mask = 1
+				if(!get_organ_slot("breathing_tube"))
+					if(!(wear_mask && wear_mask.flags & AIRTIGHT))
+						if(!(head && head.flags & AIRTIGHT))
+							no_mask = 1
 				if(no_mask)
 					to_chat(usr, "<span class='warning'>[src] is not wearing a suitable mask or helmet!</span>")
 					return
@@ -663,9 +652,10 @@ var/list/ventcrawl_machinery = list(/obj/machinery/atmospherics/unary/vent_pump,
 						update_internals_hud_icon(0)
 					else
 						var/no_mask2
-						if(!(wear_mask && wear_mask.flags & AIRTIGHT))
-							if(!(head && head.flags & AIRTIGHT))
-								no_mask2 = 1
+						if(!get_organ_slot("breathing_tube"))
+							if(!(wear_mask && wear_mask.flags & AIRTIGHT))
+								if(!(head && head.flags & AIRTIGHT))
+									no_mask2 = 1
 						if(no_mask2)
 							to_chat(usr, "<span class='warning'>[src] is not wearing a suitable mask or helmet!</span>")
 							return

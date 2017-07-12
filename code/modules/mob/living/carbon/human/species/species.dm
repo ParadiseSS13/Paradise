@@ -227,8 +227,7 @@
 
 	if(O2_pp < atmos_requirements["min_oxy"])
 		if(prob(20))
-			spawn(0)
-				H.emote("gasp")
+			H.emote("gasp")
 
 		H.failed_last_breath = 1
 		if(O2_pp > 0)
@@ -250,8 +249,7 @@
 
 	if(N2_pp < atmos_requirements["min_nitro"])
 		if(prob(20))
-			spawn(0)
-				H.emote("gasp")
+			H.emote("gasp")
 
 		H.failed_last_breath = 1
 		if(N2_pp > 0)
@@ -273,8 +271,7 @@
 
 	if(Tox_pp < atmos_requirements["min_tox"])
 		if(prob(20))
-			spawn(0)
-				H.emote("gasp")
+			H.emote("gasp")
 
 		H.failed_last_breath = 1
 		if(Tox_pp > 0)
@@ -297,8 +294,7 @@
 
 	if(CO2_pp < atmos_requirements["min_co2"])
 		if(prob(20))
-			spawn(0)
-				H.emote("gasp")
+			H.emote("gasp")
 
 		H.failed_last_breath = 1
 		if(CO2_pp)
@@ -316,8 +312,7 @@
 			if(world.time - H.co2overloadtime > 300) // They've been in here 30s now, lets start to kill them for their own good!
 				H.adjustOxyLoss(8)
 		if(prob(20)) // Lets give them some chance to know somethings not right though I guess.
-			spawn(0)
-				H.emote("cough")
+			H.emote("cough")
 	else
 		H.clear_alert("co2")
 		H.co2overloadtime = 0
@@ -343,8 +338,7 @@
 					H.AdjustSleeping(8, bound_lower = 0, bound_upper = 10)
 			else if(SA_pp > 0.01)	// There is sleeping gas in their lungs, but only a little, so give them a bit of a warning
 				if(prob(20))
-					spawn(0)
-						H.emote(pick("giggle", "laugh"))
+					H.emote(pick("giggle", "laugh"))
 
 	handle_temperature(breath, H)
 	return 1
@@ -398,9 +392,6 @@
 
 	if(has_gravity(H))
 		gravity = 1
-
-	if(H.embedded_flag)
-		H.handle_embedded_objects() //Moving with objects stuck in you can cause bad times.
 
 	if(!ignoreslow && gravity)
 		if(slowdown)
@@ -519,7 +510,6 @@
 	var/attack_sound = "punch"
 	var/miss_sound = 'sound/weapons/punchmiss.ogg'
 	var/sharp = 0
-	var/edge = 0
 
 /datum/unarmed_attack/punch
 	attack_verb = list("punch")
@@ -535,7 +525,6 @@
 	attack_sound = 'sound/weapons/slice.ogg'
 	miss_sound = 'sound/weapons/slashmiss.ogg'
 	sharp = 1
-	edge = 1
 
 /datum/unarmed_attack/claws/armalis
 	attack_verb = list("slash", "claw")
@@ -743,3 +732,9 @@ It'll return null if the organ doesn't correspond, so include null checks when u
 
 	if(H.see_override)	//Override all
 		H.see_invisible = H.see_override
+
+/datum/species/proc/water_act(mob/living/carbon/human/M, volume, temperature, source)
+	if(temperature >= 330)
+		M.bodytemperature = M.bodytemperature + (temperature - M.bodytemperature)
+	if(temperature <= 280)
+		M.bodytemperature = M.bodytemperature - (M.bodytemperature - temperature)

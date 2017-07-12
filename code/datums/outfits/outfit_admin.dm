@@ -587,6 +587,8 @@
 		apply_to_card(I, H, list(access_maint_tunnels), "Legit Xenomorph")
 
 /datum/outfit/admin/soviet
+
+	gloves = /obj/item/clothing/gloves/combat
 	uniform = /obj/item/clothing/under/soviet
 	back = /obj/item/weapon/storage/backpack/satchel
 	head = /obj/item/clothing/head/ushanka
@@ -970,7 +972,7 @@
 
 	for(var/obj/item/I in H.contents)
 		if(!istype(I, /obj/item/weapon/implant))
-			I.add_blood(H)
+			I.add_mob_blood(H)
 
 	if(visualsOnly)
 		return
@@ -1005,7 +1007,7 @@
 
 	for(var/obj/item/I in H.contents)
 		if(!istype(I, /obj/item/weapon/implant))
-			I.add_blood(H)
+			I.add_mob_blood(H)
 
 	if(visualsOnly)
 		return

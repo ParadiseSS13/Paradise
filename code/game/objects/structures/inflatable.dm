@@ -96,7 +96,7 @@
 /obj/structure/inflatable/attackby(obj/item/weapon/W as obj, mob/user as mob, params)
 	if(!istype(W))
 		return
-	if(can_puncture(W))
+	if(is_pointed(W))
 		visible_message("<span class='danger'>[user] pierces [src] with [W]!</span>")
 		deflate(1)
 	if(W.damtype == BRUTE || W.damtype == BURN)

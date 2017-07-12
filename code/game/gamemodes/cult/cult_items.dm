@@ -7,7 +7,6 @@
 	force = 30
 	throwforce = 10
 	sharp = 1
-	edge = 1
 	hitsound = 'sound/weapons/bladeslice.ogg'
 	attack_verb = list("attacked", "slashed", "stabbed", "sliced", "torn", "ripped", "diced", "cut")
 
@@ -46,6 +45,7 @@
 	w_class = WEIGHT_CLASS_SMALL
 	force = 15
 	throwforce = 25
+	embed_chance = 75
 	var/cooldown = 0
 
 /obj/item/weapon/melee/cultblade/dagger/afterattack(mob/living/target as mob, mob/living/carbon/human/user as mob)
@@ -65,9 +65,8 @@
 	if(!(cooldown > world.time) && ((bleeder.stat != DEAD) && !(bleeder.species.flags & NO_BLOOD)))
 		if(do_after(user, 20, target = target))
 			user.visible_message("<span class='danger'>The runes on the blade absorb the blood of [target]!</span>")
-			bleeder.drip(5000)
+			bleeder.bleed(5000)
 			cooldown = world.time + 2400
-
 /obj/item/weapon/restraints/legcuffs/bola/cult
 	name = "runed bola"
 	desc = "A strong bola, bound with dark magic. Throw it to trip and slow your victim."

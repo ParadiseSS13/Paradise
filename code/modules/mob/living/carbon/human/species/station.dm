@@ -519,6 +519,7 @@
 		"is cracking their exoskeleton!",
 		"is stabbing themselves with their mandibles!",
 		"is holding their breath!")
+
 /datum/species/slime
 	name = "Slime People"
 	name_plural = "Slime People"
@@ -547,6 +548,7 @@
 	bodyflags = HAS_SKIN_COLOR | NO_EYES
 	dietflags = DIET_CARN
 	reagent_tag = PROCESS_ORG
+	blood_color = "#0064C8"
 	exotic_blood = "water"
 	//ventcrawler = 1 //ventcrawling commented out
 	butt_sprite = "slime"
@@ -575,7 +577,7 @@
 #define SLIMEPERSON_BLOOD_SCALING_FACTOR 5 // Used to adjust how much of an effect the blood has on the rate of color change. Higher is slower.
 	// Slowly shifting to the color of the reagents
 	if((H in recolor_list) && H.reagents.total_volume > SLIMEPERSON_COLOR_SHIFT_TRIGGER)
-		var/blood_amount = H.vessel.total_volume
+		var/blood_amount = H.blood_volume
 		var/r_color = mix_color_from_reagents(H.reagents.reagent_list)
 		var/new_body_color = BlendRGB(r_color, rgb(H.r_skin, H.g_skin, H.b_skin), (blood_amount*SLIMEPERSON_BLOOD_SCALING_FACTOR)/((blood_amount*SLIMEPERSON_BLOOD_SCALING_FACTOR)+(H.reagents.total_volume)))
 		var/list/new_color_list = ReadRGB(new_body_color)
@@ -753,6 +755,11 @@
 		genemutcheck(C,REMOTETALKBLOCK,null,MUTCHK_FORCED)
 	..()
 
+/datum/species/grey/water_act(var/mob/living/carbon/C, volume, temperature, source)
+	..()
+	C.take_organ_damage(5,min(volume,20))
+	C.emote("scream")
+
 /datum/species/grey/after_equip_job(datum/job/J, mob/living/carbon/human/H)
 	var/speech_pref = H.client.prefs.speciesprefs
 	if(speech_pref)
@@ -922,7 +929,7 @@
 		"brain" = /obj/item/organ/internal/brain/mmi_holder/posibrain,
 		"cell" = /obj/item/organ/internal/cell,
 		"optics" = /obj/item/organ/internal/eyes/optical_sensor, //Default darksight of 2.
-		"charger" = /obj/item/organ/internal/cyberimp/chest/arm_mod/power_cord
+		"charger" = /obj/item/organ/internal/cyberimp/arm/power_cord
 		)
 
 	vision_organ = /obj/item/organ/internal/eyes/optical_sensor

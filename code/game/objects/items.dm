@@ -4,7 +4,6 @@ var/global/image/fire_overlay = image("icon" = 'icons/goonstation/effects/fire.d
 	name = "item"
 	icon = 'icons/obj/items.dmi'
 	var/discrete = 0 // used in item_attack.dm to make an item not show an attack message to viewers
-	var/no_embed = 0 // For use in item_attack.dm
 	var/image/blood_overlay = null //this saves our blood splatter overlay, which will be processed not to go over the edges of the sprite
 	var/blood_overlay_color = null
 	var/item_state = null
@@ -62,6 +61,17 @@ var/global/image/fire_overlay = image("icon" = 'icons/goonstation/effects/fire.d
 	var/hit_reaction_chance = 0 //If you want to have something unrelated to blocking/armour piercing etc. Maybe not needed, but trying to think ahead/allow more freedom
 
 	var/mob/thrownby = null
+
+	//So items can have custom embedd values
+	//Because customisation is king
+	var/embed_chance = EMBED_CHANCE
+	var/embedded_fall_chance = EMBEDDED_ITEM_FALLOUT
+	var/embedded_pain_chance = EMBEDDED_PAIN_CHANCE
+	var/embedded_pain_multiplier = EMBEDDED_PAIN_MULTIPLIER  //The coefficient of multiplication for the damage this item does while embedded (this*w_class)
+	var/embedded_fall_pain_multiplier = EMBEDDED_FALL_PAIN_MULTIPLIER //The coefficient of multiplication for the damage this item does when falling out of a limb (this*w_class)
+	var/embedded_impact_pain_multiplier = EMBEDDED_IMPACT_PAIN_MULTIPLIER //The coefficient of multiplication for the damage this item does when first embedded (this*w_class)
+	var/embedded_unsafe_removal_pain_multiplier = EMBEDDED_UNSAFE_REMOVAL_PAIN_MULTIPLIER //The coefficient of multiplication for the damage removing this without surgery causes (this*w_class)
+	var/embedded_unsafe_removal_time = EMBEDDED_UNSAFE_REMOVAL_TIME //A time in ticks, multiplied by the w_class.
 
 	var/toolspeed = 1 // If this item is a tool, the speed multiplier
 
@@ -463,51 +473,6 @@ var/global/image/fire_overlay = image("icon" = 'icons/goonstation/effects/fire.d
 		M.take_organ_damage(7)
 	M.AdjustEyeBlurry(rand(3,4))
 	return
-
-/obj/item/clean_blood()
-	. = ..()
-	if(blood_overlay)
-		overlays.Remove(blood_overlay)
-	if(istype(src, /obj/item/clothing/gloves))
-		var/obj/item/clothing/gloves/G = src
-		G.transfer_blood = 0
-
-
-/obj/item/add_blood(mob/living/carbon/human/M as mob)
-	if(!..())
-		return 0
-
-	if(istype(src, /obj/item/weapon/melee/energy))
-		return
-
-	//if we haven't made our blood_overlay already
-	if( !blood_overlay )
-		generate_blood_overlay()
-
-	//apply the blood-splatter overlay if it isn't already in there
-	if(!blood_DNA.len)
-		blood_overlay.color = blood_color
-		overlays += blood_overlay
-
-	//if this blood isn't already in the list, add it
-	if(istype(M))
-		if(blood_DNA[M.dna.unique_enzymes])
-			return 0 //already bloodied with this blood. Cannot add more.
-		blood_DNA[M.dna.unique_enzymes] = M.dna.b_type
-	return 1 //we applied blood to the item
-
-/obj/item/proc/generate_blood_overlay()
-	if(blood_overlay)
-		return
-
-	var/icon/I = new /icon(icon, icon_state)
-	I.Blend(new /icon('icons/effects/blood.dmi', rgb(255,255,255)),ICON_ADD) //fills the icon_state with white (except where it's transparent)
-	I.Blend(new /icon('icons/effects/blood.dmi', "itemblood"),ICON_MULTIPLY) //adds blood and the remaining white areas become transparant
-
-	//not sure if this is worth it. It attaches the blood_overlay to every item of the same type if they don't have one already made.
-	for(var/obj/item/A in world)
-		if(A.type == type && !A.blood_overlay)
-			A.blood_overlay = image(I)
 
 /obj/item/singularity_pull(S, current_size)
 	spawn(0) //this is needed or multiple items will be thrown sequentially and not simultaneously
