@@ -412,7 +412,7 @@
 		msg += "[t_He] [t_is] bandaged with something.\n"
 	else if(bleed_rate)
 		if(reagents.has_reagent("heparin"))
-			msg += "<b>[t_He] [t_is] bleeding uncontrollably!</b>\n"
+			msg += "<B>[t_He] [t_is] bleeding uncontrollably!</B>\n"
 		else
 			msg += "<B>[t_He] [t_is] bleeding!</B>\n"
 

@@ -99,7 +99,7 @@
 			affecting.bandage()
 			affecting.disinfect()
 
-			user.visible_message("<span class='green'>[user] bandages the wounds on [H]'s [affecting.name].", \
+			user.visible_message("<span class='green'>[user] bandages the wounds on [H]'s [affecting.name].</span>", \
 							 	 "<span class='green'>You bandage the wounds on [H]'s [affecting.name].</span>" )
 
 			if(stop_bleeding)
@@ -144,7 +144,7 @@
 		if(affecting.open == 0)
 			affecting.salve()
 
-			user.visible_message("<span class='green'>[user] salves the wounds on [H]'s [affecting.name].", \
+			user.visible_message("<span class='green'>[user] salves the wounds on [H]'s [affecting.name].</span>", \
 							 	 "<span class='green'>You salve the wounds on [H]'s [affecting.name].</span>" )
 			affecting.heal_damage(heal_brute, heal_burn)
 			H.UpdateDamageIcon()
