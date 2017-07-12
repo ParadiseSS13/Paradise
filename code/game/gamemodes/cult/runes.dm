@@ -381,7 +381,7 @@ var/list/teleport_runes = list()
 //Rite of Tribute: Sacrifices a crew member to Nar-Sie. Places them into a soul shard if they're in their body.
 /obj/effect/rune/sacrifice
 	cultist_name = "Rite of Tribute"
-	cultist_desc = "sacrifices a crew member to your god. May place them into a soul shard if their spirit remains in their body. Target must be alive."
+	cultist_desc = "Sacrifices a crew member to your god.It may place them into a soul shard if their spirit remains in their body. Target must be alive."
 	icon_state = "3"
 	invocation = "Barhah hra zar'garis!"
 	rune_in_use = 0
@@ -414,7 +414,7 @@ var/list/teleport_runes = list()
 	if(!offering)
 		rune_in_use = 0
 		return
-	if(((ishuman(offering) || isrobot(offering)) && offering.stat != DEAD) || is_sacrifice_target(offering.mind)) //Requires three people to sacrifice living targets
+	if(((ishuman(offering) || isrobot(offering)) && offering.stat != DEAD) || is_sacrifice_target(offering.mind))
 		if(invokers.len < 3)
 			for(var/M in invokers)
 				to_chat(M, "<span class='cultitalic'>[offering] is too greatly linked to the world! You need three acolytes!</span>")
@@ -424,7 +424,7 @@ var/list/teleport_runes = list()
 			return
 	if(offering.stat == DEAD)
 		for(var/M in invokers)
-			to_chat(M, "<span class='cultitalic'>[offering] is no use to our lord dead!</span>")
+			to_chat(M, "<span class='cultitalic'>[offering] is no use to our Lord dead!</span>")
 		fail_invoke()
 		log_game("Sacrifice rune failed - target dead.")
 		rune_in_use = 0
@@ -895,7 +895,7 @@ var/list/teleport_runes = list()
 	if(do_after(user, summontime, target = loc))
 		cultist_to_summon.visible_message("<span class='warning'>[cultist_to_summon] suddenly disappears in a flash of red light!</span>", \
 										  "<span class='cultitalic'><b>Overwhelming vertigo consumes you as you are hurled through the air!</b></span>")
-		visible_message("<span class='warning'>A foggy shape materializes atop [src] and solidifes into [cultist_to_summon]!</span>")
+		visible_message("<span class='warning'>A foggy shape materializes atop [src] and solidifies into [cultist_to_summon]!</span>")
 
 		cultist_to_summon.forceMove(get_turf(src))
 		qdel(src)
@@ -1049,7 +1049,7 @@ var/list/teleport_runes = list()
 		for(var/obj/I in new_human)
 			new_human.unEquip(I)
 		summoned_guys -= new_human
-		ghosts --
+		ghosts--
 		new_human.dust()
 
 /obj/effect/rune/manifest/Destroy()

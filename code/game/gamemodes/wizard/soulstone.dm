@@ -262,7 +262,7 @@
 						T.health = T.maxHealth
 						T.faction |= "\ref[U]"
 						C.icon_state = "soulstone2"
-						to_chat(T, "<span class='cult'>Your soul has been recaptured by the soul stone, its arcane energies are reknitting your ethereal form</span>")
+						to_chat(T, "<span class='cult'>Your soul has been recaptured by the soul stone, its arcane energies are reknitting your ethereal form.</span>")
 						to_chat(U, "<span class='notice'>Capture successful!</span>: [T.name]'s has been recaptured and stored within the soul stone.")
 		if("CONSTRUCT")
 			var/obj/structure/constructshell/T = target
