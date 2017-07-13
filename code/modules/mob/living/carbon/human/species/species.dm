@@ -173,6 +173,8 @@
 		)
 	var/list/proc/species_abilities = list()
 
+	var/pass_flags = 0
+
 /datum/species/New()
 	//If the species has eyes, they are the default vision organ
 	if(!vision_organ && has_organ["eyes"])
@@ -441,6 +443,7 @@
 
 /datum/species/proc/handle_post_spawn(var/mob/living/carbon/C) //Handles anything not already covered by basic species assignment.
 	grant_abilities(C)
+	C.pass_flags = pass_flags
 	return
 
 /datum/species/proc/updatespeciescolor(var/mob/living/carbon/human/H) //Handles changing icobase for species that have multiple skin colors.
@@ -744,3 +747,6 @@ It'll return null if the organ doesn't correspond, so include null checks when u
 		M.bodytemperature = M.bodytemperature + (temperature - M.bodytemperature)
 	if(temperature <= 280)
 		M.bodytemperature = M.bodytemperature - (M.bodytemperature - temperature)
+
+/datum/species/proc/can_push_atom(atom/movable/AM)
+	return TRUE

@@ -19,8 +19,9 @@
 	burntime = 20
 	species_fit = list("Vox")
 	sprite_sheets = list(
-		"Vox" = 'icons/mob/species/vox/back.dmi'
-		)
+		"Vox" = 'icons/mob/species/vox/back.dmi',
+		"Teshari" = 'icons/mob/species/seromi/back.dmi'
+	)
 
 /obj/item/weapon/storage/backpack/attackby(obj/item/weapon/W as obj, mob/user as mob, params)
 	playsound(src.loc, "rustle", 50, 1, -5)

@@ -89,6 +89,7 @@
 	throwforce = 2
 	slot_flags = SLOT_EARS
 	burn_state = FIRE_PROOF
+	sprite_sheets = list("Teshari" = 'icons/mob/species/seromi/ears.dmi')
 
 /obj/item/clothing/ears/attack_hand(mob/user)
 	if(!user)
@@ -162,6 +163,7 @@
 	put_on_delay = 25
 	burn_state = FIRE_PROOF
 	species_restricted = list("exclude","Kidan")
+	sprite_sheets = list("Teshari" = 'icons/mob/species/seromi/eyes.dmi')
 /*
 SEE_SELF  // can see self, no matter what
 SEE_MOBS  // can see all mobs, no matter what
@@ -191,7 +193,8 @@ BLIND     // can't see anything
 	species_fit = list("Vox")
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/species/vox/gloves.dmi',
-		"Drask" = 'icons/mob/species/drask/gloves.dmi'
+		"Drask" = 'icons/mob/species/drask/gloves.dmi',
+		"Teshari" = 'icons/mob/species/seromi/gloves.dmi'
 		)
 
 // Called just before an attack_hand(), in mob/UnarmedAttack()
@@ -284,6 +287,7 @@ BLIND     // can't see anything
 	var/helmet_goggles_invis_view = 0
 	var/vision_flags = 0
 	var/can_toggle = null
+	sprite_sheets = list("Teshari" = 'icons/mob/species/seromi/head.dmi')
 
 //Mask
 /obj/item/clothing/mask
@@ -295,6 +299,7 @@ BLIND     // can't see anything
 	var/adjusted_flags = null
 	strip_delay = 40
 	put_on_delay = 40
+	sprite_sheets = list("Teshari" = 'icons/mob/species/seromi/masks.dmi')
 
 //Proc that moves gas/breath masks out of the way
 /obj/item/clothing/mask/proc/adjustmask(var/mob/user)
@@ -379,7 +384,8 @@ BLIND     // can't see anything
 	slowdown = SHOES_SLOWDOWN
 	species_fit = list("Vox")
 	sprite_sheets = list(
-		"Vox" = 'icons/mob/species/vox/shoes.dmi'
+		"Vox" = 'icons/mob/species/vox/shoes.dmi',
+		"Teshari" = 'icons/mob/species/seromi/shoes.dmi'
 		)
 
 /obj/item/clothing/shoes/attackby(obj/item/I, mob/user, params)
@@ -451,6 +457,7 @@ BLIND     // can't see anything
 	var/ignore_suitadjust = 1
 	var/adjust_flavour = null
 	var/list/hide_tail_by_species = null
+	sprite_sheets = list("Teshari" = 'icons/mob/species/seromi/suit.dmi')
 
 //Proc that opens and closes jackets.
 /obj/item/clothing/suit/proc/adjustsuit(var/mob/user)
@@ -575,7 +582,8 @@ BLIND     // can't see anything
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/species/vox/uniform.dmi',
 		"Drask" = 'icons/mob/species/drask/uniform.dmi',
-		"Grey" = 'icons/mob/species/grey/uniform.dmi'
+		"Grey" = 'icons/mob/species/grey/uniform.dmi',
+		"Teshari" = 'icons/mob/species/seromi/uniform.dmi'
 		)
 	var/has_sensor = 1//For the crew computer 2 = unable to change mode
 	var/sensor_mode = 0

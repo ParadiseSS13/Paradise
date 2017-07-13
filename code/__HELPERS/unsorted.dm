@@ -1882,3 +1882,10 @@ var/global/list/g_fancy_list_of_types = null
 		num_sample -= num
 		result += (1 << num)
 	return result
+
+/proc/is_below_sound_pressure(turf/T)
+	var/datum/gas_mixture/environment = T ? T.return_air() : null
+	var/pressure = environment ? environment.return_pressure() : 0
+	if(pressure < SOUND_MINIMUM_PRESSURE)
+		return TRUE
+	return FALSE

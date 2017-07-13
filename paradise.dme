@@ -1581,6 +1581,7 @@
 #include "code\modules\mob\living\carbon\human\species\golem.dm"
 #include "code\modules\mob\living\carbon\human\species\monkey.dm"
 #include "code\modules\mob\living\carbon\human\species\plasmaman.dm"
+#include "code\modules\mob\living\carbon\human\species\seromi.dm"
 #include "code\modules\mob\living\carbon\human\species\shadow.dm"
 #include "code\modules\mob\living\carbon\human\species\skeleton.dm"
 #include "code\modules\mob\living\carbon\human\species\species.dm"

@@ -108,6 +108,8 @@
 
 	var/obj/item/weapon/card/id/guest/guest_pass = null // Guest pass attached to the ID
 
+	sprite_sheets = list("Teshari" = 'icons/mob/species/seromi/id.dmi')
+
 /obj/item/weapon/card/id/New()
 	..()
 	spawn(30)

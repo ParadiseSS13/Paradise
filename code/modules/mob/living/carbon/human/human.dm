@@ -2058,3 +2058,8 @@
 	update_icons()
 
 	..()
+
+/mob/living/carbon/human/can_push_atom(atom/movable/AM)
+	if(!species.can_push_atom(AM))
+		return FALSE
+	return ..()

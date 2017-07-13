@@ -58,14 +58,7 @@
 		return 1
 
 	if(!M.buckled && !M.has_buckled_mobs())
-		var/mob_swap
-		//the puller can always swap with it's victim if on grab intent
-		if(M.pulledby == src && a_intent == INTENT_GRAB)
-			mob_swap = 1
-		//restrained people act if they were on 'help' intent to prevent a person being pulled from being seperated from their puller
-		else if((M.restrained() || M.a_intent == INTENT_HELP) && (restrained() || a_intent == INTENT_HELP))
-			mob_swap = 1
-		if(mob_swap)
+		if(can_swap_with(M))
 			//switch our position with M
 			if(loc && !loc.Adjacent(M.loc))
 				return 1
@@ -99,18 +92,25 @@
 	if(M.l_hand && (prob(M.l_hand.block_chance * 2)) && !istype(M.l_hand, /obj/item/clothing))
 		return 1
 
+// Helper for MobBump
+/mob/living/proc/can_swap_with(mob/M)
+	//the puller can always swap with it's victim if on grab intent
+	if(M.pulledby == src && a_intent == INTENT_GRAB)
+		return 1
+	//restrained people act if they were on 'help' intent to prevent a person being pulled from being seperated from their puller
+	else if((M.restrained() || M.a_intent == INTENT_HELP) && (restrained() || a_intent == INTENT_HELP))
+		return 1
+
+
 //Called when we bump into an obj
 /mob/living/proc/ObjBump(obj/O)
 	return
 
 //Called when we want to push an atom/movable
 /mob/living/proc/PushAM(atom/movable/AM)
-	if(now_pushing)
+	if(!can_push_atom(AM))
 		return 1
-	if(moving_diagonally) // no pushing during diagonal moves
-		return 1
-	if(!client && (mob_size < MOB_SIZE_SMALL))
-		return
+
 	if(!AM.anchored)
 		now_pushing = 1
 		var/t = get_dir(src, AM)
@@ -127,6 +127,14 @@
 		if(current_dir)
 			AM.setDir(current_dir)
 		now_pushing = 0
+
+/mob/living/proc/can_push_atom(atom/movable/AM)
+	if(now_pushing)
+		return FALSE
+	if(moving_diagonally) // no pushing during diagonal moves
+		return FALSE
+	if(!client && (mob_size < MOB_SIZE_SMALL))
+		return FALSE
 
 
 /mob/living/Stat()

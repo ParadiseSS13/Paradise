@@ -70,7 +70,7 @@
 /datum/sprite_accessory/hair/bald
 	name = "Bald"
 	icon_state = "bald"
-	species_allowed = list("Human", "Unathi", "Vox", "Diona", "Kidan", "Grey", "Plasmaman", "Skeleton", "Vulpkanin", "Tajaran")
+	species_allowed = list("Human", "Unathi", "Vox", "Diona", "Kidan", "Grey", "Plasmaman", "Skeleton", "Vulpkanin", "Tajaran", "Teshari")
 	glasses_over = 1
 
 /datum/sprite_accessory/hair/short
@@ -566,7 +566,7 @@
 	name = "Unathi Side Frills"
 	icon_state = "unathi_sidefrills"
 	secondary_theme = "webbing"
-	
+
 /datum/sprite_accessory/hair/unathi/una_cobra_hood
     icon = 'icons/mob/human_face.dmi'
     name = "Unathi Cobra Hood"
@@ -741,6 +741,65 @@
 	name = "Tajara Finger Curls"
 	icon_state = "hair_fingerwave"
 	glasses_over = null
+
+/datum/sprite_accessory/hair/teshari
+	species_allowed = list("Teshari")
+
+/datum/sprite_accessory/hair/teshari/teshari
+	name = "Teshari Default"
+	icon_state = "teshari_default"
+
+/datum/sprite_accessory/hair/teshari/altdefault
+	name = "Teshari Alt. Default"
+	icon_state = "teshari_ears"
+
+/datum/sprite_accessory/hair/teshari/tight
+	name = "Teshari Tight"
+	icon_state = "teshari_tight"
+
+/datum/sprite_accessory/hair/teshari/excited
+	name = "Teshari Spiky"
+	icon_state = "teshari_spiky"
+
+/datum/sprite_accessory/hair/teshari/spike
+	name = "Teshari Spike"
+	icon_state = "teshari_spike"
+
+/datum/sprite_accessory/hair/teshari/long
+	name = "Teshari Overgrown"
+	icon_state = "teshari_long"
+
+/datum/sprite_accessory/hair/teshari/burst
+	name = "Teshari Starburst"
+	icon_state = "teshari_burst"
+
+/datum/sprite_accessory/hair/teshari/shortburst
+	name = "Teshari Short Starburst"
+	icon_state = "teshari_burst_short"
+
+/datum/sprite_accessory/hair/teshari/mohawk
+	name = "Teshari Mohawk"
+	icon_state = "teshari_mohawk"
+
+/datum/sprite_accessory/hair/teshari/pointy
+	name = "Teshari Pointy"
+	icon_state = "teshari_pointy"
+
+/datum/sprite_accessory/hair/teshari/upright
+	name = "Teshari Upright"
+	icon_state = "teshari_upright"
+
+/datum/sprite_accessory/hair/teshari/mane
+	name = "Teshari Mane"
+	icon_state = "teshari_mane"
+
+/datum/sprite_accessory/hair/teshari/droopy
+	name = "Teshari Droopy"
+	icon_state = "teshari_droopy"
+
+/datum/sprite_accessory/hair/teshari/mushroom
+	name = "Teshari Mushroom"
+	icon_state = "teshari_mushroom"
 
 /datum/sprite_accessory/hair/vulpkanin
 	species_allowed = list("Vulpkanin")
@@ -944,7 +1003,7 @@
 	name = "Shaved"
 	icon_state = "bald"
 	gender = NEUTER
-	species_allowed = list("Human", "Unathi", "Tajaran", "Skrell", "Vox", "Diona", "Kidan", "Greys", "Vulpkanin", "Slime People")
+	species_allowed = list("Human", "Unathi", "Tajaran", "Skrell", "Vox", "Diona", "Kidan", "Greys", "Vulpkanin", "Slime People", "Teshari")
 
 /datum/sprite_accessory/facial_hair/watson
 	name = "Watson Mustache"
