@@ -118,3 +118,18 @@
 
 #define CLONER_FRESH_CLONE "fresh"
 #define CLONER_MATURE_CLONE "mature"
+
+//Species traits.
+
+#define IS_WHITELISTED 	1
+#define NO_BLOOD		2
+#define NO_BREATHE 		3
+#define NO_DNA			4
+#define NO_SCAN 		5
+#define NO_PAIN 		6
+#define IS_PLANT 		7
+#define CAN_BE_FAT 		8
+#define NO_INTORGANS	9
+#define RADIMMUNE		10
+#define NOGUNS			11
+#define NOTRANSSTING	12

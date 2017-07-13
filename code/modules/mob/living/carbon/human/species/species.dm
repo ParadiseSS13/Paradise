@@ -91,7 +91,8 @@
 
 	var/list/allowed_consumed_mobs = list() //If a species can consume mobs, put the type of mobs it can consume here.
 
-	var/flags = 0       // Various specific features.
+	var/list/species_traits = list()
+
 	var/clothing_flags = 0 // Underwear and socks.
 	var/exotic_blood
 	var/bodyflags = 0
@@ -585,7 +586,7 @@
 				if(SCREWYHUD_DEAD)	H.healths.icon_state = "health7"
 				if(SCREWYHUD_HEALTHY)	H.healths.icon_state = "health0"
 				else
-					switch(100 - ((flags & NO_PAIN) ? 0 : H.traumatic_shock) - H.staminaloss)
+					switch(100 - ((NO_PAIN in species_traits) ? 0 : H.traumatic_shock) - H.staminaloss)
 						if(100 to INFINITY)		H.healths.icon_state = "health0"
 						if(80 to 100)			H.healths.icon_state = "health1"
 						if(60 to 80)			H.healths.icon_state = "health2"

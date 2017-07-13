@@ -322,13 +322,6 @@
 		status &= ~ORGAN_BROKEN
 		perma_injury = 0
 
-/*
-	if((brute || burn) && children && children.len && (owner.species.flags & REGENERATES_LIMBS))
-		var/obj/item/organ/external/stump/S = locate() in children
-		if(S)
-//			to_chat(world, "Extra healing to go around ([brute+burn]) and [owner] needs a replacement limb.")
-*/
-
 	//Sync the organ's damage with its wounds
 	src.update_damages()
 	owner.updatehealth()
@@ -491,7 +484,7 @@ Note that amputating the affected organ does in fact remove the infection from t
 */
 /obj/item/organ/external/proc/update_germs()
 
-	if(status & (ORGAN_ROBOT|ORGAN_DESTROYED) || (owner.species && owner.species.flags & IS_PLANT)) //Robotic limbs shouldn't be infected, nor should nonexistant limbs.
+	if(status & (ORGAN_ROBOT|ORGAN_DESTROYED) || (IS_PLANT in owner.species.species_traits)) //Robotic limbs shouldn't be infected, nor should nonexistant limbs.
 		germ_level = 0
 		return
 
@@ -634,7 +627,7 @@ Note that amputating the affected organ does in fact remove the infection from t
 
 		if(!(status & ORGAN_ROBOT) && W.bleeding())
 			W.bleed_timer--
-			if(H && (H.species.flags & NO_BLOOD)) // Bloodless organic races are finicky
+			if(H && (NO_BLOOD in H.species.species_traits)) // Bloodless organic races are finicky
 				W.clamped = 1
 				W.bleed_timer = 0
 			else
@@ -644,7 +637,7 @@ Note that amputating the affected organ does in fact remove the infection from t
 
 		number_wounds += W.amount
 
-	if(open && !clamped && (H && !(H.species.flags & NO_BLOOD)))
+	if(open && !clamped && (H && !(NO_BLOOD in H.species.species_traits)))
 		status |= ORGAN_BLEEDING
 
 	//Bone fractures
@@ -826,7 +819,7 @@ Note that amputating the affected organ does in fact remove the infection from t
 			"<span class='warning'>You hear a loud cracking sound coming from \the [owner].</span>",\
 			"<span class='danger'>Something feels like it shattered in your [name]!</span>",\
 			"You hear a sickening crack.")
-		if(owner.species && !(owner.species.flags & NO_PAIN))
+		if(owner.species && !(NO_PAIN in owner.species.species_traits))
 			owner.emote("scream")
 
 	status |= ORGAN_BROKEN
