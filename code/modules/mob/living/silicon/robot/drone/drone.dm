@@ -188,6 +188,7 @@
 	lawchanges.Add("[time] <B>:</B> [H.name]([H.key]) emagged [name]([key])")
 
 	emagged = 1
+	icon_state = "syndi-drone"
 	lawupdate = 0
 	connected_ai = null
 	clear_supplied_laws()
