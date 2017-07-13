@@ -133,3 +133,4 @@
 #define RADIMMUNE		10
 #define NOGUNS			11
 #define NOTRANSSTING	12
+#define VIRUSIMMUNE		13
