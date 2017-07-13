@@ -179,6 +179,9 @@ var/list/organ_cache = list()
 		if(antibiotics < 5 && parent.germ_level < germ_level && ( parent.germ_level < INFECTION_LEVEL_ONE*2 || prob(30) ))
 			parent.germ_level++
 
+/obj/item/organ/internal/handle_germ_effects()
+	..()
+	if(germ_level >= INFECTION_LEVEL_TWO)
 		if(prob(3))	//about once every 30 seconds
 			take_damage(1,silent=prob(30))
 

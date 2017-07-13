@@ -568,6 +568,8 @@
 	for(var/thing in data["content"])
 		if(islist(thing))
 			list_to_object(thing, src)
+		else if(thing == null)
+			log_runtime(EXCEPTION("Null entry found in storage/deserialize."), src)
 		else
 			log_runtime(EXCEPTION("Non-list thing found in storage/deserialize."), src, list("Thing: [thing]"))
 	..()

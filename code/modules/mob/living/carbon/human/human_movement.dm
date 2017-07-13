@@ -56,13 +56,7 @@
 					else
 						//No oldFP or it's a different kind of blood
 						S.bloody_shoes[S.blood_state] = max(0, S.bloody_shoes[S.blood_state] - BLOOD_LOSS_PER_STEP)
-						var/obj/effect/decal/cleanable/blood/footprints/FP = new /obj/effect/decal/cleanable/blood/footprints(T)
-						FP.blood_state = S.blood_state
-						FP.entered_dirs |= dir
-						FP.bloodiness = S.bloody_shoes[S.blood_state]
-						FP.blood_DNA = S.blood_DNA
-						FP.basecolor = S.blood_color
-						FP.update_icon()
+						createFootprintsFrom(shoes, dir, T)
 						update_inv_shoes()
 			else if(hasfeet)
 				if(bloody_feet && bloody_feet[blood_state])
@@ -71,12 +65,7 @@
 						return
 					else
 						bloody_feet[blood_state] = max(0, bloody_feet[blood_state] - BLOOD_LOSS_PER_STEP)
-						var/obj/effect/decal/cleanable/blood/footprints/FP = new /obj/effect/decal/cleanable/blood/footprints(T)
-						FP.blood_state = blood_state
-						FP.entered_dirs |= dir
-						FP.bloodiness = bloody_feet[blood_state]
-						FP.basecolor = feet_blood_color
-						FP.update_icon()
+						createFootprintsFrom(src, dir, T)
 						update_inv_shoes()
 			//End bloody footprints
 			if(S)
