@@ -19,6 +19,7 @@
 	response_help  = "pets"
 	response_disarm = "bops"
 	response_harm   = "kicks"
+	mob_size = MOB_SIZE_HUMAN
 	see_in_dark = 5
 	childtype = /mob/living/simple_animal/pet/corgi/puppy
 	simplespecies = /mob/living/simple_animal/pet/corgi
