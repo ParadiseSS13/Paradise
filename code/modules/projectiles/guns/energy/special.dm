@@ -273,6 +273,7 @@
 	icon_state = "disabler"
 	ammo_type = list(/obj/item/ammo_casing/energy/clown)
 	clumsy_check = 0
+	selfcharge = 1
 	ammo_x_offset = 3
 
 /obj/item/weapon/gun/energy/toxgun
