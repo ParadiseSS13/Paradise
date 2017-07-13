@@ -16,6 +16,8 @@
 	throw_speed = 1
 	throw_range = 4
 
+	sprite_sheets = list("Teshari" = 'icons/mob/species/seromi/back.dmi')
+
 	actions_types = list(/datum/action/item_action/set_internals)
 	var/datum/gas_mixture/air_contents = null
 	var/distribute_pressure = ONE_ATMOSPHERE

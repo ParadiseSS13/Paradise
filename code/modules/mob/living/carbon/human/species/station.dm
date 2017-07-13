@@ -217,8 +217,7 @@
 	dietflags = DIET_HERB
 	flesh_color = "#8CD7A3"
 	blood_color = "#1D2CBF"
-	base_color = "#38b661" //RGB: 56, 182, 97.
-	default_hair_colour = "#38b661"
+	default_hair_colour = "#38b661" //RGB: 56, 182, 97.
 	eyes = "skrell_eyes_s"
 	//Default styles for created mobs.
 	default_hair = "Skrell Male Tentacles"
