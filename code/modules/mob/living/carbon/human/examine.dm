@@ -288,7 +288,6 @@
 
 	var/list/wound_flavor_text = list()
 	var/list/is_destroyed = list()
-	var/list/is_bleeding = list()
 	for(var/organ_tag in species.has_limbs)
 
 		var/list/organ_data = species.has_limbs[organ_tag]
@@ -332,8 +331,6 @@
 					if(W.internal && !temp.open) continue // can't see internal wounds
 					var/this_wound_desc = W.desc
 					if(W.damage_type == BURN && W.salved) this_wound_desc = "salved [this_wound_desc]"
-					if(W.bleeding()) this_wound_desc = "bleeding [this_wound_desc]"
-					else if(W.bandaged) this_wound_desc = "bandaged [this_wound_desc]"
 					if(W.germ_level > 600) this_wound_desc = "badly infected [this_wound_desc]"
 					else if(W.germ_level > 330) this_wound_desc = "lightly infected [this_wound_desc]"
 					if(this_wound_desc in wound_descriptors)
@@ -377,8 +374,6 @@
 					wound_flavor_text["[temp.limb_name]"] = flavor_text_string
 				else
 					wound_flavor_text["[temp.limb_name]"] = ""
-				if(temp.status & ORGAN_BLEEDING)
-					is_bleeding["[temp.limb_name]"] = 1
 			else
 				wound_flavor_text["[temp.limb_name]"] = ""
 
@@ -387,64 +382,39 @@
 
 	//Handles the text strings being added to the actual description.
 	//If they have something that covers the limb, and it is not missing, put flavortext.  If it is covered but bleeding, add other flavortext.
-	var/display_chest = 0
-	var/display_shoes = 0
-	var/display_gloves = 0
 	if(wound_flavor_text["head"] && (is_destroyed["head"] || (!skipmask && !(wear_mask && istype(wear_mask, /obj/item/clothing/mask/gas)))))
 		msg += wound_flavor_text["head"]
-	else if(is_bleeding["head"])
-		msg += "<span class='warning'>[src] has blood running down [t_his] face!</span>\n"
 	if(wound_flavor_text["chest"] && !w_uniform && !skipjumpsuit) //No need.  A missing chest gibs you.
 		msg += wound_flavor_text["chest"]
-	else if(is_bleeding["chest"])
-		display_chest = 1
 	if(wound_flavor_text["l_arm"] && (is_destroyed["left arm"] || (!w_uniform && !skipjumpsuit)))
 		msg += wound_flavor_text["l_arm"]
-	else if(is_bleeding["l_arm"])
-		display_chest = 1
 	if(wound_flavor_text["l_hand"] && (is_destroyed["left hand"] || (!gloves && !skipgloves)))
 		msg += wound_flavor_text["l_hand"]
-	else if(is_bleeding["l_hand"])
-		display_gloves = 1
 	if(wound_flavor_text["r_arm"] && (is_destroyed["right arm"] || (!w_uniform && !skipjumpsuit)))
 		msg += wound_flavor_text["r_arm"]
-	else if(is_bleeding["r_arm"])
-		display_chest = 1
 	if(wound_flavor_text["r_hand"] && (is_destroyed["right hand"] || (!gloves && !skipgloves)))
 		msg += wound_flavor_text["r_hand"]
-	else if(is_bleeding["r_hand"])
-		display_gloves = 1
 	if(wound_flavor_text["groin"] && (is_destroyed["groin"] || (!w_uniform && !skipjumpsuit)))
 		msg += wound_flavor_text["groin"]
-	else if(is_bleeding["groin"])
-		display_chest = 1
 	if(wound_flavor_text["l_leg"] && (is_destroyed["left leg"] || (!w_uniform && !skipjumpsuit)))
 		msg += wound_flavor_text["l_leg"]
-	else if(is_bleeding["l_leg"])
-		display_chest = 1
 	if(wound_flavor_text["l_foot"]&& (is_destroyed["left foot"] || (!shoes && !skipshoes)))
 		msg += wound_flavor_text["l_foot"]
-	else if(is_bleeding["l_foot"])
-		display_shoes = 1
 	if(wound_flavor_text["r_leg"] && (is_destroyed["right leg"] || (!w_uniform && !skipjumpsuit)))
 		msg += wound_flavor_text["r_leg"]
-	else if(is_bleeding["r_leg"])
-		display_chest = 1
 	if(wound_flavor_text["r_foot"]&& (is_destroyed["right foot"] || (!shoes  && !skipshoes)))
 		msg += wound_flavor_text["r_foot"]
-	else if(is_bleeding["r_foot"])
-		display_shoes = 1
-	if(display_chest)
-		msg += "<span class='warning'><b>[src] has blood soaking through from under [t_his] clothing!</b></span>\n"
-	if(display_shoes)
-		msg += "<span class='warning'><b>[src] has blood running from [t_his] shoes!</b></span>\n"
-	if(display_gloves)
-		msg += "<span class='warning'><b>[src] has blood running from under [t_his] gloves!</b></span>\n"
 
 	if(blood_volume < BLOOD_VOLUME_SAFE)
 		msg += "[t_He] [t_has] pale skin.\n"
+
 	if(bleedsuppress)
 		msg += "[t_He] [t_is] bandaged with something.\n"
+	else if(bleed_rate)
+		if(reagents.has_reagent("heparin"))
+			msg += "<B>[t_He] [t_is] bleeding uncontrollably!</B>\n"
+		else
+			msg += "<B>[t_He] [t_is] bleeding!</B>\n"
 
 	if(digitalcamo)
 		msg += "[t_He] [t_is] repulsively uncanny!\n"
