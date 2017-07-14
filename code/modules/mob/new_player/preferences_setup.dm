@@ -243,7 +243,7 @@
 
 	// Determine what job is marked as 'High' priority, and dress them up as such.
 	var/datum/job/previewJob
-	var/highRankFlag = job_support_high | job_medsci_high | job_engsec_high
+	var/highRankFlag = job_support_high | job_medsci_high | job_engsec_high | job_karma_high
 
 	if(job_support_low & SUPPORT)
 		previewJob = job_master.GetJob("Civilian")
@@ -265,7 +265,7 @@
 
 	if(previewJob)
 		mannequin.job = previewJob.title
-		previewJob.equip(mannequin)
+		previewJob.equip(mannequin, TRUE)
 
 	preview_icon = icon('icons/effects/effects.dmi', "nothing")
 	preview_icon.Scale(48+32, 16+32)
