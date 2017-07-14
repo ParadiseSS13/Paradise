@@ -1058,7 +1058,7 @@
 		makeSkeleton()
 		return //No puking over skeletons, they don't smell at all!
 
-	if(!isurf(loc))
+	if(!isturf(loc))
 		return
 
 	for(var/mob/living/carbon/human/H in range(decaylevel, src))
