@@ -87,30 +87,28 @@ obj/item/weapon/clipboard/proc/penPlacement(var/placing, var/obj/item/weapon/pen
 	return
 
 /obj/item/weapon/clipboard/attackby(obj/item/weapon/W, mob/user)
-	var/obj/item/weapon/P = W
-	if(isPaperwork(P)) //If it's a photo, paper bundle, or piece of paper, place it on the clipboard.
-		user.unEquip(P)
-		P.forceMove(src)
-		to_chat(user, "<span class='notice'>You clip [P] onto [src].</span>")
-		if(isPaperwork(P) == PAPERWORK)
-			toppaper = P
+	if(isPaperwork(W)) //If it's a photo, paper bundle, or piece of paper, place it on the clipboard.
+		user.unEquip(W)
+		W.forceMove(src)
+		to_chat(user, "<span class='notice'>You clip [W] onto [src].</span>")
+		playsound(loc, "pageturn", 50, 1)
+		if(isPaperwork(W) == PAPERWORK)
+			toppaper = W
 		update_icon()
 	else if(isPen(W)) //If it's not a pen, we're done here
 		if(!toppaper) //If there's no paper we can write on, just stick the pen into the clipboard
-			penPlacement(TRUE, P)
+			penPlacement(TRUE, W)
 			return
 		if(containedpen) //If there's a pen in the clipboard, let's just let them write and not bother asking about the pen
-			var/obj/item/weapon/paper/T = toppaper
-			T.attackby(P, user)
+			toppaper.attackby(W, user)
 			return
 		var/writeonwhat = input(user, "Write on [toppaper.name], or place your pen in [src]?", "Pick one!") as null|anything in list("Write", "Place pen")
 		if(!writeonwhat)
 			return
 		if(writeonwhat == "Write")
-			var/obj/item/weapon/paper/T = toppaper
-			T.attackby(P, user)
+			toppaper.attackby(W, user)
 		else if(writeonwhat == "Place pen")
-			penPlacement(TRUE, P)
+			penPlacement(TRUE, W)
 
 /obj/item/weapon/clipboard/attack_self(mob/user)
 	show_clipboard()
@@ -144,7 +142,7 @@ obj/item/weapon/clipboard/proc/penPlacement(var/placing, var/obj/item/weapon/pen
 			var/obj/item/weapon/photo/Ph = P
 			Ph.show(usr)
 	else if(href_list["topPaper"])
-		var/obj/item/weapon/paper/P = locate(href_list["topPaper"])
+		var/obj/item/weapon/P = locate(href_list["topPaper"])
 		if(P == toppaper)
 			return
 		to_chat(usr, "<span class = 'notice'>You flick the pages so that [P] is on top.</span>")
