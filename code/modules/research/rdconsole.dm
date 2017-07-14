@@ -513,6 +513,8 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 						switch(M)
 							if(MAT_GLASS)
 								linked_imprinter.g_amount = max(0, (linked_imprinter.g_amount-being_built.materials[M]/coeff))
+							if(MAT_METAL)
+								linked_imprinter.metal_amount = max(0, (linked_imprinter.metal_amount-being_built.materials[M]/coeff))
 							if(MAT_GOLD)
 								linked_imprinter.gold_amount = max(0, (linked_imprinter.gold_amount-being_built.materials[M]/coeff))
 							if(MAT_DIAMOND)
@@ -568,6 +570,9 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 			if(MAT_GLASS)
 				type = /obj/item/stack/sheet/glass
 				res_amount = "g_amount"
+			if(MAT_METAL)
+				type = /obj/item/stack/sheet/metal
+				res_amount = "metal_amount"
 			if(MAT_GOLD)
 				type = /obj/item/stack/sheet/mineral/gold
 				res_amount = "gold_amount"
@@ -851,6 +856,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 			var/list/materials_list = list()
 			data["loaded_materials"] = materials_list
 			materials_list[++materials_list.len] = list("name" = "Glass", "id" = MAT_GLASS, "amount" = linked_imprinter.g_amount)
+			materials_list[++materials_list.len] = list("name" = "Metal", "id" = MAT_METAL, "amount" = linked_imprinter.metal_amount)
 			materials_list[++materials_list.len] = list("name" = "Gold", "id" = MAT_GOLD, "amount" = linked_imprinter.gold_amount)
 			materials_list[++materials_list.len] = list("name" = "Diamond", "id" = MAT_DIAMOND, "amount" = linked_imprinter.diamond_amount)
 		if(submenu == 3)
