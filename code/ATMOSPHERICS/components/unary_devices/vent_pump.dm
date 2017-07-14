@@ -121,8 +121,9 @@
 	update_icon()
 	update_underlays()
 
-/obj/machinery/atmospherics/unary/vent_pump/process()
-	if(!..() || (stat & (NOPOWER|BROKEN)))
+/obj/machinery/atmospherics/unary/vent_pump/process_atmos()
+	..()
+	if((stat & (NOPOWER|BROKEN)))
 		return 0
 	if(!node)
 		on = 0

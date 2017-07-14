@@ -227,6 +227,46 @@
 	time = 100
 	category = CAT_WEAPON
 
+/datum/crafting_recipe/i9carbine
+	name = "Improvised 9mm Carbine"
+	result = /obj/item/weapon/gun/projectile/revolver/doublebarrel/improvised/i9
+	reqs = list(/obj/item/weaponcrafting/receiver = 1,
+				/obj/item/stack/rods = 2,
+				/obj/item/weaponcrafting/stock = 1,
+				/obj/item/stack/packageWrap = 5,
+				/obj/item/stack/sheet/wood = 1)
+	tools = list(/obj/item/weapon/screwdriver)
+	time = 100
+	category = CAT_WEAPON
+
+/datum/crafting_recipe/i45carbine
+	name = "Improvised .45 Carbine"
+	result = /obj/item/weapon/gun/projectile/revolver/doublebarrel/improvised/i45
+	reqs = list(/obj/item/weaponcrafting/receiver = 1,
+				/obj/item/stack/rods = 4,
+				/obj/item/weaponcrafting/stock = 1,
+				/obj/item/stack/packageWrap = 5,
+				/obj/item/stack/sheet/wood = 2,
+				/obj/item/stack/sheet/metal = 2)
+	tools = list(/obj/item/weapon/screwdriver)
+	time = 100
+	category = CAT_WEAPON
+
+/datum/crafting_recipe/i357carbine
+	name = "Improvised .357 Carbine"
+	result = /obj/item/weapon/gun/projectile/revolver/doublebarrel/improvised/i357
+	reqs = list(/obj/item/weaponcrafting/receiver = 1,
+				/obj/item/stack/rods = 6,
+				/obj/item/weaponcrafting/stock = 1,
+				/obj/item/stack/packageWrap = 5,
+				/obj/item/stack/sheet/wood = 3,
+				/obj/item/stack/sheet/metal = 4,
+				/obj/item/stack/sheet/plasteel = 1)
+	tools = list(/obj/item/weapon/screwdriver)
+	time = 100
+	category = CAT_WEAPON
+
+
 /datum/crafting_recipe/chainsaw
 	name = "Chainsaw"
 	result = /obj/item/weapon/twohanded/required/chainsaw
