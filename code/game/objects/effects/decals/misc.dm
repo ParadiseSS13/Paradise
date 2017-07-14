@@ -71,22 +71,22 @@
 	anchored = 1
 	dir = NORTH
 
-	CanPass(atom/movable/mover, turf/target, height=0, air_group=0)
-		if (istype(mover, /obj/item/projectile))
-			return 1
-		if (get_dir(loc, target) == dir)
-			return !density
-		else
-			return 1
-
-	CheckExit(atom/movable/O as mob|obj, target as turf)
-		if (!src.density)
-			return 1
-		if (istype(O, /obj/item/projectile))
-			return 1
-		if (get_dir(O.loc, target) == src.dir)
-			return 0
+/obj/structure/decal/stage_edge/CanPass(atom/movable/mover, turf/target, height=0, air_group=0)
+	if (istype(mover, /obj/item/projectile))
 		return 1
+	if (get_dir(loc, target) == dir)
+		return !density
+	else
+		return 1
+
+/obj/structure/decal/stage_edge/CheckExit(atom/movable/O as mob|obj, target as turf)
+	if (!src.density)
+		return 1
+	if (istype(O, /obj/item/projectile))
+		return 1
+	if (get_dir(O.loc, target) == src.dir)
+		return 0
+	return 1
 
 /obj/structure/decal/boxingrope
 	name = "Boxing Ropes"
@@ -97,21 +97,20 @@
 	icon_state = "ringrope"
 	layer = OBJ_LAYER
 
-	CanPass(atom/movable/mover, turf/target, height=0, air_group=0) // stolen from window.dm
-		if (src.dir == SOUTHWEST || src.dir == SOUTHEAST || src.dir == NORTHWEST || src.dir == NORTHEAST || src.dir == SOUTH || src.dir == NORTH)
-			return 0
-		if(get_dir(loc, target) == dir)
-
-			return !density
-		else
-			return 1
-
-	CheckExit(atom/movable/O as mob|obj, target as turf)
-		if (!src.density)
-			return 1
-		if (get_dir(O.loc, target) == src.dir)
-			return 0
+/obj/structure/decal/boxingrope/CanPass(atom/movable/mover, turf/target, height=0, air_group=0) // stolen from window.dm
+	if (src.dir == SOUTHWEST || src.dir == SOUTHEAST || src.dir == NORTHWEST || src.dir == NORTHEAST || src.dir == SOUTH || src.dir == NORTH)
+		return 0
+	if(get_dir(loc, target) == dir)
+		return !density
+	else
 		return 1
+
+/obj/structure/decal/boxingrope/CheckExit(atom/movable/O as mob|obj, target as turf)
+	if (!src.density)
+		return 1
+	if (get_dir(O.loc, target) == src.dir)
+		return 0
+	return 1
 
 /obj/structure/decal/boxingropeenter
 	name = "Ring entrance"
