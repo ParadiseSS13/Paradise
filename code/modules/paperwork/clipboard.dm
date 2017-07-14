@@ -150,4 +150,4 @@ obj/item/weapon/clipboard/proc/penPlacement(var/placing, var/obj/item/weapon/pen
 
 #undef PAPERWORK
 #undef PHOTO
-#undef IS_PEN(x)
+#undef IS_PEN
