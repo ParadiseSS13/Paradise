@@ -179,6 +179,14 @@
 	build_path = /obj/item/weapon/storage/belt/bandolier
 	category = list("initial","Leather and Cloth")
 
+/datum/design/brown_vest
+	name = "brown webbing vest"
+	id = "brown_vest"
+	build_type = BIOGENERATOR
+	materials = list(MAT_BIOMASS = 300)
+	build_path = /obj/item/clothing/accessory/storage/brown_vest
+	category = list("initial","Leather and Cloth")
+	
 /datum/design/s_holster
 	name = "Shoulder holster"
 	id = "s_holster"
