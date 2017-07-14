@@ -11,6 +11,7 @@ using metal and glass, it uses glass and reagents (usually sulfuric acis).
 	flags = OPENCONTAINER
 
 	var/g_amount = 0
+	var/metal_amount = 0
 	var/gold_amount = 0
 	var/diamond_amount = 0
 	var/max_material_amount = 75000.0
@@ -75,6 +76,8 @@ using metal and glass, it uses glass and reagents (usually sulfuric acis).
 	switch(M)
 		if(MAT_GLASS)
 			return (g_amount - (being_built.materials[M]/efficiency_coeff) >= 0)
+		if(MAT_METAL)
+			return (metal_amount - (being_built.materials[M]/efficiency_coeff) >= 0)
 		if(MAT_GOLD)
 			return (gold_amount - (being_built.materials[M]/efficiency_coeff) >= 0)
 		if(MAT_DIAMOND)
@@ -84,7 +87,7 @@ using metal and glass, it uses glass and reagents (usually sulfuric acis).
 
 
 /obj/machinery/r_n_d/circuit_imprinter/proc/TotalMaterials()
-	return g_amount + gold_amount + diamond_amount
+	return g_amount + metal_amount + gold_amount + diamond_amount
 
 /obj/machinery/r_n_d/circuit_imprinter/attackby(var/obj/item/O as obj, var/mob/user as mob, params)
 	if(shocked)
@@ -109,6 +112,9 @@ using metal and glass, it uses glass and reagents (usually sulfuric acis).
 			if(g_amount >= MINERAL_MATERIAL_AMOUNT)
 				var/obj/item/stack/sheet/glass/G = new /obj/item/stack/sheet/glass(src.loc)
 				G.amount = round(g_amount / MINERAL_MATERIAL_AMOUNT)
+			if(metal_amount >= MINERAL_MATERIAL_AMOUNT)
+				var/obj/item/stack/sheet/metal/G = new /obj/item/stack/sheet/metal(src.loc)
+				G.amount = round(metal_amount / MINERAL_MATERIAL_AMOUNT)
 			if(gold_amount >= MINERAL_MATERIAL_AMOUNT)
 				var/obj/item/stack/sheet/mineral/gold/G = new /obj/item/stack/sheet/mineral/gold(src.loc)
 				G.amount = round(gold_amount / MINERAL_MATERIAL_AMOUNT)
@@ -127,7 +133,7 @@ using metal and glass, it uses glass and reagents (usually sulfuric acis).
 		return 1
 	if(O.is_open_container())
 		return
-	if(!istype(O, /obj/item/stack/sheet/glass) && !istype(O, /obj/item/stack/sheet/mineral/gold) && !istype(O, /obj/item/stack/sheet/mineral/diamond))
+	if(!istype(O, /obj/item/stack/sheet/glass) && !istype(O, /obj/item/stack/sheet/metal) && !istype(O, /obj/item/stack/sheet/mineral/gold) && !istype(O, /obj/item/stack/sheet/mineral/diamond))
 		to_chat(user, "<span class='warning'>You cannot insert this item into the [name]!</span>")
 		return
 	if(stat)
@@ -151,6 +157,8 @@ using metal and glass, it uses glass and reagents (usually sulfuric acis).
 	to_chat(user, "<span class='notice'>You add [amount] sheets to the [src.name].</span>")
 	if(istype(stack, /obj/item/stack/sheet/glass))
 		g_amount += amount * MINERAL_MATERIAL_AMOUNT
+	else if(istype(stack, /obj/item/stack/sheet/metal))
+		metal_amount += amount * MINERAL_MATERIAL_AMOUNT
 	else if(istype(stack, /obj/item/stack/sheet/mineral/gold))
 		gold_amount += amount * MINERAL_MATERIAL_AMOUNT
 	else if(istype(stack, /obj/item/stack/sheet/mineral/diamond))
