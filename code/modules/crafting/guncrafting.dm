@@ -17,9 +17,9 @@
 
 /obj/item/weaponcrafting/heatsink
 	name = "heatsinked tube"
-	desc = "A rather think tube with indents on it meant to disperse heat."
+	desc = "A remarkably thin tube marked with indents designed to disperse heat.."
 	icon = 'icons/obj/improvised.dmi'
-	icon_state = "heatsinked"
+	icon_state = "heatsink"
 
 
 // CRAFTING //
