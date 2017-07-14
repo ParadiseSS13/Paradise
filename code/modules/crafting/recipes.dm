@@ -258,7 +258,7 @@
 				/obj/item/stack/sheet/wood = 3,
 				/obj/item/stack/sheet/metal = 1,
 				/obj/item/weaponcrafting/heatsink = 1,
-				/obj/item/stack/sheet/silver = 1,
+				/obj/item/stack/sheet/mineral/silver = 1,
 				/obj/item/stack/sheet/plasteel = 1)
 	tools = list(/obj/item/weapon/screwdriver)
 	time = 100
