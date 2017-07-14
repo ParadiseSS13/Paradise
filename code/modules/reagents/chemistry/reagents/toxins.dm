@@ -868,6 +868,21 @@
 				M.AdjustLoseBreath(1)
 	..()
 
+/datum/reagent/heparin //Based on a real-life anticoagulant.
+	name = "Heparin"
+	id = "heparin"
+	description = "A powerful anticoagulant. Victims will bleed uncontrollably and suffer scaling bruising."
+	reagent_state = LIQUID
+	color = "#C8C8C8" //RGB: 200, 200, 200
+	metabolization_rate = 0.2 * REAGENTS_METABOLISM
+
+/datum/reagent/heparin/on_mob_life(mob/living/M)
+	if(ishuman(M))
+		var/mob/living/carbon/human/H = M
+		H.bleed_rate = min(H.bleed_rate + 2, 8)
+		H.adjustBruteLoss(1)
+	..()
+
 /datum/reagent/sarin
 	name = "Sarin"
 	id = "sarin"

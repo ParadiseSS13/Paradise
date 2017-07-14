@@ -309,7 +309,7 @@ emp_act
 					throw_alert("embeddedobject", /obj/screen/alert/embeddedobject)
 					var/obj/item/organ/external/L = pick(bodyparts)
 					L.embedded_objects |= I
-//					I.add_mob_blood(src)//it embedded itself in you, of course it's bloody!
+					I.add_mob_blood(src)//it embedded itself in you, of course it's bloody!
 					I.forceMove(src)
 					L.take_damage(I.w_class*I.embedded_impact_pain_multiplier)
 					visible_message("<span class='danger'>[I] embeds itself in [src]'s [L.name]!</span>","<span class='userdanger'>[I] embeds itself in your [L.name]!</span>")

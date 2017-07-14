@@ -552,9 +552,11 @@
 	bodyflags = HAS_SKIN_COLOR | NO_EYES
 	dietflags = DIET_CARN
 	reagent_tag = PROCESS_ORG
+
 	blood_color = "#0064C8"
 	exotic_blood = "water"
-	//ventcrawler = 1 //ventcrawling commented out
+	blood_damage_type = TOX
+
 	butt_sprite = "slime"
 	//Has default darksight of 2.
 
