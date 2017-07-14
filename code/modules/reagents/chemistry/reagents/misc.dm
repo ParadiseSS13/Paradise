@@ -156,7 +156,7 @@
 	if(ishuman(M))
 		var/mob/living/carbon/human/H = M
 		if(!H.species.exotic_blood && !(H.species.flags & NO_BLOOD))
-			H.vessel.add_reagent("blood", 0.8)
+			H.blood_volume += 0.8
 	..()
 
 //foam

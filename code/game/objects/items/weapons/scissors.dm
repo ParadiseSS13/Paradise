@@ -117,9 +117,8 @@
 				user.visible_message("<span class='danger'>[user] abruptly stops cutting [M]'s hair and slices their throat!</span>", "<span class='danger'>You stop cutting [M]'s hair and slice their throat!</span>") //Just a little off the top.
 				H.AdjustLoseBreath(10) //30 Oxy damage over time
 				H.apply_damage(18, BRUTE, "head", sharp =1, used_weapon = "scissors")
-				var/turf/location = get_turf(H)
-				if(istype(location, /turf/simulated))
-					location.add_blood(H)
+				var/turf/location = get_turf(src)
+				H.add_splatter_floor(location)
 				H.bloody_hands(H)
 				H.bloody_body(H)
 				var/mob/living/carbon/human/U = user

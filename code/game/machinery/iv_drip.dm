@@ -125,42 +125,15 @@
 			amount = min(amount, 4)
 			// If the beaker is full, ping
 			if(amount == 0)
-				if(prob(5))
-					visible_message("[src] pings.")
+				if(prob(5)) visible_message("\The [src] pings.")
 				return
 
-			var/mob/living/carbon/human/T = attached
-
-			if(!ishuman(T))
-				return
-
-			if(!T.dna)
-				return
-
-			if(NOCLONE in T.mutations)
-				return
-
-			if(T.species.flags & NO_BLOOD)
-				return
-
-			if(T.species.exotic_blood)
-				T.vessel.trans_to(beaker, amount)
-				update_icon()
-			else
-				var/datum/reagent/B = T.take_blood(beaker, amount)
-
-				if(B)
-					beaker.reagents.reagent_list |= B
-					beaker.reagents.update_total()
-					beaker.on_reagent_change()
-					beaker.reagents.handle_reactions()
-					update_icon()
-
-			// If attached is losing too much blood, beep.
-			var/blood_type = attached.get_blood_name()
-			if(T.vessel.get_reagent_amount(blood_type) < BLOOD_VOLUME_SAFE && prob(5))
-				visible_message("[src] beeps loudly.")
+			// If the human is losing too much blood, beep.
+			if(attached.blood_volume < BLOOD_VOLUME_SAFE && prob(5))
+				visible_message("\The [src] beeps loudly.")
 				playsound(loc, 'sound/machines/twobeep.ogg', 50, 1)
+			attached.transfer_blood_to(beaker, amount)
+			update_icon()
 
 /obj/machinery/iv_drip/attack_hand(mob/user)
 	if(!ishuman(user))

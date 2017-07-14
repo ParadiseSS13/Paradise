@@ -444,6 +444,11 @@
 	if(display_gloves)
 		msg += "<span class='warning'><b>[src] has blood running from under [t_his] gloves!</b></span>\n"
 
+	if(blood_volume < BLOOD_VOLUME_SAFE)
+		msg += "[t_He] [t_has] pale skin.\n"
+	if(bleedsuppress)
+		msg += "[t_He] [t_is] bandaged with something.\n"
+
 	if(digitalcamo)
 		msg += "[t_He] [t_is] repulsively uncanny!\n"
 	if(!(skipface || ( wear_mask && ( wear_mask.flags_inv & HIDEFACE || wear_mask.flags_cover & MASKCOVERSMOUTH) ) ) && is_thrall(src) && in_range(user,src))

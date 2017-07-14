@@ -33,7 +33,6 @@
 	create_reagents(330)
 
 	prev_gender = gender // Debug for plural genders
-	make_blood()
 
 	martial_art = default_martial_art
 
@@ -542,12 +541,10 @@
 	popup.open()
 
 
-// called when something steps onto a human
-// this handles mulebots and vehicles
-/mob/living/carbon/human/Crossed(var/atom/movable/AM)
-	if(istype(AM, /obj/vehicle))
-		var/obj/vehicle/V = AM
-		V.RunOver(src)
+/mob/living/carbon/human/Crossed(atom/movable/AM)
+	var/mob/living/simple_animal/bot/mulebot/MB = AM
+	if(istype(MB))
+		MB.RunOver(src)
 
 // Get rank from ID, ID inside PDA, PDA, ID in wallet, etc.
 /mob/living/carbon/human/proc/get_authentification_rank(var/if_no_id = "No id", var/if_no_job = "No job")
@@ -1520,12 +1517,6 @@
 				I.insert(H)
 
 /mob/living/carbon/human/revive()
-
-	if(species && !(species.flags & NO_BLOOD))
-		var/blood_reagent = get_blood_name()
-		vessel.add_reagent(blood_reagent, max_blood-vessel.total_volume)
-		fixblood()
-
 	//Fix up all organs and replace lost ones.
 	restore_all_organs() //Rejuvenate and reset all existing organs.
 	check_and_regenerate_organs(src) //Regenerate limbs and organs only if they're really missing.
@@ -1597,23 +1588,13 @@
 */
 //returns 1 if made bloody, returns 0 otherwise
 
-/mob/living/carbon/human/add_blood(mob/living/carbon/human/M as mob)
-	if(!..())
-		return 0
-	//if this blood isn't already in the list, add it
-	if(blood_DNA[M.dna.unique_enzymes])
-		return 0 //already bloodied with this blood. Cannot add more.
-	blood_DNA[M.dna.unique_enzymes] = M.dna.b_type
-	hand_blood_color = blood_color
-	src.update_inv_gloves()
-	verbs += /mob/living/carbon/human/proc/bloody_doodle
-	return 1 //we applied blood to the item
-
 /mob/living/carbon/human/clean_blood(var/clean_feet)
 	.=..()
 	if(clean_feet && !shoes && istype(feet_blood_DNA, /list) && feet_blood_DNA.len)
 		feet_blood_color = null
 		qdel(feet_blood_DNA)
+		bloody_feet = list(BLOOD_STATE_HUMAN = 0, BLOOD_STATE_XENO = 0,  BLOOD_STATE_NOT_BLOODY = 0)
+		blood_state = BLOOD_STATE_NOT_BLOODY
 		update_inv_shoes(1)
 		return 1
 
@@ -1707,10 +1688,6 @@
 			oldspecies.handle_dna(src,1) // Remove any genes that belong to the old species
 
 	tail = species.tail
-
-	if(vessel)
-		vessel = null
-	make_blood()
 
 	maxHealth = species.total_health
 
@@ -1808,7 +1785,6 @@
 		overlays.Cut()
 		update_mutantrace(1)
 		regenerate_icons()
-		fixblood()
 
 	if(!delay_icon_update)
 		UpdateAppearance()

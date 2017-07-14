@@ -183,9 +183,7 @@
 
 					M.take_organ_damage(power)
 					if(prob(33)) // Added blood for whacking non-humans too
-						var/turf/simulated/location = M.loc
-						if(istype(location, /turf/simulated))
-							location.add_blood_floor(M)
+						M.add_splatter_floor()
 			if("fire")
 				M.take_organ_damage(0, power)
 				to_chat(M, "Aargh it burns!")
