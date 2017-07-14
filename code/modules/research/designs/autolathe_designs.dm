@@ -431,7 +431,7 @@
 	build_path = /obj/item/weapon/reagent_containers/glass/beaker/large
 	category = list("initial", "Medical")
 
-/datum/design/large_beaker
+/datum/design/prescription_glasses
 	name = "Prescription Glasses"
 	id = "prescription_glasses"
 	build_type = AUTOLATHE
