@@ -1,5 +1,6 @@
 #define PAPERWORK	1
 #define PHOTO		2
+#define IS_PEN(x)	(istype(x, /obj/item/weapon/pen))
 
 /obj/item/weapon/clipboard
 	name = "clipboard"
@@ -30,10 +31,6 @@
 	if(istype(W, /obj/item/weapon/photo))
 		return PHOTO
 
-/obj/item/weapon/clipboard/proc/isPen(var/obj/item/weapon/W) //Should also probably be somewhere else
-	if(istype(W, /obj/item/weapon/pen))
-		return TRUE
-
 /obj/item/weapon/clipboard/proc/checkTopPaper()
 	if(toppaper.loc != src) //Oh no! We're missing a top sheet! Better get another one to be at the top.
 		var/obj/item/weapon/paper/newtoppaper = locate(/obj/item/weapon/paper) in src
@@ -49,7 +46,7 @@ obj/item/weapon/clipboard/proc/penPlacement(var/placing, var/obj/item/weapon/pen
 		if(containedpen)
 			to_chat(usr, "<span class = 'warning'>There's already a pen in [src]!</span>")
 			return
-		if(!isPen(P))
+		if(!IS_PEN(P))
 			return
 		to_chat(usr, "<span class='notice'>You slide [P] into [src].</span>")
 		usr.unEquip(P)
@@ -95,7 +92,7 @@ obj/item/weapon/clipboard/proc/penPlacement(var/placing, var/obj/item/weapon/pen
 		if(isPaperwork(W) == PAPERWORK)
 			toppaper = W
 		update_icon()
-	else if(isPen(W)) //If it's not a pen, we're done here
+	else if(IS_PEN(W)) //If it's not a pen, we're done here
 		if(!toppaper) //If there's no paper we can write on, just stick the pen into the clipboard
 			penPlacement(TRUE, W)
 			return
@@ -134,7 +131,7 @@ obj/item/weapon/clipboard/proc/penPlacement(var/placing, var/obj/item/weapon/pen
 		var/obj/item/weapon/P = locate(href_list["viewOrWrite"])
 		if(!isPaperwork(P))
 			return
-		if(isPen(I) && isPaperwork(P) != PHOTO) //Because you can't write on photos that aren't in your hand
+		if(IS_PEN(I) && isPaperwork(P) != PHOTO) //Because you can't write on photos that aren't in your hand
 			P.attackby(I, usr)
 		else if(isPaperwork(P) == PAPERWORK) //Why can't these be subtypes of paper
 			P.examine(usr)
@@ -153,3 +150,4 @@ obj/item/weapon/clipboard/proc/penPlacement(var/placing, var/obj/item/weapon/pen
 
 #undef PAPERWORK
 #undef PHOTO
+#undef IS_PEN(x)
