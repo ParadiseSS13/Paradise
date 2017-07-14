@@ -8,7 +8,7 @@
 	icon_state = "clipboard"
 	item_state = "clipboard"
 	w_class = WEIGHT_CLASS_SMALL
-	var/obj/item/weapon/pen
+	var/obj/item/weapon/pen/containedpen
 	var/obj/item/weapon/toppaper
 	slot_flags = SLOT_BELT
 	burn_state = FLAMMABLE
@@ -22,7 +22,7 @@
 	set name = "Remove clipboard pen"
 	if(!ishuman(usr) || usr.incapacitated())
 		return
-	penPlacement(FALSE, pen)
+	penPlacement(FALSE, containedpen)
 
 /obj/item/weapon/clipboard/proc/isPaperwork(var/obj/item/weapon/W) //This could probably do with being somewhere else but for now it's fine here.
 	if(istype(W, /obj/item/weapon/paper) || istype(W, /obj/item/weapon/paper_bundle))
@@ -46,7 +46,7 @@
 
 obj/item/weapon/clipboard/proc/penPlacement(var/placing, var/obj/item/weapon/pen/P)
 	if(placing == TRUE)
-		if(pen)
+		if(containedpen)
 			to_chat(usr, "<span class = 'warning'>There's already a pen in [src]!</span>")
 			return
 		if(!isPen(P))
@@ -54,19 +54,19 @@ obj/item/weapon/clipboard/proc/penPlacement(var/placing, var/obj/item/weapon/pen
 		to_chat(usr, "<span class='notice'>You slide [P] into [src].</span>")
 		usr.unEquip(P)
 		P.forceMove(src)
-		pen = P
+		containedpen = P
 	else
-		if(!pen)
+		if(!containedpen)
 			to_chat(usr, "<span class = 'warning'>There isn't a pen in [src] for you to remove!</span>")
 			return
-		to_chat(usr, "<span class = 'notice'>You remove [pen] from [src].</span>")
-		usr.put_in_hands(pen)
-		pen = null
+		to_chat(usr, "<span class = 'notice'>You remove [containedpen] from [src].</span>")
+		usr.put_in_hands(containedpen)
+		containedpen = null
 	update_icon()
 
 /obj/item/weapon/clipboard/proc/show_clipboard() //Show them what's on the clipboard
 	var/dat = "<title>[src]</title>"
-	dat += "<a href='?src=[UID()];doPenThings=[pen ? "Remove" : "Add"]'>[pen ? "Remove pen" : "Add pen"]</a><br><hr>"
+	dat += "<a href='?src=[UID()];doPenThings=[containedpen ? "Remove" : "Add"]'>[containedpen ? "Remove pen" : "Add pen"]</a><br><hr>"
 	for(var/obj/item/weapon/P in src)
 		if(isPaperwork(P) == PAPERWORK)
 			dat += "<a href='?src=[UID()];remove=\ref[P]'>Remove</a> <a href='?src=[UID()];topPaper=\ref[P]'>[toppaper == P ? "On top" : "Put on top"]</a> <a href='?src=[UID()];viewOrWrite=\ref[P]'>[toppaper == P ? "<strong>" : null][P.name][toppaper == P ? "</strong>" : null]</a><br><br>"
@@ -81,7 +81,7 @@ obj/item/weapon/clipboard/proc/penPlacement(var/placing, var/obj/item/weapon/pen
 	if(toppaper)
 		overlays += toppaper.icon_state
 		overlays += toppaper.overlays
-	if(pen)
+	if(containedpen)
 		overlays += "clipboard_pen"
 	overlays += "clipboard_over"
 	return
@@ -99,7 +99,7 @@ obj/item/weapon/clipboard/proc/penPlacement(var/placing, var/obj/item/weapon/pen
 		if(!toppaper) //If there's no paper we can write on, just stick the pen into the clipboard
 			penPlacement(TRUE, P)
 			return
-		if(pen) //If there's a pen in the clipboard, let's just let them write and not bother asking about the pen
+		if(containedpen) //If there's a pen in the clipboard, let's just let them write and not bother asking about the pen
 			var/obj/item/weapon/paper/T = toppaper
 			T.attackby(P, user)
 			return
@@ -125,7 +125,7 @@ obj/item/weapon/clipboard/proc/penPlacement(var/placing, var/obj/item/weapon/pen
 			var/obj/item/weapon/pen/W = usr.get_active_hand()
 			penPlacement(TRUE, W)
 		else
-			penPlacement(FALSE, pen)
+			penPlacement(FALSE, containedpen)
 	else if(href_list["remove"])
 		var/obj/item/P = locate(href_list["remove"])
 		if(isPaperwork(P))
