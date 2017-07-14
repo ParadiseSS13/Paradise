@@ -157,8 +157,6 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 
 		//Mob preview
 	var/icon/preview_icon = null
-	var/icon/preview_icon_front = null
-	var/icon/preview_icon_side = null
 
 		//Jobs, uses bitflags
 	var/job_support_high = 0
@@ -249,8 +247,7 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 	if(!user || !user.client)
 		return
 	update_preview_icon()
-	user << browse_rsc(preview_icon_front, "previewicon.png")
-	user << browse_rsc(preview_icon_side, "previewicon2.png")
+	user << browse_rsc(preview_icon, "previewicon.png")
 
 	var/dat = ""
 	dat += "<center>"
@@ -268,7 +265,7 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 				S = all_species[species]
 				random_character()
 
-			dat += "<div class='statusDisplay' style='max-width: 128px; position: absolute; left: 150px; top: 150px'><img src=previewicon.png class='charPreview'><img src=previewicon2.png class='charPreview'></div>"
+			dat += "<div class='statusDisplay'><center><img src=previewicon.png width=[preview_icon.Width()] height=[preview_icon.Height()] class='charPreview'></center></div>"
 			dat += "<table width='100%'><tr><td width='405px' height='25px' valign='top'>"
 			dat += "<b>Name: </b>"
 			dat += "<a href='?_src_=prefs;preference=name;task=input'><b>[real_name]</b></a>"
