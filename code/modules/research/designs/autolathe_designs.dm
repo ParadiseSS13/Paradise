@@ -648,6 +648,14 @@
 	build_path = /obj/item/weaponcrafting/receiver
 	category = list("hacked", "Security")
 
+/datum/design/heatsink
+	name = "Heatsink Tube"
+	id = "heatsink_tube"
+	build_type = AUTOLATHE
+	materials = list(MAT_METAL = 15000)
+	build_path = /obj/item/weaponcrafting/receiver
+	category = list("hacked", "Security")
+
 /datum/design/shotgun_slug
 	name = "Shotgun Slug"
 	id = "shotgun_slug"
