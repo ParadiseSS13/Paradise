@@ -18,9 +18,6 @@
 /mob/living/carbon/human/handle_blood()
 	var/list/blood_data = get_blood_data(get_blood_id())//PROCCEPTION
 
-	if(in_stasis)
-		return
-
 	if(species && species.flags & NO_BLOOD)
 		bleed_rate = 0
 		return
