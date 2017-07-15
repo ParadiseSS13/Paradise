@@ -189,6 +189,7 @@
 
 	emagged = 1
 	icon_state = "repairbot-emagged"
+	holder_type = /obj/item/weapon/holder/drone/emagged
 	update_icons()
 	lawupdate = 0
 	connected_ai = null
