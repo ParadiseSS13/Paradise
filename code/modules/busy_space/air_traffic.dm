@@ -68,19 +68,19 @@ var/datum/lore/atc_controller/atc = new/datum/lore/atc_controller
 	var/request_verb = list("requesting", "calling for", "asking for")
 
 	//First response is 'yes', second is 'no'
-	var/requests = list("[using_map.station_short] transit clearance" = list("permission for transit granted", "permission for transit denied, contact regional on 953.5"),
-						"planetary flight rules" = list("authorizing planetary flight rules", "denying planetary flight rules right now due to traffic"),
-						"special flight rules" = list("authorizing special flight rules", "denying special flight rules, not allowed for your traffic class"),
+	var/requests = list("[using_map.station_short] transit clearance" = list("cleared to transit", "unable to approve, contact regional on 953.5"),
+						"planetary flight rules" = list("cleared planetary flight rules", "unable to approve planetary flight rules due to traffic"),
+						"special flight rules" = list("cleared special flight rules", "unable to approve special flight rules for your traffic class"),
 						"current solar weather info" = list("sending you the relevant information via tightbeam", "cannot fulfill your request at the moment"),
-						"nearby traffic info" = list("sending you current traffic info", "no available info in your area"),
+						"nearby traffic info" = list("sending you current traffic info", "no known traffic for your flight plan route"),
 						"remote telemetry data" = list("sending telemetry now", "no uplink from your ship, recheck your uplink and ask again"),
 						"refueling information" = list("sending refueling information now", "no fuel for your ship class in this sector"),
 						"a current system time sync" = list("sending time sync ping to you now", "your ship isn't compatible with our time sync, set time manually"),
-						"current system starcharts" = list("transmitting current starcharts", "your request is queued, overloaded right now"),
-						"permission to engage FTL" = list("permission to engage FTL granted, good day", "permission denied, wait for current traffic to pass"),
-						"permission to transit system" = list("permission to transit granted, good day", "permission denied, wait for current traffic to pass"),
-						"permission to depart system" = list("permission to depart granted, good day", "permission denied, wait for current traffic to pass"),
-						"permission to enter system" = list("good day, permission to enter granted", "permission denied, wait for current traffic to pass"),
+						"current system starcharts" = list("transmitting current starcharts", "request on standby due to demand"),
+						"permission to engage FTL" = list("cleared to FTL, good day", "hold position, traffic crossing"),
+						"permission to transit system" = list("cleared to transit, good day", "hold position, traffic crossing"),
+						"permission to depart system" = list("cleared to leave via flight plan route, good day", "hold position, traffic crossing"),
+						"permission to enter system" = list("good day, cleared in as published", "hold position, traffic crossing"),
 						)
 
 	//Random chance things for variety
@@ -105,18 +105,19 @@ var/datum/lore/atc_controller/atc = new/datum/lore/atc_controller
 			callname = pick(wrong_atc_names)
 			full_request = "[callname], this is [combined_name] on a [mission] [pick(mission_noun)] to [destname], [pick(request_verb)] [request]."
 			full_response = "[combined_name], this is [using_map.station_short] TraCon, wrong frequency. Switch to [rand(700,999)].[rand(1,9)]."
-			full_closure = "[using_map.station_short] TraCon, understood, apologies."
+			full_closure = "[using_map.station_short] TraCon, copy, apologies."
 		if("wrong_lang")
 			//Can't implement this until autosay has language support
 		if("emerg")
 			var/problem = pick("hull breaches on multiple decks","unknown life forms on board","a drive about to go critical","asteroids impacting the hull","a total loss of engine power","people trying to board the ship")
-			full_request = "This is [combined_name] declaring an emergency! We have [problem]!"
-			full_response = "[combined_name], this is [using_map.station_short] TraCon, copy. Switch to emergency responder channel [rand(700,999)].[rand(1,9)]."
-			full_closure = "[using_map.station_short] TraCon, okay, switching now."
+			full_request = "Mayday, mayday, mayday, this is [combined_name] declaring an emergency! We have [problem]!"
+			var/rand_freq = "[rand(700,999)].[rand(1,9)]"
+			full_response = "[combined_name], this is [using_map.station_short] TraCon, copy. Switch to emergency responder channel [rand_freq]."
+			full_closure = "Roger, [using_map.station_short] TraCon, contacting [rand_freq]."
 		else
 			full_request = "[callname], this is [combined_name] on a [mission] [pick(mission_noun)] to [destname], [pick(request_verb)] [request]."
 			full_response = "[combined_name], this is [using_map.station_short] TraCon, [response]." //Station TraCon always calls themselves TraCon
-			full_closure = "[using_map.station_short] TraCon, [yes ? "thank you" : "understood"], good day." //They always copy what TraCon called themselves in the end when they realize they said it wrong
+			full_closure = "[using_map.station_short] TraCon, [yes ? "thank you" : "copy"], good day." //They always copy what TraCon called themselves in the end when they realize they said it wrong
 
 	//Ship sends request to ATC
 	msg(full_request,"[prefix] [shipname]")
