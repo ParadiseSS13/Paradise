@@ -96,7 +96,7 @@ var/list/organ_cache = list()
 		return
 
 	//Process infections
-	if((status & ORGAN_ROBOT) || sterile ||(owner && owner.species && (owner.species.flags & IS_PLANT)))
+	if((status & ORGAN_ROBOT) || sterile ||(owner && (IS_PLANT in owner.species.species_traits)))
 		germ_level = 0
 		return
 
@@ -316,7 +316,7 @@ var/list/organ_cache = list()
 	processing_objects |= src
 	var/datum/reagent/blood/organ_blood
 	if(reagents) organ_blood = reagents.get_reagent_from_id(owner.get_blood_id())
-	if((!organ_blood || !organ_blood.data["blood_DNA"]) && (owner && !(owner.species.flags & NO_BLOOD)))
+	if((!organ_blood || !organ_blood.data["blood_DNA"]) && (owner && !(NO_BLOOD in owner.species.species_traits)))
 		owner.transfer_blood_to(src)
 
 	if(owner && vital && is_primary_organ()) // I'd do another check for species or whatever so that you couldn't "kill" an IPC by removing a human head from them, but it doesn't matter since they'll come right back from the dead

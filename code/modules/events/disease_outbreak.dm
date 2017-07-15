@@ -18,7 +18,7 @@
 			continue
 		if(!H.client)
 			continue
-		if(H.species.virus_immune) //don't let virus immune things get diseases they're not supposed to get.
+		if(VIRUSIMMUNE in H.species.species_traits) //don't let virus immune things get diseases they're not supposed to get.
 			continue
 		var/turf/T = get_turf(H)
 		if(!T)

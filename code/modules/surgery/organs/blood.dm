@@ -18,7 +18,7 @@
 /mob/living/carbon/human/handle_blood()
 	var/list/blood_data = get_blood_data(get_blood_id())//PROCCEPTION
 
-	if(species && species.flags & NO_BLOOD)
+	if(NO_BLOOD in species.species_traits)
 		bleed_rate = 0
 		return
 
@@ -92,7 +92,7 @@
 				add_splatter_floor(loc, 1)
 
 /mob/living/carbon/human/bleed(amt)
-	if(!(species && species.flags & NO_BLOOD))
+	if(!(NO_BLOOD in species.species_traits))
 		..()
 		if(species.exotic_blood)
 			var/datum/reagent/R = chemical_reagents_list[get_blood_id()]
@@ -194,7 +194,7 @@
 /mob/living/carbon/human/get_blood_id()
 	if(species.exotic_blood)//some races may bleed water..or kethcup..
 		return species.exotic_blood
-	else if((species && species.flags & NO_BLOOD) || (NOCLONE in mutations))
+	else if((NO_BLOOD in species.species_traits) || (NOCLONE in mutations))
 		return
 	return "blood"
 
@@ -262,7 +262,7 @@
 	B.update_icon()
 
 /mob/living/carbon/human/add_splatter_floor(turf/T, small_drip)
-	if(!(species && species.flags & NO_BLOOD))
+	if(!(NO_BLOOD in species.species_traits))
 		..()
 
 /mob/living/carbon/alien/add_splatter_floor(turf/T, small_drip)
