@@ -148,7 +148,8 @@
 	if(ishuman(M))
 		var/mob/living/carbon/human/H = M
 		if(!H.species.exotic_blood && !(NO_BLOOD in H.species.species_traits))
-			H.blood_volume += 0.8
+			if(H.blood_volume < BLOOD_VOLUME_NORMAL)
+				H.blood_volume += 0.8
 	..()
 
 //foam
