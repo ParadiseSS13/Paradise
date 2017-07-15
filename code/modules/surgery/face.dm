@@ -131,7 +131,6 @@
 		user.visible_message("<span class='notice'> [user] cauterizes the incision on [target]'s face and neck with \the [tool].</span>", \
 		"<span class='notice'> You cauterize the incision on [target]'s face and neck with \the [tool].</span>")
 		affected.open = 0
-		affected.status &= ~ORGAN_BLEEDING
 		var/obj/item/organ/external/head/h = affected
 		h.disfigured = 0
 		h.update_icon()

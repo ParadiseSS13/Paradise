@@ -12,14 +12,6 @@ BONES_CAN_BREAK 1
 ## 0 means limbs can't be amputated, 1 means they can
 LIMBS_CAN_BREAK 1
 
-## Multiplier which enables organs to take more damage before bones breaking or limbs being destroyed
-## 100 means normal, 50 means half
-ORGAN_HEALTH_MULTIPLIER 100
-
-## Multiplier which influences how fast organs regenerate naturally
-## 100 means normal, 50 means half
-ORGAN_REGENERATION_MULTIPLIER 0
-
 ### REVIVAL ###
 ## Whether pod plants work or not
 REVIVAL_POD_PLANTS 1

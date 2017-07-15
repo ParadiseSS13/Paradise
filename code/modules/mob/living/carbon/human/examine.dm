@@ -328,11 +328,7 @@
 			else if(temp.wounds.len > 0)
 				var/list/wound_descriptors = list()
 				for(var/datum/wound/W in temp.wounds)
-					if(W.internal && !temp.open) continue // can't see internal wounds
 					var/this_wound_desc = W.desc
-					if(W.damage_type == BURN && W.salved) this_wound_desc = "salved [this_wound_desc]"
-					if(W.germ_level > 600) this_wound_desc = "badly infected [this_wound_desc]"
-					else if(W.germ_level > 330) this_wound_desc = "lightly infected [this_wound_desc]"
 					if(this_wound_desc in wound_descriptors)
 						wound_descriptors[this_wound_desc] += W.amount
 						continue

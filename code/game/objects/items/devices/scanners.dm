@@ -216,7 +216,7 @@ REAGENT SCANNER
 				user.show_message(text("<span class='warning'>Bone fractures detected. Advanced scanner required for location.</span>"), 1)
 				break
 		for(var/obj/item/organ/external/e in H.bodyparts)
-			for(var/datum/wound/W in e.wounds) if(W.internal)
+			if(e.internal_bleeding)
 				user.show_message(text("<span class='warning'>Internal bleeding detected. Advanced scanner required for location.</span>"), 1)
 				break
 		var/blood_id = H.get_blood_id()

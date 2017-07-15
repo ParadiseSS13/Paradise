@@ -47,7 +47,6 @@
 	user.visible_message("<span class='notice'> [user] has made an incision on [target]'s [affected.name] with \the [tool].</span>", \
 	"<span class='notice'> You have made an incision on [target]'s [affected.name] with \the [tool].</span>",)
 	affected.open = 1
-	affected.status |= ORGAN_BLEEDING
 	return 1
 
 /datum/surgery_step/generic/cut_open/fail_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool,datum/surgery/surgery)
@@ -81,7 +80,6 @@
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
 	user.visible_message("<span class='notice'> [user] clamps bleeders in [target]'s [affected.name] with \the [tool]</span>.",	\
 	"<span class='notice'> You clamp bleeders in [target]'s [affected.name] with \the [tool].</span>")
-	affected.clamp()
 	spread_germs_to_organ(affected, user, tool)
 	return 1
 
@@ -173,7 +171,6 @@
 	"<span class='notice'> You cauterize the incision on [target]'s [affected.name] with \the [tool].</span>")
 	affected.open = 0
 	affected.germ_level = 0
-	affected.status &= ~ORGAN_BLEEDING
 	return 1
 
 /datum/surgery_step/generic/cauterize/fail_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool,datum/surgery/surgery)

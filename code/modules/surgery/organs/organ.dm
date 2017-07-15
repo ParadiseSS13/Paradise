@@ -251,10 +251,8 @@ var/list/organ_cache = list()
 /obj/item/organ/proc/robotize() //Being used to make robutt hearts, etc
 	robotic = 2
 	status &= ~ORGAN_BROKEN
-	status &= ~ORGAN_BLEEDING
 	status &= ~ORGAN_SPLINTED
 	status &= ~ORGAN_CUT_AWAY
-	status &= ~ORGAN_ATTACHABLE
 	status &= ~ORGAN_DESTROYED
 	status |= ORGAN_ROBOT
 	status |= ORGAN_ASSISTED

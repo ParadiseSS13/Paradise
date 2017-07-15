@@ -188,8 +188,7 @@
 			"<span class='notice'> You put \the [tool] inside [target]'s [get_cavity(affected)] cavity.</span>" )
 			if((tool.w_class > get_max_wclass(affected)/2 && prob(50) && !(affected.status & ORGAN_ROBOT)))
 				to_chat(user, "<span class='warning'> You tear some vessels trying to fit the object in the cavity.</span>")
-				var/datum/wound/internal_bleeding/I = new ()
-				affected.wounds += I
+				affected.internal_bleeding = TRUE
 				affected.owner.custom_pain("You feel something rip in your [affected.name]!", 1)
 			user.drop_item()
 			affected.hidden = tool

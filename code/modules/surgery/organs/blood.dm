@@ -61,6 +61,7 @@
 				death()
 
 		var/temp_bleed = 0
+		var/internal_bleeding_rate = 0
 		//Bleeding out
 		for(var/X in bodyparts)
 			var/obj/item/organ/external/BP = X
@@ -79,7 +80,13 @@
 			if(BP.open)
 				temp_bleed += 0.5
 
+			if(BP.internal_bleeding)
+				internal_bleeding_rate += 0.5
+
 		bleed_rate = max(bleed_rate - 0.5, temp_bleed)//if no wounds, other bleed effects (heparin) naturally decreases
+
+		if(internal_bleeding_rate && !(status_flags & FAKEDEATH))
+			bleed(internal_bleeding_rate)
 
 		if(bleed_rate && !bleedsuppress && !(status_flags & FAKEDEATH))
 			bleed(bleed_rate)
