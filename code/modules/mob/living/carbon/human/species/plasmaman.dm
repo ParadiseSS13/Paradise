@@ -35,8 +35,7 @@
 	return message
 
 /datum/species/plasmaman/after_equip_job(datum/job/J, mob/living/carbon/human/H)
-	var/assigned_role = H.mind && H.mind.assigned_role ? H.mind.assigned_role : "Civilian"
-	// Unequip existing suits and hats.
+	var/assigned_role = J ? J.title : (H.mind && H.mind.assigned_role ? H.mind.assigned_role : "Civilian")
 	H.unEquip(H.wear_suit)
 	H.unEquip(H.head)
 	if(assigned_role != "Clown")
