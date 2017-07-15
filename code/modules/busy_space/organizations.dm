@@ -1,15 +1,15 @@
 //Datums for different companies that can be used by busy_space
 /datum/lore/organization
 	var/name = ""				// Organization's name
-	var/short_name = ""			// Organization's shortname (NanoTrasen for "NanoTrasen Incorporated")
-	var/acronym = ""			// Organization's acronym, e.g. 'NT' for NanoTrasen'.
+	var/short_name = ""			// Organization's shortname (Nanotrasen for "Nanotrasen Incorporated")
+	var/acronym = ""			// Organization's acronym, e.g. 'NT' for Nanotrasen'.
 	var/desc = ""				// One or two paragraph description of the organization, but only current stuff.  Currently unused.
-	var/history = ""			// Historical discription of the organization's origins  Currently unused.
+	var/history = ""			// Historical description of the organization's origins  Currently unused.
 	var/work = ""				// Short description of their work, eg "an arms manufacturer"
 	var/headquarters = ""		// Location of the organization's HQ.  Currently unused.
 	var/motto = ""				// A motto/jingle/whatever, if they have one.  Currently unused.
 
-	var/list/ship_prefixes = list()	//Some might have more than one! Like NanoTrasen. Value is the mission they perform, e.g. ("ABC" = "mission desc")
+	var/list/ship_prefixes = list()	//Some might have more than one! Like Nanotrasen. Value is the mission they perform, e.g. ("ABC" = "mission desc")
 	var/list/ship_names = list(		//Names of spaceships.  This is a mostly generic list that all the other organizations inherit from if they don't have anything better.
 		"Kestrel",
 		"Beacon",
@@ -54,18 +54,18 @@
 
 // TSCs
 /datum/lore/organization/tsc/nanotrasen
-	name = "NanoTrasen Incorporated"
-	short_name = "NanoTrasen"
+	name = "Nanotrasen Incorporated"
+	short_name = "Nanotrasen"
 	acronym = "NT"
-	desc = "NanoTrasen is one of the foremost research and development companies in SolGov space. \
-	Originally focused on consumer products, their swift move into the field of Phoron has lead to \
-	them being the foremost experts on the substance and its uses. In the modern day, NanoTrasen prides \
+	desc = "Nanotrasen is one of the foremost research and development companies in SolGov space. \
+	Originally focused on consumer products, their swift move into the field of Plasma has lead to \
+	them being the foremost experts on the substance and its uses. In the modern day, Nanotrasen prides \
 	itself on being an early adopter to as many new technologies as possible, often offering the newest \
 	products to their employees. In an effort to combat complaints about being 'guinea pigs', Nanotrasen \
 	also offers one of the most comprehensive medical plans in SolGov space, up to and including cloning \
 	and therapy.\
 	<br><br>\
-	NT's most well known products are its phoron based creations, especially those used in Cryotherapy. \
+	NT's most well known products are its plasma based creations, especially those used in Cryotherapy. \
 	It also boasts an prosthetic line, which is provided to its employees as needed, and is used as an incentive \
 	for newly tested posibrains to remain with the company."
 	history = "" // To be written someday.
@@ -98,7 +98,7 @@
 	name = "Hephaestus Industries"
 	short_name = "Hephaestus"
 	acronym = "HI"
-	desc = "Hephaestus Industries is the largest supplier of arms, ammunition, and small millitary vehicles in Sol space. \
+	desc = "Hephaestus Industries is the largest supplier of arms, ammunition, and small military vehicles in Sol space. \
 	Hephaestus products have a reputation for reliability, and the corporation itself has a noted tendency to stay removed \
 	from corporate politics. They enforce their neutrality with the help of a fairly large asset-protection contingent which \
 	prevents any contracting polities from using their own materiel against them. SolGov itself is one of Hephastus� largest \
@@ -117,12 +117,12 @@
 	name = "Vey Medical"
 	short_name = "Vey Med"
 	acronym = "VM"
-	desc = "Vey-Med is one of the newer TSCs on the block and is notable for being largely owned and opperated by Skrell. \
+	desc = "Vey-Med is one of the newer TSCs on the block and is notable for being largely owned and operated by Skrell. \
 	Despite the suspicion and prejudice leveled at them for their alien origin, Vey-Med has obtained market dominance in \
-	the sale of medical equipment-- from surgical tools to large medical devices to the Oddyseus trauma response mecha \
+	the sale of medical equipment-- from surgical tools to large medical devices to the Odysseus trauma response mecha \
 	and everything in between. Their equipment tends to be top-of-the-line, most obviously shown by their incredibly \
 	human-like FBP designs. Vey�s rise to stardom came from their introduction of ressurective cloning, although in \
-	recent years they�ve been forced to diversify as their patents expired and NanoTrasen-made medications became \
+	recent years they�ve been forced to diversify as their patents expired and Nanotrasen-made medications became \
 	essential to modern cloning."
 	history = ""
 	work = "medical equipment supplier"
@@ -138,10 +138,10 @@
 	name = "Zeng-Hu pharmaceuticals"
 	short_name = "Zeng-Hu"
 	acronym = "ZH"
-	desc = "Zeng-Hu is an old TSC, based in the Sol system. Until the discovery of Phoron, Zeng-Hu maintained a stranglehold \
+	desc = "Zeng-Hu is an old TSC, based in the Sol system. Until the discovery of Plasma, Zeng-Hu maintained a stranglehold \
 	on the market for medications, and many household names are patentted by Zeng-Hu-- Bicaridyne, Dylovene, Tricordrizine, \
 	and Dexalin all came from a Zeng-Hu medical laboratory. Zeng-Hu�s fortunes have been in decline as Nanotrasen�s near monopoly \
-	on phoron research cuts into their R&D and Vey-Med�s superior medical equipment effectively decimated their own equipment \
+	on plasma research cuts into their R&D and Vey-Med�s superior medical equipment effectively decimated their own equipment \
 	interests. The three-way rivalry between these companies for dominance in the medical field is well-known and a matter of \
 	constant economic speculation."
 	history = ""
@@ -181,7 +181,7 @@
 	and odds and ends like implanted wrist-watches. Their business model tends towards smaller, boutique operations, giving \
 	it a reputation for high price and luxury, with Bishop cyberware often rivalling Vey-Med�s for cost. Bishop�s reputation \
 	for catering towards the interests of human augmentation enthusiasts instead of positronics have earned it ire from the \
-	Positronic Rights Group and puts it in ideological (but not economic) comptetition with Morpheus Cyberkinetics."
+	Positronic Rights Group and puts it in ideological (but not economic) competition with Morpheus Cyberkinetics."
 	history = ""
 	work = "cybernetics and augmentation manufacturer"
 	headquarters = ""
@@ -251,9 +251,7 @@
 		"Great White Snark",
 		"No Shirt No Shoes",
 		"Callsign"
-
-
-		)
+	)
 	destination_names = list(
 		"a dockyard on New Canaan"
 	)
@@ -291,22 +289,21 @@
 
 	ship_prefixes = list("FSS-T" = "transportation", "FSS-D" = "diplomatic", "FSS-F" = "freight")
 	destination_names = list(
-						"Venus",
-						"Earth",
-						"Luna",
-						"Mars",
-						"Titan",
-						"Ahdomai",
-						"Kelune",
-						"Dalstadt",
-						"New Canaan",
-						"Jargon 4",
-						"Hoorlm",
-						"Xarxis 5",
-						"Aurum",
-						"Moghes"
-
-						)
+		"Venus",
+		"Earth",
+		"Luna",
+		"Mars",
+		"Titan",
+		"Ahdomai",
+		"Kelune",
+		"Dalstadt",
+		"New Canaan",
+		"Jargon 4",
+		"Hoorlm",
+		"Xarxis 5",
+		"Aurum",
+		"Moghes"
+	)
 
 /datum/lore/organization/gov/tajara
 	name = "The Alchemist's Council"
@@ -323,22 +320,21 @@
 
 	ship_prefixes = list("FSS-T" = "transportation", "FSS-D" = "diplomatic", "FSS-F" = "freight")//copyed from solgov until new ones can be thought of
 	destination_names = list(
-						"Venus",
-						"Earth",
-						"Luna",
-						"Mars",
-						"Titan",
-						"Ahdomai",
-						"Kelune",
-						"Dalstadt",
-						"New Canaan",
-						"Jargon 4",
-						"Hoorlm",
-						"Xarxis 5",
-						"Aurum",
-						"Moghes"
-
-						)
+		"Venus",
+		"Earth",
+		"Luna",
+		"Mars",
+		"Titan",
+		"Ahdomai",
+		"Kelune",
+		"Dalstadt",
+		"New Canaan",
+		"Jargon 4",
+		"Hoorlm",
+		"Xarxis 5",
+		"Aurum",
+		"Moghes"
+	)
 
 /datum/lore/organization/gov/vulp
 	name = "The Assembly"
@@ -355,22 +351,21 @@
 
 	ship_prefixes = list("FSS-T" = "transportation", "FSS-D" = "diplomatic", "FSS-F" = "freight")//copyed from solgov until new ones can be thought of
 	destination_names = list(
-						"Venus",
-						"Earth",
-						"Luna",
-						"Mars",
-						"Titan",
-						"Ahdomai",
-						"Kelune",
-						"Dalstadt",
-						"New Canaan",
-						"Jargon 4",
-						"Hoorlm",
-						"Xarxis 5",
-						"Aurum",
-						"Moghes",
-
-						)
+		"Venus",
+		"Earth",
+		"Luna",
+		"Mars",
+		"Titan",
+		"Ahdomai",
+		"Kelune",
+		"Dalstadt",
+		"New Canaan",
+		"Jargon 4",
+		"Hoorlm",
+		"Xarxis 5",
+		"Aurum",
+		"Moghes"
+	)
 
 /datum/lore/organization/gov/synth
 	name = "Synthetic Union"
@@ -387,22 +382,21 @@
 
 	ship_prefixes = list("01" = "transportation", "10" = "diplomatic", "112" = "freight")//copyed from solgov until new ones can be thought of
 	destination_names = list(
-						"Venus",
-						"Earth",
-						"Luna",
-						"Mars",
-						"Titan",
-						"Ahdomai",
-						"Kelune",
-						"Dalstadt",
-						"New Canaan",
-						"Jargon 4",
-						"Hoorlm",
-						"Xarxis 5",
-						"Aurum",
-						"Moghes"
-
-						)
+		"Venus",
+		"Earth",
+		"Luna",
+		"Mars",
+		"Titan",
+		"Ahdomai",
+		"Kelune",
+		"Dalstadt",
+		"New Canaan",
+		"Jargon 4",
+		"Hoorlm",
+		"Xarxis 5",
+		"Aurum",
+		"Moghes"
+	)
 
 /datum/lore/organization/gov/grey
 	name = "The Technocracy"
@@ -419,22 +413,21 @@
 
 	ship_prefixes = list("GT" = "transportation", "GD" = "diplomatic", "GF" = "freight")//copyed from solgov until new ones can be thought of
 	destination_names = list(
-						"Venus",
-						"Earth",
-						"Luna",
-						"Mars",
-						"Titan",
-						"Ahdomai",
-						"Kelune",
-						"Dalstadt",
-						"New Canaan",
-						"Jargon 4",
-						"Hoorlm",
-						"Xarxis 5",
-						"Aurum",
-						"Moghes"
-
-						)
+		"Venus",
+		"Earth",
+		"Luna",
+		"Mars",
+		"Titan",
+		"Ahdomai",
+		"Kelune",
+		"Dalstadt",
+		"New Canaan",
+		"Jargon 4",
+		"Hoorlm",
+		"Xarxis 5",
+		"Aurum",
+		"Moghes"
+	)
 
 /datum/lore/organization/gov/vox
 	name = "The Shoal"
@@ -442,7 +435,7 @@
 	acronym = "SHA"
 	desc = "The Shoal is the primary ark ship of the reclusive Vox species.\
 			 Little is known about The Shoal's political structure as Vox typically shy away from diplomatic engagements.\
-			 Subsequently, it is considered a politically neutral entity in galactic affairs by most governments.."
+			 Subsequently, it is considered a politically neutral entity in galactic affairs by most governments."
 	history = "" // Todo
 	work = "Traders"
 	headquarters = "Shoal"
@@ -451,19 +444,18 @@
 
 	ship_prefixes = list("Legitimate Transport" = "transportation", "Legitimate Trader" = "freight")
 	destination_names = list(
-						"Venus",
-						"Earth",
-						"Luna",
-						"Mars",
-						"Titan",
-						"Ahdomai",
-						"Kelune",
-						"Dalstadt",
-						"New Canaan",
-						"Jargon 4",
-						"Hoorlm",
-						"Xarxis 5",
-						"Aurum",
-						"Moghes",
-
-						)
+		"Venus",
+		"Earth",
+		"Luna",
+		"Mars",
+		"Titan",
+		"Ahdomai",
+		"Kelune",
+		"Dalstadt",
+		"New Canaan",
+		"Jargon 4",
+		"Hoorlm",
+		"Xarxis 5",
+		"Aurum",
+		"Moghes"
+	)

@@ -310,7 +310,7 @@
 			event_announcement.Announce("Docking request for trading ship denied.", "Docking request")
 		if("ToggleATC")
 			atc.squelched = !atc.squelched
-			to_chat(usr, "<span class='notice'>ATC traffic is now: [atc.squelched ? "Disabled" : "Enabled"]</span>")
+			to_chat(usr, "<span class='notice'>ATC traffic is now: [atc.squelched ? "Disabled" : "Enabled"].</span>")
 
 	nanomanager.update_uis(src)
 	return 1

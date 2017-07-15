@@ -9,7 +9,7 @@ var/datum/lore/atc_controller/atc = new/datum/lore/atc_controller
 	var/next_message					//When the next message should happen in world.time
 	var/force_chatter_type				//Force a specific type of messages
 
-	var/squelched = 0					//If ATC is squelched currently
+	var/squelched = FALSE				//If ATC is squelched currently
 
 /datum/lore/atc_controller/New()
 	spawn(30 SECONDS) //Lots of lag at the start of a shift.
@@ -36,11 +36,11 @@ var/datum/lore/atc_controller/atc = new/datum/lore/atc_controller
 	if(yes)
 		if(!squelched)
 			msg("Rerouting traffic away from [using_map.station_name].")
-		squelched = 1
+		squelched = TRUE
 	else
 		if(squelched)
 			msg("Resuming normal traffic routing around [using_map.station_name].")
-		squelched = 0
+		squelched = FALSE
 
 /datum/lore/atc_controller/proc/shift_ending(var/evac = 0)
 	msg("Automated Shuttle departing [using_map.station_name] for [using_map.dock_name] on routine transfer route.", "NT Automated Shuttle")
@@ -62,10 +62,10 @@ var/datum/lore/atc_controller/atc = new/datum/lore/atc_controller
 	var/destname = pick(dest.destination_names)			//Pick a random holding from the destination
 
 	var/combined_name = "[owner] [prefix] [shipname]"
-	var/alt_atc_names = list("[using_map.station_short] TraCon","[using_map.station_short] Control","[using_map.station_short] STC","[using_map.station_short] Airspace")
-	var/wrong_atc_names = list("Sol Command","Orion Control", "[using_map.dock_name]")
-	var/mission_noun = list("flight","mission","route")
-	var/request_verb = list("requesting","calling for","asking for")
+	var/alt_atc_names = list("[using_map.station_short] TraCon", "[using_map.station_short] Control", "[using_map.station_short] STC", "[using_map.station_short] Airspace")
+	var/wrong_atc_names = list("Sol Command", "Orion Control", "[using_map.dock_name]")
+	var/mission_noun = list("flight", "mission", "route")
+	var/request_verb = list("requesting", "calling for", "asking for")
 
 	//First response is 'yes', second is 'no'
 	var/requests = list("[using_map.station_short] transit clearance" = list("permission for transit granted", "permission for transit denied, contact regional on 953.5"),
