@@ -115,7 +115,7 @@ var/global/list/limb_icon_cache = list()
 			mob_icon.Blend(eyes_icon, ICON_OVERLAY)
 			overlays |= eyes_icon
 
-	if(owner.lip_style)
+	if(owner.lip_style && (LIPS in species.species_traits))
 		var/icon/lip_icon = new/icon('icons/mob/human_face.dmi', "lips_[owner.lip_style]_s")
 		overlays |= lip_icon
 		mob_icon.Blend(lip_icon, ICON_OVERLAY)

@@ -341,7 +341,7 @@ var/global/list/damage_icon_parts = list()
 	if(update_icons)
 		update_icons()
 
-	if(lip_style)
+	if(lip_style  && (LIPS in species.species_traits))
 		var/icon/lips = icon("icon"='icons/mob/human_face.dmi', "icon_state"="lips_[lip_style]_s")
 		lips.Blend(lip_color, ICON_ADD)
 

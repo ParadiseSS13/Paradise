@@ -122,15 +122,16 @@
 //Species traits.
 
 #define IS_WHITELISTED 	1
-#define NO_BLOOD		2
-#define NO_BREATHE 		3
-#define NO_DNA			4
-#define NO_SCAN 		5
-#define NO_PAIN 		6
-#define IS_PLANT 		7
-#define CAN_BE_FAT 		8
-#define NO_INTORGANS	9
-#define RADIMMUNE		10
-#define NOGUNS			11
-#define NOTRANSSTING	12
-#define VIRUSIMMUNE		13
+#define LIPS			2
+#define NO_BLOOD		3
+#define NO_BREATHE 		4
+#define NO_DNA			5
+#define NO_SCAN 		6
+#define NO_PAIN 		7
+#define IS_PLANT 		8
+#define CAN_BE_FAT 		9
+#define NO_INTORGANS	10
+#define RADIMMUNE		11
+#define NOGUNS			12
+#define NOTRANSSTING	13
+#define VIRUSIMMUNE		14
