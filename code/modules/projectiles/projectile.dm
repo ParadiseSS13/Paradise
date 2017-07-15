@@ -79,7 +79,11 @@
 			if(isalien(L))
 				new /obj/effect/overlay/temp/dir_setting/bloodsplatter/xenosplatter(target_loca, splatter_dir)
 			else
-				new /obj/effect/overlay/temp/dir_setting/bloodsplatter(target_loca, splatter_dir)
+				var/blood_color = "#C80000"
+				if(ishuman(target))
+					var/mob/living/carbon/human/H = target
+					blood_color = H.species.blood_color
+				new /obj/effect/overlay/temp/dir_setting/bloodsplatter(target_loca, splatter_dir, blood_color)
 			if(prob(33))
 				L.add_splatter_floor(target_loca)
 
