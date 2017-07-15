@@ -1,0 +1,4 @@
+author: "Kyep"
+delete-after: True
+changes: 
+  - bugfix: "Mechs firing missiles no longer cause the missiles to drop at their feet, as if frozen in midair."
