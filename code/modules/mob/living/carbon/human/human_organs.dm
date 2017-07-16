@@ -9,49 +9,23 @@
 
 // Takes care of organ related updates, such as broken and missing limbs
 /mob/living/carbon/human/proc/handle_organs()
-
-	number_wounds = 0
-	var/force_process = 0
-	var/damage_this_tick = getBruteLoss() + getFireLoss() + getToxLoss()
-	if(damage_this_tick > last_dam)
-		force_process = 1
-	last_dam = damage_this_tick
-	if(force_process)
-		bad_external_organs.Cut()
-		for(var/obj/item/organ/external/Ex in bodyparts)
-			bad_external_organs |= Ex
-
 	//processing internal organs is pretty cheap, do that first.
 	for(var/obj/item/organ/internal/I in internal_organs)
 		I.process()
 
+	for(var/obj/item/organ/external/E in bodyparts)
+		E.process()
+
+		if(!lying && world.time - l_move_time < 15)
+		//Moving around with fractured ribs won't do you any good
+			if(E.is_broken() && E.internal_organs && E.internal_organs.len && prob(15))
+				var/obj/item/organ/internal/I = pick(E.internal_organs)
+				custom_pain("You feel broken bones moving in your [E.name]!", 1)
+				I.take_damage(rand(3,5))
+
 	//handle_stance()
 	handle_grasp()
 	handle_stance()
-
-	if(!force_process && !bad_external_organs.len)
-		return
-
-	for(var/obj/item/organ/external/E in bad_external_organs)
-		if(!E)
-			continue
-		if(!E.need_process())
-			bad_external_organs -= E
-			continue
-		else
-			E.process()
-
-			if(!lying && world.time - l_move_time < 15)
-			//Moving around with fractured ribs won't do you any good
-				if(E.is_broken() && E.internal_organs && E.internal_organs.len && prob(15))
-					var/obj/item/organ/internal/I = pick(E.internal_organs)
-					custom_pain("You feel broken bones moving in your [E.name]!", 1)
-					I.take_damage(rand(3,5))
-
-				//Moving makes open wounds get infected much faster
-				var/total_damage = E.brute_dam + E.burn_dam
-				if(total_damage && E.infection_check())
-					germ_level++
 
 
 /mob/living/carbon/human/proc/handle_stance()

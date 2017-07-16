@@ -110,9 +110,6 @@ var/list/organ_cache = list()
 		if(germ_level >= INFECTION_LEVEL_THREE)
 			necrotize()
 
-		if(damage >= max_damage)
-			necrotize()
-
 	else if(owner.bodytemperature >= 170)	//cryo stops germs from moving and doing their bad stuffs
 		//** Handle antibiotics and curing infections
 		handle_antibiotics()
@@ -130,7 +127,7 @@ var/list/organ_cache = list()
 		return 1
 	if(is_found_within(/obj/structure/closet/crate/freezer))
 		return 1
-	if(istype(loc,/turf))
+	if(isturf(loc))
 		if(world.time - last_freezer_update_time > freezer_update_period)
 			// I don't want to loop through everything in the tile constantly, especially since it'll be a pile of organs
 			// if the virologist releases gibbingtons again or something

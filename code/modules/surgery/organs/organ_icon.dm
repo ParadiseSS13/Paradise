@@ -58,7 +58,7 @@ var/global/list/limb_icon_cache = list()
 	var/obj/item/organ/internal/eyes/eyes = owner.get_int_organ(/obj/item/organ/internal/eyes)//owner.internal_bodyparts_by_name["eyes"]
 	if(eyes) eyes.update_colour()
 
-/obj/item/organ/external/head/remove()
+/obj/item/organ/external/head/remove(mob/living/user, ignore_children)
 	get_icon()
 	. = ..()
 

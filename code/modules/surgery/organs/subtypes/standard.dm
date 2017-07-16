@@ -46,6 +46,7 @@
 	w_class = WEIGHT_CLASS_BULKY // if you know what I mean ;)
 	body_part = LOWER_TORSO
 	vital = 1
+	cannot_amputate = TRUE
 	parent_organ = "chest"
 	amputation_point = "lumbar"
 	gendered_icon = 1
@@ -219,8 +220,8 @@
 
 	..()
 
-/obj/item/organ/external/head/take_damage(brute, burn, sharp, used_weapon = null, list/forbidden_limbs = list())
-	..(brute, burn, sharp, used_weapon, forbidden_limbs)
+/obj/item/organ/external/head/take_damage(brute, burn, sharp, used_weapon = null, list/forbidden_limbs = list(), ignore_resists = FALSE)
+	..(brute, burn, sharp, used_weapon, forbidden_limbs, ignore_resists)
 	if(!disfigured)
 		if(brute_dam > 40)
 			if(prob(50))
