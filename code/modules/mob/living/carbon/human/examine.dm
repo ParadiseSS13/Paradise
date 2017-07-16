@@ -297,84 +297,54 @@
 		var/obj/item/organ/external/E = bodyparts_by_name[organ_tag]
 		if(!E)
 			wound_flavor_text["[organ_tag]"] = "<span class='warning'><b>[t_He] [t_is] missing [t_his] [organ_descriptor].</b></span>\n"
-		else if(E.is_stump())
-			wound_flavor_text["[organ_tag]"] = "<span class='warning'><b>[t_He] [t_has] a stump where [t_his] [organ_descriptor] should be.</b></span>\n"
 		else
 			continue
 
 	for(var/obj/item/organ/external/temp in bodyparts)
-		if(temp && !temp.is_stump())
-			if(temp.status & ORGAN_ROBOT)
-				if(!(temp.brute_dam + temp.burn_dam))
-					if(!isSynthetic())
-						wound_flavor_text["[temp.limb_name]"] = "<span class='warning'>[t_He] [t_has] a robotic [temp.name]!</span>\n"
-						continue
-				else
-					wound_flavor_text["[temp.limb_name]"] = "<span class='warning'>[t_He] [t_has] a robotic [temp.name]. It has"
-				if(temp.brute_dam) switch(temp.brute_dam)
+		if(temp.status & ORGAN_ROBOT)
+			if(!(temp.brute_dam + temp.burn_dam))
+				if(!isSynthetic())
+					wound_flavor_text["[temp.limb_name]"] = "<span class='warning'>[t_He] [t_has] a robotic [temp.name]!</span>\n"
+					continue
+			else
+				wound_flavor_text["[temp.limb_name]"] = "<span class='warning'>[t_He] [t_has] a robotic [temp.name]. It has"
+			if(temp.brute_dam)
+				switch(temp.brute_dam)
 					if(0 to 20)
 						wound_flavor_text["[temp.limb_name]"] += " some dents"
 					if(21 to INFINITY)
 						wound_flavor_text["[temp.limb_name]"] += pick(" a lot of dents"," severe denting")
-				if(temp.brute_dam && temp.burn_dam)
-					wound_flavor_text["[temp.limb_name]"] += " and"
-				if(temp.burn_dam) switch(temp.burn_dam)
+			if(temp.brute_dam && temp.burn_dam)
+				wound_flavor_text["[temp.limb_name]"] += " and"
+			if(temp.burn_dam)
+				switch(temp.burn_dam)
 					if(0 to 20)
 						wound_flavor_text["[temp.limb_name]"] += " some burns"
 					if(21 to INFINITY)
 						wound_flavor_text["[temp.limb_name]"] += pick(" a lot of burns"," severe melting")
-				if(wound_flavor_text["[temp.limb_name]"])
-					wound_flavor_text["[temp.limb_name]"] += "!</span>\n"
-			else if(temp.wounds.len > 0)
-				var/list/wound_descriptors = list()
-				for(var/datum/wound/W in temp.wounds)
-					var/this_wound_desc = W.desc
-					if(this_wound_desc in wound_descriptors)
-						wound_descriptors[this_wound_desc] += W.amount
-						continue
-					wound_descriptors[this_wound_desc] = W.amount
-				if(wound_descriptors.len)
-					var/list/flavor_text = list()
-					var/list/no_exclude = list("gaping wound", "big gaping wound", "massive wound", "large bruise",\
-					"huge bruise", "massive bruise", "severe burn", "large burn", "deep burn", "carbonised area")
-					for(var/wound in wound_descriptors)
-						switch(wound_descriptors[wound])
-							if(1)
-								if(!flavor_text.len)
-									flavor_text += "<span class='warning'>[t_He] [t_has][prob(10) && !(wound in no_exclude)  ? " what might be" : ""] a [wound]"
-								else
-									flavor_text += "[prob(10) && !(wound in no_exclude) ? " what might be" : ""] a [wound]"
-							if(2)
-								if(!flavor_text.len)
-									flavor_text += "<span class='warning'>[t_He] [t_has][prob(10) && !(wound in no_exclude) ? " what might be" : ""] a pair of [wound]s"
-								else
-									flavor_text += "[prob(10) && !(wound in no_exclude) ? " what might be" : ""] a pair of [wound]s"
-							if(3 to 5)
-								if(!flavor_text.len)
-									flavor_text += "<span class='warning'>[t_He] [t_has] several [wound]s"
-								else
-									flavor_text += " several [wound]s"
-							if(6 to INFINITY)
-								if(!flavor_text.len)
-									flavor_text += "<span class='warning'>[t_He] [t_has] a bunch of [wound]s"
-								else
-									flavor_text += " a ton of [wound]\s"
-					var/flavor_text_string = ""
-					for(var/text = 1, text <= flavor_text.len, text++)
-						if(text == flavor_text.len && flavor_text.len > 1)
-							flavor_text_string += ", and"
-						else if(flavor_text.len > 1 && text > 1)
-							flavor_text_string += ","
-						flavor_text_string += flavor_text[text]
-					flavor_text_string += " on [t_his] [temp.name].</span><br>"
-					wound_flavor_text["[temp.limb_name]"] = flavor_text_string
-				else
-					wound_flavor_text["[temp.limb_name]"] = ""
-			else
-				wound_flavor_text["[temp.limb_name]"] = ""
+			if(wound_flavor_text["[temp.limb_name]"])
+				wound_flavor_text["[temp.limb_name]"] += "!</span>\n"
+		else
+			wound_flavor_text["[temp.limb_name]"] = ""
 
-			for(var/obj/item/I in temp.embedded_objects)
-				msg += "<B>[t_He] [t_has] \a [bicon(I)] [I] embedded in [t_his] [temp.name]!</B>\n"
+		for(var/obj/item/I in temp.embedded_objects)
+			msg += "<B>[t_He] [t_has] \a [bicon(I)] [I] embedded in [t_his] [temp.name]!</B>\n"
+
+	if(!isSynthetic())
+		var/temp = getBruteLoss() //no need to calculate each of these twice
+
+		if(temp)
+			if(temp < 30)
+				msg += "[t_He] [t_has] minor bruising.\n"
+			else
+				msg += "<B>[t_He] [t_has] severe bruising!</B>\n"
+
+		temp = getFireLoss()
+		if(temp)
+			if(temp < 30)
+				msg += "[t_He] [t_has] minor burns.\n"
+			else
+				msg += "<B>[t_He] [t_has] severe burns!</B>\n"
 
 	//Handles the text strings being added to the actual description.
 	//If they have something that covers the limb, and it is not missing, put flavortext.  If it is covered but bleeding, add other flavortext.

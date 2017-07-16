@@ -53,7 +53,7 @@
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
 	user.visible_message("<span class='warning'> [user]'s hand slips, slicing open [target]'s [affected.name] in a wrong spot with \the [tool]!</span>", \
 	"<span class='warning'> Your hand slips, slicing open [target]'s [affected.name] in a wrong spot with \the [tool]!</span>")
-	affected.createwound(CUT, 10)
+	affected.take_damage(10)
 	return 0
 
 /datum/surgery_step/generic/clamp_bleeders
@@ -87,7 +87,7 @@
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
 	user.visible_message("<span class='warning'> [user]'s hand slips, tearing blood vessals and causing massive bleeding in [target]'s [affected.name] with \the [tool]!</span>",	\
 	"<span class='warning'> Your hand slips, tearing blood vessels and causing massive bleeding in [target]'s [affected.name] with \the [tool]!</span>",)
-	affected.createwound(CUT, 10)
+	affected.take_damage(10)
 	return 0
 
 /datum/surgery_step/generic/retract_skin
@@ -242,6 +242,6 @@
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
 	user.visible_message("<span class='warning'> [user]'s hand slips, sawing through the bone in [target]'s [affected.name] with \the [tool]!</span>", \
 	"<span class='warning'> Your hand slips, sawwing through the bone in [target]'s [affected.name] with \the [tool]!</span>")
-	affected.createwound(CUT, 30)
+	affected.take_damage(30)
 	affected.fracture()
 	return 0

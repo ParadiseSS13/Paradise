@@ -97,7 +97,6 @@
 	var/health_threshold_dead = -100
 
 	var/bones_can_break = 1
-	var/limbs_can_break = 1
 
 	var/revival_pod_plants = 1
 	var/revival_cloning = 1
@@ -631,8 +630,6 @@
 					config.animal_delay = value
 				if("bones_can_break")
 					config.bones_can_break = value
-				if("limbs_can_break")
-					config.limbs_can_break = value
 				if("shuttle_refuel_delay")
 					config.shuttle_refuel_delay     = text2num(value)
 				if("traitor_objectives_amount")

@@ -172,7 +172,7 @@ var/global/list/limb_icon_cache = list()
 				gender = "f"
 			else
 				gender = "m"
-		if(limb_name == "head" && !is_stump() && !(status & ORGAN_DESTROYED))
+		if(limb_name == "head" && !(status & ORGAN_DESTROYED))
 			var/obj/item/organ/external/head/head_organ = src
 			head_organ.handle_alt_icon()
 
