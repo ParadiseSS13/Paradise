@@ -1,0 +1,5 @@
+author: "KasparoVy"
+delete-after: True
+changes: 
+  - bugfix: "Fixes a bug with Vampire Shapeshift where you didn't get a name appropriate to your species and clarifies the ability description."
+  - bugfix: "Fixes a bug with DNA scramblers whereby you wouldn't get a name appropriate to your species."
