@@ -228,7 +228,6 @@
 	hitsound = 'sound/items/Wirecutter.ogg'
 	usesound = 'sound/items/Wirecutter.ogg'
 	sharp = 1
-	edge = 1
 	toolspeed = 1
 
 /obj/item/weapon/wirecutters/New(loc, param_color = null)
@@ -241,8 +240,7 @@
 /obj/item/weapon/wirecutters/attack(mob/living/carbon/C, mob/user)
 	if(istype(C) && C.handcuffed && istype(C.handcuffed, /obj/item/weapon/restraints/handcuffs/cable))
 		user.visible_message("<span class='notice'>[user] cuts [C]'s restraints with [src]!</span>")
-		qdel(C.handcuffed)
-		C.handcuffed = null
+		QDEL_NULL(C.handcuffed)
 		if(C.buckled && C.buckled.buckle_requires_restraints)
 			C.buckled.unbuckle_mob(C)
 		C.update_handcuffed()

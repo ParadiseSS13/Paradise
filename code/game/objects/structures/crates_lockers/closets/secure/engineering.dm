@@ -34,6 +34,7 @@
 		new /obj/item/taperoll/engineering(src)
 		new /obj/item/clothing/head/beret/eng(src)
 		new /obj/item/weapon/door_remote/chief_engineer(src)
+		new /obj/item/weapon/rpd(src)
 
 /obj/structure/closet/secure_closet/engineering_electrical
 	name = "electrical supplies locker"
@@ -143,3 +144,4 @@
 		new /obj/item/weapon/watertank/atmos(src)
 		new /obj/item/clothing/suit/fire/atmos(src)
 		new /obj/item/clothing/head/hardhat/atmos(src)
+		new /obj/item/weapon/rpd(src)

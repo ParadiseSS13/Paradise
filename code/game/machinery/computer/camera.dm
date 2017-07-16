@@ -71,7 +71,9 @@
 	ui_interact(user)
 
 /obj/machinery/computer/security/attackby(obj/item/I, user as mob, params)
-	if(I.GetAccess()) // If hit by something with access.
+	if(isscrewdriver(I))
+		..()
+	else if(I.GetAccess()) // If hit by something with access.
 		attack_hand(user)
 	else
 		..()

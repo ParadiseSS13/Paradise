@@ -376,10 +376,8 @@
 	return 1
 
 /datum/click_intercept/buildmode/proc/deselect_region()
-	qdel(cornerA)
-	cornerA = null
-	qdel(cornerB)
-	cornerB = null
+	QDEL_NULL(cornerA)
+	QDEL_NULL(cornerB)
 
 /datum/click_intercept/buildmode/proc/Reset()//Reset temporary variables
 	deselect_region()

@@ -32,7 +32,7 @@
 	create_reagents(volume)
 	if(spawned_disease)
 		var/datum/disease/F = new spawned_disease(0)
-		var/list/data = list("viruses" = list(F), "blood_colour" = "#A10808")
+		var/list/data = list("viruses" = list(F), "blood_color" = "#A10808")
 		reagents.add_reagent("blood", disease_amount, data)
 	if(list_reagents)
 		reagents.add_reagent_list(list_reagents)

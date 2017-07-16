@@ -302,7 +302,9 @@
 		AnnounceArrival(character, rank, join_message)
 		callHook("latespawn", list(character))
 
-
+	var/datum/job/thisjob = job_master.GetJob(rank)
+	if(!thisjob.is_position_available() && thisjob in job_master.prioritized_jobs)
+		job_master.prioritized_jobs -= thisjob
 	qdel(src)
 
 
@@ -362,6 +364,18 @@
 	else if(shuttle_master.emergency.mode >= SHUTTLE_CALL)
 		dat += "<font color='red'>The station is currently undergoing evacuation procedures.</font><br>"
 
+	if(length(job_master.prioritized_jobs))
+		dat += "<font color='lime'>The station has flagged these jobs as high priority: "
+		var/amt = length(job_master.prioritized_jobs)
+		var/amt_count
+		for(var/datum/job/a in job_master.prioritized_jobs)
+			amt_count++
+			if(amt_count != amt)
+				dat += " [a.title], "
+			else
+				dat += " [a.title]. </font><br>"
+
+
 	dat += "Choose from the following open positions:<br><br>"
 
 	var/list/activePlayers = list()
@@ -410,7 +424,10 @@
 		dat += "<fieldset style='border: 2px solid [color]; display: inline'>"
 		dat += "<legend align='center' style='color: [color]'>[jobcat]</legend>"
 		for(var/datum/job/job in categorizedJobs[jobcat]["jobs"])
-			dat += "<a href='byond://?src=[UID()];SelectedJob=[job.title]'>[job.title] ([job.current_positions]) (Active: [activePlayers[job]])</a><br>"
+			if(job in job_master.prioritized_jobs)
+				dat += "<a href='byond://?src=[UID()];SelectedJob=[job.title]'><font color='lime'><B>[job.title] ([job.current_positions]) (Active: [activePlayers[job]])</B></font></a><br>"
+			else
+				dat += "<a href='byond://?src=[UID()];SelectedJob=[job.title]'>[job.title] ([job.current_positions]) (Active: [activePlayers[job]])</a><br>"
 		dat += "</fieldset><br>"
 
 	dat += "</td></tr></table></center>"
@@ -499,7 +516,7 @@
 
 /mob/new_player/proc/is_species_whitelisted(datum/species/S)
 	if(!S) return 1
-	return is_alien_whitelisted(src, S.name) || !config.usealienwhitelist || !(S.flags & IS_WHITELISTED)
+	return is_alien_whitelisted(src, S.name) || !config.usealienwhitelist || !(IS_WHITELISTED in S.species_traits)
 
 /mob/new_player/get_species()
 	var/datum/species/chosen_species

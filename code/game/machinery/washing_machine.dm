@@ -172,8 +172,7 @@
 					H.item_color = wash_color
 					H.name = new_softcap_name
 					H.desc = new_desc
-		qdel(crayon)
-		crayon = null
+		QDEL_NULL(crayon)
 
 
 	if( locate(/mob,contents) )

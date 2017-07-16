@@ -387,12 +387,13 @@ var/ert_request_answered = 0
 		/obj/item/clothing/head/helmet/space/hardsuit/ert/commander = 1,
 		/obj/item/clothing/mask/gas/sechailer/swat = 1,
 		/obj/item/weapon/restraints/handcuffs = 1,
+		/obj/item/clothing/shoes/magboots = 1,
 		/obj/item/weapon/storage/lockbox/mindshield = 1
 	)
 
 /datum/outfit/job/centcom/response_team/commander/gamma
 	name = "RT Commander (Gamma)"
-	shoes = /obj/item/clothing/shoes/combat/swat
+	shoes = /obj/item/clothing/shoes/magboots/advance
 	gloves = /obj/item/clothing/gloves/combat
 	suit = /obj/item/clothing/suit/space/hardsuit/ert/commander
 	glasses = /obj/item/clothing/glasses/hud/security/night
@@ -457,6 +458,7 @@ var/ert_request_answered = 0
 	backpack_contents = list(
 		/obj/item/clothing/head/helmet/space/hardsuit/ert/security = 1,
 		/obj/item/clothing/mask/gas/sechailer = 1,
+		/obj/item/clothing/shoes/magboots = 1,
 		/obj/item/weapon/storage/box/handcuffs = 1,
 		/obj/item/weapon/gun/energy/ionrifle/carbine = 1
 	)
@@ -464,7 +466,7 @@ var/ert_request_answered = 0
 /datum/outfit/job/centcom/response_team/security/gamma
 	name = "RT Security (Gamma)"
 	has_grenades = TRUE
-	shoes = /obj/item/clothing/shoes/combat/swat
+	shoes = /obj/item/clothing/shoes/magboots/advance
 	gloves = /obj/item/clothing/gloves/combat
 	suit = /obj/item/clothing/suit/space/hardsuit/ert/security
 	suit_store = /obj/item/weapon/gun/energy/gun/nuclear
@@ -509,7 +511,7 @@ var/ert_request_answered = 0
 
 /datum/outfit/job/centcom/response_team/engineer/red
 	name = "RT Engineer (Red)"
-	shoes = /obj/item/clothing/shoes/magboots
+	shoes = /obj/item/clothing/shoes/magboots/advance
 	gloves = /obj/item/clothing/gloves/color/yellow
 	suit = /obj/item/clothing/suit/space/hardsuit/ert/engineer
 	suit_store = /obj/item/weapon/tank/emergency_oxygen/engi
@@ -594,12 +596,13 @@ var/ert_request_answered = 0
 		/obj/item/weapon/storage/firstaid/toxin = 1,
 		/obj/item/weapon/storage/firstaid/adv = 1,
 		/obj/item/weapon/storage/firstaid/surgery = 1,
-		/obj/item/weapon/gun/energy/gun = 1
+		/obj/item/weapon/gun/energy/gun = 1,
+		/obj/item/clothing/shoes/magboots = 1
 	)
 
 /datum/outfit/job/centcom/response_team/medic/gamma
 	name = "RT Medic (Gamma)"
-	shoes = /obj/item/clothing/shoes/combat/swat
+	shoes = /obj/item/clothing/shoes/magboots/advance
 	gloves = /obj/item/clothing/gloves/combat
 	suit = /obj/item/clothing/suit/space/hardsuit/ert/medical
 	glasses = /obj/item/clothing/glasses/hud/health/night

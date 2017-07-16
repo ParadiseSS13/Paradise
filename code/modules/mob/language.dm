@@ -96,6 +96,9 @@
 	return (copytext(message, length(message)) == "!") ? 2 : 1
 
 /datum/language/proc/broadcast(mob/living/speaker, message, speaker_mask)
+	if(!check_can_speak(speaker))
+		return FALSE
+
 	log_say("[key_name(speaker)]: ([name]) [message]")
 
 	if(!speaker_mask)
@@ -112,6 +115,9 @@
 			to_chat(player, msg)
 
 /datum/language/proc/check_special_condition(mob/other, mob/living/speaker)
+	return TRUE
+
+/datum/language/proc/check_can_speak(mob/living/speaker)
 	return TRUE
 
 /datum/language/proc/get_spoken_verb(msg_end)
@@ -292,8 +298,29 @@
 /datum/language/grey/broadcast(mob/living/speaker, message, speaker_mask)
 	..(speaker,message,speaker.real_name)
 
+/datum/language/grey/check_can_speak(mob/living/speaker)
+	if(ishuman(speaker))
+		var/mob/living/carbon/human/S = speaker
+		var/obj/item/organ/external/rhand = S.get_organ("r_hand")
+		var/obj/item/organ/external/lhand = S.get_organ("l_hand")
+		if((!rhand || !rhand.is_usable()) && (!lhand || !lhand.is_usable()))
+			to_chat(speaker,"<span class='warning'>You can't communicate without the ability to use your hands!</span>")
+			return FALSE
+	if(speaker.incapacitated(ignore_lying = 1))
+		to_chat(speaker,"<span class='warning'>You can't communicate while unable to move your hands to your head!</span>")
+		return FALSE
+
+	var/their = "their"
+	if(speaker.gender == "female")
+		their = "her"
+	if(speaker.gender == "male")
+		their = "his"
+	speaker.visible_message("<span class='notice'>[speaker] touches [their] fingers to [their] temple.</span>") //If placed in grey/broadcast, it will happen regardless of the success of the action.
+
+	return TRUE
+
 /datum/language/grey/check_special_condition(mob/living/carbon/human/other, mob/living/carbon/human/speaker)
-	if(other in range(7, speaker))
+	if(atoms_share_level(other, speaker))
 		return TRUE
 	return FALSE
 
@@ -639,7 +666,7 @@
 			if(L == default_language)
 				. += "<b>[L.name] (:[L.key])</b> - default - <a href='byond://?src=[UID()];default_lang=reset'>reset</a><br>[L.desc]<br><br>"
 			else
-				. += "<b>[L.name] (:[L.key])</b> - <a href='byond://?src=[UID()];default_lang=[L]'>set default</a><br>[L.desc]<br><br>"
+				. += "<b>[L.name] (:[L.key])</b> - <a href=\"byond://?src=[UID()];default_lang=[L]\">set default</a><br>[L.desc]<br><br>"
 
 /mob/verb/check_languages()
 	set name = "Check Known Languages"

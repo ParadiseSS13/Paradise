@@ -373,8 +373,7 @@
 	var/oldPlantName
 	if(myseed) // In case there's nothing in the tray beforehand
 		oldPlantName = myseed.plantname
-		qdel(myseed)
-		myseed = null
+		QDEL_NULL(myseed)
 	else
 		oldPlantName = "empty tray"
 	switch(rand(1,18))		// randomly pick predominative weed
@@ -422,8 +421,7 @@
 	var/oldPlantName = myseed.plantname
 	if(myseed.mutatelist.len > 0)
 		var/mutantseed = pick(myseed.mutatelist)
-		qdel(myseed)
-		myseed = null
+		QDEL_NULL(myseed)
 		myseed = new mutantseed
 	else
 		return
@@ -444,9 +442,7 @@
 
 /obj/machinery/hydroponics/proc/mutateweed() // If the weeds gets the mutagent instead. Mind you, this pretty much destroys the old plant
 	if( weedlevel > 5 )
-		if(myseed)
-			qdel(myseed)
-			myseed = null
+		QDEL_NULL(myseed)
 		var/newWeed = pick(/obj/item/seeds/liberty, /obj/item/seeds/angel, /obj/item/seeds/nettle/death, /obj/item/seeds/kudzu)
 		myseed = new newWeed
 		dead = 0
@@ -572,8 +568,8 @@
 	// You're an idiot for thinking that one of the most corrosive and deadly gasses would be beneficial
 	if(S.has_reagent("fluorine", 1))
 		adjustHealth(-round(S.get_reagent_amount("fluorine") * 2))
-		adjustToxic(round(S.get_reagent_amount("flourine") * 2.5))
-		adjustWater(-round(S.get_reagent_amount("flourine") * 0.5))
+		adjustToxic(round(S.get_reagent_amount("fluorine") * 2.5))
+		adjustWater(-round(S.get_reagent_amount("fluorine") * 0.5))
 		adjustWeeds(-rand(1,4))
 
 	// You're an idiot for thinking that one of the most corrosive and deadly gasses would be beneficial
@@ -935,8 +931,7 @@
 	else if(dead)
 		dead = 0
 		to_chat(user, "<span class='notice'>You remove the dead plant from [src].</span>")
-		qdel(myseed)
-		myseed = null
+		QDEL_NULL(myseed)
 		update_icon()
 		plant_hud_set_status()
 		plant_hud_set_health()
@@ -953,8 +948,7 @@
 	else
 		to_chat(user, "<span class='notice'>You harvest [myseed.getYield()] items from the [myseed.plantname].</span>")
 	if(!myseed.get_gene(/datum/plant_gene/trait/repeated_harvest))
-		qdel(myseed)
-		myseed = null
+		QDEL_NULL(myseed)
 		dead = 0
 	plant_hud_set_status()
 	plant_hud_set_health()

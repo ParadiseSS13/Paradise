@@ -32,6 +32,7 @@ var/list/organ_cache = list()
 	var/sterile = 0 //can the organ be infected by germs?
 	var/tough = 0 //can organ be easily damaged?
 
+
 /obj/item/organ/Destroy()
 	processing_objects.Remove(src)
 	if(owner)
@@ -95,7 +96,7 @@ var/list/organ_cache = list()
 		return
 
 	//Process infections
-	if((status & ORGAN_ROBOT) || sterile ||(owner && owner.species && (owner.species.flags & IS_PLANT)))
+	if((status & ORGAN_ROBOT) || sterile ||(owner && (IS_PLANT in owner.species.species_traits)))
 		germ_level = 0
 		return
 
@@ -233,7 +234,7 @@ var/list/organ_cache = list()
 	W.time_inflicted = world.time
 
 //Note: external organs have their own version of this proc
-/obj/item/organ/proc/take_damage(amount, var/silent=0)
+/obj/item/organ/proc/take_damage(amount, silent = 0)
 	if(tough)
 		return
 	if(status & ORGAN_ROBOT)
@@ -268,15 +269,22 @@ var/list/organ_cache = list()
 /obj/item/organ/emp_act(severity)
 	if(!(status & ORGAN_ROBOT))
 		return
-	switch(severity)
-		if(1.0)
-			take_damage(0,20)
-			return
-		if(2.0)
-			take_damage(0,7)
-			return
-		if(3.0)
-			take_damage(0,3)
+	if(tough)
+		switch(severity)
+			if(1)
+				take_damage(0, 5.5)
+				if(owner)
+					owner.Stun(10)
+			if(2)
+				take_damage(0, 2.8)
+				if(owner)
+					owner.Stun(5)
+	else
+		switch(severity)
+			if(1)
+				take_damage(0, 20)
+			if(2)
+				take_damage(0, 7)
 
 /obj/item/organ/internal/emp_act(severity)
 	if(!robotic)
@@ -284,13 +292,11 @@ var/list/organ_cache = list()
 	if(robotic == 2)
 		switch(severity)
 			if(1.0)
-				take_damage(20,1)
+				take_damage(20, 1)
 			if(2.0)
-				take_damage(7,1)
-			if(3.0)
-				take_damage(3,1)
+				take_damage(7, 1)
 	else if(robotic == 1)
-		take_damage(11,1)
+		take_damage(11, 1)
 
 /obj/item/organ/internal/heart/emp_act(intensity)
 	if(owner && robotic == 2)
@@ -311,9 +317,9 @@ var/list/organ_cache = list()
 	loc = get_turf(owner)
 	processing_objects |= src
 	var/datum/reagent/blood/organ_blood
-	if(reagents) organ_blood = reagents.get_reagent_from_id(owner.get_blood_name())
-	if((!organ_blood || !organ_blood.data["blood_DNA"]) && (owner && !(owner.species.flags & NO_BLOOD)))
-		owner.vessel.trans_to(src, 5, 1, 1)
+	if(reagents) organ_blood = reagents.get_reagent_from_id(owner.get_blood_id())
+	if((!organ_blood || !organ_blood.data["blood_DNA"]) && (owner && !(NO_BLOOD in owner.species.species_traits)))
+		owner.transfer_blood_to(src)
 
 	if(owner && vital && is_primary_organ()) // I'd do another check for species or whatever so that you couldn't "kill" an IPC by removing a human head from them, but it doesn't matter since they'll come right back from the dead
 		if(user)

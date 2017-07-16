@@ -46,13 +46,11 @@
 	M.SetConfused(0)
 	M.SetSleeping(0)
 	M.SetJitter(0)
-	for(var/datum/disease/D in M.viruses)
+	for(var/thing in M.viruses)
+		var/datum/disease/D = thing
 		if(D.severity == NONTHREAT)
 			continue
-		D.spread_text = "Remissive"
-		D.stage--
-		if(D.stage < 1)
-			D.cure()
+		D.cure(0)
 	..()
 
 /datum/reagent/medicine/adminordrazine/nanites

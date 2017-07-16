@@ -270,20 +270,20 @@
 	if(prob((SNPC_FUZZY_CHANCE_LOW+SNPC_FUZZY_CHANCE_HIGH)/4))
 		var/obj/item/organ/external/R = bodyparts_by_name["r_arm"]
 		if(R)
-			R.robotize()
+			R.robotize(make_tough = 1)
 	else
 		var/obj/item/organ/external/L = bodyparts_by_name["l_arm"]
 		if(L)
-			L.robotize()
+			L.robotize(make_tough = 1)
 	//legs
 	if(prob((SNPC_FUZZY_CHANCE_LOW+SNPC_FUZZY_CHANCE_HIGH)/4))
 		var/obj/item/organ/external/R = bodyparts_by_name["r_leg"]
 		if(R)
-			R.robotize()
+			R.robotize(make_tough = 1)
 	else
 		var/obj/item/organ/external/L = bodyparts_by_name["l_leg"]
 		if(L)
-			L.robotize()
+			L.robotize(make_tough = 1)
 	UpdateDamageIcon()
 	regenerate_icons()
 

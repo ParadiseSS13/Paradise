@@ -156,11 +156,8 @@
 					for(var/datum/data/record/R in data_core.medical)
 						if(R.fields["name"] == active1.fields["name"] && R.fields["id"] == active1.fields["id"])
 							qdel(R)
-					qdel(active1)
-					active1 = null
-				if(active2)
-					qdel(active2)
-					active2 = null
+					QDEL_NULL(active1)
+				QDEL_NULL(active2)
 				update_all_mob_security_hud()
 				screen = SEC_DATA_R_LIST
 			if("criminal")
