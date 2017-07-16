@@ -33,7 +33,10 @@
 	user.reagents.add_reagent("potass_iodide", 10)
 	user.reagents.add_reagent("charcoal", 20)
 
-	for(var/datum/disease/D in user.viruses)
+	for(var/thing in user.viruses)
+		var/datum/disease/D = thing
+		if(D.severity == NONTHREAT)
+			continue
 		D.cure()
 
 	feedback_report("changeling_powers","AP")

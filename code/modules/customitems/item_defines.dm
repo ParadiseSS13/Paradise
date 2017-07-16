@@ -30,7 +30,7 @@
 	usesound = 'sound/items/Welder2.ogg'
 
 /obj/item/device/fluff/tattoo_gun/attack(mob/living/carbon/M as mob, mob/user as mob)
-	if(user.a_intent == "harm")
+	if(user.a_intent == INTENT_HARM)
 		user.visible_message("<span class='warning'>[user] stabs [M] with the [src]!</span>", "<span class='warning'>You stab [M] with the [src]!</span>")
 		to_chat(M, "<span class='userdanger'>[user] stabs you with the [src]!<br></span><span class = 'warning'>You feel a tiny prick!</span>")
 		return
@@ -112,12 +112,25 @@
 	else
 		to_chat(user, "<span class='notice'>The [src] is out of ink!</span>")
 
+/obj/item/device/fluff/bird_painter // BirdtTalon: Kahkiri
+	name = "Orb of Onyx"
+	desc = "It is imbued with such dark power as to corrupt the very appearance of those who gaze into its depths."
+	icon_state = "bird_orb"
+	icon = 'icons/obj/custom_items.dmi'
+
+/obj/item/device/fluff/bird_painter/attack_self(mob/user)
+	if(ishuman(user))
+		var/mob/living/carbon/human/H = user
+		H.s_tone = -115
+		H.regenerate_icons()
+		to_chat(user, "You use [src] on yourself.")
+		qdel(src)
+
 /obj/item/weapon/claymore/fluff // MrBarrelrolll: Maximus Greenwood
 	name = "Greenwood's Blade"
 	desc = "A replica claymore with strange markings scratched into the blade."
 	force = 5
 	sharp = 0
-	edge = 0
 
 /obj/item/weapon/claymore/fluff/hit_reaction()
 	return 0
@@ -232,7 +245,7 @@
 	new /obj/item/weapon/reagent_containers/food/drinks/cans/cola(src)
 
 
-/obj/item/device/guitar/jello_guitar //Antcolon3: Dan Jello
+/obj/item/device/instrument/guitar/jello_guitar //Antcolon3: Dan Jello
 	name = "Dan Jello's Pink Guitar"
 	desc = "Dan Jello's special pink guitar."
 	icon = 'icons/obj/custom_items.dmi'
@@ -354,6 +367,68 @@
 		P.name = "plasma containment suit"
 		P.desc = "A feminine containment suit designed to keep plasma in, and everything else out. It's even got an overskirt."
 		P.icon_state = "plasmaman_halo"
+
+		if(P == H.wear_suit)
+			H.update_inv_wear_suit()
+		return
+	to_chat(user, "<span class='warning'>You can't modify [target]!</span>")
+
+/obj/item/device/fluff/lighty_plasman_modkit // LightFire53: Ikelos
+	name = "plasmaman suit modkit"
+	desc = "A kit containing nanites that are able to modify the look of a plasmaman suit and helmet without exposing the wearer to hostile environments."
+	icon_state = "modkit"
+	w_class = 2
+	force = 0
+	throwforce = 0
+	var/picked_color = null
+	var/list/helmets = list(
+		"Blue" = "plasmaman_ikelosdefault_helmet",
+		"Gold" = "plasmaman_ikelosgold_helmet",
+		"Red" = "plasmaman_ikelossecurity_helmet")
+	var/list/suits = list(
+		"Blue" = "plasmaman_ikelosdefault",
+		"Gold" = "plasmaman_ikelosgold",
+		"Red" = "plasmaman_ikelossecurity")
+
+/obj/item/device/fluff/lighty_plasman_modkit/afterattack(atom/target, mob/user, proximity)
+	if(!proximity || !ishuman(user) || user.incapacitated())
+		return
+	var/mob/living/carbon/human/H = user
+
+	if(istype(target, /obj/item/clothing/head/helmet/space/eva/plasmaman))
+		if(used & USED_MOD_HELM)
+			to_chat(H, "<span class='notice'>The kit's helmet modifier has already been used.</span>")
+			return
+
+		picked_color = input(H, "Which color would you like to paint [target]?", "Recolor") as null|anything in helmets
+		var/obj/item/clothing/head/helmet/space/eva/plasmaman/P = target
+
+		if(!picked_color)
+			return
+		P.icon_state = helmets[picked_color] + "[P.on]"
+		P.base_state = helmets[picked_color]
+
+		to_chat(H, "<span class='notice'>You modify the appearance of [target].</span>")
+		P.icon = 'icons/obj/custom_items.dmi'
+		used |= USED_MOD_HELM
+
+		if(P == H.head)
+			H.update_inv_head()
+		return
+	if(istype(target, /obj/item/clothing/suit/space/eva/plasmaman))
+		if(used & USED_MOD_SUIT)
+			to_chat(user, "<span class='notice'>The kit's suit modifier has already been used.</span>")
+			return
+		picked_color = input(H, "Which color would you like to paint [target]?", "Recolor") as null|anything in suits
+		var/obj/item/clothing/suit/space/eva/plasmaman/P = target
+
+		if(!picked_color)
+			return
+		P.icon_state = suits[picked_color]
+
+		to_chat(H, "<span class='notice'>You modify the appearance of [target].</span>")
+		P.icon = 'icons/obj/custom_items.dmi'
+		used |= USED_MOD_SUIT
 
 		if(P == H.wear_suit)
 			H.update_inv_wear_suit()
@@ -697,6 +772,25 @@
 		to_chat(user, "You turn the [src]'s lighting system [flavour].")
 		user.update_inv_wear_suit()
 
+/obj/item/clothing/suit/hooded/hoodie/fluff/xantholne // Xantholne: Meex Zwichsnicrur
+	name = "stripped winter coat"
+	desc = "A velvety smooth black winter coat with white and red stripes on the side."
+	icon = 'icons/obj/custom_items.dmi'
+	icon_state = "xantholne_wintercoat"
+	hoodtype = /obj/item/clothing/head/hood/fluff/xantholne
+	body_parts_covered = UPPER_TORSO|LOWER_TORSO|ARMS
+	allowed = list(/obj/item/device/flashlight, /obj/item/weapon/tank/emergency_oxygen, /obj/item/toy, /obj/item/weapon/storage/fancy/cigarettes, /obj/item/weapon/lighter)
+
+
+/obj/item/clothing/head/hood/fluff/xantholne // Xantholne: Meex Zwichsnicrur
+	name = "black winter hood"
+	desc = "A black hood attached to a stripped winter coat."
+	icon = 'icons/obj/custom_items.dmi'
+	icon_state = "xantholne_winterhood"
+	body_parts_covered = HEAD
+	flags = NODROP|BLOCKHAIR
+	flags_inv = HIDEEARS
+
 //////////// Uniforms ////////////
 /obj/item/clothing/under/fluff/kharshai // Kharshai: Athena Castile
 	name = "Castile formal outfit"
@@ -705,6 +799,16 @@
 	icon_state = "castile_dress"
 	item_state = "castile_dress"
 	item_color = "castile_dress"
+
+/obj/item/clothing/under/fluff/xantholne //Xantholne: Meex Zwichsnicrur
+	name = "Stripped Shorts and Shirt"
+	desc = "A silky pair of dark shorts with a matching shirt. The shirt's collar has a tag on the inside that reads 'Meexy' on it."
+	icon = 'icons/obj/custom_items.dmi'
+	lefthand_file = 'icons/mob/inhands/fluff_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/fluff_righthand.dmi'
+	icon_state = "xantholne"
+	item_state = "xantholne"
+	item_color = "xantholne"
 
 /obj/item/clothing/under/fluff/elishirt // FlattestGuitar9: Eli Randolph
 	name = "casual dress shirt"
@@ -929,6 +1033,12 @@
 	desc = "Battered, Sol-made military radio backpack that had its speakers fried from playing Vox opera. The words 'Swift-Talon' are crudely scratched onto its side."
 	icon = 'icons/obj/custom_items.dmi'
 	icon_state = "voxcaster_fluff"
+
+/obj/item/weapon/storage/backpack/fluff/ssscratches_back //Ssscratches: Lasshy-Bot
+	name = "CatPack"
+	desc = "It's a backpack, but it's also a cat."
+	icon = 'icons/obj/custom_items.dmi'
+	icon_state = "ssscratches_backpack"
 
 /obj/item/clothing/head/wizard/fake/fluff/dreamy //phantasmicdream : Dreamy Rockwall
 	name = "strange witch hat"

@@ -98,11 +98,11 @@
 
 	var/datum/robot_component/armour/A = get_armour()
 	if(A)
-		A.take_damage(brute,burn,sharp,edge)
+		A.take_damage(brute, burn, sharp)
 		return
 
 	var/datum/robot_component/C = pick(components)
-	C.take_damage(brute,burn,sharp,edge)
+	C.take_damage(brute, burn, sharp)
 
 /mob/living/silicon/robot/heal_overall_damage(var/brute, var/burn)
 	var/list/datum/robot_component/parts = get_damaged_components(brute,burn)
@@ -149,7 +149,7 @@
 
 	var/datum/robot_component/armour/A = get_armour()
 	if(A)
-		A.take_damage(brute,burn,sharp)
+		A.take_damage(brute, burn, sharp)
 		return
 
 	while(parts.len && (brute>0 || burn>0) )
@@ -158,7 +158,7 @@
 		var/brute_was = picked.brute_damage
 		var/burn_was = picked.electronics_damage
 
-		picked.take_damage(brute,burn)
+		picked.take_damage(brute, burn)
 
 		brute	-= (picked.brute_damage - brute_was)
 		burn	-= (picked.electronics_damage - burn_was)

@@ -229,7 +229,8 @@ var/list/admin_verbs_snpc = list(
 			verbs += /client/proc/togglebuildmodeself
 		if(holder.rights & R_ADMIN)
 			verbs += admin_verbs_admin
-			control_freak = 0
+			spawn(1)
+				control_freak = 0
 		if(holder.rights & R_BAN)
 			verbs += admin_verbs_ban
 		if(holder.rights & R_EVENT)

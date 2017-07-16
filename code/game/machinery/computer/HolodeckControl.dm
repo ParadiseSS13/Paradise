@@ -546,7 +546,7 @@
 	power_channel = ENVIRON
 
 /obj/machinery/readybutton/attack_ai(mob/user as mob)
-	to_chat(user, "The station AI is not to interact with these devices")
+	to_chat(user, "The station AI is not to interact with these devices.")
 	return
 
 /obj/machinery/readybutton/attackby(obj/item/weapon/W as obj, mob/user as mob, params)

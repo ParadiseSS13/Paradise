@@ -3,6 +3,8 @@
 	desc = "It's green and acidic. It looks like... <i>blood?</i>"
 	icon = 'icons/effects/blood.dmi'
 	basecolor = "#05EE05"
+	bloodiness = MAX_SHOE_BLOODINESS
+	blood_state = BLOOD_STATE_XENO
 
 /obj/effect/decal/cleanable/blood/gibs/xeno
 	name = "xeno gibs"

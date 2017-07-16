@@ -525,7 +525,7 @@ var/global/list/datum/stack_recipe/cable_coil_recipes = list(
 
 		if(!S)
 			return
-		if(!(S.status & ORGAN_ROBOT) || user.a_intent != I_HELP || S.open == 2)
+		if(!(S.status & ORGAN_ROBOT) || user.a_intent != INTENT_HELP || S.open == 2)
 			return ..()
 
 		if(S.burn_dam)

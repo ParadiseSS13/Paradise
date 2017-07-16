@@ -14,7 +14,7 @@
 
 /datum/surgery/organ_manipulation_boneless
 	name = "Organ Manipulation"
-	possible_locs = list("chest","head","groin", "eyes", "mouth")
+	possible_locs = list("chest","head","groin", "eyes", "mouth", "l_arm", "r_arm")
 	steps = list(/datum/surgery_step/generic/cut_open,/datum/surgery_step/generic/clamp_bleeders, /datum/surgery_step/generic/retract_skin, /datum/surgery_step/internal/manipulate_organs,/datum/surgery_step/generic/cauterize)
 	requires_organic_bodypart = 1
 
@@ -159,6 +159,11 @@
 	else if(implement_type in implements_extract)
 		current_type = "extract"
 		var/list/organs = target.get_organs_zone(target_zone)
+		var/mob/living/simple_animal/borer/B = target.has_brain_worms()
+		if(target_zone == "head" && B)
+			user.visible_message("[user] begins to extract [B] from [target]'s [parse_zone(target_zone)].",
+					"<span class='notice'>You begin to extract [B] from [target]'s [parse_zone(target_zone)]...</span>")
+			return TRUE
 		if(!organs.len)
 			to_chat(user, "<span class='notice'>There are no removeable organs in [target]'s [parse_zone(target_zone)]!</span>")
 			return -1
@@ -262,6 +267,13 @@
 		I.status &= ~ORGAN_CUT_AWAY
 
 	else if(current_type == "extract")
+		var/mob/living/simple_animal/borer/B = target.has_brain_worms()
+		if(target_zone == "head" && B && B.host == target)
+			user.visible_message("[user] successfully extracts [B] from [target]'s [parse_zone(target_zone)]!",
+				"<span class='notice'>You successfully extract [B] from [target]'s [parse_zone(target_zone)].</span>")
+			add_logs(user, target, "surgically removed [B] from", addition="INTENT: [uppertext(user.a_intent)]")
+			B.leave_host()
+			return FALSE
 		if(I && I.owner == target)
 			user.visible_message("<span class='notice'> [user] has separated and extracts [target]'s [I] with [tool].</span>",
 			"<span class='notice'> You have separated and extracted [target]'s [I] with [tool].</span>")

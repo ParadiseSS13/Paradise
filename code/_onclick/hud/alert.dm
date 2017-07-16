@@ -235,6 +235,12 @@ or something covering your eyes."
 	desc = "All that alcohol you've been drinking is impairing your speech, motor skills, and mental cognition. Make sure to act like it."
 	icon_state = "drunk"
 
+/obj/screen/alert/embeddedobject
+	name = "Embedded Object"
+	desc = "Something got lodged into your flesh and is causing major bleeding. It might fall out with time, but surgery is the safest way. \
+			If you're feeling frisky, click yourself in help intent to pull the object out."
+	icon_state = "embeddedobject"
+
 /obj/screen/alert/embeddedobject/Click()
 	if(isliving(usr))
 		var/mob/living/carbon/human/M = usr
@@ -404,6 +410,27 @@ so as to remain in compliance with the most up-to-date laws."
 				G.loc = T
 		if(NOTIFY_FOLLOW)
 			G.ManualFollow(target)
+
+/obj/screen/alert/notify_soulstone
+	name = "Soul Stone"
+	desc = "Someone is trying to capture your soul in a soul stone. Click to allow it."
+	icon_state = "template"
+	timeout = 10 SECONDS
+	var/obj/item/device/soulstone/stone = null
+	var/stoner = null
+
+/obj/screen/alert/notify_soulstone/Click()
+	if(!usr || !usr.client)
+		return
+	if(stone)
+		if(alert(usr, "Do you want to be captured by [stoner]'s soul stone? This will destroy your corpse and make it \
+		impossible for you to get back into the game as your regular character.",, "No", "Yes") ==  "Yes")
+			stone.opt_in = TRUE
+
+/obj/screen/alert/notify_soulstone/Destroy()
+	stone = null
+	return ..()
+
 
 //OBJECT-BASED
 

@@ -147,8 +147,9 @@
 /datum/reagent/iron/on_mob_life(mob/living/M)
 	if(ishuman(M))
 		var/mob/living/carbon/human/H = M
-		if(!H.species.exotic_blood && !(H.species.flags & NO_BLOOD))
-			H.vessel.add_reagent("blood", 0.8)
+		if(!H.species.exotic_blood && !(NO_BLOOD in H.species.species_traits))
+			if(H.blood_volume < BLOOD_VOLUME_NORMAL)
+				H.blood_volume += 0.8
 	..()
 
 //foam
@@ -371,10 +372,12 @@
 	description = "What is this emotion you humans call \"love?\"  Oh, it's this?  This is it? Huh, well okay then, thanks."
 	reagent_state = LIQUID
 	color = "#FF83A5"
+	process_flags = ORGANIC | SYNTHETIC // That's the power of love~
 
 /datum/reagent/love/on_mob_life(mob/living/M)
-	if(M.a_intent == I_HARM)
-		M.a_intent = I_HELP
+	if(M.a_intent != INTENT_HELP)
+		M.a_intent_change(INTENT_HELP)
+	M.can_change_intents = 0 //Now you have no choice but to be helpful.
 
 	if(prob(8))
 		var/lovely_phrase = pick("appreciated", "loved", "pretty good", "really nice", "pretty happy with yourself, even though things haven't always gone as well as they could")
@@ -391,8 +394,13 @@
 					break
 	..()
 
+/datum/reagent/love/on_mob_delete(mob/living/M)
+	M.can_change_intents = 1
+	..()
+
 /datum/reagent/love/reaction_mob(mob/living/M, method=TOUCH, volume)
 	to_chat(M, "<span class='notice'>You feel loved!</span>")
+
 
 /datum/reagent/royal_bee_jelly
 	name = "royal bee jelly"

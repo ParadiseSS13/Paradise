@@ -100,6 +100,11 @@
 	turf_type = /turf/simulated/floor/carpet
 	burn_state = FLAMMABLE
 
+/obj/item/stack/tile/carpet/black
+	name = "black carpet"
+	icon_state = "tile-carpet-black"
+	turf_type = /turf/simulated/floor/carpet/black
+
 //Plasteel
 /obj/item/stack/tile/plasteel
 	name = "floor tiles"

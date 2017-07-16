@@ -8,7 +8,6 @@
 	//why are these here and not in human_defines.dm
 	//var/list/hud_list[10]
 	var/datum/species/species //Contains icon generation and language information, set during New().
-	var/embedded_flag		//To check if we've need to roll for damage on movement while an item is imbedded in us.
 	var/obj/item/weapon/rig/wearing_rig // This is very not good, but it's much much better than calling get_rig() every update_canmove() call.
 
 /mob/living/carbon/human/New(var/new_loc, var/new_species = null, var/delay_ready_dna = 0)
@@ -34,7 +33,6 @@
 	create_reagents(330)
 
 	prev_gender = gender // Debug for plural genders
-	make_blood()
 
 	martial_art = default_martial_art
 
@@ -226,7 +224,7 @@
 				while(limbs_affected != 0 && valid_limbs.len > 0)
 					processing_dismember = pick(valid_limbs)
 					if(processing_dismember.limb_name != "chest" && processing_dismember.limb_name != "head" && processing_dismember.limb_name != "groin")
-						processing_dismember.droplimb(1,DROPLIMB_EDGE,0,1)
+						processing_dismember.droplimb(1,DROPLIMB_SHARP,0,1)
 						valid_limbs -= processing_dismember
 						limbs_affected -= 1
 					else valid_limbs -= processing_dismember
@@ -252,7 +250,7 @@
 			while(limbs_affected != 0 && valid_limbs.len > 0)
 				processing_dismember = pick(valid_limbs)
 				if(processing_dismember.limb_name != "chest" && processing_dismember.limb_name != "head" && processing_dismember.limb_name != "groin")
-					processing_dismember.droplimb(1,DROPLIMB_EDGE,0,1)
+					processing_dismember.droplimb(1,DROPLIMB_SHARP,0,1)
 					valid_limbs -= processing_dismember
 					limbs_affected -= 1
 				else valid_limbs -= processing_dismember
@@ -277,7 +275,7 @@
 				while(limbs_affected != 0 && valid_limbs.len > 0)
 					processing_dismember = pick(valid_limbs)
 					if(processing_dismember.limb_name != "chest" && processing_dismember.limb_name != "head" && processing_dismember.limb_name != "groin")
-						processing_dismember.droplimb(1,DROPLIMB_EDGE,0,1)
+						processing_dismember.droplimb(1,DROPLIMB_SHARP,0,1)
 						valid_limbs -= processing_dismember
 						limbs_affected -= 1
 					else valid_limbs -= processing_dismember
@@ -335,7 +333,7 @@
 /mob/living/carbon/human/attack_larva(mob/living/carbon/alien/larva/L as mob)
 
 	switch(L.a_intent)
-		if(I_HELP)
+		if(INTENT_HELP)
 			visible_message("<span class='notice'>[L] rubs its head against [src].</span>")
 
 
@@ -428,7 +426,7 @@
 
 /mob/living/carbon/human/show_inv(mob/user)
 	user.set_machine(src)
-	var/has_breathable_mask = istype(wear_mask, /obj/item/clothing/mask)
+	var/has_breathable_mask = istype(wear_mask, /obj/item/clothing/mask) || get_organ_slot("breathing_tube")
 	var/list/obscured = check_obscured_slots()
 
 	var/dat = {"<table>
@@ -540,12 +538,10 @@
 	popup.open()
 
 
-// called when something steps onto a human
-// this handles mulebots and vehicles
-/mob/living/carbon/human/Crossed(var/atom/movable/AM)
-	if(istype(AM, /obj/vehicle))
-		var/obj/vehicle/V = AM
-		V.RunOver(src)
+/mob/living/carbon/human/Crossed(atom/movable/AM)
+	var/mob/living/simple_animal/bot/mulebot/MB = AM
+	if(istype(MB))
+		MB.RunOver(src)
 
 // Get rank from ID, ID inside PDA, PDA, ID in wallet, etc.
 /mob/living/carbon/human/proc/get_authentification_rank(var/if_no_id = "No id", var/if_no_job = "No job")
@@ -597,7 +593,7 @@
 	return
 
 //repurposed proc. Now it combines get_id_name() and get_face_name() to determine a mob's name variable. Made into a seperate proc as it'll be useful elsewhere
-/mob/living/carbon/human/get_visible_name()
+/mob/living/carbon/human/get_visible_name(var/id_override = FALSE)
 	if(name_override)
 		return name_override
 	if(wear_mask && (wear_mask.flags_inv & HIDEFACE))	//Wearing a mask which hides our face, use id-name if possible
@@ -606,7 +602,7 @@
 		return get_id_name("Unknown")		//Likewise for hats
 	var/face_name = get_face_name()
 	var/id_name = get_id_name("")
-	if(id_name && (id_name != face_name))
+	if(id_name && (id_name != face_name) && !id_override)
 		return "[face_name] (as [id_name])"
 	return face_name
 
@@ -699,6 +695,28 @@
 			var/obj/item/clothing/gloves/G = H.gloves
 			if(G && G.pickpocket)
 				thief_mode = 1
+
+		if(href_list["embedded_object"])
+			var/obj/item/organ/external/L = locate(href_list["embedded_limb"]) in bodyparts
+			if(!L)
+				return
+			var/obj/item/I = locate(href_list["embedded_object"]) in L.embedded_objects
+			if(!I || I.loc != src) //no item, no limb, or item is not in limb or in the person anymore
+				return
+			var/time_taken = I.embedded_unsafe_removal_time*I.w_class
+			usr.visible_message("<span class='warning'>[usr] attempts to remove [I] from their [L.name].</span>","<span class='notice'>You attempt to remove [I] from your [L.name]... (It will take [time_taken/10] seconds.)</span>")
+			if(do_after(usr, time_taken, needhand = 1, target = src))
+				if(!I || !L || I.loc != src || !(I in L.embedded_objects))
+					return
+				L.embedded_objects -= I
+				L.take_damage(I.embedded_unsafe_removal_pain_multiplier*I.w_class)//It hurts to rip it out, get surgery you dingus.
+				I.forceMove(get_turf(src))
+				usr.put_in_hands(I)
+				usr.emote("scream")
+				usr.visible_message("[usr] successfully rips [I] out of their [L.name]!","<span class='notice'>You successfully remove [I] from your [L.name].</span>")
+				if(!has_embedded_objects())
+					clear_alert("embeddedobject")
+			return
 
 		if(href_list["item"])
 			var/slot = text2num(href_list["item"])
@@ -1234,12 +1252,6 @@
 				I.insert(H)
 
 /mob/living/carbon/human/revive()
-
-	if(species && !(species.flags & NO_BLOOD))
-		var/blood_reagent = get_blood_name()
-		vessel.add_reagent(blood_reagent, max_blood-vessel.total_volume)
-		fixblood()
-
 	//Fix up all organs and replace lost ones.
 	restore_all_organs() //Rejuvenate and reset all existing organs.
 	check_and_regenerate_organs(src) //Regenerate limbs and organs only if they're really missing.
@@ -1311,23 +1323,13 @@
 */
 //returns 1 if made bloody, returns 0 otherwise
 
-/mob/living/carbon/human/add_blood(mob/living/carbon/human/M as mob)
-	if(!..())
-		return 0
-	//if this blood isn't already in the list, add it
-	if(blood_DNA[M.dna.unique_enzymes])
-		return 0 //already bloodied with this blood. Cannot add more.
-	blood_DNA[M.dna.unique_enzymes] = M.dna.b_type
-	hand_blood_color = blood_color
-	src.update_inv_gloves()
-	verbs += /mob/living/carbon/human/proc/bloody_doodle
-	return 1 //we applied blood to the item
-
 /mob/living/carbon/human/clean_blood(var/clean_feet)
 	.=..()
 	if(clean_feet && !shoes && istype(feet_blood_DNA, /list) && feet_blood_DNA.len)
 		feet_blood_color = null
 		qdel(feet_blood_DNA)
+		bloody_feet = list(BLOOD_STATE_HUMAN = 0, BLOOD_STATE_XENO = 0,  BLOOD_STATE_NOT_BLOODY = 0)
+		blood_state = BLOOD_STATE_NOT_BLOODY
 		update_inv_shoes(1)
 		return 1
 
@@ -1348,45 +1350,12 @@
 	else
 		..()
 
-/mob/living/carbon/human/get_visible_implants(var/class = 0)
-
-	var/list/visible_implants = list()
-	for(var/obj/item/organ/external/organ in bodyparts)
-		for(var/obj/item/weapon/O in organ.implants)
-			if(!istype(O,/obj/item/weapon/implant) && (O.w_class > class) && !istype(O,/obj/item/weapon/shard/shrapnel))
-				visible_implants += O
-
-	return(visible_implants)
-
 /mob/living/carbon/human/generate_name()
 	name = species.makeName(gender,src)
 	real_name = name
 	if(dna)
 		dna.real_name = name
 	return name
-
-/mob/living/carbon/human/proc/handle_embedded_objects()
-
-	for(var/obj/item/organ/external/organ in bodyparts)
-		if(organ.status & ORGAN_SPLINTED) //Splints prevent movement.
-			continue
-		for(var/obj/item/weapon/O in organ.implants)
-			if(!istype(O,/obj/item/weapon/implant) && prob(5)) //Moving with things stuck in you could be bad.
-				// All kinds of embedded objects cause bleeding.
-				var/msg = null
-				switch(rand(1,3))
-					if(1)
-						msg ="<span class='warning'>A spike of pain jolts your [organ.name] as you bump [O] inside.</span>"
-					if(2)
-						msg ="<span class='warning'>Your movement jostles [O] in your [organ.name] painfully.</span>"
-					if(3)
-						msg ="<span class='warning'>[O] in your [organ.name] twists painfully as you move.</span>"
-				to_chat(src, msg)
-
-				organ.take_damage(rand(1,3), 0, 0)
-				if(!(organ.status & ORGAN_ROBOT)) //There is no blood in protheses.
-					organ.status |= ORGAN_BLEEDING
-					src.adjustToxLoss(rand(1,3))
 
 /mob/living/carbon/human/verb/check_pulse()
 	set category = null
@@ -1454,10 +1423,6 @@
 			oldspecies.handle_dna(src,1) // Remove any genes that belong to the old species
 
 	tail = species.tail
-
-	if(vessel)
-		vessel = null
-	make_blood()
 
 	maxHealth = species.total_health
 
@@ -1555,7 +1520,6 @@
 		overlays.Cut()
 		update_mutantrace(1)
 		regenerate_icons()
-		fixblood()
 
 	if(!delay_icon_update)
 		UpdateAppearance()
@@ -1638,7 +1602,7 @@
 		to_chat(src, "<span class='warning'>Where's your head at? Can't change your monitor/display without one.</span>")
 		return
 
-	if(species.flags & ALL_RPARTS) //If they can have a fully cybernetic body...
+	if(species.bodyflags & ALL_RPARTS) //If they can have a fully cybernetic body...
 		var/datum/robolimb/robohead = all_robolimbs[head_organ.model]
 		if(!head_organ)
 			return
@@ -1972,7 +1936,7 @@
 				. |= A.GetAccess()
 
 /mob/living/carbon/human/is_mechanical()
-	return ..() || (species.flags & ALL_RPARTS) != 0
+	return ..() || (species.bodyflags & ALL_RPARTS) != 0
 
 /mob/living/carbon/human/can_use_guns(var/obj/item/weapon/gun/G)
 	. = ..()
@@ -1981,12 +1945,12 @@
 		if(HULK in mutations)
 			to_chat(src, "<span class='warning'>Your meaty finger is much too large for the trigger guard!</span>")
 			return 0
-		if(species.flags & NOGUNS)
+		if(NOGUNS in species.species_traits)
 			to_chat(src, "<span class='warning'>Your fingers don't fit in the trigger guard!</span>")
 			return 0
 
-	if(martial_art && martial_art.name == "The Sleeping Carp") //great dishonor to famiry
-		to_chat(src, "<span class='warning'>Use of ranged weaponry would bring dishonor to the clan.</span>")
+	if(martial_art && martial_art.no_guns) //great dishonor to famiry
+		to_chat(src, "<span class='warning'>[martial_art.no_guns_message]</span>")
 		return 0
 
 	return .

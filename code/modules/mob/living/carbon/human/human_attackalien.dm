@@ -4,13 +4,13 @@
 		return 0
 
 	switch(M.a_intent)
-		if(I_HELP)
+		if(INTENT_HELP)
 			visible_message("<span class='notice'>[M] caresses [src] with its scythe like arm.</span>")
 
-		if(I_GRAB)
+		if(INTENT_GRAB)
 			grabbedby(M)
 
-		if(I_HARM)
+		if(INTENT_HARM)
 			M.do_attack_animation(src)
 			if(w_uniform)
 				w_uniform.add_fingerprint(M)
@@ -33,7 +33,7 @@
 				apply_effect(4, WEAKEN, armor_block)
 			updatehealth()
 
-		if(I_DISARM)
+		if(INTENT_DISARM)
 			M.do_attack_animation(src)
 			if(prob(80))
 				var/obj/item/organ/external/affecting = get_organ(ran_zone(M.zone_sel.selecting))

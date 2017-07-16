@@ -40,9 +40,8 @@
 		else if(sleeping)
 			blinded = 1
 			stat = UNCONSCIOUS
-			if( prob(10) && health )
-				spawn(0)
-					emote("hiss_")
+			if(prob(10) && health)
+				emote("hiss_")
 		//CONSCIOUS
 		else
 			stat = CONSCIOUS

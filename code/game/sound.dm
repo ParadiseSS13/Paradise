@@ -15,6 +15,7 @@ var/list/ricochet = list('sound/weapons/effects/ric1.ogg', 'sound/weapons/effect
 var/list/terminal_type = list('sound/machines/terminal_button01.ogg', 'sound/machines/terminal_button02.ogg', 'sound/machines/terminal_button03.ogg',
 							  'sound/machines/terminal_button04.ogg', 'sound/machines/terminal_button05.ogg', 'sound/machines/terminal_button06.ogg',
 							  'sound/machines/terminal_button07.ogg', 'sound/machines/terminal_button08.ogg')
+var/list/growls = list('sound/goonstation/voice/growl1.ogg', 'sound/goonstation/voice/growl2.ogg', 'sound/goonstation/voice/growl3.ogg')
 
 /proc/playsound(var/atom/source, soundin, vol as num, vary, extrarange as num, falloff, var/is_global, var/pitch)
 
@@ -142,4 +143,6 @@ var/list/terminal_type = list('sound/machines/terminal_button01.ogg', 'sound/mac
 				soundin = pick(ricochet)
 			if("terminal_type")
 				soundin = pick(terminal_type)
+			if("growls")
+				soundin = pick(growls)
 	return soundin

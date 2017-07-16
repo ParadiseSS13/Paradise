@@ -155,7 +155,7 @@
 		src.pixel_y = rand(0, 16)
 
 /obj/item/weapon/screwdriver/attack(mob/living/carbon/M, mob/living/carbon/user)
-	if(!istype(M) || user.a_intent == I_HELP)
+	if(!istype(M) || user.a_intent == INTENT_HELP)
 		return ..()
 	if(user.zone_sel.selecting != "eyes" && user.zone_sel.selecting != "head")
 		return ..()
@@ -228,7 +228,6 @@
 	hitsound = 'sound/items/Wirecutter.ogg'
 	usesound = 'sound/items/Wirecutter.ogg'
 	sharp = 1
-	edge = 1
 	toolspeed = 1
 
 /obj/item/weapon/wirecutters/New(loc, param_color = null)
@@ -241,8 +240,7 @@
 /obj/item/weapon/wirecutters/attack(mob/living/carbon/C, mob/user)
 	if(istype(C) && C.handcuffed && istype(C.handcuffed, /obj/item/weapon/restraints/handcuffs/cable))
 		user.visible_message("<span class='notice'>[user] cuts [C]'s restraints with [src]!</span>")
-		qdel(C.handcuffed)
-		C.handcuffed = null
+		QDEL_NULL(C.handcuffed)
 		if(C.buckled && C.buckled.buckle_requires_restraints)
 			C.buckled.unbuckle_mob(C)
 		C.update_handcuffed()
@@ -404,7 +402,7 @@
 		if(!S)
 			return
 
-		if(!(S.status & ORGAN_ROBOT) || user.a_intent != I_HELP || S.open == 2)
+		if(!(S.status & ORGAN_ROBOT) || user.a_intent != INTENT_HELP || S.open == 2)
 			return ..()
 
 		if(!isOn())		//why wasn't this being checked already?

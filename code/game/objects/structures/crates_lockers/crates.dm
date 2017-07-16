@@ -102,6 +102,9 @@
 							L[tmpname] = R
 					var/desc = input("Please select a telepad.", "RCS") in L
 					E.pad = L[desc]
+					if(!Adjacent(user))
+						to_chat(user, "<span class='notice'>Unable to teleport, too far from crate.</span>")
+						return
 					playsound(E.loc, E.usesound, 50, 1)
 					to_chat(user, "<span class='notice'>Teleporting [src.name]...</span>")
 					E.teleporting = 1
@@ -109,17 +112,23 @@
 						E.teleporting = 0
 						return
 					E.teleporting = 0
+					if(!(E.rcell && E.rcell.use(E.chargecost)))
+						to_chat(user, "<span class='notice'>Unable to teleport, insufficient charge.</span>")
+						return
 					var/datum/effect/system/spark_spread/s = new /datum/effect/system/spark_spread
 					s.set_up(5, 1, src)
 					s.start()
 					do_teleport(src, E.pad, 0)
-					E.rcell.use(E.chargecost)
 					to_chat(user, "<span class='notice'>Teleport successful. [round(E.rcell.charge/E.chargecost)] charge\s left.</span>")
 					return
+
 			else
 				E.rand_x = rand(50,200)
 				E.rand_y = rand(50,200)
 				var/L = locate(E.rand_x, E.rand_y, 6)
+				if(!Adjacent(user))
+					to_chat(user, "<span class='notice'>Unable to teleport, too far from crate.</span>")
+					return
 				playsound(E.loc, E.usesound, 50, 1)
 				to_chat(user, "<span class='notice'>Teleporting [src.name]...</span>")
 				E.teleporting = 1
@@ -127,11 +136,13 @@
 					E.teleporting = 0
 					return
 				E.teleporting = 0
+				if(!(E.rcell && E.rcell.use(E.chargecost)))
+					to_chat(user, "<span class='notice'>Unable to teleport, insufficient charge.</span>")
+					return
 				var/datum/effect/system/spark_spread/s = new /datum/effect/system/spark_spread
 				s.set_up(5, 1, src)
 				s.start()
 				do_teleport(src, L)
-				E.rcell.use(E.chargecost)
 				to_chat(user, "<span class='notice'>Teleport successful. [round(E.rcell.charge/E.chargecost)] charge\s left.</span>")
 				return
 		else

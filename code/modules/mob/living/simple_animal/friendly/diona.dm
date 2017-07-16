@@ -51,7 +51,7 @@
 
 /mob/living/simple_animal/diona/attack_hand(mob/living/carbon/human/M)
 	//Let people pick the little buggers up.
-	if(M.a_intent == I_HELP)
+	if(M.a_intent == INTENT_HELP)
 		if(M.species && M.species.name == "Diona")
 			to_chat(M, "You feel your being twine with that of [src] as it merges with your biomass.")
 			to_chat(src, "You feel your being twine with that of [M] as you merge with its biomass.")
@@ -176,7 +176,7 @@
 	if(!M || !src)
 		return
 
-	if(M.species.flags & NO_BLOOD)
+	if(NO_BLOOD in M.species.species_traits)
 		to_chat(src, "<span class='warning'>That donor has no blood to take.</span>")
 		return
 

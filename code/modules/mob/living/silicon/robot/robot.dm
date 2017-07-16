@@ -575,7 +575,7 @@ var/list/robot_verbs_default = list(
 
 				return
 
-	if(istype(W, /obj/item/weapon/weldingtool) && user.a_intent == I_HELP)
+	if(istype(W, /obj/item/weapon/weldingtool) && user.a_intent == INTENT_HELP)
 		if(W == module_active)
 			return
 		if(!getBruteLoss())
@@ -594,7 +594,7 @@ var/list/robot_verbs_default = list(
 			return
 
 
-	else if(istype(W, /obj/item/stack/cable_coil) && user.a_intent == I_HELP && (wiresexposed || istype(src,/mob/living/silicon/robot/drone)))
+	else if(istype(W, /obj/item/stack/cable_coil) && user.a_intent == INTENT_HELP && (wiresexposed || istype(src,/mob/living/silicon/robot/drone)))
 		if(!getFireLoss())
 			to_chat(user, "<span class='notice'>Nothing to fix!</span>")
 			return
@@ -818,15 +818,15 @@ var/list/robot_verbs_default = list(
 
 	switch(M.a_intent)
 
-		if(I_HELP)
+		if(INTENT_HELP)
 			for(var/mob/O in viewers(src, null))
 				if((O.client && !( O.blinded )))
 					O.show_message(text("<span class='notice'>[M] caresses [src]'s plating with its scythe like arm.</span>"), 1)
 
-		if(I_GRAB)
+		if(INTENT_GRAB)
 			grabbedby(M)
 
-		if(I_HARM)
+		if(INTENT_HARM)
 			M.do_attack_animation(src)
 			var/damage = rand(10, 20)
 			if(prob(90))
@@ -842,7 +842,7 @@ var/list/robot_verbs_default = list(
 				visible_message("<span class='danger'>[M] took a swipe at [src]!</span>", \
 								"<span class='userdanger'>[M] took a swipe at [src]!</span>")
 
-		if(I_DISARM)
+		if(INTENT_DISARM)
 			if(!(lying))
 				M.do_attack_animation(src)
 				if(prob(85))
@@ -923,7 +923,7 @@ var/list/robot_verbs_default = list(
 			diag_hud_set_borgcell()
 
 	if(!opened && (!istype(user, /mob/living/silicon)))
-		if(user.a_intent == I_HELP)
+		if(user.a_intent == INTENT_HELP)
 			user.visible_message("<span class='notice'>[user] pets [src]!</span>", \
 								"<span class='notice'>You pet [src]!</span>")
 
@@ -1205,13 +1205,11 @@ var/list/robot_verbs_default = list(
 	canmove = 1
 	scrambledcodes = 1
 	//Disconnect it's camera so it's not so easily tracked.
-	if(src.camera)
-		qdel(src.camera)
-		src.camera = null
-		// I'm trying to get the Cyborg to not be listed in the camera list
-		// Instead of being listed as "deactivated". The downside is that I'm going
-		// to have to check if every camera is null or not before doing anything, to prevent runtime errors.
-		// I could change the network to null but I don't know what would happen, and it seems too hacky for me.
+	QDEL_NULL(src.camera)
+	// I'm trying to get the Cyborg to not be listed in the camera list
+	// Instead of being listed as "deactivated". The downside is that I'm going
+	// to have to check if every camera is null or not before doing anything, to prevent runtime errors.
+	// I could change the network to null but I don't know what would happen, and it seems too hacky for me.
 
 /mob/living/silicon/robot/proc/ResetSecurityCodes()
 	set category = "Robot Commands"

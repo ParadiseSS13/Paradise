@@ -41,12 +41,6 @@
 /mob/living/bullet_act(var/obj/item/projectile/P, var/def_zone)
 	//Armor
 	var/armor = run_armor_check(def_zone, P.flag, armour_penetration = P.armour_penetration)
-	var/proj_sharp = is_sharp(P)
-	var/proj_edge = has_edge(P)
-	if((proj_sharp || proj_edge) && prob(getarmor(def_zone, P.flag)))
-		proj_sharp = 0
-		proj_edge = 0
-
 	if(!P.nodamage)
 		apply_damage(P.damage, P.damage_type, def_zone, armor)
 		if(P.dismemberment)
@@ -97,7 +91,7 @@
 			visible_message("<span class='danger'>[src] has been hit by [I].</span>",
 							"<span class='userdanger'>[src] has been hit by [I].</span>")
 			var/armor = run_armor_check(zone, "melee", "Your armor has protected your [parse_zone(zone)].", "Your armor has softened hit to your [parse_zone(zone)].", I.armour_penetration)
-			apply_damage(I.throwforce, dtype, zone, armor, is_sharp(I), has_edge(I), I)
+			apply_damage(I.throwforce, dtype, zone, armor, is_sharp(I), I)
 			if(I.thrownby)
 				add_logs(I.thrownby, src, "hit", I)
 		else
@@ -108,7 +102,7 @@
 
 
 /mob/living/mech_melee_attack(obj/mecha/M)
-	if(M.occupant.a_intent == I_HARM)
+	if(M.occupant.a_intent == INTENT_HARM)
 		if(M.damtype == "brute")
 			step_away(src,M,15)
 		switch(M.damtype)
@@ -265,6 +259,8 @@
 	else*///This is an example of how you can make special types of grabs simply based on direction.
 	if(!supress_message)
 		visible_message("<span class='warning'>[user] has grabbed [src] passively!</span>")
+
+	return G
 
 /mob/living/incapacitated()
 	if(stat || paralysis || stunned || weakened || restrained())

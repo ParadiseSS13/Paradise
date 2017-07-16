@@ -43,8 +43,7 @@
 	if(active_dummy)
 		eject_all()
 		playsound(get_turf(src), 'sound/effects/pop.ogg', 100, 1, -6)
-		qdel(active_dummy)
-		active_dummy = null
+		QDEL_NULL(active_dummy)
 		to_chat(usr, "<span class='notice'>You deactivate \the [src].</span>")
 		var/obj/effect/overlay/T = new/obj/effect/overlay(get_turf(src))
 		T.icon = 'icons/effects/effects.dmi'

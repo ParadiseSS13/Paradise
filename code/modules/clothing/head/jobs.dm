@@ -54,6 +54,21 @@
 	flags = BLOCKHAIR
 	flags_cover = HEADCOVERSEYES
 
+//Chaplain
+/obj/item/clothing/head/monk_hood
+	name = "monk hood"
+	desc = "Wooden board not included."
+	icon_state = "monk_hood"
+	flags = BLOCKHAIR
+	flags_cover = HEADCOVERSEYES
+
+/obj/item/clothing/head/witchhunter_hat
+	name = "witchhunter hat"
+	desc = "This hat saw much use back in the day."
+	icon_state = "witchhunterhat"
+	item_state = "witchhunterhat"
+	flags_cover = HEADCOVERSEYES
+
 /obj/item/clothing/head/det_hat
 	name = "hat"
 	desc = "Someone who wears this will look very smart."

@@ -341,7 +341,7 @@ var/global/list/damage_icon_parts = list()
 	if(update_icons)
 		update_icons()
 
-	if(lip_style  && species && species.flags & HAS_LIPS)
+	if(lip_style  && (LIPS in species.species_traits))
 		var/icon/lips = icon("icon"='icons/mob/human_face.dmi', "icon_state"="lips_[lip_style]_s")
 		lips.Blend(lip_color, ICON_ADD)
 
@@ -453,7 +453,7 @@ var/global/list/damage_icon_parts = list()
 		//if(!src.get_int_organ(/obj/item/organ/internal/brain) && src.get_species() != "Machine" )//make it obvious we have NO BRAIN
 		//	hair_standing.Blend(debrained_s, ICON_OVERLAY)
 		if(hair_style && hair_style.species_allowed)
-			if((head_organ.species.name in hair_style.species_allowed) || (head_organ.species.flags & ALL_RPARTS)) //If the head's species is in the list of allowed species for the hairstyle, or the head's species is one flagged to have bodies comprised wholly of cybernetics...
+			if((head_organ.species.name in hair_style.species_allowed) || (head_organ.species.bodyflags & ALL_RPARTS)) //If the head's species is in the list of allowed species for the hairstyle, or the head's species is one flagged to have bodies comprised wholly of cybernetics...
 				var/icon/hair_s = new/icon("icon" = hair_style.icon, "icon_state" = "[hair_style.icon_state]_s")
 				if(head_organ.species.name == "Slime People") // I am el worstos
 					hair_s.Blend(rgb(r_skin, g_skin, b_skin, 160), ICON_AND)
@@ -499,7 +499,7 @@ var/global/list/damage_icon_parts = list()
 	if(head_organ.f_style)
 		var/datum/sprite_accessory/facial_hair/facial_hair_style = facial_hair_styles_list[head_organ.f_style]
 		if(facial_hair_style && facial_hair_style.species_allowed)
-			if((head_organ.species.name in facial_hair_style.species_allowed) || (head_organ.species.flags & ALL_RPARTS)) //If the head's species is in the list of allowed species for the hairstyle, or the head's species is one flagged to have bodies comprised wholly of cybernetics...
+			if((head_organ.species.name in facial_hair_style.species_allowed) || (head_organ.species.bodyflags & ALL_RPARTS)) //If the head's species is in the list of allowed species for the hairstyle, or the head's species is one flagged to have bodies comprised wholly of cybernetics...
 				var/icon/facial_s = new/icon("icon" = facial_hair_style.icon, "icon_state" = "[facial_hair_style.icon_state]_s")
 				if(head_organ.species.name == "Slime People") // I am el worstos
 					facial_s.Blend(rgb(r_skin, g_skin, b_skin, 160), ICON_AND)
@@ -1092,8 +1092,8 @@ var/global/list/damage_icon_parts = list()
 	if(legcuffed)
 		overlays_standing[LEGCUFF_LAYER]	= image("icon" = 'icons/mob/mob.dmi', "icon_state" = "legcuff1")
 		throw_alert("legcuffed", /obj/screen/alert/restrained/legcuffed, new_master = legcuffed)
-		if(m_intent != "walk")
-			m_intent = "walk"
+		if(m_intent != MOVE_INTENT_WALK)
+			m_intent = MOVE_INTENT_WALK
 			if(hud_used && hud_used.move_intent)
 				hud_used.move_intent.icon_state = "walking"
 

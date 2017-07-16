@@ -136,7 +136,7 @@
 			user.visible_message("[user] places \the [src] against [M]'s chest and listens attentively.", "You place \the [src] against [M]'s chest...")
 		var/obj/item/organ/internal/H = M.get_int_organ(/obj/item/organ/internal/heart)
 		var/obj/item/organ/internal/L = M.get_int_organ(/obj/item/organ/internal/lungs)
-		if((H && M.pulse) || (L && !(NO_BREATH in M.mutations) && !(M.species.flags & NO_BREATH)))
+		if((H && M.pulse) || (L && !(NO_BREATH in M.mutations) && !(NO_BREATH in M.species.species_traits)))
 			var/color = "notice"
 			if(H)
 				var/heart_sound
@@ -620,7 +620,7 @@
 		return
 
 	var/area/t = get_area(M)
-	var/obj/item/device/radio/headset/a = new /obj/item/device/radio/headset(null)
+	var/obj/item/device/radio/headset/a = new /obj/item/device/radio/headset(src)
 	if(istype(t, /area/syndicate_station) || istype(t, /area/syndicate_mothership) || istype(t, /area/shuttle/syndicate_elite) )
 		//give the syndicats a bit of stealth
 		a.autosay("[M] has been vandalized in Space!", "[M]'s Death Alarm")
