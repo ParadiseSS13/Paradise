@@ -6,7 +6,7 @@
 	primitive_form = "Monkey"
 	path = /mob/living/carbon/human/human
 	language = "Sol Common"
-	flags = HAS_LIPS | CAN_BE_FAT
+	species_traits = list(LIPS, CAN_BE_FAT)
 	clothing_flags = HAS_UNDERWEAR | HAS_UNDERSHIRT | HAS_SOCKS
 	bodyflags = HAS_SKIN_TONE | HAS_BODY_MARKINGS
 	dietflags = DIET_OMNI
@@ -39,9 +39,10 @@
 	else, frequently even their own lives. They prefer warmer temperatures than most species and \
 	their native tongue is a heavy hissing laungage called Sinta'Unathi."
 
-	flags = HAS_LIPS | IS_WHITELISTED
+
+	species_traits = list(IS_WHITELISTED, LIPS)
 	clothing_flags = HAS_UNDERWEAR | HAS_UNDERSHIRT | HAS_SOCKS
-	bodyflags = FEET_CLAWS | HAS_TAIL | HAS_HEAD_ACCESSORY | HAS_BODY_MARKINGS | HAS_HEAD_MARKINGS | HAS_SKIN_COLOR | HAS_ALT_HEADS | TAIL_WAGGING
+	bodyflags = HAS_TAIL | HAS_HEAD_ACCESSORY | HAS_BODY_MARKINGS | HAS_HEAD_MARKINGS | HAS_SKIN_COLOR | HAS_ALT_HEADS | TAIL_WAGGING
 	dietflags = DIET_CARN
 
 	cold_level_1 = 280 //Default 260 - Lower is better
@@ -111,9 +112,13 @@
 
 	primitive_form = "Farwa"
 
+<<<<<<< HEAD
 	flags = HAS_LIPS | CAN_BE_FAT | IS_WHITELISTED
+=======
+	species_traits = list(LIPS, CAN_BE_FAT)
+>>>>>>> refs/remotes/ParadiseSS13/master
 	clothing_flags = HAS_UNDERWEAR | HAS_UNDERSHIRT | HAS_SOCKS
-	bodyflags = FEET_PADDED | HAS_TAIL | HAS_HEAD_ACCESSORY | HAS_HEAD_MARKINGS | HAS_BODY_MARKINGS | HAS_SKIN_COLOR | TAIL_WAGGING | HAS_FUR
+	bodyflags = HAS_TAIL | HAS_HEAD_ACCESSORY | HAS_HEAD_MARKINGS | HAS_BODY_MARKINGS | HAS_SKIN_COLOR | TAIL_WAGGING
 	dietflags = DIET_OMNI
 	taste_sensitivity = TASTE_SENSITIVITY_SHARP
 	reagent_tag = PROCESS_ORG
@@ -162,9 +167,13 @@
 	to the degree it can cause conflict with more rigorous and strict authorities. They speak a guttural language known as 'Canilunzt' \
     which has a heavy emphasis on utilizing tail positioning and ear twitches to communicate intent."
 
+<<<<<<< HEAD
 	flags = HAS_LIPS | IS_WHITELISTED
+=======
+	species_traits = list(LIPS)
+>>>>>>> refs/remotes/ParadiseSS13/master
 	clothing_flags = HAS_UNDERWEAR | HAS_UNDERSHIRT | HAS_SOCKS
-	bodyflags = FEET_PADDED | HAS_TAIL | TAIL_WAGGING | TAIL_OVERLAPPED | HAS_HEAD_ACCESSORY | HAS_MARKINGS | HAS_SKIN_COLOR | HAS_FUR
+	bodyflags = HAS_TAIL | TAIL_WAGGING | TAIL_OVERLAPPED | HAS_HEAD_ACCESSORY | HAS_MARKINGS | HAS_SKIN_COLOR
 	dietflags = DIET_OMNI
 	taste_sensitivity = TASTE_SENSITIVITY_SHARP
 	reagent_tag = PROCESS_ORG
@@ -214,7 +223,11 @@
 	herbivores on the whole and tend to be co-operative with the other species of the galaxy, although they rarely reveal \
 	the secrets of their empire to their allies."
 
+<<<<<<< HEAD
 	flags = HAS_LIPS | IS_WHITELISTED
+=======
+	species_traits = list(LIPS)
+>>>>>>> refs/remotes/ParadiseSS13/master
 	clothing_flags = HAS_UNDERWEAR | HAS_UNDERSHIRT | HAS_SOCKS
 	bodyflags = HAS_SKIN_COLOR | HAS_BODY_MARKINGS
 	dietflags = DIET_HERB
@@ -295,7 +308,7 @@
 	breath_type = "nitrogen"
 	poison_type = "oxygen"
 
-	flags = NO_SCAN | IS_WHITELISTED | NOTRANSSTING
+	species_traits = list(NO_SCAN, IS_WHITELISTED, NOTRANSSTING)
 	clothing_flags = HAS_SOCKS
 	dietflags = DIET_OMNI
 	bodyflags = HAS_ICON_SKIN_TONE | HAS_TAIL | TAIL_WAGGING | TAIL_OVERLAPPED | HAS_BODY_MARKINGS | HAS_TAIL_MARKINGS
@@ -448,7 +461,7 @@
 	breath_type = "nitrogen"
 	poison_type = "oxygen"
 
-	flags = NO_SCAN | NO_BLOOD | NO_PAIN | IS_WHITELISTED
+	species_traits = list(NO_SCAN, NO_BLOOD, NO_PAIN, IS_WHITELISTED)
 	bodyflags = HAS_TAIL
 	dietflags = DIET_OMNI	//should inherit this from vox, this is here just in case
 
@@ -492,9 +505,9 @@
 
 	brute_mod = 0.8
 
-	flags = IS_WHITELISTED
+	species_traits = list(IS_WHITELISTED)
 	clothing_flags = HAS_UNDERWEAR | HAS_UNDERSHIRT | HAS_SOCKS
-	bodyflags = FEET_CLAWS | HAS_HEAD_ACCESSORY | HAS_HEAD_MARKINGS | HAS_BODY_MARKINGS
+	bodyflags = HAS_HEAD_ACCESSORY | HAS_HEAD_MARKINGS | HAS_BODY_MARKINGS
 	eyes = "kidan_eyes_s"
 	dietflags = DIET_HERB
 	blood_color = "#FB9800"
@@ -547,7 +560,7 @@
 	male_cough_sounds = list('sound/effects/slime_squish.ogg')
 	female_cough_sounds = list('sound/effects/slime_squish.ogg')
 
-	flags = IS_WHITELISTED | NO_BREATHE | HAS_LIPS | NO_INTORGANS | NO_SCAN
+	species_traits = list(LIPS, IS_WHITELISTED, NO_BREATHE, NO_INTORGANS, NO_SCAN)
 	clothing_flags = HAS_UNDERWEAR | HAS_UNDERSHIRT | HAS_SOCKS
 	bodyflags = HAS_SKIN_COLOR | NO_EYES
 	dietflags = DIET_CARN
@@ -745,7 +758,7 @@
 	default_genes = list(REMOTE_TALK)
 
 
-	flags = IS_WHITELISTED | HAS_LIPS | CAN_BE_FAT
+	species_traits = list(LIPS, IS_WHITELISTED, CAN_BE_FAT)
 	clothing_flags = HAS_UNDERWEAR | HAS_UNDERSHIRT | HAS_SOCKS
 	bodyflags =  HAS_BODY_MARKINGS
 	dietflags = DIET_HERB
@@ -805,7 +818,11 @@
 	even the simplest concepts of other minds. Their alien physiology allows them survive happily off a diet of nothing but light, \
 	water and other radiation."
 
+<<<<<<< HEAD
 	flags = NO_BREATHE | RADIMMUNE | IS_PLANT | NO_BLOOD | NO_PAIN | IS_WHITELISTED
+=======
+	species_traits = list(NO_BREATHE, RADIMMUNE, IS_PLANT, NO_BLOOD, NO_PAIN)
+>>>>>>> refs/remotes/ParadiseSS13/master
 	clothing_flags = HAS_SOCKS
 	dietflags = 0		//Diona regenerate nutrition in light, no diet necessary
 	taste_sensitivity = TASTE_SENSITIVITY_NO_TASTE
@@ -912,16 +929,15 @@
 	oxy_mod = 0
 	death_message = "gives one shrill beep before falling limp, their monitor flashing blue before completely shutting off..."
 
-	flags = IS_WHITELISTED | NO_BREATHE | NO_SCAN | NO_BLOOD | NO_PAIN | NO_DNA | RADIMMUNE | ALL_RPARTS | NOTRANSSTING
+	species_traits = list(IS_WHITELISTED, NO_BREATHE, NO_SCAN, NO_BLOOD, NO_PAIN, NO_DNA, RADIMMUNE, VIRUSIMMUNE, NOTRANSSTING)
 	clothing_flags = HAS_UNDERWEAR | HAS_UNDERSHIRT | HAS_SOCKS
-	bodyflags = HAS_SKIN_COLOR | HAS_HEAD_MARKINGS | HAS_HEAD_ACCESSORY
+	bodyflags = HAS_SKIN_COLOR | HAS_HEAD_MARKINGS | HAS_HEAD_ACCESSORY | ALL_RPARTS
 	dietflags = 0		//IPCs can't eat, so no diet
 	taste_sensitivity = TASTE_SENSITIVITY_NO_TASTE
 	blood_color = "#1F181F"
 	flesh_color = "#AAAAAA"
 	//Default styles for created mobs.
 	default_hair = "Blue IPC Screen"
-	virus_immune = 1
 	can_revive_by_healing = 1
 	has_gender = FALSE
 	reagent_tag = PROCESS_SYN
@@ -1013,9 +1029,9 @@
 		"is sucking in warm air!",
 		"is holding their breath!")
 
-	flags = IS_WHITELISTED | HAS_LIPS
+	species_traits = list(LIPS, IS_WHITELISTED)
 	clothing_flags = HAS_UNDERWEAR | HAS_UNDERSHIRT
-	bodyflags = FEET_CLAWS | HAS_SKIN_TONE | HAS_BODY_MARKINGS
+	bodyflags = HAS_SKIN_TONE | HAS_BODY_MARKINGS
 	dietflags = DIET_OMNI
 
 	cold_level_1 = -1 //Default 260 - Lower is better

@@ -24,7 +24,7 @@
 
 		if(ishuman(M))
 			var/mob/living/carbon/human/H = M
-			if(H.species.flags & NO_DNA)
+			if(NO_DNA in H.species.species_traits)
 				to_chat(user, "<span class='warning'>You failed to inject [M], as they have no DNA to scramble, nor flesh to inject.</span>")
 				return
 

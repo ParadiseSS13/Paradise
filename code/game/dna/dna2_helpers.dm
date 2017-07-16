@@ -224,11 +224,8 @@
 	var/red = GetUIValueRange(DNA_UI_EYES_R,	255)
 	var/green = GetUIValueRange(DNA_UI_EYES_G,	255)
 	var/blue = GetUIValueRange(DNA_UI_EYES_B,	255)
-	eyes_organ.eye_colour = list(
-	red,
-	green,
-	blue
-	)
+	if(eyes_organ)
+		eyes_organ.eye_colour = list(red, green, blue)
 
 /*
 	TRAIT CHANGING PROCS

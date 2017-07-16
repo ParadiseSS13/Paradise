@@ -641,7 +641,7 @@
 
 /mob/living/carbon/human/makeTrail(turf/T)
 
-	if((species.flags & NO_BLOOD) || species.exotic_blood || !bleed_rate || bleedsuppress)
+	if((NO_BLOOD in species.species_traits) || species.exotic_blood || !bleed_rate || bleedsuppress)
 		return
 	..()
 

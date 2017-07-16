@@ -941,7 +941,7 @@ var/list/ventcrawl_machinery = list(/obj/machinery/atmospherics/unary/vent_pump,
 	if(!(slipAny))
 		if(istype(src, /mob/living/carbon/human))
 			var/mob/living/carbon/human/H = src
-			if((isobj(H.shoes) && H.shoes.flags & NOSLIP) || H.species.bodyflags & FEET_NOSLIP)
+			if(isobj(H.shoes) && H.shoes.flags & NOSLIP)
 				return 0
 	if(tilesSlipped)
 		for(var/t = 0, t<=tilesSlipped, t++)

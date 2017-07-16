@@ -58,7 +58,7 @@
 		var/mob/living/carbon/M = AM
 		if(ishuman(M))
 			if(isobj(M:shoes))
-				if((M:shoes.flags&NOSLIP) || (M:species.bodyflags & FEET_NOSLIP))
+				if(M:shoes.flags & NOSLIP)
 					return
 			else
 				to_chat(M, "<span class='warning'>Your feet feel like they're on fire!</span>")

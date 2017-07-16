@@ -1875,7 +1875,7 @@
 		to_chat(src, "<span class='warning'>Where's your head at? Can't change your monitor/display without one.</span>")
 		return
 
-	if(species.flags & ALL_RPARTS) //If they can have a fully cybernetic body...
+	if(species.bodyflags & ALL_RPARTS) //If they can have a fully cybernetic body...
 		var/datum/robolimb/robohead = all_robolimbs[head_organ.model]
 		if(!head_organ)
 			return
@@ -2209,7 +2209,7 @@
 				. |= A.GetAccess()
 
 /mob/living/carbon/human/is_mechanical()
-	return ..() || (species.flags & ALL_RPARTS) != 0
+	return ..() || (species.bodyflags & ALL_RPARTS) != 0
 
 /mob/living/carbon/human/can_use_guns(var/obj/item/weapon/gun/G)
 	. = ..()
@@ -2218,7 +2218,7 @@
 		if(HULK in mutations)
 			to_chat(src, "<span class='warning'>Your meaty finger is much too large for the trigger guard!</span>")
 			return 0
-		if(species.flags & NOGUNS)
+		if(NOGUNS in species.species_traits)
 			to_chat(src, "<span class='warning'>Your fingers don't fit in the trigger guard!</span>")
 			return 0
 

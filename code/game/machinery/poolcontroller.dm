@@ -93,7 +93,7 @@
 	if(drownee && (drownee.lying || deep_water)) //Mob lying down or water is deep (determined by controller)
 		if(drownee.internal)
 			return //Has internals, no drowning
-		if((drownee.species.flags & NO_BREATHE) || (NO_BREATHE in drownee.mutations))
+		if((NO_BREATHE in drownee.species.species_traits) || (NO_BREATHE in drownee.mutations))
 			return //doesn't breathe, no drowning
 		if(drownee.get_species() == "Skrell" || drownee.get_species() == "Neara")
 			return //fish things don't drown
