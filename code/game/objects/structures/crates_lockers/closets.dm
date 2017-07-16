@@ -171,11 +171,11 @@
 		qdel(src)
 
 /obj/structure/closet/attackby(obj/item/weapon/W, mob/user, params)
-	if(istype(W, /obj/item/weapon/screwdriver))
-		var/obj/item/weapon/screwdriver/SD = W
+	if(istype(W, /obj/item/weapon/wrench))
+		var/obj/item/weapon/wrench/SD = W
 		playsound(loc, SD.usesound, 40, 1)
 		if(do_after(user, 40 * SD.toolspeed, 1, target = src))
-			to_chat(user, "<span class='notice'>You [anchored?"unscrewed":"screwed"] [src] [anchored?"from":"to"] floor.</span>")
+			to_chat(user, "<span class='notice'>You [anchored?"unsecured":"secured"] [src] [anchored?"from":"to"] floor.</span>")
 			anchored = !anchored
 			return
 	if(istype(W, /obj/item/weapon/rcs) && !opened)
