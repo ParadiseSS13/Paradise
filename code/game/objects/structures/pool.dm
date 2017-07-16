@@ -57,7 +57,8 @@
 		var/turf/target = src.loc
 		for(var/i = 0, i<range, i++)
 			target = get_step(target, WEST)
-		user.dir = WEST
+		user.setDir(WEST)
+		user.Stun(4)
 		user.pixel_y = 15
 		user.layer = ABOVE_ALL_MOB_LAYER
 		user.forceMove(get_turf(src.loc))
@@ -91,4 +92,5 @@
 		user.pixel_y = 0
 		user.pixel_x = 0
 		playsound(user, "sound/effects/splash.ogg", 60, 1)
+		user.Stun(0)
 		in_use = 0
