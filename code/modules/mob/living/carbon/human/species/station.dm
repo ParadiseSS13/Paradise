@@ -112,11 +112,7 @@
 
 	primitive_form = "Farwa"
 
-<<<<<<< HEAD
-	flags = HAS_LIPS | CAN_BE_FAT | IS_WHITELISTED
-=======
-	species_traits = list(LIPS, CAN_BE_FAT)
->>>>>>> refs/remotes/ParadiseSS13/master
+	species_traits = list(LIPS, CAN_BE_FAT, IS_WHITELISTED)
 	clothing_flags = HAS_UNDERWEAR | HAS_UNDERSHIRT | HAS_SOCKS
 	bodyflags = HAS_TAIL | HAS_HEAD_ACCESSORY | HAS_HEAD_MARKINGS | HAS_BODY_MARKINGS | HAS_SKIN_COLOR | TAIL_WAGGING
 	dietflags = DIET_OMNI
@@ -167,11 +163,8 @@
 	to the degree it can cause conflict with more rigorous and strict authorities. They speak a guttural language known as 'Canilunzt' \
     which has a heavy emphasis on utilizing tail positioning and ear twitches to communicate intent."
 
-<<<<<<< HEAD
-	flags = HAS_LIPS | IS_WHITELISTED
-=======
-	species_traits = list(LIPS)
->>>>>>> refs/remotes/ParadiseSS13/master
+
+	species_traits = list(IS_WHITELISTED, LIPS)
 	clothing_flags = HAS_UNDERWEAR | HAS_UNDERSHIRT | HAS_SOCKS
 	bodyflags = HAS_TAIL | TAIL_WAGGING | TAIL_OVERLAPPED | HAS_HEAD_ACCESSORY | HAS_MARKINGS | HAS_SKIN_COLOR
 	dietflags = DIET_OMNI
@@ -223,11 +216,7 @@
 	herbivores on the whole and tend to be co-operative with the other species of the galaxy, although they rarely reveal \
 	the secrets of their empire to their allies."
 
-<<<<<<< HEAD
-	flags = HAS_LIPS | IS_WHITELISTED
-=======
-	species_traits = list(LIPS)
->>>>>>> refs/remotes/ParadiseSS13/master
+	species_traits = list(IS_WHITELISTED, LIPS)
 	clothing_flags = HAS_UNDERWEAR | HAS_UNDERSHIRT | HAS_SOCKS
 	bodyflags = HAS_SKIN_COLOR | HAS_BODY_MARKINGS
 	dietflags = DIET_HERB
@@ -818,11 +807,7 @@
 	even the simplest concepts of other minds. Their alien physiology allows them survive happily off a diet of nothing but light, \
 	water and other radiation."
 
-<<<<<<< HEAD
-	flags = NO_BREATHE | RADIMMUNE | IS_PLANT | NO_BLOOD | NO_PAIN | IS_WHITELISTED
-=======
-	species_traits = list(NO_BREATHE, RADIMMUNE, IS_PLANT, NO_BLOOD, NO_PAIN)
->>>>>>> refs/remotes/ParadiseSS13/master
+	species_traits = list(NO_BREATHE, RADIMMUNE, IS_PLANT, NO_BLOOD, NO_PAIN, IS_WHITELISTED)
 	clothing_flags = HAS_SOCKS
 	dietflags = 0		//Diona regenerate nutrition in light, no diet necessary
 	taste_sensitivity = TASTE_SENSITIVITY_NO_TASTE
