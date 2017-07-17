@@ -1,0 +1,4 @@
+author: "Crazylemon64"
+delete-after: True
+changes: 
+  - bugfix: "Cable laying by clicking the cable you want to join to works now"
