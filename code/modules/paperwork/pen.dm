@@ -24,6 +24,10 @@
 	var/colour = "black"	//what colour the ink is!
 	pressure_resistance = 2
 
+	// Small chance to trip on the pen if you're not careful
+	trip_bonus = 3
+	trip_verb = TV_SLIP
+
 /obj/item/weapon/pen/suicide_act(mob/user)
 	to_chat(viewers(user), "<span class='suicide'>[user] starts scribbling numbers over \himself with the [src.name]! It looks like \he's trying to commit sudoku.</span>")
 	return (BRUTELOSS)

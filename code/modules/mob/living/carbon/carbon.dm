@@ -944,7 +944,7 @@ var/list/ventcrawl_machinery = list(/obj/machinery/atmospherics/unary/vent_pump,
 		for(var/t = 0, t<=tilesSlipped, t++)
 			spawn (t) step(src, src.dir)
 	stop_pulling()
-	to_chat(src, "<span class='notice'>You [slipVerb]ped on [description]!</span>")
+	visible_message("<span class='warning'>[src] [slipVerb]s on [description]!</span>", "<span class='danger'>You [slipVerb] on [description]!</span>")
 	playsound(src.loc, 'sound/misc/slip.ogg', 50, 1, -3)
 	// Something something don't run with scissors
 	Stun(stun)

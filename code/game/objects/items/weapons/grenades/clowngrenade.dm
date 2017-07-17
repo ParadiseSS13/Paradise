@@ -68,7 +68,7 @@
 
 /obj/item/weapon/grown/bananapeel/traitorpeel/throw_impact(atom/hit_atom)
 	var/burned = rand(1,3)
-	if(istype(hit_atom ,/mob/living))
+	if(istype(hit_atom, /mob/living))
 		var/mob/living/M = hit_atom
 		M.take_organ_damage(0, burned)
 	return ..()
