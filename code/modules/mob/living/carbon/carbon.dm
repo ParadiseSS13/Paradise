@@ -930,7 +930,7 @@ var/list/ventcrawl_machinery = list(/obj/machinery/atmospherics/unary/vent_pump,
 				W.plane = initial(W.plane)
 
 
-/mob/living/carbon/proc/slip(var/description, var/stun, var/weaken, var/tilesSlipped, var/walkSafely, var/slipAny)
+/mob/living/carbon/proc/slip(description, stun, weaken, tilesSlipped, walkSafely, slipAny, slipVerb = "slip")
 	if(flying || buckled || (walkSafely && m_intent == MOVE_INTENT_WALK))
 		return 0
 	if((lying) && (!(tilesSlipped)))
@@ -944,10 +944,12 @@ var/list/ventcrawl_machinery = list(/obj/machinery/atmospherics/unary/vent_pump,
 		for(var/t = 0, t<=tilesSlipped, t++)
 			spawn (t) step(src, src.dir)
 	stop_pulling()
-	to_chat(src, "<span class='notice'>You slipped on [description]!</span>")
+	visible_message("<span class='warning'>[src] [slipVerb]s on [description]!</span>", "<span class='danger'>You [slipVerb] on [description]!</span>")
 	playsound(src.loc, 'sound/misc/slip.ogg', 50, 1, -3)
-	if(stun)
-		Stun(stun)
+	// Something something don't run with scissors
+	if(CLUMSY in mutations)
+		CLickOn(src)
+	Stun(stun)
 	Weaken(weaken)
 	return 1
 

@@ -204,24 +204,23 @@
 	rate = 0.1
 	examine_line = "<span class='info'>It has a very slippery skin.</span>"
 
-/datum/plant_gene/trait/slip/on_cross(obj/item/weapon/reagent_containers/food/snacks/grown/G, atom/target)
-	if(iscarbon(target))
-		var/obj/item/seeds/seed = G.seed
-		var/mob/living/carbon/M = target
+/datum/plant_gene/trait/slip/on_new(obj/item/weapon/reagent_containers/food/snacks/grown/G, newloc)
+	. = ..()
+	if(istype(G) && ispath(G.trash, /obj/item/weapon/grown))
+		return
 
-		var/stun_len = seed.potency * rate * 0.8
-		if(istype(G) && ispath(G.trash, /obj/item/weapon/grown))
-			return
+	var/stun_len = G.seed.potency * rate * 0.8
 
-		if(!istype(G, /obj/item/weapon/grown/bananapeel) && (!G.reagents || !G.reagents.has_reagent("lube")))
-			stun_len /= 3
+	if(!istype(G, /obj/item/weapon/grown/bananapeel) && (!G.reagents || !G.reagents.has_reagent("lube")))
+		stun_len /= 3
 
-		var/stun = min(stun_len, 7)
-		var/weaken = min(stun_len, 7)
+	stun_len = min(stun_len, 7) // No fun allowed
 
-		if(M.slip("[G]", stun, weaken))
-			for(var/datum/plant_gene/trait/T in seed.genes)
-				T.on_slip(G, M)
+	G.trip_stun = stun_len
+	G.trip_weaken = stun_len
+	G.trip_bonus = 100
+	G.trip_verb = TV_SLIP
+	G.trip_walksafe = FALSE
 
 /datum/plant_gene/trait/cell_charge
 	// Cell recharging trait. Charges all mob's power cells to (potency*rate)% mark when eaten.

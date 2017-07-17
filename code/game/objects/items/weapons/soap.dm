@@ -9,6 +9,13 @@
 	throw_speed = 4
 	throw_range = 20
 	discrete = 1
+
+	trip_stun = 4
+	trip_weaken = 2
+	trip_bonus = 100
+	trip_walksafe = FALSE
+	trip_verb = TV_SLIP
+
 	var/cleanspeed = 50 //slower than mop
 
 /obj/item/weapon/soap/nanotrasen
