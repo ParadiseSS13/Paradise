@@ -354,19 +354,17 @@
 			return
 	if(ishuman(M) && M.mind && M.mind.vampire && !M.mind.vampire.get_ability(/datum/vampire_passive/full) && prob(80))
 		var/mob/living/carbon/V = M
-		if(M.mind.vampire.bloodusable > 0)
+		if(M.mind.vampire.bloodusable)
 			M.Stuttering(1)
 			M.Jitter(30)
 			M.adjustStaminaLoss(5)
 			if(prob(20))
 				M.emote("scream")
-			if(M.mind.vampire.bloodusable > 20)
-				M.mind.vampire.bloodusable = M.mind.vampire.bloodusable - 20
+			M.mind.vampire.nullified = max(5, M.mind.vampire.nullified + 2)
+			M.mind.vampire.bloodusable = max(M.mind.vampire.bloodusable - 20,0)
+			if(M.mind.vampire.bloodusable)
 				V.vomit(0,1)
 			else
-				M.mind.vampire.bloodusable = 0
-			M.mind.vampire.nullified = max(5, M.mind.vampire.nullified + 2)
-			if(M.mind.vampire.bloodusable == 0)
 				holder.remove_reagent(id, volume)
 				V.vomit(0,0)
 				return

@@ -9,8 +9,8 @@
 	put_on_delay = 20
 	var/resist_time = 0 //deciseconds of how long you need to gnaw to get rid of the gag, 0 to make it impossible to remove
 	var/mute = MUTE_ALL
-	var/security_lock = 0 // Requires brig access to remove 0 - Remove as normal
-	var/locked = 0 //Indicates if a mask is locked, should always start as 0.
+	var/security_lock = FALSE // Requires brig access to remove 0 - Remove as normal
+	var/locked = FALSE //Indicates if a mask is locked, should always start as 0.
 	species_fit = list("Vox")
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/species/vox/mask.dmi'
@@ -18,7 +18,7 @@
 
 // Clumsy folks can't take the mask off themselves.
 /obj/item/clothing/mask/muzzle/attack_hand(mob/user as mob)
-	if(!user.IsAdvancedToolUser())
+	if(user.wear_mask == src && !user.IsAdvancedToolUser())
 		return 0
 	else if(security_lock && locked)
 		if(do_unlock(user))
@@ -111,8 +111,8 @@
 	name = "safety muzzle"
 	desc = "A muzzle designed to prevent biting."
 	mute = MUTE_NONE
-	security_lock = 1
-	locked = 0
+	security_lock = TRUE
+	locked = FALSE
 
 
 /obj/item/clothing/mask/surgical
