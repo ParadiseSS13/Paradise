@@ -76,6 +76,7 @@
 			var/splatter_dir = dir
 			if(starting)
 				splatter_dir = get_dir(starting, target_loca)
+				target_loca = get_step(target_loca, splatter_dir)
 			if(isalien(L))
 				new /obj/effect/overlay/temp/dir_setting/bloodsplatter/xenosplatter(target_loca, splatter_dir)
 			else
