@@ -265,7 +265,7 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 				S = all_species[species]
 				random_character()
 
-			dat += "<div class='statusDisplay' style=' position: absolute; left: 150px; top: 120px'><img src=previewicon.png width=[preview_icon.Width()] height=[preview_icon.Height()]></div>"
+			dat += "<div class='statusDisplay'style='position: absolute; left: 170px; top: 110px;'><img src=previewicon.png width=[preview_icon.Width()] height=[preview_icon.Height()]></div>"
 			dat += "<table width='100%'><tr><td width='405px' height='25px' valign='top'>"
 			dat += "<b>Name: </b>"
 			dat += "<a href='?_src_=prefs;preference=name;task=input'><b>[real_name]</b></a>"
