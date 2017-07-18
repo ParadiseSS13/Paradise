@@ -193,7 +193,7 @@
 					if(gene_stability < GENETIC_DAMAGE_STAGE_3)
 						gib()
 
-	if(!(species.flags & RADIMMUNE))
+	if(!(RADIMMUNE in species.species_traits))
 		if(radiation)
 			radiation = Clamp(radiation, 0, 200)
 
@@ -254,7 +254,7 @@
 
 /mob/living/carbon/human/breathe()
 
-	if((NO_BREATH in mutations) || (species && (species.flags & NO_BREATHE)) || reagents.has_reagent("lexorin"))
+	if((NO_BREATH in mutations) || (NO_BREATHE in species.species_traits) || reagents.has_reagent("lexorin"))
 		adjustOxyLoss(-5)
 		oxygen_alert = 0
 		toxins_alert = 0
@@ -658,7 +658,7 @@
 		return 0	//godmode
 
 	//The fucking FAT mutation is the greatest shit ever. It makes everyone so hot and bothered.
-	if(species.flags & CAN_BE_FAT)
+	if(CAN_BE_FAT in species.species_traits)
 		if(FAT in mutations)
 			if(overeatduration < 100)
 				becomeSlim()
@@ -722,7 +722,8 @@
 		AdjustDizzy(-3)
 		AdjustJitter(-3)
 
-	if(species && species.flags & NO_INTORGANS) return
+	if(NO_INTORGANS in species.species_traits)
+		return
 
 	handle_trace_chems()
 
@@ -975,7 +976,7 @@
 	..()
 	if(status_flags & GODMODE)
 		return 0	//godmode
-	if(species && species.flags & NO_PAIN)
+	if(NO_PAIN in species.species_traits)
 		return
 
 	if(health <= config.health_threshold_softcrit)// health 0 makes you immediately collapse
@@ -1028,7 +1029,7 @@
 	if(mob_master.current_cycle % 5)
 		return pulse	//update pulse every 5 life ticks (~1 tick/sec, depending on server load)
 
-	if(species && species.flags & NO_BLOOD)
+	if(NO_BLOOD in species.species_traits)
 		return PULSE_NONE //No blood, no pulse.
 
 	if(stat == DEAD)
@@ -1098,7 +1099,7 @@
 			var/obj/item/clothing/mask/M = H.wear_mask
 			if(M && (M.flags_cover & MASKCOVERSMOUTH))
 				return
-			if(H.species && H.species.flags & NO_BREATHE)
+			if(NO_BREATHE in species.species_traits)
 				return //no puking if you can't smell!
 			// Humans can lack a mind datum, y'know
 			if(H.mind && (H.mind.assigned_role == "Detective" || H.mind.assigned_role == "Coroner"))
@@ -1178,7 +1179,9 @@
 
 
 /mob/living/carbon/human/proc/can_heartattack()
-	if(species.flags & (NO_BLOOD|NO_INTORGANS))
+	if(NO_BLOOD in species.species_traits)
+		return FALSE
+	if(NO_INTORGANS in species.species_traits)
 		return FALSE
 	return TRUE
 
