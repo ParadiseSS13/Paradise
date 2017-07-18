@@ -268,18 +268,6 @@
 				previewJob = job
 				break
 
-	var/fat=""
-	if(disabilities & DISABILITY_FLAG_FAT && (CAN_BE_FAT in current_species.species_traits))
-		fat="_fat"
-	preview_icon = new /icon(icobase, "torso_[g][fat]")
-	preview_icon.Blend(new /icon(icobase, "groin_[g]"), ICON_OVERLAY)
-	var/head = "head"
-	if(alt_head && current_species.bodyflags & HAS_ALT_HEADS)
-		var/datum/sprite_accessory/alt_heads/H = alt_heads_list[alt_head]
-		if(H.icon_state)
-			head = H.icon_state
-	preview_icon.Blend(new /icon(icobase, "[head]_[g]"), ICON_OVERLAY)
-	
 	if(previewJob)
 		mannequin.job = previewJob.title
 		previewJob.equip(mannequin, TRUE)
