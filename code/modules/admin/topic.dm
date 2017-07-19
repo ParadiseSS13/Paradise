@@ -3339,9 +3339,7 @@
 	var/hunter_outfits = list()
 	for(var/type in admin_outfits)
 		var/datum/outfit/admin/O = type
-		var/is_hunter_outfit = initial(O.is_hunter_outfit)
-		if(is_hunter_outfit)
-			hunter_outfits[initial(O.name)] = type
+		hunter_outfits[initial(O.name)] = type
 	var/dresscode = input("Select type", "Contracted Agents") as null|anything in hunter_outfits
 	if(isnull(dresscode))
 		return

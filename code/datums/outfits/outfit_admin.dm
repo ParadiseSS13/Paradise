@@ -17,12 +17,8 @@
 	if(special_icon)
 		I.icon_state = special_icon
 
-/datum/outfit/admin
-	var/is_hunter_outfit = 0 // Whether this can be used by the Smite command to send a hunter after someone
-
 /datum/outfit/admin/syndicate
 	name = "Syndicate Agent"
-	is_hunter_outfit = 1
 
 	uniform = /obj/item/clothing/under/syndicate
 	back = /obj/item/weapon/storage/backpack
@@ -63,7 +59,6 @@
 
 /datum/outfit/admin/syndicate/infiltrator
 	name = "Syndicate Infiltrator"
-	is_hunter_outfit = 1
 
 	uniform = /obj/item/clothing/under/chameleon
 	glasses = /obj/item/clothing/glasses/hud/security/chameleon
@@ -93,7 +88,6 @@
 
 /datum/outfit/admin/syndicate/operative
 	name = "Syndicate Nuclear Operative"
-	is_hunter_outfit = 1
 
 	suit = /obj/item/clothing/suit/space/hardsuit/syndi
 	belt = /obj/item/weapon/storage/belt/military
@@ -125,7 +119,6 @@
 
 /datum/outfit/admin/syndicate_strike_team
 	name = "Syndicate Strike Team"
-	is_hunter_outfit = 1
 
 /datum/outfit/admin/syndicate_strike_team/equip(mob/living/carbon/human/H, visualsOnly = FALSE)
 	return H.equip_syndicate_commando()
@@ -364,14 +357,12 @@
 
 /datum/outfit/admin/death_commando
 	name = "NT Death Commando"
-	is_hunter_outfit = 1
 
 /datum/outfit/admin/death_commando/equip(mob/living/carbon/human/H, visualsOnly = FALSE)
 	return H.equip_death_commando()
 
 /datum/outfit/admin/pirate
 	name = "Space Pirate"
-	is_hunter_outfit = 1
 
 	uniform = /obj/item/clothing/under/pirate
 	back = /obj/item/weapon/storage/backpack/satchel
@@ -393,14 +384,12 @@
 
 /datum/outfit/admin/pirate/first_mate
 	name = "Space Pirate First Mate"
-	is_hunter_outfit = 1
 
 	glasses = /obj/item/clothing/glasses/eyepatch
 	head = /obj/item/clothing/head/bandana
 
 /datum/outfit/admin/pirate/captain
 	name = "Space Pirate Captain"
-	is_hunter_outfit = 1
 
 	suit = /obj/item/clothing/suit/pirate_black
 	head = /obj/item/clothing/head/pirate
@@ -444,7 +433,6 @@
 
 /datum/outfit/admin/tunnel_clown
 	name = "Tunnel Clown"
-	is_hunter_outfit = 1
 
 	uniform = /obj/item/clothing/under/rank/clown
 	suit = /obj/item/clothing/suit/hooded/chaplain_hoodie
@@ -475,7 +463,6 @@
 
 /datum/outfit/admin/mime_assassin
 	name = "Mime Assassin"
-	is_hunter_outfit = 1
 
 	uniform = /obj/item/clothing/under/mime
 	suit = /obj/item/clothing/suit/suspenders
@@ -525,7 +512,6 @@
 
 /datum/outfit/admin/greytide
 	name = "Greytide"
-	is_hunter_outfit = 1
 
 	uniform = /obj/item/clothing/under/color/grey
 	back = /obj/item/weapon/storage/backpack
@@ -551,7 +537,6 @@
 
 /datum/outfit/admin/greytide/leader
 	name = "Greytide Leader"
-	is_hunter_outfit = 1
 
 	belt = /obj/item/weapon/storage/belt/utility/full/multitool
 	gloves = /obj/item/clothing/gloves/color/yellow
@@ -626,7 +611,6 @@
 
 /datum/outfit/admin/soviet/soldier
 	name = "Soviet Soldier"
-	is_hunter_outfit = 1
 
 	gloves = /obj/item/clothing/gloves/combat
 	shoes = /obj/item/clothing/shoes/combat
@@ -698,7 +682,6 @@
 
 /datum/outfit/admin/solgov
 	name = "Solar Federation Marine"
-	is_hunter_outfit = 1
 
 	uniform = /obj/item/clothing/under/solgov
 	back = /obj/item/weapon/storage/backpack/security
@@ -724,7 +707,6 @@
 
 /datum/outfit/admin/solgov/lieutenant
 	name = "Solar Federation Lieutenant"
-	is_hunter_outfit = 1
 
 	uniform = /obj/item/clothing/under/solgov/command
 	head = /obj/item/clothing/head/soft/solgov/command
@@ -772,7 +754,6 @@
 
 /datum/outfit/admin/chrono
 	name = "Chrono Legionnaire"
-	is_hunter_outfit = 1
 
 	uniform = /obj/item/clothing/under/syndicate
 	suit = /obj/item/clothing/suit/space/chronos
@@ -964,7 +945,6 @@
 
 /datum/outfit/admin/masked_killer
 	name = "Masked Killer"
-	is_hunter_outfit = 1
 
 	uniform = /obj/item/clothing/under/overalls
 	suit = /obj/item/clothing/suit/apron
@@ -1000,7 +980,6 @@
 
 /datum/outfit/admin/singuloth_knight
 	name = "Singuloth Knight"
-	is_hunter_outfit = 1
 
 	uniform = /obj/item/clothing/under/syndicate/combat
 	suit = /obj/item/clothing/suit/space/hardsuit/singuloth
@@ -1026,7 +1005,6 @@
 
 /datum/outfit/admin/assassin
 	name = "Syndicate Assassin"
-	is_hunter_outfit = 1
 
 	uniform = /obj/item/clothing/under/suit_jacket
 	suit = /obj/item/clothing/suit/wcoat
@@ -1064,7 +1042,6 @@
 
 /datum/outfit/admin/spy
 	name = "Spy"
-	is_hunter_outfit = 1
 
 	uniform = /obj/item/clothing/under/suit_jacket/really_black
 	back = /obj/item/weapon/storage/backpack
@@ -1109,7 +1086,6 @@
 
 /datum/outfit/admin/dark_lord
 	name = "Dark Lord"
-	is_hunter_outfit = 1
 
 	uniform = /obj/item/clothing/under/color/black
 	suit = /obj/item/clothing/suit/hooded/chaplain_hoodie
@@ -1182,7 +1158,6 @@
 
 /datum/outfit/admin/dark_priest
 	name = "Dark Priest"
-	is_hunter_outfit = 1
 
 	uniform = /obj/item/clothing/under/color/black
 	suit = /obj/item/clothing/suit/hooded/chaplain_hoodie
