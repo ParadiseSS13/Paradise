@@ -1029,7 +1029,7 @@ var/global/list/damage_icon_parts = list()
 	if(wear_mask && (istype(wear_mask, /obj/item/clothing/mask) || istype(wear_mask, /obj/item/clothing/accessory)))
 		var/obj/item/organ/external/head/head_organ = get_organ("head")
 		var/datum/sprite_accessory/alt_heads/alternate_head
-		if(head_organ.alt_head && head_organ.alt_head != "None")
+		if(head_organ && head_organ.alt_head && head_organ.alt_head != "None")
 			alternate_head = alt_heads_list[head_organ.alt_head]
 
 		var/image/standing
