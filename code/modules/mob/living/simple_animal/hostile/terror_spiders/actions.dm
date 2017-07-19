@@ -196,7 +196,7 @@
 					choices += L
 		for(var/obj/O in oview(1,src))
 			if(Adjacent(O) && !O.anchored)
-				if(!istype(O, /obj/structure/spider/terrorweb) && !istype(O, /obj/structure/spider/cocoon) && !istype(O, /obj/structure/spider/spiderling/terror_spiderling) && !istype(O, /obj/effect))
+				if(!istype(O, /obj/structure/spider/terrorweb) && !istype(O, /obj/structure/spider/cocoon) && !istype(O, /obj/structure/spider/spiderling/terror_spiderling))
 					choices += O
 		if(choices.len)
 			cocoon_target = input(src,"What do you wish to cocoon?") in null|choices
