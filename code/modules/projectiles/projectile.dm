@@ -37,6 +37,7 @@
 	var/flag = "bullet" //Defines what armor to use when it hits things.  Must be set to bullet, laser, energy,or bomb	//Cael - bio and rad are also valid
 	var/projectile_type = "/obj/item/projectile"
 	var/range = 50 //This will de-increment every step. When 0, it will delete the projectile.
+	var/is_reflectable = FALSE // Can it be reflected or not?
 	//Effects
 	var/stun = 0
 	var/weaken = 0
@@ -48,7 +49,6 @@
 	var/drowsy = 0
 	var/stamina = 0
 	var/jitter = 0
-	var/embed = 0 // whether or not the projectile can embed itself in the mob
 	var/forcedodge = 0 //to pass through everything
 	var/dismemberment = 0 //The higher the number, the greater the bonus to dismembering. 0 will not dismember at all.
 

@@ -361,11 +361,6 @@
 	host = M
 	forceMove(M)
 
-	if(ishuman(M))
-		var/mob/living/carbon/human/H = M
-		var/obj/item/organ/external/head = H.get_organ("head")
-		head.implants += src
-
 	host.status_flags |= PASSEMOTES
 
 	RemoveBorerActions()
@@ -745,11 +740,6 @@
 		return
 
 	controlling = FALSE
-
-	if(ishuman(host))
-		var/mob/living/carbon/human/H = host
-		var/obj/item/organ/external/head = H.get_organ("head")
-		head.implants -= src
 
 	reset_perspective(null)
 	machine = null

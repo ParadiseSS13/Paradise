@@ -84,6 +84,9 @@ RCD
 	//Change the mode
 	ui_interact(user)
 
+/obj/item/weapon/rcd/attack_self_tk(mob/user)
+	ui_interact(user)
+
 /obj/item/weapon/rcd/ui_interact(mob/user, ui_key = "main", var/datum/nanoui/ui = null, var/force_open = 1, var/datum/topic_state/state = inventory_state)
 	ui = nanomanager.try_update_ui(user, src, ui_key, ui, force_open)
 	if(!ui)

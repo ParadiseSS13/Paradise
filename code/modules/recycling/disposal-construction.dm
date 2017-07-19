@@ -98,7 +98,7 @@
 
 /obj/structure/disposalconstruct/AltClick(mob/user)
 	if(user.incapacitated())
-		to_chat(user << "<span class='warning'>You can't do that right now!</span>")
+		to_chat(user, "<span class='warning'>You can't do that right now!</span>")
 		return
 	if(!Adjacent(user))
 		return
@@ -195,7 +195,7 @@
 		playsound(src.loc, I.usesound, 100, 1)
 		update()
 		return
-		
+
 	var/obj/structure/disposalpipe/CP = locate() in T
 	if(ptype>=6 && ptype <= 8) // Disposal or outlet
 		if(CP) // There's something there

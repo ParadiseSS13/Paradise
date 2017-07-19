@@ -29,6 +29,7 @@
 
 /obj/structure/reagent_dispensers/proc/boom()
 	visible_message("<span class='danger'>[src] ruptures!</span>")
+	chem_splash(loc, 5, list(reagents))
 	qdel(src)
 
 /obj/structure/reagent_dispensers/ex_act(severity)
@@ -52,15 +53,6 @@
 	name = "water tank"
 	desc = "A water tank."
 	icon_state = "water"
-
-/obj/structure/reagent_dispensers/watertank/boom()
-	playsound(loc, 'sound/effects/spray2.ogg', 50, 1, -6)
-	new /obj/effect/effect/water(loc)
-	for(var/turf/simulated/T in view(5, loc))
-		T.MakeSlippery()
-		for(var/mob/living/L in T)
-			L.adjust_fire_stacks(-20)
-	..()
 
 /obj/structure/reagent_dispensers/watertank/high
 	name = "high-capacity water tank"
@@ -222,6 +214,34 @@
 	var/obj/item/weapon/reagent_containers/food/drinks/sillycup/S = new(get_turf(src))
 	user.put_in_hands(S)
 	paper_cups--
+
+/obj/structure/reagent_dispensers/water_cooler/attackby(obj/item/weapon/W, mob/living/user, params)
+	add_fingerprint(user)
+	user.changeNext_move(CLICK_CD_MELEE)
+	if(iswrench(W))
+		if(anchored)
+			playsound(loc, W.usesound, 100, 1)
+			user.visible_message("[user] starts loosening [src]'s floor casters.", \
+								 "<span class='notice'>You start loosening [src]'s floor casters...</span>")
+			if(do_after(user, 40 * W.toolspeed, target = src))
+				if(!loc || !anchored)
+					return
+				user.visible_message("[user] loosened [src]'s floor casters.", \
+									 "<span class='notice'>You loosen [src]'s floor casters.</span>")
+				anchored = 0
+		else
+			if(!isfloorturf(loc))
+				user.visible_message("<span class='warning'>A floor must be present to secure [src]!</span>")
+				return
+			playsound(loc, W.usesound, 100, 1)
+			user.visible_message("[user] start securing [src]'s floor casters...", \
+								 "<span class='notice'>You start securing [src]'s floor casters...</span>")
+			if(do_after(user, 40 * W.toolspeed, target = src))
+				if(!loc || anchored)
+					return
+				user.visible_message("[user] has secured [src]'s floor casters.", \
+									 "<span class='notice'>You have secured [src]'s floor casters.</span>")
+				anchored = 1
 
 /obj/structure/reagent_dispensers/beerkeg
 	name = "beer keg"

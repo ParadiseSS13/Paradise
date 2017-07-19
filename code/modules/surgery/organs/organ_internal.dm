@@ -5,8 +5,8 @@
 	force = 1
 	w_class = WEIGHT_CLASS_SMALL
 	throwforce = 0
-	var/zone = "chest"
 	var/slot
+	// DO NOT add slots with matching names to different zones - it will break internal_organs_slot list!
 	vital = 0
 	var/non_primary = 0
 
@@ -29,6 +29,7 @@
 	owner = M
 
 	M.internal_organs |= src
+	M.internal_organs_slot[slot] = src
 	var/obj/item/organ/external/parent
 	if(istype(M, /mob/living/carbon/human))
 		var/mob/living/carbon/human/H = M
@@ -52,6 +53,8 @@
 	owner = null
 	if(M)
 		M.internal_organs -= src
+		if(M.internal_organs_slot[slot] == src)
+			M.internal_organs_slot.Remove(slot)
 		if(vital && !special)
 			if(M.stat != DEAD)//safety check!
 				M.death()
@@ -208,7 +211,7 @@
 
 /obj/item/organ/internal/heart/cursed/attack(mob/living/carbon/human/H, mob/living/carbon/human/user, obj/target)
 	if(H == user && istype(H))
-		if(H.species.flags & NO_BLOOD || H.species.exotic_blood)
+		if(NO_BLOOD in H.species.species_traits)
 			to_chat(H, "<span class = 'userdanger'>\The [src] is not compatible with your form!</span>")
 			return
 		playsound(user,'sound/effects/singlebeat.ogg', 40, 1)
@@ -221,10 +224,11 @@
 	if(world.time > (last_pump + pump_delay))
 		if(ishuman(owner) && owner.client) //While this entire item exists to make people suffer, they can't control disconnects.
 			var/mob/living/carbon/human/H = owner
-			H.vessel.remove_reagent("blood", blood_loss)
-			to_chat(H, "<span class='userdanger'>You have to keep pumping your blood!</span>")
-			if(H.client)
-				H.client.color = "red" //bloody screen so real
+			if(!(NO_BLOOD in H.species.species_traits))
+				H.blood_volume = max(H.blood_volume - blood_loss, 0)
+				to_chat(H, "<span class='userdanger'>You have to keep pumping your blood!</span>")
+				if(H.client)
+					H.client.color = "red" //bloody screen so real
 		else
 			last_pump = world.time //lets be extra fair *sigh*
 
@@ -253,13 +257,14 @@
 
 		var/mob/living/carbon/human/H = owner
 		if(istype(H))
-			H.vessel.add_reagent("blood", (cursed_heart.blood_loss*0.5))//gain half the blood back from a failure
-			if(owner.client)
-				owner.client.color = ""
+			if(!(NO_BLOOD in H.species.species_traits))
+				H.blood_volume = min(H.blood_volume + cursed_heart.blood_loss*0.5, BLOOD_VOLUME_NORMAL)
+				if(owner.client)
+					owner.client.color = ""
 
-			H.adjustBruteLoss(-cursed_heart.heal_brute)
-			H.adjustFireLoss(-cursed_heart.heal_burn)
-			H.adjustOxyLoss(-cursed_heart.heal_oxy)
+				H.adjustBruteLoss(-cursed_heart.heal_brute)
+				H.adjustFireLoss(-cursed_heart.heal_burn)
+				H.adjustOxyLoss(-cursed_heart.heal_oxy)
 
 /obj/item/organ/internal/lungs
 	name = "lungs"
@@ -286,7 +291,7 @@
 	if(is_bruised())
 		if(prob(2))
 			owner.custom_emote(1, "coughs up blood!")
-			owner.drip(10)
+			owner.bleed(1)
 		if(prob(4))
 			owner.custom_emote(1, "gasps for air!")
 			owner.AdjustLoseBreath(5)

@@ -20,8 +20,14 @@ var/time_last_changed_position = 0
 	//if set to -1: No cooldown... probably a bad idea
 	//if set to 0: Not able to close "original" positions. You can only close positions that you have opened before
 	var/change_position_cooldown = 60
-	//Jobs you cannot open new positions for
-	var/list/blacklisted = list(
+	// Jobs that do not appear in the list at all.
+	var/list/blacklisted_full = list(
+		/datum/job/ntnavyofficer,
+		/datum/job/ntspecops,
+		/datum/job/civilian
+	)
+	// Jobs that appear in the list, and you can prioritize, but not open/close slots for
+	var/list/blacklisted_partial = list(
 		/datum/job/ai,
 		/datum/job/cyborg,
 		/datum/job/captain,
@@ -37,12 +43,8 @@ var/time_last_changed_position = 0
 		/datum/job/brigdoc,
 		/datum/job/mechanic,
 		/datum/job/barber,
-		/datum/job/chaplain,
-		/datum/job/ntnavyofficer,
-		/datum/job/ntspecops,
-		/datum/job/civilian
+		/datum/job/chaplain
 	)
-
 	//The scaling factor of max total positions in relation to the total amount of people on board the station in %
 	var/max_relative_positions = 30 //30%: Seems reasonable, limit of 6 @ 20 players
 
@@ -77,7 +79,7 @@ var/time_last_changed_position = 0
 /obj/machinery/computer/card/proc/format_job_slots()
 	var/list/formatted = list()
 	for(var/datum/job/job in job_master.occupations)
-		if(job_blacklisted(job))
+		if(job_blacklisted_full(job))
 			continue
 		if(!job_in_department(job))
 			continue
@@ -139,14 +141,18 @@ var/time_last_changed_position = 0
 	nanomanager.update_uis(src)
 	attack_hand(user)
 
-//Check if you can't open a new position for a certain job
-/obj/machinery/computer/card/proc/job_blacklisted(datum/job/job)
-	return (job.type in blacklisted)
+//Check if you can't touch a job in any way whatsoever
+/obj/machinery/computer/card/proc/job_blacklisted_full(datum/job/job)
+	return (job.type in blacklisted_full)
+
+//Check if you can't open/close positions for a certain job
+/obj/machinery/computer/card/proc/job_blacklisted_partial(datum/job/job)
+	return (job.type in blacklisted_partial)
 
 //Logic check for Topic() if you can open the job
 /obj/machinery/computer/card/proc/can_open_job(datum/job/job)
 	if(job)
-		if(!job_blacklisted(job) && job_in_department(job, FALSE))
+		if(!job_blacklisted_full(job) && !job_blacklisted_partial(job) && job_in_department(job, FALSE))
 			if((job.total_positions <= player_list.len * (max_relative_positions / 100)))
 				var/delta = (world.time / 10) - time_last_changed_position
 				if((change_position_cooldown < delta) || (opened_positions[job.title] < 0))
@@ -158,8 +164,8 @@ var/time_last_changed_position = 0
 //Logic check for Topic() if you can close the job
 /obj/machinery/computer/card/proc/can_close_job(datum/job/job)
 	if(job)
-		if(!job_blacklisted(job) && job_in_department(job, FALSE))
-			if(job.total_positions > job.current_positions)
+		if(!job_blacklisted_full(job) && !job_blacklisted_partial(job) && job_in_department(job, FALSE))
+			if(job.total_positions > job.current_positions && !(job in job_master.prioritized_jobs))
 				var/delta = (world.time / 10) - time_last_changed_position
 				if((change_position_cooldown < delta) || (opened_positions[job.title] > 0))
 					return 1
@@ -169,11 +175,13 @@ var/time_last_changed_position = 0
 
 /obj/machinery/computer/card/proc/can_prioritize_job(datum/job/job)
 	if(job)
-		if(!job_blacklisted(job) && job_in_department(job, FALSE))
+		if(!job_blacklisted_full(job) && job_in_department(job, FALSE))
 			if(job in job_master.prioritized_jobs)
 				return 2
 			else
 				if(job_master.prioritized_jobs.len >= 3)
+					return 0
+				if(job.total_positions <= job.current_positions)
 					return 0
 				return 1
 	return -1
@@ -531,7 +539,8 @@ var/time_last_changed_position = 0
 	circuit = /obj/item/weapon/circuitboard/card/centcom
 	req_access = list(access_cent_commander)
 	change_position_cooldown = -1
-	blacklisted = list()
+	blacklisted_full = list()
+	blacklisted_partial = list()
 
 /obj/machinery/computer/card/minor
 	name = "department management console"

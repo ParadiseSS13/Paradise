@@ -38,7 +38,6 @@ var/static/regex/multispin_words = regex("like a record baby")
 /obj/item/organ/internal/vocal_cords //organs that are activated through speech with the :x channel
 	name = "vocal cords"
 	icon_state = "appendix"
-	zone = "mouth"
 	slot = "vocal_cords"
 	parent_organ = "mouth"
 	var/spans = null
@@ -245,7 +244,7 @@ var/static/regex/multispin_words = regex("like a record baby")
 	//BLEED
 	else if((findtext(message, bleed_words)))
 		for(var/mob/living/carbon/human/H in listeners)
-			H.drip(100 * power_multiplier)
+			H.bleed_rate += (5 * power_multiplier)
 		next_command = world.time + cooldown_damage
 
 	//FIRE

@@ -302,7 +302,9 @@
 		AnnounceArrival(character, rank, join_message)
 		callHook("latespawn", list(character))
 
-
+	var/datum/job/thisjob = job_master.GetJob(rank)
+	if(!thisjob.is_position_available() && thisjob in job_master.prioritized_jobs)
+		job_master.prioritized_jobs -= thisjob
 	qdel(src)
 
 
@@ -514,7 +516,7 @@
 
 /mob/new_player/proc/is_species_whitelisted(datum/species/S)
 	if(!S) return 1
-	return is_alien_whitelisted(src, S.name) || !config.usealienwhitelist || !(S.flags & IS_WHITELISTED)
+	return is_alien_whitelisted(src, S.name) || !config.usealienwhitelist || !(IS_WHITELISTED in S.species_traits)
 
 /mob/new_player/get_species()
 	var/datum/species/chosen_species

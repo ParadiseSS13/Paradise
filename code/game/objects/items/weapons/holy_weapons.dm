@@ -100,7 +100,6 @@
 	slot_flags = SLOT_BACK|SLOT_BELT
 	block_chance = 30
 	sharp = 1
-	edge = 1
 	hitsound = 'sound/weapons/bladeslice.ogg'
 	attack_verb = list("attacked", "slashed", "stabbed", "sliced", "torn", "ripped", "diced", "cut")
 
@@ -187,7 +186,6 @@
 	armour_penetration = 35
 	slot_flags = SLOT_BACK
 	sharp = 1
-	edge = 1
 	attack_verb = list("chopped", "sliced", "cut", "reaped")
 	hitsound = 'sound/weapons/rapierhit.ogg'
 
@@ -266,7 +264,6 @@
 	w_class = WEIGHT_CLASS_HUGE
 	flags = NODROP | ABSTRACT
 	sharp = 1
-	edge = 1
 	attack_verb = list("sawed", "torn", "cut", "chopped", "diced")
 	hitsound = 'sound/weapons/chainsaw.ogg'
 
@@ -278,7 +275,6 @@
 	desc = "Used for absolutely hilarious sacrifices."
 	hitsound = 'sound/items/bikehorn.ogg'
 	sharp = 1
-	edge = 1
 	attack_verb = list("attacked", "slashed", "stabbed", "sliced", "torn", "ripped", "diced", "cut", "honked")
 
 /obj/item/weapon/nullrod/whip
@@ -324,7 +320,6 @@
 	flags = ABSTRACT | NODROP
 	w_class = WEIGHT_CLASS_HUGE
 	sharp = 1
-	edge = 1
 
 /obj/item/weapon/nullrod/carp
 	name = "carp-sie plushie"
@@ -354,7 +349,6 @@
 	block_chance = 40
 	slot_flags = SLOT_BACK
 	sharp = 0
-	edge = 0
 	hitsound = "swing_hit"
 	attack_verb = list("smashed", "slammed", "whacked", "thwacked")
 	icon = 'icons/obj/weapons.dmi'
@@ -368,7 +362,6 @@
 	w_class = WEIGHT_CLASS_HUGE
 	desc = "They say fear is the true mind killer, but stabbing them in the head works too. Honour compels you to not sheathe it once drawn."
 	sharp = 1
-	edge = 1
 	slot_flags = null
 	flags = HANDSLOW
 	hitsound = 'sound/weapons/bladeslice.ogg'
@@ -394,7 +387,6 @@
 	attack_verb = list("poked", "impaled", "pierced", "jabbed")
 	hitsound = 'sound/weapons/bladeslice.ogg'
 	sharp = 1
-	edge = 1
 
 /obj/item/weapon/nullrod/rosary
 	name = "prayer beads"

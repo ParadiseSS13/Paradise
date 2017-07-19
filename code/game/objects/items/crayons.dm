@@ -73,7 +73,7 @@
 			temp = pick(graffiti)
 		else
 			temp = href_list["type"]
-	if((usr.restrained() || usr.stat || usr.get_active_hand() != src))
+	if((usr.restrained() || usr.stat || !usr.is_in_active_hand(src)))
 		return
 	drawtype = temp
 	update_window(usr)
@@ -147,6 +147,29 @@
 	colour = "#DA00FF"
 	colourName = "purple"
 
+/obj/item/toy/crayon/random/New()
+	icon_state = pick(list("crayonred", "crayonorange", "crayonyellow", "crayongreen", "crayonblue", "crayonpurple"))
+	switch(icon_state)
+		if("crayonred")
+			colour = "#DA0000"
+			colourName = "red"
+		if("crayonorange")
+			colour = "#FF9300"
+			colourName = "orange"
+		if("crayonyellow")
+			colour = "#FFF200"
+			colourName = "yellow"
+		if("crayongreen")
+			colour = "#A8E61D"
+			colourName = "green"
+		if("crayonblue")
+			colour = "#00B7EF"
+			colourName = "blue"
+		if("crayonpurple")
+			colour = "#DA00FF"
+			colourName = "purple"
+	..()
+
 /obj/item/toy/crayon/white
 	icon_state = "crayonwhite"
 	colour = "#FFFFFF"
@@ -167,7 +190,7 @@
 	..()
 
 /obj/item/toy/crayon/mime/Topic(href,href_list)
-	if((usr.restrained() || usr.stat || usr.get_active_hand() != src))
+	if(!Adjacent(usr) || usr.incapacitated())
 		return
 	if(href_list["color"])
 		if(colour != "#FFFFFF")
@@ -192,11 +215,10 @@
 	..()
 
 /obj/item/toy/crayon/rainbow/Topic(href,href_list[])
-
+	if(!Adjacent(usr) || usr.incapacitated())
+		return
 	if(href_list["color"])
 		var/temp = input(usr, "Please select colour.", "Crayon colour") as color
-		if((usr.restrained() || usr.stat || usr.get_active_hand() != src))
-			return
 		colour = temp
 		update_window(usr)
 	else

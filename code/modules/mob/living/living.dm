@@ -502,7 +502,8 @@
 		var/mob/living/carbon/C = src
 		C.handcuffed = initial(C.handcuffed)
 
-		for(var/datum/disease/D in C.viruses)
+		for(var/thing in C.viruses)
+			var/datum/disease/D = thing
 			D.cure(0)
 
 		// restore all of the human's blood and reset their shock stage
@@ -512,6 +513,7 @@
 			human_mob.restore_blood()
 			human_mob.shock_stage = 0
 			human_mob.decaylevel = 0
+			human_mob.remove_all_embedded_objects()
 
 	restore_all_organs()
 	surgeries.Cut() //End all surgeries.
@@ -523,6 +525,7 @@
 	stat = CONSCIOUS
 	update_fire()
 	regenerate_icons()
+	restore_blood()
 	if(human_mob)
 		human_mob.update_eyes()
 		human_mob.update_dna()
@@ -576,10 +579,10 @@
 
 			var/pull_dir = get_dir(src, pulling)
 			if(get_dist(src, pulling) > 1 || ((pull_dir - 1) & pull_dir)) // puller and pullee more than one tile away or in diagonal position
-				//if(isliving(pulling))
-					//var/mob/living/M = pulling
-					//if(M.lying && !M.buckled && (prob(M.getBruteLoss() * 200 / M.maxHealth)))
-						//M.makeTrail(T)
+				if(isliving(pulling))
+					var/mob/living/M = pulling
+					if(M.lying && !M.buckled && (prob(M.getBruteLoss() * 200 / M.maxHealth)))
+						M.makeTrail(T)
 				pulling.Move(T, get_dir(pulling, T)) // the pullee tries to reach our previous position
 				if(pulling && get_dist(src, pulling) > 1) // the pullee couldn't keep up
 					stop_pulling()
@@ -599,6 +602,55 @@
 	if(istype(T))
 		return 1
 	return 0
+
+/mob/living/proc/makeTrail(turf/T)
+	if(!has_gravity(src))
+		return
+	var/blood_exists = 0
+
+	for(var/obj/effect/decal/cleanable/trail_holder/C in loc) //checks for blood splatter already on the floor
+		blood_exists = 1
+	if(isturf(loc))
+		var/trail_type = getTrail()
+		if(trail_type)
+			var/brute_ratio = round(getBruteLoss()/maxHealth, 0.1)
+			if(blood_volume && blood_volume > max(BLOOD_VOLUME_NORMAL*(1 - brute_ratio * 0.25), 0))//don't leave trail if blood volume below a threshold
+				blood_volume = max(blood_volume - max(1, brute_ratio * 2), 0) 					//that depends on our brute damage.
+				var/newdir = get_dir(T, loc)
+				if(newdir != src.dir)
+					newdir = newdir | dir
+					if(newdir == 3) //N + S
+						newdir = NORTH
+					else if(newdir == 12) //E + W
+						newdir = EAST
+				if((newdir in cardinal) && (prob(50)))
+					newdir = turn(get_dir(T, loc), 180)
+				if(!blood_exists)
+					new /obj/effect/decal/cleanable/trail_holder(loc)
+				for(var/obj/effect/decal/cleanable/trail_holder/TH in loc)
+					if((!(newdir in TH.existing_dirs) || trail_type == "trails_1" || trail_type == "trails_2") && TH.existing_dirs.len <= 16) //maximum amount of overlays is 16 (all light & heavy directions filled)
+						TH.existing_dirs += newdir
+						TH.overlays.Add(image('icons/effects/blood.dmi', trail_type, dir = newdir))
+						TH.transfer_mob_blood_dna(src)
+						if(ishuman(src))
+							var/mob/living/carbon/human/H = src
+							if(H.species.blood_color)
+								TH.color = H.species.blood_color
+						else
+							TH.color = "#A10808"
+
+/mob/living/carbon/human/makeTrail(turf/T)
+
+	if((NO_BLOOD in species.species_traits) || species.exotic_blood || !bleed_rate || bleedsuppress)
+		return
+	..()
+
+/mob/living/proc/getTrail()
+	if(getBruteLoss() < 300)
+		return pick("ltrails_1", "ltrails_2")
+	else
+		return pick("trails_1", "trails_2")
+
 
 /*//////////////////////
 	START RESIST PROCS
