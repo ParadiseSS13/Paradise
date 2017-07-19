@@ -4,7 +4,7 @@
 
 	if(!breath || (breath.total_moles() == 0))
 		//Aliens breathe in vaccuum
-		return 0
+		return FALSE
 
 	var/toxins_used = 0
 	var/tox_detect_threshold = 0.02

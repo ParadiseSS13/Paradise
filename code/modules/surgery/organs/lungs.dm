@@ -284,7 +284,7 @@
 	species = "Plasmaman"
 
 	safe_oxygen_min = 0 //We don't breath this
-	safe_toxins_min = 16 //We breath THIS!
+	safe_toxins_min = 16 //We breathe THIS!
 	safe_toxins_max = 0
 
 /obj/item/organ/internal/lungs/vox
@@ -292,10 +292,10 @@
 	desc = "They're filled with dust....wow."
 	species = "Vox"
 
-	safe_oxygen_min = 0
-	safe_oxygen_max = 1
-	safe_nitro_min = 16
-	oxy_damage_type = TOX
+	safe_oxygen_min = 0 //We don't breathe this
+	safe_oxygen_max = 1 //This is toxic to us
+	safe_nitro_min = 16 //We breathe THIS!
+	oxy_damage_type = TOX //And it poisons us
 
 /obj/item/organ/internal/lungs/drask
 	icon = 'icons/obj/surgery_drask.dmi'
@@ -303,7 +303,7 @@
 
 	cold_message = "an invigorating coldness"
 	cold_level_3_threshold = 60
-	cold_level_1_damage = -COLD_GAS_DAMAGE_LEVEL_1 //They heal brute when the air is cold
+	cold_level_1_damage = -COLD_GAS_DAMAGE_LEVEL_1 //They heal when the air is cold
 	cold_level_2_damage = -COLD_GAS_DAMAGE_LEVEL_2
 	cold_level_3_damage = -COLD_GAS_DAMAGE_LEVEL_3
-	cold_damage_type = BRUTE
+	cold_damage_type = BRUTE //more specifically they heal brute

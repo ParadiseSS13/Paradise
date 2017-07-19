@@ -86,9 +86,12 @@
 	return real_name
 
 /mob/living/carbon/human/IsVocal()
+	// how do species that don't breathe talk? magic, that's what.
+	if(!(NO_BREATHE in species.species_traits) && !get_organ_slot("lungs"))
+		return FALSE
 	if(mind)
 		return !mind.miming
-	return 1
+	return TRUE
 
 /mob/living/carbon/human/proc/SetSpecialVoice(var/new_voice)
 	if(new_voice)

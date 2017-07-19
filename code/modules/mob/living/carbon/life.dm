@@ -99,7 +99,7 @@
 		adjustOxyLoss(1)
 		failed_last_breath = TRUE
 		throw_alert("not_enough_oxy", /obj/screen/alert/not_enough_oxy)
-		return 0
+		return FALSE
 
 	var/safe_oxy_min = 16
 	var/safe_co2_max = 10
