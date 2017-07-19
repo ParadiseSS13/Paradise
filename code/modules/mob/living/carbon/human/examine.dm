@@ -203,21 +203,21 @@
 			msg += "<span class='warning'>[t_He] [t_is] twitching ever so slightly.</span>\n"
 
 
-	var/appears_dead = 0
+	var/appears_dead = FALSE
 	if(stat == DEAD || (status_flags & FAKEDEATH))
-		appears_dead = 1
+		appears_dead = TRUE
 		if(suiciding)
 			msg += "<span class='warning'>[t_He] appears to have committed suicide... there is no hope of recovery.</span>\n"
 		msg += "<span class='deadsay'>[t_He] [t_is] limp and unresponsive; there are no signs of life"
 		if(get_int_organ(/obj/item/organ/internal/brain))
 			if(!key)
-				var/foundghost = 0
+				var/foundghost = FALSE
 				if(mind)
 					for(var/mob/dead/observer/G in player_list)
 						if(G.mind == mind)
-							foundghost = 1
+							foundghost = TRUE
 							if(G.can_reenter_corpse == 0)
-								foundghost = 0
+								foundghost = FALSE
 							break
 				if(!foundghost)
 					msg += " and [t_his] soul has departed"
@@ -238,7 +238,7 @@
 
 		var/obj/item/organ/external/E = bodyparts_by_name[organ_tag]
 		if(!E)
-			wound_flavor_text["[organ_tag]"] = "<b>[t_He] [t_is] missing [t_his] [organ_descriptor].</b>\n"
+			wound_flavor_text["[organ_tag]"] = "<B>[t_He] [t_is] missing [t_his] [organ_descriptor].</B>\n"
 		else
 			if(!isSynthetic())
 				if(E.status & ORGAN_ROBOT)
