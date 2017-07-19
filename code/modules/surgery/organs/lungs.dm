@@ -67,10 +67,6 @@
 	if((H.status_flags & GODMODE))
 		return
 
-	var/species_traits = list()
-	if(H && H.species && H.species.species_traits)
-		species_traits = H.species.species_traits
-
 	if(!breath || (breath.total_moles() == 0))
 		if(H.health >= config.health_threshold_crit)
 			H.adjustOxyLoss(HUMAN_MAX_OXYLOSS)
