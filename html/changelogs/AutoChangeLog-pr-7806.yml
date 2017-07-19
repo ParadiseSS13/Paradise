@@ -1,0 +1,6 @@
+author: "Fox McCloud"
+delete-after: True
+changes: 
+  - bugfix: "Fixes dismembering and some damage transfers (when limb damage is maxed out) being inconsistent"
+  - tweak: "can no longer dismember groins"
+  - tweak: "Cleans up human examine code to be better laid out and more consistent; minor grammatical changes and some fixes; consistency should be retained for species that lack a pulse. Soul departure now properly checks for if the person can re-enter their corpse or not. Also resolves issues with FAKE DEATH examination."
