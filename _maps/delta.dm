@@ -19,7 +19,7 @@ Lovingly ported and actively maintained by Purpose2 to Paradise
 
         #include "map_files\delta\delta.dmm"
         #include "map_files\cyberiad\z2.dmm"
-        #include "map_files\MetaStation\z3.dmm"
+        #include "map_files\cyberiad\z3.dmm"
         #include "map_files\cyberiad\z4.dmm"
         #include "map_files\cyberiad\z5.dmm"
         #include "map_files\cyberiad\z6.dmm"
