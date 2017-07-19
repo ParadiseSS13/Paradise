@@ -1181,6 +1181,9 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 			switch(href_list["preference"])
 				if("name")
 					real_name = random_name(gender,species)
+					if(isnewplayer(user))
+						var/mob/new_player/N = user
+						N.new_player_panel_proc()
 				if("age")
 					age = rand(AGE_MIN, AGE_MAX)
 				if("hair")
