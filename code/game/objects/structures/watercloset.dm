@@ -50,9 +50,61 @@
 
 /obj/structure/toilet/update_icon()
 	icon_state = "toilet[open][cistern]"
+	if(!anchored)
+		pixel_x = 0
+		pixel_y = 0
+		layer = OBJ_LAYER
+	else
+		if(dir == SOUTH)
+			pixel_x = 0
+			pixel_y = 8
+		if(dir == NORTH)
+			pixel_x = 0
+			pixel_y = -8
+			layer = FLY_LAYER
 
 
 /obj/structure/toilet/attackby(obj/item/I, mob/living/user, params)
+	if(iswrench(I))
+		if(anchored)
+			var/response = "Disconnect"
+			if(cistern)
+				response = alert(user, "Do you want to stash [I] or disconnect [src]?", "Wrench", "Stash", "Disconnect", "Cancel")
+			if(response == "Stash")
+				stash_goods(I, user)
+			else if(response == "Disconnect")
+				user.visible_message("[user] begins disconnecting [src]...", "<span class='notice'>You begin disconnecting [src]...</span>")
+				if(do_after(user, 40 * I.toolspeed, target = src))
+					if(!loc || !anchored)
+						return
+					user.visible_message("[user] disconnected [src]!", "<span class='notice'>You disconnected [src]!</span>")
+					anchored = 0
+			return
+		else
+			var/response = "Connect"
+			if(cistern)
+				response = alert(user, "Do you want to stash [I], rotate / connect [src]?", "Wrench", "Stash", "Rotate or Connect", "Cancel")
+			if(response == "Stash")
+				stash_goods(I, user)
+				return
+			if(response == "Cancel")
+				return
+			response = alert(user, "Do you want to rotate or connect [src]?", "Wrench", "Rotate", "Connect", "Cancel")
+			if(response == "Rotate")
+				var/list/choices = list("North" = NORTH, "East" = EAST, "South" = SOUTH, "West" = WEST)
+				var/selected = input(user,"Select a direction for the connector.", "Connector Direction") in choices
+				dir = choices[selected]
+				update_icon()	//is this necessary? probably not
+			else if(response == "Connect")
+				user.visible_message("[user] is connecting [src].", "<span class='notice'>You are connecting [src]...</span>")
+				if(do_after(user, 40 * I.toolspeed, target = src))
+					if(!loc || anchored)
+						return
+					user.visible_message("[user] connected [src]!", "<span class='notice'>You connected [src]!</span>")
+					anchored = 1
+					update_icon()
+			return
+
 	if(istype(I, /obj/item/weapon/crowbar))
 		to_chat(user, "<span class='notice'>You start to [cistern ? "replace the lid on the cistern" : "lift the lid off the cistern"]...</span>")
 		playsound(loc, 'sound/effects/stonedoor_openclose.ogg', 50, 1)
@@ -106,19 +158,24 @@
 				to_chat(user, "<span class='warning'>You need a tighter grip!</span>")
 
 	if(cistern)
-		if(I.w_class > WEIGHT_CLASS_NORMAL)
-			to_chat(user, "<span class='warning'>[I] does not fit!</span>")
-			return
-		if(w_items + I.w_class > WEIGHT_CLASS_HUGE)
-			to_chat(user, "<span class='warning'>The cistern is full!</span>")
-			return
-		if(!user.drop_item())
-			to_chat(user, "<span class='warning'>\The [I] is stuck to your hand, you cannot put it in the cistern!</span>")
-			return
-		I.loc = src
-		w_items += I.w_class
-		to_chat(user, "<span class='notice'>You carefully place [I] into the cistern.</span>")
+		stash_goods(I, user)
 		return
+
+/obj/structure/toilet/proc/stash_goods(obj/item/I, mob/user)
+	if(!I)
+		return
+	if(I.w_class > WEIGHT_CLASS_NORMAL)
+		to_chat(user, "<span class='warning'>[I] does not fit!</span>")
+		return
+	if(w_items + I.w_class > WEIGHT_CLASS_HUGE)
+		to_chat(user, "<span class='warning'>The cistern is full!</span>")
+		return
+	if(!user.drop_item())
+		to_chat(user, "<span class='warning'>\The [I] is stuck to your hand, you cannot put it in the cistern!</span>")
+		return
+	I.loc = src
+	w_items += I.w_class
+	to_chat(user, "<span class='notice'>You carefully place [I] into the cistern.</span>")
 
 /obj/structure/toilet/secret
 	var/secret_type = null
@@ -141,6 +198,27 @@
 
 
 /obj/structure/urinal/attackby(obj/item/I, mob/user, params)
+	if(iswrench(I))
+		if(anchored)
+			user.visible_message("[user] begins disconnecting [src]...", "<span class='notice'>You begin to disconnect [src]...</span>")
+			if(do_after(user, 40 * I.toolspeed, target = src))
+				if(!loc || !anchored)
+					return
+				user.visible_message("[user] disconnected [src]!", "<span class='notice'>You disconnected [src]!</span>")
+				anchored = 0
+				pixel_x = 0
+				pixel_y = 0
+		else
+			user.visible_message("[user] begins connecting [src]...", "<span class='notice'>You begin to connect [src]...</span>")
+			if(do_after(user, 40 * I.toolspeed, target = src))
+				if(!loc || anchored)
+					return
+				user.visible_message("[user] connected [src]!", "<span class='notice'>You connected [src]!</span>")
+				anchored = 1
+				pixel_x = 0
+				pixel_y = 32
+		return
+
 	if(istype(I, /obj/item/weapon/grab))
 		var/obj/item/weapon/grab/G = I
 		if(!G.confirm())
@@ -398,7 +476,9 @@
 		return
 	if(!Adjacent(user))
 		return
-
+	if(!anchored)
+		to_chat(user, "<span class='warning'>This [src] isn't connected, wrench it into position first!</span>")
+		return
 	if(ishuman(user))
 		var/mob/living/carbon/human/H = user
 		var/obj/item/organ/external/temp = H.bodyparts_by_name["r_hand"]
@@ -445,6 +525,45 @@
 
 	if(!(istype(O)))
 		return
+	if(iswrench(O) && !istype(src, /obj/structure/sink/puddle))		//puddles laugh at your attempt to disconnect them. you can't remove a puddle from the ground with a wrench!
+		var/obj/item/weapon/wrench/W = O
+		if(anchored)
+			var/response = alert(user, "Would you like to wash [W] or disconnect [src]?", "Wrench", "Wash", "Disconnect")
+			if(response == "Disconnect")
+				user.visible_message("[user] is disconnecting [src].", "<span class='notice'>You are disconnecting [src]...</span>")
+				if(do_after(user, 40 * W.toolspeed, target = src))
+					if(!loc || !anchored)
+						return
+					user.visible_message("[user] disconnected [src]!", "<span class='notice'>You disconnected [src]!</span>")
+					anchored = 0
+					update_icon()
+					return
+			else if(response == "Cancel")
+				return
+		else
+			var/response
+			if(istype(src, /obj/structure/sink/kitchen))
+				response = "Connect"	//Kitchen sinks can't be rotated because they only have one directional state (SOUTH)
+			else
+				response = alert(user, "Would you like to rotate or connect [src]?", "Wrench", "Rotate", "Connect", "Cancel")
+			if(response == "Connect")
+				user.visible_message("[user] is connecting [src].", "<span class='notice'>You are connecting [src]...</span>")
+				if(do_after(user, 40 * W.toolspeed, target = src))
+					if(!loc || anchored)
+						return
+					user.visible_message("[user] connected [src]!", "<span class='notice'>You connected [src]!</span>")
+					anchored = 1
+					update_icon()
+			else if(response == "Rotate")
+				var/list/choices = list("North" = NORTH, "East" = EAST, "South" = SOUTH, "West" = WEST)
+				var/selected = input(user,"Select a direction for the connector.", "Connector Direction") in choices
+				dir = choices[selected]
+				update_icon()	//is this necessary? probably not
+			return
+
+	if(!anchored)
+		to_chat(user, "<span class='warning'>This [src] isn't connected, wrench it into position first!</span>")
+		return
 
 	busy = 1
 	var/wateract = 0
@@ -452,6 +571,27 @@
 	busy = 0
 	if(wateract)
 		O.water_act(20,310.15,src)
+
+/obj/structure/sink/update_icon()
+	..()
+	if(!anchored)
+		pixel_x = 0
+		pixel_y = 0
+	else
+		if(istype(src, /obj/structure/sink/puddle))
+			return
+		if(istype(src, /obj/structure/sink/kitchen))
+			pixel_x = 0
+			pixel_y = 28
+			return
+		else	//normal sinks
+			if(dir == NORTH || dir == SOUTH)
+				pixel_x = 0
+				pixel_y = (dir == NORTH) ? -30 : 30
+			else
+				pixel_x = (dir == EAST) ? 12 : -12
+				pixel_y = 0
+
 
 /obj/structure/sink/kitchen
 	name = "kitchen sink"
