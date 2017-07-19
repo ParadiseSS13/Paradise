@@ -2074,6 +2074,9 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 						real_name = random_name(gender)
 						save_character(user)
 					close_load_dialog(user)
+					if(isnewplayer(user))
+						var/mob/new_player/N = user
+						N.new_player_panel_proc()
 
 				if("tab")
 					if(href_list["tab"])
