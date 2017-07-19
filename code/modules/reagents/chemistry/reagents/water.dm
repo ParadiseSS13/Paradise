@@ -218,7 +218,7 @@
 			if((!data || !(data["blood_type"] in get_safe_blood(C.dna.b_type))))
 				C.reagents.add_reagent("toxin", volume * 0.5)
 			else
-				C.blood_volume = min(C.blood_volume + round(volume, 0.1), BLOOD_VOLUME_MAXIMUM)
+				C.blood_volume = min(C.blood_volume + round(volume, 0.1), BLOOD_VOLUME_NORMAL)
 
 /datum/reagent/blood/on_new(list/data)
 	if(istype(data))

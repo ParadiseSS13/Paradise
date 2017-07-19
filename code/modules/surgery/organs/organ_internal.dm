@@ -258,7 +258,7 @@
 		var/mob/living/carbon/human/H = owner
 		if(istype(H))
 			if(!(NO_BLOOD in H.species.species_traits))
-				H.blood_volume = min(H.blood_volume + cursed_heart.blood_loss*0.5, BLOOD_VOLUME_MAXIMUM)
+				H.blood_volume = min(H.blood_volume + cursed_heart.blood_loss*0.5, BLOOD_VOLUME_NORMAL)
 				if(owner.client)
 					owner.client.color = ""
 
