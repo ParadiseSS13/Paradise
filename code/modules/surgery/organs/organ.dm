@@ -46,7 +46,6 @@ var/list/organ_cache = list()
 
 /obj/item/organ/New(var/mob/living/carbon/holder)
 	..(holder)
-	create_reagents(5)
 	if(!max_damage)
 		max_damage = min_broken_damage * 2
 	if(istype(holder))
@@ -101,11 +100,6 @@ var/list/organ_cache = list()
 		return
 
 	if(!owner)
-		if(reagents && prob(40))
-			reagents.remove_any(0.1)
-			for(var/datum/reagent/R in reagents.reagent_list)
-				R.reaction_turf(get_turf(src), 0.1)
-
 		// Maybe scale it down a bit, have it REALLY kick in once past the basic infection threshold
 		// Another mercy for surgeons preparing transplant organs
 		germ_level++
@@ -114,9 +108,6 @@ var/list/organ_cache = list()
 		if(germ_level >= INFECTION_LEVEL_TWO)
 			germ_level += rand(2,6)
 		if(germ_level >= INFECTION_LEVEL_THREE)
-			necrotize()
-
-		if(damage >= max_damage)
 			necrotize()
 
 	else if(owner.bodytemperature >= 170)	//cryo stops germs from moving and doing their bad stuffs
@@ -136,7 +127,7 @@ var/list/organ_cache = list()
 		return 1
 	if(is_found_within(/obj/structure/closet/crate/freezer))
 		return 1
-	if(istype(loc,/turf))
+	if(isturf(loc))
 		if(world.time - last_freezer_update_time > freezer_update_period)
 			// I don't want to loop through everything in the tile constantly, especially since it'll be a pile of organs
 			// if the virologist releases gibbingtons again or something
@@ -251,10 +242,8 @@ var/list/organ_cache = list()
 /obj/item/organ/proc/robotize() //Being used to make robutt hearts, etc
 	robotic = 2
 	status &= ~ORGAN_BROKEN
-	status &= ~ORGAN_BLEEDING
 	status &= ~ORGAN_SPLINTED
 	status &= ~ORGAN_CUT_AWAY
-	status &= ~ORGAN_ATTACHABLE
 	status &= ~ORGAN_DESTROYED
 	status |= ORGAN_ROBOT
 	status |= ORGAN_ASSISTED
@@ -316,10 +305,6 @@ var/list/organ_cache = list()
 
 	loc = get_turf(owner)
 	processing_objects |= src
-	var/datum/reagent/blood/organ_blood
-	if(reagents) organ_blood = reagents.get_reagent_from_id(owner.get_blood_id())
-	if((!organ_blood || !organ_blood.data["blood_DNA"]) && (owner && !(NO_BLOOD in owner.species.species_traits)))
-		owner.transfer_blood_to(src)
 
 	if(owner && vital && is_primary_organ()) // I'd do another check for species or whatever so that you couldn't "kill" an IPC by removing a human head from them, but it doesn't matter since they'll come right back from the dead
 		if(user)

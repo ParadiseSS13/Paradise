@@ -353,7 +353,7 @@
 		else if(istype(tool, /obj/item/stack/medical/bruise_pack) || istype(tool, /obj/item/stack/nanopaste))
 			dam_amt = 5
 			target.adjustToxLoss(10)
-			affected.createwound(CUT, 5)
+			affected.take_damage(5)
 
 		for(var/obj/item/organ/internal/I in affected.internal_organs)
 			if(I && I.damage > 0 && !(I.tough))
@@ -401,7 +401,7 @@
 			if(affected)
 				user.visible_message("<span class='warning'> [user]'s hand slips, damaging [target]'s [affected.name] with [tool]!</span>", \
 				"<span class='warning'> Your hand slips, damaging [target]'s [affected.name] with [tool]!</span>")
-				affected.createwound(BRUISE, 20)
+				affected.take_damage(20)
 			else
 				user.visible_message("<span class='warning'> [user]'s hand slips, damaging [target]'s [parse_zone(target_zone)] with [tool]!</span>", \
 				"<span class='warning'> Your hand slips, damaging [target]'s [parse_zone(target_zone)] with [tool]!</span>")
@@ -421,7 +421,7 @@
 			var/self_msg = "<span class='warning'> Your hand slips, tearing skin!</span>"
 			user.visible_message(msg, self_msg)
 		if(affected)
-			affected.createwound(BRUISE, 20)
+			affected.take_damage(20)
 		return 0
 
 

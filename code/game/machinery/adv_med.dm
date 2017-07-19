@@ -429,10 +429,8 @@
 			if(istype(E, /obj/item/organ/external/chest) && H.is_lung_ruptured())
 				organData["lungRuptured"] = 1
 
-			for(var/datum/wound/W in E.wounds)
-				if(W.internal)
-					organData["internalBleeding"] = 1
-					break
+			if(E.internal_bleeding)
+				organData["internalBleeding"] = 1
 
 			extOrganData.Add(list(organData))
 
@@ -580,9 +578,8 @@
 				var/splint = ""
 				var/internal_bleeding = ""
 				var/lung_ruptured = ""
-				for(var/datum/wound/W in e.wounds) if(W.internal)
+				if(e.internal_bleeding)
 					internal_bleeding = "<br>Internal bleeding"
-					break
 				if(istype(e, /obj/item/organ/external/chest) && occupant.is_lung_ruptured())
 					lung_ruptured = "Lung ruptured:"
 				if(e.status & ORGAN_SPLINTED)

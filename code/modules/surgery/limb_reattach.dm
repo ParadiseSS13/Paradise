@@ -198,9 +198,6 @@
 	user.visible_message("<span class='notice'>[user] has connected tendons and muscles in [target]'s [E.amputation_point] with [tool].</span>",	\
 	"<span class='notice'>You have connected tendons and muscles in [target]'s [E.amputation_point] with [tool].</span>")
 	E.status &= ~ORGAN_DESTROYED
-	var/obj/item/organ/external/stump = target.bodyparts_by_name["limb stump"]
-	if(stump)
-		stump.remove(target)
 	if(E.children)
 		for(var/obj/item/organ/external/C in E.children)
 			C.status &= ~ORGAN_DESTROYED

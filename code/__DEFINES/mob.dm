@@ -2,17 +2,13 @@
 
 // Organ defines.
 #define ORGAN_CUT_AWAY   1
-#define ORGAN_GAUZED     2
-#define ORGAN_ATTACHABLE 4
-#define ORGAN_BLEEDING   8
-#define ORGAN_BROKEN     32
-#define ORGAN_DESTROYED  64
-#define ORGAN_ROBOT      128
-#define ORGAN_SPLINTED   256
-#define SALVED           512
-#define ORGAN_DEAD       1024
-#define ORGAN_MUTATED    2048
-#define ORGAN_ASSISTED   4096
+#define ORGAN_BROKEN     2
+#define ORGAN_DESTROYED  4
+#define ORGAN_ROBOT      8
+#define ORGAN_SPLINTED   16
+#define ORGAN_DEAD       32
+#define ORGAN_MUTATED    64
+#define ORGAN_ASSISTED   128
 
 #define DROPLIMB_SHARP 0
 #define DROPLIMB_BLUNT 1

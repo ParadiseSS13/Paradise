@@ -643,12 +643,12 @@
 	var/list/missing_limbs = list()
 	for(var/l in bodyparts_by_name)
 		var/obj/item/organ/external/E = bodyparts_by_name[l]
-		if(!istype(E) || istype(E, /obj/item/organ/external/stump))
+		if(!istype(E))
 			var/list/limblist = species.has_limbs[l]
 			var/obj/item/organ/external/limb = limblist["path"]
 			var/parent_organ = initial(limb.parent_organ)
 			var/obj/item/organ/external/parentLimb = bodyparts_by_name[parent_organ]
-			if(!istype(parentLimb) || parentLimb.is_stump())
+			if(!istype(parentLimb))
 				continue
 			missing_limbs[initial(limb.name)] = l
 
@@ -674,21 +674,17 @@
 		var/stored_brute = 0
 		var/stored_burn = 0
 		if(istype(O))
-			if(!O.is_stump())
-				to_chat(src, "<span class='warning'>Your limb has already been replaced in some way!</span>")
-				return
-			else
-				to_chat(src, "<span class='warning'>You distribute the damaged tissue around your body, out of the way of your new pseudopod!</span>")
-				var/obj/item/organ/external/doomedStump = O
-				stored_brute = doomedStump.brute_dam
-				stored_burn = doomedStump.burn_dam
-				qdel(O)
+			to_chat(src, "<span class='warning'>You distribute the damaged tissue around your body, out of the way of your new pseudopod!</span>")
+			var/obj/item/organ/external/doomedStump = O
+			stored_brute = doomedStump.brute_dam
+			stored_burn = doomedStump.burn_dam
+			qdel(O)
 
 		var/limb_list = species.has_limbs[chosen_limb]
 		var/obj/item/organ/external/limb_path = limb_list["path"]
 		// Parent check
 		var/obj/item/organ/external/potential_parent = bodyparts_by_name[initial(limb_path.parent_organ)]
-		if(!istype(potential_parent) || potential_parent.is_stump())
+		if(!istype(potential_parent))
 			to_chat(src, "<span class='danger'>You've lost the organ that you've been growing your new part on!</span>")
 			return // No rayman for you
 		// Grah this line will leave a "not used" warning, in spite of the fact that the new() proc WILL do the thing.

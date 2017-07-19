@@ -96,11 +96,7 @@
 	var/health_threshold_crit = 0
 	var/health_threshold_dead = -100
 
-	var/organ_health_multiplier = 1
-	var/organ_regeneration_multiplier = 1
-
 	var/bones_can_break = 1
-	var/limbs_can_break = 1
 
 	var/revival_pod_plants = 1
 	var/revival_cloning = 1
@@ -632,14 +628,8 @@
 					config.slime_delay = value
 				if("animal_delay")
 					config.animal_delay = value
-				if("organ_health_multiplier")
-					config.organ_health_multiplier = value / 100
-				if("organ_regeneration_multiplier")
-					config.organ_regeneration_multiplier = value / 100
 				if("bones_can_break")
 					config.bones_can_break = value
-				if("limbs_can_break")
-					config.limbs_can_break = value
 				if("shuttle_refuel_delay")
 					config.shuttle_refuel_delay     = text2num(value)
 				if("traitor_objectives_amount")

@@ -58,7 +58,7 @@ var/global/list/limb_icon_cache = list()
 	var/obj/item/organ/internal/eyes/eyes = owner.get_int_organ(/obj/item/organ/internal/eyes)//owner.internal_bodyparts_by_name["eyes"]
 	if(eyes) eyes.update_colour()
 
-/obj/item/organ/external/head/remove()
+/obj/item/organ/external/head/remove(mob/living/user, ignore_children)
 	get_icon()
 	. = ..()
 
@@ -172,7 +172,7 @@ var/global/list/limb_icon_cache = list()
 				gender = "f"
 			else
 				gender = "m"
-		if(limb_name == "head" && !is_stump() && !(status & ORGAN_DESTROYED))
+		if(limb_name == "head" && !(status & ORGAN_DESTROYED))
 			var/obj/item/organ/external/head/head_organ = src
 			head_organ.handle_alt_icon()
 

@@ -40,7 +40,7 @@
 /obj/item/organ/internal/headpocket/on_owner_death()
 	empty_contents()
 
-/obj/item/organ/internal/headpocket/remove()
+/obj/item/organ/internal/headpocket/remove(mob/living/carbon/M, special = 0)
 	empty_contents()
 	. = ..()
 
