@@ -256,7 +256,7 @@
 	if(!L || L && (L.status & ORGAN_DEAD))
 		if(health >= config.health_threshold_crit)
 			adjustOxyLoss(HUMAN_MAX_OXYLOSS + 1)
-		else if(!(NOCRITDAMAGE in species.species_traits))
+		else
 			adjustOxyLoss(HUMAN_CRIT_MAX_OXYLOSS)
 
 		failed_last_breath = TRUE

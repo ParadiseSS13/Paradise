@@ -74,7 +74,7 @@
 	if(!breath || (breath.total_moles() == 0))
 		if(H.health >= config.health_threshold_crit)
 			H.adjustOxyLoss(HUMAN_MAX_OXYLOSS)
-		else if(!(NOCRITDAMAGE in species_traits))
+		else
 			H.adjustOxyLoss(HUMAN_CRIT_MAX_OXYLOSS)
 
 		H.failed_last_breath = TRUE
