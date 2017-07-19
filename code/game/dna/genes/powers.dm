@@ -11,7 +11,7 @@
 	activation_prob=25
 
 /datum/dna/gene/basic/nobreath/New()
-	block=  BREATHLESSBLOCK
+	block = BREATHLESSBLOCK
 
 
 /datum/dna/gene/basic/regenerate

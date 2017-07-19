@@ -51,6 +51,17 @@
 	var/heat_level_3_damage = HEAT_GAS_DAMAGE_LEVEL_3
 	var/heat_damage_type = BURN
 
+/obj/item/organ/internal/lungs/insert(mob/living/carbon/M, special = 0, dont_remove_slot = 0)
+	..()
+	for(var/thing in list("oxy", "tox", "co2", "nitro"))
+		M.clear_alert("not_enough_[thing]")
+		M.clear_alert("too_much_[thing]")
+
+/obj/item/organ/internal/lungs/remove(mob/living/carbon/M, special = 0)
+	for(var/thing in list("oxy", "tox", "co2", "nitro"))
+		M.clear_alert("not_enough_[thing]")
+		M.clear_alert("too_much_[thing]")
+	return ..()
 
 /obj/item/organ/internal/lungs/proc/check_breath(datum/gas_mixture/breath, mob/living/carbon/human/H)
 	if((H.status_flags & GODMODE))
