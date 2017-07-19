@@ -88,7 +88,7 @@ var/global/sent_syndicate_infiltration_team = 0
 			if(!spawn_sit_mgmt || theguy.key != key)
 				new_syndicate_infiltrator.key = theguy.key
 				new_syndicate_infiltrator.internal = new_syndicate_infiltrator.s_store
-				new_syndicate_infiltrator.update_internals_hud_icon(1)
+				new_syndicate_infiltrator.update_action_buttons_icon()
 			infiltrators -= theguy
 		to_chat(new_syndicate_infiltrator, "<span class='danger'>You are a [!syndicate_leader_selected?"Infiltrator":"<B>Lead Infiltrator</B>"] in the service of the Syndicate. \nYour current mission is: <B>[input]</B></span>")
 		to_chat(new_syndicate_infiltrator, "<span class='notice'>You are equipped with an uplink implant to help you achieve your objectives. ((activate it via button in top left of screen))</span>")
@@ -119,7 +119,7 @@ var/global/sent_syndicate_infiltration_team = 0
 			var/mob/living/carbon/human/syndimgmtmob = create_syndicate_infiltrator(L, 1, 100, 1)
 			syndimgmtmob.key = key
 			syndimgmtmob.internal = syndimgmtmob.s_store
-			syndimgmtmob.update_internals_hud_icon(1)
+			syndimgmtmob.update_action_buttons_icon()
 			syndimgmtmob.faction += "syndicate"
 			syndimgmtmob.equip_to_slot_or_del(new /obj/item/clothing/glasses/thermal(src), slot_glasses)
 			syndimgmtmob.equip_to_slot_or_del(new /obj/item/clothing/suit/space/hardsuit/syndi/elite, slot_wear_suit)

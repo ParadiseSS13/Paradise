@@ -191,12 +191,9 @@
 					internal = null //turn off internals
 
 		if(internal)
-			update_internals_hud_icon(1)
 			return internal.remove_air_volume(volume_needed)
 		else
-			update_internals_hud_icon(0)
-
-	return
+			update_action_buttons_icon()
 
 /mob/living/carbon/handle_diseases()
 	for(var/thing in viruses)

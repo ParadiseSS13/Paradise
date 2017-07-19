@@ -155,7 +155,7 @@
 	H.equip_or_collect(new /obj/item/weapon/plasmensuit_cartridge(H), slot_in_backpack) //Two refill cartridges for their suit. Can fit in boxes.
 	to_chat(H, "<span class='notice'>You are now running on plasma internals from the [H.s_store] in your [tank_slot_name]. You must breathe plasma in order to survive, and are extremely flammable.</span>")
 	H.internal = H.get_item_by_slot(tank_slot)
-	H.update_internals_hud_icon(1)
+	H.update_action_buttons_icon()
 
 /datum/species/plasmaman/handle_life(var/mob/living/carbon/human/H)
 	if(!istype(H.wear_suit, /obj/item/clothing/suit/space/eva/plasmaman) || !istype(H.head, /obj/item/clothing/head/helmet/space/eva/plasmaman))
