@@ -2157,6 +2157,7 @@
 #include "code\modules\surgery\organs\blood.dm"
 #include "code\modules\surgery\organs\body_egg.dm"
 #include "code\modules\surgery\organs\helpers.dm"
+#include "code\modules\surgery\organs\lungs.dm"
 #include "code\modules\surgery\organs\organ.dm"
 #include "code\modules\surgery\organs\organ_external.dm"
 #include "code\modules\surgery\organs\organ_icon.dm"

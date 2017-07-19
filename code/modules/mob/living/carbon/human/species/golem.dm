@@ -30,7 +30,6 @@
 	heat_level_1 = 999999999
 	heat_level_2 = 999999999
 	heat_level_3 = 999999999
-	heat_level_3_breathe = 999999999
 
 	blood_color = "#515573"
 	flesh_color = "#137E8F"

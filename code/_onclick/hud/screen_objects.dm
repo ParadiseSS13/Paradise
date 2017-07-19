@@ -127,7 +127,7 @@
 
 		if(ishuman(C))
 			var/mob/living/carbon/human/H = C
-			breathes = H.species.breath_type
+			breathes = H.species.breathid
 			nicename = list("suit", "back", "belt", "right hand", "left hand", "left pocket", "right pocket")
 			tankcheck = list(H.s_store, C.back, H.belt, C.r_hand, C.l_hand, H.l_store, H.r_store)
 		else
@@ -146,22 +146,22 @@
 			if(istype(tankcheck[i], /obj/item/weapon/tank))
 				var/obj/item/weapon/tank/t = tankcheck[i]
 				switch(breathes)
-					if("nitrogen")
+					if("n2")
 						if(t.air_contents.nitrogen && !t.air_contents.oxygen)
 							contents.Add(t.air_contents.nitrogen)
 						else
 							contents.Add(0)
-					if("oxygen")
+					if("o2")
 						if(t.air_contents.oxygen && !t.air_contents.toxins)
 							contents.Add(t.air_contents.oxygen)
 						else
 							contents.Add(0)
-					if("carbon dioxide")
+					if("co2")
 						if(t.air_contents.carbon_dioxide && !t.air_contents.toxins)
 							contents.Add(t.air_contents.carbon_dioxide)
 						else
 							contents.Add(0)
-					if("plasma")
+					if("toxin")
 						if(t.air_contents.toxins)
 							contents.Add(t.air_contents.toxins)
 						else
