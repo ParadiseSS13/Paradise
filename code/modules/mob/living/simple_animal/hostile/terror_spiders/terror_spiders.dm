@@ -47,6 +47,7 @@ var/global/list/ts_spiderling_list = list()
 	var/freq_ventcrawl_combat = 1800 // 3 minutes
 	var/freq_ventcrawl_idle =  9000 // 15 minutes
 	var/last_ventcrawl_time = -9000 // Last time the spider crawled. Used to prevent excessive crawling. Setting to freq*-1 ensures they can crawl once on spawn.
+	var/ai_ventbreaker = 0
 
 	// AI movement tracking
 	var/spider_steps_taken = 0 // leave at 0, its a counter for ai steps taken.

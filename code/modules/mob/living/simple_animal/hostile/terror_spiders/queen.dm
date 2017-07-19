@@ -190,7 +190,10 @@
 					SetHiveCommand(0, 15) // AI=0 (attack everyone), ventcrawl=15%/tick
 					var/numspiders = CountSpiders()
 					if(numspiders < spider_max_per_nest)
-						if(prob(33))
+						var/numbreakers = CountSpidersType(/mob/living/simple_animal/hostile/poison/terror_spider/brown)
+						if(!numbreakers)
+							DoLayTerrorEggs(/mob/living/simple_animal/hostile/poison/terror_spider/white/tunneler, 1, 1)
+						else if(prob(33))
 							DoLayTerrorEggs(/mob/living/simple_animal/hostile/poison/terror_spider/black, 2, 1)
 						else if(prob(50))
 							DoLayTerrorEggs(/mob/living/simple_animal/hostile/poison/terror_spider/red, 2, 0)
