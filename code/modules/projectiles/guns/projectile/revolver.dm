@@ -331,8 +331,9 @@
 	sawn_desc = "I'm just here for the gasoline."
 	unique_rename = 0
 	unique_reskin = 0
-	var/slung = 0
+	var/slung = FALSE
 	var/sawn = FALSE
+	var/offset = 0 //For carbine magazines and attachments
 
 /obj/item/weapon/gun/projectile/revolver/doublebarrel/improvised/attackby(obj/item/A, mob/user, params)
 	..()
@@ -342,24 +343,35 @@
 			slot_flags = SLOT_BACK
 			icon_state = "ishotgunsling"
 			to_chat(user, "<span class='notice'>You tie the lengths of cable to the gun, making a sling.</span>")
-			slung = 1
-			icon_state = "[initial(icon_state)]sling"
+			slung = TRUE
+			update_icon()
 		else
 			to_chat(user, "<span class='warning'>You need at least ten lengths of cable if you want to make a sling.</span>")
 			return
 
 /obj/item/weapon/gun/projectile/revolver/doublebarrel/improvised/update_icon()
 	..()
-	if(slung && (slot_flags & SLOT_BELT) )
-		slung = 0
+	icon_state = "[initial(icon_state)][slung ? "sling" : "" ][sawn_state ? "-sawn" : ""]"
+	if(slung && (slot_flags & SLOT_BELT)
 		icon_state = "[initial(icon_state)]-sawn"
+	overlays.Cut()
+	if(magazine.max_ammo > 1)
+		if(sawn)
+			overlays += image(icon = icon, icon_state = "[initial(icon_state)]-[get_ammo(0,0)]", pixel_x = offset)
+		else
+			overlays += image(icon = icon, icon_state = "[initial(icon_state)]-[get_ammo(0,0)]", pixel_x = offset)
+	if(suppressed)
+		if(sawn)
+			overlays += image(icon = icon, icon_state = "improsupp", pixel_x = -6+offset)
+		else
+			overlays += image(icon = icon, icon_state = "improsupp", pixel_x = -6)
 
 /obj/item/weapon/gun/projectile/revolver/doublebarrel/improvised/sawoff(mob/user)
 	. = ..()
 	sawn = TRUE
 	if(. && slung) //sawing off the gun removes the sling
 		new /obj/item/stack/cable_coil(get_turf(src), 10)
-		slung = 0
+		slung = FALSE
 	update_icon()
 
 // 	IMPROVISED CARBINES //
@@ -371,16 +383,9 @@
 	desc = "Essentially a tube that aims .45 bullets."
 	icon_state = "i45"
 	mag_type = /obj/item/ammo_box/magazine/internal/shot/improvised/i45
-	sawn_desc = "Placeholder."
-
-/obj/item/weapon/gun/projectile/revolver/doublebarrel/improvised/i45/update_icon()
-	..()
-	if(magazine.max_ammo > 1)
-		overlays.Cut()
-		var/offset = 0
-		if(sawn)
-			offset = 3
-		overlays += image(icon = icon, icon_state = "[initial(icon_state)]-[get_ammo(0,0)]", pixel_x = offset)
+	sawn_desc = "Leave them breathless."
+	can_suppress = TRUE
+	offset = 3
 
 /obj/item/weapon/gun/projectile/revolver/doublebarrel/improvised/i45/attackby(obj/item/A, mob/user, params)
 	..()
@@ -407,16 +412,9 @@
 	desc = "Essentially a tube that aims 9mm bullets."
 	icon_state = "i9"
 	mag_type = /obj/item/ammo_box/magazine/internal/shot/improvised/i9
-	sawn_desc = "Placeholder."
-
-/obj/item/weapon/gun/projectile/revolver/doublebarrel/improvised/i9/update_icon()
-	..()
-	if(magazine.max_ammo > 1)
-		overlays.Cut()
-		var/offset = 0
-		if(sawn)
-			offset = 2
-		overlays += image(icon = icon, icon_state = "[initial(icon_state)]-[get_ammo(0,0)]", pixel_x = offset)
+	sawn_desc = "Pew Pew Motherhonker."
+	can_suppress = TRUE
+	offset = 2
 
 /obj/item/weapon/gun/projectile/revolver/doublebarrel/improvised/i9/attackby(obj/item/A, mob/user, params)
 	..()
@@ -443,7 +441,7 @@
 	desc = "Essentially a tube that aims .357 bullets."
 	icon_state = "i357"
 	mag_type = /obj/item/ammo_box/magazine/internal/shot/improvised/i357
-	sawn_desc = "Placeholder."
+	sawn_desc = "Hell Ya, I have the power of God."
 
 /obj/item/weapon/gun/projectile/revolver/doublebarrel/improvised/i357/attackby(obj/item/A, mob/user, params)
 	..()
