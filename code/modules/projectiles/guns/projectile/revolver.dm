@@ -357,7 +357,7 @@
 		if(sawn)
 			overlays += image(icon = icon, icon_state = "[initial(icon_state)]-[get_ammo(0,0)]", pixel_x = offset)
 		else
-			overlays += image(icon = icon, icon_state = "[initial(icon_state)]-[get_ammo(0,0)]", pixel_x = offset)
+			overlays += image(icon = icon, icon_state = "[initial(icon_state)]-[get_ammo(0,0)]")
 	if(suppressed)
 		if(sawn)
 			overlays += image(icon = icon, icon_state = "improsupp", pixel_x = -6+offset)
