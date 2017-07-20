@@ -33,7 +33,6 @@
 	create_reagents(330)
 
 	prev_gender = gender // Debug for plural genders
-	make_blood()
 
 	martial_art = default_martial_art
 
@@ -539,12 +538,10 @@
 	popup.open()
 
 
-// called when something steps onto a human
-// this handles mulebots and vehicles
-/mob/living/carbon/human/Crossed(var/atom/movable/AM)
-	if(istype(AM, /obj/vehicle))
-		var/obj/vehicle/V = AM
-		V.RunOver(src)
+/mob/living/carbon/human/Crossed(atom/movable/AM)
+	var/mob/living/simple_animal/bot/mulebot/MB = AM
+	if(istype(MB))
+		MB.RunOver(src)
 
 // Get rank from ID, ID inside PDA, PDA, ID in wallet, etc.
 /mob/living/carbon/human/proc/get_authentification_rank(var/if_no_id = "No id", var/if_no_job = "No job")
@@ -1211,18 +1208,10 @@
 	for(var/obj/item/organ/internal/I in H.internal_organs)
 		types_of_int_organs |= I.type //Compiling the list of organ types. It is possible for organs to be missing from this list if they are absent from the mob.
 
-	//Removing stumps.
-	for(var/obj/item/organ/organ in H.contents)
-		if(istype(organ, /obj/item/organ/external/stump)) //Get rid of all stumps.
-			qdel(organ)
-			H.contents -= organ //Making sure the list entry is removed.
-	for(var/obj/item/organ/organ in H.bodyparts)
-		if(istype(organ, /obj/item/organ/external/stump))
-			qdel(organ)
-			H.bodyparts -= organ //Making sure the list entry is removed.
+	//Clean up limbs
 	for(var/organ_name in H.bodyparts_by_name)
 		var/obj/item/organ/organ = H.bodyparts_by_name[organ_name]
-		if(istype(organ, /obj/item/organ/external/stump) || !organ) //The !organ check is to account for mechanical limb (prostheses) losses, since those are handled in a way that leaves indexed but null list entries instead of stumps.
+		if(!organ) //The !organ check is to account for mechanical limb (prostheses) losses, since those are handled in a way that leaves indexed but null list entries instead of stumps.
 			qdel(organ)
 			H.bodyparts_by_name -= organ_name //Making sure the list entry is removed.
 
@@ -1255,12 +1244,6 @@
 				I.insert(H)
 
 /mob/living/carbon/human/revive()
-
-	if(species && !(species.flags & NO_BLOOD))
-		var/blood_reagent = get_blood_name()
-		vessel.add_reagent(blood_reagent, max_blood-vessel.total_volume)
-		fixblood()
-
 	//Fix up all organs and replace lost ones.
 	restore_all_organs() //Rejuvenate and reset all existing organs.
 	check_and_regenerate_organs(src) //Regenerate limbs and organs only if they're really missing.
@@ -1332,23 +1315,13 @@
 */
 //returns 1 if made bloody, returns 0 otherwise
 
-/mob/living/carbon/human/add_blood(mob/living/carbon/human/M as mob)
-	if(!..())
-		return 0
-	//if this blood isn't already in the list, add it
-	if(blood_DNA[M.dna.unique_enzymes])
-		return 0 //already bloodied with this blood. Cannot add more.
-	blood_DNA[M.dna.unique_enzymes] = M.dna.b_type
-	hand_blood_color = blood_color
-	src.update_inv_gloves()
-	verbs += /mob/living/carbon/human/proc/bloody_doodle
-	return 1 //we applied blood to the item
-
 /mob/living/carbon/human/clean_blood(var/clean_feet)
 	.=..()
 	if(clean_feet && !shoes && istype(feet_blood_DNA, /list) && feet_blood_DNA.len)
 		feet_blood_color = null
 		qdel(feet_blood_DNA)
+		bloody_feet = list(BLOOD_STATE_HUMAN = 0, BLOOD_STATE_XENO = 0,  BLOOD_STATE_NOT_BLOODY = 0)
+		blood_state = BLOOD_STATE_NOT_BLOODY
 		update_inv_shoes(1)
 		return 1
 
@@ -1442,10 +1415,6 @@
 			oldspecies.handle_dna(src,1) // Remove any genes that belong to the old species
 
 	tail = species.tail
-
-	if(vessel)
-		vessel = null
-	make_blood()
 
 	maxHealth = species.total_health
 
@@ -1543,7 +1512,6 @@
 		overlays.Cut()
 		update_mutantrace(1)
 		regenerate_icons()
-		fixblood()
 
 	if(!delay_icon_update)
 		UpdateAppearance()
@@ -1622,11 +1590,11 @@
 		return
 
 	var/obj/item/organ/external/head/head_organ = get_organ("head")
-	if(!head_organ || head_organ.is_stump() || (head_organ.status & ORGAN_DESTROYED)) //If the rock'em-sock'em robot's head came off during a fight, they shouldn't be able to change their screen/optics.
+	if(!head_organ || (head_organ.status & ORGAN_DESTROYED)) //If the rock'em-sock'em robot's head came off during a fight, they shouldn't be able to change their screen/optics.
 		to_chat(src, "<span class='warning'>Where's your head at? Can't change your monitor/display without one.</span>")
 		return
 
-	if(species.flags & ALL_RPARTS) //If they can have a fully cybernetic body...
+	if(species.bodyflags & ALL_RPARTS) //If they can have a fully cybernetic body...
 		var/datum/robolimb/robohead = all_robolimbs[head_organ.model]
 		if(!head_organ)
 			return
@@ -1960,7 +1928,7 @@
 				. |= A.GetAccess()
 
 /mob/living/carbon/human/is_mechanical()
-	return ..() || (species.flags & ALL_RPARTS) != 0
+	return ..() || (species.bodyflags & ALL_RPARTS) != 0
 
 /mob/living/carbon/human/can_use_guns(var/obj/item/weapon/gun/G)
 	. = ..()
@@ -1969,7 +1937,7 @@
 		if(HULK in mutations)
 			to_chat(src, "<span class='warning'>Your meaty finger is much too large for the trigger guard!</span>")
 			return 0
-		if(species.flags & NOGUNS)
+		if(NOGUNS in species.species_traits)
 			to_chat(src, "<span class='warning'>Your fingers don't fit in the trigger guard!</span>")
 			return 0
 

@@ -235,8 +235,8 @@
 		return 1
 	return 0
 
-	/obj/item/ammo_box/magazine/m45/enforcer45/lethal
-		ammo_type = /obj/item/ammo_casing/c45
+/obj/item/ammo_box/magazine/m45/enforcer45/lethal
+	ammo_type = /obj/item/ammo_casing/c45
 
 /obj/item/ammo_box/magazine/wt550m9
 	name = "wt550 magazine (4.6x30mm)"

@@ -190,13 +190,15 @@
 	id = "blood"
 	reagent_state = LIQUID
 	color = "#C80000" // rgb: 200, 0, 0
+	metabolization_rate = 5 //fast rate so it disappears fast.
 	drink_icon = "glass_red"
 	drink_name = "Glass of Tomato juice"
 	drink_desc = "Are you sure this is tomato juice?"
 
 /datum/reagent/blood/reaction_mob(mob/living/M, method=TOUCH, volume)
 	if(data && data["viruses"])
-		for(var/datum/disease/D in data["viruses"])
+		for(var/thing in data["viruses"])
+			var/datum/disease/D = thing
 
 			if(D.spread_flags & SPECIAL || D.spread_flags & NON_CONTAGIOUS)
 				continue
@@ -205,6 +207,14 @@
 				M.ContractDisease(D)
 			else //ingest, patch or inject
 				M.ForceContractDisease(D)
+
+	if(method == INGEST && iscarbon(M))
+		var/mob/living/carbon/C = M
+		if(C.get_blood_id() == "blood")
+			if((!data || !(data["blood_type"] in get_safe_blood(C.dna.b_type))))
+				C.reagents.add_reagent("toxin", volume * 0.5)
+			else
+				C.blood_volume = min(C.blood_volume + round(volume, 0.1), BLOOD_VOLUME_NORMAL)
 
 /datum/reagent/blood/on_new(list/data)
 	if(istype(data))
@@ -234,13 +244,13 @@
 						preserve += D
 				data["viruses"] = preserve
 
-		if(mix_data["blood_colour"])
-			color = mix_data["blood_colour"]
+		if(mix_data["blood_color"])
+			color = mix_data["blood_color"]
 	return 1
 
 /datum/reagent/blood/on_update(atom/A)
-	if(data["blood_colour"])
-		color = data["blood_colour"]
+	if(data["blood_color"])
+		color = data["blood_color"]
 	return ..()
 
 /datum/reagent/blood/reaction_turf(turf/simulated/T, volume)//splash the blood all over the place
@@ -254,21 +264,11 @@
 			blood_prop = new(T)
 			blood_prop.blood_DNA[data["blood_DNA"]] = data["blood_type"]
 
-		for(var/datum/disease/D in data["viruses"])
-			var/datum/disease/newVirus = D.Copy(1)
-			blood_prop.viruses += newVirus
-			newVirus.holder = blood_prop
-
 	else if(istype(data["donor"], /mob/living/carbon/alien))
 		var/obj/effect/decal/cleanable/blood/xeno/blood_prop = locate() in T
 		if(!blood_prop)
 			blood_prop = new(T)
 			blood_prop.blood_DNA["UNKNOWN DNA STRUCTURE"] = "X*"
-
-		for(var/datum/disease/D in data["viruses"])
-			var/datum/disease/newVirus = D.Copy(1)
-			blood_prop.viruses += newVirus
-			newVirus.holder = blood_prop
 
 /datum/reagent/vaccine
 	//data must contain virus type
@@ -278,7 +278,8 @@
 
 /datum/reagent/vaccine/reaction_mob(mob/living/M, method=TOUCH, volume)
 	if(islist(data) && (method == INGEST))
-		for(var/datum/disease/D in M.viruses)
+		for(var/thing in M.viruses)
+			var/datum/disease/D = thing
 			if(D.GetDiseaseID() in data)
 				D.cure()
 		M.resistances |= data

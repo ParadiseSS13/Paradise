@@ -172,9 +172,8 @@ var/global/list/damage_icon_parts = list()
 	var/damage_appearance = ""
 
 	for(var/obj/item/organ/external/O in bodyparts)
-		if(O.is_stump())
-			continue
-		if(O.status & ORGAN_DESTROYED) damage_appearance += "d"
+		if(O.status & ORGAN_DESTROYED)
+			damage_appearance += "d"
 		else
 			damage_appearance += O.damage_state
 
@@ -190,8 +189,6 @@ var/global/list/damage_icon_parts = list()
 
 	// blend the individual damage states with our icons
 	for(var/obj/item/organ/external/O in bodyparts)
-		if(O.is_stump())
-			continue
 		if(!(O.status & ORGAN_DESTROYED))
 			O.update_icon()
 			if(O.damage_state == "00") continue
@@ -241,7 +238,7 @@ var/global/list/damage_icon_parts = list()
 
 	for(var/organ_tag in species.has_limbs)
 		var/obj/item/organ/external/part = bodyparts_by_name[organ_tag]
-		if(isnull(part) || part.is_stump() || (part.status & ORGAN_DESTROYED))
+		if(isnull(part)  || (part.status & ORGAN_DESTROYED))
 			icon_key += "0"
 		else if(part.status & ORGAN_ROBOT)
 			icon_key += "2[part.model ? "-[part.model]": ""]"
@@ -341,7 +338,7 @@ var/global/list/damage_icon_parts = list()
 	if(update_icons)
 		update_icons()
 
-	if(lip_style  && species && species.flags & HAS_LIPS)
+	if(lip_style  && (LIPS in species.species_traits))
 		var/icon/lips = icon("icon"='icons/mob/human_face.dmi', "icon_state"="lips_[lip_style]_s")
 		lips.Blend(lip_color, ICON_ADD)
 
@@ -368,7 +365,7 @@ var/global/list/damage_icon_parts = list()
 
 	//Body markings.
 	var/obj/item/organ/external/chest/chest_organ = get_organ("chest")
-	if(chest_organ && !chest_organ.is_stump() && !(chest_organ.status & ORGAN_DESTROYED) && m_styles["body"])
+	if(chest_organ && !(chest_organ.status & ORGAN_DESTROYED) && m_styles["body"])
 		var/body_marking = m_styles["body"]
 		var/datum/sprite_accessory/body_marking_style = marking_styles_list[body_marking]
 		if(body_marking_style && body_marking_style.species_allowed && (species.name in body_marking_style.species_allowed))
@@ -378,7 +375,7 @@ var/global/list/damage_icon_parts = list()
 			markings_standing.Blend(b_marking_s, ICON_OVERLAY)
 	//Head markings.
 	var/obj/item/organ/external/head/head_organ = get_organ("head")
-	if(head_organ && !head_organ.is_stump() && !(head_organ.status & ORGAN_DESTROYED) && m_styles["head"]) //If the head is destroyed, forget the head markings. This prevents floating optical markings on decapitated IPCs, for example.
+	if(head_organ && !(head_organ.status & ORGAN_DESTROYED) && m_styles["head"]) //If the head is destroyed, forget the head markings. This prevents floating optical markings on decapitated IPCs, for example.
 		var/head_marking = m_styles["head"]
 		var/datum/sprite_accessory/head_marking_style = marking_styles_list[head_marking]
 		if(head_marking_style && head_marking_style.species_allowed && (head_organ.species.name in head_marking_style.species_allowed))
@@ -398,7 +395,7 @@ var/global/list/damage_icon_parts = list()
 	overlays_standing[HEAD_ACC_OVER_LAYER]	= null
 
 	var/obj/item/organ/external/head/head_organ = get_organ("head")
-	if(!head_organ || head_organ.is_stump() || (head_organ.status & ORGAN_DESTROYED) )
+	if(!head_organ || (head_organ.status & ORGAN_DESTROYED) )
 		if(update_icons)   update_icons()
 		return
 
@@ -435,7 +432,7 @@ var/global/list/damage_icon_parts = list()
 	overlays_standing[HAIR_LAYER] = null
 
 	var/obj/item/organ/external/head/head_organ = get_organ("head")
-	if(!head_organ || head_organ.is_stump() || (head_organ.status & ORGAN_DESTROYED))
+	if(!head_organ || (head_organ.status & ORGAN_DESTROYED))
 		if(update_icons)   update_icons()
 		return
 
@@ -453,7 +450,7 @@ var/global/list/damage_icon_parts = list()
 		//if(!src.get_int_organ(/obj/item/organ/internal/brain) && src.get_species() != "Machine" )//make it obvious we have NO BRAIN
 		//	hair_standing.Blend(debrained_s, ICON_OVERLAY)
 		if(hair_style && hair_style.species_allowed)
-			if((head_organ.species.name in hair_style.species_allowed) || (head_organ.species.flags & ALL_RPARTS)) //If the head's species is in the list of allowed species for the hairstyle, or the head's species is one flagged to have bodies comprised wholly of cybernetics...
+			if((head_organ.species.name in hair_style.species_allowed) || (head_organ.species.bodyflags & ALL_RPARTS)) //If the head's species is in the list of allowed species for the hairstyle, or the head's species is one flagged to have bodies comprised wholly of cybernetics...
 				var/icon/hair_s = new/icon("icon" = hair_style.icon, "icon_state" = "[hair_style.icon_state]_s")
 				if(head_organ.species.name == "Slime People") // I am el worstos
 					hair_s.Blend(rgb(r_skin, g_skin, b_skin, 160), ICON_AND)
@@ -484,7 +481,7 @@ var/global/list/damage_icon_parts = list()
 	overlays_standing[FHAIR_OVER_LAYER]	= null
 
 	var/obj/item/organ/external/head/head_organ = get_organ("head")
-	if(!head_organ || head_organ.is_stump() || (head_organ.status & ORGAN_DESTROYED))
+	if(!head_organ || (head_organ.status & ORGAN_DESTROYED))
 		if(update_icons)   update_icons()
 		return
 
@@ -499,7 +496,7 @@ var/global/list/damage_icon_parts = list()
 	if(head_organ.f_style)
 		var/datum/sprite_accessory/facial_hair/facial_hair_style = facial_hair_styles_list[head_organ.f_style]
 		if(facial_hair_style && facial_hair_style.species_allowed)
-			if((head_organ.species.name in facial_hair_style.species_allowed) || (head_organ.species.flags & ALL_RPARTS)) //If the head's species is in the list of allowed species for the hairstyle, or the head's species is one flagged to have bodies comprised wholly of cybernetics...
+			if((head_organ.species.name in facial_hair_style.species_allowed) || (head_organ.species.bodyflags & ALL_RPARTS)) //If the head's species is in the list of allowed species for the hairstyle, or the head's species is one flagged to have bodies comprised wholly of cybernetics...
 				var/icon/facial_s = new/icon("icon" = facial_hair_style.icon, "icon_state" = "[facial_hair_style.icon_state]_s")
 				if(head_organ.species.name == "Slime People") // I am el worstos
 					facial_s.Blend(rgb(r_skin, g_skin, b_skin, 160), ICON_AND)

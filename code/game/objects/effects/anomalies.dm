@@ -21,7 +21,7 @@
 	poi_list |= src
 
 /obj/effect/anomaly/Destroy()
-	aSignal = null
+	QDEL_NULL(aSignal)
 	poi_list.Remove(src)
 	return ..()
 
@@ -31,10 +31,13 @@
 
 
 /obj/effect/anomaly/proc/anomalyNeutralize()
-	new /obj/effect/effect/bad_smoke(loc)
+	var/turf/T = get_turf(src)
 
-	for(var/atom/movable/O in src)
-		O.loc = src.loc
+	new /obj/effect/effect/bad_smoke(T)
+
+	if(aSignal)
+		aSignal.forceMove(T)
+		aSignal = null
 
 	qdel(src)
 

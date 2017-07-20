@@ -107,7 +107,7 @@
 		for(var/i=0 to distance)
 			if(blood)
 				if(T)
-					T.add_blood_floor(src)
+					add_splatter_floor(T)
 				if(stun)
 					adjustBruteLoss(3)
 			else
@@ -126,8 +126,7 @@
 		if(isturf(loc))
 			I.remove(src)
 			I.forceMove(get_turf(src))
-			spawn()
-				I.throw_at(get_edge_target_turf(src,pick(alldirs)),rand(1,3),5)
+			I.throw_at(get_edge_target_turf(src,pick(alldirs)),rand(1,3),5)
 
 	for(var/mob/M in src)
 		if(M in src.stomach_contents)
@@ -225,7 +224,7 @@
 				if(brutedamage > 0)
 					status = "bruised"
 				if(brutedamage > 20)
-					status = "bleeding"
+					status = "battered"
 				if(brutedamage > 40)
 					status = "mangled"
 				if(brutedamage > 0 && burndamage > 0)
@@ -248,6 +247,8 @@
 				for(var/obj/item/I in org.embedded_objects)
 					to_chat(src, "\t <a href='byond://?src=[UID()];embedded_object=[I.UID()];embedded_limb=[org.UID()]' class='warning'>There is \a [I] embedded in your [org.name]!</a>")
 
+			if(H.bleed_rate)
+				to_chat(src, "<span class='danger'>You are bleeding!</span>")
 			if(staminaloss)
 				if(staminaloss > 30)
 					to_chat(src, "<span class='info'>You're completely exhausted.</span>")
@@ -477,21 +478,6 @@ var/list/ventcrawl_machinery = list(/obj/machinery/atmospherics/unary/vent_pump,
 	else
 		if(istype(loc, /obj/machinery/atmospherics))
 			add_ventcrawl(loc)
-
-/mob/living/carbon/clean_blood()
-	. = ..()
-	if(ishuman(src))
-		var/mob/living/carbon/human/H = src
-		if(H.gloves)
-			if(H.gloves.clean_blood())
-				H.update_inv_gloves(0,0)
-			H.gloves.germ_level = 0
-		else
-			if(H.bloody_hands)
-				H.bloody_hands = 0
-				H.update_inv_gloves(0,0)
-			H.germ_level = 0
-	update_icons()	//apply the now updated overlays to the mob
 
 
 //Throwing stuff
@@ -952,7 +938,7 @@ var/list/ventcrawl_machinery = list(/obj/machinery/atmospherics/unary/vent_pump,
 	if(!(slipAny))
 		if(istype(src, /mob/living/carbon/human))
 			var/mob/living/carbon/human/H = src
-			if((isobj(H.shoes) && H.shoes.flags & NOSLIP) || H.species.bodyflags & FEET_NOSLIP)
+			if(isobj(H.shoes) && H.shoes.flags & NOSLIP)
 				return 0
 	if(tilesSlipped)
 		for(var/t = 0, t<=tilesSlipped, t++)

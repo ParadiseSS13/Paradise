@@ -193,53 +193,68 @@
 					if(gene_stability < GENETIC_DAMAGE_STAGE_3)
 						gib()
 
-	if(!(species.flags & RADIMMUNE))
+	if(!(RADIMMUNE in species.species_traits))
 		if(radiation)
-			if(radiation > 100)
-				if(!weakened)
-					emote("collapse")
-				Weaken(10)
-				to_chat(src, "<span class='danger'>You feel weak.</span>")
-
-			radiation = Clamp(radiation, 0, 100)
+			radiation = Clamp(radiation, 0, 200)
 
 			var/autopsy_damage = 0
 			switch(radiation)
-				if(0 to 50)
+				if(1 to 49)
 					radiation = max(radiation-1, 0)
 					if(prob(25))
 						adjustToxLoss(1)
-						autopsy_damage = 1
+						adjustFireLoss(1)
+						autopsy_damage = 2
 
-				if(50 to 75)
+				if(50 to 74)
 					radiation = max(radiation-2, 0)
 					adjustToxLoss(1)
-					autopsy_damage = 1
+					adjustFireLoss(1)
+					autopsy_damage = 2
 					if(prob(5))
 						radiation = max(radiation-5, 0)
-						if(!weakened)
-							emote("collapse")
 						Weaken(3)
 						to_chat(src, "<span class='danger'>You feel weak.</span>")
+						emote("collapse")
 
 				if(75 to 100)
-					radiation = max(radiation-3, 0)
-					adjustToxLoss(3)
-					autopsy_damage = 3
-					if(prob(1))
+					radiation = max(radiation-2, 0)
+					adjustToxLoss(2)
+					adjustFireLoss(2)
+					autopsy_damage = 4
+					if(prob(2))
 						to_chat(src, "<span class='danger'>You mutate!</span>")
 						randmutb(src)
 						domutcheck(src, null)
-						emote("gasp")
 
-			if(autopsy_damage && bodyparts.len)
-				var/obj/item/organ/external/O = pick(bodyparts)
-				if(istype(O))
-					O.add_autopsy_data("Radiation Poisoning", autopsy_damage)
+				if(101 to 150)
+					radiation = max(radiation-3, 0)
+					adjustToxLoss(2)
+					adjustFireLoss(3)
+					autopsy_damage = 5
+					if(prob(4))
+						to_chat(src, "<span class='danger'>You mutate!</span>")
+						randmutb(src)
+						domutcheck(src, null)
+
+				if(151 to INFINITY)
+					radiation = max(radiation-3, 0)
+					adjustToxLoss(2)
+					adjustFireLoss(3)
+					autopsy_damage = 5
+					if(prob(6))
+						to_chat(src, "<span class='danger'>You mutate!</span>")
+						randmutb(src)
+						domutcheck(src, null)
+
+			if(autopsy_damage)
+				var/obj/item/organ/external/chest/chest = get_organ("chest")
+				if(chest)
+					chest.add_autopsy_data("Radiation Poisoning", autopsy_damage)
 
 /mob/living/carbon/human/breathe()
 
-	if((NO_BREATH in mutations) || (species && (species.flags & NO_BREATHE)) || reagents.has_reagent("lexorin"))
+	if((NO_BREATH in mutations) || (NO_BREATHE in species.species_traits) || reagents.has_reagent("lexorin"))
 		adjustOxyLoss(-5)
 		oxygen_alert = 0
 		toxins_alert = 0
@@ -259,7 +274,7 @@
 	if(losebreath > 0)
 		AdjustLoseBreath(-1)
 		if(prob(10))
-			spawn emote("gasp")
+			emote("gasp")
 		if(istype(loc, /obj/))
 			var/obj/loc_as_obj = loc
 			loc_as_obj.handle_internal_lifeform(src, 0)
@@ -643,7 +658,7 @@
 		return 0	//godmode
 
 	//The fucking FAT mutation is the greatest shit ever. It makes everyone so hot and bothered.
-	if(species.flags & CAN_BE_FAT)
+	if(CAN_BE_FAT in species.species_traits)
 		if(FAT in mutations)
 			if(overeatduration < 100)
 				becomeSlim()
@@ -707,7 +722,8 @@
 		AdjustDizzy(-3)
 		AdjustJitter(-3)
 
-	if(species && species.flags & NO_INTORGANS) return
+	if(NO_INTORGANS in species.species_traits)
+		return
 
 	handle_trace_chems()
 
@@ -878,7 +894,6 @@
 
 		if(!in_stasis)
 			handle_organs()
-			handle_blood()
 
 
 	else //dead
@@ -961,7 +976,7 @@
 	..()
 	if(status_flags & GODMODE)
 		return 0	//godmode
-	if(species && species.flags & NO_PAIN)
+	if(NO_PAIN in species.species_traits)
 		return
 
 	if(health <= config.health_threshold_softcrit)// health 0 makes you immediately collapse
@@ -1014,7 +1029,7 @@
 	if(mob_master.current_cycle % 5)
 		return pulse	//update pulse every 5 life ticks (~1 tick/sec, depending on server load)
 
-	if(species && species.flags & NO_BLOOD)
+	if(NO_BLOOD in species.species_traits)
 		return PULSE_NONE //No blood, no pulse.
 
 	if(stat == DEAD)
@@ -1025,8 +1040,7 @@
 
 	var/temp = PULSE_NORM
 
-	var/blood_type = get_blood_name()
-	if(round(vessel.get_reagent_amount(blood_type)) <= BLOOD_VOLUME_BAD)	//how much blood do we have
+	if(blood_volume <= BLOOD_VOLUME_BAD)//how much blood do we have
 		temp = PULSE_THREADY	//not enough :(
 
 	if(status_flags & FAKEDEATH)
@@ -1085,12 +1099,12 @@
 			var/obj/item/clothing/mask/M = H.wear_mask
 			if(M && (M.flags_cover & MASKCOVERSMOUTH))
 				return
-			if(H.species && H.species.flags & NO_BREATHE)
+			if(NO_BREATHE in species.species_traits)
 				return //no puking if you can't smell!
 			// Humans can lack a mind datum, y'know
 			if(H.mind && (H.mind.assigned_role == "Detective" || H.mind.assigned_role == "Coroner"))
 				return //too cool for puke
-			to_chat(H, "<spawn class='warning'>You smell something foul...")
+			to_chat(H, "<span class='warning'>You smell something foul...</span>")
 			H.fakevomit()
 
 /mob/living/carbon/human/proc/handle_heartbeat()
@@ -1165,7 +1179,9 @@
 
 
 /mob/living/carbon/human/proc/can_heartattack()
-	if(species.flags & (NO_BLOOD|NO_INTORGANS))
+	if(NO_BLOOD in species.species_traits)
+		return FALSE
+	if(NO_INTORGANS in species.species_traits)
 		return FALSE
 	return TRUE
 

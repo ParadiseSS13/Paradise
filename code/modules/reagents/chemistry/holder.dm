@@ -135,10 +135,6 @@ var/const/INGEST = 2
 	for(var/datum/reagent/current_reagent in reagent_list)
 		if(!current_reagent)
 			continue
-		if(current_reagent.id == "blood" && ishuman(target))
-			var/mob/living/carbon/human/H = target
-			H.inject_blood(my_atom, amount)
-			continue
 		var/current_reagent_transfer = current_reagent.volume * part
 		if(preserve_data)
 			trans_data = copy_data(current_reagent)
@@ -497,9 +493,6 @@ var/const/INGEST = 2
 			//Species with PROCESS_DUO are only affected by reagents that affect both organics and synthetics, like acid and hellwater
 			if((R.process_flags & ORGANIC) && (R.process_flags & SYNTHETIC) && (H.species.reagent_tag & PROCESS_DUO))
 				can_process = 1
-		if(H.species && H.species.exotic_blood)
-			if(R.id == H.species.exotic_blood)
-				can_process = 0
 	//We'll assume that non-human mobs lack the ability to process synthetic-oriented reagents (adjust this if we need to change that assumption)
 	else
 		if(R.process_flags != SYNTHETIC)
