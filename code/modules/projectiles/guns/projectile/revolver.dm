@@ -352,8 +352,6 @@
 /obj/item/weapon/gun/projectile/revolver/doublebarrel/improvised/update_icon()
 	..()
 	icon_state = "[initial(icon_state)][slung ? "sling" : "" ][sawn_state ? "-sawn" : ""]"
-	if(slung && (slot_flags & SLOT_BELT)
-		icon_state = "[initial(icon_state)]-sawn"
 	overlays.Cut()
 	if(magazine.max_ammo > 1)
 		if(sawn)
