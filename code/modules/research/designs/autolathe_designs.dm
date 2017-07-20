@@ -455,6 +455,22 @@
 	build_path = /obj/item/ammo_box/c38
 	category = list("initial", "Security")
 
+/datum/design/rubber45
+	name = "Ammo Box (.45 rubber)"
+	id = "rubber45"
+	build_type = AUTOLATHE
+	materials = list(MAT_METAL = 30000)
+	build_path = /obj/item/ammo_box/rubber45
+	category = list("initial", "Security")
+
+/datum/design/rubber9mm
+	name = "Ammo Box (9mm rubber)"
+	id = "rubber9mm"
+	build_type = AUTOLATHE
+	materials = list(MAT_METAL = 30000)
+	build_path = /obj/item/ammo_box/rubber9mm
+	category = list("initial", "Security")
+
 /datum/design/recorder
 	name = "Universal Recorder"
 	id = "recorder"
@@ -720,14 +736,6 @@
 	build_path = /obj/item/ammo_box/c10mm
 	category = list("hacked", "Security")
 
-/datum/design/rubber45
-	name = "Ammo Box (.45 rubber)"
-	id = "rubber45"
-	build_type = AUTOLATHE
-	materials = list(MAT_METAL = 30000)
-	build_path = /obj/item/ammo_box/rubber45
-	category = list("Security")
-
 /datum/design/c45
 	name = "Ammo Box (.45)"
 	id = "c45"
@@ -743,14 +751,6 @@
 	materials = list(MAT_METAL = 30000)
 	build_path = /obj/item/ammo_box/c9mm
 	category = list("hacked", "Security")
-
-/datum/design/rubber9mm
-	name = "Ammo Box (9mm rubber)"
-	id = "rubber9mm"
-	build_type = AUTOLATHE
-	materials = list(MAT_METAL = 30000)
-	build_path = /obj/item/ammo_box/rubber9mm
-	category = list("Security")
 
 /datum/design/cleaver
 	name = "Butcher's cleaver"
