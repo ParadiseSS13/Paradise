@@ -726,7 +726,7 @@
 	build_type = AUTOLATHE
 	materials = list(MAT_METAL = 30000)
 	build_path = /obj/item/ammo_box/rubber45
-	category = list("hacked", "Security")
+	category = list("Security")
 
 /datum/design/c45
 	name = "Ammo Box (.45)"
@@ -750,7 +750,7 @@
 	build_type = AUTOLATHE
 	materials = list(MAT_METAL = 30000)
 	build_path = /obj/item/ammo_box/rubber9mm
-	category = list("hacked", "Security")
+	category = list("Security")
 
 /datum/design/cleaver
 	name = "Butcher's cleaver"
