@@ -413,8 +413,6 @@
 			organData["shrapnel_len"] = shrapnelData.len
 
 			var/organStatus[0]
-			if(E.status & ORGAN_DESTROYED)
-				organStatus["destroyed"] = 1
 			if(E.status & ORGAN_BROKEN)
 				organStatus["broken"] = E.broken_description
 			if(E.status & ORGAN_ROBOT)
@@ -614,10 +612,7 @@
 					imp += "Unknown body present:"
 				if(!AN && !open && !infected & !imp)
 					AN = "None:"
-				if(!(e.status & ORGAN_DESTROYED))
-					dat += "<td>[e.name]</td><td>[e.burn_dam]</td><td>[e.brute_dam]</td><td>[robot][bled][AN][splint][open][infected][imp][internal_bleeding][lung_ruptured]</td>"
-				else
-					dat += "<td>[e.name]</td><td>-</td><td>-</td><td>Not Found</td>"
+				dat += "<td>[e.name]</td><td>[e.burn_dam]</td><td>[e.brute_dam]</td><td>[robot][bled][AN][splint][open][infected][imp][internal_bleeding][lung_ruptured]</td>"
 				dat += "</tr>"
 			for(var/obj/item/organ/internal/i in occupant.internal_organs)
 				var/mech = i.desc

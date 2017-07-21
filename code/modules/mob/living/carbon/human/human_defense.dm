@@ -201,10 +201,10 @@ emp_act
 			qdel(src)
 
 	var/obj/item/organ/external/affecting = get_organ(ran_zone(user.zone_sel.selecting))
-	if(!affecting || (affecting.status & ORGAN_DESTROYED))
+	if(!affecting)
 		to_chat(user, "<span class='danger'>They are missing that limb!</span>")
 		return 1
-	var/hit_area = affecting.name
+	var/hit_area = parse_zone(affecting.limb_name)
 
 	if(user != src)
 		user.do_attack_animation(src)
@@ -270,7 +270,7 @@ emp_act
 							update_inv_glasses(0)
 
 
-				if("upper body")//Easier to score a stun but lasts less time
+				if("chest")//Easier to score a stun but lasts less time
 					if(stat == CONSCIOUS && I.force && prob(I.force + 10))
 						visible_message("<span class='combat danger'>[src] has been knocked down!</span>", \
 										"<span class='combat userdanger'>[src] has been knocked down!</span>")

@@ -55,7 +55,8 @@
 		proc/dead_legs(mob/living/carbon/human/H as mob)
 			var/obj/item/organ/external/l = H.get_organ("l_leg")
 			var/obj/item/organ/external/r = H.get_organ("r_leg")
-			if(l && !(l.status & ORGAN_DESTROYED))
-				l.status |= ORGAN_DESTROYED
-			if(r && !(r.status & ORGAN_DESTROYED))
-				r.status |= ORGAN_DESTROYED
+			if(l)
+				l.droplimb(0, DROPLIMB_SHARP)
+			if(r)
+				r.droplimb(0, DROPLIMB_SHARP)
+

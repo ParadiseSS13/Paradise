@@ -56,8 +56,6 @@
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
 	if(affected == null)
 		return 0
-	if(affected.status & ORGAN_DESTROYED)
-		return 0
 	return 1
 
 /datum/surgery_step/robotics/external
@@ -443,8 +441,6 @@
 		user.visible_message("<span class='notice'> [user] has reattached [target]'s [I].</span>" , \
 		"<span class='notice'> You have reattached [target]'s [I].</span>")
 
-		if(I && istype(I))
-			I.status &= ~ORGAN_CUT_AWAY
 	else if(current_type == "install")
 		user.visible_message("<span class='notice'> [user] has installed \the [tool] into [target]'s [affected.name].</span>", \
 		"<span class='notice'> You have installed \the [tool] into [target]'s [affected.name].</span>")
@@ -461,7 +457,6 @@
 
 			add_logs(user, target, "surgically removed [I.name] from", addition="INTENT: [uppertext(user.a_intent)]")
 			spread_germs_to_organ(I, user)
-			I.status |= ORGAN_CUT_AWAY
 			var/obj/item/thing = I.remove(target)
 			if(!istype(thing))
 				thing.forceMove(get_turf(target))

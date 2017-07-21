@@ -264,8 +264,6 @@
 			user.visible_message("<span class='notice'> [user] has transplanted [tool] into [target]'s [parse_zone(target_zone)].</span>",
 			"<span class='notice'> You have transplanted [tool] into [target]'s [parse_zone(target_zone)].</span>")
 
-		I.status &= ~ORGAN_CUT_AWAY
-
 	else if(current_type == "extract")
 		var/mob/living/simple_animal/borer/B = target.has_brain_worms()
 		if(target_zone == "head" && B && B.host == target)
@@ -280,7 +278,6 @@
 
 			add_logs(user, target, "surgically removed [I.name] from", addition="INTENT: [uppertext(user.a_intent)]")
 			spread_germs_to_organ(I, user, tool)
-			I.status |= ORGAN_CUT_AWAY
 			var/obj/item/thing = I.remove(target)
 			if(!istype(thing))
 				thing.forceMove(get_turf(target))

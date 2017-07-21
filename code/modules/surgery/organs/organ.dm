@@ -195,7 +195,7 @@ var/list/organ_cache = list()
 	return damage >= min_bruised_damage
 
 /obj/item/organ/proc/is_broken()
-	return (damage >= min_broken_damage || (status & ORGAN_CUT_AWAY) || ((status & ORGAN_BROKEN) && !(status & ORGAN_SPLINTED)))
+	return (damage >= min_broken_damage || ((status & ORGAN_BROKEN) && !(status & ORGAN_SPLINTED)))
 
 //Germs
 /obj/item/organ/proc/handle_antibiotics()
@@ -243,14 +243,12 @@ var/list/organ_cache = list()
 	robotic = 2
 	status &= ~ORGAN_BROKEN
 	status &= ~ORGAN_SPLINTED
-	status &= ~ORGAN_CUT_AWAY
-	status &= ~ORGAN_DESTROYED
 	status |= ORGAN_ROBOT
-	status |= ORGAN_ASSISTED
 
 /obj/item/organ/proc/mechassist() //Used to add things like pacemakers, etc
 	robotize(1) //Skip the icon/name setting that occurs in robotize to avoid having to reset the icon file.
 	status &= ~ORGAN_ROBOT
+	status |= ORGAN_ASSISTED
 	robotic = 1
 	min_bruised_damage = 15
 	min_broken_damage = 35
