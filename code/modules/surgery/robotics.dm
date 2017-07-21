@@ -398,7 +398,7 @@
 
 		var/found_damaged_organ = FALSE
 		for(var/obj/item/organ/internal/I in affected.internal_organs)
-			if(I && I.damage > 0 && I.robotic >= 2)
+			if(I && I.damage && I.robotic >= 2)
 				user.visible_message("[user] starts mending the damage to [target]'s [I.name]'s mechanisms.", \
 				"You start mending the damage to [target]'s [I.name]'s mechanisms.")
 				found_damaged_organ = TRUE
@@ -423,7 +423,7 @@
 		if(!hasorgans(target))
 			return
 		for(var/obj/item/organ/internal/I in affected.internal_organs)
-			if(I && I.damage > 0)
+			if(I && I.damage)
 				if(I.robotic >= 2)
 					user.visible_message("<span class='notice'> [user] repairs [target]'s [I.name] with [tool].</span>", \
 					"<span class='notice'> You repair [target]'s [I.name] with [tool].</span>" )

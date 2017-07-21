@@ -323,15 +323,15 @@
 			if(1)
 				to_chat(src, "<span class='warning'>Your eyes sting a little.</span>")
 				if(prob(40)) //waiting on carbon organs
-					E.damage += 1
+					E.take_damage(1, 1)
 
 			if(2)
 				to_chat(src, "<span class='warning'>Your eyes burn.</span>")
-				E.damage += rand(2, 4)
+				E.take_damage(rand(2, 4), 1)
 
 			else
 				to_chat(src, "Your eyes itch and burn severely!</span>")
-				E.damage += rand(12, 16)
+				E.take_damage(rand(12, 16), 1)
 
 		if(E.damage > E.min_bruised_damage)
 			AdjustEyeBlind(damage)

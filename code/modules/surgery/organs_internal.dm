@@ -200,7 +200,7 @@
 			return
 
 		for(var/obj/item/organ/internal/I in affected.internal_organs)
-			if(I && I.damage > 0)
+			if(I && I.damage)
 				if(I.robotic < 2 && !istype (tool, /obj/item/stack/nanopaste))
 					if(!(I.sterile))
 						spread_germs_to_organ(I, user, tool)
@@ -238,7 +238,7 @@
 		for(var/obj/item/organ/internal/I in affected.internal_organs)
 			if(I)
 				I.surgeryize()
-			if(I && I.damage > 0)
+			if(I && I.damage)
 				if(I.robotic < 2 && !istype (tool, /obj/item/stack/nanopaste))
 					user.visible_message("<span class='notice'> [user] treats damage to [target]'s [I.name] with [tool_name].</span>", \
 					"<span class='notice'> You treat damage to [target]'s [I.name] with [tool_name].</span>" )
@@ -353,7 +353,7 @@
 			affected.take_damage(5)
 
 		for(var/obj/item/organ/internal/I in affected.internal_organs)
-			if(I && I.damage > 0 && !(I.tough))
+			if(I && I.damage && !(I.tough))
 				I.take_damage(dam_amt,0)
 
 		return 0
