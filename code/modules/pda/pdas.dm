@@ -40,7 +40,7 @@
 
 	trip_stun = 8
 	trip_weaken = 5
-	trip_bonus = 100
+	trip_chance = 100
 	trip_walksafe = TRUE
 	trip_verb = TV_SLIP
 

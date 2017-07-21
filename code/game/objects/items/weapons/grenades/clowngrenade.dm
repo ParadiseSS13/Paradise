@@ -55,7 +55,7 @@
 	trip_tiles = 4
 	trip_walksafe = FALSE
 
-	trip_bonus = 100
+	trip_chance = 100
 
 
 /obj/item/weapon/grown/bananapeel/traitorpeel/on_trip(mob/living/carbon/human/H)

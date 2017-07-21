@@ -218,7 +218,7 @@
 
 	G.trip_stun = stun_len
 	G.trip_weaken = stun_len
-	G.trip_bonus = 100
+	G.trip_chance = 100
 	G.trip_verb = TV_SLIP
 	G.trip_walksafe = FALSE
 
