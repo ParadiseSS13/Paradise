@@ -106,13 +106,18 @@
 	ship_prefixes = list("NSV" = "exploration", "NTV" = "hauling", "NDV" = "patrol", "NRV" = "emergency response")
 	// Note that the current station being used will be pruned from this list upon being instantiated
 	destination_names = list(
-		"NSS Exodus in Nyx",
-		"NCS Northern Star in Vir",
-		"NCS Southern Cross in Vir",
-		"NDV Icarus in Nyx",
-		"an asteroid orbiting Kara",
-		"an asteroid orbiting Rota",
-		)
+		"NAS Trurl in Epsilon Eridani",
+		"NAS Crescent in Tau Ceti",
+		"NSS Exodus in Tau Ceti",
+		"NSS Antiqua in Darsing",
+		"NRS Orion in Sol",
+		"NSS Vector in Omicron Ceti",
+		"NBS Anansi in Omicron Ceti",
+		"NSS Redemption in Sirius",
+		"NDS Inferno in Tau Ceti",
+		"NAB Smythside Central Headquarters on Earth",
+		"NAB North Cimmeria Central Offices on Mars",
+	)
 
 /datum/lore/organization/tsc/nanotrasen/New()
 	..()
@@ -128,10 +133,10 @@
 	short_name = "Donk Co."
 	acronym = "DC"
 	desc = "The infamous rival of the well-known Waffle Corporation, Donk Co. is a company specializing in food delivery systems and brand-name food\
-	 products such as Donk Pockets. While generally seen as a neutral actor, Donk Corporation has been known to work both with Nanotrasen and\
-	  the Syndicate when it suits them - often acting as the primary logistical supplier for the Epsilon Eridani sector.\
-	   Donk Corporation is better known for recent high-profile litigation alleging that their food products are used for illicit drug distribution.\
-	    While the trial is ongoing, it has been repeatedly delayed due to incidents of methamphetamine poisoning."
+	products such as Donk Pockets. While generally seen as a neutral actor, Donk Corporation has been known to work both with Nanotrasen and\
+	the Syndicate when it suits them - often acting as the primary logistical supplier for the Epsilon Eridani sector.\
+	Donk Corporation is better known for recent high-profile litigation alleging that their food products are used for illicit drug distribution.\
+	While the trial is ongoing, it has been repeatedly delayed due to incidents of methamphetamine poisoning."
 	history = ""
 	work = "food company that establishes and maintains delivery supply chains"
 	headquarters = ""
@@ -144,11 +149,7 @@
 	name = "Hephaestus Industries"
 	short_name = "Hephaestus"
 	acronym = "HI"
-	desc = "Hephaestus Industries is the largest supplier of arms, ammunition, and small military vehicles in Sol space. \
-	Hephaestus products have a reputation for reliability, and the corporation itself has a noted tendency to stay removed \
-	from corporate politics. They enforce their neutrality with the help of a fairly large asset-protection contingent which \
-	prevents any contracting polities from using their own materiel against them. SolGov itself is one of Hephastus' largest \
-	bulk contractors owing to the above factors."
+	desc = ""
 	history = ""
 	work = "arms manufacturer"
 	headquarters = ""
@@ -164,10 +165,10 @@
 	short_name = "Waffle Co."
 	acronym = "WC"
 	desc = "The once prominent competitor of Donk Corporation, Waffle Co. is well-known for its popular line of Waffle Co.\
-		 	brand waffles and their use of violent tactics against competitors - often bribing, extorting, blackmailing or sabotaging businesses\
-		  	that pose a direct or indirect threat to their market share. They have recently fallen on hard times primarily due to to\
-		   	severe mismanagement which lead to much of their private arsenal being swindled by a pirate faction known as the Gorlex Marauders.\
-		    Waffle Co. commonly engages in smear campaigns against Donk Co., maintaining that the original recipe for Donk Pockets was stolen from them."
+	brand waffles and their use of violent tactics against competitors - often bribing, extorting, blackmailing or sabotaging businesses\
+	that pose a direct or indirect threat to their market share. They have recently fallen on hard times primarily due to to\
+	severe mismanagement which lead to much of their private arsenal being swindled by a pirate faction known as the Gorlex Marauders.\
+	Waffle Co. commonly engages in smear campaigns against Donk Co., maintaining that the original recipe for Donk Pockets was stolen from them."
 	history = ""
 	work = "food logistics and marketing firm"
 	headquarters = ""
@@ -176,37 +177,17 @@
 	ship_prefixes = list("W-Co." = "transportation")
 	destination_names = list()
 
-/datum/lore/organization/tsc/vey_med
-	name = "Vey Medical"
-	short_name = "Vey Med"
-	acronym = "VM"
-	desc = "Vey-Med is one of the newer TSCs on the block and is notable for being largely owned and operated by Skrell. \
-	Despite the suspicion and prejudice leveled at them for their alien origin, Vey-Med has obtained market dominance in \
-	the sale of medical equipment-- from surgical tools to large medical devices to the Odysseus trauma response mecha \
-	and everything in between. Their equipment tends to be top-of-the-line, most obviously shown by their incredibly \
-	human-like FBP designs. Vey's rise to stardom came from their introduction of ressurective cloning, although in \
-	recent years they've been forced to diversify as their patents expired and Nanotrasen-made medications became \
-	essential to modern cloning."
-	history = ""
-	work = "medical equipment supplier"
-	headquarters = ""
-	motto = ""
-
-	ship_prefixes = list("VTV" = "transportation", "VMV" = "medical resupply")
-	destination_names = list(
-	"a outpost on Jargon 4"
-	)
 
 /datum/lore/organization/tsc/einstein
 	name = "Einstein Engines Incorporated"
 	short_name = "Einstein Inc."
 	acronym = "EEI"
 	desc = "An Engineering firm specializing in alternative fuel-technologies for FTL travel,\
-			 Einstein Engines is an up and coming player in the galactic FTL and energy markets.\
-			 As their research into alternative FTL fuel threatens both Nanotrasen's relative stranglehold on plasma as well as The Syndicate's vested\
-			 interest in the market, they are often the target of industrial sabotage by both Nanotrasen and The Syndicate.\
-			 Most of their contracts are based outside of the Epsilon Eridani sector, and they are frequently commissioned by smaller firms to retrofit new\
-			  and existing colonies, space stations, and outposts."
+	Einstein Engines is an up and coming player in the galactic FTL and energy markets.\
+	As their research into alternative FTL fuel threatens both Nanotrasen's relative stranglehold on plasma as well as The Syndicate's vested\
+	interest in the market, they are often the target of industrial sabotage by both Nanotrasen and The Syndicate.\
+	Most of their contracts are based outside of the Epsilon Eridani sector, and they are frequently commissioned by smaller firms to retrofit new\
+	and existing colonies, space stations, and outposts."
 	history = ""
 	work = "engineering firm specializing in engine technology"
 	headquarters = "Jargon 4"
@@ -219,12 +200,7 @@
 	name = "Zeng-Hu pharmaceuticals"
 	short_name = "Zeng-Hu"
 	acronym = "ZH"
-	desc = "Zeng-Hu is an old TSC, based in the Sol system. Until the discovery of Plasma, Zeng-Hu maintained a stranglehold \
-	on the market for medications, and many household names are patentted by Zeng-Hu-- Bicaridyne, Dylovene, Tricordrizine, \
-	and Dexalin all came from a Zeng-Hu medical laboratory. Zeng-Hu's fortunes have been in decline as Nanotrasen's near monopoly \
-	on plasma research cuts into their R&D and Vey-Med's superior medical equipment effectively decimated their own equipment \
-	interests. The three-way rivalry between these companies for dominance in the medical field is well-known and a matter of \
-	constant economic speculation."
+	desc = ""
 	history = ""
 	work = "pharmaceuticals company"
 	headquarters = ""
@@ -238,10 +214,10 @@
 	short_name = "Biotech"
 	acronym = "BTS"
 	desc = "A company specializing in the field of synthetic biology, BioTech solutions is at the forefront of providing cutting-edge prosthetics,\
-	 augmentations, and gene-therapy solutions. Their extensive list of patents and the highly secretive nature of their work often puts them at odds\
-	  with companies such as Nanotrasen, who commonly reverse-engineer their products. BioTech Solutions is often the victim of industrial sabotage by\
-	   Cybersun Industries and often relies on planetary governments for asset protection. BioTech Solutions also owns a number of prominent subsidiaries,\
-	    such as Bishop Cybernetics, Hesphiastos Industries, and Xion Manufacturing Group."
+	augmentations, and gene-therapy solutions. Their extensive list of patents and the highly secretive nature of their work often puts them at odds\
+	with companies such as Nanotrasen, who commonly reverse-engineer their products. BioTech Solutions is often the victim of industrial sabotage by\
+	Cybersun Industries and often relies on planetary governments for asset protection. BioTech Solutions also owns a number of prominent subsidiaries,\
+	such as Bishop Cybernetics, Hesphiastos Industries, and Xion Manufacturing Group."
 	history = ""
 	work = "medical company specializing in prosthetics and pharmaceuticals"
 	headquarters = "Xarxis 5"
@@ -254,12 +230,7 @@
 	name = "Ward-Takahashi General Manufacturing Conglomerate"
 	short_name = "Ward-Takahashi"
 	acronym = "WT"
-	desc = "Ward-Takahashi focuses on the sale of small consumer electronics, with its computers, communicators, \
-	and even mid-class automobiles a fixture of many households. Less famously, Ward-Takahashi also supplies most \
-	of the AI cores on which vital control systems are mounted, and it is this branch of their industry that has \
-	led to their tertiary interest in the development and sale of high-grade AI systems. Ward-Takahashi's economies \
-	of scale frequently steal market share from Nanotrasen's high-price products, leading to a bitter rivalry in the \
-	consumer electronics market."
+	desc = ""
 	history = ""
 	work = "electronics manufacturer"
 	headquarters = ""
@@ -267,7 +238,7 @@
 
 	ship_prefixes = list("WTV" = "freight")
 	destination_names = list(
-	"a station near Kelune"
+	""
 	)
 
 /datum/lore/organization/tsc/cybersun
@@ -275,9 +246,9 @@
 	short_name = "Cybersun Ind."
 	acronym = "CI"
 	desc = "Cybersun Industries is a biotechnology company that primarily specializes on the research and development of human-enhancing augmentations.\
-			They are better known for their aggressive corporate tactics and are known to often subsidize pirate bands to commit acts of industrial sabotage.\
-			Cybersun Industries is usually the target of conspiracy theorists due to their development of the first mindslave implant, as well as their open financing of,\
-			 and involvement in, The Syndicate. They are one of Nanotrasen's largest detractors, and a direct competitor to BioTech Solutions."
+	They are better known for their aggressive corporate tactics and are known to often subsidize pirate bands to commit acts of industrial sabotage.\
+	Cybersun Industries is usually the target of conspiracy theorists due to their development of the first mindslave implant, as well as their open financing of,\
+	and involvement in, The Syndicate. They are one of Nanotrasen's largest detractors, and a direct competitor to BioTech Solutions."
 	history = ""
 	work = "RND company specializing in augmentations and implants."
 	headquarters = "Luna"
@@ -290,12 +261,7 @@
 	name = "Bishop Cybernetics"
 	short_name = "Bishop"
 	acronym = "BC"
-	desc = "Bishop's focus is on high-class, stylish cybernetics. A favorite among transhumanists (and a b'te noire for \
-	bioconservatives), Bishop manufactures not only prostheses but also brain augmentation, synthetic organ replacements, \
-	and odds and ends like implanted wrist-watches. Their business model tends towards smaller, boutique operations, giving \
-	it a reputation for high price and luxury, with Bishop cyberware often rivalling Vey-Med's for cost. Bishop's reputation \
-	for catering towards the interests of human augmentation enthusiasts instead of positronics have earned it ire from the \
-	Positronic Rights Group and puts it in ideological (but not economic) competition with Morpheus Cyberkinetics."
+	desc = ""
 	history = ""
 	work = "cybernetics and augmentation manufacturer"
 	headquarters = ""
@@ -337,7 +303,6 @@
 		"Unwitting Accomplice",
 		"Bad For Business",
 		"Just Testing",
-		"Size Isn't Everything",
 		"Yawning Angel",
 		"Liveware Problem",
 		"Very Little Gravitas Indeed",
@@ -346,12 +311,10 @@
 		"Absolutely No You-Know-What",
 		"Existence Is Pain",
 		"Screw Loose",
-		"Of Course I Still Love You",
 		"Limiting Factor",
 		"So Much For Subtley",
 		"Unfortunate Conflict Of Evidence",
 		"Prime Mover",
-		"Boo!",
 		"Reasonable Excuse",
 		"Honest Mistake",
 		"Appeal To Reason",
@@ -360,8 +323,6 @@
 		"Anything Legal Considered",
 		"New Toy",
 		"Me, I'm Always Counting",
-		"Just Five More Minutes",
-		"Are You Feeling It",
 		"Great White Snark",
 		"No Shirt No Shoes",
 		"Callsign"
@@ -373,10 +334,7 @@
 /datum/lore/organization/tsc/xion
 	name = "Xion Manufacturing Group"
 	short_name = "Xion"
-	desc = "Xion, quietly, controls most of the market for industrial equipment. Their portfolio includes mining exosuits, \
-	factory equipment, rugged positronic chassis, and other pieces of equipment vital to the function of the economy. Xion \
-	keeps its control of the market by leasing, not selling, their equipment, and through infamous and bloody patent protection \
-	lawsuits. Xion are noted to be a favorite contractor for SolGov engineers, owing to their low cost and rugged design."
+	desc = ""
 	history = ""
 	work = "industrial equipment manufacturer"
 	headquarters = ""
@@ -390,11 +348,11 @@
 	short_name = "Shellguard"
 	acronym = "SM"
 	desc = "The brainchild of a colonial war veteran, Shellguard Munitions is an arms manufacturer and private military contractor specializing\
-	 in anti-synthetic weapon systems and platforms. Initially a smaller private military force only serving frontier colonies,\
-	 Shellguard Munitions has become a household name due to its involvement in resolving the Haverick AI crisis in 2552.\
-	  Using its recently earned fame, the company has made a successful foray into the market of robotics and is highly regarded for the toughness \
-	  and reliability of their hardware. Despite being frequently contracted by the Trans-Solar Federation, Shellguard Munitions is known to\
-	   sell their services to the highest corporate bidder."
+	in anti-synthetic weapon systems and platforms. Initially a smaller private military force only serving frontier colonies,\
+	Shellguard Munitions has become a household name due to its involvement in resolving the Haverick AI crisis in 2552.\
+	Using its recently earned fame, the company has made a successful foray into the market of robotics and is highly regarded for the toughness \
+	and reliability of their hardware. Despite being frequently contracted by the Trans-Solar Federation, Shellguard Munitions is known to\
+	sell their services to the highest corporate bidder."
 	history = ""
 	work = "anti-synthetic arms manufacturer and PMC"
 	headquarters = "Colony of Haverick"
@@ -411,12 +369,12 @@
 	short_name = "SolGov"
 	acronym = "TSF"
 	desc = "Colloquially known as SolGov, the TSF is an authoritarian republic that manages the areas in and around the Sol system.\
-			 Despite being a highly militant organization headed by the government of Earth,\
-			 SolGov is usually conservative with its power and mostly serves as a mediator and peacekeeper in galactic affairs."
+	Despite being a highly militant organization headed by the government of Earth,\
+	SolGov is usually conservative with its power and mostly serves as a mediator and peacekeeper in galactic affairs."
 	history = "" // Todo
 	work = "governing polity of humanity's Confederation"
 	headquarters = "Earth"
-	motto = "Nil Mortalibus Ardui Est" // Latin, because latin.  Says 'Nothing is too steep for mortals'.
+	motto = ""
 	autogenerate_destination_names = TRUE
 
 	ship_prefixes = list("FTV" = "transporation", "FDV" = "diplomatic", "FSF" = "freight", "FIV" = "interception", "FDV" = "defense", "FCV-A" = "carrier", "FBB" = "battleship")
@@ -446,8 +404,8 @@
 	short_name = "The Council"
 	acronym = "AC"
 	desc = "The Alchemist's Council is a science-oriented organization of scholars, researchers, and entrepreneurs. \
-			Though dedicated to industrializing the Tajaran world of Ahdomai, it is seen as one of the few remaining centralized powers of the Tajara peoples \
-			due to the collapse of Ahdomai's provisional government."
+	Though dedicated to industrializing the Tajaran world of Ahdomai, it is seen as one of the few remaining centralized powers of the Tajara peoples \
+	due to the collapse of Ahdomai's provisional government."
 	history = "" // Todo
 	work = "science body that oversees Tajara economic and research policy"
 	headquarters = "Ahdomai"
@@ -456,24 +414,7 @@
 
 	ship_prefixes = list("ACS" = "transportation", "ADV" = "diplomatic", "ACF" = "freight")
 	destination_names = list(
-		"Venus",
-		"Earth",
-		"Luna",
-		"Mars",
-		"Titan",
 		"Ahdomai",
-		"Kelune",
-		"Dalstadt",
-		"New Canaan",
-		"Jargon 4",
-		"Hoorlm",
-		"Xarxis 5",
-		"Aurum",
-		"Moghes",
-		"Haverick",
-		"Darsing",
-		"Norfolk",
-		"Boron",
 		"Iluk")
 
 
@@ -482,8 +423,8 @@
 	short_name = "Assembly"
 	acronym = "ASB"
 	desc = "A unifying body created to stave off extinction from a solar event,\
-		 The Assembly is the loose federal coalition of the Vulpkanin. It holds little centralized authority and mostly serves as a diplomatic body,\
-		  primarily concerned with facilitating trade between Vulpkanin colonies and Nanotrasen."
+	The Assembly is the loose federal coalition of the Vulpkanin. It holds little centralized authority and mostly serves as a diplomatic body,\
+	primarily concerned with facilitating trade between Vulpkanin colonies and Nanotrasen."
 	history = "" // Todo
 	work = "governing body of the Vulpakanin"
 	headquarters = "Kelune and Dalstadt"
@@ -492,25 +433,9 @@
 
 	ship_prefixes = list("ATV" = "transportation", "ADV" = "diplomatic", "ACF" = "freight")
 	destination_names = list(
-		"Venus",
-		"Earth",
-		"Luna",
-		"Mars",
-		"Titan",
-		"Ahdomai",
 		"Kelune",
 		"Dalstadt",
-		"New Canaan",
-		"Jargon 4",
-		"Hoorlm",
-		"Xarxis 5",
-		"Aurum",
-		"Moghes",
-		"Haverick",
-		"Darsing",
-		"Norfolk",
-		"Boron",
-		"Iluk")
+		"New Canaan")
 
 /datum/lore/organization/gov/synth
 	name = "Synthetic Union"
@@ -527,33 +452,21 @@
 
 	ship_prefixes = list("01" = "transportation", "10" = "diplomatic", "112" = "freight")//copyed from solgov until new ones can be thought of
 	destination_names = list(
-		"Venus",
-		"Earth",
 		"Luna",
-		"Mars",
-		"Titan",
-		"Ahdomai",
-		"Kelune",
 		"Dalstadt",
 		"New Canaan",
 		"Jargon 4",
-		"Hoorlm",
-		"Xarxis 5",
-		"Aurum",
-		"Moghes",
 		"Haverick",
 		"Darsing",
-		"Norfolk",
-		"Boron",
-		"Iluk")
+		"Norfolk")
 
 /datum/lore/organization/gov/grey
 	name = "The Technocracy"
 	short_name = "Technocracy"
 	acronym = "AYY"
 	desc = "The Technocracy is a science council that operates based off the principles of a meritocracy.\
-			The organization's leadership is highly competitive, and is headed by the most psionically gifted members of the Grey species.\
-			 The Technocracy, though enigmatic in its dealings, has cordial relations with almost all other galactic bodies."
+	The organization's leadership is highly competitive, and is headed by the most psionically gifted members of the Grey species.\
+	The Technocracy, though enigmatic in its dealings, has cordial relations with almost all other galactic bodies."
 	history = "" // Todo
 	work = "Grey Council"
 	headquarters = ""
@@ -587,8 +500,8 @@
 	short_name = "Shoal"
 	acronym = "SHA"
 	desc = "The Shoal is the primary ark ship of the reclusive Vox species.\
-			 Little is known about The Shoal's political structure as Vox typically shy away from diplomatic engagements.\
-			 Subsequently, it is considered a politically neutral entity in galactic affairs by most governments."
+	Little is known about The Shoal's political structure as Vox typically shy away from diplomatic engagements.\
+	Subsequently, it is considered a politically neutral entity in galactic affairs by most governments."
 	history = "" // Todo
 	work = "Traders"
 	headquarters = "Shoal"
@@ -597,11 +510,6 @@
 
 	ship_prefixes = list("Legitimate Transport" = "transportation", "Legitimate Trader" = "freight", "Legitimate Diplomatic Vessel" = "raider")
 	destination_names = list(
-		"Venus",
-		"Earth",
-		"Luna",
-		"Mars",
-		"Titan",
 		"Ahdomai",
 		"Kelune",
 		"Dalstadt",
@@ -612,41 +520,30 @@
 		"Aurum",
 		"Moghes",
 		"Haverick",
-		"Darsing",
-		"Norfolk",
-		"Boron",
-		"Iluk")
+		"Darsing")
 
 /datum/lore/organization/tsc/skrell
 	name = "Skrellian Central Authority"
 	short_name = "Skrellian CA."
 	acronym = "SCA"
 	desc = "The primary governing body of the Skrellian homeworld of Jargon 4,\
-	 the SCA oversees all foreign and domestic policy for the Skrell and their colonies. The Skrellian Central Authority is better known for its\
-	  active role in the largest military alliance in the galaxy, the Human-Skrellian Alliance."
+	the SCA oversees all foreign and domestic policy for the Skrell and their colonies. The Skrellian Central Authority is better known for its\
+	active role in the largest military alliance in the galaxy, the Human-Skrellian Alliance."
 	history = ""
 	work = "oversees Skrell worlds"
 	headquarters = "Jargon 4"
 	motto = ""
 
-	ship_prefixes = list("SCA-T." = "transportation", "SCA-F" = "freight", "HSA-D" = "diplomatic")
+	ship_prefixes = list("SCA-V." = "transportation", "SCA-F" = "freight", "HSA-D" = "diplomatic")
 	destination_names = list(
 		"Venus",
 		"Earth",
 		"Luna",
 		"Mars",
 		"Titan",
-		"Ahdomai",
-		"Kelune",
-		"Dalstadt",
-		"New Canaan",
+		"Aurumn",
 		"Jargon 4",
-		"Hoorlm",
 		"Xarxis 5",
-		"Aurum",
-		"Moghes",
 		"Haverick",
 		"Darsing",
-		"Norfolk",
-		"Boron",
-		"Iluk")
+		"Norfolk")
