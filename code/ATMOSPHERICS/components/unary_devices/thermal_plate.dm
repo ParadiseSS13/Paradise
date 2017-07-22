@@ -17,9 +17,8 @@
 		prefix="h"
 	icon_state = "[prefix]off"
 
-/obj/machinery/atmospherics/unary/thermal_plate/process()
-	if(!..())
-		return 0
+/obj/machinery/atmospherics/unary/thermal_plate/process_atmos()
+	..()
 
 	var/datum/gas_mixture/environment = loc.return_air()
 

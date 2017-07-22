@@ -182,7 +182,7 @@ mob/living/carbon/human/proc/cum(mob/living/carbon/human/H as mob, mob/living/ca
 	var/turf/T
 
 	if (H.gender == MALE)
-		var/datum/reagent/blood/source = H.get_blood(H.vessel)
+		var/datum/reagent/blood/source = H.get_blood_id()
 		if (P)
 			T = get_turf(P)
 		else
