@@ -1,0 +1,4 @@
+author: "Crazylemon64"
+delete-after: True
+changes: 
+  - tweak: "Slipping now outputs a visible message instead of a personal one"
