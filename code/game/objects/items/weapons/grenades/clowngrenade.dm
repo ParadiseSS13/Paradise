@@ -61,9 +61,8 @@
 /obj/item/weapon/grown/bananapeel/traitorpeel/on_trip(mob/living/carbon/human/H)
 	. = ..()
 	if(.)
-		var/burned = rand(2,5)
 		to_chat(H, "<span class='warning'>Your feet feel like they're on fire!</span>")
-		H.take_overall_damage(0, max(0, 2*burned - 2))
+		H.take_overall_damage(0, rand(2,8))
 		H.take_organ_damage(2) // Was 5 -- TLE
 
 /obj/item/weapon/grown/bananapeel/traitorpeel/throw_impact(atom/hit_atom)
