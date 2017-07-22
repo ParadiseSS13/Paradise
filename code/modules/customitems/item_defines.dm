@@ -539,7 +539,6 @@
 	icon = 'icons/obj/custom_items.dmi'
 	icon_state = "charred_visor"
 	species_restricted = list("Vox")
-	flags = BLOCKHAIR
 
 /obj/item/clothing/head/bearpelt/fluff/polar //Gibson1027: Sploosh
 	name = "polar bear pelt hat"
