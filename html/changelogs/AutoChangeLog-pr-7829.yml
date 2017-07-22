@@ -1,0 +1,4 @@
+author: "Kyep"
+delete-after: True
+changes: 
+  - bugfix: "Blood decals are no longer movable. This means LINDA cannot move them, spiders cannot wrap them, etc."
