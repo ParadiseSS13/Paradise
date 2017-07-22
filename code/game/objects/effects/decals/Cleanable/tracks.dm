@@ -102,3 +102,24 @@ var/global/list/image/fluidtrack_cache=list()
 				overlays += I
 
 	alpha = BLOODY_FOOTPRINT_BASE_ALPHA+bloodiness
+
+/proc/createFootprintsFrom(atom/movable/A, dir, turf/T)
+	var/obj/effect/decal/cleanable/blood/footprints/FP = new /obj/effect/decal/cleanable/blood/footprints(T)
+	if(ishuman(A))
+		var/mob/living/carbon/human/H = A
+		FP.blood_state = H.blood_state
+		FP.bloodiness = H.bloody_feet[H.blood_state]
+		FP.basecolor = H.feet_blood_color
+		if(H.blood_DNA)
+			FP.blood_DNA = H.blood_DNA.Copy()
+	else if(istype(A, /obj/item/clothing/shoes))
+		var/obj/item/clothing/shoes/S = A
+		FP.blood_state = S.blood_state
+		FP.bloodiness = S.bloody_shoes[S.blood_state]
+		FP.basecolor = S.blood_color
+		if(S.blood_DNA)
+			FP.blood_DNA = S.blood_DNA.Copy()
+	FP.entered_dirs |= dir
+	FP.update_icon()
+
+	return FP
