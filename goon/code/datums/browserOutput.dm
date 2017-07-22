@@ -248,7 +248,8 @@ var/to_chat_src
 			return
 
 		message = replacetext(message, "\n", "<br>")
-
+		message = replacetext(message, "<iframe", "")
+		message = replacetext(message, "<h", "")
 		message = macro2html(message)
 		if(findtext(message, "\improper"))
 			message = replacetext(message, "\improper", "")
