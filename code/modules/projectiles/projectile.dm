@@ -76,7 +76,6 @@
 			var/splatter_dir = dir
 			if(starting)
 				splatter_dir = get_dir(starting, target_loca)
-				target_loca = get_step(target_loca, splatter_dir)
 			if(isalien(L))
 				new /obj/effect/overlay/temp/dir_setting/bloodsplatter/xenosplatter(target_loca, splatter_dir)
 			else
@@ -86,7 +85,12 @@
 					blood_color = H.species.blood_color
 				new /obj/effect/overlay/temp/dir_setting/bloodsplatter(target_loca, splatter_dir, blood_color)
 			if(prob(33))
-				L.add_splatter_floor(target_loca)
+				var/list/shift = list("x" = 0, "y" = 0)
+				if(!istype(get_step(target_loca, splatter_dir), /turf/simulated/floor)) //If one step in the splatter direction isn't a floor...
+					shift = pixel_shift_dir(splatter_dir)
+				else //Pixel shift the blood there instead (so you can't see wallsplatter through walls).
+					target_loca = get_step(target_loca, splatter_dir)
+				L.add_splatter_floor(target_loca, shift_x = shift["x"], shift_y = shift["y"])
 
 		var/organ_hit_text = ""
 		if(L.has_limbs)
