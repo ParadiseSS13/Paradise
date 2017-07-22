@@ -1,4 +1,0 @@
-author: "Kyep"
-delete-after: True
-changes: 
-  - bugfix: "Loading a different character while in the lobby will now update the character name listed on the lobby screen. Same when you rename an existing character."
