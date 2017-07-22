@@ -287,7 +287,7 @@ var/list/potential_theft_objectives = subtypesof(/datum/theft_objective) \
 	for(var/datum/mind/possible_target in ticker.minds)
 		if(possible_target != owner && ishuman(possible_target.current) && (possible_target.current.stat != DEAD) && possible_target.current.client)
 			var/mob/living/carbon/human/H = possible_target.current
-			if(!(H.species.flags & NO_DNA))
+			if(!(NO_DNA in H.species.species_traits))
 				possible_targets += possible_target
 	if(possible_targets.len > 0)
 		target = pick(possible_targets)
@@ -457,7 +457,7 @@ var/list/potential_theft_objectives = subtypesof(/datum/theft_objective) \
 					n_p++
 		else if(ticker.current_state == GAME_STATE_PLAYING)
 			for(var/mob/living/carbon/human/P in player_list)
-				if(P.species.flags & NO_DNA)
+				if(NO_DNA in P.species.species_traits)
 					continue
 				if(P.client && !(P.mind in ticker.mode.changelings) && P.mind!=owner)
 					n_p++

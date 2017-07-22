@@ -27,6 +27,22 @@
 	updatehealth()
 	return 1
 
+/mob/living/proc/apply_damage_type(damage = 0, damagetype = BRUTE) //like apply damage except it always uses the damage procs
+	switch(damagetype)
+		if(BRUTE)
+			return adjustBruteLoss(damage)
+		if(BURN)
+			return adjustFireLoss(damage)
+		if(TOX)
+			return adjustToxLoss(damage)
+		if(OXY)
+			return adjustOxyLoss(damage)
+		if(CLONE)
+			return adjustCloneLoss(damage)
+		if(STAMINA)
+			return adjustStaminaLoss(damage)
+		if(BRAIN)
+			return adjustBrainLoss(damage)
 
 /mob/living/proc/apply_damages(var/brute = 0, var/burn = 0, var/tox = 0, var/oxy = 0, var/clone = 0, var/def_zone = null, var/blocked = 0, var/stamina = 0)
 	if(blocked >= 100)	return 0

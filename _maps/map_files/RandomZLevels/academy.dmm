@@ -412,7 +412,7 @@
 "hV" = (/obj/structure/closet,/obj/item/clothing/under/color/lightpurple,/obj/item/weapon/twohanded/staff,/turf/simulated/floor/plasteel,/area/awaymission/academy/academyaft)
 "hW" = (/obj/structure/closet,/obj/item/weapon/storage/wallet/random,/obj/item/clothing/glasses/regular/hipster,/turf/simulated/floor/plasteel,/area/awaymission/academy/academyaft)
 "hX" = (/obj/structure/closet,/obj/item/clothing/head/wizard/fake,/obj/item/clothing/suit/wizrobe/fake,/turf/simulated/floor/plasteel,/area/awaymission/academy/academyaft)
-"hY" = (/obj/structure/closet,/obj/item/clothing/under/color/purple,/obj/item/weapon/contraband/poster,/turf/simulated/floor/plasteel,/area/awaymission/academy/academyaft)
+"hY" = (/obj/structure/closet,/obj/item/clothing/under/color/purple,/obj/item/weapon/poster/random_contraband,/turf/simulated/floor/plasteel,/area/awaymission/academy/academyaft)
 "hZ" = (/obj/structure/closet,/obj/item/weapon/storage/box/snappops,/obj/item/weapon/storage/backpack,/obj/item/weapon/paper{info = "Current Grade: F. Educator's Notes: No improvement shown despite multiple private lessons.  Suggest additional tutilage."; name = "Pyromancy Evaluation"},/turf/simulated/floor/plasteel,/area/awaymission/academy/academyaft)
 "ia" = (/obj/machinery/light{icon_state = "tube1"; dir = 8},/turf/simulated/floor/plasteel{icon_state = "hydrofloor"},/area/awaymission/academy/academyaft)
 "ib" = (/obj/effect/decal/cleanable/blood/oil,/turf/simulated/floor/plasteel,/area/awaymission/academy/academyaft)

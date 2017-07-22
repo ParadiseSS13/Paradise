@@ -73,7 +73,6 @@
 					if(affecting)
 						affecting.open = 0
 						affecting.germ_level = 0
-						affecting.status &= ~ORGAN_BLEEDING
 					qdel(current_surgery)
 				else if(current_surgery.can_cancel)
 					to_chat(user, "<span class='warning'>You need to hold a cautery in inactive hand to stop [M]'s surgery!</span>")

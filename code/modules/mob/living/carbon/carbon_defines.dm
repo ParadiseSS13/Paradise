@@ -8,8 +8,6 @@
 
 	var/life_tick = 0      // The amount of life ticks that have processed on this mob.
 
-	// total amount of wounds on mob, used to spread out healing and the like over all wounds
-	var/number_wounds = 0
 	var/obj/item/handcuffed = null //Whether or not the mob is handcuffed
 	var/obj/item/legcuffed = null  //Same as handcuffs but for legs. Bear traps use this.
 
@@ -30,3 +28,5 @@
 
 	var/failed_last_breath = 0 //This is used to determine if the mob failed a breath. If they did fail a brath, they will attempt to breathe each tick, otherwise just once per 4 ticks.
 	var/co2overloadtime = null
+
+	blood_volume = BLOOD_VOLUME_NORMAL

@@ -8,6 +8,7 @@ emp_act
 
 */
 
+
 /mob/living/carbon/human/bullet_act(obj/item/projectile/P, def_zone)
 
 	if(P.is_reflectable)
@@ -185,7 +186,7 @@ emp_act
 		newmeat.subjectjob = src.job
 		newmeat.reagents.add_reagent ("nutriment", (src.nutrition / 15) / 3)
 		src.reagents.trans_to (newmeat, round ((src.reagents.total_volume) / 3, 1))
-		src.loc.add_blood(src)
+		add_mob_blood(src)
 		--src.meatleft
 		to_chat(user, "<span class='warning'>You hack off a chunk of meat from [src.name]</span>")
 		if(!src.meatleft)
@@ -200,10 +201,10 @@ emp_act
 			qdel(src)
 
 	var/obj/item/organ/external/affecting = get_organ(ran_zone(user.zone_sel.selecting))
-	if(!affecting || affecting.is_stump() || (affecting.status & ORGAN_DESTROYED))
+	if(!affecting)
 		to_chat(user, "<span class='danger'>They are missing that limb!</span>")
 		return 1
-	var/hit_area = affecting.name
+	var/hit_area = parse_zone(affecting.limb_name)
 
 	if(user != src)
 		user.do_attack_animation(src)
@@ -232,19 +233,18 @@ emp_act
 
 	var/bloody = 0
 	if(I.damtype == BRUTE && I.force && prob(25 + I.force * 2))
-		I.add_blood(src)	//Make the weapon bloody, not the person.
+		I.add_mob_blood(src)	//Make the weapon bloody, not the person.
 //		if(user.hand)	user.update_inv_l_hand()	//updates the attacker's overlay for the (now bloodied) weapon
 //		else			user.update_inv_r_hand()	//removed because weapons don't have on-mob blood overlays
-		if(prob(33))
+		if(prob(I.force * 2)) //blood spatter!
 			bloody = 1
 			var/turf/location = loc
 			if(istype(location, /turf/simulated))
-				location.add_blood(src)
+				add_splatter_floor(location)
 			if(ishuman(user))
 				var/mob/living/carbon/human/H = user
 				if(get_dist(H, src) <= 1) //people with TK won't get smeared with blood
-					H.bloody_body(src)
-					H.bloody_hands(src)
+					H.add_mob_blood(src)
 
 		if(!stat)
 			switch(hit_area)
@@ -260,23 +260,30 @@ emp_act
 
 					if(bloody)//Apply blood
 						if(wear_mask)
-							wear_mask.add_blood(src)
+							wear_mask.add_mob_blood(src)
 							update_inv_wear_mask(0)
 						if(head)
-							head.add_blood(src)
+							head.add_mob_blood(src)
 							update_inv_head(0,0)
 						if(glasses && prob(33))
-							glasses.add_blood(src)
+							glasses.add_mob_blood(src)
 							update_inv_glasses(0)
 
-				if("upper body")//Easier to score a stun but lasts less time
+
+				if("chest")//Easier to score a stun but lasts less time
 					if(stat == CONSCIOUS && I.force && prob(I.force + 10))
 						visible_message("<span class='combat danger'>[src] has been knocked down!</span>", \
 										"<span class='combat userdanger'>[src] has been knocked down!</span>")
 						apply_effect(5, WEAKEN, armor)
 
 					if(bloody)
-						bloody_body(src)
+						if(wear_suit)
+							wear_suit.add_mob_blood(src)
+							update_inv_wear_suit(1)
+						if(w_uniform)
+							w_uniform.add_mob_blood(src)
+							update_inv_w_uniform(1)
+
 
 
 	if(Iforce > 10 || Iforce >= 5 && prob(33))
@@ -302,7 +309,7 @@ emp_act
 					throw_alert("embeddedobject", /obj/screen/alert/embeddedobject)
 					var/obj/item/organ/external/L = pick(bodyparts)
 					L.embedded_objects |= I
-//					I.add_mob_blood(src)//it embedded itself in you, of course it's bloody!
+					I.add_mob_blood(src)//it embedded itself in you, of course it's bloody!
 					I.forceMove(src)
 					L.take_damage(I.w_class*I.embedded_impact_pain_multiplier)
 					visible_message("<span class='danger'>[I] embeds itself in [src]'s [L.name]!</span>","<span class='userdanger'>[I] embeds itself in your [L.name]!</span>")
@@ -313,22 +320,20 @@ emp_act
 /mob/living/carbon/human/proc/bloody_hands(var/mob/living/source, var/amount = 2)
 
 	if(gloves)
-		gloves.add_blood(source)
+		gloves.add_mob_blood(source)
 		gloves:transfer_blood = amount
-		gloves:bloody_hands_mob = source
 	else
-		add_blood(source)
+		add_mob_blood(source)
 		bloody_hands = amount
-		bloody_hands_mob = source
 	update_inv_gloves(1)		//updates on-mob overlays for bloody hands and/or bloody gloves
 
 /mob/living/carbon/human/proc/bloody_body(var/mob/living/source)
 	if(wear_suit)
-		wear_suit.add_blood(source)
+		wear_suit.add_mob_blood(source)
 		update_inv_wear_suit(0)
 		return
 	if(w_uniform)
-		w_uniform.add_blood(source)
+		w_uniform.add_mob_blood(source)
 		update_inv_w_uniform(1)
 
 /mob/living/carbon/human/proc/handle_suit_punctures(var/damtype, var/damage)

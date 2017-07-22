@@ -63,7 +63,8 @@
 
 //called when a carbon changes virus
 /mob/living/carbon/proc/check_virus()
-	for(var/datum/disease/D in viruses)
+	for(var/thing in viruses)
+		var/datum/disease/D = thing
 		if((!(D.visibility_flags & HIDDEN_SCANNER)) && (D.severity != NONTHREAT))
 			return 1
 	return 0

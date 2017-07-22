@@ -50,21 +50,23 @@ var/list/diseases = subtypesof(/datum/disease)
 	var/stage_prob = 4
 
 	//Other
-	var/longevity = 150 //Time in ticks disease stays in objects, Syringes and such are infinite.
 	var/list/viable_mobtypes = list() //typepaths of viable mobs
 	var/mob/living/carbon/affected_mob = null
-	var/atom/movable/holder = null
 	var/list/cures = list() //list of cures if the disease has the CURABLE flag, these are reagent ids
 	var/infectivity = 65
 	var/cure_chance = 8
-	var/carrier = 0 //If our host is only a carrier
+	var/carrier = FALSE //If our host is only a carrier
+	var/bypasses_immunity = FALSE //Does it skip species virus immunity check? Some things may diseases and not viruses
 	var/permeability_mod = 1
 	var/severity =	NONTHREAT
 	var/list/required_organs = list()
 	var/needs_all_cures = TRUE
 	var/list/strain_data = list() //dna_spread special bullshit
 
-
+/datum/disease/Destroy()
+	affected_mob = null
+	active_diseases.Remove(src)
+	return ..()
 
 /datum/disease/proc/stage_act()
 	var/cure = has_cure()
@@ -97,13 +99,15 @@ var/list/diseases = subtypesof(/datum/disease)
 	if(!. || (needs_all_cures && . < cures.len))
 		return 0
 
-/datum/disease/proc/spread(atom/source, force_spread = 0)
+/datum/disease/proc/spread(force_spread = 0)
+	if(!affected_mob)
+		return
+
 	if((spread_flags & SPECIAL || spread_flags & NON_CONTAGIOUS || spread_flags & BLOOD) && !force_spread)
 		return
 
-	if(affected_mob)
-		if(affected_mob.reagents.has_reagent("spaceacillin") || (affected_mob.satiety > 0 && prob(affected_mob.satiety/10)))
-			return
+	if(affected_mob.reagents.has_reagent("spaceacillin") || (affected_mob.satiety > 0 && prob(affected_mob.satiety/10)))
+		return
 
 	var/spread_range = 1
 
@@ -113,15 +117,9 @@ var/list/diseases = subtypesof(/datum/disease)
 	if(spread_flags & AIRBORNE)
 		spread_range++
 
-	if(!source)
-		if(affected_mob)
-			source = affected_mob
-		else
-			return
-
-	var/turf/T = source.loc
+	var/turf/T = affected_mob.loc
 	if(istype(T))
-		for(var/mob/living/carbon/C in oview(spread_range, source))
+		for(var/mob/living/carbon/C in oview(spread_range, affected_mob))
 			var/turf/V = get_turf(C)
 			if(V)
 				while(TRUE)
@@ -134,30 +132,6 @@ var/list/diseases = subtypesof(/datum/disease)
 					V = Temp
 
 
-/datum/disease/proc/process()
-	if(!holder)
-		disease_master.processing_diseases -= src
-		return
-
-	if(prob(infectivity))
-		spread(holder)
-
-	if(affected_mob)
-		for(var/datum/disease/D in affected_mob.viruses)
-			if(D != src)
-				if(IsSame(D))
-					qdel(D)
-
-		if(holder == affected_mob)
-			if(affected_mob.stat != DEAD)
-				stage_act()
-
-	if(!affected_mob)
-		if(prob(70))
-			if(--longevity<=0)
-				cure()
-
-
 /datum/disease/proc/cure()
 	if(affected_mob)
 		if(disease_flags & CAN_RESIST)
@@ -165,24 +139,6 @@ var/list/diseases = subtypesof(/datum/disease)
 				affected_mob.resistances += type
 		remove_virus()
 	qdel(src)
-
-
-/datum/disease/New()
-	if(required_organs && required_organs.len)
-		if(ishuman(affected_mob))
-			var/mob/living/carbon/human/H = affected_mob
-			for(var/obj/item/organ/O in required_organs)
-				if(!locate(O) in H.bodyparts)
-					if(!locate(O) in H.internal_organs)
-						cure()
-						return
-
-	if(disease_master)
-		register()
-
-/datum/disease/proc/register()
-	disease_master.processing_diseases += src
-
 
 /datum/disease/proc/IsSame(datum/disease/D)
 	if(istype(src, D.type))
@@ -198,13 +154,6 @@ var/list/diseases = subtypesof(/datum/disease)
 
 /datum/disease/proc/GetDiseaseID()
 	return type
-
-
-/datum/disease/Destroy()
-	if(disease_master && disease_master.processing_diseases.Find(src))
-		disease_master.processing_diseases.Remove(src)
-	return ..()
-
 
 /datum/disease/proc/IsSpreadByTouch()
 	if(spread_flags & CONTACT_FEET || spread_flags & CONTACT_HANDS || spread_flags & CONTACT_GENERAL)

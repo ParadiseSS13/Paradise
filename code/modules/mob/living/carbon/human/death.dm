@@ -37,7 +37,7 @@
 
 	if(!isSynthetic())
 		flick("gibbed-h", animation)
-		hgibs(loc, viruses, dna)
+		hgibs(loc, dna)
 	else
 		new /obj/effect/decal/cleanable/blood/gibs/robot(loc)
 		var/datum/effect/system/spark_spread/s = new /datum/effect/system/spark_spread

@@ -92,8 +92,7 @@
 
 		//Mitocholide is hard enough to get, it's probably fair to make this all internal organs
 		for(var/obj/item/organ/internal/I in H.internal_organs)
-			if(I.damage > 0)
-				I.damage = max(I.damage-0.4, 0)
+			I.take_damage(-0.4)
 	..()
 
 /datum/reagent/medicine/mitocholide/reaction_obj(obj/O, volume)
@@ -211,10 +210,11 @@
 	if(prob(33))
 		M.adjustBruteLoss(-2*REAGENTS_EFFECT_MULTIPLIER)
 		M.adjustFireLoss(-2*REAGENTS_EFFECT_MULTIPLIER)
-	if(ishuman(M))
+	if(ishuman(M) && prob(33))
 		var/mob/living/carbon/human/H = M
-		if(!H.species.exotic_blood && !(H.species.flags & NO_BLOOD) && prob(33))
-			H.vessel.add_reagent("blood", 1)
+		if(!(NO_BLOOD in H.species.species_traits))//do not restore blood on things with no blood by nature.
+			if(H.blood_volume < BLOOD_VOLUME_NORMAL)
+				H.blood_volume += 1
 	..()
 
 /datum/reagent/medicine/synthflesh
@@ -512,7 +512,7 @@
 			var/mob/living/carbon/human/H = M
 			var/obj/item/organ/internal/eyes/E = H.get_int_organ(/obj/item/organ/internal/eyes)
 			if(istype(E))
-				E.damage = max(E.damage-1, 0)
+				E.take_damage(-1)
 		M.AdjustEyeBlurry(-1)
 		M.AdjustEarDamage(-1)
 	if(prob(50))

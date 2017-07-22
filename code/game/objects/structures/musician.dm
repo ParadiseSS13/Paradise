@@ -1,14 +1,14 @@
-//This file was auto-corrected by findeclaration.exe on 25.5.2012 20:42:32
+
 
 /datum/song
 	var/name = "Untitled"
 	var/list/lines = new()
-	var/tempo = 5					// delay between notes
+	var/tempo = 5			// delay between notes
 
-	var/playing = 0					// if we're playing
-	var/help = 0					// if help is open
-	var/repeat = 0					// number of times remaining to repeat
-	var/max_repeat = 10				// maximum times we can repeat
+	var/playing = 0			// if we're playing
+	var/help = 0			// if help is open
+	var/repeat = 0			// number of times remaining to repeat
+	var/max_repeat = 10		// maximum times we can repeat
 
 	var/instrumentDir = "piano"		// the folder with the sounds
 	var/instrumentExt = "ogg"		// the file extension
@@ -26,7 +26,7 @@
 // note is a number from 1-7 for A-G
 // acc is either "b", "n", or "#"
 // oct is 1-8 (or 9 for C)
-/datum/song/proc/playnote(var/note, var/acc as text, var/oct)
+/datum/song/proc/playnote(note, acc as text, oct)
 	// handle accidental -> B<>C of E<>F
 	if(acc == "b" && (note == 3 || note == 6)) // C or F
 		if(note == 3)
@@ -70,7 +70,7 @@
 	else
 		return 1
 
-/datum/song/proc/playsong(mob/user as mob)
+/datum/song/proc/playsong(mob/user)
 	while(repeat >= 0)
 		var/cur_oct[7]
 		var/cur_acc[7]
@@ -79,18 +79,14 @@
 			cur_acc[i] = "n"
 
 		for(var/line in lines)
-//			to_chat(world, line)
 			for(var/beat in splittext(lowertext(line), ","))
-//				to_chat(world, "beat: [beat]")
 				var/list/notes = splittext(beat, "/")
 				for(var/note in splittext(notes[1], "-"))
-//					to_chat(world, "note: [note]")
-					if(!playing || shouldStopPlaying(user))//If the instrument is playing, or special case
+					if(!playing || shouldStopPlaying(user)) //If the instrument is playing, or special case
 						playing = 0
 						return
 					if(lentext(note) == 0)
 						continue
-//					to_chat(world, "Parse: [copytext(note,1,2)]")
 					var/cur_note = text2ascii(note) - 96
 					if(cur_note < 1 || cur_note > 7)
 						continue
@@ -244,6 +240,7 @@
 		playing = 0
 
 /datum/song/proc/sanitize_tempo(new_tempo)
+	new_tempo = abs(new_tempo)
 	return max(round(new_tempo, world.tick_lag), world.tick_lag)
 
 // subclass for handheld instruments, like violin
@@ -269,6 +266,7 @@
 
 
 /obj/structure/piano/New()
+	..()
 	song = new("piano", src)
 
 	if(prob(50))
@@ -304,7 +302,7 @@
 	song.Topic(href, href_list)
 
 /obj/structure/piano/attackby(obj/item/O as obj, mob/user as mob, params)
-	if(istype(O, /obj/item/weapon/wrench))
+	if(iswrench(O))
 		if(!anchored && !isinspace())
 			playsound(src.loc, O.usesound, 50, 1)
 			to_chat(user, "<span class='notice'> You begin to tighten \the [src] to the floor...</span>")
@@ -324,4 +322,4 @@
 					"You hear ratchet.")
 				anchored = 0
 	else
-		..()
+		return ..()
