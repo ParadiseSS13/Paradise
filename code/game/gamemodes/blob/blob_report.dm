@@ -1,5 +1,3 @@
-//This file was auto-corrected by findeclaration.exe on 25.5.2012 20:42:31
-
 /datum/game_mode/blob/proc/send_intercept(var/report = 1)
 	var/intercepttext = ""
 	var/interceptname = ""
