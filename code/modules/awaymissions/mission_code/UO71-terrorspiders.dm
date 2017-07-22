@@ -179,6 +179,10 @@
 	(the writing trails off, as if the writer was interrupted)<br>
 	"}
 
+/obj/item/weapon/paper/terrorspiders9
+	name = "paper - 'Research Notes'"
+	info = "<b>The notes appear gibberish to you. Perhaps a destructive analyser in R&D could make sense of them.</b>"
+	origin_tech = "combat=4;materials=4;engineering=4;biotech=4"
 
 /obj/item/weapon/gun/energy/laser/awaymission_aeg
 	name = "Wireless Energy Gun"
