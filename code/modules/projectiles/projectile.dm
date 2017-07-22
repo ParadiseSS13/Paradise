@@ -86,10 +86,12 @@
 				new /obj/effect/overlay/temp/dir_setting/bloodsplatter(target_loca, splatter_dir, blood_color)
 			if(prob(33))
 				var/list/shift = list("x" = 0, "y" = 0)
-				if(!istype(get_step(target_loca, splatter_dir), /turf/simulated/floor)) //If one step in the splatter direction isn't a floor...
-					shift = pixel_shift_dir(splatter_dir)
-				else //Pixel shift the blood there instead (so you can't see wallsplatter through walls).
-					target_loca = get_step(target_loca, splatter_dir)
+				var/turf/step_over = get_step(target_loca, splatter_dir)
+
+				if(get_splatter_blockage(step_over, target, splatter_dir, target_loca)) //If you can't cross the tile or any of its relevant obstacles...
+					shift = pixel_shift_dir(splatter_dir) //Pixel shift the blood there instead (so you can't see wallsplatter through walls).
+				else
+					target_loca = step_over
 				L.add_splatter_floor(target_loca, shift_x = shift["x"], shift_y = shift["y"])
 
 		var/organ_hit_text = ""
@@ -114,6 +116,15 @@
 	if(!log_override && firer && original)
 		add_logs(firer, L, "shot", src, reagent_note)
 	return L.apply_effects(stun, weaken, paralyze, irradiate, slur, stutter, eyeblur, drowsy, blocked, stamina, jitter)
+
+/obj/item/projectile/proc/get_splatter_blockage(var/turf/step_over, var/atom/target, var/splatter_dir, var/target_loca) //Check whether the place we want to splatter blood is blocked (i.e. by windows).
+	var/turf/step_cardinal = !(splatter_dir in list(NORTH, SOUTH, EAST, WEST)) ? get_step(target_loca, get_cardinal_dir(target_loca, step_over)) : null
+
+	if(step_over.density && !step_over.CanPass(target, step_over, 1)) //Preliminary simple check.
+		return 1
+	for(var/atom/movable/border_obstacle in step_over) //Check to see if we're blocked by a (non-full) window or some such. Do deeper investigation if we're splattering blood diagonally.
+		if(border_obstacle.flags&ON_BORDER && get_dir(step_cardinal ? step_cardinal : target_loca, step_over) ==  turn(border_obstacle.dir, 180))
+			return 1
 
 /obj/item/projectile/proc/vol_by_damage()
 	if(damage)

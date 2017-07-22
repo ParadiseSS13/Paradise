@@ -271,6 +271,9 @@
 	B.pixel_x = (shift_x)
 	B.pixel_y = (shift_y)
 	B.update_icon()
+	if(shift_x || shift_y)
+		B.off_floor = TRUE
+		B.layer = BELOW_MOB_LAYER //So the blood lands ontop of things like posters, windows, etc.
 
 /mob/living/carbon/human/add_splatter_floor(turf/T, small_drip, shift_x, shift_y)
 	if(!(NO_BLOOD in species.species_traits))
@@ -287,6 +290,9 @@
 	B.blood_DNA["UNKNOWN DNA"] = "X*"
 	B.pixel_x = (shift_x)
 	B.pixel_y = (shift_y)
+	if(shift_x || shift_y)
+		B.off_floor = TRUE
+		B.layer = BELOW_MOB_LAYER
 
 /mob/living/silicon/robot/add_splatter_floor(turf/T, small_drip, shift_x, shift_y)
 	if(!T)
@@ -298,3 +304,6 @@
 		B = locate() in T
 	B.pixel_x = (shift_x)
 	B.pixel_y = (shift_y)
+	if(shift_x || shift_y)
+		B.off_floor = TRUE
+		B.layer = BELOW_MOB_LAYER
