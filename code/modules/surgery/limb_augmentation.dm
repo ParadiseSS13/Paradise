@@ -54,5 +54,4 @@
 
 	affected.open = 0
 	affected.germ_level = 0
-	affected.status &= ~ORGAN_BLEEDING
 	return 1

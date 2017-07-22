@@ -96,11 +96,7 @@
 	var/health_threshold_crit = 0
 	var/health_threshold_dead = -100
 
-	var/organ_health_multiplier = 1
-	var/organ_regeneration_multiplier = 1
-
 	var/bones_can_break = 1
-	var/limbs_can_break = 1
 
 	var/revival_pod_plants = 1
 	var/revival_cloning = 1
@@ -146,7 +142,6 @@
 	var/admin_irc = ""
 	var/admin_notify_irc = ""
 	var/cidrandomizer_irc = ""
-	var/python_path = "" //Path to the python executable.  Defaults to "python" on windows and "/usr/bin/env python2" on unix
 
 	var/default_laws = 0 //Controls what laws the AI spawns with.
 
@@ -499,12 +494,12 @@
 
 				if("python_path")
 					if(value)
-						config.python_path = value
+						python_path = value
 					else
 						if(world.system_type == UNIX)
-							config.python_path = "/usr/bin/env python2"
+							python_path = "/usr/bin/env python2"
 						else //probably windows, if not this should work anyway
-							config.python_path = "pythonw"
+							python_path = "pythonw"
 
 				if("assistant_limit")
 					config.assistantlimit = 1
@@ -637,14 +632,8 @@
 					config.slime_delay = value
 				if("animal_delay")
 					config.animal_delay = value
-				if("organ_health_multiplier")
-					config.organ_health_multiplier = value / 100
-				if("organ_regeneration_multiplier")
-					config.organ_regeneration_multiplier = value / 100
 				if("bones_can_break")
 					config.bones_can_break = value
-				if("limbs_can_break")
-					config.limbs_can_break = value
 				if("shuttle_refuel_delay")
 					config.shuttle_refuel_delay     = text2num(value)
 				if("traitor_objectives_amount")

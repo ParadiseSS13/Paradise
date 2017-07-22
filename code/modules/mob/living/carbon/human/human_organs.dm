@@ -9,51 +9,23 @@
 
 // Takes care of organ related updates, such as broken and missing limbs
 /mob/living/carbon/human/proc/handle_organs()
-
-	number_wounds = 0
-	var/force_process = 0
-	var/damage_this_tick = getBruteLoss() + getFireLoss() + getToxLoss()
-	if(damage_this_tick > last_dam)
-		force_process = 1
-	last_dam = damage_this_tick
-	if(force_process)
-		bad_external_organs.Cut()
-		for(var/obj/item/organ/external/Ex in bodyparts)
-			bad_external_organs |= Ex
-
 	//processing internal organs is pretty cheap, do that first.
 	for(var/obj/item/organ/internal/I in internal_organs)
 		I.process()
 
+	for(var/obj/item/organ/external/E in bodyparts)
+		E.process()
+
+		if(!lying && world.time - l_move_time < 15)
+		//Moving around with fractured ribs won't do you any good
+			if(E.is_broken() && E.internal_organs && E.internal_organs.len && prob(15))
+				var/obj/item/organ/internal/I = pick(E.internal_organs)
+				custom_pain("You feel broken bones moving in your [E.name]!", 1)
+				I.take_damage(rand(3,5))
+
 	//handle_stance()
 	handle_grasp()
 	handle_stance()
-
-	if(!force_process && !bad_external_organs.len)
-		return
-
-	for(var/obj/item/organ/external/E in bad_external_organs)
-		if(!E)
-			continue
-		if(!E.need_process())
-			bad_external_organs -= E
-			continue
-		else
-			E.process()
-			number_wounds += E.number_wounds
-
-			if(!lying && world.time - l_move_time < 15)
-			//Moving around with fractured ribs won't do you any good
-				if(E.is_broken() && E.internal_organs && E.internal_organs.len && prob(15))
-					var/obj/item/organ/internal/I = pick(E.internal_organs)
-					custom_pain("You feel broken bones moving in your [E.name]!", 1)
-					I.take_damage(rand(3,5))
-
-				//Moving makes open wounds get infected much faster
-				if(E.wounds.len)
-					for(var/datum/wound/W in E.wounds)
-						if(W.infection_check())
-							W.germ_level += 1
 
 
 /mob/living/carbon/human/proc/handle_stance()
@@ -71,7 +43,7 @@
 
 	for(var/limb_tag in list("l_leg","r_leg","l_foot","r_foot"))
 		var/obj/item/organ/external/E = bodyparts_by_name[limb_tag]
-		if(!E || (E.status & (ORGAN_DESTROYED|ORGAN_DEAD)) || E.is_malfunctioning())
+		if(!E || (E.status & ORGAN_DEAD) || E.is_malfunctioning())
 			stance_damage += 2 // let it fail even if just foot&leg. Also malfunctioning happens sporadically so it should impact more when it procs
 		else if(E.is_broken() || !E.is_usable())
 			stance_damage += 1

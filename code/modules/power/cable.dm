@@ -604,7 +604,7 @@ var/global/list/datum/stack_recipe/cable_coil_recipes = list(
 		return FALSE //Can only noose someone if they're on the same tile as noose
 
 	var/obj/item/organ/head = H.get_organ("head")
-	if(head == null || istype(head, /obj/item/organ/external/stump))
+	if(head == null)
 		to_chat(user, "<span class='warning'>They have no head!</span>")
 		return FALSE
 

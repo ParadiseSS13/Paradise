@@ -192,16 +192,6 @@
 
 	//ID
 	if(wear_id)
-		/*var/id
-		if(istype(wear_id, /obj/item/device/pda))
-			var/obj/item/device/pda/pda = wear_id
-			id = pda.owner
-		else if(istype(wear_id, /obj/item/weapon/card/id)) //just in case something other than a PDA/ID card somehow gets in the ID slot :[
-			var/obj/item/weapon/card/id/idcard = wear_id
-			id = idcard.registered_name
-		if(id && (id != real_name) && (get_dist(src, user) <= 1) && prob(10))
-			msg += "<span class='warning'>[t_He] [t_is] wearing [bicon(wear_id)] \a [wear_id] yet something doesn't seem right...</span>\n"
-		else*/
 		msg += "[t_He] [t_is] wearing [bicon(wear_id)] \a [wear_id].\n"
 
 	if(is_nude() && gender == MALE && species.genitals)
@@ -215,79 +205,30 @@
 		if(100 to 200)
 			msg += "<span class='warning'>[t_He] [t_is] twitching ever so slightly.</span>\n"
 
-	//splints
-	for(var/organ in list("l_leg","r_leg","l_arm","r_arm"))
-		var/obj/item/organ/external/o = get_organ(organ)
-		if(o && o.status & ORGAN_SPLINTED)
-			msg += "<span class='warning'>[t_He] [t_has] a splint on his [o.name]!</span>\n"
-
-	if(suiciding)
-		msg += "<span class='warning'>[t_He] appears to have commited suicide... there is no hope of recovery.</span>\n"
-
-	if(DWARF in mutations)
-		msg += "[t_He] [t_is] a halfling!\n"
-
-	var/distance = get_dist(user,src)
-	if(istype(user, /mob/dead/observer) || user.stat == 2) // ghosts can see anything
-		distance = 1
-	if(src.stat)
-		msg += "<span class='warning'>[t_He] [t_is]n't responding to anything around [t_him] and seems to be asleep.</span>\n"
-		if((stat == 2 || src.health <= config.health_threshold_crit) && distance <= 3)
-			msg += "<span class='warning'>[t_He] does not appear to be breathing.</span>\n"
-		if(istype(user, /mob/living/carbon/human) && !user.stat && distance <= 1)
-			for(var/mob/O in viewers(user.loc, null))
-				O.show_message("[user] checks [src]'s pulse.", 1)
-		spawn(15)
-			if(distance <= 1 && user.stat != 1)
-				if(pulse == PULSE_NONE)
-					to_chat(user, "<span class='deadsay'>[t_He] has no pulse[src.client ? "" : " and [t_his] soul has departed"]...</span>")
-				else
-					to_chat(user, "<span class='deadsay'>[t_He] has a pulse!</span>")
-
-	msg += "<span class='warning'>"
-	if(fire_stacks > 0)
-		msg += "[t_He] [t_is] covered in something flammable.\n"
-	if(fire_stacks < 0)
-		msg += "[t_He] looks a little soaked.\n"
-
-	switch(wetlevel)
-		if(1)
-			msg += "[t_He] looks a bit damp.\n"
-		if(2)
-			msg += "[t_He] looks a little bit wet.\n"
-		if(3)
-			msg += "[t_He] looks wet.\n"
-		if(4)
-			msg += "[t_He] looks very wet.\n"
-		if(5)
-			msg += "[t_He] looks absolutely soaked.\n"
-
-	if(nutrition < NUTRITION_LEVEL_STARVING - 50)
-		msg += "[t_He] [t_is] severely malnourished.\n"
-	else if(nutrition >= NUTRITION_LEVEL_FAT)
-		if(user.nutrition < NUTRITION_LEVEL_STARVING - 50)
-			msg += "[t_He] [t_is] plump and delicious looking - Like a fat little piggy. A tasty piggy.\n"
-		else
-			msg += "[t_He] [t_is] quite chubby.\n"
-
-	if(reagents.has_reagent("teslium"))
-		msg += "[t_He] is emitting a gentle blue glow!\n"
-
-	msg += "</span>"
-
-	if(getBrainLoss() >= 60)
-		msg += "[t_He] [t_has] a stupid expression on [t_his] face.\n"
-
-	if(species.show_ssd && (!species.has_organ["brain"] || get_int_organ(/obj/item/organ/internal/brain)) && stat != DEAD)
-		if(istype(src, /mob/living/carbon/human/interactive))
-			msg += "<span class='deadsay'>[t_He] appears to be some sort of sick automaton: [t_his] eyes are glazed over and [t_his] mouth is slightly agape.</span>\n"
-		else if(!key)
-			msg += "<span class='deadsay'>[t_He] [t_is] fast asleep. It doesn't look like they are waking up anytime soon.</span>\n"
-		else if(!client)
-			msg += "[t_He] [t_has] suddenly fallen asleep.\n"
+	var/appears_dead = FALSE
+	if(stat == DEAD || (status_flags & FAKEDEATH))
+		appears_dead = TRUE
+		if(suiciding)
+			msg += "<span class='warning'>[t_He] appears to have committed suicide... there is no hope of recovery.</span>\n"
+		msg += "<span class='deadsay'>[t_He] [t_is] limp and unresponsive; there are no signs of life"
+		if(get_int_organ(/obj/item/organ/internal/brain))
+			if(!key)
+				var/foundghost = FALSE
+				if(mind)
+					for(var/mob/dead/observer/G in player_list)
+						if(G.mind == mind)
+							foundghost = TRUE
+							if(G.can_reenter_corpse == 0)
+								foundghost = FALSE
+							break
+				if(!foundghost)
+					msg += " and [t_his] soul has departed"
+		msg += "...</span>\n"
 
 	if(!get_int_organ(/obj/item/organ/internal/brain))
 		msg += "<span class='deadsay'>It appears that [t_his] brain is missing...</span>\n"
+
+	msg += "<span class='warning'>"
 
 	var/list/wound_flavor_text = list()
 	var/list/is_destroyed = list()
@@ -299,89 +240,17 @@
 
 		var/obj/item/organ/external/E = bodyparts_by_name[organ_tag]
 		if(!E)
-			wound_flavor_text["[organ_tag]"] = "<span class='warning'><b>[t_He] [t_is] missing [t_his] [organ_descriptor].</b></span>\n"
-		else if(E.is_stump())
-			wound_flavor_text["[organ_tag]"] = "<span class='warning'><b>[t_He] [t_has] a stump where [t_his] [organ_descriptor] should be.</b></span>\n"
+			wound_flavor_text["[organ_tag]"] = "<B>[t_He] [t_is] missing [t_his] [organ_descriptor].</B>\n"
 		else
-			continue
+			if(!isSynthetic())
+				if(E.status & ORGAN_ROBOT)
+					wound_flavor_text["[E.limb_name]"] = "[t_He] [t_has] a robotic [E.name]!\n"
 
-	for(var/obj/item/organ/external/temp in bodyparts)
-		if(temp && !temp.is_stump())
-			if(temp.status & ORGAN_ROBOT)
-				if(!(temp.brute_dam + temp.burn_dam))
-					if(!isSynthetic())
-						wound_flavor_text["[temp.limb_name]"] = "<span class='warning'>[t_He] [t_has] a robotic [temp.name]!</span>\n"
-						continue
-				else
-					wound_flavor_text["[temp.limb_name]"] = "<span class='warning'>[t_He] [t_has] a robotic [temp.name]. It has"
-				if(temp.brute_dam) switch(temp.brute_dam)
-					if(0 to 20)
-						wound_flavor_text["[temp.limb_name]"] += " some dents"
-					if(21 to INFINITY)
-						wound_flavor_text["[temp.limb_name]"] += pick(" a lot of dents"," severe denting")
-				if(temp.brute_dam && temp.burn_dam)
-					wound_flavor_text["[temp.limb_name]"] += " and"
-				if(temp.burn_dam) switch(temp.burn_dam)
-					if(0 to 20)
-						wound_flavor_text["[temp.limb_name]"] += " some burns"
-					if(21 to INFINITY)
-						wound_flavor_text["[temp.limb_name]"] += pick(" a lot of burns"," severe melting")
-				if(wound_flavor_text["[temp.limb_name]"])
-					wound_flavor_text["[temp.limb_name]"] += "!</span>\n"
-			else if(temp.wounds.len > 0)
-				var/list/wound_descriptors = list()
-				for(var/datum/wound/W in temp.wounds)
-					if(W.internal && !temp.open) continue // can't see internal wounds
-					var/this_wound_desc = W.desc
-					if(W.damage_type == BURN && W.salved) this_wound_desc = "salved [this_wound_desc]"
-					if(W.germ_level > 600) this_wound_desc = "badly infected [this_wound_desc]"
-					else if(W.germ_level > 330) this_wound_desc = "lightly infected [this_wound_desc]"
-					if(this_wound_desc in wound_descriptors)
-						wound_descriptors[this_wound_desc] += W.amount
-						continue
-					wound_descriptors[this_wound_desc] = W.amount
-				if(wound_descriptors.len)
-					var/list/flavor_text = list()
-					var/list/no_exclude = list("gaping wound", "big gaping wound", "massive wound", "large bruise",\
-					"huge bruise", "massive bruise", "severe burn", "large burn", "deep burn", "carbonised area")
-					for(var/wound in wound_descriptors)
-						switch(wound_descriptors[wound])
-							if(1)
-								if(!flavor_text.len)
-									flavor_text += "<span class='warning'>[t_He] [t_has][prob(10) && !(wound in no_exclude)  ? " what might be" : ""] a [wound]"
-								else
-									flavor_text += "[prob(10) && !(wound in no_exclude) ? " what might be" : ""] a [wound]"
-							if(2)
-								if(!flavor_text.len)
-									flavor_text += "<span class='warning'>[t_He] [t_has][prob(10) && !(wound in no_exclude) ? " what might be" : ""] a pair of [wound]s"
-								else
-									flavor_text += "[prob(10) && !(wound in no_exclude) ? " what might be" : ""] a pair of [wound]s"
-							if(3 to 5)
-								if(!flavor_text.len)
-									flavor_text += "<span class='warning'>[t_He] [t_has] several [wound]s"
-								else
-									flavor_text += " several [wound]s"
-							if(6 to INFINITY)
-								if(!flavor_text.len)
-									flavor_text += "<span class='warning'>[t_He] [t_has] a bunch of [wound]s"
-								else
-									flavor_text += " a ton of [wound]\s"
-					var/flavor_text_string = ""
-					for(var/text = 1, text <= flavor_text.len, text++)
-						if(text == flavor_text.len && flavor_text.len > 1)
-							flavor_text_string += ", and"
-						else if(flavor_text.len > 1 && text > 1)
-							flavor_text_string += ","
-						flavor_text_string += flavor_text[text]
-					flavor_text_string += " on [t_his] [temp.name].</span><br>"
-					wound_flavor_text["[temp.limb_name]"] = flavor_text_string
-				else
-					wound_flavor_text["[temp.limb_name]"] = ""
-			else
-				wound_flavor_text["[temp.limb_name]"] = ""
+				else if(E.status & ORGAN_SPLINTED)
+					wound_flavor_text["[E.limb_name]"] = "[t_He] [t_has] a splint on his [E.name]!\n"
 
-			for(var/obj/item/I in temp.embedded_objects)
-				msg += "<B>[t_He] [t_has] \a [bicon(I)] [I] embedded in [t_his] [temp.name]!</B>\n"
+			for(var/obj/item/I in E.embedded_objects)
+				msg += "<B>[t_He] [t_has] \a [bicon(I)] [I] embedded in [t_his] [E.name]!</B>\n"
 
 	//Handles the text strings being added to the actual description.
 	//If they have something that covers the limb, and it is not missing, put flavortext.  If it is covered but bleeding, add other flavortext.
@@ -408,6 +277,55 @@
 	if(wound_flavor_text["r_foot"]&& (is_destroyed["right foot"] || (!shoes  && !skipshoes)))
 		msg += wound_flavor_text["r_foot"]
 
+	var/temp = getBruteLoss() //no need to calculate each of these twice
+
+	if(temp)
+		var/brute_message = !isSynthetic() ? "bruising" : "denting"
+		if(temp < 30)
+			msg += "[t_He] [t_has] minor [brute_message ].\n"
+		else
+			msg += "<B>[t_He] [t_has] severe [brute_message ]!</B>\n"
+
+	temp = getFireLoss()
+	if(temp)
+		if(temp < 30)
+			msg += "[t_He] [t_has] minor burns.\n"
+		else
+			msg += "<B>[t_He] [t_has] severe burns!</B>\n"
+
+	temp = getCloneLoss()
+	if(temp)
+		if(temp < 30)
+			msg += "[t_He] [t_has] minor cellular damage.\n"
+		else
+			msg += "<B>[t_He] [t_has] severe cellular damage.</B>\n"
+
+
+	if(fire_stacks > 0)
+		msg += "[t_He] [t_is] covered in something flammable.\n"
+	if(fire_stacks < 0)
+		msg += "[t_He] looks a little soaked.\n"
+
+	switch(wetlevel)
+		if(1)
+			msg += "[t_He] looks a bit damp.\n"
+		if(2)
+			msg += "[t_He] looks a little bit wet.\n"
+		if(3)
+			msg += "[t_He] looks wet.\n"
+		if(4)
+			msg += "[t_He] looks very wet.\n"
+		if(5)
+			msg += "[t_He] looks absolutely soaked.\n"
+
+	if(nutrition < NUTRITION_LEVEL_STARVING - 50)
+		msg += "[t_He] [t_is] severely malnourished.\n"
+	else if(nutrition >= NUTRITION_LEVEL_FAT)
+		if(user.nutrition < NUTRITION_LEVEL_STARVING - 50)
+			msg += "[t_He] [t_is] plump and delicious looking - Like a fat little piggy. A tasty piggy.\n"
+		else
+			msg += "[t_He] [t_is] quite chubby.\n"
+
 	if(blood_volume < BLOOD_VOLUME_SAFE)
 		msg += "[t_He] [t_has] pale skin.\n"
 
@@ -419,10 +337,38 @@
 		else
 			msg += "<B>[t_He] [t_is] bleeding!</B>\n"
 
-	if(digitalcamo)
-		msg += "[t_He] [t_is] repulsively uncanny!\n"
+	if(reagents.has_reagent("teslium"))
+		msg += "[t_He] is emitting a gentle blue glow!\n"
+
+	msg += "</span>"
+
+	if(!appears_dead)
+		if(stat == UNCONSCIOUS)
+			msg += "[t_He] [t_is]n't responding to anything around [t_him] and seems to be asleep.\n"
+		else if(getBrainLoss() >= 60)
+			msg += "[t_He] [t_has] a stupid expression on [t_his] face.\n"
+
+		if(get_int_organ(/obj/item/organ/internal/brain))
+			if(istype(src, /mob/living/carbon/human/interactive))
+				var/mob/living/carbon/human/interactive/auto = src
+				if(auto.showexaminetext)
+					msg += "<span class='deadsay'>[t_He] [t_is] appears to be some sort of sick automaton, [t_his] eyes are glazed over and [t_his] mouth is slightly agape.</span>\n"
+				if(auto.debugexamine)
+					var/dodebug = auto.doing2string(auto.doing)
+					var/interestdebug = auto.interest2string(auto.interest)
+					msg += "<span class='deadsay'>[t_He] [t_is] appears to be [interestdebug] and [dodebug].</span>\n"
+			else if(species.show_ssd)
+				if(!key)
+					msg += "<span class='deadsay'>[t_He] [t_is] totally catatonic. The stresses of life in deep-space must have been too much for [t_him]. Any recovery is unlikely.</span>\n"
+				else if(!client)
+					msg += "[t_He] [t_has] suddenly fallen asleep, suffering from Space Sleep Disorder. [t_He] may wake up soon.\n"
+
+		if(digitalcamo)
+			msg += "[t_He] [t_is] moving [t_his] body in an unnatural and blatantly inhuman manner.\n"
+
 	if(!(skipface || ( wear_mask && ( wear_mask.flags_inv & HIDEFACE || wear_mask.flags_cover & MASKCOVERSMOUTH) ) ) && is_thrall(src) && in_range(user,src))
 		msg += "Their features seem unnaturally tight and drawn.\n"
+
 	if(decaylevel == 1)
 		msg += "[t_He] [t_is] starting to smell.\n"
 	if(decaylevel == 2)

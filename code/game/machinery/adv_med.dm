@@ -413,8 +413,6 @@
 			organData["shrapnel_len"] = shrapnelData.len
 
 			var/organStatus[0]
-			if(E.status & ORGAN_DESTROYED)
-				organStatus["destroyed"] = 1
 			if(E.status & ORGAN_BROKEN)
 				organStatus["broken"] = E.broken_description
 			if(E.status & ORGAN_ROBOT)
@@ -429,10 +427,8 @@
 			if(istype(E, /obj/item/organ/external/chest) && H.is_lung_ruptured())
 				organData["lungRuptured"] = 1
 
-			for(var/datum/wound/W in E.wounds)
-				if(W.internal)
-					organData["internalBleeding"] = 1
-					break
+			if(E.internal_bleeding)
+				organData["internalBleeding"] = 1
 
 			extOrganData.Add(list(organData))
 
@@ -580,9 +576,8 @@
 				var/splint = ""
 				var/internal_bleeding = ""
 				var/lung_ruptured = ""
-				for(var/datum/wound/W in e.wounds) if(W.internal)
+				if(e.internal_bleeding)
 					internal_bleeding = "<br>Internal bleeding"
-					break
 				if(istype(e, /obj/item/organ/external/chest) && occupant.is_lung_ruptured())
 					lung_ruptured = "Lung ruptured:"
 				if(e.status & ORGAN_SPLINTED)
@@ -617,10 +612,7 @@
 					imp += "Unknown body present:"
 				if(!AN && !open && !infected & !imp)
 					AN = "None:"
-				if(!(e.status & ORGAN_DESTROYED))
-					dat += "<td>[e.name]</td><td>[e.burn_dam]</td><td>[e.brute_dam]</td><td>[robot][bled][AN][splint][open][infected][imp][internal_bleeding][lung_ruptured]</td>"
-				else
-					dat += "<td>[e.name]</td><td>-</td><td>-</td><td>Not Found</td>"
+				dat += "<td>[e.name]</td><td>[e.burn_dam]</td><td>[e.brute_dam]</td><td>[robot][bled][AN][splint][open][infected][imp][internal_bleeding][lung_ruptured]</td>"
 				dat += "</tr>"
 			for(var/obj/item/organ/internal/i in occupant.internal_organs)
 				var/mech = i.desc

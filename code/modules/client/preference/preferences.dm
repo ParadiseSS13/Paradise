@@ -1186,6 +1186,9 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 			switch(href_list["preference"])
 				if("name")
 					real_name = random_name(gender,species)
+					if(isnewplayer(user))
+						var/mob/new_player/N = user
+						N.new_player_panel_proc()
 				if("age")
 					age = rand(AGE_MIN, AGE_MAX)
 				if("hair")
@@ -1273,6 +1276,9 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 						var/new_name = reject_bad_name(raw_name, 1)
 						if(new_name)
 							real_name = new_name
+							if(isnewplayer(user))
+								var/mob/new_player/N = user
+								N.new_player_panel_proc()
 						else
 							to_chat(user, "<font color='red'>Invalid name. Your name should be at least 2 and at most [MAX_NAME_LEN] characters long. It may only contain the characters A-Z, a-z, -, ' and .</font>")
 
@@ -2079,6 +2085,9 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 						real_name = random_name(gender)
 						save_character(user)
 					close_load_dialog(user)
+					if(isnewplayer(user))
+						var/mob/new_player/N = user
+						N.new_player_panel_proc()
 
 				if("tab")
 					if(href_list["tab"])
@@ -2175,7 +2184,7 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 	// Wheelchair necessary?
 	var/obj/item/organ/external/l_foot = character.get_organ("l_foot")
 	var/obj/item/organ/external/r_foot = character.get_organ("r_foot")
-	if((!l_foot || l_foot.status & ORGAN_DESTROYED) && (!r_foot || r_foot.status & ORGAN_DESTROYED))
+	if(!l_foot && !r_foot)
 		var/obj/structure/stool/bed/chair/wheelchair/W = new /obj/structure/stool/bed/chair/wheelchair (character.loc)
 		character.buckled = W
 		character.update_canmove()
