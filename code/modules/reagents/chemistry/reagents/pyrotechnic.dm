@@ -48,7 +48,7 @@
 	if(volume >= 5 && istype(W))
 		W.thermite = 1
 		W.overlays.Cut()
-		W.overlays = image('icons/effects/effects.dmi',icon_state = "thermite")
+		W.overlays = image('icons/effects/effects.dmi', icon_state = "thermite")
 
 /datum/reagent/glycerol
 	name = "Glycerol"
@@ -80,21 +80,19 @@
 	..()
 
 /datum/reagent/clf3/reaction_turf(turf/simulated/T, volume)
-	if(istype(T, /turf/simulated/floor/plating))
+	if(prob(1) && istype(T, /turf/simulated/floor/plating))
 		var/turf/simulated/floor/plating/F = T
-		if(prob(1))
-			F.ChangeTurf(/turf/space)
-	if(istype(T, /turf/simulated/floor/))
+		F.ChangeTurf(/turf/space)
+	if(istype(T, /turf/simulated/floor))
 		var/turf/simulated/floor/F = T
 		if(prob(volume/10))
 			F.make_plating()
-		if(istype(F, /turf/simulated/floor/))
+		if(istype(F, /turf/simulated/floor))
 			new /obj/effect/hotspot(F)
-	if(istype(T, /turf/simulated/wall/))
+	if(prob(volume/10) && istype(T, /turf/simulated/wall))
 		var/turf/simulated/wall/W = T
-		if(prob(volume/10))
-			W.ChangeTurf(/turf/simulated/floor)
-	if(istype(T, /turf/simulated/shuttle/))
+		W.ChangeTurf(/turf/simulated/floor)
+	if(istype(T, /turf/simulated/shuttle))
 		new /obj/effect/hotspot(T)
 
 /datum/reagent/clf3/reaction_mob(mob/living/M, method=TOUCH, volume)
@@ -124,10 +122,10 @@
 	reagent_state = LIQUID
 	color = "#000000"
 	metabolization_rate = 0.05
-	penetrates_skin = 1
+	penetrates_skin = TRUE
 
 /datum/reagent/blackpowder/reaction_turf(turf/T, volume) //oh shit
-	if(volume >= 5 && !istype(T, /turf/space))
+	if(volume >= 5 && !isspaceturf(T))
 		if(!locate(/obj/effect/decal/cleanable/dirt/blackpowder) in T) //let's not have hundreds of decals of black powder on the same turf
 			new /obj/effect/decal/cleanable/dirt/blackpowder(T)
 
@@ -258,8 +256,7 @@
 		M.ExtinguishMob()
 
 /datum/reagent/firefighting_foam/reaction_obj(obj/O, volume)
-	if(istype(O))
-		O.extinguish()
+	O.extinguish()
 
 /datum/reagent/firefighting_foam/reaction_turf(turf/simulated/T, volume)
 	if(!istype(T))

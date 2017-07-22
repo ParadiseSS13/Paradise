@@ -6,7 +6,7 @@
 	color = "#808080"
 
 /datum/reagent/paint/reaction_turf(turf/T, volume)
-	if(!istype(T, /turf/space))
+	if(!isspaceturf(T))
 		T.color = color
 
 /datum/reagent/paint/reaction_obj(obj/O, volume)
@@ -56,5 +56,5 @@
 	color = "#808080"
 
 /datum/reagent/paint_remover/reaction_turf(turf/T, volume)
-	if(!istype(T, /turf/space))
+	if(!isspaceturf(T))
 		T.color = initial(T.color)

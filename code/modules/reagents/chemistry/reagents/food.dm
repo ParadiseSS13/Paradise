@@ -379,7 +379,7 @@
 	color = "#FFFFFF" // rgb: 0, 0, 0
 
 /datum/reagent/consumable/flour/reaction_turf(turf/T, volume)
-	if(!istype(T, /turf/space))
+	if(!isspaceturf(T))
 		new /obj/effect/decal/cleanable/flour(T)
 
 /datum/reagent/consumable/rice
@@ -478,7 +478,7 @@
 	..()
 
 /datum/reagent/consumable/chocolate/reaction_turf(turf/T, volume)
-	if(volume >= 5 && !istype(T, /turf/space))
+	if(volume >= 5 && !isspaceturf(T))
 		new /obj/item/weapon/reagent_containers/food/snacks/choc_pile(T)
 
 /datum/reagent/consumable/mugwort
@@ -535,7 +535,7 @@
 	..()
 
 /datum/reagent/consumable/cheese/reaction_turf(turf/T, volume)
-	if(volume >= 5 && !istype(T, /turf/space))
+	if(volume >= 5 && !isspaceturf(T))
 		new /obj/item/weapon/reagent_containers/food/snacks/cheesewedge(T)
 
 /datum/reagent/consumable/fake_cheese
@@ -565,7 +565,7 @@
 	..()
 
 /datum/reagent/consumable/weird_cheese/reaction_turf(turf/T, volume)
-	if(volume >= 5 && !istype(T, /turf/space))
+	if(volume >= 5 && !isspaceturf(T))
 		new /obj/item/weapon/reagent_containers/food/snacks/weirdcheesewedge(T)
 
 /datum/reagent/consumable/beans
@@ -646,7 +646,7 @@
 	..()
 
 /datum/reagent/consumable/meatslurry/reaction_turf(turf/T, volume)
-	if(volume >= 5 && prob(10) && !istype(T, /turf/space))
+	if(prob(10) && volume >= 5 && !isspaceturf(T))
 		new /obj/effect/decal/cleanable/blood/gibs/cleangibs(T)
 		playsound(T, 'sound/effects/splat.ogg', 50, 1, -3)
 
@@ -811,13 +811,13 @@
 		to_chat(M, "<span class='warning'>[spooky_eat]</span>")
 
 /datum/reagent/ectoplasm/reaction_turf(turf/T, volume)
-	if(volume >= 10 && !istype(T, /turf/space))
+	if(volume >= 10 && !isspaceturf(T))
 		new /obj/item/weapon/reagent_containers/food/snacks/ectoplasm(T)
 
 ///Vomit///
 
 /datum/reagent/consumable/bread/reaction_turf(turf/T, volume)
-	if(volume >= 5 && !istype(T, /turf/space))
+	if(volume >= 5 && !isspaceturf(T))
 		new /obj/item/weapon/reagent_containers/food/snacks/breadslice(T)
 
 /datum/reagent/vomit
@@ -828,7 +828,7 @@
 	color = "#FFFF00"
 
 /datum/reagent/vomit/reaction_turf(turf/T, volume)
-	if(volume >= 5 && !istype(T, /turf/space))
+	if(volume >= 5 && !isspaceturf(T))
 		new /obj/effect/decal/cleanable/vomit(T)
 		playsound(T, 'sound/effects/splat.ogg', 50, 1, -3)
 
@@ -840,7 +840,7 @@
 	color = "#78FF74"
 
 /datum/reagent/greenvomit/reaction_turf(turf/T, volume)
-	if(volume >= 5 && !istype(T, /turf/space))
+	if(volume >= 5 && !isspaceturf(T))
 		new /obj/effect/decal/cleanable/vomit/green(T)
 		playsound(T, 'sound/effects/splat.ogg', 50, 1, -3)
 

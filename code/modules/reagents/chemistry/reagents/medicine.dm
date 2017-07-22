@@ -202,7 +202,7 @@
 	description = "This saline and glucose solution can help stabilize critically injured patients and cleanse wounds."
 	reagent_state = LIQUID
 	color = "#C8A5DC"
-	penetrates_skin = 1
+	penetrates_skin = TRUE
 	metabolization_rate = 0.15
 
 /datum/reagent/medicine/salglu_solution/on_mob_life(mob/living/M)
@@ -233,7 +233,7 @@
 	..()
 
 /datum/reagent/medicine/synthflesh/reaction_turf(turf/T, volume) //let's make a mess!
-	if(volume >= 5 && !istype(T, /turf/space))
+	if(volume >= 5 && !isspaceturf(T))
 		new /obj/effect/decal/cleanable/blood/gibs/cleangibs(T)
 		playsound(T, 'sound/effects/splat.ogg', 50, 1, -3)
 
@@ -721,7 +721,7 @@
 	id = "stimulants"
 	description = "Increases run speed and eliminates stuns, can heal minor damage. If overdosed it will deal toxin damage and stun."
 	color = "#C8A5DC"
-	can_synth = 0
+	can_synth = FALSE
 
 /datum/reagent/medicine/stimulants/on_mob_life(mob/living/M)
 	if(volume > 5)
@@ -756,7 +756,7 @@
 	color = "#C8A5DC"
 	metabolization_rate = 0.5 * REAGENTS_METABOLISM
 	overdose_threshold = 60
-	can_synth = 0
+	can_synth = FALSE
 
 /datum/reagent/medicine/stimulative_agent/on_mob_life(mob/living/M)
 	M.status_flags |= GOTTAGOFAST
@@ -869,7 +869,7 @@
 	description = "Miniature medical robots that swiftly restore bodily damage. May begin to attack their host's cells in high amounts."
 	reagent_state = SOLID
 	color = "#555555"
-	can_synth = 0
+	can_synth = FALSE
 
 /datum/reagent/medicine/syndicate_nanites/on_mob_life(mob/living/M)
 	M.adjustBruteLoss(-5*REAGENTS_EFFECT_MULTIPLIER) //A ton of healing - this is a 50 telecrystal investment.

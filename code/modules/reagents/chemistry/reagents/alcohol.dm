@@ -6,7 +6,6 @@
 	reagent_state = LIQUID
 	nutriment_factor = 0 //So alcohol can fill you up! If they want to.
 	color = "#404030" // rgb: 64, 64, 48
-	can_grow_in_plants = 0	//Alcoholic drinks won't be grown in plants (would "water down" random seed chems too much)
 	var/dizzy_adj = 3
 	var/alcohol_perc = 1 //percentage of ethanol in a beverage 0.0 - 1.0
 
@@ -1012,7 +1011,7 @@
 	reagent_state = LIQUID
 	color = "#DC0000"
 	alcohol_perc = 1
-	can_synth = 0
+	can_synth = FALSE
 
 /datum/reagent/consumable/ethanol/dragons_breath/reaction_mob(mob/living/M, method=TOUCH, volume)
 	if(method == INGEST && prob(20))

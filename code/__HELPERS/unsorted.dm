@@ -1450,15 +1450,6 @@ atom/proc/GetTypeInAllContents(typepath)
 			colour += temp_col
 	return colour
 
-/proc/get_random_chemical(var/is_plant = 0)
-	var/list/blocked = blocked_chems.Copy()		//blocked_chems list is found in code/_globalvars/lists/reagents.dm
-	if(is_plant)
-		blocked.Add(plant_blocked_chems.Copy())	//plant_blocked_chems list is found in code/_globalvars/lists/reagents.dm
-	var/picked_chem = pick(chemical_reagents_list)
-	if(blocked.Find(picked_chem))
-		return get_random_chemical(is_plant)
-	return picked_chem
-
 /proc/get_distant_turf(var/turf/T,var/direction,var/distance)
 	if(!T || !direction || !distance)	return
 
