@@ -48,7 +48,7 @@
 			O.status = 0
 			O.trace_chemicals.Cut()
 		for(var/obj/item/organ/internal/IO in H.internal_organs)
-			IO.damage = 0
+			IO.rejuvenate()
 			IO.trace_chemicals.Cut()
 		H.remove_all_embedded_objects()
 		H.updatehealth()

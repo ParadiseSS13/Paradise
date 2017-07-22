@@ -115,10 +115,6 @@ var/list/organ_cache = list()
 		handle_antibiotics()
 		handle_germ_effects()
 
-	//check if we've hit max_damage
-	if(damage >= max_damage)
-		necrotize()
-
 /obj/item/organ/proc/is_preserved()
 	if(istype(loc,/obj/item/device/mmi))
 		germ_level = max(0, germ_level - 1) // So a brain can slowly recover from being left out of an MMI
@@ -176,9 +172,6 @@ var/list/organ_cache = list()
 		if(prob(3))	//about once every 30 seconds
 			take_damage(1,silent=prob(30))
 
-/obj/item/organ/proc/receive_chem(chemical as obj)
-	return 0
-
 /obj/item/organ/proc/rejuvenate()
 	damage = 0
 	germ_level = 0
@@ -198,7 +191,7 @@ var/list/organ_cache = list()
 	return damage >= min_bruised_damage
 
 /obj/item/organ/proc/is_broken()
-	return (damage >= min_broken_damage || (status & ORGAN_CUT_AWAY) || ((status & ORGAN_BROKEN) && !(status & ORGAN_SPLINTED)))
+	return (damage >= min_broken_damage || ((status & ORGAN_BROKEN) && !(status & ORGAN_SPLINTED)))
 
 //Germs
 /obj/item/organ/proc/handle_antibiotics()
@@ -242,23 +235,25 @@ var/list/organ_cache = list()
 			if(parent && !silent)
 				owner.custom_pain("Something inside your [parent.name] hurts a lot.", 1)
 
+		//check if we've hit max_damage
+	if(damage >= max_damage)
+		necrotize()
+
 /obj/item/organ/proc/robotize() //Being used to make robutt hearts, etc
 	robotic = 2
 	status &= ~ORGAN_BROKEN
 	status &= ~ORGAN_SPLINTED
-	status &= ~ORGAN_CUT_AWAY
-	status &= ~ORGAN_DESTROYED
 	status |= ORGAN_ROBOT
-	status |= ORGAN_ASSISTED
 
 /obj/item/organ/proc/mechassist() //Used to add things like pacemakers, etc
 	robotize(1) //Skip the icon/name setting that occurs in robotize to avoid having to reset the icon file.
 	status &= ~ORGAN_ROBOT
+	status |= ORGAN_ASSISTED
 	robotic = 1
 	min_bruised_damage = 15
 	min_broken_damage = 35
 
-/obj/item/organ/emp_act(severity)
+/obj/item/organ/external/emp_act(severity)
 	if(!(status & ORGAN_ROBOT))
 		return
 	if(tough)

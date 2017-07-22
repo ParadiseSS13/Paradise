@@ -216,10 +216,13 @@
 				"<span class='notice'>You check yourself for injuries.</span>" \
 				)
 
-			for(var/obj/item/organ/external/org in H.bodyparts)
+			var/list/missing = list("head", "chest", "groin", "l_arm", "r_arm", "l_hand", "r_hand", "l_leg", "r_leg", "l_foot", "r_foot")
+			for(var/X in H.bodyparts)
+				var/obj/item/organ/external/LB = X
+				missing -= LB.limb_name
 				var/status = ""
-				var/brutedamage = org.brute_dam
-				var/burndamage = org.burn_dam
+				var/brutedamage = LB.brute_dam
+				var/burndamage = LB.burn_dam
 
 				if(brutedamage > 0)
 					status = "bruised"
@@ -236,16 +239,17 @@
 					status += "blistered"
 				else if(burndamage > 0)
 					status += "numb"
-				if(org.status & ORGAN_DESTROYED)
-					status = "MISSING!"
-				if(org.status & ORGAN_MUTATED)
+				if(LB.status & ORGAN_MUTATED)
 					status = "weirdly shapen."
 				if(status == "")
 					status = "OK"
-				src.show_message(text("\t []My [] is [].",status=="OK"?"<span class='notice'></span>":"<span class='warning'></span>",org.name,status),1)
+				to_chat(src, "\t <span class='[status == "OK" ? "notice" : "warning"]'>Your [LB.name] is [status].</span>")
 
-				for(var/obj/item/I in org.embedded_objects)
-					to_chat(src, "\t <a href='byond://?src=[UID()];embedded_object=[I.UID()];embedded_limb=[org.UID()]' class='warning'>There is \a [I] embedded in your [org.name]!</a>")
+				for(var/obj/item/I in LB.embedded_objects)
+					to_chat(src, "\t <a href='byond://?src=[UID()];embedded_object=[I.UID()];embedded_limb=[LB.UID()]' class='warning'>There is \a [I] embedded in your [LB.name]!</a>")
+
+			for(var/t in missing)
+				to_chat(src, "<span class='boldannounce'>Your [parse_zone(t)] is missing!</span>")
 
 			if(H.bleed_rate)
 				to_chat(src, "<span class='danger'>You are bleeding!</span>")
@@ -297,7 +301,9 @@
 					)
 					if(istype(src,/mob/living/carbon/human))
 						var/mob/living/carbon/human/H = src
-						if(H.w_uniform)
+						if(H.wear_suit)
+							H.wear_suit.add_fingerprint(M)
+						else if(H.w_uniform)
 							H.w_uniform.add_fingerprint(M)
 
 /mob/living/carbon/flash_eyes(intensity = 1, override_blindness_check = 0, affect_silicon = 0, visual = 0)
@@ -317,15 +323,15 @@
 			if(1)
 				to_chat(src, "<span class='warning'>Your eyes sting a little.</span>")
 				if(prob(40)) //waiting on carbon organs
-					E.damage += 1
+					E.take_damage(1, 1)
 
 			if(2)
 				to_chat(src, "<span class='warning'>Your eyes burn.</span>")
-				E.damage += rand(2, 4)
+				E.take_damage(rand(2, 4), 1)
 
 			else
 				to_chat(src, "Your eyes itch and burn severely!</span>")
-				E.damage += rand(12, 16)
+				E.take_damage(rand(12, 16), 1)
 
 		if(E.damage > E.min_bruised_damage)
 			AdjustEyeBlind(damage)

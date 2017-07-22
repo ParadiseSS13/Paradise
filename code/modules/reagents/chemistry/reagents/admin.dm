@@ -18,9 +18,9 @@
 	M.setBrainLoss(0)
 	if(ishuman(M))
 		var/mob/living/carbon/human/H = M
-		for(var/name in H.internal_organs)
-			var/obj/item/organ/internal/I = H.get_int_organ(name)
-			I.damage = max(0, I.damage-5)
+		for(var/thing in H.internal_organs)
+			var/obj/item/organ/internal/I = thing
+			I.take_damage(-5)
 		for(var/obj/item/organ/external/E in H.bodyparts)
 			if(E.mend_fracture())
 				E.perma_injury = 0

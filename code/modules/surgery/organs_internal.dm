@@ -200,7 +200,7 @@
 			return
 
 		for(var/obj/item/organ/internal/I in affected.internal_organs)
-			if(I && I.damage > 0)
+			if(I && I.damage)
 				if(I.robotic < 2 && !istype (tool, /obj/item/stack/nanopaste))
 					if(!(I.sterile))
 						spread_germs_to_organ(I, user, tool)
@@ -238,7 +238,7 @@
 		for(var/obj/item/organ/internal/I in affected.internal_organs)
 			if(I)
 				I.surgeryize()
-			if(I && I.damage > 0)
+			if(I && I.damage)
 				if(I.robotic < 2 && !istype (tool, /obj/item/stack/nanopaste))
 					user.visible_message("<span class='notice'> [user] treats damage to [target]'s [I.name] with [tool_name].</span>", \
 					"<span class='notice'> You treat damage to [target]'s [I.name] with [tool_name].</span>" )
@@ -264,8 +264,6 @@
 			user.visible_message("<span class='notice'> [user] has transplanted [tool] into [target]'s [parse_zone(target_zone)].</span>",
 			"<span class='notice'> You have transplanted [tool] into [target]'s [parse_zone(target_zone)].</span>")
 
-		I.status &= ~ORGAN_CUT_AWAY
-
 	else if(current_type == "extract")
 		var/mob/living/simple_animal/borer/B = target.has_brain_worms()
 		if(target_zone == "head" && B && B.host == target)
@@ -280,7 +278,6 @@
 
 			add_logs(user, target, "surgically removed [I.name] from", addition="INTENT: [uppertext(user.a_intent)]")
 			spread_germs_to_organ(I, user, tool)
-			I.status |= ORGAN_CUT_AWAY
 			var/obj/item/thing = I.remove(target)
 			if(!istype(thing))
 				thing.forceMove(get_turf(target))
@@ -356,7 +353,7 @@
 			affected.take_damage(5)
 
 		for(var/obj/item/organ/internal/I in affected.internal_organs)
-			if(I && I.damage > 0 && !(I.tough))
+			if(I && I.damage && !(I.tough))
 				I.take_damage(dam_amt,0)
 
 		return 0
