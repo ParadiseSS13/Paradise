@@ -642,6 +642,7 @@
 
 /obj/structure/sink/update_icon()
 	..()
+	layer = OBJ_LAYER
 	if(!anchored)
 		pixel_x = 0
 		pixel_y = 0
@@ -655,7 +656,9 @@
 		else	//normal sinks
 			if(dir == NORTH || dir == SOUTH)
 				pixel_x = 0
-				pixel_y = (dir == NORTH) ? -30 : 30
+				pixel_y = (dir == NORTH) ? -5 : 30
+				if(dir == NORTH)
+					layer = FLY_LAYER
 			else
 				pixel_x = (dir == EAST) ? 12 : -12
 				pixel_y = 0
