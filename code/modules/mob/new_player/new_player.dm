@@ -67,9 +67,9 @@
 	return
 
 /mob/new_player/Stat()
+	..()
 	if((!ticker) || ticker.current_state == GAME_STATE_PREGAME)
 		statpanel("Lobby") // First tab during pre-game.
-	..()
 
 	statpanel("Status")
 	if(client.statpanel == "Status" && ticker)
