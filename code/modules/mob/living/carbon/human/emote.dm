@@ -820,19 +820,19 @@
 			for(var/mob/living/carbon/C in orange(1))
 				if(C.highfiving)
 					if(C.mind.special_role == "Wizard" && mind.special_role == "Wizard")
-						visible_message("<span class='danger'>[name] and [C.name] high-five EPICALLY!</span>")
+						visible_message("<span class='danger'><b>[name]</b> and </b>[C.name]</b> high-five EPICALLY!</span>")
 						for(var/atom/A in orange(5))
 							if(A == C)
 								continue
 							A.ex_act(rand(1, 2))
 						break
-				visible_message("[name] and [C.name] high-five!")
+				visible_message("<b>[name]</b> and <b>[C.name]</b> high-five!")
 				C.highfiving = FALSE
 				highfiving = FALSE
 				playsound('sound/effects/snap.ogg', 50)
 				break
 			if(highfiving)
-				visible_message("[name] requests a highfive.", "You request a highfive.")
+				visible_message("<b>[name]</b> requests a highfive.", "You request a highfive.")
 				if(do_after(src, 25, target = src))
 					visible_message("[name] was left hanging. Embarrassing.", "You are left hanging. How embarrassing!")
 					highfiving = FALSE
