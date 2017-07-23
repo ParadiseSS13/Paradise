@@ -60,7 +60,7 @@
 	victim.apply_effect(radiation_amount, IRRADIATE, 0)
 	if(ishuman(victim))
 		var/mob/living/carbon/human/V = victim
-		if(V.species.flags & NO_DNA)
+		if(NO_DNA in V.species.species_traits)
 			return
 	randmutb(victim)
 	domutcheck(victim ,null)
