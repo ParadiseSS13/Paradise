@@ -47,7 +47,6 @@
 	open = !open
 	update_icon()
 
-
 /obj/structure/toilet/update_icon()
 	icon_state = "toilet[open][cistern]"
 	if(!anchored)
@@ -62,7 +61,6 @@
 			pixel_x = 0
 			pixel_y = -8
 			layer = FLY_LAYER
-
 
 /obj/structure/toilet/attackby(obj/item/I, mob/living/user, params)
 	if(iswrench(I))
@@ -188,6 +186,7 @@
 		w_items += secret.w_class
 
 
+
 /obj/structure/urinal
 	name = "urinal"
 	desc = "The HU-452, an experimental urinal."
@@ -237,6 +236,7 @@
 				to_chat(user, "<span class='warning'>You need a tighter grip!</span>")
 
 
+
 /obj/machinery/shower
 	name = "shower"
 	desc = "The HS-451. Installed in the 2550s by the Nanotrasen Hygiene Division."
@@ -250,6 +250,24 @@
 	var/ismist = 0				//needs a var so we can make it linger~
 	var/watertemp = "normal"	//freezing, normal, or boiling
 	var/mobpresent = 0		//true if there is a mob on the shower's loc, this is to ease process()
+
+/obj/machinery/shower/New(turf/T, newdir = SOUTH, building = FALSE)
+	..()
+	dir = newdir
+	if(building)
+		pixel_x = 0
+		pixel_y = 0
+		switch(newdir)
+			if(SOUTH)
+				pixel_y = 16
+			if(NORTH)
+				pixel_y = -5
+				layer = FLY_LAYER
+
+/obj/machinery/shower/Destroy()
+	if(mymist)
+		qdel(mymist)
+	return ..()
 
 //add heat controls? when emagged, you can freeze to death in it?
 
@@ -276,9 +294,9 @@
 /obj/machinery/shower/attackby(obj/item/I as obj, mob/user as mob, params)
 	if(I.type == /obj/item/device/analyzer)
 		to_chat(user, "<span class='notice'>The water temperature seems to be [watertemp].</span>")
-	if(istype(I, /obj/item/weapon/wrench))
+	if(iswrench(I))
 		to_chat(user, "<span class='notice'>You begin to adjust the temperature valve with the [I].</span>")
-		if(do_after(user, 50, target = src))
+		if(do_after(user, 50 * I.toolspeed, target = src))
 			switch(watertemp)
 				if("normal")
 					watertemp = "freezing"
@@ -287,33 +305,57 @@
 				if("boiling")
 					watertemp = "normal"
 			user.visible_message("<span class='notice'>[user] adjusts the shower with the [I].</span>", "<span class='notice'>You adjust the shower with the [I].</span>")
+			update_icon()	//letsa update whenever we change the temperature, since the mist might need to change
+	if(iswelder(I))
+		if(on)
+			to_chat(user, "<span class='warning'>Turn [src] off before you attempt to cut it loose.</span>")
+			return
+		var/obj/item/weapon/weldingtool/WT = I
+		if(WT.isOn())
+			user.visible_message("[user] begins to cut [src] loose.", "<span class='notice'>You begin to cut [src] loose.</span>")
+			if(do_after(user, 40 * WT.toolspeed, target = src))
+				if(!src || !WT.remove_fuel(0, user))
+					return
+				if(on)	//in case someone turned it back on while you were working, make sure we shut that all down
+					on = 0
+					if(mymist)
+						qdel(mymist)
+					ismist = 0
+				user.visible_message("[user] cuts [src] loose!", "<span class='notice'>You cut [src] loose!</span>")
+				var/obj/item/mounted/shower/S = new /obj/item/mounted/shower(get_turf(user))
+				transfer_prints_to(S, TRUE)
+				qdel(src)
+		else
+			to_chat(user, "<span class='warning'>[WT] must be on for this task.</span>")
 	if(on)
 		I.water_act(100, convertHeat(), src)
 
 /obj/machinery/shower/update_icon()	//this is terribly unreadable, but basically it makes the shower mist up
 	overlays.Cut()					//once it's been on for a while, in addition to handling the water overlay.
-	if(mymist)
-		qdel(mymist)
-
 	if(on)
 		overlays += image('icons/obj/watercloset.dmi', src, "water", MOB_LAYER + 1, dir)
+		var/mist_time = 50		//5 seconds at normal temperature to build up mist
 		if(watertemp == "freezing")
+			mist_time = 70		//7 seconds on freezing temperature to disperse existing mist
+		if(watertemp == "boiling")
+			mist_time = 20		//2 seconds on boiling temperature to build up mist
+		addtimer(src, "update_mist", mist_time)
+	else
+		addtimer(src, "update_mist", 250)	//25 seconds for mist to disperse after being turned off
+
+/obj/machinery/shower/proc/update_mist()
+	if(on)
+		if(watertemp == "freezing")
+			if(mymist)
+				qdel(mymist)
+			ismist = 0
 			return
-		if(!ismist)
-			spawn(50)
-				if(src && on)
-					ismist = 1
-					mymist = new /obj/effect/mist(loc)
-		else
-			ismist = 1
-			mymist = new /obj/effect/mist(loc)
-	else if(ismist)
 		ismist = 1
 		mymist = new /obj/effect/mist(loc)
-		spawn(250)
-			if(src && !on)
-				qdel(mymist)
-				ismist = 0
+	else
+		if(mymist)
+			qdel(mymist)
+		ismist = 0
 
 /obj/machinery/shower/Crossed(atom/movable/O)
 	..()
@@ -448,6 +490,32 @@
 			C.adjustFireLoss(5)
 			to_chat(C, "<span class='danger'>The water is searing!</span>")
 			return
+
+
+
+/obj/item/mounted/shower
+	name = "shower fixture"
+	desc = "A self-adhering shower fixture. Simply stick to a wall, no plumber needed!"
+	icon = 'icons/obj/watercloset.dmi'
+	icon_state = "shower"
+	item_state = "buildpipe"
+
+/obj/item/mounted/shower/try_build(turf/on_wall, mob/user, proximity_flag)
+	//overriding this because we don't care about other items on the wall, but still need to do adjacent checks
+	if(!on_wall || !user)
+		return
+	if(proximity_flag != 1) //if we aren't next to the wall
+		return
+	if(!(get_dir(on_wall,user) in cardinal))
+		to_chat(user, "<span class='rose'>You need to be standing next to a wall to place \the [src].</span>")
+		return
+	return 1
+
+/obj/item/mounted/shower/do_build(turf/on_wall, mob/user)
+	var/obj/machinery/shower/S = new /obj/machinery/shower(get_turf(user), get_dir(on_wall, user), 1)
+	transfer_prints_to(S, TRUE)
+	qdel(src)
+
 
 
 /obj/item/weapon/bikehorn/rubberducky
