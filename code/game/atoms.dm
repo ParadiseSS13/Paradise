@@ -516,7 +516,7 @@ var/list/blood_splatter_icons = list()
 		germ_level = 0
 		if(islist(blood_DNA))
 			blood_DNA = null
-			return 1
+			return TRUE
 
 
 /obj/item/clean_blood()
