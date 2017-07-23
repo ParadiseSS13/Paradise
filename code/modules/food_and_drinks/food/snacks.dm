@@ -196,7 +196,7 @@
 		if(iscorgi(M))
 			var/mob/living/simple_animal/pet/corgi/G = M
 			if(world.time < (G.last_eaten + 300))
-				to_chat(G, text("<span class='notice'>You are too full to try eating [src] right now.</span>"))
+				to_chat(G, "<span class='notice'>You are too full to try eating [src] right now.</span>")
 			else if(bitecount >= 4)
 				M.visible_message("[M] [pick("burps from enjoyment", "yaps for more", "woofs twice", "looks at the area where [src] was")].","<span class='notice'>You swallow up the last part of [src].</span>")
 				playsound(loc,'sound/items/eatfood.ogg', rand(10,50), 1)
