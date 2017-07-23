@@ -86,7 +86,7 @@
 			on_CD = handle_emote_CD(50) //longer cooldown
 		if("fart", "farts", "flip", "flips", "snap", "snaps")
 			on_CD = handle_emote_CD()				//proc located in code\modules\mob\emote.dm
-		if("cough", "coughs", "slap", "slaps")
+		if("cough", "coughs", "slap", "slaps", "highfive")
 			on_CD = handle_emote_CD()
 		if("sneeze", "sneezes")
 			on_CD = handle_emote_CD()
@@ -802,11 +802,46 @@
 						continue
 					M.reagents.add_reagent("jenkem", 1)
 
+		if("hem")
+			message = "<b>[src]</b> hems."
+
+		if("spin")
+			spin(20, 1)
+			message = "<b>[src]</b> spins around dizzily!"
+
+		if("highfive")
+			if(restrained())
+				return
+			if(highfiving)
+				to_chat(src, "You give up on the high-five.")
+				highfiving = FALSE
+				return
+			highfiving = TRUE
+			for(var/mob/living/carbon/C in orange(1))
+				if(C.highfiving)
+					if(C.mind.special_role == "Wizard" && mind.special_role == "Wizard")
+						visible_message("<span class='danger'>[name] and [C.name] high-five EPICALLY!</span>")
+						for(var/atom/A in orange(5))
+							if(A == C)
+								continue
+							A.ex_act(rand(1, 2))
+						break
+				visible_message("[name] and [C.name] high-five!")
+				C.highfiving = FALSE
+				highfiving = FALSE
+				playsound('sound/effects/snap.ogg', 50)
+				break
+			if(highfiving)
+				visible_message("[name] requests a highfive.", "You request a highfive.")
+				if(do_after(src, 25, target = src))
+					visible_message("[name] was left hanging. Embarrassing.", "You are left hanging. How embarrassing!")
+					highfiving = FALSE
+
 		if("help")
 			var/emotelist = "aflap(s), airguitar, blink(s), blink(s)_r, blush(es), bow(s)-(none)/mob, burp(s), choke(s), chuckle(s), clap(s), collapse(s), cough(s),cry, cries, custom, dance, dap(s)(none)/mob," \
 			+ " deathgasp(s), drool(s), eyebrow, fart(s), faint(s), flap(s), flip(s), frown(s), gasp(s), giggle(s), glare(s)-(none)/mob, grin(s), groan(s), grumble(s), grin(s)," \
-			+ " handshake-mob, hug(s)-(none)/mob, johnny, jump, laugh(s), look(s)-(none)/mob, moan(s), mumble(s), nod(s), pale(s), point(s)-atom, quiver(s), raise(s), salute(s)-(none)/mob, scream(s), shake(s)," \
-			+ " shiver(s), shrug(s), sigh(s), signal(s)-#1-10,slap(s)-(none)/mob, smile(s),snap(s), sneeze(s), sniff(s), snore(s), stare(s)-(none)/mob, swag(s), tremble(s), twitch(es), twitch(es)_s," \
+			+ " handshake-mob, hug(s)-(none)/mob, hem, highfive, johnny, jump, laugh(s), look(s)-(none)/mob, moan(s), mumble(s), nod(s), pale(s), point(s)-atom, quiver(s), raise(s), salute(s)-(none)/mob, scream(s), shake(s)," \
+			+ " shiver(s), shrug(s), sigh(s), signal(s)-#1-10,slap(s)-(none)/mob, spin, smile(s),snap(s), sneeze(s), sniff(s), snore(s), stare(s)-(none)/mob, swag(s), tremble(s), twitch(es), twitch(es)_s," \
 			+ " wag(s), wave(s),  whimper(s), wink(s), yawn(s)"
 
 			switch(species.name)

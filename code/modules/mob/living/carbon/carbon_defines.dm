@@ -28,5 +28,5 @@
 
 	var/failed_last_breath = 0 //This is used to determine if the mob failed a breath. If they did fail a brath, they will attempt to breathe each tick, otherwise just once per 4 ticks.
 	var/co2overloadtime = null
-
+	var/highfiving = FALSE
 	blood_volume = BLOOD_VOLUME_NORMAL
