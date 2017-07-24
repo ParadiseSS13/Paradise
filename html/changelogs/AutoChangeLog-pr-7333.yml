@@ -1,0 +1,4 @@
+author: "FlattestGuitar"
+delete-after: True
+changes: 
+  - rscadd: "Adds a taste system! Drink or eat stuff to find out what it tastes like!"
