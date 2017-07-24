@@ -1,0 +1,4 @@
+author: "Kyep"
+delete-after: True
+changes: 
+  - bugfix: "it is no longer possible to use a sentience potion to convert space pirates in the beach away mission to your side. Nor is this possible with other sentient NPCs, such as syndies or russians."
