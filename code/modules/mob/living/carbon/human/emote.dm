@@ -819,8 +819,8 @@
 			highfiving = TRUE
 			for(var/mob/living/carbon/C in orange(1))
 				if(C.highfiving)
-					if(C.mind.special_role == "Wizard" && mind.special_role == "Wizard")
-						visible_message("<span class='danger'><b>[name]</b> and </b>[C.name]</b> high-five EPICALLY!</span>")
+					if((C.mind.special_role == SPECIAL_ROLE_WIZARD || C.mind.special_role == SPECIAL_ROLE_WIZARD_APPRENTICE) && (mind.special_role == SPECIAL_ROLE_WIZARD || mind.special_role == SPECIAL_ROLE_WIZARD_APPRENTICE))
+						visible_message("<span class='danger'><b>[name]</b> and <b>[C.name]</b> high-five EPICALLY!</span>")
 						for(var/atom/A in orange(5))
 							if(A == C)
 								continue
