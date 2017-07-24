@@ -46,6 +46,12 @@
 			M.unset_machine() //to properly reset the view of the users if the console is deleted.
 	return ..()
 
+/obj/machinery/computer/security/proc/isFarAway(var/atom/C)
+	var/turf/CONSOLETURF = get_turf(C)
+	var/turf/T = get_turf(src)
+	if((is_away_level(T.z) || is_away_level(CONSOLETURF.z)) && !atoms_share_level(T, CONSOLETURF)) //can only recieve away mission cameras on away missions
+		return TRUE
+
 /obj/machinery/computer/security/check_eye(mob/user)
 	if(!(user in watchers))
 		user.unset_machine()
@@ -54,6 +60,9 @@
 		user.unset_machine()
 		return
 	var/obj/machinery/camera/C = watchers[user]
+	if(isFarAway(C))
+		user.unset_machine()
+		return
 	if(!can_access_camera(C, user))
 		user.unset_machine()
 		return
@@ -113,7 +122,7 @@
 
 	var/list/cameras = list()
 	for(var/obj/machinery/camera/C in cameranet.cameras)
-		if((is_away_level(z) || is_away_level(C.z)) && !atoms_share_level(C, src)) //can only recieve away mission cameras on away missions
+		if(isFarAway(C))
 			continue
 		if(!can_access_camera(C, user))
 			continue
