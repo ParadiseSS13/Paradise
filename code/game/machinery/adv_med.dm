@@ -371,7 +371,7 @@
 
 		var/bloodData[0]
 		bloodData["hasBlood"] = 0
-		if(ishuman(H) && !(H.species && H.species.flags & NO_BLOOD))
+		if(ishuman(H) && !(NO_BLOOD in H.species.species_traits))
 			bloodData["hasBlood"] = 1
 			bloodData["volume"] = H.blood_volume
 			bloodData["percent"] = round(((H.blood_volume / BLOOD_VOLUME_NORMAL)*100))
@@ -413,16 +413,12 @@
 			organData["shrapnel_len"] = shrapnelData.len
 
 			var/organStatus[0]
-			if(E.status & ORGAN_DESTROYED)
-				organStatus["destroyed"] = 1
 			if(E.status & ORGAN_BROKEN)
 				organStatus["broken"] = E.broken_description
 			if(E.status & ORGAN_ROBOT)
 				organStatus["robotic"] = 1
 			if(E.status & ORGAN_SPLINTED)
 				organStatus["splinted"] = 1
-			if(E.status & ORGAN_BLEEDING)
-				organStatus["bleeding"] = 1
 			if(E.status & ORGAN_DEAD)
 				organStatus["dead"] = 1
 
@@ -431,10 +427,8 @@
 			if(istype(E, /obj/item/organ/external/chest) && H.is_lung_ruptured())
 				organData["lungRuptured"] = 1
 
-			for(var/datum/wound/W in E.wounds)
-				if(W.internal)
-					organData["internalBleeding"] = 1
-					break
+			if(E.internal_bleeding)
+				organData["internalBleeding"] = 1
 
 			extOrganData.Add(list(organData))
 
@@ -582,15 +576,12 @@
 				var/splint = ""
 				var/internal_bleeding = ""
 				var/lung_ruptured = ""
-				for(var/datum/wound/W in e.wounds) if(W.internal)
+				if(e.internal_bleeding)
 					internal_bleeding = "<br>Internal bleeding"
-					break
 				if(istype(e, /obj/item/organ/external/chest) && occupant.is_lung_ruptured())
 					lung_ruptured = "Lung ruptured:"
 				if(e.status & ORGAN_SPLINTED)
 					splint = "Splinted:"
-				if(e.status & ORGAN_BLEEDING)
-					bled = "Bleeding:"
 				if(e.status & ORGAN_BROKEN)
 					AN = "[e.broken_description]:"
 				if(e.status & ORGAN_ROBOT)
@@ -621,10 +612,7 @@
 					imp += "Unknown body present:"
 				if(!AN && !open && !infected & !imp)
 					AN = "None:"
-				if(!(e.status & ORGAN_DESTROYED))
-					dat += "<td>[e.name]</td><td>[e.burn_dam]</td><td>[e.brute_dam]</td><td>[robot][bled][AN][splint][open][infected][imp][internal_bleeding][lung_ruptured]</td>"
-				else
-					dat += "<td>[e.name]</td><td>-</td><td>-</td><td>Not Found</td>"
+				dat += "<td>[e.name]</td><td>[e.burn_dam]</td><td>[e.brute_dam]</td><td>[robot][bled][AN][splint][open][infected][imp][internal_bleeding][lung_ruptured]</td>"
 				dat += "</tr>"
 			for(var/obj/item/organ/internal/i in occupant.internal_organs)
 				var/mech = i.desc

@@ -609,7 +609,7 @@
 //Returns "Unknown" if facially disfigured and real_name if not. Useful for setting name when polyacided or when updating a human's name variable
 /mob/living/carbon/human/proc/get_face_name()
 	var/obj/item/organ/external/head = get_organ("head")
-	if( !head || head.disfigured || (head.status & ORGAN_DESTROYED) || !real_name || (HUSK in mutations) )	//disfigured. use id-name if possible
+	if( !head || head.disfigured || !real_name || (HUSK in mutations) )	//disfigured. use id-name if possible
 		return "Unknown"
 	return real_name
 
@@ -1208,18 +1208,10 @@
 	for(var/obj/item/organ/internal/I in H.internal_organs)
 		types_of_int_organs |= I.type //Compiling the list of organ types. It is possible for organs to be missing from this list if they are absent from the mob.
 
-	//Removing stumps.
-	for(var/obj/item/organ/organ in H.contents)
-		if(istype(organ, /obj/item/organ/external/stump)) //Get rid of all stumps.
-			qdel(organ)
-			H.contents -= organ //Making sure the list entry is removed.
-	for(var/obj/item/organ/organ in H.bodyparts)
-		if(istype(organ, /obj/item/organ/external/stump))
-			qdel(organ)
-			H.bodyparts -= organ //Making sure the list entry is removed.
+	//Clean up limbs
 	for(var/organ_name in H.bodyparts_by_name)
 		var/obj/item/organ/organ = H.bodyparts_by_name[organ_name]
-		if(istype(organ, /obj/item/organ/external/stump) || !organ) //The !organ check is to account for mechanical limb (prostheses) losses, since those are handled in a way that leaves indexed but null list entries instead of stumps.
+		if(!organ) //The !organ check is to account for mechanical limb (prostheses) losses, since those are handled in a way that leaves indexed but null list entries instead of stumps.
 			qdel(organ)
 			H.bodyparts_by_name -= organ_name //Making sure the list entry is removed.
 
@@ -1598,11 +1590,11 @@
 		return
 
 	var/obj/item/organ/external/head/head_organ = get_organ("head")
-	if(!head_organ || head_organ.is_stump() || (head_organ.status & ORGAN_DESTROYED)) //If the rock'em-sock'em robot's head came off during a fight, they shouldn't be able to change their screen/optics.
+	if(!head_organ) //If the rock'em-sock'em robot's head came off during a fight, they shouldn't be able to change their screen/optics.
 		to_chat(src, "<span class='warning'>Where's your head at? Can't change your monitor/display without one.</span>")
 		return
 
-	if(species.flags & ALL_RPARTS) //If they can have a fully cybernetic body...
+	if(species.bodyflags & ALL_RPARTS) //If they can have a fully cybernetic body...
 		var/datum/robolimb/robohead = all_robolimbs[head_organ.model]
 		if(!head_organ)
 			return
@@ -1936,7 +1928,7 @@
 				. |= A.GetAccess()
 
 /mob/living/carbon/human/is_mechanical()
-	return ..() || (species.flags & ALL_RPARTS) != 0
+	return ..() || (species.bodyflags & ALL_RPARTS) != 0
 
 /mob/living/carbon/human/can_use_guns(var/obj/item/weapon/gun/G)
 	. = ..()
@@ -1945,7 +1937,7 @@
 		if(HULK in mutations)
 			to_chat(src, "<span class='warning'>Your meaty finger is much too large for the trigger guard!</span>")
 			return 0
-		if(species.flags & NOGUNS)
+		if(NOGUNS in species.species_traits)
 			to_chat(src, "<span class='warning'>Your fingers don't fit in the trigger guard!</span>")
 			return 0
 
@@ -2058,3 +2050,9 @@
 	update_icons()
 
 	..()
+
+mob/living/carbon/human/get_taste_sensitivity()
+	if(species)
+		return species.taste_sensitivity
+	else
+		return 1

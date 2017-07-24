@@ -143,12 +143,16 @@
 	animate(src, alpha = 0, time = duration)
 
 
+/obj/effect/overlay/temp/cult/sparks
+	randomdir = 1
+	name = "blood sparks"
+	icon_state = "bloodsparkles"
 /obj/effect/overlay/temp/dir_setting
 	randomdir = FALSE
 
 /obj/effect/overlay/temp/dir_setting/New(loc, set_dir)
 	if(set_dir)
-		dir = set_dir
+		setDir(set_dir)
 	..()
 
 /obj/effect/overlay/temp/dir_setting/bloodsplatter
@@ -156,9 +160,12 @@
 	duration = 5
 	randomdir = FALSE
 	layer = MOB_LAYER - 0.1
+	color = "#C80000"
 	var/splatter_type = "splatter"
 
-/obj/effect/overlay/temp/dir_setting/bloodsplatter/New(loc, set_dir)
+/obj/effect/overlay/temp/dir_setting/bloodsplatter/New(loc, set_dir, blood_color)
+	if(blood_color)
+		color = blood_color
 	if(set_dir in diagonals)
 		icon_state = "[splatter_type][pick(1, 2, 6)]"
 	else

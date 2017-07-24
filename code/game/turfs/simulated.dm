@@ -69,16 +69,16 @@
 
 			switch(src.wet)
 				if(TURF_WET_WATER)
-					if(!(M.slip("wet floor", 4, 2, 0, 1)))
+					if(!(M.slip("wet floor", 4, 2, tilesSlipped = 0, walkSafely = 1)))
 						M.inertia_dir = 0
 						return
 
 				if(TURF_WET_LUBE) //lube
-					M.slip("floor", 0, 5, 3, 0, 1)
+					M.slip("floor", 0, 5, tilesSlipped = 3, walkSafely = 0, slipAny = 1)
 
 
 				if(TURF_WET_ICE) // Ice
-					if(!(prob(30) && M.slip("icy floor", 4, 2, 1, 1)))
+					if(!(prob(30) && M.slip("icy floor", 4, 2, tilesSlipped = 1, walkSafely = 1)))
 						M.inertia_dir = 0
 
 /turf/simulated/ChangeTurf(var/path)
