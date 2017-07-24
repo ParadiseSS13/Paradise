@@ -2050,3 +2050,9 @@
 	update_icons()
 
 	..()
+
+mob/living/carbon/human/get_taste_sensitivity()
+	if(species)
+		return species.taste_sensitivity
+	else
+		return 1

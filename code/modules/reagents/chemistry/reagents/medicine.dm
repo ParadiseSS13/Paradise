@@ -204,6 +204,7 @@
 	color = "#C8A5DC"
 	penetrates_skin = 1
 	metabolization_rate = 0.15
+	taste_message = "salt"
 
 /datum/reagent/medicine/salglu_solution/on_mob_life(mob/living/M)
 	if(prob(33))
