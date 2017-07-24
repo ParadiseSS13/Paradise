@@ -422,13 +422,6 @@ var/list/teleport_runes = list()
 			log_game("Sacrifice rune failed - not enough acolytes.")
 			rune_in_use = 0
 			return
-	if(offering.stat == DEAD)
-		for(var/M in invokers)
-			to_chat(M, "<span class='cultitalic'>[offering] is no use to our Lord dead!</span>")
-		fail_invoke()
-		log_game("Sacrifice rune failed - target dead.")
-		rune_in_use = 0
-		return
 	visible_message("<span class='warning'>[src] pulses blood red!</span>")
 	color = rgb(126, 23, 23)
 	..()
