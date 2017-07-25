@@ -20,6 +20,7 @@ z7 = empty
         #include "map_files\cyberiad\z4.dmm"
         #include "map_files\generic\z5.dmm"
         #include "map_files\cyberiad\z6.dmm"
+        #include "map_files\generic\z7.dmm"
 
         #define MAP_FILE "cyberiad.dmm"
         #define MAP_NAME "Cyberiad"
