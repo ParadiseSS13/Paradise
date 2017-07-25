@@ -38,21 +38,29 @@
 	icon_state = "enforcer_grey"
 	force = 10
 	mag_type = /obj/item/ammo_box/magazine/m45/enforcer45
-	can_suppress = 0
-	unique_reskin = 1
+	can_suppress = TRUE
+	unique_reskin = TRUE
 
 /obj/item/weapon/gun/projectile/automatic/pistol/enforcer/update_icon()
 	..()
 	if(current_skin)
 		icon_state = "[current_skin][chambered ? "" : "-e"]"
+	else
+		icon_state = "[initial(icon_state)][chambered ? "" : "-e"]"
+	overlays.Cut()
+	if(suppressed)
+		overlays += image(icon = icon, icon_state = "enforcer_supp", pixel_x = 4)
 
 /obj/item/weapon/gun/projectile/automatic/pistol/enforcer/New()
 	..()
 	options["Grey slide"] = "enforcer_grey"
 	options["Red slide"] = "enforcer_red"
+	options["Green slide"] = "enforcer_green"
+	options["Tan slide"] = "enforcer_tan"
 	options["Black slide"] = "enforcer_black"
 	options["Green Handle"] = "enforcer_greengrip"
 	options["Tan Handle"] = "enforcer_tangrip"
+	options["Red Handle"] = "enforcer_redgrip"
 	options["Cancel"] = null
 
 /obj/item/weapon/gun/projectile/automatic/pistol/deagle

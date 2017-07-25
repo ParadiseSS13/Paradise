@@ -41,6 +41,12 @@
 	magazine = new /obj/item/ammo_box/magazine/toy/pistol/riot(src)
 	..()
 
+/obj/item/weapon/gun/projectile/automatic/toy/pistol/enforcer
+	name = "Enforcer trainer"
+	desc = "A foam version of the Enforcer meant to be used for training new caddets who can't be trusted with rubber bullets."
+	icon_state = "enforcer"
+	mag_type = /obj/item/ammo_box/magazine/toy/enforcer
+
 /obj/item/weapon/gun/projectile/shotgun/toy
 	name = "foam force shotgun"
 	desc = "A toy shotgun with wood furniture and a four-shell capacity underneath. Ages 8 and up."
