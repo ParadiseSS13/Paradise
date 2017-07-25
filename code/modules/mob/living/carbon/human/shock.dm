@@ -21,11 +21,12 @@
 	return traumatic_shock
 
 /mob/living/carbon/human/proc/handle_shock()
-	updateshock()
 	if(status_flags & GODMODE) //godmode
 		return
 	if(NO_PAIN in species.species_traits)
 		return
+
+	updateshock()
 
 	if(health <= config.health_threshold_softcrit)// health 0 makes you immediately collapse
 		shock_stage = max(shock_stage, 61)
