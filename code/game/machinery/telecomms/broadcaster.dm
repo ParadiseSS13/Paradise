@@ -1,5 +1,3 @@
-//This file was auto-corrected by findeclaration.exe on 25.5.2012 20:42:31
-
 /*
 	The broadcaster sends processed messages to all radio devices in the game. They
 	do not have to be headsets; intercoms and station-bounced radios suffice.

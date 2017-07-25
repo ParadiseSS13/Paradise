@@ -1,5 +1,3 @@
-//This file was auto-corrected by findeclaration.exe on 25.5.2012 20:42:32
-
 var/const/TOUCH = 1
 var/const/INGEST = 2
 #define ADDICTION_TIME 4800 //8 minutes
