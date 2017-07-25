@@ -62,7 +62,7 @@
 			user.adjustBruteLoss(rand(force/2,force))
 
 	var/mob/living/carbon/human/bleeder = target
-	if(!(cooldown > world.time) && ((bleeder.stat != DEAD) && !(bleeder.species.flags & NO_BLOOD)))
+	if(!(cooldown > world.time) && ((bleeder.stat != DEAD) && !(NO_BLOOD in bleeder.species.species_traits)))
 		if(do_after(user, 20, target = target))
 			user.visible_message("<span class='danger'>The runes on the blade absorb the blood of [target]!</span>")
 			bleeder.bleed(5000)
