@@ -1,0 +1,6 @@
+author: "Kyep"
+delete-after: True
+changes: 
+  - rscadd: "Admins' Smite command has been upgraded. No longer limited to Dark Priests, it can now send over a dozen different entities in search of its target, from the comic, like Greytiders, Tunnel Clowns, Masked Killers and Mime Assasins, to the serious, such as Syndicates, Soviets, Dark Lords and more. All come with a dust implant. These same characters can also be sent to protect specific crew members, so they aren't predictable."
+  - bugfix: "The 'reaper' admin outfit now has a working briefcase."
+  - bugfix: "Use of the 'Bless' command to bestow powers no longer causes genetic damage."
