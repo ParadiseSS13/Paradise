@@ -61,6 +61,12 @@
 // Factor of how fast mob nutrition decreases
 #define	HUNGER_FACTOR 0.1
 
+// Taste sensitivity - the more the more reagents you'll taste
+#define TASTE_SENSITIVITY_NORMAL 1
+#define TASTE_SENSITIVITY_SHARP 1.5
+#define TASTE_SENSITIVITY_DULL 0.75
+#define TASTE_SENSITIVITY_NO_TASTE 0
+
 // Reagent type flags, defines the types of mobs this reagent will affect
 #define ORGANIC 1
 #define SYNTHETIC 2

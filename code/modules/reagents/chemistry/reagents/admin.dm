@@ -6,6 +6,7 @@
 	color = "#C8A5DC" // rgb: 200, 165, 220
 	process_flags = ORGANIC | SYNTHETIC	//Adminbuse knows no bounds!
 	can_synth = FALSE
+	taste_message = "admin abuse"
 
 /datum/reagent/medicine/adminordrazine/on_mob_life(mob/living/carbon/M)
 	M.setCloneLoss(0)
@@ -56,3 +57,4 @@
 	name = "Nanites"
 	id = "nanites"
 	description = "Nanomachines that aid in rapid cellular regeneration."
+	taste_message = "nanomachines, son"

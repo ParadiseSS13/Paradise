@@ -18,6 +18,7 @@
 	drink_icon = "glass_clear"
 	drink_name = "Glass of Water"
 	drink_desc = "The father of all refreshments."
+	taste_message = null
 
 /datum/reagent/water/reaction_mob(mob/living/M, method=TOUCH, volume)
 	if(method == TOUCH)
@@ -115,6 +116,7 @@
 	description = "Lubricant is a substance introduced between two moving surfaces to reduce the friction and wear between them. giggity."
 	reagent_state = LIQUID
 	color = "#1BB1AB"
+	taste_message = "oil"
 
 /datum/reagent/lube/reaction_turf(turf/simulated/T, volume)
 	if(volume >= 1 && istype(T))
@@ -127,6 +129,7 @@
 	description = "A compound used to clean things. Now with 50% more sodium hypochlorite!"
 	reagent_state = LIQUID
 	color = "#61C2C2"
+	taste_message = "floor cleaner"
 
 /datum/reagent/space_cleaner/reaction_obj(obj/O, volume)
 	if(istype(O, /obj/effect/decal/cleanable))
@@ -191,6 +194,7 @@
 	drink_icon = "glass_red"
 	drink_name = "Glass of Tomato juice"
 	drink_desc = "Are you sure this is tomato juice?"
+	taste_message = "<span class='warning'>blood</span>"
 
 /datum/reagent/blood/reaction_mob(mob/living/M, method=TOUCH, volume)
 	if(data && data["viruses"])
@@ -291,6 +295,7 @@
 	description = "Smelly water from a fish tank. Gross!"
 	reagent_state = LIQUID
 	color = "#757547"
+	taste_message = "puke"
 
 /datum/reagent/fishwater/reaction_mob(mob/living/M, method=TOUCH, volume)
 	if(method == INGEST)
@@ -310,6 +315,7 @@
 	description = "Filthy water scoured from a nasty toilet bowl. Absolutely disgusting."
 	reagent_state = LIQUID
 	color = "#757547"
+	taste_message = "puke"
 
 /datum/reagent/fishwater/toiletwater/reaction_mob(mob/living/M, method=TOUCH, volume) //For shennanigans
 	return
@@ -324,6 +330,7 @@
 	drink_icon = "glass_clear"
 	drink_name = "Glass of Water"
 	drink_desc = "The father of all refreshments."
+	taste_message = null
 
 /datum/reagent/holywater/on_mob_life(mob/living/M)
 	M.AdjustJitter(-5)
@@ -399,6 +406,7 @@
 	description = "Something that shouldn't exist on this plane of existance."
 	process_flags = ORGANIC | SYNTHETIC //ethereal means everything processes it.
 	metabolization_rate = 1
+	taste_message = null
 
 /datum/reagent/fuel/unholywater/on_mob_life(mob/living/M)
 	if(iscultist(M))
@@ -426,6 +434,7 @@
 	process_flags = ORGANIC | SYNTHETIC		//Admin-bus has no brakes! KILL THEM ALL.
 	metabolization_rate = 1
 	can_synth = FALSE
+	taste_message = "admin abuse"
 
 /datum/reagent/hellwater/on_mob_life(mob/living/M)
 	M.fire_stacks = min(5, M.fire_stacks + 3)
@@ -441,6 +450,7 @@
 	color = "#FF9966"
 	description = "You don't even want to think about what's in here."
 	reagent_state = LIQUID
+	taste_message = "meat"
 
 /datum/reagent/liquidgibs/reaction_turf(turf/T, volume) //yes i took it from synthflesh...
 	if(volume >= 5 && !isspaceturf(T))
@@ -453,6 +463,7 @@
 	description = "Also known as sodium hydroxide."
 	reagent_state = LIQUID
 	color = "#FFFFD6" // very very light yellow
+	taste_message = "<span class='userdanger'>ACID</span>"//don't drink lye, kids
 
 /datum/reagent/drying_agent
 	name = "Drying agent"
