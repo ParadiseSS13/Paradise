@@ -1,4 +1,0 @@
-author: "Fox McCloud"
-delete-after: True
-changes: 
-  - tweak: "shotgun darts and syringe darts no longer react their reagents on hit (they will still transfer reagents)"
