@@ -1,0 +1,4 @@
+author: "Kyep"
+delete-after: True
+changes: 
+  - tweak: "Reagents placed in shotgun shells will now react. It is no longer possible to make explosive shotgun darts by using regular darts like cryobeakers."
