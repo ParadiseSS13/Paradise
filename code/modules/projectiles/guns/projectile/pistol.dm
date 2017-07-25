@@ -32,20 +32,35 @@
 	magazine = new /obj/item/ammo_box/magazine/m10mm/empty(src)
 	..()
 
+/obj/item/weapon/gun/projectile/automatic/pistol/enforcer
+	name = "Enforcer .45"
+	desc = "A pistol of modern design."
+	icon_state = "enforcer_grey"
+	force = 10
+	mag_type = /obj/item/ammo_box/magazine/m45/enforcer45
+	can_suppress = 0
+	unique_reskin = 1
+
+/obj/item/weapon/gun/projectile/automatic/pistol/enforcer/update_icon()
+	..()
+	if(current_skin)
+		icon_state = "[current_skin][chambered ? "" : "-e"]"
+
+/obj/item/weapon/gun/projectile/automatic/pistol/enforcer/New()
+	..()
+	options["Grey slide"] = "enforcer_grey"
+	options["Red slide"] = "enforcer_red"
+	options["Black slide"] = "enforcer_black"
+	options["Green Handle"] = "enforcer_greengrip"
+	options["Tan Handle"] = "enforcer_tangrip"
+	options["Cancel"] = null
+
 /obj/item/weapon/gun/projectile/automatic/pistol/deagle
 	name = "desert eagle"
 	desc = "A robust .50 AE handgun."
 	icon_state = "deagle"
 	force = 14.0
 	mag_type = /obj/item/ammo_box/magazine/m50
-	can_suppress = 0
-
-/obj/item/weapon/gun/projectile/automatic/pistol/enforcer45
-	name = "Enforcer .45"
-	desc = "A pistol of modern design."
-	icon_state = "enforcer"
-	force = 10
-	mag_type = /obj/item/ammo_box/magazine/m45/enforcer45
 	can_suppress = 0
 
 /obj/item/weapon/gun/projectile/automatic/pistol/deagle/update_icon()
