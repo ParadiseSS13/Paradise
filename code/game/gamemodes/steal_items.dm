@@ -87,6 +87,11 @@ datum/theft_objective/ai/check_special_completion(var/obj/item/device/aicard/C)
 	typepath = /obj/item/clothing/suit/space/nasavoid
 	protected_jobs = list("Research Director")
 
+/datum/theft_objective/slime_extract
+	name = "a sample of unused slime extract"
+	typepath = /obj/item/slime_extract
+	protected_jobs = list("Research Director","Scientist")
+
 /datum/theft_objective/slime_extract/check_special_completion(var/obj/item/slime_extract/E)
 	if(..())
 		if(E.Uses > 0)
@@ -126,6 +131,47 @@ datum/theft_objective/ai/check_special_completion(var/obj/item/device/aicard/C)
 	name = "the warden's krav maga martial arts gloves"
 	typepath = /obj/item/clothing/gloves/color/black/krav_maga/sec
 	protected_jobs = list("Head Of Security", "Warden")
+
+/datum/theft_objective/number
+	var/min=0
+	var/max=0
+	var/step=1
+
+	var/required_amount=0
+
+/datum/theft_objective/number/New()
+	if(min==max)
+		required_amount=min
+	else
+		var/lower=min/step
+		var/upper=min/step
+		required_amount=rand(lower,upper)*step
+	name = "[required_amount] [name]"
+
+/datum/theft_objective/number/check_completion(var/datum/mind/owner)
+	if(!owner.current)
+		return 0
+	if(!isliving(owner.current))
+		return 0
+	var/list/all_items = owner.current.get_contents()
+	var/found_amount=0.0
+	for(var/obj/item/I in all_items)
+		if(istype(I, typepath))
+			found_amount += getAmountStolen(I)
+	return found_amount >= required_amount
+
+/datum/theft_objective/number/proc/getAmountStolen(var/obj/item/I)
+	return I:amount
+
+/datum/theft_objective/number/plasma_gas
+	name = "moles of plasma (full tank)"
+	typepath = /obj/item/weapon/tank
+	min=28
+	max=28
+	protected_jobs = list("Chief Engineer", "Station Engineer", "Scientist", "Research Director", "Life Support Specialist")
+
+/datum/theft_objective/number/plasma_gas/getAmountStolen(var/obj/item/I)
+	return I:air_contents:toxins
 
 /datum/theft_objective/unique
 	flags = THEFT_FLAG_UNIQUE
