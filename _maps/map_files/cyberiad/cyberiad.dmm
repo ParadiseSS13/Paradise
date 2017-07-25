@@ -4438,7 +4438,7 @@
 "bHs" = (/obj/machinery/atmospherics/pipe/simple/hidden/supply{dir = 4},/turf/simulated/wall/r_wall,/area/engine/gravitygenerator)
 "bHt" = (/obj/machinery/atmospherics/pipe/simple/hidden/supply{dir = 4},/turf/space,/area/space)
 "bHu" = (/obj/machinery/atmospherics/unary/vent_scrubber{dir = 8; on = 1; scrub_N2O = 1; scrub_Toxins = 1},/turf/simulated/floor/plasteel{icon_state = "dark"},/area/engine/gravitygenerator)
-"bHv" = (/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,/obj/structure/rack,/obj/item/weapon/tank/emergency_oxygen/double,/obj/item/weapon/tank/jetpack/oxygen,/obj/item/clothing/suit/space/captain,/obj/item/clothing/mask/gas,/obj/item/clothing/head/helmet/space/capspace,/obj/item/device/radio/intercom/private{pixel_x = -28},/turf/simulated/floor/wood,/area/crew_quarters/captain)
+"bHv" = (/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,/obj/structure/rack,/obj/item/weapon/tank/emergency_oxygen/double,/obj/item/weapon/tank/jetpack/oxygen/captain,/obj/item/clothing/suit/space/captain,/obj/item/clothing/mask/gas,/obj/item/clothing/head/helmet/space/capspace,/obj/item/device/radio/intercom/private{pixel_x = -28},/turf/simulated/floor/wood,/area/crew_quarters/captain)
 "bHw" = (/obj/machinery/computer/card,/turf/simulated/floor/wood,/area/crew_quarters/captain)
 "bHx" = (/obj/structure/table/woodentable,/obj/machinery/recharger{pixel_y = 4},/obj/item/weapon/melee/chainofcommand,/obj/item/weapon/card/id/captains_spare,/turf/simulated/floor/wood,/area/crew_quarters/captain)
 "bHy" = (/obj/machinery/atmospherics/unary/vent_pump{on = 1},/turf/simulated/floor/wood,/area/crew_quarters/captain)

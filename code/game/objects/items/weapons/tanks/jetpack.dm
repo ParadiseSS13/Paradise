@@ -107,6 +107,14 @@
 	..()
 	air_contents.oxygen = (6*ONE_ATMOSPHERE)*volume/(R_IDEAL_GAS_EQUATION*T20C)
 
+/obj/item/weapon/tank/jetpack/oxygen/captain
+	name = "Captain's jetpack"
+	desc = "A compact, lightweight jetpack containing a high amount of compressed oxygen."
+	icon_state = "jetpack-captain"
+	item_state = "jetpack-captain"
+	volume = 90
+	w_class = WEIGHT_CLASS_NORMAL
+
 /obj/item/weapon/tank/jetpack/oxygen/harness
 	name = "jet harness (oxygen)"
 	desc = "A lightweight tactical harness, used by those who don't want to be weighed down by traditional jetpacks."
