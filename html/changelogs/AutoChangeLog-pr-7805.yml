@@ -1,5 +1,0 @@
-author: "FreeStylaLT"
-delete-after: True
-changes: 
-  - rscdel: "Removed sci outpost and dock from Metastation and Cyberiad"
-  - rscadd: "Added a Mining Outpost to the northernmost point of the Asteroid."

@@ -1,5 +1,0 @@
-author: "FlattestGuitar"
-delete-after: True
-changes: 
-  - tweak: "Antagonists will no longer get the objective to steal slime extracts and plasma tanks."
-  - rscadd: "The Captain has a swanky high-tech jetpack now. Antagonists will try to steal this one instead of *any* jetpack."
