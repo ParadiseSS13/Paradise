@@ -191,8 +191,8 @@
 		// Damage an internal organ
 		if(internal_organs && internal_organs.len)
 			var/obj/item/organ/internal/I = pick(internal_organs)
-			I.take_damage(brute / 2)
-			brute -= brute / 2
+			I.take_damage(brute * 0.5)
+			brute -= brute * 0.5
 
 	if(status & ORGAN_BROKEN && prob(40) && brute)
 		owner.emote("scream")	//getting hit on broken hand hurts
