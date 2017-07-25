@@ -114,6 +114,27 @@
 	ammo_type = /obj/item/ammo_casing/shotgun/improvised
 	max_ammo = 1
 
+/obj/item/ammo_box/magazine/internal/shot/improvised/New()
+ 	update_icon()
+
+/obj/item/ammo_box/magazine/internal/shot/improvised/i45
+	name = "pistol carbine internal magazine"
+	ammo_type = /obj/item/ammo_casing/c45
+	caliber = ".45"
+	max_ammo = 1
+
+/obj/item/ammo_box/magazine/internal/shot/improvised/i9
+	name = "rifle internal magazine"
+	ammo_type = /obj/item/ammo_casing/c9mm
+	caliber = "9mm"
+	max_ammo = 1
+
+/obj/item/ammo_box/magazine/internal/shot/improvised/i357
+	name = "large pistol carbine internal magazine"
+	ammo_type = /obj/item/ammo_casing/a357
+	caliber = "357"
+	max_ammo = 1
+
 /obj/item/ammo_box/magazine/internal/shot/riot
 	name = "riot shotgun internal magazine"
 	ammo_type = /obj/item/ammo_casing/shotgun/rubbershot

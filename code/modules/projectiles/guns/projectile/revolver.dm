@@ -312,6 +312,7 @@
 		to_chat(user, "<span class = 'notice'>You break open \the [src] and unload [num_unloaded] shell\s.</span>")
 	else
 		to_chat(user, "<span class='notice'>[src] is empty.</span>")
+	update_icon()
 
 /obj/item/weapon/gun/projectile/revolver/doublebarrel/isHandgun() //contrary to popular opinion, double barrels are not, shockingly, handguns
 	return 0
@@ -330,7 +331,9 @@
 	sawn_desc = "I'm just here for the gasoline."
 	unique_rename = 0
 	unique_reskin = 0
-	var/slung = 0
+	var/slung = FALSE
+	var/sawn = FALSE
+	var/offset = 0 //For carbine magazines and attachments
 
 /obj/item/weapon/gun/projectile/revolver/doublebarrel/improvised/attackby(obj/item/A, mob/user, params)
 	..()
@@ -339,8 +342,8 @@
 		if(C.use(10))
 			slot_flags = SLOT_BACK
 			icon_state = "ishotgunsling"
-			to_chat(user, "<span class='notice'>You tie the lengths of cable to the shotgun, making a sling.</span>")
-			slung = 1
+			to_chat(user, "<span class='notice'>You tie the lengths of cable to the gun, making a sling.</span>")
+			slung = TRUE
 			update_icon()
 		else
 			to_chat(user, "<span class='warning'>You need at least ten lengths of cable if you want to make a sling.</span>")
@@ -348,16 +351,127 @@
 
 /obj/item/weapon/gun/projectile/revolver/doublebarrel/improvised/update_icon()
 	..()
-	if(slung && (slot_flags & SLOT_BELT) )
-		slung = 0
-		icon_state = "ishotgun-sawn"
+	icon_state = "[initial(icon_state)][slung ? "sling" : "" ][sawn_state ? "-sawn" : ""]"
+	overlays.Cut()
+	if(magazine.max_ammo > 1)
+		if(sawn)
+			overlays += image(icon = icon, icon_state = "[initial(icon_state)]-[get_ammo(0,0)]", pixel_x = offset)
+		else
+			overlays += image(icon = icon, icon_state = "[initial(icon_state)]-[get_ammo(0,0)]")
+	if(suppressed)
+		if(sawn)
+			overlays += image(icon = icon, icon_state = "improsupp", pixel_x = -6+offset)
+		else
+			overlays += image(icon = icon, icon_state = "improsupp", pixel_x = -6)
 
 /obj/item/weapon/gun/projectile/revolver/doublebarrel/improvised/sawoff(mob/user)
 	. = ..()
+	sawn = TRUE
 	if(. && slung) //sawing off the gun removes the sling
 		new /obj/item/stack/cable_coil(get_turf(src), 10)
-		slung = 0
-		update_icon()
+		slung = FALSE
+	update_icon()
+
+// 	IMPROVISED CARBINES //
+
+// 45 //
+
+/obj/item/weapon/gun/projectile/revolver/doublebarrel/improvised/i45
+	name = "improvised .45 carbine"
+	desc = "Essentially a tube that aims .45 bullets."
+	icon_state = "i45"
+	mag_type = /obj/item/ammo_box/magazine/internal/shot/improvised/i45
+	sawn_desc = "Leave them breathless."
+	can_suppress = TRUE
+	offset = 3
+
+/obj/item/weapon/gun/projectile/revolver/doublebarrel/improvised/i45/attackby(obj/item/A, mob/user, params)
+	..()
+	if(istype(A, /obj/item/stack/sheet/plasteel))
+		var/obj/item/stack/sheet/plasteel/P = A
+		to_chat(user, "<span class='notice'>You begin to add a pull magazine the reciever of [src]...</span>")
+		if(magazine.ammo_count())
+			afterattack(user, user)
+			user.visible_message("<span class='danger'>[src] goes off!</span>", "<span class='userdanger'>[src] goes off in your face!</span>")
+			return
+		if(do_after(user, 30 * A.toolspeed, target = src))
+			magazine.max_ammo = 3
+			if(!sawn)
+				desc = "Essentially a tube that aims .45 bullets, now with multiple chambers."
+			to_chat(user, "<span class='notice'>You have modified the reciever of [src]. Now it can hold 3 rounds.</span>")
+			P.use(1)
+			update_icon()
+			fire_delay = 10
+
+// 9mm //
+
+/obj/item/weapon/gun/projectile/revolver/doublebarrel/improvised/i9
+	name = "improvised 9mm carbine"
+	desc = "Essentially a tube that aims 9mm bullets."
+	icon_state = "i9"
+	mag_type = /obj/item/ammo_box/magazine/internal/shot/improvised/i9
+	sawn_desc = "Pew Pew Motherhonker."
+	can_suppress = TRUE
+	offset = 2
+
+/obj/item/weapon/gun/projectile/revolver/doublebarrel/improvised/i9/attackby(obj/item/A, mob/user, params)
+	..()
+	if(istype(A, /obj/item/stack/sheet/plasteel))
+		var/obj/item/stack/sheet/plasteel/P = A
+		to_chat(user, "<span class='notice'>You begin to add a pull magazine the reciever of [src]...</span>")
+		if(magazine.ammo_count())
+			afterattack(user, user)
+			user.visible_message("<span class='danger'>[src] goes off!</span>", "<span class='userdanger'>[src] goes off in your face!</span>")
+			return
+		if(do_after(user, 30 * A.toolspeed, target = src))
+			magazine.max_ammo = 5
+			if(!sawn)
+				desc = "Essentially a tube that aims 9mm bullets, now with multiple chambers."
+			to_chat(user, "<span class='notice'>You have modified the reciever of [src]. Now it can hold 5 rounds.</span>")
+			P.use(1)
+			update_icon()
+			fire_delay = 5
+
+// 357 //
+
+/obj/item/weapon/gun/projectile/revolver/doublebarrel/improvised/i357
+	name = "improvised .357 carbine"
+	desc = "Essentially a tube that aims .357 bullets."
+	icon_state = "i357"
+	mag_type = /obj/item/ammo_box/magazine/internal/shot/improvised/i357
+	sawn_desc = "Hell Ya, I have the power of God."
+
+/obj/item/weapon/gun/projectile/revolver/doublebarrel/improvised/i357/attackby(obj/item/A, mob/user, params)
+	..()
+	if(istype(A, /obj/item/weapon/screwdriver))
+		if(magazine.caliber == "357")
+			to_chat(user, "<span class='notice'>You begin to shorten the chamber of [src]...</span>")
+			if(magazine.ammo_count())
+				afterattack(user, user)
+				user.visible_message("<span class='danger'>[src] goes off!</span>", "<span class='userdanger'>[src] goes off in your face!</span>")
+				return
+			if(do_after(user, 30 * A.toolspeed, target = src))
+				if(magazine.ammo_count())
+					to_chat(user, "<span class='warning'>You can't modify it!</span>")
+					return
+				magazine.caliber = "38"
+				if(!sawn)
+					desc = "Essentially a tube that aims .357 bullets, but shortened to shoot 38."
+				to_chat(user, "<span class='notice'>You shorten the chamber of [src]. Now it will fire .38 rounds.</span>")
+		else
+			to_chat(user, "<span class='notice'>You begin to elongate the chamber of [src]...</span>")
+			if(magazine.ammo_count())
+				afterattack(user, user)
+				user.visible_message("<span class='danger'>[src] goes off!</span>", "<span class='userdanger'>[src] goes off in your face!</span>")
+				return
+			if(do_after(user, 30 * A.toolspeed, target = src))
+				if(magazine.ammo_count())
+					to_chat(user, "<span class='warning'>You can't modify it!</span>")
+					return
+				magazine.caliber = "357"
+				if(!sawn)
+					desc = initial(desc)
+				to_chat(user, "<span class='notice'>You elongate the chamber of [src]. Now it will fire .357 rounds.</span>")
 
 //caneshotgun
 
