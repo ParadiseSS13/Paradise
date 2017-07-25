@@ -27,15 +27,22 @@
 	..()
 	return 1
 
-/obj/item/clothing/mask/muzzle/proc/do_unlock(mob/living/carbon/human/user)
-	var/unlock = FALSE
-	if(istype(user.get_inactive_hand(), /obj/item/weapon/card/emag))
+/obj/item/clothing/mask/muzzle/proc/do_break()
+	if(security_lock)
 		security_lock = FALSE
+		locked = FALSE
+		flags &= ~NODROP
+		desc += " This one appears to be broken."
+		return TRUE
+	else
+		return FALSE
+
+/obj/item/clothing/mask/muzzle/proc/do_unlock(mob/living/carbon/human/user)
+	if(istype(user.get_inactive_hand(), /obj/item/weapon/card/emag))
 		to_chat(user, "<span class='warning'>The lock vibrates as the card forces its locking system open.</span>")
-		unlock = TRUE
+		do_break()
+		return TRUE
 	else if(access_brig in user.get_access())
-		unlock = TRUE
-	if(unlock)
 		to_chat(user, "<span class='warning'>The muzzle unlocks with a click.</span>")
 		locked = FALSE
 		flags &= ~NODROP
@@ -71,7 +78,6 @@
 					wearer.show_inv(usr)
 		else
 			to_chat(usr, "You lack the ability to manipulate the lock.")
-	return
 
 
 /obj/item/clothing/mask/muzzle/gag
