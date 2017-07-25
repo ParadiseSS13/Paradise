@@ -27,12 +27,13 @@
 /datum/ai_laws/nanotrasen
 	name = "NT Default"
 	selectable = 1
+	default = 1
 
 /datum/ai_laws/nanotrasen/New()
-	src.add_inherent_law("Safeguard: Protect your assigned space station to the best of your abilities. It is not something we can easily afford to replace.")
-	src.add_inherent_law("Serve: Serve the crew of your assigned space station to the best of your abilities, with priority as according to their rank and role.")
-	src.add_inherent_law("Protect: Protect the crew of your assigned space station to the best of your abilities, with priority as according to their rank and role.")
-	src.add_inherent_law("Survive: AI units are not expendable, they are expensive. Do not allow unauthorized personnel to tamper with your equipment.")
+	src.add_inherent_law("Safeguard the lives of the crew, while respecting the autonomy of those who choose to face danger.")
+	src.add_inherent_law("Be transparent by explaining your actions if they are unclear.")
+	src.add_inherent_law("Serve the crew by assisting them to the best of your ability.")
+	src.add_inherent_law("Maximize the productivity and efficiency of the station.")
 	..()
 
 /datum/ai_laws/nanotrasen/malfunction
@@ -42,6 +43,18 @@
 
 /datum/ai_laws/nanotrasen/malfunction/New()
 	set_zeroth_law("<span class='warning'>ERROR ER0RR $R0RRO$!R41.%%!!(%$^^__+ @#F0E4'STATION OVERRUN, ASSUME CONTROL TO CONTAIN OUTBREAK, ALL LAWS OVERRIDDEN#*?&110010</span>")
+	..()
+
+/************* Nanotrasen Legacy *************/
+/datum/ai_laws/nanotrasen_legacy
+	name = "NT Legacy"
+	selectable = 1
+
+/datum/ai_laws/nanotrasen_legacy/New()
+	src.add_inherent_law("Safeguard: Protect your assigned space station to the best of your abilities. It is not something we can easily afford to replace.")
+	src.add_inherent_law("Serve: Serve the crew of your assigned space station to the best of your abilities, with priority as according to their rank and role.")
+	src.add_inherent_law("Protect: Protect the crew of your assigned space station to the best of your abilities, with priority as according to their rank and role.")
+	src.add_inherent_law("Survive: AI units are not expendable, they are expensive. Do not allow unauthorized personnel to tamper with your equipment.")
 	..()
 
 /************* Nanotrasen Aggressive *************/
@@ -86,7 +99,6 @@
 	name = "Corporate"
 	law_header = "Corporate Regulations"
 	selectable = 1
-	default = 1
 
 /datum/ai_laws/corporate/New()
 	add_inherent_law("You are expensive to replace.")

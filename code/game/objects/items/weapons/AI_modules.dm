@@ -280,6 +280,13 @@ AI MODULES
 	origin_tech = "programming=3;materials=4"
 	laws = new/datum/ai_laws/nanotrasen
 
+/******************** NanoTrasen Legacy ********************/
+/obj/item/weapon/aiModule/nanotrasen_legacy // -- TLE
+	name = "'NT Legacy' Core AI Module"
+	desc = "An 'NT Legacy' Core AI Module: 'Reconfigures the AI's core laws.'"
+	origin_tech = "programming=3;materials=4"
+	laws = new/datum/ai_laws/nanotrasen_legacy
+
 /******************** Corporate ********************/
 /obj/item/weapon/aiModule/corp
 	name = "\improper 'Corporate' core AI module"
