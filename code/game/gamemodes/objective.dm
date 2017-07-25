@@ -1,12 +1,7 @@
-//This file was auto-corrected by findeclaration.exe on 25.5.2012 20:42:31
 var/global/list/all_objectives = list()
 
 var/list/potential_theft_objectives = subtypesof(/datum/theft_objective) \
-	- /datum/theft_objective/steal \
-	- /datum/theft_objective/special \
-	- /datum/theft_objective/number \
-	- /datum/theft_objective/number/special \
-	- /datum/theft_objective/number/coins
+	- /datum/theft_objective/steal
 
 /datum/objective
 	var/datum/mind/owner = null			//Who owns the objective.
@@ -341,7 +336,7 @@ var/list/potential_theft_objectives = subtypesof(/datum/theft_objective) \
 	var/datum/theft_objective/steal_target
 	martyr_compatible = 0
 
-/datum/objective/steal/find_target(var/special_only=0)
+/datum/objective/steal/find_target()
 	var/loop=50
 	while(!steal_target && loop > 0)
 		loop--
@@ -349,12 +344,6 @@ var/list/potential_theft_objectives = subtypesof(/datum/theft_objective) \
 		var/datum/theft_objective/O = new thefttype
 		if(owner.assigned_role in O.protected_jobs)
 			continue
-		if(special_only)
-			if(!(O.flags & 1)) // THEFT_FLAG_SPECIAL
-				continue
-		else
-			if(O.flags & 1) // THEFT_FLAG_SPECIAL
-				continue
 		if(O.flags & 2)
 			continue
 		steal_target=O

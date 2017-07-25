@@ -259,8 +259,7 @@ Pipelines + Other Objects -> Pipe network
 				user.last_played_vent = world.time
 				playsound(src, 'sound/machines/ventcrawl.ogg', 50, 1, -3)
 	else
-		var/can_connect = check_connect_types(target_move, src)
-		if((direction & initialize_directions) || (is_type_in_list(src, ventcrawl_machinery) && target_move.can_crawl_through() && can_connect)) //if we move in a way the pipe can connect, but doesn't - or we're in a vent
+		if((direction & initialize_directions) || is_type_in_list(src, ventcrawl_machinery)) //if we move in a way the pipe can connect, but doesn't - or we're in a vent
 			user.remove_ventcrawl()
 			user.forceMove(src.loc)
 			user.visible_message("You hear something squeezing through the pipes.", "You climb out the ventilation system.")

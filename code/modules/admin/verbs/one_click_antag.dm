@@ -513,7 +513,7 @@ client/proc/one_click_antag()
 	new_vox.update_eyes()
 
 	for(var/obj/item/organ/external/limb in new_vox.bodyparts)
-		limb.status &= ~(ORGAN_DESTROYED | ORGAN_ROBOT)
+		limb.status &= ~ORGAN_ROBOT
 
 	//Now apply cortical stack.
 	var/obj/item/weapon/implant/cortical/I = new(new_vox)

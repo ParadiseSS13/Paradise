@@ -17,8 +17,6 @@
 	if(special_icon)
 		I.icon_state = special_icon
 
-/datum/outfit/admin
-
 /datum/outfit/admin/syndicate
 	name = "Syndicate Agent"
 
@@ -1043,7 +1041,7 @@
 		apply_to_card(I, H, get_all_accesses(), "Singuloth Knight")
 
 /datum/outfit/admin/assassin
-	name = "Assassin"
+	name = "Syndicate Assassin"
 
 	uniform = /obj/item/clothing/under/suit_jacket
 	suit = /obj/item/clothing/suit/wcoat
@@ -1054,34 +1052,17 @@
 	glasses = /obj/item/clothing/glasses/sunglasses
 	id = /obj/item/weapon/card/id/syndicate
 	l_pocket = /obj/item/weapon/melee/energy/sword/saber
-	l_hand = /obj/item/weapon/storage/secure/briefcase
+	l_hand = /obj/item/weapon/storage/secure/briefcase/reaper
 	pda = /obj/item/device/pda/heads
 	backpack_contents = list(
 		/obj/item/weapon/storage/box/survival = 1,
 		/obj/item/device/flashlight = 1
 	)
 
-	var/briefcase_contents = list(
-		/obj/item/stack/spacecash/c1000 = 3,
-		/obj/item/weapon/gun/energy/kinetic_accelerator/crossbow = 1,
-		/obj/item/weapon/gun/projectile/revolver/mateba = 1,
-		/obj/item/ammo_box/a357 = 1,
-		/obj/item/weapon/grenade/plastic/c4 = 1
-	)
-
 /datum/outfit/admin/assassin/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
 	. = ..()
 	if(visualsOnly)
 		return
-
-	var/obj/item/weapon/storage/secure/briefcase/B = H.l_hand
-	if(istype(B))
-		for(var/obj/item/I in B)
-			qdel(I)
-		for(var/path in briefcase_contents)
-			var/number = backpack_contents[path]
-			for(var/i = 0, i < number, i++)
-				B.handle_item_insertion(new path(B), 1)
 
 	var/obj/item/weapon/implant/dust/D = new /obj/item/weapon/implant/dust(H)
 	D.implant(H)
