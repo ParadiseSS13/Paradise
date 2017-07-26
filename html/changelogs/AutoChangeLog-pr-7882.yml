@@ -1,0 +1,4 @@
+author: "Citinited"
+delete-after: True
+changes: 
+  - bugfix: "The autopsy drawer's description makes more sense."
