@@ -43,10 +43,10 @@
 	overlays |= icon_state
 
 /obj/item/weapon/picture_frame/proc/insert(obj/D)
-	if(istype(D, /obj/item/weapon/contraband/poster))
-		var/obj/item/weapon/contraband/poster/P = D
-		displayed = P.resulting_poster
-		P.resulting_poster = null
+	if(istype(D, /obj/item/weapon/poster))
+		var/obj/item/weapon/poster/P = D
+		displayed = P.poster_structure
+		P.poster_structure = null
 	else
 		displayed = D
 
@@ -54,7 +54,7 @@
 	displayed.pixel_x = 0
 	displayed.pixel_y = 0
 	displayed.forceMove(src)
-	if(istype(D, /obj/item/weapon/contraband/poster))
+	if(istype(D, /obj/item/weapon/poster))
 		qdel(D)
 
 /obj/item/weapon/picture_frame/attackby(obj/item/I, mob/user)
@@ -85,7 +85,7 @@
 				O.forceMove(user.loc)
 		displayed = null
 		qdel(src)
-	else if(istype(I, /obj/item/weapon/paper) || istype(I, /obj/item/weapon/photo) || istype(I, /obj/item/weapon/contraband/poster))
+	else if(istype(I, /obj/item/weapon/paper) || istype(I, /obj/item/weapon/photo) || istype(I, /obj/item/weapon/poster))
 		if(!displayed)
 			user.unEquip(I)
 			insert(I)

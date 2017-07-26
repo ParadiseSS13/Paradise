@@ -439,6 +439,7 @@
 	reagent_state = LIQUID
 	color = "#644600"
 	addiction_chance = 30
+	taste_message = "puke... or worse"
 
 /datum/reagent/jenkem/on_mob_life(mob/living/M)
 	M.Dizzy(5)
@@ -500,6 +501,7 @@
 	overdose_threshold = 15
 	process_flags = ORGANIC | SYNTHETIC		//Flipping for everyone!
 	addiction_chance = 10
+	taste_message = "flips"
 
 /datum/reagent/fliptonium/on_mob_life(mob/living/M)
 	if(current_cycle == 5)
@@ -575,6 +577,7 @@
 	overdose_threshold = 20
 	addiction_chance = 60
 	metabolization_rate = 0.6
+	taste_message = "wiper fluid"
 
 /datum/reagent/lube/ultra/on_mob_life(mob/living/M)
 	var/high_message = pick("You feel your servos whir!", "You feel like you need to go faster.", "You feel like you were just overclocked!")
@@ -622,6 +625,7 @@
 	process_flags = SYNTHETIC
 	overdose_threshold = 20
 	addiction_chance = 50
+	taste_message = "silicone"
 
 
 /datum/reagent/surge/on_mob_life(mob/living/M)

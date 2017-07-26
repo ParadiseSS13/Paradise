@@ -1,6 +1,7 @@
 
 /mob/proc/HasDisease(datum/disease/D)
-	for(var/datum/disease/DD in viruses)
+	for(var/thing in viruses)
+		var/datum/disease/DD = thing
 		if(D.IsSame(DD))
 			return 1
 	return 0
@@ -35,7 +36,7 @@
 	var/datum/disease/DD = new D.type(1, D, 0)
 	viruses += DD
 	DD.affected_mob = src
-	DD.holder = src
+	active_diseases += DD //Add it to the active diseases list, now that it's actually in a mob and being processed.
 
 	//Copy properties over. This is so edited diseases persist.
 	var/list/skipped = list("affected_mob","holder","carrier","stage","type","parent_type","vars","transformed")
@@ -133,8 +134,11 @@
 
 
 /mob/living/carbon/human/CanContractDisease(datum/disease/D)
-	if(species.virus_immune)
+	if((VIRUSIMMUNE in species.species_traits) && !D.bypasses_immunity)
 		return 0
+	for(var/thing in D.required_organs)
+		if(!((locate(thing) in bodyparts) || (locate(thing) in internal_organs)))
+			return 0
 	return ..()
 
 /mob/living/carbon/human/monkey/CanContractDisease(datum/disease/D)

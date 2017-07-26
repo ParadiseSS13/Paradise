@@ -45,8 +45,6 @@
 
 /obj/item/clothing/mask/muzzle/tapegag/dropped(mob/living/carbon/human/user)
 	var/atom/movable/R = new /obj/item/trash/tapetrash
-	if(user.species.bodyflags & HAS_FUR)
-		R.desc += " Is that...fur?"
 	var/turf/T = get_turf(src)
 	R.loc = T
 	transfer_fingerprints_to(R)

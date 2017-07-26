@@ -16,9 +16,9 @@
 	var/tmp/atom/BeamSource
 	New()
 		..()
-		spawn(10) 
+		spawn(10)
 			qdel(src)
-			
+
 /obj/effect/overlay/palmtree_r
 	name = "Palm tree"
 	icon = 'icons/misc/beach2.dmi'
@@ -56,7 +56,7 @@
 /obj/effect/overlay/temp/New()
 	if(randomdir)
 		dir = pick(cardinal)
-		
+
 	flick("[icon_state]", src) //Because we might be pulling it from a pool, flick whatever icon it uses so it starts at the start of the icon's animation.
 
 	spawn(duration)
@@ -81,7 +81,7 @@
 
 /obj/effect/overlay/temp/guardian/phase/out
 	icon_state = "phaseout"
-	
+
 /obj/effect/overlay/temp/emp
 	name = "emp sparks"
 	icon = 'icons/effects/effects.dmi'
@@ -92,7 +92,7 @@
 	icon_state = "emppulse"
 	duration = 8
 	randomdir = 0
-	
+
 /obj/effect/overlay/temp/heal //color is white by default, set to whatever is needed
 	name = "healing glow"
 	icon = 'icons/effects/effects.dmi'
@@ -112,7 +112,7 @@
 	icon_state = "kinetic_blast"
 	layer = 4.1
 	duration = 4
-	
+
 /obj/effect/overlay/temp/explosion
 	name = "explosion"
 	icon = 'icons/effects/96x96.dmi'
@@ -124,7 +124,7 @@
 /obj/effect/overlay/temp/explosion/fast
 	icon_state = "explosionfast"
 	duration = 4
-	
+
 /obj/effect/overlay/temp/decoy
 	desc = "It's a decoy!"
 	duration = 15
@@ -150,14 +150,14 @@
 /obj/effect/overlay/temp/cult/sparks
 	randomdir = 1
 	name = "blood sparks"
-	icon_state = "bloodsparkles"	
-	
+	icon_state = "bloodsparkles"
+
 /obj/effect/overlay/temp/dir_setting
 	randomdir = FALSE
 
 /obj/effect/overlay/temp/dir_setting/New(loc, set_dir)
 	if(set_dir)
-		dir = set_dir
+		setDir(set_dir)
 	..()
 
 /obj/effect/overlay/temp/dir_setting/bloodsplatter
@@ -165,9 +165,12 @@
 	duration = 5
 	randomdir = FALSE
 	layer = MOB_LAYER - 0.1
+	color = "#C80000"
 	var/splatter_type = "splatter"
 
-/obj/effect/overlay/temp/dir_setting/bloodsplatter/New(loc, set_dir)
+/obj/effect/overlay/temp/dir_setting/bloodsplatter/New(loc, set_dir, blood_color)
+	if(blood_color)
+		color = blood_color
 	if(set_dir in diagonals)
 		icon_state = "[splatter_type][pick(1, 2, 6)]"
 	else
@@ -247,7 +250,7 @@
 	icon = 'icons/effects/effects.dmi'
 	icon_state = "heal"
 	duration = 15
-	
+
 /obj/effect/overlay/temp/heal/New(loc, colour)
 	..()
 	pixel_x = rand(-12, 12)

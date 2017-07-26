@@ -168,7 +168,7 @@ var/const/SAFETY_COOLDOWN = 100
 		gib = 0
 		if(L.stat == CONSCIOUS)
 			L.say("ARRRRRRRRRRRGH!!!")
-		add_blood(L)
+		add_mob_blood(L)
 
 	if(!blood && !issilicon(L))
 		blood = 1

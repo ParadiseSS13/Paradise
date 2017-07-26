@@ -1,5 +1,3 @@
-//This file was auto-corrected by findeclaration.exe on 25.5.2012 20:42:31
-
 /*
  * A large number of misc global procs.
  */
@@ -1249,46 +1247,42 @@ var/global/list/common_tools = list(
 /*
 Checks if that loc and dir has a item on the wall
 */
-var/list/WALLITEMS = list(
-	"/obj/machinery/power/apc", "/obj/machinery/alarm", "/obj/item/device/radio/intercom",
-	"/obj/structure/extinguisher_cabinet", "/obj/structure/reagent_dispensers/peppertank",
-	"/obj/machinery/status_display", "/obj/machinery/requests_console", "/obj/machinery/light_switch", "/obj/effect/sign",
-	"/obj/machinery/newscaster", "/obj/machinery/firealarm", "/obj/structure/noticeboard", "/obj/machinery/door_control",
-	"/obj/machinery/computer/security/telescreen", "/obj/machinery/embedded_controller/radio/simple_vent_controller",
-	"/obj/item/weapon/storage/secure/safe", "/obj/machinery/door_timer", "/obj/machinery/flasher", "/obj/machinery/keycard_auth",
-	"/obj/structure/mirror", "/obj/structure/closet/fireaxecabinet", "/obj/machinery/computer/security/telescreen/entertainment",
-	"/obj/structure/sign"
-	)
+var/list/static/global/wall_items = typecacheof(list(/obj/machinery/power/apc, /obj/machinery/alarm,
+	/obj/item/device/radio/intercom, /obj/structure/extinguisher_cabinet, /obj/structure/reagent_dispensers/peppertank,
+	/obj/machinery/status_display, /obj/machinery/requests_console, /obj/machinery/light_switch, /obj/structure/sign,
+	/obj/machinery/newscaster, /obj/machinery/firealarm, /obj/structure/noticeboard, /obj/machinery/door_control,
+	/obj/machinery/computer/security/telescreen, /obj/machinery/embedded_controller/radio/airlock,
+	/obj/item/weapon/storage/secure/safe, /obj/machinery/door_timer, /obj/machinery/flasher, /obj/machinery/keycard_auth,
+	/obj/structure/mirror, /obj/structure/closet/fireaxecabinet, /obj/machinery/computer/security/telescreen/entertainment,
+	/obj/structure/sign))
+
 /proc/gotwallitem(loc, dir)
 	for(var/obj/O in loc)
-		for(var/item in WALLITEMS)
-			if(istype(O, text2path(item)))
-				//Direction works sometimes
-				if(O.dir == dir)
-					return 1
+		if(is_type_in_typecache(O, wall_items))
+			//Direction works sometimes
+			if(O.dir == dir)
+				return 1
 
-				//Some stuff doesn't use dir properly, so we need to check pixel instead
-				switch(dir)
-					if(SOUTH)
-						if(O.pixel_y > 10)
-							return 1
-					if(NORTH)
-						if(O.pixel_y < -10)
-							return 1
-					if(WEST)
-						if(O.pixel_x > 10)
-							return 1
-					if(EAST)
-						if(O.pixel_x < -10)
-							return 1
-
+			//Some stuff doesn't use dir properly, so we need to check pixel instead
+			switch(dir)
+				if(SOUTH)
+					if(O.pixel_y > 10)
+						return 1
+				if(NORTH)
+					if(O.pixel_y < -10)
+						return 1
+				if(WEST)
+					if(O.pixel_x > 10)
+						return 1
+				if(EAST)
+					if(O.pixel_x < -10)
+						return 1
 
 	//Some stuff is placed directly on the wallturf (signs)
 	for(var/obj/O in get_step(loc, dir))
-		for(var/item in WALLITEMS)
-			if(istype(O, text2path(item)))
-				if(abs(O.pixel_x) <= 10 && abs(O.pixel_y) <= 10)
-					return 1
+		if(is_type_in_typecache(O, wall_items))
+			if(abs(O.pixel_x) <= 10 && abs(O.pixel_y) <= 10)
+				return 1
 	return 0
 
 
@@ -1453,15 +1447,6 @@ atom/proc/GetTypeInAllContents(typepath)
 				temp_col  = "0[temp_col]"
 			colour += temp_col
 	return colour
-
-/proc/get_random_chemical(var/is_plant = 0)
-	var/list/blocked = blocked_chems.Copy()		//blocked_chems list is found in code/_globalvars/lists/reagents.dm
-	if(is_plant)
-		blocked.Add(plant_blocked_chems.Copy())	//plant_blocked_chems list is found in code/_globalvars/lists/reagents.dm
-	var/picked_chem = pick(chemical_reagents_list)
-	if(blocked.Find(picked_chem))
-		return get_random_chemical(is_plant)
-	return picked_chem
 
 /proc/get_distant_turf(var/turf/T,var/direction,var/distance)
 	if(!T || !direction || !distance)	return

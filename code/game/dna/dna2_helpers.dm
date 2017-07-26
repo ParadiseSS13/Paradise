@@ -134,8 +134,10 @@
 		var/obj/item/organ/external/head/head_organ = H.get_organ("head")
 		var/obj/item/organ/internal/eyes/eye_organ = H.get_int_organ(/obj/item/organ/internal/eyes)
 		var/datum/species/S = H.species
-		dna.write_head_attributes(head_organ)
-		dna.write_eyes_attributes(eye_organ)
+		if(istype(head_organ))
+			dna.write_head_attributes(head_organ)
+		if(istype(eye_organ))
+			dna.write_eyes_attributes(eye_organ)
 		H.update_eyes()
 
 		H.r_skin		= dna.GetUIValueRange(DNA_UI_SKIN_R,	255)
@@ -224,11 +226,8 @@
 	var/red = GetUIValueRange(DNA_UI_EYES_R,	255)
 	var/green = GetUIValueRange(DNA_UI_EYES_G,	255)
 	var/blue = GetUIValueRange(DNA_UI_EYES_B,	255)
-	eyes_organ.eye_colour = list(
-	red,
-	green,
-	blue
-	)
+	if(eyes_organ)
+		eyes_organ.eye_colour = list(red, green, blue)
 
 /*
 	TRAIT CHANGING PROCS
