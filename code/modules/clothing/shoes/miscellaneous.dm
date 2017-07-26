@@ -247,9 +247,9 @@
 
 /obj/item/clothing/shoes/footwraps
  	name = "cloth footwraps"
- 	desc = "A roll of treated canvas used for wrapping claws or paws"
+ 	desc = "A roll of treated canvas used for wrapping claws or paws."
  	icon_state = "clothwrap"
  	item_state = "clothwrap"
  	force = 0
- 	silence_steps = 1
+ 	silence_steps = TRUE
  	w_class = WEIGHT_CLASS_SMALL

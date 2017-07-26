@@ -966,22 +966,3 @@
 	name = "ladies red victorian coat"
 	icon_state = "ladiesredvictoriancoat"
 	item_state = "ladiesredvictoriancoat"
-
-/obj/item/clothing/suit/corset
-	name = "black corset"
-	desc = "A black corset for those fancy nights out."
-	icon_state = "corset"
-	item_state = "corset"
-	body_parts_covered = UPPER_TORSO
-
-/obj/item/clothing/suit/corset/red
-	name = "red corset"
-	desc = "A red corset those fancy nights out."
-	icon_state = "corset_red"
-	item_state = "corset_red"
-
-/obj/item/clothing/suit/corset/blue
-	name = "blue corset"
-	desc = "A blue corset for those fancy nights out."
-	icon_state = "corset_blue"
-	item_state = "corset_blue"
