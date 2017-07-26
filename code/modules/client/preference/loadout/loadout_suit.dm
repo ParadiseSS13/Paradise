@@ -146,15 +146,15 @@
 	path = /obj/item/clothing/suit/hooded/hoodie
 
 /datum/gear/suit/corset
-	display_name = "black corset"
+	display_name = "corset, black"
 	path = /obj/item/clothing/suit/corset
 
 /datum/gear/suit/corsetred
-	display_name = "red corset"
+	display_name = "corset, red"
 	path = /obj/item/clothing/suit/corset/red
 
 /datum/gear/suit/corsetblue
-	display_name = "blue corset"
+	display_name = "corset, blue"
 	path = /obj/item/clothing/suit/corset/blue
 
 //SUITS!
