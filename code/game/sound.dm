@@ -24,9 +24,6 @@ var/list/growls = list('sound/goonstation/voice/growl1.ogg', 'sound/goonstation/
 
 	var/turf/turf_source = get_turf(source)
 
-	//allocate a channel if necessary now so its the same for everyone
-	channel = (channel ? channel : open_sound_channel())
-
  	// Looping through the player list has the added bonus of working for mobs inside containers
 	var/sound/S = sound(get_sfx(soundin))
 	var/maxdistance = (world.view + extrarange) * 3
@@ -50,7 +47,7 @@ var/list/growls = list('sound/goonstation/voice/growl1.ogg', 'sound/goonstation/
 		S = sound(get_sfx(soundin))
 
 	S.wait = 0 //No queue
-	S.channel = (channel ? channel : open_sound_channel())
+	S.channel = channel
 	S.volume = vol
 
 	if(vary)
@@ -103,13 +100,6 @@ var/list/growls = list('sound/goonstation/voice/growl1.ogg', 'sound/goonstation/
 	if(!ticker || !ticker.login_music || config.disable_lobby_music) return
 	if(prefs.sound & SOUND_LOBBY)
 		src << sound(ticker.login_music, repeat = 0, wait = 0, volume = 85, channel = CHANNEL_LOBBYMUSIC) // MAD JAMS
-
-
-/proc/open_sound_channel()
-	var/static/next_channel = 1	//loop through the available 1024 - (the ones we reserve) channels and pray that its not still being used
-	. = ++next_channel
-	if(next_channel > CHANNEL_HIGHEST_AVAILABLE)
-		next_channel = 1
 
 /mob/proc/stop_sound_channel(chan)
 	src << sound(null, repeat = 0, wait = 0, channel = chan)
