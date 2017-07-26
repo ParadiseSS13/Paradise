@@ -33,16 +33,16 @@
 
 /obj/item/weapon/clipboard/proc/checkTopPaper()
 	if(toppaper.loc != src) //Oh no! We're missing a top sheet! Better get another one to be at the top.
-		var/obj/item/weapon/paper/newtoppaper = locate(/obj/item/weapon/paper) in src
-		if(!newtoppaper) //In case there's no paper, try find a paper bundle instead (why is paper_bundle not a subtype of paper?)
-			newtoppaper = locate(/obj/item/weapon/paper_bundle) in src
-		if(newtoppaper)
-			toppaper = newtoppaper
-		else
-			toppaper = null
+		toppaper = locate(/obj/item/weapon/paper) in src
+		if(!toppaper) //In case there's no paper, try find a paper bundle instead (why is paper_bundle not a subtype of paper?)
+			toppaper = locate(/obj/item/weapon/paper_bundle) in src
+
+/obj/item/weapon/clipboard/examine(mob/user)
+	if(..(user, 1) && toppaper)
+		toppaper.examine(user)
 
 obj/item/weapon/clipboard/proc/penPlacement(var/placing, var/obj/item/weapon/pen/P)
-	if(placing == TRUE)
+	if(placing)
 		if(containedpen)
 			to_chat(usr, "<span class = 'warning'>There's already a pen in [src]!</span>")
 			return
@@ -64,11 +64,13 @@ obj/item/weapon/clipboard/proc/penPlacement(var/placing, var/obj/item/weapon/pen
 /obj/item/weapon/clipboard/proc/show_clipboard() //Show them what's on the clipboard
 	var/dat = "<title>[src]</title>"
 	dat += "<a href='?src=[UID()];doPenThings=[containedpen ? "Remove" : "Add"]'>[containedpen ? "Remove pen" : "Add pen"]</a><br><hr>"
+	if(toppaper)
+		dat += "<a href='?src=[UID()];remove=\ref[toppaper]'>Remove</a><a href='?src=[UID()];viewOrWrite=\ref[toppaper]'>[toppaper.name]</a><br><hr>"
 	for(var/obj/item/weapon/P in src)
-		if(isPaperwork(P) == PAPERWORK)
-			dat += "<a href='?src=[UID()];remove=\ref[P]'>Remove</a> <a href='?src=[UID()];topPaper=\ref[P]'>[toppaper == P ? "On top" : "Put on top"]</a> <a href='?src=[UID()];viewOrWrite=\ref[P]'>[toppaper == P ? "<strong>" : null][P.name][toppaper == P ? "</strong>" : null]</a><br><br>"
+		if(isPaperwork(P) == PAPERWORK && P != toppaper)
+			dat += "<a href='?src=[UID()];remove=\ref[P]'>Remove</a><a href='?src=[UID()];topPaper=\ref[P]'>Put on top</a><a href='?src=[UID()];viewOrWrite=\ref[P]'>[P.name]</a><br>"
 		if(isPaperwork(P) == PHOTO)
-			dat += "<a href='?src=[UID()];remove=\ref[P]'>Remove</a> <a href='?src=[UID()];viewOrWrite=\ref[P]'>[P.name]</a><br><br>"
+			dat += "<a href='?src=[UID()];remove=\ref[P]'>Remove</a><a href='?src=[UID()];viewOrWrite=\ref[P]'>[P.name]</a><br>"
 	var/datum/browser/popup = new(usr, "clipboard", "[src]", 400, 400)
 	popup.set_content(dat)
 	popup.open()
@@ -106,6 +108,9 @@ obj/item/weapon/clipboard/proc/penPlacement(var/placing, var/obj/item/weapon/pen
 			toppaper.attackby(W, user)
 		else if(writeonwhat == "Place pen")
 			penPlacement(TRUE, W)
+	else if(istype(W, /obj/item/weapon/stamp) && toppaper) //We can stamp the topmost piece of paper
+		toppaper.attackby(W, user)
+		update_icon()
 
 /obj/item/weapon/clipboard/attack_self(mob/user)
 	show_clipboard()
@@ -117,8 +122,7 @@ obj/item/weapon/clipboard/proc/penPlacement(var/placing, var/obj/item/weapon/pen
 	var/obj/item/I = usr.get_active_hand()
 	if(href_list["doPenThings"])
 		if(href_list["doPenThings"] == "Add")
-			var/obj/item/weapon/pen/W = usr.get_active_hand()
-			penPlacement(TRUE, W)
+			penPlacement(TRUE, I)
 		else
 			penPlacement(FALSE, containedpen)
 	else if(href_list["remove"])
