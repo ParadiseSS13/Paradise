@@ -816,7 +816,7 @@
 	products = list(/obj/item/weapon/reagent_containers/food/drinks/cans/cola = 10,/obj/item/weapon/reagent_containers/food/drinks/cans/space_mountain_wind = 10,
 					/obj/item/weapon/reagent_containers/food/drinks/cans/dr_gibb = 10,/obj/item/weapon/reagent_containers/food/drinks/cans/starkist = 10,
 					/obj/item/weapon/reagent_containers/food/drinks/cans/space_up = 10,/obj/item/weapon/reagent_containers/food/drinks/cans/grape_juice = 10)
-	contraband = list(/obj/item/weapon/reagent_containers/food/drinks/cans/thirteenloko = 5)
+	contraband = list(/obj/item/weapon/reagent_containers/food/drinks/cans/thirteenloko = 5,/obj/item/weapon/reagent_containers/food/drinks/cans/canned_laughter = 5)
 	prices = list(/obj/item/weapon/reagent_containers/food/drinks/cans/cola = 20,/obj/item/weapon/reagent_containers/food/drinks/cans/space_mountain_wind = 20,
 					/obj/item/weapon/reagent_containers/food/drinks/cans/dr_gibb = 20,/obj/item/weapon/reagent_containers/food/drinks/cans/starkist = 20,
 					/obj/item/weapon/reagent_containers/food/drinks/cans/space_up = 20,/obj/item/weapon/reagent_containers/food/drinks/cans/grape_juice = 20)

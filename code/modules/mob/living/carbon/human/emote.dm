@@ -430,16 +430,21 @@
 			m_type = 1
 
 		if("giggle", "giggles")
+			var/M = handle_emote_param(param)
 			if(miming)
-				message = "<B>[src]</B> giggles silently!"
+				message = "<B>[src]</B> acts out a laugh[M ? " at [M]" : ""]."
 				m_type = 1
 			else
 				if(!muzzled)
-					message = "<B>[src]</B> giggles."
+					message = "<B>[src]</B> giggles[M ? " at [M]" : ""]."
 					m_type = 2
 				else
-					message = "<B>[src]</B> makes a noise."
-					m_type = 2
+					if(gender == FEMALE)
+						playsound(loc, 'sound/effects/womanlaugh.ogg', 50, 1)
+					else if(prob(50))
+						playsound(loc, 'sound/effects/manlaugh1.ogg', 50, 1)
+					else
+						playsound(loc, 'sound/effects/manlaugh2.ogg', 50, 1)
 
 		if("glare", "glares")
 			var/M = handle_emote_param(param)
@@ -500,8 +505,12 @@
 					message = "<B>[src]</B> laughs[M ? " at [M]" : ""]."
 					m_type = 2
 				else
-					message = "<B>[src]</B> makes a noise."
-					m_type = 2
+					if(gender == FEMALE)
+						playsound(loc, 'sound/effects/womanlaugh.ogg', 50, 1)
+					else if(prob(50))
+						playsound(loc, 'sound/effects/manlaugh1.ogg', 50, 1)
+					else
+						playsound(loc, 'sound/effects/manlaugh2.ogg', 50, 1)
 
 		if("mumble", "mumbles")
 			message = "<B>[src]</B> mumbles!"
