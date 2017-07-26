@@ -17,19 +17,18 @@ var/list/terminal_type = list('sound/machines/terminal_button01.ogg', 'sound/mac
 							  'sound/machines/terminal_button07.ogg', 'sound/machines/terminal_button08.ogg')
 var/list/growls = list('sound/goonstation/voice/growl1.ogg', 'sound/goonstation/voice/growl2.ogg', 'sound/goonstation/voice/growl3.ogg')
 
-/proc/playsound(var/atom/source, soundin, vol as num, vary, extrarange as num, falloff, var/is_global, var/pitch)
-
-	soundin = get_sfx(soundin) // same sound for everyone
-
+/proc/playsound(atom/source, soundin, vol as num, vary, extrarange as num, falloff, frequency = null, channel = 0, pressure_affected = TRUE)
 	if(isarea(source))
 		error("[source] is an area and is trying to make the sound: [soundin]")
 		return
 
-	var/frequency = pitch
 	var/turf/turf_source = get_turf(source)
 
+	//allocate a channel if necessary now so its the same for everyone
+	channel = (channel ? channel : open_sound_channel())
+
  	// Looping through the player list has the added bonus of working for mobs inside containers
-	var/sound/S = sound(soundin)
+	var/sound/S = sound(get_sfx(soundin))
 	var/maxdistance = (world.view + extrarange) * 3
 	for(var/P in player_list)
 		var/mob/M = P
@@ -41,18 +40,19 @@ var/list/growls = list('sound/goonstation/voice/growl1.ogg', 'sound/goonstation/
 			var/turf/T = get_turf(M)
 
 			if(T && T.z == turf_source.z)
-				M.playsound_local(turf_source, soundin, vol, vary, frequency, falloff, is_global, S)
+				M.playsound_local(turf_source, soundin, vol, vary, frequency, falloff, channel, pressure_affected, S)
 
-/mob/proc/playsound_local(var/turf/turf_source, soundin, vol as num, vary, frequency, falloff, is_global, sound/S)
+/mob/proc/playsound_local(turf/turf_source, soundin, vol as num, vary, frequency, falloff, channel = 0, pressure_affected = TRUE, sound/S)
 	if(!src.client || !can_hear())
 		return
 
 	if(!S)
 		S = sound(get_sfx(soundin))
+
 	S.wait = 0 //No queue
-	S.channel = 0 //Any channel
+	S.channel = (channel ? channel : open_sound_channel())
 	S.volume = vol
-	S.environment = -1
+
 	if(vary)
 		if(frequency)
 			S.frequency = frequency
@@ -60,7 +60,6 @@ var/list/growls = list('sound/goonstation/voice/growl1.ogg', 'sound/goonstation/
 			S.frequency = get_rand_frequency()
 
 	if(isturf(turf_source))
-		// 3D sounds, the technology is here!
 		var/turf/T = get_turf(src)
 
 		//sound volume falloff with distance
@@ -68,27 +67,27 @@ var/list/growls = list('sound/goonstation/voice/growl1.ogg', 'sound/goonstation/
 
 		S.volume -= max(distance - world.view, 0) * 2 //multiplicative falloff to add on top of natural audio falloff.
 
-		//sound volume falloff with pressure
-		var/pressure_factor = 1.0
+		if(pressure_affected)
+			//Atmosphere affects sound
+			var/pressure_factor = 1
+			var/datum/gas_mixture/hearer_env = T.return_air()
+			var/datum/gas_mixture/source_env = turf_source.return_air()
 
-		var/datum/gas_mixture/hearer_env = T.return_air()
-		var/datum/gas_mixture/source_env = turf_source.return_air()
+			if(hearer_env && source_env)
+				var/pressure = min(hearer_env.return_pressure(), source_env.return_pressure())
+				if(pressure < ONE_ATMOSPHERE)
+					pressure_factor = max((pressure - SOUND_MINIMUM_PRESSURE)/(ONE_ATMOSPHERE - SOUND_MINIMUM_PRESSURE), 0)
+			else //space
+				pressure_factor = 0
 
-		if(hearer_env && source_env)
-			var/pressure = min(hearer_env.return_pressure(), source_env.return_pressure())
+			if(distance <= 1)
+				pressure_factor = max(pressure_factor, 0.15) //touching the source of the sound
 
-			if(pressure < ONE_ATMOSPHERE)
-				pressure_factor = max((pressure - SOUND_MINIMUM_PRESSURE)/(ONE_ATMOSPHERE - SOUND_MINIMUM_PRESSURE), 0)
-		else //in space
-			pressure_factor = 0
-
-		if(distance <= 1)
-			pressure_factor = max(pressure_factor, 0.15)	//hearing through contact
-
-		S.volume *= pressure_factor
+			S.volume *= pressure_factor
+			//End Atmosphere affecting sound
 
 		if(S.volume <= 0)
-			return	//no volume means no sound
+			return //No sound
 
 		var/dx = turf_source.x - T.x // Hearing from the right/left
 		S.x = dx
@@ -97,15 +96,23 @@ var/list/growls = list('sound/goonstation/voice/growl1.ogg', 'sound/goonstation/
 		// The y value is for above your head, but there is no ceiling in 2d spessmens.
 		S.y = 1
 		S.falloff = (falloff ? falloff : FALLOFF_SOUNDS)
-	if(!is_global)
-		S.environment = 2
+
 	src << S
 
 /client/proc/playtitlemusic()
 	if(!ticker || !ticker.login_music || config.disable_lobby_music) return
 	if(prefs.sound & SOUND_LOBBY)
-		src << sound(ticker.login_music, repeat = 0, wait = 0, volume = 85, channel = 1) // MAD JAMS
+		src << sound(ticker.login_music, repeat = 0, wait = 0, volume = 85, channel = CHANNEL_LOBBYMUSIC) // MAD JAMS
 
+
+/proc/open_sound_channel()
+	var/static/next_channel = 1	//loop through the available 1024 - (the ones we reserve) channels and pray that its not still being used
+	. = ++next_channel
+	if(next_channel > CHANNEL_HIGHEST_AVAILABLE)
+		next_channel = 1
+
+/mob/proc/stop_sound_channel(chan)
+	src << sound(null, repeat = 0, wait = 0, channel = chan)
 
 /proc/get_rand_frequency()
 	return rand(32000, 55000) //Frequency stuff only works with 45kbps oggs.

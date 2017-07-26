@@ -57,7 +57,7 @@
 
 			var/close = range(world.view+round(devastation_range,1), epicenter)
 			// to all distanced mobs play a different sound
-			for(var/mob/M in world)
+			for(var/mob/M in mob_list)
 				if(M.z == epicenter.z && !(M in close))
 					// check if the mob can hear
 					if(M.can_hear() && !istype(M.loc,/turf/space))

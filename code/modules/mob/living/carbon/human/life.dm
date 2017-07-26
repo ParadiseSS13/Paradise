@@ -1092,7 +1092,7 @@
 
 				if(heartbeat >= rate)
 					heartbeat = 0
-					src << sound('sound/effects/electheart.ogg',0,0,0,30)//Credit to GhostHack (www.ghosthack.de) for sound.
+					src << sound('sound/effects/electheart.ogg',0,0,CHANNEL_HEARTBEAT,30)//Credit to GhostHack (www.ghosthack.de) for sound.
 
 				else
 					heartbeat++
@@ -1111,9 +1111,9 @@
 			if(heartbeat >= rate)
 				heartbeat = 0
 				if(H.status & ORGAN_ASSISTED)
-					src << sound('sound/effects/pacemakebeat.ogg',0,0,0,50)
+					src << sound('sound/effects/pacemakebeat.ogg',0,0,CHANNEL_HEARTBEAT,50)
 				else
-					src << sound('sound/effects/singlebeat.ogg',0,0,0,50)
+					src << sound('sound/effects/singlebeat.ogg',0,0,CHANNEL_HEARTBEAT,50)
 			else
 				heartbeat++
 
