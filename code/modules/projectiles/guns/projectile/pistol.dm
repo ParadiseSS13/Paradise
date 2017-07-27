@@ -40,6 +40,7 @@
 	mag_type = /obj/item/ammo_box/magazine/m45/enforcer45
 	can_suppress = TRUE
 	unique_reskin = TRUE
+	can_flashlight = TRUE
 
 /obj/item/weapon/gun/projectile/automatic/pistol/enforcer/update_icon()
 	..()
@@ -50,6 +51,14 @@
 	overlays.Cut()
 	if(suppressed)
 		overlays += image(icon = icon, icon_state = "enforcer_supp", pixel_x = 4)
+	if(gun_light)
+		var/iconF = "Enforcer_light"
+		if(gun_light.on)
+			iconF = "Enforcer_light-on"
+		overlays += image(icon = icon, icon_state = iconF, pixel_x = 3)
+
+/obj/item/weapon/gun/projectile/automatic/pistol/enforcer/ui_action_click()
+	toggle_gunlight()
 
 /obj/item/weapon/gun/projectile/automatic/pistol/enforcer/New()
 	..()

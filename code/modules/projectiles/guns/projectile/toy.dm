@@ -46,6 +46,19 @@
 	desc = "A foam version of the Enforcer meant to be used for training new caddets who can't be trusted with rubber bullets."
 	icon_state = "enforcer"
 	mag_type = /obj/item/ammo_box/magazine/toy/enforcer
+	can_flashlight = TRUE
+
+/obj/item/weapon/gun/projectile/automatic/toy/pistol/enforcer/update_icon()
+	..()
+	overlays.Cut()
+	if(gun_light)
+		var/iconF = "Enforcer_light"
+		if(gun_light.on)
+			iconF = "Enforcer_light-on"
+		overlays += image(icon = 'icons/obj/guns/projectile.dmi', icon_state = iconF, pixel_x = 3)
+
+/obj/item/weapon/gun/projectile/automatic/toy/pistol/enforcer/ui_action_click()
+	toggle_gunlight()
 
 /obj/item/weapon/gun/projectile/shotgun/toy
 	name = "foam force shotgun"
