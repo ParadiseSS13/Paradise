@@ -423,10 +423,10 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 					message_admins("Protolathe exploit attempted by [key_name(usr, usr.client)]!")
 
 				if(g2g) //If input is incorrect, nothing happens
-					var/time_to_construct = PROTOLATHE_CONSTRUCT_DELAY * amount * coeff
+					var/new_coeff = coeff * being_built.lathe_time_factor
+					var/time_to_construct = PROTOLATHE_CONSTRUCT_DELAY * new_coeff * amount ** 0.8
 					var/enough_materials = 1
 
-					time_to_construct /= being_built.lathe_time_factor
 					add_wait_message("Constructing Prototype. Please Wait...", time_to_construct)
 					linked_lathe.busy = 1
 					flick("protolathe_n",linked_lathe)
