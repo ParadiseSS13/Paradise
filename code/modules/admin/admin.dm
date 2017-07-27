@@ -355,6 +355,10 @@ var/global/nologevent = 0
 							usr << browse_rsc(MESSAGE.img, "tmp_photo[i].png")
 							dat+="<img src='tmp_photo[i].png' width = '180'><BR><BR>"
 						dat+="<FONT SIZE=1>\[Story by <FONT COLOR='maroon'>[MESSAGE.author]</FONT>\]</FONT><BR>"
+						dat+="[MESSAGE.comments.len] comment[MESSAGE.comments.len > 1 ? "s" : ""]:<BR>"
+						for(var/datum/feed_comment/comment in MESSAGE.comments)
+							dat+="[comment.body]<BR><font size = 1>[comment.author] [comment.time_stamp]</font><BR>"
+						dat+="<BR>"
 			dat+={"
 				<BR><HR><A href='?src=[UID()];ac_refresh=1'>Refresh</A>
 				<BR><A href='?src=[UID()];ac_setScreen=[1]'>Back</A>
@@ -399,6 +403,9 @@ var/global/nologevent = 0
 						-[MESSAGE.body] <BR><FONT SIZE=1>\[Story by <FONT COLOR='maroon'>[MESSAGE.author]</FONT>\]</FONT><BR>
 						<FONT SIZE=2><A href='?src=[UID()];ac_censor_channel_story_body=\ref[MESSAGE]'>[(MESSAGE.body == "\[REDACTED\]") ? ("Undo story censorship") : ("Censor story")]</A>  -  <A href='?src=[UID()];ac_censor_channel_story_author=\ref[MESSAGE]'>[(MESSAGE.author == "\[REDACTED\]") ? ("Undo Author Censorship") : ("Censor message Author")]</A></FONT><BR>
 					"}
+					dat+="[MESSAGE.comments.len] comment[MESSAGE.comments.len > 1 ? "s" : ""]: <a href='?src\ref[src];ac_lock_comment=\ref[MESSAGE]'>[MESSAGE.locked ? "Unlock" : "Lock"]</a><BR>"
+					for(var/datum/feed_comment/comment in MESSAGE.comments)
+						dat+="[comment.body] <a href='?src=\ref[src];ac_del_comment=\ref[comment];ac_del_comment_msg=\ref[MESSAGE]'>X</a><BR><font size=1>[comment.author] [comment.time_stamp]</font><BR>"
 			dat+="<BR><A href='?src=[UID()];ac_setScreen=[10]'>Back</A>"
 		if(13)
 			dat+={"
