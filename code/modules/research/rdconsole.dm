@@ -423,7 +423,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 					message_admins("Protolathe exploit attempted by [key_name(usr, usr.client)]!")
 
 				if(g2g) //If input is incorrect, nothing happens
-					var/time_to_construct = PROTOLATHE_CONSTRUCT_DELAY * amount / coeff
+					var/time_to_construct = PROTOLATHE_CONSTRUCT_DELAY * amount * coeff
 					var/enough_materials = 1
 
 					time_to_construct /= being_built.lathe_time_factor
