@@ -37,7 +37,7 @@ using metal and glass, it uses glass and reagents (usually sulfuric acis).
 	component_parts += new /obj/item/weapon/stock_parts/manipulator(null)
 	component_parts += new /obj/item/weapon/reagent_containers/glass/beaker(null)
 	component_parts += new /obj/item/weapon/reagent_containers/glass/beaker(null)
-	materials = new(src, list(MAT_METAL=1, MAT_GLASS=1, MAT_SILVER=1, MAT_GOLD=1, MAT_DIAMOND=1, MAT_PLASMA=1, MAT_URANIUM=1, MAT_BANANIUM=1, MAT_TRANQUILLITE=1))
+	materials = new(src, list(MAT_METAL=1, MAT_GLASS=1, MAT_GOLD=1, MAT_DIAMOND=1))
 	RefreshParts()
 	
 	reagents.my_atom = src
