@@ -105,7 +105,7 @@
 		if("howl", "howls")
 			var/M = handle_emote_param(param) //Check to see if the param is valid (mob with the param name is in view).
 			if(miming)
-				message = "<B>[src]</B> sticks \his head back apparently braying at some moon."
+				message = "<B>[src]</B> tilts \his head back as if to howl."
 				m_type = 1
 			else
 				if(!muzzled)
