@@ -425,7 +425,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 					message_admins("Protolathe exploit attempted by [key_name(usr, usr.client)]!")
 
 				if(g2g) //If input is incorrect, nothing happens
-					var/time_to_construct = PROTOLATHE_CONSTRUCT_DELAY * coeff * amount ** 0.8
+					var/time_to_construct = PROTOLATHE_CONSTRUCT_DELAY * coeff * amount ** 0.8 //Construction time should correctly change with advanced components installed
 					var/enough_materials = 1
 
 					time_to_construct *= being_built.lathe_time_factor
@@ -503,7 +503,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 					message_admins("Circuit imprinter exploit attempted by [key_name(usr, usr.client)]!")
 
 				if(g2g) //Again, if input is wrong, do nothing
-					var/time_to_construct = IMPRINTER_DELAY * amount / coeff
+					var/time_to_construct = IMPRINTER_DELAY //Flat 1.6 seconds
 					var/enough_materials = 1
 					
 					add_wait_message("Imprinting Circuit. Please Wait...", time_to_construct)
