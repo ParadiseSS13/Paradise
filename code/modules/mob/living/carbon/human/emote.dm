@@ -104,15 +104,27 @@
 
 		if("howl", "howls")
 			var/M = handle_emote_param(param) //Check to see if the param is valid (mob with the param name is in view).
-			message = "<B>[src]</B> howls[M ? " at [M]" : ""]!"
-			playsound(loc, 'sound/goonstation/voice/howl.ogg', 100, 0, 10)
-			m_type = 2
+			if(miming)
+				message = "<B>[src]</B> sticks \his head back apparently braying at some moon."
+				m_type = 1
+			else
+				if(!muzzled)
+					message = "<B>[src]</B> howls[M ? " at [M]" : ""]!"
+					playsound(loc, 'sound/goonstation/voice/howl.ogg', 100, 0, 10)
+					m_type = 2
+				else
+					message = "<B>[src]</B> makes a strange muffled noise."
+					m_type = 2
 
 		if("growl", "growls")
 			var/M = handle_emote_param(param)
-			message = "<B>[src]</B> growls[M ? " at [M]" : ""]."
-			playsound(loc, "growls", 80, 0)
-			m_type = 2
+			if(miming)
+				message = "<B>[src]</B> is either smiling or silently growling."
+				m_type = 1
+			else
+				message = "<B>[src]</B> growls[M ? " at [M]" : ""]."
+				playsound(loc, "growls", 80, 0)
+				m_type = 2
 
 		if("ping", "pings")
 			var/M = handle_emote_param(param)
