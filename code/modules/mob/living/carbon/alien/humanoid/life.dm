@@ -3,6 +3,7 @@
 	toxins_alert = 0
 	fire_alert = 0
 	pass_flags = PASSTABLE
+	var/temperature_alert = 0
 
 
 /mob/living/carbon/alien/humanoid/Life()

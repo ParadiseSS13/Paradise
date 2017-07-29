@@ -1,3 +1,6 @@
+/mob/living/carbon/alien/larva
+	var/temperature_alert = 0
+
 /mob/living/carbon/alien/larva/Life()
 	if(..()) //still breathing
 		// GROW!

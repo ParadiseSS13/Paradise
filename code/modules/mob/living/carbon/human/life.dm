@@ -1,10 +1,27 @@
+/mob/living/carbon/human
+
+	var/pressure_alert = 0
+	var/prev_gender = null // Debug for plural genders
+	var/temperature_alert = 0
+	var/in_stasis = 0
+	var/exposedtimenow = 0
+	var/firstexposed = 0
+	var/heartbeat = 0
+
 /mob/living/carbon/human/Life()
 	fire_alert = 0 //Reset this here, because both breathe() and handle_environment() have a chance to set it.
 	life_tick++
 
+	in_stasis = 0
+	if(istype(loc, /obj/structure/closet/body_bag/cryobag))
+		var/obj/structure/closet/body_bag/cryobag/loc_as_cryobag = loc
+		if(!loc_as_cryobag.opened)
+			loc_as_cryobag.used++
+			in_stasis = 1
+
 	voice = GetVoice()
 
-	if(..())
+	if(..() && !in_stasis)
 
 		if(check_mutations)
 			domutcheck(src,null)
@@ -27,6 +44,8 @@
 
 	if(stat == DEAD)
 		handle_decay()
+
+	handle_stasis_bag()
 
 	if(life_tick > 5 && timeofdeath && (timeofdeath < 5 || world.time - timeofdeath > 6000))	//We are long dead, or we're junk mobs spawned like the clowns on the clown shuttle
 		return											//We go ahead and process them 5 times for HUD images and other stuff though.
@@ -136,6 +155,16 @@
 	if(getBrainLoss() >= 120 && stat != 2) //they died from stupidity--literally. -Fox
 		visible_message("<span class='alert'><B>[src]</B> goes limp, their facial expression utterly blank.</span>")
 		death()
+
+/mob/living/carbon/human/proc/handle_stasis_bag()
+	// Handle side effects from stasis bag
+	if(in_stasis)
+		// First off, there's no oxygen supply, so the mob will slowly take brain damage
+		adjustBrainLoss(0.1)
+
+		// Next, the method to induce stasis has some adverse side-effects, manifesting
+		// as cloneloss
+		adjustCloneLoss(0.1)
 
 /mob/living/carbon/human/handle_mutations_and_radiation()
 	for(var/datum/dna/gene/gene in dna_genes)
@@ -861,7 +890,8 @@
 		if(gloves && germ_level > gloves.germ_level && prob(10))
 			gloves.germ_level += 1
 
-		handle_organs()
+		if(!in_stasis)
+			handle_organs()
 
 
 	else //dead
@@ -1059,11 +1089,11 @@
 		makeSkeleton()
 		return //No puking over skeletons, they don't smell at all!
 
-	if(!isturf(loc))
-		return
 
 	for(var/mob/living/carbon/human/H in range(decaylevel, src))
 		if(prob(2))
+			if(istype(loc,/obj/item/bodybag))
+				return
 			var/obj/item/clothing/mask/M = H.wear_mask
 			if(M && (M.flags_cover & MASKCOVERSMOUTH))
 				return

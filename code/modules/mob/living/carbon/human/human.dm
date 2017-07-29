@@ -32,6 +32,8 @@
 
 	create_reagents(330)
 
+	prev_gender = gender // Debug for plural genders
+
 	martial_art = default_martial_art
 
 	handcrafting = new()
