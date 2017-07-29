@@ -1,13 +1,3 @@
-/mob/living/carbon/human
-
-	var/pressure_alert = 0
-	var/prev_gender = null // Debug for plural genders
-	var/temperature_alert = 0
-	var/in_stasis = 0
-	var/exposedtimenow = 0
-	var/firstexposed = 0
-	var/heartbeat = 0
-
 /mob/living/carbon/human/Life()
 	fire_alert = 0 //Reset this here, because both breathe() and handle_environment() have a chance to set it.
 	life_tick++
