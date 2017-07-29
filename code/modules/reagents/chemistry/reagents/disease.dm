@@ -146,6 +146,7 @@
 			var/mob/living/carbon/human/H = M
 			if(!H.undergoing_cardiac_arrest())
 				H.set_heartattack(TRUE) // rip in pepperoni
+	..()
 
 //virus foods
 

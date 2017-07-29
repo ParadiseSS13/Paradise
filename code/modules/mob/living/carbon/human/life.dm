@@ -1157,8 +1157,11 @@
 	if(!can_heartattack())
 		return FALSE
 	var/obj/item/organ/internal/heart/heart = get_int_organ(/obj/item/organ/internal/heart)
-	if(istype(heart) && heart.beating)
-		return FALSE
+	if(istype(heart))
+		if(heart.status & ORGAN_DEAD)
+			return TRUE
+		if(heart.beating)
+			return FALSE
 	return TRUE
 
 /mob/living/carbon/human/proc/set_heartattack(status)
