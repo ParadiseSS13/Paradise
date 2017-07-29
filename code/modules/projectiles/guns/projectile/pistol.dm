@@ -55,7 +55,7 @@
 		var/iconF = "Enforcer_light"
 		if(gun_light.on)
 			iconF = "Enforcer_light-on"
-		overlays += image(icon = icon, icon_state = iconF, pixel_x = 3)
+		overlays += image(icon = icon, icon_state = iconF, pixel_x = 0)
 
 /obj/item/weapon/gun/projectile/automatic/pistol/enforcer/ui_action_click()
 	toggle_gunlight()
