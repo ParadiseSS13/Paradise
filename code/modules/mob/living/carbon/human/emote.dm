@@ -821,10 +821,11 @@
 				if(EFFECT_HIGHFIVE in C.active_effect)
 					if((C.mind.special_role == SPECIAL_ROLE_WIZARD) && (mind.special_role == SPECIAL_ROLE_WIZARD))
 						visible_message("<span class='danger'><b>[name]</b> and <b>[C.name]</b> high-five EPICALLY!</span>")
-						for(var/atom/A in orange(5))
-							if(A == C)
-								continue
-							A.ex_act(rand(1, 2))
+						status_flags |= GODMODE
+						C.status_flags |= GODMODE
+						explosion(loc,5,2,1,3)
+						status_flags &= ~GODMODE
+						C.status_flags &= ~GODMODE
 						break
 				visible_message("<b>[name]</b> and <b>[C.name]</b> high-five!")
 				C.active_effect -= EFFECT_HIGHFIVE
