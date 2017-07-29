@@ -105,6 +105,12 @@
 	damage = 20
 	stamina = 65 //two rounds from the c20r knocks people down
 
+/obj/item/projectile/bullet/midbulletr
+	name = "rubber bullet"
+	damage = 5
+	stamina = 65 // Same stamina damage as mid but with less lethal damage
+	icon_state = "bullet-r"
+
 /obj/item/projectile/bullet/midbullet2
 	damage = 25
 
