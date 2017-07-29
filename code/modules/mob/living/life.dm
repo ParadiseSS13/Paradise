@@ -2,7 +2,7 @@
 	set invisibility = 0
 	set background = BACKGROUND_ENABLED
 
-	if(in_stasis && !stat)
+	if(in_stasis && stat != CONSCIOUS)
 		handle_stasis()
 		return
 	if(notransform)
