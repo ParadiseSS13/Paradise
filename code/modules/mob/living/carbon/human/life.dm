@@ -12,13 +12,6 @@
 	fire_alert = 0 //Reset this here, because both breathe() and handle_environment() have a chance to set it.
 	life_tick++
 
-	in_stasis = 0
-	if(istype(loc, /obj/structure/closet/body_bag/cryobag))
-		var/obj/structure/closet/body_bag/cryobag/loc_as_cryobag = loc
-		if(!loc_as_cryobag.opened)
-			loc_as_cryobag.used++
-			in_stasis = 1
-
 	voice = GetVoice()
 
 	if(..() && !in_stasis)
