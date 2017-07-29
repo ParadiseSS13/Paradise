@@ -93,20 +93,18 @@
 
 /obj/item/bodybag/cryobag
 	name = "stasis bag"
-	desc = "A folded, non-reusable bag designed for the preservation of an occupant's brain by stasis."
+	desc = "A folded, non-reusable bag designed for the preservation of an occupant's body by stasis. Activates on occupant's unconscious state. Can be locked with medical ID."
 	icon = 'icons/obj/cryobag.dmi'
 	icon_state = "bodybag_folded"
 
 /obj/item/bodybag/cryobag/attack_self(mob/user)
 	var/obj/structure/closet/body_bag/cryobag/R = new /obj/structure/closet/body_bag/cryobag(user.loc)
 	R.add_fingerprint(user)
+	R.desc = desc
 	qdel(src)
-
-
 
 /obj/structure/closet/body_bag/cryobag
 	name = "stasis bag"
-	desc = "A non-reusable plastic bag designed for the preservation of an occupant's brain by stasis."
 	icon = 'icons/obj/cryobag.dmi'
 	item_path = /obj/item/bodybag/cryobag
 	var/used = 0
@@ -115,10 +113,10 @@
 
 /obj/structure/closet/body_bag/cryobag/dump_contents()
 	for(var/atom/movable/AM in src) //To prevent something standing on body_bag being affected
-		if(!ishuman(AM))
+		if(!ismob(AM))
 			continue
-		var/mob/living/carbon/human/H = AM
-		H.in_stasis = 0
+		var/mob/living/M = AM
+		M.in_stasis = 0
 		used = 1	//We consider bag as used only if there is actual human in it
 	..()
 
@@ -136,14 +134,14 @@
 /obj/structure/closet/body_bag/cryobag/close()
 	. = ..()
 	for(var/atom/movable/AM in src) //Atom already forcemoved into src in parent close() so we just searching from contents of src
-		if(!ishuman(AM))
+		if(!ismob(AM))
 			continue
-		var/mob/living/carbon/human/H = AM
-		H.in_stasis = 1
+		var/mob/living/M = AM
+		M.in_stasis = 1
 
 /obj/structure/closet/body_bag/cryobag/toggle(mob/user)
 	if(!opened && locked && !src.allowed(user))
-		to_chat(user, "<span class='warning'>Access denied.</span>")
+		to_chat(user, "<span class='warning'>Access denied. Medical access only.</span>")
 		return
 	..()
 
@@ -157,7 +155,7 @@
 	if(istype(W, /obj/item/weapon/card/id) || istype(W, /obj/item/device/pda))
 		if(src.allowed(user))
 			src.locked = !src.locked
-			to_chat(user, "The controls are now [src.locked ? "locked." : "unlocked."]")
+			to_chat(user, "The controls are now [src.locked ? "locked. Medical access only." : "unlocked."]")
 		else
-			to_chat(user, "<span class='warning'>Access denied.</span>")
+			to_chat(user, "<span class='warning'>Access denied. Medical access only.</span>")
 		return
