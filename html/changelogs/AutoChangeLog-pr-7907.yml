@@ -1,0 +1,4 @@
+author: "Kyep"
+delete-after: True
+changes: 
+  - bugfix: "Evil-minded players can no longer use the Gateway's Mother of Terror spider to create an infestation on-station."
