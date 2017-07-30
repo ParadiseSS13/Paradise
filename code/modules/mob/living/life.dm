@@ -2,6 +2,9 @@
 	set invisibility = 0
 	set background = BACKGROUND_ENABLED
 
+	if(in_stasis && stat)
+		handle_stasis()
+		return
 	if(notransform)
 		return
 	if(!loc)
@@ -200,6 +203,16 @@
 		if(ear_damage < 100)
 			AdjustEarDamage(-0.05)
 			AdjustEarDeaf(-1)
+
+/mob/living/proc/handle_stasis()
+	// Handle side effects from stasis
+	if(in_stasis)
+		// First off, there's no oxygen supply, so the mob will slowly take brain damage
+		adjustBrainLoss(0.1)
+
+		// Next, the method to induce stasis has some adverse side-effects, manifesting
+		// as cloneloss
+		adjustCloneLoss(0.1)
 
 //this handles hud updates. Calls update_vision() and handle_hud_icons()
 /mob/living/proc/handle_regular_hud_updates()
