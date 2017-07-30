@@ -33,9 +33,9 @@
 	ventsmash_action.Grant(src)
 
 /mob/living/simple_animal/hostile/poison/terror_spider/mother/death(gibbed)
-	var/always_stillborn = 0
+	var/always_stillborn = FALSE
 	if(spider_awaymission && !is_away_level(z))
-		always_stillborn = 1
+		always_stillborn = TRUE
 	if(canspawn)
 		canspawn = 0
 		for(var/i in 0 to 30)
