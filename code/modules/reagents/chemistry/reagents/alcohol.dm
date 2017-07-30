@@ -424,7 +424,7 @@
 	drink_desc = "Does... does this mean that Arthur and Ford are on the station? Oh joy."
 	taste_message = "the number fourty two"
 
-/datum/reagent/consumable/ethanol/flaming_moe
+/datum/reagent/consumable/ethanol/flaming_homer
 	name = "Flaming Moe"
 	id = "flamingmoe"
 	description = "This seems like a bunch of various alcohols thrown together, along with what looks like prescription medicine..."

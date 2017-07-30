@@ -224,7 +224,7 @@
 	result_amount = 5
 	mix_sound = 'sound/goonstation/misc/drinkfizz.ogg'
 
-/datum/chemical_reaction/flaming_moe
+/datum/chemical_reaction/flaming_homer
 	name = "Flaming Moe"
 	id = "flamingmoe"
 	result = "flamingmoe"
