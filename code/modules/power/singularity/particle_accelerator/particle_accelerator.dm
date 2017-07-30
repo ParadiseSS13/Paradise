@@ -1,3 +1,5 @@
+//This file was auto-corrected by findeclaration.exe on 25.5.2012 20:42:33
+
 /*Composed of 7 parts
 3 Particle emitters
 proc

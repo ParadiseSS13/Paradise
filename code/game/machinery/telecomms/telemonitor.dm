@@ -1,3 +1,6 @@
+//This file was auto-corrected by findeclaration.exe on 25.5.2012 20:42:32
+
+
 /*
 	Telecomms monitor tracks the overall trafficing of a telecommunications network
 	and displays a heirarchy of linked machines.

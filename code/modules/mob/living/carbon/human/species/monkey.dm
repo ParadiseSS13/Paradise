@@ -24,7 +24,7 @@
 	female_scream_sound = 'sound/goonstation/voice/monkey_scream.ogg'
 
 	tail = "chimptail"
-	bodyflags = HAS_TAIL
+	bodyflags = FEET_PADDED | HAS_TAIL
 	reagent_tag = PROCESS_ORG
 	//Has standard darksight of 2.
 
@@ -155,6 +155,9 @@
 	reagent_tag = PROCESS_ORG
 	tail = null
 
+	bodyflags = FEET_PADDED
+
+
 /datum/species/monkey/unathi
 	name = "Stok"
 	name_plural = "Stok"
@@ -169,4 +172,4 @@
 	base_color = "#000000"
 	reagent_tag = PROCESS_ORG
 
-	bodyflags = HAS_TAIL
+	bodyflags = FEET_CLAWS | HAS_TAIL

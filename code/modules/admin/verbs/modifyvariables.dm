@@ -13,14 +13,6 @@ var/list/forbidden_varedit_object_types = list(
 	feedback_add_details("admin_verb","EDITV") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 */
 
-/proc/datum_is_forbidden(type)
-	for(var/p in forbidden_varedit_object_types)
-		if(istype(type, p))
-			to_chat(usr, "<span class='warning'>It is forbidden to tamper with this object.</span>")
-			return FALSE
-	return TRUE
-
-
 /client/proc/cmd_modify_ticker_variables()
 	set category = "Debug"
 	set name = "Edit Ticker Variables"
@@ -139,7 +131,7 @@ var/list/forbidden_varedit_object_types = list(
 			L[var_value] = mod_list_add_ass() //haha
 		if("No")
 			L += var_value
-
+			
 /client/proc/mod_list(var/list/L)
 	if(!check_rights(R_VAREDIT))	return
 

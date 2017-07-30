@@ -1,3 +1,4 @@
+//This file was auto-corrected by findeclaration.exe on 25.5.2012 20:42:31
 #define OP_COMPUTER_COOLDOWN 60
 
 /obj/machinery/computer/operating
@@ -147,7 +148,7 @@
 		occupantData["btCelsius"] = occupant.bodytemperature - T0C
 		occupantData["btFaren"] = ((occupant.bodytemperature - T0C) * (9.0/5.0))+ 32
 
-		if(ishuman(occupant) && !(NO_BLOOD in occupant.species.species_traits))
+		if(ishuman(occupant) && !(occupant.species && occupant.species.flags & NO_BLOOD))
 			occupantData["pulse"] = occupant.get_pulse(GETPULSE_TOOL)
 			occupantData["hasBlood"] = 1
 			occupantData["bloodLevel"] = round(occupant.blood_volume)

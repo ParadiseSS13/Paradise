@@ -194,22 +194,17 @@
 	if(isanimal(M))
 		M.changeNext_move(CLICK_CD_MELEE)
 		if(iscorgi(M))
-			var/mob/living/simple_animal/pet/corgi/G = M
-			if(world.time < (G.last_eaten + 300))
-				to_chat(G, "<span class='notice'>You are too full to try eating [src] right now.</span>")
-			else if(bitecount >= 4)
+			if(bitecount >= 4)
 				M.visible_message("[M] [pick("burps from enjoyment", "yaps for more", "woofs twice", "looks at the area where [src] was")].","<span class='notice'>You swallow up the last part of [src].</span>")
 				playsound(loc,'sound/items/eatfood.ogg', rand(10,50), 1)
 				var/mob/living/simple_animal/pet/corgi/C = M
 				C.adjustBruteLoss(-5)
 				C.adjustFireLoss(-5)
 				qdel(src)
-				G.last_eaten = world.time
 			else
 				M.visible_message("[M] takes a bite of [src].","<span class='notice'>You take a bite of [src].</span>")
 				playsound(loc,'sound/items/eatfood.ogg', rand(10,50), 1)
 				bitecount++
-				G.last_eaten = world.time
 		else if(ismouse(M))
 			var/mob/living/simple_animal/mouse/N = M
 			to_chat(N, text("<span class='notice'>You nibble away at [src].</span>"))

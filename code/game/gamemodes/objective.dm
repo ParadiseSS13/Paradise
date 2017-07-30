@@ -1,6 +1,12 @@
+//This file was auto-corrected by findeclaration.exe on 25.5.2012 20:42:31
 var/global/list/all_objectives = list()
 
-var/list/potential_theft_objectives = subtypesof(/datum/theft_objective) - /datum/theft_objective/steal - /datum/theft_objective/number
+var/list/potential_theft_objectives = subtypesof(/datum/theft_objective) \
+	- /datum/theft_objective/steal \
+	- /datum/theft_objective/special \
+	- /datum/theft_objective/number \
+	- /datum/theft_objective/number/special \
+	- /datum/theft_objective/number/coins
 
 /datum/objective
 	var/datum/mind/owner = null			//Who owns the objective.
@@ -281,7 +287,7 @@ var/list/potential_theft_objectives = subtypesof(/datum/theft_objective) - /datu
 	for(var/datum/mind/possible_target in ticker.minds)
 		if(possible_target != owner && ishuman(possible_target.current) && (possible_target.current.stat != DEAD) && possible_target.current.client)
 			var/mob/living/carbon/human/H = possible_target.current
-			if(!(NO_DNA in H.species.species_traits))
+			if(!(H.species.flags & NO_DNA))
 				possible_targets += possible_target
 	if(possible_targets.len > 0)
 		target = pick(possible_targets)
@@ -335,7 +341,7 @@ var/list/potential_theft_objectives = subtypesof(/datum/theft_objective) - /datu
 	var/datum/theft_objective/steal_target
 	martyr_compatible = 0
 
-/datum/objective/steal/find_target()
+/datum/objective/steal/find_target(var/special_only=0)
 	var/loop=50
 	while(!steal_target && loop > 0)
 		loop--
@@ -343,6 +349,12 @@ var/list/potential_theft_objectives = subtypesof(/datum/theft_objective) - /datu
 		var/datum/theft_objective/O = new thefttype
 		if(owner.assigned_role in O.protected_jobs)
 			continue
+		if(special_only)
+			if(!(O.flags & 1)) // THEFT_FLAG_SPECIAL
+				continue
+		else
+			if(O.flags & 1) // THEFT_FLAG_SPECIAL
+				continue
 		if(O.flags & 2)
 			continue
 		steal_target=O
@@ -445,7 +457,7 @@ var/list/potential_theft_objectives = subtypesof(/datum/theft_objective) - /datu
 					n_p++
 		else if(ticker.current_state == GAME_STATE_PLAYING)
 			for(var/mob/living/carbon/human/P in player_list)
-				if(NO_DNA in P.species.species_traits)
+				if(P.species.flags & NO_DNA)
 					continue
 				if(P.client && !(P.mind in ticker.mode.changelings) && P.mind!=owner)
 					n_p++

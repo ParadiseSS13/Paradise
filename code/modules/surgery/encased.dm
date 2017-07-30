@@ -61,7 +61,7 @@
 	user.visible_message("<span class='warning'> [user]'s hand slips, cracking [target]'s [affected.encased] with \the [tool]!</span>" , \
 	"<span class='warning'> Your hand slips, cracking [target]'s [affected.encased] with \the [tool]!</span>" )
 
-	affected.take_damage(20)
+	affected.createwound(CUT, 20)
 	affected.fracture()
 
 	return 0
@@ -113,7 +113,7 @@
 	var/self_msg = "<span class='warning'> Your hand slips, cracking [target]'s  [affected.encased]!</span>"
 	user.visible_message(msg, self_msg)
 
-	affected.take_damage(20)
+	affected.createwound(BRUISE, 20)
 	affected.fracture()
 
 	return 0
@@ -164,7 +164,7 @@
 	var/self_msg = "<span class='warning'> Your hand slips, bending [target]'s [affected.encased] the wrong way!</span>"
 	user.visible_message(msg, self_msg)
 
-	affected.take_damage(20)
+	affected.createwound(BRUISE, 20)
 	affected.fracture()
 
 	return 0

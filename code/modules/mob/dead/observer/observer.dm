@@ -657,7 +657,7 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 
 	return FALSE
 
-/mob/dead/observer/incapacitated(ignore_restraints = FALSE, ignore_grab = FALSE, ignore_lying = FALSE)
+/mob/dead/observer/incapacitated()
 	return TRUE
 
 //this is a mob verb instead of atom for performance reasons

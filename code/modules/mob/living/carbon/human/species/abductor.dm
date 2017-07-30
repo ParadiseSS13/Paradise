@@ -18,10 +18,11 @@
 		"eyes" =     /obj/item/organ/internal/eyes/abductor //3 darksight.
 		)
 
-	species_traits = list(NO_BLOOD, NO_BREATHE, VIRUSIMMUNE, NOGUNS)
+	flags = HAS_LIPS | NO_BLOOD | NO_BREATHE | NOGUNS
 
 	oxy_mod = 0
 
+	virus_immune = 1
 	clothing_flags = HAS_UNDERWEAR | HAS_UNDERSHIRT | HAS_SOCKS
 	dietflags = DIET_OMNI
 	reagent_tag = PROCESS_ORG

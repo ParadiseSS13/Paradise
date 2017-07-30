@@ -307,7 +307,7 @@ var/list/possible_changeling_IDs = list("Alpha","Beta","Gamma","Delta","Epsilon"
 		to_chat(user, "<span class='warning'>DNA of [target] is ruined beyond usability!</span>")
 		return
 
-	if(NO_DNA in T.species.species_traits)
+	if(T.species.flags & NO_DNA)
 		to_chat(user, "<span class='warning'>This creature does not have DNA!</span>")
 		return
 
@@ -317,4 +317,4 @@ var/list/possible_changeling_IDs = list("Alpha","Beta","Gamma","Delta","Epsilon"
 	return 1
 
 /proc/can_absorb_species(datum/species/S)
-	return !(NO_DNA in S.species_traits)
+  return !(S.flags & NO_DNA)

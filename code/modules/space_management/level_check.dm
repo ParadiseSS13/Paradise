@@ -4,4 +4,4 @@
 
 // For expansion later
 /proc/atoms_share_level(atom/A, atom/B)
-  return A && B && A.z == B.z
+  return A.z == B.z

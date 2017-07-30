@@ -3,6 +3,8 @@
 #define FONT_COLOR "#09f"
 #define FONT_STYLE "Arial Black"
 
+//This file was auto-corrected by findeclaration.exe on 25.5.2012 20:42:31
+
 ///////////////////////////////////////////////////////////////////////////////////////////////
 // Brig Door control displays.
 //  Description: This is a controls the timer for the brig doors, displays the timer on itself and
@@ -82,7 +84,7 @@
 	Radio.follow_target = src
 
 	pixel_x = ((dir & 3)? (0) : (dir == 4 ? 32 : -32))
-	pixel_y = ((dir & 3)? (dir ==1 ? 32 : -32) : (0))
+	pixel_y = ((dir & 3)? (dir ==1 ? 24 : -32) : (0))
 
 	spawn(20)
 		for(var/obj/machinery/door/window/brigdoor/M in airlocks)

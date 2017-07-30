@@ -173,12 +173,6 @@
 	icon_state = "bottleofnothing"
 	list_reagents = list("nothing" = 100)
 
-/obj/item/weapon/reagent_containers/food/drinks/bottle/bottleofbanana
-	name = "Jolly Jug"
-	desc = "A jug filled with banana juice."
-	icon_state = "bottleofjolly"
-	list_reagents = list("banana" = 100)
-
 /obj/item/weapon/reagent_containers/food/drinks/bottle/patron
 	name = "Wrapp Artiste Patron"
 	desc = "Silver laced tequila, served in space night clubs across the galaxy."

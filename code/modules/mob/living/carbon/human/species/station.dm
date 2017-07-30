@@ -6,7 +6,7 @@
 	primitive_form = "Monkey"
 	path = /mob/living/carbon/human/human
 	language = "Sol Common"
-	species_traits = list(LIPS, CAN_BE_FAT)
+	flags = HAS_LIPS | CAN_BE_FAT
 	clothing_flags = HAS_UNDERWEAR | HAS_UNDERSHIRT | HAS_SOCKS
 	bodyflags = HAS_SKIN_TONE | HAS_BODY_MARKINGS
 	dietflags = DIET_OMNI
@@ -38,9 +38,9 @@
 	else, frequently even their own lives. They prefer warmer temperatures than most species and \
 	their native tongue is a heavy hissing laungage called Sinta'Unathi."
 
-	species_traits = list(LIPS)
+	flags = HAS_LIPS
 	clothing_flags = HAS_UNDERWEAR | HAS_UNDERSHIRT | HAS_SOCKS
-	bodyflags = HAS_TAIL | HAS_HEAD_ACCESSORY | HAS_BODY_MARKINGS | HAS_HEAD_MARKINGS | HAS_SKIN_COLOR | HAS_ALT_HEADS | TAIL_WAGGING
+	bodyflags = FEET_CLAWS | HAS_TAIL | HAS_HEAD_ACCESSORY | HAS_BODY_MARKINGS | HAS_HEAD_MARKINGS | HAS_SKIN_COLOR | HAS_ALT_HEADS | TAIL_WAGGING
 	dietflags = DIET_CARN
 
 	cold_level_1 = 280 //Default 260 - Lower is better
@@ -110,11 +110,10 @@
 
 	primitive_form = "Farwa"
 
-	species_traits = list(LIPS, CAN_BE_FAT)
+	flags = HAS_LIPS | CAN_BE_FAT
 	clothing_flags = HAS_UNDERWEAR | HAS_UNDERSHIRT | HAS_SOCKS
-	bodyflags = HAS_TAIL | HAS_HEAD_ACCESSORY | HAS_HEAD_MARKINGS | HAS_BODY_MARKINGS | HAS_SKIN_COLOR | TAIL_WAGGING
+	bodyflags = FEET_PADDED | HAS_TAIL | HAS_HEAD_ACCESSORY | HAS_HEAD_MARKINGS | HAS_BODY_MARKINGS | HAS_SKIN_COLOR | TAIL_WAGGING | HAS_FUR
 	dietflags = DIET_OMNI
-	taste_sensitivity = TASTE_SENSITIVITY_SHARP
 	reagent_tag = PROCESS_ORG
 	flesh_color = "#AFA59E"
 	base_color = "#424242"
@@ -161,11 +160,10 @@
 	to the degree it can cause conflict with more rigorous and strict authorities. They speak a guttural language known as 'Canilunzt' \
     which has a heavy emphasis on utilizing tail positioning and ear twitches to communicate intent."
 
-	species_traits = list(LIPS)
+	flags = HAS_LIPS
 	clothing_flags = HAS_UNDERWEAR | HAS_UNDERSHIRT | HAS_SOCKS
-	bodyflags = HAS_TAIL | TAIL_WAGGING | TAIL_OVERLAPPED | HAS_HEAD_ACCESSORY | HAS_MARKINGS | HAS_SKIN_COLOR
+	bodyflags = FEET_PADDED | HAS_TAIL | TAIL_WAGGING | TAIL_OVERLAPPED | HAS_HEAD_ACCESSORY | HAS_MARKINGS | HAS_SKIN_COLOR | HAS_FUR
 	dietflags = DIET_OMNI
-	taste_sensitivity = TASTE_SENSITIVITY_SHARP
 	reagent_tag = PROCESS_ORG
 	flesh_color = "#966464"
 	base_color = "#CF4D2F"
@@ -213,11 +211,10 @@
 	herbivores on the whole and tend to be co-operative with the other species of the galaxy, although they rarely reveal \
 	the secrets of their empire to their allies."
 
-	species_traits = list(LIPS)
+	flags = HAS_LIPS
 	clothing_flags = HAS_UNDERWEAR | HAS_UNDERSHIRT | HAS_SOCKS
 	bodyflags = HAS_SKIN_COLOR | HAS_BODY_MARKINGS
 	dietflags = DIET_HERB
-	taste_sensitivity = TASTE_SENSITIVITY_DULL
 	flesh_color = "#8CD7A3"
 	blood_color = "#1D2CBF"
 	base_color = "#38b661" //RGB: 56, 182, 97.
@@ -294,7 +291,7 @@
 	breath_type = "nitrogen"
 	poison_type = "oxygen"
 
-	species_traits = list(NO_SCAN, IS_WHITELISTED, NOTRANSSTING)
+	flags = NO_SCAN | IS_WHITELISTED | NOTRANSSTING
 	clothing_flags = HAS_SOCKS
 	dietflags = DIET_OMNI
 	bodyflags = HAS_ICON_SKIN_TONE | HAS_TAIL | TAIL_WAGGING | TAIL_OVERLAPPED | HAS_BODY_MARKINGS | HAS_TAIL_MARKINGS
@@ -447,7 +444,7 @@
 	breath_type = "nitrogen"
 	poison_type = "oxygen"
 
-	species_traits = list(NO_SCAN, NO_BLOOD, NO_PAIN, IS_WHITELISTED)
+	flags = NO_SCAN | NO_BLOOD | NO_PAIN | IS_WHITELISTED
 	bodyflags = HAS_TAIL
 	dietflags = DIET_OMNI	//should inherit this from vox, this is here just in case
 
@@ -491,9 +488,9 @@
 
 	brute_mod = 0.8
 
-	species_traits = list(IS_WHITELISTED)
+	flags = IS_WHITELISTED
 	clothing_flags = HAS_UNDERWEAR | HAS_UNDERSHIRT | HAS_SOCKS
-	bodyflags = HAS_HEAD_ACCESSORY | HAS_HEAD_MARKINGS | HAS_BODY_MARKINGS
+	bodyflags = FEET_CLAWS | HAS_HEAD_ACCESSORY | HAS_HEAD_MARKINGS | HAS_BODY_MARKINGS
 	eyes = "kidan_eyes_s"
 	dietflags = DIET_HERB
 	blood_color = "#FB9800"
@@ -546,16 +543,14 @@
 	male_cough_sounds = list('sound/effects/slime_squish.ogg')
 	female_cough_sounds = list('sound/effects/slime_squish.ogg')
 
-	species_traits = list(LIPS, IS_WHITELISTED, NO_BREATHE, NO_INTORGANS, NO_SCAN)
+	flags = IS_WHITELISTED | NO_BREATHE | HAS_LIPS | NO_INTORGANS | NO_SCAN
 	clothing_flags = HAS_UNDERWEAR | HAS_UNDERSHIRT | HAS_SOCKS
 	bodyflags = HAS_SKIN_COLOR | NO_EYES
 	dietflags = DIET_CARN
 	reagent_tag = PROCESS_ORG
-
 	blood_color = "#0064C8"
 	exotic_blood = "water"
-	blood_damage_type = TOX
-
+	//ventcrawler = 1 //ventcrawling commented out
 	butt_sprite = "slime"
 	//Has default darksight of 2.
 
@@ -646,12 +641,12 @@
 	var/list/missing_limbs = list()
 	for(var/l in bodyparts_by_name)
 		var/obj/item/organ/external/E = bodyparts_by_name[l]
-		if(!istype(E))
+		if(!istype(E) || istype(E, /obj/item/organ/external/stump))
 			var/list/limblist = species.has_limbs[l]
 			var/obj/item/organ/external/limb = limblist["path"]
 			var/parent_organ = initial(limb.parent_organ)
 			var/obj/item/organ/external/parentLimb = bodyparts_by_name[parent_organ]
-			if(!istype(parentLimb))
+			if(!istype(parentLimb) || parentLimb.is_stump())
 				continue
 			missing_limbs[initial(limb.name)] = l
 
@@ -677,17 +672,21 @@
 		var/stored_brute = 0
 		var/stored_burn = 0
 		if(istype(O))
-			to_chat(src, "<span class='warning'>You distribute the damaged tissue around your body, out of the way of your new pseudopod!</span>")
-			var/obj/item/organ/external/doomedStump = O
-			stored_brute = doomedStump.brute_dam
-			stored_burn = doomedStump.burn_dam
-			qdel(O)
+			if(!O.is_stump())
+				to_chat(src, "<span class='warning'>Your limb has already been replaced in some way!</span>")
+				return
+			else
+				to_chat(src, "<span class='warning'>You distribute the damaged tissue around your body, out of the way of your new pseudopod!</span>")
+				var/obj/item/organ/external/doomedStump = O
+				stored_brute = doomedStump.brute_dam
+				stored_burn = doomedStump.burn_dam
+				qdel(O)
 
 		var/limb_list = species.has_limbs[chosen_limb]
 		var/obj/item/organ/external/limb_path = limb_list["path"]
 		// Parent check
 		var/obj/item/organ/external/potential_parent = bodyparts_by_name[initial(limb_path.parent_organ)]
-		if(!istype(potential_parent))
+		if(!istype(potential_parent) || potential_parent.is_stump())
 			to_chat(src, "<span class='danger'>You've lost the organ that you've been growing your new part on!</span>")
 			return // No rayman for you
 		// Grah this line will leave a "not used" warning, in spite of the fact that the new() proc WILL do the thing.
@@ -740,7 +739,7 @@
 	default_genes = list(REMOTE_TALK)
 
 
-	species_traits = list(LIPS, IS_WHITELISTED, CAN_BE_FAT)
+	flags = IS_WHITELISTED | HAS_LIPS | CAN_BE_FAT
 	clothing_flags = HAS_UNDERWEAR | HAS_UNDERSHIRT | HAS_SOCKS
 	bodyflags =  HAS_BODY_MARKINGS
 	dietflags = DIET_HERB
@@ -800,10 +799,9 @@
 	even the simplest concepts of other minds. Their alien physiology allows them survive happily off a diet of nothing but light, \
 	water and other radiation."
 
-	species_traits = list(NO_BREATHE, RADIMMUNE, IS_PLANT, NO_BLOOD, NO_PAIN)
+	flags = NO_BREATHE | RADIMMUNE | IS_PLANT | NO_BLOOD | NO_PAIN
 	clothing_flags = HAS_SOCKS
 	dietflags = 0		//Diona regenerate nutrition in light, no diet necessary
-	taste_sensitivity = TASTE_SENSITIVITY_NO_TASTE
 
 	oxy_mod = 0
 
@@ -907,15 +905,15 @@
 	oxy_mod = 0
 	death_message = "gives one shrill beep before falling limp, their monitor flashing blue before completely shutting off..."
 
-	species_traits = list(IS_WHITELISTED, NO_BREATHE, NO_SCAN, NO_BLOOD, NO_PAIN, NO_DNA, RADIMMUNE, VIRUSIMMUNE, NOTRANSSTING)
+	flags = IS_WHITELISTED | NO_BREATHE | NO_SCAN | NO_BLOOD | NO_PAIN | NO_DNA | RADIMMUNE | ALL_RPARTS | NOTRANSSTING
 	clothing_flags = HAS_UNDERWEAR | HAS_UNDERSHIRT | HAS_SOCKS
-	bodyflags = HAS_SKIN_COLOR | HAS_HEAD_MARKINGS | HAS_HEAD_ACCESSORY | ALL_RPARTS
+	bodyflags = HAS_SKIN_COLOR | HAS_HEAD_MARKINGS | HAS_HEAD_ACCESSORY
 	dietflags = 0		//IPCs can't eat, so no diet
-	taste_sensitivity = TASTE_SENSITIVITY_NO_TASTE
 	blood_color = "#1F181F"
 	flesh_color = "#AAAAAA"
 	//Default styles for created mobs.
 	default_hair = "Blue IPC Screen"
+	virus_immune = 1
 	can_revive_by_healing = 1
 	has_gender = FALSE
 	reagent_tag = PROCESS_SYN
@@ -1007,9 +1005,9 @@
 		"is sucking in warm air!",
 		"is holding their breath!")
 
-	species_traits = list(LIPS, IS_WHITELISTED)
+	flags = IS_WHITELISTED | HAS_LIPS
 	clothing_flags = HAS_UNDERWEAR | HAS_UNDERSHIRT
-	bodyflags = HAS_SKIN_TONE | HAS_BODY_MARKINGS
+	bodyflags = FEET_CLAWS | HAS_SKIN_TONE | HAS_BODY_MARKINGS
 	dietflags = DIET_OMNI
 
 	cold_level_1 = -1 //Default 260 - Lower is better

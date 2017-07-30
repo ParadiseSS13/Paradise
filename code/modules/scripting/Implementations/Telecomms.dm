@@ -1,3 +1,6 @@
+//This file was auto-corrected by findeclaration.exe on 25.5.2012 20:42:33
+
+
 /* --- Traffic Control Scripting Language --- */
 	// Nanotrasen TCS Language - Made by Doohl
 

@@ -103,7 +103,7 @@
 			"poweravail" = powmonitor.powernet.avail,
 			"powerload" = num2text(powmonitor.powernet.viewload, 10),
 			"powerdemand" = powmonitor.powernet.load,
-			"apcs" = apc_repository.apc_data(powmonitor.powernet))
+			"apcs" = apc_repository.apc_data(powmonitor))
 		has_back = 1
 	else
 		data["records"] = list(

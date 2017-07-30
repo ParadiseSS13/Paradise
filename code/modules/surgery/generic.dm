@@ -12,6 +12,8 @@
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
 	if(affected == null)
 		return 0
+	if(affected.status & ORGAN_DESTROYED)
+		return 0
 	if(affected.status & ORGAN_ROBOT)
 		return 0
 	return 1
@@ -45,13 +47,14 @@
 	user.visible_message("<span class='notice'> [user] has made an incision on [target]'s [affected.name] with \the [tool].</span>", \
 	"<span class='notice'> You have made an incision on [target]'s [affected.name] with \the [tool].</span>",)
 	affected.open = 1
+	affected.status |= ORGAN_BLEEDING
 	return 1
 
 /datum/surgery_step/generic/cut_open/fail_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool,datum/surgery/surgery)
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
 	user.visible_message("<span class='warning'> [user]'s hand slips, slicing open [target]'s [affected.name] in a wrong spot with \the [tool]!</span>", \
 	"<span class='warning'> Your hand slips, slicing open [target]'s [affected.name] in a wrong spot with \the [tool]!</span>")
-	affected.take_damage(10)
+	affected.createwound(CUT, 10)
 	return 0
 
 /datum/surgery_step/generic/clamp_bleeders
@@ -78,6 +81,7 @@
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
 	user.visible_message("<span class='notice'> [user] clamps bleeders in [target]'s [affected.name] with \the [tool]</span>.",	\
 	"<span class='notice'> You clamp bleeders in [target]'s [affected.name] with \the [tool].</span>")
+	affected.clamp()
 	spread_germs_to_organ(affected, user, tool)
 	return 1
 
@@ -85,7 +89,7 @@
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
 	user.visible_message("<span class='warning'> [user]'s hand slips, tearing blood vessals and causing massive bleeding in [target]'s [affected.name] with \the [tool]!</span>",	\
 	"<span class='warning'> Your hand slips, tearing blood vessels and causing massive bleeding in [target]'s [affected.name] with \the [tool]!</span>",)
-	affected.take_damage(10)
+	affected.createwound(CUT, 10)
 	return 0
 
 /datum/surgery_step/generic/retract_skin
@@ -169,6 +173,7 @@
 	"<span class='notice'> You cauterize the incision on [target]'s [affected.name] with \the [tool].</span>")
 	affected.open = 0
 	affected.germ_level = 0
+	affected.status &= ~ORGAN_BLEEDING
 	return 1
 
 /datum/surgery_step/generic/cauterize/fail_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool,datum/surgery/surgery)
@@ -213,6 +218,8 @@
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
 	if(affected == null)
 		return 0
+	if(affected.status & ORGAN_DESTROYED)
+		return 0
 	return !affected.cannot_amputate
 
 /datum/surgery_step/generic/amputate/begin_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool,datum/surgery/surgery)
@@ -238,6 +245,6 @@
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
 	user.visible_message("<span class='warning'> [user]'s hand slips, sawing through the bone in [target]'s [affected.name] with \the [tool]!</span>", \
 	"<span class='warning'> Your hand slips, sawwing through the bone in [target]'s [affected.name] with \the [tool]!</span>")
-	affected.take_damage(30)
+	affected.createwound(CUT, 30)
 	affected.fracture()
 	return 0

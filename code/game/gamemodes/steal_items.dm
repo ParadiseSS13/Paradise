@@ -2,7 +2,7 @@
 //
 // Separated into datums so we can prevent roles from getting certain objectives.
 
-#define THEFT_FLAG_SPECIAL 1//unused, maybe someone will use it some day, I'll leave it here for the children
+#define THEFT_FLAG_SPECIAL 1
 #define THEFT_FLAG_UNIQUE 2
 
 /datum/theft_objective
@@ -31,11 +31,6 @@
 	typepath = /obj/item/weapon/gun/energy/laser/captain
 	protected_jobs = list("Captain")
 
-/datum/theft_objective/captains_jetpack
-	name = "the captain's deluxe jetpack"
-	typepath = /obj/item/weapon/tank/jetpack/oxygen/captain
-	protected_jobs = list("Captain")
-
 /datum/theft_objective/hoslaser
 	name = "the head of security's recreated antique laser gun"
 	typepath = /obj/item/weapon/gun/energy/gun/hos
@@ -45,6 +40,11 @@
 	name = "a hand teleporter"
 	typepath = /obj/item/weapon/hand_tele
 	protected_jobs = list("Captain", "Research Director")
+
+/datum/theft_objective/jetpack
+	name = "a jetpack"
+	typepath = /obj/item/weapon/tank/jetpack
+	protected_jobs = list("Chief Engineer")
 
 /datum/theft_objective/ai
 	name = "a functional AI"
@@ -173,6 +173,32 @@ datum/theft_objective/ai/check_special_completion(var/obj/item/device/aicard/C)
 /datum/theft_objective/number/plasma_gas/getAmountStolen(var/obj/item/I)
 	return I:air_contents:toxins
 
+/datum/theft_objective/number/coins
+	name = "credits of coins (in bag)"
+	min=1000
+	max=5000
+	step=500
+
+/datum/theft_objective/number/coins/check_completion(var/datum/mind/owner)
+	if(!owner.current)
+		return 0
+	if(!isliving(owner.current))
+		return 0
+	var/list/all_items = owner.current.get_contents()
+	var/found_amount=0.0
+	for(var/obj/item/weapon/moneybag/B in all_items)
+		if(B)
+			for(var/obj/item/weapon/coin/C in B)
+				found_amount += C.credits
+	return found_amount >= required_amount
+
+
+////////////////////////////////
+// SPECIAL OBJECTIVES
+////////////////////////////////
+/datum/theft_objective/special
+	flags = THEFT_FLAG_SPECIAL
+
 /datum/theft_objective/unique
 	flags = THEFT_FLAG_UNIQUE
 
@@ -183,3 +209,47 @@ datum/theft_objective/ai/check_special_completion(var/obj/item/device/aicard/C)
 /datum/theft_objective/unique/docs_blue
 	name = "the \"Blue\" secret documents"
 	typepath = /obj/item/documents/syndicate/blue
+
+/datum/theft_objective/special/pinpointer
+	name = "the captain's pinpointer"
+	typepath = /obj/item/weapon/pinpointer
+
+/datum/theft_objective/special/nuke_gun
+	name = "advanced energy gun"
+	typepath = /obj/item/weapon/gun/energy/gun/nuclear
+
+/datum/theft_objective/special/diamond_drill
+	name = "diamond drill"
+	typepath = /obj/item/weapon/pickaxe/drill/diamonddrill
+
+/datum/theft_objective/special/boh
+	name = "bag of holding"
+	typepath = /obj/item/weapon/storage/backpack/holding
+
+/datum/theft_objective/special/hyper_cell
+	name = "hyper-capacity cell"
+	typepath = /obj/item/weapon/stock_parts/cell/hyper
+
+/datum/theft_objective/number/special
+	flags = THEFT_FLAG_SPECIAL
+
+/datum/theft_objective/number/special/diamonds
+	name = "diamonds"
+	typepath = /obj/item/stack/sheet/mineral/diamond
+	min=5
+	max=10
+	step=5
+
+/datum/theft_objective/number/special/gold
+	name = "gold bars"
+	typepath = /obj/item/stack/sheet/mineral/gold
+	min=10
+	max=50
+	step=10
+
+/datum/theft_objective/number/special/uranium
+	name = "refined uranium bars"
+	typepath = /obj/item/stack/sheet/mineral/uranium
+	min=10
+	max=30
+	step=5

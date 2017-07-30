@@ -125,7 +125,6 @@
 			new /obj/item/weapon/bikehorn(src)
 			new /obj/item/toy/crayon/rainbow(src)
 			new /obj/item/weapon/reagent_containers/spray/waterflower(src)
-			new /obj/item/weapon/reagent_containers/food/drinks/bottle/bottleofbanana(src)
 		if(95)
 			new /obj/item/clothing/under/mime(src)
 			new /obj/item/clothing/shoes/black(src)

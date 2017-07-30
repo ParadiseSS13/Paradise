@@ -165,6 +165,10 @@
 			H.h_style = "Bald"
 			H.f_style = "Shaved"
 			target.m_styles["head"] = "None"
+	E.status &= ~ORGAN_DESTROYED
+	if(E.children)
+		for(var/obj/item/organ/external/C in E.children)
+			C.status &= ~ORGAN_DESTROYED
 
 
 /datum/surgery_step/limb/connect
@@ -193,6 +197,13 @@
 	var/obj/item/organ/external/E = target.get_organ(target_zone)
 	user.visible_message("<span class='notice'>[user] has connected tendons and muscles in [target]'s [E.amputation_point] with [tool].</span>",	\
 	"<span class='notice'>You have connected tendons and muscles in [target]'s [E.amputation_point] with [tool].</span>")
+	E.status &= ~ORGAN_DESTROYED
+	var/obj/item/organ/external/stump = target.bodyparts_by_name["limb stump"]
+	if(stump)
+		stump.remove(target)
+	if(E.children)
+		for(var/obj/item/organ/external/C in E.children)
+			C.status &= ~ORGAN_DESTROYED
 	target.update_body()
 	target.updatehealth()
 	target.UpdateDamageIcon()
@@ -243,6 +254,10 @@
 			var/new_limb_type = organ_data["path"]
 			var/obj/item/organ/external/new_limb = new new_limb_type(target)
 			new_limb.robotize(L.model_info)
+			new_limb.status &= ~ORGAN_DESTROYED
+			if(new_limb.children)
+				for(var/obj/item/organ/external/C in new_limb.children)
+					C.status &= ~ORGAN_DESTROYED
 			if(L.sabotaged)
 				new_limb.sabotaged = 1
 	target.update_body()

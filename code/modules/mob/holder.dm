@@ -91,10 +91,6 @@
 	desc = "It's a small maintenance robot."
 	icon_state = "drone"
 
-/obj/item/weapon/holder/drone/emagged
-	name = "maintenance drone"
-	icon_state = "drone-emagged"
-
 /obj/item/weapon/holder/pai
 	name = "pAI"
 	desc = "It's a little robot."
