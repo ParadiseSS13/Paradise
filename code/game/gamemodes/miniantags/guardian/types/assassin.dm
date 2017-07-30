@@ -8,14 +8,10 @@
 	tech_fluff_string = "Boot sequence complete. Assassin modules loaded. Holoparasite swarm online."
 	bio_fluff_string = "Your scarab swarm finishes mutating and stirs to life, capable of sneaking and stealthy attacks."
 	var/toggle = FALSE
-	var/stealthcooldown = 16 SECONDS
+	var/stealthcooldown = 0
 	var/default_stealth_cooldown = 16 SECONDS
 	var/obj/screen/alert/canstealthalert
 	var/obj/screen/alert/instealthalert
-
-/mob/living/simple_animal/hostile/guardian/assassin/New()
-	..()
-	stealthcooldown = 0
 
 /mob/living/simple_animal/hostile/guardian/assassin/Life()
 	. = ..()

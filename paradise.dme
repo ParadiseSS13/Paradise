@@ -503,6 +503,7 @@
 #include "code\game\jobs\job\civilian.dm"
 #include "code\game\jobs\job\engineering.dm"
 #include "code\game\jobs\job\job.dm"
+#include "code\game\jobs\job\medical.dm"
 #include "code\game\jobs\job\science.dm"
 #include "code\game\jobs\job\security.dm"
 #include "code\game\jobs\job\silicon.dm"
