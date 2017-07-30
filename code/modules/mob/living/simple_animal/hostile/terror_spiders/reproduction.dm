@@ -16,10 +16,13 @@
 	var/use_vents = 1
 	var/list/enemies = list()
 	var/immediate_ventcrawl = 0
+	var/spider_awaymission = 0
 
 /obj/structure/spider/spiderling/terror_spiderling/New()
 	..()
 	ts_spiderling_list += src
+	if(is_away_level(z))
+		spider_awaymission = 1
 
 /obj/structure/spider/spiderling/terror_spiderling/Destroy()
 	ts_spiderling_list -= src
@@ -85,6 +88,8 @@
 	if(isturf(loc))
 		amount_grown += rand(0,2)
 		if(amount_grown >= 100)
+			if(spider_awaymission && !is_away_level(z))
+				stillborn = 1
 			if(stillborn)
 				die()
 			else
