@@ -661,6 +661,7 @@
 
 /datum/configuration/proc/loadsql(filename)  // -- TLE
 	var/list/Lines = file2list(filename)
+	var/db_version = 0
 	for(var/t in Lines)
 		if(!t)	continue
 
@@ -698,8 +699,18 @@
 				sqlfdbkpass = value
 			if("feedback_tableprefix")
 				sqlfdbktableprefix = value
+			if("db_version")
+				db_version = text2num(value)
 			else
 				diary << "Unknown setting in configuration: '[name]'"
+	if(config.sql_enabled && db_version != SQL_VERSION)
+		config.sql_enabled = 0
+		diary << "WARNING: DB_CONFIG DEFINITION MISMATCH!"
+		spawn(60)
+			if(ticker.current_state == GAME_STATE_PREGAME)
+				going = 0
+				spawn(600)
+					to_chat(world, "<span class='alert'>DB_CONFIG MISMATCH, ROUND START DELAYED. <BR>Please check database version for recent upstream changes!</span>")
 
 /datum/configuration/proc/loadoverflowwhitelist(filename)
 	var/list/Lines = file2list(filename)

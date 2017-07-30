@@ -1,5 +1,3 @@
-//This file was auto-corrected by findeclaration.exe on 25.5.2012 20:42:31
-
 /obj/machinery/computer/pod
 	name = "mass drivers and pod doors control"
 	desc = "A control for launching pods. Some people prefer firing Mechas."

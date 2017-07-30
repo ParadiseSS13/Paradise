@@ -67,7 +67,7 @@
 	description = "A corruptive toxin produced by slimes."
 	reagent_state = LIQUID
 	color = "#13BC5E" // rgb: 19, 188, 94
-	can_synth = 0
+	can_synth = FALSE
 	taste_message = "shadows"
 
 /datum/reagent/slimetoxin/on_mob_life(mob/living/M)
@@ -87,7 +87,7 @@
 	description = "An advanced corruptive toxin produced by slimes."
 	reagent_state = LIQUID
 	color = "#13BC5E" // rgb: 19, 188, 94
-	can_synth = 0
+	can_synth = FALSE
 
 /datum/reagent/aslimetoxin/reaction_mob(mob/living/M, method=TOUCH, volume)
 	if(method != TOUCH)
@@ -101,7 +101,7 @@
 	reagent_state = LIQUID
 	color = "#484848" // rgb: 72, 72, 72
 	metabolization_rate = 0.2
-	penetrates_skin = 1
+	penetrates_skin = TRUE
 	taste_message = "metal"
 
 /datum/reagent/mercury/on_mob_life(mob/living/M)
@@ -115,7 +115,7 @@
 	description = "A chemical element."
 	reagent_state = GAS
 	color = "#808080" // rgb: 128, 128, 128
-	penetrates_skin = 1
+	penetrates_skin = TRUE
 	process_flags = ORGANIC | SYNTHETIC
 	taste_message = "fire"
 
@@ -129,7 +129,7 @@
 	description = "A highly-reactive chemical element."
 	reagent_state = GAS
 	color = "#6A6054"
-	penetrates_skin = 1
+	penetrates_skin = TRUE
 	process_flags = ORGANIC | SYNTHETIC
 	taste_message = "spicy freshness"
 
@@ -144,7 +144,7 @@
 	description = "Radium is an alkaline earth metal. It is extremely radioactive."
 	reagent_state = SOLID
 	color = "#C7C7C7" // rgb: 199,199,199
-	penetrates_skin = 1
+	penetrates_skin = TRUE
 
 /datum/reagent/radium/on_mob_life(mob/living/M)
 	if(M.radiation < 80)
@@ -152,7 +152,7 @@
 	..()
 
 /datum/reagent/radium/reaction_turf(turf/T, volume)
-	if(volume >= 3 && !istype(T, /turf/space))
+	if(volume >= 3 && !isspaceturf(T))
 		new /obj/effect/decal/cleanable/greenglow(T)
 
 /datum/reagent/mutagen
@@ -195,7 +195,7 @@
 	..()
 
 /datum/reagent/uranium/reaction_turf(turf/T, volume)
-	if(volume >= 3 && !istype(T, /turf/space))
+	if(volume >= 3 && !isspaceturf(T))
 		new /obj/effect/decal/cleanable/greenglow(T)
 
 
@@ -260,9 +260,6 @@
 
 			if(H.get_species() == "Grey")
 				return
-
-			if(volume < 10)
-				to_chat(M, "<span class='danger'>The greenish acidic substance stings you, but isn't concentrated enough to harm you!</span>")
 
 			if(volume >=10 && volume <=25)
 				if(!H.unacidable)
@@ -353,8 +350,8 @@
 	reagent_state = LIQUID
 	color = "#CF3600"
 	metabolization_rate = 0.1
-	penetrates_skin = 1
-	can_synth = 0
+	penetrates_skin = TRUE
+	can_synth = FALSE
 	taste_message = null
 
 /datum/reagent/polonium/on_mob_life(mob/living/M)
@@ -441,7 +438,7 @@
 	description = "Formaldehyde is a common industrial chemical and is used to preserve corpses and medical samples. It is highly toxic and irritating."
 	reagent_state = LIQUID
 	color = "#DED6D0"
-	penetrates_skin = 1
+	penetrates_skin = TRUE
 
 /datum/reagent/formaldehyde/on_mob_life(mob/living/M)
 	M.adjustToxLoss(1*REAGENTS_EFFECT_MULTIPLIER)
@@ -457,7 +454,7 @@
 	color = "#CF3600"
 	metabolization_rate = 0.2
 	overdose_threshold = 40
-	can_synth = 0
+	can_synth = FALSE
 
 /datum/reagent/venom/on_mob_life(mob/living/M)
 	if(prob(25))
@@ -525,7 +522,7 @@
 	reagent_state = LIQUID
 	color = "#CF3600"
 	metabolization_rate = 0.1
-	penetrates_skin = 1
+	penetrates_skin = TRUE
 	taste_message = "almonds"
 
 /datum/reagent/cyanide/on_mob_life(mob/living/M)
@@ -549,7 +546,7 @@
 	reagent_state = LIQUID
 	color = "#B0B0B0"
 	metabolization_rate = 0.3
-	penetrates_skin = 1
+	penetrates_skin = TRUE
 
 /datum/reagent/itching_powder/on_mob_life(mob/living/M)
 	if(prob(25))
@@ -646,7 +643,7 @@
 	description = "A highly potent cardiac poison - can kill within minutes."
 	reagent_state = LIQUID
 	color = "#7F10C0"
-	can_synth = 0
+	can_synth = FALSE
 	taste_message = null
 
 /datum/reagent/initropidril/on_mob_life(mob/living/M)
@@ -711,7 +708,7 @@
 	reagent_state = LIQUID
 	color = "#5F8BE1"
 	metabolization_rate = 0.7
-	can_synth = 0
+	can_synth = FALSE
 	taste_message = null
 
 /datum/reagent/sodium_thiopental/on_mob_life(mob/living/M)
@@ -739,8 +736,8 @@
 	reagent_state = LIQUID
 	color = "#646EA0"
 	metabolization_rate = 0.8
-	penetrates_skin = 1
-	can_synth = 0
+	penetrates_skin = TRUE
+	can_synth = FALSE
 	taste_message = null
 
 /datum/reagent/ketamine/on_mob_life(mob/living/M)
@@ -828,7 +825,7 @@
 	reagent_state = LIQUID
 	color = "#C2D8CD"
 	metabolization_rate = 0.05
-	can_synth = 0
+	can_synth = FALSE
 
 /datum/reagent/coniine/on_mob_life(mob/living/M)
 	M.adjustToxLoss(2)
@@ -842,7 +839,7 @@
 	reagent_state = LIQUID
 	color = "#191919"
 	metabolization_rate = 0.1
-	penetrates_skin = 1
+	penetrates_skin = TRUE
 
 /datum/reagent/curare/on_mob_life(mob/living/M)
 	M.adjustToxLoss(1)
@@ -890,7 +887,7 @@
 	reagent_state = LIQUID
 	color = "#C7C7C7"
 	metabolization_rate = 0.1
-	penetrates_skin = 1
+	penetrates_skin = TRUE
 	overdose_threshold = 25
 	taste_message = null
 
@@ -960,13 +957,13 @@
 		W.visible_message("<span class='warning'>The fungi are completely dissolved by the solution!</span>")
 
 /datum/reagent/glyphosate/reaction_obj(obj/O, volume)
-	if(istype(O,/obj/structure/alien/weeds/))
+	if(istype(O,/obj/structure/alien/weeds))
 		var/obj/structure/alien/weeds/alien_weeds = O
 		alien_weeds.health -= rand(15,35) // Kills alien weeds pretty fast
 		alien_weeds.healthcheck()
 	else if(istype(O, /obj/structure/glowshroom)) //even a small amount is enough to kill it
 		qdel(O)
-	else if(istype(O,/obj/structure/spacevine))
+	else if(istype(O, /obj/structure/spacevine))
 		var/obj/structure/spacevine/SV = O
 		SV.on_chem_effect(src)
 

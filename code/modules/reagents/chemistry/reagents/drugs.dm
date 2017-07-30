@@ -439,7 +439,7 @@
 	reagent_state = LIQUID
 	color = "#644600"
 	addiction_chance = 30
-	taste_message = "puke...or worse"
+	taste_message = "puke... or worse"
 
 /datum/reagent/jenkem/on_mob_life(mob/living/M)
 	M.Dizzy(5)

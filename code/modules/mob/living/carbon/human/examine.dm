@@ -205,6 +205,7 @@
 		if(100 to 200)
 			msg += "<span class='warning'>[t_He] [t_is] twitching ever so slightly.</span>\n"
 
+
 	var/appears_dead = FALSE
 	if(stat == DEAD || (status_flags & FAKEDEATH))
 		appears_dead = TRUE

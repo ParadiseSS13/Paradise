@@ -119,9 +119,9 @@ var/list/organ_cache = list()
 	if(istype(loc,/obj/item/device/mmi))
 		germ_level = max(0, germ_level - 1) // So a brain can slowly recover from being left out of an MMI
 		return 1
-	if(is_found_within(/obj/item/bodybag/cryobag))
-		return 1
 	if(is_found_within(/obj/structure/closet/crate/freezer))
+		return 1
+	if(is_found_within(/obj/machinery/clonepod))
 		return 1
 	if(isturf(loc))
 		if(world.time - last_freezer_update_time > freezer_update_period)
