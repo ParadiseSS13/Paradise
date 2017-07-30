@@ -32,8 +32,6 @@
 
 	create_reagents(330)
 
-	prev_gender = gender // Debug for plural genders
-
 	martial_art = default_martial_art
 
 	potenzia = (prob(80) ? rand(9, 14) : pick(rand(5, 13), rand(15, 20)))

@@ -79,8 +79,12 @@
 		diary << "\[[time_stamp()]]PDA: [sanitize_local(text, SANITIZE_LOG)][log_end]"
 
 /proc/log_chat(text)
-	if (config.log_pda)
+	if(config.log_pda)
 		diary << "\[[time_stamp()]]CHAT: [text]"
+
+/proc/log_comment(text)
+	if(config.log_pda) //reusing as not worth its own config option really
+		diary << "\[[time_stamp()]]COMMENT: [text]"
 
 /proc/log_misc(text)
 	diary << "\[[time_stamp()]]MISC: [text][log_end]"

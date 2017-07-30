@@ -105,6 +105,12 @@
 	damage = 20
 	stamina = 65 //two rounds from the c20r knocks people down
 
+/obj/item/projectile/bullet/midbulletr
+	name = "rubber bullet"
+	damage = 5
+	stamina = 65 // Same stamina damage as mid but with less lethal damage
+	icon_state = "bullet-r"
+
 /obj/item/projectile/bullet/midbullet2
 	damage = 25
 
@@ -238,7 +244,6 @@
 		if(blocked != 100)
 			if(M.can_inject(null,0,hit_zone)) // Pass the hit zone to see if it can inject by whether it hit the head or the body.
 				..()
-				reagents.reaction(M, INGEST)
 				reagents.trans_to(M, reagents.total_volume)
 				return 1
 			else

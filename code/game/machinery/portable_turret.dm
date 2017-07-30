@@ -733,11 +733,14 @@ var/list/turret_icons
 	// Emagged turrets again use twice as much power due to higher firing rates
 	use_power(reqpower * (2 * (emagged || lethal)) * (2 * emagged))
 
-	A.original = target
-	A.current = T
-	A.yo = U.y - T.y
-	A.xo = U.x - T.x
-	A.fire()
+	if(istype(A))
+		A.original = target
+		A.current = T
+		A.yo = U.y - T.y
+		A.xo = U.x - T.x
+		A.fire()
+	else
+		A.throw_at(target, scan_range, 1)
 	return A
 
 /datum/turret_checks
@@ -1062,4 +1065,3 @@ var/list/turret_icons
 	health = 100
 	projectile = /obj/item/projectile/bullet/weakbullet3
 	eprojectile = /obj/item/projectile/bullet/midbullet
-

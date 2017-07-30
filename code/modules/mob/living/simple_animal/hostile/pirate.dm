@@ -26,6 +26,7 @@
 			/obj/item/weapon/melee/energy/sword/pirate)
 	del_on_death = 1
 	faction = list("pirate")
+	sentience_type = SENTIENCE_OTHER
 
 /mob/living/simple_animal/hostile/pirate/ranged
 	name = "Pirate Gunner"

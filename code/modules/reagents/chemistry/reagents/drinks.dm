@@ -173,7 +173,7 @@
 	drink_icon = "nothing"
 	drink_name = "Nothing"
 	drink_desc = "Absolutely nothing."
-	taste_message = "nothing...how?"
+	taste_message = "nothing... how?"
 
 /datum/reagent/consumable/drink/nothing/on_mob_life(mob/living/M)
 	if(ishuman(M) && M.job in list("Mime"))

@@ -1,5 +1,3 @@
-//This file was auto-corrected by findeclaration.exe on 25.5.2012 20:42:32
-
 var/jobban_runonce			// Updates legacy bans with new info
 var/jobban_keylist[0]		// Linear list of jobban strings, kept around for the legacy system
 var/jobban_assoclist[0] // Associative list, for efficiency

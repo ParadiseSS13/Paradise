@@ -1,4 +1,4 @@
-# ATMTA STATION
+# ATMTA STATION [![Build Status](https://travis-ci.org/ITBlackwood/ATMTA-Station.svg?branch=master)](https://travis-ci.org/ITBlackwood/ATMTA-Station)
 Форк Paradise Station.
 [Website](http://атмта.рф/) - [Code](https://github.com/ParadiseSS13/Paradise) - [Discord](https://discord.gg/014REXI6YHvMSo7Ew)
 

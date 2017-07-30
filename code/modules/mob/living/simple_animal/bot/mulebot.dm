@@ -1,5 +1,3 @@
-//This file was auto-corrected by findeclaration.exe on 25.5.2012 20:42:31
-
 // Mulebot - carries crates around for Quartermaster
 // Navigates via floor navbeacons
 // Remote Controlled from QM's PDA

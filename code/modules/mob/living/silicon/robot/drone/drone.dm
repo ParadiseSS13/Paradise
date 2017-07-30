@@ -188,6 +188,9 @@
 	lawchanges.Add("[time] <B>:</B> [H.name]([H.key]) emagged [name]([key])")
 
 	emagged = 1
+	icon_state = "repairbot-emagged"
+	holder_type = /obj/item/weapon/holder/drone/emagged
+	update_icons()
 	lawupdate = 0
 	connected_ai = null
 	clear_supplied_laws()

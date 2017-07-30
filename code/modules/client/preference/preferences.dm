@@ -1,5 +1,3 @@
-//This file was auto-corrected by findeclaration.exe on 25.5.2012 20:42:33
-
 var/list/preferences_datums = list()
 
 var/global/list/special_role_times = list( //minimum age (in days) for accounts to play these roles

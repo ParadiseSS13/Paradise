@@ -247,7 +247,8 @@
 				/obj/item/weaponcrafting/stock = 1,
 				/obj/item/stack/packageWrap = 5,
 				/obj/item/stack/sheet/wood = 2,
-				/obj/item/stack/sheet/metal = 2)
+				/obj/item/stack/sheet/metal = 1,
+				/obj/item/weaponcrafting/heatsink = 1)
 	tools = list(/obj/item/weapon/screwdriver)
 	time = 100
 	category = CAT_WEAPON
@@ -260,7 +261,9 @@
 				/obj/item/weaponcrafting/stock = 1,
 				/obj/item/stack/packageWrap = 5,
 				/obj/item/stack/sheet/wood = 3,
-				/obj/item/stack/sheet/metal = 4,
+				/obj/item/stack/sheet/metal = 1,
+				/obj/item/weaponcrafting/heatsink = 1,
+				/obj/item/stack/sheet/mineral/silver = 1,
 				/obj/item/stack/sheet/plasteel = 1)
 	tools = list(/obj/item/weapon/screwdriver)
 	time = 100

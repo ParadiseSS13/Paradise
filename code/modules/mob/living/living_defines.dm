@@ -51,6 +51,7 @@
 
 	var/list/surgeries = list()	//a list of surgery datums. generally empty, they're added when the player wants them.
 
+	var/in_stasis = 0
 	var/gene_stability = DEFAULT_GENE_STABILITY
 	var/ignore_gene_stability = 0
 
@@ -60,8 +61,5 @@
 
 	var/list/say_log = list() //a log of what we've said, plain text, no spans or junk, essentially just each individual "message"
 
-
 	var/list/recent_tastes = list()
-
 	var/blood_volume = 0 //how much blood the mob has
-

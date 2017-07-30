@@ -15,6 +15,12 @@
 	icon = 'icons/obj/improvised.dmi'
 	icon_state = "riflestock"
 
+/obj/item/weaponcrafting/heatsink
+	name = "heatsinked tube"
+	desc = "A remarkably thin tube marked with indents designed to disperse heat.."
+	icon = 'icons/obj/improvised.dmi'
+	icon_state = "heatsink"
+
 
 // CRAFTING //
 

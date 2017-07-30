@@ -896,11 +896,11 @@ var/list/ventcrawl_machinery = list(/obj/machinery/atmospherics/unary/vent_pump,
 	..()
 
 /mob/living/carbon/Stat()
+	..()
 	if(statpanel("Status"))
 		var/obj/item/organ/internal/xenos/plasmavessel/vessel = get_int_organ(/obj/item/organ/internal/xenos/plasmavessel)
 		if(vessel)
 			stat(null, "Plasma Stored: [vessel.stored_plasma]/[vessel.max_plasma]")
-	..()
 
 /mob/living/carbon/get_all_slots()
 	return list(l_hand,
@@ -1033,7 +1033,7 @@ var/list/ventcrawl_machinery = list(/obj/machinery/atmospherics/unary/vent_pump,
 
 /*TO DO - If/when stomach organs are introduced, override this at the human level sending the item to the stomach
 so that different stomachs can handle things in different ways VB*/
-/mob/living/carbon/proc/consume(var/obj/item/weapon/reagent_containers/food/toEat, var/bitesize_override, var/taste = 1)
+/mob/living/carbon/proc/consume(var/obj/item/weapon/reagent_containers/food/toEat, var/bitesize_override, var/taste = TRUE)
 	var/this_bite = bitesize_override ? bitesize_override : toEat.bitesize
 	if(!toEat.reagents)
 		return
