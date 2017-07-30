@@ -97,7 +97,7 @@ REAGENT SCANNER
 			if(H.reagents.reagent_list.len)
 				user.show_message("<span class='notice'>Subject contains the following reagents:</span>")
 				for(var/datum/reagent/R in H.reagents.reagent_list)
-					user.show_message("<span class='notice'>[R.volume]u of [R.name][R.overdosed == 1 ? "</span> - <span class = 'boldannounce'>OVERDOSING</span>" : ".</span>"]")
+					user.show_message("<span class='notice'>[R.volume]u of [R.name][R.overdosed ? "</span> - <span class = 'boldannounce'>OVERDOSING</span>" : ".</span>"]")
 			else
 				user.show_message("<span class = 'notice'>Subject contains no reagents.</span>")
 			if(H.reagents.addiction_list.len)
@@ -216,7 +216,7 @@ REAGENT SCANNER
 				user.show_message(text("<span class='warning'>Bone fractures detected. Advanced scanner required for location.</span>"), 1)
 				break
 		for(var/obj/item/organ/external/e in H.bodyparts)
-			for(var/datum/wound/W in e.wounds) if(W.internal)
+			if(e.internal_bleeding)
 				user.show_message(text("<span class='warning'>Internal bleeding detected. Advanced scanner required for location.</span>"), 1)
 				break
 		var/blood_id = H.get_blood_id()

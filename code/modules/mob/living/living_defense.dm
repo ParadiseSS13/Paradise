@@ -261,7 +261,3 @@
 		visible_message("<span class='warning'>[user] has grabbed [src] passively!</span>")
 
 	return G
-
-/mob/living/incapacitated()
-	if(stat || paralysis || stunned || weakened || restrained())
-		return 1

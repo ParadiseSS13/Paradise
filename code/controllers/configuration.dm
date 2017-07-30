@@ -96,11 +96,7 @@
 	var/health_threshold_crit = 0
 	var/health_threshold_dead = -100
 
-	var/organ_health_multiplier = 1
-	var/organ_regeneration_multiplier = 1
-
 	var/bones_can_break = 1
-	var/limbs_can_break = 1
 
 	var/revival_pod_plants = 1
 	var/revival_cloning = 1
@@ -146,7 +142,6 @@
 	var/admin_irc = ""
 	var/admin_notify_irc = ""
 	var/cidrandomizer_irc = ""
-	var/python_path = "" //Path to the python executable.  Defaults to "python" on windows and "/usr/bin/env python2" on unix
 
 	var/default_laws = 0 //Controls what laws the AI spawns with.
 
@@ -499,12 +494,12 @@
 
 				if("python_path")
 					if(value)
-						config.python_path = value
+						python_path = value
 					else
 						if(world.system_type == UNIX)
-							config.python_path = "/usr/bin/env python2"
+							python_path = "/usr/bin/env python2"
 						else //probably windows, if not this should work anyway
-							config.python_path = "pythonw"
+							python_path = "pythonw"
 
 				if("assistant_limit")
 					config.assistantlimit = 1
@@ -637,14 +632,8 @@
 					config.slime_delay = value
 				if("animal_delay")
 					config.animal_delay = value
-				if("organ_health_multiplier")
-					config.organ_health_multiplier = value / 100
-				if("organ_regeneration_multiplier")
-					config.organ_regeneration_multiplier = value / 100
 				if("bones_can_break")
 					config.bones_can_break = value
-				if("limbs_can_break")
-					config.limbs_can_break = value
 				if("shuttle_refuel_delay")
 					config.shuttle_refuel_delay     = text2num(value)
 				if("traitor_objectives_amount")
@@ -672,6 +661,7 @@
 
 /datum/configuration/proc/loadsql(filename)  // -- TLE
 	var/list/Lines = file2list(filename)
+	var/db_version = 0
 	for(var/t in Lines)
 		if(!t)	continue
 
@@ -709,8 +699,18 @@
 				sqlfdbkpass = value
 			if("feedback_tableprefix")
 				sqlfdbktableprefix = value
+			if("db_version")
+				db_version = text2num(value)
 			else
 				diary << "Unknown setting in configuration: '[name]'"
+	if(config.sql_enabled && db_version != SQL_VERSION)
+		config.sql_enabled = 0
+		diary << "WARNING: DB_CONFIG DEFINITION MISMATCH!"
+		spawn(60)
+			if(ticker.current_state == GAME_STATE_PREGAME)
+				going = 0
+				spawn(600)
+					to_chat(world, "<span class='alert'>DB_CONFIG MISMATCH, ROUND START DELAYED. <BR>Please check database version for recent upstream changes!</span>")
 
 /datum/configuration/proc/loadoverflowwhitelist(filename)
 	var/list/Lines = file2list(filename)

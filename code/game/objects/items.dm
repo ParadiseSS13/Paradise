@@ -87,6 +87,15 @@ var/global/image/fire_overlay = image("icon" = 'icons/goonstation/effects/fire.d
 	var/sprite_sheets_obj = null //Used to override hardcoded clothing inventory object dmis in human clothing proc.
 	var/list/species_fit = null //This object has a different appearance when worn by these species
 
+	var/trip_verb = TV_TRIP
+	var/trip_chance = 0
+
+	var/trip_stun = 0
+	var/trip_weaken = 0
+	var/trip_any = FALSE
+	var/trip_walksafe = TRUE
+	var/trip_tiles = 0
+
 /obj/item/New()
 	..()
 	for(var/path in actions_types)
@@ -530,3 +539,12 @@ var/global/image/fire_overlay = image("icon" = 'icons/goonstation/effects/fire.d
 
 /obj/item/proc/is_equivalent(obj/item/I)
 	return I == src
+
+/obj/item/Crossed(atom/movable/AM)
+	if(prob(trip_chance) && ishuman(AM))
+		var/mob/living/carbon/human/H = AM
+		on_trip(H)
+
+/obj/item/proc/on_trip(mob/living/carbon/human/H)
+	if(H.slip(src, trip_stun, trip_weaken, trip_tiles, trip_walksafe, trip_any, trip_verb))
+		return TRUE

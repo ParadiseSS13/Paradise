@@ -96,8 +96,7 @@
 		var/obj/item/organ/external/affecting = H.get_organ(user.zone_sel.selecting)
 
 		if(affecting.open == 0)
-			affecting.bandage()
-			affecting.disinfect()
+			affecting.germ_level = 0
 
 			user.visible_message("<span class='green'>[user] bandages the wounds on [H]'s [affecting.name].</span>", \
 							 	 "<span class='green'>You bandage the wounds on [H]'s [affecting.name].</span>" )
@@ -142,7 +141,7 @@
 		var/obj/item/organ/external/affecting = H.get_organ(user.zone_sel.selecting)
 
 		if(affecting.open == 0)
-			affecting.salve()
+			affecting.germ_level = 0
 
 			user.visible_message("<span class='green'>[user] salves the wounds on [H]'s [affecting.name].</span>", \
 							 	 "<span class='green'>You salve the wounds on [H]'s [affecting.name].</span>" )

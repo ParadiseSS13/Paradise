@@ -97,7 +97,7 @@
 	taste_message = "like a pencil or something"
 
 /datum/reagent/carbon/reaction_turf(turf/T, volume)
-	if(!istype(T, /turf/space) && !(locate(/obj/effect/decal/cleanable/dirt) in T)) // Only add one dirt per turf.  Was causing people to crash.
+	if(!(locate(/obj/effect/decal/cleanable/dirt) in T) && !isspaceturf(T)) // Only add one dirt per turf.  Was causing people to crash.
 		new /obj/effect/decal/cleanable/dirt(T)
 
 /datum/reagent/gold
@@ -275,14 +275,10 @@
     ..()
 
 /datum/reagent/colorful_reagent/reaction_obj(obj/O, volume)
-	if(O)
-		O.color = pick(random_color_list)
-	..()
+	O.color = pick(random_color_list)
 
 /datum/reagent/colorful_reagent/reaction_turf(turf/T, volume)
-	if(T)
-		T.color = pick(random_color_list)
-	..()
+	T.color = pick(random_color_list)
 
 /datum/reagent/hair_dye
 	name = "Quantum Hair Dye"
@@ -312,7 +308,7 @@
 	description = "A mysterious chemical purported to help grow hair. Often found on late-night TV infomercials."
 	reagent_state = LIQUID
 	color = "#5DDA5D"
-	penetrates_skin = 1
+	penetrates_skin = TRUE
 	taste_message = "someone's beard"
 
 /datum/reagent/hairgrownium/reaction_mob(mob/living/M, volume)
@@ -331,7 +327,7 @@
 	description = "A mysterious and powerful chemical purported to cause rapid hair growth."
 	reagent_state = LIQUID
 	color = "#5DD95D"
-	penetrates_skin = 1
+	penetrates_skin = TRUE
 	taste_message = "multiple beards"
 
 /datum/reagent/super_hairgrownium/reaction_mob(mob/living/M, volume)
@@ -397,8 +393,8 @@
 	description = "What is this emotion you humans call \"love?\"  Oh, it's this?  This is it? Huh, well okay then, thanks."
 	reagent_state = LIQUID
 	color = "#FF83A5"
-	taste_message = "<font color='pink'><b>love</b></font>"
 	process_flags = ORGANIC | SYNTHETIC // That's the power of love~
+	taste_message = "<font color='pink'><b>love</b></font>"
 
 /datum/reagent/love/on_mob_life(mob/living/M)
 	if(M.a_intent != INTENT_HELP)

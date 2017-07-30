@@ -4,6 +4,6 @@
 	if(world.system_type == MS_WINDOWS)
 		script = replacetext(script, "/", "\\")
 
-	var/command = config.python_path + " " + script + " " + args
+	var/command = python_path + " " + script + " " + args
 	shell("[command]")
 	return
