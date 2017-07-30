@@ -111,13 +111,13 @@
 		extinguishShot()
 
 /obj/item/weapon/reagent_containers/food/drinks/drinkingglass/shotglass/attack(mob/living/carbon/human/user)
-	if((CLUMSY in user.mutations) && prob(75) && on_fire)
+	if((CLUMSY in user.mutations) && prob(50) && on_fire)
 		clumsilyDrink(user)
 	else
 		..()
 
 /obj/item/weapon/reagent_containers/food/drinks/drinkingglass/shotglass/MouseDrop(mob/living/carbon/human/user)
-	if((CLUMSY in user.mutations) && prob(75) && on_fire)
+	if((CLUMSY in user.mutations) && prob(50) && on_fire)
 		clumsilyDrink(user)
 	else
 		..()

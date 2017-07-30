@@ -429,7 +429,7 @@
 	id = "flamingmoe"
 	description = "This seems like a bunch of various alcohols thrown together, along with what looks like prescription medicine..."
 	reagent_state = LIQUID
-	color = "#58447f"
+	color = "#58447f" //rgb: 88, 66, 127
 	alcohol_perc = 0.5
 	drink_icon = "flamingmoeglass"
 	drink_name = "Flaming Moe"
