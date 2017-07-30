@@ -269,8 +269,18 @@
 	icon = 'icons/obj/chemical.dmi'
 	icon_state = "syringeproj"
 
-/obj/item/projectile/bullet/dart/syringe/tranquilizer
+/obj/item/projectile/bullet/dart/rifle
+	damage = 0
+	icon_state = "dart"
 
+/obj/item/projectile/bullet/dart/rifle/tranq
+	icon_state = "tranq"
+
+/obj/item/projectile/bullet/dart/rifle/tranq/New()
+	..()
+	reagents.add_reagent("ketamine", 10)
+
+/obj/item/projectile/bullet/dart/syringe/tranquilizer
 /obj/item/projectile/bullet/dart/syringe/tranquilizer/New()
 	..()
 	reagents.add_reagent("ether", 15)

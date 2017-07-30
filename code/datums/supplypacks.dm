@@ -402,6 +402,45 @@ var/list/all_supply_groups = list(supply_emergency,supply_security,supply_engine
 	containername = "incendiary weapons crate"
 	access = access_heads
 
+/datum/supply_packs/security/enforcer
+	name = "Enforcer Pistol Crate"
+	contains = list(/obj/item/weapon/gun/projectile/automatic/pistol/enforcer,
+					/obj/item/weapon/gun/projectile/automatic/pistol/enforcer,
+					/obj/item/weapon/gun/projectile/automatic/pistol/enforcer,
+					/obj/item/ammo_box/magazine/m45/enforcer45,
+					/obj/item/ammo_box/magazine/m45/enforcer45,
+					/obj/item/ammo_box/magazine/m45/enforcer45)
+	cost = 30
+	containername = "Enforcer pistol crate"
+
+/datum/supply_packs/security/enforcermag
+	name = "Enforcer Rubber Ammo Crate"
+	contains = list(/obj/item/ammo_box/magazine/m45/enforcer45,
+					/obj/item/ammo_box/magazine/m45/enforcer45,
+					/obj/item/ammo_box/magazine/m45/enforcer45,
+					/obj/item/ammo_box/magazine/m45/enforcer45,
+					/obj/item/ammo_box/magazine/m45/enforcer45,
+					/obj/item/ammo_box/magazine/m45/enforcer45,
+					/obj/item/ammo_box/magazine/m45/enforcer45,
+					/obj/item/ammo_box/magazine/m45/enforcer45,
+					/obj/item/ammo_box/magazine/m45/enforcer45)
+	cost = 25
+	containername = "enforcer rubber ammo crate"
+
+/datum/supply_packs/security/enforcermaglethal
+	name = "Enforcer Lethal Ammo Crate"
+	contains = list(/obj/item/ammo_box/magazine/m45/enforcer45/lethal,
+					/obj/item/ammo_box/magazine/m45/enforcer45/lethal,
+					/obj/item/ammo_box/magazine/m45/enforcer45/lethal,
+					/obj/item/ammo_box/magazine/m45/enforcer45/lethal,
+					/obj/item/ammo_box/magazine/m45/enforcer45/lethal,
+					/obj/item/ammo_box/magazine/m45/enforcer45/lethal,
+					/obj/item/ammo_box/magazine/m45/enforcer45/lethal,
+					/obj/item/ammo_box/magazine/m45/enforcer45/lethal,
+					/obj/item/ammo_box/magazine/m45/enforcer45/lethal)
+	cost = 50
+	containername = "enforcer lethal ammo crate"
+
 /datum/supply_packs/security/armory/wt550
 	name = "WT-550 Auto Rifle Crate"
 	contains = list(/obj/item/weapon/gun/projectile/automatic/wt550,
@@ -417,6 +456,34 @@ var/list/all_supply_groups = list(supply_emergency,supply_security,supply_engine
 					/obj/item/ammo_box/magazine/wt550m9,)
 	cost = 30
 	containername = "auto rifle ammo crate"
+
+/datum/supply_packs/security/armory/tranqrifle
+	name = "Tranquilizer Rifle Crate"
+	contains = list(/obj/item/weapon/gun/projectile/automatic/sniper_rifle/tranq)
+	cost = 80
+	containername = "tranquilizer rifle crate"
+
+/datum/supply_packs/security/armory/tranqriflemag
+	name = "Tranquilizer Rifle Magazines Crate"
+	contains = list(/obj/item/ammo_box/magazine/tranq,
+					/obj/item/ammo_box/magazine/tranq)
+	cost = 40
+	containername = "tranquilizer rifle magazines crate"
+
+/datum/supply_packs/security/armory/tranqammo
+	name = "Tranquilizer Rifle Ammo Crate"
+	contains = list(/obj/item/ammo_box/tranqdarts,
+					/obj/item/ammo_box/tranqdarts)
+	cost = 30
+	containername = "tranquilizer rifle ammo crate"
+
+/datum/supply_packs/security/armory/tranqpistol
+	name = "Tranquilizer Pistol Crate"
+	contains = list(/obj/item/weapon/gun/projectile/revolver/tranqpistol,
+					/obj/item/weapon/gun/projectile/revolver/tranqpistol,
+					/obj/item/weapon/gun/projectile/revolver/tranqpistol)
+	cost = 20
+	containername = "tranquilizer pistol crate"
 
 /////// Implants & etc
 

@@ -520,3 +520,43 @@
 
 	if(desc)
 		to_chat(user, desc)
+
+/////////////////
+// Dart Pistol //
+/////////////////
+
+
+/obj/item/weapon/gun/projectile/revolver/tranqpistol
+	name = "tranquilizer pistol"
+	desc = "A new tranquilizer pistol meant to help subdue wild prisoners..."
+	icon_state = "tranq-pistol"
+	force = 10
+	mag_type = /obj/item/ammo_box/magazine/internal/dart
+
+/obj/item/weapon/gun/projectile/revolver/tranqpistol/update_icon()
+	if(get_ammo() > 0)
+		icon_state = "[initial(icon_state)][chambered.BB ? "-l" : ""][chambered ? "-c" : ""]"
+	else
+		icon_state = "[initial(icon_state)]"
+
+
+/obj/item/weapon/gun/projectile/revolver/tranqpistol/attackby(obj/item/A, mob/user, params)
+	..()
+	if(istype(A, /obj/item/ammo_box) || istype(A, /obj/item/ammo_casing))
+		chamber_round()
+		update_icon()
+
+/obj/item/weapon/gun/projectile/revolver/tranqpistol/attack_self(mob/living/user)
+	var/num_unloaded = 0
+	while(get_ammo() > 0)
+		var/obj/item/ammo_casing/CB
+		CB = magazine.get_round(0)
+		chambered = null
+		update_icon()
+		CB.loc = get_turf(loc)
+		CB.update_icon()
+		num_unloaded++
+	if(num_unloaded)
+		to_chat(user, "<span class = 'notice'>You open [src] and unload the shell.</span>")
+	else
+		to_chat(user, "<span class='notice'>[src] is empty.</span>")

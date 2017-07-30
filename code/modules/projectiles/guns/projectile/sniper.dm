@@ -148,3 +148,32 @@
 	dismemberment = 0
 	weaken = 0
 	breakthings = FALSE
+	//Tranq Rifle
+
+/obj/item/weapon/gun/projectile/automatic/sniper_rifle/tranq
+	name = "tranquilizer rifle"
+	desc = "A big brother to the tranquilizer pistol, it can fold up and fit into a backpack."
+	icon_state = "SL-8"
+	item_state = "ARC"
+	mag_type = /obj/item/ammo_box/magazine/tranq
+	recoil = 0
+	fire_delay = 10
+	can_unsuppress = FALSE
+	can_suppress = FALSE
+	zoom_amt = 5 //Same as the Dragon
+	weapon_weight = WEAPON_LIGHT
+	w_class = WEIGHT_CLASS_NORMAL
+
+/obj/item/ammo_box/magazine/tranq
+	name = "Tranquilizer rounds"
+	icon_state = "oldrifle"
+	origin_tech = "combat=6"
+	ammo_type = /obj/item/ammo_casing/shotgun/dart/special/tranquilizer
+	max_ammo = 5
+	caliber = "9x39"
+
+/obj/item/ammo_box/magazine/tranq/update_icon()
+	if(ammo_count())
+		icon_state = "[initial(icon_state)]-4"
+	else
+		icon_state = "[initial(icon_state)]-0"
