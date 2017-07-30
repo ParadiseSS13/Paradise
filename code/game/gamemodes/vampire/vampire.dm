@@ -297,12 +297,12 @@ You are weak to holy things and starlight. Don't go into space and avoid the Cha
 			bloodtotal += blood / 2	//divide by 2 to counted the double suction since removing cloneloss -Melandor0
 			bloodusable += blood / 2
 		else
-			blood = min(5, H.blood_volume)	// The dead only give 5 blood
+			blood = min(5, H.blood_volume)	// The dead only give 5 bloods
 			bloodtotal += blood
 		if(old_bloodtotal != bloodtotal)
 			to_chat(owner, "<span class='notice'><b>You have accumulated [bloodtotal] [bloodtotal > 1 ? "units" : "unit"] of blood[bloodusable != old_bloodusable ? ", and have [bloodusable] left to use" : ""].</b></span>")
 		check_vampire_upgrade()
-		H.blood_volume = max(H.blood_volume - 25, 0)
+		H.blood_volume -= 25
 		if(ishuman(owner))
 			var/mob/living/carbon/human/V = owner
 			V.nutrition = min(NUTRITION_LEVEL_WELL_FED, V.nutrition + (blood / 2))

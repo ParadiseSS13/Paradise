@@ -38,11 +38,10 @@
 	desc = "A portable microcomputer by Thinktronic Systems, LTD. The surface is coated with polytetrafluoroethylene and banana drippings."
 	ttone = "honk"
 
-	trip_stun = 8
-	trip_weaken = 5
-	trip_chance = 100
-	trip_walksafe = TRUE
-	trip_verb = TV_SLIP
+/obj/item/device/pda/clown/Crossed(AM as mob|obj) //Clown PDA is slippery.
+	if(istype(AM, /mob/living/carbon))
+		var/mob/living/carbon/M =	AM
+		M.slip("pda", 8, 5, 0, 1)
 
 /obj/item/device/pda/mime
 	default_cartridge = /obj/item/weapon/cartridge/mime

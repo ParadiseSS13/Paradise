@@ -25,7 +25,6 @@
 	status_flags = CANPUSH
 	loot = list(/obj/effect/landmark/mobcorpse/syndicatesoldier)
 	del_on_death = 1
-	sentience_type = SENTIENCE_OTHER
 
 ///////////////Sword and shield////////////
 

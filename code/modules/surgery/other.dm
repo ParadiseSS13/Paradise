@@ -33,10 +33,14 @@
 	if(ishuman(target))
 		var/mob/living/carbon/human/H = target
 		var/obj/item/organ/external/affected = H.get_organ(user.zone_sel.selecting)
-		if(!affected)
-			return 0
+		if(!affected) return 0
 
-		if(affected.internal_bleeding)
+		var/internal_bleeding = 0
+		for(var/datum/wound/W in affected.wounds)
+			if(W.internal)
+				internal_bleeding = 1
+				break
+		if(internal_bleeding)
 			return 1
 		return 0
 
@@ -71,10 +75,15 @@
 
 /datum/surgery_step/fix_vein/can_use(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool,datum/surgery/surgery)
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
-	if(!affected)
-		return 0
+	if(!affected) return 0
 
-	return affected.internal_bleeding
+	var/internal_bleeding = 0
+	for(var/datum/wound/W in affected.wounds)
+		if(W.internal)
+			internal_bleeding = 1
+			break
+
+	return internal_bleeding
 
 /datum/surgery_step/fix_vein/begin_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool,datum/surgery/surgery)
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
@@ -88,7 +97,9 @@
 	user.visible_message("<span class='notice'> [user] has patched the damaged vein in [target]'s [affected.name] with \the [tool].</span>", \
 		"<span class='notice'> You have patched the damaged vein in [target]'s [affected.name] with \the [tool].</span>")
 
-	affected.internal_bleeding = FALSE
+	for(var/datum/wound/W in affected.wounds) if(W.internal)
+		affected.wounds -= W
+		affected.update_damages()
 	if(ishuman(user) && prob(40))
 		var/mob/living/carbon/human/U = user
 		U.bloody_hands(target, 0)
@@ -148,7 +159,7 @@
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
 	user.visible_message("<span class='warning'> [user]'s hand slips, slicing an artery inside [target]'s [affected.name] with \the [tool]!</span>", \
 	"<span class='warning'> Your hand slips, slicing an artery inside [target]'s [affected.name] with \the [tool]!</span>")
-	affected.take_damage(20)
+	affected.createwound(CUT, 20, 1)
 
 	return 0
 

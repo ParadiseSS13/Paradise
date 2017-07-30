@@ -1,13 +1,8 @@
 /datum/preferences
 	//The mob should have a gender you want before running this proc. Will run fine without H
 /datum/preferences/proc/random_character(gender_override)
-	var/datum/species/S = all_species[species]
-	if(!istype(S)) //The species was invalid. Set the species to the default, fetch the datum for that species and generate a random character.
-		species = initial(species)
-		S = all_species[species]
 	var/datum/robolimb/robohead
-
-	if(S.bodyflags & ALL_RPARTS)
+	if(species == "Machine")
 		var/head_model = "[!rlimb_data["head"] ? "Morpheus Cyberkinetics" : rlimb_data["head"]]"
 		robohead = all_robolimbs[head_model]
 	if(gender_override)
@@ -17,38 +12,38 @@
 	underwear = random_underwear(gender, species)
 	undershirt = random_undershirt(gender, species)
 	socks = random_socks(gender, species)
-	if(body_accessory_by_species[species])
+	if(species == "Vulpkanin")
 		body_accessory = random_body_accessory(species)
 		if(body_accessory == "None") //Required to prevent a bug where the information/icons in the character preferences screen wouldn't update despite the data being changed.
 			body_accessory = null
-	if(S.bodyflags & (HAS_SKIN_TONE|HAS_ICON_SKIN_TONE))
+	if(species in list("Human", "Drask", "Vox"))
 		s_tone = random_skin_tone(species)
 	h_style = random_hair_style(gender, species, robohead)
 	f_style = random_facial_hair_style(gender, species, robohead)
-	if(species in list("Human", "Unathi", "Tajaran", "Skrell", "Machine", "Wryn", "Vulpkanin", "Vox"))
+	if(species in list("Human", "Unathi", "Tajaran", "Skrell", "Machine", "Vulpkanin", "Vox"))
 		randomize_hair_color("hair")
 		randomize_hair_color("facial")
-	if(S.bodyflags & HAS_HEAD_ACCESSORY)
+	if(species in list("Unathi", "Vulpkanin", "Tajaran", "Machine"))
 		ha_style = random_head_accessory(species)
 		var/list/colours = randomize_skin_color(1)
 		r_headacc = colours["red"]
 		g_headacc = colours["green"]
 		b_headacc = colours["blue"]
-	if(S.bodyflags & HAS_HEAD_MARKINGS)
+	if(species in list("Machine", "Tajaran", "Unathi", "Vulpkanin"))
 		m_styles["head"] = random_marking_style("head", species, robohead, null, alt_head)
 		var/list/colours = randomize_skin_color(1)
 		m_colours["head"] = rgb(colours["red"], colours["green"], colours["blue"])
-	if(S.bodyflags & HAS_BODY_MARKINGS)
+	if(species in list("Human", "Unathi", "Grey", "Vulpkanin", "Tajaran", "Skrell", "Vox", "Drask"))
 		m_styles["body"] = random_marking_style("body", species)
 		var/list/colours = randomize_skin_color(1)
 		m_colours["body"] = rgb(colours["red"], colours["green"], colours["blue"])
-	if(S.bodyflags & HAS_TAIL_MARKINGS) //Species with tail markings.
+	if(species in list("Vox", "Vulpkanin")) //Species with tail markings.
 		m_styles["tail"] = random_marking_style("tail", species, null, body_accessory)
 		var/list/colours = randomize_skin_color(1)
 		m_colours["tail"] = rgb(colours["red"], colours["green"], colours["blue"])
-	if(!(S.bodyflags & ALL_RPARTS))
+	if(species != "Machine")
 		randomize_eyes_color()
-	if(S.bodyflags & HAS_SKIN_COLOR)
+	if(species in list("Unathi", "Tajaran", "Skrell", "Vulpkanin"))
 		randomize_skin_color()
 	backbag = 2
 	age = rand(AGE_MIN, AGE_MAX)
@@ -259,7 +254,7 @@
 		icobase = 'icons/mob/human_races/r_human.dmi'
 
 	var/fat=""
-	if(disabilities & DISABILITY_FLAG_FAT && (CAN_BE_FAT in current_species.species_traits))
+	if(disabilities & DISABILITY_FLAG_FAT && current_species.flags & CAN_BE_FAT)
 		fat="_fat"
 	preview_icon = new /icon(icobase, "torso_[g][fat]")
 	preview_icon.Blend(new /icon(icobase, "groin_[g]"), ICON_OVERLAY)

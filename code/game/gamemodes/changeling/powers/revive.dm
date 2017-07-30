@@ -42,13 +42,15 @@
 			O.damage_state = "00"
 			O.germ_level = 0
 			QDEL_NULL(O.hidden)
+			O.number_wounds = 0
 			O.open = 0
-			O.internal_bleeding = FALSE
 			O.perma_injury = 0
 			O.status = 0
 			O.trace_chemicals.Cut()
+			QDEL_LIST(O.wounds)
+			O.wound_update_accuracy = 1
 		for(var/obj/item/organ/internal/IO in H.internal_organs)
-			IO.rejuvenate()
+			IO.damage = 0
 			IO.trace_chemicals.Cut()
 		H.remove_all_embedded_objects()
 		H.updatehealth()

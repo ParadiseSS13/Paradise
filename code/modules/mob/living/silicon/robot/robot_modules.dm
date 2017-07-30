@@ -239,6 +239,7 @@
 	modules += new /obj/item/device/lightreplacer(src)
 	modules += new /obj/item/weapon/holosign_creator(src)
 	emag = new /obj/item/weapon/reagent_containers/spray(src)
+	modules += new /obj/item/weapon/matter_decompiler(src)
 
 	emag.reagents.add_reagent("lube", 250)
 	emag.name = "Lube spray"
@@ -258,6 +259,7 @@
 	modules += new /obj/item/device/instrument/violin(src)
 	modules += new /obj/item/device/instrument/guitar(src)
 	modules += new /obj/item/device/instrument/eguitar(src)
+	modules += new /obj/item/weapon/matter_decompiler(src)
 
 	var/obj/item/weapon/rsf/M = new /obj/item/weapon/rsf(src)
 	M.matter = 30

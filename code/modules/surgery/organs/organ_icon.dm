@@ -49,7 +49,7 @@ var/global/list/limb_icon_cache = list()
 	if(!isnull(dna.GetUIValue(DNA_UI_SKIN_TONE)) && ((species.bodyflags & HAS_SKIN_TONE) || (species.bodyflags & HAS_ICON_SKIN_TONE)))
 		s_col = null
 		s_tone = dna.GetUIValue(DNA_UI_SKIN_TONE)
-	if(species.bodyflags & HAS_SKIN_COLOR)
+	if(species.flags & HAS_SKIN_COLOR)
 		s_tone = null
 		s_col = list(dna.GetUIValue(DNA_UI_SKIN_R), dna.GetUIValue(DNA_UI_SKIN_G), dna.GetUIValue(DNA_UI_SKIN_B))
 
@@ -58,7 +58,7 @@ var/global/list/limb_icon_cache = list()
 	var/obj/item/organ/internal/eyes/eyes = owner.get_int_organ(/obj/item/organ/internal/eyes)//owner.internal_bodyparts_by_name["eyes"]
 	if(eyes) eyes.update_colour()
 
-/obj/item/organ/external/head/remove(mob/living/user, ignore_children)
+/obj/item/organ/external/head/remove()
 	get_icon()
 	. = ..()
 
@@ -115,7 +115,7 @@ var/global/list/limb_icon_cache = list()
 			mob_icon.Blend(eyes_icon, ICON_OVERLAY)
 			overlays |= eyes_icon
 
-	if(owner.lip_style && (LIPS in species.species_traits))
+	if(owner.lip_style && (species && (species.flags & HAS_LIPS)))
 		var/icon/lip_icon = new/icon('icons/mob/human_face.dmi', "lips_[owner.lip_style]_s")
 		overlays |= lip_icon
 		mob_icon.Blend(lip_icon, ICON_OVERLAY)
@@ -139,7 +139,7 @@ var/global/list/limb_icon_cache = list()
 
 	if(f_style)
 		var/datum/sprite_accessory/facial_hair_style = facial_hair_styles_list[f_style]
-		if(facial_hair_style && ((facial_hair_style.species_allowed && (species.name in facial_hair_style.species_allowed)) || (src.species.bodyflags & ALL_RPARTS)))
+		if(facial_hair_style && ((facial_hair_style.species_allowed && (species.name in facial_hair_style.species_allowed)) || (src.species.flags & ALL_RPARTS)))
 			var/icon/facial_s = new/icon("icon" = facial_hair_style.icon, "icon_state" = "[facial_hair_style.icon_state]_s")
 			if(species.name == "Slime People") // I am el worstos
 				facial_s.Blend(rgb(owner.r_skin, owner.g_skin, owner.b_skin, 160), ICON_AND)
@@ -149,7 +149,7 @@ var/global/list/limb_icon_cache = list()
 
 	if(h_style && !(owner.head && (owner.head.flags & BLOCKHEADHAIR)))
 		var/datum/sprite_accessory/hair_style = hair_styles_list[h_style]
-		if(hair_style && ((species.name in hair_style.species_allowed) || (src.species.bodyflags & ALL_RPARTS)))
+		if(hair_style && ((species.name in hair_style.species_allowed) || (src.species.flags & ALL_RPARTS)))
 			var/icon/hair_s = new/icon("icon" = hair_style.icon, "icon_state" = "[hair_style.icon_state]_s")
 			if(species.name == "Slime People") // I am el worstos
 				hair_s.Blend(rgb(owner.r_skin, owner.g_skin, owner.b_skin, 160), ICON_AND)
@@ -172,7 +172,7 @@ var/global/list/limb_icon_cache = list()
 				gender = "f"
 			else
 				gender = "m"
-		if(limb_name == "head")
+		if(limb_name == "head" && !is_stump() && !(status & ORGAN_DESTROYED))
 			var/obj/item/organ/external/head/head_organ = src
 			head_organ.handle_alt_icon()
 
@@ -192,7 +192,7 @@ var/global/list/limb_icon_cache = list()
 
 /obj/item/organ/external/chest/get_icon_state(skeletal)
 	var/result = ..()
-	if(fat && !skeletal && !(status & ORGAN_ROBOT) && (CAN_BE_FAT in species.species_traits))
+	if(fat && !skeletal && !(status & ORGAN_ROBOT) && (species.flags & CAN_BE_FAT))
 		result[2] += "_fat"
 	return result
 

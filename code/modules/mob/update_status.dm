@@ -43,8 +43,8 @@
 /mob/proc/can_speak()
 	return 1
 
-/mob/proc/incapacitated(ignore_restraints = FALSE, ignore_grab = FALSE, ignore_lying = FALSE)
-	return FALSE
+/mob/proc/incapacitated(ignore_restraints, ignore_grab)
+	return 0
 
 /mob/proc/restrained(ignore_grab)
 	// All are created free

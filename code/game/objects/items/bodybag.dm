@@ -90,3 +90,50 @@
 	if(loc && (isturf(loc) || istype(loc, /obj/structure/morgue) || istype(loc, /obj/structure/crematorium)))
 		if(!open())
 			to_chat(user, "<span class='notice'>It won't budge!</span>")
+
+/obj/item/bodybag/cryobag
+	name = "stasis bag"
+	desc = "A folded, non-reusable bag designed for the preservation of an occupant's brain by stasis."
+	icon = 'icons/obj/cryobag.dmi'
+	icon_state = "bodybag_folded"
+
+	attack_self(mob/user)
+		var/obj/structure/closet/body_bag/cryobag/R = new /obj/structure/closet/body_bag/cryobag(user.loc)
+		R.add_fingerprint(user)
+		qdel(src)
+
+
+
+/obj/structure/closet/body_bag/cryobag
+	name = "stasis bag"
+	desc = "A non-reusable plastic bag designed for the preservation of an occupant's brain by stasis."
+	icon = 'icons/obj/cryobag.dmi'
+	item_path = /obj/item/bodybag/cryobag
+	var/used = 0
+	var/locked = 0
+	req_access = list(access_medical)
+
+	open()
+		. = ..()
+		if(used)
+			var/obj/item/O = new/obj/item(src.loc)
+			O.name = "used stasis bag"
+			O.icon = src.icon
+			O.icon_state = "bodybag_used"
+			O.desc = "Pretty useless now.."
+			qdel(src)
+
+	MouseDrop(over_object, src_location, over_location)
+		if((over_object == usr && (in_range(src, usr) || usr.contents.Find(src))))
+			if(!ishuman(usr))	return
+			to_chat(usr, "<span class='warning'>You can't fold that up anymore..</span>")
+		..()
+
+	attackby(W as obj, mob/user as mob, params)
+		if(istype(W, /obj/item/weapon/card/id) || istype(W, /obj/item/device/pda))
+			if(src.allowed(user))
+				src.locked = !src.locked
+				to_chat(user, "The controls are now [src.locked ? "locked." : "unlocked."]")
+			else
+				to_chat(user, "<span class='warning'>Access denied.</span>")
+			return

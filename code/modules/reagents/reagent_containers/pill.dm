@@ -10,7 +10,6 @@
 	possible_transfer_amounts = null
 	volume = 50
 	consume_sound = null
-	taste = FALSE
 
 /obj/item/weapon/reagent_containers/food/pill/New()
 	..()

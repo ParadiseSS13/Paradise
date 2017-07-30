@@ -330,8 +330,6 @@
 	SetParalysis(max(paralysis, amount), updating, force)
 
 /mob/living/SetParalysis(amount, updating = 1, force = 0)
-	if((!!amount) == (!!paralysis)) // We're not changing from + to 0 or vice versa
-		updating = FALSE
 	if(status_flags & CANPARALYSE || force)
 		paralysis = max(amount, 0)
 		if(updating)
@@ -360,11 +358,9 @@
 	SetSleeping(max(sleeping, amount), updating, no_alert)
 
 /mob/living/SetSleeping(amount, updating = 1, no_alert = FALSE)
-	if((!!amount) == (!!sleeping)) // We're not changing from + to 0 or vice versa
-		updating = FALSE
 	sleeping = max(amount, 0)
+	update_sleeping_effects(no_alert)
 	if(updating)
-		update_sleeping_effects(no_alert)
 		update_stat()
 		update_canmove()
 
@@ -414,8 +410,6 @@
 	SetStunned(max(stunned, amount), updating, force)
 
 /mob/living/SetStunned(amount, updating = 1, force = 0) //if you REALLY need to set stun to a set amount without the whole "can't go below current stunned"
-	if((!!amount) == (!!stunned)) // We're not changing from + to 0 or vice versa
-		updating = FALSE
 	if(status_flags & CANSTUN || force)
 		stunned = max(amount, 0)
 		if(updating)
@@ -446,8 +440,6 @@
 	SetWeakened(max(weakened, amount), updating, force)
 
 /mob/living/SetWeakened(amount, updating = 1, force = 0)
-	if((!!amount) == (!!weakened)) // We're not changing from + to 0 or vice versa
-		updating = FALSE
 	if(status_flags & CANWEAKEN || force)
 		weakened = max(amount, 0)
 		if(updating)

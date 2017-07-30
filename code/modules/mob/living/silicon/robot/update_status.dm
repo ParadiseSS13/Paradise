@@ -1,7 +1,7 @@
 // No args for restraints because robots don't have those
-/mob/living/silicon/robot/incapacitated(ignore_restraints = FALSE, ignore_grab = FALSE, ignore_lying = FALSE)
+/mob/living/silicon/robot/incapacitated()
 	if(stat || lockcharge || weakened || stunned || paralysis || !is_component_functioning("actuator"))
-		return TRUE
+		return 1
 
 /mob/living/silicon/robot/update_stat()
 	if(status_flags & GODMODE)

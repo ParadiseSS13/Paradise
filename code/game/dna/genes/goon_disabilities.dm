@@ -44,7 +44,7 @@
 		return 0
 	if(ishuman(M))
 		var/mob/living/carbon/human/H = M
-		if((RADIMMUNE in H.species.species_traits) && !(flags & MUTCHK_FORCED))
+		if(H.species && H.species.flags & RADIMMUNE && !(flags & MUTCHK_FORCED))
 			return 0
 	return 1
 

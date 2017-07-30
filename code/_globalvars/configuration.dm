@@ -23,9 +23,6 @@ var/mouse_respawn_time = 5 //Amount of time that must pass between a player dyin
 // It's defined here as a global because this is a hilariously bad thing to have on the easily-edited config datum
 var/global/shutdown_shell_command
 
-// Also global to prevent easy edits
-var/global/python_path = "" //Path to the python executable.  Defaults to "python" on windows and "/usr/bin/env python2" on unix
-
 // Debug is used exactly once (in living.dm) but is commented out in a lot of places.  It is not set anywhere and only checked.
 // Debug2 is used in conjunction with a lot of admin verbs and therefore is actually legit.
 var/Debug = 0	// global debug switch

@@ -57,12 +57,6 @@
 			T.on_cross(src, AM)
 	..()
 
-/obj/item/weapon/grown/on_trip(mob/living/carbon/human/H)
-	. = ..()
-	if(. && seed)
-		for(var/datum/plant_gene/trait/T in seed.genes)
-			T.on_slip(src, H)
-
 /obj/item/weapon/grown/throw_impact(atom/hit_atom)
 	if(!..()) //was it caught by a mob?
 		if(seed)

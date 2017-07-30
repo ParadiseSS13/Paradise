@@ -8,7 +8,6 @@
 #define OXY			"oxy"
 #define CLONE		"clone"
 #define STAMINA 	"stamina"
-#define BRAIN		"brain"
 
 #define STUN		"stun"
 #define WEAKEN		"weaken"

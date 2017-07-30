@@ -1,3 +1,5 @@
+//This file was auto-corrected by findeclaration.exe on 25.5.2012 20:42:33
+
 /*
 Destructive Analyzer
 
@@ -20,7 +22,7 @@ Note: Must be placed within 3 tiles of the R&D Console
 	component_parts += new /obj/item/weapon/stock_parts/manipulator(null)
 	component_parts += new /obj/item/weapon/stock_parts/micro_laser(null)
 	RefreshParts()
-
+	
 /obj/machinery/r_n_d/destructive_analyzer/upgraded/New()
 	..()
 	component_parts = list()

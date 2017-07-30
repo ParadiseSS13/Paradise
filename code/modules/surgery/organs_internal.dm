@@ -200,7 +200,7 @@
 			return
 
 		for(var/obj/item/organ/internal/I in affected.internal_organs)
-			if(I && I.damage)
+			if(I && I.damage > 0)
 				if(I.robotic < 2 && !istype (tool, /obj/item/stack/nanopaste))
 					if(!(I.sterile))
 						spread_germs_to_organ(I, user, tool)
@@ -238,7 +238,7 @@
 		for(var/obj/item/organ/internal/I in affected.internal_organs)
 			if(I)
 				I.surgeryize()
-			if(I && I.damage)
+			if(I && I.damage > 0)
 				if(I.robotic < 2 && !istype (tool, /obj/item/stack/nanopaste))
 					user.visible_message("<span class='notice'> [user] treats damage to [target]'s [I.name] with [tool_name].</span>", \
 					"<span class='notice'> You treat damage to [target]'s [I.name] with [tool_name].</span>" )
@@ -264,6 +264,8 @@
 			user.visible_message("<span class='notice'> [user] has transplanted [tool] into [target]'s [parse_zone(target_zone)].</span>",
 			"<span class='notice'> You have transplanted [tool] into [target]'s [parse_zone(target_zone)].</span>")
 
+		I.status &= ~ORGAN_CUT_AWAY
+
 	else if(current_type == "extract")
 		var/mob/living/simple_animal/borer/B = target.has_brain_worms()
 		if(target_zone == "head" && B && B.host == target)
@@ -278,6 +280,7 @@
 
 			add_logs(user, target, "surgically removed [I.name] from", addition="INTENT: [uppertext(user.a_intent)]")
 			spread_germs_to_organ(I, user, tool)
+			I.status |= ORGAN_CUT_AWAY
 			var/obj/item/thing = I.remove(target)
 			if(!istype(thing))
 				thing.forceMove(get_turf(target))
@@ -350,10 +353,10 @@
 		else if(istype(tool, /obj/item/stack/medical/bruise_pack) || istype(tool, /obj/item/stack/nanopaste))
 			dam_amt = 5
 			target.adjustToxLoss(10)
-			affected.take_damage(5)
+			affected.createwound(CUT, 5)
 
 		for(var/obj/item/organ/internal/I in affected.internal_organs)
-			if(I && I.damage && !(I.tough))
+			if(I && I.damage > 0 && !(I.tough))
 				I.take_damage(dam_amt,0)
 
 		return 0
@@ -398,7 +401,7 @@
 			if(affected)
 				user.visible_message("<span class='warning'> [user]'s hand slips, damaging [target]'s [affected.name] with [tool]!</span>", \
 				"<span class='warning'> Your hand slips, damaging [target]'s [affected.name] with [tool]!</span>")
-				affected.take_damage(20)
+				affected.createwound(BRUISE, 20)
 			else
 				user.visible_message("<span class='warning'> [user]'s hand slips, damaging [target]'s [parse_zone(target_zone)] with [tool]!</span>", \
 				"<span class='warning'> Your hand slips, damaging [target]'s [parse_zone(target_zone)] with [tool]!</span>")
@@ -418,7 +421,7 @@
 			var/self_msg = "<span class='warning'> Your hand slips, tearing skin!</span>"
 			user.visible_message(msg, self_msg)
 		if(affected)
-			affected.take_damage(20)
+			affected.createwound(BRUISE, 20)
 		return 0
 
 

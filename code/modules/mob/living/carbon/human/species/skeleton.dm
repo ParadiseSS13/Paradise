@@ -13,10 +13,11 @@
 	blood_color = "#FFFFFF"
 	flesh_color = "#E6E6C6"
 
-	species_traits = list(NO_BREATHE, NO_BLOOD, RADIMMUNE, VIRUSIMMUNE)
+	flags = NO_BREATHE | NO_BLOOD | RADIMMUNE
 
 	oxy_mod = 0
 
+	virus_immune = 1 //why is this a var and not a flag?
 	dietflags = DIET_OMNI
 	reagent_tag = PROCESS_ORG
 

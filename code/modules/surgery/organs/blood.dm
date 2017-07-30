@@ -1,24 +1,26 @@
 /****************************************************
 				BLOOD SYSTEM
 ****************************************************/
-
 /mob/living/carbon/human/proc/suppress_bloodloss(amount)
 	if(bleedsuppress)
 		return
 	else
-		bleedsuppress = TRUE
-		addtimer(src, "resume_bleeding", amount)
+		bleedsuppress = 1
+		spawn(amount)
+			bleedsuppress = 0
+			if(stat != DEAD && bleed_rate)
+				to_chat(src, "<span class='warning'>The blood soaks through your bandage.</span>")
 
-/mob/living/carbon/human/proc/resume_bleeding()
-	bleedsuppress = FALSE
-	if(stat != DEAD && bleed_rate)
-		to_chat(src, "<span class='warning'>The blood soaks through your bandage.</span>")
+
 
 // Takes care blood loss and regeneration
 /mob/living/carbon/human/handle_blood()
 	var/list/blood_data = get_blood_data(get_blood_id())//PROCCEPTION
 
-	if(NO_BLOOD in species.species_traits)
+	if(in_stasis)
+		return
+
+	if(species && species.flags & NO_BLOOD)
 		bleed_rate = 0
 		return
 
@@ -38,54 +40,52 @@
 
 
 		//Effects of bloodloss
-		var/word = pick("dizzy","woozy","faint")
+		var/oxy_immune = species.flags & NO_BREATHE //Some species have blood, but don't breathe; they should still suffer the effects of bloodloss.
+
 		switch(blood_volume)
 			if(BLOOD_VOLUME_OKAY to BLOOD_VOLUME_SAFE)
 				if(prob(5))
-					to_chat(src, "<span class='warning'>You feel [word].</span>")
-				apply_damage_type(round((BLOOD_VOLUME_NORMAL - blood_volume) * 0.01, 1), species.blood_damage_type)
+					to_chat(src, "<span class='warning'>You feel [pick("dizzy","woozy","faint")].</span>")
+				if(oxy_immune)
+					adjustToxLoss(round((BLOOD_VOLUME_NORMAL - blood_volume) * 0.01, 1))
+				else
+					adjustOxyLoss(round((BLOOD_VOLUME_NORMAL - blood_volume) * 0.01, 1))
 			if(BLOOD_VOLUME_BAD to BLOOD_VOLUME_OKAY)
-				apply_damage_type(round((BLOOD_VOLUME_NORMAL - blood_volume) * 0.02, 1), species.blood_damage_type)
+				if(oxy_immune)
+					adjustToxLoss(round((BLOOD_VOLUME_NORMAL - blood_volume) * 0.02, 1))
+				else
+					adjustOxyLoss(round((BLOOD_VOLUME_NORMAL - blood_volume) * 0.02, 1))
 				if(prob(5))
 					EyeBlurry(6)
+
+					var/word = pick("dizzy","woozy","faint")
 					to_chat(src, "<span class='warning'>You feel very [word].</span>")
 			if(BLOOD_VOLUME_SURVIVE to BLOOD_VOLUME_BAD)
-				apply_damage_type(5, species.blood_damage_type)
+				if(oxy_immune)
+					adjustToxLoss(5)
+				else
+					adjustOxyLoss(5)
 				if(prob(15))
 					Paralyse(rand(1,3))
+					var/word = pick("dizzy","woozy","faint")
 					to_chat(src, "<span class='warning'>You feel extremely [word].</span>")
 			if(0 to BLOOD_VOLUME_SURVIVE)
 				death()
 
-		var/temp_bleed = 0
-		var/internal_bleeding_rate = 0
 		//Bleeding out
-		for(var/X in bodyparts)
-			var/obj/item/organ/external/BP = X
-			var/brutedamage = BP.brute_dam
-
-			if(BP.status & ORGAN_ROBOT)
+		var/temp_bleed = 0
+		for(var/obj/item/organ/external/temp in bodyparts)
+			if(!(temp.status & ORGAN_BLEEDING) || temp.status & ORGAN_ROBOT)
 				continue
-
-			//We want an accurate reading of .len
-			listclearnulls(BP.embedded_objects)
-			temp_bleed += 0.5*BP.embedded_objects.len
-
-			if(brutedamage >= 20)
-				temp_bleed += (brutedamage * 0.013)
-
-			if(BP.open)
+			for(var/datum/wound/W in temp.wounds)
+				if(W.bleeding())
+					temp_bleed += W.damage / 4
+			if(temp.open)
 				temp_bleed += 0.5
-
-			if(BP.internal_bleeding)
-				internal_bleeding_rate += 0.5
 
 		bleed_rate = max(bleed_rate - 0.5, temp_bleed)//if no wounds, other bleed effects (heparin) naturally decreases
 
-		if(internal_bleeding_rate && !(status_flags & FAKEDEATH))
-			bleed(internal_bleeding_rate)
-
-		if(bleed_rate && !bleedsuppress && !(status_flags & FAKEDEATH))
+		if(bleed_rate && !bleedsuppress)
 			bleed(bleed_rate)
 
 //Makes a blood drop, leaking amt units of blood from the mob
@@ -99,7 +99,7 @@
 				add_splatter_floor(loc, 1)
 
 /mob/living/carbon/human/bleed(amt)
-	if(!(NO_BLOOD in species.species_traits))
+	if(!(species && species.flags & NO_BLOOD))
 		..()
 		if(species.exotic_blood)
 			var/datum/reagent/R = chemical_reagents_list[get_blood_id()]
@@ -149,7 +149,7 @@
 					C.reagents.add_reagent("toxin", amount * 0.5)
 					return 1
 
-			C.blood_volume = min(C.blood_volume + round(amount, 0.1), BLOOD_VOLUME_NORMAL)
+			C.blood_volume = min(C.blood_volume + round(amount, 0.1), BLOOD_VOLUME_MAXIMUM)
 			return 1
 
 	AM.reagents.add_reagent(blood_id, amount, blood_data, bodytemperature)
@@ -201,7 +201,7 @@
 /mob/living/carbon/human/get_blood_id()
 	if(species.exotic_blood)//some races may bleed water..or kethcup..
 		return species.exotic_blood
-	else if((NO_BLOOD in species.species_traits) || (NOCLONE in mutations))
+	else if((species && species.flags & NO_BLOOD) || (NOCLONE in mutations))
 		return
 	return "blood"
 
@@ -232,6 +232,7 @@
 /mob/living/proc/add_splatter_floor(turf/T, small_drip)
 	if(get_blood_id() != "blood")//is it blood or welding fuel?
 		return
+
 	if(!T)
 		T = get_turf(src)
 
@@ -269,7 +270,7 @@
 	B.update_icon()
 
 /mob/living/carbon/human/add_splatter_floor(turf/T, small_drip)
-	if(!(NO_BLOOD in species.species_traits))
+	if(!(species && species.flags & NO_BLOOD))
 		..()
 
 /mob/living/carbon/alien/add_splatter_floor(turf/T, small_drip)

@@ -89,8 +89,7 @@
 
 				if("delete")
 					for(var/d in objs)
-						if(!datum_is_forbidden(d))
-							qdel(d)
+						qdel(d)
 
 				if("select")
 					var/text = ""
@@ -118,9 +117,6 @@
 					if("set" in query_tree)
 						var/list/set_list = query_tree["set"]
 						for(var/d in objs)
-							// Forbid explicitly modifying an admin datum's vars
-							if(datum_is_forbidden(d))
-								return
 							for(var/list/sets in set_list)
 								var/datum/temp = d
 								var/i = 0
@@ -128,11 +124,11 @@
 									if(++i == sets.len)
 										if(istype(temp, /turf) && (v == "x" || v == "y" || v == "z"))
 											continue
-										if(!datum_is_forbidden(temp.vars[v]))
-											return
+										if(istype(temp.vars[v], /datum/admins))
+											continue
 										temp.vars[v] = SDQL_expression(d, set_list[sets])
 										break
-									if(temp.vars.Find(v) && (istype(temp.vars[v], /datum) || istype(temp.vars[v], /client)) && !datum_is_forbidden(temp.vars[v]))
+									if(temp.vars.Find(v) && (istype(temp.vars[v], /datum) || istype(temp.vars[v], /client)) && !istype(temp.vars[v], /datum/admins))
 										temp = temp.vars[v]
 									else
 										break
@@ -439,11 +435,6 @@
 	var/list/new_args = list()
 	for(var/arg in arguments)
 		new_args[++new_args.len] = SDQL_expression(source, arg)
-
-	for(var/p in forbidden_varedit_object_types)
-		if(istype(object, p))
-			to_chat(usr, "<span class='warning'>It is forbidden to run this object's procs.</span>")
-			return
 
 	if(object == world) // Global proc.
 		procname = "/proc/[procname]"

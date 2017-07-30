@@ -144,11 +144,11 @@
 
 // This adds the basic clock, shuttle recall timer, and malf_ai info to all silicon lifeforms
 /mob/living/silicon/Stat()
-	..()
 	if(statpanel("Status"))
 		show_stat_station_time()
 		show_stat_emergency_shuttle_eta()
 		show_system_integrity()
+	..()
 
 //Silicon mob language procs
 

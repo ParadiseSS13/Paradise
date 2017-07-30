@@ -57,6 +57,9 @@ var/global/list/blocked_chems = list("polonium", "initropidril", "concentrated_i
 							"cryogenic_liquid", "dark_matter", "b_sorium",
 							"reagent", "life","dragonsbreath")
 
+//List of chems/mixtures that can't grow in plants (in addition to the global random chem blacklist)
+var/global/list/plant_blocked_chems = list()	//filled in /datum/reagents/New() with chems that have can_grow_in_plants = 0
+
 var/global/list/safe_chem_list = list("antihol", "charcoal", "epinephrine", "insulin", "teporone","silver_sulfadiazine", "salbutamol",
 									  "omnizine", "stimulants", "synaptizine", "potass_iodide", "oculine", "mannitol", "styptic_powder",
 									  "spaceacillin", "salglu_solution", "sal_acid", "cryoxadone", "blood", "synthflesh", "hydrocodone",
