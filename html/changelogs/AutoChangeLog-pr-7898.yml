@@ -1,6 +1,0 @@
-author: "Purpose2"
-delete-after: True
-changes: 
-  - bugfix: "MetaStation: Adds the missing kitchen windows"
-  - bugfix: "MetaStation: Nerfs the Top Hat equivalent of the Sword in the Stone."
-  - bugfix: "MetaStation: Adds a Pet Supply vendor, chefs now make sushi again!"
