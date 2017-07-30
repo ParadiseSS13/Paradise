@@ -424,6 +424,18 @@
 	drink_desc = "Does... does this mean that Arthur and Ford are on the station? Oh joy."
 	taste_message = "the number fourty two"
 
+/datum/reagent/consumable/ethanol/flaming_moe
+	name = "Flaming Moe"
+	id = "flamingmoe"
+	description = "This seems like a bunch of various alcohols thrown together, along with what looks like prescription medicine..."
+	reagent_state = LIQUID
+	color = "#58447f"
+	alcohol_perc = 0.5
+	drink_icon = "flamingmoeglass"
+	drink_name = "Flaming Moe"
+	drink_desc = "Happiness is just a Flaming Moe away!"
+	taste_message = "caramelised booze and medicine"
+
 /datum/reagent/consumable/ethanol/brave_bull
 	name = "Brave Bull"
 	id = "bravebull"
