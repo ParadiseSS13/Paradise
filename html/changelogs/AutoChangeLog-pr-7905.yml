@@ -1,0 +1,5 @@
+author: "Fox McCloud"
+delete-after: True
+changes: 
+  - bugfix: "Dead hearts now induce a heart attack"
+  - bugfix: "Fixed concentrated initro never metabolizing"
