@@ -61,7 +61,7 @@
 /obj/structure/respawner
 	name = "\improper Long-Distance Cloning Machine"
 	desc = "Top-of-the-line Nanotrasen technology allows for cloning of crew members from off-station upon bluespace request."
-	icon = 'icons/obj/xenoarchaeology.dmi'
+	icon = 'icons/obj/objects.dmi'
 	icon_state = "borgcharger1(old)"
 	anchored = 1
 	density = 1
