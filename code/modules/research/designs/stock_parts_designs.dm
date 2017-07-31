@@ -127,7 +127,7 @@
 	materials = list(MAT_METAL = 200, MAT_GLASS = 200, MAT_GOLD = 100)
 	build_path = /obj/item/weapon/stock_parts/capacitor/super
 	category = list("Stock Parts")
-	lathe_time_factor = 5
+	lathe_time_factor = 3
 
 /datum/design/phasic_sensor
 	name = "Phasic Scanning Module"
@@ -138,7 +138,7 @@
 	materials = list(MAT_METAL = 200, MAT_GLASS = 150, MAT_SILVER = 60)
 	build_path = /obj/item/weapon/stock_parts/scanning_module/phasic
 	category = list("Stock Parts")
-	lathe_time_factor = 5
+	lathe_time_factor = 3
 
 /datum/design/pico_mani
 	name = "Pico Manipulator"
@@ -149,7 +149,7 @@
 	materials = list(MAT_METAL = 200)
 	build_path = /obj/item/weapon/stock_parts/manipulator/pico
 	category = list("Stock Parts")
-	lathe_time_factor = 5
+	lathe_time_factor = 3
 
 /datum/design/ultra_micro_laser
 	name = "Ultra-High-Power Micro-Laser"
@@ -160,7 +160,7 @@
 	materials = list(MAT_METAL = 200, MAT_GLASS = 150, MAT_URANIUM = 60)
 	build_path = /obj/item/weapon/stock_parts/micro_laser/ultra
 	category = list("Stock Parts")
-	lathe_time_factor = 5
+	lathe_time_factor = 3
 
 /datum/design/super_matter_bin
 	name = "Super Matter Bin"
@@ -171,7 +171,7 @@
 	materials = list(MAT_METAL = 200)
 	build_path = /obj/item/weapon/stock_parts/matter_bin/super
 	category = list("Stock Parts")
-	lathe_time_factor = 5
+	lathe_time_factor = 3
 
 //Tier 4 Parts
 
