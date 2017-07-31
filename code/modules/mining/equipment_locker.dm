@@ -978,7 +978,6 @@
 	hitsound = 'sound/weapons/bladeslice.ogg'
 	attack_verb = list("smashes", "crushes", "cleaves", "chops", "pulps")
 	sharp = 1
-	edge = 1
 	var/charged = 1
 	var/charge_time = 16
 	var/atom/mark = null

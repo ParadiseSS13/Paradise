@@ -11,13 +11,16 @@ var/global/datum/repository/air_alarm/air_alarm_repository = new()
 	if(!refresh)
 		return cache_entry.data
 
-	if(ticker && ticker.current_state < GAME_STATE_PLAYING && istype(passed_alarm)) // Generating the list for the first time as the game hasn't started - no need to run through the machines list everything every time
-		alarms[++alarms.len] = passed_alarm.get_nano_data_console()
+	if(ticker && ticker.current_state < GAME_STATE_PLAYING && istype(passed_alarm)) // Generating the list for the first time as the game hasn't started - no need to run through the machines list everything every time 
+		alarms = cache_entry.data // Don't deleate the list
+		if(is_station_contact(passed_alarm.z)) // Still need sanity checks
+			alarms[++alarms.len] = passed_alarm.get_nano_data_console() 
 	else
-		for(var/obj/machinery/alarm/alarm in (monitored_alarms ? monitored_alarms : air_alarms))
-			if(!monitored_alarms && !is_station_contact(alarm.z))
+		for(var/obj/machinery/alarm/alarm in (monitored_alarms ? monitored_alarms : air_alarms)) // Generating the whole list again is a bad habit but I can't be bothered to fix it right now
+			if(!monitored_alarms && !is_station_contact(alarm.z)) 
 				continue
 			alarms[++alarms.len] = alarm.get_nano_data_console()
+
 
 	cache_entry.timestamp = world.time //+ 10 SECONDS
 	cache_entry.data = alarms

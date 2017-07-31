@@ -59,3 +59,6 @@
 	var/tesla_ignore = FALSE
 
 	var/list/say_log = list() //a log of what we've said, plain text, no spans or junk, essentially just each individual "message"
+
+	var/list/recent_tastes = list()
+	var/blood_volume = 0 //how much blood the mob has

@@ -224,7 +224,8 @@
 		/obj/item/weapon/stamp/clown = 1,
 		/obj/item/toy/crayon/rainbow = 1,
 		/obj/item/weapon/storage/fancy/crayons = 1,
-		/obj/item/weapon/reagent_containers/spray/waterflower = 1
+		/obj/item/weapon/reagent_containers/spray/waterflower = 1,
+		/obj/item/weapon/reagent_containers/food/drinks/bottle/bottleofbanana = 1
 	)
 
 	backpack = /obj/item/weapon/storage/backpack/clown

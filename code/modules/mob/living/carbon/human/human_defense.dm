@@ -8,9 +8,10 @@ emp_act
 
 */
 
-/mob/living/carbon/human/bullet_act(var/obj/item/projectile/P, var/def_zone)
 
-	if(istype(P, /obj/item/projectile/energy) || istype(P, /obj/item/projectile/beam))
+/mob/living/carbon/human/bullet_act(obj/item/projectile/P, def_zone)
+
+	if(P.is_reflectable)
 		if(check_reflect(def_zone)) // Checks if you've passed a reflection% check
 			visible_message("<span class='danger'>The [P.name] gets reflected by [src]!</span>", \
 							"<span class='userdanger'>The [P.name] gets reflected by [src]!</span>")
@@ -41,19 +42,6 @@ emp_act
 		. = bullet_act(P, "chest") //act on chest instead
 		return
 
-	//Shrapnel
-	if(P.damage_type == BRUTE)
-		var/armor = getarmor_organ(organ, "bullet")
-		if((P.embed && prob(20 + max(P.damage - armor, -10))))
-			var/obj/item/weapon/shard/shrapnel/SP = new()
-			(SP.name) = "[P.name] shrapnel"
-			if(P.ammo_casing && P.ammo_casing.caliber)
-				(SP.desc) = "[SP.desc] It looks like it is a [P.ammo_casing.caliber] caliber round."
-			else
-				(SP.desc) = "[SP.desc] The round's caliber is unidentifiable."
-			(SP.loc) = organ
-			organ.embed(SP)
-
 	organ.add_autopsy_data(P.name, P.damage) // Add the bullet's name to the autopsy data
 
 	return (..(P , def_zone))
@@ -61,7 +49,7 @@ emp_act
 /mob/living/carbon/human/check_projectile_dismemberment(obj/item/projectile/P, def_zone)
 	var/obj/item/organ/external/affecting = get_organ(check_zone(def_zone))
 	if(affecting && !affecting.cannot_amputate && affecting.get_damage() >= (affecting.max_damage - P.dismemberment))
-		var/damtype = DROPLIMB_EDGE
+		var/damtype = DROPLIMB_SHARP
 		switch(P.damage_type)
 			if(BRUTE)
 				damtype = DROPLIMB_BLUNT
@@ -198,7 +186,7 @@ emp_act
 		newmeat.subjectjob = src.job
 		newmeat.reagents.add_reagent ("nutriment", (src.nutrition / 15) / 3)
 		src.reagents.trans_to (newmeat, round ((src.reagents.total_volume) / 3, 1))
-		src.loc.add_blood(src)
+		add_mob_blood(src)
 		--src.meatleft
 		to_chat(user, "<span class='warning'>You hack off a chunk of meat from [src.name]</span>")
 		if(!src.meatleft)
@@ -213,10 +201,10 @@ emp_act
 			qdel(src)
 
 	var/obj/item/organ/external/affecting = get_organ(ran_zone(user.zone_sel.selecting))
-	if(!affecting || affecting.is_stump() || (affecting.status & ORGAN_DESTROYED))
+	if(!affecting)
 		to_chat(user, "<span class='danger'>They are missing that limb!</span>")
 		return 1
-	var/hit_area = affecting.name
+	var/hit_area = parse_zone(affecting.limb_name)
 
 	if(user != src)
 		user.do_attack_animation(src)
@@ -234,32 +222,29 @@ emp_act
 
 	var/armor = run_armor_check(affecting, "melee", "Your armor has protected your [hit_area].", "Your armor has softened hit to your [hit_area].", armour_penetration = I.armour_penetration)
 	var/weapon_sharp = is_sharp(I)
-	var/weapon_edge = has_edge(I)
-	if((weapon_sharp || weapon_edge) && prob(getarmor(user.zone_sel.selecting, "melee")))
+	if(weapon_sharp && prob(getarmor(user.zone_sel.selecting, "melee")))
 		weapon_sharp = 0
-		weapon_edge = 0
 
 	if(armor >= 100)	return 0
 	if(!I.force)	return 0
 	var/Iforce = I.force //to avoid runtimes on the forcesay checks at the bottom. Some items might delete themselves if you drop them. (stunning yourself, ninja swords)
 
-	apply_damage(I.force, I.damtype, affecting, armor, sharp=weapon_sharp, edge=weapon_edge, used_weapon=I)
+	apply_damage(I.force, I.damtype, affecting, armor, sharp = weapon_sharp, used_weapon = I)
 
 	var/bloody = 0
 	if(I.damtype == BRUTE && I.force && prob(25 + I.force * 2))
-		I.add_blood(src)	//Make the weapon bloody, not the person.
+		I.add_mob_blood(src)	//Make the weapon bloody, not the person.
 //		if(user.hand)	user.update_inv_l_hand()	//updates the attacker's overlay for the (now bloodied) weapon
 //		else			user.update_inv_r_hand()	//removed because weapons don't have on-mob blood overlays
-		if(prob(33))
+		if(prob(I.force * 2)) //blood spatter!
 			bloody = 1
 			var/turf/location = loc
 			if(istype(location, /turf/simulated))
-				location.add_blood(src)
+				add_splatter_floor(location)
 			if(ishuman(user))
 				var/mob/living/carbon/human/H = user
 				if(get_dist(H, src) <= 1) //people with TK won't get smeared with blood
-					H.bloody_body(src)
-					H.bloody_hands(src)
+					H.add_mob_blood(src)
 
 		if(!stat)
 			switch(hit_area)
@@ -275,42 +260,34 @@ emp_act
 
 					if(bloody)//Apply blood
 						if(wear_mask)
-							wear_mask.add_blood(src)
+							wear_mask.add_mob_blood(src)
 							update_inv_wear_mask(0)
 						if(head)
-							head.add_blood(src)
+							head.add_mob_blood(src)
 							update_inv_head(0,0)
 						if(glasses && prob(33))
-							glasses.add_blood(src)
+							glasses.add_mob_blood(src)
 							update_inv_glasses(0)
 
-				if("upper body")//Easier to score a stun but lasts less time
+
+				if("chest")//Easier to score a stun but lasts less time
 					if(stat == CONSCIOUS && I.force && prob(I.force + 10))
 						visible_message("<span class='combat danger'>[src] has been knocked down!</span>", \
 										"<span class='combat userdanger'>[src] has been knocked down!</span>")
 						apply_effect(5, WEAKEN, armor)
 
 					if(bloody)
-						bloody_body(src)
+						if(wear_suit)
+							wear_suit.add_mob_blood(src)
+							update_inv_wear_suit(1)
+						if(w_uniform)
+							w_uniform.add_mob_blood(src)
+							update_inv_w_uniform(1)
+
 
 
 	if(Iforce > 10 || Iforce >= 5 && prob(33))
 		forcesay(hit_appends)	//forcesay checks stat already
-
-/*	//Melee weapon embedded object code. Commented out, as most people on the forums seem to find this annoying and think it does not contribute to general gameplay. - Dave
-	if(I.damtype == BRUTE && !I.is_robot_module())
-		var/damage = I.force
-		if(armor)
-			damage /= armor+1
-
-		//blunt objects should really not be embedding in things unless a huge amount of force is involved
-		var/embed_chance = weapon_sharp? damage/I.w_class : damage/(I.w_class*3)
-		var/embed_threshold = weapon_sharp? 5*I.w_class : 15*I.w_class
-
-		//Sharp objects will always embed if they do enough damage.
-		if(((weapon_sharp && damage > (10*I.w_class)) || (damage > embed_threshold && prob(embed_chance))) && (I.no_embed == 0) )
-			affecting.embed(I)
-	return 1*/
 
 //this proc handles being hit by a thrown atom
 /mob/living/carbon/human/hitby(atom/movable/AM, skipcatch = 0, hitpush = 1, blocked = 0)
@@ -325,45 +302,38 @@ emp_act
 		hitpush = 0
 		skipcatch = 1
 		blocked = 1
-	/*else if(I)
+	else if(I)
 		if(I.throw_speed >= EMBED_THROWSPEED_THRESHOLD)
-			if(!I.is_robot_module())
-				var/armor = run_armor_check(affecting, "melee", "Your armor has protected your [hit_area].", "Your armor has softened hit to your [hit_area].", I.armour_penetration) //I guess "melee" is the best fit here
-				var/sharp = is_sharp(I)
-				var/damage = throwpower * (I.throw_speed / 5)
-				if(armor)
-					damage /= armor + 1
-
-				//blunt objects should really not be embedding in things unless a huge amount of force is involved
-				var/embed_chance = sharp? damage / I.w_class : damage/(I.w_class * 3)
-				var/embed_threshold = sharp? 5 * I.w_class : 15 * I.w_class
-
-				//Sharp objects will always embed if they do enough damage.
-				//Thrown sharp objects have some momentum already and have a small chance to embed even if the damage is below the threshold
-
-				if(((sharp && prob(damage / (10 * I.w_class) * 100)) || (damage > embed_threshold && prob(embed_chance))) && (I.no_embed == 0))
-					affecting.embed(I)*/
+			if(can_embed(I))
+				if(prob(I.embed_chance))
+					throw_alert("embeddedobject", /obj/screen/alert/embeddedobject)
+					var/obj/item/organ/external/L = pick(bodyparts)
+					L.embedded_objects |= I
+					I.add_mob_blood(src)//it embedded itself in you, of course it's bloody!
+					I.forceMove(src)
+					L.take_damage(I.w_class*I.embedded_impact_pain_multiplier)
+					visible_message("<span class='danger'>[I] embeds itself in [src]'s [L.name]!</span>","<span class='userdanger'>[I] embeds itself in your [L.name]!</span>")
+					hitpush = 0
+					skipcatch = 1 //can't catch the now embedded item
 	return ..()
 
 /mob/living/carbon/human/proc/bloody_hands(var/mob/living/source, var/amount = 2)
 
 	if(gloves)
-		gloves.add_blood(source)
+		gloves.add_mob_blood(source)
 		gloves:transfer_blood = amount
-		gloves:bloody_hands_mob = source
 	else
-		add_blood(source)
+		add_mob_blood(source)
 		bloody_hands = amount
-		bloody_hands_mob = source
 	update_inv_gloves(1)		//updates on-mob overlays for bloody hands and/or bloody gloves
 
 /mob/living/carbon/human/proc/bloody_body(var/mob/living/source)
 	if(wear_suit)
-		wear_suit.add_blood(source)
+		wear_suit.add_mob_blood(source)
 		update_inv_wear_suit(0)
 		return
 	if(w_uniform)
-		w_uniform.add_blood(source)
+		w_uniform.add_mob_blood(source)
 		update_inv_w_uniform(1)
 
 /mob/living/carbon/human/proc/handle_suit_punctures(var/damtype, var/damage)
@@ -421,5 +391,5 @@ emp_act
 
 /mob/living/carbon/human/water_act(volume, temperature, source)
 	..()
-	if(temperature >= 330)	bodytemperature = bodytemperature + (temperature - bodytemperature)
-	if(temperature <= 280)	bodytemperature = bodytemperature - (bodytemperature - temperature)
+	species.water_act(src,volume,temperature,source)
+

@@ -7,38 +7,37 @@
 	var/list/data = null
 	var/volume = 0
 	var/metabolization_rate = REAGENTS_METABOLISM
-	//var/list/viruses = list()
 	var/color = "#000000" // rgb: 0, 0, 0 (does not support alpha channels - yet!)
 	var/shock_reduction = 0
 	var/heart_rate_increase = 0
 	var/heart_rate_decrease = 0
 	var/heart_rate_stop = 0
-	var/penetrates_skin = 0 //Whether or not a reagent penetrates the skin
-	var/can_grow_in_plants = 1	//Determines if the reagent can be grown in plants, 0 means it cannot be grown
+	var/penetrates_skin = FALSE //Whether or not a reagent penetrates the skin
 	//Processing flags, defines the type of mobs the reagent will affect
 	//By default, all reagents will ONLY affect organics, not synthetics. Re-define in the reagent's definition if the reagent is meant to affect synths
 	var/process_flags = ORGANIC
-	var/admin_only = 0
-	var/can_synth = 1 //whether or not a mech syringe gun and synthesize this reagent
+	var/can_synth = TRUE //whether or not a mech syringe gun and synthesize this reagent
 	var/overdose_threshold = 0
 	var/addiction_chance = 0
 	var/addiction_stage = 1
 	var/last_addiction_dose = 0
-	var/overdosed = 0 // You fucked up and this is now triggering it's overdose effects, purge that shit quick.
+	var/overdosed = FALSE // You fucked up and this is now triggering it's overdose effects, purge that shit quick.
 	var/current_cycle = 1
 	var/drink_icon = null
 	var/drink_name = "Glass of ..what?"
 	var/drink_desc = "You can't really tell what this is."
+	var/taste_strength = 1 //how easy it is to taste - the more the easier
+	var/taste_message = "bitterness" //life's bitter by default. Cool points for using a span class for when you're tasting <span class='userdanger'>LIQUID FUCKING DEATH</span>
 
 /datum/reagent/Destroy()
 	. = ..()
 	holder = null
 
-/datum/reagent/proc/reaction_mob(mob/living/M, method=TOUCH, volume) //Some reagents transfer on touch, others don't; dependent on if they penetrate the skin or not.
+/datum/reagent/proc/reaction_mob(mob/living/M, method = TOUCH, volume) //Some reagents transfer on touch, others don't; dependent on if they penetrate the skin or not.
 	if(holder)  //for catching rare runtimes
 		if(method == TOUCH && penetrates_skin)
 			var/block  = M.get_permeability_protection()
-			var/amount = round(volume * (1.0 - block), 0.1)
+			var/amount = round(volume * (1 - block), 0.1)
 			if(M.reagents)
 				if(amount >= 1)
 					M.reagents.add_reagent(id, amount)
@@ -59,7 +58,7 @@
 						if(AD && istype(AD, src))
 							AD.last_addiction_dose = world.timeofday
 							AD.addiction_stage = 1
-		return 1
+		return TRUE
 
 /datum/reagent/proc/reaction_obj(obj/O, volume)
 	return

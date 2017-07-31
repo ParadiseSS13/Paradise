@@ -174,7 +174,7 @@ var/list/tape_roll_applications = list()
 	breaktape(/obj/item/weapon/wirecutters,user)
 
 /obj/item/tape/proc/breaktape(obj/item/weapon/W as obj, mob/user as mob)
-	if(user.a_intent == INTENT_HELP && ((!can_puncture(W) && src.allowed(user))))
+	if(user.a_intent == INTENT_HELP && ((!is_pointed(W) && src.allowed(user))))
 		to_chat(user, "You can't break the [src] with that!")
 		return
 	user.visible_message("<span class=warning>[user] breaks the [src]!</span>", "<span class=warning>You break the [src]!</span>")

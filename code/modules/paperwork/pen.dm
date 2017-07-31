@@ -155,10 +155,10 @@
 		on = 0
 		force = initial(force)
 		sharp = 0
-		edge = 0
 		w_class = initial(w_class)
 		name = initial(name)
 		hitsound = initial(hitsound)
+		embed_chance = initial(embed_chance)
 		throwforce = initial(throwforce)
 		playsound(user, 'sound/weapons/saberoff.ogg', 5, 1)
 		to_chat(user, "<span class='warning'>[src] can now be concealed.</span>")
@@ -166,10 +166,10 @@
 		on = 1
 		force = 18
 		sharp = 1
-		edge = 1
 		w_class = WEIGHT_CLASS_NORMAL
 		name = "energy dagger"
 		hitsound = 'sound/weapons/blade1.ogg'
+		embed_chance = 100 //rule of cool
 		throwforce = 35
 		playsound(user, 'sound/weapons/saberon.ogg', 5, 1)
 		to_chat(user, "<span class='warning'>[src] is now active.</span>")

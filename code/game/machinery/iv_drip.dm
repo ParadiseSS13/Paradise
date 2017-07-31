@@ -1,10 +1,14 @@
+#define IV_TAKING 0
+#define IV_INJECTING 1
+
 /obj/machinery/iv_drip
 	name = "\improper IV drip"
 	icon = 'icons/obj/iv_drip.dmi'
 	icon_state = "iv_drip"
-	anchored = 0
+	anchored = FALSE
+	mouse_drag_pointer = MOUSE_ACTIVE_POINTER
 	var/mob/living/carbon/human/attached = null
-	var/mode = 1 // 1 is injecting, 0 is taking blood.
+	var/mode = IV_INJECTING
 	var/obj/item/weapon/reagent_containers/beaker = null
 	var/transfer_amount = 5
 	var/possible_transfer_amounts = list(1,5,10)
@@ -61,7 +65,7 @@
 			overlays += filling
 
 /obj/machinery/iv_drip/MouseDrop(mob/living/target)
-	if(!ishuman(usr))
+	if(!ishuman(usr) || !iscarbon(target))
 		return
 
 	if(attached)
@@ -82,6 +86,7 @@
 			update_icon()
 		else
 			to_chat(usr, "<span class='warning'>There's nothing attached to the IV drip!</span>")
+
 
 /obj/machinery/iv_drip/attackby(obj/item/weapon/W, mob/user, params)
 	if(istype(W, /obj/item/weapon/reagent_containers))
@@ -113,8 +118,8 @@
 	if(beaker)
 		// Give blood
 		if(mode)
-			if(beaker.volume > 0)
-				var/fraction = min(transfer_amount/beaker.volume, 1) //the fraction that is transfered of the total volume
+			if(beaker.reagents.total_volume)
+				var/fraction = min(transfer_amount/beaker.reagents.total_volume, 1) //the fraction that is transfered of the total volume
 				beaker.reagents.reaction(attached, INGEST, fraction) //make reagents reacts, but don't spam messages
 				beaker.reagents.trans_to(attached, transfer_amount)
 				update_icon()
@@ -124,43 +129,17 @@
 			var/amount = beaker.reagents.maximum_volume - beaker.reagents.total_volume
 			amount = min(amount, 4)
 			// If the beaker is full, ping
-			if(amount == 0)
+			if(!amount)
 				if(prob(5))
 					visible_message("[src] pings.")
 				return
 
-			var/mob/living/carbon/human/T = attached
-
-			if(!ishuman(T))
-				return
-
-			if(!T.dna)
-				return
-
-			if(NOCLONE in T.mutations)
-				return
-
-			if(T.species.flags & NO_BLOOD)
-				return
-
-			if(T.species.exotic_blood)
-				T.vessel.trans_to(beaker, amount)
-				update_icon()
-			else
-				var/datum/reagent/B = T.take_blood(beaker, amount)
-
-				if(B)
-					beaker.reagents.reagent_list |= B
-					beaker.reagents.update_total()
-					beaker.on_reagent_change()
-					beaker.reagents.handle_reactions()
-					update_icon()
-
-			// If attached is losing too much blood, beep.
-			var/blood_type = attached.get_blood_name()
-			if(T.vessel.get_reagent_amount(blood_type) < BLOOD_VOLUME_SAFE && prob(5))
+			// If the human is losing too much blood, beep.
+			if(attached.blood_volume < BLOOD_VOLUME_SAFE && prob(5))
 				visible_message("[src] beeps loudly.")
 				playsound(loc, 'sound/machines/twobeep.ogg', 50, 1)
+			attached.transfer_blood_to(beaker, amount)
+			update_icon()
 
 /obj/machinery/iv_drip/attack_hand(mob/user)
 	if(!ishuman(user))
@@ -219,7 +198,7 @@
 
 /obj/machinery/iv_drip/examine(mob/user)
 	..(user)
-	if(!(user in view(2)) && user != loc)
+	if(get_dist(user, src) > 2)
 		return
 
 	to_chat(user, "The IV drip is [mode ? "injecting" : "taking blood"].")
@@ -239,9 +218,17 @@
 	set category = "Object"
 	set src in view(1)
 
+	if(!iscarbon(usr))
+		to_chat(usr, "<span class='warning'>You can't do that!</span>")
+		return
+
 	if(usr.incapacitated())
 		return
+
 	var/default = 5
 	var/N = input("Amount per transfer from this:", "[src]", default) as null|anything in possible_transfer_amounts
 	if(N)
 		transfer_amount = N
+
+#undef IV_TAKING
+#undef IV_INJECTING

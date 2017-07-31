@@ -50,7 +50,7 @@
 		var/obj/item/organ/external/affected = target.get_organ(target_zone)
 		user.visible_message("<span class='warning'> [user]'s hand slips, slicing [target]'s throat wth \the [tool]!</span>" , \
 		"<span class='warning'> Your hand slips, slicing [target]'s throat wth \the [tool]!</span>" )
-		affected.createwound(CUT, 60)
+		affected.take_damage(60)
 		target.AdjustLoseBreath(4)
 
 		return 0
@@ -106,7 +106,7 @@
 		var/obj/item/organ/external/affected = target.get_organ(target_zone)
 		user.visible_message("<span class='warning'> [user]'s hand slips, tearing skin on [target]'s face with \the [tool]!</span>", \
 		"<span class='warning'> Your hand slips, tearing skin on [target]'s face with \the [tool]!</span>")
-		target.apply_damage(10, BRUTE, affected, sharp=1, edge=1)
+		target.apply_damage(10, BRUTE, affected, sharp = 1)
 		return 0
 
 /datum/surgery_step/face/cauterize
@@ -131,7 +131,6 @@
 		user.visible_message("<span class='notice'> [user] cauterizes the incision on [target]'s face and neck with \the [tool].</span>", \
 		"<span class='notice'> You cauterize the incision on [target]'s face and neck with \the [tool].</span>")
 		affected.open = 0
-		affected.status &= ~ORGAN_BLEEDING
 		var/obj/item/organ/external/head/h = affected
 		h.disfigured = 0
 		h.update_icon()
