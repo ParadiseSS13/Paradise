@@ -235,6 +235,12 @@ or something covering your eyes."
 	desc = "All that alcohol you've been drinking is impairing your speech, motor skills, and mental cognition. Make sure to act like it."
 	icon_state = "drunk"
 
+/obj/screen/alert/embeddedobject
+	name = "Embedded Object"
+	desc = "Something got lodged into your flesh and is causing major bleeding. It might fall out with time, but surgery is the safest way. \
+			If you're feeling frisky, click yourself in help intent to pull the object out."
+	icon_state = "embeddedobject"
+
 /obj/screen/alert/embeddedobject/Click()
 	if(isliving(usr))
 		var/mob/living/carbon/human/M = usr

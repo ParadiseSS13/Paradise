@@ -32,6 +32,7 @@ var/list/organ_cache = list()
 	var/sterile = 0 //can the organ be infected by germs?
 	var/tough = 0 //can organ be easily damaged?
 
+
 /obj/item/organ/Destroy()
 	processing_objects.Remove(src)
 	if(owner)
@@ -45,7 +46,6 @@ var/list/organ_cache = list()
 
 /obj/item/organ/New(var/mob/living/carbon/holder)
 	..(holder)
-	create_reagents(5)
 	if(!max_damage)
 		max_damage = min_broken_damage * 2
 	if(istype(holder))
@@ -95,16 +95,11 @@ var/list/organ_cache = list()
 		return
 
 	//Process infections
-	if((status & ORGAN_ROBOT) || sterile ||(owner && owner.species && (owner.species.flags & IS_PLANT)))
+	if((status & ORGAN_ROBOT) || sterile ||(owner && (IS_PLANT in owner.species.species_traits)))
 		germ_level = 0
 		return
 
 	if(!owner)
-		if(reagents && prob(40))
-			reagents.remove_any(0.1)
-			for(var/datum/reagent/R in reagents.reagent_list)
-				R.reaction_turf(get_turf(src), 0.1)
-
 		// Maybe scale it down a bit, have it REALLY kick in once past the basic infection threshold
 		// Another mercy for surgeons preparing transplant organs
 		germ_level++
@@ -115,27 +110,20 @@ var/list/organ_cache = list()
 		if(germ_level >= INFECTION_LEVEL_THREE)
 			necrotize()
 
-		if(damage >= max_damage)
-			necrotize()
-
 	else if(owner.bodytemperature >= 170)	//cryo stops germs from moving and doing their bad stuffs
 		//** Handle antibiotics and curing infections
 		handle_antibiotics()
 		handle_germ_effects()
 
-	//check if we've hit max_damage
-	if(damage >= max_damage)
-		necrotize()
-
 /obj/item/organ/proc/is_preserved()
 	if(istype(loc,/obj/item/device/mmi))
 		germ_level = max(0, germ_level - 1) // So a brain can slowly recover from being left out of an MMI
 		return 1
-	if(is_found_within(/obj/item/bodybag/cryobag))
-		return 1
 	if(is_found_within(/obj/structure/closet/crate/freezer))
 		return 1
-	if(istype(loc,/turf))
+	if(is_found_within(/obj/machinery/clonepod))
+		return 1
+	if(isturf(loc))
 		if(world.time - last_freezer_update_time > freezer_update_period)
 			// I don't want to loop through everything in the tile constantly, especially since it'll be a pile of organs
 			// if the virologist releases gibbingtons again or something
@@ -178,11 +166,11 @@ var/list/organ_cache = list()
 		if(antibiotics < 5 && parent.germ_level < germ_level && ( parent.germ_level < INFECTION_LEVEL_ONE*2 || prob(30) ))
 			parent.germ_level++
 
+/obj/item/organ/internal/handle_germ_effects()
+	..()
+	if(germ_level >= INFECTION_LEVEL_TWO)
 		if(prob(3))	//about once every 30 seconds
 			take_damage(1,silent=prob(30))
-
-/obj/item/organ/proc/receive_chem(chemical as obj)
-	return 0
 
 /obj/item/organ/proc/rejuvenate()
 	damage = 0
@@ -203,7 +191,7 @@ var/list/organ_cache = list()
 	return damage >= min_bruised_damage
 
 /obj/item/organ/proc/is_broken()
-	return (damage >= min_broken_damage || (status & ORGAN_CUT_AWAY) || ((status & ORGAN_BROKEN) && !(status & ORGAN_SPLINTED)))
+	return (damage >= min_broken_damage || ((status & ORGAN_BROKEN) && !(status & ORGAN_SPLINTED)))
 
 //Germs
 /obj/item/organ/proc/handle_antibiotics()
@@ -233,7 +221,7 @@ var/list/organ_cache = list()
 	W.time_inflicted = world.time
 
 //Note: external organs have their own version of this proc
-/obj/item/organ/proc/take_damage(amount, var/silent=0)
+/obj/item/organ/proc/take_damage(amount, silent = 0)
 	if(tough)
 		return
 	if(status & ORGAN_ROBOT)
@@ -247,25 +235,25 @@ var/list/organ_cache = list()
 			if(parent && !silent)
 				owner.custom_pain("Something inside your [parent.name] hurts a lot.", 1)
 
+		//check if we've hit max_damage
+	if(damage >= max_damage)
+		necrotize()
+
 /obj/item/organ/proc/robotize() //Being used to make robutt hearts, etc
 	robotic = 2
 	status &= ~ORGAN_BROKEN
-	status &= ~ORGAN_BLEEDING
 	status &= ~ORGAN_SPLINTED
-	status &= ~ORGAN_CUT_AWAY
-	status &= ~ORGAN_ATTACHABLE
-	status &= ~ORGAN_DESTROYED
 	status |= ORGAN_ROBOT
-	status |= ORGAN_ASSISTED
 
 /obj/item/organ/proc/mechassist() //Used to add things like pacemakers, etc
 	robotize(1) //Skip the icon/name setting that occurs in robotize to avoid having to reset the icon file.
 	status &= ~ORGAN_ROBOT
+	status |= ORGAN_ASSISTED
 	robotic = 1
 	min_bruised_damage = 15
 	min_broken_damage = 35
 
-/obj/item/organ/emp_act(severity)
+/obj/item/organ/external/emp_act(severity)
 	if(!(status & ORGAN_ROBOT))
 		return
 	if(tough)
@@ -315,10 +303,6 @@ var/list/organ_cache = list()
 
 	loc = get_turf(owner)
 	processing_objects |= src
-	var/datum/reagent/blood/organ_blood
-	if(reagents) organ_blood = reagents.get_reagent_from_id(owner.get_blood_name())
-	if((!organ_blood || !organ_blood.data["blood_DNA"]) && (owner && !(owner.species.flags & NO_BLOOD)))
-		owner.vessel.trans_to(src, 5, 1, 1)
 
 	if(owner && vital && is_primary_organ()) // I'd do another check for species or whatever so that you couldn't "kill" an IPC by removing a human head from them, but it doesn't matter since they'll come right back from the dead
 		if(user)

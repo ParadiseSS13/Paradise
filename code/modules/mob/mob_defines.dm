@@ -53,8 +53,6 @@
 	var/lastpuke = 0
 	var/unacidable = 0
 	var/can_strip = 1
-	var/list/pinned = list()            //List of things pinning this creature to walls (see living_defense.dm)
-	var/list/embedded = list()          //Embedded items, since simple mobs don't have organs.
 	var/list/languages = list()         // For speaking/listening.
 	var/list/abilities = list()         // For species-derived or admin-given powers.
 	var/list/speak_emote = list("says") // Verbs used when speaking. Defaults to 'say' if speak_emote is null.
@@ -122,6 +120,7 @@
 
 	var/has_enabled_antagHUD = 0
 	var/antagHUD = 0
+	var/can_change_intents = 1 //all mobs can change intents by default.
 
 //Generic list for proc holders. Only way I can see to enable certain verbs/procs. Should be modified if needed.
 	var/proc_holder_list[] = list()
@@ -146,7 +145,7 @@
 
 //List of active diseases
 
-	var/list/viruses = list() // replaces var/datum/disease/virus
+	var/list/viruses = list() // list of all diseases in a mob
 	var/list/resistances = list()
 
 	mouse_drag_pointer = MOUSE_ACTIVE_POINTER

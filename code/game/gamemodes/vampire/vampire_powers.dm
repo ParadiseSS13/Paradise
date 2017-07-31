@@ -236,10 +236,16 @@
 
 /obj/effect/proc_holder/spell/vampire/self/shapeshift/cast(list/targets, mob/user = usr)
 	user.visible_message("<span class='warning'>[user] transforms!</span>")
-	user.client.prefs.real_name = user.generate_name()
-	user.client.prefs.random_character()
-	user.client.prefs.copy_to(user)
-	user.regenerate_icons()
+	if(ishuman(user))
+		var/mob/living/carbon/human/H = user
+		scramble(1, H, 100)
+		H.real_name = random_name(H.gender, H.species.name) //Give them a name that makes sense for their species.
+		H.sync_organ_dna(assimilate = 1)
+		H.update_body(0)
+		H.reset_hair() //No more winding up with hairstyles you're not supposed to have, and blowing your cover.
+		H.reset_markings() //...Or markings.
+		H.dna.ResetUIFrom(H)
+	user.update_icons()
 
 /obj/effect/proc_holder/spell/vampire/self/screech
 	name = "Chiropteran Screech (30)"

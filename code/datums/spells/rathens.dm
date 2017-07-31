@@ -42,4 +42,4 @@
 					continue
 				if(prob(7))
 					to_chat(H, "<span class='userdanger'>Your [E] was severed by the explosion!</span>")
-					E.droplimb(1, DROPLIMB_EDGE, 0, 1)
+					E.droplimb(1, DROPLIMB_SHARP, 0, 1)

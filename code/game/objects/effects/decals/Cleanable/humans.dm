@@ -15,9 +15,11 @@ var/global/list/image/splatter_cache=list()
 	icon_state = "mfloor1"
 	random_icon_states = list("mfloor1", "mfloor2", "mfloor3", "mfloor4", "mfloor5", "mfloor6", "mfloor7")
 	var/base_icon = 'icons/effects/blood.dmi'
-	var/list/viruses = list()
+	appearance_flags = NO_CLIENT_COLOR
 	blood_DNA = list()
-	var/basecolor="#A10808" // Color when wet.
+	var/blood_state = BLOOD_STATE_HUMAN
+	var/bloodiness = MAX_SHOE_BLOODINESS
+	var/basecolor = "#A10808" // Color when wet.
 	var/amount = 5
 	appearance_flags = NO_CLIENT_COLOR
 	var/dry_timer = 0
@@ -33,11 +35,11 @@ var/global/list/image/splatter_cache=list()
 				mode_ticker.bloody_floors += T
 				mode_ticker.bloody_floors[T] = T
 				mode_ticker.blood_check()
-	if(istype(src, /obj/effect/decal/cleanable/blood/gibs))
+	if(type == /obj/effect/decal/cleanable/blood/gibs)
 		return
-	if(src.type == /obj/effect/decal/cleanable/blood)
-		if(src.loc && isturf(src.loc))
-			for(var/obj/effect/decal/cleanable/blood/B in src.loc)
+	if(type == /obj/effect/decal/cleanable/blood)
+		if(loc && isturf(loc))
+			for(var/obj/effect/decal/cleanable/blood/B in loc)
 				if(B != src)
 					if(B.blood_DNA)
 						blood_DNA |= B.blood_DNA.Copy()
@@ -58,44 +60,6 @@ var/global/list/image/splatter_cache=list()
 /obj/effect/decal/cleanable/blood/update_icon()
 	if(basecolor == "rainbow") basecolor = "#[pick(list("FF0000","FF7F00","FFFF00","00FF00","0000FF","4B0082","8F00FF"))]"
 	color = basecolor
-
-/obj/effect/decal/cleanable/blood/Crossed(mob/living/carbon/human/perp)
-	if(!istype(perp))
-		return
-	if(amount < 1)
-		return
-
-	var/obj/item/organ/external/l_foot = perp.get_organ("l_foot")
-	var/obj/item/organ/external/r_foot = perp.get_organ("r_foot")
-	var/hasfeet = 1
-	if((!l_foot || l_foot.status & ORGAN_DESTROYED) && (!r_foot || r_foot.status & ORGAN_DESTROYED))
-		hasfeet = 0
-	if(perp.shoes && !perp.buckled)//Adding blood to shoes
-		var/obj/item/clothing/shoes/S = perp.shoes
-		if(istype(S))
-			S.blood_color = basecolor
-			S.track_blood = max(amount,S.track_blood)
-			if(!S.blood_overlay)
-				S.generate_blood_overlay()
-			if(!S.blood_DNA)
-				S.blood_DNA = list()
-				S.blood_overlay.color = basecolor
-				S.overlays += S.blood_overlay
-			if(S.blood_overlay && S.blood_overlay.color != basecolor)
-				S.blood_overlay.color = basecolor
-				S.overlays.Cut()
-				S.overlays += S.blood_overlay
-			S.blood_DNA |= blood_DNA.Copy()
-
-	else if(hasfeet)//Or feet
-		perp.feet_blood_color = basecolor
-		perp.track_blood = max(amount,perp.track_blood)
-		if(!perp.feet_blood_DNA)
-			perp.feet_blood_DNA = list()
-		perp.feet_blood_DNA |= blood_DNA.Copy()
-
-	perp.update_inv_shoes(1)
-	amount--
 
 /obj/effect/decal/cleanable/blood/proc/dry()
 	name = dryname
@@ -123,6 +87,46 @@ var/global/list/image/splatter_cache=list()
 /obj/effect/decal/cleanable/blood/can_bloodcrawl_in()
 	return TRUE
 
+//Add "bloodiness" of this blood's type, to the human's shoes
+/obj/effect/decal/cleanable/blood/Crossed(atom/movable/O)
+	if(ishuman(O))
+		var/mob/living/carbon/human/H = O
+		var/obj/item/organ/external/l_foot = H.get_organ("l_foot")
+		var/obj/item/organ/external/r_foot = H.get_organ("r_foot")
+		var/hasfeet = 1
+		if(!l_foot && !r_foot)
+			hasfeet = 0
+		if(H.shoes && blood_state && bloodiness)
+			var/obj/item/clothing/shoes/S = H.shoes
+			var/add_blood = 0
+			if(bloodiness >= BLOOD_GAIN_PER_STEP)
+				add_blood = BLOOD_GAIN_PER_STEP
+			else
+				add_blood = bloodiness
+			bloodiness -= add_blood
+			S.bloody_shoes[blood_state] = min(MAX_SHOE_BLOODINESS, S.bloody_shoes[blood_state] + add_blood)
+			if(blood_DNA && blood_DNA.len)
+				S.add_blood(H.blood_DNA, basecolor)
+			S.blood_state = blood_state
+			S.blood_color = basecolor
+			update_icon()
+			H.update_inv_shoes()
+		else if(hasfeet && blood_state && bloodiness)//Or feet
+			var/add_blood = 0
+			if(bloodiness >= BLOOD_GAIN_PER_STEP)
+				add_blood = BLOOD_GAIN_PER_STEP
+			else
+				add_blood = bloodiness
+			bloodiness -= add_blood
+			H.bloody_feet[blood_state] = min(MAX_SHOE_BLOODINESS, H.bloody_feet[blood_state] + add_blood)
+			if(!H.feet_blood_DNA)
+				H.feet_blood_DNA = list()
+			H.blood_state = blood_state
+			H.feet_blood_DNA |= blood_DNA.Copy()
+			H.feet_blood_color = basecolor
+			update_icon()
+			H.update_inv_shoes()
+
 /obj/effect/decal/cleanable/blood/splatter
 	random_icon_states = list("mgibbl1", "mgibbl2", "mgibbl3", "mgibbl4", "mgibbl5")
 	amount = 2
@@ -135,11 +139,25 @@ var/global/list/image/splatter_cache=list()
 	icon_state = "1"
 	random_icon_states = list("1","2","3","4","5")
 	amount = 0
-	var/list/drips = list()
+	var/drips = 1
+	bloodiness = 0
 
-/obj/effect/decal/cleanable/blood/drip/New()
-	..()
-	drips |= icon_state
+/obj/effect/decal/cleanable/blood/drip/can_bloodcrawl_in()
+	return TRUE
+
+/obj/effect/decal/cleanable/trail_holder //not a child of blood on purpose
+	name = "blood"
+	icon_state = "ltrails_1"
+	desc = "Your instincts say you shouldn't be following these."
+	gender = PLURAL
+	density = 0
+	layer = 2
+	random_icon_states = null
+	var/list/existing_dirs = list()
+	blood_DNA = list()
+
+/obj/effect/decal/cleanable/trail_holder/can_bloodcrawl_in()
+	return TRUE
 
 /obj/effect/decal/cleanable/blood/writing
 	icon_state = "tracks"
@@ -176,19 +194,16 @@ var/global/list/image/splatter_cache=list()
 	noclear = 1
 
 /obj/effect/decal/cleanable/blood/gibs/update_icon()
-
 	var/image/giblets = new(base_icon, "[icon_state]_flesh", dir)
 	if(!fleshcolor || fleshcolor == "rainbow")
 		fleshcolor = "#[pick(list("FF0000","FF7F00","FFFF00","00FF00","0000FF","4B0082","8F00FF"))]"
 	giblets.color = fleshcolor
-
 	var/icon/blood = new(base_icon,"[icon_state]",dir)
-	if(basecolor == "rainbow") basecolor = "#[pick(list("FF0000","FF7F00","FFFF00","00FF00","0000FF","4B0082","8F00FF"))]"
-	blood.Blend(basecolor,ICON_MULTIPLY)
 
 	icon = blood
 	overlays.Cut()
 	overlays += giblets
+	. = ..()
 
 /obj/effect/decal/cleanable/blood/gibs/up
 	random_icon_states = list("gib1", "gib2", "gib3", "gib4", "gib5", "gib6","gibup1","gibup1","gibup1")
@@ -223,21 +238,25 @@ var/global/list/image/splatter_cache=list()
 	for(var/i = 0, i < pick(1, 200; 2, 150; 3, 50; 4), i++)
 		sleep(3)
 		if(i > 0)
-			var/obj/effect/decal/cleanable/blood/b = new /obj/effect/decal/cleanable/blood/splatter(src.loc)
+			var/obj/effect/decal/cleanable/blood/b = new /obj/effect/decal/cleanable/blood/splatter(loc)
 			b.basecolor = src.basecolor
 			b.update_icon()
-			for(var/datum/disease/D in src.viruses)
-				var/datum/disease/ND = D.Copy(1)
-				b.viruses += ND
-				ND.holder = b
 		if(step_to(src, get_step(src, direction), 0))
 			break
 
 
 /obj/effect/decal/cleanable/blood/old/New()
 	..()
+	bloodiness = 0
 	dry()
+
+/obj/effect/decal/cleanable/blood/old/can_bloodcrawl_in()
+	return FALSE
 
 /obj/effect/decal/cleanable/blood/gibs/old/New()
 	..()
+	bloodiness = 0
 	dry()
+
+/obj/effect/decal/cleanable/blood/gibs/old/can_bloodcrawl_in()
+	return FALSE

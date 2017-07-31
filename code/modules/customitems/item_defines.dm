@@ -131,7 +131,6 @@
 	desc = "A replica claymore with strange markings scratched into the blade."
 	force = 5
 	sharp = 0
-	edge = 0
 
 /obj/item/weapon/claymore/fluff/hit_reaction()
 	return 0
@@ -246,7 +245,7 @@
 	new /obj/item/weapon/reagent_containers/food/drinks/cans/cola(src)
 
 
-/obj/item/device/guitar/jello_guitar //Antcolon3: Dan Jello
+/obj/item/device/instrument/guitar/jello_guitar //Antcolon3: Dan Jello
 	name = "Dan Jello's Pink Guitar"
 	desc = "Dan Jello's special pink guitar."
 	icon = 'icons/obj/custom_items.dmi'
@@ -772,6 +771,25 @@
 			A.UpdateButtonIcon()
 		to_chat(user, "You turn the [src]'s lighting system [flavour].")
 		user.update_inv_wear_suit()
+
+/obj/item/clothing/suit/hooded/hoodie/fluff/xantholne // Xantholne: Meex Zwichsnicrur
+	name = "stripped winter coat"
+	desc = "A velvety smooth black winter coat with white and red stripes on the side."
+	icon = 'icons/obj/custom_items.dmi'
+	icon_state = "xantholne_wintercoat"
+	hoodtype = /obj/item/clothing/head/hood/fluff/xantholne
+	body_parts_covered = UPPER_TORSO|LOWER_TORSO|ARMS
+	allowed = list(/obj/item/device/flashlight, /obj/item/weapon/tank/emergency_oxygen, /obj/item/toy, /obj/item/weapon/storage/fancy/cigarettes, /obj/item/weapon/lighter)
+
+
+/obj/item/clothing/head/hood/fluff/xantholne // Xantholne: Meex Zwichsnicrur
+	name = "black winter hood"
+	desc = "A black hood attached to a stripped winter coat."
+	icon = 'icons/obj/custom_items.dmi'
+	icon_state = "xantholne_winterhood"
+	body_parts_covered = HEAD
+	flags = NODROP|BLOCKHAIR
+	flags_inv = HIDEEARS
 
 //////////// Uniforms ////////////
 /obj/item/clothing/under/fluff/kharshai // Kharshai: Athena Castile

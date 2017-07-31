@@ -87,7 +87,6 @@
 	var/list/digsound = list('sound/effects/picaxe1.ogg','sound/effects/picaxe2.ogg','sound/effects/picaxe3.ogg')
 	var/drill_verb = "picking"
 	sharp = 1
-	edge = 1
 	var/excavation_amount = 100
 	usesound = 'sound/effects/picaxe1.ogg'
 	toolspeed = 1
@@ -482,7 +481,7 @@
 		var/obj/item/weapon/storage/pill_bottle/dice/D = new(src)
 		load(D)
 	else
-		var/obj/item/device/guitar/G = new(src)
+		var/obj/item/device/instrument/guitar/G = new(src)
 		load(G)
 
 //Fans

@@ -346,7 +346,7 @@
 				continue
 			if(blacklist.len && (current_species_name in blacklist))
 				continue
-			if((current_species.flags & IS_WHITELISTED) && !is_alien_whitelisted(src, current_species_name))
+			if((IS_WHITELISTED in current_species.species_traits) && !is_alien_whitelisted(src, current_species_name))
 				continue
 
 		valid_species += current_species_name
@@ -367,7 +367,7 @@
 			continue
 		if((H.gender == MALE && S.gender == FEMALE) || (H.gender == FEMALE && S.gender == MALE))
 			continue
-		if(H.species.flags & ALL_RPARTS) //If the user is a species who can have a robotic head...
+		if(H.species.bodyflags & ALL_RPARTS) //If the user is a species who can have a robotic head...
 			var/datum/robolimb/robohead = all_robolimbs[H.model]
 			if((H.species.name in S.species_allowed) && robohead.is_monitor && ((S.models_allowed && (robohead.company in S.models_allowed)) || !S.models_allowed)) //If this is a hair style native to the user's species, check to see if they have a head with an ipc-style screen and that the head's company is in the screen style's allowed models list.
 				valid_hairstyles += hairstyle //Give them their hairstyles if they do.
@@ -395,7 +395,7 @@
 			continue
 		if((H.gender == MALE && S.gender == FEMALE) || (H.gender == FEMALE && S.gender == MALE))
 			continue
-		if(H.species.flags & ALL_RPARTS) //If the user is a species who can have a robotic head...
+		if(H.species.bodyflags & ALL_RPARTS) //If the user is a species who can have a robotic head...
 			var/datum/robolimb/robohead = all_robolimbs[H.model]
 			if(H.species.name in S.species_allowed) //If this is a facial hair style native to the user's species...
 				if((H.species.name in S.species_allowed) && robohead.is_monitor && ((S.models_allowed && (robohead.company in S.models_allowed)) || !S.models_allowed)) //If this is a facial hair style native to the user's species, check to see if they have a head with an ipc-style screen and that the head's company is in the screen style's allowed models list.
@@ -449,7 +449,7 @@
 					continue
 		if(location == "head")
 			var/datum/sprite_accessory/body_markings/head/M = marking_styles_list[S.name]
-			if(H.species.flags & ALL_RPARTS)//If the user is a species that can have a robotic head...
+			if(H.species.bodyflags & ALL_RPARTS)//If the user is a species that can have a robotic head...
 				var/datum/robolimb/robohead = all_robolimbs[H.model]
 				if(!(S.models_allowed && (robohead.company in S.models_allowed))) //Make sure they don't get markings incompatible with their head.
 					continue

@@ -1,10 +1,3 @@
-//Procedures in this file: Putting items in body cavity. Implant removal. Items removal.
-
-
-//////////////////////////////////////////////////////////////////
-//					ITEM PLACEMENT SURGERY						//
-//////////////////////////////////////////////////////////////////
-
 /datum/surgery/cavity_implant
 	name = "Cavity Implant/Removal"
 	steps = list(/datum/surgery_step/generic/cut_open,/datum/surgery_step/generic/clamp_bleeders, /datum/surgery_step/generic/retract_skin, /datum/surgery_step/open_encased/saw,
@@ -68,7 +61,7 @@
 	var/obj/item/organ/external/chest/affected = target.get_organ(target_zone)
 	user.visible_message("<span class='warning'> [user]'s hand slips, scraping around inside [target]'s [affected.name] with \the [tool]!</span>", \
 	"<span class='warning'> Your hand slips, scraping around inside [target]'s [affected.name] with \the [tool]!</span>")
-	affected.createwound(CUT, 20)
+	affected.take_damage(20)
 
 /datum/surgery_step/cavity/make_space
 	name = "make cavity space"
@@ -195,202 +188,18 @@
 			"<span class='notice'> You put \the [tool] inside [target]'s [get_cavity(affected)] cavity.</span>" )
 			if((tool.w_class > get_max_wclass(affected)/2 && prob(50) && !(affected.status & ORGAN_ROBOT)))
 				to_chat(user, "<span class='warning'> You tear some vessels trying to fit the object in the cavity.</span>")
-				var/datum/wound/internal_bleeding/I = new ()
-				affected.wounds += I
+				affected.internal_bleeding = TRUE
 				affected.owner.custom_pain("You feel something rip in your [affected.name]!", 1)
 			user.drop_item()
-			target.internal_organs += tool
+			affected.hidden = tool
 			tool.forceMove(affected)
 			return 1
 	else
 		if(IC)
 			user.visible_message("[user] pulls [IC] out of [target]'s [target_zone]!", "<span class='notice'>You pull [IC] out of [target]'s [target_zone].</span>")
 			user.put_in_hands(IC)
-			target.internal_organs -= IC
+			affected.hidden = null
 			return 1
 		else
 			to_chat(user, "<span class='warning'>You don't find anything in [target]'s [target_zone].</span>")
 			return 0
-
-
-//////////////////////////////////////////////////////////////////
-//					IMPLANT/ITEM REMOVAL SURGERY						//
-//////////////////////////////////////////////////////////////////
-
-/datum/surgery/cavity_implant_rem
-	name = "Implant Removal"
-	steps = list(/datum/surgery_step/generic/cut_open, /datum/surgery_step/generic/clamp_bleeders, /datum/surgery_step/generic/retract_skin,/datum/surgery_step/cavity/implant_removal,/datum/surgery_step/cavity/close_space,/datum/surgery_step/generic/cauterize/)
-	possible_locs = list("chest")//head is for borers..i can put it elsewhere
-
-/datum/surgery/cavity_implant_rem/synth
-	name = "Implant Removal"
-	steps = list(/datum/surgery_step/robotics/external/unscrew_hatch,/datum/surgery_step/robotics/external/open_hatch,/datum/surgery_step/cavity/implant_removal,/datum/surgery_step/robotics/external/close_hatch)
-	possible_locs = list("chest")//head is for borers..i can put it elsewhere
-
-/datum/surgery/cavity_implant_rem/can_start(mob/user, mob/living/carbon/human/target)
-	if(!istype(target))
-		return 0
-	var/obj/item/organ/external/affected = target.get_organ(user.zone_sel.selecting)
-	if(!affected)
-		return 0
-	if(affected.status & ORGAN_ROBOT)
-		return 0
-	return 1
-
-/datum/surgery/cavity_implant_rem/synth/can_start(mob/user, mob/living/carbon/human/target)
-	if(!istype(target))
-		return 0
-	var/obj/item/organ/external/affected = target.get_organ(user.zone_sel.selecting)
-	if(!affected)
-		return 0
-	if(!(affected.status & ORGAN_ROBOT))
-		return 0
-
-	return 1
-
-/datum/surgery_step/cavity/implant_removal
-	name = "extract implant"
-	allowed_tools = list(
-	/obj/item/weapon/hemostat = 100,	\
-	/obj/item/weapon/wirecutters = 75,	\
-	/obj/item/weapon/kitchen/utensil/fork = 20
-	)
-	var/obj/item/weapon/implant/I = null
-	time = 64
-
-/datum/surgery_step/cavity/implant_removal/begin_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool,datum/surgery/surgery)
-	var/obj/item/organ/external/affected = target.get_organ(target_zone)
-	I = locate(/obj/item/weapon/implant) in target
-	user.visible_message("[user] starts poking around inside [target]'s [affected.name] with \the [tool].", \
-	"You start poking around inside [target]'s [affected.name] with \the [tool]." )
-	target.custom_pain("The pain in your [affected.name] is living hell!",1)
-	..()
-
-/datum/surgery_step/cavity/implant_removal/end_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool,datum/surgery/surgery)
-	var/obj/item/organ/external/affected = target.get_organ(target_zone)
-	I = locate(/obj/item/weapon/implant) in target
-	if(I && (target_zone == "chest")) //implant removal only works on the chest.
-		user.visible_message("<span class='notice'>[user] takes something out of [target]'s [affected.name] with \the [tool].</span>", \
-		"<span class='notice'>You take [I] out of [target]'s [affected.name]s with \the [tool].</span>" )
-
-		I.removed(target)
-
-		var/obj/item/weapon/implantcase/case
-
-		if(istype(user.get_item_by_slot(slot_l_hand), /obj/item/weapon/implantcase))
-			case = user.get_item_by_slot(slot_l_hand)
-		else if(istype(user.get_item_by_slot(slot_r_hand), /obj/item/weapon/implantcase))
-			case = user.get_item_by_slot(slot_r_hand)
-		else
-			case = locate(/obj/item/weapon/implantcase) in get_turf(target)
-
-		if(case && !case.imp)
-			case.imp = I
-			I.loc = case
-			case.update_icon()
-			user.visible_message("[user] places [I] into [case]!", "<span class='notice'>You place [I] into [case].</span>")
-		else
-			qdel(I)
-		return 1
-	else
-		user.visible_message("<span class='notice'> [user] could not find anything inside [target]'s [affected.name], and pulls \the [tool] out.</span>", \
-		"<span class='notice'>You could not find anything inside [target]'s [affected.name].</span>")
-		return 1
-
-/datum/surgery_step/cavity/implant_removal/fail_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool,datum/surgery/surgery)
-	..()
-	var/obj/item/organ/external/chest/affected = target.get_organ(target_zone)
-	if(affected.implants.len)
-		var/fail_prob = 10
-		fail_prob += 100 - tool_quality(tool)
-		if(prob(fail_prob))
-			var/obj/item/weapon/implant/imp = affected.implants[1]
-			user.visible_message("<span class='warning'> Something beeps inside [target]'s [affected.name]!</span>")
-			playsound(imp.loc, 'sound/items/countdown.ogg', 75, 1, -3)
-			spawn(25)
-				imp.activate()
-	return 0
-
-
-//////////////////////////////////////////////////////////////////
-//					EMBEDDED ITEM REOMOVAL						//
-//////////////////////////////////////////////////////////////////
-
-/datum/surgery/embedded_removal
-	name = "Removal of Embedded Objects"
-	steps = list(/datum/surgery_step/generic/cut_open, /datum/surgery_step/generic/clamp_bleeders, /datum/surgery_step/generic/retract_skin, /datum/surgery_step/remove_object, /datum/surgery_step/generic/cauterize)
-	possible_locs = list("r_arm","l_arm","r_leg","l_leg","r_hand","r_foot","l_hand","l_foot","groin","chest","head")
-
-/datum/surgery/embedded_removal/synth
-	steps = list(/datum/surgery_step/robotics/external/unscrew_hatch,/datum/surgery_step/robotics/external/open_hatch, /datum/surgery_step/remove_object, /datum/surgery_step/robotics/external/close_hatch)
-	possible_locs = list("r_arm","l_arm","r_leg","l_leg","r_hand","r_foot","l_hand","l_foot","groin","chest","head")
-
-
-/datum/surgery/embedded_removal/can_start(mob/user, mob/living/carbon/human/target)
-	if(!istype(target))
-		return 0
-	var/obj/item/organ/external/affected = target.get_organ(user.zone_sel.selecting)
-	if(!affected)
-		return 0
-	if(affected.status & ORGAN_ROBOT)
-		return 0
-	return 1
-
-/datum/surgery/embedded_removal/synth/can_start(mob/user, mob/living/carbon/human/target)
-	if(!istype(target))
-		return 0
-	var/obj/item/organ/external/affected = target.get_organ(user.zone_sel.selecting)
-	if(!affected)
-		return 0
-	if(!(affected.status & ORGAN_ROBOT))
-		return 0
-	return 1
-
-/datum/surgery_step/remove_object
-	name = "remove embedded objects"
-	time = 32
-	allowed_tools = list(
-	/obj/item/weapon/scalpel/laser/manager = 100, \
-	/obj/item/weapon/hemostat = 100,	\
-	/obj/item/stack/cable_coil = 75, 	\
-	/obj/item/device/assembly/mousetrap = 20
-	)
-	var/obj/item/organ/external/L = null
-
-
-/datum/surgery_step/remove_object/begin_step(mob/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
-	L = target.get_organ(target_zone)
-	if(L)
-		user.visible_message("[user] looks for objects embedded in [target]'s [target_zone].", "<span class='notice'>You look for objects embedded in [target]'s [target_zone]...</span>")
-	else
-		user.visible_message("[user] looks for [target]'s [target_zone].", "<span class='notice'>You look for [target]'s [target_zone]...</span>")
-
-
-/datum/surgery_step/remove_object/end_step(mob/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
-	if(L)
-		if(ishuman(target))
-			var/mob/living/carbon/human/H = target
-			var/objects = 0
-			for(var/obj/item/I in L.implants)
-				if(!istype(I,/obj/item/weapon/implant))
-					objects++
-					I.forceMove(get_turf(H))
-					L.implants -= I
-
-					//Handle possessive brain borers.
-			if(H.has_brain_worms() && target_zone == "head")//remove worms outside the loop
-				var/mob/living/simple_animal/borer/worm = H.has_brain_worms()
-				if(worm.controlling)
-					target.release_control()
-				worm.detach()
-				worm.leave_host()
-				user.visible_message("a slug like creature wiggles out of [H]'s [target_zone]!")
-
-			if(objects > 0)
-				user.visible_message("[user] sucessfully removes [objects] objects from [H]'s [L.limb_name]!", "<span class='notice'>You sucessfully remove [objects] objects from [H]'s [L.limb_name].</span>")
-			else
-				to_chat(user, "<span class='warning'>You find no objects embedded in [H]'s [L.limb_name]!</span>")
-	else
-		to_chat(user, "<span class='warning'>You can't find [target]'s [target_zone], let alone any objects embedded in it!</span>")
-
-	return 1
