@@ -223,10 +223,6 @@ var/round_start_time = 0
 
 	processScheduler.start()
 
-	if(config.sql_enabled)
-		spawn(3000)
-			statistic_cycle() // Polls population totals regularly and stores them in an SQL DB
-
 	votetimer()
 
 	for(var/mob/new_player/N in mob_list)

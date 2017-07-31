@@ -66,7 +66,7 @@
 "bn" = (/obj/structure/table,/obj/machinery/recharger,/turf/simulated/floor/plasteel,/area/ruin/unpowered)
 "bo" = (/obj/machinery/hydroponics/constructable{pixel_y = 9},/turf/simulated/floor/light,/area/ruin/unpowered)
 "bp" = (/obj/machinery/hydroponics/constructable{pixel_y = 9},/obj/machinery/light{dir = 1},/turf/simulated/floor/light,/area/ruin/unpowered)
-"bq" = (/obj/machinery/blackbox_recorder,/turf/simulated/floor/plasteel,/area/ruin/unpowered)
+"bq" = (/turf/simulated/floor/plasteel,/area/ruin/unpowered)
 "br" = (/obj/structure/cable{icon_state = "0-4"; d2 = 4},/obj/machinery/power/port_gen/pacman,/turf/simulated/floor/plasteel,/area/ruin/unpowered)
 "bs" = (/obj/structure/cable{d1 = 2; d2 = 8; icon_state = "2-8"},/obj/machinery/power/smes,/turf/simulated/floor/plasteel,/area/ruin/unpowered)
 "bt" = (/obj/machinery/telecomms/relay/preset/telecomms,/turf/simulated/floor/plasteel,/area/ruin/unpowered)

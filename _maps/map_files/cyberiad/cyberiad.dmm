@@ -5256,7 +5256,7 @@
 "bYR" = (/obj/structure/disposalpipe/segment,/turf/simulated/floor/plasteel{icon_state = "blue"; dir = 4},/area/hallway/primary/central/sw)
 "bYS" = (/obj/machinery/requests_console{announcementConsole = 1; department = "Head of Personnel's Desk"; departmentType = 5; name = "Head of Personnel Requests Console"; pixel_y = -30},/obj/machinery/camera{c_tag = "Head of Personnel's Office"; dir = 1; network = list("SS13")},/obj/item/weapon/twohanded/required/kirbyplants,/turf/simulated/floor/plasteel,/area/crew_quarters/heads)
 "bYT" = (/obj/structure/filingcabinet/chestdrawer,/obj/item/device/radio/intercom{dir = 8; name = "station intercom (General)"; pixel_x = -28},/turf/simulated/floor/plasteel{icon_state = "blue"; dir = 10},/area/crew_quarters/heads)
-"bYU" = (/obj/machinery/blackbox_recorder,/turf/simulated/floor/bluegrid,/area/server)
+"bYU" = (/turf/simulated/floor/bluegrid,/area/server)
 "bYV" = (/obj/structure/table,/obj/machinery/photocopier/faxmachine{department = "Head of Personnel's Office"},/obj/machinery/firealarm{dir = 1; pixel_y = -24},/turf/simulated/floor/plasteel,/area/crew_quarters/heads)
 "bYW" = (/obj/machinery/light_switch{pixel_x = 27},/obj/machinery/light{dir = 4; icon_state = "tube1"},/obj/structure/cable{d1 = 1; d2 = 2; icon_state = "1-2"; tag = ""},/obj/structure/disposalpipe/segment,/turf/simulated/floor/plasteel,/area/crew_quarters/heads)
 "bYX" = (/obj/machinery/alarm{dir = 1; icon_state = "alarm0"; pixel_y = -22},/obj/machinery/atmospherics/pipe/simple/hidden/supply{req_access_txt = "0"},/turf/simulated/floor/bluegrid,/area/server)

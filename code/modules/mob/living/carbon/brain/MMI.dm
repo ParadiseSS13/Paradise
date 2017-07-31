@@ -53,7 +53,7 @@
 			icon = B.mmi_icon
 			icon_state = "[B.mmi_icon_state]"
 			alien = 0
-		feedback_inc("cyborg_mmis_filled",1)
+		feedback_report("cyborg_mmis_filled")
 
 		return
 

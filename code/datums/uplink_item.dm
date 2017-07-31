@@ -64,7 +64,7 @@ var/list/uplink_items = list()
 	if(item)
 		U.uses -= max(cost, 0)
 		U.used_TC += cost
-		feedback_add_details("traitor_uplink_items_bought", name)
+		feedback_report("traitor_uplink_items_bought", name)
 		return new item(loc)
 
 /datum/uplink_item/proc/description()
@@ -1228,7 +1228,7 @@ var/list/uplink_items = list()
 		if(findtext(item, /obj/item/organ/internal/cyberimp))
 			U.uses -= max(cost, 0)
 			U.used_TC += cost
-			feedback_add_details("traitor_uplink_items_bought", name) //this one and the line before copypasted because snowflaek code
+			feedback_report("traitor_uplink_items_bought", name) //this one and the line before copypasted because snowflaek code
 			return new /obj/item/weapon/storage/box/cyber_implants(loc, item)
 		else
 			return ..()
@@ -1347,7 +1347,7 @@ var/list/uplink_items = list()
 	if(possible_items.len)
 		var/datum/uplink_item/I = pick(possible_items)
 		U.uses -= max(0, I.cost)
-		feedback_add_details("traitor_uplink_items_bought","RN")
+		feedback_report("traitor_uplink_items_bought","RN")
 		return new I.item(loc) */
 
 /datum/uplink_item/badass/surplus_crate

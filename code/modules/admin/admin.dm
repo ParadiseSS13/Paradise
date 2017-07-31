@@ -211,7 +211,7 @@ var/global/nologevent = 0
 	"}
 
 	usr << browse(body, "window=adminplayeropts;size=550x615")
-	feedback_add_details("admin_verb","SPP") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
+	feedback_report("admin_verb","SPP") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
 
 /datum/player_info/var/author // admin who authored the information
@@ -538,7 +538,7 @@ var/global/nologevent = 0
 	message_admins("[key_name_admin(usr)] has initiated a server restart with a delay of [delay/10] seconds")
 	log_admin("[key_name(usr)] has initiated a server restart with a delay of [delay/10] seconds")
 	ticker.delay_end = 0
-	feedback_add_details("admin_verb","R") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
+	feedback_report("admin_verb","R") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 	world.Reboot("Initiated by [usr.client.holder.fakekey ? "Admin" : usr.key].", "end_error", "admin reboot - by [usr.key] [usr.client.holder.fakekey ? "(stealth)" : ""]", delay)
 
 /datum/admins/proc/announce()
@@ -556,7 +556,7 @@ var/global/nologevent = 0
 		message = replacetext(message, "\n", "<br>") // required since we're putting it in a <p> tag
 		to_chat(world, "<span class=notice><b>[usr.client.holder.fakekey ? "Administrator" : usr.key] Announces:</b><p style='text-indent: 50px'>[message]</p></span>")
 		log_admin("Announce: [key_name(usr)] : [message]")
-	feedback_add_details("admin_verb","A") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
+	feedback_report("admin_verb","A") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
 /datum/admins/proc/toggleooc()
 	set category = "Server"
@@ -568,7 +568,7 @@ var/global/nologevent = 0
 
 	toggle_ooc()
 	log_and_message_admins("toggled OOC.")
-	feedback_add_details("admin_verb","TOOC") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
+	feedback_report("admin_verb","TOOC") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
 /datum/admins/proc/togglelooc()
 	set category = "Server"
@@ -584,7 +584,7 @@ var/global/nologevent = 0
 	else
 		to_chat(world, "<B>The LOOC channel has been globally disabled!</B>")
 	log_and_message_admins("toggled LOOC.")
-	feedback_add_details("admin_verb","TLOOC") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
+	feedback_report("admin_verb","TLOOC") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
 /datum/admins/proc/toggledsay()
 	set category = "Server"
@@ -601,7 +601,7 @@ var/global/nologevent = 0
 		to_chat(world, "<B>Deadchat has been globally disabled!</B>")
 	log_admin("[key_name(usr)] toggled deadchat.")
 	message_admins("[key_name_admin(usr)] toggled deadchat.", 1)
-	feedback_add_details("admin_verb","TDSAY") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc
+	feedback_report("admin_verb","TDSAY") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc
 
 /datum/admins/proc/toggleoocdead()
 	set category = "Server"
@@ -614,7 +614,7 @@ var/global/nologevent = 0
 	config.dooc_allowed = !( config.dooc_allowed )
 	log_admin("[key_name(usr)] toggled Dead OOC.")
 	message_admins("[key_name_admin(usr)] toggled Dead OOC.", 1)
-	feedback_add_details("admin_verb","TDOOC") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
+	feedback_report("admin_verb","TDOOC") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
 /datum/admins/proc/toggleemoji()
 	set category = "Server"
@@ -627,7 +627,7 @@ var/global/nologevent = 0
 	config.disable_ooc_emoji = !(config.disable_ooc_emoji)
 	log_admin("[key_name(usr)] toggled OOC Emoji.")
 	message_admins("[key_name_admin(usr)] toggled OOC Emoji.", 1)
-	feedback_add_details("admin_verb", "TEMOJ")
+	feedback_report("admin_verb", "TEMOJ")
 
 /datum/admins/proc/startnow()
 	set category = "Server"
@@ -644,7 +644,7 @@ var/global/nologevent = 0
 		ticker.current_state = GAME_STATE_SETTING_UP
 		log_admin("[key_name(usr)] has started the game.")
 		message_admins("[key_name_admin(usr)] has started the game.")
-		feedback_add_details("admin_verb","SN") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
+		feedback_report("admin_verb","SN") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 		return 1
 	else
 		to_chat(usr, "<font color='red'>Error: Start Now: Game has already started.</font>")
@@ -666,7 +666,7 @@ var/global/nologevent = 0
 	log_admin("[key_name(usr)] toggled new player game entering.")
 	message_admins("[key_name_admin(usr)] toggled new player game entering.", 1)
 	world.update_status()
-	feedback_add_details("admin_verb","TE") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
+	feedback_report("admin_verb","TE") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
 /datum/admins/proc/toggleAI()
 	set category = "Event"
@@ -684,7 +684,7 @@ var/global/nologevent = 0
 	message_admins("[key_name_admin(usr)] toggled AI allowed.")
 	log_admin("[key_name(usr)] toggled AI allowed.")
 	world.update_status()
-	feedback_add_details("admin_verb","TAI") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
+	feedback_report("admin_verb","TAI") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
 /datum/admins/proc/toggleaban()
 	set category = "Server"
@@ -702,7 +702,7 @@ var/global/nologevent = 0
 	message_admins("[key_name_admin(usr)] toggled respawn to [abandon_allowed ? "On" : "Off"].", 1)
 	log_admin("[key_name(usr)] toggled respawn to [abandon_allowed ? "On" : "Off"].")
 	world.update_status()
-	feedback_add_details("admin_verb","TR") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
+	feedback_report("admin_verb","TR") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
 /datum/admins/proc/toggle_aliens()
 	set category = "Event"
@@ -715,7 +715,7 @@ var/global/nologevent = 0
 	aliens_allowed = !aliens_allowed
 	log_admin("[key_name(usr)] toggled aliens to [aliens_allowed].")
 	message_admins("[key_name_admin(usr)] toggled aliens [aliens_allowed ? "on" : "off"].")
-	feedback_add_details("admin_verb","TA") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
+	feedback_report("admin_verb","TA") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
 /datum/admins/proc/delay()
 	set category = "Server"
@@ -737,7 +737,7 @@ var/global/nologevent = 0
 	else
 		to_chat(world, "<b>The game will start soon.</b>")
 		log_admin("[key_name(usr)] removed the delay.")
-	feedback_add_details("admin_verb","DELAY") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
+	feedback_report("admin_verb","DELAY") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
 ////////////////////////////////////////////////////////////////////////////////////////////////ADMIN HELPER PROCS
 
@@ -813,7 +813,7 @@ var/global/nologevent = 0
 		A.admin_spawned = TRUE
 
 	log_admin("[key_name(usr)] spawned [chosen] at ([usr.x],[usr.y],[usr.z])")
-	feedback_add_details("admin_verb","SA") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
+	feedback_report("admin_verb","SA") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
 /datum/admins/proc/show_traitor_panel(var/mob/M in mob_list)
 	set category = "Admin"
@@ -831,7 +831,7 @@ var/global/nologevent = 0
 		return
 
 	M.mind.edit_memory()
-	feedback_add_details("admin_verb","STP") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
+	feedback_report("admin_verb","STP") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
 /datum/admins/proc/toggleguests()
 	set category = "Server"
@@ -848,7 +848,7 @@ var/global/nologevent = 0
 		to_chat(world, "<B>Guests may now enter the game.</B>")
 	log_admin("[key_name(usr)] toggled guests game entering [guests_allowed ? "" : "dis"]allowed.")
 	message_admins("<span class='notice'>[key_name_admin(usr)] toggled guests game entering [guests_allowed ? "" : "dis"]allowed.</span>", 1)
-	feedback_add_details("admin_verb","TGU") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
+	feedback_report("admin_verb","TGU") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
 /datum/admins/proc/output_ai_laws()
 	var/ai_number = 0
@@ -986,7 +986,7 @@ var/gamma_ship_location = 1 // 0 = station , 1 = space
 
 		message_admins("<span class='adminnotice'>[key_name_admin(usr)] has put [frommob.ckey] in control of [tomob.name].</span>")
 		log_admin("[key_name(usr)] stuffed [frommob.ckey] into [tomob.name].")
-		feedback_add_details("admin_verb","CGD")
+		feedback_report("admin_verb","CGD")
 
 		tomob.ckey = frommob.ckey
 		qdel(frommob)
@@ -1012,7 +1012,7 @@ var/gamma_ship_location = 1 // 0 = station , 1 = space
 
 		message_admins("<span class='adminnotice'>[key_name_admin(usr)] has put [frommob.ckey] in control of [tomob.name].</span>")
 		log_admin("[key_name(usr)] stuffed [frommob.ckey] into [tomob.name].")
-		feedback_add_details("admin_verb","CGD")
+		feedback_report("admin_verb","CGD")
 
 		tomob.ckey = frommob.ckey
 		qdel(frommob)

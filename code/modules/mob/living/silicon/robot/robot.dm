@@ -372,7 +372,7 @@ var/list/robot_verbs_default = list(
 			icon = "icons/mob/alien.dmi"
 			icon_state = "xenoborg-state-a"
 			modtype = "Xeno-Hu"
-			feedback_inc("xeborg_hunter",1)
+			feedback_report("xeborg_hunter")
 
 
 	//languages
@@ -385,7 +385,7 @@ var/list/robot_verbs_default = list(
 		module_sprites["Custom"] = "[src.ckey]-[modtype]"
 
 	hands.icon_state = lowertext(module.module_type)
-	feedback_inc("cyborg_[lowertext(modtype)]",1)
+	feedback_report("cyborg_[lowertext(modtype)]")
 	rename_character(real_name, get_default_name())
 
 	if(modtype == "Medical" || modtype == "Security" || modtype == "Combat" || modtype == "Peacekeeper")

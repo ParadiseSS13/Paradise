@@ -103,7 +103,7 @@
 				var/atom/movable/I = new R.result (get_turf(user.loc))
 				I.CheckParts(parts, R)
 				if(send_feedback)
-					feedback_add_details("object_crafted","[I.type]")
+					feedback_report("object_crafted","[I.type]")
 				return 0
 			return "."
 		return ", missing tool."

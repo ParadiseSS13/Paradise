@@ -321,7 +321,7 @@ var/list/obj/machinery/newscaster/allCasters = list() //Global list that will co
 				newChannel.channel_name = channel_name
 				newChannel.author = scanned_user
 				newChannel.locked = c_locked
-				feedback_inc("newscaster_channels", 1)
+				feedback_report("newscaster_channels")
 				news_network.network_channels += newChannel //Adding channel to the global network
 				temp = "<span class='good'>Feed channel '[channel_name]' created successfully.</span>"
 				temp_back_screen = NEWSCASTER_MAIN
@@ -358,7 +358,7 @@ var/list/obj/machinery/newscaster/allCasters = list() //Global list that will co
 			newMsg.body = msg
 			if(photo)
 				newMsg.img = photo.img
-			feedback_inc("newscaster_stories",1)
+			feedback_report("newscaster_stories")
 			var/announcement = ""
 			for(var/datum/feed_channel/FC in news_network.network_channels)
 				if(FC.channel_name == channel_name)
@@ -807,7 +807,7 @@ var/list/obj/machinery/newscaster/allCasters = list() //Global list that will co
 	return FALSE
 
 /obj/machinery/newscaster/proc/print_paper()
-	feedback_inc("newscaster_newspapers_printed",1)
+	feedback_report("newscaster_newspapers_printed")
 	var/obj/item/weapon/newspaper/NEWSPAPER = new /obj/item/weapon/newspaper
 	for(var/datum/feed_channel/FC in news_network.network_channels)
 		NEWSPAPER.news_content += FC

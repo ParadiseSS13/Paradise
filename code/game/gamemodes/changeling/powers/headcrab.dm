@@ -36,5 +36,5 @@
 			crab.origin.transfer_to(crab)
 			to_chat(crab, "<span class='warning'>You burst out of the remains of your former body in a shower of gore!</span>")
 	user.gib()
-	feedback_add_details("changeling_powers","LR")
+	feedback_report("changeling_powers","LR")
 	return 1

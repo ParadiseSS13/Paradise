@@ -60,17 +60,17 @@
 		for(var/datum/job_objective/objective in employee.job_objectives)
 			if(objective.is_completed(1))
 				text += "<br>&nbsp;-&nbsp;<B>Task #[count]</B>: [objective.get_description()] <font color='green'><B>Completed!</B></font>"
-				feedback_add_details("employee_objective","[objective.type]|SUCCESS")
+				feedback_report("employee_objective","[objective.type]|SUCCESS")
 				tasks_completed++
 			else
 				text += "<br>&nbsp;-&nbsp;<B>Task #[count]</B>: [objective.get_description()] <font color='red'><b>Failed.</b></font>"
-				feedback_add_details("employee_objective","[objective.type]|FAIL")
+				feedback_report("employee_objective","[objective.type]|FAIL")
 			count++
 
 		if(tasks_completed >= 1)
 			text += "<br>&nbsp;<font color='green'><B>[employee.name] did their fucking job!</B></font>"
-			feedback_add_details("employee_success","SUCCESS")
+			feedback_report("employee_success","SUCCESS")
 		else
-			feedback_add_details("employee_success","FAIL")
+			feedback_report("employee_success","FAIL")
 
 	return text

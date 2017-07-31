@@ -229,7 +229,7 @@ obj/item/weapon/gun/proc/newshot()
 			user.update_inv_l_hand()
 		else
 			user.update_inv_r_hand()
-	feedback_add_details("gun_fired","[type]")
+	feedback_report("gun_fired","[type]")
 
 /obj/item/weapon/gun/attack(mob/M as mob, mob/user)
 	if(user.a_intent == INTENT_HARM) //Flogging

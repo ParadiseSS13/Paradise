@@ -119,7 +119,7 @@
 			H.set_species()
 		target.UpdateAppearance()
 		domutcheck(target, null)
-	feedback_add_details("changeling_powers","TS")
+	feedback_report("changeling_powers","TS")
 	return TRUE
 
 obj/effect/proc_holder/changeling/sting/extract_dna
@@ -138,7 +138,7 @@ obj/effect/proc_holder/changeling/sting/extract_dna
 	add_logs(user, target, "stung", object="extraction sting")
 	if(!(user.mind.changeling.has_dna(target.dna)))
 		user.mind.changeling.absorb_dna(target, user)
-	feedback_add_details("changeling_powers","ED")
+	feedback_report("changeling_powers","ED")
 	return 1
 
 obj/effect/proc_holder/changeling/sting/mute
@@ -152,7 +152,7 @@ obj/effect/proc_holder/changeling/sting/mute
 /obj/effect/proc_holder/changeling/sting/mute/sting_action(var/mob/user, var/mob/living/carbon/target)
 	add_logs(user, target, "stung", object="mute sting")
 	target.AdjustSilence(30)
-	feedback_add_details("changeling_powers","MS")
+	feedback_report("changeling_powers","MS")
 	return 1
 
 obj/effect/proc_holder/changeling/sting/blind
@@ -169,7 +169,7 @@ obj/effect/proc_holder/changeling/sting/blind
 	target.BecomeNearsighted()
 	target.EyeBlind(20)
 	target.EyeBlurry(40)
-	feedback_add_details("changeling_powers","BS")
+	feedback_report("changeling_powers","BS")
 	return 1
 
 obj/effect/proc_holder/changeling/sting/LSD
@@ -185,7 +185,7 @@ obj/effect/proc_holder/changeling/sting/LSD
 	spawn(rand(300,600))
 		if(target)
 			target.Hallucinate(400)
-	feedback_add_details("changeling_powers","HS")
+	feedback_report("changeling_powers","HS")
 	return 1
 
 obj/effect/proc_holder/changeling/sting/cryo //Enable when mob cooling is fixed so that frostoil actually makes you cold, instead of mostly just hungry.
@@ -201,5 +201,5 @@ obj/effect/proc_holder/changeling/sting/cryo //Enable when mob cooling is fixed 
 	if(target.reagents)
 		target.reagents.add_reagent("frostoil", 30)
 		target.reagents.add_reagent("ice", 30)
-	feedback_add_details("changeling_powers","CS")
+	feedback_report("changeling_powers","CS")
 	return 1

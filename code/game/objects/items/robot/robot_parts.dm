@@ -136,7 +136,7 @@
 	if(l_arm && r_arm)
 		if(l_leg && r_leg)
 			if(chest && head)
-				feedback_inc("cyborg_frames_built",1)
+				feedback_report("cyborg_frames_built")
 				return 1
 	return 0
 
@@ -305,7 +305,7 @@
 			O.mmi = W
 			O.Namepick()
 
-			feedback_inc("cyborg_birth",1)
+			feedback_report("cyborg_birth")
 			callHook("borgify", list(O))
 
 			forceMove(O)

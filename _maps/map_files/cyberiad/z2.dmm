@@ -1002,7 +1002,7 @@
 "uu" = (/obj/structure/stool/bed/chair/office/dark{dir = 8},/turf/unsimulated/floor{icon_state = "floor"},/area/centcom/control)
 "uv" = (/turf/unsimulated/floor{icon_state = "gcircuit"},/area/centcom/control)
 "uw" = (/mob/living/silicon/decoy{name = "A.L.I.C.E."},/turf/unsimulated/floor{icon_state = "gcircuit"},/area/centcom/control)
-"ux" = (/obj/machinery/blackbox_recorder,/turf/unsimulated/floor{icon_state = "gcircuit"},/area/centcom/control)
+"ux" = (/turf/unsimulated/floor{icon_state = "gcircuit"},/area/centcom/control)
 "uy" = (/obj/machinery/computer/card/centcom,/turf/unsimulated/floor{icon_state = "floor"},/area/centcom/control)
 "uz" = (/obj/machinery/computer/card,/turf/unsimulated/floor{icon_state = "floor"},/area/centcom/control)
 "uA" = (/turf/unsimulated/wall/fakeglass{tag = "icon-fakewindows (WEST)"; icon_state = "fakewindows"; dir = 8},/area/centcom/specops)

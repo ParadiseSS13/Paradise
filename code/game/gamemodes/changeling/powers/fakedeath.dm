@@ -25,7 +25,7 @@
 			to_chat(user, "<span class='notice'>We are ready to regenerate.</span>")
 			user.mind.changeling.purchasedpowers += new /obj/effect/proc_holder/changeling/revive(null)
 
-	feedback_add_details("changeling_powers","FD")
+	feedback_report("changeling_powers","FD")
 	return 1
 
 /obj/effect/proc_holder/changeling/fakedeath/can_sting(var/mob/user)

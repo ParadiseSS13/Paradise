@@ -291,6 +291,10 @@ var/world_topic_spam_protect_time = world.timeofday
 		else
 			return ..(1)
 
+	//as soon as we start rebooting, commit feedback
+	feedback_report("[feedback_c]","[feedback_r]")
+	feedback_controller.sql_commit_feedback()
+
 	var/delay
 	if(!isnull(time))
 		delay = max(0,time)
@@ -308,12 +312,9 @@ var/world_topic_spam_protect_time = world.timeofday
 			if(!ticker.delay_end)
 				world << round_end_sound
 	sleep(delay)
-	if(blackbox)
-		blackbox.save_all_data_to_sql()
 	if(ticker.delay_end)
 		to_chat(world, "<span class='boldannounce'>Reboot was cancelled by an admin.</span>")
 		return
-	feedback_set_details("[feedback_c]","[feedback_r]")
 	log_game("<span class='boldannounce'>Rebooting world. [reason]</span>")
 	//kick_clients_in_lobby("<span class='boldannounce'>The round came to an end with you in the lobby.</span>", 1)
 
