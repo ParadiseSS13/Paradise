@@ -9,6 +9,7 @@
 	w_class = WEIGHT_CLASS_HUGE
 	materials = list(MAT_METAL=10000, MAT_GLASS=2500)
 	var/code = 2
+	var/noise_suppression = FALSE
 
 	is_special = 1
 
@@ -70,12 +71,12 @@
 	else if(href_list["power"])
 		on = !on
 
+	else if(href_list["noise_suppression"])
+		noise_suppression = !noise_suppression
+
 	add_fingerprint(usr)
 
-/obj/item/device/radio/electropack/receive_signal(datum/signal/signal)
-	if(!signal || signal.encryption != code)
-		return
-
+/obj/item/device/radio/electropack/proc/do_shock()
 	if(ismob(loc) && on)
 		var/mob/M = loc
 		var/turf/T = M.loc
@@ -92,7 +93,14 @@
 		s.start()
 
 		M.Weaken(5)
+		M.Stuttering(1)
+		M.Jitter(20)
 
+
+/obj/item/device/radio/electropack/receive_signal(datum/signal/signal)
+	if(!signal || signal.encryption != code)
+		return
+	do_shock()
 	if(master)
 		master.receive_signal()
 	return
@@ -111,5 +119,6 @@
 	data["power"] = on
 	data["freq"] = format_frequency(frequency)
 	data["code"] = code
+	data["noise_suppression"] = noise_suppression
 
 	return data
