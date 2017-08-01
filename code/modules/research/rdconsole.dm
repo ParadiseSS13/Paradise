@@ -425,10 +425,11 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 					message_admins("Protolathe exploit attempted by [key_name(usr, usr.client)]!")
 
 				if(g2g) //If input is incorrect, nothing happens
-					var/time_to_construct = PROTOLATHE_CONSTRUCT_DELAY * coeff * amount ** 0.8 //Construction time should correctly change with advanced components installed
+					var/time_to_construct = coeff * being_built.lathe_time_factor
+					time_to_construct *= PROTOLATHE_CONSTRUCT_DELAY * amount ** 0.8 //Construction time should correctly change with advanced components installed
 					var/enough_materials = 1
 
-					time_to_construct *= being_built.lathe_time_factor
+					
 					add_wait_message("Constructing Prototype. Please Wait...", time_to_construct)
 					linked_lathe.busy = 1
 					flick("protolathe_n",linked_lathe)
@@ -503,10 +504,9 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 					message_admins("Circuit imprinter exploit attempted by [key_name(usr, usr.client)]!")
 
 				if(g2g) //Again, if input is wrong, do nothing
-					var/time_to_construct = IMPRINTER_DELAY //Flat 1.6 seconds
 					var/enough_materials = 1
-					
-					add_wait_message("Imprinting Circuit. Please Wait...", time_to_construct)
+
+					add_wait_message("Imprinting Circuit. Please Wait...", IMPRINTER_DELAY) //Flat 1.6 seconds
 					linked_imprinter.busy = 1
 					flick("circuit_imprinter_ani",linked_imprinter)
 					use_power(power)
@@ -533,7 +533,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 
 					var/P = being_built.build_path //lets save these values before the spawn() just in case. Nobody likes runtimes.
 					
-					spawn(time_to_construct)
+					spawn(IMPRINTER_DELAY)
 						if(g2g)
 							var/obj/item/new_item = new P(src)
 							new_item.loc = linked_imprinter.loc
