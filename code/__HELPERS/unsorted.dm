@@ -1196,12 +1196,6 @@ var/global/list/common_tools = list(
 			return 0
 	if(istype(W, /obj/item/device/assembly/igniter))
 		return 1000
-	if(istype(W, /obj/item/weapon/reagent_containers/food/drinks/drinkingglass/shotglass))
-		var/obj/item/weapon/reagent_containers/food/drinks/drinkingglass/shotglass/G = W
-		if(G.on_fire)
-			return 700
-		else
-			return 0
 	else
 		return 0
 

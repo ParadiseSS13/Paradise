@@ -427,14 +427,14 @@
 /datum/reagent/consumable/ethanol/flaming_homer
 	name = "Flaming Moe"
 	id = "flamingmoe"
-	description = "This seems like a bunch of various alcohols thrown together, along with what looks like prescription medicine..."
+	description = "This appears to be a mixture of various alcohols blended with prescription medicine. It is lightly toasted..."
 	reagent_state = LIQUID
 	color = "#58447f" //rgb: 88, 66, 127
 	alcohol_perc = 0.5
 	drink_icon = "flamingmoeglass"
 	drink_name = "Flaming Moe"
 	drink_desc = "Happiness is just a Flaming Moe away!"
-	taste_message = "caramelised booze and medicine"
+	taste_message = "caramelised booze and sweet, salty medicine"
 
 /datum/reagent/consumable/ethanol/brave_bull
 	name = "Brave Bull"

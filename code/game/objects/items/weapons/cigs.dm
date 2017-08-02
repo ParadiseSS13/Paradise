@@ -75,10 +75,23 @@ LIGHTERS ARE IN LIGHTERS.DM
 		if(Z.lit)
 			light("<span class='rose'>With a single flick of their wrist, [user] smoothly lights their [name] with their [W]. Damn they're cool.</span>")
 
+	else if(istype(W, /obj/item/weapon/lighter))
+		var/obj/item/weapon/lighter/L = W
+		if(L.lit)
+			light("<span class='notice'>After some fiddling, [user] manages to light their [name] with [W].</span>")
+
+	else if(istype(W, /obj/item/weapon/match))
+		var/obj/item/weapon/match/M = W
+		if(M.lit == 1)
+			light("<span class='notice'>[user] lights their [name] with their [W].</span>")
+
 	else if(istype(W, /obj/item/weapon/melee/energy/sword/saber))
 		var/obj/item/weapon/melee/energy/sword/saber/S = W
 		if(S.active)
 			light("<span class='warning'>[user] swings their [W], barely missing their nose. They light their [name] in the process.</span>")
+
+	else if(istype(W, /obj/item/device/assembly/igniter))
+		light("<span class='notice'>[user] fiddles with [W], and manages to light their [name].</span>")
 
 	else if(istype(W, /obj/item/weapon/gun/magic/wand/fireball))
 		var/obj/item/weapon/gun/magic/wand/fireball/F = W
@@ -90,8 +103,6 @@ LIGHTERS ARE IN LIGHTERS.DM
 				explosion(user.loc, -1, 0, 2, 3, 0, flame_range = 2)
 			F.charges--
 
-	else if(is_hot(W) > 600)
-		light("<span class='notice'>After some fiddling, [user] manages to light their [name] with [W].</span>")
 
 	//can't think of any other way to update the overlays :<
 	user.update_inv_wear_mask()
