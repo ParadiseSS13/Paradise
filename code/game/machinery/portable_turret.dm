@@ -542,23 +542,23 @@ var/list/turret_icons
 	for(var/A in typecache_filter_list(view(scan_range, src), things_to_scan))
 		var/atom/AA = A
 
-		if(AA.invisibility >= INVISIBILITY_LEVEL_ONE) //Let's not do typechecks and stuff on invisible things
+		if(AA.invisibility > SEE_INVISIBLE_LIVING) //Let's not do typechecks and stuff on invisible things
 			continue
 
-		if(istype(AA, /obj/mecha))
-			var/obj/mecha/ME = AA
+		if(istype(A, /obj/mecha))
+			var/obj/mecha/ME = A
 			assess_and_assign(ME.occupant, targets, secondarytargets)
 
-		if(istype(AA, /obj/spacepod))
-			var/obj/spacepod/SP = AA
+		if(istype(A, /obj/spacepod))
+			var/obj/spacepod/SP = A
 			assess_and_assign(SP.pilot, targets, secondarytargets)
 
-		if(istype(AA, /obj/vehicle))
-			var/obj/vehicle/T = AA
+		if(istype(A, /obj/vehicle))
+			var/obj/vehicle/T = A
 			assess_and_assign(T.buckled_mob, targets, secondarytargets)
 
-		if(isliving(AA))
-			var/mob/living/C = AA
+		if(isliving(A))
+			var/mob/living/C = A
 			assess_and_assign(C, targets, secondarytargets)
 
 	if(!tryToShootAt(targets))
