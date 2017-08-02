@@ -537,12 +537,12 @@ var/list/turret_icons
 
 	var/list/targets = list()			//list of primary targets
 	var/list/secondarytargets = list()	//targets that are least important
-	var/turretview = view(scan_range, src)
+	var/static/things_to_scan = typecacheof(list(/obj/mecha, /obj/spacepod, /obj/vehicle, /mob/living))
 
-	for(var/A in turretview)
+	for(var/A in typecache_filter_list(view(scan_range, src), things_to_scan))
 		var/atom/AA = A
 
-		if((AA.invisibility >= INVISIBILITY_LEVEL_ONE) || !simulated) //Let's not do typechecks and stuff on invisible things or the lighting layer
+		if(AA.invisibility >= INVISIBILITY_LEVEL_ONE) //Let's not do typechecks and stuff on invisible things
 			continue
 
 		if(istype(AA, /obj/mecha))
