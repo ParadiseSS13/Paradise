@@ -14,10 +14,11 @@
 	var/instrumentExt = "ogg"		// the file extension
 	var/obj/instrumentObj = null	// the associated obj playing the sound
 
-/datum/song/New(dir, obj)
+/datum/song/New(dir, obj, ext = "ogg")
 	tempo = sanitize_tempo(tempo)
 	instrumentDir = dir
 	instrumentObj = obj
+	instrumentExt = ext
 
 /datum/song/Destroy()
 	instrumentObj = null
@@ -50,7 +51,7 @@
 		return
 
 	// now generate name
-	var/soundfile = "sound/[instrumentDir]/[ascii2text(note+64)][acc][oct].[instrumentExt]"
+	var/soundfile = "sound/instruments/[instrumentDir]/[ascii2text(note+64)][acc][oct].[instrumentExt]"
 	soundfile = file(soundfile)
 	// make sure the note exists
 	if(!fexists(soundfile))
@@ -147,6 +148,7 @@
 		lines = new()
 		tempo = sanitize_tempo(5) // default 120 BPM
 		name = ""
+		nanomanager.update_uis(src)
 
 	else if(href_list["import"])
 		playing = 0
@@ -182,9 +184,11 @@
 					lines.Remove(l)
 				else
 					linenum++
+		nanomanager.update_uis(src)
 
 	else if(href_list["help"])
 		help = !help
+		nanomanager.update_uis(src)
 
 	if(href_list["repeat"]) //Changing this from a toggle to a number of repeats to avoid infinite loops.
 		if(playing)
@@ -194,9 +198,11 @@
 			repeat = 0
 		if(repeat > max_repeat)
 			repeat = max_repeat
+		nanomanager.update_uis(src)
 
 	else if(href_list["tempo"])
 		tempo = sanitize_tempo(tempo + text2num(href_list["tempo"]) * world.tick_lag)
+		nanomanager.update_uis(src)
 
 	else if(href_list["play"])
 		if(playing)
@@ -204,6 +210,7 @@
 		playing = 1
 		spawn()
 			playsong(usr)
+		nanomanager.update_uis(src)
 
 	else if(href_list["insertline"])
 		var/num = round(text2num(href_list["insertline"]))
@@ -219,12 +226,14 @@
 			newline = copytext(newline, 1, 50)
 
 		lines.Insert(num, newline)
+		nanomanager.update_uis(src)
 
 	else if(href_list["deleteline"])
 		var/num = round(text2num(href_list["deleteline"]))
 		if(num > lines.len || num < 1)
 			return
 		lines.Cut(num, num + 1)
+		nanomanager.update_uis(src)
 
 	else if(href_list["modifyline"])
 		var/num = round(text2num(href_list["modifyline"]))
@@ -236,9 +245,11 @@
 		if(num > lines.len || num < 1)
 			return
 		lines[num] = content
+		nanomanager.update_uis(src)
 
 	else if(href_list["stop"])
 		playing = 0
+		nanomanager.update_uis(src)
 
 /datum/song/proc/sanitize_tempo(new_tempo)
 	new_tempo = abs(new_tempo)
