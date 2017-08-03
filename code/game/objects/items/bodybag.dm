@@ -20,13 +20,9 @@
 
 /obj/item/weapon/storage/box/bodybags/New()
 	..()
-	new /obj/item/bodybag(src)
-	new /obj/item/bodybag(src)
-	new /obj/item/bodybag(src)
-	new /obj/item/bodybag(src)
-	new /obj/item/bodybag(src)
-	new /obj/item/bodybag(src)
-	new /obj/item/bodybag(src)
+	for(var/i in 1 to 7)
+		new /obj/item/bodybag(src)
+
 
 
 /obj/structure/closet/body_bag
@@ -43,24 +39,24 @@
 
 /obj/structure/closet/body_bag/attackby(W as obj, mob/user as mob, params)
 	if(istype(W, /obj/item/weapon/pen))
-		var/t = input(user, "What would you like the label to be?", text("[]", src.name), null)  as text
+		var/t = input(user, "What would you like the label to be?", text("[]", name), null)  as text
 		if(user.get_active_hand() != W)
 			return
-		if(!in_range(src, user) && src.loc != user)
+		if(!in_range(src, user) && loc != user)
 			return
 		t = sanitize(copytext(t,1,MAX_MESSAGE_LEN))
 		if(t)
-			src.name = "body bag - "
-			src.name += t
-			src.overlays += image(src.icon, "bodybag_label")
+			name = "body bag - "
+			name += t
+			overlays += image(icon, "bodybag_label")
 		else
-			src.name = "body bag"
+			name = "body bag"
 	//..() //Doesn't need to run the parent. Since when can fucking bodybags be welded shut? -Agouri
 		return
 	else if(istype(W, /obj/item/weapon/wirecutters))
 		to_chat(user, "You cut the tag off the bodybag")
-		src.name = "body bag"
-		src.overlays.Cut()
+		name = "body bag"
+		overlays.Cut()
 		return
 
 
@@ -80,7 +76,7 @@
 			return 0
 		if(contents.len)
 			return 0
-		visible_message("[usr] folds up the [src.name]")
+		visible_message("[usr] folds up the [name]")
 		new item_path(get_turf(src))
 		spawn(0)
 			qdel(src)
@@ -126,9 +122,9 @@
 /obj/structure/closet/body_bag/cryobag/open()
 	. = ..()
 	if(used) //happens after dump_contents()
-		var/obj/item/O = new/obj/item(src.loc)
+		var/obj/item/O = new/obj/item(loc)
 		O.name = "used stasis bag"
-		O.icon = src.icon
+		O.icon = icon
 		O.icon_state = "bodybag_used"
 		O.desc = "Pretty useless now.."
 		qdel(src)
@@ -143,7 +139,7 @@
 		M.in_stasis = 1
 
 /obj/structure/closet/body_bag/cryobag/toggle(mob/user)
-	if(!opened && locked && !src.allowed(user))
+	if(!opened && locked && !allowed(user))
 		to_chat(user, "<span class='warning'>Access denied. Medical access only.</span>")
 		return
 	..()
@@ -157,9 +153,9 @@
 
 /obj/structure/closet/body_bag/cryobag/attackby(W as obj, mob/user as mob, params)
 	if(istype(W, /obj/item/weapon/card/id) || istype(W, /obj/item/device/pda))
-		if(src.allowed(user))
-			src.locked = !src.locked
-			to_chat(user, "The controls are now [src.locked ? "locked. Medical access only." : "unlocked."]")
+		if(allowed(user))
+			locked = !locked
+			to_chat(user, "The controls are now [locked ? "locked. Medical access only." : "unlocked."]")
 		else
 			to_chat(user, "<span class='warning'>Access denied. Medical access only.</span>")
 		return
