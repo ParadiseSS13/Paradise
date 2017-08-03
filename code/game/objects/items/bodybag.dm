@@ -126,7 +126,7 @@
 		used = 1	//We consider bag as used only if there is actual human in it
 	..()
 
-/obj/structure/closet/body_bag/cryobag/open()
+/obj/structure/closet/body_bag/cryobag/
 	. = ..()
 	if(used) //happens after dump_contents()
 		var/obj/item/O = new/obj/item(loc)
@@ -157,6 +157,7 @@
 	if(timer > world.time)
     return
 	visible_message("<span class='notice'>[bicon(holder)][name] run out of power. Stasis field disabled.</span>")
+	open()
 
 /obj/structure/closet/body_bag/cryobag/MouseDrop(over_object, src_location, over_location)
 	if((over_object == usr && (in_range(src, usr) || usr.contents.Find(src))))
