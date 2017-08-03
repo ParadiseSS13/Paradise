@@ -126,7 +126,7 @@
 		used = 1	//We consider bag as used only if there is actual human in it
 	..()
 
-/obj/structure/closet/body_bag/cryobag/
+/obj/structure/closet/body_bag/cryobag/open()
 	. = ..()
 	if(used) //happens after dump_contents()
 		var/obj/item/O = new/obj/item(loc)
@@ -155,9 +155,15 @@
 
 /obj/structure/closet/body_bag/cryobag/process()
 	if(timer > world.time)
-    return
-	visible_message("<span class='notice'>[bicon(holder)][name] run out of power. Stasis field disabled.</span>")
-	open()
+		return
+	visible_message("<span class='notice'>[bicon(src)][name] run out of power. Stasis field disabled.</span>")
+	for(var/atom/movable/AM in src) //Atom already forcemoved into src in parent close() so we just searching from contents of src
+		if(!ismob(AM))
+			continue
+		var/mob/living/M = AM
+		M.in_stasis = 0
+	processing_objects.Remove(src)
+	used = 1
 
 /obj/structure/closet/body_bag/cryobag/MouseDrop(over_object, src_location, over_location)
 	if((over_object == usr && (in_range(src, usr) || usr.contents.Find(src))))
