@@ -314,7 +314,7 @@
 	else if(!anchored && !pulledby)
 		if(pressure_difference >= throw_pressure_limit)
 			var/general_direction = get_edge_target_turf(src, direction)
-			if(is_valid_tochat_target(src))
+			if(last_forced_movement + 10 < air_master.current_cycle && is_valid_tochat_target(src))
 				to_chat(src, "<span class='userdanger'>The pressure sends you flying!</span>")
 			if(ishuman(src))
 				var/mob/living/carbon/human/H = src
