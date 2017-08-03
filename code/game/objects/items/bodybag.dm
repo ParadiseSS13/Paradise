@@ -1,5 +1,6 @@
 //Also contains /obj/structure/closet/body_bag because I doubt anyone would think to look for bodybags in /object/structures
-
+#define STASIS_DELAY 6000
+//ten minutes
 /obj/item/bodybag
 	name = "body bag"
 	desc = "A folded bag designed for the storage and transportation of cadavers."
@@ -108,7 +109,13 @@
 	item_path = /obj/item/bodybag/cryobag
 	var/used = 0
 	var/locked = 0
+	var/timer = 0
 	req_access = list(access_medical)
+
+/obj/structure/closet/body_bag/cryobag/Destroy()
+	processing_objects.Remove(src)
+	dump_contents()
+	return ..()
 
 /obj/structure/closet/body_bag/cryobag/dump_contents()
 	for(var/atom/movable/AM in src) //To prevent something standing on body_bag being affected
@@ -137,12 +144,19 @@
 			continue
 		var/mob/living/M = AM
 		M.in_stasis = 1
+		timer = world.time + STASIS_DELAY
+		processing_objects.Add(src)
 
 /obj/structure/closet/body_bag/cryobag/toggle(mob/user)
 	if(!opened && locked && !allowed(user))
 		to_chat(user, "<span class='warning'>Access denied. Medical access only.</span>")
 		return
 	..()
+
+/obj/structure/closet/body_bag/cryobag/process()
+	if(timer > world.time)
+    return
+	visible_message("<span class='notice'>[bicon(holder)][name] run out of power. Stasis field disabled.</span>")
 
 /obj/structure/closet/body_bag/cryobag/MouseDrop(over_object, src_location, over_location)
 	if((over_object == usr && (in_range(src, usr) || usr.contents.Find(src))))
