@@ -4010,7 +4010,7 @@
 "bzf" = (/turf/simulated/floor/plasteel{dir = 1; icon_state = "whitecorner"},/area/hallway/primary/starboard/west)
 "bzg" = (/obj/machinery/hologram/holopad,/turf/simulated/floor/plasteel{dir = 1; icon_state = "whitecorner"},/area/hallway/primary/starboard/west)
 "bzh" = (/obj/machinery/camera{c_tag = "Starboard Primary Hallway 2"; dir = 2; network = list("SS13")},/turf/simulated/floor/plasteel{dir = 1; icon_state = "whitecorner"},/area/hallway/primary/starboard/west)
-"bzi" = (/obj/item/weapon/twohanded/required/kirbyplants,/turf/simulated/floor/plasteel{dir = 1; icon_state = "whitecorner"},/area/hallway/primary/starboard/west)
+"bzi" = (/obj/structure/closet/crate/can{pixel_y = 8},/turf/simulated/floor/plasteel{dir = 1; icon_state = "whitecorner"},/area/hallway/primary/starboard/west)
 "bzj" = (/obj/structure/table/reinforced,/obj/machinery/door/firedoor,/obj/machinery/door/window/westright{dir = 1; name = "Hydroponics Desk"; req_access_txt = "35"},/turf/simulated/floor/plasteel,/area/hydroponics)
 "bzk" = (/obj/machinery/door/firedoor,/obj/machinery/door/airlock/glass{name = "Hydroponics"; req_access_txt = "35"},/turf/simulated/floor/plasteel,/area/hydroponics)
 "bzl" = (/obj/machinery/atmospherics/pipe/simple/hidden/supply,/turf/simulated/floor/plasteel,/area/hallway/primary/starboard/east)
