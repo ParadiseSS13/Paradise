@@ -205,7 +205,7 @@
 			var/datum/job/hos = job_master.GetJob("Head of Security")
 			count += (officer.current_positions + warden.current_positions + hos.current_positions)
 			if(job.current_positions > (config.assistantratio * count))
-				if(count >= 5) // if theres more than 5 security on the station just let assistants join regardless, they should be able to handle the tide
+				if(count >= 8) // if theres more than 5 security on the station just let assistants join regardless, they should be able to handle the tide
 					return 1
 				return 0
 	return 1
