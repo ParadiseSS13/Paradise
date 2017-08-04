@@ -12,11 +12,11 @@
 	access = list(access_rd, access_heads, access_tox, access_genetics, access_morgue,
 					access_tox_storage, access_tech_storage, access_teleporter, access_sec_doors,
 					access_research, access_robotics, access_xenobiology, access_ai_upload,
-					access_RC_announce, access_keycard_auth, access_tcomsat, access_gateway, access_xenoarch, access_minisat, access_mineral_storeroom, access_network)
+					access_RC_announce, access_keycard_auth, access_tcomsat, access_gateway, access_minisat, access_mineral_storeroom, access_network)
 	minimal_access = list(access_eva, access_rd, access_heads, access_tox, access_genetics, access_morgue,
 					access_tox_storage, access_tech_storage, access_teleporter, access_sec_doors,
 					access_research, access_robotics, access_xenobiology, access_ai_upload,
-					access_RC_announce, access_keycard_auth, access_tcomsat, access_gateway, access_xenoarch, access_minisat, access_maint_tunnels, access_mineral_storeroom, access_network)
+					access_RC_announce, access_keycard_auth, access_tcomsat, access_gateway, access_minisat, access_maint_tunnels, access_mineral_storeroom, access_network)
 	minimal_player_age = 21
 	exp_requirements = 600
 	exp_type = EXP_TYPE_CREW
@@ -58,9 +58,9 @@
 	supervisors = "the research director"
 	department_head = list("Research Director")
 	selection_color = "#ffeeff"
-	access = list(access_robotics, access_tox, access_tox_storage, access_research, access_xenobiology, access_xenoarch, access_mineral_storeroom)
-	minimal_access = list(access_tox, access_tox_storage, access_research, access_xenobiology, access_xenoarch, access_maint_tunnels, access_mineral_storeroom)
-	alt_titles = list("Xenoarcheologist", "Anomalist", "Plasma Researcher", "Xenobiologist", "Chemical Researcher")
+	access = list(access_robotics, access_tox, access_tox_storage, access_research, access_xenobiology, access_mineral_storeroom)
+	minimal_access = list(access_tox, access_tox_storage, access_research, access_xenobiology, access_maint_tunnels, access_mineral_storeroom)
+	alt_titles = list("Plasma Researcher", "Xenobiologist", "Chemical Researcher")
 	minimal_player_age = 3
 	exp_requirements = 300
 	exp_type = EXP_TYPE_CREW
