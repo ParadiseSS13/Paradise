@@ -12,8 +12,8 @@
 	var/uses // -1 For inifinite
 	var/human_only = 0
 	var/active = 0
-	tough = 1 //not easily broken by combat damage
-	sterile = 1 //not very germy
+	tough = TRUE //not easily broken by combat damage
+	sterile = TRUE //not very germy
 
 /obj/item/organ/internal/heart/gland/proc/ownerCheck()
 	if(ishuman(owner))

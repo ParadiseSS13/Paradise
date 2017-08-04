@@ -866,7 +866,6 @@
 		var/turf/T = H.loc
 		light_amount = min(T.get_lumcount() * 10, 5)  //hardcapped so it's not abused by having a ton of flashlights
 	H.nutrition = min(H.nutrition+light_amount, NUTRITION_LEVEL_WELL_FED+10)
-	H.traumatic_shock -= light_amount
 
 	if(light_amount > 0)
 		H.clear_alert("nolight")
@@ -879,7 +878,6 @@
 		H.adjustFireLoss(-(light_amount/4))
 	if(H.nutrition < NUTRITION_LEVEL_STARVING+50)
 		H.take_overall_damage(10,0)
-		H.traumatic_shock++
 
 /datum/species/machine
 	name = "Machine"
