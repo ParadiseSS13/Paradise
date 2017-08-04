@@ -87,6 +87,13 @@
 		if(!typecache[A.type])
 			. += A
 
+/proc/typecache_filter_multi_list_exclusion(list/atoms, list/typecache_include, list/typecache_exclude)
+	. = list()
+	for(var/thing in atoms)
+		var/atom/A = thing
+		if(typecache_include[A.type] && !typecache_exclude[A.type])
+			. += A
+
 //Like typesof() or subtypesof(), but returns a typecache instead of a list
 /proc/typecacheof(path, ignore_root_path)
 	if(ispath(path))
