@@ -13,8 +13,6 @@
 
 	var/mob/living/simple_animal/borer/B = user.has_brain_worms()
 	if(B)
-		if(B.controlling)
-			B.detach()
 		B.leave_host()
 		if(iscarbon(user))
 			var/mob/living/carbon/C = user
