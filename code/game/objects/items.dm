@@ -202,7 +202,7 @@ var/global/image/fire_overlay = image("icon" = 'icons/goonstation/effects/fire.d
 		to_chat(user, msg)
 
 
-/obj/item/attack_hand(mob/user as mob, var/pickupfireoverride = FALSE)
+/obj/item/attack_hand(mob/user as mob, pickupfireoverride = FALSE)
 	if(!user) return 0
 	if(hasorgans(user))
 		var/mob/living/carbon/human/H = user

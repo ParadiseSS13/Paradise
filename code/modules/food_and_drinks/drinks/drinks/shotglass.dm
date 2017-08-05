@@ -41,10 +41,10 @@
 	if(burn_state != ON_FIRE)
 		return
 	user.visible_message("<span class = 'warning'>[user] pours [src] all over themself!</span>", "<span class = 'danger'>You pour [src] all over yourself!</span>", "<span class = 'warning'>You hear a 'whoompf' and a sizzle.</span>")
+	extinguish(TRUE)
 	reagents.reaction(user, TOUCH)
 	reagents.clear_reagents()
 	user.IgniteMob()
-	extinguish(silent = TRUE)
 
 /obj/item/weapon/reagent_containers/food/drinks/drinkingglass/shotglass/proc/isShotFlammable()
 	var/datum/reagent/R = reagents.get_master_reagent()
@@ -53,16 +53,15 @@
 		if(A.volume >= 5 && A.alcohol_perc >= 0.35) //Only an approximation to if something's flammable but it will do
 			return TRUE
 
-/obj/item/weapon/reagent_containers/food/drinks/drinkingglass/shotglass/fire_act(global_overlay = FALSE, var/silent = FALSE)
+/obj/item/weapon/reagent_containers/food/drinks/drinkingglass/shotglass/fire_act(global_overlay = FALSE)
 	if(!isShotFlammable() || burn_state == ON_FIRE) //You can't light a shot that's not flammable!
 		return
 	..()
 	set_light(light_intensity, null, light_color)
-	if(!silent)
-		visible_message("<span class = 'notice'>[src] begins to burn with a blue hue!</span>")
+	visible_message("<span class = 'notice'>[src] begins to burn with a blue hue!</span>")
 	update_icon()
 
-/obj/item/weapon/reagent_containers/food/drinks/drinkingglass/shotglass/extinguish(var/silent = FALSE)
+/obj/item/weapon/reagent_containers/food/drinks/drinkingglass/shotglass/extinguish(silent = FALSE)
 	..()
 	set_light(0)
 	if(!silent)
