@@ -41,7 +41,7 @@
 		qdel(src)
 
 /obj/structure/stool/bed/chair/attack_tk(mob/user as mob)
-	if(buckled_mob)
+	if(buckled_mobs.len)
 		..()
 	else
 		rotate()
@@ -52,8 +52,10 @@
 		src.layer = FLY_LAYER
 	else
 		src.layer = OBJ_LAYER
-	if(buckled_mob)
-		buckled_mob.dir = dir
+	if(buckled_mobs.len)
+		for(var/m in buckled_mobs)
+			var/mob/living/buckled_mob = m
+			buckled_mob.dir = dir
 
 /obj/structure/stool/bed/chair/verb/rotate()
 	set name = "Rotate Chair"
@@ -117,7 +119,7 @@
 	return ..()
 
 /obj/structure/stool/bed/chair/comfy/post_buckle_mob(mob/living/M)
-	if(buckled_mob)
+	if(buckled_mobs.len)
 		overlays += armrest
 	else
 		overlays -= armrest
@@ -156,23 +158,26 @@
 
 /obj/structure/stool/bed/chair/office/Bump(atom/A)
 	..()
-	if(!buckled_mob)	return
+	if(!buckled_mobs.len)
+		return
 
 	if(propelled)
-		var/mob/living/occupant = buckled_mob
-		unbuckle_mob()
-		occupant.throw_at(A, 3, propelled)
-		occupant.apply_effect(6, STUN, 0)
-		occupant.apply_effect(6, WEAKEN, 0)
-		occupant.apply_effect(6, STUTTER, 0)
-		playsound(src.loc, 'sound/weapons/punch1.ogg', 50, 1, -1)
-		if(istype(A, /mob/living))
-			var/mob/living/victim = A
-			victim.apply_effect(6, STUN, 0)
-			victim.apply_effect(6, WEAKEN, 0)
-			victim.apply_effect(6, STUTTER, 0)
-			victim.take_organ_damage(10)
-		occupant.visible_message("<span class='danger'>[occupant] crashed into \the [A]!</span>")
+		for(var/m in buckled_mobs)
+			var/mob/living/buckled_mob = m
+			var/mob/living/occupant = buckled_mob
+			unbuckle_mob(buckled_mob, force=TRUE)
+			occupant.throw_at(A, 3, propelled)
+			occupant.apply_effect(6, STUN, 0)
+			occupant.apply_effect(6, WEAKEN, 0)
+			occupant.apply_effect(6, STUTTER, 0)
+			playsound(src.loc, 'sound/weapons/punch1.ogg', 50, 1, -1)
+			if(istype(A, /mob/living))
+				var/mob/living/victim = A
+				victim.apply_effect(6, STUN, 0)
+				victim.apply_effect(6, WEAKEN, 0)
+				victim.apply_effect(6, STUTTER, 0)
+				victim.take_organ_damage(10)
+			occupant.visible_message("<span class='danger'>[occupant] crashed into \the [A]!</span>")
 
 /obj/structure/stool/bed/chair/office/light
 	icon_state = "officechair_white"

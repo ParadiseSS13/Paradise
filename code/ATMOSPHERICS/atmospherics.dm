@@ -241,7 +241,7 @@ Pipelines + Other Objects -> Pipe network
 	if(!(direction & initialize_directions)) //can't go in a way we aren't connecting to
 		return
 
-	if(buckled_mob == user)
+	if(user in buckled_mobs)
 		return
 
 	var/obj/machinery/atmospherics/target_move = findConnecting(direction)

@@ -122,7 +122,7 @@
 	src.move_speed = world.time - src.l_move_time
 	src.l_move_time = world.time
 
-	if(. && buckled_mob && !handle_buckled_mob_movement(loc, direct)) //movement failed due to buckled mob
+	if(. && buckled_mobs.len && !handle_buckled_mob_movement(loc, direct)) //movement failed due to buckled mob
 		. = 0
 
 // Called after a successful Move(). By this point, we've already moved
@@ -174,9 +174,9 @@
 
 /mob/living/forceMove(atom/destination)
 	if(buckled)
-		addtimer(src, "check_buckled", 1, TRUE)
-	if(buckled_mob)
-		addtimer(buckled_mob, "check_buckled", 1, TRUE)
+		buckled.unbuckle_mob(src,force=TRUE)
+	if(buckled_mobs.len)
+		unbuckle_all_mobs(force=TRUE)
 	if(pulling)
 		addtimer(src, "check_pull", 1, TRUE)
 	. = ..()
@@ -328,16 +328,18 @@
 	return 1
 
 /atom/movable/proc/handle_buckled_mob_movement(newloc,direct)
-	if(!buckled_mob.Move(newloc, direct))
-		loc = buckled_mob.loc
-		last_move = buckled_mob.last_move
-		inertia_dir = last_move
-		buckled_mob.inertia_dir = last_move
-		return 0
+	for(var/m in buckled_mobs)
+		var/mob/living/buckled_mob = m
+		if(!buckled_mob.Move(newloc, direct))
+			loc = buckled_mob.loc
+			last_move = buckled_mob.last_move
+			inertia_dir = last_move
+			buckled_mob.inertia_dir = last_move
+			return 0
 	return 1
 
 /atom/movable/CanPass(atom/movable/mover, turf/target, height=1.5)
-	if(buckled_mob == mover)
+	if(mover in buckled_mobs)
 		return 1
 	return ..()
 

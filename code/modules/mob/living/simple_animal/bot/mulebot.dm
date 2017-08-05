@@ -367,7 +367,7 @@
 
 	if(isobj(AM))
 		var/obj/O = AM
-		if(O.buckled_mob || (locate(/mob) in AM)) //can't load non crates objects with mobs buckled to it or inside it.
+		if(O.buckled_mobs.len || (locate(/mob) in AM)) //can't load non crates objects with mobs buckled to it or inside it.
 			buzz(SIGH)
 			return
 
@@ -383,7 +383,7 @@
 
 /mob/living/simple_animal/bot/mulebot/proc/load_mob(mob/living/M)
 	can_buckle = TRUE
-	if(buckle_mob(M))
+	if(M in buckled_mobs)
 		passenger = M
 		load = M
 		can_buckle = FALSE
@@ -393,7 +393,7 @@
 	return FALSE
 
 /mob/living/simple_animal/bot/mulebot/post_buckle_mob(mob/living/M)
-	if(M == buckled_mob) //post buckling
+	if(M in buckled_mobs) //post buckling
 		M.pixel_y = initial(M.pixel_y) + 9
 		if(M.layer < layer)
 			M.layer = layer + 0.1
@@ -417,7 +417,7 @@
 	if(ismob(load))
 		var/mob/M = load
 		M.reset_perspective(null)
-	unbuckle_mob()
+	unbuckle_all_mobs()
 
 	if(load)
 		load.forceMove(loc)

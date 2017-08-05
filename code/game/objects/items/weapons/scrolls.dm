@@ -79,7 +79,7 @@
 		return
 
 	if(user && user.buckled)
-		user.buckled.unbuckle_mob()
+		user.buckled.unbuckle_mob(user, force=TRUE)
 
 	var/list/tempL = L
 	var/attempt = null

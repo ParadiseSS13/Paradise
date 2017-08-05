@@ -17,15 +17,16 @@
 
 
 /obj/vehicle/car/post_buckle_mob(mob/living/M)
-	if(buckled_mob)
+	if(buckled_mobs.len)
 		overlays += carcover
 	else
 		overlays -= carcover
 
 /obj/vehicle/car/handle_vehicle_offsets()
 	..()
-	if(buckled_mob)
-		switch(buckled_mob.dir)
+	if(buckled_mobs.len)
+		for(var/m in buckled_mobs)
+			var/mob/living/buckled_mob = m
 			if(NORTH)
 				buckled_mob.pixel_x = 2
 				buckled_mob.pixel_y = 20

@@ -12,6 +12,11 @@
 	var/last_zap = 0
 	var/datum/wires/tesla_coil/wires = null
 
+	// Executing a traitor caught releasing tesla was never this fun!
+	can_buckle = TRUE
+	buckle_lying = FALSE
+	buckle_requires_restraints = TRUE
+
 /obj/machinery/power/tesla_coil/New()
 	..()
 	component_parts = list()
@@ -56,6 +61,12 @@
 	else
 		..()
 
+/obj/machinery/power/tesla_coil/attack_hand(mob/user)
+	if(user.a_intent == INTENT_GRAB && user_buckle_mob(user.pulling, user, check_loc = 0))
+		return
+	..()
+
+
 /obj/machinery/power/tesla_coil/tesla_act(var/power)
 	if(anchored && !panel_open)
 		being_shocked = 1
@@ -89,12 +100,21 @@
 	anchored = 0
 	density = 1
 
+	can_buckle = TRUE
+	buckle_lying = FALSE
+	buckle_requires_restraints = TRUE
+
 /obj/machinery/power/grounding_rod/New()
 	..()
 	component_parts = list()
 	component_parts += new /obj/item/weapon/circuitboard/grounding_rod(null)
 	component_parts += new /obj/item/weapon/stock_parts/capacitor(null)
 	RefreshParts()
+
+/obj/machinery/power/grounding_rod/attack_hand(mob/user)
+	if(user.a_intent == INTENT_GRAB && user_buckle_mob(user.pulling, user, check_loc = FALSE))
+		return
+	..()
 
 /obj/machinery/power/grounding_rod/attackby(obj/item/W, mob/user, params)
 	if(default_deconstruction_screwdriver(user, "grounding_rod_open[anchored]", "grounding_rod[anchored]", W))

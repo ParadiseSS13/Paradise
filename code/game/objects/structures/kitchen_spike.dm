@@ -42,7 +42,7 @@
 
 /obj/structure/kitchenspike/attackby(obj/item/weapon/grab/G as obj, mob/user as mob)
 	if(istype(G, /obj/item/weapon/crowbar))
-		if(!buckled_mob)
+		if(!buckled_mobs.len)
 			playsound(loc, G.usesound, 100, 1)
 			if(do_after(user, 20 * G.toolspeed, target = src))
 				to_chat(user, "<span class='notice'>You pry the spikes out of the frame.</span>")
@@ -55,11 +55,11 @@
 		return
 	if(!istype(G, /obj/item/weapon/grab) || !G.affecting)
 		return
-	if(buckled_mob)
+	if(buckled_mobs.len)
 		to_chat(user, "<span class = 'danger'>The spike already has something on it, finish collecting its meat first!</span>")
 	else
 		if(isliving(G.affecting))
-			if(!buckled_mob)
+			if(!buckled_mobs.len)
 				if(do_mob(user, src, 120))
 					if(spike(G.affecting))
 						G.affecting.visible_message("<span class='danger'>[user] slams [G.affecting] onto the meat spike!</span>", "<span class='userdanger'>[user] slams you onto the meat spike!</span>", "<span class='italics'>You hear a squishy wet noise.</span>")
@@ -74,7 +74,7 @@
 		return
 
 
-	if(buckled_mob) //to prevent spam/queing up attacks
+	if(buckled_mobs.len) //to prevent spam/queing up attacks
 		return 0
 	if(victim.buckled)
 		return 0
@@ -85,9 +85,8 @@
 	if(ishuman(H))
 		H.add_splatter_floor()
 	H.adjustBruteLoss(30)
-	H.buckled = src
 	H.dir = 2
-	buckled_mob = H
+	buckle_mob(H, force=1)
 	var/matrix/m180 = matrix()
 	m180.Turn(180)
 	animate(H, transform = m180, time = 3)
@@ -99,8 +98,8 @@
 /obj/structure/kitchenspike/user_buckle_mob(mob/living/M, mob/living/user) //Don't want them getting put on the rack other than by spiking
 	return
 
-/obj/structure/kitchenspike/user_unbuckle_mob(mob/living/carbon/human/user)
-	if(buckled_mob && buckled_mob.buckled == src)
+/obj/structure/kitchenspike/user_unbuckle_mob(mob/living/buckled_mob, mob/living/carbon/human/user)
+	if(buckled_mob)
 		var/mob/living/M = buckled_mob
 		if(M != user)
 			M.visible_message(\
@@ -132,7 +131,7 @@
 		M.pixel_y = M.get_standard_pixel_y_offset(180)
 		M.adjustBruteLoss(30)
 		visible_message("<span class='danger'>[M] falls free of the [src]!</span>")
-		unbuckle_mob()
+		unbuckle_mob(M,force=1)
 		M.emote("scream")
 		M.AdjustWeakened(10)
 

@@ -26,8 +26,7 @@
 		spawn(0)
 
 			if(target.buckled)
-				var/obj/structure/stool/bed/buckled_to = target.buckled.
-				buckled_to.unbuckle_mob()
+				target.buckled.unbuckle_mob(target,force=1)
 
 			var/mobloc = get_turf(target.loc)
 			var/obj/effect/dummy/spell_jaunt/holder = new /obj/effect/dummy/spell_jaunt( mobloc )
@@ -40,8 +39,8 @@
 			animation.layer = 5
 			animation.master = holder
 			target.ExtinguishMob()
-			if(target.buckled)
-				target.buckled.unbuckle_mob()
+			if(target.buckled_mobs.len)
+				target.unbuckle_all_mobs(force=1)
 			if(phaseshift == 1)
 				animation.dir = target.dir
 				flick("phase_shift",animation)

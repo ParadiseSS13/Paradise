@@ -2,13 +2,13 @@
 	name = "Area teleport"
 	desc = "This spell teleports you to a type of area of your selection."
 	nonabstract_req = 1
-	
+
 	var/randomise_selection = 0 //if it lets the usr choose the teleport loc or picks it from the list
 	var/invocation_area = 1 //if the invocation appends the selected area
-	
+
 	var/sound1 = 'sound/weapons/ZapBang.ogg'
-	var/sound2 = 'sound/weapons/ZapBang.ogg'	
-	
+	var/sound2 = 'sound/weapons/ZapBang.ogg'
+
 /obj/effect/proc_holder/spell/targeted/area_teleport/perform(list/targets, recharge = 1, mob/living/user = usr)
 	var/thearea = before_cast(targets)
 	if(!thearea || !cast_check(1))
@@ -56,7 +56,7 @@
 			return
 
 		if(target && target.buckled)
-			target.buckled.unbuckle_mob()
+			target.buckled.unbuckle_mob(target, force=1)
 
 		var/list/tempL = L
 		var/attempt = null

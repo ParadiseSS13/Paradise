@@ -2182,7 +2182,7 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 		character.buckled = W
 		character.update_canmove()
 		W.dir = character.dir
-		W.buckled_mob = character
+		W.buckle_mob(character, force = TRUE)
 		W.add_fingerprint(character)
 
 	character.underwear = underwear

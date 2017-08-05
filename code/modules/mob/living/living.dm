@@ -1,5 +1,8 @@
 
 /mob/living/Destroy()
+	if(buckled)
+		buckled.unbuckle_mob(src,force=1)
+
 	if(ranged_ability)
 		ranged_ability.remove_ranged_ability(src)
 	return ..()
@@ -491,8 +494,7 @@
 	on_fire = 0
 	suiciding = 0
 	if(buckled) //Unbuckle the mob and clear the alerts.
-		buckled.buckled_mob = null
-		buckled = null
+		buckled.unbuckle_mob(src)
 		anchored = initial(anchored)
 		update_canmove()
 		clear_alert("buckled")

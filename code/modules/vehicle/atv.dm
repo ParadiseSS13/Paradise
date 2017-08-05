@@ -16,7 +16,7 @@
 		atvcover.layer = MOB_LAYER + 0.1
 
 /obj/vehicle/atv/post_buckle_mob(mob/living/M)
-	if(buckled_mob)
+	if(buckled_mobs.len)
 		overlays += atvcover
 	else
 		overlays -= atvcover

@@ -71,7 +71,7 @@
 
 /obj/structure/stool/bed/roller/attackby(obj/item/weapon/W as obj, mob/user as mob, params)
 	if(istype(W, /obj/item/roller_holder))
-		if(buckled_mob)
+		if(buckled_mobs.len)
 			user_unbuckle_mob(user)
 		else
 			user.visible_message("<span class='notice'>[user] collapses \the [name].</span>", "<span class='notice'>You collapse \the [name].</span>")
@@ -80,7 +80,7 @@
 	return
 
 /obj/structure/stool/bed/roller/post_buckle_mob(mob/living/M)
-	if(M == buckled_mob)
+	if(M in buckled_mobs)
 		density = 1
 		icon_state = "up"
 		M.pixel_y = initial(M.pixel_y)
@@ -115,7 +115,7 @@
 	if(over_object == usr && Adjacent(usr) && (in_range(src, usr) || usr.contents.Find(src)))
 		if(!ishuman(usr))
 			return
-		if(buckled_mob)
+		if(buckled_mobs.len)
 			return 0
 		usr.visible_message("<span class='notice'>[usr] collapses \the [name].</span>", "<span class='notice'>You collapse \the [name].</span>")
 		new/obj/item/roller(get_turf(src))

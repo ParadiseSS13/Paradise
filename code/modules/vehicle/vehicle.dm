@@ -36,10 +36,12 @@
 //if they differ between directions, otherwise use the
 //generic variables
 /obj/vehicle/proc/handle_vehicle_offsets()
-	if(buckled_mob)
-		buckled_mob.dir = dir
-		buckled_mob.pixel_x = generic_pixel_x
-		buckled_mob.pixel_y = generic_pixel_y
+	if(buckled_mobs.len)
+		for(var/m in buckled_mobs)
+			var/mob/living/buckled_mob = m
+			buckled_mob.dir = dir
+			buckled_mob.pixel_x = generic_pixel_x
+			buckled_mob.pixel_y = generic_pixel_y
 
 
 /obj/vehicle/update_icon()
@@ -65,8 +67,8 @@
 
 
 //BUCKLE HOOKS
-/obj/vehicle/unbuckle_mob(force = 0)
-	if(buckled_mob)
+/obj/vehicle/unbuckle_mob(mob/living/buckled_mob, force = FALSE)
+	if(istype(buckled_mob))
 		buckled_mob.pixel_x = 0
 		buckled_mob.pixel_y = 0
 	. = ..()
@@ -85,33 +87,34 @@
 
 
 /obj/vehicle/bullet_act(obj/item/projectile/Proj)
-	if(buckled_mob)
+	if(buckled_mobs.len)
+		var/mob/living/buckled_mob = buckled_mobs[1]
 		buckled_mob.bullet_act(Proj)
 
 //MOVEMENT
 /obj/vehicle/relaymove(mob/user, direction)
 	if(user.incapacitated())
-		unbuckle_mob()
+		unbuckle_mob(user)
 
 	if(keycheck(user))
-		if(!Process_Spacemove(direction) || world.time < next_vehicle_move || !isturf(loc))			return
+		if(!Process_Spacemove(direction) || world.time < next_vehicle_move || !isturf(loc))
+			return
+
 		next_vehicle_move = world.time + vehicle_move_delay
 
 		step(src, direction)
 
-		if(buckled_mob)
-			if(buckled_mob.loc != loc)
-				buckled_mob.buckled = null //Temporary, so Move() succeeds.
-				buckled_mob.buckled = src //Restoring
-
-			if(istype(src.loc, /turf/simulated))
-				var/turf/simulated/T = src.loc
-				if(T.wet == TURF_WET_LUBE)	//Lube! Fall off!
-					playsound(src, 'sound/misc/slip.ogg', 50, 1, -3)
-					buckled_mob.Stun(7)
-					buckled_mob.Weaken(7)
-					unbuckle_mob()
-					step(src, dir)
+		if(buckled_mobs.len)
+			for(var/m in buckled_mobs)
+				var/mob/living/buckled_mob = m
+				if(istype(src.loc, /turf/simulated))
+					var/turf/simulated/T = src.loc
+					if(T.wet == TURF_WET_LUBE)	//Lube! Fall off!
+						playsound(src, 'sound/misc/slip.ogg', 50, 1, -3)
+						buckled_mob.Stun(7)
+						buckled_mob.Weaken(7)
+						unbuckle_mob(user, force = TRUE)
+						step(src, dir)
 
 		handle_vehicle_layer()
 		handle_vehicle_offsets()
@@ -135,8 +138,9 @@
 		return 0
 	. = ..()
 	if(auto_door_open)
-		if(istype(M, /obj/machinery/door) && buckled_mob)
-			M.Bumped(buckled_mob)
+		if(istype(M, /obj/machinery/door) && buckled_mobs.len)
+			for(var/m in buckled_mobs)
+				M.Bumped(m)
 
 /obj/vehicle/proc/RunOver(var/mob/living/carbon/human/H)
 	return		//write specifics for different vehicles
@@ -146,7 +150,7 @@
 	if(has_gravity(src))
 		return 1
 
-	if(pulledby && pulledby != buckled_mob)	// no pulling the vehicle you're driving through space!
+	if(pulledby && pulledby != buckled_mobs[1])	// no pulling the vehicle you're driving through space!
 		return 1
 
 	if(needs_gravity)

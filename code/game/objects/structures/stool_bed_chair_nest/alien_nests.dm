@@ -8,54 +8,51 @@
 	var/health = 100
 	var/image/nest_overlay
 
-/obj/structure/stool/bed/nest/New()
-	nest_overlay = image('icons/mob/alien.dmi', "nestoverlay", layer=MOB_LAYER - 0.2)
-	return ..()
+/obj/structure/stool/bed/user_unbuckle_mob(mob/living/buckled_mob, mob/living/user)
+	if(buckled_mobs.len)
+		for(var/buck in buckled_mobs) //breaking a nest releases all the buckled mobs, because the nest isn't holding them down anymore
+			var/mob/living/M = buck
 
-/obj/structure/stool/bed/nest/user_unbuckle_mob(mob/living/user)
-	if(buckled_mob && buckled_mob.buckled == src)
-		var/mob/living/M = buckled_mob
+			if(user.get_int_organ(/obj/item/organ/internal/alien/plasmavessel))
+				unbuckle_mob(M)
+				add_fingerprint(user)
+				return
 
-		if(user.get_int_organ(/obj/item/organ/internal/xenos/plasmavessel))
-			unbuckle_mob()
+			if(M != user)
+				M.visible_message(\
+					"[user.name] pulls [M.name] free from the sticky nest!",\
+					"<span class='notice'>[user.name] pulls you free from the gelatinous resin.</span>",\
+					"<span class='italics'>You hear squelching...</span>")
+			else
+				M.visible_message(\
+					"<span class='warning'>[M.name] struggles to break free from the gelatinous resin!</span>",\
+					"<span class='notice'>You struggle to break free from the gelatinous resin... (Stay still for two minutes.)</span>",\
+					"<span class='italics'>You hear squelching...</span>")
+				if(!do_after(M, 1200, target = src))
+					if(M && M.buckled)
+						M << "<span class='warning'>You fail to unbuckle yourself!</span>"
+					return
+				if(!M.buckled)
+					return
+				M.visible_message(\
+					"<span class='warning'>[M.name] breaks free from the gelatinous resin!</span>",\
+					"<span class='notice'>You break free from the gelatinous resin!</span>",\
+					"<span class='italics'>You hear squelching...</span>")
+
+			unbuckle_mob(M)
 			add_fingerprint(user)
-			return
 
-		if(M != user)
-			M.visible_message(\
-				"<span class='notice'>[user.name] pulls [M.name] free from the sticky nest!</span>",\
-				"<span class='notice'>[user.name] pulls you free from the gelatinous resin.</span>",\
-				"<span class='notice'>You hear squelching...</span>")
-
-		else
-			buckled_mob.visible_message(\
-				"<span class='warning'>[buckled_mob.name] struggles to break free of the gelatinous resin...</span>",\
-				"<span class='warning'>You struggle to break free from the gelatinous resin... (This will take around 2 minutes and you need to stay still)</span>",\
-				"<span class='notice'>You hear squelching...</span>")
-			if(!do_after(M, 1200, target = src))
-				if(M && M.buckled)
-					to_chat(M, "<span class='warning'>You fail to escape \the [src]!</span>")
-				return
-			if(!M.buckled)
-				return
-			M.visible_message(\
-			"<span class='warning'>[M.name] breaks free from the gelatinous resin!</span>",\
-			"<span class='notice'>You break free from the gelatinous resin!</span>",\
-			"<span class='italics'>You hear squelching...</span>")
-		unbuckle_mob()
-		add_fingerprint(user)
-
-
-/obj/structure/stool/bed/nest/user_buckle_mob(mob/living/M, mob/living/user)
-	if( !ismob(M) || (get_dist(src, user) > 1) || (M.loc != src.loc) || user.restrained() || usr.stat || M.buckled || istype(user, /mob/living/silicon/pai) )
+/obj/structure/stool/bed/user_buckle_mob(mob/living/M, mob/living/user)
+	if ( !ismob(M) || (get_dist(src, user) > 1) || (M.loc != src.loc) || user.incapacitated() || M.buckled )
 		return
 
-	if(M.get_int_organ(/obj/item/organ/internal/xenos/plasmavessel))
+	if(M.get_int_organ(/obj/item/organ/internal/alien/plasmavessel))
 		return
-	if(!user.get_int_organ(/obj/item/organ/internal/xenos/plasmavessel))
+	if(!user.get_int_organ(/obj/item/organ/internal/alien/plasmavessel))
 		return
 
-	unbuckle_mob()
+	if(buckled_mobs.len)
+		unbuckle_all_mobs()
 
 	if(buckle_mob(M))
 		M.visible_message(\
@@ -65,7 +62,7 @@
 
 
 /obj/structure/stool/bed/nest/post_buckle_mob(mob/living/M)
-	if(M == buckled_mob)
+	if(M in buckled_mobs)
 		M.pixel_y = 0
 		M.pixel_x = initial(M.pixel_x) + 2
 		M.layer = MOB_LAYER - 0.3

@@ -547,7 +547,7 @@ var/list/turret_icons
 		assess_and_assign(SP.pilot, targets, secondarytargets)
 
 	for(var/obj/vehicle/T in view(scan_range,src))
-		assess_and_assign(T.buckled_mob, targets, secondarytargets)
+		assess_and_assign(T.buckled, targets, secondarytargets)
 
 	for(var/mob/living/C in view(scan_range,src))	//loops through all living lifeforms in view
 		assess_and_assign(C, targets, secondarytargets)

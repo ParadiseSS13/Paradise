@@ -390,8 +390,8 @@ var/list/ventcrawl_machinery = list(/obj/machinery/atmospherics/unary/vent_pump,
 		to_chat(src, "You can't vent crawl while you're stunned!")
 		return
 
-	if(buckled_mob)
-		to_chat(src, "You can't vent crawl with [buckled_mob] on you!")
+	if(buckled_mobs.len)
+		to_chat(src, "You can't vent crawl with creatures on you!")
 		return
 	if(ishuman(src))
 		var/mob/living/carbon/human/H = src
@@ -597,7 +597,7 @@ var/list/ventcrawl_machinery = list(/obj/machinery/atmospherics/unary/vent_pump,
 	else if(I == handcuffed)
 		handcuffed = null
 		if(buckled && buckled.buckle_requires_restraints)
-			buckled.unbuckle_mob()
+			buckled.unbuckle_mob(src)
 		update_handcuffed()
 	else if(I == legcuffed)
 		legcuffed = null
@@ -912,7 +912,7 @@ var/list/ventcrawl_machinery = list(/obj/machinery/atmospherics/unary/vent_pump,
 		var/obj/item/weapon/W = handcuffed
 		handcuffed = null
 		if(buckled && buckled.buckle_requires_restraints)
-			buckled.unbuckle_mob()
+			buckled.unbuckle_mob(src)
 		update_handcuffed()
 		if(client)
 			client.screen -= W

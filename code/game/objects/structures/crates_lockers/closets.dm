@@ -103,7 +103,7 @@
 			break
 		if(istype (M, /mob/dead/observer))
 			continue
-		if(M.buckled)
+		if(M.buckled || M.buckled_mobs.len)
 			continue
 
 		M.forceMove(src)

@@ -14,20 +14,22 @@
 
 /obj/vehicle/ambulance/handle_vehicle_offsets()
 	..()
-	if(buckled_mob)
-		switch(buckled_mob.dir)
-			if(SOUTH)
-				buckled_mob.pixel_x = 0
-				buckled_mob.pixel_y = 7
-			if(WEST)
-				buckled_mob.pixel_x = 13
-				buckled_mob.pixel_y = 7
-			if(NORTH)
-				buckled_mob.pixel_x = 0
-				buckled_mob.pixel_y = 4
-			if(EAST)
-				buckled_mob.pixel_x = -13
-				buckled_mob.pixel_y = 7
+	if(buckled_mobs.len)
+		for(var/m in buckled_mobs)
+			var/mob/living/buckled_mob = m
+			switch(buckled_mob.dir)
+				if(SOUTH)
+					buckled_mob.pixel_x = 0
+					buckled_mob.pixel_y = 7
+				if(WEST)
+					buckled_mob.pixel_x = 13
+					buckled_mob.pixel_y = 7
+				if(NORTH)
+					buckled_mob.pixel_x = 0
+					buckled_mob.pixel_y = 4
+				if(EAST)
+					buckled_mob.pixel_x = -13
+					buckled_mob.pixel_y = 7
 
 /obj/vehicle/ambulance/Move(newloc, Dir)
 	var/oldloc = loc
@@ -37,8 +39,11 @@
 	if(bed && get_dist(oldloc, loc) <= 2)
 		bed.Move(oldloc)
 		bed.dir = Dir
-		if(bed.buckled_mob)
-			bed.buckled_mob.dir = Dir
+		if(buckled_mobs.len)
+			for(var/m in buckled_mobs)
+				var/mob/living/buckled_mob = m
+				if(bed.buckled_mob.buckled)
+					bed.buckled_mob.dir = Dir
 
 /obj/structure/stool/bed/amb_trolley
 	name = "ambulance train trolley"

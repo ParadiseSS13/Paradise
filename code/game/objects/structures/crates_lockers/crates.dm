@@ -69,7 +69,7 @@
 			continue
 		if(istype(O, /obj/structure/stool/bed)) //This is only necessary because of rollerbeds and swivel chairs.
 			var/obj/structure/stool/bed/B = O
-			if(B.buckled_mob)
+			if(B.buckled_mobs.len)
 				continue
 		O.forceMove(src)
 		itemcount++

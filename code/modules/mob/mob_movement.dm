@@ -5,13 +5,13 @@
 		return (!density || lying)
 	if(mover.checkpass(PASSMOB))
 		return 1
-	if(buckled == mover)
+	if(mover in buckled_mobs)
 		return 1
 	if(ismob(mover))
 		var/mob/moving_mob = mover
 		if((other_mobs && moving_mob.other_mobs))
 			return 1
-		if(mover == buckled_mob)
+		if(mover in buckled_mobs)
 			return 1
 	return (!mover.density || !density || lying)
 

@@ -850,7 +850,7 @@
 		return prob(60)
 
 	var/obj/structure/stool/bed/B = A
-	if(istype(A, /obj/structure/stool/bed) && B.buckled_mob)//if it's a bed/chair and someone is buckled, it will not pass
+	if(istype(A, /obj/structure/stool/bed) && B.buckled_mobs.len)//if it's a bed/chair and someone is buckled, it will not pass
 		return 0
 
 	if(istype(A, /obj/structure/closet/cardboard))

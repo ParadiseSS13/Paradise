@@ -10,6 +10,16 @@
 	var/energy = 0
 	var/creation_type = /obj/singularity
 
+	// You can buckle someone to the singularity generator, then start the engine. Fun!
+ 	can_buckle = 1
+ 	buckle_lying = 0
+ 	buckle_requires_restraints = 1
+
+/obj/machinery/the_singularitygen/attack_hand(mob/user)
+	if(user.a_intent == INTENT_GRAB && user_buckle_mob(user.pulling, user, check_loc = FALSE))
+		return
+	..()
+
 /obj/machinery/the_singularitygen/process()
 	var/turf/T = get_turf(src)
 	if(src.energy >= 200)
