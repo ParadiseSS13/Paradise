@@ -100,9 +100,9 @@ DECLARE_GLOBAL_CONTROLLER(timer, timer_master)
 	return 0
 
 /proc/getRemainingTime(timer)
-	if(timer == 0)
-		return 0
+	if(!timer)
+		return FALSE
 	for(var/datum/timedevent/event in timer_master.processing_timers)
 		if(event.id == timer)
 			return event.timeToRun - world.time
-	return 0
+	return FALSE
