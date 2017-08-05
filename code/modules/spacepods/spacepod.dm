@@ -284,7 +284,7 @@
 		return
 	var/sound/S = sound(mysound)
 	S.wait = 0 //No queue
-	S.channel = 0 //Any channel
+	S.channel = open_sound_channel()
 	S.volume = 50
 	for(var/mob/M in passengers | pilot)
 		M << S

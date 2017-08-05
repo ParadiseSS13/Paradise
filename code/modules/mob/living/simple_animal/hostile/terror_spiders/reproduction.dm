@@ -10,16 +10,19 @@
 	anchored = 0
 	layer = 2.75
 	health = 3
-	var/stillborn = 0
+	var/stillborn = FALSE
 	faction = list("terrorspiders")
 	var/spider_myqueen = null
 	var/use_vents = 1
 	var/list/enemies = list()
 	var/immediate_ventcrawl = 0
+	var/spider_awaymission = FALSE
 
 /obj/structure/spider/spiderling/terror_spiderling/New()
 	..()
 	ts_spiderling_list += src
+	if(is_away_level(z))
+		spider_awaymission = TRUE
 
 /obj/structure/spider/spiderling/terror_spiderling/Destroy()
 	ts_spiderling_list -= src
@@ -85,6 +88,8 @@
 	if(isturf(loc))
 		amount_grown += rand(0,2)
 		if(amount_grown >= 100)
+			if(spider_awaymission && !is_away_level(z))
+				stillborn = TRUE
 			if(stillborn)
 				die()
 			else
@@ -174,6 +179,6 @@
 		var/rnum = 5 - spiderling_number
 		for(var/i=0, i<rnum, i++)
 			var/obj/structure/spider/spiderling/terror_spiderling/S = new /obj/structure/spider/spiderling/terror_spiderling(get_turf(src))
-			S.stillborn = 1
+			S.stillborn = TRUE
 			// every set of eggs always spawn 5 spiderlings, but most are decoys
 		qdel(src)

@@ -25,12 +25,14 @@
 		to_chat(user, "<span class='notice'>You carefully locate the manual activation switch and start the positronic brain's boot process.</span>")
 		icon_state = "posibrain-searching"
 		ghost_volunteers.Cut()
-		src.searching = 1
-		src.request_player()
+		searching = 1
+		request_player()
 		spawn(600)
 			if(ghost_volunteers.len)
-				var/mob/dead/observer/O = pick(ghost_volunteers)
-				if(check_observer(O))
+				var/mob/dead/observer/O
+				while(!istype(O) && ghost_volunteers.len)
+					O = pick_n_take(ghost_volunteers)
+				if(istype(O) && check_observer(O))
 					transfer_personality(O)
 			reset_search()
 	else

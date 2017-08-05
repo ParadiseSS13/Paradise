@@ -152,7 +152,7 @@
 				var/turf/bombturf = get_turf(loc)
 				var/area/A = bombturf.loc
 				message_admins("[key_name_admin(usr)] has completed [name] at <A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[bombturf.x];Y=[bombturf.y];Z=[bombturf.z]'>[A.name] (JMP)</a> [contained].")
-				log_game("[key_name(usr)] has completed [name] at [bombturf.x], [bombturf.y], [bombturf.z].")
+				log_game("[key_name(usr)] has completed [name] at [bombturf.x], [bombturf.y], [bombturf.z]. [contained]")
 			else
 				to_chat(user, "<span class='notice'>You need to add at least one beaker before locking the assembly.</span>")
 		else if(stage == READY && !nadeassembly)
