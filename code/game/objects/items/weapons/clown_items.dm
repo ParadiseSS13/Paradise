@@ -71,3 +71,9 @@
 				if(istype(H.l_ear, /obj/item/clothing/ears/earmuffs) || istype(H.r_ear, /obj/item/clothing/ears/earmuffs) || H.ear_deaf)
 					continue
 			M.emote("flip")
+
+/obj/item/weapon/reagent_containers/food/drinks/cans/canned_laughter
+	name = "Canned Laughter"
+	desc = "Just looking at this makes you want to giggle."
+	icon_state = "laughter"
+	list_reagents = list("laughter" = 50)
