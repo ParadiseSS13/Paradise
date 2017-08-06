@@ -37,6 +37,11 @@
 /mob/living/proc/getarmor(var/def_zone, var/type)
 	return 0
 
+/mob/living/proc/is_mouth_covered(head_only = FALSE, mask_only = FALSE)
+	return FALSE
+
+/mob/living/proc/is_eyes_covered(check_glasses = TRUE, check_head = TRUE, check_mask = TRUE)
+	return FALSE
 
 /mob/living/bullet_act(var/obj/item/projectile/P, var/def_zone)
 	//Armor

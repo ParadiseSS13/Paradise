@@ -492,6 +492,25 @@
 		M.adjustFireLoss(-1)
 	..()
 
+/datum/reagent/consumable/onion
+	name = "Concentrated Onion Juice"
+	id = "onionjuice"
+	description = "A strong tasting substance that can induce partial blindness."
+	color = "#c0c9a0"
+	taste_message = "bitterness"
+
+/datum/reagent/consumable/onion/reaction_mob(mob/living/M, method = TOUCH, volume)
+	if(method == TOUCH)
+		if(!M.is_mouth_covered() && !M.is_eyes_covered())
+			if(!M.get_organ_slot("eyes"))	//can't blind somebody with no eyes
+				to_chat(M, "<span class = 'notice'>Your eye sockets feel wet.</span>")
+			else
+				if(!M.eye_blurry)
+					to_chat(M, "<span class = 'warning'>Tears well up in your eyes!</span>")
+				M.EyeBlind(2)
+				M.EyeBlurry(5)
+	..()
+
 /datum/reagent/consumable/chocolate
 	name = "Chocolate"
 	id = "chocolate"
