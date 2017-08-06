@@ -1,4 +1,0 @@
-author: "Kyep"
-delete-after: True
-changes: 
-  - bugfix: "Playing as a smite/bless hunter, or syndie infiltration team member, now requires that you be traitor-eligible. IE: have enough playtime, and the preference enabled."
