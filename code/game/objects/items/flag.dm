@@ -15,18 +15,18 @@
 
 /obj/item/flag/fire_act(global_overlay = FALSE)
 	..()
-	update_icons()
+	update_icon()
 
 /obj/item/flag/extinguish()
 	..()
-	update_icons()
+	update_icon()
 
-/obj/item/flag/proc/update_icons()
+/obj/item/flag/update_icon()
+	overlays.Cut()
 	if(burn_state == ON_FIRE)
 		overlays += image('icons/obj/flag.dmi', src , "fire")
 		item_state = "[icon_state]_fire"
 	else
-		overlays -= image('icons/obj/flag.dmi', src , "fire")
 		item_state = initial(icon_state)
 	if(ismob(loc))
 		var/mob/M = loc
