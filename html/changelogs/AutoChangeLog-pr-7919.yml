@@ -1,0 +1,7 @@
+author: "Fox McCloud"
+delete-after: True
+changes: 
+  - tweak: "Botany nerfed; will need ambrosia gaia earth's blood to make a tray self-sustaining"
+  - tweak: "Gene machine now requires heavy upgrading to make use of transferring high quality genes from one plant to another"
+  - rscadd: "Starthistle can now be grown"
+  - rscadd: "Adds in red and regular onions; slice them for onion rings; cook them for even more delicious onion rings"
