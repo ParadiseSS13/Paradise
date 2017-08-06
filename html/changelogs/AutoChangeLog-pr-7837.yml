@@ -1,0 +1,6 @@
+author: "Purpose2"
+delete-after: True
+changes: 
+  - rscadd: "BoxStation: Adds a garbage receptacle by the kitchen. Don't forget to bus your plates."
+  - bugfix: "BoxStation: Fixes an inappropriate access restriction on one part of an airlock, and ensures the buttons are visible."
+  - tweak: "BoxStation: Changes the now erroneous Science Shuttle Console on the bridge to a Labor Camp Shuttle Console."
