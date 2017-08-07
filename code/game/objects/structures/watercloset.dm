@@ -492,32 +492,6 @@
 			return
 
 
-
-/obj/item/mounted/shower
-	name = "shower fixture"
-	desc = "A self-adhering shower fixture. Simply stick to a wall, no plumber needed!"
-	icon = 'icons/obj/watercloset.dmi'
-	icon_state = "shower"
-	item_state = "buildpipe"
-
-/obj/item/mounted/shower/try_build(turf/on_wall, mob/user, proximity_flag)
-	//overriding this because we don't care about other items on the wall, but still need to do adjacent checks
-	if(!on_wall || !user)
-		return
-	if(proximity_flag != 1) //if we aren't next to the wall
-		return
-	if(!(get_dir(on_wall,user) in cardinal))
-		to_chat(user, "<span class='rose'>You need to be standing next to a wall to place \the [src].</span>")
-		return
-	return 1
-
-/obj/item/mounted/shower/do_build(turf/on_wall, mob/user)
-	var/obj/machinery/shower/S = new /obj/machinery/shower(get_turf(user), get_dir(on_wall, user), 1)
-	transfer_prints_to(S, TRUE)
-	qdel(src)
-
-
-
 /obj/item/weapon/bikehorn/rubberducky
 	name = "rubber ducky"
 	desc = "Rubber ducky you're so fine, you make bathtime lots of fuuun. Rubber ducky I'm awfully fooooond of yooooouuuu~"	//thanks doohl
@@ -682,3 +656,77 @@
 	icon_state = "puddle-splash"
 	..()
 	icon_state = "puddle"
+
+
+//////////////////////////////////
+//		Bathroom Fixture Items	//
+//////////////////////////////////
+
+
+/obj/item/mounted/shower
+	name = "shower fixture"
+	desc = "A self-adhering shower fixture. Simply stick to a wall, no plumber needed!"
+	icon = 'icons/obj/watercloset.dmi'
+	icon_state = "shower"
+	item_state = "buildpipe"
+
+/obj/item/mounted/shower/try_build(turf/on_wall, mob/user, proximity_flag)
+	//overriding this because we don't care about other items on the wall, but still need to do adjacent checks
+	if(!on_wall || !user)
+		return
+	if(proximity_flag != 1) //if we aren't next to the wall
+		return
+	if(!(get_dir(on_wall,user) in cardinal))
+		to_chat(user, "<span class='rose'>You need to be standing next to a wall to place \the [src].</span>")
+		return
+	return 1
+
+/obj/item/mounted/shower/do_build(turf/on_wall, mob/user)
+	var/obj/machinery/shower/S = new /obj/machinery/shower(get_turf(user), get_dir(on_wall, user), 1)
+	transfer_prints_to(S, TRUE)
+	qdel(src)
+
+
+/obj/item/weapon/bathroom_parts
+	name = "toilet in a box"
+	desc = "An entire toilet in a box, straight from Space Sweden. It has an unpronounceable name."
+	icon = 'icons/obj/storage.dmi'
+	icon_state = "largebox"
+	w_class = WEIGHT_CLASS_BULKY
+	var/result = /obj/structure/toilet
+	var/result_name = "toilet"
+
+/obj/item/weapon/bathroom_parts/urinal
+	name = "urinal in a box"
+	result = /obj/structure/urinal
+	result_name = "urinal"
+
+/obj/item/weapon/bathroom_parts/sink
+	name = "sink in a box"
+	result = /obj/structure/sink
+	result_name = "sink"
+
+/obj/item/weapon/bathroom_parts/New()
+	..()
+	desc = "An entire [result_name] in a box, straight from Space Sweden. It has an [pick("unpronounceable", "overly accented", "entirely gibberish", "oddly normal-sounding")] name."
+
+/obj/item/weapon/bathroom_parts/attack_self(mob/user)
+	var/turf/T = get_turf(user)
+	if(!T)
+		to_chat(user, "<span class='warning'>You can't build that here!</span>")
+		return
+	if(result in T.contents)
+		to_chat(user, "<span class='warning'>There's already \an [result_name] here.</span>")
+		return
+	visible_message("[user] begins assembling a new [result_name].", "You begin assembling a new [result_name].")
+	if(do_after(user, 30, target = user))
+		visible_message("[user] finishes building a new [result_name]!", "You finish building a new [result_name]!")
+		var/obj/structure/S = new result(T)
+		S.anchored = 0
+		S.dir = user.dir
+		S.update_icon()
+		user.unEquip(src, 1)
+		qdel(src)
+		if(prob(50))
+			new /obj/item/stack/sheet/cardboard(T)
+
