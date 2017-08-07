@@ -172,11 +172,7 @@ var/global/list/damage_icon_parts = list()
 	var/damage_appearance = ""
 
 	for(var/obj/item/organ/external/O in bodyparts)
-		if(O.is_stump())
-			continue
-		if(O.status & ORGAN_DESTROYED) damage_appearance += "d"
-		else
-			damage_appearance += O.damage_state
+		damage_appearance += O.damage_state
 
 	if(damage_appearance == previous_damage_appearance)
 		// nothing to do here
@@ -190,22 +186,19 @@ var/global/list/damage_icon_parts = list()
 
 	// blend the individual damage states with our icons
 	for(var/obj/item/organ/external/O in bodyparts)
-		if(O.is_stump())
-			continue
-		if(!(O.status & ORGAN_DESTROYED))
-			O.update_icon()
-			if(O.damage_state == "00") continue
-			var/icon/DI
-			var/cache_index = "[O.damage_state]/[O.icon_name]/[species.blood_color]/[species.name]"
+		O.update_icon()
+		if(O.damage_state == "00") continue
+		var/icon/DI
+		var/cache_index = "[O.damage_state]/[O.icon_name]/[species.blood_color]/[species.name]"
 
-			if(damage_icon_parts[cache_index] == null)
-				DI = new /icon(species.damage_overlays, O.damage_state)			// the damage icon for whole human
-				DI.Blend(new /icon(species.damage_mask, O.icon_name), ICON_MULTIPLY)	// mask with this organ's pixels
-				DI.Blend(species.blood_color, ICON_MULTIPLY)
-				damage_icon_parts[cache_index] = DI
-			else
-				DI = damage_icon_parts[cache_index]
-			standing_image.overlays += DI
+		if(damage_icon_parts[cache_index] == null)
+			DI = new /icon(species.damage_overlays, O.damage_state)			// the damage icon for whole human
+			DI.Blend(new /icon(species.damage_mask, O.icon_name), ICON_MULTIPLY)	// mask with this organ's pixels
+			DI.Blend(species.blood_color, ICON_MULTIPLY)
+			damage_icon_parts[cache_index] = DI
+		else
+			DI = damage_icon_parts[cache_index]
+		standing_image.overlays += DI
 
 	overlays_standing[DAMAGE_LAYER]	= standing_image
 
@@ -241,7 +234,7 @@ var/global/list/damage_icon_parts = list()
 
 	for(var/organ_tag in species.has_limbs)
 		var/obj/item/organ/external/part = bodyparts_by_name[organ_tag]
-		if(isnull(part) || part.is_stump() || (part.status & ORGAN_DESTROYED))
+		if(isnull(part))
 			icon_key += "0"
 		else if(part.status & ORGAN_ROBOT)
 			icon_key += "2[part.model ? "-[part.model]": ""]"
@@ -368,7 +361,7 @@ var/global/list/damage_icon_parts = list()
 
 	//Body markings.
 	var/obj/item/organ/external/chest/chest_organ = get_organ("chest")
-	if(chest_organ && !chest_organ.is_stump() && !(chest_organ.status & ORGAN_DESTROYED) && m_styles["body"])
+	if(chest_organ && m_styles["body"])
 		var/body_marking = m_styles["body"]
 		var/datum/sprite_accessory/body_marking_style = marking_styles_list[body_marking]
 		if(body_marking_style && body_marking_style.species_allowed && (species.name in body_marking_style.species_allowed))
@@ -378,7 +371,7 @@ var/global/list/damage_icon_parts = list()
 			markings_standing.Blend(b_marking_s, ICON_OVERLAY)
 	//Head markings.
 	var/obj/item/organ/external/head/head_organ = get_organ("head")
-	if(head_organ && !head_organ.is_stump() && !(head_organ.status & ORGAN_DESTROYED) && m_styles["head"]) //If the head is destroyed, forget the head markings. This prevents floating optical markings on decapitated IPCs, for example.
+	if(head_organ && m_styles["head"]) //If the head is destroyed, forget the head markings. This prevents floating optical markings on decapitated IPCs, for example.
 		var/head_marking = m_styles["head"]
 		var/datum/sprite_accessory/head_marking_style = marking_styles_list[head_marking]
 		if(head_marking_style && head_marking_style.species_allowed && (head_organ.species.name in head_marking_style.species_allowed))
@@ -398,7 +391,7 @@ var/global/list/damage_icon_parts = list()
 	overlays_standing[HEAD_ACC_OVER_LAYER]	= null
 
 	var/obj/item/organ/external/head/head_organ = get_organ("head")
-	if(!head_organ || head_organ.is_stump() || (head_organ.status & ORGAN_DESTROYED) )
+	if(!head_organ)
 		if(update_icons)   update_icons()
 		return
 
@@ -435,7 +428,7 @@ var/global/list/damage_icon_parts = list()
 	overlays_standing[HAIR_LAYER] = null
 
 	var/obj/item/organ/external/head/head_organ = get_organ("head")
-	if(!head_organ || head_organ.is_stump() || (head_organ.status & ORGAN_DESTROYED))
+	if(!head_organ)
 		if(update_icons)   update_icons()
 		return
 
@@ -484,7 +477,7 @@ var/global/list/damage_icon_parts = list()
 	overlays_standing[FHAIR_OVER_LAYER]	= null
 
 	var/obj/item/organ/external/head/head_organ = get_organ("head")
-	if(!head_organ || head_organ.is_stump() || (head_organ.status & ORGAN_DESTROYED))
+	if(!head_organ)
 		if(update_icons)   update_icons()
 		return
 

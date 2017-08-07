@@ -18,9 +18,6 @@
 /mob/living/carbon/human/handle_blood()
 	var/list/blood_data = get_blood_data(get_blood_id())//PROCCEPTION
 
-	if(in_stasis)
-		return
-
 	if(NO_BLOOD in species.species_traits)
 		bleed_rate = 0
 		return
@@ -61,6 +58,7 @@
 				death()
 
 		var/temp_bleed = 0
+		var/internal_bleeding_rate = 0
 		//Bleeding out
 		for(var/X in bodyparts)
 			var/obj/item/organ/external/BP = X
@@ -79,7 +77,13 @@
 			if(BP.open)
 				temp_bleed += 0.5
 
+			if(BP.internal_bleeding)
+				internal_bleeding_rate += 0.5
+
 		bleed_rate = max(bleed_rate - 0.5, temp_bleed)//if no wounds, other bleed effects (heparin) naturally decreases
+
+		if(internal_bleeding_rate && !(status_flags & FAKEDEATH))
+			bleed(internal_bleeding_rate)
 
 		if(bleed_rate && !bleedsuppress && !(status_flags & FAKEDEATH))
 			bleed(bleed_rate)
@@ -145,7 +149,7 @@
 					C.reagents.add_reagent("toxin", amount * 0.5)
 					return 1
 
-			C.blood_volume = min(C.blood_volume + round(amount, 0.1), BLOOD_VOLUME_MAXIMUM)
+			C.blood_volume = min(C.blood_volume + round(amount, 0.1), BLOOD_VOLUME_NORMAL)
 			return 1
 
 	AM.reagents.add_reagent(blood_id, amount, blood_data, bodytemperature)

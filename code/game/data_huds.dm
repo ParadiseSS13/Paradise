@@ -148,7 +148,7 @@
 		holder.icon_state = "hudxeno"
 	else if(check_virus())
 		holder.icon_state = "hudill"
-	else if(has_brain_worms() && B != null && B.controlling)
+	else if(B && B.controlling)
 		holder.icon_state = "hudbrainworm"
 	else
 		holder.icon_state = "hudhealthy"

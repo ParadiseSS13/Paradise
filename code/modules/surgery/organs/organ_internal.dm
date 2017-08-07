@@ -258,7 +258,7 @@
 		var/mob/living/carbon/human/H = owner
 		if(istype(H))
 			if(!(NO_BLOOD in H.species.species_traits))
-				H.blood_volume = min(H.blood_volume + cursed_heart.blood_loss*0.5, BLOOD_VOLUME_MAXIMUM)
+				H.blood_volume = min(H.blood_volume + cursed_heart.blood_loss*0.5, BLOOD_VOLUME_NORMAL)
 				if(owner.client)
 					owner.client.color = ""
 
@@ -431,20 +431,17 @@
 		//High toxins levels are dangerous
 		if(owner.getToxLoss() >= 60 && !owner.reagents.has_reagent("charcoal"))
 			//Healthy liver suffers on its own
-			if(src.damage < min_broken_damage)
-				src.damage += 0.2 * PROCESS_ACCURACY
+			if(damage < min_broken_damage)
+				take_damage(0.2 * PROCESS_ACCURACY)
 			//Damaged one shares the fun
 			else
 				var/obj/item/organ/internal/O = pick(owner.internal_organs)
 				if(O)
-					O.damage += 0.2  * PROCESS_ACCURACY
+					O.take_damage(0.2  * PROCESS_ACCURACY)
 
 		//Detox can heal small amounts of damage
-		if(src.damage && src.damage < src.min_bruised_damage && owner.reagents.has_reagent("charcoal"))
-			src.damage -= 0.2 * PROCESS_ACCURACY
-
-		if(src.damage < 0)
-			src.damage = 0
+		if(damage && damage < min_bruised_damage && owner.reagents.has_reagent("charcoal"))
+			take_damage(-0.2 * PROCESS_ACCURACY)
 
 		// Get the effectiveness of the liver.
 		var/filter_effect = 3
@@ -454,7 +451,7 @@
 			filter_effect -= 2
 
 		// Damaged liver means some chemicals are very dangerous
-		if(src.damage >= src.min_bruised_damage)
+		if(damage >= min_bruised_damage)
 			for(var/datum/reagent/R in owner.reagents.reagent_list)
 				// Ethanol and all drinks are bad
 				if(istype(R, /datum/reagent/consumable/ethanol))
