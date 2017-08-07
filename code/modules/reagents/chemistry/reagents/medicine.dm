@@ -92,8 +92,7 @@
 
 		//Mitocholide is hard enough to get, it's probably fair to make this all internal organs
 		for(var/obj/item/organ/internal/I in H.internal_organs)
-			if(I.damage > 0)
-				I.damage = max(I.damage-0.4, 0)
+			I.take_damage(-0.4)
 	..()
 
 /datum/reagent/medicine/mitocholide/reaction_obj(obj/O, volume)
@@ -203,8 +202,9 @@
 	description = "This saline and glucose solution can help stabilize critically injured patients and cleanse wounds."
 	reagent_state = LIQUID
 	color = "#C8A5DC"
-	penetrates_skin = 1
+	penetrates_skin = TRUE
 	metabolization_rate = 0.15
+	taste_message = "salt"
 
 /datum/reagent/medicine/salglu_solution/on_mob_life(mob/living/M)
 	if(prob(33))
@@ -234,7 +234,7 @@
 	..()
 
 /datum/reagent/medicine/synthflesh/reaction_turf(turf/T, volume) //let's make a mess!
-	if(volume >= 5 && !istype(T, /turf/space))
+	if(volume >= 5 && !isspaceturf(T))
 		new /obj/effect/decal/cleanable/blood/gibs/cleangibs(T)
 		playsound(T, 'sound/effects/splat.ogg', 50, 1, -3)
 
@@ -512,7 +512,7 @@
 			var/mob/living/carbon/human/H = M
 			var/obj/item/organ/internal/eyes/E = H.get_int_organ(/obj/item/organ/internal/eyes)
 			if(istype(E))
-				E.damage = max(E.damage-1, 0)
+				E.take_damage(-1)
 		M.AdjustEyeBlurry(-1)
 		M.AdjustEarDamage(-1)
 	if(prob(50))
@@ -722,7 +722,7 @@
 	id = "stimulants"
 	description = "Increases run speed and eliminates stuns, can heal minor damage. If overdosed it will deal toxin damage and stun."
 	color = "#C8A5DC"
-	can_synth = 0
+	can_synth = FALSE
 
 /datum/reagent/medicine/stimulants/on_mob_life(mob/living/M)
 	if(volume > 5)
@@ -757,7 +757,7 @@
 	color = "#C8A5DC"
 	metabolization_rate = 0.5 * REAGENTS_METABOLISM
 	overdose_threshold = 60
-	can_synth = 0
+	can_synth = FALSE
 
 /datum/reagent/medicine/stimulative_agent/on_mob_life(mob/living/M)
 	M.status_flags |= GOTTAGOFAST
@@ -870,7 +870,7 @@
 	description = "Miniature medical robots that swiftly restore bodily damage. May begin to attack their host's cells in high amounts."
 	reagent_state = SOLID
 	color = "#555555"
-	can_synth = 0
+	can_synth = FALSE
 
 /datum/reagent/medicine/syndicate_nanites/on_mob_life(mob/living/M)
 	M.adjustBruteLoss(-5*REAGENTS_EFFECT_MULTIPLIER) //A ton of healing - this is a 50 telecrystal investment.

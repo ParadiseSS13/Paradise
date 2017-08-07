@@ -97,26 +97,24 @@
 	switch(open)
 		if(0)
 			if(istype(W,/obj/item/weapon/scalpel))
-				spread_germs_to_organ(src,user, W)
+				spread_germs_to_organ(src, user, W)
 				user.visible_message("<span class='danger'><b>[user]</b> cuts [src] open with [W]!</span>")
 				open++
 				return
 		if(1)
 			if(istype(W,/obj/item/weapon/retractor))
-				spread_germs_to_organ(src,user, W)
+				spread_germs_to_organ(src, user, W)
 				user.visible_message("<span class='danger'><b>[user]</b> cracks [src] open like an egg with [W]!</span>")
 				open++
 				return
 		if(2)
 			if(istype(W,/obj/item/weapon/hemostat))
-				spread_germs_to_organ(src,user, W)
+				spread_germs_to_organ(src, user, W)
 				if(contents.len)
 					var/obj/item/removing = pick(contents)
 					var/obj/item/organ/internal/O = removing
 					if(istype(O))
-						O.status |= ORGAN_CUT_AWAY
-						if(!O.sterile)
-							spread_germs_to_organ(O,user, W) // This wouldn't be any cleaner than the actual surgery
+						spread_germs_to_organ(O, user, W) // This wouldn't be any cleaner than the actual surgery
 					user.put_in_hands(removing)
 					user.visible_message("<span class='danger'><b>[user]</b> extracts [removing] from [src] with [W]!</span>")
 				else
@@ -143,7 +141,6 @@
 
 /obj/item/organ/external/replaced(var/mob/living/carbon/human/target)
 	owner = target
-	status = status & ~ORGAN_DESTROYED
 	forceMove(owner)
 	if(istype(owner))
 		if(!isnull(owner.bodyparts_by_name[limb_name]))
@@ -179,9 +176,6 @@
 	if((brute <= 0) && (burn <= 0))
 		return 0
 
-	if(status & ORGAN_DESTROYED)
-		return 0
-
 	if(!ignore_resists)
 		brute *= brute_mod
 		burn *= burn_mod
@@ -197,9 +191,8 @@
 		// Damage an internal organ
 		if(internal_organs && internal_organs.len)
 			var/obj/item/organ/internal/I = pick(internal_organs)
-			if(!I.tough)//mostly for cybernetic organs
-				I.take_damage(brute / 2)
-			brute -= brute / 2
+			I.take_damage(brute * 0.5)
+			brute -= brute * 0.5
 
 	if(status & ORGAN_BROKEN && prob(40) && brute)
 		owner.emote("scream")	//getting hit on broken hand hurts
@@ -325,12 +318,6 @@ This function completely restores a damaged organ to perfect condition.
 
 /obj/item/organ/external/process()
 	if(owner)
-		if(parent)
-			if(parent.status & ORGAN_DESTROYED)
-				status |= ORGAN_DESTROYED
-				owner.update_body(1)
-				return
-
 		//Chem traces slowly vanish
 		if(owner.life_tick % 10 == 0)
 			for(var/chemID in trace_chemicals)
@@ -367,7 +354,7 @@ Note that amputating the affected organ does in fact remove the infection from t
 */
 /obj/item/organ/external/proc/update_germs()
 
-	if(status & (ORGAN_ROBOT|ORGAN_DESTROYED) || (IS_PLANT in owner.species.species_traits)) //Robotic limbs shouldn't be infected, nor should nonexistant limbs.
+	if((status & ORGAN_ROBOT) || (IS_PLANT in owner.species.species_traits)) //Robotic limbs shouldn't be infected, nor should nonexistant limbs.
 		germ_level = 0
 		return
 
@@ -447,9 +434,6 @@ Note that amputating the affected organ does in fact remove the infection from t
 // new damage icon system
 // returns just the brute/burn damage code
 /obj/item/organ/external/proc/damage_state_text()
-	if(status & ORGAN_DESTROYED)
-		return "--"
-
 	var/tburn = 0
 	var/tbrute = 0
 
@@ -605,7 +589,7 @@ Note that amputating the affected organ does in fact remove the infection from t
 		burn_mod = 0.66
 		dismember_at_max_damage = TRUE
 	else
-		tough = 1
+		tough = TRUE
 	// Robot parts also lack bones
 	// This is so surgery isn't kaput, let's see how this does
 	encased = null
@@ -650,7 +634,7 @@ Note that amputating the affected organ does in fact remove the infection from t
 /obj/item/organ/external/proc/is_usable()
 	if(((status & ORGAN_ROBOT) && get_damage() >= max_damage) && !tough) //robot limbs just become inoperable at max damage
 		return
-	return !(status & (ORGAN_DESTROYED|ORGAN_MUTATED|ORGAN_DEAD))
+	return !(status & (ORGAN_MUTATED|ORGAN_DEAD))
 
 /obj/item/organ/external/proc/is_malfunctioning()
 	return ((status & ORGAN_ROBOT) && (brute_dam + burn_dam) >= 10 && prob(brute_dam + burn_dam) && !tough)
@@ -669,8 +653,6 @@ Note that amputating the affected organ does in fact remove the infection from t
 		owner.clear_alert("embeddedobject")
 
 	. = ..()
-
-	status |= ORGAN_DESTROYED
 
 	// Attached organs also fly off.
 	if(!ignore_children)

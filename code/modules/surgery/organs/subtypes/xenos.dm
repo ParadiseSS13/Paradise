@@ -2,28 +2,18 @@
 	origin_tech = "biotech=5"
 	icon_state = "xgibmid2"
 	var/list/alien_powers = list()
-	tough = 1
-	sterile = 1
-
-///obj/item/organ/internal/xenos/New()
-//	for(var/A in alien_powers)
-//		if(ispath(A))
-//			alien_powers -= A
-//			alien_powers += new A(src)
-//	..()
+	tough = TRUE
+	sterile = TRUE
 
 ///can be changed if xenos get an update..
 /obj/item/organ/internal/xenos/insert(mob/living/carbon/M, special = 0)
 	..()
 	for(var/P in alien_powers)
 		M.verbs |= P
-    	//M.verbs |= alien_powers.Copy()
 
 /obj/item/organ/internal/xenos/remove(mob/living/carbon/M, special = 0)
 	for(var/P in alien_powers)
 		M.verbs -= P
-		//M.verbs -= alien_powers.Copy()
-
 	. = ..()
 
 /obj/item/organ/internal/xenos/prepare_eat()

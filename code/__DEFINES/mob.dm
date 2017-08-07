@@ -1,14 +1,12 @@
 ///////////////////ORGAN DEFINES///////////////////
 
 // Organ defines.
-#define ORGAN_CUT_AWAY   1
-#define ORGAN_BROKEN     2
-#define ORGAN_DESTROYED  4
-#define ORGAN_ROBOT      8
-#define ORGAN_SPLINTED   16
-#define ORGAN_DEAD       32
-#define ORGAN_MUTATED    64
-#define ORGAN_ASSISTED   128
+#define ORGAN_BROKEN     1
+#define ORGAN_ROBOT      2
+#define ORGAN_SPLINTED   4
+#define ORGAN_DEAD       8
+#define ORGAN_MUTATED    16
+#define ORGAN_ASSISTED   32
 
 #define DROPLIMB_SHARP 0
 #define DROPLIMB_BLUNT 1
@@ -62,6 +60,12 @@
 
 // Factor of how fast mob nutrition decreases
 #define	HUNGER_FACTOR 0.1
+
+// Taste sensitivity - the more the more reagents you'll taste
+#define TASTE_SENSITIVITY_NORMAL 1
+#define TASTE_SENSITIVITY_SHARP 1.5
+#define TASTE_SENSITIVITY_DULL 0.75
+#define TASTE_SENSITIVITY_NO_TASTE 0
 
 // Reagent type flags, defines the types of mobs this reagent will affect
 #define ORGANIC 1

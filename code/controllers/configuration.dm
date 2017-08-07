@@ -142,7 +142,6 @@
 	var/admin_irc = ""
 	var/admin_notify_irc = ""
 	var/cidrandomizer_irc = ""
-	var/python_path = "" //Path to the python executable.  Defaults to "python" on windows and "/usr/bin/env python2" on unix
 
 	var/default_laws = 0 //Controls what laws the AI spawns with.
 
@@ -494,12 +493,12 @@
 
 				if("python_path")
 					if(value)
-						config.python_path = value
+						python_path = value
 					else
 						if(world.system_type == UNIX)
-							config.python_path = "/usr/bin/env python2"
+							python_path = "/usr/bin/env python2"
 						else //probably windows, if not this should work anyway
-							config.python_path = "pythonw"
+							python_path = "pythonw"
 
 				if("assistant_limit")
 					config.assistantlimit = 1
@@ -657,6 +656,7 @@
 
 /datum/configuration/proc/loadsql(filename)  // -- TLE
 	var/list/Lines = file2list(filename)
+	var/db_version = 0
 	for(var/t in Lines)
 		if(!t)	continue
 
@@ -694,8 +694,18 @@
 				sqlfdbkpass = value
 			if("feedback_tableprefix")
 				sqlfdbktableprefix = value
+			if("db_version")
+				db_version = text2num(value)
 			else
 				diary << "Unknown setting in configuration: '[name]'"
+	if(config.sql_enabled && db_version != SQL_VERSION)
+		config.sql_enabled = 0
+		diary << "WARNING: DB_CONFIG DEFINITION MISMATCH!"
+		spawn(60)
+			if(ticker.current_state == GAME_STATE_PREGAME)
+				going = 0
+				spawn(600)
+					to_chat(world, "<span class='alert'>DB_CONFIG MISMATCH, ROUND START DELAYED. <BR>Please check database version for recent upstream changes!</span>")
 
 /datum/configuration/proc/loadoverflowwhitelist(filename)
 	var/list/Lines = file2list(filename)
