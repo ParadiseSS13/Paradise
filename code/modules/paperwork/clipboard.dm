@@ -25,7 +25,7 @@
 		return
 	penPlacement(FALSE, containedpen)
 
-/obj/item/weapon/clipboard/proc/isPaperwork(var/obj/item/weapon/W) //This could probably do with being somewhere else but for now it's fine here.
+/obj/item/weapon/clipboard/proc/isPaperwork(obj/item/weapon/W) //This could probably do with being somewhere else but for now it's fine here.
 	if(istype(W, /obj/item/weapon/paper) || istype(W, /obj/item/weapon/paper_bundle))
 		return PAPERWORK
 	if(istype(W, /obj/item/weapon/photo))
@@ -41,7 +41,7 @@
 	if(..(user, 1) && toppaper)
 		toppaper.examine(user)
 
-obj/item/weapon/clipboard/proc/penPlacement(var/placing, var/obj/item/weapon/pen/P)
+obj/item/weapon/clipboard/proc/penPlacement(placing, obj/item/weapon/pen/P)
 	if(placing)
 		if(containedpen)
 			to_chat(usr, "<span class = 'warning'>There's already a pen in [src]!</span>")
