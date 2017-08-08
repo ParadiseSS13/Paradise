@@ -1248,7 +1248,7 @@ var/list/all_supply_groups = list(supply_emergency,supply_security,supply_engine
 /datum/supply_packs/misc/watertank
 	name = "Water Tank Crate"
 	contains = list(/obj/structure/reagent_dispensers/watertank)
-	cost = 6
+	cost = 8
 	containertype = /obj/structure/largecrate
 	containername = "water tank crate"
 
