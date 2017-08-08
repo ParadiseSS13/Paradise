@@ -16,12 +16,28 @@
 	item_color = "captain"
 	flags_size = ONESIZEFITSALL
 
+/obj/item/clothing/under/rank/captain/ncu
+	desc = "A Nanomesh Combat Uniform. This one is fitted for a high ranking member.."
+	name = "captain's nanomesh combat uniform"
+	icon_state = "ncucaptain"
+	item_state = "ncucaptain"
+	item_color = "ncucaptain"
+	flags_size = ONESIZEFITSALL
+
 /obj/item/clothing/under/rank/cargo
 	name = "quartermaster's jumpsuit"
 	desc = "It's a jumpsuit worn by the quartermaster. It's specially designed to prevent back injuries caused by pushing paper."
 	icon_state = "qm"
 	item_state = "lb_suit"
 	item_color = "qm"
+	flags_size = ONESIZEFITSALL
+
+/obj/item/clothing/under/rank/cargo/ncu
+	name = "quartermaster's nanomesh combat uniform"
+	desc = "A Nanomesh Combat Uniform. This one is fitted for a member of supply."
+	icon_state = "ncuqm"
+	item_state = "ncuqm"
+	item_color = "ncuqm"
 	flags_size = ONESIZEFITSALL
 
 /obj/item/clothing/under/rank/cargo/skirt
@@ -40,6 +56,14 @@
 	item_color = "cargo"
 	flags_size = ONESIZEFITSALL
 
+/obj/item/clothing/under/rank/cargotech/ncu
+	name = "cargo technician's nanomesh combat uniform"
+	desc = "A Nanomesh Combat Uniform. This one is fitted for a member of supply."
+	icon_state = "ncucargo"
+	item_state = "ncucargo"
+	item_color = "ncucargo"
+	flags_size = ONESIZEFITSALL
+
 /obj/item/clothing/under/rank/cargotech/skirt
 	name = "cargo technician's jumpskirt"
 	desc = "Skirrrrrts! They're comfy and easy to wear!"
@@ -55,11 +79,26 @@
 	item_color = "chapblack"
 	flags_size = ONESIZEFITSALL
 
+/obj/item/clothing/under/rank/chaplain/ncu
+	desc = "A Nanomesh Combat Uniform. This one is made for a religious preacher."
+	name = "chaplain's nanomesh combat uniform"
+	icon_state = "ncuchapblack"
+	item_state = "ncuchapblack"
+	item_color = "ncuchapblack"
+	flags_size = ONESIZEFITSALL
+
 /obj/item/clothing/under/rank/chef
 	desc = "It's an apron which is given only to the most <b>hardcore</b> chefs in space."
 	name = "chef's uniform"
 	icon_state = "chef"
 	item_color = "chef"
+	flags_size = ONESIZEFITSALL
+
+/obj/item/clothing/under/rank/chef/ncu
+	desc = "A Nanomesh Combat Uniform. This one is fitted for a service member."
+	name = "chef's nanomesh combat uniform"
+	icon_state = "ncuchef"
+	item_color = "ncuchef"
 	flags_size = ONESIZEFITSALL
 
 /obj/item/clothing/under/rank/clown
@@ -86,6 +125,14 @@
 	item_color = "hop"
 	flags_size = ONESIZEFITSALL
 
+/obj/item/clothing/under/rank/head_of_personnel/ncu
+	desc = "A Nanomesh Combat Uniform. This one is fitted for a second in command."
+	name = "head of personnel's nanomesh combat uniform"
+	icon_state = "ncuhop"
+	item_state = "ncuhop"
+	item_color = "ncuhop"
+	flags_size = ONESIZEFITSALL
+
 /obj/item/clothing/under/rank/head_of_personnel_whimsy
 	desc = "A blue jacket and red tie, with matching red cuffs! Snazzy. Wearing this makes you feel more important than your job title does."
 	name = "head of personnel's suit"
@@ -100,6 +147,15 @@
 	icon_state = "hydroponics"
 	item_state = "g_suit"
 	item_color = "hydroponics"
+	permeability_coefficient = 0.50
+	flags_size = ONESIZEFITSALL
+
+/obj/item/clothing/under/rank/hydroponics/ncu
+	desc = "A Nanomesh Combat Uniform for a member of service."
+	name = "botanist's nanomesh combat uniform"
+	icon_state = "ncuhydroponics"
+	item_state = "ncuhydroponics"
+	item_color = "ncuhydroponics"
 	permeability_coefficient = 0.50
 	flags_size = ONESIZEFITSALL
 
@@ -119,6 +175,14 @@
 	item_color = "internalaffairs"
 	flags_size = ONESIZEFITSALL
 
+/obj/item/clothing/under/rank/ntrep/ncu
+	desc = "A Nanomesh Combat Uniform. This one is for a very high level diplomat."
+	name = "representative nanomesh combat uniform"
+	icon_state = "ncuntrep"
+	item_state = "ncuntrep"
+	item_color = "ncuntrep"
+	flags_size = ONESIZEFITSALL
+
 /obj/item/clothing/under/rank/ntrep/skirt
 	desc = "A silky smooth black and gold representative uniform with blue markings."
 	name = "representative skirt"
@@ -135,6 +199,13 @@
 	armor = list(melee = 0, bullet = 0, laser = 0, energy = 0, bomb = 0, bio = 10, rad = 0)
 	flags_size = ONESIZEFITSALL
 
+/obj/item/clothing/under/rank/janitor/ncu
+	desc = "A Nanomesh Combat Uniform. This one is fitted for janitorial duties."
+	name = "janitor's nanomesh combat uniform"
+	icon_state = "ncujanitor"
+	item_color = "ncujanitor"
+	armor = list(melee = 0, bullet = 0, laser = 0, energy = 0, bomb = 0, bio = 10, rad = 0)
+	flags_size = ONESIZEFITSALL
 
 /obj/item/clothing/under/lawyer
 	desc = "Slick threads."
@@ -207,9 +278,25 @@
 	item_color = "miner"
 	flags_size = ONESIZEFITSALL
 
+/obj/item/clothing/under/rank/miner/ncu
+	desc = "A Nanomesh Combat Uniform. This one is meant for a miner."
+	name = "shaft miner's nanomesh combat uniform"
+	icon_state = "ncucargo"
+	item_state = "ncucargo"
+	item_color = "ncucargo"
+	flags_size = ONESIZEFITSALL
+
+
 /obj/item/clothing/under/barber
 	desc = "It's a barber's uniform."
 	name = "barber's uniform"
 	icon_state = "barber"
 	item_state = "barber"
 	item_color = "barber"
+
+/obj/item/clothing/under/barber/ncu
+	desc = "A Nanomesh Combat Uniform. This one is meant for someone certified to give fresh new looks."
+	name = "barber's nanomesh combat uniform"
+	icon_state = "ncubarber"
+	item_state = "ncubarber"
+	item_color = "ncubarber"

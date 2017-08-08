@@ -10,12 +10,31 @@
 	armor = list(melee = 0, bullet = 0, laser = 0, energy = 0, bomb = 10, bio = 10, rad = 0)
 	flags_size = ONESIZEFITSALL
 
+/obj/item/clothing/under/rank/research_director/ncu
+	desc = "A Nanomesh Combat Uniform. This one is fitted for Science personnel."
+	name = "research director's nanomesh combat uniform."
+	icon_state = "ncudirector"
+	item_state = "ncudirector"
+	item_color = "ncudirector"
+	armor = list(melee = 0, bullet = 0, laser = 0, energy = 0, bomb = 10, bio = 10, rad = 0)
+	flags_size = ONESIZEFITSALL
+
 /obj/item/clothing/under/rank/scientist
 	desc = "It's made of a special fiber that provides minor protection against biohazards. It has markings that denote the wearer as a scientist."
 	name = "scientist's jumpsuit"
 	icon_state = "toxins"
 	item_state = "w_suit"
 	item_color = "toxinswhite"
+	permeability_coefficient = 0.50
+	armor = list(melee = 0, bullet = 0, laser = 0, energy = 0, bomb = 10, bio = 0, rad = 0)
+	flags_size = ONESIZEFITSALL
+
+/obj/item/clothing/under/rank/scientist/ncu
+	desc = "A Nanomesh Combat Uniform. This one is fitted for Science personnel."
+	name = "scientist's nanomesh combat uniform."
+	icon_state = "ncutoxins"
+	item_state = "ncutoxins"
+	item_color = "ncutoxins"
 	permeability_coefficient = 0.50
 	armor = list(melee = 0, bullet = 0, laser = 0, energy = 0, bomb = 10, bio = 0, rad = 0)
 	flags_size = ONESIZEFITSALL
@@ -33,6 +52,16 @@
 	icon_state = "chemistry"
 	item_state = "w_suit"
 	item_color = "chemistrywhite"
+	permeability_coefficient = 0.50
+	armor = list(melee = 0, bullet = 0, laser = 0, energy = 0, bomb = 0, bio = 10, rad = 0)
+	flags_size = ONESIZEFITSALL
+
+/obj/item/clothing/under/rank/chemist/ncu
+	desc = "A Nanomesh Combat Uniform. This one is fitted for Medcal personnel."
+	name = "chemist's Nanomesh Combat Uniform"
+	icon_state = "ncuchemistrywhite"
+	item_state = "ncuchemistrywhite"
+	item_color = "ncuchemistrywhite"
 	permeability_coefficient = 0.50
 	armor = list(melee = 0, bullet = 0, laser = 0, energy = 0, bomb = 0, bio = 10, rad = 0)
 	flags_size = ONESIZEFITSALL
@@ -57,6 +86,16 @@
 	armor = list(melee = 0, bullet = 0, laser = 0, energy = 0, bomb = 0, bio = 10, rad = 0)
 	flags_size = ONESIZEFITSALL
 
+/obj/item/clothing/under/rank/chief_medical_officer/ncu
+	desc = "A Nanomesh Combat Uniform. This one is fitted for Medical personnel."
+	name = "chief medical officer's nanomesh combat uniform"
+	icon_state = "ncucmo"
+	item_state = "ncucmo"
+	item_color = "ncucmo"
+	permeability_coefficient = 0.50
+	armor = list(melee = 0, bullet = 0, laser = 0, energy = 0, bomb = 0, bio = 10, rad = 0)
+	flags_size = ONESIZEFITSALL
+
 /obj/item/clothing/under/rank/chief_medical_officer/skirt
 	desc = "It's a jumpskirt worn by those with the experience to be \"Chief Medical Officer\". It provides minor biological protection."
 	name = "chief medical officer's jumpskirt"
@@ -71,6 +110,16 @@
 	icon_state = "genetics"
 	item_state = "w_suit"
 	item_color = "geneticswhite"
+	permeability_coefficient = 0.50
+	armor = list(melee = 0, bullet = 0, laser = 0, energy = 0, bomb = 0, bio = 10, rad = 0)
+	flags_size = ONESIZEFITSALL
+
+/obj/item/clothing/under/rank/geneticist/ncu
+	desc = "A Nanomesh Combat Uniform. This one is fitted for Medical personnel."
+	name = "geneticist's nanomesh combat uniform"
+	icon_state = "ncugeneticswhite"
+	item_state = "ncugeneticswhite"
+	item_color = "ncugeneticswhite"
 	permeability_coefficient = 0.50
 	armor = list(melee = 0, bullet = 0, laser = 0, energy = 0, bomb = 0, bio = 10, rad = 0)
 	flags_size = ONESIZEFITSALL
@@ -92,6 +141,15 @@
 	armor = list(melee = 0, bullet = 0, laser = 0, energy = 0, bomb = 0, bio = 10, rad = 0)
 	flags_size = ONESIZEFITSALL
 
+/obj/item/clothing/under/rank/virologist/ncu
+	desc = "A Nanomesh Combat Uniform. This one is fitted for Medical personnel."
+	name = "virologist's nanomesh combat uniform"
+	icon_state = "ncuvirologywhite"
+	item_state = "ncuvirologywhite"
+	item_color = "ncuvirologywhite"
+	permeability_coefficient = 0.50
+	armor = list(melee = 0, bullet = 0, laser = 0, energy = 0, bomb = 0, bio = 10, rad = 0)
+	flags_size = ONESIZEFITSALL
 /obj/item/clothing/under/rank/virologist/skirt
 	name = "virologist's jumpskirt"
 	icon_state = "virologywhitef"
@@ -135,6 +193,16 @@
 	icon_state = "medical"
 	item_state = "w_suit"
 	item_color = "medical"
+	permeability_coefficient = 0.50
+	armor = list(melee = 0, bullet = 0, laser = 0, energy = 0, bomb = 0, bio = 10, rad = 0)
+	flags_size = ONESIZEFITSALL
+
+/obj/item/clothing/under/rank/medical/ncu
+	desc = "A Nanomesh Combat Uniform. This one is fitted for Medical personnel."
+	name = "medical doctor's nanomesh combat niform"
+	icon_state = "ncumedical"
+	item_state = "ncumedical"
+	item_color = "ncumedical"
 	permeability_coefficient = 0.50
 	armor = list(melee = 0, bullet = 0, laser = 0, energy = 0, bomb = 0, bio = 10, rad = 0)
 	flags_size = ONESIZEFITSALL
