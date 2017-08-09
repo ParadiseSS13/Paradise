@@ -1,0 +1,7 @@
+author: "Purpose2"
+delete-after: True
+changes: 
+  - rscadd: "Adds a cycling airlock on the new mining mini outpost."
+  - bugfix: "Re-adds the cycling airlock on mining outpost."
+  - bugfix: "Fixes the broken atmos piping on mining outpost."
+  - bugfix: "Fixes a lack of lighting on mining outpost."
