@@ -34,6 +34,8 @@
 	if(paper_title)
 		P.name = paper_title
 	P.update_icon()
+	P.populatefields()
+	P.updateinfolinks()
 	stored_paper--
 	P = null
 	return TRUE
