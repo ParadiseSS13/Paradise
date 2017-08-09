@@ -27,7 +27,7 @@
 			"<span class='notice'>After some fiddling, you find a way to disable [src]'s power source.</span>",
 			"<span class='italics'>You hear clicking.</span>")
 		name = "deactivated swarmer"
-		desc = "A shell of swarmer that was completely powered down. It no longer can activate itself."
+		desc = "A shell of swarmer that was completely powered down. It can no longer activate itself."
 		crit_fail = 1
 
 /obj/item/device/unactivated_swarmer/attack_ghost(mob/user as mob)
