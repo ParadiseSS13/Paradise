@@ -59,7 +59,8 @@
 	// and play
 	var/turf/source = get_turf(instrumentObj)
 	var/sound/music_played = sound(soundfile)
-	for(var/mob/M in hearers(15, source))
+	for(var/A in hearers(15, source))
+		var/mob/M = A
 		if(!M.client || !(M.client.prefs.sound & SOUND_INSTRUMENTS))
 			continue
 		M.playsound_local(source, null, 100, falloff = 5, S = music_played)
