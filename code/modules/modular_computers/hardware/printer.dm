@@ -38,6 +38,9 @@
 	P.updateinfolinks()
 	stored_paper--
 	P = null
+
+	playsound(loc, 'sound/goonstation/machines/printer_thermal.ogg', 50, 1)
+
 	return TRUE
 
 /obj/item/weapon/computer_hardware/printer/try_insert(obj/item/I, mob/living/user = null)
