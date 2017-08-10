@@ -37,7 +37,7 @@
 		ExtinguishMob()
 		if(buckled)
 			buckled.unbuckle_mob(src,force=1)
- 		if(buckled_mobs.len)
+ 		if(has_buckled_mobs())
  			unbuckle_all_mobs(force=1)
 		if(pulling && bloodcrawl == BLOODCRAWL_EAT)
 			if(istype(pulling, /mob/living/))

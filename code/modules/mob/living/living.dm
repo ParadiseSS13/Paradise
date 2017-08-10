@@ -494,7 +494,7 @@
 	on_fire = 0
 	suiciding = 0
 	if(buckled) //Unbuckle the mob and clear the alerts.
-		buckled.unbuckle_mob(src)
+		buckled.unbuckle_mob(src, force = TRUE)
 		anchored = initial(anchored)
 		update_canmove()
 		clear_alert("buckled")

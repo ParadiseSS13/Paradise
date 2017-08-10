@@ -122,7 +122,7 @@
 	src.move_speed = world.time - src.l_move_time
 	src.l_move_time = world.time
 
-	if(. && buckled_mobs.len && !handle_buckled_mob_movement(loc, direct)) //movement failed due to buckled mob
+	if(. && has_buckled_mobs() && !handle_buckled_mob_movement(loc, direct)) //movement failed due to buckled mob
 		. = 0
 
 // Called after a successful Move(). By this point, we've already moved
@@ -175,7 +175,7 @@
 /mob/living/forceMove(atom/destination)
 	if(buckled)
 		buckled.unbuckle_mob(src,force=TRUE)
-	if(buckled_mobs.len)
+	if(has_buckled_mobs())
 		unbuckle_all_mobs(force=TRUE)
 	if(pulling)
 		addtimer(src, "check_pull", 1, TRUE)

@@ -12,7 +12,7 @@
 	overlays = null
 	var/image/O = image(icon = icon, icon_state = "[icon_state]_overlay", layer = FLY_LAYER, dir = src.dir)
 	overlays += O
-	if(buckled_mobs.len)
+	if(has_buckled_mobs())
 		for(var/m in buckled_mobs)
 			var/mob/living/buckled_mob = m
 			buckled_mob.dir = dir
@@ -30,7 +30,7 @@
 	var/calculated_move_delay
 	calculated_move_delay += 2 //wheelchairs are not infact sport bikes
 
-	if(buckled_mobs.len)
+	if(has_buckled_mobs())
 		for(var/m in buckled_mobs)
 			var/mob/living/buckled_mob = m
 			if(buckled_mob.incapacitated())
@@ -75,7 +75,7 @@
 
 /obj/structure/stool/bed/chair/wheelchair/Bump(atom/A)
 	..()
-	if(!buckled_mobs.len)
+	if(!has_buckled_mobs())
 		return
 
 	if(istype(A, /obj/machinery/door))
@@ -120,7 +120,7 @@
 	var/calculated_move_delay
 	calculated_move_delay = 0 //bikes are infact sport bikes
 
-	if(buckled_mobs.len)
+	if(has_buckled_mobs())
 		var/mob/living/buckled_mob = buckled_mobs[1]
 		if(buckled_mob.incapacitated())
 			unbuckle_mob(buckled_mob)	//if the rider is incapacitated, unbuckle them (they can't balance so they fall off)

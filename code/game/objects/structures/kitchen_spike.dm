@@ -42,7 +42,7 @@
 
 /obj/structure/kitchenspike/attackby(obj/item/weapon/grab/G as obj, mob/user as mob)
 	if(istype(G, /obj/item/weapon/crowbar))
-		if(!buckled_mobs.len)
+		if(!has_buckled_mobs())
 			playsound(loc, G.usesound, 100, 1)
 			if(do_after(user, 20 * G.toolspeed, target = src))
 				to_chat(user, "<span class='notice'>You pry the spikes out of the frame.</span>")
@@ -55,11 +55,11 @@
 		return
 	if(!istype(G, /obj/item/weapon/grab) || !G.affecting)
 		return
-	if(buckled_mobs.len)
+	if(has_buckled_mobs())
 		to_chat(user, "<span class = 'danger'>The spike already has something on it, finish collecting its meat first!</span>")
 	else
 		if(isliving(G.affecting))
-			if(!buckled_mobs.len)
+			if(!has_buckled_mobs())
 				if(do_mob(user, src, 120))
 					if(spike(G.affecting))
 						G.affecting.visible_message("<span class='danger'>[user] slams [G.affecting] onto the meat spike!</span>", "<span class='userdanger'>[user] slams you onto the meat spike!</span>", "<span class='italics'>You hear a squishy wet noise.</span>")
@@ -74,7 +74,7 @@
 		return
 
 
-	if(buckled_mobs.len) //to prevent spam/queing up attacks
+	if(has_buckled_mobs()) //to prevent spam/queing up attacks
 		return 0
 	if(victim.buckled)
 		return 0

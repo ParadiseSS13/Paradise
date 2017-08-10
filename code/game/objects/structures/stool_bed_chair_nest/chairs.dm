@@ -41,7 +41,7 @@
 		qdel(src)
 
 /obj/structure/stool/bed/chair/attack_tk(mob/user as mob)
-	if(buckled_mobs.len)
+	if(has_buckled_mobs())
 		..()
 	else
 		rotate()
@@ -52,7 +52,7 @@
 		src.layer = FLY_LAYER
 	else
 		src.layer = OBJ_LAYER
-	if(buckled_mobs.len)
+	if(has_buckled_mobs())
 		for(var/m in buckled_mobs)
 			var/mob/living/buckled_mob = m
 			buckled_mob.dir = dir
@@ -119,7 +119,7 @@
 	return ..()
 
 /obj/structure/stool/bed/chair/comfy/post_buckle_mob(mob/living/M)
-	if(buckled_mobs.len)
+	if(has_buckled_mobs())
 		overlays += armrest
 	else
 		overlays -= armrest
@@ -158,7 +158,7 @@
 
 /obj/structure/stool/bed/chair/office/Bump(atom/A)
 	..()
-	if(!buckled_mobs.len)
+	if(!has_buckled_mobs())
 		return
 
 	if(propelled)

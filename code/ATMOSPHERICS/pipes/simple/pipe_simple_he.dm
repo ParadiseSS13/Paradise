@@ -50,7 +50,7 @@
 			animate(src, color = rgb(h_r, h_g, h_b), time = 20, easing = SINE_EASING)
 
 	//burn any mobs buckled based on temperature
-	if(buckled_mobs.len)
+	if(has_buckled_mobs())
 		var/hc = pipe_air.heat_capacity()
 		var/mob/living/heat_source = buckled_mobs[1]
 		//Best guess-estimate of the total bodytemperature of all the mobs, since they share the same environment it's ~ok~ to guess like this

@@ -39,7 +39,7 @@
 			animation.layer = 5
 			animation.master = holder
 			target.ExtinguishMob()
-			if(target.buckled_mobs.len)
+			if(target.has_buckled_mobs())
 				target.unbuckle_all_mobs(force=1)
 			if(phaseshift == 1)
 				animation.dir = target.dir

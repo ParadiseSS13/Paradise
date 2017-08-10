@@ -8,12 +8,12 @@
 	var/health = 100
 	var/image/nest_overlay
 
-/obj/structure/stool/bed/user_unbuckle_mob(mob/living/buckled_mob, mob/living/user)
-	if(buckled_mobs.len)
+/obj/structure/stool/bed/nest/user_unbuckle_mob(mob/living/buckled_mob, mob/living/user)
+	if(has_buckled_mobs())
 		for(var/buck in buckled_mobs) //breaking a nest releases all the buckled mobs, because the nest isn't holding them down anymore
 			var/mob/living/M = buck
 
-			if(user.get_int_organ(/obj/item/organ/internal/alien/plasmavessel))
+			if(user.get_int_organ(/obj/item/organ/internal/xenos/plasmavessel))
 				unbuckle_mob(M)
 				add_fingerprint(user)
 				return
@@ -42,16 +42,16 @@
 			unbuckle_mob(M)
 			add_fingerprint(user)
 
-/obj/structure/stool/bed/user_buckle_mob(mob/living/M, mob/living/user)
+/obj/structure/stool/bed/nest/user_buckle_mob(mob/living/M, mob/living/user)
 	if ( !ismob(M) || (get_dist(src, user) > 1) || (M.loc != src.loc) || user.incapacitated() || M.buckled )
 		return
 
-	if(M.get_int_organ(/obj/item/organ/internal/alien/plasmavessel))
+	if(M.get_int_organ(/obj/item/organ/internal/xenos/plasmavessel))
 		return
-	if(!user.get_int_organ(/obj/item/organ/internal/alien/plasmavessel))
+	if(!user.get_int_organ(/obj/item/organ/internal/xenos/plasmavessel))
 		return
 
-	if(buckled_mobs.len)
+	if(has_buckled_mobs())
 		unbuckle_all_mobs()
 
 	if(buckle_mob(M))

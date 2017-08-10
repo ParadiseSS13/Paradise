@@ -17,7 +17,7 @@
 
 
 obj/vehicle/motorcycle/post_buckle_mob(mob/living/M)
-	if(buckled_mobs.len)
+	if(has_buckled_mobs())
 		overlays += bikecover
 	else
 		overlays -= bikecover

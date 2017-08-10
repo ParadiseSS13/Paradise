@@ -36,7 +36,7 @@
 //if they differ between directions, otherwise use the
 //generic variables
 /obj/vehicle/proc/handle_vehicle_offsets()
-	if(buckled_mobs.len)
+	if(has_buckled_mobs())
 		for(var/m in buckled_mobs)
 			var/mob/living/buckled_mob = m
 			buckled_mob.dir = dir
@@ -87,7 +87,7 @@
 
 
 /obj/vehicle/bullet_act(obj/item/projectile/Proj)
-	if(buckled_mobs.len)
+	if(has_buckled_mobs())
 		var/mob/living/buckled_mob = buckled_mobs[1]
 		buckled_mob.bullet_act(Proj)
 
@@ -104,13 +104,13 @@
 
 		step(src, direction)
 
-		if(buckled_mobs.len)
-			for(var/m in buckled_mobs)
-				var/mob/living/buckled_mob = m
-				if(istype(src.loc, /turf/simulated))
-					var/turf/simulated/T = src.loc
-					if(T.wet == TURF_WET_LUBE)	//Lube! Fall off!
-						playsound(src, 'sound/misc/slip.ogg', 50, 1, -3)
+		if(istype(src.loc, /turf/simulated))
+			var/turf/simulated/T = src.loc
+			if(T.wet == TURF_WET_LUBE)	//Lube! Fall off!
+				playsound(src, 'sound/misc/slip.ogg', 50, 1, -3)
+				if(has_buckled_mobs())
+					for(var/m in buckled_mobs)
+						var/mob/living/buckled_mob = m
 						buckled_mob.Stun(7)
 						buckled_mob.Weaken(7)
 						unbuckle_mob(user, force = TRUE)
@@ -138,7 +138,7 @@
 		return 0
 	. = ..()
 	if(auto_door_open)
-		if(istype(M, /obj/machinery/door) && buckled_mobs.len)
+		if(istype(M, /obj/machinery/door) && has_buckled_mobs())
 			for(var/m in buckled_mobs)
 				M.Bumped(m)
 
@@ -150,8 +150,10 @@
 	if(has_gravity(src))
 		return 1
 
-	if(pulledby && pulledby != buckled_mobs[1])	// no pulling the vehicle you're driving through space!
-		return 1
+	if(pulledby)
+		for(var/m in buckled_mobs)
+			if(pulledby != m)
+				return 1
 
 	if(needs_gravity)
 		return 1

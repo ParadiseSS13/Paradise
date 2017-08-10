@@ -1,5 +1,3 @@
-
-
 /atom/movable
 	var/can_buckle = 0
 	var/buckle_lying = -1 //bed-like behaviour, forces mob.lying = buckle_lying if != -1 //except -1 actually means "rotate 90 degrees to the left" as it is used by 1*buckle_lying.
@@ -12,30 +10,26 @@
 //Interaction
 /atom/movable/attack_hand(mob/living/user)
 	. = ..()
-	if(can_buckle && buckled_mobs.len)
+	if(can_buckle && has_buckled_mobs())
 		if(buckled_mobs.len > 1)
 			var/unbuckled = input(user, "Who do you wish to unbuckle?","Unbuckle Who?") as null|mob in buckled_mobs
-			if(user_unbuckle_mob(unbuckled,user))
-				return 1
+			return user_unbuckle_mob(unbuckled,user)
 		else
-			if(user_unbuckle_mob(buckled_mobs[1],user))
-				return 1
+			return user_unbuckle_mob(buckled_mobs[1],user)
 
 /atom/movable/attack_robot(mob/living/user)
 	. = ..()
-	if(can_buckle && buckled_mobs.len && Adjacent(user)) // attack_robot is called on all ranges, so the Adjacent check is needed
+	if(can_buckle && has_buckled_mobs() && Adjacent(user)) // attack_robot is called on all ranges, so the Adjacent check is needed
 		if(buckled_mobs.len > 1)
 			var/unbuckled = input(user, "Who do you wish to unbuckle?","Unbuckle Who?") as null|mob in buckled_mobs
-			if(user_unbuckle_mob(unbuckled,user))
-				return 1
+			return user_unbuckle_mob(unbuckled,user)
 		else
-			if(user_unbuckle_mob(buckled_mobs[1],user))
-				return 1
+			return user_unbuckle_mob(buckled_mobs[1],user)
 
 /atom/movable/MouseDrop_T(mob/living/M, mob/living/user)
 	. = ..()
-	if(istype(M) && user_buckle_mob(M, user))
-		return 1
+	if(can_buckle && istype(M))
+		return user_buckle_mob(M, user)
 
 
 //Cleanup
@@ -44,10 +38,9 @@
 	unbuckle_all_mobs(force=TRUE)
 
 /atom/movable/proc/has_buckled_mobs()
-	if(!buckled_mobs)
-		return FALSE
-	if(buckled_mobs.len)
+	if(buckled_mobs && buckled_mobs.len)
 		return TRUE
+	return FALSE
 
 //procs that handle the actual buckling and unbuckling
 /atom/movable/proc/buckle_mob(mob/living/M, force = FALSE, check_loc = TRUE)
@@ -60,7 +53,7 @@
 	if(check_loc && M.loc != loc)
 		return 0
 
-	if((!can_buckle && !force) || !istype(M) || (M.loc != loc) || M.buckled || (buckled_mobs.len >= max_buckled_mobs) || (buckle_requires_restraints && !M.restrained()) || M == src)
+	if((!can_buckle && !force) || !istype(M) || M.buckled || (buckled_mobs.len >= max_buckled_mobs) || (buckle_requires_restraints && !M.restrained()) || M == src)
 		return 0
 
 	if((isslime(M) || isAI(M)) && !force)
@@ -89,7 +82,7 @@
 			M.IgniteMob()
 
 /atom/movable/proc/unbuckle_mob(mob/living/buckled_mob, force=0)
- 	if(istype(buckled_mob) && buckled_mob.buckled == src && (buckled_mob.can_unbuckle() || force))
+	if(istype(buckled_mob) && buckled_mob.buckled == src && (buckled_mob.can_unbuckle() || force))
 		. = buckled_mob
 		buckled_mob.buckled = null
 		buckled_mob.anchored = initial(buckled_mob.anchored)

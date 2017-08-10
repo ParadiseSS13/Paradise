@@ -161,7 +161,7 @@
 		target.ExtinguishMob()
 		var/turf/T = get_turf(target)
 		target.forceMove(T) //to properly move the mob out of a potential container
-		if(target.buckled_mobs.len)
+		if(target.has_buckled_mobs())
 			target.unbuckle_all_mobs(force=TRUE)
 		if(target.pulledby)
 			target.pulledby.stop_pulling()

@@ -390,7 +390,7 @@ var/list/ventcrawl_machinery = list(/obj/machinery/atmospherics/unary/vent_pump,
 		to_chat(src, "You can't vent crawl while you're stunned!")
 		return
 
-	if(buckled_mobs.len)
+	if(has_buckled_mobs())
 		to_chat(src, "You can't vent crawl with creatures on you!")
 		return
 	if(ishuman(src))
