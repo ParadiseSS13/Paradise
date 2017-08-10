@@ -1,0 +1,4 @@
+author: "KasparoVy"
+delete-after: True
+changes: 
+  - bugfix: "Blood trails are now the same colour as the blood pools they came from when viewed by colour blind or noir shades wearing humanoids."
