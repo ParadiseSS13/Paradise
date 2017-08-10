@@ -152,6 +152,7 @@
 			if(F)
 				var/datum/computer_file/data/backup = F.clone()
 				HDD.remove_file(F)
+				F = backup.clone() //When the file gets removed from the HDD, it gets queued for garbage collection. Hacky fix is to make a copy.
 				F.stored_data = newtext
 				F.calculate_size()
 				// We can't store the updated file, it's probably too large. Print an error and restore backed up version.
