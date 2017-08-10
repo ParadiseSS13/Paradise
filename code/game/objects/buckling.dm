@@ -123,8 +123,8 @@
 				"<span class='italics'>You hear metal clanking.</span>")
 		return 1
 
-/atom/movable/proc/user_unbuckle_mob(mob/user)
-	var/mob/living/M = unbuckle_mob()
+/atom/movable/proc/user_unbuckle_mob(mob/living/buckled_mob, mob/user)
+	var/mob/living/M = unbuckle_mob(buckled_mob)
 	if(M)
 		if(M != user)
 			M.visible_message(\
