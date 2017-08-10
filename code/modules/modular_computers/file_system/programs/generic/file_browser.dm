@@ -122,8 +122,12 @@
 			var/datum/computer_file/F = HDD.find_file_by_name(href_list["name"])
 			if(!F || !istype(F))
 				return 1
-			var/datum/computer_file/C = F.clone(1)
-			HDD.store_file(C)
+			var/newname = stripped_input(usr, "Enter clone file name:", "File clone", "Copy of " + F.filename, max_length=50)
+			if(F && newname)
+				var/datum/computer_file/C = F.clone(1)
+				C.filename = newname
+				if(!HDD.store_file(C))
+					error = "I/O error: Unable to clone file. Hard drive is probably full."
 		if("PRG_rename")
 			. = 1
 			if(!HDD)
