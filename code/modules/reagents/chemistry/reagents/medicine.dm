@@ -226,7 +226,6 @@
 		M.emote(pick("cough", "gasp"))
 		to_chat(M, "Your chest feels heavy and you struggle to catch your breath.")
 
-
 /datum/reagent/medicine/synthflesh
 	name = "Synthflesh"
 	id = "synthflesh"
