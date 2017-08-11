@@ -205,6 +205,7 @@
 	penetrates_skin = TRUE
 	metabolization_rate = 0.15
 	taste_message = "salt"
+	overdose_threshold = 100
 
 /datum/reagent/medicine/salglu_solution/on_mob_life(mob/living/M)
 	if(prob(33))
@@ -216,6 +217,15 @@
 			if(H.blood_volume < BLOOD_VOLUME_NORMAL)
 				H.blood_volume += 1
 	..()
+
+/datum/reagent/medicine/salglu_solution/overdose_process(mob/living/M, severity)
+	M.adjustOxyLoss(1.5)
+	M.adjustToxLoss(0.1)
+	if(prob(5))
+		M.visible_message("<span class ='warning'>[M] wheezes, struggling for breath.")
+		M.emote(pick("cough", "gasp"))
+		to_chat(M, "Your chest feels heavy and you struggle to catch your breath.")
+
 
 /datum/reagent/medicine/synthflesh
 	name = "Synthflesh"
