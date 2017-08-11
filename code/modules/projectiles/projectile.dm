@@ -71,6 +71,7 @@
 	if(!isliving(target))
 		return 0
 	var/mob/living/L = target
+	var/mob/living/carbon/human/H
 	if(blocked < 100) // not completely blocked
 		if(damage && L.blood_volume && damage_type == BRUTE)
 			var/splatter_dir = dir
@@ -81,7 +82,7 @@
 			else
 				var/blood_color = "#C80000"
 				if(ishuman(target))
-					var/mob/living/carbon/human/H = target
+					H = target
 					blood_color = H.species.blood_color
 				new /obj/effect/overlay/temp/dir_setting/bloodsplatter(target_loca, splatter_dir, blood_color)
 			if(prob(33))
@@ -93,6 +94,10 @@
 				else
 					target_loca = step_over
 				L.add_splatter_floor(target_loca, shift_x = shift["x"], shift_y = shift["y"])
+				if(istype(H))
+					for(var/mob/living/carbon/human/M in step_over) //Bloody the mobs who're infront of the spray.
+						M.bloody_hands(H)
+						M.bloody_body(H)
 
 		var/organ_hit_text = ""
 		if(L.has_limbs)
