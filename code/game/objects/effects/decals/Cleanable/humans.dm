@@ -15,7 +15,6 @@ var/global/list/image/splatter_cache=list()
 	icon_state = "mfloor1"
 	random_icon_states = list("mfloor1", "mfloor2", "mfloor3", "mfloor4", "mfloor5", "mfloor6", "mfloor7")
 	var/base_icon = 'icons/effects/blood.dmi'
-	appearance_flags = NO_CLIENT_COLOR
 	blood_DNA = list()
 	var/blood_state = BLOOD_STATE_HUMAN
 	var/bloodiness = MAX_SHOE_BLOODINESS
@@ -155,6 +154,7 @@ var/global/list/image/splatter_cache=list()
 	random_icon_states = null
 	var/list/existing_dirs = list()
 	blood_DNA = list()
+	appearance_flags = NO_CLIENT_COLOR
 
 /obj/effect/decal/cleanable/trail_holder/can_bloodcrawl_in()
 	return TRUE
