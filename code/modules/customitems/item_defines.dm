@@ -307,9 +307,6 @@
 	jacket.sprite_sheets = null
 	user.update_inv_wear_suit()
 	qdel(src)
-	return
-
-
 
 /obj/item/device/fluff/desolate_baton_kit //DesolateG: Michael Smith
 	name = "stun baton converstion kit"
@@ -698,7 +695,6 @@
 	options["navy"] ="shazjacket_navy"
 	options["white"] ="shazjacket_white"
 
-
 	var/choice = input(user, "What color do you wish your jacket to be?", "Change color") as null|anything in options
 
 	if(choice && !user.stat && in_range(user, src))
@@ -710,7 +706,8 @@
 		name = "custom [choice] military jacket"
 		user.update_inv_wear_suit()
 		return 1
-	..()
+
+	. = ..()
 
 /obj/item/clothing/suit/fluff/dusty_jacket //ComputerlessCitizen: Screech
 	name = "Dusty Jacket"
