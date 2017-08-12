@@ -219,12 +219,12 @@
 	..()
 
 /datum/reagent/medicine/salglu_solution/overdose_process(mob/living/M, severity)
-	M.adjustOxyLoss(1.5)
 	M.adjustToxLoss(0.1)
-	if(prob(5))
-		M.visible_message("<span class ='warning'>[M] wheezes, struggling for breath.")
-		M.emote(pick("cough", "gasp"))
-		to_chat(M, "Your chest feels heavy and you struggle to catch your breath.")
+	if(prob(20) && ishuman(M))
+		var/mob/living/carbon/human/H = M
+		var/obj/item/organ/internal/kidneys/K = H.get_int_organ(/obj/item/organ/internal/kidneys)
+		if(istype(K))
+			K.take_damage(0.5)
 
 /datum/reagent/medicine/synthflesh
 	name = "Synthflesh"
