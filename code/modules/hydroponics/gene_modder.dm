@@ -16,7 +16,7 @@
 	var/datum/plant_gene/target
 	var/operation = ""
 	var/max_potency = 50 // See RefreshParts() for how these work
-	var/max_yield = 3
+	var/max_yield = 2
 	var/min_production = 9
 	var/max_endurance = 10 // IMPT: ALSO AFFECTS LIFESPAN
 	var/min_wrate = 8

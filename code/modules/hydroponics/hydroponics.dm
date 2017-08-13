@@ -1,5 +1,3 @@
-#define HYDRO_CYCLES_PER_AGE	2	//Adjust this to adjust how many hydroponics cycles it takes to increase age. Positive integers only.
-
 /obj/machinery/hydroponics
 	name = "hydroponics tray"
 	icon = 'icons/obj/hydroponics/equipment.dmi'
@@ -21,8 +19,7 @@
 	var/plant_health		//Its health
 	var/lastproduce = 0		//Last time it was harvested
 	var/lastcycle = 0		//Used for timing of cycles.
-	var/cycledelay = 200	//About 10 seconds / cycle
-	var/current_cycle = 0	//Used for tracking when to age
+	var/cycledelay = 200 * 2//Delay until the next cycle starts, 200 equals about 10 sec/cycle
 	var/harvest = 0			//Ready to harvest?
 	var/obj/item/seeds/myseed = null	//The currently planted seed
 	var/rating = 1
@@ -155,10 +152,7 @@
 		lastcycle = world.time
 		if(myseed && !dead)
 			// Advance age
-			current_cycle++
-			if(current_cycle == HYDRO_CYCLES_PER_AGE)
-				age++
-				current_cycle = 0
+			age++
 			if(age < myseed.maturation)
 				lastproduce = age
 
@@ -360,7 +354,7 @@
 	if(!self_sustaining)
 		to_chat(user, "<span class='info'>Water: [waterlevel]/[maxwater]</span>")
 		to_chat(user, "<span class='info'>Nutrient: [nutrilevel]/[maxnutri]</span>")
-		if(self_sufficiency_progress > 0)
+		if(self_sufficiency_progress > 0 && !self_sustaining) // Don't check for the progress anymore if the plant is already self-sustaining
 			var/percent_progress = round(self_sufficiency_progress * 100 / self_sufficiency_req)
 			to_chat(user, "<span class='info'>Treatment for self-sustenance are [percent_progress]% complete.</span>")
 	else
@@ -551,10 +545,10 @@
 		adjustNutri(round(S.get_reagent_amount("fishwater") * 0.75))
 		adjustWater(round(S.get_reagent_amount("fishwater") * 1))
 
-	// Ambrosia Gaia produces earthsblood.
+	// You know what else has /datum/reagents, besides a beaker with earthsblood in it? That's right, ambrosia gaia!
 	if(S.has_reagent("earthsblood"))
 		self_sufficiency_progress += S.get_reagent_amount("earthsblood")
-		if(self_sufficiency_progress >= self_sufficiency_req)
+		if(self_sufficiency_progress >= self_sufficiency_req && !self_sustaining)
 			become_self_sufficient()
 		else if(!self_sustaining)
 			to_chat(user, "<span class='notice'>[src] warms as it might on a spring day under a genuine Sun.</span>")
@@ -975,7 +969,7 @@
 	var/mob/living/simple_animal/hostile/C = new chosen
 	C.faction = list("plants")
 
-/obj/machinery/hydroponics/proc/become_self_sufficient() // Ambrosia Gaia effect
+/obj/machinery/hydroponics/proc/become_self_sufficient() // Ambrosia Gaia/Earthsblood effect
 	visible_message("<span class='boldnotice'>[src] begins to glow with a beautiful light!</span>")
 	self_sustaining = TRUE
 	update_icon()
@@ -1026,5 +1020,3 @@
 		qdel(src)
 	else
 		..()
-
-#undef HYDRO_CYCLES_PER_AGE
