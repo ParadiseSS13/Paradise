@@ -1,8 +1,0 @@
-author: "AndrewMontagne"
-delete-after: True
-changes: 
-  - bugfix: "Modular computers now print fields correctly."
-  - bugfix: "Files on modular computers no longer vanish shortly after editing."
-  - rscadd: "Modular computers printers now make printing noises."
-  - bugfix: "You can no longer try and buy a tablet with a printer."
-  - bugfix: "Cloning a file now works."
