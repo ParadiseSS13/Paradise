@@ -3585,7 +3585,7 @@
 "bqW" = (/obj/machinery/atmospherics/pipe/simple/hidden/supply,/turf/simulated/floor/plasteel,/area/bridge)
 "bqX" = (/obj/structure/cable{d1 = 1; d2 = 2; icon_state = "1-2"; pixel_y = 0; tag = ""},/turf/simulated/floor/plasteel,/area/bridge)
 "bqY" = (/obj/structure/table/reinforced,/obj/item/weapon/storage/firstaid/regular,/turf/simulated/floor/plasteel,/area/bridge)
-"bqZ" = (/obj/machinery/computer/shuttle/science,/turf/simulated/floor/plasteel{dir = 10; icon_state = "brown"},/area/bridge)
+"bqZ" = (/obj/machinery/computer/shuttle/labor,/turf/simulated/floor/plasteel{dir = 10; icon_state = "brown"},/area/bridge)
 "bra" = (/obj/machinery/light{icon_state = "tube1"; dir = 4},/obj/machinery/computer/shuttle/engineering,/turf/simulated/floor/plasteel{dir = 6; icon_state = "brown"},/area/bridge)
 "brb" = (/obj/machinery/camera{c_tag = "Bridge East"; dir = 2; network = list("SS13")},/obj/machinery/computer/supplycomp,/obj/machinery/computer/security/telescreen/entertainment{pixel_x = 0; pixel_y = 32},/turf/simulated/floor/plasteel{dir = 2; icon_state = "brown"},/area/bridge)
 "brc" = (/obj/machinery/atmospherics/pipe/simple/hidden/supply,/obj/structure/stool/bed/chair/wood/wings{tag = "icon-wooden_chair_wings (EAST)"; icon_state = "wooden_chair_wings"; dir = 4},/obj/effect/landmark/start{name = "Civilian"},/turf/simulated/floor/wood,/area/crew_quarters/bar)
