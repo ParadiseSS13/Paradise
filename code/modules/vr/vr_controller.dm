@@ -156,7 +156,7 @@ proc/build_virtual_avatar(mob/living/carbon/human/H, location, datum/vr_room/roo
 	if(room.name == "Lobby")
 		if(vr_avatar.a_intent != INTENT_HELP)
 			vr_avatar.a_intent_change(INTENT_HELP)
-//		vr_avatar.can_change_intents = 0 //Now you have no choice but to be helpful.
+		vr_avatar.can_change_intents = 0 //Now you have no choice but to be helpful.
 	return vr_avatar
 
 
