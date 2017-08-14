@@ -1,0 +1,4 @@
+author: "Birdtalon"
+delete-after: True
+changes: 
+  - bugfix: "Spiderbots can now pass tables, making their Hide worthwhile."
