@@ -2601,7 +2601,7 @@ area/security/podbay
 	name = "VR Lobby"
 
 /area/vr/roman
-	name = "Roman Arena"
+	name = "VR Roman Arena"
 
 
 /////////////////////////////////////////////////////////////////////

@@ -3,7 +3,6 @@
 /datum/outfit/vr/vr_basic
 	name = "basic vr"
 	uniform = /obj/item/clothing/under/psysuit
-	shoes = /obj/item/clothing/shoes/black
 
 /datum/outfit/vr/roman
 	name = "roman"

@@ -18,6 +18,7 @@
 
 /mob/living/carbon/human/virtual_reality/death()
 	myroom.players.Remove(src)
+	vr_all_players.Remove(src)
 	if((myroom.players.len == 0) && (myroom.expires == 1))
 		myroom.delete_timer = addtimer(myroom, "cleanup", 3 MINUTES)
 	else if((myroom.players.len == 1) && (myroom.expires == 2))
