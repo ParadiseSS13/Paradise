@@ -595,13 +595,13 @@
 			if(volume < 5)
 				to_chat(M, "<span class='danger'>The blueish acidic substance stings you, but isn't concentrated enough to harm you!</span>")
 
-			if(volume >=5 && volume <=10)
+			if(volume >=5 && volume <=15)
 				if(!H.unacidable)
 					M.take_organ_damage(0,max(volume-5,2)*4)
 					M.emote("scream")
 
 
-			if(volume > 10)
+			if(volume > 15)
 
 				if(method == TOUCH)
 					if(H.wear_mask)
