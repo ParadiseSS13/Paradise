@@ -1205,13 +1205,11 @@ var/list/robot_verbs_default = list(
 	canmove = 1
 	scrambledcodes = 1
 	//Disconnect it's camera so it's not so easily tracked.
-	if(src.camera)
-		qdel(src.camera)
-		src.camera = null
-		// I'm trying to get the Cyborg to not be listed in the camera list
-		// Instead of being listed as "deactivated". The downside is that I'm going
-		// to have to check if every camera is null or not before doing anything, to prevent runtime errors.
-		// I could change the network to null but I don't know what would happen, and it seems too hacky for me.
+	QDEL_NULL(src.camera)
+	// I'm trying to get the Cyborg to not be listed in the camera list
+	// Instead of being listed as "deactivated". The downside is that I'm going
+	// to have to check if every camera is null or not before doing anything, to prevent runtime errors.
+	// I could change the network to null but I don't know what would happen, and it seems too hacky for me.
 
 /mob/living/silicon/robot/proc/ResetSecurityCodes()
 	set category = "Robot Commands"

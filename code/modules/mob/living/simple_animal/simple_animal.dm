@@ -422,6 +422,13 @@
 					damage = O.force
 					if(O.damtype == STAMINA)
 						damage = 0
+					if(O.damtype == BRUTE)
+						if(prob(33))
+							O.add_mob_blood(src)
+							var/turf/location = get_turf(src)
+							add_splatter_floor(location)
+							if(get_dist(user, src) <= 1)	//people with TK won't get smeared with blood
+								user.add_mob_blood(src)
 					visible_message("<span class='danger'>[user] has [O.attack_verb.len ? "[pick(O.attack_verb)]": "attacked"] [src] with [O]!</span>",\
 									"<span class='userdanger'>[user] has [O.attack_verb.len ? "[pick(O.attack_verb)]": "attacked"] you with [O]!</span>")
 				else
@@ -431,7 +438,6 @@
 				user.visible_message("<span class='warning'>[user] gently taps [src] with [O].</span>",\
 									"<span class='warning'>This weapon is ineffective, it does no damage.</span>")
 			adjustBruteLoss(damage)
-
 
 /mob/living/simple_animal/movement_delay()
 	. = ..()

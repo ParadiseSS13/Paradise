@@ -194,17 +194,22 @@
 	if(isanimal(M))
 		M.changeNext_move(CLICK_CD_MELEE)
 		if(iscorgi(M))
-			if(bitecount >= 4)
+			var/mob/living/simple_animal/pet/corgi/G = M
+			if(world.time < (G.last_eaten + 300))
+				to_chat(G, "<span class='notice'>You are too full to try eating [src] right now.</span>")
+			else if(bitecount >= 4)
 				M.visible_message("[M] [pick("burps from enjoyment", "yaps for more", "woofs twice", "looks at the area where [src] was")].","<span class='notice'>You swallow up the last part of [src].</span>")
 				playsound(loc,'sound/items/eatfood.ogg', rand(10,50), 1)
 				var/mob/living/simple_animal/pet/corgi/C = M
 				C.adjustBruteLoss(-5)
 				C.adjustFireLoss(-5)
 				qdel(src)
+				G.last_eaten = world.time
 			else
 				M.visible_message("[M] takes a bite of [src].","<span class='notice'>You take a bite of [src].</span>")
 				playsound(loc,'sound/items/eatfood.ogg', rand(10,50), 1)
 				bitecount++
+				G.last_eaten = world.time
 		else if(ismouse(M))
 			var/mob/living/simple_animal/mouse/N = M
 			to_chat(N, text("<span class='notice'>You nibble away at [src].</span>"))
@@ -959,6 +964,13 @@
 	icon_state = "chinese1"
 	junkiness = 25
 	list_reagents = list("nutriment" = 1, "beans" = 3, "msg" = 4, "sugar" = 2)
+
+/obj/item/weapon/reagent_containers/food/snacks/chinese/sweetsourchickenball
+	name = "Sweet & Sour Chicken Balls"
+	desc = "Is this chicken cooked? The odds are better than wok paper scissors."
+	icon_state = "chickenball"
+	junkiness = 25
+	list_reagents = list("nutriment" = 2, "msg" = 4, "sugar" = 2)
 
 /obj/item/weapon/reagent_containers/food/snacks/chinese/tao
 	name = "Admiral Yamamoto carp"
@@ -2097,7 +2109,7 @@
 		return
 
 	if(boxes.len > 0)
-		if(user.get_inactive_hand() != src)
+		if(user.is_in_inactive_hand(src))
 			..()
 			return
 
@@ -2478,3 +2490,11 @@
 	icon_state = "tatortot"
 	list_reagents = list("nutriment" = 4)
 	filling_color = "FFD700"
+
+/obj/item/weapon/reagent_containers/food/snacks/onionrings
+	name = "onion rings"
+	desc = "Onion slices coated in batter."
+	icon_state = "onionrings"
+	list_reagents = list("nutriment" = 3)
+	filling_color = "#C0C9A0"
+	gender = PLURAL

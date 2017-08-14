@@ -102,8 +102,7 @@
 			if(!( A.anchored ))
 				A.forceMove(src)
 		playsound(loc, open_sound, 50, 1)
-		qdel(connected)
-		connected = null
+		QDEL_NULL(connected)
 	else
 		playsound(loc, open_sound, 50, 1)
 		connected = new /obj/structure/m_tray( loc )
@@ -118,8 +117,7 @@
 			connected.icon_state = "morguet"
 			connected.dir = dir
 		else
-			qdel(connected)
-			connected = null
+			QDEL_NULL(connected)
 	add_fingerprint(user)
 	update()
 	return
@@ -155,8 +153,7 @@
 			A.forceMove(connected.loc)
 		connected.icon_state = "morguet"
 	else
-		qdel(connected)
-		connected = null
+		QDEL_NULL(connected)
 	return
 
 /obj/structure/morgue/Destroy()
@@ -306,8 +303,7 @@
 			if(!( A.anchored ))
 				A.forceMove(src)
 		playsound(loc, open_sound, 50, 1)
-		qdel(connected)
-		connected = null
+		QDEL_NULL(connected)
 	else if(locked == 0)
 		playsound(loc, open_sound, 50, 1)
 		connected = new /obj/structure/c_tray( loc )
@@ -321,8 +317,7 @@
 				A.forceMove(connected.loc)
 			connected.icon_state = "cremat"
 		else
-			qdel(connected)
-			connected = null
+			QDEL_NULL(connected)
 	add_fingerprint(user)
 	update()
 
@@ -355,8 +350,7 @@
 			A.forceMove(connected.loc)
 		connected.icon_state = "cremat"
 	else
-		qdel(connected)
-		connected = null
+		QDEL_NULL(connected)
 	return
 
 /obj/structure/crematorium/proc/cremate(mob/user as mob)

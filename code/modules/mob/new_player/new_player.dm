@@ -1,5 +1,3 @@
-//This file was auto-corrected by findeclaration.exe on 25.5.2012 20:42:33
-
 /mob/new_player
 	var/ready = 0
 	var/spawning = 0//Referenced when you want to delete the new_player later on in the code.
@@ -67,9 +65,9 @@
 	return
 
 /mob/new_player/Stat()
+	..()
 	if((!ticker) || ticker.current_state == GAME_STATE_PREGAME)
 		statpanel("Lobby") // First tab during pre-game.
-	..()
 
 	statpanel("Status")
 	if(client.statpanel == "Status" && ticker)
@@ -125,7 +123,7 @@
 			var/mob/dead/observer/observer = new()
 			src << browse(null, "window=playersetup")
 			spawning = 1
-			src << sound(null, repeat = 0, wait = 0, volume = 85, channel = 1)// MAD JAMS cant last forever yo
+			stop_sound_channel(CHANNEL_LOBBYMUSIC)
 
 
 			observer.started_as_observer = 1
@@ -302,7 +300,9 @@
 		AnnounceArrival(character, rank, join_message)
 		callHook("latespawn", list(character))
 
-
+	var/datum/job/thisjob = job_master.GetJob(rank)
+	if(!thisjob.is_position_available() && thisjob in job_master.prioritized_jobs)
+		job_master.prioritized_jobs -= thisjob
 	qdel(src)
 
 
@@ -451,7 +451,7 @@
 		client.prefs.real_name = random_name(client.prefs.gender)
 	client.prefs.copy_to(new_character)
 
-	src << sound(null, repeat = 0, wait = 0, volume = 85, channel = 1)// MAD JAMS cant last forever yo
+	stop_sound_channel(CHANNEL_LOBBYMUSIC)
 
 
 	if(mind)
@@ -514,7 +514,7 @@
 
 /mob/new_player/proc/is_species_whitelisted(datum/species/S)
 	if(!S) return 1
-	return is_alien_whitelisted(src, S.name) || !config.usealienwhitelist || !(S.flags & IS_WHITELISTED)
+	return is_alien_whitelisted(src, S.name) || !config.usealienwhitelist || !(IS_WHITELISTED in S.species_traits)
 
 /mob/new_player/get_species()
 	var/datum/species/chosen_species

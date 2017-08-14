@@ -1,5 +1,3 @@
-//This file was auto-corrected by findeclaration.exe on 25.5.2012 20:42:33
-
 var/list/preferences_datums = list()
 
 var/global/list/special_role_times = list( //minimum age (in days) for accounts to play these roles
@@ -351,7 +349,7 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 			dat += "<br>"
 
 
-			if(!(S.flags & ALL_RPARTS))
+			if(!(S.bodyflags & ALL_RPARTS))
 				dat += "<b>Eyes:</b> "
 				dat += "<a href='?_src_=prefs;preference=eyes;task=input'>Color</a> [color_square(r_eyes, g_eyes, b_eyes)]<br>"
 
@@ -827,7 +825,7 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 
 /datum/preferences/proc/ShowDisabilityState(mob/user,flag,label)
 	var/datum/species/S = all_species[species]
-	if(flag==DISABILITY_FLAG_FAT && !(S.flags & CAN_BE_FAT))
+	if(flag==DISABILITY_FLAG_FAT && !(CAN_BE_FAT in S.species_traits))
 		return "<li><i>[species] cannot be fat.</i></li>"
 	return "<li><b>[label]:</b> <a href=\"?_src_=prefs;task=input;preference=disabilities;disability=[flag]\">[disabilities & flag ? "Yes" : "No"]</a></li>"
 
@@ -1089,7 +1087,7 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 			if("input")
 				var/dflag=text2num(href_list["disability"])
 				if(dflag >= 0)
-					if(!(dflag==DISABILITY_FLAG_FAT && !(S.flags & CAN_BE_FAT))) //If the disability isn't fatness, toggle it. If it IS fatness, check to see if the species can be fat before going ahead.
+					if(!(dflag==DISABILITY_FLAG_FAT && !(CAN_BE_FAT in S.species_traits))) //If the disability isn't fatness, toggle it. If it IS fatness, check to see if the species can be fat before going ahead.
 						disabilities ^= text2num(href_list["disability"]) //MAGIC
 				SetDisabilities(user)
 			else
@@ -1175,12 +1173,15 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 	switch(href_list["task"])
 		if("random")
 			var/datum/robolimb/robohead
-			if(S.flags & ALL_RPARTS)
+			if(S.bodyflags & ALL_RPARTS)
 				var/head_model = "[!rlimb_data["head"] ? "Morpheus Cyberkinetics" : rlimb_data["head"]]"
 				robohead = all_robolimbs[head_model]
 			switch(href_list["preference"])
 				if("name")
 					real_name = random_name(gender,species)
+					if(isnewplayer(user))
+						var/mob/new_player/N = user
+						N.new_player_panel_proc()
 				if("age")
 					age = rand(AGE_MIN, AGE_MAX)
 				if("hair")
@@ -1268,6 +1269,9 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 						var/new_name = reject_bad_name(raw_name, 1)
 						if(new_name)
 							real_name = new_name
+							if(isnewplayer(user))
+								var/mob/new_player/N = user
+								N.new_player_panel_proc()
 						else
 							to_chat(user, "<font color='red'>Invalid name. Your name should be at least 2 and at most [MAX_NAME_LEN] characters long. It may only contain the characters A-Z, a-z, -, ' and .</font>")
 
@@ -1300,7 +1304,7 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 						if(NS.has_gender && gender == PLURAL)
 							gender = pick(MALE,FEMALE)
 						var/datum/robolimb/robohead
-						if(NS.flags & ALL_RPARTS)
+						if(NS.bodyflags & ALL_RPARTS)
 							var/head_model = "[!rlimb_data["head"] ? "Morpheus Cyberkinetics" : rlimb_data["head"]]"
 							robohead = all_robolimbs[head_model]
 						//grab one of the valid hair styles for the newly chosen species
@@ -1437,7 +1441,7 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 						if(hairstyle == "Bald") //Just in case.
 							valid_hairstyles += hairstyle
 							continue
-						if(S.flags & ALL_RPARTS) //Species that can use prosthetic heads.
+						if(S.bodyflags & ALL_RPARTS) //Species that can use prosthetic heads.
 							var/head_model
 							if(!rlimb_data["head"]) //Handle situations where the head is default.
 								head_model = "Morpheus Cyberkinetics"
@@ -1520,7 +1524,7 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 								if(M.heads_allowed && !("All" in M.heads_allowed))
 									continue
 
-							if(S.flags & ALL_RPARTS) //Species that can use prosthetic heads.
+							if(S.bodyflags & ALL_RPARTS) //Species that can use prosthetic heads.
 								var/head_model
 								if(!rlimb_data["head"]) //Handle situations where the head is default.
 									head_model = "Morpheus Cyberkinetics"
@@ -1648,7 +1652,7 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 							continue
 						if(gender == FEMALE && SA.gender == MALE)
 							continue
-						if(S.flags & ALL_RPARTS) //Species that can use prosthetic heads.
+						if(S.bodyflags & ALL_RPARTS) //Species that can use prosthetic heads.
 							var/head_model
 							if(!rlimb_data["head"]) //Handle situations where the head is default.
 								head_model = "Morpheus Cyberkinetics"
@@ -1777,7 +1781,7 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 
 				if("limbs")
 					var/valid_limbs = list("Left Leg", "Right Leg", "Left Arm", "Right Arm", "Left Foot", "Right Foot", "Left Hand", "Right Hand")
-					if(S.flags & ALL_RPARTS)
+					if(S.bodyflags & ALL_RPARTS)
 						valid_limbs = list("Torso", "Lower Body", "Head", "Left Leg", "Right Leg", "Left Arm", "Right Arm", "Left Foot", "Right Foot", "Left Hand", "Right Hand")
 					var/limb_name = input(user, "Which limb do you want to change?") as null|anything in valid_limbs
 					if(!limb_name) return
@@ -1813,19 +1817,19 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 							second_limb = "r_hand"
 						if("Left Foot")
 							limb = "l_foot"
-							if(!(S.flags & ALL_RPARTS))
+							if(!(S.bodyflags & ALL_RPARTS))
 								third_limb = "l_leg"
 						if("Right Foot")
 							limb = "r_foot"
-							if(!(S.flags & ALL_RPARTS))
+							if(!(S.bodyflags & ALL_RPARTS))
 								third_limb = "r_leg"
 						if("Left Hand")
 							limb = "l_hand"
-							if(!(S.flags & ALL_RPARTS))
+							if(!(S.bodyflags & ALL_RPARTS))
 								third_limb = "l_arm"
 						if("Right Hand")
 							limb = "r_hand"
-							if(!(S.flags & ALL_RPARTS))
+							if(!(S.bodyflags & ALL_RPARTS))
 								third_limb = "r_arm"
 
 					var/new_state = input(user, "What state do you wish the limb to be in?") as null|anything in valid_limb_states
@@ -1881,7 +1885,7 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 								if(subchoice)
 									choice = subchoice
 							if(limb in list("head", "chest", "groin"))
-								if(!(S.flags & ALL_RPARTS))
+								if(!(S.bodyflags & ALL_RPARTS))
 									return
 								if(limb == "head")
 									ha_style = "None"
@@ -2032,10 +2036,10 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 
 				if("lobby_music")
 					sound ^= SOUND_LOBBY
-					if(sound & SOUND_LOBBY)
-						user << sound(ticker.login_music, repeat = 0, wait = 0, volume = 85, channel = 1)
+					if((sound & SOUND_LOBBY) && user.client)
+						user.client.playtitlemusic()
 					else
-						user << sound(null, repeat = 0, wait = 0, volume = 85, channel = 1)
+						user.stop_sound_channel(CHANNEL_LOBBYMUSIC)
 
 				if("ghost_ears")
 					toggles ^= CHAT_GHOSTEARS
@@ -2074,6 +2078,9 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 						real_name = random_name(gender)
 						save_character(user)
 					close_load_dialog(user)
+					if(isnewplayer(user))
+						var/mob/new_player/N = user
+						N.new_player_panel_proc()
 
 				if("tab")
 					if(href_list["tab"])
@@ -2154,7 +2161,7 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 
 			else if(status == "cyborg")
 				if(rlimb_data[name])
-					O.robotize(rlimb_data[name])
+					O.robotize(rlimb_data[name], convert_all = 0)
 				else
 					O.robotize()
 		else
@@ -2170,7 +2177,7 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 	// Wheelchair necessary?
 	var/obj/item/organ/external/l_foot = character.get_organ("l_foot")
 	var/obj/item/organ/external/r_foot = character.get_organ("r_foot")
-	if((!l_foot || l_foot.status & ORGAN_DESTROYED) && (!r_foot || r_foot.status & ORGAN_DESTROYED))
+	if(!l_foot && !r_foot)
 		var/obj/structure/stool/bed/chair/wheelchair/W = new /obj/structure/stool/bed/chair/wheelchair (character.loc)
 		character.buckled = W
 		character.update_canmove()
@@ -2204,7 +2211,7 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 
 	character.change_eye_color(r_eyes, g_eyes, b_eyes)
 
-	if(disabilities & DISABILITY_FLAG_FAT && character.species.flags & CAN_BE_FAT)
+	if(disabilities & DISABILITY_FLAG_FAT && (CAN_BE_FAT in character.species.species_traits))
 		character.dna.SetSEState(FATBLOCK,1,1)
 		character.overeatduration = 600
 

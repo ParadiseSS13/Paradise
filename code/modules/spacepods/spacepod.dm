@@ -284,7 +284,7 @@
 		return
 	var/sound/S = sound(mysound)
 	S.wait = 0 //No queue
-	S.channel = 0 //Any channel
+	S.channel = open_sound_channel()
 	S.volume = 50
 	for(var/mob/M in passengers | pilot)
 		M << S
@@ -377,8 +377,7 @@
 				user.visible_message(user, "<span class='warning'>[user] is drilling through the [src]'s lock!</span>",
 					"<span class='notice'>You start drilling through the [src]'s lock!</span>")
 				if(do_after(user, 100 * W.toolspeed, target = src))
-					qdel(equipment_system.lock_system)
-					equipment_system.lock_system = null
+					QDEL_NULL(equipment_system.lock_system)
 					user.visible_message(user, "<span class='warning'>[user] has destroyed the [src]'s lock!</span>",
 						"<span class='notice'>You destroy the [src]'s lock!</span>")
 				else

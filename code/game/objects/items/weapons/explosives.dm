@@ -61,7 +61,7 @@
 		nadeassembly.attack_self(user)
 		return
 	var/newtime = input(usr, "Please set the timer.", "Timer", 10) as num
-	if(user.get_active_hand() == src)
+	if(user.is_in_active_hand(src))
 		newtime = Clamp(newtime, 10, 60000)
 		det_time = newtime
 		to_chat(user, "Timer set for [det_time] seconds.")

@@ -59,6 +59,10 @@
 /proc/sanitize(var/t,var/list/repl_chars = null)
 	return html_encode(sanitize_simple(t,repl_chars))
 
+/proc/paranoid_sanitize(t)
+	var/regex/alphanum_only = regex("\[^a-zA-Z0-9# ,.?!:;()]", "g")
+	return alphanum_only.Replace(t, "#")
+
 //Runs sanitize and strip_html_simple
 //I believe strip_html_simple() is required to run first to prevent '<' from displaying as '&lt;' after sanitize() calls byond's html_encode()
 /proc/strip_html(var/t,var/limit=MAX_MESSAGE_LEN)
@@ -448,32 +452,32 @@ proc/checkhtml(var/t)
 
 
 // Pencode
-/proc/pencode_to_html(text, mob/user, obj/item/weapon/pen/P = null, sign = 1, fields = 1, deffont = PEN_FONT, signfont = SIGNFONT, crayonfont = CRAYON_FONT)
-	text = replacetext(text, "\n",			"<BR>")
-	text = replacetext(text, "\[center\]",	"<center>")
-	text = replacetext(text, "\[/center\]",	"</center>")
-	text = replacetext(text, "\[br\]",		"<BR>")
+/proc/pencode_to_html(text, mob/user, obj/item/weapon/pen/P = null, format = 1, sign = 1, fields = 1, deffont = PEN_FONT, signfont = SIGNFONT, crayonfont = CRAYON_FONT)
 	text = replacetext(text, "\[b\]",		"<B>")
 	text = replacetext(text, "\[/b\]",		"</B>")
 	text = replacetext(text, "\[i\]",		"<I>")
 	text = replacetext(text, "\[/i\]",		"</I>")
 	text = replacetext(text, "\[u\]",		"<U>")
 	text = replacetext(text, "\[/u\]",		"</U>")
-	text = replacetext(text, "\[large\]",	"<font size=\"4\">")
-	text = replacetext(text, "\[/large\]",	"</font>")
 	if(sign)
 		text = replacetext(text, "\[sign\]",	"<font face=\"[signfont]\"><i>[user ? user.real_name : "Anonymous"]</i></font>")
 	if(fields)
 		text = replacetext(text, "\[field\]",	"<span class=\"paper_field\"></span>")
+	if(format)
+		text = replacetext(text, "\[h1\]",	"<H1>")
+		text = replacetext(text, "\[/h1\]",	"</H1>")
+		text = replacetext(text, "\[h2\]",	"<H2>")
+		text = replacetext(text, "\[/h2\]",	"</H2>")
+		text = replacetext(text, "\[h3\]",	"<H3>")
+		text = replacetext(text, "\[/h3\]",	"</H3>")
+		text = replacetext(text, "\n",			"<BR>")
+		text = replacetext(text, "\[center\]",	"<center>")
+		text = replacetext(text, "\[/center\]",	"</center>")
+		text = replacetext(text, "\[br\]",		"<BR>")
+		text = replacetext(text, "\[large\]",	"<font size=\"4\">")
+		text = replacetext(text, "\[/large\]",	"</font>")
 
-	text = replacetext(text, "\[h1\]",	"<H1>")
-	text = replacetext(text, "\[/h1\]",	"</H1>")
-	text = replacetext(text, "\[h2\]",	"<H2>")
-	text = replacetext(text, "\[/h2\]",	"</H2>")
-	text = replacetext(text, "\[h3\]",	"<H3>")
-	text = replacetext(text, "\[/h3\]",	"</H3>")
-
-	if(istype(P, /obj/item/toy/crayon)) // If it is a crayon, and he still tries to use these, make them empty!
+	if(istype(P, /obj/item/toy/crayon) || !format) // If it is a crayon, and he still tries to use these, make them empty!
 		text = replacetext(text, "\[*\]", 		"")
 		text = replacetext(text, "\[hr\]",		"")
 		text = replacetext(text, "\[small\]", 	"")
@@ -485,7 +489,7 @@ proc/checkhtml(var/t)
 		text = replacetext(text, "\[row\]", 	"")
 		text = replacetext(text, "\[cell\]", 	"")
 		text = replacetext(text, "\[logo\]", 	"")
-
+	if(istype(P, /obj/item/toy/crayon))
 		text = "<font face=\"[crayonfont]\" color=[P ? P.colour : "black"]><b>[text]</b></font>"
 	else 	// They are using "not a crayon" - formatting is OK and such
 		text = replacetext(text, "\[*\]",		"<li>")
@@ -501,9 +505,10 @@ proc/checkhtml(var/t)
 		text = replacetext(text, "\[row\]",		"</td><tr>")
 		text = replacetext(text, "\[cell\]",	"<td>")
 		text = replacetext(text, "\[logo\]",	"<img src = ntlogo.png>")
-
+	if(P)
 		text = "<font face=\"[deffont]\" color=[P ? P.colour : "black"]>[text]</font>"
-
+	else
+		text = "<font face=\"[deffont]\">[text]</font>"
 	text = copytext(text, 1, MAX_PAPER_MESSAGE_LEN)
 	return text
 
@@ -541,4 +546,3 @@ proc/checkhtml(var/t)
 	text = replacetext(text, "<td>",					"\[cell\]")
 	text = replacetext(text, "<img src = ntlogo.png>",	"\[logo\]")
 	return text
-

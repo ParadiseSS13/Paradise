@@ -112,12 +112,25 @@
 	else
 		to_chat(user, "<span class='notice'>The [src] is out of ink!</span>")
 
+/obj/item/device/fluff/bird_painter // BirdtTalon: Kahkiri
+	name = "Orb of Onyx"
+	desc = "It is imbued with such dark power as to corrupt the very appearance of those who gaze into its depths."
+	icon_state = "bird_orb"
+	icon = 'icons/obj/custom_items.dmi'
+
+/obj/item/device/fluff/bird_painter/attack_self(mob/user)
+	if(ishuman(user))
+		var/mob/living/carbon/human/H = user
+		H.s_tone = -115
+		H.regenerate_icons()
+		to_chat(user, "You use [src] on yourself.")
+		qdel(src)
+
 /obj/item/weapon/claymore/fluff // MrBarrelrolll: Maximus Greenwood
 	name = "Greenwood's Blade"
 	desc = "A replica claymore with strange markings scratched into the blade."
 	force = 5
 	sharp = 0
-	edge = 0
 
 /obj/item/weapon/claymore/fluff/hit_reaction()
 	return 0
@@ -232,7 +245,7 @@
 	new /obj/item/weapon/reagent_containers/food/drinks/cans/cola(src)
 
 
-/obj/item/device/guitar/jello_guitar //Antcolon3: Dan Jello
+/obj/item/device/instrument/guitar/jello_guitar //Antcolon3: Dan Jello
 	name = "Dan Jello's Pink Guitar"
 	desc = "Dan Jello's special pink guitar."
 	icon = 'icons/obj/custom_items.dmi'
@@ -520,6 +533,13 @@
 	icon_state = "hairflowerp"
 	item_state = "hairflowerp"
 
+/obj/item/clothing/head/valkyriehelmet //R3Valkyrie: Rikki
+	name = "charred visor"
+	desc = "A visor of alien origin, charred by fire and completely non-functioning. It's been impeccably polished, shiny!"
+	icon = 'icons/obj/custom_items.dmi'
+	icon_state = "charred_visor"
+	species_restricted = list("Vox")
+
 /obj/item/clothing/head/bearpelt/fluff/polar //Gibson1027: Sploosh
 	name = "polar bear pelt hat"
 	desc = "Fuzzy, and also stained with blood."
@@ -758,6 +778,25 @@
 			A.UpdateButtonIcon()
 		to_chat(user, "You turn the [src]'s lighting system [flavour].")
 		user.update_inv_wear_suit()
+
+/obj/item/clothing/suit/hooded/hoodie/fluff/xantholne // Xantholne: Meex Zwichsnicrur
+	name = "stripped winter coat"
+	desc = "A velvety smooth black winter coat with white and red stripes on the side."
+	icon = 'icons/obj/custom_items.dmi'
+	icon_state = "xantholne_wintercoat"
+	hoodtype = /obj/item/clothing/head/hood/fluff/xantholne
+	body_parts_covered = UPPER_TORSO|LOWER_TORSO|ARMS
+	allowed = list(/obj/item/device/flashlight, /obj/item/weapon/tank/emergency_oxygen, /obj/item/toy, /obj/item/weapon/storage/fancy/cigarettes, /obj/item/weapon/lighter)
+
+
+/obj/item/clothing/head/hood/fluff/xantholne // Xantholne: Meex Zwichsnicrur
+	name = "black winter hood"
+	desc = "A black hood attached to a stripped winter coat."
+	icon = 'icons/obj/custom_items.dmi'
+	icon_state = "xantholne_winterhood"
+	body_parts_covered = HEAD
+	flags = NODROP|BLOCKHAIR
+	flags_inv = HIDEEARS
 
 //////////// Uniforms ////////////
 /obj/item/clothing/under/fluff/kharshai // Kharshai: Athena Castile
@@ -1001,6 +1040,12 @@
 	desc = "Battered, Sol-made military radio backpack that had its speakers fried from playing Vox opera. The words 'Swift-Talon' are crudely scratched onto its side."
 	icon = 'icons/obj/custom_items.dmi'
 	icon_state = "voxcaster_fluff"
+
+/obj/item/weapon/storage/backpack/fluff/ssscratches_back //Ssscratches: Lasshy-Bot
+	name = "CatPack"
+	desc = "It's a backpack, but it's also a cat."
+	icon = 'icons/obj/custom_items.dmi'
+	icon_state = "ssscratches_backpack"
 
 /obj/item/clothing/head/wizard/fake/fluff/dreamy //phantasmicdream : Dreamy Rockwall
 	name = "strange witch hat"

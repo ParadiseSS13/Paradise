@@ -37,6 +37,7 @@
 	var/flag = "bullet" //Defines what armor to use when it hits things.  Must be set to bullet, laser, energy,or bomb	//Cael - bio and rad are also valid
 	var/projectile_type = "/obj/item/projectile"
 	var/range = 50 //This will de-increment every step. When 0, it will delete the projectile.
+	var/is_reflectable = FALSE // Can it be reflected or not?
 	//Effects
 	var/stun = 0
 	var/weaken = 0
@@ -48,7 +49,6 @@
 	var/drowsy = 0
 	var/stamina = 0
 	var/jitter = 0
-	var/embed = 0 // whether or not the projectile can embed itself in the mob
 	var/forcedodge = 0 //to pass through everything
 	var/dismemberment = 0 //The higher the number, the greater the bonus to dismembering. 0 will not dismember at all.
 
@@ -67,10 +67,26 @@
 	qdel(src)
 
 /obj/item/projectile/proc/on_hit(atom/target, blocked = 0, hit_zone)
+	var/turf/target_loca = get_turf(target)
 	if(!isliving(target))
 		return 0
 	var/mob/living/L = target
 	if(blocked < 100) // not completely blocked
+		if(damage && L.blood_volume && damage_type == BRUTE)
+			var/splatter_dir = dir
+			if(starting)
+				splatter_dir = get_dir(starting, target_loca)
+			if(isalien(L))
+				new /obj/effect/overlay/temp/dir_setting/bloodsplatter/xenosplatter(target_loca, splatter_dir)
+			else
+				var/blood_color = "#C80000"
+				if(ishuman(target))
+					var/mob/living/carbon/human/H = target
+					blood_color = H.species.blood_color
+				new /obj/effect/overlay/temp/dir_setting/bloodsplatter(target_loca, splatter_dir, blood_color)
+			if(prob(33))
+				L.add_splatter_floor(target_loca)
+
 		var/organ_hit_text = ""
 		if(L.has_limbs)
 			organ_hit_text = " in \the [parse_zone(def_zone)]"

@@ -55,7 +55,7 @@
 
 	if(mob_to_track)
 		track = "<a href='byond://?src=[UID()];track=\ref[mob_to_track]'>[speaker_name] ([jobname])</a>"
-		track += "<a href='byond://?src=[UID()];open=\ref[mob_to_track]'>\[OPEN\]</a>"
+		track += "<a href='byond://?src=[UID()];open=\ref[mob_to_track]'>\[O\]</a>"
 
 	return track
 
@@ -66,7 +66,6 @@
  */
 
 var/announcing_vox = 0 // Stores the time of the last announcement
-var/const/VOX_CHANNEL = 200
 var/const/VOX_DELAY = 100
 var/const/VOX_PATH = "sound/vox_fem/"
 
@@ -136,11 +135,14 @@ var/const/VOX_PATH = "sound/vox_fem/"
 		play_vox_word(word, src.z, null)
 
 
-/proc/play_vox_word(var/word, var/z_level, var/mob/only_listener)
+/proc/play_vox_word(word, z_level, mob/only_listener)
+
 	word = lowertext(word)
+
 	if(vox_sounds[word])
+
 		var/sound_file = vox_sounds[word]
-		var/sound/voice = sound(sound_file, wait = 1, channel = VOX_CHANNEL)
+		var/sound/voice = sound(sound_file, wait = 1, channel = CHANNEL_VOX)
 		voice.status = SOUND_STREAM
 
 		// If there is no single listener, broadcast to everyone in the same z level

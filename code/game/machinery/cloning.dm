@@ -87,6 +87,10 @@
 /obj/machinery/clonepod/Destroy()
 	if(connected)
 		connected.pods -= src
+	for(var/s in sharedSoulhooks)
+		var/datum/soullink/S = s
+		S.removeSoulsharer(src) //If a sharer is destroy()'d, they are simply removed
+	sharedSoulhooks = null
 	QDEL_NULL(Radio)
 	QDEL_NULL(countdown)
 	QDEL_LIST(missing_organs)
@@ -162,24 +166,6 @@
 /obj/item/weapon/disk/data/examine(mob/user)
 	..(user)
 	to_chat(user, "The write-protect tab is set to [read_only ? "protected" : "unprotected"].")
-
-
-//Health Tracker Implant
-
-/obj/item/weapon/implant/health
-	name = "health implant"
-	var/healthstring = ""
-
-/obj/item/weapon/implant/health/proc/sensehealth()
-	if(!implanted)
-		return "ERROR"
-	else
-		if(isliving(implanted))
-			var/mob/living/L = implanted
-			healthstring = "[round(L.getOxyLoss())] - [round(L.getFireLoss())] - [round(L.getToxLoss())] - [round(L.getBruteLoss())]"
-		if(!healthstring)
-			healthstring = "ERROR"
-		return healthstring
 
 //Clonepod
 
@@ -288,6 +274,8 @@
 		to_chat(clonemind.current, {"<span class='notice'>Your body is
 			beginning to regenerate in a cloning pod. You will
 			become conscious when it is complete.</span>"})
+		// Set up a soul link with the dead body to catch a revival
+		soullink(/datum/soullink/soulhook, clonemind.current, src)
 
 	update_icon()
 
@@ -468,6 +456,11 @@
 		to_chat(occupant, "<span class='notice'><b>There is a bright flash!</b><br>\
 			<i>You feel like a new being.</i></span>")
 		occupant.flash_eyes(visual = 1)
+		for(var/s in sharedSoulhooks)
+			var/datum/soullink/S = s
+			S.removeSoulsharer(src) //If a sharer is destroy()'d, they are simply removed
+		sharedSoulhooks = null
+
 
 	for(var/i in missing_organs)
 		qdel(i)
@@ -479,17 +472,22 @@
 	occupant = null
 	update_icon()
 
-/obj/machinery/clonepod/proc/malfunction()
+/obj/machinery/clonepod/proc/malfunction(go_easy = FALSE)
 	if(occupant)
 		connected_message("Critical Error!")
 		announce_radio_message("Critical error! Please contact a Thinktronic Systems technician, as your warranty may be affected.")
-		if(occupant.mind != clonemind)
-			clonemind.transfer_to(occupant)
-		occupant.grab_ghost() // We really just want to make you suffer.
-		to_chat(occupant, {"<span class='warning'><b>Agony blazes across your
-			consciousness as your body is torn apart.</b><br>
-			<i>Is this what dying is like? Yes it is.</i></span>"})
-		occupant << sound('sound/hallucinations/veryfar_noise.ogg',0,1,50)
+		for(var/s in sharedSoulhooks)
+			var/datum/soullink/S = s
+			S.removeSoulsharer(src) //If a sharer is destroy()'d, they are simply removed
+		sharedSoulhooks = null
+		if(!go_easy)
+			if(occupant.mind != clonemind)
+				clonemind.transfer_to(occupant)
+			occupant.grab_ghost() // We really just want to make you suffer.
+			to_chat(occupant, {"<span class='warning'><b>Agony blazes across your
+				consciousness as your body is torn apart.</b><br>
+				<i>Is this what dying is like? Yes it is.</i></span>"})
+			occupant << sound('sound/hallucinations/veryfar_noise.ogg',0,1,50)
 		for(var/i in missing_organs)
 			qdel(i)
 		missing_organs.Cut()
@@ -541,6 +539,11 @@
 				return
 		else
 	return
+
+/obj/machinery/clonepod/onSoullinkRevive(mob/living/L)
+	if(occupant && L == clonemind.current)
+		// The old body's back in shape, time to ditch the cloning one
+		malfunction(go_easy = TRUE)
 
 /obj/machinery/clonepod/proc/maim_clone(mob/living/carbon/human/H)
 	LAZYINITLIST(missing_organs)

@@ -17,6 +17,7 @@
 	parent_organ = null
 	encased = "ribcage"
 	var/fat = FALSE
+	convertable_children = list(/obj/item/organ/external/groin)
 
 /obj/item/organ/external/chest/proc/makeFat(update_body_icon = 1)
 	fat = TRUE
@@ -45,6 +46,7 @@
 	w_class = WEIGHT_CLASS_BULKY // if you know what I mean ;)
 	body_part = LOWER_TORSO
 	vital = 1
+	cannot_amputate = TRUE
 	parent_organ = "chest"
 	amputation_point = "lumbar"
 	gendered_icon = 1
@@ -60,6 +62,7 @@
 	parent_organ = "chest"
 	amputation_point = "left shoulder"
 	can_grasp = 1
+	convertable_children = list(/obj/item/organ/external/hand)
 
 /obj/item/organ/external/arm/right
 	limb_name = "r_arm"
@@ -67,6 +70,7 @@
 	icon_name = "r_arm"
 	body_part = ARM_RIGHT
 	amputation_point = "right shoulder"
+	convertable_children = list(/obj/item/organ/external/hand/right)
 
 /obj/item/organ/external/leg
 	limb_name = "l_leg"
@@ -80,6 +84,7 @@
 	parent_organ = "groin"
 	amputation_point = "left hip"
 	can_stand = 1
+	convertable_children = list(/obj/item/organ/external/foot)
 
 /obj/item/organ/external/leg/right
 	limb_name = "r_leg"
@@ -88,6 +93,7 @@
 	body_part = LEG_RIGHT
 	icon_position = RIGHT
 	amputation_point = "right hip"
+	convertable_children = list(/obj/item/organ/external/foot/right)
 
 /obj/item/organ/external/foot
 	limb_name = "l_foot"
@@ -214,8 +220,8 @@
 
 	..()
 
-/obj/item/organ/external/head/take_damage(brute, burn, sharp, edge, used_weapon = null, list/forbidden_limbs = list())
-	..(brute, burn, sharp, edge, used_weapon, forbidden_limbs)
+/obj/item/organ/external/head/take_damage(brute, burn, sharp, used_weapon = null, list/forbidden_limbs = list(), ignore_resists = FALSE)
+	..(brute, burn, sharp, used_weapon, forbidden_limbs, ignore_resists)
 	if(!disfigured)
 		if(brute_dam > 40)
 			if(prob(50))
