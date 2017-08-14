@@ -245,8 +245,10 @@
 	possible_locs = list("head", "chest", "groin")
 
 /datum/surgery/remove_thrall/synth
+	name = "Debug Shadow Tumor"
 	steps = list(/datum/surgery_step/robotics/external/unscrew_hatch,/datum/surgery_step/robotics/external/open_hatch,/datum/surgery_step/internal/dethrall,/datum/surgery_step/robotics/external/close_hatch)
 	possible_locs = list("head", "chest", "groin")
+	requires_organic_bodypart = 0
 
 /datum/surgery/remove_thrall/can_start(mob/user, mob/living/carbon/human/target)
 	if(!istype(target))
