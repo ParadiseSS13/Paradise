@@ -697,6 +697,9 @@ var/list/ai_verbs_default = list(
 	return
 
 /mob/living/silicon/ai/attack_animal(mob/living/simple_animal/M)
+	if(istype(M, /mob/living/simple_animal/hostile/swarmer)) //Swarmers shouldn't be killing the AI
+		to_chat(M, "<span class='warning'>Your shock has no effect on [src]!</span>")
+		return
 	if(M.melee_damage_upper == 0)
 		M.custom_emote(1, "[M.friendly] [src]")
 	else
