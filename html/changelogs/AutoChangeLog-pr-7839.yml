@@ -1,0 +1,6 @@
+author: "taukausanake"
+delete-after: True
+changes: 
+  - rscadd: "Adds an Atmospherics duffel bag that is yellow and blue"
+  - tweak: "Adds sub-department colors to medical duffel bags and purple to Science duffel bags"
+  - bugfix: "Captain's lefthand west sprite corrected"
