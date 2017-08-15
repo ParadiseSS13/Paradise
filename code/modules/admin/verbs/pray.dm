@@ -16,9 +16,9 @@
 	var/font_color = "purple"
 	var/prayer_type = "PRAYER"
 	var/deity
-	if(ticker && ticker.Bible_deity_name)
-		deity = ticker.Bible_deity_name
 	if(usr.job == "Chaplain")
+		if(ticker && ticker.Bible_deity_name)
+			deity = ticker.Bible_deity_name
 		cross = image('icons/obj/storage.dmi',"kingyellow")
 		font_color = "blue"
 		prayer_type = "CHAPLAIN PRAYER"
