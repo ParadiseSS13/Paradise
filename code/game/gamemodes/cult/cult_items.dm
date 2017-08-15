@@ -48,8 +48,7 @@
 	embed_chance = 75
 	var/cooldown = 0
 
-/obj/item/weapon/melee/cultblade/dagger/afterattack(atom/target, mob/living/carbon/human/user)
-	..()
+/obj/item/weapon/melee/cultblade/attack(mob/living/target as mob, mob/living/carbon/human/user as mob)
 	if(!iscultist(user))
 		user.Weaken(5)
 		user.unEquip(src, 1)
@@ -60,19 +59,9 @@
 			H.apply_damage(rand(force/2, force), BRUTE, pick("l_arm", "r_arm"))
 		else
 			user.adjustBruteLoss(rand(force/2,force))
+		return
+	..()
 
-	var/mob/living/carbon/human/bleeder = target
-	if(!(cooldown > world.time) && ((bleeder.stat != DEAD) && !(NO_BLOOD in bleeder.species.species_traits)))
-		if(do_after(user, 20, target = target))
-			user.visible_message("<span class='danger'>The runes on the blade absorb the blood of [target]!</span>")
-			bleeder.bleed(5000)
-			cooldown = world.time + 2400
-	if(ishuman(target))
-		var/mob/living/carbon/human/H = target
-		if(!(cooldown > world.time) && ((H.stat != DEAD) && !(NO_BLOOD in H.species.species_traits)))
-			user.visible_message("<span class='danger'>The runes on the blade absorb the blood of [H]!</span>")
-			H.bleed(5000)
-			cooldown = world.time + 2400
 /obj/item/weapon/restraints/legcuffs/bola/cult
 	name = "runed bola"
 	desc = "A strong bola, bound with dark magic. Throw it to trip and slow your victim."
