@@ -375,6 +375,13 @@
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|ARMS
 	burn_state = FIRE_PROOF
 
+/obj/item/clothing/under/rank/assistant/ncu
+	name = "assistant's nanomesh uniform"
+	desc = "A Nanomesh Uniform. For the very undecided."
+	icon_state = "ncubs"
+	item_state = "ncubs"
+	item_color = "ncubs"
+
 //dress
 
 /obj/item/clothing/under/dress/dress_fire

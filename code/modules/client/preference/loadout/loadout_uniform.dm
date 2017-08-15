@@ -354,3 +354,6 @@
 	path = /obj/item/clothing/under/rank/mechanic/ncu
 	allowed_roles = list("Mechanic")
 
+/datum/gear/uniform/ncu/grey
+	display_name = "nanomesh, assistant"
+	path = /obj/item/clothing/under/rank/assistant/ncu
