@@ -82,7 +82,6 @@
 	armor = list(melee = 10, bullet = 0, laser = 0, energy = 0, bomb = 0, bio = 0, rad = 0)
 	flags_size = ONESIZEFITSALL
 
-
 /*
  * Detective
  */
@@ -134,7 +133,6 @@
 	item_color = "ncurhos"
 	armor = list(melee = 10, bullet = 0, laser = 0, energy = 0, bomb = 0, bio = 0, rad = 0)
 	flags_size = ONESIZEFITSALL
-
 
 //Jensen cosplay gear
 /obj/item/clothing/under/rank/head_of_security/jensen

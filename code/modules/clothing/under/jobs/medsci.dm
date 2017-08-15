@@ -11,8 +11,8 @@
 	flags_size = ONESIZEFITSALL
 
 /obj/item/clothing/under/rank/research_director/ncu
-	desc = "A Nanomesh Combat Uniform. This one is fitted for Science personnel."
-	name = "research director's nanomesh combat uniform."
+	desc = "A Nanomesh Uniform. This one is fitted for Science personnel."
+	name = "research director's nanomesh uniform."
 	icon_state = "ncudirector"
 	item_state = "ncudirector"
 	item_color = "ncudirector"
@@ -30,8 +30,8 @@
 	flags_size = ONESIZEFITSALL
 
 /obj/item/clothing/under/rank/scientist/ncu
-	desc = "A Nanomesh Combat Uniform. This one is fitted for Science personnel."
-	name = "scientist's nanomesh combat uniform."
+	desc = "A Nanomesh Uniform. This one is fitted for Science personnel."
+	name = "scientist's nanomesh uniform."
 	icon_state = "ncutoxins"
 	item_state = "ncutoxins"
 	item_color = "ncutoxins"
@@ -57,8 +57,8 @@
 	flags_size = ONESIZEFITSALL
 
 /obj/item/clothing/under/rank/chemist/ncu
-	desc = "A Nanomesh Combat Uniform. This one is fitted for Medcal personnel."
-	name = "chemist's Nanomesh Combat Uniform"
+	desc = "A Nanomesh Uniform. This one is fitted for Medcal personnel."
+	name = "chemist's Nanomesh Uniform"
 	icon_state = "ncuchemistrywhite"
 	item_state = "ncuchemistrywhite"
 	item_color = "ncuchemistrywhite"
@@ -87,8 +87,8 @@
 	flags_size = ONESIZEFITSALL
 
 /obj/item/clothing/under/rank/chief_medical_officer/ncu
-	desc = "A Nanomesh Combat Uniform. This one is fitted for Medical personnel."
-	name = "chief medical officer's nanomesh combat uniform"
+	desc = "A Nanomesh Uniform. This one is fitted for Medical personnel."
+	name = "chief medical officer's nanomesh uniform"
 	icon_state = "ncucmo"
 	item_state = "ncucmo"
 	item_color = "ncucmo"
@@ -115,8 +115,8 @@
 	flags_size = ONESIZEFITSALL
 
 /obj/item/clothing/under/rank/geneticist/ncu
-	desc = "A Nanomesh Combat Uniform. This one is fitted for Medical personnel."
-	name = "geneticist's nanomesh combat uniform"
+	desc = "A Nanomesh Uniform. This one is fitted for Medical personnel."
+	name = "geneticist's nanomesh uniform"
 	icon_state = "ncugeneticswhite"
 	item_state = "ncugeneticswhite"
 	item_color = "ncugeneticswhite"
@@ -142,14 +142,15 @@
 	flags_size = ONESIZEFITSALL
 
 /obj/item/clothing/under/rank/virologist/ncu
-	desc = "A Nanomesh Combat Uniform. This one is fitted for Medical personnel."
-	name = "virologist's nanomesh combat uniform"
+	desc = "A Nanomesh Uniform. This one is fitted for Medical personnel."
+	name = "virologist's nanomesh uniform"
 	icon_state = "ncuvirologywhite"
 	item_state = "ncuvirologywhite"
 	item_color = "ncuvirologywhite"
 	permeability_coefficient = 0.50
 	armor = list(melee = 0, bullet = 0, laser = 0, energy = 0, bomb = 0, bio = 10, rad = 0)
 	flags_size = ONESIZEFITSALL
+
 /obj/item/clothing/under/rank/virologist/skirt
 	name = "virologist's jumpskirt"
 	icon_state = "virologywhitef"
@@ -198,8 +199,8 @@
 	flags_size = ONESIZEFITSALL
 
 /obj/item/clothing/under/rank/medical/ncu
-	desc = "A Nanomesh Combat Uniform. This one is fitted for Medical personnel."
-	name = "medical doctor's nanomesh combat niform"
+	desc = "A Nanomesh Uniform. This one is fitted for Medical personnel."
+	name = "medical doctor's nanomesh niform"
 	icon_state = "ncumedical"
 	item_state = "ncumedical"
 	item_color = "ncumedical"

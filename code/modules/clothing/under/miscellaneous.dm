@@ -162,8 +162,8 @@
 	armor = list(melee = 10, bullet = 0, laser = 0, energy = 0, bomb = 0, bio = 0, rad = 0)
 
 /obj/item/clothing/under/rank/blueshield/ncu
-	name = "blueshield nanomesh combat uniform"
-	desc = "A Nanomesh Combat Uniform. This one is fitted for Blueshield Officers."
+	name = "blueshield nanomesh uniform"
+	desc = "A Nanomesh Uniform. This one is fitted for Blueshield Officers."
 	icon_state = "ncubs"
 	item_state = "ncubs"
 	item_color = "ncubs"
