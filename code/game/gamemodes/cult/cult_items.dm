@@ -45,12 +45,21 @@
 
 /obj/item/weapon/melee/cultblade/dagger/afterattack(atom/target, mob/living/carbon/human/user)
 	..()
+	if(!iscultist(user))
+		user.Weaken(5)
+		user.unEquip(src, 1)
+		user.visible_message("<span class='warning'>A powerful force shoves [user] away from [target]!</span>", \
+							 "<span class='cultlarge'>\"You shouldn't play with sharp things. You'll poke someone's eye out.\"</span>")
+		if(ishuman(user))
+			var/mob/living/carbon/human/H = user
+			H.apply_damage(rand(force/2, force), BRUTE, pick("l_arm", "r_arm"))
+		else
+			user.adjustBruteLoss(rand(force/2,force))
+
 	if(ishuman(target))
 		var/mob/living/carbon/human/H = target
-		if(!(cooldown > world.time) && ((H.stat != DEAD) && !(NO_BLOOD in H.species.species_traits)))
-			user.visible_message("<span class='danger'>The runes on the blade absorb the blood of [H]!</span>")
-			H.bleed(5000)
-			cooldown = world.time + 2400
+		if((H.stat != DEAD) && !(NO_BLOOD in H.species.species_traits))
+			H.bleed(5)
 
 /obj/item/weapon/restraints/legcuffs/bola/cult
 	name = "runed bola"
