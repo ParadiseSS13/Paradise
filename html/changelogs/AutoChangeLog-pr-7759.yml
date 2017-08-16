@@ -1,0 +1,6 @@
+author: "Citinited"
+delete-after: True
+changes: 
+  - rscadd: "Adds the plasmaman flag; credit to Shadeykins for the original sprite! Buy it at the merch store and show your superiority over other, less flammable, species!"
+  - rscadd: "All flags should now have in-hand sprites."
+  - tweak: "Burning a flag while it is in your hand will now update your mob's sprite."
