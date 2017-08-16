@@ -1,0 +1,7 @@
+author: "Fethas"
+delete-after: True
+changes: 
+  - tweak: "Swarmers can now deconstruct simply by clicking, ctrl click to teleport."
+  - tweak: "you can now deactivate depowered swarmers with a screwdriver."
+  - tweak: "Swarmers can now consume swarmer shells for a refund."
+  - tweak: "swarmer lights are cyan."
