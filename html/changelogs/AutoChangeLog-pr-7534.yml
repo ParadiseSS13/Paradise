@@ -1,0 +1,4 @@
+author: "Kyep"
+delete-after: True
+changes: 
+  - rscadd: "Admins now have a 'List SSDs' verb to list SSD players, and the ability to move them to cryo."
