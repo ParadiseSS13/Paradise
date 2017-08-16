@@ -3349,7 +3349,7 @@
 		return
 	var/datum/outfit/O = hunter_outfits[dresscode]
 	message_admins("[key_name_admin(mob)] is sending a ([dresscode]) to [killthem ? "assassinate" : "protect"] [key_name_admin(H)]...")
-	var/list/candidates = pollCandidates("Play as a [killthem ? "murderous" : "protective"] [dresscode]?")
+	var/list/candidates = pollCandidates("Play as a [killthem ? "murderous" : "protective"] [dresscode]?", ROLE_TRAITOR, 1)
 	if(!candidates.len)
 		to_chat(usr, "ERROR: Could not create eventmob. No valid candidates.")
 		return

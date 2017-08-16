@@ -125,3 +125,11 @@
 /obj/item/organ/internal/brain/Destroy() //copypasted from MMIs.
 	QDEL_NULL(brainmob)
 	return ..()
+
+/obj/item/organ/internal/brain/cluwne
+
+/obj/item/organ/internal/brain/cluwne/insert(mob/living/target, special = 0, make_cluwne = 1)
+	..(target, special = special)
+	if(ishuman(target) && make_cluwne)
+		var/mob/living/carbon/human/H = target
+		H.makeCluwne() //No matter where you go, no matter what you do, you cannot escape

@@ -1397,13 +1397,9 @@
 
 	if(species.base_color && default_colour)
 		//Apply colour.
-		r_skin = color2R(species.base_color)
-		g_skin = color2G(species.base_color)
-		b_skin = color2B(species.base_color)
+		skin_colour = species.base_color
 	else
-		r_skin = 0
-		g_skin = 0
-		b_skin = 0
+		skin_colour = "#000000"
 
 	if(!(species.bodyflags & HAS_SKIN_TONE))
 		s_tone = 0
@@ -1427,29 +1423,17 @@
 
 	if(species.default_hair_colour)
 		//Apply colour.
-		H.r_hair = color2R(species.default_hair_colour)
-		H.g_hair = color2G(species.default_hair_colour)
-		H.b_hair = color2B(species.default_hair_colour)
+		H.hair_colour = species.default_hair_colour
 	else
-		H.r_hair = 0
-		H.g_hair = 0
-		H.b_hair = 0
+		H.hair_colour = "#000000"
 	if(species.default_fhair_colour)
-		H.r_facial = color2R(species.default_fhair_colour)
-		H.g_facial = color2G(species.default_fhair_colour)
-		H.b_facial = color2B(species.default_fhair_colour)
+		H.facial_colour = species.default_fhair_colour
 	else
-		H.r_facial = 0
-		H.g_facial = 0
-		H.b_facial = 0
+		H.facial_colour = "#000000"
 	if(species.default_headacc_colour)
-		H.r_headacc = color2R(species.default_headacc_colour)
-		H.g_headacc = color2G(species.default_headacc_colour)
-		H.b_headacc = color2B(species.default_headacc_colour)
+		H.headacc_colour = species.default_headacc_colour
 	else
-		H.r_headacc = 0
-		H.g_headacc = 0
-		H.b_headacc = 0
+		H.headacc_colour = "#000000"
 
 	m_styles = DEFAULT_MARKING_STYLES //Wipes out markings, setting them all to "None".
 	m_colours = DEFAULT_MARKING_COLOURS //Defaults colour to #00000 for all markings.
@@ -2020,3 +2004,7 @@ mob/living/carbon/human/get_taste_sensitivity()
 		return species.taste_sensitivity
 	else
 		return 1
+
+/mob/living/carbon/human/proc/special_post_clone_handling()
+	if(mind && mind.assigned_role == "Cluwne") //HUNKE your suffering never stops
+		makeCluwne()

@@ -136,7 +136,7 @@
 			new /obj/item/weapon/storage/backpack/industrial(src)
 		else
 			new /obj/item/weapon/storage/backpack/satchel_eng(src)
-		new /obj/item/weapon/storage/backpack/duffel/engineering(src)
+		new /obj/item/weapon/storage/backpack/duffel/atmos(src)
 		new /obj/item/weapon/extinguisher(src)
 		new /obj/item/clothing/suit/storage/hazardvest(src)
 		new /obj/item/clothing/mask/gas(src)

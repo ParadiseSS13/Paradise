@@ -393,3 +393,10 @@ emp_act
 	..()
 	species.water_act(src,volume,temperature,source)
 
+/mob/living/carbon/human/is_eyes_covered(check_glasses = TRUE, check_head = TRUE, check_mask = TRUE)
+	if(check_glasses && glasses && (glasses.flags_cover & GLASSESCOVERSEYES))
+		return TRUE
+	if(check_head && head && (head.flags_cover & HEADCOVERSEYES))
+		return TRUE
+	if(check_mask && wear_mask && (wear_mask.flags_cover & MASKCOVERSMOUTH))
+		return TRUE
