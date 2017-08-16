@@ -126,6 +126,10 @@
 	heat_protection = HEAD
 	max_heat_protection_temperature = SPACE_HELM_MAX_TEMP_PROTECT
 	strip_delay = 80
+	species_fit = list("Vulpkanin")
+	sprite_sheets = list(
+		"Vulpkanin" = 'icons/mob/species/Vulpkanin/helmet.dmi'
+		)
 
 /obj/item/clothing/head/helmet/swat/syndicate
 	name = "blood-red helmet"

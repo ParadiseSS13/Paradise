@@ -49,6 +49,11 @@
 	icon_state = "hardsuit0-ert_commander"
 	item_state = "helm-command"
 	item_color = "ert_commander"
+	item_color = "ert_commander"
+	species_fit = list("Vulpkanin")
+	sprite_sheets = list(
+		"Vulpkanin" = 'icons/mob/species/Vulpkanin/helmet.dmi'
+		)
 
 /obj/item/clothing/suit/space/hardsuit/ert/commander
 	name = "emergency response team commander suit"
@@ -63,6 +68,11 @@
 	icon_state = "hardsuit0-ert_security"
 	item_state = "syndicate-helm-black-red"
 	item_color = "ert_security"
+	item_color = "ert_commander"
+	species_fit = list("Vulpkanin")
+	sprite_sheets = list(
+		"Vulpkanin" = 'icons/mob/species/Vulpkanin/helmet.dmi'
+		)
 
 /obj/item/clothing/suit/space/hardsuit/ert/security
 	name = "emergency response team security suit"
@@ -77,6 +87,11 @@
 	icon_state = "hardsuit0-ert_engineer"
 	item_state = "helm-orange"
 	item_color = "ert_engineer"
+	item_color = "ert_commander"
+	species_fit = list("Vulpkanin")
+	sprite_sheets = list(
+		"Vulpkanin" = 'icons/mob/species/Vulpkanin/helmet.dmi'
+		)
 
 /obj/item/clothing/suit/space/hardsuit/ert/engineer
 	name = "emergency response team engineer suit"
@@ -90,11 +105,17 @@
 	desc = "A helmet worn by medical members of a Nanotrasen Emergency Response Team. Has white highlights. Armoured and space ready."
 	icon_state = "hardsuit0-ert_medical"
 	item_color = "ert_medical"
+	item_color = "ert_commander"
+	species_fit = list("Vulpkanin")
+	sprite_sheets = list(
+		"Vulpkanin" = 'icons/mob/species/Vulpkanin/helmet.dmi'
+		)
 
 /obj/item/clothing/suit/space/hardsuit/ert/medical
 	name = "emergency response team medical suit"
 	desc = "A suit worn by medical members of a Nanotrasen Emergency Response Team. Has white highlights. Armoured and space ready."
 	icon_state = "ert_medical"
+
 
 //Janitor
 /obj/item/clothing/head/helmet/space/hardsuit/ert/janitor
@@ -102,11 +123,21 @@
 	desc = "A helmet worn by janitorial members of a Nanotrasen Emergency Response Team. Has purple highlights. Armoured and space ready."
 	icon_state = "hardsuit0-ert_janitor"
 	item_color = "ert_janitor"
+	species_fit = list("Vulpkanin")
+	sprite_sheets = list(
+		"Vulpkanin" = 'icons/mob/species/Vulpkanin/helmet.dmi'
+		)
 
 /obj/item/clothing/suit/space/hardsuit/ert/janitor
 	name = "emergency response team janitor suit"
 	desc = "A suit worn by the janitorial of a Nanotrasen Emergency Response Team. Has purple highlights. Armoured, space ready, and fire resistant."
 	icon_state = "ert_janitor"
+	item_color = "ert_janitor"
+	item_color = "ert_commander"
+	species_fit = list("Vulpkanin")
+	sprite_sheets = list(
+		"Vulpkanin" = 'icons/mob/species/Vulpkanin/suit.dmi'
+		)
 
 //Paranormal
 /obj/item/clothing/head/helmet/space/hardsuit/ert/paranormal
