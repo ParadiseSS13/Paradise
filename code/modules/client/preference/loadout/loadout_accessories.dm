@@ -142,5 +142,17 @@
 	display_name = "simple necklace"
 	path = /obj/item/clothing/accessory/necklace
 
+/datum/gear/accessory/corset
+	display_name = "corset, black"
+	path = /obj/item/clothing/accessory/corset
+
+/datum/gear/accessory/corsetred
+	display_name = "corset, red"
+	path = /obj/item/clothing/accessory/corset/red
+
+/datum/gear/accessory/corsetblue
+	display_name = "corset, blue"
+	path = /obj/item/clothing/accessory/corset/blue
+
 
 

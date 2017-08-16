@@ -12,8 +12,8 @@
 	var/uses // -1 For inifinite
 	var/human_only = 0
 	var/active = 0
-	tough = 1 //not easily broken by combat damage
-	sterile = 1 //not very germy
+	tough = TRUE //not easily broken by combat damage
+	sterile = TRUE //not very germy
 
 /obj/item/organ/internal/heart/gland/proc/ownerCheck()
 	if(ishuman(owner))
@@ -180,7 +180,7 @@
 	uses = -1
 
 /obj/item/organ/internal/heart/gland/bloody/activate()
-	owner.blood_volume -= 20
+	owner.blood_volume = max(owner.blood_volume - 20, 0)
 	owner.visible_message("<span class='danger'>[owner]'s skin erupts with blood!</span>",\
 	"<span class='userdanger'>Blood pours from your skin!</span>")
 

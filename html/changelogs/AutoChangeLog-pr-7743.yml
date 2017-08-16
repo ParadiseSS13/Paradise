@@ -1,7 +1,0 @@
-author: "Fox McCloud"
-delete-after: True
-changes: 
-  - bugfix: "Fixed advanced scanners showing hidden viruses"
-  - bugfix: "Fixed changeling panacea curing beneficial viruses"
-  - rscdel: "removed blood decal infections"
-  - tweak: "some diseases now bypasse species virus immunity (kuru, TB, and appendicitis)"

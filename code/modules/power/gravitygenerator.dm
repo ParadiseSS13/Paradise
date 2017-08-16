@@ -373,13 +373,15 @@ var/const/GRAV_NEEDS_WRENCH = 3
 // Shake everyone on the z level to let them know that gravity was enagaged/disenagaged.
 /obj/machinery/gravity_generator/main/proc/shake_everyone()
 	var/turf/our_turf = get_turf(src)
-	for(var/mob/M in mob_list)
+	var/sound/alert_sound = sound('sound/effects/alert.ogg')
+	for(var/shaked in mob_list)
+		var/mob/M = shaked
 		var/turf/their_turf = get_turf(M)
 		if(their_turf && their_turf.z == our_turf.z)
 			M.update_gravity(M.mob_has_gravity())
 			if(M.client)
 				shake_camera(M, 15, 1)
-				M.playsound_local(our_turf, 'sound/effects/alert.ogg', 100, 1, 0.5)
+				M.playsound_local(our_turf, null, 100, 1, 0.5, S = alert_sound)
 
 // TODO: Make the gravity generator cooperate with the space manager
 /obj/machinery/gravity_generator/main/proc/gravity_in_level()
