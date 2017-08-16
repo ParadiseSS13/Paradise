@@ -176,7 +176,10 @@ var/ert_request_answered = 0
 	head_organ.h_style = random_hair_style(M.gender, head_organ.species.name)
 	head_organ.f_style = random_facial_hair_style(M.gender, head_organ.species.name)
 
-	M.real_name = "[pick("Corporal", "Sergeant", "Staff Sergeant", "Sergeant First Class", "Master Sergeant", "Sergeant Major")] [pick(last_names)]"
+	if(config.sql_enabled && config.use_exp_tracking)
+		M.real_name = generate_military_name()
+	else
+		M.real_name = "[pick("Corporal", "Sergeant", "Staff Sergeant", "Sergeant First Class", "Master Sergeant", "Sergeant Major")] [pick(last_names)]"
 	M.name = M.real_name
 	M.age = rand(23,35)
 	M.regenerate_icons()
@@ -195,7 +198,7 @@ var/ert_request_answered = 0
 
 	job_master.CreateMoneyAccount(M, class, null)
 
-	active_team.equip_officer(class, M)
+	active_team.equip_officer(class, M, src)
 
 	return M
 
@@ -236,7 +239,7 @@ var/ert_request_answered = 0
 			return medical_slots
 	return 0
 
-/datum/response_team/proc/equip_officer(var/officer_type, var/mob/living/carbon/human/M)
+/datum/response_team/proc/equip_officer(var/officer_type, var/mob/living/carbon/human/M, var/client/C)
 	switch(officer_type)
 		if("Engineer")
 			engineer_slots -= 1
@@ -257,7 +260,10 @@ var/ert_request_answered = 0
 			command_slots = 0
 
 			// Override name and age for the commander
-			M.real_name = "[pick("Lieutenant", "Captain", "Major")] [pick(last_names)]"
+			if(config.sql_enabled && config.use_exp_tracking)
+				M.real_name = C.generate_military_name(1)
+			else
+				M.real_name = "[pick("Lieutenant", "Captain", "Major")] [pick(last_names)]"
 			M.name = M.real_name
 			M.age = rand(35,45)
 

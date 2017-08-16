@@ -199,6 +199,36 @@ var/global/list/role_playtime_requirements = list(
 	var/exp_living = text2num(play_records[EXP_TYPE_LIVING])
 	return exp_living
 
+
+/client/proc/get_military_rank(var/isleader = 0)
+	var/playtime = get_exp_living_num()
+	var/hours = round(playtime / 60)
+	if(isleader)
+		if(hours >= 300)
+			return "Major"
+		else if(hours >= 150)
+			return "Captain"
+		else
+			return "Lieutenant"
+	else
+		if(hours >= 400)
+			return "Master Sergeant"
+		else if(hours >= 300)
+			return "Staff Sergeant"
+		else if(hours >= 200)
+			return "Sergeant"
+		else if(hours >= 100)
+			return "Corporal"
+		else if(hours >= 50)
+			return "Lance Corporal"
+		else
+			return "Private"
+
+/client/proc/generate_military_name(var/squadleader = 0)
+	var/rank = get_military_rank(squadleader)
+	var/lname = pick(last_names)
+	return "[rank] [lname]"
+
 /proc/get_exp_format(var/expnum)
 	if(expnum > 60)
 		return num2text(round(expnum / 60)) + "h"
