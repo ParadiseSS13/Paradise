@@ -30,7 +30,7 @@ var/list/organ_cache = list()
 	var/is_in_freezer = 0
 
 	var/sterile = FALSE //can the organ be infected by germs?
-	var/tough = TRUE //can organ be easily damaged?
+	var/tough = FALSE //can organ be easily damaged?
 
 
 /obj/item/organ/Destroy()

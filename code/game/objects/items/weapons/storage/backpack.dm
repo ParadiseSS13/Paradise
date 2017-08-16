@@ -385,6 +385,13 @@
 	item_state = "duffel-eng"
 	burn_state = FIRE_PROOF
 
+/obj/item/weapon/storage/backpack/duffel/atmos
+	name = "atmospherics duffelbag"
+	desc = "A duffelbag designed to hold tools. This one is specially designed for atmospherics."
+	icon_state = "duffel-atmos"
+	item_state = "duffel-atmos"
+	burn_state = FIRE_PROOF
+
 /obj/item/weapon/storage/backpack/duffel/hydro
 	name = "hydroponics duffelbag"
 	desc = "A duffelbag designed to hold seeds and fauna."

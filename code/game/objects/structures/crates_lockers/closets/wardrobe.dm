@@ -133,6 +133,9 @@
 	new /obj/item/clothing/shoes/sandal(src)
 	new /obj/item/clothing/shoes/sandal(src)
 	new /obj/item/clothing/shoes/sandal(src)
+	new /obj/item/clothing/shoes/footwraps(src)
+	new /obj/item/clothing/shoes/footwraps(src)
+	new /obj/item/clothing/shoes/footwraps(src)
 
 
 /obj/structure/closet/wardrobe/orange
