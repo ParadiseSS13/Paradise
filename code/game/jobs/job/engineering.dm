@@ -127,8 +127,8 @@
 	supervisors = "the chief engineer"
 	department_head = list("Chief Engineer")
 	selection_color = "#fff5cc"
-	access = list(access_engine, access_engine_equip, access_tech_storage, access_maint_tunnels, access_mechanic, access_external_airlocks, access_mineral_storeroom)
-	minimal_access = list(access_maint_tunnels, access_emergency_storage, access_mechanic, access_external_airlocks, access_mineral_storeroom)
+	access = list(access_eva, access_engine, access_engine_equip, access_tech_storage, access_maint_tunnels, access_mechanic, access_external_airlocks, access_mineral_storeroom)
+	minimal_access = list(access_eva, access_maint_tunnels, access_emergency_storage, access_mechanic, access_external_airlocks, access_mineral_storeroom)
 	outfit = /datum/outfit/job/mechanic
 
 /datum/outfit/job/mechanic
