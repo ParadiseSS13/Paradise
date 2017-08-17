@@ -296,9 +296,9 @@
 	to_chat(src, "<br><b>You are a maintenance drone, a tiny-brained robotic repair machine</b>.")
 	to_chat(src, "You have no individual will, no personality, and no drives or urges other than your laws.")
 	to_chat(src, "Use <b>:d</b> to talk to other drones, and <b>say</b> to speak silently in a language only your fellows understand.")
-	to_chat(src, "Remember, you are <b>lawed against interference with the crew</b>. Also remember, <b>you DO NOT take orders from the AI.</b>")
-	to_chat(src, "<b>Don't invade their worksites, don't steal their resources, don't tell them about the changeling in the toilets.</b>")
-	to_chat(src, "<b>Make sure crew members do not notice you.</b>.")
+	to_chat(src, "You DO NOT take orders from the AI.")
+	to_chat(src, "Do not interfere with crew members, raid their worksites, or steal their resources.")
+	to_chat(src, "<b><font color='red'>ESPECIALLY</font></b> do not interfere with antagonists in any way, shape, or form.")
 
 /*
 	sprite["Default"] = "repairbot"
