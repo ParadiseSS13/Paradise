@@ -1159,37 +1159,3 @@
 	if(prob(30))
 		to_chat(M, "You should sit down and take a rest...")
 	..()
-
-/datum/reagent/chloralhydrate
-	name = "Chloral Hydrate"
-	id = "chloralhydrate"
-	description = "A powerful sedative that induces confusion and drowsiness before putting its target to sleep."
-	reagent_state = SOLID
-	color = "#000067" // rgb: 0, 0, 103
-	metabolization_rate = 1.5 * REAGENTS_METABOLISM
-
-/datum/reagent/chloralhydrate/on_mob_life(mob/living/M)
-	switch(current_cycle)
-		if(1 to 10)
-			M.AdjustConfused(2)
-			M.AdjustDrowsy(2)
-		if(10 to 50)
-			M.Sleeping(2)
-		if(51 to INFINITY)
-			M.Sleeping(2)
-			M.adjustToxLoss((current_cycle - 50)*REAGENTS_EFFECT_MULTIPLIER)
-	..()
-
-/datum/reagent/chloralhydrate/delayed
-	id = "chloralhydrate2"
-
-/datum/reagent/chloralhydrate/on_mob_life(mob/living/M)
-	switch(current_cycle)
-		if(1 to 10)
-			return
-		if(10 to 20)
-			M.AdjustConfused(1)
-			M.AdjustDrowsy(1)
-		if(20 to INFINITY)
-			M.Sleeping(2)
-	..()
