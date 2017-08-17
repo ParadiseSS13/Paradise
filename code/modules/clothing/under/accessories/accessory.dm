@@ -550,10 +550,34 @@
 	icon_state = "cowboyshirt_reds"
 	item_state = "cowboyshirt_reds"
 	item_color = "cowboyshirt_reds"
-	species_fit = list("Vox")
+	species_fit = list("Vox", "Drask", "Grey")
 	sprite_sheets = list(
-		"Vox" = 'icons/mob/species/vox/suit.dmi'
+		"Vox" = 'icons/mob/species/vox/suit.dmi',
+		"Drask" = 'icons/mob/species/drask/suit.dmi',
+		"Grey" = 'icons/mob/species/grey/suit.dmi'
 		)
+
+/obj/item/clothing/accessory/corset
+	name = "black corset"
+	desc = "A black corset for those fancy nights out."
+	icon_state = "corset"
+	item_state = "corset"
+	item_color = "corset"
+
+
+/obj/item/clothing/accessory/corset/red
+	name = "red corset"
+	desc = "A red corset those fancy nights out."
+	icon_state = "corset_red"
+	item_state = "corset_red"
+	item_color = "corset_red"
+
+/obj/item/clothing/accessory/corset/blue
+	name = "blue corset"
+	desc = "A blue corset for those fancy nights out."
+	icon_state = "corset_blue"
+	item_state = "corset_blue"
+	item_color = "corset_blue"
 
 /obj/item/clothing/accessory/petcollar
 	name = "pet collar"

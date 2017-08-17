@@ -1276,6 +1276,7 @@
 	anchored = 1
 	var/active = 0
 	var/turf/target	// this will be where the output objects are 'thrown' to.
+	var/obj/structure/disposalpipe/trunk/linkedtrunk
 	var/mode = 0
 
 	New()
@@ -1285,9 +1286,9 @@
 			target = get_ranged_target_turf(src, dir, 10)
 
 
-			var/obj/structure/disposalpipe/trunk/trunk = locate() in src.loc
-			if(trunk)
-				trunk.linked = src	// link the pipe trunk to self
+			linkedtrunk = locate() in src.loc
+			if(linkedtrunk)
+				linkedtrunk.linked = src
 
 	// expel the contents of the holder object, then delete it
 	// called when the holder exits the outlet
@@ -1346,7 +1347,10 @@
 				to_chat(user, "You need more welding fuel to complete this task.")
 				return
 
-
+/obj/structure/disposaloutlet/Destroy()
+	if(linkedtrunk)
+		linkedtrunk.linked = null
+	return ..()
 
 // called when movable is expelled from a disposal pipe or outlet
 // by default does nothing, override for special behaviour

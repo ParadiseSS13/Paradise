@@ -19,6 +19,10 @@
 /mob/living/carbon/Destroy()
 	QDEL_LIST(internal_organs)
 	QDEL_LIST(stomach_contents)
+	var/mob/living/simple_animal/borer/B = has_brain_worms()
+	if(B)
+		B.leave_host()
+		qdel(B)
 	remove_from_all_data_huds()
 	return ..()
 

@@ -38,7 +38,7 @@
 "aL" = (/obj/structure/stool/bed/chair/sofa/left,/turf/unsimulated/beach/water/deep/wood_floor,/area/awaymission/undersea)
 "aM" = (/obj/structure/sink{icon_state = "sink"; dir = 8; pixel_x = -12; pixel_y = 2},/turf/unsimulated/beach/water/deep/wood_floor,/area/awaymission/undersea)
 "aN" = (/obj/structure/sink{dir = 4; icon_state = "sink"; pixel_x = 11; pixel_y = 0},/turf/unsimulated/beach/water/deep/wood_floor,/area/awaymission/undersea)
-"aO" = (/obj/structure/closet/crate/bin{name = "Garbage bin"},/obj/item/weapon/storage/bag/trash,/turf/unsimulated/beach/water/deep/sand_floor,/area/awaymission/undersea)
+"aO" = (/obj/structure/closet/crate/can,/obj/item/weapon/storage/bag/trash,/turf/unsimulated/beach/water/deep/sand_floor,/area/awaymission/undersea)
 "aP" = (/obj/item/flag/species/skrell,/turf/unsimulated/beach/water/deep/sand_floor,/area/awaymission/undersea)
 "aQ" = (/obj/structure/mirror{icon_state = "mirror_broke"; pixel_y = 28},/obj/item/weapon/storage/wallet/random,/turf/unsimulated/beach/water/deep/wood_floor,/area/awaymission/undersea)
 "aR" = (/obj/structure/mirror{icon_state = "mirror_broke"; pixel_y = 28},/turf/unsimulated/beach/water/deep/wood_floor,/area/awaymission/undersea)
@@ -235,7 +235,7 @@
 "eA" = (/obj/structure/shuttle/engine/propulsion,/turf/simulated/floor/plating/airless,/area/awaymission/beach)
 "eB" = (/turf/unsimulated/beach/sand,/turf/simulated/shuttle/wall{tag = "icon-swall_f9"; icon_state = "swall_f9"},/area/awaymission/beach)
 "eC" = (/obj/structure/table/woodentable,/obj/effect/decal/cleanable/blood,/turf/unsimulated/beach/sand,/area/awaymission/beach)
-"eD" = (/obj/structure/closet/crate/bin,/turf/unsimulated/beach/sand,/area/awaymission/beach)
+"eD" = (/obj/structure/closet/crate/can,/turf/unsimulated/beach/sand,/area/awaymission/beach)
 "eE" = (/obj/structure/closet/crate,/turf/unsimulated/beach/sand,/area/awaymission/beach)
 
 (1,1,1) = {"
