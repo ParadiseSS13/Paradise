@@ -38,7 +38,7 @@ var/global/list/limb_icon_cache = list()
 		s_tone = H.s_tone
 	if(H.species.bodyflags & HAS_SKIN_COLOR)
 		s_tone = null
-		s_col = list(H.r_skin, H.g_skin, H.b_skin)
+		s_col = H.skin_colour
 	if(H.species.bodyflags & HAS_ICON_SKIN_TONE)
 		var/obj/item/organ/external/chest/C = H.get_organ("chest")
 		change_organ_icobase(C.icobase, C.deform)
@@ -49,16 +49,16 @@ var/global/list/limb_icon_cache = list()
 	if(!isnull(dna.GetUIValue(DNA_UI_SKIN_TONE)) && ((species.bodyflags & HAS_SKIN_TONE) || (species.bodyflags & HAS_ICON_SKIN_TONE)))
 		s_col = null
 		s_tone = dna.GetUIValue(DNA_UI_SKIN_TONE)
-	if(species.flags & HAS_SKIN_COLOR)
+	if(species.bodyflags & HAS_SKIN_COLOR)
 		s_tone = null
-		s_col = list(dna.GetUIValue(DNA_UI_SKIN_R), dna.GetUIValue(DNA_UI_SKIN_G), dna.GetUIValue(DNA_UI_SKIN_B))
+		s_col = rgb(dna.GetUIValue(DNA_UI_SKIN_R), dna.GetUIValue(DNA_UI_SKIN_G), dna.GetUIValue(DNA_UI_SKIN_B))
 
 /obj/item/organ/external/head/sync_colour_to_human(var/mob/living/carbon/human/H)
 	..()
 	var/obj/item/organ/internal/eyes/eyes = owner.get_int_organ(/obj/item/organ/internal/eyes)//owner.internal_bodyparts_by_name["eyes"]
 	if(eyes) eyes.update_colour()
 
-/obj/item/organ/external/head/remove()
+/obj/item/organ/external/head/remove(mob/living/user, ignore_children)
 	get_icon()
 	. = ..()
 
@@ -69,8 +69,8 @@ var/global/list/limb_icon_cache = list()
 	if(force_icon)
 		mob_icon = new /icon(force_icon, "[icon_name]")
 		if(species && species.name == "Machine") //snowflake for IPC's, sorry.
-			if(s_col && s_col.len >= 3)
-				mob_icon.Blend(rgb(s_col[1], s_col[2], s_col[3]), ICON_ADD)
+			if(s_col)
+				mob_icon.Blend(s_col, ICON_ADD)
 	else
 		var/new_icons = get_icon_state(skeletal)
 		var/icon_file = new_icons[1]
@@ -86,8 +86,8 @@ var/global/list/limb_icon_cache = list()
 					mob_icon.Blend(rgb(s_tone, s_tone, s_tone), ICON_ADD)
 				else
 					mob_icon.Blend(rgb(-s_tone,  -s_tone,  -s_tone), ICON_SUBTRACT)
-			else if(s_col && s_col.len >= 3)
-				mob_icon.Blend(rgb(s_col[1], s_col[2], s_col[3]), ICON_ADD)
+			else if(s_col)
+				mob_icon.Blend(s_col, ICON_ADD)
 
 	dir = EAST
 	icon = mob_icon
@@ -107,15 +107,15 @@ var/global/list/limb_icon_cache = list()
 		if(species.eyes)
 			var/icon/eyes_icon = new/icon('icons/mob/human_face.dmi', species.eyes)
 			if(eye_implant) // Eye implants override native DNA eye color
-				eyes_icon.Blend(rgb(eye_implant.eye_colour[1],eye_implant.eye_colour[2],eye_implant.eye_colour[3]), ICON_ADD)
+				eyes_icon.Blend(eye_implant.eye_colour, ICON_ADD)
 			else if(eyes)
-				eyes_icon.Blend(rgb(eyes.eye_colour[1], eyes.eye_colour[2], eyes.eye_colour[3]), ICON_ADD)
+				eyes_icon.Blend(eyes.eye_colour, ICON_ADD)
 			else
-				eyes_icon.Blend(rgb(128,0,0), ICON_ADD)
+				eyes_icon.Blend("#800000", ICON_ADD)
 			mob_icon.Blend(eyes_icon, ICON_OVERLAY)
 			overlays |= eyes_icon
 
-	if(owner.lip_style && (species && (species.flags & HAS_LIPS)))
+	if(owner.lip_style && (LIPS in species.species_traits))
 		var/icon/lip_icon = new/icon('icons/mob/human_face.dmi', "lips_[owner.lip_style]_s")
 		overlays |= lip_icon
 		mob_icon.Blend(lip_icon, ICON_OVERLAY)
@@ -134,27 +134,27 @@ var/global/list/limb_icon_cache = list()
 		if(head_accessory_style && head_accessory_style.species_allowed && (species.name in head_accessory_style.species_allowed))
 			var/icon/head_accessory_s = new/icon("icon" = head_accessory_style.icon, "icon_state" = "[head_accessory_style.icon_state]_s")
 			if(head_accessory_style.do_colouration)
-				head_accessory_s.Blend(rgb(r_headacc, g_headacc, b_headacc), ICON_ADD)
+				head_accessory_s.Blend(headacc_colour, ICON_ADD)
 			overlays |= head_accessory_s
 
 	if(f_style)
 		var/datum/sprite_accessory/facial_hair_style = facial_hair_styles_list[f_style]
-		if(facial_hair_style && ((facial_hair_style.species_allowed && (species.name in facial_hair_style.species_allowed)) || (src.species.flags & ALL_RPARTS)))
+		if(facial_hair_style && ((facial_hair_style.species_allowed && (species.name in facial_hair_style.species_allowed)) || (src.species.bodyflags & ALL_RPARTS)))
 			var/icon/facial_s = new/icon("icon" = facial_hair_style.icon, "icon_state" = "[facial_hair_style.icon_state]_s")
 			if(species.name == "Slime People") // I am el worstos
-				facial_s.Blend(rgb(owner.r_skin, owner.g_skin, owner.b_skin, 160), ICON_AND)
+				facial_s.Blend("[owner.skin_colour]A0", ICON_AND) //A0 = 160 alpha.
 			else if(facial_hair_style.do_colouration)
-				facial_s.Blend(rgb(r_facial, g_facial, b_facial), ICON_ADD)
+				facial_s.Blend(facial_colour, ICON_ADD)
 			overlays |= facial_s
 
 	if(h_style && !(owner.head && (owner.head.flags & BLOCKHEADHAIR)))
 		var/datum/sprite_accessory/hair_style = hair_styles_list[h_style]
-		if(hair_style && ((species.name in hair_style.species_allowed) || (src.species.flags & ALL_RPARTS)))
+		if(hair_style && ((species.name in hair_style.species_allowed) || (src.species.bodyflags & ALL_RPARTS)))
 			var/icon/hair_s = new/icon("icon" = hair_style.icon, "icon_state" = "[hair_style.icon_state]_s")
 			if(species.name == "Slime People") // I am el worstos
-				hair_s.Blend(rgb(owner.r_skin, owner.g_skin, owner.b_skin, 160), ICON_AND)
+				hair_s.Blend("[owner.skin_colour]A0", ICON_AND) //A0 = 160 alpha.
 			else if(hair_style.do_colouration)
-				hair_s.Blend(rgb(r_hair, g_hair, b_hair), ICON_ADD)
+				hair_s.Blend(hair_colour, ICON_ADD)
 			overlays |= hair_s
 
 	return mob_icon
@@ -172,7 +172,7 @@ var/global/list/limb_icon_cache = list()
 				gender = "f"
 			else
 				gender = "m"
-		if(limb_name == "head" && !is_stump() && !(status & ORGAN_DESTROYED))
+		if(limb_name == "head")
 			var/obj/item/organ/external/head/head_organ = src
 			head_organ.handle_alt_icon()
 
@@ -192,7 +192,7 @@ var/global/list/limb_icon_cache = list()
 
 /obj/item/organ/external/chest/get_icon_state(skeletal)
 	var/result = ..()
-	if(fat && !skeletal && !(status & ORGAN_ROBOT) && (species.flags & CAN_BE_FAT))
+	if(fat && !skeletal && !(status & ORGAN_ROBOT) && (CAN_BE_FAT in species.species_traits))
 		result[2] += "_fat"
 	return result
 

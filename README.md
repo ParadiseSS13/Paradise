@@ -8,7 +8,7 @@
 [![forthebadge](http://forthebadge.com/images/badges/contains-technical-debt.svg)](http://forthebadge.com)
 [![forthebadge](http://forthebadge.com/images/badges/fuck-it-ship-it.svg)](http://forthebadge.com)
 
-[Website](http://www.nanotrasen.se/) - [Code](https://github.com/ParadiseSS13/Paradise) - [Discord](https://discordapp.com/invite/gXZMc?utm_source=Discord%20Widget&utm_medium=Connect)
+[Website](https://nanotrasen.se/) - [Code](https://github.com/ParadiseSS13/Paradise) - [Discord](https://discordapp.com/invite/gXZMc?utm_source=Discord%20Widget&utm_medium=Connect)
 
 ---
 

@@ -13,8 +13,6 @@
 
 	var/mob/living/simple_animal/borer/B = user.has_brain_worms()
 	if(B)
-		if(B.controlling)
-			B.detach()
 		B.leave_host()
 		if(iscarbon(user))
 			var/mob/living/carbon/C = user
@@ -33,7 +31,10 @@
 	user.reagents.add_reagent("potass_iodide", 10)
 	user.reagents.add_reagent("charcoal", 20)
 
-	for(var/datum/disease/D in user.viruses)
+	for(var/thing in user.viruses)
+		var/datum/disease/D = thing
+		if(D.severity == NONTHREAT)
+			continue
 		D.cure()
 
 	feedback_add_details("changeling_powers","AP")

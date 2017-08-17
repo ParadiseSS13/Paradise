@@ -307,20 +307,21 @@
 
 	var/mob/living/L = A
 	if(!L.ckey)	return
-	if((oldarea.has_gravity == 0) && (newarea.has_gravity == 1) && (L.m_intent == "run")) // Being ready when you change areas gives you a chance to avoid falling all together.
+	if((oldarea.has_gravity == 0) && (newarea.has_gravity == 1) && (L.m_intent == MOVE_INTENT_RUN)) // Being ready when you change areas gives you a chance to avoid falling all together.
 		thunk(L)
 
 	// Ambience goes down here -- make sure to list each area seperately for ease of adding things in later, thanks! Note: areas adjacent to each other should have the same sounds to prevent cutoff when possible.- LastyScratch
 	if(L && L.client && !L.client.ambience_playing && (L.client.prefs.sound & SOUND_BUZZ))	//split off the white noise from the rest of the ambience because of annoyance complaints - Kluys
 		L.client.ambience_playing = 1
-		L << sound('sound/ambience/shipambience.ogg', repeat = 1, wait = 0, volume = 35, channel = 2)
-	else if(L && L.client && !(L.client.prefs.sound & SOUND_BUZZ)) L.client.ambience_playing = 0
+		L << sound('sound/ambience/shipambience.ogg', repeat = 1, wait = 0, volume = 35, channel = CHANNEL_BUZZ)
+	else if(L && L.client && !(L.client.prefs.sound & SOUND_BUZZ))
+		L.client.ambience_playing = 0
 
 	if(prob(35) && L && L.client && (L.client.prefs.sound & SOUND_AMBIENCE))
 		var/sound = pick(ambientsounds)
 
 		if(!L.client.played)
-			L << sound(sound, repeat = 0, wait = 0, volume = 25, channel = 1)
+			L << sound(sound, repeat = 0, wait = 0, volume = 25, channel = CHANNEL_AMBIENCE)
 			L.client.played = 1
 			spawn(600)			//ewww - this is very very bad
 				if(L.&& L.client)
@@ -344,7 +345,7 @@
 	if(istype(get_turf(M), /turf/space)) // Can't fall onto nothing.
 		return
 
-	if((istype(M,/mob/living/carbon/human/)) && (M.m_intent == "run")).
+	if((istype(M,/mob/living/carbon/human/)) && (M.m_intent == MOVE_INTENT_RUN)).
 		M.Stun(5)
 		M.Weaken(5)
 

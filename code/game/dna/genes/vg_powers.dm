@@ -45,16 +45,9 @@
 		else
 			M.change_gender(FEMALE)
 
-	var/eyes_red = 0
-	var/eyes_green = 0
-	var/eyes_blue = 0
-	if(eyes_organ)
-		eyes_red = eyes_organ.eye_colour[1]
-		eyes_green = eyes_organ.eye_colour[2]
-		eyes_blue = eyes_organ.eye_colour[3]
-	var/new_eyes = input("Please select eye color.", "Character Generation", rgb(eyes_red,eyes_green,eyes_blue)) as null|color
+	var/new_eyes = input("Please select eye color.", "Character Generation", eyes_organ.eye_colour) as null|color
 	if(new_eyes)
-		M.change_eye_color(color2R(new_eyes), color2G(new_eyes), color2B(new_eyes))
+		M.change_eye_color(new_eyes)
 
 	//Alt heads.
 	if(head_organ.species.bodyflags & HAS_ALT_HEADS)
@@ -71,15 +64,15 @@
 	if(new_style)
 		M.change_hair(new_style)
 
-	var/new_hair = input("Please select hair color.", "Character Generation", rgb(head_organ.r_hair, head_organ.g_hair, head_organ.b_hair)) as null|color
+	var/new_hair = input("Please select hair color.", "Character Generation", head_organ.hair_colour) as null|color
 	if(new_hair)
-		M.change_hair_color(color2R(new_hair), color2G(new_hair), color2B(new_hair))
+		M.change_hair_color(new_hair)
 
 	var/datum/sprite_accessory/hair_style = hair_styles_list[head_organ.h_style]
 	if(hair_style.secondary_theme && !hair_style.no_sec_colour)
-		new_hair = input("Please select secondary hair color.", "Character Generation", rgb(head_organ.r_hair_sec, head_organ.g_hair_sec, head_organ.b_hair_sec)) as null|color
+		new_hair = input("Please select secondary hair color.", "Character Generation", head_organ.sec_hair_colour) as null|color
 		if(new_hair)
-			M.change_hair_color(color2R(new_hair), color2G(new_hair), color2B(new_hair), 1)
+			M.change_hair_color(new_hair, 1)
 
 	// facial hair
 	var/list/valid_facial_hairstyles = M.generate_valid_facial_hairstyles()
@@ -88,15 +81,15 @@
 	if(new_style)
 		M.change_facial_hair(new_style)
 
-	var/new_facial = input("Please select facial hair color.", "Character Generation", rgb(head_organ.r_facial, head_organ.g_facial, head_organ.b_facial)) as null|color
+	var/new_facial = input("Please select facial hair color.", "Character Generation", head_organ.facial_colour) as null|color
 	if(new_facial)
-		M.change_facial_hair_color(color2R(new_facial), color2G(new_facial), color2B(new_facial))
+		M.change_facial_hair_color(new_facial)
 
 	var/datum/sprite_accessory/facial_hair_style = facial_hair_styles_list[head_organ.f_style]
 	if(facial_hair_style.secondary_theme && !facial_hair_style.no_sec_colour)
-		new_facial = input("Please select secondary facial hair color.", "Character Generation", rgb(head_organ.r_facial_sec, head_organ.g_facial_sec, head_organ.b_facial_sec)) as null|color
+		new_facial = input("Please select secondary facial hair color.", "Character Generation", head_organ.sec_facial_colour) as null|color
 		if(new_facial)
-			M.change_facial_hair_color(color2R(new_facial), color2G(new_facial), color2B(new_facial), 1)
+			M.change_facial_hair_color(new_facial, 1)
 
 	//Head accessory.
 	if(head_organ.species.bodyflags & HAS_HEAD_ACCESSORY)
@@ -105,9 +98,9 @@
 		if(new_head_accessory)
 			M.change_head_accessory(new_head_accessory)
 
-		var/new_head_accessory_colour = input("Please select head accessory colour.", "Character Generation", rgb(head_organ.r_headacc, head_organ.g_headacc, head_organ.b_headacc)) as null|color
+		var/new_head_accessory_colour = input("Please select head accessory colour.", "Character Generation", head_organ.headacc_colour) as null|color
 		if(new_head_accessory_colour)
-			M.change_head_accessory_color(color2R(new_head_accessory_colour), color2G(new_head_accessory_colour), color2B(new_head_accessory_colour))
+			M.change_head_accessory_color(new_head_accessory_colour)
 
 	//Body accessory.
 	if(M.species.tail && M.species.bodyflags & HAS_TAIL)
@@ -174,9 +167,9 @@
 
 	//Skin colour.
 	if(M.species.bodyflags & HAS_SKIN_COLOR)
-		var/new_body_colour = input("Please select body colour.", "Character Generation", rgb(M.r_skin, M.g_skin, M.b_skin)) as null|color
+		var/new_body_colour = input("Please select body colour.", "Character Generation", M.skin_colour) as null|color
 		if(new_body_colour)
-			M.change_skin_color(color2R(new_body_colour), color2G(new_body_colour), color2B(new_body_colour))
+			M.change_skin_color(new_body_colour)
 
 	M.update_dna()
 
@@ -211,11 +204,11 @@
 /obj/effect/proc_holder/spell/targeted/remotetalk/choose_targets(mob/user = usr)
 	var/list/targets = new /list()
 	var/list/validtargets = new /list()
-	for(var/mob/M in view(user.client.view, user))
+	var/turf/T = get_turf(user)
+	for(var/mob/M in range(14, T))
 		if(M && M.mind)
 			if(M == user)
 				continue
-
 			validtargets += M
 
 	if(!validtargets.len)
@@ -237,14 +230,15 @@
 	if(!say)
 		return
 	say = strip_html(say)
+	say = pencode_to_html(say, usr, format = 0, fields = 0)
 
 	for(var/mob/living/target in targets)
 		log_say("Project Mind: [key_name(user)]->[key_name(target)]: [say]")
 		if(REMOTE_TALK in target.mutations)
-			target.show_message("<span class='notice'>You hear [user.real_name]'s voice: [say]</span>")
+			target.show_message("<span class='abductor'>You hear [user.real_name]'s voice: [say]</span>")
 		else
-			target.show_message("<span class='notice'>You hear a voice that seems to echo around the room: [say]</span>")
-		user.show_message("<span class='notice'>You project your mind into [target.real_name]: [say]</span>")
+			target.show_message("<span class='abductor'>You hear a voice that seems to echo around the room: [say]</span>")
+		user.show_message("<span class='abductor'>You project your mind into [target.name]: [say]</span>")
 		for(var/mob/dead/observer/G in player_list)
 			G.show_message("<i>Telepathic message from <b>[user]</b> ([ghost_follow_link(user, ghost=G)]) to <b>[target]</b> ([ghost_follow_link(target, ghost=G)]): [say]</i>")
 

@@ -37,8 +37,7 @@
 	R.hands.icon_state = "nomod"
 	R.icon_state = "robot"
 	R.module.remove_subsystems_and_actions(R)
-	qdel(R.module)
-	R.module = null
+	QDEL_NULL(R.module)
 
 	R.camera.network.Remove(list("Engineering", "Medical", "Mining Outpost"))
 	R.rename_character(R.real_name, R.get_default_name("Default"))

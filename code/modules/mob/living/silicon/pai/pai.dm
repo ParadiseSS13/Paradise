@@ -246,7 +246,7 @@
 
 	switch(M.a_intent)
 
-		if(I_HELP)
+		if(INTENT_HELP)
 			for(var/mob/O in viewers(src, null))
 				if((O.client && !( O.blinded )))
 					O.show_message(text("<span class='notice'>[M] caresses [src]'s casing with its scythe like arm.</span>"), 1)
@@ -508,7 +508,7 @@
 /mob/living/silicon/pai/attack_hand(mob/user as mob)
 	if(stat == DEAD)
 		return
-	if(user.a_intent == I_HELP)
+	if(user.a_intent == INTENT_HELP)
 		user.visible_message("<span class='notice'>[user] pets [src].</span>")
 		playsound(loc, 'sound/weapons/thudswoosh.ogg', 50, 1, -1)
 	else

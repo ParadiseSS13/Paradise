@@ -24,12 +24,13 @@
 	flags_inv = (HIDEMASK|HIDEEARS|HIDEEYES|HIDEFACE)
 	actions_types = list(/datum/action/item_action/toggle)
 	burn_state = FIRE_PROOF
-	species_fit = list("Vox", "Unathi", "Tajaran", "Vulpkanin")
+	species_fit = list("Vox", "Unathi", "Tajaran", "Vulpkanin", "Grey")
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/species/vox/head.dmi',
 		"Unathi" = 'icons/mob/species/unathi/helmet.dmi',
 		"Tajaran" = 'icons/mob/species/tajaran/helmet.dmi',
-		"Vulpkanin" = 'icons/mob/species/vulpkanin/helmet.dmi'
+		"Vulpkanin" = 'icons/mob/species/vulpkanin/helmet.dmi',
+		"Grey" = 'icons/mob/species/grey/helmet.dmi'
 		)
 
 /obj/item/clothing/head/welding/flamedecal
@@ -183,14 +184,10 @@
 	var/obj/item/organ/external/head/head_organ = user.get_organ("head")
 
 	mob = new/icon("icon" = 'icons/mob/head.dmi', "icon_state" = "kitty")
-//		mob2 = new/icon("icon" = 'icons/mob/head.dmi', "icon_state" = "kitty2") - Commented out because it seemingly does nothing.
-	mob.Blend(rgb(head_organ.r_hair, head_organ.g_hair, head_organ.b_hair), ICON_ADD)
-//		mob2.Blend(rgb(user.r_hair, user.g_hair, user.b_hair), ICON_ADD) - Commented out because it seemingly does nothing.
+	mob.Blend(head_organ.hair_colour, ICON_ADD)
 
 	var/icon/earbit = new/icon("icon" = 'icons/mob/head.dmi', "icon_state" = "kittyinner")
-//		var/icon/earbit2 = new/icon("icon" = 'icons/mob/head.dmi', "icon_state" = "kittyinner2") - Commented out because it seemingly does nothing.
 	mob.Blend(earbit, ICON_OVERLAY)
-//		mob2.Blend(earbit2, ICON_OVERLAY) - Commented out because it seemingly does nothing.
 
 	icon_override = mob
 
@@ -209,7 +206,7 @@
 	if(!istype(user)) return
 	var/obj/item/organ/external/head/head_organ = user.get_organ("head")
 	mob = new/icon("icon" = 'icons/mob/head.dmi', "icon_state" = "mousey")
-	mob.Blend(rgb(head_organ.r_hair, head_organ.g_hair, head_organ.b_hair), ICON_ADD)
+	mob.Blend(head_organ.hair_colour, ICON_ADD)
 
 	var/icon/earbit = new/icon("icon" = 'icons/mob/head.dmi', "icon_state" = "mouseyinner")
 	mob.Blend(earbit, ICON_OVERLAY)

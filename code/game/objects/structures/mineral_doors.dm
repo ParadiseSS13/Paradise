@@ -136,7 +136,7 @@
 		if(do_after(user, digTool.digspeed * hardness, target = src) && src)
 			to_chat(user, "<span class='notice'>You finished digging.</span>")
 			deconstruct(TRUE)
-	else if(user.a_intent != I_HARM)
+	else if(user.a_intent != INTENT_HARM)
 		attack_hand(user)
 	else
 		attacked_by(W, user)

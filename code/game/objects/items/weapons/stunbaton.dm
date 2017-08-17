@@ -118,7 +118,7 @@
 
 	var/mob/living/L = M
 
-	if(user.a_intent != I_HARM)
+	if(user.a_intent != INTENT_HARM)
 		if(status)
 			user.do_attack_animation(L)
 			baton_stun(L, user)

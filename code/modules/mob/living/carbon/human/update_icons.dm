@@ -172,11 +172,7 @@ var/global/list/damage_icon_parts = list()
 	var/damage_appearance = ""
 
 	for(var/obj/item/organ/external/O in bodyparts)
-		if(O.is_stump())
-			continue
-		if(O.status & ORGAN_DESTROYED) damage_appearance += "d"
-		else
-			damage_appearance += O.damage_state
+		damage_appearance += O.damage_state
 
 	if(damage_appearance == previous_damage_appearance)
 		// nothing to do here
@@ -190,22 +186,19 @@ var/global/list/damage_icon_parts = list()
 
 	// blend the individual damage states with our icons
 	for(var/obj/item/organ/external/O in bodyparts)
-		if(O.is_stump())
-			continue
-		if(!(O.status & ORGAN_DESTROYED))
-			O.update_icon()
-			if(O.damage_state == "00") continue
-			var/icon/DI
-			var/cache_index = "[O.damage_state]/[O.icon_name]/[species.blood_color]/[species.name]"
+		O.update_icon()
+		if(O.damage_state == "00") continue
+		var/icon/DI
+		var/cache_index = "[O.damage_state]/[O.icon_name]/[species.blood_color]/[species.name]"
 
-			if(damage_icon_parts[cache_index] == null)
-				DI = new /icon(species.damage_overlays, O.damage_state)			// the damage icon for whole human
-				DI.Blend(new /icon(species.damage_mask, O.icon_name), ICON_MULTIPLY)	// mask with this organ's pixels
-				DI.Blend(species.blood_color, ICON_MULTIPLY)
-				damage_icon_parts[cache_index] = DI
-			else
-				DI = damage_icon_parts[cache_index]
-			standing_image.overlays += DI
+		if(damage_icon_parts[cache_index] == null)
+			DI = new /icon(species.damage_overlays, O.damage_state)			// the damage icon for whole human
+			DI.Blend(new /icon(species.damage_mask, O.icon_name), ICON_MULTIPLY)	// mask with this organ's pixels
+			DI.Blend(species.blood_color, ICON_MULTIPLY)
+			damage_icon_parts[cache_index] = DI
+		else
+			DI = damage_icon_parts[cache_index]
+		standing_image.overlays += DI
 
 	overlays_standing[DAMAGE_LAYER]	= standing_image
 
@@ -235,13 +228,13 @@ var/global/list/damage_icon_parts = list()
 	var/obj/item/organ/internal/eyes/eyes = get_int_organ(/obj/item/organ/internal/eyes)
 
 	if(eyes)
-		icon_key += "[rgb(eyes.eye_colour[1], eyes.eye_colour[2], eyes.eye_colour[3])]"
+		icon_key += "[eyes.eye_colour]"
 	else
 		icon_key += "#000000"
 
 	for(var/organ_tag in species.has_limbs)
 		var/obj/item/organ/external/part = bodyparts_by_name[organ_tag]
-		if(isnull(part) || part.is_stump() || (part.status & ORGAN_DESTROYED))
+		if(isnull(part))
 			icon_key += "0"
 		else if(part.status & ORGAN_ROBOT)
 			icon_key += "2[part.model ? "-[part.model]": ""]"
@@ -255,7 +248,7 @@ var/global/list/damage_icon_parts = list()
 			icon_key += "[part.dna.GetUIState(DNA_UI_GENDER)]"
 			icon_key += "[part.dna.GetUIValue(DNA_UI_SKIN_TONE)]"
 			if(part.s_col)
-				icon_key += "[rgb(part.s_col[1], part.s_col[2], part.s_col[3])]"
+				icon_key += "[part.s_col]"
 			if(part.s_tone)
 				icon_key += "[part.s_tone]"
 
@@ -341,7 +334,7 @@ var/global/list/damage_icon_parts = list()
 	if(update_icons)
 		update_icons()
 
-	if(lip_style  && species && species.flags & HAS_LIPS)
+	if(lip_style  && (LIPS in species.species_traits))
 		var/icon/lips = icon("icon"='icons/mob/human_face.dmi', "icon_state"="lips_[lip_style]_s")
 		lips.Blend(lip_color, ICON_ADD)
 
@@ -368,7 +361,7 @@ var/global/list/damage_icon_parts = list()
 
 	//Body markings.
 	var/obj/item/organ/external/chest/chest_organ = get_organ("chest")
-	if(chest_organ && !chest_organ.is_stump() && !(chest_organ.status & ORGAN_DESTROYED) && m_styles["body"])
+	if(chest_organ && m_styles["body"])
 		var/body_marking = m_styles["body"]
 		var/datum/sprite_accessory/body_marking_style = marking_styles_list[body_marking]
 		if(body_marking_style && body_marking_style.species_allowed && (species.name in body_marking_style.species_allowed))
@@ -378,7 +371,7 @@ var/global/list/damage_icon_parts = list()
 			markings_standing.Blend(b_marking_s, ICON_OVERLAY)
 	//Head markings.
 	var/obj/item/organ/external/head/head_organ = get_organ("head")
-	if(head_organ && !head_organ.is_stump() && !(head_organ.status & ORGAN_DESTROYED) && m_styles["head"]) //If the head is destroyed, forget the head markings. This prevents floating optical markings on decapitated IPCs, for example.
+	if(head_organ && m_styles["head"]) //If the head is destroyed, forget the head markings. This prevents floating optical markings on decapitated IPCs, for example.
 		var/head_marking = m_styles["head"]
 		var/datum/sprite_accessory/head_marking_style = marking_styles_list[head_marking]
 		if(head_marking_style && head_marking_style.species_allowed && (head_organ.species.name in head_marking_style.species_allowed))
@@ -398,7 +391,7 @@ var/global/list/damage_icon_parts = list()
 	overlays_standing[HEAD_ACC_OVER_LAYER]	= null
 
 	var/obj/item/organ/external/head/head_organ = get_organ("head")
-	if(!head_organ || head_organ.is_stump() || (head_organ.status & ORGAN_DESTROYED) )
+	if(!head_organ)
 		if(update_icons)   update_icons()
 		return
 
@@ -415,7 +408,7 @@ var/global/list/damage_icon_parts = list()
 			if(head_organ.species.name in head_accessory_style.species_allowed)
 				var/icon/head_accessory_s = new/icon("icon" = head_accessory_style.icon, "icon_state" = "[head_accessory_style.icon_state]_s")
 				if(head_accessory_style.do_colouration)
-					head_accessory_s.Blend(rgb(head_organ.r_headacc, head_organ.g_headacc, head_organ.b_headacc), ICON_ADD)
+					head_accessory_s.Blend(head_organ.headacc_colour, ICON_ADD)
 				head_accessory_standing = head_accessory_s //head_accessory_standing.Blend(head_accessory_s, ICON_OVERLAY)
 														   //Having it this way preserves animations. Useful for animated antennae.
 
@@ -435,7 +428,7 @@ var/global/list/damage_icon_parts = list()
 	overlays_standing[HAIR_LAYER] = null
 
 	var/obj/item/organ/external/head/head_organ = get_organ("head")
-	if(!head_organ || head_organ.is_stump() || (head_organ.status & ORGAN_DESTROYED))
+	if(!head_organ)
 		if(update_icons)   update_icons()
 		return
 
@@ -453,17 +446,17 @@ var/global/list/damage_icon_parts = list()
 		//if(!src.get_int_organ(/obj/item/organ/internal/brain) && src.get_species() != "Machine" )//make it obvious we have NO BRAIN
 		//	hair_standing.Blend(debrained_s, ICON_OVERLAY)
 		if(hair_style && hair_style.species_allowed)
-			if((head_organ.species.name in hair_style.species_allowed) || (head_organ.species.flags & ALL_RPARTS)) //If the head's species is in the list of allowed species for the hairstyle, or the head's species is one flagged to have bodies comprised wholly of cybernetics...
+			if((head_organ.species.name in hair_style.species_allowed) || (head_organ.species.bodyflags & ALL_RPARTS)) //If the head's species is in the list of allowed species for the hairstyle, or the head's species is one flagged to have bodies comprised wholly of cybernetics...
 				var/icon/hair_s = new/icon("icon" = hair_style.icon, "icon_state" = "[hair_style.icon_state]_s")
 				if(head_organ.species.name == "Slime People") // I am el worstos
-					hair_s.Blend(rgb(r_skin, g_skin, b_skin, 160), ICON_AND)
+					hair_s.Blend("[skin_colour]A0", ICON_AND)
 				else if(hair_style.do_colouration)
-					hair_s.Blend(rgb(head_organ.r_hair, head_organ.g_hair, head_organ.b_hair), ICON_ADD)
+					hair_s.Blend(head_organ.hair_colour, ICON_ADD)
 
 				if(hair_style.secondary_theme)
 					var/icon/hair_secondary_s = new/icon("icon" = hair_style.icon, "icon_state" = "[hair_style.icon_state]_[hair_style.secondary_theme]_s")
 					if(!hair_style.no_sec_colour)
-						hair_secondary_s.Blend(rgb(head_organ.r_hair_sec, head_organ.g_hair_sec, head_organ.b_hair_sec), ICON_ADD)
+						hair_secondary_s.Blend(head_organ.sec_hair_colour, ICON_ADD)
 					hair_s.Blend(hair_secondary_s, ICON_OVERLAY)
 
 				hair_standing = hair_s //hair_standing.Blend(hair_s, ICON_OVERLAY)
@@ -484,7 +477,7 @@ var/global/list/damage_icon_parts = list()
 	overlays_standing[FHAIR_OVER_LAYER]	= null
 
 	var/obj/item/organ/external/head/head_organ = get_organ("head")
-	if(!head_organ || head_organ.is_stump() || (head_organ.status & ORGAN_DESTROYED))
+	if(!head_organ)
 		if(update_icons)   update_icons()
 		return
 
@@ -499,17 +492,17 @@ var/global/list/damage_icon_parts = list()
 	if(head_organ.f_style)
 		var/datum/sprite_accessory/facial_hair/facial_hair_style = facial_hair_styles_list[head_organ.f_style]
 		if(facial_hair_style && facial_hair_style.species_allowed)
-			if((head_organ.species.name in facial_hair_style.species_allowed) || (head_organ.species.flags & ALL_RPARTS)) //If the head's species is in the list of allowed species for the hairstyle, or the head's species is one flagged to have bodies comprised wholly of cybernetics...
+			if((head_organ.species.name in facial_hair_style.species_allowed) || (head_organ.species.bodyflags & ALL_RPARTS)) //If the head's species is in the list of allowed species for the hairstyle, or the head's species is one flagged to have bodies comprised wholly of cybernetics...
 				var/icon/facial_s = new/icon("icon" = facial_hair_style.icon, "icon_state" = "[facial_hair_style.icon_state]_s")
 				if(head_organ.species.name == "Slime People") // I am el worstos
-					facial_s.Blend(rgb(r_skin, g_skin, b_skin, 160), ICON_AND)
+					facial_s.Blend("[skin_colour]A0", ICON_AND)
 				else if(facial_hair_style.do_colouration)
-					facial_s.Blend(rgb(head_organ.r_facial, head_organ.g_facial, head_organ.b_facial), ICON_ADD)
+					facial_s.Blend(head_organ.facial_colour, ICON_ADD)
 
 				if(facial_hair_style.secondary_theme)
 					var/icon/facial_secondary_s = new/icon("icon" = facial_hair_style.icon, "icon_state" = "[facial_hair_style.icon_state]_[facial_hair_style.secondary_theme]_s")
 					if(!facial_hair_style.no_sec_colour)
-						facial_secondary_s.Blend(rgb(head_organ.r_facial_sec, head_organ.g_facial_sec, head_organ.b_facial_sec), ICON_ADD)
+						facial_secondary_s.Blend(head_organ.sec_facial_colour, ICON_ADD)
 					facial_s.Blend(facial_secondary_s, ICON_OVERLAY)
 
 				face_standing.Blend(facial_s, ICON_OVERLAY)
@@ -1092,8 +1085,8 @@ var/global/list/damage_icon_parts = list()
 	if(legcuffed)
 		overlays_standing[LEGCUFF_LAYER]	= image("icon" = 'icons/mob/mob.dmi', "icon_state" = "legcuff1")
 		throw_alert("legcuffed", /obj/screen/alert/restrained/legcuffed, new_master = legcuffed)
-		if(m_intent != "walk")
-			m_intent = "walk"
+		if(m_intent != MOVE_INTENT_WALK)
+			m_intent = MOVE_INTENT_WALK
 			if(hud_used && hud_used.move_intent)
 				hud_used.move_intent.icon_state = "walking"
 
@@ -1175,7 +1168,7 @@ var/global/list/damage_icon_parts = list()
 		if(body_accessory.try_restrictions(src))
 			var/icon/accessory_s = new/icon("icon" = body_accessory.icon, "icon_state" = body_accessory.icon_state)
 			if(species.bodyflags & HAS_SKIN_COLOR)
-				accessory_s.Blend(rgb(r_skin, g_skin, b_skin), body_accessory.blend_mode)
+				accessory_s.Blend(skin_colour, body_accessory.blend_mode)
 			if(tail_marking_icon && (body_accessory.name in tail_marking_style.tails_allowed))
 				accessory_s.Blend(tail_marking_icon, ICON_OVERLAY)
 			if((!body_accessory || istype(body_accessory, /datum/body_accessory/tail)) && species.bodyflags & TAIL_OVERLAPPED) // If the player has a species whose tail is overlapped by limbs... (having a non-tail body accessory like the snake body will override this)
@@ -1200,7 +1193,7 @@ var/global/list/damage_icon_parts = list()
 		if(!wear_suit || !(wear_suit.flags_inv & HIDETAIL) && !istype(wear_suit, /obj/item/clothing/suit/space))
 			var/icon/tail_s = new/icon("icon" = 'icons/effects/species.dmi', "icon_state" = "[tail]_s")
 			if(species.bodyflags & HAS_SKIN_COLOR)
-				tail_s.Blend(rgb(r_skin, g_skin, b_skin), ICON_ADD)
+				tail_s.Blend(skin_colour, ICON_ADD)
 			if(tail_marking_icon && !tail_marking_style.tails_allowed)
 				tail_s.Blend(tail_marking_icon, ICON_OVERLAY)
 			if((!body_accessory || istype(body_accessory, /datum/body_accessory/tail)) && species.bodyflags & TAIL_OVERLAPPED) // If the player has a species whose tail is overlapped by limbs... (having a non-tail body accessory like the snake body will override this)
@@ -1241,7 +1234,7 @@ var/global/list/damage_icon_parts = list()
 	if(body_accessory)
 		var/icon/accessory_s = new/icon("icon" = body_accessory.get_animated_icon(), "icon_state" = body_accessory.get_animated_icon_state())
 		if(species.bodyflags & HAS_SKIN_COLOR)
-			accessory_s.Blend(rgb(r_skin, g_skin, b_skin), body_accessory.blend_mode)
+			accessory_s.Blend(skin_colour, body_accessory.blend_mode)
 		if(tail_marking_icon && (body_accessory.name in tail_marking_style.tails_allowed))
 			accessory_s.Blend(tail_marking_icon, ICON_OVERLAY)
 		if((!body_accessory || istype(body_accessory, /datum/body_accessory/tail)) && species.bodyflags & TAIL_OVERLAPPED) // If the player has a species whose tail is overlapped by limbs... (having a non-tail body accessory like the snake body will override this)
@@ -1268,7 +1261,7 @@ var/global/list/damage_icon_parts = list()
 	else if(tail && species.bodyflags & HAS_TAIL)
 		var/icon/tailw_s = new/icon("icon" = 'icons/effects/species.dmi', "icon_state" = "[tail]w_s")
 		if(species.bodyflags & HAS_SKIN_COLOR)
-			tailw_s.Blend(rgb(r_skin, g_skin, b_skin), ICON_ADD)
+			tailw_s.Blend(skin_colour, ICON_ADD)
 		if(tail_marking_icon && !tail_marking_style.tails_allowed)
 			tailw_s.Blend(tail_marking_icon, ICON_OVERLAY)
 		if((!body_accessory || istype(body_accessory, /datum/body_accessory/tail)) && species.bodyflags & TAIL_OVERLAPPED) // If the player has a species whose tail is overlapped by limbs... (having a non-tail body accessory like the snake body will override this)

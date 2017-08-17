@@ -68,7 +68,7 @@
 	icon_living = "brainslug"
 	icon_dead = "brainslug_dead"
 	speed = 5
-	a_intent = I_HARM
+	a_intent = INTENT_HARM
 	stop_automated_movement = 1
 	status_flags = CANPUSH
 	attacktext = "nips"
@@ -351,7 +351,7 @@
 		to_chat(src, "They are no longer in range!")
 		return
 
-/mob/living/simple_animal/borer/proc/perform_infestation(var/mob/living/carbon/M)
+/mob/living/simple_animal/borer/proc/perform_infestation(mob/living/carbon/M)
 	if(!M)
 		return
 
@@ -359,12 +359,8 @@
 		to_chat(src, "<span class='warning'>[M] is already infested!</span>")
 		return
 	host = M
+	M.borer = src
 	forceMove(M)
-
-	if(ishuman(M))
-		var/mob/living/carbon/human/H = M
-		var/obj/item/organ/external/head = H.get_organ("head")
-		head.implants += src
 
 	host.status_flags |= PASSEMOTES
 
@@ -569,7 +565,8 @@
 	host.reset_perspective(null)
 	host.machine = null
 
-	var/mob/living/H = host
+	var/mob/living/carbon/H = host
+	H.borer = null
 	H.verbs -= /mob/living/proc/borer_comm
 	talk_to_borer_action.Remove(host)
 	H.status_flags &= ~PASSEMOTES
@@ -709,10 +706,12 @@
 
 //Check for brain worms in head.
 /mob/proc/has_brain_worms()
+	return FALSE
 
-	for(var/I in contents)
-		if(istype(I,/mob/living/simple_animal/borer))
-			return I
+/mob/living/carbon/has_brain_worms()
+
+	if(borer)
+		return borer
 
 	return FALSE
 
@@ -745,11 +744,6 @@
 		return
 
 	controlling = FALSE
-
-	if(ishuman(host))
-		var/mob/living/carbon/human/H = host
-		var/obj/item/organ/external/head = H.get_organ("head")
-		head.implants -= src
 
 	reset_perspective(null)
 	machine = null

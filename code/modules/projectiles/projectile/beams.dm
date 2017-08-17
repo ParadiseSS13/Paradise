@@ -8,6 +8,7 @@
 	hitsound_wall = 'sound/weapons/effects/searwall.ogg'
 	flag = "laser"
 	eyeblur = 2
+	is_reflectable = TRUE
 
 /obj/item/projectile/beam/laser
 
@@ -130,7 +131,7 @@
 
 /obj/item/projectile/beam/instakill/on_hit(atom/target)
 	. = ..()
-	if(iscarbon(target))
-		var/mob/living/carbon/M = target
-		M.visible_message("<span class='danger'>[M] explodes into a shower of gibs!</span>")
-		M.gib()
+	if(isliving(target))
+		var/mob/living/L = target
+		L.visible_message("<span class='danger'>[L] explodes!</span>")
+		L.gib()

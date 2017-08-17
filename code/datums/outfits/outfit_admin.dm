@@ -17,8 +17,6 @@
 	if(special_icon)
 		I.icon_state = special_icon
 
-/datum/outfit/admin
-
 /datum/outfit/admin/syndicate
 	name = "Syndicate Agent"
 
@@ -451,7 +449,8 @@
 	r_hand = /obj/item/weapon/twohanded/fireaxe
 	backpack_contents = list(
 		/obj/item/weapon/storage/box/survival = 1,
-		/obj/item/device/flashlight = 1
+		/obj/item/device/flashlight = 1,
+		/obj/item/weapon/reagent_containers/food/drinks/bottle/bottleofbanana = 1
 	)
 
 /datum/outfit/admin/tunnel_clown/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
@@ -587,6 +586,8 @@
 		apply_to_card(I, H, list(access_maint_tunnels), "Legit Xenomorph")
 
 /datum/outfit/admin/soviet
+
+	gloves = /obj/item/clothing/gloves/combat
 	uniform = /obj/item/clothing/under/soviet
 	back = /obj/item/weapon/storage/backpack/satchel
 	head = /obj/item/clothing/head/ushanka
@@ -721,6 +722,38 @@
 		/obj/item/weapon/melee/classic_baton/telescopic = 1,
 		/obj/item/ammo_box/magazine/m50 = 2)
 
+/datum/outfit/admin/paranormal_ert
+	name = "Paranormal ERT member"
+
+	uniform = /obj/item/clothing/under/syndicate
+	suit = /obj/item/clothing/suit/space/hardsuit/ert/paranormal
+	back = /obj/item/weapon/storage/backpack/ert/security
+	belt = /obj/item/weapon/gun/energy/gun/nuclear
+	gloves = /obj/item/clothing/gloves/color/black
+	shoes = /obj/item/clothing/shoes/combat
+	head = /obj/item/clothing/head/helmet/space/hardsuit/ert/paranormal
+	l_ear = /obj/item/device/radio/headset/ert/alt
+	glasses = /obj/item/clothing/glasses/hud/security/sunglasses
+	id = /obj/item/weapon/card/id/centcom
+	pda = /obj/item/device/pda/centcom
+	backpack_contents = list(
+		/obj/item/weapon/storage/box/survival = 1,
+		/obj/item/clothing/mask/gas/sechailer/swat = 1,
+		/obj/item/weapon/storage/box/zipties = 1,
+		/obj/item/device/flashlight = 1)
+
+/datum/outfit/admin/paranormal_ert/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
+	. = ..()
+	if(visualsOnly)
+		return
+
+	var/obj/item/weapon/card/id/I = H.wear_id
+	if(istype(I))
+		apply_to_card(I, H, get_centcom_access("Emergency Response Team Member"), "Emergency Response Team Member")
+
+	var/obj/item/weapon/implant/L = new /obj/item/weapon/implant/mindshield(H)
+	L.implant(H)
+
 /datum/outfit/admin/janitorial_ert
 	name = "Janitorial ERT member"
 
@@ -731,16 +764,18 @@
 	gloves = /obj/item/clothing/gloves/color/yellow
 	shoes = /obj/item/clothing/shoes/galoshes
 	head = /obj/item/clothing/head/helmet/space/hardsuit/ert/janitor
-	l_ear = /obj/item/device/radio/headset/centcom
+	l_ear = /obj/item/device/radio/headset/ert/alt
 	glasses = /obj/item/clothing/glasses/sunglasses
 	id = /obj/item/weapon/card/id/centcom
 	pda = /obj/item/device/pda/centcom
 	backpack_contents = list(
 		/obj/item/weapon/caution = 2,
+		/obj/item/weapon/storage/box/survival = 1,
 		/obj/item/weapon/reagent_containers/spray/cleaner = 1,
 		/obj/item/weapon/storage/bag/trash = 1,
 		/obj/item/weapon/storage/box/lights/mixed = 1,
-		/obj/item/weapon/holosign_creator = 1)
+		/obj/item/weapon/holosign_creator = 1,
+		/obj/item/device/flashlight = 1)
 
 /datum/outfit/admin/janitorial_ert/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
 	. = ..()
@@ -936,7 +971,7 @@
 
 	for(var/obj/item/I in H.contents)
 		if(!istype(I, /obj/item/weapon/implant))
-			I.add_blood(H)
+			I.add_mob_blood(H)
 
 	if(visualsOnly)
 		return
@@ -971,7 +1006,7 @@
 
 	for(var/obj/item/I in H.contents)
 		if(!istype(I, /obj/item/weapon/implant))
-			I.add_blood(H)
+			I.add_mob_blood(H)
 
 	if(visualsOnly)
 		return
@@ -1006,7 +1041,7 @@
 		apply_to_card(I, H, get_all_accesses(), "Singuloth Knight")
 
 /datum/outfit/admin/assassin
-	name = "Assassin"
+	name = "Syndicate Assassin"
 
 	uniform = /obj/item/clothing/under/suit_jacket
 	suit = /obj/item/clothing/suit/wcoat
@@ -1017,34 +1052,17 @@
 	glasses = /obj/item/clothing/glasses/sunglasses
 	id = /obj/item/weapon/card/id/syndicate
 	l_pocket = /obj/item/weapon/melee/energy/sword/saber
-	l_hand = /obj/item/weapon/storage/secure/briefcase
+	l_hand = /obj/item/weapon/storage/secure/briefcase/reaper
 	pda = /obj/item/device/pda/heads
 	backpack_contents = list(
 		/obj/item/weapon/storage/box/survival = 1,
 		/obj/item/device/flashlight = 1
 	)
 
-	var/briefcase_contents = list(
-		/obj/item/stack/spacecash/c1000 = 3,
-		/obj/item/weapon/gun/energy/kinetic_accelerator/crossbow = 1,
-		/obj/item/weapon/gun/projectile/revolver/mateba = 1,
-		/obj/item/ammo_box/a357 = 1,
-		/obj/item/weapon/grenade/plastic/c4 = 1
-	)
-
 /datum/outfit/admin/assassin/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
 	. = ..()
 	if(visualsOnly)
 		return
-
-	var/obj/item/weapon/storage/secure/briefcase/B = H.l_hand
-	if(istype(B))
-		for(var/obj/item/I in B)
-			qdel(I)
-		for(var/path in briefcase_contents)
-			var/number = backpack_contents[path]
-			for(var/i = 0, i < number, i++)
-				B.handle_item_insertion(new path(B), 1)
 
 	var/obj/item/weapon/implant/dust/D = new /obj/item/weapon/implant/dust(H)
 	D.implant(H)
@@ -1173,3 +1191,39 @@
 	suit = /obj/item/clothing/suit/wizrobe/marisa
 	shoes = /obj/item/clothing/shoes/sandal/marisa
 	head = /obj/item/clothing/head/wizard/marisa
+
+
+/datum/outfit/admin/dark_priest
+	name = "Dark Priest"
+
+	uniform = /obj/item/clothing/under/color/black
+	suit = /obj/item/clothing/suit/hooded/chaplain_hoodie
+	back = /obj/item/weapon/storage/backpack
+	head = /obj/item/clothing/head/chaplain_hood
+	gloves = /obj/item/clothing/gloves/color/black
+	shoes = /obj/item/clothing/shoes/black
+	l_ear = /obj/item/device/radio/headset/syndicate
+	id = /obj/item/weapon/card/id/syndicate
+	r_hand = /obj/item/weapon/nullrod/armblade
+	backpack_contents = list(
+		/obj/item/weapon/storage/box/survival = 1,
+		/obj/item/device/flashlight = 1,
+	)
+
+/datum/outfit/admin/dark_priest/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
+	. = ..()
+	if(visualsOnly)
+		return
+	var/obj/item/weapon/card/id/I = H.wear_id
+	if(istype(I))
+		apply_to_card(I, H, get_all_accesses(), "Dark Priest", "syndie")
+	var/obj/item/weapon/nullrod/armblade/B = H.r_hand
+	if(istype(B))
+		B.force = 20
+		B.name = "blessing of the reaper"
+		B.desc = "Sometimes, someone's just gotta die."
+	var/obj/item/device/radio/headset/R = H.l_ear
+	if(istype(R))
+		R.flags |= NODROP
+	var/obj/item/weapon/implant/dust/D = new /obj/item/weapon/implant/dust(H)
+	D.implant(H)

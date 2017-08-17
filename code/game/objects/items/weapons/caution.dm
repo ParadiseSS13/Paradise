@@ -44,7 +44,7 @@
 			if(armed)
 				if(istype(AM, /mob/living/carbon) && !istype(AM, /mob/living/carbon/brain))
 					var/mob/living/carbon/C = AM
-					if(C.m_intent != "walk")
+					if(C.m_intent != MOVE_INTENT_WALK)
 						src.visible_message("The [src.name] beeps, \"Running on wet floors is hazardous to your health.\"")
 						explosion(src.loc,-1,0,2)
 						if(ishuman(C))
@@ -55,7 +55,8 @@
 		proc/dead_legs(mob/living/carbon/human/H as mob)
 			var/obj/item/organ/external/l = H.get_organ("l_leg")
 			var/obj/item/organ/external/r = H.get_organ("r_leg")
-			if(l && !(l.status & ORGAN_DESTROYED))
-				l.status |= ORGAN_DESTROYED
-			if(r && !(r.status & ORGAN_DESTROYED))
-				r.status |= ORGAN_DESTROYED
+			if(l)
+				l.droplimb(0, DROPLIMB_SHARP)
+			if(r)
+				r.droplimb(0, DROPLIMB_SHARP)
+

@@ -677,7 +677,7 @@ var/list/ai_verbs_default = list(
 
 	switch(M.a_intent)
 
-		if(I_HELP)
+		if(INTENT_HELP)
 			visible_message("<span class='notice'>[M] caresses [src]'s plating with its scythe like arm.</span>")
 
 		else //harm
@@ -706,7 +706,19 @@ var/list/ai_verbs_default = list(
 		visible_message("<span class='danger'><B>[M]</B> [M.attacktext] [src]!")
 		add_logs(M, src, "attacked", admin=0, print_attack_log = 0)
 		var/damage = rand(M.melee_damage_lower, M.melee_damage_upper)
-		adjustBruteLoss(damage)
+		switch(M.melee_damage_type)
+			if(BRUTE)
+				adjustBruteLoss(damage)
+			if(BURN)
+				adjustFireLoss(damage)
+			if(TOX)
+				adjustToxLoss(damage)
+			if(OXY)
+				adjustOxyLoss(damage)
+			if(CLONE)
+				adjustCloneLoss(damage)
+			if(STAMINA)
+				adjustStaminaLoss(damage)
 		updatehealth()
 
 /mob/living/silicon/ai/reset_perspective(atom/A)

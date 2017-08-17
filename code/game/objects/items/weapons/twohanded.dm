@@ -162,7 +162,6 @@
 	force = 5
 	throwforce = 15
 	sharp = 1
-	edge = 1
 	w_class = WEIGHT_CLASS_BULKY
 	slot_flags = SLOT_BACK
 	force_unwielded = 5
@@ -209,8 +208,6 @@
 	attack_verb = list("attacked", "slashed", "stabbed", "sliced", "torn", "ripped", "diced", "cut")
 	block_chance = 75
 	sharp = 1
-	edge = 1
-	no_embed = 1 // Like with the single-handed esword, this shouldn't be embedding in people.
 
 /obj/item/weapon/twohanded/dualsaber/New()
 	blade_color = pick("red", "blue", "green", "purple")
@@ -297,7 +294,6 @@
 	hitsound = 'sound/weapons/bladeslice.ogg'
 	attack_verb = list("attacked", "poked", "jabbed", "torn", "gored")
 	sharp = 1
-	edge = 1
 	no_spin_thrown = 1
 	var/obj/item/weapon/grenade/explosive = null
 	var/war_cry = "AAAAARGH!!!"
@@ -442,7 +438,6 @@
 	attack_verb = list("sawed", "cut", "hacked", "carved", "cleaved", "butchered", "felled", "timbered")
 	hitsound = "swing_hit"
 	sharp = 1
-	edge = 1
 	actions_types = list(/datum/action/item_action/startchainsaw)
 	var/on = 0
 
@@ -499,8 +494,6 @@
 	origin_tech = "materials=6;syndicate=4"
 	attack_verb = list("sawed", "cut", "hacked", "carved", "cleaved", "butchered", "felled", "timbered")
 	sharp = 1
-	edge = 1
-	no_embed = 1
 
 /obj/item/weapon/twohanded/chainsaw/update_icon()
 	if(wielded)
@@ -539,7 +532,6 @@
 	icon_state = "mjollnir0"
 	flags = CONDUCT
 	slot_flags = SLOT_BACK
-	no_embed = 1
 	force = 5
 	force_unwielded = 5
 	force_wielded = 20
@@ -604,7 +596,6 @@
 	icon_state = "mjollnir0"
 	flags = CONDUCT
 	slot_flags = SLOT_BACK
-	no_embed = 1
 	force = 5
 	force_unwielded = 5
 	force_wielded = 25
@@ -652,7 +643,6 @@
 	icon_state = "knighthammer0"
 	flags = CONDUCT
 	slot_flags = SLOT_BACK
-	no_embed = 1
 	force = 5
 	force_unwielded = 5
 	force_wielded = 30
@@ -718,7 +708,6 @@
 	force = 5
 	throwforce = 15
 	sharp = 1
-	edge = 1
 	w_class = WEIGHT_CLASS_HUGE
 	armour_penetration = 20
 	slot_flags = SLOT_BACK

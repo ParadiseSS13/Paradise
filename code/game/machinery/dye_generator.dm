@@ -88,7 +88,7 @@
 	overlays += I
 
 /obj/item/hair_dye_bottle/attack(mob/living/carbon/M as mob, mob/user as mob)
-	if(user.a_intent != "help")
+	if(user.a_intent != INTENT_HELP)
 		..()
 		return
 	if(!(M in view(1)))

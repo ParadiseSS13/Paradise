@@ -108,6 +108,12 @@
 		to_chat(usr, "<span class='warning'>This role is not yet available to you. You need to wait another [player_age_check] days.</span>")
 		return
 
+	var/pt_req = role_available_in_playtime(client, ROLE_DRONE)
+	if(pt_req)
+		var/pt_req_string = get_exp_format(pt_req)
+		to_chat(usr, "<span class='warning'>This role is not yet available to you. Play another [pt_req_string] to unlock it.</span>")
+		return
+
 	var/deathtime = world.time - src.timeofdeath
 	var/joinedasobserver = 0
 	if(istype(src,/mob/dead/observer))

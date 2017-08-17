@@ -135,7 +135,7 @@
 	return
 
 /obj/machinery/computer/attack_alien(mob/living/user)
-	if(isalien(user) && user.a_intent == I_HELP)
+	if(isalien(user) && user.a_intent == INTENT_HELP)
 		var/mob/living/carbon/alien/humanoid/xeno = user
 		if(xeno.has_fine_manipulation)
 			return attack_hand(user)

@@ -145,6 +145,11 @@
 	burnt = 1
 	update_icon()
 
+/turf/simulated/floor/carpet/black
+	icon = 'icons/turf/floors/carpet_black.dmi'
+	floor_tile = /obj/item/stack/tile/carpet/black
+	canSmoothWith = list(/turf/simulated/floor/carpet/black)
+
 /turf/simulated/floor/fakespace
 	icon = 'icons/turf/space.dmi'
 	icon_state = "0"

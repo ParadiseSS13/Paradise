@@ -23,8 +23,6 @@
 	icon_state= "bolter"
 	damage = 50
 	flag = "bullet"
-	sharp = 1
-	edge = 1
 
 /obj/item/projectile/bullet/gyro/on_hit(var/atom/target, var/blocked = 0)
 	..()
@@ -136,7 +134,7 @@
 	var/mob/living/M = target
 	if(ishuman(target))
 		var/mob/living/carbon/human/H = M
-		if(H.species.flags & IS_PLANT)
+		if(IS_PLANT in H.species.species_traits)
 			if(prob(15))
 				M.apply_effect((rand(30,80)),IRRADIATE)
 				M.Weaken(5)
@@ -169,7 +167,7 @@
 	var/mob/M = target
 	if(ishuman(target)) //These rays make plantmen fat.
 		var/mob/living/carbon/human/H = M
-		if(H.species.flags & IS_PLANT)
+		if(IS_PLANT in H.species.species_traits)
 			H.nutrition = min(H.nutrition+30, NUTRITION_LEVEL_FULL)
 	else if(iscarbon(target))
 		M.show_message("<span class='notice'>The radiation beam dissipates harmlessly through your body.</span>")

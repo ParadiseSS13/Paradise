@@ -241,7 +241,7 @@
 
 	switch(L.a_intent)
 
-		if(I_HELP)
+		if(INTENT_HELP)
 			visible_message("<span class='notice'>[L] rubs its head against [src].</span>")
 
 
@@ -281,11 +281,9 @@
 				if(prob(90) && !client)
 					Discipline++
 
-				spawn()
-					SStun = 1
-					sleep(rand(45,60))
-					if(src)
-						SStun = 0
+				SStun = 1
+				spawn(rand(45,60))
+					SStun = 0
 
 				Victim = null
 				anchored = 0
@@ -309,11 +307,9 @@
 						if(Discipline == 1)
 							attacked = 0
 
-				spawn()
-					SStun = 1
-					sleep(rand(55,65))
-					if(src)
-						SStun = 0
+				SStun = 1
+				spawn(rand(55,65))
+					SStun = 0
 
 				Victim = null
 				anchored = 0
@@ -322,7 +318,7 @@
 			return
 	else
 		if(stat == DEAD && surgeries.len)
-			if(M.a_intent == I_HELP)
+			if(M.a_intent == INTENT_HELP)
 				for(var/datum/surgery/S in surgeries)
 					if(S.next_step(M, src))
 						return 1
@@ -343,10 +339,10 @@
 
 	switch(M.a_intent)
 
-		if(I_HELP)
+		if(INTENT_HELP)
 			help_shake_act(M)
 
-		if(I_GRAB)
+		if(INTENT_GRAB)
 			grabbedby(M)
 
 		else
@@ -393,10 +389,10 @@
 		return
 
 	switch(M.a_intent)
-		if(I_HELP)
+		if(INTENT_HELP)
 			visible_message("<span class='notice'>[M] caresses [src] with its scythe like arm.</span>")
 
-		if(I_HARM)
+		if(INTENT_HARM)
 			M.do_attack_animation(src)
 			if(prob(95))
 				attacked += 10
@@ -416,10 +412,10 @@
 				visible_message("<span class='danger'>[M] has attempted to lunge at [name]!</span>", \
 						"<span class='userdanger'>[M] has attempted to lunge at [name]!</span>")
 
-		if(I_GRAB)
+		if(INTENT_GRAB)
 			grabbedby(M)
 
-		if(I_DISARM)
+		if(INTENT_DISARM)
 			M.do_attack_animation(src)
 			playsound(loc, 'sound/weapons/pierce.ogg', 25, 1, -1)
 			var/damage = 5
@@ -439,9 +435,8 @@
 							if(Discipline == 1)
 								attacked = 0
 
-				spawn()
-					SStun = 1
-					sleep(rand(5,20))
+				SStun = 1
+				spawn(rand(5,20))
 					SStun = 0
 
 				spawn(0)
@@ -460,7 +455,7 @@
 
 /mob/living/carbon/slime/attackby(obj/item/W, mob/user, params)
 	if(stat == DEAD && surgeries.len)
-		if(user.a_intent == I_HELP)
+		if(user.a_intent == INTENT_HELP)
 			for(var/datum/surgery/S in surgeries)
 				if(S.next_step(user, src))
 					return 1
@@ -491,9 +486,8 @@
 					Target = null
 					anchored = 0
 
-					spawn()
-						SStun = 1
-						sleep(rand(5,20))
+					SStun = 1
+					spawn(rand(5,20))
 						SStun = 0
 
 					spawn(0)
@@ -513,9 +507,8 @@
 						Discipline++
 					if(Discipline == 1)
 						attacked = 0
-					spawn()
-						SStun = 1
-						sleep(rand(5,20))
+					SStun = 1
+					spawn(rand(5,20))
 						SStun = 0
 
 					Victim = null

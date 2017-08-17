@@ -120,6 +120,15 @@
 		to_chat(user, "<span class='notice'>You carefully place [I] into the cistern.</span>")
 		return
 
+/obj/structure/toilet/secret
+	var/secret_type = null
+
+/obj/structure/toilet/secret/New()
+	. = ..()
+	if(secret_type)
+		var/obj/item/secret = new secret_type(src)
+		secret.desc += " It's a secret!"
+		w_items += secret.w_class
 
 
 /obj/structure/urinal
