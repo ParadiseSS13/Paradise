@@ -137,6 +137,16 @@
 /obj/item/weapon/reagent_containers/spray/waterflower/attack_self(mob/user) //Don't allow changing how much the flower sprays
 	return
 
+//syndicate water flower
+/obj/item/weapon/reagent_containers/spray/waterflower/syndiwaterflower
+	desc = "A seemingly innocent sunflower... with a serious twist."
+	amount_per_transfer_from_this = 10
+	volume = 100
+	list_reagents = list("condensedcapsaicin" = 100)
+
+/obj/item/weapon/reagent_containers/spray/waterflower/syndiwaterflower/attack_self(mob/user)
+    ..()
+
 //chemsprayer
 /obj/item/weapon/reagent_containers/spray/chemsprayer
 	name = "chem sprayer"
