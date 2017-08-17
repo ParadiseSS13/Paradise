@@ -97,13 +97,13 @@
 //Answers a call made to a holopad `H` which cannot be the calling holopad. Pads not in the call are ignored
 /datum/holocall/proc/Answer(obj/machinery/hologram/holopad/H)
 	if(H == calling_holopad)
-		CRASH("How cute, a holopad tried to answer itself.")
+		return
 
 	if(!(H in dialed_holopads))
 		return
 
 	if(connected_holopad)
-		CRASH("Multi-connection holocall")
+		return
 
 	for(var/I in dialed_holopads)
 		if(I == H)

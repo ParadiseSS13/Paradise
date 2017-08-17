@@ -70,13 +70,13 @@ var/list/holopads = list()
 		var/datum/holocall/HC = I
 		HC.ConnectionFailure(src)
 
-	for (var/I in masters)
+	for(var/I in masters)
 		clear_holo(I)
 	holopads -= src
 	return ..()
 
 /obj/machinery/hologram/holopad/power_change()
-	if (powered())
+	if(powered())
 		stat &= ~NOPOWER
 	else
 		stat |= ~NOPOWER
@@ -111,7 +111,6 @@ var/list/holopads = list()
 	return FALSE
 
 /obj/machinery/hologram/holopad/attack_hand(mob/living/carbon/human/user)
-
 	if(..())
 		return
 
@@ -122,7 +121,6 @@ var/list/holopads = list()
 	interact(user)
 
 /obj/machinery/hologram/holopad/AltClick(mob/living/carbon/human/user)
-
 	if(..())
 		return
 	if(isAI(user))
