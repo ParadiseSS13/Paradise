@@ -62,8 +62,8 @@
 		..()
 
 /obj/machinery/power/tesla_coil/attack_hand(mob/user)
-	if(user.a_intent == INTENT_GRAB && user_buckle_mob(user.pulling, user, check_loc = 0))
-		return
+	if(user.a_intent == INTENT_GRAB)
+		return user_buckle_mob(user.pulling, user, check_loc = FALSE)
 	..()
 
 

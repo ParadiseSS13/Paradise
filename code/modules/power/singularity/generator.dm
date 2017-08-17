@@ -16,8 +16,8 @@
  	buckle_requires_restraints = 1
 
 /obj/machinery/the_singularitygen/attack_hand(mob/user)
-	if(user.a_intent == INTENT_GRAB && user_buckle_mob(user.pulling, user, check_loc = FALSE))
-		return
+	if(user.a_intent == INTENT_GRAB)
+		return user_buckle_mob(user.pulling, user, check_loc = FALSE)
 	..()
 
 /obj/machinery/the_singularitygen/process()
