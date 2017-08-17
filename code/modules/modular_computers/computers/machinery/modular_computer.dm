@@ -22,6 +22,8 @@ var/list/global_modular_computers = list()
 	var/icon_state_powered = null						// Icon state when the computer is turned on.
 	var/screen_icon_state_menu = "menu"					// Icon state overlay when the computer is turned on, but no program is loaded that would override the screen.
 	var/screen_icon_screensaver = "standby"				// Icon state overlay when the computer is powered, but not 'switched on'.
+	var/screen_offset_x = 0									// Offset to render the screen sprites at on the x axis
+	var/screen_offset_y = 0									// Offset to render the screen sprites at on the y axis
 	var/max_hardware_size = 0							// Maximal hardware size. Currently, tablets have 1, laptops 2 and consoles 3. Limits what hardware types can be installed.
 	var/steel_sheet_cost = 10							// Amount of steel sheets refunded when disassembling an empty frame of this computer.
 	var/light_strength = 0								// Light luminosity when turned on
@@ -57,20 +59,26 @@ var/list/global_modular_computers = list()
 
 	if(!cpu || !cpu.enabled)
 		if (!(stat & NOPOWER) && (cpu && cpu.use_power()))
-			overlays += screen_icon_screensaver
+			add_screen_overlay(screen_icon_screensaver)
 		else
 			icon_state = icon_state_unpowered
 		set_light(0)
 	else
 		set_light(light_strength)
 		if(cpu.active_program)
-			overlays += cpu.active_program.program_icon_state ? cpu.active_program.program_icon_state : screen_icon_state_menu
+			add_screen_overlay(cpu.active_program.program_icon_state ? cpu.active_program.program_icon_state : screen_icon_state_menu)
 		else
-			overlays += screen_icon_state_menu
+			add_screen_overlay(screen_icon_state_menu)
 
 	if(cpu && cpu.obj_integrity <= cpu.integrity_failure)
-		overlays += "bsod"
-		overlays += "broken"
+		add_screen_overlay("bsod")
+		add_screen_overlay("broken")
+
+/obj/machinery/modular_computer/proc/add_screen_overlay(var/screen_name)
+	var/image/screen = image(icon, icon_state=screen_name)
+	screen.pixel_x = screen_offset_x
+	screen.pixel_y = screen_offset_y
+	overlays += screen
 
 // Eject ID card from computer, if it has ID slot with card inside.
 /obj/machinery/modular_computer/proc/eject_id()
