@@ -204,10 +204,8 @@
 
 /obj/item/device/modular_computer/proc/add_screen_overlay(var/screen_name)
 	var/image/screen = image(icon, icon_state=screen_name)
-
 	screen.pixel_x = screen_offset_x
 	screen.pixel_y = screen_offset_y
-
 	overlays += screen
 
 // On-click handling. Turns on the computer if it's off and opens the GUI.

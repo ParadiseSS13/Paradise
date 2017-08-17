@@ -3,8 +3,6 @@
 	icon_state = "tablet-off"
 	icon_state_unpowered = "tablet-off"
 	icon_state_powered = "tablet-on"
-	screen_offset_x = 8
-	screen_offset_y = -11
 	hardware_flag = PROGRAM_TABLET
 	max_hardware_size = 1
 	w_class = WEIGHT_CLASS_SMALL
