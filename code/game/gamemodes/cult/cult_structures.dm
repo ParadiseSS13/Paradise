@@ -70,14 +70,14 @@
 		destroy_structure()
 
 /obj/structure/cult/functional/proc/take_damage(damage, damage_type = BRUTE)
-	if(damage_type != STAMINA)
+	if(damage_type == BRUTE || damage_type = BURN)
 		health -= damage
 		updatehealth()
 
 /obj/structure/cult/functional/attackby(obj/item/I, mob/living/user)
 	..()
-	take_damage(I.force * 0.5, I.damtype)
-	playsound(loc, 'sound/effects/grillehit.ogg', 80, 1)
+	take_damage(I.force, I.damtype)
+	playsound(loc, I.hitsound, 80, 1)
 
 /obj/structure/cult/functional/bullet_act(var/obj/item/projectile/P)
 	take_damage(P.damage, P.damage_type)
