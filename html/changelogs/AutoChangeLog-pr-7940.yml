@@ -1,4 +1,0 @@
-author: "Citinited"
-delete-after: True
-changes: 
-  - bugfix: "Fixes another issue with disposals sending things to nullspace."
