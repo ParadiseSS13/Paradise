@@ -80,7 +80,7 @@
 			if("Stash")
 				stash_goods(I, user)
 			if("Disconnect")
-				user.visible_message("<span class='notice'>[user] is disconnecting [src].</span>", "<span class='notice'>You are disconnecting [src]...</span>")
+				user.visible_message("<span class='notice'>[user] starts disconnecting [src].</span>", "<span class='notice'>You begin disconnecting [src]...</span>")
 				if(do_after(user, 40 * I.toolspeed, target = src))
 					if(!loc || !anchored)
 						return
@@ -88,7 +88,7 @@
 					anchored = 0
 					update_icon()
 			if("Connect")
-				user.visible_message("<span class='notice'>[user] is connecting [src].</span>", "<span class='notice'>You are connecting [src]...</span>")
+				user.visible_message("<span class='notice'>[user] starts connecting [src].</span>", "<span class='notice'>You begin connecting [src]...</span>")
 				if(do_after(user, 40 * I.toolspeed, target = src))
 					if(!loc || anchored)
 						return
@@ -117,7 +117,7 @@
 		var/obj/item/weapon/reagent_containers/RG = I
 		if(RG.is_open_container())
 			if(RG.reagents.total_volume >= RG.volume)
-				to_chat(user, "<span class='warning'>\The [RG] is full.</span>")
+				to_chat(user, "<span class='warning'>[RG] is full.</span>")
 			else
 				RG.reagents.add_reagent("toiletwater", min(RG.volume - RG.reagents.total_volume, RG.amount_per_transfer_from_this))
 				to_chat(user, "<span class='notice'>You fill [RG] from [src]. Gross.</span>")
@@ -168,7 +168,7 @@
 		to_chat(user, "<span class='warning'>The cistern is full!</span>")
 		return
 	if(!user.drop_item())
-		to_chat(user, "<span class='warning'>\The [I] is stuck to your hand, you cannot put it in the cistern!</span>")
+		to_chat(user, "<span class='warning'>[I] is stuck to your hand, you cannot put it in the cistern!</span>")
 		return
 	I.loc = src
 	w_items += I.w_class
@@ -538,7 +538,7 @@
 	var/washing_face = 0
 	if(selected_area in list("head", "mouth", "eyes"))
 		washing_face = 1
-	user.visible_message("<span class='notice'>[user] start washing their [washing_face ? "face" : "hands"]...</span>", \
+	user.visible_message("<span class='notice'>[user] starts washing their [washing_face ? "face" : "hands"]...</span>", \
 						"<span class='notice'>You start washing your [washing_face ? "face" : "hands"]...</span>")
 	busy = 1
 
@@ -594,7 +594,7 @@
 				if(wateract)
 					W.water_act(20,310.15,src)
 			if("Disconnect")
-				user.visible_message("<span class='notice'>[user] is disconnecting [src].</span>", "<span class='notice'>You are disconnecting [src]...</span>")
+				user.visible_message("<span class='notice'>[user] starts disconnecting [src].</span>", "<span class='notice'>You begin disconnecting [src]...</span>")
 				if(do_after(user, 40 * O.toolspeed, target = src))
 					if(!loc || !anchored)
 						return
@@ -602,7 +602,7 @@
 					anchored = 0
 					update_icon()
 			if("Connect")
-				user.visible_message("<span class='notice'>[user] is connecting [src].</span>", "<span class='notice'>You are connecting [src]...</span>")
+				user.visible_message("<span class='notice'>[user] starts connecting [src].</span>", "<span class='notice'>You begin connecting [src]...</span>")
 				if(do_after(user, 40 * O.toolspeed, target = src))
 					if(!loc || anchored)
 						return

@@ -55,13 +55,13 @@
 
 /obj/structure/mirror/attackby(obj/item/I, mob/living/user, params)
 	if(isscrewdriver(I))
-		visible_message("[user] begins to unfasten the [src].", "You begin to unfasten the [name].")
+		visible_message("<span class='notice'>[user] begins to unfasten the [src].</span>", "<span class='notice'>You begin to unfasten the [name].</span>")
 		if(do_after(user, 30 * I.toolspeed, target = src))
 			if(shattered)
-				visible_message("[user] drops the broken shards to the floor.", "You drop the broken shards on the floor.")
+				visible_message("<span class='notice'>[user] drops the broken shards to the floor.</span>", "<span class='notice'>You drop the broken shards on the floor.</span>")
 				new /obj/item/weapon/shard(get_turf(user))
 			else
-				visible_message("[user] carefully places [src] on the floor.", "You carefully place [src] on the floor.")
+				visible_message("<span class='notice'>[user] carefully places [src] on the floor.</span>", "<span class='notice'>You carefully place [src] on the floor.</span>")
 				new /obj/item/mounted/mirror(get_turf(user))
 			qdel(src)
 			return
