@@ -634,13 +634,14 @@
 		pixel_x = 0
 		pixel_y = 0
 	else
-		if(istype(src, /obj/structure/sink/puddle))
+		//the following code will probably want to be updated in the future to be less reliant on hardcoded offsets based on the can_move/can_rotate values
+		if(!can_move)		//puddles
 			return
-		if(istype(src, /obj/structure/sink/kitchen))
+		if(!can_rotate)		//kitchen sinks
 			pixel_x = 0
 			pixel_y = 28
 			return
-		else	//normal sinks
+		else				//normal sinks
 			if(dir == NORTH || dir == SOUTH)
 				pixel_x = 0
 				pixel_y = (dir == NORTH) ? -5 : 30
@@ -734,7 +735,7 @@
 	if(result in T.contents)
 		to_chat(user, "<span class='warning'>There's already \an [result_name] here.</span>")
 		return
-	visible_message("[user] begins assembling a new [result_name].", "You begin assembling a new [result_name].")
+	visible_message("<span class='notice'>[user] begins assembling a new [result_name].</span>", "<span class='notice'>You begin assembling a new [result_name].</span>")
 	if(do_after(user, 30, target = user))
 		visible_message("<span class='notice'>[user] finishes building a new [result_name]!</span>", "<span class='notice'>You finish building a new [result_name]!</span>")
 		var/obj/structure/S = new result(T)
