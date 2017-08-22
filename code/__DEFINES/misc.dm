@@ -246,13 +246,14 @@
 ///Access Region Codes///
 #define REGION_ALL			0
 #define REGION_GENERAL		1
+#define REGION_HOP 2
 #define REGION_SECURITY		2
-#define REGION_MEDBAY		3
-#define REGION_RESEARCH		4
-#define REGION_ENGINEERING	5
-#define REGION_SUPPLY		6
-#define REGION_COMMAND		7
-#define REGION_CENTCOMM		8
+#define REGION_MEDBAY		4
+#define REGION_RESEARCH		5
+#define REGION_ENGINEERING	6
+#define REGION_SUPPLY		7
+#define REGION_COMMAND		8
+#define REGION_CENTCOMM		9
 
 //used for maploader
 #define MAP_MINX 1
