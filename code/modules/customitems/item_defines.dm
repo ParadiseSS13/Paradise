@@ -286,7 +286,7 @@
 	if(!proximity || !ishuman(user) || user.incapacitated())
 		return
 
-	if(!istype(target, /obj/item/clothing/suit/armor/vest/warden) && !istype(target, /obj/item/clothing/suit/armor/hos))
+	if(!istype(target, /obj/item/clothing/suit/armor/hos))
 		to_chat(user, "<span class='warning'>You can't modify [target]!</span>")
 		return
 
