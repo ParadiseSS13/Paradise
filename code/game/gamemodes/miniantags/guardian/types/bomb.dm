@@ -25,7 +25,7 @@
 			B.spawner = src
 			B.disguise (A)
 		else
-			to_chat(src, "<span class='danger'><B>Your powers are on cooldown! You must wait 20 seconds between bombs.</B></span>")
+			to_chat(src, "<span class='danger'>Your powers are on cooldown! You must wait 20 seconds between bombs.</span>")
 
 /obj/item/weapon/guardian_bomb
 	name = "bomb"

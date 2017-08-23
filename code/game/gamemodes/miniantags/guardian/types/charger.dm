@@ -24,7 +24,7 @@
 
 /mob/living/simple_animal/hostile/guardian/charger/OpenFire(atom/A)
 	if(!charging)
-		visible_message("<span class='danger'><b>[src]</b> [ranged_message] at [A]!</span>")
+		visible_message("<span class='danger'>[src] [ranged_message] at [A]!</span>")
 		ranged_cooldown = world.time + ranged_cooldown_time
 		clear_alert("charge")
 		chargealert = null
