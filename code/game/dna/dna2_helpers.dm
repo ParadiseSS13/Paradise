@@ -227,9 +227,9 @@
 	if(!head_organ)
 		log_runtime(EXCEPTION("Attempting to reset DNA from a missing head!"), src)
 		return
-	if(!H.h_style)
-		H.h_style = "Skinhead"
-	var/hair = hair_styles_full_list.Find(H.h_style)
+	if(!head_organ.h_style)
+		head_organ.h_style = "Skinhead"
+	var/hair = hair_styles_full_list.Find(head_organ.h_style)
 
 	// Facial Hair
 	if(!head_organ.f_style)
