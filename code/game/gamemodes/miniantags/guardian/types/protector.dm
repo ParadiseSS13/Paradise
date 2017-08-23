@@ -27,7 +27,7 @@
 		melee_damage_upper = initial(melee_damage_upper)
 		speed = initial(speed)
 		damage_transfer = 0.4
-		to_chat(src, "<span class='danger'><B>You switch to combat mode.</span></B>")
+		to_chat(src, "<span class='danger'>You switch to combat mode.</span>")
 		toggle = FALSE
 	else
 		var/icon/shield_overlay = icon('icons/effects/effects.dmi', "shield-grey")
@@ -37,7 +37,7 @@
 		melee_damage_upper = 2
 		speed = 1
 		damage_transfer = 0.05 //damage? what's damage?
-		to_chat(src, "<span class='danger'><B>You switch to protection mode.</span></B>")
+		to_chat(src, "<span class='danger'>You switch to protection mode.</span>")
 		toggle = TRUE
 
 /mob/living/simple_animal/hostile/guardian/protector/snapback() //snap to what? snap to the guardian!
@@ -47,11 +47,11 @@
 		else
 			if(istype(summoner.loc, /obj/effect))
 				to_chat(src, "<span class='holoparasite'>You moved out of range, and were pulled back! You can only move [range] meters from [summoner.real_name]!</span>")
-				visible_message("<span class='danger'>\The [src] jumps back to its user.</span>")
+				visible_message("<span class='danger'>[src] jumps back to its user.</span>")
 				Recall(TRUE)
 			else
 				to_chat(summoner, "<span class='holoparasite'>You moved out of range, and were pulled back! You can only move [range] meters from <b>[src]</b>!</span>")
-				summoner.visible_message("<span class='danger'>\The [summoner] jumps back to their protector.</span>")
+				summoner.visible_message("<span class='danger'>[summoner] jumps back to their protector.</span>")
 				new /obj/effect/overlay/temp/guardian/phase/out(get_turf(summoner))
 				summoner.forceMove(get_turf(src))
 				new /obj/effect/overlay/temp/guardian/phase(get_turf(summoner))//Protector

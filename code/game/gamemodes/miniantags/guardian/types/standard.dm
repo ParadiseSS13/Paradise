@@ -21,13 +21,13 @@
 	..()
 	if(iscarbon(target) && target != summoner)
 		if(length(battlecry) > 11)//no more then 11 letters in a battle cry.
-			src.visible_message("<span class='danger'><B>[src] punches [target]!</B></span>")
+			visible_message("<span class='danger'><B>[src] punches [target]!</B></span>")
 		else
-			src.say("[src.battlecry][src.battlecry][src.battlecry][src.battlecry][src.battlecry]")
-		playsound(loc, src.attack_sound, 50, 1, 1)
-		playsound(loc, src.attack_sound, 50, 1, 1)
-		playsound(loc, src.attack_sound, 50, 1, 1)
-		playsound(loc, src.attack_sound, 50, 1, 1)
+			say("[battlecry][battlecry][battlecry][battlecry][battlecry]")
+		playsound(loc, attack_sound, 50, 1, 1)
+		playsound(loc, attack_sound, 50, 1, 1)
+		playsound(loc, attack_sound, 50, 1, 1)
+		playsound(loc, attack_sound, 50, 1, 1)
 
 /mob/living/simple_animal/hostile/guardian/punch/sealpunch
 	name = "Seal Sprit"

@@ -20,12 +20,12 @@
 		summoner.adjust_fire_stacks(-20)
 
 /mob/living/simple_animal/hostile/guardian/fire/ToggleMode()
-	if(src.loc == summoner)
+	if(loc == summoner)
 		if(toggle)
-			to_chat(src, "You switch to dispersion mode, and will teleport victims away from your master.")
+			to_chat(src, "<span class='notice'>You switch to dispersion mode, and will teleport victims away from your master.</span>")
 			toggle = FALSE
 		else
-			to_chat(src, "You  switch to deception mode, and will turn your victims against their allies.")
+			to_chat(src, "<span class='notice'>You  switch to deception mode, and will turn your victims against their allies.</span>")
 			toggle = TRUE
 
 /mob/living/simple_animal/hostile/guardian/fire/AttackingTarget()
@@ -33,10 +33,10 @@
 		if(toggle)
 			if(ishuman(target) && !summoner)
 				spawn(0)
-					new /obj/effect/hallucination/delusion(target.loc, target, force_kind="custom", duration=200, skip_nearby=0, custom_icon = src.icon_state, custom_icon_file = src.icon)
+					new /obj/effect/hallucination/delusion(target.loc, target, force_kind="custom", duration=200, skip_nearby=0, custom_icon = icon_state, custom_icon_file = icon)
 		else
 			if(prob(45))
-				if(istype(target, /atom/movable))
+				if(ismovableatom(target))
 					var/atom/movable/M = target
 					if(!M.anchored && M != summoner)
 						new /obj/effect/overlay/temp/guardian/phase/out(get_turf(M))
@@ -56,7 +56,7 @@
 	collision_ignite(AM)
 
 /mob/living/simple_animal/hostile/guardian/fire/proc/collision_ignite(AM as mob|obj)
-	if(istype(AM, /mob/living/))
+	if(isliving(AM))
 		var/mob/living/M = AM
 		if(AM != summoner && M.fire_stacks < 7)
 			M.fire_stacks = 7

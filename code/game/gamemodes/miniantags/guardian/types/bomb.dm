@@ -13,14 +13,14 @@
 	if(!istype(A))
 		return
 	if(get_dist(get_turf(src), get_turf(A)) > 1)
-		to_chat(src, "<span class='danger'><B>You're too far from [A] to disguise it as a bomb.")
+		to_chat(src, "<span class='danger'><B>You're too far from [A] to disguise it as a bomb.</span>")
 		return
 	if(istype(A, /obj/))
 		if(bomb_cooldown <= world.time && !stat)
 			var/obj/item/weapon/guardian_bomb/B = new /obj/item/weapon/guardian_bomb(get_turf(A))
-			to_chat(src, "<span class='danger'><B>Success! Bomb on \the [A] armed!</B></span>")
+			to_chat(src, "<span class='danger'><B>Success! Bomb on [A] armed!</B></span>")
 			if(summoner)
-				to_chat(summoner, "<span class='warning'>Your guardian has primed \the [A] to explode!</span>")
+				to_chat(summoner, "<span class='warning'>Your guardian has primed [A] to explode!</span>")
 			bomb_cooldown = world.time + 200
 			B.spawner = src
 			B.disguise (A)
@@ -35,16 +35,16 @@
 
 
 /obj/item/weapon/guardian_bomb/proc/disguise(var/obj/A)
-	A.loc = src
+	A.forceMove(src)
 	stored_obj = A
 	anchored = A.anchored
 	density = A.density
 	appearance = A.appearance
 	spawn(600)
 		if(src)
-			stored_obj.loc = get_turf(src.loc)
+			stored_obj.loc = get_turf(loc)
 			if(spawner)
-				to_chat(spawner, "<span class='danger'><B>Failure! Your trap on \the [stored_obj] didn't catch anyone this time.</B></span>")
+				to_chat(spawner, "<span class='danger'><B>Failure! Your trap on [stored_obj] didn't catch anyone this time.</B></span>")
 			qdel(src)
 
 /obj/item/weapon/guardian_bomb/proc/detonate(var/mob/living/user)
@@ -53,11 +53,11 @@
 		var/mob/living/simple_animal/hostile/guardian/G = spawner
 		if(user == G.summoner)
 			to_chat(user, "<span class='danger'>You knew this because of your link with your guardian, so you smartly defuse the bomb.</span>")
-			stored_obj.loc = get_turf(src.loc)
+			stored_obj.loc = get_turf(loc)
 			qdel(src)
 			return
-	to_chat(spawner, "<span class='danger'><B>Success! Your trap on \the [src] caught [user]!</B></span>")
-	stored_obj.loc = get_turf(src.loc)
+	to_chat(spawner, "<span class='danger'><B>Success! Your trap on [src] caught [user]!</B></span>")
+	stored_obj.loc = get_turf(loc)
 	playsound(get_turf(src),'sound/effects/Explosion2.ogg', 200, 1)
 	user.ex_act(2)
 	qdel(src)

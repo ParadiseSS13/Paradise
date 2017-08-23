@@ -29,7 +29,6 @@
 	melee_damage_type = STAMINA
 	adminseal = TRUE
 
-
 /mob/living/simple_animal/hostile/guardian/healer/New()
 	..()
 
@@ -41,11 +40,11 @@
 /mob/living/simple_animal/hostile/guardian/healer/AttackingTarget()
 	..()
 	if(toggle == TRUE)
-		if(src.loc == summoner)
-			to_chat(src, "<span class='danger'><B>You must be manifested to heal!</span></B>")
+		if(loc == summoner)
+			to_chat(src, "<span class='danger'>You must be manifested to heal!</span>")
 			return
 		if(iscarbon(target))
-			src.changeNext_move(CLICK_CD_MELEE)
+			changeNext_move(CLICK_CD_MELEE)
 			if(heal_cooldown <= world.time && !stat)
 				var/mob/living/carbon/C = target
 				C.adjustBruteLoss(-5)
@@ -55,71 +54,71 @@
 				heal_cooldown = world.time + 20
 
 /mob/living/simple_animal/hostile/guardian/healer/ToggleMode()
-	if(src.loc == summoner)
+	if(loc == summoner)
 		if(toggle)
 			a_intent = INTENT_HARM
 			speed = 0
 			damage_transfer = 0.7
-			if(src.adminseal)
+			if(adminseal)
 				damage_transfer = 0
 			melee_damage_lower = 15
 			melee_damage_upper = 15
-			to_chat(src, "<span class='danger'><B>You switch to combat mode.</span></B>")
+			to_chat(src, "<span class='danger'>You switch to combat mode.</span>")
 			toggle = FALSE
 		else
 			a_intent = INTENT_HELP
 			speed = 1
 			damage_transfer = 1
-			if(src.adminseal)
+			if(adminseal)
 				damage_transfer = 0
 			melee_damage_lower = 0
 			melee_damage_upper = 0
-			to_chat(src, "<span class='danger'><B>You switch to healing mode.</span></B>")
+			to_chat(src, "<span class='danger'>You switch to healing mode.</span>")
 			toggle = TRUE
 	else
-		to_chat(src, "<span class='danger'><B>You have to be recalled to toggle modes!</span></B>")
+		to_chat(src, "<span class='danger'>You have to be recalled to toggle modes!</span>")
 
 
 /mob/living/simple_animal/hostile/guardian/healer/verb/Beacon()
 	set name = "Place Bluespsace Beacon"
 	set category = "Guardian"
 	set desc = "Mark a floor as your beacon point, allowing you to warp targets to it. Your beacon will not work in unfavorable atmospheric conditions."
-	if(beacon_cooldown<world.time)
-		var/turf/beacon_loc = get_turf(src.loc)
+	if(beacon_cooldown < world.time)
+		var/turf/beacon_loc = get_turf(loc)
 		if(istype(beacon_loc, /turf/simulated/floor))
 			var/turf/simulated/floor/F = beacon_loc
 			F.icon = 'icons/turf/floors.dmi'
 			F.name = "bluespace recieving pad"
 			F.desc = "A recieving zone for bluespace teleportations. Building a wall over it should disable it."
 			F.icon_state = "light_on-w"
-			to_chat(src, "<span class='danger'><B>Beacon placed! You may now warp targets to it, including your user, via Alt+Click. </span></B>")
+			to_chat(src, "<span class='danger'>Beacon placed! You may now warp targets to it, including your user, via Alt+Click. </span>")
 			if(beacon)
 				beacon.ChangeTurf(/turf/simulated/floor/plating)
 			beacon = F
 			beacon_cooldown = world.time+3000
 
 	else
-		to_chat(src, "<span class='danger'><B>Your power is on cooldown. You must wait five minutes between placing beacons.</span></B>")
+		to_chat(src, "<span class='danger'>Your power is on cooldown. You must wait five minutes between placing beacons.</span>")
 
 /mob/living/simple_animal/hostile/guardian/healer/AltClickOn(atom/movable/A)
 	if(!istype(A))
 		return
-	if(src.loc == summoner)
-		to_chat(src, "<span class='danger'><B>You must be manifested to warp a target!</span></B>")
+	if(loc == summoner)
+		to_chat(src, "<span class='danger'>You must be manifested to warp a target!</span>")
 		return
 	if(!beacon)
-		to_chat(src, "<span class='danger'><B>You need a beacon placed to warp things!</span></B>")
+		to_chat(src, "<span class='danger'>You need a beacon placed to warp things!</span>")
 		return
 	if(!Adjacent(A))
-		to_chat(src, "<span class='danger'><B>You must be adjacent to your target!</span></B>")
+		to_chat(src, "<span class='danger'>You must be adjacent to your target!</span>")
 		return
 	if((A.anchored))
-		to_chat(src, "<span class='danger'><B>Your target can not be anchored!</span></B>")
+		to_chat(src, "<span class='danger'>Your target can not be anchored!</span>")
 		return
-	to_chat(src, "<span class='danger'><B>You begin to warp [A]</span></B>")
+	to_chat(src, "<span class='danger'>You begin to warp [A]</span>")
 	if(do_mob(src, A, 50))
 		if(!A.anchored)
-			if(src.beacon) //Check that the beacon still exists and is in a safe place. No instant kills.
+			if(beacon) //Check that the beacon still exists and is in a safe place. No instant kills.
 				if(beacon.air)
 					var/datum/gas_mixture/Z = beacon.air
 					if(Z.oxygen >= 16 && !Z.toxins && Z.carbon_dioxide < 10 && !Z.trace_gases.len)
@@ -130,10 +129,10 @@
 								do_teleport(A, beacon, 0)
 								new /obj/effect/overlay/temp/guardian/phase(get_turf(A))
 						else
-							to_chat(src, "<span class='danger'><B>The beacon isn't in a safe location!</span></B>")
+							to_chat(src, "<span class='danger'>The beacon isn't in a safe location!</span>")
 					else
-						to_chat(src, "<span class='danger'><B>The beacon isn't in a safe location!</span></B>")
+						to_chat(src, "<span class='danger'>The beacon isn't in a safe location!</span>")
 			else
-				to_chat(src, "<span class='danger'><B>You need a beacon to warp things!</span></B>")
+				to_chat(src, "<span class='danger'>You need a beacon to warp things!</span>")
 	else
-		to_chat(src, "<span class='danger'><B>You need to hold still!</span></B>")
+		to_chat(src, "<span class='danger'>You need to hold still!</span>")

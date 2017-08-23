@@ -46,7 +46,7 @@
 	if(summoner)
 		if(summoner.stat == DEAD)
 			to_chat(src, "<span class='danger'>Your summoner has died!</span>")
-			visible_message("<span class='danger'><B>The [src] dies along with its user!</B></span>")
+			visible_message("<span class='danger'>The [src] dies along with its user!</span>")
 			ghostize()
 			qdel(src)
 	snapback()
@@ -75,7 +75,7 @@
 
 /mob/living/simple_animal/hostile/guardian/death(gibbed)
 	..()
-	to_chat(summoner, "<span class='danger'><B>Your [name] died somehow!</span></B>")
+	to_chat(summoner, "<span class='danger'>Your [name] died somehow!</span>")
 	summoner.death()
 
 
@@ -96,10 +96,10 @@
 			return
 		summoner.adjustBruteLoss(damage)
 		if(damage)
-			to_chat(summoner, "<span class='danger'><B>Your [name] is under attack! You take damage!</span></B>")
-			summoner.visible_message("<span class='danger'><B>Blood sprays from [summoner] as [src] takes damage!</B></span>")
+			to_chat(summoner, "<span class='danger'>Your [name] is under attack! You take damage!</span>")
+			summoner.visible_message("<span class='danger'>Blood sprays from [summoner] as [src] takes damage!</span>")
 		if(summoner.stat == UNCONSCIOUS)
-			to_chat(summoner, "<span class='danger'><B>Your body can't take the strain of sustaining [src] in this condition, it begins to fall apart!</span></B>")
+			to_chat(summoner, "<span class='danger'>Your body can't take the strain of sustaining [src] in this condition, it begins to fall apart!</span>")
 			summoner.adjustCloneLoss(damage/2)
 
 /mob/living/simple_animal/hostile/guardian/ex_act(severity, target)
@@ -115,7 +115,7 @@
 
 /mob/living/simple_animal/hostile/guardian/gib()
 	if(summoner)
-		to_chat(summoner, "<span class='danger'><B>Your [src] was blown up!</span></B>")
+		to_chat(summoner, "<span class='danger'>Your [src] was blown up!</span>")
 		summoner.Weaken(10)// your fermillier has died! ROLL FOR CON LOSS!
 	ghostize()
 	qdel(src)
@@ -153,7 +153,7 @@
 	to_chat(src, "<span class='changeling'><i>[src]:</i> [input]</span>")
 
 /mob/living/simple_animal/hostile/guardian/proc/ToggleMode()
-	to_chat(src, "<span class='danger'><B>You dont have another mode!</span></B>")
+	to_chat(src, "<span class='danger'>You dont have another mode!</span>")
 
 
 /mob/living/proc/guardian_comm()
