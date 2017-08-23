@@ -882,6 +882,48 @@ Traitors and the like can also be revived with the previous role mostly intact.
 	message_admins("[key_name_admin(usr)] blanked all telecomms scripts.")
 	feedback_add_details("admin_verb","RAT") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
+/client/proc/list_ssds()
+	set category = "Admin"
+	set name = "List SSDs"
+	set desc = "Lists SSD players"
+
+	if(!check_rights(R_ADMIN))
+		return
+
+	var/msg = "<html><head><title>SSD Report</title></head><body>"
+	msg += "SSD Players:<BR><TABLE border='1'>"
+	msg += "<TR><TD><B>Key</B></TD><TD><B>Real Name</B></TD><TD><B>Job</B></TD><TD><B>Mins SSD</B></TD><TD><B>Special Role</B></TD><TD><B>Area</B></TD><TD><B>PPN</B></TD><TD><B>Cryo</B></TD></TR>"
+	var/mins_ssd
+	var/job_string
+	var/key_string
+	var/role_string
+	for(var/mob/living/carbon/human/H in living_mob_list)
+		if(!isLivingSSD(H))
+			continue
+		mins_ssd = round((world.time - H.last_logout) / 600)
+		if(H.job)
+			job_string = H.job
+		else
+			job_string = "-"
+		key_string = H.key
+		if(job_string in command_positions)
+			job_string = "<U>" + job_string + "</U>"
+		role_string = "-"
+		if(H.mind)
+			if(H.mind.special_role)
+				role_string = "<U>[H.mind.special_role]</U>"
+			if(!H.key && H.mind.key)
+				key_string = H.mind.key
+		msg += "<TR><TD>[key_string]</TD><TD>[H.real_name]</TD><TD>[job_string]</TD><TD>[mins_ssd]</TD><TD>[role_string]</TD>"
+		msg += "<TD>[get_area(H)]</TD><TD><A HREF='?_src_=holder;adminplayeropts=\ref[H]'>PP</A></TD>"
+		if(istype(H.loc, /obj/machinery/cryopod))
+			msg += "<TD>In Cryo</TD>"
+		else
+			msg += "<TD><A href='?_src_=holder;cryossd=[H.UID()]'>Cryo</A></TD>"
+		msg += "</TR>"
+	msg += "</TABLE></BODY></HTML>"
+	src << browse(msg, "window=Player_ssd_check")
+
 /client/proc/toggle_ert_calling()
 	set category = "Event"
 	set name = "Toggle ERT"
