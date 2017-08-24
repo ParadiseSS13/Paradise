@@ -1,0 +1,4 @@
+author: "Birdtalon"
+delete-after: True
+changes: 
+  - rscadd: "Cultist structures can now be destroyed using melee and or projectiles"
