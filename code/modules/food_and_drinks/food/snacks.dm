@@ -2049,7 +2049,7 @@
 	icon_state = "hawaiianpizza" //NEEDED
 	slice_path = /obj/item/weapon/reagent_containers/food/snacks/hawaiianpizzaslice
 	slices_num = 6
-	list_reagents = list("protein" = 15, "tomatojuice" = 6 "plantmatter" = 20, "pineapplejuice" = 6, "vitamin" = 5)
+	list_reagents = list("protein" = 15, "tomatojuice" = 6, "plantmatter" = 20, "pineapplejuice" = 6, "vitamin" = 5)
 
 /obj/item/weapon/reagent_containers/food/snacks/hawaiianpizzaslice
 	name = "Hawaiian pizza slice"
