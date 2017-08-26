@@ -41,7 +41,6 @@
 	force = 15
 	throwforce = 25
 	embed_chance = 75
-	var/cooldown = 0
 
 /obj/item/weapon/melee/cultblade/dagger/attack(atom/target, mob/living/carbon/human/user)
 	..()
