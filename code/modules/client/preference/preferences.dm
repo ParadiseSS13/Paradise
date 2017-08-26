@@ -830,7 +830,8 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 	HTML += ShowDisabilityState(user,DISABILITY_FLAG_NERVOUS,"Stutter")
 	HTML += ShowDisabilityState(user,DISABILITY_FLAG_SWEDISH,"Swedish accent")
 	HTML += ShowDisabilityState(user,DISABILITY_FLAG_LISP,"Lisp")
-	HTML += ShowDisabilityState(user,DISABILITY_FLAG_DIZZY,"Suffers from dizziness")
+	HTML += ShowDisabilityState(user,DISABILITY_FLAG_DIZZY,"Dizziness")
+	HTML += ShowDisabilityState(user,DISABILITY_FLAG_SCRAMBLED,"Can't speak properly")
 
 
 	HTML += {"</ul>
@@ -2196,6 +2197,9 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 
 	if(disabilities & DISABILITY_FLAG_DIZZY)
 		character.dna.SetSEState(DIZZYBLOCK,1,1)
+
+	if(disabilities & DISABILITY_FLAG_SCRAMBLED)
+		character.dna.SetSEState(SCRAMBLEBLOCK,1,1)
 
 	S.handle_dna(character)
 
