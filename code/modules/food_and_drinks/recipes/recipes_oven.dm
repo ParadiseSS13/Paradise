@@ -258,9 +258,9 @@
 		/obj/item/weapon/reagent_containers/food/snacks/sliceable/flatdough,
 		/obj/item/weapon/reagent_containers/food/snacks/grown/tomato,
 		/obj/item/weapon/reagent_containers/food/snacks/cheesewedge,
-		/obj/item/weapon/reagent_containers/food/snacks/grown/pineapple,
+		/obj/item/weapon/reagent_containers/food/snacks/pineappleslice,
+		/obj/item/weapon/reagent_containers/food/snacks/pineappleslice,
 		/obj/item/weapon/reagent_containers/food/snacks/meat,
-		/obj/item/weapon/reagent_containers/food/snacks/meat
 	)
 	result = /obj/item/weapon/reagent_containers/food/snacks/sliceable/pizza/hawaiianpizza
 
