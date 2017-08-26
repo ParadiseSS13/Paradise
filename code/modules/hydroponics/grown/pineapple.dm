@@ -1,6 +1,6 @@
 /obj/item/seeds/pineapple
   name = "pack of pineapple seeds"
-  desc = "These seeds grow into pineapple trees."
+  desc = "These seeds grow into pineapple plants."
   icon_state = "seed-pineapple" //NEEDED
   species = "pineapple"
   plantname = "Pineapple Plant"
