@@ -159,11 +159,11 @@
 			if(!in_range(instrumentObj, usr))
 				return
 
-			if(lentext(t) >= 3072)
+			if(lentext(t) >= 12000)
 				var/cont = input(usr, "Your message is too long! Would you like to continue editing it?", "", "yes") in list("yes", "no")
 				if(cont == "no")
 					break
-		while(lentext(t) > 3072)
+		while(lentext(t) > 12000)
 
 		//split into lines
 		spawn()
@@ -175,12 +175,12 @@
 				lines.Cut(1,2)
 			else
 				tempo = sanitize_tempo(5) // default 120 BPM
-			if(lines.len > 50)
+			if(lines.len > 200)
 				to_chat(usr, "Too many lines!")
-				lines.Cut(51)
+				lines.Cut(201)
 			var/linenum = 1
 			for(var/l in lines)
-				if(lentext(l) > 50)
+				if(lentext(l) > 200)
 					to_chat(usr, "Line [linenum] too long!")
 					lines.Remove(l)
 				else
@@ -221,10 +221,10 @@
 		var/newline = html_encode(input("Enter your line: ", instrumentObj.name) as text|null)
 		if(!newline || !in_range(instrumentObj, usr))
 			return
-		if(lines.len > 50)
+		if(lines.len > 200)
 			return
-		if(lentext(newline) > 50)
-			newline = copytext(newline, 1, 50)
+		if(lentext(newline) > 200)
+			newline = copytext(newline, 1, 200)
 
 		lines.Insert(num, newline)
 		nanomanager.update_uis(src)
@@ -241,8 +241,8 @@
 		var/content = html_encode(input("Enter your line: ", instrumentObj.name, lines[num]) as text|null)
 		if(!content || !in_range(instrumentObj, usr))
 			return
-		if(lentext(content) > 50)
-			content = copytext(content, 1, 50)
+		if(lentext(content) > 200)
+			content = copytext(content, 1, 200)
 		if(num > lines.len || num < 1)
 			return
 		lines[num] = content
