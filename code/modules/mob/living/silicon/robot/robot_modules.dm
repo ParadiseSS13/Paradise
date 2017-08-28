@@ -133,6 +133,7 @@
 /obj/item/weapon/robot_module/medical/New()
 	..()
 	modules += new /obj/item/device/healthanalyzer/advanced(src)
+	modules += new /obj/item/device/robotanalyzer(src)
 	modules += new /obj/item/device/reagent_scanner/adv(src)
 	modules += new /obj/item/weapon/borg_defib(src)
 	modules += new /obj/item/roller_holder(src)
