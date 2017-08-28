@@ -1,0 +1,5 @@
+author: "Fox Mccloud"
+delete-after: True
+changes: 
+  - rscadd: "Adds an accordian, glockenspiel, harmonica, recorder, saxaphone, trombone, xylophone, bikehorn, and piano synthesizer"
+  - rscadd: "pick up a big band supply pack of instruments at cargo for 50 supply points"
