@@ -51,7 +51,7 @@ var/list/holopads = list()
 	var/temp = ""
 	var/list/holo_calls	//array of /datum/holocalls
 	var/datum/holocall/outgoing_call	//do not modify the datums only check and call the public procs
-	var/static/force_answer_call = FALSE	//Calls will be automatically answered after a couple rings, here for debugging
+	var/static/force_answer_call = TRUE	//Calls will be automatically answered after a couple rings, here for debugging
 	var/static/list/holopads = list()
 
 /obj/machinery/hologram/holopad/New()
@@ -79,7 +79,7 @@ var/list/holopads = list()
 	if(powered())
 		stat &= ~NOPOWER
 	else
-		stat |= ~NOPOWER
+		stat |= NOPOWER
 		if(outgoing_call)
 			outgoing_call.ConnectionFailure(src)
 
@@ -102,19 +102,11 @@ var/list/holopads = list()
 	default_deconstruction_crowbar(P)
 
 
-/obj/machinery/hologram/holopad/proc/CheckCallClose()
-	for(var/I in holo_calls)
-		var/datum/holocall/HC = I
-		if(usr == HC.eye)
-			HC.Disconnect(HC.calling_holopad)	//disconnect via clicking the called holopad
-			return TRUE
-	return FALSE
-
 /obj/machinery/hologram/holopad/attack_hand(mob/living/carbon/human/user)
 	if(..())
 		return
 
-	if(CheckCallClose() || outgoing_call)
+	if(outgoing_call)
 		return
 
 	user.set_machine(src)
@@ -141,8 +133,8 @@ var/list/holopads = list()
 	if(temp)
 		dat = temp
 	else
-		dat = "<a href='?src=\ref[src];AIrequest=1'>Request an AI's presence.</a><br>"
-		dat += "<a href='?src=\ref[src];Holocall=1'>Call another holopad.</a><br>"
+		dat = "<a href='?src=[UID()];AIrequest=1'>Request an AI's presence.</a><br>"
+		dat += "<a href='?src=[UID()];Holocall=1'>Call another holopad.</a><br>"
 
 		if(LAZYLEN(holo_calls))
 			dat += "=====================================================<br>"
@@ -152,7 +144,7 @@ var/list/holopads = list()
 		for(var/I in holo_calls)
 			var/datum/holocall/HC = I
 			if(HC.connected_holopad != src)
-				dat += "<a href='?src=\ref[src];connectcall=\ref[HC]'>Answer call from [get_area(HC.calling_holopad)].</a><br>"
+				dat += "<a href='?src=[UID()];connectcall=\ref[HC]'>Answer call from [get_area(HC.calling_holopad)].</a><br>"
 				one_unanswered_call = TRUE
 			else
 				one_answered_call = TRUE
@@ -163,7 +155,7 @@ var/list/holopads = list()
 		for(var/I in holo_calls)
 			var/datum/holocall/HC = I
 			if(HC.connected_holopad == src)
-				dat += "<a href='?src=\ref[src];disconnectcall=\ref[HC]'>Disconnect call from [HC.user].</a><br>"
+				dat += "<a href='?src=[UID()];disconnectcall=\ref[HC]'>Disconnect call from [HC.user].</a><br>"
 
 
 	var/datum/browser/popup = new(user, "holopad", name, 300, 130)
@@ -181,22 +173,22 @@ var/list/holopads = list()
 		if(last_request + 200 < world.time)
 			last_request = world.time
 			temp = "You requested an AI's presence.<BR>"
-			temp += "<A href='?src=\ref[src];mainmenu=1'>Main Menu</A>"
+			temp += "<A href='?src=[UID()];mainmenu=1'>Main Menu</A>"
 			var/area/area = get_area(src)
 			for(var/mob/living/silicon/ai/AI in ai_list)
 				if(!AI.client)
 					continue
-				to_chat(AI, "<span class='info'>Your presence is requested at <a href='?src=\ref[AI];jumptoholopad=\ref[src]'>\the [area]</a>.</span>")
+				to_chat(AI, "<span class='info'>Your presence is requested at <a href='?src=\ref[AI];jumptoholopad=[UID()]'>\the [area]</a>.</span>")
 		else
 			temp = "A request for AI presence was already sent recently.<BR>"
-			temp += "<A href='?src=\ref[src];mainmenu=1'>Main Menu</A>"
+			temp += "<A href='?src=[UID()];mainmenu=1'>Main Menu</A>"
 
 	else if(href_list["Holocall"])
 		if(outgoing_call)
 			return
 
 		temp = "You must stand on the holopad to make a call!<br>"
-		temp += "<A href='?src=\ref[src];mainmenu=1'>Main Menu</A>"
+		temp += "<A href='?src=[UID()];mainmenu=1'>Main Menu</A>"
 		if(usr.loc == loc)
 			var/list/callnames = list()
 			for(var/I in holopads)
@@ -212,7 +204,7 @@ var/list/holopads = list()
 
 			if(usr.loc == loc)
 				temp = "Dialing...<br>"
-				temp += "<A href='?src=\ref[src];mainmenu=1'>Main Menu</A>"
+				temp += "<A href='?src=[UID()];mainmenu=1'>Main Menu</A>"
 				new /datum/holocall(usr, src, callnames[result])
 
 	else if(href_list["connectcall"])
