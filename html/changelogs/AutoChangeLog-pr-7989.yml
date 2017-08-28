@@ -1,0 +1,4 @@
+author: "Fethas"
+delete-after: True
+changes: 
+  - tweak: "The cultist dagger has had its special removed, it still cuases small bleed and retains its embed chance."
