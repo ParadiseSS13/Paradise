@@ -1,0 +1,4 @@
+author: "Birdtalon"
+delete-after: True
+changes: 
+  - tweak: "Syndicate bee-case sound now only plays locally when opened."
