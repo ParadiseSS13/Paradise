@@ -1,4 +1,0 @@
-author: "Fethas"
-delete-after: True
-changes: 
-  - tweak: "Prayers now dsiplay the diety set by chaplains (if any) to admins in prayers, or eldergod if a cultist. Prayers are purple for normies, Red for cultist and blue for chaplains"
