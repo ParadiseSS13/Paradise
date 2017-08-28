@@ -1,0 +1,4 @@
+author: "Birdtalon"
+delete-after: True
+changes: 
+  - tweak: "Nanotrasen Mining Bots are no longer safe from EMPs."
