@@ -1,0 +1,4 @@
+author: "matt81093"
+delete-after: True
+changes: 
+  - rscadd: "robot analyzer to medical module cyborgs for IPC diagnosing"
