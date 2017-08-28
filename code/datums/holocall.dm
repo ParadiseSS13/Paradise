@@ -86,6 +86,7 @@
 		connected_holopad.atom_say("[usr] disconnected.")
 
 	user.unset_machine(H)
+	hangup.Remove(user)
 
 	ConnectionFailure(H, TRUE)
 
@@ -145,7 +146,8 @@
 	user.reset_perspective(eye)
 	eye.setLoc(get_turf(H))
 
-	hangup = new(eye, src)
+	hangup = new(eye,src)
+	hangup.Grant(user)
 
 //Checks the validity of a holocall and qdels itself if it's not. Returns TRUE if valid, FALSE otherwise
 /datum/holocall/proc/Check()

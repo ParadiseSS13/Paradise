@@ -51,7 +51,7 @@ var/list/holopads = list()
 	var/temp = ""
 	var/list/holo_calls	//array of /datum/holocalls
 	var/datum/holocall/outgoing_call	//do not modify the datums only check and call the public procs
-	var/static/force_answer_call = TRUE	//Calls will be automatically answered after a couple rings, here for debugging
+	var/static/force_answer_call = FALSE	//Calls will be automatically answered after a couple rings, here for debugging
 	var/static/list/holopads = list()
 
 /obj/machinery/hologram/holopad/New()
