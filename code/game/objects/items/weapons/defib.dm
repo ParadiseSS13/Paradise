@@ -77,6 +77,9 @@
 /obj/item/weapon/defibrillator/ui_action_click()
 	toggle_paddles()
 
+/obj/item/weapon/defibrillator/CtrlClick()
+	toggle_paddles()
+
 /obj/item/weapon/defibrillator/attackby(obj/item/weapon/W, mob/user, params)
 	if(istype(W, /obj/item/weapon/stock_parts/cell))
 		var/obj/item/weapon/stock_parts/cell/C = W
