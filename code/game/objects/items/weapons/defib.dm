@@ -78,7 +78,8 @@
 	toggle_paddles()
 
 /obj/item/weapon/defibrillator/CtrlClick()
-	toggle_paddles()
+	if(ishuman(usr) && Adjacent(usr))
+		toggle_paddles()
 
 /obj/item/weapon/defibrillator/attackby(obj/item/weapon/W, mob/user, params)
 	if(istype(W, /obj/item/weapon/stock_parts/cell))
