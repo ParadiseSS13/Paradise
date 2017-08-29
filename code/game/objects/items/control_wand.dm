@@ -101,15 +101,10 @@
 	icon_state = "gangtool-blue"
 	region_access = REGION_MEDBAY
 
-/obj/item/weapon/door_remote/civilian
-	name = "civilian door remote"
+/obj/item/weapon/door_remote/civillian
+	name = "civillian door remote"
 	icon_state = "gangtool-white"
 	region_access = REGION_GENERAL
-
-/obj/item/weapon/door_remote/head_of_personnel
-	name = "personnel door remote"
-	icon_state ="gangtool-white"
-	region_access = REGION_HOP
 
 /obj/item/weapon/door_remote/centcomm
 	name = "centcomm door remote"
