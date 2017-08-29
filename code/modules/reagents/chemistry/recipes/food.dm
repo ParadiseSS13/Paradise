@@ -198,3 +198,13 @@
 	result_amount = 2
 	mix_message = "The beff and the synthflesh combine to form a smoky red log."
 	mix_sound = 'sound/effects/blobattack.ogg'
+
+/datum/chemical_reaction/enzyme
+	name = "Universal enzyme"
+	id = "enzyme"
+	result = "enzyme"
+	required_reagents = list("plantmatter" = 1, "sugar" = 1)
+	result_amount = 2
+	min_temp = 750
+	mix_message = "The mixture bubbles and leaves behind the enzymes."
+	mix_sound = 'sound/goonstation/misc/fuse.ogg'
