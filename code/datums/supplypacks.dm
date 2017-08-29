@@ -627,10 +627,10 @@ var/list/all_supply_groups = list(supply_emergency,supply_security,supply_engine
 
 /datum/supply_packs/engineering/engine/spacesuit
 	name = "Space Suit Crate"
-	contains = list(/obj/item/clothing/suit/space,
-					/obj/item/clothing/suit/space,
-					/obj/item/clothing/head/helmet/space,
-					/obj/item/clothing/head/helmet/space,
+	contains = list(/obj/item/clothing/suit/space/eva,
+					/obj/item/clothing/suit/space/eva,
+					/obj/item/clothing/head/helmet/space/eva,
+					/obj/item/clothing/head/helmet/space/eva,
 					/obj/item/clothing/mask/breath,
 					/obj/item/clothing/mask/breath)
 	cost = 30

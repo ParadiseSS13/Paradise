@@ -131,34 +131,6 @@
 	strip_delay = 40
 	put_on_delay = 20
 
-//Paramedic EVA suit
-/obj/item/clothing/head/helmet/space/eva/paramedic
-	name = "Paramedic EVA helmet"
-	desc = "A paramedic EVA helmet. Used in the recovery of bodies from space."
-	icon_state = "paramedic-eva-helmet"
-	item_state = "paramedic-eva-helmet"
-	species_fit = list("Vox", "Grey")
-	sprite_sheets = list(
-		"Vox" = 'icons/mob/species/vox/helmet.dmi',
-		"Grey" = 'icons/mob/species/grey/helmet.dmi'
-		)
-	sprite_sheets_obj = list(
-		"Vox" = 'icons/obj/clothing/species/vox/hats.dmi'
-		)
-
-/obj/item/clothing/suit/space/eva/paramedic
-	name = "Paramedic EVA suit"
-	icon_state = "paramedic-eva"
-	item_state = "paramedic-eva"
-	desc = "A paramedic EVA suit. Used in the recovery of bodies from space."
-	species_fit = list("Vox")
-	sprite_sheets = list(
-		"Vox" = 'icons/mob/species/vox/suit.dmi'
-		)
-	sprite_sheets_obj = list(
-		"Vox" = 'icons/obj/clothing/species/vox/suits.dmi'
-		)
-
 /obj/item/clothing/suit/space/eva
 	name = "EVA suit"
 	icon_state = "spacenew"
@@ -200,6 +172,34 @@
 	sprite_sheets_obj = list(
 		"Vox" = 'icons/obj/clothing/species/vox/hats.dmi',
 		"Vulpkanin" = 'icons/obj/clothing/species/vulpkanin/hats.dmi'
+		)
+
+//Paramedic EVA suit
+/obj/item/clothing/head/helmet/space/eva/paramedic
+	name = "Paramedic EVA helmet"
+	desc = "A paramedic EVA helmet. Used in the recovery of bodies from space."
+	icon_state = "paramedic-eva-helmet"
+	item_state = "paramedic-eva-helmet"
+	species_fit = list("Vox", "Grey")
+	sprite_sheets = list(
+		"Vox" = 'icons/mob/species/vox/helmet.dmi',
+		"Grey" = 'icons/mob/species/grey/helmet.dmi'
+		)
+	sprite_sheets_obj = list(
+		"Vox" = 'icons/obj/clothing/species/vox/hats.dmi'
+		)
+
+/obj/item/clothing/suit/space/eva/paramedic
+	name = "Paramedic EVA suit"
+	icon_state = "paramedic-eva"
+	item_state = "paramedic-eva"
+	desc = "A paramedic EVA suit. Used in the recovery of bodies from space."
+	species_fit = list("Vox")
+	sprite_sheets = list(
+		"Vox" = 'icons/mob/species/vox/suit.dmi'
+		)
+	sprite_sheets_obj = list(
+		"Vox" = 'icons/obj/clothing/species/vox/suits.dmi'
 		)
 
 //Mime's Hardsuit
