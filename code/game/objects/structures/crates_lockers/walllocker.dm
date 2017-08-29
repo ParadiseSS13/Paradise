@@ -18,7 +18,8 @@
 //spawns endless (3 sets) amounts of breathmask, emergency oxy tank and crowbar
 
 /obj/structure/closet/walllocker/CtrlClick()
-	verb_toggleopen()
+	if(ishuman(usr) && Adjacent(usr))
+		verb_toggleopen()
 
 /obj/structure/closet/walllocker/emerglocker
 	name = "emergency locker"
