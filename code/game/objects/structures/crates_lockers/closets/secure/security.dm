@@ -56,7 +56,7 @@
 		new /obj/item/weapon/gun/energy/gun(src)
 		new /obj/item/device/flash(src)
 		new /obj/item/clothing/accessory/petcollar(src)
-		new /obj/item/weapon/door_remote/civillian(src)
+		new /obj/item/weapon/door_remote/civilian(src)
 
 /obj/structure/closet/secure_closet/hop2
 	name = "head of personnel's attire"

@@ -258,25 +258,24 @@ var/const/access_trade_sol = 160
 	return (get_all_accesses() | get_all_centcom_access() | get_all_syndicate_access() | get_all_misc_access())
 
 /proc/get_region_accesses(code)
-	switch(code)
-		if(REGION_ALL)
-			return get_all_accesses()
-		if(REGION_GENERAL) //station general
-			return list(access_kitchen, access_bar, access_hydroponics, access_janitor, access_chapel_office, access_crematorium, access_library, access_theatre, access_lawyer, access_magistrate, access_clown, access_mime)
-		if(REGION_SECURITY) //security
-			return list(access_sec_doors, access_weapons, access_security, access_brig, access_armory, access_forensics_lockers, access_court, access_pilot, access_hos)
-		if(REGION_MEDBAY) //medbay
-			return list(access_medical, access_genetics, access_morgue, access_chemistry, access_psychiatrist, access_virology, access_surgery, access_cmo, access_paramedic)
-		if(REGION_RESEARCH) //research
-			return list(access_research, access_tox, access_tox_storage, access_genetics, access_robotics, access_xenobiology, access_xenoarch, access_minisat, access_rd, access_network)
-		if(REGION_ENGINEERING) //engineering and maintenance
-			return list(access_construction, access_maint_tunnels, access_engine, access_engine_equip, access_external_airlocks, access_tech_storage, access_atmospherics, access_minisat, access_ce, access_mechanic)
-		if(REGION_SUPPLY) //supply
-			return list(access_mailsorting, access_mining, access_mining_station, access_mineral_storeroom, access_cargo, access_qm)
-		if(REGION_COMMAND) //command
-			return list(access_heads, access_RC_announce, access_keycard_auth, access_change_ids, access_ai_upload, access_teleporter, access_eva, access_tcomsat, access_gateway, access_all_personal_lockers, access_heads_vault, access_blueshield, access_ntrep, access_hop, access_captain)
-		if(REGION_CENTCOMM) //because why the heck not
-			return get_all_centcom_access() + get_all_accesses()
+	var/return_accesses = null
+	if(code & REGION_GENERAL)
+		return_accesses += list(access_kitchen, access_bar, access_hydroponics, access_janitor, access_chapel_office, access_crematorium, access_library, access_theatre, access_lawyer, access_magistrate, access_clown, access_mime)
+	if(code & REGION_SECURITY)
+		return_accesses += list(access_sec_doors, access_weapons, access_security, access_brig, access_armory, access_forensics_lockers, access_court, access_pilot, access_hos)
+	if(code & REGION_MEDBAY)
+		return_accesses += list(access_medical, access_genetics, access_morgue, access_chemistry, access_psychiatrist, access_virology, access_surgery, access_cmo, access_paramedic)
+	if(code & REGION_RESEARCH)
+		return_accesses += list(access_research, access_tox, access_tox_storage, access_genetics, access_robotics, access_xenobiology, access_xenoarch, access_minisat, access_rd, access_network)
+	if(code & REGION_ENGINEERING)
+		return_accesses += list(access_construction, access_maint_tunnels, access_engine, access_engine_equip, access_external_airlocks, access_tech_storage, access_atmospherics, access_minisat, access_ce, access_mechanic)
+	if(code & REGION_SUPPLY)
+		return_accesses += list(access_mailsorting, access_mining, access_mining_station, access_mineral_storeroom, access_cargo, access_qm)
+	if(code & REGION_COMMAND)
+		return_accesses += list(access_heads, access_RC_announce, access_keycard_auth, access_change_ids, access_ai_upload, access_teleporter, access_eva, access_tcomsat, access_gateway, access_all_personal_lockers, access_heads_vault, access_blueshield, access_ntrep, access_hop, access_captain)
+	if(code & REGION_CENTCOMM)
+		return_accesses = get_all_centcom_access() + get_all_accesses()
+	return return_accesses
 
 /proc/get_region_accesses_name(code)
 	switch(code)
