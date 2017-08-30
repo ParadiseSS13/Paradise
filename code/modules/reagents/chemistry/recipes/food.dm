@@ -203,7 +203,7 @@
 	name = "Universal enzyme"
 	id = "enzyme"
 	result = "enzyme"
-	required_reagents = list("plantmatter" = 1, "sugar" = 1)
+	required_reagents = list("vomit" = 1, "sugar" = 1)
 	result_amount = 2
 	min_temp = 750
 	mix_message = "The mixture bubbles and leaves behind the enzymes."
