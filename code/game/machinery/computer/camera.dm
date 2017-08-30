@@ -81,7 +81,7 @@
 /obj/machinery/computer/security/telescreen/attackby(obj/item/I, mob/user, params)
 	if(ismultitool(I))
 		var/direction = input(user, "Which direction?", "Select direction!") as null|anything in list("North", "East", "South", "West", "Centre")
-		if(!direction)
+		if(!direction || !Adjacent(user))
 			return
 		pixel_x = 0
 		pixel_y = 0
