@@ -1,3 +1,5 @@
+/mob
+	var/say_cooldown = null
 
 /mob/proc/say()
 	return
@@ -25,7 +27,9 @@
 	*/
 
 	set_typing_indicator(0)
-	usr.say(message)
+	if(world.time > say_cooldown)
+		usr.say(message)
+	say_cooldown = world.time + 10
 
 
 /mob/verb/me_verb(message as text)
