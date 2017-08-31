@@ -259,7 +259,7 @@ var/datum/announcement/minor/captain_announcement = new(do_newscast = 0)
 	selection_color = "#ddddff"
 	access = list(access_lawyer, access_court, access_sec_doors, access_maint_tunnels)
 	minimal_access = list(access_lawyer, access_court, access_sec_doors, access_maint_tunnels)
-	alt_titles = list("Lawyer","Public Defender")
+	alt_titles = list("Lawyer")
 	minimal_player_age = 30
 	exp_requirements = 300
 	exp_type = EXP_TYPE_CREW
