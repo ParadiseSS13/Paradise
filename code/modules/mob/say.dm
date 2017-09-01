@@ -27,13 +27,9 @@
 	*/
 
 	set_typing_indicator(0)
-	if(world.time > say_cooldown)
-		usr.say(message)
-		say_cooldown = world.time + 10 // We said something so take some breathing room.
-	else
-		to_chat(src, "<span class='notice'>Take a breath before speaking again!</span>") // Notify the user they've said things too fast.
-
-
+	if(world.time > say_cooldown) return
+	usr.say(message)
+	say_cooldown = world.time + 3 // We said something so take some breathing room.
 
 /mob/verb/me_verb(message as text)
 	set name = "Me"
