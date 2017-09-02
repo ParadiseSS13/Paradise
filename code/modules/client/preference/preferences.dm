@@ -824,13 +824,19 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 	var/HTML = "<body>"
 	HTML += "<tt><center>"
 
-	HTML += ShowDisabilityState(user,DISABILITY_FLAG_NEARSIGHTED,"Needs Glasses")
+	HTML += ShowDisabilityState(user,DISABILITY_FLAG_NEARSIGHTED,"Needs glasses")
 	HTML += ShowDisabilityState(user,DISABILITY_FLAG_FAT,"Obese")
 	HTML += ShowDisabilityState(user,DISABILITY_FLAG_EPILEPTIC,"Seizures")
 	HTML += ShowDisabilityState(user,DISABILITY_FLAG_DEAF,"Deaf")
 	HTML += ShowDisabilityState(user,DISABILITY_FLAG_BLIND,"Blind")
 	HTML += ShowDisabilityState(user,DISABILITY_FLAG_COLOURBLIND,"Colourblind")
 	HTML += ShowDisabilityState(user,DISABILITY_FLAG_MUTE,"Mute")
+	HTML += ShowDisabilityState(user,DISABILITY_FLAG_TOURETTES,"Tourettes syndrome") // this will / can not be abused. It also SEVERELY stuns. It's just for fun.
+	HTML += ShowDisabilityState(user,DISABILITY_FLAG_NERVOUS,"Stutter")
+	HTML += ShowDisabilityState(user,DISABILITY_FLAG_SWEDISH,"Swedish accent")
+	HTML += ShowDisabilityState(user,DISABILITY_FLAG_LISP,"Lisp")
+	HTML += ShowDisabilityState(user,DISABILITY_FLAG_DIZZY,"Dizziness")
+	HTML += ShowDisabilityState(user,DISABILITY_FLAG_SCRAMBLED,"Can't speak properly")
 
 
 	HTML += {"</ul>
@@ -2178,6 +2184,27 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 
 	if(disabilities & DISABILITY_FLAG_MUTE)
 		character.dna.SetSEState(MUTEBLOCK,1,1)
+
+	if(disabilities & DISABILITY_FLAG_TOURETTES)
+		character.dna.SetSEState(TWITCHBLOCK,1,1)
+
+	if(disabilities & DISABILITY_FLAG_NERVOUS)
+		character.dna.SetSEState(NERVOUSBLOCK,1,1)
+
+	if(disabilities & DISABILITY_FLAG_SWEDISH)
+		character.dna.SetSEState(SWEDEBLOCK,1,1)
+
+	if(disabilities & DISABILITY_FLAG_SCRAMBLED)
+		character.dna.SetSEState(SCRAMBLEBLOCK,1,1)
+
+	if(disabilities & DISABILITY_FLAG_LISP)
+		character.dna.SetSEState(LISPBLOCK,1,1)
+
+	if(disabilities & DISABILITY_FLAG_DIZZY)
+		character.dna.SetSEState(DIZZYBLOCK,1,1)
+
+	if(disabilities & DISABILITY_FLAG_SCRAMBLED)
+		character.dna.SetSEState(SCRAMBLEBLOCK,1,1)
 
 	S.handle_dna(character)
 

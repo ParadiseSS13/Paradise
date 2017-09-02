@@ -1914,6 +1914,12 @@
 	icon_state = "watermelonslice"
 	filling_color = "#FF3867"
 
+/obj/item/weapon/reagent_containers/food/snacks/pineappleslice
+	name = "Pineapple Slices"
+	desc = "Rings of pineapple."
+	icon_state = "pineappleslice"
+	filling_color = "#e5b437"
+
 /obj/item/weapon/reagent_containers/food/snacks/sliceable/applecake
 	name = "Apple Cake"
 	desc = "A cake centered with Apple."
@@ -2036,6 +2042,20 @@
 	desc = "A slice of the most green pizza of all pizzas not containing green ingredients."
 	icon_state = "vegetablepizzaslice"
 	filling_color = "#BAA14C"
+
+/obj/item/weapon/reagent_containers/food/snacks/sliceable/pizza/hawaiianpizza
+	name = "Hawaiian Pizza"
+	desc = "Love it or hate it, this pizza divides opinions. Complete with juicy pineapple."
+	icon_state = "hawaiianpizza" //NEEDED
+	slice_path = /obj/item/weapon/reagent_containers/food/snacks/hawaiianpizzaslice
+	slices_num = 6
+	list_reagents = list("protein" = 15, "tomatojuice" = 6, "plantmatter" = 20, "pineapplejuice" = 6, "vitamin" = 5)
+
+/obj/item/weapon/reagent_containers/food/snacks/hawaiianpizzaslice
+	name = "Hawaiian pizza slice"
+	desc = "A slice of polarising pizza."
+	icon_state = "hawaiianpizzaslice"
+	filling_color = "#e5b437"
 
 /obj/item/pizzabox
 	name = "pizza box"
@@ -2209,6 +2229,10 @@
 /obj/item/pizzabox/meat/New()
 	pizza = new /obj/item/weapon/reagent_containers/food/snacks/sliceable/pizza/meatpizza(src)
 	boxtag = "Meatlover's Supreme"
+
+/obj/item/pizzabox/hawaiian/New()
+	pizza = new /obj/item/weapon/reagent_containers/food/snacks/sliceable/pizza/hawaiianpizza(src)
+	boxtag = "Hawaiian Feast"
 
 ////////////////////////////////FOOD ADDITIONS////////////////////////////////////////////
 

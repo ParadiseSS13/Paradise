@@ -209,6 +209,19 @@
 			button.name = name
 	..()
 
+/datum/action/item_action/synthswitch
+	name = "Change Synthesizer Instrument"
+	desc = "Change the type of instrument your synthesizer is playing as."
+
+/datum/action/item_action/synthswitch/Trigger()
+	if(istype(target, /obj/item/device/instrument/piano_synth))
+		var/obj/item/device/instrument/piano_synth/synth = target
+		var/chosen = input("Choose the type of instrument you want to use", "Instrument Selection", "piano") as null|anything in synth.insTypes
+		if(!synth.insTypes[chosen])
+			return
+		return synth.changeInstrument(chosen)
+	return ..()
+
 /datum/action/item_action/vortex_recall
 	name = "Vortex Recall"
 	desc = "Recall yourself, and anyone nearby, to an attuned hierophant rune at any time.<br>If no such rune exists, will produce a rune at your location."
@@ -339,6 +352,18 @@
 	if(button_icon && button_icon_state)
 		var/image/img = image(button_icon, current_button, "scan_mode")
 		current_button.overlays += img
+
+/datum/action/item_action/instrument
+	name = "Use Instrument"
+	desc = "Use the instrument specified"
+
+/datum/action/item_action/instrument/Trigger()
+	if(istype(target, /obj/item/device/instrument))
+		var/obj/item/device/instrument/I = target
+		I.interact(usr)
+		return
+	return ..()
+
 
 /datum/action/item_action/remove_badge
 	name = "Remove Holobadge"

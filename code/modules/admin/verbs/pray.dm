@@ -13,7 +13,22 @@
 			return
 
 	var/image/cross = image('icons/obj/storage.dmi',"bible")
-	msg = "<span class='notice'>[bicon(cross)] <b><font color=purple>PRAY: </font>[key_name(src, 1)] (<A HREF='?_src_=holder;adminmoreinfo=\ref[src]'>?</A>) (<A HREF='?_src_=holder;adminplayeropts=\ref[src]'>PP</A>) (<A HREF='?_src_=vars;Vars=[UID()]'>VV</A>) (<A HREF='?_src_=holder;subtlemessage=\ref[src]'>SM</A>) ([admin_jump_link(src)]) (<A HREF='?_src_=holder;secretsadmin=check_antagonist'>CA</A>) (<A HREF='?_src_=holder;adminspawncookie=\ref[src]'>SC</a>) (<A HREF='?_src_=holder;Bless=[UID()]'>BLESS</A>) (<A HREF='?_src_=holder;Smite=[UID()]'>SMITE</A>):</b> [msg]</span>"
+	var/font_color = "purple"
+	var/prayer_type = "PRAYER"
+	var/deity
+	if(usr.job == "Chaplain")
+		if(ticker && ticker.Bible_deity_name)
+			deity = ticker.Bible_deity_name
+		cross = image('icons/obj/storage.dmi',"kingyellow")
+		font_color = "blue"
+		prayer_type = "CHAPLAIN PRAYER"
+	else if(iscultist(usr))
+		cross = image('icons/obj/storage.dmi',"tome")
+		font_color = "red"
+		prayer_type = "CULTIST PRAYER"
+		deity = ticker.mode.cultdat.entity_name
+
+	msg = "<span class='notice'>[bicon(cross)]<b><font color=[font_color]>[prayer_type][deity ? " (to [deity])" : ""]:</font>[key_name(src, 1)] (<A HREF='?_src_=holder;adminmoreinfo=\ref[src]'>?</A>) (<A HREF='?_src_=holder;adminplayeropts=\ref[src]'>PP</A>) (<A HREF='?_src_=vars;Vars=[UID()]'>VV</A>) (<A HREF='?_src_=holder;subtlemessage=\ref[src]'>SM</A>) ([admin_jump_link(src)]) (<A HREF='?_src_=holder;secretsadmin=check_antagonist'>CA</A>) (<A HREF='?_src_=holder;adminspawncookie=\ref[src]'>SC</a>) (<A HREF='?_src_=holder;Bless=[UID()]'>BLESS</A>) (<A HREF='?_src_=holder;Smite=[UID()]'>SMITE</A>):</b> [msg]</span>"
 
 	for(var/client/X in admins)
 		if(check_rights(R_EVENT,0,X.mob))

@@ -1403,6 +1403,7 @@
 #include "code\modules\hydroponics\grown\nymph.dm"
 #include "code\modules\hydroponics\grown\onion.dm"
 #include "code\modules\hydroponics\grown\peanut.dm"
+#include "code\modules\hydroponics\grown\pineapple.dm"
 #include "code\modules\hydroponics\grown\potato.dm"
 #include "code\modules\hydroponics\grown\pumpkin.dm"
 #include "code\modules\hydroponics\grown\random.dm"
