@@ -429,6 +429,7 @@
 		chemscan(src, A)
 
 /mob/living/simple_animal/bot/medbot/proc/medicate_patient(mob/living/carbon/C)
+	var/inject_beaker = FALSE
 	if(!on)
 		return
 
@@ -484,7 +485,8 @@
 		if(reagent_id && use_beaker && reagent_glass && reagent_glass.reagents.total_volume)
 			for(var/datum/reagent/R in reagent_glass.reagents.reagent_list)
 				if(!C.reagents.has_reagent(R.id))
-					reagent_id = "internal_beaker"
+					reagent_id = R.id
+					inject_beaker = TRUE
 					break
 
 	if(!reagent_id) //If they don't need any of that they're probably cured!
@@ -501,7 +503,7 @@
 
 		spawn(30)//replace with do mob
 			if((get_dist(src, patient) <= 1) && on && assess_patient(patient))
-				if(reagent_id == "internal_beaker")
+				if(inject_beaker)
 					if(use_beaker && reagent_glass && reagent_glass.reagents.total_volume)
 						var/fraction = min(injection_amount/reagent_glass.reagents.total_volume, 1)
 						reagent_glass.reagents.reaction(patient, INGEST, fraction)

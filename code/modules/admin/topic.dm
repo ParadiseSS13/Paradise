@@ -1999,6 +1999,20 @@
 		if(logmsg)
 			log_admin("[key_name(owner)] answered [key_name(M)]'s prayer with a smiting: [logmsg]")
 			message_admins("[key_name_admin(owner)] answered [key_name_admin(M)]'s prayer with a smiting: [logmsg]")
+	else if(href_list["cryossd"])
+		if(!check_rights(R_ADMIN))
+			return
+		var/mob/living/carbon/human/H = locateUID(href_list["cryossd"])
+		if(!istype(H))
+			to_chat(usr, "This can only be used on instances of type /mob/living/carbon/human")
+			return
+		if(!isLivingSSD(H))
+			to_chat(usr, "This can only be used on living, SSD players.")
+			return
+		var/success = cryo_ssd(H)
+		if(success)
+			log_admin("[key_name(usr)] sent [H.job] [H] to cryo.")
+			message_admins("[key_name_admin(usr)] sent [H.job] [H] to cryo.")
 	else if(href_list["FaxReplyTemplate"])
 		if(!check_rights(R_ADMIN))
 			return
@@ -3435,7 +3449,7 @@
 		return
 	var/datum/outfit/O = hunter_outfits[dresscode]
 	message_admins("[key_name_admin(mob)] is sending a ([dresscode]) to [killthem ? "assassinate" : "protect"] [key_name_admin(H)]...")
-	var/list/candidates = pollCandidates("Play as a [killthem ? "murderous" : "protective"] [dresscode]?")
+	var/list/candidates = pollCandidates("Play as a [killthem ? "murderous" : "protective"] [dresscode]?", ROLE_TRAITOR, 1)
 	if(!candidates.len)
 		to_chat(usr, "ERROR: Could not create eventmob. No valid candidates.")
 		return

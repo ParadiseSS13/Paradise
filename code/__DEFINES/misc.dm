@@ -297,10 +297,6 @@
 #define FLAMMABLE 0
 #define ON_FIRE 1
 
-// Sound
-#define SOUND_MINIMUM_PRESSURE 10
-#define FALLOFF_SOUNDS 0.5
-
 // Bluespace shelter deploy checks
 #define SHELTER_DEPLOY_ALLOWED "allowed"
 #define SHELTER_DEPLOY_BAD_TURFS "bad turfs"
@@ -349,4 +345,4 @@
 #define BLOOD_STATE_NOT_BLOODY		"no blood whatsoever"
 
 // The SQL version required by this version of the code
-#define SQL_VERSION 0
+#define SQL_VERSION 1

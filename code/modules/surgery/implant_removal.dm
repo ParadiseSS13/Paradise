@@ -11,6 +11,7 @@
 	name = "Implant Removal"
 	steps = list(/datum/surgery_step/robotics/external/unscrew_hatch,/datum/surgery_step/robotics/external/open_hatch,/datum/surgery_step/extract_implant,/datum/surgery_step/robotics/external/close_hatch)
 	possible_locs = list("chest")
+	requires_organic_bodypart = 0
 
 /datum/surgery/implant_removal/can_start(mob/user, mob/living/carbon/human/target)
 	if(!istype(target))

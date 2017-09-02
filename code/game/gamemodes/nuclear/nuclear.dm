@@ -153,13 +153,11 @@ proc/issyndicate(mob/living/M as mob)
 	var/hair_c = pick("#8B4513","#000000","#FF4500","#FFD700") // Brown, black, red, blonde
 	var/eye_c = pick("#000000","#8B4513","1E90FF") // Black, brown, blue
 	var/skin_tone = pick(-50, -30, -10, 0, 0, 0, 10) // Caucasian/black
-	head_organ.r_facial = color2R(hair_c)
-	head_organ.g_facial = color2G(hair_c)
-	head_organ.b_facial = color2B(hair_c)
-	head_organ.r_hair = color2R(hair_c)
-	head_organ.g_hair = color2G(hair_c)
-	head_organ.b_hair = color2B(hair_c)
-	M.change_eye_color(color2R(eye_c), color2G(eye_c), color2B(eye_c))
+	head_organ.facial_colour = hair_c
+	head_organ.sec_facial_colour = hair_c
+	head_organ.hair_colour = hair_c
+	head_organ.sec_hair_colour = hair_c
+	M.change_eye_color(eye_c)
 	M.s_tone = skin_tone
 	head_organ.h_style = random_hair_style(M.gender, head_organ.species.name)
 	head_organ.f_style = random_facial_hair_style(M.gender, head_organ.species.name)

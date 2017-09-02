@@ -586,11 +586,8 @@
 	if((H in recolor_list) && H.reagents.total_volume > SLIMEPERSON_COLOR_SHIFT_TRIGGER)
 		var/blood_amount = H.blood_volume
 		var/r_color = mix_color_from_reagents(H.reagents.reagent_list)
-		var/new_body_color = BlendRGB(r_color, rgb(H.r_skin, H.g_skin, H.b_skin), (blood_amount*SLIMEPERSON_BLOOD_SCALING_FACTOR)/((blood_amount*SLIMEPERSON_BLOOD_SCALING_FACTOR)+(H.reagents.total_volume)))
-		var/list/new_color_list = ReadRGB(new_body_color)
-		H.r_skin = new_color_list[1]
-		H.g_skin = new_color_list[2]
-		H.b_skin = new_color_list[3]
+		var/new_body_color = BlendRGB(r_color, H.skin_colour, (blood_amount*SLIMEPERSON_BLOOD_SCALING_FACTOR)/((blood_amount*SLIMEPERSON_BLOOD_SCALING_FACTOR)+(H.reagents.total_volume)))
+		H.skin_colour = new_body_color
 		if(world.time % SLIMEPERSON_ICON_UPDATE_PERIOD > SLIMEPERSON_ICON_UPDATE_PERIOD - 20) // The 20 is because this gets called every 2 seconds, from the mob controller
 			for(var/organname in H.bodyparts_by_name)
 				var/obj/item/organ/external/E = H.bodyparts_by_name[organname]
@@ -868,7 +865,6 @@
 		var/turf/T = H.loc
 		light_amount = min(T.get_lumcount() * 10, 5)  //hardcapped so it's not abused by having a ton of flashlights
 	H.nutrition = min(H.nutrition+light_amount, NUTRITION_LEVEL_WELL_FED+10)
-	H.traumatic_shock -= light_amount
 
 	if(light_amount > 0)
 		H.clear_alert("nolight")
@@ -881,7 +877,6 @@
 		H.adjustFireLoss(-(light_amount/4))
 	if(H.nutrition < NUTRITION_LEVEL_STARVING+50)
 		H.take_overall_damage(10,0)
-		H.traumatic_shock++
 
 /datum/species/machine
 	name = "Machine"

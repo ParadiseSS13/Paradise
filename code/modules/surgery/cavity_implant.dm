@@ -15,6 +15,7 @@
 	name = "Robotic Cavity Implant/Removal"
 	steps = list(/datum/surgery_step/robotics/external/unscrew_hatch,/datum/surgery_step/robotics/external/open_hatch,/datum/surgery_step/cavity/place_item,/datum/surgery_step/robotics/external/close_hatch)
 	possible_locs = list("chest","head","groin")
+	requires_organic_bodypart = 0
 
 /datum/surgery/cavity_implant/can_start(mob/user, mob/living/carbon/human/target)
 	if(!istype(target))

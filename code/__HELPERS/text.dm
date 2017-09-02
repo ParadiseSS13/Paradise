@@ -106,7 +106,7 @@
 	return input
 
 /proc/paranoid_sanitize(t)
-	var/regex/alphanum_only = regex("\[^a-zA-Z0-9# ]", "g")
+	var/regex/alphanum_only = regex("\[^a-zA-Z0-9# ,.?!:;()]", "g")
 	return alphanum_only.Replace(t, "#")
 
 //Runs sanitize and strip_html_simple

@@ -2490,3 +2490,11 @@
 	icon_state = "tatortot"
 	list_reagents = list("nutriment" = 4)
 	filling_color = "FFD700"
+
+/obj/item/weapon/reagent_containers/food/snacks/onionrings
+	name = "onion rings"
+	desc = "Onion slices coated in batter."
+	icon_state = "onionrings"
+	list_reagents = list("nutriment" = 3)
+	filling_color = "#C0C9A0"
+	gender = PLURAL

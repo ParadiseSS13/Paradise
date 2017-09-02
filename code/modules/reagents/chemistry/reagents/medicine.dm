@@ -686,6 +686,9 @@
 	color = "#5096C8"
 
 /datum/reagent/medicine/mutadone/on_mob_life(mob/living/carbon/human/M)
+	if(M.mind && M.mind.assigned_role == "Cluwne") // HUNKE
+		..()
+		return
 	M.SetJitter(0)
 	var/needs_update = M.mutations.len > 0 || M.disabilities > 0
 
