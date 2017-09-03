@@ -5,6 +5,7 @@
 	var/buckle_lying = -1 //bed-like behaviour, forces mob.lying = buckle_lying if != -1 //except -1 actually means "rotate 90 degrees to the left" as it is used by 1*buckle_lying.
 	var/buckle_requires_restraints = 0 //require people to be handcuffed before being able to buckle. eg: pipes
 	var/mob/living/buckled_mob = null
+	var/buckle_offset = 0
 
 
 //Interaction

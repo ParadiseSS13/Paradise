@@ -791,9 +791,9 @@
 	desc = "A self-serving Chinese food machine, for all your Chinese food needs."
 	product_slogans = "Taste 5000 years of culture!"
 	icon_state = "snack"
-	products = list(/obj/item/weapon/reagent_containers/food/snacks/chinese/chowmein = 6, /obj/item/weapon/reagent_containers/food/snacks/chinese/tao = 6, /obj/item/weapon/reagent_containers/food/snacks/chinese/newdles = 6,
+	products = list(/obj/item/weapon/reagent_containers/food/snacks/chinese/chowmein = 6, /obj/item/weapon/reagent_containers/food/snacks/chinese/tao = 6, /obj/item/weapon/reagent_containers/food/snacks/chinese/sweetsourchickenball = 6, /obj/item/weapon/reagent_containers/food/snacks/chinese/newdles = 6,
 					/obj/item/weapon/reagent_containers/food/snacks/chinese/rice = 6)
-	prices = list(/obj/item/weapon/reagent_containers/food/snacks/chinese/chowmein = 50, /obj/item/weapon/reagent_containers/food/snacks/chinese/tao = 50, /obj/item/weapon/reagent_containers/food/snacks/chinese/newdles = 50,
+	prices = list(/obj/item/weapon/reagent_containers/food/snacks/chinese/chowmein = 50, /obj/item/weapon/reagent_containers/food/snacks/chinese/tao = 50, /obj/item/weapon/reagent_containers/food/snacks/chinese/sweetsourchickenball = 50, /obj/item/weapon/reagent_containers/food/snacks/chinese/newdles = 50,
 					/obj/item/weapon/reagent_containers/food/snacks/chinese/rice = 50)
 	refill_canister = /obj/item/weapon/vending_refill/chinese
 
@@ -1064,7 +1064,9 @@
 					/obj/item/clothing/shoes/singerb = 1,/obj/item/clothing/under/singerb = 1,
 					/obj/item/clothing/suit/hooded/carp_costume = 1,/obj/item/clothing/suit/hooded/bee_costume = 1,
 					/obj/item/clothing/suit/snowman = 1,/obj/item/clothing/head/snowman = 1,
-					/obj/item/clothing/head/cueball = 1,/obj/item/clothing/under/scratch = 1)
+					/obj/item/clothing/head/cueball = 1,/obj/item/clothing/under/scratch = 1,
+					/obj/item/clothing/under/victdress = 1, /obj/item/clothing/under/victdress/red = 1, /obj/item/clothing/suit/victcoat = 1, /obj/item/clothing/suit/victcoat/red = 1,
+					/obj/item/clothing/under/victsuit = 1, /obj/item/clothing/under/victsuit/redblk = 1, /obj/item/clothing/under/victsuit/red = 1, /obj/item/clothing/suit/tailcoat = 1)
 	contraband = list(/obj/item/clothing/suit/judgerobe = 1,/obj/item/clothing/head/powdered_wig = 1,/obj/item/weapon/gun/magic/wand = 1, /obj/item/clothing/mask/balaclava=1, /obj/item/clothing/mask/horsehead = 2)
 	premium = list(/obj/item/clothing/suit/hgpirate = 1, /obj/item/clothing/head/hgpiratecap = 1, /obj/item/clothing/head/helmet/roman = 1, /obj/item/clothing/head/helmet/roman/legionaire = 1, /obj/item/clothing/under/roman = 1, /obj/item/clothing/shoes/roman = 1, /obj/item/weapon/shield/riot/roman = 1)
 	refill_canister = /obj/item/weapon/vending_refill/autodrobe
@@ -1276,7 +1278,7 @@
 	/obj/item/weapon/c_tube = 10,/obj/item/weapon/pen = 5,/obj/item/weapon/pen/blue = 5,
 	/obj/item/weapon/pen/red = 5)
 	contraband = list(/obj/item/toy/crayon/mime = 1,/obj/item/toy/crayon/rainbow = 1)
-	premium = list(/obj/item/weapon/contraband/poster = 5)
+	premium = list(/obj/item/weapon/poster/random_contraband = 5)
 
 /obj/machinery/vending/crittercare
 	name = "\improper CritterCare"

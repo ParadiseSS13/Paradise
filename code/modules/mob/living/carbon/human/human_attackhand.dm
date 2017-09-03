@@ -158,7 +158,7 @@
 
 				visible_message("<span class='danger'>[M] [pick(attack.attack_verb)]ed [src]!</span>")
 
-				apply_damage(damage, BRUTE, affecting, armor_block, sharp=attack.sharp, edge=attack.edge) //moving this back here means Armalis are going to knock you down  70% of the time, but they're pure adminbus anyway.
+				apply_damage(damage, BRUTE, affecting, armor_block, sharp = attack.sharp) //moving this back here means Armalis are going to knock you down  70% of the time, but they're pure adminbus anyway.
 				if((stat != DEAD) && damage >= M.species.punchstunthreshold)
 					visible_message("<span class='danger'>[M] has weakened [src]!</span>", \
 									"<span class='userdanger'>[M] has weakened [src]!</span>")

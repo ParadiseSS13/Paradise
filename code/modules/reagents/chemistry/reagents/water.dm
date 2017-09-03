@@ -20,10 +20,65 @@
 	drink_desc = "The father of all refreshments."
 
 /datum/reagent/water/reaction_mob(mob/living/M, method=TOUCH, volume)
-// Put out fire
 	if(method == TOUCH)
+		// Put out fire
 		M.adjust_fire_stacks(-(volume / 10))
 		M.ExtinguishMob()
+		if(ishuman(M))
+
+			var/mob/living/carbon/human/H = M
+
+			if(H.get_species() != "Grey") //God this is so gross I hate it.
+				return
+
+			if(volume > 25)
+
+				if(H.wear_mask)
+					to_chat(H, "<span class='danger'>Your mask protects you from the water!</span>")
+					return
+
+				if(H.head)
+					to_chat(H, "<span class='danger'>Your helmet protects you from the water!</span>")
+					return
+
+				if(!M.unacidable)
+					if(prob(75))
+						var/obj/item/organ/external/affecting = H.get_organ("head")
+						if(affecting)
+							affecting.take_damage(5, 10)
+							H.UpdateDamageIcon()
+							H.emote("scream")
+					else
+						M.take_organ_damage(5,10)
+			else
+				M.take_organ_damage(5,10)
+
+	if(method == INGEST)
+		if(ishuman(M))
+			var/mob/living/carbon/human/H = M
+
+			if(H.get_species() != "Grey")
+				return
+
+			if(volume < 10)
+				to_chat(M, "<span class='danger'>The watery solvent substance stings you, but isn't concentrated enough to harm you!</span>")
+
+			if(volume >=10 && volume <=25)
+				if(!H.unacidable)
+					M.take_organ_damage(0,min(max(volume-10,2)*2,20))
+					M.emote("scream")
+
+
+			if(volume > 25)
+				if(!M.unacidable)
+					if(prob(75))
+						var/obj/item/organ/external/affecting = H.get_organ("head")
+						if(affecting)
+							affecting.take_damage(0, 20)
+							H.UpdateDamageIcon()
+							H.emote("scream")
+					else
+						M.take_organ_damage(0,20)
 
 /datum/reagent/water/reaction_turf(turf/simulated/T, volume)
 	if(!istype(T))
@@ -141,7 +196,8 @@
 
 /datum/reagent/blood/reaction_mob(mob/living/M, method=TOUCH, volume)
 	if(data && data["viruses"])
-		for(var/datum/disease/D in data["viruses"])
+		for(var/thing in data["viruses"])
+			var/datum/disease/D = thing
 
 			if(D.spread_flags & SPECIAL || D.spread_flags & NON_CONTAGIOUS)
 				continue
@@ -150,6 +206,14 @@
 				M.ContractDisease(D)
 			else //ingest, patch or inject
 				M.ForceContractDisease(D)
+
+	if(method == INGEST && iscarbon(M))
+		var/mob/living/carbon/C = M
+		if(C.get_blood_id() == "blood")
+			if((!data || !(data["blood_type"] in get_safe_blood(C.dna.b_type))) && !M.mind.vampire)
+				C.reagents.add_reagent("toxin", volume * 0.5)
+			else
+				C.blood_volume = min(C.blood_volume + round(volume, 0.1), BLOOD_VOLUME_MAXIMUM)
 
 /datum/reagent/blood/on_new(list/data)
 	if(istype(data))
@@ -179,13 +243,13 @@
 						preserve += D
 				data["viruses"] = preserve
 
-		if(mix_data["blood_colour"])
-			color = mix_data["blood_colour"]
+		if(mix_data["blood_color"])
+			color = mix_data["blood_color"]
 	return 1
 
 /datum/reagent/blood/on_update(atom/A)
-	if(data["blood_colour"])
-		color = data["blood_colour"]
+	if(data["blood_color"])
+		color = data["blood_color"]
 	return ..()
 
 /datum/reagent/blood/reaction_turf(turf/simulated/T, volume)//splash the blood all over the place
@@ -199,21 +263,11 @@
 			blood_prop = new(T)
 			blood_prop.blood_DNA[data["blood_DNA"]] = data["blood_type"]
 
-		for(var/datum/disease/D in data["viruses"])
-			var/datum/disease/newVirus = D.Copy(1)
-			blood_prop.viruses += newVirus
-			newVirus.holder = blood_prop
-
 	else if(istype(data["donor"], /mob/living/carbon/alien))
 		var/obj/effect/decal/cleanable/blood/xeno/blood_prop = locate() in T
 		if(!blood_prop)
 			blood_prop = new(T)
 			blood_prop.blood_DNA["UNKNOWN DNA STRUCTURE"] = "X*"
-
-		for(var/datum/disease/D in data["viruses"])
-			var/datum/disease/newVirus = D.Copy(1)
-			blood_prop.viruses += newVirus
-			newVirus.holder = blood_prop
 
 /datum/reagent/vaccine
 	//data must contain virus type
@@ -223,7 +277,8 @@
 
 /datum/reagent/vaccine/reaction_mob(mob/living/M, method=TOUCH, volume)
 	if(islist(data) && (method == INGEST))
-		for(var/datum/disease/D in M.viruses)
+		for(var/thing in M.viruses)
+			var/datum/disease/D = thing
 			if(D.GetDiseaseID() in data)
 				D.cure()
 		M.resistances |= data

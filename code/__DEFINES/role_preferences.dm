@@ -39,7 +39,7 @@
 #define ROLE_ERT				"emergency response team"
 #define ROLE_NYMPH				"Dionaea"
 #define ROLE_GSPIDER			"giant spider"
-
+#define ROLE_DRONE				"drone"
 
 //Missing assignment means it's not a gamemode specific role, IT'S NOT A BUG OR ERROR.
 //The gamemode specific ones are just so the gamemodes can query whether a player is old enough

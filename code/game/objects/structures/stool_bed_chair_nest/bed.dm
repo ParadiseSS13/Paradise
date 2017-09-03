@@ -17,6 +17,7 @@
 	burntime = 30
 	buildstackamount = 2
 	var/movable = 0 // For mobility checks
+	buckle_offset = -6
 
 /obj/structure/stool/bed/MouseDrop(atom/over_object)
 	..(over_object, skip_fucking_stool_shit = 1)
@@ -36,6 +37,7 @@
 	anchored = 0
 	buildstackamount = 10
 	buildstacktype = /obj/item/stack/sheet/wood
+	buckle_offset = 0
 
 /obj/structure/stool/bed/dogbed/ian
 	name = "Ian's bed"

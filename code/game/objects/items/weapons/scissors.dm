@@ -5,7 +5,6 @@
 	item_state = "scissor"
 	force = 5
 	sharp = 1
-	edge = 1
 	w_class = WEIGHT_CLASS_SMALL
 	hitsound = 'sound/weapons/bladeslice.ogg'
 	attack_verb = list("slices", "cuts", "stabs", "jabs")
@@ -95,7 +94,6 @@
 		user.visible_message("<span class='notice'>[user] finishes cutting [M]'s hair!</span>")
 
 /obj/item/weapon/scissors/safety //Totally safe, I assure you.
-	name = "safety scissors"
 	desc = "The blades of the scissors appear to be made of some sort of ultra-strong metal alloy."
 	force = 18 //same as e-daggers
 	var/is_cutting = 0 //to prevent spam clicking this for huge accumulation of losebreath.
@@ -118,10 +116,9 @@
 				playsound(loc, 'sound/weapons/bladeslice.ogg', 50, 1, -1)
 				user.visible_message("<span class='danger'>[user] abruptly stops cutting [M]'s hair and slices their throat!</span>", "<span class='danger'>You stop cutting [M]'s hair and slice their throat!</span>") //Just a little off the top.
 				H.AdjustLoseBreath(10) //30 Oxy damage over time
-				H.apply_damage(18, BRUTE, "head", sharp =1, edge =1, used_weapon = "scissors")
-				var/turf/location = get_turf(H)
-				if(istype(location, /turf/simulated))
-					location.add_blood(H)
+				H.apply_damage(18, BRUTE, "head", sharp =1, used_weapon = "scissors")
+				var/turf/location = get_turf(src)
+				H.add_splatter_floor(location)
 				H.bloody_hands(H)
 				H.bloody_body(H)
 				var/mob/living/carbon/human/U = user

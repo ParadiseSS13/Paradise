@@ -220,9 +220,6 @@
 						var/i = 1
 						for(1, i <= coeff, i++)
 							LR.Charge(occupant)
-					if(istype(O,/obj/item/weapon/mop/advanced))
-						if(O.reagents.get_reagent_amount("water") < 40)
-							O.reagents.add_reagent("water", 0.5 * coeff)
 				if(R)
 					if(R.module)
 						R.module.respawn_consumable(R)

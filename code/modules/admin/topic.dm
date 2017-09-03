@@ -1728,7 +1728,7 @@
 		log_admin("[key_name(src.owner)] sent [key_name(H)] a [eviltype] fax")
 		message_admins("[key_name_admin(src.owner)] replied to [key_name_admin(H)] with a [eviltype] fax")
 	else if(href_list["Bless"])
-		if(!check_rights(R_ADMIN))
+		if(!check_rights(R_EVENT))
 			return
 		var/mob/living/M = locateUID(href_list["Bless"])
 		if(!istype(M))
@@ -1778,7 +1778,7 @@
 			log_admin("[key_name(owner)] answered [key_name(M)]'s prayer with a blessing: [logmsg]")
 			message_admins("[key_name_admin(owner)] answered [key_name_admin(M)]'s prayer with a blessing: [logmsg]")
 	else if(href_list["Smite"])
-		if(!check_rights(R_ADMIN))
+		if(!check_rights(R_EVENT))
 			return
 		var/mob/living/M = locateUID(href_list["Smite"])
 		var/mob/living/carbon/human/H
@@ -2524,6 +2524,10 @@
 				if(usr.client.syndicate_infiltration_team())
 					feedback_inc("admin_secrets_fun_used",1)
 					feedback_add_details("admin_secrets_fun_used","SyndieInfiltrationTeam")
+			if("gimmickteam")
+				if(usr.client.gimmick_team())
+					feedback_inc("admin_secrets_fun_used",1)
+					feedback_add_details("admin_secrets_fun_used","GimmickTeam")
 			if("tripleAI")
 				usr.client.triple_ai()
 				feedback_inc("admin_secrets_fun_used",1)
