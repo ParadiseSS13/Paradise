@@ -376,10 +376,10 @@
 					S.name = created_name
 					S.bot_core.req_one_access = req_one_access
 					S.treatments = list(
-						"brute" = treatment_brute,
-						"fire" = treatment_fire,
-						"tox" = treatment_tox,
-						"oxy" = treatment_oxy,
+						BRUTE = treatment_brute,
+						BURN = treatment_fire,
+						TOX = treatment_tox,
+						OXY = treatment_oxy,
 						"virus" = treatment_virus,
 						"evil" = treatment_evil
 						)

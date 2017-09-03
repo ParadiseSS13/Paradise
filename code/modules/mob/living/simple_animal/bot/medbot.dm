@@ -43,10 +43,10 @@
 	var/stationary_mode = 0 //If enabled, the Medibot will not move automatically.
 	//Setting which reagents to use to treat what by default. By id.
 	var/treatments = list(
-		"brute" = "salglu_solution",
-		"fire" = "salglu_solution",
-		"oxy" = "salbutamol",
-		"tox" = "charcoal",
+		BRUTE = "salglu_solution",
+		BURN = "salglu_solution",
+		OXY = "salbutamol",
+		TOX = "charcoal",
 		"virus" = "spaceacillin",
 		"evil" = "pancuronium"
 		)
@@ -76,10 +76,10 @@
 	desc = "International Medibot of mystery."
 	skin = "bezerk"
 	treatments = list(
-		"oxy" = "perfluorodecalin",
-		"brute" = "styptic_powder",
-		"fire" = "silver_sulfadiazine",
-		"tox" = "charcoal",
+		BRUTE = "styptic_powder",
+		BURN = "silver_sulfadiazine",
+		OXY = "perfluorodecalin",
+		TOX = "charcoal",
 		"virus" = "spaceacillin",
 		"evil" = "pancuronium"
 		)
@@ -89,10 +89,10 @@
 	desc = "You'd better have insurance!"
 	skin = "bezerk"
 	treatments = list(
-		"oxy" = "perfluorodecalin",
-		"brute" = "styptic_powder",
-		"fire" = "silver_sulfadiazine",
-		"tox" = "charcoal",
+		BRUTE = "styptic_powder",
+		BURN = "silver_sulfadiazine",
+		OXY = "perfluorodecalin",
+		TOX = "charcoal",
 		"virus" = "spaceacillin",
 		"evil" = "pancuronium"
 		)
@@ -386,13 +386,13 @@
 	if(treat_virus && scan_for_virus(C)) // If we're looking for viruses and they have one which is detectable by us.
 		patient_status |= REQ_VIRUS
 	if(C.has_organic_damage()) // Now damage checks. No point doing this if they have no damage.
-		if((C.getBruteLoss() >= heal_threshold) && (!C.reagents.has_reagent(treatments["brute"])))
+		if((C.getBruteLoss() >= heal_threshold) && (!C.reagents.has_reagent(treatments[BRUTE])))
 			patient_status |= REQ_BRUTE
-		if((C.getFireLoss() >= heal_threshold) && (!C.reagents.has_reagent(treatments["fire"])))
+		if((C.getFireLoss() >= heal_threshold) && (!C.reagents.has_reagent(treatments[BURN])))
 			patient_status |= REQ_BURN
-		if((C.getToxLoss() >= heal_threshold) && (!C.reagents.has_reagent(treatments["tox"])))
+		if((C.getToxLoss() >= heal_threshold) && (!C.reagents.has_reagent(treatments[TOX])))
 			patient_status |= REQ_TOX
-		if((C.getOxyLoss() >= (15 + heal_threshold)) && (!C.reagents.has_reagent(treatments["oxy"])))
+		if((C.getOxyLoss() >= (15 + heal_threshold)) && (!C.reagents.has_reagent(treatments[OXY])))
 			patient_status |= REQ_OXY
 		return patient_status
 	else
@@ -474,16 +474,16 @@
 /mob/living/simple_animal/bot/medbot/proc/special_reagent_check(reagent_id, damagetype)
 //Check to see if the reagent actually treats the corresponding damage type.
 	switch(damagetype)
-		if("brute")
+		if(BRUTE)
 			if(brute_healing_chems_injest.Find(reagent_id))
 				return TRUE
-		if("fire")
+		if(BURN)
 			if(burn_healing_chems_injest.Find(reagent_id))
 				return TRUE
-		if("oxy")
+		if(OXY)
 			if(oxy_healing_chems_injest.Find(reagent_id))
 				return TRUE
-		if("tox")
+		if(TOX)
 			if(tox_healing_chems_injest.Find(reagent_id))
 				return TRUE
 	return FALSE
@@ -495,14 +495,14 @@
 		if(C.health >= 50) // If their health is above 60 then we can should treat the virus.
 			var/virus_weight = C.health / 2 // We calculate the weight based on their current health over 2 to prioratise actual damage.
 			dam += list("virus" = virus_weight)
-	if((patient_status & REQ_BURN) && !C.reagents.has_reagent(treatments["fire"]))
-		dam += list("fire" = C.getFireLoss())
-	if((patient_status & REQ_BRUTE) && !C.reagents.has_reagent(treatments["brute"]))
-		dam += list("brute" = C.getBruteLoss())
-	if((patient_status & REQ_OXY) && !C.reagents.has_reagent(treatments["oxy"]))
-		dam += list("oxy" = C.getOxyLoss())
-	if((patient_status & REQ_TOX) && !C.reagents.has_reagent(treatments["tox"]))
-		dam += list("tox" = C.getToxLoss())
+	if((patient_status & REQ_BURN) && !C.reagents.has_reagent(treatments[BURN]))
+		dam += list(BURN = C.getFireLoss())
+	if((patient_status & REQ_BRUTE) && !C.reagents.has_reagent(treatments[BRUTE]))
+		dam += list(BRUTE = C.getBruteLoss())
+	if((patient_status & REQ_OXY) && !C.reagents.has_reagent(treatments[OXY]))
+		dam += list(OXY = C.getOxyLoss())
+	if((patient_status & REQ_TOX) && !C.reagents.has_reagent(treatments[TOX]))
+		dam += list(TOX = C.getToxLoss())
 
 	var/highest = 0
 	var/highest_key
@@ -534,11 +534,11 @@
 	switch(skin)
 		if("ointment")
 			new /obj/item/weapon/storage/firstaid/fire/empty(Tsec)
-		if("tox")
+		if(TOX)
 			new /obj/item/weapon/storage/firstaid/toxin/empty(Tsec)
 		if("o2")
 			new /obj/item/weapon/storage/firstaid/o2/empty(Tsec)
-		if("brute")
+		if(BRUTE)
 			new /obj/item/weapon/storage/firstaid/brute/empty(Tsec)
 		if("adv")
 			new /obj/item/weapon/storage/firstaid/adv/empty(Tsec)
