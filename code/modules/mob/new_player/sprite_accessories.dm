@@ -566,7 +566,7 @@
 	name = "Unathi Side Frills"
 	icon_state = "unathi_sidefrills"
 	secondary_theme = "webbing"
-	
+
 /datum/sprite_accessory/hair/unathi/una_cobra_hood
     icon = 'icons/mob/human_face.dmi'
     name = "Unathi Cobra Hood"
@@ -1818,12 +1818,24 @@
 	icon_state = "markings_face_inears_taj"
 
 /datum/sprite_accessory/head_accessory/tajara/muzzle_taj
-	name = "Tajaran Muzzle"
+	name = "Tajaran Male Muzzle"
 	icon_state = "markings_face_muzzle_taj"
 
+/datum/sprite_accessory/head_accessory/tajara/muzzle_alt_taj
+	name = "Tajaran Female Muzzle"
+	icon_state = "markings_face_muzzle_female_taj"
+
 /datum/sprite_accessory/head_accessory/tajara/muzzle_and_inears_taj
-	name = "Tajaran Muzzle and Inner Ears"
+	name = "Tajaran Male Muzzle and Inner Ears"
 	icon_state = "markings_face_muzzle_and_inears_taj"
+
+/datum/sprite_accessory/head_accessory/tajara/muzzle_and_inears_f_taj
+	name = "Tajaran Female Muzzle and Inner Ears"
+	icon_state = "markings_face_muzzle_and_inears_f_taj"
+
+/datum/sprite_accessory/head_accessory/tajara/muzzle_full_taj
+	name = "Tajaran Full Muzzle"
+	icon_state = "markings_face_full_taj"
 
 /datum/sprite_accessory/head_accessory/tajara/taj_ears
 	icon = 'icons/mob/human_face.dmi'
@@ -1833,6 +1845,10 @@
 /datum/sprite_accessory/head_accessory/tajara/taj_nose
 	name = "Tajaran Nose"
 	icon_state = "markings_face_nose_taj"
+
+/datum/sprite_accessory/head_accessory/tajara/taj_nose_inears
+	name = "Tajaran Nose and Inner Ears"
+	icon_state = "markings_face_nose_inears_taj"
 
 /datum/sprite_accessory/head_accessory/vulpkanin
 	species_allowed = list("Vulpkanin")
@@ -2126,16 +2142,28 @@
 	name = "Tajaran Nose"
 	icon_state = "markings_face_nose_taj"
 
+/datum/sprite_accessory/body_markings/head/tajara/nose_inears_taj
+	name = "Tajaran Nose"
+	icon_state = "markings_face_nose_inears_taj"
+
 /datum/sprite_accessory/body_markings/head/tajara/muzzle_taj
 	name = "Tajaran Muzzle"
 	icon_state = "markings_face_muzzle_taj"
 
+/datum/sprite_accessory/body_markings/head/tajara/muzzle_alt_taj //Companion marking for Tajaran Belly 2, but it also acts as a female Tajara muzzle.
+	name = "Tajaran Female Muzzle"
+	icon_state = "markings_face_muzzle_female_taj"
+
 /datum/sprite_accessory/body_markings/head/tajara/muzzle_and_inears_taj
-	name = "Tajaran Muzzle and Inner Ears"
+	name = "Tajaran Male Muzzle and Inner Ears"
 	icon_state = "markings_face_muzzle_and_inears_taj"
 
-/datum/sprite_accessory/body_markings/head/tajara/muzzle_alt_taj //Companion marking for Tajaran Belly 2.
-	name = "Tajaran Muzzle 2"
+/datum/sprite_accessory/body_markings/head/tajara/muzzle_and_inears_f_taj
+	name = "Tajaran Female Muzzle and Inner Ears"
+	icon_state = "markings_face_muzzle_and_inears_f_taj"
+
+/datum/sprite_accessory/body_markings/head/tajara/muzzle_full_taj //Used to be Tajaran Muzzle 2. Now acts as a new muzzle marking for people who want a mono-color Tajara.
+	name = "Tajaran Muzzle Full"
 	icon_state = "markings_face_full_taj"
 
 /datum/sprite_accessory/body_markings/head/tajara/points_taj //Companion marking for Tajaran Points.
