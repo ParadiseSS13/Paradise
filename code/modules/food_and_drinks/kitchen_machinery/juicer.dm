@@ -27,6 +27,7 @@
 		/obj/item/weapon/reagent_containers/food/snacks/grown/berries = "berryjuice",
 		/obj/item/weapon/reagent_containers/food/snacks/grown/pumpkin = "pumpkinjuice",
 		/obj/item/weapon/reagent_containers/food/snacks/grown/blumpkin = "blumpkinjuice",
+		/obj/item/weapon/reagent_containers/food/snacks/grown/pineapple = "pineapplejuice"
 	)
 
 /obj/machinery/juicer/New()
@@ -182,3 +183,4 @@
 	new/obj/item/weapon/reagent_containers/food/snacks/grown/berries(src)
 	new/obj/item/weapon/reagent_containers/food/snacks/grown/banana(src)
 	new/obj/item/weapon/reagent_containers/food/snacks/grown/grapes(src)
+	new/obj/item/weapon/reagent_containers/food/snacks/grown/pineapple(src)

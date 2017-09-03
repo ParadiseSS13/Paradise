@@ -14,10 +14,11 @@
 	var/instrumentExt = "ogg"		// the file extension
 	var/obj/instrumentObj = null	// the associated obj playing the sound
 
-/datum/song/New(dir, obj)
+/datum/song/New(dir, obj, ext = "ogg")
 	tempo = sanitize_tempo(tempo)
 	instrumentDir = dir
 	instrumentObj = obj
+	instrumentExt = ext
 
 /datum/song/Destroy()
 	instrumentObj = null
@@ -50,7 +51,7 @@
 		return
 
 	// now generate name
-	var/soundfile = "sound/[instrumentDir]/[ascii2text(note+64)][acc][oct].[instrumentExt]"
+	var/soundfile = "sound/instruments/[instrumentDir]/[ascii2text(note+64)][acc][oct].[instrumentExt]"
 	soundfile = file(soundfile)
 	// make sure the note exists
 	if(!fexists(soundfile))
@@ -58,7 +59,8 @@
 	// and play
 	var/turf/source = get_turf(instrumentObj)
 	var/sound/music_played = sound(soundfile)
-	for(var/mob/M in hearers(15, source))
+	for(var/A in hearers(15, source))
+		var/mob/M = A
 		if(!M.client || !(M.client.prefs.sound & SOUND_INSTRUMENTS))
 			continue
 		M.playsound_local(source, null, 100, falloff = 5, S = music_played)
@@ -147,6 +149,7 @@
 		lines = new()
 		tempo = sanitize_tempo(5) // default 120 BPM
 		name = ""
+		nanomanager.update_uis(src)
 
 	else if(href_list["import"])
 		playing = 0
@@ -156,11 +159,11 @@
 			if(!in_range(instrumentObj, usr))
 				return
 
-			if(lentext(t) >= 3072)
+			if(lentext(t) >= 12000)
 				var/cont = input(usr, "Your message is too long! Would you like to continue editing it?", "", "yes") in list("yes", "no")
 				if(cont == "no")
 					break
-		while(lentext(t) > 3072)
+		while(lentext(t) > 12000)
 
 		//split into lines
 		spawn()
@@ -172,19 +175,21 @@
 				lines.Cut(1,2)
 			else
 				tempo = sanitize_tempo(5) // default 120 BPM
-			if(lines.len > 50)
+			if(lines.len > 200)
 				to_chat(usr, "Too many lines!")
-				lines.Cut(51)
+				lines.Cut(201)
 			var/linenum = 1
 			for(var/l in lines)
-				if(lentext(l) > 50)
+				if(lentext(l) > 200)
 					to_chat(usr, "Line [linenum] too long!")
 					lines.Remove(l)
 				else
 					linenum++
+		nanomanager.update_uis(src)
 
 	else if(href_list["help"])
 		help = !help
+		nanomanager.update_uis(src)
 
 	if(href_list["repeat"]) //Changing this from a toggle to a number of repeats to avoid infinite loops.
 		if(playing)
@@ -194,9 +199,11 @@
 			repeat = 0
 		if(repeat > max_repeat)
 			repeat = max_repeat
+		nanomanager.update_uis(src)
 
 	else if(href_list["tempo"])
 		tempo = sanitize_tempo(tempo + text2num(href_list["tempo"]) * world.tick_lag)
+		nanomanager.update_uis(src)
 
 	else if(href_list["play"])
 		if(playing)
@@ -204,6 +211,7 @@
 		playing = 1
 		spawn()
 			playsong(usr)
+		nanomanager.update_uis(src)
 
 	else if(href_list["insertline"])
 		var/num = round(text2num(href_list["insertline"]))
@@ -213,32 +221,36 @@
 		var/newline = html_encode(input("Enter your line: ", instrumentObj.name) as text|null)
 		if(!newline || !in_range(instrumentObj, usr))
 			return
-		if(lines.len > 50)
+		if(lines.len > 200)
 			return
-		if(lentext(newline) > 50)
-			newline = copytext(newline, 1, 50)
+		if(lentext(newline) > 200)
+			newline = copytext(newline, 1, 200)
 
 		lines.Insert(num, newline)
+		nanomanager.update_uis(src)
 
 	else if(href_list["deleteline"])
 		var/num = round(text2num(href_list["deleteline"]))
 		if(num > lines.len || num < 1)
 			return
 		lines.Cut(num, num + 1)
+		nanomanager.update_uis(src)
 
 	else if(href_list["modifyline"])
 		var/num = round(text2num(href_list["modifyline"]))
 		var/content = html_encode(input("Enter your line: ", instrumentObj.name, lines[num]) as text|null)
 		if(!content || !in_range(instrumentObj, usr))
 			return
-		if(lentext(content) > 50)
-			content = copytext(content, 1, 50)
+		if(lentext(content) > 200)
+			content = copytext(content, 1, 200)
 		if(num > lines.len || num < 1)
 			return
 		lines[num] = content
+		nanomanager.update_uis(src)
 
 	else if(href_list["stop"])
 		playing = 0
+		nanomanager.update_uis(src)
 
 /datum/song/proc/sanitize_tempo(new_tempo)
 	new_tempo = abs(new_tempo)
