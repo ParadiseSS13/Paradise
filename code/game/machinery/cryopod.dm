@@ -54,6 +54,13 @@
 	user << browse(dat, "window=cryopod_console")
 	onclose(user, "cryopod_console")
 
+/obj/machinery/computer/cryopod/emag_act(user as mob)
+	if(!emagged)
+		playsound(loc, 'sound/effects/sparks4.ogg', 60, 1)
+		req_one_access = list()
+		emagged = 1
+		to_chat(user, "<span class='notice'>You short out the identification circuitry</span>")
+
 /obj/machinery/computer/cryopod/Topic(href, href_list)
 	if(..())
 		return 1
