@@ -94,7 +94,6 @@
     /obj/item/device/radio/off = 6,
     /obj/item/weapon/twohanded/garrote/improvised = 6,
     /obj/item/clothing/suit/space = 8,
-    /obj/item/weapon/reagent_containers/glass/beaker/fuel = 7,
     /obj/item/weapon/grenade/iedcasing = 7,
     /obj/item/clothing/mask/gas = 8,
     /obj/item/weapon/grenade/smokebomb = 6,
