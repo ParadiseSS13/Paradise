@@ -1,0 +1,10 @@
+author: "Citinited"
+delete-after: True
+changes: 
+  - bugfix: "You can now deconstruct the indestructible stool in the old bar's back room."
+  - bugfix: "Security and bar maintenance airlocks are now decoupled."
+  - tweak: "The air vent at the fore of AI satellite now starts turned on."
+  - tweak: "Engineering equipment now only has one air vent, not three."
+  - bugfix: "Added a missing bit of plating underneath the engineering shuttle's window."
+  - bugfix: "Added a missing scrubbers pipe in Central Primary."
+  - tweak: "The camera and light fixture in the prisoner transfer centre are now wall-mounted instead of being attached to the blast doors."
