@@ -79,7 +79,7 @@
 				if(1)
 					emote("twitch")
 				if(2 to 3)
-					var/tourettes = pick("SHIT", "PISS", "FUCK", "CUNT", "COCKSUCKER", "MOTHERFUCKER", "TITS")
+					var/tourettes = pick("SHIT", "PISS", "FUCK", "CUNT", "COCKSUCKER", "MOTHERFUCKER", "TITS", "FUCKFACE", "RETARDS", "SHITCURITY", "COMDOM", "MALPRACTICEBAY", "ASSHOLE", "DICKS", "ASSHATS", "SHITCUNT")
 					say("[prob(50) ? ";" : ""][tourettes]")
 			var/x_offset = pixel_x + rand(-2,2) //Should probably be moved into the twitch emote at some point.
 			var/y_offset = pixel_y + rand(-1,1)
