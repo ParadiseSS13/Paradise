@@ -186,7 +186,8 @@
 						if("released")
 							active2.fields["criminal"] = "Released"
 					var/newstatus = active2.fields["criminal"]
-					active2.fields["comments"] += "[rank] [usr.name] changed status to [newstatus] on [current_date_string] [worldtime2text()]."
+					active2.fields["comments"] += "Set to [newstatus] by [usr.name] ([rank]) on [current_date_string] [worldtime2text()]."
+
 
 					update_all_mob_security_hud()
 			if("rank")
