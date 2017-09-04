@@ -175,8 +175,8 @@
 								active2.fields["criminal"] = "*Execute*"
 								var/their_name = active2.fields["name"]
 								var/their_rank = active2.fields["rank"]
-								message_admins("[key_name_admin(usr)] set [their_rank] [their_name] to Execute.")
-								log_game("[key_name_admin(usr)] set [their_rank] [their_name] to Execute.")
+								message_admins("[key_name_admin(usr)] authorized execution for [their_rank] [their_name]")
+								log_game("[key_name_admin(usr)] authorized execution for [their_rank] [their_name]")
 							else
 								to_chat(usr, "<span class='notice'>Error: permission denied.</span>")
 						if("incarcerated")
