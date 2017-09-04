@@ -68,7 +68,7 @@
 						var/background = "''"
 						switch(crimstat)
 							if("*Execute*")
-								background = "'background-color:#890E26'"
+								background = "'background-color:#5E0A1A'"
 							if("*Arrest*")
 								background = "'background-color:#890E26'"
 							if("Incarcerated")
