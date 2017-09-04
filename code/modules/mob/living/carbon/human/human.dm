@@ -814,24 +814,29 @@
 							if(R.fields["id"] == E.fields["id"])
 
 								var/setcriminal = input(usr, "Specify a new criminal status for this person.", "Security HUD", R.fields["criminal"]) in list("None", "*Arrest*", "Incarcerated", "Parolled", "Released", "Cancel")
+								var/t1 = copytext(trim(sanitize(input("Enter Reason:", "Security HUD", null, null) as message)), 1, MAX_MESSAGE_LEN)
+								if(!t1)
+									t1 = "(none)"
 
 								if(hasHUD(usr, "security") && setcriminal != "Cancel")
 									found_record = 1
+									var/their_name = R.fields["name"]
+									var/their_rank = R.fields["rank"]
 									if(R.fields["criminal"] == "*Execute*")
 										to_chat(usr, "<span class='warning'>Unable to modify the sec status of a person with an active Execution order. Use a security computer instead.</span>")
 									else
 										if(ishuman(usr))
 											var/mob/living/carbon/human/U = usr
-											R.fields["comments"] += "Set to [setcriminal] by [U.get_authentification_name()] ([U.get_assignment()]) on [current_date_string] [worldtime2text()]<BR>"
+											R.fields["comments"] += "Set to [setcriminal] by [U.get_authentification_name()] ([U.get_assignment()]) on [current_date_string] [worldtime2text()] with comment: [t1]<BR>"
 										if(isrobot(usr))
 											var/mob/living/silicon/robot/U = usr
-											R.fields["comments"] += "Set to [setcriminal] by [U.name] ([U.modtype] [U.braintype]) on [current_date_string] [worldtime2text()]<BR>"
+											R.fields["comments"] += "Set to [setcriminal] by [U.name] ([U.modtype] [U.braintype]) on [current_date_string] [worldtime2text()] with comment: [t1]<BR>"
 										if(isAI(usr))
 											var/mob/living/silicon/ai/U = usr
-											R.fields["comments"] += "Set to [setcriminal] by [U.name] (artificial intelligence) on [current_date_string] [worldtime2text()]<BR>"
+											R.fields["comments"] += "Set to [setcriminal] by [U.name] (artificial intelligence) on [current_date_string] [worldtime2text()] with comment: [t1]<BR>"
 
 										R.fields["criminal"] = setcriminal
-
+										log_game("[key_name_admin(usr)] set secstatus of [their_rank] [their_name] to [setcriminal], comment: [t1]")
 										spawn()
 											sec_hud_set_security_status()
 

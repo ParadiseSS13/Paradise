@@ -165,6 +165,11 @@
 				screen = SEC_DATA_R_LIST
 			if("criminal")
 				if(active2)
+					var/their_name = active2.fields["name"]
+					var/their_rank = active2.fields["rank"]
+					var/t1 = copytext(trim(sanitize(input("Enter Reason:", "Secure. records", null, null) as message)), 1, MAX_MESSAGE_LEN)
+					if(!t1)
+						t1 = "(none)"
 					switch(temp_href[2])
 						if("none")
 							active2.fields["criminal"] = "None"
@@ -173,12 +178,11 @@
 						if("execute")
 							if(istype(active1, /datum/data/record) && can_execute.Find(rank))
 								active2.fields["criminal"] = "*Execute*"
-								var/their_name = active2.fields["name"]
-								var/their_rank = active2.fields["rank"]
-								message_admins("[key_name_admin(usr)] authorized execution for [their_rank] [their_name]")
-								log_game("[key_name_admin(usr)] authorized execution for [their_rank] [their_name]")
+								message_admins("[key_name_admin(usr)] authorized execution for [their_rank] [their_name], with comment: [t1]")
 							else
-								to_chat(usr, "<span class='notice'>Error: permission denied.</span>")
+								setTemp("<h3 class='bad'>Error: permission denied.</h3>")
+								//to_chat(usr, "<span class='notice'>Error: permission denied.</span>")
+								return 1
 						if("incarcerated")
 							active2.fields["criminal"] = "Incarcerated"
 						if("parolled")
@@ -186,9 +190,8 @@
 						if("released")
 							active2.fields["criminal"] = "Released"
 					var/newstatus = active2.fields["criminal"]
-					active2.fields["comments"] += "Set to [newstatus] by [usr.name] ([rank]) on [current_date_string] [worldtime2text()]."
-
-
+					log_game("[key_name_admin(usr)] set secstatus of [their_rank] [their_name] to [newstatus], comment: [t1]")
+					active2.fields["comments"] += "Set to [newstatus] by [usr.name] ([rank]) on [current_date_string] [worldtime2text()], comment: [t1]"
 					update_all_mob_security_hud()
 			if("rank")
 				if(active1)
