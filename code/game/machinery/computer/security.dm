@@ -20,6 +20,7 @@
 	//Sorting Variables
 	var/sortBy = "name"
 	var/order = 1 // -1 = Descending - 1 = Ascending
+	var/list/can_execute = list("Captain", "Magistrate")
 
 	light_color = LIGHT_COLOR_RED
 
@@ -66,6 +67,8 @@
 								break
 						var/background = "''"
 						switch(crimstat)
+							if("*Execute*")
+								background = "'background-color:#890E26'"
 							if("*Arrest*")
 								background = "'background-color:#890E26'"
 							if("Incarcerated")
@@ -167,12 +170,23 @@
 							active2.fields["criminal"] = "None"
 						if("arrest")
 							active2.fields["criminal"] = "*Arrest*"
+						if("execute")
+							if(istype(active1, /datum/data/record) && can_execute.Find(rank))
+								active2.fields["criminal"] = "*Execute*"
+								var/their_name = active2.fields["name"]
+								var/their_rank = active2.fields["rank"]
+								message_admins("[key_name_admin(usr)] set [their_rank] [their_name] to Execute.")
+								log_game("[key_name_admin(usr)] set [their_rank] [their_name] to Execute.")
+							else
+								to_chat(usr, "<span class='notice'>Error: permission denied.</span>")
 						if("incarcerated")
 							active2.fields["criminal"] = "Incarcerated"
 						if("parolled")
 							active2.fields["criminal"] = "Parolled"
 						if("released")
 							active2.fields["criminal"] = "Released"
+					var/newstatus = active2.fields["criminal"]
+					active2.fields["comments"] += "[rank] [usr.name] changed status to [newstatus] on [current_date_string] [worldtime2text()]."
 
 					update_all_mob_security_hud()
 			if("rank")
@@ -458,6 +472,7 @@
 						buttons[++buttons.len] = list("name" = "None", "icon" = "unlock", "href" = "criminal=none", "status" = (active2.fields["criminal"] == "None" ? "selected" : null))
 						buttons[++buttons.len] = list("name" = "*Arrest*", "icon" = "lock", "href" = "criminal=arrest", "status" = (active2.fields["criminal"] == "*Arrest*" ? "selected" : null))
 						buttons[++buttons.len] = list("name" = "Incarcerated", "icon" = "lock", "href" = "criminal=incarcerated", "status" = (active2.fields["criminal"] == "Incarcerated" ? "selected" : null))
+						buttons[++buttons.len] = list("name" = "*Execute*", "icon" = "lock", "href" = "criminal=execute", "status" = (active2.fields["criminal"] == "*Execute*" ? "selected" : null))
 						buttons[++buttons.len] = list("name" = "Parolled", "icon" = "unlock-alt", "href" = "criminal=parolled", "status" = (active2.fields["criminal"] == "Parolled" ? "selected" : null))
 						buttons[++buttons.len] = list("name" = "Released", "icon" = "unlock", "href" = "criminal=released", "status" = (active2.fields["criminal"] == "Released" ? "selected" : null))
 						setTemp("<h3>Criminal Status</h3>", buttons)

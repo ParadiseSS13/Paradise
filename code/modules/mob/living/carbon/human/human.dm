@@ -796,7 +796,7 @@
 	if(href_list["criminal"])
 		if(hasHUD(usr,"security"))
 
-			var/modified = 0
+			var/found_record = 0
 			var/perpname = "wot"
 			if(wear_id)
 				var/obj/item/weapon/card/id/I = wear_id.GetID()
@@ -815,15 +815,17 @@
 
 								var/setcriminal = input(usr, "Specify a new criminal status for this person.", "Security HUD", R.fields["criminal"]) in list("None", "*Arrest*", "Incarcerated", "Parolled", "Released", "Cancel")
 
-								if(hasHUD(usr, "security"))
-									if(setcriminal != "Cancel")
+								if(hasHUD(usr, "security") && setcriminal != "Cancel")
+									found_record = 1
+									if(R.fields["criminal"] == "*Execute*")
+										to_chat(usr, "<span class='warning'>Unable to modify the sec status of a person with an active Execution order. Use a security computer instead.</span>")
+									else
 										R.fields["criminal"] = setcriminal
-										modified = 1
 
 										spawn()
 											sec_hud_set_security_status()
 
-			if(!modified)
+			if(!found_record)
 				to_chat(usr, "<span class='warning'>Unable to locate a data core entry for this person.</span>")
 
 	if(href_list["secrecord"])
@@ -1761,6 +1763,8 @@
 		var/datum/data/record/R = find_record("name", perpname, data_core.security)
 		if(R && R.fields["criminal"])
 			switch(R.fields["criminal"])
+				if("*Execute*")
+					threatcount += 7
 				if("*Arrest*")
 					threatcount += 5
 				if("Incarcerated")
