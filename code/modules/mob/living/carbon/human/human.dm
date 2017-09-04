@@ -820,6 +820,16 @@
 									if(R.fields["criminal"] == "*Execute*")
 										to_chat(usr, "<span class='warning'>Unable to modify the sec status of a person with an active Execution order. Use a security computer instead.</span>")
 									else
+										if(ishuman(usr))
+											var/mob/living/carbon/human/U = usr
+											R.fields["comments"] += "Set to [setcriminal] by [U.get_authentification_name()] ([U.get_assignment()]) on [current_date_string] [worldtime2text()]<BR>"
+										if(isrobot(usr))
+											var/mob/living/silicon/robot/U = usr
+											R.fields["comments"] += "Set to [setcriminal] by [U.name] ([U.modtype] [U.braintype]) on [current_date_string] [worldtime2text()]<BR>"
+										if(isAI(usr))
+											var/mob/living/silicon/ai/U = usr
+											R.fields["comments"] += "Set to [setcriminal] by [U.name] (artificial intelligence) on [current_date_string] [worldtime2text()]<BR>"
+
 										R.fields["criminal"] = setcriminal
 
 										spawn()
