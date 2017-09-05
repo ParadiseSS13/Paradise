@@ -1,0 +1,4 @@
+author: "Kyep"
+delete-after: True
+changes: 
+  - bugfix: "Admins under the effects of 'invisimin' no longer show up on sec huds, medical huds, etc."
