@@ -12,6 +12,7 @@
 	var/obj/item/weapon/card/id/scan = null
 	var/authenticated = null
 	var/rank = null
+	var/list/authcard_access = list()
 	var/screen = null
 	var/datum/data/record/active1 = null
 	var/datum/data/record/active2 = null
@@ -20,7 +21,6 @@
 	//Sorting Variables
 	var/sortBy = "name"
 	var/order = 1 // -1 = Descending - 1 = Ascending
-	var/list/can_execute = list("Captain", "Magistrate")
 
 	light_color = LIGHT_COLOR_RED
 
@@ -176,7 +176,7 @@
 						if("arrest")
 							active2.fields["criminal"] = "*Arrest*"
 						if("execute")
-							if(istype(active1, /datum/data/record) && can_execute.Find(rank))
+							if(access_magistrate in authcard_access)
 								active2.fields["criminal"] = "*Execute*"
 								message_admins("[key_name_admin(usr)] authorized execution for [their_rank] [their_name], with comment: [t1]")
 							else
@@ -224,6 +224,7 @@
 			if(check_access(scan))
 				authenticated = scan.registered_name
 				rank = scan.assignment
+				authcard_access = scan.access
 
 		if(authenticated)
 			active1 = null
@@ -236,6 +237,7 @@
 			screen = null
 			active1 = null
 			active2 = null
+			authcard_access = list()
 
 		else if(href_list["sort"])
 			// Reverse the order if clicked twice
