@@ -380,6 +380,7 @@
 		new /obj/item/clothing/shoes/orange(src)
 		new /obj/item/weapon/card/id/prisoner/random(src)
 		new /obj/item/device/radio/headset(src)
+		new /obj/item/device/instrument/harmonica(src)
 
 
 
