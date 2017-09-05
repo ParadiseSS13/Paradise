@@ -37,7 +37,7 @@
 			if(species.name == "Drask")		//Only Drask can make whale noises
 				on_CD = handle_emote_CD()			//proc located in code\modules\mob\emote.dm
 			else
-				return				
+				return
 		if("howl", "howls")
 			if (species.name == "Vulpkanin")		//Only Vulpkanin can howl
 				on_CD = handle_emote_CD(100)
@@ -47,7 +47,7 @@
 			if (species.name == "Vulpkanin")		//Only Vulpkanin can growl
 				on_CD = handle_emote_CD()
 			else
-				return				
+				return
 		if("squish", "squishes")
 			var/found_slime_bodypart = 0
 
@@ -101,7 +101,7 @@
 		if("me")									//OKAY SO RANT TIME, THIS FUCKING HAS TO BE HERE OR A SHITLOAD OF THINGS BREAK
 			return custom_emote(m_type, message)	//DO YOU KNOW WHY SHIT BREAKS? BECAUSE SO MUCH OLDCODE CALLS mob.emote("me",1,"whatever_the_fuck_it_wants_to_emote")
 													//WHO THE FUCK THOUGHT THAT WAS A GOOD FUCKING IDEA!?!?
-													
+
 		if("howl", "howls")
 			var/M = handle_emote_param(param) //Check to see if the param is valid (mob with the param name is in view).
 			message = "<B>[src]</B> howls[M ? " at [M]" : ""]!"
@@ -113,7 +113,7 @@
 			message = "<B>[src]</B> growls[M ? " at [M]" : ""]."
 			playsound(loc, "growls", 80, 0)
 			m_type = 2
-			
+
 		if("ping", "pings")
 			var/M = handle_emote_param(param)
 
@@ -324,8 +324,14 @@
 								G.affecting.forceMove(oldloc)
 								message = "<B>[src]</B> flips over [G.affecting]!"
 						else
-							message = "<B>[src]</B> does a flip!"
-							SpinAnimation(5,1)
+							if(prob(5))
+								message = "<B>[src]</B> attempts a flip and crashes to the floor!"
+								SpinAnimation(5,1)
+								sleep(3)
+								Weaken(2)
+							else
+								message = "<B>[src]</B> does a flip!"
+								SpinAnimation(5,1)
 
 		if("aflap", "aflaps")
 			if(!restrained())
@@ -734,9 +740,9 @@
 					message = "<B>[src]</B> [species.scream_verb][M ? " at [M]" : ""]!"
 					m_type = 2
 					if(gender == FEMALE)
-						playsound(loc, "[species.female_scream_sound]", 80, 1, 0, pitch = get_age_pitch())
+						playsound(loc, "[species.female_scream_sound]", 80, 1, frequency = get_age_pitch())
 					else
-						playsound(loc, "[species.male_scream_sound]", 80, 1, 0, pitch = get_age_pitch()) //default to male screams if no gender is present.
+						playsound(loc, "[species.male_scream_sound]", 80, 1, frequency = get_age_pitch()) //default to male screams if no gender is present.
 
 				else
 					message = "<B>[src]</B> makes a very loud noise[M ? " at [M]" : ""]."
@@ -750,9 +756,9 @@
 				var/obj/item/organ/external/R = H.get_organ("r_hand")
 				var/left_hand_good = 0
 				var/right_hand_good = 0
-				if(L && (!(L.status & ORGAN_DESTROYED)) && (!(L.status & ORGAN_SPLINTED)) && (!(L.status & ORGAN_BROKEN)))
+				if(L && (!(L.status & ORGAN_SPLINTED)) && (!(L.status & ORGAN_BROKEN)))
 					left_hand_good = 1
-				if(R && (!(R.status & ORGAN_DESTROYED)) && (!(R.status & ORGAN_SPLINTED)) && (!(R.status & ORGAN_BROKEN)))
+				if(R && (!(R.status & ORGAN_SPLINTED)) && (!(R.status & ORGAN_BROKEN)))
 					right_hand_good = 1
 
 				if(!left_hand_good && !right_hand_good)

@@ -13,7 +13,7 @@ var/list/spells = typesof(/obj/effect/proc_holder/spell) //needed for the badmin
 		to_chat(user, "<span class='warning'><b>[user.ranged_ability.name]</b> has been disabled.")
 		user.ranged_ability.remove_ranged_ability(user)
 		return TRUE //TRUE for failed, FALSE for passed.
-	user.next_click = world.time + CLICK_CD_CLICK_ABILITY
+	user.changeNext_click(CLICK_CD_CLICK_ABILITY)
 	user.face_atom(A)
 	return FALSE
 

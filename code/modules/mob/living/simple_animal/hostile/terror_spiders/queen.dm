@@ -333,7 +333,7 @@
 		for(var/i in 1 to numlings)
 			var/obj/structure/spider/spiderling/terror_spiderling/S = new /obj/structure/spider/spiderling/terror_spiderling(get_turf(src))
 			S.grow_as = /mob/living/simple_animal/hostile/poison/terror_spider/red
-			S.stillborn = 1
+			S.stillborn = TRUE
 			S.name = "Evil-Looking Spiderling"
 			S.desc = "It moves very quickly, hisses loudly for its size... and has disproportionately large fangs. Hopefully it does not grow up..."
 		if(!spider_can_fakelings)

@@ -949,7 +949,8 @@ var/list/all_supply_groups = list(supply_emergency,supply_security,supply_engine
 	contains = list(/obj/item/pizzabox/margherita,
 					/obj/item/pizzabox/mushroom,
 					/obj/item/pizzabox/meat,
-					/obj/item/pizzabox/vegetable)
+					/obj/item/pizzabox/vegetable,
+					/obj/item/pizzabox/hawaiian)
 	cost = 60
 	containername = "Pizza crate"
 
@@ -1423,7 +1424,9 @@ var/list/all_supply_groups = list(supply_emergency,supply_security,supply_engine
 					/obj/item/clothing/mask/gas/mime,
 					/obj/item/clothing/head/beret,
 					/obj/item/clothing/suit/suspenders,
-					/obj/item/weapon/reagent_containers/food/drinks/bottle/bottleofnothing)
+					/obj/item/weapon/reagent_containers/food/drinks/bottle/bottleofnothing,
+					/obj/item/weapon/reagent_containers/food/drinks/bottle/bottleofbanana
+					)
 	cost = 10
 	containertype = /obj/structure/closet/crate/secure
 	containername = "standard costumes"
@@ -1510,6 +1513,22 @@ var/list/all_supply_groups = list(supply_emergency,supply_security,supply_engine
 	cost = 40
 	containername = "foam force pistols crate"
 	contraband = 1
+
+/datum/supply_packs/misc/bigband
+	name = "Big band instrument collection"
+	contains = list(/obj/item/device/instrument/violin,
+					/obj/item/device/instrument/guitar,
+					/obj/item/device/instrument/eguitar,
+					/obj/item/device/instrument/glockenspiel,
+					/obj/item/device/instrument/accordion,
+					/obj/item/device/instrument/saxophone,
+					/obj/item/device/instrument/trombone,
+					/obj/item/device/instrument/recorder,
+					/obj/item/device/instrument/harmonica,
+					/obj/item/device/instrument/xylophone,
+					/obj/structure/piano)
+	cost = 50
+	containername = "Big band musical instruments collection"
 
 /datum/supply_packs/misc/randomised/contraband
 	num_contained = 5

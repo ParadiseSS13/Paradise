@@ -188,6 +188,8 @@
 
 	var/last_movement = -100 // Last world.time the mob actually moved of its own accord.
 
+	var/last_logout = 0
+
 	var/resize = 1 //Badminnery resize
 
 	var/datum/vision_override/vision_type = null //Vision override datum.

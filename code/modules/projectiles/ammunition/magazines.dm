@@ -235,8 +235,8 @@
 		return 1
 	return 0
 
-	/obj/item/ammo_box/magazine/m45/enforcer45/lethal
-		ammo_type = /obj/item/ammo_casing/c45
+/obj/item/ammo_box/magazine/m45/enforcer45/lethal
+	ammo_type = /obj/item/ammo_casing/c45
 
 /obj/item/ammo_box/magazine/wt550m9
 	name = "wt550 magazine (4.6x30mm)"
@@ -419,6 +419,31 @@
 
 /obj/item/ammo_box/magazine/toy/pistol/riot
 	ammo_type = /obj/item/ammo_casing/caseless/foam_dart/riot
+
+/obj/item/ammo_box/magazine/toy/enforcer
+	name = "Enforcer Foam magazine"
+	icon_state = "enforcer"
+	max_ammo = 8
+	multiple_sprites = 1
+	ammo_type = /obj/item/ammo_casing/caseless/foam_dart/riot
+
+/obj/item/ammo_box/magazine/toy/enforcer/update_icon()
+	..()
+	overlays.Cut()
+
+	var/ammo = ammo_count()
+	if(ammo && is_riot())
+		overlays += image('icons/obj/ammo.dmi', icon_state = "enforcer-rd")
+	else if(ammo)
+		overlays += image('icons/obj/ammo.dmi', icon_state = "enforcer-bd")
+
+/obj/item/ammo_box/magazine/toy/enforcer/proc/is_riot()//if the topmost bullet is a riot dart
+	var/ammo = ammo_count()
+	if(!ammo)
+		return 0
+	if(istype(contents[contents.len], /obj/item/ammo_casing/caseless/foam_dart/riot))
+		return 1
+	return 0
 
 /obj/item/ammo_box/magazine/toy/smgm45
 	name = "donksoft SMG magazine"

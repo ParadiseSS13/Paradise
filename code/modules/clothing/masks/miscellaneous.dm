@@ -45,8 +45,6 @@
 
 /obj/item/clothing/mask/muzzle/tapegag/dropped(mob/living/carbon/human/user)
 	var/atom/movable/R = new /obj/item/trash/tapetrash
-	if(user.species.bodyflags & HAS_FUR)
-		R.desc += " Is that...fur?"
 	var/turf/T = get_turf(src)
 	R.loc = T
 	transfer_fingerprints_to(R)
@@ -341,6 +339,7 @@
 	icon = 'icons/goonstation/objects/clothing/mask.dmi'
 	icon_state = "cursedclown"
 	item_state = "cclown_hat"
+	unacidable = 1 // HUNKE
 	icon_override = 'icons/goonstation/mob/clothing/mask.dmi'
 	lefthand_file = 'icons/goonstation/mob/inhands/clothing_lefthand.dmi'
 	righthand_file = 'icons/goonstation/mob/inhands/clothing_righthand.dmi'

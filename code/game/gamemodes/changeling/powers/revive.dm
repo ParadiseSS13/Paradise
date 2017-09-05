@@ -24,11 +24,11 @@
 	user.reagents.clear_reagents()
 	user.germ_level = 0
 	user.next_pain_time = 0
-	user.traumatic_shock = 0
 	user.timeofdeath = 0
 	if(ishuman(user))
 		var/mob/living/carbon/human/H = user
 		H.restore_blood()
+		H.traumatic_shock = 0
 		H.shock_stage = 0
 		H.species.create_organs(H)
 		// Now that recreating all organs is necessary, the rest of this organ stuff probably
@@ -42,15 +42,13 @@
 			O.damage_state = "00"
 			O.germ_level = 0
 			QDEL_NULL(O.hidden)
-			O.number_wounds = 0
 			O.open = 0
+			O.internal_bleeding = FALSE
 			O.perma_injury = 0
 			O.status = 0
 			O.trace_chemicals.Cut()
-			QDEL_LIST(O.wounds)
-			O.wound_update_accuracy = 1
 		for(var/obj/item/organ/internal/IO in H.internal_organs)
-			IO.damage = 0
+			IO.rejuvenate()
 			IO.trace_chemicals.Cut()
 		H.remove_all_embedded_objects()
 		H.updatehealth()

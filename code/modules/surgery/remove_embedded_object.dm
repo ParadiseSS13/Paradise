@@ -5,6 +5,7 @@
 
 /datum/surgery/embedded_removal/synth
 	steps = list(/datum/surgery_step/robotics/external/unscrew_hatch,/datum/surgery_step/robotics/external/open_hatch,/datum/surgery_step/remove_object,/datum/surgery_step/robotics/external/close_hatch)
+	requires_organic_bodypart = 0
 
 /datum/surgery/embedded_removal/can_start(mob/user, mob/living/carbon/human/target)
 	if(!istype(target))
