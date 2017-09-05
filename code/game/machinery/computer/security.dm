@@ -176,7 +176,7 @@
 						if("arrest")
 							active2.fields["criminal"] = "*Arrest*"
 						if("execute")
-							if(access_magistrate in authcard_access)
+							if((access_magistrate in authcard_access) || (access_armory in authcard_access))
 								active2.fields["criminal"] = "*Execute*"
 								message_admins("[key_name_admin(usr)] authorized execution for [their_rank] [their_name], with comment: [t1]")
 							else
