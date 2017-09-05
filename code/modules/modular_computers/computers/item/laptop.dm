@@ -2,11 +2,10 @@
 	name = "laptop"
 	desc = "A portable laptop computer."
 
-	icon = 'icons/obj/modular_laptop.dmi'
 	icon_state = "laptop-closed"
 	icon_state_powered = "laptop"
 	icon_state_unpowered = "laptop-off"
-	icon_state_menu = "menu"
+	screen_offset_y = 3
 
 	hardware_flag = PROGRAM_LAPTOP
 	max_hardware_size = 2
