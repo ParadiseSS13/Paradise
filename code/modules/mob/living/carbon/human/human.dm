@@ -814,7 +814,7 @@
 							if(R.fields["id"] == E.fields["id"])
 
 								var/setcriminal = input(usr, "Specify a new criminal status for this person.", "Security HUD", R.fields["criminal"]) in list("None", "*Arrest*", "Incarcerated", "Parolled", "Released", "Cancel")
-								var/t1 = copytext(trim(sanitize(input("Enter Reason:", "Security HUD", null, null) as message)), 1, MAX_MESSAGE_LEN)
+								var/t1 = copytext(trim(sanitize(input("Enter Reason:", "Security HUD", null, null) as text)), 1, MAX_MESSAGE_LEN)
 								if(!t1)
 									t1 = "(none)"
 

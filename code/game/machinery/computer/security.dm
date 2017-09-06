@@ -167,7 +167,7 @@
 				if(active2)
 					var/their_name = active2.fields["name"]
 					var/their_rank = active2.fields["rank"]
-					var/t1 = copytext(trim(sanitize(input("Enter Reason:", "Secure. records", null, null) as message)), 1, MAX_MESSAGE_LEN)
+					var/t1 = copytext(trim(sanitize(input("Enter Reason:", "Secure. records", null, null) as text)), 1, MAX_MESSAGE_LEN)
 					if(!t1)
 						t1 = "(none)"
 					switch(temp_href[2])
