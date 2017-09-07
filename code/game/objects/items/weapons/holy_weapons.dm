@@ -621,7 +621,7 @@
 	target.mind.make_zealot(missionary, convert_duration, team_color)
 	zealots_made++
 
-	missionary.adjustBruteLoss(8 * zealots_made)
+	missionary.adjustBruteLoss(8 * zealots_made * pick(0.5,1,2))
 
 	target << sound('sound/misc/wololo.ogg', 0, 1, 25)
 	missionary.say("WOLOLO!")
