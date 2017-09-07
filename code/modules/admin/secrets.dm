@@ -76,9 +76,10 @@
 					<A href='?src=[UID()];secretsfun=securitylevel0'>Security Level - Green</A>&nbsp;&nbsp;
 					<A href='?src=[UID()];secretsfun=securitylevel1'>Security Level - Blue</A>&nbsp;&nbsp;
 					<A href='?src=[UID()];secretsfun=securitylevel2'>Security Level - Red</A><br>
-					<A href='?src=[UID()];secretsfun=securitylevel3'>Security Level - Gamma</A>&nbsp;&nbsp;
-					<A href='?src=[UID()];secretsfun=securitylevel4'>Security Level - Epsilon</A>&nbsp;&nbsp;
-					<A href='?src=[UID()];secretsfun=securitylevel5'>Security Level - Delta</A><BR>
+					<A href='?src=[UID()];secretsfun=securitylevel3'>Security Level - Alpha</A>&nbsp;&nbsp;
+					<A href='?src=[UID()];secretsfun=securitylevel4'>Security Level - Gamma</A><br>
+					<A href='?src=[UID()];secretsfun=securitylevel5'>Security Level - Epsilon</A>&nbsp;&nbsp;
+					<A href='?src=[UID()];secretsfun=securitylevel6'>Security Level - Delta</A><BR>
 					<b>Create Weather</b><BR>
 					<A href='?src=[UID()];secretsfun=weatherashstorm'>Weather - Ash Storm</A>&nbsp;&nbsp;
 					<A href='?src=[UID()];secretsfun=weatherdarkness'>Weather - Advanced Darkness</A>&nbsp;&nbsp;
