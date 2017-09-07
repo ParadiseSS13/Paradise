@@ -519,6 +519,8 @@
 	var/obj/item/clothing/suit/hooded/chaplain_hoodie/missionary_robe/robes = null		//the robes linked with this staff
 	var/faith = 99	//a conversion requires 100 faith to attempt. faith recharges over time while you are wearing missionary robes that have been linked to the staff.
 
+	var/zealots_made = 0
+
 /obj/item/weapon/nullrod/missionary_staff/New()
 	team_color = pick("red", "blue")
 	icon_state = "godstaff-[team_color]"
@@ -617,6 +619,9 @@
 		faith -= 100
 	//if you made it this far: congratulations! you are now a religious zealot!
 	target.mind.make_zealot(missionary, convert_duration, team_color)
+	zealots_made++
+
+	missionary.adjustBruteLoss(8 * zealots_made)
 
 	target << sound('sound/misc/wololo.ogg', 0, 1, 25)
 	missionary.say("WOLOLO!")
