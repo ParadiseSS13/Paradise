@@ -2,9 +2,10 @@
 //0 = code green
 //1 = code blue
 //2 = code red
-//3 = gamma
-//4 = epsilon
-//5 = code delta
+//3 = alpha
+//4 = gamma
+//5 = epsilon
+//6 = delta
 
 //config.alert_desc_blue_downto
 /var/datum/announcement/priority/security/security_announcement_up = new(do_log = 0, do_newscast = 0, new_sound = sound('sound/misc/notice1.ogg'))
@@ -18,6 +19,8 @@
 			level = SEC_LEVEL_BLUE
 		if("red")
 			level = SEC_LEVEL_RED
+		if("alpha")
+			level = SEC_LEVEL_ALPHA
 		if("gamma")
 			level = SEC_LEVEL_GAMMA
 		if("epsilon")
@@ -71,6 +74,22 @@
 					if(is_station_contact(FA.z))
 						FA.overlays.Cut()
 						FA.overlays += image('icons/obj/monitors.dmi', "overlay_red")
+
+			if(SEC_LEVEL_ALPHA)
+				security_announcement_up.Announce("Central Command has ordered the Alpha security level on the station. All hands are to prioritize handling the crisis.","Attention! Alpha security level activated!")
+				security_level = SEC_LEVEL_ALPHA
+
+				var/obj/machinery/door/airlock/highsecurity/red/R = locate(/obj/machinery/door/airlock/highsecurity/red) in airlocks
+				if(R && is_station_level(R.z))
+					R.locked = 0
+					R.update_icon()
+
+				post_status("alert", "alphaalert")
+
+				for(var/obj/machinery/firealarm/FA in machines)
+					if(is_station_contact(FA.z))
+						FA.overlays.Cut()
+						FA.overlays += image('icons/obj/monitors.dmi', "overlay_alpha")
 
 			if(SEC_LEVEL_GAMMA)
 				security_announcement_up.Announce("Central Command has ordered the Gamma security level on the station. Security is to have weapons equipped at all times, and all civilians are to immediately seek their nearest head for transportation to a secure location. The station's Gamma armory has been unlocked and is ready for use.","Attention! Gamma security level activated!")
@@ -130,6 +149,8 @@
 			return "blue"
 		if(SEC_LEVEL_RED)
 			return "red"
+		if(SEC_LEVEL_ALPHA)
+			return "alpha"
 		if(SEC_LEVEL_GAMMA)
 			return "gamma"
 		if(SEC_LEVEL_EPSILON)
@@ -145,6 +166,8 @@
 			return "blue"
 		if(SEC_LEVEL_RED)
 			return "red"
+		if(SEC_LEVEL_ALPHA)
+			return "alpha"
 		if(SEC_LEVEL_GAMMA)
 			return "gamma"
 		if(SEC_LEVEL_EPSILON)
@@ -160,21 +183,11 @@
 			return SEC_LEVEL_BLUE
 		if("red")
 			return SEC_LEVEL_RED
+		if("alpha")
+			return SEC_LEVEL_ALPHA
 		if("gamma")
 			return SEC_LEVEL_GAMMA
 		if("epsilon")
 			return SEC_LEVEL_EPSILON
 		if("delta")
 			return SEC_LEVEL_DELTA
-
-
-/*DEBUG
-/mob/verb/set_thing0()
-	set_security_level(0)
-/mob/verb/set_thing1()
-	set_security_level(1)
-/mob/verb/set_thing2()
-	set_security_level(2)
-/mob/verb/set_thing3()
-	set_security_level(3)
-*/

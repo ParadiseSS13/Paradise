@@ -5,9 +5,10 @@
 #define SEC_LEVEL_GREEN	0
 #define SEC_LEVEL_BLUE	1
 #define SEC_LEVEL_RED	2
-#define SEC_LEVEL_GAMMA	3
-#define SEC_LEVEL_EPSILON	4
-#define SEC_LEVEL_DELTA	5
+#define SEC_LEVEL_ALPHA	3
+#define SEC_LEVEL_GAMMA	4
+#define SEC_LEVEL_EPSILON	5
+#define SEC_LEVEL_DELTA	6
 
 //Click cooldowns, in tenths of a second
 #define CLICK_CD_MELEE 8
