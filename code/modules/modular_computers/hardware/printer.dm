@@ -58,10 +58,8 @@
 			if(user)
 				to_chat(user, "<span class='warning'>You try to add \the [I] into [src], but its paper bin is full!</span>")
 			return FALSE
-
 		if(user && !user.unEquip(I))
 			return FALSE
-
 		if(user)
 			user.put_in_hands(P)
 			if(P.info == null)
@@ -84,6 +82,17 @@
 		qdel(I)
 		stored_paper++
 		return TRUE
+	if(istype(I, /obj/item/weapon/paper_bundle))
+		var/obj/item/weapon/paper_bundle/B = I
+		var/datum/computer_file/data/F = new/datum/computer_file/data()
+		F.filename = "paper bundle - [B.name] [worldtime2text()]"
+		F.stored_data = ""
+		F.do_not_edit = 1
+		F.filetype = "PDF"
+		to_chat(user, "<span class='notice'>You scan the bundle [I] with [src]'s paper scanner.</span>")
+		for(var/obj/item/weapon/paper/P in B)
+			F.stored_data += "<br><hr><b><center>[P.name]</center></b><br>[P.info]"
+		HDD.store_file(F)
 	return FALSE
 
 /obj/item/weapon/computer_hardware/printer/mini
