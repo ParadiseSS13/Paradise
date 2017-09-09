@@ -52,6 +52,7 @@
 		)
 	var/treat_virus = 1 //If on, the bot will attempt to treat viral infections, curing them if possible.
 	var/shut_up = 0 //self explanatory :)
+	var/internalsafety = TRUE // If true attempt to check internal reagent before injecting
 
 /mob/living/simple_animal/bot/medbot/tox
 	skin = "tox"
@@ -185,6 +186,10 @@
 		dat += "Reagent Source: "
 		dat += "<a href='?src=[UID()];use_beaker=1'>[use_beaker ? "Loaded Beaker (When available)" : "Internal Synthesizer"]</a><br>"
 
+		if(reagent_glass)
+			dat += "Internal Reagent Safety:"
+			dat += "<a href='?src=[UID()];internalsafety=1'>[internalsafety ? "Yes" : "No"]</a><br>"
+
 		dat += "Treat Viral Infections: <a href='?src=[UID()];virus=1'>[treat_virus ? "Yes" : "No"]</a><br>"
 		dat += "The speaker switch is [shut_up ? "off" : "on"]. <a href='?src=[UID()];togglevoice=[1]'>Toggle</a><br>"
 		dat += "Critical Patient Alerts: <a href='?src=[UID()];critalerts=1'>[declare_crit ? "Yes" : "No"]</a><br>"
@@ -233,6 +238,9 @@
 
 	else if(href_list["virus"])
 		treat_virus = !treat_virus
+
+	else if(href_list["internalsafety"])
+		internalsafety = !internalsafety
 
 	update_controls()
 	return
@@ -472,6 +480,8 @@
 		return
 
 /mob/living/simple_animal/bot/medbot/proc/special_reagent_check(reagent_id, damagetype)
+	if(!internalsafety)
+		return TRUE
 //Check to see if the reagent actually treats the corresponding damage type.
 	switch(damagetype)
 		if(BRUTE)
