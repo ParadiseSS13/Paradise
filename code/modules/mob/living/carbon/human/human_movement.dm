@@ -40,10 +40,10 @@
 			for(var/obj/item/organ/external/splinted in splinted_limbs)
 				splinted.update_splints()
         
-      	if(!has_gravity(loc))
+	if(!has_gravity(loc))
 		return
 	
-     	var/obj/item/clothing/shoes/S = shoes
+	var/obj/item/clothing/shoes/S = shoes
 			
 	//Bloody footprints
 	var/turf/T = get_turf(src)
