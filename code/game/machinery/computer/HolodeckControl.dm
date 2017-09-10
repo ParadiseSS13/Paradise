@@ -436,8 +436,10 @@
 	item_state = "claymorered"
 
 /obj/item/weapon/holo/esword
-	desc = "May the force be within you. Sorta"
+	name = "Holographic Energy Sword"
+	desc = "This looks like a real energy sword!"
 	icon_state = "sword0"
+	hitsound = "sound/weapons/blade1.ogg"
 	force = 3.0
 	throw_speed = 1
 	throw_range = 5

@@ -32,8 +32,6 @@
 
 	create_reagents(330)
 
-	prev_gender = gender // Debug for plural genders
-
 	martial_art = default_martial_art
 
 	handcrafting = new()
@@ -609,7 +607,7 @@
 //Returns "Unknown" if facially disfigured and real_name if not. Useful for setting name when polyacided or when updating a human's name variable
 /mob/living/carbon/human/proc/get_face_name()
 	var/obj/item/organ/external/head = get_organ("head")
-	if( !head || head.disfigured || (head.status & ORGAN_DESTROYED) || !real_name || (HUSK in mutations) )	//disfigured. use id-name if possible
+	if( !head || head.disfigured || !real_name || (HUSK in mutations) )	//disfigured. use id-name if possible
 		return "Unknown"
 	return real_name
 
@@ -1208,18 +1206,10 @@
 	for(var/obj/item/organ/internal/I in H.internal_organs)
 		types_of_int_organs |= I.type //Compiling the list of organ types. It is possible for organs to be missing from this list if they are absent from the mob.
 
-	//Removing stumps.
-	for(var/obj/item/organ/organ in H.contents)
-		if(istype(organ, /obj/item/organ/external/stump)) //Get rid of all stumps.
-			qdel(organ)
-			H.contents -= organ //Making sure the list entry is removed.
-	for(var/obj/item/organ/organ in H.bodyparts)
-		if(istype(organ, /obj/item/organ/external/stump))
-			qdel(organ)
-			H.bodyparts -= organ //Making sure the list entry is removed.
+	//Clean up limbs
 	for(var/organ_name in H.bodyparts_by_name)
 		var/obj/item/organ/organ = H.bodyparts_by_name[organ_name]
-		if(istype(organ, /obj/item/organ/external/stump) || !organ) //The !organ check is to account for mechanical limb (prostheses) losses, since those are handled in a way that leaves indexed but null list entries instead of stumps.
+		if(!organ) //The !organ check is to account for mechanical limb (prostheses) losses, since those are handled in a way that leaves indexed but null list entries instead of stumps.
 			qdel(organ)
 			H.bodyparts_by_name -= organ_name //Making sure the list entry is removed.
 
@@ -1441,13 +1431,9 @@
 
 	if(species.base_color && default_colour)
 		//Apply colour.
-		r_skin = color2R(species.base_color)
-		g_skin = color2G(species.base_color)
-		b_skin = color2B(species.base_color)
+		skin_colour = species.base_color
 	else
-		r_skin = 0
-		g_skin = 0
-		b_skin = 0
+		skin_colour = "#000000"
 
 	if(!(species.bodyflags & HAS_SKIN_TONE))
 		s_tone = 0
@@ -1471,29 +1457,17 @@
 
 	if(species.default_hair_colour)
 		//Apply colour.
-		H.r_hair = color2R(species.default_hair_colour)
-		H.g_hair = color2G(species.default_hair_colour)
-		H.b_hair = color2B(species.default_hair_colour)
+		H.hair_colour = species.default_hair_colour
 	else
-		H.r_hair = 0
-		H.g_hair = 0
-		H.b_hair = 0
+		H.hair_colour = "#000000"
 	if(species.default_fhair_colour)
-		H.r_facial = color2R(species.default_fhair_colour)
-		H.g_facial = color2G(species.default_fhair_colour)
-		H.b_facial = color2B(species.default_fhair_colour)
+		H.facial_colour = species.default_fhair_colour
 	else
-		H.r_facial = 0
-		H.g_facial = 0
-		H.b_facial = 0
+		H.facial_colour = "#000000"
 	if(species.default_headacc_colour)
-		H.r_headacc = color2R(species.default_headacc_colour)
-		H.g_headacc = color2G(species.default_headacc_colour)
-		H.b_headacc = color2B(species.default_headacc_colour)
+		H.headacc_colour = species.default_headacc_colour
 	else
-		H.r_headacc = 0
-		H.g_headacc = 0
-		H.b_headacc = 0
+		H.headacc_colour = "#000000"
 
 	m_styles = DEFAULT_MARKING_STYLES //Wipes out markings, setting them all to "None".
 	m_colours = DEFAULT_MARKING_COLOURS //Defaults colour to #00000 for all markings.
@@ -1598,7 +1572,7 @@
 		return
 
 	var/obj/item/organ/external/head/head_organ = get_organ("head")
-	if(!head_organ || head_organ.is_stump() || (head_organ.status & ORGAN_DESTROYED)) //If the rock'em-sock'em robot's head came off during a fight, they shouldn't be able to change their screen/optics.
+	if(!head_organ) //If the rock'em-sock'em robot's head came off during a fight, they shouldn't be able to change their screen/optics.
 		to_chat(src, "<span class='warning'>Where's your head at? Can't change your monitor/display without one.</span>")
 		return
 
@@ -2058,3 +2032,13 @@
 	update_icons()
 
 	..()
+
+mob/living/carbon/human/get_taste_sensitivity()
+	if(species)
+		return species.taste_sensitivity
+	else
+		return 1
+
+/mob/living/carbon/human/proc/special_post_clone_handling()
+	if(mind && mind.assigned_role == "Cluwne") //HUNKE your suffering never stops
+		makeCluwne()

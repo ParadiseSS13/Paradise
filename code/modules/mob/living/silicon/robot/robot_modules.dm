@@ -133,6 +133,7 @@
 /obj/item/weapon/robot_module/medical/New()
 	..()
 	modules += new /obj/item/device/healthanalyzer/advanced(src)
+	modules += new /obj/item/device/robotanalyzer(src)
 	modules += new /obj/item/device/reagent_scanner/adv(src)
 	modules += new /obj/item/weapon/borg_defib(src)
 	modules += new /obj/item/roller_holder(src)
@@ -255,9 +256,7 @@
 	modules += new /obj/item/weapon/reagent_containers/food/condiment/enzyme(src)
 	modules += new /obj/item/weapon/pen(src)
 	modules += new /obj/item/weapon/razor(src)
-	modules += new /obj/item/device/instrument/violin(src)
-	modules += new /obj/item/device/instrument/guitar(src)
-	modules += new /obj/item/device/instrument/eguitar(src)
+	modules += new /obj/item/device/instrument/piano_synth(src)
 
 	var/obj/item/weapon/rsf/M = new /obj/item/weapon/rsf(src)
 	M.matter = 30

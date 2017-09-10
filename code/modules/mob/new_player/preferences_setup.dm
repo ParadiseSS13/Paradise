@@ -30,22 +30,16 @@
 		randomize_hair_color("facial")
 	if(S.bodyflags & HAS_HEAD_ACCESSORY)
 		ha_style = random_head_accessory(species)
-		var/list/colours = randomize_skin_color(1)
-		r_headacc = colours["red"]
-		g_headacc = colours["green"]
-		b_headacc = colours["blue"]
+		hacc_colour = randomize_skin_color(1)
 	if(S.bodyflags & HAS_HEAD_MARKINGS)
 		m_styles["head"] = random_marking_style("head", species, robohead, null, alt_head)
-		var/list/colours = randomize_skin_color(1)
-		m_colours["head"] = rgb(colours["red"], colours["green"], colours["blue"])
+		m_colours["head"] = randomize_skin_color(1)
 	if(S.bodyflags & HAS_BODY_MARKINGS)
 		m_styles["body"] = random_marking_style("body", species)
-		var/list/colours = randomize_skin_color(1)
-		m_colours["body"] = rgb(colours["red"], colours["green"], colours["blue"])
+		m_colours["body"] = randomize_skin_color(1)
 	if(S.bodyflags & HAS_TAIL_MARKINGS) //Species with tail markings.
 		m_styles["tail"] = random_marking_style("tail", species, null, body_accessory)
-		var/list/colours = randomize_skin_color(1)
-		m_colours["tail"] = rgb(colours["red"], colours["green"], colours["blue"])
+		m_colours["tail"] = randomize_skin_color(1)
 	if(!(S.bodyflags & ALL_RPARTS))
 		randomize_eyes_color()
 	if(S.bodyflags & HAS_SKIN_COLOR)
@@ -56,9 +50,7 @@
 
 /datum/preferences/proc/randomize_hair_color(var/target = "hair")
 	if(prob (75) && target == "facial") // Chance to inherit hair color
-		r_facial = r_hair
-		g_facial = g_hair
-		b_facial = b_hair
+		f_colour = h_colour
 		return
 
 	var/red
@@ -106,13 +98,9 @@
 
 	switch(target)
 		if("hair")
-			r_hair = red
-			g_hair = green
-			b_hair = blue
+			h_colour = rgb(red, green, blue)
 		if("facial")
-			r_facial = red
-			g_facial = green
-			b_facial = blue
+			f_colour = rgb(red, green, blue)
 
 /datum/preferences/proc/randomize_eyes_color()
 	var/red
@@ -158,11 +146,9 @@
 	green = max(min(green + rand (-25, 25), 255), 0)
 	blue = max(min(blue + rand (-25, 25), 255), 0)
 
-	r_eyes = red
-	g_eyes = green
-	b_eyes = blue
+	e_colour = rgb(red, green, blue)
 
-/datum/preferences/proc/randomize_skin_color(var/pass_to_list)
+/datum/preferences/proc/randomize_skin_color(var/pass_on)
 	var/red
 	var/green
 	var/blue
@@ -206,17 +192,10 @@
 	green = max(min(green + rand (-25, 25), 255), 0)
 	blue = max(min(blue + rand (-25, 25), 255), 0)
 
-	if(pass_to_list)
-		var/list/colours = list(
-			"red" = red,
-			"blue" = blue,
-			"green" = green
-			)
-		return colours
+	if(pass_on)
+		return rgb(red, green, blue)
 	else
-		r_skin = red
-		g_skin = green
-		b_skin = blue
+		s_colour = rgb(red, green, blue)
 
 /datum/preferences/proc/blend_backpack(var/icon/clothes_s,var/backbag,var/satchel,var/backpack="backpack")
 	switch(backbag)

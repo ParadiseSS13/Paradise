@@ -114,6 +114,7 @@
 	clothing_flags = HAS_UNDERWEAR | HAS_UNDERSHIRT | HAS_SOCKS
 	bodyflags = HAS_TAIL | HAS_HEAD_ACCESSORY | HAS_HEAD_MARKINGS | HAS_BODY_MARKINGS | HAS_SKIN_COLOR | TAIL_WAGGING
 	dietflags = DIET_OMNI
+	taste_sensitivity = TASTE_SENSITIVITY_SHARP
 	reagent_tag = PROCESS_ORG
 	flesh_color = "#AFA59E"
 	base_color = "#424242"
@@ -164,6 +165,7 @@
 	clothing_flags = HAS_UNDERWEAR | HAS_UNDERSHIRT | HAS_SOCKS
 	bodyflags = HAS_TAIL | TAIL_WAGGING | TAIL_OVERLAPPED | HAS_HEAD_ACCESSORY | HAS_MARKINGS | HAS_SKIN_COLOR
 	dietflags = DIET_OMNI
+	taste_sensitivity = TASTE_SENSITIVITY_SHARP
 	reagent_tag = PROCESS_ORG
 	flesh_color = "#966464"
 	base_color = "#CF4D2F"
@@ -215,6 +217,7 @@
 	clothing_flags = HAS_UNDERWEAR | HAS_UNDERSHIRT | HAS_SOCKS
 	bodyflags = HAS_SKIN_COLOR | HAS_BODY_MARKINGS
 	dietflags = DIET_HERB
+	taste_sensitivity = TASTE_SENSITIVITY_DULL
 	flesh_color = "#8CD7A3"
 	blood_color = "#1D2CBF"
 	base_color = "#38b661" //RGB: 56, 182, 97.
@@ -581,11 +584,8 @@
 	if((H in recolor_list) && H.reagents.total_volume > SLIMEPERSON_COLOR_SHIFT_TRIGGER)
 		var/blood_amount = H.blood_volume
 		var/r_color = mix_color_from_reagents(H.reagents.reagent_list)
-		var/new_body_color = BlendRGB(r_color, rgb(H.r_skin, H.g_skin, H.b_skin), (blood_amount*SLIMEPERSON_BLOOD_SCALING_FACTOR)/((blood_amount*SLIMEPERSON_BLOOD_SCALING_FACTOR)+(H.reagents.total_volume)))
-		var/list/new_color_list = ReadRGB(new_body_color)
-		H.r_skin = new_color_list[1]
-		H.g_skin = new_color_list[2]
-		H.b_skin = new_color_list[3]
+		var/new_body_color = BlendRGB(r_color, H.skin_colour, (blood_amount*SLIMEPERSON_BLOOD_SCALING_FACTOR)/((blood_amount*SLIMEPERSON_BLOOD_SCALING_FACTOR)+(H.reagents.total_volume)))
+		H.skin_colour = new_body_color
 		if(world.time % SLIMEPERSON_ICON_UPDATE_PERIOD > SLIMEPERSON_ICON_UPDATE_PERIOD - 20) // The 20 is because this gets called every 2 seconds, from the mob controller
 			for(var/organname in H.bodyparts_by_name)
 				var/obj/item/organ/external/E = H.bodyparts_by_name[organname]
@@ -643,12 +643,12 @@
 	var/list/missing_limbs = list()
 	for(var/l in bodyparts_by_name)
 		var/obj/item/organ/external/E = bodyparts_by_name[l]
-		if(!istype(E) || istype(E, /obj/item/organ/external/stump))
+		if(!istype(E))
 			var/list/limblist = species.has_limbs[l]
 			var/obj/item/organ/external/limb = limblist["path"]
 			var/parent_organ = initial(limb.parent_organ)
 			var/obj/item/organ/external/parentLimb = bodyparts_by_name[parent_organ]
-			if(!istype(parentLimb) || parentLimb.is_stump())
+			if(!istype(parentLimb))
 				continue
 			missing_limbs[initial(limb.name)] = l
 
@@ -674,21 +674,17 @@
 		var/stored_brute = 0
 		var/stored_burn = 0
 		if(istype(O))
-			if(!O.is_stump())
-				to_chat(src, "<span class='warning'>Your limb has already been replaced in some way!</span>")
-				return
-			else
-				to_chat(src, "<span class='warning'>You distribute the damaged tissue around your body, out of the way of your new pseudopod!</span>")
-				var/obj/item/organ/external/doomedStump = O
-				stored_brute = doomedStump.brute_dam
-				stored_burn = doomedStump.burn_dam
-				qdel(O)
+			to_chat(src, "<span class='warning'>You distribute the damaged tissue around your body, out of the way of your new pseudopod!</span>")
+			var/obj/item/organ/external/doomedStump = O
+			stored_brute = doomedStump.brute_dam
+			stored_burn = doomedStump.burn_dam
+			qdel(O)
 
 		var/limb_list = species.has_limbs[chosen_limb]
 		var/obj/item/organ/external/limb_path = limb_list["path"]
 		// Parent check
 		var/obj/item/organ/external/potential_parent = bodyparts_by_name[initial(limb_path.parent_organ)]
-		if(!istype(potential_parent) || potential_parent.is_stump())
+		if(!istype(potential_parent))
 			to_chat(src, "<span class='danger'>You've lost the organ that you've been growing your new part on!</span>")
 			return // No rayman for you
 		// Grah this line will leave a "not used" warning, in spite of the fact that the new() proc WILL do the thing.
@@ -804,6 +800,7 @@
 	species_traits = list(NO_BREATHE, RADIMMUNE, IS_PLANT, NO_BLOOD, NO_PAIN)
 	clothing_flags = HAS_SOCKS
 	dietflags = 0		//Diona regenerate nutrition in light, no diet necessary
+	taste_sensitivity = TASTE_SENSITIVITY_NO_TASTE
 
 	oxy_mod = 0
 
@@ -866,7 +863,6 @@
 		var/turf/T = H.loc
 		light_amount = min(T.get_lumcount() * 10, 5)  //hardcapped so it's not abused by having a ton of flashlights
 	H.nutrition = min(H.nutrition+light_amount, NUTRITION_LEVEL_WELL_FED+10)
-	H.traumatic_shock -= light_amount
 
 	if(light_amount > 0)
 		H.clear_alert("nolight")
@@ -879,7 +875,6 @@
 		H.adjustFireLoss(-(light_amount/4))
 	if(H.nutrition < NUTRITION_LEVEL_STARVING+50)
 		H.take_overall_damage(10,0)
-		H.traumatic_shock++
 
 /datum/species/machine
 	name = "Machine"
@@ -911,6 +906,7 @@
 	clothing_flags = HAS_UNDERWEAR | HAS_UNDERSHIRT | HAS_SOCKS
 	bodyflags = HAS_SKIN_COLOR | HAS_HEAD_MARKINGS | HAS_HEAD_ACCESSORY | ALL_RPARTS
 	dietflags = 0		//IPCs can't eat, so no diet
+	taste_sensitivity = TASTE_SENSITIVITY_NO_TASTE
 	blood_color = "#1F181F"
 	flesh_color = "#AAAAAA"
 	//Default styles for created mobs.

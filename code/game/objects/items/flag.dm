@@ -1,5 +1,8 @@
 /obj/item/flag
 	icon = 'icons/obj/flag.dmi'
+	icon_state = "ntflag"
+	lefthand_file = 'icons/mob/inhands/flags_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/flags_righthand.dmi'
 	w_class = WEIGHT_CLASS_BULKY
 	burntime = 20
 	burn_state = FLAMMABLE
@@ -10,10 +13,25 @@
 		user.visible_message("<span class='notice'>[user] lights the [name] with [W].</span>")
 		fire_act()
 
-/obj/item/flag/proc/update_icons()
-	overlays = null
-	overlays += image('icons/obj/flag.dmi', src , "fire")
-	item_state = "[icon_state]_fire"
+/obj/item/flag/fire_act(global_overlay = FALSE)
+	..()
+	update_icon()
+
+/obj/item/flag/extinguish()
+	..()
+	update_icon()
+
+/obj/item/flag/update_icon()
+	overlays.Cut()
+	if(burn_state == ON_FIRE)
+		overlays += image('icons/obj/flag.dmi', src , "fire")
+		item_state = "[icon_state]_fire"
+	else
+		item_state = initial(icon_state)
+	if(ismob(loc))
+		var/mob/M = loc
+		M.update_inv_r_hand()
+		M.update_inv_l_hand()
 
 /obj/item/flag/nt
 	name = "Nanotrasen flag"
@@ -102,6 +120,11 @@
 	name = "Drask flag"
 	desc = "A flag proudly proclaiming the superior heritage of Drask."
 	icon_state = "draskflag"
+
+/obj/item/flag/species/plasma
+	name = "Plasmaman flag"
+	desc = "A flag proudly proclaiming the superior heritage of Plasmamen."
+	icon_state = "plasmaflag"
 
 //Department Flags
 
