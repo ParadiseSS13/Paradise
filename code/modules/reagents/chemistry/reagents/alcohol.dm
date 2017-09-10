@@ -610,7 +610,7 @@
 	alcohol_perc = 0.4
 	drink_icon = "proj_manhattanglass"
 	drink_name = "Manhattan Project"
-	drink_desc = "A scienitst drink of choice, for thinking how to blow up the station."
+	drink_desc = "A scientist's drink of choice, for thinking how to blow up the station."
 	taste_message = "bitter alcohol"
 
 /datum/reagent/consumable/ethanol/whiskeysoda
