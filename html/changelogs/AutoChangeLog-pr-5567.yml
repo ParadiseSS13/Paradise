@@ -1,0 +1,4 @@
+author: TullyBurnalot
+delete-after: True
+changes: 
+  - bugfix: "Holosigns cannot be pulled around"
