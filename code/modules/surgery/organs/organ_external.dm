@@ -666,8 +666,6 @@ Note that amputating the affected organ does in fact remove the infection from t
 	var/is_robotic = status & ORGAN_ROBOT
 	var/mob/living/carbon/human/victim = owner
 
-	status |= ORGAN_DESTROYED
-	victim.bad_external_organs -= src
 	if(status & ORGAN_SPLINTED)
 		victim.splinted_limbs -= src
 
