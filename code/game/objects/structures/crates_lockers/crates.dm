@@ -440,7 +440,7 @@
 	icon_closed = "largebin"
 	anchored = TRUE
 
-/obj/structure/closet/crate/attackby(obj/item/weapon/W, mob/living/user, params)
+/obj/structure/closet/crate/can/attackby(obj/item/weapon/W, mob/living/user, params)
 	add_fingerprint(user)
 	user.changeNext_move(CLICK_CD_MELEE)
 	if(iswrench(W))

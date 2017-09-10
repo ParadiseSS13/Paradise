@@ -32,7 +32,7 @@
 	var/cannot_amputate
 	var/cannot_break
 	var/s_tone = null
-	var/list/s_col = null // If this is instantiated, it should be a list of length 3
+	var/s_col = null // If this is instantiated, it should be a hex value.
 	var/list/child_icons = list()
 	var/perma_injury = 0
 	var/dismember_at_max_damage = FALSE
@@ -432,6 +432,8 @@ Note that amputating the affected organ does in fact remove the infection from t
 		fracture()
 
 /obj/item/organ/external/proc/check_for_internal_bleeding(damage)
+	if(NO_BLOOD in owner.species.species_traits)
+		return
 	var/local_damage = brute_dam + damage
 	if(damage > 15 && local_damage > 30 && prob(damage) && !(status & ORGAN_ROBOT))
 		internal_bleeding = TRUE

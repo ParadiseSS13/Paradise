@@ -345,4 +345,4 @@
 #define BLOOD_STATE_NOT_BLOODY		"no blood whatsoever"
 
 // The SQL version required by this version of the code
-#define SQL_VERSION 0
+#define SQL_VERSION 1

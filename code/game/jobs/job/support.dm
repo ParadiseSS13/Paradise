@@ -215,17 +215,18 @@
 	uniform = /obj/item/clothing/under/rank/clown
 	shoes = /obj/item/clothing/shoes/clown_shoes
 	mask = /obj/item/clothing/mask/gas/clown_hat
+	l_pocket = /obj/item/weapon/bikehorn
 	l_ear = /obj/item/device/radio/headset/headset_service
 	id = /obj/item/weapon/card/id/clown
 	pda = /obj/item/device/pda/clown
 	backpack_contents = list(
 		/obj/item/weapon/reagent_containers/food/snacks/grown/banana = 1,
-		/obj/item/weapon/bikehorn = 1,
 		/obj/item/weapon/stamp/clown = 1,
 		/obj/item/toy/crayon/rainbow = 1,
 		/obj/item/weapon/storage/fancy/crayons = 1,
 		/obj/item/weapon/reagent_containers/spray/waterflower = 1,
-		/obj/item/weapon/reagent_containers/food/drinks/bottle/bottleofbanana = 1
+		/obj/item/weapon/reagent_containers/food/drinks/bottle/bottleofbanana = 1,
+		/obj/item/device/instrument/bikehorn = 1
 	)
 
 	backpack = /obj/item/weapon/storage/backpack/clown

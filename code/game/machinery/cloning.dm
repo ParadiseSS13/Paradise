@@ -469,6 +469,7 @@
 	occupant.update_body()
 	domutcheck(occupant) //Waiting until they're out before possible notransform.
 	occupant.shock_stage = 0 //Reset Shock
+	occupant.special_post_clone_handling()
 	occupant = null
 	update_icon()
 
