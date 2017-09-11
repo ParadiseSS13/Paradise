@@ -758,7 +758,7 @@
 	sprite_sheets = null
 
 /obj/item/clothing/suit/jacket/fluff/kidosvest // Anxipal: Kido Qasteth
-	name = "Kido's vest"
+	name = "Kido's Vest"
 	desc = "A rugged leather vest with a tag labelled \"Men of Mayhem.\""
 	icon = 'icons/obj/custom_items.dmi'
 	icon_state = "kidosvest"
@@ -771,7 +771,7 @@
 
 /obj/item/clothing/suit/jacket/fluff/jacksvest // Anxipal: Jack Harper
 	name = "Jack's vest"
-	desc = "A rugged leather vest with a tag labelled \"President.\""
+	desc = "A rugged leather vest with a tag labelled \"President\"."
 	icon = 'icons/obj/custom_items.dmi'
 	icon_state = "jacksvest"
 	ignore_suitadjust = TRUE
