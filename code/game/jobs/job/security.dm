@@ -137,6 +137,9 @@
 
 /datum/outfit/job/detective/pre_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
 	. = ..()
+	if(visualsOnly)
+		return
+
 	if(H.mind.role_alt_title)
 		switch(H.mind.role_alt_title)
 			if("Forensic Technician")
