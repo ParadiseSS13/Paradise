@@ -13,12 +13,12 @@
 	if(!istype(A))
 		return
 	if(get_dist(get_turf(src), get_turf(A)) > 1)
-		to_chat(src, "<span class='danger'><B>You're too far from [A] to disguise it as a bomb.</span>")
+		to_chat(src, "<span class='danger'>You're too far from [A] to disguise it as a bomb.</span>")
 		return
 	if(istype(A, /obj/))
 		if(bomb_cooldown <= world.time && !stat)
 			var/obj/item/weapon/guardian_bomb/B = new /obj/item/weapon/guardian_bomb(get_turf(A))
-			to_chat(src, "<span class='danger'><B>Success! Bomb on [A] armed!</B></span>")
+			to_chat(src, "<span class='danger'>Success! Bomb on [A] armed!</span>")
 			if(summoner)
 				to_chat(summoner, "<span class='warning'>Your guardian has primed [A] to explode!</span>")
 			bomb_cooldown = world.time + 200
@@ -44,7 +44,7 @@
 		if(src)
 			stored_obj.loc = get_turf(loc)
 			if(spawner)
-				to_chat(spawner, "<span class='danger'><B>Failure! Your trap on [stored_obj] didn't catch anyone this time.</B></span>")
+				to_chat(spawner, "<span class='danger'>Failure! Your trap on [stored_obj] didn't catch anyone this time.</span>")
 			qdel(src)
 
 /obj/item/weapon/guardian_bomb/proc/detonate(var/mob/living/user)
@@ -56,7 +56,7 @@
 			stored_obj.loc = get_turf(loc)
 			qdel(src)
 			return
-	to_chat(spawner, "<span class='danger'><B>Success! Your trap on [src] caught [user]!</B></span>")
+	to_chat(spawner, "<span class='danger'>Success! Your trap on [src] caught [user]!</span>")
 	stored_obj.loc = get_turf(loc)
 	playsound(get_turf(src),'sound/effects/Explosion2.ogg', 200, 1)
 	user.ex_act(2)
