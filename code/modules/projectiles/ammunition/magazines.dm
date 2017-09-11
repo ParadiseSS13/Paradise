@@ -209,6 +209,7 @@
 	caliber = ".45"
 	max_ammo = 8
 	multiple_sprites = 1
+
 /obj/item/ammo_box/magazine/m45/enforcer45
 	name = "handgun magazine (.45)"
 	icon_state = "enforcer"

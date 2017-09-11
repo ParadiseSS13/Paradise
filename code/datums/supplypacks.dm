@@ -336,6 +336,17 @@ var/list/all_supply_groups = list(supply_emergency,supply_security,supply_engine
 
 /////// Weapons: Specialist
 
+/datum/supply_packs/security/armory/enforcer
+	name = "Enforcer .45 Crate"
+	contains = list(/obj/item/weapon/gun/projectile/automatic/pistol/enforcer,
+					/obj/item/weapon/gun/projectile/automatic/pistol/enforcer,
+					/obj/item/weapon/gun/projectile/automatic/pistol/enforcer,
+					/obj/item/ammo_box/magazine/m45/enforcer45,
+					/obj/item/ammo_box/magazine/m45/enforcer45,
+					/obj/item/ammo_box/magazine/m45/enforcer45)
+	cost = 45
+	containername = "enforcer .45 crate"
+
 /datum/supply_packs/security/armory/ballistic
 	name = "Riot Shotguns Crate"
 	contains = list(/obj/item/weapon/gun/projectile/shotgun/riot,
