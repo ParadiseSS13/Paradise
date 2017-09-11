@@ -13,13 +13,12 @@
 
 	to_chat(user, "<span class='notice'>We begin our stasis, preparing energy to arise once more.</span>")
 
-	user.update_canmove()
-
 	if(user.stat != DEAD)
 		user.emote("deathgasp")
 		user.timeofdeath = world.time
 
 	user.status_flags |= FAKEDEATH		//play dead
+	user.update_canmove()
 
 	spawn(800)
 		if(user && user.mind && user.mind.changeling && user.mind.changeling.purchasedpowers)
