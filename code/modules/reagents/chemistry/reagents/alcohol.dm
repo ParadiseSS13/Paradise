@@ -604,7 +604,7 @@
 /datum/reagent/consumable/ethanol/manhattan_proj
 	name = "Manhattan Project"
 	id = "manhattan_proj"
-	description = "A scienitst's drink of choice, for pondering ways to blow up the station."
+	description = "A scientist's drink of choice, for pondering ways to blow up the station."
 	reagent_state = LIQUID
 	color = "#664300" // rgb: 102, 67, 0
 	alcohol_perc = 0.4
