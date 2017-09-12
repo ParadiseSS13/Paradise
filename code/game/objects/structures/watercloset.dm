@@ -242,7 +242,8 @@
 	wash(O)
 	if(ismob(O))
 		mobpresent += 1
-		check_heat(O)
+		if(on)
+			check_heat(O)
 
 /obj/machinery/shower/Uncrossed(atom/movable/O)
 	if(ismob(O))
