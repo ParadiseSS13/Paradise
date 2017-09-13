@@ -57,14 +57,18 @@
 	else if(iswirecutter(W) || ismultitool(W) || istype(W, /obj/item/device/assembly/signaler))
 		if(panel_open)
 			wires.Interact(user)
+	else if(user.a_intent == INTENT_GRAB)
+		if(istype(W, /obj/item/weapon/grab))
+			var/obj/item/weapon/grab/G = W
+			if(isliving(G.affecting))
+				if(do_mob(user, src, 120))
+					var/mob/living/H = G.affecting
+					H.forceMove(loc)
+					buckle_mob(H, force=1)
+					qdel(G)
 
 	else
 		..()
-
-/obj/machinery/power/tesla_coil/attack_hand(mob/user)
-	if(user.a_intent == INTENT_GRAB)
-		return user_buckle_mob(user.pulling, user, check_loc = FALSE)
-	..()
 
 
 /obj/machinery/power/tesla_coil/tesla_act(var/power)

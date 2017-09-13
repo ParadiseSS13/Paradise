@@ -15,11 +15,6 @@
  	buckle_lying = 0
  	buckle_requires_restraints = 1
 
-/obj/machinery/the_singularitygen/attack_hand(mob/user)
-	if(user.a_intent == INTENT_GRAB)
-		return user_buckle_mob(user.pulling, user, check_loc = FALSE)
-	..()
-
 /obj/machinery/the_singularitygen/process()
 	var/turf/T = get_turf(src)
 	if(src.energy >= 200)
@@ -44,4 +39,13 @@
 				"You unsecure the [src.name] from the floor.", \
 				"You hear a ratchet")
 		return
+	else if(user.a_intent == INTENT_GRAB)
+		if(istype(W, /obj/item/weapon/grab))
+			var/obj/item/weapon/grab/G = W
+			if(isliving(G.affecting))
+				if(do_mob(user, src, 120))
+					var/mob/living/H = G.affecting
+					H.forceMove(loc)
+					buckle_mob(H, force=1)
+					qdel(G)
 	return ..()
