@@ -740,7 +740,7 @@
 		return
 	user.visible_message("<span class='notice'>[user] begins assembling a new [result_name].</span>", "<span class='notice'>You begin assembling a new [result_name].</span>")
 	if(do_after(user, 30, target = user))
-		visible_message("<span class='notice'>[user] finishes building a new [result_name]!</span>", "<span class='notice'>You finish building a new [result_name]!</span>")
+		user.visible_message("<span class='notice'>[user] finishes building a new [result_name]!</span>", "<span class='notice'>You finish building a new [result_name]!</span>")
 		var/obj/structure/S = new result(T)
 		S.anchored = 0
 		S.dir = user.dir
