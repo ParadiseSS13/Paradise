@@ -614,7 +614,7 @@
 					update_icon()
 			if("Rotate")
 				var/list/dir_choices = list("North" = NORTH, "East" = EAST, "South" = SOUTH, "West" = WEST)
-				var/selected = input(user,"Select a direction for the connector.", "Connector Direction") in dir_choices
+				var/selected = input(user, "Select a direction for the connector.", "Connector Direction") in dir_choices
 				dir = dir_choices[selected]
 				update_icon()	//is this necessary? probably not
 		return
@@ -696,7 +696,7 @@
 		return
 	if(proximity_flag != 1) //if we aren't next to the wall
 		return
-	if(!(get_dir(on_wall,user) in cardinal))
+	if(!(get_dir(on_wall, user) in cardinal))
 		to_chat(user, "<span class='warning'>You need to be standing next to a wall to place \the [src].</span>")
 		return
 	return 1
@@ -738,7 +738,7 @@
 	if(result in T.contents)
 		to_chat(user, "<span class='warning'>There's already \an [result_name] here.</span>")
 		return
-	visible_message("<span class='notice'>[user] begins assembling a new [result_name].</span>", "<span class='notice'>You begin assembling a new [result_name].</span>")
+	user.visible_message("<span class='notice'>[user] begins assembling a new [result_name].</span>", "<span class='notice'>You begin assembling a new [result_name].</span>")
 	if(do_after(user, 30, target = user))
 		visible_message("<span class='notice'>[user] finishes building a new [result_name]!</span>", "<span class='notice'>You finish building a new [result_name]!</span>")
 		var/obj/structure/S = new result(T)
