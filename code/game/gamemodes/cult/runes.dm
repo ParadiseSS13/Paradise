@@ -636,17 +636,17 @@ var/list/teleport_runes = list()
 		log_game("Raise Dead rune failed - no catalyst corpse")
 		return
 	mob_to_sacrifice = input(user, "Choose a corpse to sacrifice.", "Corpse to Sacrifice") as null|anything in potential_sacrifice_mobs
-	if(!Adjacent(user) || !src || qdeleted(src) || user.incapacitated() || !mob_to_revive || !mob_to_sacrifice || rune_in_use)
+	if(!Adjacent(user) || !src || qdeleted(src) || user.incapacitated() || !mob_to_sacrifice || rune_in_use)
 		return
 	for(var/mob/living/M in T.contents)
 		if(M.stat == DEAD)
 			potential_revive_mobs.Add(M)
 	if(!potential_revive_mobs.len)
 		to_chat(user, "<span class='cultitalic'>There is no eligible revival target on the rune!</span>")
-		log_game("Raise Dead rune failed - no corpse to revived")
+		log_game("Raise Dead rune failed - no corpse to revive")
 		return
 	mob_to_revive = input(user, "Choose a corpse to revive.", "Corpse to Revive") as null|anything in potential_revive_mobs
-	if(!Adjacent(user) || !src || qdeleted(src) || user.incapacitated() || rune_in_use)
+	if(!Adjacent(user) || !src || qdeleted(src) || user.incapacitated() || rune_in_use || !mob_to_revive)
 		return
 	if(!in_range(mob_to_sacrifice,src))
 		to_chat(user, "<span class='cultitalic'>The sacrificial target has been moved!</span>")
