@@ -105,7 +105,15 @@
 	materials = list(MAT_METAL = 1750, MAT_GLASS = 400)
 	build_path = /obj/item/clothing/head/welding
 	category = list("initial","Tools")
-
+	
+/datum/design/welding_goggles
+	name = "Welding Goggles"
+	id = "welding_goggles"
+	build_type = AUTOLATHE
+	materials = list(MAT_METAL = 1750, MAT_GLASS = 400)
+	build_path = /obj/item/clothing/glasses/welding
+	category = list("initial","Tools")
+	
 /datum/design/cable_coil
 	name = "Cable coil"
 	id = "cable_coil"
@@ -423,6 +431,14 @@
 	build_path = /obj/item/weapon/reagent_containers/glass/beaker/large
 	category = list("initial", "Medical")
 
+/datum/design/prescription_glasses
+	name = "Prescription Glasses"
+	id = "prescription_glasses"
+	build_type = AUTOLATHE
+	materials = list(MAT_METAL = 50, MAT_GLASS = 500)
+	build_path = /obj/item/clothing/glasses/regular
+	category = list("initial", "Medical")
+	
 /datum/design/healthanalyzer
 	name = "Health Analyzer"
 	id = "healthanalyzer"
