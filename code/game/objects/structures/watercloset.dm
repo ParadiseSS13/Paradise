@@ -470,13 +470,16 @@
 				qdel(E)
 
 /obj/machinery/shower/process()
-	if(!on || !mobpresent) return
+	if(!on || !mobpresent)
+		return
 	for(var/mob/living/carbon/C in loc)
+		if(prob(33))
+			wash(C)	//re-applies water and re-cleans mob while they remain under the shower, 33% chance per process to avoid message spam/quick death
 		check_heat(C)
 
 /obj/machinery/shower/proc/check_heat(mob/M as mob)
-	M.water_act(100, convertHeat(), src) //convenience
-	if(!on || watertemp == "normal") return
+	if(!on || watertemp == "normal")
+		return
 	if(iscarbon(M))
 		var/mob/living/carbon/C = M
 
