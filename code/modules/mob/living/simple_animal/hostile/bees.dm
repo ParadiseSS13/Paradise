@@ -251,7 +251,7 @@
 			if(S.reagents.has_reagent("royal_bee_jelly",5))
 				S.reagents.remove_reagent("royal_bee_jelly", 5)
 				if(!queen.beegent.can_synth)
-					to_chat(user, "<span class='warning'>You inject [src] with the royal bee jelly. It's ineffecive! Maybe it's something to do with the [src] reagent.</span>")
+					to_chat(user, "<span class='warning'>You inject [src] with the royal bee jelly. It's ineffective! Maybe it's something to do with the [src] reagent.</span>")
 					return
 				var/obj/item/queen_bee/qb = new(get_turf(user))
 				qb.queen = new(qb)
