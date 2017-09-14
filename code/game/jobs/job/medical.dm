@@ -166,6 +166,9 @@
 	glasses = /obj/item/clothing/glasses/science
 	id = /obj/item/weapon/card/id/medical
 	pda = /obj/item/device/pda/chemist
+	backpack_contents = list(
+		/obj/item/weapon/storage/bag/chemistry = 1
+	)
 
 	backpack = /obj/item/weapon/storage/backpack/chemistry
 	satchel = /obj/item/weapon/storage/backpack/satchel_chem
@@ -315,4 +318,3 @@
 	satchel = /obj/item/weapon/storage/backpack/satchel_med
 	dufflebag = /obj/item/weapon/storage/backpack/duffel/medical
 	box = /obj/item/weapon/storage/box/engineer
-
