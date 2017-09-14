@@ -65,14 +65,6 @@
 	return
 
 /mob/new_player/Stat()
-	..()
-	if((!ticker) || ticker.current_state == GAME_STATE_PREGAME)
-		statpanel("Lobby") // First tab during pre-game.
-
-	statpanel("Status")
-	if(client.statpanel == "Status" && ticker)
-		if(ticker.current_state != GAME_STATE_PREGAME)
-			stat(null, "Station Time: [worldtime2text()]")
 	statpanel("Lobby")
 	if(client.statpanel=="Lobby" && ticker)
 		if(ticker.hide_mode)
@@ -100,6 +92,14 @@
 				totalPlayers++
 				if(player.ready)
 					totalPlayersReady++
+
+	..()
+
+	statpanel("Status")
+	if(client.statpanel == "Status" && ticker)
+		if(ticker.current_state != GAME_STATE_PREGAME)
+			stat(null, "Station Time: [worldtime2text()]")
+
 
 /mob/new_player/Topic(href, href_list[])
 	if(!client)	return 0
