@@ -376,23 +376,58 @@ var/list/uplink_items = list()
 	gamemodes = list(/datum/game_mode/nuclear)
 	surplus = 40
 
+/datum/uplink_item/dangerous/pdw
+	name = "Gepard PWD"
+	reference = "PWD"
+	desc = "A fully-loaded PWD that fires 7.62x25mm rounds with a 30-round magazine and is compatible with suppressors. Best used on armored targets."
+	item = /obj/item/weapon/gun/projectile/automatic/gepard/syndi
+	cost = 8
+	surplus = 50
+
 /datum/uplink_item/dangerous/carbine
-	name = "M-90gl Carbine"
-	desc = "A fully-loaded three-round burst carbine that uses 30-round 5.56mm magazines with a togglable underslung 40mm grenade launcher."
+	name = "M-90C Carbine"
+	desc = "A fully-loaded three-round burst carbine that uses 30-round 5.56x45mm magazines."
 	reference = "AR"
 	item = /obj/item/weapon/gun/projectile/automatic/m90
 	cost = 18
 	gamemodes = list(/datum/game_mode/nuclear)
 	surplus = 50
 
+/datum/uplink_item/dangerous/carbinecombo
+	name = "M-90gl Carbine"
+	desc = "A fully-loaded three-round burst carbine that uses 30-round 5.56x45mm magazines with a togglable underslung 40mm grenade launcher."
+	reference = "AR"
+	item = /obj/item/weapon/gun/projectile/automatic/m90/gl
+	cost = 23
+	gamemodes = list(/datum/game_mode/nuclear)
+	surplus = 25
+
+/datum/uplink_item/dangerous/grenade
+	name = "CP-40"
+	desc = "A break action 40mm grenade launcher."
+	reference = "GL"
+	item = /obj/item/weapon/gun/projectile/revolver/grenadelauncher/syndi
+	cost = 18
+	gamemodes = list(/datum/game_mode/nuclear)
+	surplus = 10
+
 /datum/uplink_item/dangerous/machinegun
 	name = "L6 Squad Automatic Weapon"
-	desc = "A fully-loaded Aussec Armory belt-fed machine gun. This deadly weapon has a massive 50-round magazine of devastating 7.62x51mm ammunition."
+	desc = "A fully-loaded Aussec Armory belt-fed machine gun. This deadly weapon has a massive 50-round magazine of devastating 5.56x45mm ammunition."
 	reference = "LMG"
 	item = /obj/item/weapon/gun/projectile/automatic/l6_saw
 	cost = 40
 	gamemodes = list(/datum/game_mode/nuclear)
 	surplus = 0
+
+/datum/uplink_item/dangerous/dmr
+	name = "Dragon DMR"
+	desc = "Long range marksman rifle, now you can reach out and kill anyone, anywhere!"
+	reference = "DMR"
+	item = /obj/item/weapon/gun/projectile/automatic/sniper_rifle/dragon
+	cost = 12
+	surplus = 25
+	gamemodes = list(/datum/game_mode/nuclear)
 
 /datum/uplink_item/dangerous/sniper
 	name = "Sniper Rifle"
@@ -659,12 +694,18 @@ var/list/uplink_items = list()
 	gamemodes = list(/datum/game_mode/nuclear)
 
 /datum/uplink_item/ammo/carbine
-	name = "Toploader Magazine - 5.56"
-	desc = "An additional 30-round 5.56 magazine for use in the M-90gl carbine. These bullets don't have the punch to knock most targets down, but dish out higher overall damage."
+	name = "Toploader Magazine - 5.56x45mm"
+	desc = "An additional 30-round 5.56x45mm magazine for use in the M-90gl carbine. These bullets don't have the punch to knock most targets down, but dish out higher overall damage."
 	reference = "556"
 	item = /obj/item/ammo_box/magazine/m556
 	cost = 2
 	gamemodes = list(/datum/game_mode/nuclear)
+
+/datum/uplink_item/ammo/pdw
+	name = "Box Magazine - 7.62x25mm"
+	reference = "7.62x25mm"
+	item = /obj/item/ammo_box/magazine/smgm762mm
+	cost = 2
 
 /datum/uplink_item/ammo/a40mm
 	name = "Ammo Box - 40mm grenades"
@@ -682,6 +723,14 @@ var/list/uplink_items = list()
 	cost = 12
 	gamemodes = list(/datum/game_mode/nuclear)
 	surplus = 0
+
+/datum/uplink_item/ammo/dmr
+	name = "Box Magazine - 7.62x54mm"
+	desc = "A 10-round box magazine of 7.62x54mm ammunition for use in the Dragon DMR. Might not be as powerfull as the .50BMG, but sure is a lot cheaper."
+	reference = "762"
+	item = /obj/item/ammo_box/magazine/dragon
+	cost = 2
+	gamemodes = list(/datum/game_mode/nuclear)
 
 /datum/uplink_item/ammo/sniper
 	cost = 4

@@ -14,6 +14,16 @@
 	..()
 	if(istype(A, /obj/item/ammo_box) || istype(A, /obj/item/ammo_casing))
 		chamber_round()
+		update_icon()
+
+/obj/item/weapon/gun/projectile/revolver/grenadelauncher/syndi
+	desc = "A break-operated grenade launcher."
+	name = "grenade launcher"
+	icon_state = "grenade"
+	mag_type = /obj/item/ammo_box/magazine/internal/grenadelauncher
+
+/obj/item/weapon/gun/projectile/revolver/grenadelauncher/syndi/update_icon()
+	icon_state = "[initial(icon_state)][chambered? "" : "-e"]"
 
 /obj/item/weapon/gun/projectile/revolver/grenadelauncher/multi
 	desc = "A revolving 6-shot grenade launcher."

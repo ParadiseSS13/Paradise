@@ -50,6 +50,7 @@
 		to_chat(user, "<span class='notice'>You unload [num_unloaded] shell\s from [src].</span>")
 	else
 		to_chat(user, "<span class='warning'>[src] is empty!</span>")
+	update_icon()
 
 /obj/item/weapon/gun/projectile/revolver/verb/spin()
 	set name = "Spin Chamber"
