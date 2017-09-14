@@ -50,7 +50,7 @@
 		icon_state = "[initial(icon_state)][chambered ? "" : "-e"]"
 	overlays.Cut()
 	if(suppressed)
-		overlays += image(icon = icon, icon_state = "enforcer_supp", pixel_x = 4)
+		overlays += image(icon = icon, icon_state = "suppressor-2", pixel_x = 4)
 	if(gun_light)
 		var/iconF = "Enforcer_light"
 		if(gun_light.on)

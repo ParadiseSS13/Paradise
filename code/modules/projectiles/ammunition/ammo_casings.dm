@@ -9,6 +9,17 @@
 	icon_state = "r-casing"
 	projectile_type = /obj/item/projectile/bullet/weakbullet4
 
+/obj/item/ammo_casing/rubber762x25mm
+	desc = "A 7.62x25mm rubber bullet casing."
+	caliber = "7.62x25mm"
+	icon_state = "r-casing"
+	projectile_type = /obj/item/projectile/bullet/weakbullet4
+
+/obj/item/ammo_casing/a762x25mm
+	desc = "A 7.62x25mm bullet casing."
+	caliber = "7.62x25mm"
+	projectile_type = /obj/item/projectile/bullet/armourpiercing2
+
 /obj/item/ammo_casing/a762
 	desc = "A 7.62mm bullet casing."
 	icon_state = "762-casing"
@@ -269,11 +280,6 @@
 	icon_state = "nshell"
 	projectile_type = /obj/item/projectile/bullet/dart/syringe/tranquilizer
 	materials = list(MAT_METAL=250)
-
-/obj/item/ammo_casing/a556
-	desc = "A 5.56mm bullet casing."
-	caliber = "a556"
-	projectile_type = /obj/item/projectile/bullet/heavybullet
 
 /obj/item/ammo_casing/shotgun/fakebeanbag
 	name = "beanbag shell"
