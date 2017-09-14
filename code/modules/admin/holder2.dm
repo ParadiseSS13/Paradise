@@ -100,3 +100,6 @@ you will have to do something like if(client.holder.rights & R_ADMIN) yourself.
 			return 0
 		return 1
 	return 0
+
+/datum/admins/vv_edit_var(var_name, var_value)
+	return FALSE // no admin abuse
