@@ -353,7 +353,7 @@ var/list/VVpixelmovement = list("step_x", "step_y", "bound_height", "bound_width
 		if("Yes")
 			L[var_value] = mod_list_add_ass(O) //hehe
 	if(O)
-		if(O.vv_edit_var(objectvar, L) == FALSE)
+		if(!O.vv_edit_var(objectvar, L))
 			to_chat(src, "Your edit was rejected by the object.")
 			return
 	log_to_dd("### ListVarEdit by [src]: [(O ? O.type : "/list")] [objectvar]: ADDED=[var_value]")
@@ -493,7 +493,7 @@ var/list/VVpixelmovement = list("step_x", "step_y", "bound_height", "bound_width
 		if("DELETE FROM LIST")
 			L.Cut(index, index+1)
 			if(O)
-				if(O.vv_edit_var(objectvar, L))
+				if(!O.vv_edit_var(objectvar, L))
 					to_chat(src, "Your edit was rejected by the object.")
 					return
 			log_to_dd("### ListVarEdit by [src]: [O.type] [objectvar]: REMOVED=[html_encode("[original_var]")]")
@@ -512,7 +512,7 @@ var/list/VVpixelmovement = list("step_x", "step_y", "bound_height", "bound_width
 	else
 		L[index] = new_var
 	if(O)
-		if(O.vv_edit_var(objectvar, L) == FALSE)
+		if(!O.vv_edit_var(objectvar, L))
 			to_chat(src, "Your edit was rejected by the object.")
 			return
 	log_to_dd("### ListVarEdit by [src]: [(O ? O.type : "/list")] [objectvar]: [original_var]=[new_var]")
@@ -623,7 +623,7 @@ var/list/VVpixelmovement = list("step_x", "step_y", "bound_height", "bound_width
 			for(var/V in varsvars)
 				var_new = replacetext(var_new,"\[[V]]","[O.vars[V]]")
 
-	if(O.vv_edit_var(variable, var_new) == FALSE)
+	if(!O.vv_edit_var(variable, var_new))
 		to_chat(src, "Your edit was rejected by the object.")
 		return
 	log_to_dd("### VarEdit by [src]: [O.type] [variable]=[html_encode("[var_new]")]")
