@@ -71,12 +71,7 @@
 
 	var/datum/reagent/R = null
 	if(random_reagent)
-		var/synthable = FALSE
-		while(!synthable)
-			R = pick(subtypesof(/datum/reagent))
-			if(R.can_synth)
-				R = chemical_reagents_list[initial(R.id)]
-				synthable = TRUE
+		R = get_random_reagent_id()
 
 	queen_bee = new(src)
 	queen_bee.beehome = src
