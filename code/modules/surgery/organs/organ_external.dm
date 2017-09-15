@@ -32,7 +32,7 @@
 	var/cannot_amputate
 	var/cannot_break
 	var/s_tone = null
-	var/list/s_col = null // If this is instantiated, it should be a list of length 3
+	var/s_col = null // If this is instantiated, it should be a hex value.
 	var/list/child_icons = list()
 	var/perma_injury = 0
 	var/dismember_at_max_damage = FALSE
@@ -97,25 +97,24 @@
 	switch(open)
 		if(0)
 			if(istype(W,/obj/item/weapon/scalpel))
-				spread_germs_to_organ(src,user, W)
+				spread_germs_to_organ(src, user, W)
 				user.visible_message("<span class='danger'><b>[user]</b> cuts [src] open with [W]!</span>")
 				open++
 				return
 		if(1)
 			if(istype(W,/obj/item/weapon/retractor))
-				spread_germs_to_organ(src,user, W)
+				spread_germs_to_organ(src, user, W)
 				user.visible_message("<span class='danger'><b>[user]</b> cracks [src] open like an egg with [W]!</span>")
 				open++
 				return
 		if(2)
 			if(istype(W,/obj/item/weapon/hemostat))
-				spread_germs_to_organ(src,user, W)
+				spread_germs_to_organ(src, user, W)
 				if(contents.len)
 					var/obj/item/removing = pick(contents)
 					var/obj/item/organ/internal/O = removing
 					if(istype(O))
-						if(!O.sterile)
-							spread_germs_to_organ(O,user, W) // This wouldn't be any cleaner than the actual surgery
+						spread_germs_to_organ(O, user, W) // This wouldn't be any cleaner than the actual surgery
 					user.put_in_hands(removing)
 					user.visible_message("<span class='danger'><b>[user]</b> extracts [removing] from [src] with [W]!</span>")
 				else
@@ -192,9 +191,8 @@
 		// Damage an internal organ
 		if(internal_organs && internal_organs.len)
 			var/obj/item/organ/internal/I = pick(internal_organs)
-			if(!I.tough)//mostly for cybernetic organs
-				I.take_damage(brute / 2)
-			brute -= brute / 2
+			I.take_damage(brute * 0.5)
+			brute -= brute * 0.5
 
 	if(status & ORGAN_BROKEN && prob(40) && brute)
 		owner.emote("scream")	//getting hit on broken hand hurts
@@ -428,6 +426,8 @@ Note that amputating the affected organ does in fact remove the infection from t
 		fracture()
 
 /obj/item/organ/external/proc/check_for_internal_bleeding(damage)
+	if(NO_BLOOD in owner.species.species_traits)
+		return
 	var/local_damage = brute_dam + damage
 	if(damage > 15 && local_damage > 30 && prob(damage) && !(status & ORGAN_ROBOT))
 		internal_bleeding = TRUE
@@ -591,7 +591,7 @@ Note that amputating the affected organ does in fact remove the infection from t
 		burn_mod = 0.66
 		dismember_at_max_damage = TRUE
 	else
-		tough = 1
+		tough = TRUE
 	// Robot parts also lack bones
 	// This is so surgery isn't kaput, let's see how this does
 	encased = null

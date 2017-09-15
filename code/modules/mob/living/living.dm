@@ -168,23 +168,23 @@
 
 //same as above
 /mob/living/pointed(atom/A as mob|obj|turf in view())
-	if(incapacitated())
-		return 0
+	if(incapacitated(ignore_lying = TRUE))
+		return FALSE
 	if(status_flags & FAKEDEATH)
-		return 0
+		return FALSE
 	if(!..())
-		return 0
+		return FALSE
 	var/obj/item/hand_item = get_active_hand()
 	if(istype(hand_item, /obj/item/weapon/gun) && A != hand_item)
 		if(a_intent == INTENT_HELP || !ismob(A))
 			visible_message("<b>[src]</b> points to [A] with [hand_item]")
-			return 1
+			return TRUE
 		A.visible_message("<span class='danger'>[src] points [hand_item] at [A]!</span>",
 											"<span class='userdanger'>[src] points [hand_item] at you!</span>")
 		A << 'sound/weapons/TargetOn.ogg'
-		return 1
+		return TRUE
 	visible_message("<b>[src]</b> points to [A]")
-	return 1
+	return TRUE
 
 /mob/living/verb/succumb()
 	set hidden = 1

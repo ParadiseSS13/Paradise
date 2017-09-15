@@ -1,6 +1,6 @@
 /mob/living/carbon/human/emote(var/act,var/m_type=1,var/message = null,var/force)
 
-	if(stat == DEAD)
+	if((stat == DEAD) || (status_flags & FAKEDEATH))
 		return // No screaming bodies
 
 	var/param = null
@@ -324,8 +324,14 @@
 								G.affecting.forceMove(oldloc)
 								message = "<B>[src]</B> flips over [G.affecting]!"
 						else
-							message = "<B>[src]</B> does a flip!"
-							SpinAnimation(5,1)
+							if(prob(5))
+								message = "<B>[src]</B> attempts a flip and crashes to the floor!"
+								SpinAnimation(5,1)
+								sleep(3)
+								Weaken(2)
+							else
+								message = "<B>[src]</B> does a flip!"
+								SpinAnimation(5,1)
 
 		if("aflap", "aflaps")
 			if(!restrained())
@@ -734,9 +740,9 @@
 					message = "<B>[src]</B> [species.scream_verb][M ? " at [M]" : ""]!"
 					m_type = 2
 					if(gender == FEMALE)
-						playsound(loc, "[species.female_scream_sound]", 80, 1, 0, pitch = get_age_pitch())
+						playsound(loc, "[species.female_scream_sound]", 80, 1, frequency = get_age_pitch())
 					else
-						playsound(loc, "[species.male_scream_sound]", 80, 1, 0, pitch = get_age_pitch()) //default to male screams if no gender is present.
+						playsound(loc, "[species.male_scream_sound]", 80, 1, frequency = get_age_pitch()) //default to male screams if no gender is present.
 
 				else
 					message = "<B>[src]</B> makes a very loud noise[M ? " at [M]" : ""]."

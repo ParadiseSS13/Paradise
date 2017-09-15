@@ -46,20 +46,9 @@
 	force = 15
 	throwforce = 25
 	embed_chance = 75
-	var/cooldown = 0
 
-/obj/item/weapon/melee/cultblade/attack(mob/living/target as mob, mob/living/carbon/human/user as mob)
-	if(!iscultist(user))
-		user.Weaken(5)
-		user.unEquip(src, 1)
-		user.visible_message("<span class='warning'>A powerful force shoves [user] away from [target]!</span>", \
-							 "<span class='cultlarge'>\"You shouldn't play with sharp things. You'll poke someone's eye out.\"</span>")
-		if(ishuman(user))
-			var/mob/living/carbon/human/H = user
-			H.apply_damage(rand(force/2, force), BRUTE, pick("l_arm", "r_arm"))
-		else
-			user.adjustBruteLoss(rand(force/2,force))
-		return
+/obj/item/weapon/melee/cultblade/dagger/attack(atom/target, mob/living/carbon/human/user)
+
 	..()
 
 /obj/item/weapon/restraints/legcuffs/bola/cult

@@ -29,8 +29,8 @@ var/list/organ_cache = list()
 	var/freezer_update_period = 100
 	var/is_in_freezer = 0
 
-	var/sterile = 0 //can the organ be infected by germs?
-	var/tough = 0 //can organ be easily damaged?
+	var/sterile = FALSE //can the organ be infected by germs?
+	var/tough = FALSE //can organ be easily damaged?
 
 
 /obj/item/organ/Destroy()
@@ -95,7 +95,7 @@ var/list/organ_cache = list()
 		return
 
 	//Process infections
-	if((status & ORGAN_ROBOT) || sterile ||(owner && (IS_PLANT in owner.species.species_traits)))
+	if((status & ORGAN_ROBOT) || sterile || (owner && (IS_PLANT in owner.species.species_traits)))
 		germ_level = 0
 		return
 
@@ -118,8 +118,6 @@ var/list/organ_cache = list()
 /obj/item/organ/proc/is_preserved()
 	if(istype(loc,/obj/item/device/mmi))
 		germ_level = max(0, germ_level - 1) // So a brain can slowly recover from being left out of an MMI
-		return 1
-	if(is_found_within(/obj/item/bodybag/cryobag))
 		return 1
 	if(is_found_within(/obj/structure/closet/crate/freezer))
 		return 1

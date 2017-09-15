@@ -3,8 +3,6 @@
 #define FONT_COLOR "#09f"
 #define FONT_STYLE "Arial Black"
 
-//This file was auto-corrected by findeclaration.exe on 25.5.2012 20:42:31
-
 ///////////////////////////////////////////////////////////////////////////////////////////////
 // Brig Door control displays.
 //  Description: This is a controls the timer for the brig doors, displays the timer on itself and

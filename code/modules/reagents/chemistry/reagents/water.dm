@@ -99,8 +99,7 @@
 		qdel(hotspot)
 
 /datum/reagent/water/reaction_obj(obj/O, volume)
-	if(istype(O))
-		O.extinguish()
+	O.extinguish()
 
 	if(istype(O, /obj/item/weapon/reagent_containers/food/snacks/monkeycube))
 		var/obj/item/weapon/reagent_containers/food/snacks/monkeycube/cube = O
@@ -133,17 +132,15 @@
 	taste_message = "floor cleaner"
 
 /datum/reagent/space_cleaner/reaction_obj(obj/O, volume)
-	if(O && !istype(O, /atom/movable/lighting_overlay))
-		O.color = initial(O.color)
 	if(istype(O, /obj/effect/decal/cleanable))
 		qdel(O)
-	else if(O)
+	else
+		O.color = initial(O.color)
 		O.clean_blood()
 
 /datum/reagent/space_cleaner/reaction_turf(turf/T, volume)
 	if(volume >= 1)
-		if(T)
-			T.color = initial(T.color)
+		T.color = initial(T.color)
 		T.clean_blood()
 		for(var/obj/effect/decal/cleanable/C in src)
 			qdel(C)
@@ -436,7 +433,7 @@
 	description = "YOUR FLESH! IT BURNS!"
 	process_flags = ORGANIC | SYNTHETIC		//Admin-bus has no brakes! KILL THEM ALL.
 	metabolization_rate = 1
-	can_synth = 0
+	can_synth = FALSE
 	taste_message = "admin abuse"
 
 /datum/reagent/hellwater/on_mob_life(mob/living/M)
@@ -456,7 +453,7 @@
 	taste_message = "meat"
 
 /datum/reagent/liquidgibs/reaction_turf(turf/T, volume) //yes i took it from synthflesh...
-	if(volume >= 5 && !istype(T, /turf/space))
+	if(volume >= 5 && !isspaceturf(T))
 		new /obj/effect/decal/cleanable/blood/gibs/cleangibs(T)
 		playsound(T, 'sound/effects/splat.ogg', 50, 1, -3)
 

@@ -949,7 +949,8 @@ var/list/all_supply_groups = list(supply_emergency,supply_security,supply_engine
 	contains = list(/obj/item/pizzabox/margherita,
 					/obj/item/pizzabox/mushroom,
 					/obj/item/pizzabox/meat,
-					/obj/item/pizzabox/vegetable)
+					/obj/item/pizzabox/vegetable,
+					/obj/item/pizzabox/hawaiian)
 	cost = 60
 	containername = "Pizza crate"
 
@@ -1248,7 +1249,7 @@ var/list/all_supply_groups = list(supply_emergency,supply_security,supply_engine
 /datum/supply_packs/misc/watertank
 	name = "Water Tank Crate"
 	contains = list(/obj/structure/reagent_dispensers/watertank)
-	cost = 6
+	cost = 8
 	containertype = /obj/structure/largecrate
 	containername = "water tank crate"
 
@@ -1513,6 +1514,22 @@ var/list/all_supply_groups = list(supply_emergency,supply_security,supply_engine
 	containername = "foam force pistols crate"
 	contraband = 1
 
+/datum/supply_packs/misc/bigband
+	name = "Big band instrument collection"
+	contains = list(/obj/item/device/instrument/violin,
+					/obj/item/device/instrument/guitar,
+					/obj/item/device/instrument/eguitar,
+					/obj/item/device/instrument/glockenspiel,
+					/obj/item/device/instrument/accordion,
+					/obj/item/device/instrument/saxophone,
+					/obj/item/device/instrument/trombone,
+					/obj/item/device/instrument/recorder,
+					/obj/item/device/instrument/harmonica,
+					/obj/item/device/instrument/xylophone,
+					/obj/structure/piano)
+	cost = 50
+	containername = "Big band musical instruments collection"
+
 /datum/supply_packs/misc/randomised/contraband
 	num_contained = 5
 	contains = list(/obj/item/weapon/storage/pill_bottle/random_drug_bottle,
@@ -1645,6 +1662,26 @@ var/list/all_supply_groups = list(supply_emergency,supply_security,supply_engine
 					/obj/item/weapon/circuitboard/computer/sat_control
 					)
 	containername = "shield control board crate"
+
+///////////// Bathroom Fixtures
+
+/datum/supply_packs/misc/toilet
+	name = "Lavatory Crate"
+	cost = 10
+	contains = list(
+					/obj/item/weapon/bathroom_parts,
+					/obj/item/weapon/bathroom_parts/urinal
+					)
+	containername = "lavatory crate"
+
+/datum/supply_packs/misc/hygiene
+	name = "Hygiene Station Crate"
+	cost = 10
+	contains = list(
+					/obj/item/weapon/bathroom_parts/sink,
+					/obj/item/mounted/shower
+					)
+	containername = "hygiene station crate"
 
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////// Vending /////////////////////////////////////////

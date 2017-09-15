@@ -97,7 +97,7 @@
 	taste_message = "like a pencil or something"
 
 /datum/reagent/carbon/reaction_turf(turf/T, volume)
-	if(!istype(T, /turf/space) && !(locate(/obj/effect/decal/cleanable/dirt) in T)) // Only add one dirt per turf.  Was causing people to crash.
+	if(!(locate(/obj/effect/decal/cleanable/dirt) in T) && !isspaceturf(T)) // Only add one dirt per turf.  Was causing people to crash.
 		new /obj/effect/decal/cleanable/dirt(T)
 
 /datum/reagent/gold
@@ -275,14 +275,10 @@
     ..()
 
 /datum/reagent/colorful_reagent/reaction_obj(obj/O, volume)
-	if(O)
-		O.color = pick(random_color_list)
-	..()
+	O.color = pick(random_color_list)
 
 /datum/reagent/colorful_reagent/reaction_turf(turf/T, volume)
-	if(T)
-		T.color = pick(random_color_list)
-	..()
+	T.color = pick(random_color_list)
 
 /datum/reagent/hair_dye
 	name = "Quantum Hair Dye"
@@ -296,12 +292,10 @@
 	if(ishuman(M))
 		var/mob/living/carbon/human/H = M
 		var/obj/item/organ/external/head/head_organ = H.get_organ("head")
-		head_organ.r_facial = rand(0,255)
-		head_organ.g_facial = rand(0,255)
-		head_organ.b_facial = rand(0,255)
-		head_organ.r_hair = rand(0,255)
-		head_organ.g_hair = rand(0,255)
-		head_organ.b_hair = rand(0,255)
+		head_organ.facial_colour = rand_hex_color()
+		head_organ.sec_facial_colour = rand_hex_color()
+		head_organ.hair_colour = rand_hex_color()
+		head_organ.sec_hair_colour = rand_hex_color()
 		H.update_hair()
 		H.update_fhair()
 	..()
@@ -312,7 +306,7 @@
 	description = "A mysterious chemical purported to help grow hair. Often found on late-night TV infomercials."
 	reagent_state = LIQUID
 	color = "#5DDA5D"
-	penetrates_skin = 1
+	penetrates_skin = TRUE
 	taste_message = "someone's beard"
 
 /datum/reagent/hairgrownium/reaction_mob(mob/living/M, volume)
@@ -331,7 +325,7 @@
 	description = "A mysterious and powerful chemical purported to cause rapid hair growth."
 	reagent_state = LIQUID
 	color = "#5DD95D"
-	penetrates_skin = 1
+	penetrates_skin = TRUE
 	taste_message = "multiple beards"
 
 /datum/reagent/super_hairgrownium/reaction_mob(mob/living/M, volume)
