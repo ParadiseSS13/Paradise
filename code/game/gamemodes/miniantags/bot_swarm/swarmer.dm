@@ -40,6 +40,10 @@
 	if(be_swarmer == "No")
 		return
 
+	if(jobban_isbanned(user, "Syndicate"))
+		to_chat(user, "<span class='warning'>You are banned from antagonists!</span>")
+		return
+
 	if(crit_fail)//in case it depowers while ghost is looking at yes/no
 		to_chat(user, "<span class='warning'>This swarmer shell is completely depowered. You cannot activate it.</span>")
 		return
