@@ -17,7 +17,7 @@ var/list/standard_chemicals = list("slimejelly","blood","water","lube","charcoal
 								"lipolicide","condensedcapsaicin","frostoil","amanitin","psilocybin",
 								"enzyme","nothing","salglu_solution","antifreeze","neurotoxin")
 // Rare chemicals
-var/list/rare_chemicals = list("minttoxin","nanites","xenomicrobes","adminordrazine")
+var/list/rare_chemicals = list("minttoxin","syndicate_nanites")
 // Standard medicines
 var/list/standard_medicines = list("charcoal","toxin","cyanide","morphine","epinephrine","space_drugs",
 								"serotrotium","mutadone","mutagen","teporone","lexorin","silver_sulfadiazine",
@@ -27,7 +27,7 @@ var/list/standard_medicines = list("charcoal","toxin","cyanide","morphine","epin
 								"diethylamine","antihol","pancuronium","lipolicide","condensedcapsaicin",
 								"frostoil","amanitin","psilocybin","nothing","salglu_solution","neurotoxin")
 // Rare medicines
-var/list/rare_medicines = list("nanites","xenomicrobes","minttoxin","adminordrazine","blood")
+var/list/rare_medicines = list("syndicate_nanites","minttoxin","blood")
 // Drinks
 var/list/drinks = list("beer2","hot_coco","orangejuice","tomatojuice","limejuice","carrotjuice",
 					"berryjuice","poisonberryjuice","watermelonjuice","lemonjuice","banana",
@@ -55,7 +55,7 @@ var/global/list/blocked_chems = list("polonium", "initropidril", "concentrated_i
 							"syndicate_nanites", "ripping_tendrils", "boiling_oil",
 							"envenomed_filaments", "lexorin_jelly", "kinetic",
 							"cryogenic_liquid", "dark_matter", "b_sorium",
-							"reagent", "life","dragonsbreath")
+							"reagent", "life","dragonsbreath", "xenomicrobes")
 
 var/global/list/safe_chem_list = list("antihol", "charcoal", "epinephrine", "insulin", "teporone","silver_sulfadiazine", "salbutamol",
 									  "omnizine", "stimulants", "synaptizine", "potass_iodide", "oculine", "mannitol", "styptic_powder",
