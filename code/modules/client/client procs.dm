@@ -436,7 +436,7 @@
 		on_holder_add()
 		add_admin_verbs()
 		admin_memo_output("Show", 0, 1)
-		if(custom_event_admin_msg && custom_event_admin_msg != "")
+		if(custom_event_admin_msg && custom_event_admin_msg != "" && check_rights(R_EVENT))
 			cmd_view_custom_event_info()
 
 	// Forcibly enable hardware-accelerated graphics, as we need them for the lighting overlays.
