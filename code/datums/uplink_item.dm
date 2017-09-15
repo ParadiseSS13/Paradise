@@ -377,9 +377,9 @@ var/list/uplink_items = list()
 	surplus = 40
 
 /datum/uplink_item/dangerous/pdw
-	name = "Gepard PWD"
-	reference = "PWD"
-	desc = "A fully-loaded PWD that fires 7.62x25mm rounds with a 30-round magazine and is compatible with suppressors. Best used on armored targets."
+	name = "Gepard PDW"
+	reference = "PDW"
+	desc = "A fully-loaded PDW that fires 7.62x25mm rounds with a 30-round magazine. It is compatible with suppressors and best used on armored targets."
 	item = /obj/item/weapon/gun/projectile/automatic/gepard/syndi
 	cost = 8
 	surplus = 50
@@ -422,7 +422,7 @@ var/list/uplink_items = list()
 
 /datum/uplink_item/dangerous/dmr
 	name = "Dragon DMR"
-	desc = "Long range marksman rifle, now you can reach out and kill anyone, anywhere!"
+	desc = "A designated marksman rifle. Made to reach out and kill anyone, anywhere! Chambered for 7.62x54mm."
 	reference = "DMR"
 	item = /obj/item/weapon/gun/projectile/automatic/sniper_rifle/dragon
 	cost = 12
@@ -703,6 +703,7 @@ var/list/uplink_items = list()
 
 /datum/uplink_item/ammo/pdw
 	name = "Box Magazine - 7.62x25mm"
+	desc = "An additional 30-round 7.62x25mm magazine for use in the Gepard PDW. These bullets don't hit hard, but can defeat all but specialty armor."
 	reference = "7.62x25mm"
 	item = /obj/item/ammo_box/magazine/smgm762mm
 	cost = 2

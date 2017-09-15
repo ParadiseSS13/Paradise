@@ -23,7 +23,7 @@
 	mag_type = /obj/item/ammo_box/magazine/internal/grenadelauncher
 
 /obj/item/weapon/gun/projectile/revolver/grenadelauncher/syndi/update_icon()
-	icon_state = "[initial(icon_state)][chambered? "" : "-e"]"
+	icon_state = "[initial(icon_state)][chambered ? "" : "-e"]"
 
 /obj/item/weapon/gun/projectile/revolver/grenadelauncher/multi
 	desc = "A revolving 6-shot grenade launcher."

@@ -319,10 +319,10 @@
 /obj/item/ammo_box/magazine/smgm762mm/proc/is_rubber()//if the topmost bullet is a rubber one
 	var/ammo = ammo_count()
 	if(!ammo)
-		return 0
-	if(istype(contents[contents.len], /obj/item/ammo_casing/rubber45))
-		return 1
-	return 0
+		return FALSE
+	if(istype(contents[contents.len], /obj/item/ammo_casing/rubber762x25mm))
+		return TRUE
+	return FALSE
 
 /obj/item/ammo_box/magazine/smgm762mm/rubber
 	ammo_type = /obj/item/ammo_casing/rubber762x25mm
