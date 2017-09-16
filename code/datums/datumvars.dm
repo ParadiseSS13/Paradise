@@ -39,6 +39,8 @@
 			return debug_variable(var_name, list(), 0, src)
 	return debug_variable(var_name, vars[var_name], 0, src)
 
+/datum/proc/can_vv_delete()
+	return TRUE
 
 //please call . = ..() first and append to the result, that way parent items are always at the top and child items are further down
 //add seperaters by doing . += "---"
@@ -721,6 +723,16 @@
 		else
 			to_chat(M, "There were no ghosts willing to take control.")
 			message_admins("No ghosts were willing to take control of [key_name_admin(M)])")
+
+	else if(href_list["delete"])
+		if(!check_rights(R_DEBUG, 0))
+			return
+
+		var/datum/D = locateUID(href_list["delete"])
+		if(!D)
+			to_chat(usr, "Unable to locate item!")
+		admin_delete(D)
+		href_list["datumrefresh"] = href_list["delete"]
 
 	else if(href_list["delall"])
 		if(!check_rights(R_DEBUG|R_SERVER))	return

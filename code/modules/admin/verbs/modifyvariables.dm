@@ -1,21 +1,7 @@
-var/list/forbidden_varedit_object_types = list(
-										/datum/admins,						//Admins editing their own admin-power object? Yup, sounds like a good idea.
-										/obj/machinery/blackbox_recorder,	//Prevents people messing with feedback gathering
-										/datum/feedback_variable			//Prevents people messing with feedback gathering
-									)
-
 var/list/VVlocked = list("vars", "var_edited", "client", "firemut", "ishulk", "telekinesis", "xray", "ka", "virus", "viruses", "cuffed", "last_eaten", "unlock_content") // R_DEBUG
 var/list/VVicon_edit_lock = list("icon", "icon_state", "overlays", "underlays", "resize") // R_EVENT | R_DEBUG
 var/list/VVckey_edit = list("key", "ckey") // R_EVENT | R_DEBUG
 var/list/VVpixelmovement = list("step_x", "step_y", "bound_height", "bound_width", "bound_x", "bound_y") // R_DEBUG + warning
-
-/proc/datum_is_forbidden(type)
-	for(var/p in forbidden_varedit_object_types)
-		if(istype(type, p))
-			to_chat(usr, "<span class='warning'>It is forbidden to tamper with this object.</span>")
-			return FALSE
-	return TRUE
-
 /client/proc/vv_get_class(var/var_value)
 	if(isnull(var_value))
 		. = VV_NULL
