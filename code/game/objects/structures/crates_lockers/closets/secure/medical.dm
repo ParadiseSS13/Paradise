@@ -267,29 +267,3 @@
 	new /obj/item/weapon/reagent_containers/glass/bottle/reagent/acetone(src)
 	new /obj/item/weapon/reagent_containers/glass/bottle/reagent/acid(src)
 	new /obj/item/weapon/reagent_containers/glass/bottle/reagent/diethylamine(src)
-
-
-/obj/structure/closet/secure_closet/coroner
-	name = "coroner's locker"
-	icon_state = "securecoroner1"
-	icon_closed = "securecoroner"
-	icon_locked = "securecoroner1"
-	icon_opened = "securecoroneropen"
-	icon_broken = "securecoronerbroken"
-	icon_off = "securecoroneroff"
-	req_access = list(access_morgue)
-
-/obj/structure/closet/secure_closet/coroner/New()
-	..()
-	if(prob(50))
-		new /obj/item/weapon/storage/backpack/medic(src)
-	else
-		new /obj/item/weapon/storage/backpack/satchel_med(src)
-	new /obj/item/weapon/storage/backpack/duffel/medical(src)
-	new /obj/item/clothing/suit/storage/labcoat/mortician(src)
-	new /obj/item/device/radio/headset/headset_med(src)
-	new /obj/item/clothing/shoes/white(src)
-	new /obj/item/clothing/under/rank/medical/mortician(src)
-	new /obj/item/clothing/head/surgery/black(src)
-	new /obj/item/weapon/reagent_containers/glass/bottle/reagent/formaldehyde(src)
-	new /obj/item/weapon/reagent_containers/dropper(src)
