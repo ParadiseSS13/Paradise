@@ -9,7 +9,6 @@
 	icon_off = "medicaloff"
 	req_access = list(access_medical)
 
-
 	New()
 		..()
 		new /obj/item/weapon/storage/box/autoinjectors(src)
@@ -24,7 +23,6 @@
 		new /obj/item/weapon/reagent_containers/glass/bottle/charcoal(src)
 
 
-
 /obj/structure/closet/secure_closet/medical2
 	name = "anesthetic locker"
 	desc = "Used to knock people out."
@@ -36,7 +34,6 @@
 	icon_off = "medicaloff"
 	req_access = list(access_surgery)
 
-
 	New()
 		..()
 		new /obj/item/weapon/tank/anesthetic(src)
@@ -45,7 +42,6 @@
 		new /obj/item/clothing/mask/breath/medical(src)
 		new /obj/item/clothing/mask/breath/medical(src)
 		new /obj/item/clothing/mask/breath/medical(src)
-
 
 
 /obj/structure/closet/secure_closet/medical3
@@ -75,6 +71,7 @@
 		new /obj/item/clothing/glasses/hud/health(src)
 		new /obj/item/clothing/shoes/sandal/white(src)
 
+
 //Exam Room
 /obj/structure/closet/secure_closet/exam
 	name = "exam room closet"
@@ -86,7 +83,6 @@
 	icon_broken = "medicalbroken"
 	icon_off = "medicaloff"
 	req_access = list(access_medical)
-
 
 	New()
 		..()
@@ -135,6 +131,7 @@
 		new /obj/item/weapon/reagent_containers/glass/bottle/ether(src)
 		new /obj/item/weapon/storage/pill_bottle/psychiatrist(src)
 
+
 /obj/structure/closet/secure_closet/CMO
 	name = "chief medical officer's locker"
 	req_access = list(access_cmo)
@@ -178,11 +175,9 @@
 		new /obj/item/weapon/door_remote/chief_medical_officer(src)
 
 
-
 /obj/structure/closet/secure_closet/animal
 	name = "animal control locker"
 	req_access = list(access_surgery)
-
 
 	New()
 		..()
@@ -190,7 +185,6 @@
 		new /obj/item/device/radio/electropack(src)
 		new /obj/item/device/radio/electropack(src)
 		new /obj/item/device/radio/electropack(src)
-
 
 
 /obj/structure/closet/secure_closet/chemical
@@ -204,11 +198,11 @@
 	icon_off = "medicaloff"
 	req_access = list(access_chemistry)
 
-
 	New()
 		..()
 		new /obj/item/weapon/storage/box/pillbottles(src)
 		new /obj/item/weapon/storage/box/pillbottles(src)
+
 
 /obj/structure/closet/secure_closet/medical_wall
 	name = "first aid closet"
@@ -247,7 +241,6 @@
 	icon_off = "medicaloff"
 	req_access = list(access_paramedic)
 
-
 	New()
 		..()
 		new /obj/item/clothing/suit/space/eva/paramedic(src)
@@ -266,7 +259,6 @@
 	icon_off = "chemicaloff"
 	req_access = list(access_chemistry)
 
-
 	New()
 		..()
 		new /obj/item/weapon/reagent_containers/glass/bottle/reagent/phenol(src)
@@ -275,3 +267,29 @@
 		new /obj/item/weapon/reagent_containers/glass/bottle/reagent/acetone(src)
 		new /obj/item/weapon/reagent_containers/glass/bottle/reagent/acid(src)
 		new /obj/item/weapon/reagent_containers/glass/bottle/reagent/diethylamine(src)
+
+
+/obj/structure/closet/secure_closet/coroner
+	name = "coroner's locker"
+	icon_state = "securecoroner1"
+	icon_closed = "securecoroner"
+	icon_locked = "securecoroner1"
+	icon_opened = "securecoroneropen"
+	icon_broken = "securecoronerbroken"
+	icon_off = "securecoroneroff"
+	req_access = list(access_morgue)
+
+	New()
+		..()
+		if(prob(50))
+			new /obj/item/weapon/storage/backpack/medic(src)
+		else
+			new /obj/item/weapon/storage/backpack/satchel_med(src)
+		new /obj/item/weapon/storage/backpack/duffel/medical(src)
+		new /obj/item/clothing/suit/storage/labcoat/mortician(src)
+		new /obj/item/device/radio/headset/headset_med(src)
+		new /obj/item/clothing/shoes/white(src)
+		new /obj/item/clothing/under/rank/medical/mortician(src)
+		new /obj/item/clothing/head/surgery/black(src)
+		new /obj/item/weapon/reagent_containers/glass/bottle/reagent/formaldehyde(src)
+		new /obj/item/weapon/reagent_containers/dropper(src)
