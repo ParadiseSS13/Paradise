@@ -555,6 +555,11 @@
 	bitesize = 6
 	list_reagents = list("protein" = 3, "vitamin" = 1)
 
+/obj/item/weapon/reagent_containers/food/snacks/xenomeat/New()
+	..()
+	if(prob(10))	//not every piece will have microbes, so you'll need to put in some actual effort to get large amounts of xenomicrobes
+		reagents.add_reagent("xenomicrobes", 0.5)
+
 /obj/item/weapon/reagent_containers/food/snacks/spidermeat
 	name = "spider meat"
 	desc = "A slab of spider meat."
@@ -706,6 +711,12 @@
 	bitesize = 3
 	list_reagents = list("nutriment" = 6, "vitamin" = 1)
 
+/obj/item/weapon/reagent_containers/food/snacks/xenoburger/New()
+	..()
+	spawn(1)
+		if(reagents.has_reagent("xenomicrobes"))
+			reagents.add_reagent("xenomicrobes", reagents.get_reagent_amount("xenomicrobes"))	//doubles the xenomicrobes from ingredients if present
+
 /obj/item/weapon/reagent_containers/food/snacks/clownburger
 	name = "Clown Burger"
 	desc = "This tastes funny..."
@@ -849,6 +860,12 @@
 	trash = /obj/item/trash/plate
 	filling_color = "#43DE18"
 	list_reagents = list("nutriment" = 10, "vitamin" = 2)
+
+/obj/item/weapon/reagent_containers/food/snacks/xemeatpie/New()
+	..()
+	spawn(1)
+		if(reagents.has_reagent("xenomicrobes"))
+			reagents.add_reagent("xenomicrobes", reagents.get_reagent_amount("xenomicrobes"))	//doubles the microbes from ingredients if present
 
 /obj/item/weapon/reagent_containers/food/snacks/wingfangchu
 	name = "Wing Fang Chu"
@@ -1644,6 +1661,12 @@
 	slices_num = 5
 	filling_color = "#8AFF75"
 	list_reagents = list("protein" = 20, "nutriment" = 10, "vitamin" = 5)
+
+/obj/item/weapon/reagent_containers/food/snacks/sliceable/xenomeatbread/New()
+	..()
+	spawn(1)
+		if(reagents.has_reagent("xenomicrobes"))
+			reagents.add_reagent("xenomicrobes", reagents.get_reagent_amount("xenomicrobes"))	//doubles the microbes from ingredients if present
 
 /obj/item/weapon/reagent_containers/food/snacks/xenomeatbreadslice
 	name = "xenomeatbread slice"
