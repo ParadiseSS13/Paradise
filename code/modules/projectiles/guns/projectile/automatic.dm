@@ -90,7 +90,7 @@
 	icon_state = "[initial(icon_state)][magazine ? "" : "-e"]"
 	overlays.Cut()
 	if(suppressed)
-		overlays += image(icon = icon, icon_state = "Gepard-s", pixel_x = 8)
+		overlays += image(icon = icon, icon_state = "Gepard-s", pixel_x = 7)
 
 /obj/item/weapon/gun/projectile/automatic/gepard/syndi
 	icon_state = "Gepards"
