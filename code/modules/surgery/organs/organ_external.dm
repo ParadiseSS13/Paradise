@@ -86,6 +86,7 @@
 
 	if(owner)
 		owner.bodyparts_by_name[limb_name] = null
+		owner.splinted_limbs -= src
 
 	QDEL_LIST(children)
 
