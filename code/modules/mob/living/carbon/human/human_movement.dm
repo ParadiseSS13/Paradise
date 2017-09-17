@@ -49,9 +49,9 @@
 	var/turf/T = get_turf(src)
 	var/obj/item/organ/external/l_foot = get_organ("l_foot")
 	var/obj/item/organ/external/r_foot = get_organ("r_foot")
-	var/hasfeet = 1
+	var/hasfeet = TRUE
 	if(!l_foot && !r_foot)
-		hasfeet = 0
+		hasfeet = FALSE
 
 	if(shoes)
 		if(S.bloody_shoes && S.bloody_shoes[S.blood_state])
