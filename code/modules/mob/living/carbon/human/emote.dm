@@ -76,8 +76,8 @@
 			else								//Everyone else fails, skip the emote attempt
 				return
 
-		if("tremble")
-			if(species.name == "Diona") //Only Dionas can Tremble.
+		if("creaks")
+			if(species.name == "Diona") //Only Dionas can Creaks.
 				on_CD = handle_emote_CD()			//proc located in code\modules\mob\emote.dm'
 			else								//Everyone else fails, skip the emote attempt
 				return
@@ -176,10 +176,10 @@
 			playsound(loc, 'sound/effects/Kidanclack2.ogg', 50, 0) //Credit to DrMinky (freesound.org) for the sound.
 			m_type = 2
 
-		if("tremble")
+		if("creaks")
 			var/M = handle_emote_param(param)
 
-			message = "<B>[src]</B> trembles[M ? " at [M]" : ""]."
+			message = "<B>[src]</B> creaks[M ? " at [M]" : ""]."
 			playsound(loc, 'sound/voice/dionatalk1.ogg', 50, 0)
 			m_type = 2
 
