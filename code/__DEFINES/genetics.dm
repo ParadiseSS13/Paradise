@@ -13,7 +13,12 @@
 #define DISABILITY_FLAG_BLIND       16
 #define DISABILITY_FLAG_MUTE        32
 #define DISABILITY_FLAG_COLOURBLIND 64
-
+#define DISABILITY_FLAG_TOURETTES   512
+#define DISABILITY_FLAG_NERVOUS     1024
+#define DISABILITY_FLAG_SWEDISH     2048
+#define DISABILITY_FLAG_SCRAMBLED   4096 // incoherent speech
+#define DISABILITY_FLAG_LISP        8192
+#define DISABILITY_FLAG_DIZZY       16384
 ///////////////////////////////////////
 // MUTATIONS
 ///////////////////////////////////////
