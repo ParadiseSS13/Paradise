@@ -839,6 +839,8 @@
 					emotelist += "\nUnathi specific emotes :- hiss(es)"
 				if("Vulpkanin")
 					emotelist += "\nVulpkanin specific emotes :- growl(s)-none/mob, howl(s)-none/mob"
+				if("Diona")
+					emotelist += "\nDiona specific emotes :- creak(s)"
 
 			if (species.name == "Slime People")
 				emotelist += "\nSlime people specific emotes :- squish(es)-(none)/mob"
