@@ -17,6 +17,15 @@
 	flags_size = null
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|ARMS
 
+/obj/item/clothing/under/rank/chief_engineer/ncu
+	desc = "A Nanomesh Uniform. This one is fitted for Engineering personnel."
+	name = "chief engineer's nanomesh uniform"
+	icon_state = "ncuchief"
+	item_color = "ncuchief"
+	armor = list(melee = 0, bullet = 0, laser = 0, energy = 0, bomb = 0, bio = 0, rad = 10)
+	flags_size = ONESIZEFITSALL
+	body_parts_covered = UPPER_TORSO|LOWER_TORSO|ARMS
+
 /obj/item/clothing/under/rank/atmospheric_technician
 	desc = "It's a jumpsuit worn by atmospheric technicians."
 	name = "atmospheric technician's jumpsuit"
@@ -34,6 +43,14 @@
 	flags_size = null
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|ARMS
 
+/obj/item/clothing/under/rank/atmospheric_technician/ncu
+	desc = "A Nanomesh Uniform. This one is fitted for Engineering Personnel."
+	name = "atmospheric technician's nanomesh uniform"
+	icon_state = "ncuatmos"
+	item_color = "ncuatmos"
+	flags_size = ONESIZEFITSALL
+	body_parts_covered = UPPER_TORSO|LOWER_TORSO|ARMS
+
 /obj/item/clothing/under/rank/engineer
 	desc = "It's an orange high visibility jumpsuit worn by engineers. It has minor radiation shielding."
 	name = "engineer's jumpsuit"
@@ -44,6 +61,15 @@
 	flags_size = ONESIZEFITSALL
 	burn_state = FIRE_PROOF
 
+/obj/item/clothing/under/rank/engineer/ncu
+	desc = "A Nanomesh Uniform. This one is fitted for Engineering Personnel."
+	name = "engineer's nanomesh uniform"
+	icon_state = "ncuengine"
+	item_state = "ncuengine"
+	item_color = "ncuengine"
+	armor = list(melee = 0, bullet = 0, laser = 0, energy = 0, bomb = 0, bio = 0, rad = 10)
+	flags_size = ONESIZEFITSALL
+	burn_state = FIRE_PROOF
 
 /obj/item/clothing/under/rank/engineer/skirt
 	desc = "It's an orange high visibility jumpskirt worn by engineers. It has minor radiation shielding."
@@ -61,6 +87,14 @@
 	item_color = "robotics"
 	flags_size = ONESIZEFITSALL
 
+/obj/item/clothing/under/rank/roboticist/ncu
+	desc = "A Nanomesh Uniform. This one is fitted for Engineering personnel."
+	name = "roboticist's nanomesh uniform"
+	icon_state = "ncurobotics"
+	item_state = "ncurobotics"
+	item_color = "ncurobotics"
+	flags_size = ONESIZEFITSALL
+
 /obj/item/clothing/under/rank/roboticist/skirt
 	desc = "It's a slimming black jumpskirt with reinforced seams; great for industrial work."
 	name = "roboticist's jumpskirt"
@@ -74,3 +108,10 @@
 	icon_state = "mechanic"
 	item_state = "mechanic"
 	item_color = "mechanic"
+
+/obj/item/clothing/under/rank/mechanic/ncu
+	desc = "A Nanomesh Uniform. This one is fitted for Engineering personnel."
+	name = "mechanic's nanomesh uniform"
+	icon_state = "ncuengine"
+	item_state = "ncuengine"
+	item_color = "ncuengine"

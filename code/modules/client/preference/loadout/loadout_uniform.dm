@@ -224,3 +224,136 @@
 	display_name = "pants, camo"
 	path = /obj/item/clothing/under/pants/camo
 
+/datum/gear/uniform/ncu/bs
+	display_name = "nanomesh, blueshield"
+	path = /obj/item/clothing/under/rank/blueshield/ncu
+	allowed_roles = list("Blueshield")
+
+/datum/gear/uniform/ncu/sec
+	display_name = "nanomesh, security"
+	path = /obj/item/clothing/under/rank/security/ncu
+	allowed_roles = list("Head of Security", "Warden", "Security Officer", "Detective", "Security Pod Pilot")
+
+/datum/gear/uniform/ncu/hos
+	display_name = "nanomesh, security"
+	path = /obj/item/clothing/under/rank/head_of_security/ncu
+	allowed_roles = list("Head of Security")
+
+/datum/gear/uniform/ncu/phys
+	display_name = "nanomesh, physician"
+	path = /obj/item/clothing/under/rank/security/brigphys/ncu
+	allowed_roles = list("Brig Physician")
+
+/datum/gear/uniform/ncu/rd
+	display_name = "nanomesh, director"
+	path = /obj/item/clothing/under/rank/research_director/ncu
+	allowed_roles = list("Research Director")
+
+/datum/gear/uniform/ncu/scientist
+	display_name = "nanomesh, scientist"
+	path = /obj/item/clothing/under/rank/scientist/ncu
+	allowed_roles = list("Research Director","Scientist")
+
+/datum/gear/uniform/ncu/chem
+	display_name = "nanomesh, chemist"
+	path = /obj/item/clothing/under/rank/chemist/ncu
+	allowed_roles = list("Chemist")
+
+/datum/gear/uniform/ncu/cmo
+	display_name = "nanomesh, chief medical officer"
+	path = /obj/item/clothing/under/rank/chief_medical_officer/ncu
+	allowed_roles = list("Chief Medical Officer")
+
+/datum/gear/uniform/ncu/genetics
+	display_name = "nanomesh, geneticist"
+	path = /obj/item/clothing/under/rank/geneticist/ncu
+	allowed_roles = list("Geneticist")
+
+/datum/gear/uniform/ncu/viro
+	display_name = "nanomesh, virologist"
+	path = /obj/item/clothing/under/rank/virologist/ncu
+	allowed_roles = list("Virologist")
+
+/datum/gear/uniform/ncu/med
+	display_name = "nanomesh, medical"
+	path = /obj/item/clothing/under/rank/medical/ncu
+	allowed_roles = list("Chief Medical Officer","Medical Doctor","Psychiatrist","Paramedic","Coroner")
+
+/datum/gear/uniform/ncu/captain
+	display_name = "nanomesh, captain"
+	path = /obj/item/clothing/under/rank/captain/ncu
+	allowed_roles = list("Captain")
+
+/datum/gear/uniform/ncu/qm
+	display_name = "nanomesh, quartermaster"
+	path = /obj/item/clothing/under/rank/cargo/ncu
+	allowed_roles = list("Quartermaster")
+
+/datum/gear/uniform/ncu/cargo
+	display_name = "nanomesh, cargo"
+	path = /obj/item/clothing/under/rank/cargotech/ncu
+	allowed_roles = list("Quartermaster","Cargo Technician","Shaft Miner")
+
+/datum/gear/uniform/ncu/chaplain
+	display_name = "nanomesh, chaplain"
+	path = /obj/item/clothing/under/rank/chaplain/ncu
+	allowed_roles = list("Chaplain")
+
+/datum/gear/uniform/ncu/chef
+	display_name = "nanomesh, service"
+	path = /obj/item/clothing/under/rank/chef/ncu
+	allowed_roles = list("Chef","Bartender")
+
+/datum/gear/uniform/ncu/hop
+	display_name = "nanomesh, hop"
+	path = /obj/item/clothing/under/rank/head_of_personnel/ncu
+	allowed_roles = list("Head of Personnel")
+
+/datum/gear/uniform/ncu/botanist
+	display_name = "nanomesh, botanist"
+	path = /obj/item/clothing/under/rank/hydroponics/ncu
+	allowed_roles = list("Botanist")
+
+/datum/gear/uniform/ncu/ntrep
+	display_name = "nanomesh, nt rep"
+	path = /obj/item/clothing/under/rank/ntrep/ncu
+	allowed_roles = list("Nanotrasen Representative")
+
+/datum/gear/uniform/ncu/janitor
+	display_name = "nanomesh, janitor"
+	path = /obj/item/clothing/under/rank/janitor/ncu
+	allowed_roles = list("Janitor")
+
+/datum/gear/uniform/ncu/barber
+	display_name = "nanomesh, barber"
+	path = /obj/item/clothing/under/barber/ncu
+	allowed_roles = list("Barber")
+
+/datum/gear/uniform/ncu/ce
+	display_name = "nanomesh, chief engineer"
+	path = /obj/item/clothing/under/rank/chief_engineer/ncu
+	allowed_roles = list("Chief Engineer")
+
+/datum/gear/uniform/ncu/atmos
+	display_name = "nanomesh, atmos"
+	path = /obj/item/clothing/under/rank/atmospheric_technician/ncu
+	allowed_roles = list("Chief Engineer","Life Support Specialist")
+
+/datum/gear/uniform/ncu/engine
+	display_name = "nanomesh, engi"
+	path = /obj/item/clothing/under/rank/engineer/ncu
+	allowed_roles = list("Chief Engineer","Station Engineer")
+
+/datum/gear/uniform/ncu/robo
+	display_name = "nanomesh, roboticist"
+	path = /obj/item/clothing/under/rank/roboticist/ncu
+	allowed_roles = list("Research Director","Roboticist")
+
+/datum/gear/uniform/ncu/mech
+	display_name = "nanomesh, mechanic"
+	path = /obj/item/clothing/under/rank/mechanic/ncu
+	allowed_roles = list("Mechanic")
+
+/datum/gear/uniform/ncu/grey
+	display_name = "nanomesh, assistant"
+	path = /obj/item/clothing/under/rank/assistant/ncu

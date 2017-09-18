@@ -73,6 +73,15 @@
 	item_state = "warden_corporate"
 	item_color = "warden_corporate"
 
+/obj/item/clothing/under/rank/security/ncu
+	name = "security officer's nanomesh combat uniform"
+	desc = "A Nanomesh Combat Uniform. This one is fitted for Security personnel."
+	icon_state = "ncursecurity"
+	item_state = "ncursecurity"
+	item_color = "ncursecurity"
+	armor = list(melee = 10, bullet = 0, laser = 0, energy = 0, bomb = 0, bio = 0, rad = 0)
+	flags_size = ONESIZEFITSALL
+
 /*
  * Detective
  */
@@ -115,6 +124,15 @@
 	icon_state = "hos_corporate"
 	item_state = "hos_corporate"
 	item_color = "hos_corporate"
+
+/obj/item/clothing/under/rank/head_of_security/ncu
+	name = "head of security nanomesh combat uniform"
+	desc = "A Nanomesh Combat Uniform. This one is fitted for Security personnel."
+	icon_state = "ncurhos"
+	item_state = "ncurhos"
+	item_color = "ncurhos"
+	armor = list(melee = 10, bullet = 0, laser = 0, energy = 0, bomb = 0, bio = 0, rad = 0)
+	flags_size = ONESIZEFITSALL
 
 //Jensen cosplay gear
 /obj/item/clothing/under/rank/head_of_security/jensen
@@ -179,6 +197,15 @@
 	item_state = "brig_phys"
 	item_color = "brig_phys"
 	permeability_coefficient = 0.50
+	armor = list(melee = 10, bullet = 0, laser = 0, energy = 0, bomb = 0, bio = 10, rad = 0)
+	flags_size = ONESIZEFITSALL
+
+/obj/item/clothing/under/rank/security/brigphys/ncu
+	name = "brig physician's nanomesh combat uniform"
+	desc = "A Nanomesh Combat Uniform. This one is fitted for Security personnel."
+	icon_state = "ncubrigphys"
+	item_state = "ncubrigphys"
+	item_color = "ncubrigphys"
 	armor = list(melee = 10, bullet = 0, laser = 0, energy = 0, bomb = 0, bio = 10, rad = 0)
 	flags_size = ONESIZEFITSALL
 
