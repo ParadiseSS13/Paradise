@@ -130,6 +130,10 @@
 	list_reagents = list("sodiumchloride" = 20)
 	possible_states = list()
 
+/obj/item/weapon/reagent_containers/food/condiment/saltshaker/attack(mob/living/carbon/human/target, mob/living/user)
+	if(istype(target) && target.species.name == "Vulpkanin")
+		target.Gib()
+
 /obj/item/weapon/reagent_containers/food/condiment/saltshaker/suicide_act(mob/user)
 	user.visible_message("<span class='suicide'>[user] begins to swap forms with the salt shaker! It looks like \he's trying to commit suicide.</span>")
 	var/newname = "[name]"
