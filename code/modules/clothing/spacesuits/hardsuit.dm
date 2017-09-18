@@ -441,9 +441,10 @@
 	heat_protection = HEAD												//Uncomment to enable firesuit protection
 	max_heat_protection_temperature = FIRE_IMMUNITY_HELM_MAX_TEMP_PROTECT
 	unacidable = 1
-	species_fit = list("Grey")
+	species_fit = list("Grey","Vulpkanin")
 	sprite_sheets = list(
-		"Grey" = 'icons/mob/species/grey/helmet.dmi'
+		"Grey" = 'icons/mob/species/grey/helmet.dmi',
+		"Vulpkanin" = 'icons/mob/species/vulpkanin/helmet.dmi'
 		)
 
 /obj/item/clothing/suit/space/hardsuit/wizard
@@ -459,6 +460,10 @@
 	max_heat_protection_temperature = FIRE_IMMUNITY_SUIT_MAX_TEMP_PROTECT
 	unacidable = 1
 	sprite_sheets = null
+	species_fit = list("Vulpkanin")
+	sprite_sheets = list(
+		"Vulpkanin" = 'icons/mob/species/Vulpkanin/suit.dmi'
+		)
 
 //Medical hardsuit
 /obj/item/clothing/head/helmet/space/hardsuit/medical

@@ -46,11 +46,19 @@
 	name = "Orange Space Helmet"
 	icon_state = "syndicate-helm-orange"
 	item_state = "syndicate-helm-orange"
+	species_fit = list("Vulpkanin")
+	sprite_sheets = list(
+		"Vulpkanin" = 'icons/mob/species/Vulpkanin/helmet.dmi'
+		)
 
 /obj/item/clothing/suit/space/syndicate/orange
 	name = "Orange Space Suit"
 	icon_state = "syndicate-orange"
 	item_state = "syndicate-orange"
+	species_fit = list("Vulpkanin")
+	sprite_sheets = list(
+		"Vulpkanin" = 'icons/mob/species/Vulpkanin/suit.dmi'
+		)
 
 
 //Blue syndicate space suit
@@ -119,12 +127,19 @@ obj/item/clothing/suit/space/syndicate/black/strike
 	name = "Black Space Helmet"
 	icon_state = "syndicate-helm-black-med"
 	item_state = "syndicate-helm-black"
+	species_fit = list("Vulpkanin")
+	sprite_sheets = list(
+		"Vulpkanin" = 'icons/mob/species/Vulpkanin/helmet.dmi'
+		)
 
 /obj/item/clothing/suit/space/syndicate/black/med
 	name = "Green Space Suit"
 	icon_state = "syndicate-black-med"
 	item_state = "syndicate-black"
-
+	species_fit = list("Vulpkanin")
+	sprite_sheets = list(
+		"Vulpkanin" = 'icons/mob/species/Vulpkanin/suit.dmi'
+		)
 
 //Black-orange syndicate space suit
 /obj/item/clothing/head/helmet/space/syndicate/black/orange
@@ -143,6 +158,10 @@ obj/item/clothing/suit/space/syndicate/black/strike
 	name = "Black Space Helmet"
 	icon_state = "syndicate-helm-black-red"
 	item_state = "syndicate-helm-black-red"
+	species_fit = list("Vulpkanin")
+	sprite_sheets = list(
+		"Vulpkanin" = 'icons/mob/species/Vulpkanin/helmet.dmi'
+		)
 
 obj/item/clothing/head/helmet/space/syndicate/black/red/strike
 	name = "Syndicate Strike Team leader helmet"
@@ -155,6 +174,10 @@ obj/item/clothing/head/helmet/space/syndicate/black/red/strike
 	name = "Black and Red Space Suit"
 	icon_state = "syndicate-black-red"
 	item_state = "syndicate-black-red"
+	species_fit = list("Vulpkanin")
+	sprite_sheets = list(
+		"Vulpkanin" = 'icons/mob/species/Vulpkanin/suit.dmi'
+		)
 
 obj/item/clothing/suit/space/syndicate/black/red/strike
 	name = "Syndicate Strike Team leader space suit"
@@ -169,8 +192,16 @@ obj/item/clothing/suit/space/syndicate/black/red/strike
 	name = "Black Space Helmet"
 	icon_state = "syndicate-helm-black-engie"
 	item_state = "syndicate-helm-black"
+	species_fit = list("Vulpkanin")
+	sprite_sheets = list(
+		"Vulpkanin" = 'icons/mob/species/Vulpkanin/helmet.dmi'
+		)
 
 /obj/item/clothing/suit/space/syndicate/black/engie
 	name = "Black Engineering Space Suit"
 	icon_state = "syndicate-black-engie"
 	item_state = "syndicate-black"
+	species_fit = list("Vulpkanin")
+	sprite_sheets = list(
+		"Vulpkanin" = 'icons/mob/species/Vulpkanin/suit.dmi'
+		)
