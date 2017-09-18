@@ -128,7 +128,6 @@
 	shoes = /obj/item/clothing/shoes/black
 	pda = /obj/item/device/pda
 
-	var/list/implants = null
 
 	var/backpack = /obj/item/weapon/storage/backpack
 	var/satchel = /obj/item/weapon/storage/backpack/satchel_norm
