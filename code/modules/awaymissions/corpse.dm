@@ -160,7 +160,7 @@
 			if(!isnum(T))
 				outfit.vars[slot] = T
 		H.equipOutfit(outfit)
-		//if(disable_pda)
+		//if(disable_pda) //FETHAS FIX THIS
 			// We don't want corpse PDAs to show up in the messenger list.
 		//	var/obj/item/device/pda/PDA = locate(/obj/item/device/pda) in H
 		//	if(H.PDA)
@@ -210,14 +210,6 @@
 	M.death() //call the AI's death proc
 	qdel(src)
 
-/obj/effect/mob_spawn/slime
-	mob_type = 	/mob/living/simple_animal/slime
-	var/mobcolour = "grey"
-	icon = 'icons/mob/slimes.dmi'
-	icon_state = "grey baby slime" //sets the icon in the map editor
-
-/obj/effect/mob_spawn/slime/equip(mob/living/simple_animal/slime/S)
-	S.colour = mobcolour
 
 /obj/effect/mob_spawn/human/facehugger/create() //Creates a squashed facehugger
 	var/obj/item/clothing/mask/facehugger/O = new(src.loc) //variable O is a new facehugger at the location of the landmark
@@ -267,7 +259,6 @@
 	name = "Doctor"
 	outfit = /datum/outfit/job/doctor
 
-
 /obj/effect/mob_spawn/human/doctor/alive
 	death = FALSE
 	roundstart = FALSE
@@ -290,9 +281,55 @@
 	name = "Engineer"
 	outfit = /datum/outfit/job/engineer
 
+/obj/effect/mob_spawn/human/engineer/hardsuit
+	outfit = /datum/outfit/job/engineer/suit
+
+/datum/outfit/job/engineer/suit
+	name = "Station Engineer"
+
+	uniform = /obj/item/clothing/under/rank/engineer
+	belt = /obj/item/weapon/storage/belt/utility/full
+	suit = /obj/item/clothing/suit/space/hardsuit
+	shoes = /obj/item/clothing/shoes/workboots
+	head = /obj/item/clothing/head/helmet/space/hardsuit
+	mask = /obj/item/clothing/mask/breath
+	id = /obj/item/weapon/card/id/engineering
+	l_pocket = /obj/item/device/t_scanner
+
+	backpack = /obj/item/weapon/storage/backpack/industrial
+
+
 /obj/effect/mob_spawn/human/clown
 	name = "Clown"
 	outfit = /datum/outfit/job/clown
+
+/obj/effect/mob_spawn/human/corpse/clownmili/New()
+	if(prob(10))
+		name = "Clown Officer"
+		outfit = /datum/outfit/clownofficer
+	else
+		name = "Clown Soldier"
+		outfit = /datum/outfit/clownsoldier
+
+/datum/outfit/clownsoldier
+		uniform = /obj/item/clothing/under/soldieruniform
+		suit = /obj/item/clothing/suit/soldiercoat
+		shoes = /obj/item/clothing/shoes/clown_shoes
+		l_ear = /obj/item/device/radio/headset
+		mask = /obj/item/clothing/mask/gas/clown_hat
+		l_pocket = /obj/item/weapon/bikehorn
+		back = /obj/item/weapon/storage/backpack/clown
+		head = /obj/item/clothing/head/stalhelm
+
+/datum/outfit/clownofficer
+		uniform = /obj/item/clothing/under/officeruniform
+		suit = /obj/item/clothing/suit/officercoat
+		shoes = /obj/item/clothing/shoes/clown_shoes
+		l_ear = /obj/item/device/radio/headset
+		mask = /obj/item/clothing/mask/gas/clown_hat
+		l_pocket = /obj/item/weapon/bikehorn
+		back = /obj/item/weapon/storage/backpack/clown
+		head = /obj/item/clothing/head/naziofficer
 
 /obj/effect/mob_spawn/human/mime
 	name = "Mime"
