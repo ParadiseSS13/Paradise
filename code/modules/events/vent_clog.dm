@@ -19,19 +19,14 @@
 	if(activeFor % interval == 0)
 		var/obj/vent = pick_n_take(vents)
 
-		var/list/common_gunk = list("water","carbon","flour","radium","toxin","cleaner","nutriment","condensedcapsaicin","psilocybin","lube",
+		var/list/gunk = list("water","carbon","flour","radium","toxin","cleaner","nutriment","condensedcapsaicin","psilocybin","lube",
 							"atrazine","banana","charcoal","space_drugs","methamphetamine","holywater","ethanol","hot_coco","facid",
 							"blood","morphine","ether","fluorine","mutadone","mutagen","hydrocodone","fuel",
-							"haloperidol","lsd","lipolicide","frostoil","salglu_solution","beepskysmash",
-							"amanitin", "neurotoxin", "synaptizine")
-		var/list/uncommon_gunk = list("omnizine", "syndicate_nanites", "xenomicrobes", "nanomachines", "minttoxin", "unholywater", "blackpowder",
-									"mugwort", "ectoplasm", "love", "carpet", "hair_dye", "super_hairgrownium", "colorful_reagent")
+							"haloperidol","lsd","nanites","lipolicide","frostoil","salglu_solution","beepskysmash",
+							"omnizine", "amanitin", "adminordrazine", "neurotoxin", "synaptizine")
 		var/datum/reagents/R = new/datum/reagents(50)
 		R.my_atom = vent
-		if(prob(20))
-			R.add_reagent(pick(uncommon_gunk), rand(5, 25))
-		else
-			R.add_reagent(pick(common_gunk), 50)
+		R.add_reagent(pick(gunk), 50)
 
 		var/datum/effect/system/chem_smoke_spread/smoke = new
 		smoke.set_up(R, rand(1, 2), 0, vent, 0, silent = 1)
