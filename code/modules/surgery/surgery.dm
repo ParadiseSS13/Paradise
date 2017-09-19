@@ -116,6 +116,7 @@
 			prob_chance = allowed_tools[implement_type]
 		prob_chance *= get_location_modifier(target)
 
+
 		if(prob(prob_chance) || isrobot(user))
 			if(end_step(user, target, target_zone, tool, surgery))
 				advance = 1

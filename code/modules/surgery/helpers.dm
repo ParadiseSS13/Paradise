@@ -81,7 +81,8 @@
 			return 1
 	return 0
 
-
+/proc/get_pain_modifier(mob/M)
+	return 1
 
 /proc/get_location_modifier(mob/M)
 	var/turf/T = get_turf(M)
