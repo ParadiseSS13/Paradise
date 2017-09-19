@@ -116,6 +116,12 @@
 			prob_chance = allowed_tools[implement_type]
 		prob_chance *= get_location_modifier(target)
 
+
+		if(!ispath(surgery.steps[surgery.status], /datum/surgery_step/robotics))//Repairing robotic limbs doesn't hurt
+			if(ishuman(target))
+				var/mob/living/carbon/human/H = target //typecast to human
+				prob_chance *= get_pain_modifier(H)//operating on conscious people is hard.
+
 		if(prob(prob_chance) || isrobot(user))
 			if(end_step(user, target, target_zone, tool, surgery))
 				advance = 1
