@@ -147,7 +147,7 @@
 		return ..(user, 0)
 
 	var/input_rune_key = input(user, "Choose a rune to teleport to.", "Rune to Teleport to") as null|anything in potential_runes //we know what key they picked
-	if(!input_rune_key || (!user.is_in_active_hand(src) || user.stat || user.restrained()))
+	if(!input_rune_key || (!user.is_in_active_hand(src) || user.stat))
 		to_chat(user, "<span class='warning'>You must have the talisman in a active hand to operate it!</span>")
 		log_game("Teleport talisman failed - not in active hand or user restrained or dead")
 	return ..(user, 0)
