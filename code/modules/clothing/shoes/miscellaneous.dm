@@ -181,7 +181,7 @@
 		if((!silence_steps || shoe_sound) && TR.use(4))
 			silence_steps = 1
 			shoe_sound = null
-			to_chat(user, "You tape the soles of [src] to silence their footsteps.")
+			to_chat(user, "You tape the soles of [src] to silence your footsteps.")
 	else
 		return ..()
 
