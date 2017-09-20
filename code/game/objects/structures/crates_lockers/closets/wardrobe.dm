@@ -481,5 +481,3 @@
 	new /obj/item/clothing/shoes/white(src)
 	new /obj/item/clothing/under/rank/medical/mortician(src)
 	new /obj/item/clothing/head/surgery/black(src)
-//	new /obj/item/weapon/reagent_containers/glass/bottle/reagent/formaldehyde(src)
-//	new /obj/item/weapon/reagent_containers/dropper(src)
