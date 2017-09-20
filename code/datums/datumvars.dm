@@ -34,6 +34,8 @@
 
 /datum/proc/vv_get_var(var_name)
 	switch(var_name)
+		if("attack_log")
+			return debug_variable(var_name, vars[var_name], 0, src, sanitize = FALSE)
 		if("vars")
 			return debug_variable(var_name, list(), 0, src)
 	return debug_variable(var_name, vars[var_name], 0, src)
