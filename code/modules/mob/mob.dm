@@ -1237,3 +1237,31 @@ var/list/slot_equipment_priority = list( \
 
 	attack_log += new_log
 	last_log = world.timeofday
+
+/mob/vv_get_dropdown()
+	. = ..()
+	.["Show player panel"] = "?_src_=vars;mob_player_panel=[UID()]"
+
+	.["Give Spell"] = "?_src_=vars;give_spell=[UID()]"
+	.["Give Disease"] = "?_src_=vars;give_disease=[UID()]"
+	.["Toggle Godmode"] = "?_src_=vars;godmode=[UID()]"
+	.["Toggle Build Mode"] = "?_src_=vars;build_mode=[UID()]"
+
+	.["Make 2spooky"] = "?_src_=vars;make_skeleton=[UID()]"
+
+	.["Assume Direct Control"] = "?_src_=vars;direct_control=[UID()]"
+	.["Offer Control to Ghosts"] = "?_src_=vars;offer_control=[UID()]"
+	.["Drop Everything"] = "?_src_=vars;drop_everything=[UID()]"
+
+	.["Regenerate Icons"] = "?_src_=vars;regenerateicons=[UID()]"
+	.["Add Language"] = "?_src_=vars;addlanguage=[UID()]"
+	.["Remove Language"] = "?_src_=vars;remlanguage=[UID()]"
+	.["Add Organ"] = "?_src_=vars;addorgan=[UID()]"
+	.["Remove Organ"] = "?_src_=vars;remorgan=[UID()]"
+
+	.["Fix NanoUI"] = "?_src_=vars;fix_nano=[UID()]"
+
+	.["Add Verb"] = "?_src_=vars;addverb=[UID()]"
+	.["Remove Verb"] = "?_src_=vars;remverb=[UID()]"
+
+	.["Gib"] = "?_src_=vars;gib=[UID()]"
