@@ -44,6 +44,6 @@
 	if(stat != UNCONSCIOUS || InCritical())
 		return
 	if(isNightmare)
-		dream_image = "<font color='red'>[dream_image]</font>"
+		dream_image = "<spanclass='cultitalic'>[dream_image]</span>"
 	to_chat(src, "<span class='notice'><i>... [dream_image] ...</i></span>")
 
