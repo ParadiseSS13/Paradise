@@ -300,7 +300,7 @@
 	fire_delay = 10
 	can_suppress = 0
 	burst_size = 1
-	fire_sound = 'sound/effects/whoosh.ogg'
+	fire_sound = 'sound/effects/spray.ogg'
 	actions_types = list()
 
 /obj/item/weapon/gun/projectile/automatic/flamer/update_icon()
