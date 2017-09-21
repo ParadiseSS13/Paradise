@@ -92,13 +92,13 @@
 			return 0.97
 		if(M.reagents.has_reagent("morphine"))//Morphine can knock you out completely to guarantee success, but even a little bit helps
 			return 0.95
-		if(M.drunk>=80)//really damn drunk
+		if(M.drunk >= 80)//really damn drunk
 			return 0.95
-		if(M.drunk>=40)//pretty drunk
+		if(M.drunk >= 40)//pretty drunk
 			return 0.9
 		if(M.reagents.has_reagent("sal_acid")) //it's better than nothing, as far as painkillers go.
 			return 0.85
-		if(M.drunk>=15)//a little drunk
+		if(M.drunk >= 15)//a little drunk
 			return 0.85
 	return 0.8 //20% failure chance
 
