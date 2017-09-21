@@ -290,3 +290,27 @@
 /obj/item/weapon/gun/projectile/automatic/lasercarbine/update_icon()
 	..()
 	icon_state = "lasercarbine[magazine ? "-[Ceiling(get_ammo(0)/5)*5]" : ""]"
+
+/obj/item/weapon/gun/projectile/automatic/flamer
+	name = "military flamer"
+	desc = "An impressive flame thrower made for military use. Uses a combination of napalm and plasma."
+	icon_state = "flamer"
+	item_state = "flamer"
+	mag_type = /obj/item/ammo_box/magazine/flamer
+	fire_delay = 10
+	can_suppress = 0
+	burst_size = 1
+	fire_sound = 'sound/effects/whoosh.ogg'
+	actions_types = list()
+
+/obj/item/weapon/gun/projectile/automatic/flamer/update_icon()
+	..()
+	icon_state = "flamer[magazine ? "" : "-e"]"
+
+/obj/item/weapon/gun/projectile/automatic/flamer/process_chamber(eject_casing = 0, empty_chamber = 1)
+	..()
+
+/obj/item/weapon/gun/projectile/automatic/flamer/attack_self(mob/living/user)
+	if(!magazine)
+		return
+	..()

@@ -512,3 +512,18 @@
 /obj/item/ammo_box/magazine/laser/update_icon()
 	..()
 	icon_state = "[initial(icon_state)]-[Ceiling(ammo_count(0)/20)*20]"
+
+/obj/item/ammo_box/magazine/flamer
+	name = "Flame thrower tank"
+	desc = "Fits military flamers only."
+	icon_state = "flamer_tank"
+	ammo_type = /obj/item/ammo_casing/caseless/napalm
+	origin_tech = "combat=3"
+	caliber = "flamer"
+	max_ammo = 10
+
+/obj/item/ammo_box/magazine/flamer/update_icon()
+	return
+
+/obj/item/ammo_box/magazine/flamer/attack_self(mob/living/user)
+	return

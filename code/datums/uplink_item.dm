@@ -449,12 +449,12 @@ var/list/uplink_items = list()
 
 /datum/uplink_item/dangerous/flamethrower
 	name = "Flamethrower"
-	desc = "A flamethrower, fuelled by a portion of highly flammable bio-toxins stolen previously from Nanotrasen stations. Make a statement by roasting the filth in their own greed. Use with caution."
+	desc = "A military flamethrower, fuelled by a mixture of plasma and napalm. Make a statement by roasting the filth. Use with caution."
 	reference = "FT"
-	item = /obj/item/weapon/flamethrower/full/tank
-	cost = 11
+	item = /obj/item/weapon/gun/projectile/automatic/flamer
+	cost = 14
 	gamemodes = list(/datum/game_mode/nuclear)
-	surplus = 40
+	surplus = 0
 
 /datum/uplink_item/dangerous/sword
 	name = "Energy Sword"
@@ -764,6 +764,14 @@ var/list/uplink_items = list()
 	reference = "50P"
 	item = /obj/item/ammo_box/magazine/sniper_rounds/penetrator
 	cost = 5
+
+/datum/uplink_item/ammo/flamer
+	name = "Ammo Tank - Flamethrower"
+	desc = "A tank filled with a mixture of plasma and napalm for use in a flamethrower."
+	reference = "flametank"
+	item = /obj/item/ammo_box/magazine/flamer
+	cost = 3
+	gamemodes = list(/datum/game_mode/nuclear)
 
 // STEALTHY WEAPONS
 

@@ -294,3 +294,24 @@
 /obj/item/projectile/bullet/cap/fire()
 	loc = null
 	qdel(src)
+
+/obj/item/projectile/bullet/napalm
+	name = "Napalm plasma mix"
+	damage = 5
+	damage_type = BURN
+
+/obj/item/projectile/bullet/napalm/on_hit(var/atom/target, var/blocked = 0)
+	. = ..()
+	if(iscarbon(target))
+		var/mob/living/carbon/M = target
+		M.adjust_fire_stacks(10)
+		M.IgniteMob()
+	atmos_spawn_air(SPAWN_HEAT | SPAWN_TOXINS, 15)
+
+/obj/item/projectile/bullet/napalm/Move()
+	..()
+	var/turf/location = get_turf(src)
+	if(location)
+		new /obj/effect/hotspot(location)
+		location.hotspot_expose(700, 50, 1)
+

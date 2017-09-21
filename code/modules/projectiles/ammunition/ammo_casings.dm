@@ -309,6 +309,11 @@
 	caliber = "75"
 	projectile_type = /obj/item/projectile/bullet/gyro
 
+/obj/item/ammo_casing/caseless/napalm
+	desc = "napalm plasma mix"
+	caliber = "flamer"
+	projectile_type = /obj/item/projectile/bullet/napalm
+
 /obj/item/ammo_casing/a40mm
 	name = "40mm HE shell"
 	desc = "A cased high explosive grenade that can only be activated once fired out of a grenade launcher."
