@@ -118,7 +118,6 @@
 		prob_chance *= get_pain_modifier(target)//operating on conscious people is hard.
 
 
-
 		if(prob(prob_chance) || isrobot(user))
 			if(end_step(user, target, target_zone, tool, surgery))
 				advance = 1
