@@ -88,6 +88,13 @@
 		var/mob/living/carbon/human/H = M
 		if(NO_PAIN in H.species.species_traits)//if you don't feel pain, you can hold still
 			return 1
+		if(M.drunk)
+			if(M.drunk>=80)//really damn drunk
+				return 0.95
+			if(M.drunk>=40)//pretty drunk
+				return 0.9
+			if(M.drunk>=15)//a little buzz
+				return 0.85
 	return 0.8 //20% failure chance
 
 /proc/get_location_modifier(mob/M)
