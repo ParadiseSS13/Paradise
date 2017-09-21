@@ -115,7 +115,9 @@
 		if(implement_type)	//this means it isn't a require nd or any item step.
 			prob_chance = allowed_tools[implement_type]
 		prob_chance *= get_location_modifier(target)
-		prob_chance *= get_pain_modifier(target)//operating on conscious people is hard.
+
+		if(!istype(steps[status], /datum/surgery_step/robotics)//Repairing robotic limbs doesn't hurt
+			prob_chance *= get_pain_modifier(target)//operating on conscious people is hard.
 
 
 		if(prob(prob_chance) || isrobot(user))
