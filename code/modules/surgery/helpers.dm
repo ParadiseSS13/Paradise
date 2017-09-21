@@ -81,8 +81,12 @@
 			return 1
 	return 0
 
-/proc/get_pain_modifier(mob/M)
-	return 1
+/proc/get_pain_modifier(mob/M) //returns modfier to make surgery harder if patient is conscious and feels pain
+	if(M.stat) //stat=0 if CONSCIOUS, 1=UNCONSCIOUS and 2=DEAD. Operating on dead people is easy, too.
+		return 1
+	if(NO_PAIN in M.species.species_traits)//if you don't feel pain, you can hold still
+		return 1
+	return 0.8 //20% failure chance
 
 /proc/get_location_modifier(mob/M)
 	var/turf/T = get_turf(M)
