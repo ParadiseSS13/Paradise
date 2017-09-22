@@ -81,25 +81,23 @@
 			return 1
 	return 0
 
-/proc/get_pain_modifier(mob/M) //returns modfier to make surgery harder if patient is conscious and feels pain
-	if(M.stat) //stat=0 if CONSCIOUS, 1=UNCONSCIOUS and 2=DEAD. Operating on dead people is easy, too.
+/proc/get_pain_modifier(mob/living/carbon/human/M) //returns modfier to make surgery harder if patient is conscious and feels pain
+	if(M.stat && !M.sleeping) //stat=0 if CONSCIOUS, 1=UNCONSCIOUS and 2=DEAD. Operating on dead people is easy, too. Just sleeping won't work, though.
 		return 1
-	if(ishuman(M)) //default mob doesn't have species
-		var/mob/living/carbon/human/H = M
-		if(NO_PAIN in H.species.species_traits)//if you don't feel pain, you can hold still
-			return 1
-		if(M.reagents.has_reagent("hydrocodone"))//The most effective pain killer
-			return 0.97
-		if(M.reagents.has_reagent("morphine"))//Morphine can knock you out completely to guarantee success, but even a little bit helps
-			return 0.95
-		if(M.drunk >= 80)//really damn drunk
-			return 0.95
-		if(M.drunk >= 40)//pretty drunk
-			return 0.9
-		if(M.reagents.has_reagent("sal_acid")) //it's better than nothing, as far as painkillers go.
-			return 0.85
-		if(M.drunk >= 15)//a little drunk
-			return 0.85
+	if(NO_PAIN in M.species.species_traits)//if you don't feel pain, you can hold still
+		return 1
+	if(M.reagents.has_reagent("hydrocodone"))//The most effective pain killer
+		return 0.97
+	if(M.reagents.has_reagent("morphine"))//Morphine can knock you out completely to guarantee success, but even a little bit helps
+		return 0.95
+	if(M.drunk >= 80)//really damn drunk
+		return 0.95
+	if(M.drunk >= 40)//pretty drunk
+		return 0.9
+	if(M.reagents.has_reagent("sal_acid")) //it's better than nothing, as far as painkillers go.
+		return 0.85
+	if(M.drunk >= 15)//a little drunk
+		return 0.85
 	return 0.8 //20% failure chance
 
 /proc/get_location_modifier(mob/M)
