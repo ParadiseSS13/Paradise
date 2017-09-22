@@ -1,4 +1,5 @@
-an ID carda bottle
+an ID card
+a bottle
 a familiar face
 a crewmember
 a toolbox
@@ -16,7 +17,8 @@ a scientist
 a monkey
 a catastrophe
 a loved one
-a gunwarmth
+a gun
+warmth
 freezing
 the sun
 a hat
@@ -37,7 +39,8 @@ healing
 power
 respect
 riches
-spacea crash
+space
+a crash
 happiness
 pride
 a fall
@@ -55,7 +58,7 @@ a research director
 a chief medical officer
 the detective
 the warden
-a member of the internal affairs
+a member of internal affairs
 a station engineer
 the janitor
 atmospheric technician
@@ -89,7 +92,7 @@ an operating table
 the bar
 the rain
 a skrell
-a unathi
+an unathi
 a tajaran 
 a vulpkanin 
 a slime 

@@ -10,7 +10,7 @@
 		dreaming++
 	for(var/i in 1 to dream_images.len)
 		addtimer(src, "experience_dream", ((i - 1) * rand(30,60)), FALSE, dream_images[i], FALSE)
-	return 1
+	return TRUE
 
 //NIGHTMARES
 /mob/living/carbon/proc/nightmare()
@@ -24,7 +24,7 @@
 		nightmare++
 	for(var/i in 1 to dream_images.len)
 		addtimer(src, "experience_dream", ((i - 1) * rand(30,60)), FALSE, nightmares[i], TRUE)
-	return 1
+	return TRUE
 
 /mob/living/carbon/proc/handle_dreams()
 	if(client && !dreaming && prob(5))

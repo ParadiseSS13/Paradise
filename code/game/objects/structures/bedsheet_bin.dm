@@ -108,7 +108,7 @@ LINEN BINS
 	icon_state = "sheetcaptain"
 	item_color = "captain"
 	dream_messages = list("authority", "a golden ID", "sunglasses", "a green disc", "an antique gun", "the captain")
-	nightmare_messages = list("condom", "clown with all access", "the syndicate")
+	nightmare_messages = list("comdom", "clown with all access", "the syndicate")
 
 /obj/item/weapon/bedsheet/rd
 	name = "research director's bedsheet"
@@ -132,7 +132,7 @@ LINEN BINS
 	icon_state = "sheetcmo"
 	item_color = "cmo"
 	dream_messages = list("authority", "a silvery ID", "healing", "life", "surgery", "a cat", "the chief medical officer")
-	nightmare_messages = list("chemists making meth", "cryo if off", "where is the defib")
+	nightmare_messages = list("chemists making meth", "cryo it off", "where is the defib", "no biomass")
 
 /obj/item/weapon/bedsheet/hos
 	name = "head of security's bedsheet"
@@ -165,7 +165,7 @@ LINEN BINS
 	icon_state = "sheetqm"
 	item_color = "qm"
 	dream_messages = list("a grey ID", "a shuttle", "a crate", "a sloth", "the quartermaster")
-	nightmare_messages = list("a blad person", "no points", "wheres the ore", "space carp")
+	nightmare_messages = list("a bald person", "no points", "wheres the ore", "space carp")
 
 /obj/item/weapon/bedsheet/brown
 	icon_state = "sheetbrown"
