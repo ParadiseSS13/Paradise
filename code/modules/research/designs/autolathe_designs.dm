@@ -880,3 +880,12 @@
 	materials = list(MAT_GLASS = 750, MAT_METAL = 250)
 	build_path = /obj/item/weapon/circuitboard/vendor
 	category = list("initial", "Electronics")
+
+/datum/design/mirror
+	name = "mirror"
+	desc = "A mountable mirror."
+	id = "mirror"
+	build_type = AUTOLATHE
+	materials = list(MAT_GLASS = 2500)	//1.25 glass sheets, broken mirrors will return a shard (1 sheet)
+	build_path = /obj/item/mounted/mirror
+	category = list("initial", "Miscellaneous")

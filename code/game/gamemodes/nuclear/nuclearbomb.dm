@@ -155,7 +155,8 @@ var/bomb_set
 	..()
 
 /obj/machinery/nuclearbomb/attack_ghost(mob/user as mob)
-	attack_hand(user)
+	if(extended)
+		attack_hand(user)
 
 /obj/machinery/nuclearbomb/attack_hand(mob/user as mob)
 	if(extended)
