@@ -97,8 +97,9 @@
 /mob/living/proc/update_stamina()
 	return
 
-/mob/living/on_varedit(modified_var)
-	switch(modified_var)
+/mob/living/vv_edit_var(var_name, var_value)
+	. = ..()
+	switch(var_name)
 		if("weakened")
 			SetWeakened(weakened)
 		if("stunned")
@@ -121,4 +122,3 @@
 			updatehealth()
 		if("resize")
 			update_transform()
-	..()
