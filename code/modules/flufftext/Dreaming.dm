@@ -1,6 +1,9 @@
 ///DREAMS
+
+
 /mob/living/carbon/proc/dream()
 	var/list/dreams = dream_strings.Copy()
+	dreams = custom_dreams(dreams, src)
 
 	for(var/obj/item/weapon/bedsheet/sheet in loc)
 		dreams += sheet.dream_messages
@@ -11,6 +14,14 @@
 	for(var/i in 1 to dream_images.len)
 		addtimer(src, "experience_dream", ((i - 1) * rand(30,60)), FALSE, dream_images[i], FALSE)
 	return TRUE
+
+
+/mob/living/carbon/proc/custom_dreams(list/dreamlist, mob/user)
+	var/list/newlist = dreamlist.Copy()
+	for(var/i in 1 to newlist.len)
+		newlist[i] = replacetext(newlist[i], "\[DREAMER\]", "[user.name]")
+	return dreamlist
+
 
 //NIGHTMARES
 /mob/living/carbon/proc/nightmare()
@@ -29,14 +40,12 @@
 /mob/living/carbon/proc/handle_dreams()
 	if(client && !dreaming && prob(5))
 		dream()
-	else if(client && !nightmare && prob(40))
+	else if(client && !nightmare && prob(2))
 		nightmare()
 		if(ishuman(src))
-			Stuttering(1)
-			Jitter(20)
-			Dizzy(20)
-			if(prob(4))
-				AdjustHallucinate(rand(20, 60))
+			if(prob(10))
+				emote("writhes in their sleep.")
+				dir = pick(cardinal)
 
 /mob/living/carbon/proc/experience_dream(dream_image, isNightmare)
 	dreaming--
@@ -44,6 +53,6 @@
 	if(stat != UNCONSCIOUS || InCritical())
 		return
 	if(isNightmare)
-		dream_image = "<spanclass='cultitalic'>[dream_image]</span>"
+		dream_image = "<span class='cultitalic'>[dream_image]</span>"
 	to_chat(src, "<span class='notice'><i>... [dream_image] ...</i></span>")
 
