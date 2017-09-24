@@ -17,10 +17,10 @@
 	var/operation = ""
 	var/max_potency = 50 // See RefreshParts() for how these work
 	var/max_yield = 2
-	var/min_production = 12
+	var/min_production = 9
 	var/max_endurance = 10 // IMPT: ALSO AFFECTS LIFESPAN
-	var/min_wchance = 67
-	var/min_wrate = 10
+	var/min_wrate = 8
+	var/min_wchance = 24
 
 /obj/machinery/plantgenes/New()
 	..()
@@ -43,25 +43,31 @@
 
 /obj/machinery/plantgenes/RefreshParts() // Comments represent the max you can set per tier, respectively. seeds.dm [219] clamps these for us but we don't want to mislead the viewer.
 	for(var/obj/item/weapon/stock_parts/manipulator/M in component_parts)
-		if(M.rating > 3)
-			max_potency = 95
-		else
-			max_potency = initial(max_potency) + (M.rating**3) // 51,58,77,95 	 Clamps at 100
+		// 50,65,80,95
+		// Max natural potency is 100, machine clamps at 95
+		max_potency = min(initial(max_potency) + M.rating * 15, 95)
 
-		max_yield = initial(max_yield) + (M.rating*2) // 4,6,8,10 	Clamps at 10
+		// 4,6,8,10
+		// Max natural yield is 10
+		max_yield = min(initial(max_yield) + M.rating * 2, 10)
 
 	for(var/obj/item/weapon/stock_parts/scanning_module/SM in component_parts)
-		if(SM.rating > 3) //If you create t5 parts I'm a step ahead mwahahaha!
-			min_production = 1
-		else
-			min_production = 12 - (SM.rating * 3) //9,6,3,1. Requires if to avoid going below clamp [1]
+		// 7,5,3,1
+		// Min natural production is 1
+		min_production = max(initial(min_production) - SM.rating * 2, 1)
 
-		max_endurance = initial(max_endurance) + (SM.rating * 25) // 35,60,85,100	Clamps at 10min 100max
+		// 35,60,85,100
+		// Max natural endurance is 100
+		max_endurance = min(initial(max_endurance) + SM.rating * 25, 100)
 
 	for(var/obj/item/weapon/stock_parts/micro_laser/ML in component_parts)
-		var/wratemod = ML.rating * 2.5
-		min_wrate = Floor(10-wratemod) // 7,5,2,0	Clamps at 0 and 10	You want this low
-		min_wchance = 67-(ML.rating*16) // 48,35,19,3 	Clamps at 0 and 67	You want this low
+		// 6,4,2,0
+		// Min natural weed rate is 0
+		min_wrate = max(initial(min_wrate) - ML.rating * 2, 0)
+
+		// 18,12,6,0
+		// Min natural weed chance is 0
+		min_wchance = max(initial(min_wchance) - ML.rating * 6, 0)
 
 /obj/machinery/plantgenes/update_icon()
 	..()
