@@ -7,6 +7,7 @@
 	icon = 'icons/obj/items.dmi'
 	icon_state = "elecarm"
 	var/charge_cost = 30
+	var/needs_cell_charge = TRUE
 
 /obj/item/borg/stun/attack(mob/living/M, mob/living/silicon/robot/user)
 	if(ishuman(M))
@@ -15,7 +16,7 @@
 			playsound(M, 'sound/weapons/Genhit.ogg', 50, 1)
 			return 0
 
-	if(!user.cell.use(charge_cost))
+	if(needs_cell_charge && !user.cell.use(charge_cost))
 		return
 
 	user.do_attack_animation(M)
@@ -29,6 +30,9 @@
 	playsound(loc, 'sound/weapons/Egloves.ogg', 50, 1, -1)
 
 	add_logs(user, M, "stunned", src, "(INTENT: [uppertext(user.a_intent)])")
+
+/obj/item/borg/stun/implant
+	needs_cell_charge = FALSE
 
 /obj/item/borg/overdrive
 	name = "Overdrive"
