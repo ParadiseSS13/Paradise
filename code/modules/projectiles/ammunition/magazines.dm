@@ -299,6 +299,34 @@
 	..()
 	icon_state = "[initial(icon_state)]-[round(ammo_count()+1,4)]"
 
+/obj/item/ammo_box/magazine/smgm762mm
+	name = "SMG magazine (7.62x25mm)"
+	icon_state = "smg7.62mm"
+	ammo_type = /obj/item/ammo_casing/a762x25mm
+	caliber = "7.62x25mm"
+	max_ammo = 30
+	materials = list(MAT_METAL = 2000)
+	multiple_sprites = 2
+
+/obj/item/ammo_box/magazine/smgm762mm/update_icon()
+	..()
+	overlays.Cut()
+
+	var/ammo = ammo_count()
+	if(ammo && is_rubber())
+		overlays += image('icons/obj/ammo.dmi', icon_state = "smg7.62mm-rubber")
+
+/obj/item/ammo_box/magazine/smgm762mm/proc/is_rubber()//if the topmost bullet is a rubber one
+	var/ammo = ammo_count()
+	if(!ammo)
+		return FALSE
+	if(istype(contents[contents.len], /obj/item/ammo_casing/rubber762x25mm))
+		return TRUE
+	return FALSE
+
+/obj/item/ammo_box/magazine/smgm762mm/rubber
+	ammo_type = /obj/item/ammo_casing/rubber762x25mm
+
 /obj/item/ammo_box/magazine/pistolm9mm
 	name = "pistol magazine (9mm)"
 	icon_state = "9x19p-8"
@@ -350,8 +378,17 @@
 	name = "toploader magazine (5.56mm)"
 	icon_state = "5.56m"
 	origin_tech = "combat=5;syndicate=1"
-	ammo_type = /obj/item/ammo_casing/a556
-	caliber = "a556"
+	ammo_type = /obj/item/ammo_casing/mm556x45
+	caliber = "mm55645"
+	max_ammo = 30
+	multiple_sprites = 2
+
+/obj/item/ammo_box/magazine/acr
+	name = "magazine (5.56mm)"
+	icon_state = "5.56m"
+	origin_tech = "combat=5;syndicate=1"
+	ammo_type = /obj/item/ammo_casing/mm556x45
+	caliber = "mm55645"
 	max_ammo = 30
 	multiple_sprites = 2
 
@@ -475,3 +512,18 @@
 /obj/item/ammo_box/magazine/laser/update_icon()
 	..()
 	icon_state = "[initial(icon_state)]-[Ceiling(ammo_count(0)/20)*20]"
+
+/obj/item/ammo_box/magazine/flamer
+	name = "Flame thrower tank"
+	desc = "Fits military flamers only."
+	icon_state = "flamer_tank"
+	ammo_type = /obj/item/ammo_casing/caseless/napalm
+	origin_tech = "combat=3"
+	caliber = "flamer"
+	max_ammo = 10
+
+/obj/item/ammo_box/magazine/flamer/update_icon()
+	return
+
+/obj/item/ammo_box/magazine/flamer/attack_self(mob/living/user)
+	return

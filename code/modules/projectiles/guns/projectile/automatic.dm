@@ -78,6 +78,23 @@
 	mag_type = /obj/item/ammo_box/magazine/smgm9mm
 	origin_tech = "combat=4;materials=2"
 
+/obj/item/weapon/gun/projectile/automatic/gepard
+	name = "\improper Gepard SMG"
+	desc = "A cheaply made 7.62x25mm submachine gun, designated 'Gepard'. Has a threaded barrel for suppressors."
+	icon_state = "Gepard"
+	mag_type = /obj/item/ammo_box/magazine/smgm762mm
+	origin_tech = "combat=4;materials=2"
+
+/obj/item/weapon/gun/projectile/automatic/gepard/update_icon()
+	..()
+	icon_state = "[initial(icon_state)][magazine ? "" : "-e"]"
+	overlays.Cut()
+	if(suppressed)
+		overlays += image(icon = icon, icon_state = "Gepard-s", pixel_x = 7)
+
+/obj/item/weapon/gun/projectile/automatic/gepard/syndi
+	icon_state = "Gepards"
+
 /obj/item/weapon/gun/projectile/automatic/c20r
 	name = "\improper C-20r SMG"
 	desc = "A two-round burst .45 SMG, designated 'C-20r'. Has a 'Scarborough Arms - Per falcis, per pravitas' buttstamp."
@@ -125,40 +142,19 @@
 	burst_size = 2
 
 /obj/item/weapon/gun/projectile/automatic/m90
-	name = "\improper M-90gl Carbine"
-	desc = "A three-round burst 5.56 toploading carbine, designated 'M-90gl'. Has an attached underbarrel grenade launcher which can be toggled on and off."
-	icon_state = "m90"
+	name = "\improper M-90C Carbine"
+	desc = "A three-round burst 5.56 toploading carbine, designated 'M-90C'."
+	icon_state = "m90c"
 	item_state = "m90"
-	origin_tech = "combat=5;materials=2;syndicate=6"
+	origin_tech = "combat=4;materials=2;syndicate=5"
 	mag_type = /obj/item/ammo_box/magazine/m556
 	fire_sound = 'sound/weapons/Gunshot_smg.ogg'
-	can_suppress = 0
-	var/obj/item/weapon/gun/projectile/revolver/grenadelauncher/underbarrel
 	burst_size = 3
 	fire_delay = 2
 
-/obj/item/weapon/gun/projectile/automatic/m90/New()
-	..()
-	underbarrel = new /obj/item/weapon/gun/projectile/revolver/grenadelauncher(src)
-	update_icon()
-
-/obj/item/weapon/gun/projectile/automatic/m90/afterattack(var/atom/target, var/mob/living/user, flag, params)
-	if(select == 2)
-		underbarrel.afterattack(target, user, flag, params)
-	else
-		..()
-		return
-
-/obj/item/weapon/gun/projectile/automatic/m90/attackby(var/obj/item/A, mob/user, params)
-	if(istype(A, /obj/item/ammo_casing))
-		if(istype(A, underbarrel.magazine.ammo_type))
-			underbarrel.attack_self()
-			underbarrel.attackby(A, user, params)
-	else
-		..()
-
 /obj/item/weapon/gun/projectile/automatic/m90/update_icon()
 	..()
+	icon_state = "[initial(icon_state)][magazine ? "" : "-e"]"
 	overlays.Cut()
 	switch(select)
 		if(0)
@@ -167,10 +163,39 @@
 			overlays += "[initial(icon_state)]burst"
 		if(2)
 			overlays += "[initial(icon_state)]gren"
-	icon_state = "[initial(icon_state)][magazine ? "" : "-e"]"
-	return
+	if(suppressed)
+		overlays += image(icon = icon, icon_state = "suppressor-2", pixel_x = 4, pixel_y = -3)
+	if(magazine)
+		overlays += image(icon = icon, icon_state = "m90-[Ceiling(get_ammo(0)/6)*6]")
 
-/obj/item/weapon/gun/projectile/automatic/m90/burst_select()
+/obj/item/weapon/gun/projectile/automatic/m90/gl
+	name = "\improper M-90gl Carbine"
+	icon_state = "m90"
+	desc = "A three-round burst 5.56 toploading carbine, designated 'M-90gl'. This one has an attached underbarrel grenade launcher which can be toggled on and off."
+	origin_tech = "combat=5;materials=2;syndicate=6"
+	var/obj/item/weapon/gun/projectile/revolver/grenadelauncher/underbarrel
+
+/obj/item/weapon/gun/projectile/automatic/m90/gl/New()
+	..()
+	underbarrel = new /obj/item/weapon/gun/projectile/revolver/grenadelauncher(src)
+	update_icon()
+
+/obj/item/weapon/gun/projectile/automatic/m90/gl/afterattack(var/atom/target, var/mob/living/user, flag, params)
+	if(select == 2)
+		underbarrel.afterattack(target, user, flag, params)
+	else
+		..()
+		return
+
+/obj/item/weapon/gun/projectile/automatic/m90/gl/attackby(var/obj/item/A, mob/user, params)
+	if(istype(A, /obj/item/ammo_casing))
+		if(istype(A, underbarrel.magazine.ammo_type))
+			underbarrel.attack_self()
+			underbarrel.attackby(A, user, params)
+	else
+		..()
+
+/obj/item/weapon/gun/projectile/automatic/m90/gl/burst_select()
 	var/mob/living/carbon/human/user = usr
 	switch(select)
 		if(0)
@@ -265,3 +290,27 @@
 /obj/item/weapon/gun/projectile/automatic/lasercarbine/update_icon()
 	..()
 	icon_state = "lasercarbine[magazine ? "-[Ceiling(get_ammo(0)/5)*5]" : ""]"
+
+/obj/item/weapon/gun/projectile/automatic/flamer
+	name = "military flamer"
+	desc = "An impressive flame thrower made for military use. Uses a combination of napalm and plasma."
+	icon_state = "flamer"
+	item_state = "flamer"
+	mag_type = /obj/item/ammo_box/magazine/flamer
+	fire_delay = 10
+	can_suppress = 0
+	burst_size = 1
+	fire_sound = 'sound/effects/spray.ogg'
+	actions_types = list()
+
+/obj/item/weapon/gun/projectile/automatic/flamer/update_icon()
+	..()
+	icon_state = "flamer[magazine ? "" : "-e"]"
+
+/obj/item/weapon/gun/projectile/automatic/flamer/process_chamber(eject_casing = 0, empty_chamber = 1)
+	..()
+
+/obj/item/weapon/gun/projectile/automatic/flamer/attack_self(mob/living/user)
+	if(!magazine)
+		return
+	..()

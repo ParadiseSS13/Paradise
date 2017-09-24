@@ -10,7 +10,6 @@
 	weapon_weight = WEAPON_MEDIUM
 	fire_sound = 'sound/weapons/Gunshot3.ogg'
 	var/cover_open = 0
-	can_suppress = 0
 	burst_size = 3
 	fire_delay = 1
 
@@ -20,8 +19,10 @@
 	update_icon()
 
 /obj/item/weapon/gun/projectile/automatic/l6_saw/update_icon()
-	icon_state = "l6[cover_open ? "open" : "closed"][magazine ? Ceiling(get_ammo(0)/12.5)*25 : "-empty"][suppressed ? "-suppressed" : ""]"
+	icon_state = "l6[cover_open ? "open" : "closed"][magazine ? Ceiling(get_ammo(0)/12.5)*25 : "-empty"]"
 	item_state = "l6[cover_open ? "openmag" : "closedmag"]"
+	if(suppressed)
+		overlays += image(icon = icon, icon_state = "suppressor-2", pixel_x = 7, pixel_y = -3)
 
 /obj/item/weapon/gun/projectile/automatic/l6_saw/afterattack(atom/target as mob|obj|turf, mob/living/user as mob|obj, flag, params) //what I tried to do here is just add a check to see if the cover is open or not and add an icon_state change because I can't figure out how c-20rs do it with overlays
 	if(cover_open)
@@ -50,7 +51,7 @@
 	. = ..()
 	if(.)
 		return
-	if(!cover_open)
+	if(!cover_open && istype(A, /obj/item/ammo_box/magazine))
 		to_chat(user, "<span class='warning'>[src]'s cover is closed! You can't insert a new mag.</span>")
 		return
 	..()

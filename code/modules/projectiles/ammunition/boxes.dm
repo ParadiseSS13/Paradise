@@ -63,6 +63,20 @@
 	ammo_type = /obj/item/ammo_casing/n762
 	max_ammo = 14
 
+/obj/item/ammo_box/a762x25mm
+	name = "ammo box (7.62x25mm)"
+	icon_state = "762box"
+	origin_tech = "combat=2"
+	ammo_type = /obj/item/ammo_casing/a762x25mm
+	max_ammo = 30
+
+/obj/item/ammo_box/rubber762x25mm
+	name = "ammo box (rubber 7.62x25mm)"
+	icon_state = "762box-r"
+	origin_tech = "combat=2"
+	ammo_type = /obj/item/ammo_casing/rubber762x25mm
+	max_ammo = 30
+
 /obj/item/ammo_box/shotgun
 	name = "Shotgun Speedloader (slug)"
 	icon_state = "slugloader"

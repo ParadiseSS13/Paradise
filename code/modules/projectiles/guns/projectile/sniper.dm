@@ -18,10 +18,7 @@
 	actions_types = list()
 
 /obj/item/weapon/gun/projectile/automatic/sniper_rifle/update_icon()
-	if(magazine)
-		icon_state = "sniper-mag"
-	else
-		icon_state = "sniper"
+	icon_state = "[initial(icon_state)][magazine ? "-mag" : ""]"
 
 /obj/item/weapon/gun/projectile/automatic/sniper_rifle/syndicate
 	name = "syndicate sniper rifle"
@@ -148,3 +145,44 @@
 	dismemberment = 0
 	weaken = 0
 	breakthings = FALSE
+
+//The Dragon
+
+/obj/item/weapon/gun/projectile/automatic/sniper_rifle/dragon
+	name = "dragon"
+	desc = "Cheap and effective, what more could you want from a DMR."
+	icon_state = "dragon"
+	item_state = "dragon"
+	mag_type = /obj/item/ammo_box/magazine/dragon
+	fire_delay = 10
+	can_unsuppress = TRUE
+	can_suppress = TRUE
+	zoom_amt = 5 //A good zoom, but not a full screen.
+
+/obj/item/weapon/gun/projectile/automatic/sniper_rifle/dragon/update_icon()
+	icon_state = "[initial(icon_state)][magazine ? "-mag" : ""][suppressed ? "-s" : ""]"
+
+/obj/item/ammo_box/magazine/dragon
+	name = "DMR rounds (7.62mm)"
+	icon_state = "75"
+	origin_tech = "combat=6"
+	ammo_type = /obj/item/ammo_casing/a762DMR
+	max_ammo = 10
+	caliber = "a762"
+
+/obj/item/ammo_box/magazine/dragon/update_icon()
+	if(ammo_count())
+		icon_state = "[initial(icon_state)]-8"
+	else
+		icon_state = "[initial(icon_state)]-0"
+
+/obj/item/ammo_casing/a762DMR
+	desc = "A 7.62mm bullet casing."
+	icon_state = "762-casing"
+	caliber = "a762"
+	projectile_type = /obj/item/projectile/bullet/a762DMR
+
+/obj/item/projectile/bullet/a762DMR
+	damage = 60
+	stamina = 25
+	armour_penetration = 50
