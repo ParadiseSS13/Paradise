@@ -347,10 +347,12 @@ var/list/admin_verbs_snpc = list(
 		if(mob.invisibility == INVISIBILITY_OBSERVER)
 			mob.invisibility = initial(mob.invisibility)
 			to_chat(mob, "<span class='danger'>Invisimin off. Invisibility reset.</span>")
+			mob.add_to_all_human_data_huds()
 			//TODO: Make some kind of indication for the badmin that they are currently invisible
 		else
 			mob.invisibility = INVISIBILITY_OBSERVER
 			to_chat(mob, "<span class='notice'>Invisimin on. You are now as invisible as a ghost.</span>")
+			mob.remove_from_all_data_huds()
 
 /client/proc/player_panel()
 	set name = "Player Panel"
