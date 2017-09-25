@@ -189,6 +189,7 @@
 /obj/item/weapon/robot_module/engineering/New()
 	..()
 	modules += new /obj/item/weapon/rcd/borg(src)
+	modules += new /obj/item/weapon/rpd(src)
 	modules += new /obj/item/weapon/extinguisher(src)
 	modules += new /obj/item/weapon/weldingtool/largetank/cyborg(src)
 	modules += new /obj/item/weapon/screwdriver/cyborg(src)
