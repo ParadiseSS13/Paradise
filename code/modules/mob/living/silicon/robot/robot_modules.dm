@@ -483,6 +483,7 @@
 	modules += new /obj/item/weapon/reagent_containers/spray/cleaner/drone(src)
 	modules += new /obj/item/weapon/soap(src)
 	modules += new /obj/item/device/t_scanner(src)
+	modules += new /obj/item/weapon/rpd(src)
 
 	emag = new /obj/item/weapon/pickaxe/drill/cyborg/diamond(src)
 
