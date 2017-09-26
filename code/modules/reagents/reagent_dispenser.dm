@@ -1,4 +1,4 @@
-/obj/structure/reagent_dispensers
+Nanotrasen/obj/structure/reagent_dispensers
 	name = "Dispenser"
 	desc = "..."
 	icon = 'icons/obj/objects.dmi'
@@ -254,9 +254,9 @@
 	qdel(src)
 
 /obj/structure/reagent_dispensers/beerkeg/nuke
-	name = "NanoTrasen-brand nuclear fission explosive"
-	desc = "One of the more successful achievements of the NanoTrasen Corporate Warfare Division, their nuclear fission explosives are renowned for being cheap\
-	to produce and devestatingly effective. Signs explain that though this is just a model, every NanoTrasen station is equipped with one, just in case. \
+	name = "Nanotrasen-brand nuclear fission explosive"
+	desc = "One of the more successful achievements of the Nanotrasen Corporate Warfare Division, their nuclear fission explosives are renowned for being cheap\
+	to produce and devestatingly effective. Signs explain that though this is just a model, every Nanotrasen station is equipped with one, just in case. \
 	All Captains carefully guard the disk needed to detonate them - at least, the sign says they do. There seems to be a tap on the back."
 	icon = 'icons/obj/stationobjs.dmi'
 	icon_state = "nuclearbomb0"
