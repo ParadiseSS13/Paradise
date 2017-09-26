@@ -48,6 +48,7 @@
 			var/healpertick = -(total_healing / healing_ticks)
 			user.heal_overall_damage((-healpertick/recent_uses), (-healpertick/recent_uses))
 			user.adjustOxyLoss(healpertick/recent_uses)
+			user.blood_volume += 30
 			user.updatehealth()
 		else
 			break
