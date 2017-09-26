@@ -61,67 +61,6 @@
 	return 1
 
 
-/obj/effect/proc_holder/changeling/sting/transformation
-	name = "Transformation Sting"
-	desc = "We silently sting a human, injecting a retrovirus that forces them to transform."
-	helptext = "The victim will transform much like a changeling would. The effects will be obvious to the victim, and the process will damage our genomes."
-	sting_icon = "sting_transform"
-	chemical_cost = 50
-	dna_cost = 3
-	genetic_damage = 100
-	var/datum/dna/selected_dna = null
-
-/obj/effect/proc_holder/changeling/sting/transformation/Click()
-	var/mob/user = usr
-	var/datum/changeling/changeling = user.mind.changeling
-	if(changeling.chosen_sting)
-		unset_sting(user)
-		return
-	selected_dna = changeling.select_dna("Select the target DNA: ", "Target DNA")
-	if(!selected_dna)
-		return
-	var/datum/species/newspecies = all_species[selected_dna.species]
-	if((newspecies.flags & NOTRANSSTING) || newspecies.is_small)
-		to_chat(user, "<span class='warning'>The selected DNA is incompatible with our sting.</span>")
-		return
-	..()
-
-/obj/effect/proc_holder/changeling/sting/transformation/can_sting(var/mob/user, var/mob/target)
-	if(!..())
-		return
-	if((HUSK in target.mutations) || (!ishuman(target)))
-		to_chat(user, "<span class='warning'>Our sting appears ineffective against its DNA.</span>")
-		return FALSE
-	if(ishuman(target))
-		var/mob/living/carbon/human/H = target
-		if(H.species.flags & NO_DNA)
-			to_chat(user, "<span class='warning'>This won't work on a creature without DNA.</span>")
-			return FALSE
-	return TRUE
-
-/obj/effect/proc_holder/changeling/sting/transformation/sting_action(var/mob/user, var/mob/target)
-	add_logs(user, target, "stung", object="transformation sting", addition=" new identity is [selected_dna.real_name]")
-	var/datum/dna/NewDNA = selected_dna
-	if(issmall(target))
-		to_chat(user, "<span class='notice'>Our genes cry out as we sting [target.name]!</span>")
-
-	if(iscarbon(target) && (target.status_flags & CANWEAKEN))
-		var/mob/living/carbon/C = target
-		C.do_jitter_animation(500)
-
-	target.visible_message("<span class='danger'>[target] begins to violenty convulse!</span>","<span class='userdanger'>You feel a tiny prick and a begin to uncontrollably convulse!</span>")
-
-	spawn(10)
-		target.dna = NewDNA.Clone()
-		target.real_name = NewDNA.real_name
-		var/mob/living/carbon/human/H = target
-		if(istype(H))
-			H.set_species()
-		target.UpdateAppearance()
-		domutcheck(target, null)
-	feedback_add_details("changeling_powers","TS")
-	return TRUE
-
 obj/effect/proc_holder/changeling/sting/extract_dna
 	name = "Extract DNA Sting"
 	desc = "We stealthily sting a target and extract their DNA."
