@@ -189,6 +189,7 @@
 /obj/item/weapon/robot_module/engineering/New()
 	..()
 	modules += new /obj/item/weapon/rcd/borg(src)
+	modules += new /obj/item/weapon/rpd(src)
 	modules += new /obj/item/weapon/extinguisher(src)
 	modules += new /obj/item/weapon/weldingtool/largetank/cyborg(src)
 	modules += new /obj/item/weapon/screwdriver/cyborg(src)
@@ -482,6 +483,7 @@
 	modules += new /obj/item/weapon/reagent_containers/spray/cleaner/drone(src)
 	modules += new /obj/item/weapon/soap(src)
 	modules += new /obj/item/device/t_scanner(src)
+	modules += new /obj/item/weapon/rpd(src)
 
 	emag = new /obj/item/weapon/pickaxe/drill/cyborg/diamond(src)
 
