@@ -155,10 +155,10 @@
 					spawn(10)
 						ccooldown = FALSE
 
-#undefine BORG_HUG
-#undefine BORG_HUG_SUPER
-#undefine BORG_HUG_SHOCK
-#undefine BORG_HUG_CRUSH
+#undef BORG_HUG
+#undef BORG_HUG_SUPER
+#undef BORG_HUG_SHOCK
+#undef BORG_HUG_CRUSH
 
 /obj/item/borg/cyborghug/peacekeeper
 	shockallowed = TRUE
