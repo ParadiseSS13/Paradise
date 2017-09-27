@@ -359,6 +359,7 @@ proc/get_radio_key_from_channel(var/channel)
 	return src
 
 /mob/living/proc/whisper_say(var/message, var/datum/language/speaking = null, var/alt_name="", var/verb="whispers")
+	if(world.time < say_cooldown)	return
 	if(client)
 		if(client.prefs.muted & MUTE_IC)
 			to_chat(src, "<span class='danger'>You cannot speak in IC (Muted).</span>")
@@ -485,6 +486,7 @@ proc/get_radio_key_from_channel(var/channel)
 			M.show_message(rendered, 2)
 
 	log_whisper("[name]/[key] : [message]")
+	say_cooldown = world.time + 3
 	return 1
 
 /mob/living/speech_bubble(var/bubble_state = "",var/bubble_loc = src, var/list/bubble_recipients = list())

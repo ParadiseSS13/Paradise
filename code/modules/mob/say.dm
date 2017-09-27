@@ -1,3 +1,5 @@
+/mob
+	var/say_cooldown = null // Cooldown for say verb.
 
 /mob/proc/say()
 	return
@@ -25,8 +27,9 @@
 	*/
 
 	set_typing_indicator(0)
+	if(world.time > say_cooldown) return
 	usr.say(message)
-
+	say_cooldown = world.time + 3 // We said something so take some breathing room.
 
 /mob/verb/me_verb(message as text)
 	set name = "Me"
