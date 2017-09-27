@@ -68,6 +68,7 @@ var/list/robot_verbs_default = list(
 	var/lockcharge //Used when locking down a borg to preserve cell charge
 	var/speed = 0 //Cause sec borgs gotta go fast //No they dont!
 	var/scrambledcodes = 0 // Used to determine if a borg shows up on the robotics console.  Setting to one hides them.
+	var/pdahide = 0 //Used to hide the borg from the messenger list
 	var/tracking_entities = 0 //The number of known entities currently accessing the internal camera
 	var/braintype = "Cyborg"
 	var/base_icon = ""
@@ -226,10 +227,12 @@ var/list/robot_verbs_default = list(
 	if(!rbPDA)
 		rbPDA = new(src)
 	rbPDA.set_name_and_job(real_name, braintype)
-	if(scrambledcodes)
-		var/datum/data/pda/app/messenger/M = rbPDA.find_program(/datum/data/pda/app/messenger)
-		if(M)
+	var/datum/data/pda/app/messenger/M = rbPDA.find_program(/datum/data/pda/app/messenger)
+	if(M)
+		if(scrambledcodes)
 			M.hidden = 1
+		if(pdahide)
+			M.toff = 1
 
 /mob/living/silicon/robot/binarycheck()
 	if(is_component_functioning("comms"))
@@ -1323,6 +1326,7 @@ var/list/robot_verbs_default = list(
 	icon_state = "nano_bloodhound"
 	lawupdate = 0
 	scrambledcodes = 1
+	pdahide = 1
 	modtype = "Commando"
 	faction = list("nanotrasen")
 	designation = "Nanotrasen Combat"
@@ -1371,6 +1375,7 @@ var/list/robot_verbs_default = list(
 	icon_state = "syndie_bloodhound"
 	lawupdate = 0
 	scrambledcodes = 1
+	pdahide = 1
 	faction = list("syndicate")
 	designation = "Syndicate Assault"
 	modtype = "Syndicate"
