@@ -304,7 +304,7 @@ var/list/uplink_items = list()
 	reference = "AIRJ"
 	item = /obj/item/clothing/under/contortionist
 	cost = 6
-	job = list("Life Support Specialist")
+	job = list("Atmospheric Technician")
 
 /datum/uplink_item/jobspecific/energizedfireaxe
 	name = "Energized Fire Axe"
@@ -312,7 +312,7 @@ var/list/uplink_items = list()
 	reference = "EFA"
 	item = /obj/item/weapon/twohanded/energizedfireaxe
 	cost = 10
-	job = list("Life Support Specialist")
+	job = list("Atmospheric Technician")
 
 //Stimulants
 

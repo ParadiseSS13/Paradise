@@ -32,7 +32,7 @@
 	display_name = "industrial veil"
 	description = "A common traditional nano-fiber veil worn by many Tajaran, It is rare and offensive to see it on other races."
 	path = /obj/item/clothing/glasses/tajblind/eng
-	allowed_roles = list("Chief Engineer", "Station Engineer", "Mechanic", "Life Support Specialist")
+	allowed_roles = list("Chief Engineer", "Station Engineer", "Mechanic", "Atmospheric Technician")
 
 /datum/gear/racial/tajcargo
 	display_name = "khaki veil"

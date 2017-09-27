@@ -64,7 +64,7 @@
 		if("Chief Engineer")
 			suit=/obj/item/clothing/suit/space/eva/plasmaman/engineer/ce
 			helm=/obj/item/clothing/head/helmet/space/eva/plasmaman/engineer/ce
-		if("Life Support Specialist")
+		if("Atmospheric Technician")
 			suit=/obj/item/clothing/suit/space/eva/plasmaman/atmostech
 			helm=/obj/item/clothing/head/helmet/space/eva/plasmaman/atmostech
 		if("Detective")

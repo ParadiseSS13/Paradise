@@ -581,7 +581,7 @@ var/record_id_num = 1001
 			clothes_s = new /icon('icons/mob/uniform.dmi', "engine_s")
 			clothes_s.Blend(new /icon('icons/mob/feet.dmi', "orange"), ICON_UNDERLAY)
 			clothes_s.Blend(new /icon('icons/mob/belt.dmi', "utility"), ICON_OVERLAY)
-		if("Life Support Specialist")
+		if("Atmospheric Technician")
 			clothes_s = new /icon('icons/mob/uniform.dmi', "atmos_s")
 			clothes_s.Blend(new /icon('icons/mob/feet.dmi', "black"), ICON_UNDERLAY)
 			clothes_s.Blend(new /icon('icons/mob/belt.dmi', "utility"), ICON_OVERLAY)
