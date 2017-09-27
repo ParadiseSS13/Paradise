@@ -36,11 +36,16 @@
 	icon = 'icons/obj/decals.dmi'
 	icon_state = "shock"
 
+#define BORG_HUG 0
+#define BORG_HUG_SUPER 1
+#define BORG_HUG_SHOCK 2
+#define BORG_HUG_CRUSH 3
+
 /obj/item/borg/cyborghug
 	name = "Hugging Module"
 	icon_state = "hugmodule"
 	desc = "For when a someone really needs a hug."
-	var/mode = 0 //0 = Hugs 1 = "Hug" 2 = Shock 3 = CRUSH
+	var/mode = BORG_HUG //0 = Hugs 1 = "Hug" 2 = Shock 3 = CRUSH
 	var/ccooldown = 0
 	var/scooldown = 0
 	var/shockallowed = FALSE//Can it be a stunarm when emagged. Only PK borgs get this by default.
@@ -49,31 +54,31 @@
 /obj/item/borg/cyborghug/attack_self(mob/living/user)
 	if(isrobot(user))
 		var/mob/living/silicon/robot/P = user
-		if(P.emagged && shockallowed == 1)
-			if(mode < 3)
+		if(P.emagged && shockallowed)
+			if(mode < BORG_HUG_CRUSH)
 				mode++
 			else
-				mode = 0
-		else if(mode < 1)
+				mode = BORG_HUG
+		else if(mode < BORG_HUG_SUPER)
 			mode++
 		else
-			mode = 0
+			mode = BORG_HUG
 	switch(mode)
-		if(0)
-			to_chat(user, "Power reset. Hugs!")
-		if(1)
-			to_chat(user, "Power increased!")
-		if(2)
-			to_chat(user, "BZZT. Electrifying arms...")
-		if(3)
-			to_chat(user, "ERROR: ARM ACTUATORS OVERLOADED.")
+		if(BORG_HUG)
+			to_chat(user, "<span class='notice'>Power reset. Hugs!</span>")
+		if(BORG_HUG_SUPER)
+			to_chat(user, "<span class='notice'>Power increased!</span>")
+		if(BORG_HUG_SHOCK)
+			to_chat(user, "<span class='warning'>BZZT. Electrifying arms...</span>")
+		if(BORG_HUG_CRUSH)
+			to_chat(user, "<span class='warning'>ERROR: ARM ACTUATORS OVERLOADED.</span>")
 
 /obj/item/borg/cyborghug/attack(mob/living/M, mob/living/silicon/robot/user)
 	if(M == user)
 		return
 	switch(mode)
-		if(0)
-			if(M.health >= 0)
+		if(BORG_HUG)
+			if(M.health >= config.health_threshold_crit)
 				if(user.zone_sel.selecting == "head")
 					user.visible_message("<span class='notice'>[user] playfully boops [M] on the head!</span>", \
 									"<span class='notice'>You playfully boop [M] on the head!</span>")
@@ -93,8 +98,8 @@
 					user.visible_message("<span class='notice'>[user] pets [M]!</span>", \
 							"<span class='notice'>You pet [M]!</span>")
 				playsound(loc, 'sound/weapons/thudswoosh.ogg', 50, 1, -1)
-		if(1)
-			if(M.health >= 0)
+		if(BORG_HUG_SUPER)
+			if(M.health >= config.health_threshold_crit)
 				if(ishuman(M))
 					if(M.lying)
 						user.visible_message("<span class='notice'>[user] shakes [M] trying to get \him up!</span>", \
@@ -113,9 +118,9 @@
 					user.visible_message("<span class='warning'>[user] bops [M] on the head!</span>", \
 							"<span class='warning'>You bop [M] on the head!</span>")
 				playsound(loc, 'sound/weapons/tap.ogg', 50, 1, -1)
-		if(2)
+		if(BORG_HUG_SHOCK)
 			if(!scooldown)
-				if(M.health >= 0)
+				if(M.health >= config.health_threshold_crit)
 					if(ishuman(M))
 						M.electrocute_act(5, "[user]", safety = 1)
 						user.visible_message("<span class='userdanger'>[user] electrocutes [M] with their touch!</span>", \
@@ -134,9 +139,9 @@
 					scooldown = TRUE
 					spawn(20)
 						scooldown = FALSE
-		if(3)
+		if(BORG_HUG_CRUSH)
 			if(!ccooldown)
-				if(M.health >= 0)
+				if(M.health >= config.health_threshold_crit)
 					if(ishuman(M))
 						user.visible_message("<span class='userdanger'>[user] crushes [M] in their grip!</span>", \
 							"<span class='danger'>You crush [M] in your grip!</span>")
@@ -149,6 +154,11 @@
 					ccooldown = TRUE
 					spawn(10)
 						ccooldown = FALSE
+
+#undefine BORG_HUG
+#undefine BORG_HUG_SUPER
+#undefine BORG_HUG_SHOCK
+#undefine BORG_HUG_CRUSH
 
 /obj/item/borg/cyborghug/peacekeeper
 	shockallowed = TRUE
@@ -182,17 +192,16 @@
 		if(R.emagged)
 			safety = FALSE
 
-	if(safety == TRUE)
-		user.visible_message("<font color='red' size='2'>[user] blares out a near-deafening siren from its speakers!</font>", \
-			"<span class='userdanger'>The siren pierces your hearing and confuses you!</span>", \
-			"<span class='danger'>The siren pierces your hearing!</span>")
+	if(safety)
+		user.visible_message("<font color='red' size='2'>[user] blares out a near-deafening siren from its speakers!</font>")
 		for(var/mob/living/carbon/M in get_mobs_in_view(9, user))
 			if(!M.check_ear_prot())
 				M.AdjustConfused(6)
+				to_chat(M, "<span class='userdanger'>The siren pierces your hearing!</span>")
 		audible_message("<font color='red' size='7'>HUMAN HARM</font>")
 		playsound(get_turf(src), 'sound/AI/harmalarm.ogg', 70, 3)
 		cooldown = world.time + 200
-		log_game("[user.ckey]([user]) used a Cyborg Harm Alarm in ([user.x],[user.y],[user.z])")
+		log_game("[key_name(user)] used a Cyborg Harm Alarm in ([user.x],[user.y],[user.z])")
 		if(isrobot(user))
 			var/mob/living/silicon/robot/R = user
 			if(R.connected_ai)
@@ -200,25 +209,24 @@
 
 		return
 
-	if(safety == FALSE)
-		user.audible_message("<font color='red' size='7'>BZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZT</font>")
-		for(var/mob/living/carbon/human/H in get_mobs_in_view(9, user))
-			if(istype(H.l_ear, /obj/item/clothing/ears/earmuffs) || istype(H.r_ear, /obj/item/clothing/ears/earmuffs) || H.ear_deaf)
-				continue
-			var/earsafety = 0
-			if(H.check_ear_prot())
-				earsafety = 1
+	user.audible_message("<font color='red' size='7'>BZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZT</font>")
+	for(var/mob/living/carbon/human/H in get_mobs_in_view(9, user))
+		if(istype(H.l_ear, /obj/item/clothing/ears/earmuffs) || istype(H.r_ear, /obj/item/clothing/ears/earmuffs) || H.ear_deaf)
+			continue
+		var/earsafety = 0
+		if(H.check_ear_prot())
+			earsafety = 1
 
-			if(earsafety)
-				H.AdjustConfused(5)
-				H.AdjustStuttering(10)
-				H.Jitter(10)
-			else
-				H.Weaken(2)
-				H.AdjustConfused(10)
-				H.AdjustStuttering(15)
-				H.Jitter(25)
+		if(earsafety)
+			H.AdjustConfused(5)
+			H.AdjustStuttering(10)
+			H.Jitter(10)
+		else
+			H.Weaken(2)
+			H.AdjustConfused(10)
+			H.AdjustStuttering(15)
+			H.Jitter(25)
 
-		playsound(get_turf(src), 'sound/machines/warning-buzzer.ogg', 130, 3)
-		cooldown = world.time + 600
-		log_game("[user.ckey]([user]) used an emagged Cyborg Harm Alarm in ([user.x],[user.y],[user.z])")
+	playsound(get_turf(src), 'sound/machines/warning-buzzer.ogg', 130, 3)
+	cooldown = world.time + 600
+	log_game("[key_name(user)] used an emagged Cyborg Harm Alarm in ([user.x],[user.y],[user.z])")

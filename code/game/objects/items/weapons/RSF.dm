@@ -234,7 +234,7 @@ RSF
 		return
 
 /obj/item/weapon/cookiesynth
-	name = "Cookie Synthesizer"
+	name = "\improper Cookie Synthesizer"
 	desc = "A self-recharging device used to rapidly deploy cookies."
 	icon = 'icons/obj/tools.dmi'
 	icon_state = "rcd"
@@ -255,9 +255,9 @@ RSF
 /obj/item/weapon/cookiesynth/emag_act(mob/user)
 	emagged = !emagged
 	if(emagged)
-		to_chat(user, "<span class='warning'>You short out the [src]'s reagent safety checker!</span>")
+		to_chat(user, "<span class='warning'>You short out [src]'s reagent safety checker!</span>")
 	else
-		to_chat(user, "<span class='warning'>You reset the [src]'s reagent safety checker!</span>")
+		to_chat(user, "<span class='warning'>You reset [src]'s reagent safety checker!</span>")
 		toxin = 0
 
 /obj/item/weapon/cookiesynth/attack_self(mob/user)
@@ -266,13 +266,13 @@ RSF
 		P = user
 	if(emagged && !toxin)
 		toxin = 1
-		to_chat(user, "Cookie Synthesizer Hacked")
+		to_chat(user, "<span class='warning'>Cookie Synthesizer Hacked.</span>")
 	else if(P.emagged && !toxin)
 		toxin = 1
-		to_chat(user, "Cookie Synthesizer Hacked")
+		to_chat(user, "<span class='warning'>Cookie Synthesizer Hacked.</span>")
 	else
 		toxin = 0
-		to_chat(user, "Cookie Synthesizer Reset")
+		to_chat(user, "<span class='notice'>Cookie Synthesizer Reset.</span>")
 
 /obj/item/weapon/cookiesynth/process()
 	if(matter < 10)
@@ -283,7 +283,7 @@ RSF
 		return
 	if(!proximity)
 		return
-	if (!(istype(A, /obj/structure/table) || isfloorturf(A)))
+	if(!(istype(A, /obj/structure/table) || isfloorturf(A)))
 		return
 	if(matter < 1)
 		to_chat(user, "<span class='warning'>[src] doesn't have enough matter left. Wait for it to recharge!</span>")
@@ -294,7 +294,7 @@ RSF
 			to_chat(user, "<span class='warning'>You do not have enough power to use [src].</span>")
 			return
 	var/turf/T = get_turf(A)
-	playsound(src.loc, 'sound/machines/click.ogg', 10, 1)
+	playsound(loc, 'sound/machines/click.ogg', 10, 1)
 	to_chat(user, "Fabricating Cookie..")
 	var/obj/item/weapon/reagent_containers/food/snacks/cookie/S = new /obj/item/weapon/reagent_containers/food/snacks/cookie(T)
 	if(toxin)

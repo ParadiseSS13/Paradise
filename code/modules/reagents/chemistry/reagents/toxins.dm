@@ -1143,7 +1143,7 @@
 	M.AdjustConfused(3, bound_lower = 0, bound_upper = 5)
 	M.AdjustDizzy(3, bound_lower = 0, bound_upper = 5)
 	if(prob(20))
-		to_chat(M, "You feel confused and disorientated.")
+		to_chat(M, "<span class='warning'>You feel confused and disorientated.</span>")
 	..()
 
 /datum/reagent/peaceborg/tire
@@ -1153,9 +1153,9 @@
 	metabolization_rate = 1.5 * REAGENTS_METABOLISM
 
 /datum/reagent/peaceborg/tire/on_mob_life(mob/living/M)
-	var/healthcomp = (100 - M.health)	//DOES NOT ACCOUNT FOR ADMINBUS THINGS THAT MAKE YOU HAVE MORE THAN 200/210 HEALTH, OR SOMETHING OTHER THAN A HUMAN PROCESSING THIS.
+	var/healthcomp = (M.maxHealth - M.health)
 	if(M.staminaloss < (45 - healthcomp))	//At 50 health you would have 200 - 150 health meaning 50 compensation. 60 - 50 = 10, so would only do 10-19 stamina.)
 		M.adjustStaminaLoss(10)
 	if(prob(30))
-		to_chat(M, "You should sit down and take a rest...")
+		to_chat(M, "<span class='warning'>You should sit down and take a rest...</span>")
 	..()
