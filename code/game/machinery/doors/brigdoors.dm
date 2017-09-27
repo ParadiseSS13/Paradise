@@ -277,7 +277,7 @@
 		dat += "Set Timer: [(setminute ? text("[setminute]:") : null)][setsecond]<br/>"
 
 	// Controls
-	dat += "<a href='?src=[UID()];settime=1'>Set Timer</a>"
+	dat += "<a href='?src=[UID()];settime=1'>Input Time</a>"
 
 	// Mounted flash controls
 	for(var/obj/machinery/flasher/F in targets)
