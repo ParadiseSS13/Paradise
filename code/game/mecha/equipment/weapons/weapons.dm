@@ -482,6 +482,7 @@
 /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/missile_rack/bola
 	name = "PCMK-6 Bola Launcher"
 	icon_state = "mecha_bola"
+	origin_tech = "combat=4;engineering=4"
 	projectile = /obj/item/weapon/restraints/legcuffs/bola
 	fire_sound = 'sound/weapons/whip.ogg'
 	projectiles = 10

@@ -1,6 +1,6 @@
 /obj/effect/proc_holder/changeling/panacea
 	name = "Anatomic Panacea"
-	desc = "Expels impurifications from our form; curing diseases, removing toxins and radiation, and resetting our genetic code completely."
+	desc = "Expels impurifications from our form; curing diseases, removing parasites, sobering us, purging toxins and radiation, and resetting our genetic code completely."
 	helptext = "Can be used while unconscious."
 	chemical_cost = 20
 	dna_cost = 1
@@ -30,6 +30,8 @@
 	user.reagents.add_reagent("mutadone", 10)
 	user.reagents.add_reagent("potass_iodide", 10)
 	user.reagents.add_reagent("charcoal", 20)
+	user.reagents.add_reagent("antihol", 10)
+	user.reagents.add_reagent("mannitol", 25)
 
 	for(var/thing in user.viruses)
 		var/datum/disease/D = thing
