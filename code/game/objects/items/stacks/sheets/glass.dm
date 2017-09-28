@@ -20,8 +20,8 @@
 	icon_state = "sheet-glass"
 	materials = list(MAT_GLASS=MINERAL_MATERIAL_AMOUNT)
 	origin_tech = "materials=1"
-	var/created_window = /obj/structure/window/basic
-	var/full_window = /obj/structure/window/full/basic
+	created_window = /obj/structure/window/basic
+	full_window = /obj/structure/window/full/basic
 	merge_type = /obj/item/stack/sheet/glass
 
 /obj/item/stack/sheet/glass/fifty
@@ -154,8 +154,8 @@
 	icon_state = "sheet-rglass"
 	materials = list(MAT_METAL=MINERAL_MATERIAL_AMOUNT/2, MAT_GLASS=MINERAL_MATERIAL_AMOUNT)
 	origin_tech = "materials=2"
-	var/created_window = /obj/structure/window/reinforced
-	var/full_window = /obj/structure/window/full/reinforced
+	created_window = /obj/structure/window/reinforced
+	full_window = /obj/structure/window/full/reinforced
 	merge_type = /obj/item/stack/sheet/rglass
 
 /obj/item/stack/sheet/rglass/cyborg
@@ -268,8 +268,8 @@
 	icon_state = "sheet-plasmaglass"
 	materials = list(MAT_GLASS=MINERAL_MATERIAL_AMOUNT*2)
 	origin_tech = "plasmatech=2;materials=2"
-	var/created_window = /obj/structure/window/plasmabasic
-	var/full_window = /obj/structure/window/full/plasmabasic
+	created_window = /obj/structure/window/plasmabasic
+	full_window = /obj/structure/window/full/plasmabasic
 
 
 /obj/item/stack/sheet/plasmaglass/attack_self(mob/user as mob)
@@ -357,8 +357,8 @@
 	icon_state = "sheet-plasmarglass"
 	materials = list(MAT_METAL=MINERAL_MATERIAL_AMOUNT/2, MAT_GLASS=MINERAL_MATERIAL_AMOUNT*2)
 	origin_tech = "plasmatech=2;materials=2"
-	var/created_window = /obj/structure/window/plasmareinforced
-	var/full_window = /obj/structure/window/full/plasmareinforced
+	created_window = /obj/structure/window/plasmareinforced
+	full_window = /obj/structure/window/full/plasmareinforced
 
 
 /obj/item/stack/sheet/plasmarglass/attack_self(mob/user as mob)

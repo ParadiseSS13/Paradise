@@ -44,7 +44,7 @@
 	icon_state = "plasmawindow"
 	shardtype = /obj/item/weapon/shard/plasma
 	glasstype = /obj/item/stack/sheet/plasmaglass
-	health = 120
+	health = 240
 
 
 /obj/structure/window/full/plasmareinforced
@@ -55,7 +55,7 @@
 	shardtype = /obj/item/weapon/shard/plasma
 	glasstype = /obj/item/stack/sheet/plasmaglass
 	reinf = 1
-	health = 160
+	health = 320
 
 
 /obj/structure/window/full/reinforced
@@ -63,7 +63,7 @@
 	desc = "It looks rather strong. Might take a few good hits to shatter it."
 	icon_state = "rwindow"
 	basestate = "rwindow"
-	health = 40
+	health = 80
 	reinf = 1
 
 /obj/structure/window/full/reinforced/tinted
@@ -78,7 +78,7 @@
 	desc = "It looks rather strong and frosted over. Looks like it might take a few less hits then a normal reinforced window."
 	icon_state = "fwindow"
 	basestate = "fwindow"
-	health = 30
+	health = 60
 
 /obj/structure/window/full/shuttle
 	name = "shuttle window"
@@ -86,7 +86,7 @@
 	icon = 'icons/obj/podwindows.dmi'
 	icon_state = "window"
 	basestate = "window"
-	health = 160
+	health = 320
 	reinf = 1
 
 /obj/structure/window/full/shuttle/New()
