@@ -146,3 +146,10 @@
 					else if(!isobserver(ROI))
 						continue
 				do_teleport(ROI, get_turf(linked_pad))
+
+///Port-a-potty
+/obj/machinery/quantumpad/potty
+	name = "port-a-potty"
+	desc = "A bluespace quantum-linked..toilet..used for teleporting objects to other quantum pads."
+	icon = 'icons/obj/oddtelescience.dmi'
+	icon_state = "qpad-idle"
