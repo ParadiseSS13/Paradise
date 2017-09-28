@@ -16,8 +16,9 @@
 			playsound(M, 'sound/weapons/Genhit.ogg', 50, 1)
 			return 0
 
-	if(!user.cell.use(charge_cost))
-		return
+	if(isrobot(user))
+		if(!user.cell.use(charge_cost))
+			return
 
 	user.do_attack_animation(M)
 	M.Weaken(5)
