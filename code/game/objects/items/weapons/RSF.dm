@@ -239,10 +239,10 @@ RSF
 	icon = 'icons/obj/tools.dmi'
 	icon_state = "rcd"
 	var/matter = 10
-	var/toxin = 0
+	var/toxin = FALSE
 	var/cooldown = 0
 	var/cooldowndelay = 10
-	var/emagged = 0
+	var/emagged = FALSE
 	w_class = WEIGHT_CLASS_NORMAL
 
 /obj/item/weapon/cookiesynth/examine(mob/user)
@@ -258,20 +258,20 @@ RSF
 		to_chat(user, "<span class='warning'>You short out [src]'s reagent safety checker!</span>")
 	else
 		to_chat(user, "<span class='warning'>You reset [src]'s reagent safety checker!</span>")
-		toxin = 0
+		toxin = FALSE
 
 /obj/item/weapon/cookiesynth/attack_self(mob/user)
 	var/mob/living/silicon/robot/P = null
 	if(isrobot(user))
 		P = user
 	if(emagged && !toxin)
-		toxin = 1
+		toxin = TRUE
 		to_chat(user, "<span class='warning'>Cookie Synthesizer Hacked.</span>")
 	else if(P.emagged && !toxin)
-		toxin = 1
+		toxin = TRUE
 		to_chat(user, "<span class='warning'>Cookie Synthesizer Hacked.</span>")
 	else
-		toxin = 0
+		toxin = FALSE
 		to_chat(user, "<span class='notice'>Cookie Synthesizer Reset.</span>")
 
 /obj/item/weapon/cookiesynth/process()

@@ -1157,5 +1157,5 @@
 	if(M.staminaloss < (45 - healthcomp))	//At 50 health you would have 200 - 150 health meaning 50 compensation. 60 - 50 = 10, so would only do 10-19 stamina.)
 		M.adjustStaminaLoss(10)
 	if(prob(30))
-		to_chat(M, "<span class='warning'>You should sit down and take a rest...</span>")
+		to_chat(M, "<span class='warning'>You feel like you should sit down and take a rest...</span>")
 	..()

@@ -173,32 +173,32 @@
 /obj/item/device/harmalarm/emag_act(mob/user)
 	emagged = !emagged
 	if(emagged)
-		to_chat(user, "<font color='red'>You short out the safeties on the [src]!</font>")
+		to_chat(user, "<span class='warning'>You short out the safeties on the [src]!</span>")
 	else
-		to_chat(user, "<font color='red'>You reset the safeties on the [src]!</font>")
+		to_chat(user, "<span class='warning'>You reset the safeties on the [src]!</span>")
 
 /obj/item/device/harmalarm/attack_self(mob/user)
 	var/safety = !emagged
 	if(cooldown > world.time)
-		to_chat(user, "<font color='red'>The device is still recharging!</font>")
+		to_chat(user, "<span class='warning'>The device is still recharging!</span>")
 		return
 
 	if(isrobot(user))
 		var/mob/living/silicon/robot/R = user
 		if(R.cell.charge < 1200)
-			to_chat(user, "<font color='red'>You don't have enough charge to do this!</font>")
+			to_chat(user, "<span class='warning'>You don't have enough charge to do this!</span>")
 			return
 		R.cell.charge -= 1000
 		if(R.emagged)
 			safety = FALSE
 
 	if(safety)
-		user.visible_message("<font color='red' size='2'>[user] blares out a near-deafening siren from its speakers!</font>")
+		user.visible_message("<span class='danger'>[user] blares out a near-deafening siren from its speakers!</span>")
 		for(var/mob/living/carbon/M in get_mobs_in_view(9, user))
 			if(!M.check_ear_prot())
 				M.AdjustConfused(6)
 				to_chat(M, "<span class='userdanger'>The siren pierces your hearing!</span>")
-		audible_message("<font color='red' size='7'>HUMAN HARM</font>")
+		audible_message("<span class='biggerdanger'>HUMAN HARM</span>")
 		playsound(get_turf(src), 'sound/AI/harmalarm.ogg', 70, 3)
 		cooldown = world.time + 200
 		log_game("[key_name(user)] used a Cyborg Harm Alarm in ([user.x],[user.y],[user.z])")
@@ -209,13 +209,13 @@
 
 		return
 
-	user.audible_message("<font color='red' size='7'>BZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZT</font>")
+	user.audible_message("<span class='biggerdanger'>BZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZT</span>")
 	for(var/mob/living/carbon/human/H in get_mobs_in_view(9, user))
 		if(istype(H.l_ear, /obj/item/clothing/ears/earmuffs) || istype(H.r_ear, /obj/item/clothing/ears/earmuffs) || H.ear_deaf)
 			continue
-		var/earsafety = 0
+		var/earsafety = FALSE
 		if(H.check_ear_prot())
-			earsafety = 1
+			earsafety = TRUE
 
 		if(earsafety)
 			H.AdjustConfused(5)
