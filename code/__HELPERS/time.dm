@@ -1,10 +1,23 @@
 // So you can be all 10 SECONDS
+#define SECOND *10
 #define SECONDS *10
+
+#define MINUTE *600
 #define MINUTES *600
-#define HOURS   *36000
+
+#define HOUR *36000
+#define HOURS *36000
+
+#define DAY *864000
+#define DAYS *864000
 
 #define TimeOfGame (get_game_time())
 #define TimeOfTick (world.tick_usage*0.01*world.tick_lag)
+
+#define duration2stationtime(time) time2text(station_time_in_ticks + time, "hh:mm")
+#define worldtime2stationtime(time) time2text(roundstart_hour HOURS + time, "hh:mm")
+#define round_duration_in_ticks (round_start_time ? world.time - round_start_time : 0)
+#define station_time_in_ticks (roundstart_hour HOURS + round_duration_in_ticks)
 
 /proc/get_game_time()
 	var/global/time_offset = 0
@@ -29,7 +42,7 @@
 
 /proc/time_stamp()
 	return time2text(world.timeofday, "hh:mm:ss")
-	
+
 /proc/gameTimestamp(format = "hh:mm:ss") // Get the game time in text
 	return time2text(world.time - timezoneOffset + 432000, format)
 
@@ -61,6 +74,6 @@ proc/isDay(var/month, var/day)
  */
 /proc/stop_watch(wh)
 	return round(0.1 * (TimeOfGame - wh), 0.1)
-	
+
 /proc/month2number(month)
 	return month_names.Find(month)

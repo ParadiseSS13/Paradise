@@ -178,6 +178,7 @@
 #include "code\controllers\voting.dm"
 #include "code\controllers\Processes\air.dm"
 #include "code\controllers\Processes\alarm.dm"
+#include "code\controllers\Processes\db_reconnect.dm"
 #include "code\controllers\Processes\event.dm"
 #include "code\controllers\Processes\fast_process.dm"
 #include "code\controllers\Processes\fires.dm"
