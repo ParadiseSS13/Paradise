@@ -175,6 +175,7 @@
 			return
 		if(target.mind.assigned_role != "Civilian")
 			to_chat(user, "<span class='warning'>You can only recruit Civilians.</span>")
+			return
 		if(recruiting)
 			to_chat(user, "<span class='danger'>You are already recruiting!</span>")
 			charge_counter = charge_max

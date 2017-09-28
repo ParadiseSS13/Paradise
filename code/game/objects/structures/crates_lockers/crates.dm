@@ -44,8 +44,10 @@
 				return 2
 
 	playsound(src.loc, 'sound/machines/click.ogg', 15, 1, -3)
-	for(var/obj/O in src)
+	for(var/obj/O in src) //Objects
 		O.forceMove(loc)
+	for(var/mob/M in src) //Mobs
+		M.forceMove(loc)
 	icon_state = icon_opened
 	src.opened = 1
 

@@ -22,7 +22,28 @@
 		new /obj/item/clothing/mask/gas(src)
 		new /obj/item/clothing/shoes/sandal/white(src)
 
+/obj/structure/closet/secure_closet/roboticist
+	name = "roboticist's locker"
+	req_access = list(access_robotics)
+	icon_state = "secureres1"
+	icon_closed = "secureres"
+	icon_locked = "secureres1"
+	icon_opened = "secureresopen"
+	icon_broken = "secureresbroken"
+	icon_off = "secureresoff"
 
+	New()
+		..()
+		new /obj/item/weapon/storage/backpack(src)
+		new /obj/item/weapon/storage/backpack(src)
+		new /obj/item/weapon/storage/backpack/satchel_norm(src)
+		new /obj/item/weapon/storage/backpack/satchel_norm(src)
+		new /obj/item/weapon/storage/backpack/duffel(src)
+		new /obj/item/weapon/storage/backpack/duffel(src)
+		new /obj/item/clothing/suit/storage/labcoat(src)
+		new /obj/item/clothing/suit/storage/labcoat(src)
+		new /obj/item/device/radio/headset/headset_sci(src)
+		new /obj/item/device/radio/headset/headset_sci(src)
 
 /obj/structure/closet/secure_closet/RD
 	name = "research director's locker"
