@@ -243,16 +243,17 @@
 #define FIRE_LAYER				33	//If you're on fire
 #define TOTAL_LAYERS			33
 
-///Access Region Codes///
-#define REGION_ALL			0
-#define REGION_GENERAL		1
-#define REGION_SECURITY		2
-#define REGION_MEDBAY		3
-#define REGION_RESEARCH		4
-#define REGION_ENGINEERING	5
-#define REGION_SUPPLY		6
-#define REGION_COMMAND		7
-#define REGION_CENTCOMM		8
+//Access Region Codes
+
+#define REGION_GENERAL       1
+#define REGION_SECURITY      2
+#define REGION_MEDBAY        4
+#define REGION_RESEARCH      8
+#define REGION_ENGINEERING   16
+#define REGION_SUPPLY        32
+#define REGION_COMMAND       64
+#define REGION_CENTCOMM      128
+#define REGION_ALL           255
 
 //used for maploader
 #define MAP_MINX 1

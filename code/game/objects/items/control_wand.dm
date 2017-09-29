@@ -11,12 +11,15 @@
 	w_class = WEIGHT_CLASS_TINY
 	var/mode = WAND_OPEN
 	var/region_access = 1 //See access.dm
+	var/singular_access // define access flags in a list to add additonal access without using regions
 	var/obj/item/weapon/card/id/ID
 
 /obj/item/weapon/door_remote/New()
 	..()
 	ID = new /obj/item/weapon/card/id
-	ID.access = get_region_accesses(region_access)
+	ID.access = get_region_accesses(region_access) // Get region access from the remote
+	if(singular_access) // If we have any singular access flags, then add them too.
+		ID.access += singular_access
 
 /obj/item/weapon/door_remote/Destroy()
 	QDEL_NULL(ID)
@@ -101,10 +104,11 @@
 	icon_state = "gangtool-blue"
 	region_access = REGION_MEDBAY
 
-/obj/item/weapon/door_remote/civillian
-	name = "civillian door remote"
+/obj/item/weapon/door_remote/civilian
+	name = "civilian door remote"
 	icon_state = "gangtool-white"
-	region_access = REGION_GENERAL
+	region_access = REGION_GENERAL + REGION_SUPPLY
+	singular_access = list(access_hop)
 
 /obj/item/weapon/door_remote/centcomm
 	name = "centcomm door remote"

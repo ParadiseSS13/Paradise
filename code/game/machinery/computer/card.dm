@@ -281,7 +281,7 @@ var/time_last_changed_position = 0
 
 	else if(modify)
 		var/list/regions = list()
-		for(var/i = 1; i <= 7; i++)
+		for(var/i = 1; i <= 64; i += i)
 			var/list/accesses = list()
 			for(var/access in get_region_accesses(i))
 				if(get_access_desc(access))
