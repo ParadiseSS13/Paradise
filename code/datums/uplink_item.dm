@@ -128,6 +128,15 @@ var/list/uplink_items = list()
 	cost = 5
 	job = list("Clown")
 
+/datum/uplink_item/jobspecific/chameleonbomb
+	name = "Chameleon Bomb"
+	desc = "An odd device that combines a syndicate bomb with a chameleon projector. Once you have marked it, the next person to pick it up will be in for an explosive surprise."
+	reference = "SCB"
+	item = /obj/item/weapon/grenade/syndieminibomb/chameleon
+	cost = 10
+	job = list("Clown")
+	surplus = 0
+
 //mime
 /datum/uplink_item/jobspecific/caneshotgun
 	name = "Cane Shotgun + Assassination Darts"
