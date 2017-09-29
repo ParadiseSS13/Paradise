@@ -23,8 +23,6 @@ This section is for listing the contributors to NanoUI.
 
     - NanoUI's JavaScript controlling the "fancy" borderless window mode.
     - The NanoTrasen.svg logo (Licensed under CC 3.0 BY-SA).
-    - The Gulp buildscript concept, as well as a large amount of the actual
-      Gulpfile.coffee.
     - The packages in bower.json and packages.json files were hand-picked by Neersighted
       for usage in compiling NanoUI.
     - A considerable amount of this README is adapated from Neersighted's documentation.
