@@ -55,7 +55,7 @@
 		cell_logs += P
 
 	var/datum/data/record/R = find_security_record("name", logname)
-	Radio.autosay("Detainee [logname] has been incarcerated for [seconds_to_time(timetoset / 10)] seconds for the charges of, '[logcharges]'. \
+	Radio.autosay("Detainee [logname] has been incarcerated for [seconds_to_time(timetoset / 10)] for the charges of, '[logcharges]'. \
 	Arresting Officer: [usr.name].[R ? "" : " Detainee record not found, manual record update required."]", name, "Security", list(z))
 
 	if(R)
