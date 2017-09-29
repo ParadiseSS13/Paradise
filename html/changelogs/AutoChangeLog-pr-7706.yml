@@ -1,0 +1,6 @@
+author: "Citinited"
+delete-after: True
+changes: 
+  - rscadd: "Telescreens and entertainment consoles now have 'off' and 'broken' sprites."
+  - tweak: "Wooden TVs, engineering camera consoles, mining camera consoles, telescreens, and entertainment consoles now have their own circuit boards and can be reconstructed!"
+  - tweak: "Using a multitool on a telescreen or entertainment monitor will now allow you to reposition it."
