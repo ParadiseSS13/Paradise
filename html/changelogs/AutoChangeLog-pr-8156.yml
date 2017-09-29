@@ -1,4 +1,0 @@
-author: "MarsM0nd"
-delete-after: True
-changes: 
-  - bugfix: "Stops the electrified arm from combat and stunbaton implant from runtiming."
