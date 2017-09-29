@@ -262,14 +262,18 @@ var/list/robot_verbs_default = list(
 /mob/living/silicon/robot/proc/pick_module()
 	if(module)
 		return
-	var/list/modules = list("Standard", "Engineering", "Medical", "Miner", "Janitor", "Service", "Security")
+	var/list/modules = list("Standard", "Engineering", "Medical", "Miner", "Janitor", "Service")
+	if(!config.forbid_secborg)
+		modules += "Security"
+	if(!config.forbid_peaceborg)
+		modules += "Peacekeeper"
 	if(security_level == (SEC_LEVEL_GAMMA || SEC_LEVEL_EPSILON) || crisis)
 		to_chat(src, "<span class='warning'>Crisis mode active. Combat module available.</span>")
-		modules+="Combat"
+		modules += "Combat"
 	if(ticker && ticker.mode && ticker.mode.name == "nations")
 		var/datum/game_mode/nations/N = ticker.mode
 		if(N.kickoff)
-			modules = list("Peacekeeper")
+			modules = list("Nations")
 	if(mmi != null && mmi.alien)
 		modules = "Hunter"
 	modtype = input("Please, select a module!", "Robot", null, null) as null|anything in modules
@@ -336,6 +340,11 @@ var/list/robot_verbs_default = list(
 			module_sprites["Noble-SEC"] = "Noble-SEC"
 			status_flags &= ~CANPUSH
 
+		if("Peacekeeper")
+			module = new /obj/item/weapon/robot_module/peacekeeper(src)
+			module_sprites["Peacekeeper"] = "peace"
+			status_flags &= ~CANPUSH
+
 		if("Engineering")
 			module = new /obj/item/weapon/robot_module/engineering(src)
 			module.channels = list("Engineering" = 1)
@@ -362,8 +371,8 @@ var/list/robot_verbs_default = list(
 			module.channels = list("Security" = 1)
 			icon_state =  "droidcombat"
 
-		if("Peacekeeper")
-			module = new /obj/item/weapon/robot_module/peacekeeper(src)
+		if("Nations")
+			module = new /obj/item/weapon/robot_module/nations(src)
 			module.channels = list()
 			icon_state = "droidpeace"
 
@@ -388,7 +397,7 @@ var/list/robot_verbs_default = list(
 	feedback_inc("cyborg_[lowertext(modtype)]",1)
 	rename_character(real_name, get_default_name())
 
-	if(modtype == "Medical" || modtype == "Security" || modtype == "Combat" || modtype == "Peacekeeper")
+	if(modtype == "Medical" || modtype == "Security" || modtype == "Combat" || modtype == "Peacekeeper" || modtype == "Nations")
 		status_flags &= ~CANPUSH
 
 	choose_icon(6,module_sprites)
@@ -958,7 +967,7 @@ var/list/robot_verbs_default = list(
 		else
 			overlays += "[panelprefix]-openpanel -c"
 
-	var/combat = list("Combat","Peacekeeper")
+	var/combat = list("Combat","Nations")
 	if(modtype in combat)
 		if(base_icon == "")
 			base_icon = icon_state
@@ -1437,15 +1446,15 @@ var/list/robot_verbs_default = list(
 	radio.config(module.channels)
 	notify_ai(2)
 
-/mob/living/silicon/robot/peacekeeper
+/mob/living/silicon/robot/nations
 	base_icon = "droidpeace"
 	icon_state = "droidpeace"
-	modtype = "Peacekeeper"
-	designation = "Peacekeeper"
+	modtype = "Nations"
+	designation = "Nations"
 
-/mob/living/silicon/robot/peacekeeper/init()
+/mob/living/silicon/robot/nations/init()
 	..()
-	module = new /obj/item/weapon/robot_module/peacekeeper(src)
+	module = new /obj/item/weapon/robot_module/nations(src)
 	//languages
 	module.add_languages(src)
 	//subsystems
