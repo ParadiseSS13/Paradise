@@ -111,7 +111,6 @@ var/const/POS_HEADER = {"<html>
 "}
 
 #define POS_TAX_RATE 0.10 // 10%
-
 #define POS_SCREEN_LOGIN    0
 #define POS_SCREEN_ORDER    1
 #define POS_SCREEN_FINALIZE 2
@@ -124,7 +123,7 @@ var/const/POS_HEADER = {"<html>
 	icon_state = "pos"
 	density = 0
 	name = "point of sale"
-	desc = "Also known as a cash register, or, more commonly, \"robbery magnet\"."
+	desc = "Also known as a cash register, or, more commonly, \"robbery magnet\" Needs to be ancored for it to be used."
 
 	var/id = 0
 	var/sales = 0
@@ -134,6 +133,11 @@ var/const/POS_HEADER = {"<html>
 
 	var/credits_held = 0
 	var/credits_needed = 0
+	var/cashinregister = 0
+
+	use_power = 1
+	idle_power_usage = 10
+	var/vend_power_usage = 150
 
 	var/list/products = list() // name = /line_item
 	var/list/line_items = list() // # = /line_item
@@ -148,6 +152,22 @@ var/const/POS_HEADER = {"<html>
 	else
 		linked_account = station_account
 	update_icon()
+	power_change()
+
+	return
+
+/obj/machinery/pos/attackby(obj/item/I, mob/user, params)
+	if(default_unfasten_wrench(user, I, time = 60))
+		return
+
+/obj/machinery/pos/power_change()
+	if(stat & BROKEN)
+	else
+		if( powered() )
+			stat &= ~NOPOWER
+		else
+			spawn(rand(0, 15))
+				stat |= NOPOWER
 
 /obj/machinery/pos/proc/AddToOrder(var/name, var/units)
 	if(!(name in products))
@@ -164,6 +184,16 @@ var/const/POS_HEADER = {"<html>
 
 /obj/machinery/pos/proc/NewOrder()
 	line_items.Cut()
+
+/obj/machinery/pos/proc/TakeOut(var/amount)
+	if(amount > cashinregister)
+		to_chat(usr, "The Cash Register does not have that many Credits in it")
+		return
+	else
+		new /obj/item/stack/spacecash(loc, amount)
+		cashinregister -= amount
+	sleep(10)
+	src.visible_message("<span class='notice'>[usr] closes the cash register! </span>")
 
 /obj/machinery/pos/proc/PrintReceipt(var/order_id)
 	var/receipt = {"[RECEIPT_HEADER]<div>POINT OF SALE #[id]<br />
@@ -185,19 +215,19 @@ var/const/POS_HEADER = {"<html>
 	for(var/i=1;i<=line_items.len;i++)
 		var/line_item/LI = line_items[i]
 		var/linetotal=LI.units*LI.price
-		receipt += "<tr class=\"[(i%2)?"even":"odd"]\"><th>[LI.name]</th><td>[LI.units]</td><td>$[num2septext(LI.price)]</td><td>$[num2septext(linetotal)]</td></tr>"
+		receipt += "<tr class=\"[(i%2)?"even":"odd"]\"><th>[LI.name]</th><td>[LI.units]</td><td>Cr [num2septext(LI.price)]</td><td>Cr[num2septext(linetotal)]</td></tr>"
 		subtotal += linetotal
 	var/taxes = POS_TAX_RATE*subtotal
 	receipt += {"
 		<tr class="calculated">
-			<th colspan="3">SUBTOTAL</th><td>$[num2septext(subtotal)]</td>
+			<th colspan="3">SUBTOTAL</th><td>Cr [num2septext(subtotal)]</td>
 		</tr>
 		<tr>
-			<th colspan="3">TAXES</th><td>$[num2septext(taxes)]</td>
+			<th colspan="3">TAXES</th><td>Cr [num2septext(taxes)]</td>
 		</tr>"}
 	receipt += {"
 		<tr class="calculated total">
-			<th colspan="3">TOTAL</th><td>$[num2septext(taxes+subtotal)]</th>
+			<th colspan="3">TOTAL</th><td>Cr [num2septext(taxes+subtotal)]</th>
 		</tr>"}
 	receipt += "</table></body></html>"
 
@@ -242,8 +272,8 @@ var/const/POS_HEADER = {"<html>
 			receipt += {"<tr class=\"[(i%2)?"even":"odd"]\">
 				<th>[LI.name]</th>
 				<td><a href="?src=[UID()];setunits=[i]">[LI.units]</a></td>
-				<td>$[num2septext(LI.price)]</td>
-				<td>$[num2septext(linetotal)]</td>
+				<td>Cr [num2septext(LI.price)]</td>
+				<td>Cr [num2septext(linetotal)]</td>
 				<td><a href="?src=[UID()];removefromorder=[i]" style="color:red;">&times;</a></td>
 			</tr>"}
 			subtotal += linetotal
@@ -262,18 +292,19 @@ var/const/POS_HEADER = {"<html>
 			<td colspan="2"><input type="submit" name="act" value="Add to Order" /></td>
 		</tr>
 		<tr class="calculated">
-			<th colspan="3">SUBTOTAL</th><td>$[num2septext(subtotal)]</td>
+			<th colspan="3">SUBTOTAL</th><td>Cr [num2septext(subtotal)]</td>
 		</tr>
 		<tr>
-			<th colspan="3">TAXES</th><td>$[num2septext(taxes)]</td>
+			<th colspan="3">TAXES</th><td>Cr [num2septext(taxes)]</td>
 		</tr>"}
 	receipt += {"
 		<tr class="calculated total">
-			<th colspan="3">TOTAL</th><td>$[num2septext(taxes+subtotal)]</th>
+			<th colspan="3">TOTAL</th><td>Cr [num2septext(taxes+subtotal)]</th>
 		</tr>"}
 	receipt += {"</table>
 		<input type="submit" name="act" value="Finalize Sale" />
 		<input type="submit" name="act" value="Reset" />
+		<input type="submit" name="act" value="Open Register" />
 		</form>
 	</fieldset>"}
 	return receipt
@@ -293,14 +324,14 @@ var/const/POS_HEADER = {"<html>
 		var/line_item/LI = products[i]
 		dat += {"<tr class=\"[(i%2)?"even":"odd"]\">
 			<th><a href="?src=[UID()];setpname=[i]">[LI.name]</a></th>
-			<td><a href="?src=[UID()];setprice=[i]">$[num2septext(LI.price)]</a></td>
+			<td><a href="?src=[UID()];setprice=[i]">Cr [num2septext(LI.price)]</a></td>
 			<td>[LI.units]</td>
 			<td><a href="?src=[UID()];rmproduct=[i]" style="color:red;">&times;</a></td>
 		</tr>"}
 	dat += {"</table>
 		<b>New Product:</b><br />
 		<label for="name">Name:</label> <input type="textbox" name="name" value=""/><br />
-		<label for="name">Price:</label> $<input type="textbox" name="price" value="0.00" /><br />
+		<label for="name">Price:</label> Cr <input type="textbox" name="price" value="0.00" /><br />
 		<input type="submit" name="act" value="Add Product" /><br />
 		<a href="?src=[UID()];screen=[POS_SCREEN_IMPORT]">Import</a> | <a href="?src=[UID()];screen=[POS_SCREEN_EXPORT]">Export</a>
 		</form>
@@ -363,7 +394,16 @@ var/const/POS_HEADER = {"<html>
 		overlays += "pos-standby"
 
 /obj/machinery/pos/attack_hand(var/mob/user)
+	..()
 	user.set_machine(src)
+	add_fingerprint(user) //So security can catch the damn thieves
+
+	if(anchored)
+		interact(user)
+	else
+		return
+
+/obj/machinery/pos/interact(mob/user as mob)
 	var/logindata=""
 	if(logged_in)
 		logindata={"<a href="?src=[UID()];logout=1">[logged_in.name]</a>"}
@@ -410,6 +450,11 @@ var/const/POS_HEADER = {"<html>
 			if("Reset")
 				NewOrder()
 				screen=POS_SCREEN_ORDER
+			if("Open Register")
+				src.visible_message("<span class='notice'>[usr] opens the cash register! </span>")
+				var/amounttotake = input (usr, "Register contains [cashinregister] Cr. How many Credits would you like to take out?") as num
+				if(!isnull(amounttotake))
+					TakeOut(amounttotake)
 			if("Finalize Sale")
 				var/subtotal=0
 				if(line_items.len>0)
@@ -418,7 +463,7 @@ var/const/POS_HEADER = {"<html>
 						subtotal += LI.units*LI.price
 				var/taxes = POS_TAX_RATE*subtotal
 				credits_needed=taxes+subtotal
-				say("Your total is $[num2septext(credits_needed)].  Please insert credit chips or swipe your ID.")
+				say("Your total is Cr[num2septext(credits_needed)].  Please insert credit chips or swipe your ID.")
 				screen=POS_SCREEN_FINALIZE
 			if("Add Product")
 				var/line_item/LI = new
@@ -497,6 +542,7 @@ var/const/POS_HEADER = {"<html>
 				visible_message("<span class='notice'>The machine buzzes.</span>","<span class='warning'>You hear a buzz.</span>")
 				flick(src,"pos-error")
 				return
+
 			var/datum/money_account/acct = get_card_account(I)
 			if(!acct)
 				visible_message("<span class='warning'>The machine buzzes, and flashes \"NO ACCOUNT\" on the screen.</span>","You hear a buzz.")
@@ -520,15 +566,23 @@ var/const/POS_HEADER = {"<html>
 		if(!logged_in || screen!=POS_SCREEN_FINALIZE)
 			visible_message("<span class='notice'>The machine buzzes.</span>","<span class='warning'>You hear a buzz.</span>")
 			flick(src,"pos-error")
+			switch(alert("Would you like to deposit the cash in the register?","Deposit cash?","Yes","No"))
+				if("Yes")
+					var/obj/item/stack/spacecash/C = A
+					cashinregister += C.amount
+					qdel(C)
+				else
+					return
 			return
 		var/obj/item/stack/spacecash/C = A
 		credits_held += C.amount
+		qdel(C)
 		if(credits_held >= credits_needed)
-			visible_message("<span class='notice'>The machine beeps, and begins printing a receipt</span>","You hear a beep and the sound of paper being shredded.")
+			visible_message("<span class='notice'>The machine beeps, and begins printing a receipt</span>")
 			PrintReceipt()
 			NewOrder()
 			credits_held -= credits_needed
-			credits_needed=0
+			cashinregister += credits_needed
 			screen=POS_SCREEN_ORDER
 			if(credits_held)
 				new /obj/item/stack/spacecash(loc, credits_held)

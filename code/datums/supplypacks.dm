@@ -1253,6 +1253,12 @@ var/list/all_supply_groups = list(supply_emergency,supply_security,supply_engine
 	containertype = /obj/structure/largecrate
 	containername = "water tank crate"
 
+/datum/supply_packs/misc
+	name = "Point of Sale System"
+	contains = list(/obj/machinery/pos)
+	cost = 25
+	containername = "Point of Sale crate"
+
 /datum/supply_packs/misc/hightank
 	name = "High-Capacity Water Tank Crate"
 	contains = list(/obj/structure/reagent_dispensers/watertank/high)
