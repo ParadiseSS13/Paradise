@@ -86,10 +86,10 @@
 		return 1
 	if(NO_PAIN in M.species.species_traits)//if you don't feel pain, you can hold still
 		return 1
-	if(M.reagents.has_reagent("hydrocodone"))//The most effective pain killer
-		return 0.97
-	if(M.reagents.has_reagent("morphine"))//Morphine can knock you out completely to guarantee success, but even a little bit helps
-		return 0.95
+	if(M.reagents.has_reagent("hydrocodone"))//really good pain killer
+		return 0.99
+	if(M.reagents.has_reagent("morphine"))//Just as effective as Hydrocodone, but has an addiction chance
+		return 0.99
 	if(M.drunk >= 80)//really damn drunk
 		return 0.95
 	if(M.drunk >= 40)//pretty drunk
