@@ -47,6 +47,7 @@
 	name = "worn out [name]"
 	desc = "[desc] At least, it used to."
 	used = 1
+	update_icon()
 
 /obj/item/weapon/whetstone/attack_self(mob/user as mob) //This is just fluff for now. Species datums are global and not newly created instances, so we can't adjust unarmed damage on a per mob basis.
 	if(ishuman(user))
