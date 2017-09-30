@@ -135,7 +135,7 @@ datum/game_mode/nations
 		AI.show_laws()
 		for(var/mob/living/silicon/robot/R in AI.connected_robots)
 			var/obj/item/device/mmi/oldmmi = R.mmi
-			R.change_mob_type(/mob/living/silicon/robot/peacekeeper, null, null, 1, 1 )
+			R.change_mob_type(/mob/living/silicon/robot/nations, null, null, 1, 1 )
 			R.lawsync()
 			R.show_laws()
 			qdel(oldmmi)

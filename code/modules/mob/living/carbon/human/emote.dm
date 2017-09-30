@@ -76,6 +76,12 @@
 			else								//Everyone else fails, skip the emote attempt
 				return
 
+		if("creaks", "creak")
+			if(species.name == "Diona") //Only Dionas can Creaks.
+				on_CD = handle_emote_CD()			//proc located in code\modules\mob\emote.dm'
+			else								//Everyone else fails, skip the emote attempt
+				return
+
 		if("hiss", "hisses")
 			if(species.name == "Unathi") //Only Unathi can hiss.
 				on_CD = handle_emote_CD()			//proc located in code\modules\mob\emote.dm'
@@ -168,6 +174,13 @@
 
 			message = "<B>[src]</B> clicks their mandibles[M ? " at [M]" : ""]."
 			playsound(loc, 'sound/effects/Kidanclack2.ogg', 50, 0) //Credit to DrMinky (freesound.org) for the sound.
+			m_type = 2
+
+		if("creaks", "creak")
+			var/M = handle_emote_param(param)
+
+			message = "<B>[src]</B> creaks[M ? " at [M]" : ""]."
+			playsound(loc, 'sound/voice/dionatalk1.ogg', 50, 0) //Credit https://www.youtube.com/watch?v=ufnvlRjsOTI [0:13 - 0:16]
 			m_type = 2
 
 		if("hiss", "hisses")
@@ -826,6 +839,8 @@
 					emotelist += "\nUnathi specific emotes :- hiss(es)"
 				if("Vulpkanin")
 					emotelist += "\nVulpkanin specific emotes :- growl(s)-none/mob, howl(s)-none/mob"
+				if("Diona")
+					emotelist += "\nDiona specific emotes :- creak(s)"
 
 			if (species.name == "Slime People")
 				emotelist += "\nSlime people specific emotes :- squish(es)-(none)/mob"

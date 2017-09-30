@@ -308,8 +308,35 @@
 	user.update_inv_wear_suit()
 	qdel(src)
 
+/obj/item/device/fluff/fei_gasmask_kit //Fei Hazelwood: Tariq Yon-Dale
+	name = "gas mask conversion kit"
+	desc = "A gas mask conversion kit."
+	icon_state = "modkit"
+	w_class = WEIGHT_CLASS_SMALL
+
+/obj/item/device/fluff/fei_gasmask_kit/afterattack(atom/target, mob/user, proximity)
+	if(!proximity || !ishuman(user) || user.incapacitated())
+		return
+
+	if(istype(target, /obj/item/clothing/mask/gas) && !istype(target, /obj/item/clothing/mask/gas/welding))
+		to_chat(user, "<span class='notice'>You modify the appearance of [target].</span>")
+		var/obj/item/clothing/mask/gas/M = target
+		M.name = "Prescription Gas Mask"
+		M.desc = "It looks heavily modified, but otherwise functions as a gas mask. The words “Property of Yon-Dale” can be seen on the inner band."
+		M.icon = 'icons/obj/custom_items.dmi'
+		M.icon_state = "gas_tariq"
+		M.species_fit = list("Vulpkanin")
+		M.sprite_sheets = list(
+			"Vulpkanin" = 'icons/mob/species/vulpkanin/mask.dmi'
+			)
+		user.update_icons()
+		qdel(src)
+		return
+
+	to_chat(user, "<span class='warning'>You can't modify [target]!</span>")
+
 /obj/item/device/fluff/desolate_baton_kit //DesolateG: Michael Smith
-	name = "stun baton converstion kit"
+	name = "stun baton conversion kit"
 	desc = "Some sci-fi looking parts for a stun baton."
 	icon = 'icons/obj/custom_items.dmi'
 	icon_state = "scifikit"
@@ -737,6 +764,17 @@
 	icon_state = "kidosvest"
 	item_state = "kidosvest"
 	ignore_suitadjust = 1
+	actions_types = list()
+	adjust_flavour = null
+	species_fit = null
+	sprite_sheets = null
+
+/obj/item/clothing/suit/jacket/fluff/jacksvest // Anxipal: Jack Harper
+	name = "Jack's vest"
+	desc = "A rugged leather vest with a tag labelled \"President\"."
+	icon = 'icons/obj/custom_items.dmi'
+	icon_state = "jacksvest"
+	ignore_suitadjust = TRUE
 	actions_types = list()
 	adjust_flavour = null
 	species_fit = null
