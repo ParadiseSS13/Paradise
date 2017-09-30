@@ -45,7 +45,7 @@
 	set category = "Event"
 	set name = "Change Custom Admin Event Info"
 
-	if(check_rights(R_EVENT))
+	if(!check_rights(R_EVENT))
 		to_chat(src, "Only administrators may use this command.")
 		return
 
@@ -72,7 +72,7 @@
 	set category = "Event"
 	set name = "Custom Event Admin Info"
 
-	if(check_rights(R_EVENT))
+	if(!check_rights(R_EVENT))
 		to_chat(src, "Only administrators may use this command.")
 		return
 
