@@ -62,7 +62,7 @@
 	name = "mend internal bleeding"
 	allowed_tools = list(
 	/obj/item/weapon/FixOVein = 100, \
-	/obj/item/stack/cable_coil = 75
+	/obj/item/stack/cable_coil = 90
 	)
 	can_infect = 1
 	blood_level = 1
@@ -107,8 +107,8 @@
 	name = "remove dead tissue"
 	allowed_tools = list(
 		/obj/item/weapon/scalpel = 100,		\
-		/obj/item/weapon/kitchen/knife = 75,	\
-		/obj/item/weapon/shard = 50, 		\
+		/obj/item/weapon/kitchen/knife = 90,	\
+		/obj/item/weapon/shard = 60, 		\
 	)
 
 	can_infect = 1
@@ -156,12 +156,12 @@
 	name = "treat necrosis"
 	allowed_tools = list(
 		/obj/item/weapon/reagent_containers/dropper = 100,
-		/obj/item/weapon/reagent_containers/glass/bottle = 75,
-		/obj/item/weapon/reagent_containers/food/drinks/drinkingglass = 70,
-		/obj/item/weapon/reagent_containers/food/drinks/bottle = 65,
-		/obj/item/weapon/reagent_containers/glass/beaker = 60,
-		/obj/item/weapon/reagent_containers/spray = 50,
-		/obj/item/weapon/reagent_containers/glass/bucket = 40
+		/obj/item/weapon/reagent_containers/glass/bottle = 90,
+		/obj/item/weapon/reagent_containers/food/drinks/drinkingglass = 85,
+		/obj/item/weapon/reagent_containers/food/drinks/bottle = 80,
+		/obj/item/weapon/reagent_containers/glass/beaker = 75,
+		/obj/item/weapon/reagent_containers/spray = 60,
+		/obj/item/weapon/reagent_containers/glass/bucket = 50
 	)
 
 	can_infect = 0
