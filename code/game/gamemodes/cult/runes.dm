@@ -149,7 +149,10 @@ structure_check() searches for nearby cultist structures required for the invoca
 	if(invocation)
 		for(var/M in invokers)
 			var/mob/living/L = M
-			L.say(invocation)
+			if(!L.IsVocal())
+				L.emote("gestures ominously.")
+			else
+				L.say(invocation)
 			L.changeNext_move(CLICK_CD_MELEE)//THIS IS WHY WE CAN'T HAVE NICE THINGS
 	do_invoke_glow()
 
