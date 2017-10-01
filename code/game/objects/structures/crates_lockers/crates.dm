@@ -469,6 +469,15 @@
 				user.visible_message("[user] has secured [src]'s floor casters.", \
 						 								"<span class='notice'>You have secured [src]'s floor casters.</span>")
 				anchored = TRUE
+	if(opened)
+		if(isrobot(user))
+			return
+		if(!user.drop_item()) //couldn't drop the item
+			to_chat(user, "<span class='notice'>\The [W] is stuck to your hand, you cannot put it in \the [src]!</span>")
+			return
+		if(W)
+			W.forceMove(loc)
+	else return attack_hand(user)
 
 /obj/structure/closet/crate/radiation
 	desc = "A crate with a radiation sign on it."
