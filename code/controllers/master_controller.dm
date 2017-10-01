@@ -78,6 +78,9 @@ var/global/pipe_processing_killed = 0
 
 	populate_spawn_points()
 
+	if(config.sql_enabled)
+		db_reconnect = new
+
 /datum/controller/game_controller/proc/setup_objects()
 	var/watch = start_watch()
 	var/count = 0
