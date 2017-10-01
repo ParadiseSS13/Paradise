@@ -122,6 +122,9 @@ var/list/adminhelp_ignored_words = list("unknown","the","a","an","of","monkey","
 				window_flash(X)
 				to_chat(X, msg)
 
+				//Try to open a new adminticket and inform the user if they succed.
+				globAdminTicketHolder.newTicket(src, msg)
+
 	//show it to the person adminhelping too
 	to_chat(src, "<span class='boldnotice'>[selected_type]</b>: [original_msg]</span>")
 

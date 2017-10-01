@@ -218,6 +218,12 @@ var/list/admin_verbs_snpc = list(
 	/client/proc/customiseSNPC,
 	/client/proc/hide_snpc_verbs
 )
+var/list/admin_verbs_ticket = list(
+	/client/proc/startadmintickets,
+	/client/proc/vvadmintickets,
+	/client/proc/openTicketUI,
+	/client/proc/generateTickets,
+)
 
 /client/proc/on_holder_add()
 	if(chatOutput && chatOutput.loaded)
@@ -230,6 +236,7 @@ var/list/admin_verbs_snpc = list(
 			verbs += /client/proc/togglebuildmodeself
 		if(holder.rights & R_ADMIN)
 			verbs += admin_verbs_admin
+			verbs += admin_verbs_ticket
 			spawn(1)
 				control_freak = 0
 		if(holder.rights & R_BAN)
@@ -280,7 +287,8 @@ var/list/admin_verbs_snpc = list(
 		admin_verbs_show_debug_verbs,
 		/client/proc/readmin,
 		admin_verbs_snpc,
-		/client/proc/hide_snpc_verbs
+		/client/proc/hide_snpc_verbs,
+		admin_verbs_ticket
 	)
 
 /client/proc/hide_verbs()
