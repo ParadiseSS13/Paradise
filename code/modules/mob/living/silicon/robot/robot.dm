@@ -193,6 +193,7 @@ var/list/robot_verbs_default = list(
 
 	return 1
 
+
 /mob/living/silicon/robot/proc/get_default_name(var/prefix as text)
 	if(prefix)
 		modtype = prefix
@@ -390,7 +391,7 @@ var/list/robot_verbs_default = list(
 	module.add_subsystems_and_actions(src)
 
 	//Custom_sprite check and entry
-	if(custom_sprite == 1)
+	if(custom_sprite && check_sprite("[ckey]-[modtype]"))
 		module_sprites["Custom"] = "[src.ckey]-[modtype]"
 
 	hands.icon_state = lowertext(module.module_type)
@@ -1483,3 +1484,10 @@ var/list/robot_verbs_default = list(
 		borked_part.wrapped = new borked_part.external_type
 		borked_part.heal_damage(brute,burn)
 		borked_part.install()
+
+/mob/living/silicon/robot/proc/check_sprite(spritename)
+	. = FALSE
+
+	var/static/all_borg_icon_states = icon_states('icons/mob/custom_synthetic/custom-synthetic.dmi')
+	if(spritename in all_borg_icon_states)
+		. = TRUE
