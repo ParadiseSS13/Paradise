@@ -8,19 +8,35 @@
   dat +="<a href='?src=[UID()];refresh=1'>Refresh</a><br /><a href='?src=[UID()];showopen=1'>Open Tickets</a><a href='?src=[UID()];showresolved=1'>Resolved Tickets</a><a href='?src=[UID()];showclosed=1'>Closed Tickets</a>"
   if(tab == ADMIN_TICKET_OPEN)
     dat += "<h2>Open Tickets</h2>"
-    dat += "<table class='admintickets'>"
-    dat +="<tr class='admintickets'><th>Control</th><th>Ticket</th><th>Detail</th></tr>"
-
+  dat += "<table class='admintickets'>"
+  dat +="<tr class='admintickets'><th>Control</th><th>Ticket</th><th>Detail</th></tr>"
+  if(tab == ADMIN_TICKET_OPEN)
     for(var/T in allTickets)
       var/datum/admin_ticket/ticket = T
       if(ticket.ticketState == ADMIN_TICKET_OPEN || ticket.ticketState == ADMIN_TICKET_STALE)
         dat += "<tr class='admintickets'><td><a href='?src=[UID()];resolve=[ticket.ticketNum]'>Resolve</a><a href='?src=[UID()];close=[ticket.ticketNum]'>Close</a></td> <td><b>Ticket #[ticket.ticketNum]: at [ticket.timeOpened]: [ticket.content]</td> <td><a href='?src=[UID()];details=[ticket.ticketNum]'>Details</a></td>"
       else
         continue
+  else  if(tab == ADMIN_TICKET_RESOLVED)
+    dat += "<h2>Resolved Tickets</h2>"
+    for(var/T in allTickets)
+      var/datum/admin_ticket/ticket = T
+      if(ticket.ticketState == ADMIN_TICKET_RESOLVED)
+        dat += "<tr><td><a href='?src=[UID()];resolve=[ticket.ticketNum]'>Resolve</a><a href='?src=[UID()];close=[ticket.ticketNum]'>Close</a></td> <td><b>Ticket #[ticket.ticketNum]: at [ticket.timeOpened]: [ticket.content]</td> <td><a href='?src=[UID()];details=[ticket.ticketNum]'>Details</a></td>"
+      else
+        continue
+  else if(tab == ADMIN_TICKET_CLOSED)
+    dat += "<h2>Closed Tickets</h2>"
+    for(var/T in allTickets)
+      var/datum/admin_ticket/ticket = T
+      if(ticket.ticketState == ADMIN_TICKET_CLOSED)
+        dat += "<tr class='admintickets'><td><a href='?src=[UID()];resolve=[ticket.ticketNum]'>Resolve</a><a href='?src=[UID()];close=[ticket.ticketNum]'>Close</a></td> <td><b>Ticket #[ticket.ticketNum]: at [ticket.timeOpened]: [ticket.content]</td> <td><a href='?src=[UID()];details=[ticket.ticketNum]'>Details</a></td>"
+      else
+        continue
 
-    dat += "</table>"
+  dat += "</table>"
 
-    return dat
+/*    return dat
   else if(tab == ADMIN_TICKET_RESOLVED)
     dat += "<h2>Resolved Tickets</h2>"
     dat += "<table class='admintickets'>"
@@ -35,7 +51,7 @@
 
     dat += "</table>"
 
-    return dat
+
   else if(tab == ADMIN_TICKET_CLOSED)
     dat += "<h2>Closed Tickets</h2>"
     dat += "<table class='admintickets'>"
@@ -49,8 +65,8 @@
         continue
 
     dat += "</table>"
-
-    return dat
+*/
+  return dat
 
 /datum/adminTicketHolder/proc/showUI(var/client/C, var/tab)
   var/dat = null
@@ -61,15 +77,21 @@
 
 /datum/adminTicketHolder/proc/showDetailUI(var/client/C, var/ticketID)
   var/datum/admin_ticket/T = globAdminTicketHolder.allTickets[ticketID]
+  var/status = "[T.state2text()]"
 
   var/dat = "<h1>Admin Tickets</h1>"
 
+  dat +="<a href='?src=[UID()];refreshdetail=[T.ticketNum]'>Refresh</a>"
+
   dat += "<h2>Ticket #[T.ticketNum]</h2>"
 
-  dat += "<h4>[T.clientName] / [T.mobControlled] opened this ticket at [T.timeOpened] at location [T.locationSent]</h4>"
+  dat += "<h3>[T.clientName] / [T.mobControlled] opened this ticket at [T.timeOpened] at location [T.locationSent]</h3>"
+  dat += "<h4>Ticket Status: <font color='red'>[status]</font>"
   dat += "<p>[T.content]</p>"
 
   dat += "<a href='?src=[UID()];reopen=[T.ticketNum]'>Re-Open</a><a href='?src=[UID()];resolve=[T.ticketNum]'>Resolve</a><a href='?src=[UID()];close=[T.ticketNum]'>Close</a>"
+
+  dat += "<b>Last Admin Response:</b> [T.lastAdminResponse] at [T.lastResponseTime]"
 
   var/datum/browser/popup = new(usr, "adminticketsdetail", "Admin Ticket #[T.ticketNum]", 1200, 600)
   popup.set_content(dat)
@@ -79,6 +101,11 @@
 
   if(href_list["refresh"])
     showUI(usr)
+    return
+
+  if(href_list["refreshdetail"])
+    var/indexNum = text2num(href_list["refreshdetail"])
+    showDetailUI(usr, indexNum)
     return
 
   if(href_list["showopen"])
@@ -100,14 +127,14 @@
     var/indexNum = text2num(href_list["resolve"])
     globAdminTicketHolder.resolveTicket(indexNum)
     message_admins("<span class='adminticket'>[usr.client] / ([usr]) resolved admin ticket number [indexNum]</span>")
-    showUI(usr)
+    showUI(usr, ADMIN_TICKET_RESOLVED)
     return
 
   if(href_list["close"])
     var/indexNum = text2num(href_list["close"])
     globAdminTicketHolder.closeTicket(indexNum)
     message_admins("<span class='adminticket'>[usr.client] / ([usr]) closed admin ticket number [indexNum]</span>")
-    showUI(usr)
+    showUI(usr, ADMIN_TICKET_CLOSED)
     return
 
   else if(href_list["reopen"])

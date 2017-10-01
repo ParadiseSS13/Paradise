@@ -7,7 +7,7 @@ var/global/datum/adminTicketHolder/globAdminTicketHolder = new /datum/adminTicke
 
 //Defines
 //Deciseconds until timeout
-#define ADMIN_TICKET_TIMEOUT 100
+#define ADMIN_TICKET_TIMEOUT 3000
 //Decisecions before opening another ticket
 #define ADMIN_TICKET_DUPLICATE_COOLDOWN 300
 
@@ -38,7 +38,8 @@ var/global/datum/adminTicketHolder/globAdminTicketHolder = new /datum/adminTicke
 
 /datum/adminTicketHolder/proc/purgeAllTickets() // Delete ALL tickets
   QDEL_LIST(allTickets)
-  message_admins("<span class='adminticket'>[usr] purged all admin tickets!</span>")
+  message_admins("<span class='adminticket'>[usr.client] purged all admin tickets!</span>")
+  ticketCounter = 1
 
 /datum/adminTicketHolder/proc/closeAllOpenTickets() // Close all open tickets
   for(var/i in allTickets)
@@ -120,11 +121,9 @@ var/global/datum/adminTicketHolder/globAdminTicketHolder = new /datum/adminTicke
 
 /datum/admin_ticket/proc/beginStaleCount()
   if(!src)
-    to_chat(world, "DEBUG: NO SRC")
     return
   while(world.time < timeUntilStale)
     sleep(200)
-    to_chat(world, "DEBUG: CHECKING STATE OF TICKET [ticketNum]")
     if(ticketState == ADMIN_TICKET_OPEN && world.time > timeUntilStale)
       message_admins("<span class='adminticket'>Ticket #[ticketNum] has been open for [ADMIN_TICKET_TIMEOUT * 0.1] seconds. Changing status to stale.</span>")
       ticketState = ADMIN_TICKET_STALE
@@ -135,4 +134,15 @@ var/global/datum/adminTicketHolder/globAdminTicketHolder = new /datum/adminTicke
 
 /datum/admin_ticket/proc/setLastAdminResponse(var/client/C)
   lastAdminResponse = C
-  lastResponseTime = world.time
+  lastResponseTime = worldtime2text()
+
+/datum/admin_ticket/proc/state2text()
+  switch(ticketState)
+    if(ADMIN_TICKET_OPEN)
+      return "<font color='green'>OPEN</font>"
+    if(ADMIN_TICKET_RESOLVED)
+      return "<font color='blue'>RESOLVED</font>"
+    if(ADMIN_TICKET_CLOSED)
+      return "<font color='red'>CLOSED</font>"
+    if(ADMIN_TICKET_STALE)
+      return "<font color='orange'>STALE</font>"

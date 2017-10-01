@@ -4,10 +4,20 @@
   set name = "Restart Admin Ticket System"
   set category = "Tickets"
 
+  if(!holder)
+    return
+
+  if(!check_rights(R_DEBUG))
+    return
+
   if(!globAdminTicketHolder)
     var/global/datum/adminTicketHolder/globAdminTicketHolder = new /datum/adminTicketHolder
   else
-    to_chat(world, "Already one running.")
+    if(alert("Are you sure you want to reboot the admin ticket system?",,"Yes","No") != "Yes")
+      return
+    message_admins("<span class='admintickets'>Restarting Admin Ticket System!</span>")
+    globAdminTicketHolder = new /datum/adminTicketHolder
+    message_admins("<span class='admintickets'>Admin Ticket System Restarted!</span>")
 
 /client/proc/vvadmintickets()
   set name = "Debug Admin Tickets"

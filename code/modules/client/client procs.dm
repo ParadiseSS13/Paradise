@@ -76,7 +76,7 @@
 		//Check if the person has a current open admin ticket
 		var/datum/admin_ticket/existingTicket = globAdminTicketHolder.checkForOpenTicket(C)
 		if(existingTicket)
-			existingTicket.setLastAdminResponse(usr)
+			existingTicket.setLastAdminResponse(usr.client)
 		if(ismob(C)) 		//Old stuff can feed-in mobs instead of clients
 			var/mob/M = C
 			C = M.client
