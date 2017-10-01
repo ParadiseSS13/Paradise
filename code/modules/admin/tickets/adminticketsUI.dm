@@ -59,9 +59,11 @@
   dat += "<h4>Ticket Status: <font color='red'>[status]</font>"
   dat += "<p>[T.content]</p>"
 
-  dat += "<a href='?src=[UID()];reopen=[T.ticketNum]'>Re-Open</a><a href='?src=[UID()];resolve=[T.ticketNum]'>Resolve</a><a href='?src=[UID()];close=[T.ticketNum]'>Close</a>"
-
-  dat += "<b>Last Admin Response:</b> [T.lastAdminResponse] at [T.lastResponseTime]"
+  dat += "<a href='?src=[UID()];detailreopen=[T.ticketNum]'>Re-Open</a><a href='?src=[UID()];detailresolve=[T.ticketNum]'>Resolve</a><a href='?src=[UID()];detailclose=[T.ticketNum]'>Close</a><br />"
+  if(T.lastAdminResponse)
+    dat += "<b>Last Admin Response:</b> [T.lastAdminResponse] at [T.lastResponseTime]"
+  else
+    dat +="<font color='red'>No Admin Response</font>"
 
   var/datum/browser/popup = new(usr, "adminticketsdetail", "Admin Ticket #[T.ticketNum]", 800, 600)
   popup.set_content(dat)
@@ -95,19 +97,38 @@
 
   if(href_list["resolve"])
     var/indexNum = text2num(href_list["resolve"])
-    globAdminTicketHolder.resolveTicket(indexNum)
-    message_admins("<span class='adminticket'>[usr.client] / ([usr]) resolved admin ticket number [indexNum]</span>")
-    showUI(usr)
-    return
+    if(globAdminTicketHolder.resolveTicket(indexNum))
+      message_adminTicket("<span class='adminticket'>[usr.client] / ([usr]) resolved admin ticket number [indexNum]</span>")
+      to_chat(returnClient(indexNum), "<span class='adminticket'>Your admin ticket has now been resolved.</span>")
+      showUI(usr)
 
   if(href_list["close"])
     var/indexNum = text2num(href_list["close"])
-    globAdminTicketHolder.closeTicket(indexNum)
-    message_admins("<span class='adminticket'>[usr.client] / ([usr]) closed admin ticket number [indexNum]</span>")
-    showUI(usr)
-    return
+    if(globAdminTicketHolder.closeTicket(indexNum))
+      message_adminTicket("<span class='adminticket'>[usr.client] / ([usr]) closed admin ticket number [indexNum]</span>")
+      to_chat(returnClient(indexNum), "<font color='red' size='4'><b>- AdminHelp Rejected! -</b></font>")
+      to_chat(returnClient(indexNum), "<span class='adminticket'>Please try to be calm, clear, and descriptive in admin helps, do not assume the admin has seen any related events, and clearly state the names of anybody you are reporting. If you asked a question, please ensure it was clear what you were asking.</span>")
+      to_chat(returnClient(indexNum), "<span class='adminticket'>Your ticket has now been closed.</span>")
+      showUI(usr)
 
-  else if(href_list["reopen"])
-    var/indexNum = text2num(href_list["reopen"])
-    globAdminTicketHolder.openTicket(indexNum)
-    message_admins("<span class='adminticket'>[usr.client] / ([usr]) re-opened admin ticket number [indexNum]</span>")
+  if(href_list["detailresolve"])
+    var/indexNum = text2num(href_list["detailresolve"])
+    if(globAdminTicketHolder.resolveTicket(indexNum))
+      message_adminTicket("<span class='adminticket'>[usr.client] / ([usr]) resolved admin ticket number [indexNum]</span>")
+      to_chat(returnClient(indexNum), "<span class='adminticket'>Your admin ticket has now been resolved.</span>")
+      showDetailUI(usr, indexNum)
+
+  if(href_list["detailclose"])
+    var/indexNum = text2num(href_list["detailclose"])
+    if(globAdminTicketHolder.closeTicket(indexNum))
+      message_adminTicket("<span class='adminticket'>[usr.client] / ([usr]) closed admin ticket number [indexNum]</span>")
+      to_chat(returnClient(indexNum), "<font color='red' size='4'><b>- AdminHelp Rejected! -</b></font>")
+      to_chat(returnClient(indexNum), "<span class='boldmessage'>Please try to be calm, clear, and descriptive in admin helps, do not assume the admin has seen any related events, and clearly state the names of anybody you are reporting. If you asked a question, please ensure it was clear what you were asking.</span>")
+      to_chat(returnClient(indexNum), "<span class='adminticket'>Your ticket has now been closed.</span>")
+      showDetailUI(usr, indexNum)
+
+  if(href_list["detailreopen"])
+    var/indexNum = text2num(href_list["detailreopen"])
+    if(globAdminTicketHolder.openTicket(indexNum))
+      message_adminTicket("<span class='adminticket'>[usr.client] / ([usr]) re-opened admin ticket number [indexNum]</span>")
+      showDetailUI(usr, indexNum)

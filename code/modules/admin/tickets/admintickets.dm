@@ -6,10 +6,10 @@ Admin ticket system by Birdtalon
 var/global/datum/adminTicketHolder/globAdminTicketHolder = new /datum/adminTicketHolder
 
 //Defines
-//Deciseconds until timeout
+//Deciseconds until ticket becomes stale if unanswered.
 #define ADMIN_TICKET_TIMEOUT 3000
-//Decisecions before opening another ticket
-#define ADMIN_TICKET_DUPLICATE_COOLDOWN 300
+//Decisecions before opening another ticket.
+#define ADMIN_TICKET_DUPLICATE_COOLDOWN 1200
 
 //Status defines
 #define ADMIN_TICKET_OPEN       1
@@ -38,7 +38,7 @@ var/global/datum/adminTicketHolder/globAdminTicketHolder = new /datum/adminTicke
 
 /datum/adminTicketHolder/proc/purgeAllTickets() // Delete ALL tickets
   QDEL_LIST(allTickets)
-  message_admins("<span class='adminticket'>[usr.client] purged all admin tickets!</span>")
+  message_adminTicket("<span class='adminticket'>[usr.client] purged all admin tickets!</span>")
   ticketCounter = 1
 
 /datum/adminTicketHolder/proc/closeAllOpenTickets() // Close all open tickets
@@ -79,23 +79,29 @@ var/global/datum/adminTicketHolder/globAdminTicketHolder = new /datum/adminTicke
 //Set ticket state with key N to open
 /datum/adminTicketHolder/proc/openTicket(var/N as num)
   var/datum/admin_ticket/T = globAdminTicketHolder.allTickets[N]
-  T.ticketState = ADMIN_TICKET_OPEN
+  if(T.ticketState != ADMIN_TICKET_OPEN)
+    T.ticketState = ADMIN_TICKET_OPEN
+    return TRUE
 
 //Set ticket state with key N to resolved
 /datum/adminTicketHolder/proc/resolveTicket(var/N as num)
   var/datum/admin_ticket/T = globAdminTicketHolder.allTickets[N]
-  T.ticketState = ADMIN_TICKET_RESOLVED
+  if(T.ticketState != ADMIN_TICKET_RESOLVED)
+    T.ticketState = ADMIN_TICKET_RESOLVED
+    return TRUE
 
 //Set ticket state with key N to closed
 /datum/adminTicketHolder/proc/closeTicket(var/N as num)
   var/datum/admin_ticket/T = globAdminTicketHolder.allTickets[N]
-  T.ticketState = ADMIN_TICKET_CLOSED
+  if(T.ticketState != ADMIN_TICKET_CLOSED)
+    T.ticketState = ADMIN_TICKET_CLOSED
+    return TRUE
 
 //List Open Tickets in chat
 /datum/adminTicketHolder/proc/listOpenTicketsToChat()
   for(var/T in allTickets)
     var/datum/admin_ticket/ticket = T
-    message_admins("<span class='adminticket'>Ticket #[ticket.ticketNum]: Opened by [ticket.clientName] at [ticket.timeOpened]: [ticket.content]</span>")
+    message_adminTicket("<span class='adminticket'>Ticket #[ticket.ticketNum]: Opened by [ticket.clientName] at [ticket.timeOpened]: [ticket.content]</span>")
 
 //Check if the user already has a ticket open and within the cooldown period.
 /datum/adminTicketHolder/proc/checkForOpenTicket(var/client/C)
@@ -103,6 +109,11 @@ var/global/datum/adminTicketHolder/globAdminTicketHolder = new /datum/adminTicke
     if(T.clientName == C && T.ticketState == ADMIN_TICKET_OPEN && (T.ticketCooldown > world.time))
       return T
   return FALSE
+
+//return the client of a ticket number
+/datum/adminTicketHolder/proc/returnClient(var/N as num)
+  var/datum/admin_ticket/T = globAdminTicketHolder.allTickets[N]
+  return T.clientName
 
 //Single admin ticket
 
@@ -122,10 +133,10 @@ var/global/datum/adminTicketHolder/globAdminTicketHolder = new /datum/adminTicke
 /datum/admin_ticket/proc/beginStaleCount()
   if(!src)
     return
-  while(world.time < timeUntilStale)
+  while(world.time < timeUntilStale && !lastAdminResponse)
     sleep(200)
     if(ticketState == ADMIN_TICKET_OPEN && world.time > timeUntilStale)
-      message_admins("<span class='adminticket'>Ticket #[ticketNum] has been open for [ADMIN_TICKET_TIMEOUT * 0.1] seconds. Changing status to stale.</span>")
+      message_adminTicket("<span class='adminticket'>Ticket #[ticketNum] has been open for [ADMIN_TICKET_TIMEOUT * 0.1] seconds. Changing status to stale.</span>")
       ticketState = ADMIN_TICKET_STALE
       break
 

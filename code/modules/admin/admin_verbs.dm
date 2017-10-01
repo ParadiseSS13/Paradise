@@ -222,6 +222,7 @@ var/list/admin_verbs_ticket = list(
 	/client/proc/startadmintickets,
 	/client/proc/vvadmintickets,
 	/client/proc/openTicketUI,
+	/client/proc/toggleticketlogs
 )
 
 /client/proc/on_holder_add()
@@ -923,6 +924,20 @@ var/list/admin_verbs_ticket = list(
 		to_chat(usr, "You now won't get admin log messages.")
 	else
 		to_chat(usr, "You now will get admin log messages.")
+
+/client/proc/toggleticketlogs()
+	set name = "Toggle Admin Ticket Messgaes"
+	set category = "Preferences"
+
+	if(!check_rights(R_ADMIN))
+		return
+
+	prefs.toggles ^= CHAT_NO_TICKETLOGS
+	prefs.save_preferences(src)
+	if(prefs.toggles & CHAT_NO_TICKETLOGS)
+		to_chat(usr, "You now won't get admin ticket messages.")
+	else
+		to_chat(usr, "You now will get admin ticket messages.")
 
 /client/proc/toggledrones()
 	set name = "Toggle Maintenance Drones"
