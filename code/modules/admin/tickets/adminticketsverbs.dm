@@ -21,7 +21,6 @@
 
 /client/proc/vvadmintickets()
   set name = "Debug Admin Tickets"
-  set category = "Tickets"
 
   debug_variables(globAdminTicketHolder)
 
@@ -36,10 +35,3 @@
     return
 
   globAdminTicketHolder.showUI()
-
-/client/proc/generateTickets()
-  set name = "Generate Ticket"
-  set category = "Tickets"
-  var/testmsg = pick("REEEEEEE", "HELP ME I'm NOOB!!", "PLEASE ADMIN REVIVE ME", "IS THIS LEGIT?", "some1 killed me 4noraisen", "birdtalon is powergaming again")
-
-  globAdminTicketHolder.newTicket(src, testmsg)

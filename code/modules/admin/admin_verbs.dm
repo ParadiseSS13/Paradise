@@ -222,7 +222,6 @@ var/list/admin_verbs_ticket = list(
 	/client/proc/startadmintickets,
 	/client/proc/vvadmintickets,
 	/client/proc/openTicketUI,
-	/client/proc/generateTickets,
 )
 
 /client/proc/on_holder_add()

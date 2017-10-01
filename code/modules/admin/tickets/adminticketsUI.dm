@@ -8,13 +8,13 @@
   dat +="<a href='?src=[UID()];refresh=1'>Refresh</a><br /><a href='?src=[UID()];showopen=1'>Open Tickets</a><a href='?src=[UID()];showresolved=1'>Resolved Tickets</a><a href='?src=[UID()];showclosed=1'>Closed Tickets</a>"
   if(tab == ADMIN_TICKET_OPEN)
     dat += "<h2>Open Tickets</h2>"
-  dat += "<table class='admintickets'>"
-  dat +="<tr class='admintickets'><th>Control</th><th>Ticket</th><th>Detail</th></tr>"
+  dat += "<table class='adminticket'>"
+  dat +="<tr class='adminticket'><th>Control</th><th>Ticket</th><th>Detail</th></tr>"
   if(tab == ADMIN_TICKET_OPEN)
     for(var/T in allTickets)
       var/datum/admin_ticket/ticket = T
       if(ticket.ticketState == ADMIN_TICKET_OPEN || ticket.ticketState == ADMIN_TICKET_STALE)
-        dat += "<tr class='admintickets'><td><a href='?src=[UID()];resolve=[ticket.ticketNum]'>Resolve</a><a href='?src=[UID()];close=[ticket.ticketNum]'>Close</a></td> <td><b>Ticket #[ticket.ticketNum]: at [ticket.timeOpened]: [ticket.content]</td> <td><a href='?src=[UID()];details=[ticket.ticketNum]'>Details</a></td>"
+        dat += "<tr class='adminticket'><td><a href='?src=[UID()];resolve=[ticket.ticketNum]'>Resolve</a><a href='?src=[UID()];close=[ticket.ticketNum]'>Close</a></td> <td><b>Ticket #[ticket.ticketNum]: at [ticket.timeOpened]: [ticket.content]</td> <td><a href='?src=[UID()];details=[ticket.ticketNum]'>Details</a></td></tr>"
       else
         continue
   else  if(tab == ADMIN_TICKET_RESOLVED)
@@ -22,7 +22,7 @@
     for(var/T in allTickets)
       var/datum/admin_ticket/ticket = T
       if(ticket.ticketState == ADMIN_TICKET_RESOLVED)
-        dat += "<tr><td><a href='?src=[UID()];resolve=[ticket.ticketNum]'>Resolve</a><a href='?src=[UID()];close=[ticket.ticketNum]'>Close</a></td> <td><b>Ticket #[ticket.ticketNum]: at [ticket.timeOpened]: [ticket.content]</td> <td><a href='?src=[UID()];details=[ticket.ticketNum]'>Details</a></td>"
+        dat += "<tr><td><a href='?src=[UID()];resolve=[ticket.ticketNum]'>Resolve</a><a href='?src=[UID()];close=[ticket.ticketNum]'>Close</a></td> <td><b>Ticket #[ticket.ticketNum]: at [ticket.timeOpened]: [ticket.content]</td> <td><a href='?src=[UID()];details=[ticket.ticketNum]'>Details</a></td></tr>"
       else
         continue
   else if(tab == ADMIN_TICKET_CLOSED)
@@ -30,42 +30,12 @@
     for(var/T in allTickets)
       var/datum/admin_ticket/ticket = T
       if(ticket.ticketState == ADMIN_TICKET_CLOSED)
-        dat += "<tr class='admintickets'><td><a href='?src=[UID()];resolve=[ticket.ticketNum]'>Resolve</a><a href='?src=[UID()];close=[ticket.ticketNum]'>Close</a></td> <td><b>Ticket #[ticket.ticketNum]: at [ticket.timeOpened]: [ticket.content]</td> <td><a href='?src=[UID()];details=[ticket.ticketNum]'>Details</a></td>"
+        dat += "<tr class='admintickets'><td><a href='?src=[UID()];resolve=[ticket.ticketNum]'>Resolve</a><a href='?src=[UID()];close=[ticket.ticketNum]'>Close</a></td> <td><b>Ticket #[ticket.ticketNum]: at [ticket.timeOpened]: [ticket.content]</td> <td><a href='?src=[UID()];details=[ticket.ticketNum]'>Details</a></td></tr>"
       else
         continue
 
   dat += "</table>"
 
-/*    return dat
-  else if(tab == ADMIN_TICKET_RESOLVED)
-    dat += "<h2>Resolved Tickets</h2>"
-    dat += "<table class='admintickets'>"
-    dat +="<tr class='admintickets'><th>Control</th><th>Ticket</th><th>Detail</th></tr>"
-
-    for(var/T in allTickets)
-      var/datum/admin_ticket/ticket = T
-      if(ticket.ticketState == ADMIN_TICKET_RESOLVED)
-        dat += "<tr><td><a href='?src=[UID()];resolve=[ticket.ticketNum]'>Resolve</a><a href='?src=[UID()];close=[ticket.ticketNum]'>Close</a></td> <td><b>Ticket #[ticket.ticketNum]: at [ticket.timeOpened]: [ticket.content]</td> <td><a href='?src=[UID()];details=[ticket.ticketNum]'>Details</a></td>"
-      else
-        continue
-
-    dat += "</table>"
-
-
-  else if(tab == ADMIN_TICKET_CLOSED)
-    dat += "<h2>Closed Tickets</h2>"
-    dat += "<table class='admintickets'>"
-    dat +="<tr class='admintickets'><th>Control</th><th>Ticket</th><th>Detail</th></tr>"
-
-    for(var/T in allTickets)
-      var/datum/admin_ticket/ticket = T
-      if(ticket.ticketState == ADMIN_TICKET_CLOSED)
-        dat += "<tr class='admintickets'><td><a href='?src=[UID()];resolve=[ticket.ticketNum]'>Resolve</a><a href='?src=[UID()];close=[ticket.ticketNum]'>Close</a></td> <td><b>Ticket #[ticket.ticketNum]: at [ticket.timeOpened]: [ticket.content]</td> <td><a href='?src=[UID()];details=[ticket.ticketNum]'>Details</a></td>"
-      else
-        continue
-
-    dat += "</table>"
-*/
   return dat
 
 /datum/adminTicketHolder/proc/showUI(var/client/C, var/tab)
@@ -93,7 +63,7 @@
 
   dat += "<b>Last Admin Response:</b> [T.lastAdminResponse] at [T.lastResponseTime]"
 
-  var/datum/browser/popup = new(usr, "adminticketsdetail", "Admin Ticket #[T.ticketNum]", 1200, 600)
+  var/datum/browser/popup = new(usr, "adminticketsdetail", "Admin Ticket #[T.ticketNum]", 800, 600)
   popup.set_content(dat)
   popup.open()
 
@@ -127,14 +97,14 @@
     var/indexNum = text2num(href_list["resolve"])
     globAdminTicketHolder.resolveTicket(indexNum)
     message_admins("<span class='adminticket'>[usr.client] / ([usr]) resolved admin ticket number [indexNum]</span>")
-    showUI(usr, ADMIN_TICKET_RESOLVED)
+    showUI(usr)
     return
 
   if(href_list["close"])
     var/indexNum = text2num(href_list["close"])
     globAdminTicketHolder.closeTicket(indexNum)
     message_admins("<span class='adminticket'>[usr.client] / ([usr]) closed admin ticket number [indexNum]</span>")
-    showUI(usr, ADMIN_TICKET_CLOSED)
+    showUI(usr)
     return
 
   else if(href_list["reopen"])
