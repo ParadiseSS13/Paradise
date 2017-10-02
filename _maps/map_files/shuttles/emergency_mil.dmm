@@ -1,0 +1,105 @@
+"aa" = (/turf/space,/area/space)
+"ab" = (/obj/machinery/light/spot,/turf/space,/area/shuttle/escape)
+"ac" = (/turf/space,/area/shuttle/escape)
+"ad" = (/obj/machinery/porta_turret{check_access = 0; check_arrest = 0; check_weapons = 1; lethal = 1; name = "shuttle turret"},/turf/simulated/floor/plating/airless,/area/shuttle/escape)
+"ae" = (/turf/space,/turf/simulated/shuttle/wall{dir = 2; icon_state = "swallc2"},/area/shuttle/escape)
+"af" = (/turf/simulated/shuttle/wall{icon_state = "swall12"; dir = 2},/area/shuttle/escape)
+"ag" = (/obj/structure/grille,/obj/structure/window/full/shuttle,/turf/simulated/floor/plating,/area/shuttle/escape)
+"ah" = (/turf/space,/turf/simulated/shuttle/wall{dir = 2; icon_state = "swallc1"},/area/shuttle/escape)
+"ai" = (/turf/space,/turf/simulated/shuttle/wall{icon_state = "swall_f6"; dir = 2},/area/shuttle/escape)
+"aj" = (/turf/simulated/shuttle/wall{icon_state = "swallc4"},/area/shuttle/escape)
+"ak" = (/obj/machinery/computer/communications,/obj/machinery/light/spot{tag = "icon-tube1 (NORTH)"; icon_state = "tube1"; dir = 1},/turf/simulated/shuttle/floor,/area/shuttle/escape)
+"al" = (/obj/machinery/computer/crew,/turf/simulated/shuttle/floor,/area/shuttle/escape)
+"am" = (/obj/structure/table,/turf/simulated/shuttle/floor,/area/shuttle/escape)
+"an" = (/obj/machinery/computer/security{network = list("SS13","Telecomms","Research Outpost","Mining Outpost")},/obj/machinery/light/spot{tag = "icon-tube1 (NORTH)"; icon_state = "tube1"; dir = 1},/turf/simulated/shuttle/floor,/area/shuttle/escape)
+"ao" = (/obj/machinery/computer/emergency_shuttle,/turf/simulated/shuttle/floor,/area/shuttle/escape)
+"ap" = (/turf/simulated/shuttle/wall{icon_state = "swallc3"},/area/shuttle/escape)
+"aq" = (/turf/space,/turf/simulated/shuttle/wall{tag = "icon-swall_f10"; icon_state = "swall_f10"; dir = 2},/area/shuttle/escape)
+"ar" = (/turf/simulated/shuttle/wall{icon_state = "swall3"; dir = 2},/area/shuttle/escape)
+"as" = (/obj/machinery/computer/station_alert,/turf/simulated/shuttle/floor,/area/shuttle/escape)
+"at" = (/turf/simulated/shuttle/floor,/area/shuttle/escape)
+"au" = (/obj/structure/stool/bed/chair/comfy/brown{dir = 1},/turf/simulated/shuttle/floor,/area/shuttle/escape)
+"av" = (/obj/structure/stool/bed/chair/comfy/teal{dir = 1},/turf/simulated/shuttle/floor,/area/shuttle/escape)
+"aw" = (/obj/structure/stool/bed/chair/comfy/red{dir = 1},/turf/simulated/shuttle/floor,/area/shuttle/escape)
+"ax" = (/obj/structure/stool/bed/chair/comfy/blue{dir = 1},/turf/simulated/shuttle/floor,/area/shuttle/escape)
+"ay" = (/obj/machinery/computer/robotics,/turf/simulated/shuttle/floor,/area/shuttle/escape)
+"az" = (/obj/structure/stool/bed/chair/comfy/beige{dir = 1},/turf/simulated/shuttle/floor,/area/shuttle/escape)
+"aA" = (/obj/structure/stool/bed/chair/comfy/purp{dir = 1},/turf/simulated/shuttle/floor,/area/shuttle/escape)
+"aB" = (/turf/simulated/shuttle/wall{tag = "icon-swall7"; icon_state = "swall7"; dir = 2},/area/shuttle/escape)
+"aC" = (/turf/simulated/shuttle/wall{icon_state = "swall14"; dir = 2},/area/shuttle/escape)
+"aD" = (/obj/machinery/door/airlock/glass_command{name = "Escape Shuttle Cockpit"; req_access_txt = "19"},/turf/simulated/shuttle/floor,/area/shuttle/escape)
+"aE" = (/turf/simulated/shuttle/wall{icon_state = "swall11"; dir = 2},/area/shuttle/escape)
+"aF" = (/obj/structure/stool/bed/chair,/turf/simulated/shuttle/floor4,/area/shuttle/escape)
+"aG" = (/obj/machinery/status_display{pixel_y = 30},/obj/machinery/light/spot{tag = "icon-tube1 (NORTH)"; icon_state = "tube1"; dir = 1},/obj/structure/stool/bed/chair,/turf/simulated/shuttle/floor4,/area/shuttle/escape)
+"aH" = (/obj/structure/grille,/obj/structure/window/full/shuttle{icon_state = "16"},/turf/simulated/floor/plating,/area/shuttle/escape)
+"aI" = (/turf/simulated/floor/plating,/area/shuttle/escape)
+"aJ" = (/obj/machinery/atmospherics/unary/cryo_cell,/turf/simulated/floor/plasteel{tag = "icon-whiteblue (NORTHWEST)"; icon_state = "whiteblue"; dir = 9},/area/shuttle/escape)
+"aK" = (/obj/machinery/atmospherics/unary/portables_connector,/obj/machinery/portable_atmospherics/canister/oxygen{name = "Canister: \[O2] (CRYO)"},/obj/item/weapon/wrench,/turf/simulated/floor/plasteel{tag = "icon-whiteblue (NORTH)"; icon_state = "whiteblue"; dir = 1},/area/shuttle/escape)
+"aL" = (/obj/machinery/status_display{pixel_y = 30},/obj/machinery/light/spot{tag = "icon-tube1 (NORTH)"; icon_state = "tube1"; dir = 1},/turf/simulated/floor/plasteel{tag = "icon-whiteblue (NORTH)"; icon_state = "whiteblue"; dir = 1},/area/shuttle/escape)
+"aM" = (/obj/machinery/sleeper,/turf/simulated/floor/plasteel{tag = "icon-whiteblue (NORTHEAST)"; icon_state = "whiteblue"; dir = 5},/area/shuttle/escape)
+"aN" = (/obj/structure/closet/walllocker/emerglocker{pixel_x = -28},/turf/simulated/shuttle/floor4,/area/shuttle/escape)
+"aO" = (/turf/simulated/shuttle/floor4,/area/shuttle/escape)
+"aP" = (/obj/structure/grille,/obj/structure/window/full/shuttle{icon_state = "8"},/turf/simulated/floor/plating,/area/shuttle/escape)
+"aQ" = (/obj/machinery/atmospherics/pipe/manifold/hidden{dir = 8},/turf/simulated/floor/plasteel{tag = "icon-whiteblue (WEST)"; icon_state = "whiteblue"; dir = 8},/area/shuttle/escape)
+"aR" = (/obj/machinery/atmospherics/pipe/simple/hidden{dir = 9; icon_state = "intact"},/turf/simulated/floor/plasteel{icon_state = "white"},/area/shuttle/escape)
+"aS" = (/turf/simulated/floor/plasteel{icon_state = "white"},/area/shuttle/escape)
+"aT" = (/obj/machinery/vending/wallmed1{layer = 3.3; name = "Emergency NanoMed"; pixel_x = 28; pixel_y = 0; req_access_txt = "0"},/obj/machinery/sleeper,/turf/simulated/floor/plasteel{dir = 4; icon_state = "whiteblue"; tag = "icon-whitehall (WEST)"},/area/shuttle/escape)
+"aU" = (/obj/machinery/atmospherics/pipe/simple/hidden,/turf/simulated/floor/plasteel{tag = "icon-whiteblue (WEST)"; icon_state = "whiteblue"; dir = 8},/area/shuttle/escape)
+"aV" = (/obj/item/device/radio/intercom{dir = 4; name = "station intercom (General)"; pixel_x = 28},/obj/structure/stool/bed/roller,/turf/simulated/floor/plasteel{dir = 4; icon_state = "whiteblue"; tag = "icon-whitehall (WEST)"},/area/shuttle/escape)
+"aW" = (/obj/machinery/door/airlock/shuttle{aiControlDisabled = 1; hackProof = 1; id_tag = "s_docking_airlock"; name = "Shuttle Hatch"},/turf/simulated/floor/plating,/area/shuttle/escape)
+"aX" = (/obj/structure/stool/bed/chair{dir = 1},/turf/simulated/shuttle/floor4,/area/shuttle/escape)
+"aY" = (/obj/machinery/atmospherics/unary/cold_sink/freezer{dir = 1},/turf/simulated/floor/plasteel{tag = "icon-whiteblue (SOUTHWEST)"; icon_state = "whiteblue"; dir = 10},/area/shuttle/escape)
+"aZ" = (/obj/structure/table,/obj/item/weapon/storage/firstaid/o2{layer = 2.8; pixel_x = 4; pixel_y = 6},/obj/item/weapon/storage/firstaid/regular{pixel_x = 2; pixel_y = 6},/obj/item/weapon/storage/firstaid/regular{pixel_x = -2; pixel_y = 4},/obj/item/weapon/storage/firstaid/fire,/obj/item/weapon/storage/firstaid/regular{pixel_x = 2; pixel_y = 3},/obj/item/weapon/reagent_containers/glass/beaker/cryoxadone{pixel_x = 0; pixel_y = 0},/turf/simulated/floor/plasteel{dir = 2; icon_state = "whiteblue"; tag = "icon-whitehall (WEST)"},/area/shuttle/escape)
+"ba" = (/turf/simulated/floor/plasteel{dir = 2; icon_state = "whiteblue"; tag = "icon-whitehall (WEST)"},/area/shuttle/escape)
+"bb" = (/obj/machinery/light/spot{tag = "icon-tube1 (EAST)"; icon_state = "tube1"; dir = 4},/obj/structure/stool/bed/roller,/turf/simulated/floor/plasteel{tag = "icon-whiteblue (SOUTHEAST)"; icon_state = "whiteblue"; dir = 6},/area/shuttle/escape)
+"bc" = (/obj/machinery/door/airlock/glass_security{name = "Escape Shuttle Cell"; req_access_txt = "2"},/turf/simulated/floor/plating,/area/shuttle/escape)
+"bd" = (/obj/structure/noticeboard,/turf/simulated/shuttle/wall{icon_state = "swall12"; dir = 2},/area/shuttle/escape)
+"be" = (/obj/structure/grille,/obj/structure/window/full/shuttle{icon_state = "15"},/turf/simulated/floor/plating,/area/shuttle/escape)
+"bf" = (/obj/machinery/door/airlock/glass_command{name = "Escape Shuttle Cockpit"; req_access_txt = "19"},/turf/simulated/floor/plating,/area/shuttle/escape)
+"bg" = (/obj/machinery/door/airlock/glass_medical{id_tag = "ShuttleMedbay"; name = "Shuttle Medbay"; req_access_txt = "5"},/turf/simulated/floor/plating,/area/shuttle/escape)
+"bh" = (/obj/docking_port/mobile/emergency{dir = 4; dwidth = 11; height = 13; timid = 1; width = 24},/obj/machinery/door/airlock/shuttle{aiControlDisabled = 1; hackProof = 1; id_tag = "s_docking_airlock"; name = "Shuttle Hatch"},/turf/simulated/shuttle/floor,/area/shuttle/escape)
+"bi" = (/obj/structure/closet/walllocker/emerglocker{pixel_x = 28},/turf/simulated/floor/plating,/area/shuttle/escape)
+"bj" = (/obj/item/device/radio/intercom{dir = 8; name = "station intercom (General)"; pixel_x = -28},/obj/machinery/light/spot{tag = "icon-tube1 (WEST)"; icon_state = "tube1"; dir = 8},/obj/structure/stool/bed/chair{dir = 4},/turf/simulated/floor/plating,/area/shuttle/escape)
+"bk" = (/obj/structure/stool/bed/chair{dir = 8},/turf/simulated/floor/plating,/area/shuttle/escape)
+"bl" = (/obj/structure/stool/bed/chair{dir = 4},/turf/simulated/floor/plating,/area/shuttle/escape)
+"bm" = (/obj/structure/stool/bed/chair{dir = 8},/obj/machinery/light/spot{tag = "icon-tube1 (EAST)"; icon_state = "tube1"; dir = 4},/turf/simulated/floor/plating,/area/shuttle/escape)
+"bn" = (/obj/machinery/light/spot{tag = "icon-tube1 (WEST)"; icon_state = "tube1"; dir = 8},/obj/structure/stool/bed/chair{dir = 4},/turf/simulated/floor/plating,/area/shuttle/escape)
+"bo" = (/obj/machinery/light/spot{tag = "icon-tube1 (EAST)"; icon_state = "tube1"; dir = 4},/obj/structure/stool/bed/chair{dir = 8},/turf/simulated/floor/plating,/area/shuttle/escape)
+"bp" = (/obj/machinery/door/airlock/shuttle{aiControlDisabled = 1; hackProof = 1; id_tag = "s_docking_airlock"; name = "Shuttle Hatch"},/turf/simulated/shuttle/floor,/area/shuttle/escape)
+"bq" = (/obj/machinery/door/airlock/shuttle{aiControlDisabled = 1; hackProof = 1; id_tag = "s_docking_airlock"; name = "Shuttle Hatch"},/turf/simulated/shuttle/floor{icon_state = "floor2"},/area/shuttle/escape)
+"br" = (/mob/living/simple_animal/bot/secbot,/turf/simulated/floor/plating,/area/shuttle/escape)
+"bs" = (/obj/machinery/recharge_station,/turf/simulated/floor/plating,/area/shuttle/escape)
+"bt" = (/turf/space,/turf/simulated/shuttle/wall{icon_state = "swall_f5"; dir = 2},/area/shuttle/escape)
+"bu" = (/obj/structure/window/reinforced{dir = 1},/obj/structure/shuttle/engine/heater,/turf/simulated/floor/plating/airless,/area/shuttle/escape)
+"bv" = (/obj/structure/shuttle/engine/heater,/obj/structure/window/reinforced{dir = 1},/turf/simulated/floor/plating/airless,/area/shuttle/escape)
+"bw" = (/turf/space,/turf/simulated/shuttle/wall{icon_state = "swall_f9"; dir = 2},/area/shuttle/escape)
+"bx" = (/obj/structure/shuttle/engine/propulsion,/turf/space,/area/shuttle/escape)
+"by" = (/turf/simulated/floor/plating/airless,/area/shuttle/escape)
+"bz" = (/obj/machinery/porta_turret{check_access = 0; check_arrest = 0; check_weapons = 1; lethal = 1; name = "shuttle turret"},/obj/machinery/light/spot{tag = "icon-tube1 (NORTH)"; icon_state = "tube1"; dir = 1},/turf/simulated/floor/plating/airless,/area/shuttle/escape)
+
+(1,1,1) = {"
+aaaaaaaaabacacacabaaaaaaaa
+aaabadaeafafagafafahadabaa
+aiafafajakalamanaoapafafaq
+arasatatauavatawaxatatayar
+arazatatatatatatatatataAar
+aBafafafafaCaDaCafafafafaE
+araFaGaFaFaHaIaHaJaKaLaMar
+araNaOaOaOaPaIaPaQaRaSaTar
+araOaOaOaOaPaIaPaUaSaSaVar
+aWaOaOaXaXaPaIaPaYaZbabbag
+aBafbcafbdbebfbeafafbgafaE
+bhaIaIaIaIaIaIaIaIaIaIbiar
+arbjaIbkblaIaIaIbkblaIbmar
+arblaIbkblaIaIaIbkblaIbkar
+arblaIbkblaIaIaIbkblaIbkar
+arblaIbkblaIaIaIbkblaIbkar
+arbnaIbkblaIaIaIbkblaIboar
+bpaIaIaIaIaIaIaIaIaIaIbiar
+agaIaIbkblaIaIaIbkblaIaIag
+bqaIaIbkblaIaIaIbkblaIbrar
+arblaIbkblaIbsaIbkblaIbkar
+arbnaIbkblaIbsaIbkblaIboar
+btaCbubuaCafafafaCbvbvaCbw
+aabtbxbxajbybzbyapbxbxbwaa
+"}

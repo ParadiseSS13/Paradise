@@ -75,6 +75,7 @@
 			/obj/item/weapon/reagent_containers/food/snacks/grown/apple = list("applejuice" = 0),
 			/obj/item/weapon/reagent_containers/food/snacks/grown/grapes = list("grapejuice" = 0),
 			/obj/item/weapon/reagent_containers/food/snacks/grown/grapes/green = list("grapejuice" = 0),
+			/obj/item/weapon/reagent_containers/food/snacks/grown/pineapple = list("pineapplejuice" = 0)
 	)
 
 	var/list/dried_items = list(
@@ -151,7 +152,7 @@
 				return 1
 
 		if (!is_type_in_list(I, blend_items) && !is_type_in_list(I, juice_items))
-				if(user.a_intent == I_HARM)
+				if(user.a_intent == INTENT_HARM)
 						return ..()
 				else
 						to_chat(user, "<span class='warning'>Cannot refine into a reagent!</span>")

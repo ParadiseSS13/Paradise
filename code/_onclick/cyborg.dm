@@ -11,9 +11,9 @@
 		client.click_intercept.InterceptClickOn(src, params, A)
 		return
 
-	if(world.time <= next_click)
+	if(next_click > world.time)
 		return
-	next_click = world.time + 1
+	changeNext_click(1)
 
 
 	var/list/modifiers = params2list(params)
@@ -168,6 +168,12 @@
 
 /obj/machinery/turretid/BorgAltClick() //turret lethal on/off. Forwards to AI code.
 	AIAltClick()
+
+/obj/machinery/ai_slipper/BorgCtrlClick() //Turns liquid dispenser on or off
+	ToggleOn()
+
+/obj/machinery/ai_slipper/BorgAltClick() //Dispenses liquid if on
+	Activate()
 
 /*
 	As with AI, these are not used in click code,

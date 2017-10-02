@@ -525,7 +525,7 @@ var/global/list/datum/stack_recipe/cable_coil_recipes = list(
 
 		if(!S)
 			return
-		if(!(S.status & ORGAN_ROBOT) || user.a_intent != I_HELP || S.open == 2)
+		if(!(S.status & ORGAN_ROBOT) || user.a_intent != INTENT_HELP || S.open == 2)
 			return ..()
 
 		if(S.burn_dam)
@@ -715,7 +715,7 @@ var/global/list/datum/stack_recipe/cable_coil_recipes = list(
 			// cable is pointing at us, we're standing on an open tile
 			// so create a stub pointing at the clicked cable on our tile
 
-			place_turf(T, user, turn(dirn, 180))
+			place_turf(U, user, turn(dirn, 180))
 			return
 
 	// exisiting cable doesn't point at our position, so see if it's a stub

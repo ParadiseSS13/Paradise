@@ -43,7 +43,6 @@
 	flags = CONDUCT
 	force = 15.0
 	sharp = 1
-	edge = 1
 	w_class = WEIGHT_CLASS_NORMAL
 	origin_tech = "materials=1;biotech=1"
 	attack_verb = list("drilled")
@@ -63,7 +62,6 @@
 	flags = CONDUCT
 	force = 10.0
 	sharp = 1
-	edge = 1
 	w_class = WEIGHT_CLASS_TINY
 	throwforce = 5.0
 	throw_speed = 3
@@ -123,7 +121,6 @@
 	flags = CONDUCT
 	force = 15.0
 	sharp = 1
-	edge = 1
 	w_class = WEIGHT_CLASS_NORMAL
 	throwforce = 9.0
 	throw_speed = 3

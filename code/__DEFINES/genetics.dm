@@ -13,7 +13,12 @@
 #define DISABILITY_FLAG_BLIND       16
 #define DISABILITY_FLAG_MUTE        32
 #define DISABILITY_FLAG_COLOURBLIND 64
-
+#define DISABILITY_FLAG_TOURETTES   512
+#define DISABILITY_FLAG_NERVOUS     1024
+#define DISABILITY_FLAG_SWEDISH     2048
+#define DISABILITY_FLAG_SCRAMBLED   4096 // incoherent speech
+#define DISABILITY_FLAG_LISP        8192
+#define DISABILITY_FLAG_DIZZY       16384
 ///////////////////////////////////////
 // MUTATIONS
 ///////////////////////////////////////
@@ -96,8 +101,10 @@
 #define NUTRITION_LEVEL_FED 350
 #define NUTRITION_LEVEL_HUNGRY 250
 #define NUTRITION_LEVEL_STARVING 150
+#define NUTRITION_LEVEL_CURSED 0
 
 //Blood levels
+#define BLOOD_VOLUME_MAXIMUM		2000
 #define BLOOD_VOLUME_NORMAL			560
 #define BLOOD_VOLUME_SAFE			501
 #define BLOOD_VOLUME_OKAY			336
@@ -116,3 +123,20 @@
 
 #define CLONER_FRESH_CLONE "fresh"
 #define CLONER_MATURE_CLONE "mature"
+
+//Species traits.
+
+#define IS_WHITELISTED 	1
+#define LIPS			2
+#define NO_BLOOD		3
+#define NO_BREATHE 		4
+#define NO_DNA			5
+#define NO_SCAN 		6
+#define NO_PAIN 		7
+#define IS_PLANT 		8
+#define CAN_BE_FAT 		9
+#define NO_INTORGANS	10
+#define RADIMMUNE		11
+#define NOGUNS			12
+#define NOTRANSSTING	13
+#define VIRUSIMMUNE		14

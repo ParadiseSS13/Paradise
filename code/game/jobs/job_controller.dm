@@ -10,10 +10,12 @@ var/global/datum/controller/occupations/job_master
 	var/list/occupations = list()
 	var/list/name_occupations = list()	//Dict of all jobs, keys are titles
 	var/list/type_occupations = list()	//Dict of all jobs, keys are types
+	var/list/prioritized_jobs = list() // List of jobs set to priority by HoP/Captain
 	//Players who need jobs
 	var/list/unassigned = list()
 	//Debug info
 	var/list/job_debug = list()
+
 
 /datum/controller/occupations/proc/SetupOccupations(var/list/faction = list("Station"))
 	occupations = list()

@@ -12,7 +12,7 @@
 /datum/surgery/cybernetic_repair/internal
 	name = "Internal Component Manipulation"
 	steps = list(/datum/surgery_step/robotics/external/unscrew_hatch,/datum/surgery_step/robotics/external/open_hatch,/datum/surgery_step/robotics/manipulate_robotic_organs)
-	possible_locs = list("eyes", "chest","head","groin")
+	possible_locs = list("eyes", "chest","head","groin","l_arm","r_arm")
 	requires_organic_bodypart = 0
 
 /datum/surgery/cybernetic_amputation
@@ -55,8 +55,6 @@
 		return 0
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
 	if(affected == null)
-		return 0
-	if(affected.status & ORGAN_DESTROYED)
 		return 0
 	return 1
 
@@ -400,7 +398,7 @@
 
 		var/found_damaged_organ = FALSE
 		for(var/obj/item/organ/internal/I in affected.internal_organs)
-			if(I && I.damage > 0 && I.robotic >= 2)
+			if(I && I.damage && I.robotic >= 2)
 				user.visible_message("[user] starts mending the damage to [target]'s [I.name]'s mechanisms.", \
 				"You start mending the damage to [target]'s [I.name]'s mechanisms.")
 				found_damaged_organ = TRUE
@@ -425,7 +423,7 @@
 		if(!hasorgans(target))
 			return
 		for(var/obj/item/organ/internal/I in affected.internal_organs)
-			if(I && I.damage > 0)
+			if(I && I.damage)
 				if(I.robotic >= 2)
 					user.visible_message("<span class='notice'> [user] repairs [target]'s [I.name] with [tool].</span>", \
 					"<span class='notice'> You repair [target]'s [I.name] with [tool].</span>" )
@@ -443,8 +441,6 @@
 		user.visible_message("<span class='notice'> [user] has reattached [target]'s [I].</span>" , \
 		"<span class='notice'> You have reattached [target]'s [I].</span>")
 
-		if(I && istype(I))
-			I.status &= ~ORGAN_CUT_AWAY
 	else if(current_type == "install")
 		user.visible_message("<span class='notice'> [user] has installed \the [tool] into [target]'s [affected.name].</span>", \
 		"<span class='notice'> You have installed \the [tool] into [target]'s [affected.name].</span>")
@@ -461,7 +457,6 @@
 
 			add_logs(user, target, "surgically removed [I.name] from", addition="INTENT: [uppertext(user.a_intent)]")
 			spread_germs_to_organ(I, user)
-			I.status |= ORGAN_CUT_AWAY
 			var/obj/item/thing = I.remove(target)
 			if(!istype(thing))
 				thing.forceMove(get_turf(target))
@@ -490,7 +485,7 @@
 		"<span class='warning'> Your hand slips, gumming up the mechanisms inside of [target]'s [affected.name] with \the [tool]!</span>")
 
 		target.adjustToxLoss(5)
-		affected.createwound(CUT, 5)
+		affected.take_damage(5)
 
 		for(var/obj/item/organ/internal/I in affected.internal_organs)
 			if(I)
@@ -538,7 +533,7 @@
 
 	add_logs(user, target, "surgically removed [affected.name] from", addition="INTENT: [uppertext(user.a_intent)]")//log it
 
-	var/atom/movable/thing = affected.droplimb(1,DROPLIMB_EDGE)
+	var/atom/movable/thing = affected.droplimb(1,DROPLIMB_SHARP)
 	if(istype(thing,/obj/item))
 		user.put_in_hands(thing)
 

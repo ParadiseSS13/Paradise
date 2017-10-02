@@ -79,6 +79,7 @@ var/list/admin_verbs_admin = list(
 	/client/proc/reset_all_tcs,			/*resets all telecomms scripts*/
 	/client/proc/toggle_mentor_chat,
 	/client/proc/toggle_advanced_interaction, /*toggle admin ability to interact with not only machines, but also atoms such as buttons and doors*/
+	/client/proc/list_ssds,
 )
 var/list/admin_verbs_ban = list(
 	/client/proc/unban_panel,
@@ -229,7 +230,8 @@ var/list/admin_verbs_snpc = list(
 			verbs += /client/proc/togglebuildmodeself
 		if(holder.rights & R_ADMIN)
 			verbs += admin_verbs_admin
-			control_freak = 0
+			spawn(1)
+				control_freak = 0
 		if(holder.rights & R_BAN)
 			verbs += admin_verbs_ban
 		if(holder.rights & R_EVENT)
@@ -345,10 +347,12 @@ var/list/admin_verbs_snpc = list(
 		if(mob.invisibility == INVISIBILITY_OBSERVER)
 			mob.invisibility = initial(mob.invisibility)
 			to_chat(mob, "<span class='danger'>Invisimin off. Invisibility reset.</span>")
+			mob.add_to_all_human_data_huds()
 			//TODO: Make some kind of indication for the badmin that they are currently invisible
 		else
 			mob.invisibility = INVISIBILITY_OBSERVER
 			to_chat(mob, "<span class='notice'>Invisimin on. You are now as invisible as a ghost.</span>")
+			mob.remove_from_all_data_huds()
 
 /client/proc/player_panel()
 	set name = "Player Panel"

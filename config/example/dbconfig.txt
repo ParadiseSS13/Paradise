@@ -5,6 +5,12 @@
 ## Should SQL be enabled? Uncomment to enable.
 #SQL_ENABLED
 
+## Database version.  This value is used if SQL_ENABLED is uncommented
+## This value must be set to the version of the paradise schema in use.
+## If this value does not match, the SQL database will not be loaded and an error will be generated.
+## Roundstart will be delayed.
+DB_VERSION 1
+
 ## Server the MySQL database can be found at.
 # Examples: localhost, 200.135.5.43, www.mysqldb.com, etc.
 ADDRESS localhost

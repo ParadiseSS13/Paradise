@@ -10,7 +10,7 @@
 	config_tag = "vampire"
 	restricted_jobs = list("AI", "Cyborg")
 	protected_jobs = list("Security Officer", "Warden", "Detective", "Head of Security", "Captain", "Blueshield", "Nanotrasen Representative", "Security Pod Pilot", "Magistrate", "Chaplain", "Brig Physician", "Internal Affairs Agent", "Nanotrasen Navy Officer", "Special Operations Officer")
-	protected_species = list("Machine", "Plasmaman")
+	protected_species = list("Machine")
 	required_players = 15
 	required_enemies = 1
 	recommended_enemies = 4
@@ -289,20 +289,20 @@ You are weak to holy things and starlight. Don't go into space and avoid the Cha
 			return
 		old_bloodtotal = bloodtotal
 		old_bloodusable = bloodusable
-		if(!H.vessel.get_reagent_amount("blood"))
+		if(!H.blood_volume)
 			to_chat(owner, "<span class='warning'>They've got no blood left to give.</span>")
 			break
 		if(H.stat < DEAD)
-			blood = min(20, H.vessel.get_reagent_amount("blood"))	// if they have less than 20 blood, give them the remnant else they get 20 blood
+			blood = min(20, H.blood_volume)	// if they have less than 20 blood, give them the remnant else they get 20 blood
 			bloodtotal += blood / 2	//divide by 2 to counted the double suction since removing cloneloss -Melandor0
 			bloodusable += blood / 2
 		else
-			blood = min(5, H.vessel.get_reagent_amount("blood"))	// The dead only give 5 bloods
+			blood = min(5, H.blood_volume)	// The dead only give 5 blood
 			bloodtotal += blood
 		if(old_bloodtotal != bloodtotal)
 			to_chat(owner, "<span class='notice'><b>You have accumulated [bloodtotal] [bloodtotal > 1 ? "units" : "unit"] of blood[bloodusable != old_bloodusable ? ", and have [bloodusable] left to use" : ""].</b></span>")
 		check_vampire_upgrade()
-		H.vessel.remove_reagent("blood", 25)
+		H.blood_volume = max(H.blood_volume - 25, 0)
 		if(ishuman(owner))
 			var/mob/living/carbon/human/V = owner
 			V.nutrition = min(NUTRITION_LEVEL_WELL_FED, V.nutrition + (blood / 2))
@@ -338,8 +338,7 @@ You are weak to holy things and starlight. Don't go into space and avoid the Cha
 		vampire_mind.current.create_attack_log("<span class='danger'>De-vampired</span>")
 		if(vampire_mind.vampire)
 			vampire_mind.vampire.remove_vampire_powers()
-			qdel(vampire_mind.vampire)
-			vampire_mind.vampire = null
+			QDEL_NULL(vampire_mind.vampire)
 		if(issilicon(vampire_mind.current))
 			to_chat(vampire_mind.current, "<span class='userdanger'>You have been turned into a robot! You can feel your powers fading away...</span>")
 		else
@@ -455,6 +454,5 @@ You are weak to holy things and starlight. Don't go into space and avoid the Cha
 		return
 
 	static_inventory -= vampire_blood_display
-	qdel(vampire_blood_display)
-	vampire_blood_display = null
+	QDEL_NULL(vampire_blood_display)
 	show_hud(hud_version)

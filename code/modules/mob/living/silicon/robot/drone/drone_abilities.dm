@@ -44,7 +44,7 @@
 
 //Actual picking-up event.
 /mob/living/silicon/robot/drone/attack_hand(mob/living/carbon/human/M as mob)
-	if(M.a_intent == I_HELP)
+	if(M.a_intent == INTENT_HELP)
 		get_scooped(M)
 
 	..()
@@ -91,6 +91,9 @@
 		H.righthand_file = 'icons/mob/custom_synthetic/custom_righthand.dmi'
 		H.icon_state = "[icon_state]"
 		H.item_state = "[icon_state]_hand"
+	else if(emagged)
+		H.icon_state = "drone-emagged"
+		H.item_state = "drone-emagged"
 	else
 		H.icon_state = "drone"
 		H.item_state = "drone"

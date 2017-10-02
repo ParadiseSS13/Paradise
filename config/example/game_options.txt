@@ -8,17 +8,6 @@ HEALTH_THRESHOLD_DEAD -100
 ## Determines whether bones can be broken through excessive damage to the organ
 ## 0 means bones can't break, 1 means they can
 BONES_CAN_BREAK 1
-## Determines whether limbs can be amputated through excessive damage to the organ
-## 0 means limbs can't be amputated, 1 means they can
-LIMBS_CAN_BREAK 1
-
-## Multiplier which enables organs to take more damage before bones breaking or limbs being destroyed
-## 100 means normal, 50 means half
-ORGAN_HEALTH_MULTIPLIER 100
-
-## Multiplier which influences how fast organs regenerate naturally
-## 100 means normal, 50 means half
-ORGAN_REGENERATION_MULTIPLIER 0
 
 ### REVIVAL ###
 ## Whether pod plants work or not
@@ -48,7 +37,7 @@ ROBOT_DELAY 1.5
 MONKEY_DELAY 1.5
 ALIEN_DELAY 1.5
 SLIME_DELAY 1.5
-ANIMAL_DELAY 1.5
+ANIMAL_DELAY 2.5
 
 ## Comment for "normal" explosions, which ignore obstacles
 ## Uncomment for explosions that react to doors and walls

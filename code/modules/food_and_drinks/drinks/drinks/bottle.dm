@@ -47,7 +47,7 @@
 	if(!target)
 		return
 
-	if(user.a_intent != I_HARM || !isGlass)
+	if(user.a_intent != INTENT_HARM || !isGlass)
 		return ..()
 
 	force = 15 //Smashing bottles over someoen's head hurts.
@@ -136,7 +136,6 @@
 	attack_verb = list("stabbed", "slashed", "attacked")
 	var/icon/broken_outline = icon('icons/obj/drinks.dmi', "broken")
 	sharp = 1
-	edge = 1
 
 /obj/item/weapon/reagent_containers/food/drinks/bottle/gin
 	name = "Griffeater Gin"
@@ -173,6 +172,12 @@
 	desc = "A bottle filled with nothing."
 	icon_state = "bottleofnothing"
 	list_reagents = list("nothing" = 100)
+
+/obj/item/weapon/reagent_containers/food/drinks/bottle/bottleofbanana
+	name = "Jolly Jug"
+	desc = "A jug filled with banana juice."
+	icon_state = "bottleofjolly"
+	list_reagents = list("banana" = 100)
 
 /obj/item/weapon/reagent_containers/food/drinks/bottle/patron
 	name = "Wrapp Artiste Patron"

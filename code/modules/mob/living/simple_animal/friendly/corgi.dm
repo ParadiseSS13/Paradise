@@ -22,12 +22,13 @@
 	see_in_dark = 5
 	childtype = /mob/living/simple_animal/pet/corgi/puppy
 	simplespecies = /mob/living/simple_animal/pet/corgi
+	gold_core_spawnable = CHEM_MOB_SPAWN_FRIENDLY
 	var/shaved = 0
 	var/obj/item/inventory_head
 	var/obj/item/inventory_back
 	var/facehugger
 	var/default_atmos_requirements = 0
-	gold_core_spawnable = CHEM_MOB_SPAWN_FRIENDLY
+	var/last_eaten = 0
 
 /mob/living/simple_animal/pet/corgi/New()
 	..()
@@ -557,8 +558,8 @@
 /mob/living/simple_animal/pet/corgi/attack_hand(mob/living/carbon/human/M)
 	. = ..()
 	switch(M.a_intent)
-		if(I_HELP)	wuv(1,M)
-		if(I_HARM)	wuv(-1,M)
+		if(INTENT_HELP)	wuv(1,M)
+		if(INTENT_HARM)	wuv(-1,M)
 
 /mob/living/simple_animal/pet/corgi/proc/wuv(change, mob/M)
 	if(change)

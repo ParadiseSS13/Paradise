@@ -40,7 +40,7 @@
 	if(!istype(M))
 		return ..()
 
-	if(user.a_intent != I_HELP)
+	if(user.a_intent != INTENT_HELP)
 		if(user.zone_sel.selecting == "head" || user.zone_sel.selecting == "eyes")
 			if((CLUMSY in user.mutations) && prob(50))
 				M = user
@@ -98,9 +98,7 @@
 	throw_range = 6
 	materials = list(MAT_METAL=12000)
 	attack_verb = list("slashed", "stabbed", "sliced", "torn", "ripped", "diced", "cut")
-	no_embed = 1
 	sharp = 1
-	edge = 1
 
 /obj/item/weapon/kitchen/knife/suicide_act(mob/user)
 	user.visible_message(pick("<span class='suicide'>[user] is slitting \his wrists with the [src.name]! It looks like \he's trying to commit suicide.</span>", \
@@ -114,7 +112,6 @@
 	icon_state = "pknife"
 	item_state = "knife"
 	sharp = 0
-	edge = 0
 
 /obj/item/weapon/kitchen/knife/ritual
 	name = "ritual knife"
@@ -150,6 +147,13 @@
 	throwforce = 20
 	origin_tech = "materials=3;combat=4"
 	attack_verb = list("slashed", "stabbed", "sliced", "torn", "ripped", "cut")
+
+/obj/item/weapon/kitchen/knife/combat/cyborg
+	name = "cyborg knife"
+	icon = 'icons/obj/items_cyborg.dmi'
+	icon_state = "knife"
+	desc = "A cyborg-mounted plasteel knife. Extremely sharp and durable."
+	origin_tech = null
 
 /obj/item/weapon/kitchen/knife/carrotshiv
 	name = "carrot shiv"

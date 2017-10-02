@@ -161,10 +161,10 @@
 	)
 	result = /obj/item/weapon/reagent_containers/food/snacks/eggplantparm
 
-/datum/recipe/microwave/soylenviridians
+/datum/recipe/microwave/soylentviridians
 	reagents = list("flour" = 10)
 	items = list(/obj/item/weapon/reagent_containers/food/snacks/grown/soybeans)
-	result = /obj/item/weapon/reagent_containers/food/snacks/soylenviridians
+	result = /obj/item/weapon/reagent_containers/food/snacks/soylentviridians
 
 /datum/recipe/microwave/soylentgreen
 	reagents = list("flour" = 10)
@@ -351,12 +351,12 @@
 				 /obj/item/weapon/reagent_containers/food/snacks/grown/carrot, /obj/item/weapon/reagent_containers/food/snacks/grown/tomato)
 	result = /obj/item/weapon/reagent_containers/food/snacks/stewedsoymeat
 
-/datum/recipe/microwave/boiledspagetti
+/datum/recipe/microwave/boiledspaghetti
 	reagents = list("water" = 5)
 	items = list(
-		/obj/item/weapon/reagent_containers/food/snacks/spagetti,
+		/obj/item/weapon/reagent_containers/food/snacks/spaghetti,
 	)
-	result = /obj/item/weapon/reagent_containers/food/snacks/boiledspagetti
+	result = /obj/item/weapon/reagent_containers/food/snacks/boiledspaghetti
 
 /datum/recipe/microwave/boiledrice
 	reagents = list("water" = 5, "rice" = 10)
@@ -368,7 +368,7 @@
 
 /datum/recipe/microwave/pastatomato
 	reagents = list("water" = 5)
-	items = list(/obj/item/weapon/reagent_containers/food/snacks/spagetti, /obj/item/weapon/reagent_containers/food/snacks/grown/tomato,
+	items = list(/obj/item/weapon/reagent_containers/food/snacks/spaghetti, /obj/item/weapon/reagent_containers/food/snacks/grown/tomato,
 				 /obj/item/weapon/reagent_containers/food/snacks/grown/tomato)
 	result = /obj/item/weapon/reagent_containers/food/snacks/pastatomato
 
@@ -376,19 +376,19 @@
 	items = list(/obj/item/seeds/poppy, /obj/item/weapon/reagent_containers/food/snacks/dough)
 	result = /obj/item/weapon/reagent_containers/food/snacks/poppypretzel
 
-/datum/recipe/microwave/meatballspagetti
+/datum/recipe/microwave/meatballspaggetti
 	reagents = list("water" = 5)
 	items = list(
-		/obj/item/weapon/reagent_containers/food/snacks/spagetti,
+		/obj/item/weapon/reagent_containers/food/snacks/spaghetti,
 		/obj/item/weapon/reagent_containers/food/snacks/meatball,
 		/obj/item/weapon/reagent_containers/food/snacks/meatball,
 	)
-	result = /obj/item/weapon/reagent_containers/food/snacks/meatballspagetti
+	result = /obj/item/weapon/reagent_containers/food/snacks/meatballspaghetti
 
 /datum/recipe/microwave/spesslaw
 	reagents = list("water" = 5)
 	items = list(
-		/obj/item/weapon/reagent_containers/food/snacks/spagetti,
+		/obj/item/weapon/reagent_containers/food/snacks/spaghetti,
 		/obj/item/weapon/reagent_containers/food/snacks/meatball,
 		/obj/item/weapon/reagent_containers/food/snacks/meatball,
 		/obj/item/weapon/reagent_containers/food/snacks/meatball,
@@ -540,6 +540,10 @@ datum/recipe/microwave/slimesandwich
 	var/obj/item/weapon/reagent_containers/food/snacks/validsalad/being_cooked = ..()
 	being_cooked.reagents.del_reagent("toxin")
 	return being_cooked
+
+/datum/recipe/microwave/onionrings
+	items = list(/obj/item/weapon/reagent_containers/food/snacks/onion_slice)
+	result = /obj/item/weapon/reagent_containers/food/snacks/onionrings
 
 ////////////////////////////FOOD ADDITTIONS///////////////////////////////
 

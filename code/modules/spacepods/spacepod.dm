@@ -284,7 +284,7 @@
 		return
 	var/sound/S = sound(mysound)
 	S.wait = 0 //No queue
-	S.channel = 0 //Any channel
+	S.channel = open_sound_channel()
 	S.volume = 50
 	for(var/mob/M in passengers | pilot)
 		M << S
@@ -296,7 +296,7 @@
 		to_chat(M, mymessage)
 
 /obj/spacepod/attackby(obj/item/W as obj, mob/user as mob, params)
-	if(user.a_intent == I_HARM)
+	if(user.a_intent == INTENT_HARM)
 		..()
 		deal_damage(W.force)
 	else
@@ -377,8 +377,7 @@
 				user.visible_message(user, "<span class='warning'>[user] is drilling through the [src]'s lock!</span>",
 					"<span class='notice'>You start drilling through the [src]'s lock!</span>")
 				if(do_after(user, 100 * W.toolspeed, target = src))
-					qdel(equipment_system.lock_system)
-					equipment_system.lock_system = null
+					QDEL_NULL(equipment_system.lock_system)
 					user.visible_message(user, "<span class='warning'>[user] has destroyed the [src]'s lock!</span>",
 						"<span class='notice'>You destroy the [src]'s lock!</span>")
 				else
@@ -408,7 +407,7 @@ obj/spacepod/proc/add_equipment(mob/user, var/obj/item/device/spacepod_equipment
 		cargo_hold.max_combined_w_class += SPE.storage_mod["w_class"]
 
 /obj/spacepod/attack_hand(mob/user as mob)
-	if(user.a_intent == I_GRAB && unlocked)
+	if(user.a_intent == INTENT_GRAB && unlocked)
 		var/mob/target
 		if(pilot)
 			target = pilot

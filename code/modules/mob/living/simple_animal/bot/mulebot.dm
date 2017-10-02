@@ -1,5 +1,3 @@
-//This file was auto-corrected by findeclaration.exe on 25.5.2012 20:42:31
-
 // Mulebot - carries crates around for Quartermaster
 // Navigates via floor navbeacons
 // Remote Controlled from QM's PDA
@@ -18,7 +16,7 @@
 	health = 50
 	maxHealth = 50
 	damage_coeff = list(BRUTE = 0.5, BURN = 0.7, TOX = 0, CLONE = 0, STAMINA = 0, OXY = 0)
-	a_intent = "harm" //No swapping
+	a_intent = INTENT_HARM //No swapping
 	buckle_lying = 0
 	mob_size = MOB_SIZE_LARGE
 	radio_channel = "Supply"
@@ -568,23 +566,6 @@
 
 					mode = BOT_NO_ROUTE
 
-/mob/living/simple_animal/bot/mulebot/Move(turf/simulated/next)
-	var/turf/simulated/last = loc
-
-	if(istype(last) && bloodiness)
-		last.AddTracks(/obj/effect/decal/cleanable/blood/tracks/wheels, currentDNA, 0, get_dir(last, next), currentBloodColor)
-
-	. = ..()
-
-	if(. && istype(next))
-		if(bloodiness)
-			next.AddTracks(/obj/effect/decal/cleanable/blood/tracks/wheels, currentDNA, get_dir(last, next), 0, currentBloodColor)
-			bloodiness--
-
-		for(var/mob/living/carbon/human/H in next)
-			if(H != load)
-				RunOver(H)
-
 // calculates a path to the current destination
 // given an optional turf to avoid
 /mob/living/simple_animal/bot/mulebot/calc_path(turf/avoid = null)
@@ -668,6 +649,30 @@
 
 	return
 
+/mob/living/simple_animal/bot/mulebot/Move(turf/simulated/next)
+	. = ..()
+
+	if(. && istype(next))
+		if(bloodiness)
+			var/obj/effect/decal/cleanable/blood/tracks/B = locate() in next
+			if(!B)
+				B = new /obj/effect/decal/cleanable/blood/tracks(loc)
+			if(blood_DNA && blood_DNA.len)
+				B.blood_DNA |= blood_DNA.Copy()
+			B.basecolor = currentBloodColor
+			var/newdir = get_dir(next, loc)
+			if(newdir == dir)
+				B.setDir(newdir)
+			else
+				newdir = newdir | dir
+				if(newdir == 3)
+					newdir = 1
+				else if(newdir == 12)
+					newdir = 4
+				B.setDir(newdir)
+			B.update_icon()
+			bloodiness--
+
 // called when bot bumps into anything
 /mob/living/simple_animal/bot/mulebot/Bump(atom/obs)
 	if(!wires.MobAvoid())	// usually just bumps, but if avoidance disabled knock over mobs
@@ -697,21 +702,18 @@
 	H.apply_damage(0.5*damage, BRUTE, "l_arm", run_armor_check("l_arm", "melee"))
 	H.apply_damage(0.5*damage, BRUTE, "r_arm", run_armor_check("r_arm", "melee"))
 
-	var/obj/effect/decal/cleanable/blood/B = new(loc)
-	B.blood_DNA = list()
-	B.blood_DNA[H.dna.unique_enzymes] = H.dna.b_type
-	currentDNA = B.blood_DNA
+
+	var/turf/T = get_turf(src)
+	H.add_mob_blood(H)
+	H.add_splatter_floor(T)
 
 	bloodiness += 4
 
-	currentBloodColor = "#A10808"
-	if(istype(H))
-		var/datum/reagent/blood/bld = H.get_blood(H.vessel)
-		if(bld.data["blood_colour"])
-			currentBloodColor = bld.data["blood_colour"]
-			return
-	B.basecolor = currentBloodColor
-	B.update_icon()
+	var/list/blood_dna = H.get_blood_dna_list()
+	if(blood_dna)
+		transfer_blood_dna(blood_dna)
+		currentBloodColor = H.species.blood_color
+		return
 
 /mob/living/simple_animal/bot/mulebot/bot_control_message(command, mob/user, user_turf)
 	switch(command)

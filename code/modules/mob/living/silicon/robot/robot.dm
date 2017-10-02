@@ -193,6 +193,7 @@ var/list/robot_verbs_default = list(
 
 	return 1
 
+
 /mob/living/silicon/robot/proc/get_default_name(var/prefix as text)
 	if(prefix)
 		modtype = prefix
@@ -262,14 +263,18 @@ var/list/robot_verbs_default = list(
 /mob/living/silicon/robot/proc/pick_module()
 	if(module)
 		return
-	var/list/modules = list("Standard", "Engineering", "Medical", "Miner", "Janitor", "Service", "Security")
+	var/list/modules = list("Standard", "Engineering", "Medical", "Miner", "Janitor", "Service")
+	if(!config.forbid_secborg)
+		modules += "Security"
+	if(!config.forbid_peaceborg)
+		modules += "Peacekeeper"
 	if(security_level == (SEC_LEVEL_GAMMA || SEC_LEVEL_EPSILON) || crisis)
 		to_chat(src, "<span class='warning'>Crisis mode active. Combat module available.</span>")
-		modules+="Combat"
+		modules += "Combat"
 	if(ticker && ticker.mode && ticker.mode.name == "nations")
 		var/datum/game_mode/nations/N = ticker.mode
 		if(N.kickoff)
-			modules = list("Peacekeeper")
+			modules = list("Nations")
 	if(mmi != null && mmi.alien)
 		modules = "Hunter"
 	modtype = input("Please, select a module!", "Robot", null, null) as null|anything in modules
@@ -336,6 +341,11 @@ var/list/robot_verbs_default = list(
 			module_sprites["Noble-SEC"] = "Noble-SEC"
 			status_flags &= ~CANPUSH
 
+		if("Peacekeeper")
+			module = new /obj/item/weapon/robot_module/peacekeeper(src)
+			module_sprites["Peacekeeper"] = "peace"
+			status_flags &= ~CANPUSH
+
 		if("Engineering")
 			module = new /obj/item/weapon/robot_module/engineering(src)
 			module.channels = list("Engineering" = 1)
@@ -362,8 +372,8 @@ var/list/robot_verbs_default = list(
 			module.channels = list("Security" = 1)
 			icon_state =  "droidcombat"
 
-		if("Peacekeeper")
-			module = new /obj/item/weapon/robot_module/peacekeeper(src)
+		if("Nations")
+			module = new /obj/item/weapon/robot_module/nations(src)
 			module.channels = list()
 			icon_state = "droidpeace"
 
@@ -381,14 +391,14 @@ var/list/robot_verbs_default = list(
 	module.add_subsystems_and_actions(src)
 
 	//Custom_sprite check and entry
-	if(custom_sprite == 1)
+	if(custom_sprite && check_sprite("[ckey]-[modtype]"))
 		module_sprites["Custom"] = "[src.ckey]-[modtype]"
 
 	hands.icon_state = lowertext(module.module_type)
 	feedback_inc("cyborg_[lowertext(modtype)]",1)
 	rename_character(real_name, get_default_name())
 
-	if(modtype == "Medical" || modtype == "Security" || modtype == "Combat" || modtype == "Peacekeeper")
+	if(modtype == "Medical" || modtype == "Security" || modtype == "Combat" || modtype == "Peacekeeper" || modtype == "Nations")
 		status_flags &= ~CANPUSH
 
 	choose_icon(6,module_sprites)
@@ -575,7 +585,7 @@ var/list/robot_verbs_default = list(
 
 				return
 
-	if(istype(W, /obj/item/weapon/weldingtool) && user.a_intent == I_HELP)
+	if(istype(W, /obj/item/weapon/weldingtool) && user.a_intent == INTENT_HELP)
 		if(W == module_active)
 			return
 		if(!getBruteLoss())
@@ -594,7 +604,7 @@ var/list/robot_verbs_default = list(
 			return
 
 
-	else if(istype(W, /obj/item/stack/cable_coil) && user.a_intent == I_HELP && (wiresexposed || istype(src,/mob/living/silicon/robot/drone)))
+	else if(istype(W, /obj/item/stack/cable_coil) && user.a_intent == INTENT_HELP && (wiresexposed || istype(src,/mob/living/silicon/robot/drone)))
 		if(!getFireLoss())
 			to_chat(user, "<span class='notice'>Nothing to fix!</span>")
 			return
@@ -818,15 +828,15 @@ var/list/robot_verbs_default = list(
 
 	switch(M.a_intent)
 
-		if(I_HELP)
+		if(INTENT_HELP)
 			for(var/mob/O in viewers(src, null))
 				if((O.client && !( O.blinded )))
 					O.show_message(text("<span class='notice'>[M] caresses [src]'s plating with its scythe like arm.</span>"), 1)
 
-		if(I_GRAB)
+		if(INTENT_GRAB)
 			grabbedby(M)
 
-		if(I_HARM)
+		if(INTENT_HARM)
 			M.do_attack_animation(src)
 			var/damage = rand(10, 20)
 			if(prob(90))
@@ -842,7 +852,7 @@ var/list/robot_verbs_default = list(
 				visible_message("<span class='danger'>[M] took a swipe at [src]!</span>", \
 								"<span class='userdanger'>[M] took a swipe at [src]!</span>")
 
-		if(I_DISARM)
+		if(INTENT_DISARM)
 			if(!(lying))
 				M.do_attack_animation(src)
 				if(prob(85))
@@ -923,7 +933,7 @@ var/list/robot_verbs_default = list(
 			diag_hud_set_borgcell()
 
 	if(!opened && (!istype(user, /mob/living/silicon)))
-		if(user.a_intent == I_HELP)
+		if(user.a_intent == INTENT_HELP)
 			user.visible_message("<span class='notice'>[user] pets [src]!</span>", \
 								"<span class='notice'>You pet [src]!</span>")
 
@@ -958,7 +968,7 @@ var/list/robot_verbs_default = list(
 		else
 			overlays += "[panelprefix]-openpanel -c"
 
-	var/combat = list("Combat","Peacekeeper")
+	var/combat = list("Combat","Nations")
 	if(modtype in combat)
 		if(base_icon == "")
 			base_icon = icon_state
@@ -1205,13 +1215,11 @@ var/list/robot_verbs_default = list(
 	canmove = 1
 	scrambledcodes = 1
 	//Disconnect it's camera so it's not so easily tracked.
-	if(src.camera)
-		qdel(src.camera)
-		src.camera = null
-		// I'm trying to get the Cyborg to not be listed in the camera list
-		// Instead of being listed as "deactivated". The downside is that I'm going
-		// to have to check if every camera is null or not before doing anything, to prevent runtime errors.
-		// I could change the network to null but I don't know what would happen, and it seems too hacky for me.
+	QDEL_NULL(src.camera)
+	// I'm trying to get the Cyborg to not be listed in the camera list
+	// Instead of being listed as "deactivated". The downside is that I'm going
+	// to have to check if every camera is null or not before doing anything, to prevent runtime errors.
+	// I could change the network to null but I don't know what would happen, and it seems too hacky for me.
 
 /mob/living/silicon/robot/proc/ResetSecurityCodes()
 	set category = "Robot Commands"
@@ -1439,15 +1447,15 @@ var/list/robot_verbs_default = list(
 	radio.config(module.channels)
 	notify_ai(2)
 
-/mob/living/silicon/robot/peacekeeper
+/mob/living/silicon/robot/nations
 	base_icon = "droidpeace"
 	icon_state = "droidpeace"
-	modtype = "Peacekeeper"
-	designation = "Peacekeeper"
+	modtype = "Nations"
+	designation = "Nations"
 
-/mob/living/silicon/robot/peacekeeper/init()
+/mob/living/silicon/robot/nations/init()
 	..()
-	module = new /obj/item/weapon/robot_module/peacekeeper(src)
+	module = new /obj/item/weapon/robot_module/nations(src)
 	//languages
 	module.add_languages(src)
 	//subsystems
@@ -1476,3 +1484,10 @@ var/list/robot_verbs_default = list(
 		borked_part.wrapped = new borked_part.external_type
 		borked_part.heal_damage(brute,burn)
 		borked_part.install()
+
+/mob/living/silicon/robot/proc/check_sprite(spritename)
+	. = FALSE
+
+	var/static/all_borg_icon_states = icon_states('icons/mob/custom_synthetic/custom-synthetic.dmi')
+	if(spritename in all_borg_icon_states)
+		. = TRUE

@@ -167,13 +167,11 @@ var/ert_request_answered = 0
 	var/eye_c = pick("#000000","#8B4513","1E90FF") // Black, brown, blue
 	var/skin_tone = pick(-50, -30, -10, 0, 0, 0, 10) // Caucasian/black
 
-	head_organ.r_facial = color2R(hair_c)
-	head_organ.g_facial = color2G(hair_c)
-	head_organ.b_facial = color2B(hair_c)
-	head_organ.r_hair = color2R(hair_c)
-	head_organ.g_hair = color2G(hair_c)
-	head_organ.b_hair = color2B(hair_c)
-	M.change_eye_color(color2R(eye_c), color2G(eye_c), color2B(eye_c))
+	head_organ.facial_colour = hair_c
+	head_organ.sec_facial_colour = hair_c
+	head_organ.hair_colour = hair_c
+	head_organ.sec_hair_colour = hair_c
+	M.change_eye_color(eye_c)
 	M.s_tone = skin_tone
 	head_organ.h_style = random_hair_style(M.gender, head_organ.species.name)
 	head_organ.f_style = random_facial_hair_style(M.gender, head_organ.species.name)
@@ -387,12 +385,13 @@ var/ert_request_answered = 0
 		/obj/item/clothing/head/helmet/space/hardsuit/ert/commander = 1,
 		/obj/item/clothing/mask/gas/sechailer/swat = 1,
 		/obj/item/weapon/restraints/handcuffs = 1,
+		/obj/item/clothing/shoes/magboots = 1,
 		/obj/item/weapon/storage/lockbox/mindshield = 1
 	)
 
 /datum/outfit/job/centcom/response_team/commander/gamma
 	name = "RT Commander (Gamma)"
-	shoes = /obj/item/clothing/shoes/combat/swat
+	shoes = /obj/item/clothing/shoes/magboots/advance
 	gloves = /obj/item/clothing/gloves/combat
 	suit = /obj/item/clothing/suit/space/hardsuit/ert/commander
 	glasses = /obj/item/clothing/glasses/hud/security/night
@@ -457,6 +456,7 @@ var/ert_request_answered = 0
 	backpack_contents = list(
 		/obj/item/clothing/head/helmet/space/hardsuit/ert/security = 1,
 		/obj/item/clothing/mask/gas/sechailer = 1,
+		/obj/item/clothing/shoes/magboots = 1,
 		/obj/item/weapon/storage/box/handcuffs = 1,
 		/obj/item/weapon/gun/energy/ionrifle/carbine = 1
 	)
@@ -464,7 +464,7 @@ var/ert_request_answered = 0
 /datum/outfit/job/centcom/response_team/security/gamma
 	name = "RT Security (Gamma)"
 	has_grenades = TRUE
-	shoes = /obj/item/clothing/shoes/combat/swat
+	shoes = /obj/item/clothing/shoes/magboots/advance
 	gloves = /obj/item/clothing/gloves/combat
 	suit = /obj/item/clothing/suit/space/hardsuit/ert/security
 	suit_store = /obj/item/weapon/gun/energy/gun/nuclear
@@ -509,7 +509,7 @@ var/ert_request_answered = 0
 
 /datum/outfit/job/centcom/response_team/engineer/red
 	name = "RT Engineer (Red)"
-	shoes = /obj/item/clothing/shoes/magboots
+	shoes = /obj/item/clothing/shoes/magboots/advance
 	gloves = /obj/item/clothing/gloves/color/yellow
 	suit = /obj/item/clothing/suit/space/hardsuit/ert/engineer
 	suit_store = /obj/item/weapon/tank/emergency_oxygen/engi
@@ -594,12 +594,13 @@ var/ert_request_answered = 0
 		/obj/item/weapon/storage/firstaid/toxin = 1,
 		/obj/item/weapon/storage/firstaid/adv = 1,
 		/obj/item/weapon/storage/firstaid/surgery = 1,
-		/obj/item/weapon/gun/energy/gun = 1
+		/obj/item/weapon/gun/energy/gun = 1,
+		/obj/item/clothing/shoes/magboots = 1
 	)
 
 /datum/outfit/job/centcom/response_team/medic/gamma
 	name = "RT Medic (Gamma)"
-	shoes = /obj/item/clothing/shoes/combat/swat
+	shoes = /obj/item/clothing/shoes/magboots/advance
 	gloves = /obj/item/clothing/gloves/combat
 	suit = /obj/item/clothing/suit/space/hardsuit/ert/medical
 	glasses = /obj/item/clothing/glasses/hud/health/night

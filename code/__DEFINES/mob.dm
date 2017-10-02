@@ -1,20 +1,14 @@
 ///////////////////ORGAN DEFINES///////////////////
 
 // Organ defines.
-#define ORGAN_CUT_AWAY   1
-#define ORGAN_GAUZED     2
-#define ORGAN_ATTACHABLE 4
-#define ORGAN_BLEEDING   8
-#define ORGAN_BROKEN     32
-#define ORGAN_DESTROYED  64
-#define ORGAN_ROBOT      128
-#define ORGAN_SPLINTED   256
-#define SALVED           512
-#define ORGAN_DEAD       1024
-#define ORGAN_MUTATED    2048
-#define ORGAN_ASSISTED   4096
+#define ORGAN_BROKEN     1
+#define ORGAN_ROBOT      2
+#define ORGAN_SPLINTED   4
+#define ORGAN_DEAD       8
+#define ORGAN_MUTATED    16
+#define ORGAN_ASSISTED   32
 
-#define DROPLIMB_EDGE 0
+#define DROPLIMB_SHARP 0
 #define DROPLIMB_BLUNT 1
 #define DROPLIMB_BURN 2
 
@@ -67,6 +61,12 @@
 // Factor of how fast mob nutrition decreases
 #define	HUNGER_FACTOR 0.1
 
+// Taste sensitivity - the more the more reagents you'll taste
+#define TASTE_SENSITIVITY_NORMAL 1
+#define TASTE_SENSITIVITY_SHARP 1.5
+#define TASTE_SENSITIVITY_DULL 0.75
+#define TASTE_SENSITIVITY_NO_TASTE 0
+
 // Reagent type flags, defines the types of mobs this reagent will affect
 #define ORGANIC 1
 #define SYNTHETIC 2
@@ -92,10 +92,14 @@
 #define APPEARANCE_ALL 32767
 
 // Intents
-#define I_HELP		"help"
-#define I_DISARM	"disarm"
-#define I_GRAB		"grab"
-#define I_HARM		"harm"
+#define INTENT_HELP		"help"
+#define INTENT_DISARM	"disarm"
+#define INTENT_GRAB		"grab"
+#define INTENT_HARM		"harm"
+
+// Movement Intents
+#define MOVE_INTENT_WALK "walk"
+#define MOVE_INTENT_RUN  "run"
 
 // AI wire/radio settings
 #define AI_CHECK_WIRELESS 1

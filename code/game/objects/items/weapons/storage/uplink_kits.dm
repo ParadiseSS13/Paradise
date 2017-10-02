@@ -157,6 +157,22 @@
 	new /obj/item/weapon/grenade/empgrenade(src)
 	new /obj/item/weapon/implanter/emp/(src)
 
+/obj/item/weapon/storage/box/syndie_kit/throwing_weapons
+	name = "boxed throwing kit"
+	can_hold = list(/obj/item/weapon/throwing_star, /obj/item/weapon/restraints/legcuffs/bola/tactical)
+	max_combined_w_class = 16
+	max_w_class = WEIGHT_CLASS_NORMAL
+
+/obj/item/weapon/storage/box/syndie_kit/throwing_weapons/New()
+	..()
+	new /obj/item/weapon/throwing_star(src)
+	new /obj/item/weapon/throwing_star(src)
+	new /obj/item/weapon/throwing_star(src)
+	new /obj/item/weapon/throwing_star(src)
+	new /obj/item/weapon/throwing_star(src)
+	new /obj/item/weapon/restraints/legcuffs/bola/tactical(src)
+	new /obj/item/weapon/restraints/legcuffs/bola/tactical(src)
+
 /obj/item/weapon/storage/box/syndie_kit/sarin
 	name = "Sarin Gas Grenades"
 
@@ -216,3 +232,13 @@
 		B.deity_name = "Success"
 		B.icon_state = "greentext"
 		B.item_state = "greentext"
+
+
+/obj/item/weapon/storage/box/syndie_kit/cutouts
+	name = "Fortified Artistic Box"
+
+/obj/item/weapon/storage/box/syndie_kit/cutouts/New()
+	..()
+	for(var/i in 1 to 3)
+		new/obj/item/cardboard_cutout/adaptive(src)
+	new/obj/item/toy/crayon/spraycan(src)

@@ -27,9 +27,9 @@
 		client.click_intercept.InterceptClickOn(src, params, A)
 		return
 
-	if(world.time <= next_click)
+	if(next_click > world.time)
 		return
-	next_click = world.time + 1
+	changeNext_click(1)
 
 	if(control_disabled || stat)
 		return
@@ -199,6 +199,11 @@
 		Topic(src, list("src" = UID(), "command"="lights", "activate" = "0"), 1)
 	return
 
+/obj/machinery/ai_slipper/AICtrlClick() //Turns liquid dispenser on or off
+	ToggleOn()
+
+/obj/machinery/ai_slipper/AIAltClick() //Dispenses liquid if on
+	Activate()
 
 //
 // Override AdjacentQuick for AltClicking

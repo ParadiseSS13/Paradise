@@ -10,9 +10,7 @@ var/global/default_martial_art = new/datum/martial_art
 	var/s_tone = 0	//Skin tone
 
 	//Skin colour
-	var/r_skin = 0
-	var/g_skin = 0
-	var/b_skin = 0
+	var/skin_colour = "#000000"
 
 	var/lip_style = null	//no lipstick by default- arguably misleading, as it could be used for general makeup
 	var/lip_color = "white"
@@ -52,9 +50,6 @@ var/global/default_martial_art = new/datum/martial_art
 
 	var/special_voice = "" // For changing our voice. Used by a symptom.
 
-	var/last_dam = -1	//Used for determining if we need to process all organs or just some or even none.
-	var/list/bad_external_organs = list()// organs we check until they are good.
-
 	var/hand_blood_color
 
 	var/name_override //For temporary visible name changes
@@ -65,8 +60,12 @@ var/global/default_martial_art = new/datum/martial_art
 	var/meatleft = 3 //For chef item
 	var/decaylevel = 0 // For rotting bodies
 	var/max_blood = BLOOD_VOLUME_NORMAL // For stuff in the vessel
+	var/bleed_rate = 0
+	var/bleedsuppress = 0 //for stopping bloodloss
 
 	var/check_mutations=0 // Check mutations on next life tick
+
+	var/heartbeat = 0
 
 	var/fire_dmi = 'icons/mob/OnFire.dmi'
 	var/fire_sprite = "Standing"

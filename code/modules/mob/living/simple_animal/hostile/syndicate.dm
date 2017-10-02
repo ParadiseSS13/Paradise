@@ -18,13 +18,14 @@
 	melee_damage_upper = 10
 	attacktext = "punches"
 	attack_sound = 'sound/weapons/punch1.ogg'
-	a_intent = I_HARM
+	a_intent = INTENT_HARM
 	unsuitable_atmos_damage = 15
 	faction = list("syndicate")
 	check_friendly_fire = 1
 	status_flags = CANPUSH
 	loot = list(/obj/effect/landmark/mobcorpse/syndicatesoldier)
 	del_on_death = 1
+	sentience_type = SENTIENCE_OTHER
 
 ///////////////Sword and shield////////////
 

@@ -283,7 +283,7 @@
 /obj/item/toy/snappop/Crossed(H as mob|obj)
 	if(ishuman(H) || issilicon(H)) //i guess carp and shit shouldn't set them off
 		var/mob/living/carbon/M = H
-		if(issilicon(H) || M.m_intent == "run")
+		if(issilicon(H) || M.m_intent == MOVE_INTENT_RUN)
 			to_chat(M, "<span class='danger'>You step on the snap pop!</span>")
 			pop_burst(2, 0)
 
@@ -1276,7 +1276,7 @@ obj/item/toy/cards/deck/syndicate/black
 
 /obj/item/toy/minigibber
 	name = "miniature gibber"
-	desc = "A miniature recreation of NanoTrasen's famous meat grinder."
+	desc = "A miniature recreation of Nanotrasen's famous meat grinder."
 	icon = 'icons/obj/toy.dmi'
 	icon_state = "minigibber"
 	attack_verb = list("grinded", "gibbed")
@@ -1288,8 +1288,7 @@ obj/item/toy/cards/deck/syndicate/black
 
 	if(stored_minature)
 		to_chat(user, "<span class='danger'>\The [src] makes a violent grinding noise as it tears apart the miniature figure inside!</span>")
-		qdel(stored_minature)
-		stored_minature = null
+		QDEL_NULL(stored_minature)
 		playsound(user, 'sound/goonstation/effects/gib.ogg', 20, 1)
 		cooldown = world.time
 
@@ -1398,7 +1397,7 @@ obj/item/toy/cards/deck/syndicate/black
 			is_empty = 1
 			playsound(src, 'sound/weapons/Gunshot.ogg', 50, 1)
 			user.visible_message("<span class='danger'>The [src] goes off!</span>")
-			M.apply_damage(200, BRUTE, "head", sharp =1, used_weapon = "Self-inflicted gunshot would to the head.")
+			M.apply_damage(200, BRUTE, "head", sharp =1, used_weapon = "Self-inflicted gunshot wound to the head.")
 			M.death()
 	else
 		user.visible_message("<span class='danger'>[user] lowers the [src] from their head.</span>")

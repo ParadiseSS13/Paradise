@@ -53,8 +53,6 @@
 	var/lastpuke = 0
 	var/unacidable = 0
 	var/can_strip = 1
-	var/list/pinned = list()            //List of things pinning this creature to walls (see living_defense.dm)
-	var/list/embedded = list()          //Embedded items, since simple mobs don't have organs.
 	var/list/languages = list()         // For speaking/listening.
 	var/list/abilities = list()         // For species-derived or admin-given powers.
 	var/list/speak_emote = list("says") // Verbs used when speaking. Defaults to 'say' if speak_emote is null.
@@ -75,8 +73,8 @@
 	var/overeatduration = 0		// How long this guy is overeating //Carbon
 	var/intent = null//Living
 	var/shakecamera = 0
-	var/a_intent = I_HELP//Living
-	var/m_intent = "run"//Living
+	var/a_intent = INTENT_HELP//Living
+	var/m_intent = MOVE_INTENT_RUN//Living
 	var/lastKnownIP = null
 	var/atom/movable/buckled = null//Living
 	var/obj/item/l_hand = null//Living
@@ -122,6 +120,7 @@
 
 	var/has_enabled_antagHUD = 0
 	var/antagHUD = 0
+	var/can_change_intents = 1 //all mobs can change intents by default.
 
 //Generic list for proc holders. Only way I can see to enable certain verbs/procs. Should be modified if needed.
 	var/proc_holder_list[] = list()
@@ -146,7 +145,7 @@
 
 //List of active diseases
 
-	var/list/viruses = list() // replaces var/datum/disease/virus
+	var/list/viruses = list() // list of all diseases in a mob
 	var/list/resistances = list()
 
 	mouse_drag_pointer = MOUSE_ACTIVE_POINTER
@@ -189,6 +188,8 @@
 
 	var/last_movement = -100 // Last world.time the mob actually moved of its own accord.
 
+	var/last_logout = 0
+
 	var/resize = 1 //Badminnery resize
 
 	var/datum/vision_override/vision_type = null //Vision override datum.
@@ -196,5 +197,7 @@
 	var/list/permanent_huds = list()
 
 	var/list/actions = list()
-	
+
 	var/list/progressbars = null	//for stacking do_after bars
+
+	var/list/tkgrabbed_objects = list() // Assoc list of items to TK grabs

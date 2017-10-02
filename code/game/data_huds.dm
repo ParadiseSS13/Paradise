@@ -63,7 +63,8 @@
 
 //called when a carbon changes virus
 /mob/living/carbon/proc/check_virus()
-	for(var/datum/disease/D in viruses)
+	for(var/thing in viruses)
+		var/datum/disease/D = thing
 		if((!(D.visibility_flags & HIDDEN_SCANNER)) && (D.severity != NONTHREAT))
 			return 1
 	return 0
@@ -147,7 +148,7 @@
 		holder.icon_state = "hudxeno"
 	else if(check_virus())
 		holder.icon_state = "hudill"
-	else if(has_brain_worms() && B != null && B.controlling)
+	else if(B && B.controlling)
 		holder.icon_state = "hudbrainworm"
 	else
 		holder.icon_state = "hudhealthy"
@@ -190,7 +191,7 @@
 
 /mob/living/carbon/human/proc/sec_hud_set_security_status()
 	var/image/holder = hud_list[WANTED_HUD]
-	var/perpname = get_face_name(get_id_name(""))
+	var/perpname = get_visible_name(TRUE) //gets the name of the perp, works if they have an id or if their face is uncovered
 	if(!ticker) return //wait till the game starts or the monkeys runtime....
 	if(perpname)
 		var/datum/data/record/R = find_record("name", perpname, data_core.security)

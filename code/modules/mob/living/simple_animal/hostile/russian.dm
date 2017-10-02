@@ -18,14 +18,14 @@
 	melee_damage_upper = 15
 	attacktext = "punches"
 	attack_sound = 'sound/weapons/punch1.ogg'
-	a_intent = I_HARM
+	a_intent = INTENT_HARM
 	unsuitable_atmos_damage = 15
 	faction = list("russian")
 	status_flags = CANPUSH
 	loot = list(/obj/effect/landmark/mobcorpse/russian,
 			/obj/item/weapon/kitchen/knife)
 	del_on_death = 1
-
+	sentience_type = SENTIENCE_OTHER
 
 /mob/living/simple_animal/hostile/russian/ranged
 	icon_state = "russianranged"
