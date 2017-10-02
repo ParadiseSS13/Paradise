@@ -1,0 +1,4 @@
+author: "Imsxz"
+delete-after: True
+changes: 
+  - bugfix: "Rapid re-hatch no longer kills shadowlings."
