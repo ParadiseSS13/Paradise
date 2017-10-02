@@ -28,9 +28,9 @@ var/global/datum/adminTicketHolder/globAdminTicketHolder = new /datum/adminTicke
 
 //Return the ticket counter and increment
 /datum/adminTicketHolder/proc/getTicketCounterAndInc()
-  var/C = ticketCounter
+  . = ticketCounter
   ticketCounter++
-  return C
+  return
 
 //Set the ticket counter to a value
 /datum/adminTicketHolder/proc/setTicketCounter(var/N as num)
@@ -39,12 +39,12 @@ var/global/datum/adminTicketHolder/globAdminTicketHolder = new /datum/adminTicke
 /datum/adminTicketHolder/proc/purgeAllTickets() // Delete ALL tickets
   QDEL_LIST(allTickets)
   message_adminTicket("<span class='adminticket'>[usr.client] purged all admin tickets!</span>")
-  ticketCounter = 1
+  setTicketCounter(1)
 
 /datum/adminTicketHolder/proc/closeAllOpenTickets() // Close all open tickets
   for(var/i in allTickets)
     var/datum/admin_ticket/T = i
-    T.ticketState = ADMIN_TICKET_CLOSED
+    closeTicket(T.ticketNum)
 
 //Open a new ticket and populate details then add to the list of open tickets
 /datum/adminTicketHolder/proc/newTicket(var/client/C, var/passedContent)
@@ -115,6 +115,10 @@ var/global/datum/adminTicketHolder/globAdminTicketHolder = new /datum/adminTicke
   var/datum/admin_ticket/T = globAdminTicketHolder.allTickets[N]
   return T.clientName
 
+/datum/adminTicketHolder/proc/assignAdminToTicket(var/client/C, var/N as num)
+  var/datum/admin_ticket/T = globAdminTicketHolder.allTickets[N]
+  T.assignAdmin(C)
+
 //Single admin ticket
 
 /datum/admin_ticket
@@ -129,11 +133,12 @@ var/global/datum/adminTicketHolder/globAdminTicketHolder = new /datum/adminTicke
   var/ticketState // State of the ticket, open, closed, resolved etc
   var/timeUntilStale // When the ticket goes stale
   var/ticketCooldown // Cooldown before allowing the user to open another ticket.
+  var/adminAssigned // Admin who has assigned themselves to this ticket
 
 /datum/admin_ticket/proc/beginStaleCount()
   if(!src)
     return
-  while(world.time < timeUntilStale && !lastAdminResponse)
+  while(world.time < timeUntilStale && !lastAdminResponse && !adminAssigned)
     sleep(200)
     if(ticketState == ADMIN_TICKET_OPEN && world.time > timeUntilStale)
       message_adminTicket("<span class='adminticket'>Ticket #[ticketNum] has been open for [ADMIN_TICKET_TIMEOUT * 0.1] seconds. Changing status to stale.</span>")
@@ -157,3 +162,8 @@ var/global/datum/adminTicketHolder/globAdminTicketHolder = new /datum/adminTicke
       return "<font color='red'>CLOSED</font>"
     if(ADMIN_TICKET_STALE)
       return "<font color='orange'>STALE</font>"
+
+/datum/admin_ticket/proc/assignAdmin(var/client/C)
+  if(!C)
+    return
+  adminAssigned = C

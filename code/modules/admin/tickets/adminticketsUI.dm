@@ -3,38 +3,43 @@
   set category = "Tickets"
 
 //dat
-  var/dat = "<h1>Admin Tickets</h1>"
+  var/trStyle = "border:3px solid;"
+  var/tdStyle = "border:2px solid"
+  var/datum/admin_ticket/ticket
+  var/dat
+  dat += "<head><style>.adminticket{border:2px solid}</style></head>"
+  dat += "<body><h1>Admin Tickets</h1>"
 
   dat +="<a href='?src=[UID()];refresh=1'>Refresh</a><br /><a href='?src=[UID()];showopen=1'>Open Tickets</a><a href='?src=[UID()];showresolved=1'>Resolved Tickets</a><a href='?src=[UID()];showclosed=1'>Closed Tickets</a>"
   if(tab == ADMIN_TICKET_OPEN)
     dat += "<h2>Open Tickets</h2>"
-  dat += "<table class='adminticket'>"
-  dat +="<tr class='adminticket'><th>Control</th><th>Ticket</th><th>Detail</th></tr>"
+  dat += "<table style='width:1100px; border: 3px solid;''>"
+  dat +="<tr style='border-top:2px solid; border-below: 2px solid; padding-top: 5px; padding-bottom: 5px;'><th>Control</th><th>Ticket</th><th>Detail</th></tr>"
   if(tab == ADMIN_TICKET_OPEN)
     for(var/T in allTickets)
-      var/datum/admin_ticket/ticket = T
+      ticket = T
       if(ticket.ticketState == ADMIN_TICKET_OPEN || ticket.ticketState == ADMIN_TICKET_STALE)
-        dat += "<tr class='adminticket'><td><a href='?src=[UID()];resolve=[ticket.ticketNum]'>Resolve</a><a href='?src=[UID()];close=[ticket.ticketNum]'>Close</a></td> <td><b>Ticket #[ticket.ticketNum]: at [ticket.timeOpened]: [ticket.content]</td> <td><a href='?src=[UID()];details=[ticket.ticketNum]'>Details</a></td></tr>"
+        dat += "<tr style='[trStyle]'><td style ='[tdStyle]'><a href='?src=[UID()];resolve=[ticket.ticketNum]'>Resolve</a></td> <td style='border:2px solid'><b>#[ticket.ticketNum]: ([ticket.timeOpened]): [ticket.content]</td> <td style ='[tdStyle]'><a href='?src=[UID()];details=[ticket.ticketNum]'>Details</a></td></tr>"
       else
         continue
   else  if(tab == ADMIN_TICKET_RESOLVED)
     dat += "<h2>Resolved Tickets</h2>"
     for(var/T in allTickets)
-      var/datum/admin_ticket/ticket = T
+      ticket = T
       if(ticket.ticketState == ADMIN_TICKET_RESOLVED)
-        dat += "<tr><td><a href='?src=[UID()];resolve=[ticket.ticketNum]'>Resolve</a><a href='?src=[UID()];close=[ticket.ticketNum]'>Close</a></td> <td><b>Ticket #[ticket.ticketNum]: at [ticket.timeOpened]: [ticket.content]</td> <td><a href='?src=[UID()];details=[ticket.ticketNum]'>Details</a></td></tr>"
+        dat += "<tr style='[trStyle]'><td style='[tdStyle]'><a href='?src=[UID()];detailreopen=[ticket.ticketNum]'>Re-open</a></td> <td style ='[tdStyle]'><b>#[ticket.ticketNum] ([ticket.timeOpened]): [ticket.content]</td> <td style ='[tdStyle]'><a href='?src=[UID()];details=[ticket.ticketNum]'>Details</a></td></tr>"
       else
         continue
   else if(tab == ADMIN_TICKET_CLOSED)
     dat += "<h2>Closed Tickets</h2>"
     for(var/T in allTickets)
-      var/datum/admin_ticket/ticket = T
+      ticket = T
       if(ticket.ticketState == ADMIN_TICKET_CLOSED)
-        dat += "<tr class='admintickets'><td><a href='?src=[UID()];resolve=[ticket.ticketNum]'>Resolve</a><a href='?src=[UID()];close=[ticket.ticketNum]'>Close</a></td> <td><b>Ticket #[ticket.ticketNum]: at [ticket.timeOpened]: [ticket.content]</td> <td><a href='?src=[UID()];details=[ticket.ticketNum]'>Details</a></td></tr>"
+        dat += "<tr style='[trStyle]'><td style ='[tdStyle]'><td style='[tdStyle]''><a href='?src=[UID()];detailreopen=[ticket.ticketNum]'>Re-open</a></td> <td style ='[tdStyle]'><b>Ticket #[ticket.ticketNum]: at [ticket.timeOpened]: [ticket.content]</td> <td style ='[tdStyle]'><a href='?src=[UID()];details=[ticket.ticketNum]'>Details</a></td></tr>"
       else
         continue
 
-  dat += "</table>"
+  dat += "</table></body>"
 
   return dat
 
@@ -51,7 +56,7 @@
 
   var/dat = "<h1>Admin Tickets</h1>"
 
-  dat +="<a href='?src=[UID()];refreshdetail=[T.ticketNum]'>Refresh</a>"
+  dat +="<a href='?src=[UID()];refresh=1>Show All</a><a href='?src=[UID()];refreshdetail=[T.ticketNum]'>Refresh</a>"
 
   dat += "<h2>Ticket #[T.ticketNum]</h2>"
 
@@ -59,11 +64,21 @@
   dat += "<h4>Ticket Status: <font color='red'>[status]</font>"
   dat += "<p>[T.content]</p>"
 
-  dat += "<a href='?src=[UID()];detailreopen=[T.ticketNum]'>Re-Open</a><a href='?src=[UID()];detailresolve=[T.ticketNum]'>Resolve</a><a href='?src=[UID()];detailclose=[T.ticketNum]'>Close</a><br />"
+  dat += "<a href='?src=[UID()];detailreopen=[T.ticketNum]'>Re-Open</a><a href='?src=[UID()];detailresolve=[T.ticketNum]'>Resolve</a><br />"
+
+  if(!T.adminAssigned)
+    dat += "No admin assigned to this ticket - <a href='?src=[UID()];assignadmin=[T.ticketNum]'>Take Ticket</a><br />"
+  else
+    dat += "[T.adminAssigned] is assigned to this Ticket. - <a href='?src=[UID()];assignadmin=[T.ticketNum]'>Take Ticket</a><br />"
+
   if(T.lastAdminResponse)
     dat += "<b>Last Admin Response:</b> [T.lastAdminResponse] at [T.lastResponseTime]"
   else
     dat +="<font color='red'>No Admin Response</font>"
+
+  dat += "<br />"
+
+  dat += "<a href='?src=[UID()];detailclose=[T.ticketNum]'>Close</a>"
 
   var/datum/browser/popup = new(usr, "adminticketsdetail", "Admin Ticket #[T.ticketNum]", 800, 600)
   popup.set_content(dat)
@@ -98,14 +113,17 @@
   if(href_list["resolve"])
     var/indexNum = text2num(href_list["resolve"])
     if(globAdminTicketHolder.resolveTicket(indexNum))
-      message_adminTicket("<span class='adminticket'>[usr.client] / ([usr]) resolved admin ticket number [indexNum]</span>")
+      message_adminTicket("[usr.client] / ([usr]) resolved admin ticket number [indexNum]")
       to_chat(returnClient(indexNum), "<span class='adminticket'>Your admin ticket has now been resolved.</span>")
       showUI(usr)
 
   if(href_list["close"])
+
     var/indexNum = text2num(href_list["close"])
+    if(alert("Are you sure? This will send a negative message.",,"Yes","No") != "Yes")
+      return
     if(globAdminTicketHolder.closeTicket(indexNum))
-      message_adminTicket("<span class='adminticket'>[usr.client] / ([usr]) closed admin ticket number [indexNum]</span>")
+      message_adminTicket("[usr.client] / ([usr]) closed admin ticket number [indexNum]")
       to_chat(returnClient(indexNum), "<font color='red' size='4'><b>- AdminHelp Rejected! -</b></font>")
       to_chat(returnClient(indexNum), "<span class='adminticket'>Please try to be calm, clear, and descriptive in admin helps, do not assume the admin has seen any related events, and clearly state the names of anybody you are reporting. If you asked a question, please ensure it was clear what you were asking.</span>")
       to_chat(returnClient(indexNum), "<span class='adminticket'>Your ticket has now been closed.</span>")
@@ -114,14 +132,14 @@
   if(href_list["detailresolve"])
     var/indexNum = text2num(href_list["detailresolve"])
     if(globAdminTicketHolder.resolveTicket(indexNum))
-      message_adminTicket("<span class='adminticket'>[usr.client] / ([usr]) resolved admin ticket number [indexNum]</span>")
+      message_adminTicket("[usr.client] / ([usr]) resolved admin ticket number [indexNum]")
       to_chat(returnClient(indexNum), "<span class='adminticket'>Your admin ticket has now been resolved.</span>")
       showDetailUI(usr, indexNum)
 
   if(href_list["detailclose"])
     var/indexNum = text2num(href_list["detailclose"])
     if(globAdminTicketHolder.closeTicket(indexNum))
-      message_adminTicket("<span class='adminticket'>[usr.client] / ([usr]) closed admin ticket number [indexNum]</span>")
+      message_adminTicket("[usr.client] / ([usr]) closed admin ticket number [indexNum]")
       to_chat(returnClient(indexNum), "<font color='red' size='4'><b>- AdminHelp Rejected! -</b></font>")
       to_chat(returnClient(indexNum), "<span class='boldmessage'>Please try to be calm, clear, and descriptive in admin helps, do not assume the admin has seen any related events, and clearly state the names of anybody you are reporting. If you asked a question, please ensure it was clear what you were asking.</span>")
       to_chat(returnClient(indexNum), "<span class='adminticket'>Your ticket has now been closed.</span>")
@@ -130,5 +148,11 @@
   if(href_list["detailreopen"])
     var/indexNum = text2num(href_list["detailreopen"])
     if(globAdminTicketHolder.openTicket(indexNum))
-      message_adminTicket("<span class='adminticket'>[usr.client] / ([usr]) re-opened admin ticket number [indexNum]</span>")
+      message_adminTicket("[usr.client] / ([usr]) re-opened admin ticket number [indexNum]")
       showDetailUI(usr, indexNum)
+
+  if(href_list["assignadmin"])
+    var/indexNum = text2num(href_list["assignadmin"])
+    if(globAdminTicketHolder.assignAdminToTicket(usr.client, indexNum))
+      message_adminTicket("[usr.client] / ([usr]) has taken ticket number [indexNum]")
+      to_chat(returnClient(indexNum), "<span class='adminticket'>Your ticket is being handled by ")
