@@ -171,7 +171,8 @@ var/list/admin_verbs_debug = list(
 	/client/proc/admin_serialize,
 	/client/proc/admin_deserialize,
 	/client/proc/jump_to_ruin,
-	/client/proc/toggle_medal_disable
+	/client/proc/toggle_medal_disable,
+	/client/proc/startadmintickets,
 	)
 var/list/admin_verbs_possess = list(
 	/proc/possess,
@@ -219,10 +220,9 @@ var/list/admin_verbs_snpc = list(
 	/client/proc/hide_snpc_verbs
 )
 var/list/admin_verbs_ticket = list(
-	/client/proc/startadmintickets,
-	/client/proc/vvadmintickets,
 	/client/proc/openTicketUI,
-	/client/proc/toggleticketlogs
+	/client/proc/toggleticketlogs,
+	/client/proc/resolveAllTickets
 )
 
 /client/proc/on_holder_add()

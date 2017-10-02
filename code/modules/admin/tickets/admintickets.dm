@@ -6,10 +6,10 @@ Admin ticket system by Birdtalon
 var/global/datum/adminTicketHolder/globAdminTicketHolder = new /datum/adminTicketHolder
 
 //Defines
-//Deciseconds until ticket becomes stale if unanswered.
-#define ADMIN_TICKET_TIMEOUT 3000
-//Decisecions before opening another ticket.
-#define ADMIN_TICKET_DUPLICATE_COOLDOWN 1200
+//Deciseconds until ticket becomes stale if unanswered. Alerts admins.
+#define ADMIN_TICKET_TIMEOUT 3000 // 5 minutes
+//Decisecions before the user is allowed to open another ticket while their existing one is open.
+#define ADMIN_TICKET_DUPLICATE_COOLDOWN 1200 // 2 minutes
 
 //Status defines
 #define ADMIN_TICKET_OPEN       1
@@ -32,19 +32,10 @@ var/global/datum/adminTicketHolder/globAdminTicketHolder = new /datum/adminTicke
   ticketCounter++
   return
 
-//Set the ticket counter to a value
-/datum/adminTicketHolder/proc/setTicketCounter(var/N as num)
-  ticketCounter = N
-
-/datum/adminTicketHolder/proc/purgeAllTickets() // Delete ALL tickets
-  QDEL_LIST(allTickets)
-  message_adminTicket("<span class='adminticket'>[usr.client] purged all admin tickets!</span>")
-  setTicketCounter(1)
-
-/datum/adminTicketHolder/proc/closeAllOpenTickets() // Close all open tickets
+/datum/adminTicketHolder/proc/resolveAllOpenTickets() // Resolve all open tickets
   for(var/i in allTickets)
     var/datum/admin_ticket/T = i
-    closeTicket(T.ticketNum)
+    resolveTicket(T.ticketNum)
 
 //Open a new ticket and populate details then add to the list of open tickets
 /datum/adminTicketHolder/proc/newTicket(var/client/C, var/passedContent)
@@ -59,7 +50,6 @@ var/global/datum/adminTicketHolder/globAdminTicketHolder = new /datum/adminTicke
     return
 
   var/datum/admin_ticket/T =  new /datum/admin_ticket
-  T.ticketNum = getTicketCounterAndInc()
   T.clientName = C
   T.timeOpened = worldtime2text()
   T.content = passedContent
@@ -68,11 +58,13 @@ var/global/datum/adminTicketHolder/globAdminTicketHolder = new /datum/adminTicke
   T.ticketState = ADMIN_TICKET_OPEN
   T.timeUntilStale = world.time + ADMIN_TICKET_TIMEOUT
   T.setCooldownPeriod()
+  T.ticketNum = getTicketCounterAndInc()
   allTickets += T
 
   //Inform the user that they have opened a ticket
   to_chat(C, "<span class='adminticket'>You have opened admin ticket number #[(globAdminTicketHolder.getTicketCounter() - 1)]! Please be patient and we will help you soon!</span>")
 
+  //Begin the stale count for this ticket.
   spawn()
   T.beginStaleCount()
 
@@ -118,6 +110,7 @@ var/global/datum/adminTicketHolder/globAdminTicketHolder = new /datum/adminTicke
 /datum/adminTicketHolder/proc/assignAdminToTicket(var/client/C, var/N as num)
   var/datum/admin_ticket/T = globAdminTicketHolder.allTickets[N]
   T.assignAdmin(C)
+  return TRUE
 
 //Single admin ticket
 
@@ -135,23 +128,27 @@ var/global/datum/adminTicketHolder/globAdminTicketHolder = new /datum/adminTicke
   var/ticketCooldown // Cooldown before allowing the user to open another ticket.
   var/adminAssigned // Admin who has assigned themselves to this ticket
 
+//Ticker called when a ticket is created, checks for stale-ness.
 /datum/admin_ticket/proc/beginStaleCount()
   if(!src)
     return
-  while(world.time < timeUntilStale && !lastAdminResponse && !adminAssigned)
-    sleep(200)
+  while(world.time < timeUntilStale || !lastAdminResponse || !adminAssigned) // While within the stale period OR no admin responded OR no admin assigned.
+    sleep(200) // Check every 20 seconds.
     if(ticketState == ADMIN_TICKET_OPEN && world.time > timeUntilStale)
-      message_adminTicket("<span class='adminticket'>Ticket #[ticketNum] has been open for [ADMIN_TICKET_TIMEOUT * 0.1] seconds. Changing status to stale.</span>")
+      message_adminTicket("<span class='adminticket'><a href='?src=[UID()];refreshdetail=[ticketNum]'>Ticket #[ticketNum]</a> has been open for [ADMIN_TICKET_TIMEOUT * 0.1] seconds. Changing status to stale.</span>")
       ticketState = ADMIN_TICKET_STALE
       break
 
+//Set the cooldown period for the ticket. The time when it's created plus the defined cooldown time.
 /datum/admin_ticket/proc/setCooldownPeriod()
   ticketCooldown = world.time + ADMIN_TICKET_DUPLICATE_COOLDOWN
 
+//Set the last admin who responded as the client passed as an arguement.
 /datum/admin_ticket/proc/setLastAdminResponse(var/client/C)
   lastAdminResponse = C
   lastResponseTime = worldtime2text()
 
+//Return the ticket state as a colour coded text string.
 /datum/admin_ticket/proc/state2text()
   switch(ticketState)
     if(ADMIN_TICKET_OPEN)
@@ -163,7 +160,9 @@ var/global/datum/adminTicketHolder/globAdminTicketHolder = new /datum/adminTicke
     if(ADMIN_TICKET_STALE)
       return "<font color='orange'>STALE</font>"
 
-/datum/admin_ticket/proc/assignAdmin(var/client/C)
+//Assign the client passed to var/adminAsssigned
+/datum/admin_ticket/proc/assignAdmin(var/client/C, var/N as num)
   if(!C)
     return
   adminAssigned = C
+  return TRUE
