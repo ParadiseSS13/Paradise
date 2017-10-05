@@ -307,6 +307,10 @@
 		mode = AALARM_MODE_SCRUBBING
 		apply_mode()
 
+	if(mode == AALARM_MODE_REFILL && environment_pressure > ONE_ATMOSPHERE - 10)
+		mode = AALARM_MODE_SCRUBBING
+		apply_mode()
+
 /obj/machinery/alarm/proc/handle_heating_cooling(var/datum/gas_mixture/environment, var/datum/tlv/cur_tlv, var/turf/simulated/location)
 	cur_tlv = TLV["temperature"]
 	//Handle temperature adjustment here.
@@ -699,7 +703,7 @@
 		AALARM_MODE_REPLACEMENT = list("name"="Cycle",       "desc"="Siphons air before replacing"),\
 		AALARM_MODE_SIPHON	    = list("name"="Siphon",		 "desc"="Siphons air out of the room"),\
 		AALARM_MODE_CONTAMINATED= list("name"="Contaminated","desc"="Scrubs out all contaminants quickly"),\
-		AALARM_MODE_REFILL      = list("name"="Refill",      "desc"="Triples vent output"),\
+		AALARM_MODE_REFILL      = list("name"="Refill",      "desc"="Restores air in the room quickly"),\
 		AALARM_MODE_OFF         = list("name"="Off",         "desc"="Shuts off vents and scrubbers"),\
 		AALARM_MODE_FLOOD 		= list("name"="Flood", 		 "desc"="Shuts off scrubbers and opens vents", 	"emagonly" = 1)
 	)
