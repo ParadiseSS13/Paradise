@@ -4479,7 +4479,7 @@
 "bIg" = (/obj/machinery/door_control{dir = 2; id = "mechbay"; name = "Mech Bay Door Control"; pixel_x = 6; pixel_y = 24; req_access_txt = "29"},/turf/simulated/floor/plasteel{tag = "icon-warningcorner (WEST)"; icon_state = "warningcorner"; dir = 8},/area/assembly/chargebay)
 "bIh" = (/turf/simulated/floor/plasteel{dir = 1; icon_state = "warning"},/area/assembly/chargebay)
 "bIi" = (/turf/simulated/wall,/area/medical/research{name = "Research Division"})
-"bIj" = (/obj/structure/cable{icon_state = "0-2"; pixel_y = 1; d2 = 2},/obj/machinery/power/apc{dir = 8; name = "west bump"; pixel_x = -24; shock_proof = 0},/turf/simulated/floor/plasteel{icon_state = "white"},/area/assembly/robotics)
+"bIj" = (/obj/structure/cable{icon_state = "0-2"; pixel_y = 1; d2 = 2},/obj/machinery/power/apc{dir = 8; name = "west bump"; pixel_x = -24; shock_proof = 0},/obj/machinery/light_switch{pixel_x = -23; pixel_y = -10},/turf/simulated/floor/plasteel{icon_state = "white"},/area/assembly/robotics)
 "bIk" = (/obj/structure/sign/securearea,/turf/simulated/wall,/area/medical/research{name = "Research Division"})
 "bIl" = (/obj/structure/stool/bed/chair/office/light{dir = 1},/obj/effect/landmark/start{name = "Roboticist"},/turf/simulated/floor/plasteel{dir = 1; icon_state = "whitered"},/area/assembly/robotics)
 "bIm" = (/obj/machinery/camera{c_tag = "Research Robotics Lab"; dir = 2; network = list("Research","SS13")},/turf/simulated/floor/plasteel{dir = 4; icon_state = "whiteredcorner"},/area/assembly/robotics)
