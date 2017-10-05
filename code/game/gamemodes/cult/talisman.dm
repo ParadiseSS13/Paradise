@@ -149,8 +149,6 @@
 	var/input_rune_key = input(user, "Choose a rune to teleport to.", "Rune to Teleport to") as null|anything in potential_runes //we know what key they picked
 	var/obj/effect/rune/teleport/actual_selected_rune = potential_runes[input_rune_key] //what rune does that key correspond to?
 	if(!src || qdeleted(src) || !user || user.l_hand != src && user.r_hand != src || user.incapacitated() || !actual_selected_rune)
-		to_chat(user, "<span class='warning'>You must have the talisman in a active hand to operate it!</span>")
-		log_game("Teleport talisman failed - not in active hand or user restrained or dead")
 		return ..(user, 0)
 
 	user.visible_message("<span class='warning'>Dust flows from [user]'s hand, and they disappear in a flash of red light!</span>", \
