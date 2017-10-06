@@ -90,7 +90,7 @@
 
 		if("scream", "screams")
 			on_CD = handle_emote_CD(50) //longer cooldown
-		if("fart", "farts", "flip", "flips", "snap", "snaps")
+		if("flip", "flips", "snap", "snaps")
 			on_CD = handle_emote_CD()				//proc located in code\modules\mob\emote.dm
 		if("cough", "coughs", "slap", "slaps")
 			on_CD = handle_emote_CD()
