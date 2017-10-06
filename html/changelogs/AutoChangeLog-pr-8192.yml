@@ -1,0 +1,4 @@
+author: "Birdtalon"
+delete-after: True
+changes: 
+  - bugfix: "Bottler doesn't break after one use."
