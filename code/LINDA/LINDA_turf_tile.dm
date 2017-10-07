@@ -318,7 +318,7 @@
 				to_chat(src, "<span class='userdanger'>The pressure sends you flying!</span>")
 			if(ishuman(src))
 				var/mob/living/carbon/human/H = src
-				H.Weaken(pressure_difference / 10)
+				H.Weaken(max(pressure_difference / 10, 20))
 			spawn()
 				throw_at(general_direction, pressure_difference / 10, pressure_difference / 200, null, 0, 0, null)
 			last_forced_movement = air_master.current_cycle
