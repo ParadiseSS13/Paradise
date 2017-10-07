@@ -1,0 +1,4 @@
+author: "scrubmcnoob"
+delete-after: True
+changes: 
+  - bugfix: "Abductors can no longer use megaphones."
