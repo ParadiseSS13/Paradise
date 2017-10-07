@@ -1,0 +1,4 @@
+author: "uraniummeltdown"
+delete-after: True
+changes: 
+  - imageadd: "10mm alt magazines have their own sprites"
