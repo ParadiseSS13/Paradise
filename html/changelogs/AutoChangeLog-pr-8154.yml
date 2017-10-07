@@ -1,0 +1,5 @@
+author: "Birdtalon"
+delete-after: True
+changes: 
+  - tweak: "User interface tweaks to Brig timers."
+  - tweak: "Seconds converted to minutes and seconds in Brig radio and security console printouts."
