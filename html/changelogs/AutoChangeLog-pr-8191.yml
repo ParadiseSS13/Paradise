@@ -1,0 +1,4 @@
+author: "imsxz"
+delete-after: True
+changes: 
+  - tweak: "Aliens now always spawn as a pair when their infestation event begins."
