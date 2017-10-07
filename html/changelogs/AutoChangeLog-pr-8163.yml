@@ -1,4 +1,0 @@
-author: "uraniummeltdown"
-delete-after: True
-changes: 
-  - rscadd: "Air tanks now have their own sprite, no longer looking like oxygen tanks"
