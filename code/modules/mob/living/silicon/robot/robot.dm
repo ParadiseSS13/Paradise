@@ -490,7 +490,7 @@ var/list/robot_verbs_default = list(
 		toggle_ionpulse()
 		return
 
-	cell.charge -= 50 // 500 steps on a default cell.
+	cell.charge -= 25 // 500 steps on a default cell.
 	return 1
 
 /mob/living/silicon/robot/proc/toggle_ionpulse()
