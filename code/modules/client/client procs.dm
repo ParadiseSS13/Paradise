@@ -73,10 +73,6 @@
 	//Admin PM
 	if(href_list["priv_msg"])
 		var/client/C = locate(href_list["priv_msg"])
-		//Check if the person has a current open admin ticket
-		var/datum/admin_ticket/existingTicket = globAdminTicketHolder.checkForOpenTicket(C)
-		if(existingTicket)
-			existingTicket.setLastAdminResponse(C) // IF we do then update their last admin response on the ticket.
 		if(ismob(C)) 		//Old stuff can feed-in mobs instead of clients
 			var/mob/M = C
 			C = M.client
