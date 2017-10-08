@@ -21,7 +21,7 @@
 
 	gender = new_gender
 
-	var/datum/sprite_accessory/hair/current_hair = hair_styles_public_list[H.h_style]
+	var/datum/sprite_accessory/hair/current_hair = hair_styles_full_list[H.h_style]
 	if(current_hair.gender != NEUTER && current_hair.gender != gender)
 		reset_head_hair()
 
