@@ -2033,7 +2033,21 @@
 
 	..()
 
-mob/living/carbon/human/get_taste_sensitivity()
+
+/mob/living/carbon/human/vv_get_dropdown()
+	. = ..()
+	. += "---"
+	.["Set Species"] = "?_src_=vars;setspecies=[UID()]"
+	.["Make AI"] = "?_src_=vars;makeai=[UID()]"
+	.["Make Mask of Nar'sie"] = "?_src_=vars;makemask=[UID()]"
+	.["Make cyborg"] = "?_src_=vars;makerobot=[UID()]"
+	.["Make monkey"] = "?_src_=vars;makemonkey=[UID()]"
+	.["Make alien"] = "?_src_=vars;makealien=[UID()]"
+	.["Make slime"] = "?_src_=vars;makeslime=[UID()]"
+	.["Make superhero"] = "?_src_=vars;makesuper=[UID()]"
+	. += "---"
+
+/mob/living/carbon/human/get_taste_sensitivity()
 	if(species)
 		return species.taste_sensitivity
 	else

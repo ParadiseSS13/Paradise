@@ -1,5 +1,3 @@
-#define SHOT_FLAME_TEMPERATURE	700
-
 /obj/item/weapon/reagent_containers/food/drinks/drinkingglass/shotglass
 	name = "shot glass"
 	desc = "No glasses were shot in the making of this glass."
@@ -79,7 +77,7 @@
 
 /obj/item/weapon/reagent_containers/food/drinks/drinkingglass/shotglass/attackby(obj/item/W)
 	..()
-	if(is_hot(W) >= 600)
+	if(is_hot(W))
 		fire_act()
 
 /obj/item/weapon/reagent_containers/food/drinks/drinkingglass/shotglass/attack_hand(mob/user, pickupfireoverride = TRUE)

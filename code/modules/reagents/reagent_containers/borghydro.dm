@@ -15,8 +15,8 @@
 	var/bypass_protection = 0 //If the hypospray can go through armor or thick material
 
 	var/list/datum/reagents/reagent_list = list()
-	var/list/reagent_ids = list("salglu_solution", "epinephrine", "spaceacillin", "charcoal")
-	//var/list/reagent_ids = list("salbutamol", "silver_sulfadiazine", "styptic_powder", "charcoal", "epinephrine", "spaceacillin")
+	var/list/reagent_ids = list("salglu_solution", "epinephrine", "spaceacillin", "charcoal", "hydrocodone")
+	//var/list/reagent_ids = list("salbutamol", "silver_sulfadiazine", "styptic_powder", "charcoal", "epinephrine", "spaceacillin", "hydrocodone")
 
 /obj/item/weapon/reagent_containers/borghypo/surgeon
 	reagent_ids = list("styptic_powder", "epinephrine", "salbutamol")
@@ -32,6 +32,15 @@
 	recharge_time = 2
 	reagent_ids = list("syndicate_nanites", "potass_iodide", "ether")
 	bypass_protection = 1
+
+/obj/item/weapon/reagent_containers/borghypo/peace
+	name = "Peace Hypospray"
+	reagent_ids = list("dizzysolution","tiresolution")
+
+/obj/item/weapon/reagent_containers/borghypo/peace/hacked
+	desc = "Everything's peaceful in death!"
+	icon_state = "borghypo_s"
+	reagent_ids = list("dizzysolution","tiresolution","tirizene","sulfonal","sodium_thiopental","cyanide","neurotoxin2")
 
 /obj/item/weapon/reagent_containers/borghypo/New()
 	..()

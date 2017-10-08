@@ -311,3 +311,7 @@ a {
 
 /obj/proc/on_mob_move(dir, mob/user)
 	return
+
+/obj/vv_get_dropdown()
+	. = ..()
+	.["Delete all of type"] = "?_src_=vars;delall=[UID()]"
