@@ -1224,9 +1224,6 @@
 	item_color = "fethasnecklace"
 	slot_flags = SLOT_MASK | SLOT_TIE
 
-<<<<<<< HEAD
-
-=======
 /obj/item/weapon/bedsheet/fluff/hugosheet //HugoLuman: Dan Martinez
 	name = "Cosmic space blankie"
 	desc = "Made from the dreams of space children everywhere."
@@ -1236,4 +1233,3 @@
 	icon_state = "sheetcosmos"
 	item_state = "sheetcosmos"
 	item_color = "sheetcosmos"
->>>>>>> 179477ed078256f709c70b05fd03040cb8d46ca3
