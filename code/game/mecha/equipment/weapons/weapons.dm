@@ -9,6 +9,8 @@
 	var/variance = 0
 	var/randomspread = 0 //use random spread for machineguns, instead of shotgun scatter
 	var/projectile_delay = 0
+	var/projectiles
+	var/projectile_energy_cost
 
 /obj/item/mecha_parts/mecha_equipment/weapon/can_attach(var/obj/mecha/combat/M as obj)
 	if(..())
@@ -50,6 +52,7 @@
 		A.preparePixelProjectile(target, targloc, chassis.occupant, params, spread)
 
 		chassis.use_power(energy_drain)
+		projectiles--
 		A.fire()
 		playsound(chassis, fire_sound, 50, 1)
 
@@ -242,8 +245,6 @@
 
 /obj/item/mecha_parts/mecha_equipment/weapon/ballistic
 	name = "General Ballisic Weapon"
-	var/projectiles
-	var/projectile_energy_cost
 	size = 2
 /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/action_checks(atom/target)
 	if(..())
