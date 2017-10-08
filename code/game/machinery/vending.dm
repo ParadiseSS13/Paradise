@@ -921,7 +921,6 @@
 	density = 0 //It is wall-mounted, and thus, not dense. --Superxpdude
 	products = list(/obj/item/stack/medical/bruise_pack = 2,/obj/item/stack/medical/ointment = 2,/obj/item/weapon/reagent_containers/hypospray/autoinjector = 4,/obj/item/device/healthanalyzer = 1)
 	contraband = list(/obj/item/weapon/reagent_containers/syringe/charcoal = 4,/obj/item/weapon/reagent_containers/syringe/antiviral = 4,/obj/item/weapon/reagent_containers/food/pill/tox = 1)
-	prices = list(/obj/item/stack/medical/bruise_pack = 20,/obj/item/stack/medical/ointment = 50,/obj/item/weapon/reagent_containers/hypospray/autoinjector = 1000,/obj/item/device/healthanalyzer = 20,/obj/item/weapon/reagent_containers/food/pill/tox = 10)
 
 /obj/machinery/vending/wallmed2
 	name = "\improper NanoMed"
@@ -1070,37 +1069,37 @@
 					/obj/item/clothing/under/victsuit = 1, /obj/item/clothing/under/victsuit/redblk = 1, /obj/item/clothing/under/victsuit/red = 1, /obj/item/clothing/suit/tailcoat = 1)
 	contraband = list(/obj/item/clothing/suit/judgerobe = 1,/obj/item/clothing/head/powdered_wig = 1,/obj/item/weapon/gun/magic/wand = 1, /obj/item/clothing/mask/balaclava=1, /obj/item/clothing/mask/horsehead = 2)
 	premium = list(/obj/item/clothing/suit/hgpirate = 1, /obj/item/clothing/head/hgpiratecap = 1, /obj/item/clothing/head/helmet/roman = 1, /obj/item/clothing/head/helmet/roman/legionaire = 1, /obj/item/clothing/under/roman = 1, /obj/item/clothing/shoes/roman = 1, /obj/item/weapon/shield/riot/roman = 1)
-	prices = list(/obj/item/clothing/suit/chickensuit = 200,/obj/item/clothing/head/chicken = 200,/obj/item/clothing/under/gladiator = 200,
-					/obj/item/clothing/head/helmet/gladiator = 200,/obj/item/clothing/under/gimmick/rank/captain/suit = 200,/obj/item/clothing/head/flatcap = 200,
-					/obj/item/clothing/suit/storage/labcoat/mad = 200,/obj/item/clothing/glasses/gglasses = 200,/obj/item/clothing/shoes/jackboots = 500,
-					/obj/item/clothing/under/schoolgirl = 10000,/obj/item/clothing/head/kitty = 10000,/obj/item/clothing/under/blackskirt = 200,
-					/obj/item/clothing/suit/toggle/owlwings = 200, /obj/item/clothing/under/owl = 200,/obj/item/clothing/mask/gas/owl_mask = 200,
-					/obj/item/clothing/suit/toggle/owlwings/griffinwings = 200, /obj/item/clothing/under/griffin = 200, /obj/item/clothing/shoes/griffin = 200, /obj/item/clothing/head/griffin = 200,
-					/obj/item/clothing/accessory/waistcoat = 200,/obj/item/clothing/under/suit_jacket = 200,/obj/item/clothing/head/that =200,/obj/item/clothing/under/kilt = 200,/obj/item/clothing/accessory/waistcoat = 200,
-					/obj/item/clothing/glasses/monocle =200,/obj/item/clothing/head/bowlerhat = 200,/obj/item/weapon/cane = 200,/obj/item/clothing/under/sl_suit = 200,
-					/obj/item/clothing/mask/fakemoustache = 500,/obj/item/clothing/suit/bio_suit/plaguedoctorsuit = 200,/obj/item/clothing/head/plaguedoctorhat = 200,/obj/item/clothing/mask/gas/plaguedoctor = 200,
-					/obj/item/clothing/suit/apron = 200,/obj/item/clothing/under/waiter = 200,/obj/item/clothing/suit/jacket/miljacket = 200,
-					/obj/item/clothing/suit/jacket/miljacket/white = 200, /obj/item/clothing/suit/jacket/miljacket/desert = 200, /obj/item/clothing/suit/jacket/miljacket/navy = 200,
-					/obj/item/clothing/under/pirate = 200,/obj/item/clothing/suit/pirate_brown = 200,/obj/item/clothing/suit/pirate_black =200,/obj/item/clothing/under/pirate_rags =200,/obj/item/clothing/head/pirate = 200,/obj/item/clothing/head/bandana = 200,
-					/obj/item/clothing/head/bandana = 200,/obj/item/clothing/under/soviet = 200,/obj/item/clothing/head/ushanka = 200,/obj/item/clothing/suit/imperium_monk = 200,
-					/obj/item/clothing/mask/gas/cyborg = 200,/obj/item/clothing/suit/holidaypriest = 200,/obj/item/clothing/head/wizard/marisa/fake = 200,
-					/obj/item/clothing/suit/wizrobe/marisa/fake = 200,/obj/item/clothing/under/sundress = 200,/obj/item/clothing/head/witchwig = 200,/obj/item/weapon/twohanded/staff/broom = 200,
-					/obj/item/clothing/suit/wizrobe/fake = 200,/obj/item/clothing/head/wizard/fake = 200,/obj/item/weapon/twohanded/staff = 3,/obj/item/clothing/mask/gas/sexyclown = 200,
-					/obj/item/clothing/under/sexyclown = 200,/obj/item/clothing/mask/gas/sexymime = 200,/obj/item/clothing/under/sexymime = 200,
-					/obj/item/clothing/mask/face/bat = 200,/obj/item/clothing/mask/face/bee = 200,/obj/item/clothing/mask/face/bear = 200,/obj/item/clothing/mask/face/raven = 200,/obj/item/clothing/mask/face/jackal = 200,/obj/item/clothing/mask/face/fox = 200,/obj/item/clothing/mask/face/tribal = 200,/obj/item/clothing/mask/face/rat = 200,
-					/obj/item/clothing/suit/apron/overalls = 200,
-					/obj/item/clothing/head/rabbitears =200, /obj/item/clothing/head/sombrero = 200, /obj/item/clothing/suit/poncho = 200,
-					/obj/item/clothing/suit/poncho/green = 200, /obj/item/clothing/suit/poncho/red = 200, /obj/item/clothing/accessory/blue = 200, /obj/item/clothing/accessory/red = 200, /obj/item/clothing/accessory/black = 200, /obj/item/clothing/accessory/horrible = 200,
-					/obj/item/clothing/under/maid = 200, /obj/item/clothing/under/janimaid = 200,
-					/obj/item/clothing/under/jester = 200, /obj/item/clothing/head/jester = 200,
-					/obj/item/clothing/under/pants/camo = 200, /obj/item/clothing/mask/bandana = 200, /obj/item/clothing/mask/bandana/black = 200,
-					/obj/item/clothing/shoes/singery = 200,/obj/item/clothing/under/singery = 200,
-					/obj/item/clothing/shoes/singerb = 200,/obj/item/clothing/under/singerb = 200,
-					/obj/item/clothing/suit/hooded/carp_costume = 200,/obj/item/clothing/suit/hooded/bee_costume = 200,
-					/obj/item/clothing/suit/snowman = 200,/obj/item/clothing/head/snowman = 200,
-					/obj/item/clothing/head/cueball = 200,/obj/item/clothing/under/scratch = 200,
-					/obj/item/clothing/under/victdress = 200, /obj/item/clothing/under/victdress/red = 200, /obj/item/clothing/suit/victcoat = 200, /obj/item/clothing/suit/victcoat/red = 200,
-					/obj/item/clothing/under/victsuit = 200, /obj/item/clothing/under/victsuit/redblk = 200, /obj/item/clothing/under/victsuit/red = 200, /obj/item/clothing/suit/tailcoat = 200)
+	prices = list(/obj/item/clothing/suit/chickensuit = 100,/obj/item/clothing/head/chicken = 100,/obj/item/clothing/under/gladiator = 100,
+					/obj/item/clothing/head/helmet/gladiator = 100,/obj/item/clothing/under/gimmick/rank/captain/suit = 100,/obj/item/clothing/head/flatcap = 100,
+					/obj/item/clothing/suit/storage/labcoat/mad = 100,/obj/item/clothing/glasses/gglasses = 100,/obj/item/clothing/shoes/jackboots = 500,
+					/obj/item/clothing/under/schoolgirl = 500,/obj/item/clothing/head/kitty = 500,/obj/item/clothing/under/blackskirt = 100,
+					/obj/item/clothing/suit/toggle/owlwings = 100, /obj/item/clothing/under/owl = 100,/obj/item/clothing/mask/gas/owl_mask = 100,
+					/obj/item/clothing/suit/toggle/owlwings/griffinwings = 100, /obj/item/clothing/under/griffin = 100, /obj/item/clothing/shoes/griffin = 100, /obj/item/clothing/head/griffin = 100,
+					/obj/item/clothing/accessory/waistcoat = 100,/obj/item/clothing/under/suit_jacket = 100,/obj/item/clothing/head/that =100,/obj/item/clothing/under/kilt = 100,/obj/item/clothing/accessory/waistcoat = 100,
+					/obj/item/clothing/glasses/monocle =100,/obj/item/clothing/head/bowlerhat = 100,/obj/item/weapon/cane = 100,/obj/item/clothing/under/sl_suit = 100,
+					/obj/item/clothing/mask/fakemoustache = 500,/obj/item/clothing/suit/bio_suit/plaguedoctorsuit = 100,/obj/item/clothing/head/plaguedoctorhat = 100,/obj/item/clothing/mask/gas/plaguedoctor = 100,
+					/obj/item/clothing/suit/apron = 100,/obj/item/clothing/under/waiter = 100,/obj/item/clothing/suit/jacket/miljacket = 100,
+					/obj/item/clothing/suit/jacket/miljacket/white = 100, /obj/item/clothing/suit/jacket/miljacket/desert = 100, /obj/item/clothing/suit/jacket/miljacket/navy = 100,
+					/obj/item/clothing/under/pirate = 100,/obj/item/clothing/suit/pirate_brown = 100,/obj/item/clothing/suit/pirate_black =100,/obj/item/clothing/under/pirate_rags =100,/obj/item/clothing/head/pirate = 100,/obj/item/clothing/head/bandana = 100,
+					/obj/item/clothing/head/bandana = 100,/obj/item/clothing/under/soviet = 100,/obj/item/clothing/head/ushanka = 100,/obj/item/clothing/suit/imperium_monk = 100,
+					/obj/item/clothing/mask/gas/cyborg = 100,/obj/item/clothing/suit/holidaypriest = 100,/obj/item/clothing/head/wizard/marisa/fake = 100,
+					/obj/item/clothing/suit/wizrobe/marisa/fake = 100,/obj/item/clothing/under/sundress = 100,/obj/item/clothing/head/witchwig = 100,/obj/item/weapon/twohanded/staff/broom = 100,
+					/obj/item/clothing/suit/wizrobe/fake = 100,/obj/item/clothing/head/wizard/fake = 100,/obj/item/weapon/twohanded/staff = 3,/obj/item/clothing/mask/gas/sexyclown = 100,
+					/obj/item/clothing/under/sexyclown = 100,/obj/item/clothing/mask/gas/sexymime = 100,/obj/item/clothing/under/sexymime = 100,
+					/obj/item/clothing/mask/face/bat = 100,/obj/item/clothing/mask/face/bee = 100,/obj/item/clothing/mask/face/bear = 100,/obj/item/clothing/mask/face/raven = 100,/obj/item/clothing/mask/face/jackal = 100,/obj/item/clothing/mask/face/fox = 100,/obj/item/clothing/mask/face/tribal = 100,/obj/item/clothing/mask/face/rat = 100,
+					/obj/item/clothing/suit/apron/overalls = 100,
+					/obj/item/clothing/head/rabbitears =100, /obj/item/clothing/head/sombrero = 100, /obj/item/clothing/suit/poncho = 100,
+					/obj/item/clothing/suit/poncho/green = 100, /obj/item/clothing/suit/poncho/red = 100, /obj/item/clothing/accessory/blue = 100, /obj/item/clothing/accessory/red = 100, /obj/item/clothing/accessory/black = 100, /obj/item/clothing/accessory/horrible = 100,
+					/obj/item/clothing/under/maid = 100, /obj/item/clothing/under/janimaid = 100,
+					/obj/item/clothing/under/jester = 100, /obj/item/clothing/head/jester = 100,
+					/obj/item/clothing/under/pants/camo = 100, /obj/item/clothing/mask/bandana = 100, /obj/item/clothing/mask/bandana/black = 100,
+					/obj/item/clothing/shoes/singery = 100,/obj/item/clothing/under/singery = 100,
+					/obj/item/clothing/shoes/singerb = 100,/obj/item/clothing/under/singerb = 100,
+					/obj/item/clothing/suit/hooded/carp_costume = 100,/obj/item/clothing/suit/hooded/bee_costume = 100,
+					/obj/item/clothing/suit/snowman = 100,/obj/item/clothing/head/snowman = 100,
+					/obj/item/clothing/head/cueball = 100,/obj/item/clothing/under/scratch = 100,
+					/obj/item/clothing/under/victdress = 100, /obj/item/clothing/under/victdress/red = 100, /obj/item/clothing/suit/victcoat = 100, /obj/item/clothing/suit/victcoat/red = 100,
+					/obj/item/clothing/under/victsuit = 100, /obj/item/clothing/under/victsuit/redblk = 100, /obj/item/clothing/under/victsuit/red = 100, /obj/item/clothing/suit/tailcoat = 100)
 
 
 	refill_canister = /obj/item/weapon/vending_refill/autodrobe
@@ -1352,7 +1351,7 @@
 					/obj/item/fish_eggs/salmon = 5, /obj/item/fish_eggs/catfish = 5, /obj/item/fish_eggs/glofish = 5,
 					/obj/item/fish_eggs/electric_eel = 5, /obj/item/fish_eggs/shrimp = 10, /obj/item/toy/pet_rock = 5,
 					)
-	prices = list(/obj/item/clothing/accessory/petcollar = 500, /obj/item/weapon/storage/firstaid/aquatic_kit/full = 60, /obj/item/fish_eggs/goldfish = 10,
+	prices = list(/obj/item/clothing/accessory/petcollar = 100, /obj/item/weapon/storage/firstaid/aquatic_kit/full = 60, /obj/item/fish_eggs/goldfish = 10,
 					/obj/item/fish_eggs/clownfish = 10, /obj/item/fish_eggs/shark = 10, /obj/item/fish_eggs/feederfish = 5,
 					/obj/item/fish_eggs/salmon = 10, /obj/item/fish_eggs/catfish = 10, /obj/item/fish_eggs/glofish = 10,
 					/obj/item/fish_eggs/electric_eel = 10, /obj/item/fish_eggs/shrimp = 5, /obj/item/toy/pet_rock = 100,
