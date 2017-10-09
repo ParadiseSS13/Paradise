@@ -107,10 +107,11 @@
 								 "HALPZ SITCULITY",
 								 "VOXES caN't LOVE",
 								 "my dad own this station",
-								 "the CHef put CHLORINE in our food!",
+								 "the CHef put [pick("PROTEIN", "toiret waTer", "RiPPleing TendIes", "Einzymes","HORRY WALTER","nuTriments","ReActive MutAngen","TeSLium","sKrektonium")] in my [pick("wiSh soup","Bullito","rAingurber","sOilent GREEn","KoI Susishes","pi hole","yaya")]!",
 								 "the monkey have TASER ARMS!",
-								 "cargo ate all my cookie points",
-								 "EI'NATH!")
+								 "qM blew my points on [pick("cOMbat Shtogun","inSuLated gloves","LOTS MASSHEEN!")]",
+								 "EI'NATH!",
+								 "WAKE UP SHEEPLES!")
 
 			var/list/s2 = list("FUS RO DAH",
 							   "fuckin tangerines!!!",
@@ -130,7 +131,9 @@
 								 "WHERE MY OMNIZINE",
 								 "mALPRACTICEBAY",
 								 "I HavE A pe H dee iN ENTerpriSE resOUrCE pLaNNIN",
-								 "h-h-HalP MaINT")
+								 "h-h-HalP MaINT",
+								 "dey come, dey COME! DEY COME!!!",
+								 "THE END IS NIGH!")
 			switch(pick(1,2,3))
 				if(1)
 					say(pick(s1))
