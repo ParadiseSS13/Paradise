@@ -33,10 +33,10 @@
 	if(ticker.current_state != GAME_STATE_PLAYING || !loc)
 		return
 	if(!uses)
-		user << "<span class='warning'>This spawner is out of charges!</span>"
+		to_chat(user, "<span class='warning'>This spawner is out of charges!</span>")
 		return
-	if(jobban_isbanned(user, "lavaland"))
-		user << "<span class='warning'>You are jobanned!</span>"
+	if(jobban_isbanned(user, banType))
+		to_chat(user, "<span class='warning'>You are jobanned!</span>")
 		return
 	var/ghost_role = alert("Become [mob_name]? (Warning, You can no longer be cloned!)",,"Yes","No")
 	if(ghost_role == "No" || !loc)
