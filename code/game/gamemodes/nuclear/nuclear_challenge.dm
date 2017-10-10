@@ -1,6 +1,7 @@
 #define CHALLENGE_TELECRYSTALS 280
-#define CHALLENGE_SCALE_FACTOR 1 // For ease of balancing the TC scaling from war ops
 #define CHALLENGE_TIME_LIMIT 6000
+#define CHALLENGE_SCALE_PLAYER 1 // How many player per scaling bonus
+#define CHALLENGE_SCALE_BONUS 4 // How many TC per scaling bonus
 #define CHALLENGE_MIN_PLAYERS 50
 #define CHALLENGE_SHUTTLE_DELAY 15000 //25 minutes, so the ops have at least 5 minutes before the shuttle is callable.
 
@@ -48,13 +49,14 @@
 	event_announcement.Announce(war_declaration, "Declaration of War", 'sound/effects/siren.ogg')
 
 	to_chat(user, "You've attracted the attention of powerful forces within the syndicate. A bonus bundle of telecrystals has been granted to your team. Great things await you if you complete the mission.")
+	to_chat(user, "<b>Look below you on the floor for the extra uplink</b>")
 
 	for(var/obj/machinery/computer/shuttle/syndicate/S in machines)
 		S.challenge = TRUE
 
 	var/obj/item/device/radio/uplink/U = new /obj/item/device/radio/uplink(get_turf(user))
 	U.hidden_uplink.uplink_owner= "[user.key]"
-	U.hidden_uplink.uses = CHALLENGE_TELECRYSTALS + (((player_list.len + CHALLENGE_MIN_PLAYERS) * 4) * CHALLENGE_SCALE_FACTOR) // Add 4 telecrystals per player above CHLALENGE_MIN_PLAYERS (50). Scale factor multiply it.
+	U.hidden_uplink.uses = CHALLENGE_TELECRYSTALS + round((((player_list.len - CHALLENGE_MIN_PLAYERS)/CHALLENGE_SCALE_PLAYER) * CHALLENGE_SCALE_BONUS)) // No. of player - Min. Player to dec, divided by player per bonus, then multipled by TC per bonus. Rounded.
 	config.shuttle_refuel_delay = CHALLENGE_SHUTTLE_DELAY
 	qdel(src)
 
@@ -81,4 +83,5 @@
 #undef CHALLENGE_MIN_PLAYERS
 #undef CHALLENGE_SHUTTLE_DELAY
 #undef CHALLENGE_TELECRYSTALS
-#undef CHALLENGE_SCALE_FACTOR
+#undef CHALLENGE_SCALE_PLAYER
+#undef CHALLENGE_SCALE_BONUS
