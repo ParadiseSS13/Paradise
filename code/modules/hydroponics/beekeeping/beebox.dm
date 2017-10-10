@@ -93,7 +93,7 @@
 
 
 /obj/structure/beebox/process()
-	if(queen_bee && !queen_bee.beegent.can_synth)
+	if(queen_bee && (!queen_bee.beegent || !queen_bee.beegent.can_synth))
 		if(bee_resources >= BEE_RESOURCE_HONEYCOMB_COST)
 			if(honeycombs.len < get_max_honeycomb())
 				bee_resources = max(bee_resources-BEE_RESOURCE_HONEYCOMB_COST, 0)
@@ -170,7 +170,7 @@
 
 		var/obj/item/queen_bee/qb = I
 		user.unEquip(qb)
-		if(qb.queen.beegent.can_synth)
+		if(!qb.queen.beegent || (qb.queen.beegent && qb.queen.beegent.can_synth))
 			qb.queen.forceMove(src)
 			bees += qb.queen
 			queen_bee = qb.queen
