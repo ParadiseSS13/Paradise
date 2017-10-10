@@ -47,6 +47,7 @@
 	var/bloodiness = 0
 	var/currentBloodColor = "#A10808"
 	var/currentDNA = null
+	allow_pai = 0
 
 /mob/living/simple_animal/bot/mulebot/New()
 	..()
