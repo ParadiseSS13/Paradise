@@ -94,7 +94,7 @@
 	if(getBrainLoss() >= 60 && stat != DEAD)
 		speech_problem_flag = 1
 		if(prob(3))
-			var/list/s1 = list("IM A PONY NEEEEEEIIIIIIIIIGH",
+			var/list/s1 = list("IM A [pick("PONY","LIZARD","taJaran","kitty","Vulpakin","drASK","BIRDIE","voxxie","race car","combat meCH")] [pick("NEEEEEEIIIIIIIIIGH","sKREEEEEE","MEOW","NYA~","rawr","Barkbark","Hissssss","vROOOOOM","pewpew","choo Choo")]!",
 							   "without oxigen blob don't evoluate?",
 							   "CAPTAINS A COMDOM",
 							   "[pick("", "that damn traitor")] [pick("joerge", "george", "gorge", "gdoruge")] [pick("mellens", "melons", "mwrlins")] is grifing me HAL;P!!!",
@@ -107,7 +107,7 @@
 								 "HALPZ SITCULITY",
 								 "VOXES caN't LOVE",
 								 "my dad own this station",
-								 "the CHef put [pick("PROTEIN", "toiret waTer", "RiPPleing TendIes", "Einzymes","HORRY WALTER","nuTriments","ReActive MutAngen","TeSLium","sKrektonium")] in my [pick("wiSh soup","Bullito","rAingurber","sOilent GREEn","KoI Susishes","pi hole","yaya")]!",
+								 "the CHef put [pick("PROTEIN", "toiret waTer", "RiPPleing TendIes", "Einzymes","HORRY WALTER","nuTriments","ReActive MutAngen","TeSLium","sKrektonium")] in my [pick("wiSh soup","Bullito","rAingurber","sOilent GREEn","KoI Susishes","pie hole","yaya")]!",
 								 "the monkey have TASER ARMS!",
 								 "qM blew my points on [pick("cOMbat Shtogun","inSuLated gloves","LOTS MASSHEEN!")]",
 								 "EI'NATH!",
@@ -128,12 +128,14 @@
 							   "lifelike texture",
 							   "luv can bloooom",
 							   "PACKETS!!!",
-								 "WHERE MY OMNIZINE",
+								 "[pick("WHERE MY","aYE need","giv me my","bath me inn.")] [pick("dermaline","alKkyZine","dylOvene","inAprovaline","biCaridine","Hyperzine","kELotane","lePorazine","bAcch Salts","tricord","clOnexazone","hydroChloric Acid","chlorine Hydrate","paRoxetine")]",
 								 "mALPRACTICEBAY",
 								 "I HavE A pe H dee iN ENTerpriSE resOUrCE pLaNNIN",
 								 "h-h-HalP MaINT",
 								 "dey come, dey COME! DEY COME!!!",
-								 "THE END IS NIGH!")
+								 "THE END IS NIGH!"
+								 "I FOT AND DIED FOR MUH pick[("RITES","FREEDOM","payCHECK","cARGO points","teCH Level","doG","mAPLe syrup","fluffy fWiends","gateway Loot"))"
+								 "KILL DEM pick[("MAINTAINENCE CHICKENS","KILLA CLUWNES","FLOOR CLUWNEs","MIME ASSASSIN","BOMBING TAJARAN","cC offiser","morPhlings","slinglings")]!"
 			switch(pick(1,2,3))
 				if(1)
 					say(pick(s1))
