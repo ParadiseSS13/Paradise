@@ -104,14 +104,15 @@
 							   "I WANNA PET TEH monkeyS",
 							   "stop grifing me!!!!",
 							   "SOTP IT!",
-								 "HALPZ SITCULITY",
-								 "VOXES caN't LOVE",
-								 "my dad own this station",
-								 "the CHef put [pick("PROTEIN", "toiret waTer", "RiPPleing TendIes", "Einzymes","HORRY WALTER","nuTriments","ReActive MutAngen","TeSLium","sKrektonium")] in my [pick("wiSh soup","Bullito","rAingurber","sOilent GREEn","KoI Susishes","pie hole","yaya")]!",
-								 "the monkey have TASER ARMS!",
-								 "qM blew my points on [pick("cOMbat Shtogun","inSuLated gloves","LOTS MASSHEEN!")]",
-								 "EI'NATH!",
-								 "WAKE UP SHEEPLES!")
+							   "HALPZ SITCULITY",
+							   "VOXES caN't LOVE",
+							   "my dad own this station",
+							   "the CHef put [pick("PROTEIN", "toiret waTer", "RiPPleing TendIes", "Einzymes","HORRY WALTER","nuTriments","ReActive MutAngen","TeSLium","sKrektonium")] in my [pick("wiSh soup","Bullito","rAingurber","sOilent GREEn","KoI Susishes","yaya")]!",
+							   "the monkey have TASER ARMS!",
+							   "qM blew my points on [pick("cOMbat Shtogun","inSuLated gloves","LOTS MASSHEEN!")]",
+							   "EI'NATH!",
+							   "WAKE UP SHEEPLES!",
+							   "et wus my [pick("wittle brother!!","fiancee","friend staying over","entiRe orphanage","love interest","wife","husband","liTTle kids","sentient cAT","accidentally")]!")
 
 			var/list/s2 = list("FUS RO DAH",
 							   "fuckin tangerines!!!",
@@ -128,14 +129,14 @@
 							   "lifelike texture",
 							   "luv can bloooom",
 							   "PACKETS!!!",
-								 "[pick("WHERE MY","aYE need","giv me my","bath me inn.")] [pick("dermaline","alKkyZine","dylOvene","inAprovaline","biCaridine","Hyperzine","kELotane","lePorazine","bAcch Salts","tricord","clOnexazone","hydroChloric Acid","chlorine Hydrate","paRoxetine")]",
-								 "mALPRACTICEBAY",
-								 "I HavE A pe H dee iN ENTerpriSE resOUrCE pLaNNIN",
-								 "h-h-HalP MaINT",
-								 "dey come, dey COME! DEY COME!!!",
-								 "THE END IS NIGH!"
-								 "I FOT AND DIED FOR MUH pick[("RITES","FREEDOM","payCHECK","cARGO points","teCH Level","doG","mAPLe syrup","fluffy fWiends","gateway Loot"))"
-								 "KILL DEM pick[("MAINTAINENCE CHICKENS","KILLA CLUWNES","FLOOR CLUWNEs","MIME ASSASSIN","BOMBING TAJARAN","cC offiser","morPhlings","slinglings")]!"
+							   "[pick("WHERE MY","aYE need","giv me my","bath me inn.")] [pick("dermaline","alKkyZine","dylOvene","inAprovaline","biCaridine","Hyperzine","kELotane","lePorazine","bAcch Salts","tricord","clOnexazone","hydroChloric Acid","chlorine Hydrate","paRoxetine")]!",
+							   "mALPRACTICEBAY",
+							   "I HavE A pe H dee iN ENTerpriSE resOUrCE pLaNNIN",
+							   "h-h-HalP MaINT",
+							   "dey come, dey COME! DEY COME!!!",
+							   "THE END IS NIGH!",
+							   "I FOT AND DIED FOR MUH [pick("RITES","FREEDOM","payCHECK","cARGO points","teCH Level","doG","mAPLe syrup","fluffy fWiends","gateway Loot")]",
+							   "KILL DEM [pick("mainTnacE cHickinNS","kiRA CulwnNES","FLOOR CLUWNEs","MIME ASSASSIN","BOMBING TAJARAN","cC offiser","morPhlings","slinglings")]!")
 			switch(pick(1,2,3))
 				if(1)
 					say(pick(s1))
