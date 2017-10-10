@@ -1,3 +1,5 @@
+#define CHALLENGE_TELECRYSTALS 280
+#define CHALLENGE_SCALE_FACTOR 1 // For ease of balancing the TC scaling from war ops
 #define CHALLENGE_TIME_LIMIT 6000
 #define CHALLENGE_MIN_PLAYERS 50
 #define CHALLENGE_SHUTTLE_DELAY 15000 //25 minutes, so the ops have at least 5 minutes before the shuttle is callable.
@@ -52,7 +54,7 @@
 
 	var/obj/item/device/radio/uplink/U = new /obj/item/device/radio/uplink(get_turf(user))
 	U.hidden_uplink.uplink_owner= "[user.key]"
-	U.hidden_uplink.uses = 280
+	U.hidden_uplink.uses = CHALLENGE_TELECRYSTALS + (((player_list.len * 4) - CHALLENGE_MIN_PLAYERS * 4) * CHALLENGE_SCALE_FACTOR) // Add 4 telecrystals per player above CHLALENGE_MIN_PLAYERS (50). Scale factor multiply it.
 	config.shuttle_refuel_delay = CHALLENGE_SHUTTLE_DELAY
 	qdel(src)
 
@@ -78,3 +80,5 @@
 #undef CHALLENGE_TIME_LIMIT
 #undef CHALLENGE_MIN_PLAYERS
 #undef CHALLENGE_SHUTTLE_DELAY
+#undef CHALLENGE_TELECRYSTALS
+#undef CHALLENGE_SCALE_FACTOR
