@@ -54,7 +54,7 @@
 
 	var/obj/item/device/radio/uplink/U = new /obj/item/device/radio/uplink(get_turf(user))
 	U.hidden_uplink.uplink_owner= "[user.key]"
-	U.hidden_uplink.uses = CHALLENGE_TELECRYSTALS + (((player_list.len * 4) - CHALLENGE_MIN_PLAYERS * 4) * CHALLENGE_SCALE_FACTOR) // Add 4 telecrystals per player above CHLALENGE_MIN_PLAYERS (50). Scale factor multiply it.
+	U.hidden_uplink.uses = CHALLENGE_TELECRYSTALS + (((player_list.len + CHALLENGE_MIN_PLAYERS) * 4) * CHALLENGE_SCALE_FACTOR) // Add 4 telecrystals per player above CHLALENGE_MIN_PLAYERS (50). Scale factor multiply it.
 	config.shuttle_refuel_delay = CHALLENGE_SHUTTLE_DELAY
 	qdel(src)
 
