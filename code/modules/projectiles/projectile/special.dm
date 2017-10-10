@@ -206,7 +206,7 @@
 	damage = 0
 	var/obj/item/weapon/gun/energy/wormhole_projector/gun
 	color = "#33CCFF"
-	nodamage = 1
+	nodamage = TRUE
 
 /obj/item/projectile/beam/wormhole/orange
 	name = "orange bluespace beam"
