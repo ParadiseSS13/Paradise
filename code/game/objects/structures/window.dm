@@ -179,7 +179,7 @@ var/global/wcCommon = pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e", "#8f
 	attack_generic(user, rand(10, 15))
 
 
-/obj/structure/window/attackby(obj/item/weapon/W as obj, mob/living/user as mob, params)
+/obj/structure/window/attackby(obj/item/W as obj, mob/living/user as mob, params)
 	if(!istype(W)) return//I really wish I did not need this
 	if(istype(W, /obj/item/weapon/grab) && get_dist(src,user)<2)
 		var/obj/item/weapon/grab/G = W
