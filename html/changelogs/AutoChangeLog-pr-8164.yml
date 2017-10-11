@@ -1,0 +1,4 @@
+author: "uraniummeltdown"
+delete-after: True
+changes: 
+  - imageadd: "New PACMAN portable generator sprites"
