@@ -443,9 +443,9 @@
 	anchored = TRUE
 
 /obj/structure/closet/crate/can/attackby(obj/item/weapon/W, mob/living/user, params)
-	add_fingerprint(user)
-	user.changeNext_move(CLICK_CD_MELEE)
 	if(iswrench(W))
+		add_fingerprint(user)
+		user.changeNext_move(CLICK_CD_MELEE)
 		if(anchored)
 			playsound(loc, W.usesound, 100, 1)
 			user.visible_message("[user] starts loosening [src]'s floor casters.", \
