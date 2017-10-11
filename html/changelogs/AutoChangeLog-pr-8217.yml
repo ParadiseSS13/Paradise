@@ -1,0 +1,4 @@
+author: "Anasari"
+delete-after: True
+changes: 
+  - tweak: "All items can be used to smash windows instead of only those defined as weapons. (e.g. including guitar & flashlight)"
