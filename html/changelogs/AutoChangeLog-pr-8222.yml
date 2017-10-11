@@ -1,0 +1,4 @@
+author: "Anasari"
+delete-after: True
+changes: 
+  - tweak: "Slot machine no longer earn money on average. Bet changed to 100."
