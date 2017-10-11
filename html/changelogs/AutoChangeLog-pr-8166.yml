@@ -1,4 +1,0 @@
-author: "scrubmcnoob"
-delete-after: True
-changes: 
-  - bugfix: "Cult must use teleport tailsman in active hands."
