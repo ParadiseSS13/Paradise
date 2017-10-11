@@ -1,0 +1,4 @@
+author: "Kyep"
+delete-after: True
+changes: 
+  - bugfix: "mindslaving an antagbanned player now offers control of their mob to ghosts."
