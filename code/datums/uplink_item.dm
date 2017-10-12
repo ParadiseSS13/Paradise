@@ -357,7 +357,7 @@ var/list/uplink_items = list()
 	reference = "SPI"
 	desc = "A small, easily concealable handgun that uses 10mm auto rounds in 8-round magazines and is compatible with suppressors."
 	item = /obj/item/weapon/gun/projectile/automatic/pistol
-	cost = 3
+	cost = 4
 
 /datum/uplink_item/dangerous/revolver
 	name = "Syndicate .357 Revolver"
@@ -996,6 +996,7 @@ var/list/uplink_items = list()
 	reference = "BRHS"
 	item = /obj/item/weapon/storage/box/syndie_kit/hardsuit
 	cost = 8
+	excludefrom = list(/datum/game_mode/nuclear)
 
 /datum/uplink_item/suits/hardsuit/elite
 	name = "Elite Syndicate Hardsuit"
