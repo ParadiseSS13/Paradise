@@ -134,7 +134,7 @@ var/list/uplink_items = list()
 	desc = "A specialized, one shell shotgun with a built-in cloaking device to mimic a cane. The shotgun is capable of hiding it's contents and the pin alongside being supressed. Comes with 6 special darts and a preloaded shrapnel round."
 	reference = "MCS"
 	item = /obj/item/weapon/storage/box/syndie_kit/caneshotgun
-	cost = 15
+	cost = 10
 	job = list("Mime")
 
 //Chef
@@ -216,7 +216,7 @@ var/list/uplink_items = list()
 	desc = "The feral cat delivery grenade contains 8 dehydrated feral cats in a similar manner to dehydrated monkeys, which, upon detonation, will be rehydrated by a small reservoir of water contained within the grenade. These cats will then attack anything in sight."
 	item = /obj/item/weapon/grenade/spawnergrenade/feral_cats
 	reference = "CCLG"
-	cost = 5
+	cost = 4
 	job = list("Psychiatrist")//why? Becuase its funny that a person in charge of your mental wellbeing has a cat granade..
 
 //Assistant
@@ -236,7 +236,7 @@ var/list/uplink_items = list()
 	desc = "A box containing 6 shotgun shells that simulate the effects of extreme drunkenness on the target, more effective for each type of alcohol in the target's system."
 	reference = "BSS"
 	item = /obj/item/weapon/storage/box/syndie_kit/boolets
-	cost = 6
+	cost = 2
 	job = list("Bartender")
 
 //Barber
@@ -417,7 +417,7 @@ var/list/uplink_items = list()
 	desc = "A flamethrower, fuelled by a portion of highly flammable bio-toxins stolen previously from Nanotrasen stations. Make a statement by roasting the filth in their own greed. Use with caution."
 	reference = "FT"
 	item = /obj/item/weapon/flamethrower/full/tank
-	cost = 11
+	cost = 8
 	gamemodes = list(/datum/game_mode/nuclear)
 	surplus = 40
 
@@ -457,7 +457,7 @@ var/list/uplink_items = list()
 	desc = "A unique grenade that deploys a swarm of viscerators upon activation, which will chase down and shred any non-operatives in the area."
 	reference = "VDG"
 	item = /obj/item/weapon/grenade/spawnergrenade/manhacks
-	cost = 8
+	cost = 7
 	gamemodes = list(/datum/game_mode/nuclear)
 	surplus = 35
 
@@ -726,7 +726,7 @@ var/list/uplink_items = list()
 			will instantly put them in your grasp and silence them, as well as causing rapid suffocation. Does not work on those who do not need to breathe."
 	reference = "GAR"
 	item = /obj/item/weapon/twohanded/garrote
-	cost = 12
+	cost = 10
 
 /datum/uplink_item/stealthy_weapons/martialarts
 	name = "Martial Arts Scroll"
@@ -1026,7 +1026,7 @@ var/list/uplink_items = list()
 	desc = "A key, that when inserted into a radio headset, allows you to listen to and talk with artificial intelligences and cybernetic organisms in binary."
 	reference = "BITK"
 	item = /obj/item/device/encryptionkey/binary
-	cost = 5
+	cost = 3
 	surplus = 75
 
 /datum/uplink_item/device_tools/cipherkey
@@ -1042,7 +1042,7 @@ var/list/uplink_items = list()
 	desc = "When used with an upload console, this module allows you to upload priority laws to an artificial intelligence. Be careful with their wording, as artificial intelligences may look for loopholes to exploit."
 	reference = "HAI"
 	item = /obj/item/weapon/aiModule/syndicate
-	cost = 14
+	cost = 12
 
 /datum/uplink_item/device_tools/magboots
 	name = "Blood-Red Magboots"
@@ -1083,7 +1083,7 @@ var/list/uplink_items = list()
 			sends you a small beacon that will teleport the larger beacon to your location upon activation."
 	reference = "SNGB"
 	item = /obj/item/device/radio/beacon/syndicate
-	cost = 14
+	cost = 12
 	surplus = 0
 
 /datum/uplink_item/device_tools/syndicate_bomb
