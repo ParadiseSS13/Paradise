@@ -466,7 +466,7 @@ var/list/uplink_items = list()
 	desc = "A box full of preloaded syringes, containing various chemicals that seize up the victim's motor and broca system , making it impossible for them to move or speak while in their system."
 	reference = "BTS"
 	item = /obj/item/weapon/storage/box/syndie_kit/bioterror
-	cost = 6
+	cost = 5
 	gamemodes = list(/datum/game_mode/nuclear)
 
 /datum/uplink_item/dangerous/saringrenades
@@ -474,7 +474,7 @@ var/list/uplink_items = list()
 	desc = "A box of four (4) grenades filled with Sarin, a deadly neurotoxin. Use extreme caution when handling and be sure to vacate the premise after using; ensure communication is maintained with team to avoid accidental gassings."
 	reference = "TGG"
 	item = /obj/item/weapon/storage/box/syndie_kit/sarin
-	cost = 15
+	cost = 12
 	gamemodes = list(/datum/game_mode/nuclear)
 	surplus = 0
 
@@ -698,7 +698,7 @@ var/list/uplink_items = list()
 	desc = "A 3-round magazine of soporific ammo designed for use with .50 sniper rifles. Put your enemies to sleep today!"
 	reference = "50S"
 	item = /obj/item/ammo_box/magazine/sniper_rounds/soporific
-	cost = 6
+	cost = 3
 
 /datum/uplink_item/ammo/sniper/haemorrhage
 	name = ".50 Haemorrhage Magazine"
@@ -783,6 +783,15 @@ var/list/uplink_items = list()
 	item = /obj/item/weapon/gun/syringe/syndicate
 	cost = 4
 	surplus = 50
+	excludefrom = list(/datum/game_mode/nuclear)
+
+/datum/uplink_item/stealthy_weapons/RSG
+	name = "Rapid Syringe Gun"
+	desc = "A rapid syringe gun able to hold six shot and fire them rapidly. Great together with the bioterror syringe"
+	reference = "RSG"
+	item = /obj/item/weapon/gun/syringe/rapidsyringe
+	cost = 4
+	gamemodes = list(/datum/game_mode/nuclear)
 
 /datum/uplink_item/stealthy_weapons/detomatix
 	name = "Detomatix PDA Cartridge"
@@ -968,7 +977,7 @@ var/list/uplink_items = list()
 	and other medical supplies helpful for a medical field operative."
 	reference = "SCMK"
 	item = /obj/item/weapon/storage/firstaid/tactical
-	cost = 9
+	cost = 7
 	gamemodes = list(/datum/game_mode/nuclear)
 
 //Space Suits and Hardsuits
@@ -1138,7 +1147,7 @@ var/list/uplink_items = list()
 	desc = "A printed circuit board that completes the teleporter onboard the mothership. Advise you test fire the teleporter before entering it, as malfunctions can occur."
 	item = /obj/item/weapon/circuitboard/teleporter
 	reference = "TP"
-	cost = 40
+	cost = 20
 	gamemodes = list(/datum/game_mode/nuclear)
 	surplus = 0
 
@@ -1147,7 +1156,7 @@ var/list/uplink_items = list()
 	desc = "Use to select the landing zone of your assault pod."
 	item = /obj/item/device/assault_pod
 	reference = "APT"
-	cost = 30
+	cost = 25
 	gamemodes = list(/datum/game_mode/nuclear)
 	surplus = 0
 
