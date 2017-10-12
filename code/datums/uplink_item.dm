@@ -236,7 +236,7 @@ var/list/uplink_items = list()
 	desc = "A box containing 6 shotgun shells that simulate the effects of extreme drunkenness on the target, more effective for each type of alcohol in the target's system."
 	reference = "BSS"
 	item = /obj/item/weapon/storage/box/syndie_kit/boolets
-	cost = 2
+	cost = 4
 	job = list("Bartender")
 
 //Barber
@@ -357,7 +357,7 @@ var/list/uplink_items = list()
 	reference = "SPI"
 	desc = "A small, easily concealable handgun that uses 10mm auto rounds in 8-round magazines and is compatible with suppressors."
 	item = /obj/item/weapon/gun/projectile/automatic/pistol
-	cost = 4
+	cost = 3
 
 /datum/uplink_item/dangerous/revolver
 	name = "Syndicate .357 Revolver"
@@ -457,7 +457,7 @@ var/list/uplink_items = list()
 	desc = "A unique grenade that deploys a swarm of viscerators upon activation, which will chase down and shred any non-operatives in the area."
 	reference = "VDG"
 	item = /obj/item/weapon/grenade/spawnergrenade/manhacks
-	cost = 7
+	cost = 6
 	gamemodes = list(/datum/game_mode/nuclear)
 	surplus = 35
 
@@ -608,7 +608,7 @@ var/list/uplink_items = list()
 	desc = "A speed loader that contains seven additional .357 Magnum rounds for the syndicate revolver. For when you really need a lot of things dead."
 	reference = "357"
 	item = /obj/item/ammo_box/a357
-	cost = 4
+	cost = 3
 
 /datum/uplink_item/ammo/smg
 	name = "Magazine - .45"
