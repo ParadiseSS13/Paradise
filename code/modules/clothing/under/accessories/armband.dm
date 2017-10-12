@@ -14,8 +14,8 @@
 /obj/item/clothing/accessory/armband/yb
 	name = "blue-yellow armband"
 	desc = "A fancy blue and yellow armband!"
-	icon_state = "whitered"
-	item_color = "whitered"
+	icon_state = "solblue"
+	item_color = "solblue"
 
 /obj/item/clothing/accessory/armband/cargo
 	name = "cargo armband"
