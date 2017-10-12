@@ -62,8 +62,8 @@
 /obj/item/weapon/tank/air
 	name = "air tank"
 	desc = "Mixed anyone?"
-	icon_state = "oxygen"
-
+	icon_state = "air"
+	item_state = "air"
 
 /obj/item/weapon/tank/air/examine(mob/user)
 	if(..(user, 0))
