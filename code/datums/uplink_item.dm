@@ -236,7 +236,7 @@ var/list/uplink_items = list()
 	desc = "A box containing 6 shotgun shells that simulate the effects of extreme drunkenness on the target, more effective for each type of alcohol in the target's system."
 	reference = "BSS"
 	item = /obj/item/weapon/storage/box/syndie_kit/boolets
-	cost = 4
+	cost = 3
 	job = list("Bartender")
 
 //Barber
