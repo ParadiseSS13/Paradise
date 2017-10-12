@@ -218,7 +218,7 @@
 				return 0
 			if(!(A in summon_spots))
 				to_chat(user, "<span class='cultlarge'>[cult_mode.cultdat.entity_name] can only be summoned where the veil is weak - in [english_list(summon_spots)]!</span>")
-				return
+				return 0
 		var/confirm_final = alert(user, "This is the FINAL step to summon your deities power, it is a long, painful ritual and the crew will be alerted to your presence", "Are you prepared for the final battle?", "My life for [cult_mode.cultdat.entity_name]!", "No")
 		if(confirm_final == "No" || confirm_final == null)
 			to_chat(user, "<span class='cult'>You decide to prepare further before scribing the rune.</span>")
