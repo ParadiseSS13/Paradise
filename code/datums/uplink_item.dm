@@ -1036,7 +1036,7 @@ var/list/uplink_items = list()
 	desc = "A key, that when inserted into a radio headset, allows you to listen to and talk with artificial intelligences and cybernetic organisms in binary."
 	reference = "BITK"
 	item = /obj/item/device/encryptionkey/binary
-	cost = 3
+	cost = 5
 	surplus = 75
 
 /datum/uplink_item/device_tools/cipherkey
