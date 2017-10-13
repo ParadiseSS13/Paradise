@@ -118,7 +118,7 @@
 	desc = "A 12 gauge lead slug."
 	icon_state = "blshell"
 	caliber = "shotgun"
-	projectile_type = /obj/item/projectile/bullet
+	projectile_type = /obj/item/projectile/bullet/slug
 	materials = list(MAT_METAL=4000)
 
 
@@ -128,7 +128,7 @@
 	icon_state = "gshell"
 	projectile_type = /obj/item/projectile/bullet/pellet
 	pellets = 6
-	variance = 25
+	variance = 40 // Lower accuracy tradeoff for buckshot versus slug
 
 /obj/item/ammo_casing/shotgun/rubbershot
 	name = "rubber shot"
@@ -155,7 +155,7 @@
 	projectile_type = /obj/item/projectile/bullet/pellet/weak
 	materials = list(MAT_METAL=250)
 	pellets = 10
-	variance = 25
+	variance = 40 // Would not make sense if somehow improvised shell is more accurate than buckshot.
 
 
 /obj/item/ammo_casing/shotgun/improvised/overload
