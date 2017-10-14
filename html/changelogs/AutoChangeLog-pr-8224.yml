@@ -1,4 +1,0 @@
-author: "Kyep"
-delete-after: True
-changes: 
-  - tweak: "HoPs/Captains opening/closing job slots is now announced to admins. No more HoPs opening 30 clown slots without admins noticing."
