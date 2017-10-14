@@ -135,6 +135,11 @@ var/const/MAX_ACTIVE_TIME = 400
 		if(target.wear_mask)
 			if(prob(20))
 				return 0
+			if(istype(target.wear_mask, /obj/item/clothing/mask/muzzle))
+				var/obj/item/clothing/mask/muzzle/S = target.wear_mask
+				if(S.do_break())
+					target.visible_message("<span class='danger'>[src] spits acid onto [S] melting the lock!</span>", \
+									"<span class='userdanger'>[src] spits acid onto [S] melting the lock!</span>")
 			var/obj/item/clothing/W = target.wear_mask
 			if(W.flags & NODROP)
 				return 0
