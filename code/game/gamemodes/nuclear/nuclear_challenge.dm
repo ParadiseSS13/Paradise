@@ -1,7 +1,7 @@
 #define CHALLENGE_TELECRYSTALS 280
 #define CHALLENGE_TIME_LIMIT 6000
 #define CHALLENGE_SCALE_PLAYER 1 // How many player per scaling bonus
-#define CHALLENGE_SCALE_BONUS 4 // How many TC per scaling bonus
+#define CHALLENGE_SCALE_BONUS 2 // How many TC per scaling bonus
 #define CHALLENGE_MIN_PLAYERS 50
 #define CHALLENGE_SHUTTLE_DELAY 15000 //25 minutes, so the ops have at least 5 minutes before the shuttle is callable.
 
