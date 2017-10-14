@@ -68,8 +68,9 @@ Filter types:
 	if(old_stat != stat)
 		update_icon()
 
-/obj/machinery/atmospherics/trinary/filter/process()
-	if(!..() || !on)
+/obj/machinery/atmospherics/trinary/filter/process_atmos()
+	..()
+	if(!on)
 		return 0
 
 	var/output_starting_pressure = air3.return_pressure()

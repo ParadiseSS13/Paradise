@@ -46,7 +46,7 @@
 
 	..(severity)
 
-/obj/machinery/portable_atmospherics/pump/process()
+/obj/machinery/portable_atmospherics/pump/process_atmos()
 	..()
 	if(on)
 		var/datum/gas_mixture/environment

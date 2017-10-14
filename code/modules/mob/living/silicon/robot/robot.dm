@@ -1342,6 +1342,7 @@ var/list/robot_verbs_default = list(
 	designation = "Nanotrasen Combat"
 	req_access = list(access_cent_specops)
 	ionpulse = 1
+	magpulse = 1
 	var/searching_for_ckey = 0
 
 /mob/living/silicon/robot/deathsquad/New(loc)
@@ -1391,6 +1392,7 @@ var/list/robot_verbs_default = list(
 	modtype = "Syndicate"
 	req_access = list(access_syndicate)
 	ionpulse = 1
+	magpulse = 1
 	lawchannel = "State"
 	var/playstyle_string = "<span class='userdanger'>You are a Syndicate assault cyborg!</span><br>\
 							<b>You are armed with powerful offensive tools to aid you in your mission: help the operatives secure the nuclear authentication disk. \

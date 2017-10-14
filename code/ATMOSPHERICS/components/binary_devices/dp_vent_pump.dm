@@ -104,8 +104,9 @@
 			else
 				add_underlay(T, node2, dir)
 
-/obj/machinery/atmospherics/binary/dp_vent_pump/process()
-	if(!..() || !on)
+/obj/machinery/atmospherics/binary/dp_vent_pump/process_atmos()
+	..()
+	if(!on)
 		return 0
 
 	var/datum/gas_mixture/environment = loc.return_air()

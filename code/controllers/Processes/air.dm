@@ -25,7 +25,7 @@ var/global/datum/controller/process/air_system/air_master
 
 /datum/controller/process/air_system/setup()
 	name = "air"
-	schedule_interval = 20 // every 2 seconds
+	schedule_interval = 4
 	start_delay = 4
 
 	var/watch = start_watch()
@@ -38,6 +38,8 @@ var/global/datum/controller/process/air_system/air_master
 	if(kill_air)
 		return 1
 	current_cycle++
+	process_pipenets()
+	process_atmos_machinery()
 	process_active_turfs()
 	process_excited_groups()
 	process_high_pressure_delta()
@@ -49,6 +51,8 @@ var/global/datum/controller/process/air_system/air_master
 	..()
 	stat(null, "[last_active] active")
 	stat(null, "[last_excited] EG | [last_hpd] HPD | [last_asc] ASC | [last_hotspots] Hot")
+	stat(null, "[pipe_networks.len] pipe nets, [deferred_pipenet_rebuilds.len] deferred")
+	stat(null, "[atmos_machinery.len] atmos machines")
 
 DECLARE_GLOBAL_CONTROLLER(air_system, air_master)
 
@@ -77,6 +81,48 @@ DECLARE_GLOBAL_CONTROLLER(air_system, air_master)
 	for(var/turf/simulated/T in active_turfs)
 		T.process_cell()
 		SCHECK
+
+/datum/controller/process/air_system/proc/process_pipenets()
+	for(last_object in deferred_pipenet_rebuilds)
+		var/obj/machinery/atmospherics/M = last_object
+		if(istype(M) && isnull(M.gcDestroyed))
+			try
+				M.build_network()
+			catch(var/exception/e)
+				catchException(e, M)
+			SCHECK
+		else
+			catchBadType(M)
+		deferred_pipenet_rebuilds -= M
+
+	for(last_object in pipe_networks)
+		var/datum/pipeline/pipeNetwork = last_object
+		if(istype(pipeNetwork) && isnull(pipeNetwork.gcDestroyed))
+			try
+				pipeNetwork.process()
+			catch(var/exception/e)
+				catchException(e, pipeNetwork)
+			SCHECK
+		else
+			catchBadType(pipeNetwork)
+			pipe_networks -= pipeNetwork
+
+/datum/controller/process/air_system/proc/process_atmos_machinery()
+	for(last_object in atmos_machinery)
+		var/obj/machinery/M = last_object
+		if(istype(M) && isnull(M.gcDestroyed))
+			try
+				if(M.process_atmos() == PROCESS_KILL)
+					atmos_machinery.Remove(M)
+					continue
+			catch(var/exception/e)
+				catchException(e, M)
+		else
+			catchBadType(M)
+			atmos_machinery -= M
+
+		SCHECK
+
 
 /datum/controller/process/air_system/proc/remove_from_active(var/turf/simulated/T)
 	if(istype(T))
