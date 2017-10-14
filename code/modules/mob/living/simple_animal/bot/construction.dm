@@ -292,6 +292,7 @@
 	var/treatment_fire = "salglu_solution"
 	var/treatment_tox = "charcoal"
 	var/treatment_virus = "spaceacillin"
+	var/treatment_evil = "pancuronium"
 	req_one_access = list(access_medical, access_robotics)
 
 	/obj/item/weapon/firstaid_arm_assembly/New()
@@ -374,11 +375,14 @@
 					S.skin = skin
 					S.name = created_name
 					S.bot_core.req_one_access = req_one_access
-					S.treatment_oxy = treatment_oxy
-					S.treatment_brute = treatment_brute
-					S.treatment_fire = treatment_fire
-					S.treatment_tox = treatment_tox
-					S.treatment_virus = treatment_virus
+					S.treatments = list(
+						BRUTE = treatment_brute,
+						BURN = treatment_fire,
+						TOX = treatment_tox,
+						OXY = treatment_oxy,
+						"virus" = treatment_virus,
+						"evil" = treatment_evil
+						)
 					user.unEquip(src, 1)
 					qdel(src)
 

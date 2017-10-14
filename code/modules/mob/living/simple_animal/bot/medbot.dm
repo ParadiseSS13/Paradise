@@ -1,4 +1,11 @@
-//Medbot
+#define NO_TREAT		0
+#define REQ_BRUTE 1
+#define REQ_BURN	2
+#define REQ_TOX		4
+#define REQ_OXY		8
+#define REQ_VIRUS	16
+
+//medbot
 /mob/living/simple_animal/bot/medbot
 	name = "\improper Medibot"
 	desc = "A little medical robot. He looks somewhat underwhelmed."
@@ -18,7 +25,7 @@
 	bot_purpose = "seek out hurt crewmembers and ensure that they are healed"
 	bot_core_type = /obj/machinery/bot_core/medbot
 	window_id = "automed"
-	window_name = "Automatic Medical Unit v1.1"
+	window_name = "Automatic Medical Unit v1.2"
 
 	var/obj/item/weapon/reagent_containers/glass/reagent_glass = null //Can be set to draw from this for reagents.
 	var/skin = null //Set to "tox", "ointment" or "o2" for the other two firstaid kits.
@@ -35,13 +42,17 @@
 	var/declare_cooldown = 0 //Prevents spam of critical patient alerts.
 	var/stationary_mode = 0 //If enabled, the Medibot will not move automatically.
 	//Setting which reagents to use to treat what by default. By id.
-	var/treatment_brute = "salglu_solution"
-	var/treatment_oxy = "salbutamol"
-	var/treatment_fire = "salglu_solution"
-	var/treatment_tox = "charcoal"
-	var/treatment_virus = "spaceacillin"
+	var/treatments = list(
+		BRUTE = "salglu_solution",
+		BURN = "salglu_solution",
+		OXY = "salbutamol",
+		TOX = "charcoal",
+		"virus" = "spaceacillin",
+		"evil" = "pancuronium"
+		)
 	var/treat_virus = 1 //If on, the bot will attempt to treat viral infections, curing them if possible.
 	var/shut_up = 0 //self explanatory :)
+	var/internalsafety = TRUE // If true attempt to check internal reagent before injecting
 
 /mob/living/simple_animal/bot/medbot/tox
 	skin = "tox"
@@ -65,19 +76,27 @@
 	name = "\improper Mysterious Medibot"
 	desc = "International Medibot of mystery."
 	skin = "bezerk"
-	treatment_oxy = "perfluorodecalin"
-	treatment_brute = "styptic_powder"
-	treatment_fire = "silver_sulfadiazine"
-	treatment_tox = "charcoal"
+	treatments = list(
+		BRUTE = "styptic_powder",
+		BURN = "silver_sulfadiazine",
+		OXY = "perfluorodecalin",
+		TOX = "charcoal",
+		"virus" = "spaceacillin",
+		"evil" = "pancuronium"
+		)
 
 /mob/living/simple_animal/bot/medbot/syndicate
 	name = "Suspicious Medibot"
 	desc = "You'd better have insurance!"
 	skin = "bezerk"
-	treatment_oxy = "perfluorodecalin"
-	treatment_brute = "styptic_powder"
-	treatment_fire = "silver_sulfadiazine"
-	treatment_tox = "charcoal"
+	treatments = list(
+		BRUTE = "styptic_powder",
+		BURN = "silver_sulfadiazine",
+		OXY = "perfluorodecalin",
+		TOX = "charcoal",
+		"virus" = "spaceacillin",
+		"evil" = "pancuronium"
+		)
 	bot_core_type = /obj/machinery/bot_core/medbot/syndicate
 	control_freq = BOT_FREQ + 1000 // make it not show up on lists
 	radio_channel = "Syndicate"
@@ -167,6 +186,10 @@
 		dat += "Reagent Source: "
 		dat += "<a href='?src=[UID()];use_beaker=1'>[use_beaker ? "Loaded Beaker (When available)" : "Internal Synthesizer"]</a><br>"
 
+		if(reagent_glass)
+			dat += "Internal Reagent Safety:"
+			dat += "<a href='?src=[UID()];internalsafety=1'>[internalsafety ? "Yes" : "No"]</a><br>"
+
 		dat += "Treat Viral Infections: <a href='?src=[UID()];virus=1'>[treat_virus ? "Yes" : "No"]</a><br>"
 		dat += "The speaker switch is [shut_up ? "off" : "on"]. <a href='?src=[UID()];togglevoice=[1]'>Toggle</a><br>"
 		dat += "Critical Patient Alerts: <a href='?src=[UID()];critalerts=1'>[declare_crit ? "Yes" : "No"]</a><br>"
@@ -216,6 +239,9 @@
 	else if(href_list["virus"])
 		treat_virus = !treat_virus
 
+	else if(href_list["internalsafety"])
+		internalsafety = !internalsafety
+
 	update_controls()
 	return
 
@@ -247,7 +273,7 @@
 	if(emagged == 2)
 		declare_crit = 0
 		if(user)
-			to_chat(user, "<span class='notice'>You short out [src]'s reagent synthesis circuits.</span>")
+			to_chat(user, "<span class='notice'>You short out [src]'s reagent safety circuits.</span>")
 		audible_message("<span class='danger'>[src] buzzes oddly!</span>")
 		flick("medibot_spark", src)
 		if(user)
@@ -353,63 +379,45 @@
 	return
 
 /mob/living/simple_animal/bot/medbot/proc/assess_patient(mob/living/carbon/C)
-	//Time to see if they need medical help!
-	if(C.stat == 2)
-		return 0 //welp too late for them!
-
-	if(C.suiciding)
-		return 0 //Kevorkian school of robotic medical assistants.
-
-	// is secretly a silicon
-	if(ishuman(C))
-		var/mob/living/carbon/human/H = C
-		if(H.species && H.species.reagent_tag == PROCESS_SYN)
-			return 0
-
-	if(emagged == 2) //Everyone needs our medicine. (Our medicine is toxins)
-		return 1
-
-	if((skin == "bezerk") && (!("syndicate" in C.faction)))
-		return 0
-
-	if(declare_crit && C.health <= 0) //Critical condition! Call for help!
+//Check the status of the patient and return appropriate condition.
+	if((skin == "bezerk") && (!("syndicate" in C.faction))) // If we're a syndie and they aren't then fail.
+		return FALSE
+	if(emagged) //If we're emagged then everybody is a patient all of the time
+		return TRUE
+	var/patient_status = NO_TREAT //They're healthy until we discover otherwise.
+	if(C.stat == 2 || C.suiciding) //If they're dead or suiciding already no point in proceeding with assessment.
+		patient_status = NO_TREAT
+		return patient_status
+	if(declare_crit && C.health <= 0) // Declare check during assessment.
 		declare(C)
+	// If they're not dead or suiciding they must be alive, so lets get their status and return it...
+	if(treat_virus && scan_for_virus(C)) // If we're looking for viruses and they have one which is detectable by us.
+		patient_status |= REQ_VIRUS
+	if(C.has_organic_damage()) // Now damage checks. No point doing this if they have no damage.
+		if((C.getBruteLoss() >= heal_threshold) && (!C.reagents.has_reagent(treatments[BRUTE])))
+			patient_status |= REQ_BRUTE
+		if((C.getFireLoss() >= heal_threshold) && (!C.reagents.has_reagent(treatments[BURN])))
+			patient_status |= REQ_BURN
+		if((C.getToxLoss() >= heal_threshold) && (!C.reagents.has_reagent(treatments[TOX])))
+			patient_status |= REQ_TOX
+		if((C.getOxyLoss() >= (15 + heal_threshold)) && (!C.reagents.has_reagent(treatments[OXY])))
+			patient_status |= REQ_OXY
+		return patient_status
+	else
+		return patient_status
 
-	if(!C.has_organic_damage())
-		return 0
+/mob/living/simple_animal/bot/medbot/proc/scan_for_virus(mob/living/carbon/C)
+	for(var/thing in C.viruses)
+		var/datum/disease/D = thing
+		//the medibot can't detect viruses that are undetectable to Health Analyzers or Pandemic machines.
+		if(D.visibility_flags & HIDDEN_SCANNER || D.visibility_flags & HIDDEN_PANDEMIC)
+			return 0
+		if(D.severity == NONTHREAT) // medibot doesn't try to heal truly harmless viruses
+			return 0
+		if((D.stage > 1) || (D.spread_flags & AIRBORNE)) // medibot can't detect a virus in its initial stage unless it spreads airborne.
 
-	//If they're injured, we're using a beaker, and don't have one of our WONDERCHEMS.
-	if((reagent_glass) && (use_beaker) && ((C.getBruteLoss() >= heal_threshold) || (C.getToxLoss() >= heal_threshold) || (C.getToxLoss() >= heal_threshold) || (C.getOxyLoss() >= (heal_threshold + 15))))
-		for(var/datum/reagent/R in reagent_glass.reagents.reagent_list)
-			if(!C.reagents.has_reagent(R.id))
-				return 1
-
-	//They're injured enough for it!
-	if((C.getBruteLoss() >= heal_threshold) && (!C.reagents.has_reagent(treatment_brute)))
-		return 1 //If they're already medicated don't bother!
-
-	if((C.getOxyLoss() >= (15 + heal_threshold)) && (!C.reagents.has_reagent(treatment_oxy)))
-		return 1
-
-	if((C.getFireLoss() >= heal_threshold) && (!C.reagents.has_reagent(treatment_fire)))
-		return 1
-
-	if((C.getToxLoss() >= heal_threshold) && (!C.reagents.has_reagent(treatment_tox)))
-		return 1
-
-	if(treat_virus)
-		for(var/thing in C.viruses)
-			var/datum/disease/D = thing
-			//the medibot can't detect viruses that are undetectable to Health Analyzers or Pandemic machines.
-			if(D.visibility_flags & HIDDEN_SCANNER || D.visibility_flags & HIDDEN_PANDEMIC)
-				return 0
-			if(D.severity == NONTHREAT) // medibot doesn't try to heal truly harmless viruses
-				return 0
-			if((D.stage > 1) || (D.spread_flags & AIRBORNE)) // medibot can't detect a virus in its initial stage unless it spreads airborne.
-
-				if(!C.reagents.has_reagent(treatment_virus))
-					return 1 //STOP DISEASE FOREVER
-
+			if(!C.reagents.has_reagent(treatments["virus"]))
+				return 1 //STOP DISEASE FOREVER
 	return 0
 
 /mob/living/simple_animal/bot/medbot/UnarmedAttack(atom/A)
@@ -429,97 +437,90 @@
 		chemscan(src, A)
 
 /mob/living/simple_animal/bot/medbot/proc/medicate_patient(mob/living/carbon/C)
+	if(!on) // Are we still switched on!?
+		return
 	var/inject_beaker = FALSE
-	if(!on)
-		return
-
-	if(!istype(C))
-		oldpatient = patient
-		soft_reset()
-		return
-
-	if(C.stat == 2)
-		var/death_message = pick("No! NO!","Live, damnit! LIVE!","I...I've never lost a patient before. Not today, I mean.")
-		speak(death_message)
-		oldpatient = patient
-		soft_reset()
-		return
-
-	var/reagent_id = null
-
-	if(emagged == 2) //Emagged! Time to poison everybody.
-		reagent_id = "pancuronium"
-
-	else
-		if(treat_virus)
-			var/virus = 0
-			for(var/thing in C.viruses)
-				var/datum/disease/D = thing
-				//detectable virus
-				if((!(D.visibility_flags & HIDDEN_SCANNER)) || (!(D.visibility_flags & HIDDEN_PANDEMIC)))
-					if(D.severity != NONTHREAT)      //virus is harmful
-						if((D.stage > 1) || (D.spread_flags & AIRBORNE))
-							virus = 1
-
-			if(!reagent_id && (virus))
-				if(!C.reagents.has_reagent(treatment_virus))
-					reagent_id = treatment_virus
-
-		if(!reagent_id && (C.getBruteLoss() >= heal_threshold))
-			if(!C.reagents.has_reagent(treatment_brute))
-				reagent_id = treatment_brute
-
-		if(!reagent_id && (C.getOxyLoss() >= (15 + heal_threshold)))
-			if(!C.reagents.has_reagent(treatment_oxy))
-				reagent_id = treatment_oxy
-
-		if(!reagent_id && (C.getFireLoss() >= heal_threshold))
-			if(!C.reagents.has_reagent(treatment_fire))
-				reagent_id = treatment_fire
-
-		if(!reagent_id && (C.getToxLoss() >= heal_threshold))
-			if(!C.reagents.has_reagent(treatment_tox))
-				reagent_id = treatment_tox
-
-		//If the patient is injured but doesn't have our special reagent in them then we should give it to them first
-		if(reagent_id && use_beaker && reagent_glass && reagent_glass.reagents.total_volume)
-			for(var/datum/reagent/R in reagent_glass.reagents.reagent_list)
-				if(!C.reagents.has_reagent(R.id))
-					reagent_id = R.id
+	var/treatment_type = return_treatment_type(C)
+	var/reagent_id = treatments[treatment_type]
+	if(use_beaker && reagent_glass && reagent_glass.reagents.total_volume) // Prioritise use of the beaker
+		for(var/datum/reagent/R in reagent_glass.reagents.reagent_list)
+			if(!C.reagents.has_reagent(R.id))
+				var/beaker_reagent = R.id
+				if(special_reagent_check(beaker_reagent, treatment_type) || emagged) // Check to see if the reagent actually treats the damage we want, else fall back on defaults. Or if we're emagged we don't even care.
 					inject_beaker = TRUE
+					reagent_id = beaker_reagent
 					break
-
-	if(!reagent_id) //If they don't need any of that they're probably cured!
-		var/message = pick("All patched up!","An apple a day keeps me away.","Feel better soon!")
-		speak(message)
-		bot_reset()
-		return
-	else
-		if(!emagged && check_overdose(patient,reagent_id,injection_amount))
-			soft_reset()
-			return
-		C.visible_message("<span class='danger'>[src] is trying to inject [patient]!</span>", \
-			"<span class='userdanger'>[src] is trying to inject you!</span>")
-
-		spawn(30)//replace with do mob
-			if((get_dist(src, patient) <= 1) && on && assess_patient(patient))
-				if(inject_beaker)
-					if(use_beaker && reagent_glass && reagent_glass.reagents.total_volume)
-						var/fraction = min(injection_amount/reagent_glass.reagents.total_volume, 1)
-						reagent_glass.reagents.reaction(patient, INGEST, fraction)
-						reagent_glass.reagents.trans_to(patient, injection_amount) //Inject from beaker instead.
 				else
-					patient.reagents.add_reagent(reagent_id,injection_amount)
-				C.visible_message("<span class='danger'>[src] injects [patient] with its syringe!</span>", \
-					"<span class='userdanger'>[src] injects you with its syringe!</span>")
-			else
-				visible_message("[src] retracts its syringe.")
-			update_icon()
-			soft_reset()
-			return
+					break
+	if(!emagged && check_overdose(patient,reagent_id,injection_amount)) // Now we check to see if it will overdose the patient, unless we're emagged and don't care.
+		soft_reset()
+		return
+	if(emagged && !inject_beaker) // If we're not using a beaker of our own death chems, lets make some instead.
+		reagent_id = treatments["evil"]
 
-	reagent_id = null
-	return
+	//Now we actually inject the reagents
+
+	C.visible_message("<span class='danger'>[src] is trying to inject [patient]!</span>", \
+		"<span class='userdanger'>[src] is trying to inject you!</span>")
+	spawn(30)
+		if((get_dist(src, patient) <= 1) && on && assess_patient(patient))
+			if(inject_beaker) // If we're going to use the beaker then inject from that
+				if(use_beaker && reagent_glass && reagent_glass.reagents.total_volume)
+					var/fraction = min(injection_amount/reagent_glass.reagents.total_volume, 1)
+					reagent_glass.reagents.reaction(patient, INGEST, fraction)
+					reagent_glass.reagents.trans_to(patient, injection_amount) //Inject from beaker instead.
+			else // Else inject from our Synthesizer.
+				patient.reagents.add_reagent(reagent_id,injection_amount)
+			C.visible_message("<span class='danger'>[src] injects [patient] with its syringe!</span>", \
+				"<span class='userdanger'>[src] injects you with its syringe!</span>")
+		else
+			visible_message("[src] retracts its syringe.")
+		update_icon()
+		soft_reset()
+		return
+
+/mob/living/simple_animal/bot/medbot/proc/special_reagent_check(reagent_id, damagetype)
+	if(!internalsafety)
+		return TRUE
+//Check to see if the reagent actually treats the corresponding damage type.
+	switch(damagetype)
+		if(BRUTE)
+			if(brute_healing_chems_injest.Find(reagent_id))
+				return TRUE
+		if(BURN)
+			if(burn_healing_chems_injest.Find(reagent_id))
+				return TRUE
+		if(OXY)
+			if(oxy_healing_chems_injest.Find(reagent_id))
+				return TRUE
+		if(TOX)
+			if(tox_healing_chems_injest.Find(reagent_id))
+				return TRUE
+	return FALSE
+
+/mob/living/simple_animal/bot/medbot/proc/return_treatment_type(mob/living/carbon/C)
+	var/patient_status = assess_patient(C)
+	var/dam = list()
+	if((patient_status & REQ_VIRUS) && !C.reagents.has_reagent(treatments["virus"]))
+		if(C.health >= 50) // If their health is above 60 then we can should treat the virus.
+			var/virus_weight = C.health / 2 // We calculate the weight based on their current health over 2 to prioratise actual damage.
+			dam += list("virus" = virus_weight)
+	if((patient_status & REQ_BURN) && !C.reagents.has_reagent(treatments[BURN]))
+		dam += list(BURN = C.getFireLoss())
+	if((patient_status & REQ_BRUTE) && !C.reagents.has_reagent(treatments[BRUTE]))
+		dam += list(BRUTE = C.getBruteLoss())
+	if((patient_status & REQ_OXY) && !C.reagents.has_reagent(treatments[OXY]))
+		dam += list(OXY = C.getOxyLoss())
+	if((patient_status & REQ_TOX) && !C.reagents.has_reagent(treatments[TOX]))
+		dam += list(TOX = C.getToxLoss())
+
+	var/highest = 0
+	var/highest_key
+	for(var/key in dam)
+		if(dam[key] > highest)
+			highest_key = key
+			highest = dam[key]
+	return highest_key
 
 /mob/living/simple_animal/bot/medbot/proc/check_overdose(mob/living/carbon/patient,reagent_id,injection_amount)
 	var/datum/reagent/R  = chemical_reagents_list[reagent_id]
@@ -543,11 +544,11 @@
 	switch(skin)
 		if("ointment")
 			new /obj/item/weapon/storage/firstaid/fire/empty(Tsec)
-		if("tox")
+		if(TOX)
 			new /obj/item/weapon/storage/firstaid/toxin/empty(Tsec)
 		if("o2")
 			new /obj/item/weapon/storage/firstaid/o2/empty(Tsec)
-		if("brute")
+		if(BRUTE)
 			new /obj/item/weapon/storage/firstaid/brute/empty(Tsec)
 		if("adv")
 			new /obj/item/weapon/storage/firstaid/adv/empty(Tsec)
@@ -590,3 +591,10 @@
 
 /obj/machinery/bot_core/medbot/syndicate
 	req_one_access = list(access_syndicate)
+
+#undef NO_TREAT
+#undef REQ_BRUTE
+#undef REQ_BURN
+#undef REQ_TOX
+#undef REQ_OXY
+#undef REQ_VIRUS
