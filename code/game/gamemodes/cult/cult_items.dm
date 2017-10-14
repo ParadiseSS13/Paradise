@@ -32,6 +32,11 @@
 		to_chat(user, "<span class='warning'>An overwhelming sense of nausea overpowers you!</span>")
 		user.Dizzy(120)
 
+	if(HULK in user.mutations)
+		to_chat(user, "<span class='danger'>You can't seem to hold the blade properly!</span>")
+		user.unEquip(src, 1)
+
+
 /obj/item/weapon/melee/cultblade/dagger
 	name = "sacrificial dagger"
 	desc = "A strange dagger said to be used by sinister groups for \"preparing\" a corpse before sacrificing it to their dark gods."
@@ -43,11 +48,8 @@
 	embed_chance = 75
 
 /obj/item/weapon/melee/cultblade/dagger/attack(atom/target, mob/living/carbon/human/user)
+
 	..()
-	if(ishuman(target))
-		var/mob/living/carbon/human/H = target
-		if((H.stat != DEAD) && !(NO_BLOOD in H.species.species_traits))
-			H.bleed(50)
 
 /obj/item/weapon/restraints/legcuffs/bola/cult
 	name = "runed bola"
@@ -117,7 +119,7 @@
 	armor = list(melee = 60, bullet = 50, laser = 30, energy = 15, bomb = 30, bio = 30, rad = 30)
 
 /obj/item/clothing/suit/space/cult
-	name = "cult armour"
+	name = "cult armor"
 	icon_state = "cult_armour"
 	item_state = "cult_armour"
 	desc = "A bulky suit of armour, bristling with spikes. It looks space proof."
@@ -321,6 +323,7 @@
 		if(uses <= 0)
 			icon_state ="shifter_drained"
 		playsound(mobloc, "sparks", 50, 1)
+		C.apply_damage(2, "BRUTE")
 		new /obj/effect/overlay/temp/cult/phase/out(mobloc)
 
 		var/atom/movable/pulled = handle_teleport_grab(destination, C)
@@ -334,3 +337,60 @@
 
 	else
 		to_chat(C, "<span class='danger'>The veil cannot be torn here!</span>")
+
+
+/obj/item/weapon/melee/cultblade/ghost
+	name = "eldritch sword"
+	force = 15
+	flags = NODROP
+
+/obj/item/weapon/melee/cultblade/ghost/dropped(mob/living/carbon/human/user)
+	..()
+	qdel(src)
+
+/obj/item/clothing/head/culthood/alt/ghost
+	flags = NODROP
+
+/obj/item/clothing/head/culthood/alt/ghost/dropped(mob/living/carbon/human/user)
+	..()
+	qdel(src)
+
+/obj/item/clothing/suit/cultrobes/alt/ghost
+	flags = NODROP
+
+/obj/item/clothing/suit/cultrobes/alt/ghost/dropped(mob/living/carbon/human/user)
+	..()
+	qdel(src)
+
+/obj/item/clothing/shoes/cult/ghost
+	flags = NODROP
+
+/obj/item/clothing/shoes/cult/ghost/dropped(mob/living/carbon/human/user)
+	..()
+	qdel(src)
+
+//CULT
+
+/obj/item/clothing/suit/space/eva/plasmaman/cultist
+	name = "plasmaman cultist armor"
+	icon_state = "plasmaman_cult"
+	item_state = "plasmaman_cult"
+	desc = "A bulky suit of armour, menacing with red energy. It looks like it would fit a plasmaman."
+	slowdown = 1
+	armor = list(melee = 60, bullet = 50, laser = 30,energy = 15, bomb = 30, bio = 30, rad = 30)
+
+/obj/item/clothing/head/helmet/space/eva/plasmaman/cultist
+	name = "plasmaman cultist helmet"
+	icon_state = "plasmamanCult_helmet0"
+	base_state = "plasmamanCult_helmet"
+	desc = "A helmet designed by cultists. It glows menacingly with unearthly flames."
+	armor = list(melee = 60, bullet = 50, laser = 30,energy = 15, bomb = 30, bio = 30, rad = 30)
+
+/datum/outfit/ghost_cultist
+	name = "Cultist Ghost"
+
+	uniform = /obj/item/clothing/under/color/black
+	suit = /obj/item/clothing/suit/cultrobes/alt/ghost
+	shoes = /obj/item/clothing/shoes/cult/ghost
+	head = /obj/item/clothing/head/culthood/alt/ghost
+	r_hand = /obj/item/weapon/melee/cultblade/ghost

@@ -142,16 +142,11 @@
 	..()
 	animate(src, alpha = 0, time = duration)
 
-/obj/effect/overlay/temp/cult
-	icon = 'icons/effects/effects.dmi'
-	randomdir = 0
-	duration = 10
 
 /obj/effect/overlay/temp/cult/sparks
 	randomdir = 1
 	name = "blood sparks"
 	icon_state = "bloodsparkles"
-
 /obj/effect/overlay/temp/dir_setting
 	randomdir = FALSE
 
@@ -220,11 +215,10 @@
 	..()
 	pixel_x += rand(-10, 10)
 	pixel_y += rand(-10, 10)
+
 /obj/effect/overlay/temp/cult
 	randomdir = 0
 	duration = 10
-
-
 	icon = 'icons/effects/effects.dmi'
 
 /obj/effect/overlay/temp/cult/sparks

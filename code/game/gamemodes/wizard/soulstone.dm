@@ -170,9 +170,9 @@
 				icon_state = "soulstone"
 				name = initial(name)
 				if(iswizard(usr) || usability)
-					to_chat(A, "<b>You have been released from your prison, but you are still bound to [usr.real_name]'s will. Help them succeed in their goals at all costs.</b>")
+					to_chat(A, "<span class='cult'>You have been released from your prison, but you are still bound to [usr.real_name]'s will. Help them succeed in their goals at all costs.</span>")
 				else if(iscultist(usr))
-					to_chat(A, "<b>You have been released from your prison, but you are still bound to the cult's will. Help them succeed in their goals at all costs.</b>")
+					to_chat(A, "<span class='cult'>You have been released from your prison, but you are still bound to the cult's will. Help them succeed in their goals at all costs.</span>")
 				was_used()
 	attack_self(U)
 
@@ -262,7 +262,7 @@
 						T.health = T.maxHealth
 						T.faction |= "\ref[U]"
 						C.icon_state = "soulstone2"
-						to_chat(T, "Your soul has been recaptured by the soul stone, its arcane energies are reknitting your ethereal form")
+						to_chat(T, "<span class='cult'>Your soul has been recaptured by the soul stone, its arcane energies are reknitting your ethereal form.</span>")
 						to_chat(U, "<span class='notice'>Capture successful!</span>: [T.name]'s has been recaptured and stored within the soul stone.")
 		if("CONSTRUCT")
 			var/obj/structure/constructshell/T = target
@@ -365,9 +365,9 @@
 	name = "soulstone: Shade of [T.real_name]"
 	icon_state = "soulstone2"
 	if(U && iswizard(U))
-		to_chat(S, "Your soul has been captured! You are now bound to [U.real_name]'s will. Help them succeed in their goals at all costs.")
+		to_chat(S, "<span class='cultlarge'>Your soul has been captured! You are now bound to [U.real_name]'s will. Help them succeed in their goals at all costs.</span>")
 	else if(U && iscultist(U))
-		to_chat(S, "Your soul has been captured! You are now bound to the cult's will. Help them succeed in their goals at all costs.")
+		to_chat(S, "<span class='cultlarge'>Your soul has been captured! You are now bound to the cult's will. Help them succeed in their goals at all costs.</span>")
 	if(vic && U)
 		to_chat(U, "<span class='info'><b>Capture successful!</b>:</span> [T.real_name]'s soul has been ripped from their body and stored within the soul stone.")
 

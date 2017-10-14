@@ -84,9 +84,10 @@
 				explanation = "We need to sacrifice [sacrifice_target.name], the [sacrifice_target.assigned_role], for his blood is the key that will lead our master to this realm. You will need 3 cultists around a Sacrifice rune to perform the ritual."
 
 		for(var/datum/mind/cult_mind in cult)
-			to_chat(cult_mind.current, "<span class='cult'>You and your acolytes have completed your task, but this place requires yet more preparation!</span>")
-			to_chat(cult_mind.current, "<B>Objective #[current_objective]</B>: [explanation]")
-			cult_mind.memory += "<B>Objective #[current_objective]</B>: [explanation]<BR>"
+			if(cult_mind)
+				to_chat(cult_mind.current, "<span class='cult'>You and your acolytes have completed your task, but this place requires yet more preparation!</span>")
+				to_chat(cult_mind.current, "<B>Objective #[current_objective]</B>: [explanation]")
+				cult_mind.memory += "<B>Objective #[current_objective]</B>: [explanation]<BR>"
 
 		message_admins("New Cult Objective: [new_objective]")
 		log_admin("New Cult Objective: [new_objective]")
@@ -98,9 +99,10 @@
 	objectives +="survive"
 	explanation = "Our knowledge must live on. Make sure at least [acolytes_needed] acolytes escape on the shuttle to spread their work on an another station."
 	for(var/datum/mind/cult_mind in cult)
-		to_chat(cult_mind.current, "<span class='cult'>You and your acolytes suddenly feel the urge to do your best, but survive!</span>")
-		to_chat(cult_mind.current, "<B>Objective Survive</B>: [explanation]")
-		cult_mind.memory += "<B>Objective Survive</B>: [explanation]<BR>"
+		if(cult_mind)
+			to_chat(cult_mind.current, "<span class='cult'>You and your acolytes suddenly feel the urge to do your best, but survive!</span>")
+			to_chat(cult_mind.current, "<B>Objective Survive</B>: [explanation]")
+			cult_mind.memory += "<B>Objective Survive</B>: [explanation]<BR>"
 
 
 /datum/game_mode/cult/proc/second_phase()
@@ -115,9 +117,10 @@
 		explanation = "Bring the Slaughter via the rune 'Bring forth the slaughter'."
 
 	for(var/datum/mind/cult_mind in cult)
-		to_chat(cult_mind.current, "<span class='cult'>You and your acolytes have succeeded in preparing the station for the ultimate ritual!</span>")
-		to_chat(cult_mind.current, "<B>Objective #[current_objective]</B>: [explanation]")
-		cult_mind.memory += "<B>Objective #[current_objective]</B>: [explanation]<BR>"
+		if(cult_mind)
+			to_chat(cult_mind.current, "<span class='cult'>You and your acolytes have succeeded in preparing the station for the ultimate ritual!</span>")
+			to_chat(cult_mind.current, "<B>Objective #[current_objective]</B>: [explanation]")
+			cult_mind.memory += "<B>Objective #[current_objective]</B>: [explanation]<BR>"
 
 /datum/game_mode/cult/proc/third_phase()
 	current_objective++
@@ -132,15 +135,16 @@
 
 	switch(last_objective)
 		if("harvest")
-			explanation = "[ticker.mode.cultdat.entity_title1] hungers for his first meal of this never-ending day. Offer him [harvest_target] humans in sacrifice."
+			explanation = "[ticker.mode.cultdat.entity_title1] hungers for their first meal of this never-ending day. Offer them [harvest_target] humans in sacrifice."
 		if("hijack")
-			explanation = "[ticker.mode.cultdat.entity_name] wishes for his troops to start the assault on Centcom immediately. Hijack the escape shuttle and don't let a single non-cultist board it."
+			explanation = "[ticker.mode.cultdat.entity_name] wishes for their troops to start the assault on Centcom immediately. Hijack the escape shuttle and don't let a single non-cultist board it."
 		if("massacre")
 			explanation = "[ticker.mode.cultdat.entity_name] wants to watch you as you massacre the remaining humans on the station (until less than [massacre_target] humans are left alive)."
 
 	for(var/datum/mind/cult_mind in cult)
-		to_chat(cult_mind.current, "<B>Objective #[current_objective]</B>: [explanation]")
-		cult_mind.memory += "<B>Objective #[current_objective]</B>: [explanation]<BR>"
+		if(cult_mind)
+			to_chat(cult_mind.current, "<B>Objective #[current_objective]</B>: [explanation]")
+			cult_mind.memory += "<B>Objective #[current_objective]</B>: [explanation]<BR>"
 
 	message_admins("Last Cult Objective: [last_objective]")
 	log_admin("Last Cult Objective: [last_objective]")
