@@ -341,8 +341,8 @@
 	if(G)
 		explosive = G
 		name = "explosive lance"
+		embed_chance = 0
 		desc = "A makeshift spear with [G] attached to it. Alt+click on the spear to set your war cry!"
-		sharp = 0 
 		update_icon()
 
 //GREY TIDE
