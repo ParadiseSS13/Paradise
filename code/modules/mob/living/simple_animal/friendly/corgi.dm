@@ -202,9 +202,9 @@
 		if(!facehugger)
 			return
 		var/obj/item/F = facehugger
-		F.forceMove(src.loc)
+		F.forceMove(loc)
 		facehugger = null
-		to_chat(usr, "<span class = 'notice'>You remove [F] from [src]'s face. [src] pants for air and barks.</span>")
+		to_chat(usr, "<span class='notice'>You remove [F] from [src]'s face. [src] pants for air and barks.</span>")
 		regenerate_icons()
 		show_inv(usr)
 	else
