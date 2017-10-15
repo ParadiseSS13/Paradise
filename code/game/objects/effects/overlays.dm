@@ -278,3 +278,10 @@
 /obj/effect/overlay/temp/cult/turf/open/floor
 	icon_state = "floorglow"
 	duration = 5
+
+/obj/effect/overlay/temp/shieldflash
+	icon_state = "shield-flash"
+	duration = 3
+
+/obj/effect/overlay/temp/shieldflash/New(var/flash_color)
+
