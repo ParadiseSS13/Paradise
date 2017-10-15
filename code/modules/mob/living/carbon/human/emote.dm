@@ -29,12 +29,12 @@
 	switch(act)
 		//Cooldown-inducing emotes
 		if("ping", "pings", "buzz", "buzzes", "beep", "beeps", "yes", "no", "buzz2")
-			if(species.name == "Human")		//Only Machines can beep, ping, and buzz, yes, no, and make a silly sad trombone noise.
+			if(species.name == "Human")		//Only Humans can beep, ping, and buzz, yes, no, and make a silly sad trombone noise.
 				on_CD = handle_emote_CD()			//proc located in code\modules\mob\emote.dm
 			else								//Everyone else fails, skip the emote attempt
 				return
 		if("drone","drones","hum","hums","rumble","rumbles")
-			if(species.name == "Human")		//Only Drask can make whale noises
+			if(species.name == "Human")		//Only Human can make whale noises
 				on_CD = handle_emote_CD()			//proc located in code\modules\mob\emote.dm
 			else
 				return
