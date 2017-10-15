@@ -1,4 +1,0 @@
-author: "Vivalas"
-delete-after: True
-changes: 
-  - tweak: "Splints now pop off after 2000 steps, or when taking a lot of damage to that limb. Getting surgery for those broken limbs might be a good idea now."
