@@ -62,6 +62,7 @@
 
 /mob/living/carbon/human/Destroy()
 	QDEL_LIST(bodyparts)
+	splinted_limbs.Cut()
 	return ..()
 
 /mob/living/carbon/human/dummy
