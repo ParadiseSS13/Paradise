@@ -1,5 +1,0 @@
-author: "Kyep"
-delete-after: True
-changes: 
-  - rscadd: "Changing someone's sec status now prompts for a reason. The change, and the (optional) reason for it, is written to that person's sec record, and to the server logs. This applies to changes made by sec HUDs, and by records computers."
-  - rscadd: "Magistrate/Captain/HoS/Warden can now use a sec records computer to set a person to \"Execute\" status. This status cannot be unset by HUDs, and broadcasts a notification to all online admins when it is set. It is intended to replace the \"fax CC\" requirement for executions. Persons with this status show up with a white 'X' as their sec hud icon."
