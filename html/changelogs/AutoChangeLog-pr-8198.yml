@@ -1,0 +1,4 @@
+author: "Imsxz"
+delete-after: True
+changes: 
+  - bugfix: "Ballistic mech weapons now all use the ammo system"
