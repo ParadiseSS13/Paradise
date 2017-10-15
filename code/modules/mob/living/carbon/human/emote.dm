@@ -29,29 +29,29 @@
 	switch(act)
 		//Cooldown-inducing emotes
 		if("ping", "pings", "buzz", "buzzes", "beep", "beeps", "yes", "no", "buzz2")
-			if(species.name == "Machine")		//Only Machines can beep, ping, and buzz, yes, no, and make a silly sad trombone noise.
+			if(species.name == "Human")		//Only Humans can beep, ping, and buzz, yes, no, and make a silly sad trombone noise.
 				on_CD = handle_emote_CD()			//proc located in code\modules\mob\emote.dm
 			else								//Everyone else fails, skip the emote attempt
 				return
 		if("drone","drones","hum","hums","rumble","rumbles")
-			if(species.name == "Drask")		//Only Drask can make whale noises
+			if(species.name == "Human")		//Only Human can make whale noises
 				on_CD = handle_emote_CD()			//proc located in code\modules\mob\emote.dm
 			else
 				return
 		if("howl", "howls")
-			if (species.name == "Vulpkanin")		//Only Vulpkanin can howl
+			if (species.name == "Human")		//Only Human can howl
 				on_CD = handle_emote_CD(100)
 			else
 				return
 		if("growl", "growls")
-			if (species.name == "Vulpkanin")		//Only Vulpkanin can growl
+			if (species.name == "Human")		//Only Human can growl
 				on_CD = handle_emote_CD()
 			else
 				return
 		if("squish", "squishes")
 			var/found_slime_bodypart = 0
 
-			if(species.name == "Slime People")	//Only Slime People can squish
+			if(species.name == "Human")	//Only Human can squish
 				on_CD = handle_emote_CD()			//proc located in code\modules\mob\emote.dm'
 				found_slime_bodypart = 1
 			else
@@ -65,25 +65,25 @@
 				return
 
 		if("clack", "clacks")
-			if(species.name == "Kidan")	//Only Kidan can clack and rightfully so.
+			if(species.name == "Human")	//Only Human can clack and rightfully so.
 				on_CD = handle_emote_CD()			//proc located in code\modules\mob\emote.dm'
 			else								//Everyone else fails, skip the emote attempt
 				return
 
 		if("click", "clicks")
-			if(species.name == "Kidan")	//Only Kidan can click and rightfully so.
+			if(species.name == "Human")	//Only Human can click and rightfully so.
 				on_CD = handle_emote_CD()			//proc located in code\modules\mob\emote.dm'
 			else								//Everyone else fails, skip the emote attempt
 				return
 
 		if("creaks", "creak")
-			if(species.name == "Diona") //Only Dionas can Creaks.
+			if(species.name == "Human") //Only Humans can Creaks.
 				on_CD = handle_emote_CD()			//proc located in code\modules\mob\emote.dm'
 			else								//Everyone else fails, skip the emote attempt
 				return
 
 		if("hiss", "hisses")
-			if(species.name == "Unathi") //Only Unathi can hiss.
+			if(species.name == "Human") //Only Human can hiss.
 				on_CD = handle_emote_CD()			//proc located in code\modules\mob\emote.dm'
 			else								//Everyone else fails, skip the emote attempt
 				return
