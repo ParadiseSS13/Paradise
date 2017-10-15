@@ -34,7 +34,7 @@
 
 	allowed_tools = list(
 	/obj/item/weapon/bonegel = 100,	\
-	/obj/item/weapon/screwdriver = 75
+	/obj/item/weapon/screwdriver = 90
 	)
 	can_infect = 1
 	blood_level = 1
@@ -70,7 +70,7 @@
 
 	allowed_tools = list(
 	/obj/item/weapon/bonesetter = 100,	\
-	/obj/item/weapon/wrench = 75		\
+	/obj/item/weapon/wrench = 90	\
 	)
 
 	time = 32
@@ -109,7 +109,7 @@
 
 	allowed_tools = list(
 	/obj/item/weapon/bonesetter = 100,	\
-	/obj/item/weapon/wrench = 75		\
+	/obj/item/weapon/wrench = 90		\
 	)
 
 	time = 32
@@ -144,7 +144,7 @@
 
 	allowed_tools = list(
 	/obj/item/weapon/bonegel = 100,	\
-	/obj/item/weapon/screwdriver = 75
+	/obj/item/weapon/screwdriver = 90
 	)
 	can_infect = 1
 	blood_level = 1
