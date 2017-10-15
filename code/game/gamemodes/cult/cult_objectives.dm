@@ -109,10 +109,10 @@
 
 	if(prob(40))//split the chance of this
 		objectives += "eldergod"
-		explanation = "Summon [ticker.mode.cultdat.entity_name] on the Station via the use of the Tear Reality rune."
+		explanation = "Summon [ticker.mode.cultdat.entity_name] on the Station via the use of the Tear Reality rune. The veil is weak enough in [english_list(summon_spots)] for the ritual to begin."
 	else
 		objectives += "slaughter"
-		explanation = "Bring the Slaughter via the rune 'Bring forth the slaughter'."
+		explanation = "Bring the Slaughter via the rune 'Bring forth the slaughter'. The veil is weak enough in [english_list(summon_spots)] for the ritual to begin."
 
 	for(var/datum/mind/cult_mind in cult)
 		to_chat(cult_mind.current, "<span class='cult'>You and your acolytes have succeeded in preparing the station for the ultimate ritual!</span>")
