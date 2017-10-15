@@ -48,7 +48,7 @@
 			qdel(src)
 
 /obj/item/weapon/guardian_bomb/proc/detonate(var/mob/living/user)
-	to_chat(user, "<span class='danger'><B>The [src] was boobytrapped!</B></span>")
+	to_chat(user, "<span class='danger'>The [src] was boobytrapped!</span>")
 	if(istype(spawner, /mob/living/simple_animal/hostile/guardian))
 		var/mob/living/simple_animal/hostile/guardian/G = spawner
 		if(user == G.summoner)
@@ -72,5 +72,5 @@
 
 /obj/item/weapon/guardian_bomb/examine(mob/user)
 	stored_obj.examine(user)
-	if(get_dist(user,src)<=2)
+	if(get_dist(user,src) <= 2)
 		to_chat(user, "<span class='notice'>Looks odd!</span>")

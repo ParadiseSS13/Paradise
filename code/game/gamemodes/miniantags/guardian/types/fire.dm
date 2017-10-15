@@ -25,7 +25,7 @@
 			to_chat(src, "<span class='notice'>You switch to dispersion mode, and will teleport victims away from your master.</span>")
 			toggle = FALSE
 		else
-			to_chat(src, "<span class='notice'>You  switch to deception mode, and will turn your victims against their allies.</span>")
+			to_chat(src, "<span class='notice'>You switch to deception mode, and will turn your victims against their allies.</span>")
 			toggle = TRUE
 
 /mob/living/simple_animal/hostile/guardian/fire/AttackingTarget()
@@ -33,7 +33,7 @@
 		if(toggle)
 			if(ishuman(target) && !summoner)
 				spawn(0)
-					new /obj/effect/hallucination/delusion(target.loc, target, force_kind="custom", duration=200, skip_nearby=0, custom_icon = icon_state, custom_icon_file = icon)
+					new /obj/effect/hallucination/delusion(target.loc, target, force_kind = "custom", duration = 200, skip_nearby = 0, custom_icon = icon_state, custom_icon_file = icon)
 		else
 			if(prob(45))
 				if(ismovableatom(target))
