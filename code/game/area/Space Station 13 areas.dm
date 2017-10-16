@@ -1386,6 +1386,10 @@ var/list/ghostteleportlocs = list()
 	name = "\improper Mechanic Workshop"
 	icon_state = "engine"
 
+/area/engine/mechanic_workshop/hanger
+	name = "\improper Hanger Bay"
+	icon_state = "engine"
+
 /area/engine/supermatter
 	name = "\improper Supermatter Engine"
 	icon_state = "engine"
