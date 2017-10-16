@@ -32,7 +32,7 @@
 	var/cannot_amputate
 	var/cannot_break
 	var/s_tone = null
-	var/list/s_col = null // If this is instantiated, it should be a list of length 3
+	var/s_col = null // If this is instantiated, it should be a hex value.
 	var/list/child_icons = list()
 	var/perma_injury = 0
 	var/dismember_at_max_damage = FALSE
@@ -57,6 +57,8 @@
 	var/amputation_point // Descriptive string used in amputation.
 	var/can_grasp
 	var/can_stand
+
+	var/splinted_count = 0 //Time when this organ was last splinted
 
 /obj/item/organ/external/necrotize(update_sprite=TRUE)
 	if(status & (ORGAN_ROBOT|ORGAN_DEAD))
@@ -84,6 +86,7 @@
 
 	if(owner)
 		owner.bodyparts_by_name[limb_name] = null
+		owner.splinted_limbs -= src
 
 	QDEL_LIST(children)
 
@@ -97,25 +100,24 @@
 	switch(open)
 		if(0)
 			if(istype(W,/obj/item/weapon/scalpel))
-				spread_germs_to_organ(src,user, W)
+				spread_germs_to_organ(src, user, W)
 				user.visible_message("<span class='danger'><b>[user]</b> cuts [src] open with [W]!</span>")
 				open++
 				return
 		if(1)
 			if(istype(W,/obj/item/weapon/retractor))
-				spread_germs_to_organ(src,user, W)
+				spread_germs_to_organ(src, user, W)
 				user.visible_message("<span class='danger'><b>[user]</b> cracks [src] open like an egg with [W]!</span>")
 				open++
 				return
 		if(2)
 			if(istype(W,/obj/item/weapon/hemostat))
-				spread_germs_to_organ(src,user, W)
+				spread_germs_to_organ(src, user, W)
 				if(contents.len)
 					var/obj/item/removing = pick(contents)
 					var/obj/item/organ/internal/O = removing
 					if(istype(O))
-						if(!O.sterile)
-							spread_germs_to_organ(O,user, W) // This wouldn't be any cleaner than the actual surgery
+						spread_germs_to_organ(O, user, W) // This wouldn't be any cleaner than the actual surgery
 					user.put_in_hands(removing)
 					user.visible_message("<span class='danger'><b>[user]</b> extracts [removing] from [src] with [W]!</span>")
 				else
@@ -192,12 +194,15 @@
 		// Damage an internal organ
 		if(internal_organs && internal_organs.len)
 			var/obj/item/organ/internal/I = pick(internal_organs)
-			if(!I.tough)//mostly for cybernetic organs
-				I.take_damage(brute / 2)
-			brute -= brute / 2
+			I.take_damage(brute * 0.5)
+			brute -= brute * 0.5
 
 	if(status & ORGAN_BROKEN && prob(40) && brute)
 		owner.emote("scream")	//getting hit on broken hand hurts
+	if(status & ORGAN_SPLINTED && prob((brute + burn)*4)) //taking damage to splinted limbs removes the splints
+		status &= ~ORGAN_SPLINTED
+		owner.visible_message("<span class='danger'>The splint on [owner]'s left arm unravels from their [name]!</span>","<span class='userdanger'>The splint on your [name] unravels!</span>")
+		owner.handle_splints()
 	if(used_weapon)
 		add_autopsy_data("[used_weapon]", brute + burn)
 
@@ -428,6 +433,8 @@ Note that amputating the affected organ does in fact remove the infection from t
 		fracture()
 
 /obj/item/organ/external/proc/check_for_internal_bleeding(damage)
+	if(NO_BLOOD in owner.species.species_traits)
+		return
 	var/local_damage = brute_dam + damage
 	if(damage > 15 && local_damage > 30 && prob(damage) && !(status & ORGAN_ROBOT))
 		internal_bleeding = TRUE
@@ -457,6 +464,18 @@ Note that amputating the affected organ does in fact remove the infection from t
 	else
 		tbrute = 3
 	return "[tbrute][tburn]"
+
+/obj/item/organ/external/proc/update_splints()
+	if(!(status & ORGAN_SPLINTED))
+		owner.splinted_limbs -= src
+		return
+	if(owner.step_count >= splinted_count + SPLINT_LIFE)
+		status &= ~ORGAN_SPLINTED //oh no, we actually need surgery now!
+		owner.visible_message("<span class='danger'>[owner] screams in pain as their splint pops off their [name]!</span>","<span class='userdanger'>You scream in pain as your splint pops off your [name]!</span>")
+		owner.emote("scream")
+		owner.Stun(2)
+		owner.handle_splints()
+
 
 /****************************************************
 			   DISMEMBERMENT
@@ -591,7 +610,7 @@ Note that amputating the affected organ does in fact remove the infection from t
 		burn_mod = 0.66
 		dismember_at_max_damage = TRUE
 	else
-		tough = 1
+		tough = TRUE
 	// Robot parts also lack bones
 	// This is so surgery isn't kaput, let's see how this does
 	encased = null
@@ -647,6 +666,9 @@ Note that amputating the affected organ does in fact remove the infection from t
 		return
 	var/is_robotic = status & ORGAN_ROBOT
 	var/mob/living/carbon/human/victim = owner
+
+	if(status & ORGAN_SPLINTED)
+		victim.splinted_limbs -= src
 
 	for(var/obj/item/I in embedded_objects)
 		embedded_objects -= I

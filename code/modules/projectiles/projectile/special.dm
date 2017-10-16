@@ -203,9 +203,10 @@
 	name = "bluespace beam"
 	icon_state = "spark"
 	hitsound = "sparks"
-	damage = 3
+	damage = 0
 	var/obj/item/weapon/gun/energy/wormhole_projector/gun
 	color = "#33CCFF"
+	nodamage = TRUE
 
 /obj/item/projectile/beam/wormhole/orange
 	name = "orange bluespace beam"

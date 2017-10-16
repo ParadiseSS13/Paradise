@@ -2,6 +2,7 @@
 	name = "Regenerate"
 	desc = "We regenerate, healing all damage from our form."
 	req_stat = DEAD
+	always_keep = 1
 
 //Revive from regenerative stasis
 /obj/effect/proc_holder/changeling/revive/sting_action(var/mob/living/carbon/user)
@@ -24,11 +25,11 @@
 	user.reagents.clear_reagents()
 	user.germ_level = 0
 	user.next_pain_time = 0
-	user.traumatic_shock = 0
 	user.timeofdeath = 0
 	if(ishuman(user))
 		var/mob/living/carbon/human/H = user
 		H.restore_blood()
+		H.traumatic_shock = 0
 		H.shock_stage = 0
 		H.species.create_organs(H)
 		// Now that recreating all organs is necessary, the rest of this organ stuff probably

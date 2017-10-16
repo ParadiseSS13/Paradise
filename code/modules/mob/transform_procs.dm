@@ -20,7 +20,7 @@
 
 /mob/proc/AIize()
 	if(client)
-		src << sound(null, repeat = 0, wait = 0, volume = 85, channel = 1)// stop the jams for AIs
+		stop_sound_channel(CHANNEL_LOBBYMUSIC)
 
 	var/mob/living/silicon/ai/O = new (loc,,,1)//No MMI but safety is in effect.
 	O.invisibility = 0

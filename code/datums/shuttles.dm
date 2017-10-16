@@ -45,6 +45,13 @@
 	description = "Features include: areas for each department, and a small bar."
 	admin_notes = "Designed to reduce chaos. Each dept requires dept access."
 
+/datum/map_template/shuttle/emergency/military
+	suffix = "mil"
+	name = "emergency shuttle (military)"
+	description = "Troop transport with point defense turrets."
+	admin_notes = "Designed to ensure a safe evacuation during xeno outbreaks."
+
+
 /datum/map_template/shuttle/emergency/clown
 	suffix = "clown"
 	name = "Snappop(tm)!"

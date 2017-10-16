@@ -366,6 +366,25 @@ so as to remain in compliance with the most up-to-date laws."
 	desc = "Mech integrity is low."
 	icon_state = "low_mech_integrity"
 
+//GUARDIANS
+/obj/screen/alert/cancharge
+	name = "Charge Ready"
+	desc = "You are ready to charge at a location!"
+	icon_state = "guardian_charge"
+	alerttooltipstyle = "parasite"
+
+/obj/screen/alert/canstealth
+	name = "Stealth Ready"
+	desc = "You are ready to enter stealth!"
+	icon_state = "guardian_canstealth"
+	alerttooltipstyle = "parasite"
+
+/obj/screen/alert/instealth
+	name = "In Stealth"
+	desc = "You are in stealth and your next attack will do bonus damage!"
+	icon_state = "guardian_instealth"
+	alerttooltipstyle = "parasite"
+
 
 //GHOSTS
 //TODO: expand this system to replace the pollCandidates/CheckAntagonist/"choose quickly"/etc Yes/No messages

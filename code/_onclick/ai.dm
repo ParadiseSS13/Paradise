@@ -27,9 +27,9 @@
 		client.click_intercept.InterceptClickOn(src, params, A)
 		return
 
-	if(world.time <= next_click)
+	if(next_click > world.time)
 		return
-	next_click = world.time + 1
+	changeNext_click(1)
 
 	if(control_disabled || stat)
 		return

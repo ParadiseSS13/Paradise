@@ -253,6 +253,14 @@
 	explosion(loc, 0, 3, 5, 7, 10)
 	qdel(src)
 
+/obj/structure/reagent_dispensers/beerkeg/nuke
+	name = "Nanotrasen-brand nuclear fission explosive"
+	desc = "One of the more successful achievements of the Nanotrasen Corporate Warfare Division, their nuclear fission explosives are renowned for being cheap\
+	to produce and devestatingly effective. Signs explain that though this is just a model, every Nanotrasen station is equipped with one, just in case. \
+	All Captains carefully guard the disk needed to detonate them - at least, the sign says they do. There seems to be a tap on the back."
+	icon = 'icons/obj/stationobjs.dmi'
+	icon_state = "nuclearbomb0"
+
 /obj/structure/reagent_dispensers/virusfood
 	name = "virus food dispenser"
 	desc = "A dispenser of low-potency virus mutagenic."

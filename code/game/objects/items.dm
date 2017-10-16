@@ -202,7 +202,7 @@ var/global/image/fire_overlay = image("icon" = 'icons/goonstation/effects/fire.d
 		to_chat(user, msg)
 
 
-/obj/item/attack_hand(mob/user as mob)
+/obj/item/attack_hand(mob/user as mob, pickupfireoverride = FALSE)
 	if(!user) return 0
 	if(hasorgans(user))
 		var/mob/living/carbon/human/H = user
@@ -216,7 +216,7 @@ var/global/image/fire_overlay = image("icon" = 'icons/goonstation/effects/fire.d
 			to_chat(user, "<span class='warning'>You try to move your [temp.name], but cannot!</span>")
 			return 0
 
-	if(burn_state == ON_FIRE)
+	if(burn_state == ON_FIRE && !pickupfireoverride)
 		var/mob/living/carbon/human/H = user
 		if(istype(H))
 			if(H.gloves && (H.gloves.max_heat_protection_temperature > 360))

@@ -19,6 +19,8 @@
 #define LEFT 1
 #define RIGHT 2
 
+#define SPLINT_LIFE 2000 //number of steps splints stay on
+
 
 //Pulse levels, very simplified
 #define PULSE_NONE		0	//so !M.pulse checks would be possible
@@ -60,6 +62,12 @@
 
 // Factor of how fast mob nutrition decreases
 #define	HUNGER_FACTOR 0.1
+
+// Taste sensitivity - the more the more reagents you'll taste
+#define TASTE_SENSITIVITY_NORMAL 1
+#define TASTE_SENSITIVITY_SHARP 1.5
+#define TASTE_SENSITIVITY_DULL 0.75
+#define TASTE_SENSITIVITY_NO_TASTE 0
 
 // Reagent type flags, defines the types of mobs this reagent will affect
 #define ORGANIC 1

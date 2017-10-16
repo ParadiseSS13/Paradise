@@ -14,7 +14,7 @@
 				<td><b>Current Price:</b>
 				<td>{{:data.totalprice}}C
 			</tr>
-			<tr>	
+			<tr>
 				<td><b>Battery:</b>
 				<td>{{:helper.link('Standard', 'bolt', {'action' : 'hw_battery', 'battery' : 1}, data.hw_battery == 1 ? "selected" : null)}}
 				<td>{{:helper.link('Upgraded', 'bolt', {'action' : 'hw_battery', 'battery' : 2}, data.hw_battery == 2 ? "selected" : null)}}
@@ -32,11 +32,13 @@
 				<td>{{:helper.link('Standard', 'signal', {'action' : 'hw_netcard', 'netcard' : 1}, data.hw_netcard == 1 ? "selected" : null)}}
 				<td>{{:helper.link('Advanced', 'signal', {'action' : 'hw_netcard', 'netcard' : 2}, data.hw_netcard == 2 ? "selected" : null)}}
 			</tr>
+			{{if data.devtype != 2}}
 			<tr>
 				<td><b>Nano Printer:</b>
 				<td>{{:helper.link('None', 'times', {'action' : 'hw_nanoprint', 'print' : 0}, data.hw_nanoprint == 0 ? "selected" : null)}}
 				<td>{{:helper.link('Standard', 'print', {'action' : 'hw_nanoprint', 'print' : 1}, data.hw_nanoprint == 1 ? "selected" : null)}}
 			</tr>
+			{{/if}}
 			<tr>
 				<td><b>Card Reader:</b>
 				<td>{{:helper.link('None', 'times', {'action' : 'hw_card', 'card' : 0}, data.hw_card == 0 ? "selected" : null)}}
@@ -61,7 +63,7 @@
 				<td>{{:helper.link('CONFIRM', 'check', {'action' : 'confirm_order'})}}
 			</tr>
 		</table>
-		
+
 		<hr>
 		<b>Battery</b> allows your device to operate without external utility power source. Advanced batteries increase battery life.<br>
 		<b>Hard Drive</b> stores file on your device. Advanced drives can store more files, but use more power, shortening battery life.<br>

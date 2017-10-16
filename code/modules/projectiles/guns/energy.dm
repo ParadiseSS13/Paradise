@@ -163,13 +163,14 @@
 		playsound(loc, 'sound/weapons/empty.ogg', 50, 1, -1)
 		return (OXYLOSS)
 
-/obj/item/weapon/gun/energy/on_varedit(modified_var)
-	if(modified_var == "selfcharge")
-		if(selfcharge)
-			processing_objects.Add(src)
-		else
-			processing_objects.Remove(src)
-	..()
+/obj/item/weapon/gun/energy/vv_edit_var(var_name, var_value)
+	switch(var_name)
+		if("selfcharge")
+			if(var_value)
+				processing_objects.Add(src)
+			else
+				processing_objects.Remove(src)
+	. = ..()
 
 /obj/item/weapon/gun/energy/proc/robocharge()
 	if(isrobot(loc))

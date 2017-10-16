@@ -21,7 +21,7 @@
 
 	gender = new_gender
 
-	var/datum/sprite_accessory/hair/current_hair = hair_styles_list[H.h_style]
+	var/datum/sprite_accessory/hair/current_hair = hair_styles_full_list[H.h_style]
 	if(current_hair.gender != NEUTER && current_hair.gender != gender)
 		reset_head_hair()
 
@@ -35,9 +35,12 @@
 	update_body()
 	return 1
 
-/mob/living/carbon/human/proc/change_hair(var/hair_style)
+/mob/living/carbon/human/proc/change_hair(var/hair_style, var/fluff)
 	var/obj/item/organ/external/head/H = get_organ("head")
-	if(!hair_style || !H || H.h_style == hair_style || !(hair_style in hair_styles_list))
+
+	if(!hair_style || !H || H.h_style == hair_style)
+		return
+	if(!(fluff || (hair_style in hair_styles_public_list)))
 		return
 
 	H.h_style = hair_style
@@ -210,19 +213,14 @@
 		H.ha_style = "None"
 	update_head_accessory()
 
-/mob/living/carbon/human/proc/change_eye_color(var/red, var/green, var/blue, update_dna = 1)
+/mob/living/carbon/human/proc/change_eye_color(var/colour = "#000000", update_dna = 1)
 	// Update the main DNA datum, then sync the change across the organs
 	var/obj/item/organ/internal/eyes/eyes_organ = get_int_organ(/obj/item/organ/internal/eyes)
 	if(eyes_organ)
-		var/eyes_red = eyes_organ.eye_colour[1]
-		var/eyes_green = eyes_organ.eye_colour[2]
-		var/eyes_blue = eyes_organ.eye_colour[3]
-		if(red == eyes_red && green == eyes_green && blue == eyes_blue)
+		if(colour == eyes_organ.eye_colour)
 			return
 
-		eyes_organ.eye_colour[1] = red
-		eyes_organ.eye_colour[2] = green
-		eyes_organ.eye_colour[3] = blue
+		eyes_organ.eye_colour = colour
 		dna.eye_color_to_dna(eyes_organ)
 		eyes_organ.set_dna(dna)
 
@@ -233,68 +231,58 @@
 	update_body()
 	return 1
 
-/mob/living/carbon/human/proc/change_hair_color(var/red, var/green, var/blue, var/secondary)
+/mob/living/carbon/human/proc/change_hair_color(var/colour = "#000000", var/secondary)
 	var/obj/item/organ/external/head/H = get_organ("head")
 	if(!H)
 		return
 
 	if(!secondary)
-		if(red == H.r_hair && green == H.g_hair && blue == H.b_hair)
+		if(colour == H.hair_colour)
 			return
 
-		H.r_hair = red
-		H.g_hair = green
-		H.b_hair = blue
+		H.hair_colour = colour
 	else
-		if(red == H.r_hair_sec && green == H.g_hair_sec && blue == H.b_hair_sec)
+		if(colour == H.sec_hair_colour)
 			return
 
-		H.r_hair_sec = red
-		H.g_hair_sec = green
-		H.b_hair_sec = blue
+		H.sec_hair_colour = colour
 
 	update_hair()
 	return 1
 
-/mob/living/carbon/human/proc/change_facial_hair_color(var/red, var/green, var/blue, var/secondary)
+/mob/living/carbon/human/proc/change_facial_hair_color(var/colour = "#000000", var/secondary)
 	var/obj/item/organ/external/head/H = get_organ("head")
 	if(!H)
 		return
 
 	if(!secondary)
-		if(red == H.r_facial && green == H.g_facial && blue == H.b_facial)
+		if(colour == H.facial_colour)
 			return
 
-		H.r_facial = red
-		H.g_facial = green
-		H.b_facial = blue
+		H.facial_colour = colour
 	else
-		if(red == H.r_facial_sec && green == H.g_facial_sec && blue == H.b_facial_sec)
+		if(colour == H.sec_facial_colour)
 			return
 
-		H.r_facial_sec = red
-		H.g_facial_sec = green
-		H.b_facial_sec = blue
+		H.sec_facial_colour = colour
 
 	update_fhair()
 	return 1
 
-/mob/living/carbon/human/proc/change_head_accessory_color(var/red, var/green, var/blue)
+/mob/living/carbon/human/proc/change_head_accessory_color(var/colour = "#000000")
 	var/obj/item/organ/external/head/H = get_organ("head")
 	if(!H)
 		return
 
-	if(red == H.r_headacc && green == H.g_headacc && blue == H.b_headacc)
+	if(colour == H.headacc_colour)
 		return
 
-	H.r_headacc = red
-	H.g_headacc = green
-	H.b_headacc = blue
+	H.headacc_colour = colour
 
 	update_head_accessory()
 	return 1
 
-/mob/living/carbon/human/proc/change_marking_color(var/colour, var/location = "body")
+/mob/living/carbon/human/proc/change_marking_color(var/colour = "#000000", var/location = "body")
 	if(colour == m_colours[location])
 		return
 
@@ -307,13 +295,11 @@
 	return 1
 
 
-/mob/living/carbon/human/proc/change_skin_color(var/red, var/green, var/blue)
-	if(red == r_skin && green == g_skin && blue == b_skin || !(species.bodyflags & HAS_SKIN_COLOR))
+/mob/living/carbon/human/proc/change_skin_color(var/colour = "#000000")
+	if(colour == skin_colour || !(species.bodyflags & HAS_SKIN_COLOR))
 		return
 
-	r_skin = red
-	g_skin = green
-	b_skin = blue
+	skin_colour = colour
 
 	force_update_limbs()
 	update_body()
@@ -356,8 +342,8 @@
 	if(!H)
 		return //No head, no hair.
 
-	for(var/hairstyle in hair_styles_list)
-		var/datum/sprite_accessory/S = hair_styles_list[hairstyle]
+	for(var/hairstyle in hair_styles_public_list)
+		var/datum/sprite_accessory/S = hair_styles_public_list[hairstyle]
 
 		if(hairstyle == "Bald") //Just in case.
 			valid_hairstyles += hairstyle
