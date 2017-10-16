@@ -155,3 +155,12 @@
 	required_reagents = list("radium" = 1, "plasma" = 1, "chlorine" = 1)
 	result_amount = 3
 	mix_message = "The substance turns neon green and bubbles unnervingly."
+
+/datum/chemical_reaction/heparin
+	name = "Heparin"
+	id = "Heparin"
+	result = "heparin"
+	required_reagents = list("formaldehyde" = 1, "sodium" = 1, "chlorine" = 1, "lithium" = 1)
+	result_amount = 4
+	mix_message = "The mixture thins and loses all color."
+	mix_sound = 'sound/goonstation/misc/drinkfizz.ogg'

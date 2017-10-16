@@ -381,15 +381,10 @@ var/record_id_num = 1001
 			preview_icon.Blend(rgb(H.s_tone, H.s_tone, H.s_tone), ICON_ADD)
 		else
 			preview_icon.Blend(rgb(-H.s_tone,  -H.s_tone,  -H.s_tone), ICON_SUBTRACT)
-/* Commented out due to broken-ness, see below comment
-	// Skin color
-	if(H.species.flags & HAS_SKIN_TONE)
-		if(!H.species || H.species.flags & HAS_SKIN_COLOR)
-			preview_icon.Blend(rgb(H.r_skin, H.g_skin, H.b_skin), ICON_ADD)
-*/
+
 	// Proper Skin color - Fix, you can't have HAS_SKIN_TONE *and* HAS_SKIN_COLOR
 	if(H.species.bodyflags & HAS_SKIN_COLOR)
-		preview_icon.Blend(rgb(H.r_skin, H.g_skin, H.b_skin), ICON_ADD)
+		preview_icon.Blend(H.skin_colour, ICON_ADD)
 
 	//Tail Markings
 	var/icon/t_marking_s
@@ -407,26 +402,23 @@ var/record_id_num = 1001
 		var/icon/eyes_s = new/icon("icon" = 'icons/mob/human_face.dmi', "icon_state" = H.species ? H.species.eyes : "eyes_s")
 		if(!eyes_organ)
 			return
-		var/eye_red = eyes_organ.eye_colour[1]
-		var/eye_green = eyes_organ.eye_colour[2]
-		var/eye_blue = eyes_organ.eye_colour[3]
-		eyes_s.Blend(rgb(eye_red, eye_green, eye_blue), ICON_ADD)
+		eyes_s.Blend(eyes_organ.eye_colour, ICON_ADD)
 		face_s.Blend(eyes_s, ICON_OVERLAY)
 
-	var/datum/sprite_accessory/hair_style = hair_styles_list[head_organ.h_style]
+	var/datum/sprite_accessory/hair_style = hair_styles_full_list[head_organ.h_style]
 	if(hair_style)
 		var/icon/hair_s = new/icon("icon" = hair_style.icon, "icon_state" = "[hair_style.icon_state]_s")
 		// I'll want to make a species-specific proc for this sooner or later
 		// But this'll do for now
 		if(head_organ.species.name == "Slime People")
-			hair_s.Blend(rgb(H.r_skin, H.g_skin, H.b_skin, 160), ICON_AND)
+			hair_s.Blend("[H.skin_colour]A0", ICON_AND) //A0 = 160 alpha.
 		else
-			hair_s.Blend(rgb(head_organ.r_hair, head_organ.g_hair, head_organ.b_hair), ICON_ADD)
+			hair_s.Blend(head_organ.hair_colour, ICON_ADD)
 
 		if(hair_style.secondary_theme)
 			var/icon/hair_secondary_s = new/icon("icon" = hair_style.icon, "icon_state" = "[hair_style.icon_state]_[hair_style.secondary_theme]_s")
 			if(!hair_style.no_sec_colour)
-				hair_secondary_s.Blend(rgb(head_organ.r_hair_sec, head_organ.g_hair_sec, head_organ.b_hair_sec), ICON_ADD)
+				hair_secondary_s.Blend(head_organ.sec_hair_colour, ICON_ADD)
 			hair_s.Blend(hair_secondary_s, ICON_OVERLAY)
 
 		face_s.Blend(hair_s, ICON_OVERLAY)
@@ -436,21 +428,21 @@ var/record_id_num = 1001
 		var/datum/sprite_accessory/head_accessory_style = head_accessory_styles_list[head_organ.ha_style]
 		if(head_accessory_style && head_accessory_style.species_allowed)
 			var/icon/head_accessory_s = new/icon("icon" = head_accessory_style.icon, "icon_state" = "[head_accessory_style.icon_state]_s")
-			head_accessory_s.Blend(rgb(head_organ.r_headacc, head_organ.g_headacc, head_organ.b_headacc), ICON_ADD)
+			head_accessory_s.Blend(head_organ.headacc_colour, ICON_ADD)
 			face_s.Blend(head_accessory_s, ICON_OVERLAY)
 
 	var/datum/sprite_accessory/facial_hair_style = facial_hair_styles_list[head_organ.f_style]
 	if(facial_hair_style && facial_hair_style.species_allowed)
 		var/icon/facial_s = new/icon("icon" = facial_hair_style.icon, "icon_state" = "[facial_hair_style.icon_state]_s")
 		if(head_organ.species.name == "Slime People")
-			facial_s.Blend(rgb(H.r_skin, H.g_skin, H.b_skin, 160), ICON_ADD)
+			facial_s.Blend("[H.skin_colour]A0", ICON_ADD) //A0 = 160 alpha.
 		else
-			facial_s.Blend(rgb(head_organ.r_facial, head_organ.g_facial, head_organ.b_facial), ICON_ADD)
+			facial_s.Blend(head_organ.facial_colour, ICON_ADD)
 
 		if(facial_hair_style.secondary_theme)
 			var/icon/facial_secondary_s = new/icon("icon" = facial_hair_style.icon, "icon_state" = "[facial_hair_style.icon_state]_[facial_hair_style.secondary_theme]_s")
 			if(!facial_hair_style.no_sec_colour)
-				facial_secondary_s.Blend(rgb(head_organ.r_facial_sec, head_organ.g_facial_sec, head_organ.b_facial_sec), ICON_ADD)
+				facial_secondary_s.Blend(head_organ.sec_facial_colour, ICON_ADD)
 			facial_s.Blend(facial_secondary_s, ICON_OVERLAY)
 
 		face_s.Blend(facial_s, ICON_OVERLAY)
@@ -619,7 +611,7 @@ var/record_id_num = 1001
 		if(H.body_accessory.pixel_y_offset)
 			temp.Shift(NORTH, H.body_accessory.pixel_y_offset)
 		if(H.species.bodyflags & HAS_SKIN_COLOR)
-			temp.Blend(rgb(H.r_skin, H.g_skin, H.b_skin), H.body_accessory.blend_mode)
+			temp.Blend(H.skin_colour, H.body_accessory.blend_mode)
 		if(t_marking_s)
 			temp.Blend(t_marking_s, ICON_OVERLAY)
 		preview_icon.Blend(temp, ICON_OVERLAY)

@@ -1,4 +1,5 @@
 /obj/effect/decal/cleanable
+	anchored = 1
 	var/list/random_icon_states = list()
 	var/noscoop = 0   //if it has this, don't let it be scooped up
 	var/noclear = 0    //if it has this, don't delete it when its' scooped up

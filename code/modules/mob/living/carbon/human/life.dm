@@ -1,29 +1,10 @@
-//This file was auto-corrected by findeclaration.exe on 25.5.2012 20:42:32
-
-/mob/living/carbon/human
-
-	var/pressure_alert = 0
-	var/prev_gender = null // Debug for plural genders
-	var/temperature_alert = 0
-	var/in_stasis = 0
-	var/exposedtimenow = 0
-	var/firstexposed = 0
-	var/heartbeat = 0
-
 /mob/living/carbon/human/Life()
 	fire_alert = 0 //Reset this here, because both breathe() and handle_environment() have a chance to set it.
 	life_tick++
 
-	in_stasis = 0
-	if(istype(loc, /obj/structure/closet/body_bag/cryobag))
-		var/obj/structure/closet/body_bag/cryobag/loc_as_cryobag = loc
-		if(!loc_as_cryobag.opened)
-			loc_as_cryobag.used++
-			in_stasis = 1
-
 	voice = GetVoice()
 
-	if(..() && !in_stasis)
+	if(..())
 
 		if(check_mutations)
 			domutcheck(src,null)
@@ -46,8 +27,6 @@
 
 	if(stat == DEAD)
 		handle_decay()
-
-	handle_stasis_bag()
 
 	if(life_tick > 5 && timeofdeath && (timeofdeath < 5 || world.time - timeofdeath > 6000))	//We are long dead, or we're junk mobs spawned like the clowns on the clown shuttle
 		return											//We go ahead and process them 5 times for HUD images and other stuff though.
@@ -158,16 +137,6 @@
 		visible_message("<span class='alert'><B>[src]</B> goes limp, their facial expression utterly blank.</span>")
 		death()
 
-/mob/living/carbon/human/proc/handle_stasis_bag()
-	// Handle side effects from stasis bag
-	if(in_stasis)
-		// First off, there's no oxygen supply, so the mob will slowly take brain damage
-		adjustBrainLoss(0.1)
-
-		// Next, the method to induce stasis has some adverse side-effects, manifesting
-		// as cloneloss
-		adjustCloneLoss(0.1)
-
 /mob/living/carbon/human/handle_mutations_and_radiation()
 	for(var/datum/dna/gene/gene in dna_genes)
 		if(!gene.block)
@@ -193,7 +162,7 @@
 					if(gene_stability < GENETIC_DAMAGE_STAGE_3)
 						gib()
 
-	if(!(species.flags & RADIMMUNE))
+	if(!(RADIMMUNE in species.species_traits))
 		if(radiation)
 			radiation = Clamp(radiation, 0, 200)
 
@@ -254,7 +223,7 @@
 
 /mob/living/carbon/human/breathe()
 
-	if((NO_BREATH in mutations) || (species && (species.flags & NO_BREATHE)) || reagents.has_reagent("lexorin"))
+	if((NO_BREATH in mutations) || (NO_BREATHE in species.species_traits) || reagents.has_reagent("lexorin"))
 		adjustOxyLoss(-5)
 		oxygen_alert = 0
 		toxins_alert = 0
@@ -658,7 +627,7 @@
 		return 0	//godmode
 
 	//The fucking FAT mutation is the greatest shit ever. It makes everyone so hot and bothered.
-	if(species.flags & CAN_BE_FAT)
+	if(CAN_BE_FAT in species.species_traits)
 		if(FAT in mutations)
 			if(overeatduration < 100)
 				becomeSlim()
@@ -722,7 +691,8 @@
 		AdjustDizzy(-3)
 		AdjustJitter(-3)
 
-	if(species && species.flags & NO_INTORGANS) return
+	if(NO_INTORGANS in species.species_traits)
+		return
 
 	handle_trace_chems()
 
@@ -891,8 +861,7 @@
 		if(gloves && germ_level > gloves.germ_level && prob(10))
 			gloves.germ_level += 1
 
-		if(!in_stasis)
-			handle_organs()
+		handle_organs()
 
 
 	else //dead
@@ -963,7 +932,7 @@
 /mob/living/carbon/human/handle_changeling()
 	if(mind)
 		if(mind.changeling)
-			mind.changeling.regenerate()
+			mind.changeling.regenerate(src)
 			if(hud_used)
 				hud_used.lingchemdisplay.invisibility = 0
 				hud_used.lingchemdisplay.maptext = "<div align='center' valign='middle' style='position:relative; top:0px; left:6px'><font color='#dd66dd'>[round(mind.changeling.chem_charges)]</font></div>"
@@ -971,64 +940,13 @@
 			if(hud_used)
 				hud_used.lingchemdisplay.invisibility = 101
 
-/mob/living/carbon/human/handle_shock()
-	..()
-	if(status_flags & GODMODE)
-		return 0	//godmode
-	if(species && species.flags & NO_PAIN)
-		return
-
-	if(health <= config.health_threshold_softcrit)// health 0 makes you immediately collapse
-		shock_stage = max(shock_stage, 61)
-
-	if(traumatic_shock >= 100)
-		shock_stage += 1
-	else
-		shock_stage = min(shock_stage, 160)
-		shock_stage = max(shock_stage-1, 0)
-		return
-
-	if(shock_stage == 10)
-		to_chat(src, "<font color='red'><b>"+pick("It hurts so much!", "You really need some painkillers..", "Dear god, the pain!"))
-
-	if(shock_stage >= 30)
-		if(shock_stage == 30) custom_emote(1,"is having trouble keeping their eyes open.")
-		EyeBlurry(2)
-		Stuttering(5)
-
-	if(shock_stage == 40)
-		to_chat(src, "<font color='red'><b>"+pick("The pain is excrutiating!", "Please, just end the pain!", "Your whole body is going numb!"))
-
-	if(shock_stage >=60)
-		if(shock_stage == 60) custom_emote(1,"falls limp.")
-		if(prob(2))
-			to_chat(src, "<font color='red'><b>"+pick("The pain is excrutiating!", "Please, just end the pain!", "Your whole body is going numb!"))
-			Weaken(20)
-
-	if(shock_stage >= 80)
-		if(prob(5))
-			to_chat(src, "<font color='red'><b>"+pick("The pain is excrutiating!", "Please, just end the pain!", "Your whole body is going numb!"))
-			Weaken(20)
-
-	if(shock_stage >= 120)
-		if(prob(2))
-			to_chat(src, "<font color='red'><b>"+pick("You black out!", "You feel like you could die any moment now.", "You're about to lose consciousness."))
-			Paralyse(5)
-
-	if(shock_stage == 150)
-		custom_emote(1,"can no longer stand, collapsing!")
-		Weaken(20)
-
-	if(shock_stage >= 150)
-		Weaken(20)
-
 
 /mob/living/carbon/human/proc/handle_pulse()
 
 	if(mob_master.current_cycle % 5)
 		return pulse	//update pulse every 5 life ticks (~1 tick/sec, depending on server load)
 
-	if(species && species.flags & NO_BLOOD)
+	if(NO_BLOOD in species.species_traits)
 		return PULSE_NONE //No blood, no pulse.
 
 	if(stat == DEAD)
@@ -1090,15 +1008,15 @@
 		makeSkeleton()
 		return //No puking over skeletons, they don't smell at all!
 
+	if(!isturf(loc))
+		return
 
 	for(var/mob/living/carbon/human/H in range(decaylevel, src))
 		if(prob(2))
-			if(istype(loc,/obj/item/bodybag))
-				return
 			var/obj/item/clothing/mask/M = H.wear_mask
 			if(M && (M.flags_cover & MASKCOVERSMOUTH))
 				return
-			if(H.species && H.species.flags & NO_BREATHE)
+			if(NO_BREATHE in species.species_traits)
 				return //no puking if you can't smell!
 			// Humans can lack a mind datum, y'know
 			if(H.mind && (H.mind.assigned_role == "Detective" || H.mind.assigned_role == "Coroner"))
@@ -1123,7 +1041,7 @@
 
 				if(heartbeat >= rate)
 					heartbeat = 0
-					src << sound('sound/effects/electheart.ogg',0,0,0,30)//Credit to GhostHack (www.ghosthack.de) for sound.
+					src << sound('sound/effects/electheart.ogg',0,0,CHANNEL_HEARTBEAT,30)//Credit to GhostHack (www.ghosthack.de) for sound.
 
 				else
 					heartbeat++
@@ -1142,9 +1060,9 @@
 			if(heartbeat >= rate)
 				heartbeat = 0
 				if(H.status & ORGAN_ASSISTED)
-					src << sound('sound/effects/pacemakebeat.ogg',0,0,0,50)
+					src << sound('sound/effects/pacemakebeat.ogg',0,0,CHANNEL_HEARTBEAT,50)
 				else
-					src << sound('sound/effects/singlebeat.ogg',0,0,0,50)
+					src << sound('sound/effects/singlebeat.ogg',0,0,CHANNEL_HEARTBEAT,50)
 			else
 				heartbeat++
 
@@ -1178,7 +1096,9 @@
 
 
 /mob/living/carbon/human/proc/can_heartattack()
-	if(species.flags & (NO_BLOOD|NO_INTORGANS))
+	if(NO_BLOOD in species.species_traits)
+		return FALSE
+	if(NO_INTORGANS in species.species_traits)
 		return FALSE
 	return TRUE
 
@@ -1186,8 +1106,11 @@
 	if(!can_heartattack())
 		return FALSE
 	var/obj/item/organ/internal/heart/heart = get_int_organ(/obj/item/organ/internal/heart)
-	if(istype(heart) && heart.beating)
-		return FALSE
+	if(istype(heart))
+		if(heart.status & ORGAN_DEAD)
+			return TRUE
+		if(heart.beating)
+			return FALSE
 	return TRUE
 
 /mob/living/carbon/human/proc/set_heartattack(status)

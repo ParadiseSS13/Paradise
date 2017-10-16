@@ -77,19 +77,19 @@ actual development.
   do this:
   ```
   /datum/datum1/proc/proc1()
-    if (thing1)
-        if (!thing2)
-            if (thing3 == 30)
+    if(thing1)
+        if(!thing2)
+            if(thing3 == 30)
                 do stuff
   ```
   Instead, you should do this:
   ```
   /datum/datum1/proc/proc1()
-    if (!thing1)
+    if(!thing1)
         return
-    if (thing2)
+    if(thing2)
         return
-    if (thing3 != 30)
+    if(thing3 != 30)
         return
     do stuff
   ```
@@ -101,7 +101,7 @@ actual development.
   `visible_message()`.
      - Bad:
      ```
-     for (var/mob/M in viewers(src))
+     for(var/mob/M in viewers(src))
              M.show_message("<span class='warning'>Arbitrary text</span>")
      ```
      - Good:
@@ -151,9 +151,9 @@ responsible for properly tagging new pull requests and issues, moderating commen
 pull requests/issues, and merging/closing pull requests.
 
 ### Maintainer List
- - [MarkvA](https://github.com/Markolie)
+ - [tigercat2000](https://github.com/tigercat2000)
  - [Fox P McCloud](https://github.com/Fox-McCloud)
- - [TheDZD](https://github.com/TheDZD)
+ - [Crazy Lemon](https://github.com/Crazylemon64)
 
 ### Maintainer instructions
  - Do not `self-merge`; this refers to the practice of opening a pull request, then

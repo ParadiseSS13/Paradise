@@ -36,7 +36,7 @@
 		"antennae" =    /obj/item/organ/internal/wryn/hivenode
 		)
 
-	flags = IS_WHITELISTED | HAS_LIPS | NO_BREATHE | HAS_SKIN_COLOR | NO_SCAN | HIVEMIND
+	species_traits = list(IS_WHITELISTED, NO_BREATHE, HAS_SKIN_COLOR, NO_SCAN, HIVEMIND)
 	clothing_flags = HAS_UNDERWEAR | HAS_UNDERSHIRT | HAS_SOCKS
 	dietflags = DIET_HERB		//bees feed off nectar, so bee people feed off plants too
 
@@ -73,7 +73,7 @@
 					node.remove(H)
 					node.loc = M.loc
 					to_chat(M, "<span class='notice'>You hear a loud crunch as you mercilessly pull off [H]'s antennae.</span>")
-					to_chat(H, "<span class='danger'><B>You hear a loud crunch as your antennae is ripped off your head by [M].</span></B>")
+					to_chat(H, "<span class='danger'>You hear a loud crunch as your antennae is ripped off your head by [M].</span>")
 					to_chat(H, "<span class='danger'><span class='danger'><B>It's so quiet...</B></span>")
 					head_organ.h_style = "Bald"
 					H.update_hair()
@@ -99,7 +99,7 @@
 	burn_mod = 4 // holy shite, poor guys wont survive half a second cooking smores
 	brute_mod = 2 // damn, double wham, double dam
 	oxy_mod = 0
-	flags = IS_WHITELISTED | NO_BREATHE | NO_BLOOD | NO_PAIN | HAS_LIPS | NO_SCAN | RADIMMUNE
+	species_traits = list(LIPS, IS_WHITELISTED, NO_BREATHE, NO_BLOOD, NO_PAIN, NO_SCAN, RADIMMUNE)
 	dietflags = DIET_OMNI		//still human at their core, so they maintain their eating habits and diet
 
 	//Default styles for created mobs.

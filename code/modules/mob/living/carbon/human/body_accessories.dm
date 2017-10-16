@@ -140,3 +140,4 @@ var/global/list/body_accessory_by_species = list("None" = null)
 	icon_state = "vulptail6"
 	animated_icon_state = "vulptail6_a"
 	allowed_species = list("Vulpkanin")
+

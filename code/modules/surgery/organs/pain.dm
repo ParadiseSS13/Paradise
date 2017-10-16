@@ -47,7 +47,8 @@ mob/living/carbon/proc/pain(var/partname, var/amount, var/force, var/burning = 0
 mob/living/carbon/human/proc/custom_pain(var/message, var/flash_strength)
 	if(stat >= 1) return
 
-	if(species && species.flags & NO_PAIN) return
+	if(NO_PAIN in species.species_traits)
+		return
 
 	if(reagents.has_reagent("morphine"))
 		return
@@ -66,7 +67,7 @@ mob/living/carbon/human/proc/custom_pain(var/message, var/flash_strength)
 mob/living/carbon/human/proc/handle_pain()
 	// not when sleeping
 
-	if(species && species.flags & NO_PAIN)
+	if(NO_PAIN in species.species_traits)
 		//While synthetics don't feel pain, they will notice their gears gunking up with residue (toxins)
 		if(isSynthetic())
 			var/toxDamageMessage = null
