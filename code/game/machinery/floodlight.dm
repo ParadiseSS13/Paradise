@@ -17,6 +17,13 @@
 
 /obj/machinery/floodlight/New()
 	src.cell = new(src)
+	if(on)
+		if(!cell)
+			return
+		if(cell.charge <= 0)
+			return
+		set_light(brightness_on)
+		updateicon()
 	..()
 
 /obj/machinery/floodlight/Destroy()
