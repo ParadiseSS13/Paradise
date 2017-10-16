@@ -1,0 +1,4 @@
+author: "Citinited"
+delete-after: True
+changes: 
+  - tweak: "Clipboards now have more functionality. You can now stamp them, attach paper bundles to them, write on any contained paper by clicking on the paper's name using a pen, add pens directly to them, and rearrange what piece of paper is on top!"
