@@ -1,0 +1,8 @@
+author: "Citinited"
+delete-after: True
+changes: 
+  - bugfix: "Full-sized plasma windows are fire-resistant, and full-sized reinforced windows are fully fireproof."
+  - bugfix: "You can now remove facehuggers from corgis. Corgis that have been glomped by multiple facehuggers will now work as you'd expect them to."
+  - bugfix: "Radiation mines no longer change the DNA of species that don't have it."
+  - bugfix: "Firedoors and other doors will no longer close when a shuttle docks. Open firelocks can no longer be welded. Welded firelocks should no longer open under any circumstances."
+  - bugfix: "Open airlocks no longer spark when you throw something conductive through them."
