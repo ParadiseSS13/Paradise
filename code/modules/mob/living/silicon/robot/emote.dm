@@ -156,11 +156,9 @@
 			m_type = 1
 			message = "<B>[src]</B> does a flip!"
 			src.SpinAnimation(5,1)
-		if("spin")
-			spin(20, 1)
-			message = "<b>[src]</b> spins around dizzily!"
+
 		if("help")
-			to_chat(src, "salute, bow-(none)/mob, clap, flap, aflap, twitch, twitches, nod, deathgasp, glare-(none)/mob, stare-(none)/mob, spin, look,\n law, halt")
+			to_chat(src, "salute, bow-(none)/mob, clap, flap, aflap, twitch, twitches, nod, deathgasp, glare-(none)/mob, stare-(none)/mob, look,\n law, halt")
 
 	..(act, m_type, message)
 
