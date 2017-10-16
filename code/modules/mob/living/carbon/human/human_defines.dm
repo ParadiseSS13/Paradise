@@ -72,3 +72,5 @@ var/global/default_martial_art = new/datum/martial_art
 
 	var/datum/body_accessory/body_accessory = null
 	var/tail // Name of tail image in species effects icon file.
+
+	var/list/splinted_limbs = list() //limbs we know are splinted

@@ -71,8 +71,7 @@
 
 	var/datum/reagent/R = null
 	if(random_reagent)
-		R = pick(subtypesof(/datum/reagent))
-		R = chemical_reagents_list[initial(R.id)]
+		R = get_random_reagent_id()
 
 	queen_bee = new(src)
 	queen_bee.beehome = src
@@ -89,13 +88,12 @@
 		B.beehome = src
 		B.assign_reagent(R)
 
-
 /obj/structure/beebox/premade/random
 	random_reagent = TRUE
 
 
 /obj/structure/beebox/process()
-	if(queen_bee)
+	if(queen_bee && (!queen_bee.beegent || !queen_bee.beegent.can_synth))
 		if(bee_resources >= BEE_RESOURCE_HONEYCOMB_COST)
 			if(honeycombs.len < get_max_honeycomb())
 				bee_resources = max(bee_resources-BEE_RESOURCE_HONEYCOMB_COST, 0)
@@ -172,11 +170,13 @@
 
 		var/obj/item/queen_bee/qb = I
 		user.unEquip(qb)
-
-		qb.queen.forceMove(src)
-		bees += qb.queen
-		queen_bee = qb.queen
-		qb.queen = null
+		if(!qb.queen.beegent || (qb.queen.beegent && qb.queen.beegent.can_synth))
+			qb.queen.forceMove(src)
+			bees += qb.queen
+			queen_bee = qb.queen
+			qb.queen = null
+		else
+			visible_message("<span class='notice'>The [qb] refuses to settle down. Maybe it's something to do with its reagent?</span>")
 
 		if(queen_bee)
 			visible_message("<span class='notice'>[user] sets [qb] down inside the apiary, making it their new home.</span>")

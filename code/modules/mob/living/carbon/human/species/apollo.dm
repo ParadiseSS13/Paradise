@@ -73,7 +73,7 @@
 					node.remove(H)
 					node.loc = M.loc
 					to_chat(M, "<span class='notice'>You hear a loud crunch as you mercilessly pull off [H]'s antennae.</span>")
-					to_chat(H, "<span class='danger'><B>You hear a loud crunch as your antennae is ripped off your head by [M].</span></B>")
+					to_chat(H, "<span class='danger'>You hear a loud crunch as your antennae is ripped off your head by [M].</span>")
 					to_chat(H, "<span class='danger'><span class='danger'><B>It's so quiet...</B></span>")
 					head_organ.h_style = "Bald"
 					H.update_hair()

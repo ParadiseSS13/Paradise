@@ -242,8 +242,8 @@
 	var/greenlight = "securecrateg"
 	var/sparks = "securecratesparks"
 	var/emag = "securecrateemag"
-	var/broken = 0
-	var/locked = 1
+	broken = 0
+	locked = 1
 	health = 1000
 
 /obj/structure/closet/crate/secure/update_icon()
@@ -443,9 +443,9 @@
 	anchored = TRUE
 
 /obj/structure/closet/crate/can/attackby(obj/item/weapon/W, mob/living/user, params)
-	add_fingerprint(user)
-	user.changeNext_move(CLICK_CD_MELEE)
 	if(iswrench(W))
+		add_fingerprint(user)
+		user.changeNext_move(CLICK_CD_MELEE)
 		if(anchored)
 			playsound(loc, W.usesound, 100, 1)
 			user.visible_message("[user] starts loosening [src]'s floor casters.", \
@@ -469,6 +469,8 @@
 				user.visible_message("[user] has secured [src]'s floor casters.", \
 						 								"<span class='notice'>You have secured [src]'s floor casters.</span>")
 				anchored = TRUE
+	else
+		..()
 
 /obj/structure/closet/crate/radiation
 	desc = "A crate with a radiation sign on it."

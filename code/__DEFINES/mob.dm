@@ -19,6 +19,8 @@
 #define LEFT 1
 #define RIGHT 2
 
+#define SPLINT_LIFE 2000 //number of steps splints stay on
+
 
 //Pulse levels, very simplified
 #define PULSE_NONE		0	//so !M.pulse checks would be possible

@@ -34,7 +34,7 @@
 
 	allowed_tools = list(
 	/obj/item/weapon/bonegel = 100,	\
-	/obj/item/weapon/screwdriver = 75
+	/obj/item/weapon/screwdriver = 90
 	)
 	can_infect = 1
 	blood_level = 1
@@ -70,7 +70,7 @@
 
 	allowed_tools = list(
 	/obj/item/weapon/bonesetter = 100,	\
-	/obj/item/weapon/wrench = 75		\
+	/obj/item/weapon/wrench = 90	\
 	)
 
 	time = 32
@@ -109,7 +109,7 @@
 
 	allowed_tools = list(
 	/obj/item/weapon/bonesetter = 100,	\
-	/obj/item/weapon/wrench = 75		\
+	/obj/item/weapon/wrench = 90		\
 	)
 
 	time = 32
@@ -144,7 +144,7 @@
 
 	allowed_tools = list(
 	/obj/item/weapon/bonegel = 100,	\
-	/obj/item/weapon/screwdriver = 75
+	/obj/item/weapon/screwdriver = 90
 	)
 	can_infect = 1
 	blood_level = 1
@@ -168,7 +168,7 @@
 	affected.status &= ~ORGAN_BROKEN
 	affected.status &= ~ORGAN_SPLINTED
 	affected.perma_injury = 0
-
+	target.handle_splints()
 	return 1
 
 /datum/surgery_step/finish_bone/fail_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool)

@@ -179,15 +179,15 @@ var/global/wcCommon = pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e", "#8f
 	attack_generic(user, rand(10, 15))
 
 
-/obj/structure/window/attackby(obj/item/weapon/W as obj, mob/living/user as mob, params)
-	if(!istype(W))
+/obj/structure/window/attackby(obj/item/I as obj, mob/living/user as mob, params)
+	if(!istype(I))
 		return//I really wish I did not need this
-	if(istype(W, /obj/item/weapon/grab) && get_dist(src,user)<2)
-		var/obj/item/weapon/grab/G = W
+	if(istype(I, /obj/item/weapon/grab) && get_dist(src,user)<2)
+		var/obj/item/weapon/grab/G = I
 		if(istype(G.affecting,/mob/living))
 			var/mob/living/M = G.affecting
 			var/state = G.state
-			qdel(W)	//gotta delete it here because if window breaks, it won't get deleted
+			qdel(I)	//gotta delete it here because if window breaks, it won't get deleted
 			switch(state)
 				if(1)
 					M.visible_message("<span class='warning'>[user] slams [M] against \the [src]!</span>")
@@ -210,16 +210,15 @@ var/global/wcCommon = pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e", "#8f
 					M.apply_damage(30)
 					hit(75)
 			return
-
-	if(W.flags & NOBLUDGEON)
+	if(I.flags & NOBLUDGEON)
 		return
 
-	if(handle_decon(W, user, is_fulltile()))
+	if(handle_decon(I, user, is_fulltile()))
 		return
 
-	if(W.damtype == BRUTE || W.damtype == BURN)
+	if(I.damtype == BRUTE || I.damtype == BURN)
 		user.changeNext_move(CLICK_CD_MELEE)
-		hit(W.force)
+		hit(I.force)
 		if(health <= 7)
 			anchored = 0
 			update_nearby_icons()
@@ -227,7 +226,6 @@ var/global/wcCommon = pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e", "#8f
 	else
 		playsound(loc, 'sound/effects/Glasshit.ogg', 75, 1)
 	..()
-	return
 
 /obj/structure/window/proc/handle_decon(obj/item/weapon/W, mob/user, var/takes_time = FALSE)
 	//screwdriver

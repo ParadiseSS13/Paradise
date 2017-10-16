@@ -58,6 +58,8 @@
 	var/can_grasp
 	var/can_stand
 
+	var/splinted_count = 0 //Time when this organ was last splinted
+
 /obj/item/organ/external/necrotize(update_sprite=TRUE)
 	if(status & (ORGAN_ROBOT|ORGAN_DEAD))
 		return
@@ -84,6 +86,7 @@
 
 	if(owner)
 		owner.bodyparts_by_name[limb_name] = null
+		owner.splinted_limbs -= src
 
 	QDEL_LIST(children)
 
@@ -196,6 +199,10 @@
 
 	if(status & ORGAN_BROKEN && prob(40) && brute)
 		owner.emote("scream")	//getting hit on broken hand hurts
+	if(status & ORGAN_SPLINTED && prob((brute + burn)*4)) //taking damage to splinted limbs removes the splints
+		status &= ~ORGAN_SPLINTED
+		owner.visible_message("<span class='danger'>The splint on [owner]'s left arm unravels from their [name]!</span>","<span class='userdanger'>The splint on your [name] unravels!</span>")
+		owner.handle_splints()
 	if(used_weapon)
 		add_autopsy_data("[used_weapon]", brute + burn)
 
@@ -458,6 +465,18 @@ Note that amputating the affected organ does in fact remove the infection from t
 		tbrute = 3
 	return "[tbrute][tburn]"
 
+/obj/item/organ/external/proc/update_splints()
+	if(!(status & ORGAN_SPLINTED))
+		owner.splinted_limbs -= src
+		return
+	if(owner.step_count >= splinted_count + SPLINT_LIFE)
+		status &= ~ORGAN_SPLINTED //oh no, we actually need surgery now!
+		owner.visible_message("<span class='danger'>[owner] screams in pain as their splint pops off their [name]!</span>","<span class='userdanger'>You scream in pain as your splint pops off your [name]!</span>")
+		owner.emote("scream")
+		owner.Stun(2)
+		owner.handle_splints()
+
+
 /****************************************************
 			   DISMEMBERMENT
 ****************************************************/
@@ -647,6 +666,9 @@ Note that amputating the affected organ does in fact remove the infection from t
 		return
 	var/is_robotic = status & ORGAN_ROBOT
 	var/mob/living/carbon/human/victim = owner
+
+	if(status & ORGAN_SPLINTED)
+		victim.splinted_limbs -= src
 
 	for(var/obj/item/I in embedded_objects)
 		embedded_objects -= I

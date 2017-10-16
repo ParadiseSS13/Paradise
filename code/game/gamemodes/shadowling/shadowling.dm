@@ -329,9 +329,15 @@ Made by Xhuis
 				H << 'sound/weapons/sear.ogg'
 		else if(light_amount < LIGHT_HEAL_THRESHOLD)
 			H.clear_alert("lightexposure")
+			var/obj/item/organ/internal/eyes/E = H.get_int_organ(/obj/item/organ/internal/eyes)
+			if(istype(E))
+				E.take_damage(-1)
 			H.heal_overall_damage(5, 5)
 			H.adjustToxLoss(-5)
 			H.adjustBrainLoss(-25) //Shad O. Ling gibbers, "CAN U BE MY THRALL?!!"
+			H.AdjustEyeBlurry(-1)
+			H.CureNearsighted()
+			H.CureBlind()
 			H.adjustCloneLoss(-1)
 			H.SetWeakened(0)
 			H.SetStunned(0)

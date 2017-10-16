@@ -263,7 +263,7 @@
 	for(var/marking_location in m_colours)
 		m_colours[marking_location] = sanitize_hexcolor(m_colours[marking_location], DEFAULT_MARKING_COLOURS[marking_location])
 	hacc_colour		= sanitize_hexcolor(hacc_colour)
-	h_style			= sanitize_inlist(h_style, hair_styles_list, initial(h_style))
+	h_style			= sanitize_inlist(h_style, hair_styles_public_list, initial(h_style))
 	f_style			= sanitize_inlist(f_style, facial_hair_styles_list, initial(f_style))
 	for(var/marking_location in m_styles)
 		m_styles[marking_location] = sanitize_inlist(m_styles[marking_location], marking_styles_list, DEFAULT_MARKING_STYLES[marking_location])
