@@ -249,10 +249,14 @@
 				var/new_permission = input("Select a permission to turn on/off", adm_ckey + "'s Permissions", null, null) as null|anything in permissionlist
 				if(!new_permission)
 					return
+				var oldrights = D.rights
+				var toggleresult = "ON"
 				D.rights ^= permissionlist[new_permission]
+				if(oldrights > D.rights)
+					toggleresult = "OFF"
 
-				message_admins("[key_name_admin(usr)] toggled the [new_permission] permission of [adm_ckey]")
-				log_admin("[key_name(usr)] toggled the [new_permission] permission of [adm_ckey]")
+				message_admins("[key_name_admin(usr)] toggled the [new_permission] permission of [adm_ckey] to [toggleresult]")
+				log_admin("[key_name(usr)] toggled the [new_permission] permission of [adm_ckey] to [toggleresult]")
 				log_admin_permission_modification(adm_ckey, permissionlist[new_permission])
 
 
