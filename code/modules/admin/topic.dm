@@ -242,16 +242,19 @@
 
 		else if(task == "permissions")
 			if(!D)	return
-			var/list/permissionlist = list()
-			for(var/i=1, i<=R_MAXPERMISSION, i<<=1)		//that <<= is shorthand for i = i << 1. Which is a left bitshift
-				permissionlist[rights2text(i)] = i
-			var/new_permission = input("Select a permission to turn on/off", "Permission toggle", null, null) as null|anything in permissionlist
-			if(!new_permission)	return
-			D.rights ^= permissionlist[new_permission]
+			while (TRUE)
+				var/list/permissionlist = list()
+				for(var/i=1, i<=R_MAXPERMISSION, i<<=1)		//that <<= is shorthand for i = i << 1. Which is a left bitshift
+					permissionlist[rights2text(i)] = i
+				var/new_permission = input("Select a permission to turn on/off", adm_ckey + "'s Permissions", null, null) as null|anything in permissionlist
+				if(!new_permission)
+					return
+				D.rights ^= permissionlist[new_permission]
 
-			message_admins("[key_name_admin(usr)] toggled the [new_permission] permission of [adm_ckey]")
-			log_admin("[key_name(usr)] toggled the [new_permission] permission of [adm_ckey]")
-			log_admin_permission_modification(adm_ckey, permissionlist[new_permission])
+				message_admins("[key_name_admin(usr)] toggled the [new_permission] permission of [adm_ckey]")
+				log_admin("[key_name(usr)] toggled the [new_permission] permission of [adm_ckey]")
+				log_admin_permission_modification(adm_ckey, permissionlist[new_permission])
+
 
 		edit_admin_permissions()
 
