@@ -242,7 +242,7 @@
 
 		else if(task == "permissions")
 			if(!D)	return
-			while (TRUE)
+			while(TRUE)
 				var/list/permissionlist = list()
 				for(var/i=1, i<=R_MAXPERMISSION, i<<=1)		//that <<= is shorthand for i = i << 1. Which is a left bitshift
 					permissionlist[rights2text(i)] = i
