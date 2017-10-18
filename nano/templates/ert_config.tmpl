@@ -1,0 +1,41 @@
+	<div class='item'>
+		Alert: {{:data.alert_level}}
+	</div>
+	<div class='item'>
+		<table style='width: 100%'>
+		<tr>
+			<td>{{if data.ert_type == 'Code Amber'}} <font color='#FF7E00'> AMBER </font> {{else}} {{:helper.link('Amber', null, {"set_code": 'Code Amber'})}} {{/if}} </td>
+			<td>{{if data.ert_type == 'Code Red'}} <font color='#DC143C'> RED </font>  {{else}} {{:helper.link('Red', null, {"set_code": 'Code Red'})}} {{/if}} </td>
+			<td>{{if data.ert_type == 'Code Gamma'}} <font color='#DB7093'> GAMMA </font>  {{else}} {{:helper.link('Gamma', null, {"set_code": 'Code Gamma'})}} {{/if}} </td>
+		</tr>
+		</table>
+	</div>
+	<div class='item'>
+	<table style='width: 100%'>
+		<tr><td>Department</td><td>Assigned</td><td>Change Assignment</td></tr>
+		<tr><td>Command</td><td>{{:helper.smoothRound(data.com)}}</td><td>{{:helper.link('0', null, {"set_com": 0})}} {{:helper.link('1', null, {"set_com": 1})}}</td></tr>
+		<tr><td>Security</td><td>{{:helper.smoothRound(data.sec)}}</td><td>
+			{{:helper.link('0', null, {"set_sec": 0})}} {{:helper.link('1', null, {"set_sec": 1})}} {{:helper.link('3', null, {"set_sec": 3})}} {{:helper.link('5', null, {"set_sec": 5})}}
+		</td>
+		<tr><td>Medical</td><td>{{:helper.smoothRound(data.med)}}</td><td>
+			{{:helper.link('0', null, {"set_med": 0})}} {{:helper.link('1', null, {"set_med": 1})}} {{:helper.link('3', null, {"set_med": 3})}} {{:helper.link('5', null, {"set_med": 5})}}
+		</td>
+		<tr><td>Engineering</td><td>{{:helper.smoothRound(data.eng)}}</td><td>
+			{{:helper.link('0', null, {"set_eng": 0})}} {{:helper.link('1', null, {"set_eng": 1})}} {{:helper.link('3', null, {"set_eng": 3})}} {{:helper.link('5', null, {"set_eng": 5})}}
+		</td>
+		<tr><td>Paranormal</td><td>{{:helper.smoothRound(data.par)}}</td><td>
+			{{:helper.link('0', null, {"set_par": 0})}} {{:helper.link('1', null, {"set_par": 1})}} {{:helper.link('3', null, {"set_par": 3})}} {{:helper.link('5', null, {"set_par": 5})}}
+		</td>
+		<tr><td>Janitor</td><td>{{:helper.smoothRound(data.jan)}}</td><td>
+			{{:helper.link('0', null, {"set_jan": 0})}} {{:helper.link('1', null, {"set_jan": 1})}} {{:helper.link('3', null, {"set_jan": 3})}} {{:helper.link('5', null, {"set_jan": 5})}}
+		</td>
+		<tr><td>{{if data.ert_type == 'Code Gamma'}}<font color='#DB7093'>GAMMA</font> {{/if}}Cyborg</td><td>{{:helper.smoothRound(data.cyb)}}</td><td>
+			{{:helper.link('0', null, {"set_cyb": 0})}} {{:helper.link('1', null, {"set_cyb": 1})}} {{:helper.link('3', null, {"set_cyb": 3})}} {{:helper.link('5', null, {"set_cyb": 5})}}
+		</td></tr>
+	</table>
+	<BR>
+	</div>
+	<div class='item'>
+		{{:helper.link('Dispatch', null, {"dispatch_ert": 1})}}
+	</div>
+

@@ -11,7 +11,7 @@
 var/list/response_team_members = list()
 var/responseteam_age = 21 // Minimum account age to play as an ERT member
 var/datum/response_team/active_team = null
-var/send_emergency_team
+var/send_emergency_team = 0
 var/ert_request_answered = 0
 
 /client/proc/response_team()
@@ -34,46 +34,9 @@ var/ert_request_answered = 0
 		to_chat(usr, "<span class='warning'>Central Command has already dispatched an emergency response team!</span>")
 		return
 
-	if(alert("Do you want to dispatch an Emergency Response Team?",,"Yes","No") != "Yes")
-		return
+	var/datum/nano_module/ert_manager/E = new()
+	E.ui_interact(usr)
 
-	if(get_security_level() != "red") // Allow admins to reconsider if the alert level isn't Red
-		switch(alert("The station is not in red alert. Do you still want to dispatch a response team?",,"Yes","No"))
-			if("No")
-				return
-
-	if(send_emergency_team)
-		to_chat(usr, "<span class='warning'>Central Command has already dispatched an emergency response team!</span>")
-		return
-
-	var/ert_type = pick_ert_type()
-
-	if(!ert_type)
-		return
-
-	ert_request_answered = 1
-	message_admins("[key_name_admin(usr)] is dispatching an Emergency Response Team", 1)
-	log_admin("[key_name(usr)] used Dispatch Emergency Response Team..")
-	trigger_armed_response_team(ert_type)
-
-/client/proc/pick_ert_type()
-	switch(alert("Please select the ERT type you wish to deploy.", "Emergency Response Team", "Code Amber", "Code Red", "Code Gamma", "Cancel"))
-		if("Code Amber")
-			if(alert("Confirm: Deploy code 'AMBER' light ERT?", "Emergency Response Team", "Confirm", "Cancel") == "Confirm")
-				return new /datum/response_team/amber
-			else
-				return pick_ert_type()
-		if("Code Red")
-			if(alert("Confirm: Deploy code 'RED' medium ERT?", "Emergency Response Team", "Confirm", "Cancel") == "Confirm")
-				return new /datum/response_team/red
-			else
-				return pick_ert_type()
-		if("Code Gamma")
-			if(alert("Confirm: Deploy code 'GAMMA' elite ERT?", "Emergency Response Team", "Confirm", "Cancel") == "Confirm")
-				return new /datum/response_team/gamma
-			else
-				return pick_ert_type()
-	return 0
 
 /mob/dead/observer/proc/JoinResponseTeam()
 	if(!send_emergency_team)
@@ -99,9 +62,10 @@ var/ert_request_answered = 0
 
 	return 1
 
-/proc/trigger_armed_response_team(var/datum/response_team/response_team_type)
+/proc/trigger_armed_response_team(var/datum/response_team/response_team_type, commander_slots, security_slots, medical_slots, engineering_slots, janitor_slots, paranormal_slots, cyborg_slots)
 	response_team_members = list()
 	active_team = response_team_type
+	active_team.setSlots(commander_slots, security_slots, medical_slots, engineering_slots, janitor_slots, paranormal_slots, cyborg_slots)
 
 	send_emergency_team = 1
 	var/list/ert_candidates = pollCandidates("Join the Emergency Response Team?",, responseteam_age, 600, 1, role_playtime_requirements[ROLE_ERT])
@@ -112,6 +76,8 @@ var/ert_request_answered = 0
 
 	// Respawnable players get first dibs
 	for(var/mob/dead/observer/M in ert_candidates)
+		if(jobban_isbanned(M, ROLE_TRAITOR) || jobban_isbanned(M, "Security Officer") || jobban_isbanned(M, "Captain") || jobban_isbanned(M, "Cyborg"))
+			continue
 		if((M in respawnable_list) && M.JoinResponseTeam())
 			response_team_members |= M
 	// If there's still open slots, non-respawnable players can fill them
@@ -130,7 +96,7 @@ var/ert_request_answered = 0
 			index = 1
 
 		var/client/C = M.client
-		var/mob/living/carbon/human/new_commando = C.create_response_team(emergencyresponseteamspawn[index])
+		var/mob/living/new_commando = C.create_response_team(emergencyresponseteamspawn[index])
 		new_commando.mind.key = M.key
 		new_commando.key = M.key
 		new_commando.update_icons()
@@ -141,16 +107,36 @@ var/ert_request_answered = 0
 	return 1
 
 /client/proc/create_response_team(var/turf/spawn_location)
-	var/mob/living/carbon/human/M = new(null)
-	var/obj/item/organ/external/head/head_organ = M.get_organ("head")
 
-	var/new_gender = alert(src, "Please select your gender.", "ERT Character Generation", "Male", "Female")
 
 	var/class = 0
 	while(!class)
 		class = input(src, "Which loadout would you like to choose?") in active_team.get_slot_list()
 		if(!active_team.check_slot_available(class)) // Because the prompt does not update automatically when a slot gets filled.
 			class = 0
+
+	if(class == "Cyborg")
+		active_team.reduceCyborgSlots()
+		var cyborg_type = active_team.getCyborgType()
+		var/mob/living/silicon/robot/ert/R = new cyborg_type()
+		R.forceMove(spawn_location)
+		var rnum = rand(1,1000)
+		R.name = "ERT [rnum]"
+		R.real_name = R.name
+		R.mind = new
+		R.mind.current = R
+		R.mind.original = R
+		R.mind.assigned_role = "MODE"
+		R.mind.special_role = SPECIAL_ROLE_ERT
+		if(!(R.mind in ticker.minds))
+			ticker.minds += R.mind //Adds them to regular mind list.
+		ticker.mode.ert += R.mind
+		return R
+
+	var/mob/living/carbon/human/M = new(null)
+	var/obj/item/organ/external/head/head_organ = M.get_organ("head")
+
+	var/new_gender = alert(src, "Please select your gender.", "ERT Character Generation", "Male", "Female")
 
 	if(new_gender)
 		if(new_gender == "Male")
@@ -205,11 +191,32 @@ var/ert_request_answered = 0
 	var/engineer_slots = 3
 	var/medical_slots = 3
 	var/security_slots = 3
+	var/janitor_slots = 0
+	var/paranormal_slots = 0
+	var/cyborg_slots = 0
 
 	var/command_outfit
 	var/engineering_outfit
 	var/medical_outfit
 	var/security_outfit
+	var/janitor_outfit = /datum/outfit/job/centcom/response_team/janitorial
+	var/paranormal_outfit = /datum/outfit/job/centcom/response_team/paranormal
+	var/cyborg_type = /mob/living/silicon/robot/ert
+
+/datum/response_team/proc/setSlots(com, sec, med, eng, jan, par, cyb)
+	command_slots = com
+	security_slots = sec
+	medical_slots = med
+	engineer_slots = eng
+	janitor_slots = jan
+	paranormal_slots = par
+	cyborg_slots = cyb
+
+/datum/response_team/proc/reduceCyborgSlots()
+	cyborg_slots--
+
+/datum/response_team/proc/getCyborgType()
+	return cyborg_type
 
 /datum/response_team/proc/get_slot_list()
 	var/list/slots_available = list()
@@ -221,7 +228,12 @@ var/ert_request_answered = 0
 		slots_available |= "Engineer"
 	if(medical_slots)
 		slots_available |= "Medic"
-
+	if(janitor_slots)
+		slots_available |= "Janitor"
+	if(paranormal_slots)
+		slots_available |= "Paranormal"
+	if(cyborg_slots)
+		slots_available |= "Cyborg"
 	return slots_available
 
 /datum/response_team/proc/check_slot_available(var/slot)
@@ -234,6 +246,12 @@ var/ert_request_answered = 0
 			return engineer_slots
 		if("Medic")
 			return medical_slots
+		if("Janitor")
+			return janitor_slots
+		if("Paranormal")
+			return paranormal_slots
+		if("Cyborg")
+			return cyborg_slots
 	return 0
 
 /datum/response_team/proc/equip_officer(var/officer_type, var/mob/living/carbon/human/M)
@@ -252,6 +270,16 @@ var/ert_request_answered = 0
 			medical_slots -= 1
 			M.equipOutfit(medical_outfit)
 			M.job = "ERT Medical"
+
+		if("Janitor")
+			janitor_slots -= 1
+			M.equipOutfit(janitor_outfit)
+			M.job = "ERT Janitor"
+
+		if("Paranormal")
+			paranormal_slots -= 1
+			M.equipOutfit(paranormal_outfit)
+			M.job = "ERT Paranormal"
 
 		if("Commander")
 			command_slots = 0
@@ -299,6 +327,7 @@ var/ert_request_answered = 0
 	security_outfit = /datum/outfit/job/centcom/response_team/security/gamma
 	medical_outfit = /datum/outfit/job/centcom/response_team/medic/gamma
 	command_outfit = /datum/outfit/job/centcom/response_team/commander/gamma
+	cyborg_type = /mob/living/silicon/robot/ert/gamma
 
 /datum/response_team/gamma/announce_team()
 	event_announcement.Announce("Attention, [station_name()]. We are sending a code GAMMA elite Emergency Response Team. Standby.", "ERT En-Route")
@@ -616,6 +645,49 @@ var/ert_request_answered = 0
 		/obj/item/weapon/storage/firstaid/surgery = 1,
 		/obj/item/weapon/gun/energy/pulse/pistol = 1
 	)
+
+/datum/outfit/job/centcom/response_team/paranormal
+	name = "Paranormal ERT member"
+
+	uniform = /obj/item/clothing/under/rank/security
+	suit = /obj/item/clothing/suit/space/hardsuit/ert/paranormal
+	back = /obj/item/weapon/storage/backpack/ert/security
+	belt = /obj/item/weapon/gun/energy/gun/nuclear
+	gloves = /obj/item/clothing/gloves/color/black
+	shoes = /obj/item/clothing/shoes/combat
+	head = /obj/item/clothing/head/helmet/space/hardsuit/ert/paranormal
+	l_ear = /obj/item/device/radio/headset/ert/alt
+	glasses = /obj/item/clothing/glasses/hud/security/sunglasses
+	id = /obj/item/weapon/card/id/centcom
+	pda = /obj/item/device/pda/centcom
+	backpack_contents = list(
+		/obj/item/weapon/storage/box/survival = 1,
+		/obj/item/clothing/mask/gas/sechailer/swat = 1,
+		/obj/item/weapon/storage/box/zipties = 1,
+		/obj/item/device/flashlight = 1)
+
+/datum/outfit/job/centcom/response_team/janitorial
+	name = "Janitorial ERT member"
+
+	uniform = /obj/item/clothing/under/color/random
+	suit = /obj/item/clothing/suit/space/hardsuit/ert/janitor
+	back = /obj/item/weapon/storage/backpack/ert/janitor
+	belt = /obj/item/weapon/storage/belt/janitor/full
+	gloves = /obj/item/clothing/gloves/color/yellow
+	shoes = /obj/item/clothing/shoes/galoshes
+	head = /obj/item/clothing/head/helmet/space/hardsuit/ert/janitor
+	l_ear = /obj/item/device/radio/headset/ert/alt
+	glasses = /obj/item/clothing/glasses/sunglasses
+	id = /obj/item/weapon/card/id/centcom
+	pda = /obj/item/device/pda/centcom
+	backpack_contents = list(
+		/obj/item/weapon/caution = 2,
+		/obj/item/weapon/storage/box/survival = 1,
+		/obj/item/weapon/reagent_containers/spray/cleaner = 1,
+		/obj/item/weapon/storage/bag/trash = 1,
+		/obj/item/weapon/storage/box/lights/mixed = 1,
+		/obj/item/weapon/holosign_creator = 1,
+		/obj/item/device/flashlight = 1)
 
 /obj/item/device/radio/centcom
 	name = "centcomm bounced radio"

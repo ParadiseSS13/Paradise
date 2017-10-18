@@ -1452,6 +1452,37 @@ var/list/robot_verbs_default = list(
 	radio.config(module.channels)
 	notify_ai(2)
 
+/mob/living/silicon/robot/ert
+	designation = "ERT"
+	lawupdate = 0
+	scrambledcodes = 1
+	req_access = list(access_cent_specops)
+	ionpulse = 1
+
+/mob/living/silicon/robot/ert/init()
+	laws = new /datum/ai_laws/ert_override
+	radio = new /obj/item/device/radio/borg/ert(src)
+	radio.recalculateChannels()
+	aiCamera = new/obj/item/device/camera/siliconcam/robot_camera(src)
+
+/mob/living/silicon/robot/ert/New(loc)
+	..()
+	cell.maxcharge = 25000
+	cell.charge = 25000
+
+/mob/living/silicon/robot/ert/gamma
+	base_icon = "droidcombat"
+	icon_state = "droidcombat"
+	modtype = "Combat"
+	designation = "Gamma"
+
+/mob/living/silicon/robot/ert/gamma/init()
+	..()
+	module = new /obj/item/weapon/robot_module/combat(src)
+	module.add_languages(src)
+	module.add_subsystems_and_actions(src)
+	status_flags &= ~CANPUSH
+
 /mob/living/silicon/robot/nations
 	base_icon = "droidpeace"
 	icon_state = "droidpeace"
