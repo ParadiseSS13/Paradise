@@ -1,14 +1,14 @@
 /datum/nano_module/ert_manager
 	name = "ERT Manager"
-	var ert_type = "Code Red"
-	var commander_slots = 1
-	var security_slots = 3
-	var medical_slots = 3
-	var engineering_slots = 3
-	var janitor_slots = 0
-	var paranormal_slots = 0
-	var cyborg_slots = 0
-	var autoclose = 0
+	var/ert_type = "Code Red"
+	var/commander_slots = 1
+	var/security_slots = 3
+	var/medical_slots = 3
+	var/engineering_slots = 3
+	var/janitor_slots = 0
+	var/paranormal_slots = 0
+	var/cyborg_slots = 0
+	var/autoclose = 0
 
 
 /datum/nano_module/ert_manager/ui_interact(mob/user, ui_key = "main", var/datum/nanoui/ui = null, var/force_open = 1, var/datum/topic_state/state = default_state)

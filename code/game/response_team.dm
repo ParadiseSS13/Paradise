@@ -117,10 +117,10 @@ var/ert_request_answered = 0
 
 	if(class == "Cyborg")
 		active_team.reduceCyborgSlots()
-		var cyborg_type = active_team.getCyborgType()
+		var/cyborg_type = active_team.getCyborgType()
 		var/mob/living/silicon/robot/ert/R = new cyborg_type()
 		R.forceMove(spawn_location)
-		var rnum = rand(1,1000)
+		var/rnum = rand(1,1000)
 		R.name = "ERT [rnum]"
 		R.real_name = R.name
 		R.mind = new
