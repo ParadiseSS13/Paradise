@@ -51,9 +51,8 @@
 
 	if(href_list["dispatch_ert"])
 		ert_request_answered = 1
-		message_admins("[key_name_admin(usr)] is dispatching an Emergency Response Team", 1)
-		log_admin("[key_name(usr)] used Dispatch Emergency Response Team..")
-		message_admins("Dispatching ERT with [commander_slots] com, [security_slots] sec, [medical_slots] med, [engineering_slots] eng, [janitor_slots] jan, [paranormal_slots] par, [cyborg_slots] cyb.")
+		message_admins("[key_name_admin(usr)] dispatched a [ert_type] ERT with [commander_slots] commander, [security_slots] security, [medical_slots] medical, [engineering_slots] engineering, [janitor_slots] janitorial, [paranormal_slots] paranormal & [cyborg_slots] cyborg slots.", 1)
+		log_admin("[key_name(usr)] dispatched a [ert_type] ERT with [commander_slots] commander, [security_slots] security, [medical_slots] medical, [engineering_slots] engineering, [janitor_slots] janitorial, [paranormal_slots] paranormal & [cyborg_slots] cyborg slots.")
 		trigger_armed_response_team(convert_ert_string(ert_type), commander_slots, security_slots, medical_slots, engineering_slots, janitor_slots, paranormal_slots, cyborg_slots)
 		autoclose = 1
 
