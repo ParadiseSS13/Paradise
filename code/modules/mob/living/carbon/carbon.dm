@@ -809,6 +809,8 @@ var/list/ventcrawl_machinery = list(/obj/machinery/atmospherics/unary/vent_pump,
 		if(do_after(src, time, 0, target = src))
 			visible_message("<span class='warning'>[src] removes [I]!</span>")
 			to_chat(src, "<span class='notice'>You get rid of [I]!</span>")
+			if(I.security_lock)
+				I.do_break()
 			unEquip(I)
 
 

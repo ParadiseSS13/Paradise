@@ -116,6 +116,7 @@
 /obj/item/clothing/mask/muzzle/safety
 	name = "safety muzzle"
 	desc = "A muzzle designed to prevent biting."
+	resist_time = 600
 	mute = MUTE_NONE
 	security_lock = TRUE
 	locked = FALSE
