@@ -51,8 +51,25 @@
 
 	if(href_list["dispatch_ert"])
 		ert_request_answered = 1
-		message_admins("[key_name_admin(usr)] dispatched a [ert_type] ERT with [commander_slots] commander, [security_slots] security, [medical_slots] medical, [engineering_slots] engineering, [janitor_slots] janitorial, [paranormal_slots] paranormal & [cyborg_slots] cyborg slots.", 1)
-		log_admin("[key_name(usr)] dispatched a [ert_type] ERT with [commander_slots] commander, [security_slots] security, [medical_slots] medical, [engineering_slots] engineering, [janitor_slots] janitorial, [paranormal_slots] paranormal & [cyborg_slots] cyborg slots.")
+		var/slots_list = list()
+		if(commander_slots > 0)
+			slots_list += "commander: [commander_slots]"
+		if(security_slots > 0)
+			slots_list += "security: [security_slots]"
+		if(medical_slots > 0)
+			slots_list += "medical: [medical_slots]"
+		if(engineering_slots > 0)
+			slots_list += "engineering: [engineering_slots]"
+		if(janitor_slots > 0)
+			slots_list += "janitor: [janitor_slots]"
+		if(paranormal_slots > 0)
+			slots_list += "paranormal: [paranormal_slots]"
+		if(cyborg_slots > 0)
+			slots_list += "cyborg: [cyborg_slots]"
+		var slot_text = list_implode(slots_list, ", ")
+		notify_ghosts("An ERT is being dispatched. Open positions: [slot_text]")
+		message_admins("[key_name_admin(usr)] dispatched a [ert_type] ERT. Slots: [slot_text]", 1)
+		log_admin("[key_name(usr)] dispatched a [ert_type] ERT. Slots: [slot_text]")
 		trigger_armed_response_team(convert_ert_string(ert_type), commander_slots, security_slots, medical_slots, engineering_slots, janitor_slots, paranormal_slots, cyborg_slots)
 		autoclose = 1
 
