@@ -1470,22 +1470,6 @@ var/list/robot_verbs_default = list(
 	cell.maxcharge = 25000
 	cell.charge = 25000
 
-/mob/living/silicon/robot/ert/gamma
-	base_icon = "droidcombat"
-	icon_state = "droidcombat"
-	modtype = "Combat"
-	designation = "Gamma"
-
-/mob/living/silicon/robot/ert/gamma/New()
-	module = new /obj/item/weapon/robot_module/combat(src)
-	module.add_languages(src)
-	module.add_subsystems_and_actions(src)
-	..()
-
-/mob/living/silicon/robot/ert/gamma/init()
-	..()
-	status_flags &= ~CANPUSH
-
 /mob/living/silicon/robot/nations
 	base_icon = "droidpeace"
 	icon_state = "droidpeace"

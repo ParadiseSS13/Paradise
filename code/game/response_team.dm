@@ -107,8 +107,6 @@ var/ert_request_answered = 0
 	return 1
 
 /client/proc/create_response_team(var/turf/spawn_location)
-
-
 	var/class = 0
 	while(!class)
 		class = input(src, "Which loadout would you like to choose?") in active_team.get_slot_list()
@@ -117,8 +115,8 @@ var/ert_request_answered = 0
 
 	if(class == "Cyborg")
 		active_team.reduceCyborgSlots()
-		var/cyborg_type = active_team.getCyborgType()
-		var/mob/living/silicon/robot/ert/R = new cyborg_type()
+		var/cyborg_unlock = active_team.getCyborgUnlock()
+		var/mob/living/silicon/robot/ert/R = new()
 		R.forceMove(spawn_location)
 		var/rnum = rand(1,1000)
 		R.name = "ERT [rnum]"
@@ -128,6 +126,8 @@ var/ert_request_answered = 0
 		R.mind.original = R
 		R.mind.assigned_role = "MODE"
 		R.mind.special_role = SPECIAL_ROLE_ERT
+		if(cyborg_unlock)
+			R.crisis = 1
 		if(!(R.mind in ticker.minds))
 			ticker.minds += R.mind //Adds them to regular mind list.
 		ticker.mode.ert += R.mind
@@ -201,7 +201,7 @@ var/ert_request_answered = 0
 	var/security_outfit
 	var/janitor_outfit
 	var/paranormal_outfit
-	var/cyborg_type = /mob/living/silicon/robot/ert
+	var/cyborg_unlock = 0
 
 /datum/response_team/proc/setSlots(com, sec, med, eng, jan, par, cyb)
 	command_slots = com
@@ -215,8 +215,8 @@ var/ert_request_answered = 0
 /datum/response_team/proc/reduceCyborgSlots()
 	cyborg_slots--
 
-/datum/response_team/proc/getCyborgType()
-	return cyborg_type
+/datum/response_team/proc/getCyborgUnlock()
+	return cyborg_unlock
 
 /datum/response_team/proc/get_slot_list()
 	var/list/slots_available = list()
@@ -333,7 +333,7 @@ var/ert_request_answered = 0
 	command_outfit = /datum/outfit/job/centcom/response_team/commander/gamma
 	janitor_outfit = /datum/outfit/job/centcom/response_team/janitorial/gamma
 	paranormal_outfit = /datum/outfit/job/centcom/response_team/paranormal/gamma
-	cyborg_type = /mob/living/silicon/robot/ert/gamma
+	cyborg_unlock = 1
 
 /datum/response_team/gamma/announce_team()
 	event_announcement.Announce("Attention, [station_name()]. We are sending a code GAMMA elite Emergency Response Team. Standby.", "ERT En-Route")
