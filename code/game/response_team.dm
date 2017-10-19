@@ -199,8 +199,8 @@ var/ert_request_answered = 0
 	var/engineering_outfit
 	var/medical_outfit
 	var/security_outfit
-	var/janitor_outfit = /datum/outfit/job/centcom/response_team/janitorial
-	var/paranormal_outfit = /datum/outfit/job/centcom/response_team/paranormal
+	var/janitor_outfit
+	var/paranormal_outfit
 	var/cyborg_type = /mob/living/silicon/robot/ert
 
 /datum/response_team/proc/setSlots(com, sec, med, eng, jan, par, cyb)
@@ -305,6 +305,8 @@ var/ert_request_answered = 0
 	security_outfit = /datum/outfit/job/centcom/response_team/security/amber
 	medical_outfit = /datum/outfit/job/centcom/response_team/medic/amber
 	command_outfit = /datum/outfit/job/centcom/response_team/commander/amber
+	janitor_outfit = /datum/outfit/job/centcom/response_team/janitorial/amber
+	paranormal_outfit = /datum/outfit/job/centcom/response_team/paranormal/amber
 
 /datum/response_team/amber/announce_team()
 	event_announcement.Announce("Attention, [station_name()]. We are sending a code AMBER light Emergency Response Team. Standby.", "ERT En-Route")
@@ -316,6 +318,8 @@ var/ert_request_answered = 0
 	security_outfit = /datum/outfit/job/centcom/response_team/security/red
 	medical_outfit = /datum/outfit/job/centcom/response_team/medic/red
 	command_outfit = /datum/outfit/job/centcom/response_team/commander/red
+	janitor_outfit = /datum/outfit/job/centcom/response_team/janitorial/red
+	paranormal_outfit = /datum/outfit/job/centcom/response_team/paranormal/red
 
 /datum/response_team/red/announce_team()
 	event_announcement.Announce("Attention, [station_name()]. We are sending a code RED Emergency Response Team. Standby.", "ERT En-Route")
@@ -327,6 +331,8 @@ var/ert_request_answered = 0
 	security_outfit = /datum/outfit/job/centcom/response_team/security/gamma
 	medical_outfit = /datum/outfit/job/centcom/response_team/medic/gamma
 	command_outfit = /datum/outfit/job/centcom/response_team/commander/gamma
+	janitor_outfit = /datum/outfit/job/centcom/response_team/janitorial/gamma
+	paranormal_outfit = /datum/outfit/job/centcom/response_team/paranormal/gamma
 	cyborg_type = /mob/living/silicon/robot/ert/gamma
 
 /datum/response_team/gamma/announce_team()
@@ -647,17 +653,15 @@ var/ert_request_answered = 0
 	)
 
 /datum/outfit/job/centcom/response_team/paranormal
-	name = "Paranormal ERT member"
-
-	uniform = /obj/item/clothing/under/rank/security
-	suit = /obj/item/clothing/suit/space/hardsuit/ert/paranormal
+	name = "RT Paranormal"
+	rt_job = "Emergency Response Team Inquisitor"
+	uniform = /obj/item/clothing/under/rank/chaplain
 	back = /obj/item/weapon/storage/backpack/ert/security
-	belt = /obj/item/weapon/gun/energy/gun/nuclear
 	gloves = /obj/item/clothing/gloves/color/black
 	shoes = /obj/item/clothing/shoes/combat
-	head = /obj/item/clothing/head/helmet/space/hardsuit/ert/paranormal
 	l_ear = /obj/item/device/radio/headset/ert/alt
 	glasses = /obj/item/clothing/glasses/hud/security/sunglasses
+	belt = /obj/item/weapon/storage/belt/security/response_team
 	id = /obj/item/weapon/card/id/centcom
 	pda = /obj/item/device/pda/centcom
 	backpack_contents = list(
@@ -665,21 +669,40 @@ var/ert_request_answered = 0
 		/obj/item/weapon/storage/box/zipties = 1,
 		/obj/item/device/flashlight = 1)
 
-/datum/outfit/job/centcom/response_team/janitorial
-	name = "Janitorial ERT member"
+/datum/outfit/job/centcom/response_team/paranormal/amber
+	name = "RT Paranormal (Amber)"
+	suit = /obj/item/clothing/suit/armor/vest/ert/security
+	suit_store = /obj/item/weapon/gun/energy/gun/advtaser
+	r_pocket = /obj/item/weapon/nullrod
 
-	uniform = /obj/item/clothing/under/color/random
-	suit = /obj/item/clothing/suit/space/hardsuit/ert/janitor
+/datum/outfit/job/centcom/response_team/paranormal/red
+	name = "RT Paranormal (Red)"
+	suit = /obj/item/clothing/suit/space/hardsuit/ert/paranormal/inquisitor
+	head = /obj/item/clothing/head/helmet/space/hardsuit/ert/paranormal/inquisitor
+	suit_store = /obj/item/weapon/gun/energy/gun/nuclear
+	r_pocket = /obj/item/weapon/nullrod
+
+/datum/outfit/job/centcom/response_team/paranormal/gamma
+	name = "RT Paranormal (Gamma)"
+	suit = /obj/item/clothing/suit/space/hardsuit/ert/paranormal/inquisitor
+	head = /obj/item/clothing/head/helmet/space/hardsuit/ert/paranormal/inquisitor
+	suit_store = /obj/item/weapon/gun/energy/gun/nuclear
+	r_pocket = /obj/item/weapon/gun/energy/pulse/pistol
+	l_pocket = /obj/item/weapon/grenade/clusterbuster/holy
+	shoes = /obj/item/clothing/shoes/magboots/advance
+
+/datum/outfit/job/centcom/response_team/janitorial
+	name = "RT Janitor"
+	rt_job = "Emergency Response Team Janitor"
+	uniform = /obj/item/clothing/under/color/purple
 	back = /obj/item/weapon/storage/backpack/ert/janitor
 	belt = /obj/item/weapon/storage/belt/janitor/full
 	gloves = /obj/item/clothing/gloves/color/yellow
 	shoes = /obj/item/clothing/shoes/galoshes
-	head = /obj/item/clothing/head/helmet/space/hardsuit/ert/janitor
 	l_ear = /obj/item/device/radio/headset/ert/alt
-	glasses = /obj/item/clothing/glasses/sunglasses
 	id = /obj/item/weapon/card/id/centcom
 	pda = /obj/item/device/pda/centcom
-	l_pocket = /obj/item/weapon/melee/classic_baton/telescopic
+	r_pocket = /obj/item/weapon/melee/classic_baton/telescopic
 	backpack_contents = list(
 		/obj/item/weapon/caution = 2,
 		/obj/item/weapon/reagent_containers/spray/cleaner = 1,
@@ -687,6 +710,27 @@ var/ert_request_answered = 0
 		/obj/item/weapon/storage/box/lights/mixed = 1,
 		/obj/item/weapon/holosign_creator = 1,
 		/obj/item/device/flashlight = 1)
+
+/datum/outfit/job/centcom/response_team/janitorial/amber
+	name = "RT Janitor (Amber)"
+	glasses = /obj/item/clothing/glasses/sunglasses
+
+/datum/outfit/job/centcom/response_team/janitorial/red
+	name = "RT Janitor (Red)"
+	suit = /obj/item/clothing/suit/space/hardsuit/ert/janitor
+	head = /obj/item/clothing/head/helmet/space/hardsuit/ert/janitor
+	glasses = /obj/item/clothing/glasses/hud/security/sunglasses
+	suit_store = /obj/item/weapon/gun/energy/gun
+
+/datum/outfit/job/centcom/response_team/janitorial/gamma
+	name = "RT Janitor (Gamma)"
+	suit = /obj/item/clothing/suit/space/hardsuit/ert/janitor
+	head = /obj/item/clothing/head/helmet/space/hardsuit/ert/janitor
+	glasses = /obj/item/clothing/glasses/hud/security/sunglasses
+	gloves = /obj/item/clothing/gloves/combat
+	suit_store = /obj/item/weapon/gun/energy/pulse/pistol
+	l_pocket = /obj/item/weapon/grenade/clusterbuster/cleaner
+	shoes = /obj/item/clothing/shoes/magboots/advance
 
 /obj/item/device/radio/centcom
 	name = "centcomm bounced radio"
