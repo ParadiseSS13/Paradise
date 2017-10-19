@@ -249,8 +249,8 @@
 				var/new_permission = input("Select a permission to turn on/off", adm_ckey + "'s Permissions", null, null) as null|anything in permissionlist
 				if(!new_permission)
 					return
-				var oldrights = D.rights
-				var toggleresult = "ON"
+				var/oldrights = D.rights
+				var/toggleresult = "ON"
 				D.rights ^= permissionlist[new_permission]
 				if(oldrights > D.rights)
 					toggleresult = "OFF"
