@@ -13,7 +13,7 @@
 	vital = 1
 	amputation_point = "spine"
 	gendered_icon = 1
-	cannot_amputate = 1
+	//cannot_amputate = 1
 	parent_organ = null
 	encased = "ribcage"
 	var/fat = FALSE
