@@ -117,10 +117,10 @@
 	armor = list(melee = 60, bullet = 50, laser = 30, energy = 15, bomb = 30, bio = 30, rad = 30)
 
 /obj/item/clothing/suit/space/cult
-	name = "cult armour"
+	name = "cult armor"
 	icon_state = "cult_armour"
 	item_state = "cult_armour"
-	desc = "A bulky suit of armour, bristling with spikes. It looks space proof."
+	desc = "A bulky suit of armor, bristling with spikes. It looks space proof."
 	w_class = WEIGHT_CLASS_NORMAL
 	allowed = list(/obj/item/weapon/tome,/obj/item/weapon/melee/cultblade,/obj/item/weapon/tank)
 	slowdown = 1
@@ -334,3 +334,43 @@
 
 	else
 		to_chat(C, "<span class='danger'>The veil cannot be torn here!</span>")
+
+
+/obj/item/weapon/melee/cultblade/ghost
+	name = "eldritch sword"
+	force = 15
+	flags = NODROP
+
+/obj/item/weapon/melee/cultblade/ghost/dropped(mob/living/carbon/human/user)
+	..()
+	qdel(src)
+
+/obj/item/clothing/head/culthood/alt/ghost
+	flags = NODROP
+
+/obj/item/clothing/head/culthood/alt/ghost/dropped(mob/living/carbon/human/user)
+	..()
+	qdel(src)
+
+/obj/item/clothing/suit/cultrobes/alt/ghost
+	flags = NODROP
+
+/obj/item/clothing/suit/cultrobes/alt/ghost/dropped(mob/living/carbon/human/user)
+	..()
+	qdel(src)
+
+/obj/item/clothing/shoes/cult/ghost
+	flags = NODROP
+
+/obj/item/clothing/shoes/cult/ghost/dropped(mob/living/carbon/human/user)
+	..()
+	qdel(src)
+
+/datum/outfit/ghost_cultist
+	name = "Cultist Ghost"
+
+	uniform = /obj/item/clothing/under/color/black
+	suit = /obj/item/clothing/suit/cultrobes/alt/ghost
+	shoes = /obj/item/clothing/shoes/cult/ghost
+	head = /obj/item/clothing/head/culthood/alt/ghost
+	r_hand = /obj/item/weapon/melee/cultblade/ghost
