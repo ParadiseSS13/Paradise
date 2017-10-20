@@ -388,6 +388,11 @@ var/list/teleport_runes = list()
 			to_chat(M, "<span class='warning'>Something is shielding [convertee]'s mind!</span>")
 		log_game("Offer rune failed - convertee had null rod")
 		return 0
+	if(istype(convertee, /mob/living/carbon/human/golem))
+		for(var/M in invokers)
+			var/mob/living/L = M
+			to_chat(L, "<span class='cultlarge'>\"This creature has no soul!\"</span>")
+			return 0
 	var/brutedamage = convertee.getBruteLoss()
 	var/burndamage = convertee.getFireLoss()
 	if(brutedamage || burndamage)
