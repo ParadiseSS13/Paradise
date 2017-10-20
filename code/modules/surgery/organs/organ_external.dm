@@ -524,7 +524,7 @@ Note that amputating the affected organ does in fact remove the infection from t
 			return null
 
 /obj/item/organ/external/chest/droplimb()
-	if(cannot_amputate || !owner)
+	if(cannot_amputate || !owner || !hasorgans(src))
 		return
 
 	var/mob/living/carbon/C = owner
@@ -536,19 +536,18 @@ Note that amputating the affected organ does in fact remove the infection from t
 	for(var/X in C.internal_organs)
 		var/obj/item/organ/O = X
 		var/org_zone = check_zone(O.parent_organ)
-		if(org_zone != "chest")
-			continue
-		O.remove(C)
-		O.forceMove(T)
-		organ_spilled = 1
+		if(org_zone == "chest" || org_zone == "groin")
+			O.remove(C)
+			O.forceMove(T)
+			organ_spilled = 1
 
 	if(organ_spilled)
 		C.visible_message("<span class='danger'><B>[C]'s internal organs spill out onto the floor!</B></span>")
 	return 1
 
 
-/obj/item/organ/external/attackby(obj/item/W, mob/user, params)
-	if(W.sharp)
+/obj/item/organ/external/attackby(obj/item/I, mob/user, params)
+	if(I.sharp)
 		add_fingerprint(user)
 		if(!contents.len)
 			to_chat(user, "<span class='warning'>There is nothing left inside [src]!</span>")
