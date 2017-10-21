@@ -600,7 +600,7 @@
 
 	var/obj/item/weapon/card/id/I = H.wear_id
 	if(istype(I))
-		apply_to_card(I, H, get_all_accesses(), name)
+		apply_to_card(I, H, list(access_maint_tunnels), name)
 
 /datum/outfit/admin/soviet/tourist
 	name = "Soviet Tourist"
