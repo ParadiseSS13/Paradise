@@ -1,0 +1,4 @@
+author: "Crazylemon64"
+delete-after: True
+changes: 
+  - tweak: "Suiciding crewmembers are no longer capable of being cloned."
