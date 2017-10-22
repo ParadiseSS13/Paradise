@@ -51,10 +51,9 @@
 	if(old_stat != stat)
 		update_icon()
 
-/obj/machinery/atmospherics/unary/outlet_injector/process()
-	if(!..())
-		return 0
-	
+/obj/machinery/atmospherics/unary/outlet_injector/process_atmos()
+	..()
+
 	injecting = 0
 
 	if(!on || stat & NOPOWER)
