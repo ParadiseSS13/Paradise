@@ -1,4 +1,0 @@
-author: "Fethas"
-delete-after: True
-changes: 
-  - rscadd: "makes a better proc for doing spins (IE Ian chasing tail, etc) then was previous."
