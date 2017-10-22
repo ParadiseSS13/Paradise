@@ -18,6 +18,7 @@
 	minimal_player_age = 21
 	exp_requirements = 600
 	exp_type = EXP_TYPE_CREW
+	disabilities_allowed = 0
 	outfit = /datum/outfit/job/cmo
 
 /datum/outfit/job/cmo

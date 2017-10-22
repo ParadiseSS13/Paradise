@@ -20,6 +20,7 @@
 	minimal_player_age = 21
 	exp_requirements = 600
 	exp_type = EXP_TYPE_CREW
+	disabilities_allowed = 0
 	outfit = /datum/outfit/job/hos
 
 /datum/outfit/job/hos
@@ -64,6 +65,7 @@
 	minimal_player_age = 21
 	exp_requirements = 300
 	exp_type = EXP_TYPE_CREW
+	disabilities_allowed = 0
 	outfit = /datum/outfit/job/warden
 
 /datum/outfit/job/warden
@@ -110,6 +112,7 @@
 	minimal_player_age = 14
 	exp_requirements = 300
 	exp_type = EXP_TYPE_CREW
+	disabilities_allowed = 0
 	outfit = /datum/outfit/job/detective
 
 /datum/outfit/job/detective
@@ -167,12 +170,12 @@
 	minimal_player_age = 14
 	exp_requirements = 300
 	exp_type = EXP_TYPE_CREW
+	disabilities_allowed = 0
 	outfit = /datum/outfit/job/officer
 
 /datum/outfit/job/officer
 	name = "Security Officer"
 	jobtype = /datum/job/officer
-
 	uniform = /obj/item/clothing/under/rank/security
 	suit = /obj/item/clothing/suit/armor/vest/security
 	gloves = /obj/item/clothing/gloves/color/black
@@ -186,9 +189,7 @@
 	backpack_contents = list(
 		/obj/item/weapon/restraints/handcuffs = 1
 	)
-
 	implants = list(/obj/item/weapon/implant/mindshield)
-
 	backpack = /obj/item/weapon/storage/backpack/security
 	satchel = /obj/item/weapon/storage/backpack/satchel_sec
 	dufflebag = /obj/item/weapon/storage/backpack/duffel/security
@@ -207,12 +208,12 @@
 	selection_color = "#ffeeee"
 	access = list(access_medical, access_morgue, access_surgery, access_chemistry, access_virology, access_genetics)
 	minimal_access = list(access_medical, access_morgue, access_surgery, access_security, access_sec_doors, access_brig, access_court, access_maint_tunnels)
+	disabilities_allowed = 0
 	outfit = /datum/outfit/job/brigdoc
 
 /datum/outfit/job/brigdoc
 	name = "Brig Physician"
 	jobtype = /datum/job/brigdoc
-
 	uniform = /obj/item/clothing/under/rank/security/brigphys
 	suit = /obj/item/clothing/suit/storage/fr_jacket
 	shoes = /obj/item/clothing/shoes/white
@@ -222,13 +223,10 @@
 	suit_store = /obj/item/device/flashlight/pen
 	l_hand = /obj/item/weapon/storage/firstaid/adv
 	pda = /obj/item/device/pda/medical
-
 	implants = list(/obj/item/weapon/implant/mindshield)
-
 	backpack = /obj/item/weapon/storage/backpack/medic
 	satchel = /obj/item/weapon/storage/backpack/satchel_med
 	dufflebag = /obj/item/weapon/storage/backpack/duffel/medical
-
 
 
 /datum/job/pilot
@@ -244,12 +242,12 @@
 	access = list(access_security, access_sec_doors, access_brig, access_court, access_maint_tunnels, access_morgue, access_weapons, access_pilot, access_external_airlocks)
 	minimal_access = list(access_security, access_sec_doors, access_brig, access_court, access_maint_tunnels, access_weapons, access_pilot, access_external_airlocks)
 	minimal_player_age = 7
+	disabilities_allowed = 0
 	outfit = /datum/outfit/job/pilot
 
 /datum/outfit/job/pilot
 	name = "Security Pod Pilot"
 	jobtype = /datum/job/pilot
-
 	uniform = /obj/item/clothing/under/rank/security/pod_pilot
 	suit = /obj/item/clothing/suit/jacket/pilot
 	gloves = /obj/item/clothing/gloves/color/black
@@ -262,9 +260,7 @@
 	backpack_contents = list(
 		/obj/item/weapon/restraints/handcuffs = 1
 	)
-
 	implants = list(/obj/item/weapon/implant/mindshield)
-
 	backpack = /obj/item/weapon/storage/backpack/security
 	satchel = /obj/item/weapon/storage/backpack/satchel_sec
 	dufflebag = /obj/item/weapon/storage/backpack/duffel/security
