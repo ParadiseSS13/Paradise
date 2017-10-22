@@ -1265,6 +1265,7 @@ var/list/slot_equipment_priority = list( \
 	.["Remove Verb"] = "?_src_=vars;remverb=[UID()]"
 
 	.["Gib"] = "?_src_=vars;gib=[UID()]"
+
 /mob/proc/spin(spintime, speed)
 	set waitfor = 0
 	var/D = dir
