@@ -29,8 +29,8 @@
 	name = "make incision"
 	allowed_tools = list(
 	/obj/item/weapon/scalpel = 100,		\
-	/obj/item/weapon/kitchen/knife = 75,	\
-	/obj/item/weapon/shard = 50, 		\
+	/obj/item/weapon/kitchen/knife = 90,	\
+	/obj/item/weapon/shard = 60, 		\
 	)
 
 	time = 16
@@ -60,8 +60,8 @@
 	allowed_tools = list(
 	/obj/item/weapon/scalpel/laser/manager = 100, \
 	/obj/item/weapon/hemostat = 100, 	\
-	/obj/item/stack/cable_coil = 75, 	\
-	/obj/item/device/assembly/mousetrap = 10	//I don't know. Don't ask me. But I'm leaving it because hilarity.
+	/obj/item/stack/cable_coil = 90, 	\
+	/obj/item/device/assembly/mousetrap = 12	//I don't know. Don't ask me. But I'm leaving it because hilarity.
 	)
 
 	time = 24
@@ -87,8 +87,8 @@
 	allowed_tools = list(
 	/obj/item/weapon/scalpel/laser/manager = 100, \
 	/obj/item/weapon/retractor = 100, 	\
-	/obj/item/weapon/crowbar = 55,	\
-	/obj/item/weapon/kitchen/utensil/fork = 75)
+	/obj/item/weapon/crowbar = 65,	\
+	/obj/item/weapon/kitchen/utensil/fork = 90)
 
 	time = 64
 
@@ -114,9 +114,9 @@
 	allowed_tools = list(
 	/obj/item/weapon/scalpel/laser = 100, \
 	/obj/item/weapon/cautery = 100,			\
-	/obj/item/clothing/mask/cigarette = 75,	\
-	/obj/item/weapon/lighter = 50,			\
-	/obj/item/weapon/weldingtool = 25
+	/obj/item/clothing/mask/cigarette = 90,	\
+	/obj/item/weapon/lighter = 60,			\
+	/obj/item/weapon/weldingtool = 30
 	)
 
 	time = 24

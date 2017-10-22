@@ -192,12 +192,14 @@
 /obj/item/weapon/whetstone/cult
 	name = "eldritch whetstone"
 	desc = "A block, empowered by dark magic. Sharp weapons will be enhanced when used on the stone."
-	icon = 'icons/obj/cult.dmi'
-	icon_state = "cultstone"
+	icon_state = "cult_sharpener"
 	used = 0
 	increment = 5
 	max = 40
 	prefix = "darkened"
+
+/obj/item/weapon/whetstone/cult/update_icon()
+	icon_state = "cult_sharpener[used ? "_used" : ""]"
 
 /obj/item/weapon/reagent_containers/food/drinks/bottle/unholywater
 	name = "flask of unholy water"

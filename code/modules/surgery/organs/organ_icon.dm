@@ -148,7 +148,7 @@ var/global/list/limb_icon_cache = list()
 			overlays |= facial_s
 
 	if(h_style && !(owner.head && (owner.head.flags & BLOCKHEADHAIR)))
-		var/datum/sprite_accessory/hair_style = hair_styles_list[h_style]
+		var/datum/sprite_accessory/hair_style = hair_styles_full_list[h_style]
 		if(hair_style && ((species.name in hair_style.species_allowed) || (src.species.bodyflags & ALL_RPARTS)))
 			var/icon/hair_s = new/icon("icon" = hair_style.icon, "icon_state" = "[hair_style.icon_state]_s")
 			if(species.name == "Slime People") // I am el worstos

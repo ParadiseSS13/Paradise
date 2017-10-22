@@ -46,7 +46,7 @@
 						<center><small><b>Admission data:</b></small></center><br>
 						<small><b>Log generated at:</b>		[worldtime2text()]<br>
 						<b>Detainee:</b>		[logname]<br>
-						<b>Duration:</b>		[timetoset/10] seconds<br>
+						<b>Duration:</b>		[seconds_to_time(timetoset / 10)]<br>
 						<b>Charge(s):</b>	[logcharges]<br>
 						<b>Arresting Officer:</b>		[usr.name]<br><hr><br>
 						<small>This log file was generated automatically upon activation of a cell timer.</small>"}
@@ -55,7 +55,7 @@
 		cell_logs += P
 
 	var/datum/data/record/R = find_security_record("name", logname)
-	Radio.autosay("Detainee [logname] has been incarcerated for [timetoset/10] seconds for the charges of, '[logcharges]'. \
+	Radio.autosay("Detainee [logname] has been incarcerated for [seconds_to_time(timetoset / 10)] for the charges of, '[logcharges]'. \
 	Arresting Officer: [usr.name].[R ? "" : " Detainee record not found, manual record update required."]", name, "Security", list(z))
 
 	if(R)
@@ -277,7 +277,7 @@
 		dat += "Set Timer: [(setminute ? text("[setminute]:") : null)][setsecond]<br/>"
 
 	// Controls
-	dat += "<a href='?src=[UID()];tp=-60'>-</a> <a href='?src=[UID()];tp=-1'>-</a> <a href='?src=[UID()];tp=1'>+</a> <A href='?src=[UID()];tp=60'>+</a><br/>"
+	dat += "<a href='?src=[UID()];settime=1'>Input Time</a>"
 
 	// Mounted flash controls
 	for(var/obj/machinery/flasher/F in targets)
@@ -319,13 +319,9 @@
 			Radio.autosay("Timer stopped manually by [usr.name].", name, "Security", list(z))
 
 	else
-		if(href_list["tp"])  //adjust timer, close door if not already closed
-			var/tp = text2num(href_list["tp"])
-			var/addtime = (timetoset / 10)
-			addtime += tp
-			addtime = min(max(round(addtime), 0), 3600)
-
-			timeset(addtime)
+		if(href_list["settime"])
+			var/time = min(max(round(return_time_input(usr)), 0), 3600)
+			timeset(time)
 
 		if(href_list["fc"])
 			for(var/obj/machinery/flasher/F in targets)
@@ -368,6 +364,11 @@
 	overlays.Cut()
 	overlays += image('icons/obj/status_display.dmi', icon_state=picture_state)
 
+/obj/machinery/door_timer/proc/return_time_input()
+	var/mins = input(usr, "Minutes", "Enter number of minutes", 0) as num
+	var/seconds = input(usr, "Seconds", "Enter number of seconds", 0) as num
+	var/totaltime = (seconds + (mins * 60))
+	return totaltime
 
 //Checks to see if there's 1 line or 2, adds text-icons-numbers/letters over display
 // Stolen from status_display

@@ -863,6 +863,7 @@ var/list/uplink_items = list()
 	reference = "NNSSS"
 	cost = 4 //but they aren't
 	gamemodes = list(/datum/game_mode/nuclear)
+	excludefrom = list()
 
 /datum/uplink_item/stealthy_tools/agent_card
 	name = "Agent ID Card"
