@@ -218,20 +218,24 @@
 
 /obj/effect/mob_spawn/mouse
 	name = "sleeper"
+	mob_name = "space mouse"
 	mob_type = 	/mob/living/simple_animal/mouse
 	death = FALSE
 	instant = FALSE
 	icon = 'icons/obj/Cryogenic2.dmi'
 	icon_state = "sleeper"
+	flavour_text = "Squeak!"
 
 /obj/effect/mob_spawn/cow
 	name = "sleeper"
+	mob_name = "space cow"
 	mob_type = 	/mob/living/simple_animal/cow
 	death = FALSE
 	instant = FALSE
 	mob_gender = FEMALE
 	icon = 'icons/obj/Cryogenic2.dmi'
 	icon_state = "sleeper"
+	flavour_text = "Moo!"
 
 // I'll work on making a list of corpses people request for maps, or that I think will be commonly used. Syndicate operatives for example.
 
@@ -253,6 +257,9 @@
 /obj/effect/mob_spawn/human/cook
 	name = "Cook"
 	outfit = /datum/outfit/job/chef
+
+/obj/effect/mob_spawn/human/cook/corpse
+	instant = TRUE
 
 /obj/effect/mob_spawn/human/doctor
 	name = "Doctor"
@@ -280,6 +287,9 @@
 	name = "Engineer"
 	outfit = /datum/outfit/job/engineer
 
+/obj/effect/mob_spawn/human/engineer/corpse
+	instant = TRUE
+
 /obj/effect/mob_spawn/human/engineer/hardsuit
 	outfit = /datum/outfit/job/engineer/suit
 
@@ -303,8 +313,8 @@
 	outfit = /datum/outfit/job/clown
 
 /obj/effect/mob_spawn/human/clown/New()
-	..()
 	mob_name = pick(clown_names)
+	..()
 
 /obj/effect/mob_spawn/human/corpse/clownmili
 	name = "Clown Soldier"
@@ -340,16 +350,22 @@
 
 
 /obj/effect/mob_spawn/human/mime/New()
-	..()
 	mob_name = pick(mime_names)
+	..()
 
 /obj/effect/mob_spawn/human/scientist
 	name = "Scientist"
 	outfit = /datum/outfit/job/scientist
 
+/obj/effect/mob_spawn/human/scientist/corpse
+	instant = TRUE
+
 /obj/effect/mob_spawn/human/miner
 	name = "Shaft Miner"
 	outfit = /datum/outfit/job/mining
+
+/obj/effect/mob_spawn/human/miner/corpse
+	instant = TRUE
 
 /obj/effect/mob_spawn/human/bartender
 	name = "Space Bartender"
