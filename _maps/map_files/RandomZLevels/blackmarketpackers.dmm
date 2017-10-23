@@ -1,7 +1,7 @@
 "aa" = (/turf/space,/area/space)
 "ab" = (/turf/simulated/mineral/random/high_chance,/area/awaymission)
 "ac" = (/turf/simulated/floor/plating/airless/asteroid,/area/awaymission)
-"ad" = (/obj/effect/landmark/corpse/doctor,/turf/simulated/floor/plating/airless/asteroid,/area/awaymission)
+"ad" = (/obj/effect/mob_spawn/human/doctor,/turf/simulated/floor/plating/airless/asteroid,/area/awaymission)
 "ae" = (/obj/item/weapon/circular_saw,/obj/structure/lattice,/turf/space,/area/space)
 "af" = (/turf/simulated/shuttle/wall{tag = "icon-swall4"; icon_state = "swall4"},/area/awaymission/BMPship/Fore)
 "ag" = (/turf/simulated/shuttle/wall{tag = "icon-swall12"; icon_state = "swall12"},/area/awaymission/BMPship/Fore)

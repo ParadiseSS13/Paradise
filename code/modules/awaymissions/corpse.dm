@@ -6,11 +6,12 @@
 
 /obj/effect/mob_spawn
 	name = "Unknown"
+	icon = 'icons/effects/blood.dmi'
+	icon_state = "remains"
 	var/mob_type = null
 	var/mob_name = ""
 	var/mob_gender = null
 	var/death = TRUE //Kill the mob
-	var/roundstart = TRUE //fires on initialize
 	var/instant = FALSE	//fires on New
 	var/flavour_text = "The mapper forgot to set this!"
 	var/faction = null
@@ -46,7 +47,7 @@
 
 /obj/effect/mob_spawn/New()
 	. = ..()
-	if(ticker && ticker.current_state > GAME_STATE_PLAYING)
+	if(instant || (ticker && ticker.current_state > GAME_STATE_PLAYING))
 		create()
 	else
 		poi_list |= src
@@ -160,11 +161,10 @@
 			if(!isnum(T))
 				outfit.vars[slot] = T
 		H.equipOutfit(outfit)
-		//if(disable_pda) //FETHAS FIX THIS
-			// We don't want corpse PDAs to show up in the messenger list.
-		//	var/obj/item/device/pda/PDA = locate(/obj/item/device/pda) in H
-		//	if(H.PDA)
-		//		H.PDA.toff = 1
+		var/list/del_types = list(/obj/item/device/pda, /obj/item/device/radio/headset)
+		for(var/del_type in del_types)
+			var/obj/item/I = locate(del_type) in H
+			qdel(I)
 	var/obj/item/weapon/card/id/W = H.wear_id
 	if(W)
 		if(id_access)
@@ -184,7 +184,6 @@
 
 //Instant version - use when spawning corpses during runtime
 /obj/effect/mob_spawn/human/corpse
-	roundstart = FALSE
 	instant = TRUE
 
 /obj/effect/mob_spawn/human/corpse/damaged
@@ -194,7 +193,7 @@
 	icon = 'icons/obj/Cryogenic2.dmi'
 	icon_state = "sleeper"
 	death = FALSE
-	roundstart = FALSE //you could use these for alive fake humans on roundstart but this is more common scenario
+	instant = FALSE //you could use these for alive fake humans on roundstart but this is more common scenario
 
 
 //Non-human spawners
@@ -221,7 +220,7 @@
 	name = "sleeper"
 	mob_type = 	/mob/living/simple_animal/mouse
 	death = FALSE
-	roundstart = FALSE
+	instant = FALSE
 	icon = 'icons/obj/Cryogenic2.dmi'
 	icon_state = "sleeper"
 
@@ -229,7 +228,7 @@
 	name = "sleeper"
 	mob_type = 	/mob/living/simple_animal/cow
 	death = FALSE
-	roundstart = FALSE
+	instant = FALSE
 	mob_gender = FEMALE
 	icon = 'icons/obj/Cryogenic2.dmi'
 	icon_state = "sleeper"
@@ -261,7 +260,7 @@
 
 /obj/effect/mob_spawn/human/doctor/alive
 	death = FALSE
-	roundstart = FALSE
+	instant = FALSE
 	random = TRUE
 	name = "sleeper"
 	icon = 'icons/obj/Cryogenic2.dmi'
@@ -303,13 +302,17 @@
 	name = "Clown"
 	outfit = /datum/outfit/job/clown
 
-/obj/effect/mob_spawn/human/corpse/clownmili/New()
-	if(prob(10))
-		name = "Clown Officer"
-		outfit = /datum/outfit/clownofficer
-	else
-		name = "Clown Soldier"
-		outfit = /datum/outfit/clownsoldier
+/obj/effect/mob_spawn/human/clown/New()
+	..()
+	mob_name = pick(clown_names)
+
+/obj/effect/mob_spawn/human/corpse/clownmili
+	name = "Clown Soldier"
+	outfit = /datum/outfit/clownsoldier
+
+/obj/effect/mob_spawn/human/corpse/clownoff
+	name = "Clown Officer"
+	outfit = /datum/outfit/clownofficer
 
 /datum/outfit/clownsoldier
 		uniform = /obj/item/clothing/under/soldieruniform
@@ -335,6 +338,11 @@
 	name = "Mime"
 	outfit = /datum/outfit/job/mime
 
+
+/obj/effect/mob_spawn/human/mime/New()
+	..()
+	mob_name = pick(mime_names)
+
 /obj/effect/mob_spawn/human/scientist
 	name = "Scientist"
 	outfit = /datum/outfit/job/scientist
@@ -351,7 +359,7 @@
 
 /obj/effect/mob_spawn/human/bartender/alive
 	death = FALSE
-	roundstart = FALSE
+	instant = FALSE
 	random = TRUE
 	name = "bartender sleeper"
 	icon = 'icons/obj/Cryogenic2.dmi'
@@ -374,7 +382,7 @@
 
 /obj/effect/mob_spawn/human/beach/alive
 	death = FALSE
-	roundstart = FALSE
+	instant = FALSE
 	random = TRUE
 	mob_name = "Beach Bum"
 	name = "beach bum sleeper"
@@ -398,7 +406,7 @@
 
 /obj/effect/mob_spawn/human/skeleton/alive
 	death = FALSE
-	roundstart = FALSE
+	instant = FALSE
 	icon = 'icons/effects/blood.dmi'
 	icon_state = "remains"
 	flavour_text = "By unknown powers, your skeletal remains have been reanimated! Walk this mortal plain and terrorize all living adventurers who dare cross your path."
