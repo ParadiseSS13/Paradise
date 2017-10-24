@@ -406,6 +406,15 @@
 	key = "3"
 	syllables = list ("gra","ba","ba","breh","bra","rah","dur","ra","ro","gro","go","ber","bar","geh","heh", "gra")
 
+/datum/language/sign
+	name = "Sign Language"
+	desc = "A non-verbal form of communication that utilizes hand gestures to form words and meanings."
+	speech_verb = "signs"
+	signlang_verb = list("signs", "gestures")
+	colour = "say_quote"
+	key = "~"
+	flags = SIGNLANG | NO_STUTTER
+
 /datum/language/clown
 	name = "Clownish"
 	desc = "The language of clown planet. Mother tongue of clowns throughout the Galaxy."

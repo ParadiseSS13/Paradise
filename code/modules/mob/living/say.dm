@@ -289,8 +289,24 @@ proc/get_radio_key_from_channel(var/channel)
 	return 1
 
 /mob/living/proc/say_signlang(var/message, var/verb="gestures", var/datum/language/language)
-	for(var/mob/O in viewers(src, null))
-		O.hear_signlang(message, verb, language, src)
+	if(restrained())
+		to_chat(src, "<span class='danger'>You're restrained and cannot sign!</span>")
+		return
+
+	if(ishuman(src))
+		var/mob/living/carbon/human/C = src
+		var/obj/item/organ/external/rhand = C.bodyparts_by_name["r_hand"]
+		var/obj/item/organ/external/lhand = C.bodyparts_by_name["l_hand"]
+		if((!rhand || !rhand.is_usable() || rhand.is_broken()) || (!lhand || !lhand.is_usable() || lhand.is_broken()))
+			to_chat(src, "<span class='warning'>You try to use your hand to sign, but you can't!</span>")
+			return
+
+	for(var/mob/M in get_mobs_in_view(7, src))
+		if(M.see_invisible < invisibility)
+			continue
+		M.hear_signlang(message, verb, language, src)
+
+	log_say("[name]/[key] : [message]")
 	return 1
 
 /obj/effect/speech_bubble
