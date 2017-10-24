@@ -142,6 +142,7 @@
 	add_language("Sol Common", 1)
 	add_language("Tradeband", 1)
 	add_language("Gutter", 1)
+	add_language("Sign Language", 1)
 	add_language("Trinary", 1)
 	default_language = all_languages["Galactic Common"]
 
