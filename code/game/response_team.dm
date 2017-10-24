@@ -702,9 +702,9 @@ var/ert_request_answered = 0
 	l_ear = /obj/item/device/radio/headset/ert/alt
 	id = /obj/item/weapon/card/id/centcom
 	pda = /obj/item/device/pda/centcom
-	r_pocket = /obj/item/weapon/melee/classic_baton/telescopic
+	l_pocket = /obj/item/weapon/melee/classic_baton/telescopic
 	backpack_contents = list(
-		/obj/item/weapon/caution = 2,
+		/obj/item/weapon/grenade/chem_grenade/antiweed = 2,
 		/obj/item/weapon/reagent_containers/spray/cleaner = 1,
 		/obj/item/weapon/storage/bag/trash = 1,
 		/obj/item/weapon/storage/box/lights/mixed = 1,
@@ -721,6 +721,7 @@ var/ert_request_answered = 0
 	head = /obj/item/clothing/head/helmet/space/hardsuit/ert/janitor
 	glasses = /obj/item/clothing/glasses/hud/security/sunglasses
 	suit_store = /obj/item/weapon/gun/energy/gun
+	r_pocket = /obj/item/weapon/scythe/tele
 
 /datum/outfit/job/centcom/response_team/janitorial/gamma
 	name = "RT Janitor (Gamma)"
@@ -730,6 +731,7 @@ var/ert_request_answered = 0
 	gloves = /obj/item/clothing/gloves/combat
 	suit_store = /obj/item/weapon/gun/energy/pulse/pistol
 	l_pocket = /obj/item/weapon/grenade/clusterbuster/cleaner
+	r_pocket = /obj/item/weapon/grenade/clusterbuster/antiweed
 	shoes = /obj/item/clothing/shoes/magboots/advance
 
 /obj/item/device/radio/centcom
