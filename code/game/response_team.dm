@@ -1,5 +1,4 @@
-//STRIKE TEAMS
-//Thanks to Kilakk for the admin-button portion of this code.
+// ERTs
 
 #define ERT_TYPE_AMBER		1
 #define ERT_TYPE_RED		2
