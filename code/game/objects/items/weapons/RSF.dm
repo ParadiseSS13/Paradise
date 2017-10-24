@@ -55,6 +55,22 @@ RSF
 		to_chat(user, "Changed dispensing mode to 'Cigarette'")
 		return
 	if(mode == 6)
+		mode = 7
+		to_chat(user, "Changed dispensing mode to 'Snack - Tofu Turkey'")
+		return
+	if(mode == 7)
+		mode = 8
+		to_chat(user, "Changed dispensing mode to 'Snack - Chicken Soup'")
+		return
+	if(mode == 8)
+		mode = 9
+		to_chat(user, "Changed dispensing mode to 'Snack - Tofu Burger'")
+		return
+	if(mode == 9)
+		mode = 10
+		to_chat(user, "Changed dispensing mode to 'Snack - Noodles'")
+		return
+	if(mode == 10)
 		mode = 1
 		to_chat(user, "Changed dispensing mode to 'Dosh'")
 		return
@@ -232,6 +248,115 @@ RSF
 				to_chat(user, "The RSF now holds [matter]/30 fabrication-units.")
 				desc = "A RSF. It currently holds [matter]/30 fabrication-units."
 		return
+	else if(istype(A, /obj/structure/table) && mode == 7)
+		if(istype(A, /obj/structure/table) && matter >= 1)
+			to_chat(user, "Dispensing Snack - Tofu Turkey...")
+			playsound(src.loc, 'sound/machines/click.ogg', 10, 1)
+			new /obj/item/weapon/reagent_containers/food/snacks/tofurkey( A.loc )
+			if(isrobot(user))
+				var/mob/living/silicon/robot/engy = user
+				engy.cell.charge -= 500
+			else
+				matter--
+				to_chat(user, "The RSF now holds [matter]/30 fabrication-units.")
+				desc = "A RSF. It currently holds [matter]/30 fabrication-units."
+		return
+
+	else if(istype(A, /turf/simulated/floor) && mode == 7)
+		if(istype(A, /turf/simulated/floor) && matter >= 1)
+			to_chat(user, "Dispensing Snack - Tofu Turkey...")
+			playsound(src.loc, 'sound/machines/click.ogg', 10, 1)
+			new /obj/item/weapon/reagent_containers/food/snacks/tofurkey( A )
+			if(isrobot(user))
+				var/mob/living/silicon/robot/engy = user
+				engy.cell.charge -= 500
+			else
+				matter--
+				to_chat(user, "The RSF now holds [matter]/30 fabrication-units.")
+				desc = "A RSF. It currently holds [matter]/30 fabrication-units."
+		return
+	else if(istype(A, /obj/structure/table) && mode == 8)
+		if(istype(A, /obj/structure/table) && matter >= 1)
+			to_chat(user, "Dispensing Snack - Chicken Soup...")
+			playsound(src.loc, 'sound/machines/click.ogg', 10, 1)
+			new /obj/item/weapon/reagent_containers/food/drinks/chicken_soup( A.loc )
+			if(isrobot(user))
+				var/mob/living/silicon/robot/engy = user
+				engy.cell.charge -= 500
+			else
+				matter--
+				to_chat(user, "The RSF now holds [matter]/30 fabrication-units.")
+				desc = "A RSF. It currently holds [matter]/30 fabrication-units."
+		return
+
+	else if(istype(A, /turf/simulated/floor) && mode == 8)
+		if(istype(A, /turf/simulated/floor) && matter >= 1)
+			to_chat(user, "Dispensing Snack - Chicken Soup...")
+			playsound(src.loc, 'sound/machines/click.ogg', 10, 1)
+			new /obj/item/weapon/reagent_containers/food/drinks/chicken_soup( A )
+			if(isrobot(user))
+				var/mob/living/silicon/robot/engy = user
+				engy.cell.charge -= 500
+			else
+				matter--
+				to_chat(user, "The RSF now holds [matter]/30 fabrication-units.")
+				desc = "A RSF. It currently holds [matter]/30 fabrication-units."
+		return
+	else if(istype(A, /obj/structure/table) && mode == 9)
+		if(istype(A, /obj/structure/table) && matter >= 1)
+			to_chat(user, "Dispensing Tofu Burger...")
+			playsound(src.loc, 'sound/machines/click.ogg', 10, 1)
+			new /obj/item/weapon/reagent_containers/food/snacks/tofuburger( A.loc )
+			if(isrobot(user))
+				var/mob/living/silicon/robot/engy = user
+				engy.cell.charge -= 500
+			else
+				matter--
+				to_chat(user, "The RSF now holds [matter]/30 fabrication-units.")
+				desc = "A RSF. It currently holds [matter]/30 fabrication-units."
+		return
+
+	else if(istype(A, /turf/simulated/floor) && mode == 9)
+		if(istype(A, /turf/simulated/floor) && matter >= 1)
+			to_chat(user, "Dispensing Tofu Burger...")
+			playsound(src.loc, 'sound/machines/click.ogg', 10, 1)
+			new /obj/item/weapon/reagent_containers/food/snacks/tofuburger( A )
+			if(isrobot(user))
+				var/mob/living/silicon/robot/engy = user
+				engy.cell.charge -= 500
+			else
+				matter--
+				to_chat(user, "The RSF now holds [matter]/30 fabrication-units.")
+				desc = "A RSF. It currently holds [matter]/30 fabrication-units."
+		return
+	else if(istype(A, /obj/structure/table) && mode == 10)
+		if(istype(A, /obj/structure/table) && matter >= 1)
+			to_chat(user, "Dispensing Newdles...")
+			playsound(src.loc, 'sound/machines/click.ogg', 10, 1)
+			new /obj/item/weapon/reagent_containers/food/snacks/chinese/newdles( A.loc )
+			if(isrobot(user))
+				var/mob/living/silicon/robot/engy = user
+				engy.cell.charge -= 500
+			else
+				matter--
+				to_chat(user, "The RSF now holds [matter]/30 fabrication-units.")
+				desc = "A RSF. It currently holds [matter]/30 fabrication-units."
+		return
+
+	else if(istype(A, /turf/simulated/floor) && mode == 10)
+		if(istype(A, /turf/simulated/floor) && matter >= 1)
+			to_chat(user, "Dispensing Newdles...")
+			playsound(src.loc, 'sound/machines/click.ogg', 10, 1)
+			new /obj/item/weapon/reagent_containers/food/snacks/chinese/newdles( A )
+			if(isrobot(user))
+				var/mob/living/silicon/robot/engy = user
+				engy.cell.charge -= 500
+			else
+				matter--
+				to_chat(user, "The RSF now holds [matter]/30 fabrication-units.")
+				desc = "A RSF. It currently holds [matter]/30 fabrication-units."
+		return
+
 
 /obj/item/weapon/cookiesynth
 	name = "\improper Cookie Synthesizer"
