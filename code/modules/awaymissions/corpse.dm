@@ -106,7 +106,7 @@
 /obj/effect/mob_spawn/human
 	mob_type = /mob/living/carbon/human
 	//Human specific stuff.
-	var/mob_species = null		//Set to make them a mutant race such as lizard or skeleton. Uses the datum typepath instead of the ID.
+	var/mob_species = null		//Set species
 	var/datum/outfit/outfit = /datum/outfit	//If this is a path, it will be instanced in Initialize()
 	var/disable_pda = TRUE
 	//All of these only affect the ID that the outfit has placed in the ID slot
@@ -210,13 +210,6 @@
 	M.death() //call the AI's death proc
 	qdel(src)
 
-
-/obj/effect/mob_spawn/human/facehugger/create() //Creates a squashed facehugger
-	var/obj/item/clothing/mask/facehugger/O = new(src.loc) //variable O is a new facehugger at the location of the landmark
-	O.name = src.name
-	O.Die() //call the facehugger's death proc
-	qdel(src)
-
 /obj/effect/mob_spawn/mouse
 	name = "sleeper"
 	mob_name = "space mouse"
@@ -244,6 +237,7 @@
 
 /obj/effect/mob_spawn/human/corpse/assistant
 	name = "Assistant"
+	id_job = "Assistant"
 	outfit = /datum/outfit/job/assistant
 
 /obj/effect/mob_spawn/human/corpse/assistant/beesease_infection
@@ -257,6 +251,7 @@
 
 /obj/effect/mob_spawn/human/cook
 	name = "Cook"
+	id_job = "Chef"
 	outfit = /datum/outfit/job/chef
 
 /obj/effect/mob_spawn/human/cook/corpse
@@ -264,6 +259,7 @@
 
 /obj/effect/mob_spawn/human/doctor
 	name = "Doctor"
+	id_job = "Doctor"
 	outfit = /datum/outfit/job/doctor
 
 /obj/effect/mob_spawn/human/doctor/alive
@@ -276,6 +272,9 @@
 	flavour_text = "You are a space doctor!"
 	assignedrole = "Space Doctor"
 
+/obj/effect/mob_spawn/human/doctor/corpse
+	instant = TRUE
+
 /obj/effect/mob_spawn/human/doctor/alive/equip(mob/living/carbon/human/H)
 	..()
 	// Remove radio and PDA so they wouldn't annoy station crew.
@@ -286,6 +285,7 @@
 
 /obj/effect/mob_spawn/human/engineer
 	name = "Engineer"
+	id_job = "Engineer"
 	outfit = /datum/outfit/job/engineer
 
 /obj/effect/mob_spawn/human/engineer/corpse
@@ -311,6 +311,7 @@
 
 /obj/effect/mob_spawn/human/clown
 	name = "Clown"
+	id_job = "Clown"
 	outfit = /datum/outfit/job/clown
 
 /obj/effect/mob_spawn/human/clown/New()
@@ -347,6 +348,7 @@
 
 /obj/effect/mob_spawn/human/mime
 	name = "Mime"
+	id_job = "Mime"
 	outfit = /datum/outfit/job/mime
 
 
@@ -356,6 +358,7 @@
 
 /obj/effect/mob_spawn/human/scientist
 	name = "Scientist"
+	id_job = "Scientist"
 	outfit = /datum/outfit/job/scientist
 
 /obj/effect/mob_spawn/human/scientist/corpse
@@ -363,6 +366,7 @@
 
 /obj/effect/mob_spawn/human/miner
 	name = "Shaft Miner"
+	id_job = "Shaft Miner"
 	outfit = /datum/outfit/job/mining
 
 /obj/effect/mob_spawn/human/miner/corpse
