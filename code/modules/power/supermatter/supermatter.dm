@@ -16,6 +16,12 @@
 
 #define WARNING_DELAY 30 		//seconds between warnings.
 
+//If integrity percent remaining is less than these values, the monitor sets off the relevant alarm.
+#define SUPERMATTER_DELAM_PERCENT 5
+#define SUPERMATTER_EMERGENCY_PERCENT 25
+#define SUPERMATTER_DANGER_PERCENT 50
+#define SUPERMATTER_WARNING_PERCENT 100
+
 /obj/machinery/power/supermatter_shard
 	name = "supermatter shard"
 	desc = "A strangely translucent and iridescent crystal that looks like it used to be part of a larger structure. <span class='danger'>You get headaches just from looking at it.</span>"
@@ -62,9 +68,23 @@
 	var/has_been_powered = 0
 	var/has_reached_emergency = 0
 
+/obj/machinery/power/supermatter_shard/crystal
+	name = "supermatter crystal"
+	desc = "A strangely translucent and iridescent crystal."
+	base_icon_state = "darkmatter"
+	icon_state = "darkmatter"
+	anchored = TRUE
+	warning_point = 200
+	emergency_point = 2000
+	explosion_point = 3600
+	gasefficency = 0.15
+	explosion_power = 35
+
+
 /obj/machinery/power/supermatter_shard/New()
 	. = ..()
 	poi_list |= src
+	atmos_machinery += src
 	radio = new(src)
 	radio.listening = 0
 	investigate_log("has been created.", "supermatter")
@@ -74,15 +94,16 @@
 	investigate_log("has been destroyed.", "supermatter")
 	QDEL_NULL(radio)
 	poi_list.Remove(src)
+	atmos_machinery -= src
 	return ..()
 
 /obj/machinery/power/supermatter_shard/proc/explode()
 	investigate_log("has exploded.", "supermatter")
-	explosion(get_turf(src), explosion_power, explosion_power * 2, explosion_power * 3, explosion_power * 4, 1)
+	explosion(get_turf(src), explosion_power, explosion_power * 1.2, explosion_power * 1.5, explosion_power * 2, 1, 1)
 	qdel(src)
 	return
 
-/obj/machinery/power/supermatter_shard/process()
+/obj/machinery/power/supermatter_shard/process_atmos()
 	var/turf/L = loc
 
 	if(isnull(L))		// We have a null turf...something is wrong, stop processing this entity.
@@ -96,6 +117,7 @@
 
 	if(damage > warning_point) // while the core is still damaged and it's still worth noting its status
 		if((world.timeofday - lastwarning) / 10 >= WARNING_DELAY)
+			alarm()
 			var/stability = num2text(round((damage / explosion_point) * 100))
 
 			if(damage > emergency_point)
@@ -136,12 +158,12 @@
 	var/datum/gas_mixture/removed = env.remove(gasefficency * env.total_moles())
 
 	if(!removed || !removed.total_moles())
-		damage += max((power-1600)/10, 0)
+		damage += max((power-1600)/2, 0)
 		power = min(power, 1600)
 		return 1
 
 	damage_archived = damage
-	damage = max( damage + ( (removed.temperature - 800) / 150 ) , 0 )
+	damage = max( damage + ( (removed.temperature - 800) / 50 ) , 0 )
 	//Ok, 100% oxygen atmosphere = best reaction
 	//Maxes out at 100% oxygen pressure
 	oxygen = max(min((removed.oxygen - (removed.nitrogen * NITROGEN_RETARDATION_FACTOR)) / MOLES_CELLSTANDARD, 1), 0)
@@ -180,6 +202,8 @@
 	removed.oxygen += max((device_energy + removed.temperature - T0C) / OXYGEN_RELEASE_MODIFIER, 0)
 
 	env.merge(removed)
+
+	air_update_turf()
 
 	for(var/mob/living/carbon/human/l in view(src, min(7, round(sqrt(power/6)))))
 		// If they can see it without mesons on.  Bad on them.
@@ -306,7 +330,6 @@
 
 		user.apply_effect(150, IRRADIATE)
 
-
 /obj/machinery/power/supermatter_shard/Bumped(atom/AM as mob|obj)
 	if(istype(AM, /mob/living))
 		AM.visible_message("<span class='danger'>\The [AM] slams into \the [src] inducing a resonance... [AM.p_their(TRUE)] body starts to glow and catch flame before flashing into ash.</span>",\
@@ -346,3 +369,44 @@
 				"<span class='danger'>The unearthly ringing subsides and you notice you have new radiation burns.</span>", 2)
 		else
 			L.show_message("<span class='italics'>You hear an uneartly ringing and notice your skin is covered in fresh radiation burns.</span>", 2)
+
+#define CRITICAL_TEMPERATURE 10000
+
+/obj/machinery/power/supermatter_shard/proc/get_status()
+	var/turf/T = get_turf(src)
+	if(!T)
+		return SUPERMATTER_ERROR
+	var/datum/gas_mixture/air = T.return_air()
+	if(!air)
+		return SUPERMATTER_ERROR
+
+	if(get_integrity() < SUPERMATTER_DELAM_PERCENT)
+		return SUPERMATTER_DELAMINATING
+
+	if(get_integrity() < SUPERMATTER_EMERGENCY_PERCENT)
+		return SUPERMATTER_EMERGENCY
+
+	if(get_integrity() < SUPERMATTER_DANGER_PERCENT)
+		return SUPERMATTER_DANGER
+
+	if((get_integrity() < SUPERMATTER_WARNING_PERCENT) || (air.temperature > CRITICAL_TEMPERATURE))
+		return SUPERMATTER_WARNING
+
+	if(air.temperature > (CRITICAL_TEMPERATURE * 0.8))
+		return SUPERMATTER_NOTIFY
+
+	if(power > 5)
+		return SUPERMATTER_NORMAL
+	return SUPERMATTER_INACTIVE
+
+/obj/machinery/power/supermatter_shard/proc/alarm()
+	switch(get_status())
+		if(SUPERMATTER_DELAMINATING)
+			playsound(src, 'sound/misc/bloblarm.ogg', 100)
+		if(SUPERMATTER_EMERGENCY)
+			playsound(src, 'sound/machines/engine_alert1.ogg', 100)
+		if(SUPERMATTER_DANGER)
+			playsound(src, 'sound/machines/engine_alert2.ogg', 100)
+		if(SUPERMATTER_WARNING)
+			playsound(src, 'sound/machines/terminal_alert.ogg', 75)
+
