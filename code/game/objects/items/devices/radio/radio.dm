@@ -675,6 +675,13 @@ var/global/list/default_medbay_channels = list(
 	..()
 	set_frequency(DTH_FREQ)
 
+/obj/item/device/radio/borg/ert
+	keyslot = new /obj/item/device/encryptionkey/ert
+
+/obj/item/device/radio/borg/ert/New()
+	..()
+	set_frequency(ERT_FREQ)
+
 /obj/item/device/radio/borg/attackby(obj/item/weapon/W as obj, mob/user as mob, params)
 //	..()
 	user.set_machine(src)
