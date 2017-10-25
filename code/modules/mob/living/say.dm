@@ -161,7 +161,7 @@ proc/get_radio_key_from_channel(var/channel)
 
 	verb = say_quote(message, speaking)
 
-	if(is_muzzled())
+	if(is_muzzled() && !(speaking.flags & SIGNLANG))
 		var/obj/item/clothing/mask/muzzle/G = wear_mask
 		if(G.mute) //if the mask is supposed to mute you completely or just muffle you
 			to_chat(src, "<span class='danger'>You're muzzled and cannot speak!</span>")
@@ -181,6 +181,15 @@ proc/get_radio_key_from_channel(var/channel)
 
 	if(!message || message == "")
 		return 0
+
+	//handle nonverbal and sign languages here
+	if(speaking)
+		if(speaking.flags & NONVERBAL)
+			if(prob(30))
+				custom_emote(1, "[pick(speaking.signlang_verb)].")
+
+		if(speaking.flags & SIGNLANG)
+			return say_signlang(message, pick(speaking.signlang_verb), speaking)
 
 	var/list/used_radios = list()
 	if(handle_message_mode(message_mode, message, verb, speaking, used_radios, alt_name))
@@ -212,15 +221,6 @@ proc/get_radio_key_from_channel(var/channel)
 
 
 	var/turf/T = get_turf(src)
-
-	//handle nonverbal and sign languages here
-	if(speaking)
-		if(speaking.flags & NONVERBAL)
-			if(prob(30))
-				custom_emote(1, "[pick(speaking.signlang_verb)].")
-
-		if(speaking.flags & SIGNLANG)
-			return say_signlang(message, pick(speaking.signlang_verb), speaking)
 
 	var/list/listening = list()
 	var/list/listening_obj = list()
@@ -290,21 +290,37 @@ proc/get_radio_key_from_channel(var/channel)
 
 /mob/living/proc/say_signlang(var/message, var/verb="gestures", var/datum/language/language)
 	if(restrained())
-		to_chat(src, "<span class='danger'>You're restrained and cannot sign!</span>")
+		to_chat(src, "<span class='danger'>You are restrained and cannot sign!</span>")
 		return
 
-	if(ishuman(src))
-		var/mob/living/carbon/human/C = src
-		var/obj/item/organ/external/rhand = C.bodyparts_by_name["r_hand"]
-		var/obj/item/organ/external/lhand = C.bodyparts_by_name["l_hand"]
-		if((!rhand || !rhand.is_usable() || rhand.is_broken()) || (!lhand || !lhand.is_usable() || lhand.is_broken()))
-			to_chat(src, "<span class='warning'>You try to use your hand to sign, but you can't!</span>")
-			return
+	if(stat || paralysis || stunned || weakened)
+		to_chat(src, "<span class='danger'>You are not currently able to sign!</span>")
+		return
 
-	for(var/mob/M in get_mobs_in_view(7, src))
+	if(istype(src.loc,/obj/mecha))
+		to_chat(src, "<span class='warning'>You are unable to sign effectively in a mech!</span>")
+		return
+
+	if(!ishuman(src))
+		to_chat(src, "<span class='warning'>You do not have the ability to sign this.</span>")
+		return
+
+	var/mob/living/carbon/human/C = src
+
+	var/obj/item/organ/external/rhand = C.bodyparts_by_name["r_hand"]
+	var/obj/item/organ/external/lhand = C.bodyparts_by_name["l_hand"]
+	if((!rhand || !rhand.is_usable() || rhand.is_broken()) || (!lhand || !lhand.is_usable() || lhand.is_broken()))
+		to_chat(C, "<span class='warning'>You try to use your hand to sign, but you can't!</span>")
+		return
+
+	if(C.l_hand || C.r_hand)
+		to_chat(C, "<span class='warning'>Both your hands must be empty to be able to sign!</span>")
+		return 0
+
+	for(var/mob/M in get_mobs_in_view(3, C))
 		if(M.see_invisible < invisibility)
 			continue
-		M.hear_signlang(message, verb, language, src)
+		M.hear_signlang(message, verb, language, C)
 
 	log_say("[name]/[key] : [message]")
 	return 1

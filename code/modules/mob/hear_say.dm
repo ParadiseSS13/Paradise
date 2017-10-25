@@ -154,9 +154,9 @@
 		return
 
 	if(say_understands(speaker, language))
-		message = "<span class='game say'><span class='name'>[src]</span> [verb], <span class='message'><span class='body'>\"[message]\"</span></span></span>"
+		message = "<span class='game say'><span class='name'>[speaker.name]</span> [verb], <span class='message'><span class='body'>\"[message]\"</span></span></span>"
 	else
-		message = "<span class='game say'><span class='name'>[src]</span> [verb] with their hands, but you don't understand.</span>"
+		message = "<span class='game say'><span class='name'>[speaker.name]</span> [verb] with their hands, but you don't understand.</span>"
 
 	if(src.status_flags & PASSEMOTES)
 		for(var/obj/item/weapon/holder/H in src.contents)
