@@ -1,0 +1,4 @@
+author: "Anasari"
+delete-after: True
+changes: 
+  - tweak: "Flavour text description in character setup now consistent with rules."
