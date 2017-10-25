@@ -1,4 +1,0 @@
-author: "Kyep"
-delete-after: True
-changes: 
-  - rscadd: "ERTs now support janitor, paranormal, and cyborg ERT units, as well as specific slot configurations."

@@ -1,4 +1,0 @@
-author: "Anasari"
-delete-after: True
-changes: 
-  - rscadd: "Grenade reagent are also logged when they are primed"

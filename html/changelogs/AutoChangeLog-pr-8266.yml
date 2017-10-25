@@ -1,4 +1,0 @@
-author: "Kyep"
-delete-after: True
-changes: 
-  - tweak: "Heads of staff who are editing another admin's permissions in the admin panel can now toggle several permissions for a person without re-finding them in the list. Hitting 'cancel' at any point drops out of the loop. It also notifies admins whether they're toggling a permission on, or off."
