@@ -146,7 +146,8 @@
 
 /obj/effect/mob_spawn/human/equip(mob/living/carbon/human/H)
 	if(mob_species)
-		H.set_species(mob_species)
+		if(H.set_species(mob_species))
+			H.regenerate_icons()
 	if(husk)
 		H.ChangeToHusk()
 	else //Because for some reason I can't track down, things are getting turned into husks even if husk = false. It's in some damage proc somewhere.
@@ -417,7 +418,7 @@
 /obj/effect/mob_spawn/human/skeleton
 	name = "skeletal remains"
 	mob_name = "skeleton"
-	mob_species = /datum/species/skeleton
+	mob_species = "Skeleton"
 	mob_gender = NEUTER
 
 /obj/effect/mob_spawn/human/skeleton/alive
@@ -467,7 +468,7 @@
 /obj/effect/mob_spawn/human/abductor
 	name = "abductor"
 	mob_name = "alien"
-	mob_species = /datum/species/abductor
+	mob_species = "Abductor"
 	outfit = /datum/outfit/abductorcorpse
 
 /datum/outfit/abductorcorpse
