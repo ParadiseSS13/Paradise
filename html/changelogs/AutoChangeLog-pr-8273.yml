@@ -1,0 +1,4 @@
+author: "Kyep"
+delete-after: True
+changes: 
+  - rscadd: "ERT spawn area now shows ERT request reasons, and admins can enable the use of a teleporter or grav catapult without mechs."
