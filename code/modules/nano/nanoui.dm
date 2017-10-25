@@ -111,8 +111,6 @@ nanoui is used to open and update nano browser uis
 
 	// CodeMirror
 	add_script("codemirror-compressed.js") // A custom minified JavaScript file of CodeMirror, with the following plugins: CSS Mode, NTSL Mode, CSS-hint addon, Search addon, Sublime Keymap.
-	add_stylesheet("codemirror.css")       // A CSS sheet containing the basic stylings and formatting information for CodeMirror.
-	add_stylesheet("cm_lesser-dark.css")   // A theme for CodeMirror to use, which closely resembles the rest of the NanoUI style.
 
  /**
   * Set the current status (also known as visibility) of this ui.
