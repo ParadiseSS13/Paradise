@@ -93,6 +93,12 @@
 	typepath = /obj/item/toy/katana
 	cost = 500
 
+/datum/storeitem/piano_synth
+	name = "piano synthesizer"
+	desc = "An advanced electronic synthesizer that can be used as various instruments."
+	typepath = /obj/item/device/instrument/piano_synth
+	cost = 1000
+
 /datum/storeitem/violin
 	name = "space violin"
 	desc = "A wooden musical instrument with four strings and a bow. \"The devil went down to space, he was looking for an assistant to grief.\""
@@ -187,6 +193,12 @@
 	name = "Drask flag"
 	desc = "A flag proudly proclaiming the superior heritage of Drask."
 	typepath = /obj/item/flag/species/drask
+	cost = 1000
+
+/datum/storeitem/flag_plasma
+	name = "Plasmaman flag"
+	desc = "A flag proudly proclaiming the superior heritage of Plasmamen."
+	typepath = /obj/item/flag/species/plasma
 	cost = 1000
 
 /datum/storeitem/flag_ian

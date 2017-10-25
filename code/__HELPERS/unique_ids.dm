@@ -32,6 +32,7 @@ var/global/next_unique_datum_id = 1
 		unique_datum_id = "\ref[src]_[next_unique_datum_id++]"
 	return unique_datum_id
 
+
 /proc/locateUID(uid)
 	if(!istext(uid))
 		return null

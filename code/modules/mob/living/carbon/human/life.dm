@@ -932,64 +932,13 @@
 /mob/living/carbon/human/handle_changeling()
 	if(mind)
 		if(mind.changeling)
-			mind.changeling.regenerate()
+			mind.changeling.regenerate(src)
 			if(hud_used)
 				hud_used.lingchemdisplay.invisibility = 0
 				hud_used.lingchemdisplay.maptext = "<div align='center' valign='middle' style='position:relative; top:0px; left:6px'><font color='#dd66dd'>[round(mind.changeling.chem_charges)]</font></div>"
 		else
 			if(hud_used)
 				hud_used.lingchemdisplay.invisibility = 101
-
-/mob/living/carbon/human/handle_shock()
-	..()
-	if(status_flags & GODMODE)
-		return 0	//godmode
-	if(NO_PAIN in species.species_traits)
-		return
-
-	if(health <= config.health_threshold_softcrit)// health 0 makes you immediately collapse
-		shock_stage = max(shock_stage, 61)
-
-	if(traumatic_shock >= 100)
-		shock_stage += 1
-	else
-		shock_stage = min(shock_stage, 160)
-		shock_stage = max(shock_stage-1, 0)
-		return
-
-	if(shock_stage == 10)
-		to_chat(src, "<font color='red'><b>"+pick("It hurts so much!", "You really need some painkillers..", "Dear god, the pain!"))
-
-	if(shock_stage >= 30)
-		if(shock_stage == 30) custom_emote(1,"is having trouble keeping their eyes open.")
-		EyeBlurry(2)
-		Stuttering(5)
-
-	if(shock_stage == 40)
-		to_chat(src, "<font color='red'><b>"+pick("The pain is excrutiating!", "Please, just end the pain!", "Your whole body is going numb!"))
-
-	if(shock_stage >=60)
-		if(shock_stage == 60) custom_emote(1,"falls limp.")
-		if(prob(2))
-			to_chat(src, "<font color='red'><b>"+pick("The pain is excrutiating!", "Please, just end the pain!", "Your whole body is going numb!"))
-			Weaken(20)
-
-	if(shock_stage >= 80)
-		if(prob(5))
-			to_chat(src, "<font color='red'><b>"+pick("The pain is excrutiating!", "Please, just end the pain!", "Your whole body is going numb!"))
-			Weaken(20)
-
-	if(shock_stage >= 120)
-		if(prob(2))
-			to_chat(src, "<font color='red'><b>"+pick("You black out!", "You feel like you could die any moment now.", "You're about to lose consciousness."))
-			Paralyse(5)
-
-	if(shock_stage == 150)
-		custom_emote(1,"can no longer stand, collapsing!")
-		Weaken(20)
-
-	if(shock_stage >= 150)
-		Weaken(20)
 
 
 /mob/living/carbon/human/proc/handle_pulse()
@@ -1092,7 +1041,7 @@
 
 				if(heartbeat >= rate)
 					heartbeat = 0
-					src << sound('sound/effects/electheart.ogg',0,0,0,30)//Credit to GhostHack (www.ghosthack.de) for sound.
+					src << sound('sound/effects/electheart.ogg',0,0,CHANNEL_HEARTBEAT,30)//Credit to GhostHack (www.ghosthack.de) for sound.
 
 				else
 					heartbeat++
@@ -1111,9 +1060,9 @@
 			if(heartbeat >= rate)
 				heartbeat = 0
 				if(H.status & ORGAN_ASSISTED)
-					src << sound('sound/effects/pacemakebeat.ogg',0,0,0,50)
+					src << sound('sound/effects/pacemakebeat.ogg',0,0,CHANNEL_HEARTBEAT,50)
 				else
-					src << sound('sound/effects/singlebeat.ogg',0,0,0,50)
+					src << sound('sound/effects/singlebeat.ogg',0,0,CHANNEL_HEARTBEAT,50)
 			else
 				heartbeat++
 

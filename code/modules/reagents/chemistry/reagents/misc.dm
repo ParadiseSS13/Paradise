@@ -292,12 +292,10 @@
 	if(ishuman(M))
 		var/mob/living/carbon/human/H = M
 		var/obj/item/organ/external/head/head_organ = H.get_organ("head")
-		head_organ.r_facial = rand(0,255)
-		head_organ.g_facial = rand(0,255)
-		head_organ.b_facial = rand(0,255)
-		head_organ.r_hair = rand(0,255)
-		head_organ.g_hair = rand(0,255)
-		head_organ.b_hair = rand(0,255)
+		head_organ.facial_colour = rand_hex_color()
+		head_organ.sec_facial_colour = rand_hex_color()
+		head_organ.hair_colour = rand_hex_color()
+		head_organ.sec_hair_colour = rand_hex_color()
 		H.update_hair()
 		H.update_fhair()
 	..()
@@ -334,7 +332,7 @@
 	if(ishuman(M))
 		var/mob/living/carbon/human/H = M
 		var/obj/item/organ/external/head/head_organ = H.get_organ("head")
-		var/datum/sprite_accessory/tmp_hair_style = hair_styles_list["Very Long Hair"]
+		var/datum/sprite_accessory/tmp_hair_style = hair_styles_full_list["Very Long Hair"]
 		var/datum/sprite_accessory/tmp_facial_hair_style = facial_hair_styles_list["Very Long Beard"]
 
 		if(head_organ.species.name in tmp_hair_style.species_allowed) //If 'Very Long Hair' is a style the person's species can have, give it to them.

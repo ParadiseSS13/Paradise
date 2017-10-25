@@ -424,6 +424,18 @@
 	drink_desc = "Does... does this mean that Arthur and Ford are on the station? Oh joy."
 	taste_message = "the number fourty two"
 
+/datum/reagent/consumable/ethanol/flaming_homer
+	name = "Flaming Moe"
+	id = "flamingmoe"
+	description = "This appears to be a mixture of various alcohols blended with prescription medicine. It is lightly toasted..."
+	reagent_state = LIQUID
+	color = "#58447f" //rgb: 88, 66, 127
+	alcohol_perc = 0.5
+	drink_icon = "flamingmoeglass"
+	drink_name = "Flaming Moe"
+	drink_desc = "Happiness is just a Flaming Moe away!"
+	taste_message = "caramelised booze and sweet, salty medicine"
+
 /datum/reagent/consumable/ethanol/brave_bull
 	name = "Brave Bull"
 	id = "bravebull"
@@ -592,13 +604,13 @@
 /datum/reagent/consumable/ethanol/manhattan_proj
 	name = "Manhattan Project"
 	id = "manhattan_proj"
-	description = "A scienitst's drink of choice, for pondering ways to blow up the station."
+	description = "A scientist's drink of choice, for pondering ways to blow up the station."
 	reagent_state = LIQUID
 	color = "#664300" // rgb: 102, 67, 0
 	alcohol_perc = 0.4
 	drink_icon = "proj_manhattanglass"
 	drink_name = "Manhattan Project"
-	drink_desc = "A scienitst drink of choice, for thinking how to blow up the station."
+	drink_desc = "A scientist's drink of choice, for thinking how to blow up the station."
 	taste_message = "bitter alcohol"
 
 /datum/reagent/consumable/ethanol/whiskeysoda

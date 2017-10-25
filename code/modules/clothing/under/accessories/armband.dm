@@ -5,6 +5,18 @@
 	item_color = "red"
 	slot = "armband"
 
+/obj/item/clothing/accessory/armband/sec
+	name = "security armband"
+	desc = "An armband, worn by the crew to display which department they're assigned to. This one is white and red."
+	icon_state = "whitered"
+	item_color = "whitered"
+
+/obj/item/clothing/accessory/armband/yb
+	name = "blue-yellow armband"
+	desc = "A fancy blue and yellow armband!"
+	icon_state = "solblue"
+	item_color = "solblue"
+
 /obj/item/clothing/accessory/armband/cargo
 	name = "cargo armband"
 	desc = "An armband, worn by the crew to display which department they're assigned to. This one is brown."

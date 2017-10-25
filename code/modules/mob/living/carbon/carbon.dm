@@ -19,6 +19,10 @@
 /mob/living/carbon/Destroy()
 	QDEL_LIST(internal_organs)
 	QDEL_LIST(stomach_contents)
+	var/mob/living/simple_animal/borer/B = has_brain_worms()
+	if(B)
+		B.leave_host()
+		qdel(B)
 	remove_from_all_data_huds()
 	return ..()
 
@@ -722,23 +726,6 @@ var/list/ventcrawl_machinery = list(/obj/machinery/atmospherics/unary/vent_pump,
 
 /mob/living/carbon/is_muzzled()
 	return(istype(src.wear_mask, /obj/item/clothing/mask/muzzle))
-
-/mob/living/carbon/proc/spin(spintime, speed)
-	spawn()
-		var/D = dir
-		while(spintime >= speed)
-			sleep(speed)
-			switch(D)
-				if(NORTH)
-					D = EAST
-				if(SOUTH)
-					D = WEST
-				if(EAST)
-					D = SOUTH
-				if(WEST)
-					D = NORTH
-			dir = D
-			spintime -= speed
 
 /mob/living/carbon/resist_buckle()
 	spawn(0)

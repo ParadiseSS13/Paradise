@@ -684,7 +684,7 @@ var/list/slot_equipment_priority = list( \
 	set src in usr
 	if(usr != src)
 		to_chat(usr, "No.")
-	var/msg = input(usr,"Set the flavor text in your 'examine' verb. Can also be used for OOC notes about your character.","Flavor Text",html_decode(flavor_text)) as message|null
+	var/msg = input(usr,"Set the flavor text in your 'examine' verb. The flavor text should be a physical descriptor of your character at a glance.","Flavor Text",html_decode(flavor_text)) as message|null
 
 	if(msg != null)
 		msg = copytext(msg, 1, MAX_MESSAGE_LEN)
@@ -1237,3 +1237,48 @@ var/list/slot_equipment_priority = list( \
 
 	attack_log += new_log
 	last_log = world.timeofday
+
+/mob/vv_get_dropdown()
+	. = ..()
+	.["Show player panel"] = "?_src_=vars;mob_player_panel=[UID()]"
+
+	.["Give Spell"] = "?_src_=vars;give_spell=[UID()]"
+	.["Give Disease"] = "?_src_=vars;give_disease=[UID()]"
+	.["Toggle Godmode"] = "?_src_=vars;godmode=[UID()]"
+	.["Toggle Build Mode"] = "?_src_=vars;build_mode=[UID()]"
+
+	.["Make 2spooky"] = "?_src_=vars;make_skeleton=[UID()]"
+
+	.["Assume Direct Control"] = "?_src_=vars;direct_control=[UID()]"
+	.["Offer Control to Ghosts"] = "?_src_=vars;offer_control=[UID()]"
+	.["Drop Everything"] = "?_src_=vars;drop_everything=[UID()]"
+
+	.["Regenerate Icons"] = "?_src_=vars;regenerateicons=[UID()]"
+	.["Add Language"] = "?_src_=vars;addlanguage=[UID()]"
+	.["Remove Language"] = "?_src_=vars;remlanguage=[UID()]"
+	.["Add Organ"] = "?_src_=vars;addorgan=[UID()]"
+	.["Remove Organ"] = "?_src_=vars;remorgan=[UID()]"
+
+	.["Fix NanoUI"] = "?_src_=vars;fix_nano=[UID()]"
+
+	.["Add Verb"] = "?_src_=vars;addverb=[UID()]"
+	.["Remove Verb"] = "?_src_=vars;remverb=[UID()]"
+
+	.["Gib"] = "?_src_=vars;gib=[UID()]"
+
+/mob/proc/spin(spintime, speed)
+	set waitfor = 0
+	var/D = dir
+	while(spintime >= speed)
+		sleep(speed)
+		switch(D)
+			if(NORTH)
+				D = EAST
+			if(SOUTH)
+				D = WEST
+			if(EAST)
+				D = SOUTH
+			if(WEST)
+				D = NORTH
+		setDir(D)
+		spintime -= speed

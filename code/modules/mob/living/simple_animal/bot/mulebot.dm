@@ -681,11 +681,12 @@
 			if(istype(M,/mob/living/silicon/robot))
 				visible_message("<span class='danger'>[src] bumps into [M]!</span>")
 			else
-				add_logs(src, M, "knocked down")
-				visible_message("<span class='danger'>[src] knocks over [M]!</span>")
-				M.stop_pulling()
-				M.Stun(8)
-				M.Weaken(5)
+				if(!paicard)
+					add_logs(src, M, "knocked down")
+					visible_message("<span class='danger'>[src] knocks over [M]!</span>")
+					M.stop_pulling()
+					M.Stun(8)
+					M.Weaken(5)
 	return ..()
 
 /mob/living/simple_animal/bot/mulebot/proc/RunOver(mob/living/carbon/human/H)

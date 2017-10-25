@@ -8,6 +8,7 @@
 	display_name = "embroidered veil"
 	description = "A common traditional nano-fiber veil worn by many Tajaran, It is rare and offensive to see it on other races."
 	path = /obj/item/clothing/glasses/tajblind
+	cost = 1
 
 /datum/gear/racial/tajsec
 	display_name = "sleek veil"
@@ -38,3 +39,8 @@
 	description = "A common traditional nano-fiber veil worn by many Tajaran, It is rare and offensive to see it on other races. It is light and comfy!"
 	path = /obj/item/clothing/glasses/tajblind/cargo
 	allowed_roles = list("Quartermaster","Cargo Technician", "Miner")
+
+/datum/gear/racial/footwraps
+	display_name = "cloth footwraps"
+	path = /obj/item/clothing/shoes/footwraps
+	cost = 1

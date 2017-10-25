@@ -148,7 +148,7 @@
 		holder.icon_state = "hudxeno"
 	else if(check_virus())
 		holder.icon_state = "hudill"
-	else if(has_brain_worms() && B != null && B.controlling)
+	else if(B && B.controlling)
 		holder.icon_state = "hudbrainworm"
 	else
 		holder.icon_state = "hudhealthy"
@@ -197,6 +197,9 @@
 		var/datum/data/record/R = find_record("name", perpname, data_core.security)
 		if(R)
 			switch(R.fields["criminal"])
+				if("*Execute*")
+					holder.icon_state = "hudexecute"
+					return
 				if("*Arrest*")
 					holder.icon_state = "hudwanted"
 					return

@@ -23,6 +23,16 @@
 	drink_desc = "Are you sure this is tomato juice?"
 	taste_message = "tomato juice"
 
+/datum/reagent/consumable/drink/pineapplejuice
+	name = "Pineapple Juice"
+	id = "pineapplejuice"
+	description = "Pineapples juiced into a liquid. Sweet and sugary."
+	color = "#e5b437"
+	drink_icon = "glass_orange"
+	drink_name = "Glass of pineapple juice"
+	drink_desc = "A bright drink, sweet and sugary."
+	taste_message = "pineapple juice"
+
 /datum/reagent/consumable/drink/tomatojuice/on_mob_life(mob/living/M)
 	if(M.getFireLoss() && prob(20))
 		M.adjustFireLoss(-1)

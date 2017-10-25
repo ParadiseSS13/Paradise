@@ -181,7 +181,7 @@
 		if((!silence_steps || shoe_sound) && TR.use(4))
 			silence_steps = 1
 			shoe_sound = null
-			to_chat(user, "You tape the soles of [src] to silence their footsteps.")
+			to_chat(user, "You tape the soles of [src] to silence your footsteps.")
 	else
 		return ..()
 
@@ -244,3 +244,12 @@
 	desc = "For a Rustlin' tustlin' cowgirl."
 	icon_state = "cowboyboots_pink"
 	item_color = "cowboyboots_pink"
+
+/obj/item/clothing/shoes/footwraps
+ 	name = "cloth footwraps"
+ 	desc = "A roll of treated canvas used for wrapping claws or paws."
+ 	icon_state = "clothwrap"
+ 	item_state = "clothwrap"
+ 	force = 0
+ 	silence_steps = TRUE
+ 	w_class = WEIGHT_CLASS_SMALL
