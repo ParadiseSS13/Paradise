@@ -608,6 +608,14 @@
 	build_path = /obj/item/weapon/rcd
 	category = list("hacked", "Construction")
 
+/datum/design/rpd
+	name = "Rapid Pipe Dispenser (RPD)"
+	id = "rpd"
+	build_type = AUTOLATHE
+	materials = list(MAT_METAL = 75000, MAT_GLASS = 37500)
+	build_path = /obj/item/weapon/rpd
+	category = list("hacked", "Construction")
+
 /datum/design/rcl
 	name = "Rapid Cable Layer"
 	id = "rcl"
@@ -856,3 +864,12 @@
 	materials = list(MAT_GLASS = 750, MAT_METAL = 250)
 	build_path = /obj/item/weapon/circuitboard/vendor
 	category = list("initial", "Electronics")
+
+/datum/design/mirror
+	name = "mirror"
+	desc = "A mountable mirror."
+	id = "mirror"
+	build_type = AUTOLATHE
+	materials = list(MAT_GLASS = 2500)	//1.25 glass sheets, broken mirrors will return a shard (1 sheet)
+	build_path = /obj/item/mounted/mirror
+	category = list("initial", "Miscellaneous")

@@ -308,8 +308,35 @@
 	user.update_inv_wear_suit()
 	qdel(src)
 
+/obj/item/device/fluff/fei_gasmask_kit //Fei Hazelwood: Tariq Yon-Dale
+	name = "gas mask conversion kit"
+	desc = "A gas mask conversion kit."
+	icon_state = "modkit"
+	w_class = WEIGHT_CLASS_SMALL
+
+/obj/item/device/fluff/fei_gasmask_kit/afterattack(atom/target, mob/user, proximity)
+	if(!proximity || !ishuman(user) || user.incapacitated())
+		return
+
+	if(istype(target, /obj/item/clothing/mask/gas) && !istype(target, /obj/item/clothing/mask/gas/welding))
+		to_chat(user, "<span class='notice'>You modify the appearance of [target].</span>")
+		var/obj/item/clothing/mask/gas/M = target
+		M.name = "Prescription Gas Mask"
+		M.desc = "It looks heavily modified, but otherwise functions as a gas mask. The words “Property of Yon-Dale” can be seen on the inner band."
+		M.icon = 'icons/obj/custom_items.dmi'
+		M.icon_state = "gas_tariq"
+		M.species_fit = list("Vulpkanin")
+		M.sprite_sheets = list(
+			"Vulpkanin" = 'icons/mob/species/vulpkanin/mask.dmi'
+			)
+		user.update_icons()
+		qdel(src)
+		return
+
+	to_chat(user, "<span class='warning'>You can't modify [target]!</span>")
+
 /obj/item/device/fluff/desolate_baton_kit //DesolateG: Michael Smith
-	name = "stun baton converstion kit"
+	name = "stun baton conversion kit"
 	desc = "Some sci-fi looking parts for a stun baton."
 	icon = 'icons/obj/custom_items.dmi'
 	icon_state = "scifikit"
@@ -742,6 +769,17 @@
 	species_fit = null
 	sprite_sheets = null
 
+/obj/item/clothing/suit/jacket/fluff/jacksvest // Anxipal: Jack Harper
+	name = "Jack's vest"
+	desc = "A rugged leather vest with a tag labelled \"President\"."
+	icon = 'icons/obj/custom_items.dmi'
+	icon_state = "jacksvest"
+	ignore_suitadjust = TRUE
+	actions_types = list()
+	adjust_flavour = null
+	species_fit = null
+	sprite_sheets = null
+
 /obj/item/clothing/suit/fluff/kluys // Kluys: Cripty Pandaen
 	name = "Nano Fibre Jacket"
 	desc = "A Black Suit made out of nanofibre. The newest of cyberpunk fashion using hightech liquid to solid materials."
@@ -1157,6 +1195,26 @@
 		return 1
 	..()
 
+/obj/item/fluff/zekemirror //phantasmicdream : Zeke Varloss
+	name = "engraved hand mirror"
+	desc = "A very classy hand mirror, with fancy detailing."
+	icon = 'icons/obj/custom_items.dmi'
+	icon_state = "hand_mirror"
+	attack_verb = list("smacked")
+	hitsound = 'sound/weapons/tap.ogg'
+	force = 0
+	throwforce = 0
+	w_class = WEIGHT_CLASS_SMALL
+
+/obj/item/fluff/zekemirror/attack_self(mob/user)
+	var/mob/living/carbon/human/target = user
+	if(!istype(target) || target.get_species() != "Skrell") // It'd be strange to see other races with head tendrils.
+		return
+
+	if(target.change_hair("Zekes Tentacles", 1))
+		to_chat(target, "<span class='notice'>You take time to admire yourself in [src], brushing your tendrils down and revealing their true length.</span>")
+
+
 /obj/item/clothing/accessory/necklace/locket/fluff/fethasnecklace //Fethas: Sefra'neem
 	name = "Orange gemmed locket"
 	desc = "A locket with a orange gem set on the front, the picture inside seems to be of a Tajaran."
@@ -1165,3 +1223,13 @@
 	item_state = "fethasnecklace"
 	item_color = "fethasnecklace"
 	slot_flags = SLOT_MASK | SLOT_TIE
+
+/obj/item/weapon/bedsheet/fluff/hugosheet //HugoLuman: Dan Martinez
+	name = "Cosmic space blankie"
+	desc = "Made from the dreams of space children everywhere."
+	icon = 'icons/obj/custom_items.dmi'
+	lefthand_file = 'icons/mob/inhands/fluff_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/fluff_righthand.dmi'
+	icon_state = "sheetcosmos"
+	item_state = "sheetcosmos"
+	item_color = "sheetcosmos"

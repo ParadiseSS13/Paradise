@@ -185,9 +185,9 @@
 /datum/dna/proc/write_head_attributes(obj/item/organ/external/head/head_organ)
 
 	//Hair
-	var/hair = GetUIValueRange(DNA_UI_HAIR_STYLE,hair_styles_list.len)
-	if((hair > 0) && (hair <= hair_styles_list.len))
-		head_organ.h_style = hair_styles_list[hair]
+	var/hair = GetUIValueRange(DNA_UI_HAIR_STYLE,hair_styles_full_list.len)
+	if((hair > 0) && (hair <= hair_styles_full_list.len))
+		head_organ.h_style = hair_styles_full_list[hair]
 
 	head_organ.hair_colour = rgb(head_organ.dna.GetUIValueRange(DNA_UI_HAIR_R, 255), head_organ.dna.GetUIValueRange(DNA_UI_HAIR_G, 255), head_organ.dna.GetUIValueRange(DNA_UI_HAIR_B, 255))
 	head_organ.sec_hair_colour = rgb(head_organ.dna.GetUIValueRange(DNA_UI_HAIR2_R, 255), head_organ.dna.GetUIValueRange(DNA_UI_HAIR2_G, 255), head_organ.dna.GetUIValueRange(DNA_UI_HAIR2_B, 255))
@@ -229,7 +229,7 @@
 		return
 	if(!head_organ.h_style)
 		head_organ.h_style = "Skinhead"
-	var/hair = hair_styles_list.Find(head_organ.h_style)
+	var/hair = hair_styles_full_list.Find(head_organ.h_style)
 
 	// Facial Hair
 	if(!head_organ.f_style)
@@ -261,6 +261,6 @@
 	SetUIValueRange(DNA_UI_HACC_G,		color2G(head_organ.headacc_colour),		255,	1)
 	SetUIValueRange(DNA_UI_HACC_B,		color2B(head_organ.headacc_colour),		255,	1)
 
-	SetUIValueRange(DNA_UI_HAIR_STYLE,	hair,		hair_styles_list.len,			1)
+	SetUIValueRange(DNA_UI_HAIR_STYLE,	hair,		hair_styles_full_list.len,			1)
 	SetUIValueRange(DNA_UI_BEARD_STYLE,	beard,		facial_hair_styles_list.len,	1)
 	SetUIValueRange(DNA_UI_HACC_STYLE,	headacc,	head_accessory_styles_list.len,	1)

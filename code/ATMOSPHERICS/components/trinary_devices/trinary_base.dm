@@ -206,6 +206,6 @@
 		T.assume_air(to_release)
 		air_update_turf(1)
 
-/obj/machinery/atmospherics/trinary/process()
+/obj/machinery/atmospherics/trinary/process_atmos()
 	..()
 	return parent1 && parent2 && parent3

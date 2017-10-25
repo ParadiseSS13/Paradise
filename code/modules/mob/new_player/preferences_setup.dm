@@ -257,7 +257,8 @@
 	CHECK_TICK
 	mannequin.setDir(NORTH)
 
-	var/icon/stamp = getFlatIcon(mannequin)
+
+var/icon/stamp = getFlatIcon(mannequin)
 	CHECK_TICK
 	preview_icon.Blend(stamp, ICON_OVERLAY, 25, 17)
 	CHECK_TICK
