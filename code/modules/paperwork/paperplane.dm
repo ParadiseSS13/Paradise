@@ -101,7 +101,6 @@
 			return
 		visible_message("<span class='danger'>\The [src] hits [H] in the eye!</span>")
 		H.EyeBlurry(6)
-		H.Stun(4)
 		var/obj/item/organ/internal/eyes/E = H.get_int_organ(/obj/item/organ/internal/eyes)
 		if(E)
 			E.take_damage(8, 1)
