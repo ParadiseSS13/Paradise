@@ -50,6 +50,7 @@ var/list/robot_verbs_default = list(
 
 	var/opened = 0
 	var/emagged = 0
+	var/ert_upgrade = 0
 	var/wiresexposed = 0
 	var/locked = 1
 	var/list/req_access = list(access_robotics)
@@ -215,7 +216,9 @@ var/list/robot_verbs_default = list(
 	set category = "Robot Commands"
 	if(custom_name)
 		return 0
-
+	if(ert_upgrade)
+		to_chat(src, "<span class='warning'>ERT borgs cannot change their designation whilst on-mission.</span>");
+		return 0
 	rename_self(braintype, 1)
 
 /mob/living/silicon/robot/proc/sync()
@@ -267,10 +270,13 @@ var/list/robot_verbs_default = list(
 	if(module)
 		return
 	var/list/modules = list("Standard", "Engineering", "Medical", "Miner", "Janitor", "Service")
-	if(!config.forbid_secborg)
-		modules += "Security"
-	if(!config.forbid_peaceborg)
-		modules += "Peacekeeper"
+	if(ert_upgrade)
+		modules = list("Engineering", "Medical", "Security")
+	else
+		if(!config.forbid_secborg)
+			modules += "Security"
+		if(!config.forbid_peaceborg)
+			modules += "Peacekeeper"
 	if(security_level == (SEC_LEVEL_GAMMA || SEC_LEVEL_EPSILON) || crisis)
 		to_chat(src, "<span class='warning'>Crisis mode active. Combat module available.</span>")
 		modules += "Combat"
@@ -405,8 +411,9 @@ var/list/robot_verbs_default = list(
 		status_flags &= ~CANPUSH
 
 	choose_icon(6,module_sprites)
-	radio.config(module.channels)
-	notify_ai(2)
+	if(!ert_upgrade)
+		radio.config(module.channels)
+		notify_ai(2)
 
 //for borg hotkeys, here module refers to borg inv slot, not core module
 /mob/living/silicon/robot/verb/cmd_toggle_module(module as num)
@@ -751,8 +758,15 @@ var/list/robot_verbs_default = list(
 	var/mob/living/M = user
 	if(!opened)//Cover is closed
 		if(locked)
-			to_chat(user, "You emag the cover lock.")
-			locked = 0
+			if(ert_upgrade)
+				if(prob(20))
+					to_chat(user, "You successfully emag the cover lock.")
+					locked = 0
+				else
+					to_chat(user, "You try to emag the cover lock - but it simply blinks red.")
+			else
+				to_chat(user, "You emag the cover lock.")
+				locked = 0
 		else
 			to_chat(user, "The cover is already unlocked.")
 		return
@@ -1012,7 +1026,7 @@ var/list/robot_verbs_default = list(
 			dat += text("<tr><td>[obj]</td><td><B>Activated</B></td></tr>")
 		else
 			dat += text("<tr><td>[obj]</td><td><A HREF=?src=[UID()];act=\ref[obj]>Activate</A></td></tr>")
-	if(emagged)
+	if(emagged || ert_upgrade)
 		if(activated(module.emag))
 			dat += text("<tr><td>[module.emag]</td><td><B>Activated</B></td></tr>")
 		else
@@ -1460,6 +1474,7 @@ var/list/robot_verbs_default = list(
 	scrambledcodes = 1
 	req_access = list(access_cent_specops)
 	ionpulse = 1
+	ert_upgrade = 1
 
 /mob/living/silicon/robot/ert/init()
 	laws = new /datum/ai_laws/ert_override

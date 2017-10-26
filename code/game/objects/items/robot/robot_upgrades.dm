@@ -68,6 +68,9 @@
 /obj/item/borg/upgrade/rename/action(var/mob/living/silicon/robot/R)
 	if(..())
 		return
+	if(R.ert_upgrade)
+		to_chat(R, "<span class='warning'>Internal diagnostic error: incompatible upgrade module detected.</span>");
+		return 0
 	R.notify_ai(3, R.name, heldname)
 	R.name = heldname
 	R.custom_name = heldname
@@ -213,6 +216,10 @@
 		return
 
 	if(R.emagged)
+		return
+
+	if(R.ert_upgrade)
+		to_chat(R, "<span class='warning'>Internal diagnostic error: incompatible upgrade module detected.</span>");
 		return
 
 	R.emagged = 1
