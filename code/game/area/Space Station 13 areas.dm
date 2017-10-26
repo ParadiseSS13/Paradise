@@ -1488,7 +1488,7 @@ var/list/ghostteleportlocs = list()
 
 /area/medical/biostorage
 	name = "\improper Secondary Storage"
-	icon_state = "medbay2"
+	icon_state = "medbaysecstorage"
 	music = 'sound/ambience/signal.ogg'
 
 /area/medical/reception
@@ -1498,12 +1498,12 @@ var/list/ghostteleportlocs = list()
 
 /area/medical/psych
 	name = "\improper Psych Room"
-	icon_state = "medbay3"
+	icon_state = "medbaypsych"
 	music = 'sound/ambience/signal.ogg'
 
 /area/medical/medbreak
 	name = "\improper Break Room"
-	icon_state = "medbay3"
+	icon_state = "medbaybreak"
 	music = 'sound/ambience/signal.ogg'
 
 /area/medical/patients_rooms
@@ -1512,23 +1512,23 @@ var/list/ghostteleportlocs = list()
 
 /area/medical/ward
 	name = "\improper Medbay Patient Ward"
-	icon_state = "patients"
+	icon_state = "patientsward"
 
 /area/medical/patient_a
 	name = "\improper Isolation A"
-	icon_state = "patients"
+	icon_state = "medbayisoa"
 
 /area/medical/patient_b
 	name = "\improper Isolation B"
-	icon_state = "patients"
+	icon_state = "medbayisob"
 
 /area/medical/patient_c
 	name = "\improper Isolation C"
-	icon_state = "patients"
+	icon_state = "medbayisoc"
 
 /area/medical/iso_access
 	name = "\improper Isolation Access"
-	icon_state = "patients"
+	icon_state = "medbayisoaccess"
 
 /area/medical/cmo
 	name = "\improper Chief Medical Officer's office"
