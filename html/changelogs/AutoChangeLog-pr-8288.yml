@@ -1,5 +1,0 @@
-author: "FreeStylaLT"
-delete-after: True
-changes: 
-  - tweak: "Moves Ambulance's key to Paramedic's EVA locker from his clothing locker"
-  - rscdel: "Removed an unnecessary EVA helmet from Paramedic's EVA locker"
