@@ -29,8 +29,8 @@
 	name = "make incision"
 	allowed_tools = list(
 	/obj/item/weapon/scalpel = 100,		\
-	/obj/item/weapon/kitchen/knife = 75,	\
-	/obj/item/weapon/shard = 50, 		\
+	/obj/item/weapon/kitchen/knife = 90,	\
+	/obj/item/weapon/shard = 60, 		\
 	)
 
 	time = 16
@@ -50,7 +50,7 @@
 		var/obj/item/organ/external/affected = target.get_organ(target_zone)
 		user.visible_message("<span class='warning'> [user]'s hand slips, slicing [target]'s throat wth \the [tool]!</span>" , \
 		"<span class='warning'> Your hand slips, slicing [target]'s throat wth \the [tool]!</span>" )
-		affected.createwound(CUT, 60)
+		affected.take_damage(60)
 		target.AdjustLoseBreath(4)
 
 		return 0
@@ -60,8 +60,8 @@
 	allowed_tools = list(
 	/obj/item/weapon/scalpel/laser/manager = 100, \
 	/obj/item/weapon/hemostat = 100, 	\
-	/obj/item/stack/cable_coil = 75, 	\
-	/obj/item/device/assembly/mousetrap = 10	//I don't know. Don't ask me. But I'm leaving it because hilarity.
+	/obj/item/stack/cable_coil = 90, 	\
+	/obj/item/device/assembly/mousetrap = 12	//I don't know. Don't ask me. But I'm leaving it because hilarity.
 	)
 
 	time = 24
@@ -87,8 +87,8 @@
 	allowed_tools = list(
 	/obj/item/weapon/scalpel/laser/manager = 100, \
 	/obj/item/weapon/retractor = 100, 	\
-	/obj/item/weapon/crowbar = 55,	\
-	/obj/item/weapon/kitchen/utensil/fork = 75)
+	/obj/item/weapon/crowbar = 65,	\
+	/obj/item/weapon/kitchen/utensil/fork = 90)
 
 	time = 64
 
@@ -106,7 +106,7 @@
 		var/obj/item/organ/external/affected = target.get_organ(target_zone)
 		user.visible_message("<span class='warning'> [user]'s hand slips, tearing skin on [target]'s face with \the [tool]!</span>", \
 		"<span class='warning'> Your hand slips, tearing skin on [target]'s face with \the [tool]!</span>")
-		target.apply_damage(10, BRUTE, affected, sharp=1, edge=1)
+		target.apply_damage(10, BRUTE, affected, sharp = 1)
 		return 0
 
 /datum/surgery_step/face/cauterize
@@ -114,9 +114,9 @@
 	allowed_tools = list(
 	/obj/item/weapon/scalpel/laser = 100, \
 	/obj/item/weapon/cautery = 100,			\
-	/obj/item/clothing/mask/cigarette = 75,	\
-	/obj/item/weapon/lighter = 50,			\
-	/obj/item/weapon/weldingtool = 25
+	/obj/item/clothing/mask/cigarette = 90,	\
+	/obj/item/weapon/lighter = 60,			\
+	/obj/item/weapon/weldingtool = 30
 	)
 
 	time = 24
@@ -131,7 +131,6 @@
 		user.visible_message("<span class='notice'> [user] cauterizes the incision on [target]'s face and neck with \the [tool].</span>", \
 		"<span class='notice'> You cauterize the incision on [target]'s face and neck with \the [tool].</span>")
 		affected.open = 0
-		affected.status &= ~ORGAN_BLEEDING
 		var/obj/item/organ/external/head/h = affected
 		h.disfigured = 0
 		h.update_icon()

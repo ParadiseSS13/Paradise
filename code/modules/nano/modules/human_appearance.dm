@@ -67,14 +67,10 @@
 				return owner.change_skin_tone(new_s_tone)
 	if(href_list["skin_color"])
 		if(can_change_skin_color())
-			var/new_skin = input(usr, "Choose your character's skin colour: ", "Skin Color", rgb(owner.r_skin, owner.g_skin, owner.b_skin)) as color|null
-			if(new_skin && can_still_topic(state))
-				var/r_skin = color2R(new_skin)
-				var/g_skin = color2G(new_skin)
-				var/b_skin = color2B(new_skin)
-				if(owner.change_skin_color(r_skin, g_skin, b_skin))
-					update_dna()
-					return 1
+			var/new_skin = input(usr, "Choose your character's skin colour: ", "Skin Color", owner.skin_colour) as color|null
+			if(new_skin && can_still_topic(state) && owner.change_skin_color(new_skin))
+				update_dna()
+				return 1
 	if(href_list["hair"])
 		if(can_change(APPEARANCE_HAIR) && (href_list["hair"] in valid_hairstyles))
 			if(owner.change_hair(href_list["hair"]))
@@ -82,24 +78,16 @@
 				return 1
 	if(href_list["hair_color"])
 		if(can_change(APPEARANCE_HAIR_COLOR))
-			var/new_hair = input("Please select hair color.", "Hair Color", rgb(head_organ.r_hair, head_organ.g_hair, head_organ.b_hair)) as color|null
-			if(new_hair && can_still_topic(state))
-				var/r_hair = color2R(new_hair)
-				var/g_hair = color2G(new_hair)
-				var/b_hair = color2B(new_hair)
-				if(owner.change_hair_color(r_hair, g_hair, b_hair))
-					update_dna()
-					return 1
+			var/new_hair = input("Please select hair color.", "Hair Color", head_organ.hair_colour) as color|null
+			if(new_hair && can_still_topic(state) && owner.change_hair_color(new_hair))
+				update_dna()
+				return 1
 	if(href_list["secondary_hair_color"])
 		if(can_change(APPEARANCE_SECONDARY_HAIR_COLOR))
-			var/new_hair = input("Please select secondary hair color.", "Secondary Hair Color", rgb(head_organ.r_hair_sec, head_organ.g_hair_sec, head_organ.b_hair_sec)) as color|null
-			if(new_hair && can_still_topic(state))
-				var/r_hair_sec = color2R(new_hair)
-				var/g_hair_sec = color2G(new_hair)
-				var/b_hair_sec = color2B(new_hair)
-				if(owner.change_hair_color(r_hair_sec, g_hair_sec, b_hair_sec, 1))
-					update_dna()
-					return 1
+			var/new_hair = input("Please select secondary hair color.", "Secondary Hair Color", head_organ.sec_hair_colour) as color|null
+			if(new_hair && can_still_topic(state) && owner.change_hair_color(new_hair, 1))
+				update_dna()
+				return 1
 	if(href_list["facial_hair"])
 		if(can_change(APPEARANCE_FACIAL_HAIR) && (href_list["facial_hair"] in valid_facial_hairstyles))
 			if(owner.change_facial_hair(href_list["facial_hair"]))
@@ -107,42 +95,23 @@
 				return 1
 	if(href_list["facial_hair_color"])
 		if(can_change(APPEARANCE_FACIAL_HAIR_COLOR))
-			var/new_facial = input("Please select facial hair color.", "Facial Hair Color", rgb(head_organ.r_facial, head_organ.g_facial, head_organ.b_facial)) as color|null
-			if(new_facial && can_still_topic(state))
-				var/r_facial = color2R(new_facial)
-				var/g_facial = color2G(new_facial)
-				var/b_facial = color2B(new_facial)
-				if(owner.change_facial_hair_color(r_facial, g_facial, b_facial))
-					update_dna()
-					return 1
+			var/new_facial = input("Please select facial hair color.", "Facial Hair Color", head_organ.facial_colour) as color|null
+			if(new_facial && can_still_topic(state) && owner.change_facial_hair_color(new_facial))
+				update_dna()
+				return 1
 	if(href_list["secondary_facial_hair_color"])
 		if(can_change(APPEARANCE_SECONDARY_FACIAL_HAIR_COLOR))
-			var/new_facial = input("Please select secondary facial hair color.", "Secondary Facial Hair Color", rgb(head_organ.r_facial_sec, head_organ.g_facial_sec, head_organ.b_facial_sec)) as color|null
-			if(new_facial && can_still_topic(state))
-				var/r_facial_sec = color2R(new_facial)
-				var/g_facial_sec = color2G(new_facial)
-				var/b_facial_sec = color2B(new_facial)
-				if(owner.change_facial_hair_color(r_facial_sec, g_facial_sec, b_facial_sec, 1))
-					update_dna()
-					return 1
+			var/new_facial = input("Please select secondary facial hair color.", "Secondary Facial Hair Color", head_organ.sec_facial_colour) as color|null
+			if(new_facial && can_still_topic(state) && owner.change_facial_hair_color(new_facial, 1))
+				update_dna()
+				return 1
 	if(href_list["eye_color"])
 		if(can_change(APPEARANCE_EYE_COLOR))
 			var/obj/item/organ/internal/eyes/eyes_organ = owner.get_int_organ(/obj/item/organ/internal/eyes)
-			var/eyes_red = 0
-			var/eyes_green = 0
-			var/eyes_blue = 0
-			if(eyes_organ)
-				eyes_red = eyes_organ.eye_colour[1]
-				eyes_green = eyes_organ.eye_colour[2]
-				eyes_blue = eyes_organ.eye_colour[3]
-			var/new_eyes = input("Please select eye color.", "Eye Color", rgb(eyes_red, eyes_green, eyes_blue)) as color|null
-			if(new_eyes && can_still_topic(state))
-				var/r_eyes = color2R(new_eyes)
-				var/g_eyes = color2G(new_eyes)
-				var/b_eyes = color2B(new_eyes)
-				if(owner.change_eye_color(r_eyes, g_eyes, b_eyes))
-					update_dna()
-					return 1
+			var/new_eyes = input("Please select eye color.", "Eye Color", eyes_organ.eye_colour) as color|null
+			if(new_eyes && can_still_topic(state) && owner.change_eye_color(new_eyes))
+				update_dna()
+				return 1
 	if(href_list["head_accessory"])
 		if(can_change_head_accessory() && (href_list["head_accessory"] in valid_head_accessories))
 			if(owner.change_head_accessory(href_list["head_accessory"]))
@@ -150,14 +119,10 @@
 				return 1
 	if(href_list["head_accessory_color"])
 		if(can_change_head_accessory())
-			var/new_head_accessory = input("Please select head accessory color.", "Head Accessory Color", rgb(head_organ.r_headacc, head_organ.g_headacc, head_organ.b_headacc)) as color|null
-			if(new_head_accessory && can_still_topic(state))
-				var/r_headacc = color2R(new_head_accessory)
-				var/g_headacc = color2G(new_head_accessory)
-				var/b_headacc = color2B(new_head_accessory)
-				if(owner.change_head_accessory_color(r_headacc, g_headacc, b_headacc))
-					update_dna()
-					return 1
+			var/new_head_accessory = input("Please select head accessory color.", "Head Accessory Color", head_organ.headacc_colour) as color|null
+			if(new_head_accessory && can_still_topic(state) && owner.change_head_accessory_color(new_head_accessory))
+				update_dna()
+				return 1
 	if(href_list["head_marking"])
 		if(can_change_markings("head") && (href_list["head_marking"] in valid_head_marking_styles))
 			if(owner.change_markings(href_list["head_marking"], "head"))
@@ -166,10 +131,9 @@
 	if(href_list["head_marking_color"])
 		if(can_change_markings("head"))
 			var/new_markings = input("Please select head marking color.", "Marking Color", owner.m_colours["head"]) as color|null
-			if(new_markings && can_still_topic(state))
-				if(owner.change_marking_color(new_markings, "head"))
-					update_dna()
-					return 1
+			if(new_markings && can_still_topic(state) && owner.change_marking_color(new_markings, "head"))
+				update_dna()
+				return 1
 	if(href_list["body_marking"])
 		if(can_change_markings("body") && (href_list["body_marking"] in valid_body_marking_styles))
 			if(owner.change_markings(href_list["body_marking"], "body"))
@@ -178,10 +142,9 @@
 	if(href_list["body_marking_color"])
 		if(can_change_markings("body"))
 			var/new_markings = input("Please select body marking color.", "Marking Color", owner.m_colours["body"]) as color|null
-			if(new_markings && can_still_topic(state))
-				if(owner.change_marking_color(new_markings, "body"))
-					update_dna()
-					return 1
+			if(new_markings && can_still_topic(state) && owner.change_marking_color(new_markings, "body"))
+				update_dna()
+				return 1
 	if(href_list["tail_marking"])
 		if(can_change_markings("tail") && (href_list["tail_marking"] in valid_tail_marking_styles))
 			if(owner.change_markings(href_list["tail_marking"], "tail"))
@@ -190,10 +153,9 @@
 	if(href_list["tail_marking_color"])
 		if(can_change_markings("tail"))
 			var/new_markings = input("Please select tail marking color.", "Marking Color", owner.m_colours["tail"]) as color|null
-			if(new_markings && can_still_topic(state))
-				if(owner.change_marking_color(new_markings, "tail"))
-					update_dna()
-					return 1
+			if(new_markings && can_still_topic(state) && owner.change_marking_color(new_markings, "tail"))
+				update_dna()
+				return 1
 	if(href_list["body_accessory"])
 		if(can_change_body_accessory() && (href_list["body_accessory"] in valid_body_accessories))
 			if(owner.change_body_accessory(href_list["body_accessory"]))

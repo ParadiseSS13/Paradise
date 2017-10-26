@@ -33,7 +33,7 @@ Pipelines + Other Objects -> Pipe network
 
 /obj/machinery/atmospherics/New()
 	..()
-
+	atmos_machinery += src
 	if(!icon_manager)
 		icon_manager = new()
 
@@ -54,6 +54,7 @@ Pipelines + Other Objects -> Pipe network
 
 /obj/machinery/atmospherics/Destroy()
 	QDEL_NULL(stored)
+	atmos_machinery -= src
 	for(var/mob/living/L in src) //ventcrawling is serious business
 		L.remove_ventcrawl()
 		L.forceMove(get_turf(src))
@@ -166,7 +167,9 @@ Pipelines + Other Objects -> Pipe network
 		add_fingerprint(user)
 
 		var/unsafe_wrenching = FALSE
-		var/internal_pressure = int_air.return_pressure()-env_air.return_pressure()
+		var/I = int_air ? int_air.return_pressure() : 0
+		var/E = env_air ? env_air.return_pressure() : 0
+		var/internal_pressure = I - E
 
 		playsound(src.loc, W.usesound, 50, 1)
 		to_chat(user, "<span class='notice'>You begin to unfasten \the [src]...</span>")
@@ -259,8 +262,7 @@ Pipelines + Other Objects -> Pipe network
 				user.last_played_vent = world.time
 				playsound(src, 'sound/machines/ventcrawl.ogg', 50, 1, -3)
 	else
-		var/can_connect = check_connect_types(target_move, src)
-		if((direction & initialize_directions) || (is_type_in_list(src, ventcrawl_machinery) && target_move.can_crawl_through() && can_connect)) //if we move in a way the pipe can connect, but doesn't - or we're in a vent
+		if((direction & initialize_directions) || is_type_in_list(src, ventcrawl_machinery)) //if we move in a way the pipe can connect, but doesn't - or we're in a vent
 			user.remove_ventcrawl()
 			user.forceMove(src.loc)
 			user.visible_message("You hear something squeezing through the pipes.", "You climb out the ventilation system.")

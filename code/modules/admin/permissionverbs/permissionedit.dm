@@ -101,7 +101,7 @@
 			to_chat(usr, "<span class='notice'>Admin rank changed.</span>")
 
 /datum/admins/proc/log_admin_permission_modification(var/adm_ckey, var/new_permission)
-	if(config.admin_legacy_system)	
+	if(config.admin_legacy_system)
 		return
 
 	if(!usr.client)
@@ -153,10 +153,12 @@
 		var/DBQuery/log_query = dbcon.NewQuery("INSERT INTO `test`.[format_table_name("admin_log")] (`id` ,`datetime` ,`adminckey` ,`adminip` ,`log` ) VALUES (NULL , NOW( ) , '[usr.ckey]', '[usr.client.address]', 'Added permission [rights2text(new_permission)] (flag = [new_permission]) to admin [adm_ckey]')")
 		log_query.Execute()
 		to_chat(usr, "<span class='notice'>Permission added.</span>")
-		
+
 /datum/admins/proc/updateranktodb(ckey,newrank)
 	establish_db_connection()
 	if(!dbcon.IsConnected())
+		return
+	if(!check_rights(R_PERMISSIONS))
 		return
 	var/sql_ckey = sanitizeSQL(ckey)
 	var/sql_admin_rank = sanitizeSQL(newrank)

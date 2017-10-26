@@ -255,6 +255,7 @@
 					nanomanager.update_uis(src)
 					return
 				Centcomm_announce(input, usr)
+				print_centcom_report(input, worldtime2text() +" Captain's Message")
 				to_chat(usr, "Message transmitted.")
 				log_say("[key_name(usr)] has made a Centcomm announcement: [input]")
 				centcomm_message_cooldown = 1
@@ -553,6 +554,25 @@
 	for(var/datum/computer_file/program/comm/P in shuttle_caller_list)
 		var/turf/T = get_turf(P.computer)
 		if(T && P.program_state != PROGRAM_STATE_KILLED && is_station_contact(T.z))
+			if(P.computer)
+				var/obj/item/weapon/computer_hardware/printer/printer = P.computer.all_components[MC_PRINT]
+				if(printer)
+					printer.print_text(text, "paper- '[title]'")
+			P.messagetitle.Add("[title]")
+			P.messagetext.Add(text)
+
+/proc/print_centcom_report(text = "", title = "Incoming Message")
+	for(var/obj/machinery/computer/communications/C in shuttle_caller_list)
+		if(!(C.stat & (BROKEN|NOPOWER)) && is_admin_level(C.z))
+			var/obj/item/weapon/paper/P = new /obj/item/weapon/paper(C.loc)
+			P.name = "paper- '[title]'"
+			P.info = text
+			P.update_icon()
+			C.messagetitle.Add("[title]")
+			C.messagetext.Add(text)
+	for(var/datum/computer_file/program/comm/P in shuttle_caller_list)
+		var/turf/T = get_turf(P.computer)
+		if(T && P.program_state != PROGRAM_STATE_KILLED && is_admin_level(T.z))
 			if(P.computer)
 				var/obj/item/weapon/computer_hardware/printer/printer = P.computer.all_components[MC_PRINT]
 				if(printer)

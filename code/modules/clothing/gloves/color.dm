@@ -77,13 +77,18 @@
 /obj/item/clothing/gloves/color/black/attackby(obj/item/weapon/W as obj, mob/user as mob, params)
 	if(istype(W, /obj/item/weapon/wirecutters))
 		if(can_be_cut && icon_state == initial(icon_state))//only if not dyed
-			to_chat(user, "<span class='notice'>You snip the fingertips off of [src].</span>")
-			playsound(user.loc, W.usesound, rand(10,50), 1)
-			var/obj/item/clothing/gloves/fingerless/F = new/obj/item/clothing/gloves/fingerless(user.loc)
-			if(pickpocket)
-				F.pickpocket = 1
-			qdel(src)
-			return
+			var/confirm = alert("Do you want to cut off the gloves fingertips? Warning: It might destroy their functionality.","Cut tips?","Yes","No")
+			if(get_dist(user, src) > 1)
+				to_chat(user, "You have moved too far away.")
+				return
+			if(confirm == "Yes")
+				to_chat(user, "<span class='notice'>You snip the fingertips off of [src].</span>")
+				playsound(user.loc, W.usesound, rand(10,50), 1)
+				var/obj/item/clothing/gloves/fingerless/F = new/obj/item/clothing/gloves/fingerless(user.loc)
+				if(pickpocket)
+					F.pickpocket = FALSE
+				qdel(src)
+				return
 	..()
 
 /obj/item/clothing/gloves/color/orange

@@ -12,8 +12,8 @@
 	var/uses // -1 For inifinite
 	var/human_only = 0
 	var/active = 0
-	tough = 1 //not easily broken by combat damage
-	sterile = 1 //not very germy
+	tough = TRUE //not easily broken by combat damage
+	sterile = TRUE //not very germy
 
 /obj/item/organ/internal/heart/gland/proc/ownerCheck()
 	if(ishuman(owner))
@@ -134,10 +134,9 @@
 	to_chat(owner, "<span class='warning'>You feel sick.</span>")
 	var/virus_type = pick(/datum/disease/beesease, /datum/disease/brainrot, /datum/disease/magnitis)
 	var/datum/disease/D = new virus_type()
-	D.carrier = 1
+	D.carrier = TRUE
 	owner.viruses += D
 	D.affected_mob = owner
-	D.holder = owner
 	owner.med_hud_set_status()
 
 
@@ -181,21 +180,14 @@
 	uses = -1
 
 /obj/item/organ/internal/heart/gland/bloody/activate()
-	if(ishuman(owner))
-		var/mob/living/carbon/human/H = owner
-		H.drip(200)
+	owner.blood_volume = max(owner.blood_volume - 20, 0)
 	owner.visible_message("<span class='danger'>[owner]'s skin erupts with blood!</span>",\
 	"<span class='userdanger'>Blood pours from your skin!</span>")
 
 	for(var/turf/T in oview(3,owner)) //Make this respect walls and such
-		T.add_blood_floor(owner)
+		owner.add_splatter_floor(T)
 	for(var/mob/living/carbon/human/H in oview(3,owner)) //Blood decals for simple animals would be neat. aka Carp with blood on it.
-		if(H.wear_suit)
-			H.wear_suit.add_blood(owner)
-			H.update_inv_wear_suit(0)
-		else if(H.w_uniform)
-			H.w_uniform.add_blood(owner)
-			H.update_inv_w_uniform(0)
+		H.add_mob_blood(owner)
 
 /obj/item/organ/internal/heart/gland/bodysnatch
 	cooldown_low = 600
@@ -211,8 +203,7 @@
 		C.Copy(owner)
 		C.Start()
 	owner.adjustBruteLoss(40)
-	var/turf/T = get_turf(owner)
-	T.add_blood_floor(src)
+	owner.add_splatter_floor()
 
 /obj/effect/cocoon/abductor
 	name = "slimy cocoon"

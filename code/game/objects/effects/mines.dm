@@ -26,7 +26,7 @@
 /obj/effect/mine/proc/triggermine(mob/living/victim)
 	if(triggered)
 		return
-	visible_message("<span class='danger'>[victim] sets off \icon[src] [src]!</span>")
+	visible_message("<span class='danger'>[victim] sets off [bicon(src)] [src]!</span>")
 	var/datum/effect/system/spark_spread/s = new /datum/effect/system/spark_spread
 	s.set_up(3, 1, src)
 	s.start()
@@ -58,6 +58,10 @@
 
 /obj/effect/mine/dnascramble/mineEffect(mob/living/victim)
 	victim.apply_effect(radiation_amount, IRRADIATE, 0)
+	if(ishuman(victim))
+		var/mob/living/carbon/human/V = victim
+		if(NO_DNA in V.species.species_traits)
+			return
 	randmutb(victim)
 	domutcheck(victim ,null)
 

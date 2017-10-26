@@ -1,29 +1,28 @@
-/proc/gibs(atom/location, var/list/viruses, var/datum/dna/MobDNA)		//CARN MARKER
-	new /obj/effect/gibspawner/generic(get_turf(location),viruses,MobDNA)
+/proc/gibs(atom/location, datum/dna/MobDNA)		//CARN MARKER
+	new /obj/effect/gibspawner/generic(get_turf(location), MobDNA)
 
-/proc/hgibs(atom/location, var/list/viruses, var/datum/dna/MobDNA)
-	new /obj/effect/gibspawner/human(get_turf(location),viruses,MobDNA)
+/proc/hgibs(atom/location, datum/dna/MobDNA)
+	new /obj/effect/gibspawner/human(get_turf(location), MobDNA)
 
-/proc/xgibs(atom/location, var/list/viruses)
-	new /obj/effect/gibspawner/xeno(get_turf(location),viruses)
+/proc/xgibs(atom/location)
+	new /obj/effect/gibspawner/xeno(get_turf(location))
 
-/proc/robogibs(atom/location, var/list/viruses)
-	new /obj/effect/gibspawner/robot(get_turf(location),viruses)
+/proc/robogibs(atom/location)
+	new /obj/effect/gibspawner/robot(get_turf(location))
 
 /obj/effect/gibspawner
 	var/sparks = 0 //whether sparks spread on Gib()
-	var/virusProb = 20 //the chance for viruses to spread on the gibs
 	var/list/gibtypes = list()
 	var/list/gibamounts = list()
 	var/list/gibdirections = list() //of lists
 
-	New(location, var/list/viruses, var/datum/dna/MobDNA)
+	New(location, datum/dna/MobDNA)
 		..()
 
 		if(istype(loc,/turf)) //basically if a badmin spawns it
-			Gib(loc,viruses,MobDNA)
+			Gib(loc, MobDNA)
 
-	proc/Gib(atom/location, var/list/viruses = list(), var/datum/dna/MobDNA = null)
+	proc/Gib(atom/location, datum/dna/MobDNA = null)
 		if(gibtypes.len != gibamounts.len || gibamounts.len != gibdirections.len)
 			to_chat(world, "<span class='warning'>Gib list length mismatch!</span>")
 			return

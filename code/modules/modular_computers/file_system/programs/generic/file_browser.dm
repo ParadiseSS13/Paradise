@@ -43,7 +43,7 @@
 			if(!istype(file))
 				data["error"] = "I/O ERROR: Unable to open file."
 			else
-				data["filedata"] = pencode_to_html(file.stored_data, sign = 0, fields = 0)
+				data["filedata"] = pencode_to_html(file.stored_data, format = 1, sign = 0, fields = 0)
 				data["filename"] = "[file.filename].[file.filetype]"
 	else
 		if(!computer || !HDD)
@@ -122,8 +122,12 @@
 			var/datum/computer_file/F = HDD.find_file_by_name(href_list["name"])
 			if(!F || !istype(F))
 				return 1
-			var/datum/computer_file/C = F.clone(1)
-			HDD.store_file(C)
+			var/newname = stripped_input(usr, "Enter clone file name:", "File clone", "Copy of " + F.filename, max_length=50)
+			if(F && newname)
+				var/datum/computer_file/C = F.clone(1)
+				C.filename = newname
+				if(!HDD.store_file(C))
+					error = "I/O error: Unable to clone file. Hard drive is probably full."
 		if("PRG_rename")
 			. = 1
 			if(!HDD)
@@ -152,6 +156,7 @@
 			if(F)
 				var/datum/computer_file/data/backup = F.clone()
 				HDD.remove_file(F)
+				F = backup.clone() //When the file gets removed from the HDD, it gets queued for garbage collection. Hacky fix is to make a copy.
 				F.stored_data = newtext
 				F.calculate_size()
 				// We can't store the updated file, it's probably too large. Print an error and restore backed up version.

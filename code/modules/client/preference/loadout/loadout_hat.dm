@@ -148,3 +148,11 @@
 	display_name = "surgical cap, green"
 	path = /obj/item/clothing/head/surgery/green
 	allowed_roles = list("Chief Medical Officer", "Medical Doctor")
+
+/datum/gear/hat/flowerpin
+	display_name = "hair flower"
+	path = /obj/item/clothing/head/hairflower
+
+/datum/gear/hat/flowerpinpurp
+	display_name = "hair flower, purple"
+	path = /obj/item/clothing/head/hairflower/purple

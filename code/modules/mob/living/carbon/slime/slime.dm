@@ -281,11 +281,9 @@
 				if(prob(90) && !client)
 					Discipline++
 
-				spawn()
-					SStun = 1
-					sleep(rand(45,60))
-					if(src)
-						SStun = 0
+				SStun = 1
+				spawn(rand(45,60))
+					SStun = 0
 
 				Victim = null
 				anchored = 0
@@ -309,11 +307,9 @@
 						if(Discipline == 1)
 							attacked = 0
 
-				spawn()
-					SStun = 1
-					sleep(rand(55,65))
-					if(src)
-						SStun = 0
+				SStun = 1
+				spawn(rand(55,65))
+					SStun = 0
 
 				Victim = null
 				anchored = 0
@@ -439,9 +435,8 @@
 							if(Discipline == 1)
 								attacked = 0
 
-				spawn()
-					SStun = 1
-					sleep(rand(5,20))
+				SStun = 1
+				spawn(rand(5,20))
 					SStun = 0
 
 				spawn(0)
@@ -491,9 +486,8 @@
 					Target = null
 					anchored = 0
 
-					spawn()
-						SStun = 1
-						sleep(rand(5,20))
+					SStun = 1
+					spawn(rand(5,20))
 						SStun = 0
 
 					spawn(0)
@@ -513,9 +507,8 @@
 						Discipline++
 					if(Discipline == 1)
 						attacked = 0
-					spawn()
-						SStun = 1
-						sleep(rand(5,20))
+					SStun = 1
+					spawn(rand(5,20))
 						SStun = 0
 
 					Victim = null

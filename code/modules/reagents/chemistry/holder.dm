@@ -1,5 +1,3 @@
-//This file was auto-corrected by findeclaration.exe on 25.5.2012 20:42:32
-
 var/const/TOUCH = 1
 var/const/INGEST = 2
 #define ADDICTION_TIME 4800 //8 minutes
@@ -27,8 +25,6 @@ var/const/INGEST = 2
 		for(var/path in paths)
 			var/datum/reagent/D = new path()
 			chemical_reagents_list[D.id] = D
-			if(!D.can_grow_in_plants)
-				plant_blocked_chems.Add(D.id)
 	if(!chemical_reactions_list)
 		//Chemical Reactions - Initialises all /datum/chemical_reaction into a list
 		// It is filtered into multiple lists within a list.
@@ -108,7 +104,7 @@ var/const/INGEST = 2
 
 	return the_id
 
-/datum/reagents/proc/trans_to(target, amount=1, multiplier=1, preserve_data=1)//if preserve_data=0, the reagents data will be lost. Usefull if you use data for some strange stuff and don't want it to be transferred.
+/datum/reagents/proc/trans_to(target, amount=1, multiplier=1, preserve_data=1, no_react = 0)//if preserve_data=0, the reagents data will be lost. Usefull if you use data for some strange stuff and don't want it to be transferred.
 	if(!target)
 		return
 	if(total_volume <= 0)
@@ -135,21 +131,18 @@ var/const/INGEST = 2
 	for(var/datum/reagent/current_reagent in reagent_list)
 		if(!current_reagent)
 			continue
-		if(current_reagent.id == "blood" && ishuman(target))
-			var/mob/living/carbon/human/H = target
-			H.inject_blood(my_atom, amount)
-			continue
 		var/current_reagent_transfer = current_reagent.volume * part
 		if(preserve_data)
 			trans_data = copy_data(current_reagent)
 
-		R.add_reagent(current_reagent.id, (current_reagent_transfer * multiplier), trans_data, chem_temp)
+		R.add_reagent(current_reagent.id, (current_reagent_transfer * multiplier), trans_data, chem_temp, no_react = 1)
 		remove_reagent(current_reagent.id, current_reagent_transfer)
 
 	update_total()
 	R.update_total()
-	R.handle_reactions()
-	handle_reactions()
+	if(!no_react)
+		R.handle_reactions()
+		handle_reactions()
 	return amount
 
 /datum/reagents/proc/copy_to(obj/target, amount=1, multiplier=1, preserve_data=1, safety = 0)
@@ -242,10 +235,10 @@ var/const/INGEST = 2
 		if(M && R)
 			R.on_mob_life(M)
 			if(R.volume >= R.overdose_threshold && !R.overdosed && R.overdose_threshold > 0)
-				R.overdosed = 1
+				R.overdosed = TRUE
 				R.overdose_start(M)
 			if(R.volume < R.overdose_threshold && R.overdosed)
-				R.overdosed = 0
+				R.overdosed = FALSE
 			if(R.overdosed)
 				R.overdose_process(M, R.volume >= R.overdose_threshold*2 ? 2 : 1)
 
@@ -496,48 +489,40 @@ var/const/INGEST = 2
 			//Species with PROCESS_DUO are only affected by reagents that affect both organics and synthetics, like acid and hellwater
 			if((R.process_flags & ORGANIC) && (R.process_flags & SYNTHETIC) && (H.species.reagent_tag & PROCESS_DUO))
 				can_process = 1
-		if(H.species && H.species.exotic_blood)
-			if(R.id == H.species.exotic_blood)
-				can_process = 0
 	//We'll assume that non-human mobs lack the ability to process synthetic-oriented reagents (adjust this if we need to change that assumption)
 	else
 		if(R.process_flags != SYNTHETIC)
 			can_process = 1
 	return can_process
 
-/datum/reagents/proc/reaction(atom/A, method=TOUCH, volume_modifier = 1)
-	switch(method)
-		if(TOUCH)
-			for(var/datum/reagent/R in reagent_list)
-				if(isliving(A))
-					var/check = reaction_check(A, R)
-					if(!check)
-						continue
-					else
-						R.reaction_mob(A, TOUCH, R.volume*volume_modifier)
-				if(isturf(A))
-					R.reaction_turf(A, R.volume*volume_modifier)
-				if(isobj(A))
-					R.reaction_obj(A, R.volume*volume_modifier)
-		if(INGEST)
-			for(var/datum/reagent/R in reagent_list)
-				if(isliving(A))
-					var/check = reaction_check(A, R)
-					if(!check)
-						continue
-					else
-						R.reaction_mob(A, INGEST, R.volume*volume_modifier)
-				if(isturf(A))
-					R.reaction_turf(A, R.volume*volume_modifier)
-				if(isobj(A))
-					R.reaction_obj(A, R.volume*volume_modifier)
+/datum/reagents/proc/reaction(atom/A, method = TOUCH, volume_modifier = 1)
+	var/react_type
+	if(isliving(A))
+		react_type = "LIVING"
+	else if(isturf(A))
+		react_type = "TURF"
+	else if(istype(A, /obj))
+		react_type = "OBJ"
+	else
+		return
+	for(var/datum/reagent/R in reagent_list)
+		switch(react_type)
+			if("LIVING")
+				var/check = reaction_check(A, R)
+				if(!check)
+					continue
+				R.reaction_mob(A, method, R.volume * volume_modifier)
+			if("TURF")
+				R.reaction_turf(A, R.volume * volume_modifier)
+			if("OBJ")
+				R.reaction_obj(A, R.volume * volume_modifier)
 
 /datum/reagents/proc/add_reagent_list(list/list_reagents, list/data=null) // Like add_reagent but you can enter a list. Format it like this: list("toxin" = 10, "beer" = 15)
 	for(var/r_id in list_reagents)
 		var/amt = list_reagents[r_id]
 		add_reagent(r_id, amt, data)
 
-/datum/reagents/proc/add_reagent(reagent, amount, list/data=null, reagtemp = 300)
+/datum/reagents/proc/add_reagent(reagent, amount, list/data=null, reagtemp = 300, no_react = 0)
 	if(!isnum(amount))
 		return 1
 	update_total()
@@ -554,7 +539,8 @@ var/const/INGEST = 2
 			update_total()
 			my_atom.on_reagent_change()
 			R.on_merge(data)
-			handle_reactions()
+			if(!no_react)
+				handle_reactions()
 			return 0
 
 	var/datum/reagent/D = chemical_reagents_list[reagent]
@@ -570,7 +556,8 @@ var/const/INGEST = 2
 
 		update_total()
 		my_atom.on_reagent_change()
-		handle_reactions()
+		if(!no_react)
+			handle_reactions()
 		return 0
 	else
 		warning("[my_atom] attempted to add a reagent called '[reagent]' which doesn't exist. ([usr])")
@@ -695,27 +682,6 @@ var/const/INGEST = 2
 		trans_data["viruses"] = v.Copy()
 
 	return trans_data
-
-// For random item spawning. Takes a list of paths, and returns the same list without anything that contains admin only reagents
-/proc/adminReagentCheck(list/incoming)
-	var/list/outgoing[0]
-	for(var/tocheck in incoming)
-		if(ispath(tocheck))
-			var/check = new tocheck
-			if(istype(check, /atom))
-				var/atom/reagentCheck = check
-				var/datum/reagents/reagents = reagentCheck.reagents
-				var/admin = 0
-				for(var/reag in reagents.reagent_list)
-					var/datum/reagent/reagent = reag
-					if(reagent.admin_only)
-						admin = 1
-						break
-				if(!(admin))
-					outgoing += tocheck
-			else
-				outgoing += tocheck
-	return outgoing
 
 ///////////////////////////////////////////////////////////////////////////////////
 

@@ -30,9 +30,7 @@
 	return returnorg
 
 /mob/living/carbon/get_organ_slot(slot)
-	for(var/obj/item/organ/internal/O in internal_organs)
-		if(slot == O.slot)
-			return O
+	return internal_organs_slot[slot]
 
 /mob/living/carbon/get_int_organ_tag(tag)
 	for(var/obj/item/organ/internal/O in internal_organs)

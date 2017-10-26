@@ -1,5 +1,3 @@
-//This file was auto-corrected by findeclaration.exe on 25.5.2012 20:42:32
-
 //TODO: Make these simple_animals
 
 var/const/MIN_IMPREGNATION_TIME = 100 //time it takes to impregnate someone
@@ -151,7 +149,10 @@ var/const/MAX_ACTIVE_TIME = 400
 			M.Paralyse(MAX_IMPREGNATION_TIME/6) //something like 25 ticks = 20 seconds with the default settings
 	else if(iscorgi(M))
 		var/mob/living/simple_animal/pet/corgi/C = M
-		loc = C
+		if(C.facehugger)
+			var/obj/item/F = C.facehugger
+			F.forceMove(C.loc)
+		forceMove(C)
 		C.facehugger = src
 		C.regenerate_icons()
 
@@ -163,7 +164,7 @@ var/const/MAX_ACTIVE_TIME = 400
 	return 1
 
 /obj/item/clothing/mask/facehugger/proc/Impregnate(mob/living/target as mob)
-	if(!target || target.stat == DEAD) //was taken off or something
+	if(!target || target.stat == DEAD || loc != target) //was taken off or something
 		return
 
 	if(iscarbon(target))

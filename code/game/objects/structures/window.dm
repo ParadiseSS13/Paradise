@@ -179,14 +179,14 @@ var/global/wcCommon = pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e", "#8f
 	attack_generic(user, rand(10, 15))
 
 
-/obj/structure/window/attackby(obj/item/weapon/W as obj, mob/living/user as mob, params)
-	if(!istype(W)) return//I really wish I did not need this
-	if(istype(W, /obj/item/weapon/grab) && get_dist(src,user)<2)
-		var/obj/item/weapon/grab/G = W
+/obj/structure/window/attackby(obj/item/I as obj, mob/living/user as mob, params)
+	if(!istype(I)) return//I really wish I did not need this
+	if(istype(I, /obj/item/weapon/grab) && get_dist(src,user)<2)
+		var/obj/item/weapon/grab/G = I
 		if(istype(G.affecting,/mob/living))
 			var/mob/living/M = G.affecting
 			var/state = G.state
-			qdel(W)	//gotta delete it here because if window breaks, it won't get deleted
+			qdel(I)	//gotta delete it here because if window breaks, it won't get deleted
 			switch(state)
 				if(1)
 					M.visible_message("<span class='warning'>[user] slams [M] against \the [src]!</span>")
@@ -210,29 +210,29 @@ var/global/wcCommon = pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e", "#8f
 					hit(75)
 			return
 
-	if(W.flags & NOBLUDGEON) return
+	if(I.flags & NOBLUDGEON) return
 
-	if(istype(W, /obj/item/weapon/screwdriver))
+	if(istype(I, /obj/item/weapon/screwdriver))
 		if(reinf && state >= 1)
 			state = 3 - state
-			playsound(loc, W.usesound, 75, 1)
+			playsound(loc, I.usesound, 75, 1)
 			to_chat(user, (state == 1 ? "<span class='notice'>You have unfastened the window from the frame.</span>" : "<span class='notice'>You have fastened the window to the frame.</span>"))
 		else if(reinf && state == 0)
 			anchored = !anchored
 			update_nearby_icons()
-			playsound(loc, W.usesound, 75, 1)
+			playsound(loc, I.usesound, 75, 1)
 			to_chat(user, (anchored ? "<span class='notice'>You have fastened the frame to the floor.</span>" : "<span class='notice'>You have unfastened the frame from the floor.</span>"))
 		else if(!reinf)
 			anchored = !anchored
 			update_nearby_icons()
-			playsound(loc, W.usesound, 75, 1)
+			playsound(loc, I.usesound, 75, 1)
 			to_chat(user, (anchored ? "<span class='notice'>You have fastened the window to the floor.</span>" : "<span class='notice'>You have unfastened the window.</span>"))
-	else if(istype(W, /obj/item/weapon/crowbar) && reinf && state <= 1)
+	else if(istype(I, /obj/item/weapon/crowbar) && reinf && state <= 1)
 		state = 1 - state
-		playsound(loc, W.usesound, 75, 1)
+		playsound(loc, I.usesound, 75, 1)
 		to_chat(user, (state ? "<span class='notice'>You have pried the window into the frame.</span>" : "<span class='notice'>You have pried the window out of the frame.</span>"))
-	else if(istype(W, /obj/item/weapon/wrench) && !anchored && health > 7) //Disassemble deconstructed window into parts
-		playsound(src.loc, W.usesound, 50, 1)
+	else if(istype(I, /obj/item/weapon/wrench) && !anchored && health > 7) //Disassemble deconstructed window into parts
+		playsound(src.loc, I.usesound, 50, 1)
 		for(var/i=0;i<sheets;i++)
 			var/obj/item/stack/sheet/glass/NG = new glasstype(src.loc)
 			for(var/obj/item/stack/sheet/glass/G in src.loc) //Stack em up
@@ -258,9 +258,9 @@ var/global/wcCommon = pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e", "#8f
 		update_nearby_icons()
 		qdel(src)
 	else
-		if(W.damtype == BRUTE || W.damtype == BURN)
+		if(I.damtype == BRUTE || I.damtype == BURN)
 			user.changeNext_move(CLICK_CD_MELEE)
-			hit(W.force)
+			hit(I.force)
 			if(health <= 7)
 				anchored = 0
 				update_nearby_icons()

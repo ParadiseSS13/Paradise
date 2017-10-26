@@ -116,7 +116,7 @@
 	armor = list(melee = 10, bullet = 5, laser = 10, energy = 5, bomb = 10, bio = 100, rad = 0)
 	max_heat_protection_temperature = FIRE_IMMUNITY_HELM_MAX_TEMP_PROTECT
 	flash_protect = 2
-	
+
 /obj/item/clothing/suit/space/eva/plasmaman/engineer
 	name = "plasmaman engineer suit"
 	icon_state = "plasmamanEngineer_suit"
@@ -128,7 +128,7 @@
 	base_state = "plasmamanEngineer_helmet"
 	armor = list(melee = 10, bullet = 5, laser = 10, energy = 5, bomb = 10, bio = 100, rad = 75)
 	flash_protect = 2
-	
+
 /obj/item/clothing/suit/space/eva/plasmaman/engineer/ce
 	name = "plasmaman chief engineer suit"
 	icon_state = "plasmaman_CE"
@@ -269,6 +269,24 @@
 	icon_state = "plasmaman_CMO_helmet0"
 	base_state = "plasmaman_CMO_helmet"
 
+/obj/item/clothing/suit/space/eva/plasmaman/medical/coroner
+	name = "plasmaman coroner suit"
+	icon_state = "plasmaman_Coroner"
+
+/obj/item/clothing/head/helmet/space/eva/plasmaman/medical/coroner
+	name = "plasmaman coroner helmet"
+	icon_state = "plasmaman_Coroner_helmet0"
+	base_state = "plasmaman_Coroner_helmet"
+
+/obj/item/clothing/suit/space/eva/plasmaman/medical/virologist
+	name = "plasmaman virologist suit"
+	icon_state = "plasmaman_Virologist"
+
+/obj/item/clothing/head/helmet/space/eva/plasmaman/medical/virologist
+	name = "plasmaman virologist helmet"
+	icon_state = "plasmaman_Virologist_helmet0"
+	base_state = "plasmaman_Virologist_helmet"
+
 /obj/item/clothing/suit/space/eva/plasmaman/science
 	name = "plasmaman scientist suit"
 	icon_state = "plasmamanScience_suit"
@@ -277,6 +295,15 @@
 	name = "plasmaman scientist helmet"
 	icon_state = "plasmamanScience_helmet0"
 	base_state = "plasmamanScience_helmet"
+
+/obj/item/clothing/suit/space/eva/plasmaman/science/geneticist
+	name = "plasmaman geneticist suit"
+	icon_state = "plasmaman_Geneticist"
+
+/obj/item/clothing/head/helmet/space/eva/plasmaman/science/geneticist
+	name = "plasmaman geneticist helmet"
+	icon_state = "plasmaman_Geneticist_helmet0"
+	base_state = "plasmaman_Geneticist_helmet"
 
 /obj/item/clothing/suit/space/eva/plasmaman/science/rd
 	name = "plasmaman research director suit"

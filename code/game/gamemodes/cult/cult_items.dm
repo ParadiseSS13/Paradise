@@ -7,7 +7,6 @@
 	force = 30
 	throwforce = 10
 	sharp = 1
-	edge = 1
 	hitsound = 'sound/weapons/bladeslice.ogg'
 	attack_verb = list("attacked", "slashed", "stabbed", "sliced", "torn", "ripped", "diced", "cut")
 
@@ -41,15 +40,14 @@
 	w_class = WEIGHT_CLASS_SMALL
 	force = 15
 	throwforce = 25
-	var/cooldown = 0
+	embed_chance = 75
 
-/obj/item/weapon/melee/cultblade/dagger/afterattack(mob/living/target as mob, mob/living/carbon/human/user as mob)
+/obj/item/weapon/melee/cultblade/dagger/attack(atom/target, mob/living/carbon/human/user)
 	..()
-	var/mob/living/carbon/human/bleeder = target
-	if(!(cooldown > world.time) && ((bleeder.stat != DEAD) && !(bleeder.species.flags & NO_BLOOD)))
-		user.visible_message("<span class='danger'>The runes on the blade absorb the blood of [target]!</span>")
-		bleeder.drip(5000)
-		cooldown = world.time + 2400
+	if(ishuman(target))
+		var/mob/living/carbon/human/H = target
+		if((H.stat != DEAD) && !(NO_BLOOD in H.species.species_traits))
+			H.bleed(50)
 
 /obj/item/weapon/restraints/legcuffs/bola/cult
 	name = "runed bola"
@@ -194,12 +192,14 @@
 /obj/item/weapon/whetstone/cult
 	name = "eldritch whetstone"
 	desc = "A block, empowered by dark magic. Sharp weapons will be enhanced when used on the stone."
-	icon = 'icons/obj/cult.dmi'
-	icon_state = "cultstone"
+	icon_state = "cult_sharpener"
 	used = 0
 	increment = 5
 	max = 40
 	prefix = "darkened"
+
+/obj/item/weapon/whetstone/cult/update_icon()
+	icon_state = "cult_sharpener[used ? "_used" : ""]"
 
 /obj/item/weapon/reagent_containers/food/drinks/bottle/unholywater
 	name = "flask of unholy water"

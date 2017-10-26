@@ -46,6 +46,7 @@
 	w_class = WEIGHT_CLASS_BULKY // if you know what I mean ;)
 	body_part = LOWER_TORSO
 	vital = 1
+	cannot_amputate = TRUE
 	parent_organ = "chest"
 	amputation_point = "lumbar"
 	gendered_icon = 1
@@ -168,27 +169,17 @@
 	var/alt_head = "None"
 
 	//Hair colour and style
-	var/r_hair = 0
-	var/g_hair = 0
-	var/b_hair = 0
-	var/r_hair_sec = 0
-	var/g_hair_sec = 0
-	var/b_hair_sec = 0
+	var/hair_colour = "#000000"
+	var/sec_hair_colour = "#000000"
 	var/h_style = "Bald"
 
 	//Head accessory colour and style
-	var/r_headacc = 0
-	var/g_headacc = 0
-	var/b_headacc = 0
+	var/headacc_colour = "#000000"
 	var/ha_style = "None"
 
 	//Facial hair colour and style
-	var/r_facial = 0
-	var/g_facial = 0
-	var/b_facial = 0
-	var/r_facial_sec = 0
-	var/g_facial_sec = 0
-	var/b_facial_sec = 0
+	var/facial_colour = "#000000"
+	var/sec_facial_colour = "#000000"
 	var/f_style = "Shaved"
 
 /obj/item/organ/external/head/remove()
@@ -219,8 +210,8 @@
 
 	..()
 
-/obj/item/organ/external/head/take_damage(brute, burn, sharp, edge, used_weapon = null, list/forbidden_limbs = list())
-	..(brute, burn, sharp, edge, used_weapon, forbidden_limbs)
+/obj/item/organ/external/head/take_damage(brute, burn, sharp, used_weapon = null, list/forbidden_limbs = list(), ignore_resists = FALSE)
+	..(brute, burn, sharp, used_weapon, forbidden_limbs, ignore_resists)
 	if(!disfigured)
 		if(brute_dam > 40)
 			if(prob(50))

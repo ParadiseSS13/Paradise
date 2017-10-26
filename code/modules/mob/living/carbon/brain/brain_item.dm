@@ -71,9 +71,9 @@
 	var/obj/item/organ/internal/brain/B = src
 	if(!special)
 		var/mob/living/simple_animal/borer/borer = owner.has_brain_worms()
-
 		if(borer)
-			borer.detach() //Should remove borer if the brain is removed - RR
+			borer.leave_host() //Should remove borer if the brain is removed - RR
+
 		if(owner.mind && !non_primary)//don't transfer if the owner does not have a mind.
 			B.transfer_identity(user)
 
@@ -125,3 +125,11 @@
 /obj/item/organ/internal/brain/Destroy() //copypasted from MMIs.
 	QDEL_NULL(brainmob)
 	return ..()
+
+/obj/item/organ/internal/brain/cluwne
+
+/obj/item/organ/internal/brain/cluwne/insert(mob/living/target, special = 0, make_cluwne = 1)
+	..(target, special = special)
+	if(ishuman(target) && make_cluwne)
+		var/mob/living/carbon/human/H = target
+		H.makeCluwne() //No matter where you go, no matter what you do, you cannot escape

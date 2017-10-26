@@ -165,7 +165,7 @@ var/time_last_changed_position = 0
 /obj/machinery/computer/card/proc/can_close_job(datum/job/job)
 	if(job)
 		if(!job_blacklisted_full(job) && !job_blacklisted_partial(job) && job_in_department(job, FALSE))
-			if(job.total_positions > job.current_positions)
+			if(job.total_positions > job.current_positions && !(job in job_master.prioritized_jobs))
 				var/delta = (world.time / 10) - time_last_changed_position
 				if((change_position_cooldown < delta) || (opened_positions[job.title] > 0))
 					return 1
@@ -180,6 +180,8 @@ var/time_last_changed_position = 0
 				return 2
 			else
 				if(job_master.prioritized_jobs.len >= 3)
+					return 0
+				if(job.total_positions <= job.current_positions)
 					return 0
 				return 1
 	return -1
@@ -488,6 +490,7 @@ var/time_last_changed_position = 0
 				j.total_positions++
 				opened_positions[edit_job_target]++
 				log_game("[key_name(usr)] has opened a job slot for job \"[j]\".")
+				message_admins("[key_name_admin(usr)] has opened a job slot for job \"[j.title]\".")
 				nanomanager.update_uis(src)
 
 		if("make_job_unavailable")
@@ -507,7 +510,9 @@ var/time_last_changed_position = 0
 				j.total_positions--
 				opened_positions[edit_job_target]--
 				log_game("[key_name(usr)] has closed a job slot for job \"[j]\".")
+				message_admins("[key_name_admin(usr)] has closed a job slot for job \"[j.title]\".")
 				nanomanager.update_uis(src)
+
 		if("prioritize_job")
 			// TOGGLE WHETHER JOB APPEARS AS PRIORITIZED IN THE LOBBY
 			if(is_authenticated(usr) && !target_dept)

@@ -1,5 +1,5 @@
 "a" = (/turf/template_noop,/area/template_noop)
-"b" = (/obj/structure/sign/poster/legit{dir = 8; pixel_x = -32},/turf/unsimulated/floor/carpet,/area/template_noop)
+"b" = (/obj/structure/sign/poster/official/random{dir = 8; pixel_x = -32},/turf/unsimulated/floor/carpet,/area/template_noop)
 "c" = (/turf/unsimulated/floor/carpet,/area/template_noop)
 "d" = (/obj/structure/dresser,/turf/unsimulated/floor/carpet,/area/template_noop)
 "e" = (/obj/machinery/light{dir = 8},/turf/unsimulated/floor/carpet,/area/template_noop)

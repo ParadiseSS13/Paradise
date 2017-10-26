@@ -787,6 +787,7 @@
 	lefthand_file = 'icons/goonstation/mob/inhands/clothing_lefthand.dmi'
 	righthand_file = 'icons/goonstation/mob/inhands/clothing_righthand.dmi'
 	flags = NODROP
+	has_sensor = 0 // HUNKE
 
 
 /obj/item/clothing/under/victdress
@@ -822,3 +823,11 @@
 	icon_state = "victorianredvest"
 	item_state = "victorianredvest"
 	item_color = "victorianredvest"
+
+/obj/item/clothing/under/medigown
+	name = "medical gown"
+	desc = "a flimsy examination gown, the back ties never close."
+	icon_state = "medicalgown"
+	item_state = "medicalgown"
+	item_color = "medicalgown"
+	body_parts_covered = UPPER_TORSO|LOWER_TORSO

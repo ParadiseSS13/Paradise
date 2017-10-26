@@ -72,6 +72,8 @@
 	var/forceProcess = 0
 	var/processTime = 10
 	var/speak_file = "npc_chatter.json"
+	var/debugexamine = FALSE //If we show debug info in our examine
+	var/showexaminetext = TRUE	//If we show our telltale examine text
 
 	var/list/knownStrings = list()
 

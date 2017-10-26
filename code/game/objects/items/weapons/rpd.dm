@@ -39,7 +39,7 @@
 	throw_speed = 3
 	throw_range = 5
 	w_class = WEIGHT_CLASS_NORMAL
-	materials = list(MAT_METAL = 30000, MAT_GLASS = 5000)
+	materials = list(MAT_METAL = 75000, MAT_GLASS = 37500)
 	origin_tech = "engineering=4;materials=2"
 	var/datum/effect/system/spark_spread/spark_system
 	var/lastused

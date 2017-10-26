@@ -305,7 +305,7 @@ Made by Xhuis
 	blood_color = "#555555"
 	flesh_color = "#222222"
 
-	flags = NO_BLOOD | NO_BREATHE | RADIMMUNE | NOGUNS //Can't use guns due to muzzle flash
+	species_traits = list(NO_BLOOD, NO_BREATHE, RADIMMUNE, NOGUNS) //Can't use guns due to muzzle flash
 	burn_mod = 1.5 //1.5x burn damage, 2x is excessive
 	oxy_mod = 0
 	hot_env_multiplier = 1.5
@@ -329,9 +329,15 @@ Made by Xhuis
 				H << 'sound/weapons/sear.ogg'
 		else if(light_amount < LIGHT_HEAL_THRESHOLD)
 			H.clear_alert("lightexposure")
+			var/obj/item/organ/internal/eyes/E = H.get_int_organ(/obj/item/organ/internal/eyes)
+			if(istype(E))
+				E.take_damage(-1)
 			H.heal_overall_damage(5, 5)
 			H.adjustToxLoss(-5)
 			H.adjustBrainLoss(-25) //Shad O. Ling gibbers, "CAN U BE MY THRALL?!!"
+			H.AdjustEyeBlurry(-1)
+			H.CureNearsighted()
+			H.CureBlind()
 			H.adjustCloneLoss(-1)
 			H.SetWeakened(0)
 			H.SetStunned(0)
@@ -346,7 +352,7 @@ Made by Xhuis
 	blood_color = "#CCCCCC"
 	flesh_color = "#AAAAAA"
 
-	flags = NO_BLOOD | NO_BREATHE | RADIMMUNE
+	species_traits = list(NO_BLOOD, NO_BREATHE, RADIMMUNE)
 	burn_mod = 1.1
 	oxy_mod = 0
 	hot_env_multiplier = 1.1

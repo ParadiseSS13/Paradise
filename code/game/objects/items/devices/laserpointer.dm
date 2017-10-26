@@ -81,7 +81,7 @@
 		return
 	if(ishuman(user))
 		var/mob/living/carbon/human/H = user
-		if((HULK in H.mutations) || (H.species.flags & NOGUNS))
+		if((HULK in H.mutations) || (NOGUNS in H.species.species_traits))
 			user << "<span class='warning'>Your fingers can't press the button!</span>"
 			return
 

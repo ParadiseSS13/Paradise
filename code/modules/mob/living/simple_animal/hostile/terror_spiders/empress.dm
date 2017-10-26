@@ -82,7 +82,7 @@
 		/mob/living/simple_animal/hostile/poison/terror_spider/black)
 		S.spider_myqueen = spider_myqueen
 		if(prob(sbpc))
-			S.stillborn = 1
+			S.stillborn = TRUE
 		if(spider_growinstantly)
 			S.amount_grown = 250
 
@@ -94,7 +94,7 @@
 	for(var/obj/structure/spider/eggcluster/terror_eggcluster/T in ts_egg_list)
 		qdel(T)
 	for(var/obj/structure/spider/spiderling/terror_spiderling/T in ts_spiderling_list)
-		T.stillborn = 1
+		T.stillborn = TRUE
 	to_chat(src, "<span class='userdanger'>All Terror Spiders, except yourself, will die off shortly.</span>")
 
 

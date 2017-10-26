@@ -56,9 +56,9 @@
 	return !(weakened || paralysis || stat || (status_flags & FAKEDEATH))
 
 // Whether the mob is capable of actions or not
-/mob/living/incapacitated(ignore_restraints = 0, ignore_grab = 0, ignore_lying = 0)
-	if(stat || paralysis || stunned || (weakened && lying) || (!ignore_restraints && restrained()) || (!ignore_lying && lying))
-		return 1
+/mob/living/incapacitated(ignore_restraints = FALSE, ignore_grab = FALSE, ignore_lying = FALSE)
+	if(stat || paralysis || stunned || weakened || (!ignore_restraints && restrained()) || (!ignore_lying && lying))
+		return TRUE
 
 // wonderful proc names, I know - used to check whether the blur overlay
 // should show or not
@@ -97,8 +97,9 @@
 /mob/living/proc/update_stamina()
 	return
 
-/mob/living/on_varedit(modified_var)
-	switch(modified_var)
+/mob/living/vv_edit_var(var_name, var_value)
+	. = ..()
+	switch(var_name)
 		if("weakened")
 			SetWeakened(weakened)
 		if("stunned")
@@ -121,4 +122,3 @@
 			updatehealth()
 		if("resize")
 			update_transform()
-	..()

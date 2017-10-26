@@ -53,8 +53,9 @@ Thus, the two variables affect pump operation are set in New():
 		add_underlay(T, node1, turn(dir, -180))
 		add_underlay(T, node2, dir)
 
-/obj/machinery/atmospherics/binary/pump/process()
-	if(!..() || (stat & (NOPOWER|BROKEN)) || !on)
+/obj/machinery/atmospherics/binary/pump/process_atmos()
+	..()
+	if((stat & (NOPOWER|BROKEN)) || !on)
 		return 0
 
 	var/output_starting_pressure = air2.return_pressure()

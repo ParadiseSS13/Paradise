@@ -14,7 +14,7 @@
 
 /datum/surgery/organ_manipulation_boneless
 	name = "Organ Manipulation"
-	possible_locs = list("chest","head","groin", "eyes", "mouth")
+	possible_locs = list("chest","head","groin", "eyes", "mouth", "l_arm", "r_arm")
 	steps = list(/datum/surgery_step/generic/cut_open,/datum/surgery_step/generic/clamp_bleeders, /datum/surgery_step/generic/retract_skin, /datum/surgery_step/internal/manipulate_organs,/datum/surgery_step/generic/cauterize)
 	requires_organic_bodypart = 1
 
@@ -68,17 +68,17 @@
 /datum/surgery_step/internal/manipulate_organs
 	name = "manipulate organs"
 	allowed_tools = list(/obj/item/organ/internal = 100, /obj/item/weapon/reagent_containers/food/snacks/organ = 0)
-	var/implements_extract = list(/obj/item/weapon/hemostat = 100, /obj/item/weapon/kitchen/utensil/fork = 55)
+	var/implements_extract = list(/obj/item/weapon/hemostat = 100, /obj/item/weapon/kitchen/utensil/fork = 70)
 	var/implements_mend = list(/obj/item/stack/medical/bruise_pack = 20,/obj/item/stack/medical/bruise_pack/advanced = 100,/obj/item/stack/nanopaste = 100)
 	var/implements_clean = list(/obj/item/weapon/reagent_containers/dropper = 100,
-								/obj/item/weapon/reagent_containers/glass/bottle = 75,
-								/obj/item/weapon/reagent_containers/food/drinks/drinkingglass = 70,
-								/obj/item/weapon/reagent_containers/food/drinks/bottle = 65,
-								/obj/item/weapon/reagent_containers/glass/beaker = 60,
-								/obj/item/weapon/reagent_containers/spray = 50,
-								/obj/item/weapon/reagent_containers/glass/bucket = 40)
+								/obj/item/weapon/reagent_containers/glass/bottle = 90,
+								/obj/item/weapon/reagent_containers/food/drinks/drinkingglass = 85,
+								/obj/item/weapon/reagent_containers/food/drinks/bottle = 80,
+								/obj/item/weapon/reagent_containers/glass/beaker = 75,
+								/obj/item/weapon/reagent_containers/spray = 60,
+								/obj/item/weapon/reagent_containers/glass/bucket = 50)
 	//Finish is just so you can close up after you do other things.
-	var/implements_finsh = list(/obj/item/weapon/scalpel/laser/manager = 100,/obj/item/weapon/retractor = 100 ,/obj/item/weapon/crowbar = 75)
+	var/implements_finsh = list(/obj/item/weapon/scalpel/laser/manager = 100,/obj/item/weapon/retractor = 100 ,/obj/item/weapon/crowbar = 90)
 	var/current_type
 	var/obj/item/organ/internal/I = null
 	var/obj/item/organ/external/affected = null
@@ -159,11 +159,18 @@
 	else if(implement_type in implements_extract)
 		current_type = "extract"
 		var/list/organs = target.get_organs_zone(target_zone)
+		var/mob/living/simple_animal/borer/B = target.has_brain_worms()
+		if(target_zone == "head" && B)
+			user.visible_message("[user] begins to extract [B] from [target]'s [parse_zone(target_zone)].",
+					"<span class='notice'>You begin to extract [B] from [target]'s [parse_zone(target_zone)]...</span>")
+			return TRUE
 		if(!organs.len)
 			to_chat(user, "<span class='notice'>There are no removeable organs in [target]'s [parse_zone(target_zone)]!</span>")
 			return -1
 
 		for(var/obj/item/organ/internal/O in organs)
+			if(O.unremovable)
+				continue
 			O.on_find(user)
 			organs -= O
 			organs[O.name] = O
@@ -195,7 +202,7 @@
 			return
 
 		for(var/obj/item/organ/internal/I in affected.internal_organs)
-			if(I && I.damage > 0)
+			if(I && I.damage)
 				if(I.robotic < 2 && !istype (tool, /obj/item/stack/nanopaste))
 					if(!(I.sterile))
 						spread_germs_to_organ(I, user, tool)
@@ -233,7 +240,7 @@
 		for(var/obj/item/organ/internal/I in affected.internal_organs)
 			if(I)
 				I.surgeryize()
-			if(I && I.damage > 0)
+			if(I && I.damage)
 				if(I.robotic < 2 && !istype (tool, /obj/item/stack/nanopaste))
 					user.visible_message("<span class='notice'> [user] treats damage to [target]'s [I.name] with [tool_name].</span>", \
 					"<span class='notice'> You treat damage to [target]'s [I.name] with [tool_name].</span>" )
@@ -259,16 +266,20 @@
 			user.visible_message("<span class='notice'> [user] has transplanted [tool] into [target]'s [parse_zone(target_zone)].</span>",
 			"<span class='notice'> You have transplanted [tool] into [target]'s [parse_zone(target_zone)].</span>")
 
-		I.status &= ~ORGAN_CUT_AWAY
-
 	else if(current_type == "extract")
+		var/mob/living/simple_animal/borer/B = target.has_brain_worms()
+		if(target_zone == "head" && B && B.host == target)
+			user.visible_message("[user] successfully extracts [B] from [target]'s [parse_zone(target_zone)]!",
+				"<span class='notice'>You successfully extract [B] from [target]'s [parse_zone(target_zone)].</span>")
+			add_logs(user, target, "surgically removed [B] from", addition="INTENT: [uppertext(user.a_intent)]")
+			B.leave_host()
+			return FALSE
 		if(I && I.owner == target)
 			user.visible_message("<span class='notice'> [user] has separated and extracts [target]'s [I] with [tool].</span>",
 			"<span class='notice'> You have separated and extracted [target]'s [I] with [tool].</span>")
 
 			add_logs(user, target, "surgically removed [I.name] from", addition="INTENT: [uppertext(user.a_intent)]")
 			spread_germs_to_organ(I, user, tool)
-			I.status |= ORGAN_CUT_AWAY
 			var/obj/item/thing = I.remove(target)
 			if(!istype(thing))
 				thing.forceMove(get_turf(target))
@@ -341,10 +352,10 @@
 		else if(istype(tool, /obj/item/stack/medical/bruise_pack) || istype(tool, /obj/item/stack/nanopaste))
 			dam_amt = 5
 			target.adjustToxLoss(10)
-			affected.createwound(CUT, 5)
+			affected.take_damage(5)
 
 		for(var/obj/item/organ/internal/I in affected.internal_organs)
-			if(I && I.damage > 0 && !(I.tough))
+			if(I && I.damage && !(I.tough))
 				I.take_damage(dam_amt,0)
 
 		return 0
@@ -389,7 +400,7 @@
 			if(affected)
 				user.visible_message("<span class='warning'> [user]'s hand slips, damaging [target]'s [affected.name] with [tool]!</span>", \
 				"<span class='warning'> Your hand slips, damaging [target]'s [affected.name] with [tool]!</span>")
-				affected.createwound(BRUISE, 20)
+				affected.take_damage(20)
 			else
 				user.visible_message("<span class='warning'> [user]'s hand slips, damaging [target]'s [parse_zone(target_zone)] with [tool]!</span>", \
 				"<span class='warning'> Your hand slips, damaging [target]'s [parse_zone(target_zone)] with [tool]!</span>")
@@ -409,7 +420,7 @@
 			var/self_msg = "<span class='warning'> Your hand slips, tearing skin!</span>"
 			user.visible_message(msg, self_msg)
 		if(affected)
-			affected.createwound(BRUISE, 20)
+			affected.take_damage(20)
 		return 0
 
 
@@ -425,7 +436,7 @@
 	allowed_tools = list(
 	/obj/item/weapon/circular_saw = 100, \
 	/obj/item/weapon/melee/energy/sword/cyborg/saw = 100, \
-	/obj/item/weapon/hatchet = 75
+	/obj/item/weapon/hatchet = 90
 	)
 
 	time = 54
@@ -453,13 +464,13 @@
 	name = "cut carapace"
 	allowed_tools = list(
 	/obj/item/weapon/scalpel = 100,		\
-	/obj/item/weapon/kitchen/knife = 75,	\
-	/obj/item/weapon/shard = 50, 		\
-	/obj/item/weapon/scissors = 10,		\
+	/obj/item/weapon/kitchen/knife = 90,	\
+	/obj/item/weapon/shard = 60, 		\
+	/obj/item/weapon/scissors = 12,		\
 	/obj/item/weapon/twohanded/chainsaw = 1, \
-	/obj/item/weapon/claymore = 5, \
-	/obj/item/weapon/melee/energy/ = 5, \
-	/obj/item/weapon/pen/edagger = 5, \
+	/obj/item/weapon/claymore = 6, \
+	/obj/item/weapon/melee/energy/ = 6, \
+	/obj/item/weapon/pen/edagger = 6, \
 	)
 
 	time = 16
@@ -488,8 +499,8 @@
 	allowed_tools = list(
 	/obj/item/weapon/scalpel/laser/manager = 100, \
 	/obj/item/weapon/retractor = 100, 	\
-	/obj/item/weapon/crowbar = 75,	\
-	/obj/item/weapon/kitchen/utensil/fork = 50
+	/obj/item/weapon/crowbar = 90,	\
+	/obj/item/weapon/kitchen/utensil/fork = 60
 	)
 
 	time = 24

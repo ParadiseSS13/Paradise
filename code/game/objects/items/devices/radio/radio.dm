@@ -247,6 +247,13 @@ var/global/list/default_medbay_channels = list(
 	A.name = from
 	A.role = role
 	A.message = message
+	var/jammed = FALSE
+	for(var/obj/item/device/jammer/jammer in active_jammers)
+		if(get_dist(get_turf(src), get_turf(jammer)) < jammer.range)
+			jammed = TRUE
+			break
+	if(jammed)
+		message = Gibberish(message, 100)
 	Broadcast_Message(connection, A,
 						0, "*garbled automated announcement*", src,
 						message, from, "Automated Announcement", from, "synthesized voice",
@@ -332,6 +339,12 @@ var/global/list/default_medbay_channels = list(
 	var/datum/radio_frequency/connection = message_mode
 	var/turf/position = get_turf(src)
 
+	var/jammed = FALSE
+	for(var/obj/item/device/jammer/jammer in active_jammers)
+		if(get_dist(position, get_turf(jammer)) < jammer.range)
+			jammed = TRUE
+			break
+
 	//#### Tagging the signal with all appropriate identity values ####//
 
 	// ||-- The mob's name identity --||
@@ -344,6 +357,9 @@ var/global/list/default_medbay_channels = list(
 
 
 	var/jobname // the mob's "job"
+
+	if(jammed)
+		message = Gibberish(message, 100)
 
 	// --- Human: use their actual job ---
 	if(ishuman(M))
@@ -658,6 +674,13 @@ var/global/list/default_medbay_channels = list(
 /obj/item/device/radio/borg/deathsquad/New()
 	..()
 	set_frequency(DTH_FREQ)
+
+/obj/item/device/radio/borg/ert
+	keyslot = new /obj/item/device/encryptionkey/ert
+
+/obj/item/device/radio/borg/ert/New()
+	..()
+	set_frequency(ERT_FREQ)
 
 /obj/item/device/radio/borg/attackby(obj/item/weapon/W as obj, mob/user as mob, params)
 //	..()
