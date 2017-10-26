@@ -44,14 +44,14 @@
 
 	return dat
 
-/datum/adminTicketHolder/proc/showUI(var/client/C, var/tab)
+/datum/adminTicketHolder/proc/showUI(var/client/user, var/tab)
 	var/dat = null
 	dat = returnUI(tab)
-	var/datum/browser/popup = new(usr, "admintickets", "Admin Tickets", 1400, 600)
+	var/datum/browser/popup = new(user, "admintickets", "Admin Tickets", 1400, 600)
 	popup.set_content(dat)
 	popup.open()
 
-/datum/adminTicketHolder/proc/showDetailUI(var/client/C, var/ticketID)
+/datum/adminTicketHolder/proc/showDetailUI(var/client/user, var/ticketID)
 	var/datum/admin_ticket/T = globAdminTicketHolder.allTickets[ticketID]
 	var/status = "[T.state2text()]"
 
@@ -87,15 +87,14 @@
 
 	dat += "<a href='?src=[UID()];detailclose=[T.ticketNum]'>Close Ticket</a>"
 
-	var/datum/browser/popup = new(usr, "adminticketsdetail", "Admin Ticket #[T.ticketNum]", 1000, 600)
+	var/datum/browser/popup = new(user, "adminticketsdetail", "Admin Ticket #[T.ticketNum]", 1000, 600)
 	popup.set_content(dat)
 	popup.open()
 
-/datum/adminTicketHolder/proc/userDetailUI(var/client/C)
+/datum/adminTicketHolder/proc/userDetailUI(var/client/user)
 //dat
-	var/tickets = checkForTicket(C)
+	var/tickets = checkForTicket(user)
 	var/dat
-//	tickets = checkForTicket(C)
 	dat += "<h1>Your open tickets</h1>"
 	dat += "<table>"
 	for(var/datum/admin_ticket/T in tickets)
@@ -104,7 +103,7 @@
 			dat += "<tr><td>[T.content[i]]</td></tr>"
 	dat += "</table>"
 
-	var/datum/browser/popup = new(usr, "userticketsdetail", "Tickets", 1000, 600)
+	var/datum/browser/popup = new(user, "userticketsdetail", "Tickets", 1000, 600)
 	popup.set_content(dat)
 	popup.open()
 

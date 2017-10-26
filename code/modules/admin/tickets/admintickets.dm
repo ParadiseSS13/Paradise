@@ -69,25 +69,25 @@ var/global/datum/adminTicketHolder/globAdminTicketHolder = new /datum/adminTicke
 	to_chat(C, "<span class='adminticket'>You have opened admin ticket number #[(globAdminTicketHolder.getTicketCounter() - 1)]! Please be patient and we will help you soon!</span>")
 
 	//Begin the stale count for this ticket.
-	spawn()
-	T.beginStaleCount()
+	spawn(0)
+		T.beginStaleCount()
 
 //Set ticket state with key N to open
-/datum/adminTicketHolder/proc/openTicket(var/N as num)
+/datum/adminTicketHolder/proc/openTicket(var/N)
 	var/datum/admin_ticket/T = globAdminTicketHolder.allTickets[N]
 	if(T.ticketState != ADMIN_TICKET_OPEN)
 		T.ticketState = ADMIN_TICKET_OPEN
 		return TRUE
 
 //Set ticket state with key N to resolved
-/datum/adminTicketHolder/proc/resolveTicket(var/N as num)
+/datum/adminTicketHolder/proc/resolveTicket(var/N)
 	var/datum/admin_ticket/T = globAdminTicketHolder.allTickets[N]
 	if(T.ticketState != ADMIN_TICKET_RESOLVED)
 		T.ticketState = ADMIN_TICKET_RESOLVED
 		return TRUE
 
 //Set ticket state with key N to closed
-/datum/adminTicketHolder/proc/closeTicket(var/N as num)
+/datum/adminTicketHolder/proc/closeTicket(var/N)
 	var/datum/admin_ticket/T = globAdminTicketHolder.allTickets[N]
 	if(T.ticketState != ADMIN_TICKET_CLOSED)
 		T.ticketState = ADMIN_TICKET_CLOSED
@@ -111,11 +111,11 @@ var/global/datum/adminTicketHolder/globAdminTicketHolder = new /datum/adminTicke
 	return FALSE
 
 //return the client of a ticket number
-/datum/adminTicketHolder/proc/returnClient(var/N as num)
+/datum/adminTicketHolder/proc/returnClient(var/N)
 	var/datum/admin_ticket/T = globAdminTicketHolder.allTickets[N]
 	return T.clientName
 
-/datum/adminTicketHolder/proc/assignAdminToTicket(var/client/C, var/N as num)
+/datum/adminTicketHolder/proc/assignAdminToTicket(var/client/C, var/N)
 	var/datum/admin_ticket/T = globAdminTicketHolder.allTickets[N]
 	T.assignAdmin(C)
 	return TRUE
@@ -139,9 +139,11 @@ var/global/datum/adminTicketHolder/globAdminTicketHolder = new /datum/adminTicke
 
 //Ticker called when a ticket is created, checks for stale-ness.
 /datum/admin_ticket/proc/beginStaleCount()
-	if(!src)
-		return
 	while(world.time < timeUntilStale || !lastAdminResponse || !adminAssigned) // While within the stale period OR no admin responded OR no admin assigned.
+
+		if(!src)
+			return
+
 		sleep(200) // Check every 20 seconds.
 		if(ticketState == ADMIN_TICKET_OPEN && world.time > timeUntilStale)
 			message_adminTicket("<span class='adminticket'>Ticket #[ticketNum] has been open for [ADMIN_TICKET_TIMEOUT * 0.1] seconds. Changing status to stale.</span>")
@@ -170,7 +172,7 @@ var/global/datum/adminTicketHolder/globAdminTicketHolder = new /datum/adminTicke
 			return "<font color='orange'>STALE</font>"
 
 //Assign the client passed to var/adminAsssigned
-/datum/admin_ticket/proc/assignAdmin(var/client/C, var/N as num)
+/datum/admin_ticket/proc/assignAdmin(var/client/C, var/N)
 	if(!C)
 		return
 	adminAssigned = C
