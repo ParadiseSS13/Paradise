@@ -117,6 +117,11 @@
 	var/obj/item/weapon/implant/explosive/E = new(H)
 	E.implant(H)
 
+/datum/outfit/admin/syndicate/operative/freedom
+	name = "Syndicate Freedom Operative"
+	suit = /obj/item/clothing/suit/space/hardsuit/syndi/freedom
+	head = /obj/item/clothing/head/helmet/space/hardsuit/syndi/freedom
+
 /datum/outfit/admin/syndicate_strike_team
 	name = "Syndicate Strike Team"
 
