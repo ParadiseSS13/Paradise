@@ -407,6 +407,7 @@
 	action_icon_state = "jaunt"
 	charge_max = 600
 	required_blood = 30
+	centcom_cancast = 0
 	var/jaunt_duration = 50 //in deciseconds
 
 /obj/effect/proc_holder/spell/vampire/self/jaunt/cast(list/targets, mob/user = usr)
@@ -465,6 +466,7 @@
 	action_icon_state = "blink"
 	charge_max = 20
 	required_blood = 30
+	centcom_cancast = 0
 
 	// Teleport radii
 	var/inner_tele_radius = 0
