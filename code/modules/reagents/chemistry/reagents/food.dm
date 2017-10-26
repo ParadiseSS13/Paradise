@@ -275,6 +275,44 @@
 		M.adjustBrainLoss(1)
 	..()
 
+/datum/reagent/consumable/sodiumchloride/reaction_mob(mob/living/M, method=TOUCH, volume)
+	if(method == TOUCH || method == INGEST)
+		if(ishuman(M) && is_species(M, "Slime People"))
+			var/mob/living/carbon/human/H = M
+
+			if(method == TOUCH)
+				H.adjustFireLoss(volume * 0.8)
+				H.Weaken(volume * 0.1)
+				H.EyeBlurry(25)
+
+				if(volume < 15)
+					to_chat(H, "<span class='warning'>The salt burns as it sucks the moisture from your skin!</span>")
+				else if(volume > 15 && volume < 45)
+					to_chat(H, "<span class='warning'>You are in agony as the salt leeches away your bodily moisture!</span>")
+				else
+					if(H.has_limbs)
+						for(var/organ in H.bodyparts_by_name)
+							var/obj/item/organ/external/O = H.bodyparts_by_name[organ]
+							if(istype(O, /obj/item/organ/external/leg) || istype(O, /obj/item/organ/external/hand) || istype(O, /obj/item/organ/external/arm) || istype(O, /obj/item/organ/external/foot))
+								qdel(O)
+					H.update_body()
+					H.regenerate_icons()
+					to_chat(H, "<span class='warning'>The pain is excruciating as your limbs shrivel up inside your body!")
+
+				H.emote("scream")
+				to_chat(H, "<span class='notice'>Your body feels dry and you struggle to move...</span>")
+
+			else
+				H.adjustFireLoss(volume)
+
+				if(volume < 10)
+					to_chat(H, "<span class='warning'>Your insides are burning!</span>")
+				else
+					to_chat(H, "<span class='warning'>Your insides are on fire!</span>")
+					H.visible_message("[H] clutches their gut in agony!" / "You clutch your gut in agony!")
+					H.Weaken(volume * 0.1)
+					H.emote("scream")
+
 /datum/reagent/consumable/blackpepper
 	name = "Black Pepper"
 	id = "blackpepper"
