@@ -127,7 +127,7 @@
 					H.apply_damage(trap_damage, BRUTE,"chest")
 				else
 					H.apply_damage(trap_damage, BRUTE,(pick("l_leg", "r_leg")))
-				if(!H.legcuffed) //beartrap can't cuff you leg if there's already a beartrap or legcuffs.
+				if(!H.legcuffed && H.get_num_legs() >= 2) //beartrap can't cuff you leg if there's already a beartrap or legcuffs.
 					H.legcuffed = src
 					forceMove(H)
 					H.update_inv_legcuffed()
