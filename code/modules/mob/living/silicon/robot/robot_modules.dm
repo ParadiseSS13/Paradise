@@ -270,6 +270,7 @@
 /obj/item/weapon/robot_module/butler/New()
 	..()
 	modules += new /obj/item/weapon/reagent_containers/food/drinks/cans/beer(src)
+	modules += new /obj/item/weapon/reagent_containers/food/drinks/cans/cola(src)
 	modules += new /obj/item/weapon/reagent_containers/food/condiment/enzyme(src)
 	modules += new /obj/item/weapon/reagent_containers/food/drinks/bottle/orangejuice(src) // -0.3 oxy/sec
 	modules += new /obj/item/weapon/reagent_containers/food/drinks/bottle/tomatojuice(src) // -0.2 fire/sec
@@ -278,6 +279,13 @@
 	modules += new /obj/item/weapon/reagent_containers/food/drinks/coffee(src) // -1 paralysis stunned & weakened/sec
 	modules += new /obj/item/weapon/reagent_containers/food/condiment/sugar(src)
 	modules += new /obj/item/weapon/reagent_containers/food/drinks/tea(src)
+	modules += new /obj/item/weapon/reagent_containers/food/drinks/ice(src)
+	modules += new /obj/item/weapon/reagent_containers/food/condiment/sugar(src)
+	modules += new /obj/item/weapon/reagent_containers/food/drinks/bottle/cream(src)
+
+	modules += new /obj/item/weapon/reagent_containers/food/drinks/bottle/tequila(src)
+	modules += new /obj/item/weapon/reagent_containers/food/drinks/bottle/vodka(src)
+	modules += new /obj/item/weapon/reagent_containers/food/drinks/bottle/whiskey(src)
 
 	modules += new /obj/item/weapon/pen(src)
 	modules += new /obj/item/weapon/razor(src)
