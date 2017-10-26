@@ -1,0 +1,4 @@
+author: "TDSSS"
+delete-after: True
+changes: 
+  - rscadd: "Added a shortcut to talk on ERT channel, namely ':$', bringing it in line with other channels."
