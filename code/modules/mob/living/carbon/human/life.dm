@@ -117,7 +117,7 @@
 			var/list/s2 = list("FUS RO DAH",
 							   "fuckin tangerines!!!",
 							   "stat me",
-							   "I can't feels my brains!",
+							   ">my face",
 							   "roll it easy!",
 							   "waaaaaagh!!!",
 							   "red wonz go fasta",
