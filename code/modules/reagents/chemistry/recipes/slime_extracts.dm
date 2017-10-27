@@ -159,6 +159,7 @@
 		/obj/item/weapon/reagent_containers/food/snacks/meat/slab,
 		/obj/item/weapon/reagent_containers/food/snacks/grown,
 		/obj/item/weapon/reagent_containers/food/snacks/grown/mushroom,
+		/obj/item/weapon/reagent_containers/food/snacks/deepfryholder
 		)
 	blocked |= typesof(/obj/item/weapon/reagent_containers/food/snacks/customizable)
 
@@ -195,7 +196,6 @@
 	var/list/borks = subtypesof(/obj/item/weapon/reagent_containers/food/drinks)
 	var/list/blocked = list(/obj/item/weapon/reagent_containers/food/drinks/cans/adminbooze,
 							/obj/item/weapon/reagent_containers/food/drinks/cans/madminmalt,
-							/obj/item/weapon/reagent_containers/food/drinks/bottle/random_reagent,
 							/obj/item/weapon/reagent_containers/food/drinks/shaker,
 							/obj/item/weapon/reagent_containers/food/drinks/britcup,
 							/obj/item/weapon/reagent_containers/food/drinks/sillycup,
