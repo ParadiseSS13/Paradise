@@ -24,7 +24,7 @@
 	if(!holder && !check_rights(R_ADMIN))
 		return
 
-	globAdminTicketHolder.showUI()
+	globAdminTicketHolder.showUI(usr)
 
 /client/proc/resolveAllTickets()
 	set name = "Resolve All Open Tickets"
@@ -38,9 +38,14 @@
 
 	globAdminTicketHolder.resolveAllOpenTickets()
 
+
+
 /client/verb/openUserUI()
 
 	set name = "My Tickets"
 	set category = "Admin"
+
+	if(!holder && !check_rights(R_ADMIN))
+		return
 
 	globAdminTicketHolder.userDetailUI(usr.client)
