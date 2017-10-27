@@ -1,6 +1,0 @@
-author: "FalseIncarnate"
-delete-after: True
-changes: 
-  - tweak: "Silver Slime Core reactions can only summon forth drinks that actually contain a drink. Begone thirst!"
-  - tweak: "Removes some \"unsafe\" chemicals from lists of potential chemicals for inclusion in things like random pills or bottles, added one to replace them."
-  - tweak: "Removes adminordrazine and nanites from vent clog, replaces nanites with syndicate_nanites."
