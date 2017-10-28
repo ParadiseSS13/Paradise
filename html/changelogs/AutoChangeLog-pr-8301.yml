@@ -1,0 +1,4 @@
+author: "Kyep"
+delete-after: True
+changes: 
+  - rscadd: "Ghosts with sec hud enabled can now see mindshield, tracker and chem implants, as well as wanted status."
