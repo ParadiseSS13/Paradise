@@ -71,7 +71,7 @@
 	set desc = "Visit the GitHub page."
 	set hidden = 1
 	if(config.githuburl)
-		if(alert("This will open our Source Code page on GitHub. Are you sure?",,"Yes","No")=="No")
+		if(alert("This will open our source code page on GitHub. Are you sure?",,"Yes","No")=="No")
 			return
 		src << link(config.githuburl)
 	else
