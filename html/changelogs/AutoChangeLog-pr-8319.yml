@@ -1,0 +1,4 @@
+author: "Landerlow"
+delete-after: True
+changes: 
+  - rscadd: "Adds Sake to a hacked booze dispenser's menu."
