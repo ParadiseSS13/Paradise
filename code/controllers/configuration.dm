@@ -84,6 +84,7 @@
 	var/wikiurl = "http://example.org"
 	var/forumurl = "http://example.org"
 	var/rulesurl = "http://example.org"
+	var/githuburl = "http://example.org"
 	var/donationsurl = "http://example.org"
 	var/repositoryurl = "http://example.org"
 
@@ -374,6 +375,9 @@
 
 				if("rulesurl")
 					config.rulesurl = value
+
+				if("githuburl")
+					config.githuburl = value
 
 				if("donationsurl")
 					config.donationsurl = value
