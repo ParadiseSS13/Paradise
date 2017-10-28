@@ -1613,14 +1613,14 @@ window "rpane"
 		is-pane = true
 	elem "donate"
 		type = BUTTON
-		pos = 480,-2
-		size = 60x20
+		pos = 544,0
+		size = 60x16
 		background-color = #8080ff
 		text = "Donate"
 		command = "Donate"
 	elem "karma"
 		type = BUTTON
-		pos = 410,0
+		pos = 474,0
 		size = 67x16
 		background-color = #ff8040
 		text = "Karma Shop"
@@ -1645,10 +1645,16 @@ window "rpane"
 		command = "rules"
 	elem "changelog"
 		type = BUTTON
-		pos = 341,0
+		pos = 404,0
 		size = 67x16
 		text = "Changelog"
 		command = "Changelog"
+	elem "githubb"
+		type = BUTTON
+		pos = 341,0
+		size = 60x16
+		text = "GitHub"
+		command = "github"
 	elem "forumb"
 		type = BUTTON
 		pos = 215,0
