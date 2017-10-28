@@ -996,6 +996,7 @@ var/list/uplink_items = list()
 	reference = "BRHS"
 	item = /obj/item/weapon/storage/box/syndie_kit/hardsuit
 	cost = 8
+	excludefrom = list(/datum/game_mode/nuclear)
 
 /datum/uplink_item/suits/hardsuit/elite
 	name = "Elite Syndicate Hardsuit"
@@ -1003,6 +1004,7 @@ var/list/uplink_items = list()
 	item = /obj/item/weapon/storage/box/syndie_kit/elite_hardsuit
 	cost = 8
 	reference = "ESHS"
+	excludefrom = list()
 	gamemodes = list(/datum/game_mode/nuclear)
 
 /datum/uplink_item/suits/hardsuit/shielded
@@ -1011,6 +1013,7 @@ var/list/uplink_items = list()
 	item = /obj/item/weapon/storage/box/syndie_kit/shielded_hardsuit
 	cost = 30
 	reference = "SHS"
+	excludefrom = list()
 	gamemodes = list(/datum/game_mode/nuclear)
 
 
@@ -1051,6 +1054,15 @@ var/list/uplink_items = list()
 	reference = "BRMB"
 	item = /obj/item/clothing/shoes/magboots/syndie
 	cost = 3
+	excludefrom = list(/datum/game_mode/nuclear)
+
+/datum/uplink_item/device_tools/magboots/advance
+	name = "Advanced Blood-Red Magboots"
+	desc = "Reverse-engineered magboots that appear to be based on an advanced model, as they have a lighter magnetic pull. Property of Gorlex Marauders."
+	reference = "ABRMB"
+	item = /obj/item/clothing/shoes/magboots/syndie/advance
+	cost = 3
+	excludefrom = list()
 	gamemodes = list(/datum/game_mode/nuclear)
 
 /datum/uplink_item/device_tools/plastic_explosives

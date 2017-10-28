@@ -68,6 +68,7 @@ var/list/robot_verbs_default = list(
 	var/lockcharge //Used when locking down a borg to preserve cell charge
 	var/speed = 0 //Cause sec borgs gotta go fast //No they dont!
 	var/scrambledcodes = 0 // Used to determine if a borg shows up on the robotics console.  Setting to one hides them.
+	var/pdahide = 0 //Used to hide the borg from the messenger list
 	var/tracking_entities = 0 //The number of known entities currently accessing the internal camera
 	var/braintype = "Cyborg"
 	var/base_icon = ""
@@ -193,6 +194,7 @@ var/list/robot_verbs_default = list(
 
 	return 1
 
+
 /mob/living/silicon/robot/proc/get_default_name(var/prefix as text)
 	if(prefix)
 		modtype = prefix
@@ -226,10 +228,12 @@ var/list/robot_verbs_default = list(
 	if(!rbPDA)
 		rbPDA = new(src)
 	rbPDA.set_name_and_job(real_name, braintype)
-	if(scrambledcodes)
-		var/datum/data/pda/app/messenger/M = rbPDA.find_program(/datum/data/pda/app/messenger)
-		if(M)
+	var/datum/data/pda/app/messenger/M = rbPDA.find_program(/datum/data/pda/app/messenger)
+	if(M)
+		if(scrambledcodes)
 			M.hidden = 1
+		if(pdahide)
+			M.toff = 1
 
 /mob/living/silicon/robot/binarycheck()
 	if(is_component_functioning("comms"))
@@ -390,7 +394,7 @@ var/list/robot_verbs_default = list(
 	module.add_subsystems_and_actions(src)
 
 	//Custom_sprite check and entry
-	if(custom_sprite == 1)
+	if(custom_sprite && check_sprite("[ckey]-[modtype]"))
 		module_sprites["Custom"] = "[src.ckey]-[modtype]"
 
 	hands.icon_state = lowertext(module.module_type)
@@ -489,7 +493,7 @@ var/list/robot_verbs_default = list(
 		toggle_ionpulse()
 		return
 
-	cell.charge -= 50 // 500 steps on a default cell.
+	cell.charge -= 25 // 500 steps on a default cell.
 	return 1
 
 /mob/living/silicon/robot/proc/toggle_ionpulse()
@@ -1332,11 +1336,13 @@ var/list/robot_verbs_default = list(
 	icon_state = "nano_bloodhound"
 	lawupdate = 0
 	scrambledcodes = 1
+	pdahide = 1
 	modtype = "Commando"
 	faction = list("nanotrasen")
 	designation = "Nanotrasen Combat"
 	req_access = list(access_cent_specops)
 	ionpulse = 1
+	magpulse = 1
 	var/searching_for_ckey = 0
 
 /mob/living/silicon/robot/deathsquad/New(loc)
@@ -1380,11 +1386,13 @@ var/list/robot_verbs_default = list(
 	icon_state = "syndie_bloodhound"
 	lawupdate = 0
 	scrambledcodes = 1
+	pdahide = 1
 	faction = list("syndicate")
 	designation = "Syndicate Assault"
 	modtype = "Syndicate"
 	req_access = list(access_syndicate)
 	ionpulse = 1
+	magpulse = 1
 	lawchannel = "State"
 	var/playstyle_string = "<span class='userdanger'>You are a Syndicate assault cyborg!</span><br>\
 							<b>You are armed with powerful offensive tools to aid you in your mission: help the operatives secure the nuclear authentication disk. \
@@ -1446,6 +1454,24 @@ var/list/robot_verbs_default = list(
 	radio.config(module.channels)
 	notify_ai(2)
 
+/mob/living/silicon/robot/ert
+	designation = "ERT"
+	lawupdate = 0
+	scrambledcodes = 1
+	req_access = list(access_cent_specops)
+	ionpulse = 1
+
+/mob/living/silicon/robot/ert/init()
+	laws = new /datum/ai_laws/ert_override
+	radio = new /obj/item/device/radio/borg/ert(src)
+	radio.recalculateChannels()
+	aiCamera = new/obj/item/device/camera/siliconcam/robot_camera(src)
+
+/mob/living/silicon/robot/ert/New(loc)
+	..()
+	cell.maxcharge = 25000
+	cell.charge = 25000
+
 /mob/living/silicon/robot/nations
 	base_icon = "droidpeace"
 	icon_state = "droidpeace"
@@ -1483,3 +1509,10 @@ var/list/robot_verbs_default = list(
 		borked_part.wrapped = new borked_part.external_type
 		borked_part.heal_damage(brute,burn)
 		borked_part.install()
+
+/mob/living/silicon/robot/proc/check_sprite(spritename)
+	. = FALSE
+
+	var/static/all_borg_icon_states = icon_states('icons/mob/custom_synthetic/custom-synthetic.dmi')
+	if(spritename in all_borg_icon_states)
+		. = TRUE

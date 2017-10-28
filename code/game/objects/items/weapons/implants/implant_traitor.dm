@@ -76,6 +76,8 @@
 
 			log_admin("[ckey(user.key)] has mind-slaved [ckey(H.key)].")
 			activated = 1
+			if(jobban_isbanned(M, ROLE_SYNDICATE))
+				ticker.mode.replace_jobbanned_player(M, ROLE_SYNDICATE)
 			return 1
 		return 0
 

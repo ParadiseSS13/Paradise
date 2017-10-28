@@ -59,7 +59,9 @@
 	if(operating)
 		return
 
-	if(istype(C, /obj/item/weapon/weldingtool))
+	if(iswelder(C))
+		if(!density)
+			return
 		var/obj/item/weapon/weldingtool/W = C
 		if(W.remove_fuel(0, user))
 			welded = !welded
@@ -169,6 +171,8 @@
 	update_icon()
 
 /obj/machinery/door/firedoor/open(auto_close = TRUE)
+	if(welded)
+		return
 	. = ..()
 	latetoggle(auto_close)
 
