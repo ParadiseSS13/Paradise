@@ -578,7 +578,7 @@ Traitors and the like can also be revived with the previous role mostly intact.
 			print_command_report(input, "[command_name()] Update")
 		else if("No")
 			//same thing as the blob stuff - it's not public, so it's classified, dammit
-			command_announcement.Announce("A report has been downloaded and printed out at all communications consoles.", "Incoming Classified Message", 'sound/AI/commandreport.ogg', from = "[command_name()] Update")
+			command_announcer.autosay("A classified message has been printed out at all communication consoles.");
 			print_command_report(input, "Classified [command_name()] Update")
 		else
 			return
