@@ -1,0 +1,4 @@
+author: "Squirgenheimer"
+delete-after: True
+changes: 
+  - bugfix: "Fixed a typo causing the inability to create the large energy crossbow in the protolathe."
