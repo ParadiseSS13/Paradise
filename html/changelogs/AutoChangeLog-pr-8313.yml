@@ -1,0 +1,4 @@
+author: "Kyep"
+delete-after: True
+changes: 
+  - bugfix: "Vamp jaunt/shadowstep no longer works on z2."
