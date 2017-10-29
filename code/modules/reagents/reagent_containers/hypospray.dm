@@ -108,7 +108,7 @@
 	desc = "A rapid way to rejuvenate your command, in case of genetic malfunction."
 	volume = 5
 	amount_per_transfer_from_this = 5
-	list_reagents = list("mutadonee" = 5)
+	list_reagents = list("mutadone" = 5)
 
 /obj/item/weapon/reagent_containers/hypospray/autoinjector/stimulants
 	name = "Stimulants autoinjector"
