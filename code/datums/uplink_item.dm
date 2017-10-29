@@ -1045,7 +1045,7 @@ var/list/uplink_items = list()
 	desc = "When used with an upload console, this module allows you to upload priority laws to an artificial intelligence. Be careful with their wording, as artificial intelligences may look for loopholes to exploit."
 	reference = "HAI"
 	item = /obj/item/weapon/aiModule/syndicate
-	cost = 12
+	cost = 14
 
 /datum/uplink_item/device_tools/magboots
 	name = "Blood-Red Magboots"
