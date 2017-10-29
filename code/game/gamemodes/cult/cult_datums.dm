@@ -79,6 +79,7 @@
 /datum/cult_info/death
 	name = "Cult of Mortality"
 	theme = "death"
+	tome_icon = "firetome"
 
 	entity_name = "The Reaper"
 	entity_title1 = "The Silent One"
