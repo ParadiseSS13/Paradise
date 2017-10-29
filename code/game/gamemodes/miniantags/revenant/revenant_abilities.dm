@@ -263,7 +263,7 @@
 					new/obj/effect/overlay/temp/revenant(T)
 					T.ChangeTurf(/turf/simulated/wall/r_wall/rust)
 				for(var/obj/structure/window/window in T.contents)
-					window.hit(rand(30,80))
+					window.hit(rand(20,30))
 					if(window && window.is_fulltile())
 						new/obj/effect/overlay/temp/revenant/cracks(window.loc)
 				for(var/obj/structure/closet/closet in T.contents)
