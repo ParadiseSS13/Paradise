@@ -31,6 +31,7 @@
 	new /obj/item/weapon/storage/belt/rapier(src)
 	new /obj/item/weapon/gun/energy/gun(src)
 	new /obj/item/weapon/door_remote/captain(src)
+	new /obj/item/weapon/storage/box/mutadone(src)
 
 
 /obj/structure/closet/secure_closet/hop
@@ -120,6 +121,7 @@
 	new /obj/item/taperoll/police(src)
 	new /obj/item/weapon/gun/energy/gun/hos(src)
 	new /obj/item/weapon/door_remote/head_of_security(src)
+	new /obj/item/weapon/storage/box/mutadone(src)
 
 
 /obj/structure/closet/secure_closet/warden
@@ -249,6 +251,7 @@
 	new /obj/item/clothing/accessory/holster(src)
 	new /obj/item/clothing/accessory/blue(src)
 	new /obj/item/clothing/shoes/jackboots/jacksandals(src)
+	new /obj/item/weapon/storage/box/mutadone(src)
 
 
 /obj/structure/closet/secure_closet/ntrep

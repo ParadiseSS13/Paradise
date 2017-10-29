@@ -103,6 +103,13 @@
 	amount_per_transfer_from_this = 20
 	list_reagents = list("methamphetamine" = 10, "coffee" = 10)
 
+/obj/item/weapon/reagent_containers/hypospray/autoinjector/mutadone //Mutehead
+	name = "mutadone autoinjector"
+	desc = "A rapid way to rejuvenate your command, in case of genetic malfunction."
+	volume = 5
+	amount_per_transfer_from_this = 5
+	list_reagents = list("mutadonee" = 5)
+
 /obj/item/weapon/reagent_containers/hypospray/autoinjector/stimulants
 	name = "Stimulants autoinjector"
 	desc = "Rapidly stimulates and regernates the body's organ system."
