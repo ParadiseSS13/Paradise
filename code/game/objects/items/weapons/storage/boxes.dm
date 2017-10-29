@@ -566,6 +566,21 @@
 		new /obj/item/weapon/restraints/handcuffs/cable/zipties(src)
 		new /obj/item/weapon/restraints/handcuffs/cable/zipties(src)
 
+/obj/item/weapon/storage/box/mutadone
+	name = "box of mutadone injector"
+	desc = "A box full of mutadone injector."
+	icon_state = "syringe"
+
+	New()
+		..()
+		new /obj/item/weapon/reagent_containers/hypospray/autoinjector/mutadone(src)
+		new /obj/item/weapon/reagent_containers/hypospray/autoinjector/mutadone(src)
+		new /obj/item/weapon/reagent_containers/hypospray/autoinjector/mutadone(src)
+		new /obj/item/weapon/reagent_containers/hypospray/autoinjector/mutadone(src)
+		new /obj/item/weapon/reagent_containers/hypospray/autoinjector/mutadone(src)
+		new /obj/item/weapon/reagent_containers/hypospray/autoinjector/mutadone(src)
+		new /obj/item/weapon/paper/mutadoneuse(src)
+
 /obj/item/weapon/storage/box/alienhandcuffs
 	name = "box of spare handcuffs"
 	desc = "A box full of handcuffs."

@@ -560,6 +560,10 @@
 	name = "paper- 'Note'"
 	info = "The call has gone out! Our ancestral home has been rediscovered! Not a small patch of land, but a true clown nation, a true Clown Planet! We're on our way home at last!"
 
+/obj/item/weapon/paper/mutadoneuse
+	name = "Mutadone Injector usage instructions"
+	info = "For handicapped Command & Security members only"
+
 /obj/item/weapon/paper/crumpled
 	name = "paper scrap"
 	icon_state = "scrap"
