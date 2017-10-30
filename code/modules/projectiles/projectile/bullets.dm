@@ -37,7 +37,7 @@
 	stamina = 60
 	icon_state = "bullet-r"
 
-/obj/item/projectile/bullet/weakbullet3
+/obj/item/projectile/bullet/weakbullet3 // WT-550 standard round & Turret
 	damage = 20
 
 /obj/item/projectile/bullet/weakbullet4
@@ -47,7 +47,7 @@
 	icon_state = "bullet-r"
 
 /obj/item/projectile/bullet/toxinbullet
-	damage = 15
+	damage = 20
 	damage_type = TOX
 
 /obj/item/projectile/bullet/incendiary
@@ -66,12 +66,18 @@
 	damage = 17
 	armour_penetration = 10
 
+/obj/item/projectile/bullet/slug // For seperate balancing of shotgun slug from syndicate revolver
+	damage = 60
+	armour_penetration = 10
+
 /obj/item/projectile/bullet/pellet
 	name = "pellet"
 	damage = 12.5
+	armour_penetration = -10 // Net effect of -25% damage against syndie elite hardsuit
 
 /obj/item/projectile/bullet/pellet/weak
 	damage = 6
+	armour_penetration = -10 // Because it make sense from improvised round
 
 /obj/item/projectile/bullet/pellet/weak/New()
 	range = rand(1, 8)
