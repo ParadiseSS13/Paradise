@@ -4279,7 +4279,7 @@
 "bEo" = (/turf/simulated/wall/r_wall,/area/medical/chemistry)
 "bEp" = (/turf/simulated/wall,/area/medical/reception)
 "bEq" = (/obj/structure/sign/nosmoking_1,/turf/simulated/wall,/area/medical/reception)
-"bEr" = (/obj/machinery/atmospherics/pipe/simple/hidden/supply,/obj/structure/table/wood/fancy/black,/obj/item/weapon/storage/toolbox/emergency,/obj/item/device/multitool,/obj/item/device/radio,/turf/simulated/floor/carpet/black,/area/crew_quarters/captain)
+"bEr" = (/obj/machinery/atmospherics/pipe/simple/hidden/supply,/obj/structure/table/wood/fancy/black,/obj/item/device/radio,/turf/simulated/floor/carpet/black,/area/crew_quarters/captain)
 "bEs" = (/obj/machinery/computer/card,/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,/turf/simulated/floor/carpet/black,/area/crew_quarters/captain)
 "bEt" = (/turf/simulated/wall,/area/medical/exam_room)
 "bEu" = (/turf/simulated/wall,/area/medical/morgue)
