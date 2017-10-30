@@ -1,0 +1,7 @@
+author: "NewSta"
+delete-after: True
+changes: 
+  - rscadd: "There is now a \"GitHub\" button."
+  - tweak: "Modified the height of the \"Donate\" button to make it equal to that of other buttons."
+  - tweak: "The distance between the info and wiki buttons is now 30 px. All other buttons now have a 5px distance between them."
+  - bugfix: "Fixed a typo in the wiki window."
