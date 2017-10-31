@@ -113,7 +113,24 @@
 			E.take_damage(8, 1)
 		H.emote("scream")
 
-/obj/item/weapon/paper/AltClick(mob/living/carbon/user, obj/item/I)
+/obj/item/weapon/paper/AltClick(mob/user, obj/item/I)
+	var/mob/living/carbon/human/H = user
+	I = H.is_in_hands(/obj/item/weapon/paper)
+	if(I)
+		ProcFoldPlane(H, I)
+	else
+		..()
+
+/obj/item/weapon/paper/verb/VerbFoldPlane()
+	set category = "Object"
+	set name = "Fold Paper Plane"
+	set desc = "Fold a paper plane."
+	set src in usr
+	var/mob/living/carbon/human/H = usr
+	var/obj/item/weapon/paper/P = H.is_in_hands(/obj/item/weapon/paper)
+	ProcFoldPlane(usr, P)
+
+/obj/item/weapon/paper/proc/ProcFoldPlane(mob/living/carbon/user, obj/item/I)
 	if(istype(user))
 		if((!in_range(src, user)) || user.stat || user.restrained())
 			return
