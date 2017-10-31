@@ -16,8 +16,7 @@
 	var/expand = 1
 	var/metal = 0
 
-
-/obj/structure/foam/New(loc, var/ismetal=0)
+/obj/structure/foam/New(loc, ismetal=0)
 	..(loc)
 	icon_state = "[ismetal ? "m":""]foam"
 	if(!ismetal && reagents)
@@ -63,9 +62,7 @@
 	if(--amount < 0)
 		return
 
-
 	for(var/direction in cardinal)
-
 
 		var/turf/T = get_step(src,direction)
 		if(!T)
@@ -96,12 +93,11 @@
 		spawn(5)
 			qdel(src)
 
-
-/obj/structure/foam/Crossed(var/atom/movable/AM)
+/obj/structure/foam/Crossed(atom/movable/AM)
 	if(metal)
 		return
 
-	if(istype(AM, /mob/living/carbon))
+	if(iscarbon(AM))
 		var/mob/living/carbon/M =	AM
 		if(M.slip("foam", 5, 2))
 			if(reagents)
@@ -113,7 +109,6 @@
 					var/fraction = 5 / reagents.total_volume
 					reagents.reaction(M, TOUCH, fraction)
 
-
 /datum/effect/system/foam_spread
 	var/amount = 5				// the size of the foam spread.
 	var/list/carried_reagents	// the IDs of reagents present when the foam was mixed
@@ -121,7 +116,7 @@
 	var/temperature = T0C
 	var/list/banned_reagents = list("smoke_powder", "fluorosurfactant", "stimulants")
 
-/datum/effect/system/foam_spread/set_up(amt=5, loca, var/datum/reagents/carry = null, var/metalfoam = 0)
+/datum/effect/system/foam_spread/set_up(amt=5, loca, datum/reagents/carry = null, metalfoam = 0)
 	amount = min(round(amt/5, 1), 7)
 	if(istype(loca, /turf/))
 		location = loca
@@ -168,7 +163,6 @@
 // wall formed by metal foams
 // dense and opaque, but easy to break
 
-
 /obj/structure/foamedmetal
 	icon = 'icons/effects/effects.dmi'
 	icon_state = "metalfoam"
@@ -199,7 +193,6 @@
 	else
 		icon_state = "ironfoam"
 
-
 /obj/structure/foamedmetal/ex_act(severity)
 	qdel(src)
 
@@ -210,7 +203,7 @@
 	if(metal==MFOAM_ALUMINUM || prob(50))
 		qdel(src)
 
-/obj/structure/foamedmetal/attack_hand(var/mob/user)
+/obj/structure/foamedmetal/attack_hand(mob/user)
 	user.changeNext_move(CLICK_CD_MELEE)
 	user.do_attack_animation(src)
 	if((HULK in user.mutations) || (prob(75 - metal*25)))
@@ -219,7 +212,7 @@
 	else
 		to_chat(user, "<span class='notice'>You hit the metal foam but bounce off it.</span>")
 
-/obj/structure/foamedmetal/attackby(var/obj/item/I, var/mob/user, params)
+/obj/structure/foamedmetal/attackby(obj/item/I, mob/user, params)
 	user.changeNext_move(CLICK_CD_MELEE)
 	user.do_attack_animation(src)
 	if(istype(I, /obj/item/weapon/grab))

@@ -5,7 +5,6 @@ it needs to create more trails.A beaker could have a steam_trail_follow system s
 would spawn and follow the beaker, even if it is carried or thrown.
 */
 
-
 /obj/effect/effect
 	name = "effect"
 	icon = 'icons/effects/effects.dmi'
@@ -25,7 +24,7 @@ would spawn and follow the beaker, even if it is carried or thrown.
 /obj/effect/proc/delete()
 	qdel(src)
 
-/datum/effect/proc/fadeOut(var/atom/A, var/frames = 16)
+/datum/effect/proc/fadeOut(atom/A, frames = 16)
 	if(A.alpha == 0) //Handle already transparent case
 		return
 	if(frames == 0)
@@ -43,20 +42,20 @@ would spawn and follow the beaker, even if it is carried or thrown.
 	var/atom/holder
 	var/setup = 0
 
-	Destroy()
-		holder = null
-		location = null
-		return ..()
+/datum/effect/system/Destroy()
+	holder = null
+	location = null
+	return ..()
 
-	proc/set_up(n = 3, c = 0, turf/loc)
-		if(n > 10)
-			n = 10
-		number = n
-		cardinals = c
-		location = loc
-		setup = 1
+/datum/effect/system/proc/set_up(n = 3, c = 0, turf/loc)
+	if(n > 10)
+		n = 10
+	number = n
+	cardinals = c
+	location = loc
+	setup = 1
 
-	proc/attach(atom/atom)
-		holder = atom
+/datum/effect/system/proc/attach(atom/atom)
+	holder = atom
 
-	proc/start()
+/datum/effect/system/proc/start()
