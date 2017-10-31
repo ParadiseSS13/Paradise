@@ -185,6 +185,9 @@ CHECK_RANDOMIZER
 ## Rules address
 # RULESURL http://example.org
 
+## GitHub address
+# GITHUBURL http://example.org
+
 ## Donations address
 # DONATIONSURL http://example.org
 
