@@ -1,0 +1,4 @@
+author: "Kyep"
+delete-after: True
+changes: 
+  - bugfix: "Freedom Operative suits no longer revert to a normal red syndi suit icon when you use their 'toggle hardsuit mode' option."
