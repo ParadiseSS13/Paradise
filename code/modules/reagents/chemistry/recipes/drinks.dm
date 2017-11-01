@@ -224,6 +224,16 @@
 	result_amount = 5
 	mix_sound = 'sound/goonstation/misc/drinkfizz.ogg'
 
+/datum/chemical_reaction/flaming_homer
+	name = "Flaming Moe"
+	id = "flamingmoe"
+	result = "flamingmoe"
+	required_reagents = list("vodka" = 1, "gin" = 1, "cognac" = 1, "tequila" = 1, "salglu_solution" = 1) //Close enough
+	min_temp = 374 //Fire makes it good!
+	result_amount = 5
+	mix_sound = 'sound/goonstation/misc/drinkfizz.ogg'
+	mix_message = "The concoction bursts into flame!"
+
 /datum/chemical_reaction/brave_bull
 	name = "Brave Bull"
 	id = "bravebull"

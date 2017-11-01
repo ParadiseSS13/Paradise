@@ -279,9 +279,9 @@
 			addtofield(text2num(id), t) // He wants to edit a field, let him.
 		else
 			info += t // Oh, he wants to edit to the end of the file, let him.
-			updateinfolinks()
 
 		populatefields()
+		updateinfolinks()
 
 		i.on_write(src,usr)
 

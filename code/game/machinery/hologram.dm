@@ -297,7 +297,6 @@ var/list/holopads = list()
 
 			if(eye_area != holo_area)
 				clear_holo(user)
-
 	return 1
 
 /obj/machinery/hologram/holopad/proc/activate_holo(mob/living/user, var/force = 0)

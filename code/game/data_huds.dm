@@ -197,6 +197,9 @@
 		var/datum/data/record/R = find_record("name", perpname, data_core.security)
 		if(R)
 			switch(R.fields["criminal"])
+				if("*Execute*")
+					holder.icon_state = "hudexecute"
+					return
 				if("*Arrest*")
 					holder.icon_state = "hudwanted"
 					return

@@ -63,11 +63,10 @@ var/global/list/map_transition_config = MAP_TRANSITION_CONFIG
 		master_controller.setup()
 		sleep_offline = 1
 
-	#ifdef MAP_NAME
-	map_name = "[MAP_NAME]"
-	#else
-	map_name = "Unknown"
-	#endif
+	if(using_map && using_map.name)
+		map_name = "[using_map.name]"
+	else
+		map_name = "Unknown"
 
 
 

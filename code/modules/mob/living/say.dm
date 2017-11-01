@@ -30,6 +30,7 @@ var/list/department_radio_keys = list(
 	  ":U" = "Supply",		"#U" = "Supply",		".U" = "Supply",
 	  ":Z" = "Service",		"#Z" = "Service",		".Z" = "Service",
 	  ":P" = "AI Private",	"#P" = "AI Private",	".P" = "AI Private",
+	  ":$" = "Response Team", "#$" = "Response Team", ".$" = "Response Team",
 	  ":-" = "Special Ops",	"#-" = "Special Ops",	".-" = "Special Ops",
 	  ":_" = "SyndTeam",	"#_" = "SyndTeam",		"._" = "SyndTeam",
 	  ":X" = "cords",		"#X" = "cords",			".X" = "cords"

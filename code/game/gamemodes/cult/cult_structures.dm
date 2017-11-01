@@ -54,6 +54,10 @@
 	to_chat(user, "<span class='notice'>\The [src] is [anchored ? "":"not "]secured to the floor.</span>")
 
 /obj/structure/cult/functional/attackby(obj/I, mob/user, params)
+	if(HULK in user.mutations)
+		to_chat(user, "<span class='danger'>You cannot seem to manipulate this structure with your bulky hands!</span>")
+		return
+
 	if(istype(I, /obj/item/weapon/tome) && iscultist(user))
 		anchored = !anchored
 		to_chat(user, "<span class='notice'>You [anchored ? "":"un"]secure \the [src] [anchored ? "to":"from"] the floor.</span>")
@@ -64,6 +68,23 @@
 			icon_state = initial(icon_state)
 	else
 		return ..()
+
+/obj/structure/cult/functional/proc/updatehealth()
+	if(health <= 0)
+		destroy_structure()
+
+/obj/structure/cult/functional/proc/take_damage(damage, damage_type = BRUTE)
+	if(damage_type == BRUTE || damage_type == BURN)
+		health -= damage
+		updatehealth()
+
+/obj/structure/cult/functional/attackby(obj/item/I, mob/living/user)
+	..()
+	take_damage(I.force, I.damtype)
+	playsound(loc, I.hitsound, 80, 1)
+
+/obj/structure/cult/functional/bullet_act(var/obj/item/projectile/P)
+	take_damage(P.damage, P.damage_type)
 
 /obj/structure/cult/functional/attack_hand(mob/living/user)
 	if(!iscultist(user))
@@ -142,6 +163,8 @@
 			C.apply_damage(30, BURN, "head") //30 fire damage because it's FUCKING LAVA
 			head.disfigure("burn") //Your face is unrecognizable because it's FUCKING LAVA
 		return 1
+	else
+		..()
 
 var/list/blacklisted_pylon_turfs = typecacheof(list(
 	/turf/simulated/floor/engine/cult,
@@ -161,7 +184,7 @@ var/list/blacklisted_pylon_turfs = typecacheof(list(
 	death_message = "<span class='warning'>The pylon's crystal vibrates and glows fiercely before violently shattering!</span>"
 	death_sound = 'sound/effects/pylon_shatter.ogg'
 
-	var/heal_delay = 25
+	var/heal_delay = 30
 	var/last_heal = 0
 	var/corrupt_delay = 50
 	var/last_corrupt = 0

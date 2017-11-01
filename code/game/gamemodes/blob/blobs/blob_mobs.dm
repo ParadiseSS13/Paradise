@@ -41,6 +41,8 @@
 	var/list/human_overlays = list()
 	var/is_zombie = 0
 	gold_core_spawnable = CHEM_MOB_SPAWN_HOSTILE
+	pressure_resistance = 100    //100 kPa difference required to push
+	throw_pressure_limit = 120  //120 kPa difference required to throw
 
 /mob/living/simple_animal/hostile/blob/blobspore/fire_act(datum/gas_mixture/air, exposed_temperature, exposed_volume)
 	..()
@@ -88,6 +90,8 @@
 	human_overlays = H.overlays
 	update_icons()
 	H.loc = src
+	pressure_resistance = 20  //5 kPa difference required to push lowered
+	throw_pressure_limit = 30  //15 kPa difference required to throw lowered
 	loc.visible_message("<span class='warning'>The corpse of [H.name] suddenly rises!</span>")
 
 /mob/living/simple_animal/hostile/blob/blobspore/death(gibbed)
@@ -163,6 +167,8 @@
 	mob_size = MOB_SIZE_LARGE
 	environment_smash = 3
 	gold_core_spawnable = CHEM_MOB_SPAWN_HOSTILE
+	pressure_resistance = 100    //100 kPa difference required to push
+	throw_pressure_limit = 120  //120 kPa difference required to throw
 
 
 /mob/living/simple_animal/hostile/blob/blobbernaut/blob_act()

@@ -3,7 +3,7 @@
   "license": "AGPLv3",
   "private": true,
   "dependencies": {
-    "font-awesome": "~4.5.0",
+    "font-awesome": "~4.7.0",
     "jsurl": "*"
   },
   "overrides": {

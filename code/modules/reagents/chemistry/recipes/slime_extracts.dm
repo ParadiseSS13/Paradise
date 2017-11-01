@@ -159,6 +159,7 @@
 		/obj/item/weapon/reagent_containers/food/snacks/meat/slab,
 		/obj/item/weapon/reagent_containers/food/snacks/grown,
 		/obj/item/weapon/reagent_containers/food/snacks/grown/mushroom,
+		/obj/item/weapon/reagent_containers/food/snacks/deepfryholder
 		)
 	blocked |= typesof(/obj/item/weapon/reagent_containers/food/snacks/customizable)
 
@@ -193,6 +194,21 @@
 
 	feedback_add_details("slime_cores_used","[type]")
 	var/list/borks = subtypesof(/obj/item/weapon/reagent_containers/food/drinks)
+	var/list/blocked = list(/obj/item/weapon/reagent_containers/food/drinks/cans/adminbooze,
+							/obj/item/weapon/reagent_containers/food/drinks/cans/madminmalt,
+							/obj/item/weapon/reagent_containers/food/drinks/shaker,
+							/obj/item/weapon/reagent_containers/food/drinks/britcup,
+							/obj/item/weapon/reagent_containers/food/drinks/sillycup,
+							/obj/item/weapon/reagent_containers/food/drinks/cans,
+							/obj/item/weapon/reagent_containers/food/drinks/drinkingglass/shotglass,
+							/obj/item/weapon/reagent_containers/food/drinks/drinkingglass,
+							/obj/item/weapon/reagent_containers/food/drinks/bottle,
+							/obj/item/weapon/reagent_containers/food/drinks/mushroom_bowl
+							)
+	blocked += typesof(/obj/item/weapon/reagent_containers/food/drinks/flask)
+	blocked += typesof(/obj/item/weapon/reagent_containers/food/drinks/trophy)
+	blocked += typesof(/obj/item/weapon/reagent_containers/food/drinks/cans/bottler)
+	borks -= blocked
 	// BORK BORK BORK
 
 	playsound(get_turf(holder.my_atom), 'sound/effects/phasein.ogg', 100, 1)

@@ -68,7 +68,7 @@
 	if(new_hair)
 		M.change_hair_color(new_hair)
 
-	var/datum/sprite_accessory/hair_style = hair_styles_list[head_organ.h_style]
+	var/datum/sprite_accessory/hair_style = hair_styles_public_list[head_organ.h_style]
 	if(hair_style.secondary_theme && !hair_style.no_sec_colour)
 		new_hair = input("Please select secondary hair color.", "Character Generation", head_organ.sec_hair_colour) as null|color
 		if(new_hair)

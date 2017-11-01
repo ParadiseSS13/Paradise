@@ -147,6 +147,6 @@
 		T.assume_air(to_release)
 		air_update_turf(1)
 
-/obj/machinery/atmospherics/binary/process()
+/obj/machinery/atmospherics/binary/process_atmos()
 	..()
 	return parent1 && parent2

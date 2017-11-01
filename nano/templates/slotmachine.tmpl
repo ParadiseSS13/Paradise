@@ -12,10 +12,10 @@ Used In File(s): /code/game/machinery/slotmachine.dm
 	</div>
 	<div class="item">
 		<div class="statusLabel">
-			Ten credits to play!
+			Hundred credits to play!
 		</div>
 		<div class="statusValue">
-			{{:helper.link('SPIN!', 'refresh', {'ops' : 1}, data.money >= 10 && !data.working ? null : 'disabled')}}
+			{{:helper.link('SPIN!', 'refresh', {'ops' : 1}, data.money >= 100 && !data.working ? null : 'disabled')}}
 		</div>
 	</div>
 	{{if data.result}}
@@ -29,6 +29,6 @@ Used In File(s): /code/game/machinery/slotmachine.dm
 {{else}}
 	<div class="notice">
 		Could not scan your card or could not find account!<br>
-		Please wear or hold your ID and try again.
+		Please wear or hold your ID and try again.	
 	</div>
 {{/if}}

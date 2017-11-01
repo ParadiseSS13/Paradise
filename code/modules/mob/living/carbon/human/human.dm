@@ -62,6 +62,7 @@
 
 /mob/living/carbon/human/Destroy()
 	QDEL_LIST(bodyparts)
+	splinted_limbs.Cut()
 	return ..()
 
 /mob/living/carbon/human/dummy
@@ -796,7 +797,7 @@
 	if(href_list["criminal"])
 		if(hasHUD(usr,"security"))
 
-			var/modified = 0
+			var/found_record = 0
 			var/perpname = "wot"
 			if(wear_id)
 				var/obj/item/weapon/card/id/I = wear_id.GetID()
@@ -814,16 +815,33 @@
 							if(R.fields["id"] == E.fields["id"])
 
 								var/setcriminal = input(usr, "Specify a new criminal status for this person.", "Security HUD", R.fields["criminal"]) in list("None", "*Arrest*", "Incarcerated", "Parolled", "Released", "Cancel")
+								var/t1 = copytext(trim(sanitize(input("Enter Reason:", "Security HUD", null, null) as text)), 1, MAX_MESSAGE_LEN)
+								if(!t1)
+									t1 = "(none)"
 
-								if(hasHUD(usr, "security"))
-									if(setcriminal != "Cancel")
+								if(hasHUD(usr, "security") && setcriminal != "Cancel")
+									found_record = 1
+									var/their_name = R.fields["name"]
+									var/their_rank = R.fields["rank"]
+									if(R.fields["criminal"] == "*Execute*")
+										to_chat(usr, "<span class='warning'>Unable to modify the sec status of a person with an active Execution order. Use a security computer instead.</span>")
+									else
+										if(ishuman(usr))
+											var/mob/living/carbon/human/U = usr
+											R.fields["comments"] += "Set to [setcriminal] by [U.get_authentification_name()] ([U.get_assignment()]) on [current_date_string] [worldtime2text()] with comment: [t1]<BR>"
+										if(isrobot(usr))
+											var/mob/living/silicon/robot/U = usr
+											R.fields["comments"] += "Set to [setcriminal] by [U.name] ([U.modtype] [U.braintype]) on [current_date_string] [worldtime2text()] with comment: [t1]<BR>"
+										if(isAI(usr))
+											var/mob/living/silicon/ai/U = usr
+											R.fields["comments"] += "Set to [setcriminal] by [U.name] (artificial intelligence) on [current_date_string] [worldtime2text()] with comment: [t1]<BR>"
+
 										R.fields["criminal"] = setcriminal
-										modified = 1
-
+										log_admin("[key_name_admin(usr)] set secstatus of [their_rank] [their_name] to [setcriminal], comment: [t1]")
 										spawn()
 											sec_hud_set_security_status()
 
-			if(!modified)
+			if(!found_record)
 				to_chat(usr, "<span class='warning'>Unable to locate a data core entry for this person.</span>")
 
 	if(href_list["secrecord"])
@@ -1590,8 +1608,8 @@
 
 		else if(robohead.is_monitor) //Means that the character's head is a monitor (has a screen). Time to customize.
 			var/list/hair = list()
-			for(var/i in hair_styles_list)
-				var/datum/sprite_accessory/hair/tmp_hair = hair_styles_list[i]
+			for(var/i in hair_styles_public_list)
+				var/datum/sprite_accessory/hair/tmp_hair = hair_styles_public_list[i]
 				if((head_organ.species.name in tmp_hair.species_allowed) && (robohead.company in tmp_hair.models_allowed)) //Populate the list of available monitor styles only with styles that the monitor-head is allowed to use.
 					hair += i
 
@@ -1761,6 +1779,8 @@
 		var/datum/data/record/R = find_record("name", perpname, data_core.security)
 		if(R && R.fields["criminal"])
 			switch(R.fields["criminal"])
+				if("*Execute*")
+					threatcount += 7
 				if("*Arrest*")
 					threatcount += 5
 				if("Incarcerated")
@@ -2033,7 +2053,21 @@
 
 	..()
 
-mob/living/carbon/human/get_taste_sensitivity()
+
+/mob/living/carbon/human/vv_get_dropdown()
+	. = ..()
+	. += "---"
+	.["Set Species"] = "?_src_=vars;setspecies=[UID()]"
+	.["Make AI"] = "?_src_=vars;makeai=[UID()]"
+	.["Make Mask of Nar'sie"] = "?_src_=vars;makemask=[UID()]"
+	.["Make cyborg"] = "?_src_=vars;makerobot=[UID()]"
+	.["Make monkey"] = "?_src_=vars;makemonkey=[UID()]"
+	.["Make alien"] = "?_src_=vars;makealien=[UID()]"
+	.["Make slime"] = "?_src_=vars;makeslime=[UID()]"
+	.["Make superhero"] = "?_src_=vars;makesuper=[UID()]"
+	. += "---"
+
+/mob/living/carbon/human/get_taste_sensitivity()
 	if(species)
 		return species.taste_sensitivity
 	else

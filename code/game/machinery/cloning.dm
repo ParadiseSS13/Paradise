@@ -203,6 +203,9 @@
 	if(clonemind.active)	//somebody is using that mind
 		if(ckey(clonemind.key) != R.ckey)
 			return 0
+		if(clonemind.suicided) // and stay out!
+			malfunction(go_easy = 0)
+			return -1 // Flush the record
 	else
 		// get_ghost() will fail if they're unable to reenter their body
 		var/mob/dead/observer/G = clonemind.get_ghost()
