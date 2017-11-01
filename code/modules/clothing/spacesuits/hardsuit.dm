@@ -353,9 +353,6 @@
 	icon_state = "griffinhat"
 	item_state = "griffinhat"
 
-/obj/item/clothing/head/helmet/space/hardsuit/syndi/freedom/update_icon()
-	return
-
 /obj/item/clothing/suit/space/hardsuit/syndi
 	name = "blood-red hardsuit"
 	desc = "A dual-mode advanced hardsuit designed for work in special operations. It is in travel mode. Property of Gorlex Marauders."
@@ -445,8 +442,6 @@
 	icon_state = "freedom"
 	item_state = "freedom"
 
-/obj/item/clothing/suit/space/hardsuit/syndi/freedom/update_icon()
-	return
 
 //Wizard hardsuit
 /obj/item/clothing/head/helmet/space/hardsuit/wizard

@@ -1,3 +1,5 @@
+//cult datums by FalseIncarnate
+
 /datum/cult_info
 	var/name = "Cult of Nar'Sie"
 	var/theme = "blood"
@@ -79,13 +81,11 @@
 /datum/cult_info/death
 	name = "Cult of Mortality"
 	theme = "death"
-	tome_icon = "firetome"
 
 	entity_name = "The Reaper"
 	entity_title1 = "The Silent One"
 	entity_title2 = "The One Who Beckons"
 	entity_title3 = "The Ferryman of Oblivion"
-	entity_icon_state = "legion"
 
 	cult_wall_icon_state = "deathcult"
 	cult_floor_icon_state = "carpet-broken"
@@ -93,13 +93,13 @@
 	artificer_name = "Boneshaper"
 
 	behemoth_name = "Draugr"
-	behemoth_icon_state = "Draugr"
+	behemoth_icon_state = "horror"
 
 	wraith_name = "Wraith"
-	wraith_icon_state = "Wraith"
+	wraith_icon_state = "stand"
 
 	juggernaut_name = "Wight"
-	juggernaut_icon_state = "Draugr"
+	juggernaut_icon_state = "horror"
 
 	harvester_name = "Psychopomp"
 
