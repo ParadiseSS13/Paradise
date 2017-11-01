@@ -22,6 +22,9 @@ var/runetype = "rune"
 		runetype = "rune"
 	else if(ticker.mode.cultdat.theme == "fire")
 		runetype = "fire-rune"
+	else if(ticker.mode.cultdat.theme == "death")
+		runetype = "death-rune"
+
 
 	if(lookup in rune_cache)
 		return rune_cache[lookup]
