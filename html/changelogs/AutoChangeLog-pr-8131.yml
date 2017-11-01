@@ -1,0 +1,4 @@
+author: "MarsM0nd"
+delete-after: True
+changes: 
+  - bugfix: "Stops holograms from attempting to appear when they just disappeared because the AI became unable to keep it up."
