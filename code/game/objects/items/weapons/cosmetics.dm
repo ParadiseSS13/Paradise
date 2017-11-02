@@ -144,7 +144,7 @@
 				"<span class='warning'>You start to shave your head with \the [src].</span>")
 				if(do_after(user, 50 * toolspeed, target = H))
 					user.visible_message("<span class='notice'>[user] shaves \his head with \the [src].</span>", \
-					"<span class='notice'>You finish shaving with\the [src].</span>")
+					"<span class='notice'>You finish shaving with \the [src].</span>")
 					C.h_style = "Skinhead"
 					H.update_hair()
 					playsound(src.loc, usesound, 40, 1)
