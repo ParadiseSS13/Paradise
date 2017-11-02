@@ -758,6 +758,18 @@
 	name = "Overeye Long"
 	icon_state = "hair_longovereye"
 
+/datum/sprite_accessory/hair/Nitori
+	name = "Nitori"
+	icon_state = "hair_nitori"
+
+/datum/sprite_accessory/hair/scully
+	name = "Scully"
+	icon_state = "hair_scully"
+
+/datum/sprite_accessory/hair/father
+	name = "Father"
+	icon_state = "hair_father"
+
 ///////////////////////////////////
 //////END POLARIS HAIRSTYLES///////
 //////////////////////////////////
