@@ -470,7 +470,7 @@
 	icon_state = "hair_thinning"
 
 /datum/sprite_accessory/hair/bowlcut2
-	name = "Bowl2"
+	name = "Bowl 2"
 	icon_state = "hair_bowlcut2"
 
 /datum/sprite_accessory/hair/ronin
@@ -758,17 +758,13 @@
 	name = "Overeye Long"
 	icon_state = "hair_longovereye"
 
-/datum/sprite_accessory/hair/Nitori
-	name = "Nitori"
-	icon_state = "hair_nitori"
-
-/datum/sprite_accessory/hair/scully
-	name = "Scully"
-	icon_state = "hair_scully"
-
 /datum/sprite_accessory/hair/father
 	name = "Father"
 	icon_state = "hair_father"
+
+/datum/sprite_accessory/hair/bun4 // Due to a vulp hairstyle called bun
+	name = "Bun 4"
+	icon_state = "hair_bun4"
 
 ///////////////////////////////////
 //////END POLARIS HAIRSTYLES///////
