@@ -21,6 +21,7 @@ LINEN BINS
 
 	var/list/dream_messages = list("white")
 	var/list/nightmare_messages = list("black")
+	var/comfort = 0.5
 
 
 
