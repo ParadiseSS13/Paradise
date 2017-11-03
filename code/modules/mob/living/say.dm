@@ -289,41 +289,18 @@ proc/get_radio_key_from_channel(var/channel)
 	return 1
 
 /mob/living/proc/say_signlang(var/message, var/verb="gestures", var/datum/language/language)
-	if(restrained())
-		to_chat(src, "<span class='danger'>You are restrained and cannot sign!</span>")
-		return
+	if(language.check_can_speak(src))
+		to_chat(src, "<span class='notice'>You attempt to sign a message.</span>")
+		
+		if(do_after(src, 30, target = src))
+			for(var/mob/M in get_mobs_in_view(7, src))
+				if(M.see_invisible < invisibility)
+					continue
+				M.hear_signlang(message, verb, language, src)
 
-	if(stat || paralysis || stunned || weakened)
-		to_chat(src, "<span class='danger'>You are not currently able to sign!</span>")
-		return
-
-	if(istype(src.loc,/obj/mecha))
-		to_chat(src, "<span class='warning'>You are unable to sign effectively in a mech!</span>")
-		return
-
-	if(!ishuman(src))
-		to_chat(src, "<span class='warning'>You do not have the ability to sign this.</span>")
-		return
-
-	var/mob/living/carbon/human/C = src
-
-	var/obj/item/organ/external/rhand = C.bodyparts_by_name["r_hand"]
-	var/obj/item/organ/external/lhand = C.bodyparts_by_name["l_hand"]
-	if((!rhand || !rhand.is_usable() || rhand.is_broken()) || (!lhand || !lhand.is_usable() || lhand.is_broken()))
-		to_chat(C, "<span class='warning'>You try to use your hand to sign, but you can't!</span>")
-		return
-
-	if(C.l_hand || C.r_hand)
-		to_chat(C, "<span class='warning'>Both your hands must be empty to be able to sign!</span>")
-		return 0
-
-	for(var/mob/M in get_mobs_in_view(3, C))
-		if(M.see_invisible < invisibility)
-			continue
-		M.hear_signlang(message, verb, language, C)
-
-	log_say("[name]/[key] : [message]")
-	return 1
+			log_say("[name]/[key] : [message]")
+			return 1
+	return 0
 
 /obj/effect/speech_bubble
 	var/mob/parent

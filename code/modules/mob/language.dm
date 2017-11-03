@@ -415,6 +415,26 @@
 	key = "~"
 	flags = SIGNLANG | NO_STUTTER
 
+/datum/language/sign/check_can_speak(mob/living/speaker)
+
+	if(ishuman(speaker))
+		var/mob/living/carbon/human/S = speaker
+		var/obj/item/organ/external/rhand = S.get_organ("r_hand")
+		var/obj/item/organ/external/lhand = S.get_organ("l_hand")
+		if((!rhand || !rhand.is_usable()) && (!lhand || !lhand.is_usable()))
+			to_chat(speaker, "<span class='warning'>You try to use your hand to sign, but you can't!</span>")
+			return FALSE
+
+	if(speaker.l_hand || speaker.r_hand)
+		to_chat(speaker, "<span class='warning'>Both your hands must be empty to be able to sign!</span>")
+		return FALSE
+
+	if(!speaker.can_use_hands() || speaker.incapacitated(ignore_lying = 1))
+		to_chat(speaker,"<span class='warning'>You can't sign while unable to move your hands!</span>")
+		return FALSE
+
+	return TRUE
+
 /datum/language/clown
 	name = "Clownish"
 	desc = "The language of clown planet. Mother tongue of clowns throughout the Galaxy."
