@@ -63,6 +63,6 @@
 /datum/effect/system/explosion/smoke/start()
 	..()
 	spawn(5)
-		var/datum/effect/system/harmless_smoke_spread/S = new/datum/effect/system/harmless_smoke_spread()
+		var/datum/effect/system/smoke_spread/S = new
 		S.set_up(5,0,location,null)
 		S.start()

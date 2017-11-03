@@ -211,7 +211,7 @@ datum/chemical_reaction/flash_powder
 		if(holder.has_reagent(f_reagent))
 			holder.remove_reagent(f_reagent, holder.get_reagent_amount(f_reagent))
 	var/location = get_turf(holder.my_atom)
-	var/datum/effect/system/chem_smoke_spread/S = new /datum/effect/system/chem_smoke_spread
+	var/datum/effect/system/smoke_spread/chem/S = new
 	S.attach(location)
 	playsound(location, 'sound/effects/smoke.ogg', 50, 1, -3)
 	spawn(0)

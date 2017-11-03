@@ -15,7 +15,7 @@
 	mouse_opacity = 0
 	var/time_to_live = 100
 
-/datum/effect/effect/smoke/proc/fade_out(frames = 16)
+/obj/effect/effect/smoke/proc/fade_out(frames = 16)
 	if(alpha == 0) //Handle already transparent case
 		return
 	if(frames == 0)
@@ -68,7 +68,7 @@
 		spawn(0)
 			if(holder)
 				location = get_turf(holder)
-			var/obj/effect/effect/harmless_smoke/smoke = new /obj/effect/effect/harmless_smoke(location)
+			var/obj/effect/effect/smoke/S = new smoke_type(location)
 			total_smoke++
 			var/direction = src.direction
 			if(!direction)
@@ -78,13 +78,13 @@
 					direction = pick(alldirs)
 			for(i=0, i<pick(0,1,1,1,2,2,2,3), i++)
 				sleep(10)
-				step(smoke,direction)
-			spawn(smoke.time_to_live*0.75+rand(10,30))
-				if(smoke)
+				step(S,direction)
+			spawn(S.time_to_live*0.75+rand(10,30))
+				if(S)
 					spawn(0)
-						smoke.fade_out()
+						S.fade_out()
 					spawn(10)
-						smoke.delete()
+						S.delete()
 				total_smoke--
 
 /////////////////////////////////////////////
@@ -92,7 +92,7 @@
 /////////////////////////////////////////////
 
 /obj/effect/effect/smoke/bad
-	time_to_live = 200+rand(10,30)
+	time_to_live = 200
 
 /obj/effect/effect/smoke/bad/Move()
 	..()
@@ -107,7 +107,7 @@
 		B.damage = (B.damage/2)
 	return 1
 
-/obj/effect/effect/smoke/bad/smoke_mob(mob/living/carbon/C)
+/obj/effect/effect/smoke/bad/smoke_mob(mob/living/carbon/M)
 	if(..())
 		M.drop_item()
 		M.adjustOxyLoss(1)
@@ -162,7 +162,7 @@
 
 /datum/effect/system/smoke_spread/freezing/start()
 	if(blast)
-		for(var/turf/T in trange(2, location))
+		for(var/turf/T in RANGE_TURFS(2, location))
 			Chilled(T)
 	..()
 
@@ -172,13 +172,14 @@
 
 /obj/effect/effect/smoke/sleeping
 	color = "#9C3636"
+	time_to_live = 200
 
 /obj/effect/effect/smoke/sleeping/Move()
 	..()
 	for(var/mob/living/carbon/M in get_turf(src))
 		smoke_mob(M)
 
-/obj/effect/effect/smoke/sleeping/smoke_mob()
+/obj/effect/effect/smoke/sleeping/smoke_mob(mob/living/carbon/M)
 	if(..())
 		M.drop_item()
 		M.AdjustSleeping(5)
@@ -199,12 +200,10 @@
 /obj/effect/effect/smoke/chem
 	icon = 'icons/effects/chemsmoke.dmi'
 	opacity = 0
-	time_to_live = 200+rand(10,30)
+	time_to_live = 200
 
 /datum/effect/system/smoke_spread/chem
 	smoke_type = /obj/effect/effect/smoke/chem
-	var/total_smoke = 0 // To stop it being spammed and lagging!
-	var/direction
 	var/obj/chemholder
 
 /datum/effect/system/smoke_spread/chem/New()

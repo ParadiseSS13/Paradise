@@ -1056,7 +1056,7 @@
 				cell.corrupt()
 				src.malfhack = 1
 				update_icon()
-				var/datum/effect/system/harmless_smoke_spread/smoke = new /datum/effect/system/harmless_smoke_spread()
+				var/datum/effect/system/smoke_spread/smoke = new
 				smoke.set_up(3, 0, src.loc)
 				smoke.attach(src)
 				smoke.start()
