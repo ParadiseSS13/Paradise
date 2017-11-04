@@ -12,6 +12,7 @@
 	var/mob_name = ""
 	var/mob_gender = null
 	var/death = TRUE //Kill the mob
+	var/roundstart = TRUE //fires on initialize
 	var/instant = FALSE	//fires on New
 	var/flavour_text = "The mapper forgot to set this!"
 	var/faction = null
@@ -47,7 +48,7 @@
 
 /obj/effect/mob_spawn/New()
 	. = ..()
-	if(instant || (ticker && ticker.current_state > GAME_STATE_PLAYING))
+	if(instant || (roundstart && (ticker && ticker.current_state > GAME_STATE_SETTING_UP)))
 		create()
 	else
 		poi_list |= src
@@ -185,6 +186,7 @@
 
 //Instant version - use when spawning corpses during runtime
 /obj/effect/mob_spawn/human/corpse
+	roundstart = FALSE
 	instant = TRUE
 
 /obj/effect/mob_spawn/human/corpse/damaged
@@ -194,7 +196,7 @@
 	icon = 'icons/obj/Cryogenic2.dmi'
 	icon_state = "sleeper"
 	death = FALSE
-	instant = FALSE //you could use these for alive fake humans on roundstart but this is more common scenario
+	roundstart = FALSE //you could use these for alive fake humans on roundstart but this is more common scenario
 
 
 //Non-human spawners
@@ -215,7 +217,7 @@
 	mob_name = "space mouse"
 	mob_type = 	/mob/living/simple_animal/mouse
 	death = FALSE
-	instant = FALSE
+	roundstart = FALSE
 	icon = 'icons/obj/Cryogenic2.dmi'
 	icon_state = "sleeper"
 	flavour_text = "Squeak!"
@@ -225,13 +227,12 @@
 	mob_name = "space cow"
 	mob_type = 	/mob/living/simple_animal/cow
 	death = FALSE
-	instant = FALSE
+	roundstart = FALSE
 	mob_gender = FEMALE
 	icon = 'icons/obj/Cryogenic2.dmi'
 	icon_state = "sleeper"
 	flavour_text = "Moo!"
 
-// I'll work on making a list of corpses people request for maps, or that I think will be commonly used. Syndicate operatives for example.
 
 ///////////Civilians//////////////////////
 
@@ -254,9 +255,6 @@
 	id_job = "Chef"
 	outfit = /datum/outfit/job/chef
 
-/obj/effect/mob_spawn/human/cook/corpse
-	instant = TRUE
-
 /obj/effect/mob_spawn/human/doctor
 	name = "Doctor"
 	id_job = "Doctor"
@@ -264,16 +262,13 @@
 
 /obj/effect/mob_spawn/human/doctor/alive
 	death = FALSE
-	instant = FALSE
+	roundstart = FALSE
 	random = TRUE
 	name = "sleeper"
 	icon = 'icons/obj/Cryogenic2.dmi'
 	icon_state = "sleeper"
 	flavour_text = "You are a space doctor!"
 	assignedrole = "Space Doctor"
-
-/obj/effect/mob_spawn/human/doctor/corpse
-	instant = TRUE
 
 /obj/effect/mob_spawn/human/doctor/alive/equip(mob/living/carbon/human/H)
 	..()
@@ -287,9 +282,6 @@
 	name = "Engineer"
 	id_job = "Engineer"
 	outfit = /datum/outfit/job/engineer
-
-/obj/effect/mob_spawn/human/engineer/corpse
-	instant = TRUE
 
 /obj/effect/mob_spawn/human/engineer/hardsuit
 	outfit = /datum/outfit/job/engineer/suit
@@ -311,6 +303,7 @@
 
 /obj/effect/mob_spawn/human/clown
 	name = "Clown"
+	mob_name = "Clown"
 	id_job = "Clown"
 	outfit = /datum/outfit/job/clown
 
@@ -348,9 +341,9 @@
 
 /obj/effect/mob_spawn/human/mime
 	name = "Mime"
+	mob_name = "Mime"
 	id_job = "Mime"
 	outfit = /datum/outfit/job/mime
-
 
 /obj/effect/mob_spawn/human/mime/New()
 	mob_name = pick(mime_names)
@@ -361,16 +354,10 @@
 	id_job = "Scientist"
 	outfit = /datum/outfit/job/scientist
 
-/obj/effect/mob_spawn/human/scientist/corpse
-	instant = TRUE
-
 /obj/effect/mob_spawn/human/miner
 	name = "Shaft Miner"
 	id_job = "Shaft Miner"
 	outfit = /datum/outfit/job/mining
-
-/obj/effect/mob_spawn/human/miner/corpse
-	instant = TRUE
 
 /obj/effect/mob_spawn/human/bartender
 	name = "Space Bartender"
@@ -380,7 +367,7 @@
 
 /obj/effect/mob_spawn/human/bartender/alive
 	death = FALSE
-	instant = FALSE
+	roundstart = FALSE
 	random = TRUE
 	name = "bartender sleeper"
 	icon = 'icons/obj/Cryogenic2.dmi'
@@ -403,7 +390,7 @@
 
 /obj/effect/mob_spawn/human/beach/alive
 	death = FALSE
-	instant = FALSE
+	roundstart = FALSE
 	random = TRUE
 	mob_name = "Beach Bum"
 	name = "beach bum sleeper"
@@ -427,7 +414,7 @@
 
 /obj/effect/mob_spawn/human/skeleton/alive
 	death = FALSE
-	instant = FALSE
+	roundstart = FALSE
 	icon = 'icons/effects/blood.dmi'
 	icon_state = "remains"
 	flavour_text = "By unknown powers, your skeletal remains have been reanimated! Walk this mortal plain and terrorize all living adventurers who dare cross your path."
