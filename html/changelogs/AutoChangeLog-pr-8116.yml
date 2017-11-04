@@ -1,9 +1,0 @@
-author: "FalseIncarnate"
-delete-after: True
-changes: 
-  - rscadd: "MANDATORY FUN! Arcades added to both stations!"
-  - rscadd: "Bottler units have been spotted on board both stations!"
-  - rscadd: "Arcade carpet tiles added to the prize counter for 150 tickets (credit to Goonstation for the turf icon)."
-  - tweak: "Cyberiad bathrooms should have 100% fewer floating showers (behind curtains)."
-  - bugfix: "Showers have been fitted with mist-reducing showerheads. They should no longer generate infinite mist if rapidly toggled."
-  - bugfix: "Cyberiad chemistry has had the extra APC removed. Now they only have one as standard."
