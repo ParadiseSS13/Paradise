@@ -19,8 +19,7 @@
 	var/turf/T = loc
 	if(istype(T, /turf))
 		T.hotspot_expose(1000, 100)
-	spawn (100)
-		qdel(src)
+	QDEL_IN(src, 100)
 
 /obj/effect/effect/sparks/Destroy()
 	var/turf/T = src.loc
@@ -94,8 +93,7 @@
 	var/turf/T = src.loc
 	if(istype(T, /turf))
 		T.hotspot_expose(3000,100)
-	spawn (100)
-		qdel(src)
+	QDEL_IN(src, 100)
 	return
 
 /obj/effect/sparkles/Destroy()

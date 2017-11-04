@@ -21,20 +21,6 @@ would spawn and follow the beaker, even if it is carried or thrown.
 		cameranet.updateVisibility(src)
 	return ..()
 
-/obj/effect/proc/delete()
-	qdel(src)
-
-/datum/effect/proc/fadeOut(atom/A, frames = 16)
-	if(A.alpha == 0) //Handle already transparent case
-		return
-	if(frames == 0)
-		frames = 1 //We will just assume that by 0 frames, the coder meant "during one frame".
-	var/step = A.alpha / frames
-	for(var/i = 0, i < frames, i++)
-		A.alpha -= step
-		sleep(world.tick_lag)
-	return
-
 /datum/effect/system
 	var/number = 3
 	var/cardinals = 0

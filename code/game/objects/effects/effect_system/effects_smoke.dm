@@ -23,12 +23,13 @@
 	var/step = alpha / frames
 	for(var/i = 0, i < frames, i++)
 		alpha -= step
-		sleep(world.tick_lag)
+		if(alpha < 160)
+			set_opacity(0)
+		stoplag()
 
 /obj/effect/effect/smoke/New()
 	..()
-	spawn(time_to_live)
-		delete()
+	QDEL_IN(src, time_to_live)
 	return
 
 /obj/effect/effect/smoke/Crossed(mob/living/M)
@@ -61,8 +62,7 @@
 		direction = direct
 
 /datum/effect/system/smoke_spread/start()
-	var/i = 0
-	for(i=0, i<number, i++)
+	for(var/i=0, i<number, i++)
 		if(total_smoke > 20)
 			return
 		spawn(0)
@@ -81,10 +81,8 @@
 				step(S,direction)
 			spawn(S.time_to_live*0.75+rand(10,30))
 				if(S)
-					spawn(0)
-						S.fade_out()
-					spawn(10)
-						S.delete()
+					addtimer(S, "fade_out", 0)
+					QDEL_IN(S, 10)
 				total_smoke--
 
 /////////////////////////////////////////////
@@ -147,10 +145,15 @@
 					G.nitrogen += (G.toxins)
 					G.toxins = 0
 		for(var/obj/machinery/atmospherics/unary/vent_pump/V in T)
-			if(!isnull(V.welded) && !V.welded) //must be an unwelded vent pump or vent scrubber.
+			if(!isnull(V.welded) && !V.welded) //must be an unwelded vent pump.
 				V.welded = 1
 				V.update_icon()
 				V.visible_message("<span class='danger'>[V] was frozen shut!</span>")
+		for(var/obj/machinery/atmospherics/unary/vent_scrubber/U in T)
+			if(!isnull(U.welded) && !U.welded) //must be an unwelded vent scrubber.
+				U.welded = 1
+				U.update_icon()
+				U.visible_message("<span class='danger'>[U] was frozen shut!</span>")
 		for(var/mob/living/L in T)
 			L.ExtinguishMob()
 		for(var/obj/item/Item in T)
@@ -257,8 +260,6 @@
 			log_game("A chemical smoke reaction has taken place in ([where])[contained]. No associated key. CODERS: carry.my_atom may be null.")
 
 /datum/effect/system/smoke_spread/chem/start(effect_range = 2)
-	var/i = 0
-
 	var/color = mix_color_from_reagents(chemholder.reagents.reagent_list)
 	var/obj/effect/effect/smoke/chem/smokeholder = new smoke_type(location)
 	for(var/atom/A in view(effect_range, smokeholder))
@@ -268,7 +269,7 @@
 			if(C.can_breathe_gas())
 				chemholder.reagents.copy_to(C, chemholder.reagents.total_volume)
 	qdel(smokeholder)
-	for(i=0, i<src.number, i++)
+	for(var/i=0, i<number, i++)
 		if(total_smoke > 20)
 			return
 		spawn(0)
@@ -292,10 +293,8 @@
 			for(i=0, i<pick(0,1,1,1,2,2,2,3), i++)
 				sleep(10)
 				step(smoke,direction)
-			spawn(smoke.time_to_live+rand(10,30))
+			spawn(smoke.time_to_live*0.75+rand(10,30))
 				if(smoke)
-					spawn(0)
-						smoke.fade_out()
-					spawn(10)
-						smoke.delete()
+					addtimer(smoke, "fade_out", 0)
+					QDEL_IN(smoke, 10)
 				total_smoke--

@@ -11,18 +11,16 @@
 	//var/turf/T = src.loc
 	//if(istype(T, /turf))
 	//	T.firelevel = 0 //TODO: FIX
-	spawn(70)
-		delete()
-		return
+	QDEL_IN(src, 70)
 	return
 
 /obj/effect/effect/water/Move(turf/newloc)
 	//var/turf/T = src.loc
 	//if(istype(T, /turf))
 	//	T.firelevel = 0 //TODO: FIX
-	if(--src.life < 1)
+	if(--life < 1)
 		//SN src = null
-		delete()
+		qdel()
 	if(newloc.density)
 		return 0
 	.=..()
@@ -81,7 +79,8 @@ steam.start() -- spawns the effect
 				sleep(5)
 				step(steam,direction)
 			spawn(20)
-				if(steam) steam.delete()
+				if(steam)
+					qdel(steam)
 
 /////////////////////////////////////////////
 //////// Attach a steam trail to an object (eg. a reacting beaker) that will follow it
@@ -115,7 +114,7 @@ steam.start() -- spawns the effect
 				I.dir = src.holder.dir
 				spawn(10)
 					if(I)
-						I.delete()
+						qdel(I)
 					src.number--
 				spawn(2)
 					if(src.on)

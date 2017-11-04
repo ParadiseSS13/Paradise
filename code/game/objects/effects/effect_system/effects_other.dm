@@ -37,7 +37,7 @@
 				I.icon_state = ""
 				spawn(20)
 					if(I)
-						I.delete()
+						qdel(I)
 			src.oldposition = T
 		spawn(2)
 			if(src.on)
@@ -100,9 +100,9 @@
 					II.icon_state = ""
 					spawn(20)
 						if(I)
-							I.delete()
+							qdel(I)
 						if(II)
-							II.delete()
+							qdel(II)
 			spawn(2)
 				if(src.on)
 					src.processing = 1

@@ -367,8 +367,7 @@
 	pulse2.name = "emp sparks"
 	pulse2.anchored = 1
 	pulse2.dir = pick(cardinal)
-	spawn(10)
-		pulse2.delete()
+	QDEL_IN(pulse2, 10)
 
 	if(paicard)
 		paicard.emp_act(severity)
