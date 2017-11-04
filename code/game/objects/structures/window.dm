@@ -238,14 +238,14 @@ var/global/wcCommon = pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e", "#8f
 					if(!do_after(user, 20 * W.toolspeed, target = src))
 						return 1
 				anchored = !anchored
-				to_chat(user, (anchored ? "<span class='notice'>You have fastened the frame to the floor.</span>" : "<span class='notice'>You have unfastened the frame from the floor.</span>"))
+				to_chat(user, "<span class='notice'>You have [anchored? "fastened the frame to" : "unfastened the frame from"] the floor.</span>")
 			if(state >= 1)
 				if(takes_time)
 					to_chat(user, "<span class='notice'>You begin to [(state == 1) ? "fasten the window to" : "unfasten the window from"] the frame.</span>")
 					if(!do_after(user, 20 * W.toolspeed, target = src))
 						return 1
 				state = 3 - state
-				to_chat(user, (state == 1 ? "<span class='notice'>You have unfastened the window from the frame.</span>" : "<span class='notice'>You have fastened the window to the frame.</span>"))
+				to_chat(user, "<span class='notice'>You have [(state == 1) ? "unfastened the window from" : "fastened the window to"] the frame.</span>")
 		else
 			if(takes_time)
 				to_chat(user, "<span class='notice'>You begin to [anchored ? "unfasten the frame from" : "fasten the frame to"] the floor.</span>")
@@ -253,7 +253,7 @@ var/global/wcCommon = pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e", "#8f
 					return 1
 			anchored = !anchored
 			update_nearby_icons()
-			to_chat(user, (anchored ? "<span class='notice'>You have fastened the window to the floor.</span>" : "<span class='notice'>You have unfastened the window.</span>"))
+			to_chat(user, "<span class='notice'>You have [anchored ? "fastened the window to" : "unfastened the window from"] the floor.</span>")
 		return 1
 	//crowbar
 	if(iscrowbar(W))
@@ -265,7 +265,7 @@ var/global/wcCommon = pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e", "#8f
 			if(!do_after(user, 20 * W.toolspeed, target = src))
 				return 1
 		state = 1 - state
-		to_chat(user, (state ? "<span class='notice'>You have pried the window into the frame.</span>" : "<span class='notice'>You have pried the window out of the frame.</span>"))
+		to_chat(user, "<span class='notice'>You have pried the window [state ? "into" : "out of"] the frame.</span>")
 		return 1
 	//wrench
 	if(iswrench(W))
@@ -276,10 +276,10 @@ var/global/wcCommon = pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e", "#8f
 			to_chat(user, "<span class='notice'>You begin to disassemble [src]...</span>")
 			if(!do_after(user, 20 * W.toolspeed, target = src))
 				return 1
-		for(var/i=0;i<sheets;i++)
+		for(var/i=0; i<sheets; i++)
 			var/obj/item/stack/sheet/NS = new glasstype(get_turf(src))	//glass types don't share a base tye of /glass, so this didn't work for plasma glass
 			for(var/obj/item/stack/sheet/S in loc) //Stack em up
-				if(S==NS)
+				if(S == NS)
 					continue
 				if(S.amount >= S.max_amount)
 					continue
@@ -288,7 +288,7 @@ var/global/wcCommon = pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e", "#8f
 			if(reinf)
 				var/obj/item/stack/rods/NR = new (get_turf(src))
 				for(var/obj/item/stack/rods/R in loc)
-					if(R==NR)
+					if(R == NR)
 						continue
 					if(R.amount >= R.max_amount)
 						continue
