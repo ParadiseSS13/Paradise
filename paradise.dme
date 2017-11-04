@@ -688,6 +688,7 @@
 #include "code\game\objects\effects\aliens.dm"
 #include "code\game\objects\effects\anomalies.dm"
 #include "code\game\objects\effects\bump_teleporter.dm"
+#include "code\game\objects\effects\effects.dm"
 #include "code\game\objects\effects\explosion_particles.dm"
 #include "code\game\objects\effects\forcefields.dm"
 #include "code\game\objects\effects\gibs.dm"
