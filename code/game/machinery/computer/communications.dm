@@ -309,6 +309,9 @@
 			trade_dock_timelimit = 0
 			trade_dockrequest_timelimit = 0
 			event_announcement.Announce("Docking request for trading ship denied.", "Docking request")
+		if("ToggleATC")
+			atc.squelched = !atc.squelched
+			to_chat(usr, "<span class='notice'>ATC traffic is now: [atc.squelched ? "Disabled" : "Enabled"].</span>")
 
 	nanomanager.update_uis(src)
 	return 1
@@ -407,6 +410,8 @@
 		data["dock_request"] = 1
 	else
 		data["dock_request"] = 0
+
+	data["atcSquelched"] = atc.squelched
 
 	return data
 

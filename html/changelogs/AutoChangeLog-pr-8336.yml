@@ -1,0 +1,5 @@
+author: "FreeStylaLT"
+delete-after: True
+changes: 
+  - tweak: "Medbay has been remapped"
+  - rscadd: "New Maint areas have been added south of Medbay."
