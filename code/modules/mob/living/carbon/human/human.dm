@@ -4,14 +4,7 @@
 	voice_name = "unknown"
 	icon = 'icons/mob/human.dmi'
 	icon_state = "body_m_s"
-<<<<<<< HEAD
-=======
 	deathgasp_on_death = TRUE
-
-	//why are these here and not in human_defines.dm
-	//var/list/hud_list[10]
-	var/datum/species/species //Contains icon generation and language information, set during New().
->>>>>>> Begins porting the devil antagonist and accompanying gamemodes from /TG/
 	var/obj/item/rig/wearing_rig // This is very not good, but it's much much better than calling get_rig() every update_canmove() call.
 
 /mob/living/carbon/human/New(loc)
@@ -1937,8 +1930,6 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 /mob/living/carbon/human/proc/special_post_clone_handling()
 	if(mind && mind.assigned_role == "Cluwne") //HUNKE your suffering never stops
 		makeCluwne()
-<<<<<<< HEAD
-=======
 
 /mob/living/carbon/human/proc/influenceSin()
 	var/datum/objective/sintouched/O
@@ -1973,7 +1964,7 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 		obj_count++
 
 /mob/living/carbon/human/is_literate()
-	return brainloss<100
+	return getBrainLoss() < 100
 
 
 /mob/living/carbon/human/fakefire(var/fire_icon = "Generic_mob_burning")
@@ -1984,4 +1975,3 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 /mob/living/carbon/human/fakefireextinguish()
 	overlays_standing[FIRE_LAYER] = null
 	update_icons()
->>>>>>> Begins porting the devil antagonist and accompanying gamemodes from /TG/

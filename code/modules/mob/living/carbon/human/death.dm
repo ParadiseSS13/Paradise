@@ -50,7 +50,6 @@
 /mob/living/carbon/human/dust()
 	if(!death(TRUE) && stat != DEAD)
 		return FALSE
-	var/atom/movable/overlay/animation = null
 	notransform = 1
 	canmove = 0
 	icon = null

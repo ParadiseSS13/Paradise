@@ -1,15 +1,8 @@
 /mob/living/silicon/ai/death(gibbed)
-<<<<<<< HEAD
 	// Only execute the below if we successfully died
 	. = ..(gibbed)
 	if(!.)
 		return FALSE
-=======
-	. = ..()
-	if(!.)
-		return
-	stat = DEAD
->>>>>>> Begins porting the devil antagonist and accompanying gamemodes from /TG/
 	if(custom_sprite == 1)//check for custom AI sprite, defaulting to blue screen if no.
 		icon_state = "[ckey]-ai_dead"
 	else if("[icon_state]_dead" in icon_states(icon,1))
@@ -44,13 +37,5 @@
 	for(var/obj/machinery/ai_status_display/O in world) //change status
 		O.mode = 2
 
-<<<<<<< HEAD
 	if(istype(loc, /obj/item/aicard))
 		loc.icon_state = "aicard-404"
-=======
-	timeofdeath = world.time
-	if(mind)
-		mind.store_memory("Time of death: [station_time_timestamp("hh:mm:ss", timeofdeath)]", 0)
-
-	return ..(gibbed)
->>>>>>> Begins porting the devil antagonist and accompanying gamemodes from /TG/

@@ -17,17 +17,7 @@
 	//TODO: fix husking
 	if(((maxHealth - total_burn) < config.health_threshold_dead) && stat == DEAD)
 		ChangeToHusk()
-<<<<<<< HEAD
 	update_stat("updatehealth([reason])")
-=======
-	if(species.can_revive_by_healing && !(mind && mind.is_revivable()))
-		var/obj/item/organ/internal/brain/B = get_int_organ(/obj/item/organ/internal/brain)
-		if(B)
-			if((health >= (config.health_threshold_dead + config.health_threshold_crit) * 0.5) && stat == DEAD && getBrainLoss()<120)
-				update_revive()
-	if(stat == CONSCIOUS && (src in dead_mob_list)) //Defib fix
-		update_revive()
->>>>>>> Begins porting the devil antagonist and accompanying gamemodes from /TG/
 	med_hud_set_health()
 	med_hud_set_status()
 	handle_hud_icons_health()

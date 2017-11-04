@@ -1,4 +1,6 @@
 /mob/living/carbon/alien/gib()
+	if(!death(TRUE) && stat != DEAD)
+		return FALSE
 	death(1)
 	var/atom/movable/overlay/animation = null
 	notransform = 1
@@ -17,23 +19,22 @@
 	xgibs(loc)
 	GLOB.dead_mob_list -= src
 
-	spawn(15)
-		if(animation)	qdel(animation)
-		if(src)			qdel(src)
+	QDEL_IN(animation, 15)
+	QDEL_IN(src, 15)
+	return TRUE
 
 /mob/living/carbon/alien/dust()
-	death(1)
+	if(!death(TRUE) && stat != DEAD)
+		return FALSE
 	notransform = 1
 	canmove = 0
 	icon = null
 	invisibility = 101
 	dust_animation()
 	new /obj/effect/decal/remains/xeno(loc)
-	dead_mob_list -= src
-
-	spawn(15)
-		if(src)
-			qdel(src)
+	GLOB.dead_mob_list -= src
+	QDEL_IN(src, 15)
+	return TRUE
 
 /mob/living/carbon/alien/dust_animation()
 	var/atom/movable/overlay/animation = null

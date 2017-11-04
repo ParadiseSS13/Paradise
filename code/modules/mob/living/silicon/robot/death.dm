@@ -33,7 +33,7 @@
 	invisibility = 101
 	if(mmi)
 		qdel(mmi)	//Delete the MMI first so that it won't go popping out.
-	dead_mob_list -= src
+	GLOB.dead_mob_list -= src
 	QDEL_IN(src, 15)
 	return TRUE
 
@@ -45,7 +45,7 @@
 	animation.master = src
 	flick("dust-r", animation)
 	new /obj/effect/decal/remains/robot(loc)
-
+	QDEL_IN(animation, 15)
 
 /mob/living/silicon/robot/death(gibbed)
 	if(can_die())

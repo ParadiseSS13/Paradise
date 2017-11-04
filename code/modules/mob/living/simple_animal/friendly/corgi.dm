@@ -616,17 +616,8 @@
 		do_sparks(3, 1, src)
 
 /mob/living/simple_animal/pet/corgi/Ian/borgi/death(gibbed)
-<<<<<<< HEAD
 	// Only execute the below if we successfully died
 	. = ..(gibbed)
 	if(!.)
 		return FALSE
 	do_sparks(3, 1, src)
-=======
-	. = ..()
-	if(!.)
-		return
-	var/datum/effect_system/spark_spread/s = new /datum/effect_system/spark_spread
-	s.set_up(3, 1, src)
-	s.start()
->>>>>>> Begins porting the devil antagonist and accompanying gamemodes from /TG/

@@ -5,6 +5,19 @@
 #define CONTRACT_REVIVE "Revive"
 #define CONTRACT_KNOWLEDGE "Knowledge"
 #define CONTRACT_UNWILLING "Unwilling"
+// FIXME: Implement these
+#define CONTRACT_ETALENT "Engineering Talent"
+#define CONTRACT_CTALENT "Chemistry Talent"
+#define CONTRACT_RETURNDEAD "Return Dead"
+#define CONTRACT_AUGMENT "Cybernetic Augmentations"
+#define CONTRACT_CANDY "Endless Candy"
+#define CONTRACT_ECHANCE "An Extra Chance"
+#define CONTRACT_ATECH "Advanced Technology"
+#define CONTRACT_DEVILSMACHINE "Devil's Machinery"
+#define CONTRACT_YOUTH "Eternal Youth"
+#define CONTRACT_FOOD "Food"
+#define CONTRACT_SPACE "Space Gear"
+#define CONTRACT_CALAMITY "Calamity"
 
 #define BANE_SALT "salt"
 #define BANE_LIGHT "light"
@@ -24,6 +37,7 @@
 #define OBLIGATION_ANSWERTONAME "answername"
 
 #define BAN_HURTWOMAN "hurtwoman"
+#define BAN_HURTMAN "hurtman"
 #define BAN_CHAPEL "chapel"
 #define BAN_HURTPRIEST "hurtpriest"
 #define BAN_AVOIDWATER "avoidwater"

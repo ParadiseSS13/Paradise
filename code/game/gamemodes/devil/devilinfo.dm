@@ -9,7 +9,7 @@
 
 #define LOSS_PER_DEATH 2
 
-#define SOULVALUE soulsOwned.len-reviveNumber
+#define SOULVALUE (soulsOwned.len-reviveNumber)
 
 #define DEVILRESURRECTTIME 600
 
@@ -212,6 +212,8 @@ var/global/list/lawlorify = list (
 			// TODO: Add some appearance randomization here or something
 			humanform = H.dna.Clone()
 		H.regenerate_icons()
+	else
+		owner.current.color = ""
 	give_base_spells()
 	if(istype(owner.current.loc, /obj/effect/dummy/slaughter))
 		owner.current.forceMove(get_turf(owner.current))//Fixes dying while jaunted leaving you permajaunted.
@@ -297,7 +299,7 @@ var/global/list/lawlorify = list (
 	world << 'sound/hallucinations/veryfar_noise.ogg'
 	sleep(50)
 	if(!ticker.mode.devil_ascended)
-		shuttle_master.emergency.request(null, 0.3)
+		SSshuttle.emergency.request(null, 0.3)
 	ticker.mode.devil_ascended++
 
 /datum/devilinfo/proc/increase_arch_devil()
@@ -437,6 +439,13 @@ var/global/list/lawlorify = list (
 				D.oldform.revive() // Heal the old body too, so the devil doesn't resurrect, then immediately regress into a dead body.
 		if(body.stat == DEAD) // Not sure why this would happen
 			create_new_body()
+		else if(blobstart.len > 0)
+			// teleport the body so repeated beatdowns aren't an option)
+			body.forceMove(get_turf(pick(blobstart)))
+			// give them the devil lawyer outfit in case they got stripped
+			if(ishuman(body))
+				var/mob/living/carbon/human/H = body
+				H.equipOutfit(/datum/outfit/devil_lawyer)
 	else
 		create_new_body()
 	check_regression()
@@ -467,6 +476,11 @@ var/global/list/lawlorify = list (
 
 			H.sync_organ_dna(1) // It's literally a fresh body as you can get, so all organs properly belong to it
 			H.UpdateAppearance()
+		else
+			// gibbed cyborg or similar - create a randomized "humanform" appearance
+			H.scramble_appearance()
+			humanform = H.dna.Clone()
+
 
 		H.equipOutfit(/datum/outfit/devil_lawyer)
 		give_base_spells(TRUE)
@@ -521,11 +535,9 @@ var/global/list/lawlorify = list (
 
 	id = /obj/item/card/id
 
-/datum/outfit/job/centcom/response_team/imprint_idcard(mob/living/carbon/human/H)
-
 /datum/outfit/devil_lawyer/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
 	var/obj/item/card/id/W = H.wear_id
-	if(!istype(W))
+	if(!istype(W) || W.assignment) // either doesn't have a card, or the card is already written to
 		return
 	var/name_to_use = H.real_name
 	if(H.mind && H.mind.devilinfo)

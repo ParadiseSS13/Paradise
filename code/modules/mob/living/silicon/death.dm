@@ -22,31 +22,23 @@
 		if(src)			qdel(src)
 
 /mob/living/silicon/dust()
-	death(1)
+	if(!death(TRUE) && stat != DEAD)
+		return FALSE
 	notransform = 1
 	canmove = 0
 	icon = null
 	invisibility = 101
 	dust_animation()
-	dead_mob_list -= src
-	spawn(15)
-		if(src)
-			qdel(src)
+	GLOB.dead_mob_list -= src
+	QDEL_IN(src, 15)
+	return TRUE
 
 /mob/living/silicon/dust_animation()
+	//hmmm
 	var/atom/movable/overlay/animation = null
 
 	animation = new(loc)
 	animation.icon_state = "blank"
 	animation.icon = 'icons/mob/mob.dmi'
 	animation.master = src
-<<<<<<< HEAD
-
-//	flick("dust-r", animation)
-	new /obj/effect/decal/remains/robot(loc)
-
-	GLOB.dead_mob_list -= src
-=======
->>>>>>> Begins porting the devil antagonist and accompanying gamemodes from /TG/
-	spawn(15)
-		if(animation)	qdel(animation)
+	QDEL_IN(animation, 15)
