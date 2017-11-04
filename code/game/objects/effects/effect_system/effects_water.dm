@@ -1,24 +1,17 @@
 //WATER EFFECTS
 /obj/effect/particle_effect/water
 	name = "water"
-	icon = 'icons/effects/effects.dmi'
 	icon_state = "extinguish"
-	var/life = 15.0
+	var/life = 15
 
 /obj/effect/particle_effect/water/New()
 	..()
-	//var/turf/T = src.loc
-	//if(istype(T, /turf))
-	//	T.firelevel = 0 //TODO: FIX
 	QDEL_IN(src, 70)
 
 /obj/effect/particle_effect/water/Move(turf/newloc)
-	//var/turf/T = src.loc
-	//if(istype(T, /turf))
-	//	T.firelevel = 0 //TODO: FIX
 	if(--life < 1)
-		//SN src = null
 		qdel()
+		return 0
 	if(newloc.density)
 		return 0
 	.=..()

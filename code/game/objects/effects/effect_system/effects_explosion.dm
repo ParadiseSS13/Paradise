@@ -46,7 +46,7 @@
 /datum/effect_system/explosion/start()
 	new/obj/effect/explosion(location)
 	var/datum/effect_system/expl_particles/P = new/datum/effect_system/expl_particles()
-	P.set_up(10,location)
+	P.set_up(10, 0, location)
 	P.start()
 
 /datum/effect_system/explosion/smoke
