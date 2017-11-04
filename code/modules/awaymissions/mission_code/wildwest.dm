@@ -177,7 +177,7 @@
 		call(src,triggerproc)(M)
 
 /obj/effect/meatgrinder/proc/triggerrad1(mob)
-	var/datum/effect/system/spark_spread/s = new /datum/effect/system/spark_spread
+	var/datum/effect_system/spark_spread/s = new /datum/effect_system/spark_spread
 	for(var/mob/O in viewers(world.view, src.loc))
 		s.set_up(3, 1, src)
 		s.start()

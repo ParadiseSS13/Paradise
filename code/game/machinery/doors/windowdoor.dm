@@ -232,7 +232,7 @@
 		desc += "<BR><span class='warning'>Its access panel is smoking slightly.</span>"
 		if(istype(weapon, /obj/item/weapon/melee/energy/blade))
 			var/obj/item/weapon/melee/energy/blade/B
-			var/datum/effect/system/spark_spread/spark_system = new /datum/effect/system/spark_spread()
+			var/datum/effect_system/spark_spread/spark_system = new /datum/effect_system/spark_spread()
 			spark_system.set_up(5, 0, loc)
 			spark_system.start()
 			playsound(loc, "sparks", 50, 1)

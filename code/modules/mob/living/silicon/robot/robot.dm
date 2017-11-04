@@ -59,7 +59,7 @@ var/list/robot_verbs_default = list(
 	var/viewalerts = 0
 	var/modtype = "Default"
 	var/lower_mod = 0
-	var/datum/effect/system/spark_spread/spark_system//So they can initialize sparks whenever/N
+	var/datum/effect_system/spark_spread/spark_system//So they can initialize sparks whenever/N
 	var/jeton = 0
 	var/low_power_mode = 0 //whether the robot has no charge left.
 	var/weapon_lock = 0
@@ -85,13 +85,13 @@ var/list/robot_verbs_default = list(
 	var/magpulse = 0
 	var/ionpulse = 0 // Jetpack-like effect.
 	var/ionpulse_on = 0 // Jetpack-like effect.
-	var/datum/effect/system/ion_trail_follow/ion_trail // Ionpulse effect.
+	var/datum/effect_system/trail_follow/ion/ion_trail // Ionpulse effect.
 
 	var/datum/action/item_action/toggle_research_scanner/scanner = null
 	var/list/module_actions = list()
 
 /mob/living/silicon/robot/New(loc,var/syndie = 0,var/unfinished = 0, var/alien = 0)
-	spark_system = new /datum/effect/system/spark_spread()
+	spark_system = new /datum/effect_system/spark_spread()
 	spark_system.set_up(5, 0, src)
 	spark_system.attach(src)
 

@@ -47,7 +47,7 @@
 
 	D.visible_message("<span class='danger'>[A] throws an invisible smoke bomb!!</span>")
 
-	var/datum/effect/system/smoke_spread/bad/smoke = new
+	var/datum/effect_system/smoke_spread/bad/smoke = new
 	smoke.set_up(5, 0, D.loc)
 	smoke.start()
 

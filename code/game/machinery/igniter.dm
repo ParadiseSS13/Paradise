@@ -98,7 +98,7 @@
 
 
 	flick("[base_state]-spark", src)
-	var/datum/effect/system/spark_spread/s = new /datum/effect/system/spark_spread
+	var/datum/effect_system/spark_spread/s = new /datum/effect_system/spark_spread
 	s.set_up(2, 1, src)
 	s.start()
 	src.last_spark = world.time
