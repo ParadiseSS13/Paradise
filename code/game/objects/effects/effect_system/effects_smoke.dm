@@ -1,6 +1,6 @@
 /////////////////////////////////////////////
 //// SMOKE SYSTEMS
-// direct can be optinally added when set_up, to make the smoke always travel in one direction
+// direct can be optionally added when set_up, to make the smoke always travel in one direction
 // in case you wanted a vent to always smoke north for example
 /////////////////////////////////////////////
 
@@ -13,7 +13,9 @@
 	opacity = 1
 	anchored = 0
 	mouse_opacity = 0
-	var/time_to_live = 100
+	var/steps = 0
+	var/lifetime = 5
+	var/direction
 
 /obj/effect/effect/smoke/proc/fade_out(frames = 16)
 	if(alpha == 0) //Handle already transparent case
@@ -29,8 +31,27 @@
 
 /obj/effect/effect/smoke/New()
 	..()
-	QDEL_IN(src, time_to_live)
-	return
+	processing_objects |= src
+	lifetime += rand(-1,1)
+
+/obj/effect/effect/smoke/Destroy()
+	processing_objects.Remove(src)
+	return ..()
+
+/obj/effect/effect/smoke/proc/kill_smoke()
+	processing_objects.Remove(src)
+	addtimer(src, "fade_out", 0)
+	QDEL_IN(src, 10)
+
+/obj/effect/effect/smoke/process()
+	lifetime--
+	if(lifetime < 1)
+		kill_smoke()
+		return 0
+	if(steps >= 1)
+		step(src,direction)
+		steps--
+	return 1
 
 /obj/effect/effect/smoke/Crossed(mob/living/M)
 	if(!istype(M))
@@ -40,12 +61,21 @@
 /obj/effect/effect/smoke/proc/smoke_mob(mob/living/carbon/C)
 	if(!istype(C))
 		return FALSE
+	if(lifetime<1)
+		return FALSE
 	if(!C.can_breathe_gas())
 		return FALSE
+	if(C.smoke_delay)
+		return FALSE
+	C.smoke_delay++
+	addtimer(src, "remove_smoke_delay", 10, FALSE, C)
 	return TRUE
 
+/obj/effect/effect/smoke/proc/remove_smoke_delay(mob/living/carbon/C)
+	if(C)
+		C.smoke_delay = 0
+
 /datum/effect/system/smoke_spread
-	var/total_smoke = 0 // To stop it being spammed and lagging!
 	var/direction
 	var/smoke_type = /obj/effect/effect/smoke
 
@@ -63,39 +93,37 @@
 
 /datum/effect/system/smoke_spread/start()
 	for(var/i=0, i<number, i++)
-		if(total_smoke > 20)
-			return
-		spawn(0)
-			if(holder)
-				location = get_turf(holder)
-			var/obj/effect/effect/smoke/S = new smoke_type(location)
-			total_smoke++
-			var/direction = src.direction
-			if(!direction)
-				if(cardinals)
-					direction = pick(cardinal)
-				else
-					direction = pick(alldirs)
-			for(i=0, i<pick(0,1,1,1,2,2,2,3), i++)
-				sleep(10)
-				step(S,direction)
-			spawn(S.time_to_live*0.75+rand(10,30))
-				if(S)
-					addtimer(S, "fade_out", 0)
-					QDEL_IN(S, 10)
-				total_smoke--
+		if(holder)
+			location = get_turf(holder)
+		var/obj/effect/effect/smoke/S = new smoke_type(location)
+		if(!direction)
+			if(cardinals)
+				S.direction = pick(cardinal)
+			else
+				S.direction = pick(alldirs)
+		else
+			S.direction = direction
+		S.steps = pick(0,1,1,1,2,2,2,3)
+		S.process()
 
 /////////////////////////////////////////////
 // Bad smoke
 /////////////////////////////////////////////
 
 /obj/effect/effect/smoke/bad
-	time_to_live = 200
+	lifetime = 8
 
-/obj/effect/effect/smoke/bad/Move()
-	..()
-	for(var/mob/living/carbon/M in get_turf(src))
-		smoke_mob(M)
+/obj/effect/effect/smoke/bad/process()
+	if(..())
+		for(var/mob/living/carbon/M in range(1,src))
+			smoke_mob(M)
+
+/obj/effect/effect/smoke/bad/smoke_mob(mob/living/carbon/M)
+	if(..())
+		M.drop_item()
+		M.adjustOxyLoss(1)
+		M.emote("cough")
+		return 1
 
 /obj/effect/effect/smoke/bad/CanPass(atom/movable/mover, turf/target, height=0)
 	if(height==0)
@@ -104,16 +132,6 @@
 		var/obj/item/projectile/beam/B = mover
 		B.damage = (B.damage/2)
 	return 1
-
-/obj/effect/effect/smoke/bad/smoke_mob(mob/living/carbon/M)
-	if(..())
-		M.drop_item()
-		M.adjustOxyLoss(1)
-		if(M.coughedtime != 1)
-			M.coughedtime = 1
-			M.emote("cough")
-			spawn(20)
-				M.coughedtime = 0
 
 /datum/effect/system/smoke_spread/bad
 	smoke_type = /obj/effect/effect/smoke/bad
@@ -175,23 +193,19 @@
 
 /obj/effect/effect/smoke/sleeping
 	color = "#9C3636"
-	time_to_live = 200
+	lifetime = 10
 
-/obj/effect/effect/smoke/sleeping/Move()
-	..()
-	for(var/mob/living/carbon/M in get_turf(src))
-		smoke_mob(M)
+/obj/effect/effect/smoke/sleeping/process()
+	if(..())
+		for(var/mob/living/carbon/M in range(1,src))
+			smoke_mob(M)
 
 /obj/effect/effect/smoke/sleeping/smoke_mob(mob/living/carbon/M)
 	if(..())
 		M.drop_item()
-		M.AdjustSleeping(5)
-		if(M.coughedtime != 1)
-			M.coughedtime = 1
-			M.emote("cough")
-			spawn(20)
-				if(M && M.loc)
-					M.coughedtime = 0
+		M.Sleeping(max(M.sleeping,10))
+		M.emote("cough")
+		return 1
 
 /datum/effect/system/smoke_spread/sleeping
 	smoke_type = /obj/effect/effect/smoke/sleeping
@@ -203,7 +217,7 @@
 /obj/effect/effect/smoke/chem
 	icon = 'icons/effects/chemsmoke.dmi'
 	opacity = 0
-	time_to_live = 200
+	lifetime = 10
 
 /datum/effect/system/smoke_spread/chem
 	smoke_type = /obj/effect/effect/smoke/chem
@@ -225,7 +239,6 @@
 		n = 20
 	number = n
 	cardinals = c
-	carry.copy_to(chemholder, carry.total_volume)
 
 	if(istype(loca, /turf/))
 		location = loca
@@ -233,6 +246,7 @@
 		location = get_turf(loca)
 	if(direct)
 		direction = direct
+	carry.copy_to(chemholder, carry.total_volume)
 	if(!silent)
 		var/contained = ""
 		for(var/reagent in carry.reagent_list)
@@ -270,31 +284,23 @@
 				chemholder.reagents.copy_to(C, chemholder.reagents.total_volume)
 	qdel(smokeholder)
 	for(var/i=0, i<number, i++)
-		if(total_smoke > 20)
-			return
-		spawn(0)
-			if(holder)
-				location = get_turf(holder)
-			var/obj/effect/effect/smoke/chem/smoke = new smoke_type(location)
-			total_smoke++
-			var/direction = src.direction
-			if(!direction)
-				if(cardinals)
-					direction = pick(cardinal)
-				else
-					direction = pick(alldirs)
-
-			if(color)
-				smoke.icon += color // give the smoke color, if it has any to begin with
+		if(holder)
+			location = get_turf(holder)
+		var/obj/effect/effect/smoke/chem/S = new smoke_type(location)
+		if(!direction)
+			if(cardinals)
+				S.direction = pick(cardinal)
 			else
-				// if no color, just use the old smoke icon
-				smoke.icon = 'icons/effects/96x96.dmi'
-				smoke.icon_state = "smoke"
-			for(i=0, i<pick(0,1,1,1,2,2,2,3), i++)
-				sleep(10)
-				step(smoke,direction)
-			spawn(smoke.time_to_live*0.75+rand(10,30))
-				if(smoke)
-					addtimer(smoke, "fade_out", 0)
-					QDEL_IN(smoke, 10)
-				total_smoke--
+				S.direction = pick(alldirs)
+		else
+			S.direction = direction
+
+		S.steps = pick(0,1,1,1,2,2,2,3)
+
+		if(color)
+			S.icon += color // give the smoke color, if it has any to begin with
+		else
+			// if no color, just use the old smoke icon
+			S.icon = 'icons/effects/96x96.dmi'
+			S.icon_state = "smoke"
+		S.process()
