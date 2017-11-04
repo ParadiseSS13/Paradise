@@ -5,43 +5,68 @@ it needs to create more trails.A beaker could have a steam_trail_follow system s
 would spawn and follow the beaker, even if it is carried or thrown.
 */
 
-/obj/effect/effect
-	name = "effect"
-	icon = 'icons/effects/effects.dmi'
+/obj/effect/particle_effect
+	name = "particle effect"
 	mouse_opacity = 0
-	unacidable = 1//So effect are not targeted by alien acid.
+	unacidable = 1//So effects are not targeted by alien acid.
 
-/obj/effect/effect/New()
+/obj/effect/particle_effect/New()
 	..()
 	if(ticker)
 		cameranet.updateVisibility(src)
 
-/obj/effect/effect/Destroy()
+/obj/effect/particle_effect/Destroy()
 	if(ticker)
 		cameranet.updateVisibility(src)
 	return ..()
 
-/datum/effect/system
+/datum/effect_system
 	var/number = 3
 	var/cardinals = 0
 	var/turf/location
 	var/atom/holder
-	var/setup = 0
+	var/effect_type
+	var/total_effects = 0
 
-/datum/effect/system/Destroy()
+/datum/effect_system/Destroy()
 	holder = null
 	location = null
 	return ..()
 
-/datum/effect/system/proc/set_up(n = 3, c = 0, turf/loc)
+/datum/effect_system/proc/set_up(n = 3, c = 0, loca)
 	if(n > 10)
 		n = 10
 	number = n
 	cardinals = c
-	location = loc
-	setup = 1
+	if(isturf(loca))
+		location = loca
+	else
+		location = get_turf(loca)
 
-/datum/effect/system/proc/attach(atom/atom)
+/datum/effect_system/proc/attach(atom/atom)
 	holder = atom
 
-/datum/effect/system/proc/start()
+/datum/effect_system/proc/start()
+	for(var/i in 1 to number)
+		if(total_effects > 20)
+			return
+		addtimer(src, "generate_effect", 0)
+
+/datum/effect_system/proc/generate_effect()
+	if(holder)
+		location = get_turf(holder)
+	var/obj/effect/E = new effect_type(location)
+	total_effects++
+	var/direction
+	if(cardinals)
+		direction = pick(cardinal)
+	else
+		direction = pick(alldirs)
+	var/steps_amt = pick(1,2,3)
+	for(var/j in 1 to steps_amt)
+		sleep(5)
+		step(E,direction)
+	addtimer(src, "decrement_total_effect", 20)
+
+/datum/effect_system/proc/decrement_total_effect()
+	total_effects--

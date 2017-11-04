@@ -4,7 +4,7 @@
 // in case you wanted a vent to always smoke north for example
 /////////////////////////////////////////////
 
-/obj/effect/effect/smoke
+/obj/effect/particle_effect/smoke
 	name = "smoke"
 	icon_state = "smoke"
 	icon = 'icons/effects/96x96.dmi'
@@ -12,12 +12,11 @@
 	pixel_y = -32
 	opacity = 1
 	anchored = 0
-	mouse_opacity = 0
 	var/steps = 0
 	var/lifetime = 5
 	var/direction
 
-/obj/effect/effect/smoke/proc/fade_out(frames = 16)
+/obj/effect/particle_effect/smoke/proc/fade_out(frames = 16)
 	if(alpha == 0) //Handle already transparent case
 		return
 	if(frames == 0)
@@ -29,21 +28,21 @@
 			set_opacity(0)
 		stoplag()
 
-/obj/effect/effect/smoke/New()
+/obj/effect/particle_effect/smoke/New()
 	..()
 	processing_objects |= src
 	lifetime += rand(-1,1)
 
-/obj/effect/effect/smoke/Destroy()
+/obj/effect/particle_effect/smoke/Destroy()
 	processing_objects.Remove(src)
 	return ..()
 
-/obj/effect/effect/smoke/proc/kill_smoke()
+/obj/effect/particle_effect/smoke/proc/kill_smoke()
 	processing_objects.Remove(src)
 	addtimer(src, "fade_out", 0)
 	QDEL_IN(src, 10)
 
-/obj/effect/effect/smoke/process()
+/obj/effect/particle_effect/smoke/process()
 	lifetime--
 	if(lifetime < 1)
 		kill_smoke()
@@ -53,12 +52,12 @@
 		steps--
 	return 1
 
-/obj/effect/effect/smoke/Crossed(mob/living/M)
+/obj/effect/particle_effect/smoke/Crossed(mob/living/M)
 	if(!istype(M))
 		return
 	smoke_mob(M)
 
-/obj/effect/effect/smoke/proc/smoke_mob(mob/living/carbon/C)
+/obj/effect/particle_effect/smoke/proc/smoke_mob(mob/living/carbon/C)
 	if(!istype(C))
 		return FALSE
 	if(lifetime<1)
@@ -71,31 +70,31 @@
 	addtimer(src, "remove_smoke_delay", 10, FALSE, C)
 	return TRUE
 
-/obj/effect/effect/smoke/proc/remove_smoke_delay(mob/living/carbon/C)
+/obj/effect/particle_effect/smoke/proc/remove_smoke_delay(mob/living/carbon/C)
 	if(C)
 		C.smoke_delay = 0
 
-/datum/effect/system/smoke_spread
+/datum/effect_system/smoke_spread
+	effect_type = /obj/effect/particle_effect/smoke
 	var/direction
-	var/smoke_type = /obj/effect/effect/smoke
 
-/datum/effect/system/smoke_spread/set_up(n = 5, c = 0, loca, direct)
+/datum/effect_system/smoke_spread/set_up(n = 5, c = 0, loca, direct)
 	if(n > 20)
 		n = 20
 	number = n
 	cardinals = c
-	if(istype(loca, /turf/))
+	if(isturf(loca))
 		location = loca
 	else
 		location = get_turf(loca)
 	if(direct)
 		direction = direct
 
-/datum/effect/system/smoke_spread/start()
+/datum/effect_system/smoke_spread/start()
 	for(var/i=0, i<number, i++)
 		if(holder)
 			location = get_turf(holder)
-		var/obj/effect/effect/smoke/S = new smoke_type(location)
+		var/obj/effect/particle_effect/smoke/S = new effect_type(location)
 		if(!direction)
 			if(cardinals)
 				S.direction = pick(cardinal)
@@ -110,22 +109,22 @@
 // Bad smoke
 /////////////////////////////////////////////
 
-/obj/effect/effect/smoke/bad
+/obj/effect/particle_effect/smoke/bad
 	lifetime = 8
 
-/obj/effect/effect/smoke/bad/process()
+/obj/effect/particle_effect/smoke/bad/process()
 	if(..())
 		for(var/mob/living/carbon/M in range(1,src))
 			smoke_mob(M)
 
-/obj/effect/effect/smoke/bad/smoke_mob(mob/living/carbon/M)
+/obj/effect/particle_effect/smoke/bad/smoke_mob(mob/living/carbon/M)
 	if(..())
 		M.drop_item()
 		M.adjustOxyLoss(1)
 		M.emote("cough")
 		return 1
 
-/obj/effect/effect/smoke/bad/CanPass(atom/movable/mover, turf/target, height=0)
+/obj/effect/particle_effect/smoke/bad/CanPass(atom/movable/mover, turf/target, height=0)
 	if(height==0)
 		return 1
 	if(istype(mover, /obj/item/projectile/beam))
@@ -133,23 +132,23 @@
 		B.damage = (B.damage/2)
 	return 1
 
-/datum/effect/system/smoke_spread/bad
-	smoke_type = /obj/effect/effect/smoke/bad
+/datum/effect_system/smoke_spread/bad
+	effect_type = /obj/effect/particle_effect/smoke/bad
 
 /////////////////////////////////////////////
 // Nanofrost smoke
 /////////////////////////////////////////////
 
-/obj/effect/effect/smoke/freezing
+/obj/effect/particle_effect/smoke/freezing
 	name = "nanofrost smoke"
 	color = "#B2FFFF"
 	opacity = 0
 
-/datum/effect/system/smoke_spread/freezing
-	smoke_type = /obj/effect/effect/smoke/freezing
+/datum/effect_system/smoke_spread/freezing
+	effect_type = /obj/effect/particle_effect/smoke/freezing
 	var/blast = 0
 
-/datum/effect/system/smoke_spread/freezing/proc/Chilled(atom/A)
+/datum/effect_system/smoke_spread/freezing/proc/Chilled(atom/A)
 	if(istype(A, /turf/simulated))
 		var/turf/simulated/T = A
 		if(T.air)
@@ -177,11 +176,11 @@
 		for(var/obj/item/Item in T)
 			Item.extinguish()
 
-/datum/effect/system/smoke_spread/freezing/set_up(n = 5, c = 0, loca, direct, blasting = 0)
+/datum/effect_system/smoke_spread/freezing/set_up(n = 5, c = 0, loca, direct, blasting = 0)
 	..()
 	blast = blasting
 
-/datum/effect/system/smoke_spread/freezing/start()
+/datum/effect_system/smoke_spread/freezing/start()
 	if(blast)
 		for(var/turf/T in RANGE_TURFS(2, location))
 			Chilled(T)
@@ -191,56 +190,56 @@
 // Sleep smoke
 /////////////////////////////////////////////
 
-/obj/effect/effect/smoke/sleeping
+/obj/effect/particle_effect/smoke/sleeping
 	color = "#9C3636"
 	lifetime = 10
 
-/obj/effect/effect/smoke/sleeping/process()
+/obj/effect/particle_effect/smoke/sleeping/process()
 	if(..())
 		for(var/mob/living/carbon/M in range(1,src))
 			smoke_mob(M)
 
-/obj/effect/effect/smoke/sleeping/smoke_mob(mob/living/carbon/M)
+/obj/effect/particle_effect/smoke/sleeping/smoke_mob(mob/living/carbon/M)
 	if(..())
 		M.drop_item()
 		M.Sleeping(max(M.sleeping,10))
 		M.emote("cough")
 		return 1
 
-/datum/effect/system/smoke_spread/sleeping
-	smoke_type = /obj/effect/effect/smoke/sleeping
+/datum/effect_system/smoke_spread/sleeping
+	effect_type = /obj/effect/particle_effect/smoke/sleeping
 
 /////////////////////////////////////////////
 // Chem smoke
 /////////////////////////////////////////////
 
-/obj/effect/effect/smoke/chem
+/obj/effect/particle_effect/smoke/chem
 	icon = 'icons/effects/chemsmoke.dmi'
 	opacity = 0
 	lifetime = 10
 
-/datum/effect/system/smoke_spread/chem
-	smoke_type = /obj/effect/effect/smoke/chem
+/datum/effect_system/smoke_spread/chem
+	effect_type = /obj/effect/particle_effect/smoke/chem
 	var/obj/chemholder
 
-/datum/effect/system/smoke_spread/chem/New()
+/datum/effect_system/smoke_spread/chem/New()
 	..()
 	chemholder = new/obj()
 	var/datum/reagents/R = new/datum/reagents(500)
 	chemholder.reagents = R
 	R.my_atom = chemholder
 
-/datum/effect/system/smoke_spread/chem/Destroy()
+/datum/effect_system/smoke_spread/chem/Destroy()
 	QDEL_NULL(chemholder)
 	return ..()
 
-/datum/effect/system/smoke_spread/chem/set_up(datum/reagents/carry = null, n = 5, c = 0, loca, direct, silent = 0)
+/datum/effect_system/smoke_spread/chem/set_up(datum/reagents/carry = null, n = 5, c = 0, loca, direct, silent = 0)
 	if(n > 20)
 		n = 20
 	number = n
 	cardinals = c
 
-	if(istype(loca, /turf/))
+	if(isturf(loca))
 		location = loca
 	else
 		location = get_turf(loca)
@@ -273,9 +272,9 @@
 			msg_admin_attack("A chemical smoke reaction has taken place in ([whereLink]). No associated key. CODERS: carry.my_atom may be null.", 0, 1)
 			log_game("A chemical smoke reaction has taken place in ([where])[contained]. No associated key. CODERS: carry.my_atom may be null.")
 
-/datum/effect/system/smoke_spread/chem/start(effect_range = 2)
+/datum/effect_system/smoke_spread/chem/start(effect_range = 2)
 	var/color = mix_color_from_reagents(chemholder.reagents.reagent_list)
-	var/obj/effect/effect/smoke/chem/smokeholder = new smoke_type(location)
+	var/obj/effect/particle_effect/smoke/chem/smokeholder = new effect_type(location)
 	for(var/atom/A in view(effect_range, smokeholder))
 		chemholder.reagents.reaction(A)
 		if(iscarbon(A))
@@ -286,7 +285,7 @@
 	for(var/i=0, i<number, i++)
 		if(holder)
 			location = get_turf(holder)
-		var/obj/effect/effect/smoke/chem/S = new smoke_type(location)
+		var/obj/effect/particle_effect/smoke/chem/S = new effect_type(location)
 		if(!direction)
 			if(cardinals)
 				S.direction = pick(cardinal)

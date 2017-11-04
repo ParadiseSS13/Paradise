@@ -1,69 +1,96 @@
 /////////////////////////////////////////////
-//////// Attach an Ion trail to any object, that spawns when it moves (like for the jetpack)
+//////// Attach a trail to any object, that spawns when it moves (like for the jetpack)
 /// just pass in the object to attach it to in set_up
 /// Then do start() to start it and stop() to stop it, obviously
 /// and don't call start() in a loop that will be repeated otherwise it'll get spammed!
 /////////////////////////////////////////////
 
-/obj/effect/effect/ion_trails
-	name = "ion trails"
-	icon_state = "ion_trails"
-	anchored = 1.0
-
-/datum/effect/system/ion_trail_follow
+/datum/effect_system/trail_follow
 	var/turf/oldposition
 	var/processing = 1
 	var/on = 1
 
-/datum/effect/system/ion_trail_follow/Destroy()
+/datum/effect_system/trail_follow/set_up(atom/atom)
+	attach(atom)
+	oldposition = get_turf(atom)
+
+/datum/effect_system/trail_follow/Destroy()
 	oldposition = null
 	return ..()
 
-/datum/effect/system/ion_trail_follow/set_up(atom/atom)
-	attach(atom)
+/datum/effect_system/trail_follow/proc/stop()
+	processing = 0
+	on = 0
+	oldposition = null
 
-/datum/effect/system/ion_trail_follow/start() //Whoever is responsible for this abomination of code should become an hero
-	if(!src.on)
-		src.on = 1
-		src.processing = 1
-	if(src.processing)
-		src.processing = 0
+/datum/effect_system/trail_follow/steam
+	effect_type = /obj/effect/particle_effect/steam
+
+/datum/effect_system/trail_follow/steam/start() //Whoever is responsible for this abomination of code should become an hero
+	if(!on)
+		on = 1
+		processing = 1
+		if(!oldposition)
+			oldposition = get_turf(holder)
+	if(processing)
+		processing = 0
+		if(number < 3)
+			var/obj/effect/particle_effect/steam/I = new effect_type(oldposition)
+			number++
+			I.dir = holder.dir
+			oldposition = get_turf(holder)
+			spawn(10)
+				qdel(I)
+				number--
+		spawn(2)
+			if(on)
+				processing = 1
+				start()
+
+/obj/effect/particle_effect/ion_trails
+	name = "ion trails"
+	icon_state = "ion_trails"
+	anchored = 1
+
+/datum/effect_system/trail_follow/ion
+	effect_type = /obj/effect/particle_effect/ion_trails
+
+/datum/effect_system/trail_follow/ion/start() //Whoever is responsible for this abomination of code should become an hero
+	if(!on)
+		on = 1
+		processing = 1
+	if(processing)
+		processing = 0
 		var/turf/T = get_turf(src.holder)
-		if(T != src.oldposition)
+		if(T != oldposition)
 			if(!has_gravity(T))
-				var/obj/effect/effect/ion_trails/I = new /obj/effect/effect/ion_trails(src.oldposition)
-				I.dir = src.holder.dir
+				var/obj/effect/particle_effect/ion_trails/I = new effect_type(oldposition)
+				I.dir = holder.dir
 				flick("ion_fade", I)
 				I.icon_state = ""
 				spawn(20)
-					if(I)
-						qdel(I)
-			src.oldposition = T
+					qdel(I)
+			oldposition = T
 		spawn(2)
-			if(src.on)
-				src.processing = 1
-				src.start()
+			if(on)
+				processing = 1
+				start()
 
-/datum/effect/system/ion_trail_follow/proc/stop()
-	src.processing = 0
-	src.on = 0
-	oldposition = null
-
-/datum/effect/system/ion_trail_follow/space_trail
+/datum/effect_system/trail_follow/ion/space_trail
 	var/turf/oldloc // secondary ion trail loc
 	var/turf/currloc
 
-/datum/effect/system/ion_trail_follow/space_trail/Destroy()
+/datum/effect_system/trail_follow/ion/space_trail/Destroy()
 	oldloc = null
 	currloc = null
 	return ..()
 
-/datum/effect/system/ion_trail_follow/space_trail/start()
-	if(!src.on)
-		src.on = 1
-		src.processing = 1
-	if(src.processing)
-		src.processing = 0
+/datum/effect_system/trail_follow/ion/space_trail/start()
+	if(!on)
+		on = 1
+		processing = 1
+	if(processing)
+		processing = 0
 		spawn(0)
 			var/turf/T = get_turf(src.holder)
 			if(currloc != T)
@@ -89,11 +116,11 @@
 						src.oldloc = get_step(oldposition,NORTH)
 						//src.oldloc = get_step(oldloc,EAST)
 				if(istype(T, /turf/space))
-					var/obj/effect/effect/ion_trails/I = new /obj/effect/effect/ion_trails(src.oldposition)
-					var/obj/effect/effect/ion_trails/II = new /obj/effect/effect/ion_trails(src.oldloc)
+					var/obj/effect/particle_effect/ion_trails/I = new effect_type(oldposition)
+					var/obj/effect/particle_effect/ion_trails/II = new effect_type(oldloc)
 					//src.oldposition = T
-					I.dir = src.holder.dir
-					II.dir = src.holder.dir
+					I.dir = holder.dir
+					II.dir = holder.dir
 					flick("ion_fade", I)
 					flick("ion_fade", II)
 					I.icon_state = ""
@@ -104,32 +131,31 @@
 						if(II)
 							qdel(II)
 			spawn(2)
-				if(src.on)
-					src.processing = 1
-					src.start()
+				if(on)
+					processing = 1
+					start()
 			currloc = T
 
 //Reagent-based explosion effect
-/datum/effect/system/reagents_explosion
+/datum/effect_system/reagents_explosion
 	var/amount 						// TNT equivalent
 	var/flashing = 0			// does explosion creates flash effect?
 	var/flashing_factor = 0		// factor of how powerful the flash effect relatively to the explosion
 
-/datum/effect/system/reagents_explosion/set_up(amt, loc, flash = 0, flash_fact = 0)
+/datum/effect_system/reagents_explosion/set_up(amt, loca, flash = 0, flash_fact = 0)
 	amount = amt
-	if(istype(loc, /turf/))
-		location = loc
+	if(isturf(loca))
+		location = loca
 	else
-		location = get_turf(loc)
+		location = get_turf(loca)
 
 	flashing = flash
 	flashing_factor = flash_fact
 
-	return
 
-/datum/effect/system/reagents_explosion/start()
+/datum/effect_system/reagents_explosion/start()
 	if(amount <= 2)
-		var/datum/effect/system/spark_spread/s = new /datum/effect/system/spark_spread
+		var/datum/effect_system/spark_spread/s = new /datum/effect_system/spark_spread
 		s.set_up(2, 1, location)
 		s.start()
 
@@ -156,7 +182,7 @@
 		if(round(amount/3) > 0)
 			light = min (MAX_EX_LIGHT_RANGE, light + round(amount/3))
 
-		if(flash && flashing_factor)
+		if(flashing && flashing_factor)
 			flash += (round(amount/4) * flashing_factor)
 
 		for(var/mob/M in viewers(8, location))
@@ -164,7 +190,7 @@
 
 		explosion(location, devastation, heavy, light, flash)
 
-/datum/effect/system/reagents_explosion/proc/holder_damage(atom/holder)
+/datum/effect_system/reagents_explosion/proc/holder_damage(atom/holder)
 	if(holder)
 		var/dmglevel = 4
 

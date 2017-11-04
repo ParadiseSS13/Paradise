@@ -2,21 +2,19 @@
 // Similar to smoke, but spreads out more
 // metal foams leave behind a foamed metal wall
 
-/obj/structure/foam
+/obj/effect/particle_effect/foam
 	name = "foam"
-	icon = 'icons/effects/effects.dmi'
 	icon_state = "foam"
 	opacity = 0
 	anchored = 1
 	density = 0
 	layer = OBJ_LAYER + 0.9
-	mouse_opacity = 0
 	animate_movement = 0
 	var/amount = 3
 	var/expand = 1
 	var/metal = 0
 
-/obj/structure/foam/New(loc, ismetal=0)
+/obj/effect/particle_effect/foam/New(loc, ismetal=0)
 	..(loc)
 	icon_state = "[ismetal ? "m":""]foam"
 	if(!ismetal && reagents)
@@ -47,7 +45,7 @@
 	return
 
 // on delete, transfer any reagents to the floor
-/obj/structure/foam/Destroy()
+/obj/effect/particle_effect/foam/Destroy()
 	if(!metal && reagents)
 		reagents.handle_reactions()
 		for(var/atom/A in oview(1, src))
@@ -58,7 +56,7 @@
 				reagents.reaction(A, TOUCH, fraction)
 	return ..()
 
-/obj/structure/foam/process()
+/obj/effect/particle_effect/foam/process()
 	if(--amount < 0)
 		return
 
@@ -71,11 +69,11 @@
 		if(!T.Enter(src))
 			continue
 
-		var/obj/structure/foam/F = locate() in T
+		var/obj/effect/particle_effect/foam/F = locate() in T
 		if(F)
 			continue
 
-		F = new /obj/structure/foam(T, metal)
+		F = new /obj/effect/particle_effect/foam(T, metal)
 		F.amount = amount
 		if(!metal)
 			F.create_reagents(15)
@@ -86,14 +84,14 @@
 
 // foam disolves when heated
 // except metal foams
-/obj/structure/foam/temperature_expose(datum/gas_mixture/air, exposed_temperature, exposed_volume)
+/obj/effect/particle_effect/foam/temperature_expose(datum/gas_mixture/air, exposed_temperature, exposed_volume)
 	if(!metal && prob(max(0, exposed_temperature - 475)))
 		flick("[icon_state]-disolve", src)
 
 		spawn(5)
 			qdel(src)
 
-/obj/structure/foam/Crossed(atom/movable/AM)
+/obj/effect/particle_effect/foam/Crossed(atom/movable/AM)
 	if(metal)
 		return
 
@@ -109,16 +107,17 @@
 					var/fraction = 5 / reagents.total_volume
 					reagents.reaction(M, TOUCH, fraction)
 
-/datum/effect/system/foam_spread
+/datum/effect_system/foam_spread
+	effect_type = /obj/effect/particle_effect/foam
 	var/amount = 5				// the size of the foam spread.
 	var/list/carried_reagents	// the IDs of reagents present when the foam was mixed
 	var/metal = 0				// 0=foam, 1=metalfoam, 2=ironfoam
 	var/temperature = T0C
 	var/list/banned_reagents = list("smoke_powder", "fluorosurfactant", "stimulants")
 
-/datum/effect/system/foam_spread/set_up(amt=5, loca, datum/reagents/carry = null, metalfoam = 0)
+/datum/effect_system/foam_spread/set_up(amt=5, loca, datum/reagents/carry = null, metalfoam = 0)
 	amount = min(round(amt/5, 1), 7)
-	if(istype(loca, /turf/))
+	if(isturf(loca))
 		location = loca
 	else
 		location = get_turf(loca)
@@ -135,15 +134,15 @@
 		for(var/datum/reagent/R in carry.reagent_list)
 			carried_reagents[R.id] = R.volume
 
-/datum/effect/system/foam_spread/start()
+/datum/effect_system/foam_spread/start()
 	spawn(0)
-		var/obj/structure/foam/F = locate() in location
+		var/obj/effect/particle_effect/foam/F = locate() in location
 		if(F)
 			F.amount += amount
 			F.amount = min(F.amount, 27)
 			return
 
-		F = new /obj/structure/foam(location, metal)
+		F = new /obj/effect/particle_effect/foam(location, metal)
 		F.amount = amount
 
 		if(!metal)			// don't carry other chemicals if a metal foam
