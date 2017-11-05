@@ -1,0 +1,5 @@
+author: "KasparoVy"
+delete-after: True
+changes: 
+  - bugfix: "The Barber's dye bottle now works again."
+  - rscadd: "The Barber's dye bottle can now colour alternate (facial) hair themes where applicable."
