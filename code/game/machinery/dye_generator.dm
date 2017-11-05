@@ -96,36 +96,29 @@
 		return
 	if(ishuman(M))
 		var/mob/living/carbon/human/H = M
-
-		var/dye_list = list("hair")
+		var/dye_list = list("hair", "alt. hair theme")
 
 		if(H.gender == MALE || H.get_species() == "Vulpkanin")
 			dye_list += "facial hair"
+			dye_list += "alt. facial hair theme"
 
 		if(H && (H.species.bodyflags & HAS_SKIN_COLOR))
 			dye_list += "body"
 
-		var/what_to_dye = input(user, "Choose an area to apply the dye","Dye Application") in dye_list
+		var/what_to_dye = input(user, "Choose an area to apply the dye", "Dye Application") in dye_list
 
 		user.visible_message("<span class='notice'>[user] starts dying [M]'s [what_to_dye]!</span>", "<span class='notice'>You start dying [M]'s [what_to_dye]!</span>")
 		if(do_after(user, 50, target = H))
 			switch(what_to_dye)
 				if("hair")
-					var/r_hair = color2R(dye_color)
-					var/g_hair = color2G(dye_color)
-					var/b_hair = color2B(dye_color)
-					if(H.change_hair_color(r_hair, g_hair, b_hair))
-						H.update_dna()
+					H.change_hair_color(dye_color)
+				if("alt. hair theme")
+					H.change_hair_color(dye_color, 1)
 				if("facial hair")
-					var/r_facial = color2R(dye_color)
-					var/g_facial = color2G(dye_color)
-					var/b_facial = color2B(dye_color)
-					if(H.change_facial_hair_color(r_facial, g_facial, b_facial))
-						H.update_dna()
+					H.change_facial_hair_color(dye_color)
+				if("alt. facial hair theme")
+					H.change_facial_hair_color(dye_color, 1)
 				if("body")
-					var/r_skin = color2R(dye_color)
-					var/g_skin = color2G(dye_color)
-					var/b_skin = color2B(dye_color)
-					if(H.change_skin_color(r_skin, g_skin, b_skin))
-						H.update_dna()
+					H.change_skin_color(dye_color)
+			H.update_dna()
 		user.visible_message("<span class='notice'>[user] finishes dying [M]'s [what_to_dye]!</span>", "<span class='notice'>You finish dying [M]'s [what_to_dye]!</span>")
