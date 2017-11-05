@@ -1,4 +1,4 @@
-/var/list/sacrificed = list()
+var/list/sacrificed = list()
 var/list/non_revealed_runes = (subtypesof(/obj/effect/rune) - /obj/effect/rune/malformed)
 
 /*

@@ -171,10 +171,13 @@ var/list/spells = typesof(/obj/effect/proc_holder/spell) //needed for the badmin
 /obj/effect/proc_holder/spell/proc/invocation(mob/user = usr) //spelling the spell out and setting it on recharge/reducing charges amount
 	switch(invocation_type)
 		if("shout")
-			if(prob(50))//Auto-mute? Fuck that noise
-				user.say(invocation)
+			if(!user.IsVocal())
+				user.emote("makes frantic gestures!")
 			else
-				user.say(replacetext(invocation," ","`"))
+				if(prob(50))//Auto-mute? Fuck that noise
+					user.say(invocation)
+				else
+					user.say(replacetext(invocation," ","`"))
 		if("whisper")
 			if(prob(50))
 				user.whisper(invocation)
