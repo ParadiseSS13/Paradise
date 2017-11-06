@@ -40,7 +40,7 @@
 
 
 
-/client/verb/openUserUI()
+/client/proc/openUserUI()
 
 	set name = "My Tickets"
 	set category = "Admin"
