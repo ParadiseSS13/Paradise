@@ -224,7 +224,8 @@ var/list/admin_verbs_snpc = list(
 var/list/admin_verbs_ticket = list(
 	/client/proc/openTicketUI,
 	/client/proc/toggleticketlogs,
-	/client/proc/resolveAllTickets
+	/client/proc/resolveAllTickets,
+	/client/proc/openUserUI
 )
 
 /client/proc/on_holder_add()
