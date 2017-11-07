@@ -320,7 +320,26 @@
 				var/mob/living/carbon/human/H = src
 				H.Weaken(min(pressure_difference / 10, 10))
 			spawn()
-				throw_at(general_direction, pressure_difference / 10, pressure_difference / 200, null, 0, 0, null)
+				var/max_distance = 14 // reduce by one each calculation to prevent infinate loops.
+				var/min_observed_pressure = INFINITY
+				var/turf/target = get_turf(src)
+				if(isunsimulatedturf(target))
+					return 0
+				var/turf/possible_target = get_turf(src)
+				while(!isunsimulatedturf(target) && max_distance)
+					max_distance--
+					var/datum/gas_mixture/target_air = target.return_air()
+					min_observed_pressure = target_air.return_pressure()
+					possible_target = get_step_towards(target,general_direction)
+					if(isunsimulatedturf(possible_target))
+						target = possible_target
+						break
+					var/datum/gas_mixture/possible_target_air = possible_target.return_air()
+					if(!possible_target.CanPass(src, target || possible_target_air.return_pressure() > min_observed_pressure))
+						target = possible_target
+						break
+					target = possible_target
+				throw_at(target, get_dist(src, target), pressure_difference / 200, null, 0, 0, null)
 			last_forced_movement = air_master.current_cycle
 			return 1
 		else if(pressure_difference > pressure_resistance)
