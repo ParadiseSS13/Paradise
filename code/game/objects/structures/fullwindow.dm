@@ -86,7 +86,7 @@
 	icon = 'icons/obj/podwindows.dmi'
 	icon_state = "window"
 	basestate = "window"
-	health = 320
+	health = 160
 	reinf = 1
 
 /obj/structure/window/full/shuttle/New()
