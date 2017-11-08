@@ -73,14 +73,25 @@
 	var/brigged_since = -1
 	var/suicided = FALSE
 
-	New(var/key)
-		src.key = key
-
 	//put this here for easier tracking ingame
 	var/datum/money_account/initial_account
 
 	//zealot_master is a reference to the mob that converted them into a zealot (for ease of investigation and such)
 	var/mob/living/carbon/human/zealot_master = null
+
+/datum/mind/New(var/key)
+	src.key = key
+
+
+/datum/mind/Destroy()
+	ticker.minds -= src
+	if(islist(antag_datums))
+		for(var/i in antag_datums)
+			var/datum/antagonist/antag_datum = i
+			if(antag_datum.delete_on_mind_deletion)
+				qdel(i)
+		antag_datums = null
+	return ..()
 
 /datum/mind/proc/transfer_to(mob/living/new_character)
 	var/datum/atom_hud/antag/hud_to_transfer = antag_hud //we need this because leave_hud() will clear this list
