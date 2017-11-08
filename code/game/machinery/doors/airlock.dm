@@ -21,7 +21,7 @@
 
 /obj/machinery/door/airlock
 	name = "airlock"
-	icon = 'icons/obj/doors/Doorint.dmi'
+	icon = 'icons/obj/doors/doorint.dmi'
 	icon_state = "door_closed"
 	var/aiControlDisabled = 0 //If 1, AI control is disabled until the AI hacks back in and disables the lock. If 2, the AI has bypassed the lock. If -1, the control is enabled but the AI had bypassed it earlier, so if it is disabled again the AI would have no trouble getting back in.
 	var/hackProof = 0 // if 1, this door can't be hacked by the AI
@@ -47,7 +47,6 @@
 	normalspeed = 1
 	var/obj/item/weapon/airlock_electronics/electronics = null
 	var/hasShocked = 0 //Prevents multiple shocks from happening
-	var/frozen = 0 //special condition for airlocks that are frozen shut, this will look weird on not normal airlocks because of a lack of special overlays.
 	autoclose = 1
 	explosion_block = 1
 	var/doorOpen = 'sound/machines/airlock_open.ogg'
@@ -517,14 +516,11 @@ About the new airlock wires panel:
 			icon_state = "door_locked"
 		else
 			icon_state = "door_closed"
-		if(p_open || welded || frozen)
+		if(p_open || welded)
 			if(p_open)
 				overlays += image(icon, "panel_open")
 			if(welded)
 				overlays += image(icon, "welded")
-			if(frozen)
-				overlays += image(icon, "frozen")
-
 	else
 		icon_state = "door_open"
 
@@ -808,8 +804,6 @@ About the new airlock wires panel:
 	if((istype(C, /obj/item/weapon/weldingtool) && !operating && density))
 		var/obj/item/weapon/weldingtool/W = C
 		if(W.remove_fuel(0,user))
-			if(frozen)
-				frozen = 0
 			if(!welded)
 				welded = 1
 			else
@@ -1029,8 +1023,6 @@ About the new airlock wires panel:
 			if(A.closeOtherId == closeOtherId && A != src)
 				closeOther = A
 				break
-	if(frozen)
-		welded = TRUE
 	if(welded)
 		update_icon()
 
@@ -1055,8 +1047,6 @@ About the new airlock wires panel:
 	if((istype(C, /obj/item/weapon/weldingtool) && !operating && density))
 		var/obj/item/weapon/weldingtool/W = C
 		if(W.remove_fuel(0,user))
-			if(frozen)
-				frozen = 0
 			if(!welded)
 				welded = 1
 			else
@@ -1080,8 +1070,6 @@ About the new airlock wires panel:
 	if((istype(C, /obj/item/weapon/weldingtool) && !operating && density))
 		var/obj/item/weapon/weldingtool/W = C
 		if(W.remove_fuel(0,user))
-			if(frozen)
-				frozen = 0
 			if(!welded)
 				welded = 1
 			else
