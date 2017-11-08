@@ -16,16 +16,13 @@
 	density = FALSE
 	heat_proof = TRUE
 	glass = TRUE
-	power_channel = ENVIRON
 	closed_layer = 3.11
 	auto_close_time = 50
-
 	var/can_force = TRUE
 	var/force_open_time = 300
 	var/can_crush = TRUE
 	var/assembly_type = /obj/structure/firelock_frame
 	var/nextstate = null
-	var/welded = FALSE
 	var/boltslocked = TRUE
 	var/can_deconstruct = TRUE
 	var/active_alarm = FALSE

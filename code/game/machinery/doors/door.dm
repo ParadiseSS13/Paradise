@@ -2,7 +2,7 @@
 #define DOOR_CLOSED_LAYER 3.1	//Above most items if closed
 
 /obj/machinery/door
-	name = "Door"
+	name = "door"
 	desc = "It opens and closes."
 	icon = 'icons/obj/doors/Doorint.dmi'
 	icon_state = "door1"
@@ -10,15 +10,16 @@
 	opacity = 1
 	density = 1
 	layer = DOOR_OPEN_LAYER
+	power_channel = ENVIRON
 	var/open_layer = DOOR_OPEN_LAYER
 	var/closed_layer = DOOR_CLOSED_LAYER
-
 	var/visible = 1
 	var/p_open = 0
 	var/operating = 0
 	var/autoclose = 0
 	var/autoclose_timer
 	var/glass = 0
+	var/welded = FALSE
 	var/normalspeed = 1
 	var/auto_close_time = 150
 	var/auto_close_time_dangerous = 5
