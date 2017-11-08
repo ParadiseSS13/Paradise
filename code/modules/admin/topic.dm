@@ -1688,9 +1688,9 @@
 		if(!input)	return
 
 		to_chat(src.owner, "You sent [input] to [H] via a secure channel.")
-		log_admin("[key_name(src.owner)] replied to [key_name(H)]'s Centcomm message with the message: [input]")
+		log_admin("[key_name(src.owner)] replied to [key_name(H)]'s Centcomm message with the message [input].")
 		message_admins("[key_name_admin(src.owner)] replied to [key_name_admin(H)]'s Centcom message with: \"[input]\"")
-		to_chat(H, "<span class='warning'>You hear something crackle in your headset for a moment before a voice speaks.  \"Please stand by for a message from Central Command.  Message as follows: [input]\" </span>")
+		to_chat(H, "You hear something crackle in your headset for a moment before a voice speaks.  \"Please stand by for a message from Central Command.  Message as follows. [input].  Message ends.\"")
 
 	else if(href_list["EvilFax"])
 		if(!check_rights(R_ADMIN))
