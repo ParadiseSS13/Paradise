@@ -76,7 +76,8 @@
 		return
 	if(isliving(AM))
 		var/mob/living/M = AM
-		if(world.time - M.last_bumped <= 10) return	//Can bump-open one airlock per second. This is to prevent shock spam.
+		if(world.time - M.last_bumped <= 10)
+			return	//Can bump-open one airlock per second. This is to prevent shock spam.
 		M.last_bumped = world.time
 		if(!M.restrained())
 			if(M.mob_size > MOB_SIZE_SMALL)
@@ -187,28 +188,25 @@
 		qdel(src)
 	return
 
-
 /obj/machinery/door/emp_act(severity)
 	if(prob(20/severity) && (istype(src,/obj/machinery/door/airlock) || istype(src,/obj/machinery/door/window)) )
 		spawn(0)
 			open()
 	..()
 
-
 /obj/machinery/door/ex_act(severity)
 	switch(severity)
-		if(1.0)
+		if(1)
 			qdel(src)
-		if(2.0)
+		if(2)
 			if(prob(25))
 				qdel(src)
-		if(3.0)
+		if(3)
 			if(prob(80))
 				var/datum/effect/system/spark_spread/s = new /datum/effect/system/spark_spread
 				s.set_up(2, 1, src)
 				s.start()
 	return
-
 
 /obj/machinery/door/update_icon()
 	if(density)
@@ -298,7 +296,6 @@
 			L.adjustBruteLoss(DOOR_CRUSH_DAMAGE)
 		var/turf/location = get_turf(src)
 		L.add_splatter_floor(location)
-
 
 /obj/machinery/door/proc/requiresID()
 	return 1

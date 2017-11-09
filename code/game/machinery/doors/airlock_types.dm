@@ -152,7 +152,7 @@
 
 /obj/machinery/door/airlock/plasma/proc/PlasmaBurn(temperature)
 	atmos_spawn_air(SPAWN_HEAT | SPAWN_TOXINS, 500)
-	new/obj/structure/door_assembly( src.loc )
+	new/obj/structure/door_assembly(loc)
 	qdel(src)
 
 /obj/machinery/door/airlock/plasma/BlockSuperconductivity() //we don't stop the heat~
@@ -327,14 +327,14 @@
 	icon = 'icons/obj/doors/Doorplasma.dmi'
 	is_special = 1
 
-/obj/machinery/door/airlock/alien/bumpopen(mob/living/user as mob)
-	if(istype(user,/mob/living/carbon/alien) || isrobot(user) || isAI(user))
+/obj/machinery/door/airlock/alien/bumpopen(mob/living/user)
+	if(isalien(user) || isrobot(user) || isAI(user))
 		..(user)
 	else
 		to_chat(user, "You do not know how to operate this airlock's mechanism.")
 		return
 
-/obj/machinery/door/airlock/alien/attackby(C as obj, mob/user as mob, params)
+/obj/machinery/door/airlock/alien/attackby(obj/C, mob/user, params)
 	if(isalien(user) || isrobot(user) || isAI(user))
 		..(C, user)
 	else
