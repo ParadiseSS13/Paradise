@@ -25,10 +25,10 @@
 				to_chat(affected_mob, "<span class='notice'>You crave meat.</span>")
 				affected_mob.emote("cough")
 			if(prob(2))
-				to_chat(affected_mob, "<span class='danger'>Your stomache growls!</span>")
+				to_chat(affected_mob, "<span class='danger'>Your stomach growls!</span>")
 		if(4)
 			if(prob(10))
-				to_chat(affected_mob, "<span class='danger'>Your stomache barks?!</span>")
+				to_chat(affected_mob, "<span class='danger'>Your stomach barks?!</span>")
 			if(prob(5))
 				affected_mob.visible_message("<span class='danger'>[affected_mob] howls!</span>", \
 												"<span class='userdanger'>You howl!</span>")

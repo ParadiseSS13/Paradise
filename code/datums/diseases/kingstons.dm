@@ -17,9 +17,9 @@
 		if(1)
 			if(prob(10))
 				if(affected_mob.get_species() == "Tajaran")
-					to_chat(affected_mob, "<span class='danger'>You feel good.</span>")
+					to_chat(affected_mob, "<span class='notice'>You feel good.</span>")
 				else
-					to_chat(affected_mob, "<span class='danger'>You feel like playing with string.</span>")
+					to_chat(affected_mob, "<span class='notice'>You feel like playing with string.</span>")
 		if(2)
 			if(prob(10))
 				if(affected_mob.get_species() == "Tajaran")
