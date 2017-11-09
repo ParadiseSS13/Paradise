@@ -23,6 +23,7 @@
 	var/normalspeed = 1
 	var/auto_close_time = 150
 	var/auto_close_time_dangerous = 5
+	var/assemblytype //the type of door frame to drop during deconstruction
 	var/heat_proof = 0 // For rglass-windowed airlocks and firedoors
 	var/emergency = 0
 	var/air_properties_vary_with_direction = 0
@@ -96,6 +97,18 @@
 		return
 	return
 
+/obj/machinery/door/Move(new_loc, new_dir)
+	var/turf/T = loc
+	. = ..()
+	move_update_air(T)
+
+	if(width > 1)
+		if(dir in list(EAST, WEST))
+			bound_width = width * world.icon_size
+			bound_height = world.icon_size
+		else
+			bound_width = world.icon_size
+			bound_height = width * world.icon_size
 
 /obj/machinery/door/CanPass(atom/movable/mover, turf/target, height=0)
 	if(istype(mover) && mover.checkpass(PASSGLASS))
@@ -295,19 +308,6 @@
 	if(!qdeleted(src) && !density && !operating && autoclose)
 		close()
 	return
-
-/obj/machinery/door/Move(new_loc, new_dir)
-	var/turf/T = loc
-	. = ..()
-	move_update_air(T)
-
-	if(width > 1)
-		if(dir in list(EAST, WEST))
-			bound_width = width * world.icon_size
-			bound_height = world.icon_size
-		else
-			bound_width = world.icon_size
-			bound_height = width * world.icon_size
 
 /obj/machinery/door/proc/update_freelook_sight()
 	// Glass door glass = 1

@@ -1,5 +1,5 @@
 /obj/structure/spacepoddoor
-	name = "Podlock"
+	name = "podlock"
 	desc = "Why it no open!!!"
 	icon = 'icons/effects/beam.dmi'
 	icon_state = "n_beam"

@@ -40,7 +40,7 @@
 	var/obj/machinery/door/airlock/closeOther = null
 	var/closeOtherId = null
 	var/lockdownbyai = 0
-	var/assembly_type = /obj/structure/door_assembly
+	assemblytype = /obj/structure/door_assembly
 	var/mineral = null
 	var/justzap = 0
 	var/safe = 1
@@ -73,6 +73,19 @@ About the new airlock wires panel:
 */
 // You can find code for the airlock wires in the wire datum folder.
 
+/obj/machinery/door/airlock/New()
+	..()
+	wires = new(src)
+
+/obj/machinery/door/airlock/initialize()
+	. = ..()
+	if(closeOtherId != null)
+		for(var/obj/machinery/door/airlock/A in airlocks)
+			if(A.closeOtherId == closeOtherId && A != src)
+				closeOther = A
+				break
+	if(welded)
+		update_icon()
 
 /obj/machinery/door/airlock/Destroy()
 	QDEL_NULL(electronics)
@@ -568,7 +581,7 @@ About the new airlock wires panel:
 			if(do_after(user, 40 * C.toolspeed, target = src))
 				to_chat(user, "<span class='notice'>You removed the airlock electronics!</span>")
 
-				var/obj/structure/door_assembly/da = new assembly_type(loc)
+				var/obj/structure/door_assembly/da = new assemblytype(loc)
 				da.heat_proof_finished = heat_proof //tracks whether there's rglass in
 				da.anchored = 1
 				if(mineral)
@@ -659,6 +672,59 @@ About the new airlock wires panel:
 		ignite(is_hot(C))
 	..()
 
+/obj/machinery/door/airlock/hatch/gamma/attackby(C as obj, mob/user as mob, params)
+//	to_chat(world, text("airlock attackby src [] obj [] mob []", src, C, user))
+	if(!istype(usr, /mob/living/silicon))
+		if(isElectrified())
+			if(shock(user, 75))
+				return
+	if(istype(C, /obj/item/device/detective_scanner) || istype(C, /obj/item/taperoll))
+		return
+
+	if(istype(C, /obj/item/weapon/grenade/plastic/c4))
+		to_chat(user, "The hatch is coated with a product that prevents the shaped charge from sticking!")
+		return
+
+	if(istype(C, /obj/item/mecha_parts/mecha_equipment/rcd) || istype(C, /obj/item/weapon/rcd))
+		to_chat(user, "The hatch is made of an advanced compound that cannot be deconstructed using an RCD.")
+		return
+
+	add_fingerprint(user)
+	if((istype(C, /obj/item/weapon/weldingtool) && !operating && density))
+		var/obj/item/weapon/weldingtool/W = C
+		if(W.remove_fuel(0,user))
+			if(!welded)
+				welded = 1
+			else
+				welded = null
+			update_icon()
+			return
+		else
+			return
+
+
+/obj/machinery/door/airlock/highsecurity/red/attackby(C as obj, mob/user as mob, params)
+//	to_chat(world, text("airlock attackby src [] obj [] mob []", src, C, user))
+	if(!istype(usr, /mob/living/silicon))
+		if(isElectrified())
+			if(shock(user, 75))
+				return
+	if(istype(C, /obj/item/device/detective_scanner) || istype(C, /obj/item/taperoll))
+		return
+
+	add_fingerprint(user)
+	if((istype(C, /obj/item/weapon/weldingtool) && !operating && density))
+		var/obj/item/weapon/weldingtool/W = C
+		if(W.remove_fuel(0,user))
+			if(!welded)
+				welded = 1
+			else
+				welded = null
+			update_icon()
+			return
+		else
+			return
+
 /obj/machinery/door/airlock/open(var/forced=0)
 	if(operating || welded || locked || emagged)
 		return 0
@@ -744,73 +810,6 @@ About the new airlock wires panel:
 	update_icon()
 	return 1
 
-/obj/machinery/door/airlock/New()
-	..()
-	wires = new(src)
-
-/obj/machinery/door/airlock/initialize()
-	. = ..()
-	if(closeOtherId != null)
-		for(var/obj/machinery/door/airlock/A in airlocks)
-			if(A.closeOtherId == closeOtherId && A != src)
-				closeOther = A
-				break
-	if(welded)
-		update_icon()
-
-/obj/machinery/door/airlock/hatch/gamma/attackby(C as obj, mob/user as mob, params)
-//	to_chat(world, text("airlock attackby src [] obj [] mob []", src, C, user))
-	if(!istype(usr, /mob/living/silicon))
-		if(isElectrified())
-			if(shock(user, 75))
-				return
-	if(istype(C, /obj/item/device/detective_scanner) || istype(C, /obj/item/taperoll))
-		return
-
-	if(istype(C, /obj/item/weapon/grenade/plastic/c4))
-		to_chat(user, "The hatch is coated with a product that prevents the shaped charge from sticking!")
-		return
-
-	if(istype(C, /obj/item/mecha_parts/mecha_equipment/rcd) || istype(C, /obj/item/weapon/rcd))
-		to_chat(user, "The hatch is made of an advanced compound that cannot be deconstructed using an RCD.")
-		return
-
-	add_fingerprint(user)
-	if((istype(C, /obj/item/weapon/weldingtool) && !operating && density))
-		var/obj/item/weapon/weldingtool/W = C
-		if(W.remove_fuel(0,user))
-			if(!welded)
-				welded = 1
-			else
-				welded = null
-			update_icon()
-			return
-		else
-			return
-
-
-/obj/machinery/door/airlock/highsecurity/red/attackby(C as obj, mob/user as mob, params)
-//	to_chat(world, text("airlock attackby src [] obj [] mob []", src, C, user))
-	if(!istype(usr, /mob/living/silicon))
-		if(isElectrified())
-			if(shock(user, 75))
-				return
-	if(istype(C, /obj/item/device/detective_scanner) || istype(C, /obj/item/taperoll))
-		return
-
-	add_fingerprint(user)
-	if((istype(C, /obj/item/weapon/weldingtool) && !operating && density))
-		var/obj/item/weapon/weldingtool/W = C
-		if(W.remove_fuel(0,user))
-			if(!welded)
-				welded = 1
-			else
-				welded = null
-			update_icon()
-			return
-		else
-			return
-
 /obj/machinery/door/airlock/CanAStarPass(var/obj/item/weapon/card/id/ID)
 //Airlock is passable if it is open (!density), bot has access, and is not bolted shut)
 	return !density || (check_access(ID) && !locked && arePowerSystemsOn())
@@ -860,6 +859,6 @@ About the new airlock wires panel:
 
 /obj/machinery/door/airlock/narsie_act()
 	var/turf/T = get_turf(src)
-	if(prob(20))
-		new/obj/machinery/door/airlock/cult(T)
-		qdel(src)
+	var/obj/machinery/door/airlock/cult/A = new(T)
+	A.name = name
+	qdel(src)

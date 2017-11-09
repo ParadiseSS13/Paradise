@@ -1,13 +1,12 @@
 /obj/structure/door_assembly
 	icon = 'icons/obj/doors/door_assembly.dmi'
-
-	name = "Airlock Assembly"
+	name = "airlock assembly"
 	icon_state = "door_as_0"
 	anchored = 0
 	density = 1
 	var/state = 0
 	var/base_icon_state = ""
-	var/base_name = "Airlock"
+	var/base_name = "airlock"
 	var/obj/item/weapon/airlock_electronics/electronics = null
 	var/airlock_type = "" //the type path of the airlock once completed
 	var/glass_type = "/glass"
@@ -24,91 +23,91 @@
 
 /obj/structure/door_assembly/door_assembly_com
 	base_icon_state = "com"
-	base_name = "Command Airlock"
+	base_name = "command airlock"
 	glass_type = "/glass_command"
 	airlock_type = "/command"
 
 /obj/structure/door_assembly/door_assembly_sec
 	base_icon_state = "sec"
-	base_name = "Security Airlock"
+	base_name = "security airlock"
 	glass_type = "/glass_security"
 	airlock_type = "/security"
 
 /obj/structure/door_assembly/door_assembly_eng
 	base_icon_state = "eng"
-	base_name = "Engineering Airlock"
+	base_name = "engineering airlock"
 	glass_type = "/glass_engineering"
 	airlock_type = "/engineering"
 
 /obj/structure/door_assembly/door_assembly_min
 	base_icon_state = "min"
-	base_name = "Mining Airlock"
+	base_name = "mining airlock"
 	glass_type = "/glass_mining"
 	airlock_type = "/mining"
 
 /obj/structure/door_assembly/door_assembly_atmo
 	base_icon_state = "atmo"
-	base_name = "Atmospherics Airlock"
+	base_name = "atmospherics airlock"
 	glass_type = "/glass_atmos"
 	airlock_type = "/atmos"
 
 /obj/structure/door_assembly/door_assembly_research
 	base_icon_state = "res"
-	base_name = "Research Airlock"
+	base_name = "research airlock"
 	glass_type = "/glass_research"
 	airlock_type = "/research"
 
 /obj/structure/door_assembly/door_assembly_science
 	base_icon_state = "sci"
-	base_name = "Science Airlock"
+	base_name = "science airlock"
 	glass_type = "/glass_science"
 	airlock_type = "/science"
 
 /obj/structure/door_assembly/door_assembly_med
 	base_icon_state = "med"
-	base_name = "Medical Airlock"
+	base_name = "medical airlock"
 	glass_type = "/glass_medical"
 	airlock_type = "/medical"
 
 /obj/structure/door_assembly/door_assembly_mai
 	base_icon_state = "mai"
-	base_name = "Maintenance Airlock"
+	base_name = "maintenance airlock"
 	airlock_type = "/maintenance"
 	glass = -1
 
 /obj/structure/door_assembly/door_assembly_ext
 	base_icon_state = "ext"
-	base_name = "External Airlock"
+	base_name = "external airlock"
 	airlock_type = "/external"
 	glass = -1
 
 /obj/structure/door_assembly/door_assembly_fre
 	base_icon_state = "fre"
-	base_name = "Freezer Airlock"
+	base_name = "freezer airlock"
 	airlock_type = "/freezer"
 	glass = -1
 
 /obj/structure/door_assembly/door_assembly_hatch
 	base_icon_state = "hatch"
-	base_name = "Airtight Hatch"
+	base_name = "airtight hatch"
 	airlock_type = "/hatch"
 	glass = -1
 
 /obj/structure/door_assembly/door_assembly_mhatch
 	base_icon_state = "mhatch"
-	base_name = "Maintenance Hatch"
+	base_name = "maintenance hatch"
 	airlock_type = "/maintenance_hatch"
 	glass = -1
 
 /obj/structure/door_assembly/door_assembly_highsecurity // Borrowing this until WJohnston makes sprites for the assembly
 	base_icon_state = "highsec"
-	base_name = "High Security Airlock"
+	base_name = "high security airlock"
 	airlock_type = "/highsecurity"
 	glass = -1
 
 /obj/structure/door_assembly/door_assembly_shuttle
 	base_icon_state = "shuttle"
-	base_name = "Shuttle Airlock"
+	base_name = "shuttle airlock"
 	airlock_type = "/shuttle"
 	glass = -1
 
@@ -236,7 +235,7 @@
 			if(!src) return
 			to_chat(user, "<span class='notice'>You installed the airlock electronics!</span>")
 			src.state = 2
-			src.name = "Near finished Airlock Assembly"
+			src.name = "near finished airlock assembly"
 			src.electronics = W
 		else
 			W.loc = src.loc
@@ -249,7 +248,7 @@
 			if(!src) return
 			to_chat(user, "<span class='notice'>You removed the airlock electronics!</span>")
 			src.state = 1
-			src.name = "Wired Airlock Assembly"
+			src.name = "wired airlock assembly"
 			var/obj/item/weapon/airlock_electronics/ae
 			if(!electronics)
 				ae = new/obj/item/weapon/airlock_electronics( src.loc )
@@ -299,7 +298,7 @@
 				path = text2path("/obj/machinery/door/airlock[airlock_type]")
 			var/obj/machinery/door/airlock/door = new path(src.loc)
 			door.setDir(dir)
-			door.assembly_type = type
+			door.assemblytype = type
 			door.electronics = src.electronics
 			door.heat_proof = heat_proof_finished
 			if(src.electronics.one_access)
@@ -323,9 +322,9 @@
 	switch(state)
 		if(0)
 			if(anchored)
-				name = "Secured "
+				name = "secured "
 		if(1)
-			name = "Wired "
+			name = "wired "
 		if(2)
-			name = "Near Finished "
-	name += "[heat_proof_finished ? "Heat-Proofed " : ""][glass == 1 ? "Window " : ""][istext(glass) ? "[glass] Airlock" : base_name] Assembly"
+			name = "near finished "
+	name += "[heat_proof_finished ? "heat-proofed " : ""][glass == 1 ? "window " : ""][istext(glass) ? "[glass] airlock" : base_name] assembly"
