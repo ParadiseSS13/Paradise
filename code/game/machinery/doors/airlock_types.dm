@@ -213,6 +213,7 @@
 /obj/machinery/door/airlock/centcom
 	icon = 'icons/obj/doors/Doorele.dmi'
 	opacity = 0
+	assemblytype = /obj/structure/door_assembly/door_assembly_centcom
 
 //////////////////////////////////
 /*
@@ -222,7 +223,7 @@
 /obj/machinery/door/airlock/vault
 	name = "vault door"
 	icon = 'icons/obj/doors/vault.dmi'
-	assemblytype = /obj/structure/door_assembly/door_assembly_highsecurity //Until somebody makes better sprites.
+	assemblytype = /obj/structure/door_assembly/door_assembly_vault
 	explosion_block = 2
 
 //////////////////////////////////

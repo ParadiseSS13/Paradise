@@ -560,6 +560,8 @@ About the new airlock wires panel:
 			return
 	else if(isscrewdriver(C))
 		p_open = !p_open
+		to_chat(user, "<span class='notice'>You [p_open ? "open":"close"] the maintenance panel of the airlock.</span>")
+		playsound(loc, C.usesound, 50, 1)
 		update_icon()
 	else if(iswirecutter(C))
 		return attack_hand(user)
