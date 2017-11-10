@@ -365,7 +365,7 @@
 			if(prob(20))
 				M.emote("scream")
 			M.mind.vampire.nullified = max(5, M.mind.vampire.nullified + 2)
-			M.mind.vampire.bloodusable = max(M.mind.vampire.bloodusable - 20,0)
+			M.mind.vampire.bloodusable = max(M.mind.vampire.bloodusable - 3,0)
 			if(M.mind.vampire.bloodusable)
 				V.vomit(0,1)
 			else
