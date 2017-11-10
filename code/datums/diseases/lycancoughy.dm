@@ -8,7 +8,7 @@
 	cures = list("ethanol")
 	agent = "Excess Snuggles"
 	viable_mobtypes = list(/mob/living/carbon/human, /mob/living/carbon/human/monkey)
-	desc = "If left untreated subject will regurgitate...puppys?"
+	desc = "If left untreated subject will regurgitate... puppys?"
 	severity = MEDIUM
 
 /datum/disease/lycan/stage_act()
@@ -33,12 +33,11 @@
 				affected_mob.visible_message("<span class='danger'>[affected_mob] howls!</span>", \
 												"<span class='userdanger'>You howl!</span>")
 				affected_mob.AdjustConfused(rand(6,8))
-				playsound(affected_mob, 'sound/goonstation/voice/howl.ogg', 60, 0, 10)
 			if(prob(3))
 				var/list/puppytype = list(/mob/living/simple_animal/pet/corgi/puppy, /mob/living/simple_animal/pet/pug, /mob/living/simple_animal/pet/fox)
 				var/mob/living/puppypicked = pick(puppytype)
 				affected_mob.visible_message("<span class='danger'>[affected_mob] coughs up [initial(puppypicked.name)]!</span>", \
-													"<span class='userdanger'>You cough up [initial(puppypicked.name)]!?</span>")
+													"<span class='userdanger'>You cough up [initial(puppypicked.name)]?!</span>")
 				affected_mob.emote("cough")
 				new puppypicked(affected_mob.loc)
 				new puppypicked(affected_mob.loc)
