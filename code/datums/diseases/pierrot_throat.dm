@@ -46,7 +46,7 @@
 	switch(stage)
 		if(1)
 			if(prob(10))
-				to_chat(affected_mob, "<span class='danger'>You feel a very silly.</span>")
+				to_chat(affected_mob, "<span class='danger'>You feel very silly.</span>")
 			if(prob(5))
 				to_chat(affected_mob, "<span class='danger'>You feel like making a joke.</span>")
 		if(2)

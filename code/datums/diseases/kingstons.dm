@@ -9,7 +9,7 @@
 	viable_mobtypes = list(/mob/living/carbon/human)
 	permeability_mod = 0.75
 	desc = "If left untreated the subject will turn into a feline. In felines it has... OTHER... effects."
-	severity = MEDIUM
+	severity = DANGEROUS
 
 /datum/disease/kingstons/stage_act()
 	..()
@@ -42,9 +42,8 @@
 				else
 					affected_mob.visible_message("<span class='danger'>[affected_mob] form contorts into something more feline!</span>", \
 													"<span class='userdanger'>YOU TURN INTO A TAJARAN!</span>")
-					if(!affected_mob.get_species() != "Tajaran")
-						var/mob/living/carbon/human/catface = affected_mob
-						catface.set_species("Tajaran")
+					var/mob/living/carbon/human/catface = affected_mob
+					catface.set_species("Tajaran")
 
 
 /datum/disease/kingstons/advanced
@@ -57,10 +56,10 @@
 	agent = "AMB45DR Bacteria"
 	viable_mobtypes = list(/mob/living/carbon/human)
 	permeability_mod = 0.75
-	desc = "If left untreated the subject will mutate to a diffrent species."
-	severity = MEDIUM
-	var/list/virspecies = list("Human", "Tajaran", "Unathi", "Skrell", "Grey")//no karma races sorrys.
-	var/list/virsuffix = list("pox", "rot", "flu", "Cough", "-gitis", "cold", "Rash")
+	desc = "If left untreated the subject will mutate to a different species."
+	severity = BIOHAZARD
+	var/list/virspecies = list("Human", "Tajaran", "Unathi", "Skrell", "Grey", "Vulpkanin")//no karma races sorrys.
+	var/list/virsuffix = list("pox", "rot", "flu", "cough", "-gitis", "cold", "rash", "itch")
 	var/chosentype
 	var/chosensuff
 

@@ -8,7 +8,7 @@
 	cures = list("ethanol")
 	agent = "Excess Snuggles"
 	viable_mobtypes = list(/mob/living/carbon/human, /mob/living/carbon/human/monkey)
-	desc = "If left untreated subject will regurgitate... puppys?"
+	desc = "If left untreated subject will regurgitate... puppies."
 	severity = MEDIUM
 
 /datum/disease/lycan/stage_act()
@@ -39,6 +39,7 @@
 				affected_mob.visible_message("<span class='danger'>[affected_mob] coughs up [initial(puppypicked.name)]!</span>", \
 													"<span class='userdanger'>You cough up [initial(puppypicked.name)]?!</span>")
 				affected_mob.emote("cough")
+				affected_mob.adjustBruteLoss(5)
 				new puppypicked(affected_mob.loc)
 				new puppypicked(affected_mob.loc)
 	return
