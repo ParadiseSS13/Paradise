@@ -188,7 +188,7 @@
 			switch(progress)
 				if(1)
 					to_chat(user, "<span class='notice'>You begin by introducing yourself and explaining what you're about.</span>")
-					user.visible_message("<span class='danger'>[user]'s introduces himself and explains his plans.</span>")
+					user.visible_message("<span class='danger'>[user]'s introduces \himself and explains \his plans.</span>")
 				if(2)
 					to_chat(user, "<span class='notice'>You begin the recruitment of [target].</span>")
 					user.visible_message("<span class='danger'>[user] leans over towards [target], whispering excitedly as he gives a speech.</span>")
@@ -214,7 +214,7 @@
 		recruiting = 0
 		to_chat(user, "<span class='notice'>You have recruited <b>[target]</b> as your henchman!</span>")
 		to_chat(target, "<span class='deadsay'><b>You have decided to enroll as a henchman for [user]. You are now part of the feared 'Greyshirts'.</b></span>")
-		to_chat(target, "<span class='deadsay'><b>You must follow the orders of [user], and help him succeed in his dastardly schemes.</span>")
+		to_chat(target, "<span class='deadsay'><b>You must follow the orders of [user], and help him succeed in \his dastardly schemes.</span>")
 		to_chat(target, "<span class='deadsay'>You may not harm other Greyshirt or [user]. However, you do not need to obey other Greyshirts.</span>")
 		ticker.mode.greyshirts += target.mind
 		target.set_species("Human")
