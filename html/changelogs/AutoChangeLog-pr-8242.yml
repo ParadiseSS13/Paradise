@@ -1,5 +1,0 @@
-author: "Allfd"
-delete-after: True
-changes: 
-  - rscadd: "A new Anti-Bite muzzle has been added to the SecVendor. This muzzle can be locked through the strip panel and will prevent a vampire from feeding."
-  - rscadd: "Holy water now causes vampires to vomit blood, before vomiting the water. After this holywater behaves as normal."
