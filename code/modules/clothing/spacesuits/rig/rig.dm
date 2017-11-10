@@ -811,7 +811,8 @@
 
 /obj/item/weapon/rig/dropped(var/mob/user)
 	..()
-	user.verbs -= /obj/item/weapon/rig/proc/emergency_release
+	if(user != null)
+		user.verbs -= /obj/item/weapon/rig/proc/emergency_release
 	for(var/piece in list("helmet","gauntlets","chest","boots"))
 		toggle_piece(piece, user, ONLY_RETRACT, 1)
 	if(wearer)
