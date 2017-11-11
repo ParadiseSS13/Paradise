@@ -30,7 +30,6 @@
 
 /datum/disease/pierrot_throat/advanced
 	name = "Advanced Pierrot's Throat"
-	max_stages = 4
 	spread_text = "Airborne"
 	cure_text = "Banana products, especially banana bread."
 	cures = list("banana")

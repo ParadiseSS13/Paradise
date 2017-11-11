@@ -48,7 +48,6 @@
 
 /datum/disease/kingstons/advanced
 	name = "Advanced Kingstons Syndrome"
-	max_stages = 4
 	spread_text = "Airborne"
 	cure_text = "Plasma"
 	cures = list("plasma")
