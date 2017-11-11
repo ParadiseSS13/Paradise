@@ -25,10 +25,10 @@ RSF
 	configured_items[++configured_items.len] = list("Pen", 50, /obj/item/weapon/pen)
 	configured_items[++configured_items.len] = list("Dice Pack", 50, /obj/item/weapon/storage/pill_bottle/dice)
 	configured_items[++configured_items.len] = list("Cigarette", 50, /obj/item/clothing/mask/cigarette)
-	configured_items[++configured_items.len] = list("Snack - Newdles", 250, /obj/item/weapon/reagent_containers/food/snacks/chinese/newdles)
-	configured_items[++configured_items.len] = list("Snack - Donut", 250, /obj/item/weapon/reagent_containers/food/snacks/donut)
-	configured_items[++configured_items.len] = list("Snack - Chicken Soup", 500, /obj/item/weapon/reagent_containers/food/drinks/chicken_soup)
-	configured_items[++configured_items.len] = list("Snack - Turkey Burger", 500, /obj/item/weapon/reagent_containers/food/snacks/tofuburger)
+	configured_items[++configured_items.len] = list("Snack - Newdles", 4000, /obj/item/weapon/reagent_containers/food/snacks/chinese/newdles)
+	configured_items[++configured_items.len] = list("Snack - Donut", 4000, /obj/item/weapon/reagent_containers/food/snacks/donut)
+	configured_items[++configured_items.len] = list("Snack - Chicken Soup", 4000, /obj/item/weapon/reagent_containers/food/drinks/chicken_soup)
+	configured_items[++configured_items.len] = list("Snack - Turkey Burger", 4000, /obj/item/weapon/reagent_containers/food/snacks/tofuburger)
 	return
 
 /obj/item/weapon/rsf/attackby(obj/item/weapon/W as obj, mob/user as mob, params)
