@@ -1816,7 +1816,7 @@
 "aIV" = (/obj/machinery/photocopier,/turf/simulated/floor/wood,/area/mimeoffice)
 "aIW" = (/obj/structure/table/woodentable,/obj/machinery/photocopier/faxmachine/longrange{department = "Magistrate's Office"},/obj/item/device/radio/intercom{frequency = 1459; name = "station intercom (General)"; pixel_x = -28},/turf/simulated/floor/carpet,/area/magistrateoffice)
 "aIX" = (/obj/machinery/atmospherics/pipe/simple/hidden/supply{dir = 5; level = 1},/turf/simulated/floor/plasteel,/area/crew_quarters/fitness)
-"aIY" = (/obj/machinery/door/firedoor,/obj/machinery/door/airlock/maintenance{req_access_txt = "12"},/turf/simulated/floor/plating,/area/crew_quarters/fitness{name = "\improper Arcade"})
+"aIY" = (/obj/machinery/door/firedoor,/obj/machinery/door/airlock/maintenance{req_access_txt = "12"},/turf/simulated/floor/plating,/area/maintenance/fsmaint)
 "aIZ" = (/obj/structure/table/woodentable,/obj/item/device/taperecorder{pixel_y = 0},/obj/item/device/megaphone,/turf/simulated/floor/carpet,/area/magistrateoffice)
 "aJa" = (/obj/machinery/light{dir = 1},/obj/structure/disposalpipe/trunk,/obj/machinery/disposal,/turf/simulated/floor/plasteel{tag = "icon-cult"; icon_state = "cult"; dir = 2},/area/lawoffice)
 "aJb" = (/obj/effect/spawner/window/reinforced,/obj/machinery/door/poddoor/shutters{density = 0; dir = 4; icon_state = "shutter0"; id_tag = "magistrate"; name = "Privacy Shutters"; opacity = 0},/turf/simulated/floor/plating,/area/magistrateoffice)
