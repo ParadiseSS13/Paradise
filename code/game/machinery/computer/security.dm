@@ -170,13 +170,14 @@
 					var/t1
 					if(temp_href[2] == "execute")
 						t1 = copytext(trim(sanitize(input("Explain why they are being executed. Include a list of their crimes, and victims.", "EXECUTION ORDER", null, null) as text)), 1, MAX_MESSAGE_LEN)
-						if(!t1)
-							setTemp("<h3 class='bad'>Error: setting someone to execute REQUIRES a valid reason.</h3>")
-							return 1
 					else
 						t1 = copytext(trim(sanitize(input("Enter Reason:", "Secure. records", null, null) as text)), 1, MAX_MESSAGE_LEN)
-						if(!t1)
-							t1 = "(none)"
+					var visible_reason
+					if(t1)
+						visible_reason = t1
+					else
+						t1 = "(none)"
+						visible_reason = "<span class='warning'>NO REASON PROVIDED</span>"
 					switch(temp_href[2])
 						if("none")
 							active2.fields["criminal"] = "None"
@@ -185,7 +186,7 @@
 						if("execute")
 							if((access_magistrate in authcard_access) || (access_armory in authcard_access))
 								active2.fields["criminal"] = "*Execute*"
-								message_admins("[key_name_admin(usr)] authorized <span class='warning'>EXECUTION</span> for [their_rank] [their_name], with comment: [t1] \
+								message_admins("[key_name_admin(usr)] authorized <span class='warning'>EXECUTION</span> for [their_rank] [their_name], with comment: [visible_reason] \
 									| (<A HREF='?_src_=holder;adminplayeropts=\ref[usr]'>PP</A>) \
 									| (<A HREF='?_src_=holder;CentcommReply=\ref[usr]'>RADIO</A>) \
 									| (<A HREF='?_src_=holder;subtlemessage=\ref[usr]'>SM</A>) \
