@@ -172,7 +172,7 @@
 						t1 = copytext(trim(sanitize(input("Explain why they are being executed. Include a list of their crimes, and victims.", "EXECUTION ORDER", null, null) as text)), 1, MAX_MESSAGE_LEN)
 					else
 						t1 = copytext(trim(sanitize(input("Enter Reason:", "Secure. records", null, null) as text)), 1, MAX_MESSAGE_LEN)
-					var visible_reason
+					var/visible_reason
 					if(t1)
 						visible_reason = t1
 					else
@@ -186,12 +186,7 @@
 						if("execute")
 							if((access_magistrate in authcard_access) || (access_armory in authcard_access))
 								active2.fields["criminal"] = "*Execute*"
-								message_admins("[key_name_admin(usr)] authorized <span class='warning'>EXECUTION</span> for [their_rank] [their_name], with comment: [visible_reason] \
-									| (<A HREF='?_src_=holder;adminplayeropts=\ref[usr]'>PP</A>) \
-									| (<A HREF='?_src_=holder;CentcommReply=\ref[usr]'>RADIO</A>) \
-									| (<A HREF='?_src_=holder;subtlemessage=\ref[usr]'>SM</A>) \
-									| ([admin_jump_link(usr)]) \
-								")
+								message_admins("[ADMIN_FULLMONTY(usr)] authorized <span class='warning'>EXECUTION</span> for [their_rank] [their_name], with comment: [visible_reason]")
 							else
 								setTemp("<h3 class='bad'>Error: permission denied.</h3>")
 								return 1
