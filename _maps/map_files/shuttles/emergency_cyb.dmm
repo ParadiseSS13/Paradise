@@ -56,7 +56,7 @@
 "bd" = (/obj/machinery/door/airlock/glass_medical{id_tag = null; name = "Escape Shuttle Infirmary"; req_access_txt = "0"},/turf/simulated/shuttle/floor,/area/shuttle/escape)
 "be" = (/turf/simulated/shuttle/floor{icon_state = "floor2"},/area/shuttle/escape)
 "bf" = (/obj/structure/closet/crate,/turf/simulated/shuttle/floor{icon_state = "floor2"},/area/shuttle/escape)
-"bg" = (/obj/structure/table,/obj/item/weapon/storage/firstaid/o2{layer = 2.8; pixel_x = 4; pixel_y = 6},/obj/item/weapon/storage/firstaid/regular{pixel_x = 2; pixel_y = 6},/obj/item/weapon/storage/firstaid/regular{pixel_x = -2; pixel_y = 4},/obj/item/bodybag/cryobag{pixel_x = 5},/turf/simulated/shuttle/floor{icon_state = "floor3"},/area/shuttle/escape)
+"bg" = (/obj/structure/table,/obj/item/weapon/storage/firstaid/o2{layer = 2.8; pixel_x = 4; pixel_y = 6},/obj/item/weapon/storage/firstaid/regular{pixel_x = 2; pixel_y = 6},/obj/item/weapon/storage/firstaid/regular{pixel_x = -2; pixel_y = 4},/obj/item/bodybag{pixel_x = 5},/turf/simulated/shuttle/floor{icon_state = "floor3"},/area/shuttle/escape)
 "bh" = (/obj/machinery/vending/wallmed1{layer = 3.3; name = "Emergency NanoMed"; pixel_x = 28; pixel_y = 0; req_access_txt = "0"},/obj/structure/stool/bed/roller,/turf/simulated/shuttle/floor{icon_state = "floor3"},/area/shuttle/escape)
 "bi" = (/obj/structure/closet/cardboard,/turf/simulated/shuttle/floor{icon_state = "floor2"},/area/shuttle/escape)
 "bj" = (/obj/machinery/light/spot{tag = "icon-tube1 (EAST)"; icon_state = "tube1"; dir = 4},/turf/simulated/shuttle/floor{icon_state = "floor2"},/area/shuttle/escape)
