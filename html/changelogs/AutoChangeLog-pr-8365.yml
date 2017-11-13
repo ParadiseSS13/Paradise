@@ -1,0 +1,4 @@
+author: "Alffd"
+delete-after: True
+changes: 
+  - bugfix: "Makes throwing the ambulance with atmospherics almost impossible."
