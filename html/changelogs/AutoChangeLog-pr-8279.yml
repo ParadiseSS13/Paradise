@@ -1,4 +1,0 @@
-author: "VexingRaven"
-delete-after: True
-changes: 
-  - bugfix: "Fixes the message that appears when a mob being force-fed a snack finishes eating that snack."

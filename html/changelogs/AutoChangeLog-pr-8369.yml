@@ -1,4 +1,0 @@
-author: "Alffd"
-delete-after: True
-changes: 
-  - bugfix: "Fixes muzzles not preventing vampire biting unless the target was wearing the muzzle."
