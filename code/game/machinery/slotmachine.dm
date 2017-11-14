@@ -47,14 +47,14 @@
 		if(operation == 1) // Play
 			if(working == 1)
 				return
-			if(!account || account.money < 100)
+			if(!account || account.money < 10)
 				return
-			if(!account.charge(100, transaction_purpose = "Bet", dest_name = name))
+			if(!account.charge(10, transaction_purpose = "Bet", dest_name = name))
 				return
 			plays += 1
 			working = 1
 			icon_state = "slots-on"
-			var/roll = rand(1,20000)
+			var/roll = rand(1,1350)
 			playsound(src.loc, 'sound/machines/ding.ogg', 50, 1)
 			spawn(25)
 				if(roll == 1)
