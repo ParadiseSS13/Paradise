@@ -19,13 +19,11 @@
 				return
 
 			if(M != user)
-				M.visible_message(\
-					"[user.name] pulls [M.name] free from the sticky nest!",\
-					"<span class='notice'>[user.name] pulls you free from the gelatinous resin.</span>",\
+				M.visible_message("[user] pulls [M] free from the sticky nest!",\
+					"<span class='notice'>[user] pulls you free from the gelatinous resin.</span>",\
 					"<span class='italics'>You hear squelching...</span>")
 			else
-				M.visible_message(\
-					"<span class='warning'>[M.name] struggles to break free from the gelatinous resin!</span>",\
+				M.visible_message("<span class='warning'>[M] struggles to break free from the gelatinous resin!</span>",\
 					"<span class='notice'>You struggle to break free from the gelatinous resin... (Stay still for two minutes.)</span>",\
 					"<span class='italics'>You hear squelching...</span>")
 				if(!do_after(M, 1200, target = src))
@@ -34,8 +32,7 @@
 					return
 				if(!M.buckled)
 					return
-				M.visible_message(\
-					"<span class='warning'>[M.name] breaks free from the gelatinous resin!</span>",\
+				M.visible_message("<span class='warning'>[M] breaks free from the gelatinous resin!</span>",\
 					"<span class='notice'>You break free from the gelatinous resin!</span>",\
 					"<span class='italics'>You hear squelching...</span>")
 
@@ -43,7 +40,7 @@
 			add_fingerprint(user)
 
 /obj/structure/stool/bed/nest/user_buckle_mob(mob/living/M, mob/living/user)
-	if(!ismob(M) || (get_dist(src, user) > 1) || (M.loc != src.loc) || user.incapacitated() || M.buckled )
+	if(!ismob(M) || (get_dist(src, user) > 1) || (M.loc != loc) || user.incapacitated() || M.buckled )
 		return
 
 	if(M.get_int_organ(/obj/item/organ/internal/xenos/plasmavessel))

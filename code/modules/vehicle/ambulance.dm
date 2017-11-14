@@ -14,22 +14,23 @@
 
 /obj/vehicle/ambulance/handle_vehicle_offsets()
 	..()
-	if(buckled_mobs.len)
-		for(var/m in buckled_mobs)
-			var/mob/living/buckled_mob = m
+	if(has_buckled_mobs())
+		for(var/i in 1 to buckled_mobs.len)
+			var/mob/living/buckled_mob = buckled_mobs[i]
 			switch(buckled_mob.dir)
-				if(SOUTH)
-					buckled_mob.pixel_x = 0
-					buckled_mob.pixel_y = 7
-				if(WEST)
-					buckled_mob.pixel_x = 13
-					buckled_mob.pixel_y = 7
 				if(NORTH)
 					buckled_mob.pixel_x = 0
-					buckled_mob.pixel_y = 4
+					buckled_mob.pixel_y = 4 * i
+				if(SOUTH)
+					buckled_mob.pixel_x = 0
+					buckled_mob.pixel_y = 7 * i
 				if(EAST)
-					buckled_mob.pixel_x = -13
-					buckled_mob.pixel_y = 7
+					buckled_mob.pixel_x = -13 * i
+					buckled_mob.pixel_y = 7 * i
+				if(WEST)
+					buckled_mob.pixel_x = 13 * i
+					buckled_mob.pixel_y = 7 * i
+
 
 /obj/vehicle/ambulance/Move(newloc, Dir)
 	var/oldloc = loc
@@ -43,7 +44,7 @@
 			for(var/m in buckled_mobs)
 				var/mob/living/buckled_mob = m
 				if(bed.has_buckled_mobs())
-					buckled_mob.dir = Dir
+					buckled_mob.setDir(Dir)
 
 
 /obj/structure/stool/bed/amb_trolley

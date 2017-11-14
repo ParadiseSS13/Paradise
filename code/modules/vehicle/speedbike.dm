@@ -42,21 +42,21 @@
 
 /obj/vehicle/space/speedbike/handle_vehicle_offsets()
 	if(has_buckled_mobs())
-		for(var/m in buckled_mobs)
-			var/mob/living/buckled_mob = m
+		for(var/i in 1 to buckled_mobs.len)
+			var/mob/living/buckled_mob = buckled_mobs[i]
 			switch(buckled_mob.dir)
 				if(NORTH)
 					buckled_mob.pixel_x = 0
-					buckled_mob.pixel_y = -8
+					buckled_mob.pixel_y = 8 * i
 				if(SOUTH)
 					buckled_mob.pixel_x = 0
-					buckled_mob.pixel_y = 4
+					buckled_mob.pixel_y = 4 * i
 				if(EAST)
-					buckled_mob.pixel_x = -10
-					buckled_mob.pixel_y = 5
+					buckled_mob.pixel_x = -10 * i
+					buckled_mob.pixel_y = 5 * i
 				if(WEST)
-					buckled_mob.pixel_x = 10
-					buckled_mob.pixel_y = 5
+					buckled_mob.pixel_x = 10 * i
+					buckled_mob.pixel_y = 5 * i
 
 /obj/vehicle/space/speedbike/red
 	icon_state = "speedbike_red"

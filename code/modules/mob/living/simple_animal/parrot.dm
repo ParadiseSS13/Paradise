@@ -710,10 +710,10 @@
 	loc = get_turf(H)
 	H.buckle_mob(src, force=1)
 	pixel_y = 9
-	pixel_x = pick(-7,7) //pick left or right shoulder
+	pixel_x = pick(-7, 7) //pick left or right shoulder
 	icon_state = "parrot_sit"
 	parrot_state = PARROT_PERCH
-	to_chat(src,"<span class='notice'>You sit on [H]'s shoulder.</span>")
+	to_chat(src, "<span class='notice'>You sit on [H]'s shoulder.</span>")
 
 /*
  * Sub-types

@@ -46,6 +46,6 @@
 				if(do_mob(user, src, 120))
 					var/mob/living/H = G.affecting
 					H.forceMove(loc)
-					buckle_mob(H, force=1)
+					buckle_mob(H)
 					qdel(G)
 	return ..()

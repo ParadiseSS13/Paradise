@@ -55,7 +55,7 @@
 	if(has_buckled_mobs())
 		for(var/m in buckled_mobs)
 			var/mob/living/buckled_mob = m
-			buckled_mob.dir = dir
+			buckled_mob.setDir(dir)
 
 /obj/structure/stool/bed/chair/verb/rotate()
 	set name = "Rotate Chair"
@@ -171,13 +171,13 @@
 			occupant.apply_effect(6, WEAKEN, 0)
 			occupant.apply_effect(6, STUTTER, 0)
 			playsound(src.loc, 'sound/weapons/punch1.ogg', 50, 1, -1)
-			if(istype(A, /mob/living))
+			if(isliving(A))
 				var/mob/living/victim = A
 				victim.apply_effect(6, STUN, 0)
 				victim.apply_effect(6, WEAKEN, 0)
 				victim.apply_effect(6, STUTTER, 0)
 				victim.take_organ_damage(10)
-			occupant.visible_message("<span class='danger'>[occupant] crashed into \the [A]!</span>")
+			occupant.visible_message("<span class='danger'>[occupant] crashed into the [A]!</span>")
 
 /obj/structure/stool/bed/chair/office/light
 	icon_state = "officechair_white"

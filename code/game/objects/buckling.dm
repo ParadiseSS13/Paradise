@@ -44,7 +44,7 @@
 
 //procs that handle the actual buckling and unbuckling
 /atom/movable/proc/buckle_mob(mob/living/M, force = FALSE, check_loc = TRUE)
-	if(!buckled_mobs)
+	if(!islist(buckled_mobs))
 		buckled_mobs = list()
 
 	if(!istype(M))
@@ -53,7 +53,13 @@
 	if(check_loc && M.loc != loc)
 		return 0
 
-	if((!can_buckle && !force) || !istype(M) || M.buckled || (buckled_mobs.len >= max_buckled_mobs) || (buckle_requires_restraints && !M.restrained()) || M == src)
+	if(!can_buckle && !force)
+		return 0
+
+	if(M.buckled || (buckled_mobs.len >= max_buckled_mobs))
+		return 0
+
+	if((buckle_requires_restraints && !M.restrained()) || M == src)
 		return 0
 
 	if((isslime(M) || isAI(M)) && !force)

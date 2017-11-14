@@ -104,8 +104,8 @@
 
 		step(src, direction)
 
-		if(istype(src.loc, /turf/simulated))
-			var/turf/simulated/T = src.loc
+		if(istype(loc, /turf/simulated))
+			var/turf/simulated/T = loc
 			if(T.wet == TURF_WET_LUBE)	//Lube! Fall off!
 				playsound(src, 'sound/misc/slip.ogg', 50, 1, -3)
 				if(has_buckled_mobs())

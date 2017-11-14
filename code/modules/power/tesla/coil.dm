@@ -64,7 +64,7 @@
 				if(do_mob(user, src, 120))
 					var/mob/living/H = G.affecting
 					H.forceMove(loc)
-					buckle_mob(H, force=1)
+					buckle_mob(H)
 					qdel(G)
 
 	else
@@ -115,11 +115,6 @@
 	component_parts += new /obj/item/weapon/stock_parts/capacitor(null)
 	RefreshParts()
 
-/obj/machinery/power/grounding_rod/attack_hand(mob/user)
-	if(user.a_intent == INTENT_GRAB && user_buckle_mob(user.pulling, user, check_loc = FALSE))
-		return
-	..()
-
 /obj/machinery/power/grounding_rod/attackby(obj/item/W, mob/user, params)
 	if(default_deconstruction_screwdriver(user, "grounding_rod_open[anchored]", "grounding_rod[anchored]", W))
 		return
@@ -132,6 +127,16 @@
 
 	if(default_deconstruction_crowbar(W))
 		return
+
+	if(user.a_intent == INTENT_GRAB)
+		if(istype(W, /obj/item/weapon/grab))
+			var/obj/item/weapon/grab/G = W
+			if(isliving(G.affecting))
+				if(do_mob(user, src, 120))
+					var/mob/living/H = G.affecting
+					H.forceMove(loc)
+					buckle_mob(H)
+					qdel(G)
 
 	return ..()
 
