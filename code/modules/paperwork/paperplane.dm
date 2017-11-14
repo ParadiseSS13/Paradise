@@ -34,7 +34,7 @@
 
 /obj/item/weapon/paperplane/suicide_act(mob/living/user)
 	user.Stun(10)
-	user.visible_message("<span class='suicide'>[user] jams [src] in \his nose. It looks like \he's trying to commit suicide!</span>")
+	user.visible_message("<span class='suicide'>[user] jams [src.name] in \his nose. It looks like \he's trying to commit suicide!</span>")
 	user.EyeBlurry(6)
 	var/obj/item/organ/internal/eyes/E = user.get_int_organ(/obj/item/organ/internal/eyes)
 	if(E)
@@ -120,15 +120,6 @@
 		ProcFoldPlane(H, I)
 	else
 		..()
-
-/obj/item/weapon/paper/verb/VerbFoldPlane()
-	set category = "Object"
-	set name = "Fold Paper Plane"
-	set desc = "Fold a paper plane."
-	set src in usr
-	var/mob/living/carbon/human/H = usr
-	var/obj/item/weapon/paper/P = H.is_in_hands(/obj/item/weapon/paper)
-	ProcFoldPlane(usr, P)
 
 /obj/item/weapon/paper/proc/ProcFoldPlane(mob/living/carbon/user, obj/item/I)
 	if(istype(user))
