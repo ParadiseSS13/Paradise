@@ -24,7 +24,6 @@
 	unsuitable_atmos_damage = 15
 	heat_damage_per_tick = 20
 	pressure_resistance = 100    //100 kPa difference required to push
-	throw_pressure_limit = 120   //120 kPa difference required to throw
 	faction = list("alien")
 	status_flags = CANPUSH
 	minbodytemp = 0
