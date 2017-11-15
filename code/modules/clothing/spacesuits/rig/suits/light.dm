@@ -6,7 +6,7 @@
 	suit_type = "light suit"
 	allowed = list(/obj/item/weapon/gun,/obj/item/ammo_casing,/obj/item/weapon/melee/baton,/obj/item/weapon/restraints/handcuffs,/obj/item/weapon/tank,/obj/item/weapon/stock_parts/cell)
 	emp_protection = 10
-	slowdown = 0
+	active_slowdown = 0
 	flags = STOPSPRESSUREDMAGE | THICKMATERIAL
 	offline_slowdown = 0
 	offline_vision_restriction = 0
@@ -77,7 +77,7 @@
 	icon_state = "ninja_rig"
 	armor = list(melee = 50, bullet = 15, laser = 30, energy = 10, bomb = 25, bio = 100, rad = 30)
 	emp_protection = 40 //change this to 30 if too high.
-	slowdown = 0
+	active_slowdown = 0
 
 	chest_type = /obj/item/clothing/suit/space/new_rig/light/ninja
 	glove_type = /obj/item/clothing/gloves/rig/light/ninja

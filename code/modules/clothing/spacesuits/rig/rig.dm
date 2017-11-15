@@ -43,6 +43,7 @@
 	//Component/device holders.
 	var/obj/item/weapon/tank/air_supply                       // Air tank, if any.
 	var/obj/item/clothing/shoes/magboots/boots = null             // Deployable boots, if any.
+	var/obj/item/clothing/shoes/under_boots = null								//Boots that are between the feet and the rib boots, if any.
 	var/obj/item/clothing/suit/space/new_rig/chest                // Deployable chestpiece, if any.
 	var/obj/item/clothing/head/helmet/space/new_rig/helmet = null // Deployable helmet, if any.
 	var/obj/item/clothing/gloves/rig/gloves = null            // Deployable gauntlets, if any.
@@ -71,6 +72,7 @@
 	var/sealing                                               // Keeps track of seal status independantly of NODROP.
 	var/offline = 1                                           // Should we be applying suit maluses?
 	var/offline_slowdown = 3                                  // If the suit is deployed and unpowered, it sets slowdown to this.
+	var/active_slowdown = 3																		// How much the deployed suit slows down if powered.
 	var/vision_restriction
 	var/offline_vision_restriction = 1                        // 0 - none, 1 - welder vision, 2 - blind. Maybe move this to helmets.
 	var/airtight = 1 //If set, will adjust AIRTIGHT and STOPSPRESSUREDMAGE flags on components. Otherwise it should leave them untouched.
@@ -462,7 +464,7 @@
 			offline = 0
 			if(istype(wearer) && !wearer.wearing_rig)
 				wearer.wearing_rig = src
-			chest.slowdown = initial(slowdown)
+			chest.slowdown = active_slowdown
 
 	if(offline)
 		if(offline == 1)
@@ -721,6 +723,12 @@
 					if(isliving(uneq_piece.loc))
 						var/mob/living/L = uneq_piece.loc
 						L.unEquip(uneq_piece, 1)
+						if(uneq_piece == boots)
+							if(under_boots)
+								if(L.equip_to_slot_if_possible(under_boots, slot_shoes))
+									under_boots = null
+								else
+									to_chat(user, "<span class='warning'>Somehow, your [under_boots] got stuck to the [boots], and were retracted with them. ((This shouldn't happen, bug report this.))</span>")
 					uneq_piece.forceMove(src)
 		return 0
 
@@ -767,7 +775,12 @@
 
 			if(to_strip)
 				to_strip.unEquip(use_obj, 1)
-
+				if(use_obj == boots)
+					if(under_boots)
+						if(to_strip.equip_to_slot_if_possible(under_boots, slot_shoes))
+							under_boots = null
+						else
+							to_chat(user, "<span class='warning'>Somehow, your [under_boots] got stuck to the [boots], and were retracted with them. ((This shouldn't happen, bug report this.))</span>")
 			use_obj.forceMove(src)
 			if(wearer)
 				to_chat(wearer, "<span class='notice'>Your [use_obj] [use_obj.gender == PLURAL ? "retract" : "retracts"] swiftly.")
@@ -775,8 +788,13 @@
 		else if(deploy_mode != ONLY_RETRACT)
 			if(check_slot)
 				if(check_slot != use_obj) //If use_obj is already in check_slot, silently bail. Otherwise, tell the user why the part didn't deploy.
-					to_chat(wearer, "<span class='danger'>You are unable to deploy \the [piece] as \the [check_slot] [check_slot.gender == PLURAL ? "are" : "is"] in the way.</span>")
-				return
+					if(use_obj == boots)
+						under_boots = check_slot
+						wearer.unEquip(under_boots)
+						under_boots.forceMove(src)
+					else
+						to_chat(wearer, "<span class='danger'>You are unable to deploy \the [piece] as \the [check_slot] [check_slot.gender == PLURAL ? "are" : "is"] in the way.</span>")
+						return
 			use_obj.forceMove(wearer)
 			if(!wearer.equip_to_slot_if_possible(use_obj, equip_to, 0, 1))
 				use_obj.forceMove(src)
@@ -798,9 +816,9 @@
 		if(gloves && wearer.gloves && wearer.gloves != gloves)
 			to_chat(user, "<span class='danger'>\The [wearer.gloves] is preventing \the [src] from deploying!</span>")
 			return 0
-		if(boots && wearer.shoes && wearer.shoes != boots)
+		/*if(boots && wearer.shoes && wearer.shoes != boots)
 			to_chat(user, "<span class='danger'>\The [wearer.shoes] is preventing \the [src] from deploying!</span>")
-			return 0
+			return 0*/
 		if(chest && wearer.wear_suit && wearer.wear_suit != chest)
 			to_chat(user, "<span class='danger'>\The [wearer.wear_suit] is preventing \the [src] from deploying!</span>")
 			return 0
