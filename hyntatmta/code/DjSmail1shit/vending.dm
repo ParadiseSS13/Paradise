@@ -20,7 +20,8 @@
 	name = "Pizzamatt"
 	desc = "A vending machine with pizza and lunchbox"
 	icon = 'hyntatmta/icons/obj/vending.dmi'
-	product_ads = "HOT PIZZA!"
+	product_slogans = "Ah, can you feel that divine smell?;Si, my amico! Freshly baked!;Hawaiian is good to, admit it!;Feeling hungry? Nothing's better than a hot pizza!"
+	product_ads = "HOT PIZZA!;Just baked! Trust me!"
 	vend_delay = 80
 	icon_state = "pizza"
 	vend_reply = "Hey, you! Go get your yummy."
@@ -48,10 +49,10 @@
 
 /obj/machinery/vending/gunshop
 	name = "Gunshop"
-	desc = "A vending machine with guns"
-	product_ads = "Guuun?Maybe you want it?;Buy some Zincum"
+	desc = "A vending machine. With guns. God bless."
+	product_ads = "Guuun?Maybe you want it?;Buy some Zincum;Wanna feel safe? Well, you can!"
 	icon_state = "liberationstation"
-	vend_reply = "Thank for!"
+	vend_reply = "Don't forget the license!"
 	products = list(/obj/item/weapon/gun/projectile/automatic/pistol/enforcer = 5,/obj/item/ammo_box/magazine/m45/enforcer45 = 10)
 	prices = list(/obj/item/weapon/gun/projectile/automatic/pistol/enforcer = 2000,/obj/item/ammo_box/magazine/m45/enforcer45 = 500)
 	premium = list(/obj/item/ammo_casing/rubber45)
