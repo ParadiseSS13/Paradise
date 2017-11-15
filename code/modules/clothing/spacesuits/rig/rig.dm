@@ -110,7 +110,7 @@
 	spark_system.set_up(5, 0, src)
 	spark_system.attach(src)
 
-	processing_objects |= src
+	processing_objects.Add(src)
 
 	if(initial_modules && initial_modules.len)
 		for(var/path in initial_modules)
@@ -166,7 +166,7 @@
 		if(istype(M))
 			M.unEquip(piece)
 		qdel(piece)
-	processing_objects -= src
+	processing_objects.Remove(src)
 	QDEL_NULL(wires)
 	QDEL_NULL(spark_system)
 	return ..()
@@ -440,6 +440,15 @@
 				M.unEquip(piece)
 			piece.forceMove(src)
 
+	if(cell && cell.charge > 0 && electrified > 0)
+		electrified--
+
+	if(malfunction_delay > 0)
+		malfunction_delay--
+	else if(malfunctioning)
+		malfunctioning--
+		malfunction()
+
 	if(!istype(wearer) || loc != wearer || wearer.back != src || !(flags & NODROP) || !cell || cell.charge <= 0)
 		if(!cell || cell.charge <= 0)
 			if(electrified > 0)
@@ -474,14 +483,6 @@
 			chest.slowdown = offline_slowdown
 		return
 
-	if(cell && cell.charge > 0 && electrified > 0)
-		electrified--
-
-	if(malfunction_delay > 0)
-		malfunction_delay--
-	else if(malfunctioning)
-		malfunctioning--
-		malfunction()
 
 	for(var/obj/item/rig_module/module in installed_modules)
 		cell.use(module.process()*10)
@@ -854,10 +855,11 @@
 	take_hit((100/severity_class), "electrical pulse", 1)
 
 /obj/item/weapon/rig/proc/shock(mob/user)
-	if(electrocute_mob(user, cell, src)) //electrocute_mob() handles removing charge from the cell, no need to do that here.
-		spark_system.start()
-		if(user.stunned)
-			return 1
+	if(get_dist(src, user) <= 1) //Needs to be adjecant to the rig to get shocked.
+		if(electrocute_mob(user, cell, src)) //electrocute_mob() handles removing charge from the cell, no need to do that here.
+			spark_system.start()
+			if(user.stunned)
+				return 1
 	return 0
 
 /obj/item/weapon/rig/proc/take_hit(damage, source, is_emp=0)
