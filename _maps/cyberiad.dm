@@ -13,18 +13,15 @@ z7 = empty
 */
 
 #if !defined(USING_MAP_DATUM)
-        #include "map_files\cyberiad\atmtiad.dmm"
-        #include "map_files\cyberiad\z2.dmm"
-        #include "map_files\cyberiad\z3.dmm"
-        #include "map_files\cyberiad\z4.dmm"
-        #include "map_files\generic\z5.dmm"
-        #include "map_files\cyberiad\z6.dmm"
-        #include "map_files\generic\z7.dmm"
+	#include "map_files\cyberiad\atmtiad.dmm"
+	#include "map_files\cyberiad\z2.dmm"
+	#include "map_files\cyberiad\z3.dmm"
+	#include "map_files\cyberiad\z4.dmm"
+	#include "map_files\generic\z5.dmm"
+	#include "map_files\cyberiad\z6.dmm"
+	#include "map_files\generic\z7.dmm"
 
-        #define MAP_FILE "atmtiad.dmm"
-        #define MAP_NAME "SES ATMTIAD"
-        #define MAP_TRANSITION_CONFIG list(\
-
+	#define MAP_TRANSITION_CONFIG list(\
 DECLARE_LEVEL(MAIN_STATION, CROSSLINKED, list(STATION_LEVEL,STATION_CONTACT,REACHABLE,AI_OK)),\
 DECLARE_LEVEL(CENTCOMM, SELFLOOPING, list(ADMIN_LEVEL, BLOCK_TELEPORT, IMPEDES_MAGIC)),\
 DECLARE_LEVEL(TELECOMMS, CROSSLINKED, list(REACHABLE, BOOSTS_SIGNAL, AI_OK)),\
