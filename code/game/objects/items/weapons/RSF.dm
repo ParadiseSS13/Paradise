@@ -232,3 +232,76 @@ RSF
 				to_chat(user, "The RSF now holds [matter]/30 fabrication-units.")
 				desc = "A RSF. It currently holds [matter]/30 fabrication-units."
 		return
+
+/obj/item/weapon/cookiesynth
+	name = "\improper Cookie Synthesizer"
+	desc = "A self-recharging device used to rapidly deploy cookies."
+	icon = 'icons/obj/tools.dmi'
+	icon_state = "rcd"
+	var/matter = 10
+	var/toxin = FALSE
+	var/cooldown = 0
+	var/cooldowndelay = 10
+	var/emagged = FALSE
+	w_class = WEIGHT_CLASS_NORMAL
+
+/obj/item/weapon/cookiesynth/examine(mob/user)
+	..()
+	to_chat(user, "<span class='notice'>It currently holds [matter]/10 cookie-units.</span>")
+
+/obj/item/weapon/cookiesynth/attackby()
+	return
+
+/obj/item/weapon/cookiesynth/emag_act(mob/user)
+	emagged = !emagged
+	if(emagged)
+		to_chat(user, "<span class='warning'>You short out [src]'s reagent safety checker!</span>")
+	else
+		to_chat(user, "<span class='warning'>You reset [src]'s reagent safety checker!</span>")
+		toxin = FALSE
+
+/obj/item/weapon/cookiesynth/attack_self(mob/user)
+	var/mob/living/silicon/robot/P = null
+	if(isrobot(user))
+		P = user
+	if(emagged && !toxin)
+		toxin = TRUE
+		to_chat(user, "<span class='warning'>Cookie Synthesizer Hacked.</span>")
+	else if(P.emagged && !toxin)
+		toxin = TRUE
+		to_chat(user, "<span class='warning'>Cookie Synthesizer Hacked.</span>")
+	else
+		toxin = FALSE
+		to_chat(user, "<span class='notice'>Cookie Synthesizer Reset.</span>")
+
+/obj/item/weapon/cookiesynth/process()
+	if(matter < 10)
+		matter++
+
+/obj/item/weapon/cookiesynth/afterattack(atom/A, mob/user, proximity)
+	if(cooldown > world.time)
+		return
+	if(!proximity)
+		return
+	if(!(istype(A, /obj/structure/table) || isfloorturf(A)))
+		return
+	if(matter < 1)
+		to_chat(user, "<span class='warning'>[src] doesn't have enough matter left. Wait for it to recharge!</span>")
+		return
+	if(isrobot(user))
+		var/mob/living/silicon/robot/R = user
+		if(!R.cell || R.cell.charge < 400)
+			to_chat(user, "<span class='warning'>You do not have enough power to use [src].</span>")
+			return
+	var/turf/T = get_turf(A)
+	playsound(loc, 'sound/machines/click.ogg', 10, 1)
+	to_chat(user, "Fabricating Cookie..")
+	var/obj/item/weapon/reagent_containers/food/snacks/cookie/S = new /obj/item/weapon/reagent_containers/food/snacks/cookie(T)
+	if(toxin)
+		S.reagents.add_reagent("pancuronium", 2.4)
+	if(isrobot(user))
+		var/mob/living/silicon/robot/R = user
+		R.cell.charge -= 100
+	else
+		matter--
+	cooldown = world.time + cooldowndelay

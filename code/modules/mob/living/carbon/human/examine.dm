@@ -248,7 +248,7 @@
 					wound_flavor_text["[E.limb_name]"] = "[t_He] [t_has] a robotic [E.name]!\n"
 
 				else if(E.status & ORGAN_SPLINTED)
-					wound_flavor_text["[E.limb_name]"] = "[t_He] [t_has] a splint on his [E.name]!\n"
+					wound_flavor_text["[E.limb_name]"] = "[t_He] [t_has] a splint on [t_his] [E.name]!\n"
 
 			for(var/obj/item/I in E.embedded_objects)
 				msg += "<B>[t_He] [t_has] \a [bicon(I)] [I] embedded in [t_his] [E.name]!</B>\n"

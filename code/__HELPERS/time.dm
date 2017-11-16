@@ -77,3 +77,9 @@ proc/isDay(var/month, var/day)
 
 /proc/month2number(month)
 	return month_names.Find(month)
+
+//Take a value in seconds and returns a string of minutes and seconds in the format X minute(s) and X seconds.
+/proc/seconds_to_time(var/seconds as num)
+	var/numSeconds = seconds % 60
+	var/numMinutes = (seconds - numSeconds) / 60
+	return "[numMinutes] [numMinutes > 1 ? "minutes" : "minute"] and [numSeconds] seconds."

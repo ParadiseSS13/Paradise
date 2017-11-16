@@ -26,6 +26,12 @@
 		message_admins("[key_name_admin(usr)] rejected [key_name_admin(C.mob)]'s admin help")
 		log_admin("[key_name(usr)] rejected [key_name(C.mob)]'s admin help")
 
+	if(href_list["openadminticket"])
+		if(!check_rights(R_ADMIN))
+			return
+		var/ticketID = text2num(href_list["openadminticket"])
+		globAdminTicketHolder.showDetailUI(usr, ticketID)
+
 	if(href_list["stickyban"])
 		stickyban(href_list["stickyban"],href_list)
 
@@ -242,16 +248,23 @@
 
 		else if(task == "permissions")
 			if(!D)	return
-			var/list/permissionlist = list()
-			for(var/i=1, i<=R_MAXPERMISSION, i<<=1)		//that <<= is shorthand for i = i << 1. Which is a left bitshift
-				permissionlist[rights2text(i)] = i
-			var/new_permission = input("Select a permission to turn on/off", "Permission toggle", null, null) as null|anything in permissionlist
-			if(!new_permission)	return
-			D.rights ^= permissionlist[new_permission]
+			while(TRUE)
+				var/list/permissionlist = list()
+				for(var/i=1, i<=R_MAXPERMISSION, i<<=1)		//that <<= is shorthand for i = i << 1. Which is a left bitshift
+					permissionlist[rights2text(i)] = i
+				var/new_permission = input("Select a permission to turn on/off", adm_ckey + "'s Permissions", null, null) as null|anything in permissionlist
+				if(!new_permission)
+					return
+				var/oldrights = D.rights
+				var/toggleresult = "ON"
+				D.rights ^= permissionlist[new_permission]
+				if(oldrights > D.rights)
+					toggleresult = "OFF"
 
-			message_admins("[key_name_admin(usr)] toggled the [new_permission] permission of [adm_ckey]")
-			log_admin("[key_name(usr)] toggled the [new_permission] permission of [adm_ckey]")
-			log_admin_permission_modification(adm_ckey, permissionlist[new_permission])
+				message_admins("[key_name_admin(usr)] toggled the [new_permission] permission of [adm_ckey] to [toggleresult]")
+				log_admin("[key_name(usr)] toggled the [new_permission] permission of [adm_ckey] to [toggleresult]")
+				log_admin_permission_modification(adm_ckey, permissionlist[new_permission])
+
 
 		edit_admin_permissions()
 

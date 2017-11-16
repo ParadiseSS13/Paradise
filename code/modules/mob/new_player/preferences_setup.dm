@@ -341,7 +341,7 @@
 		face_s.Blend(eyes_s, ICON_OVERLAY)
 
 
-	var/datum/sprite_accessory/hair_style = hair_styles_list[h_style]
+	var/datum/sprite_accessory/hair_style = hair_styles_full_list[h_style]
 	if(hair_style)
 		var/icon/hair_s = new/icon("icon" = hair_style.icon, "icon_state" = "[hair_style.icon_state]_s")
 		if(current_species.name == "Slime People") // whee I am part of the problem

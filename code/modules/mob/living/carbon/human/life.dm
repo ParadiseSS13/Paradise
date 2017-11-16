@@ -95,16 +95,23 @@
 	if(getBrainLoss() >= 60 && stat != DEAD)
 		speech_problem_flag = 1
 		if(prob(3))
+<<<<<<< HEAD
 			var/list/s1 = list("всем привет с вами иивангай и это мой обзор на спесстейшн фертин",
 							   "без кеслорода блоб не растет?",
 							   "КЭП - ГОНДОН",
-							   "[pick("", "етот тритор")] [pick("винс", "винсонт", "винсент", "винсунт")] [pick("антдар", "одар", "удар")] грефонит миня х;алп!!!",
+							   "[pick("", "етот тритор")] [pick("винс", "винсонт", "винсент", "винсунт")] [pick("антдар", "одар", "удар")] грефонит миня халп!!!",
 							   "не могли бы вы меня тыкнуть [pick("теликенезом","хулком","епелепсией")]?",
 							   "Хочешь руки-базуки?",
 							   "Я РОССИЙСКИЙ НОВЫЙ ПИРАТ",
 							   "SONO CHI NO SADAME --- JOOOOOOOOOOOOOOJOOOOOOOOOOOOOOO",
 							   "не грифонь подумой!!!!",
-							   "АСТАНАВИТЕСЬ#")
+							   "АСТАНАВИТЕСЬ#",
+							   "ебать повидлит"
+							   "когда лаваленд?",
+							   "[pick("ай бля","аааа","")] этот трап [pick("Цири","Кири","Кирилл","Сири","Кирюха")] [pick("Покет","Пакет","Карман", "Карманный")] рассказывает мне про [pick("то как в сб служат","бургеры во франции","то как на него батя орал", "он меня щас трахнет")] помогите!!!!!",
+							   "сушилка не работает, фиксаните",
+							   "кек",
+							   "это фиаско братан")
 
 			var/list/s2 = list("FUS RO DAH",
 							   "ебучие фуриебы!",
@@ -933,7 +940,7 @@
 /mob/living/carbon/human/handle_changeling()
 	if(mind)
 		if(mind.changeling)
-			mind.changeling.regenerate()
+			mind.changeling.regenerate(src)
 			if(hud_used)
 				hud_used.lingchemdisplay.invisibility = 0
 				hud_used.lingchemdisplay.maptext = "<div align='center' valign='middle' style='position:relative; top:0px; left:6px'><font color='#dd66dd'>[round(mind.changeling.chem_charges)]</font></div>"

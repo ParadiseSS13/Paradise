@@ -61,7 +61,7 @@
 	if(usr)
 		if(usr.client)
 			if(usr.client.holder)
-				to_chat(M, "<b>old You hear a voice in your head... <i>[sanitize(msg)]</i></b>")
+				to_chat(M, "<b>You hear a voice in your head... <i>[sanitize(msg)]</i></b>")
 
 	log_admin("SubtlePM: [key_name(usr)] -> [key_name(M)] : [sanitize(msg)]")
 	message_admins("<span class='boldnotice'>SubtleMessage: [key_name_admin(usr)] -> [key_name_admin(M)] : [sanitize(msg)]</span>", 1)

@@ -24,9 +24,22 @@
 	var/list/frozen_crew = list()
 	var/list/frozen_items = list()
 
+	// Used for containing rare items traitors need to steal, so it's not
+	// game-over if they get iced
+	var/list/objective_items = list()
+	// A cache of theft datums so you don't have to re-create them for
+	// each item check
+	var/list/theft_cache = list()
+
 	var/storage_type = "crewmembers"
 	var/storage_name = "Cryogenic Oversight Control"
 	var/allow_items = 1
+
+
+/obj/machinery/computer/cryopod/New()
+	..()
+	for(var/T in potential_theft_objectives)
+		theft_cache += new T
 
 /obj/machinery/computer/cryopod/attack_ai()
 	attack_hand()
@@ -101,8 +114,7 @@
 
 		visible_message("<span class='notice'>The console beeps happily as it disgorges \the [I].</span>")
 
-		I.forceMove(get_turf(src))
-		frozen_items -= I
+		dispense_item(I)
 
 	else if(href_list["allitems"])
 		if(!allowed(user))
@@ -117,11 +129,30 @@
 		visible_message("<span class='notice'>The console beeps happily as it disgorges the desired objects.</span>")
 
 		for(var/obj/item/I in frozen_items)
-			I.forceMove(get_turf(src))
-			frozen_items -= I
+			dispense_item(I)
 
 	updateUsrDialog()
 	return
+
+/obj/machinery/computer/cryopod/proc/dispense_item(obj/item/I)
+	if(!(I in frozen_items))
+		return
+	I.forceMove(get_turf(src))
+	objective_items -= I
+	frozen_items -= I
+
+/obj/machinery/computer/cryopod/emag_act(mob/user)
+	user.changeNext_move(CLICK_CD_MELEE)
+	if(!objective_items.len)
+		visible_message("<span class='warning'>The console buzzes in an annoyed manner.</span>")
+		playsound(src, 'sound/machines/buzz-sigh.ogg', 30, 1)
+		return
+	visible_message("<span class='warning'>The console sparks, and some items fall out!</span>")
+	var/datum/effect/system/spark_spread/sparks = new
+	sparks.set_up(5, 1, src)
+	sparks.start()
+	for(var/obj/item/I in objective_items)
+		dispense_item(I)
 
 /obj/item/weapon/circuitboard/cryopodcontrol
 	name = "Circuit board (Cryogenic Oversight Console)"
@@ -275,6 +306,19 @@
 
 			despawn_occupant()
 
+#define CRYO_DESTROY 0
+#define CRYO_PRESERVE 1
+#define CRYO_OBJECTIVE 2
+
+/obj/machinery/cryopod/proc/should_preserve_item(obj/item/I)
+	for(var/datum/theft_objective/T in control_computer.theft_cache)
+		if(istype(I, T.typepath) && T.check_special_completion(I))
+			return CRYO_OBJECTIVE
+	for(var/T in preserve_items)
+		if(istype(I, T) && !(I.type in do_not_preserve_items))
+			return CRYO_PRESERVE
+	return CRYO_DESTROY
+
 // This function can not be undone; do not call this unless you are sure
 // Also make sure there is a valid control computer
 /obj/machinery/cryopod/proc/despawn_occupant()
@@ -284,12 +328,7 @@
 		W.forceMove(src)
 
 		if(W.contents.len) //Make sure we catch anything not handled by qdel() on the items.
-			var/preserve = null
-			for(var/T in preserve_items)
-				if(istype(W,T))
-					preserve = 1
-					break
-			if(preserve) // Don't remove the contents of things that need preservation
+			if(should_preserve_item(W) != CRYO_DESTROY) // Don't remove the contents of things that need preservation
 				continue
 			for(var/obj/item/O in W.contents)
 				if(istype(O,/obj/item/weapon/tank)) //Stop eating pockets, you fuck!
@@ -307,26 +346,22 @@
 	items -= announce // or the autosay radio.
 
 	for(var/obj/item/W in items)
-
-		var/preserve = null
-		for(var/T in preserve_items)
-			if(istype(W,T) && !(W in do_not_preserve_items))
-				preserve = 1
-				break
-
 		if(istype(W,/obj/item/device/pda))
 			var/obj/item/device/pda/P = W
 			QDEL_NULL(P.id)
 			qdel(P)
+			continue
 
-		if(!preserve)
+		var/preserve = should_preserve_item(W)
+		if(preserve == CRYO_DESTROY)
 			qdel(W)
+		else if(control_computer && control_computer.allow_items)
+			control_computer.frozen_items += W
+			if(preserve == CRYO_OBJECTIVE)
+				control_computer.objective_items += W
+			W.loc = null
 		else
-			if(control_computer && control_computer.allow_items)
-				control_computer.frozen_items += W
-				W.loc = null
-			else
-				W.forceMove(loc)
+			W.forceMove(loc)
 
 	// Skip past any cult sacrifice objective using this person
 	if(GAMEMODE_IS_CULT && is_sacrifice_target(occupant.mind))
@@ -422,6 +457,9 @@
 	QDEL_NULL(occupant)
 	name = initial(name)
 
+#undef CRYO_DESTROY
+#undef CRYO_PRESERVE
+#undef CRYO_OBJECTIVE
 
 /obj/machinery/cryopod/attackby(var/obj/item/weapon/G as obj, var/mob/user as mob, params)
 

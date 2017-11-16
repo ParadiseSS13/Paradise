@@ -21,6 +21,13 @@ var/global/nologevent = 0
 						var/msg = rendered
 						to_chat(C, msg)
 
+/proc/message_adminTicket(var/msg)
+	msg = "<span class='adminticket'><span class='prefix'>ADMIN TICKET:</span> [msg]</span>"
+	for(var/client/C in admins)
+		if(R_ADMIN & C.holder.rights)
+			if(C.prefs && !(C.prefs.toggles & CHAT_NO_TICKETLOGS))
+				to_chat(C, msg)
+
 
 ///////////////////////////////////////////////////////////////////////////////////////////////Panels
 

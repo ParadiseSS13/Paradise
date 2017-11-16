@@ -207,6 +207,7 @@
 			to_chat(user, "<span class='danger'>[H]'s [limb] is already splinted!</span>")
 			if(alert(user, "Would you like to remove the splint from [H]'s [limb]?", "Removing.", "Yes", "No") == "Yes")
 				affecting.status &= ~ORGAN_SPLINTED
+				H.handle_splints()
 				to_chat(user, "<span class='notice'>You remove the splint from [H]'s [limb].</span>")
 			return
 		if(M == user)
@@ -221,4 +222,7 @@
 								 "<span class='green'>You hear something being wrapped.</span>")
 
 		affecting.status |= ORGAN_SPLINTED
+		affecting.splinted_count = H.step_count
+		H.handle_splints()
+
 		use(1)

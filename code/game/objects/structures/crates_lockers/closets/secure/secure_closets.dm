@@ -6,8 +6,8 @@
 	density = 1
 	anchored = 1
 	opened = 0
-	var/locked = 1
-	var/broken = 0
+	locked = 1
+	broken = 0
 	var/large = 1
 	icon_closed = "secure"
 	var/icon_locked = "secure1"

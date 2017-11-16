@@ -1036,7 +1036,7 @@
 		return //no message spam
 
 	if(final_taste_list.len == 0)//too many reagents - none meet their thresholds
-		to_chat(src, "<span class='notice'>You you can't really make out what you're tasting...</span>")
+		to_chat(src, "<span class='notice'>You can't really make out what you're tasting...</span>")
 		return
 
 	to_chat(src, "<span class='notice'>You can taste [english_list(final_taste_list)].</span>")

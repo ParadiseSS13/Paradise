@@ -321,7 +321,7 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 			dat += "<b>Hair:</b> "
 			dat += "<a href='?_src_=prefs;preference=h_style;task=input'>[h_style]</a>"
 			dat += "<a href='?_src_=prefs;preference=hair;task=input'>Color</a> [color_square(h_colour)]"
-			var/datum/sprite_accessory/temp_hair_style = hair_styles_list[h_style]
+			var/datum/sprite_accessory/temp_hair_style = hair_styles_public_list[h_style]
 			if(temp_hair_style && temp_hair_style.secondary_theme && !temp_hair_style.no_sec_colour)
 				dat += " <a href='?_src_=prefs;preference=secondary_hair;task=input'>Color #2</a> [color_square(h_sec_colour)]"
 			dat += "<br>"
@@ -1402,7 +1402,7 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 
 				if("secondary_hair")
 					if(species in list("Human", "Unathi", "Tajaran", "Skrell", "Machine", "Vulpkanin", "Vox"))
-						var/datum/sprite_accessory/hair_style = hair_styles_list[h_style]
+						var/datum/sprite_accessory/hair_style = hair_styles_public_list[h_style]
 						if(hair_style.secondary_theme && !hair_style.no_sec_colour)
 							var/new_hair = input(user, "Choose your character's secondary hair colour:", "Character Preference", h_sec_colour) as color|null
 							if(new_hair)
@@ -1410,8 +1410,8 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 
 				if("h_style")
 					var/list/valid_hairstyles = list()
-					for(var/hairstyle in hair_styles_list)
-						var/datum/sprite_accessory/SA = hair_styles_list[hairstyle]
+					for(var/hairstyle in hair_styles_public_list)
+						var/datum/sprite_accessory/SA = hair_styles_public_list[hairstyle]
 
 						if(hairstyle == "Bald") //Just in case.
 							valid_hairstyles += hairstyle
@@ -1735,8 +1735,7 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 						nanotrasen_relation = new_relation
 
 				if("flavor_text")
-					var/msg = input(usr,"Set the flavor text in your 'examine' verb. This can also be used for OOC notes and preferences!","Flavor Text",lhtml_decode(flavor_text)) as message
-
+					var/msg = input(usr,"Set the flavor text in your 'examine' verb. The flavor text should be a physical descriptor of your character at a glance. SFW Drawn Art of your character is acceptable.","Flavor Text",lhtml_decode(flavor_text)) as message
 					if(msg != null)
 						msg = copytext(msg, 1, MAX_MESSAGE_LEN)
 						msg = lhtml_encode(msg)
@@ -1803,7 +1802,7 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 						if("Normal")
 							if(limb == "head")
 								m_styles["head"] = "None"
-								h_style = hair_styles_list["Bald"]
+								h_style = hair_styles_public_list["Bald"]
 								f_style = facial_hair_styles_list["Shaved"]
 							organ_data[limb] = null
 							rlimb_data[limb] = null
@@ -1854,7 +1853,7 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 								if(limb == "head")
 									ha_style = "None"
 									alt_head = null
-									h_style = hair_styles_list["Bald"]
+									h_style = hair_styles_public_list["Bald"]
 									f_style = facial_hair_styles_list["Shaved"]
 									m_styles["head"] = "None"
 							rlimb_data[limb] = choice

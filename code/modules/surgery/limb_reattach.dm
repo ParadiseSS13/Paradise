@@ -171,8 +171,8 @@
 	name = "connect limb"
 	allowed_tools = list(
 	/obj/item/weapon/hemostat = 100,	\
-	/obj/item/stack/cable_coil = 75, 	\
-	/obj/item/device/assembly/mousetrap = 20
+	/obj/item/stack/cable_coil = 90, 	\
+	/obj/item/device/assembly/mousetrap = 25
 	)
 	can_infect = 1
 

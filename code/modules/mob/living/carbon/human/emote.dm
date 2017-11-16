@@ -92,7 +92,7 @@
 			on_CD = handle_emote_CD(50) //longer cooldown
 		if("fart", "farts", "flip", "flips", "snap", "snaps")
 			on_CD = handle_emote_CD()				//proc located in code\modules\mob\emote.dm
-		if("cough", "coughs", "slap", "slaps")
+		if("cough", "coughs", "slap", "slaps", "highfive")
 			on_CD = handle_emote_CD()
 		if("sneeze", "sneezes")
 			on_CD = handle_emote_CD()
@@ -841,10 +841,42 @@
 						continue
 					M.reagents.add_reagent("jenkem", 1)
 
+		if("hem")
+			message = "<b>[src]</b> hems."
+
+		if("highfive")
+			if(restrained())
+				return
+			if(EFFECT_HIGHFIVE in active_effect)
+				to_chat(src, "You give up on the high-five.")
+				active_effect -= EFFECT_HIGHFIVE
+				return
+			active_effect |= EFFECT_HIGHFIVE
+			for(var/mob/living/carbon/C in orange(1))
+				if(EFFECT_HIGHFIVE in C.active_effect)
+					if((C.mind.special_role == SPECIAL_ROLE_WIZARD) && (mind.special_role == SPECIAL_ROLE_WIZARD))
+						visible_message("<span class='danger'><b>[name]</b> and <b>[C.name]</b> high-five EPICALLY!</span>")
+						status_flags |= GODMODE
+						C.status_flags |= GODMODE
+						explosion(loc,5,2,1,3)
+						status_flags &= ~GODMODE
+						C.status_flags &= ~GODMODE
+						break
+				visible_message("<b>[name]</b> and <b>[C.name]</b> high-five!")
+				C.active_effect -= EFFECT_HIGHFIVE
+				active_effect -= EFFECT_HIGHFIVE
+				playsound('sound/effects/snap.ogg', 50)
+				break
+			if(EFFECT_HIGHFIVE in active_effect)
+				visible_message("<b>[name]</b> requests a highfive.", "You request a highfive.")
+				if(do_after(src, 25, target = src))
+					visible_message("[name] was left hanging. Embarrassing.", "You are left hanging. How embarrassing!")
+					active_effect -= EFFECT_HIGHFIVE
+
 		if("help")
 			var/emotelist = "aflap(s), airguitar, blink(s), blink(s)_r, blush(es), bow(s)-(none)/mob, burp(s), choke(s), chuckle(s), clap(s), collapse(s), cough(s),cry, cries, custom, dance, dap(s)(none)/mob," \
 			+ " deathgasp(s), drool(s), eyebrow, fart(s), faint(s), flap(s), flip(s), frown(s), gasp(s), giggle(s), glare(s)-(none)/mob, grin(s), groan(s), grumble(s), grin(s)," \
-			+ " handshake-mob, hug(s)-(none)/mob, johnny, jump, laugh(s), look(s)-(none)/mob, moan(s), mumble(s), nod(s), pale(s), point(s)-atom, quiver(s), raise(s), salute(s)-(none)/mob, scream(s), shake(s)," \
+			+ " handshake-mob, hug(s)-(none)/mob, hem, highfive, johnny, jump, laugh(s), look(s)-(none)/mob, moan(s), mumble(s), nod(s), pale(s), point(s)-atom, quiver(s), raise(s), salute(s)-(none)/mob, scream(s), shake(s)," \
 			+ " shiver(s), shrug(s), sigh(s), signal(s)-#1-10,slap(s)-(none)/mob, smile(s),snap(s), sneeze(s), sniff(s), snore(s), stare(s)-(none)/mob, swag(s), tremble(s), twitch(es), twitch(es)_s," \
 			+ " wag(s), wave(s),  whimper(s), wink(s), yawn(s)"
 

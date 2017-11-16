@@ -117,6 +117,11 @@
 	var/obj/item/weapon/implant/explosive/E = new(H)
 	E.implant(H)
 
+/datum/outfit/admin/syndicate/operative/freedom
+	name = "Syndicate Freedom Operative"
+	suit = /obj/item/clothing/suit/space/hardsuit/syndi/freedom
+	head = /obj/item/clothing/head/helmet/space/hardsuit/syndi/freedom
+
 /datum/outfit/admin/syndicate_strike_team
 	name = "Syndicate Strike Team"
 
@@ -600,7 +605,7 @@
 
 	var/obj/item/weapon/card/id/I = H.wear_id
 	if(istype(I))
-		apply_to_card(I, H, get_all_accesses(), name)
+		apply_to_card(I, H, list(access_maint_tunnels), name)
 
 /datum/outfit/admin/soviet/tourist
 	name = "Soviet Tourist"

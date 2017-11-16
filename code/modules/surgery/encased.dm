@@ -25,7 +25,7 @@
 	allowed_tools = list(
 	/obj/item/weapon/circular_saw = 100, \
 	/obj/item/weapon/melee/energy/sword/cyborg/saw = 100, \
-	/obj/item/weapon/hatchet = 75
+	/obj/item/weapon/hatchet = 90
 	)
 
 	time = 54
@@ -72,7 +72,7 @@
 	allowed_tools = list(
 	/obj/item/weapon/scalpel/laser/manager = 100, \
 	/obj/item/weapon/retractor = 100, 	\
-	/obj/item/weapon/crowbar = 75
+	/obj/item/weapon/crowbar = 90
 	)
 
 	time = 24
@@ -123,7 +123,7 @@
 	allowed_tools = list(
 	/obj/item/weapon/scalpel/laser/manager = 100, \
 	/obj/item/weapon/retractor = 100, 	\
-	/obj/item/weapon/crowbar = 75
+	/obj/item/weapon/crowbar = 90
 	)
 
 	time = 24
@@ -173,7 +173,7 @@
 	name = "mend bone"
 	allowed_tools = list(
 	/obj/item/weapon/bonegel = 100,	\
-	/obj/item/weapon/screwdriver = 75
+	/obj/item/weapon/screwdriver = 90
 	)
 
 	time = 24

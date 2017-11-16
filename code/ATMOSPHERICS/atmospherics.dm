@@ -167,7 +167,9 @@ Pipelines + Other Objects -> Pipe network
 		add_fingerprint(user)
 
 		var/unsafe_wrenching = FALSE
-		var/internal_pressure = int_air.return_pressure()-env_air.return_pressure()
+		var/I = int_air ? int_air.return_pressure() : 0
+		var/E = env_air ? env_air.return_pressure() : 0
+		var/internal_pressure = I - E
 
 		playsound(src.loc, W.usesound, 50, 1)
 		to_chat(user, "<span class='notice'>You begin to unfasten \the [src]...</span>")

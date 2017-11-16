@@ -58,6 +58,10 @@
 
 /obj/effect/mine/dnascramble/mineEffect(mob/living/victim)
 	victim.apply_effect(radiation_amount, IRRADIATE, 0)
+	if(ishuman(victim))
+		var/mob/living/carbon/human/V = victim
+		if(NO_DNA in V.species.species_traits)
+			return
 	randmutb(victim)
 	domutcheck(victim ,null)
 

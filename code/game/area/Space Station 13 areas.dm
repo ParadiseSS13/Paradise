@@ -30,6 +30,8 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	luminosity = 0
 	mouse_opacity = 0
 	invisibility = INVISIBILITY_LIGHTING
+	var/valid_territory = TRUE //used for cult summoning areas on station zlevel
+	var/map_name // Set in New(); preserves the name set by the map maker, even if renamed by the Blueprints.
 	var/lightswitch = 1
 
 	var/eject = null
@@ -122,6 +124,7 @@ var/list/ghostteleportlocs = list()
 	power_light = 0
 	power_equip = 0
 	power_environ = 0
+	valid_territory = FALSE
 	outdoors = 1
 	ambientsounds = list('sound/ambience/ambispace.ogg','sound/music/title2.ogg','sound/music/space.ogg','sound/music/traitor.ogg')
 
@@ -150,6 +153,7 @@ var/list/ghostteleportlocs = list()
 /area/shuttle
 	no_teleportlocs = 1
 	requires_power = 0
+	valid_territory = FALSE
 
 /area/shuttle/arrival
 	name = "Arrival Shuttle"
@@ -559,6 +563,7 @@ var/list/ghostteleportlocs = list()
 	name = "Asteroid"
 	icon_state = "asteroid"
 	requires_power = 0
+	valid_territory = FALSE
 
 /area/asteroid/cave				// -- TLE
 	name = "Asteroid - Underground"
@@ -886,6 +891,7 @@ var/list/ghostteleportlocs = list()
 //Maintenance
 /area/maintenance
 	ambientsounds = list('sound/ambience/ambimaint1.ogg', 'sound/ambience/ambimaint2.ogg', 'sound/ambience/ambimaint3.ogg', 'sound/ambience/ambimaint4.ogg', 'sound/ambience/ambimaint5.ogg')
+	valid_territory = FALSE
 
 /area/maintenance/atmos_control
 	name = "Atmospherics Maintenance"
@@ -1142,6 +1148,7 @@ var/list/ghostteleportlocs = list()
 /area/crew_quarters/sleep
 	name = "Dormitories"
 	icon_state = "Sleep"
+	valid_territory = FALSE
 
 /area/crew_quarters/sleep_male
 	name = "Male Dorm"
@@ -1377,6 +1384,7 @@ var/list/ghostteleportlocs = list()
 /area/solar
 	requires_power = 0
 	dynamic_lighting = 0
+	valid_territory = FALSE
 
 	auxport
 		name = "Fore Port Solar Array"
@@ -1484,8 +1492,8 @@ var/list/ghostteleportlocs = list()
 
 
 /area/medical/biostorage
-	name = "Secondary Storage"
-	icon_state = "medbay2"
+	name = " Secondary Storage"
+	icon_state = "medbaysecstorage"
 	music = 'sound/ambience/signal.ogg'
 
 /area/medical/reception
@@ -1494,13 +1502,14 @@ var/list/ghostteleportlocs = list()
 	music = 'sound/ambience/signal.ogg'
 
 /area/medical/psych
-	name = "Psych Room"
-	icon_state = "medbay3"
+	name = " Psych Room"
+	icon_state = "medbaypsych"
 	music = 'sound/ambience/signal.ogg'
 
 /area/medical/medbreak
-	name = "Break Room"
-	icon_state = "medbay3"
+	name = " Break Room"
+	icon_state = "medbaybreak"
+
 	music = 'sound/ambience/signal.ogg'
 
 /area/medical/patients_rooms
@@ -1508,24 +1517,24 @@ var/list/ghostteleportlocs = list()
 	icon_state = "patients"
 
 /area/medical/ward
-	name = "Medbay Patient Ward"
-	icon_state = "patients"
+	name = " Medbay Patient Ward"
+	icon_state = "patientsward"
 
 /area/medical/patient_a
-	name = "Isolation A"
-	icon_state = "patients"
+	name = " Isolation A"
+	icon_state = "medbayisoa"
 
 /area/medical/patient_b
-	name = "Isolation B"
-	icon_state = "patients"
+	name = " Isolation B"
+	icon_state = "medbayisob"
 
 /area/medical/patient_c
-	name = "Isolation C"
-	icon_state = "patients"
+	name = " Isolation C"
+	icon_state = "medbayisoc"
 
 /area/medical/iso_access
-	name = "Isolation Access"
-	icon_state = "patients"
+	name = " Isolation Access"
+	icon_state = "medbayisoaccess"
 
 /area/medical/cmo
 	name = "Chief Medical Officer's office"
@@ -1881,6 +1890,7 @@ area/security/podbay
 /area/toxins/test_area
 	name = "Toxins Test Area"
 	icon_state = "toxtest"
+	valid_territory = FALSE
 
 /area/toxins/mixing
 	name = "Toxins Mixing Room"

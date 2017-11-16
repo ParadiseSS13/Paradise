@@ -9,7 +9,7 @@
 	//head accessory
 	init_sprite_accessory_subtypes(/datum/sprite_accessory/head_accessory, head_accessory_styles_list)
 	//hair
-	init_sprite_accessory_subtypes(/datum/sprite_accessory/hair, hair_styles_list, hair_styles_male_list, hair_styles_female_list)
+	init_sprite_accessory_subtypes(/datum/sprite_accessory/hair, hair_styles_public_list, hair_styles_male_list, hair_styles_female_list, hair_styles_full_list)
 	//facial hair
 	init_sprite_accessory_subtypes(/datum/sprite_accessory/facial_hair, facial_hair_styles_list, facial_hair_styles_male_list, facial_hair_styles_female_list)
 	//underwear
