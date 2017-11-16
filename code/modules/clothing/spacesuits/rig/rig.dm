@@ -43,7 +43,7 @@
 	//Component/device holders.
 	var/obj/item/weapon/tank/air_supply                       // Air tank, if any.
 	var/obj/item/clothing/shoes/magboots/boots = null             // Deployable boots, if any.
-	var/obj/item/clothing/shoes/under_boots = null								//Boots that are between the feet and the rib boots, if any.
+	var/obj/item/clothing/shoes/under_boots = null								//Boots that are between the feet and the rig boots, if any.
 	var/obj/item/clothing/suit/space/new_rig/chest                // Deployable chestpiece, if any.
 	var/obj/item/clothing/head/helmet/space/new_rig/helmet = null // Deployable helmet, if any.
 	var/obj/item/clothing/gloves/rig/gloves = null            // Deployable gauntlets, if any.
