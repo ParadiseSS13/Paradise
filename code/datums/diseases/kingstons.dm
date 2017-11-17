@@ -57,8 +57,8 @@
 	permeability_mod = 0.75
 	desc = "If left untreated the subject will mutate to a different species."
 	severity = BIOHAZARD
-	var/list/virspecies = list("Human", "Tajaran", "Unathi", "Skrell", "Grey", "Vulpkanin")//no karma races sorrys.
-	var/list/virsuffix = list("pox", "rot", "flu", "cough", "-gitis", "cold", "rash", "itch")
+	var/list/virspecies = list("Human", "Tajaran", "Unathi", "Skrell", "Vulpkanin")//no karma races sorrys.
+	var/list/virsuffix = list("pox", "rot", "flu", "cough", "-gitis", "cold", "rash", "itch", "decay")
 	var/chosentype
 	var/chosensuff
 
