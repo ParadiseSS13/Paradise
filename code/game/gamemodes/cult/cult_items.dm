@@ -247,7 +247,7 @@
 		to_chat(user, "<span class='notice'>We have exhausted our ability to curse the shuttle.</span>")
 		return
 	if(locate(/obj/singularity/narsie) in poi_list || locate(/mob/living/simple_animal/slaughter/cult) in mob_list)
-		to_chat(user, "<span class='warning'>Nar-Sie is already on this plane, there is no delaying the end of all things.</span>")
+		to_chat(user, "<span class='warning'>Nar-Sie or his avatars are already on this plane, there is no delaying the end of all things.</span>")
 		return
 
 	if(shuttle_master.emergency.mode == SHUTTLE_CALL)
