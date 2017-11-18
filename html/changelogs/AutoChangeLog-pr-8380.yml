@@ -1,4 +1,0 @@
-author: "MarsM0nd"
-delete-after: True
-changes: 
-  - bugfix: "A (possibly non-existant) officer's beret does no longer incorrectly hide hair."
