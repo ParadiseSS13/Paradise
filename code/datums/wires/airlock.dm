@@ -59,9 +59,8 @@ var/const/AIRLOCK_WIRE_LIGHT = 512
 			if(A.isElectrified())
 				if(A.shock(L, 100))
 					return 0
-	if(iscarbon(L))
-		if(A.p_open)
-			return 1
+	if(A.p_open)
+		return 1
 	return 0
 
 /datum/wires/airlock/get_status()
