@@ -55,11 +55,13 @@ var/const/AIRLOCK_WIRE_LIGHT = 512
 /datum/wires/airlock/CanUse(mob/living/L)
 	var/obj/machinery/door/airlock/A = holder
 	if(!issilicon(L))
-		if(A.isElectrified())
-			if(A.shock(L, 100))
-				return 0
-	if(A.p_open)
-		return 1
+		if(iscarbon(L))
+			if(A.isElectrified())
+				if(A.shock(L, 100))
+					return 0
+	if(iscarbon(L))
+		if(A.p_open)
+			return 1
 	return 0
 
 /datum/wires/airlock/get_status()
