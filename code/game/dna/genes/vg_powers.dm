@@ -68,7 +68,7 @@
 	if(new_hair)
 		M.change_hair_color(new_hair)
 
-	var/datum/sprite_accessory/hair_style = hair_styles_list[head_organ.h_style]
+	var/datum/sprite_accessory/hair_style = hair_styles_public_list[head_organ.h_style]
 	if(hair_style.secondary_theme && !hair_style.no_sec_colour)
 		new_hair = input("Please select secondary hair color.", "Character Generation", head_organ.sec_hair_colour) as null|color
 		if(new_hair)
@@ -205,7 +205,7 @@
 	var/list/targets = new /list()
 	var/list/validtargets = new /list()
 	var/turf/T = get_turf(user)
-	for(var/mob/M in range(14, T))
+	for(var/mob/living/M in range(14, T))
 		if(M && M.mind)
 			if(M == user)
 				continue

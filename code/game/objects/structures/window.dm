@@ -179,14 +179,15 @@ var/global/wcCommon = pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e", "#8f
 	attack_generic(user, rand(10, 15))
 
 
-/obj/structure/window/attackby(obj/item/weapon/W as obj, mob/living/user as mob, params)
-	if(!istype(W)) return//I really wish I did not need this
-	if(istype(W, /obj/item/weapon/grab) && get_dist(src,user)<2)
-		var/obj/item/weapon/grab/G = W
+/obj/structure/window/attackby(obj/item/I as obj, mob/living/user as mob, params)
+	if(!istype(I))
+		return//I really wish I did not need this
+	if(istype(I, /obj/item/weapon/grab) && get_dist(src,user)<2)
+		var/obj/item/weapon/grab/G = I
 		if(istype(G.affecting,/mob/living))
 			var/mob/living/M = G.affecting
 			var/state = G.state
-			qdel(W)	//gotta delete it here because if window breaks, it won't get deleted
+			qdel(I)	//gotta delete it here because if window breaks, it won't get deleted
 			switch(state)
 				if(1)
 					M.visible_message("<span class='warning'>[user] slams [M] against \the [src]!</span>")
@@ -209,67 +210,97 @@ var/global/wcCommon = pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e", "#8f
 					M.apply_damage(30)
 					hit(75)
 			return
+	if(I.flags & NOBLUDGEON)
+		return
 
-	if(W.flags & NOBLUDGEON) return
+	if(handle_decon(I, user, is_fulltile()))
+		return
 
-	if(istype(W, /obj/item/weapon/screwdriver))
-		if(reinf && state >= 1)
-			state = 3 - state
-			playsound(loc, W.usesound, 75, 1)
-			to_chat(user, (state == 1 ? "<span class='notice'>You have unfastened the window from the frame.</span>" : "<span class='notice'>You have fastened the window to the frame.</span>"))
-		else if(reinf && state == 0)
-			anchored = !anchored
+	if(I.damtype == BRUTE || I.damtype == BURN)
+		user.changeNext_move(CLICK_CD_MELEE)
+		hit(I.force)
+		if(health <= 7)
+			anchored = 0
 			update_nearby_icons()
-			playsound(loc, W.usesound, 75, 1)
-			to_chat(user, (anchored ? "<span class='notice'>You have fastened the frame to the floor.</span>" : "<span class='notice'>You have unfastened the frame from the floor.</span>"))
-		else if(!reinf)
-			anchored = !anchored
-			update_nearby_icons()
-			playsound(loc, W.usesound, 75, 1)
-			to_chat(user, (anchored ? "<span class='notice'>You have fastened the window to the floor.</span>" : "<span class='notice'>You have unfastened the window.</span>"))
-	else if(istype(W, /obj/item/weapon/crowbar) && reinf && state <= 1)
-		state = 1 - state
+			step(src, get_dir(user, src))
+	else
+		playsound(loc, 'sound/effects/Glasshit.ogg', 75, 1)
+	..()
+
+/obj/structure/window/proc/handle_decon(obj/item/weapon/W, mob/user, var/takes_time = FALSE)
+	//screwdriver
+	if(isscrewdriver(W))
 		playsound(loc, W.usesound, 75, 1)
-		to_chat(user, (state ? "<span class='notice'>You have pried the window into the frame.</span>" : "<span class='notice'>You have pried the window out of the frame.</span>"))
-	else if(istype(W, /obj/item/weapon/wrench) && !anchored && health > 7) //Disassemble deconstructed window into parts
-		playsound(src.loc, W.usesound, 50, 1)
-		for(var/i=0;i<sheets;i++)
-			var/obj/item/stack/sheet/glass/NG = new glasstype(src.loc)
-			for(var/obj/item/stack/sheet/glass/G in src.loc) //Stack em up
-				if(G==NG)
+		if(reinf)
+			if(state == 0)
+				if(takes_time)
+					to_chat(user, "<span class='notice'>You begin to [anchored ? "unfasten the frame from" : "fasten the frame to"] the floor.</span>")
+					if(!do_after(user, 20 * W.toolspeed, target = src))
+						return 1
+				anchored = !anchored
+				to_chat(user, "<span class='notice'>You have [anchored? "fastened the frame to" : "unfastened the frame from"] the floor.</span>")
+			if(state >= 1)
+				if(takes_time)
+					to_chat(user, "<span class='notice'>You begin to [(state == 1) ? "fasten the window to" : "unfasten the window from"] the frame.</span>")
+					if(!do_after(user, 20 * W.toolspeed, target = src))
+						return 1
+				state = 3 - state
+				to_chat(user, "<span class='notice'>You have [(state == 1) ? "unfastened the window from" : "fastened the window to"] the frame.</span>")
+		else
+			if(takes_time)
+				to_chat(user, "<span class='notice'>You begin to [anchored ? "unfasten the frame from" : "fasten the frame to"] the floor.</span>")
+				if(!do_after(user, 20 * W.toolspeed, target = src))
+					return 1
+			anchored = !anchored
+			update_nearby_icons()
+			to_chat(user, "<span class='notice'>You have [anchored ? "fastened the window to" : "unfastened the window from"] the floor.</span>")
+		return 1
+	//crowbar
+	if(iscrowbar(W))
+		if(!reinf || state > 1)
+			return 0
+		playsound(loc, W.usesound, 75, 1)
+		if(takes_time)
+			to_chat(user, "<span class='notice'>You begin to pry the window [state ? "out of" : "in to"] the frame.</span>")
+			if(!do_after(user, 20 * W.toolspeed, target = src))
+				return 1
+		state = 1 - state
+		to_chat(user, "<span class='notice'>You have pried the window [state ? "into" : "out of"] the frame.</span>")
+		return 1
+	//wrench
+	if(iswrench(W))
+		if(anchored)
+			return 0
+		playsound(loc, W.usesound, 50, 1)
+		if(takes_time)
+			to_chat(user, "<span class='notice'>You begin to disassemble [src]...</span>")
+			if(!do_after(user, 20 * W.toolspeed, target = src))
+				return 1
+		for(var/i=0; i<sheets; i++)
+			var/obj/item/stack/sheet/NS = new glasstype(get_turf(src))	//glass types don't share a base tye of /glass, so this didn't work for plasma glass
+			for(var/obj/item/stack/sheet/S in loc) //Stack em up
+				if(S == NS)
 					continue
-				if(G.amount>=G.max_amount)
+				if(S.amount >= S.max_amount)
 					continue
-				G.attackby(NG, user, params)
+				S.attackby(NS, user)
 
 			if(reinf)
-				var/obj/item/stack/rods/NR = new (src.loc)
-				for(var/obj/item/stack/rods/R in src.loc)
-					if(R==NR)
+				var/obj/item/stack/rods/NR = new (get_turf(src))
+				for(var/obj/item/stack/rods/R in loc)
+					if(R == NR)
 						continue
-					if(R.amount>=R.max_amount)
+					if(R.amount >= R.max_amount)
 						continue
-					R.attackby(NR, user, params)
+					R.attackby(NR, user)
 
-		to_chat(user, "<span class='notice'>You have disassembled the window.</span>")
+		to_chat(user, "<span class='notice'>You have disassembled [src].</span>")
 		disassembled = 1
 		density = 0
 		air_update_turf(1)
 		update_nearby_icons()
 		qdel(src)
-	else
-		if(W.damtype == BRUTE || W.damtype == BURN)
-			user.changeNext_move(CLICK_CD_MELEE)
-			hit(W.force)
-			if(health <= 7)
-				anchored = 0
-				update_nearby_icons()
-				step(src, get_dir(user, src))
-		else
-			playsound(loc, 'sound/effects/Glasshit.ogg', 75, 1)
-		..()
-	return
-
+		return 1
 
 /obj/structure/window/mech_melee_attack(obj/mecha/M)
 	if(..())

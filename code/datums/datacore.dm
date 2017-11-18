@@ -405,7 +405,7 @@ var/record_id_num = 1001
 		eyes_s.Blend(eyes_organ.eye_colour, ICON_ADD)
 		face_s.Blend(eyes_s, ICON_OVERLAY)
 
-	var/datum/sprite_accessory/hair_style = hair_styles_list[head_organ.h_style]
+	var/datum/sprite_accessory/hair_style = hair_styles_full_list[head_organ.h_style]
 	if(hair_style)
 		var/icon/hair_s = new/icon("icon" = hair_style.icon, "icon_state" = "[hair_style.icon_state]_s")
 		// I'll want to make a species-specific proc for this sooner or later

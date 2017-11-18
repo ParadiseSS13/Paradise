@@ -12,8 +12,8 @@
 		handle_blood()
 		for(var/obj/item/organ/internal/O in internal_organs)
 			O.on_life()
-		handle_changeling()
 
+	handle_changeling()
 	handle_wetness()
 
 	// Increase germ_level regularly

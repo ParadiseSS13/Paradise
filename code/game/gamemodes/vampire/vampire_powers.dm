@@ -319,6 +319,7 @@
 		return 0
 	if(!affects(C))
 		C.visible_message("<span class='warning'>[C] seems to resist the takeover!</span>", "<span class='notice'>Your faith of [ticker.Bible_deity_name] has kept your mind clear of all evil.</span>")
+		return 0
 	if(!ishuman(C))
 		to_chat(user, "<span class='warning'>You can only enthrall humans!</span>")
 		return 0
@@ -406,6 +407,7 @@
 	action_icon_state = "jaunt"
 	charge_max = 600
 	required_blood = 30
+	centcom_cancast = 0
 	var/jaunt_duration = 50 //in deciseconds
 
 /obj/effect/proc_holder/spell/vampire/self/jaunt/cast(list/targets, mob/user = usr)
@@ -464,6 +466,7 @@
 	action_icon_state = "blink"
 	charge_max = 20
 	required_blood = 30
+	centcom_cancast = 0
 
 	// Teleport radii
 	var/inner_tele_radius = 0

@@ -41,6 +41,10 @@
 	/obj/item/device/radio, /obj/item/device/analyzer, /obj/item/weapon/gun/energy/laser, /obj/item/weapon/gun/energy/pulse, \
 	/obj/item/weapon/gun/energy/gun/advtaser, /obj/item/weapon/melee/baton, /obj/item/weapon/gun/energy/gun)
 	strip_delay = 130
+	species_fit = list("Drask")
+	sprite_sheets = list(
+		"Drask" = 'icons/mob/species/drask/suit.dmi'
+		)
 
 //Commander
 /obj/item/clothing/head/helmet/space/hardsuit/ert/commander

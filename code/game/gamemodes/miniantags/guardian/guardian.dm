@@ -39,40 +39,43 @@
 	var/bio_fluff_string = "Your scarabs fail to mutate. This shouldn't happen! Submit a bug report!"
 	var/admin_fluff_string = "URK URF!"//the wheels on the bus...
 	var/adminseal = FALSE
+	var/name_color = "white"//only used with protector shields for the time being
 
 /mob/living/simple_animal/hostile/guardian/Life() //Dies if the summoner dies
 	..()
 	if(summoner)
 		if(summoner.stat == DEAD)
 			to_chat(src, "<span class='danger'>Your summoner has died!</span>")
-			visible_message("<span class='danger'><B>The [src] dies along with its user!</B></span>")
+			visible_message("<span class='danger'>The [src] dies along with its user!</span>")
 			ghostize()
 			qdel(src)
-	if(summoner)
-		if(get_dist(get_turf(summoner),get_turf(src)) <= range)
-			return
-		else
-			to_chat(src, "You moved out of range, and were pulled back! You can only move [range] meters from [summoner.real_name]")
-			visible_message("<span class='danger'>The [src] jumps back to its user.</span>")
-			Recall()
+	snapback()
 	if(summoned && !summoner && !adminseal)
 		to_chat(src, "<span class='danger'>You somehow lack a summoner! As a result, you dispel!</span>")
 		ghostize()
 		qdel()
 
-/mob/living/simple_animal/hostile/guardian/Move() //Returns to summoner if they move out of range
-	..()
+/mob/living/simple_animal/hostile/guardian/proc/snapback()
 	if(summoner)
 		if(get_dist(get_turf(summoner),get_turf(src)) <= range)
 			return
 		else
-			to_chat(src, "You moved out of range, and were pulled back! You can only move [range] meters from [summoner.real_name]")
-			visible_message("<span class='danger'>The [src] jumps back to its user.</span>")
-			Recall()
+			to_chat(src, "<span class='holoparasite'>You moved out of range, and were pulled back! You can only move [range] meters from [summoner.real_name]!</span>")
+			visible_message("<span class='danger'>\The [src] jumps back to its user.</span>")
+			if(istype(summoner.loc, /obj/effect))
+				Recall(TRUE)
+			else
+				new /obj/effect/overlay/temp/guardian/phase/out(loc)
+				forceMove(summoner.loc) //move to summoner's tile, don't recall
+				new /obj/effect/overlay/temp/guardian/phase(loc)
+
+/mob/living/simple_animal/hostile/guardian/Move() //Returns to summoner if they move out of range
+	..()
+	snapback()
 
 /mob/living/simple_animal/hostile/guardian/death(gibbed)
 	..()
-	to_chat(summoner, "<span class='danger'><B>Your [name] died somehow!</span></B>")
+	to_chat(summoner, "<span class='danger'>Your [name] died somehow!</span>")
 	summoner.death()
 
 
@@ -83,7 +86,8 @@
 			resulthealth = round((abs(config.health_threshold_dead - summoner.health) / abs(config.health_threshold_dead - summoner.maxHealth)) * 100)
 		else
 			resulthealth = round((summoner.health / summoner.maxHealth) * 100)
-		hud_used.guardianhealthdisplay.maptext = "<div align='center' valign='middle' style='position:relative; top:0px; left:6px'><font color='#efeeef'>[resulthealth]%</font></div>"
+		if(hud_used)
+			hud_used.guardianhealthdisplay.maptext = "<div align='center' valign='middle' style='position:relative; top:0px; left:6px'><font color='#efeeef'>[resulthealth]%</font></div>"
 
 
 /mob/living/simple_animal/hostile/guardian/adjustHealth(amount) //The spirit is invincible, but passes on damage to the summoner
@@ -93,10 +97,10 @@
 			return
 		summoner.adjustBruteLoss(damage)
 		if(damage)
-			to_chat(summoner, "<span class='danger'><B>Your [name] is under attack! You take damage!</span></B>")
-			summoner.visible_message("<span class='danger'><B>Blood sprays from [summoner] as [src] takes damage!</B></span>")
+			to_chat(summoner, "<span class='danger'>Your [name] is under attack! You take damage!</span>")
+			summoner.visible_message("<span class='danger'>Blood sprays from [summoner] as [src] takes damage!</span>")
 		if(summoner.stat == UNCONSCIOUS)
-			to_chat(summoner, "<span class='danger'><B>Your body can't take the strain of sustaining [src] in this condition, it begins to fall apart!</span></B>")
+			to_chat(summoner, "<span class='danger'>Your body can't take the strain of sustaining [src] in this condition, it begins to fall apart!</span>")
 			summoner.adjustCloneLoss(damage/2)
 
 /mob/living/simple_animal/hostile/guardian/ex_act(severity, target)
@@ -112,7 +116,7 @@
 
 /mob/living/simple_animal/hostile/guardian/gib()
 	if(summoner)
-		to_chat(summoner, "<span class='danger'><B>Your [src] was blown up!</span></B>")
+		to_chat(summoner, "<span class='danger'>Your [src] was blown up!</span>")
 		summoner.Weaken(10)// your fermillier has died! ROLL FOR CON LOSS!
 	ghostize()
 	qdel(src)
@@ -128,8 +132,8 @@
 		src.client.eye = loc
 		cooldown = world.time + 30
 
-/mob/living/simple_animal/hostile/guardian/proc/Recall()
-	if(cooldown > world.time)
+/mob/living/simple_animal/hostile/guardian/proc/Recall(forced = FALSE)
+	if(cooldown > world.time && !forced)
 		return
 	if(!summoner) return
 	new /obj/effect/overlay/temp/guardian/phase/out(get_turf(src))
@@ -141,7 +145,6 @@
 	var/input = stripped_input(src, "Please enter a message to tell your summoner.", "Guardian", "")
 	if(!input) return
 
-
 	for(var/mob/M in mob_list)
 		if(M == summoner)
 			to_chat(M, "<span class='changeling'><i>[src]:</i> [input]</span>")
@@ -151,7 +154,7 @@
 	to_chat(src, "<span class='changeling'><i>[src]:</i> [input]</span>")
 
 /mob/living/simple_animal/hostile/guardian/proc/ToggleMode()
-	to_chat(src, "<span class='danger'><B>You dont have another mode!</span></B>")
+	to_chat(src, "<span class='danger'>You dont have another mode!</span>")
 
 
 /mob/living/proc/guardian_comm()
@@ -212,456 +215,6 @@
 		to_chat(src, "<span class='notice'>You deactivate your light.</span>")
 	light_on = !light_on
 
-//////////////////////////TYPES OF GUARDIANS
-
-
-//Fire. Low damage, low resistance, sets mobs on fire when bumping
-
-/mob/living/simple_animal/hostile/guardian/fire
-	a_intent = INTENT_HELP
-	melee_damage_lower = 10
-	melee_damage_upper = 10
-	attack_sound = 'sound/items/Welder.ogg'
-	attacktext = "sears"
-	damage_transfer = 0.8
-	range = 10
-	playstyle_string = "As a Chaos type, you have only light damage resistance, but will ignite any enemy you bump into. In addition, your melee attacks will randomly teleport enemies."
-	environment_smash = 1
-	magic_fluff_string = "..And draw the Wizard, bringer of endless chaos!"
-	tech_fluff_string = "Boot sequence complete. Crowd control modules activated. Holoparasite swarm online."
-	bio_fluff_string = "Your scarab swarm finishes mutating and stirs to life, ready to sow havoc at random."
-	var/toggle = FALSE
-
-/mob/living/simple_animal/hostile/guardian/fire/Life() //Dies if the summoner dies
-	..()
-	if(summoner)
-		summoner.ExtinguishMob()
-		summoner.adjust_fire_stacks(-20)
-
-/mob/living/simple_animal/hostile/guardian/fire/ToggleMode()
-	if(src.loc == summoner)
-		if(toggle)
-			to_chat(src, "You switch to dispersion mode, and will teleport victims away from your master.")
-			toggle = FALSE
-		else
-			to_chat(src, "You  switch to deception mode, and will turn your victims against their allies.")
-			toggle = TRUE
-
-/mob/living/simple_animal/hostile/guardian/fire/AttackingTarget()
-	if(..())
-		if(toggle)
-			if(ishuman(target) && !summoner)
-				spawn(0)
-					new /obj/effect/hallucination/delusion(target.loc, target, force_kind="custom", duration=200, skip_nearby=0, custom_icon = src.icon_state, custom_icon_file = src.icon)
-		else
-			if(prob(45))
-				if(istype(target, /atom/movable))
-					var/atom/movable/M = target
-					if(!M.anchored && M != summoner)
-						new /obj/effect/overlay/temp/guardian/phase/out(get_turf(M))
-						do_teleport(M, M, 10)
-						new /obj/effect/overlay/temp/guardian/phase/out(get_turf(M))
-
-/mob/living/simple_animal/hostile/guardian/fire/Crossed(AM as mob|obj)
-	..()
-	collision_ignite(AM)
-
-/mob/living/simple_animal/hostile/guardian/fire/Bumped(AM as mob|obj)
-	..()
-	collision_ignite(AM)
-
-/mob/living/simple_animal/hostile/guardian/fire/Bump(AM as mob|obj)
-	..()
-	collision_ignite(AM)
-
-/mob/living/simple_animal/hostile/guardian/fire/proc/collision_ignite(AM as mob|obj)
-	if(istype(AM, /mob/living/))
-		var/mob/living/M = AM
-		if(AM != summoner && M.fire_stacks < 7)
-			M.fire_stacks = 7
-			M.IgniteMob()
-
-/mob/living/simple_animal/hostile/guardian/fire/Bump(AM as mob|obj)
-	..()
-	collision_ignite(AM)
-//Standard
-
-/mob/living/simple_animal/hostile/guardian/punch
-	melee_damage_lower = 20
-	melee_damage_upper = 20
-	damage_transfer = 0.5
-	playstyle_string = "As a standard type you have no special abilities, but have a high damage resistance and a powerful attack capable of smashing through walls."
-	environment_smash = 2
-	magic_fluff_string = "..And draw the Assistant, faceless and generic, but never to be underestimated."
-	tech_fluff_string = "Boot sequence complete. Standard combat modules loaded. Holoparasite swarm online."
-	bio_fluff_string = "Your scarab swarm stirs to life, ready to tear apart your enemies."
-	var/battlecry = "AT"
-
-
-/mob/living/simple_animal/hostile/guardian/punch/sealpunch
-	name = "Seal Sprit"
-	real_name = "Seal Sprit"
-	icon = 'icons/mob/animal.dmi'
-	icon_living = "seal"
-	icon_state = "seal"
-	attacktext = "slaps"
-	speak_emote = list("barks")
-	melee_damage_lower = 0
-	melee_damage_upper = 0
-	melee_damage_type = STAMINA
-	damage_transfer = 0
-	playstyle_string = "As a standard type you have no special abilities, but have a high damage resistance and a powerful attack capable of smashing through walls."
-	environment_smash = 2
-	battlecry = "URK"
-	adminseal = TRUE
-
-/mob/living/simple_animal/hostile/guardian/punch/verb/Battlecry()
-	set name = "Set Battlecry"
-	set category = "Guardian"
-	set desc = "Choose what you shout as you punch"
-	var/input = stripped_input(src,"What do you want your battlecry to be? Max length of 5 characters.", ,"", 6)
-	if(input)
-		battlecry = input
-
-
-
-/mob/living/simple_animal/hostile/guardian/punch/AttackingTarget()
-	..()
-	if(iscarbon(target) && target != summoner)
-		if(length(battlecry) > 11)//no more then 11 letters in a battle cry.
-			src.visible_message("<span class='danger'><B>[src] punches [target]!</B></span>")
-		else
-			src.say("[src.battlecry][src.battlecry][src.battlecry][src.battlecry][src.battlecry]")
-		playsound(loc, src.attack_sound, 50, 1, 1)
-		playsound(loc, src.attack_sound, 50, 1, 1)
-		playsound(loc, src.attack_sound, 50, 1, 1)
-		playsound(loc, src.attack_sound, 50, 1, 1)
-
-//Healer
-
-/mob/living/simple_animal/hostile/guardian/healer
-	a_intent = INTENT_HARM
-	friendly = "heals"
-	speed = 0
-	melee_damage_lower = 15
-	melee_damage_upper = 15
-	playstyle_string = "As a Support type, you may toggle your basic attacks to a healing mode. In addition, Alt-Clicking on an adjacent mob will warp them to your bluespace beacon after a short delay."
-	magic_fluff_string = "..And draw the CMO, a potent force of life...and death."
-	tech_fluff_string = "Boot sequence complete. Medical modules active. Bluespace modules activated. Holoparasite swarm online."
-	bio_fluff_string = "Your scarab swarm finishes mutating and stirs to life, capable of mending wounds and travelling via bluespace."
-	var/turf/simulated/floor/beacon
-	var/beacon_cooldown = 0
-	var/toggle = FALSE
-	var/heal_cooldown = 0
-
-/mob/living/simple_animal/hostile/guardian/healer/sealhealer
-	name = "Seal Sprit"
-	real_name = "Seal Sprit"
-	icon = 'icons/mob/animal.dmi'
-	icon_living = "seal"
-	icon_state = "seal"
-	attacktext = "slaps"
-	speak_emote = list("barks")
-	a_intent = INTENT_HARM
-	friendly = "heals"
-	speed = 0
-	melee_damage_lower = 0
-	melee_damage_upper = 0
-	melee_damage_type = STAMINA
-	adminseal = TRUE
-
-
-/mob/living/simple_animal/hostile/guardian/healer/New()
-	..()
-
-/mob/living/simple_animal/hostile/guardian/healer/Life()
-	..()
-	var/datum/atom_hud/medsensor = huds[DATA_HUD_MEDICAL_ADVANCED]
-	medsensor.add_hud_to(src)
-
-/mob/living/simple_animal/hostile/guardian/healer/AttackingTarget()
-	..()
-	if(toggle == TRUE)
-		if(src.loc == summoner)
-			to_chat(src, "<span class='danger'><B>You must be manifested to heal!</span></B>")
-			return
-		if(iscarbon(target))
-			src.changeNext_move(CLICK_CD_MELEE)
-			if(heal_cooldown <= world.time && !stat)
-				var/mob/living/carbon/C = target
-				C.adjustBruteLoss(-5)
-				C.adjustFireLoss(-5)
-				C.adjustOxyLoss(-5)
-				C.adjustToxLoss(-5)
-				heal_cooldown = world.time + 20
-
-/mob/living/simple_animal/hostile/guardian/healer/ToggleMode()
-	if(src.loc == summoner)
-		if(toggle)
-			a_intent = INTENT_HARM
-			speed = 0
-			damage_transfer = 0.7
-			if(src.adminseal)
-				damage_transfer = 0
-			melee_damage_lower = 15
-			melee_damage_upper = 15
-			to_chat(src, "<span class='danger'><B>You switch to combat mode.</span></B>")
-			toggle = FALSE
-		else
-			a_intent = INTENT_HELP
-			speed = 1
-			damage_transfer = 1
-			if(src.adminseal)
-				damage_transfer = 0
-			melee_damage_lower = 0
-			melee_damage_upper = 0
-			to_chat(src, "<span class='danger'><B>You switch to healing mode.</span></B>")
-			toggle = TRUE
-	else
-		to_chat(src, "<span class='danger'><B>You have to be recalled to toggle modes!</span></B>")
-
-
-/mob/living/simple_animal/hostile/guardian/healer/verb/Beacon()
-	set name = "Place Bluespsace Beacon"
-	set category = "Guardian"
-	set desc = "Mark a floor as your beacon point, allowing you to warp targets to it. Your beacon will not work in unfavorable atmospheric conditions."
-	if(beacon_cooldown<world.time)
-		var/turf/beacon_loc = get_turf(src.loc)
-		if(istype(beacon_loc, /turf/simulated/floor))
-			var/turf/simulated/floor/F = beacon_loc
-			F.icon = 'icons/turf/floors.dmi'
-			F.name = "bluespace recieving pad"
-			F.desc = "A recieving zone for bluespace teleportations. Building a wall over it should disable it."
-			F.icon_state = "light_on-w"
-			to_chat(src, "<span class='danger'><B>Beacon placed! You may now warp targets to it, including your user, via Alt+Click. </span></B>")
-			if(beacon)
-				beacon.ChangeTurf(/turf/simulated/floor/plating)
-			beacon = F
-			beacon_cooldown = world.time+3000
-
-	else
-		to_chat(src, "<span class='danger'><B>Your power is on cooldown. You must wait five minutes between placing beacons.</span></B>")
-
-/mob/living/simple_animal/hostile/guardian/healer/AltClickOn(atom/movable/A)
-	if(!istype(A))
-		return
-	if(src.loc == summoner)
-		to_chat(src, "<span class='danger'><B>You must be manifested to warp a target!</span></B>")
-		return
-	if(!beacon)
-		to_chat(src, "<span class='danger'><B>You need a beacon placed to warp things!</span></B>")
-		return
-	if(!Adjacent(A))
-		to_chat(src, "<span class='danger'><B>You must be adjacent to your target!</span></B>")
-		return
-	if((A.anchored))
-		to_chat(src, "<span class='danger'><B>Your target can not be anchored!</span></B>")
-		return
-	to_chat(src, "<span class='danger'><B>You begin to warp [A]</span></B>")
-	if(do_mob(src, A, 50))
-		if(!A.anchored)
-			if(src.beacon) //Check that the beacon still exists and is in a safe place. No instant kills.
-				if(beacon.air)
-					var/datum/gas_mixture/Z = beacon.air
-					if(Z.oxygen >= 16 && !Z.toxins && Z.carbon_dioxide < 10 && !Z.trace_gases.len)
-						if((Z.temperature > 270) && (Z.temperature < 360))
-							var/pressure = Z.return_pressure()
-							if((pressure > 20) && (pressure < 550))
-								new /obj/effect/overlay/temp/guardian/phase/out(get_turf(A))
-								do_teleport(A, beacon, 0)
-								new /obj/effect/overlay/temp/guardian/phase(get_turf(A))
-						else
-							to_chat(src, "<span class='danger'><B>The beacon isn't in a safe location!</span></B>")
-					else
-						to_chat(src, "<span class='danger'><B>The beacon isn't in a safe location!</span></B>")
-			else
-				to_chat(src, "<span class='danger'><B>You need a beacon to warp things!</span></B>")
-	else
-		to_chat(src, "<span class='danger'><B>You need to hold still!</span></B>")
-
-
-///////////////////Ranged
-
-/obj/item/projectile/guardian
-	name = "crystal spray"
-	icon_state = "guardian"
-	damage = 5
-	damage_type = BRUTE
-	armour_penetration = 100
-
-/mob/living/simple_animal/hostile/guardian/ranged
-	a_intent = INTENT_HELP
-	friendly = "quietly assesses"
-	melee_damage_lower = 10
-	melee_damage_upper = 10
-	damage_transfer = 0.9
-	projectiletype = /obj/item/projectile/guardian
-	ranged_cooldown_time = 10
-	projectilesound = 'sound/effects/hit_on_shattered_glass.ogg'
-	ranged = 1
-	rapid = 1
-	range = 13
-	see_invisible = SEE_INVISIBLE_MINIMUM
-	see_in_dark = 8
-	playstyle_string = "As a ranged type, you have only light damage resistance, but are capable of spraying shards of crystal at incredibly high speed. You can also deploy surveillance snares to monitor enemy movement. Finally, you can switch to scout mode, in which you can't attack, but can move without limit."
-	magic_fluff_string = "..And draw the Sentinel, an alien master of ranged combat."
-	tech_fluff_string = "Boot sequence complete. Ranged combat modules active. Holoparasite swarm online."
-	bio_fluff_string = "Your scarab swarm finishes mutating and stirs to life, capable of spraying shards of crystal."
-	var/list/snares = list()
-	var/toggle = FALSE
-
-/mob/living/simple_animal/hostile/guardian/ranged/ToggleMode()
-	if(src.loc == summoner)
-		if(toggle)
-			ranged = 1
-			melee_damage_lower = 10
-			melee_damage_upper = 10
-			alpha = 255
-			range = 13
-			incorporeal_move = 0
-			to_chat(src, "<span class='danger'><B>You switch to combat mode.</span></B>")
-			toggle = FALSE
-		else
-			ranged = 0
-			melee_damage_lower = 0
-			melee_damage_upper = 0
-			alpha = 60
-			range = 255
-			incorporeal_move = 1
-			to_chat(src, "<span class='danger'><B>You switch to scout mode.</span></B>")
-			toggle = TRUE
-	else
-		to_chat(src, "<span class='danger'><B>You have to be recalled to toggle modes!</span></B>")
-
-/mob/living/simple_animal/hostile/guardian/ranged/ToggleLight()
-	if(see_invisible == SEE_INVISIBLE_MINIMUM)
-		to_chat(src, "<span class='notice'>You deactivate your night vision.</span>")
-		see_invisible = SEE_INVISIBLE_LIVING
-	else
-		to_chat(src, "<span class='notice'>You activate your night vision.</span>")
-		see_invisible = SEE_INVISIBLE_MINIMUM
-
-/mob/living/simple_animal/hostile/guardian/ranged/verb/Snare()
-	set name = "Set Surveillance Trap"
-	set category = "Guardian"
-	set desc = "Set an invisible trap that will alert you when living creatures walk over it. Max of 5"
-	if(src.snares.len <6)
-		var/turf/snare_loc = get_turf(src.loc)
-		var/obj/item/effect/snare/S = new /obj/item/effect/snare(snare_loc)
-		S.spawner = src
-		S.name = "[get_area(snare_loc)] trap ([rand(1, 1000)])"
-		src.snares |= S
-		to_chat(src, "<span class='danger'><B>Surveillance trap deployed!</span></B>")
-	else
-		to_chat(src, "<span class='danger'><B>You have too many traps deployed. Delete some first.</span></B>")
-
-/mob/living/simple_animal/hostile/guardian/ranged/verb/DisarmSnare()
-	set name = "Remove Surveillance Trap"
-	set category = "Guardian"
-	set desc = "Disarm unwanted surveillance traps."
-	var/picked_snare = input(src, "Pick which trap to disarm", "Disarm Trap") as null|anything in src.snares
-	if(picked_snare)
-		src.snares -= picked_snare
-		qdel(picked_snare)
-		to_chat(src, "<span class='danger'><B>Snare disarmed.</span></B>")
-
-/obj/item/effect/snare
-	name = "snare"
-	desc = "You shouldn't be seeing this!"
-	var/mob/living/spawner
-	invisibility = 1
-
-
-/obj/item/effect/snare/Crossed(AM as mob|obj)
-	if(istype(AM, /mob/living/))
-		var/turf/snare_loc = get_turf(src.loc)
-		if(spawner)
-			to_chat(spawner, "<span class='danger'><B>[AM] has crossed your surveillance trap at [get_area(snare_loc)].</span></B>")
-			if(istype(spawner, /mob/living/simple_animal/hostile/guardian))
-				var/mob/living/simple_animal/hostile/guardian/G = spawner
-				if(G.summoner)
-					to_chat(G.summoner, "<span class='danger'><B>[AM] has crossed your surveillance trap at [get_area(snare_loc)].</span></B>")
-
-////Bomb
-
-/mob/living/simple_animal/hostile/guardian/bomb
-	melee_damage_lower = 15
-	melee_damage_upper = 15
-	damage_transfer = 0.6
-	range = 13
-	playstyle_string = "As an explosive type, you have only moderate close combat abilities, but are capable of converting any adjacent item into a disguised bomb via alt click."
-	magic_fluff_string = "..And draw the Scientist, master of explosive death."
-	tech_fluff_string = "Boot sequence complete. Explosive modules active. Holoparasite swarm online."
-	bio_fluff_string = "Your scarab swarm finishes mutating and stirs to life, capable of stealthily booby trapping items."
-	var/bomb_cooldown = 0
-
-/mob/living/simple_animal/hostile/guardian/bomb/AltClickOn(atom/movable/A)
-	if(!istype(A))
-		return
-	if(src.loc == summoner)
-		to_chat(src, "<span class='danger'><B>You must be manifested to create bombs!</B></span>")
-		return
-	if(istype(A, /obj/))
-		if(bomb_cooldown <= world.time && !stat)
-			var/obj/item/weapon/guardian_bomb/B = new /obj/item/weapon/guardian_bomb(get_turf(A))
-			to_chat(src, "<span class='danger'><B>Success! Bomb on \the [A] armed!</B></span>")
-			if(summoner)
-				to_chat(summoner, "<span class='warning'>Your guardian has primed \the [A] to explode!</span>")
-			bomb_cooldown = world.time + 200
-			B.spawner = src
-			B.disguise (A)
-		else
-			to_chat(src, "<span class='danger'><B>Your powers are on cooldown! You must wait 20 seconds between bombs.</B></span>")
-
-/obj/item/weapon/guardian_bomb
-	name = "bomb"
-	desc = "You shouldn't be seeing this!"
-	var/obj/stored_obj
-	var/mob/living/spawner
-
-
-/obj/item/weapon/guardian_bomb/proc/disguise(var/obj/A)
-	A.loc = src
-	stored_obj = A
-	anchored = A.anchored
-	density = A.density
-	appearance = A.appearance
-	spawn(600)
-		if(src)
-			stored_obj.loc = get_turf(src.loc)
-			if(spawner)
-				to_chat(spawner, "<span class='danger'><B>Failure! Your trap on \the [stored_obj] didn't catch anyone this time.</B></span>")
-			qdel(src)
-
-/obj/item/weapon/guardian_bomb/proc/detonate(var/mob/living/user)
-	to_chat(user, "<span class='danger'><B>The [src] was boobytrapped!</B></span>")
-	if(istype(spawner, /mob/living/simple_animal/hostile/guardian))
-		var/mob/living/simple_animal/hostile/guardian/G = spawner
-		if(user == G.summoner)
-			to_chat(user, "<span class='danger'>You knew this because of your link with your guardian, so you smartly defuse the bomb.</span>")
-			stored_obj.loc = get_turf(src.loc)
-			qdel(src)
-			return
-	to_chat(spawner, "<span class='danger'><B>Success! Your trap on \the [src] caught [user]!</B></span>")
-	stored_obj.loc = get_turf(src.loc)
-	playsound(get_turf(src),'sound/effects/Explosion2.ogg', 200, 1)
-	user.ex_act(2)
-	qdel(src)
-
-/obj/item/weapon/guardian_bomb/attackby(mob/living/user)
-	detonate(user)
-	return
-
-/obj/item/weapon/guardian_bomb/pickup(mob/living/user)
-	detonate(user)
-	return
-
-/obj/item/weapon/guardian_bomb/examine(mob/user)
-	stored_obj.examine(user)
-	if(get_dist(user,src)<=2)
-		to_chat(user, "<span class='notice'>Looks odd!</span>")
-
-
 ////////Creation
 
 /obj/item/weapon/guardiancreator
@@ -676,7 +229,7 @@
 	var/used_message = "All the cards seem to be blank now."
 	var/failure_message = "..And draw a card! It's...blank? Maybe you should try again later."
 	var/ling_failure = "The deck refuses to respond to a souless creature such as you."
-	var/list/possible_guardians = list("Chaos", "Standard", "Ranged", "Support", "Explosive")
+	var/list/possible_guardians = list("Chaos", "Standard", "Ranged", "Support", "Explosive", "Assassin", "Lightning", "Charger", "Protector")
 	var/random = TRUE
 
 /obj/item/weapon/guardiancreator/attack_self(mob/living/user)
@@ -727,6 +280,18 @@
 		if("Explosive")
 			pickedtype = /mob/living/simple_animal/hostile/guardian/bomb
 
+		if("Assassin")
+			pickedtype = /mob/living/simple_animal/hostile/guardian/assassin
+
+		if("Lightning")
+			pickedtype = /mob/living/simple_animal/hostile/guardian/beam
+
+		if("Charger")
+			pickedtype = /mob/living/simple_animal/hostile/guardian/charger
+
+		if("Protector")
+			pickedtype = /mob/living/simple_animal/hostile/guardian/protector
+
 	var/mob/living/simple_animal/hostile/guardian/G = new pickedtype(user)
 	G.summoner = user
 	G.summoned = TRUE
@@ -741,12 +306,33 @@
 	user.verbs += /mob/living/proc/guardian_reset
 
 	var/color
+
+	//names and their RGB
+	var/magic_list = list("Pink" = "#FFC0CB", \
+	"Red" = "#FF0000", \
+	"Orange" = "#FFA500", \
+	"Green" = "#008000", \
+	"Blue" = "#0000FF")
+
+	var/tech_list = list("Rose" = "#F62C6B", \
+	"Peony" = "#E54750", \
+	"Lily" = "#F6562C", \
+	"Daisy" = "#ECCD39", \
+	"Zinnia" = "#89F62C", \
+	"Ivy" = "#5DF62C", \
+	"Iris" = "#2CF6B8", \
+	"Petunia" = "#51A9D4", \
+	"Violet" = "#8A347C", \
+	"Lilac" = "#C7A0F6", \
+	"Orchid" = "#F62CF5")
+
 	var/picked_name
 	var/picked_color = pick("#FFFFFF","#000000","#808080","#A52A2A","#FF0000","#8B0000","#DC143C","#FFA500","#FFFF00","#008000","#00FF00","#006400","#00FFFF","#0000FF","#000080","#008080","#800080","#4B0082")
 
 	switch(theme)
 		if("magic")
-			color = pick("Pink", "Red", "Orange", "Green", "Blue")
+			color = pick(magic_list)
+			G.name_color = magic_list[color]
 			picked_name = pick("Aries", "Leo", "Sagittarius", "Taurus", "Virgo", "Capricorn", "Gemini", "Libra", "Aquarius", "Cancer", "Scorpio", "Pisces")
 
 			G.name = "[picked_name] [color]"
@@ -757,7 +343,8 @@
 
 			to_chat(user, "[G.magic_fluff_string].")
 		if("tech")
-			color = pick("Rose", "Peony", "Lily", "Daisy", "Zinnia", "Ivy", "Iris", "Petunia", "Violet", "Lilac", "Orchid") //technically not colors, just flowers that can be specific colors
+			color = pick(tech_list) //technically not colors, just flowers that can be specific colors
+			G.name_color = tech_list[color]
 			picked_name = pick("Gallium", "Indium", "Thallium", "Bismuth", "Aluminium", "Mercury", "Iron", "Silver", "Zinc", "Titanium", "Chromium", "Nickel", "Platinum", "Tellurium", "Palladium", "Rhodium", "Cobalt", "Osmium", "Tungsten", "Iridium")
 
 			G.name = "[picked_name] [color]"
@@ -769,6 +356,7 @@
 			to_chat(user, "[G.tech_fluff_string].")
 			G.speak_emote = list("states")
 		if("bio")
+			G.name_color = picked_color
 			G.icon = 'icons/mob/mob.dmi'
 			picked_name = pick("brood", "hive", "nest")
 			to_chat(user, "[G.bio_fluff_string].")

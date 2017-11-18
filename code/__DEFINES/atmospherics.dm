@@ -48,14 +48,14 @@
 #define FIRE_MINIMUM_TEMPERATURE_TO_SPREAD	150+T0C
 #define FIRE_MINIMUM_TEMPERATURE_TO_EXIST	100+T0C
 #define FIRE_SPREAD_RADIOSITY_SCALE			0.85
-#define FIRE_CARBON_ENERGY_RELEASED			500000	//Amount of heat released per mole of burnt carbon into the tile
-#define FIRE_PLASMA_ENERGY_RELEASED			3000000	//Amount of heat released per mole of burnt plasma into the tile
+#define FIRE_CARBON_ENERGY_RELEASED			2500000		//Amount of heat released per mole of burnt carbon into the tile
+#define FIRE_PLASMA_ENERGY_RELEASED			15000000	//Amount of heat released per mole of burnt plasma into the tile
 #define FIRE_GROWTH_RATE					40000	//For small fires
 #define CARBON_LIFEFORM_FIRE_RESISTANCE 	200+T0C	//Resistance to fire damage
 #define CARBON_LIFEFORM_FIRE_DAMAGE			4		//Fire damage
 	//Plasma fire properties
-#define OXYGEN_BURN_RATE_BASE				1.4
-#define PLASMA_BURN_RATE_DELTA				4
+#define OXYGEN_BURN_RATE_BASE				7
+#define PLASMA_BURN_RATE_DELTA				20
 #define PLASMA_MINIMUM_BURN_TEMPERATURE		100+T0C
 #define PLASMA_UPPER_TEMPERATURE			1370+T0C
 #define PLASMA_MINIMUM_OXYGEN_NEEDED		2

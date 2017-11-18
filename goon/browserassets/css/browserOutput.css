@@ -312,6 +312,7 @@ h1.alert, h2.alert			{color: #000000;}
 .soghun					{color: #228B22;}
 .changeling				{color: #800080;}
 .vox					{color: #AA00AA;}
+.diona					{color:	#804000;	font-weight: bold;}
 .trinary				{color: #727272;}
 .kidan					{color: #664205;}
 .slime					{color: #0077AA;}
@@ -378,3 +379,7 @@ h1.alert, h2.alert			{color: #000000;}
 
 /* EMOJI STUFF */
 .emoji {max-height: 16px; max-width: 16px}
+
+/* ADMIN TICKETS */
+
+.adminticket {color: #3daf21; font-weight: bold}

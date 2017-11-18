@@ -6,8 +6,8 @@
 #define THEFT_FLAG_UNIQUE 2
 
 /datum/theft_objective
-	var/name = ""
-	var/typepath=/atom
+	var/name = "this objective is impossible, yell at a coder"
+	var/typepath=/obj/effect/debugging
 	var/list/protected_jobs = list()
 	var/list/altitems = list()
 	var/flags = 0

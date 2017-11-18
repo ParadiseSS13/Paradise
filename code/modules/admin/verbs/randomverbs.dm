@@ -61,7 +61,7 @@
 	if(usr)
 		if(usr.client)
 			if(usr.client.holder)
-				to_chat(M, "<b>old You hear a voice in your head... <i>[msg]</i></b>")
+				to_chat(M, "<b>You hear a voice in your head... <i>[msg]</i></b>")
 
 	log_admin("SubtlePM: [key_name(usr)] -> [key_name(M)] : [msg]")
 	message_admins("<span class='boldnotice'>SubtleMessage: [key_name_admin(usr)] -> [key_name_admin(M)] : [msg]</span>", 1)
@@ -588,22 +588,30 @@ Traitors and the like can also be revived with the previous role mostly intact.
 	feedback_add_details("admin_verb","CCR") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
 
-/client/proc/cmd_admin_delete(atom/O as obj|mob|turf in view())
+/client/proc/cmd_admin_delete(atom/A as obj|mob|turf in view())
 	set category = "Admin"
 	set name = "Delete"
 
 	if(!check_rights(R_ADMIN))
 		return
 
-	if(alert(src, "Are you sure you want to delete:\n[O]\nat ([O.x], [O.y], [O.z])?", "Confirmation", "Yes", "No") == "Yes")
-		log_admin("[key_name(usr)] deleted [O] at ([O.x],[O.y],[O.z])")
-		message_admins("[key_name_admin(usr)] deleted [O] at ([O.x],[O.y],[O.z])", 1)
+	admin_delete(A)
+
+/client/proc/admin_delete(datum/D)
+	if(istype(D) && !D.can_vv_delete())
+		to_chat(src, "[D] rejected your deletion")
+		return
+	var/atom/A = D
+	var/coords = istype(A) ? "at ([A.x], [A.y], [A.z])" : ""
+	if(alert(src, "Are you sure you want to delete:\n[D]\n[coords]?", "Confirmation", "Yes", "No") == "Yes")
+		log_admin("[key_name(usr)] deleted [D][coords]")
+		message_admins("[key_name_admin(usr)] deleted [D][coords]", 1)
 		feedback_add_details("admin_verb","DEL") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
-		if(istype(O, /turf))
-			var/turf/T = O
+		if(isturf(D))
+			var/turf/T = D
 			T.ChangeTurf(/turf/space)
-			return
-		qdel(O)
+		else
+			qdel(D)
 
 /client/proc/cmd_admin_list_open_jobs()
 	set category = "Admin"
