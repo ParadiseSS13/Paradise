@@ -235,7 +235,7 @@
 	icon = 'icons/obj/projectiles.dmi'
 	icon_state ="bluespace"
 	color = "#ff0000"
-	var/static/curselimit = 0
+	var/global/curselimit = 0
 
 /obj/item/device/shuttle_curse/attack_self(mob/user)
 	if(!iscultist(user))
@@ -246,6 +246,10 @@
 	if(curselimit > 1)
 		to_chat(user, "<span class='notice'>We have exhausted our ability to curse the shuttle.</span>")
 		return
+	if(locate(/obj/singularity/narsie) in poi_list || locate(/mob/living/simple_animal/slaughter/cult) in mob_list)
+		to_chat(user, "<span class='warning'>Nar-Sie or his avatars are already on this plane, there is no delaying the end of all things.</span>")
+		return
+
 	if(shuttle_master.emergency.mode == SHUTTLE_CALL)
 		var/cursetime = 1800
 		var/timer = shuttle_master.emergency.timeLeft(1) + cursetime
