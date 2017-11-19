@@ -1,0 +1,4 @@
+author: "Fox McCloud"
+delete-after: True
+changes: 
+  - bugfix: "Fixes cult shuttle curse from being used more than twice and from extending shuttle call duration once nar-sie has been called/slaughter demons have been called."
