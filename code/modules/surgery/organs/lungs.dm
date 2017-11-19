@@ -63,6 +63,19 @@
 		M.clear_alert("too_much_[thing]")
 	return ..()
 
+/obj/item/organ/internal/lungs/on_life()
+	if(germ_level > INFECTION_LEVEL_ONE)
+		if(prob(5))
+			owner.emote("cough")		//respitory tract infection
+
+	if(is_bruised())
+		if(prob(2))
+			owner.custom_emote(1, "coughs up blood!")
+			owner.bleed(1)
+		if(prob(4))
+			owner.custom_emote(1, "gasps for air!")
+			owner.AdjustLoseBreath(5)
+
 /obj/item/organ/internal/lungs/proc/check_breath(datum/gas_mixture/breath, mob/living/carbon/human/H)
 	if((H.status_flags & GODMODE))
 		return
