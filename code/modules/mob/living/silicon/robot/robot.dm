@@ -758,15 +758,8 @@ var/list/robot_verbs_default = list(
 	var/mob/living/M = user
 	if(!opened)//Cover is closed
 		if(locked)
-			if(ert_upgrade)
-				if(prob(20))
-					to_chat(user, "You successfully emag the cover lock.")
-					locked = 0
-				else
-					to_chat(user, "You try to emag the cover lock - but it simply blinks red.")
-			else
-				to_chat(user, "You emag the cover lock.")
-				locked = 0
+			to_chat(user, "You emag the cover lock.")
+			locked = 0
 		else
 			to_chat(user, "The cover is already unlocked.")
 		return
