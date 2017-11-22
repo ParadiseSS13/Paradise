@@ -249,6 +249,7 @@
 			target.visible_message("<span class='warning'>[target]'s holy weapon absorbs the talisman's light!</span>", \
 								   "<span class='userdanger'>Your holy weapon absorbs the blinding light!</span>")
 		else
+			add_logs(user, target, "stunned", addition="with a talisman")
 			target.Weaken(10)
 			target.Stun(10)
 			target.flash_eyes(1,1)
