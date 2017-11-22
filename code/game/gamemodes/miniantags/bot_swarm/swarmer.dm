@@ -121,7 +121,7 @@
 	to_chat(src, "<b>Prime Directives:</b>")
 	to_chat(src, "1. <span class='warning'>Consume resources and replicate until there are no more resources left.</span>")
 	to_chat(src, "2. <span class='warning'>Ensure that the station is fit for invasion at a later date, do not perform actions that would render it dangerous or inhospitable.</span>")
-	to_chat(src, "3. <span class='warning'>Biological and Sentient resources will be harvested at a later date, do not harm them and do not acticly seek to confront them save for defense.</span>")
+	to_chat(src, "3. <span class='warning'>Biological and Sentient resources will be harvested at a later date, do not harm them and do not actively seek to confront them save for defense.</span>")
 
 /mob/living/simple_animal/hostile/swarmer/New()
 	..()
