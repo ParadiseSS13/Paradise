@@ -1,4 +1,0 @@
-author: "Fox McCloud"
-delete-after: True
-changes: 
-  - bugfix: "\"Pick Up\" from right clicking obeying the same rules as regularly clicking on it"
