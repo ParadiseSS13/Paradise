@@ -212,7 +212,7 @@ mob/living/carbon/human/proc/cum(mob/living/carbon/human/H as mob, mob/living/ca
 		else
 			message = pick("извиваетс[ya] в приступе оргазма", "прикрывает глаза и мелко дрожит", "содрагаетс[ya], а затем резко расслабл[ya]етс[ya]", "замирает, закатив глаза")
 
-		playsound(loc, "honk/sound/interactions/final_m[rand(1, 5)].ogg", 70, 1, 0, pitch = get_age_pitch())
+		playsound(loc, "honk/sound/interactions/final_m[rand(1, 5)].ogg", 70, 1, frequency = get_age_pitch())
 
 		H.visible_message("<B>[H] [message]</B>")
 		if (istype(P.loc, /obj/structure/closet))
@@ -225,7 +225,7 @@ mob/living/carbon/human/proc/cum(mob/living/carbon/human/H as mob, mob/living/ca
 		H.visible_message("<B>[H] [message].</B>")
 		if (istype(P.loc, /obj/structure/closet))
 			P.visible_message("<B>[H] [message].</B>")
-		playsound(loc, "honk/sound/interactions/final_f[rand(1, 3)].ogg", 90, 1, 0, pitch = get_age_pitch())
+		playsound(loc, "honk/sound/interactions/final_f[rand(1, 3)].ogg", 90, 1, frequency = get_age_pitch())
 		var/delta = pick(20, 30, 40, 50)
 		src.lust -= delta
 
@@ -580,9 +580,9 @@ mob/living/carbon/human/proc/moan()
 				if (moan == lastmoan)
 					moan--
 				if(!istype(loc, /obj/structure/closet))
-					playsound(loc, "honk/sound/interactions/moan_[g][moan].ogg", 70, 1, 0, pitch = get_age_pitch())
+					playsound(loc, "honk/sound/interactions/moan_[g][moan].ogg", 70, 1, frequency = get_age_pitch())
 				else if (g == "f")
-					playsound(loc, "honk/sound/interactions/under_moan_f[rand(1, 4)].ogg", 70, 1, 0, pitch = get_age_pitch())
+					playsound(loc, "honk/sound/interactions/under_moan_f[rand(1, 4)].ogg", 70, 1, frequency = get_age_pitch())
 				lastmoan = moan
 
 				if (istype(H.head, /obj/item/clothing/head/kitty)  || istype(H.head, /obj/item/clothing/head/collectable/kitty))
@@ -592,7 +592,7 @@ mob/living/carbon/human/proc/moan()
 			if (prob(H.lust / src.resistenza * 70))
 				var/message = pick("мурлычет", "мурлычет от удовольстви[ya]", "закатывает глаза", "довольно облизываетс[ya]")
 				H.visible_message("<B>[H]</B> [message].")
-				playsound(loc, "honk/sound/interactions/purr[rand(1, 3)].ogg", 70, 1, 0, pitch = get_age_pitch())
+				playsound(loc, "honk/sound/interactions/purr[rand(1, 3)].ogg", 70, 1, frequency = get_age_pitch())
 
 		if("Vulpkanin")
 			if (prob(H.lust / src.resistenza * 70))
