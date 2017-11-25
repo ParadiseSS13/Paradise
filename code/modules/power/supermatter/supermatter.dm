@@ -153,6 +153,7 @@
 	if(damage > warning_point) // while the core is still damaged and it's still worth noting its status
 		if((world.timeofday - lastwarning) / 10 >= WARNING_DELAY)
 			alarm()
+			emergency_lighting(1)
 			var/stability = num2text(round((damage / explosion_point) * 100))
 
 			if(damage > emergency_point)
@@ -169,6 +170,7 @@
 
 			else                                                 // Phew, we're safe
 				radio.autosay("[safe_alert]", src.name)
+				emergency_lighting(0)
 				lastwarning = world.timeofday
 
 		if(damage > explosion_point)
@@ -185,6 +187,7 @@
 						mob.apply_effect(rads, IRRADIATE)
 
 			explode()
+			emergency_lighting(0)
 
 	//Ok, get the air from the turf
 	var/datum/gas_mixture/env = L.return_air()
@@ -446,3 +449,12 @@
 		if(SUPERMATTER_WARNING)
 			playsound(src, 'sound/machines/terminal_alert.ogg', 75)
 
+/obj/machinery/power/supermatter_shard/proc/emergency_lighting(var/active)
+	for(var/area/A in world)
+		if(!is_station_level(A.z))
+			continue
+		if(active)
+			A.radiation_alert()
+		else
+			A.reset_radiation_alert()
+	
