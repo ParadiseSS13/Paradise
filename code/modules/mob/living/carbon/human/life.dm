@@ -94,32 +94,49 @@
 	if(getBrainLoss() >= 60 && stat != DEAD)
 		speech_problem_flag = 1
 		if(prob(3))
-			var/list/s1 = list("IM A PONY NEEEEEEIIIIIIIIIGH",
+			var/list/s1 = list("IM A [pick("PONY","LIZARD","taJaran","kitty","Vulpakin","drASK","BIRDIE","voxxie","race car","combat meCH","SPESSSHIP")] [pick("NEEEEEEIIIIIIIIIGH","sKREEEEEE","MEOW","NYA~","rawr","Barkbark","Hissssss","vROOOOOM","pewpew","choo Choo")]!",
 							   "without oxigen blob don't evoluate?",
 							   "CAPTAINS A COMDOM",
 							   "[pick("", "that damn traitor")] [pick("joerge", "george", "gorge", "gdoruge")] [pick("mellens", "melons", "mwrlins")] is grifing me HAL;P!!!",
 							   "can u give me [pick("telikesis","halk","eppilapse")]?",
 							   "THe saiyans screwed",
-							   "Bi is THE BEST OF BOTH WORLDS>",
+							   "Bi is THE BEST OF BOTH WORLDS",
 							   "I WANNA PET TEH monkeyS",
 							   "stop grifing me!!!!",
-							   "SOTP IT#")
+							   "SOTP IT!",
+							   "HALPZ SITCULITY",
+							   "VOXES caN't LOVE",
+							   "my dad own this station",
+							   "the CHef put [pick("PROTEIN", "toiret waTer", "RiPPleing TendIes", "Einzymes","HORRY WALTER","nuTriments","ReActive MutAngen","TeSLium","sKrektonium")] in my [pick("wiSh soup","Bullito","rAingurber","sOilent GREEn","KoI Susishes","yaya")]!",
+							   "the monkey have TASER ARMS!",
+							   "qM blew my points on [pick("cOMbat Shtogun","inSuLated gloves","LOTS MASSHEEN!")]",
+							   "EI'NATH!",
+							   "WAKE UP SHEEPLES!",
+							   "et wus my [pick("wittle brother!!","fiancee","friend staying over","entiRe orphanage","love interest","wife","husband","liTTle kids","sentient cAT","accidentally")]!")
 
 			var/list/s2 = list("FUS RO DAH",
-							   "fucking 4rries!",
+							   "fuckin tangerines!!!",
 							   "stat me",
 							   ">my face",
 							   "roll it easy!",
 							   "waaaaaagh!!!",
 							   "red wonz go fasta",
 							   "FOR TEH EMPRAH",
-							   "lol2cat",
+							   "HAZ A SECURE DAY!!!!",
 							   "dem dwarfs man, dem dwarfs",
 							   "SPESS MAHREENS",
 							   "hwee did eet fhor khayosss",
-							   "lifelike texture ;_;",
+							   "lifelike texture",
 							   "luv can bloooom",
-							   "PACKETS!!!")
+							   "PACKETS!!!",
+							   "[pick("WHERE MY","aYE need","giv me my","bath me inn.")] [pick("dermaline","alKkyZine","dylOvene","inAprovaline","biCaridine","Hyperzine","kELotane","lePorazine","bAcch Salts","tricord","clOnexazone","hydroChloric Acid","chlorine Hydrate","paRoxetine")]!",
+							   "mALPRACTICEBAY",
+							   "I HavE A pe H dee iN ENTerpriSE resOUrCE pLaNNIN",
+							   "h-h-HalP MaINT",
+							   "dey come, dey COME! DEY COME!!!",
+							   "THE END IS NIGH!",
+							   "I FOT AND DIED FOR MUH [pick("RITES","FREEDOM","payCHECK","cARGO points","teCH Level","doG","mAPLe syrup","fluffy fWiends","gateway Loot")]",
+							   "KILL DEM [pick("mainTnacE cHickinNS","kiRA CulwnNES","FLOOR CLUWNEs","MIME ASSASSIN","BOMBING TAJARAN","cC offiser","morPhlings","slinglings")]!")
 			switch(pick(1,2,3))
 				if(1)
 					say(pick(s1))
@@ -932,7 +949,7 @@
 /mob/living/carbon/human/handle_changeling()
 	if(mind)
 		if(mind.changeling)
-			mind.changeling.regenerate()
+			mind.changeling.regenerate(src)
 			if(hud_used)
 				hud_used.lingchemdisplay.invisibility = 0
 				hud_used.lingchemdisplay.maptext = "<div align='center' valign='middle' style='position:relative; top:0px; left:6px'><font color='#dd66dd'>[round(mind.changeling.chem_charges)]</font></div>"

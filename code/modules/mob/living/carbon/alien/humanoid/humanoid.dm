@@ -13,6 +13,8 @@
 	var/leap_on_click = 0
 	var/custom_pixel_x_offset = 0 //for admin fuckery.
 	var/custom_pixel_y_offset = 0
+	pressure_resistance = 100    //100 kPa difference required to push
+	throw_pressure_limit = 120  //120 kPa difference required to throw
 
 //This is fine right now, if we're adding organ specific damage this needs to be updated
 /mob/living/carbon/alien/humanoid/New()

@@ -166,3 +166,15 @@
 	desc = "A grooved floor tile."
 	icon_state = "tile_pod"
 	turf_type = /turf/simulated/floor/pod
+
+/obj/item/stack/tile/arcade_carpet
+	name = "arcade carpet"
+	singular_name = "arcade carpet"
+	desc= "A piece of carpet with a retro spaceship pattern."
+	icon_state = "tile_space"
+	turf_type = /turf/simulated/floor/carpet/arcade
+	merge_type = /obj/item/stack/tile/arcade_carpet
+	burn_state = FLAMMABLE
+
+/obj/item/stack/tile/arcade_carpet/loaded
+	amount = 20

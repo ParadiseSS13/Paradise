@@ -159,64 +159,81 @@
 
 //window placing begin
 	else if(istype(W,/obj/item/stack/sheet/rglass) || istype(W,/obj/item/stack/sheet/glass) || istype(W,/obj/item/stack/sheet/plasmaglass) || istype(W,/obj/item/stack/sheet/plasmarglass))
-		if(!broken)
-			var/obj/item/stack/ST = W
-			if (ST.get_amount() < 1)
-				to_chat(user, "<span class='warning'>You need at least one sheet of glass for that!</span>")
-				return
-			var/dir_to_set = NORTH
-			if(!anchored)
-				to_chat(user, "<span class='warning'>[src] needs to be fastened to the floor first!</span>")
-				return
-			if(loc == user.loc)
-				dir_to_set = user.dir
-			else
-				if((x == user.x) || (y == user.y)) //Only supposed to work for cardinal directions.
-					if(x == user.x)
-						if(y > user.y)
-							dir_to_set = SOUTH
-						else
-							dir_to_set = NORTH
-					else if(y == user.y)
-						if(x > user.x)
-							dir_to_set = WEST
-						else
-							dir_to_set = EAST
-				else
-					to_chat(user, "<span class='notice'>You can't reach.</span>")
-					return //Only works for cardinal direcitons, diagonals aren't supposed to work like this.
-			for(var/obj/structure/window/WINDOW in loc)
-				if(WINDOW.dir == dir_to_set)
-					to_chat(user, "<span class='notice'>There is already a window facing this way there.</span>")
-					return
-			to_chat(user, "<span class='notice'>You start placing the window...</span>")
-			if(do_after(user, 20 * W.toolspeed, target = src))
-				if(!loc || !anchored) //Grille destroyed or unanchored while waiting
-					return
-				for(var/obj/structure/window/WINDOW in loc)
-					if(WINDOW.dir == dir_to_set)//checking this for a 2nd time to check if a window was made while we were waiting.
-						to_chat(user, "<span class='notice'>There is already a window facing this way there.</span>")
-						return
-				var/obj/structure/window/WD
-				if(istype(W,/obj/item/stack/sheet/rglass))
-					WD = new/obj/structure/window/reinforced(loc) //reinforced window
-				else if(istype(W,/obj/item/stack/sheet/glass))
-					WD = new/obj/structure/window/basic(loc) //normal window
-				else if(istype(W,/obj/item/stack/sheet/plasmaglass))
-					WD = new/obj/structure/window/plasmabasic(loc) //basic plasma window
-				else
-					WD = new/obj/structure/window/plasmareinforced(loc) //reinforced plasma window
-				WD.setDir(dir_to_set)
-				WD.ini_dir = dir_to_set
-				WD.anchored = 0
-				WD.state = 0
-				ST.use(1)
-				to_chat(user, "<span class='notice'>You place the [WD] on [src].</span>")
-				WD.update_icon()
-			return
+		build_window(W, user)
+		return
 //window placing end
+
 	else if(istype(W, /obj/item/weapon/shard) || !shock(user, 70))
 		return attacked_by(W, user)
+
+/obj/structure/grille/proc/build_window(obj/item/stack/sheet/S, mob/user)
+	if(!istype(S) || !user)
+		return
+	if(broken)
+		to_chat(user, "<span class='warning'>You must repair or replace [src] first!</span>")
+		return
+	if(S.get_amount() < 1)
+		to_chat(user, "<span class='warning'>You need at least one sheet of glass for that!</span>")
+		return
+	if(!anchored)
+		to_chat(user, "<span class='warning'>[src] needs to be fastened to the floor first!</span>")
+		return
+	if(!getRelativeDirection(src, user) && (user.loc != loc))	//essentially a cardinal direction adjacent or sharing same loc check
+		to_chat(user, "<span class='warning'>You can't reach.</span>")
+		return
+	if(/obj/structure/window/full in loc)	//check for a full window already present (blocks the whole tile)
+		to_chat(user, "<span class='warning'>There is already a full window there.</span>")
+		return
+	var/selection = alert(user, "What type of window would you like to place?", "Window Construction", "One Direction", "Full", "Cancel")
+	if(selection == "Cancel")
+		return
+	if(selection == "Full")
+		if(S.get_amount() < 2)
+			to_chat(user, "<span class='warning'>You need at least two sheets of glass for that!</span>")
+			return
+		if(do_after(user, 20, target = src))	//glass doesn't have a toolspeed, so no multiplier
+			if(broken || !anchored || !src)		//make sure the grille is still intact, anchored, and exists!
+				return
+			if(S.get_amount() < 2)				//make sure we still have enough for this!
+				return
+			if(!getRelativeDirection(src, user) && (user.loc != loc))	//make sure we can still do this from our location
+				return
+			var/obj/structure/window/W = new S.full_window(get_turf(src))
+			S.use(2)
+			W.anchored = 0
+			W.state = 0
+			to_chat(user, "<span class='notice'>You place [W] on [src].</span>")
+			W.update_icon()
+		return
+	if(selection == "One Direction")
+		var/dir_selection = input("Which direction will this window face?", "Direction") as null|anything in list("north", "east", "south", "west")
+		if(!dir_selection)
+			return
+		var/temp_dir = text2dir(dir_selection)
+		for(var/obj/structure/window/W in loc)
+			if(istype(W, /obj/structure/window/full))	//double checking in case a full window was created while selecting direction
+				to_chat(user, "<span class='warning'>There is already a full window there.</span>")
+				return
+			if(W.dir == temp_dir)	//to avoid building a window on top of an existing window
+				to_chat(user, "<span class='warning'>There is already a window facing this direction there.</span>")
+				return
+		if(do_after(user, 20, target = src))
+			if(broken || !anchored || !src)		//make sure the grille is still intact, anchored, and exists!
+				return
+			if(S.get_amount() < 1)				//make sure we still have enough fir this!
+				to_chat(user, "<span class='warning'>You need at least one sheet of glass for that!</span>")
+				return
+			if(!getRelativeDirection(src, user) && (user.loc != loc))	//make sure we can still do this from our location
+				return
+			var/obj/structure/window/W = new S.created_window(get_turf(src))
+			S.use(1)
+			W.setDir(temp_dir)
+			W.ini_dir = temp_dir
+			W.anchored = 0
+			W.state = 0
+			to_chat(user, "<span class='notice'>You place [W] on [src].</span>")
+			W.update_icon()
+		return
 
 /obj/structure/grille/proc/attacked_by(obj/item/I, mob/living/user)
 	user.changeNext_move(CLICK_CD_MELEE)

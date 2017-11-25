@@ -1,6 +1,6 @@
 var/global/list/all_objectives = list()
 
-var/list/potential_theft_objectives = subtypesof(/datum/theft_objective) - /datum/theft_objective/steal - /datum/theft_objective/number
+var/list/potential_theft_objectives = subtypesof(/datum/theft_objective) - /datum/theft_objective/steal - /datum/theft_objective/number - /datum/theft_objective/unique
 
 /datum/objective
 	var/datum/mind/owner = null			//Who owns the objective.

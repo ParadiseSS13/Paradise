@@ -44,6 +44,24 @@
 	name = "Circuit board (Camera Monitor)"
 	build_path = /obj/machinery/computer/security
 	origin_tech = "programming=2;combat=2"
+
+/obj/item/weapon/circuitboard/camera/telescreen
+	name = "Circuit board (Telescreen)"
+	build_path = /obj/machinery/computer/security/telescreen
+/obj/item/weapon/circuitboard/camera/telescreen/entertainment
+	name = "Circuit board (Entertainment Monitor)"
+	build_path = /obj/machinery/computer/security/telescreen/entertainment
+/obj/item/weapon/circuitboard/camera/wooden_tv
+	name = "Circuit board (Wooden TV)"
+	build_path = /obj/machinery/computer/security/wooden_tv
+/obj/item/weapon/circuitboard/camera/mining
+	name = "Circuit board (Outpost Camera Monitor)"
+	build_path = /obj/machinery/computer/security/mining
+/obj/item/weapon/circuitboard/camera/engineering
+	name = "Circuit board (Engineering Camera Monitor)"
+	build_path = /obj/machinery/computer/security/engineering
+
+
 /obj/item/weapon/circuitboard/xenobiology
 	name = "Circuit board (Xenobiology Console)"
 	build_path = /obj/machinery/computer/camera_advanced/xenobio

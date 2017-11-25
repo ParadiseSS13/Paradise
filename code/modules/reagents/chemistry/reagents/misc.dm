@@ -332,7 +332,7 @@
 	if(ishuman(M))
 		var/mob/living/carbon/human/H = M
 		var/obj/item/organ/external/head/head_organ = H.get_organ("head")
-		var/datum/sprite_accessory/tmp_hair_style = hair_styles_list["Very Long Hair"]
+		var/datum/sprite_accessory/tmp_hair_style = hair_styles_full_list["Very Long Hair"]
 		var/datum/sprite_accessory/tmp_facial_hair_style = facial_hair_styles_list["Very Long Beard"]
 
 		if(head_organ.species.name in tmp_hair_style.species_allowed) //If 'Very Long Hair' is a style the person's species can have, give it to them.

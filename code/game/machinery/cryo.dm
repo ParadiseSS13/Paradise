@@ -126,6 +126,15 @@
 				on = 0
 				go_out()
 				playsound(src.loc, 'sound/machines/ding.ogg', 50, 1)
+
+	if(air_contents)
+		if(occupant)
+			process_occupant()
+
+	return 1
+
+/obj/machinery/atmospherics/unary/cryo_cell/process_atmos()
+	..()
 	if(!node)
 		return
 	if(!on)
@@ -135,12 +144,8 @@
 		temperature_archived = air_contents.temperature
 		heat_gas_contents()
 
-		if(occupant)
-			process_occupant()
 	if(abs(temperature_archived-air_contents.temperature) > 1)
 		parent.update = 1
-
-	return 1
 
 
 /obj/machinery/atmospherics/unary/cryo_cell/allow_drop()

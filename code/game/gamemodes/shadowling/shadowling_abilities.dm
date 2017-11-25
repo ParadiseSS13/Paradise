@@ -363,7 +363,7 @@
 		var/mob/living/carbon/human/H = target
 		H.visible_message("<span class='warning'>[H]'s skin suddenly bubbles and shifts around their body!</span>", \
 							 "<span class='shadowling'>You regenerate your protective armor and cleanse your form of defects.</span>")
-		H.adjustCloneLoss(target.getCloneLoss())
+		H.adjustCloneLoss(-target.getCloneLoss())
 		H.equip_to_slot_or_del(new /obj/item/clothing/under/shadowling(H), slot_w_uniform)
 		H.equip_to_slot_or_del(new /obj/item/clothing/shoes/shadowling(H), slot_shoes)
 		H.equip_to_slot_or_del(new /obj/item/clothing/suit/space/shadowling(H), slot_wear_suit)
