@@ -1,0 +1,5 @@
+author: "Fox McCloud"
+delete-after: True
+changes: 
+  - bugfix: "Fixes slime transformation potion not making you a real slime"
+  - tweak: "Polymorph slimes are now random color"
