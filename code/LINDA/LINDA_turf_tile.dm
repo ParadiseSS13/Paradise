@@ -305,27 +305,14 @@
 
 
 /atom/movable/var/pressure_resistance = 5
-/atom/movable/var/throw_pressure_limit = 15
 /atom/movable/var/last_forced_movement = 0
 
 /atom/movable/proc/experience_pressure_difference(pressure_difference, direction)
-	if(last_forced_movement >= air_master.current_cycle)
+	if(last_forced_movement + 4 >= air_master.current_cycle)
 		return 0
-	else if(!anchored && !pulledby)
-		if(pressure_difference >= throw_pressure_limit)
-			var/general_direction = get_edge_target_turf(src, direction)
-			if(last_forced_movement + 10 < air_master.current_cycle && is_valid_tochat_target(src)) //the first check prevents spamming throw to_chat
-				to_chat(src, "<span class='userdanger'>The pressure sends you flying!</span>")
-			if(ishuman(src))
-				var/mob/living/carbon/human/H = src
-				H.Weaken(min(pressure_difference / 10, 10))
-			spawn()
-				throw_at(general_direction, pressure_difference / 10, pressure_difference / 200, null, 0, 0, null)
-			last_forced_movement = air_master.current_cycle
-			return 1
-		else if(pressure_difference > pressure_resistance)
-			spawn()
-				step(src, direction)
+	if(!anchored && !pulledby && pressure_difference > pressure_resistance)
+		spawn()
+			step(src, direction)
 			last_forced_movement = air_master.current_cycle
 			return 1
 	return 0
