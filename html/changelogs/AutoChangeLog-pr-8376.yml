@@ -1,8 +1,0 @@
-author: "MarsM0nd"
-delete-after: True
-changes: 
-  - bugfix: "Stops rigsuits from shocking over distance."
-  - bugfix: "Let's malfunction count down while not being actively worn, to avoid permanetly breaking it."
-  - rscadd: "Allows boots to be worn under rigsuit boots."
-  - rscadd: "Wirenames for the rigsuit wires if you can see them."
-  - tweak: "Rigsuits only slow you down when deployed, potentially less if active."
