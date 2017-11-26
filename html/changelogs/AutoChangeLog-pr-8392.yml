@@ -1,0 +1,4 @@
+author: "MarsM0nd"
+delete-after: True
+changes: 
+  - rscadd: "Logs usage of stun talismans."
