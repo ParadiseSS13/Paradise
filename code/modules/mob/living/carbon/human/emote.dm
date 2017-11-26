@@ -48,6 +48,11 @@
 				on_CD = handle_emote_CD()
 			else
 				return
+		if("rustle", "rustles")
+            if(get_species() == "Vox")        //Only Vox can rustle.
+                on_CD = handle_emote_CD()            //proc located in code\modules\mob\emote.dm
+            else                                //Everyone else fails, skip the emote attempt
+                return
 		if("squish", "squishes")
 			var/found_slime_bodypart = 0
 
@@ -76,6 +81,23 @@
 			else								//Everyone else fails, skip the emote attempt
 				return
 
+		if("rustle", "rustles")
+            var/M = null
+            if(param)
+                for(var/mob/A in view(null, null))
+                    if(param == A.name)
+                        M = A
+                        break
+            if(!M)
+                param = null
+
+            if(param)
+                message = "<B>[src]</B> rustles /his quills at [param]."
+            else
+                message = "<B>[src]</B> rustles /his quills."
+            playsound(src.loc, 'sound/effects/voxrustle.ogg', 50, 0) //Credit to sound-ideas (freesfx.co.uk) for the sound.
+            m_type = 2
+
 		if("creaks", "creak")
 			if(get_species() == "Diona") //Only Dionas can Creaks.
 				on_CD = handle_emote_CD()			//proc located in code\modules\mob\emote.dm'
@@ -83,15 +105,10 @@
 				return
 
 		if("hiss", "hisses")
-			if(get_species() == "Unathi") //Only Unathi can hiss.
+			if(species.name == "Unathi") //Only Unathi can hiss.
 				on_CD = handle_emote_CD()			//proc located in code\modules\mob\emote.dm'
 			else								//Everyone else fails, skip the emote attempt
 				return
-		if("rustle", "rustles")
-            if(species.name == "Vox")        //Only Vox can rustle.
-                on_CD = handle_emote_CD()            //proc located in code\modules\mob\emote.dm
-            else                                //Everyone else fails, skip the emote attempt
-                return
 
 		if("scream", "screams")
 			on_CD = handle_emote_CD(50) //longer cooldown
@@ -166,23 +183,6 @@
 			message = "<B>[src]</B> squishes[M ? " at [M]" : ""]."
 			playsound(loc, 'sound/effects/slime_squish.ogg', 50, 0) //Credit to DrMinky (freesound.org) for the sound.
 			m_type = 2
-
-		if("rustle", "rustles")
-            var/M = null
-            if(param)
-                for(var/mob/A in view(null, null))
-                    if(param == A.name)
-                        M = A
-                        break
-            if(!M)
-                param = null
-
-            if(param)
-                message = "<B>[src]</B> rustles /his quills at [param]."
-            else
-                message = "<B>[src]</B> rustles /his quills."
-            playsound(src.loc, 'sound/effects/voxrustle.ogg', 50, 0) //Credit to sound-ideas (freesfx.co.uk) for the sound.
-            m_type = 2
 
 		if("clack", "clacks")
 			var/M = handle_emote_param(param)
