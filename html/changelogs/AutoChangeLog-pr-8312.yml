@@ -1,0 +1,5 @@
+author: "Kyep"
+delete-after: True
+changes: 
+  - bugfix: "ERT borgs can now speak on ERT radio, even after choosing a module."
+  - rscadd: "ERT borgs are now always named as such, may only take modules that would be useful in an emergency, and always have their emagged modules unlocked. They also have an 80% chance to resist emagging their cover lock, so you will need to stun them with a flash before trying to emag them."
