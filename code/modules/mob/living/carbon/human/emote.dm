@@ -29,29 +29,34 @@
 	switch(act)
 		//Cooldown-inducing emotes
 		if("ping", "pings", "buzz", "buzzes", "beep", "beeps", "yes", "no", "buzz2")
-			if(species.name == "Machine")		//Only Machines can beep, ping, and buzz, yes, no, and make a silly sad trombone noise.
+			if(get_species() == "Machine")		//Only Machines can beep, ping, and buzz, yes, no, and make a silly sad trombone noise.
 				on_CD = handle_emote_CD()			//proc located in code\modules\mob\emote.dm
 			else								//Everyone else fails, skip the emote attempt
 				return
 		if("drone","drones","hum","hums","rumble","rumbles")
-			if(species.name == "Drask")		//Only Drask can make whale noises
+			if(get_species() == "Drask")		//Only Drask can make whale noises
 				on_CD = handle_emote_CD()			//proc located in code\modules\mob\emote.dm
 			else
 				return
 		if("howl", "howls")
-			if (species.name == "Vulpkanin")		//Only Vulpkanin can howl
+			if(get_species() == "Vulpkanin")		//Only Vulpkanin can howl
 				on_CD = handle_emote_CD(100)
 			else
 				return
 		if("growl", "growls")
-			if (species.name == "Vulpkanin")		//Only Vulpkanin can growl
+			if(get_species() == "Vulpkanin")		//Only Vulpkanin can growl
 				on_CD = handle_emote_CD()
 			else
 				return
+		if("rustle", "rustles")
+            if(get_species() == "Vox")        //Only Vox can rustle.
+                on_CD = handle_emote_CD()            //proc located in code\modules\mob\emote.dm
+            else                                //Everyone else fails, skip the emote attempt
+                return
 		if("squish", "squishes")
 			var/found_slime_bodypart = 0
 
-			if(species.name == "Slime People")	//Only Slime People can squish
+			if(get_species() == "Slime People")	//Only Slime People can squish
 				on_CD = handle_emote_CD()			//proc located in code\modules\mob\emote.dm'
 				found_slime_bodypart = 1
 			else
@@ -65,19 +70,36 @@
 				return
 
 		if("clack", "clacks")
-			if(species.name == "Kidan")	//Only Kidan can clack and rightfully so.
+			if(get_species() == "Kidan")	//Only Kidan can clack and rightfully so.
 				on_CD = handle_emote_CD()			//proc located in code\modules\mob\emote.dm'
 			else								//Everyone else fails, skip the emote attempt
 				return
 
 		if("click", "clicks")
-			if(species.name == "Kidan")	//Only Kidan can click and rightfully so.
+			if(get_species() == "Kidan")	//Only Kidan can click and rightfully so.
 				on_CD = handle_emote_CD()			//proc located in code\modules\mob\emote.dm'
 			else								//Everyone else fails, skip the emote attempt
 				return
 
+		if("rustle", "rustles")
+            var/M = null
+            if(param)
+                for(var/mob/A in view(null, null))
+                    if(param == A.name)
+                        M = A
+                        break
+            if(!M)
+                param = null
+
+            if(param)
+                message = "<B>[src]</B> rustles /his quills at [param]."
+            else
+                message = "<B>[src]</B> rustles /his quills."
+            playsound(src.loc, 'sound/effects/voxrustle.ogg', 50, 0) //Credit to sound-ideas (freesfx.co.uk) for the sound.
+            m_type = 2
+
 		if("creaks", "creak")
-			if(species.name == "Diona") //Only Dionas can Creaks.
+			if(get_species() == "Diona") //Only Dionas can Creaks.
 				on_CD = handle_emote_CD()			//proc located in code\modules\mob\emote.dm'
 			else								//Everyone else fails, skip the emote attempt
 				return
