@@ -1,4 +1,0 @@
-author: "Kyep"
-delete-after: True
-changes: 
-  - tweak: "When an admin creates a classified message manually, and selects 'no' to the 'notify crew' option, the incoming message will be announced via command radio, instead of a priority announcement that the whole crew sees."
