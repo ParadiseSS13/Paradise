@@ -68,7 +68,7 @@
 /obj/item/borg/upgrade/rename/action(var/mob/living/silicon/robot/R)
 	if(..())
 		return
-	if(R.ert_upgrade)
+	if(!R.allow_rename)
 		to_chat(R, "<span class='warning'>Internal diagnostic error: incompatible upgrade module detected.</span>");
 		return 0
 	R.notify_ai(3, R.name, heldname)
@@ -218,7 +218,7 @@
 	if(R.emagged)
 		return
 
-	if(R.ert_upgrade)
+	if(R.weapons_unlock)
 		to_chat(R, "<span class='warning'>Internal diagnostic error: incompatible upgrade module detected.</span>");
 		return
 
