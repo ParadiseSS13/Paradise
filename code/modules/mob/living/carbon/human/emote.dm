@@ -88,8 +88,8 @@
 			else								//Everyone else fails, skip the emote attempt
 				return
 
-		if("rustle", "rustles")
-			if(get_species() == "Vox") //Only Vox can rustle.
+		if("quill", "quills")
+			if(get_species() == "Vox") //Only Vox can rustle their quills.
 				on_CD = handle_emote_CD()			//proc located in code\modules\mob\emote.dm'
 			else								//Everyone else fails, skip the emote attempt
 				return
@@ -196,7 +196,7 @@
 			playsound(loc, 'sound/effects/unathihiss.ogg', 50, 0) //Credit to Jamius (freesound.org) for the sound.
 			m_type = 2
 
-		if("rustle", "rustles")
+		if("quill", "quills")
 			var/M = handle_emote_param(param)
 
 			message = "<B>[src]</B> rustles their quills[M ? " at [M]" : ""]."
@@ -871,7 +871,7 @@
 			+ " deathgasp(s), drool(s), eyebrow, fart(s), faint(s), flap(s), flip(s), frown(s), gasp(s), giggle(s), glare(s)-(none)/mob, grin(s), groan(s), grumble(s), grin(s)," \
 			+ " handshake-mob, hug(s)-(none)/mob, hem, highfive, johnny, jump, laugh(s), look(s)-(none)/mob, moan(s), mumble(s), nod(s), pale(s), point(s)-atom, quiver(s), raise(s), salute(s)-(none)/mob, scream(s), shake(s)," \
 			+ " shiver(s), shrug(s), sigh(s), signal(s)-#1-10,slap(s)-(none)/mob, smile(s),snap(s), sneeze(s), sniff(s), snore(s), stare(s)-(none)/mob, swag(s), tremble(s), twitch(es), twitch(es)_s," \
-			+ " wag(s), wave(s),  whimper(s), wink(s), yawn(s), rustle(s)"
+			+ " wag(s), wave(s),  whimper(s), wink(s), yawn(s), quill(s)"
 
 			switch(species.name)
 				if("Machine")
@@ -885,7 +885,7 @@
 				if("Vulpkanin")
 					emotelist += "\nVulpkanin specific emotes :- growl(s)-none/mob, howl(s)-none/mob"
 				if("Vox")
-					emotelist += "\nVox specific emotes :- rustle(s)"
+					emotelist += "\nVox specific emotes :- quill(s)"
 				if("Diona")
 					emotelist += "\nDiona specific emotes :- creak(s)"
 
