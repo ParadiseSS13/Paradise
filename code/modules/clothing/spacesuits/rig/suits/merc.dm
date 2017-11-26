@@ -6,7 +6,7 @@
 	icon_state = "merc_rig"
 	suit_type = "crimson hardsuit"
 	armor = list(melee = 40, bullet = 50, laser = 30, energy = 15, bomb = 35, bio = 100, rad = 50)
-	slowdown = 1
+	active_slowdown = 1
 	offline_slowdown = 3
 	offline_vision_restriction = 1
 
