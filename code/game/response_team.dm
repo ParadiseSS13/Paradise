@@ -118,7 +118,9 @@ var/ert_request_answered = 0
 		var/mob/living/silicon/robot/ert/R = new()
 		R.forceMove(spawn_location)
 		var/rnum = rand(1,1000)
-		R.name = "ERT [rnum]"
+		var/borgname = "ERT [rnum]"
+		R.name = borgname
+		R.custom_name = borgname
 		R.real_name = R.name
 		R.mind = new
 		R.mind.current = R
