@@ -20,7 +20,7 @@ RCD
 	origin_tech = "engineering=4;materials=2"
 	toolspeed = 1
 	usesound = 'sound/items/Deconstruct.ogg'
-	var/datum/effect/system/spark_spread/spark_system
+	var/datum/effect_system/spark_spread/spark_system
 	var/max_matter = 100
 	var/matter = 0
 	var/working = 0
@@ -47,7 +47,7 @@ RCD
 
 /obj/item/weapon/rcd/New()
 	desc = "A RCD. It currently holds [matter]/[max_matter] matter-units."
-	spark_system = new /datum/effect/system/spark_spread
+	spark_system = new /datum/effect_system/spark_spread
 	spark_system.set_up(5, 0, src)
 	spark_system.attach(src)
 	rcd_list += src

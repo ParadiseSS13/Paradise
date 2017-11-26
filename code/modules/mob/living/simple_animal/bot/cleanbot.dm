@@ -98,7 +98,7 @@
 
 			if(prob(5)) //Spawns foam!
 				visible_message("<span class='danger'>[src] whirs and bubbles violently, before releasing a plume of froth!</span>")
-				new /obj/structure/foam(loc)
+				new /obj/effect/particle_effect/foam(loc)
 
 	else if(prob(5))
 		audible_message("[src] makes an excited beeping booping sound!")
@@ -184,7 +184,7 @@
 	if(prob(50))
 		new /obj/item/robot_parts/l_arm(Tsec)
 
-	var/datum/effect/system/spark_spread/s = new /datum/effect/system/spark_spread
+	var/datum/effect_system/spark_spread/s = new /datum/effect_system/spark_spread
 	s.set_up(3, 1, src)
 	s.start()
 	..()
