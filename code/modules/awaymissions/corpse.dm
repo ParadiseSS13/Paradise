@@ -84,7 +84,7 @@
 	M.adjustBruteLoss(brute_damage)
 	M.adjustFireLoss(burn_damage)
 	M.color = mob_color
-	equip(M)
+	equip(M, TRUE)
 
 	if(ckey)
 		M.ckey = ckey
@@ -138,6 +138,11 @@
 	var/backpack_contents = -1
 	var/suit_store = -1
 
+	var/hair_style
+	var/facial_hair_style
+	var/skin_tone
+
+
 /obj/effect/mob_spawn/human/New()
 	if(ispath(outfit))
 		outfit = new outfit()
@@ -156,17 +161,34 @@
 	H.underwear = "Nude"
 	H.undershirt = "Nude"
 	H.socks = "Nude"
+	var/obj/item/organ/external/head/D = H.get_organ("head")
+	if(istype(D))
+		if(hair_style)
+			D.h_style = hair_style
+		else
+			D.h_style = random_hair_style(gender)
+		if(facial_hair_style)
+			D.f_style = facial_hair_style
+		else
+			D.f_style = random_facial_hair_style(gender)
+	if(skin_tone)
+		H.s_tone = skin_tone
+	else
+		H.s_tone = random_skin_tone()
+	H.update_hair()
+	H.update_body()
 	if(outfit)
 		var/static/list/slots = list("uniform", "r_hand", "l_hand", "suit", "shoes", "gloves", "ears", "glasses", "mask", "head", "belt", "r_pocket", "l_pocket", "back", "id", "neck", "backpack_contents", "suit_store")
 		for(var/slot in slots)
 			var/T = vars[slot]
 			if(!isnum(T))
 				outfit.vars[slot] = T
-		H.equipOutfit(outfit)
+		H.equipOutfit(outfit, TRUE)
 		var/list/del_types = list(/obj/item/device/pda, /obj/item/device/radio/headset)
 		for(var/del_type in del_types)
 			var/obj/item/I = locate(del_type) in H
 			qdel(I)
+
 	var/obj/item/weapon/card/id/W = H.wear_id
 	if(W)
 		if(id_access)
@@ -200,17 +222,6 @@
 
 
 //Non-human spawners
-
-/obj/effect/mob_spawn/AICorpse/create() //Creates a corrupted AI
-	var/A = locate(/mob/living/silicon/ai) in loc
-	if(A)
-		return
-	var/mob/living/silicon/ai/M = new(loc) //spawn new AI at landmark as var M
-	M.name = src.name
-	M.real_name = src.name
-	//M.aiPDA.toff = 1 //turns the AI's PDA messenger off, stopping it showing up on player PDAs
-	M.death() //call the AI's death proc
-	qdel(src)
 
 /obj/effect/mob_spawn/mouse
 	name = "sleeper"
@@ -257,7 +268,7 @@
 
 /obj/effect/mob_spawn/human/doctor
 	name = "Doctor"
-	id_job = "Doctor"
+	id_job = "Medical Doctor"
 	outfit = /datum/outfit/job/doctor
 
 /obj/effect/mob_spawn/human/doctor/alive
