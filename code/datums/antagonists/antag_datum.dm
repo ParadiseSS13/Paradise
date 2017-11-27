@@ -70,8 +70,9 @@ var/global/list/antagonists = list()
 	var/mob/dead/observer/theghost = null
 	if(candidates.len)
 		theghost = pick(candidates)
-		to_chat(owner, "Your mob has been taken over by a ghost! Appeal your role ban if you want to avoid this in the future!")
+		to_chat(owner, "<span class = 'warning'> Your mob has been taken over by a ghost! Appeal your role ban if you want to avoid this in the future!</span>")
 		message_admins("[key_name_admin(theghost)] has taken control of ([key_name_admin(owner.current)]) to replace a jobbaned player.")
+		log_admin("[key_name_admin(theghost)] has taken control of ([key_name_admin(owner.current)]) to replace a jobbaned player.")
 		owner.current.ghostize(0)
 		owner.current.key = theghost.key
 
