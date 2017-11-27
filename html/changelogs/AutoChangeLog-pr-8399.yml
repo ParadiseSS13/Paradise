@@ -1,4 +1,0 @@
-author: "uraniummeltdown"
-delete-after: True
-changes: 
-  - bugfix: "Composting plants/pills into hydroponics trays transfers all reagents"
