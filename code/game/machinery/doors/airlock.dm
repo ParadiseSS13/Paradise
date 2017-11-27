@@ -302,6 +302,11 @@ About the new airlock wires panel:
 				flick("door_deny", src)
 	return
 
+/obj/machinery/door/airlock/examine(mob/user)
+	..()
+	if(emagged)
+		to_chat(user, "<span class='warning'>Its access panel is smoking slightly.</span>")
+
 /obj/machinery/door/airlock/attack_ghost(mob/user)
 	if(p_open)
 		wires.Interact(user)

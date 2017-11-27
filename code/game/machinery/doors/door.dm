@@ -181,8 +181,6 @@
 		sleep(6)
 		open()
 		emagged = 1
-		if(istype(src, /obj/machinery/door/airlock))
-			desc = "<span class='warning'>Its access panel is smoking slightly.</span>"
 		return 1
 
 /obj/machinery/door/blob_act()
