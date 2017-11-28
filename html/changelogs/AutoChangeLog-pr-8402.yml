@@ -1,0 +1,4 @@
+author: "Kyep"
+delete-after: True
+changes: 
+  - bugfix: "It is no longer possible for Service borgs using the Rapid Service Fabricator to end up with negative energy."
