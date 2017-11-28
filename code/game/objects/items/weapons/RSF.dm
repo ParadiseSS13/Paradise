@@ -69,12 +69,12 @@ RSF
 
 	if(isrobot(user))
 		var/mob/living/silicon/robot/engy = user
-		if (engy.cell.charge < configured_items[mode][2])
+		if(engy.cell.charge < configured_items[mode][2])
 			to_chat(user, "<span class='warning'>Insufficient energy.</span>")
 			return
 		engy.cell.charge -= configured_items[mode][2]
 	else
-		if (matter == 0)
+		if(matter == 0)
 			to_chat(user, "<span class='warning'>Insufficient matter.</span>")
 			return
 		matter--
@@ -83,7 +83,7 @@ RSF
 
 	to_chat(user, "Dispensing " + configured_items[mode][1] + "...")
 	playsound(src.loc, 'sound/machines/click.ogg', 10, 1)
-	var type_path = configured_items[mode][3]
+	var/type_path = configured_items[mode][3]
 	new type_path(spawn_location)
 
 /obj/item/weapon/cookiesynth
