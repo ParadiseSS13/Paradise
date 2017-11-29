@@ -5,20 +5,8 @@
 	faction = list("hotel")
 	var/list/hotel_enemies = list()
 
-/mob/living/carbon/human/interactive/away/hotel/adjustBruteLoss(damage)
-	..(damage)
-	DeclareEnemy()
-
-/mob/living/carbon/human/interactive/away/hotel/adjustFireLoss(damage)
-	..(damage)
-	DeclareEnemy()
-
-/mob/living/carbon/human/interactive/away/hotel/adjustToxLoss(damage)
-	..(damage)
-	DeclareEnemy()
-
-/mob/living/carbon/human/interactive/away/hotel/adjustOxyLoss(damage)
-	..(damage)
+/mob/living/carbon/human/interactive/away/hotel/retalTarget(mob/living/target)
+	..(target)
 	DeclareEnemy()
 
 /mob/living/carbon/human/interactive/away/hotel/proc/DeclareEnemy()
@@ -30,6 +18,8 @@
 		for(var/mob/living/simple_animal/hostile/retaliate/hotel_secbot/B in living_mob_list)
 			if(!(L in B.enemies))
 				B.enemies |= L
+		pointed(L)
+		hotel_enemies |= L
 
 /mob/living/carbon/human/interactive/away/hotel/New(loc)
 	..(loc, "Skrell")
@@ -165,11 +155,18 @@
 	loot = list(/obj/effect/decal/cleanable/blood/gibs/robot)
 	deathmessage = "blows apart!"
 	del_on_death = 1
+	var/turf/home_turf
+
+
+/mob/living/simple_animal/hostile/retaliate/hotel_secbot/New()
+	..()
+	home_turf = get_turf(src)
 
 /mob/living/simple_animal/hostile/retaliate/hotel_secbot/boss
 	name = "Hotel Security Chief"
 	health = 300
 	maxHealth = 300
+	var/max_distance = 10
 
 /mob/living/simple_animal/hostile/retaliate/hotel_secbot/Aggro()
 	..()
@@ -177,8 +174,11 @@
 
 /mob/living/simple_animal/hostile/retaliate/hotel_secbot/boss/handle_automated_action()
 	..()
-	if(prob(10))
+	if(prob(10) && !target)
 		Retaliate()
+		if(get_dist(loc, home_turf) > max_distance)
+			playsound(loc, 'sound/effects/sparks4.ogg', 50, 1)
+			do_teleport(src, home_turf, 0)
 
 /mob/living/simple_animal/hostile/retaliate/hotel_secbot/Retaliate()
 	..()
@@ -250,6 +250,7 @@
 		return
 
 	qdel(evidence)
-	H.visible_message("<span class='danger'>[src] teleports [H] to the special guest suite!</span>", "<span class='userdanger'>[src] teleports you to the special guest suite!</span>")
-	H.forceMove(get_turf(brig))
+	H.visible_message("<span class='danger'>[src] beams [H] to the special guest suite!</span>", "<span class='userdanger'>[src] beams you to the special guest suite!</span>")
+	playsound(loc, 'sound/effects/sparks4.ogg', 50, 1)
+	do_teleport(H, get_turf(brig), 0)
 	LoseTarget()
