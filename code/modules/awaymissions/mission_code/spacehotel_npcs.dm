@@ -147,7 +147,7 @@
 	melee_damage_lower = 15
 	melee_damage_upper = 15
 	anchored = 1
-	attacktext = "batons"
+	attacktext = "slices"
 	attack_sound = 'sound/weapons/bladeslice.ogg'
 	faction = list("hotel")
 	speak_emote = list("states")
@@ -232,15 +232,15 @@
 		H.attack_animal(src)
 		return
 	var/obj/item/I
-	if(H.back && H.canUnEquip(H.back, 0))
+	if(H.back && H.canUnEquip(H.back, 0) && !istype(H.back, /obj/item/weapon/tank))
 		I = H.back
-	else if(H.belt && H.canUnEquip(H.belt, 0))
+	else if(H.belt && H.canUnEquip(H.belt, 0) && !istype(H.belt, /obj/item/weapon/tank))
 		I = H.belt
 	else if(H.gloves && H.canUnEquip(H.gloves, 0))
 		I = H.gloves
-	else if(H.l_store && H.canUnEquip(H.l_store, 0))
+	else if(H.l_store && H.canUnEquip(H.l_store, 0) && !istype(H.l_store, /obj/item/weapon/tank))
 		I = H.l_store
-	else if(H.r_store && H.canUnEquip(H.r_store, 0))
+	else if(H.r_store && H.canUnEquip(H.r_store, 0) && !istype(H.r_store, /obj/item/weapon/tank))
 		I = H.r_store
 
 	if(I)
