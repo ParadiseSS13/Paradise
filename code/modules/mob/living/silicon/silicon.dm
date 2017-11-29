@@ -30,7 +30,7 @@
 
 	var/med_hud = DATA_HUD_MEDICAL_ADVANCED //Determines the med hud to use
 	var/sec_hud = DATA_HUD_SECURITY_ADVANCED //Determines the sec hud to use
-	var/d_hud = DATA_HUD_DIAGNOSTIC //There is only one kind of diag hud
+	var/d_hud = DATA_HUD_DIAGNOSTIC_ADVANCED //There is only one kind of diag hud
 
 	var/obj/item/device/radio/common_radio
 
@@ -232,8 +232,8 @@
 	medsensor.add_hud_to(src)
 
 /mob/living/silicon/proc/add_diag_hud()
-	var/datum/atom_hud/diagsensor = huds[d_hud]
-	diagsensor.add_hud_to(src)
+	for(var/datum/atom_hud/data/diagnostic/diagsensor in huds)
+		diagsensor.add_hud_to(src)
 
 
 /mob/living/silicon/proc/toggle_sensor_mode()

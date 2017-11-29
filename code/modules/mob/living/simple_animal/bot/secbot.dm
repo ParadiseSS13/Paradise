@@ -18,6 +18,7 @@
 	bot_core_type = /obj/machinery/bot_core/secbot
 	window_id = "autosec"
 	window_name = "Automatic Security Unit v1.6"
+	path_image_color = "#FF0000"
 
 	var/base_icon = "secbot"
 	var/mob/living/carbon/target
