@@ -38,8 +38,8 @@
 "aL" = (/obj/structure/grille,/obj/structure/window/full/shuttle{icon_state = "16"},/turf/simulated/floor/plating,/area/shuttle/escape)
 "aM" = (/obj/item/weapon/stool,/turf/simulated/floor/plasteel{icon_state = "cafeteria"; dir = 2},/area/shuttle/escape)
 "aN" = (/obj/structure/table/woodentable,/turf/simulated/floor/plasteel{icon_state = "cafeteria"; dir = 2},/area/shuttle/escape)
-"aO" = (/obj/structure/table/woodentable,/obj/item/device/violin,/turf/simulated/floor/plasteel{icon_state = "cafeteria"; dir = 2},/area/shuttle/escape)
-"aP" = (/obj/structure/table/woodentable,/obj/item/device/guitar,/turf/simulated/floor/plasteel{icon_state = "cafeteria"; dir = 2},/area/shuttle/escape)
+"aO" = (/obj/structure/table,/obj/item/weapon/storage/firstaid/o2{layer = 2.8; pixel_x = 4; pixel_y = 6},/obj/item/weapon/storage/firstaid/regular{pixel_x = 2; pixel_y = 6},/obj/item/weapon/storage/firstaid/regular{pixel_x = -2; pixel_y = 4},/obj/item/bodybag{pixel_x = 5},/turf/simulated/shuttle/floor{icon_state = "floor3"},/area/shuttle/escape)
+"aP" = (/obj/structure/table/woodentable,/obj/item/device/instrument/violin,/turf/simulated/floor/plasteel{icon_state = "cafeteria"; dir = 2},/area/shuttle/escape)
 "aQ" = (/turf/simulated/shuttle/wall{tag = "icon-swall7"; icon_state = "swall7"; dir = 2},/area/shuttle/escape)
 "aR" = (/obj/structure/grille,/obj/structure/window/full/shuttle{icon_state = "15"},/turf/simulated/floor/plating,/area/shuttle/escape)
 "aS" = (/obj/machinery/light/spot{tag = "icon-tube1 (EAST)"; icon_state = "tube1"; dir = 4},/turf/simulated/floor/plasteel{icon_state = "cafeteria"; dir = 2},/area/shuttle/escape)
@@ -66,7 +66,7 @@
 "bn" = (/obj/machinery/door/airlock/glass_medical{id_tag = null; name = "Escape Shuttle Infirmary"; req_access_txt = "0"},/turf/simulated/shuttle/floor{icon_state = "floor3"},/area/shuttle/escape)
 "bo" = (/turf/simulated/floor/plasteel{icon_state = "freezerfloor"},/area/shuttle/escape)
 "bp" = (/obj/machinery/light/spot{tag = "icon-tube1 (EAST)"; icon_state = "tube1"; dir = 4},/obj/machinery/shower,/obj/structure/curtain/open/shower,/turf/simulated/floor/plasteel{icon_state = "freezerfloor"},/area/shuttle/escape)
-"bq" = (/obj/structure/table,/obj/item/weapon/storage/firstaid/o2{layer = 2.8; pixel_x = 4; pixel_y = 6},/obj/item/weapon/storage/firstaid/regular{pixel_x = 2; pixel_y = 6},/obj/item/weapon/storage/firstaid/regular{pixel_x = -2; pixel_y = 4},/obj/item/bodybag/cryobag{pixel_x = 5},/turf/simulated/shuttle/floor{icon_state = "floor3"},/area/shuttle/escape)
+"bq" = (/obj/structure/table/woodentable,/obj/item/device/instrument/guitar,/turf/simulated/floor/plasteel{icon_state = "cafeteria"; dir = 2},/area/shuttle/escape)
 "br" = (/turf/simulated/shuttle/floor{icon_state = "floor3"},/area/shuttle/escape)
 "bs" = (/obj/machinery/vending/wallmed1{layer = 3.3; name = "Emergency NanoMed"; pixel_x = 28; pixel_y = 0; req_access_txt = "0"},/obj/structure/stool/bed/roller,/turf/simulated/shuttle/floor{icon_state = "floor3"},/area/shuttle/escape)
 "bt" = (/obj/machinery/door/airlock{name = "Unit 1"},/turf/simulated/floor/plasteel{icon_state = "freezerfloor"},/area/shuttle/escape)
@@ -99,7 +99,7 @@ aaaaapaqaralalasalarapaaaa
 abatauatatatavatatatauatad
 apawaxaKaKacaAazaAaBaCaDap
 apaEaFaFaFaGaAaAaAaHaHaHap
-aIaFaFaJaJaLaAaMaNaNaOaPac
+aIaFaFaJaJaLaAaMaNaNaPbqac
 aQatatatatbkaAaMaNaAaAaSap
 aTaAaAaAaAaAaAaMaNaAaAaUap
 apaHaVaVaHaAaAaMaNaAaAaWap
@@ -109,7 +109,7 @@ aRaXaYaYaHaAaAaMaNaNaNaNaR
 apaHbebeaHaAaAazaMaMaMbfap
 bgaAaAaAaAbhaAbhaAaAaAaAac
 aQatatbiatbjatbjacbnblbmap
-aybobobobobobpapbqbrbrbsap
+aybobobobobobpapaObrbrbsap
 acbtbubvbubwbuapbxbrbrbyap
 apbzbubzbubAbBapbCbrbCbDap
 bEbFbGbGbGbHatbIbJbJbJbFbK

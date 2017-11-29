@@ -15,7 +15,6 @@
 	materials = list(MAT_METAL=500)
 	origin_tech = "combat=1;plasmatech=2;engineering=2"
 	var/status = 0
-	var/throw_amount = 100
 	var/lit = 0	//on or off
 	var/operating = 0//cooldown
 	var/turf/previousturf = null
@@ -124,7 +123,7 @@
 	if(!ptank)
 		to_chat(user, "<span class='notice'>Attach a plasma tank first!</span>")
 		return
-	var/dat = text("<TT><B>Flamethrower (<A HREF='?src=[UID()];light=1'>[lit ? "<font color='red'>Lit</font>" : "Unlit"]</a>)</B><BR>\n Tank Pressure: [ptank.air_contents.return_pressure()]<BR>\nAmount to throw: <A HREF='?src=[UID()];amount=-100'>-</A> <A HREF='?src=[UID()];amount=-10'>-</A> <A HREF='?src=[UID()];amount=-1'>-</A> [throw_amount] <A HREF='?src=[UID()];amount=1'>+</A> <A HREF='?src=[UID()];amount=10'>+</A> <A HREF='?src=[UID()];amount=100'>+</A><BR>\n<A HREF='?src=[UID()];remove=1'>Remove plasmatank</A> - <A HREF='?src=[UID()];close=1'>Close</A></TT>")
+	var/dat = text("<TT><B>Flamethrower (<A HREF='?src=[UID()];light=1'>[lit ? "<font color='red'>Lit</font>" : "Unlit"]</a>)</B><BR>\n Tank Pressure: [ptank.air_contents.return_pressure()]<BR>\n<A HREF='?src=[UID()];remove=1'>Remove plasmatank</A> - <A HREF='?src=[UID()];close=1'>Close</A></TT>")
 	user << browse(dat, "window=flamethrower;size=600x300")
 	onclose(user, "flamethrower")
 	return
@@ -143,9 +142,6 @@
 		lit = !lit
 		if(lit)
 			processing_objects.Add(src)
-	if(href_list["amount"])
-		throw_amount = throw_amount + text2num(href_list["amount"])
-		throw_amount = max(50, min(5000, throw_amount))
 	if(href_list["remove"])
 		if(!ptank)	return
 		usr.put_in_hands(ptank)
@@ -191,10 +187,8 @@
 
 
 /obj/item/weapon/flamethrower/proc/ignite_turf(turf/target, release_amount = 0.05)
-	//TODO: DEFERRED Consider checking to make sure tank pressure is high enough before doing this...
-	//Transfer 5% of current tank air contents to turf
 	var/datum/gas_mixture/air_transfer = ptank.air_contents.remove_ratio(release_amount)
-	air_transfer.toxins = air_transfer.toxins * 5 // This is me not comprehending the air system. I realize this is retarded and I could probably make it work without fucking it up like this, but there you have it. -- TLE
+	air_transfer.toxins = air_transfer.toxins // This is me not comprehending the air system. I realize this is retarded and I could probably make it work without fucking it up like this, but there you have it. -- TLE
 	target.assume_air(air_transfer)
 	//Burn it based on transfered gas
 	target.hotspot_expose((ptank.air_contents.temperature*2) + 380,500) // -- More of my "how do I shot fire?" dickery. -- TLE

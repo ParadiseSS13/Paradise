@@ -134,7 +134,7 @@
 		G = user.r_hand
 
 	else
-		user.visible_message("<span class='warning'>[user] loses his grip on [strangling]'s neck.</span>", \
+		user.visible_message("<span class='warning'>[user] loses \his grip on [strangling]'s neck.</span>", \
 				 "<span class='warning'>You lose your grip on [strangling]'s neck.</span>")
 
 		strangling = null
@@ -144,7 +144,7 @@
 		return
 
 	if(!G.affecting)
-		user.visible_message("<span class='warning'>[user] loses his grip on [strangling]'s neck.</span>", \
+		user.visible_message("<span class='warning'>[user] loses \his grip on [strangling]'s neck.</span>", \
 				"<span class='warning'>You lose your grip on [strangling]'s neck.</span>")
 
 		strangling = null

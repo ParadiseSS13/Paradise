@@ -167,9 +167,17 @@
 				if(active2)
 					var/their_name = active2.fields["name"]
 					var/their_rank = active2.fields["rank"]
-					var/t1 = copytext(trim(sanitize(input("Enter Reason:", "Secure. records", null, null) as text)), 1, MAX_MESSAGE_LEN)
-					if(!t1)
+					var/t1
+					if(temp_href[2] == "execute")
+						t1 = copytext(trim(sanitize(input("Explain why they are being executed. Include a list of their crimes, and victims.", "EXECUTION ORDER", null, null) as text)), 1, MAX_MESSAGE_LEN)
+					else
+						t1 = copytext(trim(sanitize(input("Enter Reason:", "Secure. records", null, null) as text)), 1, MAX_MESSAGE_LEN)
+					var/visible_reason
+					if(t1)
+						visible_reason = t1
+					else
 						t1 = "(none)"
+						visible_reason = "<span class='warning'>NO REASON PROVIDED</span>"
 					switch(temp_href[2])
 						if("none")
 							active2.fields["criminal"] = "None"
@@ -178,10 +186,9 @@
 						if("execute")
 							if((access_magistrate in authcard_access) || (access_armory in authcard_access))
 								active2.fields["criminal"] = "*Execute*"
-								message_admins("[key_name_admin(usr)] authorized execution for [their_rank] [their_name], with comment: [t1]")
+								message_admins("[ADMIN_FULLMONTY(usr)] authorized <span class='warning'>EXECUTION</span> for [their_rank] [their_name], with comment: [visible_reason]")
 							else
 								setTemp("<h3 class='bad'>Error: permission denied.</h3>")
-								//to_chat(usr, "<span class='notice'>Error: permission denied.</span>")
 								return 1
 						if("incarcerated")
 							active2.fields["criminal"] = "Incarcerated"

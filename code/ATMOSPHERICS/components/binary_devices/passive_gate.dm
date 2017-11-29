@@ -33,8 +33,9 @@
 		add_underlay(T, node1, turn(dir, 180))
 		add_underlay(T, node2, dir)
 
-/obj/machinery/atmospherics/binary/passive_gate/process()
-	if(!..() || !on)
+/obj/machinery/atmospherics/binary/passive_gate/process_atmos()
+	..()
+	if(!on)
 		return 0
 
 	var/output_starting_pressure = air2.return_pressure()

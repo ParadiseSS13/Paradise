@@ -466,10 +466,7 @@
 
 		if(prob(1))
 			custom_emote(1, pick("dances around.","chases its tail!"))
-			spawn(0)
-				for(var/i in list(1,2,4,8,4,2,1,2,4,8,4,2,1,2,4,8,4,2))
-					dir = i
-					sleep(1)
+			spin(20, 1)
 
 /obj/item/weapon/reagent_containers/food/snacks/meat/corgi
 	name = "Corgi meat"
@@ -554,10 +551,7 @@
 	if(!resting && !buckled)
 		if(prob(1))
 			custom_emote(1, pick("dances around.","chases her tail."))
-			spawn(0)
-				for(var/i in list(1,2,4,8,4,2,1,2,4,8,4,2,1,2,4,8,4,2))
-					dir = i
-					sleep(1)
+			spin(20, 1)
 
 /mob/living/simple_animal/pet/corgi/attack_hand(mob/living/carbon/human/M)
 	. = ..()
@@ -627,12 +621,12 @@
 
 	//spark for no reason
 	if(prob(5))
-		var/datum/effect/system/spark_spread/s = new /datum/effect/system/spark_spread
+		var/datum/effect_system/spark_spread/s = new /datum/effect_system/spark_spread
 		s.set_up(3, 1, src)
 		s.start()
 
 /mob/living/simple_animal/pet/corgi/Ian/borgi/death(gibbed)
-	var/datum/effect/system/spark_spread/s = new /datum/effect/system/spark_spread
+	var/datum/effect_system/spark_spread/s = new /datum/effect_system/spark_spread
 	s.set_up(3, 1, src)
 	s.start()
 	..()

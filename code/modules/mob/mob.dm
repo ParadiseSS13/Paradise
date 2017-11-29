@@ -1265,3 +1265,20 @@ var/list/slot_equipment_priority = list( \
 	.["Remove Verb"] = "?_src_=vars;remverb=[UID()]"
 
 	.["Gib"] = "?_src_=vars;gib=[UID()]"
+
+/mob/proc/spin(spintime, speed)
+	set waitfor = 0
+	var/D = dir
+	while(spintime >= speed)
+		sleep(speed)
+		switch(D)
+			if(NORTH)
+				D = EAST
+			if(SOUTH)
+				D = WEST
+			if(EAST)
+				D = SOUTH
+			if(WEST)
+				D = NORTH
+		setDir(D)
+		spintime -= speed

@@ -53,7 +53,7 @@
 "ba" = (/obj/structure/grille,/obj/structure/window/full/shuttle{icon_state = "17"},/turf/simulated/floor/plating,/area/shuttle/escape)
 "bb" = (/obj/machinery/door/airlock/glass_medical{id_tag = null; name = "Escape Shuttle Infirmary"; req_access_txt = "0"},/turf/simulated/floor/plasteel{icon_state = "white"},/area/shuttle/escape)
 "bc" = (/obj/machinery/vending/clothing,/turf/simulated/floor/noslip,/area/shuttle/escape)
-"bd" = (/obj/structure/table,/obj/item/weapon/storage/firstaid/o2{layer = 2.8; pixel_x = 4; pixel_y = 6},/obj/item/weapon/storage/firstaid/regular{pixel_x = 2; pixel_y = 6},/obj/item/weapon/storage/firstaid/regular{pixel_x = -2; pixel_y = 4},/obj/item/bodybag/cryobag{pixel_x = 5},/turf/simulated/floor/noslip,/area/shuttle/escape)
+"bd" = (/obj/structure/table,/obj/item/weapon/storage/firstaid/o2{layer = 2.8; pixel_x = 4; pixel_y = 6},/obj/item/weapon/storage/firstaid/regular{pixel_x = 2; pixel_y = 6},/obj/item/weapon/storage/firstaid/regular{pixel_x = -2; pixel_y = 4},/obj/item/bodybag{pixel_x = 5},/turf/simulated/floor/noslip,/area/shuttle/escape)
 "be" = (/obj/machinery/vending/wallmed1{layer = 3.3; name = "Emergency NanoMed"; pixel_x = 28; pixel_y = 0; req_access_txt = "0"},/obj/structure/stool/bed/roller,/turf/simulated/floor/noslip,/area/shuttle/escape)
 "bf" = (/obj/structure/closet/cardboard,/turf/simulated/floor/noslip,/area/shuttle/escape)
 "bg" = (/obj/machinery/light/spot{tag = "icon-tube1 (EAST)"; icon_state = "tube1"; dir = 4},/turf/simulated/floor/noslip,/area/shuttle/escape)

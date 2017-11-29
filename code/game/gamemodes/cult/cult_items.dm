@@ -32,6 +32,10 @@
 		to_chat(user, "<span class='warning'>An overwhelming sense of nausea overpowers you!</span>")
 		user.Dizzy(120)
 
+	if(HULK in user.mutations)
+		to_chat(user, "<span class='danger'>You can't seem to hold the blade properly!</span>")
+		user.unEquip(src, 1)
+
 /obj/item/weapon/melee/cultblade/dagger
 	name = "sacrificial dagger"
 	desc = "A strange dagger said to be used by sinister groups for \"preparing\" a corpse before sacrificing it to their dark gods."
@@ -231,7 +235,7 @@
 	icon = 'icons/obj/projectiles.dmi'
 	icon_state ="bluespace"
 	color = "#ff0000"
-	var/static/curselimit = 0
+	var/global/curselimit = 0
 
 /obj/item/device/shuttle_curse/attack_self(mob/user)
 	if(!iscultist(user))
@@ -242,6 +246,10 @@
 	if(curselimit > 1)
 		to_chat(user, "<span class='notice'>We have exhausted our ability to curse the shuttle.</span>")
 		return
+	if(locate(/obj/singularity/narsie) in poi_list || locate(/mob/living/simple_animal/slaughter/cult) in mob_list)
+		to_chat(user, "<span class='warning'>Nar-Sie or his avatars are already on this plane, there is no delaying the end of all things.</span>")
+		return
+
 	if(shuttle_master.emergency.mode == SHUTTLE_CALL)
 		var/cursetime = 1800
 		var/timer = shuttle_master.emergency.timeLeft(1) + cursetime
@@ -334,3 +342,19 @@
 
 	else
 		to_chat(C, "<span class='danger'>The veil cannot be torn here!</span>")
+
+
+/obj/item/clothing/suit/space/eva/plasmaman/cultist
+	name = "plasmaman cultist armor"
+	icon_state = "plasmaman_cult"
+	item_state = "plasmaman_cult"
+	desc = "A bulky suit of armour, menacing with red energy. It looks like it would fit a plasmaman."
+	slowdown = 1
+	armor = list(melee = 60, bullet = 50, laser = 30,energy = 15, bomb = 30, bio = 30, rad = 30)
+
+/obj/item/clothing/head/helmet/space/eva/plasmaman/cultist
+	name = "plasmaman cultist helmet"
+	icon_state = "plasmamanCult_helmet0"
+	base_state = "plasmamanCult_helmet"
+	desc = "A helmet designed by cultists. It glows menacingly with unearthly flames."
+	armor = list(melee = 60, bullet = 50, laser = 30,energy = 15, bomb = 30, bio = 30, rad = 30)
