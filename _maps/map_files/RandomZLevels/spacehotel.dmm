@@ -409,7 +409,7 @@
 "hS" = (/turf/unsimulated/floor{icon_state = "whiteyellow"; dir = 4},/area/awaymission/spacehotel)
 "hT" = (/obj/effect/view_portal{id = "hotel_12"},/turf/unsimulated/floor{icon_state = "rampbottom"; dir = 4},/area/awaymission/spacehotel)
 "hU" = (/obj/effect/view_portal/visual{dir = 4; dist = 0; id = "hotel_22"; opacity = 0; radius = 0},/turf/unsimulated/floor,/area/awaymission/spacehotel)
-"hV" = (/obj/machinery/door/airlock/glass{icon_state = "door_locked"; locked = 1; name = "Employees Only"; req_access_txt = "150"},/obj/item/tape/police{icon_state = "police_door"; layer = 3.2},/turf/unsimulated/floor{dir = 8; icon_state = "whitered"},/area/awaymission/spacehotel)
+"hV" = (/obj/machinery/light{dir = 8},/obj/machinery/light{dir = 4; icon_state = "tube1"},/mob/living/simple_animal/hostile/retaliate/hotel_secbot,/turf/unsimulated/floor/carpet,/area/awaymission/spacehotel)
 "hW" = (/obj/effect/decal/cleanable/blood/old,/turf/unsimulated/floor{icon_state = "white"},/area/awaymission/spacehotel)
 "hX" = (/obj/effect/view_portal/visual{dir = 8; dist = 0; id = "hotel_13"; radius = 0},/turf/unsimulated/floor,/area/awaymission/spacehotel)
 "hY" = (/obj/effect/view_portal{id = "hotel_23"},/turf/unsimulated/floor{icon_state = "ramptop"; dir = 4},/area/awaymission/spacehotel)
@@ -426,7 +426,7 @@
 "ij" = (/obj/machinery/door/airlock/glass{name = "Mail Room"},/turf/unsimulated/floor/carpet,/area/awaymission/spacehotel)
 "ik" = (/obj/machinery/door/airlock{name = "Security"; req_access_txt = "150"},/turf/unsimulated/floor/carpet,/area/awaymission/spacehotel)
 "il" = (/obj/machinery/door/airlock{name = "Electrical Room"; req_access_txt = "150"},/obj/structure/cable/heavyduty{d1 = 1; d2 = 2; icon_state = "1-2"},/turf/unsimulated/floor,/area/awaymission/spacehotel)
-"im" = (/obj/machinery/door/airlock{name = "Employees Only"; req_access_txt = "150"},/turf/unsimulated/floor/carpet,/area/awaymission/spacehotel)
+"im" = (/mob/living/simple_animal/hostile/retaliate/carp{faction = list("carp","hotel")},/turf/unsimulated/beach/water{icon = 'icons/turf/floors.dmi'; icon_state = "light_on"},/area/awaymission/spacehotel)
 "in" = (/obj/effect/decal/cleanable/blood/old,/turf/unsimulated/wall/metal,/area/awaymission/spacehotel)
 "io" = (/obj/effect/decal/cleanable/blood/old,/obj/structure/falsewall,/turf/unsimulated/floor{name = "engraved floor"; icon_state = "cult"},/area/awaymission/spacehotel)
 "ip" = (/turf/unsimulated/floor{icon_state = "floor"},/area/awaymission/spacehotel)
@@ -438,7 +438,6 @@
 "iv" = (/obj/structure/stool/bed/chair{dir = 8},/obj/effect/decal/cleanable/flour{desc = "Probably."},/obj/effect/decal/cleanable/pie_smudge,/turf/unsimulated/floor/carpet,/area/awaymission/spacehotel)
 "iw" = (/obj/structure/table,/obj/machinery/computer/security/telescreen{desc = "Not used to spy on hotel rooms."; name = "Hotel Security Monitor"; network = list("Hotel"); use_power = 0},/turf/unsimulated/floor/carpet,/area/awaymission/spacehotel)
 "ix" = (/turf/unsimulated/floor/plating,/area/awaymission/spacehotel)
-"iy" = (/obj/item/stack/cable_coil/random,/turf/unsimulated/floor/plating,/area/awaymission/spacehotel)
 "iz" = (/obj/structure/cable/heavyduty{d1 = 1; d2 = 2; icon_state = "1-2"},/turf/unsimulated/floor/plating,/area/awaymission/spacehotel)
 "iA" = (/obj/machinery/computer/account_database,/turf/unsimulated/floor/plating,/area/awaymission/spacehotel)
 "iB" = (/turf/unsimulated/floor/wood,/area/awaymission/spacehotel)
@@ -461,10 +460,10 @@
 "iS" = (/obj/structure/table/reinforced,/obj/machinery/door/poddoor/shutters/preopen,/turf/unsimulated/floor/carpet,/area/awaymission/spacehotel)
 "iT" = (/obj/machinery/vending/cola,/turf/unsimulated/floor/carpet,/area/awaymission/spacehotel)
 "iU" = (/obj/structure/table,/obj/machinery/computer/security/telescreen{desc = "Not used to spy on hotel rooms."; dir = 4; name = "Hotel Security Monitor"; network = list("Hotel"); use_power = 0},/obj/machinery/light{dir = 8},/turf/unsimulated/floor/carpet,/area/awaymission/spacehotel)
-"iV" = (/obj/machinery/light/small{dir = 8},/turf/unsimulated/floor/plating,/area/awaymission/spacehotel)
-"iW" = (/obj/structure/cable/heavyduty{d1 = 1; d2 = 4; icon_state = "1-4"},/obj/structure/cable/heavyduty{d1 = 2; d2 = 4; icon_state = "2-4"},/turf/unsimulated/floor/plating,/area/awaymission/spacehotel)
+"iV" = (/obj/machinery/door/airlock{name = "Staff Only"; req_access_txt = "150"},/obj/effect/decal/cleanable/blood/old,/turf/unsimulated/floor{icon_state = "whiteyellowfull"},/area/awaymission/spacehotel)
+"iW" = (/obj/structure/sign/poster/official/here_for_your_safety,/turf/unsimulated/wall/metal,/area/awaymission/spacehotel)
 "iX" = (/obj/structure/cable/heavyduty{d1 = 4; d2 = 8; icon_state = "4-8"},/turf/unsimulated/floor/plating,/area/awaymission/spacehotel)
-"iY" = (/obj/structure/cable/heavyduty{d1 = 1; d2 = 2; icon_state = "1-2"},/obj/structure/cable/heavyduty{d1 = 1; d2 = 4; icon_state = "1-4"},/obj/structure/cable/heavyduty{d1 = 1; d2 = 8; icon_state = "1-8"},/turf/unsimulated/floor/plating,/area/awaymission/spacehotel)
+"iY" = (/obj/machinery/door/airlock/glass{name = "Lobby"},/turf/unsimulated/floor/plating,/area/awaymission/spacehotel)
 "iZ" = (/obj/structure/cable/heavyduty{d1 = 4; d2 = 8; icon_state = "4-8"},/turf/unsimulated/floor/plating{icon_state = "platingdmg1"},/area/awaymission/spacehotel)
 "ja" = (/obj/structure/cable/heavyduty{d1 = 2; d2 = 8; icon_state = "2-8"},/obj/structure/cable/heavyduty{d1 = 1; d2 = 8; icon_state = "1-8"},/turf/unsimulated/floor/plating,/area/awaymission/spacehotel)
 "jb" = (/obj/machinery/light/small{dir = 4},/turf/unsimulated/floor/plating,/area/awaymission/spacehotel)
@@ -478,8 +477,8 @@
 "jj" = (/obj/item/weapon/tome,/turf/unsimulated/floor{name = "engraved floor"; icon_state = "cult"},/area/awaymission/spacehotel)
 "jk" = (/obj/structure/closet/crate/critter,/turf/unsimulated/floor{icon_state = "floor"},/area/awaymission/spacehotel)
 "jl" = (/obj/machinery/door/airlock/glass{name = "Lobby"},/turf/unsimulated/floor/carpet,/area/awaymission/spacehotel)
-"jm" = (/obj/effect/spawner/snpc_squad{squad_type = /mob/living/carbon/human/interactive/away/hotel/guard},/turf/unsimulated/floor/carpet,/area/awaymission/spacehotel)
-"jn" = (/obj/structure{desc = "It appears to be similar to a SMES."; icon = 'icons/obj/power.dmi'; icon_state = "smes"; name = "WaffeCo PSU"},/turf/unsimulated/floor/plating{icon_state = "platingdmg1"},/area/awaymission/spacehotel)
+"jm" = (/obj/effect/landmark{name = "hotelbrig"},/turf/unsimulated/floor/plating,/area/awaymission/spacehotel)
+"jn" = (/obj/structure/stool/bed,/obj/item/weapon/bedsheet,/turf/unsimulated/floor/plating,/area/awaymission{name = "Amazing Place"; requires_power = 0})
 "jo" = (/obj/effect/decal/remains/human,/obj/item/clothing/head/soft/red,/turf/unsimulated/floor/carpet,/area/awaymission/spacehotel)
 "jp" = (/obj/item/toy/prize/honk,/turf/unsimulated/floor/carpet,/area/awaymission/spacehotel)
 "jq" = (/obj/item/toy/spinningtoy,/turf/unsimulated/floor/carpet,/area/awaymission/spacehotel)
@@ -501,8 +500,8 @@
 "jG" = (/obj/structure/rack,/obj/item/key,/obj/item/key,/obj/item/key,/obj/item/key,/obj/item/key,/turf/unsimulated/floor/carpet,/area/awaymission/spacehotel/reception)
 "jH" = (/obj/structure/stool/bed/chair/comfy,/obj/effect/decal/cleanable/flour{desc = "Probably."},/obj/effect/decal/cleanable/pie_smudge,/turf/unsimulated/floor/carpet,/area/awaymission/spacehotel)
 "jI" = (/obj/structure/stool/bed/chair/comfy,/obj/effect/decal/cleanable/flour{desc = "Probably."},/obj/effect/decal/cleanable/flour{desc = "Probably."},/obj/effect/decal/cleanable/pie_smudge,/turf/unsimulated/floor/carpet,/area/awaymission/spacehotel)
-"jJ" = (/obj/structure/cable/heavyduty{d1 = 2; d2 = 4; icon_state = "2-4"},/turf/unsimulated/floor/plating,/area/awaymission/spacehotel)
-"jK" = (/obj/structure/cable/heavyduty{d1 = 1; d2 = 4; icon_state = "1-4"},/obj/structure/cable/heavyduty{d1 = 1; d2 = 8; icon_state = "1-8"},/turf/unsimulated/floor/plating,/area/awaymission/spacehotel)
+"jJ" = (/mob/living/simple_animal/hostile/retaliate/hotel_secbot/boss,/turf/unsimulated/floor/carpet,/area/awaymission/spacehotel)
+"jK" = (/obj/structure/cable/heavyduty{d1 = 1; d2 = 2; icon_state = "1-2"},/obj/structure/cable/heavyduty{d1 = 1; d2 = 4; icon_state = "1-4"},/turf/unsimulated/floor/plating,/area/awaymission/spacehotel)
 "jL" = (/obj/structure/cable/heavyduty{d1 = 2; d2 = 8; icon_state = "2-8"},/turf/unsimulated/floor/plating,/area/awaymission/spacehotel)
 "jM" = (/obj/effect/decal/remains/human,/turf/unsimulated/floor/carpet,/area/awaymission/spacehotel)
 "jN" = (/obj/item/trash/candle,/obj/item/trash/candle,/obj/item/trash/candle,/turf/unsimulated/floor/carpet,/area/awaymission/spacehotel)
@@ -584,6 +583,11 @@
 "ll" = (/obj/machinery/shower{dir = 8},/turf/unsimulated/floor{icon_state = "freezerfloor"},/area/awaymission{name = "Amazing Place"; requires_power = 0})
 "lm" = (/obj/structure/curtain/open/shower,/turf/unsimulated/floor{icon_state = "freezerfloor"},/area/awaymission{name = "Amazing Place"; requires_power = 0})
 "ln" = (/obj/item/weapon/paper/hotel_scrap_8,/turf/unsimulated/floor{name = "engraved floor"; icon_state = "cult"},/area/awaymission/spacehotel)
+"lo" = (/obj/effect/landmark{name = "hotelevidence"},/obj/structure/table,/turf/unsimulated/floor/carpet,/area/awaymission/spacehotel)
+"lp" = (/obj/machinery/door/airlock{name = "Security Evidence Storage"; req_access_txt = "150"},/turf/unsimulated/floor/carpet,/area/awaymission/spacehotel)
+"lq" = (/obj/structure/cable/heavyduty{d1 = 1; d2 = 4; icon_state = "1-4"},/turf/unsimulated/floor/plating,/area/awaymission/spacehotel)
+"lr" = (/obj/structure/table,/obj/effect/landmark{name = "hotelevidence"},/turf/unsimulated/floor/carpet,/area/awaymission/spacehotel)
+"ls" = (/obj/machinery/door/airlock{name = "Gateway"; req_access_txt = "150"},/obj/effect/decal/cleanable/blood/old,/turf/unsimulated/floor{icon_state = "whiteyellowfull"},/area/awaymission/spacehotel)
 
 (1,1,1) = {"
 aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaabababababababababacacacacacacacacacacacacacacacacacacacacacacacacacadadadadadadadadadadadadadadadadadadadadadadadadadadadadadaeaeaeaeaeaeaeafaeafaeagagagagagaeafaeahahahahahahahahahahahahahahahahahahahahahahah
@@ -657,7 +661,7 @@ dOdOdOdOdOdOdQcldXdXdXdXemdXdXdXdXcldXdXdXdXemdXdXdXdXcldXdXdXdXemdXdXdXdXclebcl
 dOdOdOdOdOdOdQcldXdXdXdXdXdXdXdXdXcldXdXdXdXdXdXdXdXdXcldXdXdXdXdXdXdXdXdXclebcleoeieieieieiepeieieiepeieieqeqeiercldQdQdOdOdOdOdOdOdOdOdQcldXdXdXdXdXdXdXdXdXcldXdXdXdXdXdXdXdXdXcldXdXdXdXdXdXdXdXdXclebcleoeieieseteiepeieieiepeieieieieieucldQdQdOdOdOdOdOdO
 dOdOdOdOdOdOdQclclclclclevclclclclclclclclclewclclclclclclclclclexclclclclclclclclclclclclclcleieieiclclclclclclclclcldQdOdOdOdOdOdOdOdOdQclclclclcleyclclclclclclclclclezclclclclclclclclcleAclclclclclclclclclclclclclcleieieiclclclclclclclclcldQdOdOdOdOdOdO
 dOdOdOdOdOdOdOeBebebebebebeCebebebebebeCebebebebebebebebebebebeDebeDebebebebebeCebebebebebebeCebebebeCebebebebebebeCcldQdOdOdOdOdOdOdOdOdOeBebebebebebebebebebebebebebebebebebebebebebebebeDebeDebebebebebeCebebebebebebeCebebebeCebebebebebebeCcldQdOdOdOdOdOdO
-dOdOdOdOdOdOdOeEeFebebebebebebebebebebebebebebebebebebebebebeGcleHcleIebebebebebebebeJebebeJebebeJebebeJebebeJebebebcldQdOdOdOdOdOdOdOdOdOeEeFebebebebebebebebebebebebebebebebebebebebebeGcleHcleIebebebebeKeKeKeKeKeKeKeKeKeKeKeKeKeKeKeKeKeKeKcldQdOdOdOdOdOdO
+dOdOdOdOdOdOdOeEeFebebebebebebebebebebebebebebebebebebebebebeGclhVcleIebebebebebebebeJebebeJebebeJebebeJebebeJebebebcldQdOdOdOdOdOdOdOdOdOeEeFebebebebebebebebebebebebebebebebebebebebebeGclhVcleIebebebebeKeKeKeKeKeKeKeKeKeKeKeKeKeKeKeKeKeKeKcldQdOdOdOdOdOdO
 dOdOdOdOdOdOdOeLebebebebebeDebebebebebeDebebebebebebebebebebebeCebeCebebebebebeMeNeNeNeNeNeNeNeNeNeNeNeNeNeNeNeNeNeOcldQdOdOdOdOdOdOdOdOdOeLebebebebebeDebebebebebeDebebebebebebebebebebebePeKePebebebebeQeReReReReReReReReReReReReReReReReReReScldQdOdOdOdOdOdO
 dOdOdOdOdOdOdQclclcleTclclclclcleUclclclclcleVclclclebebeWebebebebebebebeWebebeXeYeYeYeYeYeYeYeYeYeYeYeYeYeYeYeYeYeZcldQdOdOdOdOdOdOdOdOdQclclclfaclclclclclfbclclclclclfcclclclebebeWebeQeReReRfdebeWebeQeReReReReReReReReReReReReReReReReReReScldQdOdOdOdOdOdO
 dOdOdOdOdOdOdQcldXfedXdXdXcldXffdXdXdXcldXfgdXdXdXclebebfhebebfififiebebfhebebeXeYfjfjfjfjfjfjfjfkflflflflflflfleYfmeBdOdOdOdOdOdOdOdOdOdQcldXfndXdXdXcldXfodXdXdXcldXfpdXdXdXclebebfhebeQeReReRfdebfhebeQeReReReReReReReReReReReReReReReReReReReBdOdOdOdOdOdOdO
@@ -672,7 +676,7 @@ dOdOdOdOdOdOdOeLebebebebebeDebebebebebeDebebebebebebebebebebebeCebeCebebebebebeX
 dOdOdOdOdOdOdQclclclfIclclclclclfJclclclclclfKclclclebebeWebebebebebebebeWebebeXeYfjftftftftftftfjflflflflflflfleYfmeEdOdOdOdOdOdOdOdOdOdQclclclfLclclclclclfMclclclclclfNclclclebebeWebeQeReReRfdebeWebeQeReReReReReReReReReReReReReReReReReReReEdOdOdOdOdOdOdO
 dOdOdOdOdOdOdQcldXfOdXdXdXcldXfPdXdXdXcldXfQdXdXdXclebebfhebebfififiebebfhebebeXeYfjfjfjfjfjfjfjfRflflflflflflfleYfmeLdOdOdOdOdOdOdOdOdOdQcldXfSdXdXdXcldXfTdXdXdXcldXfUdXdXdXclebebfhebeQeReReRfdebfhebeQeReReReReReReReReReReReReReReReReReReReLdOdOdOdOdOdOdO
 dOdOdOdOdOdOdQcldXdXdXdXdXcldXdXdXdXdXcldXdXdXdXdXclebebfhebfqfrfrfrfsebfhebebeXeYeYeYfVeYeYeYeYeYeYeYeYeYeYeYeYeYeZfWdQdOdOdOdOdOdOdOdOdQcldXdXdXdXdXcldXdXdXdXdXcldXdXdXdXdXclebebfhebeQeReReRfdebfhebeQeReReReReReReReReReReReReReReReReReReScldQdOdOdOdOdOdO
-dOdOdOdOdOdOdOfudXdXfvdXdXcldXdXfvdXdXcldXdXfvdXdXclebebfhebfqfrfwfrfsebfhebebfXfYfYfYfYfYfYfYfYfYfYfYfYfYfYfYfYfYfZfWdQdOdOdOdOdOdOdOdOdOfudXdXfvdXdXcldXdXfvdXdXcldXdXfvdXdXclebebfhebeQeReReRfdebfhebeQgaeReReReReReReReReReReReReReReReReReScldQdOdOdOdOdOdO
+dOdOdOdOdOdOdOfudXdXfvdXdXcldXdXfvdXdXcldXdXfvdXdXclebebfhebfqfrimfrfsebfhebebfXfYfYfYfYfYfYfYfYfYfYfYfYfYfYfYfYfYfZfWdQdOdOdOdOdOdOdOdOdOfudXdXfvdXdXcldXdXfvdXdXcldXdXfvdXdXclebebfhebeQeReReRfdebfhebeQgaeReReReReReReReReReReReReReReReReReScldQdOdOdOdOdOdO
 dOdOdOdOdOdOdQcldXdXdXdXdXcldXdXdXdXdXcldXdXdXdXdXclebebfhebfqfrfrfrfsebfhebcleIebebebebebebebebebebebebebebebebebebeBdOdOdOdOdOdOdOdOdOdQcldXdXdXdXdXcldXdXdXdXdXcldXdXdXdXdXclebebfhebeQeReReRfdebfhebclgbgcgdgegcgdgegcgdgegcgdgegcgfgegcgdgeeBdOdOdOdOdOdOdO
 dOdOdOdOdOdOdQcldXdXdXdXdXcldXdXdXdXdXcldXdXdXdXdXclebebfhebebfyfyfyebebfhebebebggghgiggghgiggghgiggghgiggghgiggghgieEdOdOdOdOdOdOdOdOdOdQcldXdXdXdXdXcldXdXdXdXdXcldXdXdXdXdXclebebfhebeQeReReRfdebfhebebebgjgkglgjgkglgjgkglgjgkglgjgkglgjgkgleEdOdOdOdOdOdOdO
 dOdOdOdOdOdOdQclclclclclclclclclclclclclclclclclclclebebfAebebebebebebebfAebcleIebebebebebebebebebebebebebebebebebebeEdOdOdOdOdOdOdOdOdOdQclclclclclclclclclclclclclclclclclclclebebfAebeQeReReRfdebfAebcleIgmgkgngmgkgngmgkgngmgkgngmgkgngmgkgneEdOdOdOdOdOdOdO
@@ -682,20 +686,20 @@ dOdOdOdOdOdOdOeLebebebebebeDebebebebebeDebebebebebebebebebebebeCebeCebebebebebeb
 dOdOdOdOdOdOdQclclclgtclclclclclguclclclclclgvclclclebebeWebebebebebebebeWebebgwgwgwgwgwgwgwgwgwgwgwgwgwgwgwgwgwgwgwcldQdOdOdOdOdOdOdOdOdQclclclgxclclclclclgyclclclclclgzclclclebebeWebeQeReReRfdebeWebclgodXdXdXdXdXdXdXdXdXdXdXdXdXdXdXdXdXdXcldQdOdOdOdOdOdO
 dOdOdOdOdOdOdQcldXgAdXdXdXcldXgBdXdXdXcldXgCdXdXdXclebebfhebebfififiebebfhebebgwgDgDgDgDgEgDgDgDgDgDgDgDgDgDgDgDgDgDcldQdOdOdOdOdOdOdOdOdQcldXgFdXdXdXcldXgGdXdXdXcldXgHdXdXdXclebebfhebeQeReReRfdebfhebebdXgIgIgIgIgIgIgIgIgIgIgIgIgIgIgIgIgIgJcldQdOdOdOdOdOdO
 dOdOdOdOdOdOdQcldXdXdXdXdXcldXdXdXdXdXcldXdXdXdXdXclebebfhebfqfrfrfrfsebfhebebgKgDgDgLgMgNgMgDgDgDgDgDgMgNgOgNgNgDgDcldQdOdOdOdOdOdOdOdOdQcldXdXdXdXdXcldXdXdXdXdXcldXdXdXdXdXclebebfhebeQeReReRfdebfhebebgPgPgPgPgPgPgPgPgPgPgPgPgPgPgPgPgPgPgPcldQdOdOdOdOdOdO
-dOdOdOdOdOdOdOfudXdXfvdXdXcldXdXfvdXdXcldXdXfvdXdXclebebfhebfqfrfwfrfsebfhebebgQgDgDgRgSgTgUgDgDgDgDgDgVgNgWgNgNgDgDcldQdOdOdOdOdOdOdOdOdOfudXdXfvdXdXcldXdXfvdXdXcldXdXfvdXdXclebebfhebeQeReReRfdebfhebebgPgXgXgXgXgXgXgXgXgXgXgXgXgXgXgXgXgXgYcldQdOdOdOdOdOdO
+dOdOdOdOdOdOdOfudXdXfvdXdXcldXdXfvdXdXcldXdXfvdXdXclebebfhebfqfrimfrfsebfhebebgQgDgDgRgSgTgUgDgDgDgDgDgVgNgWgNgNgDgDcldQdOdOdOdOdOdOdOdOdOfudXdXfvdXdXcldXdXfvdXdXcldXdXfvdXdXclebebfhebeQeReReRfdebfhebebgPgXgXgXgXgXgXgXgXgXgXgXgXgXgXgXgXgXgYcldQdOdOdOdOdOdO
 dOdOdOdOdOdOdQcldXdXdXdXdXcldXdXdXdXdXcldXdXdXdXdXclebebfhfxfqfrfrfrfsebfhebebgQgDgDgDgDgDgDgDgDgDgDgDgDgDgDgDgDgDgDcldQdOdOdOdOdOdOdOdOdQcldXdXdXdXdXcldXdXdXdXdXcldXdXdXdXdXclebebfhebeQeReReRfdebfhebebgKgZgXgXgXgXgXhagXgXgXgXgXgXgXgXgXgXgZcldQdOdOdOdOdOdO
 dOdOdOdOdOdOdQcldXdXdXdXdXcldXdXdXdXdXcldXdXdXdXdXclebebfhebebfyfyfyebebfhebebhbhchdhehfhghhgDhdgDhdgDhihjhkhlgDhdhccldQdOdOdOdOdOdOdOdOdQfzdXdXdXdXdXcldXdXdXdXdXcldXdXdXdXdXclebebfhebeQeReReRfdebfhebebhbhmhngXgXhohphqhrgXhrhqhpgYgYhsgXhnhmcldQdOdOdOdOdOdO
 dOdOdOdOdOdOdQclclclclclclclclclclclclclclclclclclclebebfAebebebebebebebfAebebclclclclclclclclclhtclclclclclclclclclcldQdOdOdOdOdOdOdOdOdQclclclclclclclclclclclclclclclclclclclebebfAebeQeReReRfdebfAebebclclclclclclclclclhuclclclclclclclclclcldQdOdOdOdOdOdO
-dOdOdOdOdOdOdOeBhvhvhvhvhvhvhwhxhyhzebebebeCebebebeCebebebebebeDebeDebebebebebhAhBhBhBhBhChBhBhDhEhFhBhBhChBhBhBhChGeBdOdOdOdOdOdOdOdOdOdOeBebeCebebebeChHhIhJhKeReReRhKeReReRhKfdebebebebfEfFfEebebebebebhAhBhBhBhBhLhBhBhDhEhFhBhBhLhBhMhBhLhNeBdOdOdOdOdOdOdO
-dOdOdOdOdOdOdOeEhvhvhvhvhvhvhwhOhPhQebebebebebebebebebebebebeGcleHcleIebebebebhRhEhEhEhEhEhEhEhEhEhEhEhEhEhEhEhEhEhSeEdOdOdOdOdOdOdOdOdOdOeEebebebebebebhHhThUeReReReReReReReReRfdebebebeGcleHcleIebebebebhVhEhEhEhEhEhEhEhEhEhEhEhEhEhWhWhWhWhSeEdOdOdOdOdOdOdO
-dOdOdOdOdOdOdOeLhvhvhvhvhvhvhwhXhYhZebebebeDebebebeDebebebebebeCebeCebebebebebhAiaiaibhEiciaiaiaiaiaiaiaiaiaiaiaiaideLdOdOdOdOdOdOdOdOdOdOieebebebebebebhHifigeReReReReReReReReRfdebebebebeCebeCebebebebebhAiaiaibhEiciaiaiaiaiaiaiaihihiaihiaideLdOdOdOdOdOdOdO
-dOdOdOdOdOdOdQclclclclclclclclclclclcliiclclclijclclebebebebebebebebebebebebebclclclclikclclclclclclclclclilclclclclcldQdOdOdOdOdOdOdOdOdOieebebebebebebfFfFfFfFfFfFfFfFfFfFfFfFebebebebebebebebebebebebebclclclclimclclclclclclinioinclclclclclcldQdOdOdOdOdOdO
-dOdOdOdOdOdOdQclipipipipipipipipiqipipipirclebebebclisebebebebebebebebebebebitcliuivebebebiwiwiwclixixiyixizixixixiAcldQdOdOdOdOdOdOdOdOdOieebebebebebebebebebebebebebebebebebebebebebebebebebebebebebebitclebiBiBiBiBiBebiCcliDiDiEiDiDiDiDiDiDcldQdOdOdOdOdOdO
-dOdOdOdOdOdOdQclipipiFipipipiqipipipipipircleIebebclisebebebebebebebebebebebiGcliugiebebebiHiIiIcliJiKiJiLiziLiJiKiJcldQdOdOdOdOdOdOdOdOdOeLebeDebebebeDebebebeDebebebeDebebebeDebebebebebebebebebebebebiGclebiBiMiNiOiBebiPcliDlniRiQiDiDiDiDiQcldQdOdOdOdOdOdO
-dOdOdOdOdOdOdOfuipipipipiqipipipipipipipiriSebebebclisebebebebebebebebebebebiTcliUivebebebebebeGcliViWiXiXiYiXiZjajbcldQdOdOdOdOdOdOdOdOdQclclclclclclclclclclclclclclclclclclclisisisebebebebebebebebebiTcleIiBjcjdjeiBeGjfcliDiQiQjgjhjiiQiQjjcldQdOdOdOdOdOdO
-dOdOdOdOdOdOdQclipjkipipipipipipipipipipiriSebebebclclclclclcljlcljlclclclclclcliugiebebebebebjmcliJiKjniLiziLiJiKiJcldQdOdOdOdOdOdOdOdOdQcljojpebebebebjqebebebebebjrebebjsjsclclclclclcljtcljtclclclclclclebiBjujvjwiBebjxcliQjyiQjzjAjziQjBiQcldQdOdOdOdOdOdO
-dOdOdOdOdOdOdQclipipipipiFipipiqipipipipircleIebebijebebjCebeCebebebeCjDjEjFjGclebebebeJjHeJjIjHclixjJiXiXjKiXiXjLixcldQdOdOdOdOdOdOdOdOdQclebjMjNebebjqebebebebebjrebebebjsjsclebebebebeCebebebeCebebebebclebiBiBiBiBiBebjOcliDiQiQjijzjijyjPiQcldQdOdOdOdOdOdO
-dOdOdOdOdOdOdQcljQipipipipipipipipipipjRirclebebebijebebebebebebebebebjDjSjTjTikebebebjUjVjVjVjVcliJiKiJiLjWiLiJiKiJcldQdOdOdOdOdOdOdOdOdQclebjXjYjZkaebjYebebjqebebkbkbebjsjskcebebebebebebebebebebebebebkdebebebeDebebebiCcliDkejBiQiQkfiQiDiDcldQdOdOdOdOdOdO
+dOdOdOdOdOdOdOeBhvhvhvhvhvhvhwhxhyhzebebebeCebebebeCebebebebebeDebeDebebebebebhAhBhBhBhBhChBhBhDhEclhBhBhChBhBhBhChGeBdOdOdOdOdOdOdOdOdOdOeBebeCebebebeChHhIhJhKeReReRhKeReReRhKfdebebebebfEfFfEebebebebebclhBhBhBhBhLhBhBhDhEhFhBhBhLhBhMhBhLhNeBdOdOdOdOdOdOdO
+dOdOdOdOdOdOdOeEhvhvhvhvhvhvhwhOhPhQebebebebebebebebebebebebeGclhVcleIebebebebhRhEhEhEhEhEhEhEhEhEiVhEhEhEhEhEhEhEhSeEdOdOdOdOdOdOdOdOdOdOeEebebebebebebhHhThUeReReReReReReReReRfdebebebeGclhVcleIebebebebiVhEhEhEhEhEhEhEhEhEhEhEhEhEhWhWhWhWhSeEdOdOdOdOdOdOdO
+dOdOdOdOdOdOdOeLhvhvhvhvhvhvhwhXhYhZebebebeDebebebeDebebebebebeCebeCebebebebebhAiaiaibhEiciaiaiaiaclibhEhEhEiciaiaideLdOdOdOdOdOdOdOdOdOdOieebebebebebebhHifigeReReReReReReReReRfdebebebebeCebeCebebebebebcliaiaibhEiciaiaiaiaiaiaiaihihiaihiaideLdOdOdOdOdOdOdO
+dOdOdOdOdOdOdQclclclclclclclclclclclcliiclclclijclclebebebebebebebebebebebebebclclclclikclclclclclcliWiYclilclclclclcldQdOdOdOdOdOdOdOdOdOieebebebebebebfFfFfFfFfFfFfFfFfFfFfFfFebebebebebebebebebebebebebclclclclkdclclclclclclinioinclclclclclcldQdOdOdOdOdOdO
+dOdOdOdOdOdOdQclipipipipipipipipiqipipipirclebebebclisebebebebebebebebebebebitcliuivebebebiwiwiwclixixixclizixixixiAcldQdOdOdOdOdOdOdOdOdOieebebebebebebebebebebebebebebebebebebebebebebebebebebebebebebitclebiBiBiBiBiBebiCcliDiDiEiDiDiDiDiDiDcldQdOdOdOdOdOdO
+dOdOdOdOdOdOdQclipipiFipipipiqipipipipipircleIebebclisebebebebebebebebebebebiGcliugiebebebiHiIiIcljnjmixcliziLiJiKiJcldQdOdOdOdOdOdOdOdOdOeLebeDebebebeDebebebeDebebebeDebebebeDebebebebebebebebebebebebiGclebiBiMiNiOiBebiPcliDlniRiQiDiDiDiDiQcldQdOdOdOdOdOdO
+dOdOdOdOdOdOdOfuipipipipiqipipipipipipipiriSebebebclisebebebebebebebebebebebiTcliUivebjJebebebeGclclclclcljKiXiZjajbcldQdOdOdOdOdOdOdOdOdQclclclclclclclclclclclclclclclclclclclisisisebebebebebebebebebiTcleIiBjcjdjeiBeGjfcliDiQiQjgjhjiiQiQjjcldQdOdOdOdOdOdO
+dOdOdOdOdOdOdQclipjkipipipipipipipipipipiriSebebebclclclclclcljlcljlclclclclclcliugiebebebebebebcllololocliziLiJiKiJcldQdOdOdOdOdOdOdOdOdQcljojpebebebebjqebebebebebjrebebjsjsclclclclclcljtcljtclclclclclclebiBjujvjwiBebjxcliQjyiQjzjAjziQjBiQcldQdOdOdOdOdOdO
+dOdOdOdOdOdOdQclipipipipiFipipiqipipipipircleIebebijebebjCebeCebebebeCjDjEjFjGclebebebeJjHeJjIjHlpebebeGcllqiXiXjLixcldQdOdOdOdOdOdOdOdOdQclebjMjNebebjqebebebebebjrebebebjsjsclebebebebeCebebebeCebebebebclebiBiBiBiBiBebjOcliDiQiQjijzjijyjPiQcldQdOdOdOdOdOdO
+dOdOdOdOdOdOdQcljQipipipipipipipipipipjRirclebebebijebebebebebebebebebjDjSjTjTikebebebjUjVjVjVjVcllrlrlrcljWiLiJiKiJcldQdOdOdOdOdOdOdOdOdQclebjXjYjZkaebjYebebjqebebkbkbebjsjskcebebebebebebebebebebebebeblsebebebeDebebebiCcliDkejBiQiQkfiQiDiDcldQdOdOdOdOdOdO
 dOdOdOdOdOdOdQclclclclclclclclclclclclclclclclclclclkgebebfxfxfxebkhebjDkikjkkinclclclclclclclclclclclclclclclclclclcldQdOdOdOdOdOdOdOdOdQclclclclclclclclclclclclclclclclclclcleIebebebebebebebebebebebebinclclclclclclclclclclclclclclclclclclcldQdOdOdOdOdOdO
 dOdOdOdOdOdOdQdQdQdQdQdQdQdQdQdQdQdQdQdQdQdQdQdQdQclklebebfxfxfxebebebjDkmknkocldQdQdQdQdQdQdQdQdQdQdQdQdQdQdQdQdQdQdQdQdOdOdOdOdOdOdOdOdQdQdQdQdQdQdQdQdQdQdQdQdQdQdQdQdQdQdQclebebebebebebebebebebebebebcldQdQdQdQdQdQdQdQdQdQdQdQdQdQdQdQdQdQdQdQdOdOdOdOdOdO
 dOdOdOdOdOdOdOdOdOdOdOdOdOdOdOdOdOdOdOdOdOdOdOdOdOeBklebebebebebebebebjDjSjTkpeBdOdOdOdOdOdOdOdOdOdOdOdOdOdOdOdOdOdOdOdOdOdOdOdOdOdOdOdOdOdOdOdOdOdOdOdOdOdOdOdOdOdOdOdOdOdOdOeBebebebebebebebebebebebebebeBdOdOdOdOdOdOdOdOdOdOdOdOdOdOdOdOdOdOdOdOdOdOdOdOdOdO

@@ -2,6 +2,34 @@
 	away_area = /area/awaymission/spacehotel
 	override_under = /obj/item/clothing/under/mafia
 	chattyness = SNPC_CHANCE_TALK / 4
+	faction = list("hotel")
+	var/list/hotel_enemies = list()
+
+/mob/living/carbon/human/interactive/away/hotel/adjustBruteLoss(damage)
+	..(damage)
+	DeclareEnemy()
+
+/mob/living/carbon/human/interactive/away/hotel/adjustFireLoss(damage)
+	..(damage)
+	DeclareEnemy()
+
+/mob/living/carbon/human/interactive/away/hotel/adjustToxLoss(damage)
+	..(damage)
+	DeclareEnemy()
+
+/mob/living/carbon/human/interactive/away/hotel/adjustOxyLoss(damage)
+	..(damage)
+	DeclareEnemy()
+
+/mob/living/carbon/human/interactive/away/hotel/proc/DeclareEnemy()
+	for(var/mob/living/L in get_mobs_in_view(8, src))
+		if("hotel" in L.faction)
+			continue
+		if(L in hotel_enemies)
+			continue
+		for(var/mob/living/simple_animal/hostile/retaliate/hotel_secbot/B in living_mob_list)
+			if(!(L in B.enemies))
+				B.enemies |= L
 
 /mob/living/carbon/human/interactive/away/hotel/New(loc)
 	..(loc, "Skrell")
@@ -10,12 +38,6 @@
 	..()
 	MYID.access = list(access_syndicate)
 	RPID.access = list(access_syndicate)
-
-/mob/living/carbon/human/interactive/away/hotel/guard
-	default_job = /datum/job/officer
-
-/mob/living/carbon/human/interactive/away/hotel/guard/doSetup()
-	..("Guard")
 
 /mob/living/carbon/human/interactive/away/hotel/chef
 	default_job = /datum/job/chef
@@ -103,6 +125,11 @@
 			say ("Hope you enjoyed your [adjective_objects] stay at our [adjective_generic] hotel!")
 			hotel.checkout(hotel.guests[id_owner])
 		else
+			for(var/mob/living/simple_animal/hostile/retaliate/hotel_secbot/H in living_mob_list)
+				if(id_owner in H.enemies)
+					say("Sorry, I cannot check you in while [H] is after you.")
+					return
+
 			// pick a room
 			var/obj/machinery/door/unpowered/hotel_door/D = safepick(hotel.vacant_rooms)
 			if(!D)
@@ -116,3 +143,113 @@
 					K.forceMove(idloc)
 				else
 					say("Your [adjective_insult] [curse_words] card was rejected.")
+
+
+/mob/living/simple_animal/hostile/retaliate/hotel_secbot
+	name = "Hotel Security"
+	desc = "A small security robot."
+	icon = 'icons/mob/hivebot.dmi'
+	icon_state = "SecBot"
+	icon_living = "SecBot"
+	icon_dead = "SecBot"
+	health = 200
+	maxHealth = 200
+	melee_damage_lower = 15
+	melee_damage_upper = 15
+	anchored = 1
+	attacktext = "batons"
+	attack_sound = 'sound/weapons/bladeslice.ogg'
+	faction = list("hotel")
+	speak_emote = list("states")
+	gold_core_spawnable = CHEM_MOB_SPAWN_INVALID
+	loot = list(/obj/effect/decal/cleanable/blood/gibs/robot)
+	deathmessage = "blows apart!"
+	del_on_death = 1
+
+/mob/living/simple_animal/hostile/retaliate/hotel_secbot/boss
+	name = "Hotel Security Chief"
+	health = 300
+	maxHealth = 300
+
+/mob/living/simple_animal/hostile/retaliate/hotel_secbot/Aggro()
+	..()
+	playsound(loc, 'sound/voice/halt.ogg', 50, 0)
+
+/mob/living/simple_animal/hostile/retaliate/hotel_secbot/boss/handle_automated_action()
+	..()
+	if(prob(10))
+		Retaliate()
+
+/mob/living/simple_animal/hostile/retaliate/hotel_secbot/Retaliate()
+	..()
+	if(!enemies.len)
+		return
+	for(var/mob/living/simple_animal/hostile/retaliate/hotel_secbot/B in living_mob_list)
+		if(B == src)
+			continue
+		for(var/E in enemies)
+			if(!(E in B.enemies))
+				B.enemies |= E
+
+/mob/living/simple_animal/hostile/retaliate/hotel_secbot/AttackingTarget()
+	if(ishuman(target))
+		var/mob/living/carbon/human/H = target
+		if(!H.stunned)
+			stun_attack(H)
+		else if(H.canBeHandcuffed() && !H.handcuffed)
+			cuff(H)
+		else if(H.handcuffed)
+			hotel_brig(H)
+		else
+			target.attack_animal(src)
+	else
+		target.attack_animal(src)
+
+/mob/living/simple_animal/hostile/retaliate/hotel_secbot/proc/stun_attack(mob/living/carbon/human/H)
+	playsound(loc, 'sound/weapons/Egloves.ogg', 50, 1, -1)
+	H.stuttering = 5
+	H.Stun(5)
+	H.Weaken(5)
+	add_logs(src, H, "stunned")
+	H.visible_message("<span class='danger'>[src] has stunned [H]!</span>", "<span class='userdanger'>[src] has stunned you!</span>")
+
+/mob/living/simple_animal/hostile/retaliate/hotel_secbot/proc/cuff(mob/living/carbon/human/H)
+	playsound(loc, 'sound/weapons/cablecuff.ogg', 30, 1, -2)
+	H.visible_message("<span class='danger'>[src] is trying to put zipties on [H]!</span>",\
+						"<span class='userdanger'>[src] is trying to put zipties on you!</span>")
+	H.handcuffed = new /obj/item/weapon/restraints/handcuffs/cable/zipties/used(H)
+	H.update_handcuffed()
+
+/mob/living/simple_animal/hostile/retaliate/hotel_secbot/proc/hotel_brig(mob/living/carbon/human/H)
+	var/obj/effect/landmark/brig
+	var/obj/effect/landmark/evidence
+	for(var/obj/effect/landmark/S in landmarks_list)
+		if(S.name == "hotelbrig")
+			brig = S
+		if(S.name == "hotelevidence")
+			evidence = S
+	if(!evidence || !brig)
+		H.attack_animal(src)
+		return
+	var/obj/item/I
+	if(H.back && H.canUnEquip(H.back, 0))
+		I = H.back
+	else if(H.belt && H.canUnEquip(H.belt, 0))
+		I = H.belt
+	else if(H.gloves && H.canUnEquip(H.gloves, 0))
+		I = H.gloves
+	else if(H.l_store && H.canUnEquip(H.l_store, 0))
+		I = H.l_store
+	else if(H.r_store && H.canUnEquip(H.r_store, 0))
+		I = H.r_store
+
+	if(I)
+		H.unEquip(I, 0)
+		H.visible_message("<span class='danger'>[src] removes [I] from [H]!</span>", "<span class='userdanger'>[src] confiscates [I]!</span>")
+		I.forceMove(get_turf(evidence))
+		return
+
+	qdel(evidence)
+	H.visible_message("<span class='danger'>[src] teleports [H] to the special guest suite!</span>", "<span class='userdanger'>[src] teleports you to the special guest suite!</span>")
+	H.forceMove(get_turf(brig))
+	LoseTarget()
