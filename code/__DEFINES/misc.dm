@@ -254,6 +254,9 @@
 #define REGION_COMMAND		7
 #define REGION_CENTCOMM		8
 
+//Just space
+#define SPACE_ICON_STATE	"[((x + y) ^ ~(x * y) + z) % 25]"
+
 //used for maploader
 #define MAP_MINX 1
 #define MAP_MINY 2

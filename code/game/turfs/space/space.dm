@@ -17,7 +17,7 @@
 	. = ..()
 
 	if(!istype(src, /turf/space/transit))
-		icon_state = "[((x + y) ^ ~(x * y) + z) % 25]"
+		icon_state = SPACE_ICON_STATE
 	update_starlight()
 
 /turf/space/Destroy(force)
