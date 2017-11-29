@@ -52,6 +52,9 @@
 				C.adjustOxyLoss(-5)
 				C.adjustToxLoss(-5)
 				heal_cooldown = world.time + 20
+				if(C == summoner)
+					med_hud_set_health()
+					med_hud_set_status()
 
 /mob/living/simple_animal/hostile/guardian/healer/ToggleMode()
 	if(loc == summoner)

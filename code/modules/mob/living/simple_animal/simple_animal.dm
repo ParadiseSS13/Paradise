@@ -109,6 +109,7 @@
 /mob/living/simple_animal/updatehealth()
 	..()
 	health = Clamp(health, 0, maxHealth)
+	med_hud_set_status()
 
 /mob/living/simple_animal/handle_hud_icons_health()
 	..()
