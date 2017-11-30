@@ -1,0 +1,4 @@
+author: "Fox McCloud"
+delete-after: True
+changes: 
+  - tweak: "shotgun pellets deal less damage the further they travel"
