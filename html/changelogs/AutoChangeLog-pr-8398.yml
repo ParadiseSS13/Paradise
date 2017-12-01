@@ -1,5 +1,0 @@
-author: "ExitGame"
-delete-after: True
-changes: 
-  - rscadd: "vox quill rustle emote"
-  - bugfix: "species check"
