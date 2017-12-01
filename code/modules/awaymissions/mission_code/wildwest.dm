@@ -255,10 +255,7 @@
 		if(option_explorer)
 			to_chat(user, "<span class='warning'>The communicator buzzes, and you hear the voice again: 'Hah! You sure picked the wrong asteroid to explore. Get em, boys!'</span>")
 		if(option_bluff)
-			if(prob(20))
-				to_chat(user, "<span class='warning'>The communicator buzzes, and you hear the voice again: 'So soon? Fine. Come in.'</span>")
-			else
-				to_chat(user, "<span class='warning'>The communicator buzzes, and you hear the voice again: 'Sure. '</span>")
+			to_chat(user, "<span class='warning'>The communicator buzzes, and you hear the voice again: 'Really? I think not. Get them!'</span>")
 		if(option_threat)
 			to_chat(user, "<span class='warning'>The communicator buzzes, and you hear the voice again: 'Oh really now?' You hear a clicking sound. 'Team, get back here. We have trouble'. Then the line goes dead.</span>")
 			for(var/obj/effect/landmark/L in landmarks_list)
@@ -269,11 +266,13 @@
 					var/mob/living/simple_animal/hostile/syndicate/ranged/space/R = new /mob/living/simple_animal/hostile/syndicate/ranged/space(get_turf(L))
 					R.name = "Syndi Recon Team"
 		if(option_syndicate)
-			to_chat(user, "<span class='warning'>The communicator buzzes, and you hear the voice again: 'Well, I'll be damned. An agent out here? You must be off-mission. Leave my troops alone. Our Commander will handle you himself.'</span>")
-			for(var/mob/living/simple_animal/hostile/syndicate/ranged/wildwest/W in living_mob_list)
-				W.on_alert = FALSE
+			to_chat(user, "<span class='warning'>The communicator buzzes, and you hear the voice again: 'Well, I'll be damned. An agent out here? You must be off-mission! Leave my troops alone, and they will do the same for you. Our Commander will handle you himself.'</span>")
+			stand_down()
 	used = TRUE
 
+/obj/item/device/wildwest_communicator/proc/stand_down()
+	for(var/mob/living/simple_animal/hostile/syndicate/ranged/wildwest/W in living_mob_list)
+		W.on_alert = FALSE
 
 /mob/living/simple_animal/hostile/syndicate/ranged/wildwest
 	var/on_alert = TRUE
@@ -285,6 +284,7 @@
 
 /mob/living/simple_animal/hostile/syndicate/ranged/wildwest/death(gibbed)
 	if(!on_alert)
+		say("How could you betray the Syndicate?")
 		for(var/mob/living/simple_animal/hostile/syndicate/ranged/wildwest/W in living_mob_list)
 			W.on_alert = TRUE
 	..(gibbed)
