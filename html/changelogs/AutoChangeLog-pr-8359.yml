@@ -1,0 +1,11 @@
+author: "uraniummeltdown"
+delete-after: True
+changes: 
+  - rscadd: "You can now create vault door assemblies with 4 plasteel sheets"
+  - rscadd: "Science airlocks have been added to metal recipes and the RCD"
+  - rscadd: "Airtight and Maintenance Hatch added to the RCD"
+  - tweak: "Highsecurity airlock assemblies are built with 4 plasteel instead of 4 metal"
+  - tweak: "All doors and doorlike things (firelock, airlock, windoor, blast door, shutters, spacepod door) run off the Environment Power Channel"
+  - tweak: "Emagged airlocks have a different description on examining"
+  - tweak: "Screwdrivering an airlock now displays a message. No more guessing if the panel is open or not."
+  - tweak: "Cult airlocks will keep their old name on being converted."
