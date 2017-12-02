@@ -94,6 +94,9 @@
 	if(!(M in view(1)))
 		..()
 		return
+	if(!Adjacent(user))
+		..()
+		return
 	if(ishuman(M))
 		var/mob/living/carbon/human/H = M
 		var/dye_list = list("hair", "alt. hair theme")

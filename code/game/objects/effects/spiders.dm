@@ -213,9 +213,10 @@
 
 					if(candidates.len)
 						var/mob/C = pick(candidates)
-						S.key = C.key
-						if(master_commander)
-							to_chat(S, "<span class='userdanger'>You are a spider who is loyal to [master_commander], obey [master_commander]'s every order and assist them in completing their goals at any cost.</span>")
+						if(C)
+							S.key = C.key
+							if(master_commander)
+								to_chat(S, "<span class='userdanger'>You are a spider who is loyal to [master_commander], obey [master_commander]'s every order and assist them in completing their goals at any cost.</span>")
 			qdel(src)
 
 /obj/effect/decal/cleanable/spiderling_remains
