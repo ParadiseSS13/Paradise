@@ -321,27 +321,6 @@
 	Misc Airlocks
 */
 
-/obj/machinery/door/airlock/alien
-	name = "alien airlock"
-	desc = "A mysterious alien airlock with a complicated opening mechanism."
-	hackProof = 1
-	icon = 'icons/obj/doors/Doorplasma.dmi'
-	is_special = 1
-
-/obj/machinery/door/airlock/alien/bumpopen(mob/living/user)
-	if(isalien(user) || isrobot(user) || isAI(user))
-		..(user)
-	else
-		to_chat(user, "You do not know how to operate this airlock's mechanism.")
-		return
-
-/obj/machinery/door/airlock/alien/attackby(obj/C, mob/user, params)
-	if(isalien(user) || isrobot(user) || isAI(user))
-		..(C, user)
-	else
-		to_chat(user, "You do not know how to operate this airlock's mechanism.")
-		return
-
 //Terribly sorry for the code doubling, but things go derpy otherwise.
 /obj/machinery/door/airlock/multi_tile
 	width = 2
