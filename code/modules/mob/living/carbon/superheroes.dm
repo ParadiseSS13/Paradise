@@ -7,7 +7,7 @@
 	var/name
 	var/desc
 	var/class
-	var/list/default_genes = list(REGEN, NO_BREATH, RESIST_COLD)
+	var/list/default_genes = list(REGEN, BREATHLESS, COLDRES)
 	var/list/default_spells = list()
 
 /datum/superheroes/proc/create(var/mob/living/carbon/human/H)

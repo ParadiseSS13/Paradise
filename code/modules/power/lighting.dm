@@ -448,7 +448,7 @@
 		else
 			prot = 1
 
-		if(prot > 0 || (RESIST_HEAT in user.mutations))
+		if(prot > 0 || (HEATRES in user.mutations))
 			to_chat(user, "You remove the light [fitting]")
 		else if(TK in user.mutations)
 			to_chat(user, "You telekinetically remove the light [fitting].")
