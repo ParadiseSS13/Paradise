@@ -490,6 +490,10 @@ Difficulty: Hard
 	icon_state = "hierophant_telegraph_teleport"
 	duration = 9
 
+/obj/effect/overlay/temp/hierophant/telegraph/edge
+	icon_state = "hierophant_telegraph_edge"
+	duration = 40
+
 /obj/effect/overlay/temp/hierophant/blast
 	icon = 'icons/effects/effects.dmi'
 	icon_state = "hierophant_blast"

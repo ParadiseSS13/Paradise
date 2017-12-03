@@ -284,3 +284,19 @@ obj/item/device/flashlight/lamp/bananalamp
 	else
 		to_chat(user, "<span class='warning'>\The [src] needs time to recharge!</span>")
 	return
+
+/obj/item/device/flashlight/spotlight //invisible lighting source
+	name = "disco light"
+	desc = "Groovy..."
+	icon_state = null
+	light_color = null
+	brightness_on = 0
+	light_range = 0
+	light_power = 10
+	alpha = 0
+	layer = 0
+	on = TRUE
+	anchored = TRUE
+	var/range = null
+	unacidable = TRUE
+	burn_state = LAVA_PROOF
