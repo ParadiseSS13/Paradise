@@ -80,6 +80,7 @@
 	melee_damage_upper = 20
 	poison_per_bite = 5
 	move_to_delay = 5
+	gold_core_spawnable = CHEM_MOB_SPAWN_INVALID
 
 /mob/living/simple_animal/hostile/poison/giant_spider/hunter/handle_automated_action()
 	if(!..()) //AIStatus is off
@@ -239,8 +240,6 @@
 					var/obj/structure/spider/eggcluster/C = new /obj/structure/spider/eggcluster(src.loc)
 					C.faction = faction
 					C.master_commander = master_commander
-					if(ckey)
-						C.player_spiders = 1
 					fed--
 			busy = 0
 			stop_automated_movement = 0
