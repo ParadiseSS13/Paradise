@@ -23,7 +23,7 @@
 "aw" = (/turf/simulated/floor/noslip,/area/shuttle/escape)
 "ax" = (/turf/simulated/shuttle/wall{icon_state = "swall12"; dir = 2},/area/shuttle/escape)
 "ay" = (/turf/simulated/shuttle/wall{icon_state = "swall13"; dir = 2},/area/shuttle/escape)
-"az" = (/obj/machinery/door/airlock/glass,/turf/simulated/floor/plasteel{icon_state = "white"},/area/shuttle/escape)
+"az" = (/obj/machinery/door/airlock/public/glass,/turf/simulated/floor/plasteel{icon_state = "white"},/area/shuttle/escape)
 "aA" = (/turf/simulated/shuttle/wall{icon_state = "swall14"; dir = 2},/area/shuttle/escape)
 "aB" = (/turf/unsimulated/floor/chasm,/area/shuttle/escape)
 "aC" = (/obj/machinery/status_display{pixel_y = 30},/obj/machinery/light/spot{tag = "icon-tube1 (NORTH)"; icon_state = "tube1"; dir = 1},/turf/unsimulated/floor/chasm,/area/shuttle/escape)

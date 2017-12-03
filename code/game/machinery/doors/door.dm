@@ -1,6 +1,3 @@
-#define DOOR_OPEN_LAYER 2.7		//Under all objects if opened. 2.7 due to tables being at 2.6
-#define DOOR_CLOSED_LAYER 3.1	//Above most items if closed
-
 /obj/machinery/door
 	name = "door"
 	desc = "It opens and closes."
@@ -9,10 +6,10 @@
 	anchored = 1
 	opacity = 1
 	density = 1
-	layer = DOOR_OPEN_LAYER
+	layer = OPEN_DOOR_LAYER
 	power_channel = ENVIRON
-	var/open_layer = DOOR_OPEN_LAYER
-	var/closed_layer = DOOR_CLOSED_LAYER
+	var/open_layer = OPEN_DOOR_LAYER
+	var/closed_layer = CLOSED_DOOR_LAYER
 	var/visible = 1
 	var/p_open = 0
 	var/operating = 0
@@ -36,9 +33,9 @@
 /obj/machinery/door/New()
 	. = ..()
 	if(density)
-		layer = closed_layer
+		layer = closed_layer //Above most items if closed
 	else
-		layer = open_layer
+		layer = open_layer //Under all objects if opened. 2.7 due to tables being at 2.6
 
 	update_dir()
 	update_freelook_sight()

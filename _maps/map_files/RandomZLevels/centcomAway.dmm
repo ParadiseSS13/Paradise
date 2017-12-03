@@ -705,7 +705,7 @@
 "nC" = (/obj/machinery/light,/turf/simulated/floor/plating,/area/awaymission/centcomAway/maint)
 "nD" = (/obj/structure/table,/obj/item/weapon/storage/box/donkpockets,/obj/machinery/light{icon_state = "tube1"; dir = 8},/turf/simulated/shuttle/floor,/area/awaymission/centcomAway/hangar)
 "nE" = (/obj/structure/table,/obj/item/device/radio/off,/obj/machinery/light{icon_state = "tube1"; dir = 4},/turf/simulated/shuttle/floor,/area/awaymission/centcomAway/hangar)
-"nF" = (/obj/machinery/door/airlock/glass{name = "Med-Sci"; req_access_txt = ""},/turf/simulated/floor/plasteel{icon_state = "white"},/area/awaymission/centcomAway/general)
+"nF" = (/obj/machinery/door/airlock/public/glass{name = "Med-Sci"; req_access_txt = ""},/turf/simulated/floor/plasteel{icon_state = "white"},/area/awaymission/centcomAway/general)
 "nG" = (/obj/machinery/light{icon_state = "tube1"; dir = 8},/turf/simulated/floor/carpet,/area/awaymission/centcomAway/courtroom)
 "nH" = (/obj/structure/cable{d1 = 1; d2 = 8; icon_state = "1-8"},/obj/structure/cable{d1 = 1; d2 = 4; icon_state = "1-4"; tag = ""},/turf/simulated/floor/plating,/area/awaymission/centcomAway/maint)
 "nI" = (/obj/machinery/light,/obj/structure/cable{d1 = 4; d2 = 8; icon_state = "4-8"; pixel_x = 0; tag = ""},/turf/simulated/floor/plating,/area/awaymission/centcomAway/maint)
