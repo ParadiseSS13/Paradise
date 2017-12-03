@@ -61,6 +61,7 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	var/no_teleportlocs = 0
 
 	var/outdoors = 0 //For space, the asteroid, lavaland, etc. Used with blueprints to determine if we are adding a new area (vs editing a station room)
+	var/xenobiology_compatible = FALSE //Can the Xenobio management console transverse this area by default?
 
 /*Adding a wizard area teleport list because motherfucking lag -- Urist*/
 /*I am far too lazy to make it a proper list of areas so I'll just make it run the usual telepot routine at the start of the game*/
@@ -1868,6 +1869,7 @@ area/security/podbay
 /area/toxins/xenobiology
 	name = "\improper Xenobiology Lab"
 	icon_state = "toxmix"
+	xenobiology_compatible = TRUE
 
 /area/toxins/xenobiology/xenoflora_storage
 	name = "\improper Xenoflora Storage"
