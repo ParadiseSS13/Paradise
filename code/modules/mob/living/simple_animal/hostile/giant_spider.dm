@@ -67,6 +67,7 @@
 	var/atom/cocoon_target
 	poison_type = "ether"
 	var/fed = 0
+	gold_core_spawnable = CHEM_MOB_SPAWN_INVALID
 
 //hunters have the most poison and move the fastest, so they can find prey
 /mob/living/simple_animal/hostile/poison/giant_spider/hunter
@@ -80,7 +81,6 @@
 	melee_damage_upper = 20
 	poison_per_bite = 5
 	move_to_delay = 5
-	gold_core_spawnable = CHEM_MOB_SPAWN_INVALID
 
 /mob/living/simple_animal/hostile/poison/giant_spider/hunter/handle_automated_action()
 	if(!..()) //AIStatus is off
