@@ -977,7 +977,7 @@
 			var/obj/item/clothing/mask/M = H.wear_mask
 			if(M && (M.flags_cover & MASKCOVERSMOUTH))
 				return
-			if(NO_BREATHE in species.species_traits)
+			if(NO_BREATHE in H.species.species_traits)
 				return //no puking if you can't smell!
 			// Humans can lack a mind datum, y'know
 			if(H.mind && (H.mind.assigned_role == "Detective" || H.mind.assigned_role == "Coroner"))
