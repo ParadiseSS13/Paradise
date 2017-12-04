@@ -11,6 +11,7 @@
 	materials = list(MAT_METAL=500)
 	var/obj/item/weapon/disk/nuclear/the_disk = null
 	var/active = 0
+	var/shows_nuke_timer = TRUE
 	var/icon_off = "pinoff"
 	var/icon_null = "pinonnull"
 	var/icon_direct = "pinondirect"
@@ -74,6 +75,15 @@
 	point_at(the_disk, 0)
 	spawn(5)
 		.()
+
+/obj/item/weapon/pinpointer/examine(mob/user)
+	..(user)
+	if (!shows_nuke_timer)
+		return
+
+	for(var/obj/machinery/nuclearbomb/bomb in machines)
+		if(bomb.timing)
+			to_chat(user, "Extreme danger.  Arming signal detected.   Time remaining: [bomb.timeleft]")
 
 /obj/item/weapon/pinpointer/advpinpointer
 	name = "advanced pinpointer"
@@ -180,12 +190,6 @@
 	var/mode = 0	//Mode 0 locates disk, mode 1 locates the shuttle
 	var/obj/docking_port/mobile/home = null
 	slot_flags = SLOT_BELT | SLOT_PDA
-
-/obj/item/weapon/pinpointer/nukeop/examine(mob/user)
-	..(user)
-	for(var/obj/machinery/nuclearbomb/bomb in machines)
-		if(bomb.timing)
-			to_chat(user, "Extreme danger.  Arming signal detected.   Time remaining: [bomb.timeleft]")
 
 /obj/item/weapon/pinpointer/nukeop/attack_self(mob/user as mob)
 	if(!active)
@@ -310,6 +314,7 @@
 /obj/item/weapon/pinpointer/crew
 	name = "crew pinpointer"
 	desc = "A handheld tracking device that points to crew suit sensors."
+	shows_nuke_timer = FALSE
 	icon_state = "pinoff_crew"
 	icon_off = "pinoff_crew"
 	icon_null = "pinonnull_crew"
