@@ -5,11 +5,6 @@
 /obj/item/organ/internal/eyes/tajaran
 	name = "tajaran eyeballs"
 	species = "Tajaran"
-	dark_view = 8
-
-/obj/item/organ/internal/eyes/tajaran/cblind //Most Tajara see in full colour as a result of genetic augmentation.
-	name = "unmodified tajaran eyeballs"
-	species = "Tajaran"
 	colourblind_matrix = MATRIX_TAJ_CBLIND //The colour matrix and darksight parameters that the mob will recieve when they get the disability.
 	dark_view = 8
 
