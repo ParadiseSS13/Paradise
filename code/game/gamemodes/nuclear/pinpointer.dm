@@ -78,7 +78,7 @@
 
 /obj/item/weapon/pinpointer/examine(mob/user)
 	..(user)
-	if (!shows_nuke_timer)
+	if(!shows_nuke_timer)
 		return
 
 	for(var/obj/machinery/nuclearbomb/bomb in machines)
