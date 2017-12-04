@@ -69,12 +69,6 @@
 	spawn(5)
 		.()
 
-/obj/item/weapon/pinpointer/examine(mob/user)
-	..(user)
-	for(var/obj/machinery/nuclearbomb/bomb in machines)
-		if(bomb.timing)
-			to_chat(user, "Extreme danger.  Arming signal detected.   Time remaining: [bomb.timeleft]")
-
 /obj/item/weapon/pinpointer/advpinpointer
 	name = "advanced pinpointer"
 	desc = "A larger version of the normal pinpointer, this unit features a helpful quantum entanglement detection system to locate various objects that do not broadcast a locator signal."
@@ -180,6 +174,12 @@
 	var/mode = 0	//Mode 0 locates disk, mode 1 locates the shuttle
 	var/obj/docking_port/mobile/home = null
 	slot_flags = SLOT_BELT | SLOT_PDA
+
+/obj/item/weapon/pinpointer/nukeop/examine(mob/user)
+	..(user)
+	for(var/obj/machinery/nuclearbomb/bomb in machines)
+		if(bomb.timing)
+			to_chat(user, "Extreme danger.  Arming signal detected.   Time remaining: [bomb.timeleft]")
 
 /obj/item/weapon/pinpointer/nukeop/attack_self(mob/user as mob)
 	if(!active)
@@ -300,3 +300,76 @@
 			to_chat(user, "Nearest operative detected is <i>[nearest_op.real_name].</i>")
 		else
 			to_chat(user, "No operatives detected within scanning range.")
+
+/obj/item/weapon/pinpointer/crew
+	name = "crew pinpointer"
+	desc = "A handheld tracking device that points to crew suit sensors."
+	icon_state = "pinoff"
+
+/obj/item/weapon/pinpointer/crew/proc/trackable(mob/living/carbon/human/H)
+	var/turf/here = get_turf(src)
+	if((H.z == 0 || H.z == here.z) && istype(H.w_uniform, /obj/item/clothing/under))
+		var/obj/item/clothing/under/U = H.w_uniform
+
+		// Suit sensors must be on maximum.
+		if(!U.has_sensor || U.sensor_mode < 3)
+			return FALSE
+
+		var/turf/there = get_turf(H)
+		return (H.z != 0 || (there && there.z == H.z))
+
+	return FALSE
+
+/obj/item/weapon/pinpointer/crew/attack_self(mob/living/user)
+	if(active)
+		active = FALSE
+		icon_state = "pinoff"
+		user.visible_message("<span class='notice'>[user] deactivates their pinpointer.</span>", "<span class='notice'>You deactivate your pinpointer.</span>")
+		return
+
+	var/list/name_counts = list()
+	var/list/names = list()
+
+	for(var/mob/living/carbon/human/H in mob_list)
+		if(!trackable(H))
+			continue
+
+		var/name = "Unknown"
+		if(H.wear_id)
+			var/obj/item/weapon/card/id/I = H.wear_id.GetID()
+			name = I.registered_name
+
+		while(name in name_counts)
+			name_counts[name]++
+			name = text("[] ([])", name, name_counts[name])
+		names[name] = H
+		name_counts[name] = 1
+
+	if(!names.len)
+		user.visible_message("<span class='notice'>[user]'s pinpointer fails to detect a signal.</span>", "<span class='notice'>Your pinpointer fails to detect a signal.</span>")
+		return
+
+	var/A = input(user, "Person to track", "Pinpoint") in names
+	if(!src || !user || (user.get_active_hand() != src) || user.incapacitated() || !A)
+		return
+
+	var/target = names[A]
+	active = TRUE
+	user.visible_message("<span class='notice'>[user] activates their pinpointer.</span>", "<span class='notice'>You activate your pinpointer.</span>")
+	point_at(target)
+
+/obj/item/weapon/pinpointer/crew/point_at(atom/target, spawnself = 1)
+	if(!active)
+		return
+
+	if(!trackable(target) || !target)
+		icon_state = "pinonnull"
+		return
+
+	..(target, spawnself = 0)
+	if(spawnself)
+		spawn(5)
+			.()
+
+/obj/item/weapon/pinpointer/crew/examine(mob/user)
+	..(user)
