@@ -173,6 +173,7 @@
 	new /obj/item/weapon/reagent_containers/hypospray/CMO(src)
 	new /obj/item/organ/internal/cyberimp/eyes/hud/medical(src)
 	new /obj/item/weapon/door_remote/chief_medical_officer(src)
+	new /obj/item/weapon/pinpointer/crew(src)
 
 
 /obj/structure/closet/secure_closet/animal
@@ -247,6 +248,7 @@
 	new /obj/item/clothing/head/helmet/space/eva/paramedic(src)
 	new /obj/item/device/sensor_device(src)
 	new /obj/item/key/ambulance(src)
+	new /obj/item/weapon/pinpointer/crew(src)
 
 /obj/structure/closet/secure_closet/reagents
 	name = "chemical storage closet"
