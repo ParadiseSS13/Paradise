@@ -236,6 +236,10 @@
 	if(!IsJobAvailable(rank))
 		to_chat(src, alert("[rank] is not available. Please try another."))
 		return 0
+	var/datum/job/thisjob = job_master.GetJob(rank)
+	if(thisjob.barred_by_disability(client))
+		to_chat(src, alert("[rank] is not available due to your character's disability. Please try another."))
+		return 0
 
 	job_master.AssignRole(src, rank, 1)
 
@@ -300,7 +304,6 @@
 		AnnounceArrival(character, rank, join_message)
 		callHook("latespawn", list(character))
 
-	var/datum/job/thisjob = job_master.GetJob(rank)
 	if(!thisjob.is_position_available() && thisjob in job_master.prioritized_jobs)
 		job_master.prioritized_jobs -= thisjob
 	qdel(src)
@@ -389,7 +392,7 @@
 		"Supply" = list(jobs = list(), titles = supply_positions, color = "#ead4ae"),
 		)
 	for(var/datum/job/job in job_master.occupations)
-		if(job && IsJobAvailable(job.title))
+		if(job && IsJobAvailable(job.title) && !job.barred_by_disability(client))
 			activePlayers[job] = 0
 			var/categorized = 0
 			// Only players with the job assigned and AFK for less than 10 minutes count as active
