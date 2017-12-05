@@ -229,22 +229,6 @@
 
 	fix_modules()
 
-/obj/item/weapon/robot_module/peacekeeper
-	name = "peacekeeping robot module"
-	module_type = "Standard"
-
-/obj/item/weapon/robot_module/peacekeeper/New()
-	..()
-	modules += new /obj/item/weapon/cookiesynth(src)
-	modules += new /obj/item/device/harmalarm(src)
-	modules += new /obj/item/weapon/reagent_containers/borghypo/peace(src)
-	modules += new /obj/item/taperoll/police(src)
-	modules += new /obj/item/borg/cyborghug/peacekeeper(src)
-	modules += new /obj/item/weapon/extinguisher(src)
-	emag = new /obj/item/weapon/reagent_containers/borghypo/peace/hacked(src)
-
-	fix_modules()
-
 /obj/item/weapon/robot_module/janitor
 	name = "janitorial robot module"
 	module_type = "Janitor"
