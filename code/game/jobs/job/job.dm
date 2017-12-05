@@ -52,8 +52,7 @@
 	var/exp_requirements = 0
 	var/exp_type = ""
 
-	var/major_disabilities_allowed = 1
-	var/minor_disabilities_allowed = 1
+	var/disabilities_allowed = 1
 
 	var/admin_only = 0
 	var/spawn_ert = 0
@@ -116,13 +115,9 @@
 /datum/job/proc/barred_by_disability(client/C)
 	if(!C)
 		return 0
-	if(minor_disabilities_allowed && major_disabilities_allowed)
+	if(disabilities_allowed)
 		return 0
-	var/list/prohibited_disabilities = list()
-	if(!major_disabilities_allowed)
-		prohibited_disabilities += list(DISABILITY_FLAG_DEAF, DISABILITY_FLAG_BLIND)
-	if(!minor_disabilities_allowed)
-		prohibited_disabilities += list(DISABILITY_FLAG_MUTE, DISABILITY_FLAG_SCRAMBLED, DISABILITY_FLAG_EPILEPTIC, DISABILITY_FLAG_TOURETTES)
+	var/list/prohibited_disabilities = list(DISABILITY_FLAG_DEAF, DISABILITY_FLAG_BLIND, DISABILITY_FLAG_MUTE, DISABILITY_FLAG_SCRAMBLED, DISABILITY_FLAG_EPILEPTIC, DISABILITY_FLAG_TOURETTES, DISABILITY_FLAG_NEARSIGHTED, DISABILITY_FLAG_DIZZY)
 	for(var/i = 1, i < prohibited_disabilities.len, i++)
 		var/this_disability = prohibited_disabilities[i]
 		if(C.prefs.disabilities & this_disability)

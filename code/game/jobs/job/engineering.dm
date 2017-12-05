@@ -20,7 +20,6 @@
 	minimal_player_age = 21
 	exp_requirements = 600
 	exp_type = EXP_TYPE_CREW
-	major_disabilities_allowed = 0
 	outfit = /datum/outfit/job/chief_engineer
 
 /datum/outfit/job/chief_engineer

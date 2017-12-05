@@ -20,8 +20,7 @@
 	minimal_player_age = 21
 	exp_requirements = 600
 	exp_type = EXP_TYPE_CREW
-	major_disabilities_allowed = 0
-	minor_disabilities_allowed = 0
+	disabilities_allowed = 0
 	outfit = /datum/outfit/job/hos
 
 /datum/outfit/job/hos
@@ -66,8 +65,6 @@
 	minimal_player_age = 21
 	exp_requirements = 300
 	exp_type = EXP_TYPE_CREW
-	major_disabilities_allowed = 0
-	minor_disabilities_allowed = 0
 	outfit = /datum/outfit/job/warden
 
 /datum/outfit/job/warden
@@ -114,8 +111,6 @@
 	minimal_player_age = 14
 	exp_requirements = 300
 	exp_type = EXP_TYPE_CREW
-	major_disabilities_allowed = 0
-	minor_disabilities_allowed = 0
 	outfit = /datum/outfit/job/detective
 
 /datum/outfit/job/detective
@@ -173,8 +168,6 @@
 	minimal_player_age = 14
 	exp_requirements = 300
 	exp_type = EXP_TYPE_CREW
-	major_disabilities_allowed = 0
-	minor_disabilities_allowed = 0
 	outfit = /datum/outfit/job/officer
 
 /datum/outfit/job/officer
@@ -212,8 +205,6 @@
 	selection_color = "#ffeeee"
 	access = list(access_medical, access_morgue, access_surgery, access_chemistry, access_virology, access_genetics)
 	minimal_access = list(access_medical, access_morgue, access_surgery, access_security, access_sec_doors, access_brig, access_court, access_maint_tunnels)
-	major_disabilities_allowed = 0
-	minor_disabilities_allowed = 0
 	outfit = /datum/outfit/job/brigdoc
 
 /datum/outfit/job/brigdoc
@@ -247,8 +238,6 @@
 	access = list(access_security, access_sec_doors, access_brig, access_court, access_maint_tunnels, access_morgue, access_weapons, access_pilot, access_external_airlocks)
 	minimal_access = list(access_security, access_sec_doors, access_brig, access_court, access_maint_tunnels, access_weapons, access_pilot, access_external_airlocks)
 	minimal_player_age = 7
-	major_disabilities_allowed = 0
-	minor_disabilities_allowed = 0
 	outfit = /datum/outfit/job/pilot
 
 /datum/outfit/job/pilot
