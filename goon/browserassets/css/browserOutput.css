@@ -242,6 +242,9 @@ em						{font-style: normal;	font-weight: bold;}
 .yell					{					font-weight: bold;}
 .siliconsay				{font-family: 'Courier New', Courier, monospace;}
 .deadsay				{color: #5c00e6;}
+.binarysay    			{color: #20c20e; background-color: #000000; display: block;}
+.binarysay a  			{color: #00ff00;}
+.binarysay a:active, .binarysay a:visited {color: #88ff88;}
 .radio					{color: #408010;}
 .deptradio				{color: #993399;}
 .comradio				{color: #204090;}

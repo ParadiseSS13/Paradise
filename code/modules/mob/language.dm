@@ -559,21 +559,21 @@
 
 	if(!message)
 		return
-	
+
 	log_robot("[key_name(speaker)] : [message]")
-	var/message_start = "<i><span class='game say'>[name], <span class='name'>[speaker.name]</span>"
-	var/message_body = "<span class='message'>[speaker.say_quote(message)], \"[message]\"</span></span></i>"
+	var/message_start = "<span class='binarysay'>[name], <span class='name'>[speaker.name]</span>"
+	var/message_body = "<span class='message'>[speaker.say_quote(message)], \"[message]\"</span></span>"
 
 	for(var/mob/M in dead_mob_list)
 		if(!isnewplayer(M) && !isbrain(M))
-			var/message_start_dead = "<i><span class='game say'>[name], <span class='name'>[speaker.name] ([ghost_follow_link(speaker, ghost=M)])</span>"
+			var/message_start_dead = "<span class='binarysay'>[name], <span class='name'>[speaker.name] ([ghost_follow_link(speaker, ghost=M)])</span>"
 			M.show_message("[message_start_dead] [message_body]", 2)
 
 	for(var/mob/living/S in living_mob_list)
 		if(drone_only && !istype(S,/mob/living/silicon/robot/drone))
 			continue
 		else if(isAI(S))
-			message_start = "<i><span class='game say'>[name], <a href='byond://?src=[S.UID()];track=\ref[speaker]'><span class='name'>[speaker.name]</span></a>"
+			message_start = "<span class='binarysay'>[name], <a href='byond://?src=[S.UID()];track=\ref[speaker]'><span class='name'>[speaker.name]</span></a>"
 		else if(!S.binarycheck())
 			continue
 
