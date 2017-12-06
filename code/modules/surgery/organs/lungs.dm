@@ -34,22 +34,24 @@
 	var/tox_damage_type = TOX
 
 	var/cold_message = "your face freezing and an icicle forming"
+	var/cold_modifier = null	//To be overridden at individual organ level, in which case it will modify the species modifier.
 	var/cold_level_1_threshold = 260
 	var/cold_level_2_threshold = 200
 	var/cold_level_3_threshold = 120
 	var/cold_level_1_damage = COLD_GAS_DAMAGE_LEVEL_1 //Keep in mind with gas damage levels, you can set these to be negative, if you want someone to heal, instead.
 	var/cold_level_2_damage = COLD_GAS_DAMAGE_LEVEL_2
 	var/cold_level_3_damage = COLD_GAS_DAMAGE_LEVEL_3
-	var/cold_damage_type = BURN
+	var/cold_damage_type = list(BURN)
 
 	var/hot_message = "your face burning and a searing heat"
+	var/heat_modifier = null
 	var/heat_level_1_threshold = 360
 	var/heat_level_2_threshold = 400
 	var/heat_level_3_threshold = 1000
 	var/heat_level_1_damage = HEAT_GAS_DAMAGE_LEVEL_1
 	var/heat_level_2_damage = HEAT_GAS_DAMAGE_LEVEL_2
 	var/heat_level_3_damage = HEAT_GAS_DAMAGE_LEVEL_3
-	var/heat_damage_type = BURN
+	var/heat_damage_type = list(BURN)
 
 /obj/item/organ/internal/lungs/insert(mob/living/carbon/M, special = 0, dont_remove_slot = 0)
 	..()
@@ -269,25 +271,39 @@
 		species_traits = H.species.species_traits
 
 	if(!(COLDRES in H.mutations) && !(RESISTCOLD in species_traits)) // COLD DAMAGE
-		var/cold_modifier = H.species.coldmod
+		var/CM = 1
+		if(!cold_modifier)
+			CM = H.species.coldmod
+		else CM = (cold_modifier*abs(H.species.coldmod))
+		var/TC = 0
 		if(breath_temperature < cold_level_3_threshold)
-			H.apply_damage_type(cold_level_3_damage*cold_modifier, cold_damage_type)
+			TC = cold_level_3_damage
 		if(breath_temperature > cold_level_3_threshold && breath_temperature < cold_level_2_threshold)
-			H.apply_damage_type(cold_level_2_damage*cold_modifier, cold_damage_type)
+			TC = cold_level_2_damage
 		if(breath_temperature > cold_level_2_threshold && breath_temperature < cold_level_1_threshold)
-			H.apply_damage_type(cold_level_1_damage*cold_modifier, cold_damage_type)
+			TC = cold_level_1_damage
+		if(TC)
+			for(var/D in cold_damage_type)
+				H.apply_damage_type(TC*CM, D)
 		if(breath_temperature < cold_level_1_threshold)
 			if(prob(20))
 				to_chat(H, "<span class='warning'>You feel [cold_message] in your [name]!</span>")
 
 	if(!(HEATRES in H.mutations) && !(RESISTHOT in species_traits)) // HEAT DAMAGE
-		var/heat_modifier = H.species.heatmod
+		var/HM = 1
+		if(!heat_modifier)
+			HM = H.species.heatmod
+		else HM = (heat_modifier*abs(H.species.heatmod))
+		var/TH = 0
 		if(breath_temperature > heat_level_1_threshold && breath_temperature < heat_level_2_threshold)
-			H.apply_damage_type(heat_level_1_damage*heat_modifier, heat_damage_type)
+			TH = heat_level_1_damage
 		if(breath_temperature > heat_level_2_threshold && breath_temperature < heat_level_3_threshold)
-			H.apply_damage_type(heat_level_2_damage*heat_modifier, heat_damage_type)
+			TH = heat_level_2_damage
 		if(breath_temperature > heat_level_3_threshold)
-			H.apply_damage_type(heat_level_3_damage*heat_modifier, heat_damage_type)
+			TH = heat_level_3_damage
+		if(TH)
+			for(var/D in heat_damage_type)
+				H.apply_damage_type(TH*HM, D)
 		if(breath_temperature > heat_level_1_threshold)
 			if(prob(20))
 				to_chat(H, "<span class='warning'>You feel [hot_message] in your [name]!</span>")
@@ -323,7 +339,5 @@
 
 	cold_message = "an invigorating coldness"
 	cold_level_3_threshold = 60
-	cold_level_1_damage = -COLD_GAS_DAMAGE_LEVEL_1 //They heal when the air is cold
-	cold_level_2_damage = -COLD_GAS_DAMAGE_LEVEL_2
-	cold_level_3_damage = -COLD_GAS_DAMAGE_LEVEL_3
-	cold_damage_type = BRUTE //more specifically they heal brute
+	cold_modifier = -1	//They heal when the air is cold
+	cold_damage_type = list(BRUTE, BURN)
