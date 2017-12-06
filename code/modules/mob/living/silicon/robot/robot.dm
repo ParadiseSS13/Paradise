@@ -274,11 +274,7 @@ var/list/robot_verbs_default = list(
 /mob/living/silicon/robot/proc/pick_module()
 	if(module)
 		return
-	var/list/modules = list("Standard", "Engineering", "Medical", "Miner", "Janitor", "Service")
-	if(!config.forbid_secborg)
-		modules += "Security"
-	if(!config.forbid_peaceborg)
-		modules += "Peacekeeper"
+	var/list/modules = list("Standard", "Engineering", "Medical", "Miner", "Janitor", "Service", "Security")
 	if(islist(force_modules) && force_modules.len)
 		modules = force_modules.Copy()
 	if(security_level == (SEC_LEVEL_GAMMA || SEC_LEVEL_EPSILON) || crisis)
@@ -354,11 +350,6 @@ var/list/robot_verbs_default = list(
 			module_sprites["Noble-SEC"] = "Noble-SEC"
 			status_flags &= ~CANPUSH
 
-		if("Peacekeeper")
-			module = new /obj/item/weapon/robot_module/peacekeeper(src)
-			module_sprites["Peacekeeper"] = "peace"
-			status_flags &= ~CANPUSH
-
 		if("Engineering")
 			module = new /obj/item/weapon/robot_module/engineering(src)
 			module.channels = list("Engineering" = 1)
@@ -411,7 +402,7 @@ var/list/robot_verbs_default = list(
 	feedback_inc("cyborg_[lowertext(modtype)]",1)
 	rename_character(real_name, get_default_name())
 
-	if(modtype == "Medical" || modtype == "Security" || modtype == "Combat" || modtype == "Peacekeeper" || modtype == "Nations")
+	if(modtype == "Medical" || modtype == "Security" || modtype == "Combat" || modtype == "Nations")
 		status_flags &= ~CANPUSH
 
 	choose_icon(6,module_sprites)
