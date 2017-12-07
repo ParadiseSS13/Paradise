@@ -2,33 +2,78 @@
 	name = "VR console"
 	desc = "A list and control panel for all virtual servers."
 	icon_screen = "comm_logs"
-
+	var/making_room = 0
 	light_color = LIGHT_COLOR_DARKGREEN
+	var/list/dummylist = list()
 
 /obj/machinery/computer/vr_control/New()
+	dummylist = vr_templates
 	..()
 
 /obj/machinery/computer/vr_control/Destroy()
 	return ..()
 
 /obj/machinery/computer/vr_control/attack_ai(mob/user)
-	ui_interact(user)
-
+	interact(user)
 
 /obj/machinery/computer/vr_control/attack_hand(mob/user)
+	interact(user)
+
+/obj/machinery/computer/vr_control/interact(mob/user)
+	if(user.incapacitated())
+		return 0
 	ui_interact(user)
 
 /obj/machinery/computer/vr_control/ui_interact(mob/user, ui_key = "main", var/datum/nanoui/ui = null, var/force_open = 1)
-	switch(alert("What would you like to do?", "VR Control", "Join Room", "Make Room", "Cancel"))
-		if("Join Room")
-			var/datum/vr_room/room = input(user, "Choose a room to join.","Select Level") as null|anything in vr_rooms
-			room = vr_rooms[room]
-			spawn_vr_avatar(user, room)
-			if(!(user.ckey))
-				user.death()
-		if("Make Room")
-			var/name = input(user, "Name your new Room","Name here.") as null|text
-			var/datum/vr_room/room = input(user, "Choose a Level to load into your new Room.","Select Level") as null|anything in vr_templates - "lobby"
-			make_vr_room(name, room, 1)
-		if("Cancel")
-			return
+	ui = nanomanager.try_update_ui(user, src, ui_key, ui, force_open)
+	if(!ui)
+		ui = new(user, src, ui_key, "vr_control.tmpl", "User Created Rooms", 500, 400)
+		ui.open()
+
+/obj/machinery/computer/vr_control/Topic(href, href_list)
+	if(..())
+		return 0
+
+	if(href_list["toggle_making"])
+		making_room = !making_room
+		.=1
+	if(href_list["join_room"])
+		var/datum/vr_room/room = vr_rooms[href_list["join_room"]]
+		if(room)
+			spawn_vr_avatar(usr, room)
+			if(!(usr.ckey))
+				usr.death()
+		.=1
+	if(href_list["make_room"])
+		var/name = input(usr, "Name your new Room","Name here.") as null|text
+		if(!name)
+			return 0
+		for(var/datum/vr_room/R in vr_rooms)
+			if(R.creator == usr.ckey)
+				to_chat(usr, "The system only supports one room per client. Please try again once your current room has expired or after deleting it.")
+				return 0
+		make_vr_room(name, href_list["make_room"], 1, usr.ckey)
+		.=1
+	if(href_list["delete"])
+		var/datum/vr_room/room = vr_rooms[href_list["delete"]]
+		if(room.creator == usr.ckey)
+			room.cleanup()
+		.=1
+
+/obj/machinery/computer/vr_control/ui_data(mob/user, ui_key = "main", datum/topic_state/state = default_state)
+	var/data[0]
+	data["user_ckey"] = user.ckey
+	data["making_room"] = making_room
+	var/templates[0]
+	for(var/R in vr_templates)
+		var/datum/map_template/vr/level/temp = vr_templates[R]
+		if(temp.id == "lobby")
+			continue
+		templates.Add(list(list("name" = temp.name, "id" = temp.id, "description" = temp.description))) // list in a list because Byond merges the first list..
+	data["templates"] = templates
+	var/rooms[0]
+	for(var/R in vr_rooms)
+		var/datum/vr_room/temp = vr_rooms[R]
+		rooms.Add(list(list("name" = temp.name, "template" = temp.template.name, "creator" = temp.creator, "players" = temp.players.len))) // list in a list because Byond merges the first list..
+	data["rooms"] = rooms
+	return data

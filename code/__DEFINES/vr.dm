@@ -3,3 +3,6 @@
 #define VR_DROP_BLACKLIST 3
 #define VR_DROP_WHITELIST 4
 
+#define VR_SERVER_OFF 0
+#define VR_SERVER_ON 1
+#define VR_SERVER_EMAG 2

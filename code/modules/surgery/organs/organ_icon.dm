@@ -205,3 +205,23 @@ var/global/list/limb_icon_cache = list()
 		damage_state = n_is
 		return 1
 	return 0
+
+/obj/item/organ/external/head/proc/copy_hair_from(obj/item/organ/external/head/old_head)
+	h_style = old_head.h_style
+	r_hair = old_head.r_hair
+	g_hair = old_head.g_hair
+	b_hair = old_head.b_hair
+	r_hair_sec = old_head.r_hair_sec
+	g_hair_sec = old_head.g_hair_sec
+	b_hair_sec = old_head.b_hair_sec
+	f_style = old_head.f_style
+	r_facial = old_head.r_facial
+	g_facial = old_head.g_facial
+	b_facial = old_head.b_facial
+	r_facial_sec = old_head.r_facial_sec
+	g_facial_sec = old_head.g_facial_sec
+	b_facial_sec = old_head.b_facial_sec
+	ha_style = old_head.ha_style
+	r_headacc = old_head.r_headacc
+	g_headacc = old_head.g_headacc
+	b_headacc = old_head.b_headacc

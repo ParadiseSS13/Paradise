@@ -818,6 +818,17 @@ obj/item/weapon/circuitboard/rdserver
 							/obj/item/weapon/stock_parts/cell = 1,
 							/obj/item/weapon/stock_parts/manipulator = 1)
 
+/obj/item/weapon/circuitboard/vr_server
+	name = "circuit board (VR Server)"
+	build_path = /obj/machinery/vr_server
+	board_type = "machine"
+	origin_tech = "programming=1"
+	frame_desc = "Requires 2 pieces of cable, 1 Power Cell and 1 Capacitors."
+	req_components = list(
+							/obj/item/weapon/stock_parts/capacitor = 1,
+							/obj/item/weapon/stock_parts/cell = 1,
+							/obj/item/stack/cable_coil = 2)
+
 // Telecomms circuit boards:
 /obj/item/weapon/circuitboard/telecomms/receiver
 	name = "Circuit Board (Subspace Receiver)"

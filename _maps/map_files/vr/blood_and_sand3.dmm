@@ -1,7 +1,7 @@
 "a" = (/turf/space,/area/space)
 "b" = (/turf/unsimulated/wall/other,/area/vr/roman)
 "c" = (/obj/structure/table/woodentable,/obj/effect/landmark{name = "vr_loot_common"},/turf/unsimulated/beach/sand,/area/vr/roman)
-"d" = (/obj/structure/table/woodentable,/turf/unsimulated/beach/sand,/area/vr/roman)
+"d" = (/obj/structure/table/woodentable,/obj/item/weapon/restraints/handcuffs/cable/red,/obj/item/weapon/restraints/handcuffs/cable/red,/obj/item/weapon/restraints/handcuffs/cable/red,/turf/unsimulated/beach/sand,/area/vr/roman)
 "e" = (/turf/unsimulated/beach/sand,/area/vr/roman)
 "f" = (/obj/effect/landmark{name = "avatarspawn"},/turf/unsimulated/beach/sand,/area/vr/roman)
 "g" = (/turf/unsimulated/floor{tag = "icon-warnplate (NORTHWEST)"; icon_state = "warnplate"; dir = 9},/area/vr/roman)
@@ -15,11 +15,10 @@
 "o" = (/turf/unsimulated/floor{tag = "icon-warnplate (SOUTHEAST)"; icon_state = "warnplate"; dir = 6},/area/vr/roman)
 "p" = (/obj/effect/landmark{name = "vr_loot_common"},/turf/unsimulated/beach/sand,/area/vr/roman)
 "q" = (/obj/effect/spawner/window/reinforced,/turf/unsimulated/beach/sand,/area/vr/roman)
-"r" = (/obj/effect/landmark{name = "vr_loot_rare"},/turf/unsimulated/floor{tag = "icon-warnplate (NORTHWEST)"; icon_state = "warnplate"; dir = 9},/area/vr/roman)
-"s" = (/turf/unsimulated/floor,/area/vr/roman)
-"t" = (/obj/effect/landmark{name = "vr_loot_rare"},/turf/unsimulated/floor{tag = "icon-warnplate (NORTHEAST)"; icon_state = "warnplate"; dir = 5},/area/vr/roman)
-"u" = (/obj/effect/landmark{name = "vr_loot_rare"},/turf/unsimulated/floor{tag = "icon-warnplate (SOUTHWEST)"; icon_state = "warnplate"; dir = 10},/area/vr/roman)
-"v" = (/obj/effect/landmark{name = "vr_loot_rare"},/turf/unsimulated/floor{tag = "icon-warnplate (SOUTHEAST)"; icon_state = "warnplate"; dir = 6},/area/vr/roman)
+"r" = (/obj/effect/spawner/window/reinforced,/obj/effect/landmark{name = "vr_loot_rare"},/turf/unsimulated/beach/sand,/area/vr/roman)
+"s" = (/mob/living/simple_animal/hostile/spawner/mining/basilisk,/turf/unsimulated/beach/sand,/area/vr/roman)
+"t" = (/mob/living/simple_animal/hostile/spawner/mining/hivelord,/turf/unsimulated/beach/sand,/area/vr/roman)
+"u" = (/mob/living/simple_animal/hostile/spawner/mining/goliath,/turf/unsimulated/beach/sand,/area/vr/roman)
 
 (1,1,1) = {"
 aaaaaaaaaaabbbbbbbbaaaaaaaaaaa
@@ -35,10 +34,10 @@ abeeejklpeeeepeepeeeepeeeeeeba
 abeeemnoeeeeeeeeeeeeeeeeeeeeba
 bbeeeeeeeeebqqqqqqbeeeeeeeeebb
 bceeeeeeeeeqeeeeeeqeeeeeeeeecb
-bdeeeeeeepeqerssteqepeeeeeeedb
-bceeeeeeeeeqesbbseqeeeeeeeeecb
-bceeeeeeeeeqesbbseqeeeeeeeeecb
-bdeeeeeeepeqeussveqepeeeeeeedb
+bdeeeeeeepeqebrrbeqepeeeeeeedb
+bceeeeeeeeeqerstreqeeeeeeeeecb
+bceeeeeeeeeqerusreqeeeeeeeeecb
+bdeeeeeeepeqebrrbeqepeeeeeeedb
 bceeeeeeeeeqeeeeeeqeeeeeeeeecb
 bbeeeeeeeeebqqqqqqbeeeeeghiebb
 abeeeeeeeeeeeeeeeeeeeeeejkleba

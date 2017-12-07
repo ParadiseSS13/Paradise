@@ -1,8 +1,7 @@
 //Control file with the backbone for the vr rooms and avatars
 
 var/list/vr_rooms = list()
-var/list/vr_rooms_offical = list()
-var/list/vr_roman_ready = list()
+var/list/vr_rooms_official = list()
 var/list/vr_all_players = list()
 var/roomcap = 20
 
@@ -13,34 +12,22 @@ var/roomcap = 20
 	var/list/spawn_points = list()
 	var/list/players = list()
 	var/expires = 1
+	var/creator = null
 	var/delete_timer = null
 	var/round_timer = null
+	var/round_end = null
+	var/list/waitlist = list()
+	var/list/templatelist = list()
 
 /datum/vr_room/proc/cleanup()
-	space_manager.free_space(src.chunk)
-	vr_rooms.Remove(src.name)
-	qdel(src)
-
-/datum/vr_room/proc/vr_round()
-	if(players.len == 1)
-		var/mob/living/carbon/human/virtual_reality/winner = players[1]
-		to_chat(vr_all_players, "SYSTEM MESSAGE: [winner] has won the PVP match in The [name]. New match in 30 seconds.")
-
 	for(var/mob/living/carbon/human/virtual_reality/player in players)
 		player.death()
-
-	if(name == "Roman Arena")
-		template = pick("roman1")
-	else
-		cleanup()
-		return
-
-	template = vr_templates[template]
-	space_manager.free_space(src.chunk)
+	vr_rooms.Remove(src.name)
 	spawn_points = list()
-	chunk = space_manager.allocate_space(template.width, template.height)
-	template.load(locate(chunk.x,chunk.y,chunk.zpos), centered = FALSE)
+	space_manager.free_space(src.chunk)
+	qdel(src)
 
+/datum/vr_room/proc/sort_landmarks()
 	for(var/atom/landmark in chunk.search_chunk(landmarks_list))
 		if(landmark.name == "avatarspawn")
 			spawn_points.Add(landmark)
@@ -53,54 +40,75 @@ var/roomcap = 20
 				var/picked = pick(template.loot_rare)
 				new picked(get_turf(landmark))
 
-	if(name == "Roman Arena")
-		for(var/mob/living/carbon/human/virtual_reality/player in vr_roman_ready)
-			to_chat(player, "The Roman Gladiator match starts in 30 seconds, please be in the lobby.")
+/datum/vr_room/proc/vr_round()
+	if(players.len == 1)
+		var/mob/living/carbon/human/virtual_reality/winner = players[1]
+		to_chat(vr_all_players, "SYSTEM MESSAGE: [winner] has won the PVP match in The [name]. New match in 60 seconds, please be in the lobby.")
 
-		sleep(30 SECONDS)
+	for(var/mob/living/carbon/human/virtual_reality/player in players)
+		player.death()
 
-		for(var/mob/living/carbon/human/virtual_reality/player in vr_roman_ready)
-			vr_roman_ready.Remove(player)
-			if(player.myroom == vr_rooms_offical["Lobby"])
+		if(templatelist.len)
+			template = pick(templatelist)
+		else
+			cleanup()
+			return
+
+	if(players.len >= 1)
+		template = vr_templates[template]
+		spawn_points = list()
+		spawn(0)
+			space_manager.free_space(src.chunk)
+		sleep(1 MINUTES)
+		chunk = space_manager.allocate_space(template.width, template.height)
+		template.load(locate(chunk.x,chunk.y,chunk.zpos), centered = FALSE)
+
+		sort_landmarks()
+
+		for(var/mob/living/carbon/human/virtual_reality/player in waitlist)
+			waitlist.Remove(player)
+			if(player.myroom == vr_rooms_official["Lobby"])
 				var/mob/living/carbon/human/virtual_reality/avatar = spawn_vr_avatar(player, src)
 				avatar.equip_to_slot_if_possible(new /obj/item/device/observer, slot_r_ear, 1, 1, 1)
 				player.death()
 
-	if(players.len > 0)
-		round_timer = addtimer(src, "vr_round", 5 MINUTES)
+		round_timer = addtimer(src, "vr_round", 10 MINUTES)
+		round_end = world.time + 10 MINUTES
 	else
+		to_chat(waitlist, "There are not enough players to start the round, checking again in one minute")
 		round_timer = addtimer(src, "vr_round", 1 MINUTES)
+		round_end = world.time + 1 MINUTES
 
-proc/make_vr_room(name, template, expires)
+	if(name == "Roman Arena")
+		for(var/obj/machinery/status_display/vr/roman/timer in world)
+			timer.round_end = round_end
+	else if(name == "Ship Arena")
+		for(var/obj/machinery/status_display/vr/ship/timer in world)
+			timer.round_end = round_end
+
+proc/make_vr_room(name, template, expires, creator)
 	var/datum/vr_room/R = new
 	R.name = name
 	R.template = template
 	R.template = vr_templates[R.template]
 	R.chunk = space_manager.allocate_space(R.template.width, R.template.height)
 	R.expires = expires
+	R.creator = creator
 	R.template.load(locate(R.chunk.x,R.chunk.y,R.chunk.zpos), centered = FALSE)
 
 	if(expires == 1)
 		vr_rooms[R.name] = R
 		R.delete_timer = addtimer(R, "cleanup", 3 MINUTES)
 	else if(expires == 0)
-		vr_rooms_offical[R.name] = R
+		vr_rooms_official[R.name] = R
 	else if (expires == 2)
-		vr_rooms_offical[R.name] = R
-		R.round_timer = addtimer(R, "vr_round", 1 MINUTES)
+		vr_rooms_official[R.name] = R
+		R.round_timer = addtimer(R, "vr_round", 3 MINUTES)
+		R.round_end = world.time + 3 MINUTES
 
-	for(var/atom/landmark in R.chunk.search_chunk(landmarks_list))
-		if(landmark.name == "avatarspawn")
-			R.spawn_points.Add(landmark)
-		if(landmark.name == "vr_loot_common" && R.template.loot_common.len > 0)
-			if(prob(90))
-				var/picked = pick(R.template.loot_common)
-				new picked(get_turf(landmark))
-		if(landmark.name == "vr_loot_rare" && R.template.loot_rare.len > 0)
-			if(prob(50))
-				var/picked = pick(R.template.loot_rare)
-				new picked(get_turf(landmark))
+	R.sort_landmarks()
 
+	return R
 
 //Control code for the avatars
 proc/build_virtual_avatar(mob/living/carbon/human/H, location, datum/vr_room/room)
@@ -114,45 +122,33 @@ proc/build_virtual_avatar(mob/living/carbon/human/H, location, datum/vr_room/roo
 		vr_avatar.real_me = V.real_me
 	else
 		vr_avatar.real_me = H
-	vr_avatar.species = new /datum/species/human()
 
-	vr_avatar.species.name = H.species.name
-	vr_avatar.species.name_plural = H.species.name_plural
-	vr_avatar.species.icobase = H.species.icobase
-	vr_avatar.species.deform = H.species.deform
-	vr_avatar.species.butt_sprite = H.species.butt_sprite
-	vr_avatar.tail = H.species.tail
 	vr_avatar.dna = H.dna.Clone()
 	vr_avatar.sync_organ_dna(assimilate=1)
-	for(var/O in vr_avatar.bodyparts_by_name)
-		var/obj/item/organ/external/old_E = H.bodyparts_by_name[O]
-		var/obj/item/organ/external/new_E = vr_avatar.bodyparts_by_name[O]
-    	// Maybe add handling for robolimbs later
-
-		new_E.species = old_E.species
-		new_E.sync_colour_to_human(H)
-	//var/obj/item/organ/external/head/new_head = vr_avatar.get_organ("head")
-	//var/obj/item/organ/external/head/old_head = H.get_organ("head")
-	//new_head.copy_hair_from(old_head)
-	spawn(0)
-		vr_avatar.update_mutantrace(1)
-		vr_avatar.regenerate_icons()
-		vr_avatar.UpdateAppearance()
-		domutcheck(vr_avatar, null)
-		//__init_body_accessory(/datum/body_accessory/body)
-		//__init_body_accessory(/datum/body_accessory/tail)
-	vr_avatar.remove_language("Sol Common")
-	for(var/datum/language/L in H.languages)
-		vr_avatar.add_language(L.name)
+	vr_avatar.set_species(H.species.name)
+	var/obj/item/organ/external/head/new_head = vr_avatar.get_organ("head")
+	var/obj/item/organ/external/head/old_head = H.get_organ("head")
+	new_head.copy_hair_from(old_head)
+	vr_avatar.update_mutantrace(1)
+	vr_avatar.UpdateAppearance()
 
 	vr_avatar.name = H.name
 	vr_avatar.real_name = H.real_name
 	vr_avatar.undershirt = H.undershirt
 	vr_avatar.underwear = H.underwear
 	vr_avatar.equipOutfit(room.template.outfit)
+
+	if(vr_avatar.species.name == "Plasmaman")
+		vr_avatar.unEquip(vr_avatar.back)
+		vr_avatar.equip_or_collect(new /obj/item/weapon/storage/backpack(vr_avatar), slot_back)
+
+	vr_avatar.species.after_equip_job(null, vr_avatar)
+
 	vr_avatar.myroom = room
 	vr_all_players.Add(vr_avatar)
-//	to_chat(world, "s_col = [new_head.s_col]")
+	for (var/obj/item/clothing/glasses/vr_goggles/g in H.contents)
+		g.vr_human = vr_avatar
+
 	if(room.name == "Lobby")
 		if(vr_avatar.a_intent != INTENT_HELP)
 			vr_avatar.a_intent_change(INTENT_HELP)
@@ -178,8 +174,15 @@ proc/spawn_vr_avatar(mob/living/carbon/human/H, datum/vr_room/room)
 	control_remote(H, vr_human)
 	return vr_human
 
+proc/vr_kick_all_players()
+	for(var/mob/living/carbon/human/virtual_reality/player in vr_all_players)
+		player.revert_to_reality(1)
+
 //Preloaded rooms
 /hook/roundstart/proc/starting_levels()
 	make_vr_room("Lobby", "lobby", 0)
-	make_vr_room("Roman Arena", "roman1", 2)
+	var/datum/vr_room/roman = make_vr_room("Roman Arena", "roman1", 2)
+	var/datum/vr_room/ship = make_vr_room("Ship Arena", "ship1", 2)
+	roman.templatelist = list("roman1","roman2","roman3")
+	ship.templatelist = ("ship1")
 	return 1

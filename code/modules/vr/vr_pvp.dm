@@ -1,6 +1,6 @@
 /obj/machinery/computer/vr_pvp
-	name = "VR PVP Console"
-	desc = "Your one stop shot for VR arena tickets"
+	name = "VR PVP console"
+	desc = "You should not see this."
 	icon_screen = "comm_logs"
 
 	light_color = LIGHT_COLOR_DARKGREEN
@@ -12,18 +12,70 @@
 	return ..()
 
 /obj/machinery/computer/vr_pvp/attack_ai(mob/user)
-	ui_interact(user)
-
+	interact(user)
 
 /obj/machinery/computer/vr_pvp/attack_hand(mob/user)
+	interact(user)
+
+/obj/machinery/computer/vr_pvp/interact(mob/user)
+	if(user.incapacitated())
+		return 0
 	ui_interact(user)
 
 /obj/machinery/computer/vr_pvp/ui_interact(mob/user, ui_key = "main", var/datum/nanoui/ui = null, var/force_open = 1)
-	switch(alert("What would you like to do?", "VR PVP", "Join Roman", "Leave Roman", "Cancel"))
-		if("Join Roman")
-			vr_roman_ready.Add(user)
-		if("Leave Roman")
-			vr_roman_ready.Remove(user)
-		if("Cancel")
-			return
+	ui = nanomanager.try_update_ui(user, src, ui_key, ui, force_open)
+	if(!ui)
+		ui = new(user, src, ui_key, "vr_pvp.tmpl", name, 400, 300)
+		ui.open()
 
+obj/machinery/computer/vr_pvp/Topic(href, href_list)
+	var/datum/vr_room/room = vr_rooms_official[name]
+	if(..())
+		return 0
+
+	if(href_list["toggle_ready"])
+		if(usr in room.waitlist)
+			room.waitlist.Remove(usr)
+		else if(!(usr in room.waitlist))
+			room.waitlist.Add(usr)
+		.=1
+
+/obj/machinery/computer/vr_pvp/ui_data(mob/user, ui_key = "main", datum/topic_state/state = default_state)
+	var/data[0]
+	var/datum/vr_room/room = vr_rooms_official[name]
+	data["user_in_room"] = (user in room.waitlist)
+	var/players[0]
+	for(var/mob/living/carbon/human/virtual_reality/player in room.waitlist)
+		players.Add(list(list("name" = player.name))) // list in a list because Byond merges the first list..
+	data["players"] = players
+	data["playercount"] = room.waitlist.len
+	return data
+
+/obj/machinery/computer/vr_pvp/roman
+	name = "Roman Arena"
+	desc = "Ready up here for the roman arena."
+
+/obj/machinery/computer/vr_pvp/ship
+	name = "Ship Arena"
+	desc = "Ready up here for the ship arena."
+
+
+/obj/machinery/status_display/vr
+	name = "VR round timer"
+	ignore_friendc = 1
+	var/round_end = 0
+
+/obj/machinery/status_display/vr/update()
+	var/timeleft = (round_end - world.time)/10
+	timeleft = "[add_zero(num2text((timeleft / 60) % 60),2)]:[add_zero(num2text(timeleft % 60), 2)]"
+	message1 = "Arena"
+	message2 = "[timeleft]"
+	if(lentext(message2) > CHARS_PER_LINE)
+		message2 = "Wait"
+	update_display(message1, message2)
+
+/obj/machinery/status_display/vr/roman
+	name = "roman arena timer"
+
+/obj/machinery/status_display/vr/ship
+	name = "ship arena timer"

@@ -58,6 +58,15 @@
 		real_me.ckey = ckey
 		real_me.EyeBlind(2)
 		real_me.Confused(2)
+		var/mob/living/carbon/human/virtual_reality/vr = src
+		var/obj/item/clothing/glasses/vr_goggles/goggles
+		for (var/obj/item/clothing/glasses/vr_goggles/g in vr.real_me.contents)
+			goggles = g
+		if(goggles.contained() && vr_server_status == VR_SERVER_EMAG)
+			real_me.adjustBrainLoss(60)
+			real_me.vomit(20)
+		for (var/obj/item/clothing/glasses/vr_goggles/g in real_me.contents)
+			processing_objects.Remove(g)
 		if(remove)
 			src.death()
 		else
@@ -66,10 +75,10 @@
 /mob/living/carbon/human/virtual_reality/proc/return_to_lobby()
 	if(real_me && mind)
 		var/mob/living/carbon/human/virtual_reality/new_vr
-		var/datum/vr_room/lobby = vr_rooms_offical["Lobby"]
+		var/datum/vr_room/lobby = vr_rooms_official["Lobby"]
 		new_vr = spawn_vr_avatar(src, lobby)
-		var/obj/item/clothing/glasses/vr_goggles/g = new_vr.real_me.glasses
-		g.vr_human = new_vr
+		for (var/obj/item/clothing/glasses/vr_goggles/g in new_vr.real_me.contents)
+			g.vr_human = new_vr
 
 
 /datum/action/quit_vr
@@ -79,7 +88,13 @@
 	if(..())
 		if(istype(owner, /mob/living/carbon/human/virtual_reality))
 			var/mob/living/carbon/human/virtual_reality/vr = owner
-			vr.revert_to_reality(1)
+			var/obj/item/clothing/glasses/vr_goggles/goggles
+			for (var/obj/item/clothing/glasses/vr_goggles/g in vr.real_me.contents)
+				goggles = g
+			if(!goggles.contained())
+				vr.revert_to_reality(1)
+			else
+				to_chat(owner, "You are currently imprisoned in Virtual Reality and are unable to disconnect.")
 		else
 			Remove(owner)
 
@@ -101,8 +116,12 @@
 	if(..())
 		if(istype(owner, /mob/living/carbon/human/virtual_reality))
 			var/mob/living/carbon/human/virtual_reality/vr = owner
-			var/obj/item/clothing/glasses/vr_goggles/g = vr.real_me.glasses
-			g.vr_human = vr
-			vr.revert_to_reality(0)
+			var/obj/item/clothing/glasses/vr_goggles/goggles
+			for (var/obj/item/clothing/glasses/vr_goggles/g in vr.real_me.contents)
+				goggles = g
+			if(!goggles.contained())
+				vr.revert_to_reality(0)
+			else
+				to_chat(owner, "You are currently imprisoned in Virtual Reality and are unable to disconnect.")
 		else
 			Remove(owner)

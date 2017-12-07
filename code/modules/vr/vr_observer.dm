@@ -7,7 +7,6 @@
 	w_class = WEIGHT_CLASS_SMALL
 	slot_flags = SLOT_EARS
 	flags = NODROP
-	materials = list(MAT_METAL=2000)
 	var/on = 0
 	var/obj/machinery/camera/camera
 	var/icon_on = "videocam_on"

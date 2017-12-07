@@ -381,7 +381,21 @@
 		new /obj/item/weapon/card/id/prisoner/random(src)
 		new /obj/item/device/radio/headset(src)
 
+/obj/structure/closet/secure_closet/vr
+	name = "VR exile"
+	req_access = list(access_security)
+	anchored = 1
 
+	New()
+		..()
+		new /obj/item/clothing/glasses/vr_goggles/exile(src)
+		new /obj/item/clothing/glasses/vr_goggles/exile(src)
+		new /obj/item/clothing/glasses/vr_goggles/exile(src)
+		new /obj/item/clothing/glasses/vr_goggles/exile(src)
+		new /obj/item/clothing/glasses/vr_goggles/exile(src)
+		new /obj/item/clothing/glasses/vr_goggles/exile(src)
+		new /obj/item/clothing/glasses/vr_goggles/exile(src)
+		new /obj/item/clothing/glasses/vr_goggles/exile(src)
 
 /obj/structure/closet/secure_closet/courtroom
 	name = "courtroom locker"
