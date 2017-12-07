@@ -659,7 +659,7 @@ var/global/list/datum/stack_recipe/cable_coil_recipes = list(
 		animate(src, pixel_x = 3, time = 45, easing = ELASTIC_EASING)
 		animate(H, pixel_x = 3, time = 45, easing = ELASTIC_EASING)
 	if(buckled_mob.mob_has_gravity())
-		var/not_breathing_is_not_an_issue = (NO_BREATHE in H.species.species_traits || NO_BREATH in H.mutations)
+		var/not_breathing_is_not_an_issue = (NO_BREATHE in H.species.species_traits || BREATHLESS in H.mutations)
 		H.SetLoseBreath(2)
 		if(prob(20))
 			var/flavor_text = list("<span class='suicide'>[buckled_mob]'s legs flail for anything to stand on.</span>",\

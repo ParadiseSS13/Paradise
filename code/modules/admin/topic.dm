@@ -1655,7 +1655,7 @@
 		playsound(P.loc, 'sound/effects/adminpunish.ogg', 75, 0, 0, 1)
 		P.do_jitter_animation(20)
 		P.stuttering = 20
-		var/datum/effect/system/spark_spread/s = new /datum/effect/system/spark_spread
+		var/datum/effect_system/spark_spread/s = new /datum/effect_system/spark_spread
 		s.set_up(5, 1, P)
 		s.start()
 		log_admin("[key_name(src.owner)] punished [key_name(P)]")
