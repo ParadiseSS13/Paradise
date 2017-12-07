@@ -134,7 +134,7 @@
 	name = "rubber shot"
 	desc = "A shotgun casing filled with densely-packed rubber balls, used to incapacitate crowds from a distance."
 	icon_state = "cshell"
-	projectile_type = /obj/item/projectile/bullet/rpellet
+	projectile_type = /obj/item/projectile/bullet/pellet/rubber
 	pellets = 6
 	variance = 25
 	materials = list(MAT_METAL=4000)

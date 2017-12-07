@@ -50,6 +50,12 @@ var/list/robot_verbs_default = list(
 
 	var/opened = 0
 	var/emagged = 0
+
+	var/list/force_modules = list()
+	var/allow_rename = TRUE
+	var/weapons_unlock = FALSE
+	var/static_radio_channels = FALSE
+
 	var/wiresexposed = 0
 	var/locked = 1
 	var/list/req_access = list(access_robotics)
@@ -59,7 +65,7 @@ var/list/robot_verbs_default = list(
 	var/viewalerts = 0
 	var/modtype = "Default"
 	var/lower_mod = 0
-	var/datum/effect/system/spark_spread/spark_system//So they can initialize sparks whenever/N
+	var/datum/effect_system/spark_spread/spark_system//So they can initialize sparks whenever/N
 	var/jeton = 0
 	var/low_power_mode = 0 //whether the robot has no charge left.
 	var/weapon_lock = 0
@@ -85,13 +91,13 @@ var/list/robot_verbs_default = list(
 	var/magpulse = 0
 	var/ionpulse = 0 // Jetpack-like effect.
 	var/ionpulse_on = 0 // Jetpack-like effect.
-	var/datum/effect/system/ion_trail_follow/ion_trail // Ionpulse effect.
+	var/datum/effect_system/trail_follow/ion/ion_trail // Ionpulse effect.
 
 	var/datum/action/item_action/toggle_research_scanner/scanner = null
 	var/list/module_actions = list()
 
 /mob/living/silicon/robot/New(loc,var/syndie = 0,var/unfinished = 0, var/alien = 0)
-	spark_system = new /datum/effect/system/spark_spread()
+	spark_system = new /datum/effect_system/spark_spread()
 	spark_system.set_up(5, 0, src)
 	spark_system.attach(src)
 
@@ -215,7 +221,9 @@ var/list/robot_verbs_default = list(
 	set category = "Robot Commands"
 	if(custom_name)
 		return 0
-
+	if(!allow_rename)
+		to_chat(src, "<span class='warning'>Rename functionality is not enabled on this unit.</span>");
+		return 0
 	rename_self(braintype, 1)
 
 /mob/living/silicon/robot/proc/sync()
@@ -266,11 +274,9 @@ var/list/robot_verbs_default = list(
 /mob/living/silicon/robot/proc/pick_module()
 	if(module)
 		return
-	var/list/modules = list("Standard", "Engineering", "Medical", "Miner", "Janitor", "Service")
-	if(!config.forbid_secborg)
-		modules += "Security"
-	if(!config.forbid_peaceborg)
-		modules += "Peacekeeper"
+	var/list/modules = list("Standard", "Engineering", "Medical", "Miner", "Janitor", "Service", "Security")
+	if(islist(force_modules) && force_modules.len)
+		modules = force_modules.Copy()
 	if(security_level == (SEC_LEVEL_GAMMA || SEC_LEVEL_EPSILON) || crisis)
 		to_chat(src, "<span class='warning'>Crisis mode active. Combat module available.</span>")
 		modules += "Combat"
@@ -344,11 +350,6 @@ var/list/robot_verbs_default = list(
 			module_sprites["Noble-SEC"] = "Noble-SEC"
 			status_flags &= ~CANPUSH
 
-		if("Peacekeeper")
-			module = new /obj/item/weapon/robot_module/peacekeeper(src)
-			module_sprites["Peacekeeper"] = "peace"
-			status_flags &= ~CANPUSH
-
 		if("Engineering")
 			module = new /obj/item/weapon/robot_module/engineering(src)
 			module.channels = list("Engineering" = 1)
@@ -401,11 +402,12 @@ var/list/robot_verbs_default = list(
 	feedback_inc("cyborg_[lowertext(modtype)]",1)
 	rename_character(real_name, get_default_name())
 
-	if(modtype == "Medical" || modtype == "Security" || modtype == "Combat" || modtype == "Peacekeeper" || modtype == "Nations")
+	if(modtype == "Medical" || modtype == "Security" || modtype == "Combat" || modtype == "Nations")
 		status_flags &= ~CANPUSH
 
 	choose_icon(6,module_sprites)
-	radio.config(module.channels)
+	if(!static_radio_channels)
+		radio.config(module.channels)
 	notify_ai(2)
 
 //for borg hotkeys, here module refers to borg inv slot, not core module
@@ -1012,7 +1014,7 @@ var/list/robot_verbs_default = list(
 			dat += text("<tr><td>[obj]</td><td><B>Activated</B></td></tr>")
 		else
 			dat += text("<tr><td>[obj]</td><td><A HREF=?src=[UID()];act=\ref[obj]>Activate</A></td></tr>")
-	if(emagged)
+	if(emagged || weapons_unlock)
 		if(activated(module.emag))
 			dat += text("<tr><td>[module.emag]</td><td><B>Activated</B></td></tr>")
 		else
@@ -1460,6 +1462,12 @@ var/list/robot_verbs_default = list(
 	scrambledcodes = 1
 	req_access = list(access_cent_specops)
 	ionpulse = 1
+
+	force_modules = list("Engineering", "Medical", "Security")
+	static_radio_channels = 1
+	allow_rename = FALSE
+	weapons_unlock = TRUE
+
 
 /mob/living/silicon/robot/ert/init()
 	laws = new /datum/ai_laws/ert_override

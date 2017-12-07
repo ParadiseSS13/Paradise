@@ -7,7 +7,7 @@
 	var/name
 	var/desc
 	var/class
-	var/list/default_genes = list(REGEN, NO_BREATH, RESIST_COLD)
+	var/list/default_genes = list(REGEN, BREATHLESS, COLDRES)
 	var/list/default_spells = list()
 
 /datum/superheroes/proc/create(var/mob/living/carbon/human/H)
@@ -188,7 +188,7 @@
 			switch(progress)
 				if(1)
 					to_chat(user, "<span class='notice'>You begin by introducing yourself and explaining what you're about.</span>")
-					user.visible_message("<span class='danger'>[user]'s introduces \himself and explains \his plans.</span>")
+					user.visible_message("<span class='danger'>[user] introduces \himself and explains \his plans.</span>")
 				if(2)
 					to_chat(user, "<span class='notice'>You begin the recruitment of [target].</span>")
 					user.visible_message("<span class='danger'>[user] leans over towards [target], whispering excitedly as he gives a speech.</span>")

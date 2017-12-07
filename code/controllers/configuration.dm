@@ -50,8 +50,6 @@
 	var/humans_need_surnames = 0
 	var/allow_random_events = 0			// enables random events mid-round when set to 1
 	var/allow_ai = 1					// allow ai job
-	var/forbid_secborg = 0				// disallow secborg module to be chosen.
-	var/forbid_peaceborg = 0			// disallow peacekeeper module to be chosen.
 	var/hostedby = null
 	var/respawn = 0
 	var/guest_jobban = 1
@@ -337,12 +335,6 @@
 
 				if("allow_ai")
 					config.allow_ai = 1
-
-				if("disable_secborg")
-					forbid_secborg = 1
-
-				if("disable_peaceborg")
-					forbid_peaceborg = 1
 
 //				if("authentication")
 //					config.enable_authentication = 1

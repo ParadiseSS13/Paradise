@@ -283,6 +283,14 @@
 	isGlass = 0
 	list_reagents = list("limejuice" = 100)
 
+/obj/item/weapon/reagent_containers/food/drinks/bottle/milk
+	name = "Milk"
+	desc = "Soothing milk."
+	icon_state = "milk"
+	item_state = "carton"
+	isGlass = 0
+	list_reagents = list("milk" = 100)
+
 ////////////////////////// MOLOTOV ///////////////////////
 /obj/item/weapon/reagent_containers/food/drinks/bottle/molotov
 	name = "molotov cocktail"

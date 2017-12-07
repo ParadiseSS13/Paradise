@@ -671,7 +671,7 @@ var/list/ventcrawl_machinery = list(/obj/machinery/atmospherics/unary/vent_pump,
 				if(do_mob(usr, src, POCKET_STRIP_DELAY))
 					if(internal)
 						internal = null
-						update_internals_hud_icon(0)
+						update_action_buttons_icon()
 					else
 						var/no_mask2
 						if(!get_organ_slot("breathing_tube"))
@@ -682,7 +682,7 @@ var/list/ventcrawl_machinery = list(/obj/machinery/atmospherics/unary/vent_pump,
 							to_chat(usr, "<span class='warning'>[src] is not wearing a suitable mask or helmet!</span>")
 							return
 						internal = ITEM
-						update_internals_hud_icon(1)
+						update_action_buttons_icon()
 
 					visible_message("<span class='danger'>[usr] [internal ? "opens" : "closes"] the valve on [src]'s [ITEM].</span>", \
 									"<span class='userdanger'>[usr] [internal ? "opens" : "closes"] the valve on [src]'s [ITEM].</span>")
@@ -1063,10 +1063,6 @@ so that different stomachs can handle things in different ways VB*/
 		return TRUE
 
 	return FALSE
-
-/mob/living/carbon/proc/update_internals_hud_icon(internal_state = 0)
-	if(hud_used && hud_used.internals)
-		hud_used.internals.icon_state = "internal[internal_state]"
 
 //to recalculate and update the mob's total tint from tinted equipment it's wearing.
 /mob/living/carbon/proc/update_tint()

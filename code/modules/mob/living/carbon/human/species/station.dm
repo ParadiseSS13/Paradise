@@ -51,7 +51,6 @@
 	heat_level_1 = 380 //Default 360 - Higher is better
 	heat_level_2 = 420 //Default 400
 	heat_level_3 = 480 //Default 460
-	heat_level_3_breathe = 1100 //Default 1000
 
 	flesh_color = "#34AF10"
 	reagent_tag = PROCESS_ORG
@@ -107,7 +106,6 @@
 	heat_level_1 = 340
 	heat_level_2 = 380
 	heat_level_3 = 440
-	heat_level_3_breathe = 900
 
 	primitive_form = "Farwa"
 
@@ -278,23 +276,9 @@
 	cold_level_2 = 50
 	cold_level_3 = 0
 
-	atmos_requirements = list(
-		"min_oxy" = 0,
-		"max_oxy" = 1,
-		"min_nitro" = 16,
-		"max_nitro" = 0,
-		"min_tox" = 0,
-		"max_tox" = 0.005,
-		"min_co2" = 0,
-	 	"max_co2" = 10,
-	 	"sa_para" = 1,
-		"sa_sleep" = 5
-		)
+	breathid = "n2"
 
 	eyes = "vox_eyes_s"
-
-	breath_type = "nitrogen"
-	poison_type = "oxygen"
 
 	species_traits = list(NO_SCAN, IS_WHITELISTED, NOTRANSSTING)
 	clothing_flags = HAS_SOCKS
@@ -328,7 +312,7 @@
 
 	has_organ = list(
 		"heart" =    /obj/item/organ/internal/heart,
-		"lungs" =    /obj/item/organ/internal/lungs,
+		"lungs" =    /obj/item/organ/internal/lungs/vox,
 		"liver" =    /obj/item/organ/internal/liver/vox,
 		"kidneys" =  /obj/item/organ/internal/kidneys,
 		"brain" =    /obj/item/organ/internal/brain,
@@ -370,7 +354,7 @@
 		H.equip_or_collect(new /obj/item/weapon/tank/emergency_oxygen/vox(H), slot_l_hand)
 	to_chat(H, "<span class='notice'>You are now running on nitrogen internals from the [H.l_hand] in your hand. Your species finds oxygen toxic, so you must breathe nitrogen only.</span>")
 	H.internal = H.l_hand
-	H.update_internals_hud_icon(1)
+	H.update_action_buttons_icon()
 
 /datum/species/vox/handle_post_spawn(var/mob/living/carbon/human/H)
 	updatespeciescolor(H)
@@ -440,14 +424,11 @@
 	heat_level_1 = 2000
 	heat_level_2 = 3000
 	heat_level_3 = 4000
-	heat_level_3_breathe = 4000
 
 	brute_mod = 0.2
 	burn_mod = 0.2
 
 	eyes = "blank_eyes"
-	breath_type = "nitrogen"
-	poison_type = "oxygen"
 
 	species_traits = list(NO_SCAN, NO_BLOOD, NO_PAIN, IS_WHITELISTED)
 	bodyflags = HAS_TAIL
@@ -463,7 +444,7 @@
 
 	has_organ = list(
 		"heart" =    /obj/item/organ/internal/heart,
-		"lungs" =    /obj/item/organ/internal/lungs,
+		"lungs" =    /obj/item/organ/internal/lungs/vox,
 		"liver" =    /obj/item/organ/internal/liver,
 		"kidneys" =  /obj/item/organ/internal/kidneys,
 		"brain" =    /obj/item/organ/internal/brain,
@@ -540,7 +521,7 @@
 	cold_level_1 = 280
 	cold_level_2 = 240
 	cold_level_3 = 200
-	cold_env_multiplier = 3
+	coldmod = 3
 
 	oxy_mod = 0
 	brain_mod = 2.5
@@ -595,7 +576,7 @@
 					E.sync_colour_to_human(H)
 			H.update_hair(0)
 			H.update_body()
-	return ..()
+	..()
 
 #undef SLIMEPERSON_COLOR_SHIFT_TRIGGER
 #undef SLIMEPERSON_ICON_UPDATE_PERIOD
@@ -791,7 +772,6 @@
 	heat_level_1 = 300
 	heat_level_2 = 340
 	heat_level_3 = 400
-	heat_level_3_breathe = 700
 
 	blurb = "Commonly referred to (erroneously) as 'plant people', the Dionaea are a strange space-dwelling collective \
 	species hailing from Epsilon Ursae Minoris. Each 'diona' is a cluster of numerous cat-sized organisms called nymphs; \
@@ -879,6 +859,7 @@
 		H.adjustFireLoss(-(light_amount/4))
 	if(H.nutrition < NUTRITION_LEVEL_STARVING+50)
 		H.take_overall_damage(10,0)
+	..()
 
 /datum/species/machine
 	name = "Machine"
@@ -1014,13 +995,12 @@
 	cold_level_1 = -1 //Default 260 - Lower is better
 	cold_level_2 = -1 //Default 200
 	cold_level_3 = -1 //Default 120
-	cold_env_multiplier = -1
+	coldmod = -1
 
 	heat_level_1 = 300 //Default 360 - Higher is better
 	heat_level_2 = 340 //Default 400
 	heat_level_3 = 400 //Default 460
-	heat_level_3_breathe = 600 //Default 1000
-	hot_env_multiplier = 2
+	heatmod = 2
 
 	flesh_color = "#a3d4eb"
 	reagent_tag = PROCESS_ORG
@@ -1035,39 +1015,3 @@
 		"eyes" =     				/obj/item/organ/internal/eyes/drask, //5 darksight.
 		"brain" =  					/obj/item/organ/internal/brain/drask
 		)
-
-/datum/species/drask/handle_temperature(datum/gas_mixture/breath, var/mob/living/carbon/human/H)
-	if( abs(310.15 - breath.temperature) > 50)
-		if(H.status_flags & GODMODE)	return 1	//godmode
-		if(breath.temperature < 260)
-			if(prob(20))
-				to_chat(H, "<span class='notice'> You feel an invigorating coldness in your lungs!</span>")
-		if(breath.temperature > heat_level_1)
-			if(prob(20))
-				to_chat(H, "<span class='warning'>You feel your face burning and a searing heat in your lungs!</span>")
-
-		switch(breath.temperature)
-
-			if(-INFINITY to 60)
-				H.adjustFireLoss(cold_env_multiplier*COLD_GAS_DAMAGE_LEVEL_3*0.5) //3 points healed, applied every 4 ticks
-				H.adjustBruteLoss(cold_env_multiplier*COLD_GAS_DAMAGE_LEVEL_3)
-				H.throw_alert("temp", /obj/screen/alert/cold/drask, 3)
-
-			if(61 to 200)
-				H.adjustFireLoss(cold_env_multiplier*COLD_GAS_DAMAGE_LEVEL_2*0.5) //1.5 healed every 4 ticks
-				H.adjustBruteLoss(cold_env_multiplier*COLD_GAS_DAMAGE_LEVEL_2)
-				H.throw_alert("temp", /obj/screen/alert/cold/drask, 2)
-
-			if(201 to 260)
-				H.adjustFireLoss(cold_env_multiplier*COLD_GAS_DAMAGE_LEVEL_1*0.5) //0.5 healed every 4 ticks
-				H.adjustBruteLoss(cold_env_multiplier*COLD_GAS_DAMAGE_LEVEL_1)
-				H.throw_alert("temp", /obj/screen/alert/cold/drask, 1)
-
-			if(heat_level_1 to heat_level_2)
-				H.apply_damage(hot_env_multiplier*HEAT_GAS_DAMAGE_LEVEL_1, BURN, "head", used_weapon = "Excessive Heat")
-
-			if(heat_level_2 to heat_level_3_breathe)
-				H.apply_damage(hot_env_multiplier*HEAT_GAS_DAMAGE_LEVEL_2, BURN, "head", used_weapon = "Excessive Heat")
-
-			if(heat_level_3_breathe to INFINITY)
-				H.apply_damage(hot_env_multiplier*HEAT_GAS_DAMAGE_LEVEL_3, BURN, "head", used_weapon = "Excessive Heat")

@@ -206,7 +206,7 @@
 
 	for(var/mob/living/carbon/human/H in view(2, E.loc))//germs from people
 		if(AStar(E.loc, H.loc, /turf/proc/Distance, 2, simulated_only = 0))
-			if((!(NO_BREATH in H.mutations) || !(NO_BREATH in H.species.species_traits)) && !H.wear_mask) //wearing a mask helps preventing people from breathing cooties into open incisions
+			if((!(BREATHLESS in H.mutations) || !(NO_BREATHE in H.species.species_traits)) && !H.wear_mask) //wearing a mask helps preventing people from breathing cooties into open incisions
 				germs += H.germ_level * 0.25
 
 	for(var/obj/effect/decal/cleanable/M in view(2, E.loc))//germs from messes

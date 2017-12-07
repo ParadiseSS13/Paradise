@@ -25,7 +25,7 @@
 
 // Generic mutations:
 #define	TK				1
-#define RESIST_COLD		2
+#define COLDRES			2
 #define XRAY			3
 #define HULK			4
 #define CLUMSY			5
@@ -42,13 +42,13 @@
 #define PLANT 30
 
 // Other Mutations:
-#define NO_BREATH		100 	// no need to breathe
+#define BREATHLESS		100		// no breathing
 #define REMOTE_VIEW		101 	// remote viewing
 #define REGEN			102 	// health regen
 #define RUN				103 	// no slowdown
 #define REMOTE_TALK		104 	// remote talking
 #define MORPH			105 	// changing appearance
-#define RESIST_HEAT		106 	// heat resistance
+#define HEATRES			106 	// heat resistance
 #define HALLUCINATE		107 	// hallucinations
 #define FINGERPRINTS	108 	// no fingerprints
 #define NO_SHOCK		109 	// insulated hands
@@ -140,3 +140,6 @@
 #define NOGUNS			12
 #define NOTRANSSTING	13
 #define VIRUSIMMUNE		14
+#define NOCRITDAMAGE	15
+#define RESISTHOT		16
+#define RESISTCOLD		17
