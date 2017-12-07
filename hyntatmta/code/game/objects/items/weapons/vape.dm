@@ -56,7 +56,7 @@
 	if(reagents && reagents.total_volume)	//	check if it has any reagents at all
 		var/mob/living/carbon/C = loc
 		reagents.trans_to(C, vape_consume*4)
-		var/datum/effect_system/chem_smoke_spread/smoke = new
+		var/datum/effect_system/smoke_spread/chem/smoke = new
 		smoke.set_up(reagents, vape_clouds, 0, src.loc, 0, silent = 1)
 		playsound(src.loc, 'sound/effects/bamf.ogg', 50, 1, -3)
 		smoke.start(2)
