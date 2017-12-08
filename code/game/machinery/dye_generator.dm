@@ -112,6 +112,9 @@
 
 		user.visible_message("<span class='notice'>[user] starts dying [M]'s [what_to_dye]!</span>", "<span class='notice'>You start dying [M]'s [what_to_dye]!</span>")
 		if(do_after(user, 50, target = H))
+			if(!Adjacent(H))
+				to_chat(user, "You are too far away!")
+				return
 			switch(what_to_dye)
 				if("hair")
 					H.change_hair_color(dye_color)
