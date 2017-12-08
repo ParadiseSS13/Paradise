@@ -78,7 +78,7 @@
 				to_chat(user, "<B>Your wish is granted, but at a terrible cost...</B>")
 				to_chat(user, "The WishMaster 1.0 punishes you for your selfishness, claiming your soul and warping your body to match the darkness in your heart.")
 				user.mutations.Add(LASER)
-				user.mutations.Add(RESIST_COLD)
+				user.mutations.Add(COLDRES)
 				user.mutations.Add(XRAY)
 				if(ishuman(user))
 					var/mob/living/carbon/human/human = user
@@ -177,7 +177,7 @@
 		call(src,triggerproc)(M)
 
 /obj/effect/meatgrinder/proc/triggerrad1(mob)
-	var/datum/effect/system/spark_spread/s = new /datum/effect/system/spark_spread
+	var/datum/effect_system/spark_spread/s = new /datum/effect_system/spark_spread
 	for(var/mob/O in viewers(world.view, src.loc))
 		s.set_up(3, 1, src)
 		s.start()

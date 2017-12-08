@@ -372,7 +372,7 @@
 		scantemp = "<span class=\"bad\">Error: No signs of intelligence detected.</span>"
 		nanomanager.update_uis(src)
 		return
-	if(subject.suiciding == 1 && src.scanner.scan_level < 2)
+	if(subject.suiciding)
 		scantemp = "<span class=\"bad\">Error: Subject's brain is not responding to scanning stimuli.</span>"
 		nanomanager.update_uis(src)
 		return

@@ -371,7 +371,7 @@
 
 		to_chat(user, "You stick \the [W] into the light socket!")
 		if(has_power() && (W.flags & CONDUCT))
-			var/datum/effect/system/spark_spread/s = new /datum/effect/system/spark_spread
+			var/datum/effect_system/spark_spread/s = new /datum/effect_system/spark_spread
 			s.set_up(3, 1, src)
 			s.start()
 			if(prob(75))
@@ -428,7 +428,7 @@
 // if hands aren't protected and the light is on, burn the player
 
 /obj/machinery/light/attack_hand(mob/user)
-
+	user.changeNext_move(CLICK_CD_MELEE)
 	add_fingerprint(user)
 
 	if(status == LIGHT_EMPTY)
@@ -448,7 +448,7 @@
 		else
 			prot = 1
 
-		if(prot > 0 || (RESIST_HEAT in user.mutations))
+		if(prot > 0 || (HEATRES in user.mutations))
 			to_chat(user, "You remove the light [fitting]")
 		else if(TK in user.mutations)
 			to_chat(user, "You telekinetically remove the light [fitting].")
@@ -525,7 +525,7 @@
 		if(status == LIGHT_OK || status == LIGHT_BURNED)
 			playsound(src.loc, 'sound/effects/Glasshit.ogg', 75, 1)
 		if(on || overloaded)
-			var/datum/effect/system/spark_spread/s = new /datum/effect/system/spark_spread
+			var/datum/effect_system/spark_spread/s = new /datum/effect_system/spark_spread
 			s.set_up(3, 1, src)
 			s.start()
 	status = LIGHT_BROKEN

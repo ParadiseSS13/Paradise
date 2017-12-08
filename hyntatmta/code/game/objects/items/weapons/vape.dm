@@ -56,7 +56,7 @@
 	if(reagents && reagents.total_volume)	//	check if it has any reagents at all
 		var/mob/living/carbon/C = loc
 		reagents.trans_to(C, vape_consume*4)
-		var/datum/effect/system/chem_smoke_spread/smoke = new
+		var/datum/effect_system/smoke_spread/chem/smoke = new
 		smoke.set_up(reagents, vape_clouds, 0, src.loc, 0, silent = 1)
 		playsound(src.loc, 'sound/effects/bamf.ogg', 50, 1, -3)
 		smoke.start(2)
@@ -75,7 +75,7 @@
 			icon_state = "[initial(icon_state)]-on"
 			to_chat(user, "You turned [name] on.")
 			if(reagents.get_reagent_amount("plasma")) // the plasma explodes when exposed to fire
-				var/datum/effect/system/reagents_explosion/e = new()
+				var/datum/effect_system/reagents_explosion/e = new()
 				e.set_up(round(reagents.get_reagent_amount("fuel") / 5.5, 1), get_turf(src), 0, 0) //no horrible fires
 				e.start()
 				if(ismob(loc))
@@ -84,7 +84,7 @@
 				qdel(src)
 				return
 			if(reagents.get_reagent_amount("plasma_dust")) // the plasma explodes when exposed to fire
-				var/datum/effect/system/reagents_explosion/e = new()
+				var/datum/effect_system/reagents_explosion/e = new()
 				e.set_up(round(reagents.get_reagent_amount("fuel") / 5.5, 1), get_turf(src), 0, 0) //no horrible fires
 				e.start()
 				if(ismob(loc))
@@ -93,7 +93,7 @@
 				qdel(src)
 				return
 			if(reagents.get_reagent_amount("fuel")) // the fuel explodes, too, but much less violently
-				var/datum/effect/system/reagents_explosion/e = new()
+				var/datum/effect_system/reagents_explosion/e = new()
 				e.set_up(round(reagents.get_reagent_amount("fuel") / 5, 1), get_turf(src), 0, 0)
 				e.start()
 				if(ismob(loc))

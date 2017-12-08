@@ -171,6 +171,7 @@
 	icon_state = "yellow slime extract"
 	materials = list()
 	self_recharge = 1 // Infused slime cores self-recharge, over time
+	chargerate = 500
 
 /obj/item/weapon/stock_parts/cell/pulse //200 pulse shots
 	name = "pulse rifle power cell"

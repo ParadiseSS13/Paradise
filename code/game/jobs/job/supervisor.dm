@@ -15,6 +15,7 @@ var/datum/announcement/minor/captain_announcement = new(do_newscast = 0)
 	minimal_player_age = 30
 	exp_requirements = 1200
 	exp_type = EXP_TYPE_CREW
+	disabilities_allowed = 0
 	outfit = /datum/outfit/job/captain
 
 /datum/job/captain/get_access()
@@ -28,7 +29,6 @@ var/datum/announcement/minor/captain_announcement = new(do_newscast = 0)
 /datum/outfit/job/captain
 	name = "Captain"
 	jobtype = /datum/job/captain
-
 	uniform = /obj/item/clothing/under/rank/captain
 	suit = /obj/item/clothing/suit/armor/vest/capcarapace
 	shoes = /obj/item/clothing/shoes/brown
@@ -41,9 +41,7 @@ var/datum/announcement/minor/captain_announcement = new(do_newscast = 0)
 		/obj/item/weapon/storage/box/ids = 1,
 		/obj/item/weapon/melee/classic_baton/telescopic = 1
 	)
-
 	implants = list(/obj/item/weapon/implant/mindshield)
-
 	backpack = /obj/item/weapon/storage/backpack/captain
 	satchel = /obj/item/weapon/storage/backpack/satchel_cap
 	dufflebag = /obj/item/weapon/storage/backpack/duffel/captain
@@ -84,13 +82,11 @@ var/datum/announcement/minor/captain_announcement = new(do_newscast = 0)
 			            access_crematorium, access_kitchen, access_cargo, access_cargo_bot, access_mailsorting, access_qm, access_hydroponics, access_lawyer,
 			            access_theatre, access_chapel_office, access_library, access_research, access_mining, access_heads_vault, access_mining_station,
 			            access_clown, access_mime, access_hop, access_RC_announce, access_keycard_auth, access_gateway, access_weapons, access_mineral_storeroom)
-
 	outfit = /datum/outfit/job/hop
 
 /datum/outfit/job/hop
 	name = "Head of Personnel"
 	jobtype = /datum/job/hop
-
 	uniform = /obj/item/clothing/under/rank/head_of_personnel
 	shoes = /obj/item/clothing/shoes/brown
 	head = /obj/item/clothing/head/hopcap
@@ -130,13 +126,11 @@ var/datum/announcement/minor/captain_announcement = new(do_newscast = 0)
 			            access_crematorium, access_kitchen, access_cargo, access_cargo_bot, access_mailsorting, access_qm, access_hydroponics, access_lawyer,
 			            access_theatre, access_chapel_office, access_library, access_research, access_mining, access_heads_vault, access_mining_station,
 			            access_clown, access_mime, access_hop, access_RC_announce, access_keycard_auth, access_gateway, access_weapons, access_ntrep)
-
 	outfit = /datum/outfit/job/nanotrasenrep
 
 /datum/outfit/job/nanotrasenrep
 	name = "Nanotrasen Representative"
 	jobtype = /datum/job/nanotrasenrep
-
 	uniform = /obj/item/clothing/under/rank/ntrep
 	suit = /obj/item/clothing/suit/storage/ntrep
 	shoes = /obj/item/clothing/shoes/centcom
@@ -147,7 +141,6 @@ var/datum/announcement/minor/captain_announcement = new(do_newscast = 0)
 	backpack_contents = list(
 		/obj/item/weapon/melee/classic_baton/ntcane = 1
 	)
-
 	implants = list(/obj/item/weapon/implant/mindshield)
 
 
@@ -172,13 +165,11 @@ var/datum/announcement/minor/captain_announcement = new(do_newscast = 0)
 			            access_clown, access_mime, access_hop, access_RC_announce, access_keycard_auth, access_gateway, access_weapons, access_blueshield)
 	minimal_access = list(access_forensics_lockers, access_sec_doors, access_medical, access_construction, access_engine, access_maint_tunnels, access_research,
 			            access_RC_announce, access_keycard_auth, access_heads, access_blueshield, access_weapons)
-
 	outfit = /datum/outfit/job/blueshield
 
 /datum/outfit/job/blueshield
 	name = "Blueshield"
 	jobtype = /datum/job/blueshield
-
 	uniform = /obj/item/clothing/under/rank/blueshield
 	suit = /obj/item/clothing/suit/armor/vest/blueshield
 	gloves = /obj/item/clothing/gloves/combat
@@ -191,9 +182,7 @@ var/datum/announcement/minor/captain_announcement = new(do_newscast = 0)
 		/obj/item/weapon/storage/box/deathimp = 1,
 		/obj/item/weapon/gun/energy/gun/blueshield = 1
 	)
-
 	implants = list(/obj/item/weapon/implant/mindshield)
-
 	backpack = /obj/item/weapon/storage/backpack/security
 	satchel = /obj/item/weapon/storage/backpack/satchel_sec
 	dufflebag = /obj/item/weapon/storage/backpack/duffel/security
@@ -218,13 +207,11 @@ var/datum/announcement/minor/captain_announcement = new(do_newscast = 0)
 			            access_theatre, access_chapel_office, access_library, access_research, access_mining, access_heads_vault, access_mining_station,
 			            access_clown, access_mime, access_hop, access_RC_announce, access_keycard_auth, access_gateway, access_magistrate)
 	minimal_access = list(access_security, access_sec_doors, access_brig, access_court, access_maint_tunnels, access_lawyer, access_magistrate, access_heads)
-
 	outfit = /datum/outfit/job/judge
 
 /datum/outfit/job/judge
 	name = "Magistrate"
 	jobtype = /datum/job/judge
-
 	uniform = /obj/item/clothing/under/suit_jacket/really_black
 	suit = /obj/item/clothing/suit/judgerobe
 	gloves = /obj/item/clothing/gloves/color/white
@@ -238,9 +225,7 @@ var/datum/announcement/minor/captain_announcement = new(do_newscast = 0)
 	backpack_contents = list(
 		/obj/item/weapon/melee/classic_baton/telescopic = 1
 	)
-
 	implants = list(/obj/item/weapon/implant/mindshield)
-
 	satchel = /obj/item/weapon/storage/backpack/satchel_sec
 	dufflebag = /obj/item/weapon/storage/backpack/duffel/security
 
@@ -268,7 +253,6 @@ var/datum/announcement/minor/captain_announcement = new(do_newscast = 0)
 /datum/outfit/job/lawyer
 	name = "Internal Affairs Agent"
 	jobtype = /datum/job/lawyer
-
 	uniform = /obj/item/clothing/under/rank/internalaffairs
 	suit = /obj/item/clothing/suit/storage/internalaffairs
 	shoes = /obj/item/clothing/shoes/brown
@@ -280,8 +264,6 @@ var/datum/announcement/minor/captain_announcement = new(do_newscast = 0)
 	l_hand = /obj/item/weapon/storage/briefcase
 	r_hand = /obj/item/clothing/accessory/lawyers_badge
 	pda = /obj/item/device/pda/lawyer
-
 	implants = list(/obj/item/weapon/implant/mindshield)
-
 	satchel = /obj/item/weapon/storage/backpack/satchel_sec
 	dufflebag = /obj/item/weapon/storage/backpack/duffel/security

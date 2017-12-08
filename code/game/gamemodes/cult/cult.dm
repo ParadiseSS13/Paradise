@@ -1,3 +1,4 @@
+#define SUMMON_POSSIBILITIES 3
 var/global/list/all_cults = list()
 
 /datum/game_mode
@@ -106,6 +107,12 @@ var/global/list/all_cults = list()
 	modePlayer += cult
 	acolytes_needed = acolytes_needed + round((num_players_started() / 10))
 
+	if(!summon_spots.len)
+		while(summon_spots.len < SUMMON_POSSIBILITIES)
+			var/area/summon = pick(return_sorted_areas() - summon_spots)
+			if(summon && is_station_level(summon.z) && summon.valid_territory)
+				summon_spots += summon
+
 	for(var/datum/mind/cult_mind in cult)
 		equip_cultist(cult_mind.current)
 		cult_mind.current.faction |= "cult"
@@ -135,7 +142,7 @@ var/global/list/all_cults = list()
 				else
 					explanation = "Free objective."
 			if("eldergod")
-				explanation = "Summon [ticker.mode.cultdat.entity_name]. It will only work if nine cultists stand on and around it."
+				explanation = "Summon [ticker.mode.cultdat.entity_name] by invoking the 'Tear Reality' rune.<b>The summoning can only be accomplished in [english_list(summon_spots)] - where the veil is weak enough for the ritual to begin.</b>"
 		to_chat(cult_mind.current, "<B>Objective #[obj_count]</B>: [explanation]")
 		cult_mind.memory += "<B>Objective #[obj_count]</B>: [explanation]<BR>"
 

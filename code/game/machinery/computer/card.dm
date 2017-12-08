@@ -490,6 +490,7 @@ var/time_last_changed_position = 0
 				j.total_positions++
 				opened_positions[edit_job_target]++
 				log_game("[key_name(usr)] has opened a job slot for job \"[j]\".")
+				message_admins("[key_name_admin(usr)] has opened a job slot for job \"[j.title]\".")
 				nanomanager.update_uis(src)
 
 		if("make_job_unavailable")
@@ -509,7 +510,9 @@ var/time_last_changed_position = 0
 				j.total_positions--
 				opened_positions[edit_job_target]--
 				log_game("[key_name(usr)] has closed a job slot for job \"[j]\".")
+				message_admins("[key_name_admin(usr)] has closed a job slot for job \"[j.title]\".")
 				nanomanager.update_uis(src)
+
 		if("prioritize_job")
 			// TOGGLE WHETHER JOB APPEARS AS PRIORITIZED IN THE LOBBY
 			if(is_authenticated(usr) && !target_dept)

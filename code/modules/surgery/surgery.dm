@@ -116,6 +116,12 @@
 			prob_chance = allowed_tools[implement_type]
 		prob_chance *= get_location_modifier(target)
 
+
+		if(!ispath(surgery.steps[surgery.status], /datum/surgery_step/robotics) && !ispath(surgery.steps[surgery.status], /datum/surgery_step/rigsuit))//Repairing robotic limbs doesn't hurt, and neither does cutting someone out of a rig
+			if(ishuman(target))
+				var/mob/living/carbon/human/H = target //typecast to human
+				prob_chance *= get_pain_modifier(H)//operating on conscious people is hard.
+
 		if(prob(prob_chance) || isrobot(user))
 			if(end_step(user, target, target_zone, tool, surgery))
 				advance = 1
@@ -200,7 +206,7 @@
 
 	for(var/mob/living/carbon/human/H in view(2, E.loc))//germs from people
 		if(AStar(E.loc, H.loc, /turf/proc/Distance, 2, simulated_only = 0))
-			if((!(NO_BREATH in H.mutations) || !(NO_BREATH in H.species.species_traits)) && !H.wear_mask) //wearing a mask helps preventing people from breathing cooties into open incisions
+			if((!(BREATHLESS in H.mutations) || !(NO_BREATHE in H.species.species_traits)) && !H.wear_mask) //wearing a mask helps preventing people from breathing cooties into open incisions
 				germs += H.germ_level * 0.25
 
 	for(var/obj/effect/decal/cleanable/M in view(2, E.loc))//germs from messes

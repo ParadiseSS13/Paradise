@@ -9,6 +9,8 @@
 	var/icon_opened = "open"
 	var/opened = 0
 	var/welded = 0
+	var/locked = 0
+	var/broken = 0
 	var/wall_mounted = 0 //never solid (You can always pass over it)
 	var/health = 100
 	var/lastbang
@@ -218,7 +220,7 @@
 					if(!(E.rcell && E.rcell.use(E.chargecost)))
 						to_chat(user, "<span class='notice'>Unable to teleport, insufficient charge.</span>")
 						return
-					var/datum/effect/system/spark_spread/s = new /datum/effect/system/spark_spread
+					var/datum/effect_system/spark_spread/s = new /datum/effect_system/spark_spread
 					s.set_up(5, 1, src)
 					s.start()
 					do_teleport(src, E.pad, 0)
@@ -245,7 +247,7 @@
 				if(!(E.rcell && E.rcell.use(E.chargecost)))
 					to_chat(user, "<span class='notice'>Unable to teleport, insufficient charge.</span>")
 					return
-				var/datum/effect/system/spark_spread/s = new /datum/effect/system/spark_spread
+				var/datum/effect_system/spark_spread/s = new /datum/effect_system/spark_spread
 				s.set_up(5, 1, src)
 				s.start()
 				do_teleport(src, L)

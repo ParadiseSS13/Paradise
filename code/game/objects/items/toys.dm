@@ -244,7 +244,7 @@
 
 /obj/item/toy/snappop/virus/throw_impact(atom/hit_atom)
 	..()
-	var/datum/effect/system/spark_spread/s = new /datum/effect/system/spark_spread
+	var/datum/effect_system/spark_spread/s = new /datum/effect_system/spark_spread
 	s.set_up(3, 1, src)
 	s.start()
 	new /obj/effect/decal/cleanable/ash(src.loc)
@@ -264,7 +264,7 @@
 	var/ash_type = /obj/effect/decal/cleanable/ash
 
 /obj/item/toy/snappop/proc/pop_burst(var/n=3, var/c=1)
-	var/datum/effect/system/spark_spread/s = new()
+	var/datum/effect_system/spark_spread/s = new()
 	s.set_up(n, c, src)
 	s.start()
 	new ash_type(loc)
@@ -1397,7 +1397,7 @@ obj/item/toy/cards/deck/syndicate/black
 			is_empty = 1
 			playsound(src, 'sound/weapons/Gunshot.ogg', 50, 1)
 			user.visible_message("<span class='danger'>The [src] goes off!</span>")
-			M.apply_damage(200, BRUTE, "head", sharp =1, used_weapon = "Self-inflicted gunshot would to the head.")
+			M.apply_damage(200, BRUTE, "head", sharp =1, used_weapon = "Self-inflicted gunshot wound to the head.")
 			M.death()
 	else
 		user.visible_message("<span class='danger'>[user] lowers the [src] from their head.</span>")

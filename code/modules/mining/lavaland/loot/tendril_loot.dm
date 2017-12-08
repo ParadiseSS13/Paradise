@@ -259,14 +259,14 @@
 		to_chat(user, "[src] fizzles uselessly.")
 		return
 
-	var/datum/effect/system/harmless_smoke_spread/smoke = new /datum/effect/system/harmless_smoke_spread()
+	var/datum/effect_system/smoke_spread/smoke = new
 	smoke.set_up(1, 0, user.loc)
 	smoke.start()
 
 	user.forceMove(get_turf(linked))
 	feedback_add_details("warp_cube","[src.type]")
 
-	var/datum/effect/system/harmless_smoke_spread/smoke2 = new /datum/effect/system/harmless_smoke_spread()
+	var/datum/effect_system/smoke_spread/smoke2 = new
 	smoke2.set_up(1, 0, user.loc)
 	smoke2.start()
 

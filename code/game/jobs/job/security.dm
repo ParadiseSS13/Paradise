@@ -20,6 +20,7 @@
 	minimal_player_age = 21
 	exp_requirements = 600
 	exp_type = EXP_TYPE_CREW
+	disabilities_allowed = 0
 	outfit = /datum/outfit/job/hos
 
 /datum/outfit/job/hos
@@ -172,7 +173,6 @@
 /datum/outfit/job/officer
 	name = "Security Officer"
 	jobtype = /datum/job/officer
-
 	uniform = /obj/item/clothing/under/rank/security
 	suit = /obj/item/clothing/suit/armor/vest/security
 	gloves = /obj/item/clothing/gloves/color/black
@@ -186,9 +186,7 @@
 	backpack_contents = list(
 		/obj/item/weapon/restraints/handcuffs = 1
 	)
-
 	implants = list(/obj/item/weapon/implant/mindshield)
-
 	backpack = /obj/item/weapon/storage/backpack/security
 	satchel = /obj/item/weapon/storage/backpack/satchel_sec
 	dufflebag = /obj/item/weapon/storage/backpack/duffel/security
@@ -212,7 +210,6 @@
 /datum/outfit/job/brigdoc
 	name = "Brig Physician"
 	jobtype = /datum/job/brigdoc
-
 	uniform = /obj/item/clothing/under/rank/security/brigphys
 	suit = /obj/item/clothing/suit/storage/fr_jacket
 	shoes = /obj/item/clothing/shoes/white
@@ -222,13 +219,10 @@
 	suit_store = /obj/item/device/flashlight/pen
 	l_hand = /obj/item/weapon/storage/firstaid/adv
 	pda = /obj/item/device/pda/medical
-
 	implants = list(/obj/item/weapon/implant/mindshield)
-
 	backpack = /obj/item/weapon/storage/backpack/medic
 	satchel = /obj/item/weapon/storage/backpack/satchel_med
 	dufflebag = /obj/item/weapon/storage/backpack/duffel/medical
-
 
 
 /datum/job/pilot
@@ -249,7 +243,6 @@
 /datum/outfit/job/pilot
 	name = "Security Pod Pilot"
 	jobtype = /datum/job/pilot
-
 	uniform = /obj/item/clothing/under/rank/security/pod_pilot
 	suit = /obj/item/clothing/suit/jacket/pilot
 	gloves = /obj/item/clothing/gloves/color/black
@@ -262,9 +255,7 @@
 	backpack_contents = list(
 		/obj/item/weapon/restraints/handcuffs = 1
 	)
-
 	implants = list(/obj/item/weapon/implant/mindshield)
-
 	backpack = /obj/item/weapon/storage/backpack/security
 	satchel = /obj/item/weapon/storage/backpack/satchel_sec
 	dufflebag = /obj/item/weapon/storage/backpack/duffel/security

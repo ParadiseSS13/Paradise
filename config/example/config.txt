@@ -177,6 +177,9 @@ CHECK_RANDOMIZER
 ## Rules address
 # RULESURL http://example.org
 
+## GitHub address
+# GITHUBURL http://example.org
+
 ## Donations address
 # DONATIONSURL http://example.org
 
@@ -343,3 +346,7 @@ PRISONLIST_ENABLED
 ## A command to run prior to the world shutting down, only used if the above option is enabled
 ## This default value will kill Dream Daemon on Windows machines
 #SHUTDOWN_SHELL_COMMAND taskkill /f /im dreamdaemon.exe
+
+## Uncomment this to disable karma and unlock all karma purchases for players by default
+#DISABLE_KARMA
+

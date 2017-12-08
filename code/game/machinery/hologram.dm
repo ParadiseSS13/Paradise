@@ -172,7 +172,7 @@ For the other part of the code, check silicon say.dm. Particularly robot talk.*/
 		clear_holo()//If not, we want to get rid of the hologram.
 		var/obj/machinery/hologram/holopad/pad_close = get_closest_atom(/obj/machinery/hologram/holopad, holopads, theai.eyeobj)
 		if(get_dist(pad_close, theai.eyeobj) <= pad_close.holo_range)
-			if(!(pad_close.stat & NOPOWER) && !pad_close.hologram)
+			if(!(pad_close.stat & NOPOWER) && !pad_close.hologram && (theai && !theai.stat && theai.client))
 				pad_close.activate_holo(theai, 1)
 				if(pad_close.hologram)
 					pad_close.hologram.forceMove(target_turf)

@@ -70,6 +70,8 @@ var/global/datum/controller/occupations/job_master
 			return 0
 		if(job.available_in_playtime(player.client))
 			return 0
+		if(job.barred_by_disability(player.client))
+			return 0
 		if(!is_job_whitelisted(player, rank))
 			return 0
 
@@ -112,6 +114,9 @@ var/global/datum/controller/occupations/job_master
 		if(job.available_in_playtime(player.client))
 			Debug("FOC player not enough playtime, Player: [player]")
 			continue
+		if(job.barred_by_disability(player.client))
+			Debug("FOC player has disability rendering them ineligible for job, Player: [player]")
+			continue
 		if(flag && !(flag in player.client.prefs.be_special))
 			Debug("FOC flag failed, Player: [player], Flag: [flag], ")
 			continue
@@ -151,6 +156,10 @@ var/global/datum/controller/occupations/job_master
 
 		if(job.available_in_playtime(player.client))
 			Debug("GRJ player not enough playtime, Player: [player]")
+			continue
+
+		if(job.barred_by_disability(player.client))
+			Debug("GRJ player has disability rendering them ineligible for job, Player: [player]")
 			continue
 
 		if(player.mind && job.title in player.mind.restricted_roles)
@@ -348,6 +357,10 @@ var/global/datum/controller/occupations/job_master
 					Debug("DO player not enough playtime, Player: [player], Job:[job.title]")
 					continue
 
+				if(job.barred_by_disability(player.client))
+					Debug("DO player has disability rendering them ineligible for job, Player: [player], Job:[job.title]")
+					continue
+
 				if(player.mind && job.title in player.mind.restricted_roles)
 					Debug("DO incompatible with antagonist role, Player: [player], Job:[job.title]")
 					continue
@@ -533,6 +546,7 @@ var/global/datum/controller/occupations/job_master
 		var/level4 = 0 //never
 		var/level5 = 0 //banned
 		var/level6 = 0 //account too young
+		var/level7 = 0 //has disability rendering them ineligible
 		for(var/mob/new_player/player in player_list)
 			if(!(player.ready && player.mind && !player.mind.assigned_role))
 				continue //This player is not ready
@@ -545,6 +559,9 @@ var/global/datum/controller/occupations/job_master
 			if(job.available_in_playtime(player.client))
 				level6++
 				continue
+			if(job.barred_by_disability(player.client))
+				level7++
+				continue
 			if(player.client.prefs.GetJobDepartment(job, 1) & job.flag)
 				level1++
 			else if(player.client.prefs.GetJobDepartment(job, 2) & job.flag)
@@ -553,7 +570,7 @@ var/global/datum/controller/occupations/job_master
 				level3++
 			else level4++ //not selected
 
-		tmp_str += "HIGH=[level1]|MEDIUM=[level2]|LOW=[level3]|NEVER=[level4]|BANNED=[level5]|YOUNG=[level6]|-"
+		tmp_str += "HIGH=[level1]|MEDIUM=[level2]|LOW=[level3]|NEVER=[level4]|BANNED=[level5]|YOUNG=[level6]|DISABILITY=[level7]|-"
 		feedback_add_details("job_preferences",tmp_str)
 
 

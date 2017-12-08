@@ -4,9 +4,10 @@ var/global/list/head_accessory_styles_list = list() //stores /datum/sprite_acces
 	//Marking styles
 var/global/list/marking_styles_list = list() //stores /datum/sprite_accessory/body_markings indexed by name
 	//Hairstyles
-var/global/list/hair_styles_list = list()			//stores /datum/sprite_accessory/hair indexed by name
+var/global/list/hair_styles_public_list = list()			//stores /datum/sprite_accessory/hair indexed by name
 var/global/list/hair_styles_male_list = list()
 var/global/list/hair_styles_female_list = list()
+var/global/list/hair_styles_full_list = list() //fluff hair styles
 var/global/list/facial_hair_styles_list = list()	//stores /datum/sprite_accessory/facial_hair indexed by name
 var/global/list/facial_hair_styles_male_list = list()
 var/global/list/facial_hair_styles_female_list = list()

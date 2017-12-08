@@ -628,6 +628,13 @@ var/list/ventcrawl_machinery = list(/obj/machinery/atmospherics/unary/vent_pump,
 
 	dat += "<tr><td><B>Mask:</B></td><td><A href='?src=[UID()];item=[slot_wear_mask]'>[(wear_mask && !(wear_mask.flags&ABSTRACT)) ? wear_mask : "<font color=grey>Empty</font>"]</A></td></tr>"
 
+	if(istype(wear_mask, /obj/item/clothing/mask/muzzle))
+		var/obj/item/clothing/mask/muzzle/M = wear_mask
+		if(M.security_lock)
+			dat += "&nbsp;<A href='?src=[M.UID()];locked=\ref[src]'>[M.locked ? "Disable Lock" : "Set Lock"]</A>"
+
+		dat += "</td></tr><tr><td>&nbsp;</td></tr>"
+
 	if(handcuffed)
 		dat += "<tr><td><B>Handcuffed:</B> <A href='?src=[UID()];item=[slot_handcuffed]'>Remove</A></td></tr>"
 	if(legcuffed)
@@ -664,7 +671,7 @@ var/list/ventcrawl_machinery = list(/obj/machinery/atmospherics/unary/vent_pump,
 				if(do_mob(usr, src, POCKET_STRIP_DELAY))
 					if(internal)
 						internal = null
-						update_internals_hud_icon(0)
+						update_action_buttons_icon()
 					else
 						var/no_mask2
 						if(!get_organ_slot("breathing_tube"))
@@ -675,7 +682,7 @@ var/list/ventcrawl_machinery = list(/obj/machinery/atmospherics/unary/vent_pump,
 							to_chat(usr, "<span class='warning'>[src] is not wearing a suitable mask or helmet!</span>")
 							return
 						internal = ITEM
-						update_internals_hud_icon(1)
+						update_action_buttons_icon()
 
 					visible_message("<span class='danger'>[usr] [internal ? "opens" : "closes"] the valve on [src]'s [ITEM].</span>", \
 									"<span class='userdanger'>[usr] [internal ? "opens" : "closes"] the valve on [src]'s [ITEM].</span>")
@@ -729,23 +736,6 @@ var/list/ventcrawl_machinery = list(/obj/machinery/atmospherics/unary/vent_pump,
 
 /mob/living/carbon/is_muzzled()
 	return(istype(src.wear_mask, /obj/item/clothing/mask/muzzle))
-
-/mob/living/carbon/proc/spin(spintime, speed)
-	spawn()
-		var/D = dir
-		while(spintime >= speed)
-			sleep(speed)
-			switch(D)
-				if(NORTH)
-					D = EAST
-				if(SOUTH)
-					D = WEST
-				if(EAST)
-					D = SOUTH
-				if(WEST)
-					D = NORTH
-			dir = D
-			spintime -= speed
 
 /mob/living/carbon/resist_buckle()
 	spawn(0)
@@ -805,6 +795,8 @@ var/list/ventcrawl_machinery = list(/obj/machinery/atmospherics/unary/vent_pump,
 		if(do_after(src, time, 0, target = src))
 			visible_message("<span class='warning'>[src] removes [I]!</span>")
 			to_chat(src, "<span class='notice'>You get rid of [I]!</span>")
+			if(I.security_lock)
+				I.do_break()
 			unEquip(I)
 
 
@@ -1071,10 +1063,6 @@ so that different stomachs can handle things in different ways VB*/
 		return TRUE
 
 	return FALSE
-
-/mob/living/carbon/proc/update_internals_hud_icon(internal_state = 0)
-	if(hud_used && hud_used.internals)
-		hud_used.internals.icon_state = "internal[internal_state]"
 
 //to recalculate and update the mob's total tint from tinted equipment it's wearing.
 /mob/living/carbon/proc/update_tint()

@@ -22,6 +22,11 @@
 		to_chat(user, "<span class='warning'>You find yourself unable to speak at all.</span>")
 		return
 	if(ishuman(user))
+		var/mob/living/carbon/human/abductor/H = user
+		if(H && H.mind.abductor)
+			to_chat(user, "<span class='warning'>Megaphones can't project psionic communication!</span>")
+			return
+	if(ishuman(user))
 		var/mob/living/carbon/human/H = user
 		if(H && H.mind && H.mind.miming)
 			to_chat(user, "<span class='warning'>Your vow of silence prevents you from speaking.</span>")

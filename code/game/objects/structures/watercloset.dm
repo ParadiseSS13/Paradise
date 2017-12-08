@@ -252,8 +252,8 @@
 
 /obj/machinery/shower/New(turf/T, newdir = SOUTH, building = FALSE)
 	..()
-	dir = newdir
 	if(building)
+		dir = newdir
 		pixel_x = 0
 		pixel_y = 0
 		switch(newdir)
@@ -348,6 +348,8 @@
 			if(mymist)
 				qdel(mymist)
 			ismist = 0
+			return
+		if(mymist)
 			return
 		ismist = 1
 		mymist = new /obj/effect/mist(loc)

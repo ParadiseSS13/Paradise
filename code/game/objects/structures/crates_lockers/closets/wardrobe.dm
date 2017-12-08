@@ -310,14 +310,10 @@
 
 /obj/structure/closet/wardrobe/robotics_black/New()
 	..()
-	new /obj/item/clothing/glasses/hud/diagnostic(src)
-	new /obj/item/clothing/glasses/hud/diagnostic(src)
 	new /obj/item/clothing/under/rank/roboticist(src)
 	new /obj/item/clothing/under/rank/roboticist(src)
 	new /obj/item/clothing/under/rank/roboticist/skirt(src)
 	new /obj/item/clothing/under/rank/roboticist/skirt(src)
-	new /obj/item/clothing/suit/storage/labcoat(src)
-	new /obj/item/clothing/suit/storage/labcoat(src)
 	new /obj/item/clothing/shoes/black(src)
 	new /obj/item/clothing/shoes/black(src)
 	new /obj/item/clothing/gloves/fingerless(src)
@@ -464,3 +460,20 @@
 	new /obj/item/clothing/shoes/orange(src)
 	new /obj/item/clothing/shoes/purple(src)
 	new /obj/item/clothing/shoes/leather(src)
+
+/obj/structure/closet/wardrobe/coroner
+	name = "coroner wardrobe"
+	icon_state = "black"
+	icon_closed = "black"
+
+/obj/structure/closet/wardrobe/coroner/New()
+	..()
+	if(prob(50))
+		new /obj/item/weapon/storage/backpack/medic(src)
+	else
+		new /obj/item/weapon/storage/backpack/satchel_med(src)
+	new /obj/item/weapon/storage/backpack/duffel/medical(src)
+	new /obj/item/clothing/suit/storage/labcoat/mortician(src)
+	new /obj/item/clothing/shoes/white(src)
+	new /obj/item/clothing/under/rank/medical/mortician(src)
+	new /obj/item/clothing/head/surgery/black(src)

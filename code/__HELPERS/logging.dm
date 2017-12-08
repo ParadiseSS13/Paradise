@@ -50,6 +50,10 @@
 	if(config.log_say)
 		diary << "\[[time_stamp()]]SAY: [sanitize_local(text, SANITIZE_LOG)][log_end]"
 
+/proc/log_robot(text)
+	if(config.log_say)
+		diary << "\[[time_stamp()]]ROBOT: [text]"
+
 /proc/log_ooc(text)
 	if(config.log_ooc)
 		diary << "\[[time_stamp()]]OOC: [sanitize_local(text, SANITIZE_LOG)][log_end]"

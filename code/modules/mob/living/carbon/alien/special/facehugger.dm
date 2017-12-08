@@ -135,6 +135,11 @@ var/const/MAX_ACTIVE_TIME = 400
 		if(target.wear_mask)
 			if(prob(20))
 				return 0
+			if(istype(target.wear_mask, /obj/item/clothing/mask/muzzle))
+				var/obj/item/clothing/mask/muzzle/S = target.wear_mask
+				if(S.do_break())
+					target.visible_message("<span class='danger'>[src] spits acid onto [S] melting the lock!</span>", \
+									"<span class='userdanger'>[src] spits acid onto [S] melting the lock!</span>")
 			var/obj/item/clothing/W = target.wear_mask
 			if(W.flags & NODROP)
 				return 0
@@ -149,7 +154,10 @@ var/const/MAX_ACTIVE_TIME = 400
 			M.Paralyse(MAX_IMPREGNATION_TIME/6) //something like 25 ticks = 20 seconds with the default settings
 	else if(iscorgi(M))
 		var/mob/living/simple_animal/pet/corgi/C = M
-		loc = C
+		if(C.facehugger)
+			var/obj/item/F = C.facehugger
+			F.forceMove(C.loc)
+		forceMove(C)
 		C.facehugger = src
 		C.regenerate_icons()
 
@@ -161,7 +169,7 @@ var/const/MAX_ACTIVE_TIME = 400
 	return 1
 
 /obj/item/clothing/mask/facehugger/proc/Impregnate(mob/living/target as mob)
-	if(!target || target.stat == DEAD) //was taken off or something
+	if(!target || target.stat == DEAD || loc != target) //was taken off or something
 		return
 
 	if(iscarbon(target))

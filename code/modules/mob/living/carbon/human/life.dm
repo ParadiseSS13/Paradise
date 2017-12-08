@@ -1,5 +1,4 @@
 /mob/living/carbon/human/Life()
-	fire_alert = 0 //Reset this here, because both breathe() and handle_environment() have a chance to set it.
 	life_tick++
 
 	voice = GetVoice()
@@ -98,13 +97,19 @@
 			var/list/s1 = list("всем привет с вами иивангай и это мой обзор на спесстейшн фертин",
 							   "без кеслорода блоб не растет?",
 							   "КЭП - ГОНДОН",
-							   "[pick("", "етот тритор")] [pick("винс", "винсонт", "винсент", "винсунт")] [pick("антдар", "одар", "удар")] грефонит миня х;алп!!!",
+							   "[pick("", "етот тритор")] [pick("винс", "винсонт", "винсент", "винсунт")] [pick("антдар", "одар", "удар")] грефонит миня халп!!!",
 							   "не могли бы вы меня тыкнуть [pick("теликенезом","хулком","епелепсией")]?",
 							   "Хочешь руки-базуки?",
 							   "Я РОССИЙСКИЙ НОВЫЙ ПИРАТ",
 							   "SONO CHI NO SADAME --- JOOOOOOOOOOOOOOJOOOOOOOOOOOOOOO",
 							   "не грифонь подумой!!!!",
-							   "АСТАНАВИТЕСЬ#")
+							   "АСТАНАВИТЕСЬ#",
+							   "ебать повидлит",
+							   "когда лаваленд?",
+							   "[pick("ай бля","аааа","")] этот трап [pick("Цири","Кири","Кирилл","Сири","Кирюха")] [pick("Покет","Пакет","Карман", "Карманный")] рассказывает мне про [pick("то как в сб служат","бургеры во франции","то как на него батя орал", "он меня щас трахнет")] помогите!!!!!",
+							   "сушилка не работает, фиксаните",
+							   "кек",
+							   "это фиаско братан")
 
 			var/list/s2 = list("FUS RO DAH",
 							   "ебучие фуриебы!",
@@ -223,61 +228,38 @@
 					chest.add_autopsy_data("Radiation Poisoning", autopsy_damage)
 
 /mob/living/carbon/human/breathe()
+	if(!species.breathe(src))
+		..()
 
-	if((NO_BREATH in mutations) || (NO_BREATHE in species.species_traits) || reagents.has_reagent("lexorin"))
-		adjustOxyLoss(-5)
-		oxygen_alert = 0
-		toxins_alert = 0
-		return
-	if(istype(loc, /obj/machinery/atmospherics/unary/cryo_cell))
-		return
+/mob/living/carbon/human/check_breath(datum/gas_mixture/breath)
 
-	var/datum/gas_mixture/environment
-	if(loc)
-		environment = loc.return_air()
+	var/obj/item/organ/internal/L = get_organ_slot("lungs")
 
-	var/datum/gas_mixture/breath
+	if(!L || L && (L.status & ORGAN_DEAD))
+		if(health >= config.health_threshold_crit)
+			adjustOxyLoss(HUMAN_MAX_OXYLOSS + 1)
+		else
+			adjustOxyLoss(HUMAN_CRIT_MAX_OXYLOSS)
 
-	if(health <= config.health_threshold_crit)
-		AdjustLoseBreath(1)
+		failed_last_breath = TRUE
 
-	if(losebreath > 0)
-		AdjustLoseBreath(-1)
-		if(prob(10))
-			emote("gasp")
-		if(istype(loc, /obj/))
-			var/obj/loc_as_obj = loc
-			loc_as_obj.handle_internal_lifeform(src, 0)
+		if(species)
+			var/datum/species/S = species
+
+			if(S.breathid == "o2")
+				throw_alert("not_enough_oxy", /obj/screen/alert/not_enough_oxy)
+			else if(S.breathid == "tox")
+				throw_alert("not_enough_tox", /obj/screen/alert/not_enough_tox)
+			else if(S.breathid == "co2")
+				throw_alert("not_enough_co2", /obj/screen/alert/not_enough_co2)
+			else if(S.breathid == "n2")
+				throw_alert("not_enough_nitro", /obj/screen/alert/not_enough_nitro)
+
+		return FALSE
 	else
-		breath = get_breath_from_internal(BREATH_VOLUME)
-
-		if(!breath)
-			if(isobj(loc)) //Breathe from loc as object
-				var/obj/loc_as_obj = loc
-				breath = loc_as_obj.handle_internal_lifeform(src, BREATH_MOLES)
-
-			else if(isturf(loc)) //Breathe from loc as turf
-				var/breath_moles = 0
-				if(environment)
-					breath_moles = environment.total_moles()*BREATH_PERCENTAGE
-
-				breath = loc.remove_air(breath_moles)
-
-				if(!is_lung_ruptured())																					// THIS FUCKING EXCERPT, THIS LITTLE FUCKING EXCERPT, SNOWFLAKED
-					if(!breath || breath.total_moles() < BREATH_MOLES / 5 || breath.total_moles() > BREATH_MOLES * 5)	// RIGHT IN THE CENTER OF THE FUCKING BREATHE PROC
-						if(prob(5))																						// IT IS THE ONLY FUCKING REASONS HUMAN OVERRIDE breathe()
-							rupture_lung()																				// GOD FUCKING DAMNIT
-
-		else //Breathe from loc as obj again
-			if(istype(loc, /obj/))
-				var/obj/loc_as_obj = loc
-				loc_as_obj.handle_internal_lifeform(src,0)
-
-	check_breath(breath)
-
-	if(breath)
-		loc.assume_air(breath)
-
+		if(istype(L, /obj/item/organ/internal/lungs))
+			var/obj/item/organ/internal/lungs/lun = L
+			lun.check_breath(breath, src)
 
 // USED IN DEATHWHISPERS
 /mob/living/carbon/human/proc/isInCrit()
@@ -308,44 +290,12 @@
 
 		if(null_internals) //something wants internals gone
 			internal = null //so do it
-
+			update_action_buttons_icon()
 
 	if(internal) //check for hud updates every time this is called
-		update_internals_hud_icon(1)
 		return internal.remove_air_volume(volume_needed) //returns the valid air
-	else
-		update_internals_hud_icon(0)
 
 	return null
-
-/mob/living/carbon/human/check_breath(var/datum/gas_mixture/breath)
-	if(status_flags & GODMODE)
-		return 0
-
-	if(!breath || (breath.total_moles() == 0) || suiciding)
-		var/oxyloss = 0
-		if(suiciding)
-			oxyloss = 2
-			adjustOxyLoss(oxyloss)//If you are suiciding, you should die a little bit faster
-			failed_last_breath = 1
-			oxygen_alert = max(oxygen_alert, 1)
-			return 0
-		if(health > 0)
-			oxyloss = HUMAN_MAX_OXYLOSS
-			adjustOxyLoss(oxyloss)
-			failed_last_breath = 1
-		else
-			oxyloss = HUMAN_CRIT_MAX_OXYLOSS
-			adjustOxyLoss(oxyloss)
-			failed_last_breath = 1
-
-		var/obj/item/organ/external/affected = get_organ("chest")
-		affected.add_autopsy_data("Suffocation", oxyloss)
-		throw_alert("oxy", /obj/screen/alert/oxy)
-
-		return 0
-
-	return species.handle_breath(breath, src)
 
 /mob/living/carbon/human/handle_environment(datum/gas_mixture/environment)
 	if(!environment)
@@ -375,7 +325,7 @@
 	if(bodytemperature > species.heat_level_1)
 		//Body temperature is too hot.
 		if(status_flags & GODMODE)	return 1	//godmode
-		var/mult = species.hot_env_multiplier
+		var/mult = species.heatmod
 
 		if(bodytemperature >= species.heat_level_1 && bodytemperature <= species.heat_level_2)
 			throw_alert("temp", /obj/screen/alert/hot, 1)
@@ -397,7 +347,7 @@
 			return 1
 
 		if(!istype(loc, /obj/machinery/atmospherics/unary/cryo_cell))
-			var/mult = species.cold_env_multiplier
+			var/mult = species.coldmod
 			if(bodytemperature >= species.cold_level_2 && bodytemperature <= species.cold_level_1)
 				throw_alert("temp", /obj/screen/alert/cold, 1)
 				take_overall_damage(burn=mult*COLD_DAMAGE_LEVEL_1, used_weapon = "Low Body Temperature")
@@ -420,7 +370,7 @@
 	if(status_flags & GODMODE)	return 1	//godmode
 
 	if(adjusted_pressure >= species.hazard_high_pressure)
-		if(!(RESIST_HEAT in mutations))
+		if(!(HEATRES in mutations))
 			var/pressure_damage = min( ( (adjusted_pressure / species.hazard_high_pressure) -1 )*PRESSURE_DAMAGE_COEFFICIENT , MAX_HIGH_PRESSURE_DAMAGE)
 			take_overall_damage(brute=pressure_damage, used_weapon = "High Pressure")
 			throw_alert("pressure", /obj/screen/alert/highpressure, 2)
@@ -433,7 +383,7 @@
 	else if(adjusted_pressure >= species.hazard_low_pressure)
 		throw_alert("pressure", /obj/screen/alert/lowpressure, 1)
 	else
-		if(RESIST_COLD in mutations)
+		if(COLDRES in mutations)
 			clear_alert("pressure")
 		else
 			take_overall_damage(brute=LOW_PRESSURE_DAMAGE, used_weapon = "Low Pressure")
@@ -444,7 +394,7 @@
 /mob/living/carbon/human/handle_fire()
 	if(..())
 		return
-	if(RESIST_HEAT in mutations)
+	if(HEATRES in mutations)
 		return
 	if(on_fire)
 		var/thermal_protection = get_thermal_protection()
@@ -508,7 +458,7 @@
 
 /mob/living/carbon/human/proc/get_heat_protection(temperature) //Temperature is the temperature you're being exposed to.
 
-	if(RESIST_HEAT in mutations)
+	if(HEATRES in mutations)
 		return 1
 
 	var/thermal_protection_flags = get_heat_protection_flags(temperature)
@@ -569,7 +519,7 @@
 
 /mob/living/carbon/human/proc/get_cold_protection(temperature)
 
-	if(RESIST_COLD in mutations)
+	if(COLDRES in mutations)
 		return 1 //Fully protected from the cold.
 
 	temperature = max(temperature, 2.7) //There is an occasional bug where the temperature is miscalculated in ares with a small amount of gas on them, so this is necessary to ensure that that bug does not affect this calculation. Space's temperature is 2.7K and most suits that are intended to protect against any cold, protect down to 2.0K.
@@ -751,12 +701,12 @@
 				adjustToxLoss(0.1)
 		else //stuff only for synthetics
 			if(alcohol_strength >= spark_start && prob(25))
-				var/datum/effect/system/spark_spread/s = new /datum/effect/system/spark_spread
+				var/datum/effect_system/spark_spread/s = new /datum/effect_system/spark_spread
 				s.set_up(3, 1, src)
 				s.start()
 			if(alcohol_strength >= collapse_start && prob(10))
 				emote("collapse")
-				var/datum/effect/system/spark_spread/s = new /datum/effect/system/spark_spread
+				var/datum/effect_system/spark_spread/s = new /datum/effect_system/spark_spread
 				s.set_up(3, 1, src)
 				s.start()
 			if(alcohol_strength >= braindamage_start && prob(10))
@@ -933,7 +883,7 @@
 /mob/living/carbon/human/handle_changeling()
 	if(mind)
 		if(mind.changeling)
-			mind.changeling.regenerate()
+			mind.changeling.regenerate(src)
 			if(hud_used)
 				hud_used.lingchemdisplay.invisibility = 0
 				hud_used.lingchemdisplay.maptext = "<div align='center' valign='middle' style='position:relative; top:0px; left:6px'><font color='#dd66dd'>[round(mind.changeling.chem_charges)]</font></div>"

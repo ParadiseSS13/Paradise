@@ -183,6 +183,23 @@
 					if(check_rights(R_ADMIN|R_MOD, 0, X.mob))
 						to_chat(X, "<span class='boldnotice'>[type]: [key_name(src, X, 0, type)]-&gt;[key_name(C, X, 0, type)]: [emoji_msg]</span>")
 
+	//Check if the mob being PM'd has any open admin tickets.
+	var/tickets = list()
+	tickets = globAdminTicketHolder.checkForTicket(C)
+	if(tickets)
+		for(var/datum/admin_ticket/i in tickets)
+			i.addResponse(src, msg) // Add this response to their open tickets.
+		return
+
+	tickets = globAdminTicketHolder.checkForTicket(src)
+	if(check_rights(R_ADMIN|R_MOD, 0, C.mob)) //Is the person being pm'd an admin? If so we check if the pm'er has open tickets
+		tickets = globAdminTicketHolder.checkForTicket(src)
+		if(tickets)
+			for(var/datum/admin_ticket/i in tickets)
+				i.addResponse(src, msg)
+			return
+
+
 /client/proc/cmd_admin_irc_pm()
 	if(prefs.muted & MUTE_ADMINHELP)
 		to_chat(src, "<font color='red'>Error: Private-Message: You are unable to use PM-s (muted).</font>")

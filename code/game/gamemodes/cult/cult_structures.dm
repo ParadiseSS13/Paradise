@@ -54,6 +54,10 @@
 	to_chat(user, "<span class='notice'>\The [src] is [anchored ? "":"not "]secured to the floor.</span>")
 
 /obj/structure/cult/functional/attackby(obj/I, mob/user, params)
+	if(HULK in user.mutations)
+		to_chat(user, "<span class='danger'>You cannot seem to manipulate this structure with your bulky hands!</span>")
+		return
+
 	if(istype(I, /obj/item/weapon/tome) && iscultist(user))
 		anchored = !anchored
 		to_chat(user, "<span class='notice'>You [anchored ? "":"un"]secure \the [src] [anchored ? "to":"from"] the floor.</span>")
@@ -180,7 +184,7 @@ var/list/blacklisted_pylon_turfs = typecacheof(list(
 	death_message = "<span class='warning'>The pylon's crystal vibrates and glows fiercely before violently shattering!</span>"
 	death_sound = 'sound/effects/pylon_shatter.ogg'
 
-	var/heal_delay = 25
+	var/heal_delay = 30
 	var/last_heal = 0
 	var/corrupt_delay = 50
 	var/last_corrupt = 0

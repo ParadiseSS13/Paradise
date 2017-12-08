@@ -151,6 +151,7 @@ datum/martial_art/krav_maga/grab_act(var/mob/living/carbon/human/A, var/mob/livi
 
 /obj/item/clothing/gloves/color/black/krav_maga
 	var/datum/martial_art/krav_maga/style = new
+	can_be_cut = FALSE
 
 /obj/item/clothing/gloves/color/black/krav_maga/equipped(mob/user, slot)
 	if(!ishuman(user))

@@ -107,7 +107,7 @@
 
 			custom_emote(1, "drops what they were holding, their [E.name] malfunctioning!")
 
-			var/datum/effect/system/spark_spread/spark_system = new /datum/effect/system/spark_spread()
+			var/datum/effect_system/spark_spread/spark_system = new /datum/effect_system/spark_spread()
 			spark_system.set_up(5, 0, src)
 			spark_system.attach(src)
 			spark_system.start()
@@ -182,3 +182,9 @@ I use this to standardize shadowling dethrall code
 			odmg += O.brute_dam
 			odmg += O.burn_dam
 	return (health < (100 - odmg))
+
+/mob/living/carbon/human/proc/handle_splints() //proc that rebuilds the list of splints on this person, for ease of processing
+	splinted_limbs.Cut()
+	for(var/obj/item/organ/external/limb in bodyparts)
+		if(limb.status & ORGAN_SPLINTED)
+			splinted_limbs += limb

@@ -269,7 +269,7 @@ proc/issyndicate(mob/living/M as mob)
 				synd_mob.equip_to_slot_or_del(new /obj/item/clothing/mask/gas/syndicate(synd_mob), slot_wear_mask)
 				synd_mob.equip_to_slot_or_del(new /obj/item/weapon/tank/nitrogen(synd_mob), slot_l_hand)
 				synd_mob.internal = synd_mob.l_hand
-				synd_mob.update_internals_hud_icon(1)
+				synd_mob.update_action_buttons_icon()
 
 	var/obj/item/weapon/implant/explosive/E = new/obj/item/weapon/implant/explosive(synd_mob)
 	E.implant(synd_mob)
