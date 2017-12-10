@@ -755,6 +755,8 @@
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|ARMS
 	icon_state = "supplymaster_jacket_open"
 	item_state = "supplymaster_jacket_open"
+	ignore_suitadjust = 0
+	suit_adjusted = 1
 	allowed = list(/obj/item/weapon/door_remote/quartermaster, /obj/item/device/megaphone, /obj/item/weapon/stamp/granted, /obj/item/weapon/stamp/denied, /obj/item/weapon/tank/oxygen/yellow, /obj/item/weapon/tank/emergency_oxygen)
 	actions_types = list(/datum/action/item_action/button)
 	adjust_flavour = "unbutton"
