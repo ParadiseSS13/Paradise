@@ -1747,7 +1747,7 @@ area/security/podbay
 	icon_state = "firingrange"
 	
 /area/security/toilets
-	name ="\improper Security Toilets"
+	name ="\improper Security Toilet"
 	icon_state = "security"
 
 /*
