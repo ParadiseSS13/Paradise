@@ -755,6 +755,7 @@
 	icon_state = "supplymaster_jacket_open"
 	item_state = "supplymaster_jacket_open"
 	ignore_suitadjust = 0
+	suit_adjusted = 1
 	allowed = list(/obj/item/device/flashlight,/obj/item/weapon/tank/emergency_oxygen,/obj/item/toy,/obj/item/weapon/storage/fancy/cigarettes,/obj/item/weapon/lighter)
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|ARMS
 	cold_protection = UPPER_TORSO|LOWER_TORSO|ARMS
