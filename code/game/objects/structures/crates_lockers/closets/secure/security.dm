@@ -218,7 +218,6 @@
 	new /obj/item/clothing/shoes/white(src)
 	new /obj/item/device/radio/headset/headset_sec/alt(src)
 	new /obj/item/clothing/shoes/sandal/white(src)
-	new /obj/item/weapon/pinpointer/crew(src)
 
 
 /obj/structure/closet/secure_closet/blueshield
