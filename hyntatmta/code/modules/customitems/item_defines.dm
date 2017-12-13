@@ -1,3 +1,11 @@
+/obj/item/weapon/lighter/zippo/robust
+    name = "robust zippo"
+    desc = "All craftsspacemanship is of the highest quality. It is encrusted with gold sheets and rubies. There is etched R on the back."
+    icon = 'hyntatmta/icons/obj/custom_items.dmi'
+    icon_state = "robustzippo"
+    icon_on = "robustzippoon"
+    icon_off = "robustzippo"
+
 /obj/item/weapon/rcd/arcd
 	name = "advanced rapid-construction-device (ARCD)"
 	desc = "A prototype RCD with ranged capability and extended capacity"
