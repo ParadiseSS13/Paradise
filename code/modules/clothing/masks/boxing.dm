@@ -7,7 +7,7 @@
 	flags_inv = HIDEFACE
 	w_class = WEIGHT_CLASS_SMALL
 	actions_types = list(/datum/action/item_action/adjust)
-	adjusted_flags = SLOT_MASK
+	adjusted_flags = SLOT_HEAD
 	species_fit = list("Vox", "Unathi", "Tajaran", "Vulpkanin", "Grey")
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/species/vox/mask.dmi',
