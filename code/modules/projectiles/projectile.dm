@@ -97,7 +97,8 @@
 				if(istype(H))
 					for(var/mob/living/carbon/human/M in step_over) //Bloody the mobs who're infront of the spray.
 						M.bloody_hands(H)
-						M.bloody_body(H)
+						/* Uncomment when bloody_body stops randomly not transferring blood colour.
+						M.bloody_body(H) */
 
 		var/organ_hit_text = ""
 		if(L.has_limbs)
