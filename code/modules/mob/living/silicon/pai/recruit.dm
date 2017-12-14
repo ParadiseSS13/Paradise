@@ -360,7 +360,7 @@ var/datum/paiController/paiController			// Global handler for pAI candidates
 			return 0
 		if(!player_old_enough_antag(O.client,ROLE_PAI))
 			return 0
-		if(canPosses(O))
+		if(cannotPossess(O))
 			return 0
 		if(!(O in respawnable_list))
 			return 0

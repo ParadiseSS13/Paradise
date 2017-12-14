@@ -458,7 +458,7 @@
 		return FALSE
 	if(!O.can_reenter_corpse)
 		return FALSE
-	if(canPosses(O))
+	if(cannotPossess(O))
 		return FALSE
 	return TRUE
 

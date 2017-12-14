@@ -85,11 +85,11 @@
 
 	return 1
 
-/proc/canPosses(A)
+/proc/cannotPossess(A)
 	var/mob/dead/observer/G = A
 	if(G.has_enabled_antagHUD == 1 && config.antag_hud_restricted)
-		return 0
-	return 1
+		return 1
+	return 0
 
 
 /proc/iscuffed(A)

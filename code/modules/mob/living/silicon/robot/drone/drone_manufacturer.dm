@@ -118,7 +118,7 @@
 	var/joinedasobserver = 0
 	if(istype(src,/mob/dead/observer))
 		var/mob/dead/observer/G = src
-		if(canPosses(G))
+		if(cannotPossess(G))
 			to_chat(usr, "<span class='warning'>Upon using the antagHUD you forfeited the ability to join the round.</span>")
 			return
 		if(G.started_as_observer == 1)
