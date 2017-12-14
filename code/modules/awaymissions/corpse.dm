@@ -46,7 +46,7 @@
 	log_game("[user.ckey] became [mob_name]")
 	create(ckey = user.ckey)
 
-/obj/effect/mob_spawn/New()
+/obj/effect/mob_spawn/initialize()
 	. = ..()
 	if(instant || (roundstart && (ticker && ticker.current_state > GAME_STATE_SETTING_UP)))
 		create()
@@ -143,7 +143,7 @@
 	var/skin_tone
 
 
-/obj/effect/mob_spawn/human/New()
+/obj/effect/mob_spawn/human/initialize()
 	if(ispath(outfit))
 		outfit = new outfit()
 	if(!outfit)
@@ -318,7 +318,7 @@
 	id_job = "Clown"
 	outfit = /datum/outfit/job/clown
 
-/obj/effect/mob_spawn/human/clown/New()
+/obj/effect/mob_spawn/human/clown/initialize()
 	mob_name = pick(clown_names)
 	..()
 
@@ -356,7 +356,7 @@
 	id_job = "Mime"
 	outfit = /datum/outfit/job/mime
 
-/obj/effect/mob_spawn/human/mime/New()
+/obj/effect/mob_spawn/human/mime/initialize()
 	mob_name = pick(mime_names)
 	..()
 
@@ -368,7 +368,20 @@
 /obj/effect/mob_spawn/human/miner
 	name = "Shaft Miner"
 	id_job = "Shaft Miner"
-	outfit = /datum/outfit/job/mining
+	outfit = /datum/outfit/job/mining/suit
+
+/datum/outfit/job/mining/suit
+	name = "Station Engineer"
+	suit = /obj/item/clothing/suit/space/hardsuit/mining
+	head = /obj/item/clothing/head/helmet/space/hardsuit/mining
+	uniform = /obj/item/clothing/under/rank/miner
+	gloves = /obj/item/clothing/gloves/fingerless
+	shoes = /obj/item/clothing/shoes/workboots
+	l_ear = /obj/item/device/radio/headset/headset_cargo/mining
+	id = /obj/item/weapon/card/id/supply
+	l_pocket = /obj/item/weapon/reagent_containers/food/pill/patch/styptic
+	r_pocket = /obj/item/device/flashlight/seclite
+
 
 /obj/effect/mob_spawn/human/bartender
 	name = "Space Bartender"
