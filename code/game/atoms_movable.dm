@@ -197,9 +197,6 @@
 	if(pulledby && !pulledby.pulling)
 		return 1
 
-	if(throwing)
-		return 1
-
 	if(locate(/obj/structure/lattice) in range(1, get_turf(src))) //Not realistic but makes pushing things in space easier
 		return 1
 
