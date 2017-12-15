@@ -40,10 +40,7 @@
 	var/cold_level_1_damage = COLD_GAS_DAMAGE_LEVEL_1 //Keep in mind with gas damage levels, you can set these to be negative, if you want someone to heal, instead.
 	var/cold_level_2_damage = COLD_GAS_DAMAGE_LEVEL_2
 	var/cold_level_3_damage = COLD_GAS_DAMAGE_LEVEL_3
-	var/cold_BRUTE_mod = 0		//If you want to add a damage type, simply set its mod to something besides 0
-	var/cold_BURN_mod = 1
-	var/cold_OXY_mod = 0
-	var/cold_TOX_mod = 0
+	var/cold_damage_types = list(BURN = 1)
 
 	var/hot_message = "your face burning and a searing heat"
 	var/heat_level_1_threshold = 360
@@ -52,10 +49,7 @@
 	var/heat_level_1_damage = HEAT_GAS_DAMAGE_LEVEL_1
 	var/heat_level_2_damage = HEAT_GAS_DAMAGE_LEVEL_2
 	var/heat_level_3_damage = HEAT_GAS_DAMAGE_LEVEL_3
-	var/heat_BRUTE_mod = 0
-	var/heat_BURN_mod = 1
-	var/heat_OXY_mod = 0
-	var/heat_TOX_mod = 0
+	var/heat_damage_types = list(BURN = 1)
 
 /obj/item/organ/internal/lungs/insert(mob/living/carbon/M, special = 0, dont_remove_slot = 0)
 	..()
@@ -284,10 +278,8 @@
 		if(breath_temperature > cold_level_2_threshold && breath_temperature < cold_level_1_threshold)
 			TC = cold_level_1_damage
 		if(TC)
-			H.apply_damage_type(TC*CM*cold_BRUTE_mod, BRUTE)
-			H.apply_damage_type(TC*CM*cold_BURN_mod, BURN)
-			H.apply_damage_type(TC*CM*cold_OXY_mod, OXY)
-			H.apply_damage_type(TC*CM*cold_TOX_mod, TOX)
+			for(var/D in cold_damage_types)
+				H.apply_damage_type(TC * CM * cold_damage_types[D], D)
 		if(breath_temperature < cold_level_1_threshold)
 			if(prob(20))
 				to_chat(H, "<span class='warning'>You feel [cold_message] in your [name]!</span>")
@@ -302,10 +294,8 @@
 		if(breath_temperature > heat_level_3_threshold)
 			TH = heat_level_3_damage
 		if(TH)
-			H.apply_damage_type(TH*HM*heat_BRUTE_mod, BRUTE)
-			H.apply_damage_type(TH*HM*heat_BURN_mod, BURN)
-			H.apply_damage_type(TH*HM*heat_OXY_mod, OXY)
-			H.apply_damage_type(TH*HM*heat_TOX_mod, TOX)
+			for(var/D in heat_damage_types)
+				H.apply_damage_type(TH * HM * heat_damage_types[D], D)
 		if(breath_temperature > heat_level_1_threshold)
 			if(prob(20))
 				to_chat(H, "<span class='warning'>You feel [hot_message] in your [name]!</span>")
@@ -344,7 +334,4 @@
 	cold_level_1_damage = -COLD_GAS_DAMAGE_LEVEL_1 //They heal when the air is cold
 	cold_level_2_damage = -COLD_GAS_DAMAGE_LEVEL_2
 	cold_level_3_damage = -COLD_GAS_DAMAGE_LEVEL_3
-	cold_BRUTE_mod = 1
-	cold_BURN_mod = 0.5
-	cold_OXY_mod = 0
-	cold_TOX_mod = 0
+	cold_damage_types = list(BRUTE = 1, BURN = 0.5)
