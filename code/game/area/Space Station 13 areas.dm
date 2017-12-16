@@ -1237,7 +1237,11 @@ var/list/ghostteleportlocs = list()
 /area/civilian/pet_store
 	name = "\improper Pet Store"
 	icon_state = "Theatre"
-
+	
+/area/civilian/vacantoffice
+	name ="\improper Vacant Office"
+	icon_state = "Theatre"
+	
 /area/holodeck
 	name = "\improper Holodeck"
 	icon_state = "Holodeck"
@@ -1741,6 +1745,10 @@ area/security/podbay
 /area/security/range
 	name = "\improper Firing Range"
 	icon_state = "firingrange"
+	
+/area/security/toilets
+	name ="\improper Security Toilet"
+	icon_state = "security"
 
 /*
 	New()
@@ -1794,14 +1802,6 @@ area/security/podbay
 /area/security/checkpoint/science
 	name = "Security Post - Science"
 	icon_state = "checkpoint1"
-
-/area/security/vacantoffice
-	name = "\improper Vacant Office"
-	icon_state = "security"
-
-/area/security/vacantoffice2
-	name = "\improper Vacant Office"
-	icon_state = "security"
 
 /area/quartermaster
 	name = "\improper Quartermasters"
