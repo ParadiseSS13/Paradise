@@ -20,7 +20,7 @@ window.onerror = function(msg, url, line, col, error) {
 
 //Globals
 window.status = 'Output';
-var $messages, $subOptions, $contextMenu, $filterMessages;
+var $messages, $subOptions, $contextMenu, $filterMessages, $last_message;
 var opts = {
 	//General
 	'messageCount': 0, //A count...of messages...
@@ -215,16 +215,51 @@ function output(message, flag) {
 		message = linkify(message);
 	}
 
-	opts.messageCount++;	
+	opts.messageCount++;
 
-	//Actually append the message
-	var entry = document.createElement('div');
-	entry.className = 'entry';
-
-	if (filteredOut) {
-		entry.className += ' hidden';
-		entry.setAttribute('data-filter', filteredOut);
+	var handled = false;
+	var trimmed_message = message.trim()
+	var lastmessages = $messages.children('div.entry:last-child');
+	if (opts.messageCombining && lastmessages.length && $last_message)
+	{
+		if($last_message == trimmed_message)
+		{
+			if(lastmessages.children('span.r').length)
+			{
+				var current_value = parseInt(lastmessages.children('span.r').text())
+				lastmessages.children('span.r').text(current_value+1)
+			}
+			else
+			{
+				lastmessages.append($('<span/>', { 'class': 'r', 'text': 2}));
+			}
+			if(parseInt(lastmessages.css("font-size")) < 24) //Completely arbitrary max size
+				lastmessages.css("font-size","+=2")
+			opts.messageCount--;
+			handled = true;
+		}
 	}
+
+	if(!handled)
+	{
+		//Actually append the message
+		var entry = document.createElement('div');
+		entry.className = 'entry';
+
+		if (filteredOut) {
+			entry.className += ' hidden';
+			entry.setAttribute('data-filter', filteredOut);
+		}
+
+		$last_message = trimmed_message;
+		entry.innerHTML = trimmed_message;
+		$messages[0].appendChild(entry);
+		$(entry).find("img.icon").error(iconError);
+		//Actually do the snap
+		//Stuff we can do after the message shows can go here, in the interests of responsiveness
+		if (opts.highlightTerms && opts.highlightTerms.length > 0) {
+			highlightTerms(entry);
+		}
 
 	entry.innerHTML = message;
 	$messages[0].appendChild(entry);
@@ -486,6 +521,7 @@ $(function() {
 		'spingDisabled': getCookie('pingdisabled'),
 		'shighlightTerms': getCookie('highlightterms'),
 		'shighlightColor': getCookie('highlightcolor'),
+		'smessagecombining': getCookie('messagecombining'),
 	};
 
 	if (savedConfig.sfontSize) {
@@ -520,6 +556,13 @@ $(function() {
 	if (savedConfig.shighlightColor) {
 		opts.highlightColor = savedConfig.shighlightColor;
 		output('<span class="internal boldnshit">Loaded highlight color of: '+savedConfig.shighlightColor+'</span>', 'internal');
+	}
+	if (savedConfig.smessagecombining) {
+		if (savedConfig.smessagecombining == 'false') {
+			opts.messageCombining = false;
+		} else {
+			opts.messageCombining = true;
+		}
 	}
 
 	(function() {
@@ -606,7 +649,7 @@ $(function() {
 		}
 
 		e.preventDefault()
-		
+
 		var k = e.which;
 		var command; // Command to execute through winset.
 
@@ -881,6 +924,11 @@ $(function() {
 		setCookie('highlightterms', JSON.stringify(opts.highlightTerms), 365);
 		setCookie('highlightcolor', opts.highlightColor, 365);
 	});
+
+	$('#toggleCombine').click(function(e) {
+			opts.messageCombining = !opts.messageCombining;
+			setCookie('messagecombining', (opts.messageCombining ? 'true' : 'false'), 365);
+		});
 
 	$('#clearMessages').click(function() {
 		$messages.empty();
