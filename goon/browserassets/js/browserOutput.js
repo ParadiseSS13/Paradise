@@ -20,7 +20,7 @@ window.onerror = function(msg, url, line, col, error) {
 
 //Globals
 window.status = 'Output';
-var $messages, $subOptions, $contextMenu, $filterMessages;
+var $messages, $subOptions, $contextMenu, $filterMessages, $last_message;
 var opts = {
 	//General
 	'messageCount': 0, //A count...of messages...
@@ -62,10 +62,7 @@ var opts = {
 	'clientData': [],
 
 	// List of macros in the 'hotkeymode' macro set.
-	'macros': {},
-
-	// Emoji toggle
-	'enableEmoji': true
+	'macros': {}
 };
 
 function outerHTML(el) {
@@ -100,32 +97,6 @@ function linkify(text) {
 	});
 }
 
-function emojiparse(el) {
-
-	if ((typeof UNICODE_9_EMOJI === 'undefined') || (typeof twemoji === 'undefined')) {
-		return; //something didn't load right, probably IE8
-	}
-
-	var $el = $(el);
-
-	var $emojiZone = $el.find(".emoji_enabled");
-
-	if ($emojiZone.length) {
-		$emojiZone.each(function () {
-			var html = $(this).html();
-			html = html.replace(/\:(.*?)\:/g, function (match, p1, offset, s) {
-				var unicode_entity = UNICODE_9_EMOJI[p1];
-				if (unicode_entity) {
-					return unicode_entity;
-				}
-				return match;
-			});
-			html = $.parseHTML(twemoji.parse(html, {size: "svg", ext: ".svg"}));
-			$(this).html(html);
-		});
-	}
-}
-
 // Colorizes the highlight spans
 function setHighlightColor(match) {
 	match.style.background = opts.highlightColor
@@ -155,12 +126,6 @@ function output(message, flag) {
 
 	if (flag !== 'internal')
 		opts.lastPang = Date.now();
-
-	// Basically we url_encode twice server side so we can manually read the encoded version and actually do UTF-8.
-	// The replace for + is because FOR SOME REASON, BYOND replaces spaces with a + instead of %20, and a plus with %2b.
-	// Marvelous.
-	message = message.replace(/\+/g, "%20");
-	message = decoder(message);
 
 	//The behemoth of filter-code (for Admin message filters)
 	//Note: This is proooobably hella inefficient
@@ -252,23 +217,51 @@ function output(message, flag) {
 
 	opts.messageCount++;
 
-	//Actually append the message
-	var entry = document.createElement('div');
-	entry.className = 'entry';
-
-	if (filteredOut) {
-		entry.className += ' hidden';
-		entry.setAttribute('data-filter', filteredOut);
+	var handled = false;
+	var trimmed_message = message.trim()
+	var lastmessages = $messages.children('div.entry:last-child');
+	if (opts.messageCombining && lastmessages.length && $last_message)
+	{
+		if($last_message == trimmed_message)
+		{
+			if(lastmessages.children('span.r').length)
+			{
+				var current_value = parseInt(lastmessages.children('span.r').text())
+				lastmessages.children('span.r').text(current_value+1)
+			}
+			else
+			{
+				lastmessages.append($('<span/>', { 'class': 'r', 'text': 2}));
+			}
+			if(parseInt(lastmessages.css("font-size")) < 24) //Completely arbitrary max size
+				lastmessages.css("font-size","+=2")
+			opts.messageCount--;
+			handled = true;
+		}
 	}
+
+	if(!handled)
+	{
+		//Actually append the message
+		var entry = document.createElement('div');
+		entry.className = 'entry';
+
+		if (filteredOut) {
+			entry.className += ' hidden';
+			entry.setAttribute('data-filter', filteredOut);
+		}
+
+		$last_message = trimmed_message;
+		entry.innerHTML = trimmed_message;
+		$messages[0].appendChild(entry);
+		$(entry).find("img.icon").error(iconError);
+		//Actually do the snap
+		//Stuff we can do after the message shows can go here, in the interests of responsiveness
+		if (opts.highlightTerms && opts.highlightTerms.length > 0) {
+			highlightTerms(entry);
+		}
 
 	entry.innerHTML = message;
-
-	// emoji!
-	if (opts.enableEmoji) {
-		emojiparse(entry);
-	}
-
-
 	$messages[0].appendChild(entry);
 
 	//Actually do the snap
@@ -280,11 +273,6 @@ function output(message, flag) {
 	if (opts.highlightTerms && opts.highlightTerms.length > 0) {
 		highlightTerms(entry);
 	}
-}
-
-function internalOutput(message, flag)
-{
-	output(escaper(message), flag);
 }
 
 //Runs a route within byond, client or server side. Consider this "ehjax" for byond.
@@ -386,7 +374,7 @@ function ehjaxCallback(data) {
 		$('#pingDot').css('color', '#'+hex);
 	} else if (data == 'roundrestart') {
 		opts.restarting = true;
-		internalOutput('<div class="connectionClosed internal restarting">The connection has been closed because the server is restarting. Please wait while you automatically reconnect.</div>', 'internal');
+		output('<div class="connectionClosed internal restarting">The connection has been closed because the server is restarting. Please wait while you automatically reconnect.</div>', 'internal');
 	} else if (data == 'stopaudio') {
 		$('.dectalk').remove();
 	} else {
@@ -396,7 +384,7 @@ function ehjaxCallback(data) {
 			dataJ = $.parseJSON(data);
 		} catch (e) {
 			//But...incorrect :sadtrombone:
-			window.onerror('JSON: '+e+'. '+data+'; data.length = '+data.length, 'browserOutput.html', 327);
+			window.onerror('JSON: '+e+'. '+data, 'browserOutput.html', 327);
 			return;
 		}
 		data = dataJ;
@@ -421,9 +409,9 @@ function ehjaxCallback(data) {
 			changeMode(data.modeChange);
 		} else if (data.firebug) {
 			if (data.trigger) {
-				internalOutput('<span class="internal boldnshit">Loading firebug console, triggered by '+data.trigger+'...</span>', 'internal');
+				output('<span class="internal boldnshit">Loading firebug console, triggered by '+data.trigger+'...</span>', 'internal');
 			} else {
-				internalOutput('<span class="internal boldnshit">Loading firebug console...</span>', 'internal');
+				output('<span class="internal boldnshit">Loading firebug console...</span>', 'internal');
 			}
 			var firebugEl = document.createElement('script');
 			firebugEl.src = 'https://getfirebug.com/firebug-lite-debug.js';
@@ -434,7 +422,7 @@ function ehjaxCallback(data) {
 				message = '<a href="#" class="stopAudio icon-stack" title="Stop Audio" style="color: black;"><i class="icon-volume-off"></i><i class="icon-ban-circle" style="color: red;"></i></a> '+
 				'<span class="italic">You hear a strange robotic voice...</span>' + message;
 			}
-			internalOutput(message, 'preventLink');
+			output(message, 'preventLink');
 		}
 	}
 }
@@ -498,7 +486,7 @@ $(function() {
 			if (!opts.noResponse) { //Only actually append a message if the previous ping didn't also fail (to prevent spam)
 				opts.noResponse = true;
 				opts.noResponseCount++;
-				internalOutput('<div class="connectionClosed internal" data-count="'+opts.noResponseCount+'">You are either AFK, experiencing lag or the connection has closed.</div>', 'internal');
+				output('<div class="connectionClosed internal" data-count="'+opts.noResponseCount+'">You are either AFK, experiencing lag or the connection has closed.</div>', 'internal');
 			}
 		} else if (opts.noResponse) { //Previous ping attempt failed ohno
 			$('.connectionClosed[data-count="'+opts.noResponseCount+'"]:not(.restored)').addClass('restored').text('Your connection has been restored (probably)!');
@@ -533,22 +521,23 @@ $(function() {
 		'spingDisabled': getCookie('pingdisabled'),
 		'shighlightTerms': getCookie('highlightterms'),
 		'shighlightColor': getCookie('highlightcolor'),
+		'smessagecombining': getCookie('messagecombining'),
 	};
 
 	if (savedConfig.sfontSize) {
 		$messages.css('font-size', savedConfig.sfontSize);
-		internalOutput('<span class="internal boldnshit">Loaded font size setting of: '+savedConfig.sfontSize+'</span>', 'internal');
+		output('<span class="internal boldnshit">Loaded font size setting of: '+savedConfig.sfontSize+'</span>', 'internal');
 	}
 	if (savedConfig.sfontType) {
 		$messages.css('font-family', savedConfig.sfontType);
-		internalOutput('<span class="internal boldnshit">Loaded font type setting of: '+savedConfig.sfontType+'</span>', 'internal');
+		output('<span class="internal boldnshit">Loaded font type setting of: '+savedConfig.sfontType+'</span>', 'internal');
 	}
 	if (savedConfig.spingDisabled) {
 		if (savedConfig.spingDisabled == 'true') {
 			opts.pingDisabled = true;
 			$('#ping').hide();
 		}
-		internalOutput('<span class="internal boldnshit">Loaded ping display of: '+(opts.pingDisabled ? 'hidden' : 'visible')+'</span>', 'internal');
+		output('<span class="internal boldnshit">Loaded ping display of: '+(opts.pingDisabled ? 'hidden' : 'visible')+'</span>', 'internal');
 	}
 	if (savedConfig.shighlightTerms) {
 		var savedTerms = $.parseJSON(savedConfig.shighlightTerms);
@@ -560,13 +549,20 @@ $(function() {
 		}
 		if (actualTerms) {
 			actualTerms = actualTerms.substring(0, actualTerms.length - 2);
-			internalOutput('<span class="internal boldnshit">Loaded highlight strings of: ' + actualTerms+'</span>', 'internal');
+			output('<span class="internal boldnshit">Loaded highlight strings of: ' + actualTerms+'</span>', 'internal');
 			opts.highlightTerms = savedTerms;
 		}
 	}
 	if (savedConfig.shighlightColor) {
 		opts.highlightColor = savedConfig.shighlightColor;
-		internalOutput('<span class="internal boldnshit">Loaded highlight color of: '+savedConfig.shighlightColor+'</span>', 'internal');
+		output('<span class="internal boldnshit">Loaded highlight color of: '+savedConfig.shighlightColor+'</span>', 'internal');
+	}
+	if (savedConfig.smessagecombining) {
+		if (savedConfig.smessagecombining == 'false') {
+			opts.messageCombining = false;
+		} else {
+			opts.messageCombining = true;
+		}
 	}
 
 	(function() {
@@ -660,7 +656,7 @@ $(function() {
 		// Hardcoded because else there would be no feedback message.
 		if (k == 113) { // F2
 			runByond('byond://winset?screenshot=auto');
-			internalOutput('Screenshot taken', 'internal');
+			output('Screenshot taken', 'internal');
 		}
 
 		var c = "";
@@ -794,7 +790,7 @@ $(function() {
 		fontSize = fontSize - 1 + 'px';
 		$messages.css({'font-size': fontSize});
 		setCookie('fontsize', fontSize, 365);
-		internalOutput('<span class="internal boldnshit">Font size set to '+fontSize+'</span>', 'internal');
+		output('<span class="internal boldnshit">Font size set to '+fontSize+'</span>', 'internal');
 	});
 
 	$('#increaseFont').click(function(e) {
@@ -802,7 +798,7 @@ $(function() {
 		fontSize = fontSize + 1 + 'px';
 		$messages.css({'font-size': fontSize});
 		setCookie('fontsize', fontSize, 365);
-		internalOutput('<span class="internal boldnshit">Font size set to '+fontSize+'</span>', 'internal');
+		output('<span class="internal boldnshit">Font size set to '+fontSize+'</span>', 'internal');
 	});
 
 	$('#chooseFont').click(function(e) {
@@ -868,7 +864,7 @@ $(function() {
 
 	$('#highlightTerm').click(function(e) {
 		if(!($().mark)) {
-			internalOutput('<span class="internal boldnshit">Highlighting is disabled. You are probably using Internet Explorer 8 and need to update.</span>', 'internal');
+			output('<span class="internal boldnshit">Highlighting is disabled. You are probably using Internet Explorer 8 and need to update.</span>', 'internal');
 			return;
 		}
 		if ($('.popup .highlightTerm').is(':visible')) {return;}
@@ -928,6 +924,11 @@ $(function() {
 		setCookie('highlightterms', JSON.stringify(opts.highlightTerms), 365);
 		setCookie('highlightcolor', opts.highlightColor, 365);
 	});
+
+	$('#toggleCombine').click(function(e) {
+			opts.messageCombining = !opts.messageCombining;
+			setCookie('messagecombining', (opts.messageCombining ? 'true' : 'false'), 365);
+		});
 
 	$('#clearMessages').click(function() {
 		$messages.empty();

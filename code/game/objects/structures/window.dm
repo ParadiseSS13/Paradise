@@ -1,10 +1,14 @@
 var/global/wcBar = pick(list("#0d8395", "#58b5c3", "#58c366", "#90d79a", "#ffffff"))
 var/global/wcBrig = pick(list("#aa0808", "#7f0606", "#ff0000"))
 var/global/wcCommon = pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e", "#8fcf44", "#ffffff"))
+var/global/wcEng = pick(list("#ff9900", "#ffa500"))
+var/global/wcResearch = pick(list("#ee82ee"))
 
 /obj/proc/color_windows(var/obj/W as obj)
 	var/list/wcBarAreas = list(/area/crew_quarters/bar)
 	var/list/wcBrigAreas = list(/area/security,/area/prison,/area/shuttle/gamma)
+	var/list/wcEngAreas = list(/area/assembly,/area/engine,/area/construction)
+	var/list/wcResearchAreas = list(/area/toxins,/area/crew_quarters/hor)
 
 	var/newcolor
 	var/turf/T = get_turf(W)
@@ -15,6 +19,10 @@ var/global/wcCommon = pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e", "#8f
 		newcolor = wcBar
 	else if(is_type_in_list(A,wcBrigAreas))
 		newcolor = wcBrig
+	else if(is_type_in_list(A,wcEngAreas))
+		newcolor = wcEng
+	else if(is_type_in_list(A,wcResearchAreas))
+		newcolor = wcResearch
 	else
 		newcolor = wcCommon
 
@@ -513,6 +521,14 @@ var/global/wcCommon = pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e", "#8f
 	icon_state = "fwindow"
 	basestate = "fwindow"
 	health = 30
+
+/obj/structure/window/reinforced/prison
+	name = "reinforced prison window"
+	desc = "Legends says that only meteors can shatter it."
+	icon_state = "rwindow"
+	basestate = "rwindow"
+	health = INFINITY
+
 
 /obj/structure/window/reinforced/polarized
 	name = "electrochromic window"

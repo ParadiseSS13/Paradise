@@ -57,7 +57,7 @@
 	. = ..()
 	var/area/A = get_area()
 	if(get_area_type() == AREA_STATION)
-		. += "<p>According to the [src], you are now in <b>\"[sanitize(A.name)]\"</b>.</p>"
+		. += "<p>According to the [src], you are now in <b>\"[sanitize_local(A.name)]\"</b>.</p>"
 	var/datum/browser/popup = new(user, "blueprints", "[src]", 700, 500)
 	popup.set_content(.)
 	popup.open()
@@ -89,7 +89,7 @@
 	. = ..()
 	var/area/A = get_area()
 	if(get_area_type() == AREA_STATION)
-		. += "<p>According to the [src], you are now in <b>\"[sanitize(A.name)]\"</b>.</p>"
+		. += "<p>According to the [src], you are now in <b>\"[sanitize_local(A.name)]\"</b>.</p>"
 		. += "<p>You may <a href='?src=[UID()];edit_area=1'> move an amendment</a> to the drawing.</p>"
 	if(!viewing)
 		. += "<p><a href='?src=[UID()];view_blueprints=1'>View structural data</a></p>"
@@ -214,7 +214,7 @@
 
 /obj/item/areaeditor/proc/edit_area()
 	var/area/A = get_area()
-	var/prevname = "[sanitize(A.name)]"
+	var/prevname = "[sanitize_local(A.name)]"
 	var/str = trim(stripped_input(usr,"New area name:", "Blueprint Editing", prevname, MAX_NAME_LEN))
 	if(!str || !length(str) || str==prevname) //cancel
 		return

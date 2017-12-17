@@ -2060,7 +2060,7 @@
 					<li>The Security Pod Pilot is not permitted to use the Laser Module during arrests, and must switch to the Disabler Module;</li>
 					<li>The Security Pod Pilot must carry around a spare set of tools and energy cell, for their own sake;</li>
 					<li>The Security Pod Pilot may immediately, and without warning, conduct arrests on individuals attempting to perform E.V.A actions near the AI Satellite. Exception is made if the AI Unit is malfunctioning;</li>
-					<li>The Security Pod Pilot is not permitted to explore the area surrounding the station, and must therefore be confined to the immediate orbital area of the NSS Cyberiad, the NXS Klapaucius (the Telecomms Satellite) and the Mining/Research Asteroid. Exception is made if the Head of Security permits otherwise.</li>
+					<li>The Security Pod Pilot is not permitted to explore the area surrounding the station, and must therefore be confined to the immediate orbital area of the SES ATMIITAD, the NXS Klapaucius (the Telecomms Satellite) and the Mining/Research Asteroid. Exception is made if the Head of Security permits otherwise.</li>
 				</ol><BR>
 
 				<h style='color: darkblue'>Code Blue</h>
@@ -2503,7 +2503,7 @@
 					<li>The Captain is not permitted to perform regular Security Duty. However, they may still assist Security if they are understaffed, or if they see a crime being committed. However, the Captain is not permitted to take items from the Armory under normal circumstances, unless authorized by the Head of Security. In addition, the Captain may not requisition weaponry for themselves from Cargo and/or Science, unless there's an immediate threat to station and/or crew;</li>
 					<li>If a Department lacks a Head of Staff, the Captain should make reasonable efforts to appoint an Acting Head of Staff, if there are available personnel to fill the position;</li>
 					<li>The Captain is to ensure that Space Law is being correctly applied. This should be done in cooperation with the Head of Security;</li>
-					<li>The Captain is not to leave the NSS Cyberiad unless given specific permission by Central Command, or it happens to be the end of the shift. This includes via space or via the Gateway. To do so is to be considered abandoning their posts and is grounds for termination;</li>
+					<li>The Captain is not to leave the SES ATMIITAD unless given specific permission by Central Command, or it happens to be the end of the shift. This includes via space or via the Gateway. To do so is to be considered abandoning their posts and is grounds for termination;</li>
 					<li>The Captain must keep the Nuclear Authentication Disk on their person at all times or, failing that, in the possession of the Head of Security or Blueshield;</li>
 					<li>The Captain is to attempt to resolve every issue that arises in Command locally before contacting Central Command;</li>
 					<li>The Captain is not permitted to carry their Antique Laser Gun or Space Armor unless there's an immediate emergency that requires attending to;</li>

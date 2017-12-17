@@ -79,7 +79,7 @@
 	w_class = WEIGHT_CLASS_TINY
 
 /obj/item/weapon/gun/energy/mindflayer
-	name = "\improper Mind Flayer"
+	name = "Mind Flayer"
 	desc = "A prototype weapon recovered from the ruins of Research-Station Epsilon."
 	icon_state = "xray"
 	item_state = null

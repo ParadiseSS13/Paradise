@@ -155,7 +155,7 @@
 	var/enabled
 
 /obj/item/device/spacepod_equipment/misc/tracker
-	name = "\improper spacepod tracking system"
+	name = "spacepod tracking system"
 	desc = "A tracking device for spacepods."
 	icon_state = "pod_locator"
 	enabled = 0

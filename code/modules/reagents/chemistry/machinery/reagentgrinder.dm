@@ -1,5 +1,5 @@
 /obj/machinery/reagentgrinder
-	name = "\improper All-In-One Grinder"
+	name = "All-In-One Grinder"
 	icon = 'icons/obj/kitchen.dmi'
 	icon_state = "juicer1"
 	layer = 2.9

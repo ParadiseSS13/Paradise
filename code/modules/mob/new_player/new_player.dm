@@ -109,7 +109,10 @@
 		return 1
 
 	if(href_list["ready"])
-		ready = !ready
+		if(!check_prisonlist(ckey(key)))
+			to_chat(usr, "Looks like you're unwhitelisted. You will start the game as D-Class Prisoner.")
+		else
+			ready = !ready
 		new_player_panel_proc()
 
 	if(href_list["refresh"])
@@ -194,8 +197,8 @@
 	if(!is_job_whitelisted(src, rank))	 return 0
 	if(!job.player_old_enough(client))	return 0
 	if(job.admin_only && !(check_rights(R_EVENT, 0))) return 0
-	if(job.available_in_playtime(client))
-		return 0
+	if(job.prisonlist_job && check_prisonlist(ckey(key)) && !(check_rights(R_MENTOR, 0))) return 0
+	if(!job.prisonlist_job && !check_prisonlist(ckey(key)) && !(check_rights(R_MENTOR, 0))) return 0
 
 	if(config.assistantlimit)
 		if(job.title == "Civilian")
@@ -209,6 +212,14 @@
 					return 1
 				return 0
 	return 1
+
+/mob/new_player/proc/IsPrisonListJob(rank)
+	var/datum/job/job = job_master.GetJob(rank)
+	if(job.prisonlist_job)
+		return 1
+	else
+		return 0
+
 
 /mob/new_player/proc/IsAdminJob(rank)
 	var/datum/job/job = job_master.GetJob(rank)
@@ -263,27 +274,30 @@
 	//Find our spawning point.
 	var/join_message
 	var/datum/spawnpoint/S
-
-	if(IsAdminJob(rank))
-		if(IsERTSpawnJob(rank))
-			character.loc = pick(ertdirector)
-		else
-			character.loc = pick(aroomwarp)
-		join_message = "has arrived"
+	if(IsPrisonListJob(rank))
+		join_message = "transfered to the station permabrig for heavy crimes"
+		character.loc = pick(permaprisoner)
 	else
-		if(spawning_at)
-			S = spawntypes[spawning_at]
-		if(S && istype(S))
-			if(S.check_job_spawning(rank))
-				character.loc = pick(S.turfs)
-				join_message = S.msg
+		if(IsAdminJob(rank))
+			if(IsERTSpawnJob(rank))
+				character.loc = pick(ertdirector)
 			else
-				to_chat(character, "Your chosen spawnpoint ([S.display_name]) is unavailable for your chosen job. Spawning you at the Arrivals shuttle instead.")
+				character.loc = pick(aroomwarp)
+			join_message = "has arrived"
+		else
+			if(spawning_at)
+				S = spawntypes[spawning_at]
+			if(S && istype(S))
+				if(S.check_job_spawning(rank))
+					character.loc = pick(S.turfs)
+					join_message = S.msg
+				else
+					to_chat(character, "Your chosen spawnpoint ([S.display_name]) is unavailable for your chosen job. Spawning you at the Arrivals shuttle instead.")
+					character.loc = pick(latejoin)
+					join_message = "has arrived on the station"
+			else
 				character.loc = pick(latejoin)
 				join_message = "has arrived on the station"
-		else
-			character.loc = pick(latejoin)
-			join_message = "has arrived on the station"
 
 	character.lastarea = get_area(loc)
 	// Moving wheelchair if they have one

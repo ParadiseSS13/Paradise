@@ -45,7 +45,7 @@
 
 	if(href_list["nano_err"]) //nano throwing errors
 		if(topic_debugging)
-			to_chat(src, "## NanoUI: " + html_decode(href_list["nano_err"]))//NANO DEBUG HOOK
+			to_chat(src, "## NanoUI: " + lhtml_decode(href_list["nano_err"]))//NANO DEBUG HOOK
 
 
 
@@ -97,154 +97,271 @@
 	if(config && config.log_hrefs && href_logfile)
 		to_chat(href_logfile, "<small>[time2text(world.timeofday,"hh:mm")] [src] (usr:[usr])</small> || [hsrc ? "[hsrc] " : ""][href]<br>")
 
-	if(href_list["karmashop"])
-		if(config.disable_karma)
+	switch(href_list["karmashop"])
+		if("tab")
+			karma_tab = text2num(href_list["tab"])
+			karmashopmenu()
 			return
+		if("shop")
+			if(href_list["KarmaBuy"])
+				var/karma=verify_karma()
+				switch(href_list["KarmaBuy"])
+					if("1")
+						if(karma <5)
+							to_chat(usr, "You do not have enough karma!")
+							return
+						else
+							if(alert("Are you sure you want to unlock Barber?", "Confirmation", "No", "Yes") != "Yes")
+								return
+							DB_job_unlock("Barber",5)
+							return
+					if("2")
+						if(karma <15)
+							to_chat(usr, "You do not have enough karma!")
+							return
+						else
+							if(alert("Are you sure you want to unlock Brig Physician?", "Confirmation", "No", "Yes") != "Yes")
+								return
+							DB_job_unlock("Brig Physician",15)
+							return
+					if("3")
+						if(karma <30)
+							to_chat(usr, "You do not have enough karma!")
+							return
+						else
+							if(alert("Are you sure you want to unlock Nanotrasen Representative?", "Confirmation", "No", "Yes") != "Yes")
+								return
+							DB_job_unlock("Nanotrasen Representative",30)
+							return
+					if("5")
+						if(karma <30)
+							to_chat(usr, "You do not have enough karma!")
+							return
+						else
+							if(alert("Are you sure you want to unlock Blueshield?", "Confirmation", "No", "Yes") != "Yes")
+								return
+							DB_job_unlock("Blueshield",30)
+							return
+					if("6")
+						if(karma <10)
+							to_chat(usr, "You do not have enough karma!")
+							return
+						else
+							if(alert("Are you sure you want to unlock Mechanic?", "Confirmation", "No", "Yes") != "Yes")
+								return
+							DB_job_unlock("Mechanic",10)
+							return
+					if("7")
+						if(karma <30)
+							to_chat(usr, "You do not have enough karma!")
+							return
+						else
+							if(alert("Are you sure you want to unlock Magistrate?", "Confirmation", "No", "Yes") != "Yes")
+								return
+							DB_job_unlock("Magistrate",30)
+							return
+					if("9")
+						if(karma <15)
+							to_chat(usr, "You do not have enough karma!")
+							return
+						else
+							if(alert("Are you sure you want to unlock Security Pod Pilot?", "Confirmation", "No", "Yes") != "Yes")
+								return
+							DB_job_unlock("Security Pod Pilot",15)
+							return
+			if(href_list["KarmaBuy2"])
+				var/karma=verify_karma()
+				switch(href_list["KarmaBuy2"])
+					if("1")
+						if(karma <30)
+							to_chat(usr, "You do not have enough karma!")
+							return
+						else
+							if(alert("Are you sure you want to unlock Machine People?", "Confirmation", "No", "Yes") != "Yes")
+								return
+							DB_species_unlock("Machine",30)
+							return
+					if("2")
+						if(karma <30)
+							to_chat(usr, "You do not have enough karma!")
+							return
+						else
+							if(alert("Are you sure you want to unlock Kidan?", "Confirmation", "No", "Yes") != "Yes")
+								return
+							DB_species_unlock("Kidan",30)
+							return
+					if("3")
+						if(karma <60)
+							to_chat(usr, "You do not have enough karma!")
+							return
+						else
+							if(alert("Are you sure you want to unlock Grey?", "Confirmation", "No", "Yes") != "Yes")
+								return
+							DB_species_unlock("Grey",60)
+							return
+					if("4")
+						if(karma <40)
+							to_chat(usr, "You do not have enough karma!")
+							return
+						else
+							if(alert("Are you sure you want to unlock Vox?", "Confirmation", "No", "Yes") != "Yes")
+								return
+							DB_species_unlock("Vox",40)
+							return
+					if("5")
+						if(karma <50)
+							to_chat(usr, "You do not have enough karma!")
+							return
+						else
+							if(alert("Are you sure you want to unlock Slime People?", "Confirmation", "No", "Yes") != "Yes")
+								return
+							DB_species_unlock("Slime People",50)
+							return
+					if("6")
+						if(karma <40)
+							to_chat(usr, "You do not have enough karma!")
+							return
+						else
+							if(alert("Are you sure you want to unlock Plasmaman?", "Confirmation", "No", "Yes") != "Yes")
+								return
+							DB_species_unlock("Plasmaman",40)
+							return
+					if("7")
+						if(karma <30)
+							to_chat(usr, "You do not have enough karma!")
+							return
+						else
+							if(alert("Are you sure you want to unlock Drask?", "Confirmation", "No", "Yes") != "Yes")
+								return
+							DB_species_unlock("Drask",30)
+							return
+					if("8")
+						if(karma <80)
+							to_chat(usr, "You do not have enough karma!")
+							return
+						else
+							src.DB_species_unlock("Unathi",80)
+							return
+					if("9")
+						if(karma <60)
+							to_chat(usr, "You do not have enough karma!")
+							return
+						else
+							src.DB_species_unlock("Tajaran",60)
+							return
+					if("10")
+						if(karma <25)
+							to_chat(usr, "You do not have enough karma!")
+							return
+						else
+							src.DB_species_unlock("Diona",25)
+							return
+					if("11")
+						if(karma <70)
+							to_chat(usr, "You do not have enough karma!")
+							return
+						else
+							src.DB_species_unlock("Nucleation",70)
+							return
+					if("12")
+						if(karma <30)
+							to_chat(usr, "You do not have enough karma!")
+							return
+						else
+							src.DB_species_unlock("Wryn",30)
+							return
+					if("13")
+						if(karma <45)
+							to_chat(usr, "You do not have enough karma!")
+							return
+						else
+							src.DB_species_unlock("Skrell",45)
+							return
+					if("14")
+						if(karma <70)
+							to_chat(usr, "You do not have enough karma!")
+							return
+						else
+							src.DB_species_unlock("Vulpkanin",75)
+							return
 
-		switch(href_list["karmashop"])
-			if("tab")
-				karma_tab = text2num(href_list["tab"])
-				karmashopmenu()
-				return
-			if("shop")
-				if(href_list["KarmaBuy"])
-					var/karma=verify_karma()
-					switch(href_list["KarmaBuy"])
-						if("1")
-							if(karma <5)
-								to_chat(usr, "You do not have enough karma!")
-								return
-							else
-								if(alert("Are you sure you want to unlock Barber?", "Confirmation", "No", "Yes") != "Yes")
-									return
-								DB_job_unlock("Barber",5)
-								return
-						if("2")
-							if(karma <5)
-								to_chat(usr, "You do not have enough karma!")
-								return
-							else
-								if(alert("Are you sure you want to unlock Brig Physician?", "Confirmation", "No", "Yes") != "Yes")
-									return
-								DB_job_unlock("Brig Physician",5)
-								return
-						if("3")
-							if(karma <30)
-								to_chat(usr, "You do not have enough karma!")
-								return
-							else
-								if(alert("Are you sure you want to unlock Nanotrasen Representative?", "Confirmation", "No", "Yes") != "Yes")
-									return
-								DB_job_unlock("Nanotrasen Representative",30)
-								return
-						if("5")
-							if(karma <30)
-								to_chat(usr, "You do not have enough karma!")
-								return
-							else
-								if(alert("Are you sure you want to unlock Blueshield?", "Confirmation", "No", "Yes") != "Yes")
-									return
-								DB_job_unlock("Blueshield",30)
-								return
-						if("6")
-							if(karma <30)
-								to_chat(usr, "You do not have enough karma!")
-								return
-							else
-								if(alert("Are you sure you want to unlock Mechanic?", "Confirmation", "No", "Yes") != "Yes")
-									return
-								DB_job_unlock("Mechanic",30)
-								return
-						if("7")
-							if(karma <45)
-								to_chat(usr, "You do not have enough karma!")
-								return
-							else
-								if(alert("Are you sure you want to unlock Magistrate?", "Confirmation", "No", "Yes") != "Yes")
-									return
-								DB_job_unlock("Magistrate",45)
-								return
-						if("9")
-							if(karma <30)
-								to_chat(usr, "You do not have enough karma!")
-								return
-							else
-								if(alert("Are you sure you want to unlock Security Pod Pilot?", "Confirmation", "No", "Yes") != "Yes")
-									return
-								DB_job_unlock("Security Pod Pilot",30)
-								return
-				if(href_list["KarmaBuy2"])
-					var/karma=verify_karma()
-					switch(href_list["KarmaBuy2"])
-						if("1")
-							if(karma <15)
-								to_chat(usr, "You do not have enough karma!")
-								return
-							else
-								if(alert("Are you sure you want to unlock Machine People?", "Confirmation", "No", "Yes") != "Yes")
-									return
-								DB_species_unlock("Machine",15)
-								return
-						if("2")
-							if(karma <30)
-								to_chat(usr, "You do not have enough karma!")
-								return
-							else
-								if(alert("Are you sure you want to unlock Kidan?", "Confirmation", "No", "Yes") != "Yes")
-									return
-								DB_species_unlock("Kidan",30)
-								return
-						if("3")
-							if(karma <30)
-								to_chat(usr, "You do not have enough karma!")
-								return
-							else
-								if(alert("Are you sure you want to unlock Grey?", "Confirmation", "No", "Yes") != "Yes")
-									return
-								DB_species_unlock("Grey",30)
-								return
-						if("4")
-							if(karma <45)
-								to_chat(usr, "You do not have enough karma!")
-								return
-							else
-								if(alert("Are you sure you want to unlock Vox?", "Confirmation", "No", "Yes") != "Yes")
-									return
-								DB_species_unlock("Vox",45)
-								return
-						if("5")
-							if(karma <45)
-								to_chat(usr, "You do not have enough karma!")
-								return
-							else
-								if(alert("Are you sure you want to unlock Slime People?", "Confirmation", "No", "Yes") != "Yes")
-									return
-								DB_species_unlock("Slime People",45)
-								return
-						if("6")
-							if(karma <100)
-								to_chat(usr, "You do not have enough karma!")
-								return
-							else
-								if(alert("Are you sure you want to unlock Plasmaman?", "Confirmation", "No", "Yes") != "Yes")
-									return
-								DB_species_unlock("Plasmaman",100)
-								return
-						if("7")
-							if(karma <30)
-								to_chat(usr, "You do not have enough karma!")
-								return
-							else
-								if(alert("Are you sure you want to unlock Drask?", "Confirmation", "No", "Yes") != "Yes")
-									return
-								DB_species_unlock("Drask",30)
-								return
-				if(href_list["KarmaRefund"])
-					var/type = href_list["KarmaRefundType"]
-					var/job = href_list["KarmaRefund"]
-					var/cost = href_list["KarmaRefundCost"]
-					karmarefund(type,job,cost)
-					return
+			if(href_list["KarmaBuy3"])
+				var/karma=verify_karma()
+				switch(href_list["KarmaBuy3"])
+					if("4001")
+						if(karma < 5)
+							to_chat(usr,"You do not have enough karma!")
+						else
+							src.DB_item_unlock("4001",5)
+					if("4002")
+						if(karma < 5)
+							to_chat(usr,"You do not have enough karma!")
+						else
+							src.DB_item_unlock("4002",5)
+					if("4003")
+						if(karma < 5)
+							to_chat(usr,"You do not have enough karma!")
+						else
+							src.DB_item_unlock("4003",5)
+					if("4004")
+						if(karma < 5)
+							to_chat(usr,"You do not have enough karma!")
+						else
+							src.DB_item_unlock("4004",5)
+					if("4005")
+						if(karma < 5)
+							to_chat(usr,"You do not have enough karma!")
+						else
+							src.DB_item_unlock("4005",5)
+					if("9001")
+						if(karma < 10)
+							to_chat(usr,"You do not have enough karma!")
+						else
+							src.DB_item_unlock("9001",10)
+					if("4006")
+						if(karma < 10)
+							to_chat(usr,"You do not have enough karma!")
+						else
+							src.DB_item_unlock("4006",10)
+					if("4008")
+						if(karma < 10)
+							to_chat(usr,"You do not have enough karma!")
+						else
+							src.DB_item_unlock("4008",10)
+					if("1")
+						if(karma < 15)
+							to_chat(usr,"You do not have enough karma!")
+						else
+							src.DB_item_unlock("0001",3)
+							src.DB_item_unlock("4007",3)
+							src.DB_item_unlock("5001",3)
+							src.DB_item_unlock("6001",3)
+							src.DB_item_unlock("7001",3)
+					if("0002")
+						if(karma < 30)
+							to_chat(usr, "IDIOT! You do not have enough karma!")
+						else
+							src.DB_item_unlock("0002", 30)
+
+					if("2")
+						if(karma < 15)
+							to_chat(usr, "You do not have enough karma!")
+						else
+							src.DB_item_unlock("0003", 5)
+							src.DB_item_unlock("5002", 5)
+							src.DB_item_unlock("7002", 5)
+					if("0003")
+						if(karma < 40)
+							to_chat(usr, "What a pityful shame. Thou has not enough karma.")
+						else
+							src.DB_item_unlock("4009", 5)
+							src.DB_item_unlock("4010", 5)
+							src.DB_item_unlock("4011", 5)
+							src.DB_item_unlock("5003", 5)
+							src.DB_item_unlock("5004", 5)
+							src.DB_item_unlock("5005", 5)
+							src.DB_item_unlock("5006", 5)
+							src.DB_item_unlock("5007", 5)
 
 	switch(href_list["_src_"])
 		if("holder")	hsrc = holder
@@ -254,6 +371,7 @@
 
 	//Polls and shit
 	if(href_list["showpoll"])
+
 		handle_player_polling()
 		return
 	if(href_list["createpollwindow"])
@@ -263,6 +381,7 @@
 		create_poll_function(href_list)
 		return
 	if(href_list["pollid"])
+
 		var/pollid = href_list["pollid"]
 		if(istext(pollid))
 			pollid = text2num(pollid)
@@ -425,7 +544,7 @@
 	if(custom_event_msg && custom_event_msg != "")
 		to_chat(src, "<h1 class='alert'>Custom Event</h1>")
 		to_chat(src, "<h2 class='alert'>A custom event is taking place. OOC Info:</h2>")
-		to_chat(src, "<span class='alert'>[html_encode(custom_event_msg)]</span>")
+		to_chat(src, "<span class='alert'>[lhtml_encode(custom_event_msg)]</span>")
 		to_chat(src, "<br>")
 
 	if( (world.address == address || !address) && !host )

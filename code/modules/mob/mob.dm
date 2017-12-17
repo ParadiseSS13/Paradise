@@ -659,7 +659,7 @@ var/list/slot_equipment_priority = list( \
 	set category = "IC"
 
 	msg = copytext(msg, 1, MAX_MESSAGE_LEN)
-	msg = sanitize_simple(html_encode(msg), list("\n" = "<BR>"))
+	msg = sanitize_simple(lhtml_encode(msg), list("\n" = "<BR>"))
 
 	if(mind)
 		mind.store_memory(msg)
@@ -670,7 +670,7 @@ var/list/slot_equipment_priority = list( \
 	msg = copytext(msg, 1, MAX_MESSAGE_LEN)
 
 	if(sane)
-		msg = sanitize(msg)
+		msg = sanitize_local(msg)
 
 	if(length(memory) == 0)
 		memory += msg
@@ -684,11 +684,11 @@ var/list/slot_equipment_priority = list( \
 	set src in usr
 	if(usr != src)
 		to_chat(usr, "No.")
-	var/msg = input(usr,"Set the flavor text in your 'examine' verb. The flavor text should be a physical descriptor of your character at a glance.","Flavor Text",html_decode(flavor_text)) as message|null
+	var/msg = input(usr,"Set the flavor text in your 'examine' verb. The flavor text should be a physical descriptor of your character at a glance.","Flavor Text",lhtml_decode(flavor_text)) as message|null
 
 	if(msg != null)
 		msg = copytext(msg, 1, MAX_MESSAGE_LEN)
-		msg = html_encode(msg)
+		msg = lhtml_encode(msg)
 
 		flavor_text = msg
 
@@ -696,7 +696,7 @@ var/list/slot_equipment_priority = list( \
 	if(flavor_text && flavor_text != "")
 		var/msg = replacetext(flavor_text, "\n", " ")
 		if(lentext(msg) <= 40 || !shrink)
-			return "<span class='notice'>[html_encode(msg)]</span>" //Repeat after me, "I will not give players access to decoded HTML."
+			return "<span class='notice'>[lhtml_encode(msg)]</span>" //Repeat after me, "I will not give players access to decoded HTML."
 		else
 			return "<span class='notice'>[copytext_preserve_html(msg, 1, 37)]... <a href='byond://?src=[UID()];flavor_more=1'>More...</a></span>"
 

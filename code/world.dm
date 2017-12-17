@@ -185,7 +185,7 @@ var/world_topic_spam_protect_time = world.timeofday
 					positions["misc"] = list()
 				positions["misc"][name] = rank
 
-		return json_encode(positions)
+		return list2json(positions)
 
 	else if("adminmsg" in input)
 		/*
@@ -376,7 +376,7 @@ var/world_topic_spam_protect_time = world.timeofday
 	return 1
 
 /world/proc/load_motd()
-	join_motd = file2text("config/motd.txt")
+	join_motd = sanitize_local(file2text("config/motd.txt"))
 
 
 /proc/load_configuration()
@@ -399,7 +399,7 @@ var/world_topic_spam_protect_time = world.timeofday
 	s += "[game_version]"
 	s += "</a>"
 	s += ")"
-	s += "<br>The Perfect Mix of RP & Action<br>"
+	s += "<br>Tea, Shitspawn, ERP. Everything you need.<br>"
 
 
 

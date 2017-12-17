@@ -86,7 +86,7 @@
 
 //A power generator that runs on solid plasma sheets.
 /obj/machinery/power/port_gen/pacman
-	name = "\improper P.A.C.M.A.N.-type Portable Generator"
+	name = "P.A.C.M.A.N.-type Portable Generator"
 	desc = "A power generator that runs on solid plasma sheets. Rated for 80 kW max safe output."
 
 	var/sheet_name = "Plasma Sheets"

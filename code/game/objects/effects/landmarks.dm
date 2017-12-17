@@ -88,6 +88,9 @@
 			emergencyresponseteamspawn += loc
 			qdel(src)
 
+		if("PermaPrisoner")
+			permaprisoner += loc
+
 	landmarks_list += src
 	return 1
 
@@ -216,7 +219,6 @@
 	new /obj/item/clothing/under/soviet(src.loc)
 	new /obj/item/clothing/head/ushanka(src.loc)
 	qdel(src)
-
 
 /obj/effect/landmark/costume/imperium_monk/New()
 	new /obj/item/clothing/suit/imperium_monk(src.loc)

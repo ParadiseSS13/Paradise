@@ -121,6 +121,9 @@
 		if(G.has_enabled_antagHUD == 1 && config.antag_hud_restricted)
 			to_chat(usr, "<span class='warning'>Upon using the antagHUD you forfeited the ability to join the round.</span>")
 			return
+		if(!check_prisonlist(ckey(G.key)))
+			to_chat(usr, "<span class='warning'>Non-whitelisted can't join as drone!</span>")
+			return
 		if(G.started_as_observer == 1)
 			joinedasobserver = 1
 

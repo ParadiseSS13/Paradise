@@ -82,6 +82,11 @@
 	color = "#B8F5E3"
 	alpha = 200
 
+/obj/structure/curtain/dorms
+	name = "brown curtain"
+	color = "#8b4513"
+	alpha = 200
+
 /obj/structure/curtain/open/shower
 	name = "shower curtain"
 	color = "#ACD1E9"

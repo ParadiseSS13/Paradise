@@ -469,6 +469,8 @@
 				if(!muzzled)
 					message = "<B>[src]</B> giggles."
 					m_type = 2
+					if(gender == FEMALE)
+						playsound(src.loc, pick("honk/sound/emotes/female_giggle_1.ogg", "honk/sound/emotes/female_giggle_2.ogg"), 60, 1, frequency = get_age_pitch())
 				else
 					message = "<B>[src]</B> makes a noise."
 					m_type = 2
@@ -518,6 +520,10 @@
 				if(!muzzled)
 					message = "<B>[src]</B> sighs[M ? " at [M]" : ""]."
 					m_type = 2
+					if(gender == FEMALE)
+						playsound(src.loc, pick("honk/sound/emotes/female_sigh.ogg"), 60, 1, frequency = get_age_pitch())
+					else
+						playsound(src.loc, pick("honk/sound/emotes/male_sigh.ogg"), 60, 1, frequency = get_age_pitch())
 				else
 					message = "<B>[src]</B> makes a weak noise"
 					m_type = 2
@@ -531,6 +537,11 @@
 				if(!muzzled)
 					message = "<B>[src]</B> laughs[M ? " at [M]" : ""]."
 					m_type = 2
+					if(gender == FEMALE)
+						playsound(src.loc, pick(species.female_laugh_sound), 60, 1, frequency = get_age_pitch())
+					else
+						playsound(src.loc, pick(species.male_laugh_sound), 60, 1, frequency = get_age_pitch())
+
 				else
 					message = "<B>[src]</B> makes a noise."
 					m_type = 2
@@ -561,6 +572,11 @@
 				if(!muzzled)
 					message = "<B>[src]</B> groans!"
 					m_type = 2
+					if(gender == FEMALE)
+						playsound(src.loc, pick(species.female_groan_sound), 100, 1, frequency = get_age_pitch())
+					else
+						playsound(src.loc, pick(species.male_groan_sound), 60, 1, frequency = get_age_pitch())
+
 				else
 					message = "<B>[src]</B> makes a loud noise."
 					m_type = 2
@@ -659,6 +675,10 @@
 					else
 						playsound(src, species.male_sneeze_sound, 70)
 					m_type = 2
+					if(gender == FEMALE)
+						playsound(src.loc, "honk/sound/emotes/female_sneeze.ogg", 60, 1, frequency = get_age_pitch())
+					else
+						playsound(src.loc, "honk/sound/emotes/male_sneeze.ogg", 60, 1, frequency = get_age_pitch())
 				else
 					message = "<B>[src]</B> makes a strange noise."
 					m_type = 2
@@ -924,7 +944,7 @@
 	set desc = "Sets a description which will be shown when someone examines you."
 	set category = "IC"
 
-	pose = sanitize(copytext(input(usr, "This is [src]. \He is...", "Pose", null)  as text, 1, MAX_MESSAGE_LEN))
+	pose = sanitize_local(copytext(input(usr, "This is [src]. \He is...", "Pose", null)  as text, 1, MAX_MESSAGE_LEN))
 
 /mob/living/carbon/human/verb/set_flavor()
 	set name = "Set Flavour Text"

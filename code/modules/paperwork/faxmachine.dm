@@ -164,7 +164,7 @@ var/list/alldepartments = list()
 
 	if(href_list["rename"])
 		if(copyitem)
-			var/n_name = sanitize(copytext(input(usr, "What would you like to label the fax?", "Fax Labelling", copyitem.name)  as text, 1, MAX_MESSAGE_LEN))
+			var/n_name = sanitize_local(copytext(input(usr, "What would you like to label the fax?", "Fax Labelling", copyitem.name)  as text, 1, MAX_MESSAGE_LEN))
 			if((copyitem && copyitem.loc == src && usr.stat == 0))
 				if(istype(copyitem, /obj/item/weapon/paper))
 					copyitem.name = "[(n_name ? text("[n_name]") : initial(copyitem.name))]"

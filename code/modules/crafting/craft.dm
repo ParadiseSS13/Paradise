@@ -93,19 +93,22 @@
 	var/send_feedback = 1
 	if(check_contents(R, contents))
 		if(check_tools(user, R, contents))
-			if(do_after(user, R.time, target = user))
-				contents = get_surroundings(user)
-				if(!check_contents(R, contents))
-					return ", missing component."
-				if(!check_tools(user, R, contents))
-					return ", missing tool."
-				var/list/parts = del_reqs(R, user)
-				var/atom/movable/I = new R.result (get_turf(user.loc))
-				I.CheckParts(parts, R)
-				if(send_feedback)
-					feedback_add_details("object_crafted","[I.type]")
-				return 0
-			return "."
+			var/error_message = R.check_crafting(user)
+			if(!error_message)//if it doesn't return any text, keep going
+				if(do_after(user, R.time, target = user))
+					contents = get_surroundings(user)
+					if(!check_contents(R, contents))
+						return ", missing component."
+					if(!check_tools(user, R, contents))
+						return ", missing tool."
+					var/list/parts = del_reqs(R, user)
+					var/atom/movable/I = new R.result (get_turf(user.loc))
+					I.CheckParts(parts, R)
+					if(send_feedback)
+						feedback_add_details("object_crafted","[I.type]")
+					return 0
+				return "."
+			return ", [error_message]."
 		return ", missing tool."
 	return ", missing component."
 

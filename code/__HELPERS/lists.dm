@@ -632,12 +632,13 @@ proc/dd_sortedObjectList(list/incoming)
 	return "[src]"
 
 /obj/machinery/dd_SortValue()
-	return "[sanitize(name)]"
+	return "[sanitize_local(name)]"
 
 /obj/machinery/camera/dd_SortValue()
 	return "[c_tag]"
 
 /datum/alarm/dd_SortValue()
+
 	return "[sanitize(last_name)]"
 
 //Picks from the list, with some safeties, and returns the "default" arg if it fails
@@ -650,11 +651,11 @@ proc/dd_sortedObjectList(list/incoming)
 #define LAZYADD(L, I) if(!L) { L = list(); } L += I;
 #define LAZYACCESS(L, I) (L ? (isnum(I) ? (I > 0 && I <= L.len ? L[I] : null) : L[I]) : null)
 #define LAZYLEN(L) length(L)
+
 #define LAZYCLEARLIST(L) if(L) L.Cut()
 
 // LAZYING PT 2: THE LAZENING
 #define LAZYREINITLIST(L) LAZYCLEARLIST(L); LAZYINITLIST(L);
-
 
 //same, but returns nothing and acts on list in place
 /proc/shuffle_inplace(list/L)

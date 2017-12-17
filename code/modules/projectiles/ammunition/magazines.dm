@@ -114,6 +114,33 @@
 	ammo_type = /obj/item/ammo_casing/shotgun/improvised
 	max_ammo = 1
 
+/obj/item/ammo_box/magazine/internal/shot/improvised/New()
+ 	update_icon()
+
+/obj/item/ammo_box/magazine/internal/dart
+	name = "single shot dart gun internal magazine"
+	ammo_type = /obj/item/ammo_casing/shotgun/dart/special/tranquilizer
+	caliber = "9x39"
+	max_ammo = 1
+
+/obj/item/ammo_box/magazine/internal/shot/improvised/i45
+	name = "pistol carbine internal magazine"
+	ammo_type = /obj/item/ammo_casing/c45
+	caliber = ".45"
+	max_ammo = 1
+
+/obj/item/ammo_box/magazine/internal/shot/improvised/i9
+	name = "rifle internal magazine"
+	ammo_type = /obj/item/ammo_casing/c9mm
+	caliber = "9mm"
+	max_ammo = 1
+
+/obj/item/ammo_box/magazine/internal/shot/improvised/i357
+	name = "large pistol carbine internal magazine"
+	ammo_type = /obj/item/ammo_casing/a357
+	caliber = "357"
+	max_ammo = 1
+
 /obj/item/ammo_box/magazine/internal/shot/riot
 	name = "riot shotgun internal magazine"
 	ammo_type = /obj/item/ammo_casing/shotgun/rubbershot
@@ -212,6 +239,7 @@
 	caliber = ".45"
 	max_ammo = 8
 	multiple_sprites = 1
+
 /obj/item/ammo_box/magazine/m45/enforcer45
 	name = "handgun magazine (.45)"
 	icon_state = "enforcer"

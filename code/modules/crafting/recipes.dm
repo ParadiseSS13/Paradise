@@ -14,6 +14,11 @@
 	//If a recipe does not require it's chems adjusted, don't bother declaring this for the recipe, as it will call this placeholder
 	return
 
+/datum/crafting_recipe/proc/check_crafting(mob/user)
+	//This proc is used for special requirements - the crafter's location or something else.
+	//Return a text with whatever went wrong if it fails. Return nothing otherwise.
+	return
+
 /datum/crafting_recipe/IED
 	name = "IED"
 	result = /obj/item/weapon/grenade/iedcasing/filled
@@ -222,6 +227,49 @@
 	time = 100
 	category = CAT_WEAPON
 
+/datum/crafting_recipe/i9carbine
+	name = "Improvised 9mm Carbine"
+	result = /obj/item/weapon/gun/projectile/revolver/doublebarrel/improvised/i9
+	reqs = list(/obj/item/weaponcrafting/receiver = 1,
+				/obj/item/stack/rods = 2,
+				/obj/item/weaponcrafting/stock = 1,
+				/obj/item/stack/packageWrap = 5,
+				/obj/item/stack/sheet/wood = 1)
+	tools = list(/obj/item/weapon/screwdriver)
+	time = 100
+	category = CAT_WEAPON
+
+/datum/crafting_recipe/i45carbine
+	name = "Improvised .45 Carbine"
+	result = /obj/item/weapon/gun/projectile/revolver/doublebarrel/improvised/i45
+	reqs = list(/obj/item/weaponcrafting/receiver = 1,
+				/obj/item/stack/rods = 4,
+				/obj/item/weaponcrafting/stock = 1,
+				/obj/item/stack/packageWrap = 5,
+				/obj/item/stack/sheet/wood = 2,
+				/obj/item/stack/sheet/metal = 1,
+				/obj/item/weaponcrafting/heatsink = 1)
+	tools = list(/obj/item/weapon/screwdriver)
+	time = 100
+	category = CAT_WEAPON
+
+/datum/crafting_recipe/i357carbine
+	name = "Improvised .357 Carbine"
+	result = /obj/item/weapon/gun/projectile/revolver/doublebarrel/improvised/i357
+	reqs = list(/obj/item/weaponcrafting/receiver = 1,
+				/obj/item/stack/rods = 6,
+				/obj/item/weaponcrafting/stock = 1,
+				/obj/item/stack/packageWrap = 5,
+				/obj/item/stack/sheet/wood = 3,
+				/obj/item/stack/sheet/metal = 1,
+				/obj/item/weaponcrafting/heatsink = 1,
+				/obj/item/stack/sheet/mineral/silver = 1,
+				/obj/item/stack/sheet/plasteel = 1)
+	tools = list(/obj/item/weapon/screwdriver)
+	time = 100
+	category = CAT_WEAPON
+
+
 /datum/crafting_recipe/chainsaw
 	name = "Chainsaw"
 	result = /obj/item/weapon/twohanded/required/chainsaw
@@ -354,3 +402,15 @@
 	reqs = list(/obj/item/weapon/grown/log = 5)
 	result = /obj/structure/bonfire
 	category = CAT_PRIMAL
+
+/datum/crafting_recipe/noose
+	name = "Noose"
+	time = 60
+	reqs = list(/obj/item/stack/cable_coil = 15)
+	result = /obj/structure/stool/bed/noose
+	category = CAT_MISC
+
+/datum/crafting_recipe/noose/check_crafting(mob/user)
+	var/turf/T = get_turf(user)
+	if(!(locate(/obj/structure/stool) in T) && !(locate(/obj/structure/table) in T) && !(locate(/obj/structure/toilet) in T))//this will catch chairs, toilets, beds, tables and stools
+		return "you need to be standing on top of a chair, table or a toilet to make a noose"

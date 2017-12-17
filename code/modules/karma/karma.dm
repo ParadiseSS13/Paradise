@@ -143,6 +143,68 @@ var/list/karma_spenders = list()
 		if(M.mind.assigned_role)
 			assigned_role = M.mind.assigned_role
 	karma_diary << "[M.name] ([M.key]) [assigned_role]/[special_role]: [M.client.karma] - [time2text(world.timeofday, "hh:mm:ss")] given by [key]"
+	message_admins("[usr.ckey] gave [M.client] good karma.")
+	sql_report_karma(src, M)
+
+/mob/verb/reduce_karma_list()
+	set name = "Reduce Karma"
+	set desc = "Let the gods know whether someone's been really bad. Can only be used once per round."
+	set category = "Special Verbs"
+
+	if(!can_give_karma())
+		return
+
+	var/list/karma_list = list()
+	for(var/mob/M in player_list)
+		if(!(M.client && M.mind))
+			continue
+		if(M == src)
+			continue
+		if(!isobserver(src) && isNonCrewAntag(M))
+			continue
+		karma_list += M
+
+	if(!karma_list.len)
+		to_chat(usr, "<span class='warning'>There's no-one to blame here.</span>")
+		return
+
+	var/pickedmob = input("Who's been really bad today?", "Reduce Karma", "Cancel") as null|mob in karma_list
+
+	if(isnull(pickedmob))
+		return
+
+	reduce_karma(pickedmob)
+
+/mob/verb/reduce_karma(var/mob/M)
+	set name = "Reduce Player Karma"
+	set desc = "Let the gods know whether someone's been really bad. Can only be used once per round."
+	set category = "Special Verbs"
+
+	if(!M)
+		to_chat(usr, "Please right click a mob to reduce their karma directly, or use the 'Reduce Karma' verb to select a player from the player listing.")
+		return
+	if(config.disable_karma)
+		to_chat(usr, "<span class='warning'>Karma is disabled.</span>")
+		return
+	if(alert("Reduce [M.name]'s karma?", "Karma", "Yes", "No") != "Yes")
+		return
+	if(!can_give_karma_to_mob(M))
+		return
+
+	M.client.karmatrah(2,0,M.client)
+	to_chat(usr, "[M.name] lost his bit of karma. You should be really proud of yourself.")
+	client.karma_spent = 1
+	karma_spenders += ckey
+
+	var/special_role = "None"
+	var/assigned_role = "None"
+	var/karma_diary = file("data/logs/karma_[time2text(world.realtime, "YYYY/MM-Month/DD-Day")].log")
+	if(M.mind)
+		if(M.mind.special_role)
+			special_role = M.mind.special_role
+		if(M.mind.assigned_role)
+			assigned_role = M.mind.assigned_role
+	karma_diary << "[M.name] ([M.key]) [assigned_role]/[special_role]: [M.client.karma] - [time2text(world.timeofday, "hh:mm:ss")] taken away by [key]"
 
 	sql_report_karma(src, M)
 
@@ -197,7 +259,7 @@ You've gained <b>[totalkarma]</b> total karma in your time here.<br>"}
 	var/dat = "<html><body><center>"
 	dat += "<a href='?src=[UID()];karmashop=tab;tab=0' [karma_tab == 0 ? "class='linkOn'" : ""]>Job Unlocks</a>"
 	dat += "<a href='?src=[UID()];karmashop=tab;tab=1' [karma_tab == 1 ? "class='linkOn'" : ""]>Species Unlocks</a>"
-	dat += "<a href='?src=[UID()];karmashop=tab;tab=2' [karma_tab == 2 ? "class='linkOn'" : ""]>Karma Refunds</a>"
+	dat += "<a href='?src=[UID()];karmashop=tab;tab=2' [karma_tab == 2 ? "class='linkOn'" : ""]>Item Unlocks</a>"
 	dat += "</center>"
 	dat += "<HR>"
 
@@ -205,61 +267,47 @@ You've gained <b>[totalkarma]</b> total karma in your time here.<br>"}
 		if(0) // Job Unlocks
 			dat += {"
 			<a href='?src=[UID()];karmashop=shop;KarmaBuy=1'>Unlock Barber -- 5KP</a><br>
-			<a href='?src=[UID()];karmashop=shop;KarmaBuy=2'>Unlock Brig Physician -- 5KP</a><br>
+			<a href='?src=[UID()];karmashop=shop;KarmaBuy=6'>Unlock Mechanic -- 10KP</a><br>
+			<a href='?src=[UID()];karmashop=shop;KarmaBuy=2'>Unlock Brig Physician -- 15KP</a><br>
+			<a href='?src=[UID()];karmashop=shop;KarmaBuy=9'>Unlock Security Pod Pilot -- 15KP</a><br>
 			<a href='?src=[UID()];karmashop=shop;KarmaBuy=3'>Unlock Nanotrasen Representative -- 30KP</a><br>
 			<a href='?src=[UID()];karmashop=shop;KarmaBuy=5'>Unlock Blueshield -- 30KP</a><br>
-			<a href='?src=[UID()];karmashop=shop;KarmaBuy=9'>Unlock Security Pod Pilot -- 30KP</a><br>
-			<a href='?src=[UID()];karmashop=shop;KarmaBuy=6'>Unlock Mechanic -- 30KP</a><br>
-			<a href='?src=[UID()];karmashop=shop;KarmaBuy=7'>Unlock Magistrate -- 45KP</a><br>
+			<a href='?src=[UID()];karmashop=shop;KarmaBuy=7'>Unlock Magistrate -- 30KP</a><br>
 			"}
 
 		if(1) // Species Unlocks
 			dat += {"
-			<a href='?src=[UID()];karmashop=shop;KarmaBuy2=1'>Unlock Machine People -- 15KP</a><br>
-			<a href='?src=[UID()];karmashop=shop;KarmaBuy2=2'>Unlock Kidan -- 30KP</a><br>
-			<a href='?src=[UID()];karmashop=shop;KarmaBuy2=3'>Unlock Grey -- 30KP</a><br>
+
+			<a href='?src=[UID()];karmashop=shop;KarmaBuy2=10'>Unlock Diona -- 25KP</a><br>
+			<a href='?src=[UID()];karmashop=shop;KarmaBuy2=1'>Unlock Machine People -- 30KP</a><br>
 			<a href='?src=[UID()];karmashop=shop;KarmaBuy2=7'>Unlock Drask -- 30KP</a><br>
-			<a href='?src=[UID()];karmashop=shop;KarmaBuy2=4'>Unlock Vox -- 45KP</a><br>
-			<a href='?src=[UID()];karmashop=shop;KarmaBuy2=5'>Unlock Slime People -- 45KP</a><br>
-			<a href='?src=[UID()];karmashop=shop;KarmaBuy2=6'>Unlock Plasmaman -- 100KP</a><br>
+			<a href='?src=[UID()];karmashop=shop;KarmaBuy2=2'>Unlock Kidan -- 30KP</a><br>
+			<a href='?src=[UID()];karmashop=shop;KarmaBuy2=12'>Unlock Wryn -- 30KP</a><br>
+			<a href='?src=[UID()];karmashop=shop;KarmaBuy2=4'>Unlock Vox -- 40KP</a><br>
+			<a href='?src=[UID()];karmashop=shop;KarmaBuy2=6'>Unlock Plasmaman -- 40KP</a><br>
+			<a href='?src=[UID()];karmashop=shop;KarmaBuy2=13'>Unlock Skrell -- 45KP</a><br>
+			<a href='?src=[UID()];karmashop=shop;KarmaBuy2=5'>Unlock Slime People -- 50KP</a><br>
+			<a href='?src=[UID()];karmashop=shop;KarmaBuy2=9'>Unlock Tajaran -- 60KP</a><br>
+			<a href='?src=[UID()];karmashop=shop;KarmaBuy2=3'>Unlock Grey -- 60KP</a><br>
+			<a href='?src=[UID()];karmashop=shop;KarmaBuy2=11'>Unlock Nucleation -- 70KP</a><br>
+			<a href='?src=[UID()];karmashop=shop;KarmaBuy2=14'>Unlock Vulpkanin -- 75KP</a><br>
+			<a href='?src=[UID()];karmashop=shop;KarmaBuy2=8'>Unlock Unathi -- 80KP</a><br>
 			"}
 
-		if(2) // Karma Refunds
-			var/list/refundable = list()
-			var/list/purchased = checkpurchased()
-			if("Tajaran Ambassador" in purchased)
-				refundable += "Tajaran Ambassador"
-				dat += "<a href='?src=[UID()];karmashop=shop;KarmaRefund=Tajaran Ambassador;KarmaRefundType=job;KarmaRefundCost=30'>Refund Tajaran Ambassador -- 30KP</a><br>"
-			if("Unathi Ambassador" in purchased)
-				refundable += "Unathi Ambassador"
-				dat += "<a href='?src=[UID()];karmashop=shop;KarmaRefund=Unathi Ambassador;KarmaRefundType=job;KarmaRefundCost=30'>Refund Unathi Ambassador -- 30KP</a><br>"
-			if("Skrell Ambassador" in purchased)
-				refundable += "Skrell Ambassador"
-				dat += "<a href='?src=[UID()];karmashop=shop;KarmaRefund=Skrell Ambassador;KarmaRefundType=job;KarmaRefundCost=30'>Refund Skrell Ambassador -- 30KP</a><br>"
-			if("Diona Ambassador" in purchased)
-				refundable += "Diona Ambassador"
-				dat += "<a href='?src=[UID()];karmashop=shop;KarmaRefund=Diona Ambassador;KarmaRefundType=job;KarmaRefundCost=30'>Refund Diona Ambassador -- 30KP</a><br>"
-			if("Kidan Ambassador" in purchased)
-				refundable += "Kidan Ambassador"
-				dat += "<a href='?src=[UID()];karmashop=shop;KarmaRefund=Kidan Ambassador;KarmaRefundType=job;KarmaRefundCost=30'>Refund Kidan Ambassador -- 30KP</a><br>"
-			if("Slime People Ambassador" in purchased)
-				refundable += "Slime People Ambassador"
-				dat += "<a href='?src=[UID()];karmashop=shop;KarmaRefund=Slime People Ambassador;KarmaRefundType=job;KarmaRefundCost=30'>Refund Slime People Ambassador -- 30KP</a><br>"
-			if("Grey Ambassador" in purchased)
-				refundable += "Grey Ambassador"
-				dat += "<a href='?src=[UID()];karmashop=shop;KarmaRefund=Grey Ambassador;KarmaRefundType=job;KarmaRefundCost=30'>Refund Grey Ambassador -- 30KP</a><br>"
-			if("Vox Ambassador" in purchased)
-				refundable += "Vox Ambassador"
-				dat += "<a href='?src=[UID()];karmashop=shop;KarmaRefund=Vox Ambassador;KarmaRefundType=job;KarmaRefundCost=30'>Refund Vox Ambassador -- 30KP</a><br>"
-			if("Customs Officer" in purchased)
-				refundable += "Customs Officer"
-				dat += "<a href='?src=[UID()];karmashop=shop;KarmaRefund=Customs Officer;KarmaRefundType=job;KarmaRefundCost=30'>Refund Customs Officer -- 30KP</a><br>"
-			if("Nanotrasen Recruiter" in purchased)
-				refundable += "Nanotrasen Recruiter"
-				dat += "<a href='?src=[UID()];karmashop=shop;KarmaRefund=Nanotrasen Recruiter;KarmaRefundType=job;KarmaRefundCost=10'>Refund Nanotrasen Recruiter -- 10KP</a><br>"
-
-			if(!refundable.len)
-				dat += "You do not have any refundable karma purchases.<br>"
+		if(2) // Item Unlocks
+			dat += {"
+			<a href='?src=[UID()];karmashop=shop;KarmaBuy3=4001'>Unlock Dio Brando's costume -- 5KP</a><br>
+			<a href='?src=[UID()];karmashop=shop;KarmaBuy3=4002'>Unlock Sneaking suit -- 5KP</a><br>
+			<a href='?src=[UID()];karmashop=shop;KarmaBuy3=4003'>Unlock Adeptus Mechanicus -- 5KP</a>(for Engineering only)<br>
+			<a href='?src=[UID()];karmashop=shop;KarmaBuy3=4005'>Unlock Simon Coat -- 5KP</a>(for Heads only)<br>
+			<a href='?src=[UID()];karmashop=shop;KarmaBuy3=9001'>Unlock Kamina Cape -- 10KP</a><br>
+			<a href='?src=[UID()];karmashop=shop;KarmaBuy3=4006'>Unlock H.E.V. -- 10KP</a>(for Engineering only)<br>
+			<a href='?src=[UID()];karmashop=shop;KarmaBuy3=4008'>Unlock Alchemist Outfit -- 10KP</a>(for Chemist and Librarian only)<br>
+			<a href='?src=[UID()];karmashop=shop;KarmaBuy3=1'>Unlock DIO Set -- 15KP</a><br>
+			<a href='?src=[UID()];karmashop=shop;KarmaBuy3=2'>Unlock Slastena Set -- 15KP</a>(for Chef and Civilians only)<br>
+			<a href='?src=[UID()];karmashop=shop;KarmaBuy3=0002'>Unlock Sergeant's Helmet -- 30KP</a>(for Head of Security and Warden only)<br>
+			<a href='?src=[UID()];karmashop=shop;KarmaBuy3=0003'>Unlock Victorian Clothes -- 40KP</a><br>
+			"}
 
 	dat += "<br><B>PLEASE NOTE THAT PEOPLE WHO TRY TO GAME THE KARMA SYSTEM WILL END UP ON THE WALL OF SHAME. THIS INCLUDES BUT IS NOT LIMITED TO TRADES, OOC KARMA BEGGING, CODE EXPLOITS, ETC.</B>"
 	dat += "</center></body></html>"
@@ -370,6 +418,26 @@ You've gained <b>[totalkarma]</b> total karma in your time here.<br>"}
 			message_admins("[key_name(usr)] has been [refund ? "refunded" : "charged"] [cost] karma.")
 			return
 
+/client/proc/karmatrah(var/cost,var/refund = 0, var/client/C)
+	var/DBQuery/query = dbcon.NewQuery("SELECT * FROM [format_table_name("karmatotals")] WHERE byondkey='[C.ckey]'")
+	query.Execute()
+
+	while(query.NextRow())
+		var/spent = text2num(query.item[4])
+		if(refund)
+			spent -= cost
+		else
+			spent += cost
+		query = dbcon.NewQuery("UPDATE [format_table_name("karmatotals")] SET karmaspent=[spent] WHERE byondkey='[C.ckey]'")
+		if(!query.Execute())
+			var/err = query.ErrorMsg()
+			log_game("SQL ERROR during karmaspent updating (updating existing entry). Error: \[[err]\]\n")
+			message_admins("SQL ERROR during karmaspent updating (updating existing entry). Error: \[[err]\]\n")
+			return
+		else
+			message_admins("[usr.ckey] reduced [C.ckey]'s karma.")
+			return
+/*
 /client/proc/karmarefund(var/type,var/name,var/cost)
 	if(name == "Tajaran Ambassador")
 		cost = 30
@@ -432,8 +500,9 @@ You've gained <b>[totalkarma]</b> total karma in your time here.<br>"}
 			to_chat(usr, "<span class='warning'>You have not bought [name].</span>")
 
 	else
-		to_chat(usr, "<span class='warning'>Your ckey ([dbckey]) was not found.</span>")
-
+<<<<<<< HEAD
+		to_chat(usr, "\red Your ckey ([dbckey]) was not found.")
+*/
 /client/proc/checkpurchased(var/name = null) // If the first parameter is null, return a full list of purchases
 	var/DBQuery/query = dbcon.NewQuery("SELECT * FROM [format_table_name("whitelist")] WHERE ckey='[usr.ckey]'")
 	query.Execute()

@@ -13,6 +13,28 @@
 	burn_state = FLAMMABLE
 	burntime = 5
 
+	ex_act(severity)
+		src.smash()
+
+	proc/smash(var/turf/T)
+		if (!T)
+			T = src.loc
+		src.reagents.reaction(T)
+		if (ismob(T))
+			T = get_turf(T)
+		if (!T)
+			qdel(src)
+			return
+
+		T.visible_message("<span style=\"color:red\">[src] shatters!</span>")
+		playsound(T, pick("sound/effects/Glassbr1.ogg","sound/effects/Glassbr2.ogg","sound/effects/Glassbr3.ogg"), 100, 1)
+		new /obj/item/weapon/shard(T)
+		qdel(src)
+
+	throw_impact(var/turf/T)
+		..()
+		src.smash(T)
+
 /obj/item/weapon/reagent_containers/food/drinks/drinkingglass/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/weapon/reagent_containers/food/snacks/egg)) //breaking eggs
 		var/obj/item/weapon/reagent_containers/food/snacks/egg/E = I
@@ -45,6 +67,7 @@
 		if(R.drink_icon)
 			icon_state = R.drink_icon
 		else
+			icon_state = "glass_empty"
 			var/image/I = image(icon, "glassoverlay")
 			I.color = mix_color_from_reagents(reagents.reagent_list)
 			overlays += I
@@ -63,6 +86,6 @@
 
 /obj/item/weapon/reagent_containers/food/drinks/drinkingglass/devilskiss
 	list_reagents = list("devilskiss" = 50)
-	
+
 /obj/item/weapon/reagent_containers/food/drinks/drinkingglass/alliescocktail
 	list_reagents = list("alliescocktail" = 50)

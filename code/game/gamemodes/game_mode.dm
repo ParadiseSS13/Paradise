@@ -126,8 +126,13 @@
 /datum/game_mode/proc/process()
 	return 0
 
-//Called by the gameticker
+/*Called by the gameticker
 /datum/game_mode/proc/process_job_tasks()
+	for(var/mob/M in player_list)
+		if(M.mind)
+			for(var/datum/job_objective/objective in M.mind.job_objectives)
+				if(objective.units_completed >= objective.units_requested)
+					objective.is_completed() // So we don't get many messages regarding completion
 	var/obj/machinery/message_server/useMS = null
 	if(message_servers)
 		for(var/obj/machinery/message_server/MS in message_servers)
@@ -175,7 +180,7 @@
 
 						var/datum/data/pda/app/messenger/PM = P.find_program(/datum/data/pda/app/messenger)
 						PM.notify("<b>Message from [command_name()] (Payroll), </b>\"[msg]\" (<i>Unable to Reply</i>)", 0)
-					break
+					break*/
 
 /datum/game_mode/proc/check_finished() //to be called by ticker
 	if((shuttle_master.emergency && shuttle_master.emergency.mode >= SHUTTLE_ENDGAME) || station_was_nuked)
@@ -559,7 +564,7 @@ proc/display_roundstart_logout_report()
 	//Mad-libs for their message
 	var/adjective = pick("strange", "mysterious", "sinister", "un-assuming", "unexpected")
 	var/action_words = pick("aid the fight against Nanotrasen", "repay a debt", "partake in some mischief", "help overthrow the system", "stick it to the man")
-	var/organization = pick("Anti-Fascist Movement", "Syndicate", "Spessmen for the Protesting of Nanotrasen", "Greytider's Union", "Illuminati (in space)")
+	var/organization = pick("Anti-Fascist Movement", "Syndicate", "Spessmen for the Protesting of Nanotrasen", "Greytider's Union", "Illuminati (in space)", "Feministic movement", "Mom's Spaghetti", "Vegans", "Allah")
 	//Stuff to give them a single set of code-words
 	var/list/possible_words = splittext(syndicate_code_phrase, ", ")
 	var/list/possible_reply = splittext(syndicate_code_response, ", ")

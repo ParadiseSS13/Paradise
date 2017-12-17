@@ -111,6 +111,7 @@
 	//see: setup.dm for list of mutations
 
 	var/voice_name = "unidentifiable voice"
+	var/bubble_icon = "h"	//Defines speechbubble
 
 	var/list/faction = list("neutral") //Used for checking whether hostile simple animals will attack you, possibly more stuff later
 

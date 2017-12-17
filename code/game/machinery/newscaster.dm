@@ -12,6 +12,14 @@
 	var/icon/img = null
 	var/icon/backup_img
 	var/view_count = 0
+	var/list/datum/feed_comment/comments = list()
+	var/locked = FALSE
+	var/caption = ""
+
+/datum/feed_comment
+	var/author = ""
+	var/body = ""
+	var/time_stamp = ""
 
 /datum/feed_channel
 	var/channel_name = ""
@@ -31,6 +39,7 @@
 	img = null
 	backup_img = null
 	view_count = 0
+	locked = FALSE
 
 /datum/feed_channel/proc/clear()
 	channel_name = ""
@@ -186,7 +195,7 @@ var/list/obj/machinery/newscaster/allCasters = list() //Global list that will co
 		ui = new(user, src, ui_key, "newscaster.tmpl", name, 400, 600)
 		ui.open()
 
-/obj/machinery/newscaster/ui_data(user)
+/obj/machinery/newscaster/ui_data(user, var/allow_comments = 1)
 	var/list/data = list()
 
 	data["unit_no"] = unit_no
@@ -215,6 +224,7 @@ var/list/obj/machinery/newscaster/allCasters = list() //Global list that will co
 			data["channel_name"] = channel_name
 			data["msg"] = msg
 			data["photo"] = photo ? 1 : 0
+			data["comments_allowed"] = allow_comments ? "Enabled" : "Disabled"
 		if(4)
 			var/total_num = length(news_network.network_channels)
 			var/active_num = total_num
@@ -278,7 +288,7 @@ var/list/obj/machinery/newscaster/allCasters = list() //Global list that will co
 					jobs[++jobs.len] = list("title" = job.title)
 	return data
 
-/obj/machinery/newscaster/Topic(href, href_list)
+/obj/machinery/newscaster/Topic(href, href_list, var/allow_comments = 1)
 	if(..())
 		return 1
 
@@ -356,8 +366,10 @@ var/list/obj/machinery/newscaster/allCasters = list() //Global list that will co
 			var/datum/feed_message/newMsg = new /datum/feed_message
 			newMsg.author = scanned_user
 			newMsg.body = msg
+			newMsg.locked = !allow_comments
 			if(photo)
 				newMsg.img = photo.img
+				newMsg.caption = photo.scribble
 			feedback_inc("newscaster_stories",1)
 			var/announcement = ""
 			for(var/datum/feed_channel/FC in news_network.network_channels)
@@ -555,6 +567,18 @@ var/list/obj/machinery/newscaster/allCasters = list() //Global list that will co
 			viewing_channel = FC
 			screen = NEWSCASTER_CENSOR_FC
 
+	else if(href_list["new_comment"])
+		var/datum/feed_message/FM = locate(href_list["new_comment"])
+		var/cominput = copytext(stripped_input(usr, "Write your message:", "new comment", null),1,141)
+		if(cominput)
+			var/datum/feed_comment/FC = new/datum/feed_comment
+			FC.author = scanned_user
+			FC.body = cominput
+			FC.time_stamp = worldtime2text()
+			FM.comments += FC
+			log_comment("[usr]/([usr.ckey]) as [scanned_user] commented on message [FM.body] -- [FC.body]")
+		updateUsrDialog()
+
 	else if(href_list["refresh"])
 		if(can_scan(usr))
 			scan_user(usr) //Newscaster scans you
@@ -691,6 +715,9 @@ var/list/obj/machinery/newscaster/allCasters = list() //Global list that will co
 							if(MESSAGE.img)
 								user << browse_rsc(MESSAGE.img, "tmp_photo[i].png")
 								dat+="<img src='tmp_photo[i].png' width = '180'><BR>"
+								if(MESSAGE.caption)
+									dat+="[MESSAGE.caption]<BR>"
+								dat+="<BR>"
 							dat+="<FONT SIZE=1>\[Story by <FONT COLOR='maroon'>[MESSAGE.author]</FONT>\]</FONT><BR><BR>"
 						dat+="</ul>"
 				if(scribble_page==curr_page)
@@ -715,7 +742,7 @@ var/list/obj/machinery/newscaster/allCasters = list() //Global list that will co
 					dat+="<BR><I>There is a small scribble near the end of this page... It reads: \"[scribble]\"</I>"
 				dat+= "<HR><DIV STYLE='float:left;'><A href='?src=[UID()];prev_page=1'>Previous Page</A></DIV>"
 			else
-				dat+="I'm sorry to break your immersion. This shit's bugged. Report this bug to Agouri, polyxenitopalidou@gmail.com"
+				dat+="I'm sorry to break your immersion. This shit's bugged. Report this bug: https://github.com/ParadiseSS13/Paradise/issues"
 
 		dat+="<BR><HR><div align='center'>[curr_page+1]</div>"
 		human_user << browse(dat, "window=newspaper_main;size=300x400")
@@ -762,7 +789,7 @@ var/list/obj/machinery/newscaster/allCasters = list() //Global list that will co
 			to_chat(user, "<FONT COLOR='blue'>There's already a scribble in this page... You wouldn't want to make things too cluttered, would you?</FONT>")
 		else
 			var/s = strip_html( input(user, "Write something", "Newspaper", "") )
-			s = sanitize(copytext(s, 1, MAX_MESSAGE_LEN))
+			s = sanitize_local(copytext(s, 1, MAX_MESSAGE_LEN))
 			if(!s)
 				return
 			if(!in_range(src, usr) && loc != usr)

@@ -28,7 +28,27 @@
 /*
  * Text sanitization
  */
+/*
+/proc/sanitize_local(var/input, var/max_length = MAX_MESSAGE_LEN, var/encode = 1, var/trim = 1, var/extra = 1, var/mode = SANITIZE_CHAT)
+	#ifdef DEBUG_CYRILLIC
+	to_chat(world, "\magenta DEBUG: \red <b>sanitize_local() entered, text:</b> <i>[input]</i>")
+	to_chat(world, "\magenta DEBUG: \red <b>ja_mode:</b> [mode]")
+	#endif
+	if(!input)
+		return
 
+	if(max_length)
+		input = copytext(input,1,max_length)
+
+	//code in modules/l10n/localisation.dm
+	input = sanitize_local(input, mode)
+
+	#ifdef DEBUG_CYRILLIC
+	to_chat(world, "\magenta DEBUG: \blue <b>sanitize_local() finished, text:</b> <i>[input]</i>")
+	#endif
+
+	return input
+*/
 //Simply removes < and > and limits the length of the message
 /proc/strip_html_simple(var/t,var/limit=MAX_MESSAGE_LEN)
 	var/list/strip_chars = list("<",">")
@@ -56,15 +76,41 @@
 	return t
 
 //Runs byond's sanitization proc along-side sanitize_simple
-/proc/sanitize(var/t,var/list/repl_chars = null)
-	return html_encode(sanitize_simple(t,repl_chars))
+/proc/sanitize(var/input, var/max_length = MAX_MESSAGE_LEN, var/encode = 1, var/trim = 1, var/extra = 1, var/mode = SANITIZE_CHAT)
+	if(!input)
+		return
+
+	if(max_length)
+		input = copytext(input,1,max_length)
+
+	//code in modules/l10n/localisation.dm
+	input = sanitize_local(input, mode)
+
+	if(extra)
+		input = replace_characters(input, list("\n"=" ","\t"=" "))
+
+	if(encode)
+		// The below \ escapes have a space inserted to attempt to enable Travis auto-checking of span class usage. Please do not remove the space.
+		//In addition to processing html, html_encode removes byond formatting codes like "\ red", "\ i" and other.
+		//It is important to avoid double-encode text, it can "break" quotes and some other characters.
+		//Also, keep in mind that escaped characters don't work in the interface (window titles, lower left corner of the main window, etc.)
+		input = lhtml_encode(input)
+	else
+		//If not need encode text, simply remove < and >
+		//note: we can also remove here byond formatting codes: 0xFF + next byte
+		input = replace_characters(input, list("<"=" ", ">"=" "))
+
+	if(trim)
+		//Maybe, we need trim text twice? Here and before copytext?
+		input = trim(input)
+	return input
 
 /proc/paranoid_sanitize(t)
 	var/regex/alphanum_only = regex("\[^a-zA-Z0-9# ,.?!:;()]", "g")
 	return alphanum_only.Replace(t, "#")
 
 //Runs sanitize and strip_html_simple
-//I believe strip_html_simple() is required to run first to prevent '<' from displaying as '&lt;' after sanitize() calls byond's html_encode()
+//I believe strip_html_simple() is required to run first to prevent '<' from displaying as '&lt;' after sanitize_local() calls byond's lhtml_encode()
 /proc/strip_html(var/t,var/limit=MAX_MESSAGE_LEN)
 	return copytext((sanitize(strip_html_simple(t))),1,limit)
 
@@ -77,9 +123,9 @@
 		return trim(html_encode(name), max_length)
 
 //Runs byond's sanitization proc along-side strip_html_simple
-//I believe strip_html_simple() is required to run first to prevent '<' from displaying as '&lt;' that html_encode() would cause
+//I believe strip_html_simple() is required to run first to prevent '<' from displaying as '&lt;' that lhtml_encode() would cause
 /proc/adminscrub(var/t,var/limit=MAX_MESSAGE_LEN)
-	return copytext((html_encode(strip_html_simple(t))),1,limit)
+	return copytext((lhtml_encode(strip_html_simple(t))),1,limit)
 
 
 //Returns null if there is any bad text in the string
@@ -215,10 +261,6 @@ proc/checkhtml(var/t)
 	if(start)
 		return findtextEx(text, suffix, start, null)
 
-/*
- * Text modification
- */
-// See bygex.dm
 /proc/replace_characters(var/t,var/list/repl_chars)
 	for(var/char in repl_chars)
 		t = replacetext(t, char, repl_chars[char])
@@ -374,18 +416,18 @@ proc/checkhtml(var/t)
 		if(!lentext(string))
 			return "\[...\]"
 		else
-			return html_encode(string) //NO DECODED HTML YOU CHUCKLEFUCKS
+			return lhtml_encode(string) //NO DECODED HTML YOU CHUCKLEFUCKS
 	else
 		return "[copytext_preserve_html(string, 1, 37)]..."
 
 //alternative copytext() for encoded text, doesn't break html entities (&#34; and other)
 /proc/copytext_preserve_html(var/text, var/first, var/last)
-	return html_encode(copytext(html_decode(text), first, last))
+	return lhtml_encode(copytext(lhtml_decode(text), first, last))
 
-//Run sanitize(), but remove <, >, " first to prevent displaying them as &gt; &lt; &34; in some places, after html_encode().
+//Run sanitize_local(), but remove <, >, " first to prevent displaying them as &gt; &lt; &34; in some places, after lhtml_encode().
 //Best used for sanitize object names, window titles.
-//If you have a problem with sanitize() in chat, when quotes and >, < are displayed as html entites -
-//this is a problem of double-encode(when & becomes &amp;), use sanitize() with encode=0, but not the sanitizeSafe()!
+//If you have a problem with sanitize_local() in chat, when quotes and >, < are displayed as html entites -
+//this is a problem of double-encode(when & becomes &amp;), use sanitize_local() with encode=0, but not the sanitizeSafe()!
 /proc/sanitizeSafe(var/input, var/max_length = MAX_MESSAGE_LEN, var/encode = 1, var/trim = 1, var/extra = 1)
 	return sanitize(replace_characters(input, list(">"=" ","<"=" ", "\""="'")), max_length, encode, trim, extra)
 
@@ -449,6 +491,54 @@ proc/checkhtml(var/t)
 		if(findtextEx(haystack, needle, start, end))
 			return 1
 	return 0
+
+/proc/pointization(text as text)
+	if(!text)
+		return
+	if(copytext(text,1,2) == "*") //Emotes allowed.
+		return text
+	if(copytext(text,-1) in list("!", "?", "."))
+		return text
+	text += "."
+	return text
+
+
+/proc/ruscapitalize(var/t as text)
+	var/s = 2
+	if(copytext(t,1,2) == ";")
+		s += 1
+	else if(copytext(t,1,2) == ":")
+		if(copytext(t,3,4) == " ")
+			s+=3
+		else
+			s+=2
+	return upperrustext(copytext(t, 1, s)) + copytext(t, s)
+
+/proc/upperrustext(text as text)
+	var/t = ""
+	for(var/i = 1, i <= length(text), i++)
+		var/a = text2ascii(text, i)
+		if(a > 223)
+			t += ascii2text(a - 32)
+		else if(a == 184)
+			t += ascii2text(168)
+		else t += ascii2text(a)
+	t = replacetext(t,"&#1103;","ÿ")
+	t = replacetext(t, "ÿ", "ß")
+	return t
+
+
+/proc/lowerrustext(text as text)
+	var/t = ""
+	for(var/i = 1, i <= length(text), i++)
+		var/a = text2ascii(text, i)
+		if(a > 191 && a < 224)
+			t += ascii2text(a + 32)
+		else if(a == 168)
+			t += ascii2text(184)
+		else t += ascii2text(a)
+	t = replacetext(t,"ÿ","&#1103;")
+	return t
 
 
 // Pencode

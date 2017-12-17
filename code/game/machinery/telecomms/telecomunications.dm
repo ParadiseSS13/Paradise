@@ -177,7 +177,7 @@ var/global/list/obj/machinery/telecomms/telecomms_list = list()
 			stat |= EMPED
 			var/duration = (300 * 10)/severity
 			spawn(rand(duration - 20, duration + 20)) // Takes a long time for the machines to reboot.
-				stat &= ~EMPED
+			stat &= ~EMPED
 	..()
 
 /*

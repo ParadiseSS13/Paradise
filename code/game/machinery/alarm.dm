@@ -686,7 +686,7 @@
 		data["remote_connection"] = href_list["remote_connection"]
 		data["remote_access"] = href_list["remote_access"]
 
-	data["name"] = sanitize(name)
+	data["name"] = sanitize_local(name)
 	data["air"] = ui_air_status()
 	data["alarmActivated"] = alarmActivated || danger_level == ATMOS_ALARM_DANGER
 	data["thresholds"] = generate_thresholds_menu()
@@ -729,7 +729,7 @@
 			if(!vent_data)
 				continue
 			vent_info["id_tag"]=id_tag
-			vent_info["name"]=sanitize(long_name)
+			vent_info["name"]=sanitize_local(long_name)
 			vent_info += vent_data
 			vents+=list(vent_info)
 	data["vents"]=vents
@@ -742,18 +742,18 @@
 			if(!scrubber_data)
 				continue
 			scrubber_data["id_tag"]=id_tag
-			scrubber_data["name"]=sanitize(long_name)
+			scrubber_data["name"]=sanitize_local(long_name)
 			scrubbers+=list(scrubber_data)
 	data["scrubbers"]=scrubbers
 	return data
 
 /obj/machinery/alarm/proc/get_nano_data_console(mob/user)
 	var/data[0]
-	data["name"] = sanitize(name)
+	data["name"] = sanitize_local(name)
 	data["ref"] = "\ref[src]"
 	data["danger"] = max(danger_level, alarm_area.atmosalm)
 	var/area/Area = get_area(src)
-	data["area"] = sanitize(Area.name)
+	data["area"] = sanitize_local(Area.name)
 	var/turf/pos = get_turf(src)
 	data["x"] = pos.x
 	data["y"] = pos.y

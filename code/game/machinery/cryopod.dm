@@ -437,12 +437,12 @@
 		ailist += A
 	if(ailist.len)
 		var/mob/living/silicon/ai/announcer = pick(ailist)
-		if (announce_rank)
+		if(announce_rank)
 			announcer.say(";[occupant.real_name] ([announce_rank]) [on_store_message]")
 		else
 			announcer.say(";[occupant.real_name] [on_store_message]")
 	else
-		if (announce_rank)
+		if(announce_rank)
 			announce.autosay("[occupant.real_name]  ([announce_rank]) [on_store_message]", "[on_store_name]")
 		else
 			announce.autosay("[occupant.real_name] [on_store_message]", "[on_store_name]")

@@ -59,7 +59,7 @@
 		overlays += image('icons/obj/power.dmi', "cell-o1")
 
 /obj/item/weapon/stock_parts/cell/crap
-	name = "\improper Nanotrasen brand rechargable AA battery"
+	name = "Nanotrasen brand rechargable AA battery"
 	desc = "You can't top the plasma top." //TOTALLY TRADEMARK INFRINGEMENT
 	maxcharge = 500
 	materials = list(MAT_GLASS=40)
@@ -70,7 +70,7 @@
 	charge = 0
 
 /obj/item/weapon/stock_parts/cell/secborg
-	name = "\improper Security borg rechargable D battery"
+	name = "Security borg rechargable D battery"
 	origin_tech = null
 	maxcharge = 600	//600 max charge / 100 charge per shot = six shots
 	materials = list(MAT_GLASS=40)
@@ -195,7 +195,7 @@
 	materials = list(MAT_GLASS=60)
 
 /obj/item/weapon/stock_parts/cell/emproof
-	name = "\improper EMP-proof cell"
+	name = "EMP-proof cell"
 	desc = "An EMP-proof cell."
 	maxcharge = 500
 	rating = 2

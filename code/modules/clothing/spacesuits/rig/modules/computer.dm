@@ -470,7 +470,7 @@
 /*
 //Maybe make this use power when active or something
 /obj/item/rig_module/emp_shielding
-	name = "\improper EMP dissipation module"
+	name = "EMP dissipation module"
 	desc = "A bewilderingly complex bundle of fiber optics and chips."
 	toggleable = 1
 	usable = 0

@@ -249,3 +249,18 @@
 
 /obj/item/weapon/storage/secure/safe/attack_hand(mob/user as mob)
 	return attack_self(user)
+
+/obj/item/weapon/storage/secure/safe/captain/New()
+	..()
+	handle_item_insertion(new /obj/item/weapon/card/id/captains_spare, 1)
+
+// Clown planet WMD storage
+/obj/item/weapon/storage/secure/safe/clown
+	name="WMD Storage"
+
+/obj/item/weapon/storage/secure/safe/clown/New()
+	handle_item_insertion(new /obj/item/weapon/reagent_containers/food/snacks/pie, 10)
+
+/obj/item/weapon/storage/secure/safe/HoS/New()
+	..()
+	handle_item_insertion(new /obj/item/weapon/storage/lockbox/clusterbang, 1)

@@ -167,7 +167,7 @@
 	desc = "Convincing HR that your religion involved piracy was no mean feat."
 
 /obj/item/weapon/nullrod/sord
-	name = "\improper UNREAL SORD"
+	name = "UNREAL SORD"
 	desc = "This thing is so unspeakably HOLY you are having a hard time even holding it."
 	icon_state = "sord"
 	item_state = "sord"

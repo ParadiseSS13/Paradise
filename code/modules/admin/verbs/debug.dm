@@ -578,9 +578,11 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 		"strip",
 		"as job...",
 		"emergency response team member",
-		"emergency response team leader"
-	)
-
+		"emergency response team leader",
+		"Hunter's set",
+		"DOOMguy's set",
+		"Bane's set"
+		)
 	var/admin_outfits = subtypesof(/datum/outfit/admin)
 	for(var/type in admin_outfits)
 		var/datum/outfit/O = type
@@ -654,12 +656,49 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 					else
 						to_chat(src, "Invalid ERT Loadout selected")
 
+		if("Hunter's set")
+			M.equip_to_slot_or_del(new /obj/item/clothing/under/atmta/hunter(M), slot_w_uniform)
+			M.equip_to_slot_or_del(new /obj/item/clothing/shoes/atmta/hunter_boots(M), slot_shoes)
+			M.equip_to_slot_or_del(new /obj/item/clothing/head/atmta/helmet/hunter(M), slot_head)
+			M.equip_to_slot_or_del(new /obj/item/clothing/suit/atmta/hunter_coat(M), slot_wear_suit)
+			M.equip_to_slot_or_del(new /obj/item/clothing/mask/atmta/hunter_mask(M), slot_wear_mask)
+
+		if("DOOMguy's set")
+			M.equip_doom_commando()
+
+		if("Bane's set")
+			M.equip_to_slot_or_del(new /obj/item/clothing/under/bane(M), slot_w_uniform)
+			M.equip_to_slot_or_del(new /obj/item/clothing/shoes/atmta/magboots/doom(M), slot_shoes)
+			M.equip_to_slot_or_del(new /obj/item/clothing/head/atmta/helmet/space/invisible(M), slot_head)
+			M.equip_to_slot_or_del(new /obj/item/clothing/suit/atmta/space/bane(M), slot_wear_suit)
+			M.equip_to_slot_or_del(new /obj/item/clothing/mask/banemask(M), slot_wear_mask)
+			M.equip_to_slot_or_del(new /obj/item/weapon/storage/backpack/security(src), slot_back)
+			M.equip_to_slot_or_del(new /obj/item/ammo_box/magazine/mm556x45(M), slot_in_backpack)
+			M.equip_to_slot_or_del(new /obj/item/ammo_box/magazine/m45(M), slot_in_backpack)
+			M.equip_to_slot_or_del(new /obj/item/weapon/reagent_containers/hypospray/combat/nanites(M), slot_in_backpack)
+			M.equip_to_slot_or_del(new /obj/item/weapon/grenade/plastic/c4(M), slot_in_backpack)
+			M.equip_to_slot_or_del(new /obj/item/device/flashlight(M), slot_in_backpack)
+			M.equip_to_slot_or_del(new /obj/item/weapon/pinpointer(M), slot_in_backpack)
+			M.equip_to_slot_or_del(new /obj/item/weapon/melee/energy/sword/saber(M), slot_l_store)
+			M.equip_to_slot_or_del(new /obj/item/weapon/grenade/empgrenade(M), slot_r_store)
+			M.equip_to_slot_or_del(new /obj/item/weapon/tank/emergency_oxygen/double/full(M), slot_s_store)
+			M.equip_to_slot_or_del(new /obj/item/weapon/gun/projectile/automatic/pistol/m1911(M), slot_belt)
+
+			M.equip_to_slot_or_del(new /obj/item/weapon/gun/projectile/automatic/l6_saw(M), slot_r_hand)
+
+			var/obj/item/weapon/card/id/syndicate/W = new(M) //Untrackable by AI
+			W.name = "[M.real_name]'s ID Card"
+			W.icon_state = "syndie"
+			W.access = get_all_accesses()//They get full station access because obviously the syndicate has HAAAX, and can make special IDs for their most elite members.
+			W.assignment = "Big Guy"
+			W.access += get_syndicate_access(W.assignment)
+			W.registered_name = M.real_name
+			M.equip_to_slot_or_del(W, slot_wear_id)
+			M.regenerate_icons()
 
 		else // outfit datum
 			if(O)
 				M.equipOutfit(O, FALSE)
-
-	M.regenerate_icons()
 
 	log_admin("[key_name(usr)] changed the equipment of [key_name(M)] to [dresscode].")
 	message_admins("<span class='notice'>[key_name_admin(usr)] changed the equipment of [key_name_admin(M)] to [dresscode].</span>", 1)

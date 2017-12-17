@@ -230,7 +230,7 @@
 	if(href_list["settitle"])
 		var/newtitle = input("Enter a title to search for:") as text|null
 		if(newtitle)
-			query.title = sanitize(newtitle)
+			query.title = sanitize_local(newtitle)
 		else
 			query.title = null
 	if(href_list["setcategory"])
@@ -238,11 +238,11 @@
 		if(newcategory == "Any")
 			query.category = null
 		else if(newcategory)
-			query.category = sanitize(newcategory)
+			query.category = sanitize_local(newcategory)
 	if(href_list["setauthor"])
 		var/newauthor = input("Enter an author to search for:") as text|null
 		if(newauthor)
-			query.author = sanitize(newauthor)
+			query.author = sanitize_local(newauthor)
 		else
 			query.author = null
 
@@ -345,13 +345,13 @@
 		if(checkoutperiod < 1)
 			checkoutperiod = 1
 	if(href_list["editbook"])
-		buffer_book = copytext(sanitize(input("Enter the book's title:") as text|null),1,MAX_MESSAGE_LEN)
+		buffer_book = copytext(sanitize_local(input("Enter the book's title:") as text|null),1,MAX_MESSAGE_LEN)
 	if(href_list["editmob"])
-		buffer_mob = copytext(sanitize(input("Enter the recipient's name:") as text|null),1,MAX_NAME_LEN)
+		buffer_mob = copytext(sanitize_local(input("Enter the recipient's name:") as text|null),1,MAX_NAME_LEN)
 	if(href_list["checkout"])
 		var/datum/borrowbook/b = new /datum/borrowbook
-		b.bookname = sanitize(buffer_book)
-		b.mobname = sanitize(buffer_mob)
+		b.bookname = sanitize_local(buffer_book)
+		b.mobname = sanitize_local(buffer_mob)
 		b.getdate = world.time
 		b.duedate = world.time + (checkoutperiod * 600)
 		checkouts.Add(b)
@@ -362,7 +362,7 @@
 		var/obj/item/weapon/book/b = locate(href_list["delbook"])
 		inventory.Remove(b)
 	if(href_list["uploadauthor"])
-		var/newauthor = copytext(sanitize(input("Enter the author's name: ") as text|null),1,MAX_MESSAGE_LEN)
+		var/newauthor = copytext(sanitize_local(input("Enter the author's name: ") as text|null),1,MAX_MESSAGE_LEN)
 		if(newauthor && scanner)
 			scanner.cache.author = newauthor
 	if(href_list["uploadcategory"])

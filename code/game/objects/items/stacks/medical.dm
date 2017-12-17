@@ -163,7 +163,7 @@
 
 
 /obj/item/stack/medical/bruise_pack/comfrey
-	name = "\improper Comfrey leaf"
+	name = "Comfrey leaf"
 	singular_name = "Comfrey leaf"
 	desc = "A soft leaf that is rubbed on bruises."
 	icon = 'icons/obj/hydroponics/harvest.dmi'
@@ -173,7 +173,7 @@
 
 
 /obj/item/stack/medical/ointment/aloe
-	name = "\improper Aloe Vera leaf"
+	name = "Aloe Vera leaf"
 	singular_name = "Aloe Vera leaf"
 	desc = "A cold leaf that is rubbed on burns."
 	icon = 'icons/obj/hydroponics/harvest.dmi'

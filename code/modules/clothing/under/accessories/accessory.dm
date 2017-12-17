@@ -601,7 +601,7 @@
 		if("Change Name")
 			var/t = input(user, "Would you like to change the name on the tag?", "Name your new pet", tagname ? tagname : "Spot") as null|text
 			if(t)
-				tagname = copytext(sanitize(t), 1, MAX_NAME_LEN)
+				tagname = copytext(sanitize_local(t), 1, MAX_NAME_LEN)
 				name = "[initial(name)] - [tagname]"
 		if("Remove ID")
 			if(access_id)

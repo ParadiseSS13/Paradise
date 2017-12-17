@@ -15,7 +15,7 @@ var/regex/jobban_regex = regex("(\[\\S]+) - (\[^#]+\[^# ])(?: ## (.+))?")
 /proc/jobban_fullban(mob/M, rank, reason)
 	if(!M || !M.key)
 		return
-	jobban_keylist.Add(text("[M.ckey] - [rank] ## [reason]"))
+	jobban_keylist.Add(text("[M.ckey] - [rank] ## [sanitize(reason)]"))
 	jobban_assoc_insert(M.ckey, rank, reason)
 	if(config.ban_legacy_system)
 		jobban_savebanfile()

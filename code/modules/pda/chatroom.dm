@@ -179,7 +179,7 @@ var/list/chatrooms = list(new /datum/chatroom("General Discussion"))
 			spawn()
 				if(!t || !check_messaging_available())
 					return
-				t = sanitize(copytext(t, 1, MAX_MESSAGE_LEN))
+				t = sanitize_local(copytext(t, 1, MAX_MESSAGE_LEN))
 				t = readd_quotes(t)
 				if(!t || !pda.can_use())
 					return
@@ -193,7 +193,7 @@ var/list/chatrooms = list(new /datum/chatroom("General Discussion"))
 			spawn()
 				if(!t || !check_messaging_available() || !pda.can_use())
 					return
-				t = sanitize(copytext(t, 1, MAX_MESSAGE_LEN))
+				t = sanitize_local(copytext(t, 1, MAX_MESSAGE_LEN))
 				t = readd_quotes(t)
 				if(!t)
 					return
@@ -231,7 +231,7 @@ var/list/chatrooms = list(new /datum/chatroom("General Discussion"))
 			var/t = input("Enter room name:", name) as text|null
 			if(!t)
 				return
-			t = sanitize(copytext(t, 1, MAX_NAME_LEN))
+			t = sanitize_local(copytext(t, 1, MAX_NAME_LEN))
 			t = readd_quotes(t)
 
 			var/access = input("Room access?", current_room) as null|anything in list("Public", "Private")

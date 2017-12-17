@@ -7,6 +7,8 @@ Used In File(s): \code\game\machinery\computer\security.dm
 #define SEC_DATA_R_LIST	1	// Main menu
 #define SEC_DATA_MAINT	2	// Record list
 #define SEC_DATA_RECORD	3	// Records maintenance
+#define SEC_DATA_LOGS	4	//Cell Logs
+#define SEC_DATA_TICKETS 5 //Ticket list
 -->
 
 {{if !data.temp && data.screen == 1}}
@@ -104,6 +106,7 @@ Used In File(s): \code\game\machinery\computer\security.dm
 								<td>{{:value.rank}}</td>
 								<td>{{:value.fingerprint}}</td>
 								<td>{{:value.crimstat}}</td>
+								<td>{{:value.ticket}}</td>
 							</tr>
 						{{/for}}
 					</tbody>
@@ -112,14 +115,14 @@ Used In File(s): \code\game\machinery\computer\security.dm
 		</div>
 		<h3><center>Menu</center></h3>
 		<div class="line">{{:helper.link('Record Maintenance', 'wrench', {'screen' : 2})}}</div>
-		<div class="line">{{:helper.link('Print Cell Log', 'print', {'printlogs' : 1})}}</div>
+		<div class="line">{{:helper.link('Browse Cell Logs', 'comment', {'screen' : 4})}}</div>
+		<div class="line">{{:helper.link('Browse Issued Tickets', 'comment', {'screen' : 5})}}</div>
 		<div class="line">{{:helper.link('Logout', 'lock', {'logout' : 1})}}</div>
 	{{else data.screen == 2}} <!-- SEC_DATA_MAINT -->
 		<h3>Records Maintenance</h3>
 		<div class="line">{{:helper.link('Backup To Disk', 'download', {'back' : 1}, 'disabled')}}</div>
 		<div class="line">{{:helper.link('Upload From Disk', 'upload', {'u_load' : 1}, 'disabled')}}</div>
 		<div class="line">{{:helper.link('Delete All Records', 'trash', {'del_all' : 1})}}</div>
-		<div class="line">{{:helper.link('Delete All Cell Logs', 'trash', {'del_alllogs' : 1})}}</div>
 		<div class="line">{{:helper.link('Back', 'arrow-left', {'screen' : 1})}}</div>
 	{{else data.screen == 3}} <!-- SEC_DATA_RECORD -->
 		<h3><center>Security Record</center></h3>
@@ -196,6 +199,47 @@ Used In File(s): \code\game\machinery\computer\security.dm
 		
 		<div class="line">{{:helper.link('Delete Record (All)', 'trash', {'del_rg' : 1})}}</div>
 		<div class="line">{{:helper.link('Print Record', 'print', {'print_r' : 1})}}</div>
+		<div class="line">{{:helper.link('Back', 'arrow-left', {'screen' : 1})}}</div>
+	{{else data.screen == 4}} <!-- SEC_DATA_LOGS -->
+		<h3><center>Security Record</center></h3>
+		<h4><center>Recorded Cell Logs:</center></h4>
+		<div class="statusDisplay" style="overflow: auto;">
+			<span id='maintable_data_archive'>
+				<table style='width: 100%' id='maintable_data'>
+					<tbody>
+						{{for data.celllogs}}
+							<tr style={{:value.background}}>
+								<td>{{:value.title}}</td>
+							</tr>
+							{{empty}}
+								<i>No Cell Logs in records</i>
+						{{/for}}
+					</tbody>
+				</table>
+			</span>
+		</div>
+		<div class="line">{{:helper.link('Print Cell Log', 'print', {'printlogs' : 1})}}</div>
+		<div class="line">{{:helper.link('Delete All Cell Logs', 'trash', {'del_alllogs' : 1})}}</div>
+		<div class="line">{{:helper.link('Back', 'arrow-left', {'screen' : 1})}}</div>
+	{{else data.screen == 5}} <!-- SEC_DATA_TICKETS -->
+		<h3><center>Security Record</center></h3>
+		<h4><center>Issued Tickets:</center></h4>
+		<div class="statusDisplay" style="overflow: auto;">
+			<span id='maintable_data_archive'>
+				<table style='width: 100%' id='maintable_data'>
+					<tbody>
+						{{for data.tickets}}
+							<tr style={{:value.background}}>
+								<td>{{:value.title}}</td>
+							</tr>
+							{{empty}}
+								<i>No issued tickets in records</i>
+						{{/for}}
+					</tbody>
+				</table>
+			</span>
+		</div>
+		<div class="line">{{:helper.link('Print Ticket', 'print', {'printticket' : 1})}}</div>
 		<div class="line">{{:helper.link('Back', 'arrow-left', {'screen' : 1})}}</div>
 	{{/if}}
 {{else}}

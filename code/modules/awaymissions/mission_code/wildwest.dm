@@ -1,45 +1,45 @@
 /* Code for the Wild West map by Brotemis
  * Contains:
- *		Wish Granter
+ *		WishMaster 1.0
  *		Meat Grinder
  */
 
 //Wild West Areas
 
 /area/awaymission/wwmines
-	name = "\improper Wild West Mines"
+	name = "Wild West Mines"
 	icon_state = "away1"
 	luminosity = 1
 	requires_power = 0
 
 /area/awaymission/wwgov
-	name = "\improper Wild West Mansion"
+	name = "Wild West Mansion"
 	icon_state = "away2"
 	luminosity = 1
 	requires_power = 0
 
 /area/awaymission/wwrefine
-	name = "\improper Wild West Refinery"
+	name = "Wild West Refinery"
 	icon_state = "away3"
 	luminosity = 1
 	requires_power = 0
 
 /area/awaymission/wwvault
-	name = "\improper Wild West Vault"
+	name = "Wild West Vault"
 	icon_state = "away3"
 	luminosity = 0
 
 /area/awaymission/wwvaultdoors
-	name = "\improper Wild West Vault Doors"  // this is to keep the vault area being entirely lit because of requires_power
+	name = "Wild West Vault Doors"  // this is to keep the vault area being entirely lit because of requires_power
 	icon_state = "away2"
 	requires_power = 0
 	luminosity = 0
 
 /*
- * Wish Granter
+ * WishMaster 1.0
  */
 /obj/machinery/wish_granter_dark
-	name = "Wish Granter"
+	name = "WishMaster 1.0"
 	desc = "You're not so sure about this, anymore..."
 	icon = 'icons/obj/device.dmi'
 	icon_state = "syndbeacon"
@@ -55,18 +55,18 @@
 	usr.set_machine(src)
 
 	if(chargesa <= 0)
-		to_chat(user, "The Wish Granter lies silent.")
+		to_chat(user, "The WishMaster 1.0 lies silent.")
 		return
 
 	else if(!istype(user, /mob/living/carbon/human))
-		to_chat(user, "You feel a dark stirring inside of the Wish Granter, something you want nothing of. Your instincts are better than any man's.")
+		to_chat(user, "You feel a dark stirring inside of the WishMaster 1.0, something you want nothing of. Your instincts are better than any man's.")
 		return
 
 	else if(is_special_character(user))
 		to_chat(user, "Even to a heart as dark as yours, you know nothing good will come of this.  Something instinctual makes you pull away.")
 
 	else if(!insistinga)
-		to_chat(user, "Your first touch makes the Wish Granter stir, listening to you.  Are you really sure you want to do this?")
+		to_chat(user, "Your first touch makes the WishMaster 1.0 stir, listening to you.  Are you really sure you want to do this?")
 		insistinga++
 
 	else
@@ -76,7 +76,7 @@
 		switch(wish)
 			if("Power")
 				to_chat(user, "<B>Your wish is granted, but at a terrible cost...</B>")
-				to_chat(user, "The Wish Granter punishes you for your selfishness, claiming your soul and warping your body to match the darkness in your heart.")
+				to_chat(user, "The WishMaster 1.0 punishes you for your selfishness, claiming your soul and warping your body to match the darkness in your heart.")
 				user.mutations.Add(LASER)
 				user.mutations.Add(COLDRES)
 				user.mutations.Add(XRAY)
@@ -91,7 +91,7 @@
 				user.regenerate_icons()
 			if("Wealth")
 				to_chat(user, "<B>Your wish is granted, but at a terrible cost...</B>")
-				to_chat(user, "The Wish Granter punishes you for your selfishness, claiming your soul and warping your body to match the darkness in your heart.")
+				to_chat(user, "The WishMaster 1.0 punishes you for your selfishness, claiming your soul and warping your body to match the darkness in your heart.")
 				new /obj/structure/closet/syndicate/resources/everything(loc)
 				if(ishuman(user))
 					var/mob/living/carbon/human/human = user
@@ -104,7 +104,7 @@
 				user.regenerate_icons()
 			if("Immortality")
 				to_chat(user, "<B>Your wish is granted, but at a terrible cost...</B>")
-				to_chat(user, "The Wish Granter punishes you for your selfishness, claiming your soul and warping your body to match the darkness in your heart.")
+				to_chat(user, "The WishMaster 1.0 punishes you for your selfishness, claiming your soul and warping your body to match the darkness in your heart.")
 				user.verbs += /mob/living/carbon/proc/immortality
 				if(ishuman(user))
 					var/mob/living/carbon/human/human = user
@@ -117,7 +117,7 @@
 				user.regenerate_icons()
 			if("To Kill")
 				to_chat(user, "<B>Your wish is granted, but at a terrible cost...</B>")
-				to_chat(user, "The Wish Granter punishes you for your wickedness, claiming your soul and warping your body to match the darkness in your heart.")
+				to_chat(user, "The WishMaster 1.0 punishes you for your wickedness, claiming your soul and warping your body to match the darkness in your heart.")
 				ticker.mode.traitors += user.mind
 				user.mind.special_role = SPECIAL_ROLE_TRAITOR
 				var/datum/objective/hijack/hijack = new
@@ -138,7 +138,7 @@
 						human.set_species("Shadow")
 				user.regenerate_icons()
 			if("Peace")
-				to_chat(user, "<B>Whatever alien sentience that the Wish Granter possesses is satisfied with your wish. There is a distant wailing as the last of the Faithless begin to die, then silence.</B>")
+				to_chat(user, "<B>Whatever alien sentience that the WishMaster 1.0 possesses is satisfied with your wish. There is a distant wailing as the last of the Faithless begin to die, then silence.</B>")
 				to_chat(user, "You feel as if you just narrowly avoided a terrible fate...")
 				for(var/mob/living/simple_animal/hostile/faithless/F in world)
 					F.health = -10

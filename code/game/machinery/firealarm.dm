@@ -274,7 +274,7 @@ Just a object used in constructing fire alarms
 	usesound = 'sound/items/Deconstruct.ogg'
 
 /obj/machinery/partyalarm
-	name = "\improper PARTY BUTTON"
+	name = "PARTY BUTTON"
 	desc = "Cuban Pete is in the house!"
 	icon = 'icons/obj/monitors.dmi'
 	icon_state = "fire0"

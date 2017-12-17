@@ -78,7 +78,7 @@
 	gas_type = SPAWN_HEAT | SPAWN_TOXINS
 
 /obj/effect/mine/gas/n2o
-	name = "\improper N2O mine"
+	name = "N2O mine"
 	gas_type = SPAWN_N2O
 
 /obj/effect/mine/sound

@@ -41,7 +41,7 @@
 						  "<span class='userdanger'>[A] grabs your wrist and violently wrenches it to the side!</span>")
 		playsound(get_turf(A), 'sound/weapons/thudswoosh.ogg', 50, 1, -1)
 		if(prob(60))
-			A.say(pick("WRISTY TWIRLY!", "WE FIGHT LIKE MEN!", "YOU DISHONOR YOURSELF!", "POHYAH!", "WHERE IS YOUR BATON NOW?", "SAY UNCLE!"))
+			A.say(pick("WRISTY TWIRLY!", "лш япюфюеляъ днярнимн!", "рш онгнпхьэ ябни пнд!", "POHYAH!", "цде рбнъ дсахмю реоепэ?", "ймнй ймнй! йрн рюл? лни йскюй!"))
 		D.emote("scream")
 		D.drop_item()
 		D.apply_damage(5, BRUTE, pick("l_arm", "r_arm"))
@@ -58,7 +58,7 @@
 		D.Weaken(4)
 		playsound(get_turf(D), 'sound/weapons/punch1.ogg', 50, 1, -1)
 		if(prob(80))
-			A.say(pick("SURRPRIZU!","BACK STRIKE!","WOPAH!", "WATAAH", "ZOTA!", "Never turn your back to the enemy!"))
+			A.say(pick("ячпопюигс!","BACK STRIKE!","WOPAH!", "WATAAH", "ZOTA!", "мХЙНЦДЮ МЕ ОНБЮПЮВХБЮИЯЪ ЯОХМНИ Й ОПНРХБМХЙС!"))
 		return 1
 	return basic_hit(A,D)
 
@@ -100,7 +100,7 @@
 		D.apply_damage(50, BRUTE, "chest")
 		playsound(get_turf(D), 'sound/weapons/punch1.ogg', 75, 1, -1)
 		if(prob(80))
-			A.say(pick("BANZAIII!", "KIYAAAA!", "OMAE WA MOU SHINDEIRU!", "YOU CAN'T SEE ME!", "MY TIME IS NOW!", "COWABUNGA"))
+			A.say(pick("рш сфе лепрб", "SUNSET YELLOW OVERDRIVUU!", "OMAE WA MOU SHINDEIRU!", "YOU CAN'T SEE ME!", "MY TIME IS NOW!", "COWABUNGA"))
 		return 1
 	return basic_hit(A,D)
 

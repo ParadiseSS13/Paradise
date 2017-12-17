@@ -88,7 +88,7 @@
 		data["accurate"] = null
 	data["regime"] = regime_set
 	var/area/targetarea = get_area(target)
-	data["target"] = (!target) ? "None" : sanitize(targetarea.name)
+	data["target"] = (!target) ? "None" : sanitize_local(targetarea.name)
 	data["calibrating"] = calibrating
 	data["locked"] = locked
 	return data

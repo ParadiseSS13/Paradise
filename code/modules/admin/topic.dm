@@ -838,6 +838,7 @@
 						for(var/job in notbannedlist)
 							ban_unban_log_save("[key_name(usr)] perma-jobbanned [key_name(M)] from [job]. reason: [reason]")
 							log_admin("[key_name(usr)] perma-banned [key_name(M)] from [job]")
+							usr << 'sound/effects/tiran.ogg'
 							feedback_inc("ban_job",1)
 							DB_ban_record(BANTYPE_JOB_PERMA, M, -1, reason, job)
 							feedback_add_details("ban_job","- [job]")
@@ -869,6 +870,7 @@
 					if("Yes")
 						ban_unban_log_save("[key_name(usr)] unjobbanned [key_name(M)] from [job]")
 						log_admin("[key_name(usr)] unbanned [key_name(M)] from [job]")
+						usr << 'sound/effects/netiran.ogg'
 						DB_ban_unban(M.ckey, BANTYPE_JOB_PERMA, job)
 						feedback_inc("ban_job_unban",1)
 						feedback_add_details("ban_job_unban","- [job]")
@@ -968,6 +970,10 @@
 				if(!mins)
 					return
 				if(mins >= 525600) mins = 525599
+				if(mins >= 1440)
+					switch(alert("Remove player from whitelist?",, "Yes","No"))
+						if("Yes")
+							bwhitelist_remove(ckey(M.mind.key))
 				var/reason = input(usr,"Please state the reason","Reason") as message|null
 				if(!reason)
 					return
@@ -984,6 +990,7 @@
 					to_chat(M, "<span class='warning'>No ban appeals URL has been set.</span>")
 				log_admin("[key_name(usr)] has banned [M.ckey].\nReason: [reason]\nThis will be removed in [mins] minutes.")
 				message_admins("<span class='notice'>[key_name_admin(usr)] has banned [M.ckey].\nReason: [reason]\nThis will be removed in [mins] minutes.</span>")
+				usr << 'sound/effects/tiran.ogg'
 
 				del(M.client)
 				//qdel(M)	// See no reason why to delete mob. Important stuff can be lost. And ban can be lifted before round ends.
@@ -1008,6 +1015,7 @@
 				message_admins("<span class='notice'>[key_name_admin(usr)] has banned [M.ckey].\nReason: [reason]\nThis is a permanent ban.</span>")
 				feedback_inc("ban_perma",1)
 				DB_ban_record(BANTYPE_PERMA, M, -1, reason)
+				usr << 'sound/effects/tiran.ogg'
 
 				del(M.client)
 				//qdel(M)
@@ -1190,7 +1198,7 @@
 		var/speech = input("What will [key_name(M)] say?.", "Force speech", "")// Don't need to sanitize, since it does that in say(), we also trust our admins.
 		if(!speech)	return
 		M.say(speech)
-		speech = sanitize(speech) // Nah, we don't trust them
+		speech = sanitize_local(speech) // Nah, we don't trust them
 		log_admin("[key_name(usr)] forced [key_name(M)] to say: [speech]")
 		message_admins("<span class='notice'>[key_name_admin(usr)] forced [key_name_admin(M)] to say: [speech]</span>")
 
@@ -1634,6 +1642,47 @@
 		feedback_inc("admin_cookies_spawned",1)
 		to_chat(H, "<span class='notice'>Your prayers have been answered!! You received the <b>best cookie</b>!</span>")
 
+	else if(href_list["adminpunish"])
+		if(!check_rights(R_ADMIN))	return
+
+		var/mob/living/P = locate(href_list["adminpunish"])
+		if(!isliving(P))
+			to_chat(usr, "This can only be used on instances of type /mob/living")
+			return
+
+		var/Punishment = input( "How much you want to punish [P] (brute dmg)?", 1) as num
+		P.adjustBruteLoss(Punishment)
+		playsound(P.loc, 'sound/effects/adminpunish.ogg', 75, 0, 0, 1)
+		P.do_jitter_animation(20)
+		P.stuttering = 20
+		var/datum/effect_system/spark_spread/s = new /datum/effect_system/spark_spread
+		s.set_up(5, 1, P)
+		s.start()
+		log_admin("[key_name(src.owner)] punished [key_name(P)]")
+		message_admins("[key_name_admin(P)]have been punished by [key_name_admin(src.owner)]")
+		to_chat(P, "\red <b>GODS PUNISHED YOU FOR YOUR SINS!</b>")
+
+	else if(href_list["whitelisttoggle"])
+		if(!check_rights(R_ADMIN))	return
+
+		var/mob/living/P = locate(href_list["whitelisttoggle"])
+		if(!P.client)
+			to_chat(usr, "<span class='warning'>[P] doesn't seem to have an active client.</span>")
+			return
+
+		if(check_prisonlist(ckey(P.mind.key)))
+			if(alert(usr, "Player listed in the whitelist. Remove [key_name(P)] from the whitelist?", "Message", "Yes", "No") != "Yes")
+				return
+			bwhitelist_remove(ckey(P.mind.key))
+		else
+			if(alert(usr, "Player NOT listed in the whitelist. Add [key_name(P)] to the whitelist?", "Message", "Yes", "No") != "Yes")
+				return
+			if(!check_rights(R_PERMISSIONS))
+				to_chat(usr, "<span class='warning'>ONLY SECRETARY AND HIGHER RANKS CAN ADD PLAYERS INTO WHITELIST.</span>")
+				message_admins("[key_name_admin(src.owner)] doesn't have rights to add players into whitelist.")
+			else
+				bwhitelist_save(ckey(P.mind.key))
+
 	else if(href_list["BlueSpaceArtillery"])
 		if(!check_rights(R_ADMIN|R_EVENT))	return
 
@@ -1687,10 +1736,10 @@
 		var/input = input(src.owner, "Please enter a message to reply to [key_name(H)] via their headset.","Outgoing message from Centcomm", "")
 		if(!input)	return
 
-		to_chat(src.owner, "You sent [input] to [H] via a secure channel.")
-		log_admin("[key_name(src.owner)] replied to [key_name(H)]'s Centcomm message with the message [input].")
-		message_admins("[key_name_admin(src.owner)] replied to [key_name_admin(H)]'s Centcom message with: \"[input]\"")
-		to_chat(H, "You hear something crackle in your headset for a moment before a voice speaks.  \"Please stand by for a message from Central Command.  Message as follows. [input].  Message ends.\"")
+		to_chat(src.owner, "You sent [sanitize(input)] to [H] via a secure channel.")
+		log_admin("[key_name(src.owner)] replied to [key_name(H)]'s Centcomm message with the message [sanitize(input)].")
+		message_admins("[key_name_admin(src.owner)] replied to [key_name_admin(H)]'s Centcom message with: \"[sanitize(input)]\"")
+		to_chat(H, "You hear something crackle in your headset for a moment before a voice speaks.  \"Please stand by for a message from Central Command.  Message as follows. [sanitize(input)].  Message ends.\"")
 
 	else if(href_list["EvilFax"])
 		if(!check_rights(R_ADMIN))
@@ -2397,7 +2446,7 @@
 		var/obj_dir = tmp_dir ? text2num(tmp_dir) : 2
 		if(!obj_dir || !(obj_dir in list(1,2,4,8,5,6,9,10)))
 			obj_dir = 2
-		var/obj_name = sanitize(href_list["object_name"])
+		var/obj_name = sanitize_local(href_list["object_name"])
 
 
 		var/atom/target //Where the object will be spawned
@@ -2545,6 +2594,10 @@
 				if(usr.client.honksquad())
 					feedback_inc("admin_secrets_fun_used",1)
 					feedback_add_details("admin_secrets_fun_used","HONK")
+			if("spawnasadmin")
+				if(usr.client.spawnasadmin())
+					feedback_inc("admin_secrets_fun_used",1)
+					feedback_add_details("admin_secrets_fun_used","Spawn As Admin")
 			if("striketeam")
 				if(usr.client.strike_team())
 					feedback_inc("admin_secrets_fun_used",1)
@@ -2647,7 +2700,7 @@
 				if(!ticker)
 					alert("The game hasn't started yet!")
 					return
-				var/objective = sanitize(copytext(input("Enter an objective"),1,MAX_MESSAGE_LEN))
+				var/objective = sanitize_local(copytext(input("Enter an objective"),1,MAX_MESSAGE_LEN))
 				if(!objective)
 					return
 				feedback_inc("admin_secrets_fun_used",1)
@@ -3273,6 +3326,18 @@
 		src.admincaster_signature = adminscrub(input(usr, "Provide your desired signature", "Network Identity Handler", ""))
 		src.access_news_network()
 
+	else if(href_list["ac_del_comment"])
+		var/datum/feed_comment/FC = locate(href_list["ac_del_comment"])
+		var/datum/feed_message/FM = locate(href_list["ac_del_comment_msg"])
+		FM.comments -= FC
+		qdel(FC)
+		src.access_news_network()
+
+	else if(href_list["ac_lock_comment"])
+		var/datum/feed_message/FM = locate(href_list["ac_lock_comment"])
+		FM.locked ^= 1
+		src.access_news_network()
+
 	if(href_list["secretsmenu"])
 		switch(href_list["secretsmenu"])
 			if("tab")
@@ -3289,6 +3354,27 @@
 			error_viewer.showTo(usr, locate(href_list["viewruntime_backto"]), href_list["viewruntime_linear"])
 		else
 			error_viewer.showTo(usr, null, href_list["viewruntime_linear"])
+	else if(href_list["remove"])
+		var/ckeyname = href_list["remove"]
+		ckeyname = ckey(ckeyname)
+
+		bwhitelist_remove(ckeyname)
+		return
+
+
+	else if(href_list["addtowhitelist"])
+		var/ckeyname = href_list["ckeyname"]
+		ckeyname = ckey(ckeyname)
+
+		bwhitelist_save(ckeyname)
+		return
+
+	else if(href_list["whitelistsearchckey"])
+		var/playerckey = href_list["whitelistsearchckey"]
+
+		bwhitelist_panel(playerckey)
+		return
+
 
 	else if(href_list["add_station_goal"])
 		if(!check_rights(R_EVENT))

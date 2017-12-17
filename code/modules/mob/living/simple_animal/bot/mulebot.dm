@@ -7,7 +7,7 @@
 #define DELIGHT 2
 
 /mob/living/simple_animal/bot/mulebot
-	name = "\improper MULEbot"
+	name = "MULEbot"
 	desc = "A Multiple Utility Load Effector bot."
 	icon_state = "mulebot0"
 	density = 1
@@ -70,9 +70,9 @@
 /mob/living/simple_animal/bot/mulebot/proc/set_suffix(suffix)
 	src.suffix = suffix
 	if(paicard)
-		bot_name = "\improper MULEbot ([suffix])"
+		bot_name = "MULEbot ([suffix])"
 	else
-		name = "\improper MULEbot ([suffix])"
+		name = "MULEbot ([suffix])"
 
 /mob/living/simple_animal/bot/mulebot/bot_reset()
 	..()

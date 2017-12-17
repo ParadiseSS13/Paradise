@@ -108,7 +108,7 @@
 				affected_mob.AdjustConfused(10)
 		if(4)
 			if(prob(3))
-				affected_mob.say(pick("Eeek, ook ook!", "Eee-eeek!", "Eeee!", "Ungh, ungh."))
+				affected_mob.say(pick("иииик, окк окк!", "Иии-ииик!", "Yee!", "Ух, ух."))
 
 
 /datum/disease/transformation/robot
@@ -134,13 +134,13 @@
 	switch(stage)
 		if(3)
 			if(prob(8))
-				affected_mob.say(pick("Beep, boop", "beep, beep!", "Boop...bop"))
+				affected_mob.say(pick("Бип, боб", "бип, бип!", "Буп...боп"))
 			if(prob(4))
 				to_chat(affected_mob, "<span class='danger'>You feel a stabbing pain in your head.</span>")
 				affected_mob.Paralyse(2)
 		if(4)
 			if(prob(20))
-				affected_mob.say(pick("beep, beep!", "Boop bop boop beep.", "kkkiiiill mmme", "I wwwaaannntt tttoo dddiiieeee..."))
+				affected_mob.say(pick("бип, бип!", "буууп буууп бип.", "уууууббеййй меняя", "я хоооочу умерееееть"))
 
 
 /datum/disease/transformation/xeno
@@ -169,7 +169,7 @@
 				affected_mob.Paralyse(2)
 		if(4)
 			if(prob(20))
-				affected_mob.say(pick("You look delicious.", "Going to... devour you...", "Hsssshhhhh!"))
+				affected_mob.say(pick("Выглядишь аппетитно.", "Хочу... сожрать тебя...", "Х-сссссссс-шшшш!"))
 
 
 /datum/disease/transformation/slime
@@ -221,10 +221,10 @@
 	switch(stage)
 		if(3)
 			if(prob(8))
-				affected_mob.say(pick("YAP", "Woof!"))
+				affected_mob.say(pick("ЙАП", "ВУФ!"))
 		if(4)
 			if(prob(20))
-				affected_mob.say(pick("Bark!", "AUUUUUU"))
+				affected_mob.say(pick("ГАФ!", "АУУУУ"))
 
 /datum/disease/transformation/morph
 	name = "Gluttony's Blessing"

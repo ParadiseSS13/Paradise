@@ -150,8 +150,8 @@
 						adminhelp(reply)													//sender has left, adminhelp instead
 				return
 
-
 	var/emoji_msg = "<span class='emoji_enabled'>[msg]</span>"
+	emoji_msg = sanitize_local(emoji_msg)
 	recieve_message = "<span class='[recieve_span]'>[type] from-<b>[recieve_pm_type][key_name(src, C, C.holder ? 1 : 0, type)]</b>: [emoji_msg]</span>"
 	to_chat(C, recieve_message)
 	to_chat(src, "<font color='blue'>[send_pm_type][type] to-<b>[key_name(C, src, holder ? 1 : 0, type)]</b>: [emoji_msg]</font>")
@@ -210,14 +210,12 @@
 	if(!msg)
 		return
 
-	sanitize(msg)
-
 	if(length(msg) > 400) // TODO: if message length is over 400, divide it up into seperate messages, the message length restriction is based on IRC limitations.  Probably easier to do this on the bots ends.
 		to_chat(src, "<span class='warning'>Your message was not sent because it was more then 400 characters find your message below for ease of copy/pasting</span>")
 		to_chat(src, "<span class='notice'>[msg]</span>")
 		return
 
-	send2adminirc("PlayerPM from [key_name(src)]: [html_decode(msg)]")
+	send2adminirc("PlayerPM from [key_name(src)]: [lhtml_decode(msg)]")
 
 	to_chat(src, "<font color='blue'>IRC PM to-<b>IRC-Admins</b>: [msg]</font>")
 

@@ -41,7 +41,7 @@ Doesn't work on other aliens/AI.*/
 
 	if(powerc(10))
 		adjustPlasma(-10)
-		var/msg = sanitize(input("Message:", "Alien Whisper") as text|null)
+		var/msg = sanitize_local(input("Message:", "Alien Whisper") as text|null)
 		if(msg)
 			log_say("Alien Whisper: [key_name(src)]->[key_name(M)]: [msg]")
 			to_chat(M, "<span class='noticealien'>You hear a strange, alien voice in your head...<span class='noticealien'>[msg]")

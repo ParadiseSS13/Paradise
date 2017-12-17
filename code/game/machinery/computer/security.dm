@@ -1,6 +1,8 @@
 #define SEC_DATA_R_LIST	1	// Record list
 #define SEC_DATA_MAINT	2	// Records maintenance
 #define SEC_DATA_RECORD	3	// Record
+#define SEC_DATA_LOGS	4	//Cell Logs
+#define SEC_DATA_TICKETS	5	//Ticket list
 
 /obj/machinery/computer/secure_data//TODO:SANITY
 	name = "security records"
@@ -42,6 +44,18 @@
 		return
 	add_fingerprint(user)
 	ui_interact(user)
+
+/obj/machinery/computer/secure_data/proc/createlog(toprint)
+	if(!toprint)
+		return 0
+	else
+		var/obj/item/weapon/paper/P = toprint
+		playsound(loc, "sound/goonstation/machines/printer_dotmatrix.ogg", 50, 1)
+		to_chat(usr, "<span class='notice'>Printing file [P.name].</span>")
+		sleep(50)
+		var/obj/item/weapon/paper/P2 = new /obj/item/weapon/paper(loc)
+		P2.name = P.name
+		P2.info = P.info
 
 /obj/machinery/computer/secure_data/ui_interact(mob/user, ui_key = "main", var/datum/nanoui/ui = null, var/force_open = 1)
 	ui = nanomanager.try_update_ui(user, src, ui_key, ui, force_open)
@@ -122,6 +136,18 @@
 					security["empty"] = 0
 				else
 					security["empty"] = 1
+
+			if(SEC_DATA_TICKETS)
+				var/list/tickets = list()
+				data["tickets"] = tickets
+				for(var/obj/item/weapon/paper/P in ticket_logs)
+					tickets[++tickets.len] = list("title" = P.info)
+
+			if(SEC_DATA_LOGS)
+				var/list/celllogs = list()
+				data["celllogs"] = celllogs
+				for(var/obj/item/weapon/paper/P in cell_logs)
+					celllogs[++celllogs.len] = list("title" = P.info)
 	return data
 
 /obj/machinery/computer/secure_data/Topic(href, href_list)
@@ -379,22 +405,18 @@
 				printing = 0
 
 		else if(href_list["printlogs"])
-			if(cell_logs.len && !printing)
-				var/obj/item/weapon/paper/P = input(usr, "Select log to print", "Available Cell Logs") as null|anything in cell_logs
-				if(!P)
-					return 0
-				printing = 1
-				playsound(loc, "sound/goonstation/machines/printer_dotmatrix.ogg", 50, 1)
-				to_chat(usr, "<span class='notice'>Printing file [P.name].</span>")
-				sleep(50)
-				var/obj/item/weapon/paper/log = new /obj/item/weapon/paper(loc)
-				log.name = P.name
-				log.info = P.info
-				printing = 0
-				return 1
+			if(cell_logs.len)
+				var/toprint = input(usr, "Select log to print", "Available Cell Logs") as null|anything in cell_logs
+				createlog(toprint)
 			else
 				to_chat(usr, "<span class='notice'>[src] has no logs stored or is already printing.</span>")
 
+		else if(href_list["printticket"])
+			if(ticket_logs.len)
+				var/toprint = input(usr, "Select tickets to print", "Issued Tickets") as null|anything in ticket_logs
+				createlog(toprint)
+			else
+				to_chat(usr, "<span class='notice'>[src] has no logs stored or is already printing.</span>")
 
 		else if(href_list["add_c"])
 			if(istype(active2, /datum/data/record))
@@ -582,3 +604,5 @@
 #undef SEC_DATA_R_LIST
 #undef SEC_DATA_MAINT
 #undef SEC_DATA_RECORD
+#undef SEC_DATA_LOGS
+#undef SEC_DATA_TICKETS

@@ -39,7 +39,6 @@ var/round_start_time = 0
 
 /datum/controller/gameticker/proc/pregame()
 	login_music = pick(\
-	'sound/music/THUNDERDOME.ogg',\
 	'sound/music/space.ogg',\
 	'sound/music/Title1.ogg',\
 	'sound/music/Title2.ogg',\
@@ -373,7 +372,7 @@ var/round_start_time = 0
 		return 0
 
 	mode.process()
-	mode.process_job_tasks()
+	//mode.process_job_tasks()
 
 	//emergency_shuttle.process() DONE THROUGH PROCESS SCHEDULER
 
@@ -449,7 +448,6 @@ var/round_start_time = 0
 
 	if(dronecount)
 		to_chat(world, "<b>There [dronecount>1 ? "were" : "was"] [dronecount] industrious maintenance [dronecount>1 ? "drones" : "drone"] this round.")
-
 	mode.declare_completion()//To declare normal completion.
 
 	//calls auto_declare_completion_* for all modes

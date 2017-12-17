@@ -72,14 +72,14 @@
 		alarmed = 1
 
 /obj/item/weapon/gun/projectile/automatic/proto
-	name = "\improper Nanotrasen Saber SMG"
+	name = "Nanotrasen Saber SMG"
 	desc = "A prototype three-round burst 9mm submachine gun, designated 'SABR'. Has a threaded barrel for suppressors."
 	icon_state = "saber"
 	mag_type = /obj/item/ammo_box/magazine/smgm9mm
 	origin_tech = "combat=4;materials=2"
 
 /obj/item/weapon/gun/projectile/automatic/c20r
-	name = "\improper C-20r SMG"
+	name = "C-20r SMG"
 	desc = "A two-round burst .45 SMG, designated 'C-20r'. Has a 'Scarborough Arms - Per falcis, per pravitas' buttstamp."
 	icon_state = "c20r"
 	item_state = "c20r"
@@ -117,7 +117,7 @@
 	icon_state = "wt550[magazine ? "-[Ceiling(get_ammo(0)/4)*4]" : ""]"
 
 /obj/item/weapon/gun/projectile/automatic/mini_uzi
-	name = "\improper 'Type U3' Uzi"
+	name = "'Type U3' Uzi"
 	desc = "A lightweight, burst-fire submachine gun, for when you really want someone dead. Uses 9mm rounds."
 	icon_state = "mini-uzi"
 	origin_tech = "combat=4;materials=2;syndicate=4"
@@ -125,7 +125,7 @@
 	burst_size = 2
 
 /obj/item/weapon/gun/projectile/automatic/m90
-	name = "\improper M-90gl Carbine"
+	name = "M-90gl Carbine"
 	desc = "A three-round burst 5.56 toploading carbine, designated 'M-90gl'. Has an attached underbarrel grenade launcher which can be toggled on and off."
 	icon_state = "m90"
 	item_state = "m90"
@@ -190,7 +190,7 @@
 	update_icon()
 
 /obj/item/weapon/gun/projectile/automatic/tommygun
-	name = "\improper Thompson SMG"
+	name = "Thompson SMG"
 	desc = "A genuine 'Chicago Typewriter'."
 	icon_state = "tommygun"
 	item_state = "shotgun"
@@ -218,7 +218,7 @@
 
 // Bulldog shotgun //
 /obj/item/weapon/gun/projectile/automatic/shotgun/bulldog
-	name = "\improper 'Bulldog' Shotgun"
+	name = "'Bulldog' Shotgun"
 	desc = "A compact, mag-fed semi-automatic shotgun for combat in narrow corridors, nicknamed 'Bulldog' by boarding parties. Compatible only with specialized 8-round drum magazines."
 	icon_state = "bulldog"
 	item_state = "bulldog"
@@ -251,7 +251,7 @@
 	empty_alarm()
 
 /obj/item/weapon/gun/projectile/automatic/lasercarbine
-	name = "\improper IK-60 Laser Carbine"
+	name = "IK-60 Laser Carbine"
 	desc = "An experimental carbine. Uses encased laser projectors as ammunition."//we need to uncouple the toroidal resistance dejammers
 	icon_state = "lasercarbine"
 	item_state = "laser"

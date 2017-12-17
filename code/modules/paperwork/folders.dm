@@ -39,7 +39,7 @@
 		var/n_name = input(usr, "What would you like to label the folder?", "Folder Labelling", null) as text|null
 		if(!n_name)
 			return
-		n_name = sanitize(copytext(n_name, 1, MAX_NAME_LEN))
+		n_name = sanitize_local(copytext(n_name, 1, MAX_NAME_LEN))
 
 		if((loc == usr || Adjacent(usr)) && usr.stat == 0)
 			name = "folder[(n_name ? text("- '[n_name]'") : null)]"

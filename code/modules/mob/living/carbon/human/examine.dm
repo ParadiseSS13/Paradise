@@ -180,7 +180,8 @@
 			msg += "<span class='warning'>[t_He] [t_has] [bicon(glasses)] [glasses.gender==PLURAL?"some":"a"] [glasses.blood_color != "#030303" ? "blood-stained":"oil-stained"] [glasses] covering [t_his] eyes!</span>\n"
 		else
 			msg += "[t_He] [t_has] [bicon(glasses)] \a [glasses] covering [t_his] eyes.\n"
-
+	else if (!skipeyes && druggy > 0)
+		msg += "<span class='warning'>Pupils are unusually huge!</span>\n"
 	//left ear
 	if(l_ear && !skipears)
 		msg += "[t_He] [t_has] [bicon(l_ear)] \a [l_ear] on [t_his] left ear.\n"
@@ -193,6 +194,8 @@
 	if(wear_id)
 		msg += "[t_He] [t_is] wearing [bicon(wear_id)] \a [wear_id].\n"
 
+	if(is_nude() && gender == MALE && species.genitals)
+		msg += "<B>Penis size: [potenzia].</B>\n"
 	//Jitters
 	switch(jitteriness)
 		if(300 to INFINITY)

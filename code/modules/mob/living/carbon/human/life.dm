@@ -16,6 +16,7 @@
 		handle_heartattack()
 		handle_drunk()
 		species.handle_life(src)
+		handle_lust()
 
 		if(!client)
 			species.handle_npc(src)
@@ -78,7 +79,7 @@
 				if(1)
 					emote("twitch")
 				if(2 to 3)
-					var/tourettes = pick("SHIT", "PISS", "FUCK", "CUNT", "COCKSUCKER", "MOTHERFUCKER", "TITS")
+					var/tourettes = pick("ГОВНО", "МОЧА", "ЕБАТЬ", "ГОНДОН", "ХУЕСОС", "ПИДАР", "ХУЙ")
 					say("[prob(50) ? ";" : ""][tourettes]")
 			var/x_offset = pixel_x + rand(-2,2) //Should probably be moved into the twitch emote at some point.
 			var/y_offset = pixel_y + rand(-1,1)
@@ -93,49 +94,38 @@
 	if(getBrainLoss() >= 60 && stat != DEAD)
 		speech_problem_flag = 1
 		if(prob(3))
-			var/list/s1 = list("IM A [pick("PONY","LIZARD","taJaran","kitty","Vulpakin","drASK","BIRDIE","voxxie","race car","combat meCH","SPESSSHIP")] [pick("NEEEEEEIIIIIIIIIGH","sKREEEEEE","MEOW","NYA~","rawr","Barkbark","Hissssss","vROOOOOM","pewpew","choo Choo")]!",
-							   "without oxigen blob don't evoluate?",
-							   "CAPTAINS A COMDOM",
-							   "[pick("", "that damn traitor")] [pick("joerge", "george", "gorge", "gdoruge")] [pick("mellens", "melons", "mwrlins")] is grifing me HAL;P!!!",
-							   "can u give me [pick("telikesis","halk","eppilapse")]?",
-							   "THe saiyans screwed",
-							   "Bi is THE BEST OF BOTH WORLDS",
-							   "I WANNA PET TEH monkeyS",
-							   "stop grifing me!!!!",
-							   "SOTP IT!",
-							   "HALPZ SITCULITY",
-							   "VOXES caN't LOVE",
-							   "my dad own this station",
-							   "the CHef put [pick("PROTEIN", "toiret waTer", "RiPPleing TendIes", "Einzymes","HORRY WALTER","nuTriments","ReActive MutAngen","TeSLium","sKrektonium")] in my [pick("wiSh soup","Bullito","rAingurber","sOilent GREEn","KoI Susishes","yaya")]!",
-							   "the monkey have TASER ARMS!",
-							   "qM blew my points on [pick("cOMbat Shtogun","inSuLated gloves","LOTS MASSHEEN!")]",
-							   "EI'NATH!",
-							   "WAKE UP SHEEPLES!",
-							   "et wus my [pick("wittle brother!!","fiancee","friend staying over","entiRe orphanage","love interest","wife","husband","liTTle kids","sentient cAT","accidentally")]!")
+			var/list/s1 = list("всем привет с вами иивангай и это мой обзор на спесстейшн фертин",
+							   "без кеслорода блоб не растет?",
+							   "КЭП - ГОНДОН",
+							   "[pick("", "етот тритор")] [pick("винс", "винсонт", "винсент", "винсунт")] [pick("антдар", "одар", "удар")] грефонит миня халп!!!",
+							   "не могли бы вы меня тыкнуть [pick("теликенезом","хулком","епелепсией")]?",
+							   "Хочешь руки-базуки?",
+							   "Я РОССИЙСКИЙ НОВЫЙ ПИРАТ",
+							   "SONO CHI NO SADAME --- JOOOOOOOOOOOOOOJOOOOOOOOOOOOOOO",
+							   "не грифонь подумой!!!!",
+							   "АСТАНАВИТЕСЬ#",
+							   "ебать повидлит",
+							   "когда лаваленд?",
+							   "[pick("ай бля","аааа","")] этот трап [pick("Цири","Кири","Кирилл","Сири","Кирюха")] [pick("Покет","Пакет","Карман", "Карманный")] рассказывает мне про [pick("то как в сб служат","бургеры во франции","то как на него батя орал", "он меня щас трахнет")] помогите!!!!!",
+							   "сушилка не работает, фиксаните",
+							   "кек",
+							   "это фиаско братан")
 
 			var/list/s2 = list("FUS RO DAH",
-							   "fuckin tangerines!!!",
-							   "stat me",
-							   ">my face",
-							   "roll it easy!",
-							   "waaaaaagh!!!",
-							   "red wonz go fasta",
-							   "FOR TEH EMPRAH",
-							   "HAZ A SECURE DAY!!!!",
-							   "dem dwarfs man, dem dwarfs",
-							   "SPESS MAHREENS",
-							   "hwee did eet fhor khayosss",
-							   "lifelike texture",
-							   "luv can bloooom",
-							   "PACKETS!!!",
-							   "[pick("WHERE MY","aYE need","giv me my","bath me inn.")] [pick("dermaline","alKkyZine","dylOvene","inAprovaline","biCaridine","Hyperzine","kELotane","lePorazine","bAcch Salts","tricord","clOnexazone","hydroChloric Acid","chlorine Hydrate","paRoxetine")]!",
-							   "mALPRACTICEBAY",
-							   "I HavE A pe H dee iN ENTerpriSE resOUrCE pLaNNIN",
-							   "h-h-HalP MaINT",
-							   "dey come, dey COME! DEY COME!!!",
-							   "THE END IS NIGH!",
-							   "I FOT AND DIED FOR MUH [pick("RITES","FREEDOM","payCHECK","cARGO points","teCH Level","doG","mAPLe syrup","fluffy fWiends","gateway Loot")]",
-							   "KILL DEM [pick("mainTnacE cHickinNS","kiRA CulwnNES","FLOOR CLUWNEs","MIME ASSASSIN","BOMBING TAJARAN","cC offiser","morPhlings","slinglings")]!")
+							   "ебучие фуриебы!",
+							   "чому етот третор токои довольный",
+							   ">мое литсе",
+							   "сделай бочку",
+							   "вааааааааааааааагх!!!",
+							   "хех смотрели филтифренка? мне 15 кстати",
+							   "ЗА ИМПЕРАТОРА!",
+							   "дед, смотри, собака сидит. ЛОЛ.",
+							   "итс э хай нууууууууун",
+							   "МЫ ПЕС МАРИНЫЫЫЫЫЫЫЫЫЫЫ",
+							   "час простаты",
+							   "текстурки-то прошлый век!",
+							   "снек, ты веришь что любов может расцвести на поле боя?",
+							   "МОЙ ПИНГ!!!!!")
 			switch(pick(1,2,3))
 				if(1)
 					say(pick(s1))
@@ -969,19 +959,19 @@
 		makeSkeleton()
 		return //No puking over skeletons, they don't smell at all!
 
-	if(!isturf(loc))
-		return
 
 	for(var/mob/living/carbon/human/H in range(decaylevel, src))
+		if(istype(loc,/obj/item/bodybag))
+			return
+		var/obj/item/clothing/mask/M = H.wear_mask
+		if(M && (M.flags_cover & MASKCOVERSMOUTH))
+			return
+		if(NO_BREATHE in species.species_traits)
+			return //no puking if you can't smell!
+		// Humans can lack a mind datum, y'know
+		if(H.mind && (H.mind.assigned_role == "Detective" || H.mind.assigned_role == "Coroner"))
+			return //too cool for puke
 		if(prob(2))
-			var/obj/item/clothing/mask/M = H.wear_mask
-			if(M && (M.flags_cover & MASKCOVERSMOUTH))
-				return
-			if(NO_BREATHE in H.species.species_traits)
-				return //no puking if you can't smell!
-			// Humans can lack a mind datum, y'know
-			if(H.mind && (H.mind.assigned_role == "Detective" || H.mind.assigned_role == "Coroner"))
-				return //too cool for puke
 			to_chat(H, "<span class='warning'>You smell something foul...</span>")
 			H.fakevomit()
 

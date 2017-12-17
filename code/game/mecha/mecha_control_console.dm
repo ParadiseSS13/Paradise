@@ -81,7 +81,7 @@
 	var/obj/mecha/M = loc
 	var/list/answer[0]
 	answer["reference"] = "\ref[src]"
-	answer["name"] = sanitize(replacetext(M.name,"\"","'")) // Double apostrophes break JSON
+	answer["name"] = sanitize_local(replacetext(M.name,"\"","'")) // Double apostrophes break JSON
 	if(M.cell)
 		answer["cell"] = 1
 		answer["cell_capacity"] = M.cell.maxcharge
@@ -93,7 +93,7 @@
 	answer["airtank"] = M.return_pressure()
 	answer["pilot"] = "[M.occupant||"None"]"
 	var/area/area = get_area(M)
-	answer["location"] = "[sanitize(area.name)||"Unknown"]"
+	answer["location"] = "[sanitize_local(area.name)||"Unknown"]"
 	answer["equipment"] = "[M.selected||"None"]"
 	if(istype(M, /obj/mecha/working/ripley))
 		var/obj/mecha/working/ripley/RM = M

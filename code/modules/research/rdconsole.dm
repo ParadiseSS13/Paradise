@@ -42,7 +42,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 #define IMPRINTER_DELAY 16
 
 /obj/machinery/computer/rdconsole
-	name = "\improper R&D console"
+	name = "R&D console"
 	icon_screen = "rdcomp"
 	icon_keyboard = "rd_key"
 	light_color = LIGHT_COLOR_FADEDPURPLE
@@ -768,7 +768,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 				var/list/materials_list = list()
 				design_list["materials"] = materials_list
 				design_list["id"] = D.id
-				design_list["name"] = sanitize(D.name)
+				design_list["name"] = sanitize_local(D.name)
 				var/c = 50
 				for(var/M in D.materials)
 					var/list/material_list = list()
@@ -832,7 +832,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 				var/list/materials_list = list()
 				design_list["materials"] = materials_list
 				design_list["id"] = D.id
-				design_list["name"] = sanitize(D.name)
+				design_list["name"] = sanitize_local(D.name)
 				var/check_materials = 1
 				for(var/M in D.materials)
 					var/list/material_list = list()
@@ -897,7 +897,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 	circuit = /obj/item/weapon/circuitboard/rdconsole/robotics
 
 /obj/machinery/computer/rdconsole/experiment
-	name = "\improper E.X.P.E.R.I-MENTOR R&D console"
+	name = "E.X.P.E.R.I-MENTOR R&D console"
 	desc = "A console used to interface with R&D tools."
 	id = 3
 	circuit = /obj/item/weapon/circuitboard/rdconsole/experiment

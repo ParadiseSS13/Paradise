@@ -187,7 +187,7 @@
 	return
 
 /obj/machinery/computer/guestpass/hop
-	name = "\improper HoP guest pass terminal"
+	name = "HoP guest pass terminal"
 
 /obj/machinery/computer/guestpass/hop/get_changeable_accesses()
 	. = ..()

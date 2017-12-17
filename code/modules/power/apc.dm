@@ -105,7 +105,7 @@
 	var/shock_proof = 0 //if set to 1, this APC will not arc bolts of electricity if it's overloaded.
 
 /obj/machinery/power/apc/worn_out
-	name = "\improper Worn out APC"
+	name = "Worn out APC"
 	keep_preset_name = 1
 	locked = 0
 	environ = 0
@@ -207,10 +207,10 @@
 		// no-op, keep the name
 	else if(isarea(A) && src.areastring == null)
 		area = A
-		name = "\improper [area.name] APC"
+		name = "[area.name] APC"
 	else
 		area = get_area_name(areastring)
-		name = "\improper [area.name] APC"
+		name = "[area.name] APC"
 	area.apc |= src
 	update_icon()
 

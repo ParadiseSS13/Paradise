@@ -168,12 +168,12 @@
 					++intel_count
 
 				// Sell tech levels
-				if(istype(thing, /obj/item/weapon/disk/tech_disk))
-					var/obj/item/weapon/disk/tech_disk/disk = thing
-					if(!disk.stored) continue
-					var/datum/tech/tech = disk.stored
+				//if(istype(thing, /obj/item/weapon/disk/tech_disk))
+				//	var/obj/item/weapon/disk/tech_disk/disk = thing
+				//	if(!disk.stored) continue
+				//	var/datum/tech/tech = disk.stored
 
-					var/cost = tech.getCost(shuttle_master.techLevels[tech.id])
+				/*	var/cost = tech.getCost(shuttle_master.techLevels[tech.id])
 					if(cost)
 						shuttle_master.techLevels[tech.id] = tech.level
 						shuttle_master.points += cost
@@ -181,7 +181,7 @@
 							if(M.mind)
 								for(var/datum/job_objective/further_research/objective in M.mind.job_objectives)
 									objective.unit_completed(cost)
-						msg += "<span class='good'>+[cost]</span>: [tech.name] - new data.<br>"
+						msg += "<span class='good'>+[cost]</span>: [tech.name] - new data.<br>" */
 
 				// Sell designs
 				if(istype(thing, /obj/item/weapon/disk/design_disk))
@@ -452,7 +452,7 @@
 
 	data["supply_packs"] = packs_list
 	if(content_pack)
-		var/pack_name = sanitize(content_pack.name)
+		var/pack_name = sanitize_local(content_pack.name)
 		data["contents_name"] = pack_name
 		data["contents"] = content_pack.manifest
 		data["contents_access"] = content_pack.access ? get_access_desc(content_pack.access) : "None"
@@ -513,7 +513,7 @@
 		var/reason = input(usr,"Reason:","Why do you require this item?","") as null|text
 		if(world.time > timeout || !reason || ..())
 			return 1
-		reason = sanitize(copytext(reason, 1, MAX_MESSAGE_LEN))
+		reason = sanitize_local(copytext(reason, 1, MAX_MESSAGE_LEN))
 
 		var/idname = "*None Provided*"
 		var/idrank = "*None Provided*"
@@ -602,7 +602,7 @@
 
 	data["supply_packs"] = packs_list
 	if(content_pack)
-		var/pack_name = sanitize(content_pack.name)
+		var/pack_name = sanitize_local(content_pack.name)
 		data["contents_name"] = pack_name
 		data["contents"] = content_pack.manifest
 		data["contents_access"] = content_pack.access ? get_access_desc(content_pack.access) : "None"
@@ -694,7 +694,7 @@
 		var/reason = input(usr,"Reason:","Why do you require this item?","") as null|text
 		if(world.time > timeout || !reason || !is_authorized(usr) || ..())
 			return 1
-		reason = sanitize(copytext(reason, 1, MAX_MESSAGE_LEN))
+		reason = sanitize_local(copytext(reason, 1, MAX_MESSAGE_LEN))
 
 		var/idname = "*None Provided*"
 		var/idrank = "*None Provided*"
@@ -783,7 +783,7 @@
 	requires_power = 0
 
 /obj/structure/plasticflaps
-	name = "\improper plastic flaps"
+	name = "plastic flaps"
 	desc = "Completely impassable - or are they?"
 	icon = 'icons/obj/stationobjs.dmi'
 	icon_state = "plasticflaps"
@@ -905,7 +905,7 @@
 	qdel(src)
 
 /obj/structure/plasticflaps/mining //A specific type for mining that doesn't allow airflow because of them damn crates
-	name = "\improper Airtight plastic flaps"
+	name = "Airtight plastic flaps"
 	desc = "Heavy duty, airtight, plastic flaps."
 
 /obj/structure/plasticflaps/mining/initialize()

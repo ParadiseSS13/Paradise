@@ -189,7 +189,6 @@
 			buttons[++buttons.len] = list("name" = "Yes", "icon" = "check", "val" = "del_all2=1", "status" = null)
 			buttons[++buttons.len] = list("name" = "No", "icon" = "times", "val" = null, "status" = null)
 			setTemp("<h3>Are you sure you wish to delete all employment records?</h3>", buttons)
-
 		else if(href_list["del_rg"])
 			if(active1)
 				var/list/buttons = list()

@@ -1,6 +1,6 @@
 //Corgi
 /mob/living/simple_animal/pet/corgi
-	name = "\improper corgi"
+	name = "corgi"
 	real_name = "corgi"
 	desc = "It's a corgi."
 	icon_state = "corgi"
@@ -320,7 +320,7 @@
 				valid = 1
 
 			if(/obj/item/weapon/bedsheet)
-				name = "\improper Ghost"
+				name = "Ghost"
 				speak = list("WoooOOOooo~","AUUUUUUUUUUUUUUUUUU")
 				emote_see = list("stumbles around.", "shivers.")
 				emote_hear = list("howls!","groans.")
@@ -500,7 +500,7 @@
 	..(0)
 
 /mob/living/simple_animal/pet/corgi/puppy
-	name = "\improper corgi puppy"
+	name = "corgi puppy"
 	real_name = "corgi"
 	desc = "It's a corgi puppy."
 	icon_state = "puppy"

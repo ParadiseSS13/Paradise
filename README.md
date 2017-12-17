@@ -1,15 +1,8 @@
-# Paradise
-[![Build Status](https://travis-ci.org/ParadiseSS13/Paradise.svg?branch=master)](https://travis-ci.org/ParadiseSS13/Paradise)
-[![Average time to resolve an issue](http://isitmaintained.com/badge/resolution/paradisess13/paradise.svg)](http://isitmaintained.com/project/paradisess13/paradise "Average time to resolve an issue")
-[![Percentage of issues still open](http://isitmaintained.com/badge/open/paradisess13/paradise.svg)](http://isitmaintained.com/project/paradisess13/paradise "Percentage of issues still open")
-[![Krihelimeter](http://www.krihelinator.xyz/badge/paradisess13/paradise)](http://www.krihelinator.xyz) 
+# ATMTA STATION [![Build Status](https://travis-ci.org/ITBlackwood/ATMTA-Station.svg?branch=master)](https://travis-ci.org/ITBlackwood/ATMTA-Station)
+Форк Paradise Station.
+[Website](http://атмта.рф/) - [Code](https://github.com/ParadiseSS13/Paradise) - [Discord](https://discord.gg/014REXI6YHvMSo7Ew)
 
-[![forthebadge](http://forthebadge.com/images/badges/60-percent-of-the-time-works-every-time.svg)](http://forthebadge.com)
-[![forthebadge](http://forthebadge.com/images/badges/contains-technical-debt.svg)](http://forthebadge.com)
-[![forthebadge](http://forthebadge.com/images/badges/fuck-it-ship-it.svg)](http://forthebadge.com)
-
-[Website](https://nanotrasen.se/) - [Code](https://github.com/ParadiseSS13/Paradise) - [Discord](https://discordapp.com/invite/gXZMc?utm_source=Discord%20Widget&utm_medium=Connect)
-
+Постоянно модифицируемый билд Paradise, набитый мемами и МЕМАСАМИ.
 ---
 
 ### GETTING THE CODE

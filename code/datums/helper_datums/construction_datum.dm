@@ -93,11 +93,10 @@
 
 	proc/spawn_result(mob/user as mob)
 		if(result)
-			if(taskpath)
+			/*if(taskpath)
 				var/datum/job_objective/task = user.mind.findJobTask(taskpath)
 				if(istype(task))
-					task.unit_completed()
-
+					task.unit_completed()*/
 			new result(get_turf(holder))
 			spawn()
 				qdel(holder)

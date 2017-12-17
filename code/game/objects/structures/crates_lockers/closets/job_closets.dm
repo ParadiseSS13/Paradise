@@ -114,6 +114,8 @@
 	new /obj/item/clothing/shoes/black(src)
 	new /obj/item/clothing/glasses/sunglasses/big(src)
 	new /obj/item/clothing/glasses/sunglasses/big(src)
+	new /obj/item/clothing/accessory/lawyers_badge(src)
+	new /obj/item/clothing/accessory/lawyers_badge(src)
 
 //Paramedic
 

@@ -868,6 +868,11 @@
 	shuttleId = "sit"
 	possible_destinations = "sit_arrivals;sit_scimaint;sit_engshuttle;sit_away"
 
+/obj/machinery/computer/shuttle/uzhin
+	name = "Grisha's shuttle Console"
+	desc = "Used to travel to unknown lands called Pyaterochka"
+	shuttleId = "uzhin"
+	possible_destinations ="grisha_dock;uzhin_away"
 
 var/global/trade_dock_timelimit = 0
 var/global/trade_dockrequest_timelimit = 0
@@ -877,7 +882,7 @@ var/global/trade_dockrequest_timelimit = 0
 	docking_request = 1
 	var/possible_destinations_dock
 	var/possible_destinations_nodock
-	var/docking_request_message = "A trading ship has requested docking aboard the NSS Cyberiad for trading. This request can be accepted or denied using a communications console."
+	var/docking_request_message = "A trading ship has requested docking aboard the SES ATMIITAD for trading. This request can be accepted or denied using a communications console."
 
 /obj/machinery/computer/shuttle/trade/attack_hand(mob/user)
 	if(world.time < trade_dock_timelimit)
@@ -904,7 +909,7 @@ var/global/trade_dockrequest_timelimit = 0
 	possible_destinations_dock = "trade_sol_base;trade_sol_offstation;trade_dock"
 	possible_destinations_nodock = "trade_sol_base;trade_sol_offstation"
 	shuttleId = "trade_sol"
-	docking_request_message = "A trading ship of Sol origin has requested docking aboard the NSS Cyberiad for trading. This request can be accepted or denied using a communications console."
+	docking_request_message = "A trading ship of Sol origin has requested docking aboard the SES ATMIITAD for trading. This request can be accepted or denied using a communications console."
 
 #undef DOCKING_PORT_HIGHLIGHT
 

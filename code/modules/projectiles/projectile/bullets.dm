@@ -123,6 +123,12 @@
 	damage = 20
 	stamina = 65 //two rounds from the c20r knocks people down
 
+/obj/item/projectile/bullet/midbulletr
+	name = "rubber bullet"
+	damage = 5
+	stamina = 65 // Same stamina damage as mid but with less lethal damage
+	icon_state = "bullet-r"
+
 /obj/item/projectile/bullet/midbullet2
 	damage = 25
 
@@ -275,11 +281,21 @@
 	icon = 'icons/obj/chemical.dmi'
 	icon_state = "syringeproj"
 
-/obj/item/projectile/bullet/dart/syringe/tranquilizer
+/obj/item/projectile/bullet/dart/rifle
+	damage = 0
+	icon_state = "dart"
 
+/obj/item/projectile/bullet/dart/rifle/tranq
+	icon_state = "tranq"
+
+/obj/item/projectile/bullet/dart/rifle/tranq/New()
+	..()
+	reagents.add_reagent("ketamine", 10)
+
+/obj/item/projectile/bullet/dart/syringe/tranquilizer
 /obj/item/projectile/bullet/dart/syringe/tranquilizer/New()
 	..()
-	reagents.add_reagent("haloperidol", 15)
+	reagents.add_reagent("ether", 15)
 
 /obj/item/projectile/bullet/neurotoxin
 	name = "neurotoxin spit"

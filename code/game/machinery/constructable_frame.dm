@@ -467,14 +467,14 @@ to destroy them and players will be able to make replacements.
 	req_components = list(
 							/obj/item/weapon/stock_parts/matter_bin = 1)
 	var/list/fridge_names_paths = list(
-							"\improper SmartFridge" = /obj/machinery/smartfridge,
-							"\improper MegaSeed Servitor" = /obj/machinery/smartfridge/seeds,
-							"\improper Refrigerated Medicine Storage" = /obj/machinery/smartfridge/medbay,
-							"\improper Slime Extract Storage" = /obj/machinery/smartfridge/secure/extract,
-							"\improper Secure Refrigerated Medicine Storage" = /obj/machinery/smartfridge/secure/medbay,
-							"\improper Smart Chemical Storage" = /obj/machinery/smartfridge/secure/chemistry,
+							"SmartFridge" = /obj/machinery/smartfridge,
+							"MegaSeed Servitor" = /obj/machinery/smartfridge/seeds,
+							"Refrigerated Medicine Storage" = /obj/machinery/smartfridge/medbay,
+							"Slime Extract Storage" = /obj/machinery/smartfridge/secure/extract,
+							"Secure Refrigerated Medicine Storage" = /obj/machinery/smartfridge/secure/medbay,
+							"Smart Chemical Storage" = /obj/machinery/smartfridge/secure/chemistry,
 							"smart virus storage" = /obj/machinery/smartfridge/secure/chemistry/virology,
-							"\improper Drink Showcase" = /obj/machinery/smartfridge/drinks
+							"Drink Showcase" = /obj/machinery/smartfridge/drinks
 	)
 
 

@@ -26,7 +26,7 @@
 
 
 /mob/living/simple_animal/parrot
-	name = "\improper Parrot"
+	name = "Parrot"
 	desc = "The parrot squaks, \"It's a Parrot! BAWWK!\""
 	icon = 'icons/mob/animal.dmi'
 	icon_state = "parrot_fly"
@@ -36,10 +36,10 @@
 	can_collar = 1
 
 	var/list/clean_speak = list(
-		"Hi",
-		"Hello!",
-		"Cracker?",
-		"BAWWWWK george mellons griffing me")
+		"Ïğèâåò",
+		"Äàğîâà!",
+		"Êğåêêêåğğ?",
+		"ÁÓÀÀÀÊ âèíñîíò àíòäàğ ãğèôîíèò ìèíÿ!")
 	speak_emote = list("squawks","says","yells")
 	emote_hear = list("squawks","bawks")
 	emote_see = list("flutters its wings")
@@ -158,9 +158,9 @@
 				if("ears")
 					if(ears)
 						if(available_channels.len)
-							say("[pick(available_channels)]BAWWWWWK LEAVE THE HEADSET BAWKKKKK!")
+							say("[pick(available_channels)]ÁÓÓÓÓÀÊ ÎÑÒÀÂÜ ÍÀÓØÍÈÊ ÁÓÀÀÀÊ!")
 						else
-							say("BAWWWWWK LEAVE THE HEADSET BAWKKKKK!")
+							say("ÁÓÓÓÓÀÊ ÎÑÒÀÂÜ ÍÀÓØÍÈÊ ÁÓÀÀÀÊ!")
 						ears.forceMove(loc)
 						ears = null
 						update_speak()
@@ -681,13 +681,13 @@
 	name = "Poly"
 	desc = "Poly the Parrot. An expert on quantum cracker theory."
 	clean_speak = list(
-		"Poly wanna cracker!",
-		"Check the singlo, you chucklefucks!",
-		"Check the tesla, you shits!",
-		"STOP HOT-WIRING THE ENGINE, FUCKING CHRIST!",
-		"Wire the solars, you lazy bums!",
-		"WHO TOOK THE DAMN HARDSUITS?",
-		"OH GOD ITS FREE CALL THE SHUTTLE")
+		"ÏÎËÈ ÕÎ×ÅÒ ÊĞĞĞĞÅÊÊÊÅĞĞĞ!",
+		"Ïğîâåğüòå ñèíãó, âû èäèîòû!",
+		"Ïğîâåğüòå òåñëó, âû äåáèëû!",
+		"ÃÎÑÏÎÄÈ ÕÂÀÒÈÒ ÒÛ ÍÅ ÓÌÅÅØÜ ÍÀÑÒĞÀÈÂÀÒÜ ÄÂÈÃÀÒÅËÜ!",
+		"Íàñòğîéòå ñîëÿğû, ëåíòÿè!",
+		"ÊÒÎ ÂÇßË ×ÅĞÒÎÂÛ ĞÈÃÈ?",
+		"ÁÎÆÅ ÎÍÎ ÂÛĞÂÀËÎÑÜ ÂÛÇÛÂÀÉÒÅ ØÀÒÒË")
 	gold_core_spawnable = CHEM_MOB_SPAWN_INVALID
 
 /mob/living/simple_animal/parrot/Poly/New()
@@ -702,14 +702,14 @@
 
 /mob/living/simple_animal/parrot/hear_say(var/message, var/verb = "says", var/datum/language/language = null, var/alt_name = "",var/italics = 0, var/mob/speaker = null)
 	if(speaker != src && prob(50))
-		parrot_hear(html_decode(message))
+		parrot_hear(lhtml_decode(message))
 	..()
 
 
 
 /mob/living/simple_animal/parrot/hear_radio(var/message, var/verb="says", var/datum/language/language=null, var/part_a, var/part_b, var/mob/speaker = null, var/hard_to_hear = 0, var/atom/follow_target)
 	if(speaker != src && prob(50))
-		parrot_hear(html_decode(message))
+		parrot_hear(lhtml_decode(message))
 	..()
 
 

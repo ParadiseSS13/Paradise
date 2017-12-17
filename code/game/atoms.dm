@@ -207,8 +207,7 @@
 
 	to_chat(user, "[bicon(src)] That's [f_name] [suffix]")
 	if(desc)
-		to_chat(user, desc)
-
+		to_chat(user, sanitize_local(desc))
 	if(reagents && is_open_container()) //is_open_container() isn't really the right proc for this, but w/e
 		to_chat(user, "It contains:")
 		if(reagents.reagent_list.len)

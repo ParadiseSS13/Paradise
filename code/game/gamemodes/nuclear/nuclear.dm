@@ -7,7 +7,7 @@ proc/issyndicate(mob/living/M as mob)
 /datum/game_mode/nuclear
 	name = "nuclear emergency"
 	config_tag = "nuclear"
-	required_players = 30	// 30 players - 5 players to be the nuke ops = 25 players remaining
+	required_players = 10	// 30 players - 5 players to be the nuke ops = 25 players remaining
 	required_enemies = 5
 	recommended_enemies = 5
 
@@ -308,25 +308,29 @@ proc/issyndicate(mob/living/M as mob)
 	//derp //Used for tracking if the syndies actually haul the nuke to the station	//no
 	//herp //Used for tracking if the syndies got the shuttle off of the z-level	//NO, DON'T FUCKING NAME VARS LIKE THIS
 
+	var/karma_reward = 0
 	if(!disk_rescued &&  station_was_nuked &&          !syndies_didnt_escape)
 		feedback_set_details("round_end_result","win - syndicate nuke")
 		to_chat(world, "<FONT size = 3><B>Syndicate Major Victory!</B></FONT>")
 		to_chat(world, "<B>[syndicate_name()] operatives have destroyed [station_name()]!</B>")
+		karma_reward = 3
 
 	else if(!disk_rescued &&  station_was_nuked &&           syndies_didnt_escape)
 		feedback_set_details("round_end_result","halfwin - syndicate nuke - did not evacuate in time")
 		to_chat(world, "<FONT size = 3><B>Total Annihilation</B></FONT>")
 		to_chat(world, "<B>[syndicate_name()] operatives destroyed [station_name()] but did not leave the area in time and got caught in the explosion.</B> Next time, don't lose the disk!")
-
+		karma_reward = 1
 	else if(!disk_rescued && !station_was_nuked &&  nuke_off_station && !syndies_didnt_escape)
 		feedback_set_details("round_end_result","halfwin - blew wrong station")
 		to_chat(world, "<FONT size = 3><B>Crew Minor Victory</B></FONT>")
 		to_chat(world, "<B>[syndicate_name()] operatives secured the authentication disk but blew up something that wasn't [station_name()].</B> Next time, don't lose the disk!")
+		karma_reward = 1
 
 	else if(!disk_rescued && !station_was_nuked &&  nuke_off_station &&  syndies_didnt_escape)
 		feedback_set_details("round_end_result","halfwin - blew wrong station - did not evacuate in time")
 		to_chat(world, "<FONT size = 3><B>[syndicate_name()] operatives have earned Darwin Award!</B></FONT>")
 		to_chat(world, "<B>[syndicate_name()] operatives blew up something that wasn't [station_name()] and got caught in the explosion.</B> Next time, don't lose the disk!")
+		karma_reward = 1
 
 	else if( disk_rescued                                         && is_operatives_are_dead())
 		feedback_set_details("round_end_result","loss - evacuation - disk secured - syndi team dead")
@@ -347,12 +351,18 @@ proc/issyndicate(mob/living/M as mob)
 		feedback_set_details("round_end_result","halfwin - detonation averted")
 		to_chat(world, "<FONT size = 3><B>Syndicate Minor Victory!</B></FONT>")
 		to_chat(world, "<B>[syndicate_name()] operatives recovered the abandoned authentication disk but detonation of [station_name()] was averted.</B> Next time, don't lose the disk!")
+		karma_reward = 1
 
 	else if(!disk_rescued                                         && !crew_evacuated)
 		feedback_set_details("round_end_result","halfwin - interrupted")
 		to_chat(world, "<FONT size = 3><B>Neutral Victory</B></FONT>")
 		to_chat(world, "<B>Round was mysteriously interrupted!</B>")
-
+	for(var/datum/mind/syndicate in syndicates)
+		if(karma_reward == 0)
+			to_chat(world, "No karma for losers(")
+		else
+			to_chat(world, "[syndicate.key] earned [karma_reward] karma points for being a badass syndicate agent!")
+			sql_report_objective_karma(syndicate.key, karma_reward)
 	..()
 	return
 
@@ -394,7 +404,7 @@ proc/issyndicate(mob/living/M as mob)
 
 /proc/nukelastname(var/mob/M as mob) //--All praise goes to NEO|Phyte, all blame goes to DH, and it was Cindi-Kate's idea. Also praise Urist for copypasta ho.
 	var/randomname = pick(last_names)
-	var/newname = sanitize(copytext(input(M,"You are the nuke operative [pick("Czar", "Boss", "Commander", "Chief", "Kingpin", "Director", "Overlord")]. Please choose a last name for your family.", "Name change",randomname),1,MAX_NAME_LEN))
+	var/newname = sanitize_local(copytext(input(M,"You are the nuke operative [pick("Czar", "Boss", "Commander", "Chief", "Kingpin", "Director", "Overlord")]. Please choose a last name for your family.", "Name change",randomname),1,MAX_NAME_LEN))
 
 	if(!newname)
 		newname = randomname

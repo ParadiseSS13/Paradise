@@ -4,6 +4,7 @@
 	icon = 'icons/obj/closet.dmi'
 	icon_state = "closed"
 	density = 1
+	anchored = 0
 	var/icon_closed = "closed"
 	var/icon_opened = "open"
 	var/opened = 0
@@ -172,6 +173,13 @@
 		qdel(src)
 
 /obj/structure/closet/attackby(obj/item/weapon/W, mob/user, params)
+	if(istype(W, /obj/item/weapon/wrench))
+		var/obj/item/weapon/wrench/SD = W
+		playsound(loc, SD.usesound, 40, 1)
+		if(do_after(user, 40 * SD.toolspeed, 1, target = src))
+			to_chat(user, "<span class='notice'>You [anchored?"unsecured":"secured"] [src] [anchored?"from":"to"] floor.</span>")
+			anchored = !anchored
+			return
 	if(istype(W, /obj/item/weapon/rcs) && !opened)
 		if(user in contents) //to prevent self-teleporting.
 			return

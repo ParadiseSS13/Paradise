@@ -10,7 +10,7 @@
 	item_state = "null"
 	amount_per_transfer_from_this = 10
 	possible_transfer_amounts = list(5,10,15,25,30,50)
-	volume = 50
+	volume = 60
 	flags = OPENCONTAINER
 
 	var/label_text = ""
@@ -143,7 +143,7 @@
 			to_chat(user, "<span class='notice'>You heat [src] with [I].</span>")
 			reagents.handle_reactions()
 	if(istype(I, /obj/item/weapon/pen) || istype(I, /obj/item/device/flashlight/pen))
-		var/tmp_label = sanitize(input(user, "Enter a label for [name]","Label",label_text))
+		var/tmp_label = sanitize_local(input(user, "Enter a label for [name]","Label",label_text))
 		if(length(tmp_label) > MAX_NAME_LEN)
 			to_chat(user, "<span class='warning'>The label can be at most [MAX_NAME_LEN] characters long.</span>")
 		else
@@ -260,7 +260,7 @@
 	desc = "A large beaker. Can hold up to 100 units."
 	icon_state = "beakerlarge"
 	materials = list(MAT_GLASS=2500)
-	volume = 100
+	volume = 120
 	amount_per_transfer_from_this = 10
 	possible_transfer_amounts = list(5,10,15,25,30,50,100)
 	flags = OPENCONTAINER

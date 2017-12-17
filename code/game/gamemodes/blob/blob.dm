@@ -8,7 +8,7 @@ var/list/blob_nodes = list()
 	name = "blob"
 	config_tag = "blob"
 
-	required_players = 30
+	required_players = 10
 	required_enemies = 1
 	recommended_enemies = 1
 	restricted_jobs = list("Cyborg", "AI")

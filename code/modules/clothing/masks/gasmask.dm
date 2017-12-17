@@ -85,7 +85,7 @@
 	armor = list(melee = 0, bullet = 0, laser = 2, energy = 2, bomb = 0, bio = 75, rad = 0)
 
 /obj/item/clothing/mask/gas/swat
-	name = "\improper SWAT mask"
+	name = "SWAT mask"
 	desc = "A close-fitting tactical mask that can be connected to an air supply."
 	icon_state = "swat"
 
@@ -203,7 +203,7 @@
 	actions_types = list(/datum/action/item_action/halt, /datum/action/item_action/adjust, /datum/action/item_action/selectphrase)
 
 /obj/item/clothing/mask/gas/sechailer/hos
-	name = "\improper HOS SWAT mask"
+	name = "HOS SWAT mask"
 	desc = "A close-fitting tactical mask with an especially aggressive Compli-o-nator 3000. It has a tan stripe."
 	icon_state = "hosmask"
 	aggressiveness = 3
@@ -211,7 +211,7 @@
 	actions_types = list(/datum/action/item_action/halt, /datum/action/item_action/selectphrase)
 
 /obj/item/clothing/mask/gas/sechailer/warden
-	name = "\improper Warden SWAT mask"
+	name = "Warden SWAT mask"
 	desc = "A close-fitting tactical mask with an especially aggressive Compli-o-nator 3000. It has a blue stripe."
 	icon_state = "wardenmask"
 	aggressiveness = 3
@@ -220,7 +220,7 @@
 
 
 /obj/item/clothing/mask/gas/sechailer/swat
-	name = "\improper SWAT mask"
+	name = "SWAT mask"
 	desc = "A close-fitting tactical mask with an especially aggressive Compli-o-nator 3000."
 	icon_state = "officermask"
 	aggressiveness = 3
@@ -228,7 +228,7 @@
 	actions_types = list(/datum/action/item_action/halt, /datum/action/item_action/selectphrase)
 
 /obj/item/clothing/mask/gas/sechailer/blue
-	name = "\improper blue SWAT mask"
+	name = "blue SWAT mask"
 	desc = "A neon blue swat mask, used for demoralizing Greytide in the wild."
 	icon_state = "blue_sechailer"
 	item_state = "blue_sechailer"

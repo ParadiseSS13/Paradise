@@ -15,6 +15,7 @@
 /obj/structure/closet/emcloset
 	name = "emergency closet"
 	desc = "It's a storage unit for emergency breathmasks and o2 tanks."
+	anchored = 1
 	icon_state = "emergency"
 	icon_closed = "emergency"
 	icon_opened = "emergencyopen"
@@ -65,6 +66,7 @@
 /obj/structure/closet/firecloset
 	name = "fire-safety closet"
 	desc = "It's a storage unit for fire-fighting supplies."
+	anchored = 1
 	icon_state = "firecloset"
 	icon_closed = "firecloset"
 	icon_opened = "fireclosetopen"
@@ -96,6 +98,7 @@
 /obj/structure/closet/toolcloset
 	name = "tool closet"
 	desc = "It's a storage unit for tools."
+	anchored = 1
 	icon_state = "toolcloset"
 	icon_closed = "toolcloset"
 	icon_opened = "toolclosetopen"
@@ -139,6 +142,7 @@
 /obj/structure/closet/radiation
 	name = "radiation suit closet"
 	desc = "It's a storage unit for rad-protective suits."
+	anchored = 1
 	icon_state = "radsuitcloset"
 	icon_opened = "toolclosetopen"
 	icon_closed = "radsuitcloset"
@@ -147,13 +151,15 @@
 	..()
 	new /obj/item/clothing/suit/radiation(src)
 	new /obj/item/clothing/head/radiation(src)
+	new /obj/item/clothing/glasses/meson(src)
 
 /*
  * Bombsuit closet
  */
 /obj/structure/closet/bombcloset
-	name = "\improper EOD closet"
+	name = "EOD closet"
 	desc = "It's a storage unit for explosion-protective suits."
+	anchored = 1
 	icon_state = "bombsuit"
 	icon_closed = "bombsuit"
 	icon_opened = "bombsuitopen"
@@ -167,8 +173,9 @@
 
 
 /obj/structure/closet/bombclosetsecurity
-	name = "\improper EOD closet"
+	name = "EOD closet"
 	desc = "It's a storage unit for explosion-protective suits."
+	anchored = 1
 	icon_state = "bombsuitsec"
 	icon_closed = "bombsuitsec"
 	icon_opened = "bombsuitsecopen"

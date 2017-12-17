@@ -1,5 +1,5 @@
 /obj/machinery/chem_master
-	name = "\improper ChemMaster 3000"
+	name = "ChemMaster 3000"
 	density = 1
 	anchored = 1
 	icon = 'icons/obj/chemical.dmi'
@@ -374,7 +374,7 @@
 	return all_safe
 
 /obj/machinery/chem_master/condimaster
-	name = "\improper CondiMaster 3000"
+	name = "CondiMaster 3000"
 	condi = 1
 
 /obj/machinery/chem_master/constructable

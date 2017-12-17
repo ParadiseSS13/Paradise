@@ -783,7 +783,7 @@ obj/item/toy/cards/deck/syndicate/black
 	deckstyle = "black"
 
 /obj/item/toy/nuke
-	name = "\improper Nuclear Fission Explosive toy"
+	name = "Nuclear Fission Explosive toy"
 	desc = "A plastic model of a Nuclear Fission Explosive."
 	icon = 'icons/obj/toy.dmi'
 	icon_state = "nuketoyidle"

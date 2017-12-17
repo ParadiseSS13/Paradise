@@ -87,7 +87,7 @@
 	desc = "A .45 rubber bullet casing."
 	caliber = ".45"
 	icon_state = "r-casing"
-	projectile_type = /obj/item/projectile/bullet/weakbullet4
+	projectile_type = /obj/item/projectile/bullet/midbulletr
 
 /obj/item/ammo_casing/c45
 	desc = "A .45 bullet casing."
@@ -269,6 +269,17 @@
 	icon_state = "nshell"
 	projectile_type = /obj/item/projectile/bullet/dart/syringe/tranquilizer
 	materials = list(MAT_METAL=250)
+
+/obj/item/ammo_casing/shotgun/dart/special
+	icon_state = "dart-casing"
+	desc = "A dart for use in high caliber rifles. Can be injected with up to 30 units of any chemical."
+	projectile_type = /obj/item/projectile/bullet/dart/rifle
+	caliber = "9x39"
+
+/obj/item/ammo_casing/shotgun/dart/special/tranquilizer
+	icon_state = "tranq-casing"
+	desc = "A tranquilizer round used to subdue individuals."
+	projectile_type = /obj/item/projectile/bullet/dart/rifle/tranq
 
 /obj/item/ammo_casing/a556
 	desc = "A 5.56mm bullet casing."

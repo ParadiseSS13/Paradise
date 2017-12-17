@@ -125,7 +125,7 @@ DECLARE_GLOBAL_CONTROLLER(shuttle, shuttle_master)
 			to_chat(user, "The emergency shuttle has been disabled by Centcom.")
 			return
 
-	call_reason = trim(html_encode(call_reason))
+	call_reason = trim(lhtml_encode(call_reason))
 
 	if(length(call_reason) < CALL_SHUTTLE_REASON_LENGTH)
 		to_chat(user, "You must provide a reason.")
@@ -134,9 +134,9 @@ DECLARE_GLOBAL_CONTROLLER(shuttle, shuttle_master)
 	var/area/signal_origin = get_area(user)
 	var/emergency_reason = "\nNature of emergency:\n\n[call_reason]"
 	if(seclevel2num(get_security_level()) >= SEC_LEVEL_RED) // There is a serious threat we gotta move no time to give them five minutes.
-		emergency.request(null, 0.5, signal_origin, html_decode(emergency_reason), 1)
+		emergency.request(null, 0.5, signal_origin, lhtml_decode(emergency_reason), 1)
 	else
-		emergency.request(null, 1, signal_origin, html_decode(emergency_reason), 0)
+		emergency.request(null, 1, signal_origin, lhtml_decode(emergency_reason), 0)
 
 	log_game("[key_name(user)] has called the shuttle.")
 	message_admins("[key_name_admin(user)] has called the shuttle.")

@@ -57,7 +57,7 @@
 						L.perma_injury = 0
 					break // We're only checking one limb here, bucko
 		if(prob(3))
-			H.say(pick("Thanks Mr Skeltal", "Thank for strong bones", "Doot doot!"))
+			H.say(pick("Thanks Mr Skeltal", "Спасибо за крепкие кости", "Дуут дуут!"))
 		return 1
 
 	return ..()

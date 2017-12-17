@@ -1,5 +1,5 @@
 /obj/item/clothing/glasses/hud
-	name = "\improper HUD"
+	name = "HUD"
 	desc = "A heads-up display that provides important info in (almost) real time."
 	flags = null //doesn't protect eyes because it's a monocle, duh
 	origin_tech = "magnets=3;biotech=2"
@@ -26,7 +26,7 @@
 		desc = desc + " The display flickers slightly."
 
 /obj/item/clothing/glasses/hud/health
-	name = "\improper Health Scanner HUD"
+	name = "Health Scanner HUD"
 	desc = "A heads-up display that scans the humans in view and provides accurate data about their health status."
 	icon_state = "healthhud"
 	origin_tech = "magnets=3;biotech=2"
@@ -39,13 +39,13 @@
 		)
 
 /obj/item/clothing/glasses/hud/health/health_advanced
-	name = "\improper Advanced Health Scanner HUD"
+	name = "Advanced Health Scanner HUD"
 	desc = "A heads-up display that scans the humans in view and provides accurate data about their health status.  Includes anti-flash filter."
 	icon_state = "advmedhud"
 	flash_protect = 1
 
 /obj/item/clothing/glasses/hud/health/night
-	name = "\improper Night Vision Health Scanner HUD"
+	name = "Night Vision Health Scanner HUD"
 	desc = "An advanced medical head-up display that allows doctors to find patients in complete darkness."
 	icon_state = "healthhudnight"
 	item_state = "glasses"
@@ -77,7 +77,7 @@
 	prescription_upgradable = 0
 
 /obj/item/clothing/glasses/hud/security
-	name = "\improper Security HUD"
+	name = "Security HUD"
 	desc = "A heads-up display that scans the humans in view and provides accurate data about their ID status and security records."
 	icon_state = "securityhud"
 	origin_tech = "magnets=3;combat=2"
@@ -106,7 +106,7 @@
 	vision_flags = SEE_MOBS
 
 /obj/item/clothing/glasses/hud/security/night
-	name = "\improper Night Vision Security HUD"
+	name = "Night Vision Security HUD"
 	desc = "An advanced heads-up display which provides id data and vision in complete darkness."
 	icon_state = "securityhudnight"
 	origin_tech = "magnets=4;combat=4;plasmatech=4;engineering=5"

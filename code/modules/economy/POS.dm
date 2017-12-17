@@ -422,7 +422,7 @@ var/const/POS_HEADER = {"<html>
 				screen=POS_SCREEN_FINALIZE
 			if("Add Product")
 				var/line_item/LI = new
-				LI.name=sanitize(href_list["name"])
+				LI.name=sanitize_local(href_list["name"])
 				LI.price=text2num(href_list["price"])
 				products["[products.len+1]"]=LI
 			if("Add to Order")
@@ -435,7 +435,7 @@ var/const/POS_HEADER = {"<html>
 						src.attack_hand(usr)
 						return
 					var/line_item/LI = new
-					LI.name=sanitize(cells[1])
+					LI.name=sanitize_local(cells[1])
 					LI.price=text2num(cells[2])
 					products["[products.len+1]"]=LI
 			if("Export Products")
@@ -463,7 +463,7 @@ var/const/POS_HEADER = {"<html>
 		LI.units = newunits
 		line_items[lid]=LI
 	else if("setpname" in href_list)
-		var/newtext = sanitize(input(usr,"Enter the product's name."))
+		var/newtext = sanitize_local(input(usr,"Enter the product's name."))
 		if(!newtext) return
 		var/pid = href_list["setpname"]
 		var/line_item/LI = products[pid]

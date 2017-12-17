@@ -59,7 +59,7 @@
 			to_chat(user, "<span class='danger'>FĆAL �Rr�R</span>: ŧer nt recgnized, c-cntr-r䣧-ç äcked.")
 
 /obj/structure/respawner
-	name = "\improper Long-Distance Cloning Machine"
+	name = "Long-Distance Cloning Machine"
 	desc = "Top-of-the-line Nanotrasen technology allows for cloning of crew members from off-station upon bluespace request."
 	icon = 'icons/obj/objects.dmi'
 	icon_state = "borgcharger1(old)"

@@ -11,7 +11,7 @@ env:
     - BYOND_MINOR="1395"
     - BYOND_MACRO_COUNT=2
   matrix:
-    - DM_MAPFILE="cyberiad"
+    - DM_MAPFILE="atmtiad"
     - DM_MAPFILE="metastation"
     - DM_MAPFILE="test_away_missions"
 

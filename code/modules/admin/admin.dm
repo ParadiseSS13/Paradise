@@ -366,6 +366,10 @@ var/global/nologevent = 0
 							usr << browse_rsc(MESSAGE.img, "tmp_photo[i].png")
 							dat+="<img src='tmp_photo[i].png' width = '180'><BR><BR>"
 						dat+="<FONT SIZE=1>\[Story by <FONT COLOR='maroon'>[MESSAGE.author]</FONT>\]</FONT><BR>"
+						dat+="[MESSAGE.comments.len] comment[MESSAGE.comments.len > 1 ? "s" : ""]:<BR>"
+						for(var/datum/feed_comment/comment in MESSAGE.comments)
+							dat+="[comment.body]<BR><font size = 1>[comment.author] [comment.time_stamp]</font><BR>"
+						dat+="<BR>"
 			dat+={"
 				<BR><HR><A href='?src=[UID()];ac_refresh=1'>Refresh</A>
 				<BR><A href='?src=[UID()];ac_setScreen=[1]'>Back</A>
@@ -410,6 +414,9 @@ var/global/nologevent = 0
 						-[MESSAGE.body] <BR><FONT SIZE=1>\[Story by <FONT COLOR='maroon'>[MESSAGE.author]</FONT>\]</FONT><BR>
 						<FONT SIZE=2><A href='?src=[UID()];ac_censor_channel_story_body=\ref[MESSAGE]'>[(MESSAGE.body == "\[REDACTED\]") ? ("Undo story censorship") : ("Censor story")]</A>  -  <A href='?src=[UID()];ac_censor_channel_story_author=\ref[MESSAGE]'>[(MESSAGE.author == "\[REDACTED\]") ? ("Undo Author Censorship") : ("Censor message Author")]</A></FONT><BR>
 					"}
+					dat+="[MESSAGE.comments.len] comment[MESSAGE.comments.len > 1 ? "s" : ""]: <a href='?src\ref[src];ac_lock_comment=\ref[MESSAGE]'>[MESSAGE.locked ? "Unlock" : "Lock"]</a><BR>"
+					for(var/datum/feed_comment/comment in MESSAGE.comments)
+						dat+="[comment.body] <a href='?src=\ref[src];ac_del_comment=\ref[comment];ac_del_comment_msg=\ref[MESSAGE]'>X</a><BR><font size=1>[comment.author] [comment.time_stamp]</font><BR>"
 			dat+="<BR><A href='?src=[UID()];ac_setScreen=[10]'>Back</A>"
 		if(13)
 			dat+={"
@@ -565,8 +572,8 @@ var/global/nologevent = 0
 		if(!check_rights(R_SERVER,0))
 			message = adminscrub(message,500)
 		message = replacetext(message, "\n", "<br>") // required since we're putting it in a <p> tag
-		to_chat(world, "<span class=notice><b>[usr.client.holder.fakekey ? "Administrator" : usr.key] Announces:</b><p style='text-indent: 50px'>[message]</p></span>")
-		log_admin("Announce: [key_name(usr)] : [message]")
+		to_chat(world, "<span class=notice><b>[usr.client.holder.fakekey ? "Administrator" : usr.key] Announces:</b><p style='text-indent: 50px'>[sanitize(message)]</p></span>")
+		log_admin("Announce: [key_name(usr)] : [sanitize(message)]")
 	feedback_add_details("admin_verb","A") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
 /datum/admins/proc/toggleooc()
@@ -795,7 +802,7 @@ var/global/nologevent = 0
 	set desc = "(atom path) Spawn an atom"
 	set name = "Spawn"
 
-	if(!check_rights(R_SPAWN))
+	if(!check_rights(R_DEBUG))
 		return
 
 	var/list/types = typesof(/atom)

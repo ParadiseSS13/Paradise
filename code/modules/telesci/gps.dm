@@ -87,7 +87,6 @@ var/list/GPS_list = list()
 		var/a = input("Please enter desired tag.", name, gpstag) as text|null
 		if(!a || ..(state = inventory_state))
 			return 1
-
 		a = uppertext(sanitize(copytext(a, 1, 5)))
 		if(src.loc == usr)
 			gpstag = a

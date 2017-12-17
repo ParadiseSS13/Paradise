@@ -4,7 +4,7 @@
 /datum/game_mode/wizard
 	name = "wizard"
 	config_tag = "wizard"
-	required_players = 20
+	required_players = 5
 	required_enemies = 1
 	recommended_enemies = 1
 
@@ -80,9 +80,59 @@
 	set_antag_hud(wiz_mind.current, null)
 
 /datum/game_mode/proc/forge_wizard_objectives(var/datum/mind/wizard)
-	var/datum/objective/wizchaos/wiz_objective = new
-	wiz_objective.owner = wizard
-	wizard.objectives += wiz_objective
+	switch(rand(1,100))
+		if(1 to 30)
+			var/datum/objective/assassinate/kill_objective = new
+			kill_objective.owner = wizard
+			kill_objective.find_target()
+			wizard.objectives += kill_objective
+
+			var/datum/objective/steal/steal_objective = new
+			steal_objective.owner = wizard
+			steal_objective.find_target()
+			wizard.objectives += steal_objective
+
+			if(!(locate(/datum/objective/escape) in wizard.objectives))
+				var/datum/objective/escape/escape_objective = new
+				escape_objective.owner = wizard
+				wizard.objectives += escape_objective
+		if(31 to 60)
+			var/datum/objective/assassinate/kill_objective = new
+			kill_objective.owner = wizard
+			kill_objective.find_target()
+			wizard.objectives += kill_objective
+
+			var/datum/objective/steal/steal_objective = new
+			steal_objective.owner = wizard
+			steal_objective.find_target()
+			wizard.objectives += steal_objective
+
+			if(!(locate(/datum/objective/survive) in wizard.objectives))
+				var/datum/objective/survive/survive_objective = new
+				survive_objective.owner = wizard
+				wizard.objectives += survive_objective
+
+		if(61 to 85)
+			var/datum/objective/assassinate/kill_objective = new
+			kill_objective.owner = wizard
+			kill_objective.find_target()
+			wizard.objectives += kill_objective
+
+			if(!(locate(/datum/objective/hijack) in wizard.objectives))
+				var/datum/objective/hijack/hijack_objective = new
+				hijack_objective.owner = wizard
+				wizard.objectives += hijack_objective
+
+		else
+			var/datum/objective/steal/steal_objective = new
+			steal_objective.owner = wizard
+			steal_objective.find_target()
+			wizard.objectives += steal_objective
+
+			if(!(locate(/datum/objective/hijack) in wizard.objectives))
+				var/datum/objective/hijack/hijack_objective = new
+				hijack_objective.owner = wizard
+				wizard.objectives += hijack_objective
 	return
 
 
@@ -92,7 +142,7 @@
 	var/wizard_name_second = pick(wizard_second)
 	var/randomname = "[wizard_name_first] [wizard_name_second]"
 	spawn(0)
-		var/newname = sanitize(copytext(input(wizard_mob, "You are the Space Wizard. Would you like to change your name to something else?", "Name change", randomname) as null|text,1,MAX_NAME_LEN))
+		var/newname = sanitize_local(copytext(input(wizard_mob, "You are the Space Wizard. Would you like to change your name to something else?", "Name change", randomname) as null|text,1,MAX_NAME_LEN))
 
 		if(!newname)
 			newname = randomname
@@ -220,6 +270,7 @@
 				text += "body destroyed"
 			text += ")"
 
+			var/karma_reward = 0
 			var/count = 1
 			var/wizardwin = 1
 			for(var/datum/objective/objective in wizard.objectives)
@@ -231,10 +282,13 @@
 					feedback_add_details("wizard_objective","[objective.type]|FAIL")
 					wizardwin = 0
 				count++
+				karma_reward = count - 1
 
 			if(wizard.current && wizard.current.stat!=DEAD && wizardwin)
 				text += "<br><font color='green'><B>The wizard was successful!</B></font>"
 				feedback_add_details("wizard_success","SUCCESS")
+				sql_report_objective_karma(wizard.key, karma_reward)
+				to_chat(world, "<b>[wizard.key] got [karma_reward] karma points for completing special role!</b>")
 			else
 				text += "<br><font color='red'><B>The wizard has failed!</B></font>"
 				feedback_add_details("wizard_success","FAIL")

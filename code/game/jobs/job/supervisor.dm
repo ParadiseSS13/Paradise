@@ -262,6 +262,7 @@ var/datum/announcement/minor/captain_announcement = new(do_newscast = 0)
 	l_pocket = /obj/item/device/laser_pointer
 	r_pocket = /obj/item/device/flash
 	l_hand = /obj/item/weapon/storage/briefcase
+	r_hand = /obj/item/clothing/accessory/lawyers_badge
 	pda = /obj/item/device/pda/lawyer
 	implants = list(/obj/item/weapon/implant/mindshield)
 	satchel = /obj/item/weapon/storage/backpack/satchel_sec

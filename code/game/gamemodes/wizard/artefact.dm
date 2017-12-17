@@ -87,7 +87,7 @@
 				var/wizard_name_first = pick(wizard_first)
 				var/wizard_name_second = pick(wizard_second)
 				var/randomname = "[wizard_name_first] [wizard_name_second]"
-				var/newname = sanitize(copytext(input(M, "You are the wizard's apprentice. Would you like to change your name to something else?", "Name change", randomname) as null|text,1,MAX_NAME_LEN))
+				var/newname = sanitize_local(copytext(input(M, "You are the wizard's apprentice. Would you like to change your name to something else?", "Name change", randomname) as null|text,1,MAX_NAME_LEN))
 
 				if(!newname)
 					newname = randomname
@@ -822,7 +822,7 @@ var/global/list/multiverse = list()
 	if(target && cooldown < world.time)
 		switch(user.zone_sel.selecting)
 			if("mouth")
-				var/wgw =  sanitize(input(user, "What would you like the victim to say", "Voodoo", null)  as text)
+				var/wgw =  sanitize_local(input(user, "What would you like the victim to say", "Voodoo", null)  as text)
 				target.say(wgw)
 				log_game("[user][user.key] made [target][target.key] say [wgw] with a voodoo doll.")
 			if("eyes")

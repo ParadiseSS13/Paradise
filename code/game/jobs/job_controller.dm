@@ -19,7 +19,6 @@ var/global/datum/controller/occupations/job_master
 
 /datum/controller/occupations/proc/SetupOccupations(var/list/faction = list("Station"))
 	occupations = list()
-
 	var/list/all_jobs = subtypesof(/datum/job)
 	if(!all_jobs.len)
 		to_chat(world, "<span class='warning'>Error setting up jobs, no job datums found</span>")
@@ -58,6 +57,7 @@ var/global/datum/controller/occupations/job_master
 /datum/controller/occupations/proc/GetPlayerAltTitle(mob/new_player/player, rank)
 	return player.client.prefs.GetPlayerAltTitle(GetJob(rank))
 
+
 /datum/controller/occupations/proc/AssignRole(var/mob/new_player/player, var/rank, var/latejoin = 0)
 	Debug("Running AR, Player: [player], Rank: [rank], LJ: [latejoin]")
 	if(player && player.mind && rank)
@@ -84,20 +84,12 @@ var/global/datum/controller/occupations/job_master
 			player.mind.assigned_role = rank
 			player.mind.role_alt_title = GetPlayerAltTitle(player, rank)
 
-			// JOB OBJECTIVES OH SHIT
-			player.mind.job_objectives.Cut()
-			for(var/objectiveType in job.required_objectives)
-				new objectiveType(player.mind)
-
-			// 50/50 chance of getting optional objectives.
-			for(var/objectiveType in job.optional_objectives)
-				if(prob(50))
-					new objectiveType(player.mind)
+//			if(!job.prisonlist_job && !check_prisonlist(ckey(player.key))) // And no random prisoners for nice kids
+//				continue
 
 			unassigned -= player
 			job.current_positions++
 			return 1
-
 	Debug("AR has failed, Player: [player], Rank: [rank]")
 	return 0
 
@@ -507,9 +499,6 @@ var/global/datum/controller/occupations/job_master
 					G.prescription = 1
 					G.name = "prescription [G.name]"
 	return H
-
-
-
 
 
 /datum/controller/occupations/proc/LoadJobs(jobsfile) //ran during round setup, reads info from jobs.txt -- Urist

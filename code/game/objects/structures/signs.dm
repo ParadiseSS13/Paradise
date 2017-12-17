@@ -77,52 +77,52 @@
 	icon_state = "map-right"
 
 /obj/structure/sign/securearea
-	name = "\improper SECURE AREA"
+	name = "SECURE AREA"
 	desc = "A warning sign which reads 'SECURE AREA'"
 	icon_state = "securearea"
 
 /obj/structure/sign/biohazard
-	name = "\improper BIOHAZARD"
+	name = "BIOHAZARD"
 	desc = "A warning sign which reads 'BIOHAZARD'"
 	icon_state = "bio"
 
 /obj/structure/sign/electricshock
-	name = "\improper HIGH VOLTAGE"
+	name = "HIGH VOLTAGE"
 	desc = "A warning sign which reads 'HIGH VOLTAGE'"
 	icon_state = "shock"
 
 /obj/structure/sign/examroom
-	name = "\improper EXAM"
+	name = "EXAM"
 	desc = "A guidance sign which reads 'EXAM ROOM'"
 	icon_state = "examroom"
 
 /obj/structure/sign/vacuum
-	name = "\improper HARD VACUUM AHEAD"
+	name = "HARD VACUUM AHEAD"
 	desc = "A warning sign which reads 'HARD VACUUM AHEAD'"
 	icon_state = "space"
 
 /obj/structure/sign/deathsposal
-	name = "\improper DISPOSAL LEADS TO SPACE"
+	name = "DISPOSAL LEADS TO SPACE"
 	desc = "A warning sign which reads 'DISPOSAL LEADS TO SPACE'"
 	icon_state = "deathsposal"
 
 /obj/structure/sign/pods
-	name = "\improper ESCAPE PODS"
+	name = "ESCAPE PODS"
 	desc = "A warning sign which reads 'ESCAPE PODS'"
 	icon_state = "pods"
 
 /obj/structure/sign/fire
-	name = "\improper DANGER: FIRE"
+	name = "DANGER: FIRE"
 	desc = "A warning sign which reads 'DANGER: FIRE'"
 	icon_state = "fire"
 
 /obj/structure/sign/nosmoking_1
-	name = "\improper NO SMOKING"
+	name = "NO SMOKING"
 	desc = "A warning sign which reads 'NO SMOKING'"
 	icon_state = "nosmoking"
 
 /obj/structure/sign/nosmoking_2
-	name = "\improper NO SMOKING"
+	name = "NO SMOKING"
 	desc = "A warning sign which reads 'NO SMOKING'"
 	icon_state = "nosmoking2"
 
@@ -147,7 +147,7 @@
 	icon_state = "kiddieplaque"
 
 /obj/structure/sign/atmosplaque
-	name = "\improper ZAS Atmospherics Division plaque"
+	name = "ZAS Atmospherics Division plaque"
 	desc = "This plaque commemorates the fall of the Atmos ZAS division. For all the charred, dizzy, and brittle men who have died in its horrible hands."
 	icon_state = "atmosplaque"
 
@@ -157,32 +157,32 @@
 	icon_state = "kidanplaque"
 
 /obj/structure/sign/science			//These 3 have multiple types, just var-edit the icon_state to whatever one you want on the map
-	name = "\improper SCIENCE!"
+	name = "SCIENCE!"
 	desc = "A warning sign which reads 'SCIENCE!'"
 	icon_state = "science1"
 
 /obj/structure/sign/chemistry
-	name = "\improper CHEMISTRY"
+	name = "CHEMISTRY"
 	desc = "A warning sign which reads 'CHEMISTRY'"
 	icon_state = "chemistry1"
 
 /obj/structure/sign/botany
-	name = "\improper HYDROPONICS"
+	name = "HYDROPONICS"
 	desc = "A warning sign which reads 'HYDROPONICS'"
 	icon_state = "hydro1"
 
 /obj/structure/sign/mech
-	name = "\improper mech painting"
+	name = "mech painting"
 	desc = "A painting of a mech"
 	icon_state = "mech"
 
 /obj/structure/sign/nuke
-	name = "\improper nuke painting"
+	name = "nuke painting"
 	desc = "A painting of a nuke"
 	icon_state = "nuke"
 
 /obj/structure/sign/clown
-	name = "\improper clown painting"
+	name = "mech painting"
 	desc = "A painting of the clown and mime. Awwww."
 	icon_state = "clown"
 
@@ -192,41 +192,41 @@
 	icon_state = "bob"
 
 /obj/structure/sign/singulo
-	name = "\improper singulo painting"
+	name = "singulo painting"
 	desc = "A mesmerizing painting of a singularity. It seems to suck you in..."
 	icon_state = "singulo"
 
 /obj/structure/sign/barber
-	name = "\improper barber shop sign"
+	name = "barber shop sign"
 	desc = "A spinning sign indicating a barbershop is near."
 	icon_state = "barber"
 
 /obj/structure/sign/chinese
-	name = "\improper chinese restaurant sign"
+	name = "chinese restaurant sign"
 	desc = "A glowing dragon invites you in."
 	icon_state = "chinese"
 
 /obj/structure/sign/directions/science
-	name = "\improper Research Division"
+	name = "Research Division"
 	desc = "A direction sign, pointing out which way the Research Division is."
 	icon_state = "direction_sci"
 
 /obj/structure/sign/directions/engineering
-	name = "\improper Engineering Department"
+	name = "Engineering Department"
 	desc = "A direction sign, pointing out which way the Engineering department is."
 	icon_state = "direction_eng"
 
 /obj/structure/sign/directions/security
-	name = "\improper Security Department"
+	name = "Security Department"
 	desc = "A direction sign, pointing out which way the Security department is."
 	icon_state = "direction_sec"
 
 /obj/structure/sign/directions/medical
-	name = "\improper Medical Bay"
+	name = "Medical Bay"
 	desc = "A direction sign, pointing out which way Medical Bay is."
 	icon_state = "direction_med"
 
 /obj/structure/sign/directions/evac
-	name = "\improper Escape Arm"
+	name = "Escape Arm"
 	desc = "A direction sign, pointing out which way escape shuttle dock is."
 	icon_state = "direction_evac"

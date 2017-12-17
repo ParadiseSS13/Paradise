@@ -63,7 +63,7 @@
 
 /mob/camera/blob/verb/create_resource()
 	set category = "Blob"
-	set name = "Create Resource Blob (40)"
+	set name = "Create Resource Blob (50)"
 	set desc = "Create a resource tower which will generate points for you."
 
 

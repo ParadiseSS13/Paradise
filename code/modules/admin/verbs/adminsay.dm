@@ -4,7 +4,7 @@
 	set hidden = 1
 	if(!check_rights(R_ADMIN))	return
 
-	msg = sanitize(copytext(msg, 1, MAX_MESSAGE_LEN))
+	msg = sanitize_local(copytext(msg, 1, MAX_MESSAGE_LEN))
 	if(!msg)	return
 
 	log_admin("[key_name(src)] : [msg]")
@@ -24,7 +24,7 @@
 	if(!check_rights(R_ADMIN|R_MOD|R_MENTOR))
 		return
 
-	msg = sanitize(copytext(msg, 1, MAX_MESSAGE_LEN))
+	msg = sanitize_local(copytext(msg, 1, MAX_MESSAGE_LEN))
 	log_admin("MENTOR: [key_name(src)] : [msg]")
 
 	if(!msg)

@@ -451,6 +451,7 @@ CREATE TABLE `whitelist` (
   `ckey` text NOT NULL,
   `job` text,
   `species` text,
+  `item_id` text,
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM AUTO_INCREMENT=877 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;

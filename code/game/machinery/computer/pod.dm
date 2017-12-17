@@ -280,7 +280,7 @@
 		..()
 
 /obj/machinery/computer/pod/old/swf
-	name = "\improper Magix System IV"
+	name = "Magix System IV"
 	desc = "An arcane artifact that holds much magic. Running E-Knock 2.2: Sorceror's Edition"
 	circuit = /obj/item/weapon/circuitboard/swfdoor
 
