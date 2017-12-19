@@ -1,0 +1,6 @@
+author: "Santa Claus"
+delete-after: True
+changes: 
+  - rscadd: "Christmas cheer!"
+  - rscdel: "Grinch"
+  - bugfix: "missing emergency nitrogen / plasma tanks"
