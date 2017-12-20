@@ -29,6 +29,7 @@
 
 	var/sterile = FALSE //can the organ be infected by germs?
 	var/tough = FALSE //can organ be easily damaged?
+	var/emp_proof = FALSE //is the organ immune to EMPs?
 
 
 /obj/item/organ/Destroy()
@@ -252,7 +253,7 @@
 	min_broken_damage = 35
 
 /obj/item/organ/external/emp_act(severity)
-	if(!(status & ORGAN_ROBOT))
+	if(!(status & ORGAN_ROBOT) || emp_proof)
 		return
 	if(tough)
 		switch(severity)
@@ -272,7 +273,7 @@
 				take_damage(0, 7)
 
 /obj/item/organ/internal/emp_act(severity)
-	if(!robotic)
+	if(!robotic || emp_proof)
 		return
 	if(robotic == 2)
 		switch(severity)
@@ -284,6 +285,8 @@
 		take_damage(11, 1)
 
 /obj/item/organ/internal/heart/emp_act(intensity)
+	if(emp_proof)
+		return
 	if(owner && robotic == 2)
 		Stop() // In the name of looooove~!
 		owner.visible_message("<span class='danger'>[owner] clutches their chest and gasps!</span>","<span class='userdanger'>You clutch your chest in pain!</span>")
