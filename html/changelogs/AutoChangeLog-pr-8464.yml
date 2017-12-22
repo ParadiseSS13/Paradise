@@ -1,0 +1,4 @@
+author: "Purpose2"
+delete-after: True
+changes: 
+  - rscdel: "You may no longer use strikethroughs/italics in OOC. This was causing backend server problems due to how shoddily BYOND is coded, and cannot be safely added right now."
