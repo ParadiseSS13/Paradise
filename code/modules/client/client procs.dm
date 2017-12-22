@@ -173,6 +173,15 @@
 									return
 								DB_job_unlock("Security Pod Pilot",30)
 								return
+						if("10")
+							if(karma < 10)
+								to_chat(usr, "You do not have enough karma!")
+								return
+							else
+								if(alert("Are you sure you want to unlock Internal Affairs Agent?", "Confirmation", "No", "Yes") != "Yes")
+									return
+								DB_job_unlock("Internal Affairs Agent", 10)
+								return
 				if(href_list["KarmaBuy2"])
 					var/karma=verify_karma()
 					switch(href_list["KarmaBuy2"])
