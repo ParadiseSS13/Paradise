@@ -8,7 +8,7 @@
 	language = "Sol Common"
 	species_traits = list(LIPS, CAN_BE_FAT)
 	clothing_flags = HAS_UNDERWEAR | HAS_UNDERSHIRT | HAS_SOCKS
-	bodyflags = HAS_SKIN_TONE | HAS_BODY_MARKINGS
+	bodyflags = HAS_SKIN_COLOR | HAS_BODY_MARKINGS
 	dietflags = DIET_OMNI
 	unarmed_type = /datum/unarmed_attack/punch
 	blurb = "Humanity originated in the Sol system, and over the last five centuries has spread \
