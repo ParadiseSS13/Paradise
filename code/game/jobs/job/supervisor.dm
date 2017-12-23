@@ -235,17 +235,18 @@ var/datum/announcement/minor/captain_announcement = new(do_newscast = 0)
 /datum/job/lawyer
 	title = "Internal Affairs Agent"
 	flag = LAWYER
-	department_flag = KARMA
+	department_flag = SUPPORT
 	total_positions = 2
 	spawn_positions = 2
 	is_legal = 1
 	supervisors = "the magistrate"
 	department_head = list("Captain")
 	selection_color = "#ddddff"
-	access = list(access_lawyer, access_court, access_sec_doors, access_maint_tunnels)
-	minimal_access = list(access_lawyer, access_court, access_sec_doors, access_maint_tunnels)
-	alt_titles = list("Lawyer","Public Defender")
+	access = list(access_lawyer, access_court, access_sec_doors, access_maint_tunnels, access_research, access_medical, access_construction, access_mailsorting)
+	minimal_access = list(access_lawyer, access_court, access_sec_doors, access_maint_tunnels, access_research, access_medical, access_construction, access_mailsorting)
 	minimal_player_age = 30
+	exp_requirements = 600
+	exp_type = EXP_TYPE_CREW
 	outfit = /datum/outfit/job/lawyer
 
 /datum/outfit/job/lawyer

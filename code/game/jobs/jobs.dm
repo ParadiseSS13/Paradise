@@ -151,7 +151,6 @@ var/list/nonhuman_positions = list(
 
 var/list/whitelisted_positions = list(
 	"Blueshield",
-	"Internal Affairs Agent",
 	"Nanotrasen Representative",
 	"Barber",
 	"Mechanic",
