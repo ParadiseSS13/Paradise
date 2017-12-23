@@ -67,6 +67,7 @@
 	var/atom/cocoon_target
 	poison_type = "ether"
 	var/fed = 0
+	gold_core_spawnable = CHEM_MOB_SPAWN_INVALID
 
 //hunters have the most poison and move the fastest, so they can find prey
 /mob/living/simple_animal/hostile/poison/giant_spider/hunter
@@ -239,8 +240,6 @@
 					var/obj/structure/spider/eggcluster/C = new /obj/structure/spider/eggcluster(src.loc)
 					C.faction = faction
 					C.master_commander = master_commander
-					if(ckey)
-						C.player_spiders = 1
 					fed--
 			busy = 0
 			stop_automated_movement = 0
