@@ -297,6 +297,7 @@
 	var/eye_colour = "#000000"
 	var/list/colourmatrix = null
 	var/list/colourblind_matrix = MATRIX_GREYSCALE //Special colourblindness parameters. By default, it's black-and-white.
+	var/list/replace_colours = LIST_GREYSCALE_REPLACE
 	var/dependent_disabilities = null //Gets set by eye-dependent disabilities such as colourblindness so the eyes can transfer the disability during transplantation.
 	var/dark_view = 2 //Default dark_view for Humans.
 	var/weld_proof = null //If set, the eyes will not take damage during welding. eg. IPC optical sensors do not take damage when they weld things while all other eyes will.
