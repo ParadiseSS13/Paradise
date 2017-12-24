@@ -51,17 +51,17 @@
 			return 1
 	return 0
 
-proc/isLivingSSD(mob/M)
+/proc/isLivingSSD(mob/M)
 	return istype(M) && M.player_logged && M.stat != DEAD
 
-proc/isAntag(A)
+/proc/isAntag(A)
 	if(istype(A, /mob/living/carbon))
 		var/mob/living/carbon/C = A
 		if(C.mind && C.mind.special_role)
 			return 1
 	return 0
 
-proc/isNonCrewAntag(A)
+/proc/isNonCrewAntag(A)
 	if(!isAntag(A))
 		return 0
 
@@ -85,21 +85,28 @@ proc/isNonCrewAntag(A)
 
 	return 1
 
-proc/iscuffed(A)
+/proc/cannotPossess(A)
+	var/mob/dead/observer/G = A
+	if(G.has_enabled_antagHUD == 1 && config.antag_hud_restricted)
+		return 1
+	return 0
+
+
+/proc/iscuffed(A)
 	if(istype(A, /mob/living/carbon))
 		var/mob/living/carbon/C = A
 		if(C.handcuffed)
 			return 1
 	return 0
 
-proc/hassensorlevel(A, var/level)
+/proc/hassensorlevel(A, var/level)
 	var/mob/living/carbon/human/H = A
 	if(istype(H) && istype(H.w_uniform, /obj/item/clothing/under))
 		var/obj/item/clothing/under/U = H.w_uniform
 		return U.sensor_mode >= level
 	return 0
 
-proc/getsensorlevel(A)
+/proc/getsensorlevel(A)
 	var/mob/living/carbon/human/H = A
 	if(istype(H) && istype(H.w_uniform, /obj/item/clothing/under))
 		var/obj/item/clothing/under/U = H.w_uniform
@@ -170,7 +177,7 @@ proc/getsensorlevel(A)
 		p++
 	return t
 
-proc/slur(phrase, var/list/slurletters = ("'"))//use a different list as an input if you want to make robots slur with $#@%! characters
+/proc/slur(phrase, var/list/slurletters = ("'"))//use a different list as an input if you want to make robots slur with $#@%! characters
 	phrase = html_decode(phrase)
 	var/leng=lentext(phrase)
 	var/counter=lentext(phrase)
