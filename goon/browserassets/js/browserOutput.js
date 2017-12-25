@@ -34,6 +34,7 @@ var opts = {
 	'restarting': false, //Is the round restarting?
 	'previousMessage': '',
 	'previousMessageCount': 1,
+	'hideSpam': false,
 
 	//Options menu
 	'subOptionsLoop': null, //Contains the interval loop for closing the options menu
@@ -270,7 +271,7 @@ function output(message, flag) {
 		emojiparse(entry);
 	}
 
-	if (entry.innerHTML === opts.previousMessage) {
+	if (opts.hideSpam && entry.innerHTML === opts.previousMessage) {
 		opts.previousMessageCount++;
 		var lastIndex = $messages[0].children.length - 1;
 		var countBadge = '<span class="repeatBadge">x' + opts.previousMessageCount + '</span>';
@@ -545,6 +546,7 @@ $(function() {
 		'spingDisabled': getCookie('pingdisabled'),
 		'shighlightTerms': getCookie('highlightterms'),
 		'shighlightColor': getCookie('highlightcolor'),
+		'shideSpam': getCookie('hidespam'),
 	};
 
 	if (savedConfig.sfontSize) {
@@ -579,6 +581,10 @@ $(function() {
 	if (savedConfig.shighlightColor) {
 		opts.highlightColor = savedConfig.shighlightColor;
 		internalOutput('<span class="internal boldnshit">Loaded highlight color of: '+savedConfig.shighlightColor+'</span>', 'internal');
+	}
+	if (savedConfig.shideSpam) {
+		opts.hideSpam = $.parseJSON(savedConfig.shideSpam);
+		internalOutput('<span class="internal boldnshit">Loaded hide spam preference of: ' + savedConfig.shideSpam + '</span>', 'internal');
 	}
 
 	(function() {
@@ -837,6 +843,12 @@ $(function() {
 		var font = $(this).attr('data-font');
 		$messages.css('font-family', font);
 		setCookie('fonttype', font, 365);
+	});
+
+	$('#toggleHideSpam').click(function(e) {
+		opts.hideSpam = !opts.hideSpam;
+		setCookie('hidespam', opts.hideSpam, 365);
+		internalOutput('<span class="internal boldnshit">Duplicate chat line condensing set to ' + opts.hideSpam + '</span>', 'internal');
 	});
 
 	$('#togglePing').click(function(e) {
