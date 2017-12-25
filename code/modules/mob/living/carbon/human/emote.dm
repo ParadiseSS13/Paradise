@@ -1,6 +1,6 @@
 /mob/living/carbon/human/emote(var/act,var/m_type=1,var/message = null,var/force)
 
-	if(stat == DEAD)
+	if((stat == DEAD) || (status_flags & FAKEDEATH))
 		return // No screaming bodies
 
 	var/param = null
@@ -34,24 +34,24 @@
 			else								//Everyone else fails, skip the emote attempt
 				return
 		if("drone","drones","hum","hums","rumble","rumbles")
-			if(species.name == "Drask")		//Only Drask can make whale noises
+			if(get_species() == "Drask")		//Only Drask can make whale noises
 				on_CD = handle_emote_CD()			//proc located in code\modules\mob\emote.dm
 			else
 				return
 		if("howl", "howls")
-			if (species.name == "Vulpkanin")		//Only Vulpkanin can howl
+			if(get_species() == "Vulpkanin")		//Only Vulpkanin can howl
 				on_CD = handle_emote_CD(100)
 			else
 				return
 		if("growl", "growls")
-			if (species.name == "Vulpkanin")		//Only Vulpkanin can growl
+			if(get_species() == "Vulpkanin")		//Only Vulpkanin can growl
 				on_CD = handle_emote_CD()
 			else
 				return
 		if("squish", "squishes")
 			var/found_slime_bodypart = 0
 
-			if(species.name == "Slime People")	//Only Slime People can squish
+			if(get_species() == "Slime People")	//Only Slime People can squish
 				on_CD = handle_emote_CD()			//proc located in code\modules\mob\emote.dm'
 				found_slime_bodypart = 1
 			else
@@ -65,19 +65,31 @@
 				return
 
 		if("clack", "clacks")
-			if(species.name == "Kidan")	//Only Kidan can clack and rightfully so.
+			if(get_species() == "Kidan")	//Only Kidan can clack and rightfully so.
 				on_CD = handle_emote_CD()			//proc located in code\modules\mob\emote.dm'
 			else								//Everyone else fails, skip the emote attempt
 				return
 
 		if("click", "clicks")
-			if(species.name == "Kidan")	//Only Kidan can click and rightfully so.
+			if(get_species() == "Kidan")	//Only Kidan can click and rightfully so.
+				on_CD = handle_emote_CD()			//proc located in code\modules\mob\emote.dm'
+			else								//Everyone else fails, skip the emote attempt
+				return
+
+		if("creaks", "creak")
+			if(get_species() == "Diona") //Only Dionas can Creaks.
 				on_CD = handle_emote_CD()			//proc located in code\modules\mob\emote.dm'
 			else								//Everyone else fails, skip the emote attempt
 				return
 
 		if("hiss", "hisses")
-			if(species.name == "Unathi") //Only Unathi can hiss.
+			if(get_species() == "Unathi") //Only Unathi can hiss.
+				on_CD = handle_emote_CD()			//proc located in code\modules\mob\emote.dm'
+			else								//Everyone else fails, skip the emote attempt
+				return
+
+		if("quill", "quills")
+			if(get_species() == "Vox") //Only Vox can rustle their quills.
 				on_CD = handle_emote_CD()			//proc located in code\modules\mob\emote.dm'
 			else								//Everyone else fails, skip the emote attempt
 				return
@@ -86,7 +98,7 @@
 			on_CD = handle_emote_CD(50) //longer cooldown
 		if("fart", "farts", "flip", "flips", "snap", "snaps")
 			on_CD = handle_emote_CD()				//proc located in code\modules\mob\emote.dm
-		if("cough", "coughs", "slap", "slaps")
+		if("cough", "coughs", "slap", "slaps", "highfive")
 			on_CD = handle_emote_CD()
 		if("sneeze", "sneezes")
 			on_CD = handle_emote_CD()
@@ -170,11 +182,25 @@
 			playsound(loc, 'sound/effects/Kidanclack2.ogg', 50, 0) //Credit to DrMinky (freesound.org) for the sound.
 			m_type = 2
 
+		if("creaks", "creak")
+			var/M = handle_emote_param(param)
+
+			message = "<B>[src]</B> creaks[M ? " at [M]" : ""]."
+			playsound(loc, 'sound/voice/dionatalk1.ogg', 50, 0) //Credit https://www.youtube.com/watch?v=ufnvlRjsOTI [0:13 - 0:16]
+			m_type = 2
+
 		if("hiss", "hisses")
 			var/M = handle_emote_param(param)
 
 			message = "<B>[src]</B> hisses[M ? " at [M]" : ""]."
 			playsound(loc, 'sound/effects/unathihiss.ogg', 50, 0) //Credit to Jamius (freesound.org) for the sound.
+			m_type = 2
+
+		if("quill", "quills")
+			var/M = handle_emote_param(param)
+
+			message = "<B>[src]</B> rustles their quills[M ? " at [M]" : ""]."
+			playsound(loc, 'sound/effects/voxrustle.ogg', 50, 0) //Credit to sound-ideas (freesfx.co.uk) for the sound.
 			m_type = 2
 
 		if("yes")
@@ -808,12 +834,44 @@
 						continue
 					M.reagents.add_reagent("jenkem", 1)
 
+		if("hem")
+			message = "<b>[src]</b> hems."
+
+		if("highfive")
+			if(restrained())
+				return
+			if(EFFECT_HIGHFIVE in active_effect)
+				to_chat(src, "You give up on the high-five.")
+				active_effect -= EFFECT_HIGHFIVE
+				return
+			active_effect |= EFFECT_HIGHFIVE
+			for(var/mob/living/carbon/C in orange(1))
+				if(EFFECT_HIGHFIVE in C.active_effect)
+					if((C.mind.special_role == SPECIAL_ROLE_WIZARD) && (mind.special_role == SPECIAL_ROLE_WIZARD))
+						visible_message("<span class='danger'><b>[name]</b> and <b>[C.name]</b> high-five EPICALLY!</span>")
+						status_flags |= GODMODE
+						C.status_flags |= GODMODE
+						explosion(loc,5,2,1,3)
+						status_flags &= ~GODMODE
+						C.status_flags &= ~GODMODE
+						break
+				visible_message("<b>[name]</b> and <b>[C.name]</b> high-five!")
+				C.active_effect -= EFFECT_HIGHFIVE
+				active_effect -= EFFECT_HIGHFIVE
+				playsound('sound/effects/snap.ogg', 50)
+				break
+			if(EFFECT_HIGHFIVE in active_effect)
+				visible_message("<b>[name]</b> requests a highfive.", "You request a highfive.")
+				if(do_after(src, 25, target = src))
+					visible_message("[name] was left hanging. Embarrassing.", "You are left hanging. How embarrassing!")
+					active_effect -= EFFECT_HIGHFIVE
+
 		if("help")
 			var/emotelist = "aflap(s), airguitar, blink(s), blink(s)_r, blush(es), bow(s)-(none)/mob, burp(s), choke(s), chuckle(s), clap(s), collapse(s), cough(s),cry, cries, custom, dance, dap(s)(none)/mob," \
 			+ " deathgasp(s), drool(s), eyebrow, fart(s), faint(s), flap(s), flip(s), frown(s), gasp(s), giggle(s), glare(s)-(none)/mob, grin(s), groan(s), grumble(s), grin(s)," \
-			+ " handshake-mob, hug(s)-(none)/mob, johnny, jump, laugh(s), look(s)-(none)/mob, moan(s), mumble(s), nod(s), pale(s), point(s)-atom, quiver(s), raise(s), salute(s)-(none)/mob, scream(s), shake(s)," \
+			+ " handshake-mob, hug(s)-(none)/mob, hem, highfive, johnny, jump, laugh(s), look(s)-(none)/mob, moan(s), mumble(s), nod(s), pale(s), point(s)-atom, quiver(s), raise(s), salute(s)-(none)/mob, scream(s), shake(s)," \
 			+ " shiver(s), shrug(s), sigh(s), signal(s)-#1-10,slap(s)-(none)/mob, smile(s),snap(s), sneeze(s), sniff(s), snore(s), stare(s)-(none)/mob, swag(s), tremble(s), twitch(es), twitch(es)_s," \
-			+ " wag(s), wave(s),  whimper(s), wink(s), yawn(s)"
+			+ " wag(s), wave(s),  whimper(s), wink(s), yawn(s), quill(s)"
 
 			switch(species.name)
 				if("Machine")
@@ -826,6 +884,10 @@
 					emotelist += "\nUnathi specific emotes :- hiss(es)"
 				if("Vulpkanin")
 					emotelist += "\nVulpkanin specific emotes :- growl(s)-none/mob, howl(s)-none/mob"
+				if("Vox")
+					emotelist += "\nVox specific emotes :- quill(s)"
+				if("Diona")
+					emotelist += "\nDiona specific emotes :- creak(s)"
 
 			if (species.name == "Slime People")
 				emotelist += "\nSlime people specific emotes :- squish(es)-(none)/mob"

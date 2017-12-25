@@ -1,8 +1,8 @@
 /obj/machinery/door/poddoor/shutters
-	name = "Shutters"
+	name = "shutters"
+	desc = "Heavy duty metal shutters that opens mechanically."
 	icon = 'icons/obj/doors/rapid_pdoor.dmi'
 	icon_state = "shutter1"
-	power_channel = ENVIRON
 
 /obj/machinery/door/poddoor/shutters/New()
 	..()
@@ -13,9 +13,9 @@
 	density = 0
 	opacity = 0
 
-/obj/machinery/door/poddoor/shutters/attackby(obj/item/weapon/C as obj, mob/user as mob, params)
+/obj/machinery/door/poddoor/shutters/attackby(obj/item/weapon/C, mob/user, params)
 	add_fingerprint(user)
-	if(!(istype(C, /obj/item/weapon/crowbar) || (istype(C, /obj/item/weapon/twohanded/fireaxe) && C:wielded == 1) ))
+	if(!(iscrowbar(C) || (istype(C, /obj/item/weapon/twohanded/fireaxe) && C:wielded == 1)))
 		return
 	if(density && (stat & NOPOWER) && !operating)
 		operating = 1

@@ -10,19 +10,18 @@
 	burn_state = FLAMMABLE
 	burntime = 20
 
-
-	New()
-		..()
-		new /obj/item/weapon/reagent_containers/food/drinks/cans/beer( src )
-		new /obj/item/weapon/reagent_containers/food/drinks/cans/beer( src )
-		new /obj/item/weapon/reagent_containers/food/drinks/cans/beer( src )
-		new /obj/item/weapon/reagent_containers/food/drinks/cans/beer( src )
-		new /obj/item/weapon/reagent_containers/food/drinks/cans/beer( src )
-		new /obj/item/weapon/reagent_containers/food/drinks/cans/beer( src )
-		new /obj/item/weapon/reagent_containers/food/drinks/cans/beer( src )
-		new /obj/item/weapon/reagent_containers/food/drinks/cans/beer( src )
-		new /obj/item/weapon/reagent_containers/food/drinks/cans/beer( src )
-		new /obj/item/weapon/reagent_containers/food/drinks/cans/beer( src )
+/obj/structure/closet/secure_closet/bar/New()
+	..()
+	new /obj/item/weapon/reagent_containers/food/drinks/cans/beer( src )
+	new /obj/item/weapon/reagent_containers/food/drinks/cans/beer( src )
+	new /obj/item/weapon/reagent_containers/food/drinks/cans/beer( src )
+	new /obj/item/weapon/reagent_containers/food/drinks/cans/beer( src )
+	new /obj/item/weapon/reagent_containers/food/drinks/cans/beer( src )
+	new /obj/item/weapon/reagent_containers/food/drinks/cans/beer( src )
+	new /obj/item/weapon/reagent_containers/food/drinks/cans/beer( src )
+	new /obj/item/weapon/reagent_containers/food/drinks/cans/beer( src )
+	new /obj/item/weapon/reagent_containers/food/drinks/cans/beer( src )
+	new /obj/item/weapon/reagent_containers/food/drinks/cans/beer( src )
 
 /obj/structure/closet/secure_closet/bar/update_icon()
 	if(broken)

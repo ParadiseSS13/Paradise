@@ -123,6 +123,9 @@
 	GrantBorerActions()
 
 /mob/living/simple_animal/borer/attack_ghost(mob/user)
+	if(cannotPossess(user))
+		to_chat(user, "<span class='boldnotice'>Upon using the antagHUD you forfeited the ability to join the round.</span>")
+		return
 	if(jobban_isbanned(user, "Syndicate"))
 		return
 	if(key)

@@ -251,23 +251,23 @@
 		..()
 
 /obj/item/weapon/dnainjector/nobreath
-	name = "DNA-Injector (No Breath)"
+	name = "DNA-Injector (Breathless)"
 	desc = "Hold your breath and count to infinity."
 	datatype = DNA2_BUF_SE
 	value = 0xFFF
 	//block = 2
 	New()
-		block = NOBREATHBLOCK
+		block = BREATHLESSBLOCK
 		..()
 
 /obj/item/weapon/dnainjector/antinobreath
-	name = "DNA-Injector (Anti-No Breath)"
+	name = "DNA-Injector (Anti-Breathless)"
 	desc = "Hold your breath and count to 100."
 	datatype = DNA2_BUF_SE
 	value = 0x001
 	//block = 2
 	New()
-		block = NOBREATHBLOCK
+		block = BREATHLESSBLOCK
 		..()
 
 /obj/item/weapon/dnainjector/remoteview

@@ -270,7 +270,7 @@
 	result = /obj/item/weapon/reagent_containers/food/snacks/bigbiteburger
 
 /datum/recipe/microwave/enchiladas
-	items = list(/obj/item/weapon/reagent_containers/food/snacks/cutlet, /obj/item/weapon/reagent_containers/food/snacks/grown/chili, /obj/item/weapon/reagent_containers/food/snacks/grown/corn)
+	items = list(/obj/item/weapon/reagent_containers/food/snacks/cutlet, /obj/item/weapon/reagent_containers/food/snacks/grown/chili, /obj/item/weapon/reagent_containers/food/snacks/grown/chili, /obj/item/weapon/reagent_containers/food/snacks/grown/corn)
 	result = /obj/item/weapon/reagent_containers/food/snacks/enchiladas
 
 /datum/recipe/microwave/burrito

@@ -66,11 +66,6 @@
 
 			var/mob/living/carbon/human/lich = new /mob/living/carbon/human(item_turf)
 
-			lich.equip_to_slot_or_del(new /obj/item/clothing/shoes/sandal(lich), slot_shoes)
-			lich.equip_to_slot_or_del(new /obj/item/clothing/under/color/black(lich), slot_w_uniform)
-			lich.equip_to_slot_or_del(new /obj/item/clothing/suit/wizrobe/black(lich), slot_wear_suit)
-			lich.equip_to_slot_or_del(new /obj/item/clothing/head/wizard/black(lich), slot_head)
-
 			lich.real_name = M.mind.name
 			M.mind.transfer_to(lich)
 			lich.set_species("Skeleton")
@@ -81,6 +76,11 @@
 			current_body = lich
 			lich.Weaken(10+10*resurrections)
 			++resurrections
+			lich.equip_to_slot_or_del(new /obj/item/clothing/shoes/sandal(lich), slot_shoes)
+			lich.equip_to_slot_or_del(new /obj/item/clothing/under/color/black(lich), slot_w_uniform)
+			lich.equip_to_slot_or_del(new /obj/item/clothing/suit/wizrobe/black(lich), slot_wear_suit)
+			lich.equip_to_slot_or_del(new /obj/item/clothing/head/wizard/black(lich), slot_head)
+
 			if(old_body && old_body.loc)
 				if(iscarbon(old_body))
 					var/mob/living/carbon/C = old_body
@@ -125,5 +125,9 @@
 					H.set_species("Skeleton")
 					H.unEquip(H.wear_suit)
 					H.unEquip(H.head)
+					H.unEquip(H.shoes)
+					H.unEquip(H.head)
 					H.equip_to_slot_or_del(new /obj/item/clothing/suit/wizrobe/black(H), slot_wear_suit)
 					H.equip_to_slot_or_del(new /obj/item/clothing/head/wizard/black(H), slot_head)
+					H.equip_to_slot_or_del(new /obj/item/clothing/shoes/sandal(H), slot_shoes)
+					H.equip_to_slot_or_del(new /obj/item/clothing/under/color/black(H), slot_w_uniform)

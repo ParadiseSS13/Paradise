@@ -275,7 +275,7 @@
 	var/mob/living/carbon/human/H = user
 	if(H.get_int_organ(/obj/item/organ/internal/cell))
 		if(A.emagged || A.stat & BROKEN)
-			var/datum/effect/system/spark_spread/s = new /datum/effect/system/spark_spread
+			var/datum/effect_system/spark_spread/s = new /datum/effect_system/spark_spread
 			s.set_up(3, 1, A)
 			s.start()
 			to_chat(H, "<span class='warning'>The APC power currents surge erratically, damaging your chassis!</span>")

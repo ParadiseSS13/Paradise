@@ -30,6 +30,7 @@ var/list/department_radio_keys = list(
 	  ":U" = "Supply",		"#U" = "Supply",		".U" = "Supply",
 	  ":Z" = "Service",		"#Z" = "Service",		".Z" = "Service",
 	  ":P" = "AI Private",	"#P" = "AI Private",	".P" = "AI Private",
+	  ":$" = "Response Team", "#$" = "Response Team", ".$" = "Response Team",
 	  ":-" = "Special Ops",	"#-" = "Special Ops",	".-" = "Special Ops",
 	  ":_" = "SyndTeam",	"#_" = "SyndTeam",		"._" = "SyndTeam",
 	  ":X" = "cords",		"#X" = "cords",			".X" = "cords"
@@ -163,10 +164,10 @@ proc/get_radio_key_from_channel(var/channel)
 
 	if(is_muzzled())
 		var/obj/item/clothing/mask/muzzle/G = wear_mask
-		if(G.mute) //if the mask is supposed to mute you completely or just muffle you
+		if(G.mute == MUTE_ALL) //if the mask is supposed to mute you completely or just muffle you
 			to_chat(src, "<span class='danger'>You're muzzled and cannot speak!</span>")
 			return
-		else
+		else if(G.mute == MUTE_MUFFLE)
 			message = muffledspeech(message)
 			verb = "mumbles"
 

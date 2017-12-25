@@ -363,7 +363,7 @@ REAGENT SCANNER
 	return
 
 /obj/item/device/mass_spectrometer
-	desc = "A hand-held mass spectrometer which identifies trace chemicals in a blood sample."
+	desc = "A hand-held mass spectrometer which identifies trace chemicals in a blood sample. Inject sample with syringe."
 	name = "mass-spectrometer"
 	icon_state = "spectrometer"
 	item_state = "analyzer"
@@ -377,7 +377,7 @@ REAGENT SCANNER
 	origin_tech = "magnets=2;biotech=1;plasmatech=2"
 	var/details = 0
 	var/datatoprint = ""
-	var/scanning = 1
+	var/scanning = TRUE
 	actions_types = list(/datum/action/item_action/print_report)
 
 /obj/item/device/mass_spectrometer/New()
@@ -400,8 +400,8 @@ REAGENT SCANNER
 		var/list/blood_traces = list()
 		for(var/datum/reagent/R in reagents.reagent_list)
 			if(R.id != "blood")
-				reagents.clear_reagents()
 				to_chat(user, "<span class='warning'>The sample was contaminated! Please insert another sample.</span>")
+				reagents.clear_reagents()
 				return
 			else
 				blood_traces = params2list(R.data["trace_chem"])
@@ -412,7 +412,9 @@ REAGENT SCANNER
 				dat += "[R] ([blood_traces[R]] units) "
 			else
 				dat += "[R] "
-		to_chat(user, "[dat]")
+		to_chat(user, "Analysis completed. Chemicals found: [dat]")
+		scanning = FALSE
+		datatoprint = dat
 		reagents.clear_reagents()
 	return
 
@@ -424,6 +426,7 @@ REAGENT SCANNER
 
 /obj/item/device/mass_spectrometer/proc/print_report()
 	if(!scanning)
+		scanning = TRUE
 		usr.visible_message("<span class='warning'>[src] rattles and prints out a sheet of paper.</span>")
 		playsound(loc, 'sound/goonstation/machines/printer_thermal.ogg', 50, 1)
 		sleep(50)
@@ -437,7 +440,6 @@ REAGENT SCANNER
 			M.put_in_hands(P)
 			to_chat(M, "<span class='notice'>Report printed. Log cleared.<span>")
 			datatoprint = ""
-			scanning = 1
 	else
 		to_chat(usr, "<span class='notice'>[src] has no logs or is already in use.</span>")
 

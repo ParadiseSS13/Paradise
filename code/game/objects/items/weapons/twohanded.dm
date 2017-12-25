@@ -341,6 +341,7 @@
 	if(G)
 		explosive = G
 		name = "explosive lance"
+		embed_chance = 0
 		desc = "A makeshift spear with [G] attached to it. Alt+click on the spear to set your war cry!"
 		update_icon()
 
@@ -606,7 +607,7 @@
 	origin_tech = "combat=4;powerstorage=7"
 
 /obj/item/weapon/twohanded/mjollnir/proc/shock(mob/living/target as mob)
-	var/datum/effect/system/spark_spread/s = new /datum/effect/system/spark_spread()
+	var/datum/effect_system/spark_spread/s = new /datum/effect_system/spark_spread()
 	s.set_up(5, 1, target.loc)
 	s.start()
 	target.visible_message("<span class='danger'>[target.name] was shocked by the [src.name]!</span>", \
@@ -734,7 +735,7 @@
 				Z.take_organ_damage(0,30)
 				user.visible_message("<span class='danger'>[user] slams the charged axe into [Z.name] with all their might!</span>")
 				playsound(loc, 'sound/magic/lightningbolt.ogg', 5, 1)
-				var/datum/effect/system/spark_spread/sparks = new /datum/effect/system/spark_spread
+				var/datum/effect_system/spark_spread/sparks = new /datum/effect_system/spark_spread
 				sparks.set_up(1, 1, src)
 				sparks.start()
 

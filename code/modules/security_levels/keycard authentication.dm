@@ -159,7 +159,7 @@
 				to_chat(usr, "<span class='warning'>All Emergency Response Teams are dispatched and can not be called at this time.</span>")
 				return
 			to_chat(usr, "<span class = 'notice'>ERT request transmitted.</span>")
-
+			print_centcom_report(ert_reason, worldtime2text() +" ERT Request")
 
 			var/fullmin_count = 0
 			for(var/client/C in admins)

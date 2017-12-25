@@ -47,7 +47,7 @@
 			to_chat(O, "<span class='boldnotice'>\A [src] has been activated. (<a href='?src=[O.UID()];jump=\ref[src]'>Teleport</a> | <a href='?src=[UID()];signup=\ref[O]'>Sign Up</a>)</span>")
 
 /obj/item/device/mmi/posibrain/proc/check_observer(var/mob/dead/observer/O)
-	if(O.has_enabled_antagHUD == 1 && config.antag_hud_restricted)
+	if(cannotPossess(O))
 		return 0
 	if(jobban_isbanned(O, "Cyborg") || jobban_isbanned(O,"nonhumandept"))
 		return 0
@@ -133,7 +133,7 @@
 	if(!check_observer(O))
 		to_chat(O, "<span class='warning'>You cannot be \a [src].</span>")
 		return
-	if(O.has_enabled_antagHUD == 1 && config.antag_hud_restricted)
+	if(cannotPossess(O))
 		to_chat(O, "<span class='warning'>Upon using the antagHUD you forfeited the ability to join the round.</span>")
 		return
 	if(jobban_isbanned(O, "Cyborg") || jobban_isbanned(O,"nonhumandept"))

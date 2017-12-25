@@ -681,11 +681,12 @@
 			if(istype(M,/mob/living/silicon/robot))
 				visible_message("<span class='danger'>[src] bumps into [M]!</span>")
 			else
-				add_logs(src, M, "knocked down")
-				visible_message("<span class='danger'>[src] knocks over [M]!</span>")
-				M.stop_pulling()
-				M.Stun(8)
-				M.Weaken(5)
+				if(!paicard)
+					add_logs(src, M, "knocked down")
+					visible_message("<span class='danger'>[src] knocks over [M]!</span>")
+					M.stop_pulling()
+					M.Stun(8)
+					M.Weaken(5)
 	return ..()
 
 /mob/living/simple_animal/bot/mulebot/proc/RunOver(mob/living/carbon/human/H)
@@ -833,7 +834,7 @@
 		cell.update_icon()
 		cell = null
 
-	var/datum/effect/system/spark_spread/s = new /datum/effect/system/spark_spread
+	var/datum/effect_system/spark_spread/s = new /datum/effect_system/spark_spread
 	s.set_up(3, 1, src)
 	s.start()
 
