@@ -16,6 +16,9 @@
 /obj/item/weapon/gun/energy/ionrifle/emp_act(severity)
 	return
 
+/obj/item/weapon/gun/energy/ionrifle/isHandgun()
+	return 0
+
 /obj/item/weapon/gun/energy/ionrifle/carbine
 	name = "ion carbine"
 	desc = "The MK.II Prototype Ion Projector is a lightweight carbine version of the larger ion rifle, built to be ergonomic and efficient."
@@ -144,7 +147,6 @@
 	attack_verb = list("attacked", "slashed", "cut", "sliced")
 	force = 12
 	sharp = 1
-	edge = 1
 	can_charge = 0
 
 /obj/item/weapon/gun/energy/plasmacutter/examine(mob/user)
@@ -273,6 +275,7 @@
 	icon_state = "disabler"
 	ammo_type = list(/obj/item/ammo_casing/energy/clown)
 	clumsy_check = 0
+	selfcharge = 1
 	ammo_x_offset = 3
 
 /obj/item/weapon/gun/energy/toxgun

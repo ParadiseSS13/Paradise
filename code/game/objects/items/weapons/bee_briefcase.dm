@@ -62,14 +62,7 @@
 	else
 		if(world.time >= next_sound)		//This cooldown doesn't prevent us from releasing bees, just stops the sound
 			next_sound = world.time + 90
-			//Play sound through the station intercomms, so everyone knows the doom you have wrought.
-			for(var/O in global_intercoms)
-				var/obj/item/device/radio/intercom/I = O
-				if(!is_station_level(I.z))	//Only broadcast to the station intercoms
-					continue
-				if(!I.on)					//Only broadcast to active intercoms (powered, switched on)
-					continue
-				playsound(I, sound_file, 35)
+			playsound(loc, sound_file, 35)
 
 		//Release up to 5 bees per use. Without using strange reagent, that means two uses. WITH strange reagent, you can get more if you don't release the last bee
 		for(var/bee = min(5, bees_left), bee > 0, bee--)

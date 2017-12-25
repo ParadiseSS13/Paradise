@@ -87,7 +87,6 @@
 	var/list/digsound = list('sound/effects/picaxe1.ogg','sound/effects/picaxe2.ogg','sound/effects/picaxe3.ogg')
 	var/drill_verb = "picking"
 	sharp = 1
-	edge = 1
 	var/excavation_amount = 100
 	usesound = 'sound/effects/picaxe1.ogg'
 	toolspeed = 1
@@ -330,7 +329,7 @@
 			message_admins("[key_name_admin(usr)] (<A HREF='?_src_=holder;adminmoreinfo=\ref[usr]'>?</A>) (<A HREF='?_src_=holder;adminplayerobservefollow=\ref[usr]'>FLW</A>) activated a bluespace capsule away from the mining level! (<A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[T.x];Y=[T.y];Z=[T.z]'>JMP</a>)")
 			log_admin("[key_name(usr)] activated a bluespace capsule away from the mining level at [T.x], [T.y], [T.z]")
 		template.load(deploy_location, centered = TRUE)
-		new /obj/effect/effect/harmless_smoke(get_turf(src))
+		new /obj/effect/particle_effect/smoke(get_turf(src))
 		qdel(src)
 
 /obj/item/weapon/survivalcapsule/luxury
@@ -369,14 +368,13 @@
 	desc = "An easily-compressable wall used for temporary shelter."
 	icon = 'icons/turf/walls/survival_pod_walls.dmi'
 	icon_state = "smooth"
-	smooth = SMOOTH_MORE // To Do: Add in Diagnaol Smooth Support
+	smooth = SMOOTH_MORE|SMOOTH_DIAGONAL
 	canSmoothWith = list(/turf/simulated/wall/survival, /obj/machinery/door/airlock/survival_pod)
 
 //Door
 /obj/machinery/door/airlock/survival_pod
-	name = "Airlock"
 	icon = 'icons/obj/doors/survival.dmi'
-	assembly_type = /obj/structure/door_assembly/door_assembly_pod
+	assemblytype = /obj/structure/door_assembly/door_assembly_pod
 	opacity = 0
 	glass = 1
 
@@ -482,7 +480,7 @@
 		var/obj/item/weapon/storage/pill_bottle/dice/D = new(src)
 		load(D)
 	else
-		var/obj/item/device/guitar/G = new(src)
+		var/obj/item/device/instrument/guitar/G = new(src)
 		load(G)
 
 //Fans

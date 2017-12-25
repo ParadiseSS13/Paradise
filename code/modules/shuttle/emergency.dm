@@ -150,6 +150,12 @@
 
 	emergency_shuttle_called.Announce("The emergency shuttle has been called. [redAlert ? "Red Alert state confirmed: Dispatching priority shuttle. " : "" ]It will arrive in [timeLeft(600)] minutes.[reason][shuttle_master.emergencyLastCallLoc ? "\n\nCall signal traced. Results can be viewed on any communications console." : "" ]")
 
+	if(reason == "Automatic Crew Transfer" && signalOrigin == null) // Best way we have to check that it's actually a crew transfer and not just a player using the same message- any other calls to this proc should have a signalOrigin.
+		atc.shift_ending()
+	else // Emergency shuttle call (probably)
+		atc.reroute_traffic(yes = TRUE)
+
+
 /obj/docking_port/mobile/emergency/cancel(area/signalOrigin)
 	if(!canRecall)
 		return
@@ -264,7 +270,7 @@
 				priority_announcement.Announce("The Emergency Shuttle has left the station. Estimate [timeLeft(600)] minutes until the shuttle docks at Central Command.")
 				for(var/mob/M in player_list)
 					if(!isnewplayer(M) && !M.client.karma_spent && !(M.client.ckey in karma_spenders) && !M.get_preference(DISABLE_KARMA_REMINDER))
-						to_chat(M, "<i>You have not yet spent your karma for the round; was there a player worthy of receiving your reward? Look under OOC tab, Award Karma.</i>")
+						to_chat(M, "<i>You have not yet spent your karma for the round; was there a player worthy of receiving your reward? Look under Special Verbs tab, Award Karma.</i>")
 
 		if(SHUTTLE_ESCAPE)
 			if(time_left <= 0)

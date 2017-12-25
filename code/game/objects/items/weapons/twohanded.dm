@@ -162,7 +162,6 @@
 	force = 5
 	throwforce = 15
 	sharp = 1
-	edge = 1
 	w_class = WEIGHT_CLASS_BULKY
 	slot_flags = SLOT_BACK
 	force_unwielded = 5
@@ -209,8 +208,6 @@
 	attack_verb = list("attacked", "slashed", "stabbed", "sliced", "torn", "ripped", "diced", "cut")
 	block_chance = 75
 	sharp = 1
-	edge = 1
-	no_embed = 1 // Like with the single-handed esword, this shouldn't be embedding in people.
 
 /obj/item/weapon/twohanded/dualsaber/New()
 	blade_color = pick("red", "blue", "green", "purple")
@@ -297,7 +294,6 @@
 	hitsound = 'sound/weapons/bladeslice.ogg'
 	attack_verb = list("attacked", "poked", "jabbed", "torn", "gored")
 	sharp = 1
-	edge = 1
 	no_spin_thrown = 1
 	var/obj/item/weapon/grenade/explosive = null
 	var/war_cry = "AAAAARGH!!!"
@@ -345,6 +341,7 @@
 	if(G)
 		explosive = G
 		name = "explosive lance"
+		embed_chance = 0
 		desc = "A makeshift spear with [G] attached to it. Alt+click on the spear to set your war cry!"
 		update_icon()
 
@@ -442,7 +439,6 @@
 	attack_verb = list("sawed", "cut", "hacked", "carved", "cleaved", "butchered", "felled", "timbered")
 	hitsound = "swing_hit"
 	sharp = 1
-	edge = 1
 	actions_types = list(/datum/action/item_action/startchainsaw)
 	var/on = 0
 
@@ -499,8 +495,6 @@
 	origin_tech = "materials=6;syndicate=4"
 	attack_verb = list("sawed", "cut", "hacked", "carved", "cleaved", "butchered", "felled", "timbered")
 	sharp = 1
-	edge = 1
-	no_embed = 1
 
 /obj/item/weapon/twohanded/chainsaw/update_icon()
 	if(wielded)
@@ -539,7 +533,6 @@
 	icon_state = "mjollnir0"
 	flags = CONDUCT
 	slot_flags = SLOT_BACK
-	no_embed = 1
 	force = 5
 	force_unwielded = 5
 	force_wielded = 20
@@ -604,7 +597,6 @@
 	icon_state = "mjollnir0"
 	flags = CONDUCT
 	slot_flags = SLOT_BACK
-	no_embed = 1
 	force = 5
 	force_unwielded = 5
 	force_wielded = 25
@@ -615,7 +607,7 @@
 	origin_tech = "combat=4;powerstorage=7"
 
 /obj/item/weapon/twohanded/mjollnir/proc/shock(mob/living/target as mob)
-	var/datum/effect/system/spark_spread/s = new /datum/effect/system/spark_spread()
+	var/datum/effect_system/spark_spread/s = new /datum/effect_system/spark_spread()
 	s.set_up(5, 1, target.loc)
 	s.start()
 	target.visible_message("<span class='danger'>[target.name] was shocked by the [src.name]!</span>", \
@@ -652,7 +644,6 @@
 	icon_state = "knighthammer0"
 	flags = CONDUCT
 	slot_flags = SLOT_BACK
-	no_embed = 1
 	force = 5
 	force_unwielded = 5
 	force_wielded = 30
@@ -718,7 +709,6 @@
 	force = 5
 	throwforce = 15
 	sharp = 1
-	edge = 1
 	w_class = WEIGHT_CLASS_HUGE
 	armour_penetration = 20
 	slot_flags = SLOT_BACK
@@ -745,7 +735,7 @@
 				Z.take_organ_damage(0,30)
 				user.visible_message("<span class='danger'>[user] slams the charged axe into [Z.name] with all their might!</span>")
 				playsound(loc, 'sound/magic/lightningbolt.ogg', 5, 1)
-				var/datum/effect/system/spark_spread/sparks = new /datum/effect/system/spark_spread
+				var/datum/effect_system/spark_spread/sparks = new /datum/effect_system/spark_spread
 				sparks.set_up(1, 1, src)
 				sparks.start()
 

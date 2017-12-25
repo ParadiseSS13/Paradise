@@ -361,7 +361,7 @@ client/proc/one_click_antag()
 
 				new_syndicate_commando.key = theghost.key
 				new_syndicate_commando.internal = new_syndicate_commando.s_store
-				new_syndicate_commando.update_internals_hud_icon(1)
+				new_syndicate_commando.update_action_buttons_icon()
 
 				//So they don't forget their code or mission.
 
@@ -513,7 +513,7 @@ client/proc/one_click_antag()
 	new_vox.update_eyes()
 
 	for(var/obj/item/organ/external/limb in new_vox.bodyparts)
-		limb.status &= ~(ORGAN_DESTROYED | ORGAN_ROBOT)
+		limb.status &= ~ORGAN_ROBOT
 
 	//Now apply cortical stack.
 	var/obj/item/weapon/implant/cortical/I = new(new_vox)

@@ -356,7 +356,7 @@
 		return
 	if(scan_brain && !can_brainscan())
 		return
-	if((isnull(subject)) || (!(ishuman(subject))) || (!subject.dna) || (subject.species.flags & NO_SCAN))
+	if((isnull(subject)) || (!(ishuman(subject))) || (!subject.dna) || (NO_SCAN in subject.species.species_traits))
 		scantemp = "<span class=\"bad\">Error: Unable to locate valid genetic data.</span>"
 		nanomanager.update_uis(src)
 		return
@@ -364,7 +364,7 @@
 		var/obj/item/organ/internal/brain/Brn = subject.get_int_organ(/obj/item/organ/internal/brain)
 		if(istype(Brn))
 			var/datum/species/S = all_species[Brn.dna.species] // stepladder code wooooo
-			if(S.flags & NO_SCAN)
+			if(NO_SCAN in S.species_traits)
 				scantemp = "<span class=\"bad\">Error: Subject's brain is incompatible.</span>"
 				nanomanager.update_uis(src)
 				return
@@ -372,7 +372,7 @@
 		scantemp = "<span class=\"bad\">Error: No signs of intelligence detected.</span>"
 		nanomanager.update_uis(src)
 		return
-	if(subject.suiciding == 1 && src.scanner.scan_level < 2)
+	if(subject.suiciding)
 		scantemp = "<span class=\"bad\">Error: Subject's brain is not responding to scanning stimuli.</span>"
 		nanomanager.update_uis(src)
 		return
@@ -403,7 +403,7 @@
 		B.dna.check_integrity()
 		R.dna=B.dna.Clone()
 		var/datum/species/S = all_species[R.dna.species]
-		if(S.flags & NO_SCAN)
+		if(NO_SCAN in S.species_traits)
 			extra_info = "Proper genetic interface not found, defaulting to genetic data of the body."
 			R.dna.species = subject.species.name
 		R.id= copytext(md5(B.dna.real_name), 2, 6)

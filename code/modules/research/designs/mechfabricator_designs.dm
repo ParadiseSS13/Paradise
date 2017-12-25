@@ -984,7 +984,7 @@
 /datum/design/mech_immolator
 	name = "Exosuit Weapon (ZFI Immolation Beam Gun)"
 	desc = "Allows for the construction of ZFI Immolation Beam Gun."
-	id = "mech_tesla"
+	id = "mech_immolator"
 	build_type = MECHFAB
 	req_tech = list("combat" = 6, "magnets" = 5, "materials" = 5)
 	build_path = /obj/item/mecha_parts/mecha_equipment/weapon/energy/immolator
@@ -1126,6 +1126,15 @@
 	build_type = MECHFAB
 	build_path = /obj/item/organ/internal/cell
 	materials = list(MAT_METAL=2000, MAT_GLASS=750)
+	construction_time = 200
+	category = list("Misc")
+
+/datum/design/ipc_charger
+	name = "IPC Charger"
+	id = "ipc_cahrger"
+	build_type = MECHFAB
+	build_path = /obj/item/organ/internal/cyberimp/arm/power_cord
+	materials = list(MAT_METAL=2000, MAT_GLASS=1000)
 	construction_time = 200
 	category = list("Misc")
 

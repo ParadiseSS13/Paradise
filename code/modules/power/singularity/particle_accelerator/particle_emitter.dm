@@ -1,5 +1,3 @@
-//This file was auto-corrected by findeclaration.exe on 25.5.2012 20:42:33
-
 /obj/structure/particle_accelerator/particle_emitter
 	name = "EM Containment Grid"
 	desc_holder = "This part launches the Alpha particles. You might not want to stand near this end."

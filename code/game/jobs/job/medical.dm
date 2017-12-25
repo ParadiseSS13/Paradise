@@ -83,6 +83,7 @@
 	spawn_positions = 1
 	is_medical = 1
 	supervisors = "the chief medical officer"
+	department_head = list("Chief Medical Officer")
 	selection_color = "#ffeef0"
 	access = list(access_medical, access_morgue, access_surgery, access_chemistry, access_virology, access_genetics, access_mineral_storeroom)
 	minimal_access = list(access_medical, access_morgue, access_maint_tunnels)

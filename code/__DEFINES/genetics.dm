@@ -13,14 +13,19 @@
 #define DISABILITY_FLAG_BLIND       16
 #define DISABILITY_FLAG_MUTE        32
 #define DISABILITY_FLAG_COLOURBLIND 64
-
+#define DISABILITY_FLAG_TOURETTES   512
+#define DISABILITY_FLAG_NERVOUS     1024
+#define DISABILITY_FLAG_SWEDISH     2048
+#define DISABILITY_FLAG_SCRAMBLED   4096 // incoherent speech
+#define DISABILITY_FLAG_LISP        8192
+#define DISABILITY_FLAG_DIZZY       16384
 ///////////////////////////////////////
 // MUTATIONS
 ///////////////////////////////////////
 
 // Generic mutations:
 #define	TK				1
-#define RESIST_COLD		2
+#define COLDRES			2
 #define XRAY			3
 #define HULK			4
 #define CLUMSY			5
@@ -37,13 +42,13 @@
 #define PLANT 30
 
 // Other Mutations:
-#define NO_BREATH		100 	// no need to breathe
+#define BREATHLESS		100		// no breathing
 #define REMOTE_VIEW		101 	// remote viewing
 #define REGEN			102 	// health regen
 #define RUN				103 	// no slowdown
 #define REMOTE_TALK		104 	// remote talking
 #define MORPH			105 	// changing appearance
-#define RESIST_HEAT		106 	// heat resistance
+#define HEATRES			106 	// heat resistance
 #define HALLUCINATE		107 	// hallucinations
 #define FINGERPRINTS	108 	// no fingerprints
 #define NO_SHOCK		109 	// insulated hands
@@ -99,6 +104,7 @@
 #define NUTRITION_LEVEL_CURSED 0
 
 //Blood levels
+#define BLOOD_VOLUME_MAXIMUM		2000
 #define BLOOD_VOLUME_NORMAL			560
 #define BLOOD_VOLUME_SAFE			501
 #define BLOOD_VOLUME_OKAY			336
@@ -117,3 +123,23 @@
 
 #define CLONER_FRESH_CLONE "fresh"
 #define CLONER_MATURE_CLONE "mature"
+
+//Species traits.
+
+#define IS_WHITELISTED 	1
+#define LIPS			2
+#define NO_BLOOD		3
+#define NO_BREATHE 		4
+#define NO_DNA			5
+#define NO_SCAN 		6
+#define NO_PAIN 		7
+#define IS_PLANT 		8
+#define CAN_BE_FAT 		9
+#define NO_INTORGANS	10
+#define RADIMMUNE		11
+#define NOGUNS			12
+#define NOTRANSSTING	13
+#define VIRUSIMMUNE		14
+#define NOCRITDAMAGE	15
+#define RESISTHOT		16
+#define RESISTCOLD		17

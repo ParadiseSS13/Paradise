@@ -1,23 +1,24 @@
-//This file was auto-corrected by findeclaration.exe on 25.5.2012 20:42:32
+
 
 /datum/song
 	var/name = "Untitled"
 	var/list/lines = new()
-	var/tempo = 5					// delay between notes
+	var/tempo = 5			// delay between notes
 
-	var/playing = 0					// if we're playing
-	var/help = 0					// if help is open
-	var/repeat = 0					// number of times remaining to repeat
-	var/max_repeat = 10				// maximum times we can repeat
+	var/playing = 0			// if we're playing
+	var/help = 0			// if help is open
+	var/repeat = 0			// number of times remaining to repeat
+	var/max_repeat = 10		// maximum times we can repeat
 
 	var/instrumentDir = "piano"		// the folder with the sounds
 	var/instrumentExt = "ogg"		// the file extension
 	var/obj/instrumentObj = null	// the associated obj playing the sound
 
-/datum/song/New(dir, obj)
+/datum/song/New(dir, obj, ext = "ogg")
 	tempo = sanitize_tempo(tempo)
 	instrumentDir = dir
 	instrumentObj = obj
+	instrumentExt = ext
 
 /datum/song/Destroy()
 	instrumentObj = null
@@ -26,7 +27,7 @@
 // note is a number from 1-7 for A-G
 // acc is either "b", "n", or "#"
 // oct is 1-8 (or 9 for C)
-/datum/song/proc/playnote(var/note, var/acc as text, var/oct)
+/datum/song/proc/playnote(note, acc as text, oct)
 	// handle accidental -> B<>C of E<>F
 	if(acc == "b" && (note == 3 || note == 6)) // C or F
 		if(note == 3)
@@ -50,17 +51,19 @@
 		return
 
 	// now generate name
-	var/soundfile = "sound/[instrumentDir]/[ascii2text(note+64)][acc][oct].[instrumentExt]"
+	var/soundfile = "sound/instruments/[instrumentDir]/[ascii2text(note+64)][acc][oct].[instrumentExt]"
 	soundfile = file(soundfile)
 	// make sure the note exists
 	if(!fexists(soundfile))
 		return
 	// and play
 	var/turf/source = get_turf(instrumentObj)
-	for(var/mob/M in hearers(15, source))
+	var/sound/music_played = sound(soundfile)
+	for(var/A in hearers(15, source))
+		var/mob/M = A
 		if(!M.client || !(M.client.prefs.sound & SOUND_INSTRUMENTS))
 			continue
-		M.playsound_local(source, soundfile, 100, falloff = 5)
+		M.playsound_local(source, null, 100, falloff = 5, S = music_played)
 
 /datum/song/proc/shouldStopPlaying(mob/user)
 	if(instrumentObj)
@@ -70,7 +73,7 @@
 	else
 		return 1
 
-/datum/song/proc/playsong(mob/user as mob)
+/datum/song/proc/playsong(mob/user)
 	while(repeat >= 0)
 		var/cur_oct[7]
 		var/cur_acc[7]
@@ -79,18 +82,14 @@
 			cur_acc[i] = "n"
 
 		for(var/line in lines)
-//			to_chat(world, line)
 			for(var/beat in splittext(lowertext(line), ","))
-//				to_chat(world, "beat: [beat]")
 				var/list/notes = splittext(beat, "/")
 				for(var/note in splittext(notes[1], "-"))
-//					to_chat(world, "note: [note]")
-					if(!playing || shouldStopPlaying(user))//If the instrument is playing, or special case
+					if(!playing || shouldStopPlaying(user)) //If the instrument is playing, or special case
 						playing = 0
 						return
 					if(lentext(note) == 0)
 						continue
-//					to_chat(world, "Parse: [copytext(note,1,2)]")
 					var/cur_note = text2ascii(note) - 96
 					if(cur_note < 1 || cur_note > 7)
 						continue
@@ -150,6 +149,7 @@
 		lines = new()
 		tempo = sanitize_tempo(5) // default 120 BPM
 		name = ""
+		nanomanager.update_uis(src)
 
 	else if(href_list["import"])
 		playing = 0
@@ -159,11 +159,11 @@
 			if(!in_range(instrumentObj, usr))
 				return
 
-			if(lentext(t) >= 3072)
+			if(lentext(t) >= 12000)
 				var/cont = input(usr, "Your message is too long! Would you like to continue editing it?", "", "yes") in list("yes", "no")
 				if(cont == "no")
 					break
-		while(lentext(t) > 3072)
+		while(lentext(t) > 12000)
 
 		//split into lines
 		spawn()
@@ -175,19 +175,21 @@
 				lines.Cut(1,2)
 			else
 				tempo = sanitize_tempo(5) // default 120 BPM
-			if(lines.len > 50)
+			if(lines.len > 200)
 				to_chat(usr, "Too many lines!")
-				lines.Cut(51)
+				lines.Cut(201)
 			var/linenum = 1
 			for(var/l in lines)
-				if(lentext(l) > 50)
+				if(lentext(l) > 200)
 					to_chat(usr, "Line [linenum] too long!")
 					lines.Remove(l)
 				else
 					linenum++
+		nanomanager.update_uis(src)
 
 	else if(href_list["help"])
 		help = !help
+		nanomanager.update_uis(src)
 
 	if(href_list["repeat"]) //Changing this from a toggle to a number of repeats to avoid infinite loops.
 		if(playing)
@@ -197,9 +199,11 @@
 			repeat = 0
 		if(repeat > max_repeat)
 			repeat = max_repeat
+		nanomanager.update_uis(src)
 
 	else if(href_list["tempo"])
 		tempo = sanitize_tempo(tempo + text2num(href_list["tempo"]) * world.tick_lag)
+		nanomanager.update_uis(src)
 
 	else if(href_list["play"])
 		if(playing)
@@ -207,6 +211,7 @@
 		playing = 1
 		spawn()
 			playsong(usr)
+		nanomanager.update_uis(src)
 
 	else if(href_list["insertline"])
 		var/num = round(text2num(href_list["insertline"]))
@@ -216,34 +221,39 @@
 		var/newline = html_encode(input("Enter your line: ", instrumentObj.name) as text|null)
 		if(!newline || !in_range(instrumentObj, usr))
 			return
-		if(lines.len > 50)
+		if(lines.len > 200)
 			return
-		if(lentext(newline) > 50)
-			newline = copytext(newline, 1, 50)
+		if(lentext(newline) > 200)
+			newline = copytext(newline, 1, 200)
 
 		lines.Insert(num, newline)
+		nanomanager.update_uis(src)
 
 	else if(href_list["deleteline"])
 		var/num = round(text2num(href_list["deleteline"]))
 		if(num > lines.len || num < 1)
 			return
 		lines.Cut(num, num + 1)
+		nanomanager.update_uis(src)
 
 	else if(href_list["modifyline"])
 		var/num = round(text2num(href_list["modifyline"]))
 		var/content = html_encode(input("Enter your line: ", instrumentObj.name, lines[num]) as text|null)
 		if(!content || !in_range(instrumentObj, usr))
 			return
-		if(lentext(content) > 50)
-			content = copytext(content, 1, 50)
+		if(lentext(content) > 200)
+			content = copytext(content, 1, 200)
 		if(num > lines.len || num < 1)
 			return
 		lines[num] = content
+		nanomanager.update_uis(src)
 
 	else if(href_list["stop"])
 		playing = 0
+		nanomanager.update_uis(src)
 
 /datum/song/proc/sanitize_tempo(new_tempo)
+	new_tempo = abs(new_tempo)
 	return max(round(new_tempo, world.tick_lag), world.tick_lag)
 
 // subclass for handheld instruments, like violin
@@ -269,6 +279,7 @@
 
 
 /obj/structure/piano/New()
+	..()
 	song = new("piano", src)
 
 	if(prob(50))
@@ -304,7 +315,7 @@
 	song.Topic(href, href_list)
 
 /obj/structure/piano/attackby(obj/item/O as obj, mob/user as mob, params)
-	if(istype(O, /obj/item/weapon/wrench))
+	if(iswrench(O))
 		if(!anchored && !isinspace())
 			playsound(src.loc, O.usesound, 50, 1)
 			to_chat(user, "<span class='notice'> You begin to tighten \the [src] to the floor...</span>")
@@ -324,4 +335,4 @@
 					"You hear ratchet.")
 				anchored = 0
 	else
-		..()
+		return ..()

@@ -8,6 +8,7 @@
 	hitsound_wall = 'sound/weapons/effects/searwall.ogg'
 	flag = "laser"
 	eyeblur = 2
+	is_reflectable = TRUE
 
 /obj/item/projectile/beam/laser
 

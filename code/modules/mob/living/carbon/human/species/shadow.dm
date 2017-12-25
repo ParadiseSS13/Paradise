@@ -17,11 +17,9 @@
 		"eyes" = /obj/item/organ/internal/eyes/shadow //8 darksight.
 		)
 
-	flags = NO_BLOOD | NO_BREATHE | RADIMMUNE
+	species_traits = list(NO_BREATHE, NO_BLOOD, RADIMMUNE, VIRUSIMMUNE)
 
 	oxy_mod = 0
-
-	virus_immune = 1
 
 	dietflags = DIET_OMNI		//the mutation process allowed you to now digest all foods regardless of initial race
 	reagent_tag = PROCESS_ORG
@@ -73,3 +71,4 @@
 		else if(light_amount < 2) //heal in the dark
 			H.heal_overall_damage(1,1)
 			H.clear_alert("lightexposure")
+	..()

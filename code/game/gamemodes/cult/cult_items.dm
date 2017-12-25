@@ -7,7 +7,6 @@
 	force = 30
 	throwforce = 10
 	sharp = 1
-	edge = 1
 	hitsound = 'sound/weapons/bladeslice.ogg'
 	attack_verb = list("attacked", "slashed", "stabbed", "sliced", "torn", "ripped", "diced", "cut")
 
@@ -33,6 +32,10 @@
 		to_chat(user, "<span class='warning'>An overwhelming sense of nausea overpowers you!</span>")
 		user.Dizzy(120)
 
+	if(HULK in user.mutations)
+		to_chat(user, "<span class='danger'>You can't seem to hold the blade properly!</span>")
+		user.unEquip(src, 1)
+
 /obj/item/weapon/melee/cultblade/dagger
 	name = "sacrificial dagger"
 	desc = "A strange dagger said to be used by sinister groups for \"preparing\" a corpse before sacrificing it to their dark gods."
@@ -41,15 +44,14 @@
 	w_class = WEIGHT_CLASS_SMALL
 	force = 15
 	throwforce = 25
-	var/cooldown = 0
+	embed_chance = 75
 
-/obj/item/weapon/melee/cultblade/dagger/afterattack(mob/living/target as mob, mob/living/carbon/human/user as mob)
+/obj/item/weapon/melee/cultblade/dagger/attack(atom/target, mob/living/carbon/human/user)
 	..()
-	var/mob/living/carbon/human/bleeder = target
-	if(!(cooldown > world.time) && ((bleeder.stat != DEAD) && !(bleeder.species.flags & NO_BLOOD)))
-		user.visible_message("<span class='danger'>The runes on the blade absorb the blood of [target]!</span>")
-		bleeder.drip(5000)
-		cooldown = world.time + 2400
+	if(ishuman(target))
+		var/mob/living/carbon/human/H = target
+		if((H.stat != DEAD) && !(NO_BLOOD in H.species.species_traits))
+			H.bleed(50)
 
 /obj/item/weapon/restraints/legcuffs/bola/cult
 	name = "runed bola"
@@ -194,12 +196,14 @@
 /obj/item/weapon/whetstone/cult
 	name = "eldritch whetstone"
 	desc = "A block, empowered by dark magic. Sharp weapons will be enhanced when used on the stone."
-	icon = 'icons/obj/cult.dmi'
-	icon_state = "cultstone"
+	icon_state = "cult_sharpener"
 	used = 0
 	increment = 5
 	max = 40
 	prefix = "darkened"
+
+/obj/item/weapon/whetstone/cult/update_icon()
+	icon_state = "cult_sharpener[used ? "_used" : ""]"
 
 /obj/item/weapon/reagent_containers/food/drinks/bottle/unholywater
 	name = "flask of unholy water"
@@ -231,7 +235,7 @@
 	icon = 'icons/obj/projectiles.dmi'
 	icon_state ="bluespace"
 	color = "#ff0000"
-	var/static/curselimit = 0
+	var/global/curselimit = 0
 
 /obj/item/device/shuttle_curse/attack_self(mob/user)
 	if(!iscultist(user))
@@ -242,6 +246,10 @@
 	if(curselimit > 1)
 		to_chat(user, "<span class='notice'>We have exhausted our ability to curse the shuttle.</span>")
 		return
+	if(locate(/obj/singularity/narsie) in poi_list || locate(/mob/living/simple_animal/slaughter/cult) in mob_list)
+		to_chat(user, "<span class='warning'>Nar-Sie or his avatars are already on this plane, there is no delaying the end of all things.</span>")
+		return
+
 	if(shuttle_master.emergency.mode == SHUTTLE_CALL)
 		var/cursetime = 1800
 		var/timer = shuttle_master.emergency.timeLeft(1) + cursetime
@@ -334,3 +342,19 @@
 
 	else
 		to_chat(C, "<span class='danger'>The veil cannot be torn here!</span>")
+
+
+/obj/item/clothing/suit/space/eva/plasmaman/cultist
+	name = "plasmaman cultist armor"
+	icon_state = "plasmaman_cult"
+	item_state = "plasmaman_cult"
+	desc = "A bulky suit of armour, menacing with red energy. It looks like it would fit a plasmaman."
+	slowdown = 1
+	armor = list(melee = 60, bullet = 50, laser = 30,energy = 15, bomb = 30, bio = 30, rad = 30)
+
+/obj/item/clothing/head/helmet/space/eva/plasmaman/cultist
+	name = "plasmaman cultist helmet"
+	icon_state = "plasmamanCult_helmet0"
+	base_state = "plasmamanCult_helmet"
+	desc = "A helmet designed by cultists. It glows menacingly with unearthly flames."
+	armor = list(melee = 60, bullet = 50, laser = 30,energy = 15, bomb = 30, bio = 30, rad = 30)

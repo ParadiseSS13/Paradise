@@ -61,6 +61,11 @@
 
 	SetCollectBehavior()
 
+/mob/living/simple_animal/hostile/mining_drone/emp_act(severity)
+	adjustHealth(100 / severity)
+	to_chat(src, "<span class='userdanger'>NOTICE: EMP detected, systems damaged!</span>")
+	visible_message("<span class='warning'>[src] crackles and buzzes violently!</span>")
+
 /mob/living/simple_animal/hostile/mining_drone/sentience_act()
 	AIStatus = AI_OFF
 	check_friendly_fire = 0

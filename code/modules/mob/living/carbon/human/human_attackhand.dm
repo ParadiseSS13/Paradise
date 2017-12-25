@@ -109,16 +109,16 @@
 		if(INTENT_HARM)
 			//Vampire code
 			if(M.mind && M.mind.vampire && (M.mind in ticker.mode.vampires) && !M.mind.vampire.draining && M.zone_sel && M.zone_sel.selecting == "head" && src != M)
-				if(species && species.flags & NO_BLOOD)//why this hell were we never checkinf for this?
+				if((NO_BLOOD in species.species_traits) || species.exotic_blood || !blood_volume)
 					to_chat(M, "<span class='warning'>They have no blood!</span>")
 					return
 				if(mind && mind.vampire && (mind in ticker.mode.vampires))
-					to_chat(M, "<span class='warning'>Your fangs fail to pierce [src.name]'s cold flesh</span>")
+					to_chat(M, "<span class='warning'>Your fangs fail to pierce [name]'s cold flesh</span>")
 					return
 				if(SKELETON in mutations)
 					to_chat(M, "<span class='warning'>There is no blood in a skeleton!</span>")
 					return
-				if(issmall(src) && !ckey) //Monkeyized humans are okay, humanized monkeys are okey, monkeys are not.
+				if(issmall(src) && !ckey) //Monkeyized humans are okay, humanized monkeys are okay, NPC monkeys are not.
 					to_chat(M, "<span class='warning'>Blood from a monkey is useless!</span>")
 					return
 				//we're good to suck the blood, blaah
@@ -158,7 +158,7 @@
 
 				visible_message("<span class='danger'>[M] [pick(attack.attack_verb)]ed [src]!</span>")
 
-				apply_damage(damage, BRUTE, affecting, armor_block, sharp=attack.sharp, edge=attack.edge) //moving this back here means Armalis are going to knock you down  70% of the time, but they're pure adminbus anyway.
+				apply_damage(damage, BRUTE, affecting, armor_block, sharp = attack.sharp) //moving this back here means Armalis are going to knock you down  70% of the time, but they're pure adminbus anyway.
 				if((stat != DEAD) && damage >= M.species.punchstunthreshold)
 					visible_message("<span class='danger'>[M] has weakened [src]!</span>", \
 									"<span class='userdanger'>[M] has weakened [src]!</span>")

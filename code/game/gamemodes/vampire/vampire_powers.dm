@@ -236,10 +236,16 @@
 
 /obj/effect/proc_holder/spell/vampire/self/shapeshift/cast(list/targets, mob/user = usr)
 	user.visible_message("<span class='warning'>[user] transforms!</span>")
-	user.client.prefs.real_name = user.generate_name()
-	user.client.prefs.random_character()
-	user.client.prefs.copy_to(user)
-	user.regenerate_icons()
+	if(ishuman(user))
+		var/mob/living/carbon/human/H = user
+		scramble(1, H, 100)
+		H.real_name = random_name(H.gender, H.species.name) //Give them a name that makes sense for their species.
+		H.sync_organ_dna(assimilate = 1)
+		H.update_body(0)
+		H.reset_hair() //No more winding up with hairstyles you're not supposed to have, and blowing your cover.
+		H.reset_markings() //...Or markings.
+		H.dna.ResetUIFrom(H)
+	user.update_icons()
 
 /obj/effect/proc_holder/spell/vampire/self/screech
 	name = "Chiropteran Screech (30)"
@@ -313,6 +319,7 @@
 		return 0
 	if(!affects(C))
 		C.visible_message("<span class='warning'>[C] seems to resist the takeover!</span>", "<span class='notice'>Your faith of [ticker.Bible_deity_name] has kept your mind clear of all evil.</span>")
+		return 0
 	if(!ishuman(C))
 		to_chat(user, "<span class='warning'>You can only enthrall humans!</span>")
 		return 0
@@ -400,6 +407,7 @@
 	action_icon_state = "jaunt"
 	charge_max = 600
 	required_blood = 30
+	centcom_cancast = 0
 	var/jaunt_duration = 50 //in deciseconds
 
 /obj/effect/proc_holder/spell/vampire/self/jaunt/cast(list/targets, mob/user = usr)
@@ -423,7 +431,7 @@
 		flick("liquify", animation)
 		user.forceMove(holder)
 		user.client.eye = holder
-		var/datum/effect/system/steam_spread/steam = new /datum/effect/system/steam_spread()
+		var/datum/effect_system/steam_spread/steam = new /datum/effect_system/steam_spread()
 		steam.set_up(10, 0, originalloc)
 		steam.start()
 		sleep(jaunt_duration)
@@ -458,6 +466,7 @@
 	action_icon_state = "blink"
 	charge_max = 20
 	required_blood = 30
+	centcom_cancast = 0
 
 	// Teleport radii
 	var/inner_tele_radius = 0

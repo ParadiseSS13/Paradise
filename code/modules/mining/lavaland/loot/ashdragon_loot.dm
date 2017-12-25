@@ -24,7 +24,6 @@
 	item_state = "spectral"
 	flags = CONDUCT
 	sharp = 1
-	edge = 1
 	w_class = WEIGHT_CLASS_BULKY
 	force = 1
 	throwforce = 1

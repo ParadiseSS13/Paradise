@@ -153,14 +153,10 @@
 	return has_fine_manipulation
 
 /mob/living/carbon/alien/Stat()
-
+	..()
 	statpanel("Status")
 	stat(null, "Intent: [a_intent]")
 	stat(null, "Move Mode: [m_intent]")
-
-	..()
-
-
 	show_stat_emergency_shuttle_eta()
 
 /mob/living/carbon/alien/SetStunned(amount, updating = 1, force = 0)
@@ -294,3 +290,9 @@ Des: Removes all infected images from the alien.
 				playsound(T, S, volume, 1, range)
 				return 1
 	return 0
+
+/mob/living/carbon/alien/getTrail()
+	if(getBruteLoss() < 200)
+		return pick("xltrails_1", "xltrails_2")
+	else
+		return pick("xttrails_1", "xttrails_2")

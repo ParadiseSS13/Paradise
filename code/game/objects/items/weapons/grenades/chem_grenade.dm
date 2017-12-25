@@ -19,6 +19,11 @@
 	var/obj/item/device/assembly_holder/nadeassembly = null
 	var/label = null
 	var/assemblyattacher
+	var/ignition_temp = 10 // The amount of heat added to the reagents when this grenade goes off.
+	var/threatscale = 1 // Used by advanced grenades to make them slightly more worthy.
+	var/no_splash = FALSE //If the grenade deletes even if it has no reagents to splash with. Used for slime core reactions.
+	var/contained = "" // For logging
+	var/cores = "" // Also for logging
 
 /obj/item/weapon/grenade/chem_grenade/New()
 	create_reagents(1000)
@@ -95,10 +100,11 @@
 			update_icon()
 		else if(clown_check(user))
 			// This used to go before the assembly check, but that has absolutely zero to do with priming the damn thing.  You could spam the admins with it.
-			message_admins("[key_name_admin(usr)] has primed a [name] for detonation at <A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[bombturf.x];Y=[bombturf.y];Z=[bombturf.z]'>[A.name] (JMP)</a>")
-			log_game("[key_name(usr)] has primed a [name] for detonation at [A.name] ([bombturf.x],[bombturf.y],[bombturf.z])")
-			bombers += "[key_name(usr)] has primed a [name] for detonation at [A.name] ([bombturf.x],[bombturf.y],[bombturf.z])"
+			message_admins("[key_name_admin(usr)] has primed a [name] for detonation at <A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[bombturf.x];Y=[bombturf.y];Z=[bombturf.z]'>[A.name] (JMP)</a> [contained].")
+			log_game("[key_name(usr)] has primed a [name] for detonation at [A.name] ([bombturf.x],[bombturf.y],[bombturf.z]) [contained].")
+			bombers += "[key_name(usr)] has primed a [name] for detonation at [A.name] ([bombturf.x],[bombturf.y],[bombturf.z])[contained]."
 			to_chat(user, "<span class='warning'>You prime the [name]! [det_time / 10] second\s!</span>")
+			playsound(user.loc, 'sound/weapons/armbomb.ogg', 60, 1)
 			active = 1
 			update_icon()
 			if(iscarbon(user))
@@ -132,8 +138,8 @@
 				playsound(loc, prime_sound, 25, -3)
 				stage = READY
 				update_icon()
-				var/contained = ""
-				var/cores = ""
+				contained = ""
+				cores = "" // clear them out so no recursive logging by accidentally
 				for(var/obj/O in beakers)
 					if(!O.reagents) continue
 					if(istype(O,/obj/item/slime_extract))
@@ -148,7 +154,7 @@
 				var/turf/bombturf = get_turf(loc)
 				var/area/A = bombturf.loc
 				message_admins("[key_name_admin(usr)] has completed [name] at <A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[bombturf.x];Y=[bombturf.y];Z=[bombturf.z]'>[A.name] (JMP)</a> [contained].")
-				log_game("[key_name(usr)] has completed [name] at [bombturf.x], [bombturf.y], [bombturf.z].")
+				log_game("[key_name(usr)] has completed [name] at [bombturf.x], [bombturf.y], [bombturf.z]. [contained]")
 			else
 				to_chat(user, "<span class='notice'>You need to add at least one beaker before locking the assembly.</span>")
 		else if(stage == READY && !nadeassembly)
@@ -264,13 +270,18 @@
 	if(stage != READY)
 		return
 
-	var/has_reagents = 0
+	var/list/datum/reagents/reactants = list()
 	for(var/obj/item/weapon/reagent_containers/glass/G in beakers)
-		if(G.reagents.total_volume)
-			has_reagents = 1
+		reactants += G.reagents
 
-	if(!has_reagents)
-		playsound(loc, usesound, 50, 1)
+	if(!chem_splash(get_turf(src), affected_area, reactants, ignition_temp, threatscale) && !no_splash)
+		playsound(loc, 'sound/items/Screwdriver2.ogg', 50, 1)
+		if(beakers.len)
+			for(var/obj/O in beakers)
+				O.forceMove(get_turf(src))
+			beakers = list()
+		stage = EMPTY
+		update_icon()
 		return
 
 	if(nadeassembly)
@@ -278,34 +289,12 @@
 		var/mob/last = get_mob_by_ckey(nadeassembly.fingerprintslast)
 		var/turf/T = get_turf(src)
 		var/area/A = get_area(T)
-		message_admins("grenade primed by an assembly, attached by [key_name_admin(M)]<A HREF='?_src_=holder;adminmoreinfo=\ref[M]'>(?)</A> ([admin_jump_link(M)]) and last touched by [key_name_admin(last)]<A HREF='?_src_=holder;adminmoreinfo=\ref[last]'>(?)</A> ([admin_jump_link(last)]) ([nadeassembly.a_left.name] and [nadeassembly.a_right.name]) at <A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[T.x];Y=[T.y];Z=[T.z]'>[A.name] (JMP)</a>.")
-		log_game("grenade primed by an assembly, attached by [key_name(M)] and last touched by [key_name(last)] ([nadeassembly.a_left.name] and [nadeassembly.a_right.name]) at [A.name] ([T.x], [T.y], [T.z])")
-
-	playsound(loc, 'sound/effects/bamf.ogg', 50, 1)
+		message_admins("grenade primed by an assembly, attached by [key_name_admin(M)]<A HREF='?_src_=holder;adminmoreinfo=\ref[M]'>(?)</A> ([admin_jump_link(M)]) and last touched by [key_name_admin(last)]<A HREF='?_src_=holder;adminmoreinfo=\ref[last]'>(?)</A> ([admin_jump_link(last)]) ([nadeassembly.a_left.name] and [nadeassembly.a_right.name]) at <A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[T.x];Y=[T.y];Z=[T.z]'>[A.name] (JMP)</a>. [contained]")
+		log_game("grenade primed by an assembly, attached by [key_name(M)] and last touched by [key_name(last)] ([nadeassembly.a_left.name] and [nadeassembly.a_right.name]) at [A.name] ([T.x], [T.y], [T.z]) [contained]")
 
 	update_mob()
 
-	invisibility = INVISIBILITY_MAXIMUM		//kaboom
-	qdel(nadeassembly) // do this now to stop infrared beams
-	var/end_temp = 0
-	for(var/obj/item/weapon/reagent_containers/glass/G in beakers)
-		G.reagents.trans_to(src, G.reagents.total_volume)
-		end_temp += G.reagents.chem_temp
-	reagents.chem_temp = end_temp
-	if(reagents.total_volume)	//The possible reactions didnt use up all reagents.
-		var/datum/effect/system/steam_spread/steam = new /datum/effect/system/steam_spread()
-		steam.set_up(10, 0, get_turf(src))
-		steam.attach(src)
-		steam.start()
-
-		for(var/atom/A in view(affected_area, loc))
-			if(A == src)
-				continue
-			reagents.reaction(A, 1, 10)
-
-
-	spawn(15)		   //Making sure all reagents can work
-		qdel(src)	   //correctly before deleting the grenade.
+	qdel(src)
 
 /obj/item/weapon/grenade/chem_grenade/proc/CreateDefaultTrigger(var/typekey)
 	if(ispath(typekey,/obj/item/device/assembly))
@@ -327,64 +316,37 @@
 //Large chem grenades accept slime cores and use the appropriately.
 /obj/item/weapon/grenade/chem_grenade/large
 	name = "large grenade casing"
-	desc = "For oversized grenades; fits additional contents and affects a greater area."
+	desc = "A custom made large grenade. It affects a larger area."
 	icon_state = "large_grenade"
 	bomb_state = "largebomb"
 	allowed_containers = list(/obj/item/weapon/reagent_containers/glass,/obj/item/weapon/reagent_containers/food/condiment,
 								/obj/item/weapon/reagent_containers/food/drinks)
 	origin_tech = "combat=3;engineering=3"
-	affected_area = 4
-
+	affected_area = 5
+	ignition_temp = 25 // Large grenades are slightly more effective at setting off heat-sensitive mixtures than smaller grenades.
+	threatscale = 1.1	// 10% more effective.
 
 /obj/item/weapon/grenade/chem_grenade/large/prime()
 	if(stage != READY)
 		return
 
-	var/has_reagents = 0
-	var/obj/item/slime_extract/valid_core = null
+	for(var/obj/item/slime_extract/S in beakers)
+		if(S.Uses)
+			for(var/obj/item/weapon/reagent_containers/glass/G in beakers)
+				G.reagents.trans_to(S, G.reagents.total_volume)
 
-	for(var/obj/item/weapon/reagent_containers/glass/G in beakers)
-		if(!istype(G)) continue
-		if(G.reagents.total_volume) has_reagents = 1
-	for(var/obj/item/slime_extract/E in beakers)
-		if(!istype(E)) continue
-		if(E.Uses) valid_core = E
-		if(E.reagents.total_volume) has_reagents = 1
+			//If there is still a core (sometimes it's used up)
+			//and there are reagents left, behave normally,
+			//otherwise drop it on the ground for timed reactions like gold.
 
-	if(!has_reagents)
-		playsound(loc, prime_sound, 50, 1)
-		return
-
-	playsound(loc, 'sound/effects/bamf.ogg', 50, 1)
-
-	update_mob()
-
-	if(valid_core)
-		for(var/obj/item/weapon/reagent_containers/glass/G in beakers)
-			G.reagents.trans_to(valid_core, G.reagents.total_volume)
-
-		//If there is still a core (sometimes it's used up)
-		//and there are reagents left, behave normally
-
-		if(valid_core && valid_core.reagents && valid_core.reagents.total_volume)
-			valid_core.reagents.trans_to(src,valid_core.reagents.total_volume)
-	else
-		for(var/obj/item/weapon/reagent_containers/glass/G in beakers)
-			G.reagents.trans_to(src, G.reagents.total_volume)
-
-	if(reagents.total_volume)	//The possible reactions didnt use up all reagents.
-		var/datum/effect/system/steam_spread/steam = new /datum/effect/system/steam_spread()
-		steam.set_up(10, 0, get_turf(src))
-		steam.attach(src)
-		steam.start()
-
-		for(var/atom/A in view(affected_area, loc))
-			if( A == src ) continue
-			reagents.reaction(A, 1, 10)
-
-	invisibility = INVISIBILITY_MAXIMUM //Why am i doing this?
-	spawn(50)		   //To make sure all reagents can work
-		qdel(src)	   //correctly before deleting the grenade.
+			if(S)
+				if(S.reagents && S.reagents.total_volume)
+					for(var/obj/item/weapon/reagent_containers/glass/G in beakers)
+						S.reagents.trans_to(G, S.reagents.total_volume)
+				else
+					S.forceMove(get_turf(src))
+					no_splash = TRUE
+	..()
 
 
 	//I tried to just put it in the allowed_containers list but
@@ -399,6 +361,71 @@
 	else
 		return ..()
 
+/obj/item/weapon/grenade/chem_grenade/cryo // Intended for rare cryogenic mixes. Cools the area moderately upon detonation.
+	name = "cryo grenade"
+	desc = "A custom made cryogenic grenade. It rapidly cools its contents upon detonation."
+	icon_state = "cryog"
+	affected_area = 2
+	ignition_temp = -100
+
+/obj/item/weapon/grenade/chem_grenade/pyro // Intended for pyrotechnical mixes. Produces a small fire upon detonation, igniting potentially flammable mixtures.
+	name = "pyro grenade"
+	desc = "A custom made pyrotechnical grenade. It heats up and ignites its contents upon detonation."
+	icon_state = "pyrog"
+	origin_tech = "combat=4;engineering=4"
+	affected_area = 3
+	ignition_temp = 500 // This is enough to expose a hotspot.
+
+/obj/item/weapon/grenade/chem_grenade/adv_release // Intended for weaker, but longer lasting effects. Could have some interesting uses.
+	name = "advanced release grenade"
+	desc = "A custom made advanced release grenade. It is able to be detonated more than once. Can be configured using a multitool."
+	icon_state = "timeg"
+	origin_tech = "combat=3;engineering=4"
+	var/unit_spread = 10 // Amount of units per repeat. Can be altered with a multitool.
+
+/obj/item/weapon/grenade/chem_grenade/adv_release/attackby(obj/item/I, mob/user, params)
+	if(ismultitool(I))
+		switch(unit_spread)
+			if(0 to 24)
+				unit_spread += 5
+			if(25 to 99)
+				unit_spread += 25
+			else
+				unit_spread = 5
+		to_chat(user, "<span class='notice'> You set the time release to [unit_spread] units per detonation.</span>")
+		return
+	..()
+
+/obj/item/weapon/grenade/chem_grenade/adv_release/prime()
+	if(stage != READY)
+		return
+
+	var/total_volume = 0
+	for(var/obj/item/weapon/reagent_containers/RC in beakers)
+		total_volume += RC.reagents.total_volume
+	if(!total_volume)
+		qdel(src)
+		qdel(nadeassembly)
+		return
+	var/fraction = unit_spread/total_volume
+	var/datum/reagents/reactants = new(unit_spread)
+	reactants.my_atom = src
+	for(var/obj/item/weapon/reagent_containers/RC in beakers)
+		RC.reagents.trans_to(reactants, RC.reagents.total_volume*fraction, threatscale, 1, 1)
+	chem_splash(get_turf(src), affected_area, list(reactants), ignition_temp, threatscale)
+
+	if(nadeassembly)
+		var/mob/M = get_mob_by_ckey(assemblyattacher)
+		var/mob/last = get_mob_by_ckey(nadeassembly.fingerprintslast)
+		var/turf/T = get_turf(src)
+		var/area/A = get_area(T)
+		message_admins("grenade primed by an assembly, attached by [key_name_admin(M)]<A HREF='?_src_=holder;adminmoreinfo=\ref[M]'>(?)</A> (<A HREF='?_src_=holder;adminplayerobservefollow=\ref[M]'>FLW</A>) and last touched by [key_name_admin(last)]<A HREF='?_src_=holder;adminmoreinfo=\ref[last]'>(?)</A> (<A HREF='?_src_=holder;adminplayerobservefollow=\ref[last]'>FLW</A>) ([nadeassembly.a_left.name] and [nadeassembly.a_right.name]) at <A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[T.x];Y=[T.y];Z=[T.z]'>[A.name] (JMP)</a>.")
+		log_game("grenade primed by an assembly, attached by [key_name(M)] and last touched by [key_name(last)] ([nadeassembly.a_left.name] and [nadeassembly.a_right.name]) at [A.name] ([T.x], [T.y], [T.z])")
+	else
+		addtimer(src, "prime", det_time)
+	var/turf/DT = get_turf(src)
+	var/area/DA = get_area(DT)
+	log_game("A grenade detonated at [DA.name] ([DT.x], [DT.y], [DT.z])")
 
 /obj/item/weapon/grenade/chem_grenade/metalfoam
 	payload_name = "metal foam"

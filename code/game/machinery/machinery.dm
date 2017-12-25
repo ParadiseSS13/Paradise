@@ -166,6 +166,9 @@ Class Procs:
 /obj/machinery/process() // If you dont use process or power why are you here
 	return PROCESS_KILL
 
+/obj/machinery/proc/process_atmos() //If you dont use process why are you here
+	return PROCESS_KILL
+
 /obj/machinery/emp_act(severity)
 	if(use_power && stat == 0)
 		use_power(7500/severity)
@@ -553,7 +556,7 @@ Class Procs:
 		return 0
 	if((TK in user.mutations) && !Adjacent(user))
 		return 0
-	var/datum/effect/system/spark_spread/s = new /datum/effect/system/spark_spread
+	var/datum/effect_system/spark_spread/s = new /datum/effect_system/spark_spread
 	s.set_up(5, 1, src)
 	s.start()
 	if(electrocute_mob(user, get_area(src), src, 0.7))

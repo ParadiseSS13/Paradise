@@ -151,8 +151,6 @@ Used In File(s): \code\game\machinery\adv_med.dm
 					<td> {{if value.fireLoss> 0}} <span class='average'> {{else}} <span> {{/if}} {{:helper.smoothRound(value.fireLoss)}} </span> 	</td>
 					<td>
 						<span class='average'>
-						{{if value.status.destroyed}} DESTROYED <br> {{/if}}
-						{{if value.status.bleeding}} external bleeding <br> {{/if}}
 						{{if value.internalBleeding}} internal bleeding <br> {{/if}}
 						{{if value.lungRuptured}} lung ruptured <br> {{/if}}
 						{{if value.status.broken}} {{:value.status.broken}} <br> {{/if}}

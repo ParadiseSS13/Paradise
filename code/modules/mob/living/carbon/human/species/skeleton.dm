@@ -13,11 +13,10 @@
 	blood_color = "#FFFFFF"
 	flesh_color = "#E6E6C6"
 
-	flags = NO_BREATHE | NO_BLOOD | RADIMMUNE
+	species_traits = list(NO_BREATHE, NO_BLOOD, RADIMMUNE, VIRUSIMMUNE)
 
 	oxy_mod = 0
 
-	virus_immune = 1 //why is this a var and not a flag?
 	dietflags = DIET_OMNI
 	reagent_tag = PROCESS_ORG
 
@@ -33,7 +32,6 @@
 	heat_level_1 = 999999999
 	heat_level_2 = 999999999
 	heat_level_3 = 999999999
-	heat_level_3_breathe = 999999999
 
 	suicide_messages = list(
 		"is snapping their own bones!",
@@ -55,6 +53,7 @@
 					if(L.brute_dam < L.min_broken_damage)
 						L.status &= ~ORGAN_BROKEN
 						L.status &= ~ORGAN_SPLINTED
+						H.handle_splints()
 						L.perma_injury = 0
 					break // We're only checking one limb here, bucko
 		if(prob(3))

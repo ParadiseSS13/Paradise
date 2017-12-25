@@ -51,10 +51,11 @@
 	if(C.internal == src)
 		to_chat(C, "<span class='notice'>You close \the [src] valve.</span>")
 		C.internal = null
-		C.update_internals_hud_icon(0)
 	else
 		var/can_open_valve = 0
-		if(C.wear_mask && C.wear_mask.flags & AIRTIGHT)
+		if(C.get_organ_slot("breathing_tube"))
+			can_open_valve = 1
+		else if(C.wear_mask && C.wear_mask.flags & AIRTIGHT)
 			can_open_valve = 1
 		else if(ishuman(C))
 			var/mob/living/carbon/human/H = C
@@ -69,7 +70,6 @@
 				if(!silent)
 					to_chat(C, "<span class='notice'>You open \the [src] valve.</span>")
 			C.internal = src
-			C.update_internals_hud_icon(1)
 		else
 			if(!silent)
 				to_chat(C, "<span class='notice'>You are not wearing a suitable mask or helmet.</span>")

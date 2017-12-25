@@ -24,9 +24,22 @@
 	var/list/frozen_crew = list()
 	var/list/frozen_items = list()
 
+	// Used for containing rare items traitors need to steal, so it's not
+	// game-over if they get iced
+	var/list/objective_items = list()
+	// A cache of theft datums so you don't have to re-create them for
+	// each item check
+	var/list/theft_cache = list()
+
 	var/storage_type = "crewmembers"
 	var/storage_name = "Cryogenic Oversight Control"
 	var/allow_items = 1
+
+
+/obj/machinery/computer/cryopod/New()
+	..()
+	for(var/T in potential_theft_objectives)
+		theft_cache += new T
 
 /obj/machinery/computer/cryopod/attack_ai()
 	attack_hand()
@@ -101,8 +114,7 @@
 
 		visible_message("<span class='notice'>The console beeps happily as it disgorges \the [I].</span>")
 
-		I.loc = get_turf(src)
-		frozen_items -= I
+		dispense_item(I)
 
 	else if(href_list["allitems"])
 		if(!allowed(user))
@@ -117,11 +129,30 @@
 		visible_message("<span class='notice'>The console beeps happily as it disgorges the desired objects.</span>")
 
 		for(var/obj/item/I in frozen_items)
-			I.loc = get_turf(src)
-			frozen_items -= I
+			dispense_item(I)
 
 	updateUsrDialog()
 	return
+
+/obj/machinery/computer/cryopod/proc/dispense_item(obj/item/I)
+	if(!(I in frozen_items))
+		return
+	I.forceMove(get_turf(src))
+	objective_items -= I
+	frozen_items -= I
+
+/obj/machinery/computer/cryopod/emag_act(mob/user)
+	user.changeNext_move(CLICK_CD_MELEE)
+	if(!objective_items.len)
+		visible_message("<span class='warning'>The console buzzes in an annoyed manner.</span>")
+		playsound(src, 'sound/machines/buzz-sigh.ogg', 30, 1)
+		return
+	visible_message("<span class='warning'>The console sparks, and some items fall out!</span>")
+	var/datum/effect_system/spark_spread/sparks = new
+	sparks.set_up(5, 1, src)
+	sparks.start()
+	for(var/obj/item/I in objective_items)
+		dispense_item(I)
 
 /obj/item/weapon/circuitboard/cryopodcontrol
 	name = "Circuit board (Cryogenic Oversight Console)"
@@ -275,26 +306,34 @@
 
 			despawn_occupant()
 
+#define CRYO_DESTROY 0
+#define CRYO_PRESERVE 1
+#define CRYO_OBJECTIVE 2
+
+/obj/machinery/cryopod/proc/should_preserve_item(obj/item/I)
+	for(var/datum/theft_objective/T in control_computer.theft_cache)
+		if(istype(I, T.typepath) && T.check_special_completion(I))
+			return CRYO_OBJECTIVE
+	for(var/T in preserve_items)
+		if(istype(I, T) && !(I.type in do_not_preserve_items))
+			return CRYO_PRESERVE
+	return CRYO_DESTROY
+
 // This function can not be undone; do not call this unless you are sure
 // Also make sure there is a valid control computer
 /obj/machinery/cryopod/proc/despawn_occupant()
 	//Drop all items into the pod.
 	for(var/obj/item/W in occupant)
 		occupant.unEquip(W)
-		W.loc = src
+		W.forceMove(src)
 
 		if(W.contents.len) //Make sure we catch anything not handled by qdel() on the items.
-			var/preserve = null
-			for(var/T in preserve_items)
-				if(istype(W,T))
-					preserve = 1
-					break
-			if(preserve) // Don't remove the contents of things that need preservation
+			if(should_preserve_item(W) != CRYO_DESTROY) // Don't remove the contents of things that need preservation
 				continue
 			for(var/obj/item/O in W.contents)
 				if(istype(O,/obj/item/weapon/tank)) //Stop eating pockets, you fuck!
 					continue
-				O.loc = src
+				O.forceMove(src)
 
 	for(var/obj/machinery/computer/cloning/cloner in machines)
 		for(var/datum/dna2/record/R in cloner.records)
@@ -307,26 +346,22 @@
 	items -= announce // or the autosay radio.
 
 	for(var/obj/item/W in items)
-
-		var/preserve = null
-		for(var/T in preserve_items)
-			if(istype(W,T) && !(W in do_not_preserve_items))
-				preserve = 1
-				break
-
 		if(istype(W,/obj/item/device/pda))
 			var/obj/item/device/pda/P = W
 			QDEL_NULL(P.id)
 			qdel(P)
+			continue
 
-		if(!preserve)
+		var/preserve = should_preserve_item(W)
+		if(preserve == CRYO_DESTROY)
 			qdel(W)
+		else if(control_computer && control_computer.allow_items)
+			control_computer.frozen_items += W
+			if(preserve == CRYO_OBJECTIVE)
+				control_computer.objective_items += W
+			W.loc = null
 		else
-			if(control_computer && control_computer.allow_items)
-				control_computer.frozen_items += W
-				W.loc = null
-			else
-				W.loc = loc
+			W.forceMove(loc)
 
 	// Skip past any cult sacrifice objective using this person
 	if(GAMEMODE_IS_CULT && is_sacrifice_target(occupant.mind))
@@ -422,6 +457,9 @@
 	QDEL_NULL(occupant)
 	name = initial(name)
 
+#undef CRYO_DESTROY
+#undef CRYO_PRESERVE
+#undef CRYO_OBJECTIVE
 
 /obj/machinery/cryopod/attackby(var/obj/item/weapon/G as obj, var/mob/user as mob, params)
 
@@ -463,9 +501,7 @@
 					to_chat(user, "<span class='boldnotice'>\The [src] is in use.</span>")
 					return
 
-				M.forceMove(src)
-
-				time_till_despawn = initial(time_till_despawn) / willing
+				take_occupant(M, willing)
 
 			else //because why the fuck would you keep going if the mob isn't in the pod
 				to_chat(user, "<span class='notice'>You stop putting [M] into the cryopod.</span>")
@@ -479,23 +515,7 @@
 			to_chat(M, "<span class='notice'>[on_enter_occupant_message]</span>")
 			to_chat(M, "<span class='boldnotice'>If you ghost, log out or close your client now, your character will shortly be permanently removed from the round.</span>")
 
-			occupant = M
-			name = "[name] ([occupant.name])"
-			time_entered = world.time
-
-			if(findtext("[M.key]","@",1,2))
-				var/FT = replacetext(M.key, "@", "")
-				for(var/mob/dead/observer/Gh in respawnable_list) //this may not be foolproof but it seemed like a better option than 'in world'
-					if(Gh.key == FT)
-						if(Gh.client && Gh.client.holder) //just in case someone has a byond name with @ at the start, which I don't think is even possible but whatever
-							to_chat(Gh, "<span style='color: #800080;font-weight: bold;font-size:4;'>Warning: Your body has entered cryostorage.</span>")
-
-			// Book keeping!
-			log_admin("<span class='notice'>[key_name(M)] has entered a stasis pod.</span>")
-			message_admins("[key_name_admin(M)] has entered a stasis pod. (<A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[x];Y=[y];Z=[z]'>JMP</a>)")
-
-			//Despawning occurs when process() is called with an occupant without a client.
-			add_fingerprint(M)
+			take_occupant(M, willing)
 
 
 /obj/machinery/cryopod/MouseDrop_T(atom/movable/O as mob|obj, mob/user as mob)
@@ -560,38 +580,36 @@
 			if(occupant)
 				to_chat(user, "<span class='boldnotice'>\The [src] is in use.</span>")
 				return
-			L.forceMove(src)
-			time_till_despawn = initial(time_till_despawn) / willing
+			take_occupant(L, willing)
 		else
 			to_chat(user, "<span class='notice'>You stop [L == user ? "climbing into the cryo pod." : "putting [L] into the cryo pod."]</span>")
-			return
 
-		if(orient_right)
-			icon_state = "[occupied_icon_state]-r"
-		else
-			icon_state = occupied_icon_state
+/obj/machinery/cryopod/proc/take_occupant(var/mob/living/carbon/E, var/willing_factor = 1)
+	if(occupant)
+		return
+	if(!E)
+		return
+	E.forceMove(src)
+	time_till_despawn = initial(time_till_despawn) / willing_factor
+	if(orient_right)
+		icon_state = "[occupied_icon_state]-r"
+	else
+		icon_state = occupied_icon_state
+	to_chat(E, "<span class='notice'>[on_enter_occupant_message]</span>")
+	to_chat(E, "<span class='boldnotice'>If you ghost, log out or close your client now, your character will shortly be permanently removed from the round.</span>")
+	occupant = E
+	name = "[name] ([occupant.name])"
+	time_entered = world.time
+	if(findtext("[E.key]","@",1,2))
+		var/FT = replacetext(E.key, "@", "")
+		for(var/mob/dead/observer/Gh in respawnable_list) //this may not be foolproof but it seemed like a better option than 'in world'
+			if(Gh.key == FT)
+				if(Gh.client && Gh.client.holder) //just in case someone has a byond name with @ at the start, which I don't think is even possible but whatever
+					to_chat(Gh, "<span style='color: #800080;font-weight: bold;font-size:4;'>Warning: Your body has entered cryostorage.</span>")
+	log_admin("<span class='notice'>[key_name(E)] entered a stasis pod.</span>")
+	message_admins("[key_name_admin(E)] entered a stasis pod. (<A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[x];Y=[y];Z=[z]'>JMP</a>)")
+	add_fingerprint(E)
 
-		to_chat(L, "<span class='notice'>[on_enter_occupant_message]</span>")
-		to_chat(L, "<span class='boldnotice'>If you ghost, log out or close your client now, your character will shortly be permanently removed from the round.</span>")
-		occupant = L
-		name = "[name] ([occupant.name])"
-		time_entered = world.time
-
-		if(findtext("[L.key]","@",1,2))
-			var/FT = replacetext(L.key, "@", "")
-			for(var/mob/dead/observer/Gh in respawnable_list) //this may not be foolproof but it seemed like a better option than 'in world'
-				if(Gh.key == FT)
-					if(Gh.client && Gh.client.holder) //just in case someone has a byond name with @ at the start, which I don't think is even possible but whatever
-						to_chat(Gh, "<span style='color: #800080;font-weight: bold;font-size:4;'>Warning: Your body has entered cryostorage.</span>")
-
-		// Book keeping!
-		log_admin("[key_name_admin(L)] has entered a stasis pod. (<A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[x];Y=[y];Z=[z]'>JMP</a>)")
-		message_admins("<span class='notice'>[key_name_admin(L)] has entered a stasis pod.</span>")
-
-		//Despawning occurs when process() is called with an occupant without a client.
-		add_fingerprint(L)
-
-	return
 
 /obj/machinery/cryopod/verb/eject()
 	set name = "Eject Pod"
@@ -733,3 +751,18 @@
 	qdel(R.module)
 
 	return ..()
+
+/proc/cryo_ssd(var/mob/living/carbon/person_to_cryo)
+	if(istype(person_to_cryo.loc, /obj/machinery/cryopod))
+		return 0
+	var/list/free_cryopods = list()
+	for(var/obj/machinery/cryopod/P in machines)
+		if(!P.occupant && istype(get_area(P), /area/crew_quarters/sleep))
+			free_cryopods += P
+	var/obj/machinery/cryopod/target_cryopod = null
+	if(free_cryopods.len)
+		target_cryopod = safepick(free_cryopods)
+		if(target_cryopod.check_occupant_allowed(person_to_cryo))
+			target_cryopod.take_occupant(person_to_cryo, 1)
+			return 1
+	return 0

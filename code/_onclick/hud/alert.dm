@@ -105,21 +105,20 @@
 
 
 //Gas alerts
-/obj/screen/alert/oxy
+/obj/screen/alert/not_enough_oxy
 	name = "Choking (No O2)"
-	desc = "You're not getting enough oxygen. Find some good air before you pass out! \
-The box in your backpack has an oxygen tank and breath mask in it."
-	icon_state = "oxy"
+	desc = "You're not getting enough oxygen. Find some good air before you pass out! The box in your backpack has an oxygen tank and breath mask in it."
+	icon_state = "not_enough_oxy"
 
 /obj/screen/alert/too_much_oxy
 	name = "Choking (O2)"
 	desc = "There's too much oxygen in the air, and you're breathing it in! Find some good air before you pass out!"
 	icon_state = "too_much_oxy"
 
-/obj/screen/alert/nitro
+/obj/screen/alert/not_enough_nitro
     name = "Choking (No N)"
     desc = "You're not getting enough nitrogen. Find some good air before you pass out!"
-    icon_state = "nitro"
+    icon_state = "not_enough_nitro"
 
 /obj/screen/alert/too_much_nitro
     name = "Choking (N)"
@@ -141,11 +140,10 @@ The box in your backpack has an oxygen tank and breath mask in it."
 	desc = "You're not getting enough plasma. Find some good air before you pass out!"
 	icon_state = "not_enough_tox"
 
-/obj/screen/alert/tox_in_air
+/obj/screen/alert/too_much_tox
 	name = "Choking (Plasma)"
-	desc = "There's highly flammable, toxic plasma in the air and you're breathing it in. Find some fresh air. \
-The box in your backpack has an oxygen tank and gas mask in it."
-	icon_state = "tox_in_air"
+	desc = "There's highly flammable, toxic plasma in the air and you're breathing it in. Find some fresh air. The box in your backpack has an oxygen tank and gas mask in it."
+	icon_state = "too_much_tox"
 //End gas alerts
 
 
@@ -234,6 +232,12 @@ or something covering your eyes."
 	name = "Drunk"
 	desc = "All that alcohol you've been drinking is impairing your speech, motor skills, and mental cognition. Make sure to act like it."
 	icon_state = "drunk"
+
+/obj/screen/alert/embeddedobject
+	name = "Embedded Object"
+	desc = "Something got lodged into your flesh and is causing major bleeding. It might fall out with time, but surgery is the safest way. \
+			If you're feeling frisky, click yourself in help intent to pull the object out."
+	icon_state = "embeddedobject"
 
 /obj/screen/alert/embeddedobject/Click()
 	if(isliving(usr))
@@ -360,6 +364,25 @@ so as to remain in compliance with the most up-to-date laws."
 	desc = "Mech integrity is low."
 	icon_state = "low_mech_integrity"
 
+//GUARDIANS
+/obj/screen/alert/cancharge
+	name = "Charge Ready"
+	desc = "You are ready to charge at a location!"
+	icon_state = "guardian_charge"
+	alerttooltipstyle = "parasite"
+
+/obj/screen/alert/canstealth
+	name = "Stealth Ready"
+	desc = "You are ready to enter stealth!"
+	icon_state = "guardian_canstealth"
+	alerttooltipstyle = "parasite"
+
+/obj/screen/alert/instealth
+	name = "In Stealth"
+	desc = "You are in stealth and your next attack will do bonus damage!"
+	icon_state = "guardian_instealth"
+	alerttooltipstyle = "parasite"
+
 
 //GHOSTS
 //TODO: expand this system to replace the pollCandidates/CheckAntagonist/"choose quickly"/etc Yes/No messages
@@ -404,6 +427,27 @@ so as to remain in compliance with the most up-to-date laws."
 				G.loc = T
 		if(NOTIFY_FOLLOW)
 			G.ManualFollow(target)
+
+/obj/screen/alert/notify_soulstone
+	name = "Soul Stone"
+	desc = "Someone is trying to capture your soul in a soul stone. Click to allow it."
+	icon_state = "template"
+	timeout = 10 SECONDS
+	var/obj/item/device/soulstone/stone = null
+	var/stoner = null
+
+/obj/screen/alert/notify_soulstone/Click()
+	if(!usr || !usr.client)
+		return
+	if(stone)
+		if(alert(usr, "Do you want to be captured by [stoner]'s soul stone? This will destroy your corpse and make it \
+		impossible for you to get back into the game as your regular character.",, "No", "Yes") ==  "Yes")
+			stone.opt_in = TRUE
+
+/obj/screen/alert/notify_soulstone/Destroy()
+	stone = null
+	return ..()
+
 
 //OBJECT-BASED
 

@@ -12,6 +12,9 @@
 		if(!ckey)
 			handle_speech_and_mood()
 
+/mob/living/carbon/slime/breathe()
+	return
+
 /mob/living/carbon/slime/proc/AIprocess()  // the master AI process
 
 	if(AIproc || stat == DEAD || client) return

@@ -154,7 +154,7 @@
 		to_chat(user, "<span class='warning'>This will only work on normal organic beings.</span>")
 		return
 
-	if(RESIST_COLD in C.mutations)
+	if(COLDRES in C.mutations)
 		C.visible_message("<span class='warning'>A cloud of fine ice crystals engulfs [C.name], but disappears almost instantly!</span>")
 		return
 	var/handle_suit = 0
@@ -356,7 +356,7 @@
 				return
 			user.visible_message("<span class='danger'>[user] [pick("chomps","bites")] off [the_item]'s [limb]!</span>")
 			playsound(user.loc, 'sound/items/eatfood.ogg', 50, 0)
-			limb.droplimb(0, DROPLIMB_EDGE)
+			limb.droplimb(0, DROPLIMB_SHARP)
 			doHeal(user)
 	else
 		user.visible_message("<span class='danger'>[user] eats \the [the_item].</span>")
@@ -413,9 +413,6 @@
 						failure = 1
 					else
 						M.stop_pulling()
-
-		if(user.pinned.len)
-			failure = 1
 
 		user.visible_message("<span class='danger'>[user.name]</b> takes a huge leap!</span>")
 		playsound(user.loc, 'sound/weapons/thudswoosh.ogg', 50, 1)
@@ -660,20 +657,20 @@
 	action_icon_state = "superfart"
 
 /obj/effect/proc_holder/spell/aoe_turf/superfart/invocation(mob/user = usr)
-	invocation = "<span class='warning'><b>[user]</b> hunches down and grits their teeth!</span>"
-	invocation_emote_self = invocation
+	invocation = "<span class='warning'>[user] hunches down and grits their teeth!</span>"
+	invocation_emote_self = "<span class='warning'>You hunch down and grit your teeth!</span>"
 	..(user)
 
-/obj/effect/proc_holder/spell/aoe_turf/superfart/cast(list/targets)
-	var/UT = get_turf(usr)
-
-	if(do_after(usr, 30, target = usr))
+/obj/effect/proc_holder/spell/aoe_turf/superfart/cast(list/targets, mob/user)
+	var/UT = get_turf(user)
+	if(do_after(user, 30, target = user))
+		var/fartsize = pick("tremendous","gigantic","colossal")
 		playsound(UT, 'sound/goonstation/effects/superfart.ogg', 50, 0)
-		usr.visible_message("<span class='warning'><b>[usr]</b> unleashes a [pick("tremendous","gigantic","colossal")] fart!</span>", "<span class='warning'>You hear a [pick("tremendous","gigantic","colossal")] fart.</span>")
+		user.visible_message("<span class='warning'><b>[user]</b> unleashes a [fartsize] fart!</span>", "<span class='warning'>You hear a [fartsize] fart.</span>")
 		for(var/T in targets)
 			for(var/mob/living/M in T)
 				shake_camera(M, 10, 5)
-				if(M == usr)
+				if(M == user)
 					continue
 				to_chat(M, "<span class='warning'>You are sent flying!</span>")
 				M.Weaken(5)
@@ -681,4 +678,4 @@
 				step_away(M, UT, 15)
 				step_away(M, UT, 15)
 	else
-		to_chat(usr, "<span class='warning'>You were interrupted and couldn't fart! Rude!</span>")
+		to_chat(user, "<span class='warning'>You were interrupted and couldn't fart! Rude!</span>")

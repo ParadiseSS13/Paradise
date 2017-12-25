@@ -68,7 +68,7 @@
 	icon_state = "focus"
 	item_state = "focus"
 	ammo_type = list(/obj/item/ammo_casing/forcebolt)
-	
+
 /obj/item/weapon/gun/magic/staff/spellblade
 	name = "spellblade"
 	desc = "A deadly combination of laziness and boodlust, this blade allows the user to dismember their enemies without all the hard work of actually swinging the sword."
@@ -81,7 +81,6 @@
 	armour_penetration = 75
 	block_chance = 50
 	sharp = 1
-	edge = 1
 	max_charges = 4
 
 /obj/item/weapon/gun/magic/staff/spellblade/hit_reaction(mob/living/carbon/human/owner, attack_text, final_block_chance, damage, attack_type)

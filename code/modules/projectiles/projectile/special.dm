@@ -23,8 +23,6 @@
 	icon_state= "bolter"
 	damage = 50
 	flag = "bullet"
-	sharp = 1
-	edge = 1
 
 /obj/item/projectile/bullet/gyro/on_hit(var/atom/target, var/blocked = 0)
 	..()
@@ -136,7 +134,7 @@
 	var/mob/living/M = target
 	if(ishuman(target))
 		var/mob/living/carbon/human/H = M
-		if(H.species.flags & IS_PLANT)
+		if(IS_PLANT in H.species.species_traits)
 			if(prob(15))
 				M.apply_effect((rand(30,80)),IRRADIATE)
 				M.Weaken(5)
@@ -169,7 +167,7 @@
 	var/mob/M = target
 	if(ishuman(target)) //These rays make plantmen fat.
 		var/mob/living/carbon/human/H = M
-		if(H.species.flags & IS_PLANT)
+		if(IS_PLANT in H.species.species_traits)
 			H.nutrition = min(H.nutrition+30, NUTRITION_LEVEL_FULL)
 	else if(iscarbon(target))
 		M.show_message("<span class='notice'>The radiation beam dissipates harmlessly through your body.</span>")
@@ -193,7 +191,7 @@
 	icon_state = "snappop"
 
 /obj/item/projectile/clown/Bump(atom/A as mob|obj|turf|area)
-	var/datum/effect/system/spark_spread/s = new /datum/effect/system/spark_spread
+	var/datum/effect_system/spark_spread/s = new /datum/effect_system/spark_spread
 	s.set_up(3, 1, src)
 	s.start()
 	new /obj/effect/decal/cleanable/ash(loc)
@@ -205,9 +203,10 @@
 	name = "bluespace beam"
 	icon_state = "spark"
 	hitsound = "sparks"
-	damage = 3
+	damage = 0
 	var/obj/item/weapon/gun/energy/wormhole_projector/gun
 	color = "#33CCFF"
+	nodamage = TRUE
 
 /obj/item/projectile/beam/wormhole/orange
 	name = "orange bluespace beam"

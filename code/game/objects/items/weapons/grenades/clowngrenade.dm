@@ -50,24 +50,20 @@
 */
 
 /obj/item/weapon/grown/bananapeel/traitorpeel
+	trip_stun = 0
+	trip_weaken = 7
+	trip_tiles = 4
+	trip_walksafe = FALSE
+
+	trip_chance = 100
 
 
-/obj/item/weapon/grown/bananapeel/traitorpeel/Crossed(AM as mob|obj)
-	var/burned = rand(2,5)
-	if(istype(AM, /mob/living/carbon))
-		var/mob/living/carbon/M = AM
-		if(ishuman(M))
-			if(isobj(M:shoes))
-				if((M:shoes.flags&NOSLIP) || (M:species.bodyflags & FEET_NOSLIP))
-					return
-			else
-				to_chat(M, "<span class='warning'>Your feet feel like they're on fire!</span>")
-				M.take_overall_damage(0, max(0, (burned - 2)))
-
-		if(!istype(M, /mob/living/carbon/slime) && !isrobot(M))
-			M.slip("banana peel!", 0, 7, 4)
-			M.take_organ_damage(2) // Was 5 -- TLE
-			M.take_overall_damage(0, burned)
+/obj/item/weapon/grown/bananapeel/traitorpeel/on_trip(mob/living/carbon/human/H)
+	. = ..()
+	if(.)
+		to_chat(H, "<span class='warning'>Your feet feel like they're on fire!</span>")
+		H.take_overall_damage(0, rand(2,8))
+		H.take_organ_damage(2) // Was 5 -- TLE
 
 /obj/item/weapon/grown/bananapeel/traitorpeel/throw_impact(atom/hit_atom)
 	var/burned = rand(1,3)

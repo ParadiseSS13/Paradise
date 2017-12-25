@@ -72,6 +72,8 @@
 	var/forceProcess = 0
 	var/processTime = 10
 	var/speak_file = "npc_chatter.json"
+	var/debugexamine = FALSE //If we show debug info in our examine
+	var/showexaminetext = TRUE	//If we show our telltale examine text
 
 	var/list/knownStrings = list()
 
@@ -270,20 +272,20 @@
 	if(prob((SNPC_FUZZY_CHANCE_LOW+SNPC_FUZZY_CHANCE_HIGH)/4))
 		var/obj/item/organ/external/R = bodyparts_by_name["r_arm"]
 		if(R)
-			R.robotize()
+			R.robotize(make_tough = 1)
 	else
 		var/obj/item/organ/external/L = bodyparts_by_name["l_arm"]
 		if(L)
-			L.robotize()
+			L.robotize(make_tough = 1)
 	//legs
 	if(prob((SNPC_FUZZY_CHANCE_LOW+SNPC_FUZZY_CHANCE_HIGH)/4))
 		var/obj/item/organ/external/R = bodyparts_by_name["r_leg"]
 		if(R)
-			R.robotize()
+			R.robotize(make_tough = 1)
 	else
 		var/obj/item/organ/external/L = bodyparts_by_name["l_leg"]
 		if(L)
-			L.robotize()
+			L.robotize(make_tough = 1)
 	UpdateDamageIcon()
 	regenerate_icons()
 

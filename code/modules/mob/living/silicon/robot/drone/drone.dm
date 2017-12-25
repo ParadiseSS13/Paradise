@@ -188,6 +188,9 @@
 	lawchanges.Add("[time] <B>:</B> [H.name]([H.key]) emagged [name]([key])")
 
 	emagged = 1
+	icon_state = "repairbot-emagged"
+	holder_type = /obj/item/weapon/holder/drone/emagged
+	update_icons()
 	lawupdate = 0
 	connected_ai = null
 	clear_supplied_laws()
@@ -260,7 +263,7 @@
 
 /mob/living/silicon/robot/drone/proc/request_player()
 	for(var/mob/dead/observer/O in player_list)
-		if(O.has_enabled_antagHUD == 1 && config.antag_hud_restricted)
+		if(cannotPossess(O))
 			continue
 		if(jobban_isbanned(O,"nonhumandept") || jobban_isbanned(O,"Drone"))
 			continue

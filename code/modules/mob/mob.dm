@@ -11,6 +11,10 @@
 	for(var/mob/dead/observer/M in following_mobs)
 		M.following = null
 	following_mobs = null
+	QDEL_LIST_ASSOC_VAL(tkgrabbed_objects)
+	for(var/I in tkgrabbed_objects)
+		qdel(tkgrabbed_objects[I])
+	tkgrabbed_objects = null
 	if(buckled)
 		buckled.unbuckle_mob()
 	if(viewing_alternate_appearances)
@@ -680,7 +684,7 @@ var/list/slot_equipment_priority = list( \
 	set src in usr
 	if(usr != src)
 		to_chat(usr, "No.")
-	var/msg = input(usr,"Set the flavor text in your 'examine' verb. Can also be used for OOC notes about your character.","Flavor Text",html_decode(flavor_text)) as message|null
+	var/msg = input(usr,"Set the flavor text in your 'examine' verb. The flavor text should be a physical descriptor of your character at a glance.","Flavor Text",html_decode(flavor_text)) as message|null
 
 	if(msg != null)
 		msg = copytext(msg, 1, MAX_MESSAGE_LEN)
@@ -863,19 +867,6 @@ var/list/slot_equipment_priority = list( \
 /mob/proc/stripPanelEquip(obj/item/what, mob/who)
 	return
 
-
-/mob/proc/pull_damage()
-	if(ishuman(src))
-		var/mob/living/carbon/human/H = src
-		if(H.health <= config.health_threshold_softcrit)
-			for(var/name in H.bodyparts_by_name)
-				var/obj/item/organ/external/e = H.bodyparts_by_name[name]
-				if(e && H.lying)
-					if(((e.status & ORGAN_BROKEN && !(e.status & ORGAN_SPLINTED)) || e.status & ORGAN_BLEEDING) && (H.getBruteLoss() + H.getFireLoss() >= 100))
-						return 1
-						break
-		return 0
-
 /mob/MouseDrop(mob/M as mob)
 	..()
 	if(M != usr) return
@@ -1047,104 +1038,6 @@ var/list/slot_equipment_priority = list( \
 
 /mob/proc/get_species()
 	return ""
-
-/mob/proc/get_visible_implants(var/class = 0)
-	var/list/visible_implants = list()
-	for(var/obj/item/O in embedded)
-		if(O.w_class > class)
-			visible_implants += O
-	return visible_implants
-
-/mob/proc/yank_out_object()
-	set category = "Object"
-	set name = "Yank out object"
-	set desc = "Remove an embedded item at the cost of bleeding and pain."
-	set src in view(1)
-
-	if(!isliving(usr) || usr.next_move > world.time)
-		return
-	usr.changeNext_move(CLICK_CD_RESIST)
-
-	if(usr.stat == 1)
-		to_chat(usr, "You are unconcious and cannot do that!")
-		return
-
-	if(usr.restrained())
-		to_chat(usr, "You are restrained and cannot do that!")
-		return
-
-	var/mob/S = src
-	var/mob/U = usr
-	var/list/valid_objects = list()
-	var/self = null
-
-	if(S == U)
-		self = 1 // Removing object from yourself.
-
-	valid_objects = get_visible_implants(0)
-	if(!valid_objects.len)
-		if(self)
-			to_chat(src, "You have nothing stuck in your body that is large enough to remove.")
-		else
-			to_chat(U, "[src] has nothing stuck in their wounds that is large enough to remove.")
-		return
-
-	var/obj/item/weapon/selection = input("What do you want to yank out?", "Embedded objects") in valid_objects
-
-	if(self)
-		visible_message("<span class='warning'>[usr] appears to be trying to extract an object from their body.</span>")
-		to_chat(src, "<span class='warning'>You attempt to get a good grip on [selection] in your body.</span>")
-	else
-		visible_message("<span class='warning'>[usr] attempts to get a good grip on [selection] in [S]'s body.</span>")
-		to_chat(U, "<span class='warning'>You attempt to get a good grip on [selection] in [S]'s body.</span>")
-
-	if(!do_after(U, 80, target = S))
-		return
-	if(!selection || !S || !U)
-		return
-
-	if(self)
-		visible_message("<span class='warning'><b>[src] rips [selection] out of their body.</b></span>","<span class='warning'><b>You rip [selection] out of your body.</b></span>")
-	else
-		visible_message("<span class='warning'><b>[usr] rips [selection] out of [src]'s body.</b></span>","<span class='warning'><b>[usr] rips [selection] out of your body.</b></span>")
-	valid_objects = get_visible_implants(0)
-	if(valid_objects.len == 1) //Yanking out last object - removing verb.
-		src.verbs -= /mob/proc/yank_out_object
-
-	if(ishuman(src))
-
-		var/mob/living/carbon/human/H = src
-		var/obj/item/organ/external/affected
-
-		for(var/obj/item/organ/external/organ in H.bodyparts) //Grab the organ holding the implant.
-			for(var/obj/item/weapon/O in organ.implants)
-				if(O == selection)
-					affected = organ
-
-		affected.implants -= selection
-		H.shock_stage+=10
-
-		if(prob(10)) //I'M SO ANEMIC I COULD JUST -DIE-.
-			var/datum/wound/internal_bleeding/I = new ()
-			affected.wounds += I
-			H.custom_pain("Something tears wetly in your [affected] as [selection] is pulled free!", 1)
-
-		if(ishuman(U))
-			var/mob/living/carbon/human/human_user = U
-			human_user.bloody_hands(H)
-
-	selection.forceMove(get_turf(src))
-	if(!(U.l_hand && U.r_hand))
-		U.put_in_hands(selection)
-
-	for(var/obj/item/weapon/O in pinned)
-		if(O == selection)
-			pinned -= O
-		if(!pinned.len)
-			anchored = 0
-	return 1
-
-
 
 /mob/dead/observer/verb/respawn()
 	set name = "Respawn as NPC"
@@ -1344,3 +1237,48 @@ var/list/slot_equipment_priority = list( \
 
 	attack_log += new_log
 	last_log = world.timeofday
+
+/mob/vv_get_dropdown()
+	. = ..()
+	.["Show player panel"] = "?_src_=vars;mob_player_panel=[UID()]"
+
+	.["Give Spell"] = "?_src_=vars;give_spell=[UID()]"
+	.["Give Disease"] = "?_src_=vars;give_disease=[UID()]"
+	.["Toggle Godmode"] = "?_src_=vars;godmode=[UID()]"
+	.["Toggle Build Mode"] = "?_src_=vars;build_mode=[UID()]"
+
+	.["Make 2spooky"] = "?_src_=vars;make_skeleton=[UID()]"
+
+	.["Assume Direct Control"] = "?_src_=vars;direct_control=[UID()]"
+	.["Offer Control to Ghosts"] = "?_src_=vars;offer_control=[UID()]"
+	.["Drop Everything"] = "?_src_=vars;drop_everything=[UID()]"
+
+	.["Regenerate Icons"] = "?_src_=vars;regenerateicons=[UID()]"
+	.["Add Language"] = "?_src_=vars;addlanguage=[UID()]"
+	.["Remove Language"] = "?_src_=vars;remlanguage=[UID()]"
+	.["Add Organ"] = "?_src_=vars;addorgan=[UID()]"
+	.["Remove Organ"] = "?_src_=vars;remorgan=[UID()]"
+
+	.["Fix NanoUI"] = "?_src_=vars;fix_nano=[UID()]"
+
+	.["Add Verb"] = "?_src_=vars;addverb=[UID()]"
+	.["Remove Verb"] = "?_src_=vars;remverb=[UID()]"
+
+	.["Gib"] = "?_src_=vars;gib=[UID()]"
+
+/mob/proc/spin(spintime, speed)
+	set waitfor = 0
+	var/D = dir
+	while(spintime >= speed)
+		sleep(speed)
+		switch(D)
+			if(NORTH)
+				D = EAST
+			if(SOUTH)
+				D = WEST
+			if(EAST)
+				D = SOUTH
+			if(WEST)
+				D = NORTH
+		setDir(D)
+		spintime -= speed

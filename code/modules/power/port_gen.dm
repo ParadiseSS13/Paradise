@@ -3,7 +3,7 @@
 	name = "Placeholder Generator"	//seriously, don't use this. It can't be anchored without VV magic.
 	desc = "A portable generator for emergency backup power"
 	icon = 'icons/obj/power.dmi'
-	icon_state = "portgen0"
+	icon_state = "portgen0_0"
 	density = 1
 	anchored = 0
 	use_power = 0
@@ -13,6 +13,7 @@
 	var/open = 0
 	var/recent_fault = 0
 	var/power_output = 1
+	var/base_icon = "portgen0"
 
 /obj/machinery/power/port_gen/proc/IsBroken()
 	return (stat & (BROKEN|EMPED))
@@ -29,14 +30,17 @@
 /obj/machinery/power/port_gen/proc/handleInactive()
 	return
 
+/obj/machinery/power/port_gen/update_icon()
+	icon_state = "[base_icon]_[active]"
+
 /obj/machinery/power/port_gen/process()
 	if(active && HasFuel() && !IsBroken() && anchored && powernet)
 		add_avail(power_gen * power_output)
 		UseFuel()
 	else
 		active = 0
-		icon_state = initial(icon_state)
 		handleInactive()
+		update_icon()
 
 /obj/machinery/power/powered()
 	return 1 //doesn't require an external power source
@@ -362,11 +366,11 @@
 		if(href_list["action"] == "enable")
 			if(!active && HasFuel() && !IsBroken())
 				active = 1
-				icon_state = "portgen1"
+				update_icon()
 		if(href_list["action"] == "disable")
 			if(active)
 				active = 0
-				icon_state = "portgen0"
+				update_icon()
 		if(href_list["action"] == "eject")
 			if(!active)
 				DropFuel()
@@ -382,7 +386,8 @@
 /obj/machinery/power/port_gen/pacman/super
 	name = "S.U.P.E.R.P.A.C.M.A.N.-type Portable Generator"
 	desc = "A power generator that utilizes uranium sheets as fuel. Can run for much longer than the standard PACMAN type generators. Rated for 80 kW max safe output."
-	icon_state = "portgen1"
+	icon_state = "portgen1_0"
+	base_icon = "portgen1"
 	sheet_path = /obj/item/stack/sheet/mineral/uranium
 	sheet_name = "Uranium Sheets"
 	time_per_sheet = 576 //same power output, but a 50 sheet stack will last 2 hours at max safe power
@@ -420,7 +425,8 @@
 /obj/machinery/power/port_gen/pacman/mrs
 	name = "M.R.S.P.A.C.M.A.N.-type Portable Generator"
 	desc = "An advanced power generator that runs on diamonds. Rated for 200 kW maximum safe output!"
-	icon_state = "portgen2"
+	icon_state = "portgen2_0"
+	base_icon = "portgen2"
 	sheet_path = /obj/item/stack/sheet/mineral/diamond
 	sheet_name = "Diamond Sheets"
 

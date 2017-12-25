@@ -89,6 +89,11 @@
 
 				if("delete")
 					for(var/d in objs)
+						if(istype(d, /datum))
+							var/datum/D = d
+							if(!D.can_vv_delete())
+								to_chat(usr, "[D] rejected your deletion")
+								continue
 						qdel(d)
 
 				if("select")
@@ -124,11 +129,10 @@
 									if(++i == sets.len)
 										if(istype(temp, /turf) && (v == "x" || v == "y" || v == "z"))
 											continue
-										if(istype(temp.vars[v], /datum/admins))
-											continue
-										temp.vars[v] = SDQL_expression(d, set_list[sets])
+										if(!temp.vv_edit_var(v, SDQL_expression(d, set_list[sets])))
+											to_chat(usr, "[temp] rejected your varedit.")
 										break
-									if(temp.vars.Find(v) && (istype(temp.vars[v], /datum) || istype(temp.vars[v], /client)) && !istype(temp.vars[v], /datum/admins))
+									if(temp.vars.Find(v) && (istype(temp.vars[v], /datum) || istype(temp.vars[v], /client)))
 										temp = temp.vars[v]
 									else
 										break

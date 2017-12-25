@@ -16,11 +16,9 @@
 	return 0
 
 /mob/living/carbon/human/isSynthetic()
-	// If they are 100% robotic, they count as synthetic.
-	for(var/obj/item/organ/external/E in bodyparts)
-		if(!(E.status & ORGAN_ROBOT))
-			return 0
-	return 1
+	if(get_species() == "Machine")
+		return 1
+	return 0
 
 /mob/proc/get_screen_colour()
 
@@ -53,17 +51,17 @@
 			return 1
 	return 0
 
-proc/isLivingSSD(mob/M)
+/proc/isLivingSSD(mob/M)
 	return istype(M) && M.player_logged && M.stat != DEAD
 
-proc/isAntag(A)
+/proc/isAntag(A)
 	if(istype(A, /mob/living/carbon))
 		var/mob/living/carbon/C = A
 		if(C.mind && C.mind.special_role)
 			return 1
 	return 0
 
-proc/isNonCrewAntag(A)
+/proc/isNonCrewAntag(A)
 	if(!isAntag(A))
 		return 0
 
@@ -87,21 +85,28 @@ proc/isNonCrewAntag(A)
 
 	return 1
 
-proc/iscuffed(A)
+/proc/cannotPossess(A)
+	var/mob/dead/observer/G = A
+	if(G.has_enabled_antagHUD == 1 && config.antag_hud_restricted)
+		return 1
+	return 0
+
+
+/proc/iscuffed(A)
 	if(istype(A, /mob/living/carbon))
 		var/mob/living/carbon/C = A
 		if(C.handcuffed)
 			return 1
 	return 0
 
-proc/hassensorlevel(A, var/level)
+/proc/hassensorlevel(A, var/level)
 	var/mob/living/carbon/human/H = A
 	if(istype(H) && istype(H.w_uniform, /obj/item/clothing/under))
 		var/obj/item/clothing/under/U = H.w_uniform
 		return U.sensor_mode >= level
 	return 0
 
-proc/getsensorlevel(A)
+/proc/getsensorlevel(A)
 	var/mob/living/carbon/human/H = A
 	if(istype(H) && istype(H.w_uniform, /obj/item/clothing/under))
 		var/obj/item/clothing/under/U = H.w_uniform
@@ -172,7 +177,7 @@ proc/getsensorlevel(A)
 		p++
 	return t
 
-proc/slur(phrase, var/list/slurletters = ("'"))//use a different list as an input if you want to make robots slur with $#@%! characters
+/proc/slur(phrase, var/list/slurletters = ("'"))//use a different list as an input if you want to make robots slur with $#@%! characters
 	phrase = html_decode(phrase)
 	var/leng=lentext(phrase)
 	var/counter=lentext(phrase)
@@ -244,7 +249,7 @@ proc/slur(phrase, var/list/slurletters = ("'"))//use a different list as an inpu
 	return sanitize(copytext(t,1,MAX_MESSAGE_LEN))
 
 
-proc/Gibberish(t, p)//t is the inputted message, and any value higher than 70 for p will cause letters to be replaced instead of added
+/proc/Gibberish(t, p)//t is the inputted message, and any value higher than 70 for p will cause letters to be replaced instead of added
 	/* Turn text into complete gibberish! */
 	var/returntext = ""
 	for(var/i = 1, i <= length(t), i++)
@@ -339,30 +344,31 @@ var/list/intents = list(INTENT_HELP,INTENT_DISARM,INTENT_GRAB,INTENT_HARM)
 	set name = "a-intent"
 	set hidden = 1
 
-	if(ishuman(src) || isalienadult(src) || isbrain(src))
-		switch(input)
-			if(INTENT_HELP,INTENT_DISARM,INTENT_GRAB,INTENT_HARM)
-				a_intent = input
-			if("right")
-				a_intent = intent_numeric((intent_numeric(a_intent)+1) % 4)
-			if("left")
-				a_intent = intent_numeric((intent_numeric(a_intent)+3) % 4)
-		if(hud_used && hud_used.action_intent)
-			hud_used.action_intent.icon_state = "[a_intent]"
+	if(can_change_intents)
+		if(ishuman(src) || isalienadult(src) || isbrain(src))
+			switch(input)
+				if(INTENT_HELP,INTENT_DISARM,INTENT_GRAB,INTENT_HARM)
+					a_intent = input
+				if("right")
+					a_intent = intent_numeric((intent_numeric(a_intent)+1) % 4)
+				if("left")
+					a_intent = intent_numeric((intent_numeric(a_intent)+3) % 4)
+			if(hud_used && hud_used.action_intent)
+				hud_used.action_intent.icon_state = "[a_intent]"
 
-	else if(isrobot(src) || islarva(src))
-		switch(input)
-			if(INTENT_HELP)
-				a_intent = INTENT_HELP
-			if(INTENT_HARM)
-				a_intent = INTENT_HARM
-			if("right","left")
-				a_intent = intent_numeric(intent_numeric(a_intent) - 3)
-		if(hud_used && hud_used.action_intent)
-			if(a_intent == INTENT_HARM)
-				hud_used.action_intent.icon_state = "harm"
-			else
-				hud_used.action_intent.icon_state = "help"
+		else if(isrobot(src) || islarva(src))
+			switch(input)
+				if(INTENT_HELP)
+					a_intent = INTENT_HELP
+				if(INTENT_HARM)
+					a_intent = INTENT_HARM
+				if("right","left")
+					a_intent = intent_numeric(intent_numeric(a_intent) - 3)
+			if(hud_used && hud_used.action_intent)
+				if(a_intent == INTENT_HARM)
+					hud_used.action_intent.icon_state = "harm"
+				else
+					hud_used.action_intent.icon_state = "help"
 
 
 /mob/living/verb/mob_sleep()

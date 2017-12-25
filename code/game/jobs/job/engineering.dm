@@ -112,6 +112,9 @@
 	id = /obj/item/weapon/card/id/engineering
 	pda = /obj/item/device/pda/atmos
 
+	backpack = /obj/item/weapon/storage/backpack/industrial
+	satchel = /obj/item/weapon/storage/backpack/satchel_eng
+	dufflebag = /obj/item/weapon/storage/backpack/duffel/atmos
 	box = /obj/item/weapon/storage/box/engineer
 
 /datum/job/mechanic

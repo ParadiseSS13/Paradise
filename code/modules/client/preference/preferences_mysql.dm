@@ -118,34 +118,20 @@
 					age,
 					species,
 					language,
-					hair_red,
-					hair_green,
-					hair_blue,
-					secondary_hair_red,
-					secondary_hair_green,
-					secondary_hair_blue,
-					facial_red,
-					facial_green,
-					facial_blue,
-					secondary_facial_red,
-					secondary_facial_green,
-					secondary_facial_blue,
+					hair_colour,
+					secondary_hair_colour,
+					facial_hair_colour,
+					secondary_facial_hair_colour,
 					skin_tone,
-					skin_red,
-					skin_green,
-					skin_blue,
+					skin_colour,
 					marking_colours,
-					head_accessory_red,
-					head_accessory_green,
-					head_accessory_blue,
+					head_accessory_colour,
 					hair_style_name,
 					facial_style_name,
 					marking_styles,
 					head_accessory_style_name,
 					alt_head_name,
-					eyes_red,
-					eyes_green,
-					eyes_blue,
+					eye_colour,
 					underwear,
 					undershirt,
 					backbag,
@@ -194,61 +180,46 @@
 		species = query.item[6]
 		language = query.item[7]
 
-		//colors to be consolidated into hex strings (requires some work with dna code)
-		r_hair = text2num(query.item[8])
-		g_hair = text2num(query.item[9])
-		b_hair = text2num(query.item[10])
-		r_hair_sec = text2num(query.item[11])
-		g_hair_sec = text2num(query.item[12])
-		b_hair_sec = text2num(query.item[13])
-		r_facial = text2num(query.item[14])
-		g_facial = text2num(query.item[15])
-		b_facial = text2num(query.item[16])
-		r_facial_sec = text2num(query.item[17])
-		g_facial_sec = text2num(query.item[18])
-		b_facial_sec = text2num(query.item[19])
-		s_tone = text2num(query.item[20])
-		r_skin = text2num(query.item[21])
-		g_skin = text2num(query.item[22])
-		b_skin = text2num(query.item[23])
-		m_colours = params2list(query.item[24])
-		r_headacc = text2num(query.item[25])
-		g_headacc = text2num(query.item[26])
-		b_headacc = text2num(query.item[27])
-		h_style = query.item[28]
-		f_style = query.item[29]
-		m_styles = params2list(query.item[30])
-		ha_style = query.item[31]
-		alt_head = query.item[32]
-		r_eyes = text2num(query.item[33])
-		g_eyes = text2num(query.item[34])
-		b_eyes = text2num(query.item[35])
-		underwear = query.item[36]
-		undershirt = query.item[37]
-		backbag = query.item[38]
-		b_type = query.item[39]
+		h_colour = query.item[8]
+		h_sec_colour = query.item[9]
+		f_colour = query.item[10]
+		f_sec_colour = query.item[11]
+		s_tone = text2num(query.item[12])
+		s_colour = query.item[13]
+		m_colours = params2list(query.item[14])
+		hacc_colour = query.item[15]
+		h_style = query.item[16]
+		f_style = query.item[17]
+		m_styles = params2list(query.item[18])
+		ha_style = query.item[19]
+		alt_head = query.item[20]
+		e_colour = query.item[21]
+		underwear = query.item[22]
+		undershirt = query.item[23]
+		backbag = query.item[24]
+		b_type = query.item[25]
 
 
 		//Jobs
-		alternate_option = text2num(query.item[40])
-		job_support_high = text2num(query.item[41])
-		job_support_med = text2num(query.item[42])
-		job_support_low = text2num(query.item[43])
-		job_medsci_high = text2num(query.item[44])
-		job_medsci_med = text2num(query.item[45])
-		job_medsci_low = text2num(query.item[46])
-		job_engsec_high = text2num(query.item[47])
-		job_engsec_med = text2num(query.item[48])
-		job_engsec_low = text2num(query.item[49])
-		job_karma_high = text2num(query.item[50])
-		job_karma_med = text2num(query.item[51])
-		job_karma_low = text2num(query.item[52])
+		alternate_option = text2num(query.item[26])
+		job_support_high = text2num(query.item[27])
+		job_support_med = text2num(query.item[28])
+		job_support_low = text2num(query.item[29])
+		job_medsci_high = text2num(query.item[30])
+		job_medsci_med = text2num(query.item[31])
+		job_medsci_low = text2num(query.item[32])
+		job_engsec_high = text2num(query.item[33])
+		job_engsec_med = text2num(query.item[34])
+		job_engsec_low = text2num(query.item[35])
+		job_karma_high = text2num(query.item[36])
+		job_karma_med = text2num(query.item[37])
+		job_karma_low = text2num(query.item[38])
 
 		//Miscellaneous
-		flavor_text = query.item[53]
-		med_record = query.item[54]
-		sec_record = query.item[55]
-		gen_record = query.item[56]
+		flavor_text = query.item[39]
+		med_record = query.item[40]
+		sec_record = query.item[41]
+		gen_record = query.item[42]
 		// Apparently, the preceding vars weren't always encoded properly...
 		if(findtext(flavor_text, "<")) // ... so let's clumsily check for tags!
 			flavor_text = html_encode(flavor_text)
@@ -258,18 +229,18 @@
 			sec_record = html_encode(sec_record)
 		if(findtext(gen_record, "<"))
 			gen_record = html_encode(gen_record)
-		disabilities = text2num(query.item[57])
-		player_alt_titles = params2list(query.item[58])
-		organ_data = params2list(query.item[59])
-		rlimb_data = params2list(query.item[60])
-		nanotrasen_relation = query.item[61]
-		speciesprefs = text2num(query.item[62])
+		disabilities = text2num(query.item[43])
+		player_alt_titles = params2list(query.item[44])
+		organ_data = params2list(query.item[45])
+		rlimb_data = params2list(query.item[46])
+		nanotrasen_relation = query.item[47]
+		speciesprefs = text2num(query.item[48])
 
 		//socks
-		socks = query.item[63]
-		body_accessory = query.item[64]
-		gear = params2list(query.item[65])
-		autohiss_mode = text2num(query.item[66])
+		socks = query.item[49]
+		body_accessory = query.item[50]
+		gear = params2list(query.item[51])
+		autohiss_mode = text2num(query.item[52])
 
 	//Sanitize
 	var/datum/species/SP = all_species[species]
@@ -283,36 +254,22 @@
 	be_random_name	= sanitize_integer(be_random_name, 0, 1, initial(be_random_name))
 	gender			= sanitize_gender(gender, FALSE, !SP.has_gender)
 	age				= sanitize_integer(age, AGE_MIN, AGE_MAX, initial(age))
-	r_hair			= sanitize_integer(r_hair, 0, 255, initial(r_hair))
-	g_hair			= sanitize_integer(g_hair, 0, 255, initial(g_hair))
-	b_hair			= sanitize_integer(b_hair, 0, 255, initial(b_hair))
-	r_hair_sec		= sanitize_integer(r_hair_sec, 0, 255, initial(r_hair_sec))
-	g_hair_sec		= sanitize_integer(g_hair_sec, 0, 255, initial(g_hair_sec))
-	b_hair_sec		= sanitize_integer(b_hair_sec, 0, 255, initial(b_hair_sec))
-	r_facial		= sanitize_integer(r_facial, 0, 255, initial(r_facial))
-	g_facial		= sanitize_integer(g_facial, 0, 255, initial(g_facial))
-	b_facial		= sanitize_integer(b_facial, 0, 255, initial(b_facial))
-	r_facial_sec	= sanitize_integer(r_facial_sec, 0, 255, initial(r_facial_sec))
-	g_facial_sec	= sanitize_integer(g_facial_sec, 0, 255, initial(g_facial_sec))
-	b_facial_sec	= sanitize_integer(b_facial_sec, 0, 255, initial(b_facial_sec))
+	h_colour		= sanitize_hexcolor(h_colour)
+	h_sec_colour	= sanitize_hexcolor(h_sec_colour)
+	f_colour		= sanitize_hexcolor(f_colour)
+	f_sec_colour	= sanitize_hexcolor(f_sec_colour)
 	s_tone			= sanitize_integer(s_tone, -185, 34, initial(s_tone))
-	r_skin			= sanitize_integer(r_skin, 0, 255, initial(r_skin))
-	g_skin			= sanitize_integer(g_skin, 0, 255, initial(g_skin))
-	b_skin			= sanitize_integer(b_skin, 0, 255, initial(b_skin))
+	s_colour		= sanitize_hexcolor(s_colour)
 	for(var/marking_location in m_colours)
 		m_colours[marking_location] = sanitize_hexcolor(m_colours[marking_location], DEFAULT_MARKING_COLOURS[marking_location])
-	r_headacc		= sanitize_integer(r_headacc, 0, 255, initial(r_headacc))
-	g_headacc		= sanitize_integer(g_headacc, 0, 255, initial(g_headacc))
-	b_headacc		= sanitize_integer(b_headacc, 0, 255, initial(b_headacc))
-	h_style			= sanitize_inlist(h_style, hair_styles_list, initial(h_style))
+	hacc_colour		= sanitize_hexcolor(hacc_colour)
+	h_style			= sanitize_inlist(h_style, hair_styles_public_list, initial(h_style))
 	f_style			= sanitize_inlist(f_style, facial_hair_styles_list, initial(f_style))
 	for(var/marking_location in m_styles)
 		m_styles[marking_location] = sanitize_inlist(m_styles[marking_location], marking_styles_list, DEFAULT_MARKING_STYLES[marking_location])
 	ha_style		= sanitize_inlist(ha_style, head_accessory_styles_list, initial(ha_style))
 	alt_head		= sanitize_inlist(alt_head, alt_heads_list, initial(alt_head))
-	r_eyes			= sanitize_integer(r_eyes, 0, 255, initial(r_eyes))
-	g_eyes			= sanitize_integer(g_eyes, 0, 255, initial(g_eyes))
-	b_eyes			= sanitize_integer(b_eyes, 0, 255, initial(b_eyes))
+	e_colour		= sanitize_hexcolor(e_colour)
 	underwear		= sanitize_text(underwear, initial(underwear))
 	undershirt		= sanitize_text(undershirt, initial(undershirt))
 	backbag			= sanitize_text(backbag, initial(backbag))
@@ -373,34 +330,20 @@
 												age='[age]',
 												species='[sanitizeSQL(species)]',
 												language='[sanitizeSQL(language)]',
-												hair_red='[r_hair]',
-												hair_green='[g_hair]',
-												hair_blue='[b_hair]',
-												secondary_hair_red='[r_hair_sec]',
-												secondary_hair_green='[g_hair_sec]',
-												secondary_hair_blue='[b_hair_sec]',
-												facial_red='[r_facial]',
-												facial_green='[g_facial]',
-												facial_blue='[b_facial]',
-												secondary_facial_red='[r_facial_sec]',
-												secondary_facial_green='[g_facial_sec]',
-												secondary_facial_blue='[b_facial_sec]',
+												hair_colour='[h_colour]',
+												secondary_hair_colour='[h_sec_colour]',
+												facial_hair_colour='[f_colour]',
+												secondary_facial_hair_colour='[f_sec_colour]',
 												skin_tone='[s_tone]',
-												skin_red='[r_skin]',
-												skin_green='[g_skin]',
-												skin_blue='[b_skin]',
+												skin_colour='[s_colour]',
 												marking_colours='[sanitizeSQL(markingcolourslist)]',
-												head_accessory_red='[r_headacc]',
-												head_accessory_green='[g_headacc]',
-												head_accessory_blue='[b_headacc]',
+												head_accessory_colour='[hacc_colour]',
 												hair_style_name='[sanitizeSQL(h_style)]',
 												facial_style_name='[sanitizeSQL(f_style)]',
 												marking_styles='[sanitizeSQL(markingstyleslist)]',
 												head_accessory_style_name='[sanitizeSQL(ha_style)]',
 												alt_head_name='[sanitizeSQL(alt_head)]',
-												eyes_red='[r_eyes]',
-												eyes_green='[g_eyes]',
-												eyes_blue='[b_eyes]',
+												eye_colour='[e_colour]',
 												underwear='[underwear]',
 												undershirt='[undershirt]',
 												backbag='[backbag]',
@@ -446,19 +389,17 @@
 	var/DBQuery/query = dbcon.NewQuery({"
 					INSERT INTO [format_table_name("characters")] (ckey, slot, OOC_Notes, real_name, name_is_always_random, gender,
 											age, species, language,
-											hair_red, hair_green, hair_blue,
-											secondary_hair_red, secondary_hair_green, secondary_hair_blue,
-											facial_red, facial_green, facial_blue,
-											secondary_facial_red, secondary_facial_green, secondary_facial_blue,
-											skin_tone, skin_red, skin_green, skin_blue,
+											hair_colour, secondary_hair_colour,
+											facial_hair_colour, secondary_facial_hair_colour,
+											skin_tone, skin_colour,
 											marking_colours,
-											head_accessory_red, head_accessory_green, head_accessory_blue,
+											head_accessory_colour,
 											hair_style_name,
 											facial_style_name,
 											marking_styles,
 											head_accessory_style_name,
 											alt_head_name,
-											eyes_red, eyes_green, eyes_blue,
+											eye_colour,
 											underwear, undershirt,
 											backbag, b_type, alternate_option,
 											job_support_high, job_support_med, job_support_low,
@@ -476,19 +417,17 @@
 					VALUES
 											('[C.ckey]', '[default_slot]', '[sanitizeSQL(metadata)]', '[sanitizeSQL(real_name)]', '[be_random_name]','[gender]',
 											'[age]', '[sanitizeSQL(species)]', '[sanitizeSQL(language)]',
-											'[r_hair]', '[g_hair]', '[b_hair]',
-											'[r_hair_sec]', '[g_hair_sec]', '[b_hair_sec]',
-											'[r_facial]', '[g_facial]', '[b_facial]',
-											'[r_facial_sec]', '[g_facial_sec]', '[b_facial_sec]',
-											'[s_tone]', '[r_skin]', '[g_skin]', '[b_skin]',
+											'[h_colour]', '[h_sec_colour]',
+											'[f_colour]', '[f_sec_colour]',
+											'[s_tone]', '[s_colour]',
 											'[sanitizeSQL(markingcolourslist)]',
-											'[r_headacc]', '[g_headacc]', '[b_headacc]',
+											'[hacc_colour]',
 											'[sanitizeSQL(h_style)]',
 											'[sanitizeSQL(f_style)]',
 											'[sanitizeSQL(markingstyleslist)]',
 											'[sanitizeSQL(ha_style)]',
 											'[sanitizeSQL(alt_head)]',
-											'[r_eyes]', '[g_eyes]', '[b_eyes]',
+											'[e_colour]',
 											'[underwear]', '[undershirt]',
 											'[backbag]', '[b_type]', '[alternate_option]',
 											'[job_support_high]', '[job_support_med]', '[job_support_low]',

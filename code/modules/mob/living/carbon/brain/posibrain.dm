@@ -25,12 +25,14 @@
 		to_chat(user, "<span class='notice'>You carefully locate the manual activation switch and start the positronic brain's boot process.</span>")
 		icon_state = "posibrain-searching"
 		ghost_volunteers.Cut()
-		src.searching = 1
-		src.request_player()
+		searching = 1
+		request_player()
 		spawn(600)
 			if(ghost_volunteers.len)
-				var/mob/dead/observer/O = pick(ghost_volunteers)
-				if(check_observer(O))
+				var/mob/dead/observer/O
+				while(!istype(O) && ghost_volunteers.len)
+					O = pick_n_take(ghost_volunteers)
+				if(istype(O) && check_observer(O))
 					transfer_personality(O)
 			reset_search()
 	else
@@ -45,7 +47,7 @@
 			to_chat(O, "<span class='boldnotice'>\A [src] has been activated. (<a href='?src=[O.UID()];jump=\ref[src]'>Teleport</a> | <a href='?src=[UID()];signup=\ref[O]'>Sign Up</a>)</span>")
 
 /obj/item/device/mmi/posibrain/proc/check_observer(var/mob/dead/observer/O)
-	if(O.has_enabled_antagHUD == 1 && config.antag_hud_restricted)
+	if(cannotPossess(O))
 		return 0
 	if(jobban_isbanned(O, "Cyborg") || jobban_isbanned(O,"nonhumandept"))
 		return 0
@@ -131,7 +133,7 @@
 	if(!check_observer(O))
 		to_chat(O, "<span class='warning'>You cannot be \a [src].</span>")
 		return
-	if(O.has_enabled_antagHUD == 1 && config.antag_hud_restricted)
+	if(cannotPossess(O))
 		to_chat(O, "<span class='warning'>Upon using the antagHUD you forfeited the ability to join the round.</span>")
 		return
 	if(jobban_isbanned(O, "Cyborg") || jobban_isbanned(O,"nonhumandept"))

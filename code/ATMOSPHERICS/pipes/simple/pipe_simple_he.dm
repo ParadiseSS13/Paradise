@@ -13,7 +13,7 @@
 	buckle_lying = 1
 	var/icon_temperature = T20C //stop small changes in temperature causing icon refresh
 
-/obj/machinery/atmospherics/pipe/simple/heat_exchanging/process()
+/obj/machinery/atmospherics/pipe/simple/heat_exchanging/process_atmos()
 	var/environment_temperature = 0
 	var/datum/gas_mixture/pipe_air = return_air()
 	if(!pipe_air)

@@ -53,7 +53,7 @@
 			var/list/candidates = pollCandidates("Do you want to play as the wizard apprentice of [H.real_name]?", ROLE_WIZARD, 1)
 			if(candidates.len)
 				var/mob/C = pick(candidates)
-				new /obj/effect/effect/harmless_smoke(H.loc)
+				new /obj/effect/particle_effect/smoke(H.loc)
 				var/mob/living/carbon/human/M = new/mob/living/carbon/human(H.loc)
 				M.key = C.key
 				to_chat(M, "<B>You are the [H.real_name]'s apprentice! You are bound by magic contract to follow their orders and help them in accomplishing their goals.")
@@ -231,7 +231,6 @@ var/global/list/multiverse = list()
 	force = 20
 	throwforce = 10
 	sharp = 1
-	edge = 1
 	w_class = WEIGHT_CLASS_SMALL
 	attack_verb = list("attacked", "slashed", "stabbed", "sliced", "torn", "ripped", "diced", "cut")
 	var/faction = list("unassigned")
@@ -465,7 +464,7 @@ var/global/list/multiverse = list()
 			if("cyborg")
 				if(M.get_species() != "Machine")
 					for(var/obj/item/organ/O in M.bodyparts)
-						O.robotize()
+						O.robotize(make_tough = 1)
 				M.equip_to_slot_or_del(new /obj/item/clothing/glasses/thermal/eyepatch(M), slot_glasses)
 				M.equip_to_slot_or_del(sword, slot_r_hand)
 
@@ -526,7 +525,7 @@ var/global/list/multiverse = list()
 				M.equip_to_slot_or_del(sword, slot_r_hand)
 				for(var/obj/item/carried_item in M.contents)
 					if(!istype(carried_item, /obj/item/weapon/implant))
-						carried_item.add_blood(M)
+						carried_item.add_mob_blood(M)
 
 			if("pirate")
 				M.equip_to_slot_or_del(new /obj/item/clothing/under/pirate(M), slot_w_uniform)
@@ -780,7 +779,7 @@ var/global/list/multiverse = list()
 			to_chat(target, "<span class='userdanger'>You suddenly feel very hot</span>")
 			target.bodytemperature += 50
 			GiveHint(target)
-		else if(can_puncture(I))
+		else if(is_pointed(I))
 			to_chat(target, "<span class='userdanger'>You feel a stabbing pain in [parse_zone(user.zone_sel.selecting)]!</span>")
 			target.Weaken(2)
 			GiveHint(target)

@@ -188,7 +188,7 @@ for reference:
 						to_chat(user, "Barrier lock toggled off.")
 						return
 				else
-					var/datum/effect/system/spark_spread/s = new /datum/effect/system/spark_spread
+					var/datum/effect_system/spark_spread/s = new /datum/effect_system/spark_spread
 					s.set_up(2, 1, src)
 					s.start()
 					visible_message("<span class='warning'>BZZzZZzZZzZT</span>")
@@ -223,14 +223,14 @@ for reference:
 			emagged = 1
 			req_access = null
 			to_chat(user, "You break the ID authentication lock on the [src].")
-			var/datum/effect/system/spark_spread/s = new /datum/effect/system/spark_spread
+			var/datum/effect_system/spark_spread/s = new /datum/effect_system/spark_spread
 			s.set_up(2, 1, src)
 			s.start()
 			visible_message("<span class='warning'>BZZzZZzZZzZT</span>")
 		else if(src.emagged == 1)
 			src.emagged = 2
 			to_chat(user, "You short out the anchoring mechanism on the [src].")
-			var/datum/effect/system/spark_spread/s = new /datum/effect/system/spark_spread
+			var/datum/effect_system/spark_spread/s = new /datum/effect_system/spark_spread
 			s.set_up(2, 1, src)
 			s.start()
 			visible_message("<span class='warning'>BZZzZZzZZzZT</span>")
@@ -275,7 +275,7 @@ for reference:
 	/*	var/obj/item/stack/rods/ =*/
 		new /obj/item/stack/rods(Tsec)
 
-		var/datum/effect/system/spark_spread/s = new /datum/effect/system/spark_spread
+		var/datum/effect_system/spark_spread/s = new /datum/effect_system/spark_spread
 		s.set_up(3, 1, src)
 		s.start()
 

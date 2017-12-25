@@ -26,25 +26,21 @@
 	var/slowdown = 0              // Passive movement speed malus (or boost, if negative)
 	var/silent_steps = 0          // Stops step noises
 
-	var/breath_type = "oxygen"   // Non-oxygen gas breathed, if any.
-	var/poison_type = "plasma"   // Poisonous air.
-	var/exhale_type = "carbon_dioxide"      // Exhaled gas type.
-
 	var/cold_level_1 = 260  // Cold damage level 1 below this point.
 	var/cold_level_2 = 200  // Cold damage level 2 below this point.
 	var/cold_level_3 = 120  // Cold damage level 3 below this point.
-	var/cold_env_multiplier = 1 // Damage multiplier for being in a cold environment
+	var/coldmod = 1 // Damage multiplier for being in a cold environment
 
 	var/heat_level_1 = 360  // Heat damage level 1 above this point.
 	var/heat_level_2 = 400  // Heat damage level 2 above this point.
 	var/heat_level_3 = 460 // Heat damage level 3 above this point; used for body temperature
-	var/hot_env_multiplier = 1 // Damage multiplier for being in a hot environment
-	var/heat_level_3_breathe = 1000 // Heat damage level 3 above this point; used for breathed air temperature
+	var/heatmod = 1 // Damage multiplier for being in a hot environment
 
 	var/body_temperature = 310.15	//non-IS_SYNTHETIC species will try to stabilize at this temperature. (also affects temperature processing)
 	var/reagent_tag                 //Used for metabolizing reagents.
 	var/hunger_drain = HUNGER_FACTOR
 	var/digestion_ratio = 1 //How quickly the species digests/absorbs reagents.
+	var/taste_sensitivity = TASTE_SENSITIVITY_NORMAL //the most widely used factor; humans use a different one
 
 	var/siemens_coeff = 1 //base electrocution coefficient
 
@@ -55,19 +51,6 @@
 	var/warning_low_pressure = WARNING_LOW_PRESSURE   // Low pressure warning.
 	var/hazard_low_pressure = HAZARD_LOW_PRESSURE     // Dangerously low pressure.
 
-	var/list/atmos_requirements = list(
-		"min_oxy" = 16,
-		"max_oxy" = 0,
-		"min_nitro" = 0,
-		"max_nitro" = 0,
-		"min_tox" = 0,
-		"max_tox" = 0.005,
-		"min_co2" = 0,
-		"max_co2" = 10,
-		"sa_para" = 1,
-		"sa_sleep" = 5
-		)
-
 	var/brute_mod = 1    // Physical damage reduction/amplification
 	var/burn_mod = 1     // Burn damage reduction/amplification
 	var/tox_mod = 1      // Toxin damage reduction/amplification
@@ -75,6 +58,8 @@
 	var/clone_mod = 1	 // Clone damage reduction/amplification
 	var/brain_mod = 1    // Brain damage damage reduction/amplification
 	var/stun_mod = 1	 // If a species is more/less impacated by stuns/weakens/paralysis
+
+	var/blood_damage_type = OXY //What type of damage does this species take if it's low on blood?
 
 	var/total_health = 100
 	var/punchdamagelow = 0       //lowest possible punch damage
@@ -89,7 +74,10 @@
 
 	var/list/allowed_consumed_mobs = list() //If a species can consume mobs, put the type of mobs it can consume here.
 
-	var/flags = 0       // Various specific features.
+	var/list/species_traits = list()
+
+	var/breathid = "o2"
+
 	var/clothing_flags = 0 // Underwear and socks.
 	var/exotic_blood
 	var/bodyflags = 0
@@ -108,7 +96,6 @@
 	var/icon/icon_template
 	var/is_small
 	var/show_ssd = 1
-	var/virus_immune
 	var/can_revive_by_healing				// Determines whether or not this species can be revived by simply healing them
 	var/has_gender = TRUE
 
@@ -208,177 +195,9 @@
 	for(var/obj/item/organ/external/O in H.bodyparts)
 		O.owner = H
 
-/datum/species/proc/handle_breath(var/datum/gas_mixture/breath, var/mob/living/carbon/human/H)
-	var/breath_pressure = (breath.total_moles()*R_IDEAL_GAS_EQUATION*breath.temperature)/BREATH_VOLUME
-
-	var/O2_used = 0
-	var/N2_used = 0
-	var/Tox_used = 0
-	var/CO2_used = 0
-
-	//Partial pressure of the O2 in our breath
-	var/O2_pp = (breath.oxygen/breath.total_moles()) * breath_pressure
-	// Partial pressure of Nitrogen
-	var/N2_pp = (breath.nitrogen/breath.total_moles()) * breath_pressure
-	// Partial pressure of plasma
-	var/Tox_pp = (breath.toxins/breath.total_moles()) * breath_pressure
-	// Partial pressure of CO2
-	var/CO2_pp = (breath.carbon_dioxide/breath.total_moles()) * breath_pressure
-
-	if(O2_pp < atmos_requirements["min_oxy"])
-		if(prob(20))
-			spawn(0)
-				H.emote("gasp")
-
-		H.failed_last_breath = 1
-		if(O2_pp > 0)
-			var/ratio = atmos_requirements["min_oxy"] / O2_pp
-			H.adjustOxyLoss(min(5 * ratio, HUMAN_MAX_OXYLOSS))
-		else
-			H.adjustOxyLoss(HUMAN_MAX_OXYLOSS)
-		H.throw_alert("oxy", /obj/screen/alert/oxy)
-	else if(atmos_requirements["max_oxy"] && O2_pp > atmos_requirements["max_oxy"])
-		var/ratio = (breath.oxygen / atmos_requirements["max_oxy"]) * 1000
-		H.adjustToxLoss(Clamp(ratio, MIN_PLASMA_DAMAGE, MAX_PLASMA_DAMAGE))
-		H.throw_alert("oxy", /obj/screen/alert/too_much_oxy)
-	else
-		H.clear_alert("oxy")
-		if(atmos_requirements["min_oxy"]) //species breathes this gas, so, they got their air
-			H.failed_last_breath = 0
-			H.adjustOxyLoss(-5)
-			O2_used = breath.oxygen / 6
-
-	if(N2_pp < atmos_requirements["min_nitro"])
-		if(prob(20))
-			spawn(0)
-				H.emote("gasp")
-
-		H.failed_last_breath = 1
-		if(N2_pp > 0)
-			var/ratio = atmos_requirements["min_nitro"] / N2_pp
-			H.adjustOxyLoss(min(5 * ratio, HUMAN_MAX_OXYLOSS))
-		else
-			H.adjustOxyLoss(HUMAN_MAX_OXYLOSS)
-		H.throw_alert("nitro", /obj/screen/alert/nitro)
-	else if(atmos_requirements["max_nitro"] && N2_pp > atmos_requirements["max_nitro"])
-		var/ratio = (breath.nitrogen / atmos_requirements["max_nitro"]) * 1000
-		H.adjustToxLoss(Clamp(ratio, MIN_PLASMA_DAMAGE, MAX_PLASMA_DAMAGE))
-		H.throw_alert("nitro", /obj/screen/alert/too_much_nitro)
-	else
-		H.clear_alert("nitro")
-		if(atmos_requirements["min_nitro"]) //species breathes this gas, so they got their air
-			H.failed_last_breath = 0
-			H.adjustOxyLoss(-5)
-			N2_used = breath.nitrogen / 6
-
-	if(Tox_pp < atmos_requirements["min_tox"])
-		if(prob(20))
-			spawn(0)
-				H.emote("gasp")
-
-		H.failed_last_breath = 1
-		if(Tox_pp > 0)
-			var/ratio = atmos_requirements["min_tox"] / Tox_pp
-			H.adjustOxyLoss(min(5 * ratio, HUMAN_MAX_OXYLOSS))
-		else
-			H.adjustOxyLoss(HUMAN_MAX_OXYLOSS)
-		H.throw_alert("tox_in_air", /obj/screen/alert/not_enough_tox)
-	else if(atmos_requirements["max_tox"] && Tox_pp > atmos_requirements["max_tox"])
-		var/ratio = (breath.toxins / atmos_requirements["max_tox"]) * 10
-		if(H.reagents)
-			H.reagents.add_reagent("plasma", Clamp(ratio, MIN_PLASMA_DAMAGE, MAX_PLASMA_DAMAGE))
-		H.throw_alert("tox_in_air", /obj/screen/alert/tox_in_air)
-	else
-		H.clear_alert("tox_in_air")
-		if(atmos_requirements["min_tox"]) //species breathes this gas, so, they got their air
-			H.failed_last_breath = 0
-			H.adjustOxyLoss(-5)
-			Tox_used = breath.toxins / 6
-
-	if(CO2_pp < atmos_requirements["min_co2"])
-		if(prob(20))
-			spawn(0)
-				H.emote("gasp")
-
-		H.failed_last_breath = 1
-		if(CO2_pp)
-			var/ratio = atmos_requirements["min_co2"] / CO2_pp
-			H.adjustOxyLoss(min(5 * ratio, HUMAN_MAX_OXYLOSS))
-		else
-			H.adjustOxyLoss(HUMAN_MAX_OXYLOSS)
-		H.throw_alert("co2", /obj/screen/alert/not_enough_co2)
-	else if(atmos_requirements["max_co2"] && CO2_pp > atmos_requirements["max_co2"])
-		if(!H.co2overloadtime) // If it's the first breath with too much CO2 in it, lets start a counter, then have them pass out after 12s or so.
-			H.co2overloadtime = world.time
-		else if(world.time - H.co2overloadtime > 120)
-			H.Paralyse(5)
-			H.adjustOxyLoss(3) // Lets hurt em a little, let them know we mean business
-			if(world.time - H.co2overloadtime > 300) // They've been in here 30s now, lets start to kill them for their own good!
-				H.adjustOxyLoss(8)
-		if(prob(20)) // Lets give them some chance to know somethings not right though I guess.
-			spawn(0)
-				H.emote("cough")
-	else
-		H.clear_alert("co2")
-		H.co2overloadtime = 0
-		if(atmos_requirements["min_co2"]) //species breathes this gas, so they got their air
-			H.failed_last_breath = 0
-			H.adjustOxyLoss(-5)
-			CO2_used = breath.carbon_dioxide / 6
-
-	breath.oxygen   		-= O2_used
-	breath.nitrogen 		-= N2_used
-	breath.toxins   		-= Tox_used
-	breath.carbon_dioxide 	-= CO2_used
-	breath.carbon_dioxide 	+= O2_used
-
-
-	if(breath.trace_gases.len)	// If there's some other shit in the air lets deal with it here.
-		for(var/datum/gas/sleeping_agent/SA in breath.trace_gases)
-			var/SA_pp = (SA.moles / breath.total_moles()) * breath_pressure
-			if(SA_pp > atmos_requirements["sa_para"]) // Enough to make us paralysed for a bit
-				H.Paralyse(3) // 3 gives them one second to wake up and run away a bit!
-				if(SA_pp > atmos_requirements["sa_sleep"]) // Enough to make us sleep as well
-					// This value is large because breaths are taken only once every 4 life ticks.
-					H.AdjustSleeping(8, bound_lower = 0, bound_upper = 10)
-			else if(SA_pp > 0.01)	// There is sleeping gas in their lungs, but only a little, so give them a bit of a warning
-				if(prob(20))
-					spawn(0)
-						H.emote(pick("giggle", "laugh"))
-
-	handle_temperature(breath, H)
-	return 1
-
-/datum/species/proc/handle_temperature(datum/gas_mixture/breath, var/mob/living/carbon/human/H) // called by human/life, handles temperatures
-	if(abs(310.15 - breath.temperature) > 50) // Hot air hurts :(
-		if(H.status_flags & GODMODE)	return 1	//godmode
-		if(breath.temperature < cold_level_1)
-			if(prob(20))
-				to_chat(H, "<span class='warning'>You feel your face freezing and an icicle forming in your lungs!</span>")
-		else if(breath.temperature > heat_level_1)
-			if(prob(20))
-				to_chat(H, "<span class='warning'>You feel your face burning and a searing heat in your lungs!</span>")
-
-
-
-		switch(breath.temperature)
-			if(-INFINITY to cold_level_3)
-				H.apply_damage(cold_env_multiplier*COLD_GAS_DAMAGE_LEVEL_3, BURN, "head", used_weapon = "Excessive Cold")
-
-			if(cold_level_3 to cold_level_2)
-				H.apply_damage(cold_env_multiplier*COLD_GAS_DAMAGE_LEVEL_2, BURN, "head", used_weapon = "Excessive Cold")
-
-			if(cold_level_2 to cold_level_1)
-				H.apply_damage(cold_env_multiplier*COLD_GAS_DAMAGE_LEVEL_1, BURN, "head", used_weapon = "Excessive Cold")
-
-			if(heat_level_1 to heat_level_2)
-				H.apply_damage(hot_env_multiplier*HEAT_GAS_DAMAGE_LEVEL_1, BURN, "head", used_weapon = "Excessive Heat")
-
-			if(heat_level_2 to heat_level_3_breathe)
-				H.apply_damage(hot_env_multiplier*HEAT_GAS_DAMAGE_LEVEL_2, BURN, "head", used_weapon = "Excessive Heat")
-
-			if(heat_level_3_breathe to INFINITY)
-				H.apply_damage(hot_env_multiplier*HEAT_GAS_DAMAGE_LEVEL_3, BURN, "head", used_weapon = "Excessive Heat")
+/datum/species/proc/breathe(mob/living/carbon/human/H)
+	if((NO_BREATHE in species_traits) || (BREATHLESS in H.mutations))
+		return TRUE
 
 ////////////////
 // MOVE SPEED //
@@ -398,9 +217,6 @@
 
 	if(has_gravity(H))
 		gravity = 1
-
-	if(H.embedded_flag)
-		H.handle_embedded_objects() //Moving with objects stuck in you can cause bad times.
 
 	if(!ignoreslow && gravity)
 		if(slowdown)
@@ -473,13 +289,19 @@
 // Return 1 if it should do normal processing too
 // Return 0 if it shouldn't deplete and do its normal effect
 // Other return values will cause weird badness
-/datum/species/proc/handle_reagents(var/mob/living/carbon/human/H, var/datum/reagent/R)
+/datum/species/proc/handle_reagents(mob/living/carbon/human/H, datum/reagent/R)
+	if(R.id == exotic_blood)
+		H.blood_volume = min(H.blood_volume + round(R.volume, 0.1), BLOOD_VOLUME_NORMAL)
+		H.reagents.del_reagent(R.id)
+		return 0
 	return 1
 
 // For special snowflake species effects
 // (Slime People changing color based on the reagents they consume)
 /datum/species/proc/handle_life(var/mob/living/carbon/human/H)
-	return 1
+	if((NO_BREATHE in species_traits) || (BREATHLESS in H.mutations))
+		H.setOxyLoss(0)
+		H.SetLoseBreath(0)
 
 /datum/species/proc/handle_dna(var/mob/living/carbon/C, var/remove) //Handles DNA mutations, as that doesn't work at init. Make sure you call genemutcheck on any blocks changed here
 	return
@@ -519,7 +341,6 @@
 	var/attack_sound = "punch"
 	var/miss_sound = 'sound/weapons/punchmiss.ogg'
 	var/sharp = 0
-	var/edge = 0
 
 /datum/unarmed_attack/punch
 	attack_verb = list("punch")
@@ -535,7 +356,6 @@
 	attack_sound = 'sound/weapons/slice.ogg'
 	miss_sound = 'sound/weapons/slashmiss.ogg'
 	sharp = 1
-	edge = 1
 
 /datum/unarmed_attack/claws/armalis
 	attack_verb = list("slash", "claw")
@@ -590,7 +410,7 @@
 				if(SCREWYHUD_DEAD)	H.healths.icon_state = "health7"
 				if(SCREWYHUD_HEALTHY)	H.healths.icon_state = "health0"
 				else
-					switch(100 - ((flags & NO_PAIN) ? 0 : H.traumatic_shock) - H.staminaloss)
+					switch(100 - ((NO_PAIN in species_traits) ? 0 : H.traumatic_shock) - H.staminaloss)
 						if(100 to INFINITY)		H.healths.icon_state = "health0"
 						if(80 to 100)			H.healths.icon_state = "health1"
 						if(60 to 80)			H.healths.icon_state = "health2"
@@ -743,3 +563,9 @@ It'll return null if the organ doesn't correspond, so include null checks when u
 
 	if(H.see_override)	//Override all
 		H.see_invisible = H.see_override
+
+/datum/species/proc/water_act(mob/living/carbon/human/M, volume, temperature, source)
+	if(temperature >= 330)
+		M.bodytemperature = M.bodytemperature + (temperature - M.bodytemperature)
+	if(temperature <= 280)
+		M.bodytemperature = M.bodytemperature - (M.bodytemperature - temperature)

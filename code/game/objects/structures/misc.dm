@@ -61,7 +61,7 @@
 /obj/structure/respawner
 	name = "\improper Long-Distance Cloning Machine"
 	desc = "Top-of-the-line Nanotrasen technology allows for cloning of crew members from off-station upon bluespace request."
-	icon = 'icons/obj/xenoarchaeology.dmi'
+	icon = 'icons/obj/objects.dmi'
 	icon_state = "borgcharger1(old)"
 	anchored = 1
 	density = 1
@@ -121,3 +121,12 @@
 	if(last_ghost_alert + ghost_alert_delay < world.time)
 		notify_ghosts("[src] active in [get_area(src)].", 'sound/effects/ghost2.ogg', title = alert_title, source = attack_atom, action = (attack_atom == src ? NOTIFY_JUMP : NOTIFY_ATTACK))
 		last_ghost_alert = world.time
+
+/obj/structure/boulder
+	name = "boulder"
+	desc = "A large rock."
+	icon = 'icons/obj/mining.dmi'
+	icon_state = "boulder1"
+	density = TRUE
+	opacity = TRUE
+	anchored = TRUE

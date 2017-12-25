@@ -1,10 +1,11 @@
 /**********************************************************************
 						Cyborg Spec Items
 ***********************************************************************/
-//Might want to move this into several files later but for now it works here
+/obj/item/borg
+	icon = 'icons/mob/robot_items.dmi'
+
 /obj/item/borg/stun
-	name = "electrified arm"
-	icon = 'icons/obj/items.dmi'
+	name = "electrically-charged arm"
 	icon_state = "elecarm"
 	var/charge_cost = 30
 
@@ -15,8 +16,9 @@
 			playsound(M, 'sound/weapons/Genhit.ogg', 50, 1)
 			return 0
 
-	if(!user.cell.use(charge_cost))
-		return
+	if(isrobot(user))
+		if(!user.cell.use(charge_cost))
+			return
 
 	user.do_attack_animation(M)
 	M.Weaken(5)

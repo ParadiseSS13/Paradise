@@ -254,6 +254,9 @@
 #define REGION_COMMAND		7
 #define REGION_CENTCOMM		8
 
+//Just space
+#define SPACE_ICON_STATE	"[((x + y) ^ ~(x * y) + z) % 25]"
+
 //used for maploader
 #define MAP_MINX 1
 #define MAP_MINY 2
@@ -297,10 +300,6 @@
 #define FLAMMABLE 0
 #define ON_FIRE 1
 
-// Sound
-#define SOUND_MINIMUM_PRESSURE 10
-#define FALLOFF_SOUNDS 0.5
-
 // Bluespace shelter deploy checks
 #define SHELTER_DEPLOY_ALLOWED "allowed"
 #define SHELTER_DEPLOY_BAD_TURFS "bad turfs"
@@ -335,3 +334,18 @@
 #define SECOND_DIAG_STEP 2
 
 #define ARBITRARY_VIEWRANGE_NOHUD 2
+#define SECOND_DIAG_STEP 2
+
+//Bloody shoes/footprints
+#define MAX_SHOE_BLOODINESS			100
+#define BLOODY_FOOTPRINT_BASE_ALPHA	150
+#define BLOOD_GAIN_PER_STEP			100
+#define BLOOD_LOSS_PER_STEP			5
+
+//Bloody shoe blood states
+#define BLOOD_STATE_HUMAN			"blood"
+#define BLOOD_STATE_XENO			"xeno"
+#define BLOOD_STATE_NOT_BLOODY		"no blood whatsoever"
+
+// The SQL version required by this version of the code
+#define SQL_VERSION 1

@@ -1,5 +1,3 @@
-//This file was auto-corrected by findeclaration.exe on 25.5.2012 20:42:32
-
 /*
 CONTAINS:
 RCD
@@ -22,7 +20,7 @@ RCD
 	origin_tech = "engineering=4;materials=2"
 	toolspeed = 1
 	usesound = 'sound/items/Deconstruct.ogg'
-	var/datum/effect/system/spark_spread/spark_system
+	var/datum/effect_system/spark_spread/spark_system
 	var/max_matter = 100
 	var/matter = 0
 	var/working = 0
@@ -45,11 +43,13 @@ RCD
 		/obj/machinery/door/airlock/glass_security = "Security (Glass)", /obj/machinery/door/airlock/glass_medical = "Medical (Glass)",
 		/obj/machinery/door/airlock/mining = "Mining", /obj/machinery/door/airlock/atmos = "Atmospherics",
 		/obj/machinery/door/airlock/research = "Research", /obj/machinery/door/airlock/glass_research = "Research (Glass)",
-		/obj/machinery/door/airlock/glass_mining = "Mining (Glass)", /obj/machinery/door/airlock/glass_atmos = "Atmospherics (Glass)")
+		/obj/machinery/door/airlock/glass_mining = "Mining (Glass)", /obj/machinery/door/airlock/glass_atmos = "Atmospherics (Glass)",
+		/obj/machinery/door/airlock/science = "Science", /obj/machinery/door/airlock/glass_science = "Science (Glass)",
+		/obj/machinery/door/airlock/hatch = "Airtight Hatch", /obj/machinery/door/airlock/maintenance_hatch = "Maintenance Hatch")
 
 /obj/item/weapon/rcd/New()
 	desc = "A RCD. It currently holds [matter]/[max_matter] matter-units."
-	spark_system = new /datum/effect/system/spark_spread
+	spark_system = new /datum/effect_system/spark_spread
 	spark_system.set_up(5, 0, src)
 	spark_system.attach(src)
 	rcd_list += src
@@ -82,6 +82,9 @@ RCD
 
 /obj/item/weapon/rcd/attack_self(mob/user)
 	//Change the mode
+	ui_interact(user)
+
+/obj/item/weapon/rcd/attack_self_tk(mob/user)
 	ui_interact(user)
 
 /obj/item/weapon/rcd/ui_interact(mob/user, ui_key = "main", var/datum/nanoui/ui = null, var/force_open = 1, var/datum/topic_state/state = inventory_state)

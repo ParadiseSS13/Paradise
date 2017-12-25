@@ -27,7 +27,7 @@
 	desc = "A .38 bullet casing."
 	caliber = "38"
 	icon_state = "r-casing"
-	projectile_type = /obj/item/projectile/bullet/weakbullet2/rubber
+	projectile_type = /obj/item/projectile/bullet/weakbullet2
 
 /obj/item/ammo_casing/c10mm
 	desc = "A 10mm bullet casing."
@@ -134,7 +134,7 @@
 	name = "rubber shot"
 	desc = "A shotgun casing filled with densely-packed rubber balls, used to incapacitate crowds from a distance."
 	icon_state = "cshell"
-	projectile_type = /obj/item/projectile/bullet/rpellet
+	projectile_type = /obj/item/projectile/bullet/pellet/rubber
 	pellets = 6
 	variance = 25
 	materials = list(MAT_METAL=4000)
@@ -144,7 +144,7 @@
 	name = "beanbag slug"
 	desc = "A weak beanbag slug for riot control."
 	icon_state = "bshell"
-	projectile_type = /obj/item/projectile/bullet/weakbullet/rubber
+	projectile_type = /obj/item/projectile/bullet/weakbullet
 	materials = list(MAT_METAL=250)
 
 
@@ -248,7 +248,6 @@
 	..()
 	flags |= OPENCONTAINER
 	create_reagents(30)
-	reagents.set_reacting(FALSE)
 
 /obj/item/ammo_casing/shotgun/dart/attackby()
 	return

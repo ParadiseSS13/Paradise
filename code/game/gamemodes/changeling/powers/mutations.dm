@@ -76,10 +76,8 @@
 		H.update_fhair()
 
 		if(blood_on_castoff)
-			var/turf/simulated/T = get_turf(H)
-			if(istype(T))
-				T.add_blood(H) //So real blood decals
-				playsound(H.loc, 'sound/effects/splat.ogg', 50, 1) //So real sounds
+			H.add_splatter_floor()
+			playsound(H.loc, 'sound/effects/splat.ogg', 50, 1) //So real sounds
 
 		changeling.geneticdamage += genetic_damage //Casting off a space suit leaves you weak for a few seconds.
 		changeling.chem_recharge_slowdown -= recharge_slowdown
@@ -130,7 +128,6 @@
 	flags = ABSTRACT | NODROP
 	w_class = WEIGHT_CLASS_HUGE
 	sharp = 1
-	edge = 1
 	force = 25
 	throwforce = 0 //Just to be on the safe side
 	throw_range = 0
@@ -170,7 +167,7 @@
 			user.visible_message("<span class='warning'>[user] jams [src] into the airlock and starts prying it open!</span>", "<span class='warning'>We start forcing the airlock open.</span>", \
 			"<span class='italics'>You hear a metal screeching sound.</span>")
 			playsound(A, 'sound/machines/airlock_alien_prying.ogg', 150, 1)
-			if(!do_after(user, 150, target = A))
+			if(!do_after(user, 100, target = A))
 				return
 
 		//user.say("Heeeeeeeeeerrre's Johnny!")

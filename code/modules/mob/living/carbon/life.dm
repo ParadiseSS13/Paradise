@@ -9,10 +9,11 @@
 
 	if(..())
 		. = 1
+		handle_blood()
 		for(var/obj/item/organ/internal/O in internal_organs)
 			O.on_life()
-		handle_changeling()
 
+	handle_changeling()
 	handle_wetness()
 
 	// Increase germ_level regularly
@@ -26,7 +27,7 @@
 
 //Start of a breath chain, calls breathe()
 /mob/living/carbon/handle_breathing()
-	if(mob_master.current_cycle%4==2 || failed_last_breath)
+	if(mob_master.current_cycle % 4 == 2 || failed_last_breath)
 		breathe() //Breathe per 4 ticks, unless suffocating
 	else
 		if(istype(loc, /obj/))
@@ -39,8 +40,6 @@
 		return
 	if(istype(loc, /obj/machinery/atmospherics/unary/cryo_cell))
 		return
-	if(NO_BREATH in mutations)
-		return // No breath mutation means no breathing.
 
 	var/datum/gas_mixture/environment
 	if(loc)
@@ -51,10 +50,11 @@
 	if(health <= config.health_threshold_crit)
 		AdjustLoseBreath(1)
 
+	//Suffocate
 	if(losebreath > 0)
 		AdjustLoseBreath(-1)
 		if(prob(10))
-			spawn emote("gasp")
+			emote("gasp")
 		if(istype(loc, /obj/))
 			var/obj/loc_as_obj = loc
 			loc_as_obj.handle_internal_lifeform(src, 0)
@@ -74,7 +74,6 @@
 					breath_moles = environment.total_moles()*BREATH_PERCENTAGE
 
 				breath = loc.remove_air(breath_moles)
-
 		else //Breathe from loc as obj again
 			if(istype(loc, /obj/))
 				var/obj/loc_as_obj = loc
@@ -89,14 +88,18 @@
 //Third link in a breath chain, calls handle_breath_temperature()
 /mob/living/carbon/proc/check_breath(datum/gas_mixture/breath)
 	if(status_flags & GODMODE)
-		return 0
+		return FALSE
+
+	var/lungs = get_organ_slot("lungs")
+	if(!lungs)
+		adjustOxyLoss(2)
 
 	//CRIT
-	if(!breath || (breath.total_moles() == 0))
+	if(!breath || (breath.total_moles() == 0) || !lungs)
 		adjustOxyLoss(1)
-		failed_last_breath = 1
-		throw_alert("oxy", /obj/screen/alert/oxy)
-		return 0
+		failed_last_breath = TRUE
+		throw_alert("not_enough_oxy", /obj/screen/alert/not_enough_oxy)
+		return FALSE
 
 	var/safe_oxy_min = 16
 	var/safe_co2_max = 10
@@ -114,23 +117,22 @@
 	//OXYGEN
 	if(O2_partialpressure < safe_oxy_min) //Not enough oxygen
 		if(prob(20))
-			spawn(0)
-				emote("gasp")
+			emote("gasp")
 		if(O2_partialpressure > 0)
-			var/ratio = safe_oxy_min/O2_partialpressure
+			var/ratio = 1 - O2_partialpressure/safe_oxy_min
 			adjustOxyLoss(min(5*ratio, 3))
-			failed_last_breath = 1
-			oxygen_used = breath.oxygen*ratio/6
+			failed_last_breath = TRUE
+			oxygen_used = breath.oxygen*ratio
 		else
 			adjustOxyLoss(3)
-			failed_last_breath = 1
-		throw_alert("oxy", /obj/screen/alert/oxy)
+			failed_last_breath = TRUE
+		throw_alert("not_enough_oxy", /obj/screen/alert/not_enough_oxy)
 
 	else //Enough oxygen
-		failed_last_breath = 0
+		failed_last_breath = FALSE
 		adjustOxyLoss(-5)
-		oxygen_used = breath.oxygen/6
-		clear_alert("oxy")
+		oxygen_used = breath.oxygen
+		clear_alert("not_enough_oxy")
 
 	breath.oxygen -= oxygen_used
 	breath.carbon_dioxide += oxygen_used
@@ -145,18 +147,18 @@
 			if(world.time - co2overloadtime > 300)
 				adjustOxyLoss(8)
 		if(prob(20))
-			spawn(0) emote("cough")
+			emote("cough")
+
 	else
 		co2overloadtime = 0
 
 	//TOXINS/PLASMA
 	if(Toxins_partialpressure > safe_tox_max)
 		var/ratio = (breath.toxins/safe_tox_max) * 10
-		if(reagents)
-			reagents.add_reagent("plasma", Clamp(ratio, MIN_PLASMA_DAMAGE, MAX_PLASMA_DAMAGE))
-		throw_alert("tox_in_air", /obj/screen/alert/tox_in_air)
+		adjustToxLoss(Clamp(ratio, MIN_TOXIC_GAS_DAMAGE, MAX_TOXIC_GAS_DAMAGE))
+		throw_alert("too_much_tox", /obj/screen/alert/too_much_tox)
 	else
-		clear_alert("tox_in_air")
+		clear_alert("too_much_tox")
 
 	//TRACE GASES
 	if(breath.trace_gases.len)
@@ -168,12 +170,12 @@
 					AdjustSleeping(2, bound_lower = 0, bound_upper = 10)
 			else if(SA_partialpressure > 0.01)
 				if(prob(20))
-					spawn(0) emote(pick("giggle","laugh"))
+					emote(pick("giggle","laugh"))
 
 	//BREATH TEMPERATURE
 	handle_breath_temperature(breath)
 
-	return 1
+	return TRUE
 
 //Fourth and final link in a breath chain
 /mob/living/carbon/proc/handle_breath_temperature(datum/gas_mixture/breath)
@@ -183,19 +185,28 @@
 	if(internal)
 		if(internal.loc != src)
 			internal = null
-		if(!wear_mask || !(wear_mask.flags & AIRTIGHT)) //not wearing mask or non-breath mask
-			if(!head || !(head.flags & AIRTIGHT)) //not wearing helmet or non-breath helmet
-				internal = null //turn off internals
+		if(!get_organ_slot("breathing_tube"))
+			if(!wear_mask || !(wear_mask.flags & AIRTIGHT)) //not wearing mask or non-breath mask
+				if(!head || !(head.flags & AIRTIGHT)) //not wearing helmet or non-breath helmet
+					internal = null //turn off internals
 
 		if(internal)
-			update_internals_hud_icon(1)
 			return internal.remove_air_volume(volume_needed)
 		else
-			update_internals_hud_icon(0)
+			update_action_buttons_icon()
 
-	return
+/mob/living/carbon/handle_diseases()
+	for(var/thing in viruses)
+		var/datum/disease/D = thing
+		if(prob(D.infectivity))
+			D.spread()
+
+		if(stat != DEAD)
+			D.stage_act()
 
 //remember to remove the "proc" of the child procs of these.
+/mob/living/carbon/proc/handle_blood()
+	return
 
 /mob/living/carbon/proc/handle_changeling()
 	return
@@ -235,21 +246,18 @@
 		wetlevel = max(wetlevel - 1,0)
 
 /mob/living/carbon/handle_stomach()
-	spawn(0)
-		for(var/mob/living/M in stomach_contents)
-			if(M.loc != src)
+	for(var/mob/living/M in stomach_contents)
+		if(M.loc != src)
+			stomach_contents.Remove(M)
+			continue
+		if(stat != DEAD)
+			if(M.stat == DEAD)
 				stomach_contents.Remove(M)
+				qdel(M)
 				continue
-			if(istype(M, /mob/living) && stat != 2)
-				if(M.stat == 2)
-					M.death(1)
-					stomach_contents.Remove(M)
-					qdel(M)
-					continue
-				if(mob_master.current_cycle%3==1)
-					if(!(M.status_flags & GODMODE))
-						M.adjustBruteLoss(5)
-					nutrition += 10
+			if(mob_master.current_cycle%3==1)
+				M.adjustBruteLoss(5)
+				nutrition += 10
 
 //This updates the health and status of the mob (conscious, unconscious, dead)
 /mob/living/carbon/handle_regular_status_updates()
@@ -346,8 +354,7 @@
 		handle_dreams()
 		adjustStaminaLoss(-10)
 		if(prob(10) && health && hal_screwyhud != SCREWYHUD_CRIT)
-			spawn(0)
-				emote("snore")
+			emote("snore")
 	// Keep SSD people asleep
 	if(player_logged)
 		Sleeping(2)
