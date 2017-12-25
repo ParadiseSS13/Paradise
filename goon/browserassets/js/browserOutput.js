@@ -32,6 +32,8 @@ var opts = {
 	'chatMode': 'default', //The mode the chat is in
 	'priorChatHeight': 0, //Thing for height-resizing detection
 	'restarting': false, //Is the round restarting?
+	'previousMessage': '',
+	'previousMessageCount': 1,
 
 	//Options menu
 	'subOptionsLoop': null, //Contains the interval loop for closing the options menu
@@ -268,7 +270,17 @@ function output(message, flag) {
 		emojiparse(entry);
 	}
 
+	if (entry.innerHTML === opts.previousMessage) {
+		opts.previousMessageCount++;
+		var lastIndex = $messages[0].children.length - 1;
+		var countBadge = '<span class="repeatBadge">x' + opts.previousMessageCount + '</span>';
+		$messages[0].children[lastIndex].innerHTML = opts.previousMessage + countBadge;
+		return;
+	}
 
+
+	opts.previousMessage = entry.innerHTML;
+	opts.previousMessageCount = 1;
 	$messages[0].appendChild(entry);
 
 	//Actually do the snap
@@ -932,6 +944,8 @@ $(function() {
 	$('#clearMessages').click(function() {
 		$messages.empty();
 		opts.messageCount = 0;
+		opts.previousMessage = '';
+		opts.previousMessageCount = 1;
 	});
 
 	// Tell BYOND to give us a macro list.
