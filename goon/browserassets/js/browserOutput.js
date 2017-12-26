@@ -34,7 +34,7 @@ var opts = {
 	'restarting': false, //Is the round restarting?
 	'previousMessage': '',
 	'previousMessageCount': 1,
-	'hideSpam': false,
+	'hideSpam': true,
 
 	//Options menu
 	'subOptionsLoop': null, //Contains the interval loop for closing the options menu
