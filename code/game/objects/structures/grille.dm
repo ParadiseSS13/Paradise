@@ -259,7 +259,6 @@
 		var/obj/R = new rods_type(loc, rods_amount)
 		transfer_fingerprints_to(R)
 		qdel(src)
-	..()
 
 /obj/structure/grille/proc/obj_break()
 	if(!broken && can_deconstruct)

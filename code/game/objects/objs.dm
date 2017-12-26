@@ -13,6 +13,10 @@
 	var/damtype = "brute"
 	var/force = 0
 
+	var/obj_integrity	//defaults to max_integrity
+	var/max_integrity = 500
+	var/integrity_failure = 0 //0 if we have no special broken behavior
+
 	var/Mtoollink = 0 // variable to decide if an object should show the multitool menu linking menu, not all objects use it
 
 	var/burn_state = FIRE_PROOF // LAVA_PROOF | FIRE_PROOF | FLAMMABLE | ON_FIRE
@@ -25,7 +29,8 @@
 
 /obj/New()
 	. = ..()
-
+	if(obj_integrity == null)
+		obj_integrity = max_integrity
 	if(on_blueprints && isturf(loc))
 		var/turf/T = loc
 		if(force_blueprints)
