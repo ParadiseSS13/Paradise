@@ -77,7 +77,7 @@
 	return TRUE // Good to go.
 
 // Handles damage checks
-/obj/item/weapon/computer_hardware/proc/take_damage(damage_amount)
+/obj/item/weapon/computer_hardware/take_damage(damage_amount)
 	obj_integrity = max(obj_integrity - damage_amount, 0)
 
 /obj/item/weapon/computer_hardware/examine(var/mob/user)
