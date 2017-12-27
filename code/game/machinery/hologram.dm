@@ -160,7 +160,7 @@ var/list/holopads = list()
 
 	var/datum/browser/popup = new(user, "holopad", name, 300, 130)
 	popup.set_content(dat)
-	popup.set_title_image(user.browse_rsc_icon(src.icon, src.icon_state))
+	popup.set_title_image(user.browse_rsc_icon(icon, icon_state))
 	popup.open()
 
 /obj/machinery/hologram/holopad/Topic(href, href_list)
@@ -169,26 +169,26 @@ var/list/holopads = list()
 	add_fingerprint(usr)
 	if(stat & NOPOWER)
 		return
-	if (href_list["AIrequest"])
+	if(href_list["AIrequest"])
 		if(last_request + 200 < world.time)
 			last_request = world.time
-			temp = "You requested an AI's presence.<BR>"
-			temp += "<A href='?src=[UID()];mainmenu=1'>Main Menu</A>"
+			temp = "You requested an AI's presence.<br>"
+			temp += "<a href='?src=[UID()];mainmenu=1'>Main Menu</a>"
 			var/area/area = get_area(src)
 			for(var/mob/living/silicon/ai/AI in ai_list)
 				if(!AI.client)
 					continue
 				to_chat(AI, "<span class='info'>Your presence is requested at <a href='?src=\ref[AI];jumptoholopad=[UID()]'>\the [area]</a>.</span>")
 		else
-			temp = "A request for AI presence was already sent recently.<BR>"
-			temp += "<A href='?src=[UID()];mainmenu=1'>Main Menu</A>"
+			temp = "A request for AI presence was already sent recently.<br>"
+			temp += "<a href='?src=[UID()];mainmenu=1'>Main Menu</a>"
 
 	else if(href_list["Holocall"])
 		if(outgoing_call)
 			return
 
 		temp = "You must stand on the holopad to make a call!<br>"
-		temp += "<A href='?src=[UID()];mainmenu=1'>Main Menu</A>"
+		temp += "<a href='?src=[UID()];mainmenu=1'>Main Menu</a>"
 		if(usr.loc == loc)
 			var/list/callnames = list()
 			for(var/I in holopads)
@@ -204,7 +204,7 @@ var/list/holopads = list()
 
 			if(usr.loc == loc)
 				temp = "Dialing...<br>"
-				temp += "<A href='?src=[UID()];mainmenu=1'>Main Menu</A>"
+				temp += "<a href='?src=[UID()];mainmenu=1'>Main Menu</a>"
 				new /datum/holocall(usr, src, callnames[result])
 
 	else if(href_list["connectcall"])
@@ -233,7 +233,7 @@ var/list/holopads = list()
 	/*There are pretty much only three ways to interact here.
 	I don't need to check for client since they're clicking on an object.
 	This may change in the future but for now will suffice.*/
-	if(user.eyeobj.loc != src.loc)//Set client eye on the object if it's not already.
+	if(user.eyeobj.loc != loc)//Set client eye on the object if it's not already.
 		user.eyeobj.setLoc(get_turf(src))
 	else if(!masters[user])//If there is no hologram, possibly make one.
 		activate_holo(user, 1)
@@ -289,7 +289,7 @@ var/list/holopads = list()
 /obj/machinery/hologram/holopad/proc/move_hologram(mob/living/user, turf/new_turf)
 	if(masters[user])
 		var/obj/effect/overlay/holo_pad_hologram/H = masters[user]
-		step_to(H, new_turf)
+		H.setDir(get_dir(H.loc, new_turf))
 		H.loc = new_turf
 		if(ishuman(user))
 			var/area/holo_area = get_area(src)
@@ -303,11 +303,11 @@ var/list/holopads = list()
 	var/mob/living/silicon/ai/AI = user
 	if(!istype(AI))
 		AI = null
-	if(AI && !force && AI.eyeobj.loc != src.loc) // allows holopads to pass off holograms to the next holopad in the chain
+	if(AI && !force && AI.eyeobj.loc != loc) // allows holopads to pass off holograms to the next holopad in the chain
 		to_chat(user, "<font color='red'>ERROR:</font> Unable to project hologram.")
 	if(!(stat & NOPOWER) && (!AI || force))
 		if(AI && (istype(AI.current, /obj/machinery/hologram/holopad)))
-			to_chat(user, "<span class='danger'>ERROR:</span> \black Image feed in progress.")
+			to_chat(user, "<span class='danger'>ERROR:</span> Image feed in progress.")
 			return
 
 		var/obj/effect/overlay/holo_pad_hologram/hologram = new(loc)//Spawn a blank effect at the location.
@@ -333,7 +333,7 @@ var/list/holopads = list()
 		return hologram
 
 	else
-		to_chat(user, "<span class='danger'>ERROR:</span> \black Hologram Projection Malfunction.")
+		to_chat(user, "<span class='danger'>ERROR:</span> Hologram Projection Malfunction.")
 		clear_holo(user)//safety check
 
 /*This is the proc for special two-way communication between AI and holopad/people talking near holopad.
