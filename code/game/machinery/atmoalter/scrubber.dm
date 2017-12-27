@@ -41,7 +41,7 @@
 
 	return
 
-/obj/machinery/portable_atmospherics/scrubber/process()
+/obj/machinery/portable_atmospherics/scrubber/process_atmos()
 	..()
 
 	if(!on)

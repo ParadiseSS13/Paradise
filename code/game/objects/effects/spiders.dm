@@ -3,10 +3,10 @@
 	name = "web"
 	desc = "it's stringy and sticky"
 	icon = 'icons/effects/effects.dmi'
-	anchored = 1
-	density = 0
+	anchored = TRUE
+	density = FALSE
 	var/health = 15
-	var/master_commander = null
+	var/mob/living/carbon/human/master_commander = null
 
 /obj/structure/spider/Destroy()
 	master_commander = null
@@ -15,25 +15,24 @@
 //similar to weeds, but only barfed out by nurses manually
 /obj/structure/spider/ex_act(severity)
 	switch(severity)
-		if(1.0)
+		if(1)
 			qdel(src)
-		if(2.0)
+		if(2)
 			if(prob(50))
 				qdel(src)
-		if(3.0)
+		if(3)
 			if(prob(5))
 				qdel(src)
-	return
 
-/obj/structure/spider/attackby(var/obj/item/weapon/W, var/mob/user, params)
+/obj/structure/spider/attackby(obj/item/weapon/W, mob/user, params)
 	if(W.attack_verb.len)
-		visible_message("<span class='danger'>[user] has [pick(W.attack_verb)] \the [src] with \the [W]!</span>")
+		visible_message("<span class='danger'>[user] has [pick(W.attack_verb)] [src] with [W]!</span>")
 	else
-		visible_message("<span class='danger'>[user] has attacked \the [src] with \the [W]!</span>")
+		visible_message("<span class='danger'>[user] has attacked [src] with [W]!</span>")
 
-	var/damage = W.force / 4.0
+	var/damage = W.force / 4
 
-	if(istype(W, /obj/item/weapon/weldingtool))
+	if(iswelder(W))
 		var/obj/item/weapon/weldingtool/WT = W
 
 		if(WT.remove_fuel(0, user))
@@ -43,7 +42,7 @@
 	health -= damage
 	healthcheck()
 
-/obj/structure/spider/bullet_act(var/obj/item/projectile/Proj)
+/obj/structure/spider/bullet_act(obj/item/projectile/Proj)
 	..()
 	health -= Proj.damage
 	healthcheck()
@@ -61,20 +60,22 @@
 	icon_state = "stickyweb1"
 
 /obj/structure/spider/stickyweb/New()
+	..()
 	if(prob(50))
 		icon_state = "stickyweb2"
 
 /obj/structure/spider/stickyweb/CanPass(atom/movable/mover, turf/target, height=0)
-	if(height==0) return 1
+	if(height == 0)
+		return TRUE
 	if(istype(mover, /mob/living/simple_animal/hostile/poison/giant_spider))
-		return 1
+		return TRUE
 	else if(istype(mover, /mob/living))
 		if(prob(50))
-			to_chat(mover, "<span class='danger'>You get stuck in \the [src] for a moment.</span>")
-			return 0
+			to_chat(mover, "<span class='danger'>You get stuck in [src] for a moment.</span>")
+			return FALSE
 	else if(istype(mover, /obj/item/projectile))
 		return prob(30)
-	return 1
+	return TRUE
 
 /obj/structure/spider/eggcluster
 	name = "egg cluster"
@@ -82,9 +83,10 @@
 	icon_state = "eggs"
 	var/amount_grown = 0
 	var/player_spiders = 0
-	var/faction = list()
+	var/list/faction = list()
 
 /obj/structure/spider/eggcluster/New()
+	..()
 	pixel_x = rand(3,-3)
 	pixel_y = rand(3,-3)
 	processing_objects.Add(src)
@@ -92,10 +94,10 @@
 /obj/structure/spider/eggcluster/process()
 	amount_grown += rand(0,2)
 	if(amount_grown >= 100)
-		var/num = rand(3,12)
-		for(var/i=0, i<num, i++)
-			var/obj/structure/spider/spiderling/S = new /obj/structure/spider/spiderling(src.loc)
-			S.faction = faction
+		var/num = rand(3, 12)
+		for(var/i in 1 to num)
+			var/obj/structure/spider/spiderling/S = new /obj/structure/spider/spiderling(loc)
+			S.faction = faction.Copy()
 			S.master_commander = master_commander
 			if(player_spiders)
 				S.player_spiders = 1
@@ -113,10 +115,11 @@
 	var/obj/machinery/atmospherics/unary/vent_pump/entry_vent
 	var/travelling_in_vent = 0
 	var/player_spiders = 0
-	var/faction = list()
+	var/list/faction = list()
 	var/selecting_player = 0
 
 /obj/structure/spider/spiderling/New()
+	..()
 	pixel_x = rand(6,-6)
 	pixel_y = rand(6,-6)
 	processing_objects.Add(src)
@@ -128,13 +131,13 @@
 
 /obj/structure/spider/spiderling/Bump(atom/user)
 	if(istype(user, /obj/structure/table))
-		src.loc = user.loc
+		loc = user.loc
 	else
 		..()
 
 /obj/structure/spider/spiderling/proc/die()
 	visible_message("<span class='alert'>[src] dies!</span>")
-	new /obj/effect/decal/cleanable/spiderling_remains(src.loc)
+	new /obj/effect/decal/cleanable/spiderling_remains(loc)
 	qdel(src)
 
 /obj/structure/spider/spiderling/healthcheck()
@@ -143,7 +146,7 @@
 
 /obj/structure/spider/spiderling/process()
 	if(travelling_in_vent)
-		if(istype(src.loc, /turf))
+		if(istype(loc, /turf))
 			travelling_in_vent = 0
 			entry_vent = null
 	else if(entry_vent)
@@ -190,7 +193,7 @@
 			var/target_atom = pick(nearby)
 			walk_to(src, target_atom)
 			if(prob(40))
-				src.visible_message("<span class='notice'>\The [src] skitters[pick(" away"," around","")].</span>")
+				visible_message("<span class='notice'>[src] skitters[pick(" away"," around","")].</span>")
 	else if(prob(10))
 		//ventcrawl!
 		for(var/obj/machinery/atmospherics/unary/vent_pump/v in view(7,src))
@@ -203,8 +206,8 @@
 		if(amount_grown >= 100)
 			if(!grow_as)
 				grow_as = pick(typesof(/mob/living/simple_animal/hostile/poison/giant_spider))
-			var/mob/living/simple_animal/hostile/poison/giant_spider/S = new grow_as(src.loc)
-			S.faction = faction
+			var/mob/living/simple_animal/hostile/poison/giant_spider/S = new grow_as(loc)
+			S.faction = faction.Copy()
 			S.master_commander = master_commander
 			if(player_spiders && !selecting_player)
 				selecting_player = 1
@@ -213,9 +216,10 @@
 
 					if(candidates.len)
 						var/mob/C = pick(candidates)
-						S.key = C.key
-						if(master_commander)
-							to_chat(S, "<span class='userdanger'>You are a spider who is loyal to [master_commander], obey [master_commander]'s every order and assist them in completing their goals at any cost.</span>")
+						if(C)
+							S.key = C.key
+							if(S.master_commander)
+								to_chat(S, "<span class='biggerdanger'>You are a spider who is loyal to [S.master_commander], obey [S.master_commander]'s every order and assist them in completing their goals at any cost.</span>")
 			qdel(src)
 
 /obj/effect/decal/cleanable/spiderling_remains
@@ -232,7 +236,8 @@
 	health = 60
 
 /obj/structure/spider/cocoon/New()
-		icon_state = pick("cocoon1","cocoon2","cocoon3")
+	..()
+	icon_state = pick("cocoon1","cocoon2","cocoon3")
 
 /obj/structure/spider/cocoon/Destroy()
 	visible_message("<span class='danger'>[src] splits open.</span>")

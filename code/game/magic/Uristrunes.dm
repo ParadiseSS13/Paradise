@@ -1,7 +1,7 @@
 /proc/get_rune_cult(word)
 	var/animated
 
-	if(word && !(ticker.mode.cultdat.theme == "fire"))
+	if(word && !(ticker.mode.cultdat.theme == "fire" || ticker.mode.cultdat.theme == "death"))
 		animated = 1
 	else
 		animated = 0
@@ -22,6 +22,9 @@ var/runetype = "rune"
 		runetype = "rune"
 	else if(ticker.mode.cultdat.theme == "fire")
 		runetype = "fire-rune"
+	else if(ticker.mode.cultdat.theme == "death")
+		runetype = "death-rune"
+
 
 	if(lookup in rune_cache)
 		return rune_cache[lookup]

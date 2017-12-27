@@ -206,7 +206,7 @@
 
 ////////////////////////////Proc for moving soul in and out off stone//////////////////////////////////////
 
-/obj/item/proc/transfer_soul(var/choice as text, var/target, var/mob/U as mob).
+/obj/item/proc/transfer_soul(var/choice as text, var/target, var/mob/U as mob)
 	switch(choice)
 		if("FORCE")
 			var/obj/item/device/soulstone/C = src

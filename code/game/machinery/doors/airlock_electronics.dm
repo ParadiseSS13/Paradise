@@ -6,14 +6,13 @@
 	materials = list(MAT_METAL=50, MAT_GLASS=50)
 	origin_tech = "engineering=2;programming=1"
 	req_access = list(access_engine)
-
+	toolspeed = 1
+	usesound = 'sound/items/Deconstruct.ogg'
 	var/list/conf_access = null
 	var/one_access = 0 //if set to 1, door would receive req_one_access instead of req_access
 	var/last_configurator = null
 	var/locked = TRUE
 	var/const/max_brain_damage = 60 // Maximum brain damage a mob can have until it can't use the electronics
-	toolspeed = 1
-	usesound = 'sound/items/Deconstruct.ogg'
 
 /obj/item/weapon/airlock_electronics/attack_self(mob/user)
 	if(!ishuman(user) && !isrobot(user))
@@ -89,7 +88,7 @@
 
 	attack_self(usr)
 
-/obj/item/weapon/airlock_electronics/proc/toggle_access(var/access)
+/obj/item/weapon/airlock_electronics/proc/toggle_access(access)
 	if(access == "all")
 		conf_access = null
 	else

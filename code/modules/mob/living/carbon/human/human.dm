@@ -399,7 +399,7 @@
 				Stuttering(power)
 				Stun(power)
 
-				var/datum/effect/system/spark_spread/s = new /datum/effect/system/spark_spread
+				var/datum/effect_system/spark_spread/s = new /datum/effect_system/spark_spread
 				s.set_up(5, 1, src)
 				s.start()
 
@@ -455,7 +455,14 @@
 	if(slot_wear_mask in obscured)
 		dat += "<tr><td><font color=grey><B>Mask:</B></font></td><td><font color=grey>Obscured</font></td></tr>"
 	else
-		dat += "<tr><td><B>Mask:</B></td><td><A href='?src=[UID()];item=[slot_wear_mask]'>[(wear_mask && !(wear_mask.flags&ABSTRACT)) ? wear_mask : "<font color=grey>Empty</font>"]</A></td></tr>"
+		dat += "<tr><td><B>Mask:</B></td><td><A href='?src=[UID()];item=[slot_wear_mask]'>[(wear_mask && !(wear_mask.flags&ABSTRACT)) ? wear_mask : "<font color=grey>Empty</font>"]</A>"
+
+		if(istype(wear_mask, /obj/item/clothing/mask/muzzle))
+			var/obj/item/clothing/mask/muzzle/M = wear_mask
+			if(M.security_lock)
+				dat += "&nbsp;<A href='?src=[M.UID()];locked=\ref[src]'>[M.locked ? "Disable Lock" : "Set Lock"]</A>"
+
+		dat += "</td></tr><tr><td>&nbsp;</td></tr>"
 
 	if(!issmall(src))
 		if(slot_glasses in obscured)
@@ -1299,36 +1306,6 @@
 		src.custom_pain("You feel a stabbing pain in your chest!", 1)
 		L.damage = L.min_bruised_damage
 
-/*
-/mob/living/carbon/human/verb/simulate()
-	set name = "sim"
-	//set background = 1
-
-	var/damage = input("Wound damage","Wound damage") as num
-
-	var/germs = 0
-	var/tdamage = 0
-	var/ticks = 0
-	while(germs < 2501 && ticks < 100000 && round(damage/10)*20)
-		diary << "VIRUS TESTING: [ticks] : germs [germs] tdamage [tdamage] prob [round(damage/10)*20]"
-		ticks++
-		if(prob(round(damage/10)*20))
-			germs++
-		if(germs == 100)
-			to_chat(world, "Reached stage 1 in [ticks] ticks")
-		if(germs > 100)
-			if(prob(10))
-				damage++
-				germs++
-		if(germs == 1000)
-			to_chat(world, "Reached stage 2 in [ticks] ticks")
-		if(germs > 1000)
-			damage++
-			germs++
-		if(germs == 2500)
-			to_chat(world, "Reached stage 3 in [ticks] ticks")
-	to_chat(world, "Mob took [tdamage] tox damage")
-*/
 //returns 1 if made bloody, returns 0 otherwise
 
 /mob/living/carbon/human/clean_blood(var/clean_feet)
@@ -1433,10 +1410,6 @@
 	tail = species.tail
 
 	maxHealth = species.total_health
-
-	toxins_alert = 0
-	oxygen_alert = 0
-	fire_alert = 0
 
 	if(species.language)
 		add_language(species.language)

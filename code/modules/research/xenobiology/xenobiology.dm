@@ -458,7 +458,7 @@
 		return FALSE
 	if(!O.can_reenter_corpse)
 		return FALSE
-	if(O.has_enabled_antagHUD == 1 && config.antag_hud_restricted)
+	if(cannotPossess(O))
 		return FALSE
 	return TRUE
 

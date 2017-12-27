@@ -175,9 +175,8 @@
 		src.broadcast_status()
 	check_turfs()
 
-/obj/machinery/atmospherics/unary/vent_scrubber/process()
-	if(!..())
-		return 0
+/obj/machinery/atmospherics/unary/vent_scrubber/process_atmos()
+	..()
 
 	if(widenet)
 		check_turfs()
@@ -215,7 +214,7 @@
 
 	if(scrubbing)
 		if((scrub_O2 && environment.oxygen>0.001) || (scrub_N2 && environment.nitrogen>0.001) || (scrub_CO2 && environment.carbon_dioxide>0.001) || (scrub_Toxins && environment.toxins>0.001) || (environment.trace_gases.len>0))
-			var/transfer_moles = min(1, volume_rate/environment.volume)*environment.total_moles()
+			var/transfer_moles = min(1, volume_rate/environment.volume)*environment.total_moles() / 5
 
 			//Take a gas sample
 			var/datum/gas_mixture/removed = loc.remove_air(transfer_moles)
@@ -257,7 +256,7 @@
 		if(air_contents.return_pressure()>=50*ONE_ATMOSPHERE)
 			return
 
-		var/transfer_moles = environment.total_moles()*(volume_rate/environment.volume)
+		var/transfer_moles = environment.total_moles()*(volume_rate/environment.volume) / 5
 
 		var/datum/gas_mixture/removed = tile.remove_air(transfer_moles)
 

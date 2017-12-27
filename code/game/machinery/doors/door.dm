@@ -2,7 +2,7 @@
 #define DOOR_CLOSED_LAYER 3.1	//Above most items if closed
 
 /obj/machinery/door
-	name = "Door"
+	name = "door"
 	desc = "It opens and closes."
 	icon = 'icons/obj/doors/Doorint.dmi'
 	icon_state = "door1"
@@ -10,18 +10,20 @@
 	opacity = 1
 	density = 1
 	layer = DOOR_OPEN_LAYER
+	power_channel = ENVIRON
 	var/open_layer = DOOR_OPEN_LAYER
 	var/closed_layer = DOOR_CLOSED_LAYER
-
 	var/visible = 1
 	var/p_open = 0
 	var/operating = 0
 	var/autoclose = 0
 	var/autoclose_timer
 	var/glass = 0
+	var/welded = FALSE
 	var/normalspeed = 1
 	var/auto_close_time = 150
 	var/auto_close_time_dangerous = 5
+	var/assemblytype //the type of door frame to drop during deconstruction
 	var/heat_proof = 0 // For rglass-windowed airlocks and firedoors
 	var/emergency = 0
 	var/air_properties_vary_with_direction = 0
@@ -74,7 +76,8 @@
 		return
 	if(isliving(AM))
 		var/mob/living/M = AM
-		if(world.time - M.last_bumped <= 10) return	//Can bump-open one airlock per second. This is to prevent shock spam.
+		if(world.time - M.last_bumped <= 10)
+			return	//Can bump-open one airlock per second. This is to prevent shock spam.
 		M.last_bumped = world.time
 		if(!M.restrained())
 			if(M.mob_size > MOB_SIZE_SMALL)
@@ -95,6 +98,18 @@
 		return
 	return
 
+/obj/machinery/door/Move(new_loc, new_dir)
+	var/turf/T = loc
+	. = ..()
+	move_update_air(T)
+
+	if(width > 1)
+		if(dir in list(EAST, WEST))
+			bound_width = width * world.icon_size
+			bound_height = world.icon_size
+		else
+			bound_width = world.icon_size
+			bound_height = width * world.icon_size
 
 /obj/machinery/door/CanPass(atom/movable/mover, turf/target, height=0)
 	if(istype(mover) && mover.checkpass(PASSGLASS))
@@ -173,28 +188,25 @@
 		qdel(src)
 	return
 
-
 /obj/machinery/door/emp_act(severity)
 	if(prob(20/severity) && (istype(src,/obj/machinery/door/airlock) || istype(src,/obj/machinery/door/window)) )
 		spawn(0)
 			open()
 	..()
 
-
 /obj/machinery/door/ex_act(severity)
 	switch(severity)
-		if(1.0)
+		if(1)
 			qdel(src)
-		if(2.0)
+		if(2)
 			if(prob(25))
 				qdel(src)
-		if(3.0)
+		if(3)
 			if(prob(80))
-				var/datum/effect/system/spark_spread/s = new /datum/effect/system/spark_spread
+				var/datum/effect_system/spark_spread/s = new /datum/effect_system/spark_spread
 				s.set_up(2, 1, src)
 				s.start()
 	return
-
 
 /obj/machinery/door/update_icon()
 	if(density)
@@ -285,7 +297,6 @@
 		var/turf/location = get_turf(src)
 		L.add_splatter_floor(location)
 
-
 /obj/machinery/door/proc/requiresID()
 	return 1
 
@@ -294,19 +305,6 @@
 	if(!qdeleted(src) && !density && !operating && autoclose)
 		close()
 	return
-
-/obj/machinery/door/Move(new_loc, new_dir)
-	var/turf/T = loc
-	. = ..()
-	move_update_air(T)
-
-	if(width > 1)
-		if(dir in list(EAST, WEST))
-			bound_width = width * world.icon_size
-			bound_height = world.icon_size
-		else
-			bound_width = world.icon_size
-			bound_height = width * world.icon_size
 
 /obj/machinery/door/proc/update_freelook_sight()
 	// Glass door glass = 1

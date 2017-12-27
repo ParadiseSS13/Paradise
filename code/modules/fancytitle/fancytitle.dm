@@ -11,7 +11,7 @@
 		else if(L.len > 1)
 			if(use_rare_screens && lowertext(L[1]) == "rare")
 				title_screens += S
-			else if(lowertext(L[1]) == lowertext(MAP_NAME))
+			else if(using_map && (lowertext(L[1]) == lowertext(using_map.name)))
 				title_screens += S
 
 	if(!isemptylist(title_screens))
