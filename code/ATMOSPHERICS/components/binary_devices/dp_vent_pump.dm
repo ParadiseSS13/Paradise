@@ -10,6 +10,8 @@
 	name = "dual-port air vent"
 	desc = "Has a valve and pump attached to it. There are two ports."
 
+	can_unwrench = 1
+
 	level = 1
 
 	connect_types = list(1,2,3) //connects to regular, supply and scrubbers pipes
@@ -102,8 +104,9 @@
 			else
 				add_underlay(T, node2, dir)
 
-/obj/machinery/atmospherics/binary/dp_vent_pump/process()
-	if(!..() || !on)
+/obj/machinery/atmospherics/binary/dp_vent_pump/process_atmos()
+	..()
+	if(!on)
 		return 0
 
 	var/datum/gas_mixture/environment = loc.return_air()

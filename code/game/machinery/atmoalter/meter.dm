@@ -18,12 +18,14 @@
 
 /obj/machinery/meter/New()
 	..()
+	atmos_machinery += src
 	target = locate(/obj/machinery/atmospherics/pipe) in loc
 	if(id && !id_tag)//i'm not dealing with further merge conflicts, fuck it
 		id_tag = id
 	return 1
 
 /obj/machinery/meter/Destroy()
+	atmos_machinery -= src
 	target = null
 	return ..()
 
@@ -32,7 +34,7 @@
 	if(!target)
 		target = locate(/obj/machinery/atmospherics/pipe) in loc
 
-/obj/machinery/meter/process()
+/obj/machinery/meter/process_atmos()
 	if(!target)
 		icon_state = "meterX"
 		return 0
@@ -123,12 +125,12 @@
 
 	if(!istype(W, /obj/item/weapon/wrench))
 		return ..()
-	playsound(src.loc, 'sound/items/Ratchet.ogg', 50, 1)
-	to_chat(user, "\blue You begin to unfasten \the [src]...")
-	if(do_after(user, 40, target = src))
+	playsound(loc, W.usesound, 50, 1)
+	to_chat(user, "<span class='notice'>You begin to unfasten \the [src]...</span>")
+	if(do_after(user, 40 * W.toolspeed, target = src))
 		user.visible_message( \
 			"[user] unfastens \the [src].", \
-			"\blue You have unfastened \the [src].", \
+			"<span class='notice'>You have unfastened \the [src].</span>", \
 			"You hear ratchet.")
 		new /obj/item/pipe_meter(src.loc)
 		qdel(src)

@@ -93,3 +93,111 @@
 	display_name = "stethoscope"
 	path = /obj/item/clothing/accessory/stethoscope
 	allowed_roles = list("Chief Medical Officer", "Medical Doctor", "Paramedic", "Brig Physician")
+
+/datum/gear/accessory/cowboyshirt
+	display_name = "cowboy shirt, black"
+	path = /obj/item/clothing/accessory/cowboyshirt
+
+/datum/gear/accessory/cowboyshirt/short_sleeved
+	display_name = "cowboy shirt, short sleeved black"
+	path = /obj/item/clothing/accessory/cowboyshirt/short_sleeved
+
+/datum/gear/accessory/cowboyshirt/white
+	display_name = "cowboy shirt, white"
+	path = /obj/item/clothing/accessory/cowboyshirt/white
+
+/datum/gear/accessory/cowboyshirt/white/short_sleeved
+	display_name = "cowboy shirt, short sleeved white"
+	path = /obj/item/clothing/accessory/cowboyshirt/white/short_sleeved
+
+/datum/gear/accessory/cowboyshirt/pink
+	display_name = "cowboy shirt, pink"
+	path = /obj/item/clothing/accessory/cowboyshirt/pink
+
+/datum/gear/accessory/cowboyshirt/pink/short_sleeved
+	display_name = "cowboy shirt, short sleeved pink"
+	path = /obj/item/clothing/accessory/cowboyshirt/pink/short_sleeved
+
+/datum/gear/accessory/cowboyshirt/red
+	display_name = "cowboy shirt, red"
+	path = /obj/item/clothing/accessory/cowboyshirt/red
+
+/datum/gear/accessory/cowboyshirt/red/short_sleeved
+	display_name = "cowboy shirt, short sleeved red"
+	path = /obj/item/clothing/accessory/cowboyshirt/red/short_sleeved
+
+/datum/gear/accessory/cowboyshirt/navy
+	display_name = "cowboy shirt, navy"
+	path = /obj/item/clothing/accessory/cowboyshirt/navy
+
+/datum/gear/accessory/cowboyshirt/navy/short_sleeved
+	display_name = "cowboy shirt, short sleeved navy"
+	path = /obj/item/clothing/accessory/cowboyshirt/navy/short_sleeved
+
+/datum/gear/accessory/locket
+	display_name = "gold locket"
+	path = /obj/item/clothing/accessory/necklace/locket
+
+/datum/gear/accessory/necklace
+	display_name = "simple necklace"
+	path = /obj/item/clothing/accessory/necklace
+
+/datum/gear/accessory/corset
+	display_name = "corset, black"
+	path = /obj/item/clothing/accessory/corset
+
+/datum/gear/accessory/corsetred
+	display_name = "corset, red"
+	path = /obj/item/clothing/accessory/corset/red
+
+/datum/gear/accessory/corsetblue
+	display_name = "corset, blue"
+	path = /obj/item/clothing/accessory/corset/blue
+
+
+/datum/gear/accessory/armband_red
+	display_name = "armband"
+	path = /obj/item/clothing/accessory/armband
+
+/datum/gear/accessory/armband_civ
+	display_name = "armband, blue-yellow"
+	path = /obj/item/clothing/accessory/armband/yb
+
+/datum/gear/accessory/armband_sec
+	display_name = " armband, security"
+	path = /obj/item/clothing/accessory/armband/sec
+	allowed_roles = list("Head of Security", "Warden", "Detective", "Security Officer", "Brig Physician")
+
+/datum/gear/accessory/armband_cargo
+	display_name = "cargo armband"
+	path = /obj/item/clothing/accessory/armband/cargo
+	allowed_roles = list("Quartermaster","Cargo Technician", "Shaft Miner")
+
+/datum/gear/accessory/armband_medical
+	display_name = "armband, medical"
+	path = /obj/item/clothing/accessory/armband/med
+	allowed_roles = list("Chief Medical Officer", "Medical Doctor", "Coroner", "Paramedic", "Brig Physician")
+
+/datum/gear/accessory/armband_emt
+	display_name = "armband, EMT"
+	path = /obj/item/clothing/accessory/armband/medgreen
+	allowed_roles = list("Paramedic", "Brig Physician")
+
+/datum/gear/accessory/armband_engineering
+	display_name = "armband, engineering"
+	path = /obj/item/clothing/accessory/armband/engine
+	allowed_roles = list("Chief Engineer","Station Engineer", "Life Support Specialist")
+
+/datum/gear/accessory/armband_hydro
+	display_name = "armband, hydroponics"
+	path = /obj/item/clothing/accessory/armband/hydro
+	allowed_roles = list("Botanist")
+
+/datum/gear/accessory/armband_sci
+	display_name = "armband, science"
+	path = /obj/item/clothing/accessory/armband/science
+	allowed_roles = list("Research Director","Scientist", "Roboticist")
+
+
+
+

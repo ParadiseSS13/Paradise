@@ -74,12 +74,6 @@
 		return
 	scan_nearby()
 
-/datum/data/pda/app/mob_hunter_game/program_hit_check()
-	if(!pda)
-		return
-	for(var/obj/effect/nanomob/hit_mob in get_turf(pda))
-		hit_mob.hitby(pda)
-
 /datum/data/pda/app/mob_hunter_game/proc/register_capture(datum/mob_hunt/captured, wild = 0)
 	if(!captured)
 		return 0

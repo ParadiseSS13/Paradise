@@ -51,7 +51,7 @@
 	else if(istype(target,/mob/living))
 		var/mob/living/M = target
 		if(M.stat == DEAD) return
-		if(chassis.occupant.a_intent == I_HARM)
+		if(chassis.occupant.a_intent == INTENT_HARM)
 			M.take_overall_damage(dam_force)
 			if(!M)
 				return
@@ -101,11 +101,11 @@
 	else if(istype(target,/mob/living))
 		var/mob/living/M = target
 		if(M.stat == DEAD) return
-		if(chassis.occupant.a_intent == I_HARM)
+		if(chassis.occupant.a_intent == INTENT_HARM)
 			target.visible_message("<span class='danger'>[chassis] destroys [target] in an unholy fury.</span>",
 								"<span class='userdanger'>[chassis] destroys [target] in an unholy fury.</span>")
 			M.gib()
-		/*if(chassis.occupant.a_intent == I_DISARM)
+		/*if(chassis.occupant.a_intent == INTENT_DISARM)
 			target.visible_message("<span class='danger'>[chassis] rips [target]'s arms off.</span>",
 								"<span class='userdanger'>[chassis] rips [target]'s arms off.</span>")*/
 		else
@@ -148,7 +148,7 @@
 			var/list/the_targets = list(T,T1,T2)
 			spawn(0)
 				for(var/a=0, a<5, a++)
-					var/obj/effect/effect/water/W = new /obj/effect/effect/water(get_turf(chassis))
+					var/obj/effect/particle_effect/water/W = new /obj/effect/particle_effect/water(get_turf(chassis))
 					if(!W)
 						return
 					var/turf/my_target = pick(the_targets)
@@ -188,12 +188,14 @@
 	name = "Mounted RCD"
 	desc = "An exosuit-mounted Rapid Construction Device. (Can be attached to: Any exosuit)"
 	icon_state = "mecha_rcd"
-	origin_tech = "materials=4;bluespace=3;magnets=4;powerstorage=4"
+	origin_tech = "materials=4;bluespace=3;magnets=4;powerstorage=4;engineering=4"
 	equip_cooldown = 10
 	energy_drain = 250
 	range = MELEE|RANGED
 	var/mode = 0 //0 - deconstruct, 1 - wall or floor, 2 - airlock.
 	var/canRwall = 0
+	toolspeed = 1
+	usesound = 'sound/items/Deconstruct.ogg'
 
 /obj/item/mecha_parts/mecha_equipment/rcd/New()
 	rcd_list += src
@@ -224,7 +226,7 @@
 				if(do_after_cooldown(W))
 					chassis.spark_system.start()
 					W.ChangeTurf(/turf/simulated/floor/plating)
-					playsound(W, 'sound/items/Deconstruct.ogg', 50, 1)
+					playsound(W, usesound, 50, 1)
 			else if(istype(target, /turf/simulated/floor))
 				var/turf/simulated/floor/F = target
 				occupant_message("Deconstructing [target]...")
@@ -232,27 +234,27 @@
 					chassis.spark_system.start()
 					F.ChangeTurf(/turf/space)
 					F.air_update_turf()
-					playsound(F, 'sound/items/Deconstruct.ogg', 50, 1)
+					playsound(F, usesound, 50, 1)
 			else if(istype(target, /obj/machinery/door/airlock))
 				occupant_message("Deconstructing [target]...")
 				if(do_after_cooldown(target))
 					chassis.spark_system.start()
 					qdel(target)
-					playsound(target, 'sound/items/Deconstruct.ogg', 50, 1)
+					playsound(target, usesound, 50, 1)
 		if(1)
 			if(istype(target, /turf/space))
 				var/turf/space/S = target
 				occupant_message("Building Floor...")
 				if(do_after_cooldown(S))
 					S.ChangeTurf(/turf/simulated/floor/plating)
-					playsound(S, 'sound/items/Deconstruct.ogg', 50, 1)
+					playsound(S, usesound, 50, 1)
 					chassis.spark_system.start()
 			else if(istype(target, /turf/simulated/floor))
 				var/turf/simulated/floor/F = target
 				occupant_message("Building Wall...")
 				if(do_after_cooldown(F))
 					F.ChangeTurf(/turf/simulated/wall)
-					playsound(F, 'sound/items/Deconstruct.ogg', 50, 1)
+					playsound(F, usesound, 50, 1)
 					chassis.spark_system.start()
 		if(2)
 			if(istype(target, /turf/simulated/floor))
@@ -261,7 +263,7 @@
 					chassis.spark_system.start()
 					var/obj/machinery/door/airlock/T = new /obj/machinery/door/airlock(target)
 					T.autoclose = 1
-					playsound(target, 'sound/items/Deconstruct.ogg', 50, 1)
+					playsound(target, usesound, 50, 1)
 					playsound(target, 'sound/effects/sparks2.ogg', 50, 1)
 
 
@@ -283,14 +285,14 @@
 
 /obj/item/mecha_parts/mecha_equipment/mimercd
 	name = "mounted MRCD"
-	desc = "An exosuit-mounted Mime Rapid Construction Device. (Can be attached to: Recitence)"
+	desc = "An exosuit-mounted Mime Rapid Construction Device. (Can be attached to: Reticence)"
 	icon_state = "mecha_rcd"
-	origin_tech = "materials=4;bluespace=3;magnets=4;powerstorage=4"
+	origin_tech = "materials=4;bluespace=3;magnets=4;powerstorage=4;engineering=4"
 	equip_cooldown = 10
 	energy_drain = 250
 	range = MELEE|RANGED
 
-/obj/item/mecha_parts/mecha_equipment/mimercd/can_attach(obj/mecha/combat/recitence/M)
+/obj/item/mecha_parts/mecha_equipment/mimercd/can_attach(obj/mecha/combat/reticence/M)
 	if(..())
 		if(istype(M))
 			return 1

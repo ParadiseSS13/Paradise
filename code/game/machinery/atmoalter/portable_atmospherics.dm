@@ -13,6 +13,7 @@
 
 /obj/machinery/portable_atmospherics/New()
 	..()
+	atmos_machinery += src
 
 	air_contents.volume = volume
 	air_contents.temperature = T20C
@@ -27,7 +28,7 @@
 			connect(port)
 			update_icon()
 
-/obj/machinery/portable_atmospherics/process()
+/obj/machinery/portable_atmospherics/process_atmos()
 	if(!connected_port) //only react when pipe_network will ont it do it for you
 		//Allow for reactions
 		air_contents.react()
@@ -35,11 +36,10 @@
 		update_icon()
 
 /obj/machinery/portable_atmospherics/Destroy()
+	atmos_machinery -= src
 	disconnect()
-	qdel(air_contents)
-	air_contents = null
-	qdel(holding)
-	holding = null
+	QDEL_NULL(air_contents)
+	QDEL_NULL(holding)
 	return ..()
 
 /obj/machinery/portable_atmospherics/update_icon()
@@ -95,21 +95,21 @@
 	else if(istype(W, /obj/item/weapon/wrench))
 		if(connected_port)
 			disconnect()
-			to_chat(user, "\blue You disconnect [name] from the port.")
+			to_chat(user, "<span class='notice'>You disconnect [name] from the port.</span>")
 			update_icon()
 			return
 		else
 			var/obj/machinery/atmospherics/unary/portables_connector/possible_port = locate(/obj/machinery/atmospherics/unary/portables_connector/) in loc
 			if(possible_port)
 				if(connect(possible_port))
-					to_chat(user, "\blue You connect [name] to the port.")
+					to_chat(user, "<span class='notice'>You connect [name] to the port.</span>")
 					update_icon()
 					return
 				else
-					to_chat(user, "\blue [name] failed to connect to the port.")
+					to_chat(user, "<span class='notice'>[name] failed to connect to the port.</span>")
 					return
 			else
-				to_chat(user, "\blue Nothing happens.")
+				to_chat(user, "<span class='notice'>Nothing happens.</span>")
 				return
 
 	else if((istype(W, /obj/item/device/analyzer)) && get_dist(user, src) <= 1)

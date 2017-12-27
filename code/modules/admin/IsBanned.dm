@@ -15,7 +15,7 @@ world/IsBanned(key,address,computer_id)
 	//Guest Checking
 	if(!guests_allowed && IsGuestKey(key))
 		log_access("Failed Login: [key] [computer_id] [address] - Guests not allowed")
-		// message_admins("\blue Failed Login: [key] - Guests not allowed")
+		// message_admins("<span class='notice'>Failed Login: [key] - Guests not allowed</span>")
 		return list("reason"="guest", "desc"="\nReason: Guests not allowed. Please sign in with a BYOND account.")
 
 	//check if the IP address is a known Tor node

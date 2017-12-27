@@ -14,14 +14,14 @@
 
 /datum/tlv/proc/get_danger_level(curval as num)
 	if(max2 >=0 && curval>max2)
-		return 2
+		return ATMOS_ALARM_DANGER
 	if(min2 >=0 && curval<min2)
-		return 2
+		return ATMOS_ALARM_DANGER
 	if(max1 >=0 && curval>max1)
-		return 1
+		return ATMOS_ALARM_WARNING
 	if(min1 >=0 && curval<min1)
-		return 1
-	return 0
+		return ATMOS_ALARM_WARNING
+	return ATMOS_ALARM_NONE
 
 /datum/tlv/proc/CopyFrom(datum/tlv/other)
 	min2 = other.min2
@@ -103,7 +103,7 @@
 	var/screen = AALARM_SCREEN_MAIN
 	var/area_uid
 	var/area/alarm_area
-	var/danger_level = 0
+	var/danger_level = ATMOS_ALARM_NONE
 	var/alarmActivated = 0 // Manually activated (independent from danger level)
 
 	var/buildstage = 2 //2 is built, 1 is building, 0 is frame.
@@ -212,8 +212,11 @@
 	if(radio_controller)
 		radio_controller.remove_object(src, frequency)
 	air_alarm_repository.update_cache(src)
-	qdel(wires)
-	wires = null
+	QDEL_NULL(wires)
+	if(alarm_area && alarm_area.master_air_alarm == src)
+		alarm_area.master_air_alarm = null
+		elect_master(exclude_self = 1)
+	alarm_area = null
 	return ..()
 
 /obj/machinery/alarm/proc/first_run()
@@ -237,8 +240,10 @@
 	return alarm_area.master_air_alarm && !(alarm_area.master_air_alarm.stat & (NOPOWER|BROKEN))
 
 
-/obj/machinery/alarm/proc/elect_master()
+/obj/machinery/alarm/proc/elect_master(exclude_self = 0) //Why is this an alarm and not area proc?
 	for(var/obj/machinery/alarm/AA in alarm_area)
+		if(exclude_self && AA == src)
+			continue
 		if(!(AA.stat & (NOPOWER|BROKEN)))
 			alarm_area.master_air_alarm = AA
 			return 1
@@ -297,10 +302,17 @@
 
 	if(old_danger_level!=danger_level)
 		apply_danger_level()
+		if(mode == AALARM_MODE_SCRUBBING && danger_level == ATMOS_ALARM_DANGER)
+			if(pressure_dangerlevel == ATMOS_ALARM_DANGER)
+				mode = AALARM_MODE_OFF
+				if(temperature_dangerlevel == ATMOS_ALARM_DANGER && cur_tlv.max2 <= environment.temperature)
+					mode = AALARM_MODE_PANIC
+		apply_mode()
 
 	if(mode == AALARM_MODE_REPLACEMENT && environment_pressure < ONE_ATMOSPHERE * 0.05)
 		mode = AALARM_MODE_SCRUBBING
 		apply_mode()
+
 
 /obj/machinery/alarm/proc/handle_heating_cooling(var/datum/gas_mixture/environment, var/datum/tlv/cur_tlv, var/turf/simulated/location)
 	cur_tlv = TLV["temperature"]
@@ -349,11 +361,11 @@
 		return
 
 	switch(max(danger_level, alarm_area.atmosalm-1))
-		if(0)
+		if(ATMOS_ALARM_NONE)
 			icon_state = "alarm0"
-		if(1)
+		if(ATMOS_ALARM_WARNING)
 			icon_state = "alarm2" //yes, alarm2 is yellow alarm
-		if(2)
+		if(ATMOS_ALARM_DANGER)
 			icon_state = "alarm1"
 
 /obj/machinery/alarm/receive_signal(datum/signal/signal)
@@ -572,34 +584,6 @@
 
 	frequency.post_signal(src, alert_signal)
 
-/obj/machinery/alarm/proc/air_doors_close(manual)
-	var/area/A = get_area(src)
-	if(!A.air_doors_activated)
-		A.air_doors_activated = 1
-		for(var/obj/machinery/door/E in A.all_doors)
-			if(istype(E,/obj/machinery/door/firedoor))
-				if(!E:blocked)
-					if(E.operating)
-						E:nextstate = CLOSED
-					else if(!E.density)
-						spawn(0)
-							E.close()
-				continue
-
-/obj/machinery/alarm/proc/air_doors_open(manual)
-	var/area/A = get_area(loc)
-	if(A.air_doors_activated)
-		A.air_doors_activated = 0
-		for(var/obj/machinery/door/E in A.all_doors)
-			if(istype(E, /obj/machinery/door/firedoor))
-				if(!E:blocked)
-					if(E.operating)
-						E:nextstate = OPEN
-					else if(E.density)
-						spawn(0)
-							E.open()
-				continue
-
 ///////////////
 //END HACKING//
 ///////////////
@@ -609,9 +593,7 @@
 	return ui_interact(user)
 
 /obj/machinery/alarm/attack_ghost(user as mob)
-	if(stat & (BROKEN|MAINT))
-		return
-	return ui_interact(user)
+	return interact(user)
 
 /obj/machinery/alarm/attack_hand(mob/user)
 	. = ..()
@@ -623,7 +605,7 @@
 	if(buildstage != 2)
 		return
 
-	if(wiresexposed && !istype(user, /mob/living/silicon/ai))
+	if(wiresexposed)
 		wires.Interact(user)
 
 	if(!shorted)
@@ -698,21 +680,21 @@
 
 /obj/machinery/alarm/ui_data(mob/user, ui_key = "main", datum/topic_state/state = default_state)
 	var/data[0]
-	var/list/href_list = state.href_list()
 
+	var/list/href_list = state.href_list(user)
 	if(href_list)
 		data["remote_connection"] = href_list["remote_connection"]
 		data["remote_access"] = href_list["remote_access"]
 
 	data["name"] = sanitize(name)
 	data["air"] = ui_air_status()
-	data["alarmActivated"] = alarmActivated || danger_level == 2
+	data["alarmActivated"] = alarmActivated || danger_level == ATMOS_ALARM_DANGER
 	data["thresholds"] = generate_thresholds_menu()
 
 	// Locked when:
 	//   Not sent from atmos console AND
 	//   Not silicon AND locked.
-	data["locked"] = is_locked(user,href_list)
+	data["locked"] = !is_authenticated(user, href_list)
 	data["rcon"] = rcon_setting
 	data["target_temp"] = target_temperature - T0C
 	data["atmos_alarm"] = alarm_area.atmosalm
@@ -827,16 +809,6 @@
 	else
 		return !locked
 
-/obj/machinery/alarm/proc/is_locked(mob/user as mob, href_list)
-	if(user.can_admin_interact())
-		return 0
-	else if(is_auth_rcon(href_list))
-		return 0
-	else if(isAI(user) || isrobot(user))
-		return 0
-	else
-		return locked
-
 /obj/machinery/alarm/proc/is_auth_rcon(href_list)
 	if(href_list && href_list["remote_connection"] && href_list["remote_access"])
 		return 1
@@ -942,15 +914,15 @@
 		return 1
 
 	if(href_list["atmos_alarm"])
-		if(alarm_area.atmosalert(2, src))
-			apply_danger_level(2)
+		if(alarm_area.atmosalert(ATMOS_ALARM_DANGER, src))
+			apply_danger_level(ATMOS_ALARM_DANGER)
 		alarmActivated = 1
 		update_icon()
 		return 1
 
 	if(href_list["atmos_reset"])
-		if(alarm_area.atmosalert(0, src))
-			apply_danger_level(0)
+		if(alarm_area.atmosalert(ATMOS_ALARM_NONE, src))
+			apply_danger_level(ATMOS_ALARM_NONE)
 		alarmActivated = 0
 		update_icon()
 		return 1
@@ -1026,10 +998,10 @@
 				else
 					if(allowed(usr) && !wires.IsIndexCut(AALARM_WIRE_IDSCAN))
 						locked = !locked
-						to_chat(user, "\blue You [ locked ? "lock" : "unlock"] the Air Alarm interface.")
+						to_chat(user, "<span class='notice'>You [ locked ? "lock" : "unlock"] the Air Alarm interface.</span>")
 						updateUsrDialog()
 					else
-						to_chat(user, "\red Access denied.")
+						to_chat(user, "<span class='warning'>Access denied.</span>")
 
 
 			return
@@ -1042,6 +1014,7 @@
 					return
 
 				to_chat(user, "You wire \the [src]!")
+				playsound(get_turf(src), coil.usesound, 50, 1)
 				coil.amount -= 5
 				if(!coil.amount)
 					qdel(coil)
@@ -1053,8 +1026,8 @@
 
 			else if(istype(W, /obj/item/weapon/crowbar))
 				to_chat(user, "You start prying out the circuit.")
-				playsound(get_turf(src), 'sound/items/Crowbar.ogg', 50, 1)
-				if(do_after(user,20, target = src))
+				playsound(get_turf(src), W.usesound, 50, 1)
+				if(do_after(user, 20 * W.toolspeed, target = src))
 					if(buildstage != 1)
 						return
 					to_chat(user, "You pry out the circuit!")
@@ -1066,6 +1039,7 @@
 		if(0)
 			if(istype(W, /obj/item/weapon/airalarm_electronics))
 				to_chat(user, "You insert the circuit!")
+				playsound(get_turf(src), W.usesound, 50, 1)
 				qdel(W)
 				buildstage = 1
 				update_icon()
@@ -1074,7 +1048,7 @@
 			else if(istype(W, /obj/item/weapon/wrench))
 				to_chat(user, "You remove the fire alarm assembly from the wall!")
 				new /obj/item/mounted/frame/alarm_frame(get_turf(user))
-				playsound(get_turf(src), 'sound/items/Ratchet.ogg', 50, 1)
+				playsound(get_turf(src), W.usesound, 50, 1)
 				qdel(src)
 
 	return 0
@@ -1103,5 +1077,8 @@ Just an object used in constructing air alarms
 	icon = 'icons/obj/doors/door_assembly.dmi'
 	icon_state = "door_electronics"
 	desc = "Looks like a circuit. Probably is."
-	w_class = 2
+	w_class = WEIGHT_CLASS_SMALL
 	materials = list(MAT_METAL=50, MAT_GLASS=50)
+	origin_tech = "engineering=2;programming=1"
+	toolspeed = 1
+	usesound = 'sound/items/Deconstruct.ogg'

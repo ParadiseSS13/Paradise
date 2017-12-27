@@ -1,6 +1,9 @@
 /obj/item/flag
 	icon = 'icons/obj/flag.dmi'
-	w_class = 4
+	icon_state = "ntflag"
+	lefthand_file = 'icons/mob/inhands/flags_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/flags_righthand.dmi'
+	w_class = WEIGHT_CLASS_BULKY
 	burntime = 20
 	burn_state = FLAMMABLE
 
@@ -10,10 +13,25 @@
 		user.visible_message("<span class='notice'>[user] lights the [name] with [W].</span>")
 		fire_act()
 
-/obj/item/flag/proc/update_icons()
-	overlays = null
-	overlays += image('icons/obj/flag.dmi', src , "fire")
-	item_state = "[icon_state]_fire"
+/obj/item/flag/fire_act(global_overlay = FALSE)
+	..()
+	update_icon()
+
+/obj/item/flag/extinguish()
+	..()
+	update_icon()
+
+/obj/item/flag/update_icon()
+	overlays.Cut()
+	if(burn_state == ON_FIRE)
+		overlays += image('icons/obj/flag.dmi', src , "fire")
+		item_state = "[icon_state]_fire"
+	else
+		item_state = initial(icon_state)
+	if(ismob(loc))
+		var/mob/M = loc
+		M.update_inv_r_hand()
+		M.update_inv_l_hand()
 
 /obj/item/flag/nt
 	name = "Nanotrasen flag"
@@ -103,6 +121,11 @@
 	desc = "A flag proudly proclaiming the superior heritage of Drask."
 	icon_state = "draskflag"
 
+/obj/item/flag/species/plasma
+	name = "Plasmaman flag"
+	desc = "A flag proudly proclaiming the superior heritage of Plasmamen."
+	icon_state = "plasmaflag"
+
 //Department Flags
 
 /obj/item/flag/cargo
@@ -156,16 +179,16 @@
 	name = "Nar'Sie Cultist flag"
 	desc = "A flag proudly boasting the logo of the cultists, sworn enemies of NT."
 	icon_state = "cultflag"
-	
+
 //Chameleon
 
 /obj/item/flag/chameleon
 	name = "Chameleon flag"
 	desc = "A poor recreation of the official NT flag. It seems to shimmer a little."
 	icon_state = "ntflag"
-	origin_tech = "materials=3;magnets=4;syndicate=4"
+	origin_tech = "syndicate=4;magnets=4"
 	var/used = 0
-	
+
 /obj/item/flag/chameleon/attack_self(mob/user)
 	if(used)
 		return
@@ -190,7 +213,7 @@
 			icon_state = chosen_flag.icon_state
 			desc = chosen_flag.desc
 			used = 1
-			
+
 /obj/item/flag/chameleon/burn()
 	explosion(loc,1,2,4,4, flame_range = 4)
 	qdel(src)

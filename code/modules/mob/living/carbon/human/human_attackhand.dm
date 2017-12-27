@@ -4,21 +4,21 @@
 		return
 
 	if(frozen)
-		to_chat(M, "\red Do not touch Admin-Frozen people.")
+		to_chat(M, "<span class='warning'>Do not touch Admin-Frozen people.</span>")
 		return
 
 	var/mob/living/carbon/human/H = M
 	if(istype(H))
-		var/obj/item/organ/external/temp = H.organs_by_name["r_hand"]
+		var/obj/item/organ/external/temp = H.bodyparts_by_name["r_hand"]
 		if(H.hand)
-			temp = H.organs_by_name["l_hand"]
+			temp = H.bodyparts_by_name["l_hand"]
 		if(!temp || !temp.is_usable())
 			to_chat(H, "<span class='warning'>You can't use your hand.</span>")
 			return
 
 	..()
 
-	if((M != src) && M.a_intent != "help" && check_shields(0, M.name, attack_type = UNARMED_ATTACK))
+	if((M != src) && M.a_intent != INTENT_HELP && check_shields(0, M.name, attack_type = UNARMED_ATTACK))
 		add_logs(M, src, "attempted to touch")
 		visible_message("<span class='warning'>[M] attempted to touch [src]!</span>")
 		return 0
@@ -53,7 +53,7 @@
 	species.handle_attack_hand(src,M)
 
 	switch(M.a_intent)
-		if(I_HELP)
+		if(INTENT_HELP)
 			if(attacker_style && attacker_style.help_act(H, src))//adminfu only...
 				return 1
 			if(can_operate(src))
@@ -75,10 +75,10 @@
 			if(!check_has_mouth())
 				to_chat(H, "<span class='danger'>They don't have a mouth, you cannot perform CPR!</span>")
 				return
-			if((M.head && (M.head.flags & HEADCOVERSMOUTH)) || (M.wear_mask && (M.wear_mask.flags & MASKCOVERSMOUTH) && !M.wear_mask.mask_adjusted))
+			if((M.head && (M.head.flags_cover & HEADCOVERSMOUTH)) || (M.wear_mask && (M.wear_mask.flags_cover & MASKCOVERSMOUTH) && !M.wear_mask.mask_adjusted))
 				to_chat(M, "<span class='warning'>Remove your mask!</span>")
 				return 0
-			if((head && (head.flags & HEADCOVERSMOUTH)) || (wear_mask && (wear_mask.flags & MASKCOVERSMOUTH) && !wear_mask.mask_adjusted))
+			if((head && (head.flags_cover & HEADCOVERSMOUTH)) || (wear_mask && (wear_mask.flags_cover & MASKCOVERSMOUTH) && !wear_mask.mask_adjusted))
 				to_chat(M, "<span class='warning'>Remove his mask!</span>")
 				return 0
 
@@ -99,26 +99,26 @@
 			else
 				to_chat(M, "<span class='danger'>You need to stay still while performing CPR!</span>")
 
-		if(I_GRAB)
+		if(INTENT_GRAB)
 			if(attacker_style && attacker_style.grab_act(H, src))
 				return 1
 			else
 				src.grabbedby(M)
 				return 1
 
-		if(I_HARM)
+		if(INTENT_HARM)
 			//Vampire code
 			if(M.mind && M.mind.vampire && (M.mind in ticker.mode.vampires) && !M.mind.vampire.draining && M.zone_sel && M.zone_sel.selecting == "head" && src != M)
-				if(species && species.flags & NO_BLOOD)//why this hell were we never checkinf for this?
+				if((NO_BLOOD in species.species_traits) || species.exotic_blood || !blood_volume)
 					to_chat(M, "<span class='warning'>They have no blood!</span>")
 					return
 				if(mind && mind.vampire && (mind in ticker.mode.vampires))
-					to_chat(M, "<span class='warning'>Your fangs fail to pierce [src.name]'s cold flesh</span>")
+					to_chat(M, "<span class='warning'>Your fangs fail to pierce [name]'s cold flesh</span>")
 					return
 				if(SKELETON in mutations)
 					to_chat(M, "<span class='warning'>There is no blood in a skeleton!</span>")
 					return
-				if(issmall(src) && !ckey) //Monkeyized humans are okay, humanized monkeys are okey, monkeys are not.
+				if(issmall(src) && !ckey) //Monkeyized humans are okay, humanized monkeys are okay, NPC monkeys are not.
 					to_chat(M, "<span class='warning'>Blood from a monkey is useless!</span>")
 					return
 				//we're good to suck the blood, blaah
@@ -158,7 +158,7 @@
 
 				visible_message("<span class='danger'>[M] [pick(attack.attack_verb)]ed [src]!</span>")
 
-				apply_damage(damage, BRUTE, affecting, armor_block, sharp=attack.sharp, edge=attack.edge) //moving this back here means Armalis are going to knock you down  70% of the time, but they're pure adminbus anyway.
+				apply_damage(damage, BRUTE, affecting, armor_block, sharp = attack.sharp) //moving this back here means Armalis are going to knock you down  70% of the time, but they're pure adminbus anyway.
 				if((stat != DEAD) && damage >= M.species.punchstunthreshold)
 					visible_message("<span class='danger'>[M] has weakened [src]!</span>", \
 									"<span class='userdanger'>[M] has weakened [src]!</span>")
@@ -168,7 +168,7 @@
 					forcesay(hit_appends)
 
 
-		if(I_DISARM)
+		if(INTENT_DISARM)
 			if(attacker_style && attacker_style.disarm_act(H, src))
 				return 1
 			else
@@ -182,8 +182,8 @@
 					apply_effect(2, WEAKEN, run_armor_check(affecting, "melee"))
 					playsound(loc, 'sound/weapons/thudswoosh.ogg', 50, 1, -1)
 					visible_message("<span class='danger'>[M] has pushed [src]!</span>")
-					M.attack_log += text("\[[time_stamp()]\] <font color='red'>Pushed [src.name] ([src.ckey])</font>")
-					src.attack_log += text("\[[time_stamp()]\] <font color='orange'>Has been pushed by [M.name] ([M.ckey])</font>")
+					M.create_attack_log("<font color='red'>Pushed [src.name] ([src.ckey])</font>")
+					src.create_attack_log("<font color='orange'>Has been pushed by [M.name] ([M.ckey])</font>")
 					if(!iscarbon(M))
 						LAssailant = null
 					else

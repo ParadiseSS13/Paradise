@@ -54,7 +54,7 @@ var/list/uplink_items = list()
 	var/list/excludefrom = list() //Empty list does nothing. Place the name of gamemode you don't want this item to be available in here. This is so you dont have to list EVERY mode to exclude something.
 	var/list/job = null
 	var/surplus = 100 //Chance of being included in the surplus crate (when pick() selects it)
-	var/hijack_only = 0 //can this item be purchased only during hijackings?
+	var/hijack_only = FALSE //can this item be purchased only during hijackings?
 
 /datum/uplink_item/proc/spawn_item(var/turf/loc, var/obj/item/device/uplink/U)
 	if(hijack_only)
@@ -129,21 +129,13 @@ var/list/uplink_items = list()
 	job = list("Clown")
 
 //mime
-/datum/uplink_item/job_specific/caneshotgun
+/datum/uplink_item/jobspecific/caneshotgun
 	name = "Cane Shotgun + Assassination Darts"
 	desc = "A specialized, one shell shotgun with a built-in cloaking device to mimic a cane. The shotgun is capable of hiding it's contents and the pin alongside being supressed. Comes with 6 special darts and a preloaded shrapnel round."
 	reference = "MCS"
 	item = /obj/item/weapon/storage/box/syndie_kit/caneshotgun
-	cost = 15
+	cost = 10
 	job = list("Mime")
-
-/datum/uplink_item/dangerous/cat_grenade
-	name = "Feral Cat Delivery Grenade"
-	desc = "The feral cat delivery grenade contains 8 dehydrated feral cats in a similar manner to dehydrated monkeys, which, upon detonation, will be rehydrated by a small reservoir of water contained within the grenade. These cats will then attack anything in sight."
-	item = /obj/item/weapon/grenade/spawnergrenade/feral_cats
-	reference = "CCLG"
-	cost = 5
-	job = list("Psychiatrist")//why? Becuase its funny that a person in charge of your mental wellbeing has a cat granade..
 
 //Chef
 /datum/uplink_item/jobspecific/specialsauce
@@ -195,8 +187,8 @@ var/list/uplink_items = list()
 	item = /obj/item/weapon/storage/toolbox/green/memetic
 	cost = 20
 	job = list("Chaplain")
-	surplus = 0     //No lucky chances from the crate; if you get this, this is ALL you're getting
-	hijack_only = 1 //This is a murderbone weapon, as such, it should only be available in those scenarios.
+	surplus = 0 //No lucky chances from the crate; if you get this, this is ALL you're getting
+	hijack_only = TRUE //This is a murderbone weapon, as such, it should only be available in those scenarios.
 
 //Janitor
 
@@ -211,23 +203,21 @@ var/list/uplink_items = list()
 
 //Medical
 
-
 /datum/uplink_item/jobspecific/rad_laser
 	name = "Radiation Laser"
-	desc = "A radiation laser concealed inside of a Health Analyser. After a moderate delay, causes temporary collapse and radiation.  Has adjustable controls, but will not function as a regular health analyser, only appears like one. May not function correctly on radiation resistant humanoids!"
+	desc = "A radiation laser concealed inside of a Health Analyser. After a moderate delay, causes temporary collapse and radiation. Has adjustable controls, but will not function as a regular health analyser, only appears like one. May not function correctly on radiation resistant humanoids!"
 	reference = "RL"
 	item = /obj/item/device/rad_laser
 	cost = 5
-	job = list(
-		"Chief Medical Officer",
-		"Medical Doctor",
-		"Geneticist",
-		"Psychiatrist",
-		"Chemist",
-		"Paramedic",
-		"Virologist",
-		"Brig Physician"
-	)
+	job = list("Chief Medical Officer", "Medical Doctor", "Geneticist", "Psychiatrist",	"Chemist", "Paramedic", "Coroner", "Virologist")
+
+/datum/uplink_item/dangerous/cat_grenade
+	name = "Feral Cat Delivery Grenade"
+	desc = "The feral cat delivery grenade contains 8 dehydrated feral cats in a similar manner to dehydrated monkeys, which, upon detonation, will be rehydrated by a small reservoir of water contained within the grenade. These cats will then attack anything in sight."
+	item = /obj/item/weapon/grenade/spawnergrenade/feral_cats
+	reference = "CCLG"
+	cost = 4
+	job = list("Psychiatrist")//why? Becuase its funny that a person in charge of your mental wellbeing has a cat granade..
 
 //Assistant
 
@@ -246,13 +236,12 @@ var/list/uplink_items = list()
 	desc = "A box containing 6 shotgun shells that simulate the effects of extreme drunkenness on the target, more effective for each type of alcohol in the target's system."
 	reference = "BSS"
 	item = /obj/item/weapon/storage/box/syndie_kit/boolets
-	cost = 6
+	cost = 3
 	job = list("Bartender")
-
 
 //Barber
 
-/datum/uplink_item/jobspecific/safety_scissors  //Hue
+/datum/uplink_item/jobspecific/safety_scissors //Hue
 	name = "Safety Scissors"
 	desc = "A pair of scissors that are anything but what their name implies; can easily cut right into someone's throat."
 	reference = "CTS"
@@ -278,7 +267,7 @@ var/list/uplink_items = list()
 	reference = "PG"
 	item = /obj/item/clothing/gloves/color/yellow/power
 	cost = 10
-	job = list("Station Engineer","Chief Engineer")
+	job = list("Station Engineer", "Chief Engineer")
 
 //RD
 
@@ -299,16 +288,14 @@ var/list/uplink_items = list()
 	cost = 3
 	job = list("Librarian")
 
-
 //Botanist
 /datum/uplink_item/jobspecific/ambrosiacruciatus
 	name = "Ambrosia Cruciatus Seeds"
 	desc = "Part of the notorious Ambrosia family, this species is nearly indistinguishable from Ambrosia Vulgaris- but its' branches contain a revolting toxin. Eight units are enough to drive victims insane."
 	reference = "BRO"
-	item = /obj/item/seeds/ambrosiavulgarisseed/cruciatus
+	item = /obj/item/seeds/ambrosia/cruciatus
 	cost = 2
 	job = list("Botanist")
-
 
 //Atmos Tech
 /datum/uplink_item/jobspecific/contortionist
@@ -319,7 +306,7 @@ var/list/uplink_items = list()
 	cost = 6
 	job = list("Life Support Specialist")
 
-/datum/uplink_item/dangerous/energizedfireaxe
+/datum/uplink_item/jobspecific/energizedfireaxe
 	name = "Energized Fire Axe"
 	desc = "A fire axe with a massive electrical charge built into it. It can release this charge on its first victim and will be rather plain after that."
 	reference = "EFA"
@@ -335,7 +322,7 @@ var/list/uplink_items = list()
 	reference = "ST"
 	item = /obj/item/weapon/reagent_containers/hypospray/autoinjector/stimulants
 	cost = 7
-	job = list("Scientist","Research Director","Geneticist","Chief Medical Officer","Medical Doctor","Psychiatrist","Chemist","Paramedic","Virologist","Brig Physician")
+	job = list("Scientist", "Research Director", "Geneticist", "Chief Medical Officer", "Medical Doctor", "Psychiatrist", "Chemist", "Paramedic", "Coroner", "Virologist")
 
 //Tator Poison Bottles
 
@@ -345,7 +332,19 @@ var/list/uplink_items = list()
 	reference = "TPB"
 	item = /obj/item/weapon/reagent_containers/glass/bottle/traitor
 	cost = 2
-	job = list("Research Director","Chief Medical Officer","Medical Doctor","Psychiatrist","Paramedic","Virologist","Bartender")
+	job = list("Research Director", "Chief Medical Officer", "Medical Doctor", "Psychiatrist", "Chemist", "Paramedic", "Virologist", "Bartender", "Chef")
+
+// Paper contact poison pen
+
+/datum/uplink_item/jobspecific/poison_pen
+	name = "Poison Pen"
+	desc = "Cutting edge of deadly writing implements technology, this gadget will infuse any piece of paper with delayed contact poison."
+	reference = "PP"
+	item = /obj/item/weapon/pen/poison
+	cost = 2
+	excludefrom = list(/datum/game_mode/nuclear)
+	job = list("Head of Personnel", "Quartermaster", "Cargo Technician")
+
 
 // DANGEROUS WEAPONS
 
@@ -388,7 +387,7 @@ var/list/uplink_items = list()
 
 /datum/uplink_item/dangerous/machinegun
 	name = "L6 Squad Automatic Weapon"
-	desc = "A fully-loaded Aussec Armoury belt-fed machine gun. This deadly weapon has a massive 50-round magazine of devastating 7.62x51mm ammunition."
+	desc = "A fully-loaded Aussec Armory belt-fed machine gun. This deadly weapon has a massive 50-round magazine of devastating 7.62x51mm ammunition."
 	reference = "LMG"
 	item = /obj/item/weapon/gun/projectile/automatic/l6_saw
 	cost = 40
@@ -609,7 +608,7 @@ var/list/uplink_items = list()
 	desc = "A speed loader that contains seven additional .357 Magnum rounds for the syndicate revolver. For when you really need a lot of things dead."
 	reference = "357"
 	item = /obj/item/ammo_box/a357
-	cost = 4
+	cost = 3
 
 /datum/uplink_item/ammo/smg
 	name = "Magazine - .45"
@@ -727,7 +726,7 @@ var/list/uplink_items = list()
 			will instantly put them in your grasp and silence them, as well as causing rapid suffocation. Does not work on those who do not need to breathe."
 	reference = "GAR"
 	item = /obj/item/weapon/twohanded/garrote
-	cost = 12
+	cost = 10
 
 /datum/uplink_item/stealthy_weapons/martialarts
 	name = "Martial Arts Scroll"
@@ -737,6 +736,14 @@ var/list/uplink_items = list()
 	item = /obj/item/weapon/sleeping_carp_scroll
 	cost = 17
 	excludefrom = list(/datum/game_mode/nuclear)
+
+/datum/uplink_item/stealthy_weapons/throwingweapons
+	name = "Box of Throwing Weapons"
+	desc = "A box of shurikens and reinforced bolas from ancient Earth martial arts. They are highly effective \
+			 throwing weapons. The bolas can knock a target down and the shurikens will embed into limbs."
+	reference = "STK"
+	item = /obj/item/weapon/storage/box/syndie_kit/throwing_weapons
+	cost = 3
 
 /datum/uplink_item/stealthy_weapons/edagger
 	name = "Energy Dagger"
@@ -856,6 +863,7 @@ var/list/uplink_items = list()
 	reference = "NNSSS"
 	cost = 4 //but they aren't
 	gamemodes = list(/datum/game_mode/nuclear)
+	excludefrom = list()
 
 /datum/uplink_item/stealthy_tools/agent_card
 	name = "Agent ID Card"
@@ -909,6 +917,15 @@ var/list/uplink_items = list()
 	item = /obj/item/device/flashlight/emp
 	cost = 2
 	surplus = 30
+
+/datum/uplink_item/stealthy_tools/cutouts
+	name = "Adaptive Cardboard Cutouts"
+	desc = "These cardboard cutouts are coated with a thin material that prevents discoloration and makes the images on them appear more lifelike. This pack contains three as well as a \
+	spraycan for changing their appearances."
+	reference = "ADCC"
+	item = /obj/item/weapon/storage/box/syndie_kit/cutouts
+	cost = 1
+	surplus = 20
 
 // DEVICE AND TOOLS
 
@@ -979,6 +996,7 @@ var/list/uplink_items = list()
 	reference = "BRHS"
 	item = /obj/item/weapon/storage/box/syndie_kit/hardsuit
 	cost = 8
+	excludefrom = list(/datum/game_mode/nuclear)
 
 /datum/uplink_item/suits/hardsuit/elite
 	name = "Elite Syndicate Hardsuit"
@@ -986,6 +1004,7 @@ var/list/uplink_items = list()
 	item = /obj/item/weapon/storage/box/syndie_kit/elite_hardsuit
 	cost = 8
 	reference = "ESHS"
+	excludefrom = list()
 	gamemodes = list(/datum/game_mode/nuclear)
 
 /datum/uplink_item/suits/hardsuit/shielded
@@ -994,6 +1013,7 @@ var/list/uplink_items = list()
 	item = /obj/item/weapon/storage/box/syndie_kit/shielded_hardsuit
 	cost = 30
 	reference = "SHS"
+	excludefrom = list()
 	gamemodes = list(/datum/game_mode/nuclear)
 
 
@@ -1034,6 +1054,15 @@ var/list/uplink_items = list()
 	reference = "BRMB"
 	item = /obj/item/clothing/shoes/magboots/syndie
 	cost = 3
+	excludefrom = list(/datum/game_mode/nuclear)
+
+/datum/uplink_item/device_tools/magboots/advance
+	name = "Advanced Blood-Red Magboots"
+	desc = "Reverse-engineered magboots that appear to be based on an advanced model, as they have a lighter magnetic pull. Property of Gorlex Marauders."
+	reference = "ABRMB"
+	item = /obj/item/clothing/shoes/magboots/syndie/advance
+	cost = 3
+	excludefrom = list()
 	gamemodes = list(/datum/game_mode/nuclear)
 
 /datum/uplink_item/device_tools/plastic_explosives
@@ -1066,7 +1095,8 @@ var/list/uplink_items = list()
 			sends you a small beacon that will teleport the larger beacon to your location upon activation."
 	reference = "SNGB"
 	item = /obj/item/device/radio/beacon/syndicate
-	cost = 14
+	cost = 12
+	surplus = 0
 
 /datum/uplink_item/device_tools/syndicate_bomb
 	name = "Syndicate Bomb"
@@ -1106,6 +1136,13 @@ var/list/uplink_items = list()
 	item = /obj/item/stack/telecrystal
 	cost = 1
 	surplus = 0
+
+/datum/uplink_item/device_tools/jammer
+	name = "Radio Jammer"
+	desc = "This device will disrupt any nearby outgoing radio communication when activated."
+	reference = "RJ"
+	item = /obj/item/device/jammer
+	cost = 5
 
 /datum/uplink_item/device_tools/teleporter
 	name = "Teleporter Circuit Board"

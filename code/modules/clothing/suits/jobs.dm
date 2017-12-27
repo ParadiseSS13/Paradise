@@ -38,7 +38,7 @@
 	item_state = "apron"
 	blood_overlay_type = "armor"
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO
-	allowed = list (/obj/item/weapon/reagent_containers/spray/plantbgone,/obj/item/device/analyzer/plant_analyzer,/obj/item/seeds,/obj/item/weapon/reagent_containers/glass/bottle/fertilizer,/obj/item/weapon/minihoe)
+	allowed = list(/obj/item/weapon/reagent_containers/spray/plantbgone,/obj/item/device/plant_analyzer,/obj/item/seeds,/obj/item/weapon/reagent_containers/glass/bottle, /obj/item/weapon/reagent_containers/glass/beaker, /obj/item/weapon/cultivator,/obj/item/weapon/reagent_containers/spray/pestspray,/obj/item/weapon/hatchet,/obj/item/weapon/storage/bag/plants)
 	species_fit = list("Vox")
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/species/vox/suit.dmi'
@@ -100,6 +100,31 @@
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/species/vox/suit.dmi'
 		)
+
+//Chaplain
+/obj/item/clothing/suit/hooded/monk
+	name = "monk robe"
+	desc = "Wooden board not included."
+	icon_state = "monkrobe"
+	item_state = "monkrobe"
+	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|ARMS|HANDS
+	flags_inv = HIDESHOES|HIDEJUMPSUIT
+	hoodtype = /obj/item/clothing/head/monk_hood
+	allowed = list(/obj/item/weapon/storage/bible, /obj/item/weapon/nullrod, /obj/item/weapon/reagent_containers/food/drinks/bottle/holywater, /obj/item/weapon/storage/fancy/candle_box, /obj/item/candle, /obj/item/weapon/tank/emergency_oxygen)
+
+/obj/item/clothing/suit/witchhunter
+	name = "witchhunter garb"
+	desc = "Dosen't weigh the same a a duck."
+	icon_state = "witchhunter"
+	item_state = "witchhunter"
+	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|ARMS
+	allowed = list(/obj/item/weapon/storage/bible, /obj/item/weapon/nullrod, /obj/item/weapon/reagent_containers/food/drinks/bottle/holywater, /obj/item/weapon/storage/fancy/candle_box, /obj/item/candle, /obj/item/weapon/tank/emergency_oxygen)
+
+
+	//Chef
+/obj/item/clothing/suit/toggle/chef
+  	name = "chef's apron"
+
 
 //Chef
 /obj/item/clothing/suit/chef
@@ -252,8 +277,8 @@
 		)
 
 /obj/item/clothing/suit/storage/ntrep
-	name = "\improper NanoTrasen Representative jacket"
-	desc = "A fancy black jacket, standard issue to NanoTrasen Represenatives."
+	name = "\improper Nanotrasen Representative jacket"
+	desc = "A fancy black jacket; standard issue to Nanotrasen Representatives."
 	icon_state = "ntrep"
 	item_state = "ntrep"
 	blood_overlay_type = "coat"

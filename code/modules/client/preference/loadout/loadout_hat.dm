@@ -94,8 +94,24 @@
 	path = /obj/item/clothing/head/soft/yellow
 
 /datum/gear/hat/cowboyhat
-	display_name = "cowboy hat"
+	display_name = "cowboy hat, brown"
 	path = /obj/item/clothing/head/cowboyhat
+
+/datum/gear/hat/cowboyhat/tan
+	display_name = "cowboy hat, tan"
+	path = /obj/item/clothing/head/cowboyhat/tan
+
+/datum/gear/hat/cowboyhat/black
+	display_name = "cowboy hat, black"
+	path = /obj/item/clothing/head/cowboyhat/black
+
+/datum/gear/hat/cowboyhat/white
+	display_name = "cowboy hat, white"
+	path = /obj/item/clothing/head/cowboyhat/white
+
+/datum/gear/hat/cowboyhat/pink
+	display_name = "cowboy hat, pink"
+	path = /obj/item/clothing/head/cowboyhat/pink
 
 /datum/gear/hat/pr_beret
 	display_name = "beret, purple"
@@ -117,3 +133,26 @@
 	display_name = "science beret"
 	path = /obj/item/clothing/head/beret/sci
 	allowed_roles = list("Research Director", "Scientist")
+
+/datum/gear/hat/med_beret
+	display_name = "medical beret"
+	path = /obj/item/clothing/head/beret/med
+	allowed_roles = list("Chief Medical Officer", "Medical Doctor" , "Virologist", "Brig Physician" , "Coroner")
+
+/datum/gear/hat/surgicalcap_purple
+	display_name = "surgical cap, purple"
+	path = /obj/item/clothing/head/surgery/purple
+	allowed_roles = list("Chief Medical Officer", "Medical Doctor")
+
+/datum/gear/hat/surgicalcap_green
+	display_name = "surgical cap, green"
+	path = /obj/item/clothing/head/surgery/green
+	allowed_roles = list("Chief Medical Officer", "Medical Doctor")
+
+/datum/gear/hat/flowerpin
+	display_name = "hair flower"
+	path = /obj/item/clothing/head/hairflower
+
+/datum/gear/hat/flowerpinpurp
+	display_name = "hair flower, purple"
+	path = /obj/item/clothing/head/hairflower/purple

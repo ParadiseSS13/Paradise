@@ -17,7 +17,7 @@
 	icon_state = "internalaffairs_rig"
 	armor = list(melee = 0, bullet = 0, laser = 0, energy = 0, bomb = 0, bio = 0, rad = 0)
 	siemens_coefficient = 0.9
-	slowdown = 0
+	active_slowdown = 0
 	offline_slowdown = 0
 	offline_vision_restriction = 0
 
@@ -52,7 +52,7 @@
 	desc = "A heavy, powerful rig used by construction crews and mining corporations."
 	icon_state = "engineering_rig"
 	armor = list(melee = 10, bullet = 5, laser = 10, energy = 5, bomb = 10, bio = 100, rad = 75)
-	slowdown = 3
+	active_slowdown = 3
 	offline_slowdown = 10
 	offline_vision_restriction = 2
 	emp_protection = -20
@@ -80,7 +80,7 @@
 	suit_type = "EVA hardsuit"
 	desc = "A light rig for repairs and maintenance to the outside of habitats and vessels."
 	icon_state = "eva_rig"
-	slowdown = 0
+	active_slowdown = 0
 	offline_slowdown = 1
 	offline_vision_restriction = 1
 
@@ -108,7 +108,7 @@
 	desc = "An advanced voidsuit that protects against hazardous, low pressure environments. Shines with a high polish."
 	icon_state = "ce_rig"
 	armor = list(melee = 40, bullet = 5, laser = 10, energy = 5, bomb = 50, bio = 100, rad = 90)
-	slowdown = 0
+	active_slowdown = 0
 	offline_slowdown = 0
 	offline_vision_restriction = 0
 
@@ -149,14 +149,14 @@
 	suit_type = "hazmat hardsuit"
 	desc = "An Anomalous Material Interaction hardsuit that protects against the strangest energies the universe can throw at it."
 	icon_state = "science_rig"
-	slowdown = 1
+	active_slowdown = 1
 	offline_vision_restriction = 1
 
 	helm_type = /obj/item/clothing/head/helmet/space/new_rig/hazmat
 
 	helm_type = /obj/item/clothing/head/helmet/space/new_rig/ert
 
-	allowed = list(/obj/item/device/flashlight,/obj/item/weapon/tank,/obj/item/weapon/storage/box/excavation,/obj/item/weapon/pickaxe,/obj/item/device/healthanalyzer,/obj/item/device/measuring_tape,/obj/item/device/ano_scanner,/obj/item/device/depth_scanner,/obj/item/device/core_sampler,/obj/item/device/gps,/obj/item/device/beacon_locator,/obj/item/device/radio/beacon,/obj/item/weapon/pickaxe/hand,/obj/item/weapon/storage/bag/fossils)
+	allowed = list(/obj/item/device/flashlight,/obj/item/weapon/tank,/obj/item/weapon/pickaxe,/obj/item/device/healthanalyzer,/obj/item/device/gps,/obj/item/device/radio/beacon)
 
 	req_access = list()
 	req_one_access = list()
@@ -167,9 +167,7 @@
 
 	initial_modules = list(
 		/obj/item/rig_module/ai_container,
-		/obj/item/rig_module/maneuvering_jets,
-		/obj/item/rig_module/device/anomaly_scanner
-		)
+		/obj/item/rig_module/maneuvering_jets)
 
 /obj/item/weapon/rig/medical
 
@@ -178,7 +176,7 @@
 	desc = "A durable suit designed for medical rescue in high risk areas."
 	icon_state = "medical_rig"
 	armor = list(melee = 10, bullet = 5, laser = 10, energy = 5, bomb = 10, bio = 100, rad = 50)
-	slowdown = 1
+	active_slowdown = 1
 	offline_vision_restriction = 1
 
 	helm_type = /obj/item/clothing/head/helmet/space/new_rig/medical
@@ -203,7 +201,7 @@
 	desc = "A Security hardsuit designed for prolonged EVA in dangerous environments."
 	icon_state = "hazard_rig"
 	armor = list(melee = 30, bullet = 15, laser = 30, energy = 10, bomb = 10, bio = 100, rad = 50)
-	slowdown = 1
+	active_slowdown = 1
 	offline_slowdown = 3
 	offline_vision_restriction = 1
 

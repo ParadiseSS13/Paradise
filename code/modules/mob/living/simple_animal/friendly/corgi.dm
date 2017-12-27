@@ -22,12 +22,13 @@
 	see_in_dark = 5
 	childtype = /mob/living/simple_animal/pet/corgi/puppy
 	simplespecies = /mob/living/simple_animal/pet/corgi
+	gold_core_spawnable = CHEM_MOB_SPAWN_FRIENDLY
 	var/shaved = 0
 	var/obj/item/inventory_head
 	var/obj/item/inventory_back
 	var/facehugger
 	var/default_atmos_requirements = 0
-	gold_core_spawnable = CHEM_MOB_SPAWN_FRIENDLY
+	var/last_eaten = 0
 
 /mob/living/simple_animal/pet/corgi/New()
 	..()
@@ -58,8 +59,9 @@
 	dat += "<tr><td><B>Back:</B></td><td><A href='?src=[UID()];[inventory_back?"remove_inv":"add_inv"]=back'>[(inventory_back && !(inventory_back.flags&ABSTRACT)) ? inventory_back : "<font color=grey>Empty</font>"]</A></td></tr>"
 	if(can_collar)
 		dat += "<tr><td>&nbsp;</td></tr>"
-		dat += "<tr><td><B>Collar:</B></td><td><A href='?src=[UID()];[collar?"remove_inv":"add_inv"]=collar'>[(collar && !(collar.flags&ABSTRACT)) ? collar : "<font color=grey>Empty</font>"]</A></td></tr>"
-
+		dat += "<tr><td><B>Collar:</B></td><td><A href='?src=[UID()];item=[slot_collar]'>[(collar && !(collar.flags&ABSTRACT)) ? collar : "<font color=grey>Empty</font>"]</A></td></tr>"
+	if(facehugger)
+		dat += "<tr><td><B>Facehugger:</B></td><td><A href='?src=[UID()];remove_hugger=1'>[facehugger]</A></td></tr>"
 	dat += {"</table>
 	<A href='?src=[user.UID()];mach_close=mob\ref[src]'>Close</A>
 	"}
@@ -87,9 +89,9 @@
 			to_chat(user, "<span class='warning'>You can't shave this corgi, it's already been shaved!</span>")
 			return
 		user.visible_message("[user] starts to shave [src] using \the [O].", "<span class='notice'>You start to shave [src] using \the [O]...</span>")
-		if(do_after(user, 50, target = src))
+		if(do_after(user, 50 * O.toolspeed, target = src))
 			user.visible_message("[user] shaves [src]'s hair using \the [O].")
-			playsound(loc, 'sound/items/Welder2.ogg', 20, 1)
+			playsound(loc, O.usesound, 20, 1)
 			shaved = 1
 			icon_living = "[initial(icon_living)]_shaved"
 			icon_dead = "[initial(icon_living)]_shaved_dead"
@@ -102,11 +104,10 @@
 
 /mob/living/simple_animal/pet/corgi/Topic(href, href_list)
 	if(usr.stat) return
-
+	if((!ishuman(usr) && !isrobot(usr)) || !Adjacent(usr))
+		return
 	//Removing from inventory
 	if(href_list["remove_inv"])
-		if(!Adjacent(usr) || !(ishuman(usr) || isrobot(usr) ||  isalienadult(usr)))
-			return
 		var/remove_from = href_list["remove_inv"]
 		switch(remove_from)
 			if("head")
@@ -122,7 +123,7 @@
 					emote_see = list("shakes its head", "shivers")
 					desc = "It's a corgi."
 					set_light(0)
-					flags &= ~NO_BREATHE
+					mutations.Remove(BREATHLESS)
 					atmos_requirements = default_atmos_requirements
 					minbodytemp = initial(minbodytemp)
 					inventory_head.loc = src.loc
@@ -142,14 +143,9 @@
 				else
 					to_chat(usr, "<span class='danger'>There is nothing to remove from its [remove_from].</span>")
 					return
-
 		show_inv(usr)
-
 	//Adding things to inventory
 	else if(href_list["add_inv"])
-		if(!Adjacent(usr) || !(ishuman(usr) || isrobot(usr) ||  isalienadult(usr)))
-			return
-
 		var/add_to = href_list["add_inv"]
 
 		switch(add_to)
@@ -174,7 +170,7 @@
 					var/list/allowed_types = list(
 						/obj/item/clothing/suit/armor/vest,
 						/obj/item/clothing/suit/space/deathsquad,
-						/obj/item/clothing/suit/space/rig/engineering,
+						/obj/item/clothing/suit/space/hardsuit/engineering,
 						/obj/item/device/radio,
 						/obj/item/device/radio/off,
 						/obj/item/clothing/suit/cardborg,
@@ -200,7 +196,16 @@
 					item_to_add.loc = src
 					src.inventory_back = item_to_add
 					regenerate_icons()
-
+		show_inv(usr)
+//Removing facehuggers
+	else if(href_list["remove_hugger"])
+		if(!facehugger)
+			return
+		var/obj/item/F = facehugger
+		F.forceMove(loc)
+		facehugger = null
+		to_chat(usr, "<span class='notice'>You remove [F] from [src]'s face. [src] pants for air and barks.</span>")
+		regenerate_icons()
 		show_inv(usr)
 	else
 		..()
@@ -356,11 +361,11 @@
 				desc = "That's not red paint. That's real corgi blood."
 				valid = 1
 
-			if(/obj/item/clothing/head/helmet/space/rig/engineering)
+			if(/obj/item/clothing/head/helmet/space/hardsuit/engineering)
 				name = "Space Explorer [real_name]"
 				desc = "That's one small step for a corgi. One giant yap for corgikind."
 				valid = 1
-				flags |= NO_BREATHE
+				mutations.Add(BREATHLESS)
 				atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
 				minbodytemp = 0
 
@@ -461,49 +466,11 @@
 
 		if(prob(1))
 			custom_emote(1, pick("dances around.","chases its tail!"))
-			spawn(0)
-				for(var/i in list(1,2,4,8,4,2,1,2,4,8,4,2,1,2,4,8,4,2))
-					dir = i
-					sleep(1)
+			spin(20, 1)
 
 /obj/item/weapon/reagent_containers/food/snacks/meat/corgi
 	name = "Corgi meat"
 	desc = "Tastes like... well you know..."
-
-/mob/living/simple_animal/pet/corgi/Ian/Bump(atom/movable/AM as mob|obj, yes)
-
-	spawn( 0 )
-		if((!( yes ) || now_pushing))
-			return
-		now_pushing = 1
-		if(ismob(AM))
-			var/mob/tmob = AM
-			if(istype(tmob, /mob/living/carbon/human) && (FAT in tmob.mutations))
-				if(prob(70))
-					to_chat(src, "<span class='danger'>You fail to push [tmob]'s fat ass out of the way.</span>")
-					now_pushing = 0
-					return
-			if(!(tmob.status_flags & CANPUSH))
-				now_pushing = 0
-				return
-
-			tmob.LAssailant = src
-		now_pushing = 0
-		..()
-		if(!( istype(AM, /atom/movable) ))
-			return
-		if(!( now_pushing ))
-			now_pushing = 1
-			if(!( AM.anchored ))
-				var/t = get_dir(src, AM)
-				if(istype(AM, /obj/structure/window/full))
-					for(var/obj/structure/window/win in get_step(AM,t))
-						now_pushing = 0
-						return
-				step(AM, t)
-			now_pushing = null
-		return
-	return
 
 /mob/living/simple_animal/pet/corgi/regenerate_icons()
 	overlays.Cut()
@@ -572,7 +539,7 @@
 //Lisa already has a cute bow!
 /mob/living/simple_animal/pet/corgi/Lisa/Topic(href, href_list)
 	if(href_list["remove_inv"] || href_list["add_inv"])
-		to_chat(usr, "\red [src] already has a cute bow!")
+		to_chat(usr, "<span class='warning'>[src] already has a cute bow!</span>")
 		return
 	..()
 
@@ -584,16 +551,13 @@
 	if(!resting && !buckled)
 		if(prob(1))
 			custom_emote(1, pick("dances around.","chases her tail."))
-			spawn(0)
-				for(var/i in list(1,2,4,8,4,2,1,2,4,8,4,2,1,2,4,8,4,2))
-					dir = i
-					sleep(1)
+			spin(20, 1)
 
 /mob/living/simple_animal/pet/corgi/attack_hand(mob/living/carbon/human/M)
 	. = ..()
 	switch(M.a_intent)
-		if(I_HELP)	wuv(1,M)
-		if(I_HARM)	wuv(-1,M)
+		if(INTENT_HELP)	wuv(1,M)
+		if(INTENT_HARM)	wuv(-1,M)
 
 /mob/living/simple_animal/pet/corgi/proc/wuv(change, mob/M)
 	if(change)
@@ -628,7 +592,7 @@
 /mob/living/simple_animal/pet/corgi/Ian/borgi/proc/explode()
 	for(var/mob/M in viewers(src, null))
 		if(M.client)
-			M.show_message("\red [src] makes an odd whining noise.")
+			M.show_message("<span class='warning'>[src] makes an odd whining noise.</span>")
 	sleep(10)
 	explosion(get_turf(src), 0, 1, 4, 7)
 	death()
@@ -657,12 +621,12 @@
 
 	//spark for no reason
 	if(prob(5))
-		var/datum/effect/system/spark_spread/s = new /datum/effect/system/spark_spread
+		var/datum/effect_system/spark_spread/s = new /datum/effect_system/spark_spread
 		s.set_up(3, 1, src)
 		s.start()
 
 /mob/living/simple_animal/pet/corgi/Ian/borgi/death(gibbed)
-	var/datum/effect/system/spark_spread/s = new /datum/effect/system/spark_spread
+	var/datum/effect_system/spark_spread/s = new /datum/effect_system/spark_spread
 	s.set_up(3, 1, src)
 	s.start()
 	..()

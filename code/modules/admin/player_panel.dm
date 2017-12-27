@@ -393,8 +393,11 @@
 		logout_status = " <i>(snpc)</i>"
 	else
 		logout_status = M.client ? "" : " <i>(logged out)</i>"
+	var/dname = M.real_name
+	if(!dname)
+		dname = M
 
-	return {"<tr><td><a href='?src=[UID()];adminplayeropts=\ref[M]'>[M.real_name]</a><b>[caption]</b>[logout_status][M.stat == 2 ? " <b><font color=red>(DEAD)</font></b>" : ""]</td>
+	return {"<tr><td><a href='?src=[UID()];adminplayeropts=\ref[M]'>[dname]</a><b>[caption]</b>[logout_status][M.stat == 2 ? " <b><font color=red>(DEAD)</font></b>" : ""]</td>
 		<td><A href='?src=[usr.UID()];priv_msg=\ref[M]'>PM</A></td>[close ? "</tr>" : ""]"}
 
 /datum/admins/proc/check_antagonists()
@@ -424,7 +427,7 @@
 				else
 					dat += "<tr><td><i>Nuclear Operative not found!</i></td></tr>"
 			dat += "</table><br><table><tr><td><B>Nuclear Disk(s)</B></td></tr>"
-			for(var/obj/item/weapon/disk/nuclear/N in world)
+			for(var/obj/item/weapon/disk/nuclear/N in poi_list)
 				dat += "<tr><td>[N.name], "
 				var/atom/disk_loc = N.loc
 				while(!istype(disk_loc, /turf))
@@ -489,6 +492,11 @@
 
 		if(ticker.mode.cult.len)
 			dat += check_role_table("Cultists", ticker.mode.cult, 0)
+			dat += "<br> use <a href='?src=[UID()];cult_mindspeak=[UID()]'>Cult Mindspeak</a>"
+			if(GAMEMODE_IS_CULT)
+				var/datum/game_mode/cult/cult_round = ticker.mode
+				if(!cult_round.narsie_condition_cleared)
+					dat += "<br><a href='?src=[UID()];cult_nextobj=[UID()]'>complete objective (debug)</a>"
 
 		if(ticker.mode.traitors.len)
 			dat += check_role_table("Traitors", ticker.mode.traitors)
@@ -522,6 +530,17 @@
 
 		if(ticker.mode.greyshirts.len)
 			dat += check_role_table("Greyshirts", ticker.mode.greyshirts)
+
+		if(ts_spiderlist.len)
+			var/list/spider_minds = list()
+			for(var/mob/living/simple_animal/hostile/poison/terror_spider/S in ts_spiderlist)
+				if(S.ckey)
+					spider_minds += S.mind
+			if(spider_minds.len)
+				dat += check_role_table("Terror Spiders", spider_minds)
+
+		if(ticker.mode.ert.len)
+			dat += check_role_table("ERT", ticker.mode.ert)
 
 		dat += "</body></html>"
 		usr << browse(dat, "window=roundstatus;size=400x500")

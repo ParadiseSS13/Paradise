@@ -8,9 +8,6 @@ var/global/datum/controller/process/mob/mob_master
 	schedule_interval = 20 // every 2 seconds
 	start_delay = 16
 	log_startup_progress("Mob ticker starting up.")
-	if(mob_master)
-		qdel(mob_master) //only one mob master
-	mob_master = src
 
 /datum/controller/process/mob/started()
 	..()
@@ -34,3 +31,5 @@ var/global/datum/controller/process/mob/mob_master
 			catchBadType(M)
 			mob_list -= M
 	current_cycle++
+
+DECLARE_GLOBAL_CONTROLLER(mob, mob_master)

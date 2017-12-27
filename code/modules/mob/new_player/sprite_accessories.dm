@@ -17,16 +17,21 @@
 	conversion in savefile.dm
 */
 
-/proc/init_sprite_accessory_subtypes(var/prototype, var/list/L, var/list/male, var/list/female)
+/proc/init_sprite_accessory_subtypes(var/prototype, var/list/L, var/list/male, var/list/female, var/list/full_list)
 	if(!istype(L))	L = list()
 	if(!istype(male))	male = list()
 	if(!istype(female))	female = list()
+	if(!istype(full_list))	full_list = list()
 
 	for(var/path in subtypesof(prototype))
 		var/datum/sprite_accessory/D = new path()
 
 		if(D.name)
-			L[D.name] = D
+			if(D.fluff)
+				full_list[D.name] = D
+			else
+				L[D.name] = D
+				full_list[D.name] = D
 
 			switch(D.gender)
 				if(MALE)	male[D.name] = D
@@ -50,7 +55,7 @@
 	var/marking_location //Specifies which bodypart a body marking is located on.
 	var/secondary_theme = null //If exists, there's a secondary colour to that hair style and the secondary theme's icon state's suffix is equal to this.
 	var/no_sec_colour = null //If exists, prohibit the colouration of the secondary theme.
-
+	var/fluff = 0
 	// Whether or not the accessory can be affected by colouration
 	var/do_colouration = 1
 
@@ -65,7 +70,7 @@
 
 /datum/sprite_accessory/hair
 	icon = 'icons/mob/human_face.dmi'	  // default icon for all hairs
-	var/glasses_over //Hair styles with hair that don't overhang the arms of glasses should have glasses_over set to a positive value.
+	var/glasses_over //Hair styles with hair that don't overhang the arms of glasses should have glasses_over set to a positive value
 
 /datum/sprite_accessory/hair/bald
 	name = "Bald"
@@ -428,109 +433,427 @@
 //////END VG HAIRSTYLES///////
 //////////////////////////////
 
+///////////////////////////////////
+//////START POLARIS HAIRSTYLES/////
+//////////////////////////////////
+
+/datum/sprite_accessory/hair/dave
+	name = "Dave"
+	icon_state = "hair_dave"
+
+/datum/sprite_accessory/hair/rosa
+	name = "Rosa"
+	icon_state = "hair_rosa"
+
+/datum/sprite_accessory/hair/jade
+	name = "Jade"
+	icon_state = "hair_jade"
+
+/datum/sprite_accessory/hair/shy
+	name = "Shy"
+	icon_state = "hair_shy"
+
+/datum/sprite_accessory/hair/manbun
+	name = "Manbun"
+	icon_state = "hair_manbun"
+
+/datum/sprite_accessory/hair/thinningback
+	name = "Thinning Back"
+	icon_state = "hair_thinningrear"
+
+/datum/sprite_accessory/hair/thinningfront
+	name = "Thinning Front"
+	icon_state = "hair_thinningfront"
+
+/datum/sprite_accessory/hair/thinning
+	name = "Thinning"
+	icon_state = "hair_thinning"
+
+/datum/sprite_accessory/hair/bowlcut2
+	name = "Bowl 2"
+	icon_state = "hair_bowlcut2"
+
+/datum/sprite_accessory/hair/ronin
+	name = "Ronin"
+	icon_state = "hair_ronin"
+
+/datum/sprite_accessory/hair/topknot
+	name = "Topknot"
+	icon_state = "hair_topknot"
+
+/datum/sprite_accessory/hair/regulationmohawk
+	name = "Regulation Mohawk"
+	icon_state = "hair_shavedmohawk"
+
+/datum/sprite_accessory/hair/rowbraid
+	name = "Row Braid"
+	icon_state = "hair_rowbraid"
+
+/datum/sprite_accessory/hair/rowdualbraid
+	name = "Row Dual Braid"
+	icon_state = "hair_rowdualtail"
+
+/datum/sprite_accessory/hair/rowbun
+	name = "Row Bun"
+	icon_state = "hair_rowbun"
+
+/datum/sprite_accessory/hair/hightight
+	name = "High and Tight"
+	icon_state = "hair_hightight"
+
+/datum/sprite_accessory/hair/partfade
+	name = "Parted Fade"
+	icon_state = "hair_shavedpart"
+	gender = MALE
+
+/datum/sprite_accessory/hair/undercut3
+	name = "Undercut Swept Left"
+	icon_state = "hair_undercut3"
+	gender = MALE
+
+/datum/sprite_accessory/hair/undercut2
+	name = "Undercut Swept Right"
+	icon_state = "hair_undercut2"
+	gender = MALE
+
+/datum/sprite_accessory/hair/undercut1
+	name = "Undercut"
+	icon_state = "hair_undercut1"
+	gender = MALE
+
+/datum/sprite_accessory/hair/coffeehouse
+	name = "Coffee House Cut"
+	icon_state = "hair_coffeehouse"
+	gender = MALE
+
+/datum/sprite_accessory/hair/tightbun
+	name = "Tight Bun"
+	icon_state = "hair_tightbun"
+	gender = FEMALE
+
+/datum/sprite_accessory/hair/trimmed
+	name = "Trimmed"
+	icon_state = "hair_trimmed"
+	gender = MALE
+
+/datum/sprite_accessory/hair/trimflat
+	name = "Trimmed Flat Top"
+	icon_state = "hair_trimflat"
+	gender = MALE
+
+/datum/sprite_accessory/hair/nofade
+	name = "Regulation Cut"
+	icon_state = "hair_nofade"
+	gender = MALE
+
+/datum/sprite_accessory/hair/baldfade
+	name = "Balding Fade"
+	icon_state = "hair_baldfade"
+	gender = MALE
+
+/datum/sprite_accessory/hair/highfade
+	name = "High Fade"
+	icon_state = "hair_highfade"
+	gender = MALE
+
+/datum/sprite_accessory/hair/medfade
+	name = "Medium Fade"
+	icon_state = "hair_medfade"
+
+/datum/sprite_accessory/hair/lowfade
+	name = "Low Fade"
+	icon_state = "hair_lowfade"
+	gender = MALE
+
+/datum/sprite_accessory/hair/oxton
+	name = "Oxton"
+	icon_state = "hair_oxton"
+
+/datum/sprite_accessory/hair/doublebun
+	name = "Double-Bun"
+	icon_state = "hair_doublebun"
+
+/datum/sprite_accessory/hair/halfshaved
+	name = "Half-Shaved Emo"
+	icon_state = "hair_halfshaved"
+
+/datum/sprite_accessory/hair/shortbangs
+	name = "Short Bangs"
+	icon_state = "hair_shortbangs"
+
+/datum/sprite_accessory/hair/longeralt2
+	name = "Long Hair Alt 2"
+	icon_state = "hair_longeralt2"
+
+/datum/sprite_accessory/hair/nia
+	name = "Nia"
+	icon_state = "hair_nia"
+
+/datum/sprite_accessory/hair/eighties
+	name = "80's"
+	icon_state = "hair_80s"
+
+/datum/sprite_accessory/hair/volaju
+	name = "Volaju"
+	icon_state = "hair_volaju"
+
+/datum/sprite_accessory/hair/joestar
+	name = "Joestar"
+	icon_state = "hair_joestar"
+	gender = MALE
+
+/datum/sprite_accessory/hair/nitori
+	name = "Nitori"
+	icon_state = "hair_nitori"
+
+/datum/sprite_accessory/hair/scully
+	name = "Scully"
+	icon_state = "hair_scully"
+
+/datum/sprite_accessory/hair/vegeta
+	name = "Vegeta"
+	icon_state = "hair_toriyama2"
+
+/datum/sprite_accessory/hair/crono
+	name = "Chrono"
+	icon_state = "hair_toriyama"
+
+/datum/sprite_accessory/hair/poofy2
+	name = "Poofy2"
+	icon_state = "hair_poofy2"
+
+/datum/sprite_accessory/hair/poofy
+	name = "Poofy"
+	icon_state = "hair_poofy"
+
+/datum/sprite_accessory/hair/dandypomp
+	name = "Dandy Pompadour"
+	icon_state = "hair_dandypompadour"
+
+/datum/sprite_accessory/hair/fringetail
+	name = "Fringetail"
+	icon_state = "hair_fringetail"
+
+/datum/sprite_accessory/hair/mahdrills
+	name = "Drillruru"
+	icon_state = "hair_drillruru"
+
+/datum/sprite_accessory/hair/familyman
+	name = "The Family Man"
+	icon_state = "hair_thefamilyman"
+
+/datum/sprite_accessory/hair/grandebraid
+	name = "Grande Braid"
+	icon_state = "hair_grande"
+
+/datum/sprite_accessory/hair/fringeemo
+	name = "Emo Fringe"
+	icon_state = "hair_emofringe"
+
+/datum/sprite_accessory/hair/emo2
+	name = "Emo Alt"
+	icon_state = "hair_emo2"
+
+/datum/sprite_accessory/hair/sargeant
+	name = "Flat Top"
+	icon_state = "hair_sargeant"
+
+/datum/sprite_accessory/hair/rows2
+	name = "Rows 2"
+	icon_state = "hair_rows2"
+
+/datum/sprite_accessory/hair/rows
+	name = "Rows"
+	icon_state = "hair_rows1"
+
+/datum/sprite_accessory/hair/reversemohawk
+	name = "Reverse Mohawk"
+	icon_state = "hair_reversemohawk"
+
+/datum/sprite_accessory/hair/father
+	name = "Father"
+	icon_state = "hair_father"
+
+/datum/sprite_accessory/hair/beehive2
+	name = "Beehive 2"
+	icon_state = "hair_beehive2"
+
+/datum/sprite_accessory/hair/sleeze
+	name = "Sleeze"
+	icon_state = "hair_sleeze"
+
+/datum/sprite_accessory/hair/zieglertail
+	name = "Zieglertail"
+	icon_state = "hair_ziegler"
+
+/datum/sprite_accessory/hair/spikyponytail
+	name = "Spiky Ponytail"
+	icon_state = "hair_spikyponytail"
+
+/datum/sprite_accessory/hair/tresshoulder
+	name = "Tress Shoulder"
+	icon_state = "hair_tressshoulder"
+
+/datum/sprite_accessory/hair/oneshoulder
+	name = "One Shoulder"
+	icon_state = "hair_oneshoulder"
+
+/datum/sprite_accessory/hair/ponytail6
+	name = "Ponytail 6"
+	icon_state = "hair_ponytail6"
+
+/datum/sprite_accessory/hair/ponytail5
+	name = "Ponytail 5"
+	icon_state = "hair_ponytail5"
+
+/datum/sprite_accessory/hair/ponytail4
+	name = "Ponytail 4"
+	icon_state = "hair_ponytail4"
+
+/datum/sprite_accessory/hair/country
+	name = "Country"
+	icon_state = "hair_country"
+
+/datum/sprite_accessory/hair/bedheadlong
+	name = "Bedhead Long"
+	icon_state = "hair_long_bedhead"
+
+/datum/sprite_accessory/hair/flair
+	name = "Flaired Hair"
+	icon_state = "hair_flair"
+
+/datum/sprite_accessory/hair/twintail
+	name = "Twintail"
+	icon_state = "hair_twintail"
+
+/datum/sprite_accessory/hair/short2
+	name = "Short Hair 2"
+	icon_state = "hair_shorthair3"
+
+/datum/sprite_accessory/hair/bun2
+	name = "Bun 2"
+	icon_state = "hair_bun2"
+
+/datum/sprite_accessory/hair/bun3
+	name = "Bun 3"
+	icon_state = "hair_bun3"
+
+/datum/sprite_accessory/hair/shavehair
+	name = "Shaved Hair"
+	icon_state = "hair_shaved"
+
+/datum/sprite_accessory/hair/veryshortovereyealternate
+	name = "Overeye Very Short, Alternate"
+	icon_state = "hair_veryshortovereyealternate"
+
+/datum/sprite_accessory/hair/veryshortovereye
+	name = "Overeye Very Short"
+	icon_state = "hair_veryshortovereye"
+
+/datum/sprite_accessory/hair/shortovereye
+	name = "Overeye Short"
+	icon_state = "hair_shortovereye"
+
+/datum/sprite_accessory/hair/longovereye
+	name = "Overeye Long"
+	icon_state = "hair_longovereye"
+
+/datum/sprite_accessory/hair/father
+	name = "Father"
+	icon_state = "hair_father"
+
+/datum/sprite_accessory/hair/bun4 // Due to a vulp hairstyle called bun
+	name = "Bun 4"
+	icon_state = "hair_bun4"
+
+///////////////////////////////////
+//////END POLARIS HAIRSTYLES///////
+//////////////////////////////////
+
 /datum/sprite_accessory/hair/ipc
 	species_allowed = list("Machine")
 	glasses_over = 1
+	models_allowed = list("Bishop Cybernetics mtr.", "Hesphiastos Industries mtr.", "Morpheus Cyberkinetics", "Ward-Takahashi mtr.", "Xion Manufacturing Group mtr.", "Shellguard Munitions Monitor Series")
 
 /datum/sprite_accessory/hair/ipc/ipc_screen_pink
 	name = "Pink IPC Screen"
 	icon_state = "ipc_pink"
-	models_allowed = list("Bishop Cybernetics mtr.", "Hesphiastos Industries mtr.", "Morpheus Cyberkinetics", "Ward-Takahashi mtr.", "Xion Manufacturing Group mtr.")
 
 /datum/sprite_accessory/hair/ipc/ipc_screen_red
 	name = "Red IPC Screen"
 	icon_state = "ipc_red"
-	models_allowed = list("Bishop Cybernetics mtr.", "Hesphiastos Industries mtr.", "Morpheus Cyberkinetics", "Ward-Takahashi mtr.", "Xion Manufacturing Group mtr.")
 
 /datum/sprite_accessory/hair/ipc/ipc_screen_green
 	name = "Green IPC Screen"
 	icon_state = "ipc_green"
-	models_allowed = list("Bishop Cybernetics mtr.", "Hesphiastos Industries mtr.", "Morpheus Cyberkinetics", "Ward-Takahashi mtr.", "Xion Manufacturing Group mtr.")
 
 /datum/sprite_accessory/hair/ipc/ipc_screen_blue
 	name = "Blue IPC Screen"
 	icon_state = "ipc_blue"
-	models_allowed = list("Bishop Cybernetics mtr.", "Hesphiastos Industries mtr.", "Morpheus Cyberkinetics", "Ward-Takahashi mtr.", "Xion Manufacturing Group mtr.")
 
 /datum/sprite_accessory/hair/ipc/ipc_screen_breakout
 	name = "Breakout IPC Screen"
 	icon_state = "ipc_breakout"
-	models_allowed = list("Bishop Cybernetics mtr.", "Hesphiastos Industries mtr.", "Morpheus Cyberkinetics", "Ward-Takahashi mtr.", "Xion Manufacturing Group mtr.")
 
 /datum/sprite_accessory/hair/ipc/ipc_screen_eight
 	name = "Eight IPC Screen"
 	icon_state = "ipc_eight"
-	models_allowed = list("Bishop Cybernetics mtr.", "Hesphiastos Industries mtr.", "Morpheus Cyberkinetics", "Ward-Takahashi mtr.", "Xion Manufacturing Group mtr.")
 
 /datum/sprite_accessory/hair/ipc/ipc_screen_rainbow
 	name = "Rainbow IPC Screen"
 	icon_state = "ipc_rainbow"
-	models_allowed = list("Bishop Cybernetics mtr.", "Hesphiastos Industries mtr.", "Morpheus Cyberkinetics", "Ward-Takahashi mtr.", "Xion Manufacturing Group mtr.")
 
 /datum/sprite_accessory/hair/ipc/ipc_screen_goggles
 	name = "Goggles IPC Screen"
 	icon_state = "ipc_goggles"
-	models_allowed = list("Bishop Cybernetics mtr.", "Hesphiastos Industries mtr.", "Morpheus Cyberkinetics", "Ward-Takahashi mtr.", "Xion Manufacturing Group mtr.")
 
 /datum/sprite_accessory/hair/ipc/ipc_screen_heart
 	name = "Heart IPC Screen"
 	icon_state = "ipc_heart"
-	models_allowed = list("Bishop Cybernetics mtr.", "Hesphiastos Industries mtr.", "Morpheus Cyberkinetics", "Ward-Takahashi mtr.", "Xion Manufacturing Group mtr.")
 
 /datum/sprite_accessory/hair/ipc/ipc_screen_monoeye
 	name = "Monoeye IPC Screen"
 	icon_state = "ipc_monoeye"
-	models_allowed = list("Bishop Cybernetics mtr.", "Hesphiastos Industries mtr.", "Morpheus Cyberkinetics", "Ward-Takahashi mtr.", "Xion Manufacturing Group mtr.")
 
 /datum/sprite_accessory/hair/ipc/ipc_screen_nature
 	name = "Nature IPC Screen"
 	icon_state = "ipc_nature"
-	models_allowed = list("Bishop Cybernetics mtr.", "Hesphiastos Industries mtr.", "Morpheus Cyberkinetics", "Ward-Takahashi mtr.", "Xion Manufacturing Group mtr.")
 
 /datum/sprite_accessory/hair/ipc/ipc_screen_orange
 	name = "Orange IPC Screen"
 	icon_state = "ipc_orange"
-	models_allowed = list("Bishop Cybernetics mtr.", "Hesphiastos Industries mtr.", "Morpheus Cyberkinetics", "Ward-Takahashi mtr.", "Xion Manufacturing Group mtr.")
 
 /datum/sprite_accessory/hair/ipc/ipc_screen_purple
 	name = "Purple IPC Screen"
 	icon_state = "ipc_purple"
-	models_allowed = list("Bishop Cybernetics mtr.", "Hesphiastos Industries mtr.", "Morpheus Cyberkinetics", "Ward-Takahashi mtr.", "Xion Manufacturing Group mtr.")
 
 /datum/sprite_accessory/hair/ipc/ipc_screen_shower
 	name = "Shower IPC Screen"
 	icon_state = "ipc_shower"
-	models_allowed = list("Bishop Cybernetics mtr.", "Hesphiastos Industries mtr.", "Morpheus Cyberkinetics", "Ward-Takahashi mtr.", "Xion Manufacturing Group mtr.")
 
 /datum/sprite_accessory/hair/ipc/ipc_screen_static
 	name = "Static IPC Screen"
 	icon_state = "ipc_static"
-	models_allowed = list("Bishop Cybernetics mtr.", "Hesphiastos Industries mtr.", "Morpheus Cyberkinetics", "Ward-Takahashi mtr.", "Xion Manufacturing Group mtr.")
 
 /datum/sprite_accessory/hair/ipc/ipc_screen_yellow
 	name = "Yellow IPC Screen"
 	icon_state = "ipc_yellow"
-	models_allowed = list("Bishop Cybernetics mtr.", "Hesphiastos Industries mtr.", "Morpheus Cyberkinetics", "Ward-Takahashi mtr.", "Xion Manufacturing Group mtr.")
 
 /datum/sprite_accessory/hair/ipc/ipc_screen_scrolling
 	name = "Scanline IPC Screen"
 	icon_state = "ipc_scroll"
-	models_allowed = list("Bishop Cybernetics mtr.", "Hesphiastos Industries mtr.", "Morpheus Cyberkinetics", "Ward-Takahashi mtr.", "Xion Manufacturing Group mtr.")
 
 /datum/sprite_accessory/hair/ipc/ipc_screen_console
 	name = "Console IPC Screen"
 	icon_state = "ipc_console"
-	models_allowed = list("Bishop Cybernetics mtr.", "Hesphiastos Industries mtr.", "Morpheus Cyberkinetics", "Ward-Takahashi mtr.", "Xion Manufacturing Group mtr.")
 
 /datum/sprite_accessory/hair/ipc/ipc_screen_rgb
 	name = "RGB IPC Screen"
 	icon_state = "ipc_rgb"
-	models_allowed = list("Bishop Cybernetics mtr.", "Hesphiastos Industries mtr.", "Morpheus Cyberkinetics", "Ward-Takahashi mtr.", "Xion Manufacturing Group mtr.")
 
 /datum/sprite_accessory/hair/ipc/ipc_screen_glider
 	name = "Glider IPC Screen"
 	icon_state = "ipc_gol_glider"
-	models_allowed = list("Bishop Cybernetics mtr.", "Hesphiastos Industries mtr.", "Morpheus Cyberkinetics", "Ward-Takahashi mtr.", "Xion Manufacturing Group mtr.")
 
 /datum/sprite_accessory/hair/ipc/hesphiastos_alt_off
 	name = "Dark Hesphiastos Screen"
@@ -578,10 +901,73 @@
 /datum/sprite_accessory/hair/unathi
 	species_allowed = list("Unathi")
 	glasses_over = 1
+	icon = 'icons/mob/body_accessory.dmi'
 
-/datum/sprite_accessory/hair/unathi/una_horns
-	name = "Unathi Horns"
-	icon_state = "soghun_horns"
+/datum/sprite_accessory/hair/unathi/una_side_frills
+	icon = 'icons/mob/human_face.dmi'
+	name = "Unathi Side Frills"
+	icon_state = "unathi_sidefrills"
+	secondary_theme = "webbing"
+
+/datum/sprite_accessory/hair/unathi/una_cobra_hood
+    icon = 'icons/mob/human_face.dmi'
+    name = "Unathi Cobra Hood"
+    icon_state = "unathi_cobrahood"
+    secondary_theme = "webbing"
+
+/datum/sprite_accessory/hair/unathi/una_frills_dorsal
+	icon = 'icons/mob/human_face.dmi'
+	name = "Dorsal Frills"
+	icon_state = "unathi_dorsalfrills"
+	secondary_theme = "webbing"
+
+/datum/sprite_accessory/hair/unathi/simple
+	name = "Simple Horns"
+	icon_state = "horns_simple"
+
+/datum/sprite_accessory/hair/unathi/short
+	name = "Short Horns"
+	icon_state = "horns_short"
+
+/datum/sprite_accessory/hairy/unathi/curled
+	name = "Curled Horns"
+	icon_state = "horns_curled"
+
+/datum/sprite_accessory/hair/unathi/ram
+	name = "Ram Horns"
+	icon_state = "horns_ram"
+
+/datum/sprite_accessory/hair/unathi/double
+	name = "Double Horns"
+	icon_state = "horns_drac"
+
+/datum/sprite_accessory/hair/unathi/lower
+	name = "Lower Horns"
+	icon_state = "horns_lower"
+
+/datum/sprite_accessory/hair/unathi/big
+	name = "Big"
+	icon_state = "horns_big"
+
+/datum/sprite_accessory/hair/unathi/ram2
+	name = "Ram alt."
+	icon_state = "horns_ram2"
+
+/datum/sprite_accessory/hair/unathi/small
+	name = "Small"
+	icon_state = "horns_small"
+
+/datum/sprite_accessory/hair/unathi/chin
+	name = "Chin"
+	icon_state = "horns_chin"
+
+/datum/sprite_accessory/hair/unathi/adorns
+	name = "Adorns"
+	icon_state = "horns_adorns"
+
+/datum/sprite_accessory/hair/unathi/spikes
+	name = "Spikes"
+	icon_state = "horns_spikes"
 
 /datum/sprite_accessory/hair/skrell
 	species_allowed = list("Skrell")
@@ -698,6 +1084,8 @@
 	icon_state = "hair_fingerwave"
 	glasses_over = null
 
+
+
 /datum/sprite_accessory/hair/vulpkanin
 	species_allowed = list("Vulpkanin")
 
@@ -765,6 +1153,20 @@
 	name = "Braided"
 	icon_state = "braided"
 	secondary_theme = "beads"
+
+/datum/sprite_accessory/hair/vulpkanin/vulp_hair_punkbraided
+	name = "Punk Braided"
+	icon_state = "punkbraided"
+	secondary_theme = "flare"
+
+/datum/sprite_accessory/hair/vulpkanin/vulp_hair_short2
+	name = "Short Alt."
+	icon_state = "short2"
+	glasses_over = 1
+
+/datum/sprite_accessory/hair/vulpkanin/vulp_hair_rough
+	name = "Rough-Cropped Mane"
+	icon_state = "rough"
 
 /datum/sprite_accessory/hair/vox
 	species_allowed = list("Vox")
@@ -868,6 +1270,15 @@
 	name = "Nucleation Neutron Bomb"
 	icon_state = "nuc_neutron"
 
+
+
+/datum/sprite_accessory/hair/fluff
+	fluff = 1
+
+/datum/sprite_accessory/hair/fluff/zeke_fluff_tentacle //Zeke Fluff hair
+	name = "Zekes Tentacles"
+	icon_state = "zeke_fluff_hair"
+	species_allowed = list("Skrell")
 
 /*
 ///////////////////////////////////
@@ -1003,6 +1414,10 @@
 	name = "Tajara Goatee"
 	icon_state = "facial_goatee"
 
+/datum/sprite_accessory/facial_hair/tajara/taj_goatee_faded
+	name = "Tajara Faded Goatee"
+	icon_state = "facial_goatee_faded"
+
 /datum/sprite_accessory/facial_hair/tajara/taj_smallstache
 	name = "Tajara Smallstache"
 	icon_state = "facial_smallstache"
@@ -1067,6 +1482,15 @@
 	name = "Swift"
 	icon_state = "vulp_facial_swift"
 
+/datum/sprite_accessory/facial_hair/vulpkanin/vulp_elder
+	name = "Elder"
+	icon_state = "vulp_facial_elder"
+	secondary_theme = "chin"
+
+/datum/sprite_accessory/facial_hair/vulpkanin/vulp_slash
+	name = "Slash"
+	icon_state = "vulp_facial_slash"
+
 /datum/sprite_accessory/facial_hair/unathi
 	species_allowed = list("Unathi")
 	gender = NEUTER
@@ -1074,38 +1498,73 @@
 
 /datum/sprite_accessory/facial_hair/unathi/una_spines_long
 	name = "Long Spines"
-	icon_state = "soghun_longspines"
+	icon_state = "unathi_longspines"
 
 /datum/sprite_accessory/facial_hair/unathi/una_spines_short
 	name = "Short Spines"
-	icon_state = "soghun_shortspines"
+	icon_state = "unathi_shortspines"
+
+/datum/sprite_accessory/facial_hair/unathi/una_frills_aquaspine
+	name = "Spiny Aquatic Frills"
+	icon_state = "unathi_dracfrills"
 
 /datum/sprite_accessory/facial_hair/unathi/una_frills_aquatic
 	name = "Aquatic Frills"
-	icon_state = "soghun_aquaticfrills"
+	icon_state = "unathi_aquaticfrills"
 
 /datum/sprite_accessory/facial_hair/unathi/una_frills_long
 	name = "Long Frills"
-	icon_state = "soghun_longfrills"
+	icon_state = "unathi_longfrills"
 
 /datum/sprite_accessory/facial_hair/unathi/una_frills_short
 	name = "Short Frills"
-	icon_state = "soghun_shortfrills"
+	icon_state = "unathi_shortfrills"
+
+/datum/sprite_accessory/facial_hair/unathi/una_frills_webbed_aquaspine
+	name = "Spiny Aquatic Webbed Frills"
+	icon_state = "unathi_dracfrills"
+	secondary_theme = "webbing"
 
 /datum/sprite_accessory/facial_hair/unathi/una_frills_webbed_aquatic
 	name = "Aquatic Webbed Frills"
-	icon_state = "soghun_aquaticfrills"
+	icon_state = "unathi_aquaticfrills"
 	secondary_theme = "webbing"
 
 /datum/sprite_accessory/facial_hair/unathi/una_frills_webbed_long
 	name = "Long Webbed Frills"
-	icon_state = "soghun_longfrills"
+	icon_state = "unathi_longfrills"
 	secondary_theme = "webbing"
 
 /datum/sprite_accessory/facial_hair/unathi/una_frills_webbed_short
 	name = "Short Webbed Frills"
-	icon_state = "soghun_shortfrills"
+	icon_state = "unathi_shortfrills"
 	secondary_theme = "webbing"
+
+/datum/sprite_accessory/facial_hair/unathi/una_side_frills
+	name = "Side Frills"
+	icon_state = "unathi_sidefrills"
+	secondary_theme = "webbing"
+
+/datum/sprite_accessory/facial_hair/unathi/una_frills_dorsal
+	over_hair = null
+	name = "Dorsal Frills"
+	icon_state = "unathi_dorsalfrills"
+	secondary_theme = "webbing"
+
+/datum/sprite_accessory/facial_hair/unathi/una_chin_horns
+	name = "Chin Horns"
+	icon = 'icons/mob/body_accessory.dmi'
+	icon_state = "horns_chin"
+
+/datum/sprite_accessory/facial_hair/unathi/una_horn_adorns
+	name = "Horn Adorns"
+	icon = 'icons/mob/body_accessory.dmi'
+	icon_state = "horns_adorns"
+
+/datum/sprite_accessory/facial_hair/unathi/una_spikes
+	name = "Spikes"
+	icon = 'icons/mob/body_accessory.dmi'
+	icon_state = "horns_spikes"
 
 //skin styles - WIP
 //going to have to re-integrate this with surgery
@@ -1151,13 +1610,13 @@
 ///////////////////////////
 /datum/sprite_accessory/underwear
 	icon = 'icons/mob/underwear.dmi'
-	species_allowed = list("Human", "Unathi", "Diona", "Vulpkanin", "Tajaran", "Kidan", "Grey", "Plasmaman", "Machine", "Skeleton", "Drask")
+	species_allowed = list("Human", "Unathi", "Diona", "Vulpkanin", "Tajaran", "Kidan", "Grey", "Plasmaman", "Machine", "Skrell", "Slime People", "Skeleton", "Drask")
 	gender = NEUTER
 
 /datum/sprite_accessory/underwear/nude
 	name = "Nude"
 	icon_state = null
-	species_allowed = list("Human", "Unathi", "Diona", "Vulpkanin", "Tajaran", "Kidan", "Grey", "Plasmaman", "Machine", "Skeleton", "Drask", "Vox")
+	species_allowed = list("Human", "Unathi", "Diona", "Vulpkanin", "Tajaran", "Kidan", "Grey", "Plasmaman", "Machine", "Skrell", "Slime People", "Skeleton", "Drask", "Vox")
 
 /datum/sprite_accessory/underwear/male
 	gender = MALE
@@ -1277,13 +1736,13 @@
 ////////////////////////////
 /datum/sprite_accessory/undershirt
 	icon = 'icons/mob/underwear.dmi'
-	species_allowed = list("Human", "Unathi", "Diona", "Vulpkanin", "Tajaran", "Kidan", "Grey", "Plasmaman", "Machine", "Skeleton", "Drask")
+	species_allowed = list("Human", "Unathi", "Diona", "Vulpkanin", "Tajaran", "Kidan", "Grey", "Plasmaman", "Machine", "Skrell", "Slime People", "Skeleton", "Drask")
 	gender = NEUTER
 
 /datum/sprite_accessory/undershirt/nude
 	name = "Nude"
 	icon_state = null
-	species_allowed = list("Human", "Unathi", "Diona", "Vulpkanin", "Tajaran", "Kidan", "Grey", "Plasmaman", "Machine", "Skeleton", "Drask", "Vox")
+	species_allowed = list("Human", "Unathi", "Diona", "Vulpkanin", "Tajaran", "Kidan", "Grey", "Plasmaman", "Machine", "Skrell", "Slime People", "Skeleton", "Drask", "Vox")
 
 //plain color shirts
 /datum/sprite_accessory/undershirt/shirt_white
@@ -1513,13 +1972,13 @@
 ///////////////////////
 /datum/sprite_accessory/socks
 	icon = 'icons/mob/underwear.dmi'
-	species_allowed = list("Human", "Unathi", "Diona", "Vulpkanin", "Tajaran", "Kidan", "Grey", "Plasmaman", "Machine", "Skeleton", "Drask")
+	species_allowed = list("Human", "Unathi", "Diona", "Vulpkanin", "Tajaran", "Kidan", "Grey", "Plasmaman", "Machine", "Skrell", "Slime People", "Skeleton", "Drask")
 	gender = NEUTER
 
 /datum/sprite_accessory/socks/nude
 	name = "Nude"
 	icon_state = null
-	species_allowed = list("Human", "Unathi", "Diona", "Vulpkanin", "Tajaran", "Kidan", "Grey", "Plasmaman", "Machine", "Skeleton", "Drask", "Vox")
+	species_allowed = list("Human", "Unathi", "Diona", "Vulpkanin", "Tajaran", "Kidan", "Grey", "Plasmaman", "Machine", "Skrell", "Slime People", "Skeleton", "Drask", "Vox")
 
 /datum/sprite_accessory/socks/white_norm
 	name = "Normal White"
@@ -1645,7 +2104,7 @@
 
 /datum/sprite_accessory/head_accessory/none
 	name = "None"
-	species_allowed = list("Human", "Unathi", "Diona", "Grey", "Machine", "Tajaran", "Vulpkanin", "Slime People", "Skeleton", "Vox")
+	species_allowed = list("Human", "Unathi", "Diona", "Grey", "Kidan", "Machine", "Tajaran", "Vulpkanin", "Skrell", "Slime People", "Skeleton", "Vox")
 	icon_state = "accessory_none"
 
 /datum/sprite_accessory/head_accessory/unathi
@@ -1667,6 +2126,38 @@
 /datum/sprite_accessory/head_accessory/unathi/ram
 	name = "Ram"
 	icon_state = "horns_ram"
+
+/datum/sprite_accessory/head_accessory/unathi/double
+	name = "Double"
+	icon_state = "horns_drac"
+
+/datum/sprite_accessory/head_accessory/unathi/lower
+	name = "Lower"
+	icon_state = "horns_lower"
+
+/datum/sprite_accessory/head_accessory/unathi/big
+	name = "Big"
+	icon_state = "horns_big"
+
+/datum/sprite_accessory/head_accessory/unathi/ram2
+	name = "Ram alt."
+	icon_state = "horns_ram2"
+
+/datum/sprite_accessory/head_accessory/unathi/small
+	name = "Small"
+	icon_state = "horns_small"
+
+/datum/sprite_accessory/head_accessory/unathi/chin
+	name = "Chin"
+	icon_state = "horns_chin"
+
+/datum/sprite_accessory/head_accessory/unathi/adorns
+	name = "Adorns"
+	icon_state = "horns_adorns"
+
+/datum/sprite_accessory/head_accessory/unathi/spikes
+	name = "Spikes"
+	icon_state = "horns_spikes"
 
 /datum/sprite_accessory/head_accessory/tajara
 	species_allowed = list("Tajaran")
@@ -1748,6 +2239,20 @@
 	name = "Vulpkanin Nose"
 	icon_state = "markings_face_nose_vulp"
 
+/datum/sprite_accessory/head_accessory/vulpkanin/vulp_nose2
+	name = "Vulpkanin Nose Alt."
+	icon_state = "markings_face_nose2_vulp"
+
+/datum/sprite_accessory/head_accessory/vulpkanin/vulp_elder
+	icon = 'icons/mob/human_face.dmi'
+	name = "Elder"
+	icon_state = "vulp_facial_elder"
+
+/datum/sprite_accessory/head_accessory/vulpkanin/vulp_slash
+	icon = 'icons/mob/human_face.dmi'
+	name = "Slash"
+	icon_state = "vulp_facial_slash"
+
 /datum/sprite_accessory/head_accessory/ipc
 	species_allowed = list("Machine")
 	over_hair = 1
@@ -1768,24 +2273,93 @@
 	name = "Head Light"
 	icon_state = "light"
 
+/datum/sprite_accessory/head_accessory/ipc/ipc_side_lights
+	name = "Side Lights"
+	icon_state = "sidelights"
+
+/datum/sprite_accessory/head_accessory/ipc/ipc_side_cyber_head
+	name = "Cyber Pipes"
+	icon_state = "cyberhead"
+
+/datum/sprite_accessory/head_accessory/ipc/ipc_side_antlers
+	name = "Antlers"
+	icon_state = "antlers"
+
+/datum/sprite_accessory/head_accessory/ipc/ipc_side_drone_eyes
+	name = "Drone Eyes"
+	icon_state = "droneeyes"
+
+/datum/sprite_accessory/head_accessory/ipc/ipc_crowned
+	name = "Crowned"
+	icon_state = "crowned"
+
+/datum/sprite_accessory/head_accessory/kidan
+	icon = 'icons/mob/human_face.dmi'
+	species_allowed = list("Kidan")
+	over_hair = 1
+	do_colouration = 1
+
+/datum/sprite_accessory/head_accessory/kidan/perked_antennae
+	name = "Perked-up Antennae"
+	icon_state = "kidan_perky"
+
+/datum/sprite_accessory/head_accessory/kidan/mopey_antennae
+	name = "Mopey Antennae"
+	icon_state = "kidan_mopey"
+
+/datum/sprite_accessory/head_accessory/kidan/curious_antennae
+	name = "Curious Antennae"
+	icon_state = "kidan_curious"
+
+/datum/sprite_accessory/head_accessory/kidan/mopey_antennae
+	name = "Mopey Antennae"
+	icon_state = "kidan_mopey"
+
+/datum/sprite_accessory/head_accessory/kidan/crescent_antennae
+	name = "Crescent Antennae"
+	icon_state = "kidan_crescent"
+
+/datum/sprite_accessory/head_accessory/kidan/alert_antennae
+	name = "Alert Antennae"
+	icon_state = "kidan_alert"
+
+/datum/sprite_accessory/head_accessory/kidan/normal_antennae
+	name = "Normal Antennae"
+	icon_state = "kidan_normal"
+
+/datum/sprite_accessory/head_accessory/kidan/long_antennae
+	name = "Long Antennae"
+	icon_state = "kidan_long"
+
+/datum/sprite_accessory/head_accessory/kidan/moth_antennae
+	name = "Moth Antennae"
+	icon_state = "kidan_moth"
+
 
 /* BODY MARKINGS */
 
 /datum/sprite_accessory/body_markings
 	icon = 'icons/mob/body_accessory.dmi'
-	species_allowed = list("Unathi", "Tajaran", "Vulpkanin", "Machine", "Vox")
+	species_allowed = list("Unathi", "Tajaran", "Vulpkanin", "Machine", "Vox", "Kidan")
 	icon_state = "accessory_none"
 	marking_location = "body"
 
 /datum/sprite_accessory/body_markings/none
 	name = "None"
-	species_allowed = list("Human", "Unathi", "Diona", "Grey", "Machine", "Tajaran", "Vulpkanin", "Slime People", "Skeleton", "Vox")
+	species_allowed = list("Human", "Unathi", "Diona", "Grey", "Machine", "Tajaran", "Vulpkanin", "Skrell", "Slime People", "Skeleton", "Vox", "Kidan")
 	icon_state = "accessory_none"
 
 /datum/sprite_accessory/body_markings/tiger
 	name = "Tiger Body"
 	species_allowed = list("Unathi", "Tajaran", "Vulpkanin")
 	icon_state = "markings_tiger"
+
+/datum/sprite_accessory/body_markings/kidan
+	species_allowed = list("Kidan")
+
+/datum/sprite_accessory/body_markings/kidan/outline_kid
+	name = "Kidan Outline"
+	icon_state = "markings_outline_kid"
 
 /datum/sprite_accessory/body_markings/unathi
 	species_allowed = list("Unathi")
@@ -1875,6 +2449,13 @@
 	marking_location = "head"
 	species_allowed = list()
 
+/datum/sprite_accessory/body_markings/head/kidan
+	species_allowed = list("Kidan")
+
+/datum/sprite_accessory/body_markings/head/kidan/outline_head_kid
+	name = "Kidan Outline Head"
+	icon_state = "markings_head_outline_kid"
+
 /datum/sprite_accessory/body_markings/head/tajara
 	species_allowed = list("Tajaran")
 
@@ -1933,6 +2514,10 @@
 	name = "Vulpkanin Nose"
 	icon_state = "markings_face_nose_vulp"
 
+/datum/sprite_accessory/body_markings/head/vulpkanin/nose2_default_vulp
+	name = "Vulpkanin Nose Alt."
+	icon_state = "markings_face_nose2_vulp"
+
 /datum/sprite_accessory/body_markings/head/vulpkanin/muzzle_vulp //Companion marking for Vulpkanin Belly Alt..
 	name = "Vulpkanin Muzzle"
 	icon_state = "markings_face_full_vulp"
@@ -1968,6 +2553,7 @@
 /datum/sprite_accessory/body_markings/head/unathi/snout_lower_una_round
 	name = "Unathi Lower Round Snout"
 	icon_state = "markings_face_snout_lower_una"
+	heads_allowed = list("All")
 
 /datum/sprite_accessory/body_markings/head/unathi/banded_una //Companion marking for Unathi Banded.
 	name = "Unathi Banded Head"

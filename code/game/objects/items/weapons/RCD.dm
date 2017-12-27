@@ -1,13 +1,11 @@
-//This file was auto-corrected by findeclaration.exe on 25.5.2012 20:42:32
-
 /*
 CONTAINS:
 RCD
 */
 /obj/item/weapon/rcd
 	name = "rapid-construction-device (RCD)"
-	desc = "A device used to rapidly build and deconstruct walls and floors."
-	icon = 'icons/obj/items.dmi'
+	desc = "A device used to rapidly build and deconstruct walls, floors and airlocks."
+	icon = 'icons/obj/tools.dmi'
 	icon_state = "rcd"
 	opacity = 0
 	density = 0
@@ -17,10 +15,12 @@ RCD
 	throwforce = 10.0
 	throw_speed = 3
 	throw_range = 5
-	w_class = 3
-	materials = list(MAT_METAL=100000)
+	w_class = WEIGHT_CLASS_NORMAL
+	materials = list(MAT_METAL = 30000)
 	origin_tech = "engineering=4;materials=2"
-	var/datum/effect/system/spark_spread/spark_system
+	toolspeed = 1
+	usesound = 'sound/items/Deconstruct.ogg'
+	var/datum/effect_system/spark_spread/spark_system
 	var/max_matter = 100
 	var/matter = 0
 	var/working = 0
@@ -28,6 +28,7 @@ RCD
 	var/canRwall = 0
 	var/menu = 1
 	var/door_type = /obj/machinery/door/airlock
+	var/door_name = "Airlock"
 	req_access = list(access_engine)
 	var/list/door_accesses = list()
 	var/list/door_accesses_list = list()
@@ -42,11 +43,13 @@ RCD
 		/obj/machinery/door/airlock/glass_security = "Security (Glass)", /obj/machinery/door/airlock/glass_medical = "Medical (Glass)",
 		/obj/machinery/door/airlock/mining = "Mining", /obj/machinery/door/airlock/atmos = "Atmospherics",
 		/obj/machinery/door/airlock/research = "Research", /obj/machinery/door/airlock/glass_research = "Research (Glass)",
-		/obj/machinery/door/airlock/glass_mining = "Mining (Glass)", /obj/machinery/door/airlock/glass_atmos = "Atmospherics (Glass)")
+		/obj/machinery/door/airlock/glass_mining = "Mining (Glass)", /obj/machinery/door/airlock/glass_atmos = "Atmospherics (Glass)",
+		/obj/machinery/door/airlock/science = "Science", /obj/machinery/door/airlock/glass_science = "Science (Glass)",
+		/obj/machinery/door/airlock/hatch = "Airtight Hatch", /obj/machinery/door/airlock/maintenance_hatch = "Maintenance Hatch")
 
 /obj/item/weapon/rcd/New()
 	desc = "A RCD. It currently holds [matter]/[max_matter] matter-units."
-	spark_system = new /datum/effect/system/spark_spread
+	spark_system = new /datum/effect_system/spark_spread
 	spark_system.set_up(5, 0, src)
 	spark_system.attach(src)
 	rcd_list += src
@@ -56,8 +59,7 @@ RCD
 	return
 
 /obj/item/weapon/rcd/Destroy()
-	qdel(spark_system)
-	spark_system = null
+	QDEL_NULL(spark_system)
 	rcd_list -= src
 	return ..()
 
@@ -66,7 +68,7 @@ RCD
 	if(istype(W, /obj/item/weapon/rcd_ammo))
 		var/obj/item/weapon/rcd_ammo/R = W
 		if((matter + R.ammoamt) > max_matter)
-			to_chat(user, "<span class='notice'>The RCD cant hold any more matter-units.</span>")
+			to_chat(user, "<span class='notice'>The RCD can't hold any more matter-units.</span>")
 			return
 		matter += R.ammoamt
 		user.drop_item()
@@ -82,10 +84,13 @@ RCD
 	//Change the mode
 	ui_interact(user)
 
+/obj/item/weapon/rcd/attack_self_tk(mob/user)
+	ui_interact(user)
+
 /obj/item/weapon/rcd/ui_interact(mob/user, ui_key = "main", var/datum/nanoui/ui = null, var/force_open = 1, var/datum/topic_state/state = inventory_state)
 	ui = nanomanager.try_update_ui(user, src, ui_key, ui, force_open)
 	if(!ui)
-		ui = new(user, src, ui_key, "rcd.tmpl", "[name]", 400, 400, state = state)
+		ui = new(user, src, ui_key, "rcd.tmpl", "[name]", 450, 400, state = state)
 		ui.open()
 		ui.set_auto_update(1)
 
@@ -93,6 +98,7 @@ RCD
 	var/data[0]
 	data["mode"] = mode
 	data["door_type"] = door_type
+	data["door_name"] = door_name
 	data["menu"] = menu
 	data["matter"] = matter
 	data["max_matter"] = max_matter
@@ -164,8 +170,13 @@ RCD
 			door_accesses_list[++door_accesses_list.len] = list("name" = get_access_desc(access), "id" = access, "enabled" = (access in door_accesses))
 		. = 1
 
+	if(href_list["choice"] && !locked)
+		var/temp_t = sanitize(copytext(input("Enter a custom Airlock Name.","Airlock Name"),1,MAX_MESSAGE_LEN))
+		if(temp_t)
+			door_name = temp_t
+
 /obj/item/weapon/rcd/proc/activate()
-	playsound(loc, 'sound/items/Deconstruct.ogg', 50, 1)
+	playsound(loc, usesound, 50, 1)
 
 
 /obj/item/weapon/rcd/afterattack(atom/A, mob/user, proximity)
@@ -190,8 +201,9 @@ RCD
 				if(checkResource(3, user))
 					to_chat(user, "Building Wall ...")
 					playsound(loc, 'sound/machines/click.ogg', 50, 1)
-					if(do_after(user, 20, target = A))
-						if(!useResource(3, user)) return 0
+					if(do_after(user, 20 * toolspeed, target = A))
+						if(!useResource(3, user))
+							return 0
 						activate()
 						var/turf/AT = A
 						AT.ChangeTurf(/turf/simulated/wall)
@@ -203,10 +215,14 @@ RCD
 				if(checkResource(10, user))
 					to_chat(user, "Building Airlock...")
 					playsound(loc, 'sound/machines/click.ogg', 50, 1)
-					if(do_after(user, 50, target = A))
-						if(!useResource(10, user)) return 0
+					if(do_after(user, 50 * toolspeed, target = A))
+						for(var/obj/machinery/door/airlock/D in A.contents)
+							return 0
+						if(!useResource(10, user))
+							return 0
 						activate()
 						var/obj/machinery/door/airlock/T = new door_type(A)
+						T.name = door_name
 						T.autoclose = 1
 						if(one_access)
 							T.req_one_access = door_accesses.Copy()
@@ -223,8 +239,9 @@ RCD
 				if(checkResource(5, user))
 					to_chat(user, "Deconstructing Wall...")
 					playsound(loc, 'sound/machines/click.ogg', 50, 1)
-					if(do_after(user, 40, target = A))
-						if(!useResource(5, user)) return 0
+					if(do_after(user, 40 * toolspeed, target = A))
+						if(!useResource(5, user))
+							return 0
 						activate()
 						var/turf/AT = A
 						AT.ChangeTurf(/turf/simulated/floor/plating)
@@ -235,8 +252,9 @@ RCD
 				if(checkResource(5, user))
 					to_chat(user, "Deconstructing Floor...")
 					playsound(loc, 'sound/machines/click.ogg', 50, 1)
-					if(do_after(user, 50, target = A))
-						if(!useResource(5, user)) return 0
+					if(do_after(user, 50 * toolspeed, target = A))
+						if(!useResource(5, user))
+							return 0
 						activate()
 						var/turf/AT = A
 						AT.ChangeTurf(/turf/space)
@@ -247,8 +265,9 @@ RCD
 				if(checkResource(20, user))
 					to_chat(user, "Deconstructing Airlock...")
 					playsound(loc, 'sound/machines/click.ogg', 50, 1)
-					if(do_after(user, 50, target = A))
-						if(!useResource(20, user)) return 0
+					if(do_after(user, 50 * toolspeed, target = A))
+						if(!useResource(20, user))
+							return 0
 						activate()
 						qdel(A)
 						return 1
@@ -262,7 +281,7 @@ RCD
 					return 0
 				to_chat(user, "Deconstructing window...")
 				playsound(loc, 'sound/machines/click.ogg', 50, 1)
-				if(!do_after(user, 20, target = A))
+				if(!do_after(user, 20 * toolspeed, target = A))
 					return 0
 				if(locate(/obj/structure/window/full/shuttle) in A.contents)
 					return 0 // Let's not give shuttle-griefers an easy time.
@@ -270,8 +289,7 @@ RCD
 					return 0
 				activate()
 				var/turf/T1 = get_turf(A)
-				qdel(A)
-				A = null
+				QDEL_NULL(A)
 				for(var/obj/structure/window/W in T1.contents)
 					W.disassembled = 1
 					W.density = 0
@@ -299,7 +317,7 @@ RCD
 					return 0
 				to_chat(user, "Constructing window...")
 				playsound(loc, 'sound/machines/click.ogg', 50, 1)
-				if(!do_after(user, 20, target = A))
+				if(!do_after(user, 20 * toolspeed, target = A))
 					return 0
 				if(locate(/obj/structure/grille) in A.contents)
 					return 0 // We already have window
@@ -353,7 +371,7 @@ RCD
 
 /obj/item/weapon/rcd/borg/New()
 	..()
-	desc = "A device used to rapidly build and deconstruct walls and floors."
+	desc = "A device used to rapidly build and deconstruct walls, floors and airlocks."
 	canRwall = 1
 
 
@@ -367,6 +385,9 @@ RCD
 /obj/item/weapon/rcd/proc/detonate_pulse_explode()
 	explosion(src, 0, 0, 3, 1, flame_range = 1)
 	qdel(src)
+
+/obj/item/weapon/rcd/preloaded
+	matter = 100
 
 /obj/item/weapon/rcd/combat
 	name = "combat RCD"
@@ -383,7 +404,7 @@ RCD
 	opacity = 0
 	density = 0
 	anchored = 0.0
-	origin_tech = "materials=2"
+	origin_tech = "materials=3"
 	materials = list(MAT_METAL=16000, MAT_GLASS=8000)
 	var/ammoamt = 20
 

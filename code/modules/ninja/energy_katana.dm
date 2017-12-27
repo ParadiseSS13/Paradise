@@ -7,7 +7,7 @@
 	throwforce = 20
 	armour_penetration = 50
 	var/cooldown = 0 // Because spam aint cool, yo.
-	var/datum/effect/system/spark_spread/spark_system
+	var/datum/effect_system/spark_spread/spark_system
 
 
 /obj/item/weapon/katana/energy/attack(mob/living/carbon/M as mob, mob/living/carbon/user as mob)
@@ -69,11 +69,10 @@
 
 /obj/item/weapon/katana/energy/New()
 	..()
-	spark_system = new /datum/effect/system/spark_spread()
+	spark_system = new /datum/effect_system/spark_spread()
 	spark_system.set_up(5, 0, src)
 	spark_system.attach(src)
 
 /obj/item/weapon/katana/energy/Destroy()
-	qdel(spark_system)
-	spark_system = null
+	QDEL_NULL(spark_system)
 	return ..()

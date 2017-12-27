@@ -13,4 +13,5 @@
 	icon_state = "beekeeper"
 	item_state = "beekeeper"
 	flags = THICKMATERIAL
-	allowed = list (/obj/item/weapon/reagent_containers/spray/plantbgone,/obj/item/device/analyzer/plant_analyzer,/obj/item/seeds,/obj/item/weapon/reagent_containers/glass/bottle/fertilizer,/obj/item/weapon/minihoe)
+	allowed = list (/obj/item/weapon/reagent_containers/spray,/obj/item/device/plant_analyzer,/obj/item/seeds,/obj/item/weapon/reagent_containers/glass/bottle,/obj/item/weapon/cultivator)
+

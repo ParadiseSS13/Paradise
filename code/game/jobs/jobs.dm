@@ -25,6 +25,7 @@ var/const/VIROLOGIST		=(1<<6)
 var/const/PSYCHIATRIST		=(1<<7)
 var/const/ROBOTICIST		=(1<<8)
 var/const/PARAMEDIC			=(1<<9)
+var/const/CORONER			=(1<<10)
 
 
 var/const/SUPPORT			=(1<<2)
@@ -65,7 +66,8 @@ var/list/command_positions = list(
 	"Head of Security",
 	"Chief Engineer",
 	"Research Director",
-	"Chief Medical Officer"
+	"Chief Medical Officer",
+	"Nanotrasen Representative"
 )
 
 
@@ -84,7 +86,8 @@ var/list/medical_positions = list(
 	"Psychiatrist",
 	"Chemist",
 	"Virologist",
-	"Paramedic"
+	"Paramedic",
+	"Coroner"
 )
 
 
@@ -132,7 +135,8 @@ var/list/security_positions = list(
 	"Detective",
 	"Security Officer",
 	"Brig Physician",
-	"Security Pod Pilot"
+	"Security Pod Pilot",
+	"Magistrate"
 )
 
 

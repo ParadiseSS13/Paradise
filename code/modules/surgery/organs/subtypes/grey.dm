@@ -14,3 +14,8 @@
 /obj/item/organ/internal/brain/grey/remove(var/mob/living/carbon/M, var/special = 0)
 	. = ..()
 	M.remove_language("Psionic Communication")
+
+/obj/item/organ/internal/eyes/grey
+	name = "grey eyeballs"
+	dark_view = 5
+	species = "Grey"

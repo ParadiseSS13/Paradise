@@ -12,9 +12,12 @@
 		/obj/item/weapon/firealarm_electronics,
 		/obj/item/weapon/airalarm_electronics,
 		/obj/item/weapon/airlock_electronics,
+		/obj/item/weapon/firelock_electronics,
 		/obj/item/weapon/intercom_electronics,
 		/obj/item/weapon/apc_electronics,
+		/obj/item/weapon/tracker_electronics,
 		/obj/item/weapon/stock_parts,
+		/obj/item/weapon/vending_refill,
 		/obj/item/mounted/frame/light_fixture,
 		/obj/item/mounted/frame/apc_frame,
 		/obj/item/mounted/frame/alarm_frame,
@@ -26,7 +29,8 @@
 		/obj/item/weapon/camera_assembly,
 		/obj/item/weapon/tank,
 		/obj/item/weapon/circuitboard,
-		/obj/item/stack/tile/light
+		/obj/item/stack/tile/light,
+		/obj/item/weapon/ore/bluespace_crystal
 		)
 
 	//Item currently being held.
@@ -45,13 +49,17 @@
 		/obj/item/weapon/card/id
 		)
 
+/obj/item/weapon/gripper/New()
+	..()
+	can_hold = typecacheof(can_hold)
+
 /obj/item/weapon/gripper/attack_self(mob/user as mob)
 	if(wrapped)
 		wrapped.attack_self(user)
 
 /obj/item/weapon/gripper/verb/drop_item()
 
-	set name = "Drop Item"
+	set name = "Drop Gripped Item"
 	set desc = "Release an item from your magnetic gripper."
 	set category = "Drone"
 
@@ -118,10 +126,9 @@
 
 		//Check if the item is blacklisted.
 		var/grab = 0
-		for(var/typepath in can_hold)
-			if(istype(I,typepath))
+		if(can_hold.len)
+			if(is_type_in_typecache(I, can_hold))
 				grab = 1
-				break
 
 		//We can grab the item, finally.
 		if(grab)
@@ -154,8 +161,8 @@
 
 	name = "matter decompiler"
 	desc = "Eating trash, bits of glass, or other debris will replenish your stores."
-	icon = 'icons/obj/device.dmi'
-	icon_state = "decompiler"
+	icon = 'icons/obj/toy.dmi'
+	icon_state = "minigibber"
 
 	//Metal, glass, wood, plastic.
 	var/list/stored_comms = list(
@@ -200,7 +207,7 @@
 
 			to_chat(D, "<span class='warning'>You begin decompiling the other drone.</span>")
 
-			if(!do_after(D,50, target = target))
+			if(!do_after(D, 50, target = target))
 				to_chat(D, "<span class='warning'>You need to remain still while decompiling such a large object.</span>")
 				return
 
@@ -224,7 +231,7 @@
 		//Different classes of items give different commodities.
 		if(istype(W,/obj/item/weapon/cigbutt))
 			stored_comms["plastic"]++
-		else if(istype(W,/obj/effect/spider/spiderling))
+		else if(istype(W,/obj/structure/spider/spiderling))
 			stored_comms["wood"]++
 			stored_comms["wood"]++
 			stored_comms["plastic"]++
@@ -252,10 +259,6 @@
 			stored_comms["glass"]++
 			stored_comms["glass"]++
 		else if(istype(W,/obj/item/ammo_casing))
-			stored_comms["metal"]++
-		else if(istype(W,/obj/item/weapon/shard/shrapnel))
-			stored_comms["metal"]++
-			stored_comms["metal"]++
 			stored_comms["metal"]++
 		else if(istype(W,/obj/item/weapon/shard))
 			stored_comms["glass"]++
@@ -369,7 +372,7 @@
 					stack = stack_wood
 				if("plastic")
 					if(!stack_plastic)
-						stack_plastic = new /obj/item/stack/sheet/mineral/plastic/cyborg(src.module)
+						stack_plastic = new /obj/item/stack/sheet/plastic(src.module)
 						stack_plastic.amount = 1
 					stack = stack_plastic
 

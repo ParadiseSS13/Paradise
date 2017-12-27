@@ -40,7 +40,7 @@
 	name = "sign"
 	desc = ""
 	icon = 'icons/obj/decals.dmi'
-	w_class = 3		//big
+	w_class = WEIGHT_CLASS_NORMAL
 	burn_state = FLAMMABLE
 	var/sign_state = ""
 
@@ -182,9 +182,14 @@
 	icon_state = "nuke"
 
 /obj/structure/sign/clown
-	name = "\improper mech painting"
+	name = "\improper clown painting"
 	desc = "A painting of the clown and mime. Awwww."
 	icon_state = "clown"
+
+/obj/structure/sign/bobross
+	name = "\improper calming painting"
+	desc = "We don't make mistakes, just happy little accidents."
+	icon_state = "bob"
 
 /obj/structure/sign/singulo
 	name = "\improper singulo painting"
@@ -225,4 +230,3 @@
 	name = "\improper Escape Arm"
 	desc = "A direction sign, pointing out which way escape shuttle dock is."
 	icon_state = "direction_evac"
-

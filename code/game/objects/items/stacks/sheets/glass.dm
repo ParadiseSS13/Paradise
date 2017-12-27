@@ -20,8 +20,12 @@
 	icon_state = "sheet-glass"
 	materials = list(MAT_GLASS=MINERAL_MATERIAL_AMOUNT)
 	origin_tech = "materials=1"
-	var/created_window = /obj/structure/window/basic
-	var/full_window = /obj/structure/window/full/basic
+	created_window = /obj/structure/window/basic
+	full_window = /obj/structure/window/full/basic
+	merge_type = /obj/item/stack/sheet/glass
+
+/obj/item/stack/sheet/glass/fifty
+	amount = 50
 
 /obj/item/stack/sheet/glass/cyborg
 	materials = list()
@@ -34,7 +38,7 @@
 	if(istype(W,/obj/item/stack/cable_coil))
 		var/obj/item/stack/cable_coil/CC = W
 		if(CC.amount < 5)
-			to_chat(user, "\b There is not enough wire in this coil. You need 5 lengths.")
+			to_chat(user, "<b>There is not enough wire in this coil. You need 5 lengths.</b>")
 			return
 		CC.use(5)
 		to_chat(user, "<span class='notice'>You attach wire to the [name].</span>")
@@ -150,8 +154,9 @@
 	icon_state = "sheet-rglass"
 	materials = list(MAT_METAL=MINERAL_MATERIAL_AMOUNT/2, MAT_GLASS=MINERAL_MATERIAL_AMOUNT)
 	origin_tech = "materials=2"
-	var/created_window = /obj/structure/window/reinforced
-	var/full_window = /obj/structure/window/full/reinforced
+	created_window = /obj/structure/window/reinforced
+	full_window = /obj/structure/window/full/reinforced
+	merge_type = /obj/item/stack/sheet/rglass
 
 /obj/item/stack/sheet/rglass/cyborg
 	materials = list()
@@ -262,9 +267,9 @@
 	singular_name = "glass sheet"
 	icon_state = "sheet-plasmaglass"
 	materials = list(MAT_GLASS=MINERAL_MATERIAL_AMOUNT*2)
-	origin_tech = "materials=3;plasmatech=2"
-	var/created_window = /obj/structure/window/plasmabasic
-	var/full_window = /obj/structure/window/full/plasmabasic
+	origin_tech = "plasmatech=2;materials=2"
+	created_window = /obj/structure/window/plasmabasic
+	full_window = /obj/structure/window/full/plasmabasic
 
 
 /obj/item/stack/sheet/plasmaglass/attack_self(mob/user as mob)
@@ -351,9 +356,9 @@
 	singular_name = "reinforced plasma glass sheet"
 	icon_state = "sheet-plasmarglass"
 	materials = list(MAT_METAL=MINERAL_MATERIAL_AMOUNT/2, MAT_GLASS=MINERAL_MATERIAL_AMOUNT*2)
-	origin_tech = "materials=3;plasmatech=2"
-	var/created_window = /obj/structure/window/plasmareinforced
-	var/full_window = /obj/structure/window/full/plasmareinforced
+	origin_tech = "plasmatech=2;materials=2"
+	created_window = /obj/structure/window/plasmareinforced
+	full_window = /obj/structure/window/full/plasmareinforced
 
 
 /obj/item/stack/sheet/plasmarglass/attack_self(mob/user as mob)

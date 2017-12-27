@@ -4,17 +4,17 @@
 	icon = 'icons/obj/wizard.dmi'
 	icon_state = "scroll"
 	var/uses = 4.0
-	w_class = 2
+	w_class = WEIGHT_CLASS_SMALL
 	item_state = "paper"
 	throw_speed = 4
 	throw_range = 20
-	origin_tech = "bluespace=4"
+	origin_tech = "bluespace=6"
 	burn_state = FLAMMABLE
 
 /obj/item/weapon/teleportation_scroll/apprentice
 	name = "lesser scroll of teleportation"
 	uses = 1
-	origin_tech = "bluespace 2"
+	origin_tech = "bluespace=5"
 
 /obj/item/weapon/teleportation_scroll/attack_self(mob/user as mob)
 	user.set_machine(src)
@@ -59,7 +59,7 @@
 		to_chat(user, "A mysterious force disrupts your arcane spell matrix, and you remain where you are.")
 		return
 
-	var/datum/effect/system/harmless_smoke_spread/smoke = new /datum/effect/system/harmless_smoke_spread()
+	var/datum/effect_system/smoke_spread/smoke = new
 	smoke.set_up(5, 0, user.loc)
 	smoke.attach(user)
 	smoke.start()

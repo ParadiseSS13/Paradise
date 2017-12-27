@@ -17,6 +17,8 @@
 		target.forceMove(teleport_target)
 		spawn(0)
 			anim(target.loc,target,'icons/mob/mob.dmi',,"uncloak",,target.dir)
+		to_chat(target, "<span class='warning'>The instability of the warp leaves you disoriented!</span>")
+		target.Stun(3)
 
 /obj/machinery/abductor/pad/proc/Retrieve(mob/living/target)
 	flick("alien-pad", src)
@@ -48,7 +50,7 @@
 	duration = 80
 
 /obj/effect/overlay/temp/teleport_abductor/New()
-	var/datum/effect/system/spark_spread/S = new
+	var/datum/effect_system/spark_spread/S = new
 	S.set_up(10,0,loc)
 	S.start()
 	..()

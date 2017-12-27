@@ -33,7 +33,7 @@ Pipelines + Other Objects -> Pipe network
 
 /obj/machinery/atmospherics/New()
 	..()
-
+	atmos_machinery += src
 	if(!icon_manager)
 		icon_manager = new()
 
@@ -43,6 +43,8 @@ Pipelines + Other Objects -> Pipe network
 
 	if(!pipe_color_check(pipe_color))
 		pipe_color = null
+	// No need for a tween worldstart roundstart handler - pipenet creation is
+	// handled there
 
 /obj/machinery/atmospherics/initialize()
 	..()
@@ -51,15 +53,12 @@ Pipelines + Other Objects -> Pipe network
 		stored = new(src, make_from = src)
 
 /obj/machinery/atmospherics/Destroy()
-	if(stored)
-		qdel(stored)
-		stored = null
+	QDEL_NULL(stored)
+	atmos_machinery -= src
 	for(var/mob/living/L in src) //ventcrawling is serious business
 		L.remove_ventcrawl()
 		L.forceMove(get_turf(src))
-	if(pipe_image)
-		qdel(pipe_image) //we have to del it, or it might keep a ref somewhere else
-		pipe_image = null
+	QDEL_NULL(pipe_image) //we have to del it, or it might keep a ref somewhere else
 	return ..()
 
 // Icons/overlays/underlays
@@ -168,15 +167,17 @@ Pipelines + Other Objects -> Pipe network
 		add_fingerprint(user)
 
 		var/unsafe_wrenching = FALSE
-		var/internal_pressure = int_air.return_pressure()-env_air.return_pressure()
+		var/I = int_air ? int_air.return_pressure() : 0
+		var/E = env_air ? env_air.return_pressure() : 0
+		var/internal_pressure = I - E
 
-		playsound(src.loc, 'sound/items/Ratchet.ogg', 50, 1)
+		playsound(src.loc, W.usesound, 50, 1)
 		to_chat(user, "<span class='notice'>You begin to unfasten \the [src]...</span>")
 		if(internal_pressure > 2*ONE_ATMOSPHERE)
 			to_chat(user, "<span class='warning'>As you begin unwrenching \the [src] a gush of air blows in your face... maybe you should reconsider?</span>")
 			unsafe_wrenching = TRUE //Oh dear oh dear
 
-		if(do_after(user, 40, target = src) && isnull(gcDestroyed))
+		if(do_after(user, 40 * W.toolspeed, target = src) && isnull(gcDestroyed))
 			user.visible_message( \
 				"[user] unfastens \the [src].", \
 				"<span class='notice'>You have unfastened \the [src].</span>", \
@@ -215,7 +216,7 @@ Pipelines + Other Objects -> Pipe network
 
 	qdel(src)
 
-/obj/machinery/atmospherics/construction(D, P, C)
+/obj/machinery/atmospherics/on_construction(D, P, C)
 	if(C)
 		color = C
 	dir = D
@@ -261,8 +262,7 @@ Pipelines + Other Objects -> Pipe network
 				user.last_played_vent = world.time
 				playsound(src, 'sound/machines/ventcrawl.ogg', 50, 1, -3)
 	else
-		var/can_connect = check_connect_types(target_move, src)
-		if((direction & initialize_directions) || (is_type_in_list(src, ventcrawl_machinery) && target_move.can_crawl_through() && can_connect)) //if we move in a way the pipe can connect, but doesn't - or we're in a vent
+		if((direction & initialize_directions) || is_type_in_list(src, ventcrawl_machinery)) //if we move in a way the pipe can connect, but doesn't - or we're in a vent
 			user.remove_ventcrawl()
 			user.forceMove(src.loc)
 			user.visible_message("You hear something squeezing through the pipes.", "You climb out the ventilation system.")

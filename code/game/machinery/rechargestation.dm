@@ -92,6 +92,12 @@
 		A.blob_act()
 		qdel(src)
 
+/obj/machinery/recharge_station/narsie_act()
+	go_out()
+	new /obj/effect/gibspawner/generic(get_turf(loc)) //I REPLACE YOUR TECHNOLOGY WITH FLESH!
+	qdel(src)
+
+
 /obj/machinery/recharge_station/attack_animal(var/mob/living/simple_animal/M)//Stop putting hostile mobs in things guise
 	if(M.environment_smash)
 		M.do_attack_animation(src)
@@ -153,10 +159,7 @@
 				R.adjustFireLoss(-(repairs))
 				R.updatehealth()
 			if(R.cell)
-				if(R.cell.charge >= R.cell.maxcharge)
-					R.cell.charge = R.cell.maxcharge
-				else
-					R.cell.charge = min(R.cell.charge + recharge_speed, R.cell.maxcharge)
+				R.cell.charge = min(R.cell.charge + recharge_speed, R.cell.maxcharge)
 		else if(istype(occupant, /mob/living/carbon/human))
 			var/mob/living/carbon/human/H = occupant
 			if(H.get_int_organ(/obj/item/organ/internal/cell) && H.nutrition < 450)
@@ -186,8 +189,8 @@
 					// Engineering
 					if(istype(O,/obj/item/stack/sheet))
 						var/obj/item/stack/sheet/S = O
-						if(S.amount < 50)
-							S.amount += 1 * coeff
+						if(S.amount < S.max_amount)
+							S.amount += round(min(1 * coeff, S.max_amount - S.amount))
 					// Security
 					if(istype(O,/obj/item/device/flash))
 						var/obj/item/device/flash/F = O
@@ -217,9 +220,6 @@
 						var/i = 1
 						for(1, i <= coeff, i++)
 							LR.Charge(occupant)
-					if(istype(O,/obj/item/weapon/mop/advanced))
-						if(O.reagents.get_reagent_amount("water") < 40)
-							O.reagents.add_reagent("water", 0.5 * coeff)
 				if(R)
 					if(R.module)
 						R.module.respawn_consumable(R)

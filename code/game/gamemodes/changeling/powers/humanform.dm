@@ -24,15 +24,18 @@
 	if(!user)
 		return 0
 	to_chat(user, "<span class='notice'>We transform our appearance.</span>")
-	user.dna.SetSEState(MONKEYBLOCK,0)
-	domutcheck(user, null) // Do a pre-mutcheck to cleanly switch from monkey form.
-	user.dna = chosen_dna
+	user.dna.SetSEState(MONKEYBLOCK,0,1)
+	genemutcheck(user,MONKEYBLOCK,null,MUTCHK_FORCED)
+	user.dna = chosen_dna.Clone()
 	user.real_name = chosen_dna.real_name
+	if(istype(user))
+		user.set_species(chosen_dna.species)
+	domutcheck(user,null,MUTCHK_FORCED)
 	user.flavor_text = ""
-	if(ishuman(user))
-		user.set_species()
+	user.dna.UpdateSE()
+	user.dna.UpdateUI()
+	user.sync_organ_dna(1)
 	user.UpdateAppearance()
-	domutcheck(user, null)
 
 	changeling.purchasedpowers -= src
 	//O.mind.changeling.purchasedpowers += new /obj/effect/proc_holder/changeling/lesserform(null)

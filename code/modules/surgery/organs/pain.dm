@@ -47,7 +47,8 @@ mob/living/carbon/proc/pain(var/partname, var/amount, var/force, var/burning = 0
 mob/living/carbon/human/proc/custom_pain(var/message, var/flash_strength)
 	if(stat >= 1) return
 
-	if(species && species.flags & NO_PAIN) return
+	if(NO_PAIN in species.species_traits)
+		return
 
 	if(reagents.has_reagent("morphine"))
 		return
@@ -55,7 +56,7 @@ mob/living/carbon/human/proc/custom_pain(var/message, var/flash_strength)
 		return
 	var/msg = "<span class='danger'>[message]</span>"
 	if(flash_strength >= 1)
-		msg = "\red <font size=3><b>[message]</b></font>"
+		msg = "<span class='warning'><font size=3><b>[message]</b></font></span>"
 
 	// Anti message spam checks
 	if(msg && ((msg != last_pain_message) || (world.time >= next_pain_time)))
@@ -66,7 +67,7 @@ mob/living/carbon/human/proc/custom_pain(var/message, var/flash_strength)
 mob/living/carbon/human/proc/handle_pain()
 	// not when sleeping
 
-	if(species && species.flags & NO_PAIN)
+	if(NO_PAIN in species.species_traits)
 		//While synthetics don't feel pain, they will notice their gears gunking up with residue (toxins)
 		if(isSynthetic())
 			var/toxDamageMessage = null
@@ -92,7 +93,7 @@ mob/living/carbon/human/proc/handle_pain()
 		return
 	var/maxdam = 0
 	var/obj/item/organ/external/damaged_organ = null
-	for(var/obj/item/organ/external/E in organs)
+	for(var/obj/item/organ/external/E in bodyparts)
 		if(E.status & ORGAN_DEAD|ORGAN_ROBOT) continue
 		var/dam = E.get_damage()
 		// make the choice of the organ depend on damage,

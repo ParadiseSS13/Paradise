@@ -76,7 +76,7 @@
 	return attack_hand(user)
 
 /obj/structure/ladder/dive_point/buoy
-	name = "diving point bouy"
+	name = "diving point buoy"
 	desc = "A buoy marking the location of an underwater dive area."
 	icon = 'icons/misc/beach.dmi'
 	icon_state = "buoy"

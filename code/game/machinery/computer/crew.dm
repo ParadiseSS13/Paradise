@@ -15,8 +15,7 @@
 	..()
 
 /obj/machinery/computer/crew/Destroy()
-	qdel(crew_monitor)
-	crew_monitor = null
+	QDEL_NULL(crew_monitor)
 	return ..()
 
 /obj/machinery/computer/crew/attack_ai(mob/user)

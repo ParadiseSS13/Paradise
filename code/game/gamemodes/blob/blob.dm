@@ -1,5 +1,3 @@
-//This file was auto-corrected by findeclaration.exe on 25.5.2012 20:42:31
-
 //Few global vars to track the blob
 var/list/blobs = list()
 var/list/blob_cores = list()
@@ -51,7 +49,7 @@ var/list/blob_nodes = list()
 
 	if(!infected_crew.len)
 		return 0
-
+	..()
 	return 1
 
 /datum/game_mode/blob/proc/get_blob_candidates()
@@ -135,7 +133,7 @@ var/list/blob_nodes = list()
 			else if(blob_client && location)
 				burst++
 				C.gib()
-				var/obj/effect/blob/core/core = new(location, 200, blob_client, blob_point_rate)
+				var/obj/structure/blob/core/core = new(location, 200, blob_client, blob_point_rate)
 				if(core.overmind && core.overmind.mind)
 					core.overmind.mind.name = blob.name
 					infected_crew -= blob
@@ -192,7 +190,7 @@ var/list/blob_nodes = list()
 			declared = 1
 
 		if(1)
-			command_announcement.Announce("Confirmed outbreak of level 5 biohazard aboard [station_name()]. All personnel must contain the outbreak.", "Biohazard Alert", 'sound/AI/outbreak5.ogg')
+			event_announcement.Announce("Confirmed outbreak of level 5 biohazard aboard [station_name()]. All personnel must contain the outbreak.", "Biohazard Alert", 'sound/AI/outbreak5.ogg')
 
 		if(2)
 			send_intercept(2)

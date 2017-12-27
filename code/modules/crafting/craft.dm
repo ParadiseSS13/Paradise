@@ -2,6 +2,8 @@
 	var/busy
 	var/viewing_category = 1 //typical powergamer starting on the Weapons tab
 	var/list/categories = list(CAT_WEAPON,CAT_AMMO,CAT_ROBOT,CAT_FOOD,CAT_MISC,CAT_PRIMAL)
+	var/display_craftable_only = FALSE
+	var/display_compact = TRUE
 
 
 
@@ -34,8 +36,8 @@
 						else
 							continue
 			return 0
-	for(var/A in R.chem_catalists)
-		if(contents[A] < R.chem_catalists[A])
+	for(var/A in R.chem_catalysts)
+		if(contents[A] < R.chem_catalysts[A])
 			return 0
 	return 1
 
@@ -225,68 +227,70 @@
 		Deletion.Cut(Deletion.len)
 		qdel(DL)
 
-/datum/personal_crafting/proc/craft(mob/user)
-	if(user.incapacitated() || user.lying || istype(user.loc, /obj/mecha))
-		return
+/datum/personal_crafting/ui_interact(mob/user, ui_key = "main", datum/nanoui/ui = null, force_open = 1, datum/topic_state/state = not_incapacitated_turf_state)
+	ui = nanomanager.try_update_ui(user, src, ui_key, ui, force_open)
+	if(!ui)
+		ui = new(user, src, ui_key, "personal_crafting.tmpl", "Crafting Menu", 700, 800, state = state)
+		ui.open()
+
+/datum/personal_crafting/ui_data(mob/user)
+	var/list/data = list()
+	var/cur_category = categories[viewing_category]
+	data["busy"] = busy
+	data["prev_cat"] = categories[prev_cat()]
+	data["category"] = cur_category
+	data["next_cat"] = categories[next_cat()]
+	data["display_craftable_only"] = display_craftable_only
+	data["display_compact"] = display_compact
+
 	var/list/surroundings = get_surroundings(user)
-	var/dat = "<h3>Crafting menu</h3>"
-	if(busy)
-		dat += "<div class='statusDisplay'>Crafting in progress...</div>"
-	else
-		dat += "<A href='?src=[UID()];backwardCat=1'><--</A>"
-		dat += " [categories[prev_cat()]] |"
-		dat += " <B>[categories[viewing_category]]</B> "
-		dat += "| [categories[next_cat()]] "
-		dat += "<A href='?src=[UID()];forwardCat=1'>--></A><BR><BR>"
-
-		dat += "<div class='statusDisplay'>"
-
-		//Filter the recipes we can craft to the top
-		var/list/can_craft = list()
-		var/list/cant_craft = list()
-		for(var/datum/crafting_recipe/R in crafting_recipes)
-			if(R.category != categories[viewing_category])
-				continue
-			if(check_contents(R, surroundings))
-				can_craft += R
-			else
-				cant_craft += R
-
-		for(var/datum/crafting_recipe/R in can_craft)
-			dat += build_recipe_text(R, surroundings)
-		for(var/datum/crafting_recipe/R in cant_craft)
-			dat += build_recipe_text(R, surroundings)
-
-
-		dat += "</div>"
-
-	var/datum/browser/popup = new(user, "crafting", "Crafting", 500, 500)
-	popup.set_content(dat)
-	popup.open()
-	return
+	var/list/can_craft = list()
+	var/list/cant_craft = list()
+	for(var/rec in crafting_recipes)
+		var/datum/crafting_recipe/R = rec
+		if(R.category != cur_category)
+			continue
+		if(check_contents(R, surroundings))
+			can_craft += list(build_recipe_data(R))
+		else
+			cant_craft += list(build_recipe_data(R))
+	data["can_craft"] = can_craft
+	data["cant_craft"] = cant_craft
+	return data
 
 /datum/personal_crafting/Topic(href, href_list)
-	if(usr.stat || usr.lying)
+	if(..())
 		return
+
 	if(href_list["make"])
 		var/datum/crafting_recipe/TR = locate(href_list["make"])
 		busy = 1
-		craft(usr)
+		nanomanager.update_uis(src)
 		var/fail_msg = construct_item(usr, TR)
 		if(!fail_msg)
-			usr << "<span class='notice'>[TR.name] constructed.</span>"
+			to_chat(usr, "<span class='notice'>[TR.name] constructed.</span>")
 		else
-			usr << "<span class ='warning'>Construction failed[fail_msg]</span>"
+			to_chat(usr, "<span class ='warning'>Construction failed[fail_msg]</span>")
 		busy = 0
-		craft(usr)
+		nanomanager.update_uis(src)
 	if(href_list["forwardCat"])
 		viewing_category = next_cat()
-		usr << "<span class='notice'>Category is now [categories[viewing_category]].</span>"
-		craft(usr)
+		to_chat(usr, "<span class='notice'>Category is now [categories[viewing_category]].</span>")
+		. = TRUE
 	if(href_list["backwardCat"])
 		viewing_category = prev_cat()
-		usr << "<span class='notice'>Category is now [categories[viewing_category]].</span>"
-		craft(usr)
+		to_chat(usr, "<span class='notice'>Category is now [categories[viewing_category]].</span>")
+		. = TRUE
+	if(href_list["toggle_recipes"])
+		display_craftable_only = !display_craftable_only
+		to_chat(usr, "<span class='notice'>You will now [display_craftable_only ? "only see recipes you can craft":"see all recipes"].</span>")
+		. = TRUE
+	if(href_list["toggle_compact"])
+		display_compact = !display_compact
+		to_chat(usr, "<span class='notice'>Crafting menu is now [display_compact? "compact" : "full size"].</span>")
+		. = TRUE
+
+	nanomanager.update_uis(src)
 
 //Next works nicely with modular arithmetic
 /datum/personal_crafting/proc/next_cat()
@@ -301,39 +305,32 @@
 	if(. <= 0)
 		. = categories.len
 
-/datum/personal_crafting/proc/build_recipe_text(datum/crafting_recipe/R, list/contents)
-	. = ""
-	var/name_text = ""
+/datum/personal_crafting/proc/build_recipe_data(datum/crafting_recipe/R)
+	var/list/data = list()
+	data["name"] = R.name
+	data["ref"] = "\ref[R]"
 	var/req_text = ""
 	var/tool_text = ""
-	var/catalist_text = ""
-	if(check_contents(R, contents))
-		name_text ="<A href='?src=[UID()];make=\ref[R]'>[R.name]</A>"
+	var/catalyst_text = ""
 
-	else
-		name_text = "<span class='linkOff'>[R.name]</span>"
+	for(var/a in R.reqs)
+		//We just need the name, so cheat-typecast to /atom for speed (even tho Reagents are /datum they DO have a "name" var)
+		//Also these are typepaths so sadly we can't just do "[a]"
+		var/atom/A = a
+		req_text += " [R.reqs[A]] [initial(A.name)],"
+	req_text = replacetext(req_text, ",", "", -1)
+	data["req_text"] = req_text
 
-	if(name_text)
-		for(var/A in R.reqs)
-			if(ispath(A, /obj))
-				var/obj/O = A
-				req_text += " [R.reqs[A]] [initial(O.name)]"
-			else if(ispath(A, /datum/reagent))
-				var/datum/reagent/RE = A
-				req_text += " [R.reqs[A]] [initial(RE.name)]"
+	for(var/a in R.chem_catalysts)
+		var/atom/A = a //cheat-typecast
+		catalyst_text += " [R.chem_catalysts[A]] [initial(A.name)],"
+	catalyst_text = replacetext(catalyst_text, ",", "", -1)
+	data["catalyst_text"] = catalyst_text
 
-		if(R.chem_catalists.len)
-			catalist_text += ", Catalysts:"
-			for(var/C in R.chem_catalists)
-				if(ispath(C, /datum/reagent))
-					var/datum/reagent/RE = C
-					catalist_text += " [R.chem_catalists[C]] [initial(RE.name)]"
+	for(var/a in R.tools)
+		var/atom/A = a //cheat-typecast
+		tool_text += " [R.tools[A]] [initial(A.name)],"
+	tool_text = replacetext(tool_text, ",", "", -1)
+	data["tool_text"] = tool_text
 
-		if(R.tools.len)
-			tool_text += ", Tools:"
-			for(var/O in R.tools)
-				if(ispath(O, /obj))
-					var/obj/T = O
-					tool_text += " [R.tools[O]] [initial(T.name)]"
-
-		. = "[name_text][req_text][tool_text][catalist_text]<BR>"
+	return data

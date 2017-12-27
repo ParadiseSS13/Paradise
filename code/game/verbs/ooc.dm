@@ -79,6 +79,9 @@ var/global/admin_ooc_colour = "#b82e00"
 					else
 						display_name = holder.fakekey
 
+			if(!config.disable_ooc_emoji)
+				msg = "<span class='emoji_enabled'>[msg]</span>"
+
 			to_chat(C, "<font color='[display_colour]'><span class='ooc'><span class='prefix'>OOC:</span> <EM>[display_name]:</EM> <span class='message'>[msg]</span></span></font>")
 
 /proc/toggle_ooc()

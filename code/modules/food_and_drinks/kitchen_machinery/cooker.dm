@@ -41,6 +41,8 @@
 		return 0
 	if(istype(check, /obj/item/weapon/reagent_containers/food/snacks))
 		return 1
+	if(istype(check, /obj/item/weapon/grab))
+		return special_attack(check, user)
 	to_chat(user, "<span class ='notice'>You can only process food!</span>")
 	return 0
 
@@ -64,7 +66,7 @@
 	var/obj/item/weapon/reagent_containers/food/snacks/badrecipe/burnt = new(get_turf(src))
 	setRegents(props, burnt)
 	to_chat(user, "<span class='warning'>You smell burning coming from the [src]!</span>")
-	var/datum/effect/system/bad_smoke_spread/smoke = new /datum/effect/system/bad_smoke_spread()    // burning things makes smoke!
+	var/datum/effect_system/smoke_spread/bad/smoke = new    // burning things makes smoke!
 	smoke.set_up(5, 0, src)
 	smoke.start()
 	if(prob(firechance))
@@ -143,6 +145,9 @@
 		newfood.cooktype[thiscooktype] = 1
 		turnoff(I)
 		//qdel(I)
+
+/obj/machinery/cooker/proc/special_attack(obj/item/weapon/grab/G, mob/user)
+	return 0
 
 // MAKE SURE TO OVERRIDE THESE ON THE MACHINE IF IT HAS SPECIAL FOOD INTERACTIONS!
 // FAILURE TO OVERRIDE WILL RESULT IN FAILURE TO PROPERLY HANDLE SPECIAL INTERACTIONS!		--FalseIncarnate

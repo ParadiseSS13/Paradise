@@ -4,11 +4,11 @@
 	max_damage = 200
 	icon_state = "brain2"
 	force = 1.0
-	w_class = 2
+	w_class = WEIGHT_CLASS_SMALL
 	throwforce = 1.0
 	throw_speed = 3
 	throw_range = 5
-	origin_tech = "biotech=3"
+	origin_tech = "biotech=5"
 	attack_verb = list("attacked", "slapped", "whacked")
 	var/mob/living/carbon/brain/brainmob = null
 	organ_tag = "brain"
@@ -28,7 +28,7 @@
 	name = "xenomorph brain"
 	desc = "We barely understand the brains of terrestial animals. Who knows what we may find in the brain of such an advanced species?"
 	icon_state = "brain-x"
-	origin_tech = "biotech=7"
+	origin_tech = "biotech=6"
 	mmi_icon = 'icons/mob/alien.dmi'
 	mmi_icon_state = "AlienMMI"
 
@@ -71,9 +71,9 @@
 	var/obj/item/organ/internal/brain/B = src
 	if(!special)
 		var/mob/living/simple_animal/borer/borer = owner.has_brain_worms()
-
 		if(borer)
-			borer.detatch() //Should remove borer if the brain is removed - RR
+			borer.leave_host() //Should remove borer if the brain is removed - RR
+
 		if(owner.mind && !non_primary)//don't transfer if the owner does not have a mind.
 			B.transfer_identity(user)
 
@@ -116,12 +116,6 @@
 	mmi_icon_state = "slime_mmi"
 //	parent_organ = "chest" Hello I am from the ministry of rubber forehead aliens how are you
 
-/obj/item/organ/internal/brain/slime/take_damage(var/amount, var/silent = 1)
-	//Slimes are 150% more vulnerable to brain damage
-	damage = between(0, src.damage + (1.5*amount), max_damage) //Since they take the damage twice, this is +150%
-	return ..()
-
-
 /obj/item/organ/internal/brain/golem
 	name = "Runic mind"
 	desc = "A tightly furled roll of paper, covered with indecipherable runes."
@@ -129,7 +123,13 @@
 	icon_state = "scroll"
 
 /obj/item/organ/internal/brain/Destroy() //copypasted from MMIs.
-	if(brainmob)
-		qdel(brainmob)
-		brainmob = null
+	QDEL_NULL(brainmob)
 	return ..()
+
+/obj/item/organ/internal/brain/cluwne
+
+/obj/item/organ/internal/brain/cluwne/insert(mob/living/target, special = 0, make_cluwne = 1)
+	..(target, special = special)
+	if(ishuman(target) && make_cluwne)
+		var/mob/living/carbon/human/H = target
+		H.makeCluwne() //No matter where you go, no matter what you do, you cannot escape

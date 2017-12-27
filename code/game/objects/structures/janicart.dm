@@ -19,12 +19,16 @@
 
 
 /obj/structure/janitorialcart/New()
+	..()
 	create_reagents(100)
 	janitorial_equipment += src
 
-
 /obj/structure/janitorialcart/Destroy()
 	janitorial_equipment -= src
+	QDEL_NULL(mybag)
+	QDEL_NULL(mymop)
+	QDEL_NULL(myspray)
+	QDEL_NULL(myreplacer)
 	return ..()
 
 /obj/structure/janitorialcart/proc/wet_mop(obj/item/weapon/mop, mob/user)
@@ -85,20 +89,20 @@
 				to_chat(user, "<span class='notice'>[src] can't hold any more signs.</span>")
 		else if(istype(I, /obj/item/weapon/crowbar))
 			user.visible_message("<span class='warning'>[user] begins to empty the contents of [src].</span>")
-			if(do_after(user, 30, target = src))
+			if(do_after(user, 30 * I.toolspeed, target = src))
 				to_chat(usr, "<span class='notice'>You empty the contents of [src]'s bucket onto the floor.</span>")
 				reagents.reaction(src.loc)
 				src.reagents.clear_reagents()
 		else if(istype(I, /obj/item/weapon/wrench))
 			if(!anchored && !isinspace())
-				playsound(src.loc, 'sound/items/Ratchet.ogg', 50, 1)
+				playsound(src.loc, I.usesound, 50, 1)
 				user.visible_message( \
 					"[user] tightens \the [src]'s casters.", \
 					"<span class='notice'> You have tightened \the [src]'s casters.</span>", \
 					"You hear ratchet.")
 				anchored = 1
 			else if(anchored)
-				playsound(src.loc, 'sound/items/Ratchet.ogg', 50, 1)
+				playsound(src.loc, I.usesound, 50, 1)
 				user.visible_message( \
 					"[user] loosens \the [src]'s casters.", \
 					"<span class='notice'> You have loosened \the [src]'s casters.</span>", \

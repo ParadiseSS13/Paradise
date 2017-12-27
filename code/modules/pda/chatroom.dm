@@ -78,6 +78,7 @@ var/list/chatrooms = list(new /datum/chatroom("General Discussion"))
 			ch.users -= src
 		if(src in ch.invites)
 			ch.invites -= src
+	return ..()
 
 /datum/data/pda/app/chatroom/start()
 	. = ..()

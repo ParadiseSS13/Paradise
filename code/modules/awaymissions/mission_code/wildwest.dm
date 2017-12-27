@@ -78,14 +78,14 @@
 				to_chat(user, "<B>Your wish is granted, but at a terrible cost...</B>")
 				to_chat(user, "The Wish Granter punishes you for your selfishness, claiming your soul and warping your body to match the darkness in your heart.")
 				user.mutations.Add(LASER)
-				user.mutations.Add(RESIST_COLD)
+				user.mutations.Add(COLDRES)
 				user.mutations.Add(XRAY)
 				if(ishuman(user))
 					var/mob/living/carbon/human/human = user
 					if(human.species.name != "Shadow")
-						to_chat(user, "\red Your flesh rapidly mutates!")
+						to_chat(user, "<span class='warning'>Your flesh rapidly mutates!</span>")
 						to_chat(user, "<b>You are now a Shadow Person, a mutant race of darkness-dwelling humanoids.</b>")
-						to_chat(user, "\red Your body reacts violently to light. \green However, it naturally heals in darkness.")
+						to_chat(user, "<span class='warning'>Your body reacts violently to light.</span> <span class='notice'>However, it naturally heals in darkness.</span>")
 						to_chat(user, "Aside from your new traits, you are mentally unchanged and retain your prior obligations.")
 						human.set_species("Shadow")
 				user.regenerate_icons()
@@ -96,9 +96,9 @@
 				if(ishuman(user))
 					var/mob/living/carbon/human/human = user
 					if(human.species.name != "Shadow")
-						to_chat(user, "\red Your flesh rapidly mutates!")
+						to_chat(user, "<span class='warning'>Your flesh rapidly mutates!</span>")
 						to_chat(user, "<b>You are now a Shadow Person, a mutant race of darkness-dwelling humanoids.</b>")
-						to_chat(user, "\red Your body reacts violently to light. \green However, it naturally heals in darkness.")
+						to_chat(user, "<span class='warning'>Your body reacts violently to light.</span> <span class='notice'>However, it naturally heals in darkness.</span>")
 						to_chat(user, "Aside from your new traits, you are mentally unchanged and retain your prior obligations.")
 						human.set_species("Shadow")
 				user.regenerate_icons()
@@ -109,9 +109,9 @@
 				if(ishuman(user))
 					var/mob/living/carbon/human/human = user
 					if(human.species.name != "Shadow")
-						to_chat(user, "\red Your flesh rapidly mutates!")
+						to_chat(user, "<span class='warning'>Your flesh rapidly mutates!</span>")
 						to_chat(user, "<b>You are now a Shadow Person, a mutant race of darkness-dwelling humanoids.</b>")
-						to_chat(user, "\red Your body reacts violently to light. \green However, it naturally heals in darkness.")
+						to_chat(user, "<span class='warning'>Your body reacts violently to light.</span> <span class='notice'>However, it naturally heals in darkness.</span>")
 						to_chat(user, "Aside from your new traits, you are mentally unchanged and retain your prior obligations.")
 						human.set_species("Shadow")
 				user.regenerate_icons()
@@ -131,9 +131,9 @@
 				if(ishuman(user))
 					var/mob/living/carbon/human/human = user
 					if(human.species.name != "Shadow")
-						to_chat(user, "\red Your flesh rapidly mutates!")
+						to_chat(user, "<span class='warning'>Your flesh rapidly mutates!</span>")
 						to_chat(user, "<b>You are now a Shadow Person, a mutant race of darkness-dwelling humanoids.</b>")
-						to_chat(user, "\red Your body reacts violently to light. \green However, it naturally heals in darkness.")
+						to_chat(user, "<span class='warning'>Your body reacts violently to light.</span> <span class='notice'>However, it naturally heals in darkness.</span>")
 						to_chat(user, "Aside from your new traits, you are mentally unchanged and retain your prior obligations.")
 						human.set_species("Shadow")
 				user.regenerate_icons()
@@ -177,7 +177,7 @@
 		call(src,triggerproc)(M)
 
 /obj/effect/meatgrinder/proc/triggerrad1(mob)
-	var/datum/effect/system/spark_spread/s = new /datum/effect/system/spark_spread
+	var/datum/effect_system/spark_spread/s = new /datum/effect_system/spark_spread
 	for(var/mob/O in viewers(world.view, src.loc))
 		s.set_up(3, 1, src)
 		s.start()

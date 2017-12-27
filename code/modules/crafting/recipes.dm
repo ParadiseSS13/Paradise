@@ -5,8 +5,7 @@
 	var/tools[] = list() //type paths of items needed but not consumed
 	var/time = 30 //time in deciseconds
 	var/parts[] = list() //type paths of items that will be placed in the result
-	var/chem_catalists[] = list() //like tools but for reagents
-	var/fruit[] = list()	//grown products required by the recipe
+	var/chem_catalysts[] = list() //like tools but for reagents
 	var/category = CAT_MISC // Recipe category
 
 /datum/crafting_recipe/proc/AdjustChems(var/obj/resultobj as obj)
@@ -49,10 +48,8 @@
 	result = /obj/item/weapon/melee/baton/cattleprod
 	reqs = list(/obj/item/weapon/restraints/handcuffs/cable = 1,
 				/obj/item/stack/rods = 1,
-				/obj/item/weapon/wirecutters = 1,
-				/obj/item/weapon/stock_parts/cell = 1)
+				/obj/item/device/assembly/igniter = 1)
 	time = 40
-	parts = list(/obj/item/weapon/stock_parts/cell = 1)
 	category = CAT_WEAPON
 
 /datum/crafting_recipe/bola
@@ -289,7 +286,7 @@
 	time = 150
 	reqs = list(/obj/item/stack/rods = 3,
 				/obj/item/stack/cable_coil = 10,
-				/obj/item/stack/sheet/mineral/plastic = 3,
+				/obj/item/stack/sheet/plastic = 3,
 				/obj/item/stack/sheet/wood = 5)
 	tools = list(/obj/item/weapon/weldingtool,
 				/obj/item/weapon/screwdriver)
@@ -309,3 +306,51 @@
 	reqs = list(/obj/item/stack/sheet/mineral/bananium = 5,
 				/obj/item/weapon/bikehorn)
 	category = CAT_MISC
+
+/datum/crafting_recipe/blackcarpet
+	name = "Black Carpet"
+	result = /obj/item/stack/tile/carpet/black
+	time = 20
+	reqs = list(/obj/item/stack/tile/carpet = 1)
+	tools = list(/obj/item/toy/crayon)
+	category = CAT_MISC
+
+/datum/crafting_recipe/showercurtain
+	name = "Shower Curtains"
+	result = /obj/structure/curtain
+	time = 20
+	reqs = list(/obj/item/stack/sheet/cloth = 2,
+				/obj/item/stack/sheet/plastic = 2,
+				/obj/item/stack/rods = 1)
+	category = CAT_MISC
+
+/datum/crafting_recipe/chemical_payload
+	name = "Chemical Payload (C4)"
+	result = /obj/item/weapon/bombcore/chemical
+	reqs = list(
+		/obj/item/weapon/stock_parts/matter_bin = 1,
+		/obj/item/weapon/grenade/plastic/c4 = 1,
+		/obj/item/weapon/grenade/chem_grenade = 2
+	)
+	parts = list(/obj/item/weapon/stock_parts/matter_bin = 1, /obj/item/weapon/grenade/chem_grenade = 2)
+	time = 30
+	category = CAT_WEAPON
+
+/datum/crafting_recipe/chemical_payload2
+	name = "Chemical Payload (gibtonite)"
+	result = /obj/item/weapon/bombcore/chemical
+	reqs = list(
+		/obj/item/weapon/stock_parts/matter_bin = 1,
+		/obj/item/weapon/twohanded/required/gibtonite = 1,
+		/obj/item/weapon/grenade/chem_grenade = 2
+	)
+	parts = list(/obj/item/weapon/stock_parts/matter_bin = 1, /obj/item/weapon/grenade/chem_grenade = 2)
+	time = 50
+	category = CAT_WEAPON
+
+/datum/crafting_recipe/bonfire
+	name = "Bonfire"
+	time = 60
+	reqs = list(/obj/item/weapon/grown/log = 5)
+	result = /obj/structure/bonfire
+	category = CAT_PRIMAL

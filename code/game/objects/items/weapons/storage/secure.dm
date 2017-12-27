@@ -23,8 +23,8 @@
 	var/l_hacking = 0
 	var/emagged = 0
 	var/open = 0
-	w_class = 3
-	max_w_class = 2
+	w_class = WEIGHT_CLASS_NORMAL
+	max_w_class = WEIGHT_CLASS_SMALL
 	max_combined_w_class = 14
 
 /obj/item/weapon/storage/secure/examine(mob/user)
@@ -37,7 +37,7 @@
 			emag_act(user, W)
 
 		if(istype(W, /obj/item/weapon/screwdriver))
-			if(do_after(user, 20, target = src))
+			if(do_after(user, 20 * W.toolspeed, target = src))
 				open = !open
 				user.show_message("<span class='notice'>You [open ? "open" : "close"] the service panel.</span>", 1)
 			return
@@ -45,18 +45,18 @@
 		if((istype(W, /obj/item/device/multitool)) && (open == 1) && (!l_hacking))
 			user.show_message("<span class='danger'>Now attempting to reset internal memory, please hold.</span>", 1)
 			l_hacking = 1
-			if(do_after(usr, 100, target = src))
+			if(do_after(usr, 100 * W.toolspeed, target = src))
 				if(prob(40))
 					l_setshort = 1
 					l_set = 0
-					user.show_message("<span class='danger'>Internal memory reset.  Please give it a few seconds to reinitialize.</span>", 1)
+					user.show_message("<span class='danger'>Internal memory reset. Please give it a few seconds to reinitialize.</span>", 1)
 					sleep(80)
 					l_setshort = 0
 					l_hacking = 0
 				else
 					user.show_message("<span class='danger'>Unable to reset internal memory.</span>", 1)
 					l_hacking = 0
-			else	
+			else
 				l_hacking = 0
 			return
 		//At this point you have exhausted all the special things to do when locked
@@ -74,7 +74,7 @@
 		overlays += image('icons/obj/storage.dmi', icon_locking)
 		locked = 0
 		if(istype(weapon, /obj/item/weapon/melee/energy/blade))
-			var/datum/effect/system/spark_spread/spark_system = new /datum/effect/system/spark_spread()
+			var/datum/effect_system/spark_spread/spark_system = new /datum/effect_system/spark_spread()
 			spark_system.set_up(5, 0, src.loc)
 			spark_system.start()
 			playsound(loc, 'sound/weapons/blade1.ogg', 50, 1)
@@ -180,8 +180,8 @@
 	force = 8
 	throw_speed = 2
 	throw_range = 4
-	w_class = 4
-	max_w_class = 3
+	w_class = WEIGHT_CLASS_BULKY
+	max_w_class = WEIGHT_CLASS_NORMAL
 	max_combined_w_class = 21
 	attack_verb = list("bashed", "battered", "bludgeoned", "thrashed", "whacked")
 
@@ -212,9 +212,17 @@
 	force = 15
 
 /obj/item/weapon/storage/secure/briefcase/syndie/New()
-	..()	
+	..()
 	for(var/i = 0, i < storage_slots - 2, i++)
-		handle_item_insertion(new /obj/item/weapon/spacecash/c1000, 1)
+		handle_item_insertion(new /obj/item/stack/spacecash/c1000, 1)
+
+/obj/item/weapon/storage/secure/briefcase/reaper/New()
+	..()
+	handle_item_insertion(new /obj/item/weapon/gun/energy/kinetic_accelerator/crossbow, 1)
+	handle_item_insertion(new /obj/item/weapon/gun/projectile/revolver/mateba, 1)
+	handle_item_insertion(new /obj/item/ammo_box/a357, 1)
+	handle_item_insertion(new /obj/item/weapon/grenade/plastic/c4, 1)
+
 
 // -----------------------------
 //        Secure Safe
@@ -228,11 +236,11 @@
 	icon_locking = "safeb"
 	icon_sparking = "safespark"
 	force = 8
-	w_class = 5
+	w_class = WEIGHT_CLASS_HUGE
 	max_w_class = 8
 	anchored = 1
 	density = 0
-	cant_hold = list("/obj/item/weapon/storage/secure/briefcase")
+	cant_hold = list(/obj/item/weapon/storage/secure/briefcase)
 
 /obj/item/weapon/storage/secure/safe/New()
 	..()

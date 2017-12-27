@@ -7,7 +7,7 @@
 #define STATUS_HUD		"2" // a simple line rounding the mob's number health
 #define ID_HUD			"3" // the job asigned to your ID
 #define WANTED_HUD		"4" // wanted, released, parroled, security status
-#define IMPLOYAL_HUD	"5" // loyality implant
+#define IMPMINDSHIELD_HUD	"5" // mindshield implant
 #define IMPCHEM_HUD		"6" // chemical implant
 #define IMPTRACK_HUD	"7" // tracking implant
 #define DIAG_STAT_HUD	"8" // Silicon/Mech Status
@@ -25,6 +25,7 @@
 #define PLANT_TOXIN_HUD		"20"// Toxin level
 #define PLANT_PEST_HUD		"21"// Pest level
 #define PLANT_WEED_HUD		"22"// Weed level
+#define DIAG_TRACK_HUD		"23"// Mech tracking beacon
 
 //data HUD (medhud, sechud) defines
 //Don't forget to update human/New() if you change these!
@@ -47,3 +48,8 @@
 #define ANTAG_HUD_CHANGELING 15
 #define ANTAG_HUD_VAMPIRE 16
 #define ANTAG_HUD_ABDUCTOR 17 //For Fox
+
+// Notification action types
+#define NOTIFY_JUMP "jump"
+#define NOTIFY_ATTACK "attack"
+#define NOTIFY_FOLLOW "orbit"

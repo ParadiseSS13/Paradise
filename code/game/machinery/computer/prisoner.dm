@@ -1,5 +1,3 @@
-//This file was auto-corrected by findeclaration.exe on 25.5.2012 20:42:31
-
 /obj/machinery/computer/prisoner
 	name = "prisoner management console"
 	icon = 'icons/obj/computer.dmi'
@@ -19,6 +17,14 @@
 
 /obj/machinery/computer/prisoner/attack_ai(var/mob/user as mob)
 	return src.attack_hand(user)
+
+/obj/machinery/computer/prisoner/New()
+ 	prisoncomputer_list += src
+ 	return ..()
+
+/obj/machinery/computer/prisoner/Destroy()
+ 	prisoncomputer_list -= src
+ 	return ..()
 
 /obj/machinery/computer/prisoner/attack_hand(var/mob/user as mob)
 	if(..())
@@ -96,7 +102,7 @@
 					I.loc = src
 					inserted_id = I
 				else
-					to_chat(usr, "\red No valid ID.")
+					to_chat(usr, "<span class='warning'>No valid ID.</span>")
 			if("1")
 				inserted_id.loc = get_step(src,get_turf(usr))
 				inserted_id = null

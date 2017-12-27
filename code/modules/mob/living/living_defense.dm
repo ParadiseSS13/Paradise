@@ -37,19 +37,23 @@
 /mob/living/proc/getarmor(var/def_zone, var/type)
 	return 0
 
+/mob/living/proc/is_mouth_covered(head_only = FALSE, mask_only = FALSE)
+	return FALSE
+
+/mob/living/proc/is_eyes_covered(check_glasses = TRUE, check_head = TRUE, check_mask = TRUE)
+	return FALSE
 
 /mob/living/bullet_act(var/obj/item/projectile/P, var/def_zone)
 	//Armor
 	var/armor = run_armor_check(def_zone, P.flag, armour_penetration = P.armour_penetration)
-	var/proj_sharp = is_sharp(P)
-	var/proj_edge = has_edge(P)
-	if((proj_sharp || proj_edge) && prob(getarmor(def_zone, P.flag)))
-		proj_sharp = 0
-		proj_edge = 0
-
 	if(!P.nodamage)
 		apply_damage(P.damage, P.damage_type, def_zone, armor)
+		if(P.dismemberment)
+			check_projectile_dismemberment(P, def_zone)
 	return P.on_hit(src, armor, def_zone)
+
+/mob/living/proc/check_projectile_dismemberment(obj/item/projectile/P, def_zone)
+	return 0
 
 /mob/living/proc/electrocute_act(shock_damage, obj/source, siemens_coeff = 1, safety = 0, tesla_shock = 0)
 	  return 0 //only carbon liveforms have this proc
@@ -60,63 +64,50 @@
 		O.emp_act(severity)
 	..()
 
+/obj/item/proc/get_volume_by_throwforce_and_or_w_class()
+	if(throwforce && w_class)
+		return Clamp((throwforce + w_class) * 5, 30, 100)// Add the item's throwforce to its weight class and multiply by 5, then clamp the value between 30 and 100
+	else if(w_class)
+		return Clamp(w_class * 8, 20, 100) // Multiply the item's weight class by 8, then clamp the value between 20 and 100
+	else
+		return 0
+
 //this proc handles being hit by a thrown atom
-/mob/living/hitby(atom/movable/AM as mob|obj,var/speed = 5)//Standardization and logging -Sieve
+/mob/living/hitby(atom/movable/AM, skipcatch, hitpush = 1, blocked = 0)//Standardization and logging -Sieve
 	if(istype(AM, /obj/item))
 		var/obj/item/I = AM
 		var/zone = ran_zone("chest", 65)//Hits a random part of the body, geared towards the chest
 		var/dtype = BRUTE
+		var/volume = I.get_volume_by_throwforce_and_or_w_class()
 		if(istype(I, /obj/item/weapon))
 			var/obj/item/weapon/W = I
 			dtype = W.damtype
-			if(W.hitsound && W.throwforce > 0)
-				playsound(loc, W.hitsound, 30, 1, -1)
+			if(W.throwforce > 0) //If the weapon's throwforce is greater than zero...
+				if(W.hitsound) //...and hitsound is defined...
+					playsound(loc, W.hitsound, volume, 1, -1) //...play the weapon's hitsound.
+				else //Otherwise, if hitsound isn't defined...
+					playsound(loc, 'sound/weapons/genhit1.ogg', volume, 1, -1) //...play genhit1.ogg.
 
-		//run to-hit check here
+		else if(I.throwforce > 0) //Otherwise, if the item doesn't have a throwhitsound and has a throwforce greater than zero...
+			playsound(loc, 'sound/weapons/genhit1.ogg', volume, 1, -1)//...play genhit1.ogg
+		if(!I.throwforce)// Otherwise, if the item's throwforce is 0...
+			playsound(loc, 'sound/weapons/throwtap.ogg', 1, volume, -1)//...play throwtap.ogg.
+		if(!blocked)
+			visible_message("<span class='danger'>[src] has been hit by [I].</span>",
+							"<span class='userdanger'>[src] has been hit by [I].</span>")
+			var/armor = run_armor_check(zone, "melee", "Your armor has protected your [parse_zone(zone)].", "Your armor has softened hit to your [parse_zone(zone)].", I.armour_penetration)
+			apply_damage(I.throwforce, dtype, zone, armor, is_sharp(I), I)
+			if(I.thrownby)
+				add_logs(I.thrownby, src, "hit", I)
+		else
+			return 1
+	else
+		playsound(loc, 'sound/weapons/genhit1.ogg', 50, 1, -1) //...play genhit1.ogg.)
+	..()
 
-		var/throw_damage = I.throwforce*(speed/5)
-
-		src.visible_message("\red [src] has been hit by [I].")
-		var/armor = run_armor_check(zone, "melee", "Your armor has protected your [parse_zone(zone)].", "Your armor has softened hit to your [parse_zone(zone)].", I.armour_penetration)
-
-		apply_damage(throw_damage, dtype, zone, armor, is_sharp(I), has_edge(I), I)
-
-		I.throwing = 0		//it hit, so stop moving
-
-		if(ismob(I.thrower))
-			var/mob/M = I.thrower
-			if(M)
-				attack_log += text("\[[time_stamp()]\] <font color='orange'>Has been hit with a [I], thrown by [key_name(M)]</font>")
-				M.attack_log += text("\[[time_stamp()]\] <font color='red'>Hit [key_name(src)] with a thrown [I]</font>")
-				if(!istype(src,/mob/living/simple_animal/mouse))
-					msg_admin_attack("[key_name_admin(src)] was hit by a [I], thrown by [key_name_admin(M)]")
-
-		// Begin BS12 momentum-transfer code.
-		if(I.throw_source && speed >= 15)
-			var/obj/item/weapon/W = I
-			var/momentum = speed/2
-			var/dir = get_dir(I.throw_source, src)
-
-			visible_message("\red [src] staggers under the impact!","\red You stagger under the impact!")
-			src.throw_at(get_edge_target_turf(src,dir),1,momentum)
-
-			if(!W || !src) return
-
-			if(W.sharp) //Projectile is suitable for pinning.
-				//Handles embedding for non-humans and simple_animals.
-				I.loc = src
-				embedded += I
-
-				var/turf/T = near_wall(dir,2)
-
-				if(T)
-					src.loc = T
-					visible_message("<span class='warning'>[src] is pinned to the wall by [I]!</span>","<span class='warning'>You are pinned to the wall by [I]!</span>")
-					src.anchored = 1
-					src.pinned += I
 
 /mob/living/mech_melee_attack(obj/mecha/M)
-	if(M.occupant.a_intent == I_HARM)
+	if(M.occupant.a_intent == INTENT_HARM)
 		if(M.damtype == "brute")
 			step_away(src,M,15)
 		switch(M.damtype)
@@ -135,14 +126,14 @@
 		M.occupant_message("<span class='danger'>You hit [src].</span>")
 		visible_message("<span class='danger'>[src] has been hit by [M.name].</span>", \
 						"<span class='userdanger'>[src] has been hit by [M.name].</span>")
-		attack_log += text("\[[time_stamp()]\] <font color='orange'>Has been attacked by \the [M] controlled by [key_name(M.occupant)] (INTENT: [uppertext(M.occupant.a_intent)])</font>")
-		M.occupant.attack_log += text("\[[time_stamp()]\] <font color='red'>Attacked [src] with \the [M] (INTENT: [uppertext(M.occupant.a_intent)])</font>")
+		create_attack_log("<font color='orange'>Has been attacked by \the [M] controlled by [key_name(M.occupant)] (INTENT: [uppertext(M.occupant.a_intent)])</font>")
+		M.occupant.create_attack_log("<font color='red'>Attacked [src] with \the [M] (INTENT: [uppertext(M.occupant.a_intent)])</font>")
 		msg_admin_attack("[key_name_admin(M.occupant)] attacked [key_name_admin(src)] with \the [M] (INTENT: [uppertext(M.occupant.a_intent)])")
 
 	else
 
 		step_away(src,M)
-		add_logs(M.occupant, src, "pushed", object=M, admin=0)
+		add_logs(M.occupant, src, "pushed", object=M, admin=0, print_attack_log = 0)
 		M.occupant_message("<span class='warning'>You push [src] out of the way.</span>")
 		visible_message("<span class='warning'>[M] pushes [src] out of the way.</span>")
 		return
@@ -195,6 +186,24 @@
 /mob/living/fire_act()
 	adjust_fire_stacks(3)
 	IgniteMob()
+
+//Share fire evenly between the two mobs
+//Called in MobBump() and Crossed()
+/mob/living/proc/spreadFire(mob/living/L)
+	if(!istype(L))
+		return
+	var/L_old_on_fire = L.on_fire
+
+	if(on_fire) //Only spread fire stacks if we're on fire
+		fire_stacks /= 2
+		L.fire_stacks += fire_stacks
+		if(L.IgniteMob())
+			log_game("[key_name(src)] bumped into [key_name(L)] and set them on fire")
+
+	if(L_old_on_fire) //Only ignite us and gain their stacks if they were onfire before we bumped them
+		L.fire_stacks /= 2
+		fire_stacks += L.fire_stacks
+		IgniteMob()
 
 //Mobs on Fire end
 
@@ -256,6 +265,4 @@
 	if(!supress_message)
 		visible_message("<span class='warning'>[user] has grabbed [src] passively!</span>")
 
-/mob/living/incapacitated()
-	if(stat || paralysis || stunned || weakened || restrained())
-		return 1
+	return G

@@ -3,7 +3,7 @@
 	desc = "A device that can record to cassette tapes, and play them. It automatically translates the content in playback."
 	icon_state = "taperecorder_empty"
 	item_state = "analyzer"
-	w_class = 2
+	w_class = WEIGHT_CLASS_SMALL
 	slot_flags = SLOT_BELT
 	materials = list(MAT_METAL=60, MAT_GLASS=30)
 	force = 2
@@ -21,9 +21,7 @@
 	update_icon()
 
 /obj/item/device/taperecorder/Destroy()
-	if(mytape)
-		qdel(mytape)
-		mytape = null
+	QDEL_NULL(mytape)
 	return ..()
 
 /obj/item/device/taperecorder/examine(mob/user)
@@ -157,8 +155,7 @@
 		return
 	else if(playing)
 		playing = 0
-		var/turf/T = get_turf(src)
-		T.visible_message("<font color=Maroon><B>Tape Recorder</B>: Playback stopped.</font>")
+		atom_say("Playback stopped.")
 	update_icon()
 
 
@@ -187,19 +184,18 @@
 			break
 		if(mytape.storedinfo.len < i)
 			break
-		var/turf/T = get_turf(src)
-		T.visible_message("<font color=Maroon><B>Tape Recorder</B>: [mytape.storedinfo[i]]</font>")
+		atom_say("[mytape.storedinfo[i]]")
 		if(mytape.storedinfo.len < i + 1)
 			playsleepseconds = 1
 			sleep(10)
 			T = get_turf(src)
-			T.visible_message("<font color=Maroon><B>Tape Recorder</B>: End of recording.</font>")
+			atom_say("End of recording.")
 		else
 			playsleepseconds = mytape.timestamp[i + 1] - mytape.timestamp[i]
 		if(playsleepseconds > 14)
 			sleep(10)
 			T = get_turf(src)
-			T.visible_message("<font color=Maroon><B>Tape Recorder</B>: Skipping [playsleepseconds] seconds of silence</font>")
+			atom_say("Skipping [playsleepseconds] seconds of silence.")
 			playsleepseconds = 1
 		i++
 
@@ -231,7 +227,7 @@
 		return
 
 	to_chat(usr, "<span class='notice'>Transcript printed.</span>")
-	playsound(loc, "sound/goonstation/machines/printer_thermal.ogg", 50, 1)
+	playsound(loc, 'sound/goonstation/machines/printer_thermal.ogg', 50, 1)
 	var/obj/item/weapon/paper/P = new /obj/item/weapon/paper(get_turf(src))
 	var/t1 = "<B>Transcript:</B><BR><BR>"
 	for(var/i = 1, mytape.storedinfo.len >= i, i++)
@@ -253,7 +249,7 @@
 	desc = "A magnetic tape that can hold up to ten minutes of content."
 	icon_state = "tape_white"
 	item_state = "analyzer"
-	w_class = 1
+	w_class = WEIGHT_CLASS_TINY
 	materials = list(MAT_METAL=20, MAT_GLASS=5)
 	force = 1
 	throwforce = 0
@@ -303,7 +299,7 @@
 /obj/item/device/tape/attackby(obj/item/I, mob/user)
 	if(ruined && istype(I, /obj/item/weapon/screwdriver))
 		to_chat(user, "<span class='notice'>You start winding the tape back in.</span>")
-		if(do_after(user, 120, target = src))
+		if(do_after(user, 120 * I.toolspeed, target = src))
 			to_chat(user, "<span class='notice'>You wound the tape back in!</span>")
 			fix()
 	else if(istype(I, /obj/item/weapon/pen))

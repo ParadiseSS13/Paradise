@@ -31,6 +31,8 @@
 
 /obj/vehicle/ambulance/Move(newloc, Dir)
 	var/oldloc = loc
+	if(bed && !Adjacent(bed))
+		bed = null
 	. = ..()
 	if(bed && get_dist(oldloc, loc) <= 2)
 		bed.Move(oldloc)
@@ -43,6 +45,7 @@
 	icon = 'icons/vehicles/CargoTrain.dmi'
 	icon_state = "ambulance"
 	anchored = 0
+	throw_pressure_limit = INFINITY //Throwing an ambulance trolley can kill the process scheduler.
 
 /obj/structure/stool/bed/amb_trolley/MouseDrop(obj/over_object as obj)
 	..()

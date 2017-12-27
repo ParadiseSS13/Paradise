@@ -9,11 +9,11 @@
 	dna_cost = 1
 	req_human = 1
 	var/stacks = 0 //Increments every 5 seconds; damage increases over time
-	var/active = 0 //Whether or not you are a hedgehog
+	var/enabled = 0 //Whether or not you are a hedgehog
 
 /obj/effect/proc_holder/changeling/strained_muscles/sting_action(var/mob/living/carbon/user)
-	active = !active
-	if(active)
+	enabled = !enabled
+	if(enabled)
 		to_chat(user, "<span class='notice'>Our muscles tense and strengthen.</span>")
 	else
 		user.status_flags &= ~GOTTAGOFAST
@@ -23,10 +23,10 @@
 			user.Weaken(3)
 			user.emote("gasp")
 
-	while(active)
+	while(enabled)
 		user.status_flags |= GOTTAGOFAST
 		if(user.stat || user.staminaloss >= 90)
-			active = 0 //Let's use something exact instead of !active where we can.
+			enabled = 0 //Let's use something exact instead of !enabled where we can.
 			to_chat(user, "<span class='notice'>Our muscles relax without the energy to strengthen them.</span>")
 			user.status_flags &= ~GOTTAGOFAST
 			user.Weaken(2)
@@ -42,7 +42,7 @@
 
 		sleep(40)
 
-	while(!active) //Damage stacks decrease fairly rapidly while not in sanic mode
+	while(!enabled) //Damage stacks decrease fairly rapidly while not in sanic mode
 		if(stacks >= 1)
 			stacks--
 		sleep(20)

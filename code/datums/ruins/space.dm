@@ -99,6 +99,13 @@
 		treasure in this disused warehouse, launch it into space, and then \
 		ignore it. Forever."
 
+/datum/map_template/ruin/space/listeningpost
+	id = "listeningpost"
+	suffix = "listeningpost.dmm"
+	name = "Syndie Listening Post"
+	description = "What happens to Nuclear Operatives that fail in their mission? \
+		Certainly not assignment to a backwater listening post..."
+
 /datum/map_template/ruin/space/empty_shell
 	id = "empty-shell"
 	suffix = "emptyshell.dmm"

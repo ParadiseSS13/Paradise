@@ -3,15 +3,18 @@
 //PUBLIC -  call these wherever you want
 
 
-/mob/proc/throw_alert(category, type, severity, obj/new_master)
+/mob/proc/throw_alert(category, type, severity, obj/new_master, override = FALSE)
 
-/* Proc to create or update an alert. Returns the alert if the alert is new or updated, 0 if it was thrown already
+/*
+ Proc to create or update an alert. Returns the alert if the alert is new or updated, 0 if it was thrown already
  category is a text string. Each mob may only have one alert per category; the previous one will be replaced
  path is a type path of the actual alert type to throw
  severity is an optional number that will be placed at the end of the icon_state for this alert
  For example, high pressure's icon_state is "highpressure" and can be serverity 1 or 2 to get "highpressure1" or "highpressure2"
  new_master is optional and sets the alert's icon state to "template" in the ui_style icons with the master as an overlay.
- Clicks are forwarded to master */
+ Clicks are forwarded to master
+ Override makes it so the alert is not replaced until cleared by a clear_alert with clear_override, and it's used for hallucinations.
+ */
 
 	if(!category)
 		return
@@ -19,6 +22,8 @@
 	var/obj/screen/alert/alert
 	if(alerts[category])
 		alert = alerts[category]
+		if(alert.override_alerts)
+			return 0
 		if(new_master && new_master != alert.master)
 			WARNING("[src] threw alert [category] with new_master [new_master] while already having that alert with master [alert.master]")
 			clear_alert(category)
@@ -33,7 +38,10 @@
 			else //no need to update
 				return 0
 	else
-		alert = new type
+		alert = new type()
+		alert.override_alerts = override
+		if(override)
+			alert.timeout = null
 
 	if(new_master)
 		var/old_layer = new_master.layer
@@ -63,9 +71,11 @@
 	return alert
 
 // Proc to clear an existing alert.
-/mob/proc/clear_alert(category)
+/mob/proc/clear_alert(category, clear_override = FALSE)
 	var/obj/screen/alert/alert = alerts[category]
 	if(!alert)
+		return 0
+	if(alert.override_alerts && !clear_override)
 		return 0
 
 	alerts -= category
@@ -83,6 +93,7 @@
 	var/timeout = 0 //If set to a number, this alert will clear itself after that many deciseconds
 	var/severity = 0
 	var/alerttooltipstyle = ""
+	var/override_alerts = FALSE //If it is overriding other alerts of the same type
 
 
 /obj/screen/alert/MouseEntered(location,control,params)
@@ -94,21 +105,20 @@
 
 
 //Gas alerts
-/obj/screen/alert/oxy
+/obj/screen/alert/not_enough_oxy
 	name = "Choking (No O2)"
-	desc = "You're not getting enough oxygen. Find some good air before you pass out! \
-The box in your backpack has an oxygen tank and breath mask in it."
-	icon_state = "oxy"
+	desc = "You're not getting enough oxygen. Find some good air before you pass out! The box in your backpack has an oxygen tank and breath mask in it."
+	icon_state = "not_enough_oxy"
 
 /obj/screen/alert/too_much_oxy
 	name = "Choking (O2)"
 	desc = "There's too much oxygen in the air, and you're breathing it in! Find some good air before you pass out!"
 	icon_state = "too_much_oxy"
 
-/obj/screen/alert/nitro
+/obj/screen/alert/not_enough_nitro
     name = "Choking (No N)"
     desc = "You're not getting enough nitrogen. Find some good air before you pass out!"
-    icon_state = "nitro"
+    icon_state = "not_enough_nitro"
 
 /obj/screen/alert/too_much_nitro
     name = "Choking (N)"
@@ -130,11 +140,10 @@ The box in your backpack has an oxygen tank and breath mask in it."
 	desc = "You're not getting enough plasma. Find some good air before you pass out!"
 	icon_state = "not_enough_tox"
 
-/obj/screen/alert/tox_in_air
+/obj/screen/alert/too_much_tox
 	name = "Choking (Plasma)"
-	desc = "There's highly flammable, toxic plasma in the air and you're breathing it in. Find some fresh air. \
-The box in your backpack has an oxygen tank and gas mask in it."
-	icon_state = "tox_in_air"
+	desc = "There's highly flammable, toxic plasma in the air and you're breathing it in. Find some fresh air. The box in your backpack has an oxygen tank and gas mask in it."
+	icon_state = "too_much_tox"
 //End gas alerts
 
 
@@ -142,6 +151,21 @@ The box in your backpack has an oxygen tank and gas mask in it."
 	name = "Fat"
 	desc = "You ate too much food, lardass. Run around the station and lose some weight."
 	icon_state = "fat"
+
+/obj/screen/alert/full
+	name = "Full"
+	desc = "You feel full and satisfied, but you shouldn't eat much more."
+	icon_state = "full"
+
+/obj/screen/alert/well_fed
+	name = "Well Fed"
+	desc = "You feel quite satisfied, but you may be able to eat a bit more."
+	icon_state = "well_fed"
+
+/obj/screen/alert/fed
+	name = "Fed"
+	desc = "You feel moderately satisfied, but a bit more food may not hurt."
+	icon_state = "fed"
 
 /obj/screen/alert/hungry
 	name = "Hungry"
@@ -183,6 +207,16 @@ The box in your backpack has an oxygen tank and gas mask in it."
 	desc = "The air around you is hazardously thick. A fire suit would protect you."
 	icon_state = "highpressure"
 
+/obj/screen/alert/lightexposure
+	name = "Light Exposure"
+	desc = "You're exposed to light."
+	icon_state = "lightexposure"
+
+/obj/screen/alert/nolight
+	name = "No Light"
+	desc = "You're not exposed to any light."
+	icon_state = "nolight"
+
 /obj/screen/alert/blind
 	name = "Blind"
 	desc = "You can't see! This may be caused by a genetic defect, eye trauma, being unconscious, \
@@ -198,6 +232,12 @@ or something covering your eyes."
 	name = "Drunk"
 	desc = "All that alcohol you've been drinking is impairing your speech, motor skills, and mental cognition. Make sure to act like it."
 	icon_state = "drunk"
+
+/obj/screen/alert/embeddedobject
+	name = "Embedded Object"
+	desc = "Something got lodged into your flesh and is causing major bleeding. It might fall out with time, but surgery is the safest way. \
+			If you're feeling frisky, click yourself in help intent to pull the object out."
+	icon_state = "embeddedobject"
 
 /obj/screen/alert/embeddedobject/Click()
 	if(isliving(usr))
@@ -303,6 +343,10 @@ so as to remain in compliance with the most up-to-date laws."
 	timeout = 600
 	var/atom/target = null
 
+/obj/screen/alert/hackingapc/Destroy()
+	target = null
+	return ..()
+
 /obj/screen/alert/hackingapc/Click()
 	if(!usr || !usr.client)
 		return
@@ -320,6 +364,25 @@ so as to remain in compliance with the most up-to-date laws."
 	desc = "Mech integrity is low."
 	icon_state = "low_mech_integrity"
 
+//GUARDIANS
+/obj/screen/alert/cancharge
+	name = "Charge Ready"
+	desc = "You are ready to charge at a location!"
+	icon_state = "guardian_charge"
+	alerttooltipstyle = "parasite"
+
+/obj/screen/alert/canstealth
+	name = "Stealth Ready"
+	desc = "You are ready to enter stealth!"
+	icon_state = "guardian_canstealth"
+	alerttooltipstyle = "parasite"
+
+/obj/screen/alert/instealth
+	name = "In Stealth"
+	desc = "You are in stealth and your next attack will do bonus damage!"
+	icon_state = "guardian_instealth"
+	alerttooltipstyle = "parasite"
+
 
 //GHOSTS
 //TODO: expand this system to replace the pollCandidates/CheckAntagonist/"choose quickly"/etc Yes/No messages
@@ -330,29 +393,61 @@ so as to remain in compliance with the most up-to-date laws."
 	timeout = 300
 
 /obj/screen/alert/notify_cloning/Click()
-	if(!usr || !usr.client) return
+	if(!usr || !usr.client)
+		return
 	var/mob/dead/observer/G = usr
 	G.reenter_corpse()
 
-/obj/screen/alert/notify_jump
+/obj/screen/alert/notify_action
 	name = "Body created"
 	desc = "A body was created. You can enter it."
 	icon_state = "template"
 	timeout = 300
-	var/atom/jump_target = null
-	var/attack_not_jump = null
+	var/atom/target = null
+	var/action = NOTIFY_JUMP
 
-/obj/screen/alert/notify_jump/Click()
-	if(!usr || !usr.client) return
-	if(!jump_target) return
+/obj/screen/alert/notify_action/Destroy()
+	target = null
+	return ..()
+
+/obj/screen/alert/notify_action/Click()
+	if(!usr || !usr.client)
+		return
+	if(!target)
+		return
 	var/mob/dead/observer/G = usr
-	if(!istype(G)) return
-	if(attack_not_jump)
-		jump_target.attack_ghost(G)
-	else
-		var/turf/T = get_turf(jump_target)
-		if(T && isturf(T))
-			G.loc = T
+	if(!istype(G))
+		return
+	switch(action)
+		if(NOTIFY_ATTACK)
+			target.attack_ghost(G)
+		if(NOTIFY_JUMP)
+			var/turf/T = get_turf(target)
+			if(T && isturf(T))
+				G.loc = T
+		if(NOTIFY_FOLLOW)
+			G.ManualFollow(target)
+
+/obj/screen/alert/notify_soulstone
+	name = "Soul Stone"
+	desc = "Someone is trying to capture your soul in a soul stone. Click to allow it."
+	icon_state = "template"
+	timeout = 10 SECONDS
+	var/obj/item/device/soulstone/stone = null
+	var/stoner = null
+
+/obj/screen/alert/notify_soulstone/Click()
+	if(!usr || !usr.client)
+		return
+	if(stone)
+		if(alert(usr, "Do you want to be captured by [stoner]'s soul stone? This will destroy your corpse and make it \
+		impossible for you to get back into the game as your regular character.",, "No", "Yes") ==  "Yes")
+			stone.opt_in = TRUE
+
+/obj/screen/alert/notify_soulstone/Destroy()
+	stone = null
+	return ..()
+
 
 //OBJECT-BASED
 

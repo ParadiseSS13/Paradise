@@ -2,7 +2,7 @@
 	name = "flashbang"
 	icon_state = "flashbang"
 	item_state = "flashbang"
-	origin_tech = "materials=2;combat=1"
+	origin_tech = "materials=2;combat=3"
 
 /obj/item/weapon/grenade/flashbang/prime()
 	update_mob()
@@ -12,7 +12,7 @@
 	for(var/mob/living/M in hearers(7, flashbang_turf))
 		bang(get_turf(M), M)
 
-	for(var/obj/effect/blob/B in hear(8,flashbang_turf))     		//Blob damage here
+	for(var/obj/structure/blob/B in hear(8,flashbang_turf))     		//Blob damage here
 		var/damage = round(30/(get_dist(B,get_turf(src))+1))
 		B.health -= damage
 		B.update_icon()
@@ -37,7 +37,7 @@
 			var/mob/living/carbon/human/H = M
 			var/obj/item/organ/internal/eyes/E = H.get_int_organ(/obj/item/organ/internal/eyes)
 			if(E)
-				E.damage += 8
+				E.take_damage(8, 1)
 
 	if(M.flash_eyes(affect_silicon = 1))
 		M.Stun(max(10/distance, 3))

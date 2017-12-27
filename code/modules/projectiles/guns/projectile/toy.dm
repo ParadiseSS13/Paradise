@@ -20,7 +20,7 @@
 	name = "foam force pistol"
 	desc = "A small, easily concealable toy handgun. Ages 8 and up."
 	icon_state = "pistol"
-	w_class = 2
+	w_class = WEIGHT_CLASS_SMALL
 	mag_type = /obj/item/ammo_box/magazine/toy/pistol
 	fire_sound = 'sound/weapons/Gunshot.ogg'
 	can_suppress = 0
@@ -40,6 +40,25 @@
 /obj/item/weapon/gun/projectile/automatic/toy/pistol/riot/New()
 	magazine = new /obj/item/ammo_box/magazine/toy/pistol/riot(src)
 	..()
+
+/obj/item/weapon/gun/projectile/automatic/toy/pistol/enforcer
+	name = "Enforcer trainer"
+	desc = "A foam version of the Enforcer meant to be used for training new caddets who can't be trusted with rubber bullets."
+	icon_state = "enforcer"
+	mag_type = /obj/item/ammo_box/magazine/toy/enforcer
+	can_flashlight = TRUE
+
+/obj/item/weapon/gun/projectile/automatic/toy/pistol/enforcer/update_icon()
+	..()
+	overlays.Cut()
+	if(gun_light)
+		var/iconF = "Enforcer_light"
+		if(gun_light.on)
+			iconF = "Enforcer_light-on"
+		overlays += image(icon = 'icons/obj/guns/projectile.dmi', icon_state = iconF, pixel_x = 0)
+
+/obj/item/weapon/gun/projectile/automatic/toy/pistol/enforcer/ui_action_click()
+	toggle_gunlight()
 
 /obj/item/weapon/gun/projectile/shotgun/toy
 	name = "foam force shotgun"
@@ -65,7 +84,7 @@
 	mag_type = /obj/item/ammo_box/magazine/internal/shot/toy/crossbow
 	fire_sound = 'sound/items/syringeproj.ogg'
 	slot_flags = SLOT_BELT
-	w_class = 2
+	w_class = WEIGHT_CLASS_SMALL
 
 /obj/item/weapon/gun/projectile/automatic/c20r/toy
 	name = "donksoft SMG"
@@ -96,4 +115,4 @@
 	icon_state = "tommygun"
 	item_state = "shotgun"
 	mag_type = /obj/item/ammo_box/magazine/internal/shot/toy/tommygun
-	w_class = 2
+	w_class = WEIGHT_CLASS_SMALL

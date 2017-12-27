@@ -60,7 +60,8 @@
 	name = "hastur's hood"
 	desc = "It's unspeakably stylish"
 	icon_state = "hasturhood"
-	flags = HEADCOVERSEYES | BLOCKHAIR
+	flags = BLOCKHAIR
+	flags_cover = HEADCOVERSEYES
 
 /obj/item/clothing/head/nursehat
 	name = "nurse's hat"
@@ -79,9 +80,19 @@
 	name = "cueball helmet"
 	desc = "A large, featureless white orb meant to be worn on your head. How do you even see out of this thing?"
 	icon_state = "cueball"
-	flags = HEADCOVERSEYES | HEADCOVERSMOUTH | BLOCKHAIR
-	item_state="cueball"
-	flags_inv = 0
+	item_state = "cueball"
+	flags = BLOCKHAIR
+	flags_inv = HIDEMASK|HIDEEARS|HIDEEYES|HIDEFACE
+	flags_cover = HEADCOVERSEYES | HEADCOVERSMOUTH
+
+/obj/item/clothing/head/snowman
+	name = "snowman head"
+	desc = "A ball of white styrofoam. So festive."
+	icon_state = "snowman_h"
+	item_state = "snowman_h"
+	flags = BLOCKHAIR
+	flags_inv = HIDEMASK|HIDEEARS|HIDEEYES|HIDEFACE
+	flags_cover = HEADCOVERSEYES | HEADCOVERSMOUTH
 
 /obj/item/clothing/head/that
 	name = "sturdy top-hat"
@@ -103,7 +114,8 @@
 	desc = "Fight for what's righteous!"
 	icon_state = "justicered"
 	item_state = "justicered"
-	flags = HEADCOVERSEYES | HEADCOVERSMOUTH | BLOCKHAIR
+	flags = BLOCKHAIR
+	flags_cover = HEADCOVERSEYES | HEADCOVERSMOUTH
 
 /obj/item/clothing/head/justice/blue
 	icon_state = "justiceblue"
@@ -173,8 +185,32 @@
 /obj/item/clothing/head/cowboyhat
 	name = "cowboy hat"
 	icon_state = "cowboyhat"
-	item_state = "fedora"
+	item_state = "cowboyhat"
+	desc = "For the Rancher in us all."
+
+/obj/item/clothing/head/cowboyhat/tan
+	name = "tan cowboy hat"
+	icon_state = "cowboyhat_tan"
+	item_state = "cowboyhat_tan"
 	desc = "There's a new sheriff in town. Pass the whiskey."
+
+/obj/item/clothing/head/cowboyhat/black
+	name = "black cowboy hat"
+	icon_state = "cowboyhat_black"
+	item_state = "cowboyhat_black"
+	desc = "This station ain't big enough for the two ah' us."
+
+/obj/item/clothing/head/cowboyhat/white
+	name = "white cowboy hat"
+	icon_state = "cowboyhat_white"
+	item_state = "cowboyhat_white"
+	desc = "Authentic Marshall hair case. Now ya can protect this here homestead. Navy Model not included."
+
+/obj/item/clothing/head/cowboyhat/pink
+	name = "cowgirl hat"
+	icon_state = "cowboyhat_pink"
+	item_state = "cowboyhat_pink"
+	desc = "For those buckle bunnies wanta' become a real buckaroo."
 
 /obj/item/clothing/head/fedora
 	name = "fedora"
@@ -344,9 +380,19 @@
 	throwforce = 3.0
 	throw_speed = 2
 	throw_range = 5
-	w_class = 2
+	w_class = WEIGHT_CLASS_SMALL
 	attack_verb = list("warned", "cautioned", "smashed")
 	burn_state = FIRE_PROOF
+
+/obj/item/clothing/head/jester
+	name = "jester hat"
+	desc = "A hat with bells, to add some merryness to the suit."
+	icon_state = "jester_hat"
+
+/obj/item/clothing/head/rice_hat
+	name = "rice hat"
+	desc = "Welcome to the rice fields, motherfucker."
+	icon_state = "rice_hat"
 
 /obj/item/clothing/head/griffin
 	name = "griffon head"
@@ -357,15 +403,12 @@
 	flags_inv = HIDEMASK|HIDEEARS|HIDEEYES|HIDEFACE
 	actions_types = list(/datum/action/item_action/caw)
 
-/obj/item/clothing/head/griffin/super_hero
-	flags = BLOCKHAIR|NODROP
-
 /obj/item/clothing/head/griffin/attack_self()
 	caw()
 
 /obj/item/clothing/head/griffin/proc/caw()
 	if(cooldown < world.time - 20) // A cooldown, to stop people being jerks
-		playsound(src.loc, "sound/misc/caw.ogg", 50, 1)
+		playsound(src.loc, 'sound/misc/caw.ogg', 50, 1)
 		cooldown = world.time
 
 

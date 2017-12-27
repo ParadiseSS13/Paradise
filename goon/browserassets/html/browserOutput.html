@@ -16,6 +16,8 @@
 	<!-- The following script(s) require IE9 or above -->
 	<!--[if gte IE 9]><!-->
 		<script type="text/javascript" src="jquery.mark.min.js"></script>
+		<script type="text/javascript" src="unicode_9_annotations.json"></script>
+		<script type="text/javascript" src="twemoji.min.js"></script>
 	<!--<![endif]-->
 </head>
 <body>
@@ -29,8 +31,8 @@
 		<i class="icon-spinner icon-2x"></i>
 		<div>
 			Loading...<br><br>
-			If this takes longer than 30 seconds, it will automatically reload a maximum of 5 times.<br>
-			If it <b>still</b> doesn't work, use the bug report button at the top right of the window.
+			If this takes longer than 10 seconds, it will automatically reload, multiple times if necessary.<br>
+			If it <b>still</b> doesn't work, please adminhelp (F1) and tell us your operating system and Internet Explorer version.
 		</div>
 	</div>
 	<div id="messages">
@@ -47,6 +49,7 @@
 				<a href="#" class="decreaseFont" id="decreaseFont"><span>Decrease font size</span> <i class="icon-font">-</i></a>
 				<a href="#" class="increaseFont" id="increaseFont"><span>Increase font size</span> <i class="icon-font">+</i></a>
 				<a href="#" class="chooseFont" id="chooseFont">Change font <i class="icon-font"></i></a>
+				<a href="#" class="toggleHideSpam" id="toggleHideSpam"><span>Condense chat</span> <i class="icon-font">Ø</i></a>
 				<a href="#" class="togglePing" id="togglePing"><span>Toggle ping display</span> <i class="icon-circle"></i></a>
 				<a href="#" class="highlightTerm" id="highlightTerm"><span>Highlight string</span> <i class="icon-tag"></i></a>
 				<a href="#" class="saveLog" id="saveLog"><span>Save chat log</span> <i class="icon-save"></i></a>

@@ -45,8 +45,8 @@
 /datum/martial_art/ninja_martial_art/teach(var/mob/living/carbon/human/H,var/make_temporary=0)
 	..()
 	H.middleClickOverride = new /datum/middleClickOverride/ninja_martial_art()
-		to_chat(H, "You have been taugh the ways of the <i>Creeping Widow</i>.<br>\)
-			Your stikes on harm intent will deal more damage.<br>Using middle mouse button on a nearby person while on harm intent will send them flying backwards.<br>\
+		to_chat(H, "You have been taught the ways of the <i>Creeping Widow</i>.<br>\)
+			Your strikes on harm intent will deal more damage.<br>Using middle mouse button on a nearby person while on harm intent will send them flying backwards.<br>\
 			Your grabs will instantly be aggressive while you are using this style.<br>Using middle mouse button while on harm intent and behind a person will put them in a silencing choke hold.<br>\
 			Using middle mouse button on a nearby person while on disarm intent will wrench their wrist, causing them to drop what they are holding.</span>"
 
@@ -76,7 +76,7 @@
 			return 0
 
 		if(has_choke_hold) // Are we already choking someone?
-			to_chat(A, "<span class='warning'>You are have a target in your grip!</span>")
+			to_chat(A, "<span class='warning'>You already have a target in your grip!</span>")
 			return 0
 
 		has_choke_hold = 1
@@ -98,8 +98,8 @@
 				D.silent += 1
 				D.adjustOxyLoss(1)
 			else
-				D.visible_message("<span class='warning'>[A] loses his grip on [D]'s neck!</span>", \
-									"<span class='userdanger'>[A] loses his grip on your neck!</span>")
+				D.visible_message("<span class='warning'>[A] loses \his grip on [D]'s neck!</span>", \
+									"<span class='userdanger'>[A] loses \his grip on your neck!</span>")
 				has_choke_hold = 0
 				return 0
 			I++
@@ -162,7 +162,7 @@
 	if(!istype(A, /mob/living/carbon/human)) // Special moves only work on humans.
 		user.pointed(A)
 		return 0
-	if(user.a_intent == "help") // No special move for help intent.
+	if(user.a_intent == INTENT_HELP) // No special move for help intent.
 		user.pointed(A)
 		return 0
 	if(!(A in range(1,user))) // Is the target within one tile of us?
@@ -173,10 +173,10 @@
 	var/mob/living/carbon/human/target = A
 
 	switch(user.a_intent)
-		if("disarm")
+		if(INTENT_DISARM)
 			user_martial_art.wrist_wrench(user, target)
-		if("grab")
+		if(INTENT_GRAB)
 			user_martial_art.choke_hold(user, target)
-		if("harm")
+		if(INTENT_HARM)
 			user_martial_art.palm_strike(user, target)
 	return 1

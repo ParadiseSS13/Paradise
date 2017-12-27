@@ -52,7 +52,7 @@
 	component_parts += new /obj/item/stack/cable_coil(null, 1)
 	RefreshParts()
 
-/obj/machinery/atmospherics/unary/cryo_cell/construction()
+/obj/machinery/atmospherics/unary/cryo_cell/on_construction()
 	..(dir,dir)
 
 /obj/machinery/atmospherics/unary/cryo_cell/RefreshParts()
@@ -126,6 +126,15 @@
 				on = 0
 				go_out()
 				playsound(src.loc, 'sound/machines/ding.ogg', 50, 1)
+
+	if(air_contents)
+		if(occupant)
+			process_occupant()
+
+	return 1
+
+/obj/machinery/atmospherics/unary/cryo_cell/process_atmos()
+	..()
 	if(!node)
 		return
 	if(!on)
@@ -135,12 +144,8 @@
 		temperature_archived = air_contents.temperature
 		heat_gas_contents()
 
-		if(occupant)
-			process_occupant()
 	if(abs(temperature_archived-air_contents.temperature) > 1)
 		parent.update = 1
-
-	return 1
 
 
 /obj/machinery/atmospherics/unary/cryo_cell/allow_drop()
@@ -265,7 +270,7 @@
 /obj/machinery/atmospherics/unary/cryo_cell/attackby(var/obj/item/weapon/G as obj, var/mob/user as mob, params)
 	if(istype(G, /obj/item/weapon/reagent_containers/glass))
 		if(beaker)
-			to_chat(user, "\red A beaker is already loaded into the machine.")
+			to_chat(user, "<span class='warning'>A beaker is already loaded into the machine.</span>")
 			return
 		if(!user.drop_item())
 			to_chat(user, "The [G] is stuck to you!")
@@ -415,10 +420,10 @@
 		to_chat(usr, "<span class='danger'>The cryo cell is already occupied!</span>")
 		return
 	if(M.abiotic())
-		to_chat(usr, "\red Subject may not have abiotic items on.")
+		to_chat(usr, "<span class='warning'>Subject may not have abiotic items on.</span>")
 		return
 	if(!node)
-		to_chat(usr, "\red The cell is not correctly connected to its pipe network!")
+		to_chat(usr, "<span class='warning'>The cell is not correctly connected to its pipe network!</span>")
 		return
 	M.stop_pulling()
 	M.forceMove(src)
@@ -450,6 +455,12 @@
 		go_out()
 	add_fingerprint(usr)
 	return
+
+/obj/machinery/atmospherics/unary/cryo_cell/narsie_act()
+	go_out()
+	new /obj/effect/gibspawner/generic(get_turf(loc)) //I REPLACE YOUR TECHNOLOGY WITH FLESH!
+	color = "red"//force the icon to red
+	light_color = LIGHT_COLOR_RED
 
 /obj/machinery/atmospherics/unary/cryo_cell/verb/move_inside()
 	set name = "Move Inside"

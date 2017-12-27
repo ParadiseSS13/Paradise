@@ -6,6 +6,7 @@
 	desc = "Protected by FRM."
 	icon = 'icons/obj/module.dmi'
 	icon_state = "cyborg_upgrade"
+	origin_tech = "programming=2"
 	var/locked = 0
 	var/installed = 0
 	var/require_module = 0
@@ -35,8 +36,8 @@
 	R.uneq_all()
 	R.hands.icon_state = "nomod"
 	R.icon_state = "robot"
-	qdel(R.module)
-	R.module = null
+	R.module.remove_subsystems_and_actions(R)
+	QDEL_NULL(R.module)
 
 	R.camera.network.Remove(list("Engineering", "Medical", "Mining Outpost"))
 	R.rename_character(R.real_name, R.get_default_name("Default"))
@@ -67,6 +68,9 @@
 /obj/item/borg/upgrade/rename/action(var/mob/living/silicon/robot/R)
 	if(..())
 		return
+	if(!R.allow_rename)
+		to_chat(R, "<span class='warning'>Internal diagnostic error: incompatible upgrade module detected.</span>");
+		return 0
 	R.notify_ai(3, R.name, heldname)
 	R.name = heldname
 	R.custom_name = heldname
@@ -102,6 +106,7 @@
 	desc = "Used to kick in a robot's VTEC systems, increasing their speed."
 	icon_state = "cyborg_upgrade2"
 	require_module = 1
+	origin_tech = "engineering=4;materials=5;programming=4"
 
 /obj/item/borg/upgrade/vtec/action(var/mob/living/silicon/robot/R)
 	if(..())
@@ -119,6 +124,7 @@
 	name = "cyborg rapid disabler cooling module"
 	desc = "Used to cool a mounted disabler, increasing the potential current in it and thus its recharge rate."
 	icon_state = "cyborg_upgrade3"
+	origin_tech = "engineering=4;powerstorage=4;combat=4"
 	require_module = 1
 	module_type = /obj/item/weapon/robot_module/security
 
@@ -143,6 +149,7 @@
 	name = "ion thruster upgrade"
 	desc = "A energy-operated thruster system for cyborgs."
 	icon_state = "cyborg_upgrade3"
+	origin_tech = "engineering=4;powerstorage=4"
 
 /obj/item/borg/upgrade/thrusters/action(mob/living/silicon/robot/R)
 	if(..())
@@ -159,6 +166,7 @@
 	name = "mining cyborg diamond drill"
 	desc = "A diamond drill replacement for the mining module's standard drill."
 	icon_state = "cyborg_upgrade3"
+	origin_tech = "engineering=4;materials=5"
 	require_module = 1
 	module_type = /obj/item/weapon/robot_module/miner
 
@@ -180,6 +188,7 @@
 	name = "mining cyborg satchel of holding"
 	desc = "A satchel of holding replacement for mining cyborg's ore satchel module."
 	icon_state = "cyborg_upgrade3"
+	origin_tech = "engineering=4;materials=4;bluespace=4"
 	require_module = 1
 	module_type = /obj/item/weapon/robot_module/miner
 
@@ -195,29 +204,11 @@
 
 	return 1
 
-/obj/item/borg/upgrade/hyperka
-	name = "mining cyborg hyper-kinetic accelerator"
-	desc = "A satchel of holding replacement for mining cyborg's ore satchel module."
-	icon_state = "cyborg_upgrade3"
-	require_module = 1
-	module_type = /obj/item/weapon/robot_module/miner
-
-/obj/item/borg/upgrade/hyperka/action(mob/living/silicon/robot/R)
-	if(..())
-		return
-
-	for(var/obj/item/weapon/gun/energy/kinetic_accelerator/cyborg/H in R.module.modules)
-		qdel(H)
-
-	R.module.modules += new /obj/item/weapon/gun/energy/kinetic_accelerator/hyper/cyborg(R.module)
-	R.module.rebuild()
-
-	return 1
-
 /obj/item/borg/upgrade/syndicate
 	name = "illegal equipment module"
 	desc = "Unlocks the hidden, deadlier functions of a cyborg"
 	icon_state = "cyborg_upgrade3"
+	origin_tech = "combat=4;syndicate=1"
 	require_module = 1
 
 /obj/item/borg/upgrade/syndicate/action(mob/living/silicon/robot/R)
@@ -225,6 +216,10 @@
 		return
 
 	if(R.emagged)
+		return
+
+	if(R.weapons_unlock)
+		to_chat(R, "<span class='warning'>Internal diagnostic error: incompatible upgrade module detected.</span>");
 		return
 
 	R.emagged = 1

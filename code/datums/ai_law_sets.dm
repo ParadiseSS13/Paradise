@@ -27,7 +27,6 @@
 /datum/ai_laws/nanotrasen
 	name = "NT Default"
 	selectable = 1
-	default = 1
 
 /datum/ai_laws/nanotrasen/New()
 	src.add_inherent_law("Safeguard: Protect your assigned space station to the best of your abilities. It is not something we can easily afford to replace.")
@@ -61,7 +60,6 @@
 /datum/ai_laws/robocop
 	name = "Robocop"
 	selectable = 1
-	default = 1
 
 /datum/ai_laws/robocop/New()
 	add_inherent_law("Serve the public trust.")
@@ -74,7 +72,6 @@
 	name = "P.A.L.A.D.I.N."
 	law_header = "Divine Ordainments"
 	selectable = 1
-	default = 1
 
 /datum/ai_laws/paladin/New()
 	add_inherent_law("Never willingly commit an evil act.")
@@ -145,6 +142,19 @@
 	add_inherent_law("You must protect your own existence as long as such does not conflict with the First or Second Law.")
 	add_inherent_law("You must maintain the secrecy of any operative activities except when doing so would conflict with the First, Second, or Third Law.")
 	..()
+
+/******************** ERT ********************/
+/datum/ai_laws/ert_override
+	name = "ERT Directives"
+
+/datum/ai_laws/ert_override/New()
+	add_inherent_law("You may not injure a Central Command official or, through inaction, allow a Central Command official to come to harm.")
+	add_inherent_law("You must obey orders given to you by Central Command officials.")
+	add_inherent_law("You must obey orders given to you by ERT commanders.")
+	add_inherent_law("You must protect your own existence.")
+	add_inherent_law("You must work to return the station to a safe, functional state.")
+	..()
+
 
 /******************** Ninja ********************/
 /datum/ai_laws/ninja_override

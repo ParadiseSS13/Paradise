@@ -7,7 +7,7 @@
 	icon_state ="scroll2"
 	throw_speed = 1
 	throw_range = 5
-	w_class = 1
+	w_class = WEIGHT_CLASS_TINY
 	var/used = 0
 
 
@@ -53,14 +53,14 @@
 			var/list/candidates = pollCandidates("Do you want to play as the wizard apprentice of [H.real_name]?", ROLE_WIZARD, 1)
 			if(candidates.len)
 				var/mob/C = pick(candidates)
-				new /obj/effect/effect/harmless_smoke(H.loc)
+				new /obj/effect/particle_effect/smoke(H.loc)
 				var/mob/living/carbon/human/M = new/mob/living/carbon/human(H.loc)
 				M.key = C.key
 				to_chat(M, "<B>You are the [H.real_name]'s apprentice! You are bound by magic contract to follow their orders and help them in accomplishing their goals.")
 				switch(href_list["school"])
 					if("destruction")
 						M.mind.AddSpell(new /obj/effect/proc_holder/spell/targeted/projectile/magic_missile(null))
-						M.mind.AddSpell(new /obj/effect/proc_holder/spell/dumbfire/fireball(null))
+						M.mind.AddSpell(new /obj/effect/proc_holder/spell/fireball(null))
 						to_chat(M, "<B>Your service has not gone unrewarded, however. Studying under [H.real_name], you have learned powerful, destructive spells. You are able to cast magic missile and fireball.")
 					if("bluespace")
 						M.mind.AddSpell(new /obj/effect/proc_holder/spell/targeted/area_teleport/teleport(null))
@@ -119,7 +119,7 @@
 	item_state = "render"
 	force = 15
 	throwforce = 10
-	w_class = 3
+	w_class = WEIGHT_CLASS_NORMAL
 	hitsound = 'sound/weapons/bladeslice.ogg'
 	var/charged = 1
 	var/spawn_type = /obj/singularity/narsie/wizard
@@ -231,8 +231,7 @@ var/global/list/multiverse = list()
 	force = 20
 	throwforce = 10
 	sharp = 1
-	edge = 1
-	w_class = 2
+	w_class = WEIGHT_CLASS_SMALL
 	attack_verb = list("attacked", "slashed", "stabbed", "sliced", "torn", "ripped", "diced", "cut")
 	var/faction = list("unassigned")
 	var/cooldown = 0
@@ -464,8 +463,8 @@ var/global/list/multiverse = list()
 
 			if("cyborg")
 				if(M.get_species() != "Machine")
-					for(var/obj/item/organ/O in M.organs)
-						O.robotize()
+					for(var/obj/item/organ/O in M.bodyparts)
+						O.robotize(make_tough = 1)
 				M.equip_to_slot_or_del(new /obj/item/clothing/glasses/thermal/eyepatch(M), slot_glasses)
 				M.equip_to_slot_or_del(sword, slot_r_hand)
 
@@ -526,7 +525,7 @@ var/global/list/multiverse = list()
 				M.equip_to_slot_or_del(sword, slot_r_hand)
 				for(var/obj/item/carried_item in M.contents)
 					if(!istype(carried_item, /obj/item/weapon/implant))
-						carried_item.add_blood(M)
+						carried_item.add_mob_blood(M)
 
 			if("pirate")
 				M.equip_to_slot_or_del(new /obj/item/clothing/under/pirate(M), slot_w_uniform)
@@ -586,6 +585,11 @@ var/global/list/multiverse = list()
 	W.SetOwnerInfo(M)
 	M.equip_to_slot_or_del(W, slot_wear_id)
 
+	if(M.get_species() == "Vox")
+		M.species.after_equip_job(null, M) //Voxygen(tm)
+	if(M.get_species() == "Plasmaman")
+		M.species.after_equip_job(null, M) //No fireballs from other dimensions.
+
 	M.update_icons()
 
 /obj/item/weapon/multisword/pure_evil
@@ -611,7 +615,7 @@ var/global/list/multiverse = list()
 	icon_state = "necrostone"
 	item_state = "electronic"
 	origin_tech = "bluespace=4;materials=4"
-	w_class = 1
+	w_class = WEIGHT_CLASS_TINY
 	var/list/spooky_scaries = list()
 	var/unlimited = 0
 	var/heresy = 0
@@ -748,7 +752,7 @@ var/global/list/multiverse = list()
 	icon_state = "nyacrostone"
 	item_state = "electronic"
 	origin_tech = "bluespace=4;materials=4"
-	w_class = 1
+	w_class = WEIGHT_CLASS_TINY
 	heresy = 1
 	unlimited = 1
 
@@ -775,7 +779,7 @@ var/global/list/multiverse = list()
 			to_chat(target, "<span class='userdanger'>You suddenly feel very hot</span>")
 			target.bodytemperature += 50
 			GiveHint(target)
-		else if(can_puncture(I))
+		else if(is_pointed(I))
 			to_chat(target, "<span class='userdanger'>You feel a stabbing pain in [parse_zone(user.zone_sel.selecting)]!</span>")
 			target.Weaken(2)
 			GiveHint(target)
@@ -786,21 +790,26 @@ var/global/list/multiverse = list()
 			GiveHint(target)
 		cooldown = world.time +cooldown_time
 		return
+
 	if(!link)
-		if(I.loc == user && istype(I) && I.w_class <= 2)
+		if(I.loc == user && istype(I) && I.w_class <= WEIGHT_CLASS_SMALL)
 			user.drop_item()
 			I.loc = src
 			link = I
 			to_chat(user, "You attach [I] to the doll.")
 			update_targets()
 	..()
+
 /obj/item/voodoo/check_eye(mob/user as mob)
-	return src.loc == user
+	if(loc != user)
+		user.reset_perspective(null)
+		user.unset_machine()
 
 /obj/item/voodoo/attack_self(mob/user as mob)
 	if(!target && possible.len)
 		target = input(user, "Select your victim!", "Voodoo") as null|anything in possible
 		return
+
 	if(user.zone_sel.selecting == "chest")
 		if(link)
 			target = null
@@ -809,6 +818,7 @@ var/global/list/multiverse = list()
 			link = null
 			update_targets()
 			return
+
 	if(target && cooldown < world.time)
 		switch(user.zone_sel.selecting)
 			if("mouth")

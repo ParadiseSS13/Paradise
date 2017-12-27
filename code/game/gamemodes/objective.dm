@@ -1,12 +1,6 @@
-//This file was auto-corrected by findeclaration.exe on 25.5.2012 20:42:31
 var/global/list/all_objectives = list()
 
-var/list/potential_theft_objectives = subtypesof(/datum/theft_objective) \
-	- /datum/theft_objective/steal \
-	- /datum/theft_objective/special \
-	- /datum/theft_objective/number \
-	- /datum/theft_objective/number/special \
-	- /datum/theft_objective/number/coins
+var/list/potential_theft_objectives = subtypesof(/datum/theft_objective) - /datum/theft_objective/steal - /datum/theft_objective/number - /datum/theft_objective/unique
 
 /datum/objective
 	var/datum/mind/owner = null			//Who owns the objective.
@@ -177,8 +171,8 @@ var/list/potential_theft_objectives = subtypesof(/datum/theft_objective) \
 
 /datum/objective/hijack
 	martyr_compatible = 0 //Technically you won't get both anyway.
-	explanation_text = "Hijack the shuttle by escaping on it with no loyalist NanoTrasen crew on board and alive. \
-	Syndicate agents, other enemies of NanoTrasen, cyborgs, and pets may be allowed to escape alive."
+	explanation_text = "Hijack the shuttle by escaping on it with no loyalist Nanotrasen crew on board and alive. \
+	Syndicate agents, other enemies of Nanotrasen, cyborgs, and pets may be allowed to escape alive."
 
 /datum/objective/hijack/check_completion()
 	if(!owner.current || owner.current.stat)
@@ -192,22 +186,10 @@ var/list/potential_theft_objectives = subtypesof(/datum/theft_objective) \
 	if(shuttle_master.emergency.areaInstance != A)
 		return 0
 
-	for(var/mob/living/player in player_list)
-		if(player.mind && player.mind != owner)
-			if(player.stat != DEAD)
-				if(issilicon(player)) //Borgs are technically dead anyways
-					continue
-				if(isanimal(player)) //Poly does not own the shuttle
-					continue
-				if(player.mind.special_role && !(player.mind.special_role == SPECIAL_ROLE_ERT)) //Is antag, and not ERT
-					continue
-
-				if(get_area(player) == A)
-					return 0
-	return 1
+	return shuttle_master.emergency.is_hijacked()
 
 /datum/objective/hijackclone
-	explanation_text = "Hijack the emergency shuttle by ensuring only you (or your copies) escape."
+	explanation_text = "Hijack the shuttle by ensuring only you (or your copies) escape."
 	martyr_compatible = 0
 
 /datum/objective/hijackclone/check_completion()
@@ -295,11 +277,11 @@ var/list/potential_theft_objectives = subtypesof(/datum/theft_objective) \
 	var/target_real_name // Has to be stored because the target's real_name can change over the course of the round
 
 /datum/objective/escape/escape_with_identity/find_target()
-	var/list/possible_targets = list() //Copypasta because NO_SCAN races, yay for snowflakes.
+	var/list/possible_targets = list() //Copypasta because NO_DNA races, yay for snowflakes.
 	for(var/datum/mind/possible_target in ticker.minds)
 		if(possible_target != owner && ishuman(possible_target.current) && (possible_target.current.stat != DEAD) && possible_target.current.client)
 			var/mob/living/carbon/human/H = possible_target.current
-			if(!(H.species.flags & NO_SCAN))
+			if(!(NO_DNA in H.species.species_traits))
 				possible_targets += possible_target
 	if(possible_targets.len > 0)
 		target = pick(possible_targets)
@@ -353,7 +335,7 @@ var/list/potential_theft_objectives = subtypesof(/datum/theft_objective) \
 	var/datum/theft_objective/steal_target
 	martyr_compatible = 0
 
-/datum/objective/steal/find_target(var/special_only=0)
+/datum/objective/steal/find_target()
 	var/loop=50
 	while(!steal_target && loop > 0)
 		loop--
@@ -361,12 +343,6 @@ var/list/potential_theft_objectives = subtypesof(/datum/theft_objective) \
 		var/datum/theft_objective/O = new thefttype
 		if(owner.assigned_role in O.protected_jobs)
 			continue
-		if(special_only)
-			if(!(O.flags & 1)) // THEFT_FLAG_SPECIAL
-				continue
-		else
-			if(O.flags & 1) // THEFT_FLAG_SPECIAL
-				continue
 		if(O.flags & 2)
 			continue
 		steal_target=O
@@ -396,8 +372,17 @@ var/list/potential_theft_objectives = subtypesof(/datum/theft_objective) \
 	return steal_target
 
 /datum/objective/steal/check_completion()
-	if(!steal_target) return 1 // Free Objective
-	return steal_target.check_completion(owner)
+	if(!steal_target)
+		return 1 // Free Objective
+
+	var/list/all_items = owner.current.GetAllContents()
+
+	for(var/obj/I in all_items)
+		if(istype(I, steal_target.typepath))
+			return steal_target.check_special_completion(I)
+		if(I.type in steal_target.altitems)
+			return steal_target.check_special_completion(I)
+
 
 /datum/objective/steal/exchange
 	martyr_compatible = 0
@@ -455,12 +440,12 @@ var/list/potential_theft_objectives = subtypesof(/datum/theft_objective) \
 		if(ticker.current_state == GAME_STATE_SETTING_UP)
 			for(var/mob/new_player/P in player_list)
 				if(P.client && P.ready && P.mind != owner)
-					if(P.client.prefs && (P.client.prefs.species == "Vox" || P.client.prefs.species == "Slime People" || P.client.prefs.species == "Machine")) // Special check for species that can't be absorbed. No better solution.
+					if(P.client.prefs && (P.client.prefs.species == "Machine")) // Special check for species that can't be absorbed. No better solution.
 						continue
 					n_p++
 		else if(ticker.current_state == GAME_STATE_PLAYING)
 			for(var/mob/living/carbon/human/P in player_list)
-				if(P.species.flags & NO_SCAN)
+				if(NO_DNA in P.species.species_traits)
 					continue
 				if(P.client && !(P.mind in ticker.mode.changelings) && P.mind!=owner)
 					n_p++
@@ -501,7 +486,7 @@ var/list/potential_theft_objectives = subtypesof(/datum/theft_objective) \
 /datum/objective/blood/proc/gen_amount_goal(low = 150, high = 400)
 	target_amount = rand(low,high)
 	target_amount = round(round(target_amount/5)*5)
-	explanation_text = "Accumulate atleast [target_amount] units of blood in total."
+	explanation_text = "Accumulate at least [target_amount] total units of blood."
 	return target_amount
 
 /datum/objective/blood/check_completion()

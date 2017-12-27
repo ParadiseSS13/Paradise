@@ -112,8 +112,14 @@
 		return
 	if(panel_open)
 		if(istype(W, /obj/item/weapon/crowbar))
+			if(inserted_id)
+				inserted_id.forceMove(loc) //Prevents deconstructing the ORM from deleting whatever ID was inside it.
 			empty_content()
 			default_deconstruction_crowbar(W)
+		if(ismultitool(W))
+			input_dir = turn(input_dir, -90)
+			output_dir = turn(output_dir, -90)
+			to_chat(user, "<span class='notice'>You change [src]'s I/O settings, setting the input to [dir2text(input_dir)] and the output to [dir2text(output_dir)].</span>")
 		return
 	if(default_unfasten_wrench(user, W))
 		return
@@ -139,9 +145,12 @@
 	qdel(O)//No refined type? Purge it.
 	return
 
-/obj/machinery/mineral/ore_redemption/attack_hand(user as mob)
+/obj/machinery/mineral/ore_redemption/attack_hand(mob/user)
 	if(..())
 		return
+	interact(user)
+
+/obj/machinery/mineral/ore_redemption/attack_ghost(mob/user)
 	interact(user)
 
 /obj/machinery/mineral/ore_redemption/interact(mob/user)
@@ -194,7 +203,8 @@
 
 /obj/machinery/mineral/ore_redemption/Topic(href, href_list)
 	if(..())
-		return
+		return 1
+
 	if(href_list["choice"])
 		if(istype(inserted_id))
 			if(href_list["choice"] == "eject")
@@ -211,11 +221,12 @@
 			var/obj/item/weapon/card/id/I = usr.get_active_hand()
 			if(istype(I))
 				if(!usr.drop_item())
-					return
+					return 1
 				I.loc = src
 				inserted_id = I
 			else
 				to_chat(usr, "<span class='warning'>No valid ID.</span>")
+
 	if(href_list["release"])
 		if(check_access(inserted_id) || allowed(usr)) //Check the ID inside, otherwise check the user.
 			if(!(text2path(href_list["release"]) in stack_list)) return
@@ -230,6 +241,7 @@
 				stack_list -= text2path(href_list["release"])
 		else
 			to_chat(usr, "<span class='warning'>Required access not found.</span>")
+
 	if(href_list["plasteel"])
 		if(check_access(inserted_id) || allowed(usr))
 			if(!(/obj/item/stack/sheet/metal in stack_list)) return
@@ -246,6 +258,7 @@
 				unload_mineral(plasteelout)
 		else
 			to_chat(usr, "<span class='warning'>Required access not found.</span>")
+
 	if(href_list["plasglass"])
 		if(check_access(inserted_id) || allowed(usr))
 			if(!(/obj/item/stack/sheet/glass in stack_list)) return
@@ -263,10 +276,9 @@
 		else
 			to_chat(usr, "<span class='warning'>Required access not found.</span>")
 	updateUsrDialog()
-	return
 
 /obj/machinery/mineral/ore_redemption/ex_act(severity, target)
-	var/datum/effect/system/spark_spread/s = new /datum/effect/system/spark_spread
+	var/datum/effect_system/spark_spread/s = new /datum/effect_system/spark_spread
 	s.set_up(5, 1, src)
 	s.start()
 	if(severity == 1)
@@ -294,6 +306,9 @@
 /obj/machinery/mineral/ore_redemption/power_change()
 	..()
 	update_icon()
+	if(inserted_id && !powered())
+		visible_message("<span class='notice'>The ID slot indicator light flickers on \the [src] as it spits out a card before powering down.</span>")
+		inserted_id.forceMove(loc)
 
 /obj/machinery/mineral/ore_redemption/update_icon()
 	if(powered())
@@ -313,7 +328,7 @@
 	anchored = 1.0
 	var/obj/item/weapon/card/id/inserted_id
 	var/list/prize_list = list(
-		new /datum/data/mining_equipment("Stimpack",			/obj/item/weapon/reagent_containers/hypospray/autoinjector/stimpack,	    50),
+		new /datum/data/mining_equipment("Stimpack",			/obj/item/weapon/reagent_containers/hypospray/autoinjector/stimpack, 50),
 		new /datum/data/mining_equipment("Teporone MediPen",	/obj/item/weapon/reagent_containers/hypospray/autoinjector/teporone, 50),
 		new /datum/data/mining_equipment("MediPen Bundle",		/obj/item/weapon/storage/box/autoinjector/utility,	 			   200),
 		new /datum/data/mining_equipment("Whiskey",             /obj/item/weapon/reagent_containers/food/drinks/bottle/whiskey,    100),
@@ -324,10 +339,10 @@
 		new /datum/data/mining_equipment("Advanced Scanner",	/obj/item/device/t_scanner/adv_mining_scanner,                     400),
 		new /datum/data/mining_equipment("Hivelord Stabilizer",	/obj/item/weapon/hivelordstabilizer,                               400),
 		new /datum/data/mining_equipment("Mining Drone",        /obj/item/weapon/mining_drone_cube,                                500),
-		new /datum/data/mining_equipment("Drone Melee Upgrade", /obj/item/device/mine_bot_ugprade,      			   			   400),
-		new /datum/data/mining_equipment("Drone Health Upgrade",/obj/item/device/mine_bot_ugprade/health,      			   	       400),
-		new /datum/data/mining_equipment("Drone Ranged Upgrade",/obj/item/device/mine_bot_ugprade/cooldown,      			   	   600),
-		new /datum/data/mining_equipment("Kinetic Crusher", 	/obj/item/weapon/twohanded/required/mining_hammer,               	   	750),
+		new /datum/data/mining_equipment("Drone Melee Upgrade", /obj/item/device/mine_bot_upgrade,      			   			   400),
+		new /datum/data/mining_equipment("Drone Health Upgrade",/obj/item/device/mine_bot_upgrade/health,      			   	       400),
+		new /datum/data/mining_equipment("Drone Ranged Upgrade",/obj/item/device/mine_bot_upgrade/cooldown,      			   	   600),
+		new /datum/data/mining_equipment("Kinetic Crusher", 	/obj/item/weapon/twohanded/required/mining_hammer,				   750),
 		new /datum/data/mining_equipment("Drone AI Upgrade",    /obj/item/slimepotion/sentience/mining,      			   	      1000),
 		new /datum/data/mining_equipment("GAR mesons",			/obj/item/clothing/glasses/meson/gar,							   500),
 		new /datum/data/mining_equipment("Brute First-Aid Kit",	/obj/item/weapon/storage/firstaid/brute,						   600),
@@ -339,10 +354,17 @@
 		new /datum/data/mining_equipment("Lazarus Capsule", 	/obj/item/device/mobcapsule, 									   800),
 		new /datum/data/mining_equipment("Lazarus Capsule belt",/obj/item/weapon/storage/belt/lazarus,							   200),
 		new /datum/data/mining_equipment("Jetpack",             /obj/item/weapon/tank/jetpack/carbondioxide/mining,               2000),
-		new /datum/data/mining_equipment("Space Cash",    		/obj/item/weapon/spacecash/c1000,                    			  2000),
+		new /datum/data/mining_equipment("Space Cash",    		/obj/item/stack/spacecash/c1000,                    			  2000),
 		new /datum/data/mining_equipment("Diamond Pickaxe",		/obj/item/weapon/pickaxe/diamond,				                  2000),
 		new /datum/data/mining_equipment("Super Resonator",     /obj/item/weapon/resonator/upgraded,                              2500),
-		new /datum/data/mining_equipment("Super Accelerator",	/obj/item/weapon/gun/energy/kinetic_accelerator/super,			  3000),
+		new /datum/data/mining_equipment("KA White Tracer Rounds",	/obj/item/borg/upgrade/modkit/tracer,								100),
+		new /datum/data/mining_equipment("KA Adjustable Tracer Rounds",	/obj/item/borg/upgrade/modkit/tracer/adjustable,				150),
+		new /datum/data/mining_equipment("KA Super Chassis",	/obj/item/borg/upgrade/modkit/chassis_mod,								250),
+		new /datum/data/mining_equipment("KA Hyper Chassis",	/obj/item/borg/upgrade/modkit/chassis_mod/orange,						300),
+		new /datum/data/mining_equipment("KA Range Increase",	/obj/item/borg/upgrade/modkit/range,									1000),
+		new /datum/data/mining_equipment("KA Damage Increase",	/obj/item/borg/upgrade/modkit/damage,									1000),
+		new /datum/data/mining_equipment("KA Cooldown Decrease",/obj/item/borg/upgrade/modkit/cooldown,									1000),
+		new /datum/data/mining_equipment("KA AoE Damage",		/obj/item/borg/upgrade/modkit/aoe/mobs,									2000),
 		new /datum/data/mining_equipment("Point Transfer Card", /obj/item/weapon/card/mining_point_card,               			   500),
 		)
 
@@ -370,17 +392,22 @@
 /obj/machinery/mineral/equipment_vendor/power_change()
 	..()
 	update_icon()
+	if(inserted_id && !powered())
+		visible_message("<span class='notice'>The ID slot indicator light flickers on \the [src] as it spits out a card before powering down.</span>")
+		inserted_id.forceMove(loc)
 
 /obj/machinery/mineral/equipment_vendor/update_icon()
 	if(powered())
 		icon_state = initial(icon_state)
 	else
 		icon_state = "[initial(icon_state)]-off"
-	return
 
-/obj/machinery/mineral/equipment_vendor/attack_hand(user as mob)
+/obj/machinery/mineral/equipment_vendor/attack_hand(mob/user)
 	if(..())
 		return
+	interact(user)
+
+/obj/machinery/mineral/equipment_vendor/attack_ghost(mob/user)
 	interact(user)
 
 /obj/machinery/mineral/equipment_vendor/interact(mob/user)
@@ -400,11 +427,11 @@
 	var/datum/browser/popup = new(user, "miningvendor", "Mining Equipment Vendor", 400, 350)
 	popup.set_content(dat)
 	popup.open()
-	return
 
 /obj/machinery/mineral/equipment_vendor/Topic(href, href_list)
 	if(..())
-		return
+		return 1
+
 	if(href_list["choice"])
 		if(istype(inserted_id))
 			if(href_list["choice"] == "eject")
@@ -420,24 +447,25 @@
 				inserted_id = I
 			else
 				to_chat(usr, "<span class='danger'>No valid ID.</span>")
+
 	if(href_list["purchase"])
 		if(istype(inserted_id))
 			var/datum/data/mining_equipment/prize = locate(href_list["purchase"])
-			if(!prize || !(prize in prize_list))
+			if(!prize || !(prize in prize_list) || prize.cost > inserted_id.mining_points)
 				return
-			if(prize.cost > inserted_id.mining_points)
-			else
-				inserted_id.mining_points -= prize.cost
-				new prize.equipment_path(src.loc)
-	updateUsrDialog()
-	return
 
-/obj/machinery/mineral/equipment_vendor/attackby(obj/item/I as obj, mob/user as mob, params)
+			inserted_id.mining_points -= prize.cost
+			new prize.equipment_path(src.loc)
+	updateUsrDialog()
+
+/obj/machinery/mineral/equipment_vendor/attackby(obj/item/I, mob/user, params)
 	if(default_deconstruction_screwdriver(user, "mining-open", "mining", I))
 		updateUsrDialog()
 		return
 	if(panel_open)
 		if(istype(I, /obj/item/weapon/crowbar))
+			if(inserted_id)
+				inserted_id.forceMove(loc) //Prevents deconstructing the ORM from deleting whatever ID was inside it.
 			default_deconstruction_crowbar(I)
 		return 1
 	if(istype(I, /obj/item/weapon/mining_voucher))
@@ -478,7 +506,7 @@
 	qdel(voucher)
 
 /obj/machinery/mineral/equipment_vendor/ex_act(severity, target)
-	var/datum/effect/system/spark_spread/s = new /datum/effect/system/spark_spread
+	var/datum/effect_system/spark_spread/s = new /datum/effect_system/spark_spread
 	s.set_up(5, 1, src)
 	s.start()
 	if(prob(50 / severity) && severity < 3)
@@ -493,7 +521,7 @@
 	desc = "A token to redeem a piece of equipment. Use it on a mining equipment vendor."
 	icon = 'icons/obj/items.dmi'
 	icon_state = "mining_voucher"
-	w_class = 1
+	w_class = WEIGHT_CLASS_TINY
 
 /**********************Mining Point Card**********************/
 
@@ -503,7 +531,7 @@
 	icon_state = "data"
 	var/points = 500
 
-/obj/item/weapon/card/mining_point_card/attackby(obj/item/I as obj, mob/user as mob, params)
+/obj/item/weapon/card/mining_point_card/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/weapon/card/id))
 		if(points)
 			var/obj/item/weapon/card/id/C = I
@@ -527,12 +555,12 @@
 	icon_state = "Jaunter"
 	item_state = "electronic"
 	throwforce = 0
-	w_class = 2
+	w_class = WEIGHT_CLASS_SMALL
 	throw_speed = 3
 	throw_range = 5
 	origin_tech = "bluespace=2"
 
-/obj/item/device/wormhole_jaunter/attack_self(mob/user as mob)
+/obj/item/device/wormhole_jaunter/attack_self(mob/user)
 	var/turf/device_turf = get_turf(user)
 	if(!device_turf||is_teleport_allowed(device_turf.z))
 		to_chat(user, "<span class='notice'>You're having difficulties getting the [src.name] to work.</span>")
@@ -586,8 +614,9 @@
 	icon = 'icons/obj/items.dmi'
 	icon_state = "resonator"
 	item_state = "resonator"
+	origin_tech = "magnets=3;engineering=3"
 	desc = "A handheld device that creates small fields of energy that resonate until they detonate, crushing rock. It can also be activated without a target to create a field at the user's location, to act as a delayed time trap. It's more effective in a vaccuum."
-	w_class = 3
+	w_class = WEIGHT_CLASS_NORMAL
 	force = 8
 	throwforce = 10
 	var/cooldown = 0
@@ -599,7 +628,7 @@
 	name = "upgraded resonator"
 	desc = "An upgraded version of the resonator that can produce more fields at once."
 	icon_state = "resonator_u"
-	origin_tech = "magnets=3;combat=3"
+	origin_tech = "materials=4;powerstorage=3;engineering=3;magnets=3"
 	fieldlimit = 5
 
 /obj/item/weapon/resonator/proc/CreateResonance(var/target, var/creator)
@@ -613,7 +642,7 @@
 		spawn(burst_time)
 			fieldsactive--
 
-/obj/item/weapon/resonator/attack_self(mob/user as mob)
+/obj/item/weapon/resonator/attack_self(mob/user)
 	if(burst_time == 50)
 		burst_time = 30
 		to_chat(user, "<span class='info'>You set the resonator's fields to detonate after 3 seconds.</span>")
@@ -683,7 +712,7 @@
 /obj/item/weapon/mining_drone_cube
 	name = "mining drone cube"
 	desc = "Compressed mining drone, ready for deployment. Just press the button to activate!"
-	w_class = 2
+	w_class = WEIGHT_CLASS_SMALL
 	icon = 'icons/obj/aibots.dmi'
 	icon_state = "minedronecube"
 	item_state = "electronic"
@@ -694,301 +723,15 @@
 	new /mob/living/simple_animal/hostile/mining_drone(get_turf(src))
 	qdel(src)
 
-/**********************Mining drone**********************/
-#define MINEDRONE_COLLECT 1
-#define MINEDRONE_ATTACK 2
-
-/mob/living/simple_animal/hostile/mining_drone
-	name = "nanotrasen minebot"
-	desc = "The instructions printed on the side read: This is a small robot used to support miners, can be set to search and collect loose ore, or to help fend off wildlife. A mining scanner can instruct it to drop loose ore. Field repairs can be done with a welder."
-	icon = 'icons/obj/aibots.dmi'
-	icon_state = "mining_drone"
-	icon_living = "mining_drone"
-	status_flags = CANSTUN|CANWEAKEN|CANPUSH
-	mouse_opacity = 1
-	faction = list("neutral")
-	a_intent = I_HARM
-	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
-	minbodytemp = 0
-	wander = 0
-	idle_vision_range = 5
-	move_to_delay = 10
-	retreat_distance = 1
-	minimum_distance = 2
-	health = 125
-	maxHealth = 125
-	melee_damage_lower = 15
-	melee_damage_upper = 15
-	environment_smash = 0
-	check_friendly_fire = 1
-	stop_automated_movement_when_pulled = 1
-	attacktext = "drills"
-	attack_sound = 'sound/weapons/circsawhit.ogg'
-	ranged = 1
-	sentience_type = SENTIENCE_MINEBOT
-	ranged_message = "shoots"
-	ranged_cooldown_cap = 3
-	projectiletype = /obj/item/projectile/kinetic
-	projectilesound = 'sound/weapons/Gunshot4.ogg'
-	speak_emote = list("states")
-	wanted_objects = list(/obj/item/weapon/ore/diamond, /obj/item/weapon/ore/gold, /obj/item/weapon/ore/silver,
-						  /obj/item/weapon/ore/plasma,  /obj/item/weapon/ore/uranium,    /obj/item/weapon/ore/iron,
-						  /obj/item/weapon/ore/bananium, /obj/item/weapon/ore/tranquillite, /obj/item/weapon/ore/glass)
-	healable = 0
-	var/mode = MINEDRONE_COLLECT
-	var/light_on = 0
-
-	var/datum/action/innate/minedrone/toggle_light/toggle_light_action
-	var/datum/action/innate/minedrone/toggle_meson_vision/toggle_meson_vision_action
-	var/datum/action/innate/minedrone/toggle_mode/toggle_mode_action
-	var/datum/action/innate/minedrone/dump_ore/dump_ore_action
-
-/mob/living/simple_animal/hostile/mining_drone/New()
-	..()
-	toggle_light_action = new()
-	toggle_light_action.Grant(src)
-	toggle_meson_vision_action = new()
-	toggle_meson_vision_action.Grant(src)
-	toggle_mode_action = new()
-	toggle_mode_action.Grant(src)
-	dump_ore_action = new()
-	dump_ore_action.Grant(src)
-
-	SetCollectBehavior()
-
-/mob/living/simple_animal/hostile/mining_drone/sentience_act()
-	AIStatus = AI_OFF
-	check_friendly_fire = 0
-
-/mob/living/simple_animal/hostile/mining_drone/attackby(obj/item/I, mob/user, params)
-	if(istype(I, /obj/item/weapon/weldingtool))
-		var/obj/item/weapon/weldingtool/W = I
-		if(W.welding && !stat)
-			if(AIStatus != AI_OFF && AIStatus != AI_IDLE)
-				to_chat(user, "<span class='info'>[src] is moving around too much to repair!</span>")
-				return
-			if(maxHealth == health)
-				to_chat(user, "<span class='info'>[src] is at full integrity.</span>")
-			else
-				adjustBruteLoss(-10)
-				to_chat(user, "<span class='info'>You repair some of the armor on [src].</span>")
-			return
-	if(istype(I, /obj/item/device/mining_scanner) || istype(I, /obj/item/device/t_scanner/adv_mining_scanner))
-		to_chat(user, "<span class='info'>You instruct [src] to drop any collected ore.</span>")
-		DropOre()
-		return
-	..()
-
-/mob/living/simple_animal/hostile/mining_drone/death()
-	..()
-	visible_message("<span class='danger'>[src] is destroyed!</span>")
-	new /obj/effect/decal/cleanable/blood/gibs/robot(src.loc)
-	DropOre(0)
-	qdel(src)
-	return
-
-/mob/living/simple_animal/hostile/mining_drone/attack_hand(mob/living/carbon/human/M)
-	if(M.a_intent == I_HELP)
-		toggle_mode()
-		switch(mode)
-			if(MINEDRONE_COLLECT)
-				to_chat(M, "<span class='info'>[src] has been set to search and store loose ore.</span>")
-			if(MINEDRONE_ATTACK)
-				to_chat(M, "<span class='info'>[src] has been set to attack hostile wildlife.</span>")
-		return
-	..()
-
-/mob/living/simple_animal/hostile/mining_drone/proc/SetCollectBehavior()
-	mode = MINEDRONE_COLLECT
-	idle_vision_range = 9
-	search_objects = 2
-	wander = 1
-	ranged = 0
-	minimum_distance = 1
-	retreat_distance = null
-	icon_state = "mining_drone"
-	to_chat(src, "<span class='info'>You are set to collect mode. You can now collect loose ore.</span>")
-
-/mob/living/simple_animal/hostile/mining_drone/proc/SetOffenseBehavior()
-	mode = MINEDRONE_ATTACK
-	idle_vision_range = 7
-	search_objects = 0
-	wander = 0
-	ranged = 1
-	retreat_distance = 1
-	minimum_distance = 2
-	icon_state = "mining_drone_offense"
-	to_chat(src, "<span class='info'>You are set to attack mode. You can now attack from range.</span>")
-
-/mob/living/simple_animal/hostile/mining_drone/AttackingTarget()
-	if(istype(target, /obj/item/weapon/ore) && mode ==  MINEDRONE_COLLECT)
-		CollectOre()
-		return
-	..()
-
-/mob/living/simple_animal/hostile/mining_drone/proc/CollectOre()
-	var/obj/item/weapon/ore/O
-	for(O in src.loc)
-		O.forceMove(src)
-	for(var/dir in alldirs)
-		var/turf/T = get_step(src,dir)
-		for(O in T)
-			O.forceMove(src)
-	return
-
-/mob/living/simple_animal/hostile/mining_drone/proc/DropOre(message = 1)
-	if(!contents.len)
-		if(message)
-			to_chat(src, "<span class='notice'>You attempt to dump your stored ore, but you have none.</span>")
-		return
-	if(message)
-		to_chat(src, "<span class='notice'>You dump your stored ore.</span>")
-	for(var/obj/item/weapon/ore/O in contents)
-		contents -= O
-		O.forceMove(loc)
-	return
-
-/mob/living/simple_animal/hostile/mining_drone/adjustHealth(amount)
-	if(mode != MINEDRONE_ATTACK && amount > 0)
-		SetOffenseBehavior()
-	. = ..()
-
-/mob/living/simple_animal/hostile/mining_drone/proc/toggle_mode()
-	switch(mode)
-		if(MINEDRONE_COLLECT)
-			SetOffenseBehavior()
-		if(MINEDRONE_ATTACK)
-			SetCollectBehavior()
-		else //This should never happen.
-			mode = MINEDRONE_COLLECT
-			SetCollectBehavior()
-
-//Actions for sentient minebots
-
-/datum/action/innate/minedrone
-	check_flags = AB_CHECK_CONSCIOUS
-	background_icon_state = "bg_default"
-
-/datum/action/innate/minedrone/toggle_light
-	name = "Toggle Light"
-	button_icon_state = "mech_lights_off"
-
-/datum/action/innate/minedrone/toggle_light/Activate()
-	var/mob/living/simple_animal/hostile/mining_drone/user = owner
-
-	if(user.light_on)
-		user.set_light(0)
-	else
-		user.set_light(6)
-	user.light_on = !user.light_on
-	to_chat(user, "<span class='notice'>You toggle your light [user.light_on ? "on" : "off"].</span>")
-
-/datum/action/innate/minedrone/toggle_meson_vision
-	name = "Toggle Meson Vision"
-	button_icon_state = "meson"
-
-/datum/action/innate/minedrone/toggle_meson_vision/Activate()
-	var/mob/living/simple_animal/hostile/mining_drone/user = owner
-
-	if(user.sight & SEE_TURFS)
-		user.sight &= ~SEE_TURFS
-		user.see_invisible = SEE_INVISIBLE_LIVING
-	else
-		user.sight |= SEE_TURFS
-		user.see_invisible = SEE_INVISIBLE_MINIMUM
-
-	to_chat(user, "<span class='notice'>You toggle your meson vision [(user.sight & SEE_TURFS) ? "on" : "off"].</span>")
-
-/datum/action/innate/minedrone/toggle_mode
-	name = "Toggle Mode"
-	button_icon_state = "mech_cycle_equip_off"
-
-/datum/action/innate/minedrone/toggle_mode/Activate()
-	var/mob/living/simple_animal/hostile/mining_drone/user = owner
-	user.toggle_mode()
-
-/datum/action/innate/minedrone/dump_ore
-	name = "Dump Ore"
-	button_icon_state = "mech_eject"
-
-/datum/action/innate/minedrone/dump_ore/Activate()
-	var/mob/living/simple_animal/hostile/mining_drone/user = owner
-	user.DropOre()
-
-
-/**********************Minebot Upgrades**********************/
-
-//Melee
-
-/obj/item/device/mine_bot_ugprade
-	name = "minebot melee upgrade"
-	desc = "A minebot upgrade."
-	icon_state = "door_electronics"
-	icon = 'icons/obj/doors/door_assembly.dmi'
-
-/obj/item/device/mine_bot_ugprade/afterattack(mob/living/simple_animal/hostile/mining_drone/M, mob/user, proximity)
-	if(!istype(M) || !proximity)
-		return
-	upgrade_bot(M, user)
-
-/obj/item/device/mine_bot_ugprade/proc/upgrade_bot(mob/living/simple_animal/hostile/mining_drone/M, mob/user)
-	if(M.melee_damage_upper != initial(M.melee_damage_upper))
-		to_chat(user, "[M] already has a combat upgrade installed!")
-		return
-	M.melee_damage_lower = 22
-	M.melee_damage_upper = 22
-	to_chat(user, "You upgrade [M]'s combat module.")
-	qdel(src)
-
-//Health
-
-/obj/item/device/mine_bot_ugprade/health
-	name = "minebot chassis upgrade"
-
-/obj/item/device/mine_bot_ugprade/health/upgrade_bot(mob/living/simple_animal/hostile/mining_drone/M, mob/user)
-	if(M.maxHealth != initial(M.maxHealth))
-		to_chat(user, "[M] already has a reinforced chassis!")
-		return
-	M.maxHealth = 170
-	to_chat(user, "You reinforce [M]'s chassis.")
-	qdel(src)
-
-
-//Cooldown
-
-/obj/item/device/mine_bot_ugprade/cooldown
-	name = "minebot cooldown upgrade"
-
-/obj/item/device/mine_bot_ugprade/cooldown/upgrade_bot(mob/living/simple_animal/hostile/mining_drone/M, mob/user)
-	if(M.ranged_cooldown_cap != initial(M.ranged_cooldown_cap))
-		to_chat(user, "[M] already has a decreased weapon cooldown!")
-		return
-	M.ranged_cooldown_cap = 1
-	to_chat(user, "You upgrade [M]'s ranged weaponry, reducing its cooldown.")
-	qdel(src)
-
-
-//AI
-/obj/item/slimepotion/sentience/mining
-	name = "minebot AI upgrade"
-	desc = "Can be used to grant sentience to minebots."
-	icon_state = "door_electronics"
-	icon = 'icons/obj/doors/door_assembly.dmi'
-	sentience_type = SENTIENCE_MINEBOT
-	origin_tech = "programming=6"
-
-#undef MINEDRONE_COLLECT
-#undef MINEDRONE_ATTACK
-
 /**********************Mining drone kit**********************/
 
 /obj/item/weapon/storage/box/drone_kit
 	name = "Drone Kit"
 	desc = "A boxed kit that includes one mining drone cube and a welding tool with an increased capacity."
 	icon_state = "implant"
-	max_w_class = 3
+	max_w_class = WEIGHT_CLASS_NORMAL
 	storage_slots = 2
-	can_hold = list("/obj/item/weapon/mining_drone_cube","/obj/item/weapon/weldingtool/hugetank")
+	can_hold = list(/obj/item/weapon/mining_drone_cube, /obj/item/weapon/weldingtool/hugetank)
 
 /obj/item/weapon/storage/box/drone_kit/New()
 	..()
@@ -1003,8 +746,9 @@
 	icon = 'icons/obj/hypo.dmi'
 	icon_state = "lazarus_hypo"
 	item_state = "hypo"
+	origin_tech = "biotech=4;magnets=6"
 	throwforce = 0
-	w_class = 2
+	w_class = WEIGHT_CLASS_SMALL
 	throw_speed = 3
 	throw_range = 5
 	var/loaded = 1
@@ -1064,7 +808,7 @@
 	name = "manual mining scanner"
 	icon_state = "mining1"
 	item_state = "analyzer"
-	w_class = 2
+	w_class = WEIGHT_CLASS_SMALL
 	flags = CONDUCT
 	slot_flags = SLOT_BELT
 	var/cooldown = 0
@@ -1096,7 +840,7 @@
 	name = "advanced automatic mining scanner"
 	icon_state = "mining0"
 	item_state = "analyzer"
-	w_class = 2
+	w_class = WEIGHT_CLASS_SMALL
 	flags = CONDUCT
 	slot_flags = SLOT_BELT
 	var/cooldown = 35
@@ -1186,10 +930,11 @@
 	name = "mining jetpack"
 	icon_state = "jetpack-mining"
 	item_state = "jetpack-mining"
+	origin_tech = "materials=4;magnets=4;engineering=5"
 	desc = "A tank of compressed carbon dioxide for miners to use as propulsion in local space. The compact size allows for easy storage at the cost of capacity."
 	volume = 40
 	throw_range = 7
-	w_class = 3 //same as syndie harness
+	w_class = WEIGHT_CLASS_NORMAL //same as syndie harness
 
 /*********************Hivelord stabilizer****************/
 
@@ -1198,8 +943,8 @@
 	icon = 'icons/obj/chemical.dmi'
 	icon_state = "bottle19"
 	desc = "Inject a hivelord core with this stabilizer to preserve its healing powers indefinitely."
-	w_class = 1
-	origin_tech = "biotech=1"
+	w_class = WEIGHT_CLASS_TINY
+	origin_tech = "biotech=3"
 
 /obj/item/weapon/hivelordstabilizer/afterattack(obj/item/organ/internal/M, mob/user)
 	var/obj/item/organ/internal/hivelord_core/C = M
@@ -1221,7 +966,7 @@
 	 \n<span class='info'>Mark a mob with the destabilizing force, then hit them in melee to activate it for extra damage. Extra damage if backstabbed in this fashion. \
 	 This weapon is only particularly effective against large creatures.</span>"
 	force = 20 //As much as a bone spear, but this is significantly more annoying to carry around due to requiring the use of both hands at all times
-	w_class = 4
+	w_class = WEIGHT_CLASS_BULKY
 	slot_flags = SLOT_BACK
 	force_unwielded = 20 //It's never not wielded so these are the same
 	force_wielded = 20
@@ -1233,7 +978,6 @@
 	hitsound = 'sound/weapons/bladeslice.ogg'
 	attack_verb = list("smashes", "crushes", "cleaves", "chops", "pulps")
 	sharp = 1
-	edge = 1
 	var/charged = 1
 	var/charge_time = 16
 	var/atom/mark = null
@@ -1295,8 +1039,7 @@
 		mark = 0
 		if(L.mob_size >= MOB_SIZE_LARGE)
 			L.underlays -= marked_image
-			qdel(marked_image)
-			marked_image = null
+			QDEL_NULL(marked_image)
 			var/backstab = check_target_facings(user, L)
 			var/def_check = L.getarmor(type = "bomb")
 			if(backstab == FACING_INIT_FACING_TARGET_TARGET_FACING_PERPENDICULAR || backstab == FACING_SAME_DIR)

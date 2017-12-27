@@ -4,7 +4,7 @@
 	icon_state = "igniter"
 	materials = list(MAT_METAL=500, MAT_GLASS=50)
 	origin_tech = "magnets=1"
-	var/datum/effect/system/spark_spread/sparks = new /datum/effect/system/spark_spread
+	var/datum/effect_system/spark_spread/sparks = new /datum/effect_system/spark_spread
 
 /obj/item/device/assembly/igniter/New()
 	..()
@@ -12,8 +12,7 @@
 	sparks.attach(src)
 
 /obj/item/device/assembly/igniter/Destroy()
-	qdel(sparks)
-	sparks = null
+	QDEL_NULL(sparks)
 	return ..()
 
 

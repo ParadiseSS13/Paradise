@@ -34,13 +34,15 @@
 	installed = -1
 	uninstall()
 
-/datum/robot_component/proc/take_damage(brute, electronics, sharp, edge)
-	if(installed != 1) return
+/datum/robot_component/proc/take_damage(brute, electronics, sharp)
+	if(installed != 1)
+		return
 
 	brute_damage += brute
 	electronics_damage += electronics
 
-	if(brute_damage + electronics_damage >= max_damage) destroy()
+	if(brute_damage + electronics_damage >= max_damage)
+		destroy()
 
 /datum/robot_component/proc/heal_damage(brute, electronics)
 	if(installed != 1)
@@ -171,7 +173,7 @@
 	flags = CONDUCT
 	slot_flags = SLOT_BELT
 	throwforce = 3
-	w_class = 2
+	w_class = WEIGHT_CLASS_SMALL
 	throw_speed = 5
 	throw_range = 10
 	origin_tech = "magnets=1;biotech=1"
@@ -230,7 +232,7 @@
 			to_chat(user, "<span class='notice'>External prosthetics:</span>")
 			var/organ_found
 			if(H.internal_organs.len)
-				for(var/obj/item/organ/external/E in H.organs)
+				for(var/obj/item/organ/external/E in H.bodyparts)
 					if(!(E.status & ORGAN_ROBOT))
 						continue
 					organ_found = 1

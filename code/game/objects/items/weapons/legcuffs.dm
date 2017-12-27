@@ -6,8 +6,8 @@
 	icon_state = "handcuff"
 	flags = CONDUCT
 	throwforce = 0
-	w_class = 3
-	origin_tech = "materials=1"
+	w_class = WEIGHT_CLASS_NORMAL
+	origin_tech = "engineering=3;combat=3"
 	slowdown = 7
 	breakouttime = 300	//Deciseconds = 30s = 0.5 minute
 
@@ -17,6 +17,7 @@
 	throw_range = 1
 	icon_state = "beartrap"
 	desc = "A trap used to catch bears and other legged creatures."
+	origin_tech = "engineering=4"
 	var/armed = 0
 	var/trap_damage = 20
 	var/obj/item/weapon/grenade/iedcasing/IED = null
@@ -27,12 +28,8 @@
 	icon_state = "[initial(icon_state)][armed]"
 
 /obj/item/weapon/restraints/legcuffs/beartrap/Destroy()
-	if(IED)
-		qdel(IED)
-		IED = null
-	if(sig)
-		qdel(sig)
-		sig = null
+	QDEL_NULL(IED)
+	QDEL_NULL(sig)
 	return ..()
 
 /obj/item/weapon/restraints/legcuffs/beartrap/suicide_act(mob/user)
@@ -150,7 +147,7 @@
 	..()
 	spawn(100)
 		if(!istype(loc, /mob))
-			var/datum/effect/system/spark_spread/sparks = new /datum/effect/system/spark_spread
+			var/datum/effect_system/spark_spread/sparks = new /datum/effect_system/spark_spread
 			sparks.set_up(1, 1, src)
 			sparks.start()
 			qdel(src)
@@ -200,7 +197,7 @@
 	desc = "A specialized hard-light bola designed to ensnare fleeing criminals and aid in arrests."
 	icon_state = "ebola"
 	hitsound = 'sound/weapons/tase.ogg'
-	w_class = 2
+	w_class = WEIGHT_CLASS_SMALL
 	breakouttime = 60
 
 /obj/item/weapon/restraints/legcuffs/bola/energy/throw_impact(atom/hit_atom)

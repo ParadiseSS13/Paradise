@@ -7,7 +7,7 @@ var/datum/debug/debugobj
 var/list/liftable_structures = list(\
 	/obj/machinery/autolathe, \
 	/obj/machinery/constructable_frame, \
-	/obj/machinery/portable_atmospherics/hydroponics, \
+	/obj/machinery/hydroponics, \
 	/obj/machinery/computer, \
 	/obj/machinery/optable, \
 	/obj/structure/dispenser, \

@@ -13,6 +13,10 @@
 	alien_organs += new /obj/item/organ/internal/xenos/plasmavessel/hunter
 	..()
 
+/mob/living/carbon/alien/humanoid/hunter/movement_delay()
+	. = -1		//hunters are sanic
+	. += ..()	//but they still need to slow down on stun
+
 /mob/living/carbon/alien/humanoid/hunter/handle_regular_hud_updates()
 	..() //-Yvarov
 
@@ -36,7 +40,7 @@
 
 
 /mob/living/carbon/alien/humanoid/hunter/handle_environment()
-	if(m_intent == "run" || resting)
+	if(m_intent == MOVE_INTENT_RUN || resting)
 		..()
 	else
 		adjustPlasma(-heal_rate)
@@ -79,17 +83,18 @@
 	else //Maybe uses plasma in the future, although that wouldn't make any sense...
 		leaping = 1
 		update_icons()
-		throw_at(A,MAX_ALIEN_LEAP_DIST,1)
-		leaping = 0
-		update_icons()
+		throw_at(A, MAX_ALIEN_LEAP_DIST, 1, spin = 0, diagonals_first = 1, callback = CALLBACK(src, .leap_end))
+
+/mob/living/carbon/alien/humanoid/hunter/proc/leap_end()
+	leaping = 0
+	update_icons()
 
 /mob/living/carbon/alien/humanoid/hunter/throw_impact(atom/A)
-
 	if(!leaping)
 		return ..()
 
 	if(A)
-		if(istype(A, /mob/living))
+		if(isliving(A))
 			var/mob/living/L = A
 			var/blocked = 0
 			if(ishuman(A))
@@ -126,46 +131,3 @@
 	if(leaping)
 		return
 	..()
-
-
-//Modified throw_at() that will use diagonal dirs where appropriate
-//instead of locking it to cardinal dirs
-/mob/living/carbon/alien/humanoid/throw_at(atom/target, range, speed)
-	if(!target || !src)	return 0
-
-	src.throwing = 1
-
-	var/dist_x = abs(target.x - src.x)
-	var/dist_y = abs(target.y - src.y)
-	var/dist_travelled = 0
-	var/dist_since_sleep = 0
-
-	var/tdist_x = dist_x;
-	var/tdist_y = dist_y;
-
-	if(dist_x <= dist_y)
-		tdist_x = dist_y;
-		tdist_y = dist_x;
-
-	var/error = tdist_x/2 - tdist_y
-	while(target && (((((dist_x > dist_y) && ((src.x < target.x) || (src.x > target.x))) || ((dist_x <= dist_y) && ((src.y < target.y) || (src.y > target.y))) || (src.x > target.x)) && dist_travelled < range) || !has_gravity(src)))
-
-		if(!src.throwing) break
-		if(!istype(src.loc, /turf)) break
-
-		var/atom/step = get_step(src, get_dir(src,target))
-		if(!step)
-			break
-		src.Move(step, get_dir(src, step))
-		hit_check()
-		error += (error < 0) ? tdist_x : -tdist_y;
-		dist_travelled++
-		dist_since_sleep++
-		if(dist_since_sleep >= speed)
-			dist_since_sleep = 0
-			sleep(1)
-
-
-	src.throwing = 0
-
-	return 1

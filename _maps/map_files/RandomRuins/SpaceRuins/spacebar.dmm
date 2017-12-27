@@ -62,7 +62,7 @@
 "bj" = (/obj/machinery/light/small{dir = 8},/turf/simulated/floor/plasteel,/area/ruin/powered{name = "Space Bar"})
 "bk" = (/obj/structure/toilet{dir = 4},/obj/machinery/light/small{dir = 8},/turf/simulated/floor/plasteel,/area/ruin/powered{name = "Space Bar"})
 "bl" = (/obj/machinery/door/airlock{name = "Toilet"},/turf/simulated/floor/plasteel,/area/ruin/powered{name = "Space Bar"})
-"bm" = (/obj/effect/glowshroom/single,/turf/simulated/floor/plasteel,/area/ruin/powered{name = "Space Bar"})
+"bm" = (/obj/structure/glowshroom/single,/turf/simulated/floor/plasteel,/area/ruin/powered{name = "Space Bar"})
 "bn" = (/obj/machinery/door/airlock/external,/turf/simulated/floor/plating,/area/ruin/powered)
 "bo" = (/turf/simulated/floor/plating,/area/ruin/powered)
 "bp" = (/turf/simulated/floor/plating{icon_plating = "warnplate"; icon_state = "warnplate"},/area/ruin/powered)

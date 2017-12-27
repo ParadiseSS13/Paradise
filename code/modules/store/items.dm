@@ -83,7 +83,7 @@
 
 /datum/storeitem/minigibber
 	name = "miniature gibber"
-	desc = "A miniature recreation of NanoTrasen's famous meat grinder."
+	desc = "A miniature recreation of Nanotrasen's famous meat grinder."
 	typepath = /obj/item/toy/minigibber
 	cost = 400
 
@@ -93,17 +93,29 @@
 	typepath = /obj/item/toy/katana
 	cost = 500
 
+/datum/storeitem/piano_synth
+	name = "piano synthesizer"
+	desc = "An advanced electronic synthesizer that can be used as various instruments."
+	typepath = /obj/item/device/instrument/piano_synth
+	cost = 1000
+
 /datum/storeitem/violin
 	name = "space violin"
 	desc = "A wooden musical instrument with four strings and a bow. \"The devil went down to space, he was looking for an assistant to grief.\""
-	typepath = /obj/item/device/violin
+	typepath = /obj/item/device/instrument/violin
 	cost = 500
 
 /datum/storeitem/guitar
 	name = "guitar"
 	desc = "It's made of wood and has bronze strings."
-	typepath = /obj/item/device/guitar
-	cost = 700
+	typepath = /obj/item/device/instrument/guitar
+	cost = 500
+
+/datum/storeitem/eguitar
+	name = "electric guitar"
+	desc = "Makes all your shredding needs possible."
+	typepath = /obj/item/device/instrument/eguitar
+	cost = 500
 
 /datum/storeitem/baby
 	name = "Toddler"
@@ -181,6 +193,12 @@
 	name = "Drask flag"
 	desc = "A flag proudly proclaiming the superior heritage of Drask."
 	typepath = /obj/item/flag/species/drask
+	cost = 1000
+
+/datum/storeitem/flag_plasma
+	name = "Plasmaman flag"
+	desc = "A flag proudly proclaiming the superior heritage of Plasmamen."
+	typepath = /obj/item/flag/species/plasma
 	cost = 1000
 
 /datum/storeitem/flag_ian

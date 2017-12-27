@@ -59,11 +59,11 @@
 				qdel(decal)
 
 /obj/machinery/poolcontroller/proc/handleTemp(var/mob/M)
+	M.water_act(100, 0, src)//leave temp at 0, we handle it in the switch.
 	if(temperature == "normal")		//This setting does nothing, so let's skip the next checks since we won't be doing jack
 		return
 	if(!M || isAIEye(M) || issilicon(M) || isobserver(M) || M.stat == DEAD)
 		return
-
 	switch(temperature) //Apply different effects based on what the temperature is set to.
 		if("scalding") //Burn the mob.
 			M.bodytemperature = min(500, M.bodytemperature + 35) //heat mob at 35k(elvin) per cycle
@@ -93,7 +93,7 @@
 	if(drownee && (drownee.lying || deep_water)) //Mob lying down or water is deep (determined by controller)
 		if(drownee.internal)
 			return //Has internals, no drowning
-		if((drownee.species.flags & NO_BREATHE) || (NO_BREATHE in drownee.mutations))
+		if((NO_BREATHE in drownee.species.species_traits) || (BREATHLESS in drownee.mutations))
 			return //doesn't breathe, no drowning
 		if(drownee.get_species() == "Skrell" || drownee.get_species() == "Neara")
 			return //fish things don't drown
@@ -103,13 +103,12 @@
 		if(drownee.losebreath > 20)	//You've probably got bigger problems than drowning at this point, so we won't add to it until you get that under control.
 			return
 
+		add_logs(src, drownee, "drowned", null, null, 0)	//log it to their VV, but don't spam the admins' chats with the logs
 		if(drownee.stat) //Mob is in critical.
 			drownee.AdjustLoseBreath(3, bound_lower = 0, bound_upper = 20)
-			add_logs(src, drownee, "drowned", null, null, 0)	//log it to their VV, but don't spam the admins' chats with the logs
 			drownee.visible_message("<span class='danger'>\The [drownee] appears to be drowning!</span>","<span class='userdanger'>You're quickly drowning!</span>") //inform them that they are fucked.
 		else
 			drownee.AdjustLoseBreath(2, bound_lower = 0, bound_upper = 20)		//For every time you drown, you miss 2 breath attempts. Hope you catch on quick!
-			add_logs(src, drownee, "drowned", null, null, 0)	//log it to their VV, but don't spam the admins' chats with the logs
 			if(prob(35)) //35% chance to tell them what is going on. They should probably figure it out before then.
 				drownee.visible_message("<span class='danger'>\The [drownee] flails, almost like they are drowning!</span>","<span class='userdanger'>You're lacking air!</span>") //*gasp* *gasp* *gasp* *gasp* *gasp*
 

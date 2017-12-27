@@ -17,6 +17,7 @@ var/global/list/antag_roles = list(
 	ROLE_REVENANT,
 	ROLE_GUARDIAN,
 	ROLE_MORPH,
+	ROLE_GSPIDER,
 )
 
 // Bannable other roles

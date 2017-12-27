@@ -6,6 +6,10 @@
 	item_color = "cargo"
 	var/flipped = 0
 	actions_types = list(/datum/action/item_action/flip_cap)
+	species_fit = list("Vox")
+	sprite_sheets = list(
+		"Vox" = 'icons/mob/species/vox/head.dmi'
+		)
 
 /obj/item/clothing/head/soft/dropped()
 	icon_state = "[item_color]soft"
@@ -102,3 +106,15 @@
 	desc = "It's baseball hat in corpotate colours."
 	icon_state = "corpsoft"
 	item_color = "corp"
+
+/obj/item/clothing/head/soft/solgov
+	name = "Sol Federation marine cap"
+	desc = "A soft cap worn by marines of the Sol Federation."
+	icon_state = "solgovsoft"
+	item_color = "solgov"
+
+/obj/item/clothing/head/soft/solgov/command
+	name = "Sol Federation Lieutenant's cap"
+	desc = "A soft cap worn by marines of the Sol Federation. The insignia signifies the wearer bears the rank of a Lieutenant."
+	icon_state = "solgovcsoft"
+	item_color = "solgovc"

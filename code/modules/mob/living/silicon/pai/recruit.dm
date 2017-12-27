@@ -1,5 +1,3 @@
-//This file was auto-corrected by findeclaration.exe on 25.5.2012 20:42:33
-
 // Recruiting observers to play as pAIs
 
 var/datum/paiController/paiController			// Global handler for pAI candidates
@@ -28,6 +26,9 @@ var/datum/paiController/paiController			// Global handler for pAI candidates
 		if("signup" in href_list)
 			var/mob/dead/observer/O = locate(href_list["signup"])
 			if(!O) return
+			if(!(O in respawnable_list))
+				to_chat(O, "You've given up your ability to respawn!")
+				return
 			if(!check_recruit(O)) return
 			recruitWindow(O)
 			return
@@ -359,7 +360,9 @@ var/datum/paiController/paiController			// Global handler for pAI candidates
 			return 0
 		if(!player_old_enough_antag(O.client,ROLE_PAI))
 			return 0
-		if(O.has_enabled_antagHUD == 1 && config.antag_hud_restricted)
+		if(cannotPossess(O))
+			return 0
+		if(!(O in respawnable_list))
 			return 0
 		if(O.client)
 			return 1

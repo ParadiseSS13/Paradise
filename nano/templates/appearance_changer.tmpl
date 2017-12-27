@@ -19,6 +19,9 @@
         <div class="itemContentWide">
             {{:helper.link('Male', null, { 'gender' : 'male'}, null, data.gender == 'male' ? 'selected' : null)}}
             {{:helper.link('Female', null, { 'gender' : 'female'}, null, data.gender == 'female' ? 'selected' : null)}}
+						{{if !data.has_gender}}
+							{{:helper.link('Genderless', null, { 'gender' : 'plural'}, null, data.gender == 'plural' ? 'selected' : null)}}
+						{{/if}}
         </div>
     </div>
 {{/if}}

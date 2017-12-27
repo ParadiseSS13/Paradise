@@ -5,11 +5,13 @@
 	icon_state = "dresser"
 	density = 1
 	anchored = 1
+	burn_state = FLAMMABLE
+	burntime = 25
 
 /obj/structure/dresser/attack_hand(mob/user as mob)
 	if(!Adjacent(user))//no tele-grooming
 		return
-	if(ishuman(user))
+	if(ishuman(user) && anchored)
 		var/mob/living/carbon/human/H = user
 
 		var/choice = input(user, "Underwear, Undershirt, or Socks?", "Changing") as null|anything in list("Underwear","Undershirt","Socks")
@@ -52,3 +54,39 @@
 
 		add_fingerprint(H)
 		H.update_body()
+
+/obj/structure/dresser/attackby(obj/item/weapon/W, mob/living/user, params)
+	add_fingerprint(user)
+	user.changeNext_move(CLICK_CD_MELEE)
+	if(iswrench(W))
+		if(anchored)
+			playsound(loc, W.usesound, 100, 1)
+			user.visible_message("[user] is loosening [src]'s bolts.", \
+								 "<span class='notice'>You are loosening [src]'s bolts...</span>")
+			if(do_after(user, 40 * W.toolspeed, target = src))
+				if(!loc || !anchored)
+					return
+				user.visible_message("[user] loosened [src]'s bolts!", \
+									 "<span class='notice'>You loosen [src]'s bolts!</span>")
+				anchored = 0
+		else
+			if(!isfloorturf(loc))
+				user.visible_message("<span class='warning'>A floor must be present to secure [src]!</span>")
+				return
+			playsound(loc, W.usesound, 100, 1)
+			user.visible_message("[user] is securing [src]'s bolts...", \
+								 "<span class='notice'>You are securing [src]'s bolts...</span>")
+			if(do_after(user, 40 * W.toolspeed, target = src))
+				if(!loc || anchored)
+					return
+				user.visible_message("[user] has secured [src]'s bolts.", \
+									 "<span class='notice'>You have secured [src]'s bolts.</span>")
+				anchored = 1
+	else
+		if(iscrowbar(W) && !anchored)
+			playsound(loc, W.usesound, 100, 1)
+			user.visible_message("[user] is attempting to dismantle [src].", \
+								"<span class='notice'>You begin to dismantle [src]...</span>")
+			if(do_after(user, 40 * W.toolspeed, target = src))
+				new /obj/item/stack/sheet/wood (loc, 30)
+				qdel(src)

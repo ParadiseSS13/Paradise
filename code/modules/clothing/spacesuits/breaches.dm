@@ -92,7 +92,7 @@ var/global/list/breach_burn_descriptors = list(
 	if(!breaches)
 		breaches = list()
 
-	if(damage > 25) return //We don't need to keep tracking it when it's at 250% pressure loss, really.
+	if(damage >= 25) return //We don't need to keep tracking it when it's at 250% pressure loss, really.
 
 	if(!loc) return
 	var/turf/T = get_turf(src)
@@ -125,7 +125,7 @@ var/global/list/breach_burn_descriptors = list(
 		var/datum/breach/B = new()
 		breaches += B
 
-		B.class = min(amount,5)
+		B.class = min(amount,(5 - max(damage - 20,0))) //We cap the check at 25, this line could overshoot without the calculation if it gets enough dammage in one shot.
 
 		B.damtype = damtype
 		B.update_descriptor()
@@ -175,10 +175,10 @@ var/global/list/breach_burn_descriptors = list(
 //Handles repairs (and also upgrades).
 
 /obj/item/clothing/suit/space/attackby(obj/item/W as obj, mob/user as mob, params)
-	if(istype(W,/obj/item/stack/sheet/mineral/plastic) || istype(W,/obj/item/stack/sheet/metal))
+	if(istype(W,/obj/item/stack/sheet/plastic) || istype(W,/obj/item/stack/sheet/metal))
 
 		if(istype(src.loc,/mob/living))
-			to_chat(user, "\red How do you intend to patch a hardsuit while someone is wearing it?")
+			to_chat(user, "<span class='warning'>How do you intend to patch a hardsuit while someone is wearing it?</span>")
 			return
 
 		if(!damage || !burn_damage)
@@ -188,16 +188,16 @@ var/global/list/breach_burn_descriptors = list(
 		var/obj/item/stack/sheet/P = W
 		if(P.amount < 3)
 			P.use(P.amount)
-			repair_breaches(BURN, ( istype(P,/obj/item/stack/sheet/mineral/plastic) ? P.amount : (P.amount*2) ), user)
+			repair_breaches(BURN, ( istype(P,/obj/item/stack/sheet/plastic) ? P.amount : (P.amount*2) ), user)
 		else
 			P.use(3)
-			repair_breaches(BURN, ( istype(P,/obj/item/stack/sheet/mineral/plastic) ? 3 : 5), user)
+			repair_breaches(BURN, ( istype(P,/obj/item/stack/sheet/plastic) ? 3 : 5), user)
 		return
 
 	else if(istype(W, /obj/item/weapon/weldingtool))
 
 		if(istype(src.loc,/mob/living))
-			to_chat(user, "\red How do you intend to patch a hardsuit while someone is wearing it?")
+			to_chat(user, "<span class='warning'>How do you intend to patch a hardsuit while someone is wearing it?</span>")
 			return
 
 		if(!damage || ! brute_damage)
@@ -206,7 +206,7 @@ var/global/list/breach_burn_descriptors = list(
 
 		var/obj/item/weapon/weldingtool/WT = W
 		if(!WT.remove_fuel(5))
-			to_chat(user, "\red You need more welding fuel to repair this suit.")
+			to_chat(user, "<span class='warning'>You need more welding fuel to repair this suit.</span>")
 			return
 
 		repair_breaches(BRUTE, 3, user)

@@ -38,7 +38,7 @@
 /obj/machinery/computer/telescience/Destroy()
 	eject()
 	if(inserted_gps)
-		inserted_gps.loc = loc
+		inserted_gps.forceMove(loc)
 		inserted_gps = null
 	return ..()
 
@@ -80,10 +80,10 @@
 
 /obj/machinery/computer/telescience/emag_act(user as mob)
 	if(!emagged)
-		to_chat(user, "\blue You scramble the Telescience authentication key to an unknown signal. You should be able to teleport to more places now!")
+		to_chat(user, "<span class='notice'>You scramble the Telescience authentication key to an unknown signal. You should be able to teleport to more places now!</span>")
 		emagged = 1
 	else
-		to_chat(user, "\red The machine seems unaffected by the card swipe...")
+		to_chat(user, "<span class='warning'>The machine seems unaffected by the card swipe...</span>")
 
 /obj/machinery/computer/telescience/attack_ai(mob/user)
 	src.attack_hand(user)
@@ -148,7 +148,7 @@
 
 /obj/machinery/computer/telescience/proc/sparks()
 	if(telepad)
-		var/datum/effect/system/spark_spread/s = new /datum/effect/system/spark_spread
+		var/datum/effect_system/spark_spread/s = new /datum/effect_system/spark_spread
 		s.set_up(5, 1, get_turf(telepad))
 		s.start()
 	else
@@ -206,7 +206,7 @@
 			// use a lot of power
 			use_power(power * 10)
 
-			var/datum/effect/system/spark_spread/s = new /datum/effect/system/spark_spread
+			var/datum/effect_system/spark_spread/s = new /datum/effect_system/spark_spread
 			s.set_up(5, 1, get_turf(telepad))
 			s.start()
 
@@ -217,7 +217,7 @@
 				temp_msg += "Data printed below."
 
 			var/sparks = get_turf(target)
-			var/datum/effect/system/spark_spread/y = new /datum/effect/system/spark_spread
+			var/datum/effect_system/spark_spread/y = new /datum/effect_system/spark_spread
 			y.set_up(5, 1, sparks)
 			y.start()
 

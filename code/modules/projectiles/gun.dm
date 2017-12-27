@@ -7,7 +7,7 @@
 	flags =  CONDUCT
 	slot_flags = SLOT_BELT
 	materials = list(MAT_METAL=2000)
-	w_class = 3
+	w_class = WEIGHT_CLASS_NORMAL
 	throwforce = 5
 	throw_speed = 3
 	throw_range = 5
@@ -45,7 +45,7 @@
 	lefthand_file = 'icons/mob/inhands/guns_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/guns_righthand.dmi'
 
-	var/obj/item/device/flashlight/F = null
+	var/obj/item/device/flashlight/gun_light = null
 	var/can_flashlight = 0
 
 	var/list/upgrades = list()
@@ -63,7 +63,7 @@
 
 /obj/item/weapon/gun/New()
 	..()
-	if(F)
+	if(gun_light)
 		verbs += /obj/item/weapon/gun/proc/toggle_gunlight
 	build_zooming()
 
@@ -117,7 +117,7 @@
 	if(flag) //It's adjacent, is the user, or is on the user's person
 		if(target in user.contents) //can't shoot stuff inside us.
 			return
-		if(!ismob(target) || user.a_intent == "harm") //melee attack
+		if(!ismob(target) || user.a_intent == INTENT_HARM) //melee attack
 			return
 		if(target == user && user.zone_sel.selecting != "mouth") //so we can't shoot ourselves (unless mouth selected)
 			return
@@ -232,7 +232,7 @@ obj/item/weapon/gun/proc/newshot()
 	feedback_add_details("gun_fired","[type]")
 
 /obj/item/weapon/gun/attack(mob/M as mob, mob/user)
-	if(user.a_intent == "harm") //Flogging
+	if(user.a_intent == INTENT_HARM) //Flogging
 		..()
 	else
 		return
@@ -241,27 +241,27 @@ obj/item/weapon/gun/proc/newshot()
 	if(istype(I, /obj/item/device/flashlight/seclite))
 		var/obj/item/device/flashlight/seclite/S = I
 		if(can_flashlight)
-			if(!F)
+			if(!gun_light)
 				if(!user.unEquip(I))
 					return
 				to_chat(user, "<span class='notice'>You click [S] into place on [src].</span>")
 				if(S.on)
 					set_light(0)
-				F = S
+				gun_light = S
 				I.loc = src
 				update_icon()
-				update_gunlight(user)
+				update_gun_light(user)
 				var/datum/action/A = new /datum/action/item_action/toggle_gunlight(src)
 				if(loc == user)
 					A.Grant(user)
 
 	if(istype(I, /obj/item/weapon/screwdriver))
-		if(F && can_flashlight)
+		if(gun_light && can_flashlight)
 			for(var/obj/item/device/flashlight/seclite/S in src)
 				to_chat(user, "<span class='notice'>You unscrew the seclite from [src].</span>")
-				F = null
+				gun_light = null
 				S.loc = get_turf(user)
-				update_gunlight(user)
+				update_gun_light(user)
 				S.update_brightness(user)
 				update_icon()
 				for(var/datum/action/item_action/toggle_gunlight/TGL in actions)
@@ -273,26 +273,26 @@ obj/item/weapon/gun/proc/newshot()
 	..()
 
 /obj/item/weapon/gun/proc/toggle_gunlight()
-	set name = "Toggle Gunlight"
+	set name = "Toggle Gun Light"
 	set category = "Object"
 	set desc = "Click to toggle your weapon's attached flashlight."
 
-	if(!F)
+	if(!gun_light)
 		return
 
 	var/mob/living/carbon/human/user = usr
 	if(!isturf(user.loc))
 		to_chat(user, "<span class='warning'>You cannot turn the light on while in this [user.loc]!</span>")
-	F.on = !F.on
-	to_chat(user, "<span class='notice'>You toggle the gunlight [F.on ? "on":"off"].</span>")
+	gun_light.on = !gun_light.on
+	to_chat(user, "<span class='notice'>You toggle the gun light [gun_light.on ? "on":"off"].</span>")
 
 	playsound(user, 'sound/weapons/empty.ogg', 100, 1)
-	update_gunlight(user)
+	update_gun_light(user)
 
-/obj/item/weapon/gun/proc/update_gunlight(mob/user = null)
-	if(F)
-		if(F.on)
-			set_light(F.brightness_on)
+/obj/item/weapon/gun/proc/update_gun_light(mob/user = null)
+	if(gun_light)
+		if(gun_light.on)
+			set_light(gun_light.brightness_on)
 		else
 			set_light(0)
 		update_icon()

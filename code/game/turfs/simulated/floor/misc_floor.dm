@@ -51,6 +51,7 @@
 /turf/simulated/floor/beach/water
 	name = "water"
 	icon_state = "water"
+	mouse_opacity = 0
 
 /turf/simulated/floor/beach/water/New()
 	..()
@@ -66,10 +67,3 @@
 
 /turf/simulated/floor/noslip/MakeSlippery()
 	return
-
-/turf/simulated/floor/silent
-	name = "silent floor"
-	icon_state = "silent"
-	floor_tile = /obj/item/stack/tile/silent
-	shoe_running_volume = 0
-	shoe_walking_volume = 0

@@ -8,7 +8,7 @@
 	icon_name = "torso"
 	max_damage = 100
 	min_broken_damage = 35
-	w_class = 5
+	w_class = WEIGHT_CLASS_HUGE
 	body_part = UPPER_TORSO
 	vital = 1
 	amputation_point = "spine"
@@ -17,6 +17,7 @@
 	parent_organ = null
 	encased = "ribcage"
 	var/fat = FALSE
+	convertable_children = list(/obj/item/organ/external/groin)
 
 /obj/item/organ/external/chest/proc/makeFat(update_body_icon = 1)
 	fat = TRUE
@@ -42,9 +43,10 @@
 	icon_name = "groin"
 	max_damage = 100
 	min_broken_damage = 35
-	w_class = 4
+	w_class = WEIGHT_CLASS_BULKY // if you know what I mean ;)
 	body_part = LOWER_TORSO
 	vital = 1
+	cannot_amputate = TRUE
 	parent_organ = "chest"
 	amputation_point = "lumbar"
 	gendered_icon = 1
@@ -55,11 +57,12 @@
 	icon_name = "l_arm"
 	max_damage = 50
 	min_broken_damage = 30
-	w_class = 3
+	w_class = WEIGHT_CLASS_NORMAL
 	body_part = ARM_LEFT
 	parent_organ = "chest"
 	amputation_point = "left shoulder"
 	can_grasp = 1
+	convertable_children = list(/obj/item/organ/external/hand)
 
 /obj/item/organ/external/arm/right
 	limb_name = "r_arm"
@@ -67,6 +70,7 @@
 	icon_name = "r_arm"
 	body_part = ARM_RIGHT
 	amputation_point = "right shoulder"
+	convertable_children = list(/obj/item/organ/external/hand/right)
 
 /obj/item/organ/external/leg
 	limb_name = "l_leg"
@@ -74,12 +78,13 @@
 	icon_name = "l_leg"
 	max_damage = 50
 	min_broken_damage = 30
-	w_class = 3
+	w_class = WEIGHT_CLASS_NORMAL
 	body_part = LEG_LEFT
 	icon_position = LEFT
 	parent_organ = "groin"
 	amputation_point = "left hip"
 	can_stand = 1
+	convertable_children = list(/obj/item/organ/external/foot)
 
 /obj/item/organ/external/leg/right
 	limb_name = "r_leg"
@@ -88,6 +93,7 @@
 	body_part = LEG_RIGHT
 	icon_position = RIGHT
 	amputation_point = "right hip"
+	convertable_children = list(/obj/item/organ/external/foot/right)
 
 /obj/item/organ/external/foot
 	limb_name = "l_foot"
@@ -95,7 +101,7 @@
 	icon_name = "l_foot"
 	max_damage = 30
 	min_broken_damage = 15
-	w_class = 2
+	w_class = WEIGHT_CLASS_SMALL
 	body_part = FOOT_LEFT
 	icon_position = LEFT
 	parent_organ = "l_leg"
@@ -103,7 +109,7 @@
 	can_stand = 1
 
 /obj/item/organ/external/foot/remove()
-	if(owner.shoes) owner.unEquip(owner.shoes)
+	if(owner && owner.shoes) owner.unEquip(owner.shoes)
 	. = ..()
 
 /obj/item/organ/external/foot/right
@@ -121,19 +127,20 @@
 	icon_name = "l_hand"
 	max_damage = 30
 	min_broken_damage = 15
-	w_class = 2
+	w_class = WEIGHT_CLASS_SMALL
 	body_part = HAND_LEFT
 	parent_organ = "l_arm"
 	amputation_point = "left wrist"
 	can_grasp = 1
 
 /obj/item/organ/external/hand/remove()
-	if(owner.gloves)
-		owner.unEquip(owner.gloves)
-	if(owner.l_hand)
-		owner.unEquip(owner.l_hand,1)
-	if(owner.r_hand)
-		owner.unEquip(owner.r_hand,1)
+	if(owner)
+		if(owner.gloves)
+			owner.unEquip(owner.gloves)
+		if(owner.l_hand)
+			owner.unEquip(owner.l_hand,1)
+		if(owner.r_hand)
+			owner.unEquip(owner.r_hand,1)
 
 	. = ..()
 
@@ -151,7 +158,7 @@
 	name = "head"
 	max_damage = 75
 	min_broken_damage = 35
-	w_class = 3
+	w_class = WEIGHT_CLASS_NORMAL
 	body_part = HEAD
 	vital = 1
 	parent_organ = "chest"
@@ -162,27 +169,17 @@
 	var/alt_head = "None"
 
 	//Hair colour and style
-	var/r_hair = 0
-	var/g_hair = 0
-	var/b_hair = 0
-	var/r_hair_sec = 0
-	var/g_hair_sec = 0
-	var/b_hair_sec = 0
+	var/hair_colour = "#000000"
+	var/sec_hair_colour = "#000000"
 	var/h_style = "Bald"
 
 	//Head accessory colour and style
-	var/r_headacc = 0
-	var/g_headacc = 0
-	var/b_headacc = 0
+	var/headacc_colour = "#000000"
 	var/ha_style = "None"
 
 	//Facial hair colour and style
-	var/r_facial = 0
-	var/g_facial = 0
-	var/b_facial = 0
-	var/r_facial_sec = 0
-	var/g_facial_sec = 0
-	var/b_facial_sec = 0
+	var/facial_colour = "#000000"
+	var/sec_facial_colour = "#000000"
 	var/f_style = "Shaved"
 
 /obj/item/organ/external/head/remove()
@@ -213,8 +210,8 @@
 
 	..()
 
-/obj/item/organ/external/head/take_damage(brute, burn, sharp, edge, used_weapon = null, list/forbidden_limbs = list())
-	..(brute, burn, sharp, edge, used_weapon, forbidden_limbs)
+/obj/item/organ/external/head/take_damage(brute, burn, sharp, used_weapon = null, list/forbidden_limbs = list(), ignore_resists = FALSE)
+	..(brute, burn, sharp, used_weapon, forbidden_limbs, ignore_resists)
 	if(!disfigured)
 		if(brute_dam > 40)
 			if(prob(50))

@@ -1,0 +1,24 @@
+<div class="item">
+	<div class="itemLabel">Power:</div>
+	<div class="itemContent">{{:helper.link(data.on ? 'On' : 'Off', data.on ? 'power-off' : 'times', {'power' : 1}, null, data.on ? 'selected' : null)}}</div>
+</div>
+<div class="item">
+	<div class="itemLabel">Output Pressure:</div>
+	<div class="itemContent">
+		{{:helper.link('Set', 'pencil', {'pressure' : 'input'})}}
+		{{:helper.link('Max', 'plus', {'pressure' : 'max'}, data.pressure == data.max_pressure ? 'disabled' : null)}}
+		{{:helper.smoothRound(data.pressure)}} kPa
+	</div>
+</div>
+<div class="item">
+	<div class="itemLabel">Filter:</div>
+	<div class="itemContent">
+		{{:helper.link('Nothing', null, {'filter' : -1}, data.filter_type == -1 ? 'selected' : null)}}
+		{{:helper.link('Plasma', null, {'filter' : 0}, data.filter_type == 0 ? 'selected' : null)}}
+		{{:helper.link('O2', null, {'filter' : 1}, data.filter_type == 1 ? 'selected' : null)}}
+		{{:helper.link('N2', null, {'filter' : 2}, data.filter_type == 2 ? 'selected' : null)}}
+		{{:helper.link('CO2', null, {'filter' : 3}, data.filter_type == 3 ? 'selected' : null)}}
+		{{:helper.link('N2O', null, {'filter' : 4}, data.filter_type == 4 ? 'selected' : null)}}
+	</div>
+</div>
+

@@ -12,6 +12,7 @@
 	desc = "His Grace."
 	force = 5
 	throwforce = 10
+	origin_tech = "combat=4;engineering=4;syndicate=2"
 	var/list/servantlinks = list()
 	var/hunger = 0
 	var/hunger_message_level = 0

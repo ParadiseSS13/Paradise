@@ -19,7 +19,7 @@
 	var/location = get_turf(holder.my_atom)
 	holder.my_atom.visible_message("<span class='warning'>The solution spews out foam!</span>")
 
-	var/datum/effect/system/foam_spread/s = new()
+	var/datum/effect_system/foam_spread/s = new()
 	s.set_up(created_volume, location, holder, 0)
 	s.start()
 	holder.clear_reagents()
@@ -37,7 +37,7 @@
 
 	holder.my_atom.visible_message("<span class='warning'>The solution spews out a metalic foam!</span>")
 
-	var/datum/effect/system/foam_spread/s = new()
+	var/datum/effect_system/foam_spread/s = new()
 	s.set_up(created_volume, location, holder, MFOAM_ALUMINUM)
 	s.start()
 
@@ -54,7 +54,7 @@
 
 	holder.my_atom.visible_message("<span class='warning>The solution spews out a metalic foam!</span>")
 
-	var/datum/effect/system/foam_spread/s = new()
+	var/datum/effect_system/foam_spread/s = new()
 	s.set_up(created_volume, location, holder, MFOAM_IRON)
 	s.start()
 
@@ -101,7 +101,7 @@
 	result_amount = 1
 
 /datum/chemical_reaction/plastication/on_reaction(datum/reagents/holder)
-	var/obj/item/stack/sheet/metal/M = new /obj/item/stack/sheet/mineral/plastic
+	var/obj/item/stack/sheet/metal/M = new /obj/item/stack/sheet/plastic
 	M.amount = 10
 	M.forceMove(get_turf(holder.my_atom))
 

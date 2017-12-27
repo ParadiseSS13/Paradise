@@ -55,7 +55,7 @@
 			H.equip_to_slot_or_del(W, slot_wear_id)
 
 		team_toggle = !team_toggle
-		H.species.equip(H)
+		H.species.after_equip_job(null, H)
 		H.regenerate_icons()
 
 	message_admins("[key_name_admin(usr)] used DODGEBAWWWWWWWL! -NO ATTACK LOGS WILL BE SENT TO ADMINS FROM THIS POINT FORTH-", 1)

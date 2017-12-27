@@ -33,7 +33,7 @@
 
 	else if(lying || resting)
 		icon_state = "alien[caste]_sleep"
-	else if(m_intent == "run")
+	else if(m_intent == MOVE_INTENT_RUN)
 		icon_state = "alien[caste]_running"
 	else
 		icon_state = "alien[caste]_s"
@@ -103,8 +103,7 @@
 				t_suit = "armor"
 			standing.overlays	+= image("icon" = 'icons/effects/blood.dmi', "icon_state" = "[t_suit]blood")
 
-		if(istype(wear_suit, /obj/item/clothing/suit/straight_jacket))
-			unEquip(handcuffed)
+		if(wear_suit.breakouttime)
 			drop_r_hand()
 			drop_l_hand()
 

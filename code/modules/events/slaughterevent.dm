@@ -37,8 +37,8 @@
 		player_mind.transfer_to(S)
 		player_mind.assigned_role = "Slaughter Demon"
 		player_mind.special_role = SPECIAL_ROLE_SLAUGHTER_DEMON
-		message_admins("[key_of_slaughter] has been made into a Slaughter Demon by an event.")
-		log_game("[key_of_slaughter] was spawned as a Slaughter Demon by an event.")
+		message_admins("[key_name_admin(S)] has been made into a Slaughter Demon by an event.")
+		log_game("[key_name_admin(S)] was spawned as a Slaughter Demon by an event.")
 		return 1
 
 /datum/event/spawn_slaughter/start()

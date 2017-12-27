@@ -11,23 +11,29 @@
 	garbageCollector.del_everything = !garbageCollector.del_everything
 //	to_chat(world, "<b>GC: qdel turned [garbageCollector.del_everything ? "off" : "on"].</b>")
 	log_admin("[key_name(usr)] turned qdel [garbageCollector.del_everything ? "off" : "on"].")
-	message_admins("\blue [key_name_admin(usr)] turned qdel [garbageCollector.del_everything ? "off" : "on"].", 1)
+	message_admins("<span class='notice'>[key_name_admin(usr)] turned qdel [garbageCollector.del_everything ? "off" : "on"].</span>", 1)
 
-/client/proc/gc_dump_hdl()
-	set name = "(GC) Hard Del List"
-	set desc = "List types that are hard del()'d by the GC."
+/client/proc/cmd_display_del_log()
 	set category = "Debug"
+	set name = "(GC) Display del() Log"
+	set desc = "Displays a list of things that have failed to GC this round"
 
 	if(!check_rights(R_DEBUG))
 		return
 
-	if(!gc_hard_del_types || !gc_hard_del_types.len)
-		to_chat(usr, "<span class='notice'>No hard del()'d types found.</span>")
-		return
+	var/dat = "<B>List of things that failed to GC this round</B><BR><BR>"
+	for(var/path in didntgc)
+		dat += "[path] - [didntgc[path]] times<BR>"
 
-	to_chat(usr, "Types hard del()'d by the GC:")
-	for(var/A in gc_hard_del_types)
-		to_chat(usr, "[A]")
+	dat += "<B>List of paths that did not return a qdel hint in Destroy()</B><BR><BR>"
+	for(var/path in noqdelhint)
+		dat += "[path]<BR>"
+
+	dat += "<B>List of paths that slept in Destroy()</B><BR><BR>"
+	for(var/path in sleptDestroy)
+		dat += "[path]<BR>"
+
+	usr << browse(dat, "window=dellog")
 
 #ifdef TESTING
 /client/var/running_find_references

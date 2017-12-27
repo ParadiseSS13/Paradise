@@ -93,12 +93,27 @@
 		if(C.can_breathe_gas())
 			C.reagents.add_reagent("sarin", 4)
 
+/datum/chemical_reaction/glyphosate
+	name = "glyphosate"
+	id = "glyphosate"
+	result = "glyphosate"
+	required_reagents = list("chlorine" = 1, "phosphorus" = 1, "formaldehyde" = 1, "ammonia" = 1)
+	result_amount = 4
+
 /datum/chemical_reaction/atrazine
 	name = "atrazine"
 	id = "atrazine"
 	result = "atrazine"
 	required_reagents = list("chlorine" = 1, "hydrogen" = 1, "nitrogen" = 1)
 	result_amount = 3
+	mix_message = "The mixture gives off a harsh odor"
+
+/datum/chemical_reaction/pestkiller // To-Do make this more realistic
+	name = "Pest Killer"
+	id = "pestkiller"
+	result = "pestkiller"
+	required_reagents = list("toxin" = 1, "ethanol" = 4)
+	result_amount = 5
 	mix_message = "The mixture gives off a harsh odor"
 
 /datum/chemical_reaction/capulettium
@@ -129,7 +144,7 @@
 
 /datum/chemical_reaction/teslium/on_reaction(datum/reagents/holder, created_volume)
 	var/location = get_turf(holder.my_atom)
-	var/datum/effect/system/spark_spread/s = new /datum/effect/system/spark_spread
+	var/datum/effect_system/spark_spread/s = new /datum/effect_system/spark_spread
 	s.set_up(6, 1, location)
 	s.start()
 
@@ -140,3 +155,12 @@
 	required_reagents = list("radium" = 1, "plasma" = 1, "chlorine" = 1)
 	result_amount = 3
 	mix_message = "The substance turns neon green and bubbles unnervingly."
+
+/datum/chemical_reaction/heparin
+	name = "Heparin"
+	id = "Heparin"
+	result = "heparin"
+	required_reagents = list("formaldehyde" = 1, "sodium" = 1, "chlorine" = 1, "lithium" = 1)
+	result_amount = 4
+	mix_message = "The mixture thins and loses all color."
+	mix_sound = 'sound/goonstation/misc/drinkfizz.ogg'

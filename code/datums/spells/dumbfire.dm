@@ -28,7 +28,7 @@
 		if(new_turf.density)
 			break
 		T = new_turf
-	perform(list(T))
+	perform(list(T), user = user)
 
 /obj/effect/proc_holder/spell/dumbfire/cast(list/targets, mob/user = usr)
 
@@ -46,7 +46,7 @@
 			projectile.dir = get_dir(projectile, target)
 			projectile.name = proj_name
 
-			var/current_loc = usr.loc
+			var/current_loc = user.loc
 
 			projectile.loc = current_loc
 
@@ -63,7 +63,7 @@
 					projectile.cast(current_loc)
 					break
 
-				var/mob/living/L = locate(/mob/living) in range(projectile, proj_trigger_range) - usr
+				var/mob/living/L = locate(/mob/living) in range(projectile, proj_trigger_range) - user
 				if(L && L.stat != DEAD)
 					projectile.cast(L.loc)
 					break

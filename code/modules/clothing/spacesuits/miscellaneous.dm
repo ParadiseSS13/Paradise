@@ -8,12 +8,13 @@
 	permeability_coefficient = 0.01
 	armor = list(melee = 40, bullet = 50, laser = 50, energy = 25, bomb = 50, bio = 100, rad = 50)
 	species_restricted = list("exclude", "Diona", "Wryn")
-	species_fit = list("Vox")
+	species_fit = list("Vox", "Grey")
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/species/vox/helmet.dmi',
-		"Drask" = 'icons/mob/species/drask/helmet.dmi'
+		"Grey" = 'icons/mob/species/grey/helmet.dmi'
 		)
-/obj/item/clothing/head/helmet/space/capspace/equipped(var/mob/living/carbon/human/user, var/slot)
+
+/obj/item/clothing/head/helmet/space/capspace/equipped(mob/living/carbon/human/user, slot)
 	if(ishuman(user) && slot == slot_head)
 		if(user.species.name == "Vox")
 			if(flags & BLOCKHAIR)
@@ -27,16 +28,14 @@
 	desc = "A bulky, heavy-duty piece of exclusive Nanotrasen armor. YOU are in charge!"
 	icon_state = "caparmor"
 	item_state = "capspacesuit"
-	w_class = 4
+	w_class = WEIGHT_CLASS_BULKY
 	allowed = list(/obj/item/weapon/tank, /obj/item/device/flashlight,/obj/item/weapon/gun/energy, /obj/item/weapon/gun/projectile, /obj/item/ammo_box, /obj/item/ammo_casing, /obj/item/weapon/melee/baton,/obj/item/weapon/restraints/handcuffs)
 	armor = list(melee = 40, bullet = 50, laser = 50, energy = 25, bomb = 50, bio = 100, rad = 50)
 	species_restricted = list("exclude", "Diona", "Wryn")
 	species_fit = list("Vox")
 	sprite_sheets = list(
-		"Vox" = 'icons/mob/species/vox/suit.dmi',
-		"Drask" = 'icons/mob/species/drask/suit.dmi'
+		"Vox" = 'icons/mob/species/vox/suit.dmi'
 		)
-
 
 	//Deathsquad space suit, not hardsuits because no flashlight!
 /obj/item/clothing/head/helmet/space/deathsquad
@@ -78,6 +77,7 @@
 	desc = "An armored beret commonly used by special operations officers."
 	icon_state = "beret_officer"
 	armor = list(melee = 65, bullet = 55, laser = 35, energy = 20, bomb = 30, bio = 30, rad = 30)
+	flags =  STOPSPRESSUREDMAGE | THICKMATERIAL
 
 /obj/item/clothing/suit/space/deathsquad/officer
 	name = "officer jacket"
@@ -87,14 +87,15 @@
 	blood_overlay_type = "coat"
 	flags_inv = 0
 	slowdown = 0
-	w_class = 3
+	w_class = WEIGHT_CLASS_NORMAL
 
 //Space santa outfit suit
 /obj/item/clothing/head/helmet/space/santahat
 	name = "Santa's hat"
 	desc = "Ho ho ho. Merrry X-mas!"
 	icon_state = "santahat"
-	flags = HEADCOVERSEYES | BLOCKHAIR | STOPSPRESSUREDMAGE
+	flags = BLOCKHAIR | STOPSPRESSUREDMAGE
+	flags_cover = HEADCOVERSEYES
 
 /obj/item/clothing/suit/space/santa
 	name = "Santa's suit"
@@ -106,7 +107,6 @@
 	flags_size = ONESIZEFITSALL
 	allowed = list(/obj/item) //for stuffing exta special presents
 
-
 //Space pirate outfit
 /obj/item/clothing/head/helmet/space/pirate
 	name = "pirate hat"
@@ -114,7 +114,8 @@
 	icon_state = "pirate"
 	item_state = "pirate"
 	armor = list(melee = 30, bullet = 50, laser = 30, energy = 15, bomb = 30, bio = 30, rad = 30)
-	flags = HEADCOVERSEYES | BLOCKHAIR | STOPSPRESSUREDMAGE
+	flags = BLOCKHAIR | STOPSPRESSUREDMAGE
+	flags_cover = HEADCOVERSEYES
 	strip_delay = 40
 	put_on_delay = 20
 
@@ -123,7 +124,7 @@
 	desc = "Yarr."
 	icon_state = "pirate"
 	item_state = "pirate"
-	w_class = 3
+	w_class = WEIGHT_CLASS_NORMAL
 	allowed = list(/obj/item/weapon/gun,/obj/item/ammo_box,/obj/item/ammo_casing,/obj/item/weapon/melee/baton,/obj/item/weapon/restraints/handcuffs,/obj/item/weapon/tank)
 	slowdown = 0
 	armor = list(melee = 30, bullet = 50, laser = 30, energy = 15, bomb = 30, bio = 30, rad = 30)
@@ -136,12 +137,27 @@
 	desc = "A paramedic EVA helmet. Used in the recovery of bodies from space."
 	icon_state = "paramedic-eva-helmet"
 	item_state = "paramedic-eva-helmet"
+	species_fit = list("Vox", "Grey")
+	sprite_sheets = list(
+		"Vox" = 'icons/mob/species/vox/helmet.dmi',
+		"Grey" = 'icons/mob/species/grey/helmet.dmi'
+		)
+	sprite_sheets_obj = list(
+		"Vox" = 'icons/obj/clothing/species/vox/hats.dmi'
+		)
 
 /obj/item/clothing/suit/space/eva/paramedic
 	name = "Paramedic EVA suit"
 	icon_state = "paramedic-eva"
 	item_state = "paramedic-eva"
 	desc = "A paramedic EVA suit. Used in the recovery of bodies from space."
+	species_fit = list("Vox")
+	sprite_sheets = list(
+		"Vox" = 'icons/mob/species/vox/suit.dmi'
+		)
+	sprite_sheets_obj = list(
+		"Vox" = 'icons/obj/clothing/species/vox/suits.dmi'
+		)
 
 /obj/item/clothing/suit/space/eva
 	name = "EVA suit"
@@ -149,6 +165,20 @@
 	item_state = "s_suit"
 	desc = "A lightweight space suit with the basic ability to protect the wearer from the vacuum of space during emergencies."
 	armor = list(melee = 0, bullet = 0, laser = 0, energy = 0, bomb = 0, bio = 100, rad = 20)
+	species_restricted = list("exclude", "Diona", "Wryn")
+	species_fit = list("Tajaran", "Unathi", "Vox", "Vulpkanin")
+	sprite_sheets = list(
+		"Tajaran" = 'icons/mob/species/tajaran/suit.dmi',
+		"Unathi" = 'icons/mob/species/unathi/suit.dmi',
+		"Vox" = 'icons/mob/species/vox/suit.dmi',
+		"Vulpkanin" = 'icons/mob/species/vulpkanin/suit.dmi',
+		)
+	sprite_sheets_obj = list(
+		"Tajaran" = 'icons/obj/clothing/species/tajaran/suits.dmi',
+		"Unathi" = 'icons/obj/clothing/species/unathi/suits.dmi',
+		"Vox" = 'icons/obj/clothing/species/vox/suits.dmi',
+		"Vulpkanin" = 'icons/obj/clothing/species/vulpkanin/suits.dmi'
+		)
 
 /obj/item/clothing/head/helmet/space/eva
 	name = "EVA helmet"
@@ -158,21 +188,42 @@
 	flags_inv = HIDEMASK|HIDEEARS|HIDEEYES
 	armor = list(melee = 0, bullet = 0, laser = 0, energy = 0, bomb = 0, bio = 100, rad = 20)
 	flash_protect = 0
+	species_restricted = list("exclude", "Diona", "Wryn")
+	species_fit = list("Tajaran", "Unathi", "Vox", "Vulpkanin", "Grey")
+	sprite_sheets = list(
+		"Tajaran" = 'icons/mob/species/tajaran/helmet.dmi',
+		"Unathi" = 'icons/mob/species/unathi/helmet.dmi',
+		"Vox" = 'icons/mob/species/vox/helmet.dmi',
+		"Vulpkanin" = 'icons/mob/species/vulpkanin/helmet.dmi',
+		"Grey" = 'icons/mob/species/grey/helmet.dmi'
+		)
+	sprite_sheets_obj = list(
+		"Vox" = 'icons/obj/clothing/species/vox/hats.dmi',
+		"Vulpkanin" = 'icons/obj/clothing/species/vulpkanin/hats.dmi'
+		)
 
 //Mime's Hardsuit
 /obj/item/clothing/head/helmet/space/eva/mime
 	name = "mime eva helmet"
 //	icon = 'spaceciv.dmi'
-	desc = "An eva helmet specifically designed for the mime."
+	desc = ". . ."
 	icon_state = "spacemimehelmet"
 	item_state = "spacemimehelmet"
+	species_restricted = list("exclude","Diona","Vox","Wryn")
+	species_fit = null
+	sprite_sheets = null
+	sprite_sheets_obj = null
 
 /obj/item/clothing/suit/space/eva/mime
 	name = "mime eva suit"
 //	icon = 'spaceciv.dmi'
-	desc = "An EVA suit specifically designed for the mime."
+	desc = ". . ."
 	icon_state = "spacemime_suit"
 	item_state = "spacemime_items"
+	species_restricted = list("exclude","Diona","Vox","Wryn")
+	species_fit = null
+	sprite_sheets = null
+	sprite_sheets_obj = null
 
 /obj/item/clothing/head/helmet/space/eva/clown
 	name = "clown eva helmet"
@@ -180,6 +231,10 @@
 	desc = "An EVA helmet specifically designed for the clown. SPESSHONK!"
 	icon_state = "clownhelmet"
 	item_state = "clownhelmet"
+	species_restricted = list("exclude","Diona","Vox","Wryn")
+	species_fit = null
+	sprite_sheets = null
+	sprite_sheets_obj = null
 
 /obj/item/clothing/suit/space/eva/clown
 	name = "clown eva suit"
@@ -187,24 +242,7 @@
 	desc = "An EVA suit specifically designed for the clown. SPESSHONK!"
 	icon_state = "spaceclown_suit"
 	item_state = "spaceclown_items"
-
-/obj/item/clothing/head/helmet/space/freedom
-	name = "eagle helmet"
-	desc = "An advanced, space-proof helmet. It appears to be modeled after an old-world eagle."
-	icon_state = "griffinhat"
-	item_state = "griffinhat"
-	armor = list(melee = 20, bullet = 40, laser = 30, energy = 25, bomb = 100, bio = 100, rad = 100)
-	max_heat_protection_temperature = FIRE_IMMUNITY_HELM_MAX_TEMP_PROTECT
-	unacidable = 1
-	strip_delay = 130
-
-/obj/item/clothing/suit/space/freedom
-	name = "eagle suit"
-	desc = "An advanced, light suit, fabricated from a mixture of synthetic feathers and space-resistant material. A gun holster appears to be integrated into the suit and the wings appear to be stuck in 'freedom' mode."
-	icon_state = "freedom"
-	item_state = "freedom"
-	allowed = list(/obj/item/weapon/gun,/obj/item/ammo_box,/obj/item/ammo_casing,/obj/item/weapon/melee/baton,/obj/item/weapon/restraints/handcuffs,/obj/item/weapon/tank)
-	armor = list(melee = 20, bullet = 40, laser = 30, energy = 25, bomb = 100, bio = 100, rad = 100)
-	max_heat_protection_temperature = FIRE_IMMUNITY_HELM_MAX_TEMP_PROTECT
-	unacidable = 1
-	strip_delay = 130
+	species_restricted = list("exclude","Diona","Vox","Wryn")
+	species_fit = null
+	sprite_sheets = null
+	sprite_sheets_obj = null

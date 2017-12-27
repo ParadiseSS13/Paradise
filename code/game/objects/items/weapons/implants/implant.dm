@@ -48,7 +48,7 @@
 		for(var/X in actions)
 			var/datum/action/A = X
 			A.Grant(source)
-	if(istype(source, /mob/living/carbon/human))
+	if(ishuman(source))
 		var/mob/living/carbon/human/H = source
 		H.sec_hud_set_implants()
 
@@ -66,7 +66,7 @@
 		var/datum/action/A = X
 		A.Grant(source)
 
-	if(istype(source, /mob/living/carbon/human))
+	if(ishuman(source))
 		var/mob/living/carbon/human/H = source
 		H.sec_hud_set_implants()
 

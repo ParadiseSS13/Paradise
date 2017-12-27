@@ -3,7 +3,7 @@
 	desc = "..."
 	icon = 'icons/obj/chemical.dmi'
 	icon_state = null
-	w_class = 1
+	w_class = WEIGHT_CLASS_TINY
 	var/amount_per_transfer_from_this = 5
 	var/possible_transfer_amounts = list(5,10,15,25,30)
 	var/volume = 30
@@ -30,18 +30,12 @@
 	if(!possible_transfer_amounts)
 		verbs -= /obj/item/weapon/reagent_containers/verb/set_APTFT
 	create_reagents(volume)
-	processing_objects.Add(src)
 	if(spawned_disease)
 		var/datum/disease/F = new spawned_disease(0)
-		var/list/data = list("viruses" = list(F), "blood_colour" = "#A10808")
+		var/list/data = list("viruses" = list(F), "blood_color" = "#A10808")
 		reagents.add_reagent("blood", disease_amount, data)
 	if(list_reagents)
 		reagents.add_reagent_list(list_reagents)
-
-/obj/item/weapon/reagent_containers/process()
-	if(reagents)
-		reagents.reagent_on_tick()
-	return
 
 /obj/item/weapon/reagent_containers/ex_act()
 	if(reagents)

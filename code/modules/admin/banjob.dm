@@ -1,5 +1,3 @@
-//This file was auto-corrected by findeclaration.exe on 25.5.2012 20:42:32
-
 var/jobban_runonce			// Updates legacy bans with new info
 var/jobban_keylist[0]		// Linear list of jobban strings, kept around for the legacy system
 var/jobban_assoclist[0] // Associative list, for efficiency
@@ -140,3 +138,43 @@ DEBUG
 				jobban_savebanfile()
 			return 1
 	return 0
+
+/mob/verb/displayjobbans()
+	set category = "OOC"
+	set name = "Display Current Jobbans"
+	set desc = "Displays all of your current jobbans."
+
+	if(!client || !ckey)
+		return
+	if(config.ban_legacy_system)
+		//using the legacy .txt ban system
+		to_chat(src, "The server is using the legacy ban system. Ask an administrator for help!")
+
+	else
+		//using the SQL ban system
+		var/is_actually_banned = FALSE
+		var/DBQuery/select_query = dbcon.NewQuery("SELECT bantime, bantype, reason, job, duration, expiration_time, a_ckey FROM [format_table_name("ban")] WHERE ckey like '[ckey]' AND ((bantype like 'JOB_TEMPBAN' AND expiration_time > Now()) OR (bantype like 'JOB_PERMABAN')) AND isnull(unbanned) ORDER BY bantime DESC LIMIT 100")
+		select_query.Execute()
+
+		while(select_query.NextRow())
+
+			var/bantime = select_query.item[1]
+			var/bantype  = select_query.item[2]
+			var/reason = select_query.item[3]
+			var/job = select_query.item[4]
+			var/duration = select_query.item[5]
+			var/expiration = select_query.item[6]
+			var/ackey = select_query.item[7]
+
+			if(bantype == "JOB_PERMABAN")
+				to_chat(src, "<span class='warning'>[bantype]: [job] - REASON: [reason], by [ackey]; [bantime]</span>")
+			else if(bantype == "JOB_TEMPBAN")
+				to_chat(src, "<span class='warning'>[bantype]: [job] - REASON: [reason], by [ackey]; [bantime]; [duration]; expires [expiration]</span>")
+
+			is_actually_banned = TRUE
+
+		if(is_actually_banned)
+			if(config.banappeals)
+				to_chat(src, "<span class='warning'>You can appeal the bans at: [config.banappeals]</span>")
+		else
+			to_chat(src, "<span class='warning'>You have no active jobbans!</span>")

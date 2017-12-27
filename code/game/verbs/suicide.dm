@@ -37,7 +37,7 @@
 
 	// Failing that...
 	if(!(damagetype & BRUTELOSS) && !(damagetype & FIRELOSS) && !(damagetype & TOXLOSS) && !(damagetype & OXYLOSS))
-		if(species.flags & NO_BREATHE)
+		if(NO_BREATHE in species.species_traits)
 			// the ultimate fallback
 			take_overall_damage(max(dmgamt - getToxLoss() - getFireLoss() - getBruteLoss() - getOxyLoss(), 0), 0)
 		else
@@ -77,6 +77,10 @@
 		if(held_item)
 			var/damagetype = held_item.suicide_act(src)
 			if(damagetype)
+				if(damagetype & SHAME)
+					adjustStaminaLoss(200)
+					suiciding = 0
+					return
 				do_suicide(damagetype, held_item)
 				return
 
@@ -162,7 +166,7 @@
 		card.removePersonality()
 		var/turf/T = get_turf_or_move(card.loc)
 		for(var/mob/M in viewers(T))
-			M.show_message("\blue [src] flashes a message across its screen, \"Wiping core files. Please acquire a new personality to continue using pAI device functions.\"", 3, "\blue [src] bleeps electronically.", 2)
+			M.show_message("<span class='notice'>[src] flashes a message across its screen, \"Wiping core files. Please acquire a new personality to continue using pAI device functions.\"</span>", 3, "<span class='notice'>[src] bleeps electronically.</span>", 2)
 		death(0, 1)
 	else
 		to_chat(src, "Aborting suicide attempt.")

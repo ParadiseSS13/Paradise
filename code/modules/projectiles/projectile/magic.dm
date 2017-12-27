@@ -10,9 +10,6 @@
 /obj/item/projectile/magic/death
 	name = "bolt of death"
 	icon_state = "pulse1_bl"
-	damage_type = BURN //OXY does not kill IPCs
-	damage = 50000
-	nodamage = 0
 
 /obj/item/projectile/magic/fireball
 	name = "bolt of fireball"
@@ -21,14 +18,31 @@
 	damage_type = BRUTE
 	nodamage = 0
 
+	//explosion values
+	var/exp_heavy = 0
+	var/exp_light = 2
+	var/exp_flash = 3
+	var/exp_fire = 2
+
+/obj/item/projectile/magic/death/on_hit(var/mob/living/carbon/G)
+	. = ..()
+	if(isliving(G))
+		G.adjustFireLoss(3000)
+		visible_message("<span class='danger'>[G] topples backwards as the death bolt impacts them!</span>")
+
 /obj/item/projectile/magic/fireball/Range()
 	var/turf/T1 = get_step(src,turn(dir, -45))
 	var/turf/T2 = get_step(src,turn(dir, 45))
+	var/turf/T3 = get_step(src,dir)
 	var/mob/living/L = locate(/mob/living) in T1 //if there's a mob alive in our front right diagonal, we hit it.
 	if(L && L.stat != DEAD)
 		Bump(L) //Magic Bullet #teachthecontroversy
 		return
 	L = locate(/mob/living) in T2
+	if(L && L.stat != DEAD)
+		Bump(L)
+		return
+	L = locate(/mob/living) in T3
 	if(L && L.stat != DEAD)
 		Bump(L)
 		return
@@ -41,6 +55,14 @@
 	if(ismob(target)) //multiple flavors of pain
 		var/mob/living/M = target
 		M.take_overall_damage(0,10) //between this 10 burn, the 10 brute, the explosion brute, and the onfire burn, your at about 65 damage if you stop drop and roll immediately
+
+
+/obj/item/projectile/magic/fireball/infernal
+	name = "infernal fireball"
+	exp_heavy = -1
+	exp_light = -1
+	exp_flash = 4
+	exp_fire= 5
 
 /obj/item/projectile/magic/resurrection
 	name = "bolt of resurrection"
@@ -78,7 +100,7 @@
 		if(!stuff.anchored && stuff.loc)
 			teleammount++
 			do_teleport(stuff, stuff, 10)
-			var/datum/effect/system/harmless_smoke_spread/smoke = new /datum/effect/system/harmless_smoke_spread()
+			var/datum/effect_system/smoke_spread/smoke = new
 			smoke.set_up(max(round(10 - teleammount),1), 0, stuff.loc) //Smoke drops off if a lot of stuff is moved for the sake of sanity
 			smoke.start()
 
@@ -140,7 +162,7 @@ proc/wabbajack(mob/living/M)
 				if(ishuman(M))
 					var/mob/living/carbon/human/H = M
 					// Make sure there are no organs or limbs to drop
-					for(var/t in H.organs)
+					for(var/t in H.bodyparts)
 						qdel(t)
 					for(var/i in H.internal_organs)
 						qdel(i)
@@ -165,7 +187,7 @@ proc/wabbajack(mob/living/M)
 					if(ishuman(M))
 						Robot.mmi.transfer_identity(M)	//Does not transfer key/client.
 				if("slime")
-					new_mob = new /mob/living/carbon/slime(M.loc)
+					new_mob = new /mob/living/carbon/slime/random(M.loc)
 					new_mob.universal_speak = 1
 				if("xeno")
 					if(prob(50))
@@ -218,10 +240,10 @@ proc/wabbajack(mob/living/M)
 				else
 					return
 
-			M.attack_log += text("\[[time_stamp()]\] <font color='orange'>[M.real_name] ([M.ckey]) became [new_mob.real_name].</font>")
+			M.create_attack_log("<font color='orange'>[M.real_name] ([M.ckey]) became [new_mob.real_name].</font>")
 			new_mob.attack_log = M.attack_log
 
-			new_mob.a_intent = I_HARM
+			new_mob.a_intent = INTENT_HARM
 			if(M.mind)
 				M.mind.transfer_to(new_mob)
 			else
@@ -263,3 +285,12 @@ proc/wabbajack(mob/living/M)
 		// Change our allegiance!
 		var/mob/living/simple_animal/hostile/mimic/copy/C = change
 		C.ChangeOwner(firer)
+
+/obj/item/projectile/magic/spellblade
+	name = "blade energy"
+	icon_state = "lavastaff"
+	damage = 15
+	damage_type = BURN
+	flag = "magic"
+	dismemberment = 50
+	nodamage = 0

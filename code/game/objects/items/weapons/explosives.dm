@@ -6,7 +6,8 @@
 	flags = NOBLUDGEON
 	det_time = 10
 	display_timer = 0
-	origin_tech = "syndicate=2"
+	origin_tech = "syndicate=1"
+	toolspeed = 1
 	var/atom/target = null
 	var/image_overlay = null
 	var/obj/item/device/assembly_holder/nadeassembly = null
@@ -17,10 +18,9 @@
 	..()
 
 /obj/item/weapon/grenade/plastic/Destroy()
-	qdel(nadeassembly)
-	nadeassembly = null
+	QDEL_NULL(nadeassembly)
 	target = null
-	..()
+	return ..()
 
 /obj/item/weapon/grenade/plastic/attackby(obj/item/I, mob/user, params)
 	if(!nadeassembly && istype(I, /obj/item/device/assembly_holder))
@@ -36,7 +36,7 @@
 		update_icon()
 		return
 	if(nadeassembly && istype(I, /obj/item/weapon/wirecutters))
-		playsound(src, 'sound/items/Wirecutter.ogg', 20, 1)
+		playsound(src, I.usesound, 20, 1)
 		nadeassembly.loc = get_turf(src)
 		nadeassembly.master = null
 		nadeassembly = null
@@ -61,7 +61,7 @@
 		nadeassembly.attack_self(user)
 		return
 	var/newtime = input(usr, "Please set the timer.", "Timer", 10) as num
-	if(user.get_active_hand() == src)
+	if(user.is_in_active_hand(src))
 		newtime = Clamp(newtime, 10, 60000)
 		det_time = newtime
 		to_chat(user, "Timer set for [det_time] seconds.")
@@ -73,7 +73,7 @@
 		return
 	to_chat(user, "<span class='notice'>You start planting the [src]. The timer is set to [det_time]...</span>")
 
-	if(do_after(user, 50, target = AM))
+	if(do_after(user, 50 * toolspeed, target = AM))
 		if(!user.unEquip(src))
 			return
 		src.target = AM

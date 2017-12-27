@@ -10,6 +10,16 @@
 	if(!broken && !burnt)
 		icon_state = icon_regular_floor
 
+/turf/simulated/floor/plasteel/airless
+	name = "airless floor"
+	oxygen = 0.01
+	nitrogen = 0.01
+	temperature = TCMB
+
+/turf/simulated/floor/plasteel/airless/New()
+	..()
+	name = "floor"		
+		
 /turf/simulated/floor/plasteel/goonplaque
 	icon_state = "plaque"
 	name = "Commemorative Plaque"

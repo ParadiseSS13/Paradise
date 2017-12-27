@@ -1,7 +1,7 @@
 /obj/item/weapon/antag_spawner
 	throw_speed = 1
 	throw_range = 5
-	w_class = 1
+	w_class = WEIGHT_CLASS_TINY
 	var/used = 0
 
 /obj/item/weapon/antag_spawner/proc/spawn_antag(var/client/C, var/turf/T, var/type = "")
@@ -52,7 +52,7 @@
 	if(!borg_to_spawn) //If there's no type at all, let it still be used but don't do anything
 		used = 0
 		return
-	var/datum/effect/system/spark_spread/S = new /datum/effect/system/spark_spread
+	var/datum/effect_system/spark_spread/S = new /datum/effect_system/spark_spread
 	S.set_up(4, 1, src)
 	S.start()
 	var/mob/living/silicon/robot/R

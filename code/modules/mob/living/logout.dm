@@ -1,4 +1,6 @@
 /mob/living/Logout()
+	if(ranged_ability && client)
+		ranged_ability.remove_mousepointer(client)
 	..()
 	if(mind)
 		if(!key) //key and mind have become seperated. I believe this is for when a staff member aghosts.
@@ -7,3 +9,4 @@
 		if(mind.active)
 			Sleeping(2)
 			player_logged = 1
+			last_logout = world.time

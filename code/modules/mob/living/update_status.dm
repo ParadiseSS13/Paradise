@@ -30,9 +30,10 @@
 	else
 		clear_fullscreen("nearsighted")
 
-/mob/living/update_sleeping_effects()
+/mob/living/update_sleeping_effects(no_alert = FALSE)
 	if(sleeping)
-		throw_alert("asleep", /obj/screen/alert/asleep)
+		if(!no_alert)
+			throw_alert("asleep", /obj/screen/alert/asleep)
 	else
 		clear_alert("asleep")
 
@@ -55,9 +56,9 @@
 	return !(weakened || paralysis || stat || (status_flags & FAKEDEATH))
 
 // Whether the mob is capable of actions or not
-/mob/living/incapacitated(ignore_restraints = 0, ignore_grab = 0, ignore_lying = 0)
-	if(stat || paralysis || stunned || (weakened && lying) || (!ignore_restraints && restrained()) || (!ignore_lying && lying))
-		return 1
+/mob/living/incapacitated(ignore_restraints = FALSE, ignore_grab = FALSE, ignore_lying = FALSE)
+	if(stat || paralysis || stunned || weakened || (!ignore_restraints && restrained()) || (!ignore_lying && lying))
+		return TRUE
 
 // wonderful proc names, I know - used to check whether the blur overlay
 // should show or not
@@ -95,3 +96,29 @@
 
 /mob/living/proc/update_stamina()
 	return
+
+/mob/living/vv_edit_var(var_name, var_value)
+	. = ..()
+	switch(var_name)
+		if("weakened")
+			SetWeakened(weakened)
+		if("stunned")
+			SetStunned(stunned)
+		if("paralysis")
+			SetParalysis(paralysis)
+		if("sleeping")
+			SetSleeping(sleeping)
+		if("eye_blind")
+			SetEyeBlind(eye_blind)
+		if("eye_blurry")
+			SetEyeBlurry(eye_blurry)
+		if("ear_deaf")
+			SetEarDeaf(ear_deaf)
+		if("ear_damage")
+			SetEarDamage(ear_damage)
+		if("druggy")
+			SetDruggy(druggy)
+		if("maxHealth")
+			updatehealth()
+		if("resize")
+			update_transform()

@@ -3,11 +3,11 @@
 	desc = "A rod of pure obsidian, its very presence disrupts and dampens the powers of Nar-Sie's followers."
 	icon_state = "nullrod"
 	item_state = "nullrod"
-	force = 18
+	force = 15
 	throw_speed = 3
 	throw_range = 4
 	throwforce = 10
-	w_class = 1
+	w_class = WEIGHT_CLASS_TINY
 	var/reskinned = FALSE
 	var/reskin_selectable = TRUE			//set to FALSE if a subtype is meant to not normally be available as a reskin option (fluff ones will get re-added through their list)
 	var/list/fluff_transformations = list() //does it have any special transformations only accessible to it? Should only be subtypes of /obj/item/weapon/nullrod
@@ -28,7 +28,7 @@
 /obj/item/weapon/nullrod/attack_self(mob/user)
 	if(reskinned)
 		return
-	if(user.mind && (user.mind.assigned_role == "Chaplain"))
+	if(user.mind && (user.mind.assigned_role == "Chaplain" || user.mind.special_role == SPECIAL_ROLE_ERT))
 		reskin_holy_weapon(user)
 
 /obj/item/weapon/nullrod/proc/reskin_holy_weapon(mob/M)
@@ -71,7 +71,7 @@
 	item_state = "disintegrate"
 	desc = "This hand of yours glows with an awesome power!"
 	flags = ABSTRACT | NODROP
-	w_class = 5
+	w_class = WEIGHT_CLASS_HUGE
 	hitsound = 'sound/weapons/sear.ogg'
 	damtype = BURN
 	attack_verb = list("punched", "cross countered", "pummeled")
@@ -81,7 +81,7 @@
 	icon_state = "godstaff-red"
 	item_state = "godstaff-red"
 	desc = "It has a mysterious, protective aura."
-	w_class = 5
+	w_class = WEIGHT_CLASS_HUGE
 	force = 5
 	slot_flags = SLOT_BACK
 	block_chance = 50
@@ -96,11 +96,10 @@
 	icon_state = "claymore"
 	item_state = "claymore"
 	desc = "A weapon fit for a crusade!"
-	w_class = 4
+	w_class = WEIGHT_CLASS_BULKY
 	slot_flags = SLOT_BACK|SLOT_BELT
 	block_chance = 30
 	sharp = 1
-	edge = 1
 	hitsound = 'sound/weapons/bladeslice.ogg'
 	attack_verb = list("attacked", "slashed", "stabbed", "sliced", "torn", "ripped", "diced", "cut")
 
@@ -183,13 +182,12 @@
 	icon_state = "scythe0"
 	item_state = "scythe0"
 	desc = "Ask not for whom the bell tolls..."
-	w_class = 4
+	w_class = WEIGHT_CLASS_BULKY
 	armour_penetration = 35
 	slot_flags = SLOT_BACK
 	sharp = 1
-	edge = 1
 	attack_verb = list("chopped", "sliced", "cut", "reaped")
-	hitsound = 'sound/weapons/bladeslice.ogg'
+	hitsound = 'sound/weapons/rapierhit.ogg'
 
 /obj/item/weapon/nullrod/scythe/vibro
 	name = "high frequency blade"
@@ -198,13 +196,21 @@
 	desc = "Bad references are the DNA of the soul."
 	attack_verb = list("chopped", "sliced", "cut", "zandatsu'd")
 
+/obj/item/weapon/nullrod/scythe/spellblade
+	icon_state = "spellblade"
+	item_state = "spellblade"
+	icon = 'icons/obj/guns/magic.dmi'
+	name = "dormant spellblade"
+	desc = "The blade grants the wielder nearly limitless power...if they can figure out how to turn it on, that is."
+	hitsound = 'sound/weapons/rapierhit.ogg'
+
 /obj/item/weapon/nullrod/scythe/talking
 	name = "possessed blade"
 	icon_state = "talking_sword"
 	item_state = "talking_sword"
 	desc = "When the station falls into chaos, it's nice to have a friend by your side."
 	attack_verb = list("chopped", "sliced", "cut")
-	hitsound = 'sound/weapons/bladeslice.ogg'
+	hitsound = 'sound/weapons/rapierhit.ogg'
 	var/possessed = FALSE
 
 /obj/item/weapon/nullrod/scythe/talking/attack_self(mob/living/user)
@@ -247,7 +253,7 @@
 	item_state = "hammeron"
 	desc = "This war hammer cost the chaplain fourty thousand space dollars."
 	slot_flags = SLOT_BELT
-	w_class = 5
+	w_class = WEIGHT_CLASS_HUGE
 	attack_verb = list("smashed", "bashed", "hammered", "crunched")
 
 /obj/item/weapon/nullrod/chainsaw
@@ -255,10 +261,9 @@
 	desc = "Good? Bad? You're the guy with the chainsaw hand."
 	icon_state = "chainsaw1"
 	item_state = "mounted_chainsaw"
-	w_class = 5
+	w_class = WEIGHT_CLASS_HUGE
 	flags = NODROP | ABSTRACT
 	sharp = 1
-	edge = 1
 	attack_verb = list("sawed", "torn", "cut", "chopped", "diced")
 	hitsound = 'sound/weapons/chainsaw.ogg'
 
@@ -270,17 +275,20 @@
 	desc = "Used for absolutely hilarious sacrifices."
 	hitsound = 'sound/items/bikehorn.ogg'
 	sharp = 1
-	edge = 1
 	attack_verb = list("attacked", "slashed", "stabbed", "sliced", "torn", "ripped", "diced", "cut", "honked")
 
 /obj/item/weapon/nullrod/whip
 	name = "holy whip"
-	desc = "What a terrible night to be on Space Station 13."
+	desc = "What a terrible night to be in spess"
 	icon_state = "chain"
 	item_state = "chain"
 	slot_flags = SLOT_BELT
 	attack_verb = list("whipped", "lashed")
 	hitsound = 'sound/weapons/slash.ogg'
+
+/obj/item/weapon/nullrod/whip/New()
+	..()
+	desc = "What a terrible night to be on the [station_name()]."
 
 /obj/item/weapon/nullrod/whip/afterattack(atom/movable/AM, mob/user, proximity)
 	if(!proximity)
@@ -310,9 +318,8 @@
 	icon_state = "arm_blade"
 	item_state = "arm_blade"
 	flags = ABSTRACT | NODROP
-	w_class = 5
+	w_class = WEIGHT_CLASS_HUGE
 	sharp = 1
-	edge = 1
 
 /obj/item/weapon/nullrod/carp
 	name = "carp-sie plushie"
@@ -320,7 +327,7 @@
 	icon = 'icons/obj/toy.dmi'
 	icon_state = "carpplushie"
 	item_state = "carp_plushie"
-	force = 15
+	force = 13
 	attack_verb = list("bitten", "eaten", "fin slapped")
 	hitsound = 'sound/weapons/bite.ogg'
 	var/used_blessing = FALSE
@@ -328,7 +335,7 @@
 /obj/item/weapon/nullrod/carp/attack_self(mob/living/user)
 	if(used_blessing)
 		return
-	if(user.mind && (user.mind.assigned_role != "Chaplain"))
+	if(user.mind && (user.mind.assigned_role != "Chaplain" && user.mind.special_role != SPECIAL_ROLE_ERT))
 		return
 	to_chat(user, "You are blessed by Carp-Sie. Wild space carp will no longer attack you.")
 	user.faction |= "carp"
@@ -337,12 +344,11 @@
 /obj/item/weapon/nullrod/claymore/bostaff //May as well make it a "claymore" and inherit the blocking
 	name = "monk's staff"
 	desc = "A long, tall staff made of polished wood. Traditionally used in ancient old-Earth martial arts, now used to harass the clown."
-	w_class = 4
-	force = 15
+	w_class = WEIGHT_CLASS_BULKY
+	force = 13
 	block_chance = 40
 	slot_flags = SLOT_BACK
 	sharp = 0
-	edge = 0
 	hitsound = "swing_hit"
 	attack_verb = list("smashed", "slammed", "whacked", "thwacked")
 	icon = 'icons/obj/weapons.dmi'
@@ -353,10 +359,9 @@
 	name = "arrhythmic knife"
 	icon_state = "crysknife"
 	item_state = "crysknife"
-	w_class = 5
+	w_class = WEIGHT_CLASS_HUGE
 	desc = "They say fear is the true mind killer, but stabbing them in the head works too. Honour compels you to not sheathe it once drawn."
 	sharp = 1
-	edge = 1
 	slot_flags = null
 	flags = HANDSLOW
 	hitsound = 'sound/weapons/bladeslice.ogg'
@@ -377,12 +382,11 @@
 	name = "unholy pitchfork"
 	icon_state = "pitchfork0"
 	item_state = "pitchfork0"
-	w_class = 3
+	w_class = WEIGHT_CLASS_NORMAL
 	desc = "Holding this makes you look absolutely devilish."
 	attack_verb = list("poked", "impaled", "pierced", "jabbed")
 	hitsound = 'sound/weapons/bladeslice.ogg'
 	sharp = 1
-	edge = 1
 
 /obj/item/weapon/nullrod/rosary
 	name = "prayer beads"
@@ -402,7 +406,7 @@
 	if(!iscarbon(M))
 		return ..()
 
-	if(!user.mind || user.mind.assigned_role != "Chaplain")
+	if(!user.mind || (user.mind.assigned_role != "Chaplain" && user.mind.special_role != SPECIAL_ROLE_ERT))
 		to_chat(user, "<span class='notice'>You are not close enough with [ticker.Bible_deity_name] to use [src].</span>")
 		return
 
@@ -453,6 +457,51 @@
 					if(prob(10))
 						to_chat(H, "<span class='userdanger'>Being in the presence of [holder]'s [src] is interfering with your powers!</span>")
 
+/obj/item/weapon/nullrod/salt
+	name = "Holy Salt"
+	icon = 'icons/obj/food/containers.dmi'
+	icon_state = "saltshakersmall"
+	desc = "While commonly used to repel some ghosts, it appears others are downright attracted to it."
+	force = 0
+	throwforce = 0
+	var/ghostcall_CD = 0
+
+
+/obj/item/weapon/nullrod/salt/attack_self(mob/user)
+
+	if(!user.mind || (user.mind.assigned_role != "Chaplain" && user.mind.special_role != SPECIAL_ROLE_ERT ))
+		to_chat(user, "<span class='notice'>You are not close enough with [ticker.Bible_deity_name] to use [src].</span>")
+		return
+
+	if(!(ghostcall_CD > world.time))
+		ghostcall_CD = world.time + 3000 //deciseconds..5 minutes
+		user.visible_message("<span class='info'>[user] kneels and begins to utter a prayer to [ticker.Bible_deity_name] while drawing a circle with salt!</span>", \
+		"<span class='info'>You kneel and begin a prayer to [ticker.Bible_deity_name] while drawing a circle!</span>")
+		notify_ghosts("The Chaplain is calling ghosts to [get_area(src)] with [name]!", source = src)
+	else
+		to_chat(user, "<span class='notice'>You need to wait before using [src] again.</span>")
+		return
+
+
+/obj/item/weapon/nullrod/rosary/bread
+	name = "prayer bread"
+	icon = 'icons/obj/food/food.dmi'
+	icon_state = "baguette"
+	desc = "a staple of worshipers of the Silentfather, this holy mime artifact has an odd effect on clowns."
+
+/obj/item/weapon/nullrod/rosary/bread/process()
+	if(ishuman(loc))
+		var/mob/living/carbon/human/holder = loc
+		//would like to make the holder mime if they have it in on thier person in general
+		if(src == holder.l_hand || src == holder.r_hand) // Holding this in your hand will
+			for(var/mob/living/carbon/human/H in range(5))
+				if(H.mind.assigned_role == "Clown")
+					H.Silence(10)
+					animate_fade_grayscale(H,20)
+					if(prob(10))
+						to_chat(H, "<span class='userdanger'>Being in the presence of [holder]'s [src] is interfering with your honk!</span>")
+
+
 /obj/item/weapon/nullrod/missionary_staff
 	name = "holy staff"
 	desc = "It has a mysterious, protective aura."
@@ -461,7 +510,7 @@
 	reskin_selectable = FALSE
 	icon_state = "godstaff-red"
 	item_state = "godstaff-red"
-	w_class = 5
+	w_class = WEIGHT_CLASS_HUGE
 	force = 5
 	slot_flags = SLOT_BACK
 	block_chance = 50
@@ -519,7 +568,8 @@
 	if(!target.mind)	//no mind means no conversion, but also means no faith lost.
 		to_chat(missionary, "<span class='warning'>You halt the conversion as you realize [target] is mindless! Best to save your faith for someone more worthwhile.</span>")
 		return
-	if(do_after(missionary, 40))	//4 seconds to temporarily convert, roughly 1 second faster than a vampire's enthrall ability
+	to_chat(target, "<span class='userdanger'>Your mind seems foggy. For a moment, all you can think about is serving the greater good... the greater good...</span>")
+	if(do_after(missionary, 80))	//8 seconds to temporarily convert, roughly 3 seconds slower than a vamp's enthrall, but its a ranged thing
 		if(faith < 100)		//to stop people from trying to exploit the do_after system to multi-convert, we check again if you have enough faith when it completes
 			to_chat(missionary, "<span class='warning'>You don't have enough faith to complete the conversion on [target]!</span>")
 			return
@@ -539,15 +589,10 @@
 		to_chat(missionary, "<span class='warning'>Your faith is strong, but their mind is already slaved to someone else's ideals. Perhaps an inquisition would reveal more...</span>")
 		faith -= 25		//same faith cost as losing sight of them mid-conversion, but did you just find someone who can lead you to a fellow traitor?
 		return
-	if(isloyal(target))
-		if(prob(20))	//loyalty implants typically overpower this, but you CAN get lucky and convert still (20% chance of success)
-			faith -= 125	//yes, this puts it negative. it's gonna take longer to recharge if you manage to convert a one of these people to balance the new power you gained through them
-			to_chat(missionary, "<span class='notice'>Through sheer willpower, you overcome their closed mind and rally [target] to your cause! You may need a bit longer than usual before your faith is fully recharged, and they won't remain loyal to you for long ...</span>")
-			convert_duration = 3000		//5 min, because the loyalty implant will attempt to counteract the subversion
-		else	//80% chance to fail
-			faith -= 75
-			to_chat(missionary, "<span class='warning'>Your faith is strong, but their mind remains closed to your ideals. Your resolve helps you retain a bit of faith though.</span>")
-			return
+	if(ismindshielded(target))
+		faith -= 75
+		to_chat(missionary, "<span class='warning'>Your faith is strong, but their mind remains closed to your ideals. Your resolve helps you retain a bit of faith though.</span>")
+		return
 	else if(target.mind.assigned_role == "Psychiatrist" || target.mind.assigned_role == "Librarian")		//fancy book lernin helps counter religion (day 0 job love, what madness!)
 		if(prob(35))	//35% chance to fail
 			to_chat(missionary, "<span class='warning'>This one is well trained in matters of the mind... They will not be swayed as easily as you thought...</span>")

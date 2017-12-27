@@ -35,6 +35,7 @@
 
 	// Standard muts
 	BLINDBLOCK         = getAssignedBlock("BLIND",         numsToAssign)
+	COLOURBLINDBLOCK   = getAssignedBlock("COLOURBLIND",   numsToAssign)
 	DEAFBLOCK          = getAssignedBlock("DEAF",          numsToAssign)
 	HULKBLOCK          = getAssignedBlock("HULK",          numsToAssign, DNA_HARD_BOUNDS, good=1)
 	TELEBLOCK          = getAssignedBlock("TELE",          numsToAssign, DNA_HARD_BOUNDS, good=1)
@@ -49,7 +50,7 @@
 	NERVOUSBLOCK       = getAssignedBlock("NERVOUS",       numsToAssign)
 
 	// Bay muts
-	NOBREATHBLOCK      = getAssignedBlock("NOBREATH",      numsToAssign, DNA_HARD_BOUNDS, good=1)
+	BREATHLESSBLOCK    = getAssignedBlock("BREATHLESS",    numsToAssign, DNA_HARD_BOUNDS, good=1)
 	REMOTEVIEWBLOCK    = getAssignedBlock("REMOTEVIEW",    numsToAssign, DNA_HARDER_BOUNDS, good=1)
 	REGENERATEBLOCK    = getAssignedBlock("REGENERATE",    numsToAssign, DNA_HARDER_BOUNDS, good=1)
 	INCREASERUNBLOCK   = getAssignedBlock("INCREASERUN",   numsToAssign, DNA_HARDER_BOUNDS, good=1)
@@ -150,12 +151,15 @@
 		ticker.syndicate_coalition.Add(S)
 
 /proc/setupcult()
+	var/static/picked_cult // Only needs to get picked once
+
+	if(picked_cult)
+		return picked_cult
+
 	var/random_cult = pick(all_cults)
-	var/picked_cult = new random_cult() //this seems redundent as fuck
-	log_startup_progress("Summoning eldritch horrors...")
-	if(!picked_cult)//shouldn't happen BUT JUST TO BE SURE LET US KNOW
-		log_startup_progress(" Failed to select a cult datum, Shank a coder!")
-	else
-		log_startup_progress(" [picked_cult] has risen!")
+	picked_cult = new random_cult()
+
+	if(!picked_cult)
+		log_runtime(EXCEPTION("Cult datum creation failed"))
 	//todo:add adminonly datum var, check for said var here...
 	return picked_cult

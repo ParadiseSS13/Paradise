@@ -74,12 +74,12 @@
 				return
 			if(mode==0) // It's off but still not unscrewed
 				mode=-1 // Set it to doubleoff l0l
-				playsound(src.loc, 'sound/items/Screwdriver.ogg', 50, 1)
+				playsound(src.loc, I.usesound, 50, 1)
 				to_chat(user, "You remove the screws around the power connection.")
 				return
 			else if(mode==-1)
 				mode=0
-				playsound(src.loc, 'sound/items/Screwdriver.ogg', 50, 1)
+				playsound(src.loc, I.usesound, 50, 1)
 				to_chat(user, "You attach the screws around the power connection.")
 				return
 		else if(istype(I,/obj/item/weapon/weldingtool) && mode==-1)
@@ -88,10 +88,10 @@
 				return
 			var/obj/item/weapon/weldingtool/W = I
 			if(W.remove_fuel(0,user))
-				playsound(src.loc, 'sound/items/Welder2.ogg', 100, 1)
+				playsound(src.loc, W.usesound, 100, 1)
 				to_chat(user, "You start slicing the floorweld off the disposal unit.")
 
-				if(do_after(user,20, target = src))
+				if(do_after(user, 20 * W.toolspeed, target = src))
 					if(!src || !W.isOn()) return
 					to_chat(user, "You sliced the floorweld off the disposal unit.")
 					var/obj/structure/disposalconstruct/C = new (src.loc)
@@ -130,15 +130,16 @@
 			if(do_after(usr, 20, target = GM))
 				GM.forceMove(src)
 				for(var/mob/C in viewers(src))
-					C.show_message("\red [GM.name] has been placed in the [src] by [user].", 3)
+					C.show_message("<span class='warning'>[GM.name] has been placed in the [src] by [user].</span>", 3)
 				qdel(G)
-				usr.attack_log += text("\[[time_stamp()]\] <font color='red'>Has placed [key_name(GM)] in disposals.</font>")
-				GM.attack_log += text("\[[time_stamp()]\] <font color='orange'>Has been placed in disposals by [key_name(user)]</font>")
+				usr.create_attack_log("<font color='red'>Has placed [key_name(GM)] in disposals.</font>")
+				GM.create_attack_log("<font color='orange'>Has been placed in disposals by [key_name(user)]</font>")
 				if(GM.ckey)
 					msg_admin_attack("[key_name_admin(user)] placed [key_name_admin(GM)] in a disposals unit. (<A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[x];Y=[y];Z=[z]'>JMP</a>)")
 		return
 
-	if(!I)	return
+	if(!I)
+		return
 
 	if(!user.drop_item())
 		return
@@ -180,8 +181,8 @@
 		msg = "[user.name] stuffs [target.name] into the [src]!"
 		to_chat(user, "You stuff [target.name] into the [src]!")
 
-		user.attack_log += text("\[[time_stamp()]\] <font color='red'>Has placed [key_name(target)] in disposals.</font>")
-		target.attack_log += text("\[[time_stamp()]\] <font color='orange'>Has been placed in disposals by [key_name(user)]</font>")
+		user.create_attack_log("<font color='red'>Has placed [key_name(target)] in disposals.</font>")
+		target.create_attack_log("<font color='orange'>Has been placed in disposals by [key_name(user)]</font>")
 		if(target.ckey)
 			msg_admin_attack("[key_name_admin(user)] placed [key_name_admin(target)] in a disposals unit")
 	else
@@ -209,7 +210,8 @@
 
 // leave the disposal
 /obj/machinery/disposal/proc/go_out(mob/user)
-	user.forceMove(loc)
+	if(user)
+		user.forceMove(loc)
 	update()
 
 // ai as human but can't flush
@@ -229,7 +231,7 @@
 		return
 
 	if(user && user.loc == src)
-		to_chat(usr, "\red You cannot reach the controls from inside.")
+		to_chat(usr, "<span class='warning'>You cannot reach the controls from inside.</span>")
 		return
 
 	// Clumsy folks can only flush it.
@@ -270,11 +272,11 @@
 
 /obj/machinery/disposal/Topic(href, href_list)
 	if(usr.loc == src)
-		to_chat(usr, "\red You cannot reach the controls from inside.")
+		to_chat(usr, "<span class='warning'>You cannot reach the controls from inside.</span>")
 		return
 
 	if(mode==-1 && !href_list["eject"]) // only allow ejecting if mode is -1
-		to_chat(usr, "\red The disposal units power is disabled.")
+		to_chat(usr, "<span class='warning'>The disposal units power is disabled.</span>")
 		return
 
 	if(..())
@@ -456,7 +458,7 @@
 		H.vent_gas(loc)
 		qdel(H)
 
-/obj/machinery/disposal/CanPass(atom/movable/mover, turf/target, height=0, air_group=0)
+/obj/machinery/disposal/CanPass(atom/movable/mover, turf/target, height=0)
 	if(istype(mover,/obj/item) && mover.throwing)
 		var/obj/item/I = mover
 		if(istype(I, /obj/item/projectile))
@@ -465,12 +467,13 @@
 			I.loc = src
 			for(var/mob/M in viewers(src))
 				M.show_message("\the [I] lands in \the [src].", 3)
+			update()
 		else
 			for(var/mob/M in viewers(src))
 				M.show_message("\the [I] bounces off of \the [src]'s rim!.", 3)
 		return 0
 	else
-		return ..(mover, target, height, air_group)
+		return ..(mover, target, height)
 
 
 /obj/machinery/disposal/singularity_pull(S, current_size)
@@ -498,7 +501,7 @@
 	var/hasmob = 0 //If it contains a mob
 
 	Destroy()
-		qdel(gas)
+		QDEL_NULL(gas)
 		active = 0
 		return ..()
 
@@ -530,14 +533,18 @@
 					has_fat_guy = 1			// set flag on holder
 			if(istype(AM, /obj/structure/bigDelivery) && !hasmob)
 				var/obj/structure/bigDelivery/T = AM
-				src.destinationTag = T.sortTag
+				destinationTag = T.sortTag
 			if(istype(AM, /obj/item/smallDelivery) && !hasmob)
 				var/obj/item/smallDelivery/T = AM
-				src.destinationTag = T.sortTag
+				destinationTag = T.sortTag
 			//Drones can mail themselves through maint.
 			if(istype(AM, /mob/living/silicon/robot/drone))
 				var/mob/living/silicon/robot/drone/drone = AM
-				src.destinationTag = drone.mail_destination
+				destinationTag = drone.mail_destination
+			if(istype(AM, /obj/item/shippingPackage) && !hasmob)
+				var/obj/item/shippingPackage/sp = AM
+				if(sp.sealed)	//only sealed packages get delivered to their intended destination
+					destinationTag = sp.sortTag
 
 
 	// start the movement process
@@ -867,29 +874,22 @@
 //weldingtool: unfasten and convert to obj/disposalconstruct
 
 /obj/structure/disposalpipe/attackby(var/obj/item/I, var/mob/user, params)
-
-	var/turf/T = src.loc
+	var/turf/T = get_turf(src)
 	if(T.intact)
 		return		// prevent interaction with T-scanner revealed pipes
-	src.add_fingerprint(user)
+
+	add_fingerprint(user)
+
 	if(istype(I, /obj/item/weapon/weldingtool))
 		var/obj/item/weapon/weldingtool/W = I
-
-		if(W.remove_fuel(0,user))
-			playsound(src.loc, 'sound/items/Welder2.ogg', 100, 1)
-			// check if anything changed over 2 seconds
-			var/turf/uloc = user.loc
-			var/atom/wloc = W.loc
-			to_chat(user, "Slicing the disposal pipe.")
-			sleep(30)
-			if(!W.isOn()) return
-			if(user.loc == uloc && wloc == W.loc)
+		if(W.remove_fuel(0, user))
+			to_chat(user, "<span class='notice'>You begin slicing \the [src].</span>")
+			playsound(loc, W.usesound, 100, 1)
+			if(do_after(user, 30 * W.toolspeed, target = src))
+				to_chat(user, "<span class='notice'>You finish slicing \the [src].</span>")
 				welded()
-			else
-				to_chat(user, "You must stay still while welding the pipe.")
 		else
-			to_chat(user, "You need more welding fuel to cut the pipe.")
-			return
+			to_chat(user, "<span class='warning'>You need more welding fuel to cut the pipe.</span>")
 
 // called when pipe is cut with welder
 /obj/structure/disposalpipe/proc/welded()
@@ -987,7 +987,7 @@
 /obj/structure/disposalpipe/sortjunction
 
 	icon_state = "pipe-j1s"
-	var/sortType = 0	//Look at the list called TAGGERLOCATIONS in setup.dm
+	var/sortType = 0	//Look at the list called TAGGERLOCATIONS in /code/_globalvars/lists/flavor_misc.dm
 	var/posdir = 0
 	var/negdir = 0
 	var/sortdir = 0
@@ -1028,7 +1028,7 @@
 				sortType = O.currTag
 				playsound(src.loc, 'sound/machines/twobeep.ogg', 100, 1)
 				var/tag = uppertext(TAGGERLOCATIONS[O.currTag])
-				to_chat(user, "\blue Changed filter to [tag]")
+				to_chat(user, "<span class='notice'>Changed filter to [tag]</span>")
 				updatedesc()
 
 
@@ -1148,6 +1148,19 @@
 	update()
 	return
 
+/obj/structure/disposalpipe/trunk/Destroy()
+	if(istype(linked, /obj/structure/disposaloutlet))
+		var/obj/structure/disposaloutlet/O = linked
+		O.expel(animation = 0)
+	else if(istype(linked, /obj/machinery/disposal))
+		var/obj/machinery/disposal/D = linked
+		if(D.trunk == src)
+			D.go_out()
+			D.trunk = null
+
+	linked = null
+	return ..()
+
 /obj/structure/disposalpipe/trunk/proc/getlinked()
 	linked = null
 	var/obj/machinery/disposal/D = locate() in src.loc
@@ -1192,19 +1205,14 @@
 		var/obj/item/weapon/weldingtool/W = I
 
 		if(W.remove_fuel(0,user))
-			playsound(src.loc, 'sound/items/Welder2.ogg', 100, 1)
-			// check if anything changed over 2 seconds
-			var/turf/uloc = user.loc
-			var/atom/wloc = W.loc
-			to_chat(user, "Slicing the disposal pipe.")
-			sleep(30)
-			if(!W.isOn()) return
-			if(user.loc == uloc && wloc == W.loc)
+			playsound(loc, W.usesound, 100, 1)
+			to_chat(user, "<span class='notice'>Slicing the disposal pipe.</span>")
+			if(do_after(user, 30 * W.toolspeed, target = src))
+				if(!W.isOn())
+					return
 				welded()
-			else
-				to_chat(user, "You must stay still while welding the pipe.")
 		else
-			to_chat(user, "You need more welding fuel to cut the pipe.")
+			to_chat(user, "<span class='warning'>You need more welding fuel to cut the pipe.</span>")
 			return
 
 	// would transfer to next pipe segment, but we are in a trunk
@@ -1268,6 +1276,7 @@
 	anchored = 1
 	var/active = 0
 	var/turf/target	// this will be where the output objects are 'thrown' to.
+	var/obj/structure/disposalpipe/trunk/linkedtrunk
 	var/mode = 0
 
 	New()
@@ -1277,22 +1286,23 @@
 			target = get_ranged_target_turf(src, dir, 10)
 
 
-			var/obj/structure/disposalpipe/trunk/trunk = locate() in src.loc
-			if(trunk)
-				trunk.linked = src	// link the pipe trunk to self
+			linkedtrunk = locate() in src.loc
+			if(linkedtrunk)
+				linkedtrunk.linked = src
 
 	// expel the contents of the holder object, then delete it
 	// called when the holder exits the outlet
-	proc/expel(var/obj/structure/disposalholder/H)
+	proc/expel(var/obj/structure/disposalholder/H, animation = 1)
 
-		flick("outlet-open", src)
-		playsound(src, 'sound/machines/warning-buzzer.ogg', 50, 0, 0)
-		sleep(20)	//wait until correct animation frame
-		playsound(src, 'sound/machines/hiss.ogg', 50, 0, 0)
+		if(animation)
+			flick("outlet-open", src)
+			playsound(src, 'sound/machines/warning-buzzer.ogg', 50, 0, 0)
+			sleep(20)	//wait until correct animation frame
+			playsound(src, 'sound/machines/hiss.ogg', 50, 0, 0)
 
 		if(H)
 			for(var/atom/movable/AM in H)
-				AM.loc = src.loc
+				AM.forceMove(loc)
 				AM.pipe_eject(dir)
 				if(!istype(AM,/mob/living/silicon/robot/drone)) //Drones keep smashing windows from being fired out of chutes. Bad for the station. ~Z
 					spawn(5)
@@ -1301,7 +1311,6 @@
 			H.vent_gas(src.loc)
 			qdel(H)
 
-		return
 
 	attackby(var/obj/item/I, var/mob/user, params)
 		if(!I || !user)
@@ -1310,20 +1319,20 @@
 		if(istype(I, /obj/item/weapon/screwdriver))
 			if(mode==0)
 				mode=1
-				playsound(src.loc, 'sound/items/Screwdriver.ogg', 50, 1)
+				playsound(src.loc, I.usesound, 50, 1)
 				to_chat(user, "You remove the screws around the power connection.")
 				return
 			else if(mode==1)
 				mode=0
-				playsound(src.loc, 'sound/items/Screwdriver.ogg', 50, 1)
+				playsound(src.loc, I.usesound, 50, 1)
 				to_chat(user, "You attach the screws around the power connection.")
 				return
 		else if(istype(I,/obj/item/weapon/weldingtool) && mode==1)
 			var/obj/item/weapon/weldingtool/W = I
 			if(W.remove_fuel(0,user))
-				playsound(src.loc, 'sound/items/Welder2.ogg', 100, 1)
+				playsound(src.loc, W.usesound, 100, 1)
 				to_chat(user, "You start slicing the floorweld off the disposal outlet.")
-				if(do_after(user,20, target = src))
+				if(do_after(user, 20 * W.toolspeed, target = src))
 					if(!src || !W.isOn()) return
 					to_chat(user, "You sliced the floorweld off the disposal outlet.")
 					var/obj/structure/disposalconstruct/C = new (src.loc)
@@ -1338,7 +1347,10 @@
 				to_chat(user, "You need more welding fuel to complete this task.")
 				return
 
-
+/obj/structure/disposaloutlet/Destroy()
+	if(linkedtrunk)
+		linkedtrunk.linked = null
+	return ..()
 
 // called when movable is expelled from a disposal pipe or outlet
 // by default does nothing, override for special behaviour

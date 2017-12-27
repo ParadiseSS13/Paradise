@@ -32,7 +32,8 @@
 #define slot_r_ear 20
 #define slot_wear_pda 21
 #define slot_tie 22
-#define slots_amt 22
+#define slot_collar 23
+#define slots_amt 23
 
 //Cant seem to find a mob bitflags area other than the powers one
 
@@ -70,6 +71,13 @@
 #define THERMAL_PROTECTION_HAND_LEFT	0.025
 #define THERMAL_PROTECTION_HAND_RIGHT	0.025
 
+//flags for covering body parts
+#define GLASSESCOVERSEYES	1
+#define MASKCOVERSEYES		2		// get rid of some of the other retardation in these flags
+#define HEADCOVERSEYES		4		// feel free to realloc these numbers for other purposes
+#define MASKCOVERSMOUTH		8		// on other items, these are just for mask/head
+#define HEADCOVERSMOUTH		16
+
 // Suit sensor levels
 #define SUIT_SENSOR_OFF 0
 #define SUIT_SENSOR_BINARY 1
@@ -80,3 +88,8 @@
 #define BLOCKHAIR				32768	// temporarily removes the user's hair, facial and otherwise.
 
 #define ONESIZEFITSALL 			1		// determines if something can be worn by a fatty or not.
+
+//flags for muzzle speech blocking
+#define MUTE_NONE 0 // Does not mute you.
+#define MUTE_MUFFLE 1 // Muffles everything you say "MHHPHHMMM!!!
+#define MUTE_ALL 2 // Completely mutes you.

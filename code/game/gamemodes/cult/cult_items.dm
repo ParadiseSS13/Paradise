@@ -3,7 +3,7 @@
 	desc = "An arcane weapon wielded by the followers of a cult."
 	icon_state = "cultblade"
 	item_state = "cultblade"
-	w_class = 4
+	w_class = WEIGHT_CLASS_BULKY
 	force = 30
 	throwforce = 10
 	sharp = 1
@@ -32,23 +32,26 @@
 		to_chat(user, "<span class='warning'>An overwhelming sense of nausea overpowers you!</span>")
 		user.Dizzy(120)
 
+	if(HULK in user.mutations)
+		to_chat(user, "<span class='danger'>You can't seem to hold the blade properly!</span>")
+		user.unEquip(src, 1)
+
 /obj/item/weapon/melee/cultblade/dagger
 	name = "sacrificial dagger"
 	desc = "A strange dagger said to be used by sinister groups for \"preparing\" a corpse before sacrificing it to their dark gods."
 	icon = 'icons/obj/wizard.dmi'
 	icon_state = "render"
-	w_class = 2
+	w_class = WEIGHT_CLASS_SMALL
 	force = 15
 	throwforce = 25
-	var/cooldown = 0
+	embed_chance = 75
 
-/obj/item/weapon/melee/cultblade/dagger/afterattack(mob/living/target as mob, mob/living/carbon/human/user as mob)
+/obj/item/weapon/melee/cultblade/dagger/attack(atom/target, mob/living/carbon/human/user)
 	..()
-	var/mob/living/carbon/human/bleeder = target
-	if(!(cooldown > world.time) && ((bleeder.stat != DEAD) && !(bleeder.species.flags & NO_BLOOD)))
-		user.visible_message("<span class='danger'>The runes on the blade absorb the blood of [target]!</span>")
-		bleeder.drip(5000)
-		cooldown = world.time + 2400
+	if(ishuman(target))
+		var/mob/living/carbon/human/H = target
+		if((H.stat != DEAD) && !(NO_BLOOD in H.species.species_traits))
+			H.bleed(50)
 
 /obj/item/weapon/restraints/legcuffs/bola/cult
 	name = "runed bola"
@@ -63,7 +66,7 @@
 	icon_state = "culthood"
 	desc = "A hood worn by the followers of a cult."
 	flags_inv = HIDEFACE
-	flags = HEADCOVERSEYES
+	flags_cover = HEADCOVERSEYES
 	armor = list(melee = 30, bullet = 10, laser = 5, energy = 5, bomb = 0, bio = 0, rad = 0)
 	cold_protection = HEAD
 	min_cold_protection_temperature = SPACE_HELM_MIN_TEMP_PROTECT
@@ -95,8 +98,9 @@
 	icon_state = "magus"
 	item_state = "magus"
 	desc = "A helm worn by the followers of Nar-Sie."
+	flags = BLOCKHAIR
 	flags_inv = HIDEFACE
-	flags = HEADCOVERSEYES | HEADCOVERSMOUTH | BLOCKHAIR
+	flags_cover = HEADCOVERSEYES | HEADCOVERSMOUTH
 	armor = list(melee = 30, bullet = 30, laser = 30, energy = 20, bomb = 0, bio = 0, rad = 0)
 
 /obj/item/clothing/suit/magusred
@@ -121,7 +125,7 @@
 	icon_state = "cult_armour"
 	item_state = "cult_armour"
 	desc = "A bulky suit of armour, bristling with spikes. It looks space proof."
-	w_class = 3
+	w_class = WEIGHT_CLASS_NORMAL
 	allowed = list(/obj/item/weapon/tome,/obj/item/weapon/melee/cultblade,/obj/item/weapon/tank)
 	slowdown = 1
 	armor = list(melee = 60, bullet = 50, laser = 30, energy = 15, bomb = 30, bio = 30, rad = 30)
@@ -131,7 +135,7 @@
 	desc = "Empowered garb which creates a powerful shield around the user."
 	icon_state = "cult_armour"
 	item_state = "cult_armour"
-	w_class = 4
+	w_class = WEIGHT_CLASS_BULKY
 	armor = list(melee = 50, bullet = 40, laser = 50, energy = 30, bomb = 50, bio = 30, rad = 30)
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|ARMS
 	allowed = list(/obj/item/weapon/tome,/obj/item/weapon/melee/cultblade)
@@ -144,8 +148,9 @@
 	icon_state = "cult_hoodalt"
 	armor = list(melee = 50, bullet = 40, laser = 50, energy = 30, bomb = 50, bio = 30, rad = 30)
 	body_parts_covered = HEAD
+	flags = NODROP
 	flags_inv = HIDEFACE
-	flags =  NODROP | HEADCOVERSEYES
+	flags_cover = HEADCOVERSEYES
 
 /obj/item/clothing/suit/hooded/cultrobes/cult_shield/equipped(mob/living/user, slot)
 	..()
@@ -170,8 +175,8 @@
 /obj/item/clothing/suit/hooded/cultrobes/berserker
 	name = "flagellant's robes"
 	desc = "Blood-soaked robes infused with dark magic; allows the user to move at inhuman speeds, but at the cost of increased damage."
-	icon_state = "hardsuit-beserker"
-	item_state = "hardsuit-beserker"
+	icon_state = "hardsuit-berserker"
+	item_state = "hardsuit-berserker"
 	flags_inv = HIDEJUMPSUIT
 	allowed = list(/obj/item/weapon/tome,/obj/item/weapon/melee/cultblade)
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|ARMS
@@ -185,18 +190,20 @@
 	desc = "Blood-soaked garb infused with dark magic; allows the user to move at inhuman speeds, but at the cost of increased damage."
 	icon_state = "culthood"
 	flags_inv = HIDEFACE
-	flags = HEADCOVERSEYES
+	flags_cover = HEADCOVERSEYES
 	armor = list(melee = -100, bullet = -100, laser = -100, energy = -100, bomb = -100, bio = -100, rad = -100)
 
 /obj/item/weapon/whetstone/cult
 	name = "eldritch whetstone"
 	desc = "A block, empowered by dark magic. Sharp weapons will be enhanced when used on the stone."
-	icon = 'icons/obj/cult.dmi'
-	icon_state = "cultstone"
+	icon_state = "cult_sharpener"
 	used = 0
 	increment = 5
 	max = 40
 	prefix = "darkened"
+
+/obj/item/weapon/whetstone/cult/update_icon()
+	icon_state = "cult_sharpener[used ? "_used" : ""]"
 
 /obj/item/weapon/reagent_containers/food/drinks/bottle/unholywater
 	name = "flask of unholy water"
@@ -228,7 +235,7 @@
 	icon = 'icons/obj/projectiles.dmi'
 	icon_state ="bluespace"
 	color = "#ff0000"
-	var/static/curselimit = 0
+	var/global/curselimit = 0
 
 /obj/item/device/shuttle_curse/attack_self(mob/user)
 	if(!iscultist(user))
@@ -239,12 +246,16 @@
 	if(curselimit > 1)
 		to_chat(user, "<span class='notice'>We have exhausted our ability to curse the shuttle.</span>")
 		return
+	if(locate(/obj/singularity/narsie) in poi_list || locate(/mob/living/simple_animal/slaughter/cult) in mob_list)
+		to_chat(user, "<span class='warning'>Nar-Sie or his avatars are already on this plane, there is no delaying the end of all things.</span>")
+		return
+
 	if(shuttle_master.emergency.mode == SHUTTLE_CALL)
 		var/cursetime = 1800
 		var/timer = shuttle_master.emergency.timeLeft(1) + cursetime
 		shuttle_master.emergency.setTimer(timer)
 		to_chat(user,"<span class='danger'>You shatter the orb! A dark essence spirals into the air, then disappears.</span>")
-		playsound(user.loc, "sound/effects/Glassbr1.ogg", 50, 1)
+		playsound(user.loc, 'sound/effects/Glassbr1.ogg', 50, 1)
 		qdel(src)
 		sleep(20)
 		var/global/list/curses
@@ -297,7 +308,7 @@
 	var/turf/mobloc = get_turf(C)
 	var/list/turfs = new/list()
 	for(var/turf/T in range(user, outer_tele_radius))
-		if(!is_teleport_allowed(T))
+		if(!is_teleport_allowed(T.z))
 			continue
 		if(get_dir(C, T) != C.dir)
 			continue
@@ -331,3 +342,19 @@
 
 	else
 		to_chat(C, "<span class='danger'>The veil cannot be torn here!</span>")
+
+
+/obj/item/clothing/suit/space/eva/plasmaman/cultist
+	name = "plasmaman cultist armor"
+	icon_state = "plasmaman_cult"
+	item_state = "plasmaman_cult"
+	desc = "A bulky suit of armour, menacing with red energy. It looks like it would fit a plasmaman."
+	slowdown = 1
+	armor = list(melee = 60, bullet = 50, laser = 30,energy = 15, bomb = 30, bio = 30, rad = 30)
+
+/obj/item/clothing/head/helmet/space/eva/plasmaman/cultist
+	name = "plasmaman cultist helmet"
+	icon_state = "plasmamanCult_helmet0"
+	base_state = "plasmamanCult_helmet"
+	desc = "A helmet designed by cultists. It glows menacingly with unearthly flames."
+	armor = list(melee = 60, bullet = 50, laser = 30,energy = 15, bomb = 30, bio = 30, rad = 30)

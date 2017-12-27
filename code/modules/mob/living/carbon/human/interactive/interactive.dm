@@ -72,6 +72,8 @@
 	var/forceProcess = 0
 	var/processTime = 10
 	var/speak_file = "npc_chatter.json"
+	var/debugexamine = FALSE //If we show debug info in our examine
+	var/showexaminetext = TRUE	//If we show our telltale examine text
 
 	var/list/knownStrings = list()
 
@@ -132,7 +134,6 @@
 	job = myjob.title
 	mind.assigned_role = job
 	myjob.equip(src)
-	myjob.apply_fingerprints(T)
 
 /mob/living/carbon/human/interactive/proc/reset()
 	walk(src, 0)
@@ -193,7 +194,6 @@
 		for(var/obj/item/W in T)
 			qdel(W)
 		T.myjob.equip(T)
-		T.myjob.apply_fingerprints(T)
 		T.doSetup(alt_title)
 
 	var/shouldDoppel = input("Do you want the SNPC to disguise themself as a crewmember?") as anything in list("Yes", "No")
@@ -270,22 +270,22 @@
 	zone_sel.selecting = "chest"
 	//arms
 	if(prob((SNPC_FUZZY_CHANCE_LOW+SNPC_FUZZY_CHANCE_HIGH)/4))
-		var/obj/item/organ/external/R = organs_by_name["r_arm"]
+		var/obj/item/organ/external/R = bodyparts_by_name["r_arm"]
 		if(R)
-			R.robotize()
+			R.robotize(make_tough = 1)
 	else
-		var/obj/item/organ/external/L = organs_by_name["l_arm"]
+		var/obj/item/organ/external/L = bodyparts_by_name["l_arm"]
 		if(L)
-			L.robotize()
+			L.robotize(make_tough = 1)
 	//legs
 	if(prob((SNPC_FUZZY_CHANCE_LOW+SNPC_FUZZY_CHANCE_HIGH)/4))
-		var/obj/item/organ/external/R = organs_by_name["r_leg"]
+		var/obj/item/organ/external/R = bodyparts_by_name["r_leg"]
 		if(R)
-			R.robotize()
+			R.robotize(make_tough = 1)
 	else
-		var/obj/item/organ/external/L = organs_by_name["l_leg"]
+		var/obj/item/organ/external/L = bodyparts_by_name["l_leg"]
 		if(L)
-			L.robotize()
+			L.robotize(make_tough = 1)
 	UpdateDamageIcon()
 	regenerate_icons()
 
@@ -349,10 +349,10 @@
 			favoured_types = list(/obj/item/weapon/mop, /obj/item/weapon/reagent_containers/glass/bucket, /obj/item/weapon/reagent_containers/spray/cleaner, /obj/effect/decal/cleanable)
 			functions += "dojanitor"
 		if("Clown")
-			favoured_types = list(/obj/item/weapon/soap, /obj/item/weapon/reagent_containers/food/snacks/grown/banana, /obj/item/weapon/bananapeel)
+			favoured_types = list(/obj/item/weapon/soap, /obj/item/weapon/reagent_containers/food/snacks/grown/banana, /obj/item/weapon/grown/bananapeel)
 			functions += "clowning"
 		if("Botanist")
-			favoured_types = list(/obj/machinery/portable_atmospherics/hydroponics,  /obj/item/weapon/reagent_containers, /obj/item/weapon)
+			favoured_types = list(/obj/machinery/hydroponics,  /obj/item/weapon/reagent_containers, /obj/item/weapon)
 			functions += "botany"
 			restrictedJob = 1
 		else
@@ -433,7 +433,7 @@
 	var/mob/living/M = target
 	if(istype(M))
 		if(health > 0)
-			if(M.a_intent == "help" && !incapacitated())
+			if(M.a_intent == INTENT_HELP && !incapacitated())
 				chatter()
 				if(istype(target, /mob/living/carbon) && !retal && prob(SNPC_FUZZY_CHANCE_LOW))
 					var/mob/living/carbon/C = target
@@ -441,7 +441,7 @@
 						tryWalk(target)
 					else
 						C.help_shake_act(src)
-			if(M.a_intent == "harm")
+			if(M.a_intent == INTENT_HARM)
 				retal = 1
 				retal_target = target
 
@@ -451,7 +451,7 @@
 	..()
 	retalTarget(user)
 
-/mob/living/carbon/human/interactive/hitby(atom/movable/AM)
+/mob/living/carbon/human/interactive/hitby(atom/movable/AM, skipcatch, hitpush, blocked)
 	..()
 	var/mob/living/carbon/C = locate(/mob/living/carbon) in view(SNPC_MIN_RANGE_FIND, src)
 	if(C)
@@ -633,8 +633,6 @@
 										AL.wires.UpdatePulsed(AIRLOCK_WIRE_DOOR_BOLTS)
 									if(!AL.wires.IsIndexCut(AIRLOCK_WIRE_MAIN_POWER1))
 										AL.wires.CutWireIndex(AIRLOCK_WIRE_MAIN_POWER1)
-									if(!AL.wires.IsIndexCut(AIRLOCK_WIRE_MAIN_POWER2))
-										AL.wires.CutWireIndex(AIRLOCK_WIRE_MAIN_POWER2)
 									if(prob(mistake_chance) && !AL.wires.IsIndexCut(AIRLOCK_WIRE_SAFETY))
 										AL.wires.CutWireIndex(AIRLOCK_WIRE_SAFETY)
 									if(prob(mistake_chance) && !AL.wires.IsIndexCut(AIRLOCK_WIRE_ELECTRIFY))
@@ -662,7 +660,7 @@
 	if(grabbed_by.len > 0)
 		for(var/obj/item/weapon/grab/G in grabbed_by)
 			if(Adjacent(G))
-				a_intent = "disarm"
+				a_intent = INTENT_DISARM
 				G.assailant.attack_hand(src)
 				inactivity_period = 10
 

@@ -282,7 +282,7 @@
 	dispensable_reagents = list("ice", "cream", "cider", "beer", "kahlua", "whiskey", "wine", "vodka", "gin", "rum", "tequila", "vermouth", "cognac", "ale", "mead", "synthanol")
 	hack_message = "You disable the 'nanotrasen-are-cheap-bastards' lock, enabling hidden and very expensive boozes."
 	unhack_message = "You re-enable the 'nanotrasen-are-cheap-bastards' lock, disabling hidden and very expensive boozes."
-	hacked_reagents = list("goldschlager", "patron", "absinthe", "ethanol", "nothing")
+	hacked_reagents = list("goldschlager", "patron", "absinthe", "ethanol", "nothing", "sake")
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -358,7 +358,7 @@
 		return
 
 	if(istype(I, /obj/item/weapon/wrench))
-		playsound(src, 'sound/items/Ratchet.ogg', 50, 1)
+		playsound(src, I.usesound, 50, 1)
 		if(anchored)
 			anchored = 0
 			to_chat(user, "<span class='caution'>[src] can now be moved.</span>")

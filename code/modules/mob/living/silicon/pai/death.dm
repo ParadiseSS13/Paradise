@@ -24,6 +24,5 @@
 	//Read as: I have no idea what I'm doing but asking for help got me nowhere so this is what you get. - Nodrak
 	if(mind)	qdel(mind)
 	living_mob_list -= src
-	ghostize()
 	if(icon_state != "[chassis]_dead" || cleanWipe)
 		qdel(src)

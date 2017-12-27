@@ -38,6 +38,7 @@
 	description = "Useful for dealing with undesirable customers."
 	reagent_state = LIQUID
 	color = "#CF3600" // rgb: 207, 54, 0
+	taste_message = "mint"
 
 /datum/reagent/minttoxin/on_mob_life(mob/living/M)
 	if(FAT in M.mutations)
@@ -50,6 +51,7 @@
 	description = "A gooey semi-liquid produced from one of the deadliest lifeforms in existence. SO REAL."
 	reagent_state = LIQUID
 	color = "#801E28" // rgb: 128, 30, 40
+	taste_message = "slimes"
 
 /datum/reagent/slimejelly/on_mob_life(mob/living/M)
 	if(prob(10))
@@ -65,7 +67,8 @@
 	description = "A corruptive toxin produced by slimes."
 	reagent_state = LIQUID
 	color = "#13BC5E" // rgb: 19, 188, 94
-	can_synth = 0
+	can_synth = FALSE
+	taste_message = "shadows"
 
 /datum/reagent/slimetoxin/on_mob_life(mob/living/M)
 	if(ishuman(M))
@@ -73,7 +76,7 @@
 		if(human.species.name != "Shadow")
 			to_chat(M, "<span class='danger'>Your flesh rapidly mutates!</span>")
 			to_chat(M, "<span class='danger'>You are now a Shadow Person, a mutant race of darkness-dwelling humanoids.</span>")
-			to_chat(M, "<span class='danger'>Your body reacts violently to light. \green However, it naturally heals in darkness.</span>")
+			to_chat(M, "<span class='danger'>Your body reacts violently to light.</span> <span class='notice'>However, it naturally heals in darkness.</span>")
 			to_chat(M, "<span class='danger'>Aside from your new traits, you are mentally unchanged and retain your prior obligations.</span>")
 			human.set_species("Shadow")
 	..()
@@ -84,7 +87,7 @@
 	description = "An advanced corruptive toxin produced by slimes."
 	reagent_state = LIQUID
 	color = "#13BC5E" // rgb: 19, 188, 94
-	can_synth = 0
+	can_synth = FALSE
 
 /datum/reagent/aslimetoxin/reaction_mob(mob/living/M, method=TOUCH, volume)
 	if(method != TOUCH)
@@ -98,7 +101,8 @@
 	reagent_state = LIQUID
 	color = "#484848" // rgb: 72, 72, 72
 	metabolization_rate = 0.2
-	penetrates_skin = 1
+	penetrates_skin = TRUE
+	taste_message = "metal"
 
 /datum/reagent/mercury/on_mob_life(mob/living/M)
 	if(prob(70))
@@ -111,8 +115,9 @@
 	description = "A chemical element."
 	reagent_state = GAS
 	color = "#808080" // rgb: 128, 128, 128
-	penetrates_skin = 1
+	penetrates_skin = TRUE
 	process_flags = ORGANIC | SYNTHETIC
+	taste_message = "fire"
 
 /datum/reagent/chlorine/on_mob_life(mob/living/M)
 	M.adjustFireLoss(1)
@@ -124,8 +129,9 @@
 	description = "A highly-reactive chemical element."
 	reagent_state = GAS
 	color = "#6A6054"
-	penetrates_skin = 1
+	penetrates_skin = TRUE
 	process_flags = ORGANIC | SYNTHETIC
+	taste_message = "spicy freshness"
 
 /datum/reagent/fluorine/on_mob_life(mob/living/M)
 	M.adjustFireLoss(1)
@@ -138,7 +144,7 @@
 	description = "Radium is an alkaline earth metal. It is extremely radioactive."
 	reagent_state = SOLID
 	color = "#C7C7C7" // rgb: 199,199,199
-	penetrates_skin = 1
+	penetrates_skin = TRUE
 
 /datum/reagent/radium/on_mob_life(mob/living/M)
 	if(M.radiation < 80)
@@ -146,7 +152,7 @@
 	..()
 
 /datum/reagent/radium/reaction_turf(turf/T, volume)
-	if(volume >= 3 && !istype(T, /turf/space))
+	if(volume >= 3 && !isspaceturf(T))
 		new /obj/effect/decal/cleanable/greenglow(T)
 
 /datum/reagent/mutagen
@@ -182,13 +188,14 @@
 	description = "A silvery-white metallic chemical element in the actinide series, weakly radioactive."
 	reagent_state = SOLID
 	color = "#B8B8C0" // rgb: 184, 184, 192
+	taste_message = null
 
 /datum/reagent/uranium/on_mob_life(mob/living/M)
 	M.apply_effect(2, IRRADIATE, negate_armor = 1)
 	..()
 
 /datum/reagent/uranium/reaction_turf(turf/T, volume)
-	if(volume >= 3 && !istype(T, /turf/space))
+	if(volume >= 3 && !isspaceturf(T))
 		new /obj/effect/decal/cleanable/greenglow(T)
 
 
@@ -212,6 +219,7 @@
 	reagent_state = LIQUID
 	color = "#00D72B"
 	process_flags = ORGANIC | SYNTHETIC
+	taste_message = "<span class='userdanger'>ACID</span>"
 
 /datum/reagent/sacid/on_mob_life(mob/living/M)
 	M.adjustFireLoss(1)
@@ -221,6 +229,8 @@
 	if(method == TOUCH)
 		if(ishuman(M))
 			var/mob/living/carbon/human/H = M
+			if(H.get_species() == "Grey")
+				return
 
 			if(volume > 25)
 
@@ -248,8 +258,8 @@
 		if(ishuman(M))
 			var/mob/living/carbon/human/H = M
 
-			if(volume < 10)
-				to_chat(M, "<span class='danger'>The greenish acidic substance stings you, but isn't concentrated enough to harm you!</span>")
+			if(H.get_species() == "Grey")
+				return
 
 			if(volume >=10 && volume <=25)
 				if(!H.unacidable)
@@ -269,9 +279,9 @@
 						M.take_organ_damage(0,20)
 
 /datum/reagent/sacid/reaction_obj(obj/O, volume)
-	if((istype(O,/obj/item) || istype(O,/obj/effect/glowshroom)) && prob(40))
+	if((istype(O,/obj/item) || istype(O,/obj/structure/glowshroom)) && prob(40))
 		if(!O.unacidable)
-			var/obj/effect/decal/cleanable/molten_item/I = new/obj/effect/decal/cleanable/molten_item(O.loc)
+			var/obj/effect/decal/cleanable/molten_object/I = new/obj/effect/decal/cleanable/molten_object(O.loc)
 			I.desc = "Looks like this was \an [O] some time ago."
 			O.visible_message("<span class='warning'>[O] melts.</span>")
 			qdel(O)
@@ -313,15 +323,16 @@
 	M.EyeBlurry(3)
 	..()
 
-/datum/reagent/beer2	//disguised as normal beer for use by emagged brobots
+/datum/reagent/beer2	//disguised as normal beer for use by emagged service borgs
 	name = "Beer"
 	id = "beer2"
 	description = "An alcoholic beverage made from malted grains, hops, yeast, and water."
 	color = "#664300" // rgb: 102, 67, 0
-	metabolization_rate = 1.5 * REAGENTS_METABOLISM
+	metabolization_rate = 0.1 * REAGENTS_METABOLISM
 	drink_icon ="beerglass"
 	drink_name = "Beer glass"
 	drink_desc = "A freezing pint of beer"
+	taste_message = "beer"
 
 /datum/reagent/beer2/on_mob_life(mob/living/M)
 	switch(current_cycle)
@@ -339,8 +350,9 @@
 	reagent_state = LIQUID
 	color = "#CF3600"
 	metabolization_rate = 0.1
-	penetrates_skin = 1
-	can_synth = 0
+	penetrates_skin = TRUE
+	can_synth = FALSE
+	taste_message = null
 
 /datum/reagent/polonium/on_mob_life(mob/living/M)
 	M.apply_effect(8, IRRADIATE, negate_armor = 1)
@@ -354,6 +366,7 @@
 	color = "#E7C4C4"
 	metabolization_rate = 0.2
 	overdose_threshold = 40
+	taste_message = null
 
 /datum/reagent/histamine/reaction_mob(mob/living/M, method=TOUCH, volume) //dumping histamine on someone is VERY mean.
 	if(iscarbon(M))
@@ -425,7 +438,7 @@
 	description = "Formaldehyde is a common industrial chemical and is used to preserve corpses and medical samples. It is highly toxic and irritating."
 	reagent_state = LIQUID
 	color = "#DED6D0"
-	penetrates_skin = 1
+	penetrates_skin = TRUE
 
 /datum/reagent/formaldehyde/on_mob_life(mob/living/M)
 	M.adjustToxLoss(1*REAGENTS_EFFECT_MULTIPLIER)
@@ -441,7 +454,7 @@
 	color = "#CF3600"
 	metabolization_rate = 0.2
 	overdose_threshold = 40
-	can_synth = 0
+	can_synth = FALSE
 
 /datum/reagent/venom/on_mob_life(mob/living/M)
 	if(prob(25))
@@ -509,7 +522,8 @@
 	reagent_state = LIQUID
 	color = "#CF3600"
 	metabolization_rate = 0.1
-	penetrates_skin = 1
+	penetrates_skin = TRUE
+	taste_message = "almonds"
 
 /datum/reagent/cyanide/on_mob_life(mob/living/M)
 	M.adjustToxLoss(1.5*REAGENTS_EFFECT_MULTIPLIER)
@@ -532,7 +546,7 @@
 	reagent_state = LIQUID
 	color = "#B0B0B0"
 	metabolization_rate = 0.3
-	penetrates_skin = 1
+	penetrates_skin = TRUE
 
 /datum/reagent/itching_powder/on_mob_life(mob/living/M)
 	if(prob(25))
@@ -566,6 +580,7 @@
 	reagent_state = LIQUID
 	color = "#4141D2"
 	process_flags = ORGANIC | SYNTHETIC
+	taste_message = "<span class='userdanger'>ACID</span>"
 
 /datum/reagent/facid/on_mob_life(mob/living/M)
 	M.adjustToxLoss(1*REAGENTS_EFFECT_MULTIPLIER)
@@ -615,9 +630,9 @@
 					H.status_flags |= DISFIGURED
 
 /datum/reagent/facid/reaction_obj(obj/O, volume)
-	if((istype(O, /obj/item) || istype(O, /obj/effect/glowshroom)))
+	if((istype(O, /obj/item) || istype(O, /obj/structure/glowshroom)))
 		if(!O.unacidable)
-			var/obj/effect/decal/cleanable/molten_item/I = new/obj/effect/decal/cleanable/molten_item(O.loc)
+			var/obj/effect/decal/cleanable/molten_object/I = new/obj/effect/decal/cleanable/molten_object(O.loc)
 			I.desc = "Looks like this was \an [O] some time ago."
 			O.visible_message("<span class='warning'>[O] melts.</span>")
 			qdel(O)
@@ -628,7 +643,8 @@
 	description = "A highly potent cardiac poison - can kill within minutes."
 	reagent_state = LIQUID
 	color = "#7F10C0"
-	can_synth = 0
+	can_synth = FALSE
+	taste_message = null
 
 /datum/reagent/initropidril/on_mob_life(mob/living/M)
 	if(prob(33))
@@ -648,8 +664,8 @@
 		M.Weaken(2)
 		if(ishuman(M))
 			var/mob/living/carbon/human/H = M
-			if(!H.heart_attack)
-				H.heart_attack = 1 // rip in pepperoni
+			if(!H.undergoing_cardiac_arrest())
+				H.set_heartattack(TRUE) // rip in pepperoni
 	..()
 
 /datum/reagent/pancuronium
@@ -659,6 +675,7 @@
 	reagent_state = LIQUID
 	color = "#1E4664"
 	metabolization_rate = 0.2
+	taste_message = null
 
 /datum/reagent/pancuronium/on_mob_life(mob/living/M)
 	switch(current_cycle)
@@ -691,7 +708,8 @@
 	reagent_state = LIQUID
 	color = "#5F8BE1"
 	metabolization_rate = 0.7
-	can_synth = 0
+	can_synth = FALSE
+	taste_message = null
 
 /datum/reagent/sodium_thiopental/on_mob_life(mob/living/M)
 	switch(current_cycle)
@@ -718,8 +736,9 @@
 	reagent_state = LIQUID
 	color = "#646EA0"
 	metabolization_rate = 0.8
-	penetrates_skin = 1
-	can_synth = 0
+	penetrates_skin = TRUE
+	can_synth = FALSE
+	taste_message = null
 
 /datum/reagent/ketamine/on_mob_life(mob/living/M)
 	switch(current_cycle)
@@ -769,6 +788,7 @@
 	description = "A toxin produced by certain mushrooms. Very deadly."
 	reagent_state = LIQUID
 	color = "#D9D9D9"
+	taste_message = null
 
 /datum/reagent/amanitin/on_mob_delete(mob/living/M)
 	M.adjustToxLoss(current_cycle*rand(2,4))
@@ -781,6 +801,7 @@
 	reagent_state = SOLID
 	color = "#D1DED1"
 	metabolization_rate = 0.2
+	taste_message = "battery acid"
 
 /datum/reagent/lipolicide/on_mob_life(mob/living/M)
 	if(!M.nutrition)
@@ -804,7 +825,7 @@
 	reagent_state = LIQUID
 	color = "#C2D8CD"
 	metabolization_rate = 0.05
-	can_synth = 0
+	can_synth = FALSE
 
 /datum/reagent/coniine/on_mob_life(mob/living/M)
 	M.adjustToxLoss(2)
@@ -818,7 +839,7 @@
 	reagent_state = LIQUID
 	color = "#191919"
 	metabolization_rate = 0.1
-	penetrates_skin = 1
+	penetrates_skin = TRUE
 
 /datum/reagent/curare/on_mob_life(mob/living/M)
 	M.adjustToxLoss(1)
@@ -844,6 +865,21 @@
 				M.AdjustLoseBreath(1)
 	..()
 
+/datum/reagent/heparin //Based on a real-life anticoagulant.
+	name = "Heparin"
+	id = "heparin"
+	description = "A powerful anticoagulant. Victims will bleed uncontrollably and suffer scaling bruising."
+	reagent_state = LIQUID
+	color = "#C8C8C8" //RGB: 200, 200, 200
+	metabolization_rate = 0.2 * REAGENTS_METABOLISM
+
+/datum/reagent/heparin/on_mob_life(mob/living/M)
+	if(ishuman(M))
+		var/mob/living/carbon/human/H = M
+		H.bleed_rate = min(H.bleed_rate + 2, 8)
+		H.adjustBruteLoss(1)
+	..()
+
 /datum/reagent/sarin
 	name = "Sarin"
 	id = "sarin"
@@ -851,8 +887,9 @@
 	reagent_state = LIQUID
 	color = "#C7C7C7"
 	metabolization_rate = 0.1
-	penetrates_skin = 1
+	penetrates_skin = TRUE
 	overdose_threshold = 25
+	taste_message = null
 
 /datum/reagent/sarin/on_mob_life(mob/living/M)
 	switch(current_cycle)
@@ -900,50 +937,79 @@
 	M.adjustFireLoss(1)
 	..()
 
-/datum/reagent/atrazine
-	name = "Atrazine"
-	id = "atrazine"
-	description = "A herbicidal compound used for destroying unwanted plants."
+/datum/reagent/glyphosate
+	name = "Glyphosate"
+	id = "glyphosate"
+	description = "A broad-spectrum herbicide that is highly effective at killing all plants."
 	reagent_state = LIQUID
-	color = "#17002D"
+	color = "#d3cf50"
+	var/lethality = 0 //Glyphosate is non-toxic to people
 
-/datum/reagent/atrazine/on_mob_life(mob/living/M)
-	M.adjustToxLoss(2)
+/datum/reagent/glyphosate/on_mob_life(mob/living/M)
+	M.adjustToxLoss(lethality)
 	..()
 
-/datum/reagent/atrazine/reaction_turf(turf/simulated/wall/W, volume) // Clear off wallrot fungi
+/datum/reagent/glyphosate/reaction_turf(turf/simulated/wall/W, volume) // Clear off wallrot fungi
 	if(istype(W) && W.rotting)
 		for(var/obj/effect/overlay/wall_rot/WR in W)
 			qdel(WR)
 		W.rotting = 0
 		W.visible_message("<span class='warning'>The fungi are completely dissolved by the solution!</span>")
 
-/datum/reagent/atrazine/reaction_obj(obj/O, volume)
-	if(istype(O,/obj/structure/alien/weeds/))
+/datum/reagent/glyphosate/reaction_obj(obj/O, volume)
+	if(istype(O,/obj/structure/alien/weeds))
 		var/obj/structure/alien/weeds/alien_weeds = O
 		alien_weeds.health -= rand(15,35) // Kills alien weeds pretty fast
 		alien_weeds.healthcheck()
-	else if(istype(O, /obj/effect/glowshroom)) //even a small amount is enough to kill it
+	else if(istype(O, /obj/structure/glowshroom)) //even a small amount is enough to kill it
 		qdel(O)
-	else if(istype(O,/obj/effect/plant))
-		if(prob(50))
-			qdel(O) //Kills kudzu too.
-	// Damage that is done to growing plants is separately at code/game/machinery/hydroponics at obj/item/hydroponics
+	else if(istype(O, /obj/structure/spacevine))
+		var/obj/structure/spacevine/SV = O
+		SV.on_chem_effect(src)
 
-/datum/reagent/atrazine/reaction_mob(mob/living/M, method=TOUCH, volume)
+/datum/reagent/glyphosate/reaction_mob(mob/living/M, method=TOUCH, volume)
 	if(iscarbon(M))
 		var/mob/living/carbon/C = M
 		if(!C.wear_mask) // If not wearing a mask
-			C.adjustToxLoss(2) // 2 toxic damage per application
+			C.adjustToxLoss(lethality)
 		if(ishuman(M))
 			var/mob/living/carbon/human/H = M
-			if(H.species.flags & IS_PLANT) //plantmen take a LOT of damage
+			if(IS_PLANT in H.species.species_traits) //plantmen take a LOT of damage
 				H.adjustToxLoss(50)
 				..()
 	else if(istype(M, /mob/living/simple_animal/diona)) //plantmen monkeys (diona) take EVEN MORE damage
 		var/mob/living/simple_animal/diona/D = M
 		D.adjustHealth(100)
 		..()
+
+/datum/reagent/glyphosate/atrazine
+	name = "Atrazine"
+	id = "atrazine"
+	description = "A herbicidal compound used for destroying unwanted plants."
+	reagent_state = LIQUID
+	color = "#17002D"
+	lethality = 2 //Atrazine, however, is definitely toxic
+
+
+/datum/reagent/pestkiller // To-Do; make this more realistic.
+	name = "Pest Killer"
+	id = "pestkiller"
+	description = "A harmful toxic mixture to kill pests. Do not ingest!"
+	color = "#4B004B" // rgb: 75, 0, 75
+
+/datum/reagent/pestkiller/on_mob_life(mob/living/M)
+	M.adjustToxLoss(1)
+	..()
+
+/datum/reagent/pestkiller/reaction_mob(mob/living/M, method=TOUCH, volume)
+	if(iscarbon(M))
+		var/mob/living/carbon/C = M
+		if(!C.wear_mask) // If not wearing a mask
+			C.adjustToxLoss(2)
+		if(ishuman(M))
+			var/mob/living/carbon/human/H = M
+			if(H.get_species() == "Kidan") //RIP
+				H.adjustToxLoss(20)
 
 /datum/reagent/capulettium
 	name = "Capulettium"
@@ -952,6 +1018,7 @@
 	reagent_state = LIQUID
 	color = "#60A584"
 	heart_rate_stop = 1
+	taste_message = "sweetness"
 
 /datum/reagent/capulettium/on_mob_life(mob/living/M)
 	switch(current_cycle)
@@ -975,6 +1042,7 @@
 	reagent_state = LIQUID
 	color = "#60A584"
 	heart_rate_stop = 1
+	taste_message = "sweetness"
 
 /datum/reagent/capulettium_plus/on_mob_life(mob/living/M)
 	M.Silence(2)
@@ -1033,6 +1101,7 @@
 	reagent_state = SOLID
 	color = "#993333"
 	process_flags = ORGANIC | SYNTHETIC
+	taste_message = "<span class='warning'>ANTS OH GOD</span>"
 
 /datum/reagent/ants/on_mob_life(mob/living/M)
 	M.adjustBruteLoss(2)
@@ -1054,6 +1123,7 @@
 	metabolization_rate = 0.2
 	var/shock_timer = 0
 	process_flags = ORGANIC | SYNTHETIC
+	taste_message = "electricity"
 
 /datum/reagent/teslium/on_mob_life(mob/living/M)
 	shock_timer++

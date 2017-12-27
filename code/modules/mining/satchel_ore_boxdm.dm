@@ -10,6 +10,9 @@
 	pressure_resistance = 5*ONE_ATMOSPHERE
 
 /obj/structure/ore_box/attackby(obj/item/weapon/W as obj, mob/user as mob, params)
+	if(istype(W, /obj/item/device/t_scanner/adv_mining_scanner))
+		attack_hand(user)
+		return
 	if(istype(W, /obj/item/weapon/ore))
 		if(!user.drop_item())
 			return

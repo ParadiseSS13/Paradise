@@ -19,16 +19,15 @@
 		if(isturf(loc))
 			var/atom/movable/thing = I.remove(src)
 			thing.forceMove(get_turf(src))
-			spawn()
-				thing.throw_at(get_edge_target_turf(src,pick(alldirs)),rand(1,3),5)
+			thing.throw_at(get_edge_target_turf(src,pick(alldirs)),rand(1,3),5)
 
-	for(var/obj/item/organ/external/E in src.organs)
+	for(var/obj/item/organ/external/E in bodyparts)
 		if(istype(E, /obj/item/organ/external/chest))
 			continue
 		// Only make the limb drop if it's not too damaged
 		if(prob(100 - E.get_damage()))
 			// Override the current limb status and don't cause an explosion
-			E.droplimb(DROPLIMB_EDGE)
+			E.droplimb(DROPLIMB_SHARP)
 
 	for(var/mob/M in src)
 		if(M in stomach_contents)
@@ -38,10 +37,10 @@
 
 	if(!isSynthetic())
 		flick("gibbed-h", animation)
-		hgibs(loc, viruses, dna)
+		hgibs(loc, dna)
 	else
 		new /obj/effect/decal/cleanable/blood/gibs/robot(loc)
-		var/datum/effect/system/spark_spread/s = new /datum/effect/system/spark_spread
+		var/datum/effect_system/spark_spread/s = new /datum/effect_system/spark_spread
 		s.set_up(3, 1, src)
 		s.start()
 
@@ -90,8 +89,10 @@
 		if(src)			qdel(src)
 
 /mob/living/carbon/human/death(gibbed)
-	if(stat == DEAD)	return
-	if(healths)		healths.icon_state = "health5"
+	if(stat == DEAD)
+		return
+	if(healths)
+		healths.icon_state = "health5"
 
 	if(!gibbed)
 		emote("deathgasp") //let the world KNOW WE ARE DEAD
@@ -99,24 +100,11 @@
 	stat = DEAD
 	SetDizzy(0)
 	SetJitter(0)
-	heart_attack = 0
+	set_heartattack(FALSE)
 
 	//Handle species-specific deaths.
-	if(species) species.handle_death(src)
-
-	//Handle brain slugs.
-	var/obj/item/organ/external/head = get_organ("head")
-	var/mob/living/simple_animal/borer/B
-
-	if(istype(head))
-		for(var/I in head.implants)
-			if(istype(I,/mob/living/simple_animal/borer))
-				B = I
-	if(B)
-		if(B.controlling && B.host == src)
-			B.detatch()
-
-		verbs -= /mob/living/carbon/proc/release_control
+	if(species)
+		species.handle_death(src)
 
 	callHook("death", list(src, gibbed))
 
@@ -143,9 +131,9 @@
 	return ..(gibbed)
 
 /mob/living/carbon/human/update_revive()
-	..()
+	. = ..()
 	// Update healthdoll
-	if(healthdoll)
+	if(. && healthdoll)
 		// We're alive again, so re-build the entire healthdoll
 		healthdoll.cached_healthdoll_overlays.Cut()
 
@@ -177,7 +165,7 @@
 	return
 
 /mob/living/carbon/human/proc/ChangeToHusk()
-	var/obj/item/organ/external/head/H = organs_by_name["head"]
+	var/obj/item/organ/external/head/H = bodyparts_by_name["head"]
 	if(HUSK in mutations)	return
 
 	if(istype(H))

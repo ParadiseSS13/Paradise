@@ -37,7 +37,7 @@
 			projectile.dir = get_dir(target,projectile)
 			projectile.name = proj_name
 
-			var/current_loc = usr.loc
+			var/current_loc = user.loc
 
 			projectile.loc = current_loc
 
@@ -75,7 +75,7 @@
 								qdel(trail)
 
 				if(projectile.loc in range(target.loc,proj_trigger_range))
-					projectile.perform(list(target))
+					projectile.perform(list(target), user = user)
 					break
 
 				current_loc = projectile.loc

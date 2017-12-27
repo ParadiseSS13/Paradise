@@ -8,8 +8,30 @@
 //	if(findtext(act,"s",-1) && !findtext(act,"_",-2))//Removes ending s's unless they are prefixed with a '_'
 //		act = copytext(act,1,length(act))	//seriously who the fuck wrote this
 	var/muzzled = is_muzzled()
+
+	var/on_CD = 0
 	act = lowertext(act)
+
+	//cooldown system handled by /code/modules/mob/emotes.dm
 	switch(act)
+		if("roar")
+			on_CD = handle_emote_CD()
+		if("deathgasp")
+			on_CD = handle_emote_CD()
+		if("hiss")
+			on_CD = handle_emote_CD()
+		if("gnarl")
+			on_CD = handle_emote_CD()
+		if("flip")
+			on_CD = handle_emote_CD()
+
+	if(on_CD)
+		return
+
+	switch(act)
+
+
+
 		if("sign")
 			if(!restrained())
 				var/num = null
@@ -26,7 +48,7 @@
 			message = "<B>\The [src]</B> lets out a waning guttural screech, green blood bubbling from its maw..."
 			m_type = 2
 		if("scratch")
-			if(!src.restrained())
+			if(!restrained())
 				message = "<B>\The [src]</B> scratches."
 				m_type = 1
 		if("whimper")
@@ -79,11 +101,11 @@
 			message = "<B>\The [src]</B> twitches violently."
 			m_type = 1
 		if("dance")
-			if(!src.restrained())
+			if(!restrained())
 				message = "<B>\The [src]</B> dances around happily."
 				m_type = 1
 		if("roll")
-			if(!src.restrained())
+			if(!restrained())
 				message = "<B>\The [src]</B> rolls."
 				m_type = 1
 		if("shake")
@@ -103,13 +125,17 @@
 		if("flip")
 			m_type = 1
 			message = "<B>\The [src]</B> does a flip!"
-			src.SpinAnimation(5,1)
+			SpinAnimation(5,1)
 		if("help")
 			to_chat(src, "burp, flip, deathgasp, choke, collapse, dance, drool, gasp, shiver, gnarl, jump, moan, nod, roar, roll, scratch,\nscretch, shake, sign-#, sit, sulk, sway, tail, twitch, whimper")
 
 	if(!stat)
 		if(act == "roar")
-			playsound(src.loc, 'sound/voice/hiss5.ogg', 40, 1, 1)
+			playsound(src.loc, 'sound/voice/hiss5.ogg', 50, 1, 1)
 		if(act == "deathgasp")
 			playsound(src.loc, 'sound/voice/hiss6.ogg', 80, 1, 1)
+		if(act == "hiss")
+			playsound(src.loc, 'sound/voice/hiss1.ogg', 30, 1, 1)
+		if(act == "gnarl")
+			playsound(src.loc, 'sound/voice/hiss4.ogg', 30, 1, 1)
 		..(act, m_type, message)

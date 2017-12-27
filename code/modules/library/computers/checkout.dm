@@ -178,8 +178,7 @@
 				M = new manual_type()
 				dat += "<tr><td><A href='?src=[UID()];manual=[manualcount]'>[M.title]</A></td></tr>"
 				manualcount++
-				qdel(M)
-				M = null
+				QDEL_NULL(M)
 			dat += "</table>"
 			dat += "<BR><A href='?src=[UID()];switchscreen=0'>(Return to main menu)</A><BR>"
 
@@ -459,5 +458,5 @@
 		B.title = newbook.title
 		B.author = newbook.author
 		B.dat = newbook.content
-		B.icon_state = "book[rand(1,9)]"
+		B.icon_state = "book[rand(1,16)]"
 	visible_message("[src]'s printer hums as it produces a completely bound book. How did it do that?")

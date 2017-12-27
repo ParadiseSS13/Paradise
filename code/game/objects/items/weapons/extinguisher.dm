@@ -7,7 +7,7 @@
 	hitsound = 'sound/weapons/smash.ogg'
 	flags = CONDUCT
 	throwforce = 10
-	w_class = 3
+	w_class = WEIGHT_CLASS_NORMAL
 	throw_speed = 2
 	throw_range = 7
 	force = 10
@@ -29,7 +29,7 @@
 	hitsound = null	//it is much lighter, after all.
 	flags = null //doesn't CONDUCT
 	throwforce = 2
-	w_class = 2
+	w_class = WEIGHT_CLASS_SMALL
 	force = 3.0
 	materials = list()
 	max_water = 30
@@ -40,7 +40,7 @@
 		to_chat(usr, "[bicon(src)] [src.name] contains:")
 		if(reagents && reagents.reagent_list.len)
 			for(var/datum/reagent/R in reagents.reagent_list)
-				to_chat(user, "\blue [R.volume] units of [R.name]")
+				to_chat(user, "<span class='notice'>[R.volume] units of [R.name]</span>")
 
 
 /obj/item/weapon/extinguisher/New()
@@ -80,8 +80,7 @@
 	//TODO; Add support for reagents in water.
 	if(target.loc == user)//No more spraying yourself when putting your extinguisher away
 		return
-	var/Refill = AttemptRefill(target, user)
-	if(Refill)
+	if(AttemptRefill(target, user))
 		return
 	if(!safety)
 		if(src.reagents.total_volume < 1)
@@ -140,7 +139,7 @@
 
 		for(var/a=0, a<5, a++)
 			spawn(0)
-				var/obj/effect/effect/water/W = new /obj/effect/effect/water( get_turf(src) )
+				var/obj/effect/particle_effect/water/W = new /obj/effect/particle_effect/water( get_turf(src) )
 				var/turf/my_target = pick(the_targets)
 				if(precision)
 					the_targets -= my_target

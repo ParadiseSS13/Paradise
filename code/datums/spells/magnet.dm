@@ -12,34 +12,37 @@
 	random_target = 1
 	var/energy = 0
 	var/ready = 0
+	var/start_time = 0
 	var/image/halo = null
+	var/sound/Snd // so far only way i can think of to stop a sound, thank MSO for the idea.
 	action_icon_state = "tech"
 
 
 /obj/effect/proc_holder/spell/targeted/magnet/Click()
-	if(!ready)
+	if(!ready && start_time == 0)
 		if(cast_check())
 			StartChargeup()
 	else
-		if(cast_check(skipcharge=1))
+		if(ready && cast_check(skipcharge=1))
 			choose_targets()
 	return 1
 
 /obj/effect/proc_holder/spell/targeted/magnet/proc/StartChargeup(mob/user = usr)
 	ready = 1
 	to_chat(user, "<span class='notice'>You start gathering the power.</span>")
+	Snd = new/sound('sound/magic/lightning_chargeup.ogg', channel = 7)
 	halo = image("icon"='icons/effects/effects.dmi',"icon_state" ="electricity","layer" = EFFECTS_LAYER)
 	user.overlays.Add(halo)
-	spawn(0)
-		while(ready)
-			sleep(1)
-			energy++
-			if(energy >= 100 && ready)
-				Discharge()
+	playsound(get_turf(user), Snd, 50, 0)
+	start_time = world.time
+	if(do_mob(user, user, 100, uninterruptible=1))
+		if(ready)
+			Discharge()
 
 obj/effect/proc_holder/spell/targeted/magnet/proc/Reset(mob/user = usr)
 	ready = 0
 	energy = 0
+	start_time = 0
 	if(halo)
 		user.overlays.Remove(halo)
 
@@ -50,16 +53,16 @@ obj/effect/proc_holder/spell/targeted/magnet/proc/Reset(mob/user = usr)
 
 /obj/effect/proc_holder/spell/targeted/magnet/proc/Discharge(mob/user = usr)
 	var/mob/living/M = user
-	//M.electrocute_act(25,"magnet Bolt")
 	to_chat(M, "<span class='danger'>You lose control over the power.</span>")
 	Reset(user)
 	start_recharge()
 
 
 /obj/effect/proc_holder/spell/targeted/magnet/cast(list/targets, mob/user = usr)
-
-	var/mob/living/carbon/target = targets[1]
-
+	ready = 0
+	var/mob/living/target = targets[1]
+	Snd = sound(null, repeat = 0, wait = 1, channel = Snd.channel) //byond, why you suck?
+	playsound(get_turf(user), Snd, 50, 0)// Sorry MrPerson, but the other ways just didn't do it the way i needed to work, this is the only way.
 	if(get_dist(user,target)>range)
 		to_chat(user, "<span class='notice'>They are too far away!</span>")
 		Reset(user)
@@ -88,13 +91,13 @@ obj/effect/proc_holder/spell/targeted/magnet/proc/Reset(mob/user = usr)
 			playsound(get_turf(target), 'sound/machines/defib_zap.ogg', 50, 1, -1)
 		if(75 to 100)
 			//CHAIN magnet
-			Bolt(user,target,energy,user)
+			Bolt(user,target,energy,5,user)
 	Reset(user)
 
-/obj/effect/proc_holder/spell/targeted/magnet/proc/Bolt(mob/origin,mob/target,bolt_energy,mob/user = usr)
-	origin.Beam(target,icon_state="lightning",icon='icons/effects/effects.dmi',time=5)
+/obj/effect/proc_holder/spell/targeted/magnet/proc/Bolt(mob/origin,mob/target,bolt_energy,bounces, mob/user = usr)
+	origin.Beam(target, icon_state="lightning", icon='icons/effects/effects.dmi', time=5)
 	var/mob/living/carbon/current = target
-	if(bolt_energy < 75)
+	if(bounces < 1)
 		for(var/obj/item/I in target.l_hand)
 			if(I.flags & CONDUCT)
 				I.throw_at(user, I.throw_range, 4, target)
@@ -119,4 +122,4 @@ obj/effect/proc_holder/spell/targeted/magnet/proc/Reset(mob/user = usr)
 			return
 		var/mob/living/next = pick(possible_targets)
 		if(next)
-			Bolt(current,next,bolt_energy-6,user) // 5 max bounces
+			Bolt(current,next,bolt_energy,bounces-1,user) // 5 max bounces

@@ -153,6 +153,16 @@ structure_check() searches for nearby cultist structures required for the invoca
 			L.changeNext_move(CLICK_CD_MELEE)//THIS IS WHY WE CAN'T HAVE NICE THINGS
 	do_invoke_glow()
 
+/obj/effect/rune/proc/burn_invokers(var/list/mobstoburn)
+	for(var/M in mobstoburn)
+		var/mob/living/L = M
+		to_chat(L, "<span class='cultlarge'><i>\"YOUR SOUL BURNS WITH YOUR ARROGANCE!!!\"</i></span>")
+		if(L.reagents)
+			L.reagents.add_reagent("hell_water", 10)
+		L.Weaken(7)
+		L.Stun(7)
+	fail_invoke()
+
 /obj/effect/rune/proc/do_invoke_glow()
     var/oldtransform = transform
     spawn(0) //animate is a delay, we want to avoid being delayed
@@ -313,7 +323,7 @@ var/list/teleport_runes = list()
 //Rite of Enlightenment: Converts a normal crewmember to the cult. Faster for every cultist nearby.
 /obj/effect/rune/convert
 	cultist_name = "Rite of Enlightenment"
-	cultist_desc = "converts a normal crewmember on top of it to the cult. Does not work on loyalty-implanted crew."
+	cultist_desc = "converts a normal crewmember on top of it to the cult. Does not work on mindshielded crew."
 	invocation = "Mah'weyh pleggh at e'ntrath!"
 	icon_state = "3"
 	req_cultists = 2
@@ -324,8 +334,9 @@ var/list/teleport_runes = list()
 /obj/effect/rune/convert/invoke(var/list/invokers)
 	var/list/convertees = list()
 	var/turf/T = get_turf(src)
+
 	for(var/mob/living/M in T.contents)
-		if(!iscultist(M) && !isloyal(M))
+		if(!iscultist(M) && !ismindshielded(M) && ishuman(M))
 			convertees.Add(M)
 	if(!convertees.len)
 		fail_invoke()
@@ -341,6 +352,7 @@ var/list/teleport_runes = list()
 		log_game("Convert rune failed - convertee could not be converted")
 		return
 	..()
+
 	new_cultist.visible_message("<span class='warning'>[new_cultist] writhes in pain as the markings below them glow a bloody red!</span>", \
 					  			"<span class='cultlarge'><i>AAAAAAAAAAAAAA-</i></span>")
 	ticker.mode.add_cultist(new_cultist.mind, 1)
@@ -403,6 +415,7 @@ var/list/teleport_runes = list()
 
 /obj/effect/rune/sacrifice/proc/sac(var/list/invokers, mob/living/T)
 	var/sacrifice_fulfilled
+	var/datum/game_mode/cult/cult_mode = ticker.mode
 	if(T)
 		if(istype(T, /mob/living/simple_animal/pet/corgi))
 			for(var/M in invokers)
@@ -415,9 +428,13 @@ var/list/teleport_runes = list()
 			if(is_sacrifice_target(T.mind))
 				sacrifice_fulfilled = 1
 		new /obj/effect/overlay/temp/cult/sac(loc)
+		if(ticker && ticker.mode && ticker.mode.name == "cult")
+
+			cult_mode.harvested++
 		for(var/M in invokers)
 			if(sacrifice_fulfilled)
 				to_chat(M, "<span class='cultlarge'>\"Yes! This is the one I desire! You have done well.\"</span>")
+				cult_mode.additional_phase()
 			else
 				if(ishuman(T) || isrobot(T))
 					to_chat(M, "<span class='cultlarge'>\"I accept this sacrifice.\"</span>")
@@ -473,36 +490,32 @@ var/list/teleport_runes = list()
 	if(used)
 		return
 	var/mob/living/user = invokers[1]
-	if(istype(ticker.mode.name, "cult"))
-		var/datum/game_mode/cult/cult_mode = ticker.mode
-		if(!is_station_level(user.z))
-			message_admins("[user.real_name]([user.ckey]) tried to summon Nar-Sie off station")
-			for(var/M in invokers)
-				var/mob/living/L = M
-				to_chat(L, "<span class='cultlarge'><i>\"YOUR SOUL BURNS WITH YOUR ARROGANCE!!!\"</i></span>")
-				if(L.reagents)
-					L.reagents.add_reagent("hell_water", 10)
-				L.Weaken(7)
-				L.Stun(7)
-			fail_invoke()
-			log_game("Summon Nar-Sie rune failed - off station Z level")
-			return
-		if(!cult_mode.eldergod)
-			for(var/M in invokers)
-				to_chat(M, "<span class='warning'>[ticker.mode.cultdat.entity_name] is already on this plane!</span>")
-			log_game("Summon Nar-Sie rune failed - already summoned")
-			return
-		//BEGIN THE SUMMONING
-		used = 1
-		color = rgb(255, 0, 0)
-		..()
-		world << 'sound/effects/dimensional_rend.ogg'
-		to_chat(world, "<span class='cultitalic'><b>The veil... <span class='big'>is...</span> <span class='reallybig'>TORN!!!--</span></b></span>")
-		icon_state = "rune_large_distorted"
-		var/turf/T = get_turf(src)
-		sleep(40)
-		new /obj/singularity/narsie/large(T) //Causes Nar-Sie to spawn even if the rune has been removed
-		cult_mode.eldergod = 0
+	var/datum/game_mode/cult/cult_mode = ticker.mode
+	if(!(CULT_ELDERGOD in cult_mode.objectives))
+		message_admins("[key_name_admin(user)] tried to summonn an eldritch horror when the objective was wrong")
+		burn_invokers(invokers)
+		log_game("Summon Nar-Sie rune failed - improper objective")
+	if(!is_station_level(user.z))
+		message_admins("[key_name_admin(user)] tried to summon an eldritch horror off station")
+		burn_invokers(invokers)
+		log_game("Summon Nar-Sie rune failed - off station Z level")
+		return
+	if(!cult_mode.eldergod)
+		for(var/M in invokers)
+			to_chat(M, "<span class='warning'>[ticker.mode.cultdat.entity_name] is already on this plane!</span>")
+		log_game("Summon god rune failed - already summoned")
+		return
+	//BEGIN THE SUMMONING
+	used = 1
+	color = rgb(255, 0, 0)
+	..()
+	world << 'sound/effects/dimensional_rend.ogg'
+	to_chat(world, "<span class='cultitalic'><b>The veil... <span class='big'>is...</span> <span class='reallybig'>TORN!!!--</span></b></span>")
+	icon_state = "rune_large_distorted"
+	var/turf/T = get_turf(src)
+	sleep(40)
+	new /obj/singularity/narsie/large(T) //Causes Nar-Sie to spawn even if the rune has been removed
+	cult_mode.eldergod = 0
 
 /obj/effect/rune/narsie/attackby(obj/I, mob/user, params)	//Since the narsie rune takes a long time to make, add logging to removal.
 	if((istype(I, /obj/item/weapon/tome) && iscultist(user)))
@@ -523,7 +536,7 @@ var/list/teleport_runes = list()
 
 /obj/effect/rune/slaughter
 	cultist_name = "Call Forth The Slaughter (Demons)"
-	cultist_desc = "Calls forth the doom of a eldrtich being. Three slaughter demons will appear to wreak havoc on the station."
+	cultist_desc = "Calls forth the doom of an eldritch being. Three slaughter demons will appear to wreak havoc on the station."
 	invocation = null
 	req_cultists = 9
 	color = rgb(125,23,23)
@@ -562,56 +575,41 @@ var/list/teleport_runes = list()
 	if(used)
 		return
 	var/mob/living/user = invokers[1]
-	if(istype(ticker.mode.name, "cult"))
-		var/datum/game_mode/cult/cult_mode = ticker.mode
-		if(!(CULT_SLAUGHTER in cult_mode.objectives))
-			message_admins("[usr.real_name]([user.ckey]) tried to summon demons when the objective was wrong")
-			for(var/M in invokers)
-				var/mob/living/L = M
-				to_chat(L, "<span class='cultlarge'><i>\"YOUR SOUL BURNS WITH YOUR ARROGANCE!!!\"</i></span>")
-				if(L.reagents)
-					L.reagents.add_reagent("hell_water", 10)
-				L.Weaken(7)
-				L.Stun(7)
-			fail_invoke()
-			log_game("Summon Demons rune failed - improper objective")
+	var/datum/game_mode/cult/cult_mode = ticker.mode
+	if(!(CULT_SLAUGHTER in cult_mode.objectives))
+		message_admins("[usr.real_name]([user.ckey]) tried to summon demons when the objective was wrong")
+		burn_invokers(invokers)
+		log_game("Summon Demons rune failed - improper objective")
+		return
+	if(!is_station_level(user.z))
+		message_admins("[user.real_name]([user.ckey]) tried to summon demons off station")
+		burn_invokers(invokers)
+		log_game("Summon demons rune failed - off station Z level")
+		return
+	if(cult_mode.demons_summoned)
+		for(var/M in invokers)
+			to_chat(M, "<span class='warning'>Demons are already on this plane!</span>")
+			log_game("Summon Demons rune failed - already summoned")
 			return
-		if(!is_station_level(user.z))
-			message_admins("[user.real_name]([user.ckey]) tried to summon demons off station")
-			for(var/M in invokers)
-				var/mob/living/L = M
-				to_chat(L, "<span class='cultlarge'><i>\"YOUR SOUL BURNS WITH YOUR ARROGANCE!!!\"</i></span>")
-				if(L.reagents)
-					L.reagents.add_reagent("hell_water", 10)
-				L.Weaken(7)
-				L.Stun(7)
-			fail_invoke()
-			log_game("Summon demons rune failed - off station Z level")
-			return
-		if(cult_mode.demons_summoned)
-			for(var/M in invokers)
-				to_chat(M, "<span class='warning'>Demons are already on this plane!</span>")
-				log_game("Summon Demons rune failed - already summoned")
-				return
-		//BEGIN THE SLAUGHTER
-		used = 1
-		for(var/mob/living/M in range(1,src))
-			if(iscultist(M))
-				M.say("TOK-LYR RQA-NAP SHA-NEX!!")
-		world << 'sound/effects/dimensional_rend.ogg'
-		to_chat(world, "<span class='userdanger'>A hellish cacaphony bombards from all around as something awful tears through the world...</span>")
-		icon_state = "rune_large_distorted"
-		sleep(55)
-		to_chat(world, "<span class='cultlarge'><i>\"LIBREATE TE EX INFERIS!\"</i></span>")//Fethas note:I COULDN'T HELP IT OKAY?!
-		visible_message("<span class='warning'>[src] melts away into blood, and three horrific figures emerge from within!</span>")
-		var/turf/T = get_turf(src)
-		new /mob/living/simple_animal/slaughter/cult(T)
-		new /mob/living/simple_animal/slaughter/cult(T, pick(NORTH, EAST, SOUTH, WEST))
-		new /mob/living/simple_animal/slaughter/cult(T, pick(NORTHEAST, SOUTHEAST, NORTHWEST, SOUTHWEST))
-		cult_mode.demons_summoned = 1
-		shuttle_master.emergency.request(null, 0.5,null)
-		cult_mode.third_phase()
-		qdel(src)
+	//BEGIN THE SLAUGHTER
+	used = 1
+	for(var/mob/living/M in range(1,src))
+		if(iscultist(M))
+			M.say("TOK-LYR RQA-NAP SHA-NEX!!")
+	world << 'sound/effects/dimensional_rend.ogg'
+	to_chat(world, "<span class='userdanger'>A hellish cacaphony bombards from all around as something awful tears through the world...</span>")
+	icon_state = "rune_large_distorted"
+	sleep(55)
+	to_chat(world, "<span class='cultlarge'><i>\"LIBREATE TE EX INFERIS!\"</i></span>")//Fethas note:I COULDN'T HELP IT OKAY?!
+	visible_message("<span class='warning'>[src] melts away into blood, and three horrific figures emerge from within!</span>")
+	var/turf/T = get_turf(src)
+	new /mob/living/simple_animal/slaughter/cult(T)
+	new /mob/living/simple_animal/slaughter/cult(T, pick(NORTH, EAST, SOUTH, WEST))
+	new /mob/living/simple_animal/slaughter/cult(T, pick(NORTHEAST, SOUTHEAST, NORTHWEST, SOUTHWEST))
+	cult_mode.demons_summoned = 1
+	shuttle_master.emergency.request(null, 0.5,null)
+	cult_mode.third_phase()
+	qdel(src)
 
 
 //Rite of Resurrection: Requires two corpses. Revives one and gibs the other.
@@ -638,17 +636,17 @@ var/list/teleport_runes = list()
 		log_game("Raise Dead rune failed - no catalyst corpse")
 		return
 	mob_to_sacrifice = input(user, "Choose a corpse to sacrifice.", "Corpse to Sacrifice") as null|anything in potential_sacrifice_mobs
-	if(!Adjacent(user) || !src || qdeleted(src) || user.incapacitated() || !mob_to_revive || !mob_to_sacrifice || rune_in_use)
+	if(!Adjacent(user) || !src || qdeleted(src) || user.incapacitated() || !mob_to_sacrifice || rune_in_use)
 		return
 	for(var/mob/living/M in T.contents)
 		if(M.stat == DEAD)
 			potential_revive_mobs.Add(M)
 	if(!potential_revive_mobs.len)
 		to_chat(user, "<span class='cultitalic'>There is no eligible revival target on the rune!</span>")
-		log_game("Raise Dead rune failed - no corpse to revived")
+		log_game("Raise Dead rune failed - no corpse to revive")
 		return
 	mob_to_revive = input(user, "Choose a corpse to revive.", "Corpse to Revive") as null|anything in potential_revive_mobs
-	if(!Adjacent(user) || !src || qdeleted(src) || user.incapacitated() || rune_in_use)
+	if(!Adjacent(user) || !src || qdeleted(src) || user.incapacitated() || rune_in_use || !mob_to_revive)
 		return
 	if(!in_range(mob_to_sacrifice,src))
 		to_chat(user, "<span class='cultitalic'>The sacrificial target has been moved!</span>")
@@ -836,7 +834,7 @@ var/list/teleport_runes = list()
 	var/mob/living/user = invokers[1]
 	var/list/cultists = list()
 	for(var/datum/mind/M in ticker.mode.cult)
-		if(!(M.current in invokers) && M.current.stat != DEAD)
+		if(!(M.current in invokers) && M.current && M.current.stat != DEAD)
 			cultists |= M.current
 	var/mob/living/cultist_to_summon = input(user, "Who do you wish to call to [src]?", "Followers of [ticker.mode.cultdat.entity_title3]") as null|anything in cultists
 	if(!Adjacent(user) || !src || qdeleted(src) || user.incapacitated())
@@ -941,6 +939,7 @@ var/list/teleport_runes = list()
 	icon_state = "6"
 	construct_invoke = 0
 	color = rgb(200, 0, 0)
+	var/list/summoned_guys = list()
 
 /obj/effect/rune/manifest/New(loc)
 	..()
@@ -956,7 +955,7 @@ var/list/teleport_runes = list()
 		return list()
 	var/list/ghosts_on_rune = list()
 	for(var/mob/dead/observer/O in get_turf(src))
-		if(O.client && !jobban_isbanned(O, ROLE_CULTIST))
+		if(O.client && !jobban_isbanned(O, ROLE_CULTIST) && !jobban_isbanned(O, ROLE_SYNDICATE))
 			ghosts_on_rune |= O
 	if(!ghosts_on_rune.len)
 		to_chat(user, "<span class='cultitalic'>There are no spirits near [src]!</span>")
@@ -969,12 +968,13 @@ var/list/teleport_runes = list()
 	var/mob/living/user = invokers[1]
 	var/list/ghosts_on_rune = list()
 	for(var/mob/dead/observer/O in get_turf(src))
-		if(O.client && !jobban_isbanned(O, ROLE_CULTIST))
+		if(O.client && !jobban_isbanned(O, ROLE_CULTIST) && !jobban_isbanned(O, ROLE_SYNDICATE))
 			ghosts_on_rune |= O
 	var/mob/dead/observer/ghost_to_spawn = pick(ghosts_on_rune)
 	var/mob/living/carbon/human/new_human = new(get_turf(src))
 	new_human.real_name = ghost_to_spawn.real_name
 	new_human.alpha = 150 //Makes them translucent
+	new_human.color = "grey" //heh..cult greytide...litterly...
 	..()
 	visible_message("<span class='warning'>A cloud of red mist forms above [src], and from within steps... a man.</span>")
 	to_chat(user, "<span class='cultitalic'>Your blood begins flowing into [src]. You must remain in place and conscious to maintain the forms of those summoned. This will hurt you slowly but surely...</span>")
@@ -986,6 +986,7 @@ var/list/teleport_runes = list()
 	N.mouse_opacity = 0
 	new_human.key = ghost_to_spawn.key
 	ticker.mode.add_cultist(new_human.mind, 0)
+	summoned_guys |= new_human
 	to_chat(new_human, "<span class='cultitalic'><b>You are a servant of [ticker.mode.cultdat.entity_title3]. You have been made semi-corporeal by the cult of [ticker.mode.cultdat.entity_name], and you are to serve them at all costs.</b></span>")
 
 	while(user in get_turf(src))
@@ -1000,4 +1001,13 @@ var/list/teleport_runes = list()
 								  "<span class='cultlarge'>Your link to the world fades. Your form breaks apart.</span>")
 		for(var/obj/I in new_human)
 			new_human.unEquip(I)
+		summoned_guys -= new_human
 		new_human.dust()
+
+/obj/effect/rune/manifest/Destroy()
+	for(var/mob/living/carbon/human/guy in summoned_guys)
+		for(var/obj/I in guy)
+			guy.unEquip(I)
+		guy.dust()
+	summoned_guys.Cut()
+	return ..()

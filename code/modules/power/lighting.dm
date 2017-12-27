@@ -40,14 +40,14 @@
 	src.add_fingerprint(user)
 	if(istype(W, /obj/item/weapon/wrench))
 		if(src.stage == 1)
-			playsound(src.loc, 'sound/items/Ratchet.ogg', 75, 1)
+			playsound(src.loc, W.usesound, 75, 1)
 			to_chat(usr, "You begin deconstructing [src].")
-			if(!do_after(usr, 30, target = src))
+			if(!do_after(usr, 30 * W.toolspeed, target = src))
 				return
 			new /obj/item/stack/sheet/metal( get_turf(src.loc), sheets_refunded )
 			user.visible_message("[user.name] deconstructs [src].", \
 				"You deconstruct [src].", "You hear a noise.")
-			playsound(src.loc, 'sound/items/Deconstruct.ogg', 75, 1)
+			playsound(src.loc, W.usesound, 75, 1)
 			qdel(src)
 		if(src.stage == 2)
 			to_chat(usr, "You have to remove the wires first.")
@@ -65,10 +65,10 @@
 				src.icon_state = "tube-construct-stage1"
 			if("bulb")
 				src.icon_state = "bulb-construct-stage1"
-		new /obj/item/stack/cable_coil(get_turf(src.loc), 1, "red")
+		new /obj/item/stack/cable_coil(get_turf(src.loc), 1, COLOR_RED)
 		user.visible_message("[user.name] removes the wiring from [src].", \
 			"You remove the wiring from [src].", "You hear a noise.")
-		playsound(src.loc, 'sound/items/Wirecutter.ogg', 100, 1)
+		playsound(loc, W.usesound, 100, 1)
 		return
 
 	if(istype(W, /obj/item/stack/cable_coil))
@@ -81,6 +81,7 @@
 			if("bulb")
 				src.icon_state = "bulb-construct-stage2"
 		src.stage = 2
+		playsound(loc, coil.usesound, 50, 1)
 		user.visible_message("[user.name] adds wires to [src].", \
 			"You add wires to [src].")
 		return
@@ -95,7 +96,7 @@
 			src.stage = 3
 			user.visible_message("[user.name] closes [src]'s casing.", \
 				"You close [src]'s casing.", "You hear a noise.")
-			playsound(src.loc, 'sound/items/Screwdriver.ogg', 75, 1)
+			playsound(src.loc, W.usesound, 75, 1)
 
 			switch(fixture_type)
 
@@ -121,6 +122,7 @@
 	fixture_type = "bulb"
 	sheets_refunded = 1
 
+
 // the standard tube light fixture
 /obj/machinery/light
 	name = "light fixture"
@@ -138,7 +140,7 @@
 	var/on_gs = 0
 	var/static_power_used = 0
 	var/brightness_range = 8	// luminosity when on, also used in power calculation
-	var/brightness_power = 3
+	var/brightness_power = 1
 	var/brightness_color = null
 	var/status = LIGHT_OK		// LIGHT_OK, _EMPTY, _BURNED or _BROKEN
 	var/flickering = 0
@@ -148,6 +150,7 @@
 								// this is used to calc the probability the light burns out
 
 	var/rigged = 0				// true if rigged to explode
+	var/lightmaterials = list(MAT_GLASS=100)	//stores the materials the light is made of to stop infinite glass exploit
 
 // the smaller bulb light fixture
 
@@ -156,7 +159,6 @@
 	base_state = "bulb"
 	fitting = "bulb"
 	brightness_range = 4
-	brightness_power = 2
 	brightness_color = "#a0a080"
 	desc = "A small lighting fixture."
 	light_type = /obj/item/weapon/light/bulb
@@ -189,12 +191,10 @@
 		switch(fitting)
 			if("tube")
 				brightness_range = 8
-				brightness_power = 3
 				if(prob(2))
 					broken(1)
 			if("bulb")
 				brightness_range = 4
-				brightness_power = 2
 				brightness_color = "#a0a080"
 				if(prob(5))
 					broken(1)
@@ -307,6 +307,7 @@
 				brightness_range = L.brightness_range
 				brightness_power = L.brightness_power
 				brightness_color = L.brightness_color
+				lightmaterials = L.materials
 				on = has_power()
 				update()
 
@@ -348,7 +349,7 @@
 	// attempt to stick weapon into light socket
 	else if(status == LIGHT_EMPTY)
 		if(istype(W, /obj/item/weapon/screwdriver)) //If it's a screwdriver open it.
-			playsound(src.loc, 'sound/items/Screwdriver.ogg', 75, 1)
+			playsound(src.loc, W.usesound, 75, 1)
 			user.visible_message("[user.name] opens [src]'s casing.", \
 				"You open [src]'s casing.", "You hear a noise.")
 			var/obj/machinery/light_construct/newlight = null
@@ -370,7 +371,7 @@
 
 		to_chat(user, "You stick \the [W] into the light socket!")
 		if(has_power() && (W.flags & CONDUCT))
-			var/datum/effect/system/spark_spread/s = new /datum/effect/system/spark_spread
+			var/datum/effect_system/spark_spread/s = new /datum/effect_system/spark_spread
 			s.set_up(3, 1, src)
 			s.start()
 			if(prob(75))
@@ -405,7 +406,7 @@
 // Aliens smash the bulb but do not get electrocuted./N
 /obj/machinery/light/attack_alien(mob/living/carbon/alien/humanoid/user)//So larva don't go breaking light bulbs.
 	if(status == LIGHT_EMPTY||status == LIGHT_BROKEN)
-		to_chat(user, "\green That object is useless to you.")
+		to_chat(user, "<span class=notice'>That object is useless to you.</span>")
 		return
 	else if(status == LIGHT_OK||status == LIGHT_BURNED)
 		user.do_attack_animation(src)
@@ -416,7 +417,7 @@
 /obj/machinery/light/attack_animal(mob/living/simple_animal/M)
 	if(M.melee_damage_upper == 0)	return
 	if(status == LIGHT_EMPTY||status == LIGHT_BROKEN)
-		to_chat(M, "\red That object is useless to you.")
+		to_chat(M, "<span class='warning'>That object is useless to you.</span>")
 		return
 	else if(status == LIGHT_OK||status == LIGHT_BURNED)
 		M.do_attack_animation(src)
@@ -427,7 +428,7 @@
 // if hands aren't protected and the light is on, burn the player
 
 /obj/machinery/light/attack_hand(mob/user)
-
+	user.changeNext_move(CLICK_CD_MELEE)
 	add_fingerprint(user)
 
 	if(status == LIGHT_EMPTY)
@@ -447,12 +448,12 @@
 		else
 			prot = 1
 
-		if(prot > 0 || (RESIST_HEAT in user.mutations))
+		if(prot > 0 || (HEATRES in user.mutations))
 			to_chat(user, "You remove the light [fitting]")
 		else if(TK in user.mutations)
 			to_chat(user, "You telekinetically remove the light [fitting].")
 		else
-			if(user.a_intent == I_DISARM || user.a_intent == I_GRAB)
+			if(user.a_intent == INTENT_DISARM || user.a_intent == INTENT_GRAB)
 				to_chat(user, "You try to remove the light [fitting], but you burn your hand on it!")
 
 				var/obj/item/organ/external/affecting = H.get_organ("[user.hand ? "l" : "r" ]_hand")
@@ -474,6 +475,7 @@
 	L.brightness_range = brightness_range
 	L.brightness_power = brightness_power
 	L.brightness_color = brightness_color
+	L.materials = lightmaterials
 
 	// light item inherits the switchcount, then zero it
 	L.switchcount = switchcount
@@ -502,6 +504,7 @@
 	L.brightness_range = brightness_range
 	L.brightness_power = brightness_power
 	L.brightness_color = brightness_color
+	L.materials = lightmaterials
 
 	// light item inherits the switchcount, then zero it
 	L.switchcount = switchcount
@@ -514,15 +517,15 @@
 	status = LIGHT_EMPTY
 	update()
 
-/obj/machinery/light/proc/broken(skip_sound_and_sparks = 0)
+/obj/machinery/light/proc/broken(skip_sound_and_sparks = 0, overloaded = 0)
 	if(status == LIGHT_EMPTY || status == LIGHT_BROKEN)
 		return
 
 	if(!skip_sound_and_sparks)
 		if(status == LIGHT_OK || status == LIGHT_BURNED)
 			playsound(src.loc, 'sound/effects/Glasshit.ogg', 75, 1)
-		if(on)
-			var/datum/effect/system/spark_spread/s = new /datum/effect/system/spark_spread
+		if(on || overloaded)
+			var/datum/effect_system/spark_spread/s = new /datum/effect_system/spark_spread
 			s.set_up(3, 1, src)
 			s.start()
 	status = LIGHT_BROKEN
@@ -534,6 +537,11 @@
 	status = LIGHT_OK
 	on = 1
 	update()
+
+/obj/machinery/light/tesla_act(power, explosive = FALSE)
+	if(explosive)
+		explosion(loc,0,0,0,flame_range = 5, adminlog = 0)
+	qdel(src)
 
 // explosion effect
 // destroy the whole light fixture or just shatter it
@@ -589,11 +597,11 @@
 	icon = 'icons/obj/lighting.dmi'
 	force = 2
 	throwforce = 5
-	w_class = 1
+	w_class = WEIGHT_CLASS_TINY
 	var/status = 0		// LIGHT_OK, LIGHT_BURNED or LIGHT_BROKEN
 	var/base_state
 	var/switchcount = 0	// number of times switched
-	materials = list(MAT_METAL=60)
+	materials = list(MAT_GLASS=100)
 	var/rigged = 0		// true if rigged to explode
 	var/brightness_range = 2 //how much light it gives off
 	var/brightness_power = 1
@@ -605,15 +613,13 @@
 	icon_state = "ltube"
 	base_state = "ltube"
 	item_state = "c_tube"
-	materials = list(MAT_GLASS=100)
 	brightness_range = 8
-	brightness_power = 3
 
 /obj/item/weapon/light/tube/large
-	w_class = 2
+	w_class = WEIGHT_CLASS_SMALL
 	name = "large light tube"
 	brightness_range = 15
-	brightness_power = 4
+	brightness_power = 2
 
 /obj/item/weapon/light/bulb
 	name = "light bulb"
@@ -621,9 +627,7 @@
 	icon_state = "lbulb"
 	base_state = "lbulb"
 	item_state = "contvapour"
-	materials = list(MAT_GLASS=100)
 	brightness_range = 5
-	brightness_power = 2
 	brightness_color = "#a0a080"
 
 /obj/item/weapon/light/throw_impact(atom/hit_atom)
@@ -636,9 +640,7 @@
 	icon_state = "fbulb"
 	base_state = "fbulb"
 	item_state = "egg4"
-	materials = list(MAT_GLASS=100)
 	brightness_range = 5
-	brightness_power = 2
 
 // update the icon state and description of the light
 
@@ -674,10 +676,10 @@
 
 		to_chat(user, "You inject the solution into the [src].")
 
-		if(S.reagents.has_reagent("plasma", 5))
+		if(S.reagents.has_reagent("plasma", 5) || S.reagents.has_reagent("plasma_dust", 5))
 
-			log_admin("LOG: [user.name] ([user.ckey]) injected a light with plasma, rigging it to explode.")
-			message_admins("LOG: [user.name] ([user.ckey]) injected a light with plasma, rigging it to explode.")
+			log_admin("LOG: [key_name(user)] injected a light with plasma, rigging it to explode.")
+			message_admins("LOG: [key_name_admin(user)] injected a light with plasma, rigging it to explode.")
 
 			rigged = 1
 
@@ -694,14 +696,14 @@
 	if(!proximity) return
 	if(istype(target, /obj/machinery/light))
 		return
-	if(user.a_intent != I_HARM)
+	if(user.a_intent != INTENT_HARM)
 		return
 
 	shatter()
 
 /obj/item/weapon/light/proc/shatter()
 	if(status == LIGHT_OK || status == LIGHT_BURNED)
-		src.visible_message("\red [name] shatters.","\red You hear a small glass object shatter.")
+		src.visible_message("<span class='warning'>[name] shatters.</span>","<span class='warning'>You hear a small glass object shatter.</span>")
 		status = LIGHT_BROKEN
 		force = 5
 		sharp = 1

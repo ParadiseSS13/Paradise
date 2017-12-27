@@ -15,8 +15,8 @@
 	var/bypass_protection = 0 //If the hypospray can go through armor or thick material
 
 	var/list/datum/reagents/reagent_list = list()
-	var/list/reagent_ids = list("salglu_solution", "epinephrine", "spaceacillin", "charcoal")
-	//var/list/reagent_ids = list("salbutamol", "silver_sulfadiazine", "styptic_powder", "charcoal", "epinephrine", "spaceacillin")
+	var/list/reagent_ids = list("salglu_solution", "epinephrine", "spaceacillin", "charcoal", "hydrocodone")
+	//var/list/reagent_ids = list("salbutamol", "silver_sulfadiazine", "styptic_powder", "charcoal", "epinephrine", "spaceacillin", "hydrocodone")
 
 /obj/item/weapon/reagent_containers/borghypo/surgeon
 	reagent_ids = list("styptic_powder", "epinephrine", "salbutamol")
@@ -84,8 +84,8 @@
 		if(M.reagents)
 			var/datum/reagent/injected = chemical_reagents_list[reagent_ids[mode]]
 			var/contained = injected.name
-			M.attack_log += text("\[[time_stamp()]\] <font color='orange'>Has been injected with [name] by [key_name(user)]. Reagents: [contained]</font>")
-			user.attack_log += text("\[[time_stamp()]\] <font color='red'>Used the [name] to inject [key_name(M)]. Reagents: [contained]</font>")
+			M.create_attack_log("<font color='orange'>Has been injected with [name] by [key_name(user)]. Reagents: [contained]</font>")
+			user.create_attack_log("<font color='red'>Used the [name] to inject [key_name(M)]. Reagents: [contained]</font>")
 			if(M.ckey)
 				msg_admin_attack("[key_name_admin(user)] injected [key_name_admin(M)] with [name]. Reagents: [contained] (INTENT: [uppertext(user.a_intent)])")
 			M.LAssailant = user

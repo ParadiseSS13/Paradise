@@ -1,20 +1,14 @@
 ///////////////////ORGAN DEFINES///////////////////
 
 // Organ defines.
-#define ORGAN_CUT_AWAY   1
-#define ORGAN_GAUZED     2
-#define ORGAN_ATTACHABLE 4
-#define ORGAN_BLEEDING   8
-#define ORGAN_BROKEN     32
-#define ORGAN_DESTROYED  64
-#define ORGAN_ROBOT      128
-#define ORGAN_SPLINTED   256
-#define SALVED           512
-#define ORGAN_DEAD       1024
-#define ORGAN_MUTATED    2048
-#define ORGAN_ASSISTED   4096
+#define ORGAN_BROKEN     1
+#define ORGAN_ROBOT      2
+#define ORGAN_SPLINTED   4
+#define ORGAN_DEAD       8
+#define ORGAN_MUTATED    16
+#define ORGAN_ASSISTED   32
 
-#define DROPLIMB_EDGE 0
+#define DROPLIMB_SHARP 0
 #define DROPLIMB_BLUNT 1
 #define DROPLIMB_BURN 2
 
@@ -24,6 +18,8 @@
 
 #define LEFT 1
 #define RIGHT 2
+
+#define SPLINT_LIFE 2000 //number of steps splints stay on
 
 
 //Pulse levels, very simplified
@@ -47,12 +43,14 @@
 
 #define HUMAN_STRIP_DELAY 40 //takes 40ds = 4s to strip someone.
 #define ALIEN_SELECT_AFK_BUFFER 1 // How many minutes that a person can be AFK before not being allowed to be an alien.
-#define SHOES_SLOWDOWN -1.0			// How much shoes slow you down by default. Negative values speed you up
+#define SHOES_SLOWDOWN 0			// How much shoes slow you down by default. Negative values speed you up
 
 
 //Mob attribute defaults.
 #define DEFAULT_MARKING_STYLES list("head" = "None", "body" = "None", "tail" = "None") //Marking styles. Use instead of initial() for m_styles.
 #define DEFAULT_MARKING_COLOURS list("head" = "#000000", "body" = "#000000", "tail" = "#000000") //Marking colours. Use instead of initial() for m_colours.
+
+#define OXYCONCEN_PLASMEN_IGNITION 0.5 //Moles of oxygen in the air needed to light up a poorly clothed Plasmaman. Same as LINDA requirements for plasma burning.
 
 ////////REAGENT STUFF////////
 // How many units of reagent are consumed per tick, by default.
@@ -64,6 +62,12 @@
 
 // Factor of how fast mob nutrition decreases
 #define	HUNGER_FACTOR 0.1
+
+// Taste sensitivity - the more the more reagents you'll taste
+#define TASTE_SENSITIVITY_NORMAL 1
+#define TASTE_SENSITIVITY_SHARP 1.5
+#define TASTE_SENSITIVITY_DULL 0.75
+#define TASTE_SENSITIVITY_NO_TASTE 0
 
 // Reagent type flags, defines the types of mobs this reagent will affect
 #define ORGANIC 1
@@ -90,10 +94,14 @@
 #define APPEARANCE_ALL 32767
 
 // Intents
-#define I_HELP		"help"
-#define I_DISARM	"disarm"
-#define I_GRAB		"grab"
-#define I_HARM		"harm"
+#define INTENT_HELP		"help"
+#define INTENT_DISARM	"disarm"
+#define INTENT_GRAB		"grab"
+#define INTENT_HARM		"harm"
+
+// Movement Intents
+#define MOVE_INTENT_WALK "walk"
+#define MOVE_INTENT_RUN  "run"
 
 // AI wire/radio settings
 #define AI_CHECK_WIRELESS 1
@@ -122,6 +130,9 @@
 #define islarva(A)		(istype((A), /mob/living/carbon/alien/larva))
 #define isslime(A)		(istype((A), /mob/living/carbon/slime))
 
+//Human sub-species
+#define isabductor(A) (is_species(A, "Abductor"))
+
 #define isanimal(A)		(istype((A), /mob/living/simple_animal))
 #define iscorgi(A)		(istype((A), /mob/living/simple_animal/pet/corgi))
 #define ismouse(A)		(istype((A), /mob/living/simple_animal/mouse))
@@ -129,10 +140,20 @@
 #define isswarmer(A)	(istype((A), /mob/living/simple_animal/hostile/swarmer))
 #define isguardian(A)	(istype((A), /mob/living/simple_animal/hostile/guardian))
 
+
+
 #define issilicon(A)	(istype((A), /mob/living/silicon))
 #define isAI(A)			(istype((A), /mob/living/silicon/ai))
 #define isrobot(A)		(istype((A), /mob/living/silicon/robot))
 #define ispAI(A)		(istype((A), /mob/living/silicon/pai))
+
+// For the tcomms monitor
+#define ispathhuman(A)		(ispath(A, /mob/living/carbon/human))
+#define ispathbrain(A)		(ispath(A, /mob/living/carbon/brain))
+#define ispathslime(A)		(ispath(A, /mob/living/carbon/slime))
+#define ispathbot(A)			(ispath(A, /mob/living/simple_animal/bot))
+#define ispathsilicon(A)	(ispath(A, /mob/living/silicon))
+#define ispathanimal(A)		(ispath(A, /mob/living/simple_animal))
 
 #define isAutoAnnouncer(A)	(istype((A), /mob/living/automatedannouncer))
 
@@ -150,3 +171,6 @@
 #define hasorgans(A)	(ishuman(A))
 
 #define is_admin(user)	(check_rights(R_ADMIN, 0, (user)) != 0)
+
+//effects
+#define EFFECT_HIGHFIVE "highfiving"

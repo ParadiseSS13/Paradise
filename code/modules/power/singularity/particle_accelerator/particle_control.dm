@@ -1,5 +1,3 @@
-//This file was auto-corrected by findeclaration.exe on 25.5.2012 20:42:33
-
 /obj/machinery/particle_accelerator/control_box
 	name = "Particle Accelerator Control Console"
 	desc = "This part controls the density of the particles."
@@ -30,8 +28,7 @@
 /obj/machinery/particle_accelerator/control_box/Destroy()
 	if(active)
 		toggle_power()
-	qdel(wires)
-	wires = null
+	QDEL_NULL(wires)
 	return ..()
 
 /obj/machinery/particle_accelerator/control_box/attack_ghost(user as mob)
@@ -68,11 +65,8 @@
 		if(stat & NOPOWER)
 			icon_state = "[reference]w"
 			return
-		else if(use_power)
-			if(assembled)
-				icon_state = "[reference]p"
-			else
-				icon_state = "u[reference]p"
+		else if(use_power && assembled)
+			icon_state = "[reference]p"
 		else
 			switch(construction_state)
 				if(0)

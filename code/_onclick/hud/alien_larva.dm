@@ -14,7 +14,7 @@
 
 	using = new /obj/screen/mov_intent()
 	using.icon = 'icons/mob/screen_alien.dmi'
-	using.icon_state = (mymob.m_intent == "run" ? "running" : "walking")
+	using.icon_state = (mymob.m_intent == MOVE_INTENT_RUN ? "running" : "walking")
 	static_inventory += using
 	move_intent = using
 
@@ -29,6 +29,10 @@
 	mymob.pullin.update_icon(mymob)
 	mymob.pullin.screen_loc = ui_pull_resist
 	hotkeybuttons += mymob.pullin
+
+	using = new /obj/screen/language_menu
+	using.screen_loc = ui_alienlarva_language_menu
+	static_inventory += using
 
 	mymob.zone_sel = new /obj/screen/zone_sel/alien()
 	mymob.zone_sel.update_icon(mymob)

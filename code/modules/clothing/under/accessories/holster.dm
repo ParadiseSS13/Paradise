@@ -7,7 +7,11 @@
 	var/holster_allow = /obj/item/weapon/gun
 	var/obj/item/weapon/gun/holstered = null
 	actions_types = list(/datum/action/item_action/accessory/holster)
-	w_class = 3 // so it doesn't fit in pockets
+	w_class = WEIGHT_CLASS_NORMAL // so it doesn't fit in pockets
+
+/obj/item/clothing/accessory/holster/Destroy()
+	QDEL_NULL(holstered)
+	return ..()
 
 //subtypes can override this to specify what can be holstered
 /obj/item/clothing/accessory/holster/proc/can_holster(obj/item/weapon/gun/W)
@@ -56,8 +60,8 @@
 	if(istype(user.get_active_hand(),/obj) && istype(user.get_inactive_hand(),/obj))
 		to_chat(user, "<span class='warning'>You need an empty hand to draw the [holstered]!</span>")
 	else
-		if(user.a_intent == I_HARM)
-			usr.visible_message("\red [user] draws the [holstered], ready to shoot!</span>", \
+		if(user.a_intent == INTENT_HARM)
+			usr.visible_message("<span class='warning'>[user] draws the [holstered], ready to shoot!</span></span>", \
 			"<span class='warning'>You draw the [holstered], ready to shoot!</span>")
 		else
 			user.visible_message("<span class='notice'>[user] draws the [holstered], pointing it at the ground.</span>", \

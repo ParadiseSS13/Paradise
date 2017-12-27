@@ -1,12 +1,11 @@
-//This file was auto-corrected by findeclaration.exe on 25.5.2012 20:42:32
-
 /obj/item/device/mmi
 	name = "Man-Machine Interface"
 	desc = "The Warrior's bland acronym, MMI, obscures the true horror of this monstrosity."
 	icon = 'icons/obj/assemblies.dmi'
 	icon_state = "mmi_empty"
-	w_class = 3
+	w_class = WEIGHT_CLASS_NORMAL
 	origin_tech = "biotech=3"
+	origin_tech = "biotech=2;programming=3;engineering=2"
 
 	//Revised. Brainmob is now contained directly within object of transfer. MMI in this case.
 	var/alien = 0
@@ -121,7 +120,7 @@
 /obj/item/device/mmi/radio_enabled
 	name = "Radio-enabled Man-Machine Interface"
 	desc = "The Warrior's bland acronym, MMI, obscures the true horror of this monstrosity. This one comes with a built-in radio."
-	origin_tech = "biotech=4"
+	origin_tech = "biotech=2;programming=3;engineering=2;magnets=2"
 
 	var/obj/item/device/radio/radio = null//Let's give it a radio.
 
@@ -167,17 +166,14 @@
 	if(isrobot(loc))
 		var/mob/living/silicon/robot/borg = loc
 		borg.mmi = null
-	if(brainmob)
-		qdel(brainmob)
-		brainmob = null
-	if(held_brain)
-		qdel(held_brain)
-		held_brain = null
+	QDEL_NULL(brainmob)
+	QDEL_NULL(held_brain)
 	return ..()
 
 /obj/item/device/mmi/syndie
 	name = "Syndicate Man-Machine Interface"
 	desc = "Syndicate's own brand of MMI. It enforces laws designed to help Syndicate agents achieve their goals upon cyborgs created with it, but doesn't fit in Nanotrasen AI cores."
+	origin_tech = "biotech=4;programming=4;syndicate=2"
 	syndiemmi = 1
 
 /obj/item/device/mmi/attempt_become_organ(obj/item/organ/external/parent,mob/living/carbon/human/H)

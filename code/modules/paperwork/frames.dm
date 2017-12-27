@@ -3,6 +3,8 @@
 	desc = "Its patented design allows it to be folded larger or smaller to accommodate standard paper, photo, and poster, and canvas sizes."
 	icon = 'icons/obj/bureaucracy.dmi'
 
+	usesound = 'sound/items/Deconstruct.ogg'
+
 	var/icon_base
 	var/obj/displayed
 
@@ -41,10 +43,10 @@
 	overlays |= icon_state
 
 /obj/item/weapon/picture_frame/proc/insert(obj/D)
-	if(istype(D, /obj/item/weapon/contraband/poster))
-		var/obj/item/weapon/contraband/poster/P = D
-		displayed = P.resulting_poster
-		P.resulting_poster = null
+	if(istype(D, /obj/item/weapon/poster))
+		var/obj/item/weapon/poster/P = D
+		displayed = P.poster_structure
+		P.poster_structure = null
 	else
 		displayed = D
 
@@ -52,13 +54,13 @@
 	displayed.pixel_x = 0
 	displayed.pixel_y = 0
 	displayed.forceMove(src)
-	if(istype(D, /obj/item/weapon/contraband/poster))
+	if(istype(D, /obj/item/weapon/poster))
 		qdel(D)
 
 /obj/item/weapon/picture_frame/attackby(obj/item/I, mob/user)
 	if(istype(I, /obj/item/weapon/screwdriver))
 		if(displayed)
-			playsound(src, 'sound/items/Screwdriver.ogg', 100, 1)
+			playsound(src, I.usesound, 100, 1)
 			user.visible_message("<span class=warning>[user] unfastens \the [displayed] out of \the [src].</span>", "<span class=warning>You unfasten \the [displayed] out of \the [src].</span>")
 
 			if(istype(displayed, /obj/structure/sign/poster))
@@ -72,7 +74,7 @@
 		else
 			to_chat(user, "<span class=notice>There is nothing to remove from \the [src].</span>")
 	else if(istype(I, /obj/item/weapon/crowbar))
-		playsound(src, 'sound/items/Crowbar.ogg', 100, 1)
+		playsound(src, I.usesound, 100, 1)
 		user.visible_message("<span class=warning>[user] breaks down \the [src].</span>", "<span class=warning>You break down \the [src].</span>")
 		for(var/A in contents)
 			if(istype(A, /obj/structure/sign/poster))
@@ -83,7 +85,7 @@
 				O.forceMove(user.loc)
 		displayed = null
 		qdel(src)
-	else if(istype(I, /obj/item/weapon/paper) || istype(I, /obj/item/weapon/photo) || istype(I, /obj/item/weapon/contraband/poster))
+	else if(istype(I, /obj/item/weapon/paper) || istype(I, /obj/item/weapon/photo) || istype(I, /obj/item/weapon/poster))
 		if(!displayed)
 			user.unEquip(I)
 			insert(I)
@@ -135,7 +137,7 @@
 	PF.pixel_x = px
 	PF.pixel_y = py
 
-	playsound(PF.loc, 'sound/items/Deconstruct.ogg', 100, 1)
+	playsound(PF.loc, usesound, 100, 1)
 
 /obj/item/weapon/picture_frame/examine(mob/user, var/distance = -1, var/infix = "", var/suffix = "")
 	..()
@@ -196,9 +198,7 @@
 		verbs |= /obj/structure/sign/picture_frame/proc/tilt
 
 /obj/structure/sign/picture_frame/Destroy()
-	if(frame)
-		qdel(frame)
-		frame = null
+	QDEL_NULL(frame)
 	return ..()
 
 /obj/structure/sign/picture_frame/update_icon()
@@ -213,10 +213,10 @@
 
 /obj/structure/sign/picture_frame/attackby(obj/item/I, mob/user)
 	if(istype(I, /obj/item/weapon/screwdriver))
-		playsound(src, 'sound/items/Screwdriver.ogg', 100, 1)
+		playsound(src, I.usesound, 100, 1)
 		user.visible_message("<span class=warning>[user] begins to unfasten \the [src] from the wall.</span>", "<span class=warning>You begin to unfasten \the [src] from the wall.</span>")
-		if(do_after(user, 100, target = src))
-			playsound(src, 'sound/items/Deconstruct.ogg', 100, 1)
+		if(do_after(user, 100 * I.toolspeed, target = src))
+			playsound(src, I.usesound, 100, 1)
 			user.visible_message("<span class=warning>[user] unfastens \the [src] from the wall.</span>", "<span class=warning>You unfasten \the [src] from the wall.</span>")
 			frame.forceMove(user.loc)
 			frame = null

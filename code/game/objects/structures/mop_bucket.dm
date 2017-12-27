@@ -8,6 +8,7 @@
 	var/amount_per_transfer_from_this = 5 //shit I dunno, adding this so syringes stop runtime erroring. --NeoFite
 
 /obj/structure/mopbucket/New()
+	..()
 	create_reagents(100)
 	janitorial_equipment += src
 
@@ -27,10 +28,10 @@
 	if(istype(W, /obj/item/weapon/mop))
 		if(src.reagents.total_volume >= 2)
 			src.reagents.trans_to(W, 2)
-			to_chat(user, "\blue You wet the mop")
+			to_chat(user, "<span class='notice'>You wet the mop</span>")
 			playsound(src.loc, 'sound/effects/slosh.ogg', 25, 1)
 		if(src.reagents.total_volume < 1)
-			to_chat(user, "\blue Out of water!")
+			to_chat(user, "<span class='notice'>Out of water!</span>")
 	return
 
 /obj/structure/mopbucket/ex_act(severity)

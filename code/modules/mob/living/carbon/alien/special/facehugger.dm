@@ -1,5 +1,3 @@
-//This file was auto-corrected by findeclaration.exe on 25.5.2012 20:42:32
-
 //TODO: Make these simple_animals
 
 var/const/MIN_IMPREGNATION_TIME = 100 //time it takes to impregnate someone
@@ -14,10 +12,11 @@ var/const/MAX_ACTIVE_TIME = 400
 	icon = 'icons/mob/alien.dmi'
 	icon_state = "facehugger"
 	item_state = "facehugger"
-	w_class = 1 //note: can be picked up by aliens unlike most other items of w_class below 4
+	w_class = WEIGHT_CLASS_TINY //note: can be picked up by aliens unlike most other items of w_class below 4
 	throw_range = 5
 	tint = 3
-	flags = MASKCOVERSMOUTH | MASKCOVERSEYES | AIRTIGHT
+	flags = AIRTIGHT
+	flags_cover = MASKCOVERSMOUTH | MASKCOVERSEYES
 	layer = MOB_LAYER
 
 	var/stat = CONSCIOUS //UNCONSCIOUS is the idle state in this case
@@ -126,7 +125,7 @@ var/const/MAX_ACTIVE_TIME = 400
 						"<span class='userdanger'>[src] leaps at [M]'s face!</span>")
 	if(ishuman(M))
 		var/mob/living/carbon/human/H = M
-		if(H.head && H.head.flags & HEADCOVERSMOUTH)
+		if(H.head && H.head.flags_cover & HEADCOVERSMOUTH)
 			H.visible_message("<span class='danger'>[src] smashes against [H]'s [H.head]!</span>", \
 								"<span class='userdanger'>[src] smashes against [H]'s [H.head]!</span>")
 			Die()
@@ -136,6 +135,11 @@ var/const/MAX_ACTIVE_TIME = 400
 		if(target.wear_mask)
 			if(prob(20))
 				return 0
+			if(istype(target.wear_mask, /obj/item/clothing/mask/muzzle))
+				var/obj/item/clothing/mask/muzzle/S = target.wear_mask
+				if(S.do_break())
+					target.visible_message("<span class='danger'>[src] spits acid onto [S] melting the lock!</span>", \
+									"<span class='userdanger'>[src] spits acid onto [S] melting the lock!</span>")
 			var/obj/item/clothing/W = target.wear_mask
 			if(W.flags & NODROP)
 				return 0
@@ -150,7 +154,10 @@ var/const/MAX_ACTIVE_TIME = 400
 			M.Paralyse(MAX_IMPREGNATION_TIME/6) //something like 25 ticks = 20 seconds with the default settings
 	else if(iscorgi(M))
 		var/mob/living/simple_animal/pet/corgi/C = M
-		loc = C
+		if(C.facehugger)
+			var/obj/item/F = C.facehugger
+			F.forceMove(C.loc)
+		forceMove(C)
 		C.facehugger = src
 		C.regenerate_icons()
 
@@ -162,7 +169,7 @@ var/const/MAX_ACTIVE_TIME = 400
 	return 1
 
 /obj/item/clothing/mask/facehugger/proc/Impregnate(mob/living/target as mob)
-	if(!target || target.stat == DEAD) //was taken off or something
+	if(!target || target.stat == DEAD || loc != target) //was taken off or something
 		return
 
 	if(iscarbon(target))
@@ -236,7 +243,7 @@ var/const/MAX_ACTIVE_TIME = 400
 	var/mob/living/carbon/C = M
 	if(ishuman(C))
 		var/mob/living/carbon/human/H = C
-		if(H.head && H.head.flags & HEADCOVERSMOUTH)
+		if(H.head && H.head.flags_cover & HEADCOVERSMOUTH)
 			return 0
 		return 1
 	return 0

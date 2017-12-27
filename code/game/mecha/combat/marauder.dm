@@ -15,13 +15,13 @@
 	var/smoke = 5
 	var/smoke_ready = 1
 	var/smoke_cooldown = 100
-	var/datum/effect/system/harmless_smoke_spread/smoke_system = new
+	var/datum/effect_system/smoke_spread/smoke_system = new
 	operation_req_access = list(access_cent_specops)
 	wreckage = /obj/effect/decal/mecha_wreckage/marauder
 	add_req_access = 0
 	internal_damage_threshold = 25
 	force = 45
-	max_equip = 4
+	max_equip = 5
 
 
 /obj/mecha/combat/marauder/loaded/New()
@@ -29,6 +29,8 @@
 	var/obj/item/mecha_parts/mecha_equipment/ME = new /obj/item/mecha_parts/mecha_equipment/weapon/energy/pulse
 	ME.attach(src)
 	ME = new /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/missile_rack
+	ME.attach(src)
+	ME = new /obj/item/mecha_parts/mecha_equipment/weapon/energy/xray(src)
 	ME.attach(src)
 	ME = new /obj/item/mecha_parts/mecha_equipment/tesla_energy_relay(src)
 	ME.attach(src)
@@ -47,8 +49,13 @@
 	health = 550
 	wreckage = /obj/effect/decal/mecha_wreckage/seraph
 	internal_damage_threshold = 20
-	force = 55
-	max_equip = 5
+	force = 80
+	max_equip = 8
+
+/obj/mecha/combat/marauder/seraph/add_cell()
+	cell = new /obj/item/weapon/stock_parts/cell/bluespace(src)
+	cell.charge = 40000
+	cell.maxcharge = 40000
 
 /obj/mecha/combat/marauder/seraph/loaded/New()
 	..()//Let it equip whatever is needed.
@@ -57,16 +64,19 @@
 		for(ME in equipment)
 			equipment -= ME
 			qdel(ME)
-	ME = new /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/scattershot(src)
+	ME = new /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/missile_rack/heavy(src)
 	ME.attach(src)
-	ME = new /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/missile_rack(src)
+	ME = new /obj/item/mecha_parts/mecha_equipment/weapon/energy/xray/triple(src)
 	ME.attach(src)
-	ME = new /obj/item/mecha_parts/mecha_equipment/teleporter(src)
+	ME = new /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/lmg/dual(src)
+	ME.attach(src)
+	ME = new /obj/item/mecha_parts/mecha_equipment/teleporter/precise(src)
 	ME.attach(src)
 	ME = new /obj/item/mecha_parts/mecha_equipment/tesla_energy_relay(src)
 	ME.attach(src)
 	ME = new /obj/item/mecha_parts/mecha_equipment/antiproj_armor_booster(src)
 	ME.attach(src)
+
 
 /obj/mecha/combat/marauder/mauler
 	desc = "Heavy-duty, combat exosuit, developed off of the existing Marauder model."
@@ -147,10 +157,10 @@
 		log_message("Toggled zoom mode.")
 		occupant_message("<font color='[zoom?"blue":"red"]'>Zoom mode [zoom?"en":"dis"]abled.</font>")
 		if(zoom)
-			occupant.client.view = 12
+			occupant.client.AddViewMod("mecha", 12)
 			to_chat(occupant, sound('sound/mecha/imag_enh.ogg',volume=50))
 		else
-			occupant.client.view = initial(occupant.client.view)
+			occupant.client.RemoveViewMod("mecha")
 
 
 

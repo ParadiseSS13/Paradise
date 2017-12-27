@@ -140,12 +140,14 @@
 /mob/living/proc/StartResting(updating = 1)
 	var/val_change = !resting
 	resting = TRUE
+
 	if(updating && val_change)
 		update_canmove()
 
 /mob/living/proc/StopResting(updating = 1)
 	var/val_change = !!resting
 	resting = FALSE
+
 	if(updating && val_change)
 		update_canmove()
 
@@ -328,6 +330,8 @@
 	SetParalysis(max(paralysis, amount), updating, force)
 
 /mob/living/SetParalysis(amount, updating = 1, force = 0)
+	if((!!amount) == (!!paralysis)) // We're not changing from + to 0 or vice versa
+		updating = FALSE
 	if(status_flags & CANPARALYSE || force)
 		paralysis = max(amount, 0)
 		if(updating)
@@ -352,19 +356,21 @@
 
 // SLEEPING
 
-/mob/living/Sleeping(amount, updating = 1)
-	SetSleeping(max(sleeping, amount), updating)
+/mob/living/Sleeping(amount, updating = 1, no_alert = FALSE)
+	SetSleeping(max(sleeping, amount), updating, no_alert)
 
-/mob/living/SetSleeping(amount, updating = 1)
+/mob/living/SetSleeping(amount, updating = 1, no_alert = FALSE)
+	if((!!amount) == (!!sleeping)) // We're not changing from + to 0 or vice versa
+		updating = FALSE
 	sleeping = max(amount, 0)
-	update_sleeping_effects()
 	if(updating)
+		update_sleeping_effects(no_alert)
 		update_stat()
 		update_canmove()
 
-/mob/living/AdjustSleeping(amount, bound_lower = 0, bound_upper = INFINITY, updating = 1)
+/mob/living/AdjustSleeping(amount, bound_lower = 0, bound_upper = INFINITY, updating = 1, no_alert = FALSE)
 	var/new_value = directional_bounded_sum(sleeping, amount, bound_lower, bound_upper)
-	SetSleeping(new_value, updating)
+	SetSleeping(new_value, updating, no_alert)
 
 // SLOWED
 
@@ -408,6 +414,8 @@
 	SetStunned(max(stunned, amount), updating, force)
 
 /mob/living/SetStunned(amount, updating = 1, force = 0) //if you REALLY need to set stun to a set amount without the whole "can't go below current stunned"
+	if((!!amount) == (!!stunned)) // We're not changing from + to 0 or vice versa
+		updating = FALSE
 	if(status_flags & CANSTUN || force)
 		stunned = max(amount, 0)
 		if(updating)
@@ -438,6 +446,8 @@
 	SetWeakened(max(weakened, amount), updating, force)
 
 /mob/living/SetWeakened(amount, updating = 1, force = 0)
+	if((!!amount) == (!!weakened)) // We're not changing from + to 0 or vice versa
+		updating = FALSE
 	if(status_flags & CANWEAKEN || force)
 		weakened = max(amount, 0)
 		if(updating)

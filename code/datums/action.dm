@@ -29,8 +29,7 @@
 		Remove(owner)
 	if(target)
 		target = null
-	qdel(button)
-	button = null
+	QDEL_NULL(button)
 	return ..()
 
 /datum/action/proc/Grant(mob/M)
@@ -146,7 +145,7 @@
 	name = "Pull The Starting Cord"
 
 /datum/action/item_action/print_report
-	name = "Print Forensic Report"
+	name = "Print Report"
 
 /datum/action/item_action/toggle_gunlight
 	name = "Toggle Gunlight"
@@ -187,6 +186,53 @@
 
 /datum/action/item_action/toggle_hardsuit_mode
 	name = "Toggle Hardsuit Mode"
+
+/datum/action/item_action/toggle_unfriendly_fire
+	name = "Toggle Friendly Fire \[ON\]"
+	desc = "Toggles if the staff causes friendly fire."
+	button_icon_state = "vortex_ff_on"
+
+/datum/action/item_action/toggle_unfriendly_fire/Trigger()
+	if(..())
+		UpdateButtonIcon()
+
+/datum/action/item_action/toggle_unfriendly_fire/UpdateButtonIcon()
+	if(istype(target, /obj/item/weapon/hierophant_staff))
+		var/obj/item/weapon/hierophant_staff/H = target
+		if(H.friendly_fire_check)
+			button_icon_state = "vortex_ff_off"
+			name = "Toggle Friendly Fire \[OFF\]"
+			button.name = name
+		else
+			button_icon_state = "vortex_ff_on"
+			name = "Toggle Friendly Fire \[ON\]"
+			button.name = name
+	..()
+
+/datum/action/item_action/synthswitch
+	name = "Change Synthesizer Instrument"
+	desc = "Change the type of instrument your synthesizer is playing as."
+
+/datum/action/item_action/synthswitch/Trigger()
+	if(istype(target, /obj/item/device/instrument/piano_synth))
+		var/obj/item/device/instrument/piano_synth/synth = target
+		var/chosen = input("Choose the type of instrument you want to use", "Instrument Selection", "piano") as null|anything in synth.insTypes
+		if(!synth.insTypes[chosen])
+			return
+		return synth.changeInstrument(chosen)
+	return ..()
+
+/datum/action/item_action/vortex_recall
+	name = "Vortex Recall"
+	desc = "Recall yourself, and anyone nearby, to an attuned hierophant rune at any time.<br>If no such rune exists, will produce a rune at your location."
+	button_icon_state = "vortex_recall"
+
+/datum/action/item_action/vortex_recall/IsAvailable()
+	if(istype(target, /obj/item/weapon/hierophant_staff))
+		var/obj/item/weapon/hierophant_staff/H = target
+		if(H.teleporting)
+			return 0
+	return ..()
 
 /datum/action/item_action/toggle
 
@@ -304,6 +350,18 @@
 		var/image/img = image(button_icon, current_button, "scan_mode")
 		current_button.overlays += img
 
+/datum/action/item_action/instrument
+	name = "Use Instrument"
+	desc = "Use the instrument specified"
+
+/datum/action/item_action/instrument/Trigger()
+	if(istype(target, /obj/item/device/instrument))
+		var/obj/item/device/instrument/I = target
+		I.interact(usr)
+		return
+	return ..()
+
+
 /datum/action/item_action/remove_badge
 	name = "Remove Holobadge"
 
@@ -322,6 +380,11 @@
 /datum/action/item_action/organ_action/toggle/New(Target)
 	..()
 	name = "Toggle [target.name]"
+	button.name = name
+
+/datum/action/item_action/organ_action/use/New(Target)
+	..()
+	name = "Use [target.name]"
 	button.name = name
 
 // for clothing accessories like holsters

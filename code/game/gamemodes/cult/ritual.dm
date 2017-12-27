@@ -1,4 +1,3 @@
-//This file was auto-corrected by findeclaration.exe on 25.5.2012 20:42:32
 #define CULT_ELDERGOD "eldergod"
 #define CULT_SLAUGHTER "slaughter"
 
@@ -8,11 +7,15 @@
 	else
 		usr.whisper(pick("Hakkrutju gopoenjim.", "Nherasai pivroiashan.", "Firjji prhiv mazenhor.", "Tanah eh wakantahe.", "Obliyae na oraie.", "Miyf hon vnor'c.", "Wakabai hij fen juswix."))
 	for (var/mob/V in viewers(src))
-		V.show_message("\red The markings pulse with a small burst of light, then fall dark.", 3, "\red You hear a faint fizzle.", 2)
+		V.show_message("<span class='warning'>The markings pulse with a small burst of light, then fall dark.</span>", 3, "<span class='warning'>You hear a faint fizzle.</span>", 2)
 	return
 
 /obj/effect/rune/proc/check_icon()
-	icon = get_rune_cult(invocation)
+	if(!ticker.mode)//work around for maps with runes and cultdat is not loaded all the way
+		var/bits = make_bit_triplet()
+		icon = get_rune(bits)
+	else
+		icon = get_rune_cult(invocation)
 
 /obj/item/weapon/tome
 	name = "arcane tome"
@@ -20,7 +23,7 @@
 	icon_state ="tome"
 	throw_speed = 2
 	throw_range = 5
-	w_class = 2
+	w_class = WEIGHT_CLASS_SMALL
 	var/scribereduct = 0
 	var/canbypass = 0 //ADMINBUS
 
@@ -36,7 +39,10 @@
 	canbypass = 1
 
 /obj/item/weapon/tome/New()
-	icon_state = ticker.mode.cultdat.tome_icon
+	if(!ticker.mode)
+		icon_state = "tome"
+	else
+		icon_state = ticker.mode.cultdat.tome_icon
 	..()
 
 /obj/item/weapon/tome/examine(mob/user)
@@ -95,7 +101,7 @@
 	If any are found, the user can choose which rune to send to. Upon activation, the rune teleports everything above it to the selected rune.<br><br>"
 
 	text += "<font color='red'><b>Rite of Enlightenment</b></font><br>This rune is critical to the success of the cult. It will allow you to convert normal crew members into cultists. \
-	To do this, simply place the crew member upon the rune and invoke it. This rune requires two invokers to use. If the target to be converted is loyalty-implanted or a certain assignment, they will \
+	To do this, simply place the crew member upon the rune and invoke it. This rune requires two invokers to use. If the target to be converted is mindshielded or a certain assignment, they will \
 	be unable to be converted. People [ticker.mode.cultdat.entity_title3] wishes sacrificed will also be ineligible for conversion, and anyone with a shielding presence like the null rod will not be converted.<br> \
 	Successful conversions will produce a tome for the new cultist.<br><br>"
 
@@ -138,7 +144,7 @@
 
 	text += "<font color='red'><b>Talisman of Teleportation</b></font><br>The talisman form of the Teleport rune will transport the invoker to a selected Teleport rune once.<br><br>"
 
-	text += "<font color='red'><b>Talisman of Fabrication</b></font><br>This talisman is the main way of creating construct shells. To use it, one must strike 30 sheets of metal with the talisman. The sheets will then be twisted into a construct shell, ready to recieve a soul to occupy it.<br><br>"
+	text += "<font color='red'><b>Talisman of Fabrication</b></font><br>This talisman is the main way of creating construct shells. To use it, one must strike 30 sheets of metal with the talisman. The sheets will then be twisted into a construct shell, ready to receive a soul to occupy it.<br><br>"
 
 	text += "<font color='red'><b>Talisman of Tome Summoning</b></font><br>This talisman will produce a single tome at your feet.<br><br>"
 
@@ -151,10 +157,10 @@
 	text += "<font color='red'><b>Talisman of Stunning</b></font><br>Attacking a target will knock them down for a long duration in addition to inhibiting their speech. \
 	Robotic lifeforms will suffer the effects of a heavy electromagnetic pulse instead.<br><br>"
 
-	text += "<font color='red'><b>Talisman of Armaments</b></font><br>The Talisman of Arming will equip the user with armored robes, a backpack, an eldritch longsword, an empowered bola, and a pair of boots. Any items that cannot \
-	be equipped will not be summoned. Attacking a fellow cultist with it will instead equip them.<br><br>"
+	text += "<font color='red'><b>Talisman of Armaments</b></font><br>The Talisman of Arming will equip the user with armored robes, a backpack, shoes, an eldritch longsword, and an empowered bola. Any equipment that cannot \
+	be equipped will not be summoned, weaponry will be put on the floor below the user. Attacking a fellow cultist with it will instead equip them.<br><br>"
 
-	text += "<font color='red'><b>Talisman of Horrors</b></font><br>The Talisman of Horror must be applied directly to the victim, it will shatter your victim's mind with visions of the endtimes that may incapitate them.<br><br>"
+	text += "<font color='red'><b>Talisman of Horrors</b></font><br>The Talisman of Horror must be applied directly to the victim, it will shatter your victim's mind with visions of the end-times that may incapacitate them.<br><br>"
 
 	text += "<font color='red'><b>Talisman of Shackling</b></font><br>The Talisman of Shackling must be applied directly to the victim, it has 4 uses and cuffs victims with magic shackles that disappear when removed.<br><br>"
 
@@ -162,7 +168,7 @@
 
 	text += "<font color='red'><b>Equipment:</b></font><br><br>"
 
-	text += "<font color='red'><b>Cult Blade</b></font><br>Cult blades are sharp weapons that, notably, cannot be used by noncultists. These blades are produced by the Talisman of Arming.<br><br>"
+	text += "<font color='red'><b>Cult Blade</b></font><br>Cult blades are sharp weapons that, notably, cannot be used by non-cultists. These blades are produced by the Talisman of Arming.<br><br>"
 
 	text += "<font color='red'><b>Cult Bola</b></font><br>Cult bolas are strong bolas, useful for snaring targets. These bolas are produced by the Talisman of Arming.<br><br>"
 
@@ -194,10 +200,10 @@
 	return 1
 
 /obj/item/weapon/tome/proc/finale_runes_ok(mob/living/user, obj/effect/rune/rune_to_scribe)
-
-	if(ticker.mode.name == "cult")
-		if(!canbypass == 1)//not an admin-tome, check things
-			var/datum/game_mode/cult/cult_mode = ticker.mode
+	var/datum/game_mode/cult/cult_mode = ticker.mode
+	var/area/A = get_area(src)
+	if(GAMEMODE_IS_CULT)
+		if(!canbypass)//not an admin-tome, check things
 			if(!cult_mode.narsie_condition_cleared)
 				to_chat(user, "<span class='warning'>There is still more to do before unleashing [cult_mode.cultdat.entity_name] power!</span>")
 				return 0
@@ -207,23 +213,25 @@
 			if(cult_mode.demons_summoned)
 				to_chat(user, "<span class='cultlarge'>\"We are already here. There is no need to try to summon us now.\"</span>")
 				return 0
-			if(!(CULT_ELDERGOD in cult_mode.objectives) || !(CULT_SLAUGHTER in cult_mode.objectives))
+			if(!((CULT_ELDERGOD in cult_mode.objectives) || (CULT_SLAUGHTER in cult_mode.objectives)))
 				to_chat(user, "<span class='warning'>[cult_mode.cultdat.entity_name]'s power does not wish to be unleashed!</span>")
 				return 0
-			var/confirm_final = alert(user, "This is the FINAL step to summon your dietys power, it is a long, painful ritual and the crew will be alerted to your presence", "Are you prepared for the final battle?", "My life for Nar-Sie!", "No")
-			if(confirm_final == "No")
-				to_chat(user, "<span class='cult'>You decide to prepare further before scribing the rune.</span>")
-				return
-			else
-				return 1
-	else//the game mode is not cult..but we ARE a cultist...ALL ON THE ADMINBUS
-		if(!canbypass == 1)//not an admin-tome, check things
-			var/confirm_final = alert(user, "This is the FINAL step to summon your dietys power, it is a long, painful ritual and the crew will be alerted to your presence", "Are you prepared for the final battle?", "My life for Nar-Sie!", "No")
-			if(confirm_final == "No")
-				to_chat(user, "<span class='cult'>You decide to prepare further before scribing the rune.</span>")
+			if(!(A in summon_spots))
+				to_chat(user, "<span class='cultlarge'>[cult_mode.cultdat.entity_name] can only be summoned where the veil is weak - in [english_list(summon_spots)]!</span>")
 				return 0
-			else
-				return 1
+		var/confirm_final = alert(user, "This is the FINAL step to summon your deities power, it is a long, painful ritual and the crew will be alerted to your presence", "Are you prepared for the final battle?", "My life for [cult_mode.cultdat.entity_name]!", "No")
+		if(confirm_final == "No" || confirm_final == null)
+			to_chat(user, "<span class='cult'>You decide to prepare further before scribing the rune.</span>")
+			return 0
+		else
+			return 1
+	else//the game mode is not cult..but we ARE a cultist...ALL ON THE ADMINBUS
+		var/confirm_final = alert(user, "This is the FINAL step to summon your deities power, it is a long, painful ritual and the crew will be alerted to your presence", "Are you prepared for the final battle?", "My life for [cult_mode.cultdat.entity_name]!", "No")
+		if(confirm_final == "No" || confirm_final == null)
+			to_chat(user, "<span class='cult'>You decide to prepare further before scribing the rune.</span>")
+			return 0
+		else
+			return 1
 
 /obj/item/weapon/tome/proc/scribe_rune(mob/living/user)
 	var/turf/runeturf = get_turf(user)
@@ -232,6 +240,7 @@
 	var/entered_rune_name
 	var/list/possible_runes = list()
 	var/list/shields = list()
+	var/area/A = get_area(src)
 	if(locate(/obj/effect/rune) in runeturf)
 		to_chat(user, "<span class='cult'>There is already a rune here.</span>")
 		return
@@ -257,6 +266,7 @@
 	if(!rune_to_scribe)
 		return
 	runeturf = get_turf(user) //we may have moved. adjust as needed...
+	A = get_area(src)
 	if(locate(/obj/effect/rune) in runeturf)
 		to_chat(user, "<span class='cult'>There is already a rune here.</span>")
 		return
@@ -264,7 +274,11 @@
 		return
 	if(ispath(rune_to_scribe, /obj/effect/rune/narsie) || ispath(rune_to_scribe, /obj/effect/rune/slaughter))//may need to change this - Fethas
 		if(finale_runes_ok(user,rune_to_scribe))
-			command_announcement.Announce("Figments from an eldritch god are being summoned somwhere on the station from an unknown dimension. Disrupt the ritual at all costs!","Central Command Higher Dimensionsal Affairs", 'sound/AI/spanomalies.ogg')
+			A = get_area(src)
+			if(!(A in summon_spots))  // Check again to make sure they didn't move
+				to_chat(user, "<span class='cultlarge'>The ritual can only begin where the veil is weak - in [english_list(summon_spots)]!</span>")
+				return
+			command_announcement.Announce("Figments from an eldritch god are being summoned somewhere on the station from an unknown dimension. Disrupt the ritual at all costs!","Central Command Higher Dimensional Affairs", 'sound/AI/spanomalies.ogg')
 			for(var/B in spiral_range_turfs(1, user, 1))
 				var/turf/T = B
 				var/obj/machinery/shield/N = new(T)
@@ -273,6 +287,8 @@
 				N.icon_state = "shield-cult"
 				N.health = 60
 				shields |= N
+		else
+			return//don't do shit
 
 	var/mob/living/carbon/human/H = user
 	var/dam_zone = pick("head", "chest", "groin", "l_arm", "l_hand", "r_arm", "r_hand", "l_leg", "l_foot", "r_leg", "r_foot")

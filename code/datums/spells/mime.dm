@@ -10,7 +10,9 @@
 	charge_max = 300
 	clothes_req = 0
 	range = 0
-
+	cast_sound = null
+	human_req = 1
+	
 	action_icon_state = "mime"
 	action_background_icon_state = "bg_mime"
 
@@ -34,6 +36,7 @@
 	charge_max = 3000
 	range = -1
 	include_user = 1
+	human_req = 1
 
 	action_icon_state = "mime"
 	action_background_icon_state = "bg_mime"

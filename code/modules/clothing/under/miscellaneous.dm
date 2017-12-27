@@ -67,6 +67,27 @@
 	item_state = "gy_suit"
 	item_color = "vice"
 
+/obj/item/clothing/under/solgov
+	name = "Sol Federation marine uniform"
+	desc = "A comfortable and durable combat uniform worn by Sol Federation Marine Forces."
+	icon_state = "solgov"
+	item_state = "ro_suit"
+	item_color = "solgov"
+	armor = list(melee = 10, bullet = 0, laser = 0, energy = 0, bomb = 0, bio = 0, rad = 0)
+	displays_id = 0
+
+/obj/item/clothing/under/solgov/command
+	name = "Sol Federation Lieutenant's uniform"
+	desc = "A comfortable and durable combat uniform worn by Sol Federation Marine Forces. This one has additional insignia on its shoulders."
+	icon_state = "solgovc"
+	item_color = "solgovc"
+
+/obj/item/clothing/under/solgov/rep
+	name = "Sol Federation representative's uniform"
+	desc = "A formal uniform worn by the diplomatic representatives of the Sol Federation."
+	icon_state = "solgovr"
+	item_color = "solgovr"
+
 /obj/item/clothing/under/rank/centcom_officer
 	desc = "It's a jumpsuit worn by CentComm Officers."
 	name = "\improper CentComm officer's jumpsuit"
@@ -132,13 +153,21 @@
 	item_color = "ert_uniform"
 	armor = list(melee = 10, bullet = 0, laser = 0, energy = 0, bomb = 0, bio = 0, rad = 0)
 
+/obj/item/clothing/under/rank/blueshield/skirt
+	name = "blueshield skirt"
+	desc = "A short, black and grey with blue markings skirted uniform. For the feminine Blueshield officers."
+	icon_state = "blueshieldf"
+	item_state = "blueshieldf"
+	item_color = "blueshieldf"
+	armor = list(melee = 10, bullet = 0, laser = 0, energy = 0, bomb = 0, bio = 0, rad = 0)
+
 /obj/item/clothing/under/space
 	name = "\improper NASA jumpsuit"
 	desc = "It has a NASA logo on it and is made of space-proofed materials."
 	icon_state = "black"
 	item_state = "bl_suit"
 	item_color = "black"
-	w_class = 4//bulky item
+	w_class = WEIGHT_CLASS_BULKY
 	gas_transfer_coefficient = 0.01
 	permeability_coefficient = 0.02
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|FEET|ARMS|HANDS
@@ -495,6 +524,26 @@
 	item_color = "janimaid"
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO
 
+/obj/item/clothing/under/singery
+	name = "yellow performer's outfit"
+	desc = "Just looking at this makes you want to sing."
+	icon_state = "ysing"
+	item_state = "ysing"
+	item_color = "ysing"
+
+/obj/item/clothing/under/singerb
+	name = "blue performer's outfit"
+	desc = "Just looking at this makes you want to sing."
+	icon_state = "bsing"
+	item_state = "bsing"
+	item_color = "bsing"
+
+/obj/item/clothing/under/jester
+	name = "jester suit"
+	desc = "A jolly dress, well suited to entertain your master, nuncle."
+	icon_state = "jester"
+	item_color = "jester"
+
 /obj/item/clothing/under/flappers
 	name = "flappers"
 	desc = "Nothing like the roarin' '20s, flapping the night away on the dance floor."
@@ -545,35 +594,43 @@
 	item_state = "bane"
 	item_color = "bane"
 
-/obj/item/clothing/under/vox_grey
+/obj/item/clothing/under/vox
+	name = "Ripped Jumpsuit"
+	desc = "A jumpsuit that looks like it's been shredded by some talons. Who could wear this now?"
+	icon = 'icons/obj/clothing/species/vox/uniforms.dmi'
+	icon_state = "vgrey"
+	item_state = "vgrey"
+	item_color = "vgrey"
+
+/obj/item/clothing/under/vox/grey
 	name = "Grey Vox Jumpsuit"
 	desc = "An assistant's jumpsuit ripped to better fit a vox."
 	icon_state = "vgrey"
 	item_state = "vgrey"
 	item_color = "vgrey"
 
-/obj/item/clothing/under/vox_robotics
+/obj/item/clothing/under/vox/robotics
 	name = "Vox Robotics Jumpsuit"
 	desc = "A roboticist's jumpsuit ripped to better fit a vox."
 	icon_state = "vrobotics"
 	item_state = "vrobotics"
 	item_color = "vrobotics"
 
-/obj/item/clothing/under/vox_toxins
+/obj/item/clothing/under/vox/toxins
 	name = "Vox Toxins Jumpsuit"
 	desc = "A Toxin Researcher's jumpsuit ripped to better fit a vox."
 	icon_state = "vtoxinswhite"
 	item_state = "vtoxinswhite"
 	item_color = "vtoxinswhite"
 
-/obj/item/clothing/under/vox_atmos
+/obj/item/clothing/under/vox/atmos
 	name = "Vox Atmos Jumpsuit"
 	desc = "An Atmos Tech's jumpsuit ripped to better fit a vox."
 	icon_state = "vatmos"
 	item_state = "vatmos"
 	item_color = "vatmos"
 
-/obj/item/clothing/under/vox_engi
+/obj/item/clothing/under/vox/engi
 	name = "Vox Engineer Jumpsuit"
 	desc = "An Engineer's jumpsuit ripped to better fit a vox."
 	icon_state = "vengine"
@@ -581,7 +638,7 @@
 	item_color = "vengine"
 	armor = list(melee = 0, bullet = 0, laser = 0, energy = 0, bomb = 0, bio = 0, rad = 10)
 
-/obj/item/clothing/under/vox_sec
+/obj/item/clothing/under/vox/sec
 	name = "Vox Security Jumpsuit"
 	desc = "A Security officer's jumpsuit ripped to better fit a vox."
 	icon_state = "vred"
@@ -589,7 +646,7 @@
 	item_color = "vred"
 	armor = list(melee = 10, bullet = 0, laser = 0, energy = 0, bomb = 0, bio = 0, rad = 0)
 
-/obj/item/clothing/under/vox_chem
+/obj/item/clothing/under/vox/chem
 	name = "Vox Chemist Jumpsuit"
 	desc = "A Chemist's jumpsuit ripped to better fit a vox."
 	icon_state = "vchem"
@@ -680,17 +737,11 @@
 	icon_state = "owl"
 	item_color = "owl"
 
-/obj/item/clothing/under/owl/super_hero
-	flags = NODROP
-
 /obj/item/clothing/under/griffin
 	name = "griffon uniform"
 	desc = "A soft brown jumpsuit with a white feather collar made of synthetic feathers and a lust for mayhem."
 	icon_state = "griffin"
 	item_color = "griffin"
-
-/obj/item/clothing/under/griffin/super_hero
-	flags = NODROP
 
 /obj/item/clothing/under/noble_clothes
 	name = "noble clothes"
@@ -700,11 +751,12 @@
 	item_state = "noble_clothes"
 
 /obj/item/clothing/under/contortionist
-	name = "Contortionist's Jumpsuit"
+	name = "atmospheric technician's jumpsuit"
 	desc = "A light jumpsuit useful for squeezing through narrow vents."
 	icon_state = "atmos"
 	item_state = "atmos_suit"
 	item_color = "atmos"
+	burn_state = FIRE_PROOF
 
 /obj/item/clothing/under/contortionist/equipped(mob/living/carbon/human/user, slot)
 	if(!user.ventcrawler)
@@ -712,7 +764,7 @@
 	..()
 
 /obj/item/clothing/under/contortionist/dropped(mob/living/carbon/human/user)
-	if(!user.get_int_organ(/obj/item/organ/internal/gland/ventcrawling))
+	if(!user.get_int_organ(/obj/item/organ/internal/heart/gland/ventcrawling))
 		user.ventcrawler = 0
 	..()
 
@@ -736,3 +788,47 @@
 	lefthand_file = 'icons/goonstation/mob/inhands/clothing_lefthand.dmi'
 	righthand_file = 'icons/goonstation/mob/inhands/clothing_righthand.dmi'
 	flags = NODROP
+	has_sensor = 0 // HUNKE
+
+
+/obj/item/clothing/under/victdress
+	name = "black victorian dress"
+	desc = "A victorian style dress, fancy!"
+	icon_state = "victorianblackdress"
+	item_state = "victorianblackdress"
+	item_color = "victorianblackdress"
+	body_parts_covered = UPPER_TORSO|LOWER_TORSO
+
+/obj/item/clothing/under/victdress/red
+	name = "red victorian dress"
+	icon_state = "victorianreddress"
+	item_state = "victorianreddress"
+	item_color = "victorianreddress"
+
+/obj/item/clothing/under/victsuit
+	name = "victorian suit"
+	desc = "A victorian style suit, fancy!"
+	icon_state = "victorianvest"
+	item_state = "victorianvest"
+	item_color = "victorianvest"
+	body_parts_covered = UPPER_TORSO|LOWER_TORSO
+
+/obj/item/clothing/under/victsuit/redblk
+	name = "red and black victorian suit"
+	icon_state = "victorianblred"
+	item_state = "victorianblred"
+	item_color = "victorianblred"
+
+/obj/item/clothing/under/victsuit/red
+	name = "red victorian suit"
+	icon_state = "victorianredvest"
+	item_state = "victorianredvest"
+	item_color = "victorianredvest"
+
+/obj/item/clothing/under/medigown
+	name = "medical gown"
+	desc = "a flimsy examination gown, the back ties never close."
+	icon_state = "medicalgown"
+	item_state = "medicalgown"
+	item_color = "medicalgown"
+	body_parts_covered = UPPER_TORSO|LOWER_TORSO

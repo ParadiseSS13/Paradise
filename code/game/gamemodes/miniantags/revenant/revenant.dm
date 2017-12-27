@@ -17,8 +17,8 @@
 	invisibility = INVISIBILITY_REVENANT
 	health =  INFINITY //Revenants don't use health, they use essence instead
 	maxHealth =  INFINITY
-	see_invisible = INVISIBILITY_REVENANT
 	see_in_dark = 8
+	see_invisible = SEE_INVISIBLE_OBSERVER_NOLIGHTING
 	universal_understand = 1
 	response_help   = "passes through"
 	response_disarm = "swings at"
@@ -29,13 +29,14 @@
 	harm_intent_damage = 0
 	friendly = "touches"
 	status_flags = 0
-	see_in_dark = 8
 	wander = 0
 	density = 0
 	flying = 1
 	anchored = 1
 	mob_size = MOB_SIZE_TINY
 	pass_flags = PASSTABLE | PASSGRILLE | PASSMOB
+	speed = 1
+	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
 
 	var/essence = 75 //The resource of revenants. Max health is equal to three times this amount
 	var/essence_regen_cap = 75 //The regeneration cap of essence (go figure); regenerates every Life() tick up to this amount.
@@ -317,7 +318,7 @@
 	desc = "A pile of fine blue dust. Small tendrils of violet mist swirl around it."
 	icon = 'icons/effects/effects.dmi'
 	icon_state = "revenantEctoplasm"
-	w_class = 2
+	w_class = WEIGHT_CLASS_SMALL
 	var/reforming = 1
 	var/essence = 75 //the maximum essence of the reforming revenant
 	var/inert = 0

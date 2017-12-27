@@ -1,9 +1,7 @@
-//This file was auto-corrected by findeclaration.exe on 25.5.2012 20:42:32
-
 /obj/structure/closet/crate
 	name = "crate"
 	desc = "A rectangular steel crate."
-	icon = 'icons/obj/storage.dmi'
+	icon = 'icons/obj/crates.dmi'
 	icon_state = "crate"
 	icon_opened = "crateopen"
 	icon_closed = "crate"
@@ -40,14 +38,16 @@
 		if(isliving(usr))
 			var/mob/living/L = usr
 			if(L.electrocute_act(17, src))
-				var/datum/effect/system/spark_spread/s = new /datum/effect/system/spark_spread
+				var/datum/effect_system/spark_spread/s = new /datum/effect_system/spark_spread
 				s.set_up(5, 1, src)
 				s.start()
 				return 2
 
 	playsound(src.loc, 'sound/machines/click.ogg', 15, 1, -3)
-	for(var/obj/O in src)
+	for(var/obj/O in src) //Objects
 		O.forceMove(loc)
+	for(var/mob/M in src) //Mobs
+		M.forceMove(loc)
 	icon_state = icon_opened
 	src.opened = 1
 
@@ -80,7 +80,7 @@
 	src.opened = 0
 	return 1
 
-/obj/structure/closet/crate/attackby(obj/item/weapon/W as obj, mob/user as mob, params)
+/obj/structure/closet/crate/attackby(obj/item/weapon/W, mob/user, params)
 	if(istype(W, /obj/item/weapon/rcs) && !src.opened)
 		var/obj/item/weapon/rcs/E = W
 		if(E.rcell && (E.rcell.charge >= E.chargecost))
@@ -102,36 +102,47 @@
 							L[tmpname] = R
 					var/desc = input("Please select a telepad.", "RCS") in L
 					E.pad = L[desc]
-					playsound(E.loc, 'sound/machines/click.ogg', 50, 1)
-					to_chat(user, "\blue Teleporting [src.name]...")
+					if(!Adjacent(user))
+						to_chat(user, "<span class='notice'>Unable to teleport, too far from crate.</span>")
+						return
+					playsound(E.loc, E.usesound, 50, 1)
+					to_chat(user, "<span class='notice'>Teleporting [src.name]...</span>")
 					E.teleporting = 1
-					if(!do_after(user, 50, target = src))
+					if(!do_after(user, 50 * E.toolspeed, target = src))
 						E.teleporting = 0
 						return
 					E.teleporting = 0
-					var/datum/effect/system/spark_spread/s = new /datum/effect/system/spark_spread
+					if(!(E.rcell && E.rcell.use(E.chargecost)))
+						to_chat(user, "<span class='notice'>Unable to teleport, insufficient charge.</span>")
+						return
+					var/datum/effect_system/spark_spread/s = new /datum/effect_system/spark_spread
 					s.set_up(5, 1, src)
 					s.start()
 					do_teleport(src, E.pad, 0)
-					E.rcell.use(E.chargecost)
 					to_chat(user, "<span class='notice'>Teleport successful. [round(E.rcell.charge/E.chargecost)] charge\s left.</span>")
 					return
+
 			else
 				E.rand_x = rand(50,200)
 				E.rand_y = rand(50,200)
 				var/L = locate(E.rand_x, E.rand_y, 6)
-				playsound(E.loc, 'sound/machines/click.ogg', 50, 1)
-				to_chat(user, "\blue Teleporting [src.name]...")
+				if(!Adjacent(user))
+					to_chat(user, "<span class='notice'>Unable to teleport, too far from crate.</span>")
+					return
+				playsound(E.loc, E.usesound, 50, 1)
+				to_chat(user, "<span class='notice'>Teleporting [src.name]...</span>")
 				E.teleporting = 1
-				if(!do_after(user, 50, target = src))
+				if(!do_after(user, 50 * E.toolspeed, target = src))
 					E.teleporting = 0
 					return
 				E.teleporting = 0
-				var/datum/effect/system/spark_spread/s = new /datum/effect/system/spark_spread
+				if(!(E.rcell && E.rcell.use(E.chargecost)))
+					to_chat(user, "<span class='notice'>Unable to teleport, insufficient charge.</span>")
+					return
+				var/datum/effect_system/spark_spread/s = new /datum/effect_system/spark_spread
 				s.set_up(5, 1, src)
 				s.start()
 				do_teleport(src, L)
-				E.rcell.use(E.chargecost)
 				to_chat(user, "<span class='notice'>Teleport successful. [round(E.rcell.charge/E.chargecost)] charge\s left.</span>")
 				return
 		else
@@ -166,7 +177,7 @@
 	else if(istype(W, /obj/item/weapon/wirecutters))
 		if(rigged)
 			to_chat(user, "<span class='notice'>You cut away the wiring.</span>")
-			playsound(loc, 'sound/items/Wirecutter.ogg', 100, 1)
+			playsound(loc, W.usesound, 100, 1)
 			rigged = 0
 			return
 	else return attack_hand(user)
@@ -191,7 +202,7 @@
 		else
 	return
 
-/obj/structure/closet/crate/attack_hand(mob/user as mob)
+/obj/structure/closet/crate/attack_hand(mob/user)
 	if(manifest)
 		to_chat(user, "<span class='notice'>You tear the manifest off of the crate.</span>")
 		playsound(src.loc, 'sound/items/poster_ripped.ogg', 75, 1)
@@ -206,7 +217,7 @@
 			if(isliving(user))
 				var/mob/living/L = user
 				if(L.electrocute_act(17, src))
-					var/datum/effect/system/spark_spread/s = new /datum/effect/system/spark_spread
+					var/datum/effect_system/spark_spread/s = new /datum/effect_system/spark_spread
 					s.set_up(5, 1, src)
 					s.start()
 					return
@@ -231,8 +242,8 @@
 	var/greenlight = "securecrateg"
 	var/sparks = "securecratesparks"
 	var/emag = "securecrateemag"
-	var/broken = 0
-	var/locked = 1
+	broken = 0
+	locked = 1
 	health = 1000
 
 /obj/structure/closet/crate/secure/update_icon()
@@ -250,7 +261,7 @@
 /obj/structure/closet/crate/secure/can_open()
 	return !locked
 
-/obj/structure/closet/crate/secure/proc/togglelock(mob/user as mob)
+/obj/structure/closet/crate/secure/proc/togglelock(mob/user)
 	if(src.opened)
 		to_chat(user, "<span class='notice'>Close the crate first.</span>")
 		return
@@ -280,7 +291,7 @@
 	else
 		to_chat(usr, "<span class='warning'>This mob type can't use this verb.</span>")
 
-/obj/structure/closet/crate/secure/attack_hand(mob/user as mob)
+/obj/structure/closet/crate/secure/attack_hand(mob/user)
 	if(manifest)
 		to_chat(user, "<span class='notice'>You tear the manifest off of the crate.</span>")
 		playsound(src.loc, 'sound/items/poster_ripped.ogg', 75, 1)
@@ -296,7 +307,7 @@
 		src.toggle(user)
 
 
-/obj/structure/closet/crate/secure/attackby(obj/item/weapon/W as obj, mob/user as mob, params)
+/obj/structure/closet/crate/secure/attackby(obj/item/weapon/W, mob/user, params)
 	if(is_type_in_list(W, list(/obj/item/stack/packageWrap, /obj/item/stack/cable_coil, /obj/item/device/radio/electropack, /obj/item/weapon/wirecutters,/obj/item/weapon/rcs)))
 		return ..()
 	if((istype(W, /obj/item/weapon/card/emag) || istype(W, /obj/item/weapon/melee/energy/blade)))
@@ -307,7 +318,7 @@
 		return
 	return ..()
 
-/obj/structure/closet/crate/secure/emag_act(user as mob)
+/obj/structure/closet/crate/secure/emag_act(mob/user)
 	if(locked)
 		overlays += sparks
 		spawn(6) overlays -= sparks //Tried lots of stuff but nothing works right. so i have to use this *sadface*
@@ -423,12 +434,43 @@
 		return newgas
 
 
-/obj/structure/closet/crate/bin
-	desc = "A large bin."
-	name = "large bin"
+/obj/structure/closet/crate/can
+	desc = "A large can, looks like a bin to me."
+	name = "garbage can"
 	icon_state = "largebin"
 	icon_opened = "largebinopen"
 	icon_closed = "largebin"
+	anchored = TRUE
+
+/obj/structure/closet/crate/can/attackby(obj/item/weapon/W, mob/living/user, params)
+	if(iswrench(W))
+		add_fingerprint(user)
+		user.changeNext_move(CLICK_CD_MELEE)
+		if(anchored)
+			playsound(loc, W.usesound, 100, 1)
+			user.visible_message("[user] starts loosening [src]'s floor casters.", \
+								 					"<span class='notice'>You start loosening [src]'s floor casters...</span>")
+			if(do_after(user, 40 * W.toolspeed, target = src))
+				if(!loc || !anchored)
+					return
+				user.visible_message("[user] loosened [src]'s floor casters.", \
+									 					"<span class='notice'>You loosen [src]'s floor casters.</span>")
+				anchored = FALSE
+		else
+			if(!isfloorturf(loc))
+				user.visible_message("<span class='warning'>A floor must be present to secure [src]!</span>")
+				return
+			playsound(loc, W.usesound, 100, 1)
+			user.visible_message("[user] start securing [src]'s floor casters...", \
+													"<span class='notice'>You start securing [src]'s floor casters...</span>")
+			if(do_after(user, 40 * W.toolspeed, target = src))
+				if(!loc || anchored)
+					return
+				user.visible_message("[user] has secured [src]'s floor casters.", \
+						 								"<span class='notice'>You have secured [src]'s floor casters.</span>")
+				anchored = TRUE
+	else
+		..()
 
 /obj/structure/closet/crate/radiation
 	desc = "A crate with a radiation sign on it."
@@ -490,7 +532,6 @@
 /obj/structure/closet/crate/large
 	name = "large crate"
 	desc = "A hefty metal crate."
-	icon = 'icons/obj/storage.dmi'
 	icon_state = "largemetal"
 	icon_opened = "largemetalopen"
 	icon_closed = "largemetal"
@@ -515,7 +556,6 @@
 /obj/structure/closet/crate/secure/large
 	name = "large crate"
 	desc = "A hefty metal crate with an electronic locking system."
-	icon = 'icons/obj/storage.dmi'
 	icon_state = "largemetal"
 	icon_opened = "largemetalopen"
 	icon_closed = "largemetal"
@@ -568,9 +608,42 @@
 		new /obj/item/weapon/wirecutters(src)
 		new /obj/item/weapon/shovel/spade(src)
 		new /obj/item/weapon/shovel/spade(src)
-		new /obj/item/weapon/storage/box/botanydisk(src)
-		new /obj/item/weapon/storage/box/botanydisk(src)
 		new /obj/item/weapon/storage/box/beakers(src)
 		new /obj/item/weapon/storage/box/beakers(src)
 		new /obj/item/weapon/hand_labeler(src)
 		new /obj/item/weapon/hand_labeler(src)
+
+/obj/structure/closet/crate/sci
+	name = "science crate"
+	desc = "A science crate."
+	icon_state = "scicrate"
+	icon_opened = "scicrateopen"
+	icon_closed = "scicrate"
+
+/obj/structure/closet/crate/secure/scisec
+	name = "secure science crate"
+	desc = "A crate with a lock on it, painted in the scheme of the station's scientists."
+	icon_state = "scisecurecrate"
+	icon_opened = "scisecurecrateopen"
+	icon_closed = "scisecurecrate"
+
+/obj/structure/closet/crate/engineering
+	name = "engineering crate"
+	desc = "An engineering crate."
+	icon_state = "engicrate"
+	icon_opened = "engicrateopen"
+	icon_closed = "engicrate"
+
+/obj/structure/closet/crate/secure/engineering
+	name = "secure engineering crate"
+	desc = "A crate with a lock on it, painted in the scheme of the station's engineers."
+	icon_state = "engisecurecrate"
+	icon_opened = "engisecurecrateopen"
+	icon_closed = "engisecurecrate"
+
+/obj/structure/closet/crate/engineering/electrical
+	name = "electrical engineering crate"
+	desc = "An electrical engineering crate."
+	icon_state = "electricalcrate"
+	icon_opened = "electricalcrateopen"
+	icon_closed = "electricalcrate"

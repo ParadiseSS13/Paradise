@@ -43,14 +43,31 @@
 	name = "chaplain's hood"
 	desc = "It's hood that covers the head. It keeps you warm during the space winters."
 	icon_state = "chaplain_hood"
-	flags = HEADCOVERSEYES | BLOCKHAIR
+	flags = BLOCKHAIR
+	flags_cover = HEADCOVERSEYES
 
 //Chaplain
 /obj/item/clothing/head/nun_hood
 	name = "nun hood"
 	desc = "Maximum piety in this star system."
 	icon_state = "nun_hood"
-	flags = HEADCOVERSEYES | BLOCKHAIR
+	flags = BLOCKHAIR
+	flags_cover = HEADCOVERSEYES
+
+//Chaplain
+/obj/item/clothing/head/monk_hood
+	name = "monk hood"
+	desc = "Wooden board not included."
+	icon_state = "monk_hood"
+	flags = BLOCKHAIR
+	flags_cover = HEADCOVERSEYES
+
+/obj/item/clothing/head/witchhunter_hat
+	name = "witchhunter hat"
+	desc = "This hat saw much use back in the day."
+	icon_state = "witchhunterhat"
+	item_state = "witchhunterhat"
+	flags_cover = HEADCOVERSEYES
 
 /obj/item/clothing/head/det_hat
 	name = "hat"
@@ -127,6 +144,11 @@
 	icon_state = "beret_sci"
 
 //Medical
+/obj/item/clothing/head/beret/med
+	name = "medical beret"
+	desc = "A white beret with a green cross finely threaded into it. It has that sterile smell about it."
+	icon_state = "beret_med"
+
 /obj/item/clothing/head/surgery
 	name = "surgical cap"
 	desc = "A cap surgeons wear during operations. Keeps their hair from tickling your internal organs."

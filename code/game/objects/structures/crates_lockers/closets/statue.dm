@@ -57,10 +57,9 @@
 		qdel(src)
 
 /obj/structure/closet/statue/dump_contents()
-
-	if(istype(src.loc, /mob/living/simple_animal/hostile/statue))
-		var/mob/living/simple_animal/hostile/statue/S = src.loc
-		src.loc = S.loc
+	if(istype(loc, /mob/living/simple_animal/hostile/statue))
+		var/mob/living/simple_animal/hostile/statue/S = loc
+		forceMove(S.loc)
 		if(S.mind)
 			for(var/mob/M in contents)
 				S.mind.transfer_to(M)
@@ -68,20 +67,15 @@
 				break
 		qdel(S)
 
-
-	for(var/obj/O in src)
-		O.loc = src.loc
-
 	for(var/mob/living/M in src)
 		M.forceMove(loc)
 		M.disabilities -= MUTE
 		M.take_overall_damage((M.health - health - 100),0) //any new damage the statue incurred is transfered to the mob
 
+	..()
 
 /obj/structure/closet/statue/open()
 	return
-
-
 
 /obj/structure/closet/statue/open()
 	return
@@ -120,7 +114,7 @@
 /obj/structure/closet/statue/attackby(obj/item/I as obj, mob/user as mob, params)
 	user.changeNext_move(CLICK_CD_MELEE)
 	health -= I.force
-	visible_message("\red [user] strikes [src] with [I].")
+	visible_message("<span class='warning'>[user] strikes [src] with [I].</span>")
 	check_health()
 
 /obj/structure/closet/statue/MouseDrop_T()
@@ -142,20 +136,5 @@
 	if(user)
 		user.dust()
 	dump_contents()
-	visible_message("\red [src] shatters!. ")
+	visible_message("<span class='warning'>[src] shatters!. </span>")
 	qdel(src)
-
-
-/obj/structure/statue
-	name = "statue"
-	desc = "An incredibly lifelike marble carving"
-	icon = 'icons/obj/statue.dmi'
-	icon_state = "human_male"
-	density = 1
-	anchored = 1
-
-obj/structure/statue/angel
-	icon_state = "angelseen"
-
-obj/structure/statue/corgi
-	icon_state = "corgi"

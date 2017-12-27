@@ -1,7 +1,7 @@
 /obj/item/weapon/pneumatic_cannon
 	name = "pneumatic cannon"
 	desc = "A gas-powered cannon that can fire any object loaded into it."
-	w_class = 4
+	w_class = WEIGHT_CLASS_BULKY
 	force = 8 //Very heavy
 	attack_verb = list("bludgeoned", "smashed", "beaten")
 	icon = 'icons/obj/pneumaticCannon.dmi'
@@ -17,12 +17,8 @@
 	var/pressureSetting = 1 //How powerful the cannon is - higher pressure = more gas but more powerful throws
 
 /obj/item/weapon/pneumatic_cannon/Destroy()
-	if(tank)
-		qdel(tank)
-		tank = null
-	for(var/obj/item/I in loadedItems)
-		qdel(I)
-	loadedItems.Cut()
+	QDEL_NULL(tank)
+	QDEL_LIST(loadedItems)
 	return ..()
 
 /obj/item/weapon/pneumatic_cannon/examine(mob/user)
@@ -136,7 +132,7 @@
 	name = "improvised pneumatic cannon"
 	desc = "A gas-powered, object-firing cannon made out of common parts."
 	force = 5
-	w_class = 3
+	w_class = WEIGHT_CLASS_NORMAL
 	maxWeightClass = 7
 	gasPerThrow = 5
 

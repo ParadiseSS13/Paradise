@@ -8,10 +8,14 @@
 	name = "fiber wire"
 	desc = "A length of razor-thin wire with an elegant wooden handle on either end.<br>You suspect you'd have to be behind the target to use this weapon effectively."
 	icon_state = "garrot_wrap"
-	w_class = 1
+	w_class = WEIGHT_CLASS_TINY
 	var/mob/living/carbon/human/strangling
 	var/improvised = 0
 	var/garrote_time
+
+/obj/item/weapon/twohanded/garrote/Destroy()
+	strangling = null
+	return ..()
 
 /obj/item/weapon/twohanded/garrote/update_icon()
 	if(strangling) // If we're strangling someone we want our icon to stay wielded
@@ -70,7 +74,7 @@
 		to_chat(user, "<span class='warning'>You cannot use [src] on [M] from that angle!</span>")
 		return
 
-	if(improvised && ((M.head && (M.head.flags & HEADCOVERSMOUTH)) || (M.wear_mask && (M.wear_mask.flags & MASKCOVERSMOUTH)))) // Improvised garrotes are blocked by mouth-covering items.
+	if(improvised && ((M.head && (M.head.flags_cover & HEADCOVERSMOUTH)) || (M.wear_mask && (M.wear_mask.flags_cover & MASKCOVERSMOUTH)))) // Improvised garrotes are blocked by mouth-covering items.
 		to_chat(user, "<span class = 'warning'>[M]'s neck is blocked by something they're wearing!</span>")
 
 	if(strangling)
@@ -107,6 +111,12 @@
 	return
 
 /obj/item/weapon/twohanded/garrote/process()
+	if(!strangling)
+		// Our mark got gibbed or similar
+		update_icon()
+		processing_objects.Remove(src)
+		return
+
 
 	if(!istype(loc, /mob/living/carbon/human))
 		strangling = null
@@ -124,7 +134,7 @@
 		G = user.r_hand
 
 	else
-		user.visible_message("<span class='warning'>[user] loses his grip on [strangling]'s neck.</span>", \
+		user.visible_message("<span class='warning'>[user] loses \his grip on [strangling]'s neck.</span>", \
 				 "<span class='warning'>You lose your grip on [strangling]'s neck.</span>")
 
 		strangling = null
@@ -134,7 +144,7 @@
 		return
 
 	if(!G.affecting)
-		user.visible_message("<span class='warning'>[user] loses his grip on [strangling]'s neck.</span>", \
+		user.visible_message("<span class='warning'>[user] loses \his grip on [strangling]'s neck.</span>", \
 				"<span class='warning'>You lose your grip on [strangling]'s neck.</span>")
 
 		strangling = null

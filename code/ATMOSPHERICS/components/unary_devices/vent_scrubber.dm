@@ -175,9 +175,8 @@
 		src.broadcast_status()
 	check_turfs()
 
-/obj/machinery/atmospherics/unary/vent_scrubber/process()
-	if(!..())
-		return 0
+/obj/machinery/atmospherics/unary/vent_scrubber/process_atmos()
+	..()
 
 	if(widenet)
 		check_turfs()
@@ -215,7 +214,7 @@
 
 	if(scrubbing)
 		if((scrub_O2 && environment.oxygen>0.001) || (scrub_N2 && environment.nitrogen>0.001) || (scrub_CO2 && environment.carbon_dioxide>0.001) || (scrub_Toxins && environment.toxins>0.001) || (environment.trace_gases.len>0))
-			var/transfer_moles = min(1, volume_rate/environment.volume)*environment.total_moles()
+			var/transfer_moles = min(1, volume_rate/environment.volume)*environment.total_moles() / 5
 
 			//Take a gas sample
 			var/datum/gas_mixture/removed = loc.remove_air(transfer_moles)
@@ -257,7 +256,7 @@
 		if(air_contents.return_pressure()>=50*ONE_ATMOSPHERE)
 			return
 
-		var/transfer_moles = environment.total_moles()*(volume_rate/environment.volume)
+		var/transfer_moles = environment.total_moles()*(volume_rate/environment.volume) / 5
 
 		var/datum/gas_mixture/removed = tile.remove_air(transfer_moles)
 
@@ -375,9 +374,9 @@
 		var/obj/item/weapon/weldingtool/WT = W
 		if(WT.remove_fuel(0,user))
 			to_chat(user, "<span class='notice'>Now welding the scrubber.</span>")
-			if(do_after(user, 20, target = src))
+			if(do_after(user, 20 * WT.toolspeed, target = src))
 				if(!src || !WT.isOn()) return
-				playsound(get_turf(src), 'sound/items/Welder2.ogg', 50, 1)
+				playsound(get_turf(src), WT.usesound, 50, 1)
 				if(!welded)
 					user.visible_message("[user] welds the scrubber shut.", "You weld the vent scrubber.", "You hear welding.")
 					welded = 1

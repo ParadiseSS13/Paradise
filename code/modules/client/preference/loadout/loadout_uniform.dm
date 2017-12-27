@@ -36,7 +36,7 @@
 /datum/gear/uniform/skirt/job/atmos
 	display_name = "skirt, atmos"
 	path = /obj/item/clothing/under/rank/atmospheric_technician/skirt
-	allowed_roles = list("Chief Engineer","Atmospheric Technician")
+	allowed_roles = list("Chief Engineer","Life Support Specialist")
 
 /datum/gear/uniform/skirt/job/eng
 	display_name = "skirt, engineer"
@@ -50,7 +50,7 @@
 
 /datum/gear/uniform/skirt/job/cmo
 	display_name = "skirt, cmo"
-	path = /obj/item/clothing/under/rank/chief_medical_officer
+	path = /obj/item/clothing/under/rank/chief_medical_officer/skirt
 	allowed_roles = list("Chief Medical Officer")
 
 /datum/gear/uniform/skirt/job/chem
@@ -61,12 +61,17 @@
 /datum/gear/uniform/skirt/job/viro
 	display_name = "skirt, virologist"
 	path = /obj/item/clothing/under/rank/virologist/skirt
-	allowed_roles = list("Chief Medical Officer","Medical Doctor")
+	allowed_roles = list("Virologist")
 
 /datum/gear/uniform/skirt/job/med
 	display_name = "skirt, medical"
 	path = /obj/item/clothing/under/rank/medical/skirt
-	allowed_roles = list("Chief Medical Officer","Medical Doctor","Chemist","Psychiatrist","Paramedic","Brig Physician")
+	allowed_roles = list("Chief Medical Officer","Medical Doctor","Psychiatrist","Paramedic","Coroner")
+
+/datum/gear/uniform/skirt/job/phys
+	display_name = "skirt, physician"
+	path = /obj/item/clothing/under/rank/security/brigphys/skirt
+	allowed_roles = list("Brig Physician")
 
 /datum/gear/uniform/skirt/job/sci
 	display_name = "skirt, scientist"
@@ -97,6 +102,30 @@
 	display_name = "skirt, hos"
 	path = /obj/item/clothing/under/rank/head_of_security/skirt
 	allowed_roles = list("Head of Security")
+
+/datum/gear/uniform/skirt/job/ntrep
+	display_name = "skirt, nt rep"
+	path = /obj/item/clothing/under/rank/ntrep/skirt
+	allowed_roles = list("Nanotrasen Representative")
+
+/datum/gear/uniform/skirt/job/blueshield
+	display_name = "skirt, blueshield"
+	path = /obj/item/clothing/under/rank/blueshield/skirt
+	allowed_roles = list("Blueshield")
+
+
+/datum/gear/uniform/medical
+	subtype_path = /datum/gear/uniform/medical
+
+/datum/gear/uniform/medical/pscrubs
+	display_name = "medical scrubs, purple"
+	path = /obj/item/clothing/under/rank/medical/purple
+	allowed_roles = list("Chief Medical Officer", "Medical Doctor")
+
+/datum/gear/uniform/medical/gscrubs
+	display_name = "medical scrubs, green"
+	path = /obj/item/clothing/under/rank/medical/green
+	allowed_roles = list("Chief Medical Officer", "Medical Doctor")
 
 /datum/gear/uniform/sec
 	subtype_path = /datum/gear/uniform/sec
@@ -194,3 +223,4 @@
 /datum/gear/uniform/pants/caopants
 	display_name = "pants, camo"
 	path = /obj/item/clothing/under/pants/camo
+

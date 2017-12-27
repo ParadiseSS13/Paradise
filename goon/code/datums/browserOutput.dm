@@ -2,13 +2,15 @@ var/list/chatResources = list(
 	"goon/browserassets/js/jquery.min.js",
 	"goon/browserassets/js/jquery.mark.min.js",
 	"goon/browserassets/js/json2.min.js",
+	"goon/browserassets/js/twemoji.min.js",
 	"goon/browserassets/js/browserOutput.js",
 	"goon/browserassets/css/fonts/fontawesome-webfont.eot",
 	"goon/browserassets/css/fonts/fontawesome-webfont.svg",
 	"goon/browserassets/css/fonts/fontawesome-webfont.ttf",
 	"goon/browserassets/css/fonts/fontawesome-webfont.woff",
 	"goon/browserassets/css/font-awesome.css",
-	"goon/browserassets/css/browserOutput.css"
+	"goon/browserassets/css/browserOutput.css",
+	"goon/browserassets/json/unicode_9_annotations.json"
 )
 
 /var/savefile/iconCache = new /savefile("data/iconCache.sav")
@@ -53,14 +55,15 @@ var/list/chatResources = list(
 	if(!owner)
 		return
 
-	for(var/attempts = 1 to 5)
+	for(var/attempts in 1 to 5)
 		for(var/asset in global.chatResources)
 			owner << browse_rsc(file(asset))
 
-		owner << browse(file("goon/browserassets/html/browserOutput.html"), "window=browseroutput")
-		sleep(20 SECONDS)
-		if(!owner || loaded)
-			break
+		for(var/subattempts in 1 to 3)
+			owner << browse(file2text("goon/browserassets/html/browserOutput.html"), "window=browseroutput")
+			sleep(10 SECONDS)
+			if(!owner || loaded)
+				return
 
 /datum/chatOutput/Topic(var/href, var/list/href_list)
 	if(usr.client != owner)
@@ -96,6 +99,8 @@ var/list/chatResources = list(
 
 	loaded = TRUE
 	winset(owner, "browseroutput", "is-disabled=false")
+	if(owner.holder)
+		loadAdmin()
 	for(var/message in messageQueue)
 		to_chat(owner, message)
 
@@ -116,6 +121,9 @@ var/list/chatResources = list(
 		data = json_encode(data)
 	C << output("[data]", "[window]:ehjaxCallback")
 
+/datum/chatOutput/proc/loadAdmin()
+	var/data = json_encode(list("loadAdminCode" = replacetext(replacetext(file2text("goon/browserassets/html/adminOutput.html"), "\n", ""), "\t", "")))
+	ehjax_send(data = url_encode(data))
 
 /datum/chatOutput/proc/sendClientData()
 	var/list/deets = list("clientData" = list())
@@ -210,8 +218,8 @@ var/list/chatResources = list(
 var/to_chat_filename
 var/to_chat_line
 var/to_chat_src
-// Call using macro: to_chat(target, message)
-/proc/__to_chat(target, message)
+// Call using macro: to_chat(target, message, flag)
+/proc/__to_chat(target, message, flag)
 	if(!is_valid_tochat_message(message) || !is_valid_tochat_target(target))
 		target << message
 
@@ -262,5 +270,9 @@ var/to_chat_src
 				C.chatOutput.messageQueue.Add(message)
 				return
 
+		// url_encode it TWICE, this way any UTF-8 characters are able to be decoded by the javascript.
+		var/output_message = "[url_encode(url_encode(message))]"
+		if(flag)
+			output_message += "&[url_encode(flag)]"
 
-		target << output(url_encode(message), "browseroutput:output")
+		target << output(output_message, "browseroutput:output")

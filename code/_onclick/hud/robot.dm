@@ -97,6 +97,11 @@
 	var/obj/screen/using
 	var/mob/living/silicon/robot/mymobR = mymob
 
+//Language menu
+	using = new /obj/screen/language_menu
+	using.screen_loc = ui_borg_lanugage_menu
+	static_inventory += using
+
 //Radio
 	using = new /obj/screen/robot/radio()
 	using.screen_loc = ui_borg_radio
@@ -206,7 +211,7 @@
 		//Unfortunately adding the emag module to the list of modules has to be here. This is because a borg can
 		//be emagged before they actually select a module. - or some situation can cause them to get a new module
 		// - or some situation might cause them to get de-emagged or something.
-		if(R.emagged)
+		if(R.emagged || R.weapons_unlock)
 			if(!(R.module.emag in R.module.modules))
 				R.module.modules.Add(R.module.emag)
 		else

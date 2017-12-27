@@ -21,8 +21,7 @@
 
 /obj/machinery/atmospherics/pipe/Destroy()
 	releaseAirToTurf()
-	qdel(air_temporary)
-	air_temporary = null
+	QDEL_NULL(air_temporary)
 
 	var/turf/T = loc
 	for(var/obj/machinery/meter/meter in T)

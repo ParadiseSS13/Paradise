@@ -4,7 +4,7 @@
 	icon_state = "signaller"
 	item_state = "signaler"
 	materials = list(MAT_METAL=400, MAT_GLASS=120)
-	origin_tech = "magnets=1"
+	origin_tech = "magnets=1;bluespace=1"
 	wires = WIRE_RECEIVE | WIRE_PULSE | WIRE_RADIO_PULSE | WIRE_RADIO_RECEIVE
 
 	secured = 1
@@ -61,7 +61,7 @@
 	if(!flag1)
 		dat += {"
 			<A href='byond://?src=[UID()];send=1'>Send Signal</A><BR>
-			Reciever is <A href='byond://?src=[UID()];receive=1'>[receiving?"on":"off"]</A><BR>
+			Receiver is <A href='byond://?src=[UID()];receive=1'>[receiving?"on":"off"]</A><BR>
 		"}
 	dat += {"
 		<B>Frequency/Code</B> for signaler:<BR>

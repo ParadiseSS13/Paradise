@@ -29,7 +29,7 @@
 	desc = "A die with six sides. Basic and servicable."
 	icon = 'icons/obj/dice.dmi'
 	icon_state = "d6"
-	w_class = 1
+	w_class = WEIGHT_CLASS_TINY
 	var/sides = 6
 	var/result = null
 	var/list/special_faces = list() //entries should match up to sides var if used
@@ -111,10 +111,10 @@
 /obj/item/weapon/dice/attack_self(mob/user as mob)
 	diceroll(user)
 
-/obj/item/weapon/dice/throw_at(atom/target, range, speed, mob/user as mob)
+/obj/item/weapon/dice/throw_at(atom/target, range, speed, mob/thrower, spin=1, diagonals_first = 0, datum/callback/callback)
 	if(!..())
 		return
-	diceroll(user)
+	diceroll(thrower)
 
 /obj/item/weapon/dice/proc/diceroll(mob/user)
 	result = rand(1, sides)
@@ -133,7 +133,7 @@
 		user.visible_message("<span class='notice'>[user] has thrown [src]. It lands on [result]. [comment]</span>", \
 							 "<span class='notice'>You throw [src]. It lands on [result]. [comment]</span>", \
 							 "<span class='italics'>You hear [src] rolling, it sounds like a [fake_result].</span>")
-	else if(src.throwing == 0) //Dice was thrown and is coming to rest
+	else if(!throwing) //Dice was thrown and is coming to rest
 		visible_message("<span class='notice'>[src] rolls to a stop, landing on [result]. [comment]</span>")
 
 /obj/item/weapon/dice/d20/e20/diceroll(mob/user as mob, thrown)

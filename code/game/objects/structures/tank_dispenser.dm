@@ -10,17 +10,15 @@
 	var/list/oxytanks = list()	//sorry for the similar var names
 	var/list/platanks = list()
 
-
 /obj/structure/dispenser/oxygen
 	plasmatanks = 0
 
 /obj/structure/dispenser/plasma
 	oxygentanks = 0
 
-
 /obj/structure/dispenser/New()
+	..()
 	update_icon()
-
 
 /obj/structure/dispenser/update_icon()
 	overlays.Cut()
@@ -31,40 +29,51 @@
 		if(1 to 4)	overlays += "plasma-[plasmatanks]"
 		if(5 to INFINITY) overlays += "plasma-5"
 
+/obj/structure/dispenser/attack_hand(mob/user)
+	if(..())
+		return 1
+	add_fingerprint(user)
+	ui_interact(user)
 
-/obj/structure/dispenser/attack_hand(mob/user as mob)
+/obj/structure/dispenser/attack_ghost(mob/user)
+	ui_interact(user)
+
+/obj/structure/dispenser/ui_interact(mob/user, ui_key = "main", datum/nanoui/ui = null, force_open = 1, var/master_ui = null, var/datum/topic_state/state = default_state)
 	user.set_machine(src)
-	var/dat = "[src]<br><br>"
-	dat += "Oxygen tanks: [oxygentanks] - [oxygentanks ? "<A href='?src=[UID()];oxygen=1'>Dispense</A>" : "empty"]<br>"
-	dat += "Plasma tanks: [plasmatanks] - [plasmatanks ? "<A href='?src=[UID()];plasma=1'>Dispense</A>" : "empty"]"
-	user << browse(dat, "window=dispenser")
-	onclose(user, "dispenser")
-	return
+	ui = nanomanager.try_update_ui(user, src, ui_key, ui, force_open)
+	if(!ui)
+		ui = new(user, src, ui_key, "tank_dispenser.tmpl", name, 275, 100, state = state)
+		ui.open()
 
+/obj/structure/dispenser/ui_data(user)
+	var/list/data = list()
+	data["o_tanks"] = oxygentanks
+	data["p_tanks"] = plasmatanks
+	return data
 
-/obj/structure/dispenser/attackby(obj/item/I as obj, mob/user as mob, params)
+/obj/structure/dispenser/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/weapon/tank/oxygen) || istype(I, /obj/item/weapon/tank/air) || istype(I, /obj/item/weapon/tank/anesthetic))
 		if(oxygentanks < 10)
 			user.drop_item()
-			I.loc = src
+			I.forceMove(src)
 			oxytanks.Add(I)
 			oxygentanks++
+			update_icon()
 			to_chat(user, "<span class='notice'>You put [I] in [src].</span>")
 		else
 			to_chat(user, "<span class='notice'>[src] is full.</span>")
-		updateUsrDialog()
-		return
+		nanomanager.update_uis(src)
 	if(istype(I, /obj/item/weapon/tank/plasma))
 		if(plasmatanks < 10)
 			user.drop_item()
-			I.loc = src
+			I.forceMove(src)
 			platanks.Add(I)
 			plasmatanks++
+			update_icon()
 			to_chat(user, "<span class='notice'>You put [I] in [src].</span>")
 		else
 			to_chat(user, "<span class='notice'>[src] is full.</span>")
-		updateUsrDialog()
-		return
+		nanomanager.update_uis(src)
 	if(istype(I, /obj/item/weapon/wrench))
 		if(anchored)
 			to_chat(user, "<span class='notice'>You lean down and unwrench [src].</span>")
@@ -72,11 +81,11 @@
 		else
 			to_chat(user, "<span class='notice'>You wrench [src] into place.</span>")
 			anchored = 1
-		return
 
 /obj/structure/dispenser/Topic(href, href_list)
-	if(usr.stat || usr.restrained())
-		return
+	if(..())
+		return 1
+
 	if(Adjacent(usr))
 		usr.set_machine(src)
 		if(href_list["oxygen"])
@@ -105,7 +114,7 @@
 				update_icon()
 		add_fingerprint(usr)
 		updateUsrDialog()
+		nanomanager.update_uis(src)
 	else
-		usr << browse(null, "window=dispenser")
-		return
-	return
+		nanomanager.close_user_uis(usr,src)
+	return 1

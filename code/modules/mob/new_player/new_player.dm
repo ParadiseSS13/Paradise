@@ -1,5 +1,3 @@
-//This file was auto-corrected by findeclaration.exe on 25.5.2012 20:42:33
-
 /mob/new_player
 	var/ready = 0
 	var/spawning = 0//Referenced when you want to delete the new_player later on in the code.
@@ -25,6 +23,8 @@
 
 /mob/new_player/proc/new_player_panel_proc()
 	var/real_name = client.prefs.real_name
+	if(client.prefs.randomslot)
+		real_name = "Random Character Slot"
 	var/output = "<center><p><a href='byond://?src=[UID()];show_preferences=1'>Setup Character</A><br /><i>[real_name]</i></p>"
 
 	if(!ticker || ticker.current_state <= GAME_STATE_PREGAME)
@@ -40,7 +40,7 @@
 	if(!IsGuestKey(src.key))
 		establish_db_connection()
 
-		if(dbcon.IsConnected())
+		if(dbcon.IsConnected() && client.can_vote())
 			var/isadmin = 0
 			if(src.client && src.client.holder)
 				isadmin = 1
@@ -52,9 +52,9 @@
 				break
 
 			if(newpoll)
-				output += "<p><b><a href='byond://?src=[UID()];showpoll=1'>Show Player Polls</A> (NEW!)</b></p>"
+				output += "<p><b><a href='byond://?showpoll=1'>Show Player Polls</A> (NEW!)</b></p>"
 			else
-				output += "<p><a href='byond://?src=[UID()];showpoll=1'>Show Player Polls</A></p>"
+				output += "<p><a href='byond://?showpoll=1'>Show Player Polls</A></p>"
 
 	output += "</center>"
 
@@ -65,14 +65,6 @@
 	return
 
 /mob/new_player/Stat()
-	if((!ticker) || ticker.current_state == GAME_STATE_PREGAME)
-		statpanel("Lobby") // First tab during pre-game.
-	..()
-
-	statpanel("Status")
-	if(client.statpanel == "Status" && ticker)
-		if(ticker.current_state != GAME_STATE_PREGAME)
-			stat(null, "Station Time: [worldtime2text()]")
 	statpanel("Lobby")
 	if(client.statpanel=="Lobby" && ticker)
 		if(ticker.hide_mode)
@@ -101,6 +93,14 @@
 				if(player.ready)
 					totalPlayersReady++
 
+	..()
+
+	statpanel("Status")
+	if(client.statpanel == "Status" && ticker)
+		if(ticker.current_state != GAME_STATE_PREGAME)
+			stat(null, "Station Time: [worldtime2text()]")
+
+
 /mob/new_player/Topic(href, href_list[])
 	if(!client)	return 0
 
@@ -123,13 +123,13 @@
 			var/mob/dead/observer/observer = new()
 			src << browse(null, "window=playersetup")
 			spawning = 1
-			src << sound(null, repeat = 0, wait = 0, volume = 85, channel = 1)// MAD JAMS cant last forever yo
+			stop_sound_channel(CHANNEL_LOBBYMUSIC)
 
 
 			observer.started_as_observer = 1
 			close_spawn_windows()
 			var/obj/O = locate("landmark*Observer-Start")
-			to_chat(src, "\blue Now teleporting.")
+			to_chat(src, "<span class='notice'>Now teleporting.</span>")
 			observer.loc = O.loc
 			observer.timeofdeath = world.time // Set the time of death so that the respawn timer works correctly.
 			client.prefs.update_preview_icon(1)
@@ -149,7 +149,7 @@
 
 	if(href_list["late_join"])
 		if(!ticker || ticker.current_state != GAME_STATE_PLAYING)
-			to_chat(usr, "\red The round is either not ready, or has already finished...")
+			to_chat(usr, "<span class='warning'>The round is either not ready, or has already finished...</span>")
 			return
 
 		if(client.prefs.species in whitelisted_species)
@@ -166,8 +166,11 @@
 	if(href_list["SelectedJob"])
 
 		if(!enter_allowed)
-			to_chat(usr, "\blue There is an administrative lock on entering the game!")
+			to_chat(usr, "<span class='notice'>There is an administrative lock on entering the game!</span>")
 			return
+
+		if(client.prefs.randomslot)
+			client.prefs.load_random_character_slot(client)
 
 		if(client.prefs.species in whitelisted_species)
 			if(!is_alien_whitelisted(src, client.prefs.species) && config.usealienwhitelist)
@@ -182,61 +185,6 @@
 			client.prefs.process_link(src, href_list)
 	else if(!href_list["late_join"])
 		new_player_panel()
-
-	if(href_list["showpoll"])
-
-		handle_player_polling()
-		return
-
-	if(href_list["pollid"])
-
-		var/pollid = href_list["pollid"]
-		if(istext(pollid))
-			pollid = text2num(pollid)
-		if(isnum(pollid))
-			src.poll_player(pollid)
-		return
-
-	if(href_list["votepollid"] && href_list["votetype"])
-		var/pollid = text2num(href_list["votepollid"])
-		var/votetype = href_list["votetype"]
-		switch(votetype)
-			if("OPTION")
-				var/optionid = text2num(href_list["voteoptionid"])
-				vote_on_poll(pollid, optionid)
-			if("TEXT")
-				var/replytext = href_list["replytext"]
-				log_text_poll_reply(pollid, replytext)
-			if("NUMVAL")
-				var/id_min = text2num(href_list["minid"])
-				var/id_max = text2num(href_list["maxid"])
-
-				if( (id_max - id_min) > 100 )	//Basic exploit prevention
-					to_chat(usr, "The option ID difference is too big. Please contact administration or the database admin.")
-					return
-
-				for(var/optionid = id_min; optionid <= id_max; optionid++)
-					if(!isnull(href_list["o[optionid]"]))	//Test if this optionid was replied to
-						var/rating
-						if(href_list["o[optionid]"] == "abstain")
-							rating = null
-						else
-							rating = text2num(href_list["o[optionid]"])
-							if(!isnum(rating))
-								return
-
-						vote_on_numval_poll(pollid, optionid, rating)
-			if("MULTICHOICE")
-				var/id_min = text2num(href_list["minoptionid"])
-				var/id_max = text2num(href_list["maxoptionid"])
-
-				if( (id_max - id_min) > 100 )	//Basic exploit prevention
-					to_chat(usr, "The option ID difference is too big. Please contact administration or the database admin.")
-					return
-
-				for(var/optionid = id_min; optionid <= id_max; optionid++)
-					if(!isnull(href_list["option_[optionid]"]))	//Test if this optionid was selected
-						vote_on_poll(pollid, optionid, 1)
 
 /mob/new_player/proc/IsJobAvailable(rank)
 	var/datum/job/job = job_master.GetJob(rank)
@@ -280,13 +228,17 @@
 	if(src != usr)
 		return 0
 	if(!ticker || ticker.current_state != GAME_STATE_PLAYING)
-		to_chat(usr, "\red The round is either not ready, or has already finished...")
+		to_chat(usr, "<span class='warning'>The round is either not ready, or has already finished...</span>")
 		return 0
 	if(!enter_allowed)
-		to_chat(usr, "\blue There is an administrative lock on entering the game!")
+		to_chat(usr, "<span class='notice'>There is an administrative lock on entering the game!</span>")
 		return 0
 	if(!IsJobAvailable(rank))
 		to_chat(src, alert("[rank] is not available. Please try another."))
+		return 0
+	var/datum/job/thisjob = job_master.GetJob(rank)
+	if(thisjob.barred_by_disability(client))
+		to_chat(src, alert("[rank] is not available due to your character's disability. Please try another."))
 		return 0
 
 	job_master.AssignRole(src, rank, 1)
@@ -352,7 +304,8 @@
 		AnnounceArrival(character, rank, join_message)
 		callHook("latespawn", list(character))
 
-
+	if(!thisjob.is_position_available() && thisjob in job_master.prioritized_jobs)
+		job_master.prioritized_jobs -= thisjob
 	qdel(src)
 
 
@@ -412,6 +365,18 @@
 	else if(shuttle_master.emergency.mode >= SHUTTLE_CALL)
 		dat += "<font color='red'>The station is currently undergoing evacuation procedures.</font><br>"
 
+	if(length(job_master.prioritized_jobs))
+		dat += "<font color='lime'>The station has flagged these jobs as high priority: "
+		var/amt = length(job_master.prioritized_jobs)
+		var/amt_count
+		for(var/datum/job/a in job_master.prioritized_jobs)
+			amt_count++
+			if(amt_count != amt)
+				dat += " [a.title], "
+			else
+				dat += " [a.title]. </font><br>"
+
+
 	dat += "Choose from the following open positions:<br><br>"
 
 	var/list/activePlayers = list()
@@ -427,7 +392,7 @@
 		"Supply" = list(jobs = list(), titles = supply_positions, color = "#ead4ae"),
 		)
 	for(var/datum/job/job in job_master.occupations)
-		if(job && IsJobAvailable(job.title))
+		if(job && IsJobAvailable(job.title) && !job.barred_by_disability(client))
 			activePlayers[job] = 0
 			var/categorized = 0
 			// Only players with the job assigned and AFK for less than 10 minutes count as active
@@ -460,7 +425,10 @@
 		dat += "<fieldset style='border: 2px solid [color]; display: inline'>"
 		dat += "<legend align='center' style='color: [color]'>[jobcat]</legend>"
 		for(var/datum/job/job in categorizedJobs[jobcat]["jobs"])
-			dat += "<a href='byond://?src=[UID()];SelectedJob=[job.title]'>[job.title] ([job.current_positions]) (Active: [activePlayers[job]])</a><br>"
+			if(job in job_master.prioritized_jobs)
+				dat += "<a href='byond://?src=[UID()];SelectedJob=[job.title]'><font color='lime'><B>[job.title] ([job.current_positions]) (Active: [activePlayers[job]])</B></font></a><br>"
+			else
+				dat += "<a href='byond://?src=[UID()];SelectedJob=[job.title]'>[job.title] ([job.current_positions]) (Active: [activePlayers[job]])</a><br>"
 		dat += "</fieldset><br>"
 
 	dat += "</td></tr></table></center>"
@@ -486,7 +454,7 @@
 		client.prefs.real_name = random_name(client.prefs.gender)
 	client.prefs.copy_to(new_character)
 
-	src << sound(null, repeat = 0, wait = 0, volume = 85, channel = 1)// MAD JAMS cant last forever yo
+	stop_sound_channel(CHANNEL_LOBBYMUSIC)
 
 
 	if(mind)
@@ -494,6 +462,9 @@
 		if(mind.assigned_role == "Clown")				//give them a clownname if they are a clown
 			new_character.real_name = pick(clown_names)	//I hate this being here of all places but unfortunately dna is based on real_name!
 			new_character.rename_self("clown")
+		else if(mind.assigned_role == "Mime")
+			new_character.real_name = pick(mime_names)
+			new_character.rename_self("mime")
 		else if(new_character.species == "Diona")
 			new_character.real_name = pick(diona_names)	//I hate this being here of all places but unfortunately dna is based on real_name!
 			new_character.rename_self("diona")
@@ -546,7 +517,7 @@
 
 /mob/new_player/proc/is_species_whitelisted(datum/species/S)
 	if(!S) return 1
-	return is_alien_whitelisted(src, S.name) || !config.usealienwhitelist || !(S.flags & IS_WHITELISTED)
+	return is_alien_whitelisted(src, S.name) || !config.usealienwhitelist || !(IS_WHITELISTED in S.species_traits)
 
 /mob/new_player/get_species()
 	var/datum/species/chosen_species

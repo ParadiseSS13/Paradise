@@ -22,6 +22,8 @@
 	// All shuttle templates are timid
 	var/timid = FALSE
 
+	var/list/ripples = list()
+
 	//these objects are indestructable
 /obj/docking_port/Destroy(force)
 	if(force)
@@ -174,7 +176,7 @@
 	*/
 
 /obj/docking_port/stationary/transit
-	name = "In Transit"
+	name = "In transit"
 	turf_type = /turf/space/transit
 
 	lock_shuttle_doors = 1
@@ -183,7 +185,7 @@
 	if(!..())
 		return 0
 
-	name = "In Transit" //This looks weird, but- it means that the on-map instances can be named something actually usable to search for, but still appear correctly in terminals.
+	name = "In transit" //This looks weird, but- it means that the on-map instances can be named something actually usable to search for, but still appear correctly in terminals.
 
 	shuttle_master.transit += src
 	return 1
@@ -279,7 +281,7 @@
 		else
 		// This isn't an error, per se, but we can't let the shuttle code
 		// attempt to move us where we currently are, it will get weird.
-			return SHUTTLE_ALREADY_DOCKED		
+			return SHUTTLE_ALREADY_DOCKED
 	return SHUTTLE_CAN_DOCK
 
 /obj/docking_port/mobile/proc/check_dock(obj/docking_port/stationary/S)
@@ -378,16 +380,51 @@
 
 	qdel(src, force=TRUE)
 
+/obj/docking_port/mobile/proc/create_ripples(obj/docking_port/stationary/S1)
+	var/list/turfs = ripple_area(S1)
+	for(var/i in turfs)
+		ripples += new /obj/effect/overlay/temp/ripple(i)
+
+/obj/docking_port/mobile/proc/remove_ripples()
+	if(ripples.len)
+		for(var/i in ripples)
+			qdel(i)
+		ripples.Cut()
+
+
+/obj/docking_port/mobile/proc/ripple_area(obj/docking_port/stationary/S1)
+	var/list/L0 = return_ordered_turfs(x, y, z, dir, areaInstance)
+	var/list/L1 = return_ordered_turfs(S1.x, S1.y, S1.z, S1.dir)
+
+	var/list/ripple_turfs = list()
+
+	for(var/i in 1 to L0.len)
+		var/turf/T0 = L0[i]
+		if(!T0)
+			continue
+		var/turf/T1 = L1[i]
+		if(!T1)
+			continue
+		if(T0.type != T0.baseturf)
+			ripple_turfs += T1
+
+	return ripple_turfs
+
 //this is the main proc. It instantly moves our mobile port to stationary port S1
 //it handles all the generic behaviour, such as sanity checks, closing doors on the shuttle, stunning mobs, etc
 /obj/docking_port/mobile/proc/dock(obj/docking_port/stationary/S1, force=FALSE)
 	// Crashing this ship with NO SURVIVORS
+	if(S1.get_docked() == src)
+		remove_ripples()
+		return
+
 	if(!force)
 		if(!check_dock(S1))
 			return -1
 
 		if(canMove())
 			return -1
+
 
 //		//rotate transit docking ports, so we don't need zillions of variants
 //		if(istype(S1, /obj/docking_port/stationary/transit))
@@ -422,6 +459,9 @@
 			A0 = new area_type(null)
 		for(var/turf/T0 in L0)
 			A0.contents += T0
+
+	// Removes ripples
+	remove_ripples()
 
 	//move or squish anything in the way ship at destination
 	roadkill(L0, L1, S1.dir)
@@ -489,8 +529,14 @@
 	// Instead of spending a lot of time trying to work out where to place
 	// our shuttle, just create it somewhere empty and send it to where
 	// it should go
-	var/obj/docking_port/stationary/D = findRoundstartDock()
-	return dock(D)
+	. = dock_id(roundstart_move)
+
+/obj/docking_port/mobile/proc/dock_id(id)
+	var/port = shuttle_master.getDock(id)
+	if(port)
+		. = dock(port)
+	else
+		. = null
 
 /obj/effect/landmark/shuttle_import
 	name = "Shuttle Import"
@@ -558,7 +604,10 @@
 
 //used by shuttle subsystem to check timers
 /obj/docking_port/mobile/proc/check()
+	check_effects()
+
 	var/timeLeft = timeLeft(1)
+
 	if(timeLeft <= 0)
 		switch(mode)
 			if(SHUTTLE_CALL)
@@ -573,6 +622,12 @@
 		timer = 0
 		destination = null
 
+/obj/docking_port/mobile/proc/check_effects()
+	if(!ripples.len)
+		if((mode == SHUTTLE_CALL) || (mode == SHUTTLE_RECALL))
+			var/tl = timeLeft(1)
+			if(tl <= SHUTTLE_RIPPLE_TIME)
+				create_ripples(destination)
 
 /obj/docking_port/mobile/proc/setTimer(wait)
 	if(timer <= 0)
@@ -670,41 +725,42 @@
 		return
 	if(!shuttleId)
 		return
-	src.add_fingerprint(usr)
-
 	connect()
+	add_fingerprint(user)
+	ui_interact(user)
 
-	var/list/options = params2list(possible_destinations)
+/obj/machinery/computer/shuttle/ui_interact(mob/user, ui_key = "main", var/datum/nanoui/ui = null, var/force_open = 1)
 	var/obj/docking_port/mobile/M = shuttle_master.getShuttle(shuttleId)
-	var/dat = "Status: [M ? M.getStatusText() : "*Missing*"]<br><br>"
+	ui = nanomanager.try_update_ui(user, src, ui_key, ui, force_open)
+	if(!ui)
+		ui = new(user, src, ui_key, "shuttle_console.tmpl", M ? M.name : "shuttle", 300, 200)
+		ui.open()
+
+/obj/machinery/computer/shuttle/ui_data(mob/user, ui_key = "main", datum/topic_state/state = default_state)
+	var/data[0]
+	var/obj/docking_port/mobile/M = shuttle_master.getShuttle(shuttleId)
+	data["status"] = M ? M.getStatusText() : null
 	if(M)
-		var/destination_found
+		data["shuttle"] = 1
+		var/list/docking_ports = list()
+		data["docking_ports"] = docking_ports
+		var/list/options = params2list(possible_destinations)
 		for(var/obj/docking_port/stationary/S in shuttle_master.stationary)
 			if(!options.Find(S.id))
 				continue
 			if(!M.check_dock(S))
 				continue
-			destination_found = 1
-			dat += "<A href='?src=[UID()];move=[S.id]'>Send to [S.name]</A><br>"
-		if(!destination_found)
-			dat += "<B>Shuttle Locked</B><br>"
-			if(admin_controlled)
-				dat += "Authorized personnel only<br>"
-				dat += "<A href='?src=[UID()];request=1]'>Request Authorization</A><br>"
-		if(docking_request)
-			dat += "<A href='?src=[UID()];request=1]'>Request docking at NSS Cyberiad</A><br>"
-	dat += "<a href='?src=[user.UID()];mach_close=computer'>Close</a>"
+			docking_ports[++docking_ports.len] = list("name" = S.name, "id" = S.id)
+		data["docking_ports_len"] = docking_ports.len
+		data["admin_controlled"] = admin_controlled
+		data["docking_request"] = docking_request
 
-	var/datum/browser/popup = new(user, "computer", M ? M.name : "shuttle", 300, 200)
-	popup.set_content("<center>[dat]</center>")
-	popup.set_title_image(usr.browse_rsc_icon(src.icon, src.icon_state))
-	popup.open()
+	return data
 
 /obj/machinery/computer/shuttle/Topic(href, href_list)
 	if(..())
 		return 1
-	usr.set_machine(src)
-	src.add_fingerprint(usr)
+
 	if(!allowed(usr))
 		to_chat(usr, "<span class='danger'>Access denied.</span>")
 		return
@@ -722,7 +778,7 @@
 				to_chat(usr, "<span class='warning'>Invalid shuttle requested.</span>")
 			else
 				to_chat(usr, "<span class='notice'>Unable to comply.</span>")
-		updateUsrDialog()
+		return 1
 
 /obj/machinery/computer/shuttle/emag_act(mob/user)
 	if(!emagged)
@@ -754,13 +810,15 @@
 		to_chat(usr, "<span class='notice'>Your request has been recieved by Centcom.</span>")
 		log_admin("[key_name(usr)] requested to move the transport ferry to Centcom.")
 		message_admins("<b>FERRY: <font color='blue'>[key_name_admin(usr)] (<A HREF='?_src_=holder;secretsfun=moveferry'>Move Ferry</a>)</b> is requesting to move the transport ferry to Centcom.</font>")
+		. = 1
+		nanomanager.update_uis(src)
 		spawn(600) //One minute cooldown
 			cooldown = 0
-
 
 /obj/machinery/computer/shuttle/ert
 	name = "specops shuttle console"
 	//circuit = /obj/item/weapon/circuitboard/ert
+	req_access = list(access_cent_general)
 	shuttleId = "specops"
 	possible_destinations = "specops_home;specops_away"
 
@@ -799,13 +857,14 @@
 /obj/machinery/computer/shuttle/sst
 	name = "Syndicate Strike Time Shuttle Console"
 	desc = "Used to call and send the SST shuttle."
+	req_access = list(access_syndicate)
 	shuttleId = "sst"
 	possible_destinations = "sst_home;sst_away"
 
 /obj/machinery/computer/shuttle/sit
-	req_access = list(access_syndicate)
 	name = "Syndicate Infiltration Team Shuttle Console"
 	desc = "Used to call and send the SIT shuttle."
+	req_access = list(access_syndicate)
 	shuttleId = "sit"
 	possible_destinations = "sit_arrivals;sit_scimaint;sit_engshuttle;sit_away"
 
@@ -836,8 +895,9 @@ var/global/trade_dockrequest_timelimit = 0
 		if(world.time < trade_dockrequest_timelimit || world.time < trade_dock_timelimit)
 			return
 		to_chat(usr, "<span class='notice'>Request sent.</span>")
-		command_announcement.Announce(docking_request_message, "Docking Request")
+		event_announcement.Announce(docking_request_message, "Docking Request")
 		trade_dockrequest_timelimit = world.time + 1200 // They have 2 minutes to approve the request.
+		return 1
 
 /obj/machinery/computer/shuttle/trade/sol
 	req_access = list(access_trade_sol)

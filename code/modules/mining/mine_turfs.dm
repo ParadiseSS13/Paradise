@@ -470,14 +470,14 @@ var/global/list/rockTurfEdgeCache = list(
 			src.gets_dug()
 	return
 
-/turf/simulated/floor/plating/airless/asteroid/attackby(obj/item/weapon/W as obj, mob/user as mob, params)
+/turf/simulated/floor/plating/airless/asteroid/attackby(obj/item/weapon/W, mob/user, params)
 	//note that this proc does not call ..()
 	if(!W || !user)
 		return 0
 
 	if((istype(W, /obj/item/weapon/shovel)))
-		var/turf/T = user.loc
-		if(!( istype(T, /turf) ))
+		var/turf/T = get_turf(user)
+		if(!istype(T))
 			return
 
 		if(dug)
@@ -485,17 +485,15 @@ var/global/list/rockTurfEdgeCache = list(
 			return
 
 		to_chat(user, "<span class='notice'>You start digging...</span>")
-
-		sleep(20)
-		if((user.loc == T && user.get_active_hand() == W))
+		if(do_after(user, 20 * W.toolspeed, target = src))
 			to_chat(user, "<span class='notice'>You dig a hole.</span>")
 			gets_dug()
 			return
 
 	if((istype(W, /obj/item/weapon/pickaxe)))
 		var/obj/item/weapon/pickaxe/P = W
-		var/turf/T = user.loc
-		if(!( istype(T, /turf) ))
+		var/turf/T = get_turf(user)
+		if(!istype(T))
 			return
 
 		if(dug)
@@ -504,8 +502,7 @@ var/global/list/rockTurfEdgeCache = list(
 
 		to_chat(user, "<span class='notice'>You start digging...</span>")
 
-		sleep(P.digspeed)
-		if((user.loc == T && user.get_active_hand() == W))
+		if(do_after(user, P.digspeed, target = src))
 			to_chat(user, "<span class='notice'>You dig a hole.</span>")
 			gets_dug()
 			return

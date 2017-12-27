@@ -86,7 +86,7 @@
 					custom_emote(1, "[src]'s chest opens up, revealing a large mass of explosives and tangled wires!")
 					if(inactivity_period <= 0)
 						inactivity_period = 9999 // technically infinite
-						if(do_after(src, 60, target=traitorTarget))
+						if(do_after(src, 60, target = traitorTarget))
 							custom_emote(1, "A fire bursts from [src]'s eyes, igniting white hot and consuming their body in a flaming explosion!")
 							explosion(src, 6, 6, 6)
 						else
@@ -119,15 +119,15 @@
 		internalBeaker.name = "Grow-U-All Super Spray"
 
 	if(internalBeaker && internalBag)
-		var/obj/machinery/portable_atmospherics/hydroponics/HP
+		var/obj/machinery/hydroponics/HP
 
 		//consider the appropriate target
 		var/list/considered = list()
 
-		for(var/obj/machinery/portable_atmospherics/hydroponics/tester in view(12,src))
+		for(var/obj/machinery/hydroponics/tester in view(12,src))
 			considered[tester] = 1
 
-			if(!tester.seed)
+			if(!tester.myseed)
 				considered[tester] += 50
 			if(tester.weedlevel > 0)
 				considered[tester] += 5
@@ -154,7 +154,7 @@
 			else
 				if(HP.harvest || HP.dead)
 					HP.attack_hand(src)
-				else if(!HP.seed)
+				else if(!HP.myseed)
 					var/obj/item/seeds/SEED = new /obj/item/seeds/random(src)
 					custom_emote(1, "[pick("gibbers","drools","slobbers","claps wildly","spits")] towards [TARGET], producing a [SEED]!")
 					HP.attackby(SEED, src)
@@ -170,8 +170,8 @@
 							internalBeaker.reagents.add_reagent("diethylamine", 10)
 					if(HP.nutrilevel <  HP.maxnutri)
 						change = 1
-						if(!internalBeaker.reagents.has_reagent("eznutrient", 15))
-							internalBeaker.reagents.add_reagent("eznutrient", 15)
+						if(!internalBeaker.reagents.has_reagent("eznutriment", 15))
+							internalBeaker.reagents.add_reagent("eznutriment", 15)
 						if(!internalBeaker.reagents.has_reagent("diethylamine", 15))
 							internalBeaker.reagents.add_reagent("diethylamine", 15)
 					if(HP.waterlevel < HP.maxwater)
@@ -261,7 +261,7 @@
 		var/pranksNearby = 100
 		for(var/turf/simulated/T in orange(1, C))
 			for(var/obj/item/A in T)
-				if(istype(A,/obj/item/weapon/soap) || istype(A,/obj/item/weapon/reagent_containers/food/snacks/grown/banana) || istype(A,/obj/item/weapon/bananapeel))
+				if(istype(A,/obj/item/weapon/soap) || istype(A,/obj/item/weapon/reagent_containers/food/snacks/grown/banana) || istype(A,/obj/item/weapon/grown/bananapeel))
 					pranksNearby--
 			if(T.wet)
 				pranksNearby -= 10
@@ -287,7 +287,7 @@
 					if(istype(A,/obj/item/weapon/reagent_containers/food/snacks/grown/banana))
 						var/obj/item/weapon/reagent_containers/food/snacks/B = A
 						B.attack(src, src)
-					if(istype(A,/obj/item/weapon/bananapeel))
+					if(istype(A,/obj/item/weapon/grown/bananapeel))
 						npcDrop(A)
 						hasPranked = 1
 			if(!hasPranked)
@@ -403,26 +403,6 @@
 		ingredients += I
 		I.forceMove(null)
 
-	for(var/P in R.fruit)
-		for(var/i = 1 to R.fruit[P])
-			var/obj/item/I = locate(P) in allContents
-			if(I)
-				ingredients += I
-				I.forceMove(null)
-				continue
-
-			I = locate(P) in rangeCheck
-			TARGET = I
-			if(I && !Adjacent(I))
-				tryWalk(get_turf(I))
-				sleep(get_dist(src, I))
-			if(!I || !(I in rangeCheck))
-				refundrecipe(ingredients)
-				return 0
-			custom_emote(1, "[pick("gibbers","drools","slobbers","claps wildly","spits")], picking up [I].")
-			ingredients += I
-			I.forceMove(null)
-
 	// cheaply cook the ingredients into result
 	sleep(R.time)
 	for(var/obj/I in ingredients)
@@ -440,9 +420,9 @@
 		return
 	doing |= SNPC_SPECIAL
 
-	var/static/list/customableTypes = list(/obj/item/weapon/reagent_containers/food/snacks/customizable,/obj/item/weapon/reagent_containers/food/snacks/breadslice,/obj/item/weapon/reagent_containers/food/snacks/bun,/obj/item/weapon/reagent_containers/food/snacks/sliceable/flatdough,/obj/item/weapon/reagent_containers/food/snacks/boiledspagetti,/obj/item/trash/plate,/obj/item/trash/bowl)
+	var/static/list/customableTypes = list(/obj/item/weapon/reagent_containers/food/snacks/customizable,/obj/item/weapon/reagent_containers/food/snacks/breadslice,/obj/item/weapon/reagent_containers/food/snacks/bun,/obj/item/weapon/reagent_containers/food/snacks/sliceable/flatdough,/obj/item/weapon/reagent_containers/food/snacks/boiledspaghetti,/obj/item/trash/plate,/obj/item/trash/bowl)
 
-	var/static/list/rawtypes = list(/obj/item/weapon/reagent_containers/food/snacks/grown, /obj/item/weapon/reagent_containers/food/snacks/rawcutlet, /obj/item/weapon/reagent_containers/food/snacks/rawmeatball, /obj/item/weapon/reagent_containers/food/snacks/rawsticks, /obj/item/weapon/reagent_containers/food/snacks/salmonmeat, /obj/item/weapon/reagent_containers/food/snacks/carpmeat, /obj/item/weapon/reagent_containers/food/snacks/catfishmeat, /obj/item/weapon/reagent_containers/food/snacks/spagetti, /obj/item/weapon/reagent_containers/food/snacks/dough_ball, /obj/item/weapon/reagent_containers/food/snacks/sliceable/flatdough, /obj/item/weapon/reagent_containers/food/snacks/doughslice, /obj/item/weapon/reagent_containers/food/snacks/meat, /obj/item/weapon/reagent_containers/food/snacks/boiledrice, /obj/item/weapon/reagent_containers/food/snacks/cheesewedge, /obj/item/weapon/reagent_containers/food/snacks/raw_bacon)
+	var/static/list/rawtypes = list(/obj/item/weapon/reagent_containers/food/snacks/grown, /obj/item/weapon/reagent_containers/food/snacks/rawcutlet, /obj/item/weapon/reagent_containers/food/snacks/rawsticks, /obj/item/weapon/reagent_containers/food/snacks/salmonmeat, /obj/item/weapon/reagent_containers/food/snacks/carpmeat, /obj/item/weapon/reagent_containers/food/snacks/catfishmeat, /obj/item/weapon/reagent_containers/food/snacks/spaghetti, /obj/item/weapon/reagent_containers/food/snacks/dough, /obj/item/weapon/reagent_containers/food/snacks/sliceable/flatdough, /obj/item/weapon/reagent_containers/food/snacks/doughslice, /obj/item/weapon/reagent_containers/food/snacks/meat, /obj/item/weapon/reagent_containers/food/snacks/boiledrice, /obj/item/weapon/reagent_containers/food/snacks/cheesewedge, /obj/item/weapon/reagent_containers/food/snacks/raw_bacon)
 
 	try
 		var/list/allContents = getAllContents()
@@ -579,8 +559,8 @@
 		var/highest_count = 0
 		var/datum/recipe/winner = null
 		for(var/datum/recipe/R in available_recipes)
-			if(R.check_items(ingredientZone) >= 0 && R.check_fruit(ingredientZone) >= 0)
-				var/count = (R.items ? R.items.len : 0) + (R.fruit ? R.fruit.len : 0)
+			if(R.check_items(ingredientZone) >= 0)
+				var/count = (R.items ? R.items.len : 0)
 				if(count > highest_count)
 					highest_count = count
 					winner = R
@@ -658,7 +638,7 @@
 	if(canmove)
 		if((graytide || (TRAITS & TRAIT_MEAN)) || retal)
 			interest += targetInterestShift
-			a_intent = "harm"
+			a_intent = INTENT_HARM
 			zone_sel.selecting = pick("chest","r_leg","l_leg","r_arm","l_arm","head")
 			doing |= SNPC_FIGHTING
 			if(retal)
@@ -766,7 +746,7 @@
 						tryWalk(TARGET)
 					else
 						if(Adjacent(TARGET))
-							a_intent = pick("disarm", "harm")
+							a_intent = pick(INTENT_DISARM, INTENT_HARM)
 							M.attack_hand(src)
 			timeout++
 		else if(timeout >= 10 || !(targetRange(M) > 14))

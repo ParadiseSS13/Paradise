@@ -14,8 +14,19 @@ var/list/restricted_camera_networks = list( //Those networks can only be accesse
 	"Thunderdome",
 	"UO45",
 	"UO45R",
+	"UO71",
 	"Xeno",
 	"Hotel"
 	)
 
 var/list/mineral_turfs = list()
+
+var/list/ruin_landmarks = list()
+
+var/list/round_end_sounds = list( // Maps available round end sounds to their duration
+		'sound/AI/newroundsexy.ogg' = 2.3 SECONDS,
+		'sound/misc/apcdestroyed.ogg' = 3 SECONDS,
+		'sound/misc/bangindonk.ogg' = 1.6 SECONDS,
+		'sound/goonstation/misc/newround1.ogg' = 6.9 SECONDS,
+		'sound/goonstation/misc/newround2.ogg' = 14.8 SECONDS
+		)

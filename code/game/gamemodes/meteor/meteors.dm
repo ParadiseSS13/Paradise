@@ -118,11 +118,13 @@
 	return .
 
 /obj/effect/meteor/Destroy()
+	meteor_list -= src
 	walk(src,0) //this cancels the walk_towards() proc
 	return ..()
 
 /obj/effect/meteor/New()
 	..()
+	meteor_list += src
 	SpinAnimation()
 
 /obj/effect/meteor/Bump(atom/A)
@@ -131,7 +133,7 @@
 		playsound(src.loc, meteorsound, 40, 1)
 		get_hit()
 
-/obj/effect/meteor/CanPass(atom/movable/mover, turf/target, height=0, air_group=0)
+/obj/effect/meteor/CanPass(atom/movable/mover, turf/target, height=0)
 	return istype(mover, /obj/effect/meteor) ? 1 : ..()
 
 /obj/effect/meteor/proc/ram_turf(var/turf/T)
@@ -169,14 +171,18 @@
 
 /obj/effect/meteor/proc/meteor_effect(var/sound=1)
 	if(sound)
-		for(var/mob/M in player_list)
+		var/sound/meteor_sound = sound(meteorsound)
+		var/random_frequency = get_rand_frequency()
+
+		for(var/P in player_list)
+			var/mob/M = P
 			var/turf/T = get_turf(M)
 			if(!T || T.z != src.z)
 				continue
 			var/dist = get_dist(M.loc, src.loc)
 			if(prob(50))
 				shake_camera(M, dist > 20 ? 3 : 5, dist > 20 ? 1 : 3)
-			M.playsound_local(src.loc, meteorsound, 50, 1, get_rand_frequency(), 10)
+			M.playsound_local(src.loc, null, 50, 1, random_frequency, 10, S = meteor_sound)
 
 ///////////////////////
 //Meteor types

@@ -36,15 +36,19 @@
 	var/obj/screen/using
 	var/obj/screen/inventory/inv_box
 
+	using = new /obj/screen/language_menu
+	using.screen_loc = ui_alien_language_menu
+	static_inventory += using
+
 	using = new /obj/screen/act_intent/alien()
-	using.icon_state = (mymob.a_intent == "hurt" ? "harm" : mymob.a_intent)
+	using.icon_state = (mymob.a_intent == "hurt" ? INTENT_HARM : mymob.a_intent)
 	using.screen_loc = ui_acti
 	static_inventory += using
 	action_intent = using
 
 	using = new /obj/screen/mov_intent()
 	using.icon = 'icons/mob/screen_alien.dmi'
-	using.icon_state = (mymob.m_intent == "run" ? "running" : "walking")
+	using.icon_state = (mymob.m_intent == MOVE_INTENT_RUN ? "running" : "walking")
 	using.screen_loc = ui_movi
 	static_inventory += using
 	move_intent = using

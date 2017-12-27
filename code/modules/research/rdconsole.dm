@@ -1,5 +1,3 @@
-//This file was auto-corrected by findeclaration.exe on 25.5.2012 20:42:33
-
 /*
 Research and Development (R&D) Console
 
@@ -319,58 +317,62 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 		if(linked_destroy)
 			if(linked_destroy.busy)
 				to_chat(usr, "<span class='danger'>The destructive analyzer is busy at the moment.</span>")
-			else
-				var/choice = input("Proceeding will destroy loaded item.") in list("Proceed", "Cancel")
-				if(choice == "Cancel" || !linked_destroy) return
-				linked_destroy.busy = 1
-				add_wait_message("Processing and Updating Database...", DECONSTRUCT_DELAY)
-				nanomanager.update_uis(src)
-				flick("d_analyzer_process", linked_destroy)
-				spawn(DECONSTRUCT_DELAY)
-					clear_wait_message()
-					if(linked_destroy)
-						linked_destroy.busy = 0
-						if(!linked_destroy.hacked)
-							if(!linked_destroy.loaded_item)
-								to_chat(usr, "<span class='danger'>The destructive analyzer appears to be empty.</span>")
-								menu = 0
-								submenu = 0
-								return
-							if((linked_destroy.loaded_item.reliability >= 99 - (linked_destroy.decon_mod * 3)) || linked_destroy.loaded_item.crit_fail)
-								var/list/temp_tech = linked_destroy.ConvertReqString2List(linked_destroy.loaded_item.origin_tech)
-								for(var/T in temp_tech)
-									if(prob(linked_destroy.loaded_item.reliability))               //If deconstructed item is not reliable enough its just being wasted, else it is pocessed
-										files.UpdateTech(T, temp_tech[T])                          //Check if deconstructed item has research levels higher/same/one less than current ones
-								files.UpdateDesigns(linked_destroy.loaded_item, temp_tech, src)    //If if such reseach type found all the known designs are checked for having this research type in them
-								menu = 0                           //If design have it it gains some reliability
-								submenu = 0
-							else                                                                   //Same design always gain quality
-								menu = 2                           //Crit fail gives the same design a lot of reliability, like really a lot
-								submenu = 0
-							if(linked_lathe) //Also sends salvaged materials to a linked protolathe, if any.
-								for(var/material in linked_destroy.loaded_item.materials)
-									linked_lathe.materials.insert_amount(min((linked_lathe.materials.max_amount - linked_lathe.materials.total_amount), (linked_destroy.loaded_item.materials[material]*(linked_destroy.decon_mod/10))), material)
-							linked_destroy.loaded_item = null
-						else
+				return
+			var/list/temp_tech = linked_destroy.ConvertReqString2List(linked_destroy.loaded_item.origin_tech)
+			var/cancontinue = FALSE
+			for(var/T in temp_tech)
+				if(files.IsTechHigher(T, temp_tech[T]))
+					cancontinue = TRUE
+					break
+			if(!cancontinue)
+				var/choice = input("This item does not raise tech levels. Proceed destroying loaded item anyway?") in list("Proceed", "Cancel")
+				if(choice == "Cancel" || !linked_destroy)
+					return
+			linked_destroy.busy = 1
+			add_wait_message("Processing and Updating Database...", DECONSTRUCT_DELAY)
+			nanomanager.update_uis(src)
+			flick("d_analyzer_process", linked_destroy)
+			spawn(DECONSTRUCT_DELAY)
+				clear_wait_message()
+				if(linked_destroy)
+					linked_destroy.busy = 0
+					if(!linked_destroy.hacked)
+						if(!linked_destroy.loaded_item)
+							to_chat(usr, "<span class='danger'>The destructive analyzer appears to be empty.</span>")
 							menu = 0
 							submenu = 0
-						for(var/obj/I in linked_destroy.contents)
-							for(var/mob/M in I.contents)
-								M.death()
-							if(istype(I,/obj/item/stack/sheet))//Only deconsturcts one sheet at a time instead of the entire stack
-								var/obj/item/stack/sheet/S = I
-								if(S.amount > 1)
-									S.amount--
-									linked_destroy.loaded_item = S
-								else
-									qdel(S)
-									linked_destroy.icon_state = "d_analyzer"
+							return
+						for(var/T in temp_tech)
+							var/datum/tech/KT = files.known_tech[T] //For stat logging of high levels
+							if(files.IsTechHigher(T, temp_tech[T]) && KT.level >= 5) //For stat logging of high levels
+								feedback_add_details("high_research_level","[KT][KT.level + 1]") //+1 to show the level which we're about to get
+							files.UpdateTech(T, temp_tech[T])
+							menu = 0
+							submenu = 0
+						if(linked_lathe) //Also sends salvaged materials to a linked protolathe, if any.
+							for(var/material in linked_destroy.loaded_item.materials)
+								linked_lathe.materials.insert_amount(min((linked_lathe.materials.max_amount - linked_lathe.materials.total_amount), (linked_destroy.loaded_item.materials[material]*(linked_destroy.decon_mod/10))), material)
+						linked_destroy.loaded_item = null
+					else
+						menu = 0
+						submenu = 0
+					for(var/obj/I in linked_destroy.contents)
+						for(var/mob/M in I.contents)
+							M.death()
+						if(istype(I,/obj/item/stack/sheet))//Only deconsturcts one sheet at a time instead of the entire stack
+							var/obj/item/stack/sheet/S = I
+							if(S.amount > 1)
+								S.amount--
+								linked_destroy.loaded_item = S
 							else
-								if(!(I in linked_destroy.component_parts))
-									qdel(I)
-									linked_destroy.icon_state = "d_analyzer"
-						use_power(250)
-						nanomanager.update_uis(src)
+								qdel(S)
+								linked_destroy.icon_state = "d_analyzer"
+						else
+							if(!(I in linked_destroy.component_parts))
+								qdel(I)
+								linked_destroy.icon_state = "d_analyzer"
+					use_power(250)
+					nanomanager.update_uis(src)
 
 	else if(href_list["sync"]) //Sync the research holder with all the R&D consoles in the game that aren't sync protected.
 		if(!sync)
@@ -399,35 +401,32 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 		sync = !sync
 
 	else if(href_list["build"]) //Causes the Protolathe to build something.
-		var/coeff
 		if(linked_lathe)
-			coeff = linked_lathe.efficiency_coeff
-		else
-			coeff = 1
-		var/g2g = 1
-		if(linked_lathe)
+			if(linked_lathe.busy)
+				to_chat(usr, "<span class='danger'>Protolathe is busy at the moment.</span>")
+				return
+			var/coeff = linked_lathe.efficiency_coeff
+			var/g2g = 1
 			var/datum/design/being_built = files.known_designs[href_list["build"]]
 			if(being_built)
 				var/power = 2000
 				var/amount=text2num(href_list["amount"])
+				if(being_built.make_reagents.len)
+					return 0
 				amount = max(1, min(10, amount))
 				for(var/M in being_built.materials)
 					power += round(being_built.materials[M] * amount / 5)
 				power = max(2000, power)
-				if(linked_lathe.busy)
-					g2g = 0
 				var/key = usr.key	//so we don't lose the info during the spawn delay
 				if(!(being_built.build_type & PROTOLATHE))
 					g2g = 0
 					message_admins("Protolathe exploit attempted by [key_name(usr, usr.client)]!")
 
-
-
 				if(g2g) //If input is incorrect, nothing happens
-					var/time_to_construct = PROTOLATHE_CONSTRUCT_DELAY * amount / coeff
+					var/new_coeff = coeff * being_built.lathe_time_factor
+					var/time_to_construct = PROTOLATHE_CONSTRUCT_DELAY * new_coeff * amount ** 0.8
 					var/enough_materials = 1
 
-					time_to_construct /= being_built.lathe_time_factor
 					add_wait_message("Constructing Prototype. Please Wait...", time_to_construct)
 					linked_lathe.busy = 1
 					flick("protolathe_n",linked_lathe)
@@ -435,7 +434,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 
 					var/list/efficient_mats = list()
 					for(var/MAT in being_built.materials)
-						efficient_mats[MAT] = being_built.materials[MAT]
+						efficient_mats[MAT] = being_built.materials[MAT]*coeff
 
 					if(!linked_lathe.materials.has_materials(efficient_mats, amount))
 						src.visible_message("<span class='notice'>The [src.name] beeps, \"Not enough materials to complete prototype.\"</span>")
@@ -443,7 +442,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 						g2g = 0
 					else
 						for(var/R in being_built.reagents)
-							if(!linked_lathe.reagents.has_reagent(R, being_built.reagents[R]))
+							if(!linked_lathe.reagents.has_reagent(R, being_built.reagents[R])*coeff)
 								src.visible_message("<span class='notice'>The [src.name] beeps, \"Not enough reagents to complete prototype.\"</span>")
 								enough_materials = 0
 								g2g = 0
@@ -451,7 +450,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 					if(enough_materials)
 						linked_lathe.materials.use_amount(efficient_mats, amount)
 						for(var/R in being_built.reagents)
-							linked_lathe.reagents.remove_reagent(R, being_built.reagents[R])
+							linked_lathe.reagents.remove_reagent(R, being_built.reagents[R]*coeff)
 
 					var/P = being_built.build_path //lets save these values before the spawn() just in case. Nobody likes runtimes.
 					var/O = being_built.locked
@@ -462,7 +461,6 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 								var/obj/item/new_item = new P(src)
 								if( new_item.type == /obj/item/weapon/storage/backpack/holding )
 									new_item.investigate_log("built by [key]","singulo")
-								new_item.reliability = 100
 								if(!istype(new_item, /obj/item/stack/sheet)) // To avoid materials dupe glitches
 									new_item.materials = efficient_mats.Copy()
 								if(O)
@@ -485,6 +483,9 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 		var/coeff = linked_imprinter.efficiency_coeff
 		var/g2g = 1
 		if(linked_imprinter)
+			if(linked_imprinter.busy)
+				to_chat(usr, "<span class='danger'>Circuit Imprinter is busy at the moment.</span>")
+				return
 			var/datum/design/being_built = null
 			being_built = files.known_designs[href_list["imprint"]]
 			if(being_built)
@@ -492,8 +493,6 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 				for(var/M in being_built.materials)
 					power += round(being_built.materials[M] / 5)
 				power = max(2000, power)
-				if(linked_imprinter.busy)
-					g2g = 0
 				if(!(being_built.build_type & IMPRINTER))
 					g2g = 0
 					message_admins("Circuit imprinter exploit attempted by [key_name(usr, usr.client)]!")
@@ -523,7 +522,6 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 					spawn(IMPRINTER_DELAY)
 						if(g2g)
 							var/obj/item/new_item = new P(src)
-							new_item.reliability = 100
 							new_item.loc = linked_imprinter.loc
 						linked_imprinter.busy = 0
 						clear_wait_message()
@@ -708,7 +706,6 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 			var/list/disk_data = list()
 			data["disk_data"] = disk_data
 			disk_data["name"] = d_disk.blueprint.name
-			disk_data["reliability"] = d_disk.blueprint.reliability
 			var/b_type = d_disk.blueprint.build_type
 			var/list/lathe_types = list()
 			disk_data["lathe_types"] = lathe_types
@@ -718,6 +715,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 				if(b_type & AUTOLATHE) lathe_types += "Autolathe"
 				if(b_type & MECHFAB) lathe_types += "Mech Fabricator"
 				if(b_type & PODFAB) lathe_types += "Spacepod Fabricator"
+				if(b_type & BIOGENERATOR) lathe_types += "Biogenerator"
 			var/list/materials = list()
 			disk_data["materials"] = materials
 			for(var/M in d_disk.blueprint.materials)
@@ -740,7 +738,6 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 		var/list/loaded_item_list = list()
 		data["loaded_item"] = loaded_item_list
 		loaded_item_list["name"] = linked_destroy.loaded_item.name
-		loaded_item_list["reliability"] = linked_destroy.loaded_item.reliability
 		var/list/temp_tech = linked_destroy.ConvertReqString2List(linked_destroy.loaded_item.origin_tech)
 		var/list/tech_list = list()
 		loaded_item_list["origin_tech"] = tech_list
@@ -764,6 +761,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 		if(submenu == 1)
 			var/list/designs_list = list()
 			data["matching_designs"] = designs_list
+			var/coeff = linked_lathe.efficiency_coeff
 			for(var/datum/design/D in matching_designs)
 				var/list/design_list = list()
 				designs_list[++designs_list.len] = design_list
@@ -776,7 +774,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 					var/list/material_list = list()
 					materials_list[++materials_list.len] = material_list
 					material_list["name"] = CallMaterialName(M)
-					material_list["amount"] = D.materials[M]
+					material_list["amount"] = D.materials[M]*coeff
 					var/t = linked_lathe.check_mat(D, M)
 
 					if(t < 1)
@@ -789,7 +787,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 					var/list/material_list = list()
 					materials_list[++materials_list.len] = material_list
 					material_list["name"] = CallMaterialName(R)
-					material_list["amount"] = D.reagents[R]
+					material_list["amount"] = D.reagents[R]*coeff
 					var/t = linked_lathe.check_mat(D, R)
 
 					if(t < 1)

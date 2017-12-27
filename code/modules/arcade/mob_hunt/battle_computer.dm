@@ -51,8 +51,7 @@
 			mob_hunt_server.red_terminal = null
 		if(mob_hunt_server.blue_terminal == src)
 			mob_hunt_server.blue_terminal = null
-	if(avatar)
-		qdel(avatar)
+	QDEL_NULL(avatar)
 	return ..()
 
 /obj/machinery/computer/mob_battle_terminal/attackby(obj/item/O, mob/user)

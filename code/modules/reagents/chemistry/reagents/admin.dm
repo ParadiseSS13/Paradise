@@ -5,8 +5,8 @@
 	reagent_state = LIQUID
 	color = "#C8A5DC" // rgb: 200, 165, 220
 	process_flags = ORGANIC | SYNTHETIC	//Adminbuse knows no bounds!
-	admin_only = 1
-	can_synth = 0
+	can_synth = FALSE
+	taste_message = "admin abuse"
 
 /datum/reagent/medicine/adminordrazine/on_mob_life(mob/living/carbon/M)
 	M.setCloneLoss(0)
@@ -18,10 +18,10 @@
 	M.setBrainLoss(0)
 	if(ishuman(M))
 		var/mob/living/carbon/human/H = M
-		for(var/name in H.internal_organs)
-			var/obj/item/organ/internal/I = H.get_int_organ(name)
-			I.damage = max(0, I.damage-5)
-		for(var/obj/item/organ/external/E in H.organs)
+		for(var/thing in H.internal_organs)
+			var/obj/item/organ/internal/I = thing
+			I.take_damage(-5)
+		for(var/obj/item/organ/external/E in H.bodyparts)
 			if(E.mend_fracture())
 				E.perma_injury = 0
 	M.SetEyeBlind(0)
@@ -46,16 +46,15 @@
 	M.SetConfused(0)
 	M.SetSleeping(0)
 	M.SetJitter(0)
-	for(var/datum/disease/D in M.viruses)
+	for(var/thing in M.viruses)
+		var/datum/disease/D = thing
 		if(D.severity == NONTHREAT)
 			continue
-		D.spread_text = "Remissive"
-		D.stage--
-		if(D.stage < 1)
-			D.cure()
+		D.cure(0)
 	..()
 
 /datum/reagent/medicine/adminordrazine/nanites
 	name = "Nanites"
 	id = "nanites"
 	description = "Nanomachines that aid in rapid cellular regeneration."
+	taste_message = "nanomachines, son"

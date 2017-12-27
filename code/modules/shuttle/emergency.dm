@@ -150,6 +150,12 @@
 
 	emergency_shuttle_called.Announce("The emergency shuttle has been called. [redAlert ? "Red Alert state confirmed: Dispatching priority shuttle. " : "" ]It will arrive in [timeLeft(600)] minutes.[reason][shuttle_master.emergencyLastCallLoc ? "\n\nCall signal traced. Results can be viewed on any communications console." : "" ]")
 
+	if(reason == "Automatic Crew Transfer" && signalOrigin == null) // Best way we have to check that it's actually a crew transfer and not just a player using the same message- any other calls to this proc should have a signalOrigin.
+		atc.shift_ending()
+	else // Emergency shuttle call (probably)
+		atc.reroute_traffic(yes = TRUE)
+
+
 /obj/docking_port/mobile/emergency/cancel(area/signalOrigin)
 	if(!canRecall)
 		return
@@ -166,12 +172,36 @@
 		shuttle_master.emergencyLastCallLoc = null
 	emergency_shuttle_recalled.Announce("The emergency shuttle has been recalled.[shuttle_master.emergencyLastCallLoc ? " Recall signal traced. Results can be viewed on any communications console." : "" ]")
 
-/*
-/obj/docking_port/mobile/emergency/findTransitDock()
-	. = shuttle_master.getDock("emergency_transit")
-	if(.)	return .
-	return ..()
-*/
+/obj/docking_port/mobile/emergency/proc/is_hijacked()
+	for(var/mob/living/player in player_list)
+		if(player.mind)
+			if(player.stat != DEAD)
+				if(issilicon(player)) //Borgs are technically dead anyways
+					continue
+				if(isanimal(player)) //Poly does not own the shuttle
+					continue
+
+				var/special_role = player.mind.special_role
+				if(special_role)
+					if(special_role == SPECIAL_ROLE_TRAITOR) // traitors can hijack the shuttle
+						continue
+
+					if(special_role == SPECIAL_ROLE_CHANGELING) // changelings as well
+						continue
+
+					if(special_role == SPECIAL_ROLE_VAMPIRE || special_role == SPECIAL_ROLE_VAMPIRE_THRALL) // for traitorvamp
+						continue
+
+					if(special_role == SPECIAL_ROLE_NUKEOPS) // so can nukeops, for the hell of it
+						continue
+
+					if(special_role == SPECIAL_ROLE_SYNDICATE_DEATHSQUAD) // and the syndie deathsquad i guess
+						continue
+
+				if(get_area(player) == areaInstance)
+					return FALSE
+
+	return TRUE
 
 
 /obj/docking_port/mobile/emergency/check()
@@ -179,6 +209,17 @@
 		return
 
 	var/time_left = timeLeft(1)
+
+	// The emergency shuttle doesn't work like others so this
+	// ripple check is slightly different
+	if(!ripples.len && (time_left <= SHUTTLE_RIPPLE_TIME) && ((mode == SHUTTLE_CALL) || (mode == SHUTTLE_ESCAPE)))
+		var/destination
+		if(mode == SHUTTLE_CALL)
+			destination = shuttle_master.getDock("emergency_home")
+		else if(mode == SHUTTLE_ESCAPE)
+			destination = shuttle_master.getDock("emergency_away")
+		create_ripples(destination)
+
 	switch(mode)
 		if(SHUTTLE_RECALL)
 			if(time_left <= 0)
@@ -227,15 +268,28 @@
 				mode = SHUTTLE_ESCAPE
 				timer = world.time
 				priority_announcement.Announce("The Emergency Shuttle has left the station. Estimate [timeLeft(600)] minutes until the shuttle docks at Central Command.")
+				for(var/mob/M in player_list)
+					if(!isnewplayer(M) && !M.client.karma_spent && !(M.client.ckey in karma_spenders) && !M.get_preference(DISABLE_KARMA_REMINDER))
+						to_chat(M, "<i>You have not yet spent your karma for the round; was there a player worthy of receiving your reward? Look under Special Verbs tab, Award Karma.</i>")
+
 		if(SHUTTLE_ESCAPE)
 			if(time_left <= 0)
 				//move each escape pod to its corresponding escape dock
 				for(var/obj/docking_port/mobile/pod/M in shuttle_master.mobile)
 					M.dock(shuttle_master.getDock("[M.id]_away"))
-				//now move the actual emergency shuttle to centcomm
+
 				for(var/area/shuttle/escape/E in world)
 					E << 'sound/effects/hyperspace_end.ogg'
-				dock(shuttle_master.getDock("emergency_away"))
+
+				// now move the actual emergency shuttle to centcomm
+				// unless the shuttle is "hijacked"
+				var/destination_dock = "emergency_away"
+				if(is_hijacked())
+					destination_dock = "emergency_syndicate"
+					priority_announcement.Announce("Corruption detected in shuttle navigation protocols. Please contact your supervisor.")
+
+				dock_id(destination_dock)
+
 				mode = SHUTTLE_ENDGAME
 				timer = 0
 				open_dock()

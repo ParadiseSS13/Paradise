@@ -28,18 +28,18 @@
 	ME = new /obj/item/mecha_parts/mecha_equipment/gravcatapult
 	ME.attach(src)
 
-/obj/mecha/combat/phazon/Bump(var/atom/obstacle)
-	if(phasing && get_charge() >= phasing_energy_drain)
-		spawn()
-			if(can_move)
-				can_move = 0
-				flick("phazon-phase", src)
-				forceMove(get_step(src, dir))
-				use_power(phasing_energy_drain)
-				sleep(step_in * 3)
-				can_move = 1
-	else
-		. = ..()
+/obj/mecha/combat/phazon/mechstep(direction)
+	. = ..()
+	if(!. && phasing && get_charge() >= phasing_energy_drain)
+		if(can_move)
+			can_move = 0
+			flick("phazon-phase", src)
+			forceMove(get_step(src, direction))
+			use_power(phasing_energy_drain)
+			playsound(src,stepsound,40,1)
+			sleep(step_in * 3)
+			can_move = 1
+			return 1
 
 /obj/mecha/combat/phazon/click_action(atom/target,mob/user)
 	if(phasing)
@@ -62,7 +62,7 @@
 		if("Torch")
 			damtype = "fire"
 			occupant_message("A torch tip extends from your exosuit's hand, glowing red.")
-		if("Toxic injector")
+		if("Toxic Injector")
 			damtype = "tox"
 			occupant_message("A bone-chillingly thick plasteel needle protracts from the exosuit's palm.")
 	playsound(src, 'sound/mecha/mechmove01.ogg', 50, 1)

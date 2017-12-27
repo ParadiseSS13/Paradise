@@ -1,8 +1,13 @@
 /datum/preferences
 	//The mob should have a gender you want before running this proc. Will run fine without H
 /datum/preferences/proc/random_character(gender_override)
+	var/datum/species/S = all_species[species]
+	if(!istype(S)) //The species was invalid. Set the species to the default, fetch the datum for that species and generate a random character.
+		species = initial(species)
+		S = all_species[species]
 	var/datum/robolimb/robohead
-	if(species == "Machine")
+
+	if(S.bodyflags & ALL_RPARTS)
 		var/head_model = "[!rlimb_data["head"] ? "Morpheus Cyberkinetics" : rlimb_data["head"]]"
 		robohead = all_robolimbs[head_model]
 	if(gender_override)
@@ -12,38 +17,32 @@
 	underwear = random_underwear(gender, species)
 	undershirt = random_undershirt(gender, species)
 	socks = random_socks(gender, species)
-	if(species == "Vulpkanin")
+	if(body_accessory_by_species[species])
 		body_accessory = random_body_accessory(species)
 		if(body_accessory == "None") //Required to prevent a bug where the information/icons in the character preferences screen wouldn't update despite the data being changed.
 			body_accessory = null
-	if(species in list("Human", "Drask", "Vox"))
+	if(S.bodyflags & (HAS_SKIN_TONE|HAS_ICON_SKIN_TONE))
 		s_tone = random_skin_tone(species)
 	h_style = random_hair_style(gender, species, robohead)
 	f_style = random_facial_hair_style(gender, species, robohead)
-	if(species in list("Human", "Unathi", "Tajaran", "Skrell", "Machine", "Vulpkanin", "Vox"))
+	if(species in list("Human", "Unathi", "Tajaran", "Skrell", "Machine", "Wryn", "Vulpkanin", "Vox"))
 		randomize_hair_color("hair")
 		randomize_hair_color("facial")
-	if(species in list("Unathi", "Vulpkanin", "Tajaran", "Machine"))
+	if(S.bodyflags & HAS_HEAD_ACCESSORY)
 		ha_style = random_head_accessory(species)
-		var/list/colours = randomize_skin_color(1)
-		r_headacc = colours["red"]
-		g_headacc = colours["green"]
-		b_headacc = colours["blue"]
-	if(species in list("Machine", "Tajaran", "Unathi", "Vulpkanin"))
+		hacc_colour = randomize_skin_color(1)
+	if(S.bodyflags & HAS_HEAD_MARKINGS)
 		m_styles["head"] = random_marking_style("head", species, robohead, null, alt_head)
-		var/list/colours = randomize_skin_color(1)
-		m_colours["head"] = rgb(colours["red"], colours["green"], colours["blue"])
-	if(species in list("Human", "Unathi", "Grey", "Vulpkanin", "Tajaran", "Skrell", "Vox", "Drask"))
+		m_colours["head"] = randomize_skin_color(1)
+	if(S.bodyflags & HAS_BODY_MARKINGS)
 		m_styles["body"] = random_marking_style("body", species)
-		var/list/colours = randomize_skin_color(1)
-		m_colours["body"] = rgb(colours["red"], colours["green"], colours["blue"])
-	if(species in list("Vox", "Vulpkanin")) //Species with tail markings.
+		m_colours["body"] = randomize_skin_color(1)
+	if(S.bodyflags & HAS_TAIL_MARKINGS) //Species with tail markings.
 		m_styles["tail"] = random_marking_style("tail", species, null, body_accessory)
-		var/list/colours = randomize_skin_color(1)
-		m_colours["tail"] = rgb(colours["red"], colours["green"], colours["blue"])
-	if(species != "Machine")
+		m_colours["tail"] = randomize_skin_color(1)
+	if(!(S.bodyflags & ALL_RPARTS))
 		randomize_eyes_color()
-	if(species in list("Unathi", "Tajaran", "Skrell", "Vulpkanin"))
+	if(S.bodyflags & HAS_SKIN_COLOR)
 		randomize_skin_color()
 	backbag = 2
 	age = rand(AGE_MIN, AGE_MAX)
@@ -51,9 +50,7 @@
 
 /datum/preferences/proc/randomize_hair_color(var/target = "hair")
 	if(prob (75) && target == "facial") // Chance to inherit hair color
-		r_facial = r_hair
-		g_facial = g_hair
-		b_facial = b_hair
+		f_colour = h_colour
 		return
 
 	var/red
@@ -101,13 +98,9 @@
 
 	switch(target)
 		if("hair")
-			r_hair = red
-			g_hair = green
-			b_hair = blue
+			h_colour = rgb(red, green, blue)
 		if("facial")
-			r_facial = red
-			g_facial = green
-			b_facial = blue
+			f_colour = rgb(red, green, blue)
 
 /datum/preferences/proc/randomize_eyes_color()
 	var/red
@@ -153,11 +146,9 @@
 	green = max(min(green + rand (-25, 25), 255), 0)
 	blue = max(min(blue + rand (-25, 25), 255), 0)
 
-	r_eyes = red
-	g_eyes = green
-	b_eyes = blue
+	e_colour = rgb(red, green, blue)
 
-/datum/preferences/proc/randomize_skin_color(var/pass_to_list)
+/datum/preferences/proc/randomize_skin_color(var/pass_on)
 	var/red
 	var/green
 	var/blue
@@ -201,17 +192,10 @@
 	green = max(min(green + rand (-25, 25), 255), 0)
 	blue = max(min(blue + rand (-25, 25), 255), 0)
 
-	if(pass_to_list)
-		var/list/colours = list(
-			"red" = red,
-			"blue" = blue,
-			"green" = green
-			)
-		return colours
+	if(pass_on)
+		return rgb(red, green, blue)
 	else
-		r_skin = red
-		g_skin = green
-		b_skin = blue
+		s_colour = rgb(red, green, blue)
 
 /datum/preferences/proc/blend_backpack(var/icon/clothes_s,var/backbag,var/satchel,var/backpack="backpack")
 	switch(backbag)
@@ -241,11 +225,12 @@
 			var/mob/living/carbon/human/H = new
 			H.species = current_species
 			H.s_tone = s_tone
-			H.species.updatespeciescolor(H)
-
-			icobase = H.species.icobase
+			H.species.updatespeciescolor(H, 0) //The mob's species wasn't set, so it's almost certainly different than the character's species at the moment. Thus, we need to be owner-insensitive.
+			var/obj/item/organ/external/chest/C = H.get_organ("chest")
+			icobase = C.icobase ? C.icobase : C.species.icobase
 			if(H.species.bodyflags & HAS_TAIL)
-				coloured_tail = H.species.tail
+				coloured_tail = H.tail ? H.tail : H.species.tail
+
 			qdel(H)
 		else
 			icobase = current_species.icobase
@@ -253,7 +238,7 @@
 		icobase = 'icons/mob/human_races/r_human.dmi'
 
 	var/fat=""
-	if(disabilities & DISABILITY_FLAG_FAT && current_species.flags & CAN_BE_FAT)
+	if(disabilities & DISABILITY_FLAG_FAT && (CAN_BE_FAT in current_species.species_traits))
 		fat="_fat"
 	preview_icon = new /icon(icobase, "torso_[g][fat]")
 	preview_icon.Blend(new /icon(icobase, "groin_[g]"), ICON_OVERLAY)
@@ -278,7 +263,7 @@
 
 	// Skin color
 	if(current_species && (current_species.bodyflags & HAS_SKIN_COLOR))
-		preview_icon.Blend(rgb(r_skin, g_skin, b_skin), ICON_ADD)
+		preview_icon.Blend(s_colour, ICON_ADD)
 
 	// Skin tone
 	if(current_species && (current_species.bodyflags & HAS_SKIN_TONE))
@@ -319,7 +304,7 @@
 			temp.Shift(NORTH, tail_shift_y)
 
 		if(current_species && (current_species.bodyflags & HAS_SKIN_COLOR))
-			temp.Blend(rgb(r_skin, g_skin, b_skin), blend_mode)
+			temp.Blend(s_colour, blend_mode)
 
 		if(current_species && (current_species.bodyflags & HAS_TAIL_MARKINGS))
 			var/tail_marking = m_styles["tail"]
@@ -352,22 +337,22 @@
 	var/icon/face_s = new/icon("icon" = 'icons/mob/human_face.dmi', "icon_state" = "bald_s")
 	if(!(current_species.bodyflags & NO_EYES))
 		var/icon/eyes_s = new/icon("icon" = 'icons/mob/human_face.dmi', "icon_state" = current_species ? current_species.eyes : "eyes_s")
-		eyes_s.Blend(rgb(r_eyes, g_eyes, b_eyes), ICON_ADD)
+		eyes_s.Blend(e_colour, ICON_ADD)
 		face_s.Blend(eyes_s, ICON_OVERLAY)
 
 
-	var/datum/sprite_accessory/hair_style = hair_styles_list[h_style]
+	var/datum/sprite_accessory/hair_style = hair_styles_full_list[h_style]
 	if(hair_style)
 		var/icon/hair_s = new/icon("icon" = hair_style.icon, "icon_state" = "[hair_style.icon_state]_s")
 		if(current_species.name == "Slime People") // whee I am part of the problem
-			hair_s.Blend(rgb(r_skin, g_skin, b_skin, 160), ICON_ADD)
+			hair_s.Blend("[s_colour]A0", ICON_ADD)
 		else
-			hair_s.Blend(rgb(r_hair, g_hair, b_hair), ICON_ADD)
+			hair_s.Blend(h_colour, ICON_ADD)
 
 		if(hair_style.secondary_theme)
 			var/icon/hair_secondary_s = new/icon("icon" = hair_style.icon, "icon_state" = "[hair_style.icon_state]_[hair_style.secondary_theme]_s")
 			if(!hair_style.no_sec_colour)
-				hair_secondary_s.Blend(rgb(r_hair_sec, g_hair_sec, b_hair_sec), ICON_ADD)
+				hair_secondary_s.Blend(h_sec_colour, ICON_ADD)
 			hair_s.Blend(hair_secondary_s, ICON_OVERLAY)
 
 		face_s.Blend(hair_s, ICON_OVERLAY)
@@ -377,21 +362,21 @@
 		var/datum/sprite_accessory/head_accessory_style = head_accessory_styles_list[ha_style]
 		if(head_accessory_style && head_accessory_style.species_allowed)
 			var/icon/head_accessory_s = new/icon("icon" = head_accessory_style.icon, "icon_state" = "[head_accessory_style.icon_state]_s")
-			head_accessory_s.Blend(rgb(r_headacc, g_headacc, b_headacc), ICON_ADD)
+			head_accessory_s.Blend(hacc_colour, ICON_ADD)
 			face_s.Blend(head_accessory_s, ICON_OVERLAY)
 
 	var/datum/sprite_accessory/facial_hair_style = facial_hair_styles_list[f_style]
 	if(facial_hair_style && facial_hair_style.species_allowed)
 		var/icon/facial_s = new/icon("icon" = facial_hair_style.icon, "icon_state" = "[facial_hair_style.icon_state]_s")
 		if(current_species.name == "Slime People") // whee I am part of the problem
-			facial_s.Blend(rgb(r_skin, g_skin, b_skin, 160), ICON_ADD)
+			facial_s.Blend("[s_colour]A0", ICON_ADD)
 		else
-			facial_s.Blend(rgb(r_facial, g_facial, b_facial), ICON_ADD)
+			facial_s.Blend(f_colour, ICON_ADD)
 
 		if(facial_hair_style.secondary_theme)
 			var/icon/facial_secondary_s = new/icon("icon" = facial_hair_style.icon, "icon_state" = "[facial_hair_style.icon_state]_[facial_hair_style.secondary_theme]_s")
 			if(!facial_hair_style.no_sec_colour)
-				facial_secondary_s.Blend(rgb(r_facial_sec, g_facial_sec, b_facial_sec), ICON_ADD)
+				facial_secondary_s.Blend(f_sec_colour, ICON_ADD)
 			facial_s.Blend(facial_secondary_s, ICON_OVERLAY)
 
 		face_s.Blend(facial_s, ICON_OVERLAY)
@@ -469,7 +454,7 @@
 			if(CHEF)
 				clothes_s = new /icon(uniform_dmi, "chef_s")
 				clothes_s.Blend(new /icon('icons/mob/feet.dmi', "black"), ICON_UNDERLAY)
-				clothes_s.Blend(new /icon('icons/mob/head.dmi', "chefhat"), ICON_OVERLAY)
+				clothes_s.Blend(new /icon('icons/mob/head.dmi', "chef"), ICON_OVERLAY)
 				if(prob(1))
 					clothes_s.Blend(new /icon('icons/mob/suit.dmi', "apronchef"), ICON_OVERLAY)
 				switch(backbag)
@@ -648,6 +633,20 @@
 				clothes_s.Blend(new /icon('icons/mob/feet.dmi', "white"), ICON_UNDERLAY)
 				if(prob(1))
 					clothes_s.Blend(new /icon('icons/mob/suit.dmi', "surgeon"), ICON_OVERLAY)
+				else
+					clothes_s.Blend(new /icon('icons/mob/suit.dmi', "labcoat_open"), ICON_OVERLAY)
+				switch(backbag)
+					if(2)
+						clothes_s.Blend(new /icon('icons/mob/back.dmi', "medicalpack"), ICON_OVERLAY)
+					if(3)
+						clothes_s.Blend(new /icon('icons/mob/back.dmi', "satchel-med"), ICON_OVERLAY)
+					if(4)
+						clothes_s.Blend(new /icon('icons/mob/back.dmi', "satchel"), ICON_OVERLAY)
+			if(CORONER)
+				clothes_s = new /icon(uniform_dmi, "medical_s")
+				clothes_s.Blend(new /icon('icons/mob/feet.dmi', "white"), ICON_UNDERLAY)
+				if(prob(1))
+					clothes_s.Blend(new /icon('icons/mob/suit.dmi', "mortician"), ICON_OVERLAY)
 				else
 					clothes_s.Blend(new /icon('icons/mob/suit.dmi', "labcoat_open"), ICON_OVERLAY)
 				switch(backbag)

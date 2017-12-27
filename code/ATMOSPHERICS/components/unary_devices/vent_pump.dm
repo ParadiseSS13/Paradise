@@ -61,6 +61,7 @@
 
 /obj/machinery/atmospherics/unary/vent_pump/New()
 	..()
+	all_vent_pumps += src
 	icon = null
 	initial_loc = get_area(loc)
 	area_uid = initial_loc.uid
@@ -120,8 +121,9 @@
 	update_icon()
 	update_underlays()
 
-/obj/machinery/atmospherics/unary/vent_pump/process()
-	if(!..() || (stat & (NOPOWER|BROKEN)))
+/obj/machinery/atmospherics/unary/vent_pump/process_atmos()
+	..()
+	if((stat & (NOPOWER|BROKEN)))
 		return 0
 	if(!node)
 		on = 0
@@ -145,7 +147,7 @@
 
 		if(pressure_delta > 0.5)
 			if(air_contents.temperature > 0)
-				var/transfer_moles = pressure_delta*environment.volume/(air_contents.temperature * R_IDEAL_GAS_EQUATION)
+				var/transfer_moles = pressure_delta*environment.volume/(air_contents.temperature * R_IDEAL_GAS_EQUATION) / 5
 
 				var/datum/gas_mixture/removed = air_contents.remove(transfer_moles)
 
@@ -163,7 +165,7 @@
 
 		if(pressure_delta > 0.5)
 			if(environment.temperature > 0)
-				var/transfer_moles = pressure_delta*air_contents.volume/(environment.temperature * R_IDEAL_GAS_EQUATION)
+				var/transfer_moles = pressure_delta*air_contents.volume/(environment.temperature * R_IDEAL_GAS_EQUATION) / 5
 
 				var/datum/gas_mixture/removed = loc.remove_air(transfer_moles)
 				if(isnull(removed)) //in space
@@ -324,9 +326,9 @@
 		var/obj/item/weapon/weldingtool/WT = W
 		if(WT.remove_fuel(0,user))
 			to_chat(user, "<span class='notice'>Now welding the vent.</span>")
-			if(do_after(user, 20, target = src))
+			if(do_after(user, 20 * WT.toolspeed, target = src))
 				if(!src || !WT.isOn()) return
-				playsound(src.loc, 'sound/items/Welder2.ogg', 50, 1)
+				playsound(src.loc, WT.usesound, 50, 1)
 				if(!welded)
 					user.visible_message("[user] welds the vent shut.", "You weld the vent shut.", "You hear welding.")
 					welded = 1
@@ -336,23 +338,25 @@
 					welded = 0
 					update_icon()
 			else
-
 				to_chat(user, "<span class='notice'>The welding tool needs to be on to start this task.</span>")
+			return 1
 		else
 			to_chat(user, "<span class='notice'>You need more welding fuel to complete this task.</span>")
 			return 1
 	if(istype(W, /obj/item/weapon/screwdriver))
 		if(!welded)
 			if(open)
-				to_chat(user, "<span class='notice'> Now closing the vent.</span>")
-				if(do_after(user, 20, target = src))
+				to_chat(user, "<span class='notice'>Now closing the vent.</span>")
+				if(do_after(user, 20 * W.toolspeed, target = src))
+					playsound(loc, W.usesound, 100, 1)
 					open = 0
 					user.visible_message("[user] screwdrivers the vent shut.", "You screwdriver the vent shut.", "You hear a screwdriver.")
 			else
-				to_chat(user, "<span class='notice'> Now opening the vent.</span>")
-				if(do_after(user, 20, target = src))
+				to_chat(user, "<span class='notice'>Now opening the vent.</span>")
+				if(do_after(user, 20 * W.toolspeed, target = src))
+					playsound(loc, W.usesound, 100, 1)
 					open = 1
-					user.visible_message("[user] screwdrivers the vent shut.", "You screwdriver the vent shut.", "You hear a screwdriver.")
+					user.visible_message("[user] screwdrivers the vent open.", "You screwdriver the vent open.", "You hear a screwdriver.")
 		return
 	if(istype(W, /obj/item/weapon/paper))
 		if(!welded)
@@ -363,7 +367,7 @@
 				to_chat(user, "You can't shove that down there when it is closed")
 		else
 			to_chat(user, "The vent is welded.")
-		return
+		return 1
 	if(istype(W, /obj/item/device/multitool))
 		update_multitool_menu(user)
 		return 1
@@ -426,6 +430,7 @@
 	return ..()
 
 /obj/machinery/atmospherics/unary/vent_pump/Destroy()
+	all_vent_pumps -= src
 	if(initial_loc)
 		initial_loc.air_vent_info -= id_tag
 		initial_loc.air_vent_names -= id_tag

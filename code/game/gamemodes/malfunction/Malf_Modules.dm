@@ -30,7 +30,7 @@
 	set name = "Doomsday Device"
 
 	to_chat(src, "<span class='notice'>Nuclear device armed.</span>")
-	command_announcement.Announce("Hostile runtimes detected in all station systems, please deactivate your AI to prevent possible damage to its morality core.", "Anomaly Alert", new_sound = 'sound/AI/aimalf.ogg')
+	event_announcement.Announce("Hostile runtimes detected in all station systems, please deactivate your AI to prevent possible damage to its morality core.", "Anomaly Alert", new_sound = 'sound/AI/aimalf.ogg')
 	set_security_level("delta")
 	nuking = 1
 	var/obj/machinery/doomsday_device/DOOM = new /obj/machinery/doomsday_device(src)
@@ -163,9 +163,7 @@
 			D.hostile_lockdown(src)
 		addtimer(D, "disable_lockdown", 900)
 
-	var/obj/machinery/computer/communications/C = locate() in machines
-	if(C)
-		C.post_status("alert", "lockdown")
+	post_status("alert", "lockdown")
 
 	verbs -= /mob/living/silicon/ai/proc/lockdown
 	minor_announcement.Announce("Hostile runtime detected in door controllers. Isolation lockdown protocols are now in effect. Please remain calm.", "Network Alert")

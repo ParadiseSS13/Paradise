@@ -1,23 +1,33 @@
 //TODO: Convert this over for languages.
 /mob/living/carbon/brain/say(var/message, var/datum/language/speaking = null)
-	if(silent)
+	if(!can_speak(warning = TRUE))
+		return
+		
+	if(prob(emp_damage * 4))
+		if(prob(10)) //10% chance to drop the message entirely
+			return
+		else
+			message = Gibberish(message, (emp_damage*6))//scrambles the message, gets worse when emp_damage is higher
+
+	..(message)
+		
+/mob/living/carbon/brain/whisper(message as text)
+	if(!can_speak(warning = TRUE))
 		return
 
-	if(!(container && istype(container, /obj/item/device/mmi)))
-		return //No MMI, can't speak, bucko./N
-	else
-		if(container && istype(container, /obj/item/device/mmi/posibrain))
-			var/obj/item/device/mmi/posibrain/P = container
-			if(P && P.silenced)
-				to_chat(usr, "<span class='warning'>You cannot speak, as your internal speaker has been toggled to 'off'.</span>")
-				return
-		if(prob(emp_damage*4))
-			if(prob(10))//10% chane to drop the message entirely
-				return
-			else
-				message = Gibberish(message, (emp_damage*6))//scrambles the message, gets worse when emp_damage is higher
+	..()
+	
+/mob/living/carbon/brain/can_speak(var/warning = FALSE)
+	. = ..()
 
-		..(message)
+	if(!istype(container, /obj/item/device/mmi))
+		. = FALSE
+	else if(istype(container, /obj/item/device/mmi/posibrain))
+		var/obj/item/device/mmi/posibrain/P = container
+		if(P && P.silenced)
+			if(warning)
+				to_chat(usr, "<span class='warning'>You cannot speak, as your internal speaker is turned off.</span>")
+			. = FALSE
 
 /mob/living/carbon/brain/handle_message_mode(var/message_mode, var/message, var/verb, var/speaking, var/used_radios, var/alt_name)
 	switch(message_mode)

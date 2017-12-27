@@ -70,14 +70,14 @@
 		var/_y = text2num(params2list(params)["icon-y"])
 
 		if(_x<=16 && _y<=16)
-			usr.a_intent_change(I_HARM)
+			usr.a_intent_change(INTENT_HARM)
 		else if(_x<=16 && _y>=17)
-			usr.a_intent_change(I_HELP)
+			usr.a_intent_change(INTENT_HELP)
 		else if(_x>=17 && _y<=16)
-			usr.a_intent_change(I_GRAB)
+			usr.a_intent_change(INTENT_GRAB)
 
 		else if(_x>=17 && _y>=17)
-			usr.a_intent_change(I_DISARM)
+			usr.a_intent_change(INTENT_DISARM)
 
 	else
 		usr.a_intent_change("right")
@@ -90,106 +90,6 @@
 	icon = 'icons/mob/screen_robot.dmi'
 	screen_loc = ui_borg_intents
 
-/obj/screen/internals
-	name = "toggle internals"
-	icon_state = "internal0"
-	screen_loc = ui_internal
-
-/obj/screen/internals/Click()
-	if(!iscarbon(usr))
-		return
-	var/mob/living/carbon/C = usr
-	if(C.incapacitated())
-		return
-
-	if(C.internal)
-		C.internal = null
-		to_chat(C, "<span class='notice'>No longer running on internals.</span>")
-		icon_state = "internal0"
-	else
-		var/no_mask = FALSE
-		if(!C.wear_mask || !(C.wear_mask.flags & AIRTIGHT))
-			if(ishuman(C))
-				var/mob/living/carbon/human/H = C
-				if(!H.head || !(H.head.flags & AIRTIGHT))
-					no_mask = TRUE
-
-		if(no_mask)
-			to_chat(C, "<span class='notice'>You are not wearing a suitable mask or helmet.</span>")
-			return
-
-		var/list/nicename = null
-		var/list/tankcheck = null
-		var/breathes = "oxygen"
-		var/list/contents = list()
-		var/from = "on"
-
-		if(ishuman(C))
-			var/mob/living/carbon/human/H = C
-			breathes = H.species.breath_type
-			nicename = list("suit", "back", "belt", "right hand", "left hand", "left pocket", "right pocket")
-			tankcheck = list(H.s_store, C.back, H.belt, C.r_hand, C.l_hand, H.l_store, H.r_store)
-		else
-			nicename = list("right hand", "left hand", "back")
-			tankcheck = list(C.r_hand, C.l_hand, C.back)
-
-		// Rigs are a fucking pain since they keep an air tank in nullspace.
-		if(istype(C.back,/obj/item/weapon/rig))
-			var/obj/item/weapon/rig/rig = C.back
-			if(rig.air_supply)
-				from = "in"
-				nicename |= "hardsuit"
-				tankcheck |= rig.air_supply
-
-		for(var/i = 1, i < tankcheck.len + 1, ++i)
-			if(istype(tankcheck[i], /obj/item/weapon/tank))
-				var/obj/item/weapon/tank/t = tankcheck[i]
-				switch(breathes)
-					if("nitrogen")
-						if(t.air_contents.nitrogen && !t.air_contents.oxygen)
-							contents.Add(t.air_contents.nitrogen)
-						else
-							contents.Add(0)
-					if("oxygen")
-						if(t.air_contents.oxygen && !t.air_contents.toxins)
-							contents.Add(t.air_contents.oxygen)
-						else
-							contents.Add(0)
-					if("carbon dioxide")
-						if(t.air_contents.carbon_dioxide && !t.air_contents.toxins)
-							contents.Add(t.air_contents.carbon_dioxide)
-						else
-							contents.Add(0)
-					if("plasma")
-						if(t.air_contents.toxins)
-							contents.Add(t.air_contents.toxins)
-						else
-							contents.Add(0)
-			else
-				//no tank so we set contents to 0
-				contents.Add(0)
-
-		//Alright now we know the contents of the tanks so we have to pick the best one.
-		var/best = 0
-		var/bestcontents = 0
-		for(var/i=1, i <  contents.len + 1 , ++i)
-			if(!contents[i])
-				continue
-			if(contents[i] > bestcontents)
-				best = i
-				bestcontents = contents[i]
-		//We've determined the best container now we set it as our internals
-		if(best)
-			to_chat(C, "<span class='notice'>You are now running on internals from [tankcheck[best]] [from] your [nicename[best]].</span>")
-			C.internal = tankcheck[best]
-
-		if(C.internal)
-			icon_state = "internal1"
-		else
-			to_chat(C, "<span class='notice'>You don't have a[breathes == "oxygen" ? "n oxygen" : addtext(" ",breathes)] tank.</span>")
-
-	C.update_action_buttons_icon()
-
 /obj/screen/mov_intent
 	name = "run/walk toggle"
 	icon_state = "running"
@@ -199,15 +99,15 @@
 		var/mob/living/carbon/C = usr
 		if(C.legcuffed)
 			to_chat(C, "<span class='notice'>You are legcuffed! You cannot run until you get [C.legcuffed] removed!</span>")
-			C.m_intent = "walk"	//Just incase
+			C.m_intent = MOVE_INTENT_WALK	//Just incase
 			C.hud_used.move_intent.icon_state = "walking"
 			return 1
 		switch(usr.m_intent)
-			if("run")
-				usr.m_intent = "walk"
+			if(MOVE_INTENT_RUN)
+				usr.m_intent = MOVE_INTENT_WALK
 				usr.hud_used.move_intent.icon_state = "walking"
-			if("walk")
-				usr.m_intent = "run"
+			if(MOVE_INTENT_WALK)
+				usr.m_intent = MOVE_INTENT_RUN
 				usr.hud_used.move_intent.icon_state = "running"
 		if(istype(usr,/mob/living/carbon/alien/humanoid))
 			usr.update_icons()
@@ -346,15 +246,27 @@
 /obj/screen/zone_sel/robot
 	icon = 'icons/mob/screen_robot.dmi'
 
-/obj/screen/inventory/craft
+/obj/screen/craft
 	name = "crafting menu"
 	icon = 'icons/mob/screen_midnight.dmi'
 	icon_state = "craft"
 	screen_loc = ui_crafting
 
-/obj/screen/inventory/craft/Click()
+/obj/screen/craft/Click()
 	var/mob/living/M = usr
 	M.OpenCraftingMenu()
+
+/obj/screen/language_menu
+	name = "language menu"
+	icon = 'icons/mob/screen_midnight.dmi'
+	icon_state = "talk_wheel"
+	screen_loc = ui_language_menu
+
+/obj/screen/language_menu/Click()
+	var/mob/M = usr
+	if(!istype(M))
+		return
+	M.check_languages()
 
 /obj/screen/inventory
 	var/slot_id	//The indentifier for the slot. It has nothing to do with ID cards.

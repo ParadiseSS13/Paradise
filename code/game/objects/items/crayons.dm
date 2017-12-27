@@ -7,9 +7,10 @@
 	desc = "A colourful crayon. Looks tasty. Mmmm..."
 	icon = 'icons/obj/crayons.dmi'
 	icon_state = "crayonred"
-	w_class = 1
+	w_class = WEIGHT_CLASS_TINY
 	slot_flags = SLOT_BELT | SLOT_EARS
 	attack_verb = list("attacked", "coloured")
+	toolspeed = 1
 	var/colour = "#FF0000" //RGB
 	var/drawtype = "rune"
 	var/list/graffiti = list("body","amyjon","face","matt","revolution","engie","guy","end","dwarf","uboa","up","down","left","right","heart","borgsrogue","voxpox","shitcurity","catbeast","hieroglyphs1","hieroglyphs2","hieroglyphs3","security","syndicate1","syndicate2","nanotrasen","lie","valid","arrowleft","arrowright","arrowup","arrowdown","chicken","hailcrab","brokenheart","peace","scribble","scribble2","scribble3","skrek","squish","tunnelsnake","yip","youaredead")
@@ -72,12 +73,12 @@
 			temp = pick(graffiti)
 		else
 			temp = href_list["type"]
-	if((usr.restrained() || usr.stat || usr.get_active_hand() != src))
+	if((usr.restrained() || usr.stat || !usr.is_in_active_hand(src)))
 		return
 	drawtype = temp
 	update_window(usr)
 
-/obj/item/toy/crayon/afterattack(atom/target, mob/user as mob, proximity)
+/obj/item/toy/crayon/afterattack(atom/target, mob/user, proximity)
 	if(!proximity) return
 	if(is_type_in_list(target,validSurfaces))
 		var/temp = "rune"
@@ -86,25 +87,31 @@
 		else if(graffiti.Find(drawtype))
 			temp = "graffiti"
 		to_chat(user, "You start drawing a [temp] on the [target.name].")
-		if(instant || do_after(user, 50, target = target))
-			new /obj/effect/decal/cleanable/crayon(target,colour,drawtype,temp)
+		if(instant || do_after(user, 50 * toolspeed, target = target))
+			var/obj/effect/decal/cleanable/crayon/C = new /obj/effect/decal/cleanable/crayon(target,colour,drawtype,temp)
+			C.add_hiddenprint(user)
 			to_chat(user, "You finish drawing [temp].")
 			if(uses)
 				uses--
 				if(!uses)
 					to_chat(user, "<span class='danger'>You used up your [name]!</span>")
 					qdel(src)
-	return
 
-/obj/item/toy/crayon/attack(mob/M as mob, mob/user as mob)
+/obj/item/toy/crayon/attack(mob/M, mob/user)
 	var/huffable = istype(src,/obj/item/toy/crayon/spraycan)
 	if(M == user)
-		to_chat(user, "You take a [huffable ? "huff" : "bite"] of the [name]. Delicious!")
+		if(ishuman(user))
+			var/mob/living/carbon/human/H = user
+			if(!H.check_has_mouth())
+				to_chat(user, "<span class='warning'>You do not have a mouth!</span>")
+				return
+		playsound(loc, 'sound/items/eatfood.ogg', 50, 0)
+		to_chat(user, "<span class='notice'>You take a [huffable ? "huff" : "bite"] of the [name]. Delicious!</span>")
 		user.nutrition += 5
 		if(uses)
 			uses -= 5
 			if(uses <= 0)
-				to_chat(user, "<span class='danger'>There is no more of [name] left!</span>")
+				to_chat(user, "<span class='warning'>There is no more of [name] left!</span>")
 				qdel(src)
 	else
 		..()
@@ -140,6 +147,29 @@
 	colour = "#DA00FF"
 	colourName = "purple"
 
+/obj/item/toy/crayon/random/New()
+	icon_state = pick(list("crayonred", "crayonorange", "crayonyellow", "crayongreen", "crayonblue", "crayonpurple"))
+	switch(icon_state)
+		if("crayonred")
+			colour = "#DA0000"
+			colourName = "red"
+		if("crayonorange")
+			colour = "#FF9300"
+			colourName = "orange"
+		if("crayonyellow")
+			colour = "#FFF200"
+			colourName = "yellow"
+		if("crayongreen")
+			colour = "#A8E61D"
+			colourName = "green"
+		if("crayonblue")
+			colour = "#00B7EF"
+			colourName = "blue"
+		if("crayonpurple")
+			colour = "#DA00FF"
+			colourName = "purple"
+	..()
+
 /obj/item/toy/crayon/white
 	icon_state = "crayonwhite"
 	colour = "#FFFFFF"
@@ -160,7 +190,7 @@
 	..()
 
 /obj/item/toy/crayon/mime/Topic(href,href_list)
-	if((usr.restrained() || usr.stat || usr.get_active_hand() != src))
+	if(!Adjacent(usr) || usr.incapacitated())
 		return
 	if(href_list["color"])
 		if(colour != "#FFFFFF")
@@ -185,11 +215,10 @@
 	..()
 
 /obj/item/toy/crayon/rainbow/Topic(href,href_list[])
-
+	if(!Adjacent(usr) || usr.incapacitated())
+		return
 	if(href_list["color"])
 		var/temp = input(usr, "Please select colour.", "Crayon colour") as color
-		if((usr.restrained() || usr.stat || usr.get_active_hand() != src))
-			return
 		colour = temp
 		update_window(usr)
 	else
@@ -207,7 +236,7 @@
 
 /obj/item/toy/crayon/spraycan/New()
 	..()
-	name = "NanoTrasen-brand Rapid Paint Applicator"
+	name = "Nanotrasen-brand Rapid Paint Applicator"
 	update_icon()
 
 /obj/item/toy/crayon/spraycan/attack_self(mob/living/user as mob)

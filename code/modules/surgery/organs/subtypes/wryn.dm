@@ -7,3 +7,7 @@
 	parent_organ = "head"
 	slot = "hivenode"
 	species = "Wryn"
+
+/obj/item/organ/internal/eyes/wryn
+	dark_view = 3
+	species = "Wryn"

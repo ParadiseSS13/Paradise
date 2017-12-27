@@ -48,19 +48,18 @@
 	item_state = "utility"
 	use_item_overlays = 1
 	can_hold = list(
-		"/obj/item/weapon/crowbar",
-		"/obj/item/weapon/screwdriver",
-		"/obj/item/weapon/weldingtool",
-		"/obj/item/weapon/wirecutters",
-		"/obj/item/weapon/wrench",
-		"/obj/item/device/multitool",
-		"/obj/item/device/flashlight",
-		"/obj/item/stack/cable_coil",
-		"/obj/item/device/t_scanner",
-		"/obj/item/device/analyzer",
-		"/obj/item/taperoll/engineering",
-		"/obj/item/weapon/extinguisher/mini")
-
+		/obj/item/weapon/crowbar,
+		/obj/item/weapon/screwdriver,
+		/obj/item/weapon/weldingtool,
+		/obj/item/weapon/wirecutters,
+		/obj/item/weapon/wrench,
+		/obj/item/device/multitool,
+		/obj/item/device/flashlight,
+		/obj/item/stack/cable_coil,
+		/obj/item/device/t_scanner,
+		/obj/item/device/analyzer,
+		/obj/item/taperoll/engineering,
+		/obj/item/weapon/extinguisher/mini)
 
 /obj/item/weapon/storage/belt/utility/full/New()
 	..()
@@ -69,7 +68,7 @@
 	new /obj/item/weapon/weldingtool(src)
 	new /obj/item/weapon/crowbar(src)
 	new /obj/item/weapon/wirecutters(src)
-	new /obj/item/stack/cable_coil(src,30,pick("red","yellow","orange"))
+	new /obj/item/stack/cable_coil(src, 30, pick(COLOR_RED, COLOR_YELLOW, COLOR_ORANGE))
 	update_icon()
 
 /obj/item/weapon/storage/belt/utility/full/multitool/New()
@@ -88,7 +87,23 @@
 	new /obj/item/weapon/extinguisher/mini(src)
 	update_icon()
 
+/obj/item/weapon/storage/belt/utility/chief
+	name = "Chief Engineer's toolbelt"
+	desc = "Holds tools, looks snazzy"
+	icon_state = "utilitybelt_ce"
+	item_state = "utility_ce"
 
+/obj/item/weapon/storage/belt/utility/chief/full/New()
+	..()
+	new /obj/item/weapon/screwdriver/power(src)
+	new /obj/item/weapon/crowbar/power(src)
+	new /obj/item/weapon/weldingtool/experimental(src)//This can be changed if this is too much
+	new /obj/item/device/multitool(src)
+	new /obj/item/stack/cable_coil(src, 30, pick(COLOR_RED, COLOR_YELLOW, COLOR_ORANGE))
+	new /obj/item/weapon/extinguisher/mini(src)
+	new /obj/item/device/analyzer(src)
+	update_icon()
+	//much roomier now that we've managed to remove two tools
 
 /obj/item/weapon/storage/belt/medical
 	use_to_pickup = 1 //Allow medical belt to pick up medicine
@@ -98,24 +113,24 @@
 	item_state = "medical"
 	use_item_overlays = 1
 	can_hold = list(
-		"/obj/item/device/healthanalyzer",
-		"/obj/item/weapon/dnainjector",
-		"/obj/item/weapon/reagent_containers/dropper",
-		"/obj/item/weapon/reagent_containers/glass/beaker",
-		"/obj/item/weapon/reagent_containers/glass/bottle",
-		"/obj/item/weapon/reagent_containers/food/pill",
-		"/obj/item/weapon/reagent_containers/syringe",
-		"/obj/item/weapon/reagent_containers/glass/dispenser",
-		"/obj/item/weapon/lighter/zippo",
-		"/obj/item/weapon/storage/fancy/cigarettes",
-		"/obj/item/weapon/storage/pill_bottle",
-		"/obj/item/stack/medical",
-		"/obj/item/device/flashlight/pen",
-		"/obj/item/clothing/mask/surgical",
-		"/obj/item/clothing/gloves/color/latex",
-        "/obj/item/weapon/reagent_containers/hypospray/autoinjector",
-        "/obj/item/device/rad_laser",
-		"/obj/item/device/sensor_device"
+		/obj/item/device/healthanalyzer,
+		/obj/item/weapon/dnainjector,
+		/obj/item/weapon/reagent_containers/dropper,
+		/obj/item/weapon/reagent_containers/glass/beaker,
+		/obj/item/weapon/reagent_containers/glass/bottle,
+		/obj/item/weapon/reagent_containers/food/pill,
+		/obj/item/weapon/reagent_containers/syringe,
+		/obj/item/weapon/lighter/zippo,
+		/obj/item/weapon/storage/fancy/cigarettes,
+		/obj/item/weapon/storage/pill_bottle,
+		/obj/item/stack/medical,
+		/obj/item/device/flashlight/pen,
+		/obj/item/clothing/mask/surgical,
+		/obj/item/clothing/gloves/color/latex,
+        /obj/item/weapon/reagent_containers/hypospray/autoinjector,
+        /obj/item/device/rad_laser,
+		/obj/item/device/sensor_device,
+		/obj/item/weapon/wrench/medical,
 	)
 
 /obj/item/weapon/storage/belt/medical/response_team
@@ -139,22 +154,19 @@
 	item_state = "botany"
 	use_item_overlays = 1
 	can_hold = list(
-		"/obj/item/device/analyzer/plant_analyzer",
-		"/obj/item/weapon/minihoe",
-		"/obj/item/weapon/hatchet",
-		"/obj/item/weapon/reagent_containers/glass/bottle",
-		"/obj/item/weapon/plantspray",
-//		"/obj/item/weapon/reagent_containers/syringe",
-//		"/obj/item/weapon/reagent_containers/glass/beaker",
-		"/obj/item/weapon/lighter/zippo",
-		"/obj/item/weapon/storage/fancy/cigarettes",
-		"obj/item/weapon/rollingpaperpack",
-		"/obj/item/weapon/shovel/spade",
-		"/obj/item/device/flashlight/pen",
-		"/obj/item/seeds",
-		"/obj/item/weapon/wirecutters",
-        "/obj/item/weapon/wrench",
-		"/obj/item/weapon/disk/botany",
+		/obj/item/device/plant_analyzer,
+		/obj/item/weapon/cultivator,
+		/obj/item/weapon/hatchet,
+		/obj/item/weapon/reagent_containers/glass/bottle,
+//		/obj/item/weapon/reagent_containers/syringe,
+//		/obj/item/weapon/reagent_containers/glass/beaker,
+		/obj/item/weapon/lighter/zippo,
+		/obj/item/weapon/storage/fancy/cigarettes,
+		/obj/item/weapon/shovel/spade,
+		/obj/item/device/flashlight/pen,
+		/obj/item/seeds,
+		/obj/item/weapon/wirecutters,
+        /obj/item/weapon/wrench,
 	)
 
 
@@ -164,26 +176,25 @@
 	icon_state = "securitybelt"
 	item_state = "security"//Could likely use a better one.
 	storage_slots = 5
-	max_w_class = 3
+	max_w_class = WEIGHT_CLASS_NORMAL
 	use_item_overlays = 1
 	can_hold = list(
-		"/obj/item/weapon/grenade/flashbang",
-		"/obj/item/weapon/grenade/chem_grenade/teargas",
-		"/obj/item/weapon/reagent_containers/spray/pepper",
-		"/obj/item/weapon/restraints/handcuffs",
-		"/obj/item/device/flash",
-		"/obj/item/clothing/glasses",
-		"/obj/item/ammo_casing/shotgun",
-		"/obj/item/ammo_box",
-		"/obj/item/weapon/reagent_containers/food/snacks/donut/normal",
-		"/obj/item/weapon/reagent_containers/food/snacks/donut/jelly",
-		"/obj/item/weapon/kitchen/knife/combat",
-		"/obj/item/weapon/melee/baton",
-		"/obj/item/weapon/melee/classic_baton",
-		"/obj/item/device/flashlight/seclite",
-		"/obj/item/taperoll/police",
-		"/obj/item/weapon/melee/classic_baton/telescopic",
-		"/obj/item/weapon/restraints/legcuffs/bola")
+		/obj/item/weapon/grenade/flashbang,
+		/obj/item/weapon/grenade/chem_grenade/teargas,
+		/obj/item/weapon/reagent_containers/spray/pepper,
+		/obj/item/weapon/restraints/handcuffs,
+		/obj/item/device/flash,
+		/obj/item/clothing/glasses,
+		/obj/item/ammo_casing/shotgun,
+		/obj/item/ammo_box,
+		/obj/item/weapon/reagent_containers/food/snacks/donut,
+		/obj/item/weapon/kitchen/knife/combat,
+		/obj/item/weapon/melee/baton,
+		/obj/item/weapon/melee/classic_baton,
+		/obj/item/device/flashlight/seclite,
+		/obj/item/taperoll/police,
+		/obj/item/weapon/melee/classic_baton/telescopic,
+		/obj/item/weapon/restraints/legcuffs/bola)
 
 /obj/item/weapon/storage/belt/security/sec/New()
 	..()
@@ -237,6 +248,24 @@
 	desc = "A syndicate belt designed to be used by boarding parties.  Its style is modelled after the hardsuits they wear."
 	icon_state = "militarybelt"
 	item_state = "military"
+	max_w_class = WEIGHT_CLASS_SMALL
+
+/obj/item/weapon/storage/belt/military/abductor
+	name = "agent belt"
+	desc = "A belt used by abductor agents."
+	icon = 'icons/obj/abductor.dmi'
+	icon_state = "belt"
+	item_state = "security"
+
+/obj/item/weapon/storage/belt/military/abductor/full/New()
+	..()
+	new /obj/item/weapon/screwdriver/abductor(src)
+	new /obj/item/weapon/wrench/abductor(src)
+	new /obj/item/weapon/weldingtool/abductor(src)
+	new /obj/item/weapon/crowbar/abductor(src)
+	new /obj/item/weapon/wirecutters/abductor(src)
+	new /obj/item/device/multitool/abductor(src)
+	new /obj/item/stack/cable_coil(src, 30, COLOR_WHITE)
 
 /obj/item/weapon/storage/belt/military/assault
 	name = "assault belt"
@@ -251,15 +280,15 @@
 	icon_state = "janibelt"
 	item_state = "janibelt"
 	storage_slots = 6
-	max_w_class = 4 // Set to this so the  light replacer can fit.
+	max_w_class = WEIGHT_CLASS_BULKY // Set to this so the  light replacer can fit.
 	use_item_overlays = 1
 	can_hold = list(
-		"/obj/item/weapon/grenade/chem_grenade/cleaner",
-		"/obj/item/device/lightreplacer",
-		"/obj/item/device/flashlight",
-		"/obj/item/weapon/reagent_containers/spray",
-		"/obj/item/weapon/soap",
-		"/obj/item/weapon/holosign_creator"
+		/obj/item/weapon/grenade/chem_grenade/cleaner,
+		/obj/item/device/lightreplacer,
+		/obj/item/device/flashlight,
+		/obj/item/weapon/reagent_containers/spray,
+		/obj/item/weapon/soap,
+		/obj/item/weapon/holosign_creator
 		)
 
 /obj/item/weapon/storage/belt/janitor/full/New()
@@ -277,11 +306,11 @@
 	desc = "For the mining master, holds your lazarus capsules."
 	icon_state = "lazarusbelt"
 	item_state = "lazbelt"
-	w_class = 4
-	max_w_class = 1
+	w_class = WEIGHT_CLASS_BULKY
+	max_w_class = WEIGHT_CLASS_TINY
 	max_combined_w_class = 6
 	storage_slots = 6
-	can_hold = list("/obj/item/device/mobcapsule")
+	can_hold = list(/obj/item/device/mobcapsule)
 
 /obj/item/weapon/storage/belt/lazarus/New()
 	..()
@@ -310,7 +339,7 @@
 	item_state = "bandolier"
 	storage_slots = 8
 	can_hold = list(
-		"/obj/item/ammo_casing/shotgun"
+		/obj/item/ammo_casing/shotgun
 		)
 
 /obj/item/weapon/storage/belt/bandolier/New()
@@ -350,10 +379,10 @@
 	icon_state = "holster"
 	item_state = "holster"
 	storage_slots = 1
-	max_w_class = 3
+	max_w_class = WEIGHT_CLASS_NORMAL
 	can_hold = list(
-		"/obj/item/weapon/gun/projectile/automatic/pistol",
-		"/obj/item/weapon/gun/projectile/revolver/detective"
+		/obj/item/weapon/gun/projectile/automatic/pistol,
+		/obj/item/weapon/gun/projectile/revolver/detective
 		)
 
 /obj/item/weapon/storage/belt/wands
@@ -364,7 +393,7 @@
 	storage_slots = 6
 	use_item_overlays = 1
 	can_hold = list(
-		"/obj/item/weapon/gun/magic/wand"
+		/obj/item/weapon/gun/magic/wand
 		)
 
 /obj/item/weapon/storage/belt/wands/full/New()
@@ -388,7 +417,7 @@
 	icon_state = "fannypack_leather"
 	item_state = "fannypack_leather"
 	storage_slots = 3
-	max_w_class = 2
+	max_w_class = WEIGHT_CLASS_SMALL
 
 /obj/item/weapon/storage/belt/fannypack/black
 	name = "black fannypack"
@@ -446,9 +475,9 @@
 	icon_state = "sheath"
 	item_state = "sheath"
 	storage_slots = 1
-	w_class = 4
-	max_w_class = 4
-	can_hold = list("/obj/item/weapon/melee/rapier")
+	w_class = WEIGHT_CLASS_BULKY
+	max_w_class = WEIGHT_CLASS_BULKY
+	can_hold = list(/obj/item/weapon/melee/rapier)
 
 /obj/item/weapon/storage/belt/rapier/update_icon()
 	icon_state = "[initial(icon_state)]"
@@ -477,23 +506,11 @@
 	icon_state = "holdingbelt"
 	item_state = "holdingbelt"
 	storage_slots = 14
-	w_class = 4
-	max_w_class = 2
+	w_class = WEIGHT_CLASS_BULKY
+	max_w_class = WEIGHT_CLASS_SMALL
 	max_combined_w_class = 21 // = 14 * 1.5, not 14 * 2.  This is deliberate
-	origin_tech = "bluespace=4"
+	origin_tech = "bluespace=5;materials=4;engineering=4;plasmatech=5"
 	can_hold = list()
-
-	proc/failcheck(mob/user as mob)
-		if(prob(src.reliability)) return 1 //No failure
-		if(prob(src.reliability))
-			to_chat(user, "\red The Bluespace portal resists your attempt to add another item.")//light failure
-
-		else
-			to_chat(user, "\red The Bluespace generator malfunctions!")
-			for(var/obj/O in src.contents) //it broke, delete what was in it
-				qdel(O)
-			crit_fail = 1
-			return 0
 
 /obj/item/weapon/storage/belt/bluespace/owlman
 	name = "Owlman's utility belt"
@@ -501,13 +518,13 @@
 	icon_state = "securitybelt"
 	item_state = "security"
 	storage_slots = 6
-	max_w_class = 3
+	max_w_class = WEIGHT_CLASS_NORMAL
 	max_combined_w_class = 18
-	origin_tech = "bluespace=4;syndicate=2"
+	origin_tech = "bluespace=5;materials=4;engineering=4;plasmatech=5"
 	allow_quick_empty = 1
 	can_hold = list(
-		"/obj/item/weapon/grenade/smokebomb",
-		"/obj/item/weapon/restraints/legcuffs/bola"
+		/obj/item/weapon/grenade/smokebomb,
+		/obj/item/weapon/restraints/legcuffs/bola
 		)
 
 	flags = NODROP
@@ -554,48 +571,6 @@
 			if(H.belt && H.belt == src)
 				if(H.s_active && H.s_active == src)
 					H.s_active.show_to(H)
-
-
-/* DEPRECATED DUE TO SUPERHERO CODE AND NODROP
- // As a last resort, the belt can be used as a plastic explosive with a fixed timer (15 seconds).  Naturally, you'll lose all your gear...
- // Of course, it could be worse.  It could spawn a singularity!
-/obj/item/weapon/storage/belt/bluespace/owlman/afterattack(atom/target as obj|turf, mob/user as mob, flag)
-	if(!flag)
-		return
-	if(istype(target, /turf/unsimulated) || istype(target, /turf/simulated/shuttle) || istype(target, /obj/item/weapon/storage) || istype(target, /obj/structure/table) || istype(target, /obj/structure/closet))
-		return
-	to_chat(user, "Planting explosives...")
-	user.visible_message("[user.name] is fiddling with their toolbelt.")
-	if(ismob(target))
-		user.attack_log += "\[[time_stamp()]\] <font color='red'> [user.real_name] tried planting [name] on [target:real_name] ([target:ckey])</font>"
-		log_attack("<font color='red'> [user.real_name] ([user.ckey]) tried planting [name] on [target:real_name] ([target:ckey])</font>")
-		user.visible_message("\red [user.name] is trying to strap a belt to [target.name]!")
-
-
-	if(do_after(user, 50, target = target) && in_range(user, target))
-		user.drop_item()
-		target = target
-		loc = null
-		var/location
-		if(isturf(target)) location = target
-		if(ismob(target))
-			target:attack_log += "\[[time_stamp()]\]<font color='orange'> Had the [name] planted on them by [user.real_name] ([user.ckey])</font>"
-			user.visible_message("\red [user.name] finished planting an explosive on [target.name]!")
-		target.overlays += image('icons/obj/assemblies.dmi', "plastic-explosive2")
-		to_chat(user, "You sacrifice your belt for the sake of justice. Timer counting down from 15.")
-		spawn(150)
-			if(target)
-				if(ismob(target) || isobj(target))
-					location = target.loc // These things can move
-				explosion(location, -1, -1, 2, 3)
-				if(istype(target, /turf/simulated/wall)) target:dismantle_wall(1)
-				else target.ex_act(1)
-				if(isobj(target))
-					if(target)
-						qdel(target)
-				if(src)
-					qdel(src)
-*/
 
 /obj/item/weapon/storage/belt/bluespace/attack(mob/M as mob, mob/user as mob, def_zone)
 	return

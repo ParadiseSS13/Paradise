@@ -1,4 +1,3 @@
-//This file was auto-corrected by findeclaration.exe on 25.5.2012 20:42:31
 #define OP_COMPUTER_COOLDOWN 60
 
 /obj/machinery/computer/operating
@@ -28,6 +27,14 @@
 		if(table)
 			table.computer = src
 			break
+
+/obj/machinery/computer/operating/Destroy()
+	if(table)
+		table.computer = null
+		table = null
+	if(victim)
+		victim = null
+	return ..()
 
 /obj/machinery/computer/operating/attack_ai(mob/user)
 	add_fingerprint(user)
@@ -94,7 +101,9 @@
 
 /obj/machinery/computer/operating/ui_data(mob/user, ui_key = "main", datum/topic_state/state = default_state)
 	var/data[0]
-	var/mob/living/carbon/human/occupant = src.table.victim
+	var/mob/living/carbon/human/occupant
+	if(table)
+		occupant = table.victim
 	data["hasOccupant"] = occupant ? 1 : 0
 	var/occupantData[0]
 
@@ -138,13 +147,12 @@
 		occupantData["btCelsius"] = occupant.bodytemperature - T0C
 		occupantData["btFaren"] = ((occupant.bodytemperature - T0C) * (9.0/5.0))+ 32
 
-		if(ishuman(occupant) && occupant.vessel && !(occupant.species && occupant.species.flags & NO_BLOOD))
-			var/blood_type = occupant.get_blood_name()
+		if(ishuman(occupant) && !(NO_BLOOD in occupant.species.species_traits))
 			occupantData["pulse"] = occupant.get_pulse(GETPULSE_TOOL)
 			occupantData["hasBlood"] = 1
-			occupantData["bloodLevel"] = round(occupant.vessel.get_reagent_amount(blood_type))
+			occupantData["bloodLevel"] = round(occupant.blood_volume)
 			occupantData["bloodMax"] = occupant.max_blood
-			occupantData["bloodPercent"] = round(100*(occupant.vessel.get_reagent_amount(blood_type)/occupant.max_blood), 0.01) //copy pasta ends here
+			occupantData["bloodPercent"] = round(100*(occupant.blood_volume/occupant.max_blood), 0.01) //copy pasta ends here
 
 			occupantData["bloodType"]=occupant.b_type
 		if(occupant.surgeries.len)

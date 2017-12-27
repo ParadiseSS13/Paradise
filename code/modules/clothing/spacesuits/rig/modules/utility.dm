@@ -56,19 +56,7 @@
 	interface_desc = "A diamond-tipped industrial drill."
 	suit_overlay_active = "mounted-drill"
 	suit_overlay_inactive = "mounted-drill"
-
 	device_type = /obj/item/weapon/pickaxe/diamonddrill
-
-/obj/item/rig_module/device/anomaly_scanner
-	name = "hardsuit anomaly scanner"
-	desc = "You think it's called an Elder Sarsparilla or something."
-	icon_state = "eldersasparilla"
-	interface_name = "Alden-Saraspova counter"
-	interface_desc = "An exotic particle detector commonly used by xenoarchaeologists."
-	engage_string = "Begin Scan"
-	usable = 1
-	selectable = 0
-	device_type = /obj/item/device/ano_scanner
 
 /obj/item/rig_module/device/orescanner
 	name = "ore scanner module"
@@ -94,7 +82,9 @@
 */
 /obj/item/rig_module/device/New()
 	..()
-	if(device_type) device = new device_type(src)
+	if(device_type)
+		device = new device_type(src)
+		device.flags |= ABSTRACT //Abstract in the sense that it's not an item that stands alone, but rather is just there to let the module act like it.
 
 /obj/item/rig_module/device/engage(atom/target)
 	if(!..() || !device)
@@ -417,13 +407,15 @@
 	interface_desc = "Leave your mark."
 	engage_string = "Toggle stamp type"
 	usable = 1
-	var/iastamp
-	var/deniedstamp
+	var/obj/iastamp			//Theese were just vars, but any device would need to be an object
+	var/obj/deniedstamp //Stops assigning non-objects to theese vars, which probably would break quite a bit.
 
 /obj/item/rig_module/device/stamp/New()
 	..()
 	iastamp = new /obj/item/weapon/stamp/law(src)
 	deniedstamp = new /obj/item/weapon/stamp/denied(src)
+	iastamp.flags |= ABSTRACT
+	deniedstamp.flags |= ABSTRACT
 	device = iastamp
 
 /obj/item/rig_module/device/stamp/engage(atom/target)

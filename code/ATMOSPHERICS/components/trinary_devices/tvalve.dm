@@ -30,7 +30,7 @@
 	if(flipped)
 		flipstate = "m"
 	if(animation)
-		flick("tvalve[flipstate][src.state][!src.state]",src)
+		flick("tvalve[flipstate][state][!state]",src)
 	else
 		icon_state = "tvalve[flipstate][state]"
 
@@ -52,9 +52,9 @@
 			
 /obj/machinery/atmospherics/trinary/tvalve/proc/switch_side()
 	if(state == TVALVE_STATE_STRAIGHT)
-		src.go_to_side()
+		go_to_side()
 	else
-		src.go_straight()
+		go_straight()
 
 /obj/machinery/atmospherics/trinary/tvalve/proc/go_to_side()
 	if(state == TVALVE_STATE_SIDE) 
@@ -86,10 +86,14 @@
 	investigate_log("was set to straight by [usr ? key_name(usr) : "a remote signal"]", "atmos")
 	return 1
 
-/obj/machinery/atmospherics/trinary/tvalve/attack_ai(mob/user as mob)
+/obj/machinery/atmospherics/trinary/tvalve/attack_ai(mob/user)
 	return
+	
+/obj/machinery/atmospherics/trinary/tvalve/attack_ghost(mob/user)
+	if(user.can_advanced_admin_interact())
+		return attack_hand(user)
 
-/obj/machinery/atmospherics/trinary/tvalve/attack_hand(mob/user as mob)
+/obj/machinery/atmospherics/trinary/tvalve/attack_hand(mob/usermob)
 	add_fingerprint(usr)
 	update_icon(1)
 	sleep(10)
@@ -128,13 +132,13 @@
 	if(!powered())
 		icon_state = "tvalvenopower"
 
-/obj/machinery/atmospherics/trinary/tvalve/digital/attack_ai(mob/user as mob)
-	return src.attack_hand(user)
+/obj/machinery/atmospherics/trinary/tvalve/digital/attack_ai(mob/user)
+	return attack_hand(user)
 
-/obj/machinery/atmospherics/trinary/tvalve/digital/attack_hand(mob/user as mob)
+/obj/machinery/atmospherics/trinary/tvalve/digital/attack_hand(mob/user)
 	if(!powered())
 		return
-	if(!src.allowed(user))
+	if(!allowed(user) && !user.can_advanced_admin_interact())
 		to_chat(user, "<span class='alert'>Access denied.</span>")
 		return
 	..()

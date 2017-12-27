@@ -10,7 +10,7 @@
 	..()
 
 /obj/item/clothing/suit/hooded/Destroy()
-	qdel(hood)
+	QDEL_NULL(hood)
 	return ..()
 
 /obj/item/clothing/suit/hooded/proc/MakeHood()

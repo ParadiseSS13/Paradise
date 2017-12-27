@@ -65,7 +65,7 @@
 			dir = 8
 		else
 			dir = 4
-		playsound(src.loc, 'sound/items/Ratchet.ogg', 50, 1)
+		playsound(src.loc, G.usesound, 50, 1)
 		return
 
 	if(exchange_parts(user, G))
@@ -193,6 +193,11 @@
 		A.blob_act()
 		qdel(src)
 
+/obj/machinery/bodyscanner/narsie_act()
+	go_out()
+	new /obj/effect/gibspawner/generic(get_turf(loc)) //I REPLACE YOUR TECHNOLOGY WITH FLESH!
+	qdel(src)
+
 /obj/machinery/bodyscanner/attack_animal(var/mob/living/simple_animal/M)//Stop putting hostile mobs in things guise
 	if(M.environment_smash)
 		M.do_attack_animation(src)
@@ -215,7 +220,7 @@
 	active_power_usage = 500
 	var/printing = null
 	var/printing_text = null
-	var/known_implants = list(/obj/item/weapon/implant/chem, /obj/item/weapon/implant/death_alarm, /obj/item/weapon/implant/loyalty, /obj/item/weapon/implant/tracking)
+	var/known_implants = list(/obj/item/weapon/implant/chem, /obj/item/weapon/implant/death_alarm, /obj/item/weapon/implant/mindshield, /obj/item/weapon/implant/tracking, /obj/item/weapon/implant/health)
 
 /obj/machinery/body_scanconsole/power_change()
 	if(stat & BROKEN)
@@ -288,7 +293,7 @@
 			dir = 8
 		else
 			dir = 4
-		playsound(src.loc, 'sound/items/Ratchet.ogg', 50, 1)
+		playsound(loc, G.usesound, 50, 1)
 
 	if(exchange_parts(user, G))
 		return
@@ -340,7 +345,14 @@
 		occupantData["health"] = H.health
 		occupantData["maxHealth"] = H.maxHealth
 
-		occupantData["hasVirus"] = H.viruses.len
+		var/found_disease = FALSE
+		for(var/thing in H.viruses)
+			var/datum/disease/D = thing
+			if(D.visibility_flags & HIDDEN_SCANNER || D.visibility_flags & HIDDEN_PANDEMIC)
+				continue
+			found_disease = TRUE
+			break
+		occupantData["hasVirus"] = found_disease
 
 		occupantData["bruteLoss"] = H.getBruteLoss()
 		occupantData["oxyLoss"] = H.getOxyLoss()
@@ -359,14 +371,12 @@
 
 		var/bloodData[0]
 		bloodData["hasBlood"] = 0
-		if(ishuman(H) && H.vessel && !(H.species && H.species.flags & NO_BLOOD))
-			var/blood_type = H.get_blood_name()
-			var/blood_volume = round(H.vessel.get_reagent_amount(blood_type))
+		if(ishuman(H) && !(NO_BLOOD in H.species.species_traits))
 			bloodData["hasBlood"] = 1
-			bloodData["volume"] = blood_volume
-			bloodData["percent"] = round(((blood_volume / BLOOD_VOLUME_NORMAL)*100))
+			bloodData["volume"] = H.blood_volume
+			bloodData["percent"] = round(((H.blood_volume / BLOOD_VOLUME_NORMAL)*100))
 			bloodData["pulse"] = H.get_pulse(GETPULSE_TOOL)
-			bloodData["bloodLevel"] = blood_volume
+			bloodData["bloodLevel"] = H.blood_volume
 			bloodData["bloodMax"] = H.max_blood
 		occupantData["blood"] = bloodData
 
@@ -380,7 +390,7 @@
 		occupantData["implant_len"] = implantData.len
 
 		var/extOrganData[0]
-		for(var/obj/item/organ/external/E in H.organs)
+		for(var/obj/item/organ/external/E in H.bodyparts)
 			var/organData[0]
 			organData["name"] = E.name
 			organData["open"] = E.open
@@ -393,7 +403,7 @@
 			organData["broken"] = E.min_broken_damage
 
 			var/shrapnelData[0]
-			for(var/obj/I in E.implants)
+			for(var/obj/I in E.embedded_objects)
 				var/shrapnelSubData[0]
 				shrapnelSubData["name"] = I.name
 
@@ -403,16 +413,12 @@
 			organData["shrapnel_len"] = shrapnelData.len
 
 			var/organStatus[0]
-			if(E.status & ORGAN_DESTROYED)
-				organStatus["destroyed"] = 1
 			if(E.status & ORGAN_BROKEN)
 				organStatus["broken"] = E.broken_description
 			if(E.status & ORGAN_ROBOT)
 				organStatus["robotic"] = 1
 			if(E.status & ORGAN_SPLINTED)
 				organStatus["splinted"] = 1
-			if(E.status & ORGAN_BLEEDING)
-				organStatus["bleeding"] = 1
 			if(E.status & ORGAN_DEAD)
 				organStatus["dead"] = 1
 
@@ -421,10 +427,8 @@
 			if(istype(E, /obj/item/organ/external/chest) && H.is_lung_ruptured())
 				organData["lungRuptured"] = 1
 
-			for(var/datum/wound/W in E.wounds)
-				if(W.internal)
-					organData["internalBleeding"] = 1
-					break
+			if(E.internal_bleeding)
+				organData["internalBleeding"] = 1
 
 			extOrganData.Add(list(organData))
 
@@ -448,6 +452,7 @@
 		occupantData["intOrgan"] = intOrganData
 
 		occupantData["blind"] = (H.disabilities & BLIND)
+		occupantData["colourblind"] = (H.disabilities & COLOURBLIND)
 		occupantData["nearsighted"] = (H.disabilities & NEARSIGHTED)
 
 	data["occupant"] = occupantData
@@ -467,7 +472,7 @@
 			printing = 1
 			visible_message("<span class='notice'>\The [src] rattles and prints out a sheet of paper.</span>")
 			var/obj/item/weapon/paper/P = new /obj/item/weapon/paper(loc)
-			playsound(loc, "sound/goonstation/machines/printer_dotmatrix.ogg", 50, 1)
+			playsound(loc, 'sound/goonstation/machines/printer_dotmatrix.ogg', 50, 1)
 			P.info = "<CENTER><B>Body Scan - [href_list["name"]]</B></CENTER><BR>"
 			P.info += "<b>Time of scan:</b> [worldtime2text(world.time)]<br><br>"
 			P.info += "[printing_text]"
@@ -493,8 +498,15 @@
 					t1 = "*dead*"
 			dat += "[occupant.health > 50 ? "<font color='blue'>" : "<font color='red'>"]\tHealth %: [occupant.health], ([t1])</font><br>"
 
-			if(occupant.viruses.len)
-				dat += "<font color='red'>Viral pathogen detected in blood stream.</font><BR>"
+			var/found_disease = FALSE
+			for(var/thing in occupant.viruses)
+				var/datum/disease/D = thing
+				if(D.visibility_flags & HIDDEN_SCANNER || D.visibility_flags & HIDDEN_PANDEMIC)
+					continue
+				found_disease = TRUE
+				break
+			if(found_disease)
+				dat += "<font color='red'>Disease detected in occupant.</font><BR>"
 
 			var/extra_font = null
 			extra_font = (occupant.getBruteLoss() < 60 ? "<font color='blue'>" : "<font color='red'>")
@@ -526,14 +538,11 @@
 			if(occupant.has_brain_worms())
 				dat += "Large growth detected in frontal lobe, possibly cancerous. Surgical removal is recommended.<br>"
 
-			if(occupant.vessel)
-				var/blood_type = occupant.get_blood_name()
-				var/blood_volume = round(occupant.vessel.get_reagent_amount(blood_type))
-				var/blood_percent =  blood_volume / BLOOD_VOLUME_NORMAL
-				blood_percent *= 100
+			var/blood_percent =  round((occupant.blood_volume / BLOOD_VOLUME_NORMAL))
+			blood_percent *= 100
 
-				extra_font = (blood_volume > 448 ? "<font color='blue'>" : "<font color='red'>")
-				dat += "[extra_font]\tBlood Level %: [blood_percent] ([blood_volume] units)</font><br>"
+			extra_font = (occupant.blood_volume > 448 ? "<font color='blue'>" : "<font color='red'>")
+			dat += "[extra_font]\tBlood Level %: [blood_percent] ([occupant.blood_volume] units)</font><br>"
 
 			if(occupant.reagents)
 				dat += "Epinephrine units: [occupant.reagents.get_reagent_amount("Epinephrine")] units<BR>"
@@ -556,7 +565,7 @@
 			dat += "<th>Other Wounds</th>"
 			dat += "</tr>"
 
-			for(var/obj/item/organ/external/e in occupant.organs)
+			for(var/obj/item/organ/external/e in occupant.bodyparts)
 				dat += "<tr>"
 				var/AN = ""
 				var/open = ""
@@ -567,15 +576,12 @@
 				var/splint = ""
 				var/internal_bleeding = ""
 				var/lung_ruptured = ""
-				for(var/datum/wound/W in e.wounds) if(W.internal)
+				if(e.internal_bleeding)
 					internal_bleeding = "<br>Internal bleeding"
-					break
 				if(istype(e, /obj/item/organ/external/chest) && occupant.is_lung_ruptured())
 					lung_ruptured = "Lung ruptured:"
 				if(e.status & ORGAN_SPLINTED)
 					splint = "Splinted:"
-				if(e.status & ORGAN_BLEEDING)
-					bled = "Bleeding:"
 				if(e.status & ORGAN_BROKEN)
 					AN = "[e.broken_description]:"
 				if(e.status & ORGAN_ROBOT)
@@ -599,17 +605,14 @@
 						infected = "Septic:"
 
 				var/unknown_body = 0
-				for(var/I in e.implants)
+				for(var/I in e.embedded_objects)
 					unknown_body++
 
 				if(unknown_body || e.hidden)
 					imp += "Unknown body present:"
 				if(!AN && !open && !infected & !imp)
 					AN = "None:"
-				if(!(e.status & ORGAN_DESTROYED))
-					dat += "<td>[e.name]</td><td>[e.burn_dam]</td><td>[e.brute_dam]</td><td>[robot][bled][AN][splint][open][infected][imp][internal_bleeding][lung_ruptured]</td>"
-				else
-					dat += "<td>[e.name]</td><td>-</td><td>-</td><td>Not Found</td>"
+				dat += "<td>[e.name]</td><td>[e.burn_dam]</td><td>[e.brute_dam]</td><td>[robot][bled][AN][splint][open][infected][imp][internal_bleeding][lung_ruptured]</td>"
 				dat += "</tr>"
 			for(var/obj/item/organ/internal/i in occupant.internal_organs)
 				var/mech = i.desc
@@ -634,6 +637,8 @@
 			dat += "</table>"
 			if(occupant.disabilities & BLIND)
 				dat += "<font color='red'>Cataracts detected.</font><BR>"
+			if(occupant.disabilities & COLOURBLIND)
+				dat += "<font color='red'>Photoreceptor abnormalities detected.</font><BR>"
 			if(occupant.disabilities & NEARSIGHTED)
 				dat += "<font color='red'>Retinal misalignment detected.</font><BR>"
 		else

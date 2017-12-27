@@ -10,7 +10,7 @@
 "aj" = (/obj/structure/closet/cardboard,/obj/machinery/light{icon_state = "tube1"; dir = 8},/obj/item/device/flashlight/flare,/obj/item/device/flashlight/flare,/obj/item/device/flashlight/flare,/obj/item/device/flashlight/flare,/obj/item/device/flashlight/flare,/obj/item/device/flashlight/flare,/obj/item/device/flashlight,/obj/item/device/flashlight,/obj/item/device/flashlight,/obj/item/weapon/shovel,/turf/simulated/floor/plasteel,/area/ruin/unpowered)
 "ak" = (/obj/structure/closet/cardboard,/obj/item/device/flashlight/lantern,/obj/item/device/flashlight/lantern,/obj/item/device/flashlight/lantern,/obj/item/device/tape/random,/obj/item/device/tape/random,/obj/item/device/tape/random,/obj/item/weapon/storage/box/rxglasses,/obj/item/weapon/extinguisher,/obj/item/weapon/extinguisher,/obj/item/clothing/glasses/night,/obj/item/clothing/glasses/night,/turf/simulated/floor/plasteel,/area/ruin/unpowered)
 "al" = (/obj/structure/closet/cardboard,/obj/item/weapon/storage/box/syringes,/obj/item/weapon/storage/box/syringes,/obj/item/weapon/storage/box/beakers,/obj/item/weapon/storage/box/beakers,/obj/item/weapon/storage/box/matches,/obj/item/weapon/storage/box/bodybags,/obj/item/clothing/glasses/meson,/obj/item/clothing/glasses/meson,/turf/simulated/floor/plasteel,/area/ruin/unpowered)
-"am" = (/obj/structure/closet/cardboard,/obj/item/weapon/kitchen/knife,/obj/item/weapon/kitchen/knife,/obj/item/weapon/hatchet,/obj/item/weapon/kitchen/rollingpin,/obj/item/weapon/minihoe,/turf/simulated/floor/plasteel,/area/ruin/unpowered)
+"am" = (/obj/structure/closet/cardboard,/obj/item/weapon/kitchen/knife,/obj/item/weapon/kitchen/knife,/obj/item/weapon/hatchet,/obj/item/weapon/kitchen/rollingpin,/obj/item/weapon/cultivator,/turf/simulated/floor/plasteel,/area/ruin/unpowered)
 "an" = (/obj/structure/closet/cardboard,/obj/item/weapon/defibrillator,/obj/item/weapon/storage/box/autoinjectors,/turf/simulated/floor/plasteel,/area/ruin/unpowered)
 "ao" = (/obj/structure/closet/cardboard,/obj/machinery/light{dir = 4; icon_state = "tube1"},/obj/item/ammo_box/c9mm,/obj/item/ammo_box/c9mm,/obj/item/ammo_box/c9mm,/obj/item/ammo_box/c9mm,/obj/item/ammo_box/c9mm,/obj/item/ammo_box/c9mm,/turf/simulated/floor/plasteel,/area/ruin/unpowered)
 "ap" = (/obj/structure/closet/crate/freezer,/obj/item/weapon/reagent_containers/blood/OMinus,/obj/item/weapon/reagent_containers/blood/OMinus,/obj/item/weapon/reagent_containers/blood/OMinus,/obj/item/weapon/reagent_containers/blood/OMinus,/obj/item/weapon/reagent_containers/blood/OMinus,/obj/item/weapon/reagent_containers/blood/random,/obj/item/weapon/reagent_containers/blood/random,/obj/item/weapon/reagent_containers/blood/random,/obj/item/weapon/reagent_containers/blood/random,/obj/item/weapon/reagent_containers/blood/random,/obj/item/weapon/reagent_containers/blood/random,/turf/simulated/floor/plasteel,/area/ruin/unpowered)
@@ -64,15 +64,15 @@
 "bl" = (/obj/structure/table,/obj/item/weapon/storage/box/matches,/turf/simulated/floor/plasteel,/area/ruin/unpowered)
 "bm" = (/obj/structure/table,/obj/machinery/reagentgrinder,/turf/simulated/floor/plasteel,/area/ruin/unpowered)
 "bn" = (/obj/structure/table,/obj/machinery/recharger,/turf/simulated/floor/plasteel,/area/ruin/unpowered)
-"bo" = (/obj/machinery/portable_atmospherics/hydroponics{pixel_y = 9},/obj/machinery/light{dir = 1},/turf/simulated/floor/light,/area/ruin/unpowered)
-"bp" = (/obj/machinery/portable_atmospherics/hydroponics{pixel_y = 9},/turf/simulated/floor/light,/area/ruin/unpowered)
+"bo" = (/obj/machinery/hydroponics/constructable{pixel_y = 9},/turf/simulated/floor/light,/area/ruin/unpowered)
+"bp" = (/obj/machinery/hydroponics/constructable{pixel_y = 9},/obj/machinery/light{dir = 1},/turf/simulated/floor/light,/area/ruin/unpowered)
 "bq" = (/obj/machinery/blackbox_recorder,/turf/simulated/floor/plasteel,/area/ruin/unpowered)
 "br" = (/obj/structure/cable{icon_state = "0-4"; d2 = 4},/obj/machinery/power/port_gen/pacman,/turf/simulated/floor/plasteel,/area/ruin/unpowered)
 "bs" = (/obj/structure/cable{d1 = 2; d2 = 8; icon_state = "2-8"},/obj/machinery/power/smes,/turf/simulated/floor/plasteel,/area/ruin/unpowered)
 "bt" = (/obj/machinery/telecomms/relay/preset/telecomms,/turf/simulated/floor/plasteel,/area/ruin/unpowered)
 "bu" = (/obj/machinery/light/small{dir = 1},/obj/structure/dispenser/oxygen,/turf/simulated/floor/plasteel,/area/ruin/unpowered)
 "bv" = (/obj/machinery/biogenerator,/turf/simulated/floor/plasteel,/area/ruin/unpowered)
-"bw" = (/obj/machinery/light,/obj/machinery/portable_atmospherics/hydroponics{pixel_y = 9},/turf/simulated/floor/light,/area/ruin/unpowered)
+"bw" = (/obj/machinery/light,/obj/machinery/hydroponics/constructable{pixel_y = 9},/turf/simulated/floor/light,/area/ruin/unpowered)
 "bx" = (/obj/machinery/autolathe,/turf/simulated/floor/plasteel,/area/ruin/unpowered)
 "by" = (/obj/structure/cable{d1 = 1; d2 = 2; icon_state = "1-2"},/obj/machinery/power/terminal{icon_state = "term"; dir = 1},/turf/simulated/floor/plasteel,/area/ruin/unpowered)
 "bz" = (/obj/structure/reagent_dispensers/fueltank,/turf/simulated/floor/plasteel,/area/ruin/unpowered)
@@ -152,9 +152,9 @@ aaaaababababababababababababababababababababababababacaQaRaSacaTaUacaVararararar
 aaaaaaabababababababababababababababababababababababacaYaZbaacbbaUacacbcbcaubcbcacacaXararbdbdbdacababababababababababababababababababababababababababababababababaaaaaaaa
 aaaaaaaaabababababababababababababababababababacacacacacauacacacbeacbfarararararauararararbdbdbdacabababababababababababababababababababababababababababababababababaaaaaa
 aaaaaaaaabababababababababababababababababababacbgaracarararbhararararararararbiacacacacacacacacacabababababababababababababababababababababababababababababababababaaaaaa
-aaaaaaaaabababababababababababababababababababacbjarauarararararararbkblbmbnararacbobpbpboacababababababababababababababababababababababababababababababababababababaaaaaa
+aaaaaaaaabababababababababababababababababababacbjarauarararararararbkblbmbnararacbpbobobpacababababababababababababababababababababababababababababababababababababaaaaaa
 aaaaaaaaabababababababababababababababababababacacacacacacauacacararacacacacararauararararacabababababababababababababababababababababababababababababababababababababaaaa
-aaaaaaaaaaababababababababababababababababababacbqbrbsbtararbuacarararararararbvacbwbpbpbwacabababababababababababababababababababababababababababababababababababababaaaa
+aaaaaaaaaaababababababababababababababababababacbqbrbsbtararbuacarararararararbvacbwbobobwacabababababababababababababababababababababababababababababababababababababaaaa
 aaaaaaaaaaaaabababababababababababababababababacbxarbyarararbzacbAbBbCbDbEararbFacacacacacacabababababababababababababababababababababababababababababababababababababaaaa
 aaaaaaaaaaaaabababababababababababababababababacbGbHbIarararbJacbKbBbLbMbEararbNacabababababababababababababababababababababababababababababababababababababababababababaa
 aaaaaaaaaaaaaaababababababababababababababababacbOararararbPbQacbRbSbBbBbBararbTacabababababababababababababababababababababababababababababababababababababababababababaa
@@ -177,3 +177,4 @@ aaaaaaaaaaaaaaaaaaaaaaabababababababababababababcececececeababababababababababab
 aaaaaaaaaaaaaaaaaaaaaaaaabababababababababababababcececececeababababababababaaaaaaababababababababababababababababababaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
 aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaababababababababcececececeababaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaabababababababaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
 "}
+

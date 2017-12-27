@@ -16,14 +16,31 @@
 	return 0
 
 /mob/living/carbon/human/isSynthetic()
-	// If they are 100% robotic, they count as synthetic.
-	for(var/obj/item/organ/external/E in organs)
-		if(!(E.status & ORGAN_ROBOT))
-			return 0
-	return 1
+	if(get_species() == "Machine")
+		return 1
+	return 0
 
-/proc/isloyal(A) //Checks to see if the person contains a mindshield implant, then checks that the implant is actually inside of them
-	for(var/obj/item/weapon/implant/loyalty/L in A)
+/mob/proc/get_screen_colour()
+
+/mob/proc/update_client_colour(var/time = 10) //Update the mob's client.color with an animation the specified time in length.
+	if(!client) //No client_colour without client. If the player logs back in they'll be back through here anyway.
+		return
+	client.colour_transition(get_screen_colour(), time = time) //Get the colour matrix we're going to transition to depending on relevance (magic glasses first, eyes second).
+
+/mob/living/carbon/human/get_screen_colour() //Fetch the colour matrix from wherever (e.g. eyes) so it can be compared to client.color.
+	. = ..()
+	if(.)
+		return .
+
+	var/obj/item/clothing/glasses/worn_glasses = glasses
+	var/obj/item/organ/internal/eyes/eyes = get_int_organ(/obj/item/organ/internal/eyes)
+	if(istype(worn_glasses) && worn_glasses.color_view) //Check to see if they got those magic glasses and they're augmenting the colour of what the wearer sees. If they're not, color_view should be null.
+		return worn_glasses.color_view
+	else if(eyes) //If they're not, check to see if their eyes got one of them there colour matrices. Will be null if eyes are robotic/the mob isn't colourblind and they have no default colour matrix.
+		return eyes.get_colourmatrix()
+
+/proc/ismindshielded(A) //Checks to see if the person contains a mindshield implant, then checks that the implant is actually inside of them
+	for(var/obj/item/weapon/implant/mindshield/L in A)
 		if(L && L.implanted)
 			return 1
 	return 0
@@ -34,17 +51,17 @@
 			return 1
 	return 0
 
-proc/isLivingSSD(mob/M)
+/proc/isLivingSSD(mob/M)
 	return istype(M) && M.player_logged && M.stat != DEAD
 
-proc/isAntag(A)
+/proc/isAntag(A)
 	if(istype(A, /mob/living/carbon))
 		var/mob/living/carbon/C = A
 		if(C.mind && C.mind.special_role)
 			return 1
 	return 0
 
-proc/isNonCrewAntag(A)
+/proc/isNonCrewAntag(A)
 	if(!isAntag(A))
 		return 0
 
@@ -68,21 +85,28 @@ proc/isNonCrewAntag(A)
 
 	return 1
 
-proc/iscuffed(A)
+/proc/cannotPossess(A)
+	var/mob/dead/observer/G = A
+	if(G.has_enabled_antagHUD == 1 && config.antag_hud_restricted)
+		return 1
+	return 0
+
+
+/proc/iscuffed(A)
 	if(istype(A, /mob/living/carbon))
 		var/mob/living/carbon/C = A
 		if(C.handcuffed)
 			return 1
 	return 0
 
-proc/hassensorlevel(A, var/level)
+/proc/hassensorlevel(A, var/level)
 	var/mob/living/carbon/human/H = A
 	if(istype(H) && istype(H.w_uniform, /obj/item/clothing/under))
 		var/obj/item/clothing/under/U = H.w_uniform
 		return U.sensor_mode >= level
 	return 0
 
-proc/getsensorlevel(A)
+/proc/getsensorlevel(A)
 	var/mob/living/carbon/human/H = A
 	if(istype(H) && istype(H.w_uniform, /obj/item/clothing/under))
 		var/obj/item/clothing/under/U = H.w_uniform
@@ -153,7 +177,7 @@ proc/getsensorlevel(A)
 		p++
 	return t
 
-proc/slur(phrase, var/list/slurletters = ("'"))//use a different list as an input if you want to make robots slur with $#@%! characters
+/proc/slur(phrase, var/list/slurletters = ("'"))//use a different list as an input if you want to make robots slur with $#@%! characters
 	phrase = html_decode(phrase)
 	var/leng=lentext(phrase)
 	var/counter=lentext(phrase)
@@ -225,7 +249,7 @@ proc/slur(phrase, var/list/slurletters = ("'"))//use a different list as an inpu
 	return sanitize(copytext(t,1,MAX_MESSAGE_LEN))
 
 
-proc/Gibberish(t, p)//t is the inputted message, and any value higher than 70 for p will cause letters to be replaced instead of added
+/proc/Gibberish(t, p)//t is the inputted message, and any value higher than 70 for p will cause letters to be replaced instead of added
 	/* Turn text into complete gibberish! */
 	var/returntext = ""
 	for(var/i = 1, i <= length(t), i++)
@@ -291,59 +315,60 @@ proc/muffledspeech(phrase)
 
 
 /mob/proc/abiotic(var/full_body = 0)
-	if(full_body && ((src.l_hand && !(src.l_hand.flags & ABSTRACT)) || (src.r_hand && !(src.r_hand.flags & ABSTRACT)) || (src.back || src.wear_mask)))
+	if(full_body && ((l_hand && !(l_hand.flags & ABSTRACT)) || (r_hand && !(r_hand.flags & ABSTRACT)) || (back || wear_mask)))
 		return 1
 
-	if((src.l_hand && !(src.l_hand.flags & ABSTRACT)) || (src.r_hand && !(src.r_hand.flags & ABSTRACT)))
+	if((l_hand && !(l_hand.flags & ABSTRACT)) || (r_hand && !(r_hand.flags & ABSTRACT)))
 		return 1
 
 	return 0
 
 //converts intent-strings into numbers and back
-var/list/intents = list(I_HELP,I_DISARM,I_GRAB,I_HARM)
+var/list/intents = list(INTENT_HELP,INTENT_DISARM,INTENT_GRAB,INTENT_HARM)
 /proc/intent_numeric(argument)
 	if(istext(argument))
 		switch(argument)
-			if(I_HELP)		return 0
-			if(I_DISARM)	return 1
-			if(I_GRAB)		return 2
+			if(INTENT_HELP)		return 0
+			if(INTENT_DISARM)	return 1
+			if(INTENT_GRAB)		return 2
 			else			return 3
 	else
 		switch(argument)
-			if(0)			return I_HELP
-			if(1)			return I_DISARM
-			if(2)			return I_GRAB
-			else			return I_HARM
+			if(0)			return INTENT_HELP
+			if(1)			return INTENT_DISARM
+			if(2)			return INTENT_GRAB
+			else			return INTENT_HARM
 
 //change a mob's act-intent. Input the intent as a string such as "help" or use "right"/"left
 /mob/verb/a_intent_change(input as text)
 	set name = "a-intent"
 	set hidden = 1
 
-	if(ishuman(src) || isalienadult(src) || isbrain(src))
-		switch(input)
-			if(I_HELP,I_DISARM,I_GRAB,I_HARM)
-				a_intent = input
-			if("right")
-				a_intent = intent_numeric((intent_numeric(a_intent)+1) % 4)
-			if("left")
-				a_intent = intent_numeric((intent_numeric(a_intent)+3) % 4)
-		if(hud_used && hud_used.action_intent)
-			hud_used.action_intent.icon_state = "[a_intent]"
+	if(can_change_intents)
+		if(ishuman(src) || isalienadult(src) || isbrain(src))
+			switch(input)
+				if(INTENT_HELP,INTENT_DISARM,INTENT_GRAB,INTENT_HARM)
+					a_intent = input
+				if("right")
+					a_intent = intent_numeric((intent_numeric(a_intent)+1) % 4)
+				if("left")
+					a_intent = intent_numeric((intent_numeric(a_intent)+3) % 4)
+			if(hud_used && hud_used.action_intent)
+				hud_used.action_intent.icon_state = "[a_intent]"
 
-	else if(isrobot(src) || islarva(src))
-		switch(input)
-			if(I_HELP)
-				a_intent = I_HELP
-			if(I_HARM)
-				a_intent = I_HARM
-			if("right","left")
-				a_intent = intent_numeric(intent_numeric(a_intent) - 3)
-		if(hud_used && hud_used.action_intent)
-			if(a_intent == I_HARM)
-				hud_used.action_intent.icon_state = "harm"
-			else
-				hud_used.action_intent.icon_state = "help"
+		else if(isrobot(src) || islarva(src))
+			switch(input)
+				if(INTENT_HELP)
+					a_intent = INTENT_HELP
+				if(INTENT_HARM)
+					a_intent = INTENT_HARM
+				if("right","left")
+					a_intent = intent_numeric(intent_numeric(a_intent) - 3)
+			if(hud_used && hud_used.action_intent)
+				if(a_intent == INTENT_HARM)
+					hud_used.action_intent.icon_state = "harm"
+				else
+					hud_used.action_intent.icon_state = "help"
 
 
 /mob/living/verb/mob_sleep()
@@ -361,9 +386,16 @@ var/list/intents = list(I_HELP,I_DISARM,I_GRAB,I_HARM)
 	set name = "Rest"
 	set category = "IC"
 
-	resting = !resting
-	update_canmove()
-	to_chat(src, "<span class='notice'>You are now [resting ? "resting" : "getting up"].</span>")
+	if(world.time < client.move_delay)
+		return
+
+	if(!resting)
+		client.move_delay = world.time + 20
+		to_chat(src, "<span class='notice'>You are now resting.</span>")
+		StartResting()
+	else if(resting)
+		to_chat(src, "<span class='notice'>You are now getting up.</span>")
+		StopResting()
 
 /proc/is_blind(A)
 	if(iscarbon(A))
@@ -423,9 +455,9 @@ var/list/intents = list(I_HELP,I_DISARM,I_GRAB,I_HARM)
 				if(istype(subject, /mob/dead/observer))
 					DM = subject
 				if(check_rights(R_ADMIN|R_MOD,0,M)) 							// What admins see
-					lname = "[keyname][(DM && DM.anonsay) ? "*" : (DM ? "" : "^")] ([name])"
+					lname = "[keyname][(DM && DM.client && DM.client.prefs.ghost_anonsay) ? "*" : (DM ? "" : "^")] ([name])"
 				else
-					if(DM && DM.anonsay)						// If the person is actually observer they have the option to be anonymous
+					if(DM && DM.client && DM.client.prefs.ghost_anonsay)	// If the person is actually observer they have the option to be anonymous
 						lname = "Ghost of [name]"
 					else if(DM)									// Non-anons
 						lname = "[keyname] ([name])"
@@ -434,20 +466,24 @@ var/list/intents = list(I_HELP,I_DISARM,I_GRAB,I_HARM)
 				lname = "<span class='name'>[lname]</span> "
 			to_chat(M, "<span class='deadsay'>[lname][follow][message]</span>")
 
-/proc/notify_ghosts(var/message, var/ghost_sound = null, var/enter_link = null, var/atom/source = null, var/image/alert_overlay = null, var/attack_not_jump = 0) //Easy notification of ghosts.
+/proc/notify_ghosts(message, ghost_sound = null, enter_link = null, title = null, atom/source = null, image/alert_overlay = null, flashwindow = TRUE, var/action = NOTIFY_JUMP) //Easy notification of ghosts.
 	for(var/mob/dead/observer/O in player_list)
 		if(O.client)
 			to_chat(O, "<span class='ghostalert'>[message][(enter_link) ? " [enter_link]" : ""]<span>")
 			if(ghost_sound)
 				O << sound(ghost_sound)
+			if(flashwindow)
+				window_flash(O.client)
 			if(source)
-				var/obj/screen/alert/notify_jump/A = O.throw_alert("\ref[source]_notify_jump", /obj/screen/alert/notify_jump)
+				var/obj/screen/alert/notify_action/A = O.throw_alert("\ref[source]_notify_action", /obj/screen/alert/notify_action)
 				if(A)
 					if(O.client.prefs && O.client.prefs.UI_style)
 						A.icon = ui_style2icon(O.client.prefs.UI_style)
+					if(title)
+						A.name = title
 					A.desc = message
-					A.attack_not_jump = attack_not_jump
-					A.jump_target = source
+					A.action = action
+					A.target = source
 					if(!alert_overlay)
 						var/old_layer = source.layer
 						var/old_plane = source.plane
@@ -596,3 +632,6 @@ var/list/intents = list(I_HELP,I_DISARM,I_GRAB,I_HARM)
 		return FALSE
 	// Cast to 1/0
 	return !!(client.prefs.toggles & toggleflag)
+
+
+#define isterrorspider(A) (istype((A), /mob/living/simple_animal/hostile/poison/terror_spider))

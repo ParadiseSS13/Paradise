@@ -59,17 +59,17 @@ var/global/sent_honksquad = 0
 				new_honksquad.key = pick(commandos)
 				commandos -= new_honksquad.key
 				new_honksquad.internal = new_honksquad.s_store
-				new_honksquad.update_internals_hud_icon(1)
+				new_honksquad.update_action_buttons_icon()
 
 			//So they don't forget their code or mission.
-			new_honksquad.mind.store_memory("<B>Mission:</B> \red [input].")
+			new_honksquad.mind.store_memory("<B>Mission:</B> <span class='warning'>[input].</span>")
 
-			to_chat(new_honksquad, "\blue You are a HONKsquad. [!honk_leader_selected?"commando":"<B>LEADER</B>"] in the service of Clown Planet. You are called in cases of exteme low levels of HONK. You are NOT authorized to kill. \nYour current mission is: <span class='danger'>[input]</span>")
+			to_chat(new_honksquad, "<span class='notice'>You are a HONKsquad. [!honk_leader_selected ? "commando" : "<B>LEADER</B>"] in the service of Clown Planet. You are called in cases of exteme low levels of HONK. You are NOT authorized to kill.\nYour current mission is: <span class='danger'>[input]</span></span>")
 
 			honksquad_number--
 
 
-	message_admins("\blue [key_name_admin(usr)] has spawned a HONKsquad.", 1)
+	message_admins("<span class='notice'>[key_name_admin(usr)] has spawned a HONKsquad.</span>", 1)
 	log_admin("[key_name(usr)] used Spawn HONKsquad.")
 	return 1
 
@@ -93,6 +93,7 @@ var/global/sent_honksquad = 0
 	new_honksquad.mind_initialize()
 	new_honksquad.mind.assigned_role = "MODE"
 	new_honksquad.mind.special_role = SPECIAL_ROLE_HONKSQUAD
+	new_honksquad.add_language("Clownish")
 	ticker.mode.traitors |= new_honksquad.mind//Adds them to current traitor list. Which is really the extra antagonist list.
 	new_honksquad.equip_honksquad(honk_leader_selected)
 	return new_honksquad

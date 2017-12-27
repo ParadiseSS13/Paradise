@@ -38,7 +38,7 @@
 				removed(M)
 				qdel(src)
 				return -1
-			if(isloyal(H))
+			if(ismindshielded(H))
 				H.visible_message("<span class='warning'>[H] seems to resist the implant!</span>", "<span class='warning'>You feel a strange sensation in your head that quickly dissipates.</span>")
 				removed(M)
 				qdel(src)
@@ -76,6 +76,8 @@
 
 			log_admin("[ckey(user.key)] has mind-slaved [ckey(H.key)].")
 			activated = 1
+			if(jobban_isbanned(M, ROLE_SYNDICATE))
+				ticker.mode.replace_jobbanned_player(M, ROLE_SYNDICATE)
 			return 1
 		return 0
 

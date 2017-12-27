@@ -78,6 +78,11 @@
 	max_chem = E * 20
 	min_health = -E * 25
 
+/obj/machinery/sleeper/Destroy()
+	for(var/mob/M in contents)
+		M.forceMove(get_turf(src))
+	return ..()
+
 /obj/machinery/sleeper/relaymove(mob/user as mob)
 	if(user.incapacitated())
 		return 0 //maybe they should be able to get out with cuffs, but whatever
@@ -87,15 +92,15 @@
 	if(filtering > 0)
 		if(beaker)
 			// To prevent runtimes from drawing blood from runtime, and to prevent getting IPC blood.
-			if(!istype(occupant) || !occupant.dna || (occupant.species && occupant.species.flags & NO_BLOOD))
+			if(!istype(occupant) || !occupant.dna || (NO_BLOOD in occupant.species.species_traits))
 				filtering = 0
 				return
 
 			if(beaker.reagents.total_volume < beaker.reagents.maximum_volume)
-				src.occupant.vessel.trans_to(beaker, 1)
+				src.occupant.transfer_blood_to(beaker, 1)
 				for(var/datum/reagent/x in src.occupant.reagents.reagent_list)
 					src.occupant.reagents.trans_to(beaker, 3)
-					src.occupant.vessel.trans_to(beaker, 1)
+					src.occupant.transfer_blood_to(beaker, 1)
 
 	if(occupant)
 		for(var/A in occupant.reagents.addiction_list)
@@ -192,13 +197,12 @@
 		crisis = (occupant.health < min_health)
 		// I'm not sure WHY you'd want to put a simple_animal in a sleeper, but precedent is precedent
 		// Runtime is aptly named, isn't she?
-		if(ishuman(occupant) && occupant.vessel && !(occupant.species && occupant.species.flags & NO_BLOOD))
-			var/blood_type = occupant.get_blood_name()
+		if(ishuman(occupant) && !(NO_BLOOD in occupant.species.species_traits))
 			occupantData["pulse"] = occupant.get_pulse(GETPULSE_TOOL)
 			occupantData["hasBlood"] = 1
-			occupantData["bloodLevel"] = round(occupant.vessel.get_reagent_amount(blood_type))
+			occupantData["bloodLevel"] = round(occupant.blood_volume)
 			occupantData["bloodMax"] = occupant.max_blood
-			occupantData["bloodPercent"] = round(100*(occupant.vessel.get_reagent_amount(blood_type)/occupant.max_blood), 0.01)
+			occupantData["bloodPercent"] = round(100*(occupant.blood_volume/occupant.max_blood), 0.01)
 
 	data["occupant"] = occupantData
 	data["maxchem"] = max_chem
@@ -312,7 +316,7 @@
 		else
 			orient = "RIGHT"
 			dir = 4
-		playsound(src.loc, 'sound/items/Ratchet.ogg', 50, 1)
+		playsound(src.loc, G.usesound, 50, 1)
 		return
 
 	if(exchange_parts(user, G))
@@ -389,6 +393,12 @@
 	if(occupant)
 		go_out()
 	..(severity)
+
+/obj/machinery/sleeper/narsie_act()
+	go_out()
+	new /obj/effect/gibspawner/generic(get_turf(loc)) //I REPLACE YOUR TECHNOLOGY WITH FLESH!
+	qdel(src)
+
 
 // ???
 // This looks cool, although mildly broken, should it be included again?
@@ -513,7 +523,7 @@
 
 	if(do_after(user, 20, target = L))
 		if(src.occupant)
-			to_chat(user, "<span class='boldnotice'>>The sleeper is already occupied!</span>")
+			to_chat(user, "<span class='boldnotice'>The sleeper is already occupied!</span>")
 			return
 		if(!L) return
 		L.forceMove(src)

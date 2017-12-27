@@ -17,11 +17,12 @@ var/datum/controller/process/alarm/alarm_manager
 	name = "alarm"
 	schedule_interval = 20 // every 2 seconds
 	all_handlers = list(atmosphere_alarm, burglar_alarm, camera_alarm, fire_alarm, motion_alarm, power_alarm)
-	alarm_manager = src
 
 /datum/controller/process/alarm/doWork()
 	for(var/datum/alarm_handler/AH in all_handlers)
 		AH.process()
+
+DECLARE_GLOBAL_CONTROLLER(alarm, alarm_manager)
 
 /datum/controller/process/alarm/proc/active_alarms()
 	var/list/all_alarms = new

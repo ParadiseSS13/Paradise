@@ -55,7 +55,7 @@
 /obj/machinery/computer/teleporter/emag_act(user as mob)
 	if(!emagged)
 		emagged = 1
-		to_chat(user, "\blue The teleporter can now lock on to Syndicate beacons!")
+		to_chat(user, "<span class='notice'>The teleporter can now lock on to Syndicate beacons!</span>")
 	else
 		ui_interact(user)
 

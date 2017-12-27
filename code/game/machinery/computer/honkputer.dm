@@ -93,10 +93,11 @@
 	onclose(user, "honkputer")
 
 
-/obj/machinery/computer/HONKputer/attackby(I as obj, user as mob, params)
+/obj/machinery/computer/HONKputer/attackby(obj/I, mob/user, params)
 	if(istype(I, /obj/item/weapon/screwdriver) && circuit)
-		playsound(src.loc, 'sound/items/Screwdriver.ogg', 50, 1)
-		if(do_after(user, 20, target = src))
+		var/obj/item/weapon/screwdriver/S = I
+		playsound(src.loc, S.usesound, 50, 1)
+		if(do_after(user, 20 * S.toolspeed, target = src))
 			var/obj/structure/computerframe/HONKputer/A = new /obj/structure/computerframe/HONKputer( src.loc )
 			var/obj/item/weapon/circuitboard/M = new circuit( A )
 			A.circuit = M
@@ -104,12 +105,12 @@
 			for(var/obj/C in src)
 				C.loc = src.loc
 			if(src.stat & BROKEN)
-				to_chat(user, "\blue The broken glass falls out.")
+				to_chat(user, "<span class='notice'>The broken glass falls out.</span>")
 				new /obj/item/weapon/shard( src.loc )
 				A.state = 3
 				A.icon_state = "3"
 			else
-				to_chat(user, "\blue You disconnect the monitor.")
+				to_chat(user, "<span class='notice'>You disconnect the monitor.</span>")
 				A.state = 4
 				A.icon_state = "4"
 			qdel(src)

@@ -13,8 +13,10 @@
 	blood_color = "#FFFFFF"
 	flesh_color = "#E6E6C6"
 
-	flags = NO_BREATHE | NO_BLOOD | RADIMMUNE
-	virus_immune = 1 //why is this a var and not a flag?
+	species_traits = list(NO_BREATHE, NO_BLOOD, RADIMMUNE, VIRUSIMMUNE)
+
+	oxy_mod = 0
+
 	dietflags = DIET_OMNI
 	reagent_tag = PROCESS_ORG
 
@@ -30,7 +32,6 @@
 	heat_level_1 = 999999999
 	heat_level_2 = 999999999
 	heat_level_3 = 999999999
-	heat_level_3_breathe = 999999999
 
 	suicide_messages = list(
 		"is snapping their own bones!",
@@ -38,20 +39,21 @@
 		"is twisting their skull off!")
 	has_organ = list(
 		"brain" = /obj/item/organ/internal/brain/golem,
-	)
+	) //Has default darksight of 2.
 
 /datum/species/skeleton/handle_reagents(var/mob/living/carbon/human/H, var/datum/reagent/R)
 	// Crazylemon is still silly
 	if(R.id == "milk")
 		H.heal_overall_damage(4,4)
 		if(prob(5)) // 5% chance per proc to find a random limb, and mend it
-			var/list/our_organs = H.organs.Copy()
+			var/list/our_organs = H.bodyparts.Copy()
 			shuffle(our_organs)
 			for(var/obj/item/organ/external/L in our_organs)
 				if(istype(L))
 					if(L.brute_dam < L.min_broken_damage)
 						L.status &= ~ORGAN_BROKEN
 						L.status &= ~ORGAN_SPLINTED
+						H.handle_splints()
 						L.perma_injury = 0
 					break // We're only checking one limb here, bucko
 		if(prob(3))

@@ -12,8 +12,8 @@
 	throwforce_on = 5
 	throw_speed = 1
 	throw_range = 5
-	w_class = 2
-	w_class_on = 2
+	w_class = WEIGHT_CLASS_SMALL
+	w_class_on = WEIGHT_CLASS_SMALL
 	attack_verb = list("attacked", "slashed", "gored", "sliced", "torn", "ripped", "butchered", "cut")
 	attack_verb_on = list()
 
@@ -40,7 +40,7 @@
 			to_chat(user, "<span class='notice'>\The [src] is full.</span>")
 			return
 	reagents.remove_reagent(25,"water")
-	var/datum/effect/system/bad_smoke_spread/smoke = new /datum/effect/system/bad_smoke_spread()
+	var/datum/effect_system/smoke_spread/bad/smoke = new
 	smoke.set_up(5, 0, user.loc)
 	smoke.start()
 	playsound(user.loc, 'sound/effects/bamf.ogg', 50, 2)
@@ -64,10 +64,3 @@
 	desc = "Useful for taking pictures, making friends and flash-frying chips."
 	icon = 'icons/mob/alien.dmi'
 	icon_state = "borg-flash"
-
-//heat vision
-
-/obj/item/borg/sight/thermal/alien
-	name = "thermal module"
-	icon = 'icons/mob/alien.dmi'
-	icon_state = "borg-extra-vision"

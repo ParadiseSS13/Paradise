@@ -47,7 +47,7 @@
 	if(!target)
 		return
 
-	if(user.a_intent != I_HARM || !isGlass)
+	if(user.a_intent != INTENT_HARM || !isGlass)
 		return ..()
 
 	force = 15 //Smashing bottles over someoen's head hurts.
@@ -130,13 +130,12 @@
 	throwforce = 5
 	throw_speed = 3
 	throw_range = 5
-	w_class = 1
+	w_class = WEIGHT_CLASS_TINY
 	item_state = "beer"
 	hitsound = 'sound/weapons/bladeslice.ogg'
 	attack_verb = list("stabbed", "slashed", "attacked")
 	var/icon/broken_outline = icon('icons/obj/drinks.dmi', "broken")
 	sharp = 1
-	edge = 1
 
 /obj/item/weapon/reagent_containers/food/drinks/bottle/gin
 	name = "Griffeater Gin"
@@ -173,6 +172,12 @@
 	desc = "A bottle filled with nothing."
 	icon_state = "bottleofnothing"
 	list_reagents = list("nothing" = 100)
+
+/obj/item/weapon/reagent_containers/food/drinks/bottle/bottleofbanana
+	name = "Jolly Jug"
+	desc = "A jug filled with banana juice."
+	icon_state = "bottleofjolly"
+	list_reagents = list("banana" = 100)
 
 /obj/item/weapon/reagent_containers/food/drinks/bottle/patron
 	name = "Wrapp Artiste Patron"
@@ -216,7 +221,7 @@
 
 /obj/item/weapon/reagent_containers/food/drinks/bottle/cognac
 	name = "Chateau De Baton Premium Cognac"
-	desc = "A sweet and strongly alchoholic drink, made after numerous distillations and years of maturing. You might as well not scream 'SHITCURITY' this time."
+	desc = "A sweet and strongly alcoholic drink, made after numerous distillations and years of maturing. You might as well not scream 'SHITCURITY' this time."
 	icon_state = "cognacbottle"
 	list_reagents = list("cognac" = 100)
 
@@ -228,7 +233,7 @@
 
 /obj/item/weapon/reagent_containers/food/drinks/bottle/absinthe
 	name = "Extra-Strong Absinthe"
-	desc = "An strong alcoholic drink brewed and distributed by"
+	desc = "A strong alcoholic drink brewed and distributed by REDACTED."
 	icon_state = "absinthebottle"
 	list_reagents = list("absinthe" = 100)
 
@@ -277,6 +282,14 @@
 	item_state = "carton"
 	isGlass = 0
 	list_reagents = list("limejuice" = 100)
+
+/obj/item/weapon/reagent_containers/food/drinks/bottle/milk
+	name = "Milk"
+	desc = "Soothing milk."
+	icon_state = "milk"
+	item_state = "carton"
+	isGlass = 0
+	list_reagents = list("milk" = 100)
 
 ////////////////////////// MOLOTOV ///////////////////////
 /obj/item/weapon/reagent_containers/food/drinks/bottle/molotov

@@ -16,13 +16,13 @@
     // Stationary ports shouldn't move, mobile ones move themselves
     return 0
 
-/obj/machinery/door/onShuttleMove()
+/obj/machinery/door/airlock/onShuttleMove()
     . = ..()
     if(!.)
         return
     addtimer(src, "close", 0, TRUE, 0, 1)
     // Close any nearby airlocks as well
-    for(var/obj/machinery/door/D in orange(1, src))
+    for(var/obj/machinery/door/airlock/D in orange(1, src))
         addtimer(D, "close", 0, TRUE, 0, 1)
 
 /obj/machinery/door/airlock/onShuttleMove()

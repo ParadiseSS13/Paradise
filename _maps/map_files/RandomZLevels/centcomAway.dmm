@@ -13,12 +13,12 @@
 "am" = (/obj/structure/closet/chefcloset,/turf/simulated/floor/plasteel{tag = "icon-greenfull (NORTH)"; icon_state = "greenfull"; dir = 1},/area/awaymission/centcomAway/cafe)
 "an" = (/obj/structure/table,/obj/item/weapon/reagent_containers/food/condiment/peppermill,/obj/item/weapon/reagent_containers/food/condiment/saltshaker,/turf/simulated/floor/plasteel{tag = "icon-greenfull (NORTH)"; icon_state = "greenfull"; dir = 1},/area/awaymission/centcomAway/cafe)
 "ao" = (/obj/machinery/disposal,/obj/structure/disposalpipe/trunk,/turf/simulated/floor/plasteel{tag = "icon-greenfull (NORTH)"; icon_state = "greenfull"; dir = 1},/area/awaymission/centcomAway/cafe)
-"ap" = (/obj/structure/closet/secure_closet/freezer/fridge,/turf/simulated/floor/plasteel{tag = "icon-greenfull (NORTH)"; icon_state = "greenfull"; dir = 1},/area/awaymission/centcomAway/cafe)
+"ap" = (/obj/structure/closet/secure_closet/freezer/fridge,/obj/machinery/light{dir = 1; in_use = 1},/turf/simulated/floor/plasteel{tag = "icon-greenfull (NORTH)"; icon_state = "greenfull"; dir = 1},/area/awaymission/centcomAway/cafe)
 "aq" = (/obj/structure/table,/obj/machinery/reagentgrinder,/turf/simulated/floor/plasteel{tag = "icon-greenfull (NORTH)"; icon_state = "greenfull"; dir = 1},/area/awaymission/centcomAway/cafe)
 "ar" = (/obj/structure/table,/obj/item/weapon/storage/box/donkpockets{pixel_x = 3; pixel_y = 3},/obj/item/weapon/kitchen/rollingpin,/turf/simulated/floor/plasteel{tag = "icon-greenfull (NORTH)"; icon_state = "greenfull"; dir = 1},/area/awaymission/centcomAway/cafe)
 "as" = (/obj/structure/table,/obj/item/weapon/reagent_containers/glass/beaker,/obj/item/weapon/reagent_containers/food/condiment/enzyme,/turf/simulated/floor/plasteel{tag = "icon-greenfull (NORTH)"; icon_state = "greenfull"; dir = 1},/area/awaymission/centcomAway/cafe)
 "at" = (/obj/structure/grille,/obj/structure/window/reinforced{dir = 4},/obj/structure/window/reinforced{dir = 1},/obj/structure/window/reinforced{dir = 8},/turf/simulated/floor/plating,/area/awaymission/centcomAway/cafe)
-"au" = (/obj/machinery/portable_atmospherics/hydroponics,/turf/simulated/floor/plasteel{icon_state = "dark"},/area/awaymission/centcomAway/cafe)
+"au" = (/obj/machinery/hydroponics/constructable,/turf/simulated/floor/plasteel{icon_state = "dark"},/area/awaymission/centcomAway/cafe)
 "av" = (/obj/item/weapon/reagent_containers/glass/bucket,/turf/simulated/floor/plasteel{icon_state = "dark"},/area/awaymission/centcomAway/cafe)
 "aw" = (/turf/simulated/floor/plasteel{tag = "icon-greenfull (NORTH)"; icon_state = "greenfull"; dir = 1},/area/awaymission/centcomAway/cafe)
 "ax" = (/turf/simulated/floor/plasteel{icon_state = "cafeteria"},/area/awaymission/centcomAway/cafe)
@@ -40,7 +40,7 @@
 "aN" = (/turf/simulated/floor/plasteel{icon_state = "green"; dir = 8},/area/awaymission/centcomAway/cafe)
 "aO" = (/turf/simulated/floor/plasteel{icon_state = "green"; dir = 4},/area/awaymission/centcomAway/cafe)
 "aP" = (/obj/machinery/portable_atmospherics/pump,/turf/simulated/floor/plating,/area/awaymission/centcomAway/maint)
-"aQ" = (/obj/structure/stool/bed,/obj/item/weapon/bedsheet,/turf/simulated/floor/carpet,/area/awaymission/centcomAway/cafe)
+"aQ" = (/obj/machinery/light{icon_state = "tube1"; dir = 4},/turf/simulated/floor/plasteel{icon_state = "bar"; dir = 2},/area/awaymission/centcomAway/cafe)
 "aR" = (/obj/machinery/door/airlock/centcom,/turf/simulated/floor/carpet,/area/awaymission/centcomAway/cafe)
 "aS" = (/obj/machinery/door/airlock/centcom,/turf/simulated/floor/plasteel{tag = "icon-greenfull (NORTH)"; icon_state = "greenfull"; dir = 1},/area/awaymission/centcomAway/cafe)
 "aT" = (/obj/structure/grille,/obj/structure/window/reinforced{dir = 8},/obj/structure/window/reinforced,/obj/structure/window/reinforced{dir = 1},/turf/simulated/wall/r_wall,/area/awaymission/centcomAway/maint)
@@ -60,7 +60,7 @@
 "bh" = (/obj/structure/table/reinforced,/turf/simulated/floor/plasteel{icon_state = "bar"; dir = 2},/area/awaymission/centcomAway/cafe)
 "bi" = (/obj/machinery/door/airlock/freezer,/turf/simulated/floor/plasteel{icon_state = "freezerfloor"; dir = 2},/area/awaymission/centcomAway/cafe)
 "bj" = (/obj/machinery/chem_dispenser,/obj/item/weapon/storage/box/beakers,/turf/simulated/floor/plasteel{tag = "icon-greenfull (NORTH)"; icon_state = "greenfull"; dir = 1},/area/awaymission/centcomAway/cafe)
-"bk" = (/obj/machinery/chem_master,/turf/simulated/floor/plasteel{tag = "icon-greenfull (NORTH)"; icon_state = "greenfull"; dir = 1},/area/awaymission/centcomAway/cafe)
+"bk" = (/obj/machinery/light{icon_state = "tube1"; dir = 8},/turf/simulated/floor/plasteel{icon_state = "bar"; dir = 2},/area/awaymission/centcomAway/cafe)
 "bl" = (/obj/structure/rack,/obj/item/clothing/suit/fire,/turf/simulated/floor/plating,/area/awaymission/centcomAway/maint)
 "bm" = (/obj/structure/lattice,/turf/space,/area/space)
 "bn" = (/obj/machinery/door/poddoor{id_tag = "XCCHangar1"; name = "XCC Main Hangar"},/turf/simulated/floor/plasteel{icon_state = "delivery"},/area/awaymission/centcomAway/hangar)
@@ -95,14 +95,14 @@
 "bQ" = (/obj/structure/disposalpipe/segment,/obj/structure/reagent_dispensers/watertank,/turf/simulated/floor/plating,/area/awaymission/centcomAway/cafe)
 "bR" = (/turf/simulated/floor/plasteel{dir = 2; icon_state = "green"},/area/awaymission/centcomAway/cafe)
 "bS" = (/turf/simulated/floor/plasteel{icon_state = "green"; dir = 6},/area/awaymission/centcomAway/cafe)
-"bT" = (/obj/machinery/power/solar/fake,/turf/simulated/floor/plasteel/airless{icon_state = "solarpanel"},/area/awaymission/centcomAway/maint)
+"bT" = (/obj/structure/cable{icon_state = "0-2"; d2 = 2},/obj/machinery/power/solar{id = "centcomawaysolar"; name = "Starboard Solar Array"},/turf/simulated/floor/plasteel/airless{icon_state = "solarpanel"},/area/awaymission/centcomAway/maint)
 "bU" = (/turf/simulated/shuttle/plating,/area/awaymission/centcomAway/hangar)
 "bV" = (/turf/simulated/shuttle/plating,/turf/simulated/shuttle/wall{icon_state = "swall_f6"; dir = 2},/area/awaymission/centcomAway/hangar)
 "bW" = (/turf/simulated/shuttle/floor,/turf/simulated/shuttle/wall{icon_state = "swall_f9"; dir = 2},/area/awaymission/centcomAway/hangar)
 "bX" = (/obj/structure/closet/emcloset,/turf/simulated/shuttle/floor,/area/awaymission/centcomAway/hangar)
 "bY" = (/turf/simulated/shuttle/floor{icon_state = "floor3"},/area/awaymission/centcomAway/hangar)
 "bZ" = (/obj/structure/table,/obj/item/weapon/storage/firstaid/toxin{pixel_x = -2; pixel_y = 4},/obj/item/weapon/storage/firstaid/toxin,/turf/simulated/shuttle/floor,/area/awaymission/centcomAway/hangar)
-"ca" = (/obj/structure/table,/obj/item/weapon/storage/firstaid/fire,/obj/item/weapon/storage/firstaid/fire{pixel_x = -2; pixel_y = 4},/turf/simulated/shuttle/floor,/area/awaymission/centcomAway/hangar)
+"ca" = (/obj/machinery/hydroponics/constructable,/obj/machinery/light{icon_state = "tube1"; dir = 4},/turf/simulated/floor/plasteel{icon_state = "dark"},/area/awaymission/centcomAway/cafe)
 "cb" = (/obj/structure/table,/obj/item/weapon/storage/firstaid/regular{pixel_x = 2; pixel_y = 0},/obj/item/weapon/storage/firstaid/regular{pixel_x = -2; pixel_y = 4},/turf/simulated/shuttle/floor,/area/awaymission/centcomAway/hangar)
 "cc" = (/turf/simulated/shuttle/floor,/turf/simulated/shuttle/wall{icon_state = "swall_f5"; dir = 2},/area/awaymission/centcomAway/hangar)
 "cd" = (/turf/simulated/shuttle/plating,/turf/simulated/shuttle/wall{dir = 2; icon_state = "swall_f10"; layer = 2},/area/awaymission/centcomAway/hangar)
@@ -115,8 +115,8 @@
 "ck" = (/obj/structure/table/reinforced,/obj/item/weapon/reagent_containers/spray/plantbgone{pixel_x = 0; pixel_y = 3},/turf/simulated/floor/plasteel{icon_state = "hydrofloor"},/area/awaymission/centcomAway/cafe)
 "cl" = (/obj/structure/grille,/obj/structure/window/reinforced{dir = 4},/obj/structure/window/reinforced{dir = 1},/obj/structure/window/reinforced{dir = 8},/turf/simulated/floor/plating,/area/awaymission/centcomAway/maint)
 "cm" = (/obj/machinery/door/airlock/external,/turf/simulated/floor/plating,/area/awaymission/centcomAway/maint)
-"cn" = (/obj/machinery/door/airlock/external,/turf/simulated/floor/plating/airless,/area/awaymission/centcomAway/maint)
-"co" = (/turf/simulated/floor/plating/airless,/area/awaymission/centcomAway/maint)
+"cn" = (/obj/machinery/door/airlock/external,/obj/structure/cable{d1 = 4; d2 = 8; icon_state = "4-8"; pixel_x = 0; tag = ""},/turf/simulated/floor/plating,/area/awaymission/centcomAway/maint)
+"co" = (/obj/structure/cable{d1 = 2; d2 = 4; icon_state = "2-4"; tag = ""},/turf/simulated/floor/plating,/area/awaymission/centcomAway/maint)
 "cp" = (/turf/simulated/shuttle/wall{icon_state = "swall1"; dir = 2},/area/awaymission/centcomAway/hangar)
 "cq" = (/turf/simulated/shuttle/floor,/area/awaymission/centcomAway/hangar)
 "cr" = (/obj/item/weapon/pen,/obj/structure/table,/turf/simulated/floor/plasteel{tag = "icon-redyellowfull"; icon_state = "redyellowfull"},/area/awaymission/centcomAway/cafe)
@@ -140,7 +140,7 @@
 "cJ" = (/obj/machinery/vending/hydronutrients,/turf/simulated/floor/plasteel{icon_state = "hydrofloor"},/area/awaymission/centcomAway/cafe)
 "cK" = (/obj/machinery/biogenerator,/turf/simulated/floor/plasteel{icon_state = "hydrofloor"},/area/awaymission/centcomAway/cafe)
 "cL" = (/turf/simulated/shuttle/wall{icon_state = "swallc1"; dir = 2},/area/awaymission/centcomAway/hangar)
-"cM" = (/obj/structure/table/reinforced,/obj/item/weapon/paper_bin,/turf/simulated/shuttle/floor{icon_state = "floor2"},/area/awaymission/centcomAway/hangar)
+"cM" = (/obj/structure/stool/bed,/obj/item/weapon/bedsheet,/obj/machinery/light{icon_state = "tube1"; dir = 8},/turf/simulated/floor/carpet,/area/awaymission/centcomAway/cafe)
 "cN" = (/obj/structure/table/reinforced,/obj/item/weapon/storage/fancy/donut_box,/turf/simulated/shuttle/floor{icon_state = "floor2"},/area/awaymission/centcomAway/hangar)
 "cO" = (/obj/structure/table/reinforced,/obj/item/weapon/pen,/turf/simulated/shuttle/floor{icon_state = "floor2"},/area/awaymission/centcomAway/hangar)
 "cP" = (/obj/structure/table/reinforced,/turf/simulated/shuttle/floor{icon_state = "floor2"},/area/awaymission/centcomAway/hangar)
@@ -153,7 +153,7 @@
 "cW" = (/obj/structure/disposalpipe/segment{dir = 4; icon_state = "pipe-c"},/turf/simulated/floor/plasteel{icon_state = "grimy"},/area/awaymission/centcomAway/cafe)
 "cX" = (/obj/structure/disposalpipe/segment{dir = 2; icon_state = "pipe-c"},/turf/simulated/floor/plasteel{icon_state = "vault"; dir = 8},/area/awaymission/centcomAway/cafe)
 "cY" = (/obj/machinery/computer/secure_data,/turf/simulated/shuttle/floor{icon_state = "floor2"},/area/awaymission/centcomAway/hangar)
-"cZ" = (/obj/structure/stool/bed/chair{dir = 1},/turf/simulated/shuttle/floor{icon_state = "floor2"},/area/awaymission/centcomAway/hangar)
+"cZ" = (/obj/machinery/light{icon_state = "tube1"; dir = 8},/turf/simulated/floor/plating,/area/awaymission/centcomAway/maint)
 "da" = (/obj/structure/stool/bed/chair{dir = 4},/turf/simulated/shuttle/floor{icon_state = "floor2"},/area/awaymission/centcomAway/hangar)
 "db" = (/obj/structure/table/reinforced,/obj/item/weapon/clipboard,/obj/item/weapon/stamp/granted,/turf/simulated/shuttle/floor{icon_state = "floor2"},/area/awaymission/centcomAway/hangar)
 "dc" = (/obj/structure/disposalpipe/segment,/obj/machinery/door/window/northright,/turf/simulated/floor/plasteel{tag = "icon-redfull"; icon_state = "redfull"},/area/awaymission/centcomAway/cafe)
@@ -191,7 +191,7 @@
 "dI" = (/obj/structure/table/reinforced,/turf/simulated/floor/plasteel{tag = "icon-redfull"; icon_state = "redfull"},/area/awaymission/centcomAway/cafe)
 "dJ" = (/obj/structure/sink/kitchen{pixel_y = 28},/turf/simulated/floor/plasteel{tag = "icon-redfull"; icon_state = "redfull"},/area/awaymission/centcomAway/cafe)
 "dK" = (/obj/structure/table,/obj/machinery/processor{pixel_x = 0; pixel_y = 10},/turf/simulated/floor/plasteel{tag = "icon-redfull"; icon_state = "redfull"},/area/awaymission/centcomAway/cafe)
-"dL" = (/obj/structure/stool/bed,/turf/simulated/shuttle/floor{icon_state = "floor3"},/area/awaymission/centcomAway/hangar)
+"dL" = (/mob/living/simple_animal/hostile/russian/ranged{loot = list(/obj/effect/landmark/mobcorpse/russian/ranged)},/turf/simulated/floor/plasteel{icon_state = "cafeteria"},/area/awaymission/centcomAway/cafe)
 "dM" = (/obj/machinery/door/airlock/centcom,/turf/simulated/floor/plasteel{icon_state = "cafeteria"},/area/awaymission/centcomAway/cafe)
 "dN" = (/obj/structure/table,/obj/machinery/microwave{pixel_x = -3; pixel_y = 6},/turf/simulated/floor/plasteel{tag = "icon-redfull"; icon_state = "redfull"},/area/awaymission/centcomAway/cafe)
 "dO" = (/obj/structure/reagent_dispensers/watertank,/turf/simulated/floor/plating{tag = "icon-warnplate (NORTHWEST)"; icon_state = "warnplate"; dir = 9},/area/awaymission/centcomAway/cafe)
@@ -201,7 +201,7 @@
 "dS" = (/obj/structure/largecrate,/turf/simulated/floor/plating{tag = "icon-warnplate (SOUTHWEST)"; icon_state = "warnplate"; dir = 10},/area/awaymission/centcomAway/hangar)
 "dT" = (/obj/structure/closet/crate,/turf/simulated/floor/plating{dir = 2; icon_state = "warnplate"; tag = "icon-warnplate (NORTH)"},/area/awaymission/centcomAway/hangar)
 "dU" = (/turf/simulated/floor/plating{tag = "icon-warnplate (SOUTHEAST)"; icon_state = "warnplate"; dir = 6},/area/awaymission/centcomAway/hangar)
-"dV" = (/obj/machinery/portable_atmospherics/canister/air,/turf/simulated/floor/plating{tag = "icon-warnplate (WEST)"; icon_state = "warnplate"; dir = 8},/area/awaymission/centcomAway/cafe)
+"dV" = (/obj/machinery/door/airlock/external,/obj/structure/cable{d1 = 4; d2 = 8; icon_state = "4-8"; pixel_x = 0; tag = ""},/turf/simulated/floor/plating/airless,/area/awaymission/centcomAway/maint)
 "dW" = (/turf/simulated/floor/plating,/area/awaymission/centcomAway/cafe)
 "dX" = (/obj/machinery/door/airlock/maintenance_hatch{req_access_txt = "101"},/turf/simulated/floor/plating,/area/awaymission/centcomAway/cafe)
 "dY" = (/turf/simulated/shuttle/wall{icon_state = "swall2"; dir = 2},/area/awaymission/centcomAway/hangar)
@@ -229,7 +229,7 @@
 "eu" = (/obj/structure/closet/chefcloset,/turf/simulated/floor/plasteel{tag = "icon-redfull"; icon_state = "redfull"},/area/awaymission/centcomAway/cafe)
 "ev" = (/obj/structure/table,/obj/item/weapon/reagent_containers/food/condiment/peppermill,/obj/item/weapon/reagent_containers/food/condiment/saltshaker,/turf/simulated/floor/plasteel{tag = "icon-redfull"; icon_state = "redfull"},/area/awaymission/centcomAway/cafe)
 "ew" = (/obj/machinery/disposal,/obj/structure/disposalpipe/trunk{dir = 1},/turf/simulated/floor/plasteel{tag = "icon-redfull"; icon_state = "redfull"},/area/awaymission/centcomAway/cafe)
-"ex" = (/obj/structure/closet/secure_closet/freezer/fridge,/turf/simulated/floor/plasteel{tag = "icon-redfull"; icon_state = "redfull"},/area/awaymission/centcomAway/cafe)
+"ex" = (/obj/machinery/light,/turf/simulated/floor/plasteel{tag = "icon-greenfull (NORTH)"; icon_state = "greenfull"; dir = 1},/area/awaymission/centcomAway/cafe)
 "ey" = (/obj/structure/table,/obj/machinery/reagentgrinder,/turf/simulated/floor/plasteel{tag = "icon-redfull"; icon_state = "redfull"},/area/awaymission/centcomAway/cafe)
 "ez" = (/obj/structure/table,/obj/item/weapon/storage/box/donkpockets{pixel_x = 3; pixel_y = 3},/obj/item/weapon/kitchen/rollingpin,/turf/simulated/floor/plasteel{tag = "icon-redfull"; icon_state = "redfull"},/area/awaymission/centcomAway/cafe)
 "eA" = (/obj/structure/table,/obj/item/weapon/reagent_containers/glass/beaker,/obj/item/weapon/reagent_containers/food/condiment/enzyme,/turf/simulated/floor/plasteel{tag = "icon-redfull"; icon_state = "redfull"},/area/awaymission/centcomAway/cafe)
@@ -256,13 +256,13 @@
 "eV" = (/obj/structure/table/reinforced,/obj/item/weapon/tank/anesthetic,/obj/item/clothing/mask/breath/medical,/turf/simulated/floor/plasteel{icon_state = "white"},/area/awaymission/centcomAway/general)
 "eW" = (/obj/machinery/implantchair,/turf/simulated/floor/plasteel{icon_state = "white"},/area/awaymission/centcomAway/general)
 "eX" = (/obj/structure/table/reinforced,/obj/item/weapon/extinguisher/mini,/turf/simulated/floor/plasteel{dir = 1; icon_state = "whitepurple"},/area/awaymission/centcomAway/general)
-"eY" = (/obj/structure/table/reinforced,/obj/item/clothing/accessory/stethoscope,/turf/simulated/floor/plasteel{dir = 1; icon_state = "whitepurple"},/area/awaymission/centcomAway/general)
-"eZ" = (/obj/machinery/clonepod,/turf/simulated/floor/plasteel{dir = 1; icon_state = "whitepurple"},/area/awaymission/centcomAway/general)
+"eY" = (/obj/machinery/light{dir = 1; in_use = 1},/turf/simulated/floor/plasteel{icon_state = "vault"; dir = 5},/area/awaymission/centcomAway/hangar)
+"eZ" = (/obj/machinery/chem_master,/obj/machinery/light{icon_state = "tube1"; dir = 4},/turf/simulated/floor/plasteel{tag = "icon-greenfull (NORTH)"; icon_state = "greenfull"; dir = 1},/area/awaymission/centcomAway/cafe)
 "fa" = (/obj/machinery/computer/cloning,/turf/simulated/floor/plasteel{dir = 1; icon_state = "whitepurple"},/area/awaymission/centcomAway/general)
 "fb" = (/obj/machinery/dna_scannernew,/turf/simulated/floor/plasteel{dir = 1; icon_state = "whitepurple"},/area/awaymission/centcomAway/general)
 "fc" = (/obj/structure/stool/bed/chair,/turf/simulated/shuttle/floor,/area/awaymission/centcomAway/hangar)
 "fd" = (/obj/machinery/telecomms/relay/preset/ruskie,/turf/simulated/floor/plasteel{icon_state = "delivery"},/area/awaymission/centcomAway/general)
-"fe" = (/obj/machinery/door/airlock/engineering{name = "Engineering Access"; req_access_txt = "10"},/turf/simulated/floor/plating,/area/awaymission/centcomAway/general)
+"fe" = (/obj/structure/cable{d1 = 4; d2 = 8; icon_state = "4-8"; pixel_x = 0; tag = ""},/turf/simulated/floor/plating,/area/awaymission/centcomAway/maint)
 "ff" = (/obj/machinery/door/airlock/centcom,/turf/simulated/floor/plasteel{tag = "icon-vault (NORTHEAST)"; icon_state = "vault"; dir = 5},/area/awaymission/centcomAway/general)
 "fg" = (/obj/structure/grille,/obj/structure/window/reinforced{dir = 8},/obj/structure/window/reinforced,/obj/structure/window/reinforced{dir = 1},/obj/structure/window/reinforced{dir = 4},/turf/simulated/floor/plating,/area/awaymission/centcomAway/general)
 "fh" = (/obj/structure/stool/bed/chair{dir = 1},/turf/simulated/floor/plasteel{icon_state = "white"},/area/awaymission/centcomAway/general)
@@ -274,11 +274,11 @@
 "fn" = (/obj/structure/table,/obj/item/weapon/clipboard,/obj/item/weapon/pen,/turf/simulated/shuttle/floor,/area/awaymission/centcomAway/hangar)
 "fo" = (/obj/structure/table,/obj/item/weapon/paper_bin,/turf/simulated/shuttle/floor,/area/awaymission/centcomAway/hangar)
 "fp" = (/turf/simulated/floor/plasteel{icon_state = "yellow"; dir = 10},/area/awaymission/centcomAway/general)
-"fq" = (/turf/simulated/floor/plasteel{icon_state = "yellow"},/area/awaymission/centcomAway/general)
+"fq" = (/turf/simulated/floor/plating/airless,/obj/structure/cable{d1 = 1; d2 = 8; icon_state = "1-8"; tag = ""},/obj/structure/cable{d1 = 2; d2 = 8; icon_state = "2-8"; tag = ""},/obj/structure/cable{d1 = 4; d2 = 8; icon_state = "4-8"; pixel_x = 0; tag = ""},/turf/simulated/floor/plating/airless/catwalk{tag = "icon-catwalk12"; icon_state = "catwalk12"},/area/awaymission/centcomAway/maint)
 "fr" = (/obj/structure/table/reinforced,/obj/item/device/t_scanner,/turf/simulated/floor/plasteel{icon_state = "yellow"},/area/awaymission/centcomAway/general)
 "fs" = (/obj/structure/dispenser,/turf/simulated/floor/plasteel{dir = 6; icon_state = "yellow"},/area/awaymission/centcomAway/general)
 "ft" = (/turf/simulated/floor/plasteel{tag = "icon-blackcorner (NORTH)"; icon_state = "blackcorner"; dir = 1},/area/awaymission/centcomAway/general)
-"fu" = (/turf/simulated/floor/plasteel{tag = "icon-blackcorner (EAST)"; icon_state = "blackcorner"; dir = 4},/area/awaymission/centcomAway/general)
+"fu" = (/obj/structure/cable{d1 = 4; d2 = 8; icon_state = "4-8"; pixel_x = 0; tag = ""},/turf/simulated/floor/plating/airless,/area/awaymission/centcomAway/maint)
 "fv" = (/obj/structure/stool/bed,/obj/item/weapon/bedsheet,/turf/simulated/floor/carpet,/area/awaymission/centcomAway/courtroom)
 "fw" = (/obj/structure/table,/obj/item/weapon/storage/box/prisoner,/turf/simulated/floor/carpet,/area/awaymission/centcomAway/courtroom)
 "fx" = (/obj/structure/closet/secure_closet/security,/turf/simulated/floor/carpet,/area/awaymission/centcomAway/courtroom)
@@ -286,16 +286,16 @@
 "fz" = (/obj/structure/grille,/obj/structure/window/reinforced{dir = 8},/obj/structure/window/reinforced{dir = 1},/obj/structure/window/reinforced,/turf/simulated/shuttle/plating,/area/awaymission/centcomAway/hangar)
 "fA" = (/obj/structure/grille,/obj/structure/window/reinforced{dir = 1},/obj/structure/window/reinforced,/turf/simulated/shuttle/plating,/area/awaymission/centcomAway/hangar)
 "fB" = (/obj/structure/grille,/obj/structure/window/reinforced{dir = 1},/obj/structure/window/reinforced,/obj/structure/window/reinforced{dir = 4},/turf/simulated/shuttle/plating,/area/awaymission/centcomAway/hangar)
-"fC" = (/obj/machinery/power/terminal,/turf/simulated/floor/plating,/area/awaymission/centcomAway/general)
+"fC" = (/obj/structure/cable{d1 = 1; d2 = 2; icon_state = "1-2"; pixel_y = 0},/turf/simulated/floor/plating,/area/awaymission/centcomAway/maint)
 "fD" = (/turf/simulated/floor/plating,/area/awaymission/centcomAway/general)
-"fE" = (/obj/machinery/door/airlock/glass_engineering{name = "Engineering"; req_access_txt = "32"},/turf/simulated/floor/plasteel{icon_state = "floor"},/area/awaymission/centcomAway/general)
+"fE" = (/obj/machinery/power/solar_control{id = "centcomawaysolar"; name = "Solar Control"; track = 1},/obj/structure/cable,/obj/structure/cable{d1 = 1; d2 = 2; icon_state = "1-2"; pixel_y = 0},/turf/simulated/floor/plating,/area/space)
 "fF" = (/obj/structure/sign/electricshock,/turf/simulated/wall/r_wall,/area/awaymission/centcomAway/general)
 "fG" = (/obj/structure/grille,/obj/structure/window/reinforced,/obj/structure/window/reinforced{dir = 1},/obj/structure/window/reinforced{dir = 8},/turf/simulated/floor/plating,/area/awaymission/centcomAway/general)
 "fH" = (/obj/structure/grille,/obj/structure/window/reinforced,/obj/structure/window/reinforced{dir = 1},/turf/simulated/floor/plating,/area/awaymission/centcomAway/general)
 "fI" = (/obj/structure/grille,/obj/structure/window/reinforced{dir = 4},/obj/structure/window/reinforced,/obj/structure/window/reinforced{dir = 1},/turf/simulated/floor/plating,/area/awaymission/centcomAway/general)
 "fJ" = (/obj/structure/grille,/obj/structure/window/reinforced,/obj/structure/window/reinforced{dir = 4},/obj/structure/window/reinforced{dir = 1},/turf/simulated/floor/plating,/area/awaymission/centcomAway/general)
 "fK" = (/obj/structure/sign/redcross,/turf/simulated/wall/r_wall,/area/awaymission/centcomAway/general)
-"fL" = (/obj/machinery/door/airlock/glass{name = "Med-Sci"; req_access_txt = "9"},/turf/simulated/floor/plasteel{icon_state = "white"},/area/awaymission/centcomAway/general)
+"fL" = (/obj/machinery/chem_master/condimaster{name = "CondiMaster Neo"},/obj/machinery/light{icon_state = "tube1"; dir = 4},/turf/simulated/floor/plasteel{icon_state = "freezerfloor"; dir = 2},/area/awaymission/centcomAway/cafe)
 "fM" = (/obj/structure/window/reinforced{dir = 1},/obj/item/weapon/storage/box/monkeycubes,/turf/simulated/floor/plasteel{icon_state = "floor"},/area/awaymission/centcomAway/general)
 "fN" = (/obj/structure/window/reinforced{dir = 4},/obj/structure/window/reinforced{dir = 1},/turf/simulated/floor/plasteel{icon_state = "floor"},/area/awaymission/centcomAway/general)
 "fO" = (/obj/machinery/computer/scan_consolenew,/obj/item/weapon/dnainjector/telemut/darkbundle,/turf/simulated/floor/plasteel{icon_state = "white"},/area/awaymission/centcomAway/general)
@@ -308,14 +308,14 @@
 "fV" = (/obj/structure/table/woodentable,/obj/structure/window/reinforced{dir = 8},/obj/structure/window/reinforced{dir = 1},/turf/simulated/floor/wood,/area/awaymission/centcomAway/courtroom)
 "fW" = (/obj/structure/table/woodentable,/obj/structure/window/reinforced{dir = 1},/turf/simulated/floor/wood,/area/awaymission/centcomAway/courtroom)
 "fX" = (/obj/machinery/door/window/northleft,/turf/simulated/floor/wood,/area/awaymission/centcomAway/courtroom)
-"fY" = (/obj/machinery/power/smes,/obj/structure/cable,/obj/structure/cable{icon_state = "0-4"; d2 = 4},/turf/simulated/floor/plating,/area/awaymission/centcomAway/general)
-"fZ" = (/obj/structure/cable{d1 = 4; d2 = 8; icon_state = "4-8"; tag = ""},/turf/simulated/floor/plating,/area/awaymission/centcomAway/general)
-"ga" = (/obj/machinery/power/smes,/obj/structure/cable,/obj/structure/cable{d2 = 8; icon_state = "0-8"},/turf/simulated/floor/plating,/area/awaymission/centcomAway/general)
-"gb" = (/turf/simulated/floor/plasteel{dir = 6; icon_state = "yellow"},/area/awaymission/centcomAway/general)
-"gc" = (/turf/simulated/floor/plasteel{dir = 1; icon_state = "yellow"},/area/awaymission/centcomAway/general)
-"gd" = (/turf/simulated/floor/plasteel{dir = 1; icon_state = "yellowcorner"},/area/awaymission/centcomAway/general)
-"ge" = (/turf/simulated/floor/plasteel{tag = "icon-purplecorner (EAST)"; icon_state = "purplecorner"; dir = 4},/area/awaymission/centcomAway/general)
-"gf" = (/turf/simulated/floor/plasteel{tag = "icon-purple (NORTH)"; icon_state = "purple"; dir = 1},/area/awaymission/centcomAway/general)
+"fY" = (/obj/structure/cable{d1 = 1; d2 = 2; icon_state = "1-2"; pixel_y = 0},/obj/structure/cable{d1 = 1; d2 = 4; icon_state = "1-4"; tag = ""},/turf/simulated/floor/plating,/area/awaymission/centcomAway/maint)
+"fZ" = (/obj/structure/table,/obj/item/weapon/storage/firstaid/fire,/obj/item/weapon/storage/firstaid/fire{pixel_x = -2; pixel_y = 4},/obj/machinery/light{dir = 1; in_use = 1},/turf/simulated/shuttle/floor,/area/awaymission/centcomAway/hangar)
+"ga" = (/obj/structure/cable{d1 = 2; d2 = 8; icon_state = "2-8"; tag = ""},/obj/structure/cable{d1 = 4; d2 = 8; icon_state = "4-8"; pixel_x = 0; tag = ""},/turf/simulated/floor/plating/airless,/area/awaymission/centcomAway/maint)
+"gb" = (/turf/simulated/floor/plating/airless,/obj/structure/cable{d1 = 1; d2 = 2; icon_state = "1-2"; pixel_y = 0; tag = ""},/turf/simulated/floor/plating/airless/catwalk{tag = "icon-catwalk3"; icon_state = "catwalk3"},/area/awaymission/centcomAway/maint)
+"gc" = (/turf/simulated/floor/plating/airless,/obj/structure/cable,/obj/machinery/power/tracker,/turf/simulated/floor/plating/airless/catwalk{tag = "icon-catwalk1"; icon_state = "catwalk1"},/area/awaymission/centcomAway/maint)
+"gd" = (/obj/structure/cable{d1 = 1; d2 = 8; icon_state = "1-8"},/turf/simulated/floor/plating,/area/awaymission/centcomAway/maint)
+"ge" = (/obj/machinery/power/apc/noalarm{cell_type = 15000; dir = 4; locked = 0; name = "Maint APC"; pixel_x = 25; req_access = null; start_charge = 100},/obj/structure/cable{d1 = 1; d2 = 2; icon_state = "1-2"; pixel_y = 0},/obj/structure/cable,/turf/simulated/floor/plating,/area/awaymission/centcomAway/maint)
+"gf" = (/obj/machinery/portable_atmospherics/canister/air,/obj/machinery/light{icon_state = "tube1"; dir = 8},/turf/simulated/floor/plating{tag = "icon-warnplate (WEST)"; icon_state = "warnplate"; dir = 8},/area/awaymission/centcomAway/cafe)
 "gg" = (/obj/structure/sign/science,/turf/simulated/wall/r_wall,/area/awaymission/centcomAway/general)
 "gh" = (/obj/machinery/door/window/eastright,/turf/simulated/floor/plasteel{icon_state = "floor"},/area/awaymission/centcomAway/general)
 "gi" = (/obj/machinery/door/window/northleft,/obj/structure/stool/bed/chair,/turf/simulated/floor/carpet,/area/awaymission/centcomAway/courtroom)
@@ -329,7 +329,7 @@
 "gq" = (/obj/structure/stool/bed/chair{dir = 4},/turf/simulated/floor/carpet,/area/awaymission/centcomAway/courtroom)
 "gr" = (/obj/structure/window/reinforced{dir = 1},/turf/simulated/floor/wood,/area/awaymission/centcomAway/courtroom)
 "gs" = (/obj/structure/grille,/turf/simulated/floor/plating,/area/awaymission/centcomAway/maint)
-"gt" = (/turf/simulated/floor/plasteel{dir = 8; icon_state = "warning"},/area/awaymission/centcomAway/general)
+"gt" = (/turf/space,/area/awaycontent/a2{has_gravity = 1; name = "MO19 Research"})
 "gu" = (/turf/simulated/floor/plasteel{icon_state = "green"; dir = 4},/area/awaymission/centcomAway/general)
 "gv" = (/obj/structure/grille,/obj/structure/window/reinforced{dir = 1},/obj/structure/window/reinforced{dir = 8},/turf/simulated/floor/plating,/area/awaymission/centcomAway/general)
 "gw" = (/obj/structure/grille,/obj/structure/window/reinforced{dir = 1},/obj/structure/window/reinforced,/obj/structure/window/reinforced{dir = 4},/turf/simulated/floor/plating,/area/awaymission/centcomAway/general)
@@ -337,13 +337,13 @@
 "gy" = (/obj/structure/grille,/obj/structure/window/reinforced{dir = 1},/obj/structure/window/reinforced,/turf/simulated/floor/plating,/area/awaymission/centcomAway/general)
 "gz" = (/obj/structure/grille,/obj/structure/window/reinforced{dir = 4},/obj/structure/window/reinforced{dir = 1},/turf/simulated/floor/plating,/area/awaymission/centcomAway/general)
 "gA" = (/turf/simulated/floor/plasteel{icon_state = "green"; dir = 8},/area/awaymission/centcomAway/general)
-"gB" = (/turf/simulated/floor/plasteel{dir = 4; icon_state = "warning"},/area/awaymission/centcomAway/general)
+"gB" = (/obj/machinery/power/apc/noalarm{cell_type = 15000; dir = 4; locked = 0; name = "Kitchen APC"; pixel_x = 25; req_access = null; start_charge = 100},/obj/structure/cable{icon_state = "0-2"; pixel_y = 1; d2 = 2},/turf/simulated/floor/plasteel{icon_state = "bar"; dir = 2},/area/awaymission/centcomAway/cafe)
 "gC" = (/turf/simulated/floor/wood,/area/awaymission/centcomAway/courtroom)
 "gD" = (/obj/structure/table,/turf/simulated/floor/wood,/area/awaymission/centcomAway/courtroom)
 "gE" = (/obj/structure/table/woodentable,/turf/simulated/floor/wood,/area/awaymission/centcomAway/courtroom)
 "gF" = (/turf/simulated/floor/plasteel{dir = 8; icon_state = "vault"},/area/awaymission/centcomAway/hangar)
 "gG" = (/turf/simulated/floor/plating{tag = "icon-warnplate (NORTHWEST)"; icon_state = "warnplate"; dir = 9},/area/awaymission/centcomAway/hangar)
-"gH" = (/obj/structure/table,/turf/simulated/floor/plating{tag = "icon-warnplate (NORTH)"; icon_state = "warnplate"; dir = 1},/area/awaymission/centcomAway/hangar)
+"gH" = (/obj/machinery/light{icon_state = "tube1"; dir = 8},/turf/simulated/shuttle/plating,/area/awaymission/centcomAway/hangar)
 "gI" = (/obj/machinery/shieldgen,/turf/simulated/floor/plating,/area/awaymission/centcomAway/maint)
 "gJ" = (/turf/simulated/floor/plasteel{icon_state = "greencorner"; dir = 4},/area/awaymission/centcomAway/general)
 "gK" = (/obj/structure/grille,/obj/structure/window/reinforced,/obj/structure/window/reinforced{dir = 4},/obj/structure/window/reinforced{dir = 8},/turf/simulated/floor/plating,/area/awaymission/centcomAway/general)
@@ -371,19 +371,19 @@
 "hg" = (/turf/simulated/floor/plasteel{icon_state = "dark"},/area/awaymission/centcomAway/general)
 "hh" = (/obj/item/weapon/reagent_containers/glass/rag,/turf/simulated/floor/plasteel{icon_state = "dark"},/area/awaymission/centcomAway/general)
 "hi" = (/obj/structure/closet/crate/trashcart,/obj/item/weapon/reagent_containers/spray/cleaner,/obj/item/weapon/reagent_containers/glass/bucket,/turf/simulated/floor/plasteel{icon_state = "dark"},/area/awaymission/centcomAway/general)
-"hj" = (/turf/simulated/floor/plasteel{tag = "icon-blackcorner (WEST)"; icon_state = "blackcorner"; dir = 8},/area/awaymission/centcomAway/general)
+"hj" = (/obj/machinery/door/airlock/centcom,/obj/structure/cable{d1 = 1; d2 = 2; icon_state = "1-2"; pixel_y = 0},/turf/simulated/floor/plasteel{icon_state = "bar"; dir = 2},/area/awaymission/centcomAway/cafe)
 "hk" = (/obj/structure/grille,/obj/structure/window/reinforced{dir = 4},/obj/structure/window/reinforced{dir = 1},/obj/structure/window/reinforced{dir = 8},/turf/simulated/floor/plating,/area/awaymission/centcomAway/general)
 "hl" = (/obj/machinery/computer/robotics,/turf/simulated/floor/plasteel{icon_state = "floor"},/area/awaymission/centcomAway/general)
 "hm" = (/obj/structure/stool/bed/chair/office/dark{dir = 8},/turf/simulated/floor/plasteel{icon_state = "floor"},/area/awaymission/centcomAway/general)
 "hn" = (/obj/structure/stool/bed/chair/office/dark{dir = 4},/turf/simulated/floor/plasteel{icon_state = "floor"},/area/awaymission/centcomAway/general)
 "ho" = (/obj/machinery/computer/med_data,/turf/simulated/floor/plasteel{icon_state = "floor"},/area/awaymission/centcomAway/general)
-"hp" = (/turf/simulated/floor/plasteel{tag = "icon-blackcorner"; icon_state = "blackcorner"},/area/awaymission/centcomAway/general)
+"hp" = (/obj/machinery/light{icon_state = "tube1"; dir = 4},/turf/simulated/shuttle/plating,/area/awaymission/centcomAway/hangar)
 "hq" = (/obj/structure/stool/bed/chair{dir = 1},/turf/simulated/floor/carpet,/area/awaymission/centcomAway/courtroom)
 "hr" = (/obj/machinery/door/airlock/centcom,/turf/simulated/floor/carpet,/area/awaymission/centcomAway/courtroom)
 "hs" = (/obj/effect/decal/cleanable/blood/oil,/turf/simulated/floor/plasteel{icon_state = "dark"},/area/awaymission/centcomAway/hangar)
-"ht" = (/turf/simulated/floor/plating,/obj/structure/shuttle/engine/propulsion/burst{dir = 4},/turf/simulated/shuttle/wall{icon_state = "swall_f6"; dir = 2},/area/awaymission/centcomAway/hangar)
+"ht" = (/turf/simulated/floor/plating,/obj/structure/shuttle/engine/propulsion/burst{dir = 8},/turf/simulated/shuttle/wall{icon_state = "swall_f6"; dir = 2},/area/awaymission/centcomAway/hangar)
 "hu" = (/turf/simulated/floor/plasteel{icon_state = "dark"},/turf/simulated/shuttle/wall{icon_state = "swall_f10"; dir = 2},/area/awaymission/centcomAway/hangar)
-"hv" = (/obj/structure/table,/obj/item/weapon/paper/ccaMemo,/turf/simulated/floor/plating,/area/awaymission/centcomAway/hangar)
+"hv" = (/mob/living/simple_animal/hostile/russian/ranged{loot = list(/obj/effect/landmark/mobcorpse/russian/ranged)},/turf/simulated/floor/carpet,/area/awaymission/centcomAway/cafe)
 "hw" = (/obj/item/xenos_claw,/turf/simulated/floor/plasteel{icon_state = "engine"},/area/awaymission/centcomAway/general)
 "hx" = (/obj/machinery/door/airlock/centcom{name = "Special Operations"; opacity = 1; req_access_txt = "103"},/turf/simulated/floor/plasteel{icon_state = "dark"},/area/awaymission/centcomAway/general)
 "hy" = (/obj/structure/grille,/obj/structure/window/reinforced{dir = 4},/obj/structure/window/reinforced{dir = 8},/turf/simulated/floor/plating,/area/awaymission/centcomAway/general)
@@ -395,14 +395,14 @@
 "hE" = (/obj/structure/stool/bed/chair{dir = 4},/obj/item/device/radio/intercom{pixel_y = 25},/turf/simulated/shuttle/floor,/area/awaymission/centcomAway/hangar)
 "hF" = (/obj/structure/grille,/obj/structure/window/reinforced{dir = 8},/obj/structure/window/reinforced,/obj/structure/window/reinforced{dir = 4},/obj/structure/window/reinforced{dir = 1},/turf/simulated/shuttle/plating,/area/awaymission/centcomAway/hangar)
 "hG" = (/obj/structure/reagent_dispensers/fueltank,/turf/simulated/floor/plating,/area/awaymission/centcomAway/hangar)
-"hH" = (/obj/structure/table,/obj/item/stack/cable_coil,/turf/simulated/floor/plating,/area/awaymission/centcomAway/hangar)
+"hH" = (/obj/structure/disposalpipe/segment{dir = 4},/obj/machinery/light{dir = 1; in_use = 1},/turf/simulated/floor/plasteel{icon_state = "grimy"},/area/awaymission/centcomAway/cafe)
 "hI" = (/obj/structure/morgue,/turf/simulated/floor/plasteel{icon_state = "engine"},/area/awaymission/centcomAway/general)
 "hJ" = (/obj/structure/closet/body_bag,/turf/simulated/floor/plasteel{icon_state = "engine"},/area/awaymission/centcomAway/general)
 "hK" = (/obj/structure/sign/biohazard,/turf/simulated/wall/r_wall,/area/awaymission/centcomAway/general)
 "hL" = (/obj/structure/table/reinforced,/obj/item/weapon/storage/box/PDAs,/turf/simulated/floor/plasteel{icon_state = "floor"},/area/awaymission/centcomAway/general)
 "hM" = (/obj/structure/table/reinforced,/obj/item/weapon/folder/red,/turf/simulated/floor/plasteel{icon_state = "floor"},/area/awaymission/centcomAway/general)
 "hN" = (/obj/machinery/computer/secure_data,/turf/simulated/floor/plasteel{icon_state = "floor"},/area/awaymission/centcomAway/general)
-"hO" = (/obj/machinery/computer/communications,/turf/simulated/floor/plasteel{icon_state = "floor"},/area/awaymission/centcomAway/general)
+"hO" = (/obj/machinery/light{dir = 1; in_use = 1},/turf/simulated/floor/plasteel{icon_state = "hydrofloor"},/area/awaymission/centcomAway/cafe)
 "hP" = (/obj/machinery/computer/security,/turf/simulated/floor/plasteel{icon_state = "floor"},/area/awaymission/centcomAway/general)
 "hQ" = (/obj/structure/table/reinforced,/obj/item/weapon/folder/blue,/turf/simulated/floor/plasteel{icon_state = "floor"},/area/awaymission/centcomAway/general)
 "hR" = (/obj/structure/table/reinforced,/obj/item/device/taperecorder,/turf/simulated/floor/plasteel{icon_state = "floor"},/area/awaymission/centcomAway/general)
@@ -412,7 +412,7 @@
 "hV" = (/obj/structure/stool/bed/chair,/turf/simulated/floor/plasteel{icon_state = "dark"},/area/awaymission/centcomAway/courtroom)
 "hW" = (/obj/structure/grille,/obj/structure/window/reinforced{dir = 8},/obj/structure/window/reinforced{dir = 4},/obj/structure/window/reinforced{dir = 1},/turf/simulated/floor/plating,/area/awaymission/centcomAway/courtroom)
 "hX" = (/obj/structure/grille,/obj/structure/window/reinforced{dir = 8},/obj/structure/window/reinforced,/obj/structure/window/reinforced{dir = 4},/obj/structure/window/reinforced{dir = 1},/turf/simulated/floor/plating,/area/awaymission/centcomAway/hangar)
-"hY" = (/turf/simulated/floor/plating,/obj/structure/shuttle/engine/propulsion/burst{dir = 4},/turf/simulated/shuttle/wall{icon_state = "swall_f5"; dir = 2},/area/awaymission/centcomAway/hangar)
+"hY" = (/turf/simulated/floor/plating,/obj/structure/shuttle/engine/propulsion/burst{dir = 8},/turf/simulated/shuttle/wall{icon_state = "swall_f5"; dir = 2},/area/awaymission/centcomAway/hangar)
 "hZ" = (/turf/simulated/floor/plasteel{icon_state = "dark"},/turf/simulated/shuttle/wall{icon_state = "swall_f9"; dir = 2},/area/awaymission/centcomAway/hangar)
 "ia" = (/obj/structure/table,/obj/item/clothing/gloves/color/yellow,/obj/item/weapon/storage/toolbox/electrical{pixel_y = 5},/turf/simulated/floor/plating,/area/awaymission/centcomAway/hangar)
 "ib" = (/obj/structure/sign/securearea,/turf/simulated/wall/r_wall,/area/awaymission/centcomAway/general)
@@ -433,7 +433,7 @@
 "iq" = (/obj/structure/rack,/obj/item/clothing/ears/earmuffs{pixel_x = -3; pixel_y = -2},/turf/simulated/floor/plating{tag = "icon-warnplate (WEST)"; icon_state = "warnplate"; dir = 8},/area/awaymission/centcomAway/hangar)
 "ir" = (/obj/structure/rack,/obj/item/clothing/ears/earmuffs{pixel_x = -3; pixel_y = -2},/turf/simulated/floor/plating,/area/awaymission/centcomAway/hangar)
 "is" = (/obj/structure/closet,/turf/simulated/floor/plating,/area/awaymission/centcomAway/hangar)
-"it" = (/obj/structure/table,/obj/item/stack/sheet/metal{amount = 50},/turf/simulated/floor/plating,/area/awaymission/centcomAway/hangar)
+"it" = (/obj/machinery/light{icon_state = "tube1"; dir = 4},/turf/simulated/floor/plasteel{icon_state = "vault"; dir = 5},/area/awaymission/centcomAway/hangar)
 "iu" = (/obj/structure/table,/obj/item/clothing/glasses/welding,/turf/simulated/floor/plating,/area/awaymission/centcomAway/hangar)
 "iv" = (/turf/simulated/floor/plasteel{dir = 2; icon_state = "greencorner"},/area/awaymission/centcomAway/general)
 "iw" = (/turf/simulated/floor/plasteel{dir = 2; icon_state = "green"},/area/awaymission/centcomAway/general)
@@ -460,7 +460,7 @@
 "iR" = (/obj/structure/rack,/obj/item/clothing/glasses/night,/turf/simulated/floor/plating,/area/awaymission/centcomAway/hangar)
 "iS" = (/obj/structure/closet/emcloset,/turf/simulated/floor/plating,/area/awaymission/centcomAway/hangar)
 "iT" = (/obj/structure/bookcase,/obj/effect/decal/cleanable/cobweb,/turf/simulated/floor/plasteel{icon_state = "grimy"},/area/awaymission/centcomAway/general)
-"iU" = (/obj/structure/closet/secure_closet/hos,/turf/simulated/floor/plasteel{icon_state = "grimy"},/area/awaymission/centcomAway/general)
+"iU" = (/obj/structure/table/reinforced,/obj/item/weapon/paper_bin,/obj/machinery/light{icon_state = "tube1"; dir = 8},/turf/simulated/shuttle/floor{icon_state = "floor2"},/area/awaymission/centcomAway/hangar)
 "iV" = (/obj/structure/rack,/obj/item/weapon/storage/secure/briefcase,/obj/item/weapon/storage/belt/utility/full,/turf/simulated/floor/plasteel{icon_state = "grimy"},/area/awaymission/centcomAway/general)
 "iW" = (/obj/structure/bookcase,/obj/effect/decal/cleanable/cobweb2,/turf/simulated/floor/plasteel{icon_state = "grimy"},/area/awaymission/centcomAway/general)
 "iX" = (/obj/machinery/door/poddoor/shutters{dir = 2; id_tag = "XCCsec3"; name = "XCC Main Access Shutters"},/turf/simulated/floor/plasteel{icon_state = "delivery"},/area/awaymission/centcomAway/general)
@@ -495,7 +495,7 @@
 "jA" = (/obj/structure/table/woodentable{dir = 9},/obj/item/clothing/mask/cigarette/cigar/havana,/obj/item/weapon/reagent_containers/food/drinks/sillycup,/turf/simulated/floor/plasteel{icon_state = "grimy"},/area/awaymission/centcomAway/general)
 "jB" = (/obj/structure/table/woodentable{dir = 5},/obj/item/weapon/lighter/zippo,/turf/simulated/floor/plasteel{icon_state = "grimy"},/area/awaymission/centcomAway/general)
 "jC" = (/obj/structure/table/woodentable{dir = 5},/obj/item/weapon/storage/backpack/satchel,/turf/simulated/floor/plasteel{icon_state = "grimy"},/area/awaymission/centcomAway/general)
-"jD" = (/obj/machinery/computer/card/centcom,/obj/item/weapon/card/id/centcom,/turf/simulated/floor/plasteel{icon_state = "grimy"},/area/awaymission/centcomAway/general)
+"jD" = (/obj/structure/stool/bed/chair{dir = 8},/obj/machinery/light{icon_state = "tube1"; dir = 4},/turf/simulated/shuttle/floor,/area/awaymission/centcomAway/hangar)
 "jE" = (/obj/structure/table/reinforced,/obj/item/weapon/folder/red,/turf/simulated/floor/plasteel{icon_state = "dark"},/area/awaymission/centcomAway/general)
 "jF" = (/obj/structure/table/reinforced,/obj/machinery/door_control{id = "XCCsec3"; name = "XCC Shutter 3 Control"},/turf/simulated/floor/plasteel{icon_state = "dark"},/area/awaymission/centcomAway/general)
 "jG" = (/turf/simulated/floor/plasteel{tag = "icon-vault (EAST)"; icon_state = "vault"; dir = 4},/area/awaymission/centcomAway/general)
@@ -511,15 +511,15 @@
 "jQ" = (/obj/structure/stool/bed/chair{dir = 8},/turf/simulated/floor/plasteel{icon_state = "dark"},/area/awaymission/centcomAway/general)
 "jR" = (/obj/structure/closet/secure_closet/personal,/turf/simulated/floor/plasteel{tag = "icon-vault (NORTH)"; icon_state = "vault"; dir = 1},/area/awaymission/centcomAway/hangar)
 "jS" = (/obj/structure/window/reinforced{dir = 1},/turf/simulated/floor/plasteel{tag = "icon-vault (NORTHEAST)"; icon_state = "vault"; dir = 5},/area/awaymission/centcomAway/general)
-"jT" = (/obj/effect/decal/cleanable/cobweb2,/turf/simulated/floor/plasteel{icon_state = "grimy"},/area/awaymission/centcomAway/general)
-"jU" = (/obj/structure/safe/floor,/obj/item/clothing/under/rank/centcom_officer,/obj/item/clothing/suit/storage/det_suit,/obj/item/weapon/gun/projectile/revolver/mateba,/turf/simulated/floor/plasteel{icon_state = "grimy"},/area/awaymission/centcomAway/general)
+"jT" = (/obj/structure/disposalpipe/segment{dir = 4},/obj/machinery/light,/turf/simulated/floor/plasteel{icon_state = "grimy"},/area/awaymission/centcomAway/cafe)
+"jU" = (/obj/machinery/light,/turf/simulated/floor/plasteel{icon_state = "hydrofloor"},/area/awaymission/centcomAway/cafe)
 "jV" = (/obj/structure/table/reinforced,/obj/item/weapon/paper_bin,/turf/simulated/floor/plasteel{icon_state = "dark"},/area/awaymission/centcomAway/general)
 "jW" = (/obj/machinery/computer/secure_data,/turf/simulated/floor/plasteel{icon_state = "dark"},/area/awaymission/centcomAway/general)
-"jX" = (/obj/machinery/computer/card,/turf/simulated/floor/plasteel{icon_state = "dark"},/area/awaymission/centcomAway/general)
+"jX" = (/obj/machinery/light{icon_state = "tube1"; dir = 8},/turf/simulated/floor/plasteel{tag = "icon-vault (NORTHWEST)"; icon_state = "vault"; dir = 9},/area/awaymission/centcomAway/hangar)
 "jY" = (/obj/item/weapon/stamp/granted,/obj/structure/table/reinforced,/turf/simulated/floor/plasteel{tag = "icon-vault (EAST)"; icon_state = "vault"; dir = 4},/area/awaymission/centcomAway/general)
 "jZ" = (/obj/structure/table,/obj/item/weapon/firstaid_arm_assembly,/turf/simulated/floor/plasteel{tag = "icon-vault"; icon_state = "vault"},/area/awaymission/centcomAway/hangar)
 "ka" = (/obj/structure/table,/obj/item/device/flash,/obj/item/device/flash,/turf/simulated/floor/plasteel{tag = "icon-vault"; icon_state = "vault"},/area/awaymission/centcomAway/hangar)
-"kb" = (/obj/structure/table,/obj/item/stack/sheet/glass{amount = 50},/obj/item/stack/sheet/metal{amount = 50},/turf/simulated/floor/plasteel{tag = "icon-vault"; icon_state = "vault"},/area/awaymission/centcomAway/hangar)
+"kb" = (/obj/structure/stool/bed/chair{dir = 1},/mob/living/simple_animal/hostile/russian/ranged{loot = list(/obj/effect/landmark/mobcorpse/russian/ranged)},/turf/simulated/shuttle/floor{icon_state = "floor2"},/area/awaymission/centcomAway/hangar)
 "kc" = (/obj/structure/table,/obj/item/device/mmi/radio_enabled,/turf/simulated/floor/plasteel{tag = "icon-vault"; icon_state = "vault"},/area/awaymission/centcomAway/hangar)
 "kd" = (/obj/structure/table,/obj/item/weapon/storage/toolbox/mechanical,/turf/simulated/floor/plasteel{tag = "icon-vault"; icon_state = "vault"},/area/awaymission/centcomAway/hangar)
 "ke" = (/obj/machinery/door/airlock/maintenance_hatch{req_access_txt = "101"},/turf/simulated/floor/plating,/area/awaymission/centcomAway/general)
@@ -539,8 +539,8 @@
 "ks" = (/obj/structure/grille,/obj/structure/window/reinforced{dir = 4},/obj/structure/window/reinforced{dir = 8},/obj/structure/window/reinforced,/turf/simulated/floor/plating,/area/awaymission/centcomAway/general)
 "kt" = (/obj/machinery/door/poddoor/shutters{id_tag = "XCCFerry"; name = "XCC Ferry Hangar"},/turf/simulated/floor/plasteel{icon_state = "delivery"},/area/awaymission/centcomAway/hangar)
 "ku" = (/obj/structure/stool/bed/chair,/turf/simulated/floor/plasteel{icon_state = "floor"},/area/awaymission/centcomAway/general)
-"kv" = (/obj/machinery/vending/coffee,/turf/simulated/floor/plasteel{icon_state = "green"; dir = 8},/area/awaymission/centcomAway/general)
-"kw" = (/obj/machinery/vending/cigarette,/turf/simulated/floor/plasteel{icon_state = "green"; dir = 4},/area/awaymission/centcomAway/general)
+"kv" = (/obj/machinery/gibber,/obj/machinery/light{icon_state = "tube1"; dir = 4},/turf/simulated/floor/plasteel{icon_state = "freezerfloor"; dir = 2},/area/awaymission/centcomAway/cafe)
+"kw" = (/obj/structure/closet/secure_closet/hydroponics,/obj/machinery/light{icon_state = "tube1"; dir = 4},/turf/simulated/floor/plasteel{icon_state = "dark"},/area/awaymission/centcomAway/cafe)
 "kx" = (/obj/machinery/door/airlock/external{name = "Arrival Airlock"},/turf/simulated/floor/plating,/area/awaymission/centcomAway/general)
 "ky" = (/obj/machinery/door/airlock/centcom,/turf/simulated/floor/plasteel{icon_state = "floor"},/area/awaymission/centcomAway/hangar)
 "kz" = (/obj/structure/table,/obj/item/weapon/paper/pamphlet/ccaInfo,/turf/simulated/floor/plasteel{icon_state = "floor"},/area/awaymission/centcomAway/general)
@@ -569,20 +569,20 @@
 "kW" = (/obj/structure/grille,/obj/structure/window/reinforced{dir = 1},/obj/structure/window/reinforced{dir = 4},/obj/structure/window/reinforced,/turf/simulated/floor/plating,/area/awaymission/centcomAway/general)
 "kX" = (/obj/structure/table,/obj/item/device/flashlight/flare,/turf/simulated/floor/plasteel{icon_state = "dark"},/area/awaymission/centcomAway/hangar)
 "kY" = (/obj/structure/table,/obj/item/device/flashlight/flare,/turf/simulated/floor/plating,/area/awaymission/centcomAway/hangar)
-"kZ" = (/obj/structure/table,/obj/item/device/multitool,/turf/simulated/floor/plating,/area/awaymission/centcomAway/hangar)
+"kZ" = (/obj/machinery/light{dir = 1; in_use = 1},/turf/simulated/floor/plating,/area/awaymission/centcomAway/maint)
 "la" = (/obj/structure/table/reinforced,/obj/item/weapon/paper/pamphlet/ccaInfo,/turf/simulated/floor/plasteel{tag = "icon-vault (EAST)"; icon_state = "vault"; dir = 4},/area/awaymission/centcomAway/general)
 "lb" = (/obj/structure/table/reinforced,/obj/machinery/door_control{id = "XCCsec1"; name = "XCC Shutter 1 Control"},/turf/simulated/floor/plasteel{icon_state = "dark"},/area/awaymission/centcomAway/general)
 "lc" = (/obj/structure/stool/bed/chair{dir = 1},/turf/simulated/floor/plasteel{icon_state = "dark"},/area/awaymission/centcomAway/general)
 "ld" = (/obj/machinery/computer/secure_data,/turf/simulated/floor/plasteel{tag = "icon-vault (NORTH)"; icon_state = "vault"; dir = 1},/area/awaymission/centcomAway/general)
 "le" = (/obj/structure/table/reinforced,/turf/simulated/floor/plasteel{icon_state = "floor"},/area/awaymission/centcomAway/general)
-"lf" = (/obj/item/weapon/paper_bin,/obj/structure/table/reinforced,/turf/simulated/floor/plasteel{icon_state = "floor"},/area/awaymission/centcomAway/general)
+"lf" = (/obj/structure/disposalpipe/segment,/obj/machinery/light{icon_state = "tube1"; dir = 4},/turf/simulated/floor/plasteel{tag = "icon-redfull"; icon_state = "redfull"},/area/awaymission/centcomAway/cafe)
 "lg" = (/obj/structure/grille,/obj/structure/window/reinforced,/obj/structure/window/reinforced{dir = 8},/obj/structure/window/reinforced{dir = 4},/turf/simulated/floor/plating,/area/awaymission/centcomAway/general)
 "lh" = (/turf/simulated/floor/plasteel{icon_state = "neutral"; dir = 8},/area/awaymission/centcomAway/general)
-"li" = (/turf/simulated/floor/plasteel{icon_state = "neutral"; dir = 4},/area/awaymission/centcomAway/general)
+"li" = (/obj/machinery/light{icon_state = "tube1"; dir = 4},/obj/structure/cable{d1 = 1; d2 = 2; icon_state = "1-2"; pixel_y = 0},/turf/simulated/floor/plasteel{tag = "icon-vault (NORTHEAST)"; icon_state = "vault"; dir = 5},/area/awaymission/centcomAway/general)
 "lj" = (/obj/machinery/computer/card,/turf/simulated/floor/plasteel{tag = "icon-vault (NORTH)"; icon_state = "vault"; dir = 1},/area/awaymission/centcomAway/general)
 "lk" = (/obj/structure/stool/bed/chair{dir = 4},/turf/simulated/floor/plasteel{icon_state = "floor"},/area/awaymission/centcomAway/general)
 "ll" = (/obj/structure/stool/bed/chair{dir = 8},/turf/simulated/floor/plasteel{icon_state = "floor"},/area/awaymission/centcomAway/general)
-"lm" = (/obj/machinery/photocopier,/turf/simulated/floor/plasteel{tag = "icon-vault (EAST)"; icon_state = "vault"; dir = 4},/area/awaymission/centcomAway/general)
+"lm" = (/mob/living/simple_animal/hostile/russian/ranged{loot = list(/obj/effect/landmark/mobcorpse/russian/ranged)},/turf/simulated/floor/plating,/area/awaymission/centcomAway/maint)
 "ln" = (/obj/item/weapon/clipboard,/obj/structure/table,/obj/item/device/taperecorder,/obj/item/weapon/stamp/granted,/turf/simulated/floor/plasteel{tag = "icon-vault (NORTH)"; icon_state = "vault"; dir = 1},/area/awaymission/centcomAway/general)
 "lo" = (/obj/machinery/door/window/northright{icon_state = "right"; dir = 2},/turf/simulated/floor/plasteel{icon_state = "floor"},/area/awaymission/centcomAway/general)
 "lp" = (/obj/structure/table/reinforced,/obj/machinery/door_control{id = "XCCsec2"; name = "XCC Shutter 2 Control"},/turf/simulated/floor/plasteel{icon_state = "dark"},/area/awaymission/centcomAway/general)
@@ -592,10 +592,11 @@
 "lt" = (/turf/simulated/floor/plasteel{dir = 8; icon_state = "redcorner"},/area/awaymission/centcomAway/general)
 "lu" = (/obj/structure/table,/obj/item/weapon/storage/box/handcuffs,/obj/item/weapon/stamp/granted,/turf/simulated/floor/plasteel{tag = "icon-vault (NORTH)"; icon_state = "vault"; dir = 1},/area/awaymission/centcomAway/general)
 "lv" = (/obj/machinery/door/airlock/external,/turf/simulated/floor/plasteel{icon_state = "red"; dir = 10},/area/awaymission/centcomAway/general)
-"lw" = (/obj/machinery/door/airlock/external,/turf/simulated/floor/plasteel{icon_state = "green"; dir = 6},/area/awaymission/centcomAway/general)
+"lw" = (/obj/structure/cable{d1 = 1; d2 = 2; icon_state = "1-2"; pixel_y = 0},/turf/simulated/floor/plasteel{tag = "icon-vault (NORTHEAST)"; icon_state = "vault"; dir = 5},/area/awaymission/centcomAway/general)
 "lx" = (/obj/structure/grille,/obj/structure/window/reinforced{dir = 4},/obj/structure/window/reinforced{dir = 8},/obj/structure/window/reinforced{dir = 1},/turf/simulated/floor/plating,/area/awaymission/centcomAway/general)
 "ly" = (/obj/structure/table/woodentable,/obj/item/clothing/accessory/medal,/turf/simulated/floor/carpet,/area/awaymission/centcomAway/general)
 "lz" = (/obj/structure/table/woodentable,/turf/simulated/floor/carpet,/area/awaymission/centcomAway/general)
+"lA" = (/obj/machinery/light{icon_state = "tube1"; dir = 4},/turf/simulated/floor/plasteel{tag = "icon-redfull"; icon_state = "redfull"},/area/awaymission/centcomAway/cafe)
 "lB" = (/obj/structure/table/woodentable,/obj/item/clothing/accessory/medal/gold,/turf/simulated/floor/carpet,/area/awaymission/centcomAway/general)
 "lC" = (/obj/machinery/door/airlock/external,/turf/simulated/floor/plating,/area/awaymission/centcomAway/general)
 "lD" = (/turf/simulated/wall/r_wall,/area/awaymission/centcomAway/thunderdome)
@@ -620,9 +621,10 @@
 "lW" = (/turf/simulated/floor/plasteel{tag = "icon-redbluefull (WEST)"; icon_state = "redbluefull"; dir = 8},/area/awaymission/centcomAway/thunderdome)
 "lX" = (/obj/structure/reagent_dispensers/beerkeg,/turf/simulated/floor/plasteel{tag = "icon-redbluefull (WEST)"; icon_state = "redbluefull"; dir = 8},/area/awaymission/centcomAway/thunderdome)
 "lY" = (/obj/structure/closet/crate/trashcart,/turf/simulated/floor/plasteel{tag = "icon-redbluefull (WEST)"; icon_state = "redbluefull"; dir = 8},/area/awaymission/centcomAway/thunderdome)
-"lZ" = (/obj/structure/reagent_dispensers/water_cooler,/turf/simulated/floor/plasteel{tag = "icon-redbluefull (WEST)"; icon_state = "redbluefull"; dir = 8},/area/awaymission/centcomAway/thunderdome)
+"lZ" = (/obj/structure/stool/bed,/obj/machinery/light{icon_state = "tube1"; dir = 4},/turf/simulated/shuttle/floor{icon_state = "floor3"},/area/awaymission/centcomAway/hangar)
 "ma" = (/obj/machinery/vending/snack,/turf/simulated/floor/plasteel{tag = "icon-redbluefull (WEST)"; icon_state = "redbluefull"; dir = 8},/area/awaymission/centcomAway/thunderdome)
 "mb" = (/obj/structure/table,/obj/item/weapon/lipstick,/turf/simulated/floor/plasteel{tag = "icon-vault (NORTHEAST)"; icon_state = "vault"; dir = 5},/area/awaymission/centcomAway/thunderdome)
+"mc" = (/obj/machinery/light{icon_state = "tube1"; dir = 8},/turf/simulated/shuttle/floor{icon_state = "floor3"},/area/awaymission/centcomAway/hangar)
 "md" = (/obj/machinery/icecream_vat,/turf/simulated/floor/plasteel{tag = "icon-barber (WEST)"; icon_state = "barber"; dir = 8; heat_capacity = 1},/area/awaymission/centcomAway/thunderdome)
 "me" = (/obj/structure/stool/bed/chair{dir = 1},/turf/simulated/floor/plasteel{tag = "icon-vault (NORTHEAST)"; icon_state = "vault"; dir = 5},/area/awaymission/centcomAway/thunderdome)
 "mf" = (/obj/structure/stool/bed/chair,/turf/simulated/floor/plasteel{tag = "icon-redbluefull (WEST)"; icon_state = "redbluefull"; dir = 8},/area/awaymission/centcomAway/thunderdome)
@@ -645,13 +647,13 @@
 "mw" = (/obj/structure/sink{icon_state = "sink"; dir = 8; pixel_x = -12; pixel_y = 2},/obj/structure/mirror{pixel_x = -28},/turf/simulated/floor/plasteel{icon_state = "white"},/area/awaymission/centcomAway/thunderdome)
 "mx" = (/turf/simulated/floor/plasteel{icon_state = "white"},/area/awaymission/centcomAway/thunderdome)
 "my" = (/obj/structure/closet/secure_closet/personal,/turf/simulated/floor/plasteel{icon_state = "white"},/area/awaymission/centcomAway/thunderdome)
-"mz" = (/obj/structure/rack,/obj/item/clothing/under/color/red,/obj/item/clothing/shoes/brown,/obj/item/clothing/suit/armor/tdome/red,/obj/item/clothing/head/helmet/thunderdome,/obj/item/weapon/hatchet,/obj/item/weapon/shield/riot,/turf/simulated/floor/plasteel{icon_state = "dark"},/area/awaymission/centcomAway/thunderdome)
+"mz" = (/obj/structure/closet/secure_closet/freezer/fridge,/obj/machinery/light,/turf/simulated/floor/plasteel{tag = "icon-redfull"; icon_state = "redfull"},/area/awaymission/centcomAway/cafe)
 "mA" = (/turf/simulated/floor/plasteel{icon_state = "dark"},/area/awaymission/centcomAway/thunderdome)
 "mB" = (/obj/machinery/recharger{pixel_y = 4},/turf/simulated/floor/plating,/area/awaymission/centcomAway/thunderdome)
 "mC" = (/turf/simulated/floor/plating,/area/awaymission/centcomAway/thunderdome)
 "mD" = (/obj/machinery/door/poddoor{id_tag = "XCCtdome"; name = "XCC Thunderdome"},/turf/simulated/floor/plasteel{icon_state = "delivery"},/area/awaymission/centcomAway/thunderdome)
 "mE" = (/obj/machinery/igniter,/turf/simulated/floor/plasteel{icon_state = "floor"},/area/awaymission/centcomAway/thunderdome)
-"mF" = (/obj/structure/rack,/obj/item/clothing/under/color/green,/obj/item/clothing/shoes/brown,/obj/item/clothing/suit/armor/tdome/green,/obj/item/clothing/head/helmet/thunderdome,/obj/item/weapon/hatchet,/obj/item/weapon/shield/riot,/turf/simulated/floor/plasteel{icon_state = "dark"},/area/awaymission/centcomAway/thunderdome)
+"mF" = (/obj/machinery/light{dir = 1; in_use = 1},/turf/simulated/floor/plasteel{icon_state = "floor"},/area/awaymission/centcomAway/general)
 "mG" = (/obj/machinery/door/airlock/centcom,/turf/simulated/floor/plasteel{icon_state = "white"},/area/awaymission/centcomAway/thunderdome)
 "mH" = (/turf/simulated/floor/plasteel{dir = 2; icon_state = "redcorner"},/area/awaymission/centcomAway/thunderdome)
 "mI" = (/turf/simulated/floor/plasteel{icon_state = "red"},/area/awaymission/centcomAway/thunderdome)
@@ -679,7 +681,7 @@
 "ne" = (/turf/simulated/floor/plasteel{dir = 10; icon_state = "green"},/area/awaymission/centcomAway/thunderdome)
 "nf" = (/obj/machinery/portable_atmospherics/scrubber/huge,/turf/simulated/floor/plasteel{icon_state = "green"; dir = 6},/area/awaymission/centcomAway/thunderdome)
 "ng" = (/obj/item/weapon/soap/nanotrasen,/turf/simulated/floor/plasteel{icon_state = "white"},/area/awaymission/centcomAway/thunderdome)
-"nh" = (/obj/structure/rack,/obj/item/weapon/gun/energy/laser/retro,/turf/simulated/floor/plasteel{icon_state = "dark"},/area/awaymission/centcomAway/thunderdome)
+"nh" = (/obj/machinery/suit_storage_unit/standard_unit,/obj/machinery/light{dir = 1; in_use = 1},/turf/simulated/floor/plasteel{dir = 1; icon_state = "yellow"},/area/awaymission/centcomAway/general)
 "ni" = (/turf/simulated/floor/plasteel{tag = "icon-redyellowfull (NORTHEAST)"; icon_state = "redyellowfull"; dir = 5},/area/awaymission/centcomAway/thunderdome)
 "nj" = (/obj/structure/stool/bed/chair/office/dark{dir = 1},/turf/simulated/floor/plasteel{tag = "icon-redyellowfull (NORTHEAST)"; icon_state = "redyellowfull"; dir = 5},/area/awaymission/centcomAway/thunderdome)
 "nk" = (/obj/structure/table/woodentable,/obj/item/device/radio/off,/turf/simulated/floor/plasteel{tag = "icon-redyellowfull (NORTHEAST)"; icon_state = "redyellowfull"; dir = 5},/area/awaymission/centcomAway/thunderdome)
@@ -687,18 +689,157 @@
 "nm" = (/obj/machinery/door/airlock/centcom{name = "Thunderdome Administration"; opacity = 1; req_access_txt = "102"},/turf/simulated/floor/plasteel{tag = "icon-redyellowfull (NORTHEAST)"; icon_state = "redyellowfull"; dir = 5},/area/awaymission/centcomAway/thunderdome)
 "nn" = (/obj/structure/stool{pixel_y = 8},/turf/simulated/floor/plasteel{tag = "icon-redyellowfull (NORTHEAST)"; icon_state = "redyellowfull"; dir = 5},/area/awaymission/centcomAway/thunderdome)
 "no" = (/obj/structure/table,/obj/machinery/recharger{pixel_y = 4},/turf/simulated/floor/plasteel{tag = "icon-redyellowfull (NORTHEAST)"; icon_state = "redyellowfull"; dir = 5},/area/awaymission/centcomAway/thunderdome)
-"np" = (/obj/structure/table,/turf/simulated/floor/plasteel{tag = "icon-redyellowfull (NORTHEAST)"; icon_state = "redyellowfull"; dir = 5},/area/awaymission/centcomAway/thunderdome)
+"np" = (/obj/structure/table/reinforced,/obj/item/weapon/storage/firstaid/adv,/obj/machinery/light{dir = 1; in_use = 1},/turf/simulated/floor/plasteel{icon_state = "white"},/area/awaymission/centcomAway/general)
 "nq" = (/obj/structure/computerframe,/turf/simulated/floor/plasteel{tag = "icon-redyellowfull (NORTHEAST)"; icon_state = "redyellowfull"; dir = 5},/area/awaymission/centcomAway/thunderdome)
 "nr" = (/obj/machinery/computer/area_atmos,/turf/simulated/floor/plasteel{tag = "icon-redyellowfull (NORTHEAST)"; icon_state = "redyellowfull"; dir = 5},/area/awaymission/centcomAway/thunderdome)
 "ns" = (/obj/structure/closet/secure_closet/bar,/turf/simulated/floor/plasteel{tag = "icon-redyellowfull (NORTHEAST)"; icon_state = "redyellowfull"; dir = 5},/area/awaymission/centcomAway/thunderdome)
 "nt" = (/obj/structure/table,/obj/item/weapon/storage/box/handcuffs,/turf/simulated/floor/plasteel{tag = "icon-redyellowfull (NORTHEAST)"; icon_state = "redyellowfull"; dir = 5},/area/awaymission/centcomAway/thunderdome)
-"nu" = (/obj/structure/table,/obj/item/weapon/reagent_containers/food/snacks/popcorn,/turf/simulated/floor/plasteel{tag = "icon-redyellowfull (NORTHEAST)"; icon_state = "redyellowfull"; dir = 5},/area/awaymission/centcomAway/thunderdome)
+"nu" = (/obj/structure/table/reinforced,/obj/item/clothing/accessory/stethoscope,/obj/item/weapon/storage/firstaid,/obj/item/weapon/storage/firstaid,/turf/simulated/floor/plasteel{dir = 1; icon_state = "whitepurple"},/area/awaymission/centcomAway/general)
 "nv" = (/obj/structure/table,/obj/item/weapon/storage/toolbox/electrical,/turf/simulated/floor/plasteel{tag = "icon-redyellowfull (NORTHEAST)"; icon_state = "redyellowfull"; dir = 5},/area/awaymission/centcomAway/thunderdome)
 "nw" = (/obj/structure/table,/obj/item/weapon/storage/toolbox/mechanical,/turf/simulated/floor/plasteel{tag = "icon-redyellowfull (NORTHEAST)"; icon_state = "redyellowfull"; dir = 5},/area/awaymission/centcomAway/thunderdome)
 "nx" = (/obj/machinery/door_control{id = "XCCtdomemelee"; name = "XCC Thunderdome Melee!"},/obj/structure/table/reinforced,/turf/simulated/floor/plasteel{icon_state = "floor"},/area/awaymission/centcomAway/thunderdome)
 "ny" = (/obj/structure/stool/bed/chair/comfy/teal,/turf/simulated/floor/plasteel{icon_state = "floor"},/area/awaymission/centcomAway/thunderdome)
 "nz" = (/obj/machinery/door_control{id = "XCCtdomeguns"; name = "XCC Thunderdome Guns!"},/obj/structure/table/reinforced,/turf/simulated/floor/plasteel{icon_state = "floor"},/area/awaymission/centcomAway/thunderdome)
 "nA" = (/obj/machinery/door_control{id = "XCCtdome"; name = "XCC Thunderdome Go!"},/obj/structure/table/reinforced,/turf/simulated/floor/plasteel{icon_state = "floor"},/area/awaymission/centcomAway/thunderdome)
+"nB" = (/obj/machinery/clonepod,/obj/machinery/light{dir = 1; in_use = 1},/turf/simulated/floor/plasteel{dir = 1; icon_state = "whitepurple"},/area/awaymission/centcomAway/general)
+"nC" = (/obj/machinery/light,/turf/simulated/floor/plating,/area/awaymission/centcomAway/maint)
+"nD" = (/obj/structure/table,/obj/item/weapon/storage/box/donkpockets,/obj/machinery/light{icon_state = "tube1"; dir = 8},/turf/simulated/shuttle/floor,/area/awaymission/centcomAway/hangar)
+"nE" = (/obj/structure/table,/obj/item/device/radio/off,/obj/machinery/light{icon_state = "tube1"; dir = 4},/turf/simulated/shuttle/floor,/area/awaymission/centcomAway/hangar)
+"nF" = (/obj/machinery/door/airlock/glass{name = "Med-Sci"; req_access_txt = ""},/turf/simulated/floor/plasteel{icon_state = "white"},/area/awaymission/centcomAway/general)
+"nG" = (/obj/machinery/light{icon_state = "tube1"; dir = 8},/turf/simulated/floor/carpet,/area/awaymission/centcomAway/courtroom)
+"nH" = (/obj/structure/cable{d1 = 1; d2 = 8; icon_state = "1-8"},/obj/structure/cable{d1 = 1; d2 = 4; icon_state = "1-4"; tag = ""},/turf/simulated/floor/plating,/area/awaymission/centcomAway/maint)
+"nI" = (/obj/machinery/light,/obj/structure/cable{d1 = 4; d2 = 8; icon_state = "4-8"; pixel_x = 0; tag = ""},/turf/simulated/floor/plating,/area/awaymission/centcomAway/maint)
+"nJ" = (/obj/structure/cable{d1 = 2; d2 = 8; icon_state = "2-8"; tag = ""},/turf/simulated/floor/plating,/area/awaymission/centcomAway/maint)
+"nK" = (/obj/machinery/light{icon_state = "tube1"; dir = 8},/turf/simulated/floor/plasteel{icon_state = "dark"},/area/awaymission/centcomAway/courtroom)
+"nL" = (/obj/structure/stool/bed/chair{dir = 8},/obj/machinery/light{icon_state = "tube1"; dir = 4},/turf/simulated/floor/wood,/area/awaymission/centcomAway/courtroom)
+"nM" = (/obj/structure/window/reinforced{dir = 1},/obj/machinery/light{icon_state = "tube1"; dir = 8},/turf/simulated/floor/wood,/area/awaymission/centcomAway/courtroom)
+"nN" = (/obj/machinery/light{icon_state = "tube1"; dir = 8},/turf/simulated/floor/plasteel{icon_state = "vault"; dir = 5},/area/awaymission/centcomAway/hangar)
+"nO" = (/mob/living/simple_animal/hostile/russian/ranged{loot = list(/obj/effect/landmark/mobcorpse/russian/ranged)},/turf/simulated/floor/plasteel{icon_state = "vault"; dir = 5},/area/awaymission/centcomAway/hangar)
+"nP" = (/obj/structure/stool/bed/chair{dir = 4},/obj/machinery/light{icon_state = "tube1"; dir = 8},/turf/simulated/floor/carpet,/area/awaymission/centcomAway/courtroom)
+"nQ" = (/obj/structure/table,/obj/machinery/light{icon_state = "tube1"; dir = 4},/turf/simulated/floor/plating{tag = "icon-warnplate (NORTH)"; icon_state = "warnplate"; dir = 1},/area/awaymission/centcomAway/hangar)
+"nR" = (/obj/machinery/light{icon_state = "tube1"; dir = 8},/turf/simulated/floor/plasteel{tag = "icon-blackcorner (WEST)"; icon_state = "blackcorner"; dir = 8},/area/awaymission/centcomAway/general)
+"nS" = (/obj/machinery/door/airlock/engineering{name = "Engineering Access"; req_access_txt = "10"},/obj/structure/cable{d1 = 4; d2 = 8; icon_state = "4-8"; pixel_x = 0; tag = ""},/turf/simulated/floor/plating,/area/awaymission/centcomAway/general)
+"nT" = (/obj/machinery/light{icon_state = "tube1"; dir = 4},/turf/simulated/floor/wood,/area/awaymission/centcomAway/courtroom)
+"nU" = (/obj/structure/table,/obj/item/weapon/paper/ccaMemo,/obj/item/weapon/rcd_ammo,/obj/item/weapon/rcd_ammo,/turf/simulated/floor/plating,/area/awaymission/centcomAway/hangar)
+"nV" = (/obj/machinery/light,/turf/simulated/floor/plasteel{icon_state = "dark"},/area/awaymission/centcomAway/courtroom)
+"nW" = (/obj/structure/table,/obj/item/stack/cable_coil,/obj/item/weapon/rcd,/turf/simulated/floor/plating,/area/awaymission/centcomAway/hangar)
+"nX" = (/obj/machinery/light{icon_state = "tube1"; dir = 8},/turf/simulated/floor/plasteel{icon_state = "dark"},/area/awaymission/centcomAway/general)
+"nY" = (/obj/structure/computerframe,/turf/simulated/floor/plasteel{icon_state = "floor"},/area/awaymission/centcomAway/general)
+"nZ" = (/obj/machinery/light,/turf/simulated/floor/plasteel{icon_state = "engine"},/area/awaymission/centcomAway/general)
+"oa" = (/mob/living/simple_animal/hostile/russian/ranged{loot = list(/obj/effect/landmark/mobcorpse/russian/ranged)},/turf/simulated/floor/plasteel{icon_state = "floor"},/area/awaymission/centcomAway/general)
+"ob" = (/obj/machinery/light{icon_state = "tube1"; dir = 4},/turf/simulated/floor/plasteel{icon_state = "white"},/area/awaymission/centcomAway/courtroom)
+"oc" = (/obj/machinery/light,/turf/simulated/floor/plasteel{icon_state = "dark"},/area/awaymission/centcomAway/hangar)
+"od" = (/obj/structure/table,/obj/item/stack/sheet/metal{amount = 50},/obj/machinery/light,/turf/simulated/floor/plating,/area/awaymission/centcomAway/hangar)
+"oe" = (/obj/machinery/light,/turf/simulated/floor/plasteel{icon_state = "floor"},/area/awaymission/centcomAway/general)
+"of" = (/obj/structure/cable{d1 = 2; d2 = 4; icon_state = "2-4"},/turf/simulated/floor/plasteel{icon_state = "floor"},/area/awaymission/centcomAway/general)
+"og" = (/obj/machinery/light,/turf/simulated/floor/plasteel{icon_state = "white"},/area/awaymission/centcomAway/general)
+"oh" = (/obj/machinery/light{dir = 1; in_use = 1},/turf/simulated/floor/plasteel{tag = "icon-vault (WEST)"; icon_state = "vault"; dir = 8},/area/awaymission/centcomAway/hangar)
+"oi" = (/obj/machinery/light{dir = 1; in_use = 1},/turf/simulated/floor/plasteel{icon_state = "grimy"},/area/awaymission/centcomAway/general)
+"oj" = (/obj/machinery/light{dir = 1; in_use = 1},/turf/simulated/floor/plasteel{icon_state = "dark"},/area/awaymission/centcomAway/general)
+"ok" = (/obj/machinery/light{dir = 1; in_use = 1},/turf/simulated/floor/plasteel{icon_state = "dark"},/area/awaymission/centcomAway/hangar)
+"ol" = (/obj/machinery/light{dir = 1; in_use = 1},/turf/simulated/floor/plasteel{icon_state = "green"; dir = 9},/area/awaymission/centcomAway/general)
+"om" = (/obj/machinery/light{dir = 1; in_use = 1},/turf/simulated/floor/plasteel{icon_state = "green"; dir = 5},/area/awaymission/centcomAway/general)
+"on" = (/obj/machinery/light{dir = 1; in_use = 1},/turf/simulated/floor/plasteel{tag = "icon-vault (NORTH)"; icon_state = "vault"; dir = 1},/area/awaymission/centcomAway/general)
+"oo" = (/mob/living/simple_animal/hostile/russian/ranged{loot = list(/obj/effect/landmark/mobcorpse/russian/ranged)},/turf/simulated/floor/plasteel{tag = "icon-vault (NORTHEAST)"; icon_state = "vault"; dir = 5},/area/awaymission/centcomAway/general)
+"op" = (/obj/machinery/light,/turf/simulated/floor/plasteel{icon_state = "dark"},/area/awaymission/centcomAway/general)
+"oq" = (/obj/structure/safe/floor,/obj/item/clothing/suit/storage/det_suit,/turf/simulated/floor/plasteel{icon_state = "grimy"},/area/awaymission/centcomAway/general)
+"or" = (/obj/effect/decal/cleanable/cobweb2,/obj/machinery/light,/turf/simulated/floor/plasteel{icon_state = "grimy"},/area/awaymission/centcomAway/general)
+"os" = (/obj/machinery/computer/card,/obj/machinery/light,/turf/simulated/floor/plasteel{icon_state = "dark"},/area/awaymission/centcomAway/general)
+"ot" = (/obj/machinery/light,/turf/simulated/floor/plasteel{tag = "icon-vault (WEST)"; icon_state = "vault"; dir = 8},/area/awaymission/centcomAway/hangar)
+"ou" = (/obj/structure/table,/obj/item/stack/sheet/glass{amount = 50},/obj/item/stack/sheet/metal{amount = 50},/obj/machinery/light,/turf/simulated/floor/plasteel{tag = "icon-vault"; icon_state = "vault"},/area/awaymission/centcomAway/hangar)
+"ov" = (/obj/machinery/light{dir = 1; in_use = 1},/turf/simulated/floor/plating,/area/awaymission/centcomAway/hangar)
+"ow" = (/obj/machinery/vending/coffee,/obj/machinery/light{icon_state = "tube1"; dir = 8},/turf/simulated/floor/plasteel{icon_state = "green"; dir = 8},/area/awaymission/centcomAway/general)
+"ox" = (/obj/machinery/vending/cigarette,/obj/machinery/light{icon_state = "tube1"; dir = 4},/turf/simulated/floor/plasteel{icon_state = "green"; dir = 4},/area/awaymission/centcomAway/general)
+"oy" = (/obj/structure/flora/ausbushes,/obj/machinery/light{icon_state = "tube1"; dir = 8},/turf/simulated/floor/plasteel{icon_state = "asteroid6"; name = "sand"; tag = "icon-asteroid6"},/area/awaymission/centcomAway/general)
+"oz" = (/obj/structure/flora/ausbushes,/obj/machinery/light{icon_state = "tube1"; dir = 4},/turf/simulated/floor/plasteel{tag = "icon-asteroid"; name = "plating"; icon_state = "asteroid"},/area/awaymission/centcomAway/general)
+"oA" = (/obj/machinery/light{icon_state = "tube1"; dir = 8},/turf/simulated/floor/plasteel{icon_state = "floor"},/area/awaymission/centcomAway/general)
+"oB" = (/obj/machinery/light{icon_state = "tube1"; dir = 4},/turf/simulated/floor/plasteel{icon_state = "floor"},/area/awaymission/centcomAway/general)
+"oC" = (/obj/structure/stool/bed/chair{dir = 4},/obj/machinery/light{icon_state = "tube1"; dir = 8},/turf/simulated/floor/plasteel{icon_state = "green"; dir = 8},/area/awaymission/centcomAway/general)
+"oD" = (/obj/structure/stool/bed/chair{dir = 8},/obj/machinery/light{icon_state = "tube1"; dir = 4},/turf/simulated/floor/plasteel{icon_state = "green"; dir = 4},/area/awaymission/centcomAway/general)
+"oE" = (/obj/machinery/light,/turf/simulated/floor/plating,/area/awaymission/centcomAway/hangar)
+"oF" = (/obj/item/weapon/paper_bin,/obj/structure/table/reinforced,/obj/machinery/light{dir = 1; in_use = 1},/turf/simulated/floor/plasteel{icon_state = "floor"},/area/awaymission/centcomAway/general)
+"oG" = (/obj/machinery/photocopier,/obj/machinery/light{icon_state = "tube1"; dir = 8},/turf/simulated/floor/plasteel{tag = "icon-vault (EAST)"; icon_state = "vault"; dir = 4},/area/awaymission/centcomAway/general)
+"oH" = (/obj/machinery/light,/turf/simulated/floor/plasteel{icon_state = "red"; dir = 2},/area/awaymission/centcomAway/general)
+"oI" = (/obj/machinery/light,/turf/simulated/floor/plasteel{icon_state = "green"},/area/awaymission/centcomAway/general)
+"oJ" = (/obj/machinery/light,/turf/simulated/floor/plasteel{tag = "icon-vault (NORTH)"; icon_state = "vault"; dir = 1},/area/awaymission/centcomAway/general)
+"oK" = (/obj/machinery/light,/turf/simulated/floor/plasteel{tag = "icon-vault (NORTHEAST)"; icon_state = "vault"; dir = 5},/area/awaymission/centcomAway/general)
+"oL" = (/obj/machinery/light{dir = 1; in_use = 1},/turf/simulated/floor/plasteel{tag = "icon-vault (NORTHEAST)"; icon_state = "vault"; dir = 5},/area/awaymission/centcomAway/thunderdome)
+"oM" = (/obj/machinery/light,/turf/simulated/floor/plasteel{tag = "icon-vault (NORTHEAST)"; icon_state = "vault"; dir = 5},/area/awaymission/centcomAway/thunderdome)
+"oN" = (/obj/machinery/light{dir = 1; in_use = 1},/turf/simulated/floor/plasteel{tag = "icon-barber (WEST)"; icon_state = "barber"; dir = 8; heat_capacity = 1},/area/awaymission/centcomAway/thunderdome)
+"oO" = (/obj/machinery/light{dir = 1; in_use = 1},/turf/simulated/floor/plasteel{tag = "icon-redbluefull (WEST)"; icon_state = "redbluefull"; dir = 8},/area/awaymission/centcomAway/thunderdome)
+"oP" = (/obj/structure/reagent_dispensers/water_cooler,/obj/machinery/light{dir = 1; in_use = 1},/turf/simulated/floor/plasteel{tag = "icon-redbluefull (WEST)"; icon_state = "redbluefull"; dir = 8},/area/awaymission/centcomAway/thunderdome)
+"oQ" = (/mob/living/simple_animal/hostile/russian/ranged{loot = list(/obj/effect/landmark/mobcorpse/russian/ranged)},/turf/simulated/floor/plasteel{tag = "icon-vault (NORTHEAST)"; icon_state = "vault"; dir = 5},/area/awaymission/centcomAway/thunderdome)
+"oR" = (/obj/machinery/light{icon_state = "tube1"; dir = 4},/turf/simulated/floor/plasteel{tag = "icon-vault (NORTHEAST)"; icon_state = "vault"; dir = 5},/area/awaymission/centcomAway/thunderdome)
+"oS" = (/obj/structure/rack,/obj/item/clothing/under/color/red,/obj/item/clothing/shoes/brown,/obj/item/weapon/hatchet,/turf/simulated/floor/plasteel{icon_state = "dark"},/area/awaymission/centcomAway/thunderdome)
+"oT" = (/obj/machinery/light{dir = 1; in_use = 1},/turf/simulated/floor/plasteel{icon_state = "dark"},/area/awaymission/centcomAway/thunderdome)
+"oU" = (/obj/structure/rack,/obj/item/clothing/under/color/green,/obj/item/clothing/shoes/brown,/obj/item/weapon/hatchet,/turf/simulated/floor/plasteel{icon_state = "dark"},/area/awaymission/centcomAway/thunderdome)
+"oV" = (/obj/machinery/light{icon_state = "tube1"; dir = 8},/turf/simulated/floor/plasteel{tag = "icon-vault (NORTHEAST)"; icon_state = "vault"; dir = 5},/area/awaymission/centcomAway/thunderdome)
+"oW" = (/obj/machinery/light{icon_state = "tube1"; dir = 4},/turf/simulated/floor/plasteel{icon_state = "white"},/area/awaymission/centcomAway/thunderdome)
+"oX" = (/obj/machinery/light{icon_state = "tube1"; dir = 8},/turf/simulated/floor/plasteel{icon_state = "white"},/area/awaymission/centcomAway/thunderdome)
+"oY" = (/obj/machinery/light{icon_state = "tube1"; dir = 4},/turf/simulated/floor/plasteel{icon_state = "floor"},/area/awaymission/centcomAway/thunderdome)
+"oZ" = (/obj/machinery/light{icon_state = "tube1"; dir = 8},/turf/simulated/floor/plasteel{icon_state = "floor"},/area/awaymission/centcomAway/thunderdome)
+"pa" = (/obj/machinery/light,/turf/simulated/floor/plasteel{icon_state = "dark"},/area/awaymission/centcomAway/thunderdome)
+"pb" = (/obj/structure/rack,/turf/simulated/floor/plasteel{icon_state = "dark"},/area/awaymission/centcomAway/thunderdome)
+"pc" = (/mob/living/simple_animal/hostile/russian/ranged{loot = list(/obj/effect/landmark/mobcorpse/russian/ranged)},/turf/simulated/floor/plasteel{tag = "icon-redyellowfull (NORTHEAST)"; icon_state = "redyellowfull"; dir = 5},/area/awaymission/centcomAway/thunderdome)
+"pd" = (/obj/structure/table,/obj/machinery/light,/turf/simulated/floor/plasteel{tag = "icon-redyellowfull (NORTHEAST)"; icon_state = "redyellowfull"; dir = 5},/area/awaymission/centcomAway/thunderdome)
+"pe" = (/obj/machinery/light,/turf/simulated/floor/plasteel{tag = "icon-redyellowfull (NORTHEAST)"; icon_state = "redyellowfull"; dir = 5},/area/awaymission/centcomAway/thunderdome)
+"pf" = (/obj/structure/table,/obj/item/weapon/reagent_containers/food/snacks/popcorn,/obj/machinery/light,/turf/simulated/floor/plasteel{tag = "icon-redyellowfull (NORTHEAST)"; icon_state = "redyellowfull"; dir = 5},/area/awaymission/centcomAway/thunderdome)
+"pg" = (/obj/machinery/light{icon_state = "tube1"; dir = 8},/turf/simulated/floor/plasteel{tag = "icon-vault (NORTHEAST)"; icon_state = "vault"; dir = 5},/area/awaymission/centcomAway/general)
+"ph" = (/obj/structure/cable{d1 = 2; d2 = 8; icon_state = "2-8"; tag = ""},/turf/simulated/floor/plasteel{icon_state = "floor"},/area/awaymission/centcomAway/general)
+"pi" = (/obj/machinery/light{icon_state = "tube1"; dir = 4},/turf/simulated/floor/plasteel{icon_state = "dark"},/area/awaymission/centcomAway/hangar)
+"pj" = (/obj/structure/table,/obj/item/device/multitool,/obj/machinery/light,/turf/simulated/floor/plating,/area/awaymission/centcomAway/hangar)
+"pk" = (/obj/machinery/door/airlock/centcom,/obj/structure/cable{d1 = 1; d2 = 2; icon_state = "1-2"; pixel_y = 0},/turf/simulated/floor/plasteel{tag = "icon-vault (NORTHEAST)"; icon_state = "vault"; dir = 5},/area/awaymission/centcomAway/general)
+"pl" = (/obj/structure/cable{d1 = 1; d2 = 2; icon_state = "1-2"; pixel_y = 0},/turf/simulated/wall,/area/awaymission/centcomAway/courtroom)
+"pm" = (/obj/structure/cable{d1 = 1; d2 = 2; icon_state = "1-2"; pixel_y = 0},/turf/simulated/floor/plasteel{icon_state = "floor"},/area/awaymission/centcomAway/general)
+"pn" = (/obj/structure/cable{d2 = 8; icon_state = "0-8"},/obj/machinery/computer/monitor,/turf/simulated/floor/plasteel{icon_state = "yellow"},/area/awaymission/centcomAway/general)
+"po" = (/obj/structure/cable{d1 = 1; d2 = 2; icon_state = "1-2"; pixel_y = 0},/obj/structure/cable{d1 = 1; d2 = 4; icon_state = "1-4"; tag = "90Curve"},/turf/simulated/floor/plasteel{icon_state = "yellow"; dir = 10},/area/awaymission/centcomAway/general)
+"pp" = (/obj/structure/cable{d1 = 1; d2 = 2; icon_state = "1-2"; pixel_y = 0},/turf/simulated/floor/plasteel{tag = "icon-blackcorner (EAST)"; icon_state = "blackcorner"; dir = 4},/area/awaymission/centcomAway/general)
+"pq" = (/obj/machinery/power/apc/noalarm{cell_type = 15000; dir = 4; locked = 0; name = "Court APC"; pixel_x = 25; req_access = null; start_charge = 100},/obj/structure/cable,/turf/simulated/floor/plasteel{icon_state = "dark"},/area/awaymission/centcomAway/courtroom)
+"pr" = (/obj/structure/cable{d1 = 4; d2 = 8; icon_state = "4-8"; pixel_x = 0; tag = ""},/turf/simulated/floor/plasteel{icon_state = "floor"},/area/awaymission/centcomAway/general)
+"ps" = (/obj/machinery/power/terminal,/obj/structure/cable{d2 = 4; icon_state = "0-4"},/turf/simulated/floor/plasteel{icon_state = "floor"},/area/awaymission/centcomAway/general)
+"pt" = (/obj/structure/cable{d1 = 1; d2 = 8; icon_state = "1-8"; tag = ""},/obj/structure/cable{d1 = 1; d2 = 2; icon_state = "1-2"; tag = ""},/turf/simulated/floor/plasteel{icon_state = "floor"},/area/awaymission/centcomAway/general)
+"pu" = (/obj/machinery/door/airlock/glass_engineering{name = "Engineering"; req_access_txt = "32"},/obj/structure/cable{d1 = 1; d2 = 2; icon_state = "1-2"; pixel_y = 0},/turf/simulated/floor/plasteel{icon_state = "floor"},/area/awaymission/centcomAway/general)
+"pv" = (/obj/machinery/power/apc/noalarm{cell_type = 15000; dir = 4; locked = 0; name = "Control APC"; pixel_x = 25; req_access = null; start_charge = 100},/obj/structure/cable{icon_state = "0-2"; pixel_y = 1; d2 = 2},/obj/structure/cable{d1 = 1; d2 = 2; icon_state = "1-2"; pixel_y = 0},/turf/simulated/floor/plasteel{icon_state = "floor"},/area/awaymission/centcomAway/general)
+"pw" = (/obj/machinery/power/smes{charge = 5e+006; input_level = 200000; inputting = 0; output_level = 100000; outputting = 1},/obj/structure/cable{d2 = 4; icon_state = "0-4"},/turf/simulated/floor/plasteel{icon_state = "floor"},/area/awaymission/centcomAway/general)
+"px" = (/obj/structure/cable{d1 = 1; d2 = 8; icon_state = "1-8"; tag = ""},/turf/simulated/floor/plasteel{dir = 6; icon_state = "yellow"},/area/awaymission/centcomAway/general)
+"py" = (/obj/structure/cable{d1 = 4; d2 = 8; icon_state = "4-8"; pixel_x = 0; tag = ""},/turf/simulated/floor/plasteel{dir = 1; icon_state = "yellow"},/area/awaymission/centcomAway/general)
+"pz" = (/obj/structure/cable{d1 = 2; d2 = 4; icon_state = "2-4"; tag = ""},/obj/structure/cable{d1 = 1; d2 = 4; icon_state = "1-4"; tag = "90Curve"},/turf/simulated/floor/plasteel{icon_state = "floor"},/area/awaymission/centcomAway/general)
+"pA" = (/obj/machinery/light{dir = 1; in_use = 1},/obj/structure/cable{d1 = 4; d2 = 8; icon_state = "4-8"; pixel_x = 0; tag = ""},/turf/simulated/floor/plasteel{dir = 1; icon_state = "yellow"},/area/awaymission/centcomAway/general)
+"pB" = (/obj/structure/cable{d1 = 4; d2 = 8; icon_state = "4-8"; pixel_x = 0; tag = ""},/turf/simulated/floor/plasteel{dir = 1; icon_state = "yellowcorner"},/area/awaymission/centcomAway/general)
+"pC" = (/obj/structure/cable{d1 = 4; d2 = 8; icon_state = "4-8"; pixel_x = 0; tag = ""},/turf/simulated/floor/plasteel{tag = "icon-purplecorner (EAST)"; icon_state = "purplecorner"; dir = 4},/area/awaymission/centcomAway/general)
+"pD" = (/obj/structure/cable{d1 = 1; d2 = 4; icon_state = "1-4"; tag = "90Curve"},/obj/structure/cable{d1 = 4; d2 = 8; icon_state = "4-8"; pixel_x = 0; tag = ""},/turf/simulated/floor/plasteel{icon_state = "floor"},/area/awaymission/centcomAway/general)
+"pE" = (/obj/machinery/light{dir = 1; in_use = 1},/obj/structure/cable{d1 = 4; d2 = 8; icon_state = "4-8"; pixel_x = 0; tag = ""},/turf/simulated/floor/plasteel{tag = "icon-purple (NORTH)"; icon_state = "purple"; dir = 1},/area/awaymission/centcomAway/general)
+"pF" = (/obj/structure/cable{d1 = 4; d2 = 8; icon_state = "4-8"; pixel_x = 0; tag = ""},/turf/simulated/floor/plasteel{tag = "icon-purple (NORTH)"; icon_state = "purple"; dir = 1},/area/awaymission/centcomAway/general)
+"pG" = (/obj/machinery/power/apc/noalarm{cell_type = 15000; dir = 4; locked = 0; name = "Hangar APC"; pixel_x = 25; req_access = null; start_charge = 100},/obj/structure/cable{icon_state = "0-2"; pixel_y = 1; d2 = 2},/turf/simulated/floor/plasteel{icon_state = "vault"; dir = 5},/area/awaymission/centcomAway/hangar)
+"pH" = (/obj/structure/cable{d1 = 1; d2 = 4; icon_state = "1-4"; tag = "90Curve"},/turf/simulated/floor/plasteel{icon_state = "vault"; dir = 5},/area/awaymission/centcomAway/hangar)
+"pI" = (/obj/structure/cable{d1 = 4; d2 = 8; icon_state = "4-8"; pixel_x = 0; tag = ""},/turf/simulated/wall/r_wall,/area/awaymission/centcomAway/hangar)
+"pJ" = (/obj/machinery/door/airlock/maintenance_hatch{req_access_txt = "101"},/obj/structure/cable{d1 = 4; d2 = 8; icon_state = "4-8"; pixel_x = 0; tag = ""},/turf/simulated/floor/plating,/area/awaymission/centcomAway/maint)
+"pK" = (/obj/structure/cable{d1 = 1; d2 = 8; icon_state = "1-8"},/turf/simulated/floor/plasteel{dir = 8; icon_state = "warning"},/area/awaymission/centcomAway/general)
+"pL" = (/obj/structure/cable{d1 = 1; d2 = 4; icon_state = "1-4"; tag = "90Curve"},/obj/structure/cable{d1 = 2; d2 = 4; icon_state = "2-4"; tag = ""},/turf/simulated/floor/plasteel{dir = 4; icon_state = "warning"},/area/awaymission/centcomAway/general)
+"pM" = (/obj/machinery/light{icon_state = "tube1"; dir = 4},/obj/structure/cable{d1 = 1; d2 = 2; icon_state = "1-2"; pixel_y = 0},/turf/simulated/floor/plasteel{tag = "icon-blackcorner"; icon_state = "blackcorner"},/area/awaymission/centcomAway/general)
+"pN" = (/obj/structure/cable{d1 = 4; d2 = 8; icon_state = "4-8"; pixel_x = 0; tag = ""},/turf/simulated/floor/plasteel{dir = 8; icon_state = "greencorner"},/area/awaymission/centcomAway/general)
+"pO" = (/obj/structure/cable{d1 = 2; d2 = 4; icon_state = "2-4"; tag = ""},/turf/simulated/floor/plasteel{dir = 2; icon_state = "green"},/area/awaymission/centcomAway/general)
+"pP" = (/obj/machinery/light,/obj/structure/cable{d1 = 4; d2 = 8; icon_state = "4-8"; pixel_x = 0; tag = ""},/turf/simulated/floor/plasteel{tag = "icon-blackcorner"; icon_state = "blackcorner"},/area/awaymission/centcomAway/general)
+"pQ" = (/obj/structure/cable{d1 = 4; d2 = 8; icon_state = "4-8"; pixel_x = 0; tag = ""},/turf/simulated/floor/plasteel{tag = "icon-blackcorner (WEST)"; icon_state = "blackcorner"; dir = 8},/area/awaymission/centcomAway/general)
+"pR" = (/obj/structure/cable{d1 = 1; d2 = 8; icon_state = "1-8"},/turf/simulated/floor/plasteel{icon_state = "floor"},/area/awaymission/centcomAway/general)
+"pS" = (/obj/structure/cable{d1 = 1; d2 = 2; icon_state = "1-2"; pixel_y = 0},/turf/simulated/wall/r_wall,/area/awaymission/centcomAway/general)
+"pT" = (/obj/machinery/light/small{dir = 1},/turf/simulated/floor/plating,/area/awaymission/centcomAway/hangar)
+"pU" = (/obj/machinery/door/poddoor/shutters{dir = 2; id_tag = "XCCsec3"; name = "XCC Main Access Shutters"},/obj/structure/cable{d1 = 1; d2 = 2; icon_state = "1-2"; pixel_y = 0},/turf/simulated/floor/plasteel{icon_state = "delivery"},/area/awaymission/centcomAway/general)
+"pV" = (/obj/structure/flora/ausbushes,/obj/machinery/light/small{dir = 1},/turf/simulated/floor/plasteel{icon_state = "asteroid6"; name = "sand"; tag = "icon-asteroid6"},/area/awaymission/centcomAway/general)
+"pW" = (/obj/structure/grille,/obj/structure/window/reinforced{dir = 8},/obj/structure/window/reinforced,/obj/structure/window/reinforced{dir = 1},/obj/structure/window/reinforced{dir = 4},/obj/structure/cable{d1 = 1; d2 = 2; icon_state = "1-2"; pixel_y = 0},/turf/simulated/floor/plating,/area/awaymission/centcomAway/general)
+"pX" = (/obj/structure/cable{d1 = 1; d2 = 2; icon_state = "1-2"; pixel_y = 0},/turf/simulated/floor/plasteel{icon_state = "greencorner"; dir = 4},/area/awaymission/centcomAway/general)
+"pY" = (/obj/structure/cable{d1 = 1; d2 = 2; icon_state = "1-2"; pixel_y = 0},/turf/simulated/floor/plasteel{dir = 2; icon_state = "greencorner"},/area/awaymission/centcomAway/general)
+"pZ" = (/obj/structure/grille,/obj/structure/window/reinforced,/obj/structure/window/reinforced{dir = 1},/obj/structure/window/reinforced{dir = 8},/obj/structure/cable{d1 = 1; d2 = 2; icon_state = "1-2"; pixel_y = 0},/turf/simulated/floor/plating,/area/awaymission/centcomAway/general)
+"qa" = (/obj/machinery/light/small{dir = 8},/turf/simulated/floor/plating,/area/awaymission/centcomAway/general)
+"qb" = (/obj/structure/cable{d1 = 1; d2 = 2; icon_state = "1-2"; pixel_y = 0},/turf/simulated/floor/plasteel{icon_state = "green"},/area/awaymission/centcomAway/general)
+"qc" = (/obj/structure/cable{d1 = 1; d2 = 2; icon_state = "1-2"; pixel_y = 0},/turf/simulated/floor/plasteel{icon_state = "neutral"; dir = 4},/area/awaymission/centcomAway/general)
+"qd" = (/obj/machinery/door/airlock/external,/obj/structure/cable{d1 = 1; d2 = 2; icon_state = "1-2"; pixel_y = 0},/turf/simulated/floor/plasteel{icon_state = "green"; dir = 6},/area/awaymission/centcomAway/general)
+"qe" = (/obj/machinery/door/airlock/external,/obj/structure/cable{d1 = 1; d2 = 2; icon_state = "1-2"; pixel_y = 0},/turf/simulated/floor/plating,/area/awaymission/centcomAway/general)
+"qf" = (/obj/structure/cable{d1 = 1; d2 = 2; icon_state = "1-2"; pixel_y = 0},/turf/simulated/floor/plating,/area/awaymission/centcomAway/general)
+"qg" = (/obj/machinery/door/airlock/external,/obj/structure/cable{d1 = 1; d2 = 2; icon_state = "1-2"; pixel_y = 0},/turf/simulated/floor/plating,/area/awaymission/centcomAway/thunderdome)
+"qh" = (/obj/machinery/power/apc/noalarm{cell_type = 15000; dir = 4; locked = 0; name = "Kitchen APC"; pixel_x = 25; req_access = null; start_charge = 100},/obj/structure/cable,/turf/simulated/floor/plasteel{tag = "icon-vault (NORTHEAST)"; icon_state = "vault"; dir = 5},/area/awaymission/centcomAway/thunderdome)
+"qi" = (/obj/structure/rack,/obj/item/weapon/restraints/legcuffs/beartrap,/obj/item/weapon/twohanded/fireaxe,/obj/machinery/light/small{dir = 1},/turf/simulated/floor/plasteel{icon_state = "dark"},/area/awaymission/centcomAway/thunderdome)
+"qj" = (/obj/structure/rack,/obj/machinery/light/small,/turf/simulated/floor/plasteel{icon_state = "dark"},/area/awaymission/centcomAway/thunderdome)
 
 (1,1,1) = {"
 aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
@@ -728,94 +869,94 @@ aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
 aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
 aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaabababababababacadaeaeaeaeaeafacacacacacacacacacacacacacacacacaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
 aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaababagagagagagahaiaiaiaiaiaiaiaiajakalamanaoapaqarasatauavavauakaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaababagagakakakakakaiaiaiaiaiaiaiaiaiakawaxayazaxaxaxaAaBauaCaDauakaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaabaEagagakaFaGaHakaiaiaIaJaJaiaiaiawaKawaxaLazaxaxaxaMaBauaNaOauakaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaabaPagagakaQaGaGaRaiaiaIaJaJaiaiaiawaSawaxaxazaxaxaxaMaBauaNaOauakabaTaUaUaVababaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaWaWaWaWaWaWaWaWaWaWaWaWaWaWaWaWaWaWaWaWaWaWaWaWagagakakakakakaiaiaiaiaiaiaiaiawaKaXaxaxaYawaZawbabbauaNaOauakagagbcbcagbdababaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaWbebfbfbfbfbfbfbfbfbgbfbfbfbfbfbfbfbfbfbfbfbfaWagagakaFaGaHakaiaiaiaiaiaiaiaiaIbhawaxaxaYakakbiakakbjaNaObkakblagagagagagagabaabmaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaabnbobfbpbqbrbsbtbfbfbfbfbfbfbfbpbqbrbsbtbfbgbuaWagagakaQaGaGaRaiaiaiaiaiaiaiaiaIbhawaxaxaYbvbwbxbyakbzbAaObBakbCagagagagagagabaabmaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaabnbobfbDbEbEbEbFbGbHbIbJbGbHbIbKbEbEbEbDbfbfbfaWagagakakakakakaiaiaibLbLaiaiaiaIbhawbMbNaYakbObxbPakbQbRbSbBakakakacababagagabababbmbTbTbTbTbTbTbTbTbTbTbTbTaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaabnbobfbDbUbUbVbWbXbYbZcacbbYbXcccdbUbUbDbfbfbfaWagagakaFaGaHakaiaiaIcecfaiaiaiaiakakakaKcgakakakakakchciciaKcjckckataaclagagcmagcncococococococococococococoaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaabnbobfbDbUbUcpcqcqbYcqcqcqbYcqcqcpbUbUbDbfbfbfaWagagakaQaGaGaRaiaiaIcraJaiaiaiaiaKcscscsctcucucucucucvcwcwcwcwcwcwaBaacxagagcyababbmbTbTbTbTbTbTbTbTbTbTbTbTaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaabnbobfczcdbUcAcqbYbYbYbYbYbYbYcqcAbUbVcBbfbfcCaWcDcEakakakakakaiaiaIaJaJaiaiaiaicFcscscGcGcGcscscscscicwcHcIcJcKcwaBaacxagagabaabmaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaabnbobfbfczbJcLcMcNcOcPbYcQcqbYcScTbJcBbfbfcUcUcmagagagcVaiaiaiaiaiaIaJaJaiaiaiaiaKcscscscWcucucucucucXcwcwcwcwcwcwaBaacxagagabaabmaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaabnbobfbgbfbfbDcYcZdadbbYcqcqbYcSbDbfbfbfbfbfcUcmagagagcVaiaiaiaiaiaIaJaJaiaiaiaiakakakaKdcakakakakakchciciaKcjckckbbaaddagagcyababbmbTbTbTbTbTbTbTbTbTbTbTbTaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaabnbobfbgcUbfbDdedfdfcPbYcSdgbYcScpdhbfbfdidicCaWaWcEakakakakakaiaiaiaiaiaiaiaiaIbhdjdkdldmakbObxbPakbQdndobBakakakacababagagcmagcmcococococococococococococoaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaabnbobfbfbfbfbDdpdfdfdqbYcSdgbYbYbHbfbfbfbodrdsdtaWagakaFduaHakaiaiaiaiaiaiaiaiaIbhdjaxaxdmdvbwbxbyakdwbAdxbBakbCagagagagagagabababbmbTbTbTbTbTbTbTbTbTbTbTbTaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaabnbobfcUbgbfbFbJbJbJcLbYcqcqbYcSdybfbfbfbobecUdzaWagakaQaGaGaRaiaiaiaiaiaiaiaiaIbhdjaxaxdmakakbiakakdAdBdxdCakdDagagagagagagabaabmbmaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaabnbobfbfbfbfbDdEbYdEbDbYcSdgbYcSdFbfbfbfbobecUdGaWagakakakakakaiaiaIaJdHaiaiaidjaKdIaxaxdmdjdJdjdKataudBdxauakakakakakagagagabaabmbmaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaabnbobfbfbfbfbDdEbYdLcpbYcSdgbYcSdybfbfbfbobecUdGaWagakaFduaHakaiaiaIaJaJaiaiaidjdMdjaxaxazaxaxaxdNaBaudBdxauakdOdPdQakagagababaabmbmaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaabnbobfbfbfbfbDdEbYbYdRbYbYbYbYbYbHbfbfbfbodSdTdUaWagakaQaGaGaRaiaiaiaiaiaiaiaidjaKdjaxaLazaxaxaxdNaBaudBdxauakdVdWdWdXagagabaaaabmbmaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaabnbobfbfbfbfbDdEbYdEdYbYcqcqcqcqdYbfbfbfaWaWaWaWaWagakakdZeaakakakdZebeaakaiaiaiakdjaxayazaxaxaxecaBauedeeauakefegehakagagabaaaabmbmaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaabnbobfbfbfcUbDdEbYdEbDbYeiejekbXbDbfbgbfbuaWbdagagagacelemeneneoenepeneqacereseraketeuevewexeyezeAbbauavavauakakakakakagagababababababaTaUaUaVababaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaabnbobfbfbfcUeBeCeCbJeDeEbIbJeCeCcBbfbfbfbfaWagageFeFeFeFeFeFeFeFeFeFeFeFeFeGeGeGeFeFeFeFeFeFeFeFeFeFeFeFeFakakeHeIbdagagageJagagagagagagagagagagabababaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaabnbobfbfbfcUcUeBbKeKcSbYeLeMbFcBbfbfbfbfcUaWagageFeNeOeOeOePeFeNeQeReQePeFeGeGeGeFeSeUeUeVeWeFeXeYeZfafbeFagagagagagagagagagagagagagagagagagagagageIabaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaabnbobfbfbfbfcUcUbDekcqfccqeKbDbfbfbfbfcUcUaWagageFeOeOfdeOeOfeeOeOeOeOeOeFfffgffeFeUeUeUeUfhfieUeUeUfhfieFagfjfjfjfjfjfjfjfjfjfjfjfjfjfjfjfjfjfjagbdabaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaabnbobfbfcUbfbfcUbDfkflfmfnfobDbfbfbfbfcUcUaWagageFeOeOeOeOeOeFfpfqfrfrfseFfteOfueFeSeUeUeUeUfieUeUeUeUfieFagfjfvfwfxfjfyfyfyfjfyfyfyfyfyfyfyfyfjagagabaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaabnbobfbfbfbfbfbfczfzfAfAfAfBcBbfbfbfbfbfcUaWagageFeOfCfDfCeOeFfEfFfGfHfIeFeOeOeOeFfGfHfJfKfLeFfMfNeUfOfPeFagfjfQfQfQfRfyfyfyfSfyfTfUfTfyfVfWfXfjagagabaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaabnbobfbfbfbfbfbfbfbfbfbfbfbfbfbfcUbfbfbfbfaWagageFfpfYfZgagbeFeOgcgcgcgcgdeOeOeOgegfgfgfgfeOggeOgheUfhfieFagfjfjfjfjfjfyfyfyfjgigjfTgkgiglgmgmfjagagabaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaabnbobfbfbfbgbfbfbfbfbfbfbfbgbfbfbfbfbfbfbfaWagageFeFeFeFeFeFeFeOeOgngogogogogogogogogogpeOeOeFeFeFeFeFeFeFagfjgqfQfvfjfyfyfyfjgrgrgrgrgrglgmgmfjaggsabaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaabnbobfbfbfbfbfbfbfbfbfbfbfbfbfbfbfbfbfbfbfaWagagagagagagagagcEgteOgugvgweFgxgygweFgxgzgAeOgBcEagagagagagagagfjgqgCgDfjfyfyfyfjgEgEgCgEgEglgmgmfjagagabaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaabnbogFgFgFgFgFgFgFgFgFgFgFgFgFgGdsdsdsdsgHaWdDbleHageJaggIgIeFeOeOgJgKgLgMgNgOgPgQgRgKgSeOeOgTgTgTgTgTgTgTgUfjgVgCgDfjfyfyfyfjgWgWgCgWgWglgmgmfjagaEabaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaabnbogXgXgXgXgXgXgXgXgXgXgXgXgFbecUcUcUcUgYaWeFeFeFeFeFeFeFeFeFeOeOeOgZeOeOeOhaeOeOeOgZeOeOeOgTfUfUfUfUfUgTgTgTgTfRgTgTgThbgTgTgCgCgCgCgCglgmgmfjaghcabaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaabnbogXgXgXgXgXgXgXgXgXgXgXgXgFbecUcUcUcUgYaWhdhehfhfeFhghhhieFhjeOgnhkhlhmeOeOeOhnhohkgpeOhpgTfyfyfyfyfyfyfSfyfyfyfyfyfyfyfyfSgChqhqhqgCfjfjhrfjcEfjgTgTaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaabnbogXgXgXgXgXhsgXhtbJbJhugXgFbecUcUcUcUhvaWhfhwhfhfhxeGeGeGffeOeOguhyhzeOhAeOhAeOhBhygAeOeOfSfyfyfyfyfyfyfSfyfyfyfyfyfyfyfyfSgChqhqhqgCfjfyfyfyfyfyhCgTaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaabnbogXhtbJbJhugXgXhDhEdghFgXgFbecUcUcUhGhHaWhIhfhfhJhKhgeGhgeFfteOgugKhLhMhNhOhPhQhRgKgAeOfugTgTgTgThShTgTgTgTgThUgTgTgTfRgTgTgChqhqhqgCfjfyfyhVhVfyfyhWaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaabnbogXhDhEdghXgXgXhYbJbJhZgXgFbecUcUcUcUiaaWhIhfhfhJibhgeGhgeFeOeOgueFfGfHfHfHfHfHfJeFgAeOeOicideUeFaaaaaaaagTieifgTfQfQfQfQgTgCfQfQfQgCfjfyigfTfTihfyiiaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaabnbogXhYbJbJhZgXgXgXgXgXgXgXgFbecUcUcUcUijaWhIhfhfikeFhgeGhgeFeOeOgJilililililililililgSeOeOimeUineFaaaaaaaagTieifgTfQfUfQfQgTgTgTgTgTgTgTfyigfTfTihfyiiaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaWiogXgXgXgXgXgXgXgXgXgXgXipgFiqirisitiuijaWeFeFeFeFeFeFffeFeFeOeOeOeOeOiviweOiwixeOhpeOhjeOiceUeUeFaaaaaaaagTiyifgTizgEgEgCgTaaaaaaaaaahWfyigfTfTihfyiiaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaWiAaWaWaWaWaWaWaWaWaWiBaWaWaWaWaWaWaWaWaWaWiCeGeGeGiCeFeGeFeFeFeFeFeFeFeFeFiDeFeFeFeFiEeFeFeFeFeFeFaaaaaaaagTiFiGgTgVgWgCgCgTaaaaaaaaaaiHiIfyiJiJfyiKiHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaWaWiLiMiNiOiPiQcCiRcUcUcUiScCaaaaaaaaaaaaeFhghghghghgeFffeFiTiUfDiViWeFeFiXiXiXeFiYfghgiZaabmaaaaaaaaaaaaaagTgTgTgThSjajajbgTbmbmbmbmbmgTgTgTgTgTgTgTgTaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaajcjdjejfiOiOgXiQcCcCcCjgcCcCcCfGfHfHfHfHjheFhgeGjieGhghgeGeFjjjjjjjjjjeFeFfgiDfgeFeFeFiEeFeFbmaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaWcCiLiMiNiOgXdicCjkgXjlgXjkcChghghghghghghghgjmjnjohghgeGjpjjjjjjfDfDeFjqgSeOgJjreFjshgjteFbmaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaajcjdjejfiOiOiObojgjljujljljljveGeGeGeGeGeGeGeGjmjwjoeGeGeGeFjjjjjjjjfDeFjqeOeOeOjrjxhghgjyeFbmaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaWcCiLiMiNiOiObojgjljljljljljveGeGeGeGeGeGeGeGjmjzjoeGeGeGeFjjjAjBjCjDeFgAeOeOeOgujEjFhgjGeFbmaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaajcjdjejfiOiOgXjHaWgXjIgXjIgXaWhghghghghghghghgjmjJjohghgeGeFjjjKjLjMjLeFjNeOeOeOjOjPjQhgjGeFbmaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaWcCiLiMiNiOgXjRaWgXgXgXgXgXaWfGfHfHfHfHjheFhgeGjSeGhghgeGeFfDjTjUjjjjeFjNixeOivjOjVjWjXjYeFbmaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaajcjdjejfiOiOgXjRaWjZkakbkckdaWaaaaaaaaaaaaeFhghghghghgeFkeeFeFeFeFeFeFeFfHfJkffGfHeFeFeFeFeFeFeFeFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaWaWaWaWaWaWaWaWaWaWaWaWaWaWaWaWaWaWaWaWaWeFiCeGeGeGiCeFfDeFiYkgkheFkihkkjeOeOeOkkhkiYeFklkmknkoeFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaWbegXcUcUgXcUcUcUgXgXgXgXgXgXgXgXcUcUgXaWeFeFeFeFeFeFeFkeeFkpkqkreFiYkskjeOeOeOkkkskneFfGfHfHjheFfGjhaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaktbogXgXgXgXcUcUgXgXgXgXgXhsgXgXgXgXcUgXaWilililililileFeOeOkukueOeFeFeFkveOeOeOkweFeFeFeOkukueOkxfDkxaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaktbogXgXgXcUgXgXgXgXgXgXgXgXgXgXgXgXgXgXkyeOeOeOeOeOeOiDeOeOkzkzeOiDkAiDeOeOeOeOeOiDkBiDeOeOeOeOkCfHjhaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaktbogXgXkDkDkDkDgXhshsgXgXgXgXgXgXgXgXgXaWfGfHfHfHfHjheFeOeOkzkzeOeFkAeFkjeOeOeOkkeFkBeFeOeOeOeOkEaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaktbogXgXkDkDkDkDgXgXgXgXgXgXgXgXgXgXgXgXaWiYkFiYklkGkleFeOeOkHkHeOfgkAfggAeOeOeOgufgkBfgeOeOeOeOeFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaktbogXgXgXcUcUgXgXgXgXgXgXgXgXgXgXgXgXgXaWfGfHfHfHfHjheFeOeOeOeOeOeFkAeFkjeOeOeOkkeFkBeFeOeOeOeOkEaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaktbogXgXcUkIkJkKcUgXgXgXgXgXgXgXgXgXcUgXkyeOeOeOeOeOeOiDeOeOeOeOeOiDkAiDeOeOeOeOeOiDkBiDeOeOeOeOkLfHjhaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaktbogXcUcUkMkNkOcUgXgXgXgXcUgXgXgXcUcUgXaWgogogogogogoeFeOeOeOeOeOeFkAeFkjeOeOeOkkeFkBeFeOeOeOeOkxfDkxaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaWkPgXcUgXkQkRkScUcUgXgXgXgXgXgXcUcUcUcUaWeFfGfHfHjheFeFkTkTkTkTkTeFkAkUjNgogogojOkVkBeFeOeOeOeOgxgykWaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaWiAcUcUcUcUcUcUgXgXcUgXgXgXgXkXkYkZijaWaWbmaaaaaaaaaaeFlajxjEjPjVeFeFeFgvfJeGfGgzeFeFeFeOeOeOeOkxfDkxaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaWaWaWaWaWaWaWaWaWaWaWaWaWaWaWaWaWaWaWaabmbmaaaaaaaaeFjGhglblcldeFlelflglheGligKlfleeFkTkTkTkTfGfHjhaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaabmbmaaaaaaeFjGhghghgljeFeOlklelheGlilelleOeFjxjEjPjVeFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaabmbmaaaaeFlmhghghglneFfglofglheGlifglofgeFjGlplcldeFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaabmbmaaeFjGhghghgjseFlqeOeOeOhkeOeOeOgueFjGhghgljeFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaabmbmeFjyjthgjsjsiElrlslsltksivgogojOiEjGjGjslueFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaabmeFeFeFeFeFeFeFeFeFeFlviclweFeFeFeFeFeFeFeFeFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaabmlxlyhkeGeGeGhklzlxbmaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaabmhycRhyeGeGeGhycRhybmaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaabmkscRhyeGeGeGhylBksbmaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaabmeFeFhylClxlChyeFeFbmaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaalDlDlDlDlDlElFlGlDaaaaaaaaksfDksfDksaaaaaaaalDlElFlGlDlDlDlDlDaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaalDlDlHlIlIlDlDlDlDlDlDlDlDlDlDlJlDlJlDlDlDlDlDlDlDlDlDlDlKlLlMlDlDaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaalDlDlNlNlNlNlNlNlNlNlNlNlNlNlNlDlNlNlNlDlNlNlNlNlNlNlNlNlNlNlNlNlNlDlDaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaalDlNlNlNlNlNlNlNlNlNlNlNlNlNlNlOlNlNlNlOlNlNlNlNlNlNlNlNlNlNlNlNlNlNlDaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaababagagakakakakakaiaiaiaiaiaiaiaiaQakawaxayazaxaxaxaAaBauaCaDauakaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaabaEagagakaFaGaHakbkaiaIaJaJaiaiaiawaKawaxaLazaxaxaxaMaBauaNaOcaakaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaabaPagagakcMaGaGaRaiaiaIaJaJaiaiaiawaSawaxaxazaxaxaxaMaBauaNaOauakabaTaUaUaVababaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaWaWaWaWaWaWaWaWaWaWaWaWaWaWaWaWaWaWaWaWaWaWaWaWcZagakakakakakaiaiaiaiaiaiaiaiawaKaXaxdLaYexaZawbabbauaNaOauakagagbcbcagbdababaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaWbeeYbfbfbfbfbfbfbfbgeYbfbfbfbfbfbfbfbfbfeYbfaWagagakaFaGaHakaiaiaiaiaiaiaiaiaIbhawaxaxaYakakbiakakbjaNaOeZakblagagagagagagabaabmaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaabnbobfbpbqbrbsbtbfbfbfbfbfbfbfbpbqbrbsbtbfbgbuaWagagakcMaGaGaRaiaiaiaiaiaiaiaiaIbhawaxaxaYbvbwbxfLakbzbAaObBakbCagagagagagagabaabmaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaabnbobfbDbEbEbEbFbGbHbIbJbGbHbIbKbEbEbEbDbfbfbfaWagagakakakakakbkaiaibLbLaiaiaiaIbhawbMbNaYakbObxbPakbQbRbSbBakakakacababcZagabababbmbTbTbTbTbTbTbTbTbTbTbTbTbTbTbTbTbTbTbTbTaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaabnbobfbDbUbUbVbWbXbYbZfZcbbYbXcccdbUbUbDbfbfbfaWagagakaFaGaHakaiaiaIcecfaiaiaiaQakakakaKcgakakakakakchciciaKcjckckataaclagcocnfedVfufqfqfqfqfqfqfqfqfqfqfqfqfqfqfqfqfqfqfqfqaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaabnbobfbDgHbUcpcqcqbYcqcqcqbYcqcqcpbUhpbDbfbfbfaWagagakcMaGhvaRaiaiaIcraJaiaiaiaiaKcscscscthHcucucucucvcwcwcwhOcwcwaBaacxagfCcyababbmbTbTbTbTbTbTbTbTbTbTbTbTbTbTbTbTbTbTbTbTaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaabnbobfczcdbUcAcqbYbYbYbYbYbYbYcqcAbUbVcBbfitcCaWcDcEakakakakakaiaiaIaJaJaiaiaiaicFcscscGcGcGcscscscscicwcHcIcJcKcwaBaacxagfEabaabmaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaabnbobfbfczbJcLiUcNcOcPbYcQcqbYjDcTbJcBbfbfcUcUcmkZagagcVaiaiaiaiaiaIaJaJaiaiaiaiaKcscscscWjTcucucucucXcwcwcwjUcwcwaBaacxagfCabaabmaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaabnjXbfbgbfbfbDcYkbdadbbYcqcqbYcSbDbfbfbfbfbfcUcmagagagcVaiaiaiaiaiaIaJaJaiaiaiaiakakakaKdcakakakakakchciciaKcjckckbbaaddagfCcyababbmbTbTbTbTbTbTbTbTbTbTbTbTbTbTbTbTbTbTbTbTaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaabnbobfbgcUbfbDdedfdfcPbYcSdgbYcScpdhbfbfdidicCaWaWcEakakakakakbkaiaiaiaiaiaiaiaIbhdjdkdldmakbObxkvakbQdndobBakakakacababagfYcnfecngafqfqfqfqfqfqfqfqfqfqfqfqfqfqfqfqfqfqfqfqaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaabnbobfbfbfbfbDdpdfdfdqbYcSdgbYbYbHbfbfbfbodrdsdtaWagakaFduaHakaiaiaiaiaiaiaiaiaIbhdjaxaxdmdvbwbxbyakdwbAdxkwakbCagagagagagfCabababgbbTbTbTbTbTbTbTbTbTbTbTbTbTbTbTbTbTbTbTbTaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaabnbobfcUbgbfbFbJbJbJcLbYcqcqbYcSdybfbfbfbobecUdzaWagakcMaGaGaRaiaiaiaiaiaiaiaiaIbhdjaxaxlfakakbiakakdAdBdxdCakdDagagaglmagfCabaabmgcaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaabnbobfbfbfbfbDdEbYdEbDbYcSdgbYcSdFbfbfbfbobecUdGaWcZakakakakakaiaiaIaJdHaiaiailAaKdIaxaxdmdjdJdjdKataudBdxauakakakakakcZcogdabaabmbmaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaabnbobfbfbfbfbDdEbYlZcpmccSdgbYjDdybfbfbfbobecUdGaWagakaFduaHakaiaiaIaJaJaiaiaidjdMdjaxaxazaxaxaxdNaBaudBdxauakdOdPdQakaggeababaabmbmaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaabnbobfbfbfbfbDdEbYbYdRbYbYbYbYbYbHbfbfbfbodSdTdUaWagakcMaGaGaRaiaiaiaiaiaiaiaidjaKdjaxaLazaxaxaxdNaBaudBdxcaakgfdWdWdXagfCabaaaabmbmaaaaaaaaaaaaaaaaaaaagtgtaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaabnjXbfbfbfbfbDdEbYdEdYbYcqcqcqcqdYbfbfitaWaWaWaWaWagakakdZeaakakakdZebeaakaiaigBakdjaxayazaxaxaxecaBauedeeauakefegehakagfCabaaaabmbmaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaabnbobfbfbfcUbDdEbYdEbDbYeiejekbXbDbfbgbfbuaWbdagagagacelemeneneoenepeneqacereshjaketeuevewmzeyezeAbbauavavauakakakakakagfCababababababaTaUaUaVababaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaabnbobfbfbfcUeBeCeCbJeDeEbIbJeCeCcBbfbfbfbfaWcZageFeFeFeFeFeFeFeFeFeFeFeFeFpgeGlieFeFeFeFeFeFeFeFeFeFeFeFeFakakeHeIbdagagfCeJagagagagagagagagagagabababaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaabnbobfbfbfcUcUeBbKeKcSbYeLeMbFcBbfbfbfbfcUaWagageFeNeOmFeOePeFeNnheReQePeFeGeGlweFeSeUnpeVeWeFeXnunBfafbeFcofefefefefenInHnJagagagagagagnCagagagageIabaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaabnbobfbfbfbfcUcUbDnDcqfccqnEbDbfbfbfbfcUcUaWagageFeOeOfdeOofnSpheOeOeOeOeFfffgpkeFeUeUeUeUfhfieUeUeUfhfieFfCfjfjfjfjfjfjfjplfjfjfjfjfjfjfjfjfjfjagbdabaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaabnbobfbfcUbfbfcUbDfkflfmfnfobDbfbfbfbfcUcUaWagageFeOeOeOeOpmeFpopnfrfrfseFfteOppeFeSeUeUeUeUfieUeUeUeUfieFfCfjfvfwfxfjfyfypqfjfyfyfyfyfyfyfyfyfjagagabaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaabnbobfbfbfbfbfbfczfzfAfAfAfBcBbfbfbfbfbfcUaWagageFeOeOpsprpteFpufFfGfHfIeFeOeOpveFfGfHfJfKnFeFfMfNeUfOfPeFfCfjnGfQfQfRfyfyfyfSfyfTfUfTfyfVfWfXfjagagabaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaabnjXbfbfbfbfbfbfbfbfbfbfbfbfbfbfcUbfbfbfbfaWagageFfpeOpwprpxeFpzpypypApypBprprpDpCpFpEpFpFphggeOgheUfhfieFfCfjfjfjfjfjnKfyfyfjgigjfTgkgiglgmnLfjagagabaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaabnbobfbfbfbgbfbfbfbfbfbfbfbgbfbfbfbfbfbfpGaWagageFeFeFeFeFeFeFpmeOgngogogogogogogogogogpeOpmeFeFeFeFeFeFeFfCfjgqfQfvfjfyfyfyfjnMgrgrgrgrglgmgmfjcZgsabaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaabnbobfbfbfbfbfitnNbfnObfbfbfbfbfbfbfbfbfpHpIfefefefefefefefepJpKeOgugvgweFgxgygweFgxgzgAeOpLpJfefefefefenIgdfjnPgCgDfjfyfyfyfjgEgEgCgEgEglgmgmfjagagabaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaabnbogFgFgFgFgFgFgFgFgFgFgFgFgFgGdsdsdsdsnQaWdDbleHnCeJaggIgIeFeOeOgJgKgLgMgNgOgPgQgRgKgSeOpmgTgTgTgTgTgTgTgUfjgVgCgDfjfyfyfyfjgWgWgCgWgWglgmgmfjagaEabaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaabnbogXgXgXgXgXgXgXgXgXgXgXgXgFbecUcUcUcUgYaWeFeFeFeFeFeFeFeFeFeOeOeOgZeOeOeOhaeOeOeOgZeOeOpmgTfUfUfUfUfUgTgTgTgTfRgTgTgThbgTgTgCgCgCgCgCglgmgmfjaghcabaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaabnbogXgXgXgXgXgXgXgXgXgXgXgXgFbecUcUcUcUgYaWhdhehfhfeFhghhhieFnReOgnhkhlhmeOeOeOhnhohkgpeOpMgTfyfyfyfyfyfyfSfyfyfyfyfyfyfyfyfSgChqhqhqnTfjfjhrfjcEfjgTgTaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaabnbogXgXgXgXgXhsgXhtbJbJhugXgFbecUcUcUcUnUaWhfhwhfhfhxeGeGeGffeOeOguhyhzeOhAeOhAeOhBhygAeOpmfSfyfynVfyfyfyfSfyfyfyfynVfyfyfyfSgChqhqhqgCfjfyfyfyfyfyhCgTaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaabnjXgXhtbJbJhugXgXhDhEdghFgXgFbecUcUcUhGnWaWhIhfhfhJhKnXeGhgeFfteOgugKhLhMhNnYhPhQhRgKgAeOppgTgTgTgThShTgTgTgTgThUgTgTgTfRgTgTgChqhqhqgCfjfyfyhVhVfyfyhWaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaabnbogXhDhEdghXgXgXhYbJbJhZgXgFbecUcUcUcUiaaWhIhfhfhJibhgeGhgeFeOeOgueFfGfHfHfHfHfHfJeFgAeOpmicideUeFaaaaaaaagTieifgTfQfQfQfQgTgCfQfQfQgCfjfyigfTfTihfyiiaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaabnbogXhYbJbJhZgXgXgXgXgXgXgXgFbecUcUcUcUijaWhInZhfikeFhgeGhgeFeOeOgJilililililililililgSoapmimeUineFaaaaaaaagTieobgTnGfUfQfQgTgTgTgTgTgTgTnKigfTfTihfyiiaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaWiogXgXgXocgXgXgXgXgXgXocipgFiqirisodiuijaWeFeFeFeFeFeFffeFeFeOeOeOoeeOiviweOpOpNprpPprpQpRicogeUeFaaaaaaaagTiyifgTizgEgEgCgTaaaaaaaaaahWfyigfTfTihfyiiaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaWiAaWaWaWaWaWaWaWaWaWiBaWaWaWaWaWaWaWaWaWaWiCeGeGeGiCeFeGeFeFeFeFeFeFeFeFeFiDpSeFeFeFiEeFeFeFeFeFeFaaaaaaaagTiFiGgTgVgWgCgCgTaaaaaaaaaaiHiIfyiJiJfyiKiHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaWaWiLiMiNohiPiQcCiRpTcUcUiScCaaaaaaaaaaaaeFhghghghghgeFffeFiToifDiViWeFeFiXiXpUeFpVfghgiZaabmaaaaaaaaaaaaaagTgTgTgThSjajajbgTbmbmbmbmbmgTgTgTgTgTgTgTgTaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaajcjdjejfiOiOgXiQcCcCcCjgcCcCcCfGfHfHfHfHjheFhgeGjieGhgojeGeFjjjjjjjjjjeFeFfgiDpWeFeFeFiEeFeFbmaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaWcCiLiMiNiOgXdicCjkokjlgXjkcChghghghghghgojhgjmjnjohghgeGjpjjjjjjfDfDeFolgSeOpXomeFonhgjteFbmaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaajcjdjejfiOiOiObojgjljujljljljveGeGeGooeGeGeGeGjmjwjoeGeGeGeFjjjjjjjjfDeFjqeOeOpmjrjxhghgjyeFbmaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaWcCiLiMiNiOiObojgjljljljljljveGeGeGeGeGeGeGeGjmjzjoeGeGeGeFjjjAjBjCjMeFgAeOeOpmgujEjFhgjGeFbmaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaajcjdjejfiOiOgXjHaWgXjIgXjIgXaWhghghghghghgophgjmjJjohghgeGeFjjjKjLjMjLeFjNeOeOpmjOjPjQhgjGeFbmaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaWcCiLiMiNiOgXjRaWgXgXgXgXgXaWfGfHfHfHfHjheFhgeGjSeGhgopeGeFfDoroqjjjjeFjNixeOpYjOjVjWosjYeFbmaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaajcjdjejfiOotgXjRaWjZkaoukckdaWaaaaaaaaaaaaeFhghghghghgeFkeeFeFeFeFeFeFeFfHfJkfpZfHeFeFeFeFeFeFeFeFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaWaWaWaWaWaWaWaWaWaWaWaWaWaWaWaWaWaWaWaWaWeFiCeGeGeGiCeFqaeFiYkgkheFkihkkjeOeOpmkkhkiYeFklkmknkoeFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaWbegXcUovgXcUcUovgXgXgXgXokgXgXgXovcUgXaWeFeFeFeFeFeFeFkeeFkpkqkreFiYkskjeOeOpmkkkskneFfGfHfHjheFfGjhaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaktbogXgXgXgXcUcUgXgXgXgXgXhsgXgXgXgXcUgXaWilililililileFeOeOkukueOeFeFeFoweOeOpmoxeFeFeFeOkukueOkxfDkxaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaktbogXgXgXcUgXgXgXgXgXgXgXgXgXgXgXgXgXgXkyeOeOeOeOeOeOiDeOeOkzkzeOiDkAiDeOeOeOpmeOiDkBiDeOeOeOeOkCfHjhaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaktbogXgXkDkDkDkDgXhshsgXgXgXgXgXgXgXgXpiaWfGfHfHfHfHjheFeOeOkzkzeOeFkAeFkjeOeOpmkkeFkBeFeOeOeOeOkEaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaktbogXgXkDkDkDkDgXgXgXgXgXgXgXgXgXgXgXgXaWoykFiYklkGozeFeOeOkHkHeOfgkAfggAeOeOpmgufgkBfgeOeOeOeOeFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaktbogXgXgXcUcUgXgXgXgXgXgXgXgXgXgXgXgXpiaWfGfHfHfHfHjheFoAeOeOeOoBeFkAeFoCeOeOpmoDeFkBeFoAeOeOoBkEaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaktbogXgXcUkIkJkKcUgXgXgXgXgXgXgXgXgXcUgXkyeOeOeOeOeOeOiDeOeOeOeOeOiDkAiDeOeOeOpmeOiDkBiDeOeOoaeOkLfHjhaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaktbogXcUcUkMkNkOcUgXgXgXgXcUgXgXgXcUcUgXaWgogogogogogoeFeOeOeOeOeOeFkAeFkjeOeOpmkkeFkBeFeOeOeOeOkxfDkxaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaWkPgXcUgXkQkRkScUcUgXgXgXgXgXgXcUcUcUcUaWeFfGfHfHjheFeFkTkTkTkTkTeFkAkUjNgogoqbjOkVkBeFeOeOeOeOgxgykWaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaWiAcUcUoEcUcUcUocgXcUgXgXocgXkXkYpjijaWaWbmaaaaaaaaaaeFlajxjEjPjVeFeFeFgvfJeGpZgzeFeFeFeOeOeOeOkxfDkxaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaWaWaWaWaWaWaWaWaWaWaWaWaWaWaWaWaWaWaWaabmbmaaaaaaaaeFjGhglblcldeFleoFlglheGqcgKoFleeFkTkTkTkTfGfHjhaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaabmbmaaaaaaeFjGhghghgljeFeOlklelheGqclelleOeFjxjEjPjVeFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaabmbmaaaaeFoGhghghglneFfglofglheGqcfglofgeFjGlplcldeFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaabmbmaaeFjGhghghgjseFlqeOeOeOhkpmeOeOgueFjGhghgljeFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaabmbmeFjyjthgjsjsiElroHlsltkspYgooIjOiEjGjGoJlueFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaabmeFeFeFeFeFeFeFeFeFeFlvicqdeFeFeFeFeFeFeFeFeFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaabmlxlyhkeGeGlwhklzlxbmaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaabmhycRhyeGeGlwhycRhybmaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaabmkscRhyeGoKlwhylBksbmaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaabmeFeFhylClxqehyeFeFbmaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaalDlDlDlDlDlElFlGlDaaaaaaaaksfDksqfksaaaaaaaalDlElFlGlDlDlDlDlDaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaalDlDlHlIlIlDlDlDlDlDlDlDlDlDlDlJlDqglDlDlDlDlDlDlDlDlDlDlKlLlMlDlDaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaalDlDlNlNlNlNlNlNlNlNlNlNlNlNlNlDlNlNqhlDlNlNlNlNlNlNlNlNlNlNlNlNoLlDlDaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaalDlNlNoMlNlNlNlNlNlNoMlNlNlNlNlOlNoMlNlOlNlNlNoMlNlNlNlNlNlNlNlNlNlNlDaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
 aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaalDlNlNlDlPlDlDlDlDlDlDlDlDlDlDlDlQlRlSlDlDlDlDlDlDlDlNlTlTlTlNlNlNlNlDaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaalDlNlNlDlUlUlUlUlUlVlWlWlWlWlXlWlWlWlWlWlXlYlXlZmalDlNlLlLlLlNlNlNlNlDaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaalDlNlNlDlUoNlUlUlUlVoOlWlWlWlXoOlWlWlWoOlXlYlXoPmalDlNlLlLlLoQlNlNlNlDaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
 aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaalDlNlNlDlUlUlUlUlUlVlWlWlWlWlWlWlWlWlWlWlWlWlWlWlWlDlNmblLlLlNlNlNlNlDaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaalDlNlNlDeTeTmdmdlUlVlWlWlWlWlWlWlWlWlWlWlWlWlWlWlWlDlNmememelNlNlNlNlDaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaalDlNlNlDeTeTmdmdlUlVlWlWlWlWlWlWlWlWlWlWlWlWlWlWlWlDlNmememeoMlNlNlNlDaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
 aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaalDlDlNlNlDlDlDlDlDlDlDmfmfmfmfmfmfmfmfmfmfmfmfmfmfmflDlDlDlDlDlDlNlNlNlDlDaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaalDlDmglNlNlDlDmhmhmhmhlDmimjmjmjmjmjmjmjmjmjmjmjmjmjmklDmhmhmhmhlDlNlNlNmllDlDaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaalDlDlDlDlDlDmglNlDlDlDmmmmmmmmlDmnmompmompmomqmrmsmtmumtmumtmvlDmmmmmmmmlDlDlDlNmllDlDlDlDlDlDaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaalDmwmxmxmylDmglNlDmzmAmBmCmCmCmDmgmrmrmrmrmEmrmrmrmEmrmrmrmrmlmDmCmCmCmBmAmFlDlNmllDmymxmxmxlDaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaalDmxmxmxmxmGmglNlDmzmAmBmCmCmCmDmgmrmHmrmrmrmqmImsmrmrmrmJmrmlmDmCmCmCmBmAmFlDlNmlmGmxmxmxmKlDaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaalDmxmymymylDmglNlDmzmAmCmCmCmCmDmgmrmLmrmEmrmLmMmNmrmEmrmNmrmlmDmCmCmCmCmAmFlDlNmllDmymymymxlDaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaalDmOlDlDlDlDmglNlDmzmAmBmCmCmCmDmgmrmPmrmrmrmQmtmRmrmrmrmSmrmlmDmCmCmCmBmAmFlDlNmllDlDlDlDmTlDaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaalDmxmUmxmVlDmglNlDmWmAmBmCmCmCmDmgmrmrmrmrmEmrmrmrmEmrmrmrmrmlmDmCmCmCmBmAmXlDlNmllDmYmxmUmxlDaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaalDmxmxmxmVlDmglNlDmZlDnanananalDnbmIncmIncmImQmrmRndnendnendnflDnanananalDmZlDlNmllDmYmxmxmxlDaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaalDlDmxngmVlDmglNlNlNlDnhnhnhnhlDmimjmjmjmjmjmjmjmjmjmjmjmjmjmklDnhnhnhnhlDlNlNlNmllDmYmxmxlDlDaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaalDlDlDlDlDmglNlNlNlDlDlDlDlDlDnininjnjnjnjninkninjnjnjnjninilDlDlDlDlDlDlNlNlNmllDlDlDlDlDaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaalDlDmglNlNlDlDmhqimhmhlDmimjmjmjmjmjmjmjmjmjmjmjmjmjmklDmhqimhmhlDlNlNlNmllDlDaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaalDlDlDlDlDlDmgoRlDlDlDmmmmmmmmlDmnmompmompmomqmrmsmtmumtmumtmvlDmmmmmmmmlDlDlDlNmllDlDlDlDlDlDaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaalDmwmxmxmylDmglNlDoSoTmBmCmCmCmDmgmrmrmrmrmEmrmrmrmEmrmrmrmrmlmDmCmCmCmBoToUlDoVmllDmymxmxoWlDaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaalDoXmxmxmxmGmglNlDoSmAmBmCmCmCmDmgmrmHmrmrmrmqmImsmrmrmrmJmrmlmDmCmCmCmBmAoUlDlNmlmGmxmxmxmKlDaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaalDmxmymymylDmglNlDoSmAmCmCmCmCmDmgmrmLmrmEoYmLmMmNoZmEmrmNmrmlmDmCmCmCmCmAoUlDlNmllDmymymymxlDaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaalDmOlDlDlDlDmglNlDoSmAmBmCmCmCmDmgmrmPmrmrmrmQmtmRmrmrmrmSmrmlmDmCmCmCmBmAoUlDlNmllDlDlDlDmTlDaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaalDmxmUmxmVlDmglNlDmWpamBmCmCmCmDmgmrmrmrmrmEmrmrmrmEmrmrmrmrmlmDmCmCmCmBpamXlDlNmllDmYmxmUoWlDaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaalDoXmxmxmVlDmgoRlDmZlDnanananalDnbmIncmIncmImQmrmRndnendnendnflDnanananalDmZlDoVmllDmYmxmxmxlDaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaalDlDmxngmVlDmglNlNlNlDpbqjpbpblDmimjmjmjmjmjmjmjmjmjmjmjmjmjmklDpbqjpbpblDlNlNlNmllDmYmxmxlDlDaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaalDlDlDlDlDmgoMlNlNlDlDlDlDlDlDnininjnjnjnjninkninjnjnjnjninilDlDlDlDlDlDoVlNlNmllDlDlDlDlDaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
 aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaalDlDlDlDlNlNlNlNlNlNlNlDninininininininlnininininininilDlNlNlNlNlNlNlNlDlDlDlDaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaalDlDlNlNlNlNlNlNnmninininnninininininininininininmlNlNlNlNlNlNlDlDaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaalDlDlDlDlDlDlDlDnonpnqnqnrninininininsntnunvnwlDlDlDlDlDlDlDlDaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaalDlDlNlNlNoMlNlNnmninininnninipcnininininininininmlNlNlNlNlNlNlDlDaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaalDlDlDlDlDlDlDlDnopdnqnqnrpenininipensntpfnvnwlDlDlDlDlDlDlDlDaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
 aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaalDlDlDlDlDlDlDnxnynzlDlDlDlDlDlDlDaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
 aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaalDlDnAlDlDaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
 aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaalDlDlDaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa

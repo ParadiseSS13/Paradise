@@ -9,6 +9,7 @@
 	var/list/modules = list()
 	var/obj/item/emag = null
 	var/list/subsystems = list()
+	var/list/module_actions = list()
 
 	var/module_type = "NoMod" // For icon usage
 
@@ -31,11 +32,8 @@
 	emag.name = "Placeholder Emag Item"
 
 /obj/item/weapon/robot_module/Destroy()
-	for(var/module in modules)
-		qdel(module)
-	modules.Cut()
-	qdel(emag)
-	emag = null
+	QDEL_LIST(modules)
+	QDEL_NULL(emag)
 	return ..()
 
 /obj/item/weapon/robot_module/proc/fix_modules()
@@ -92,11 +90,19 @@
 	R.add_language("Orluum", 0)
 	R.add_language("Clownish",0)
 
-/obj/item/weapon/robot_module/proc/add_subsystems(mob/living/silicon/robot/R)
+/obj/item/weapon/robot_module/proc/add_subsystems_and_actions(mob/living/silicon/robot/R)
 	R.verbs |= subsystems
+	for(var/A in module_actions)
+		var/datum/action/act = new A()
+		act.Grant(R)
+		R.module_actions += act
 
-/obj/item/weapon/robot_module/proc/remove_subsystems(mob/living/silicon/robot/R)
+/obj/item/weapon/robot_module/proc/remove_subsystems_and_actions(mob/living/silicon/robot/R)
 	R.verbs -= subsystems
+	for(var/datum/action/A in R.module_actions)
+		A.Remove(R)
+		qdel(A)
+	R.module_actions.Cut()
 
 /obj/item/weapon/robot_module/standard
 	name = "standard robot module"
@@ -106,8 +112,8 @@
 	..()
 	modules += new /obj/item/weapon/melee/baton/loaded(src)
 	modules += new /obj/item/weapon/extinguisher(src)
-	modules += new /obj/item/weapon/wrench(src)
-	modules += new /obj/item/weapon/crowbar(src)
+	modules += new /obj/item/weapon/wrench/cyborg(src)
+	modules += new /obj/item/weapon/crowbar/cyborg(src)
 	modules += new /obj/item/device/healthanalyzer(src)
 	emag = new /obj/item/weapon/melee/energy/sword/cyborg(src)
 
@@ -127,6 +133,7 @@
 /obj/item/weapon/robot_module/medical/New()
 	..()
 	modules += new /obj/item/device/healthanalyzer/advanced(src)
+	modules += new /obj/item/device/robotanalyzer(src)
 	modules += new /obj/item/device/reagent_scanner/adv(src)
 	modules += new /obj/item/weapon/borg_defib(src)
 	modules += new /obj/item/roller_holder(src)
@@ -166,6 +173,9 @@
 	name = "engineering robot module"
 	module_type = "Engineer"
 	subsystems = list(/mob/living/silicon/proc/subsystem_power_monitor)
+	module_actions = list(
+		/datum/action/innate/robot_sight/meson,
+	)
 
 	stacktypes = list(
 		/obj/item/stack/sheet/metal/cyborg = 50,
@@ -178,22 +188,22 @@
 
 /obj/item/weapon/robot_module/engineering/New()
 	..()
-	modules += new /obj/item/borg/sight/meson(src)
 	modules += new /obj/item/weapon/rcd/borg(src)
+	modules += new /obj/item/weapon/rpd(src)
 	modules += new /obj/item/weapon/extinguisher(src)
 	modules += new /obj/item/weapon/weldingtool/largetank/cyborg(src)
-	modules += new /obj/item/weapon/screwdriver(src)
-	modules += new /obj/item/weapon/wrench(src)
-	modules += new /obj/item/weapon/crowbar(src)
-	modules += new /obj/item/weapon/wirecutters(src)
-	modules += new /obj/item/device/multitool(src)
+	modules += new /obj/item/weapon/screwdriver/cyborg(src)
+	modules += new /obj/item/weapon/wrench/cyborg(src)
+	modules += new /obj/item/weapon/crowbar/cyborg(src)
+	modules += new /obj/item/weapon/wirecutters/cyborg(src)
+	modules += new /obj/item/device/multitool/cyborg(src)
 	modules += new /obj/item/device/t_scanner(src)
 	modules += new /obj/item/device/analyzer(src)
 	modules += new /obj/item/taperoll/engineering(src)
 	modules += new /obj/item/weapon/gripper(src)
 	modules += new /obj/item/weapon/matter_decompiler(src)
 	modules += new /obj/item/device/floor_painter(src)
-
+	modules += new /obj/item/areaeditor/blueprints/cyborg(src)
 	emag = new /obj/item/borg/stun(src)
 
 	for(var/G in stacktypes) //Attempt to unify Engi-Borg material stacks into fewer lines. See Line 492 for example. Variables changed out of paranoia.
@@ -211,7 +221,7 @@
 /obj/item/weapon/robot_module/security/New()
 	..()
 	modules += new /obj/item/weapon/restraints/handcuffs/cable/zipties/cyborg(src)
-	modules += new /obj/item/weapon/melee/baton/loaded/robot(src)
+	modules += new /obj/item/weapon/melee/baton/loaded(src)
 	modules += new /obj/item/weapon/gun/energy/disabler/cyborg(src)
 	modules += new /obj/item/taperoll/police(src)
 	modules += new /obj/item/clothing/mask/gas/sechailer/cyborg(src)
@@ -244,11 +254,27 @@
 /obj/item/weapon/robot_module/butler/New()
 	..()
 	modules += new /obj/item/weapon/reagent_containers/food/drinks/cans/beer(src)
+	modules += new /obj/item/weapon/reagent_containers/food/drinks/cans/cola(src)
+	modules += new /obj/item/weapon/reagent_containers/food/drinks/cans/sodawater(src)
 	modules += new /obj/item/weapon/reagent_containers/food/condiment/enzyme(src)
+	modules += new /obj/item/weapon/reagent_containers/food/drinks/bottle/orangejuice(src) // -0.3 oxy/sec
+	modules += new /obj/item/weapon/reagent_containers/food/drinks/bottle/tomatojuice(src) // -0.2 fire/sec
+	modules += new /obj/item/weapon/reagent_containers/food/drinks/bottle/limejuice(src) // -0.2 tox/sec
+	modules += new /obj/item/weapon/reagent_containers/food/drinks/coffee(src) // -1 paralysis stunned & weakened/sec
+	modules += new /obj/item/weapon/reagent_containers/food/drinks/tea(src)
+	modules += new /obj/item/weapon/reagent_containers/food/drinks/bottle/milk(src) // -0.2 brute/sec
+	modules += new /obj/item/weapon/reagent_containers/food/condiment/sugar(src)
+	modules += new /obj/item/weapon/reagent_containers/food/drinks/ice(src)
+	modules += new /obj/item/weapon/reagent_containers/food/drinks/bottle/cream(src)
+
+	modules += new /obj/item/weapon/reagent_containers/food/drinks/bottle/tequila(src)
+	modules += new /obj/item/weapon/reagent_containers/food/drinks/bottle/vodka(src)
+	modules += new /obj/item/weapon/reagent_containers/food/drinks/bottle/whiskey(src)
+
 	modules += new /obj/item/weapon/pen(src)
 	modules += new /obj/item/weapon/razor(src)
-	modules += new /obj/item/device/violin(src)
-	modules += new /obj/item/device/guitar(src)
+	modules += new /obj/item/device/instrument/piano_synth(src)
+	modules += new /obj/item/device/healthanalyzer/advanced(src)
 
 	var/obj/item/weapon/rsf/M = new /obj/item/weapon/rsf(src)
 	M.matter = 30
@@ -297,10 +323,12 @@
 /obj/item/weapon/robot_module/miner
 	name = "miner robot module"
 	module_type = "Miner"
+	module_actions = list(
+		/datum/action/innate/robot_sight/meson,
+	)
 
 /obj/item/weapon/robot_module/miner/New()
 	..()
-	modules += new /obj/item/borg/sight/meson(src)
 	modules += new /obj/item/weapon/storage/bag/ore/cyborg(src)
 	modules += new /obj/item/weapon/pickaxe/drill/cyborg(src)
 	modules += new /obj/item/weapon/shovel(src)
@@ -317,10 +345,12 @@
 /obj/item/weapon/robot_module/deathsquad
 	name = "NT advanced combat module"
 	module_type = "Malf"
+	module_actions = list(
+		/datum/action/innate/robot_sight/thermal,
+	)
 
 /obj/item/weapon/robot_module/deathsquad/New()
 	..()
-	modules += new /obj/item/borg/sight/thermal(src)
 	modules += new /obj/item/weapon/melee/energy/sword/cyborg(src)
 	modules += new /obj/item/weapon/gun/energy/pulse/cyborg(src)
 	modules += new /obj/item/weapon/crowbar(src)
@@ -338,7 +368,7 @@
 	modules += new /obj/item/weapon/gun/energy/printer(src)
 	modules += new /obj/item/weapon/gun/projectile/revolver/grenadelauncher/multi/cyborg(src)
 	modules += new /obj/item/weapon/card/emag(src)
-	modules += new /obj/item/weapon/crowbar(src)
+	modules += new /obj/item/weapon/crowbar/cyborg(src)
 	modules += new /obj/item/weapon/pinpointer/operative(src)
 	emag = null
 
@@ -376,7 +406,7 @@
 	modules += new /obj/item/weapon/surgicaldrill(src)
 	modules += new /obj/item/weapon/melee/energy/sword/cyborg/saw(src) //Energy saw -- primary weapon
 	modules += new /obj/item/weapon/card/emag(src)
-	modules += new /obj/item/weapon/crowbar(src)
+	modules += new /obj/item/weapon/crowbar/cyborg(src)
 	modules += new /obj/item/weapon/pinpointer/operative(src)
 	emag = null
 
@@ -385,32 +415,34 @@
 /obj/item/weapon/robot_module/combat
 	name = "combat robot module"
 	module_type = "Malf"
+	module_actions = list(
+		/datum/action/innate/robot_sight/thermal,
+	)
 
 /obj/item/weapon/robot_module/combat/New()
 	..()
 	modules += new /obj/item/weapon/restraints/handcuffs/cable/zipties/cyborg(src)
-	modules += new /obj/item/borg/sight/thermal(src)
 	modules += new /obj/item/weapon/gun/energy/gun/cyborg(src)
 	modules += new /obj/item/weapon/pickaxe/drill/jackhammer(src)
 	modules += new /obj/item/borg/combat/shield(src)
 	modules += new /obj/item/borg/combat/mobility(src)
-	modules += new /obj/item/weapon/wrench(src)
+	modules += new /obj/item/weapon/wrench/cyborg(src)
 	emag = new /obj/item/weapon/gun/energy/lasercannon/cyborg(src)
 
 	fix_modules()
 
-/obj/item/weapon/robot_module/peacekeeper
-	name = "peacekeeper robot module"
+/obj/item/weapon/robot_module/nations
+	name = "nations robot module"
 	module_type = "Malf"
 
-/obj/item/weapon/robot_module/peacekeeper/New()
+/obj/item/weapon/robot_module/nations/New()
 	..()
 	modules += new /obj/item/weapon/restraints/handcuffs/cable/zipties/cyborg(src)
 	modules += new /obj/item/weapon/gun/energy/gun/cyborg(src)
 	modules += new /obj/item/weapon/pickaxe/drill/jackhammer(src)
 	modules += new /obj/item/borg/combat/shield(src)
 	modules += new /obj/item/borg/combat/mobility(src)
-	modules += new /obj/item/weapon/wrench(src)
+	modules += new /obj/item/weapon/wrench/cyborg(src)
 	emag = new /obj/item/weapon/gun/energy/lasercannon/cyborg(src)
 
 	fix_modules()
@@ -418,11 +450,13 @@
 /obj/item/weapon/robot_module/alien/hunter
 	name = "alien hunter module"
 	module_type = "Standard"
+	module_actions = list(
+		/datum/action/innate/robot_sight/thermal/alien,
+	)
 
 /obj/item/weapon/robot_module/alien/hunter/New()
 	modules += new /obj/item/weapon/melee/energy/alien/claws(src)
 	modules += new /obj/item/device/flash/cyborg/alien(src)
-	modules += new /obj/item/borg/sight/thermal/alien(src)
 	var/obj/item/weapon/reagent_containers/spray/alien/stun/S = new /obj/item/weapon/reagent_containers/spray/alien/stun(src)
 	S.reagents.add_reagent("ether",250) //nerfed to sleeptoxin to make it less instant drop.
 	modules += S
@@ -455,17 +489,18 @@
 
 /obj/item/weapon/robot_module/drone/New()
 	modules += new /obj/item/weapon/weldingtool/largetank/cyborg(src)
-	modules += new /obj/item/weapon/screwdriver(src)
-	modules += new /obj/item/weapon/wrench(src)
-	modules += new /obj/item/weapon/crowbar(src)
-	modules += new /obj/item/weapon/wirecutters(src)
-	modules += new /obj/item/device/multitool(src)
+	modules += new /obj/item/weapon/screwdriver/cyborg(src)
+	modules += new /obj/item/weapon/wrench/cyborg(src)
+	modules += new /obj/item/weapon/crowbar/cyborg(src)
+	modules += new /obj/item/weapon/wirecutters/cyborg(src)
+	modules += new /obj/item/device/multitool/cyborg(src)
 	modules += new /obj/item/device/lightreplacer(src)
 	modules += new /obj/item/weapon/gripper(src)
 	modules += new /obj/item/weapon/matter_decompiler(src)
 	modules += new /obj/item/weapon/reagent_containers/spray/cleaner/drone(src)
 	modules += new /obj/item/weapon/soap(src)
 	modules += new /obj/item/device/t_scanner(src)
+	modules += new /obj/item/weapon/rpd(src)
 
 	emag = new /obj/item/weapon/pickaxe/drill/cyborg/diamond(src)
 

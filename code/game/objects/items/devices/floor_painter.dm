@@ -3,37 +3,37 @@
 /obj/item/device/floor_painter
 	name = "floor painter"
 	icon_state = "floor_painter"
-	
+
 	var/floor_icon
 	var/floor_state = "floor"
 	var/floor_dir = SOUTH
-	
-	w_class = 1
+
+	w_class = WEIGHT_CLASS_TINY
 	item_state = "electronic"
 	flags = CONDUCT
 	slot_flags = SLOT_BELT
-	
-	var/static/list/allowed_states = list("arrival", "arrivalcorner", "bar", "barber", "blackcorner", "blue", "bluecorner", 
+
+	var/static/list/allowed_states = list("arrival", "arrivalcorner", "bar", "barber", "blackcorner", "blue", "bluecorner",
 		"bluefull", "bluered", "blueyellow", "blueyellowfull", "bot", "brown", "browncorner", "browncornerold", "brownold",
 		"cafeteria", "caution", "cautioncorner", "chapel", "cmo", "dark", "delivery", "escape", "escapecorner", "floor",
 		"freezerfloor", "green", "greenblue", "greenbluefull", "greencorner", "greenfull", "greenyellow",
 		"greenyellowfull", "grimy", "loadingarea", "neutral", "neutralcorner", "neutralfull", "orange", "orangecorner",
 		"orangefull", "purple", "purplecorner", "purplefull", "rampbottom", "ramptop", "red", "redblue", "redbluefull",
-		"redcorner", "redfull", "redgreen", "redgreenfull", "redyellow", "redyellowfull", "warning", "warningcorner", "warnwhite", 
-		"warnwhitecorner", "white", "whiteblue", "whitebluecorner", "whitebluefull", "whitebot", "whitecorner", "whitedelivery", 
-		"whitegreen", "whitegreencorner", "whitegreenfull", "whitehall", "whitepurple", "whitepurplecorner", "whitepurplefull", 
-		"whitered", "whiteredcorner", "whiteredfull", "whiteyellow", "whiteyellowcorner", "whiteyellowfull", "yellow", 
+		"redcorner", "redfull", "redgreen", "redgreenfull", "redyellow", "redyellowfull", "warning", "warningcorner", "warnwhite",
+		"warnwhitecorner", "white", "whiteblue", "whitebluecorner", "whitebluefull", "whitebot", "whitecorner", "whitedelivery",
+		"whitegreen", "whitegreencorner", "whitegreenfull", "whitehall", "whitepurple", "whitepurplecorner", "whitepurplefull",
+		"whitered", "whiteredcorner", "whiteredfull", "whiteyellow", "whiteyellowcorner", "whiteyellowfull", "yellow",
 		"yellowcorner", "yellowcornersiding", "yellowsiding")
 
 /obj/item/device/floor_painter/afterattack(var/atom/A, var/mob/user, proximity, params)
 	if(!proximity)
 		return
-	
+
 	var/turf/simulated/floor/plasteel/F = A
 	if(!istype(F))
 		to_chat(user, "<span class='warning'>\The [src] can only be used on station flooring.</span>")
 		return
-	
+
 	F.icon_state = floor_state
 	F.icon_regular_floor = floor_state
 	F.dir = floor_dir
@@ -60,7 +60,7 @@
 		<a href="?src=[UID()];choose_dir=1">Choose Direction</a>
 		<div class='statusDisplay'>Direction: [dir2text(floor_dir)]</div>
 	"}
-	
+
 	var/datum/browser/popup = new(user, "floor_painter", name, 225, 300)
 	popup.set_content(dat)
 	popup.open()
@@ -68,7 +68,7 @@
 /obj/item/device/floor_painter/Topic(href, href_list)
 	if(..())
 		return
-	
+
 	if(href_list["choose_state"])
 		var/state = input("Please select a style", "[src]") as null|anything in allowed_states
 		if(state)
@@ -92,7 +92,7 @@
 			index = 1
 		floor_state = allowed_states[index]
 		floor_dir = SOUTH
-	
+
 	floor_icon = icon('icons/turf/floors.dmi', floor_state, floor_dir)
 	if(usr)
 		attack_self(usr)

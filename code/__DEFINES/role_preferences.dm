@@ -8,6 +8,7 @@
 //then you MUST update the database!
 // If you're adding a new role, remember to update modules/admin/topic.dm, so admins can dish out
 // justice if someone's abusing your role
+#define ROLE_SYNDICATE			"Syndicate"
 #define ROLE_TRAITOR			"traitor"
 #define ROLE_OPERATIVE			"operative"
 #define ROLE_CHANGELING			"changeling"
@@ -37,7 +38,8 @@
 #define ROLE_MORPH				"morph"
 #define ROLE_ERT				"emergency response team"
 #define ROLE_NYMPH				"Dionaea"
-
+#define ROLE_GSPIDER			"giant spider"
+#define ROLE_DRONE				"drone"
 
 //Missing assignment means it's not a gamemode specific role, IT'S NOT A BUG OR ERROR.
 //The gamemode specific ones are just so the gamemodes can query whether a player is old enough
@@ -69,4 +71,5 @@ var/global/list/special_roles = list(
 	ROLE_GUARDIAN,
 	ROLE_MORPH,
 	ROLE_TRADER,
+	ROLE_GSPIDER,
 )

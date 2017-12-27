@@ -8,11 +8,11 @@
 /obj/item/weapon/storage
 	name = "storage"
 	icon = 'icons/obj/storage.dmi'
-	w_class = 3
+	w_class = WEIGHT_CLASS_NORMAL
 	var/silent = 0 // No message on putting items in
 	var/list/can_hold = new/list() //List of objects which this item can store (if set, it can't store anything else)
 	var/list/cant_hold = new/list() //List of objects which this item can't store (in effect only if can_hold isn't set)
-	var/max_w_class = 2 //Max size of objects that this object can store (in effect only if can_hold isn't set)
+	var/max_w_class = WEIGHT_CLASS_SMALL //Max size of objects that this object can store (in effect only if can_hold isn't set)
 	var/max_combined_w_class = 14 //The sum of the w_classes of all the items in this storage item.
 	var/storage_slots = 7 //The number of storage slots in this container.
 	var/obj/screen/storage/boxes = null
@@ -242,27 +242,19 @@
 		return 0 //Storage item is full
 
 	if(can_hold.len)
-		var/ok = 0
-		for(var/A in can_hold)
-			if(istype(W, text2path(A) ))
-				ok = 1
-				break
-		if(!ok)
+		if(!is_type_in_typecache(W, can_hold))
 			if(!stop_messages)
-				if(istype(W, /obj/item/weapon/hand_labeler))
-					return 0
 				to_chat(usr, "<span class='notice'>[src] cannot hold [W].</span>")
 			return 0
 
-	for(var/A in cant_hold) //Check for specific items which this container can't hold.
-		if(istype(W, text2path(A) ))
-			if(!stop_messages)
-				to_chat(usr, "<span class='notice'>[src] cannot hold [W].</span>")
-			return 0
+	if(is_type_in_typecache(W, cant_hold)) //Check for specific items which this container can't hold.
+		if(!stop_messages)
+			to_chat(usr, "<span class='notice'>[src] cannot hold [W].</span>")
+		return 0
 
 	if(W.w_class > max_w_class)
 		if(!stop_messages)
-			to_chat(usr, "<span class='notice'>[W] is too big for this [src].</span>")
+			to_chat(usr, "<span class='notice'>[W] is too big for [src].</span>")
 		return 0
 
 	var/sum_w_class = W.w_class
@@ -298,7 +290,7 @@
 		usr.update_icons()	//update our overlays
 	if(silent)
 		prevent_warning = 1
-	W.loc = src
+	W.forceMove(src)
 	W.on_enter_storage(src)
 	if(usr)
 		if(usr.client && usr.s_active != src)
@@ -312,7 +304,7 @@
 					to_chat(usr, "<span class='notice'>You put the [W] into [src].</span>")
 				else if(M in range(1)) //If someone is standing close enough, they can tell what it is...
 					M.show_message("<span class='notice'>[usr] puts [W] into [src].</span>")
-				else if(W && W.w_class >= 3.0) //Otherwise they can only see large or normal items from a distance...
+				else if(W && W.w_class >= WEIGHT_CLASS_NORMAL) //Otherwise they can only see large or normal items from a distance...
 					M.show_message("<span class='notice'>[usr] puts [W] into [src].</span>")
 
 		src.orient2hud(usr)
@@ -344,9 +336,9 @@
 		else
 			W.layer = initial(W.layer)
 			W.plane = initial(W.plane)
-		W.loc = new_location
+		W.forceMove(new_location)
 	else
-		W.loc = get_turf(src)
+		W.forceMove(get_turf(src))
 
 	if(usr)
 		src.orient2hud(usr)
@@ -370,7 +362,7 @@
 	..()
 
 	if(isrobot(user))
-		to_chat(user, "\blue You're a robot. No.")
+		to_chat(user, "<span class='notice'>You're a robot. No.</span>")
 		return 1//Robots can't interact with storage items.
 
 	if(!can_be_inserted(W))
@@ -432,6 +424,8 @@
 		remove_from_storage(I, T)
 
 /obj/item/weapon/storage/New()
+	can_hold = typecacheof(can_hold)
+	cant_hold = typecacheof(cant_hold)
 
 	if(allow_quick_empty)
 		verbs += /obj/item/weapon/storage/verb/quick_empty
@@ -455,14 +449,13 @@
 	src.closer.layer = 20
 	src.closer.plane = HUD_PLANE
 	orient2hud()
-	return
 
 /obj/item/weapon/storage/Destroy()
 	for(var/obj/O in contents)
 		O.mouse_opacity = initial(O.mouse_opacity)
 
-	qdel(boxes)
-	qdel(closer)
+	QDEL_NULL(boxes)
+	QDEL_NULL(closer)
 	return ..()
 
 /obj/item/weapon/storage/emp_act(severity)
@@ -485,7 +478,7 @@
 /obj/item/weapon/storage/attack_self(mob/user as mob)
 
 	//Clicking on itself will empty it, if it has the verb to do that.
-	if(user.get_active_hand() == src)
+	if(user.is_in_active_hand(src))
 		if(src.verbs.Find(/obj/item/weapon/storage/verb/quick_empty))
 			src.quick_empty()
 			return
@@ -575,6 +568,8 @@
 	for(var/thing in data["content"])
 		if(islist(thing))
 			list_to_object(thing, src)
+		else if(thing == null)
+			log_runtime(EXCEPTION("Null entry found in storage/deserialize."), src)
 		else
 			log_runtime(EXCEPTION("Non-list thing found in storage/deserialize."), src, list("Thing: [thing]"))
 	..()

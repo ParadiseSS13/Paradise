@@ -21,7 +21,7 @@
 
 /datum/event/radiation_storm/start()
 	spawn()
-		command_announcement.Announce("High levels of radiation detected near the station. Please evacuate into one of the shielded maintenance tunnels.", "Anomaly Alert", new_sound = 'sound/AI/radiation.ogg')
+		event_announcement.Announce("High levels of radiation detected near the station. Please evacuate into one of the shielded maintenance tunnels.", "Anomaly Alert", new_sound = 'sound/AI/radiation.ogg')
 
 		for(var/area/A in world)
 			if(!is_station_level(A.z) || is_safe_zone(A))
@@ -32,12 +32,12 @@
 
 		sleep(600)
 
-		command_announcement.Announce("The station has entered the radiation belt. Please remain in a sheltered area until we have passed the radiation belt.", "Anomaly Alert")
+		event_announcement.Announce("The station has entered the radiation belt. Please remain in a sheltered area until we have passed the radiation belt.", "Anomaly Alert")
 
 		for(var/i = 0, i < 10, i++)
 			for(var/mob/living/carbon/human/H in living_mob_list)
 				var/armor = H.getarmor(type = "rad")
-				if((H.species.flags & RADIMMUNE) || armor >= 100) // Leave radiation-immune species/fully rad armored players completely unaffected
+				if((RADIMMUNE in H.species.species_traits) || armor >= 100) // Leave radiation-immune species/fully rad armored players completely unaffected
 					continue
 				var/turf/T = get_turf(H)
 				if(!T)
@@ -58,7 +58,7 @@
 
 			sleep(100)
 
-		command_announcement.Announce("The station has passed the radiation belt. Please report to medbay if you experience any unusual symptoms. Maintenance will lose all access again shortly.", "Anomaly Alert")
+		event_announcement.Announce("The station has passed the radiation belt. Please report to medbay if you experience any unusual symptoms. Maintenance will lose all access again shortly.", "Anomaly Alert")
 
 		for(var/area/A in world)
 			if(!is_station_level(A.z) || is_safe_zone(A))

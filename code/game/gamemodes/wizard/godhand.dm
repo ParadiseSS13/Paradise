@@ -8,7 +8,7 @@
 	icon_state = "syndballoon"
 	item_state = null
 	flags = ABSTRACT | NODROP
-	w_class = 5
+	w_class = WEIGHT_CLASS_HUGE
 	force = 0
 	throwforce = 0
 	throw_range = 0
@@ -32,11 +32,16 @@
 	attached_spell.attached_hand = null
 	qdel(src)
 
+/obj/item/weapon/melee/touch_attack/dropped()
+	if(attached_spell)
+		attached_spell.attached_hand = null
+	qdel(src)
+
 /obj/item/weapon/melee/touch_attack/disintegrate
 	name = "disintegrating touch"
 	desc = "This hand of mine glows with an awesome power!"
 	catchphrase = "EI NATH!!"
-	on_use_sound = "sound/magic/Disintegrate.ogg"
+	on_use_sound = 'sound/magic/Disintegrate.ogg'
 	icon_state = "disintegrate"
 	item_state = "disintegrate"
 
@@ -44,7 +49,7 @@
 	if(!proximity || target == user || !ismob(target) || !iscarbon(user) || user.lying || user.handcuffed) //exploding after touching yourself would be bad
 		return
 	var/mob/M = target
-	var/datum/effect/system/spark_spread/sparks = new
+	var/datum/effect_system/spark_spread/sparks = new
 	sparks.set_up(4, 0, M.loc) //no idea what the 0 is
 	sparks.start()
 	M.gib()
@@ -54,7 +59,7 @@
 	name = "petrifying touch"
 	desc = "That's the bottom line, because flesh to stone said so!"
 	catchphrase = "STAUN EI!!"
-	on_use_sound = "sound/magic/FleshToStone.ogg"
+	on_use_sound = 'sound/magic/FleshToStone.ogg'
 	icon_state = "fleshtostone"
 	item_state = "fleshtostone"
 
@@ -73,14 +78,14 @@
 	name = "toy plastic hand"
 	desc = "This hand of mine glows with an awesome power! Ok, maybe just batteries."
 	catchphrase = "EI NATH!!"
-	on_use_sound = "sound/magic/Disintegrate.ogg"
+	on_use_sound = 'sound/magic/Disintegrate.ogg'
 	icon_state = "disintegrate"
 	item_state = "disintegrate"
 
 /obj/item/weapon/melee/touch_attack/fake_disintegrate/afterattack(atom/target, mob/living/carbon/user, proximity)
 	if(!proximity || target == user || !ismob(target) || !iscarbon(user) || user.lying || user.handcuffed) //not exploding after touching yourself would be bad
 		return
-	var/datum/effect/system/spark_spread/sparks = new
+	var/datum/effect_system/spark_spread/sparks = new
 	sparks.set_up(4, 0, target.loc) //no idea what the 0 is
 	sparks.start()
 	playsound(target.loc, 'sound/goonstation/effects/gib.ogg', 50, 1)
@@ -90,7 +95,7 @@
 	name = "cluwne touch"
 	desc = "It's time to start clowning around."
 	catchphrase = "NWOLC EGNEVER"
-	on_use_sound = "sound/misc/sadtrombone.ogg"
+	on_use_sound = 'sound/misc/sadtrombone.ogg'
 	icon_state = "cluwnecurse"
 	item_state = "cluwnecurse"
 
@@ -102,7 +107,7 @@
 		to_chat(user, "<span class='warning'>The spell has no effect on [target].</span>")
 		return
 
-	var/datum/effect/system/harmless_smoke_spread/s = new /datum/effect/system/harmless_smoke_spread
+	var/datum/effect_system/smoke_spread/s = new
 	s.set_up(5, 0, target)
 	s.start()
 

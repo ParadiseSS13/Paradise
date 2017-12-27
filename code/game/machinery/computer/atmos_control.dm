@@ -25,7 +25,7 @@
 		return 1
 	ui_interact(user)
 
-/obj/machinery/computer/atmoscontrol/emag_act(var/remaining_carges, var/mob/user)
+/obj/machinery/computer/atmoscontrol/emag_act(mob/user)
 	if(!emagged)
 		user.visible_message("<span class='warning'>\The [user] does something \the [src], causing the screen to flash!</span>",\
 			"<span class='warning'>You cause the screen to flash as you gain full control.</span>",\

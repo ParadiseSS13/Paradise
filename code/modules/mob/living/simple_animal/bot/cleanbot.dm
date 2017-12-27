@@ -98,7 +98,7 @@
 
 			if(prob(5)) //Spawns foam!
 				visible_message("<span class='danger'>[src] whirs and bubbles violently, before releasing a plume of froth!</span>")
-				new /obj/effect/effect/foam(loc)
+				new /obj/effect/particle_effect/foam(loc)
 
 	else if(prob(5))
 		audible_message("[src] makes an excited beeping booping sound!")
@@ -143,7 +143,7 @@
 	target_types += /obj/effect/decal/cleanable/blood/gibs/robot
 	target_types += /obj/effect/decal/cleanable/crayon
 	target_types += /obj/effect/decal/cleanable/liquid_fuel
-	target_types += /obj/effect/decal/cleanable/molten_item
+	target_types += /obj/effect/decal/cleanable/molten_object
 	target_types += /obj/effect/decal/cleanable/tomato_smudge
 	target_types += /obj/effect/decal/cleanable/egg_smudge
 	target_types += /obj/effect/decal/cleanable/pie_smudge
@@ -167,9 +167,8 @@
 	mode = BOT_CLEANING
 	spawn(50)
 		if(mode == BOT_CLEANING)
-			qdel(target)
+			QDEL_NULL(target)
 			anchored = 0
-			target = null
 		mode = BOT_IDLE
 		icon_state = "cleanbot[on]"
 
@@ -185,7 +184,7 @@
 	if(prob(50))
 		new /obj/item/robot_parts/l_arm(Tsec)
 
-	var/datum/effect/system/spark_spread/s = new /datum/effect/system/spark_spread
+	var/datum/effect_system/spark_spread/s = new /datum/effect_system/spark_spread
 	s.set_up(3, 1, src)
 	s.start()
 	..()
@@ -204,7 +203,7 @@ Status: []<BR>
 Behaviour controls are [locked ? "locked" : "unlocked"]<BR>
 Maintenance panel panel is [open ? "opened" : "closed"]"},
 text("<A href='?src=[UID()];power=1'>[on ? "On" : "Off"]</A>"))
-	if(!locked || issilicon(user) || check_rights(R_ADMIN, 0, user))
+	if(!locked || issilicon(user) || user.can_admin_interact())
 		dat += text({"<BR>Cleans Blood: []<BR>"}, text("<A href='?src=[UID()];operation=blood'>[blood ? "Yes" : "No"]</A>"))
 		dat += text({"<BR>Patrol station: []<BR>"}, text("<A href='?src=[UID()];operation=patrol'>[auto_patrol ? "Yes" : "No"]</A>"))
 	return dat

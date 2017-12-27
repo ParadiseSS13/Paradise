@@ -41,6 +41,17 @@
 			return 1
 	return 0
 
+/obj/item/weapon/reagent_containers/food/drinks/MouseDrop(atom/over_object) //CHUG! CHUG! CHUG!
+	var/mob/living/carbon/chugger = over_object
+	if(istype(chugger) && loc == chugger && src == chugger.get_active_hand() && reagents.total_volume)
+		chugger.visible_message("<span class='notice'>[chugger] raises the [src] to their mouth and starts [pick("chugging","gulping")] it down like [pick("a savage","a mad beast","it's going out of style","there's no tomorrow")]!</span>", "<span class='notice'>You start chugging \the [src].</span>", "<span class='notice'>You hear what sounds like gulping.</span>")
+		while(do_mob(chugger, chugger, 40)) //Between the default time for do_mob and the time it takes for a vampire to suck blood.
+			chugger.eat(src, chugger, 25) //Half of a glass, quarter of a bottle.
+			if(!reagents.total_volume) //Finish in style.
+				chugger.emote("gasp")
+				chugger.visible_message("<span class='notice'>[chugger] [pick("finishes","downs","polishes off","slams")] the entire [src], what a [pick("savage","monster","champ","beast")]!</span>", "<span class='notice'>You finish off the [src]![prob(50) ? " Maybe that wasn't such a good idea..." : ""]</span>", "<span class='notice'>You hear a gasp and a clink.</span>")
+				break
+
 /obj/item/weapon/reagent_containers/food/drinks/afterattack(obj/target, mob/user, proximity)
 	if(!proximity) return
 
@@ -61,7 +72,7 @@
 			to_chat(user, "<span class='warning'> [src] is full.</span>")
 			return
 
-		var/trans = target.reagents.trans_to(src, target:amount_per_transfer_from_this)
+		var/trans = target.reagents.trans_to(src, amount_per_transfer_from_this)
 		to_chat(user, "<span class='notice'> You fill [src] with [trans] units of the contents of [target].</span>")
 
 	else if(target.is_open_container()) //Something like a glass. Player probably wants to transfer TO it.
@@ -130,7 +141,7 @@
 	name = "pewter cup"
 	desc = "Everyone gets a trophy."
 	icon_state = "pewter_cup"
-	w_class = 1
+	w_class = WEIGHT_CLASS_TINY
 	force = 1
 	throwforce = 1
 	amount_per_transfer_from_this = 5
@@ -143,7 +154,7 @@
 	name = "gold cup"
 	desc = "You're winner!"
 	icon_state = "golden_cup"
-	w_class = 4
+	w_class = WEIGHT_CLASS_BULKY
 	force = 14
 	throwforce = 10
 	amount_per_transfer_from_this = 20
@@ -154,7 +165,7 @@
 	name = "silver cup"
 	desc = "Best loser!"
 	icon_state = "silver_cup"
-	w_class = 3
+	w_class = WEIGHT_CLASS_NORMAL
 	force = 10
 	throwforce = 8
 	amount_per_transfer_from_this = 15
@@ -165,7 +176,7 @@
 	name = "bronze cup"
 	desc = "At least you ranked!"
 	icon_state = "bronze_cup"
-	w_class = 2
+	w_class = WEIGHT_CLASS_SMALL
 	force = 5
 	throwforce = 4
 	amount_per_transfer_from_this = 10
@@ -332,3 +343,10 @@
 	desc = "A cup with the british flag emblazoned on it."
 	icon_state = "britcup"
 	volume = 30
+
+/obj/item/weapon/reagent_containers/food/drinks/mushroom_bowl
+	name = "mushroom bowl"
+	desc = "A bowl made out of mushrooms. Not food, though it might have contained some at some point."
+	icon = 'icons/obj/lavaland/ash_flora.dmi'
+	icon_state = "mushroom_bowl"
+	w_class = WEIGHT_CLASS_SMALL

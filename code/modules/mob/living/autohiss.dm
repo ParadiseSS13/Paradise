@@ -1,29 +1,18 @@
-
-#define AUTOHISS_OFF 0
-#define AUTOHISS_BASIC 1
-#define AUTOHISS_FULL 2
-
-#define AUTOHISS_NUM 3
-
-
 /mob/living/proc/handle_autohiss(message, datum/language/L)
 	return message // no autohiss at this level
 
 /mob/living/carbon/human/handle_autohiss(message, datum/language/L)
-	if(!client || client.autohiss_mode == AUTOHISS_OFF) // no need to process if there's no client or they have autohiss off
+	if(!client || client.prefs.autohiss_mode == AUTOHISS_OFF) // no need to process if there's no client or they have autohiss off
 		return message
-	return species.handle_autohiss(message, L, client.autohiss_mode)
-
-/client
-	var/autohiss_mode = AUTOHISS_OFF
+	return species.handle_autohiss(message, L, client.prefs.autohiss_mode)
 
 /client/verb/toggle_autohiss()
 	set name = "Toggle Auto-Accent"
 	set desc = "Toggle automatic accents for your species"
 	set category = "OOC"
 
-	autohiss_mode = (autohiss_mode + 1) % AUTOHISS_NUM
-	switch(autohiss_mode)
+	prefs.autohiss_mode = (prefs.autohiss_mode + 1) % AUTOHISS_NUM
+	switch(prefs.autohiss_mode)
 		if(AUTOHISS_OFF)
 			to_chat(src, "Auto-hiss is now OFF.")
 		if(AUTOHISS_BASIC)
@@ -31,7 +20,7 @@
 		if(AUTOHISS_FULL)
 			to_chat(src, "Auto-hiss is now FULL.")
 		else
-			autohiss_mode = AUTOHISS_OFF
+			prefs.autohiss_mode = AUTOHISS_OFF
 			to_chat(src, "Auto-hiss is now OFF.")
 
 /datum/species

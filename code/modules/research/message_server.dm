@@ -113,7 +113,7 @@ var/global/list/obj/machinery/message_server/message_servers = list()
 			Console.set_light(2)
 
 /obj/machinery/message_server/attack_hand(user as mob)
-//	to_chat(user, "\blue There seem to be some parts missing from this server. They should arrive on the station in a few days, give or take a few CentComm delays.")
+//	to_chat(user, "<span class='notice'>There seem to be some parts missing from this server. They should arrive on the station in a few days, give or take a few CentComm delays.</span>")
 	to_chat(user, "You toggle PDA message passing from [active ? "On" : "Off"] to [active ? "Off" : "On"]")
 	active = !active
 	update_icon()
@@ -139,6 +139,9 @@ var/global/list/obj/machinery/message_server/message_servers = list()
 /datum/feedback_variable/New(var/param_variable,var/param_value = 0)
 	variable = param_variable
 	value = param_value
+
+/datum/feedback_variable/vv_edit_var(var_name, var_value)
+	return FALSE // come on guys don't break the stats
 
 /datum/feedback_variable/proc/inc(var/num = 1)
 	if(isnum(value))
@@ -189,6 +192,7 @@ var/global/list/obj/machinery/message_server/message_servers = list()
 
 var/obj/machinery/blackbox_recorder/blackbox
 
+//TODO: kill whoever designed this cancer
 /obj/machinery/blackbox_recorder
 	icon = 'icons/obj/stationobjs.dmi'
 	icon_state = "blackbox"
@@ -313,6 +317,9 @@ var/obj/machinery/blackbox_recorder/blackbox
 		var/sql = "INSERT INTO [format_table_name("feedback")] VALUES (null, Now(), [round_id], \"[FV.get_variable()]\", [FV.get_value()], \"[FV.get_details()]\")"
 		var/DBQuery/query_insert = dbcon.NewQuery(sql)
 		query_insert.Execute()
+
+/obj/machinery/blackbox_recorder/vv_edit_var(var_name, var_value)
+	return FALSE // don't fuck with the stupid blackbox shit
 
 
 proc/feedback_set(var/variable,var/value)

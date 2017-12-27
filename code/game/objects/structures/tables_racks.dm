@@ -18,7 +18,7 @@
 	density = 1
 	anchored = 1.0
 	layer = 2.8
-	throwpass = 1	//You can throw objects over this, despite it's density.")
+	pass_flags = LETPASSTHROW
 	climbable = 1
 
 	var/parts = /obj/item/weapon/table_parts
@@ -126,8 +126,9 @@
 /obj/structure/table/attack_tk() // no telehulk sorry
 	return
 
-/obj/structure/table/CanPass(atom/movable/mover, turf/target, height=0, air_group=0)
-	if(air_group || (height==0)) return 1
+/obj/structure/table/CanPass(atom/movable/mover, turf/target, height=0)
+	if(height == 0)
+		return 1
 	if(istype(mover,/obj/item/projectile))
 		return (check_cover(mover,target))
 	if(ismob(mover))
@@ -135,6 +136,8 @@
 		if(M.flying)
 			return 1
 	if(istype(mover) && mover.checkpass(PASSTABLE))
+		return 1
+	if(mover.throwing)
 		return 1
 	if(locate(/obj/structure/table) in get_turf(mover))
 		return 1
@@ -227,9 +230,9 @@
 
 	if(istype(W, /obj/item/weapon/wrench))
 		user.visible_message("<span class='notice'>[user] is disassembling \a [src].</span>", "<span class='notice'>You start disassembling \the [src].</span>")
-		playsound(loc, 'sound/items/Ratchet.ogg', 50, 1)
-		if(do_after(user, 50, target = src))
-			playsound(loc, 'sound/items/Deconstruct.ogg', 50, 1)
+		playsound(loc, W.usesound, 50, 1)
+		if(do_after(user, 50 * W.toolspeed, target = src))
+			playsound(loc, W.usesound, 50, 1)
 			destroy()
 		return
 
@@ -237,13 +240,13 @@
 		return
 
 	if(istype(W, /obj/item/weapon/melee/energy/blade))
-		var/datum/effect/system/spark_spread/spark_system = new /datum/effect/system/spark_spread()
+		var/datum/effect_system/spark_spread/spark_system = new /datum/effect_system/spark_spread()
 		spark_system.set_up(5, 0, src.loc)
 		spark_system.start()
-		playsound(src.loc, 'sound/weapons/blade1.ogg', 50, 1)
+		playsound(src.loc, W.usesound, 50, 1)
 		playsound(src.loc, "sparks", 50, 1)
 		for(var/mob/O in viewers(user, 4))
-			O.show_message("\blue The [src] was sliced apart by [user]!", 1, "\red You hear [src] coming apart.", 2)
+			O.show_message("<span class='notice'>The [src] was sliced apart by [user]!</span>", 1, "<span class='warning'>You hear [src] coming apart.</span>", 2)
 		destroy()
 		return
 
@@ -409,6 +412,35 @@
 /obj/structure/table/woodentable/poker/narsie_act()
 	return
 
+/*
+ * Fancy Tables
+ */
+
+/obj/structure/table/wood/fancy
+	name = "fancy table"
+	desc = "A standard metal table frame covered with an amazingly fancy, patterned cloth."
+	icon = 'icons/obj/structures.dmi'
+	icon_state = "fancy_table"
+	parts = /obj/item/weapon/table_parts/fancy
+	canSmoothWith = list(/obj/structure/table/wood/fancy, /obj/structure/table/wood/fancy/black)
+
+/obj/structure/table/wood/fancy/New()
+	icon = 'icons/obj/smooth_structures/fancy_table.dmi' //so that the tables place correctly in the map editor
+	..()
+
+/obj/structure/table/wood/fancy/black
+	icon_state = "fancy_table_black"
+	parts = /obj/item/weapon/table_parts/fancy/black
+
+/obj/structure/table/wood/fancy/black/New()
+	..()
+	icon = 'icons/obj/smooth_structures/fancy_table_black.dmi' //so that the tables place correctly in the map editor
+
+
+/*
+ * Glass Tables
+ */
+
 /obj/structure/glasstable_frame
 	name = "glass table frame"
 	desc = "A metal frame for a glass table."
@@ -421,10 +453,10 @@
 		var/obj/item/stack/sheet/glass/G = I
 		if(G.amount >= 2)
 			to_chat(user, "<span class='notice'>You start to add the glass to \the [src].</span>")
-			if(do_after(user, 10, target = src))
+			if(do_after(user, 10 * G.toolspeed, target = src))
 				G.use(2)
 				to_chat(user, "<span class='notice'>You add the glass to \the [src].</span>")
-				playsound(get_turf(src), 'sound/items/Deconstruct.ogg', 50, 1)
+				playsound(get_turf(src), G.usesound, 50, 1)
 				new /obj/structure/table/glass(loc)
 				qdel(src)
 		else
@@ -433,9 +465,9 @@
 
 	if(iswrench(I))
 		to_chat(user, "<span class='notice'>You start to deconstruct \the [src].</span>")
-		playsound(src.loc, 'sound/items/Ratchet.ogg', 75, 1)
-		if(do_after(user, 10, target = src))
-			playsound(src.loc, 'sound/items/Deconstruct.ogg', 75, 1)
+		playsound(src.loc, I.usesound, 75, 1)
+		if(do_after(user, 10 * I.toolspeed, target = src))
+			playsound(src.loc, I.usesound, 75, 1)
 			to_chat(user, "<span class='notice'>You dismantle \the [src].</span>")
 			new /obj/item/stack/sheet/metal(loc)
 			new /obj/item/stack/sheet/metal(loc)
@@ -494,18 +526,18 @@
 		var/obj/item/weapon/weldingtool/WT = W
 		if(WT.remove_fuel(0, user))
 			if(src.status == 2)
-				to_chat(user, "\blue Now weakening the reinforced table")
-				playsound(src.loc, 'sound/items/Welder.ogg', 50, 1)
-				if(do_after(user, 50, target = src))
+				to_chat(user, "<span class='notice'>Now weakening the reinforced table</span>")
+				playsound(src.loc, WT.usesound, 50, 1)
+				if(do_after(user, 50 * WT.toolspeed, target = src))
 					if(!src || !WT.isOn()) return
-					to_chat(user, "\blue Table weakened")
+					to_chat(user, "<span class='notice'>Table weakened</span>")
 					src.status = 1
 			else
-				to_chat(user, "\blue Now strengthening the reinforced table")
-				playsound(src.loc, 'sound/items/Welder.ogg', 50, 1)
-				if(do_after(user, 50, target = src))
+				to_chat(user, "<span class='notice'>Now strengthening the reinforced table</span>")
+				playsound(src.loc, WT.usesound, 50, 1)
+				if(do_after(user, 50 * WT.toolspeed, target = src))
 					if(!src || !WT.isOn()) return
-					to_chat(user, "\blue Table strengthened")
+					to_chat(user, "<span class='notice'>Table strengthened</span>")
 					src.status = 2
 			return
 		return
@@ -526,7 +558,7 @@
 	icon_state = "rack"
 	density = 1
 	anchored = 1.0
-	throwpass = 1	//You can throw objects over this, despite it's density.
+	pass_flags = LETPASSTHROW
 	var/parts = /obj/item/weapon/rack_parts
 	var/health = 5
 
@@ -557,11 +589,13 @@
 		qdel(src)
 		return
 
-/obj/structure/rack/CanPass(atom/movable/mover, turf/target, height=0, air_group=0)
-	if(air_group || (height==0)) return 1
+/obj/structure/rack/CanPass(atom/movable/mover, turf/target, height=0)
+	if(height==0) return 1
 	if(src.density == 0) //Because broken racks -Agouri |TODO: SPRITE!|
 		return 1
 	if(istype(mover) && mover.checkpass(PASSTABLE))
+		return 1
+	if(mover.throwing)
 		return 1
 	else
 		return 0
@@ -586,7 +620,7 @@
 /obj/structure/rack/attackby(obj/item/weapon/W as obj, mob/user as mob, params)
 	if(istype(W, /obj/item/weapon/wrench))
 		new /obj/item/weapon/rack_parts( src.loc )
-		playsound(src.loc, 'sound/items/Ratchet.ogg', 50, 1)
+		playsound(src.loc, W.usesound, 50, 1)
 		qdel(src)
 		return
 	if(isrobot(user))

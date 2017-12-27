@@ -1,6 +1,3 @@
-//This file was auto-corrected by findeclaration.exe on 25.5.2012 20:42:33
-
-
 /* --- Traffic Control Scripting Language --- */
 	// Nanotrasen TCS Language - Made by Doohl
 
@@ -321,6 +318,7 @@
 
 	newsign.data["mob"] = null
 	newsign.data["mobtype"] = /mob/living/carbon/human
+	newsign.data["race"] = "Automated Signal"
 	newsign.data["name"] = source
 	newsign.data["realname"] = newsign.data["name"]
 	newsign.data["job"] = "[job]"

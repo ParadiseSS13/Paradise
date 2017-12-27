@@ -1,4 +1,4 @@
-/obj/effect/blob/resource
+/obj/structure/blob/resource
 	name = "resource blob"
 	icon = 'icons/mob/blob.dmi'
 	icon_state = "blob_resource"
@@ -7,11 +7,11 @@
 	var/mob/camera/blob/overmind = null
 	var/resource_delay = 0
 
-/obj/effect/blob/resource/update_icon()
+/obj/structure/blob/resource/update_icon()
 	if(health <= 0)
 		qdel(src)
 
-/obj/effect/blob/resource/run_action()
+/obj/structure/blob/resource/run_action()
 
 	if(resource_delay > world.time)
 		return 0

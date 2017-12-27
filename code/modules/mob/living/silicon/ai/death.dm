@@ -1,9 +1,13 @@
 /mob/living/silicon/ai/death(gibbed)
-	if(stat == DEAD)	return
+	if(stat == DEAD)
+		return
 	stat = DEAD
-	if(src.custom_sprite == 1)//check for custom AI sprite, defaulting to blue screen if no.
-		icon_state = "[ckey]-ai-crash"
-	else icon_state = "ai-crash"
+	if(custom_sprite == 1)//check for custom AI sprite, defaulting to blue screen if no.
+		icon_state = "[ckey]-ai_dead"
+	else if("[icon_state]_dead" in icon_states(icon,1))
+		icon_state = "[icon_state]_dead"
+	else
+		icon_state = "ai_dead"
 	update_canmove()
 	if(eyeobj)
 		eyeobj.setLoc(get_turf(src))

@@ -36,7 +36,7 @@
 	name = "Machine Board (Relay Mainframe)"
 	desc = "Allows for the construction of Telecommunications Relay Mainframes."
 	id = "s-relay"
-	req_tech = list("programming" = 1, "engineering" = 2, "bluespace" = 2)
+	req_tech = list("programming" = 2, "engineering" = 2, "bluespace" = 2)
 	build_type = IMPRINTER
 	materials = list(MAT_GLASS = 1000, "sacid" = 20)
 	build_path = /obj/item/weapon/circuitboard/telecomms/relay
@@ -56,7 +56,7 @@
 	name = "Machine Board (Subspace Broadcaster)"
 	desc = "Allows for the construction of Subspace Broadcasting equipment."
 	id = "s-broadcaster"
-	req_tech = list("programming" = 2, "engineering" = 2, "bluespace" = 1)
+	req_tech = list("programming" = 2, "engineering" = 2)
 	build_type = IMPRINTER
 	materials = list(MAT_GLASS = 1000, "sacid" = 20)
 	build_path = /obj/item/weapon/circuitboard/telecomms/broadcaster
@@ -66,7 +66,7 @@
 	name = "Machine Board (Subspace Receiver)"
 	desc = "Allows for the construction of Subspace Receiver equipment."
 	id = "s-receiver"
-	req_tech = list("programming" = 2, "engineering" = 1, "bluespace" = 1)
+	req_tech = list("programming" = 2, "engineering" = 2, "bluespace" = 1)
 	build_type = IMPRINTER
 	materials = list(MAT_GLASS = 1000, "sacid" = 20)
 	build_path = /obj/item/weapon/circuitboard/telecomms/receiver
@@ -76,9 +76,9 @@
 	name = "Ansible Crystal"
 	desc = "A sophisticated analyzer capable of analyzing cryptic subspace wavelengths."
 	id = "s-crystal"
-	req_tech = list("magnets" = 2, "materials" = 2, "bluespace" = 1)
+	req_tech = list("magnets" = 2, "materials" = 2, "bluespace" = 3, "plasmatech" = 3)
 	build_type = PROTOLATHE
-	materials = list(MAT_GLASS = 1000, MAT_SILVER = 20, MAT_GOLD = 20)
+	materials = list(MAT_GLASS = 800, MAT_SILVER = 100, MAT_GOLD = 100)
 	build_path = /obj/item/weapon/stock_parts/subspace/crystal
 	category = list("Stock Parts")
 
@@ -86,9 +86,9 @@
 	name = "Hyperwave Filter"
 	desc = "A tiny device capable of filtering and converting super-intense radiowaves."
 	id = "s-filter"
-	req_tech = list("programming" = 2, "magnets" = 2)
+	req_tech = list("programming" = 3, "magnets" = 3)
 	build_type = PROTOLATHE
-	materials = list(MAT_METAL = 40, MAT_SILVER = 10)
+	materials = list(MAT_METAL = 100, MAT_SILVER = 100)
 	build_path = /obj/item/weapon/stock_parts/subspace/filter
 	category = list("Stock Parts")
 
@@ -96,9 +96,9 @@
 	name = "Subspace Amplifier"
 	desc = "A compact micro-machine capable of amplifying weak subspace transmissions."
 	id = "s-amplifier"
-	req_tech = list("programming" = 2, "magnets" = 2, "materials" = 2, "bluespace" = 1)
+	req_tech = list("programming" = 3, "magnets" = 4, "materials" = 3, "bluespace" = 2)
 	build_type = PROTOLATHE
-	materials = list(MAT_METAL = 10, MAT_GOLD = 30, MAT_URANIUM = 15)
+	materials = list(MAT_METAL = 100, MAT_GOLD = 100, MAT_URANIUM = 100)
 	build_path = /obj/item/weapon/stock_parts/subspace/amplifier
 	category = list("Stock Parts")
 
@@ -106,9 +106,9 @@
 	name = "Subspace Analyzer"
 	desc = "A sophisticated analyzer capable of analyzing cryptic subspace wavelengths."
 	id = "s-analyzer"
-	req_tech = list("programming" = 2, "magnets" = 2, "materials" = 2, "bluespace" = 1)
+	req_tech = list("programming" = 3, "magnets" = 4, "materials" = 2, "bluespace" = 3)
 	build_type = PROTOLATHE
-	materials = list(MAT_METAL = 10, MAT_GOLD = 15)
+	materials = list(MAT_METAL = 100, MAT_GOLD = 100)
 	build_path = /obj/item/weapon/stock_parts/subspace/analyzer
 	category = list("Stock Parts")
 
@@ -116,9 +116,9 @@
 	name = "Subspace Ansible"
 	desc = "A compact module capable of sensing extradimensional activity."
 	id = "s-ansible"
-	req_tech = list("programming" = 2, "magnets" = 2, "materials" = 2, "bluespace" = 1)
+	req_tech = list("programming" = 2, "magnets" = 2, "materials" = 2)
 	build_type = PROTOLATHE
-	materials = list(MAT_METAL = 80, MAT_SILVER = 20)
+	materials = list(MAT_METAL = 100, MAT_SILVER = 100)
 	build_path = /obj/item/weapon/stock_parts/subspace/ansible
 	category = list("Stock Parts")
 
@@ -126,9 +126,9 @@
 	name = "Subspace Transmitter"
 	desc = "A large piece of equipment used to open a window into the subspace dimension."
 	id = "s-transmitter"
-	req_tech = list("magnets" = 3, "materials" = 3, "bluespace" = 2)
+	req_tech = list("magnets" = 3, "materials" = 4, "bluespace" = 4)
 	build_type = PROTOLATHE
-	materials = list(MAT_GLASS = 100, MAT_SILVER = 10, MAT_URANIUM = 15)
+	materials = list(MAT_GLASS = 100, MAT_SILVER = 100, MAT_URANIUM = 100)
 	build_path = /obj/item/weapon/stock_parts/subspace/transmitter
 	category = list("Stock Parts")
 
@@ -136,8 +136,8 @@
 	name = "Subspace Treatment Disk"
 	desc = "A compact micro-machine capable of stretching out hyper-compressed radio waves."
 	id = "s-treatment"
-	req_tech = list("programming" = 2, "magnets" = 1, "materials" = 2, "bluespace" = 1)
+	req_tech = list("programming" = 2, "magnets" = 3, "materials" = 2, "bluespace" = 3)
 	build_type = PROTOLATHE
-	materials = list(MAT_METAL = 10, MAT_SILVER = 20)
+	materials = list(MAT_METAL = 100, MAT_SILVER = 200)
 	build_path = /obj/item/weapon/stock_parts/subspace/treatment
 	category = list("Stock Parts")

@@ -5,16 +5,14 @@
 	item_state = "lgloves"
 	force = 0
 	throwforce = 0
-	w_class = 1
+	w_class = WEIGHT_CLASS_TINY
 	throw_speed = 1
 	throw_range = 7
 	var/state
 	var/datum/gas_mixture/air_contents = null
 
 /obj/item/latexballon/Destroy()
-	if(air_contents)
-		qdel(air_contents)
-		air_contents = null
+	QDEL_NULL(air_contents)
 	return ..()
 
 /obj/item/latexballon/proc/blow(obj/item/weapon/tank/tank, mob/user)
@@ -61,5 +59,5 @@
 		var/obj/item/weapon/tank/T = W
 		blow(T, user)
 		return
-	if(is_sharp(W) || is_hot(W) || can_puncture(W))
+	if(is_sharp(W) || is_hot(W) || is_pointed(W))
 		burst()

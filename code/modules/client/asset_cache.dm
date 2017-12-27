@@ -225,6 +225,29 @@ proc/getFilesSlow(var/client/client, var/list/files, var/register_asset = TRUE)
 		"boardui.js"                = 'html/browser/boardui.js'
 	)
 
+/datum/asset/simple/headers
+	assets = list(
+		"alarm_green.gif" 			= 'icons/program_icons/alarm_green.gif',
+		"alarm_red.gif" 			= 'icons/program_icons/alarm_red.gif',
+		"batt_5.gif" 				= 'icons/program_icons/batt_5.gif',
+		"batt_20.gif" 				= 'icons/program_icons/batt_20.gif',
+		"batt_40.gif" 				= 'icons/program_icons/batt_40.gif',
+		"batt_60.gif" 				= 'icons/program_icons/batt_60.gif',
+		"batt_80.gif" 				= 'icons/program_icons/batt_80.gif',
+		"batt_100.gif" 				= 'icons/program_icons/batt_100.gif',
+		"charging.gif" 				= 'icons/program_icons/charging.gif',
+		"downloader_finished.gif" 	= 'icons/program_icons/downloader_finished.gif',
+		"downloader_running.gif" 	= 'icons/program_icons/downloader_running.gif',
+		"ntnrc_idle.gif"			= 'icons/program_icons/ntnrc_idle.gif',
+		"ntnrc_new.gif"				= 'icons/program_icons/ntnrc_new.gif',
+		"power_norm.gif"			= 'icons/program_icons/power_norm.gif',
+		"power_warn.gif"			= 'icons/program_icons/power_warn.gif',
+		"sig_high.gif" 				= 'icons/program_icons/sig_high.gif',
+		"sig_low.gif" 				= 'icons/program_icons/sig_low.gif',
+		"sig_lan.gif" 				= 'icons/program_icons/sig_lan.gif',
+		"sig_none.gif" 				= 'icons/program_icons/sig_none.gif',
+	)
+
 /datum/asset/nanoui
 	var/list/common = list()
 
@@ -278,6 +301,31 @@ proc/getFilesSlow(var/client/client, var/list/files, var/register_asset = TRUE)
 /datum/asset/chem_master/send(client)
 	send_asset_list(client, assets, verify)
 
+
+//Pipe sprites for UIs
+/datum/asset/rpd
+	var/assets = list()
+	var/verify = FALSE
+
+/datum/asset/rpd/register()
+	for(var/state in icon_states('icons/obj/pipe-item.dmi'))
+		if(!(state in list("cap", "connector", "dtvalve", "dual-port vent", "dvalve", "filter", "he", "heunary", "injector", "junction", "manifold", "mixer", "tvalve", "mvalve", "passive vent", "passivegate", "pump", "scrubber", "simple", "universal", "uvent", "volumepump"))) //Basically all the pipes we want sprites for
+			continue
+		if(state in list("he", "simple"))
+			for(var/D in alldirs)
+				assets["[state]-[dir2text(D)].png"] = icon('icons/obj/pipe-item.dmi', state, D)
+		for(var/D in cardinal)
+			assets["[state]-[dir2text(D)].png"] = icon('icons/obj/pipe-item.dmi', state, D)
+	for(var/state in icon_states('icons/obj/pipes/disposal.dmi'))
+		if(!(state in list("conpipe-c", "conpipe-j1", "conpipe-s", "conpipe-t", "conpipe-y", "intake", "outlet"))) //Pipes we want sprites for
+			continue
+		for(var/D in cardinal)
+			assets["[state]-[dir2text(D)].png"] = icon('icons/obj/pipes/disposal.dmi', state, D)
+	for(var/asset_name in assets)
+		register_asset(asset_name, assets[asset_name])
+
+/datum/asset/rpd/send(client)
+	send_asset_list(client, assets, verify)
 
 //Mob Hunt sprites for UIs
 /datum/asset/mob_hunt

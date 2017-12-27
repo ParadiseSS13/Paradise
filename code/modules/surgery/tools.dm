@@ -5,7 +5,7 @@
 	icon_state = "retractor"
 	materials = list(MAT_METAL=6000, MAT_GLASS=3000)
 	flags = CONDUCT
-	w_class = 2
+	w_class = WEIGHT_CLASS_SMALL
 	origin_tech = "materials=1;biotech=1"
 
 
@@ -16,7 +16,7 @@
 	icon_state = "hemostat"
 	materials = list(MAT_METAL=5000, MAT_GLASS=2500)
 	flags = CONDUCT
-	w_class = 1
+	w_class = WEIGHT_CLASS_TINY
 	origin_tech = "materials=1;biotech=1"
 	attack_verb = list("attacked", "pinched")
 
@@ -28,7 +28,7 @@
 	icon_state = "cautery"
 	materials = list(MAT_METAL=2500, MAT_GLASS=750)
 	flags = CONDUCT
-	w_class = 1
+	w_class = WEIGHT_CLASS_TINY
 	origin_tech = "materials=1;biotech=1"
 	attack_verb = list("burnt")
 
@@ -43,8 +43,7 @@
 	flags = CONDUCT
 	force = 15.0
 	sharp = 1
-	edge = 1
-	w_class = 3
+	w_class = WEIGHT_CLASS_NORMAL
 	origin_tech = "materials=1;biotech=1"
 	attack_verb = list("drilled")
 
@@ -59,11 +58,11 @@
 	desc = "Cut, cut, and once more cut."
 	icon = 'icons/obj/surgery.dmi'
 	icon_state = "scalpel"
+	item_state = "scalpel"
 	flags = CONDUCT
 	force = 10.0
 	sharp = 1
-	edge = 1
-	w_class = 1
+	w_class = WEIGHT_CLASS_TINY
 	throwforce = 5.0
 	throw_speed = 3
 	throw_range = 5
@@ -82,37 +81,36 @@
 /*
  * Researchable Scalpels
  */
-/obj/item/weapon/scalpel/laser1 //lasers also count as catuarys
+/obj/item/weapon/scalpel/laser //parent type
+	name = "laser scalpel"
+	desc = "A scalpel augmented with a directed laser."
+	icon_state = "scalpel_laser1_on"
+	damtype = "fire"
+	hitsound = 'sound/weapons/sear.ogg'
+
+/obj/item/weapon/scalpel/laser/laser1 //lasers also count as catuarys
 	name = "laser scalpel"
 	desc = "A scalpel augmented with a directed laser.  This one looks basic and could be improved."
 	icon_state = "scalpel_laser1_on"
-	item_state = "scalpel"
-	damtype = "fire"
-	hitsound = 'sound/weapons/sear.ogg'
+	toolspeed = 0.8
 
-/obj/item/weapon/scalpel/laser2
+/obj/item/weapon/scalpel/laser/laser2
 	name = "laser scalpel"
 	desc = "A scalpel augmented with a directed laser. This one looks somewhat advanced."
 	icon_state = "scalpel_laser2_on"
-	item_state = "scalpel"
-	damtype = "fire"
-	hitsound = 'sound/weapons/sear.ogg'
+	toolspeed = 0.6
 
-/obj/item/weapon/scalpel/laser3
+/obj/item/weapon/scalpel/laser/laser3
 	name = "laser scalpel"
 	desc = "A scalpel augmented with a directed laser.  This one looks to be the pinnacle of precision energy cutlery!"
 	icon_state = "scalpel_laser3_on"
-	item_state = "scalpel"
-	damtype = "fire"
-	hitsound = 'sound/weapons/sear.ogg'
+	toolspeed = 0.4
 
-/obj/item/weapon/scalpel/manager //super tool! Retractor/hemostat
+/obj/item/weapon/scalpel/laser/manager //super tool! Retractor/hemostat
 	name = "incision management system"
 	desc = "A true extension of the surgeon's body, this marvel instantly and completely prepares an incision allowing for the immediate commencement of therapeutic steps."
 	icon_state = "scalpel_manager_on"
-	item_state = "scalpel"
-	damtype = "fire"
-	hitsound = 'sound/weapons/sear.ogg'
+	toolspeed = 0.2
 
 /obj/item/weapon/circular_saw
 	name = "circular saw"
@@ -123,13 +121,12 @@
 	flags = CONDUCT
 	force = 15.0
 	sharp = 1
-	edge = 1
-	w_class = 3
+	w_class = WEIGHT_CLASS_NORMAL
 	throwforce = 9.0
 	throw_speed = 3
 	throw_range = 5
 	materials = list(MAT_METAL=10000, MAT_GLASS=6000)
-	origin_tech = "materials=1;biotech=1"
+	origin_tech = "biotech=1;combat=1"
 	attack_verb = list("attacked", "slashed", "sawed", "cut")
 
 //misc, formerly from code/defines/weapons.dm
@@ -138,7 +135,7 @@
 	icon = 'icons/obj/surgery.dmi'
 	icon_state = "bone-gel"
 	force = 0
-	w_class = 2
+	w_class = WEIGHT_CLASS_SMALL
 	throwforce = 1.0
 	origin_tech = "materials=1;biotech=1"
 
@@ -149,7 +146,7 @@
 	force = 0
 	throwforce = 1.0
 	origin_tech = "materials=1;biotech=1"
-	w_class = 2
+	w_class = WEIGHT_CLASS_SMALL
 
 /obj/item/weapon/bonesetter
 	name = "bone setter"
@@ -159,7 +156,7 @@
 	throwforce = 9.0
 	throw_speed = 3
 	throw_range = 5
-	w_class = 2
+	w_class = WEIGHT_CLASS_SMALL
 	attack_verb = list("attacked", "hit", "bludgeoned")
 	origin_tech = "materials=1;biotech=1"
 
@@ -168,6 +165,6 @@
 	desc = "Nanotrasen brand surgical drapes provide optimal safety and infection control."
 	icon = 'icons/obj/surgery.dmi'
 	icon_state = "surgical_drapes"
-	w_class = 1
+	w_class = WEIGHT_CLASS_SMALL
 	origin_tech = "biotech=1"
 	attack_verb = list("slapped")

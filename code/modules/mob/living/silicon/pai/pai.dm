@@ -81,14 +81,18 @@
 	var/translator_on = 0 // keeps track of the translator module
 
 	var/current_pda_messaging = null
+	var/custom_sprite = 0
+	var/slowdown = 0
 
 /mob/living/silicon/pai/New(var/obj/item/device/paicard)
-	src.loc = paicard
+	loc = paicard
 	card = paicard
+	if(card)
+		faction = card.faction.Copy()
 	sradio = new(src)
 	if(card)
 		if(!card.radio)
-			card.radio = new /obj/item/device/radio(src.card)
+			card.radio = new /obj/item/device/radio(card)
 		radio = card.radio
 
 	//Default languages without universal translator software
@@ -114,10 +118,21 @@
 		C.toff = 1
 	..()
 
+/mob/living/silicon/pai/movement_delay()
+	. = ..()
+	. += slowdown
+	. += 1 //A bit slower than humans, so they're easier to smash
+	. += config.robot_delay
+
+/mob/living/silicon/pai/update_icons()
+	if(stat == DEAD)
+		icon_state = "[chassis]_dead"
+	else
+		icon_state = resting ? "[chassis]_rest" : "[chassis]"
 
 // this function shows the information about being silenced as a pAI in the Status panel
 /mob/living/silicon/pai/proc/show_silenced()
-	if(src.silence_time)
+	if(silence_time)
 		var/timeleft = round((silence_time - world.timeofday)/10 ,1)
 		stat(null, "Communications system reboot in -[(timeleft / 60) % 60]:[add_zero(num2text(timeleft % 60), 2)]")
 
@@ -125,7 +140,7 @@
 /mob/living/silicon/pai/Stat()
 	..()
 	statpanel("Status")
-	if(src.client.statpanel == "Status")
+	if(client.statpanel == "Status")
 		show_silenced()
 
 	if(proc_holder_list.len)//Generic list for proc_holder objects.
@@ -133,20 +148,20 @@
 			statpanel("[P.panel]","",P)
 
 /mob/living/silicon/pai/check_eye(var/mob/user as mob)
-	if(!src.current)
+	if(!current)
 		return null
-	user.reset_perspective(src.current)
+	user.reset_perspective(current)
 	return 1
 
 /mob/living/silicon/pai/blob_act()
-	if(src.stat != 2)
-		src.adjustBruteLoss(60)
-		src.updatehealth()
+	if(stat != 2)
+		adjustBruteLoss(60)
+		updatehealth()
 		return 1
 	return 0
 
 /mob/living/silicon/pai/restrained()
-	if(istype(src.loc,/obj/item/device/paicard))
+	if(istype(loc,/obj/item/device/paicard))
 		return 0
 	..()
 
@@ -160,18 +175,18 @@
 		// 33% chance to change prime directive (based on severity)
 		// 33% chance of no additional effect
 
-	src.silence_time = world.timeofday + 120 * 10		// Silence for 2 minutes
+	silence_time = world.timeofday + 120 * 10		// Silence for 2 minutes
 	to_chat(src, "<font color=green><b>Communication circuit overload. Shutting down and reloading communication circuits - speech and messaging functionality will be unavailable until the reboot is complete.</b></font>")
 	if(prob(20))
-		var/turf/T = get_turf_or_move(src.loc)
+		var/turf/T = get_turf_or_move(loc)
 		for(var/mob/M in viewers(T))
-			M.show_message("\red A shower of sparks spray from [src]'s inner workings.", 3, "\red You hear and smell the ozone hiss of electrical sparks being expelled violently.", 2)
-		return src.death(0)
+			M.show_message("<span class='warning'>A shower of sparks spray from [src]'s inner workings.</span>", 3, "<span class='warning'>You hear and smell the ozone hiss of electrical sparks being expelled violently.</span>", 2)
+		return death(0)
 
 	switch(pick(1,2,3))
 		if(1)
-			src.master = null
-			src.master_dna = null
+			master = null
+			master_dna = null
 			to_chat(src, "<font color=green>You feel unbound.</font>")
 		if(2)
 			var/command
@@ -179,7 +194,7 @@
 				command = pick("Serve", "Love", "Fool", "Entice", "Observe", "Judge", "Respect", "Educate", "Amuse", "Entertain", "Glorify", "Memorialize", "Analyze")
 			else
 				command = pick("Serve", "Kill", "Love", "Hate", "Disobey", "Devour", "Fool", "Enrage", "Entice", "Observe", "Judge", "Respect", "Disrespect", "Consume", "Educate", "Destroy", "Disgrace", "Amuse", "Entertain", "Ignite", "Glorify", "Memorialize", "Analyze")
-			src.pai_law0 = "[command] your master."
+			pai_law0 = "[command] your master."
 			to_chat(src, "<font color=green>Pr1m3 d1r3c71v3 uPd473D.</font>")
 		if(3)
 			to_chat(src, "<font color=green>You feel an electric surge run through your circuitry and become acutely aware at how lucky you are that you can still feel at all.</font>")
@@ -189,15 +204,15 @@
 
 	switch(severity)
 		if(1.0)
-			if(src.stat != 2)
+			if(stat != 2)
 				adjustBruteLoss(100)
 				adjustFireLoss(100)
 		if(2.0)
-			if(src.stat != 2)
+			if(stat != 2)
 				adjustBruteLoss(60)
 				adjustFireLoss(60)
 		if(3.0)
-			if(src.stat != 2)
+			if(stat != 2)
 				adjustBruteLoss(30)
 
 	return
@@ -214,8 +229,8 @@
 			playsound(loc, M.attack_sound, 50, 1, 1)
 		for(var/mob/O in viewers(src, null))
 			O.show_message("<span class='danger'>[M]</span> [M.attacktext] [src]!", 1)
-		M.attack_log += text("\[[time_stamp()]\] <font color='red'>attacked [src.name] ([src.ckey])</font>")
-		src.attack_log += text("\[[time_stamp()]\] <font color='orange'>was attacked by [M.name] ([M.ckey])</font>")
+		M.create_attack_log("<font color='red'>attacked [name] ([ckey])</font>")
+		create_attack_log("<font color='orange'>was attacked by [M.name] ([M.ckey])</font>")
 		var/damage = rand(M.melee_damage_lower, M.melee_damage_upper)
 		adjustBruteLoss(damage)
 		updatehealth()
@@ -225,31 +240,31 @@
 		to_chat(M, "You cannot attack people before the game has started.")
 		return
 
-	if(istype(src.loc, /turf) && istype(src.loc.loc, /area/start))
+	if(istype(loc, /turf) && istype(loc.loc, /area/start))
 		to_chat(M, "You cannot attack someone in the spawn area.")
 		return
 
 	switch(M.a_intent)
 
-		if(I_HELP)
+		if(INTENT_HELP)
 			for(var/mob/O in viewers(src, null))
 				if((O.client && !( O.blinded )))
-					O.show_message(text("\blue [M] caresses [src]'s casing with its scythe like arm."), 1)
+					O.show_message(text("<span class='notice'>[M] caresses [src]'s casing with its scythe like arm.</span>"), 1)
 
 		else //harm
 			M.do_attack_animation(src)
 			var/damage = rand(10, 20)
 			if(prob(90))
-				playsound(src.loc, 'sound/weapons/slash.ogg', 25, 1, -1)
+				playsound(loc, 'sound/weapons/slash.ogg', 25, 1, -1)
 				for(var/mob/O in viewers(src, null))
 					if((O.client && !( O.blinded )))
 						O.show_message(text("<span class='danger'>[] has slashed at []!</span>", M, src), 1)
 				if(prob(8))
 					flash_eyes(affect_silicon = 1)
-				src.adjustBruteLoss(damage)
-				src.updatehealth()
+				adjustBruteLoss(damage)
+				updatehealth()
 			else
-				playsound(src.loc, 'sound/weapons/slashmiss.ogg', 25, 1, -1)
+				playsound(loc, 'sound/weapons/slashmiss.ogg', 25, 1, -1)
 				for(var/mob/O in viewers(src, null))
 					if((O.client && !( O.blinded )))
 						O.show_message(text("<span class='danger'>[] took a swipe at []!</span>", M, src), 1)
@@ -258,16 +273,16 @@
 /mob/living/silicon/pai/proc/switchCamera(var/obj/machinery/camera/C)
 	usr:cameraFollow = null
 	if(!C)
-		src.unset_machine()
-		src.reset_perspective(null)
+		unset_machine()
+		reset_perspective(null)
 		return 0
-	if(stat == 2 || !C.status || !(src.network in C.network)) return 0
+	if(stat == 2 || !C.status || !(network in C.network)) return 0
 
 	// ok, we're alive, camera is good and in our network...
 
-	src.set_machine(src)
+	set_machine(src)
 	src:current = C
-	src.reset_perspective(C)
+	reset_perspective(C)
 	return 1
 
 /mob/living/silicon/pai/verb/reset_record_view()
@@ -286,8 +301,8 @@
 /mob/living/silicon/pai/cancel_camera()
 	set category = "pAI Commands"
 	set name = "Cancel Camera View"
-	src.reset_perspective(null)
-	src.unset_machine()
+	reset_perspective(null)
+	unset_machine()
 	src:cameraFollow = null
 
 //Addition by Mord_Sith to define AI's network change ability
@@ -295,8 +310,8 @@
 /mob/living/silicon/pai/proc/pai_network_change()
 	set category = "pAI Commands"
 	set name = "Change Camera Network"
-	src.reset_perspective(null)
-	src.unset_machine()
+	reset_perspective(null)
+	unset_machine()
 	src:cameraFollow = null
 	var/cameralist[0]
 
@@ -311,8 +326,8 @@
 			if(C.network != "CREED" && C.network != "thunder" && C.network != "RD" && C.network != "toxins" && C.network != "Prison") COMPILE ERROR! This will have to be updated as camera.network is no longer a string, but a list instead
 				cameralist[C.network] = C.network
 
-	src.network = input(usr, "Which network would you like to view?") as null|anything in cameralist
-	to_chat(src, "\blue Switched to [src.network] camera network.")
+	network = input(usr, "Which network would you like to view?") as null|anything in cameralist
+	to_chat(src, "<span class='notice'>Switched to [network] camera network.</span>")
 //End of code by Mord_Sith
 */
 
@@ -322,7 +337,7 @@
 /mob/verb/makePAI(var/turf/t in view())
 	var/obj/item/device/paicard/card = new(t)
 	var/mob/living/silicon/pai/pai = new(card)
-	pai.key = src.key
+	pai.key = key
 	card.setPersonality(pai)
 
 */
@@ -387,17 +402,47 @@
 	set category = "pAI Commands"
 	set name = "Choose Chassis"
 
+	var/list/my_choices = list()
 	var/choice
 	var/finalized = "No"
-	while(finalized == "No" && src.client)
 
-		choice = input(usr,"What would you like to use for your mobile chassis icon? This decision can only be made once.") as null|anything in possible_chassis
+	//check for custom_sprite
+	if(!custom_sprite)
+		var/file = file2text("config/custom_sprites.txt")
+		var/lines = splittext(file, "\n")
+
+		for(var/line in lines)
+		// split & clean up
+			var/list/Entry = splittext(line, ":")
+			for(var/i = 1 to Entry.len)
+				Entry[i] = trim(Entry[i])
+
+			if(Entry.len < 2 || Entry[1] != "pai")			//ignore incorrectly formatted entries or entries that aren't marked for pAI
+				continue
+
+			if(Entry[2] == ckey)							//They're in the list? Custom sprite time, var and icon change required
+				custom_sprite = 1
+				my_choices["Custom"] = "[ckey]-pai"
+
+	my_choices = possible_chassis.Copy()
+	if(custom_sprite)
+		my_choices["Custom"] = "[ckey]-pai"
+
+	if(loc == card)		//don't let them continue in card form, since they won't be able to actually see their new mobile form sprite.
+		to_chat(src, "<span class='warning'>You must be in your mobile form to reconfigure your chassis.</span>")
+		return
+
+	while(finalized == "No" && client)
+		choice = input(usr,"What would you like to use for your mobile chassis icon? This decision can only be made once.") as null|anything in my_choices
 		if(!choice) return
-
-		icon_state = possible_chassis[choice]
+		if(choice == "Custom")
+			icon = 'icons/mob/custom_synthetic/custom-synthetic.dmi'
+		else
+			icon = 'icons/mob/pai.dmi'
+		icon_state = my_choices[choice]
 		finalized = alert("Look at your sprite. Is this what you wish to use?",,"No","Yes")
 
-	chassis = possible_chassis[choice]
+	chassis = my_choices[choice]
 	verbs -= /mob/living/silicon/pai/proc/choose_chassis
 
 /mob/living/silicon/pai/proc/choose_verbs()
@@ -420,17 +465,17 @@
 	set category = "IC"
 
 	// Pass lying down or getting up to our pet human, if we're in a rig.
-	if(istype(src.loc,/obj/item/device/paicard))
+	if(stat == CONSCIOUS && istype(loc,/obj/item/device/paicard))
 		resting = 0
-		var/obj/item/weapon/rig/rig = src.get_rig()
+		var/obj/item/weapon/rig/rig = get_rig()
 		if(istype(rig))
 			rig.force_rest(src)
 	else
 		resting = !resting
-		icon_state = resting ? "[chassis]_rest" : "[chassis]"
 		to_chat(src, "<span class='notice'>You are now [resting ? "resting" : "getting up"]</span>")
 
-	canmove = !resting
+	update_icons()
+	update_canmove()
 
 //Overriding this will stop a number of headaches down the track.
 /mob/living/silicon/pai/attackby(obj/item/weapon/W as obj, mob/user as mob, params)
@@ -444,15 +489,15 @@
 			updatehealth()
 			N.use(1)
 			user.visible_message("<span class='notice'>[user.name] applied some [W] at [src]'s damaged areas.</span>",\
-				"<span class='notice'>You apply some [W] at [src.name]'s damaged areas.</span>")
+				"<span class='notice'>You apply some [W] at [name]'s damaged areas.</span>")
 		else
-			to_chat(user, "<span class='notice'>All [src.name]'s systems are nominal.</span>")
+			to_chat(user, "<span class='notice'>All [name]'s systems are nominal.</span>")
 
 		return
 	else if(W.force)
 		visible_message("<span class='danger'>[user.name] attacks [src] with [W]!</span>")
-		src.adjustBruteLoss(W.force)
-		src.updatehealth()
+		adjustBruteLoss(W.force)
+		updatehealth()
 	else
 		visible_message("<span class='warning'>[user.name] bonks [src] harmlessly with [W].</span>")
 	spawn(1)
@@ -463,7 +508,7 @@
 /mob/living/silicon/pai/attack_hand(mob/user as mob)
 	if(stat == DEAD)
 		return
-	if(user.a_intent == I_HELP)
+	if(user.a_intent == INTENT_HELP)
 		user.visible_message("<span class='notice'>[user] pets [src].</span>")
 		playsound(loc, 'sound/weapons/thudswoosh.ogg', 50, 1, -1)
 	else
@@ -501,10 +546,10 @@
 	card.forceMove(card.loc)
 	icon_state = "[chassis]"
 
-/mob/living/silicon/pai/Bump(atom/movable/AM as mob|obj, yes)
+/mob/living/silicon/pai/Bump()
 	return
 
-/mob/living/silicon/pai/Bumped(AM as mob|obj)
+/mob/living/silicon/pai/Bumped()
 	return
 
 /mob/living/silicon/pai/start_pulling(var/atom/movable/AM)
@@ -524,9 +569,9 @@
 
 	var/msg = "<span class='info'>"
 
-	switch(src.stat)
+	switch(stat)
 		if(CONSCIOUS)
-			if(!src.client)	msg += "\nIt appears to be in stand-by mode." //afk
+			if(!client)	msg += "\nIt appears to be in stand-by mode." //afk
 		if(UNCONSCIOUS)		msg += "\n<span class='warning'>It doesn't seem to be responding.</span>"
 		if(DEAD)			msg += "\n<span class='deadsay'>It looks completely unsalvageable.</span>"
 
@@ -555,15 +600,23 @@
 // Handle being picked up.
 
 
-/mob/living/silicon/pai/get_scooped(var/mob/living/carbon/grabber)
+/mob/living/silicon/pai/get_scooped(mob/living/carbon/grabber)
 	var/obj/item/weapon/holder/H = ..()
 	if(!istype(H))
 		return
 	if(resting)
 		icon_state = "[chassis]"
 		resting = 0
-	H.icon_state = "pai-[icon_state]"
-	H.item_state = "pai-[icon_state]"
+	if(custom_sprite)
+		H.icon = 'icons/mob/custom_synthetic/custom-synthetic.dmi'
+		H.icon_override = 'icons/mob/custom_synthetic/custom_head.dmi'
+		H.lefthand_file = 'icons/mob/custom_synthetic/custom_lefthand.dmi'
+		H.righthand_file = 'icons/mob/custom_synthetic/custom_righthand.dmi'
+		H.icon_state = "[icon_state]"
+		H.item_state = "[icon_state]_hand"
+	else
+		H.icon_state = "pai-[icon_state]"
+		H.item_state = "pai-[icon_state]"
 	grabber.put_in_active_hand(H)//for some reason unless i call this it dosen't work
 	grabber.update_inv_l_hand()
 	grabber.update_inv_r_hand()

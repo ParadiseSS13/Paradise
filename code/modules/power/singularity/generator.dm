@@ -1,7 +1,7 @@
 /////SINGULARITY SPAWNER
 /obj/machinery/the_singularitygen/
 	name = "Gravitational Singularity Generator"
-	desc = "An Odd Device which produces a Gravitational Singularity when set up."
+	desc = "An odd device which produces a Gravitational Singularity when set up."
 	icon = 'icons/obj/singularity.dmi'
 	icon_state = "TheSingGen"
 	anchored = 0
@@ -23,7 +23,7 @@
 /obj/machinery/the_singularitygen/attackby(obj/item/W, mob/user, params)
 	if(istype(W, /obj/item/weapon/wrench))
 		anchored = !anchored
-		playsound(src.loc, 'sound/items/Ratchet.ogg', 75, 1)
+		playsound(src.loc, W.usesound, 75, 1)
 		if(anchored)
 			user.visible_message("[user.name] secures [src.name] to the floor.", \
 				"You secure the [src.name] to the floor.", \

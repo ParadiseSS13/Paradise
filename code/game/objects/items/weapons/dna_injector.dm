@@ -5,10 +5,10 @@
 	icon_state = "dnainjector"
 	item_state = "dnainjector"
 	var/block = 0
-	var/datum/dna2/record/buf=null
+	var/datum/dna2/record/buf = null
 	throw_speed = 3
 	throw_range = 5
-	w_class = 1
+	w_class = WEIGHT_CLASS_TINY
 	origin_tech = "biotech=1"
 
 	var/damage_coeff = 1
@@ -25,6 +25,10 @@
 		buf.types = datatype
 		buf.dna.ResetSE()
 		SetValue(value)
+
+/obj/item/weapon/dnainjector/Destroy()
+	QDEL_NULL(buf)
+	return ..()
 
 /obj/item/weapon/dnainjector/proc/GetRealBlock(var/selblock)
 	if(selblock==0)
@@ -70,7 +74,7 @@
 		H = M
 
 	spawn(0) //Some mutations have sleeps in them, like monkey
-		if(!(NOCLONE in M.mutations) && !(H && (H.species.flags & NO_DNA))) // prevents drained people from having their DNA changed
+		if(!(NOCLONE in M.mutations) && !(H && (NO_DNA in H.species.species_traits))) // prevents drained people from having their DNA changed
 			var/prev_ue = M.dna.unique_enzymes
 			var/mutflags = 0
 			// UI in syringe.
@@ -109,14 +113,14 @@
 
 	if(ishuman(M)) // Would've done this via species instead of type, but the basic mob doesn't have a species, go figure.
 		var/mob/living/carbon/human/H = M
-		if(H.species.flags & NO_DNA)
+		if(NO_DNA in H.species.species_traits)
 			return 0
 
 	if(!user.IsAdvancedToolUser())
 		return 0
 
-	M.attack_log += text("\[[time_stamp()]\] <font color='orange'>Has been injected with [name] by [user.name] ([user.ckey])</font>")
-	user.attack_log += text("\[[time_stamp()]\] <font color='red'>Used the [name] to inject [M.name] ([M.ckey])</font>")
+	M.create_attack_log("<font color='orange'>Has been injected with [name] by [user.name] ([user.ckey])</font>")
+	user.create_attack_log("<font color='red'>Used the [name] to inject [M.name] ([M.ckey])</font>")
 	log_attack("[user.name] ([user.ckey]) used the [name] to inject [M.name] ([M.ckey])")
 
 	if(!iscarbon(user))
@@ -128,17 +132,17 @@
 
 		if(block)
 			if(GetState() && block == MONKEYBLOCK && ishuman(M))
-				message_admins("[key_name_admin(user)] injected [key_name_admin(M)] with the Isolated [name] \red(MONKEY)")
+				message_admins("[key_name_admin(user)] injected [key_name_admin(M)] with the Isolated [name] <span class='warning'>(MONKEY)</span>")
 				log_attack("[key_name(user)] injected [key_name(M)] with the Isolated [name] (MONKEY)")
-				log_game("[key_name_admin(user)] injected [key_name_admin(M)] with the Isolated [name] \red(MONKEY)")
+				log_game("[key_name_admin(user)] injected [key_name_admin(M)] with the Isolated [name] <span class='warning'>(MONKEY)</span>")
 			else
 				log_attack("[key_name(user)] injected [key_name(M)] with the Isolated [name]")
 
 		else
 			if(GetState(MONKEYBLOCK) && ishuman(M))
-				message_admins("[key_name_admin(user)] injected [key_name_admin(M)] with the Isolated [name] \red(MONKEY)")
+				message_admins("[key_name_admin(user)] injected [key_name_admin(M)] with the Isolated [name] <span class='warning'>(MONKEY)</span>")
 				log_attack("[key_name(user)] injected [key_name(M)] with the Isolated [name] (MONKEY)")
-				log_game("[key_name_admin(user)] injected [key_name_admin(M)] with the Isolated [name] \red(MONKEY)")
+				log_game("[key_name_admin(user)] injected [key_name_admin(M)] with the Isolated [name] <span class='warning'>(MONKEY)</span>")
 			else
 				log_attack("[key_name(user)] injected [key_name(M)] with the Isolated [name]")
 
@@ -247,23 +251,23 @@
 		..()
 
 /obj/item/weapon/dnainjector/nobreath
-	name = "DNA-Injector (No Breath)"
+	name = "DNA-Injector (Breathless)"
 	desc = "Hold your breath and count to infinity."
 	datatype = DNA2_BUF_SE
 	value = 0xFFF
 	//block = 2
 	New()
-		block = NOBREATHBLOCK
+		block = BREATHLESSBLOCK
 		..()
 
 /obj/item/weapon/dnainjector/antinobreath
-	name = "DNA-Injector (Anti-No Breath)"
+	name = "DNA-Injector (Anti-Breathless)"
 	desc = "Hold your breath and count to 100."
 	datatype = DNA2_BUF_SE
 	value = 0x001
 	//block = 2
 	New()
-		block = NOBREATHBLOCK
+		block = BREATHLESSBLOCK
 		..()
 
 /obj/item/weapon/dnainjector/remoteview

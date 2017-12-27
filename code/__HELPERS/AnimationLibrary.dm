@@ -7,7 +7,7 @@
 /proc/animate_fade_grayscale(var/atom/A, var/time = 5)
 	if(!istype(A) && !istype(A, /client))
 		return
-	A.color = MATRIX_DEFAULT
+	A.color = null
 	animate(A, color = MATRIX_GREYSCALE, time = time, easing = SINE_EASING)
 
 /proc/animate_melt_pixel(var/atom/A)

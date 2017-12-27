@@ -2,7 +2,8 @@
 	name = "Beach"
 	icon = 'icons/misc/beach.dmi'
 	var/water_overlay_image = null
-
+	mouse_opacity = 0
+	
 /turf/unsimulated/beach/New()
 	..()
 	if(water_overlay_image)
@@ -11,7 +12,8 @@
 /turf/unsimulated/beach/sand
 	name = "Sand"
 	icon_state = "desert"
-
+	mouse_opacity = 1
+	
 /turf/unsimulated/beach/sand/New()			//adds some aesthetic randomness to the beach sand
 	icon_state = pick("desert", "desert0", "desert1", "desert2", "desert3", "desert4")
 	..()
@@ -52,18 +54,17 @@
 		/turf/unsimulated/beach/water/drop, /turf/unsimulated/beach/water/drop/dense,
 		/turf/unsimulated/beach/water, /turf/unsimulated/beach/water/dense,
 		/turf/unsimulated/beach/water/edge_drop)
-	var/obj/effect/effect/beach_drop_overlay/water_overlay
+	var/obj/effect/beach_drop_overlay/water_overlay
 
 /turf/unsimulated/beach/water/drop/New()
 	..()
 	water_overlay = new(src)
 
 /turf/unsimulated/beach/water/drop/Destroy()
-	qdel(water_overlay)
-	water_overlay = null
+	QDEL_NULL(water_overlay)
 	return ..()
 
-/obj/effect/effect/beach_drop_overlay
+/obj/effect/beach_drop_overlay
 	name = "Water"
 	icon = 'icons/turf/floors/seadrop-o.dmi'
 	layer = MOB_LAYER + 0.1
@@ -100,3 +101,4 @@
 	density = 1
 	opacity = 1
 	explosion_block = 2
+	mouse_opacity = 1

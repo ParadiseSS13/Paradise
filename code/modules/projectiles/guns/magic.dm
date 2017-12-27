@@ -7,7 +7,7 @@
 	fire_sound = 'sound/weapons/emitter.ogg'
 	fire_sound_text = "energy blast"
 	flags =  CONDUCT
-	w_class = 5
+	w_class = WEIGHT_CLASS_HUGE
 	var/max_charges = 6
 	var/charges = 0
 	var/recharge_rate = 4

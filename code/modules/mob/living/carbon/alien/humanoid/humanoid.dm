@@ -13,6 +13,9 @@
 	var/leap_on_click = 0
 	var/custom_pixel_x_offset = 0 //for admin fuckery.
 	var/custom_pixel_y_offset = 0
+	pass_flags = PASSTABLE
+	pressure_resistance = 100    //100 kPa difference required to push
+	throw_pressure_limit = 120  //120 kPa difference required to throw
 
 //This is fine right now, if we're adding organ specific damage this needs to be updated
 /mob/living/carbon/alien/humanoid/New()
@@ -24,44 +27,10 @@
 	add_language("Hivemind")
 	..()
 
-//This is fine, works the same as a human
-/mob/living/carbon/alien/humanoid/Bump(atom/movable/AM as mob|obj, yes)
-	spawn( 0 )
-		if((!( yes ) || now_pushing))
-			return
-		now_pushing = 0
-		..()
-		if(!istype(AM, /atom/movable))
-			return
-
-		if(ismob(AM))
-			var/mob/tmob = AM
-			tmob.LAssailant = src
-
-		if(!now_pushing)
-			now_pushing = 1
-			if(!AM.anchored)
-				var/t = get_dir(src, AM)
-				if(istype(AM, /obj/structure/window/full))
-					for(var/obj/structure/window/win in get_step(AM,t))
-						now_pushing = 0
-						return
-				step(AM, t)
-			now_pushing = null
-		return
-	return
 
 /mob/living/carbon/alien/humanoid/movement_delay()
-	var/tally = 0
-	if(istype(src, /mob/living/carbon/alien/humanoid/queen))
-		tally += 4
-	if(istype(src, /mob/living/carbon/alien/humanoid/drone))
-		tally += 0
-	if(istype(src, /mob/living/carbon/alien/humanoid/sentinel))
-		tally += 0
-	if(istype(src, /mob/living/carbon/alien/humanoid/hunter))
-		tally = -2 // hunters go supersuperfast
-	return (tally + move_delay_add + config.alien_delay)
+	. = ..()
+	. += move_delay_add + config.alien_delay //move_delay_add is used to slow aliens with stuns
 
 /mob/living/carbon/alien/humanoid/Process_Spacemove(var/check_drift = 0)
 	if(..())
@@ -155,7 +124,7 @@
 					stuttering = power
 				Stun(power)
 
-				var/datum/effect/system/spark_spread/s = new /datum/effect/system/spark_spread
+				var/datum/effect_system/spark_spread/s = new /datum/effect_system/spark_spread
 				s.set_up(5, 1, src)
 				s.start()
 
@@ -194,13 +163,13 @@
 
 	switch(M.a_intent)
 
-		if(I_HELP)
+		if(INTENT_HELP)
 			help_shake_act(M)
 
-		if(I_GRAB)
+		if(INTENT_GRAB)
 			grabbedby(M)
 
-		if(I_HARM)
+		if(INTENT_HARM)
 			M.do_attack_animation(src)
 			var/damage = rand(1, 9)
 			if(prob(90))
@@ -225,7 +194,7 @@
 				playsound(loc, 'sound/weapons/punchmiss.ogg', 25, 1, -1)
 				visible_message("<span class='danger'>[M] has attempted to punch [src]!</span>")
 
-		if(I_DISARM)
+		if(INTENT_DISARM)
 			if(!lying)
 				if(prob(5))//Very small chance to push an alien down.
 					Paralyse(2)

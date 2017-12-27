@@ -1,14 +1,13 @@
-//This file was auto-corrected by findeclaration.exe on 25.5.2012 20:42:31
-
 /obj/item/weapon/airlock_electronics
 	name = "airlock electronics"
 	icon = 'icons/obj/doors/door_assembly.dmi'
 	icon_state = "door_electronics"
-	w_class = 2 
+	w_class = WEIGHT_CLASS_SMALL
 	materials = list(MAT_METAL=50, MAT_GLASS=50)
-
+	origin_tech = "engineering=2;programming=1"
 	req_access = list(access_engine)
-
+	toolspeed = 1
+	usesound = 'sound/items/Deconstruct.ogg'
 	var/list/conf_access = null
 	var/one_access = 0 //if set to 1, door would receive req_one_access instead of req_access
 	var/last_configurator = null
@@ -62,10 +61,10 @@
 
 /obj/item/weapon/airlock_electronics/Topic(href, href_list)
 	..()
-	
+
 	if(usr.incapacitated() || (!ishuman(usr) && !isrobot(usr)))
 		return 1
-		
+
 	if(href_list["close"])
 		usr << browse(null, "window=airlock")
 		return
@@ -89,7 +88,7 @@
 
 	attack_self(usr)
 
-/obj/item/weapon/airlock_electronics/proc/toggle_access(var/access)
+/obj/item/weapon/airlock_electronics/proc/toggle_access(access)
 	if(access == "all")
 		conf_access = null
 	else
@@ -104,4 +103,3 @@
 			conf_access -= req
 			if(!conf_access.len)
 				conf_access = null
-

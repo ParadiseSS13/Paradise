@@ -37,10 +37,12 @@
 	attacktext = "hits"
 	attack_sound = 'sound/weapons/genhit1.ogg'
 	speak_emote = list("pulses")
-	var/obj/effect/blob/factory/factory = null
+	var/obj/structure/blob/factory/factory = null
 	var/list/human_overlays = list()
 	var/is_zombie = 0
 	gold_core_spawnable = CHEM_MOB_SPAWN_HOSTILE
+	pressure_resistance = 100    //100 kPa difference required to push
+	throw_pressure_limit = 120  //120 kPa difference required to throw
 
 /mob/living/simple_animal/hostile/blob/blobspore/fire_act(datum/gas_mixture/air, exposed_temperature, exposed_volume)
 	..()
@@ -48,11 +50,11 @@
 
 
 /mob/living/simple_animal/hostile/blob/blobspore/CanPass(atom/movable/mover, turf/target, height=0)
-	if(istype(mover, /obj/effect/blob))
+	if(istype(mover, /obj/structure/blob))
 		return 1
 	return ..()
 
-/mob/living/simple_animal/hostile/blob/blobspore/New(loc, var/obj/effect/blob/factory/linked_node)
+/mob/living/simple_animal/hostile/blob/blobspore/New(loc, var/obj/structure/blob/factory/linked_node)
 	if(istype(linked_node))
 		factory = linked_node
 		factory.spores += src
@@ -88,12 +90,14 @@
 	human_overlays = H.overlays
 	update_icons()
 	H.loc = src
+	pressure_resistance = 20  //5 kPa difference required to push lowered
+	throw_pressure_limit = 30  //15 kPa difference required to throw lowered
 	loc.visible_message("<span class='warning'>The corpse of [H.name] suddenly rises!</span>")
 
 /mob/living/simple_animal/hostile/blob/blobspore/death(gibbed)
 	..()
 	// On death, create a small smoke of harmful gas (s-Acid)
-	var/datum/effect/system/chem_smoke_spread/S = new
+	var/datum/effect_system/smoke_spread/chem/S = new
 	var/turf/location = get_turf(src)
 
 	// Create the reagents to put into the air
@@ -163,6 +167,8 @@
 	mob_size = MOB_SIZE_LARGE
 	environment_smash = 3
 	gold_core_spawnable = CHEM_MOB_SPAWN_HOSTILE
+	pressure_resistance = 100    //100 kPa difference required to push
+	throw_pressure_limit = 120  //120 kPa difference required to throw
 
 
 /mob/living/simple_animal/hostile/blob/blobbernaut/blob_act()

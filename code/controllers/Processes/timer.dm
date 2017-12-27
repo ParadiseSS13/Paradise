@@ -7,7 +7,6 @@ var/global/datum/controller/process/timer/timer_master
 /datum/controller/process/timer/setup()
 	name = "timer"
 	schedule_interval = 1 //every 0.1 seconds--2 server ticks
-	timer_master = src
 	log_startup_progress("Timer process starting up.")
 
 /datum/controller/process/timer/statProcess()
@@ -26,6 +25,8 @@ var/global/datum/controller/process/timer/timer_master
 			runevent(event)
 			qdel(event)
 		SCHECK
+
+DECLARE_GLOBAL_CONTROLLER(timer, timer_master)
 
 /datum/controller/process/timer/proc/runevent(datum/timedevent/event)
 	set waitfor = 0

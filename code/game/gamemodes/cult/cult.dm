@@ -1,4 +1,4 @@
-//This file was auto-corrected by findeclaration.exe on 25.5.2012 20:42:31
+#define SUMMON_POSSIBILITIES 3
 var/global/list/all_cults = list()
 
 /datum/game_mode
@@ -19,7 +19,7 @@ var/global/list/all_cults = list()
 		return 0
 	if(ishuman(mind.current))
 		var/mob/living/carbon/human/H = mind.current
-		if(isloyal(H))
+		if(ismindshielded(H))
 			return 0
 	if(issilicon(mind.current))
 		return 0 //can't convert machines, that's ratvar's thing
@@ -99,20 +99,19 @@ var/global/list/all_cults = list()
 		cult += cultist
 		cultist.restricted_roles = restricted_jobs
 		cultist.special_role = SPECIAL_ROLE_CULTIST
+	..()
 	return (cult.len>0)
 
 
 /datum/game_mode/cult/post_setup()
 	modePlayer += cult
 	acolytes_needed = acolytes_needed + round((num_players_started() / 10))
-	if("sacrifice" in objectives)
-		var/list/possible_targets = get_unconvertables()
-		if(!possible_targets.len)
-			for(var/mob/living/carbon/human/player in player_list)
-				if(player.mind && !(player.mind in cult))
-					possible_targets += player.mind
-		if(possible_targets.len > 0)
-			sacrifice_target = pick(possible_targets)
+
+	if(!summon_spots.len)
+		while(summon_spots.len < SUMMON_POSSIBILITIES)
+			var/area/summon = pick(return_sorted_areas() - summon_spots)
+			if(summon && is_station_level(summon.z) && summon.valid_territory)
+				summon_spots += summon
 
 	for(var/datum/mind/cult_mind in cult)
 		equip_cultist(cult_mind.current)
@@ -143,7 +142,7 @@ var/global/list/all_cults = list()
 				else
 					explanation = "Free objective."
 			if("eldergod")
-				explanation = "Summon [ticker.mode.cultdat.entity_name]. It will only work if nine cultists stand on and around it."
+				explanation = "Summon [ticker.mode.cultdat.entity_name] by invoking the 'Tear Reality' rune.<b>The summoning can only be accomplished in [english_list(summon_spots)] - where the veil is weak enough for the ritual to begin.</b>"
 		to_chat(cult_mind.current, "<B>Objective #[obj_count]</B>: [explanation]")
 		cult_mind.memory += "<B>Objective #[obj_count]</B>: [explanation]<BR>"
 
@@ -177,23 +176,20 @@ var/global/list/all_cults = list()
 /datum/game_mode/proc/add_cultist(datum/mind/cult_mind) //BASE
 	if(!istype(cult_mind))
 		return 0
+	var/datum/game_mode/cult/cult_mode = ticker.mode
 	if(!(cult_mind in cult) && is_convertable_to_cult(cult_mind))
 		cult += cult_mind
 		cult_mind.current.faction |= "cult"
 		var/datum/action/innate/cultcomm/C = new()
 		C.Grant(cult_mind.current)
-		cult_mind.current.attack_log += "\[[time_stamp()]\] <span class='danger'>Has been converted to the cult!</span>"
-		if(jobban_isbanned(cult_mind.current, ROLE_CULTIST))
-			replace_jobbaned_player(cult_mind.current, ROLE_CULTIST)
+		cult_mind.current.create_attack_log("<span class='danger'>Has been converted to the cult!</span>")
+		if(jobban_isbanned(cult_mind.current, ROLE_CULTIST) || jobban_isbanned(cult_mind.current, ROLE_SYNDICATE))
+			replace_jobbanned_player(cult_mind.current, ROLE_CULTIST)
 		update_cult_icons_added(cult_mind)
+		cult_mode.memorize_cult_objectives(cult_mind)
+		if(GAMEMODE_IS_CULT)
+			cult_mode.check_numbers()
 		return 1
-
-
-/datum/game_mode/cult/add_cultist(datum/mind/cult_mind) //INHERIT
-	if(!..(cult_mind))
-		return
-	memorize_cult_objectives(cult_mind)
-
 
 /datum/game_mode/proc/remove_cultist(datum/mind/cult_mind, show_message = 1)
 	if(cult_mind in cult)
@@ -326,7 +322,7 @@ var/global/list/all_cults = list()
 						feedback_add_details("cult_objective","cult_demons|FAIL")
 
 				if("convert")//convert half the crew
-					if(obj_count < objectives.len)
+					if(cult.len >= convert_target)
 						explanation = "Convert [convert_target] crewmembers ([cult.len] cultists at round end). <font color='green'><B>Success!</B></font>"
 						feedback_add_details("cult_objective","cult_convertion|SUCCESS")
 					else
@@ -334,7 +330,7 @@ var/global/list/all_cults = list()
 						feedback_add_details("cult_objective","cult_convertion|FAIL")
 
 				if("bloodspill")//cover a large portion of the station in blood
-					if(obj_count < objectives.len)
+					if(max_spilled_blood >= spilltarget)
 						explanation = "Cover [spilltarget] tiles of the station in blood (The peak number of covered tiles was: [max_spilled_blood]). <font color='green'><B>Success!</B></font>"
 						feedback_add_details("cult_objective","cult_bloodspill|SUCCESS")
 					else
@@ -343,10 +339,10 @@ var/global/list/all_cults = list()
 
 				if("harvest")
 					if(harvested > harvest_target)
-						explanation = "Offer [harvest_target] humans for [ticker.mode.cultdat.entity_name]'s first meal of the day. ([harvested] eaten) <font color='green'><B>Success!</B></font>"
+						explanation = "Offer [harvest_target] humans for [ticker.mode.cultdat.entity_name]'s first meal of the day. ([harvested] sacrificed) <font color='green'><B>Success!</B></font>"
 						feedback_add_details("cult_objective","cult_harvest|SUCCESS")
 					else
-						explanation = "Offer [harvest_target] humans for [ticker.mode.cultdat.entity_name]'s first meal of the day. ([harvested] eaten) <font color='red'><B>Fail!</B></font>"
+						explanation = "Offer [harvest_target] humans for [ticker.mode.cultdat.entity_name]'s first meal of the day. ([harvested] sacrificed) <font color='red'><B>Fail!</B></font>"
 						feedback_add_details("cult_objective","cult_harvest|FAIL")
 
 				if("hijack")

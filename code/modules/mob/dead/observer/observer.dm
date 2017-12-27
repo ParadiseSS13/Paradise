@@ -22,7 +22,6 @@ var/list/image/ghost_darkness_images = list() //this is a list of images for thi
 							//Note that this is not a reliable way to determine if admins started as observers, since they change mobs a lot.
 	universal_speak = 1
 	var/atom/movable/following = null
-	var/anonsay = 0
 	var/image/ghostimage = null //this mobs ghost image, for deleting and stuff
 	var/ghostvision = 1 //is the ghost able to see things humans can't?
 	var/seedarkness = 1
@@ -95,12 +94,11 @@ var/list/image/ghost_darkness_images = list() //this is a list of images for thi
 	following = null
 	if(ghostimage)
 		ghost_darkness_images -= ghostimage
-		qdel(ghostimage)
-		ghostimage = null
+		QDEL_NULL(ghostimage)
 		updateallghostimages()
 	return ..()
 
-/mob/dead/CanPass(atom/movable/mover, turf/target, height=0, air_group=0)
+/mob/dead/CanPass(atom/movable/mover, turf/target, height=0)
 	return 1
 
 
@@ -170,7 +168,7 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 	else
 		var/response
 		var/alertmsg = "Are you -sure- you want to ghost?\n([warningmsg]. If you ghost now, you probably won't be able to rejoin the round! You can't change your mind, so choose wisely!)"
-		response = alert(src, alertmsg,"Are you sure you want to ghost?","Ghost","Stay in body")
+		response = alert(src, alertmsg,"Are you sure you want to ghost?","Stay in body","Ghost")
 		if(response != "Ghost")
 			return	//didn't want to ghost after-all
 		resting = 1
@@ -226,6 +224,7 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 	if(client.statpanel == "Status")
 		show_stat_station_time()
 		show_stat_emergency_shuttle_eta()
+		stat(null, "Respawnability: [(src in respawnable_list) ? "Yes" : "No"]")
 
 /mob/dead/observer/verb/reenter_corpse()
 	set category = "Ghost"
@@ -290,9 +289,9 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 
 	switch(data_hud_seen) //give new huds
 		if(0)
-			show_me_the_hud(DATA_HUD_SECURITY_BASIC)
+			show_me_the_hud(DATA_HUD_SECURITY_ADVANCED)
 			to_chat(src, "<span class='notice'>Security HUD set.</span>")
-		if(DATA_HUD_SECURITY_BASIC)
+		if(DATA_HUD_SECURITY_ADVANCED)
 			show_me_the_hud(DATA_HUD_MEDICAL_ADVANCED)
 			to_chat(src, "<span class='notice'>Medical HUD set.</span>")
 		if(DATA_HUD_MEDICAL_ADVANCED)
@@ -308,7 +307,7 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 	set name = "Toggle AntagHUD"
 	set desc = "Toggles AntagHUD allowing you to see who is the antagonist"
 	if(!config.antag_hud_allowed && !client.holder)
-		to_chat(src, "\red Admins have disabled this for this round.")
+		to_chat(src, "<span class='warning'>Admins have disabled this for this round.</span>")
 		return
 	if(!client)
 		return
@@ -462,11 +461,11 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 
 /mob/dead/observer/memory()
 	set hidden = 1
-	to_chat(src, "\red You are dead! You have no mind to store memory!")
+	to_chat(src, "<span class='warning'>You are dead! You have no mind to store memory!</span>")
 
 /mob/dead/observer/add_memory()
 	set hidden = 1
-	to_chat(src, "\red You are dead! You have no mind to store memory!")
+	to_chat(src, "<span class='warning'>You are dead! You have no mind to store memory!</span>")
 
 /mob/dead/observer/verb/analyze_air()
 	set name = "Analyze Air"
@@ -485,9 +484,9 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 
 	to_chat(src, "<span class='boldnotice'>Results:</span>")
 	if(abs(pressure - ONE_ATMOSPHERE) < 10)
-		to_chat(src, "\blue Pressure: [round(pressure,0.1)] kPa")
+		to_chat(src, "<span class='notice'>Pressure: [round(pressure,0.1)] kPa</span>")
 	else
-		to_chat(src, "\red Pressure: [round(pressure,0.1)] kPa")
+		to_chat(src, "<span class='warning'>Pressure: [round(pressure,0.1)] kPa</span>")
 	if(total_moles)
 		var/o2_concentration = environment.oxygen/total_moles
 		var/n2_concentration = environment.nitrogen/total_moles
@@ -496,28 +495,28 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 
 		var/unknown_concentration =  1-(o2_concentration+n2_concentration+co2_concentration+plasma_concentration)
 		if(abs(n2_concentration - N2STANDARD) < 20)
-			to_chat(src, "\blue Nitrogen: [round(n2_concentration*100)]% ([round(environment.nitrogen,0.01)] moles)")
+			to_chat(src, "<span class='notice'>Nitrogen: [round(n2_concentration*100)]% ([round(environment.nitrogen,0.01)] moles)</span>")
 		else
-			to_chat(src, "\red Nitrogen: [round(n2_concentration*100)]% ([round(environment.nitrogen,0.01)] moles)")
+			to_chat(src, "<span class='warning'>Nitrogen: [round(n2_concentration*100)]% ([round(environment.nitrogen,0.01)] moles)</span>")
 
 		if(abs(o2_concentration - O2STANDARD) < 2)
-			to_chat(src, "\blue Oxygen: [round(o2_concentration*100)]% ([round(environment.oxygen,0.01)] moles)")
+			to_chat(src, "<span class='notice'>Oxygen: [round(o2_concentration*100)]% ([round(environment.oxygen,0.01)] moles)</span>")
 		else
-			to_chat(src, "\red Oxygen: [round(o2_concentration*100)]% ([round(environment.oxygen,0.01)] moles)")
+			to_chat(src, "<span class='warning'>Oxygen: [round(o2_concentration*100)]% ([round(environment.oxygen,0.01)] moles)</span>")
 
 		if(co2_concentration > 0.01)
-			to_chat(src, "\red CO2: [round(co2_concentration*100)]% ([round(environment.carbon_dioxide,0.01)] moles)")
+			to_chat(src, "<span class='warning'>CO2: [round(co2_concentration*100)]% ([round(environment.carbon_dioxide,0.01)] moles)</span>")
 		else
-			to_chat(src, "\blue CO2: [round(co2_concentration*100)]% ([round(environment.carbon_dioxide,0.01)] moles)")
+			to_chat(src, "<span class='notice'>CO2: [round(co2_concentration*100)]% ([round(environment.carbon_dioxide,0.01)] moles)</span>")
 
 		if(plasma_concentration > 0.01)
-			to_chat(src, "\red Plasma: [round(plasma_concentration*100)]% ([round(environment.toxins,0.01)] moles)")
+			to_chat(src, "<span class='warning'>Plasma: [round(plasma_concentration*100)]% ([round(environment.toxins,0.01)] moles)</span>")
 
 		if(unknown_concentration > 0.01)
-			to_chat(src, "\red Unknown: [round(unknown_concentration*100)]% ([round(unknown_concentration*total_moles,0.01)] moles)")
+			to_chat(src, "<span class='warning'>Unknown: [round(unknown_concentration*100)]% ([round(unknown_concentration*total_moles,0.01)] moles)</span>")
 
-		to_chat(src, "\blue Temperature: [round(environment.temperature-T0C,0.1)]&deg;C")
-		to_chat(src, "\blue Heat Capacity: [round(environment.heat_capacity(),0.1)]")
+		to_chat(src, "<span class='notice'>Temperature: [round(environment.temperature-T0C,0.1)]&deg;C</span>")
+		to_chat(src, "<span class='notice'>Heat Capacity: [round(environment.heat_capacity(),0.1)]</span>")
 
 /mob/dead/observer/verb/view_manifest()
 	set name = "View Crew Manifest"
@@ -595,15 +594,12 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 //END TELEPORT HREF CODE
 
 /mob/dead/observer/verb/toggle_anonsay()
+	set name = "Toggle Anonymous Dead-chat"
 	set category = "Ghost"
-	set name = "Toggle Anonymous Chat"
 	set desc = "Toggles showing your key in dead chat."
-
-	src.anonsay = !src.anonsay
-	if(anonsay)
-		to_chat(src, "<span class='info'>Your key won't be shown when you speak in dead chat.</span>")
-	else
-		to_chat(src, "<span class='info'>Your key will be publicly visible again.</span>")
+	client.prefs.ghost_anonsay = !client.prefs.ghost_anonsay
+	to_chat(src, "As a ghost, your key will [(client.prefs.ghost_anonsay) ? "no longer" : "now"] be shown when you speak in dead chat.</span>")
+	client.prefs.save_preferences(src)
 
 /mob/dead/observer/verb/toggle_ghostsee()
 	set name = "Toggle Ghost Vision"
@@ -644,10 +640,25 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 			client.images -= ghostimage //remove ourself
 
 /mob/proc/can_admin_interact()
-	return 0
+	return FALSE
+
+/mob/proc/can_advanced_admin_interact()
+	return FALSE
 
 /mob/dead/observer/can_admin_interact()
 	return check_rights(R_ADMIN, 0, src)
+
+/mob/dead/observer/can_advanced_admin_interact()
+	if(!can_admin_interact())
+		return FALSE
+
+	if(client && client.advanced_admin_interaction)
+		return TRUE
+
+	return FALSE
+
+/mob/dead/observer/incapacitated(ignore_restraints = FALSE, ignore_grab = FALSE, ignore_lying = FALSE)
+	return TRUE
 
 //this is a mob verb instead of atom for performance reasons
 //see /mob/verb/examinate() in mob.dm for more info
