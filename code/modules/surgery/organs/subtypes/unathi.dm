@@ -4,5 +4,5 @@
 
 /obj/item/organ/internal/eyes/unathi
 	name = "unathi eyeballs"
-	dark_view = 5
+	dark_view = 3
 	species = "Unathi"

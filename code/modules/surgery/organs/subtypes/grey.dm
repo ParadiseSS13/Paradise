@@ -17,5 +17,5 @@
 
 /obj/item/organ/internal/eyes/grey
 	name = "grey eyeballs"
-	dark_view = 3
+	dark_view = 5
 	species = "Grey"
