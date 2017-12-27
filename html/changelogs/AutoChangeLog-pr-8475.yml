@@ -1,4 +1,0 @@
-author: "Tayyyyyyy"
-delete-after: True
-changes: 
-  - rscadd: "Repeated lines are now combined in the chat window. This can be disabled in chat window preferences."
