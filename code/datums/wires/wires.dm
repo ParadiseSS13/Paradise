@@ -104,6 +104,12 @@ var/list/wireColours = list("red", "blue", "green", "black", "orange", "brown", 
 		data["wires"] = W
 
 	var/list/status = get_status()
+	if(replace_colours)
+		for(var/colour in replace_colours)
+			var/i
+			for(i=1, i<=status.len, i++)
+				if(findtext(status[i],colour))
+					status[i] = replacetext(status[i],colour,replace_colours[colour])
 	data["status_len"] = status.len
 	data["status"] = status
 
