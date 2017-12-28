@@ -36,10 +36,10 @@ var/const/VENDING_WIRE_IDSCAN = 8
 /datum/wires/vending/get_status()
 	. = ..()
 	var/obj/machinery/vending/V = holder
-	. += "The orange light is [V.seconds_electrified ? "on" : "off"]."
-	. += "The red light is [V.shoot_inventory ? "off" : "blinking"]."
-	. += "The green light is [(V.categories & CAT_HIDDEN) ? "on" : "off"]."
-	. += "A [V.scan_id ? "purple" : "yellow"] light is on."
+	. += "The grounding light is [V.seconds_electrified ? "on" : "off"]."
+	. += "The dispenser light is [V.shoot_inventory ? "off" : "blinking"]."
+	. += "The prohibition light is [(V.categories & CAT_HIDDEN) ? "on" : "off"]."
+	. += "The access control light is [V.scan_id ? "off" : "on"]."
 
 /datum/wires/vending/UpdatePulsed(index)
 	var/obj/machinery/vending/V = holder
