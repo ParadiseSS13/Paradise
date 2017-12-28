@@ -34,9 +34,9 @@ var/const/SMARTFRIDGE_WIRE_IDSCAN		= 4
 /datum/wires/smartfridge/get_status()
 	. = ..()
 	var/obj/machinery/smartfridge/S = holder
-	. += "The orange light is [S.seconds_electrified ? "off" : "on"]."
-	. += "The red light is [S.shoot_inventory ? "off" : "blinking"]."
-	. += "A [S.scan_id ? "purple" : "yellow"] light is on."
+	. += "The grounding light is [S.seconds_electrified ? "off" : "on"]."
+	. += "The dispenser warning light is [S.shoot_inventory ? "off" : "blinking"]."
+	. += "The access control light is [S.scan_id ? "off" : "on"]."
 
 /datum/wires/smartfridge/UpdatePulsed(index)
 	var/obj/machinery/smartfridge/S = holder

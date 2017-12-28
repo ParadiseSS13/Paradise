@@ -20,9 +20,9 @@ var/const/AUTOLATHE_DISABLE_WIRE = 4
 /datum/wires/autolathe/get_status()
 	. = ..()
 	var/obj/machinery/autolathe/A = holder
-	. += "The red light is [A.disabled ? "off" : "on"]."
-	. += "The green light is [A.shocked ? "off" : "on"]."
-	. += "The blue light is [A.hacked ? "off" : "on"]."
+	. += "The disable light is [A.disabled ? "off" : "on"]."
+	. += "The grounding light is [A.shocked ? "off" : "on"]."
+	. += "The prohibition light is [A.hacked ? "off" : "on"]."
 
 /datum/wires/autolathe/CanUse()
 	var/obj/machinery/autolathe/A = holder
