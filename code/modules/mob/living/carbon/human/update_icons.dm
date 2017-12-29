@@ -160,7 +160,7 @@ Please contact me on #coderbus IRC. ~Carn x
 		overlays += (new_overlays - old_overlays)
 		overlays -= (old_overlays - new_overlays)
 		cached_standing_overlays = new_overlays
-		overlays |= eyes_glow() //Only applies eyeglow if the eyes are uncovered and have significantly high darksight or XRAY vision.
+		overlays |= eyes_shine() //Only applies eyeshine if the eyes are uncovered and have significantly high darksight or XRAY vision.
 
 	update_transform()
 
