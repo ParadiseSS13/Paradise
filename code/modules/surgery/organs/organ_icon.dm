@@ -109,7 +109,7 @@ var/global/list/limb_icon_cache = list()
 			if(eye_implant) // Eye implants override native DNA eye color
 				eyes_icon.Blend(eye_implant.eye_colour, ICON_ADD)
 			else if(eyes)
-				eyes_icon.Blend(eyes.eye_colour, ICON_ADD)
+				eyes_icon = eyes.generate_icon()
 			else
 				eyes_icon.Blend("#800000", ICON_ADD)
 			mob_icon.Blend(eyes_icon, ICON_OVERLAY)

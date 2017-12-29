@@ -1668,6 +1668,13 @@
 	G.icon_state = "grabbed1"
 	G.synch()
 
+/mob/living/carbon/human/proc/eyes_glow() /*Used to check if eyes should glow in the dark. Returns the image of the eyes on the layer where they will appear to glow.
+											Eyes need to have significantly high darksight to glow unless the mob has the XRAY vision mutation. Eyes will not glow if they are covered in any way.*/
+	var/obj/item/organ/internal/eyes/eyes = get_int_organ(/obj/item/organ/internal/eyes)
+	var/const/glow_threshold = 6
+	if(istype(eyes) && ((eyes.get_dark_view() > glow_threshold) || (XRAY in mutations)) && get_location_accessible(src, "eyes"))
+		return(image(eyes.generate_icon(), layer = LIGHTING_LAYER + 1)) //Referenced cult constructs for glowing in the dark. Needs to be above lighting effects such as shading.
+
 /mob/living/carbon/human/proc/gut()
 	set category = "Abilities"
 	set name = "Gut"
