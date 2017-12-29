@@ -247,6 +247,7 @@
 	new /obj/item/clothing/head/helmet/space/eva/paramedic(src)
 	new /obj/item/device/sensor_device(src)
 	new /obj/item/key/ambulance(src)
+	new /obj/item/weapon/pinpointer/crew(src)
 
 /obj/structure/closet/secure_closet/reagents
 	name = "chemical storage closet"
