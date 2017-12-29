@@ -7,7 +7,7 @@
 	name = "vulpkanin eyeballs"
 	species = "Vulpkanin"
 	colourmatrix = MATRIX_VULP_CBLIND
-	dark_view = 8
+	dark_view = 6
 
 /obj/item/organ/internal/eyes/vulpkanin/wolpin //Being the lesser form of Vulpkanin, Wolpins have an utterly incurable version of their colourblindness.
 	name = "wolpin eyeballs"
