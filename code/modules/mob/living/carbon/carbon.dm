@@ -313,6 +313,7 @@
 /mob/living/carbon/flash_eyes(intensity = 1, override_blindness_check = 0, affect_silicon = 0, visual = 0)
 	. = ..()
 	var/damage = intensity - check_eye_prot()
+	var/extra_damage = 0
 	if(.)
 		if(visual)
 			return
@@ -323,19 +324,22 @@
 		if(!E || (E && E.weld_proof))
 			return
 
+		if(E.dark_view)
+			extra_damage = max(E.dark_view - 2, 0)
+
 		switch(damage)
 			if(1)
 				to_chat(src, "<span class='warning'>Your eyes sting a little.</span>")
 				if(prob(40)) //waiting on carbon organs
-					E.receive_damage(1, 1)
+					E.receive_damage(1 + extra_damage, 1)
 
 			if(2)
 				to_chat(src, "<span class='warning'>Your eyes burn.</span>")
-				E.receive_damage(rand(2, 4), 1)
+				E.receive_damage(rand(2, 4) + extra_damage, 1)
 
 			else
 				to_chat(src, "Your eyes itch and burn severely!</span>")
-				E.receive_damage(rand(12, 16), 1)
+				E.receive_damage(rand(12, 16) + extra_damage, 1)
 
 		if(E.damage > E.min_bruised_damage)
 			AdjustEyeBlind(damage)
