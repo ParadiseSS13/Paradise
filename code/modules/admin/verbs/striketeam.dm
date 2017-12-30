@@ -5,14 +5,16 @@ var/global/sent_strike_team = 0
 
 /client/proc/strike_team()
 	if(!ticker)
-		to_chat(usr, "<font color='red'>The game hasn't started yet!</font>")
+		to_chat(usr, "<span class='userdanger'>The game hasn't started yet!</span>")
 		return
 	if(sent_strike_team == 1)
-		to_chat(usr, "<font color='red'>CentComm is already sending a team.</font>")
+		to_chat(usr, "<span class='userdanger'>CentComm is already sending a team.</span>")
 		return
 	if(alert("Do you want to send in the CentComm death squad? Once enabled, this is irreversible.",,"Yes","No")!="Yes")
 		return
 	alert("This 'mode' will go on until everyone is dead or the station is destroyed. You may also admin-call the evac shuttle when appropriate. Spawned commandos have internals cameras which are viewable through a monitor inside the Spec. Ops. Office. The first one selected/spawned will be the team leader.")
+
+	message_admins("<span class='notice'>[key_name_admin(usr)] has started to spawn a CentComm DeathSquad.</span>", 1)
 
 	var/input = null
 	while(!input)
@@ -25,13 +27,7 @@ var/global/sent_strike_team = 0
 		to_chat(usr, "Looks like someone beat you to it.")
 		return
 
-	sent_strike_team = 1
-
-	shuttle_master.cancelEvac()
-	var/commando_number = commandos_possible //for selecting a leader
-	var/is_leader = TRUE // set to FALSE after leader is spawned
-
-	//Code for spawning a nuke auth code.
+	// Find the nuclear auth code
 	var/nuke_code
 	var/temp_code
 	for(var/obj/machinery/nuclearbomb/N in world)
@@ -40,29 +36,27 @@ var/global/sent_strike_team = 0
 			nuke_code = N.r_code
 			break
 
-	//Generates a list of commandos from active ghosts. Then the user picks which characters to respawn as the commandos.
-	var/list/candidates = list()	//candidates for being a commando out of all the active ghosts in world.
-	var/list/commandos = list()			//actual commando ghosts as picked by the user.
-	for(var/mob/dead/observer/G	 in player_list)
-		if(!G.client.is_afk())
-			if(!(G.mind && G.mind.current && G.mind.current.stat != DEAD))
-				candidates += G.key
-	for(var/i=commandos_possible,(i>0&&candidates.len),i--)//Decrease with every commando selected.
-		var/candidate = input("Pick characters to spawn as the commandos. This will go on until there either no more ghosts to pick from or the slots are full.", "Active Players") as null|anything in candidates	//It will auto-pick a person when there is only one candidate.
-		candidates -= candidate		//Subtract from candidates.
-		commandos += candidate//Add their ghost to commandos.
+	// Find ghosts willing to be DS
+	var/list/commando_ckeys = pollCandidatesByKeyWithVeto(src, usr, commandos_possible, "Join the DeathSquad?",, 21, 600, 1, role_playtime_requirements[ROLE_DEATHSQUAD])
+	if(!commando_ckeys.len)
+		to_chat(usr, "<span class='userdanger'>Nobody volunteered to join the DeathSquad.</span>")
+		return
 
-	//Spawns commandos and equips them.
+	sent_strike_team = 1
+
+	// Spawns commandos and equips them.
+	var/commando_number = commandos_possible //for selecting a leader
+	var/is_leader = TRUE // set to FALSE after leader is spawned
 	for(var/obj/effect/landmark/L in landmarks_list)
 		if(commando_number<=0)	break
 		if(L.name == "Commando")
 
 			spawn(0)
 				var/use_ds_borg = FALSE
-				var/ghost_key // Ghost that we intend to put into the commando. Can remain undefined if we don't have one.
-				if(commandos.len)
-					ghost_key = pick(commandos)
-					commandos -= ghost_key
+				var/ghost_key // Ghost ckey that we intend to put into the commando. Can remain undefined if we don't have one.
+				if(commando_ckeys.len)
+					ghost_key = pick(commando_ckeys)
+					commando_ckeys -= ghost_key
 					if(!is_leader)
 						var/new_gender = alert(src, "Select Deathsquad Type.", "DS Character Generation", "Organic", "Cyborg")
 						if(new_gender == "Cyborg")
@@ -99,7 +93,7 @@ var/global/sent_strike_team = 0
 					if(nuke_code)
 						new_commando.mind.store_memory("<B>Nuke Code:</B> <span class='warning'>[nuke_code].</span>")
 					new_commando.mind.store_memory("<B>Mission:</B> <span class='warning'>[input].</span>")
-					to_chat(new_commando, "<span class='userdanger'>You are a Special Ops [!is_leader ? "commando" : "<B>TEAM LEADER</B>"] in the service of Central Command. Check the table ahead for detailed instructions.\nYour current mission is: <span class='danger'>[input]</span></span>")
+					to_chat(new_commando, "<span class='userdanger'>You are a Special Ops [is_leader ? "<B>TEAM LEADER</B>" : "commando"] in the service of Central Command. Check the table ahead for detailed instructions.\nYour current mission is: <span class='danger'>[input]</span></span>")
 
 			is_leader = FALSE
 			commando_number--
@@ -121,7 +115,7 @@ var/global/sent_strike_team = 0
 			new /obj/effect/spawner/newbomb/timer/syndicate(L.loc)
 			qdel(L)
 
-	message_admins("<span class='notice'>[key_name_admin(usr)] has spawned a CentComm strike squad.</span>", 1)
+	message_admins("<span class='notice'>[key_name_admin(usr)] has spawned a CentComm DeathSquad.</span>", 1)
 	log_admin("[key_name(usr)] used Spawn Death Squad.")
 	return 1
 

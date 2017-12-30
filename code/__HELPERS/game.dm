@@ -490,6 +490,20 @@ proc/pollCandidates(Question, be_special_type, antag_age_check = 0, poll_time = 
 
 	return candidates
 
+/proc/pollCandidatesByKeyWithVeto(adminclient, adminusr, max_slots, Question, be_special_type, antag_age_check = 0, poll_time = 300, ignore_respawnability = 0, min_hours = 0)
+	var/list/willing_ghosts = pollCandidates(Question, be_special_type, antag_age_check, poll_time, ignore_respawnability, min_hours)
+	var/list/candidate_ckeys = list()
+	var/list/selected_ckeys = list()
+	if(!willing_ghosts.len)
+		return selected_ckeys
+	for(var/mob/dead/observer/G in willing_ghosts)
+		candidate_ckeys += G.key
+	for(var/i = max_slots, (i > 0 && candidate_ckeys.len), i--)
+		var/this_ckey = input("Pick players. This will go on until there either no more ghosts to pick from or the slots are full.", "Candidates") as null|anything in candidate_ckeys
+		candidate_ckeys -= this_ckey
+		selected_ckeys += this_ckey
+	return selected_ckeys
+
 /proc/window_flash(client/C)
 	if(ismob(C))
 		var/mob/M = C
