@@ -51,6 +51,8 @@ var/list/robot_verbs_default = list(
 	var/opened = 0
 	var/emagged = 0
 	var/is_emaggable = TRUE
+	var/eye_protection = 0
+	var/ear_protection = 0
 
 	var/list/force_modules = list()
 	var/allow_rename = TRUE
@@ -1346,6 +1348,8 @@ var/list/robot_verbs_default = list(
 	ionpulse = 1
 	magpulse = 1
 	pdahide = 1
+	eye_protection = 2 // Immunity to flashes and the visual part of flashbangs
+	ear_protection = 1 // Immunity to the audio part of flashbangs
 	allow_rename = FALSE
 	modtype = "Commando"
 	faction = list("nanotrasen")
@@ -1509,3 +1513,9 @@ var/list/robot_verbs_default = list(
 	var/static/all_borg_icon_states = icon_states('icons/mob/custom_synthetic/custom-synthetic.dmi')
 	if(spritename in all_borg_icon_states)
 		. = TRUE
+
+/mob/living/silicon/robot/check_eye_prot()
+	return eye_protection
+
+/mob/living/silicon/robot/check_ear_prot()
+	return ear_protection
