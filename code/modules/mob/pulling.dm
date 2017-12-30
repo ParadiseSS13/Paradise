@@ -15,7 +15,7 @@
 				return
 			stop_pulling()
 
-		if(ispet(src) && isliving(AM))
+		if(ispet(src) && isliving(AM) && !ispet(AM))
 			return
 
 		if(AM.pulledby)
