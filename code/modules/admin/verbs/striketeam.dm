@@ -72,7 +72,7 @@ var/global/sent_strike_team = 0
 					var/mob/living/silicon/robot/deathsquad/R = new()
 					R.forceMove(get_turf(L))
 					var/rnum = rand(1,1000)
-					var/borgname = "Specops [rnum]"
+					var/borgname = "Epsilon [rnum]"
 					R.name = borgname
 					R.custom_name = borgname
 					R.real_name = R.name
