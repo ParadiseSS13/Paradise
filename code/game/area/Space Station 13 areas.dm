@@ -2120,10 +2120,6 @@ area/security/podbay
 	name = "\improper Construction Site Bridge"
 	icon_state = "bridge"
 
-/area/constructionsite/maintenance
-	name = "\improper Construction Site Maintenance"
-	icon_state = "yellow"
-
 /area/constructionsite/hallway/center
 	name = "\improper Construction Site Central Hallway"
 	icon_state = "hallC"
