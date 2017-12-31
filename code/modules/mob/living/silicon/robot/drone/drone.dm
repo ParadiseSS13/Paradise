@@ -190,6 +190,7 @@
 	emagged = 1
 	density = 1
 	ventcrawler = 0
+	pass_flags = 0
 	icon_state = "repairbot-emagged"
 	holder_type = /obj/item/weapon/holder/drone/emagged
 	update_icons()
