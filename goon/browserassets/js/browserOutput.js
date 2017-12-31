@@ -285,12 +285,13 @@ function output(message, flag) {
 				"font-size": "0.7em"
 			}, 100);
 		});
-		return;
+		entry = lastEntry;
 	}
-
-	opts.previousMessage = entry.innerHTML;
-	opts.previousMessageCount = 1;
-	$messages[0].appendChild(entry);
+	else {
+		opts.previousMessage = entry.innerHTML;
+		opts.previousMessageCount = 1;
+		$messages[0].appendChild(entry);
+	}
 
 	//Actually do the snap
 	if (!filteredOut && atBottom) {
