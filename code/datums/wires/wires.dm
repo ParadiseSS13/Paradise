@@ -94,22 +94,32 @@ var/list/wireColours = list("red", "blue", "green", "black", "orange", "brown", 
 	var/list/W[0]
 	for(var/colour in wires)
 		var/new_colour = colour
+		var/colour_name = colour
 		if(colour in replace_colours)
 			new_colour = replace_colours[colour]
+			if(new_colour in LIST_REPLACE_RENAME)
+				colour_name = LIST_REPLACE_RENAME[new_colour]
+			else
+				colour_name = new_colour
 		else
 			new_colour = colour
-		W[++W.len] = list("seen_colour" = capitalize(new_colour),"colour" = capitalize(colour), "cut" = IsColourCut(colour), "index" = can_see_wire_index(user) ? GetWireName(GetIndex(colour)) : null, "attached" = IsAttached(colour))
+			colour_name = new_colour
+		W[++W.len] = list("colour_name" = capitalize(colour_name), "seen_colour" = capitalize(new_colour),"colour" = capitalize(colour), "cut" = IsColourCut(colour), "index" = can_see_wire_index(user) ? GetWireName(GetIndex(colour)) : null, "attached" = IsAttached(colour))
 
 	if(W.len > 0)
 		data["wires"] = W
 
 	var/list/status = get_status()
 	if(replace_colours)
-		for(var/colour in replace_colours)
-			var/i
-			for(i=1, i<=status.len, i++)
+		var/i
+		for(i=1, i<=status.len, i++)
+			for(var/colour in replace_colours)
+				var/new_colour = replace_colours[colour]
+				if(new_colour in LIST_REPLACE_RENAME)
+					new_colour = LIST_REPLACE_RENAME[new_colour]
 				if(findtext(status[i],colour))
-					status[i] = replacetext(status[i],colour,replace_colours[colour])
+					status[i] = replacetext(status[i],colour,new_colour)
+					break
 	data["status_len"] = status.len
 	data["status"] = status
 
