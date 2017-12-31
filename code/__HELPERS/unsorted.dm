@@ -1899,3 +1899,27 @@ var/mob/dview/dview_mob = new
 		num_sample -= num
 		result += (1 << num)
 	return result
+
+/proc/pixel_shift_dir(var/dir, var/amount_x = 32, var/amount_y = 32) //Returns a list with pixel_shift values that will shift an object's icon one tile in the direction passed.
+	amount_x = min(max(0, amount_x), 32) //No less than 0, no greater than 32.
+	amount_y = min(max(0, amount_x), 32)
+	var/list/shift = list("x" = 0, "y" = 0)
+	switch(dir)
+		if(NORTH)
+			shift["y"] = amount_y
+		if(SOUTH)
+			shift["y"] = -amount_y
+		if(EAST)
+			shift["x"] = amount_x
+		if(WEST)
+			shift["x"] = -amount_x
+		if(NORTHEAST)
+			shift = list("x" = amount_x, "y" = amount_y)
+		if(NORTHWEST)
+			shift = list("x" = -amount_x, "y" = amount_y)
+		if(SOUTHEAST)
+			shift = list("x" = amount_x, "y" = -amount_y)
+		if(SOUTHWEST)
+			shift = list("x" = -amount_x, "y" = -amount_y)
+
+	return shift
