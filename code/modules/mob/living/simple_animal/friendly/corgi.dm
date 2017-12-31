@@ -408,7 +408,7 @@
 	name = "Ian"
 	real_name = "Ian"	//Intended to hold the name without altering it.
 	gender = MALE
-	desc = "It's a corgi."
+	desc = "It's a corgi! Loyal pet of the Head of Personnel, cousin to Colin Black."
 	var/turns_since_scan = 0
 	var/obj/movement_target
 	response_help  = "pets"
