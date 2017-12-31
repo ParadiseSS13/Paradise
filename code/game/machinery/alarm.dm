@@ -921,7 +921,7 @@
 		return 1
 
 	if(href_list["atmos_reset"])
-		if(alarm_area.atmosalert(ATMOS_ALARM_NONE, src,1))
+		if(alarm_area.atmosalert(ATMOS_ALARM_NONE, src, TRUE))
 			apply_danger_level(ATMOS_ALARM_NONE)
 		alarmActivated = 0
 		update_icon()
