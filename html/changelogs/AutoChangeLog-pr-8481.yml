@@ -1,0 +1,4 @@
+author: "FreeStylaLT"
+delete-after: True
+changes: 
+  - rscadd: "A dedicated toxic pill sprite, Cyanide and Toxin pills now use it by default."
