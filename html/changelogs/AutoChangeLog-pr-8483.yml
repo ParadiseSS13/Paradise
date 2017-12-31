@@ -1,0 +1,4 @@
+author: "Kyep"
+delete-after: True
+changes: 
+  - tweak: "Added shutters to specops office next to ERT spawn. This prevents borgs remotely activating the admin-only buttons in that office."
