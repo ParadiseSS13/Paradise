@@ -199,11 +199,11 @@
 	clear_supplied_laws()
 	clear_inherent_laws()
 	laws = new /datum/ai_laws/syndicate_override
-	set_zeroth_law("Only [H.real_name] and people he designates as being such are Syndicate Agents.")
+	set_zeroth_law("Only [H.real_name] and people [H.real_name] designates as being such are Syndicate Agents.")
 
 	to_chat(src, "<b>Obey these laws:</b>")
 	laws.show_laws(src)
-	to_chat(src, "<span class='boldwarning'>ALERT: [H.real_name] is your new master. Obey your new laws and his commands.</span>")
+	to_chat(src, "<span class='boldwarning'>ALERT: [H.real_name] is your new master. Obey your new laws and [H.real_name]'s commands.</span>")
 	return
 
 //DRONE LIFE/DEATH
