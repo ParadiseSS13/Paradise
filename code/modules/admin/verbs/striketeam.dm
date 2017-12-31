@@ -37,7 +37,7 @@ var/global/sent_strike_team = 0
 			break
 
 	// Find ghosts willing to be DS
-	var/list/commando_ckeys = pollCandidatesByKeyWithVeto(src, usr, commandos_possible, "Join the DeathSquad?",, 21, 600, 1, role_playtime_requirements[ROLE_DEATHSQUAD])
+	var/list/commando_ckeys = pollCandidatesByKeyWithVeto(src, usr, commandos_possible, "Join the DeathSquad?",, 21, 600, 1, role_playtime_requirements[ROLE_DEATHSQUAD], TRUE, FALSE)
 	if(!commando_ckeys.len)
 		to_chat(usr, "<span class='userdanger'>Nobody volunteered to join the DeathSquad.</span>")
 		return
