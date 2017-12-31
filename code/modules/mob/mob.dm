@@ -1055,7 +1055,7 @@ var/list/slot_equipment_priority = list( \
 		var/list/creatures = list("Mouse")
 		for(var/mob/living/L in living_mob_list)
 			if(safe_respawn(L.type) && L.stat!=2)
-				if(!L.key && is_station_level(L.z))
+				if(!L.key)
 					creatures += L
 		var/picked = input("Please select an NPC to respawn as", "Respawn as NPC")  as null|anything in creatures
 		switch(picked)

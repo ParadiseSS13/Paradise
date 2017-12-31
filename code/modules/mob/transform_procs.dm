@@ -274,6 +274,8 @@
 	if(!MP)
 		return 0
 
+	if(ispath(MP, /mob/living/simple_animal/pet/cat/Syndi))
+		return 0
 	if(ispath(MP, /mob/living/simple_animal/pet/cat))
 		return 1
 	if(ispath(MP, /mob/living/simple_animal/pet/corgi))
@@ -288,6 +290,8 @@
 		return 1
 	if(ispath(MP, /mob/living/simple_animal/pony))
 		return 1
+	if(ispath(MP, /mob/living/simple_animal/pet/fox/Syndifox))
+		return 0
 	if(ispath(MP, /mob/living/simple_animal/pet/fox))
 		return 1
 	if(ispath(MP, /mob/living/simple_animal/chick))
