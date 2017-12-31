@@ -1,0 +1,4 @@
+author: "Vivalas"
+delete-after: True
+changes: 
+  - tweak: "It is now possible to directly inject spaceacillin into organs during surgery, and it only uses 5u to completely cleanse the organ,"
