@@ -1,0 +1,4 @@
+author: "Tayyyyyyy"
+delete-after: True
+changes: 
+  - bugfix: "Crew pinpointers no longer lose signal when the target enters something like a sleeper or a mech"
