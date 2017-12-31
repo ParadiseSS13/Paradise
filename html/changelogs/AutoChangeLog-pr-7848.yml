@@ -1,5 +1,0 @@
-author: "KasparoVy"
-delete-after: True
-changes: 
-  - tweak: "Blood splattered by projectiles hitting a mob now land one tile away in the direction of the splatter graphic. Blood splattered on walls/windows/etc. can be cleaned off with soap."
-  - bugfix: "Xeno-blood splatter is now the appropriate colour."
