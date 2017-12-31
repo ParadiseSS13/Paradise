@@ -188,6 +188,8 @@
 	lawchanges.Add("[time] <B>:</B> [H.name]([H.key]) emagged [name]([key])")
 
 	emagged = 1
+	density = 1
+	ventcrawler = 0
 	icon_state = "repairbot-emagged"
 	holder_type = /obj/item/weapon/holder/drone/emagged
 	update_icons()
@@ -247,11 +249,8 @@
 
 /mob/living/silicon/robot/drone/proc/shut_down()
 	if(stat != 2)
-		if(emagged)
-			to_chat(src, "<span class='warning'>You feel a system kill order percolate through your tiny brain, but it doesn't seem like a good idea to you.</span>")
-		else
-			to_chat(src, "<span class='warning'>You feel a system kill order percolate through your tiny brain, and you obediently destroy yourself.</span>")
-			death()
+		to_chat(src, "<span class='warning'>You feel a system kill order percolate through your tiny brain, and you obediently destroy yourself.</span>")
+		death()
 
 /mob/living/silicon/robot/drone/proc/full_law_reset()
 	clear_supplied_laws()
@@ -347,6 +346,9 @@
 
 /mob/living/silicon/robot/drone/update_canmove(delay_action_updates = 0)
 	. = ..()
+	if(emagged)
+		density = 1
+		return
 	density = 0 //this is reset every canmove update otherwise
 
 /mob/living/simple_animal/drone/flash_eyes(intensity = 1, override_blindness_check = 0, affect_silicon = 0)
