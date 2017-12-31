@@ -1,0 +1,4 @@
+author: "Kyep"
+delete-after: True
+changes: 
+  - rscadd: "The mech bay next to Robotics now has a robotic storage unit (cryopod for cyborgs)."
