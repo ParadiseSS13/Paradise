@@ -1,0 +1,4 @@
+author: "Kyep"
+delete-after: True
+changes: 
+  - tweak: "IAAs now require 10h of playtime, instead of 5h, to unlock. The IAA job's alt title is now \"Human Resources Agent\" instead of \"Lawyer\" or \"Public Defender\". IAAs now start with basic access to all departments (sci/med/cargo/eng), so that they can more easily conduct investigations. Overall, their role has been clarified, to be explicitly on the side of NT, not simply that of defendants. Further, they're empowered to, and expected to, actually conduct investigations, and generally be better at their jobs."
