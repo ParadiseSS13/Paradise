@@ -53,7 +53,7 @@
 	return cameras
 
 
-/area/proc/atmosalert(danger_level, var/alarm_source, var/force = 0)
+/area/proc/atmosalert(danger_level, var/alarm_source, var/force = FALSE)
 	if(danger_level == ATMOS_ALARM_NONE)
 		atmosphere_alarm.clearAlarm(src, alarm_source)
 	else
