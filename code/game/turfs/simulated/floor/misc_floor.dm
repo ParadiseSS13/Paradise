@@ -67,3 +67,7 @@
 
 /turf/simulated/floor/noslip/MakeSlippery()
 	return
+
+/turf/simulated/floor/syndicate
+	icon = 'icons/turf/shuttle.dmi'
+	icon_state = "floor4"
