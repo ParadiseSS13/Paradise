@@ -1,5 +1,0 @@
-author: "Alffd"
-delete-after: True
-changes: 
-  - rscadd: "Wire panels are now effected by the colorblindness disability"
-  - rscadd: "Wire panel color changes now support RGB hex values"
