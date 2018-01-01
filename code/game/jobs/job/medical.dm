@@ -11,10 +11,10 @@
 	req_admin_notify = 1
 	access = list(access_medical, access_morgue, access_genetics, access_heads,
 			access_chemistry, access_virology, access_cmo, access_surgery, access_RC_announce,
-			access_keycard_auth, access_sec_doors, access_psychiatrist, access_paramedic, access_mineral_storeroom)
+			access_keycard_auth, access_sec_doors, access_psychiatrist, access_paramedic, access_mineral_storeroom, access_coroner)
 	minimal_access = list(access_eva, access_medical, access_morgue, access_genetics, access_heads,
 			access_chemistry, access_virology, access_cmo, access_surgery, access_RC_announce,
-			access_keycard_auth, access_sec_doors, access_psychiatrist, access_maint_tunnels, access_paramedic, access_mineral_storeroom)
+			access_keycard_auth, access_sec_doors, access_psychiatrist, access_maint_tunnels, access_paramedic, access_mineral_storeroom, access_coroner)
 	minimal_player_age = 21
 	exp_requirements = 600
 	exp_type = EXP_TYPE_CREW
@@ -50,7 +50,7 @@
 	supervisors = "the chief medical officer"
 	department_head = list("Chief Medical Officer")
 	selection_color = "#ffeef0"
-	access = list(access_medical, access_morgue, access_surgery, access_chemistry, access_virology, access_genetics, access_mineral_storeroom)
+	access = list(access_medical, access_morgue, access_surgery, access_chemistry, access_virology, access_genetics, access_mineral_storeroom, access_coroner)
 	minimal_access = list(access_medical, access_morgue, access_surgery, access_maint_tunnels)
 	alt_titles = list("Surgeon","Nurse")
 	minimal_player_age = 3
@@ -85,8 +85,8 @@
 	supervisors = "the chief medical officer"
 	department_head = list("Chief Medical Officer")
 	selection_color = "#ffeef0"
-	access = list(access_medical, access_morgue, access_surgery, access_chemistry, access_virology, access_genetics, access_mineral_storeroom)
-	minimal_access = list(access_medical, access_morgue, access_maint_tunnels)
+	access = list(access_medical, access_morgue, access_surgery, access_chemistry, access_virology, access_genetics, access_mineral_storeroom,access_coroner)
+	minimal_access = list(access_medical, access_morgue, access_maint_tunnels, access_coroner)
 	minimal_player_age = 3
 	exp_requirements = 180
 	exp_type = EXP_TYPE_CREW

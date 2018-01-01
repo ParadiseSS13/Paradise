@@ -73,6 +73,7 @@
 /var/const/access_minisat = 75
 /var/const/access_mineral_storeroom = 76
 /var/const/access_network = 77
+/var/const/access_coroner = 78
 
 /var/const/access_weapons = 99 //Weapon authorization for secbots
 
@@ -266,7 +267,7 @@ var/const/access_trade_sol = 160
 		if(REGION_SECURITY) //security
 			return list(access_sec_doors, access_weapons, access_security, access_brig, access_armory, access_forensics_lockers, access_court, access_pilot, access_hos)
 		if(REGION_MEDBAY) //medbay
-			return list(access_medical, access_genetics, access_morgue, access_chemistry, access_psychiatrist, access_virology, access_surgery, access_cmo, access_paramedic)
+			return list(access_medical, access_genetics, access_morgue, access_chemistry, access_psychiatrist, access_virology, access_surgery, access_cmo, access_paramedic,access_coroner)
 		if(REGION_RESEARCH) //research
 			return list(access_research, access_tox, access_tox_storage, access_genetics, access_robotics, access_xenobiology, access_xenoarch, access_minisat, access_rd, access_network)
 		if(REGION_ENGINEERING) //engineering and maintenance
@@ -452,6 +453,8 @@ var/const/access_trade_sol = 160
 			return "AI Satellite"
 		if(access_weapons)
 			return "Weapon Permit"
+		if(access_coroner)
+			return "Coroner"
 
 /proc/get_centcom_access_desc(A)
 	switch(A)
