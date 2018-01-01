@@ -512,12 +512,13 @@ var/list/blood_splatter_icons = list()
 		overlays += blood_overlay
 
 /atom/proc/clean_blood()
-	if(!istype(src, /obj/effect/decal/cleanable/blood))
-		germ_level = 0
-		if(islist(blood_DNA))
-			blood_DNA = null
-			return TRUE
+	germ_level = 0
+	if(islist(blood_DNA))
+		blood_DNA = null
+		return TRUE
 
+/obj/effect/decal/cleanable/blood/clean_blood()
+	return // While this seems nonsensical, clean_blood isn't supposed to be used like this on a blood decal.
 
 /obj/item/clean_blood()
 	. = ..()
