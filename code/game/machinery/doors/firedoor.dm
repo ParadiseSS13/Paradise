@@ -24,7 +24,6 @@
 	var/can_crush = TRUE
 	var/nextstate = null
 	var/boltslocked = TRUE
-	var/can_deconstruct = TRUE
 	var/active_alarm = FALSE
 
 /obj/machinery/door/firedoor/Bumped(atom/AM)

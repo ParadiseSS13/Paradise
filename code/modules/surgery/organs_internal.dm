@@ -368,11 +368,11 @@
 		else if(istype(tool, /obj/item/stack/medical/bruise_pack) || istype(tool, /obj/item/stack/nanopaste))
 			dam_amt = 5
 			target.adjustToxLoss(10)
-			affected.take_damage(5)
+			affected.receive_damage(5)
 
 		for(var/obj/item/organ/internal/I in affected.internal_organs)
 			if(I && I.damage && !(I.tough))
-				I.take_damage(dam_amt,0)
+				I.receive_damage(dam_amt,0)
 
 		return 0
 
@@ -381,7 +381,7 @@
 		"<span class='warning'> Your hand slips, damaging [tool]!</span>")
 		var/obj/item/organ/internal/I = tool
 		if(istype(I) && !I.tough)
-			I.take_damage(rand(3,5),0)
+			I.receive_damage(rand(3,5),0)
 
 		return 0
 
@@ -402,7 +402,7 @@
 
 		for(var/obj/item/organ/internal/I in affected.internal_organs)
 			I.germ_level = max(I.germ_level-ethanol, 0)
-			I.take_damage(rand(4,8),0)
+			I.receive_damage(rand(4,8),0)
 
 		R.trans_to(target, GHETTO_DISINFECT_AMOUNT * 10)
 		R.reaction(target, INGEST)
@@ -416,7 +416,7 @@
 			if(affected)
 				user.visible_message("<span class='warning'> [user]'s hand slips, damaging [target]'s [affected.name] with [tool]!</span>", \
 				"<span class='warning'> Your hand slips, damaging [target]'s [affected.name] with [tool]!</span>")
-				affected.take_damage(20)
+				affected.receive_damage(20)
 			else
 				user.visible_message("<span class='warning'> [user]'s hand slips, damaging [target]'s [parse_zone(target_zone)] with [tool]!</span>", \
 				"<span class='warning'> Your hand slips, damaging [target]'s [parse_zone(target_zone)] with [tool]!</span>")
@@ -436,7 +436,7 @@
 			var/self_msg = "<span class='warning'> Your hand slips, tearing skin!</span>"
 			user.visible_message(msg, self_msg)
 		if(affected)
-			affected.take_damage(20)
+			affected.receive_damage(20)
 		return 0
 
 
