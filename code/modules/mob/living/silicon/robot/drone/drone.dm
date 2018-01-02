@@ -191,6 +191,9 @@
 	density = 1
 	ventcrawler = 0
 	pass_flags = 0
+	add_language("Galactic Common", 1)
+	to_chat(src, "<span class='warning'>The new malware has destroyed your ability to ventcrawl or crawl on tables, but has granted you the ability to speak Galactic Common!</span>")
+	default_language = "Galactic Common"
 	icon_state = "repairbot-emagged"
 	holder_type = /obj/item/weapon/holder/drone/emagged
 	update_icons()
