@@ -70,25 +70,6 @@
 	if(holder)
 		holder.update_icon()
 
-/obj/item/device/assembly/infra/proc/get_valid_loc(atom/A, atom/prev, level = 0)
-	if(!A)
-		A = loc
-	if(!prev)
-		prev = src
-	if(level > max_nesting_level)
-		return null
-	else if(isturf(A))
-		return A
-	else if(isobj(A))
-		var/obj/O = A
-		if(isassembly(A) || O.IsAssemblyHolder() || istype(A, /obj/item/device/onetankbomb))
-			return .(A.loc, A, level + 1)
-	else if(ismob(A))
-		var/mob/user = A
-		if(user.get_active_hand() == prev || user.get_inactive_hand() == prev)
-			return .(A.loc, A, level + 1)
-	return null
-
 /obj/item/device/assembly/infra/process()
 	var/turf/T = get_turf(src)
 	if(first && (!on || !fire_location || fire_location != T || emission_cycles >= emission_cap))
