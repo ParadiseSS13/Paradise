@@ -163,10 +163,6 @@
 	if(istype(M) && M.client && M.machine == src)
 		src.attack_self(M)
 
-
-/obj/proc/alter_health()
-	return 1
-
 /obj/proc/hide(h)
 	return
 
