@@ -115,6 +115,10 @@
 	corpseidjob = "Operative"
 	corpseidaccess = "Syndicate"
 
+/obj/effect/landmark/mobcorpse/syndicateautogib/createCorpse()
+	var/mob/living/carbon/human/M = new /mob/living/carbon/human(src.loc)
+	M.real_name = src.name
+	M.gib()
 
 
 /obj/effect/landmark/mobcorpse/clown

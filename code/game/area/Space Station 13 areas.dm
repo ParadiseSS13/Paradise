@@ -551,6 +551,27 @@ var/list/ghostteleportlocs = list()
 	icon_state = "red"
 	tele_proof = 1
 	requires_power = 0
+	var/called_backup = FALSE
+
+/area/syndicate_depot/proc/call_backup()
+	if(called_backup)
+		return
+	called_backup = TRUE
+	set_fire_alarm_effect()
+	for(var/obj/machinery/door/airlock/A in src)
+		spawn(0)
+			A.close()
+			if(A.density)
+				A.lock()
+	for(var/obj/effect/landmark/L in landmarks_list)
+		if(L.name == "syndi_depot_backup")
+			var/mob/living/simple_animal/hostile/syndicate/ranged/space/autogib/S = new /mob/living/simple_animal/hostile/syndicate/ranged/space/autogib(get_turf(L))
+			S.name = "Syndicate Backup"
+
+
+/area/syndicate_depot/backup
+	name = "\improper Suspicious Space"
+
 
 //EXTRA
 

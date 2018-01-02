@@ -87,6 +87,10 @@
 	..()
 	Radio.syndie = 1
 
+/mob/living/simple_animal/bot/medbot/syndicate/emagged
+	emagged = 2
+	declare_crit = 0
+
 /mob/living/simple_animal/bot/medbot/update_icon()
 	if(!on)
 		icon_state = "medibot0"

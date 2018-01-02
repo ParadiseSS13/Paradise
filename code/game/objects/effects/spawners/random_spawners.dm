@@ -108,3 +108,66 @@
 	result = list(
 	/turf/simulated/wall = 1,
 	/obj/effect/decal/cleanable/fungus = 7)
+
+
+/obj/effect/spawner/random_spawners/syndicate
+
+/obj/effect/spawner/random_spawners/turret_internal
+	name = "50pc int turret"
+	result = list(
+	/obj/machinery/porta_turret/syndicate/interior  = 1,
+	/obj/effect/particle_effect/sparks = 1)
+
+/obj/effect/spawner/random_spawners/turret_external
+	name = "50pc ext turret"
+	result = list(
+	/obj/machinery/porta_turret/syndicate/exterior  = 1,
+	/obj/effect/particle_effect/sparks = 1)
+
+/obj/effect/spawner/random_spawners/syndicate/tc50
+	name = "50pc TC"
+	result = list(
+	/obj/item/stack/telecrystal  = 1,
+	/obj/effect/particle_effect/sparks = 1)
+
+
+/obj/effect/spawner/random_spawners/syndicate/tc25
+	name = "25pc TC"
+	result = list(
+	/obj/item/stack/telecrystal  = 1,
+	/obj/effect/particle_effect/sparks = 3)
+
+/obj/effect/spawner/random_spawners/syndicate/tc25
+	name = "25pc TC"
+	result = list(
+	/obj/item/stack/telecrystal  = 1,
+	/obj/effect/particle_effect/sparks = 3)
+
+/obj/effect/spawner/random_spawners/syndicate/pizzabomb
+	name = "50pc pizza or bomb"
+	result = list(
+	/obj/item/pizzabox/meat = 1,
+	/obj/item/device/pizza_bomb/autoarm = 1)
+
+/obj/effect/spawner/random_spawners/syndicate/medbot
+	name = "50pc emagged medbot"
+	result = list(
+	/mob/living/simple_animal/bot/medbot/syndicate = 1
+	/mob/living/simple_animal/bot/medbot/syndicate/emagged = 1)
+
+/obj/effect/spawner/random_spawners/syndicate/mine
+	name = "50pc landmine"
+	result = list(
+	/obj/effect/mine/explosive = 1,
+	/obj/effect/particle_effect/sparks = 1)
+
+/obj/effect/spawner/random_spawners/syndicate/spacepod
+	name = "50pc spacepod"
+	result = list(
+	/obj/spacepod/civilian = 1,
+	/obj/effect/particle_effect/sparks = 1)
+
+
+
+
+

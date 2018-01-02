@@ -97,9 +97,11 @@
 	speed = 1
 	loot = list(/obj/effect/landmark/mobcorpse/syndicatecommando, /obj/item/weapon/gun/projectile/automatic/c20r)
 
-
 /mob/living/simple_animal/hostile/syndicate/ranged/space/Process_Spacemove(var/movement_dir = 0)
 	return
+
+/mob/living/simple_animal/hostile/syndicate/ranged/space/autogib
+	loot = list(/obj/effect/landmark/mobcorpse/syndicateautogib)
 
 
 
