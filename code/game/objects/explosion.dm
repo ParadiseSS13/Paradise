@@ -138,7 +138,7 @@
 							if(AM && AM.simulated)
 								AM.ex_act(dist)
 							CHECK_TICK
-					T.ex_act(dist)
+					T.ex_act(dist, devastation_range)
 
 			CHECK_TICK
 			//--- THROW ITEMS AROUND ---
