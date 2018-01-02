@@ -37,7 +37,17 @@
 			if(species.name == "Drask")		//Only Drask can make whale noises
 				on_CD = handle_emote_CD()			//proc located in code\modules\mob\emote.dm
 			else
+				return				
+		if("howl", "howls")
+			if (species.name == "Vulpkanin")		//Only Vulpkanin can howl
+				on_CD = handle_emote_CD(100)
+			else
 				return
+		if("growl", "growls")
+			if (species.name == "Vulpkanin")		//Only Vulpkanin can growl
+				on_CD = handle_emote_CD()
+			else
+				return				
 		if("squish", "squishes")
 			var/found_slime_bodypart = 0
 
@@ -45,7 +55,7 @@
 				on_CD = handle_emote_CD()			//proc located in code\modules\mob\emote.dm'
 				found_slime_bodypart = 1
 			else
-				for(var/obj/item/organ/external/L in organs) // if your limbs are squishy you can squish too!
+				for(var/obj/item/organ/external/L in bodyparts) // if your limbs are squishy you can squish too!
 					if(L.dna.species in list("Slime People"))
 						on_CD = handle_emote_CD()
 						found_slime_bodypart = 1
@@ -66,11 +76,17 @@
 			else								//Everyone else fails, skip the emote attempt
 				return
 
+		if("hiss", "hisses")
+			if(species.name == "Unathi") //Only Unathi can hiss.
+				on_CD = handle_emote_CD()			//proc located in code\modules\mob\emote.dm'
+			else								//Everyone else fails, skip the emote attempt
+				return
+
 		if("scream", "screams")
 			on_CD = handle_emote_CD(50) //longer cooldown
 		if("fart", "farts", "flip", "flips", "snap", "snaps")
 			on_CD = handle_emote_CD()				//proc located in code\modules\mob\emote.dm
-		if("cough", "coughs")
+		if("cough", "coughs", "slap", "slaps")
 			on_CD = handle_emote_CD()
 		if("sneeze", "sneezes")
 			on_CD = handle_emote_CD()
@@ -85,8 +101,21 @@
 		if("me")									//OKAY SO RANT TIME, THIS FUCKING HAS TO BE HERE OR A SHITLOAD OF THINGS BREAK
 			return custom_emote(m_type, message)	//DO YOU KNOW WHY SHIT BREAKS? BECAUSE SO MUCH OLDCODE CALLS mob.emote("me",1,"whatever_the_fuck_it_wants_to_emote")
 													//WHO THE FUCK THOUGHT THAT WAS A GOOD FUCKING IDEA!?!?
-		if("ping", "pings")
+													
+		if("howl", "howls")
 			var/M = handle_emote_param(param) //Check to see if the param is valid (mob with the param name is in view).
+			message = "<B>[src]</B> howls[M ? " at [M]" : ""]!"
+			playsound(loc, 'sound/goonstation/voice/howl.ogg', 100, 0, 10)
+			m_type = 2
+
+		if("growl", "growls")
+			var/M = handle_emote_param(param)
+			message = "<B>[src]</B> growls[M ? " at [M]" : ""]."
+			playsound(loc, "growls", 80, 0)
+			m_type = 2
+			
+		if("ping", "pings")
+			var/M = handle_emote_param(param)
 
 			message = "<B>[src]</B> pings[M ? " at [M]" : ""]."
 			playsound(loc, 'sound/machines/ping.ogg', 50, 0)
@@ -139,6 +168,13 @@
 
 			message = "<B>[src]</B> clicks their mandibles[M ? " at [M]" : ""]."
 			playsound(loc, 'sound/effects/Kidanclack2.ogg', 50, 0) //Credit to DrMinky (freesound.org) for the sound.
+			m_type = 2
+
+		if("hiss", "hisses")
+			var/M = handle_emote_param(param)
+
+			message = "<B>[src]</B> hisses[M ? " at [M]" : ""]."
+			playsound(loc, 'sound/effects/unathihiss.ogg', 50, 0) //Credit to Jamius (freesound.org) for the sound.
 			m_type = 2
 
 		if("yes")
@@ -772,14 +808,30 @@
 			+ " handshake-mob, hug(s)-(none)/mob, johnny, jump, laugh(s), look(s)-(none)/mob, moan(s), mumble(s), nod(s), pale(s), point(s)-atom, quiver(s), raise(s), salute(s)-(none)/mob, scream(s), shake(s)," \
 			+ " shiver(s), shrug(s), sigh(s), signal(s)-#1-10,slap(s)-(none)/mob, smile(s),snap(s), sneeze(s), sniff(s), snore(s), stare(s)-(none)/mob, swag(s), tremble(s), twitch(es), twitch(es)_s," \
 			+ " wag(s), wave(s),  whimper(s), wink(s), yawn(s)"
-			if(species.name == "Machine")
-				emotelist += "\nMachine specific emotes :- beep(s)-(none)/mob, buzz(es)-none/mob, no-(none)/mob, ping(s)-(none)/mob, yes-(none)/mob"
-			else if(species.name == "Slime People")
-				emotelist += "\nSlime people specific emotes :- squish(es)-(none)/mob"
-			to_chat(src, emotelist)
 
+			switch(species.name)
+				if("Machine")
+					emotelist += "\nMachine specific emotes :- beep(s)-(none)/mob, buzz(es)-none/mob, no-(none)/mob, ping(s)-(none)/mob, yes-(none)/mob, buzz2-(none)/mob"
+				if("Drask")
+					emotelist += "\nDrask specific emotes :- drone(s)-(none)/mob, hum(s)-(none)/mob, rumble(s)-(none)/mob"
+				if("Kidan")
+					emotelist += "\nKidan specific emotes :- click(s), clack(s)"
+				if("Unathi")
+					emotelist += "\nUnathi specific emotes :- hiss(es)"
+				if("Vulpkanin")
+					emotelist += "\nVulpkanin specific emotes :- growl(s)-none/mob, howl(s)-none/mob"
+
+			if (species.name == "Slime People")
+				emotelist += "\nSlime people specific emotes :- squish(es)-(none)/mob"
+			else
+				for(var/obj/item/organ/external/L in bodyparts) // if your limbs are squishy you can squish too!
+					if(L.dna.species in list("Slime People"))
+						emotelist += "\nSlime people body part specific emotes :- squish(es)-(none)/mob"
+						break
+
+			to_chat(src, emotelist)
 		else
-			to_chat(src, "\blue Unusable emote '[act]'. Say *help for a list.")
+			to_chat(src, "<span class='notice'>Unusable emote '[act]'. Say *help for a list.</span>")
 
 	if(message) //Humans are special fucking snowflakes and have 800 lines of emotes, they get to handle their own emotes, not call the parent.
 		log_emote("[name]/[key] : [message]")

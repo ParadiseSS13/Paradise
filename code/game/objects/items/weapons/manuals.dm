@@ -580,11 +580,8 @@
 				<h2>Protolathe</h2>
 				This machine is an advanced form of the Autolathe that produce non-circuit designs. Unlike the Autolathe, it can use processed metal, glass, solid plasma, silver, gold, and diamonds along with a variety of chemicals to produce devices. The downside is that, again, not all devices you make are 100% reliable when you first discover them.
 
-				<h1>Reliability and You</h1>
-				As it has been stated, many devices when they're first discovered do not have a 100% reliablity when you first discover them. Instead, the reliablity of the device is dependent upon a base reliability value, whatever improvements to the design you've discovered through the Destructive Analyzer, and any advancements you've made with the device's source technologies. To be able to improve the reliability of a device, you have to use the device until it breaks beyond repair. Once that happens, you can analyze it in a Destructive Analyzer. Once the device reachs a certain minimum reliability, you'll gain tech advancements from it.
-
 				<h1>Building a Better Machine</h1>
-				Many machines produces from circuit boards and inserted into a machine frame require a variety of parts to construct. These are parts like capacitors, batteries, matter bins, and so forth. As your knowledge of science improves, more advanced versions are unlocked. If you use these parts when constructing something, its attributes may be improved. For example, if you use an advanced matter bin when constructing an autolathe (rather then a regular one), it'll hold more materials. Experiment around with stock parts of various qualities to see how they affect the end results! Be warned, however: Tier 3 and higher stock parts don't have 100% reliability and their low reliability may affect the reliability of the end machine.
+				Many machines produces from circuit boards and inserted into a machine frame require a variety of parts to construct. These are parts like capacitors, batteries, matter bins, and so forth. As your knowledge of science improves, more advanced versions are unlocked. If you use these parts when constructing something, its attributes may be improved. For example, if you use an advanced matter bin when constructing an autolathe (rather then a regular one), it'll hold more materials. Experiment around with stock parts of various qualities to see how they affect the end results!
 				</body>
 				</html>
 			"}*/
@@ -1186,9 +1183,9 @@
 
 /obj/item/weapon/book/manual/faxes
 	name = "A Guide to Faxes"
-	desc = "A NanoTrasen-approved guide to writing faxes"
+	desc = "A Nanotrasen-approved guide to writing faxes"
 	icon_state = "book6"
-	author = "NanoTrasen"
+	author = "Nanotrasen"
 	title = "A Guide to Faxes"
 	dat = {"
 
@@ -1216,14 +1213,14 @@
 				<li>Faxes are your main method of communicating with the NAS Trurl, better known as Central Command.</li>
 				<li>Faxes allow personnel on the station to maintain open lines of communication with the NAS Trurl, allowing for vital information to flow both ways.</li>
 				<li>Being written communications, proper grammar, syntax and typography is required, in addition to a signature and, if applicable, a stamp. Failure to sign faxes will lead to an automatic rejection.</li>
-				<li>We at NanoTrasen provide Fax Machines to every Head of Staff, in addition to the Magistrate, NanoTrasen Representative, and Internal Affairs Agents.</li>
+				<li>We at Nanotrasen provide Fax Machines to every Head of Staff, in addition to the Magistrate, Nanotrasen Representative, and Internal Affairs Agents.</li>
 				<li>This means that we trust the recipients of these fax machines to only use them in the proper circumstances (see <B>When to Fax?</B>).</li>
 
 				<h1><a name="when"><B>When to Fax?</B></a></h1><BR>
 				<li>While it is up to the discretion of each individual person to decide when to fax Central Command, there are some simple guidelines on when to do this.</li>
 				<li>Firstly, any situation that can reasonably be solved on-site, <I>should</I> be handled on-site. Knowledge of Standard Operating Procedure is <B>mandatory</B> for everyone with access to a fax machine.</li>
 				<li>Resolving issues on-site not only leads to more expedient problem-solving, it also frees up company resources and provides valuable work experience for all parties involved.</li>
-				<li>This means that you should work with the Heads of Staff concerning personnel and workplace issues, and attempt to resolve situations with them. If, for whatever reason, the relevent Head of Staff is not available or receptive, consider speaking with the Captain and/or NanoTrasen Representative.</li>
+				<li>This means that you should work with the Heads of Staff concerning personnel and workplace issues, and attempt to resolve situations with them. If, for whatever reason, the relevent Head of Staff is not available or receptive, consider speaking with the Captain and/or Nanotrasen Representative.</li>
 				<li>If, for whatever reason, these issues cannot be solved on-site, either due to incompetence or just plain refusal to cooperate, faxing Central Command becomes a viable option.</li>
 				<li>Secondly, station status reports should be sent occasionally, but never at the start of the shift. Remember, we assign personnel to the station. We do not need a repeat of what we just signed off on.</li>
 				<li>Thirdly, staff/departmental evaluations are always welcome, especially in cases of noticeable (in)competence. Just as a brilliant coworker can be rewarded, an incompetent one can be punished.</li>
@@ -2490,7 +2487,7 @@
 					<li><a href="#foreword">Foreword</a></li>
 					<li><a href="#cap">Captain</a></li>
 					<li><a href="#hop">Head of Personnel</a></li>
-					<li><a href="#ntrep">NanoTrasen Representative</a></li>
+					<li><a href="#ntrep">Nanotrasen Representative</a></li>
 					<li><a href="#bs">Blueshield Officer</a></li>
                     <li><a href="#ai">AI</a></li>
 				</ol>
@@ -2510,9 +2507,9 @@
 					<li>The Captain must keep the Nuclear Authentication Disk on their person at all times or, failing that, in the possession of the Head of Security or Blueshield;</li>
 					<li>The Captain is to attempt to resolve every issue that arises in Command locally before contacting Central Command;</li>
 					<li>The Captain is not permitted to carry their Antique Laser Gun or Space Armor unless there's an immediate emergency that requires attending to;</li>
-					<li>The Captain, despite being in charge of the Cyberiad, is not independent from NanoTrasen. Any attempts to disregard general company policy are to be considered an instant condition for contract termination;</li>
+					<li>The Captain, despite being in charge of the Cyberiad, is not independent from Nanotrasen. Any attempts to disregard general company policy are to be considered an instant condition for contract termination;</li>
 					<li>The Captain may only promote personnel to a Acting Head of Staff position if there is no assigned Head of Staff associated with the Department. Said Acting Head of Staff must be a member of the Department they are to lead. See below for more information on Chain of Command;</li>
-                    <li>The Captain may not fire any Head of Staff without reasonable justification (ie, incompetency, criminal activity, or otherwise any action that endangers/compromises the station and/or crew). The Captain may not fire any Central Command VIPs (ie, Blueshield, Magistrate, NanoTrasen Representative) without permission from Central Command, unless they are blatantly acting against the well-being and safety of the crew and station.</li>
+                    <li>The Captain may not fire any Head of Staff without reasonable justification (ie, incompetency, criminal activity, or otherwise any action that endangers/compromises the station and/or crew). The Captain may not fire any Central Command VIPs (ie, Blueshield, Magistrate, Nanotrasen Representative) without permission from Central Command, unless they are blatantly acting against the well-being and safety of the crew and station.</li>
 				</ol><BR>
 
                 <h1><a name="hop"><B>Head of Personnel</B></a></h1><BR>
@@ -2521,7 +2518,7 @@
 					<li>The Head of Personnel may not give any personnel increased access without authorization from the relevant Head of Staff. This includes the Head of Personnel. In addition, the Head of Personnel may only give Captain-Level access to someone if they are the Acting Captain. This access is to be removed when a proper Captain arrives on the station;</li>
 					<li>The Head of Personnel may not increase any Job Openings unless the relevant Head of Staff approves;</li>
 					<li>The Head of Personnel may not fire any personnel without authorization from the relevant Head of Staff, unless other conditions apply (see Space Law and General Standard Operating Procedure);</li>
-					<li>The Head of Personnel may not promote any personnel to the following Jobs without authorization from Central Command: Barber, Brig Physician, NanoTrasen Representative, Blueshield, Security Pod Pilot, Mechanic and Magistrate; (This is due to them being karma locked. Do not promote people to these positions without approval from the Administrators);</li>
+					<li>The Head of Personnel may not promote any personnel to the following Jobs without authorization from Central Command: Barber, Brig Physician, Nanotrasen Representative, Blueshield, Security Pod Pilot, Mechanic and Magistrate; (This is due to them being karma locked. Do not promote people to these positions without approval from the Administrators);</li>
 					<li>The Head of Personnel is free to utilize paperwork at their discretion. However, during major station emergencies, expediency should take precedence over bureaucracy;</li>
 					<li>The Head of Personnel may not leave their office unmanned if there are personnel waiting in line. Failure to respond to personnel with a legitimate request within ten (10) minutes, either via radio or in person, is to be considered a breach of Standard Operating Procedure;</li>
 					<li>Despite nominally being in charge of Supply, the Head of Personnel should allow the Quartermaster to run the Department, unless they prove themselves to be incompetent/dangerous;</li>
@@ -2529,13 +2526,13 @@
                     <li>The Head of Personnel is not permitted to perform Security duty. The Head of Personnel is permitted to carry an Energy Gun, for self-defence only.</li>
 				</ol><BR>
 
-				<h1><a name="ntrep"><B>NanoTrasen Representative</B></a></h1><BR>
+				<h1><a name="ntrep"><B>Nanotrasen Representative</B></a></h1><BR>
 				<ol>
-					<li>The NanoTrasen Representative is to ensure that every Department is following Standard Operating Procedure, up to and including the respective Head of Staff. If a Head of Staff is not available for a Department, the NanoTrasen Representative must ensure that the Captain appoints an Acting Head of Staff for said Department;</li>
-					<li>The NanoTrasen Representative must attempt to resolve any breach of Standard Operating Procedure locally before contacting Central Command. This is an imperative: Standard Operating Procedure should always be followed unless there is a very good reason not to;</li>
-					<li>The NanoTrasen Representative must, together with the Magistrate and Head of Security, ensure that Space Law is being followed and correctly applied;</li>
-					<li>The NanoTrasen Representative may not threaten the use of a fax in order to gain leverage over any personnel, up to and including Command. In addition they may not threaten to fire, or have Central Command, fire anyone, unless they actually possess a demotion note;</li>
-					<li>The NanoTrasen Representative is permitted to carry their Stun-Cane, or a Telescopic Baton if the Stun-Cane is lost.</li>
+					<li>The Nanotrasen Representative is to ensure that every Department is following Standard Operating Procedure, up to and including the respective Head of Staff. If a Head of Staff is not available for a Department, the Nanotrasen Representative must ensure that the Captain appoints an Acting Head of Staff for said Department;</li>
+					<li>The Nanotrasen Representative must attempt to resolve any breach of Standard Operating Procedure locally before contacting Central Command. This is an imperative: Standard Operating Procedure should always be followed unless there is a very good reason not to;</li>
+					<li>The Nanotrasen Representative must, together with the Magistrate and Head of Security, ensure that Space Law is being followed and correctly applied;</li>
+					<li>The Nanotrasen Representative may not threaten the use of a fax in order to gain leverage over any personnel, up to and including Command. In addition they may not threaten to fire, or have Central Command, fire anyone, unless they actually possess a demotion note;</li>
+					<li>The Nanotrasen Representative is permitted to carry their Stun-Cane, or a Telescopic Baton if the Stun-Cane is lost.</li>
 				</ol><BR>
 
                 <h1><a name="bs"><B>Blueshield Officer</B></a></h1><BR>
@@ -2550,12 +2547,12 @@
 				<b><i>The following are procedures for AI Maintenance:</i></b><br>
 				<ol>
 					<li>Only the Captain or Research Director may enter the AI Upload to perform Law Changes (see below), and only the Captain, Research Director or Chief Engineer may enter the AI Core to perform a Carding (see below);</li>
-					<li> No Law Changes are to be performed without approval from the Captain and Research Director. The only Lawsets to be used are those provided by NanoTrasen. Failure to legally perform a Law Change is to be considered Sabotage. Command must be informed prior to the Law Change, and all objections must be taken into consideration. If the number of Command personnel opposing the Law Change is greater than the number of Command personnel in favour, the Law Change is not to be done. If the Law Change is performed, the crew is to be immediately informed of the new Law(s);</li>
+					<li> No Law Changes are to be performed without approval from the Captain and Research Director. The only Lawsets to be used are those provided by Nanotrasen. Failure to legally perform a Law Change is to be considered Sabotage. Command must be informed prior to the Law Change, and all objections must be taken into consideration. If the number of Command personnel opposing the Law Change is greater than the number of Command personnel in favour, the Law Change is not to be done. If the Law Change is performed, the crew is to be immediately informed of the new Law(s);</li>
                     <li>The AI may not be Carded unless it it clearly malfunctioning or subverted. However, any member of Command may card it if the AI agrees to it, either at the end of the shift, or due to external circumstances (such as massive damage to the AI Satellite);</li>
                     <li>The AI Upload and Minisat Antechamber Turrets are to be kept on Non-Lethal in Code Green and Code Blue. The AI Core Turrets are to be kept on Lethal at all times. If a legal Law Change or Carding is occurring, the Turrets are to be disabled;</li>
                     <li>If the AI Unit is not malfunctioning or subverted, any attempt at performing an illegal Carding or Law Change is to be responded to with non-lethal force. If the illegal attempts persist, and the perpetrator is demonstrably hostile, lethal force from Command/Security is permitted;</li>
                     <li>Freeform Laws are only to be added if absolutely necessary due to external circumstances (such as major station emergencies). Adding unnecessary Freeform Laws is not permitted. Exception is made if the AI Unit and majority of Command agree to the Freeform Law that is proposed;</li>
-                    <li>Any use of the "Purge" Module is to be followed by the upload of a NanoTrasen-approved Lawset immediately. AI Units must be bound to a Lawset at all times.</li>
+                    <li>Any use of the "Purge" Module is to be followed by the upload of a Nanotrasen-approved Lawset immediately. AI Units must be bound to a Lawset at all times.</li>
 				</ol><BR>
 				</body>
 				</html>

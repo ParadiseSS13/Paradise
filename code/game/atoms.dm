@@ -9,7 +9,6 @@
 	var/blood_color
 	var/last_bumped = 0
 	var/pass_flags = 0
-	var/throwpass = 0
 	var/germ_level = GERM_LEVEL_AMBIENT // The higher the germ level, the more germ on the atom.
 	var/simulated = 1 //filter for actions - used by lighting overlays
 	var/atom_say_verb = "says"
@@ -34,6 +33,9 @@
 
 	//Detective Work, used for the duplicate data points kept in the scanners
 	var/list/original_atom
+
+	//Detective Work, used for allowing a given atom to leave its fibers on stuff. Allowed by default
+	var/can_leave_fibers = TRUE
 
 	var/allow_spin = 1 //Set this to 1 for a _target_ that is being thrown at; if an atom has this set to 1 then atoms thrown AT it will not spin; currently used for the singularity. -Fox
 
@@ -236,10 +238,13 @@
 /atom/proc/emag_act()
 	return
 
-/atom/proc/hitby(atom/movable/AM as mob|obj)
-	if(density)
-		AM.throwing = 0
-	return
+/atom/proc/hitby(atom/movable/AM, skipcatch, hitpush, blocked)
+	if(density && !has_gravity(AM)) //thrown stuff bounces off dense stuff in no grav, unless the thrown stuff ends up inside what it hit(embedding, bola, etc...).
+		addtimer(src, "hitby_react", 2, TRUE, AM)
+
+/atom/proc/hitby_react(atom/movable/AM)
+	if(AM && isturf(AM.loc))
+		step(AM, turn(AM.dir, 180))
 
 /atom/proc/add_hiddenprint(mob/living/M as mob)
 	if(isnull(M)) return

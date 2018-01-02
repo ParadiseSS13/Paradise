@@ -78,8 +78,7 @@
 		if(initial(S.name) == initial(aspell.name))
 			spell_levels = aspell.spell_level
 			user.mind.spell_list.Remove(aspell)
-			qdel(S)
-			S = null
+			QDEL_NULL(S)
 			return cost * (spell_levels+1)
 	return -1
 
@@ -319,7 +318,7 @@
 			user.sight |= (SEE_MOBS|SEE_OBJS|SEE_TURFS)
 			user.see_in_dark = 8
 			user.see_invisible = SEE_INVISIBLE_LEVEL_TWO
-			to_chat(user, "\blue The walls suddenly disappear.")
+			to_chat(user, "<span class='notice'>The walls suddenly disappear.</span>")
 	return 1
 
 
@@ -497,7 +496,7 @@
 	icon_state ="book"
 	throw_speed = 2
 	throw_range = 5
-	w_class = 1
+	w_class = WEIGHT_CLASS_TINY
 	var/uses = 10
 	var/temp = null
 	var/op = 1

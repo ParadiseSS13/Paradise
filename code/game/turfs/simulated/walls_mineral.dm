@@ -101,9 +101,8 @@
 	..()
 
 /turf/simulated/wall/mineral/plasma/proc/PlasmaBurn(temperature)
-	spawn(2)
-	new /obj/structure/girder(src)
-	src.ChangeTurf(/turf/simulated/floor)
+	new girder_type(src)
+	ChangeTurf(/turf/simulated/floor)
 	atmos_spawn_air(SPAWN_HEAT | SPAWN_TOXINS, 400)
 
 /turf/simulated/wall/mineral/plasma/temperature_expose(datum/gas_mixture/air, exposed_temperature, exposed_volume)//Doesn't fucking work because walls don't interact with air :(
@@ -145,6 +144,7 @@
 	icon = 'icons/turf/walls/iron_wall.dmi'
 	icon_state = "iron"
 	sheet_type = /obj/item/stack/rods
+	sheet_amount = 5
 	canSmoothWith = list(/turf/simulated/wall/mineral/iron, /obj/structure/falsewall/iron)
 
 /turf/simulated/wall/mineral/abductor

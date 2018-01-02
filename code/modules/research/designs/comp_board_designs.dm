@@ -6,7 +6,7 @@
 	name = "Console Board (AI Core)"
 	desc = "Allows for the construction of circuit boards used to build new AI cores."
 	id = "aicore"
-	req_tech = list("programming" = 4, "biotech" = 3)
+	req_tech = list("programming" = 3)
 	build_type = IMPRINTER
 	materials = list(MAT_GLASS = 1000, "sacid" = 20)
 	build_path = /obj/item/weapon/circuitboard/aicore
@@ -16,7 +16,7 @@
 	name = "Console Board (AI Integrity Restorer)"
 	desc = "Allows for the construction of circuit boards used to build an AI Integrity Restorer."
 	id = "aifixer"
-	req_tech = list("programming" = 3, "biotech" = 2)
+	req_tech = list("programming" = 4, "magnets" = 3)
 	build_type = IMPRINTER
 	materials = list(MAT_GLASS = 1000, "sacid" = 20)
 	build_path = /obj/item/weapon/circuitboard/aifixer
@@ -26,7 +26,7 @@
 	name = "Console Board (AI Upload)"
 	desc = "Allows for the construction of circuit boards used to build an AI Upload Console."
 	id = "aiupload"
-	req_tech = list("programming" = 4)
+	req_tech = list("programming" = 5, "engineering" = 4)
 	build_type = IMPRINTER
 	materials = list(MAT_GLASS = 1000, "sacid" = 20)
 	build_path = /obj/item/weapon/circuitboard/aiupload
@@ -56,7 +56,7 @@
 	name = "Console Board (Camera Monitor)"
 	desc = "Allows for the construction of circuit boards used to build camera monitors."
 	id = "seccamera"
-	req_tech = list("programming" = 2)
+	req_tech = list("programming" = 2, "combat" = 2)
 	build_type = IMPRINTER
 	materials = list(MAT_GLASS = 1000, "sacid" = 20)
 	build_path = /obj/item/weapon/circuitboard/camera
@@ -66,7 +66,7 @@
 	name = "Console Board (Cloning Machine Console)"
 	desc = "Allows for the construction of circuit boards used to build a new Cloning Machine console."
 	id = "clonecontrol"
-	req_tech = list("programming" = 3, "biotech" = 3)
+	req_tech = list("programming" = 4, "biotech" = 3)
 	build_type = IMPRINTER
 	materials = list(MAT_GLASS = 1000, "sacid" = 20)
 	build_path = /obj/item/weapon/circuitboard/cloning
@@ -76,7 +76,7 @@
 	name = "Console Board (Communications Console)"
 	desc = "Allows for the construction of circuit boards used to build a communications console."
 	id = "comconsole"
-	req_tech = list("programming" = 2, "magnets" = 2)
+	req_tech = list("programming" = 3, "magnets" = 3)
 	build_type = IMPRINTER
 	materials = list(MAT_GLASS = 1000, "sacid" = 20)
 	build_path = /obj/item/weapon/circuitboard/communications
@@ -96,7 +96,7 @@
 	name = "Console Board (Cyborg Upload)"
 	desc = "Allows for the construction of circuit boards used to build a Cyborg Upload Console."
 	id = "borgupload"
-	req_tech = list("programming" = 4)
+	req_tech = list("programming" = 5, "engineering" = 4)
 	build_type = IMPRINTER
 	materials = list(MAT_GLASS = 1000, "sacid" = 20)
 	build_path = /obj/item/weapon/circuitboard/borgupload
@@ -106,7 +106,7 @@
 	name = "Console Board (DNA Machine)"
 	desc = "Allows for the construction of circuit boards used to build a new DNA scanning console."
 	id = "scan_console"
-	req_tech = list("programming" = 2, "biotech" = 3)
+	req_tech = list("programming" = 2, "biotech" = 2)
 	build_type = IMPRINTER
 	materials = list(MAT_GLASS = 1000, "sacid" = 20)
 	build_path = /obj/item/weapon/circuitboard/scan_consolenew
@@ -136,7 +136,7 @@
 	name = "Console Board (ID Computer)"
 	desc = "Allows for the construction of circuit boards used to build an ID computer."
 	id = "idcardconsole"
-	req_tech = list("programming" = 2)
+	req_tech = list("programming" = 3)
 	build_type = IMPRINTER
 	materials = list(MAT_GLASS = 1000, "sacid" = 20)
 	build_path = /obj/item/weapon/circuitboard/card
@@ -146,7 +146,7 @@
 	name = "Console Board (Mech Bay Power Control Console)"
 	desc = "Allows for the construction of circuit boards used to build a mech bay power control console."
 	id = "mechapower"
-	req_tech = list("programming" = 2, "powerstorage" = 3)
+	req_tech = list("programming" = 3, "powerstorage" = 3)
 	build_type = IMPRINTER
 	materials = list(MAT_GLASS = 1000, "sacid" = 20)
 	build_path = /obj/item/weapon/circuitboard/mech_bay_power_console
@@ -156,7 +156,7 @@
 	name = "Console Board (Medical Records)"
 	desc = "Allows for the construction of circuit boards used to build a medical records console."
 	id = "med_data"
-	req_tech = list("programming" = 2)
+	req_tech = list("programming" = 2, "biotech" = 2)
 	build_type = IMPRINTER
 	materials = list(MAT_GLASS = 1000, "sacid" = 20)
 	build_path = /obj/item/weapon/circuitboard/med_data
@@ -176,7 +176,7 @@
 	name = "Console Board (Operating Computer)"
 	desc = "Allows for the construction of circuit boards used to build an operating computer console."
 	id = "operating"
-	req_tech = list("programming" = 2, "biotech" = 2)
+	req_tech = list("programming" = 2, "biotech" = 3)
 	build_type = IMPRINTER
 	materials = list(MAT_GLASS = 1000, "sacid" = 20)
 	build_path = /obj/item/weapon/circuitboard/operating
@@ -186,7 +186,7 @@
 	name = "Computer Design (PanD.E.M.I.C. 2200)"
 	desc = "Allows for the construction of circuit boards used to build a PanD.E.M.I.C. 2200 console."
 	id = "pandemic"
-	req_tech = list("programming" = 2, "biotech" = 2)
+	req_tech = list("programming" = 3, "biotech" = 3)
 	build_type = IMPRINTER
 	materials = list(MAT_GLASS = 1000, "sacid" = 20)
 	build_path = /obj/item/weapon/circuitboard/pandemic
@@ -196,7 +196,7 @@
 	name = "Console Board (Power Monitor)"
 	desc = "Allows for the construction of circuit boards used to build a new power monitor"
 	id = "powermonitor"
-	req_tech = list("programming" = 2)
+	req_tech = list("programming" = 2, "powerstorage" = 2)
 	build_type = IMPRINTER
 	materials = list(MAT_GLASS = 1000, "sacid" = 20)
 	build_path = /obj/item/weapon/circuitboard/powermonitor
@@ -246,7 +246,7 @@
 	name = "Console Board (Security Records Console)"
 	desc = "Allows for the construction of circuit boards used to build a security records console."
 	id = "secdata"
-	req_tech = list("programming" = 2)
+	req_tech = list("programming" = 2, "combat" = 2)
 	build_type = IMPRINTER
 	materials = list(MAT_GLASS = 1000, "sacid" = 20)
 	build_path = /obj/item/weapon/circuitboard/secure_data
@@ -266,7 +266,7 @@
 	name = "Console Board (Spacepod Locator)"
 	desc = "Allows for the construction of circuit boards used to build a space-pod locating console"
 	id = "spacepodc"
-	req_tech = list("programming" = 2)
+	req_tech = list("programming" = 4)
 	build_type = IMPRINTER
 	materials = list(MAT_GLASS = 1000, "sacid" = 20)
 	build_path = /obj/item/weapon/circuitboard/pod_locater
@@ -296,7 +296,7 @@
 	name = "Console Board (Telecommunications Monitoring Console)"
 	desc = "Allows for the construction of circuit boards used to build a telecommunications monitor."
 	id = "comm_monitor"
-	req_tech = list("programming" = 3)
+	req_tech = list("programming" = 3, "magnets" = 3, "bluespace" = 2)
 	build_type = IMPRINTER
 	materials = list(MAT_GLASS = 1000, "sacid" = 20)
 	build_path = /obj/item/weapon/circuitboard/comm_monitor
@@ -306,7 +306,7 @@
 	name = "Console Board (Telecommunications Server Monitoring Console)"
 	desc = "Allows for the construction of circuit boards used to build a telecommunication server browser and monitor."
 	id = "comm_server"
-	req_tech = list("programming" = 3)
+	req_tech = list("programming" = 3, "magnets" = 3, "bluespace" = 2)
 	build_type = IMPRINTER
 	materials = list(MAT_GLASS = 1000, "sacid" = 20)
 	build_path = /obj/item/weapon/circuitboard/comm_server
@@ -316,7 +316,7 @@
 	name = "Console Board (Telecommunications Traffic Control Console)"
 	desc = "Allows for the construction of circuit boards used to build a telecommunications traffic control console."
 	id = "comm_traffic"
-	req_tech = list("programming" = 3)
+	req_tech = list("programming" = 3, "magnets" = 3, "bluespace" = 2)
 	build_type = IMPRINTER
 	materials = list(MAT_GLASS = 1000, "sacid" = 20)
 	build_path = /obj/item/weapon/circuitboard/comm_traffic
@@ -326,7 +326,7 @@
 	name = "Console Board (Telepad Control Console)"
 	desc = "Allows for the construction of circuit boards used to build a telescience console."
 	id = "telesci_console"
-	req_tech = list("programming" = 3, "bluespace" = 2)
+	req_tech = list("programming" = 3, "bluespace" = 3, "plasmatech" = 4)
 	build_type = IMPRINTER
 	materials = list(MAT_GLASS = 1000, "sacid" = 20)
 	build_path = /obj/item/weapon/circuitboard/telesci_console
@@ -336,7 +336,7 @@
 	name = "Console Board (Teleporter Console)"
 	desc = "Allows for the construction of circuit boards used to build a teleporter control console."
 	id = "teleconsole"
-	req_tech = list("programming" = 3, "bluespace" = 2)
+	req_tech = list("programming" = 3, "bluespace" = 3, "plasmatech" = 4)
 	build_type = IMPRINTER
 	materials = list(MAT_GLASS = 1000, "sacid" = 20)
 	build_path = /obj/item/weapon/circuitboard/teleporter

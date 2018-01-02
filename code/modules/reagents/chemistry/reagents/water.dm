@@ -20,10 +20,65 @@
 	drink_desc = "The father of all refreshments."
 
 /datum/reagent/water/reaction_mob(mob/living/M, method=TOUCH, volume)
-// Put out fire
 	if(method == TOUCH)
+		// Put out fire
 		M.adjust_fire_stacks(-(volume / 10))
 		M.ExtinguishMob()
+		if(ishuman(M))
+
+			var/mob/living/carbon/human/H = M
+
+			if(H.get_species() != "Grey") //God this is so gross I hate it.
+				return
+
+			if(volume > 25)
+
+				if(H.wear_mask)
+					to_chat(H, "<span class='danger'>Your mask protects you from the water!</span>")
+					return
+
+				if(H.head)
+					to_chat(H, "<span class='danger'>Your helmet protects you from the water!</span>")
+					return
+
+				if(!M.unacidable)
+					if(prob(75))
+						var/obj/item/organ/external/affecting = H.get_organ("head")
+						if(affecting)
+							affecting.take_damage(5, 10)
+							H.UpdateDamageIcon()
+							H.emote("scream")
+					else
+						M.take_organ_damage(5,10)
+			else
+				M.take_organ_damage(5,10)
+
+	if(method == INGEST)
+		if(ishuman(M))
+			var/mob/living/carbon/human/H = M
+
+			if(H.get_species() != "Grey")
+				return
+
+			if(volume < 10)
+				to_chat(M, "<span class='danger'>The watery solvent substance stings you, but isn't concentrated enough to harm you!</span>")
+
+			if(volume >=10 && volume <=25)
+				if(!H.unacidable)
+					M.take_organ_damage(0,min(max(volume-10,2)*2,20))
+					M.emote("scream")
+
+
+			if(volume > 25)
+				if(!M.unacidable)
+					if(prob(75))
+						var/obj/item/organ/external/affecting = H.get_organ("head")
+						if(affecting)
+							affecting.take_damage(0, 20)
+							H.UpdateDamageIcon()
+							H.emote("scream")
+					else
+						M.take_organ_damage(0,20)
 
 /datum/reagent/water/reaction_turf(turf/simulated/T, volume)
 	if(!istype(T))

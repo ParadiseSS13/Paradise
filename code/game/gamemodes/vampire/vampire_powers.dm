@@ -179,7 +179,7 @@
 		if(do_mob(user, target, 50))
 			if(!affects(target))
 				to_chat(user, "<span class='warning'>Your piercing gaze fails to knock out [target].</span>")
-				to_chat(target, "\blue [user]'s feeble gaze is ineffective.")
+				to_chat(target, "<span class='notice'>[user]'s feeble gaze is ineffective.</span>")
 			else
 				to_chat(user, "<span class='warning'>Your piercing gaze knocks out [target].</span>")
 				to_chat(target, "<span class='warning'>You find yourself unable to move and barely able to speak.</span>")
@@ -215,7 +215,7 @@
 	stat_allowed = 1
 
 /obj/effect/proc_holder/spell/vampire/mob_aoe/glare/cast(list/targets, mob/user = usr)
-	user.visible_message("<span class='warning'><b>[user]'s eyes emit a blinding flash!</span>")
+	user.visible_message("<span class='warning'>[user]'s eyes emit a blinding flash!</span>")
 	if(istype(user:glasses, /obj/item/clothing/glasses/sunglasses/blindfold))
 		to_chat(user, "<span class='warning'>You're blindfolded!</span>")
 		return
@@ -242,9 +242,9 @@
 	user.regenerate_icons()
 
 /obj/effect/proc_holder/spell/vampire/self/screech
-	name = "Chiroptean Screech (30)"
+	name = "Chiropteran Screech (30)"
 	desc = "An extremely loud shriek that stuns nearby humans and breaks windows as well."
-	gain_desc = "You have gained the Chriopteran Screech ability which stuns anything with ears in a large radius and shatters glass in the process."
+	gain_desc = "You have gained the Chiropteran Screech ability which stuns anything with ears in a large radius and shatters glass in the process."
 	action_icon_state = "vampire_screech"
 	required_blood = 30
 
@@ -340,7 +340,7 @@
 	H.mind.special_role = SPECIAL_ROLE_VAMPIRE_THRALL
 	to_chat(H, "<span class='danger'>You have been Enthralled by [user]. Follow their every command.</span>")
 	to_chat(user, "<span class='warning'>You have successfully Enthralled [H]. <i>If they refuse to do as you say just adminhelp.</i></span>")
-	log_admin("[ckey(user.key)] has mind-slaved [ckey(H.key)].")
+	add_logs(user, H, "vampire-thralled")
 
 /obj/effect/proc_holder/spell/vampire/self/cloak
 	name = "Cloak of Darkness"
@@ -488,7 +488,7 @@
 
 	if(!turfs.len)
 		revert_cast(user)
-		to_chat(user, "\red You cannot find darkness to step to.")
+		to_chat(user, "<span class='warning'>You cannot find darkness to step to.</span>")
 		return
 
 	perform(turfs, user = user)

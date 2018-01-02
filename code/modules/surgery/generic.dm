@@ -82,7 +82,7 @@
 	user.visible_message("<span class='notice'> [user] clamps bleeders in [target]'s [affected.name] with \the [tool]</span>.",	\
 	"<span class='notice'> You clamp bleeders in [target]'s [affected.name] with \the [tool].</span>")
 	affected.clamp()
-	spread_germs_to_organ(affected, user)
+	spread_germs_to_organ(affected, user, tool)
 	return 1
 
 /datum/surgery_step/generic/clamp_bleeders/fail_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool,datum/surgery/surgery)
@@ -143,7 +143,7 @@
 		msg = "<span class='warning'> [user]'s hand slips, damaging several organs [target]'s lower abdomen with \the [tool]</span>"
 		self_msg = "<span class='warning'> Your hand slips, damaging several organs [target]'s lower abdomen with \the [tool]!</span>"
 	user.visible_message(msg, self_msg)
-	target.apply_damage(12, BRUTE, affected, sharp=1)
+	target.apply_damage(12, BRUTE, affected, sharp = 1)
 	return 0
 
 /datum/surgery_step/generic/cauterize
@@ -236,7 +236,7 @@
 
 	add_logs(user, target, "surgically removed [affected.name] from", addition="INTENT: [uppertext(user.a_intent)]")//log it
 
-	var/atom/movable/thing = affected.droplimb(1,DROPLIMB_EDGE)
+	var/atom/movable/thing = affected.droplimb(1,DROPLIMB_SHARP)
 	if(istype(thing,/obj/item))
 		user.put_in_hands(thing)
 	return 1

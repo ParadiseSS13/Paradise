@@ -48,7 +48,7 @@
 	if(R.id == "milk")
 		H.heal_overall_damage(4,4)
 		if(prob(5)) // 5% chance per proc to find a random limb, and mend it
-			var/list/our_organs = H.organs.Copy()
+			var/list/our_organs = H.bodyparts.Copy()
 			shuffle(our_organs)
 			for(var/obj/item/organ/external/L in our_organs)
 				if(istype(L))

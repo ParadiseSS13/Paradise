@@ -104,7 +104,7 @@
 
 /obj/item/device/spacepod_equipment/weaponry/laser
 	name = "laser system"
-	desc = "A weak laser system for space pods, fires concentrated bursts of energy"
+	desc = "A weak laser system for space pods, fires concentrated bursts of energy."
 	icon_state = "weapon_laser"
 	projectile_type = /obj/item/projectile/beam
 	shot_cost = 600
@@ -113,7 +113,7 @@
 // MINING LASERS
 /obj/item/device/spacepod_equipment/weaponry/mining_laser_basic
 	name = "weak mining laser system"
-	desc = "A weak mining laser system for space pods, fires bursts of energy that cut through rock"
+	desc = "A weak mining laser system for space pods, fires bursts of energy that cut through rock."
 	icon = 'icons/goonstation/pods/ship.dmi'
 	icon_state = "pod_taser"
 	projectile_type = /obj/item/projectile/kinetic/pod
@@ -123,7 +123,7 @@
 
 /obj/item/device/spacepod_equipment/weaponry/mining_laser
 	name = "mining laser system"
-	desc = "A mining laser system for space pods, fires bursts of energy that cut through rock"
+	desc = "A mining laser system for space pods, fires bursts of energy that cut through rock."
 	icon = 'icons/goonstation/pods/ship.dmi'
 	icon_state = "pod_m_laser"
 	projectile_type = /obj/item/projectile/kinetic/pod/regular
@@ -133,7 +133,7 @@
 
 /obj/item/device/spacepod_equipment/weaponry/mining_laser_hyper
 	name = "enhanced mining laser system"
-	desc = "An enhanced mining laser system for space pods, fires bursts of energy that cut through rock"
+	desc = "An enhanced mining laser system for space pods, fires bursts of energy that cut through rock."
 	icon = 'icons/goonstation/pods/ship.dmi'
 	icon_state = "pod_w_laser"
 	projectile_type = /obj/item/projectile/kinetic/pod/enhanced
@@ -226,15 +226,15 @@
 
 // Passenger Seat
 /obj/item/device/spacepod_equipment/sec_cargo/chair
-	name = "passanger seat"
-	desc = "A passenger seat for a spacepod"
+	name = "passenger seat"
+	desc = "A passenger seat for a spacepod."
 	icon_state = "sec_cargo_chair"
 	occupant_mod = 1
 
 // Loot Box
 /obj/item/device/spacepod_equipment/sec_cargo/loot_box
 	name = "loot box"
-	desc = "A small compartment to store valuables"
+	desc = "A small compartment to store valuables."
 	icon_state = "sec_cargo_loot"
 	storage_mod = list("slots" = 7, "w_class" = 14)
 
@@ -269,7 +269,7 @@
 	desc = "A key for a spacepod lock."
 	icon = 'icons/vehicles/spacepod.dmi'
 	icon_state = "podkey"
-	w_class = 1
+	w_class = WEIGHT_CLASS_TINY
 	var/id = 0
 
 // Key - Lock Interactions

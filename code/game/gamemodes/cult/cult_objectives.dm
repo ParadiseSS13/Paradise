@@ -21,7 +21,7 @@
 		if("convert")
 			explanation = "We must increase our influence before we can summon [ticker.mode.cultdat.entity_name], Convert [convert_target] crew members. Take it slowly to avoid raising suspicions."
 		if("bloodspill")
-			spilltarget = 100 + rand(0,player_list.len * 3)
+			spilltarget = 70 + rand(0,player_list.len * 3)
 			explanation = "We must prepare this place for [ticker.mode.cultdat.entity_title1]'s coming. Spill blood and gibs over [spilltarget] floor tiles."
 		if("sacrifice")
 			explanation = "We need to sacrifice [sacrifice_target.name], the [sacrifice_target.assigned_role], for his blood is the key that will lead our master to this realm. You will need 3 cultists around a Sacrifice rune to perform the ritual."

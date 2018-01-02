@@ -14,8 +14,7 @@
 		src.smoke.attach(src)
 
 	Destroy()
-		qdel(smoke)
-		smoke = null
+		QDEL_NULL(smoke)
 		return ..()
 
 	prime()

@@ -112,7 +112,7 @@
 	add_fingerprint(user)
 	user.changeNext_move(CLICK_CD_MELEE)
 
-	if(can_force && (!glass || user.a_intent != I_HELP))
+	if(can_force && (!glass || user.a_intent != INTENT_HELP))
 		user.visible_message("<span class='notice'>[user] begins forcing \the [src].</span>", \
 							 "<span class='notice'>You begin forcing \the [src].</span>")
 		if(do_after(user, force_open_time, target = src))
@@ -259,8 +259,9 @@
 	icon = 'icons/obj/doors/door_assembly.dmi'
 	icon_state = "door_electronics"
 	desc = "A circuit board used in construction of firelocks."
-	w_class = 2
+	w_class = WEIGHT_CLASS_SMALL
 	materials = list(MAT_METAL=50, MAT_GLASS=50)
+	origin_tech = "engineering=2;programming=1"
 	toolspeed = 1
 	usesound = 'sound/items/Deconstruct.ogg'
 

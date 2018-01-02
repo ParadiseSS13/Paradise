@@ -130,7 +130,7 @@
 
 /obj/item/projectile/beam/instakill/on_hit(atom/target)
 	. = ..()
-	if(iscarbon(target))
-		var/mob/living/carbon/M = target
-		M.visible_message("<span class='danger'>[M] explodes into a shower of gibs!</span>")
-		M.gib()
+	if(isliving(target))
+		var/mob/living/L = target
+		L.visible_message("<span class='danger'>[L] explodes!</span>")
+		L.gib()

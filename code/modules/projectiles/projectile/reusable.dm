@@ -35,8 +35,6 @@
 	ammo_type = /obj/item/ammo_casing/caseless/foam_dart
 	range = 10
 	var/obj/item/weapon/pen/pen = null
-	edge = 0
-	embed = 0
 	log_override = TRUE//it won't log even when there's a pen inside, but since the damage will be so low, I don't think there's any point in making it any more complex
 
 /obj/item/projectile/bullet/reusable/foam_dart/handle_drop()
@@ -57,7 +55,7 @@
 	newdart.update_icon()
 
 /obj/item/projectile/bullet/reusable/foam_dart/Destroy()
-	pen = null
+	QDEL_NULL(pen)
 	return ..()
 
 /obj/item/projectile/bullet/reusable/foam_dart/riot

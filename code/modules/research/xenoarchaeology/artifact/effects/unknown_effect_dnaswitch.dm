@@ -15,13 +15,13 @@
 /datum/artifact_effect/dnaswitch/DoEffectTouch(var/mob/toucher)
 	var/weakness = GetAnomalySusceptibility(toucher)
 	if(ishuman(toucher) && prob(weakness * 100))
-		to_chat(toucher, pick("\green You feel a little different.",
-		"\green You feel very strange.",
-		"\green Your stomach churns.",
-		"\green Your skin feels loose.",
-		"\green You feel a stabbing pain in your head.",
-		"\green You feel a tingling sensation in your chest.",
-		"\green Your entire body vibrates."))
+		to_chat(toucher, pick("<span class=notice'>You feel a little different.</span>",
+		"<span class=notice'>You feel very strange.</span>",
+		"<span class=notice'>Your stomach churns.</span>",
+		"<span class=notice'>Your skin feels loose.</span>",
+		"<span class=notice'>You feel a stabbing pain in your head.</span>",
+		"<span class=notice'>You feel a tingling sensation in your chest.</span>",
+		"<span class=notice'>Your entire body vibrates.</span>"))
 		if(prob(75))
 			scramble(1, toucher, weakness * severity)
 		else
@@ -35,13 +35,13 @@
 			var/weakness = GetAnomalySusceptibility(H)
 			if(prob(weakness * 100))
 				if(prob(30))
-					to_chat(H, pick("\green You feel a little different.",
-					"\green You feel very strange.",
-					"\green Your stomach churns.",
-					"\green Your skin feels loose.",
-					"\green You feel a stabbing pain in your head.",
-					"\green You feel a tingling sensation in your chest.",
-					"\green Your entire body vibrates."))
+					to_chat(H, pick("<span class=notice'>You feel a little different.</span>",
+					"<span class=notice'>You feel very strange.</span>",
+					"<span class=notice'>Your stomach churns.</span>",
+					"<span class=notice'>Your skin feels loose.</span>",
+					"<span class=notice'>You feel a stabbing pain in your head.</span>",
+					"<span class=notice'>You feel a tingling sensation in your chest.</span>",
+					"<span class=notice'>Your entire body vibrates.</span>"))
 				if(prob(50))
 					scramble(1, H, weakness * severity)
 				else
@@ -54,13 +54,13 @@
 			var/weakness = GetAnomalySusceptibility(H)
 			if(prob(weakness * 100))
 				if(prob(75))
-					to_chat(H, pick("\green You feel a little different.",
-					"\green You feel very strange.",
-					"\green Your stomach churns.",
-					"\green Your skin feels loose.",
-					"\green You feel a stabbing pain in your head.",
-					"\green You feel a tingling sensation in your chest.",
-					"\green Your entire body vibrates."))
+					to_chat(H, pick("<span class=notice'>You feel a little different.</span>",
+					"<span class=notice'>You feel very strange.</span>",
+					"<span class=notice'>Your stomach churns.</span>",
+					"<span class=notice'>Your skin feels loose.</span>",
+					"<span class=notice'>You feel a stabbing pain in your head.</span>",
+					"<span class=notice'>You feel a tingling sensation in your chest.</span>",
+					"<span class=notice'>Your entire body vibrates.</span>"))
 				if(prob(25))
 					if(prob(75))
 						scramble(1, H, weakness * severity)

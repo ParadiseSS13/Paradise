@@ -28,7 +28,8 @@
 	if(contents.len)
 		for(var/atom/movable/A in contents)
 			A.loc = get_turf(src)
-	if(occupant)	occupant = null
+	if(occupant)
+		occupant = null
 	return ..()
 
 /obj/machinery/gibber/RefreshParts() //If you want to make the machine upgradable, this is where you would change any vars basd on its stock parts.
@@ -122,7 +123,7 @@
 		return
 
 	if(!ishuman(victim) || issmall(victim))
-		to_chat(user, "<span class='danger'>This is not suitable for the [src]]!</span>")
+		to_chat(user, "<span class='danger'>This is not suitable for the [src]!</span>")
 		return
 
 	if(victim.abiotic(1))
@@ -132,7 +133,7 @@
 	user.visible_message("<span class='danger'>[user] starts to put [victim] into the [src]!</span>")
 	add_fingerprint(user)
 	if(do_after(user, 30, target = victim) && user.Adjacent(src) && victim.Adjacent(user) && !occupant)
-		user.visible_message("<span class='danger'>[user] stuffs [victim] into the [src]]!</span>")
+		user.visible_message("<span class='danger'>[user] stuffs [victim] into the [src]!</span>")
 
 		victim.forceMove(src)
 		occupant = victim

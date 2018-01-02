@@ -222,7 +222,7 @@ proc/issyndicate(mob/living/M as mob)
 
 /datum/game_mode/proc/greet_syndicate(var/datum/mind/syndicate, var/you_are=1)
 	if(you_are)
-		to_chat(syndicate.current, "\blue You are a [syndicate_name()] agent!")
+		to_chat(syndicate.current, "<span class='notice'>You are a [syndicate_name()] agent!</span>")
 	var/obj_count = 1
 	for(var/datum/objective/objective in syndicate.objectives)
 		to_chat(syndicate.current, "<B>Objective #[obj_count]</B>: [objective.explanation_text]")

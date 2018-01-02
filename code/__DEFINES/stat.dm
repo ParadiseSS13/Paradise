@@ -52,7 +52,9 @@
 #define SHUTTLE_ALREADY_DOCKED "we_are_already_docked"
 #define SHUTTLE_SOMEONE_ELSE_DOCKED "someone_else_docked"
 
-
+// Ripples, effects that signal a shuttle's arrival
+#define SHUTTLE_RIPPLE_TIME 100
+#define SHUTTLE_RIPPLE_FADEIN 50
 
 /*
 	Logic

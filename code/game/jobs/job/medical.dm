@@ -6,6 +6,7 @@
 	spawn_positions = 1
 	is_medical = 1
 	supervisors = "the captain"
+	department_head = list("Captain")
 	selection_color = "#ffddf0"
 	req_admin_notify = 1
 	access = list(access_medical, access_morgue, access_genetics, access_heads,
@@ -47,10 +48,11 @@
 	spawn_positions = 3
 	is_medical = 1
 	supervisors = "the chief medical officer"
+	department_head = list("Chief Medical Officer")
 	selection_color = "#ffeef0"
 	access = list(access_medical, access_morgue, access_surgery, access_chemistry, access_virology, access_genetics, access_mineral_storeroom)
 	minimal_access = list(access_medical, access_morgue, access_surgery, access_maint_tunnels)
-	alt_titles = list("Surgeon","Nurse","Coroner")
+	alt_titles = list("Surgeon","Nurse")
 	minimal_player_age = 3
 	exp_requirements = 180
 	exp_type = EXP_TYPE_CREW
@@ -73,19 +75,50 @@
 	satchel = /obj/item/weapon/storage/backpack/satchel_med
 	dufflebag = /obj/item/weapon/storage/backpack/duffel/medical
 
+/datum/job/coroner
+	title = "Coroner"
+	flag = CORONER
+	department_flag = MEDSCI
+	total_positions = 1
+	spawn_positions = 1
+	is_medical = 1
+	supervisors = "the chief medical officer"
+	department_head = list("Chief Medical Officer")
+	selection_color = "#ffeef0"
+	access = list(access_medical, access_morgue, access_surgery, access_chemistry, access_virology, access_genetics, access_mineral_storeroom)
+	minimal_access = list(access_medical, access_morgue, access_maint_tunnels)
+	minimal_player_age = 3
+	exp_requirements = 180
+	exp_type = EXP_TYPE_CREW
+	outfit = /datum/outfit/job/coroner
+
+/datum/outfit/job/coroner
+	name = "Coroner"
+	jobtype = /datum/job/coroner
+
+	uniform = /obj/item/clothing/under/rank/medical/mortician
+	suit = /obj/item/clothing/suit/storage/labcoat/mortician
+	shoes = /obj/item/clothing/shoes/white
+	l_ear = /obj/item/device/radio/headset/headset_med
+	id = /obj/item/weapon/card/id/medical
+	suit_store = /obj/item/device/flashlight/pen
+	l_hand = /obj/item/weapon/clipboard
+	pda = /obj/item/device/pda/medical
+
+	backpack = /obj/item/weapon/storage/backpack/medic
+	satchel = /obj/item/weapon/storage/backpack/satchel_med
+	dufflebag = /obj/item/weapon/storage/backpack/duffel/medical
+
+	backpack_contents = list(
+					/obj/item/clothing/head/surgery/black = 1,
+					/obj/item/weapon/autopsy_scanner = 1,
+					/obj/item/device/mass_spectrometer = 1,
+					/obj/item/weapon/storage/box/bodybags = 1)
+
 /datum/outfit/job/doctor/pre_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
 	. = ..()
 	if(H.mind.role_alt_title)
 		switch(H.mind.role_alt_title)
-			if("Coroner")
-				uniform = /obj/item/clothing/under/rank/medical/mortician
-				suit = /obj/item/clothing/suit/storage/labcoat/mortician
-				backpack_contents = list(
-					/obj/item/clothing/head/surgery/black = 1,
-					/obj/item/weapon/autopsy_scanner = 1,
-					/obj/item/device/mass_spectrometer = 1,
-					/obj/item/weapon/storage/box/bodybags = 1
-				)
 			if("Surgeon")
 				uniform = /obj/item/clothing/under/rank/medical/blue
 				head = /obj/item/clothing/head/surgery/blue
@@ -112,6 +145,7 @@
 	spawn_positions = 2
 	is_medical = 1
 	supervisors = "the chief medical officer"
+	department_head = list("Chief Medical Officer")
 	selection_color = "#ffeef0"
 	access = list(access_medical, access_morgue, access_surgery, access_chemistry, access_virology, access_genetics, access_mineral_storeroom)
 	minimal_access = list(access_medical, access_chemistry, access_maint_tunnels, access_mineral_storeroom)
@@ -145,6 +179,7 @@
 	spawn_positions = 2
 	is_medical = 1
 	supervisors = "the chief medical officer and the research director"
+	department_head = list("Chief Medical Officer", "Research Director")
 	selection_color = "#ffeef0"
 	access = list(access_medical, access_morgue, access_surgery, access_chemistry, access_virology, access_genetics, access_research, access_mineral_storeroom)
 	minimal_access = list(access_medical, access_morgue, access_genetics, access_research, access_maint_tunnels)
@@ -178,6 +213,7 @@
 	spawn_positions = 1
 	is_medical = 1
 	supervisors = "the chief medical officer"
+	department_head = list("Chief Medical Officer")
 	selection_color = "#ffeef0"
 	access = list(access_medical, access_morgue, access_surgery, access_chemistry, access_virology, access_genetics)
 	minimal_access = list(access_medical, access_virology, access_maint_tunnels, access_mineral_storeroom)
@@ -212,6 +248,7 @@
 	spawn_positions = 1
 	is_medical = 1
 	supervisors = "the chief medical officer"
+	department_head = list("Chief Medical Officer")
 	selection_color = "#ffeef0"
 	access = list(access_medical, access_morgue, access_surgery, access_chemistry, access_virology, access_genetics, access_psychiatrist)
 	minimal_access = list(access_medical, access_psychiatrist, access_maint_tunnels)
@@ -249,9 +286,10 @@
 	spawn_positions = 1
 	is_medical = 1
 	supervisors = "the chief medical officer"
+	department_head = list("Chief Medical Officer")
 	selection_color = "#ffeef0"
-	access = list(access_paramedic, access_medical, access_sec_doors, access_maint_tunnels, access_external_airlocks, access_morgue)
-	minimal_access=list(access_paramedic, access_medical, access_sec_doors, access_maint_tunnels, access_external_airlocks, access_morgue)
+	access = list(access_paramedic, access_medical, access_maint_tunnels, access_external_airlocks, access_morgue)
+	minimal_access=list(access_paramedic, access_medical, access_maint_tunnels, access_external_airlocks, access_morgue)
 	minimal_player_age = 3
 	exp_requirements = 180
 	exp_type = EXP_TYPE_CREW

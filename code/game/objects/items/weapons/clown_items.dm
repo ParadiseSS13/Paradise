@@ -19,7 +19,7 @@
 	//So this is a workaround. This also makes more sense from an IC standpoint. ~Carn
 	if(user.client && (target in user.client.screen))
 		to_chat(user, "<span class='notice'>You need to take that [target.name] off before cleaning it.</span>")
-	else if(target == user && user.a_intent == I_GRAB && ishuman(target))
+	else if(target == user && user.a_intent == INTENT_GRAB && ishuman(target))
 		var/mob/living/carbon/human/muncher = user
 		if(muncher && muncher.get_species() == "Drask")
 			to_chat(user, "You take a bite of the [src.name]. Delicious!")
@@ -44,7 +44,7 @@
 
 /obj/item/weapon/soap/attack(mob/target as mob, mob/user as mob)
 	if(target && user && ishuman(target) && ishuman(user) && !target.stat && !user.stat && user.zone_sel &&user.zone_sel.selecting == "mouth" )
-		user.visible_message("\red \the [user] washes \the [target]'s mouth out with [src.name]!")
+		user.visible_message("<span class='warning'>\the [user] washes \the [target]'s mouth out with [src.name]!</span>")
 		return
 	..()
 
@@ -60,7 +60,7 @@
 	item_state = "bike_horn"
 	hitsound = null
 	throwforce = 3
-	w_class = 1
+	w_class = WEIGHT_CLASS_TINY
 	throw_speed = 3
 	throw_range = 15
 	attack_verb = list("HONKED")
@@ -89,6 +89,7 @@
 	icon_state = "air_horn"
 	honk_sound = 'sound/items/AirHorn2.ogg'
 	cooldowntime = 50
+	origin_tech = "materials=4;engineering=4"
 
 /obj/item/weapon/bikehorn/golden
 	name = "golden bike horn"

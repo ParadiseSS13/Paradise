@@ -23,15 +23,15 @@ var/ert_request_answered = 0
 		return
 
 	if(!ticker)
-		to_chat(usr, "\red The game hasn't started yet!")
+		to_chat(usr, "<span class='warning'>The game hasn't started yet!</span>")
 		return
 
 	if(ticker.current_state == 1)
-		to_chat(usr, "\red The round hasn't started yet!")
+		to_chat(usr, "<span class='warning'>The round hasn't started yet!</span>")
 		return
 
 	if(send_emergency_team)
-		to_chat(usr, "\red Central Command has already dispatched an emergency response team!")
+		to_chat(usr, "<span class='warning'>Central Command has already dispatched an emergency response team!</span>")
 		return
 
 	if(alert("Do you want to dispatch an Emergency Response Team?",,"Yes","No") != "Yes")
@@ -43,7 +43,7 @@ var/ert_request_answered = 0
 				return
 
 	if(send_emergency_team)
-		to_chat(usr, "\red Central Command has already dispatched an emergency response team!")
+		to_chat(usr, "<span class='warning'>Central Command has already dispatched an emergency response team!</span>")
 		return
 
 	var/ert_type = pick_ert_type()
@@ -104,7 +104,7 @@ var/ert_request_answered = 0
 	active_team = response_team_type
 
 	send_emergency_team = 1
-	var/list/ert_candidates = pollCandidates("Join the Emergency Response Team?",, responseteam_age, 600, 1)
+	var/list/ert_candidates = pollCandidates("Join the Emergency Response Team?",, responseteam_age, 600, 1, role_playtime_requirements[ROLE_ERT])
 	if(!ert_candidates.len)
 		active_team.cannot_send_team()
 		send_emergency_team = 0
@@ -194,6 +194,8 @@ var/ert_request_answered = 0
 		ticker.minds += M.mind //Adds them to regular mind list.
 	ticker.mode.ert += M.mind
 	M.forceMove(spawn_location)
+
+	job_master.CreateMoneyAccount(M, class, null)
 
 	active_team.equip_officer(class, M)
 
@@ -332,6 +334,8 @@ var/ert_request_answered = 0
 	W.name = "[H.real_name]'s ID Card ([rt_job])"
 	W.access = get_centcom_access(W.assignment)
 	W.photo = get_id_photo(H)
+	if(H.mind && H.mind.initial_account && H.mind.initial_account.account_number)
+		W.associated_account_number = H.mind.initial_account.account_number
 
 /datum/outfit/job/centcom/response_team/imprint_pda(mob/living/carbon/human/H)
 	var/obj/item/device/pda/PDA = H.wear_pda
@@ -383,12 +387,13 @@ var/ert_request_answered = 0
 		/obj/item/clothing/head/helmet/space/hardsuit/ert/commander = 1,
 		/obj/item/clothing/mask/gas/sechailer/swat = 1,
 		/obj/item/weapon/restraints/handcuffs = 1,
+		/obj/item/clothing/shoes/magboots = 1,
 		/obj/item/weapon/storage/lockbox/mindshield = 1
 	)
 
 /datum/outfit/job/centcom/response_team/commander/gamma
 	name = "RT Commander (Gamma)"
-	shoes = /obj/item/clothing/shoes/combat/swat
+	shoes = /obj/item/clothing/shoes/magboots/advance
 	gloves = /obj/item/clothing/gloves/combat
 	suit = /obj/item/clothing/suit/space/hardsuit/ert/commander
 	glasses = /obj/item/clothing/glasses/hud/security/night
@@ -453,6 +458,7 @@ var/ert_request_answered = 0
 	backpack_contents = list(
 		/obj/item/clothing/head/helmet/space/hardsuit/ert/security = 1,
 		/obj/item/clothing/mask/gas/sechailer = 1,
+		/obj/item/clothing/shoes/magboots = 1,
 		/obj/item/weapon/storage/box/handcuffs = 1,
 		/obj/item/weapon/gun/energy/ionrifle/carbine = 1
 	)
@@ -460,7 +466,7 @@ var/ert_request_answered = 0
 /datum/outfit/job/centcom/response_team/security/gamma
 	name = "RT Security (Gamma)"
 	has_grenades = TRUE
-	shoes = /obj/item/clothing/shoes/combat/swat
+	shoes = /obj/item/clothing/shoes/magboots/advance
 	gloves = /obj/item/clothing/gloves/combat
 	suit = /obj/item/clothing/suit/space/hardsuit/ert/security
 	suit_store = /obj/item/weapon/gun/energy/gun/nuclear
@@ -505,7 +511,7 @@ var/ert_request_answered = 0
 
 /datum/outfit/job/centcom/response_team/engineer/red
 	name = "RT Engineer (Red)"
-	shoes = /obj/item/clothing/shoes/magboots
+	shoes = /obj/item/clothing/shoes/magboots/advance
 	gloves = /obj/item/clothing/gloves/color/yellow
 	suit = /obj/item/clothing/suit/space/hardsuit/ert/engineer
 	suit_store = /obj/item/weapon/tank/emergency_oxygen/engi
@@ -590,12 +596,13 @@ var/ert_request_answered = 0
 		/obj/item/weapon/storage/firstaid/toxin = 1,
 		/obj/item/weapon/storage/firstaid/adv = 1,
 		/obj/item/weapon/storage/firstaid/surgery = 1,
-		/obj/item/weapon/gun/energy/gun = 1
+		/obj/item/weapon/gun/energy/gun = 1,
+		/obj/item/clothing/shoes/magboots = 1
 	)
 
 /datum/outfit/job/centcom/response_team/medic/gamma
 	name = "RT Medic (Gamma)"
-	shoes = /obj/item/clothing/shoes/combat/swat
+	shoes = /obj/item/clothing/shoes/magboots/advance
 	gloves = /obj/item/clothing/gloves/combat
 	suit = /obj/item/clothing/suit/space/hardsuit/ert/medical
 	glasses = /obj/item/clothing/glasses/hud/health/night

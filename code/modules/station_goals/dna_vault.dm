@@ -131,8 +131,8 @@ var/list/non_simple_animals = typecacheof(list(/mob/living/carbon/human/monkey,/
 	var/obj/machinery/parent
 
 /obj/structure/filler/ex_act()
-	return							
-							
+	return
+
 /obj/machinery/dna_vault
 	name = "DNA Vault"
 	desc = "Break glass in case of apocalypse."
@@ -177,7 +177,7 @@ var/list/non_simple_animals = typecacheof(list(/mob/living/carbon/human/monkey,/
 			plants_max = G.plant_count
 			dna_max = G.human_count
 			break
-			
+
 	..()
 
 /obj/machinery/dna_vault/Destroy()
@@ -185,13 +185,14 @@ var/list/non_simple_animals = typecacheof(list(/mob/living/carbon/human/monkey,/
 		var/obj/structure/filler/filler = V
 		filler.parent = null
 		qdel(filler)
+	fillers.Cut()
 	. = ..()
-	
+
 /obj/machinery/dna_vault/attack_ghost(mob/user)
 	if(stat & (BROKEN|MAINT))
 		return
 	return ui_interact(user)
-	
+
 /obj/machinery/dna_vault/attack_hand(mob/user)
 	if(..())
 		return 1
@@ -296,7 +297,7 @@ var/list/non_simple_animals = typecacheof(list(/mob/living/carbon/human/monkey,/
 			grant_power(H, JUMPBLOCK, JUMPY)
 			grant_power(H, INCREASERUNBLOCK, RUN)
 	power_lottery[H] = list()
-	
+
 /obj/machinery/dna_vault/proc/grant_power(mob/living/carbon/human/H, block, power)
 	H.dna.SetSEState(block, 1, 1)
 	H.mutations |= power

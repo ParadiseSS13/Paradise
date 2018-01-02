@@ -78,8 +78,8 @@
 	for (var/thing in atoms)
 		var/atom/A = thing
 		if(typecache[A.type])
-			. += A	
-	
+			. += A
+
 //Like typesof() or subtypesof(), but returns a typecache instead of a list
 /proc/typecacheof(path, ignore_root_path)
 	if(ispath(path))
@@ -625,7 +625,7 @@ proc/dd_sortedObjectList(list/incoming)
 
 /datum/alarm/dd_SortValue()
 	return "[sanitize(last_name)]"
-	
+
 //Picks from the list, with some safeties, and returns the "default" arg if it fails
 #define DEFAULTPICK(L, default) ((istype(L, /list) && L:len) ? pick(L) : default)
 
@@ -637,3 +637,6 @@ proc/dd_sortedObjectList(list/incoming)
 #define LAZYACCESS(L, I) (L ? (isnum(I) ? (I > 0 && I <= L.len ? L[I] : null) : L[I]) : null)
 #define LAZYLEN(L) length(L)
 #define LAZYCLEARLIST(L) if(L) L.Cut()
+
+// LAZYING PT 2: THE LAZENING
+#define LAZYREINITLIST(L) LAZYCLEARLIST(L); LAZYINITLIST(L);

@@ -169,6 +169,8 @@
 	base_color = "#CF4D2F"
 	butt_sprite = "vulp"
 
+	scream_verb = "yelps"
+
 	has_organ = list(
 		"heart" =    /obj/item/organ/internal/heart,
 		"lungs" =    /obj/item/organ/internal/lungs,
@@ -230,7 +232,8 @@
 		"kidneys" =  /obj/item/organ/internal/kidneys,
 		"brain" =    /obj/item/organ/internal/brain,
 		"appendix" = /obj/item/organ/internal/appendix,
-		"eyes" =     /obj/item/organ/internal/eyes //Default darksight of 2.
+		"eyes" =     /obj/item/organ/internal/eyes, //Default darksight of 2.
+		"headpocket" = /obj/item/organ/internal/headpocket
 		)
 
 	suicide_messages = list(
@@ -487,7 +490,7 @@
 
 	flags = IS_WHITELISTED
 	clothing_flags = HAS_UNDERWEAR | HAS_UNDERSHIRT | HAS_SOCKS
-	bodyflags = FEET_CLAWS | HAS_HEAD_ACCESSORY
+	bodyflags = FEET_CLAWS | HAS_HEAD_ACCESSORY | HAS_HEAD_MARKINGS | HAS_BODY_MARKINGS
 	eyes = "kidan_eyes_s"
 	dietflags = DIET_HERB
 	blood_color = "#FB9800"
@@ -503,7 +506,8 @@
 		"kidneys" =  /obj/item/organ/internal/kidneys,
 		"brain" =    /obj/item/organ/internal/brain,
 		"appendix" = /obj/item/organ/internal/appendix,
-		"eyes" =     /obj/item/organ/internal/eyes //Default darksight of 2.
+		"eyes" =     /obj/item/organ/internal/eyes, //Default darksight of 2.
+		"lantern" =  /obj/item/organ/internal/lantern
 		)
 
 	allowed_consumed_mobs = list(/mob/living/simple_animal/diona)
@@ -515,7 +519,6 @@
 		"is cracking their exoskeleton!",
 		"is stabbing themselves with their mandibles!",
 		"is holding their breath!")
-
 /datum/species/slime
 	name = "Slime People"
 	name_plural = "Slime People"
@@ -580,8 +583,8 @@
 		H.g_skin = new_color_list[2]
 		H.b_skin = new_color_list[3]
 		if(world.time % SLIMEPERSON_ICON_UPDATE_PERIOD > SLIMEPERSON_ICON_UPDATE_PERIOD - 20) // The 20 is because this gets called every 2 seconds, from the mob controller
-			for(var/organname in H.organs_by_name)
-				var/obj/item/organ/external/E = H.organs_by_name[organname]
+			for(var/organname in H.bodyparts_by_name)
+				var/obj/item/organ/external/E = H.bodyparts_by_name[organname]
 				if(istype(E) && E.dna.species == "Slime People")
 					E.sync_colour_to_human(H)
 			H.update_hair(0)
@@ -634,13 +637,13 @@
 		return
 
 	var/list/missing_limbs = list()
-	for(var/l in organs_by_name)
-		var/obj/item/organ/external/E = organs_by_name[l]
+	for(var/l in bodyparts_by_name)
+		var/obj/item/organ/external/E = bodyparts_by_name[l]
 		if(!istype(E) || istype(E, /obj/item/organ/external/stump))
 			var/list/limblist = species.has_limbs[l]
 			var/obj/item/organ/external/limb = limblist["path"]
 			var/parent_organ = initial(limb.parent_organ)
-			var/obj/item/organ/external/parentLimb = organs_by_name[parent_organ]
+			var/obj/item/organ/external/parentLimb = bodyparts_by_name[parent_organ]
 			if(!istype(parentLimb) || parentLimb.is_stump())
 				continue
 			missing_limbs[initial(limb.name)] = l
@@ -662,7 +665,7 @@
 			to_chat(src, "<span class='warning'>You're too hungry to regenerate a limb!</span>")
 			return
 
-		var/obj/item/organ/external/O = organs_by_name[chosen_limb]
+		var/obj/item/organ/external/O = bodyparts_by_name[chosen_limb]
 
 		var/stored_brute = 0
 		var/stored_burn = 0
@@ -680,7 +683,7 @@
 		var/limb_list = species.has_limbs[chosen_limb]
 		var/obj/item/organ/external/limb_path = limb_list["path"]
 		// Parent check
-		var/obj/item/organ/external/potential_parent = organs_by_name[initial(limb_path.parent_organ)]
+		var/obj/item/organ/external/potential_parent = bodyparts_by_name[initial(limb_path.parent_organ)]
 		if(!istype(potential_parent) || potential_parent.is_stump())
 			to_chat(src, "<span class='danger'>You've lost the organ that you've been growing your new part on!</span>")
 			return // No rayman for you
@@ -749,6 +752,11 @@
 		C.dna.SetSEState(REMOTETALKBLOCK,0,1)
 		genemutcheck(C,REMOTETALKBLOCK,null,MUTCHK_FORCED)
 	..()
+
+/datum/species/grey/water_act(var/mob/living/carbon/C, volume, temperature, source)
+	..()
+	C.take_organ_damage(5,min(volume,20))
+	C.emote("scream")
 
 /datum/species/grey/after_equip_job(datum/job/J, mob/living/carbon/human/H)
 	var/speech_pref = H.client.prefs.speciesprefs
@@ -842,22 +850,19 @@
 	return ..()
 
 /datum/species/diona/handle_life(var/mob/living/carbon/human/H)
+	H.radiation = Clamp(H.radiation, 0, 100) //We have to clamp this first, then decrease it, or there's a few edge cases of massive heals if we clamp and decrease at the same time.
 	var/rads = H.radiation / 25
-	H.apply_effect(-rads,IRRADIATE,0)
-	H.nutrition += rads
+	H.radiation = max(H.radiation-rads, 0)
+	H.nutrition = min(H.nutrition+rads, NUTRITION_LEVEL_WELL_FED+10)
 	H.adjustBruteLoss(-(rads))
-	H.adjustOxyLoss(-(rads))
 	H.adjustToxLoss(-(rads))
 
 	var/light_amount = 0 //how much light there is in the place, affects receiving nutrition and healing
 	if(isturf(H.loc)) //else, there's considered to be no light
 		var/turf/T = H.loc
 		light_amount = min(T.get_lumcount() * 10, 5)  //hardcapped so it's not abused by having a ton of flashlights
-	H.nutrition += light_amount
+	H.nutrition = min(H.nutrition+light_amount, NUTRITION_LEVEL_WELL_FED+10)
 	H.traumatic_shock -= light_amount
-
-	if(H.nutrition > NUTRITION_LEVEL_WELL_FED)
-		H.nutrition = NUTRITION_LEVEL_WELL_FED
 
 	if(light_amount > 0)
 		H.clear_alert("nolight")
@@ -868,8 +873,7 @@
 
 		H.adjustBruteLoss(-(light_amount/2))
 		H.adjustFireLoss(-(light_amount/4))
-		H.adjustOxyLoss(-(light_amount))
-	if(H.nutrition < 200)
+	if(H.nutrition < NUTRITION_LEVEL_STARVING+50)
 		H.take_overall_damage(10,0)
 		H.traumatic_shock++
 
@@ -899,7 +903,7 @@
 	oxy_mod = 0
 	death_message = "gives one shrill beep before falling limp, their monitor flashing blue before completely shutting off..."
 
-	flags = IS_WHITELISTED | NO_BREATHE | NO_SCAN | NO_BLOOD | NO_PAIN | NO_DNA | RADIMMUNE | ALL_RPARTS| NOTRANSSTING
+	flags = IS_WHITELISTED | NO_BREATHE | NO_SCAN | NO_BLOOD | NO_PAIN | NO_DNA | RADIMMUNE | ALL_RPARTS | NOTRANSSTING
 	clothing_flags = HAS_UNDERWEAR | HAS_UNDERSHIRT | HAS_SOCKS
 	bodyflags = HAS_SKIN_COLOR | HAS_HEAD_MARKINGS | HAS_HEAD_ACCESSORY
 	dietflags = 0		//IPCs can't eat, so no diet
@@ -923,7 +927,7 @@
 		"brain" = /obj/item/organ/internal/brain/mmi_holder/posibrain,
 		"cell" = /obj/item/organ/internal/cell,
 		"optics" = /obj/item/organ/internal/eyes/optical_sensor, //Default darksight of 2.
-		"charger" = /obj/item/organ/internal/cyberimp/chest/arm_mod/power_cord
+		"charger" = /obj/item/organ/internal/cyberimp/arm/power_cord
 		)
 
 	vision_organ = /obj/item/organ/internal/eyes/optical_sensor

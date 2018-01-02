@@ -3,7 +3,7 @@
 	desc = "A handy little spring-loaded trap for catching pesty rodents."
 	icon_state = "mousetrap"
 	materials = list(MAT_METAL=100)
-	origin_tech = "combat=1"
+	origin_tech = "combat=1;materials=2;engineering=1"
 	var/armed = 0
 
 	bomb_name = "contact mine"
@@ -101,7 +101,7 @@
 		if(armed)
 			if(ishuman(AM))
 				var/mob/living/carbon/H = AM
-				if(H.m_intent == "run")
+				if(H.m_intent == MOVE_INTENT_RUN)
 					triggered(H)
 					H.visible_message("<span class='warning'>[H] accidentally steps on [src].</span>", \
 									  "<span class='warning'>You accidentally step on [src]</span>")

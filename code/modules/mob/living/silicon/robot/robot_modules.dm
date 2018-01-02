@@ -32,9 +32,7 @@
 	emag.name = "Placeholder Emag Item"
 
 /obj/item/weapon/robot_module/Destroy()
-	for(var/module in modules)
-		qdel(module)
-	modules.Cut()
+	QDEL_LIST(modules)
 	QDEL_NULL(emag)
 	return ..()
 

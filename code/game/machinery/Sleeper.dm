@@ -78,6 +78,11 @@
 	max_chem = E * 20
 	min_health = -E * 25
 
+/obj/machinery/sleeper/Destroy()
+	for(var/mob/M in contents)
+		M.forceMove(get_turf(src))
+	return ..()
+
 /obj/machinery/sleeper/relaymove(mob/user as mob)
 	if(user.incapacitated())
 		return 0 //maybe they should be able to get out with cuffs, but whatever

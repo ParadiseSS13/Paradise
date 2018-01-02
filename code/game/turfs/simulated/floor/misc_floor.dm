@@ -51,6 +51,7 @@
 /turf/simulated/floor/beach/water
 	name = "water"
 	icon_state = "water"
+	mouse_opacity = 0
 
 /turf/simulated/floor/beach/water/New()
 	..()

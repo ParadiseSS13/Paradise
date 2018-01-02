@@ -39,7 +39,6 @@
 	var/allow_Metadata = 0				// Metadata is supported.
 	var/popup_admin_pm = 0				//adminPMs to non-admins show in a pop-up 'reply' window when set to 1.
 	var/Ticklag = 0.5
-	var/Tickcomp = 0
 	var/socket_talk	= 0					// use socket_talk to communicate with other processes
 	var/list/resource_urls = null
 	var/antag_hud_allowed = 0      // Ghosts can turn on Antagovision to see a HUD of who is the bad guys this round.
@@ -190,6 +189,8 @@
 	var/disable_ooc_emoji = 0 // prevents people from using emoji in OOC
 
 	var/shutdown_on_reboot = 0 // Whether to shut down the world instead of rebooting it
+
+	var/disable_karma = 0 // Disable all karma functions and unlock karma jobs by default
 
 /datum/configuration/New()
 	var/list/L = subtypesof(/datum/game_mode)
@@ -443,9 +444,6 @@
 				if("socket_talk")
 					socket_talk = text2num(value)
 
-				if("tickcomp")
-					Tickcomp = 1
-
 				if("allow_antag_hud")
 					config.antag_hud_allowed = 1
 
@@ -592,6 +590,9 @@
 
 				if("shutdown_shell_command")
 					shutdown_shell_command = value
+
+				if("disable_karma")
+					disable_karma = 1
 
 				else
 					diary << "Unknown setting in configuration: '[name]'"

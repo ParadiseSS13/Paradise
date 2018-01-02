@@ -76,8 +76,6 @@
 			"off" = "borgmacro")
 	)
 
-	var/reset_stretch = 0 //Used by things that fiddle with client's stretch-to-fit.
-
 	var/topic_debugging = 0 //if set to true, allows client to see nanoUI errors -- yes i realize this is messy but it'll make live testing infinitely easier
 
 	control_freak = CONTROL_FREAK_ALL | CONTROL_FREAK_SKIN | CONTROL_FREAK_MACROS
@@ -93,7 +91,7 @@
 
 	// Donator stuff.
 	var/donator_level = DONATOR_LEVEL_NONE
-	
+
 	// If set to true, this client can interact with atoms such as buttons and doors on top of regular machinery interaction
 	var/advanced_admin_interaction = FALSE
 

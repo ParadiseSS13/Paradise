@@ -588,6 +588,7 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 	icon = 'icons/obj/abductor.dmi'
 	icon_state = "bed"
 	no_icon_updates = 1 //no icon updates for this; it's static.
+	injected_reagents = list("corazone")
 
 /obj/structure/closet/abductor
 	name = "alien locker"

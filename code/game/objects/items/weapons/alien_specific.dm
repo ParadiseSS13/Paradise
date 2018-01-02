@@ -12,8 +12,8 @@
 	throwforce_on = 5
 	throw_speed = 1
 	throw_range = 5
-	w_class = 2
-	w_class_on = 2
+	w_class = WEIGHT_CLASS_SMALL
+	w_class_on = WEIGHT_CLASS_SMALL
 	attack_verb = list("attacked", "slashed", "gored", "sliced", "torn", "ripped", "butchered", "cut")
 	attack_verb_on = list()
 

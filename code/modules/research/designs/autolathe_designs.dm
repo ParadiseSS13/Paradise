@@ -852,7 +852,6 @@
 	name = "Machine Board (Vendor)"
 	desc = "The circuit board for a Vendor."
 	id = "vendor"
-	req_tech = list("programming" = 1)
 	build_type = AUTOLATHE
 	materials = list(MAT_GLASS = 750, MAT_METAL = 250)
 	build_path = /obj/item/weapon/circuitboard/vendor

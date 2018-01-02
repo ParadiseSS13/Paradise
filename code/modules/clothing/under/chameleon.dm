@@ -5,7 +5,7 @@
 	item_state = "bl_suit"
 	item_color = "black"
 	desc = "It's a plain jumpsuit. It seems to have a small dial on the wrist."
-	origin_tech = "syndicate=3"
+	origin_tech = "syndicate=2"
 	var/list/clothing_choices = list()
 	burn_state = FIRE_PROOF
 	armor = list(melee = 10, bullet = 10, laser = 10, energy = 0, bomb = 0, bio = 0, rad = 0)
@@ -25,14 +25,14 @@
 	attackby(obj/item/clothing/under/U as obj, mob/user as mob, params)
 		..()
 		if(istype(U, /obj/item/clothing/under/chameleon))
-			to_chat(user, "\red Nothing happens.")
+			to_chat(user, "<span class='warning'>Nothing happens.</span>")
 			return
 		if(istype(U, /obj/item/clothing/under))
 			if(src.clothing_choices.Find(U))
-				to_chat(user, "\red Pattern is already recognised by the suit.")
+				to_chat(user, "<span class='warning'>Pattern is already recognised by the suit.</span>")
 				return
 			src.clothing_choices += U
-			to_chat(user, "\red Pattern absorbed by the suit.")
+			to_chat(user, "<span class='warning'>Pattern absorbed by the suit.</span>")
 
 
 	emp_act(severity)
@@ -56,7 +56,7 @@
 		set src in usr
 
 		if(icon_state == "psyche")
-			to_chat(usr, "\red Your suit is malfunctioning")
+			to_chat(usr, "<span class='warning'>Your suit is malfunctioning</span>")
 			return
 
 		var/obj/item/clothing/under/A

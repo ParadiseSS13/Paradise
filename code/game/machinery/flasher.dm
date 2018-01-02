@@ -43,15 +43,15 @@
 		add_fingerprint(user)
 		disable = !disable
 		if(disable)
-			user.visible_message("\red [user] has disconnected the [src]'s flashbulb!", "\red You disconnect the [src]'s flashbulb!")
+			user.visible_message("<span class='warning'>[user] has disconnected the [src]'s flashbulb!</span>", "<span class='warning'>You disconnect the [src]'s flashbulb!</span>")
 		if(!disable)
-			user.visible_message("\red [user] has connected the [src]'s flashbulb!", "\red You connect the [src]'s flashbulb!")
+			user.visible_message("<span class='warning'>[user] has connected the [src]'s flashbulb!</span>", "<span class='warning'>You connect the [src]'s flashbulb!</span>")
 
 //Let the AI trigger them directly.
 /obj/machinery/flasher/attack_ai(mob/user)
 	if(anchored)
 		return flash()
-		
+
 /obj/machinery/flasher/attack_ghost(mob/user)
 	if(anchored && user.can_advanced_admin_interact())
 		return flash()
@@ -92,7 +92,7 @@
 
 	if(istype(AM, /mob/living/carbon))
 		var/mob/living/carbon/M = AM
-		if((M.m_intent != "walk") && (anchored))
+		if((M.m_intent != MOVE_INTENT_WALK) && (anchored))
 			flash()
 
 /obj/machinery/flasher/portable/attackby(obj/item/weapon/W as obj, mob/user as mob, params)
@@ -101,11 +101,11 @@
 		anchored = !anchored
 
 		if(!anchored)
-			user.show_message(text("\red [src] can now be moved."))
+			user.show_message(text("<span class='warning'>[src] can now be moved.</span>"))
 			overlays.Cut()
 
 		else if(anchored)
-			user.show_message(text("\red [src] is now secured."))
+			user.show_message(text("<span class='warning'>[src] is now secured.</span>"))
 			overlays += "[base_state]-s"
 
 // Flasher button
@@ -119,11 +119,11 @@
 	anchored = 1.0
 	use_power = 1
 	idle_power_usage = 2
-	active_power_usage = 4			
-			
+	active_power_usage = 4
+
 /obj/machinery/flasher_button/attack_ai(mob/user as mob)
 	return attack_hand(user)
-	
+
 /obj/machinery/flasher_button/attack_ghost(mob/user)
 	if(user.can_advanced_admin_interact())
 		return attack_hand(user)

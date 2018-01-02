@@ -11,9 +11,9 @@
 	throwforce = 10.0
 	throw_speed = 1
 	throw_range = 5
-	w_class = 3
+	w_class = WEIGHT_CLASS_NORMAL
 	materials = list(MAT_METAL=500)
-	origin_tech = "combat=1;plasmatech=1"
+	origin_tech = "combat=1;plasmatech=2;engineering=2"
 	var/status = 0
 	var/throw_amount = 100
 	var/lit = 0	//on or off
@@ -62,7 +62,7 @@
 /obj/item/weapon/flamethrower/afterattack(atom/target, mob/user, flag)
 	if(flag) return // too close
 	// Make sure our user is still holding us
-	if(user && user.get_active_hand() == src)
+	if(user && user.is_in_active_hand(src))
 		var/turf/target_turf = get_turf(target)
 		if(target_turf)
 			var/turflist = getline(user, target_turf)

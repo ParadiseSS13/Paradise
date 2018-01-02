@@ -5,7 +5,7 @@
 	buckle_lying = 0 //you sit in a chair, not lay
 	burn_state = FIRE_PROOF
 	buildstackamount = 1
-
+	buckle_offset = 0
 	var/propelled = 0 // Check for fire-extinguisher-driven chairs
 
 /obj/structure/stool/bed/chair/New()

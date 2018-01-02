@@ -10,7 +10,7 @@
 	config_tag = "vampire"
 	restricted_jobs = list("AI", "Cyborg")
 	protected_jobs = list("Security Officer", "Warden", "Detective", "Head of Security", "Captain", "Blueshield", "Nanotrasen Representative", "Security Pod Pilot", "Magistrate", "Chaplain", "Brig Physician", "Internal Affairs Agent", "Nanotrasen Navy Officer", "Special Operations Officer")
-	protected_species = list("Machine", "Plasmaman")
+	protected_species = list("Machine")
 	required_players = 15
 	required_enemies = 1
 	recommended_enemies = 4
@@ -338,8 +338,7 @@ You are weak to holy things and starlight. Don't go into space and avoid the Cha
 		vampire_mind.current.create_attack_log("<span class='danger'>De-vampired</span>")
 		if(vampire_mind.vampire)
 			vampire_mind.vampire.remove_vampire_powers()
-			qdel(vampire_mind.vampire)
-			vampire_mind.vampire = null
+			QDEL_NULL(vampire_mind.vampire)
 		if(issilicon(vampire_mind.current))
 			to_chat(vampire_mind.current, "<span class='userdanger'>You have been turned into a robot! You can feel your powers fading away...</span>")
 		else
@@ -455,6 +454,5 @@ You are weak to holy things and starlight. Don't go into space and avoid the Cha
 		return
 
 	static_inventory -= vampire_blood_display
-	qdel(vampire_blood_display)
-	vampire_blood_display = null
+	QDEL_NULL(vampire_blood_display)
 	show_hud(hud_version)

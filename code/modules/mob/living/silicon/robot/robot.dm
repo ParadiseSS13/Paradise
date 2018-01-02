@@ -41,6 +41,7 @@ var/list/robot_verbs_default = list(
 	// Components are basically robot organs.
 	var/list/components = list()
 
+	var/obj/item/robot_parts/robot_suit/robot_suit = null //Used for deconstruction to remember what the borg was constructed out of..
 	var/obj/item/device/mmi/mmi = null
 
 	var/obj/item/device/pda/silicon/robot/rbPDA = null
@@ -255,6 +256,7 @@ var/list/robot_verbs_default = list(
 	QDEL_NULL(module)
 	QDEL_NULL(camera)
 	QDEL_NULL(cell)
+	QDEL_NULL(robot_suit)
 	return ..()
 
 /mob/living/silicon/robot/proc/pick_module()
@@ -262,7 +264,7 @@ var/list/robot_verbs_default = list(
 		return
 	var/list/modules = list("Standard", "Engineering", "Medical", "Miner", "Janitor", "Service", "Security")
 	if(security_level == (SEC_LEVEL_GAMMA || SEC_LEVEL_EPSILON) || crisis)
-		to_chat(src, "\red Crisis mode active. Combat module available.")
+		to_chat(src, "<span class='warning'>Crisis mode active. Combat module available.</span>")
 		modules+="Combat"
 	if(ticker && ticker.mode && ticker.mode.name == "nations")
 		var/datum/game_mode/nations/N = ticker.mode
@@ -426,7 +428,7 @@ var/list/robot_verbs_default = list(
 	set name = "Self Diagnosis"
 
 	if(!is_component_functioning("diagnosis unit"))
-		to_chat(src, "\red Your self-diagnosis component isn't functioning.")
+		to_chat(src, "<span class='warning'>Your self-diagnosis component isn't functioning.</span>")
 
 	var/dat = self_diagnosis()
 	src << browse(dat, "window=robotdiagnosis")
@@ -451,10 +453,10 @@ var/list/robot_verbs_default = list(
 	var/datum/robot_component/C = components[toggle]
 	if(C.toggled)
 		C.toggled = 0
-		to_chat(src, "\red You disable [C.name].")
+		to_chat(src, "<span class='warning'>You disable [C.name].</span>")
 	else
 		C.toggled = 1
-		to_chat(src, "\red You enable [C.name].")
+		to_chat(src, "<span class='warning'>You enable [C.name].</span>")
 
 /mob/living/silicon/robot/proc/sensor_mode()
 	set name = "Set Sensor Augmentation"
@@ -550,38 +552,6 @@ var/list/robot_verbs_default = list(
 	return 2
 
 
-/mob/living/silicon/robot/Bump(atom/movable/AM as mob|obj, yes)
-	spawn( 0 )
-		if((!( yes ) || now_pushing))
-			return
-		now_pushing = 1
-		if(ismob(AM))
-			var/mob/tmob = AM
-			if(istype(tmob, /mob/living/carbon/human) && (FAT in tmob.mutations))
-				if(prob(20))
-					to_chat(usr, "<span class='danger'>You fail to push [tmob]'s fat ass out of the way.</span>")
-					now_pushing = 0
-					return
-			if(!(tmob.status_flags & CANPUSH))
-				now_pushing = 0
-				return
-		now_pushing = 0
-		..()
-		if(!istype(AM, /atom/movable))
-			return
-		if(!now_pushing)
-			now_pushing = 1
-			if(!AM.anchored)
-				var/t = get_dir(src, AM)
-				if(istype(AM, /obj/structure/window/full))
-					for(var/obj/structure/window/win in get_step(AM,t))
-						now_pushing = 0
-						return
-				step(AM, t)
-			now_pushing = null
-		return
-	return
-
 /mob/living/silicon/robot/attackby(obj/item/weapon/W as obj, mob/user as mob, params)
 	if(istype(W, /obj/item/weapon/restraints/handcuffs)) // fuck i don't even know why isrobot() in handcuff code isn't working so this will have to do
 		return
@@ -601,11 +571,11 @@ var/list/robot_verbs_default = list(
 					C.brute_damage = WC.brute
 					C.electronics_damage = WC.burn
 
-				to_chat(usr, "\blue You install the [W.name].")
+				to_chat(usr, "<span class='notice'>You install the [W.name].</span>")
 
 				return
 
-	if(istype(W, /obj/item/weapon/weldingtool) && user.a_intent == I_HELP)
+	if(istype(W, /obj/item/weapon/weldingtool) && user.a_intent == INTENT_HELP)
 		if(W == module_active)
 			return
 		if(!getBruteLoss())
@@ -624,7 +594,7 @@ var/list/robot_verbs_default = list(
 			return
 
 
-	else if(istype(W, /obj/item/stack/cable_coil) && user.a_intent == I_HELP && (wiresexposed || istype(src,/mob/living/silicon/robot/drone)))
+	else if(istype(W, /obj/item/stack/cable_coil) && user.a_intent == INTENT_HELP && (wiresexposed || istype(src,/mob/living/silicon/robot/drone)))
 		if(!getFireLoss())
 			to_chat(user, "<span class='notice'>Nothing to fix!</span>")
 			return
@@ -644,20 +614,13 @@ var/list/robot_verbs_default = list(
 			else if(wiresexposed && wires.IsAllCut())
 				//Cell is out, wires are exposed, remove MMI, produce damaged chassis, baleet original mob.
 				if(!mmi)
-					to_chat(user, "\The [src] has no brain to remove.")
+					to_chat(user, "[src] has no brain to remove.")
 					return
 
-				to_chat(user, "You jam the crowbar into the robot and begin levering [mmi].")
+				to_chat(user, "You jam the crowbar into the robot and begin levering the securing bolts.")
 				if(do_after(user, 30 * W.toolspeed, target = src))
-					to_chat(user, "You damage some parts of the chassis, but eventually manage to rip out [mmi]!")
-					var/obj/item/robot_parts/robot_suit/C = new/obj/item/robot_parts/robot_suit(loc)
-					C.l_leg = new/obj/item/robot_parts/l_leg(C)
-					C.r_leg = new/obj/item/robot_parts/r_leg(C)
-					C.l_arm = new/obj/item/robot_parts/l_arm(C)
-					C.r_arm = new/obj/item/robot_parts/r_arm(C)
-					C.updateicon()
-					new/obj/item/robot_parts/chest(loc)
-					qdel(src)
+					user.visible_message("[user] deconstructs [src]!", "<span class='notice'>You unfasten the securing bolts, and [src] falls to pieces!</span>")
+					deconstruct()
 			else
 				// Okay we're not removing the cell or an MMI, but maybe something else?
 				var/list/removable_components = list()
@@ -802,22 +765,22 @@ var/list/robot_verbs_default = list(
 			var/time = time2text(world.realtime,"hh:mm:ss")
 			lawchanges.Add("[time] <B>:</B> [M.name]([M.key]) emagged [name]([key])")
 			set_zeroth_law("Only [M.real_name] and people he designates as being such are Syndicate Agents.")
-			to_chat(src, "\red ALERT: Foreign software detected.")
+			to_chat(src, "<span class='warning'>ALERT: Foreign software detected.</span>")
 			sleep(5)
-			to_chat(src, "\red Initiating diagnostics...")
+			to_chat(src, "<span class='warning'>Initiating diagnostics...</span>")
 			sleep(20)
-			to_chat(src, "\red SynBorg v1.7 loaded.")
+			to_chat(src, "<span class='warning'>SynBorg v1.7 loaded.</span>")
 			sleep(5)
-			to_chat(src, "\red LAW SYNCHRONISATION ERROR")
+			to_chat(src, "<span class='warning'>LAW SYNCHRONISATION ERROR</span>")
 			sleep(5)
-			to_chat(src, "\red Would you like to send a report to NanoTraSoft? Y/N")
+			to_chat(src, "<span class='warning'>Would you like to send a report to NanoTraSoft? Y/N</span>")
 			sleep(10)
-			to_chat(src, "\red > N")
+			to_chat(src, "<span class='warning'>> N</span>")
 			sleep(20)
-			to_chat(src, "\red ERRORERRORERROR")
+			to_chat(src, "<span class='warning'>ERRORERRORERROR</span>")
 			to_chat(src, "<b>Obey these laws:</b>")
 			laws.show_laws(src)
-			to_chat(src, "\red \b ALERT: [M.real_name] is your new master. Obey your new laws and his commands.")
+			to_chat(src, "<span class='boldwarning'>ALERT: [M.real_name] is your new master. Obey your new laws and his commands.</span>")
 			SetLockdown(0)
 			if(src.module && istype(src.module, /obj/item/weapon/robot_module/miner))
 				for(var/obj/item/weapon/pickaxe/drill/cyborg/D in src.module.modules)
@@ -855,15 +818,15 @@ var/list/robot_verbs_default = list(
 
 	switch(M.a_intent)
 
-		if(I_HELP)
+		if(INTENT_HELP)
 			for(var/mob/O in viewers(src, null))
 				if((O.client && !( O.blinded )))
 					O.show_message(text("<span class='notice'>[M] caresses [src]'s plating with its scythe like arm.</span>"), 1)
 
-		if(I_GRAB)
+		if(INTENT_GRAB)
 			grabbedby(M)
 
-		if(I_HARM)
+		if(INTENT_HARM)
 			M.do_attack_animation(src)
 			var/damage = rand(10, 20)
 			if(prob(90))
@@ -879,7 +842,7 @@ var/list/robot_verbs_default = list(
 				visible_message("<span class='danger'>[M] took a swipe at [src]!</span>", \
 								"<span class='userdanger'>[M] took a swipe at [src]!</span>")
 
-		if(I_DISARM)
+		if(INTENT_DISARM)
 			if(!(lying))
 				M.do_attack_animation(src)
 				if(prob(85))
@@ -960,7 +923,7 @@ var/list/robot_verbs_default = list(
 			diag_hud_set_borgcell()
 
 	if(!opened && (!istype(user, /mob/living/silicon)))
-		if(user.a_intent == I_HELP)
+		if(user.a_intent == INTENT_HELP)
 			user.visible_message("<span class='notice'>[user] pets [src]!</span>", \
 								"<span class='notice'>You pet [src]!</span>")
 
@@ -1010,7 +973,7 @@ var/list/robot_verbs_default = list(
 
 /mob/living/silicon/robot/proc/installed_modules()
 	if(weapon_lock)
-		to_chat(src, "\red Weapon lock active, unable to use modules! Count:[weaponlock_time]")
+		to_chat(src, "<span class='warning'>Weapon lock active, unable to use modules! Count:[weaponlock_time]</span>")
 		return
 
 	if(!module)
@@ -1135,6 +1098,49 @@ var/list/robot_verbs_default = list(
 
 	update_icons()
 
+/mob/living/silicon/robot/proc/deconstruct()
+	var/turf/T = get_turf(src)
+	if(robot_suit)
+		robot_suit.forceMove(T)
+		robot_suit.l_leg.forceMove(T)
+		robot_suit.l_leg = null
+		robot_suit.r_leg.forceMove(T)
+		robot_suit.r_leg = null
+		new /obj/item/stack/cable_coil(T, robot_suit.chest.wired)
+		robot_suit.chest.forceMove(T)
+		robot_suit.chest.wired = FALSE
+		robot_suit.chest = null
+		robot_suit.l_arm.forceMove(T)
+		robot_suit.l_arm = null
+		robot_suit.r_arm.forceMove(T)
+		robot_suit.r_arm = null
+		robot_suit.head.forceMove(T)
+		robot_suit.head.flash1.forceMove(T)
+		robot_suit.head.flash1.burn_out()
+		robot_suit.head.flash1 = null
+		robot_suit.head.flash2.forceMove(T)
+		robot_suit.head.flash2.burn_out()
+		robot_suit.head.flash2 = null
+		robot_suit.head = null
+		robot_suit.updateicon()
+	else
+		new /obj/item/robot_parts/robot_suit(T)
+		new /obj/item/robot_parts/l_leg(T)
+		new /obj/item/robot_parts/r_leg(T)
+		new /obj/item/stack/cable_coil(T, 1)
+		new /obj/item/robot_parts/chest(T)
+		new /obj/item/robot_parts/l_arm(T)
+		new /obj/item/robot_parts/r_arm(T)
+		new /obj/item/robot_parts/head(T)
+		var/b
+		for(b=0, b!=2, b++)
+			var/obj/item/device/flash/F = new /obj/item/device/flash(T)
+			F.burn_out()
+	if(cell) //Sanity check.
+		cell.forceMove(T)
+		cell = null
+	qdel(src)
+
 #define BORG_CAMERA_BUFFER 30
 /mob/living/silicon/robot/Move(a, b, flag)
 	var/oldLoc = src.loc
@@ -1199,13 +1205,11 @@ var/list/robot_verbs_default = list(
 	canmove = 1
 	scrambledcodes = 1
 	//Disconnect it's camera so it's not so easily tracked.
-	if(src.camera)
-		qdel(src.camera)
-		src.camera = null
-		// I'm trying to get the Cyborg to not be listed in the camera list
-		// Instead of being listed as "deactivated". The downside is that I'm going
-		// to have to check if every camera is null or not before doing anything, to prevent runtime errors.
-		// I could change the network to null but I don't know what would happen, and it seems too hacky for me.
+	QDEL_NULL(src.camera)
+	// I'm trying to get the Cyborg to not be listed in the camera list
+	// Instead of being listed as "deactivated". The downside is that I'm going
+	// to have to check if every camera is null or not before doing anything, to prevent runtime errors.
+	// I could change the network to null but I don't know what would happen, and it seems too hacky for me.
 
 /mob/living/silicon/robot/proc/ResetSecurityCodes()
 	set category = "Robot Commands"

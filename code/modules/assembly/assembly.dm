@@ -4,12 +4,12 @@
 	icon = 'icons/obj/assemblies/new_assemblies.dmi'
 	icon_state = ""
 	flags = CONDUCT
-	w_class = 2
+	w_class = WEIGHT_CLASS_SMALL
 	materials = list(MAT_METAL=100)
 	throwforce = 2
 	throw_speed = 3
 	throw_range = 10
-	origin_tech = "magnets=1"
+	origin_tech = "magnets=1;engineering=1"
 	toolspeed = 1
 	usesound = 'sound/items/Deconstruct.ogg'
 
@@ -116,7 +116,7 @@
 	attach_assembly(var/obj/item/device/assembly/A, var/mob/user)
 		holder = new/obj/item/device/assembly_holder(get_turf(src))
 		if(holder.attach(A,src,user))
-			to_chat(user, "\blue You attach \the [A] to \the [src]!")
+			to_chat(user, "<span class='notice'>You attach \the [A] to \the [src]!</span>")
 			return 1
 		return 0
 
@@ -129,9 +129,9 @@
 				return
 		if(istype(W, /obj/item/weapon/screwdriver))
 			if(toggle_secure())
-				to_chat(user, "\blue \The [src] is ready!")
+				to_chat(user, "<span class='notice'>\The [src] is ready!</span>")
 			else
-				to_chat(user, "\blue \The [src] can now be attached!")
+				to_chat(user, "<span class='notice'>\The [src] can now be attached!</span>")
 			return
 		..()
 		return

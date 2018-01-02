@@ -3,7 +3,7 @@
 	desc = "A pre-fabricated security camera kit, ready to be assembled and mounted to a surface."
 	icon = 'icons/obj/monitors.dmi'
 	icon_state = "cameracase"
-	w_class = 2
+	w_class = WEIGHT_CLASS_SMALL
 	anchored = 0
 	materials = list(MAT_METAL=400, MAT_GLASS=250)
 
@@ -21,9 +21,7 @@
 	*/
 
 /obj/item/weapon/camera_assembly/Destroy()
-	for(var/thing in upgrades)
-		qdel(thing)
-	upgrades.Cut()
+	QDEL_LIST(upgrades)
 	return ..()
 
 /obj/item/weapon/camera_assembly/attackby(obj/item/W, mob/living/user, params)

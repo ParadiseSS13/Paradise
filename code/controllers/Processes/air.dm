@@ -22,11 +22,11 @@ var/global/datum/controller/process/air_system/air_master
 	var/last_hotspots = 0
 	var/last_asc = 0
 
+
 /datum/controller/process/air_system/setup()
 	name = "air"
 	schedule_interval = 20 // every 2 seconds
 	start_delay = 4
-	air_master = src
 
 	var/watch = start_watch()
 	log_startup_progress("Processing geometry...")
@@ -49,6 +49,8 @@ var/global/datum/controller/process/air_system/air_master
 	..()
 	stat(null, "[last_active] active")
 	stat(null, "[last_excited] EG | [last_hpd] HPD | [last_asc] ASC | [last_hotspots] Hot")
+
+DECLARE_GLOBAL_CONTROLLER(air_system, air_master)
 
 /datum/controller/process/air_system/proc/process_hotspots()
 	last_hotspots = hotspots.len

@@ -1081,6 +1081,21 @@ proc/get_mob_with_client_list()
 	return get_turf(location)
 
 
+//For objects that should embed, but make no sense being is_sharp or is_pointed()
+//e.g: rods
+var/list/can_embed_types = typecacheof(list(
+	/obj/item/stack/rods,
+	/obj/item/pipe))
+
+/proc/can_embed(obj/item/W)
+	if(is_sharp(W))
+		return 1
+	if(is_pointed(W))
+		return 1
+
+	if(is_type_in_typecache(W, can_embed_types))
+		return 1
+
 //Quick type checks for some tools
 var/global/list/common_tools = list(
 /obj/item/stack/cable_coil,
@@ -1187,33 +1202,12 @@ var/global/list/common_tools = list(
 		return 0
 
 //Whether or not the given item counts as sharp in terms of dealing damage
-/proc/is_sharp(obj/O as obj)
-	if(!O) return 0
-	if(O.sharp) return 1
-	if(O.edge) return 1
+/proc/is_sharp(obj/O)
+	if(!O)
+		return 0
+	if(O.sharp)
+		return 1
 	return 0
-
-//Whether or not the given item counts as cutting with an edge in terms of removing limbs
-/proc/has_edge(obj/O as obj)
-	if(!O) return 0
-	if(O.edge) return 1
-	return 0
-
-//Returns 1 if the given item is capable of popping things like balloons, inflatable barriers, or cutting police tape.
-/proc/can_puncture(obj/item/W as obj)		// For the record, WHAT THE HELL IS THIS METHOD OF DOING IT?
-	if(!istype(W)) return 0
-	if(!W) return 0
-	if(W.sharp) return 1
-	return ( \
-		W.sharp													  || \
-		istype(W, /obj/item/weapon/screwdriver)                   || \
-		istype(W, /obj/item/weapon/pen)                           || \
-		istype(W, /obj/item/weapon/weldingtool)					  || \
-		istype(W, /obj/item/weapon/lighter/zippo)				  || \
-		istype(W, /obj/item/weapon/match)            		      || \
-		istype(W, /obj/item/clothing/mask/cigarette) 		      || \
-		istype(W, /obj/item/weapon/shovel) \
-	)
 
 /proc/is_surgery_tool(obj/item/W as obj)
 	return (	\

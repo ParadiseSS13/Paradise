@@ -13,6 +13,11 @@
 	steps = list(/datum/surgery_step/generic/cut_open,/datum/surgery_step/generic/clamp_bleeders,/datum/surgery_step/generic/retract_skin,/datum/surgery_step/fix_vein,/datum/surgery_step/generic/cauterize)
 	possible_locs = list("chest","head","groin", "l_arm", "r_arm", "l_leg", "r_leg", "r_hand", "l_hand", "r_foot", "l_foot")
 
+/datum/surgery/debridement
+	name = "Debridement"
+	steps = list(/datum/surgery_step/generic/cut_open,/datum/surgery_step/generic/clamp_bleeders,/datum/surgery_step/generic/retract_skin,/datum/surgery_step/fix_dead_tissue,/datum/surgery_step/treat_necrosis,/datum/surgery_step/generic/cauterize)
+	possible_locs = list("chest","head","groin", "l_arm", "r_arm", "l_leg", "r_leg", "r_hand", "l_hand", "r_foot", "l_foot")
+
 /datum/surgery/infection/can_start(mob/user, mob/living/carbon/target)
 	if(ishuman(target))
 		var/mob/living/carbon/human/H = target
@@ -38,6 +43,24 @@
 		if(internal_bleeding)
 			return 1
 		return 0
+
+/datum/surgery/debridement/can_start(mob/user, mob/living/carbon/target)
+	if(ishuman(target))
+		var/mob/living/carbon/human/H = target
+		var/obj/item/organ/external/affected = H.get_organ(user.zone_sel.selecting)
+
+		if(!hasorgans(target))
+			return 0
+
+		if(!affected)
+			return 0
+
+		if(!(affected.status & ORGAN_DEAD))
+			return 0
+
+		return 1
+
+	return 0
 
 /datum/surgery_step/fix_vein
 	name = "mend internal bleeding"
@@ -115,7 +138,6 @@
 
 	if(!(affected.status & ORGAN_DEAD))
 		return 0
-
 	return 1
 
 /datum/surgery_step/fix_dead_tissue/begin_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool,datum/surgery/surgery)
@@ -146,9 +168,11 @@
 	allowed_tools = list(
 		/obj/item/weapon/reagent_containers/dropper = 100,
 		/obj/item/weapon/reagent_containers/glass/bottle = 75,
-		/obj/item/weapon/reagent_containers/glass/beaker = 75,
+		/obj/item/weapon/reagent_containers/food/drinks/drinkingglass = 70,
+		/obj/item/weapon/reagent_containers/food/drinks/bottle = 65,
+		/obj/item/weapon/reagent_containers/glass/beaker = 60,
 		/obj/item/weapon/reagent_containers/spray = 50,
-		/obj/item/weapon/reagent_containers/glass/bucket = 50,
+		/obj/item/weapon/reagent_containers/glass/bucket = 40
 	)
 
 	can_infect = 0
@@ -156,12 +180,14 @@
 
 	time = 24
 
-/datum/surgery_step/fix_dead_tissue/can_use(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool,datum/surgery/surgery)
+/datum/surgery_step/treat_necrosis/can_use(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool,datum/surgery/surgery)
 	if(!istype(tool, /obj/item/weapon/reagent_containers))
 		return 0
 
 	var/obj/item/weapon/reagent_containers/container = tool
 	if(!container.reagents.has_reagent("mitocholide"))
+		user.visible_message("[user] looks at \the [tool] and ponders." , \
+		"You are not sure if \the [tool] contains mitocholide to treat the necrosis.")
 		return 0
 
 	if(!hasorgans(target))
@@ -172,34 +198,39 @@
 		return 0
 	return 1
 
-/datum/surgery_step/fix_dead_tissue/begin_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool,datum/surgery/surgery)
+/datum/surgery_step/treat_necrosis/begin_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool,datum/surgery/surgery)
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
 	user.visible_message("[user] starts applying medication to the affected tissue in [target]'s [affected.name] with \the [tool]." , \
 	"You start applying medication to the affected tissue in [target]'s [affected.name] with \the [tool].")
 	target.custom_pain("Something in your [affected.name] is causing you a lot of pain!",1)
 	..()
 
-/datum/surgery_step/fix_dead_tissue/end_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool,datum/surgery/surgery)
+/datum/surgery_step/treat_necrosis/end_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool,datum/surgery/surgery)
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
 
 	if(!istype(tool, /obj/item/weapon/reagent_containers))
 		return 0
 
 	var/obj/item/weapon/reagent_containers/container = tool
+	var/mitocholide = 0
+
+	if(container.reagents.has_reagent("mitocholide"))
+		mitocholide = 1
 
 	var/trans = container.reagents.trans_to(target, container.amount_per_transfer_from_this)
 	if(trans > 0)
 		container.reagents.reaction(target, INGEST)	//technically it's contact, but the reagents are being applied to internal tissue
 
-		if(container.reagents.has_reagent("mitocholide"))
+		if(mitocholide)
 			affected.status &= ~ORGAN_DEAD
+			target.update_body()
 
 		user.visible_message("<span class='notice'> [user] applies [trans] units of the solution to affected tissue in [target]'s [affected.name]</span>", \
 			"<span class='notice'> You apply [trans] units of the solution to affected tissue in [target]'s [affected.name] with \the [tool].</span>")
 
 	return 1
 
-/datum/surgery_step/fix_dead_tissue/fail_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool,datum/surgery/surgery)
+/datum/surgery_step/treat_necrosis/fail_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool,datum/surgery/surgery)
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
 
 	if(!istype(tool, /obj/item/weapon/reagent_containers))

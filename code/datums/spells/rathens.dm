@@ -33,7 +33,7 @@
 			H.apply_damage(10, BRUTE, "chest")
 			to_chat(H, "<span class='userdanger'>You have no appendix, but something had to give! Holy shit, what was that?</span>")
 			H.Weaken(3)
-			for(var/obj/item/organ/external/E in H.organs)
+			for(var/obj/item/organ/external/E in H.bodyparts)
 				if(istype(E, /obj/item/organ/external/head))
 					continue
 				if(istype(E, /obj/item/organ/external/chest))
@@ -42,6 +42,4 @@
 					continue
 				if(prob(7))
 					to_chat(H, "<span class='userdanger'>Your [E] was severed by the explosion!</span>")
-					E.droplimb(1, DROPLIMB_EDGE, 0, 1)
-
-
+					E.droplimb(1, DROPLIMB_SHARP, 0, 1)

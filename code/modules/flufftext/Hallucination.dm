@@ -165,13 +165,11 @@ Gunshots/explosions/opening doors/less rare audio (done)
 
 /obj/effect/hallucination/fake_flood/Destroy()
 	processing_objects -= src
-	qdel(flood_turfs)
-	flood_turfs = list()
+	flood_turfs.Cut()
 	if(target.client)
 		target.client.images.Remove(flood_images)
 	target = null
-	qdel(flood_images)
-	flood_images = list()
+	QDEL_LIST(flood_images)
 	return ..()
 
 /obj/effect/hallucination/simple/xeno
@@ -181,49 +179,6 @@ Gunshots/explosions/opening doors/less rare audio (done)
 /obj/effect/hallucination/simple/xeno/New(loc,var/mob/living/carbon/T)
 	..()
 	name = "alien hunter ([rand(1, 1000)])"
-
-/obj/effect/hallucination/simple/xeno/throw_at(atom/target, range, speed) // TODO : Make diagonal trhow into proc/property
-	if(!target || !src || (flags & NODROP))
-		return 0
-
-	throwing = 1
-
-	var/dist_x = abs(target.x - x)
-	var/dist_y = abs(target.y - y)
-	var/dist_travelled = 0
-	var/dist_since_sleep = 0
-
-	var/tdist_x = dist_x;
-	var/tdist_y = dist_y;
-
-	if(dist_x <= dist_y)
-		tdist_x = dist_y;
-		tdist_y = dist_x;
-
-	var/error = tdist_x/2 - tdist_y
-	while(target && (((((dist_x > dist_y) && ((x < target.x) || (x > target.x))) || ((dist_x <= dist_y) && ((y < target.y) || (y > target.y))) || (x > target.x)) && dist_travelled < range) || !has_gravity(src)))
-		if(!throwing)
-			break
-		if(!istype(loc, /turf))
-			break
-
-		var/atom/step = get_step(src, get_dir(src, target))
-		if(!step)
-			break
-		Move(step, get_dir(src, step))
-		hit_check()
-		error += (error < 0) ? tdist_x : -tdist_y;
-		dist_travelled++
-		dist_since_sleep++
-		if(dist_since_sleep >= speed)
-			dist_since_sleep = 0
-			sleep(1)
-
-
-	throwing = 0
-	throw_impact(get_turf(src))
-
-	return 1
 
 /obj/effect/hallucination/simple/xeno/throw_impact(A)
 	update_icon("alienh_pounce")
@@ -249,12 +204,12 @@ Gunshots/explosions/opening doors/less rare audio (done)
 	if(!xeno)
 		return
 	xeno.update_icon("alienh_leap",'icons/mob/alienleap.dmi',-32,-32)
-	xeno.throw_at(target,7,1)
+	xeno.throw_at(target,7,1, spin = 0, diagonals_first = 1)
 	sleep(10)
 	if(!xeno)
 		return
 	xeno.update_icon("alienh_leap",'icons/mob/alienleap.dmi',-32,-32)
-	xeno.throw_at(pump,7,1)
+	xeno.throw_at(pump,7,1, spin = 0, diagonals_first = 1)
 	sleep(10)
 	if(!xeno)
 		return

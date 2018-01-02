@@ -8,7 +8,7 @@ emp_act
 
 */
 
-/mob/living/carbon/human/bullet_act(var/obj/item/projectile/P, var/def_zone)
+/mob/living/carbon/human/bullet_act(obj/item/projectile/P, def_zone)
 
 	if(istype(P, /obj/item/projectile/energy) || istype(P, /obj/item/projectile/beam))
 		if(check_reflect(def_zone)) // Checks if you've passed a reflection% check
@@ -41,19 +41,6 @@ emp_act
 		. = bullet_act(P, "chest") //act on chest instead
 		return
 
-	//Shrapnel
-	if(P.damage_type == BRUTE)
-		var/armor = getarmor_organ(organ, "bullet")
-		if((P.embed && prob(20 + max(P.damage - armor, -10))))
-			var/obj/item/weapon/shard/shrapnel/SP = new()
-			(SP.name) = "[P.name] shrapnel"
-			if(P.ammo_casing && P.ammo_casing.caliber)
-				(SP.desc) = "[SP.desc] It looks like it is a [P.ammo_casing.caliber] caliber round."
-			else
-				(SP.desc) = "[SP.desc] The round's caliber is unidentifiable."
-			(SP.loc) = organ
-			organ.embed(SP)
-
 	organ.add_autopsy_data(P.name, P.damage) // Add the bullet's name to the autopsy data
 
 	return (..(P , def_zone))
@@ -61,7 +48,7 @@ emp_act
 /mob/living/carbon/human/check_projectile_dismemberment(obj/item/projectile/P, def_zone)
 	var/obj/item/organ/external/affecting = get_organ(check_zone(def_zone))
 	if(affecting && !affecting.cannot_amputate && affecting.get_damage() >= (affecting.max_damage - P.dismemberment))
-		var/damtype = DROPLIMB_EDGE
+		var/damtype = DROPLIMB_SHARP
 		switch(P.damage_type)
 			if(BRUTE)
 				damtype = DROPLIMB_BLUNT
@@ -83,7 +70,7 @@ emp_act
 		//If a specific bodypart is targetted, check how that bodypart is protected and return the value.
 
 	//If you don't specify a bodypart, it checks ALL your bodyparts for protection, and averages out the values
-	for(var/obj/item/organ/external/organ in organs)
+	for(var/obj/item/organ/external/organ in bodyparts)
 		armorval += getarmor_organ(organ, type)
 		organnum++
 
@@ -100,8 +87,8 @@ emp_act
 		if(bp && istype(bp ,/obj/item/clothing))
 			var/obj/item/clothing/C = bp
 			if(C.body_parts_covered & def_zone.body_part)
-				protection += C.armor[type]	
-				
+				protection += C.armor[type]
+
 	return protection
 
 //this proc returns the Siemens coefficient of electrical resistivity for a particular external organ.
@@ -178,12 +165,12 @@ emp_act
 	if(!istype(affecting))
 		return
 	if(!(affecting.status & ORGAN_ROBOT))
-		to_chat(user, "\red That limb isn't robotic.")
+		to_chat(user, "<span class='warning'>That limb isn't robotic.</span>")
 		return
 	if(affecting.sabotaged)
-		to_chat(user, "\red [src]'s [affecting.name] is already sabotaged!")
+		to_chat(user, "<span class='warning'>[src]'s [affecting.name] is already sabotaged!</span>")
 	else
-		to_chat(user, "\red You sneakily slide the card into the dataport on [src]'s [affecting.name] and short out the safeties.")
+		to_chat(user, "<span class='warning'>You sneakily slide the card into the dataport on [src]'s [affecting.name] and short out the safeties.</span>")
 		affecting.sabotaged = 1
 	return 1
 
@@ -191,7 +178,7 @@ emp_act
 /mob/living/carbon/human/proc/attacked_by(var/obj/item/I, var/mob/living/user, var/def_zone)
 	if(!I || !user)	return 0
 
-	if((istype(I, /obj/item/weapon/kitchen/knife/butcher/meatcleaver) || istype(I, /obj/item/weapon/twohanded/chainsaw)) && src.stat == DEAD && user.a_intent == I_HARM)
+	if((istype(I, /obj/item/weapon/kitchen/knife/butcher/meatcleaver) || istype(I, /obj/item/weapon/twohanded/chainsaw)) && src.stat == DEAD && user.a_intent == INTENT_HARM)
 		var/obj/item/weapon/reagent_containers/food/snacks/meat/human/newmeat = new /obj/item/weapon/reagent_containers/food/snacks/meat/human(get_turf(src.loc))
 		newmeat.name = src.real_name + newmeat.name
 		newmeat.subjectname = src.real_name
@@ -200,7 +187,7 @@ emp_act
 		src.reagents.trans_to (newmeat, round ((src.reagents.total_volume) / 3, 1))
 		src.loc.add_blood(src)
 		--src.meatleft
-		to_chat(user, "\red You hack off a chunk of meat from [src.name]")
+		to_chat(user, "<span class='warning'>You hack off a chunk of meat from [src.name]</span>")
 		if(!src.meatleft)
 			src.create_attack_log("Was chopped up into meat by <b>[key_name(user)]</b>")
 			user.create_attack_log("Chopped up <b>[key_name(src)]</b> into meat</b>")
@@ -234,16 +221,14 @@ emp_act
 
 	var/armor = run_armor_check(affecting, "melee", "Your armor has protected your [hit_area].", "Your armor has softened hit to your [hit_area].", armour_penetration = I.armour_penetration)
 	var/weapon_sharp = is_sharp(I)
-	var/weapon_edge = has_edge(I)
-	if((weapon_sharp || weapon_edge) && prob(getarmor(user.zone_sel.selecting, "melee")))
+	if(weapon_sharp && prob(getarmor(user.zone_sel.selecting, "melee")))
 		weapon_sharp = 0
-		weapon_edge = 0
 
 	if(armor >= 100)	return 0
 	if(!I.force)	return 0
 	var/Iforce = I.force //to avoid runtimes on the forcesay checks at the bottom. Some items might delete themselves if you drop them. (stunning yourself, ninja swords)
 
-	apply_damage(I.force, I.damtype, affecting, armor, sharp=weapon_sharp, edge=weapon_edge, used_weapon=I)
+	apply_damage(I.force, I.damtype, affecting, armor, sharp = weapon_sharp, used_weapon = I)
 
 	var/bloody = 0
 	if(I.damtype == BRUTE && I.force && prob(25 + I.force * 2))
@@ -297,101 +282,33 @@ emp_act
 	if(Iforce > 10 || Iforce >= 5 && prob(33))
 		forcesay(hit_appends)	//forcesay checks stat already
 
-/*	//Melee weapon embedded object code. Commented out, as most people on the forums seem to find this annoying and think it does not contribute to general gameplay. - Dave
-	if(I.damtype == BRUTE && !I.is_robot_module())
-		var/damage = I.force
-		if(armor)
-			damage /= armor+1
-
-		//blunt objects should really not be embedding in things unless a huge amount of force is involved
-		var/embed_chance = weapon_sharp? damage/I.w_class : damage/(I.w_class*3)
-		var/embed_threshold = weapon_sharp? 5*I.w_class : 15*I.w_class
-
-		//Sharp objects will always embed if they do enough damage.
-		if(((weapon_sharp && damage > (10*I.w_class)) || (damage > embed_threshold && prob(embed_chance))) && (I.no_embed == 0) )
-			affecting.embed(I)
-	return 1*/
-
 //this proc handles being hit by a thrown atom
-/mob/living/carbon/human/hitby(atom/movable/AM as mob|obj,var/speed = 5)
+/mob/living/carbon/human/hitby(atom/movable/AM, skipcatch = 0, hitpush = 1, blocked = 0)
+	var/obj/item/I
+	var/throwpower = 30
 	if(istype(AM, /obj/item))
-		var/obj/item/I = AM
-
-		if(in_throw_mode && !get_active_hand() && speed <= 5)	//empty active hand and we're in throw mode
-			if(canmove && !restrained())
-				if(isturf(I.loc))
-					put_in_active_hand(I)
-					visible_message("<span class='warning'>[src] catches [I]!</span>")
-					throw_mode_off()
-					return
-
-		var/zone = ran_zone("chest", 65)
-		var/dtype = BRUTE
-		if(istype(I, /obj/item/weapon))
-			var/obj/item/weapon/W = I
-			dtype = W.damtype
-		var/throw_damage = I.throwforce*(speed/5)
-
-		I.throwing = 0		//it hit, so stop moving
-
-		if((I.thrower != src) && check_shields(throw_damage, "\the [I.name]", I, THROWN_PROJECTILE_ATTACK))
-			return
-
-		var/obj/item/organ/external/affecting = get_organ(zone)
-		if(!affecting)
-			var/missverb = (I.gender == PLURAL) ? "whizz" : "whizzes"
-			visible_message("<span class='notice'>\The [I] [missverb] past [src]'s missing [parse_zone(zone)]!</span>",
-				"<span class='notice'>\The [I] [missverb] past your missing [parse_zone(zone)]!</span>")
-			return
-		var/hit_area = affecting.name
-
-		src.visible_message("\red [src] has been hit in the [hit_area] by [I].")
-		var/armor = run_armor_check(affecting, "melee", "Your armor has protected your [hit_area].", "Your armor has softened hit to your [hit_area].", I.armour_penetration) //I guess "melee" is the best fit here
-
-		apply_damage(throw_damage, dtype, zone, armor, is_sharp(I), has_edge(I), I)
-
-		if(ismob(I.thrower))
-			var/mob/M = I.thrower
-			if(M)
-				add_logs(M, src, "hit", I, " (thrown)", print_attack_log = I.throwforce)
-
-		//thrown weapon embedded object code.
-		if(dtype == BRUTE && istype(I))
-			if(!I.is_robot_module())
-				var/sharp = is_sharp(I)
-				var/damage = throw_damage
-				if(armor)
-					damage /= armor+1
-
-				//blunt objects should really not be embedding in things unless a huge amount of force is involved
-				var/embed_chance = sharp? damage/I.w_class : damage/(I.w_class*3)
-				var/embed_threshold = sharp? 5*I.w_class : 15*I.w_class
-
-				//Sharp objects will always embed if they do enough damage.
-				//Thrown sharp objects have some momentum already and have a small chance to embed even if the damage is below the threshold
-				if(((sharp && prob(damage/(10*I.w_class)*100)) || (damage > embed_threshold && prob(embed_chance))) && (I.no_embed == 0))
-					affecting.embed(I)
-
-		// Begin BS12 momentum-transfer code.
-		if(I.throw_source && speed >= 15)
-			var/obj/item/weapon/W = I
-			var/momentum = speed/2
-			var/dir = get_dir(I.throw_source, src)
-
-			visible_message("\red [src] staggers under the impact!","\red You stagger under the impact!")
-			src.throw_at(get_edge_target_turf(src,dir),1,momentum)
-
-			if(!W || !src) return
-
-			if(W.loc == src && W.sharp) //Projectile is embedded and suitable for pinning.
-				var/turf/T = near_wall(dir,2)
-
-				if(T)
-					src.loc = T
-					visible_message("<span class='warning'>[src] is pinned to the wall by [I]!</span>","<span class='warning'>You are pinned to the wall by [I]!</span>")
-					src.anchored = 1
-					src.pinned += I
-
+		I = AM
+		throwpower = I.throwforce
+		if(I.thrownby == src) //No throwing stuff at yourself to trigger reactions
+			return ..()
+	if(check_shields(throwpower, "\the [AM.name]", AM, THROWN_PROJECTILE_ATTACK))
+		hitpush = 0
+		skipcatch = 1
+		blocked = 1
+	else if(I)
+		if(I.throw_speed >= EMBED_THROWSPEED_THRESHOLD)
+			if(can_embed(I))
+				if(prob(I.embed_chance))
+					throw_alert("embeddedobject", /obj/screen/alert/embeddedobject)
+					var/obj/item/organ/external/L = pick(bodyparts)
+					L.embedded_objects |= I
+//					I.add_mob_blood(src)//it embedded itself in you, of course it's bloody!
+					I.forceMove(src)
+					L.take_damage(I.w_class*I.embedded_impact_pain_multiplier)
+					visible_message("<span class='danger'>[I] embeds itself in [src]'s [L.name]!</span>","<span class='userdanger'>[I] embeds itself in your [L.name]!</span>")
+					hitpush = 0
+					skipcatch = 1 //can't catch the now embedded item
+	return ..()
 
 /mob/living/carbon/human/proc/bloody_hands(var/mob/living/source, var/amount = 2)
 
@@ -426,7 +343,7 @@ emp_act
 	if(penetrated_dam) SS.create_breaches(damtype, penetrated_dam)
 
 /mob/living/carbon/human/mech_melee_attack(obj/mecha/M)
-	if(M.occupant.a_intent == I_HARM)
+	if(M.occupant.a_intent == INTENT_HARM)
 		if(M.damtype == "brute")
 			step_away(src,M,15)
 		var/obj/item/organ/external/affecting = get_organ(pick("chest", "chest", "chest", "head"))
@@ -469,5 +386,5 @@ emp_act
 
 /mob/living/carbon/human/water_act(volume, temperature, source)
 	..()
-	if(temperature >= 330)	bodytemperature = bodytemperature + (temperature - bodytemperature)
-	if(temperature <= 280)	bodytemperature = bodytemperature - (bodytemperature - temperature)
+	species.water_act(src,volume,temperature,source)
+

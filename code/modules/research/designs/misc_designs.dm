@@ -7,7 +7,7 @@
 	id = "design_disk"
 	req_tech = list("programming" = 1)
 	build_type = PROTOLATHE | AUTOLATHE
-	materials = list(MAT_METAL = 30, MAT_GLASS = 10)
+	materials = list(MAT_METAL = 300, MAT_GLASS = 100)
 	build_path = /obj/item/weapon/disk/design_disk
 	category = list("Miscellaneous")
 
@@ -25,7 +25,7 @@
 	name = "Intellicard"
 	desc = "Allows for the construction of an intellicard."
 	id = "intellicard"
-	req_tech = list("programming" = 4, "materials" = 4)
+	req_tech = list("programming" = 3, "materials" = 3)
 	build_type = PROTOLATHE
 	materials = list(MAT_GLASS = 1000, MAT_GOLD = 200)
 	build_path = /obj/item/device/aicard
@@ -47,7 +47,7 @@
 	id = "tech_disk"
 	req_tech = list("programming" = 1)
 	build_type = PROTOLATHE | AUTOLATHE
-	materials = list(MAT_METAL = 30, MAT_GLASS = 10)
+	materials = list(MAT_METAL = 300, MAT_GLASS = 100)
 	build_path = /obj/item/weapon/disk/tech_disk
 	category = list("Miscellaneous")
 

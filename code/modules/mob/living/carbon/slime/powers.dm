@@ -27,7 +27,7 @@
 							if(met.Victim == M && met != src)
 								to_chat(src, "<i>The [met.name] is already feeding on this subject...</i>")
 								return
-						to_chat(src, "\blue <i>I have latched onto the subject and begun feeding...</i>")
+						to_chat(src, "<span class='notice'><i>I have latched onto the subject and begun feeding...</i></span>")
 						to_chat(M, "<span class='danger'>The [src.name] has latched onto your head!</span>")
 						Feedon(M)
 

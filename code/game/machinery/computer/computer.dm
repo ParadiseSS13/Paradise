@@ -121,12 +121,12 @@
 			for(var/obj/C in src)
 				C.loc = src.loc
 			if(src.stat & BROKEN)
-				to_chat(user, "\blue The broken glass falls out.")
+				to_chat(user, "<span class='notice'>The broken glass falls out.</span>")
 				new /obj/item/weapon/shard(loc)
 				A.state = 3
 				A.icon_state = "3"
 			else
-				to_chat(user, "\blue You disconnect the monitor.")
+				to_chat(user, "<span class='notice'>You disconnect the monitor.</span>")
 				A.state = 4
 				A.icon_state = "4"
 			qdel(src)
@@ -135,7 +135,7 @@
 	return
 
 /obj/machinery/computer/attack_alien(mob/living/user)
-	if(isalien(user) && user.a_intent == I_HELP)
+	if(isalien(user) && user.a_intent == INTENT_HELP)
 		var/mob/living/carbon/alien/humanoid/xeno = user
 		if(xeno.has_fine_manipulation)
 			return attack_hand(user)

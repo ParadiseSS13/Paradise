@@ -19,13 +19,6 @@ FIRE ALARM
 	var/last_process = 0
 	var/wiresexposed = 0
 	var/buildstage = 2 // 2 = complete, 1 = no wires,  0 = circuit gone
-	var/area/master_area
-
-/obj/machinery/firealarm/New()
-	var/area/A = get_area_master(src)
-	if(!istype(A, /area))
-		return
-	master_area = A
 
 /obj/machinery/firealarm/update_icon()
 
@@ -91,9 +84,9 @@ FIRE ALARM
 				if(istype(W, /obj/item/device/multitool))
 					detecting = !detecting
 					if(detecting)
-						user.visible_message("\red [user] has reconnected [src]'s detecting unit!", "You have reconnected [src]'s detecting unit.")
+						user.visible_message("<span class='warning'>[user] has reconnected [src]'s detecting unit!</span>", "You have reconnected [src]'s detecting unit.")
 					else
-						user.visible_message("\red [user] has disconnected [src]'s detecting unit!", "You have disconnected [src]'s detecting unit.")
+						user.visible_message("<span class='warning'>[user] has disconnected [src]'s detecting unit!</span>", "You have disconnected [src]'s detecting unit.")
 
 				else if(istype(W, /obj/item/weapon/wirecutters))  // cutting the wires out
 					to_chat(user, "<span class='warning'>You cut the wires!</span>")
@@ -274,8 +267,9 @@ Just a object used in constructing fire alarms
 	icon = 'icons/obj/doors/door_assembly.dmi'
 	icon_state = "door_electronics"
 	desc = "A circuit. It has a label on it, it says \"Can handle heat levels up to 40 degrees celsius!\""
-	w_class = 2
+	w_class = WEIGHT_CLASS_SMALL
 	materials = list(MAT_METAL=50, MAT_GLASS=50)
+	origin_tech = "engineering=2;programming=1"
 	toolspeed = 1
 	usesound = 'sound/items/Deconstruct.ogg'
 
@@ -293,14 +287,6 @@ Just a object used in constructing fire alarms
 	use_power = 1
 	idle_power_usage = 2
 	active_power_usage = 6
-
-	var/area/master_area
-
-/obj/machinery/partyalarm/New()
-	var/area/A = get_area_master(src)
-	if(!( istype(A, /area) ))
-		return
-	master_area=A
 
 /obj/machinery/partyalarm/attack_hand(mob/user)
 	if((user.stat && !isobserver(user)) || stat & (NOPOWER|BROKEN))

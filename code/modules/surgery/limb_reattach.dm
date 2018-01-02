@@ -126,7 +126,7 @@
 	var/obj/item/organ/external/E = tool
 	user.visible_message("<span class='alert'>[user]'s hand slips, damaging [target]'s [E.amputation_point]!</span>", \
 	"<span class='alert'>Your hand slips, damaging [target]'s [E.amputation_point]!</span>")
-	target.apply_damage(10, BRUTE, null, sharp=1)
+	target.apply_damage(10, BRUTE, null, sharp = 1)
 	return 0
 
 
@@ -198,7 +198,7 @@
 	user.visible_message("<span class='notice'>[user] has connected tendons and muscles in [target]'s [E.amputation_point] with [tool].</span>",	\
 	"<span class='notice'>You have connected tendons and muscles in [target]'s [E.amputation_point] with [tool].</span>")
 	E.status &= ~ORGAN_DESTROYED
-	var/obj/item/organ/external/stump = target.organs_by_name["limb stump"]
+	var/obj/item/organ/external/stump = target.bodyparts_by_name["limb stump"]
 	if(stump)
 		stump.remove(target)
 	if(E.children)
@@ -213,7 +213,7 @@
 	var/obj/item/organ/external/E = target.get_organ(target_zone)
 	user.visible_message("<span class='alert'>[user]'s hand slips, damaging [target]'s [E.amputation_point]!</span>", \
 	"<span class='alert'>Your hand slips, damaging [target]'s [E.amputation_point]!</span>")
-	target.apply_damage(10, BRUTE, null, sharp=1)
+	target.apply_damage(10, BRUTE, null, sharp = 1)
 	return 0
 
 /datum/surgery_step/limb/mechanize
@@ -248,7 +248,7 @@
 			if(!organ_data)
 				continue
 			// This will break if there's more than one stump ever
-			var/obj/item/organ/external/stump = target.organs_by_name["limb stump"]
+			var/obj/item/organ/external/stump = target.bodyparts_by_name["limb stump"]
 			if(stump)
 				stump.remove(target)
 			var/new_limb_type = organ_data["path"]
@@ -271,5 +271,5 @@
 /datum/surgery_step/limb/mechanize/fail_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool)
 	user.visible_message("<span class='alert'>[user]'s hand slips, damaging [target]'s flesh!</span>", \
 	"<span class='alert'>Your hand slips, damaging [target]'s flesh!</span>")
-	target.apply_damage(10, BRUTE, null, sharp=1)
+	target.apply_damage(10, BRUTE, null, sharp = 1)
 	return 0

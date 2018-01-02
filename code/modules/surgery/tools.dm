@@ -5,7 +5,7 @@
 	icon_state = "retractor"
 	materials = list(MAT_METAL=6000, MAT_GLASS=3000)
 	flags = CONDUCT
-	w_class = 2
+	w_class = WEIGHT_CLASS_SMALL
 	origin_tech = "materials=1;biotech=1"
 
 
@@ -16,7 +16,7 @@
 	icon_state = "hemostat"
 	materials = list(MAT_METAL=5000, MAT_GLASS=2500)
 	flags = CONDUCT
-	w_class = 1
+	w_class = WEIGHT_CLASS_TINY
 	origin_tech = "materials=1;biotech=1"
 	attack_verb = list("attacked", "pinched")
 
@@ -28,7 +28,7 @@
 	icon_state = "cautery"
 	materials = list(MAT_METAL=2500, MAT_GLASS=750)
 	flags = CONDUCT
-	w_class = 1
+	w_class = WEIGHT_CLASS_TINY
 	origin_tech = "materials=1;biotech=1"
 	attack_verb = list("burnt")
 
@@ -43,8 +43,7 @@
 	flags = CONDUCT
 	force = 15.0
 	sharp = 1
-	edge = 1
-	w_class = 3
+	w_class = WEIGHT_CLASS_NORMAL
 	origin_tech = "materials=1;biotech=1"
 	attack_verb = list("drilled")
 
@@ -63,8 +62,7 @@
 	flags = CONDUCT
 	force = 10.0
 	sharp = 1
-	edge = 1
-	w_class = 1
+	w_class = WEIGHT_CLASS_TINY
 	throwforce = 5.0
 	throw_speed = 3
 	throw_range = 5
@@ -123,13 +121,12 @@
 	flags = CONDUCT
 	force = 15.0
 	sharp = 1
-	edge = 1
-	w_class = 3
+	w_class = WEIGHT_CLASS_NORMAL
 	throwforce = 9.0
 	throw_speed = 3
 	throw_range = 5
 	materials = list(MAT_METAL=10000, MAT_GLASS=6000)
-	origin_tech = "materials=1;biotech=1"
+	origin_tech = "biotech=1;combat=1"
 	attack_verb = list("attacked", "slashed", "sawed", "cut")
 
 //misc, formerly from code/defines/weapons.dm
@@ -138,7 +135,7 @@
 	icon = 'icons/obj/surgery.dmi'
 	icon_state = "bone-gel"
 	force = 0
-	w_class = 2
+	w_class = WEIGHT_CLASS_SMALL
 	throwforce = 1.0
 	origin_tech = "materials=1;biotech=1"
 
@@ -149,7 +146,7 @@
 	force = 0
 	throwforce = 1.0
 	origin_tech = "materials=1;biotech=1"
-	w_class = 2
+	w_class = WEIGHT_CLASS_SMALL
 
 /obj/item/weapon/bonesetter
 	name = "bone setter"
@@ -159,7 +156,7 @@
 	throwforce = 9.0
 	throw_speed = 3
 	throw_range = 5
-	w_class = 2
+	w_class = WEIGHT_CLASS_SMALL
 	attack_verb = list("attacked", "hit", "bludgeoned")
 	origin_tech = "materials=1;biotech=1"
 
@@ -168,6 +165,6 @@
 	desc = "Nanotrasen brand surgical drapes provide optimal safety and infection control."
 	icon = 'icons/obj/surgery.dmi'
 	icon_state = "surgical_drapes"
-	w_class = 1
+	w_class = WEIGHT_CLASS_SMALL
 	origin_tech = "biotech=1"
 	attack_verb = list("slapped")

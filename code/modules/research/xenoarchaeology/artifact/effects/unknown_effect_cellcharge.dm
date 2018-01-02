@@ -10,7 +10,7 @@
 			var/mob/living/silicon/robot/R = user
 			for(var/obj/item/weapon/stock_parts/cell/D in R.contents)
 				D.charge += rand() * 100 + 50
-				to_chat(R, "\blue SYSTEM ALERT: Large energy boost detected!")
+				to_chat(R, "<span class='notice'>SYSTEM ALERT: Large energy boost detected!</span>")
 			return 1
 
 /datum/artifact_effect/cellcharge/DoEffectAura()
@@ -24,7 +24,7 @@
 		for(var/mob/living/silicon/robot/M in mob_list)
 			for(var/obj/item/weapon/stock_parts/cell/D in M.contents)
 				D.charge += 25
-				to_chat(M, "\blue SYSTEM ALERT: Energy boost detected!")
+				to_chat(M, "<span class='notice'>SYSTEM ALERT: Energy boost detected!</span>")
 		return 1
 
 /datum/artifact_effect/cellcharge/DoEffectPulse()
@@ -38,5 +38,5 @@
 		for(var/mob/living/silicon/robot/M in mob_list)
 			for(var/obj/item/weapon/stock_parts/cell/D in M.contents)
 				D.charge += rand() * 100
-				to_chat(M, "\blue SYSTEM ALERT: Energy boost detected!")
+				to_chat(M, "<span class='notice'>SYSTEM ALERT: Energy boost detected!</span>")
 		return 1

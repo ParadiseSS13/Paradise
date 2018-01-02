@@ -4,7 +4,6 @@ var/global/image/fire_overlay = image("icon" = 'icons/goonstation/effects/fire.d
 	name = "item"
 	icon = 'icons/obj/items.dmi'
 	var/discrete = 0 // used in item_attack.dm to make an item not show an attack message to viewers
-	var/no_embed = 0 // For use in item_attack.dm
 	var/image/blood_overlay = null //this saves our blood splatter overlay, which will be processed not to go over the edges of the sprite
 	var/blood_overlay_color = null
 	var/item_state = null
@@ -20,7 +19,7 @@ var/global/image/fire_overlay = image("icon" = 'icons/goonstation/effects/fire.d
 	var/health = null
 	var/hitsound = null
 	var/usesound = null
-	var/w_class = 3
+	var/w_class = WEIGHT_CLASS_NORMAL
 	var/slot_flags = 0		//This is used to determine on which slots an item can fit.
 	pass_flags = PASSTABLE
 	pressure_resistance = 3
@@ -61,8 +60,21 @@ var/global/image/fire_overlay = image("icon" = 'icons/goonstation/effects/fire.d
 	var/block_chance = 0
 	var/hit_reaction_chance = 0 //If you want to have something unrelated to blocking/armour piercing etc. Maybe not needed, but trying to think ahead/allow more freedom
 
+	var/mob/thrownby = null
+
+	//So items can have custom embedd values
+	//Because customisation is king
+	var/embed_chance = EMBED_CHANCE
+	var/embedded_fall_chance = EMBEDDED_ITEM_FALLOUT
+	var/embedded_pain_chance = EMBEDDED_PAIN_CHANCE
+	var/embedded_pain_multiplier = EMBEDDED_PAIN_MULTIPLIER  //The coefficient of multiplication for the damage this item does while embedded (this*w_class)
+	var/embedded_fall_pain_multiplier = EMBEDDED_FALL_PAIN_MULTIPLIER //The coefficient of multiplication for the damage this item does when falling out of a limb (this*w_class)
+	var/embedded_impact_pain_multiplier = EMBEDDED_IMPACT_PAIN_MULTIPLIER //The coefficient of multiplication for the damage this item does when first embedded (this*w_class)
+	var/embedded_unsafe_removal_pain_multiplier = EMBEDDED_UNSAFE_REMOVAL_PAIN_MULTIPLIER //The coefficient of multiplication for the damage removing this without surgery causes (this*w_class)
+	var/embedded_unsafe_removal_time = EMBEDDED_UNSAFE_REMOVAL_TIME //A time in ticks, multiplied by the w_class.
+
 	var/toolspeed = 1 // If this item is a tool, the speed multiplier
-	
+
 	/* Species-specific sprites, concept stolen from Paradise//vg/.
 	ex:
 	sprite_sheets = list(
@@ -81,11 +93,12 @@ var/global/image/fire_overlay = image("icon" = 'icons/goonstation/effects/fire.d
 		new path(src)
 
 /obj/item/Destroy()
+	QDEL_NULL(hidden_uplink)
 	if(ismob(loc))
 		var/mob/m = loc
 		m.unEquip(src, 1)
-	for(var/X in actions)
-		qdel(X)
+	QDEL_LIST(actions)
+	master = null
 	return ..()
 
 /obj/item/proc/check_allowed_items(atom/target, not_inside, target_self)
@@ -143,16 +156,18 @@ var/global/image/fire_overlay = image("icon" = 'icons/goonstation/effects/fire.d
 /obj/item/examine(mob/user, var/distance = -1)
 	var/size
 	switch(src.w_class)
-		if(1.0)
+		if(WEIGHT_CLASS_TINY)
 			size = "tiny"
-		if(2.0)
+		if(WEIGHT_CLASS_SMALL)
 			size = "small"
-		if(3.0)
+		if(WEIGHT_CLASS_NORMAL)
 			size = "normal-sized"
-		if(4.0)
+		if(WEIGHT_CLASS_BULKY)
 			size = "bulky"
-		if(5.0)
+		if(WEIGHT_CLASS_HUGE)
 			size = "huge"
+		if(WEIGHT_CLASS_GIGANTIC)
+			size = "gigantic"
 
 	. = ..(user, distance, "", "It is a [size] item.")
 
@@ -164,9 +179,6 @@ var/global/image/fire_overlay = image("icon" = 'icons/goonstation/effects/fire.d
 			var/list/techlvls = params2list(origin_tech)
 			for(var/T in techlvls) //This needs to use the better names.
 				msg += "Tech: [CallTechName(T)] | Magnitude: [techlvls[T]] <BR>"
-			msg += "Research reliability: [reliability]% <BR>"
-			if(crit_fail)
-				msg += "<span class='danger'>Critical failure detected in subject!</span><BR>"
 		else
 			msg += "<span class='danger'>No tech origins detected.</span><BR>"
 
@@ -185,9 +197,9 @@ var/global/image/fire_overlay = image("icon" = 'icons/goonstation/effects/fire.d
 	if(!user) return 0
 	if(hasorgans(user))
 		var/mob/living/carbon/human/H = user
-		var/obj/item/organ/external/temp = H.organs_by_name["r_hand"]
+		var/obj/item/organ/external/temp = H.bodyparts_by_name["r_hand"]
 		if(user.hand)
-			temp = H.organs_by_name["l_hand"]
+			temp = H.bodyparts_by_name["l_hand"]
 		if(!temp)
 			to_chat(user, "<span class='warning'>You try to use your hand, but it's missing!</span>")
 			return 0
@@ -216,7 +228,8 @@ var/global/image/fire_overlay = image("icon" = 'icons/goonstation/effects/fire.d
 		var/obj/item/weapon/storage/S = src.loc
 		S.remove_from_storage(src)
 
-	src.throwing = 0
+	if(throwing)
+		throwing.finalize(FALSE)
 	if(loc == user)
 		if(!user.unEquip(src))
 			return 0
@@ -229,36 +242,6 @@ var/global/image/fire_overlay = image("icon" = 'icons/goonstation/effects/fire.d
 	add_fingerprint(user)
 	user.put_in_active_hand(src)
 	return 1
-
-
-/obj/item/attack_alien(mob/user as mob)
-
-	if(isalien(user)) // -- TLE
-		var/mob/living/carbon/alien/A = user
-
-		if(!A.has_fine_manipulation)
-			if(src in A.contents) // To stop Aliens having items stuck in their pockets
-				A.unEquip(src)
-			to_chat(user, "Your claws aren't capable of such fine manipulation.")
-			return
-
-	if(istype(src.loc, /obj/item/weapon/storage))
-		for(var/mob/M in range(1, src.loc))
-			if(M.s_active == src.loc)
-				if(M.client)
-					M.client.screen -= src
-	src.throwing = 0
-	if(src.loc == user)
-		if(!user.unEquip(src))
-			return
-	else
-		if(istype(src.loc, /mob/living))
-			return
-		src.pickup(user)
-
-	user.put_in_active_hand(src)
-	return
-
 
 /obj/item/attack_alien(mob/user as mob)
 	var/mob/living/carbon/alien/A = user
@@ -320,9 +303,6 @@ var/global/image/fire_overlay = image("icon" = 'icons/goonstation/effects/fire.d
 	return 0
 
 /obj/item/proc/talk_into(mob/M, var/text, var/channel=null)
-	return
-
-/obj/item/proc/moved(mob/user, old_loc)
 	return
 
 /obj/item/proc/dropped(mob/user)
@@ -391,22 +371,22 @@ var/global/image/fire_overlay = image("icon" = 'icons/goonstation/effects/fire.d
 	if(!usr.canmove || usr.stat || usr.restrained() || !Adjacent(usr))
 		return
 	if((!istype(usr, /mob/living/carbon)) || (istype(usr, /mob/living/carbon/brain)))//Is humanoid, and is not a brain
-		to_chat(usr, "\red You can't pick things up!")
+		to_chat(usr, "<span class='warning'>You can't pick things up!</span>")
 		return
 	if( usr.stat || usr.restrained() )//Is not asleep/dead and is not restrained
-		to_chat(usr, "\red You can't pick things up!")
+		to_chat(usr, "<span class='warning'>You can't pick things up!</span>")
 		return
 	if(src.anchored) //Object isn't anchored
-		to_chat(usr, "\red You can't pick that up!")
+		to_chat(usr, "<span class='warning'>You can't pick that up!</span>")
 		return
 	if(!usr.hand && usr.r_hand) //Right hand is not full
-		to_chat(usr, "\red Your right hand is full.")
+		to_chat(usr, "<span class='warning'>Your right hand is full.</span>")
 		return
 	if(usr.hand && usr.l_hand) //Left hand is not full
-		to_chat(usr, "\red Your left hand is full.")
+		to_chat(usr, "<span class='warning'>Your left hand is full.</span>")
 		return
 	if(!istype(src.loc, /turf)) //Object is on a turf
-		to_chat(usr, "\red You can't pick that up!")
+		to_chat(usr, "<span class='warning'>You can't pick that up!</span>")
 		return
 	//All checks are done, time to pick it up!
 	usr.UnarmedAttack(src)
@@ -468,7 +448,7 @@ var/global/image/fire_overlay = image("icon" = 'icons/goonstation/effects/fire.d
 	if(istype(H))
 		var/obj/item/organ/internal/eyes/eyes = H.get_int_organ(/obj/item/organ/internal/eyes)
 		if(!eyes) // should still get stabbed in the head
-			var/obj/item/organ/external/head/head = H.organs_by_name["head"]
+			var/obj/item/organ/external/head/head = H.bodyparts_by_name["head"]
 			head.take_damage(rand(10,14), 1)
 			return
 		eyes.take_damage(rand(3,4), 1)
@@ -545,6 +525,23 @@ var/global/image/fire_overlay = image("icon" = 'icons/goonstation/effects/fire.d
 			throw_at(S,14,3)
 		else ..()
 
+/obj/item/throw_impact(atom/A)
+	if(A && !qdeleted(A))
+		var/itempush = 1
+		if(w_class < WEIGHT_CLASS_BULKY)
+			itempush = 0 // too light to push anything
+		return A.hitby(src, 0, itempush)
+
+/obj/item/throw_at(atom/target, range, speed, mob/thrower, spin=1, diagonals_first = 0, datum/callback/callback)
+	thrownby = thrower
+	callback = CALLBACK(src, .proc/after_throw, callback) //replace their callback with our own
+	. = ..(target, range, speed, thrower, spin, diagonals_first, callback)
+
+/obj/item/proc/after_throw(datum/callback/callback)
+	if(callback) //call the original callback
+		. = callback.Invoke()
+	throw_speed = initial(throw_speed) //explosions change this.
+
 /obj/item/proc/pwr_drain()
 	return 0 // Process Kill
 
@@ -571,3 +568,10 @@ var/global/image/fire_overlay = image("icon" = 'icons/goonstation/effects/fire.d
 
 /obj/item/proc/is_crutch() //Does an item prop up a human mob and allow them to stand if they are missing a leg/foot?
 	return 0
+
+// Return true if you don't want regular throw handling
+/obj/item/proc/override_throw(mob/user, atom/target)
+	return FALSE
+
+/obj/item/proc/is_equivalent(obj/item/I)
+	return I == src

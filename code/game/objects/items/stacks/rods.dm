@@ -9,7 +9,7 @@ var/global/list/datum/stack_recipe/rod_recipes = list ( \
 	icon_state = "rods"
 	item_state = "rods"
 	flags = CONDUCT
-	w_class = 3
+	w_class = WEIGHT_CLASS_NORMAL
 	force = 9.0
 	throwforce = 10.0
 	throw_speed = 3
@@ -55,7 +55,7 @@ var/global/list/datum/stack_recipe/rod_recipes = list ( \
 						 "<span class='notice'>You shape [src] into metal with the welding tool.</span>", \
 						 "<span class='italics'>You hear welding.</span>")
 
-			var/replace = user.get_inactive_hand() == src
+			var/replace = user.is_in_inactive_hand(src)
 			use(2)
 			if(get_amount() <= 0 && replace)
 				user.unEquip(src, 1)

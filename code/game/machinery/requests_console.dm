@@ -19,6 +19,14 @@
 #define RCS_SHIPPING 9	// Print Shipping Labels/Packages
 #define RCS_SHIP_LOG 10	// View Shipping Label Log
 
+//Radio list
+#define ENGI_ROLES list("Atmospherics","Mechanic","Engineering","Chief Engineer's Desk","Telecoms Admin")
+#define SEC_ROLES list("Warden","Security","Brig Medbay","Head of Security's Desk")
+#define MISC_ROLES list("Bar","Chapel","Kitchen","Hydroponics","Janitorial")
+#define MED_ROLES list("Virology","Chief Medical Officer's Desk","Medbay")
+#define COM_ROLES list("Blueshield","NT Representative","Head of Personnel's Desk","Captain's Desk","Bridge")
+#define SCI_ROLES list("Robotics","Science","Research Director's Desk")
+
 var/req_console_assistance = list()
 var/req_console_supplies = list()
 var/req_console_information = list()
@@ -58,6 +66,8 @@ var/list/obj/machinery/requests_console/allConsoles = list()
 	var/ship_tag_name = ""
 	var/ship_tag_index = 0
 	var/print_cooldown = 0	//cooldown on shipping label printer, stores the  in-game time of when the printer will next be ready
+	var/obj/item/device/radio/Radio
+	var/radiochannel = ""
 
 /obj/machinery/requests_console/power_change()
 	..()
@@ -71,6 +81,10 @@ var/list/obj/machinery/requests_console/allConsoles = list()
 		icon_state = "req_comp[newmessagepriority]"
 
 /obj/machinery/requests_console/New()
+	Radio = new /obj/item/device/radio(src)
+	Radio.listening = 1
+	Radio.config(list("Engineering","Medical","Supply","Command","Science","Service","Security", "AI Private" = 0))
+	Radio.follow_target = src
 	..()
 
 	announcement.title = "[department] announcement"
@@ -101,6 +115,7 @@ var/list/obj/machinery/requests_console/allConsoles = list()
 			req_console_supplies -= department
 		if(departmentType & RC_INFO)
 			req_console_information -= department
+	QDEL_NULL(Radio)
 	return ..()
 
 /obj/machinery/requests_console/attack_ghost(user as mob)
@@ -189,7 +204,24 @@ var/list/obj/machinery/requests_console/allConsoles = list()
 			pass = 1
 		if(pass)
 			screen = RCS_SENTPASS
-			message_log += "<B>Message sent to [recipient]</B><BR>[message]"
+			if(recipient in ENGI_ROLES)
+				radiochannel = "Engineering"
+			if(recipient in SEC_ROLES)
+				radiochannel = "Security"
+			if(recipient in MISC_ROLES)
+				radiochannel = "Service"
+			if(recipient in MED_ROLES)
+				radiochannel = "Medical"
+			if(recipient in COM_ROLES)
+				radiochannel = "Command"
+			if(recipient in SCI_ROLES)
+				radiochannel = "Science"
+			if(recipient == "AI")
+				radiochannel = "AI Private"
+			if(recipient == "Cargo Bay")
+				radiochannel = "Supply"
+			message_log += "<B>Message sent to [recipient] at [worldtime2text()]</B><BR>[message]"
+			Radio.autosay("Alert; a new requests console message received for [recipient] from [department]", null, "[radiochannel]")
 		else
 			audible_message(text("[bicon(src)] *The Requests Console beeps: '<b>NOTICE:</b> No server detected!'"),,4)
 

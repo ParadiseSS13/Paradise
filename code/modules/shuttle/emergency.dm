@@ -203,6 +203,17 @@
 		return
 
 	var/time_left = timeLeft(1)
+
+	// The emergency shuttle doesn't work like others so this
+	// ripple check is slightly different
+	if(!ripples.len && (time_left <= SHUTTLE_RIPPLE_TIME) && ((mode == SHUTTLE_CALL) || (mode == SHUTTLE_ESCAPE)))
+		var/destination
+		if(mode == SHUTTLE_CALL)
+			destination = shuttle_master.getDock("emergency_home")
+		else if(mode == SHUTTLE_ESCAPE)
+			destination = shuttle_master.getDock("emergency_away")
+		create_ripples(destination)
+
 	switch(mode)
 		if(SHUTTLE_RECALL)
 			if(time_left <= 0)
@@ -251,6 +262,10 @@
 				mode = SHUTTLE_ESCAPE
 				timer = world.time
 				priority_announcement.Announce("The Emergency Shuttle has left the station. Estimate [timeLeft(600)] minutes until the shuttle docks at Central Command.")
+				for(var/mob/M in player_list)
+					if(!isnewplayer(M) && !M.client.karma_spent && !(M.client.ckey in karma_spenders) && !M.get_preference(DISABLE_KARMA_REMINDER))
+						to_chat(M, "<i>You have not yet spent your karma for the round; was there a player worthy of receiving your reward? Look under OOC tab, Award Karma.</i>")
+
 		if(SHUTTLE_ESCAPE)
 			if(time_left <= 0)
 				//move each escape pod to its corresponding escape dock

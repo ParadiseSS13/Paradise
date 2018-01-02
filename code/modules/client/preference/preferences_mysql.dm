@@ -175,7 +175,8 @@
 					speciesprefs,
 					socks,
 					body_accessory,
-					gear
+					gear,
+					autohiss
 				 	FROM [format_table_name("characters")] WHERE ckey='[C.ckey]' AND slot='[slot]'"})
 	if(!query.Execute())
 		var/err = query.ErrorMsg()
@@ -268,6 +269,7 @@
 		socks = query.item[63]
 		body_accessory = query.item[64]
 		gear = params2list(query.item[65])
+		autohiss_mode = text2num(query.item[66])
 
 	//Sanitize
 	var/datum/species/SP = all_species[species]
@@ -315,6 +317,7 @@
 	undershirt		= sanitize_text(undershirt, initial(undershirt))
 	backbag			= sanitize_text(backbag, initial(backbag))
 	b_type			= sanitize_text(b_type, initial(b_type))
+	autohiss_mode	= sanitize_integer(autohiss_mode, 0, 2, initial(autohiss_mode))
 
 	alternate_option = sanitize_integer(alternate_option, 0, 2, initial(alternate_option))
 	job_support_high = sanitize_integer(job_support_high, 0, 65535, initial(job_support_high))
@@ -427,7 +430,8 @@
 												speciesprefs='[speciesprefs]',
 												socks='[socks]',
 												body_accessory='[body_accessory]',
-												gear='[gearlist]'
+												gear='[gearlist]',
+												autohiss='[autohiss_mode]'
 												WHERE ckey='[C.ckey]'
 												AND slot='[default_slot]'"}
 												)
@@ -467,7 +471,7 @@
 											gen_record,
 											player_alt_titles,
 											disabilities, organ_data, rlimb_data, nanotrasen_relation, speciesprefs,
-											socks, body_accessory, gear)
+											socks, body_accessory, gear, autohiss)
 
 					VALUES
 											('[C.ckey]', '[default_slot]', '[sanitizeSQL(metadata)]', '[sanitizeSQL(real_name)]', '[be_random_name]','[gender]',
@@ -497,7 +501,7 @@
 											'[sanitizeSQL(gen_record)]',
 											'[playertitlelist]',
 											'[disabilities]', '[organlist]', '[rlimblist]', '[nanotrasen_relation]', '[speciesprefs]',
-											'[socks]', '[body_accessory]', '[gearlist]')
+											'[socks]', '[body_accessory]', '[gearlist]', '[autohiss_mode]')
 
 "}
 )

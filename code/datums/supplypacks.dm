@@ -250,6 +250,17 @@ var/list/all_supply_groups = list(supply_emergency,supply_security,supply_engine
 	cost = 10
 	containername = "disabler crate"
 
+/datum/supply_packs/security/forensics
+	name = "Forensics Crate"
+	contains = list(/obj/item/device/detective_scanner,
+					/obj/item/weapon/storage/box/evidence,
+					/obj/item/device/camera,
+					/obj/item/device/taperecorder,
+					/obj/item/toy/crayon/white,
+					/obj/item/clothing/head/det_hat)
+	cost = 20
+	containername = "forensics crate"
+
 ///// Armory stuff
 
 /datum/supply_packs/security/armory
@@ -326,6 +337,17 @@ var/list/all_supply_groups = list(supply_emergency,supply_security,supply_engine
 /////// Weapons: Specialist
 
 /datum/supply_packs/security/armory/ballistic
+	name = "Riot Shotguns Crate"
+	contains = list(/obj/item/weapon/gun/projectile/shotgun/riot,
+					/obj/item/weapon/gun/projectile/shotgun/riot,
+					/obj/item/weapon/gun/projectile/shotgun/riot,
+					/obj/item/weapon/storage/belt/bandolier,
+					/obj/item/weapon/storage/belt/bandolier,
+					/obj/item/weapon/storage/belt/bandolier)
+	cost = 50
+	containername = "riot shotgun crate"
+
+/datum/supply_packs/security/armory/ballisticauto
 	name = "Combat Shotguns Crate"
 	contains = list(/obj/item/weapon/gun/projectile/shotgun/automatic/combat,
 					/obj/item/weapon/gun/projectile/shotgun/automatic/combat,
@@ -333,13 +355,35 @@ var/list/all_supply_groups = list(supply_emergency,supply_security,supply_engine
 					/obj/item/weapon/storage/belt/bandolier,
 					/obj/item/weapon/storage/belt/bandolier,
 					/obj/item/weapon/storage/belt/bandolier)
-	cost = 20
+	cost = 80
 	containername = "combat shotgun crate"
+
+/datum/supply_packs/security/armory/buckshotammo
+	name = "Buckshot Ammo Crate"
+	contains = list(/obj/item/ammo_box/shotgun/buck,
+					/obj/item/weapon/storage/box/buck,
+					/obj/item/weapon/storage/box/buck,
+					/obj/item/weapon/storage/box/buck,
+					/obj/item/weapon/storage/box/buck,
+					/obj/item/weapon/storage/box/buck)
+	cost = 45
+	containername = "buckshot ammo crate"
+
+/datum/supply_packs/security/armory/slugammo
+	name = "Slug Ammo Crate"
+	contains = list(/obj/item/ammo_box/shotgun,
+					/obj/item/weapon/storage/box/slug,
+					/obj/item/weapon/storage/box/slug,
+					/obj/item/weapon/storage/box/slug,
+					/obj/item/weapon/storage/box/slug,
+					/obj/item/weapon/storage/box/slug)
+	cost = 45
+	containername = "slug ammo crate"
 
 /datum/supply_packs/security/armory/expenergy
 	name = "Energy Guns Crate"
 	contains = list(/obj/item/weapon/gun/energy/gun,
-					/obj/item/weapon/gun/energy/gun)			// Only two guns to keep costs down
+					/obj/item/weapon/gun/energy/gun)
 	cost = 25
 	containertype = /obj/structure/closet/crate/secure/plasma
 	containername = "energy gun crate"
@@ -862,6 +906,13 @@ var/list/all_supply_groups = list(supply_emergency,supply_security,supply_engine
 	containername = "tank transfer valves crate"
 	access = access_rd
 
+/datum/supply_packs/science/prototype
+	name = "Machine Prototype Crate"
+	contains = list(/obj/item/device/machineprototype)
+	cost = 80
+	containertype = /obj/structure/closet/crate/secure/scisec
+	containername = "machine prototype crate"
+	access = access_research
 
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////// Organic /////////////////////////////////////////
@@ -881,6 +932,7 @@ var/list/all_supply_groups = list(supply_emergency,supply_security,supply_engine
 					/obj/item/weapon/reagent_containers/food/condiment/soymilk,
 					/obj/item/weapon/reagent_containers/food/condiment/saltshaker,
 					/obj/item/weapon/reagent_containers/food/condiment/peppermill,
+					/obj/item/weapon/kitchen/rollingpin,
 					/obj/item/weapon/storage/fancy/egg_box,
 					/obj/item/weapon/reagent_containers/food/condiment/enzyme,
 					/obj/item/weapon/reagent_containers/food/condiment/sugar,

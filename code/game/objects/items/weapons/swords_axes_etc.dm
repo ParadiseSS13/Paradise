@@ -25,7 +25,7 @@
 	item_state = "classic_baton"
 	slot_flags = SLOT_BELT
 	force = 12 //9 hit crit
-	w_class = 3
+	w_class = WEIGHT_CLASS_NORMAL
 	var/cooldown = 0
 	var/on = 1
 
@@ -46,7 +46,7 @@
 			return
 		if(!isliving(target))
 			return
-		if(user.a_intent == I_HARM)
+		if(user.a_intent == INTENT_HARM)
 			if(!..()) return
 			if(!isrobot(target)) return
 		else
@@ -90,7 +90,7 @@
 	icon_state = "telebaton_0"
 	item_state = null
 	slot_flags = SLOT_BELT
-	w_class = 2
+	w_class = WEIGHT_CLASS_SMALL
 	needs_permit = 0
 	force = 0
 	on = 0
@@ -101,7 +101,7 @@
 		to_chat(user, "<span class ='warning'>You extend the baton.</span>")
 		icon_state = "telebaton_1"
 		item_state = "nullrod"
-		w_class = 4 //doesnt fit in backpack when its on for balance
+		w_class = WEIGHT_CLASS_BULKY //doesnt fit in backpack when its on for balance
 		force = 10 //stunbaton damage
 		attack_verb = list("smacked", "struck", "cracked", "beaten")
 	else
@@ -109,7 +109,7 @@
 		icon_state = "telebaton_0"
 		item_state = null //no sprite for concealment even when in hand
 		slot_flags = SLOT_BELT
-		w_class = 2
+		w_class = WEIGHT_CLASS_SMALL
 		force = 0 //not so robust now
 		attack_verb = list("hit", "poked")
 	if(istype(user,/mob/living/carbon/human))

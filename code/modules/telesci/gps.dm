@@ -4,9 +4,9 @@ var/list/GPS_list = list()
 	desc = "Helping lost spacemen find their way through the planets since 2016."
 	icon = 'icons/obj/telescience.dmi'
 	icon_state = "gps-c"
-	w_class = 2
+	w_class = WEIGHT_CLASS_SMALL
 	slot_flags = SLOT_BELT
-	origin_tech = "programming=2;engineering=2"
+	origin_tech = "materials=2;magnets=1;bluespace=2"
 	var/gpstag = "COM0"
 	var/emped = 0
 	var/turf/locked_location
@@ -32,7 +32,7 @@ var/list/GPS_list = list()
 	emped = FALSE
 	overlays -= "emp"
 	overlays += "working"
-	
+
 /obj/item/device/gps/AltClick(mob/user)
 	if(CanUseTopic(user, inventory_state) != STATUS_INTERACTIVE)
 		return 1 //user not valid to use gps
@@ -51,7 +51,7 @@ var/list/GPS_list = list()
 	if(!tracking)
 		to_chat(user, "<span class='warning'>[src] is turned off. Use alt+click to toggle it back on.</span>")
 		return
-		
+
 	var/obj/item/device/gps/t = ""
 	var/gps_window_height = 110 + GPS_list.len * 20 // Variable window height, depending on how many GPS units there are to show
 	if(emped)
@@ -82,12 +82,12 @@ var/list/GPS_list = list()
 /obj/item/device/gps/Topic(href, href_list)
 	if(..(state = inventory_state))
 		return 1
-		
+
 	if(href_list["tag"] )
 		var/a = input("Please enter desired tag.", name, gpstag) as text|null
 		if(!a || ..(state = inventory_state))
 			return 1
-			
+
 		a = uppertext(sanitize(copytext(a, 1, 5)))
 		if(src.loc == usr)
 			gpstag = a
@@ -112,8 +112,8 @@ var/list/GPS_list = list()
 	gpstag = "BORG0"
 	desc = "A mining cyborg internal positioning system. Used as a recovery beacon for damaged cyborg assets, or a collaboration tool for mining teams."
 	flags = NODROP
-	
-/obj/item/device/gps/internal	
+
+/obj/item/device/gps/internal
 	icon_state = null
 	flags = ABSTRACT
 	gpstag = "Eerie Signal"

@@ -372,7 +372,7 @@ var/record_id_num = 1001
 		temp = new/icon("icon" = 'icons/effects/species.dmi', "icon_state" = "[H.tail]_s")
 		preview_icon.Blend(temp, ICON_OVERLAY)
 
-	for(var/obj/item/organ/external/E in H.organs)
+	for(var/obj/item/organ/external/E in H.bodyparts)
 		preview_icon.Blend(E.get_icon(), ICON_OVERLAY)
 
 	// Skin tone

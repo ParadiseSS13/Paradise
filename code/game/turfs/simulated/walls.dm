@@ -25,6 +25,8 @@
 	var/engraving, engraving_quality //engraving on the wall
 
 	var/sheet_type = /obj/item/stack/sheet/metal
+	var/sheet_amount = 2
+	var/girder_type = /obj/structure/girder
 	var/obj/item/stack/sheet/builtin_sheet = null
 
 	canSmoothWith = list(
@@ -139,13 +141,11 @@
 	ChangeTurf(/turf/simulated/floor/plating)
 
 /turf/simulated/wall/proc/break_wall()
-	builtin_sheet.amount = 2
-	builtin_sheet.loc = src
-	return (new /obj/structure/girder(src))
+	new sheet_type(src, sheet_amount)
+	return new girder_type(src)
 
 /turf/simulated/wall/proc/devastate_wall()
-	builtin_sheet.amount = 2
-	builtin_sheet.loc = src
+	new sheet_type(src, sheet_amount)
 	new /obj/item/stack/sheet/metal(src)
 
 /turf/simulated/wall/ex_act(severity)
@@ -225,7 +225,7 @@
 			take_damage(rand(25, 75))
 			return
 
-	to_chat(M, "\blue You push the wall but nothing happens!")
+	to_chat(M, "<span class='notice'>You push the wall but nothing happens!</span>")
 	return
 
 /turf/simulated/wall/attack_hand(mob/user as mob)
@@ -398,12 +398,12 @@
 			playsound(get_turf(src), 'sound/weapons/circsawhit.ogg', 50, 1)
 			user.visible_message( \
 				"[user] starts drilling a hole in \the [src].", \
-				"\blue You start drilling a hole in \the [src].", \
+				"<span class='notice'>You start drilling a hole in \the [src].</span>", \
 				"You hear ratchet.")
 			if(do_after(user, 80 * W.toolspeed, target = src))
 				user.visible_message( \
 					"[user] drills a hole in \the [src] and pushes \a [P] into the void", \
-					"\blue You have finished drilling in \the [src] and push the [P] into the void.", \
+					"<span class='notice'>You have finished drilling in \the [src] and push the [P] into the void.</span>", \
 					"You hear ratchet.")
 
 				user.drop_item()

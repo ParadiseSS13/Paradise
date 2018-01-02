@@ -6,7 +6,7 @@
 	flags = CONDUCT
 	slot_flags = SLOT_BELT
 	throwforce = 1
-	w_class = 1
+	w_class = WEIGHT_CLASS_TINY
 	var/fire_sound = null						//What sound should play when this ammo is fired
 	var/caliber = null							//Which kind of guns it can be loaded into
 	var/projectile_type = null					//The bullet type to create when New() is called
@@ -87,7 +87,7 @@
 	item_state = "syringe_kit"
 	materials = list(MAT_METAL=30000)
 	throwforce = 2
-	w_class = 1
+	w_class = WEIGHT_CLASS_TINY
 	throw_speed = 4
 	throw_range = 10
 	var/list/stored_ammo = list()
@@ -103,8 +103,7 @@
 	update_icon()
 
 /obj/item/ammo_box/Destroy()
-	for(var/atom/A in stored_ammo)
-		qdel(A)
+	QDEL_LIST(stored_ammo)
 	stored_ammo = null
 	return ..()
 
@@ -193,4 +192,4 @@
 	var/turf_mag = get_turf(src)
 	for(var/obj/item/ammo in stored_ammo)
 		ammo.forceMove(turf_mag)
-		stored_ammo -= ammo	
+		stored_ammo -= ammo

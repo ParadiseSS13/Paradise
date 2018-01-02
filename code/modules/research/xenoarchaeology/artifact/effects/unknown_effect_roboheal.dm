@@ -10,7 +10,7 @@
 	if(user)
 		if(istype(user, /mob/living/silicon/robot))
 			var/mob/living/silicon/robot/R = user
-			to_chat(R, "\blue Your systems report damaged components mending by themselves!")
+			to_chat(R, "<span class='notice'>Your systems report damaged components mending by themselves!</span>")
 			R.adjustBruteLoss(rand(-10,-30))
 			R.adjustFireLoss(rand(-10,-30))
 			return 1
@@ -20,7 +20,7 @@
 		var/turf/T = get_turf(holder)
 		for(var/mob/living/silicon/robot/M in range(src.effectrange,T))
 			if(prob(10))
-				to_chat(M, "\blue SYSTEM ALERT: Beneficial energy field detected!")
+				to_chat(M, "<span class='notice'>SYSTEM ALERT: Beneficial energy field detected!</span>")
 			M.adjustBruteLoss(-1)
 			M.adjustFireLoss(-1)
 			M.updatehealth()
@@ -30,7 +30,7 @@
 	if(holder)
 		var/turf/T = get_turf(holder)
 		for(var/mob/living/silicon/robot/M in range(src.effectrange,T))
-			to_chat(M, "\blue SYSTEM ALERT: Structural damage has been repaired by energy pulse!")
+			to_chat(M, "<span class='notice'>SYSTEM ALERT: Structural damage has been repaired by energy pulse!</span>")
 			M.adjustBruteLoss(-10)
 			M.adjustFireLoss(-10)
 			M.updatehealth()

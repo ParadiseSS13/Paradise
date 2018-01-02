@@ -112,12 +112,14 @@ Used In File(s): \code\game\machinery\computer\security.dm
 		</div>
 		<h3><center>Menu</center></h3>
 		<div class="line">{{:helper.link('Record Maintenance', 'wrench', {'screen' : 2})}}</div>
+		<div class="line">{{:helper.link('Print Cell Log', 'print', {'printlogs' : 1})}}</div>
 		<div class="line">{{:helper.link('Logout', 'lock', {'logout' : 1})}}</div>
 	{{else data.screen == 2}} <!-- SEC_DATA_MAINT -->
 		<h3>Records Maintenance</h3>
 		<div class="line">{{:helper.link('Backup To Disk', 'download', {'back' : 1}, 'disabled')}}</div>
-		<div class="line">{{:helper.link('Upload From disk', 'upload', {'u_load' : 1}, 'disabled')}}</div>
+		<div class="line">{{:helper.link('Upload From Disk', 'upload', {'u_load' : 1}, 'disabled')}}</div>
 		<div class="line">{{:helper.link('Delete All Records', 'trash', {'del_all' : 1})}}</div>
+		<div class="line">{{:helper.link('Delete All Cell Logs', 'trash', {'del_alllogs' : 1})}}</div>
 		<div class="line">{{:helper.link('Back', 'arrow-left', {'screen' : 1})}}</div>
 	{{else data.screen == 3}} <!-- SEC_DATA_RECORD -->
 		<h3><center>Security Record</center></h3>

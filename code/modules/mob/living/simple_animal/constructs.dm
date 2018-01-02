@@ -10,7 +10,7 @@
 	response_harm   = "punches"
 	icon_dead = "shade_dead"
 	speed = 0
-	a_intent = I_HARM
+	a_intent = INTENT_HARM
 	stop_automated_movement = 1
 	status_flags = CANPUSH
 	attack_sound = 'sound/weapons/punch1.ogg'
@@ -302,12 +302,13 @@
 	melee_damage_lower = 1
 	melee_damage_upper = 5
 	attacktext = "prods"
-	speed = 0
-	environment_smash = 1
+	environment_smash = 3
 	see_in_dark = 8
 	attack_sound = 'sound/weapons/tap.ogg'
 	const_type = "harvester"
-	construct_spells = list(/obj/effect/proc_holder/spell/targeted/smoke/disable)
+	construct_spells = list(/obj/effect/proc_holder/spell/aoe_turf/conjure/wall,
+							/obj/effect/proc_holder/spell/aoe_turf/conjure/floor,
+							/obj/effect/proc_holder/spell/targeted/smoke/disable)
 	retreat_distance = 2 //AI harvesters will move in and out of combat, like wraiths, but shittier
 	playstyle_string = "<B>You are a Harvester. You are not strong, but your powers of domination will assist you in your role: \
 						Bring those who still cling to this world of illusion back to the master so they may know Truth.</B>"
@@ -319,7 +320,7 @@
 
 /mob/living/simple_animal/hostile/construct/harvester/hostile //actually hostile, will move around, hit things
 	AIStatus = AI_ON
-
+	environment_smash = 1 //only token destruction, don't smash the cult wall NO STOP
 
 ////////////////Glow////////////////////
 /mob/living/simple_animal/hostile/construct/proc/updateglow()

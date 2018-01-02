@@ -16,7 +16,7 @@
 		if(2)
 /*
 			if(affected_mob.sleeping && prob(40))  //removed until sleeping is fixed
-				to_chat(affected_mob, "\blue You feel better.")
+				to_chat(affected_mob, "<span class='notice'>You feel better.</span>")
 				cure()
 				return
 */
@@ -39,7 +39,7 @@
 		if(3)
 /*
 			if(affected_mob.sleeping && prob(25))  //removed until sleeping is fixed
-				to_chat(affected_mob, "\blue You feel better.")
+				to_chat(affected_mob, "<span class='notice'>You feel better.</span>")
 				cure()
 				return
 */

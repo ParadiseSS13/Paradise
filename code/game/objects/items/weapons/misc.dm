@@ -30,7 +30,7 @@
 	flags = CONDUCT
 	force = 5.0
 	throwforce = 7.0
-	w_class = 2
+	w_class = WEIGHT_CLASS_SMALL
 	materials = list(MAT_METAL=50)
 	attack_verb = list("bludgeoned", "whacked", "disciplined", "thrashed", "Vaudevilled")
 
@@ -43,7 +43,7 @@
 	icon = 'icons/obj/items.dmi'
 	icon_state = "c_tube"
 	throwforce = 1
-	w_class = 1
+	w_class = WEIGHT_CLASS_TINY
 	throw_speed = 4
 	throw_range = 5
 
@@ -65,7 +65,7 @@
 	var/data = ""
 	var/base_url = "http://svn.slurm.us/public/spacestation13/misc/game_kit"
 	item_state = "sheet-metal"
-	w_class = 5
+	w_class = WEIGHT_CLASS_HUGE
 */
 
 /obj/item/weapon/gift
@@ -76,7 +76,7 @@
 	var/size = 3.0
 	var/obj/item/gift = null
 	item_state = "gift"
-	w_class = 4
+	w_class = WEIGHT_CLASS_BULKY
 
 /obj/item/weapon/kidanglobe
 	name = "Kidan homeworld globe"
@@ -134,7 +134,7 @@
 	throwforce = 2
 	throw_speed = 1
 	throw_range = 4
-	w_class = 2
+	w_class = WEIGHT_CLASS_SMALL
 	attack_verb = list("called", "rang")
 	hitsound = 'sound/weapons/ring.ogg'
 	var/cooldown = 0

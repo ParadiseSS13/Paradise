@@ -103,6 +103,8 @@ var/global/nologevent = 0
 		<A href='?_src_=holder;narrateto=\ref[M]'>Narrate to</A> |
 		<A href='?_src_=holder;subtlemessage=\ref[M]'>Subtle message</A>
 	"}
+	if(check_rights(R_EVENT, 0))
+		body += {" | <A href='?_src_=holder;Bless=[M.UID()]'>Bless</A> | <A href='?_src_=holder;Smite=[M.UID()]'>Smite</A>"}
 
 	if(M.client)
 		if(!istype(M, /mob/new_player))
@@ -844,8 +846,8 @@ var/global/nologevent = 0
 		to_chat(world, "<B>Guests may no longer enter the game.</B>")
 	else
 		to_chat(world, "<B>Guests may now enter the game.</B>")
-	log_admin("[key_name(usr)] toggled guests game entering [guests_allowed?"":"dis"]allowed.")
-	message_admins("\blue [key_name_admin(usr)] toggled guests game entering [guests_allowed?"":"dis"]allowed.", 1)
+	log_admin("[key_name(usr)] toggled guests game entering [guests_allowed ? "" : "dis"]allowed.")
+	message_admins("<span class='notice'>[key_name_admin(usr)] toggled guests game entering [guests_allowed ? "" : "dis"]allowed.</span>", 1)
 	feedback_add_details("admin_verb","TGU") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
 /datum/admins/proc/output_ai_laws()
@@ -907,11 +909,11 @@ var/gamma_ship_location = 1 // 0 = station , 1 = space
 		toArea = locate(/area/shuttle/gamma/space)
 	fromArea.move_contents_to(toArea)
 
+	for(var/obj/machinery/mech_bay_recharge_port/P in toArea)
+		P.update_recharge_turf()
+
 	for(var/obj/machinery/power/apc/A in toArea)
 		A.init()
-
-	for(var/obj/machinery/alarm/A in toArea)
-		A.first_run()
 
 	if(gamma_ship_location)
 		gamma_ship_location = 0

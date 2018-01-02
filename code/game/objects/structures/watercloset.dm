@@ -106,10 +106,10 @@
 				to_chat(user, "<span class='warning'>You need a tighter grip!</span>")
 
 	if(cistern)
-		if(I.w_class > 3)
+		if(I.w_class > WEIGHT_CLASS_NORMAL)
 			to_chat(user, "<span class='warning'>[I] does not fit!</span>")
 			return
-		if(w_items + I.w_class > 5)
+		if(w_items + I.w_class > WEIGHT_CLASS_HUGE)
 			to_chat(user, "<span class='warning'>The cistern is full!</span>")
 			return
 		if(!user.drop_item())
@@ -120,6 +120,15 @@
 		to_chat(user, "<span class='notice'>You carefully place [I] into the cistern.</span>")
 		return
 
+/obj/structure/toilet/secret
+	var/secret_type = null
+
+/obj/structure/toilet/secret/New()
+	. = ..()
+	if(secret_type)
+		var/obj/item/secret = new secret_type(src)
+		secret.desc += " It's a secret!"
+		w_items += secret.w_class
 
 
 /obj/structure/urinal
@@ -392,9 +401,9 @@
 
 	if(ishuman(user))
 		var/mob/living/carbon/human/H = user
-		var/obj/item/organ/external/temp = H.organs_by_name["r_hand"]
+		var/obj/item/organ/external/temp = H.bodyparts_by_name["r_hand"]
 		if(user.hand)
-			temp = H.organs_by_name["l_hand"]
+			temp = H.bodyparts_by_name["l_hand"]
 		if(temp && !temp.is_usable())
 			to_chat(user, "<span class='notice'>You try to move your [temp.name], but cannot!")
 			return

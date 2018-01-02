@@ -17,10 +17,8 @@
 	med_hud_set_status()
 
 /mob/living/carbon/Destroy()
-	for(var/atom/movable/guts in internal_organs)
-		qdel(guts)
-	for(var/atom/movable/food in stomach_contents)
-		qdel(food)
+	QDEL_LIST(internal_organs)
+	QDEL_LIST(stomach_contents)
 	remove_from_all_data_huds()
 	return ..()
 
@@ -36,9 +34,9 @@
 	if(.)
 		if(nutrition && stat != DEAD)
 			nutrition -= hunger_drain / 10
-			if(m_intent == "run")
+			if(m_intent == MOVE_INTENT_RUN)
 				nutrition -= hunger_drain / 10
-		if((FAT in mutations) && m_intent == "run" && bodytemperature <= 360)
+		if((FAT in mutations) && m_intent == MOVE_INTENT_RUN && bodytemperature <= 360)
 			bodytemperature += 2
 
 		// Moving around increases germ_level faster
@@ -56,7 +54,7 @@
 		last_stomach_attack = world.time
 		for(var/mob/M in hearers(4, src))
 			if(M.client)
-				M.show_message(text("\red You hear something rumbling inside [src]'s stomach..."), 2)
+				M.show_message(text("<span class='warning'>You hear something rumbling inside [src]'s stomach...</span>"), 2)
 
 		var/obj/item/I = user.get_active_hand()
 		if(I && I.force)
@@ -76,7 +74,7 @@
 
 			for(var/mob/M in viewers(user, null))
 				if(M.client)
-					M.show_message(text("\red <B>[user] attacks [src]'s stomach wall with the [I.name]!"), 2)
+					M.show_message(text("<span class='warning'><B>[user] attacks [src]'s stomach wall with the [I.name]!</span>"), 2)
 			playsound(user.loc, 'sound/effects/attackblob.ogg', 50, 1)
 
 			if(prob(src.getBruteLoss() - 50))
@@ -143,16 +141,14 @@
 		return 0
 	if(NO_SHOCK in mutations) //shockproof
 		return 0
-
+	if(tesla_shock && tesla_ignore)
+		return FALSE
 	shock_damage *= siemens_coeff
 	if(shock_damage<1 && !override)
 		return 0
 	if(reagents.has_reagent("teslium"))
 		shock_damage *= 1.5 //If the mob has teslium in their body, shocks are 50% more damaging!
 	take_overall_damage(0,shock_damage, used_weapon = "Electrocution")
-	//src.burn_skin(shock_damage)
-	//src.adjustFireLoss(shock_damage) //burn_skin will do this for us
-	//src.updatehealth()
 	visible_message(
 		"<span class='danger'>[src] was shocked by \the [source]!</span>", \
 		"<span class='userdanger'>You feel a powerful shock coursing through your body!</span>", \
@@ -217,11 +213,11 @@
 		if(src == M && istype(src, /mob/living/carbon/human))
 			var/mob/living/carbon/human/H = src
 			src.visible_message( \
-				text("\blue [src] examines [].",src.gender==MALE?"himself":"herself"), \
-				"\blue You check yourself for injuries." \
+				text("<span class='notice'>[src] examines [].</span>",src.gender==MALE?"himself":"herself"), \
+				"<span class='notice'>You check yourself for injuries.</span>" \
 				)
 
-			for(var/obj/item/organ/external/org in H.organs)
+			for(var/obj/item/organ/external/org in H.bodyparts)
 				var/status = ""
 				var/brutedamage = org.brute_dam
 				var/burndamage = org.burn_dam
@@ -247,7 +243,11 @@
 					status = "weirdly shapen."
 				if(status == "")
 					status = "OK"
-				src.show_message(text("\t []My [] is [].",status=="OK"?"\blue ":"\red ",org.name,status),1)
+				src.show_message(text("\t []My [] is [].",status=="OK"?"<span class='notice'></span>":"<span class='warning'></span>",org.name,status),1)
+
+				for(var/obj/item/I in org.embedded_objects)
+					to_chat(src, "\t <a href='byond://?src=[UID()];embedded_object=[I.UID()];embedded_limb=[org.UID()]' class='warning'>There is \a [I] embedded in your [org.name]!</a>")
+
 			if(staminaloss)
 				if(staminaloss > 30)
 					to_chat(src, "<span class='info'>You're completely exhausted.</span>")
@@ -496,6 +496,29 @@ var/list/ventcrawl_machinery = list(/obj/machinery/atmospherics/unary/vent_pump,
 
 //Throwing stuff
 
+/mob/living/carbon/throw_impact(atom/hit_atom, throwingdatum)
+	. = ..()
+	var/hurt = TRUE
+	/*if(istype(throwingdatum, /datum/thrownthing))
+		var/datum/thrownthing/D = throwingdatum
+		if(isrobot(D.thrower))
+			var/mob/living/silicon/robot/R = D.thrower
+			if(!R.emagged)
+				hurt = FALSE*/
+	if(hit_atom.density && isturf(hit_atom))
+		if(hurt)
+			Weaken(1)
+			take_organ_damage(10)
+	if(iscarbon(hit_atom) && hit_atom != src)
+		var/mob/living/carbon/victim = hit_atom
+		if(hurt)
+			victim.take_organ_damage(10)
+			take_organ_damage(10)
+			victim.Weaken(1)
+			Weaken(1)
+			visible_message("<span class='danger'>[src] crashes into [victim], knocking them both over!</span>", "<span class='userdanger'>You violently crash into [victim]!</span>")
+		playsound(src, 'sound/weapons/punch1.ogg', 50, 1)
+
 /mob/living/carbon/proc/toggle_throw_mode()
 	if(in_throw_mode)
 		throw_mode_off()
@@ -516,17 +539,18 @@ var/list/ventcrawl_machinery = list(/obj/machinery/atmospherics/unary/vent_pump,
 	return
 
 /mob/living/carbon/throw_item(atom/target)
-	throw_mode_off()
-	if(!target || !isturf(loc))
-		return
-	if(istype(target, /obj/screen))
+	if(!target || !isturf(loc) || istype(target, /obj/screen))
+		throw_mode_off()
 		return
 
-	var/atom/movable/thrown_thing
 	var/obj/item/I = src.get_active_hand()
 
-	if(!I || (I.flags & NODROP))
+	if(!I || I.override_throw(src, target) || (I.flags & NODROP))
+		throw_mode_off()
 		return
+
+	throw_mode_off()
+	var/atom/movable/thrown_thing
 
 	if(istype(I, /obj/item/weapon/grab))
 		var/obj/item/weapon/grab/G = I
@@ -630,9 +654,10 @@ var/list/ventcrawl_machinery = list(/obj/machinery/atmospherics/unary/vent_pump,
 								"<span class='userdanger'>[usr] tries to [internal ? "close" : "open"] the valve on [src]'s [ITEM].</span>")
 
 				var/no_mask
-				if(!(wear_mask && wear_mask.flags & AIRTIGHT))
-					if(!(head && head.flags & AIRTIGHT))
-						no_mask = 1
+				if(!get_organ_slot("breathing_tube"))
+					if(!(wear_mask && wear_mask.flags & AIRTIGHT))
+						if(!(head && head.flags & AIRTIGHT))
+							no_mask = 1
 				if(no_mask)
 					to_chat(usr, "<span class='warning'>[src] is not wearing a suitable mask or helmet!</span>")
 					return
@@ -643,9 +668,10 @@ var/list/ventcrawl_machinery = list(/obj/machinery/atmospherics/unary/vent_pump,
 						update_internals_hud_icon(0)
 					else
 						var/no_mask2
-						if(!(wear_mask && wear_mask.flags & AIRTIGHT))
-							if(!(head && head.flags & AIRTIGHT))
-								no_mask2 = 1
+						if(!get_organ_slot("breathing_tube"))
+							if(!(wear_mask && wear_mask.flags & AIRTIGHT))
+								if(!(head && head.flags & AIRTIGHT))
+									no_mask2 = 1
 						if(no_mask2)
 							to_chat(usr, "<span class='warning'>[src] is not wearing a suitable mask or helmet!</span>")
 							return
@@ -810,6 +836,10 @@ var/list/ventcrawl_machinery = list(/obj/machinery/atmospherics/unary/vent_pump,
 				legcuffed = null
 				update_inv_legcuffed()
 				return
+			else
+				unEquip(I)
+				I.dropped()
+				return
 			return 1
 		else
 			to_chat(src, "<span class='warning'>You fail to remove [I]!</span>")
@@ -858,8 +888,10 @@ var/list/ventcrawl_machinery = list(/obj/machinery/atmospherics/unary/vent_pump,
 
 /mob/living/carbon/get_standard_pixel_y_offset(lying = 0)
 	if(lying)
-		if(buckled)	return initial(pixel_y)
-		return -6
+		if(buckled)
+			return buckled.buckle_offset //tg just has this whole block removed, always returning -6. Paradise is special.
+		else
+			return -6
 	else
 		return initial(pixel_y)
 
@@ -913,7 +945,7 @@ var/list/ventcrawl_machinery = list(/obj/machinery/atmospherics/unary/vent_pump,
 
 
 /mob/living/carbon/proc/slip(var/description, var/stun, var/weaken, var/tilesSlipped, var/walkSafely, var/slipAny)
-	if(flying || buckled || (walkSafely && m_intent == "walk"))
+	if(flying || buckled || (walkSafely && m_intent == MOVE_INTENT_WALK))
 		return 0
 	if((lying) && (!(tilesSlipped)))
 		return 0
@@ -926,7 +958,7 @@ var/list/ventcrawl_machinery = list(/obj/machinery/atmospherics/unary/vent_pump,
 		for(var/t = 0, t<=tilesSlipped, t++)
 			spawn (t) step(src, src.dir)
 	stop_pulling()
-	to_chat(src, "<span class='notice'>You slipped on the [description]!</span>")
+	to_chat(src, "<span class='notice'>You slipped on [description]!</span>")
 	playsound(src.loc, 'sound/misc/slip.ogg', 50, 1, -3)
 	if(stun)
 		Stun(stun)

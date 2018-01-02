@@ -126,12 +126,12 @@
 /obj/item/weapon/circuitboard/cryopodcontrol
 	name = "Circuit board (Cryogenic Oversight Console)"
 	build_path = "/obj/machinery/computer/cryopod"
-	origin_tech = "programming=3"
+	origin_tech = "programming=1"
 
 /obj/item/weapon/circuitboard/robotstoragecontrol
 	name = "Circuit board (Robotic Storage Console)"
 	build_path = "/obj/machinery/computer/cryopod/robot"
-	origin_tech = "programming=3"
+	origin_tech = "programming=1"
 
 //Decorative structures to go alongside cryopods.
 /obj/structure/cryofeed
@@ -316,9 +316,7 @@
 
 		if(istype(W,/obj/item/device/pda))
 			var/obj/item/device/pda/P = W
-			if(P.id)
-				qdel(P.id)
-				P.id = null
+			QDEL_NULL(P.id)
 			qdel(P)
 
 		if(!preserve)
@@ -421,8 +419,7 @@
 			occupant.ghostize(0) // Players despawned too early may not re-enter the game
 		else
 			occupant.ghostize(1)
-	qdel(occupant)
-	occupant = null
+	QDEL_NULL(occupant)
 	name = initial(name)
 
 

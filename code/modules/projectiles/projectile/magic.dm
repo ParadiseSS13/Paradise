@@ -162,7 +162,7 @@ proc/wabbajack(mob/living/M)
 				if(ishuman(M))
 					var/mob/living/carbon/human/H = M
 					// Make sure there are no organs or limbs to drop
-					for(var/t in H.organs)
+					for(var/t in H.bodyparts)
 						qdel(t)
 					for(var/i in H.internal_organs)
 						qdel(i)
@@ -243,7 +243,7 @@ proc/wabbajack(mob/living/M)
 			M.create_attack_log("<font color='orange'>[M.real_name] ([M.ckey]) became [new_mob.real_name].</font>")
 			new_mob.attack_log = M.attack_log
 
-			new_mob.a_intent = I_HARM
+			new_mob.a_intent = INTENT_HARM
 			if(M.mind)
 				M.mind.transfer_to(new_mob)
 			else

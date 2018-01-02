@@ -71,3 +71,10 @@
 #define PROGRAM_STATE_KILLED 0
 #define PROGRAM_STATE_BACKGROUND 1
 #define PROGRAM_STATE_ACTIVE 2
+
+// Demotion Console (card/minor/*) departments
+#define TARGET_DEPT_GENERIC 1
+#define TARGET_DEPT_SEC 2
+#define TARGET_DEPT_MED 3
+#define TARGET_DEPT_SCI 4
+#define TARGET_DEPT_ENG 5

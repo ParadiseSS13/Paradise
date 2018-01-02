@@ -55,7 +55,7 @@ mob/living/carbon/human/proc/custom_pain(var/message, var/flash_strength)
 		return
 	var/msg = "<span class='danger'>[message]</span>"
 	if(flash_strength >= 1)
-		msg = "\red <font size=3><b>[message]</b></font>"
+		msg = "<span class='warning'><font size=3><b>[message]</b></font></span>"
 
 	// Anti message spam checks
 	if(msg && ((msg != last_pain_message) || (world.time >= next_pain_time)))
@@ -92,7 +92,7 @@ mob/living/carbon/human/proc/handle_pain()
 		return
 	var/maxdam = 0
 	var/obj/item/organ/external/damaged_organ = null
-	for(var/obj/item/organ/external/E in organs)
+	for(var/obj/item/organ/external/E in bodyparts)
 		if(E.status & ORGAN_DEAD|ORGAN_ROBOT) continue
 		var/dam = E.get_damage()
 		// make the choice of the organ depend on damage,

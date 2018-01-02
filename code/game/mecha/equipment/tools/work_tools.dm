@@ -51,7 +51,7 @@
 	else if(istype(target,/mob/living))
 		var/mob/living/M = target
 		if(M.stat == DEAD) return
-		if(chassis.occupant.a_intent == I_HARM)
+		if(chassis.occupant.a_intent == INTENT_HARM)
 			M.take_overall_damage(dam_force)
 			if(!M)
 				return
@@ -101,11 +101,11 @@
 	else if(istype(target,/mob/living))
 		var/mob/living/M = target
 		if(M.stat == DEAD) return
-		if(chassis.occupant.a_intent == I_HARM)
+		if(chassis.occupant.a_intent == INTENT_HARM)
 			target.visible_message("<span class='danger'>[chassis] destroys [target] in an unholy fury.</span>",
 								"<span class='userdanger'>[chassis] destroys [target] in an unholy fury.</span>")
 			M.gib()
-		/*if(chassis.occupant.a_intent == I_DISARM)
+		/*if(chassis.occupant.a_intent == INTENT_DISARM)
 			target.visible_message("<span class='danger'>[chassis] rips [target]'s arms off.</span>",
 								"<span class='userdanger'>[chassis] rips [target]'s arms off.</span>")*/
 		else
@@ -188,7 +188,7 @@
 	name = "Mounted RCD"
 	desc = "An exosuit-mounted Rapid Construction Device. (Can be attached to: Any exosuit)"
 	icon_state = "mecha_rcd"
-	origin_tech = "materials=4;bluespace=3;magnets=4;powerstorage=4"
+	origin_tech = "materials=4;bluespace=3;magnets=4;powerstorage=4;engineering=4"
 	equip_cooldown = 10
 	energy_drain = 250
 	range = MELEE|RANGED
@@ -287,7 +287,7 @@
 	name = "mounted MRCD"
 	desc = "An exosuit-mounted Mime Rapid Construction Device. (Can be attached to: Reticence)"
 	icon_state = "mecha_rcd"
-	origin_tech = "materials=4;bluespace=3;magnets=4;powerstorage=4"
+	origin_tech = "materials=4;bluespace=3;magnets=4;powerstorage=4;engineering=4"
 	equip_cooldown = 10
 	energy_drain = 250
 	range = MELEE|RANGED

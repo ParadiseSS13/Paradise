@@ -261,7 +261,7 @@
 		I.loc = src
 		coin = I
 		categories |= CAT_COIN
-		to_chat(user, "\blue You insert the [I] into the [src]")
+		to_chat(user, "<span class='notice'>You insert the [I] into the [src]</span>")
 		nanomanager.update_uis(src)
 		return
 	else if(istype(I, refill_canister) && refill_canister != null)
@@ -546,12 +546,10 @@
 				to_chat(user, "<span class='notice'>You successfully pull the coin out before the [src] could swallow it.</span>")
 			else
 				to_chat(user, "<span class='notice'>You weren't able to pull the coin out fast enough, the machine ate it, string and all.</span>")
-				coin = null
-				qdel(coin)
+				QDEL_NULL(coin)
 				categories &= ~CAT_COIN
 		else
-			coin = null
-			qdel(coin)
+			QDEL_NULL(coin)
 			categories &= ~CAT_COIN
 
 	R.amount--
@@ -574,7 +572,7 @@
 
 /obj/machinery/vending/proc/stock(var/datum/data/vending_product/R, var/mob/user)
 	if(panel_open)
-		to_chat(user, "\blue You stock the [src] with \a [R.product_name]")
+		to_chat(user, "<span class='notice'>You stock the [src] with \a [R.product_name]</span>")
 		R.amount++
 	updateUsrDialog()
 
@@ -1066,7 +1064,9 @@
 					/obj/item/clothing/shoes/singerb = 1,/obj/item/clothing/under/singerb = 1,
 					/obj/item/clothing/suit/hooded/carp_costume = 1,/obj/item/clothing/suit/hooded/bee_costume = 1,
 					/obj/item/clothing/suit/snowman = 1,/obj/item/clothing/head/snowman = 1,
-					/obj/item/clothing/head/cueball = 1,/obj/item/clothing/under/scratch = 1)
+					/obj/item/clothing/head/cueball = 1,/obj/item/clothing/under/scratch = 1,
+					/obj/item/clothing/under/victdress = 1, /obj/item/clothing/under/victdress/red = 1, /obj/item/clothing/suit/victcoat = 1, /obj/item/clothing/suit/victcoat/red = 1,
+					/obj/item/clothing/under/victsuit = 1, /obj/item/clothing/under/victsuit/redblk = 1, /obj/item/clothing/under/victsuit/red = 1, /obj/item/clothing/suit/tailcoat = 1)
 	contraband = list(/obj/item/clothing/suit/judgerobe = 1,/obj/item/clothing/head/powdered_wig = 1,/obj/item/weapon/gun/magic/wand = 1, /obj/item/clothing/mask/balaclava=1, /obj/item/clothing/mask/horsehead = 2)
 	premium = list(/obj/item/clothing/suit/hgpirate = 1, /obj/item/clothing/head/hgpiratecap = 1, /obj/item/clothing/head/helmet/roman = 1, /obj/item/clothing/head/helmet/roman/legionaire = 1, /obj/item/clothing/under/roman = 1, /obj/item/clothing/shoes/roman = 1, /obj/item/weapon/shield/riot/roman = 1)
 	refill_canister = /obj/item/weapon/vending_refill/autodrobe

@@ -118,7 +118,7 @@
 
 		//Bleeding out
 		var/blood_max = 0
-		for(var/obj/item/organ/external/temp in organs)
+		for(var/obj/item/organ/external/temp in bodyparts)
 			if(!(temp.status & ORGAN_BLEEDING) || temp.status & ORGAN_ROBOT)
 				continue
 			for(var/datum/wound/W in temp.wounds)

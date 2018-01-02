@@ -9,9 +9,6 @@ var/datum/controller/process/diseases/disease_master
 	schedule_interval = 20 // every 2 seconds
 	start_delay = 7
 	log_startup_progress("Disease controller starting.")
-	if(disease_master)
-		qdel(disease_master) //only one mob master
-	disease_master = src
 
 	register_diseases() //register all pre-round diseases created
 
@@ -37,6 +34,8 @@ var/datum/controller/process/diseases/disease_master
 		else
 			catchBadType(thing)
 			processing_diseases.Remove(thing)
+
+DECLARE_GLOBAL_CONTROLLER(diseases, disease_master)
 
 /datum/controller/process/diseases/proc/register_diseases()
 	for(var/datum/disease/D in world)

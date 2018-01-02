@@ -171,7 +171,7 @@ var/global/list/damage_icon_parts = list()
 	// first check whether something actually changed about damage appearance
 	var/damage_appearance = ""
 
-	for(var/obj/item/organ/external/O in organs)
+	for(var/obj/item/organ/external/O in bodyparts)
 		if(O.is_stump())
 			continue
 		if(O.status & ORGAN_DESTROYED) damage_appearance += "d"
@@ -189,7 +189,7 @@ var/global/list/damage_icon_parts = list()
 	var/image/standing_image = new /image("icon" = standing)
 
 	// blend the individual damage states with our icons
-	for(var/obj/item/organ/external/O in organs)
+	for(var/obj/item/organ/external/O in bodyparts)
 		if(O.is_stump())
 			continue
 		if(!(O.status & ORGAN_DESTROYED))
@@ -240,7 +240,7 @@ var/global/list/damage_icon_parts = list()
 		icon_key += "#000000"
 
 	for(var/organ_tag in species.has_limbs)
-		var/obj/item/organ/external/part = organs_by_name[organ_tag]
+		var/obj/item/organ/external/part = bodyparts_by_name[organ_tag]
 		if(isnull(part) || part.is_stump() || (part.status & ORGAN_DESTROYED))
 			icon_key += "0"
 		else if(part.status & ORGAN_ROBOT)
@@ -269,7 +269,7 @@ var/global/list/damage_icon_parts = list()
 		var/obj/item/organ/external/chest = get_organ("chest")
 		base_icon = chest.get_icon(skeleton)
 
-		for(var/obj/item/organ/external/part in organs)
+		for(var/obj/item/organ/external/part in bodyparts)
 			var/icon/temp = part.get_icon(skeleton)
 			//That part makes left and right legs drawn topmost and lowermost when human looks WEST or EAST
 			//And no change in rendering for other parts (they icon_position is 0, so goes to 'else' part)
@@ -638,7 +638,7 @@ var/global/list/damage_icon_parts = list()
 			if(w_uniform.flags_size & ONESIZEFITSALL)
 				standing.icon	= 'icons/mob/uniform_fat.dmi'
 			else
-				to_chat(src, "\red You burst out of \the [w_uniform]!")
+				to_chat(src, "<span class='warning'>You burst out of \the [w_uniform]!</span>")
 				unEquip(w_uniform)
 				return
 		else
@@ -957,15 +957,14 @@ var/global/list/damage_icon_parts = list()
 			if(wear_suit.flags_size & ONESIZEFITSALL)
 				standing = image("icon" = 'icons/mob/suit_fat.dmi', "icon_state" = "[wear_suit.icon_state]")
 			else
-				to_chat(src, "\red You burst out of \the [wear_suit]!")
+				to_chat(src, "<span class='warning'>You burst out of \the [wear_suit]!</span>")
 				unEquip(wear_suit)
 				return
 		else
 			standing = image("icon" = 'icons/mob/suit.dmi', "icon_state" = "[wear_suit.icon_state]")
 
 
-		if( istype(wear_suit, /obj/item/clothing/suit/straight_jacket) )
-			unEquip(handcuffed)
+		if(wear_suit.breakouttime)
 			drop_l_hand()
 			drop_r_hand()
 
@@ -1093,8 +1092,8 @@ var/global/list/damage_icon_parts = list()
 	if(legcuffed)
 		overlays_standing[LEGCUFF_LAYER]	= image("icon" = 'icons/mob/mob.dmi', "icon_state" = "legcuff1")
 		throw_alert("legcuffed", /obj/screen/alert/restrained/legcuffed, new_master = legcuffed)
-		if(m_intent != "walk")
-			m_intent = "walk"
+		if(m_intent != MOVE_INTENT_WALK)
+			m_intent = MOVE_INTENT_WALK
 			if(hud_used && hud_used.move_intent)
 				hud_used.move_intent.icon_state = "walking"
 
@@ -1333,7 +1332,7 @@ var/global/list/damage_icon_parts = list()
 	if(update_icons)   update_icons()
 
 /mob/living/carbon/human/proc/force_update_limbs()
-	for(var/obj/item/organ/external/O in organs)
+	for(var/obj/item/organ/external/O in bodyparts)
 		O.sync_colour_to_human(src)
 	update_body(0)
 

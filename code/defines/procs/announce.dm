@@ -2,8 +2,6 @@
 /var/datum/announcement/priority/priority_announcement = new(do_log = 0)
 /var/datum/announcement/priority/command/command_announcement = new(do_log = 0, do_newscast = 0)
 /var/datum/announcement/priority/command/event/event_announcement = new(do_log = 0, do_newscast = 0)
-/var/datum/announcement/priority/enemy/communications_announcement = new(do_log = 0, do_newscast = 0)
-
 
 /datum/announcement
 	var/title = "Attention"
@@ -36,16 +34,10 @@
 	admin_announcement = 1
 	title = "[command_name()] Update"
 	announcement_type = "[command_name()] Update"
-	
+
 /datum/announcement/priority/command/event/New(var/do_log = 1, var/new_sound = sound('sound/misc/notice2.ogg'), var/do_newscast = 0)
 	..(do_log, new_sound, do_newscast)
 	admin_announcement = 0
-
-/datum/announcement/priority/enemy/New(var/do_log = 1, var/new_sound = sound('sound/AI/intercept2.ogg'), var/do_newscast = 0)
-	..(do_log, new_sound, do_newscast)
-	admin_announcement = 1
-	title = "[command_name()] Update"
-	announcement_type = "Enemy Communications"
 
 /datum/announcement/priority/security/New(var/do_log = 1, var/new_sound = sound('sound/misc/notice2.ogg'), var/do_newscast = 0)
 	..(do_log, new_sound, do_newscast)
@@ -55,44 +47,44 @@
 /datum/announcement/proc/Announce(var/message as text, var/new_title = "", var/new_sound = null, var/do_newscast = newscast, var/msg_sanitized = 0, var/from, var/msg_language)
 	if(!message)
 		return
-		
+
 	var/tmp/message_title = new_title ? new_title : title
 	var/tmp/message_sound = new_sound ? sound(new_sound) : sound
 
 	if(!msg_sanitized)
 		message = trim_strip_html_properly(message, allow_lines = 1)
 	message_title = html_encode(message_title)
-	
+
 	var/message_announcer = null
 	if(announcer)
 		message_announcer = html_encode(announcer)
-		
+
 	var/datum/language/message_language = all_languages[msg_language ? msg_language : language]
-	
+
 	var/list/combined_receivers = Get_Receivers(message_language)
 	var/list/receivers = combined_receivers[1]
 	var/list/garbled_receivers = combined_receivers[2]
-	
+
 	var/formatted_message = Format_Message(message, message_title, message_announcer, from)
 	var/garbled_formatted_message = Format_Message(message_language.scramble(message), message_language.scramble(message_title), message_language.scramble(message_announcer), message_language.scramble(from))
-	
+
 	Message(formatted_message, garbled_formatted_message, receivers, garbled_receivers)
-	
+
 	if(do_newscast)
 		NewsCast(message, message_title)
-		
+
 	Sound(message_sound, combined_receivers[1] + combined_receivers[2])
 	Log(message, message_title)
-	
+
 /datum/announcement/proc/Get_Receivers(var/datum/language/message_language)
 	var/list/receivers = list()
 	var/list/garbled_receivers = list()
-	
+
 	if(admin_announcement)
 		for(var/mob/M in player_list)
 			if(!isnewplayer(M) && M.client)
 				receivers |= M
-	else 
+	else
 		for(var/obj/item/device/radio/R in global_radios)
 			receivers |= R.send_announcement()
 		for(var/mob/M in receivers)
@@ -102,7 +94,7 @@
 			if(!M.say_understands(null, message_language))
 				receivers -= M
 				garbled_receivers |= M
-		for(var/mob/M in dead_mob_list)	
+		for(var/mob/M in dead_mob_list)
 			if(M.client && M.stat == DEAD)
 				receivers |= M
 
@@ -113,21 +105,21 @@
 		to_chat(M, message)
 	for(var/mob/M in garbled_receivers)
 		to_chat(M, garbled_message)
-	
+
 /datum/announcement/proc/Format_Message(message, message_title, message_announcer, from)
 	var/formatted_message
 	formatted_message += "<h2 class='alert'>[message_title]</h2>"
 	formatted_message += "<br><span class='alert'>[message]</span>"
 	if(message_announcer)
 		formatted_message += "<br><span class='alert'> -[message_announcer]</span>"
-		
+
 	return formatted_message
 
 /datum/announcement/minor/Format_Message(message, message_title, message_announcer, from)
 	var/formatted_message
 	formatted_message += "<b><font size=3><font color=red>[message_title]</font color></font></b>"
 	formatted_message += "<br><b><font size=3>[message]</font size></font></b>"
-	
+
 	return formatted_message
 
 /datum/announcement/priority/Format_Message(message, message_title, message_announcer, from)
@@ -137,20 +129,10 @@
 	if(message_announcer)
 		formatted_message += "<br><span class='alert'> -[message_announcer]</span>"
 	formatted_message += "<br>"
-	
+
 	return formatted_message
 
 /datum/announcement/priority/command/Format_Message(message, message_title, message_announcer, from)
-	var/formatted_message
-	formatted_message += "<h1 class='alert'>[title]</h1>"
-	if(message_title)
-		formatted_message += "<br><h2 class='alert'>[message_title]</h2>"
-	formatted_message += "<br><span class='alert'>[message]</span><br>"
-	formatted_message += "<br>"
-	
-	return formatted_message
-
-/datum/announcement/priority/enemy/Format_Message(message, message_title, message_announcer, from)
 	var/formatted_message
 	formatted_message += "<h1 class='alert'>[from]</h1>"
 	if(message_title)
@@ -164,7 +146,7 @@
 	var/formatted_message
 	formatted_message += "<font size=4 color='red'>[message_title]</font>"
 	formatted_message += "<br><font color='red'>[message]</font>"
-	
+
 	return formatted_message
 
 /datum/announcement/proc/NewsCast(message as text, message_title as text)

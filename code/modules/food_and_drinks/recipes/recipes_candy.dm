@@ -458,6 +458,7 @@
 	reagents = list()
 	items = list(
 		/obj/item/weapon/reagent_containers/food/snacks/popcorn,
+		/obj/item/weapon/reagent_containers/food/snacks/candy/jellybean,
 		)
 	result = /obj/item/weapon/reagent_containers/food/snacks/candy/jellybean/popcorn
 

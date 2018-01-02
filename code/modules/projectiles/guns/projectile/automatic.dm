@@ -1,5 +1,5 @@
 /obj/item/weapon/gun/projectile/automatic
-	w_class = 3
+	w_class = WEIGHT_CLASS_NORMAL
 	var/alarmed = 0
 	var/select = 1
 	can_suppress = 1
@@ -83,7 +83,7 @@
 	desc = "A two-round burst .45 SMG, designated 'C-20r'. Has a 'Scarborough Arms - Per falcis, per pravitas' buttstamp."
 	icon_state = "c20r"
 	item_state = "c20r"
-	origin_tech = "combat=5;materials=2;syndicate=8"
+	origin_tech = "combat=5;materials=2;syndicate=6"
 	mag_type = /obj/item/ammo_box/magazine/smgm45
 	fire_sound = 'sound/weapons/Gunshot_smg.ogg'
 	fire_delay = 2
@@ -120,7 +120,7 @@
 	name = "\improper 'Type U3' Uzi"
 	desc = "A lightweight, burst-fire submachine gun, for when you really want someone dead. Uses 9mm rounds."
 	icon_state = "mini-uzi"
-	origin_tech = "combat=5;materials=2;syndicate=8"
+	origin_tech = "combat=4;materials=2;syndicate=4"
 	mag_type = /obj/item/ammo_box/magazine/uzim9mm
 	burst_size = 2
 
@@ -129,7 +129,7 @@
 	desc = "A three-round burst 5.56 toploading carbine, designated 'M-90gl'. Has an attached underbarrel grenade launcher which can be toggled on and off."
 	icon_state = "m90"
 	item_state = "m90"
-	origin_tech = "combat=5;materials=2;syndicate=8"
+	origin_tech = "combat=5;materials=2;syndicate=6"
 	mag_type = /obj/item/ammo_box/magazine/m556
 	fire_sound = 'sound/weapons/Gunshot_smg.ogg'
 	can_suppress = 0
@@ -194,9 +194,9 @@
 	desc = "A genuine 'Chicago Typewriter'."
 	icon_state = "tommygun"
 	item_state = "shotgun"
-	w_class = 5
+	w_class = WEIGHT_CLASS_HUGE
 	slot_flags = 0
-	origin_tech = "combat=5;materials=1;syndicate=2"
+	origin_tech = "combat=5;materials=1;syndicate=3"
 	mag_type = /obj/item/ammo_box/magazine/tommygunm45
 	fire_sound = 'sound/weapons/Gunshot_smg.ogg'
 	can_suppress = 0
@@ -209,7 +209,7 @@
 	icon_state = "arg"
 	item_state = "arg"
 	slot_flags = 0
-	origin_tech = "combat=5;materials=1"
+	origin_tech = "combat=6;engineering=4"
 	mag_type = /obj/item/ammo_box/magazine/m556
 	fire_sound = 'sound/weapons/Gunshot_smg.ogg'
 	can_suppress = 0
@@ -222,8 +222,8 @@
 	desc = "A compact, mag-fed semi-automatic shotgun for combat in narrow corridors, nicknamed 'Bulldog' by boarding parties. Compatible only with specialized 8-round drum magazines."
 	icon_state = "bulldog"
 	item_state = "bulldog"
-	w_class = 3
-	origin_tech = "combat=5;materials=4;syndicate=6"
+	w_class = WEIGHT_CLASS_NORMAL
+	origin_tech = "combat=6;materials=4;syndicate=6"
 	mag_type = /obj/item/ammo_box/magazine/m12g
 	fire_sound = 'sound/weapons/Gunshot4.ogg'
 	can_suppress = 0
@@ -255,8 +255,8 @@
 	desc = "An experimental carbine. Uses encased laser projectors as ammunition."//we need to uncouple the toroidal resistance dejammers
 	icon_state = "lasercarbine"
 	item_state = "laser"
-	w_class = 3
-	origin_tech = "combat=5;materials=5"
+	w_class = WEIGHT_CLASS_NORMAL
+	origin_tech = "combat=4;materials=2"
 	mag_type = /obj/item/ammo_box/magazine/laser
 	fire_sound = 'sound/weapons/emitter2.ogg'
 	can_suppress = 0

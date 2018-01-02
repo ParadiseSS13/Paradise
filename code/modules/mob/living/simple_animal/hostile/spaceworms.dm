@@ -28,7 +28,7 @@
 	maxbodytemp = 350
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
 
-	a_intent = I_HARM //so they don't get pushed around
+	a_intent = INTENT_HARM //so they don't get pushed around
 
 	environment_smash = 1
 
@@ -123,7 +123,6 @@
 
 //Attempt to eat things we bump into, Mobs, Walls, Clowns
 /mob/living/simple_animal/hostile/spaceWorm/wormHead/Bump(atom/obstacle)
-
 	attemptToEat(obstacle)
 
 //Attempt to eat things, only the head can eat

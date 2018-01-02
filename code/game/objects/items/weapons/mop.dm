@@ -9,7 +9,7 @@
 	throwforce = 5.0
 	throw_speed = 3
 	throw_range = 7
-	w_class = 3
+	w_class = WEIGHT_CLASS_NORMAL
 	attack_verb = list("mopped", "bashed", "bludgeoned", "whacked")
 	burn_state = FLAMMABLE
 	var/mopping = 0
@@ -78,6 +78,7 @@
 	mopcap = 15
 	icon_state = "advmop"
 	item_state = "mop"	//meh will do for now until TG makes one
+	origin_tech = "materials=3;engineering=3"
 	force = 6
 	throwforce = 8
 	throw_range = 4

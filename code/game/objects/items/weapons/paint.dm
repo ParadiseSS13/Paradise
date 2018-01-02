@@ -7,7 +7,7 @@
 	icon_state = "paint_neutral"
 	item_state = "paintcan"
 	materials = list(MAT_METAL=200)
-	w_class = 3
+	w_class = WEIGHT_CLASS_NORMAL
 	burn_state = FLAMMABLE
 	burntime = 5
 	amount_per_transfer_from_this = 5

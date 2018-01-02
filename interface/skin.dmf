@@ -29,7 +29,7 @@ macro "AZERTYoff"
 		is-disabled = false
 	elem "AZRFF-WEST+REP"
 		name = "WEST+REP"
-		command = ".west"
+		command = ".moveleft"
 		is-disabled = false
 	elem "AZRFF-CTRL+NORTH"
 		name = "CTRL+NORTH"
@@ -37,7 +37,7 @@ macro "AZERTYoff"
 		is-disabled = false
 	elem "AZRFF-NORTH+REP"
 		name = "NORTH+REP"
-		command = ".north"
+		command = ".moveup"
 		is-disabled = false
 	elem "AZRFF-CTRL+EAST"
 		name = "CTRL+EAST"
@@ -45,7 +45,7 @@ macro "AZERTYoff"
 		is-disabled = false
 	elem "AZRFF-EAST+REP"
 		name = "EAST+REP"
-		command = ".east"
+		command = ".moveright"
 		is-disabled = false
 	elem "AZRFF-CTRL+SOUTH"
 		name = "CTRL+SOUTH"
@@ -53,7 +53,7 @@ macro "AZERTYoff"
 		is-disabled = false
 	elem "AZRFF-SOUTH+REP"
 		name = "SOUTH+REP"
-		command = ".south"
+		command = ".movedown"
 		is-disabled = false
 	elem "AZRFF-INSERT"
 		name = "INSERT"
@@ -85,7 +85,7 @@ macro "AZERTYoff"
 		is-disabled = false
 	elem "AZRFF-CTRL+D+REP"
 		name = "CTRL+D+REP"
-		command = ".east"
+		command = ".moveright"
 		is-disabled = false
 	elem "AZRFF-CTRL+B"
 		name = "CTRL+B"
@@ -105,7 +105,7 @@ macro "AZERTYoff"
 		is-disabled = false
 	elem "AZRFF-CTRL+Q+REP"
 		name = "CTRL+Q+REP"
-		command = ".west"
+		command = ".moveleft"
 		is-disabled = false
 	elem "AZRFF-CTRL+R"
 		name = "CTRL+R"
@@ -113,7 +113,7 @@ macro "AZERTYoff"
 		is-disabled = false
 	elem "AZRFF-CTRL+S+REP"
 		name = "CTRL+S+REP"
-		command = ".south"
+		command = ".movedown"
 		is-disabled = false
 	elem "AZRFF-CTRL+W"
 		name = "CTRL+W"
@@ -129,7 +129,7 @@ macro "AZERTYoff"
 		is-disabled = false
 	elem "AZRFF-CTRL+Z+REP"
 		name = "CTRL+Z+REP"
-		command = ".north"
+		command = ".moveup"
 		is-disabled = false
 	elem "AZRFF-F1"
 		name = "F1"
@@ -215,7 +215,7 @@ macro "AZERTYon"
 		is-disabled = false
 	elem "AZRON-WEST+REP"
 		name = "WEST+REP"
-		command = ".west"
+		command = ".moveleft"
 		is-disabled = false
 	elem "AZRON-CTRL+NORTH"
 		name = "CTRL+NORTH"
@@ -223,7 +223,7 @@ macro "AZERTYon"
 		is-disabled = false
 	elem "AZRON-NORTH+REP"
 		name = "NORTH+REP"
-		command = ".north"
+		command = ".moveup"
 		is-disabled = false
 	elem "AZRON-CTRL+EAST"
 		name = "CTRL+EAST"
@@ -231,7 +231,7 @@ macro "AZERTYon"
 		is-disabled = false
 	elem "AZRON-EAST+REP"
 		name = "EAST+REP"
-		command = ".east"
+		command = ".moveright"
 		is-disabled = false
 	elem "AZRON-CTRL+SOUTH"
 		name = "CTRL+SOUTH"
@@ -239,7 +239,7 @@ macro "AZERTYon"
 		is-disabled = false
 	elem "AZRON-SOUTH+REP"
 		name = "SOUTH+REP"
-		command = ".south"
+		command = ".movedown"
 		is-disabled = false
 	elem "AZRON-INSERT"
 		name = "INSERT"
@@ -291,11 +291,11 @@ macro "AZERTYon"
 		is-disabled = false
 	elem "AZRON-D+REP"
 		name = "D+REP"
-		command = ".east"
+		command = ".moveright"
 		is-disabled = false
 	elem "AZRON-CTRL+D+REP"
 		name = "CTRL+D+REP"
-		command = ".east"
+		command = ".moveright"
 		is-disabled = false
 	elem "AZRON-CTRL+B"
 		name = "CTRL+B"
@@ -335,11 +335,11 @@ macro "AZERTYon"
 		is-disabled = false
 	elem "AZRON-Q+REP"
 		name = "Q+REP"
-		command = ".west"
+		command = ".moveleft"
 		is-disabled = false
 	elem "AZRON-CTRL+Q+REP"
 		name = "CTRL+Q+REP"
-		command = ".west"
+		command = ".moveleft"
 		is-disabled = false
 	elem "AZRON-R"
 		name = "R"
@@ -351,11 +351,11 @@ macro "AZERTYon"
 		is-disabled = false
 	elem "s_key"
 		name = "S+REP"
-		command = ".south"
+		command = ".movedown"
 		is-disabled = false
 	elem "AZRON-CTRL+S+REP"
 		name = "CTRL+S+REP"
-		command = ".south"
+		command = ".movedown"
 		is-disabled = false
 	elem "AZRON-T"
 		name = "T"
@@ -395,11 +395,11 @@ macro "AZERTYon"
 		is-disabled = false
 	elem "w_key"
 		name = "Z+REP"
-		command = ".north"
+		command = ".moveup"
 		is-disabled = false
 	elem "AZRON-CTRL+Z+REP"
 		name = "CTRL+Z+REP"
-		command = ".north"
+		command = ".moveup"
 		is-disabled = false
 	elem "AZRON-F1"
 		name = "F1"
@@ -481,7 +481,7 @@ macro "borghotkeymode"
 		is-disabled = false
 	elem "BRGHK-WEST+REP"
 		name = "WEST+REP"
-		command = ".west"
+		command = ".moveleft"
 		is-disabled = false
 	elem "BRGHK-CTRL+NORTH"
 		name = "CTRL+NORTH"
@@ -489,7 +489,7 @@ macro "borghotkeymode"
 		is-disabled = false
 	elem "BRGHK-NORTH+REP"
 		name = "NORTH+REP"
-		command = ".north"
+		command = ".moveup"
 		is-disabled = false
 	elem "BRGHK-CTRL+EAST"
 		name = "CTRL+EAST"
@@ -497,7 +497,7 @@ macro "borghotkeymode"
 		is-disabled = false
 	elem "BRGHK-EAST+REP"
 		name = "EAST+REP"
-		command = ".east"
+		command = ".moveright"
 		is-disabled = false
 	elem "BRGHK-CTRL+SOUTH"
 		name = "CTRL+SOUTH"
@@ -505,7 +505,7 @@ macro "borghotkeymode"
 		is-disabled = false
 	elem "BRGHK-SOUTH+REP"
 		name = "SOUTH+REP"
-		command = ".south"
+		command = ".movedown"
 		is-disabled = false
 	elem "BRGHK-INSERT"
 		name = "INSERT"
@@ -549,11 +549,11 @@ macro "borghotkeymode"
 		is-disabled = false
 	elem "BRGHK-A+REP"
 		name = "A+REP"
-		command = ".west"
+		command = ".moveleft"
 		is-disabled = false
 	elem "BRGHK-CTRL+A+REP"
 		name = "CTRL+A+REP"
-		command = ".west"
+		command = ".moveleft"
 		is-disabled = false
 	elem "BRGHK-B"
 		name = "B"
@@ -581,11 +581,11 @@ macro "borghotkeymode"
 		is-disabled = false
 	elem "BRGHK-D+REP"
 		name = "D+REP"
-		command = ".east"
+		command = ".moveright"
 		is-disabled = false
 	elem "BRGHK-CTRL+D+REP"
 		name = "CTRL+D+REP"
-		command = ".east"
+		command = ".moveright"
 		is-disabled = false
 	elem "BRGHK-F"
 		name = "F"
@@ -613,19 +613,19 @@ macro "borghotkeymode"
 		is-disabled = false
 	elem "s_key"
 		name = "S+REP"
-		command = ".south"
+		command = ".movedown"
 		is-disabled = false
 	elem "BRGHK-CTRL+S+REP"
 		name = "CTRL+S+REP"
-		command = ".south"
+		command = ".movedown"
 		is-disabled = false
 	elem "w_key"
 		name = "W+REP"
-		command = ".north"
+		command = ".moveup"
 		is-disabled = false
 	elem "BRGHK-CTRL+W+REP"
 		name = "CTRL+W+REP"
-		command = ".north"
+		command = ".moveup"
 		is-disabled = false
 	elem "BRGHK-X"
 		name = "X"
@@ -735,7 +735,7 @@ macro "macro"
 		is-disabled = false
 	elem "MACRO-WEST+REP"
 		name = "WEST+REP"
-		command = ".west"
+		command = ".moveleft"
 		is-disabled = false
 	elem "MACRO-CTRL+NORTH"
 		name = "CTRL+NORTH"
@@ -743,7 +743,7 @@ macro "macro"
 		is-disabled = false
 	elem "MACRO-NORTH+REP"
 		name = "NORTH+REP"
-		command = ".north"
+		command = ".moveup"
 		is-disabled = false
 	elem "MACRO-CTRL+EAST"
 		name = "CTRL+EAST"
@@ -751,7 +751,7 @@ macro "macro"
 		is-disabled = false
 	elem "MACRO-EAST+REP"
 		name = "EAST+REP"
-		command = ".east"
+		command = ".moveright"
 		is-disabled = false
 	elem "MACRO-CTRL+SOUTH"
 		name = "CTRL+SOUTH"
@@ -759,7 +759,7 @@ macro "macro"
 		is-disabled = false
 	elem "MACRO-SOUTH+REP"
 		name = "SOUTH+REP"
-		command = ".south"
+		command = ".movedown"
 		is-disabled = false
 	elem "MACRO-INSERT"
 		name = "INSERT"
@@ -787,11 +787,11 @@ macro "macro"
 		is-disabled = false
 	elem "MACRO-CTRL+A+REP"
 		name = "CTRL+A+REP"
-		command = ".west"
+		command = ".moveleft"
 		is-disabled = false
 	elem "MACRO-CTRL+D+REP"
 		name = "CTRL+D+REP"
-		command = ".east"
+		command = ".moveright"
 		is-disabled = false
 	elem "MACRO-CTRL+B"
 		name = "CTRL+B"
@@ -819,11 +819,11 @@ macro "macro"
 		is-disabled = false
 	elem "MACRO-CTRL+S+REP"
 		name = "CTRL+S+REP"
-		command = ".south"
+		command = ".movedown"
 		is-disabled = false
 	elem "MACRO-CTRL+W+REP"
 		name = "CTRL+W+REP"
-		command = ".north"
+		command = ".moveup"
 		is-disabled = false
 	elem "MACRO-CTRL+X"
 		name = "CTRL+X"
@@ -921,7 +921,7 @@ macro "hotkeymode"
 		is-disabled = false
 	elem "HKMODE-WEST+REP"
 		name = "WEST+REP"
-		command = ".west"
+		command = ".moveleft"
 		is-disabled = false
 	elem "HKMODE-CTRL+NORTH"
 		name = "CTRL+NORTH"
@@ -929,7 +929,7 @@ macro "hotkeymode"
 		is-disabled = false
 	elem "HKMODE-NORTH+REP"
 		name = "NORTH+REP"
-		command = ".north"
+		command = ".moveup"
 		is-disabled = false
 	elem "HKMODE-CTRL+EAST"
 		name = "CTRL+EAST"
@@ -937,7 +937,7 @@ macro "hotkeymode"
 		is-disabled = false
 	elem "HKMODE-EAST+REP"
 		name = "EAST+REP"
-		command = ".east"
+		command = ".moveright"
 		is-disabled = false
 	elem "HKMODE-CTRL+SOUTH"
 		name = "CTRL+SOUTH"
@@ -945,7 +945,7 @@ macro "hotkeymode"
 		is-disabled = false
 	elem "HKMODE-SOUTH+REP"
 		name = "SOUTH+REP"
-		command = ".south"
+		command = ".movedown"
 		is-disabled = false
 	elem "HKMODE-INSERT"
 		name = "INSERT"
@@ -1001,19 +1001,19 @@ macro "hotkeymode"
 		is-disabled = false
 	elem "HKMODE-A+REP"
 		name = "A+REP"
-		command = ".west"
+		command = ".moveleft"
 		is-disabled = false
 	elem "HKMODE-CTRL+A+REP"
 		name = "CTRL+A+REP"
-		command = ".west"
+		command = ".moveleft"
 		is-disabled = false
 	elem "HKMODE-D+REP"
 		name = "D+REP"
-		command = ".east"
+		command = ".moveright"
 		is-disabled = false
 	elem "HKMODE-CTRL+D+REP"
 		name = "CTRL+D+REP"
-		command = ".east"
+		command = ".moveright"
 		is-disabled = false
 	elem "HKMODE-B"
 		name = "B"
@@ -1073,11 +1073,11 @@ macro "hotkeymode"
 		is-disabled = false
 	elem "s_key"
 		name = "S+REP"
-		command = ".south"
+		command = ".movedown"
 		is-disabled = false
 	elem "HKMODE-CTRL+S+REP"
 		name = "CTRL+S+REP"
-		command = ".south"
+		command = ".movedown"
 		is-disabled = false
 	elem "HKMODE-T"
 		name = "T"
@@ -1085,11 +1085,11 @@ macro "hotkeymode"
 		is-disabled = false
 	elem "w_key"
 		name = "W+REP"
-		command = ".north"
+		command = ".moveup"
 		is-disabled = false
 	elem "HKMODE-CTRL+W+REP"
 		name = "CTRL+W+REP"
-		command = ".north"
+		command = ".moveup"
 		is-disabled = false
 	elem "HKMODE-X"
 		name = "X"
@@ -1195,7 +1195,7 @@ macro "borgmacro"
 		is-disabled = false
 	elem "BRGMACRO-WEST+REP"
 		name = "WEST+REP"
-		command = ".west"
+		command = ".moveleft"
 		is-disabled = false
 	elem "BRGMACRO-CTRL+NORTH"
 		name = "CTRL+NORTH"
@@ -1203,7 +1203,7 @@ macro "borgmacro"
 		is-disabled = false
 	elem "BRGMACRO-NORTH+REP"
 		name = "NORTH+REP"
-		command = ".north"
+		command = ".moveup"
 		is-disabled = false
 	elem "BRGMACRO-CTRL+EAST"
 		name = "CTRL+EAST"
@@ -1211,7 +1211,7 @@ macro "borgmacro"
 		is-disabled = false
 	elem "BRGMACRO-EAST+REP"
 		name = "EAST+REP"
-		command = ".east"
+		command = ".moveright"
 		is-disabled = false
 	elem "BRGMACRO-CTRL+SOUTH"
 		name = "CTRL+SOUTH"
@@ -1219,7 +1219,7 @@ macro "borgmacro"
 		is-disabled = false
 	elem "BRGMACRO-SOUTH+REP"
 		name = "SOUTH+REP"
-		command = ".south"
+		command = ".movedown"
 		is-disabled = false
 	elem "BRGMACRO-INSERT"
 		name = "INSERT"
@@ -1247,7 +1247,7 @@ macro "borgmacro"
 		is-disabled = false
 	elem "BRGMACRO-CTRL+A+REP"
 		name = "CTRL+A+REP"
-		command = ".west"
+		command = ".moveleft"
 		is-disabled = false
 	elem "BRGMACRO-CTRL+B"
 		name = "CTRL+B"
@@ -1259,7 +1259,7 @@ macro "borgmacro"
 		is-disabled = false
 	elem "BRGMACRO-CTRL+D+REP"
 		name = "CTRL+D+REP"
-		command = ".east"
+		command = ".moveright"
 		is-disabled = false
 	elem "BRGMACRO-CTRL+F"
 		name = "CTRL+F"
@@ -1275,11 +1275,11 @@ macro "borgmacro"
 		is-disabled = false
 	elem "BRGMACRO-CTRL+S+REP"
 		name = "CTRL+S+REP"
-		command = ".south"
+		command = ".movedown"
 		is-disabled = false
 	elem "BRGMACRO-CTRL+W+REP"
 		name = "CTRL+W+REP"
-		command = ".north"
+		command = ".moveup"
 		is-disabled = false
 	elem "BRGMACRO-CTRL+X"
 		name = "CTRL+X"

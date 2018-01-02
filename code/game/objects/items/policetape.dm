@@ -3,7 +3,7 @@
 	name = "tape roll"
 	icon = 'icons/policetape.dmi'
 	icon_state = "rollstart"
-	w_class = 1
+	w_class = WEIGHT_CLASS_TINY
 	var/turf/start
 	var/turf/end
 	var/tape_type = /obj/item/tape
@@ -66,13 +66,13 @@ var/list/tape_roll_applications = list()
 /obj/item/taperoll/attack_self(mob/user as mob)
 	if(icon_state == "[icon_base]_start")
 		start = get_turf(src)
-		to_chat(usr, "\blue You place the first end of the [src].")
+		to_chat(usr, "<span class='notice'>You place the first end of the [src].</span>")
 		icon_state = "[icon_base]_stop"
 	else
 		icon_state = "[icon_base]_start"
 		end = get_turf(src)
 		if(start.y != end.y && start.x != end.x || start.z != end.z)
-			to_chat(usr, "\blue [src] can only be laid horizontally or vertically.")
+			to_chat(usr, "<span class='notice'>[src] can only be laid horizontally or vertically.</span>")
 			return
 
 		var/turf/cur = start
@@ -101,7 +101,7 @@ var/list/tape_roll_applications = list()
 						break
 			cur = get_step_towards(cur,end)
 		if(!can_place)
-			to_chat(usr, "\blue You can't run \the [src] through that!")
+			to_chat(usr, "<span class='notice'>You can't run \the [src] through that!</span>")
 			return
 
 		cur = start
@@ -115,7 +115,7 @@ var/list/tape_roll_applications = list()
 				P.icon_state = "[P.icon_base]_[dir]"
 			cur = get_step_towards(cur,end)
 	//is_blocked_turf(var/turf/T)
-			to_chat(usr, "\blue You finish placing the [src].")//Git Test
+			to_chat(usr, "<span class='notice'>You finish placing the [src].</span>")//Git Test
 
 
 /obj/item/taperoll/afterattack(var/atom/A, mob/user as mob, proximity)
@@ -128,7 +128,7 @@ var/list/tape_roll_applications = list()
 		P.loc = locate(T.x,T.y,T.z)
 		P.icon_state = "[src.icon_base]_door"
 		P.layer = 3.2
-		to_chat(user, "\blue You finish placing the [src].")
+		to_chat(user, "<span class='notice'>You finish placing the [src].</span>")
 
 	if(istype(A, /turf/simulated/floor) ||istype(A, /turf/unsimulated/floor))
 		var/turf/F = A
@@ -151,7 +151,7 @@ var/list/tape_roll_applications = list()
 	if(!density) return 1
 	if(height==0) return 1
 
-	if((mover.pass_flags & PASSTABLE || istype(mover, /obj/effect/meteor) || mover.throwing == 1) )
+	if((mover.pass_flags & PASSTABLE || istype(mover, /obj/effect/meteor) || mover.throwing))
 		return 1
 	else if(ismob(mover) && allowed(mover))
 		return 1
@@ -162,7 +162,7 @@ var/list/tape_roll_applications = list()
 	breaktape(W, user)
 
 /obj/item/tape/attack_hand(mob/user as mob)
-	if(user.a_intent == I_HELP && src.allowed(user))
+	if(user.a_intent == INTENT_HELP && src.allowed(user))
 		user.visible_message("<span class=notice>[user] lifts [src], allowing passage.</span>", "<span class=notice>You lift [src], allowing passage.</span>")
 		src.density = 0
 		spawn(200)
@@ -174,7 +174,7 @@ var/list/tape_roll_applications = list()
 	breaktape(/obj/item/weapon/wirecutters,user)
 
 /obj/item/tape/proc/breaktape(obj/item/weapon/W as obj, mob/user as mob)
-	if(user.a_intent == I_HELP && ((!can_puncture(W) && src.allowed(user))))
+	if(user.a_intent == INTENT_HELP && ((!is_pointed(W) && src.allowed(user))))
 		to_chat(user, "You can't break the [src] with that!")
 		return
 	user.visible_message("<span class=warning>[user] breaks the [src]!</span>", "<span class=warning>You break the [src]!</span>")
@@ -201,5 +201,3 @@ var/list/tape_roll_applications = list()
 
 	qdel(src)
 	return
-
-

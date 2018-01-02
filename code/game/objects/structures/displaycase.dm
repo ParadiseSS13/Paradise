@@ -105,19 +105,21 @@ var/global/list/captain_display_cases = list()
 	var/ue = null
 	var/image/occupant_overlay = null
 	var/obj/item/weapon/airlock_electronics/circuit
+	var/start_showpiece_type = null //add type for items on display
+
+/obj/structure/displaycase/New()
+	. = ..()
+	if(start_showpiece_type)
+		occupant = new start_showpiece_type(src)
+	update_icon()
 
 /obj/structure/displaycase/captains_laser
 	name = "captain's display case"
 	desc = "A display case for the captain's antique laser gun. Hooked up with an anti-theft system."
 	burglar_alarm = 1
-
-/obj/structure/displaycase/captains_laser/New()
-	captain_display_cases += src
-	req_access = list(access_captain)
 	locked = 1
-	spawn(5)
-		occupant = new /obj/item/weapon/gun/energy/laser/captain(src)
-		update_icon()
+	req_access = list(access_captain)
+	start_showpiece_type = /obj/item/weapon/gun/energy/laser/captain
 
 /obj/structure/displaycase/Destroy()
 	dump()
@@ -256,7 +258,10 @@ var/global/list/captain_display_cases = list()
 			new /obj/machinery/constructable_frame/machine_frame(T)
 		qdel(src)
 		return
-	if(user.a_intent == I_HARM)
+	if(W.flags & ABSTRACT)
+		to_chat(user, "<span class='danger'>You can't put this into the case.</span>")
+		return
+	if(user.a_intent == INTENT_HARM)
 		if(locked && !destroyed)
 			src.health -= W.force
 			src.healthcheck()
@@ -280,14 +285,14 @@ var/global/list/captain_display_cases = list()
 			update_icon()
 
 /obj/structure/displaycase/attack_hand(mob/user as mob)
-	if(destroyed || (!locked && user.a_intent == I_HARM))
+	if(destroyed || (!locked && user.a_intent == INTENT_HARM))
 		if(occupant)
 			dump()
 			to_chat(user, "<span class='danger'>You smash your fist into the delicate electronics at the bottom of the case, and deactivate the hover field.</span>")
 			src.add_fingerprint(user)
 			update_icon()
 	else
-		if(user.a_intent == I_HARM)
+		if(user.a_intent == INTENT_HARM)
 			user.changeNext_move(CLICK_CD_MELEE)
 			user.do_attack_animation(src)
 			user.visible_message("<span class='danger'>[user.name] kicks \the [src]!</span>", \
@@ -314,8 +319,9 @@ var/global/list/captain_display_cases = list()
 				else
 					to_chat(src, "[bicon(src)] <span class='warning'>\The [src] is empty!</span>")
 		else
-			user.visible_message("[user.name] gently runs his hands over \the [src] in appreciation of its contents.", \
-				"You gently run your hands over \the [src] in appreciation of its contents.", \
+			user.changeNext_move(CLICK_CD_MELEE)
+			user.visible_message("[user.name] gently runs \his hands over [src] in appreciation of its contents.", \
+				"You gently run your hands over [src] in appreciation of its contents.", \
 				"You hear someone streaking glass with their greasy hands.")
 
 #undef DISPLAYCASE_FRAME_CIRCUIT

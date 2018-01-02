@@ -261,7 +261,7 @@ var/list/blacklisted_pylon_turfs = typecacheof(list(
 /obj/item/weapon/storage/box/cult
 	name = "Dark Forge Cache"
 	can_hold = list("/obj/item/clothing/suit/space/cult", "/obj/item/clothing/head/helmet/space/cult")
-	max_w_class = 3
+	max_w_class = WEIGHT_CLASS_NORMAL
 
 /obj/item/weapon/storage/box/cult/New()
 	..()

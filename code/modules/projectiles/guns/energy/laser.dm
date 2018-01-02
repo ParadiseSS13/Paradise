@@ -3,9 +3,9 @@
 	desc = "A basic energy-based laser gun that fires concentrated beams of light which pass through glass and thin metal."
 	icon_state = "laser"
 	item_state = "laser"
-	w_class = 3
+	w_class = WEIGHT_CLASS_NORMAL
 	materials = list(MAT_METAL=2000)
-	origin_tech = "combat=3;magnets=2"
+	origin_tech = "combat=4;magnets=2"
 	ammo_type = list(/obj/item/ammo_casing/energy/lasergun)
 	ammo_x_offset = 1
 	shaded_charge = 1
@@ -13,6 +13,7 @@
 /obj/item/weapon/gun/energy/laser/practice
 	name = "practice laser gun"
 	desc = "A modified version of the basic laser gun, this one fires less concentrated energy bolts designed for target practice."
+	origin_tech = "combat=2;magnets=2"
 	ammo_type = list(/obj/item/ammo_casing/energy/laser/practice)
 	clumsy_check = 0
 	needs_permit = 0
@@ -66,11 +67,11 @@
 	desc = "An advanced laser cannon that does more damage the farther away the target is."
 	icon_state = "lasercannon"
 	item_state = "laser"
-	w_class = 4
+	w_class = WEIGHT_CLASS_BULKY
 	force = 10
 	flags =  CONDUCT
 	slot_flags = SLOT_BACK
-	origin_tech = "combat=4;materials=3;powerstorage=3"
+	origin_tech = "combat=4;magnets=4;powerstorage=3"
 	ammo_type = list(/obj/item/ammo_casing/energy/laser/accelerator)
 	ammo_x_offset = 3
 
@@ -111,7 +112,7 @@
 	name = "xray laser gun"
 	desc = "A high-power laser gun capable of expelling concentrated xray blasts."
 	icon_state = "xray"
-	origin_tech = "combat=5;materials=3;magnets=2;syndicate=2"
+	origin_tech = "combat=6;materials=4;magnets=4;syndicate=1"
 	ammo_type = list(/obj/item/ammo_casing/energy/xray)
 
 /obj/item/weapon/gun/energy/immolator
@@ -120,7 +121,7 @@
 	icon_state = "immolator"
 	item_state = "laser"
 	ammo_type = list(/obj/item/ammo_casing/energy/immolator)
-	origin_tech = "combat=4;materials=4;magnets=3;plasmatech=2"
+	origin_tech = "combat=4;magnets=4;powerstorage=3"
 	shaded_charge = 1
 
 ////////Laser Tag////////////////////
@@ -130,7 +131,7 @@
 	icon_state = "bluetag"
 	desc = "Standard issue weapon of the Imperial Guard"
 	ammo_type = list(/obj/item/ammo_casing/energy/laser/bluetag)
-	origin_tech = "combat=1;magnets=2"
+	origin_tech = "combat=2;magnets=2"
 	clumsy_check = 0
 	needs_permit = 0
 	ammo_x_offset = 2
@@ -141,7 +142,7 @@
 	icon_state = "redtag"
 	desc = "Standard issue weapon of the Imperial Guard"
 	ammo_type = list(/obj/item/ammo_casing/energy/laser/redtag)
-	origin_tech = "combat=1;magnets=2"
+	origin_tech = "combat=2;magnets=2"
 	clumsy_check = 0
 	needs_permit = 0
 	ammo_x_offset = 2

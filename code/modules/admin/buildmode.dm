@@ -95,6 +95,7 @@
 	cl.images -= I
 	cl = null
 	qdel(I)
+	return ..()
 
 /obj/effect/buildmode_line
 	var/image/I
@@ -122,8 +123,7 @@
 		if(istype(cl))
 			cl.images -= I
 			cl = null
-		qdel(I)
-		I = null
+		QDEL_NULL(I)
 	return ..()
 
 /datum/click_intercept
@@ -138,8 +138,8 @@
 	holder.screen += buttons
 
 /datum/click_intercept/Destroy()
-	for(var/button in buttons)
-		qdel(button)
+	QDEL_LIST(buttons)
+	return ..()
 
 
 /datum/click_intercept/proc/create_buttons()
@@ -191,7 +191,7 @@
 	Reset()
 	areaimage.loc = null
 	qdel(areaimage)
-	..()
+	return ..()
 
 /datum/click_intercept/buildmode/create_buttons()
 	buttons += new /obj/screen/buildmode/mode(src)
@@ -376,10 +376,8 @@
 	return 1
 
 /datum/click_intercept/buildmode/proc/deselect_region()
-	qdel(cornerA)
-	cornerA = null
-	qdel(cornerB)
-	cornerB = null
+	QDEL_NULL(cornerA)
+	QDEL_NULL(cornerB)
 
 /datum/click_intercept/buildmode/proc/Reset()//Reset temporary variables
 	deselect_region()

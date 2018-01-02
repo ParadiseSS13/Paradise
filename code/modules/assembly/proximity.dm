@@ -3,7 +3,7 @@
 	desc = "Used for scanning and alerting when someone enters a certain proximity."
 	icon_state = "prox"
 	materials = list(MAT_METAL=800, MAT_GLASS=200)
-	origin_tech = "magnets=1"
+	origin_tech = "magnets=1;engineering=1"
 
 	secured = 0
 
@@ -19,7 +19,7 @@
 
 	describe()
 		if(timing)
-			return "\blue The proximity sensor is arming."
+			return "<span class='notice'>The proximity sensor is arming.</span>"
 		return "The proximity sensor is [scanning?"armed":"disarmed"]."
 
 	activate()
@@ -109,7 +109,7 @@
 
 	interact(mob/user as mob)//TODO: Change this to the wires thingy
 		if(!secured)
-			user.show_message("\red The [name] is unsecured!")
+			user.show_message("<span class='warning'>The [name] is unsecured!</span>")
 			return 0
 		var/second = time % 60
 		var/minute = (time - second) / 60

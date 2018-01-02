@@ -368,8 +368,11 @@
 			breakthrough = 1
 
 		else
-			throwing = 0 //so mechas don't get stuck when landing after being sent by a Mass Driver
+			if(throwing)
+				throwing.finalize(FALSE)
 			crashing = null
+
+		..()
 
 		if(breakthrough)
 			if(crashing)
@@ -491,14 +494,14 @@
 		take_damage(15)
 		check_for_internal_damage(list(MECHA_INT_TEMP_CONTROL,MECHA_INT_TANK_BREACH,MECHA_INT_CONTROL_LOST))
 		playsound(loc, 'sound/weapons/slash.ogg', 50, 1, -1)
-		to_chat(user, "\red You slash at the armored suit!")
-		visible_message("\red The [user] slashes at [name]'s armor!")
+		to_chat(user, "<span class='warning'>You slash at the armored suit!</span>")
+		visible_message("<span class='warning'>The [user] slashes at [name]'s armor!</span>")
 	else
 		log_append_to_last("Armor saved.")
 		playsound(loc, 'sound/weapons/slash.ogg', 50, 1, -1)
-		to_chat(user, "\green Your claws had no effect!")
-		occupant_message("\blue The [user]'s claws are stopped by the armor.")
-		visible_message("\blue The [user] rebounds off [name]'s armor!")
+		to_chat(user, "<span class=notice'>Your claws had no effect!</span>")
+		occupant_message("<span class='notice'>The [user]'s claws are stopped by the armor.</span>")
+		visible_message("<span class='notice'>The [user] rebounds off [name]'s armor!</span>")
 	return
 
 
@@ -519,12 +522,12 @@
 		else
 			log_append_to_last("Armor saved.")
 			playsound(loc, 'sound/weapons/slash.ogg', 50, 1, -1)
-			occupant_message("\blue The [user]'s attack is stopped by the armor.")
-			visible_message("\blue The [user] rebounds off [name]'s armor!")
+			occupant_message("<span class='notice'>The [user]'s attack is stopped by the armor.</span>")
+			visible_message("<span class='notice'>The [user] rebounds off [name]'s armor!</span>")
 			user.create_attack_log("<font color='red'>attacked [name]</font>")
 	return
 
-/obj/mecha/hitby(atom/movable/A as mob|obj) //wrapper
+/obj/mecha/hitby(atom/movable/A) //wrapper
 	..()
 	log_message("Hit by [A].",1)
 
@@ -537,6 +540,7 @@
 			dam_coeff = B.damage_coeff
 			counter_tracking = 1
 			break
+
 	if(istype(A, /obj/item/mecha_parts/mecha_tracking))
 		if(!counter_tracking)
 			A.forceMove(src)
@@ -598,7 +602,6 @@
 				WR.crowbar_salvage += E
 				E.forceMove(WR)
 				E.equip_ready = 1
-				E.reliability = round(rand(E.reliability/3,E.reliability))
 			else
 				E.forceMove(loc)
 				qdel(E)
@@ -610,13 +613,9 @@
 			WR.crowbar_salvage += internal_tank
 			internal_tank.forceMove(WR)
 	else
-		for(var/obj/item/mecha_parts/mecha_equipment/E in equipment)
-			E.forceMove(loc)
-			qdel(E)
-		if(cell)
-			qdel(cell)
-		if(internal_tank)
-			qdel(internal_tank)
+		QDEL_LIST(equipment)
+		QDEL_NULL(cell)
+		QDEL_NULL(internal_tank)
 
 	processing_objects.Remove(src)
 	poi_list.Remove(src)
@@ -749,7 +748,7 @@
 				to_chat(user, "There's not enough wire to finish the task.")
 		return
 
-	else if(isscrewdriver(W) && user.a_intent != I_HARM)
+	else if(isscrewdriver(W) && user.a_intent != INTENT_HARM)
 		if(hasInternalDamage(MECHA_INT_TEMP_CONTROL))
 			clearInternalDamage(MECHA_INT_TEMP_CONTROL)
 			to_chat(user, "<span class='notice'>You repair the damaged temperature controller.</span>")
@@ -777,7 +776,7 @@
 				to_chat(user, "<span class='notice'>There's already a powercell installed.</span>")
 		return
 
-	else if(iswelder(W) && user.a_intent != I_HARM)
+	else if(iswelder(W) && user.a_intent != INTENT_HARM)
 		var/obj/item/weapon/weldingtool/WT = W
 		if(health<initial(health))
 			if (WT.remove_fuel(0,user))
@@ -857,11 +856,11 @@
 /obj/mecha/emag_act(user as mob)
 	if(istype(src,	/obj/mecha/working/ripley) && emagged == 0)
 		emagged = 1
-		to_chat(usr, "\blue You slide the card through the [src]'s ID slot.")
+		to_chat(usr, "<span class='notice'>You slide the card through the [src]'s ID slot.</span>")
 		playsound(loc, "sparks", 100, 1)
 		desc += "</br><span class='danger'>The mech's equipment slots spark dangerously!</span>"
 	else
-		to_chat(usr, "\red The [src]'s ID slot rejects the card.")
+		to_chat(usr, "<span class='warning'>The [src]'s ID slot rejects the card.</span>")
 	return
 
 
@@ -1047,12 +1046,12 @@
 	var/obj/machinery/atmospherics/unary/portables_connector/possible_port = locate(/obj/machinery/atmospherics/unary/portables_connector/) in loc
 	if(possible_port)
 		if(connect(possible_port))
-			occupant_message("\blue [name] connects to the port.")
+			occupant_message("<span class='notice'>[name] connects to the port.</span>")
 			verbs += /obj/mecha/verb/disconnect_from_port
 			verbs -= /obj/mecha/verb/connect_to_port
 			return
 		else
-			occupant_message("\red [name] failed to connect to the port.")
+			occupant_message("<span class='warning'>[name] failed to connect to the port.</span>")
 			return
 	else
 		occupant_message("Nothing happens")
@@ -1067,11 +1066,11 @@
 	if(usr!=occupant)
 		return
 	if(disconnect())
-		occupant_message("\blue [name] disconnects from the port.")
+		occupant_message("<span class='notice'>[name] disconnects from the port.</span>")
 		verbs -= /obj/mecha/verb/disconnect_from_port
 		verbs += /obj/mecha/verb/connect_to_port
 	else
-		occupant_message("\red [name] is not connected to the port at the moment.")
+		occupant_message("<span class='warning'>[name] is not connected to the port at the moment.</span>")
 
 /obj/mecha/verb/toggle_lights()
 	set name = "Toggle Lights"
@@ -1310,7 +1309,7 @@
 		dir = dir_in
 
 	if(L && L.client)
-		L.client.view = world.view
+		L.client.RemoveViewMod("mecha")
 
 /////////////////////////
 ////// Access stuff /////

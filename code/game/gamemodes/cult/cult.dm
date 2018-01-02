@@ -170,6 +170,7 @@ var/global/list/all_cults = list()
 /datum/game_mode/proc/add_cultist(datum/mind/cult_mind) //BASE
 	if(!istype(cult_mind))
 		return 0
+	var/datum/game_mode/cult/cult_mode = ticker.mode
 	if(!(cult_mind in cult) && is_convertable_to_cult(cult_mind))
 		cult += cult_mind
 		cult_mind.current.faction |= "cult"
@@ -179,17 +180,10 @@ var/global/list/all_cults = list()
 		if(jobban_isbanned(cult_mind.current, ROLE_CULTIST) || jobban_isbanned(cult_mind.current, ROLE_SYNDICATE))
 			replace_jobbanned_player(cult_mind.current, ROLE_CULTIST)
 		update_cult_icons_added(cult_mind)
+		cult_mode.memorize_cult_objectives(cult_mind)
 		if(GAMEMODE_IS_CULT)
-			var/datum/game_mode/cult/cult_mode = ticker.mode
 			cult_mode.check_numbers()
 		return 1
-
-
-/datum/game_mode/cult/add_cultist(datum/mind/cult_mind) //INHERIT
-	if(!..(cult_mind))
-		return
-	memorize_cult_objectives(cult_mind)
-
 
 /datum/game_mode/proc/remove_cultist(datum/mind/cult_mind, show_message = 1)
 	if(cult_mind in cult)

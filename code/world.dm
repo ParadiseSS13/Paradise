@@ -244,6 +244,27 @@ var/world_topic_spam_protect_time = world.timeofday
 				for(var/client/C in clients)
 					to_chat(C, "<span class='announce'>PR: [input["announce"]]</span>")
 
+	else if("kick" in input)
+		/*
+			We have a kick request over coms.
+			Only needed portion is the ckey
+		*/
+		if(!key_valid)
+			return keySpamProtect(addr)
+
+		var/client/C
+
+		for(var/client/K in clients)
+			if(K.ckey == input["kick"])
+				C = K
+				break
+		if(!C)
+			return "No client with that name on server"
+
+		del(C)
+
+		return "Kick Successful"
+
 /proc/keySpamProtect(var/addr)
 	if(world_topic_spam_protect_ip == addr && abs(world_topic_spam_protect_time - world.time) < 50)
 		spawn(50)
@@ -327,7 +348,7 @@ var/world_topic_spam_protect_time = world.timeofday
 			if(C.is_afk(INACTIVITY_KICK))
 				if(!istype(C.mob, /mob/dead))
 					log_access("AFK: [key_name(C)]")
-					to_chat(C, "\red You have been inactive for more than 10 minutes and have been disconnected.")
+					to_chat(C, "<span class='warning'>You have been inactive for more than 10 minutes and have been disconnected.</span>")
 					del(C)
 		if( ((world.timeofday - sleep_check) > work_length) || ((world.timeofday - sleep_check) < 0) )
 			sleep(sleep_length)
@@ -375,7 +396,7 @@ var/world_topic_spam_protect_time = world.timeofday
 
 	s += "<b>[station_name()]</b>";
 	s += " ("
-	s += "<a href=\"http://nanotrasen.se/phpBB3/index.php\">" //Change this to wherever you want the hub to link to.
+	s += "<a href=\"http://nanotrasen.se\">" //Change this to wherever you want the hub to link to.
 	s += "[game_version]"
 	s += "</a>"
 	s += ")"

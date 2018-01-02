@@ -4,7 +4,7 @@
 	name = "Jetpack (Empty)"
 	desc = "A tank of compressed gas for use as propulsion in zero-gravity areas. Use with caution."
 	icon_state = "jetpack"
-	w_class = 4
+	w_class = WEIGHT_CLASS_BULKY
 	item_state = "jetpack"
 	distribute_pressure = ONE_ATMOSPHERE*O2STANDARD
 	var/datum/effect/system/ion_trail_follow/ion_trail
@@ -116,7 +116,7 @@
 	item_state = "jetpack-mini"
 	volume = 40
 	throw_range = 8
-	w_class = 3
+	w_class = WEIGHT_CLASS_NORMAL
 
 /obj/item/weapon/tank/jetpack/oxygenblack
 	name = "Jetpack (Oxygen)"

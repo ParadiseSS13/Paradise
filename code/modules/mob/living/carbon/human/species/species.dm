@@ -184,20 +184,12 @@
 
 /datum/species/proc/create_organs(var/mob/living/carbon/human/H) //Handles creation of mob organs.
 
-	for(var/obj/item/organ/internal/iorgan in H.internal_organs)
-		if(iorgan in H.internal_organs)
-			qdel(iorgan)
+	QDEL_LIST(H.internal_organs)
+	QDEL_LIST(H.bodyparts)
 
-	for(var/obj/item/organ/organ in H.contents)
-		if(organ in H.organs)
-			qdel(organ)
-
-	if(H.organs)                  H.organs.Cut()
-	if(H.organs_by_name)          H.organs_by_name.Cut()
-
-	H.organs = list()
-	H.internal_organs = list()
-	H.organs_by_name = list()
+	LAZYREINITLIST(H.bodyparts)
+	LAZYREINITLIST(H.bodyparts_by_name)
+	LAZYREINITLIST(H.internal_organs)
 
 	for(var/limb_type in has_limbs)
 		var/list/organ_data = has_limbs[limb_type]
@@ -210,10 +202,10 @@
 		// organ new code calls `insert` on its own
 		new organ(H)
 
-	for(var/name in H.organs_by_name)
-		H.organs |= H.organs_by_name[name]
+	for(var/name in H.bodyparts_by_name)
+		H.bodyparts |= H.bodyparts_by_name[name]
 
-	for(var/obj/item/organ/external/O in H.organs)
+	for(var/obj/item/organ/external/O in H.bodyparts)
 		O.owner = H
 
 /datum/species/proc/handle_breath(var/datum/gas_mixture/breath, var/mob/living/carbon/human/H)
@@ -388,6 +380,69 @@
 			if(heat_level_3_breathe to INFINITY)
 				H.apply_damage(hot_env_multiplier*HEAT_GAS_DAMAGE_LEVEL_3, BURN, "head", used_weapon = "Excessive Heat")
 
+////////////////
+// MOVE SPEED //
+////////////////
+
+/datum/species/proc/movement_delay(mob/living/carbon/human/H)
+	. = 0	//We start at 0.
+	var/flight = 0	//Check for flight and flying items
+	var/ignoreslow = 0
+	var/gravity = 0
+
+	if(H.flying)
+		flight = 1
+
+	if((H.status_flags & IGNORESLOWDOWN) || (RUN in H.mutations))
+		ignoreslow = 1
+
+	if(has_gravity(H))
+		gravity = 1
+
+	if(!ignoreslow && gravity)
+		if(slowdown)
+			. = slowdown
+
+		if(H.wear_suit)
+			. += H.wear_suit.slowdown
+		if(!H.buckled)
+			if(H.shoes)
+				. += H.shoes.slowdown
+		if(H.back)
+			. += H.back.slowdown
+		if(H.l_hand && (H.l_hand.flags & HANDSLOW))
+			. += H.l_hand.slowdown
+		if(H.r_hand && (H.r_hand.flags & HANDSLOW))
+			. += H.r_hand.slowdown
+
+		var/health_deficiency = (H.maxHealth - H.health + H.staminaloss)
+		var/hungry = (500 - H.nutrition)/5 // So overeat would be 100 and default level would be 80
+		if(H.reagents)
+			for(var/datum/reagent/R in H.reagents.reagent_list)
+				if(R.shock_reduction)
+					health_deficiency -= R.shock_reduction
+		if(health_deficiency >= 40)
+			if(flight)
+				. += (health_deficiency / 75)
+			else
+				. += (health_deficiency / 25)
+		if(H.shock_stage >= 10)
+			. += 3
+		. += 2 * H.stance_damage //damaged/missing feet or legs is slow
+
+		if((hungry >= 70) && !flight)
+			. += hungry/50
+		if(FAT in H.mutations)
+			. += (1.5 - flight)
+		if(H.bodytemperature < BODYTEMP_COLD_DAMAGE_LIMIT)
+			. += (BODYTEMP_COLD_DAMAGE_LIMIT - H.bodytemperature) / COLD_SLOWDOWN_FACTOR
+
+		if(H.status_flags & GOTTAGOFAST)
+			. -= 1
+		if(H.status_flags & GOTTAGOREALLYFAST)
+			. -= 2
+	return .
+
 /datum/species/proc/handle_post_spawn(var/mob/living/carbon/C) //Handles anything not already covered by basic species assignment.
 	grant_abilities(C)
 	return
@@ -461,7 +516,6 @@
 	var/attack_sound = "punch"
 	var/miss_sound = 'sound/weapons/punchmiss.ogg'
 	var/sharp = 0
-	var/edge = 0
 
 /datum/unarmed_attack/punch
 	attack_verb = list("punch")
@@ -477,7 +531,6 @@
 	attack_sound = 'sound/weapons/slice.ogg'
 	miss_sound = 'sound/weapons/slashmiss.ogg'
 	sharp = 1
-	edge = 1
 
 /datum/unarmed_attack/claws/armalis
 	attack_verb = list("slash", "claw")
@@ -551,7 +604,7 @@
 			var/list/cached_overlays = H.healthdoll.cached_healthdoll_overlays
 			// Use the dead health doll as the base, since we have proper "healthy" overlays now
 			H.healthdoll.icon_state = "healthdoll_DEAD"
-			for(var/obj/item/organ/external/O in H.organs)
+			for(var/obj/item/organ/external/O in H.bodyparts)
 				var/damage = O.burn_dam + O.brute_dam
 				var/comparison = (O.max_damage/5)
 				var/icon_num = 0
@@ -685,3 +738,9 @@ It'll return null if the organ doesn't correspond, so include null checks when u
 
 	if(H.see_override)	//Override all
 		H.see_invisible = H.see_override
+
+/datum/species/proc/water_act(mob/living/carbon/human/M, volume, temperature, source)
+	if(temperature >= 330)
+		M.bodytemperature = M.bodytemperature + (temperature - M.bodytemperature)
+	if(temperature <= 280)
+		M.bodytemperature = M.bodytemperature - (M.bodytemperature - temperature)

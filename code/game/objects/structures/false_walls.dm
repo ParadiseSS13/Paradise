@@ -25,7 +25,7 @@
 	/turf/simulated/wall/rust,
 	/turf/simulated/wall/r_wall/rust)
 	smooth = SMOOTH_TRUE
-	
+
 /obj/structure/falsewall/New(loc)
 	..()
 	air_update_turf(1)
@@ -41,10 +41,10 @@
 /obj/structure/falsewall/attack_ghost(mob/user)
 	if(user.can_advanced_admin_interact())
 		toggle(user)
-	
+
 /obj/structure/falsewall/attack_hand(mob/user)
 	toggle(user)
-	
+
 /obj/structure/falsewall/proc/toggle(mob/user)
 	if(opening)
 		return
@@ -126,11 +126,11 @@
 	new /obj/structure/girder/displaced(loc)
 	if(mineral == "metal")
 		if(istype(src, /obj/structure/falsewall/reinforced))
-			new /obj/item/stack/sheet/plasteel(loc)
-			new /obj/item/stack/sheet/plasteel(loc)
+			new /obj/item/stack/sheet/plasteel(loc, 2)
 		else
-			new /obj/item/stack/sheet/metal(loc)
-			new /obj/item/stack/sheet/metal(loc)
+			new /obj/item/stack/sheet/metal(loc, 2)
+	else if(mineral == "wood")
+		new/obj/item/stack/sheet/wood(loc, 2)
 	else
 		var/P = text2path("/obj/item/stack/sheet/mineral/[mineral]")
 		new P(loc)

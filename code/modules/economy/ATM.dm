@@ -242,9 +242,7 @@ log transactions
 							T.date = current_date_string
 							T.time = worldtime2text()
 							authenticated_account.transaction_log.Add(T)
-
 							to_chat(usr, "[bicon(src)]<span class='notice'>Access granted. Welcome user '[authenticated_account.owner_name].'</span>")
-
 						previous_account_number = tried_account_num
 			if("withdrawal")
 				var/amount = max(text2num(href_list["funds_amount"]),0)

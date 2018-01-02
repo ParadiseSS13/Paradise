@@ -1,12 +1,12 @@
 #define PROCESS_ACCURACY 10
 
 /obj/item/organ/internal
-	origin_tech = "biotech=2"
+	origin_tech = "biotech=3"
 	force = 1
-	w_class = 2
+	w_class = WEIGHT_CLASS_SMALL
 	throwforce = 0
-	var/zone = "chest"
 	var/slot
+	// DO NOT add slots with matching names to different zones - it will break internal_organs_slot list!
 	vital = 0
 	var/non_primary = 0
 
@@ -14,11 +14,6 @@
 	..()
 	if(istype(holder))
 		insert(holder)
-
-/obj/item/organ/internal/Destroy()
-	if(owner)
-		remove(owner, 1)
-	return ..()
 
 /obj/item/organ/internal/proc/insert(mob/living/carbon/M, special = 0, var/dont_remove_slot = 0)
 	if(!iscarbon(M) || owner == M)
@@ -34,6 +29,7 @@
 	owner = M
 
 	M.internal_organs |= src
+	M.internal_organs_slot[slot] = src
 	var/obj/item/organ/external/parent
 	if(istype(M, /mob/living/carbon/human))
 		var/mob/living/carbon/human/H = M
@@ -42,7 +38,7 @@
 			log_runtime(EXCEPTION("[src] attempted to insert into a [parent_organ], but [parent_organ] wasn't an organ! [atom_loc_line(M)]"), src)
 		else
 			parent.internal_organs |= src
-	//M.internal_organs_by_name[src] |= src(H,1)
+	//M.internal_bodyparts_by_name[src] |= src(H,1)
 	loc = null
 	for(var/X in actions)
 		var/datum/action/A = X
@@ -57,6 +53,8 @@
 	owner = null
 	if(M)
 		M.internal_organs -= src
+		if(M.internal_organs_slot[slot] == src)
+			M.internal_organs_slot.Remove(slot)
 		if(vital && !special)
 			if(M.stat != DEAD)//safety check!
 				M.death()
@@ -74,9 +72,8 @@
 		A.Remove(M)
 	return src
 
-/obj/item/organ/internal/replaced(var/mob/living/carbon/human/target,var/obj/item/organ/external/affected)
+/obj/item/organ/internal/replaced(var/mob/living/carbon/human/target)
     insert(target)
-    ..()
 
 /obj/item/organ/internal/item_action_slot_check(slot, mob/user)
 	return
@@ -86,6 +83,10 @@
 
 /obj/item/organ/internal/proc/on_life()
 	return
+
+//abstract proc called by carbon/death()
+/obj/item/organ/internal/proc/on_owner_death()
+ 	return
 
 /obj/item/organ/internal/proc/prepare_eat()
 	if(status == ORGAN_ROBOT)
@@ -116,12 +117,6 @@
 
 	reagents.add_reagent("nutriment", 5)
 
-
-/obj/item/organ/internal/Destroy()
-	if(owner)
-		remove(owner, 1)
-	return ..()
-
 /obj/item/organ/internal/attack(mob/living/carbon/M, mob/user)
 	if(M == user && ishuman(user))
 		var/mob/living/carbon/human/H = user
@@ -147,7 +142,7 @@
 	organ_tag = "heart"
 	parent_organ = "chest"
 	slot = "heart"
-	origin_tech = "biotech=3"
+	origin_tech = "biotech=5"
 	var/beating = 1
 	dead_icon = "heart-off"
 	var/icon_base = "heart"
@@ -162,11 +157,9 @@
 	. = ..()
 	if(ishuman(M))
 		var/mob/living/carbon/human/H = M
-		if(H.stat == DEAD || H.heart_attack)
+		if(H.stat == DEAD)
 			Stop()
 			return
-		if(!special)
-			H.heart_attack = 1
 
 	spawn(120)
 		if(!owner)
@@ -180,14 +173,9 @@
 			if(!owner)
 				Stop()
 
-
-/obj/item/organ/internal/heart/insert(mob/living/carbon/M, special = 0)
+/obj/item/organ/internal/heart/safe_replace(mob/living/carbon/human/target)
+	Restart()
 	..()
-	if(ishuman(M) && beating)
-		var/mob/living/carbon/human/H = M
-		if(H.heart_attack)
-			H.heart_attack = 0
-			return
 
 /obj/item/organ/internal/heart/proc/Stop()
 	beating = 0
@@ -209,7 +197,7 @@
 	desc = "it needs to be pumped..."
 	icon_state = "cursedheart-off"
 	icon_base = "cursedheart"
-	origin_tech = "biotech=5"
+	origin_tech = "biotech=6"
 	actions_types = list(/datum/action/item_action/organ_action/cursed_heart)
 	var/last_pump = 0
 	var/pump_delay = 30 //you can pump 1 second early, for lag, but no more (otherwise you could spam heal)
@@ -292,21 +280,18 @@
 //	. = ..()
 
 
-/obj/item/organ/internal/lungs/process()
+/obj/item/organ/internal/lungs/on_life()
 	..()
-
-	if(!owner)
-		return
 	if(germ_level > INFECTION_LEVEL_ONE)
 		if(prob(5))
 			owner.emote("cough")		//respitory tract infection
 
 	if(is_bruised())
 		if(prob(2))
-			spawn owner.custom_emote(1, "coughs up blood!")
+			owner.custom_emote(1, "coughs up blood!")
 			owner.drip(10)
 		if(prob(4))
-			spawn owner.custom_emote(1, "gasps for air!")
+			owner.custom_emote(1, "gasps for air!")
 			owner.AdjustLoseBreath(5)
 
 /obj/item/organ/internal/kidneys
@@ -317,13 +302,8 @@
 	parent_organ = "groin"
 	slot = "kidneys"
 
-/obj/item/organ/internal/kidneys/process()
-
+/obj/item/organ/internal/kidneys/on_life()
 	..()
-
-	if(!owner)
-		return
-
 	// Coffee is really bad for you with busted kidneys.
 	// This should probably be expanded in some way, but fucked if I know
 	// what else kidneys can process in our reagent list.
@@ -435,12 +415,8 @@
 	slot = "liver"
 	var/alcohol_intensity = 1
 
-/obj/item/organ/internal/liver/process()
+/obj/item/organ/internal/liver/on_life()
 	..()
-
-	if(!owner)
-		return
-
 	if(germ_level > INFECTION_LEVEL_ONE)
 		if(prob(1))
 			to_chat(owner, "<span class='warning'> Your skin itches.</span>")
@@ -518,8 +494,8 @@
 	name = "black tumor"
 	desc = "A tiny black mass with red tendrils trailing from it. It seems to shrivel in the light."
 	icon_state = "blacktumor"
-	origin_tech = "biotech=4"
-	w_class = 1
+	origin_tech = "biotech=5"
+	w_class = WEIGHT_CLASS_TINY
 	parent_organ = "head"
 	slot = "brain_tumor"
 	health = 3
@@ -551,7 +527,7 @@
 	desc = "A tiny yellow mass shaped like..a banana?"
 	icon_state = "honktumor"
 	origin_tech = "biotech=1"
-	w_class = 1
+	w_class = WEIGHT_CLASS_TINY
 	parent_organ = "head"
 	slot = "brain_tumor"
 	health = 3
@@ -638,7 +614,7 @@
 	desc = "Let they who is worthy wear the beard of Thorbjorndottir."
 	icon_state = "liver"
 	origin_tech = "biotech=1"
-	w_class = 1
+	w_class = WEIGHT_CLASS_TINY
 	parent_organ = "head"
 	slot = "hair_organ"
 

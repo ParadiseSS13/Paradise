@@ -2,17 +2,19 @@
 	mob_list -= src
 	dead_mob_list -= src
 	living_mob_list -= src
-	qdel(hud_used)
-	hud_used = null
+	QDEL_NULL(hud_used)
 	if(mind && mind.current == src)
 		spellremove(src)
 	mobspellremove(src)
-	for(var/infection in viruses)
-		qdel(infection)
+	QDEL_LIST(viruses)
 	ghostize()
 	for(var/mob/dead/observer/M in following_mobs)
 		M.following = null
 	following_mobs = null
+	QDEL_LIST_ASSOC_VAL(tkgrabbed_objects)
+	for(var/I in tkgrabbed_objects)
+		qdel(tkgrabbed_objects[I])
+	tkgrabbed_objects = null
 	if(buckled)
 		buckled.unbuckle_mob()
 	if(viewing_alternate_appearances)
@@ -47,14 +49,14 @@
 
 	var/datum/gas_mixture/environment = loc.return_air()
 
-	var/t = "\blue Coordinates: [x],[y] \n"
-	t+= "\red Temperature: [environment.temperature] \n"
-	t+= "\blue Nitrogen: [environment.nitrogen] \n"
-	t+= "\blue Oxygen: [environment.oxygen] \n"
-	t+= "\blue Plasma : [environment.toxins] \n"
-	t+= "\blue Carbon Dioxide: [environment.carbon_dioxide] \n"
+	var/t = "<span class='notice'>Coordinates: [x],[y] \n</span>"
+	t+= "<span class='warning'>Temperature: [environment.temperature] \n</span>"
+	t+= "<span class='notice'>Nitrogen: [environment.nitrogen] \n</span>"
+	t+= "<span class='notice'>Oxygen: [environment.oxygen] \n</span>"
+	t+= "<span class='notice'>Plasma : [environment.toxins] \n</span>"
+	t+= "<span class='notice'>Carbon Dioxide: [environment.carbon_dioxide] \n</span>"
 	for(var/datum/gas/trace_gas in environment.trace_gases)
-		to_chat(usr, "\blue [trace_gas.type]: [trace_gas.moles] \n")
+		to_chat(usr, "<span class='notice'>[trace_gas.type]: [trace_gas.moles] \n</span>")
 
 	usr.show_message(t, 1)
 
@@ -172,8 +174,7 @@
 		if(istype(W, /obj/item/clothing))
 			var/obj/item/clothing/C = W
 			if(C.hardsuit_restrict_helmet)
-				to_chat(src, "\red You must fasten the helmet to a hardsuit first. (Target the head and use on a hardsuit)")// Stop eva helms equipping.
-
+				to_chat(src, "<span class='warning'>You must fasten the helmet to a hardsuit first. (Target the head and use on a hardsuit)</span>")// Stop eva helms equipping.
 			else
 				equip_to_slot_if_possible(C, slot)
 		else
@@ -208,7 +209,7 @@
 			qdel(W)
 		else
 			if(!disable_warning)
-				to_chat(src, "\red You are unable to equip that.")//Only print if del_on_fail is false
+				to_chat(src, "<span class='warning'>You are unable to equip that.</span>")//Only print if del_on_fail is false
 
 		return 0
 
@@ -348,7 +349,7 @@ var/list/slot_equipment_priority = list( \
 			if(slot_belt)
 				if(!H.w_uniform)
 					if(!disable_warning)
-						to_chat(H, "\red You need a jumpsuit before you can attach this [name].")
+						to_chat(H, "<span class='warning'>You need a jumpsuit before you can attach this [name].</span>")
 					return 0
 				if( !(slot_flags & SLOT_BELT) )
 					return 0
@@ -408,7 +409,7 @@ var/list/slot_equipment_priority = list( \
 			if(slot_wear_id)
 				if(!H.w_uniform)
 					if(!disable_warning)
-						to_chat(H, "\red You need a jumpsuit before you can attach this [name].")
+						to_chat(H, "<span class='warning'>You need a jumpsuit before you can attach this [name].</span>")
 					return 0
 				if( !(slot_flags & SLOT_ID) )
 					return 0
@@ -423,34 +424,34 @@ var/list/slot_equipment_priority = list( \
 					return 0
 				if(!H.w_uniform)
 					if(!disable_warning)
-						to_chat(H, "\red You need a jumpsuit before you can attach this [name].")
+						to_chat(H, "<span class='warning'>You need a jumpsuit before you can attach this [name].</span>")
 					return 0
 				if(slot_flags & SLOT_DENYPOCKET)
 					return
-				if( w_class <= 2 || (slot_flags & SLOT_POCKET) )
+				if( w_class <= WEIGHT_CLASS_SMALL || (slot_flags & SLOT_POCKET) )
 					return 1
 			if(slot_r_store)
 				if(H.r_store)
 					return 0
 				if(!H.w_uniform)
 					if(!disable_warning)
-						to_chat(H, "\red You need a jumpsuit before you can attach this [name].")
+						to_chat(H, "<span class='warning'>You need a jumpsuit before you can attach this [name].</span>")
 					return 0
 				if(slot_flags & SLOT_DENYPOCKET)
 					return 0
-				if( w_class <= 2 || (slot_flags & SLOT_POCKET) )
+				if( w_class <= WEIGHT_CLASS_SMALL || (slot_flags & SLOT_POCKET) )
 					return 1
 				return 0
 			if(slot_s_store)
 				if(!H.wear_suit)
 					if(!disable_warning)
-						to_chat(H, "\red You need a suit before you can attach this [name].")
+						to_chat(H, "<span class='warning'>You need a suit before you can attach this [name].</span>")
 					return 0
 				if(!H.wear_suit.allowed)
 					if(!disable_warning)
 						to_chat(usr, "You somehow have a suit with no defined allowed items for suit storage, stop that.")
 					return 0
-				if(src.w_class > 4)
+				if(src.w_class > WEIGHT_CLASS_BULKY)
 					if(!disable_warning)
 						to_chat(usr, "The [name] is too big to attach.")
 					return 0
@@ -748,7 +749,7 @@ var/list/slot_equipment_priority = list( \
 	if(client.holder && (client.holder.rights & R_ADMIN))
 		is_admin = 1
 	else if(stat != DEAD || istype(src, /mob/new_player))
-		to_chat(usr, "\blue You must be observing to use this!")
+		to_chat(usr, "<span class='notice'>You must be observing to use this!</span>")
 		return
 
 	if(is_admin && stat == DEAD)
@@ -871,8 +872,8 @@ var/list/slot_equipment_priority = list( \
 	if(ishuman(src))
 		var/mob/living/carbon/human/H = src
 		if(H.health <= config.health_threshold_softcrit)
-			for(var/name in H.organs_by_name)
-				var/obj/item/organ/external/e = H.organs_by_name[name]
+			for(var/name in H.bodyparts_by_name)
+				var/obj/item/organ/external/e = H.bodyparts_by_name[name]
 				if(e && H.lying)
 					if(((e.status & ORGAN_BROKEN && !(e.status & ORGAN_SPLINTED)) || e.status & ORGAN_BLEEDING) && (H.getBruteLoss() + H.getFireLoss() >= 100))
 						return 1
@@ -1011,9 +1012,10 @@ var/list/slot_equipment_priority = list( \
 	drop_l_hand()
 	drop_r_hand()
 
-/mob/proc/facedir(var/ndir)
-	if(!canface())	return 0
-	dir = ndir
+/mob/proc/facedir(ndir)
+	if(!canface())
+		return 0
+	setDir(ndir)
 	client.move_delay += movement_delay()
 	return 1
 
@@ -1049,104 +1051,6 @@ var/list/slot_equipment_priority = list( \
 
 /mob/proc/get_species()
 	return ""
-
-/mob/proc/get_visible_implants(var/class = 0)
-	var/list/visible_implants = list()
-	for(var/obj/item/O in embedded)
-		if(O.w_class > class)
-			visible_implants += O
-	return visible_implants
-
-/mob/proc/yank_out_object()
-	set category = "Object"
-	set name = "Yank out object"
-	set desc = "Remove an embedded item at the cost of bleeding and pain."
-	set src in view(1)
-
-	if(!isliving(usr) || usr.next_move > world.time)
-		return
-	usr.changeNext_move(CLICK_CD_RESIST)
-
-	if(usr.stat == 1)
-		to_chat(usr, "You are unconcious and cannot do that!")
-		return
-
-	if(usr.restrained())
-		to_chat(usr, "You are restrained and cannot do that!")
-		return
-
-	var/mob/S = src
-	var/mob/U = usr
-	var/list/valid_objects = list()
-	var/self = null
-
-	if(S == U)
-		self = 1 // Removing object from yourself.
-
-	valid_objects = get_visible_implants(0)
-	if(!valid_objects.len)
-		if(self)
-			to_chat(src, "You have nothing stuck in your body that is large enough to remove.")
-		else
-			to_chat(U, "[src] has nothing stuck in their wounds that is large enough to remove.")
-		return
-
-	var/obj/item/weapon/selection = input("What do you want to yank out?", "Embedded objects") in valid_objects
-
-	if(self)
-		visible_message("<span class='warning'>[usr] appears to be trying to extract an object from their body.</span>")
-		to_chat(src, "<span class='warning'>You attempt to get a good grip on [selection] in your body.</span>")
-	else
-		visible_message("<span class='warning'>[usr] attempts to get a good grip on [selection] in [S]'s body.</span>")
-		to_chat(U, "<span class='warning'>You attempt to get a good grip on [selection] in [S]'s body.</span>")
-
-	if(!do_after(U, 80, target = S))
-		return
-	if(!selection || !S || !U)
-		return
-
-	if(self)
-		visible_message("<span class='warning'><b>[src] rips [selection] out of their body.</b></span>","<span class='warning'><b>You rip [selection] out of your body.</b></span>")
-	else
-		visible_message("<span class='warning'><b>[usr] rips [selection] out of [src]'s body.</b></span>","<span class='warning'><b>[usr] rips [selection] out of your body.</b></span>")
-	valid_objects = get_visible_implants(0)
-	if(valid_objects.len == 1) //Yanking out last object - removing verb.
-		src.verbs -= /mob/proc/yank_out_object
-
-	if(ishuman(src))
-
-		var/mob/living/carbon/human/H = src
-		var/obj/item/organ/external/affected
-
-		for(var/obj/item/organ/external/organ in H.organs) //Grab the organ holding the implant.
-			for(var/obj/item/weapon/O in organ.implants)
-				if(O == selection)
-					affected = organ
-
-		affected.implants -= selection
-		H.shock_stage+=10
-
-		if(prob(10)) //I'M SO ANEMIC I COULD JUST -DIE-.
-			var/datum/wound/internal_bleeding/I = new ()
-			affected.wounds += I
-			H.custom_pain("Something tears wetly in your [affected] as [selection] is pulled free!", 1)
-
-		if(ishuman(U))
-			var/mob/living/carbon/human/human_user = U
-			human_user.bloody_hands(H)
-
-	selection.forceMove(get_turf(src))
-	if(!(U.l_hand && U.r_hand))
-		U.put_in_hands(selection)
-
-	for(var/obj/item/weapon/O in pinned)
-		if(O == selection)
-			pinned -= O
-		if(!pinned.len)
-			anchored = 0
-	return 1
-
-
 
 /mob/dead/observer/verb/respawn()
 	set name = "Respawn as NPC"

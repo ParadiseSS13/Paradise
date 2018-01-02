@@ -185,8 +185,32 @@
 /obj/item/clothing/head/cowboyhat
 	name = "cowboy hat"
 	icon_state = "cowboyhat"
-	item_state = "fedora"
+	item_state = "cowboyhat"
+	desc = "For the Rancher in us all."
+
+/obj/item/clothing/head/cowboyhat/tan
+	name = "tan cowboy hat"
+	icon_state = "cowboyhat_tan"
+	item_state = "cowboyhat_tan"
 	desc = "There's a new sheriff in town. Pass the whiskey."
+
+/obj/item/clothing/head/cowboyhat/black
+	name = "black cowboy hat"
+	icon_state = "cowboyhat_black"
+	item_state = "cowboyhat_black"
+	desc = "This station ain't big enough for the two ah' us."
+
+/obj/item/clothing/head/cowboyhat/white
+	name = "white cowboy hat"
+	icon_state = "cowboyhat_white"
+	item_state = "cowboyhat_white"
+	desc = "Authentic Marshall hair case. Now ya can protect this here homestead. Navy Model not included."
+
+/obj/item/clothing/head/cowboyhat/pink
+	name = "cowgirl hat"
+	icon_state = "cowboyhat_pink"
+	item_state = "cowboyhat_pink"
+	desc = "For those buckle bunnies wanta' become a real buckaroo."
 
 /obj/item/clothing/head/fedora
 	name = "fedora"
@@ -356,7 +380,7 @@
 	throwforce = 3.0
 	throw_speed = 2
 	throw_range = 5
-	w_class = 2
+	w_class = WEIGHT_CLASS_SMALL
 	attack_verb = list("warned", "cautioned", "smashed")
 	burn_state = FIRE_PROOF
 

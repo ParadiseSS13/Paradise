@@ -73,7 +73,7 @@
 		if(human.species.name != "Shadow")
 			to_chat(M, "<span class='danger'>Your flesh rapidly mutates!</span>")
 			to_chat(M, "<span class='danger'>You are now a Shadow Person, a mutant race of darkness-dwelling humanoids.</span>")
-			to_chat(M, "<span class='danger'>Your body reacts violently to light. \green However, it naturally heals in darkness.</span>")
+			to_chat(M, "<span class='danger'>Your body reacts violently to light.</span> <span class='notice'>However, it naturally heals in darkness.</span>")
 			to_chat(M, "<span class='danger'>Aside from your new traits, you are mentally unchanged and retain your prior obligations.</span>")
 			human.set_species("Shadow")
 	..()
@@ -221,6 +221,8 @@
 	if(method == TOUCH)
 		if(ishuman(M))
 			var/mob/living/carbon/human/H = M
+			if(H.get_species() == "Grey")
+				return
 
 			if(volume > 25)
 
@@ -247,6 +249,8 @@
 	if(method == INGEST)
 		if(ishuman(M))
 			var/mob/living/carbon/human/H = M
+			if(H.get_species() == "Grey")
+				return
 
 			if(volume < 10)
 				to_chat(M, "<span class='danger'>The greenish acidic substance stings you, but isn't concentrated enough to harm you!</span>")
@@ -648,8 +652,8 @@
 		M.Weaken(2)
 		if(ishuman(M))
 			var/mob/living/carbon/human/H = M
-			if(!H.heart_attack)
-				H.heart_attack = 1 // rip in pepperoni
+			if(!H.undergoing_cardiac_arrest())
+				H.set_heartattack(TRUE) // rip in pepperoni
 	..()
 
 /datum/reagent/pancuronium

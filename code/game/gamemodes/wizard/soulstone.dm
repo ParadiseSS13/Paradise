@@ -4,14 +4,17 @@
 	icon_state = "soulstone"
 	item_state = "electronic"
 	desc = "A fragment of the legendary treasure known simply as the 'Soul Stone'. The shard still flickers with a fraction of the full artifact's power."
-	w_class = 1
+	w_class = WEIGHT_CLASS_TINY
 	slot_flags = SLOT_BELT
-	origin_tech = "bluespace=4;materials=4"
+	origin_tech = "bluespace=4;materials=5"
 	var/imprinted = "empty"
 
+	var/optional = FALSE //does this soulstone ask the victim whether they want to be turned into a shade
 	var/usability = TRUE // Can this soul stone be used by anyone, or only cultists/wizards?
 	var/reusable = TRUE // Can this soul stone be used more than once?
 	var/spent = FALSE // If the soul stone can only be used once, has it been used?
+
+	var/opt_in = FALSE // for tracking during the 'optional' bit
 
 /obj/item/device/soulstone/proc/can_use(mob/living/user)
 	if(iscultist(user) || iswizard(user) || usability)
@@ -33,6 +36,7 @@
 /obj/item/device/soulstone/anybody/chaplain
 	name = "mysterious old shard"
 	reusable = FALSE
+	optional = TRUE
 
 /obj/item/device/soulstone/pickup(mob/living/user)
 	..()
@@ -68,6 +72,50 @@
 
 		M.create_attack_log("<font color='orange'>Has had their soul captured with [src.name] by [key_name(user)]</font>")
 		user.create_attack_log("<font color='red'>Used the [src.name] to capture the soul of [key_name(M)]</font>")
+
+	if(optional)
+		if(!M.ckey)
+			to_chat(user, "<span class='warning'>They have no soul!</span>")
+			return
+
+		to_chat(user, "<span class='warning'>You attempt to channel [M]'s soul into [src]. You must give the soul some time to react and stand still...</span>")
+
+		var/mob/player_mob = M
+		if(M.get_ghost())//in case our player ghosted and we need to throw the alert at their ghost instead
+			player_mob = M.get_ghost()
+		var/client/player_client = player_mob.client
+		to_chat(player_mob, "<span class='warning'>[user] is trying to capture your soul into [src]! Click the button in the top right of the game window to respond.</span>")
+		player_client << 'sound/misc/notice2.ogg'
+		window_flash(player_client)
+
+		var/obj/screen/alert/notify_soulstone/A = player_mob.throw_alert("\ref[src]_soulstone_thingy", /obj/screen/alert/notify_soulstone)
+		if(player_client.prefs && player_client.prefs.UI_style)
+			A.icon = ui_style2icon(player_client.prefs.UI_style)
+
+		//pass the stuff to the alert itself
+		A.stone = src
+		A.stoner = user.real_name
+
+		//layer shenanigans to make the alert display the soulstone
+		var/old_layer = layer
+		var/old_plane = plane
+		layer = FLOAT_LAYER
+		plane = FLOAT_PLANE
+		A.overlays += src
+		layer = old_layer
+		plane = old_plane
+
+		//give the victim 10 seconds to respond
+		sleep(10 SECONDS)
+
+		if(!opt_in)
+			to_chat(user, "<span class='warning'>The soul resists your attempts at capturing it!</span>")
+			return
+
+		opt_in = FALSE
+
+		if(spent)//checking one more time against shenanigans
+			return
 
 	M.create_attack_log("<font color='orange'>Has had their soul captured with [src.name] by [key_name(user)]</font>")
 	user.create_attack_log("<font color='red'>Used the [src.name] to capture the soul of [key_name(M)]</font>")

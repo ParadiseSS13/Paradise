@@ -18,7 +18,7 @@
 	melee_damage_upper = 10
 	attacktext = "punches"
 	attack_sound = 'sound/weapons/punch1.ogg'
-	a_intent = I_HARM
+	a_intent = INTENT_HARM
 	unsuitable_atmos_damage = 15
 	faction = list("syndicate")
 	check_friendly_fire = 1
@@ -46,13 +46,13 @@
 			if(O.damtype == STAMINA)
 				damage = 0
 			health -= damage
-			visible_message("\red \b [src] has been attacked with the [O] by [user]. ")
+			visible_message("<span class='boldwarning'>[src] has been attacked with the [O] by [user]. </span>")
 		else
-			visible_message("\red \b [src] blocks the [O] with its shield! ")
+			visible_message("<span class='boldwarning'>[src] blocks the [O] with its shield! </span>")
 		playsound(loc, O.hitsound, 25, 1, -1)
 	else
-		to_chat(usr, "\red This weapon is ineffective, it does no damage.")
-		visible_message("\red [user] gently taps [src] with the [O]. ")
+		to_chat(usr, "<span class='warning'>This weapon is ineffective, it does no damage.</span>")
+		visible_message("<span class='warning'>[user] gently taps [src] with the [O]. </span>")
 
 
 /mob/living/simple_animal/hostile/syndicate/melee/bullet_act(var/obj/item/projectile/Proj)

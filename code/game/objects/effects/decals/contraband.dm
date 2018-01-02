@@ -2,7 +2,7 @@
 
 #define NUM_OF_POSTER_DESIGNS 33 //subtype 0-contraband posters
 
-#define NUM_OF_POSTER_DESIGNS_LEGIT 33 //subtype 1-corporate approved posters
+#define NUM_OF_POSTER_DESIGNS_LEGIT 40 //subtype 1-corporate approved posters
 
 /obj/item/weapon/contraband
 	name = "contraband item"
@@ -167,20 +167,20 @@ obj/structure/sign/poster/New(serial,var/subtypeIn = -1)
 				name += " - Rebels Unite!"
 				desc += " A poster telling the viewer to rebel against Nanotrasen."
 			if(24)
-				name += " - C-20r Advertisment"
+				name += " - C-20r Advertisement"
 				desc += " A poster advertising the Scarborough Arms C-20r."
 			if(25)
 				name += " - Have A Puff"
 				desc += " Who cares about lung cancer when you're high as a kite?"
 			if(26)
-				name += " - Revolver Advertisment"
+				name += " - Revolver Advertisement"
 				desc += " Because seven shots are all you need."
 			if(27)
 				name += " - D-Day Promotional Poster"
 				desc += " A promotional poster for some rapper."
 			if(28)
-				name += " - Syndicate Pistol Advertisment"
-				desc += " A poster advertising syndicate pistols as being 'Classy as fuck'."
+				name += " - Syndicate Pistol Advertisement"
+				desc += " A poster advertising Syndicate pistols as being 'Classy as fuck'."
 			if(29)
 				name += " - E-sword Rainbow"
 				desc += " All the colors of bloody murder rainbow."
@@ -188,7 +188,7 @@ obj/structure/sign/poster/New(serial,var/subtypeIn = -1)
 				name += " - Red Rum"
 				desc += " Looking at this poster makes you want to kill."
 			if(31)
-				name += " - CC 64K Advertisment"
+				name += " - CC 64K Advertisement"
 				desc += " The latest portable computer from Comrade Computing, with a whole 64kB of ram!"
 			if(32)
 				name += " - Punch Shit"
@@ -198,13 +198,13 @@ obj/structure/sign/poster/New(serial,var/subtypeIn = -1)
 				desc += " The Griffin commands you to be the worst you can be. Will you?"
 			else
 				name += " - Error (subtype 0 serial_number)"
-				desc += " This is a bug, please report the circumstances under which you encountered this poster at https://github.com/tgstation/-tg-station/issues."
+				desc += " This is a bug, please report the circumstances under which you encountered this poster at https://github.com/ParadiseSS13/Paradise/issues."
 
 	if(subtype == 1)
 		icon_state = "poster[serial_number]_legit"
 		switch(serial_number)
 			if(1)
-				name += " - Here for Your Saftey"
+				name += " - Here for Your Safety"
 				desc += " A poster glorifying the station's security force."
 			if(2)
 				name += " - Nanotrasen Logo"
@@ -247,7 +247,7 @@ obj/structure/sign/poster/New(serial,var/subtypeIn = -1)
 				desc += " This thing is all in Japanese."
 			if(15)
 				name += " - Get Your LEGS"
-				desc += " LEGS: Leadership, Experiance, Genius, S(Opportunity)."
+				desc += " LEGS: Leadership, Experience, Genius, S(Opportunity)."
 			if(16)
 				name += " - Do Not Question"
 				desc += " A poster instructing the viewer not to ask about things they aren't meant to know."
@@ -258,53 +258,74 @@ obj/structure/sign/poster/New(serial,var/subtypeIn = -1)
 				name += " - Soft Cap Pop Art"
 				desc += " A poster reprint of some cheap pop art."
 			if(19)
-				name += " - Saftey: Internals"
+				name += " - Safety: Internals"
 				desc += " A poster instructing the viewer to wear internals in environments where there is no oxygen or the air has been rendered toxic."
 			if(20)
-				name += " - Saftey: Eye Protection"
+				name += " - Safety: Eye Protection"
 				desc += " A poster instructing the viewer to wear eye protection when dealing with chemicals, smoke, or bright lights."
 			if(21)
-				name += " - Saftey: Report"
+				name += " - Safety: Report"
 				desc += " A poster instructing the viewer to report suspicious activity to the security force."
 			if(22)
 				name += " - Report Crimes"
-				desc += " Report crimes at: 1-800-FUCKING-TERRORISTS or at https://www.sectorthirteen.nt/malconetents."
+				desc += " Report crimes at: 1-800-FUCKING-TERRORISTS or at https://www.sectorthirteen.nt/malcontents."
 			if(23)
 				name += " - Ion Rifle"
 				desc += " A poster displaying an Ion Rifle."
 			if(24)
-				name += " - Foam Force Advertisment"
+				name += " - Foam Force Advertisement"
 				desc += " Foam Force, it's Foam or be Foamed!"
 			if(25)
-				name += " - Cohiba Robusto Advertisment"
+				name += " - Cohiba Robusto Advertisement"
 				desc += " Cohiba Robusto, the classy cigar."
 			if(26)
-				name += " - 50th Aniversery Vintage Reprint"
-				desc += " A reprint of a poster from 2504, commemorating the 50th Aniversery of Nanoposters Manufacturing, a subsidary of Nanotrasen."
+				name += " - 50th Anniversary Vintage Reprint"
+				desc += " A reprint of a poster from 2504, commemorating the 50th Anniversary of Nanoposters Manufacturing, a subsidiary of Nanotrasen."
 			if(27)
 				name += " - Fruit Bowl"
 				desc += " Simple, yet awe inspiring."
 			if(28)
-				name += " - NanoPDA 1000 Advertisment"
+				name += " - NanoPDA 1000 Advertisement"
 				desc += " A poster advertising the latest PDA from Nanotrasen."
 			if(29)
 				name += " - Enlist"
 				desc += " Enlist in the Nanotrasen ERT reserves today!"
 			if(30)
-				name += " - Nanomichi Advertisment"
+				name += " - Nanomichi Advertisement"
 				desc += " A poster advertising Nanomichi brand audio cassettes."
 			if(31)
 				name += " - 12 Gauge"
-				desc += " A poster boasting about the superiority of 12 gauge shotgun shells."
+				desc += " A poster boasting about the superiority of 12-gauge shotgun shells."
 			if(32)
 				name += " - High-Class Martini"
-				desc += " I told you to shake it, no stirring"
+				desc += " I told you to shake it, no stirring."
 			if(33)
 				name += " - The Owl"
 				desc += " The Owl would do his best to protect the station. Will you?"
+			if(34)
+				name += " - Spider Risk"
+				desc += " A poster detailing what to do when giant spiders are seen."
+			if(35)
+				name += " - Kill Syndicate"
+				desc += " A poster demanding that all crew should be ready to fight the Syndicate."
+			if(36)
+				name += " - Information on Air"
+				desc += " A poster providing visual aid to remind crew of air canisters."
+			if(37)
+				name += " - Information on Air"
+				desc += " A poster providing visual aid to remind crew of air canisters."
+			if(38)
+				name += " - Dig for Glory!"
+				desc += " A poster providing trying to convince crew to mine for ore."
+			if(39)
+				name += " - Religious Poster"
+				desc += " A generic religious poser telling you to believe."
+			if(40)
+				name += " - Stay Healthy!"
+				desc += " A healthy crew is a happy crew!"
 			else
 				name += " - Error (subtype 1 serial_number)"
-				desc += " This is a bug, please report the circumstances under which you encountered this poster at https://github.com/NTStation/NTstation13/issues."
+				desc += " This is a bug, please report the circumstances under which you encountered this poster at https://github.com/ParadiseSS13/Paradise/issues."
 	..()
 
 obj/structure/sign/poster/attackby(obj/item/I, mob/user, params)
@@ -405,6 +426,6 @@ obj/structure/sign/poster/attackby(obj/item/I, mob/user, params)
 //Putting non-contraband posters here because everything else here is related to posters anyway. -JS
 
 /obj/item/weapon/contraband/poster/legit
-	desc = "The poster comes with its own automatic adhesive mechanism, for easy pinning to any vertical surface. It's contents go through Nanotrasen's strict content guidlines."
+	desc = "The poster comes with its own automatic adhesive mechanism, for easy pinning to any vertical surface. It's contents go through Nanotrasen's strict content guidelines."
 	icon_state = "rolled_poster_legit"
 	subtype = 1

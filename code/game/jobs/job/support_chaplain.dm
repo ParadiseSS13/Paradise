@@ -7,6 +7,7 @@
 	spawn_positions = 1
 	is_service = 1
 	supervisors = "the head of personnel"
+	department_head = list("Head of Personnel")
 	selection_color = "#dddddd"
 	access = list(access_morgue, access_chapel_office, access_crematorium, access_maint_tunnels)
 	minimal_access = list(access_morgue, access_chapel_office, access_crematorium, access_maint_tunnels)
@@ -34,6 +35,8 @@
 	var/obj/item/weapon/storage/bible/B = new /obj/item/weapon/storage/bible(H)
 
 	spawn()
+		H.equip_to_slot_or_del(B, slot_l_hand)
+
 		var/religion_name = "Christianity"
 		var/new_religion = sanitize(copytext(input(H, "You are the crew services officer. Would you like to change your religion? Default is Christianity, in SPACE.", "Name change", religion_name),1,MAX_NAME_LEN))
 

@@ -652,7 +652,7 @@
 					if(ishuman(M))
 						var/mob/living/carbon/human/H = M
 						var/necrosis_prob = 40 * min((20 MINUTES), max((time_dead - (1 MINUTES)), 0)) / ((20 MINUTES) - (1 MINUTES))
-						for(var/obj/item/organ/O in (H.organs | H.internal_organs))
+						for(var/obj/item/organ/O in (H.bodyparts | H.internal_organs))
 							// Per non-vital body part:
 							// 0% chance of necrosis within 1 minute of death
 							// 40% chance of necrosis after 20 minutes of death
@@ -1023,3 +1023,11 @@
 /datum/reagent/medicine/earthsblood/overdose_process(mob/living/M)
 	M.SetHallucinate(min(max(0, M.hallucination + 10), 50))
 	M.adjustToxLoss(5 * REAGENTS_EFFECT_MULTIPLIER)
+
+/datum/reagent/medicine/corazone
+	name = "Corazone"
+	id = "corazone"
+	description = "A medication used to treat pain, fever, and inflammation, along with heart attacks."
+	color = "#F5F5F5"
+
+// This reagent's effects are handled in heart attack handling code

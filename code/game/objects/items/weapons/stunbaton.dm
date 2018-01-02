@@ -7,7 +7,7 @@
 	slot_flags = SLOT_BELT
 	force = 10
 	throwforce = 7
-	w_class = 3
+	w_class = WEIGHT_CLASS_NORMAL
 	origin_tech = "combat=2"
 	attack_verb = list("beaten")
 	var/stunforce = 7
@@ -118,7 +118,7 @@
 
 	var/mob/living/L = M
 
-	if(user.a_intent != I_HARM)
+	if(user.a_intent != INTENT_HARM)
 		if(status)
 			user.do_attack_animation(L)
 			baton_stun(L, user)
@@ -165,8 +165,6 @@
 /obj/item/weapon/melee/baton/emp_act(severity)
 	if(bcell)
 		deductcharge(1000 / severity)
-		if(bcell.reliability != 100 && prob(50/severity))
-			bcell.reliability -= 10 / severity
 	..()
 
 /obj/item/weapon/melee/baton/wash(mob/user, atom/source)
@@ -190,7 +188,7 @@
 	icon_state = "stunprod_nocell"
 	base_icon = "stunprod"
 	item_state = "prod"
-	w_class = 3
+	w_class = WEIGHT_CLASS_NORMAL
 	force = 3
 	throwforce = 5
 	stunforce = 5

@@ -38,7 +38,7 @@
 	if(istype(W,/obj/item/stack/cable_coil))
 		var/obj/item/stack/cable_coil/CC = W
 		if(CC.amount < 5)
-			to_chat(user, "\b There is not enough wire in this coil. You need 5 lengths.")
+			to_chat(user, "<b>There is not enough wire in this coil. You need 5 lengths.</b>")
 			return
 		CC.use(5)
 		to_chat(user, "<span class='notice'>You attach wire to the [name].</span>")
@@ -267,7 +267,7 @@
 	singular_name = "glass sheet"
 	icon_state = "sheet-plasmaglass"
 	materials = list(MAT_GLASS=MINERAL_MATERIAL_AMOUNT*2)
-	origin_tech = "materials=3;plasmatech=2"
+	origin_tech = "plasmatech=2;materials=2"
 	var/created_window = /obj/structure/window/plasmabasic
 	var/full_window = /obj/structure/window/full/plasmabasic
 
@@ -356,7 +356,7 @@
 	singular_name = "reinforced plasma glass sheet"
 	icon_state = "sheet-plasmarglass"
 	materials = list(MAT_METAL=MINERAL_MATERIAL_AMOUNT/2, MAT_GLASS=MINERAL_MATERIAL_AMOUNT*2)
-	origin_tech = "materials=3;plasmatech=2"
+	origin_tech = "plasmatech=2;materials=2"
 	var/created_window = /obj/structure/window/plasmareinforced
 	var/full_window = /obj/structure/window/full/plasmareinforced
 

@@ -37,6 +37,7 @@ var/global/list/default_medbay_channels = list(
 	var/list/channels = list() //see communications.dm for full list. First channes is a "default" for :h
 	var/subspace_transmission = 0
 	var/syndie = 0//Holder to see if it's a syndicate encrpyed radio
+	var/disable_timer = 0 //How many times this is disabled by EMPs
 
 	var/is_special = 0 //For electropacks mostly, skips Topic() checks
 
@@ -44,7 +45,7 @@ var/global/list/default_medbay_channels = list(
 	slot_flags = SLOT_BELT
 	throw_speed = 2
 	throw_range = 9
-	w_class = 2
+	w_class = WEIGHT_CLASS_SMALL
 
 	materials = list(MAT_METAL=75)
 
@@ -66,8 +67,6 @@ var/global/list/default_medbay_channels = list(
 /obj/item/device/radio/New()
 	..()
 	wires = new(src)
-	if(radio_controller)
-		initialize()
 
 	internal_channels = default_internal_channels.Copy()
 	global_radios |= src
@@ -248,6 +247,13 @@ var/global/list/default_medbay_channels = list(
 	A.name = from
 	A.role = role
 	A.message = message
+	var/jammed = FALSE
+	for(var/obj/item/device/jammer/jammer in active_jammers)
+		if(get_dist(get_turf(src), get_turf(jammer)) < jammer.range)
+			jammed = TRUE
+			break
+	if(jammed)
+		message = Gibberish(message, 100)
 	Broadcast_Message(connection, A,
 						0, "*garbled automated announcement*", src,
 						message, from, "Automated Announcement", from, "synthesized voice",
@@ -269,6 +275,7 @@ var/global/list/default_medbay_channels = list(
 /mob/living/automatedannouncer/Destroy()
 	if(lifetime_timer)
 		deltimer(lifetime_timer)
+		lifetime_timer = null
 	return ..()
 
 /mob/living/automatedannouncer/proc/autocleanup()
@@ -332,6 +339,12 @@ var/global/list/default_medbay_channels = list(
 	var/datum/radio_frequency/connection = message_mode
 	var/turf/position = get_turf(src)
 
+	var/jammed = FALSE
+	for(var/obj/item/device/jammer/jammer in active_jammers)
+		if(get_dist(position, get_turf(jammer)) < jammer.range)
+			jammed = TRUE
+			break
+
 	//#### Tagging the signal with all appropriate identity values ####//
 
 	// ||-- The mob's name identity --||
@@ -344,6 +357,9 @@ var/global/list/default_medbay_channels = list(
 
 
 	var/jobname // the mob's "job"
+
+	if(jammed)
+		message = Gibberish(message, 100)
 
 	// --- Human: use their actual job ---
 	if(ishuman(M))
@@ -577,9 +593,9 @@ var/global/list/default_medbay_channels = list(
 	. = ..(user, distance)
 	if((in_range(src, user) || loc == user))
 		if(b_stat)
-			user.show_message("\blue \the [src] can be attached and modified!")
+			user.show_message("<span class='notice'>\the [src] can be attached and modified!</span>")
 		else
-			user.show_message("\blue \the [src] can not be modified or attached!")
+			user.show_message("<span class='notice'>\the [src] can not be modified or attached!</span>")
 	return .
 
 /obj/item/device/radio/attackby(obj/item/weapon/W as obj, mob/user as mob, params)
@@ -590,9 +606,9 @@ var/global/list/default_medbay_channels = list(
 	b_stat = !( b_stat )
 	if(!istype(src, /obj/item/device/radio/beacon))
 		if(b_stat)
-			user.show_message("\blue The radio can now be attached and modified!")
+			user.show_message("<span class='notice'>The radio can now be attached and modified!</span>")
 		else
-			user.show_message("\blue The radio can no longer be modified or attached!")
+			user.show_message("<span class='notice'>The radio can no longer be modified or attached!</span>")
 		updateDialog()
 			//Foreach goto(83)
 		add_fingerprint(user)
@@ -600,11 +616,24 @@ var/global/list/default_medbay_channels = list(
 	else return
 
 /obj/item/device/radio/emp_act(severity)
+	on = 0
+	disable_timer++
+	addtimer(src, "enable_radio", rand(100, 200))
+
+	if(listening)
+		visible_message("<span class='warning'>[src] buzzes violently!</span>")
+
 	broadcasting = 0
 	listening = 0
 	for(var/ch_name in channels)
 		channels[ch_name] = 0
 	..()
+
+/obj/item/device/radio/proc/enable_radio()
+	if(disable_timer > 0)
+		disable_timer--
+	if(!disable_timer)
+		on = 1
 
 ///////////////////////////////
 //////////Borg Radios//////////

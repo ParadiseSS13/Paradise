@@ -440,8 +440,7 @@ steam.start() -- spawns the effect
 	var/obj/chemholder
 
 	Destroy()
-		qdel(chemholder)
-		chemholder = null
+		QDEL_NULL(chemholder)
 		return ..()
 
 	New()
@@ -1155,10 +1154,10 @@ steam.start() -- spawns the effect
 			s.start()
 
 			for(var/mob/M in viewers(5, location))
-				to_chat(M, "\red The solution violently explodes.")
+				to_chat(M, "<span class='warning'>The solution violently explodes.</span>")
 			for(var/mob/M in viewers(1, location))
 				if(prob (50 * amount))
-					to_chat(M, "\red The explosion knocks you down.")
+					to_chat(M, "<span class='warning'>The explosion knocks you down.</span>")
 					M.Weaken(rand(1,5))
 			return
 		else
@@ -1181,7 +1180,7 @@ steam.start() -- spawns the effect
 				flash += (round(amount/4) * flashing_factor)
 
 			for(var/mob/M in viewers(8, location))
-				to_chat(M, "\red The solution violently explodes.")
+				to_chat(M, "<span class='warning'>The solution violently explodes.</span>")
 
 			explosion(location, devastation, heavy, light, flash)
 

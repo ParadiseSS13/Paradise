@@ -22,6 +22,8 @@
 	// All shuttle templates are timid
 	var/timid = FALSE
 
+	var/list/ripples = list()
+
 	//these objects are indestructable
 /obj/docking_port/Destroy(force)
 	if(force)
@@ -378,16 +380,51 @@
 
 	qdel(src, force=TRUE)
 
+/obj/docking_port/mobile/proc/create_ripples(obj/docking_port/stationary/S1)
+	var/list/turfs = ripple_area(S1)
+	for(var/i in turfs)
+		ripples += new /obj/effect/overlay/temp/ripple(i)
+
+/obj/docking_port/mobile/proc/remove_ripples()
+	if(ripples.len)
+		for(var/i in ripples)
+			qdel(i)
+		ripples.Cut()
+
+
+/obj/docking_port/mobile/proc/ripple_area(obj/docking_port/stationary/S1)
+	var/list/L0 = return_ordered_turfs(x, y, z, dir, areaInstance)
+	var/list/L1 = return_ordered_turfs(S1.x, S1.y, S1.z, S1.dir)
+
+	var/list/ripple_turfs = list()
+
+	for(var/i in 1 to L0.len)
+		var/turf/T0 = L0[i]
+		if(!T0)
+			continue
+		var/turf/T1 = L1[i]
+		if(!T1)
+			continue
+		if(T0.type != T0.baseturf)
+			ripple_turfs += T1
+
+	return ripple_turfs
+
 //this is the main proc. It instantly moves our mobile port to stationary port S1
 //it handles all the generic behaviour, such as sanity checks, closing doors on the shuttle, stunning mobs, etc
 /obj/docking_port/mobile/proc/dock(obj/docking_port/stationary/S1, force=FALSE)
 	// Crashing this ship with NO SURVIVORS
+	if(S1.get_docked() == src)
+		remove_ripples()
+		return
+
 	if(!force)
 		if(!check_dock(S1))
 			return -1
 
 		if(canMove())
 			return -1
+
 
 //		//rotate transit docking ports, so we don't need zillions of variants
 //		if(istype(S1, /obj/docking_port/stationary/transit))
@@ -422,6 +459,9 @@
 			A0 = new area_type(null)
 		for(var/turf/T0 in L0)
 			A0.contents += T0
+
+	// Removes ripples
+	remove_ripples()
 
 	//move or squish anything in the way ship at destination
 	roadkill(L0, L1, S1.dir)
@@ -564,7 +604,10 @@
 
 //used by shuttle subsystem to check timers
 /obj/docking_port/mobile/proc/check()
+	check_effects()
+
 	var/timeLeft = timeLeft(1)
+
 	if(timeLeft <= 0)
 		switch(mode)
 			if(SHUTTLE_CALL)
@@ -579,6 +622,12 @@
 		timer = 0
 		destination = null
 
+/obj/docking_port/mobile/proc/check_effects()
+	if(!ripples.len)
+		if((mode == SHUTTLE_CALL) || (mode == SHUTTLE_RECALL))
+			var/tl = timeLeft(1)
+			if(tl <= SHUTTLE_RIPPLE_TIME)
+				create_ripples(destination)
 
 /obj/docking_port/mobile/proc/setTimer(wait)
 	if(timer <= 0)

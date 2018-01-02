@@ -5,7 +5,7 @@
 	desc = "A folded bag designed for the storage and transportation of cadavers."
 	icon = 'icons/obj/bodybag.dmi'
 	icon_state = "bodybag_folded"
-	w_class = 2
+	w_class = WEIGHT_CLASS_SMALL
 
 	attack_self(mob/user)
 		var/obj/structure/closet/body_bag/R = new /obj/structure/closet/body_bag(user.loc)
@@ -126,7 +126,7 @@
 	MouseDrop(over_object, src_location, over_location)
 		if((over_object == usr && (in_range(src, usr) || usr.contents.Find(src))))
 			if(!ishuman(usr))	return
-			to_chat(usr, "\red You can't fold that up anymore..")
+			to_chat(usr, "<span class='warning'>You can't fold that up anymore..</span>")
 		..()
 
 	attackby(W as obj, mob/user as mob, params)
@@ -135,5 +135,5 @@
 				src.locked = !src.locked
 				to_chat(user, "The controls are now [src.locked ? "locked." : "unlocked."]")
 			else
-				to_chat(user, "\red Access denied.")
+				to_chat(user, "<span class='warning'>Access denied.</span>")
 			return

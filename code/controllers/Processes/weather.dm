@@ -10,7 +10,6 @@ var/global/datum/controller/process/weather/weather_master
 /datum/controller/process/weather/setup()
 	name = "weather"
 	schedule_interval = 10
-	weather_master = src
 
 	for(var/V in subtypesof(/datum/weather))
 		var/datum/weather/W = V
@@ -39,6 +38,8 @@ var/global/datum/controller/process/weather/weather_master
 		run_weather(W.name)
 		eligible_zlevels -= Z
 		addtimer(src, "make_z_eligible", rand(3000, 6000) + W.weather_duration_upper, TRUE, Z) //Around 5-10 minutes between weathers
+
+DECLARE_GLOBAL_CONTROLLER(weather, weather_master)
 
 /datum/controller/process/weather/proc/run_weather(weather_name)
 	if(!weather_name)

@@ -11,7 +11,7 @@
 	icon_state = "tank1"
 	density = 0
 	anchored = 0
-	throwpass = 0
+	pass_flags = 0
 
 	var/tank_type = ""			// Type of aquarium, used for icon updating
 	var/water_capacity = 0		// Number of units the tank holds (varies with tank type)
@@ -38,8 +38,7 @@
 	icon_state = "bowl1"
 	density = 0					// Small enough to not block stuff
 	anchored = 0				// Small enough to move even when filled
-	throwpass = 1				// Just like at the county fair, you can't seem to throw the ball in to win the goldfish
-	pass_flags = PASSTABLE		// Small enough to pull onto a table
+	pass_flags = PASSTABLE | LETPASSTHROW // Just like at the county fair, you can't seem to throw the ball in to win the goldfish, and it's small enough to pull onto a table
 
 	tank_type = "bowl"
 	water_capacity = 50			// Not very big, therefore it can't hold much
@@ -57,7 +56,7 @@
 	icon_state = "tank1"
 	density = 1
 	anchored = 1
-	throwpass = 1				// You can throw objects over this, despite it's density, because it's short enough.
+	pass_flags = LETPASSTHROW
 
 	tank_type = "tank"
 	water_capacity = 200		// Decent sized, holds almost 2 full buckets
@@ -75,7 +74,7 @@
 	icon_state = "wall1"
 	density = 1
 	anchored = 1
-	throwpass = 0				// This thing is the size of a wall, you can't throw past it.
+	pass_flags = 0				// This thing is the size of a wall, you can't throw past it.
 
 	tank_type = "wall"
 	water_capacity = 500		// This thing fills an entire tile, it holds a lot.
@@ -370,17 +369,21 @@
 /obj/machinery/fishtank/proc/breed_fish()
 	var/list/breed_candidates = fish_list.Copy()
 	var/datum/fish/parent1 = pick_n_take(breed_candidates)
-	var/datum/fish/parent2 = null
 	if(!parent1.crossbreeder)							//fish with crossbreed = 0 will only breed with their own species, and only leave duds if they can't breed
-		if(parent1 in breed_candidates)
+		var/match_found = 0
+		for(var/datum/fish/possible in breed_candidates)
+			if(parent1.type == possible.type)
+				match_found = 1
+				break
+		if(match_found)
 			egg_list.Add(parent1.egg_item)
 		else
 			egg_list.Add(/obj/item/fish_eggs)
 	else
-		parent2 = pick(breed_candidates)
+		var/datum/fish/parent2 = pick(breed_candidates)
 		if(!parent2.crossbreeder)						//second fish refuses to crossbreed, spawn a dud
 			egg_list.Add(/obj/item/fish_eggs)
-		else if(parent1 == parent2)						//both fish are the same type
+		else if(parent1.type == parent2.type)						//both fish are the same type
 			if(prob(90))									//90% chance to get that type of egg
 				egg_list.Add(parent1.egg_item)
 			else											//10% chance to get a dud
@@ -510,7 +513,7 @@
 
 /obj/machinery/fishtank/attack_animal(mob/living/simple_animal/M as mob)
 	if(istype(M, /mob/living/simple_animal/pet/cat))
-		if(M.a_intent == I_HELP)							//Cats can try to fish in open tanks on help intent
+		if(M.a_intent == INTENT_HELP)							//Cats can try to fish in open tanks on help intent
 			if(lid_switch)									//Can't fish in a closed tank. Fishbowls are ALWAYS open.
 				M.visible_message("[M.name] stares at into \the [src] while sitting perfectly still.", "The lid is closed, so you stare into \the [src] intently.")
 			else
@@ -532,7 +535,7 @@
 		else
 			attack_generic(M, M.harm_intent_damage)
 	else if(istype(M, /mob/living/simple_animal/hostile/bear))
-		if(M.a_intent == I_HELP)							//Bears can try to fish in open tanks on help intent
+		if(M.a_intent == INTENT_HELP)							//Bears can try to fish in open tanks on help intent
 			if(lid_switch)									//Can't fish in a closed tank. Fishbowls are ALWAYS open.
 				M.visible_message("[M.name] scrapes it's claws along \the [src]'s lid.", "The lid is closed, so you scrape your claws against \the [src]'s lid.")
 			else
@@ -552,7 +555,7 @@
 	else
 		if(M.melee_damage_upper > 0)						//If the simple_animal has a melee_damage_upper defined, use that for the damage
 			attack_generic(M, M.melee_damage_upper)
-		else if(M.a_intent == I_HARM)						//Let any simple_animal try to break tanks when on harm intent
+		else if(M.a_intent == INTENT_HARM)						//Let any simple_animal try to break tanks when on harm intent
 			if(M.harm_intent_damage <= 0) return			//If it doesn't do damage, don't bother with the attack
 			attack_generic(M, M.harm_intent_damage)
 	check_health()
@@ -572,7 +575,7 @@
 		user.say(pick(";RAAAAAAAARGH!", ";HNNNNNNNNNGGGGGGH!", ";GWAAAAAAAARRRHHH!", "NNNNNNNNGGGGGGGGHH!", ";AAAAAAARRRGH!"))
 		user.visible_message("<span class='danger'>[user] smashes through [src]!</span>")
 		destroy()
-	else if(usr.a_intent == I_HARM)
+	else if(usr.a_intent == INTENT_HARM)
 		user.changeNext_move(CLICK_CD_MELEE)
 		playsound(get_turf(src), 'sound/effects/glassknock.ogg', 80, 1)
 		usr.visible_message("<span class='danger'>[usr.name] bangs against the [src.name]!</span>", \
@@ -608,7 +611,7 @@
 	//Welders repair damaged tanks on help intent, damage on all others
 	if(istype(O, /obj/item/weapon/weldingtool))
 		var/obj/item/weapon/weldingtool/W = O
-		if(user.a_intent == I_HELP)
+		if(user.a_intent == INTENT_HELP)
 			if(W.isOn())
 				if(cur_health < max_health)
 					playsound(loc, W.usesound, 50, 1)

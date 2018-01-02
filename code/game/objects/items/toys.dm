@@ -113,7 +113,7 @@
 	icon = 'icons/obj/weapons.dmi'
 	icon_state = "syndballoon"
 	item_state = "syndballoon"
-	w_class = 4
+	w_class = WEIGHT_CLASS_BULKY
 
 /*
  * Fake telebeacon
@@ -144,7 +144,7 @@
 	icon_state = "sword0"
 	item_state = "sword0"
 	var/active = 0.0
-	w_class = 2
+	w_class = WEIGHT_CLASS_SMALL
 	attack_verb = list("attacked", "struck", "hit")
 
 /obj/item/toy/sword/attack_self(mob/user as mob)
@@ -154,13 +154,13 @@
 		playsound(user, 'sound/weapons/saberon.ogg', 50, 1)
 		icon_state = "swordblue"
 		item_state = "swordblue"
-		w_class = 4
+		w_class = WEIGHT_CLASS_BULKY
 	else
 		to_chat(user, "<span class='notice'>You push the plastic blade back down into the handle.</span>")
 		playsound(user, 'sound/weapons/saberoff.ogg', 50, 1)
 		icon_state = "sword0"
 		item_state = "sword0"
-		w_class = 2
+		w_class = WEIGHT_CLASS_SMALL
 
 	if(istype(user,/mob/living/carbon/human))
 		var/mob/living/carbon/human/H = user
@@ -218,7 +218,7 @@
 	slot_flags = SLOT_BELT | SLOT_BACK
 	force = 5
 	throwforce = 5
-	w_class = 3
+	w_class = WEIGHT_CLASS_NORMAL
 	attack_verb = list("attacked", "slashed", "stabbed", "sliced")
 	hitsound = 'sound/weapons/bladeslice.ogg'
 
@@ -239,7 +239,7 @@
 	throwforce = 5.0
 	throw_speed = 10
 	throw_range = 30
-	w_class = 1
+	w_class = WEIGHT_CLASS_TINY
 
 
 /obj/item/toy/snappop/virus/throw_impact(atom/hit_atom)
@@ -260,7 +260,7 @@
 	desc = "Wow!"
 	icon = 'icons/obj/toy.dmi'
 	icon_state = "snappop"
-	w_class = 1
+	w_class = WEIGHT_CLASS_TINY
 	var/ash_type = /obj/effect/decal/cleanable/ash
 
 /obj/item/toy/snappop/proc/pop_burst(var/n=3, var/c=1)
@@ -283,7 +283,7 @@
 /obj/item/toy/snappop/Crossed(H as mob|obj)
 	if(ishuman(H) || issilicon(H)) //i guess carp and shit shouldn't set them off
 		var/mob/living/carbon/M = H
-		if(issilicon(H) || M.m_intent == "run")
+		if(issilicon(H) || M.m_intent == MOVE_INTENT_RUN)
 			to_chat(M, "<span class='danger'>You step on the snap pop!</span>")
 			pop_burst(2, 0)
 
@@ -403,7 +403,7 @@
 	slot_flags = SLOT_BELT | SLOT_BACK
 	force = 5
 	throwforce = 5
-	w_class = 3
+	w_class = WEIGHT_CLASS_NORMAL
 	attack_verb = list("attacked", "slashed", "stabbed", "sliced")
 
 
@@ -438,7 +438,7 @@ obj/item/toy/cards/deck
 	icon = 'icons/obj/toy.dmi'
 	deckstyle = "nanotrasen"
 	icon_state = "deck_nanotrasen_full"
-	w_class = 2
+	w_class = WEIGHT_CLASS_SMALL
 	var/cooldown = 0
 	var/list/cards = list()
 
@@ -568,7 +568,7 @@ obj/item/toy/cards/cardhand
 	desc = "A number of cards not in a deck, customarily held in ones hand."
 	icon = 'icons/obj/toy.dmi'
 	icon_state = "nanotrasen_hand2"
-	w_class = 1
+	w_class = WEIGHT_CLASS_TINY
 	var/list/currenthand = list()
 	var/choice = null
 
@@ -661,7 +661,7 @@ obj/item/toy/cards/singlecard
 	desc = "a card"
 	icon = 'icons/obj/toy.dmi'
 	icon_state = "singlecard_nanotrasen_down"
-	w_class = 1
+	w_class = WEIGHT_CLASS_TINY
 	var/cardname = null
 	var/flipped = 0
 	pixel_x = -5
@@ -787,7 +787,7 @@ obj/item/toy/cards/deck/syndicate/black
 	desc = "A plastic model of a Nuclear Fission Explosive."
 	icon = 'icons/obj/toy.dmi'
 	icon_state = "nuketoyidle"
-	w_class = 2
+	w_class = WEIGHT_CLASS_SMALL
 	var/cooldown = 0
 
 /obj/item/toy/nuke/attack_self(mob/user)
@@ -810,7 +810,7 @@ obj/item/toy/cards/deck/syndicate/black
 	desc = "A toy for therapeutic and recreational purposes."
 	icon_state = "therapyred"
 	item_state = "egg4"
-	w_class = 1
+	w_class = WEIGHT_CLASS_TINY
 	var/cooldown = 0
 
 /obj/item/toy/therapy/New()
@@ -863,7 +863,7 @@ obj/item/toy/cards/deck/syndicate/black
 	name = "toddler"
 	desc = "This baby looks almost real. Wait, did it just burp?"
 	force = 5
-	w_class = 4
+	w_class = WEIGHT_CLASS_BULKY
 	slot_flags = SLOT_BACK
 
 
@@ -886,7 +886,7 @@ obj/item/toy/cards/deck/syndicate/black
 	desc = "Relive the excitement of a meteor shower! SweetMeat-eor. Co is not responsible for any injuries, headaches or hearing loss caused by Mini-Meteor."
 	icon = 'icons/obj/toy.dmi'
 	icon_state = "minimeteor"
-	w_class = 2
+	w_class = WEIGHT_CLASS_SMALL
 
 /obj/item/toy/minimeteor/throw_impact(atom/hit_atom)
 	..()
@@ -1095,7 +1095,7 @@ obj/item/toy/cards/deck/syndicate/black
  	icon_state = "foamblade"
  	item_state = "arm_blade"
  	attack_verb = list("pricked", "absorbed", "gored")
- 	w_class = 2
+ 	w_class = WEIGHT_CLASS_SMALL
  	burn_state = FLAMMABLE
 
 /*
@@ -1107,7 +1107,7 @@ obj/item/toy/cards/deck/syndicate/black
 	icon = 'icons/obj/device.dmi'
 	icon_state = "flash"
 	item_state = "flashtool"
-	w_class = 1
+	w_class = WEIGHT_CLASS_TINY
 
 /obj/item/toy/flash/attack(mob/living/M, mob/user)
 	playsound(src.loc, 'sound/weapons/flash.ogg', 100, 1)
@@ -1123,7 +1123,7 @@ obj/item/toy/cards/deck/syndicate/black
 	desc = "A big, plastic red button. Reads 'From HonkCo Pranks?' on the back."
 	icon = 'icons/obj/assemblies.dmi'
 	icon_state = "bigred"
-	w_class = 2
+	w_class = WEIGHT_CLASS_SMALL
 	var/cooldown = 0
 
 /obj/item/toy/redbutton/attack_self(mob/user)
@@ -1148,7 +1148,7 @@ obj/item/toy/cards/deck/syndicate/black
 	desc = "A little toy model AI core with real law announcing action!"
 	icon = 'icons/obj/toy.dmi'
 	icon_state = "AI"
-	w_class = 2
+	w_class = WEIGHT_CLASS_SMALL
 	var/cooldown = 0
 
 /obj/item/toy/AI/attack_self(mob/user)
@@ -1167,7 +1167,7 @@ obj/item/toy/cards/deck/syndicate/black
 	desc = "An action figure modeled after 'The Owl', defender of justice."
 	icon = 'icons/obj/toy.dmi'
 	icon_state = "owlprize"
-	w_class = 2
+	w_class = WEIGHT_CLASS_SMALL
 	var/cooldown = 0
 
 /obj/item/toy/owl/attack_self(mob/user)
@@ -1186,7 +1186,7 @@ obj/item/toy/cards/deck/syndicate/black
 	desc = "An action figure modeled after 'The Griffin', criminal mastermind."
 	icon = 'icons/obj/toy.dmi'
 	icon_state = "griffinprize"
-	w_class = 2
+	w_class = WEIGHT_CLASS_SMALL
 	var/cooldown = 0
 
 /obj/item/toy/griffin/attack_self(mob/user)
@@ -1203,7 +1203,7 @@ obj/item/toy/cards/deck/syndicate/black
 // DND Character minis. Use the naming convention (type)character for the icon states.
 /obj/item/toy/character
 	icon = 'icons/obj/toy.dmi'
-	w_class = 2
+	w_class = WEIGHT_CLASS_SMALL
 	pixel_z = 5
 
 /obj/item/toy/character/alien
@@ -1256,7 +1256,7 @@ obj/item/toy/cards/deck/syndicate/black
 	desc = "The perfect pet!"
 	icon = 'icons/obj/toy.dmi'
 	icon_state = "pet_rock"
-	w_class = 2
+	w_class = WEIGHT_CLASS_SMALL
 	force = 5
 	throwforce = 5
 	attack_verb = list("attacked", "bashed", "smashed", "stoned")
@@ -1276,11 +1276,11 @@ obj/item/toy/cards/deck/syndicate/black
 
 /obj/item/toy/minigibber
 	name = "miniature gibber"
-	desc = "A miniature recreation of NanoTrasen's famous meat grinder."
+	desc = "A miniature recreation of Nanotrasen's famous meat grinder."
 	icon = 'icons/obj/toy.dmi'
 	icon_state = "minigibber"
 	attack_verb = list("grinded", "gibbed")
-	w_class = 2
+	w_class = WEIGHT_CLASS_SMALL
 	var/cooldown = 0
 	var/obj/stored_minature = null
 
@@ -1288,8 +1288,7 @@ obj/item/toy/cards/deck/syndicate/black
 
 	if(stored_minature)
 		to_chat(user, "<span class='danger'>\The [src] makes a violent grinding noise as it tears apart the miniature figure inside!</span>")
-		qdel(stored_minature)
-		stored_minature = null
+		QDEL_NULL(stored_minature)
 		playsound(user, 'sound/goonstation/effects/gib.ogg', 20, 1)
 		cooldown = world.time
 
@@ -1322,7 +1321,7 @@ obj/item/toy/cards/deck/syndicate/black
 	icon_state = "toy_xeno"
 	name = "xenomorph action figure"
 	desc = "MEGA presents the new Xenos Isolated action figure! Comes complete with realistic sounds! Pull back string to use."
-	w_class = 2
+	w_class = WEIGHT_CLASS_SMALL
 	var/cooldown = 0
 
 /obj/item/toy/toy_xeno/attack_self(mob/user)
@@ -1352,7 +1351,7 @@ obj/item/toy/cards/deck/syndicate/black
 	flags =  CONDUCT
 	slot_flags = SLOT_BELT
 	materials = list(MAT_METAL=2000)
-	w_class = 3
+	w_class = WEIGHT_CLASS_NORMAL
 	throwforce = 5
 	throw_speed = 4
 	throw_range = 5

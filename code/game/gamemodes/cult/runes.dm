@@ -336,7 +336,7 @@ var/list/teleport_runes = list()
 	var/turf/T = get_turf(src)
 
 	for(var/mob/living/M in T.contents)
-		if(!iscultist(M) && !ismindshielded(M))
+		if(!iscultist(M) && !ismindshielded(M) && ishuman(M))
 			convertees.Add(M)
 	if(!convertees.len)
 		fail_invoke()
@@ -415,6 +415,7 @@ var/list/teleport_runes = list()
 
 /obj/effect/rune/sacrifice/proc/sac(var/list/invokers, mob/living/T)
 	var/sacrifice_fulfilled
+	var/datum/game_mode/cult/cult_mode = ticker.mode
 	if(T)
 		if(istype(T, /mob/living/simple_animal/pet/corgi))
 			for(var/M in invokers)
@@ -428,11 +429,12 @@ var/list/teleport_runes = list()
 				sacrifice_fulfilled = 1
 		new /obj/effect/overlay/temp/cult/sac(loc)
 		if(ticker && ticker.mode && ticker.mode.name == "cult")
-			var/datum/game_mode/cult/cult_mode = ticker.mode
+
 			cult_mode.harvested++
 		for(var/M in invokers)
 			if(sacrifice_fulfilled)
 				to_chat(M, "<span class='cultlarge'>\"Yes! This is the one I desire! You have done well.\"</span>")
+				cult_mode.additional_phase()
 			else
 				if(ishuman(T) || isrobot(T))
 					to_chat(M, "<span class='cultlarge'>\"I accept this sacrifice.\"</span>")
@@ -534,7 +536,7 @@ var/list/teleport_runes = list()
 
 /obj/effect/rune/slaughter
 	cultist_name = "Call Forth The Slaughter (Demons)"
-	cultist_desc = "Calls forth the doom of a eldrtich being. Three slaughter demons will appear to wreak havoc on the station."
+	cultist_desc = "Calls forth the doom of an eldritch being. Three slaughter demons will appear to wreak havoc on the station."
 	invocation = null
 	req_cultists = 9
 	color = rgb(125,23,23)

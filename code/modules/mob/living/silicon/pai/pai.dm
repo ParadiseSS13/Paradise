@@ -82,6 +82,7 @@
 
 	var/current_pda_messaging = null
 	var/custom_sprite = 0
+	var/slowdown = 0
 
 /mob/living/silicon/pai/New(var/obj/item/device/paicard)
 	loc = paicard
@@ -116,6 +117,12 @@
 		var/datum/data/pda/app/chatroom/C = pda.find_program(/datum/data/pda/app/chatroom)
 		C.toff = 1
 	..()
+
+/mob/living/silicon/pai/movement_delay()
+	. = ..()
+	. += slowdown
+	. += 1 //A bit slower than humans, so they're easier to smash
+	. += config.robot_delay
 
 /mob/living/silicon/pai/update_icons()
 	if(stat == DEAD)
@@ -173,7 +180,7 @@
 	if(prob(20))
 		var/turf/T = get_turf_or_move(loc)
 		for(var/mob/M in viewers(T))
-			M.show_message("\red A shower of sparks spray from [src]'s inner workings.", 3, "\red You hear and smell the ozone hiss of electrical sparks being expelled violently.", 2)
+			M.show_message("<span class='warning'>A shower of sparks spray from [src]'s inner workings.</span>", 3, "<span class='warning'>You hear and smell the ozone hiss of electrical sparks being expelled violently.</span>", 2)
 		return death(0)
 
 	switch(pick(1,2,3))
@@ -239,10 +246,10 @@
 
 	switch(M.a_intent)
 
-		if(I_HELP)
+		if(INTENT_HELP)
 			for(var/mob/O in viewers(src, null))
 				if((O.client && !( O.blinded )))
-					O.show_message(text("\blue [M] caresses [src]'s casing with its scythe like arm."), 1)
+					O.show_message(text("<span class='notice'>[M] caresses [src]'s casing with its scythe like arm.</span>"), 1)
 
 		else //harm
 			M.do_attack_animation(src)
@@ -320,7 +327,7 @@
 				cameralist[C.network] = C.network
 
 	network = input(usr, "Which network would you like to view?") as null|anything in cameralist
-	to_chat(src, "\blue Switched to [network] camera network.")
+	to_chat(src, "<span class='notice'>Switched to [network] camera network.</span>")
 //End of code by Mord_Sith
 */
 
@@ -501,7 +508,7 @@
 /mob/living/silicon/pai/attack_hand(mob/user as mob)
 	if(stat == DEAD)
 		return
-	if(user.a_intent == I_HELP)
+	if(user.a_intent == INTENT_HELP)
 		user.visible_message("<span class='notice'>[user] pets [src].</span>")
 		playsound(loc, 'sound/weapons/thudswoosh.ogg', 50, 1, -1)
 	else
@@ -539,10 +546,10 @@
 	card.forceMove(card.loc)
 	icon_state = "[chassis]"
 
-/mob/living/silicon/pai/Bump(atom/movable/AM as mob|obj, yes)
+/mob/living/silicon/pai/Bump()
 	return
 
-/mob/living/silicon/pai/Bumped(AM as mob|obj)
+/mob/living/silicon/pai/Bumped()
 	return
 
 /mob/living/silicon/pai/start_pulling(var/atom/movable/AM)

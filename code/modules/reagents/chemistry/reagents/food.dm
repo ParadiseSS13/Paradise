@@ -772,8 +772,8 @@
 		M.Weaken(1)
 		if(ishuman(M))
 			var/mob/living/carbon/human/H = M
-			if(!H.heart_attack)
-				H.heart_attack = 1
+			if(!H.undergoing_cardiac_arrest())
+				H.set_heartattack(TRUE)
 	..()
 
 /datum/reagent/fungus
@@ -847,7 +847,7 @@
 	if(volume >= 5 && !istype(T, /turf/space))
 		new /obj/effect/decal/cleanable/vomit/green(T)
 		playsound(T, 'sound/effects/splat.ogg', 50, 1, -3)
-		
+
 ////Lavaland Flora Reagents////
 
 /datum/reagent/consumable/entpoly
@@ -878,7 +878,7 @@
 	if(!light_activated)
 		M.set_light(2)
 		light_activated = 1
-	..()	
+	..()
 
 /datum/reagent/consumable/tinlux/on_mob_delete(mob/living/M)
 	M.set_light(0)

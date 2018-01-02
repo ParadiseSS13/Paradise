@@ -48,7 +48,6 @@
 	..()
 	spawn (10)
 		qdel(src)
-	return
 
 /datum/effect/system/explosion/set_up(turf/loc)
 	..(loc=loc)
@@ -58,6 +57,11 @@
 	var/datum/effect/system/expl_particles/P = new/datum/effect/system/expl_particles()
 	P.set_up(10,location)
 	P.start()
+
+/datum/effect/system/explosion/smoke
+
+/datum/effect/system/explosion/smoke/start()
+	..()
 	spawn(5)
 		var/datum/effect/system/harmless_smoke_spread/S = new/datum/effect/system/harmless_smoke_spread()
 		S.set_up(5,0,location,null)

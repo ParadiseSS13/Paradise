@@ -77,7 +77,7 @@
 		client.time_died_as_mouse = world.time
 
 /mob/living/simple_animal/mouse/attack_hand(mob/living/carbon/human/M as mob)
-	if(M.a_intent == I_HELP)
+	if(M.a_intent == INTENT_HELP)
 		get_scooped(M)
 	..()
 
@@ -112,7 +112,7 @@
 	if( ishuman(AM) )
 		if(!stat)
 			var/mob/M = AM
-			to_chat(M, "\blue [bicon(src)] Squeek!")
+			to_chat(M, "<span class='notice'>[bicon(src)] Squeek!</span>")
 			M << 'sound/effects/mousesqueek.ogg'
 	..()
 

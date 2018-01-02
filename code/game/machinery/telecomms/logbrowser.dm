@@ -149,7 +149,7 @@
 		if(href_list["delete"])
 
 			if(!src.allowed(usr) && !emagged)
-				to_chat(usr, "\red ACCESS DENIED.")
+				to_chat(usr, "<span class='warning'>ACCESS DENIED.</span>")
 				return
 
 			if(SelectedServer)
@@ -187,7 +187,7 @@
 			playsound(src.loc, D.usesound, 50, 1)
 			if(do_after(user, 20 * D.toolspeed, target = src))
 				if(src.stat & BROKEN)
-					to_chat(user, "\blue The broken glass falls out.")
+					to_chat(user, "<span class='notice'>The broken glass falls out.</span>")
 					var/obj/structure/computerframe/A = new /obj/structure/computerframe( src.loc )
 					new /obj/item/weapon/shard(loc)
 					var/obj/item/weapon/circuitboard/comm_server/M = new /obj/item/weapon/circuitboard/comm_server( A )
@@ -199,7 +199,7 @@
 					A.anchored = 1
 					qdel(src)
 				else
-					to_chat(user, "\blue You disconnect the monitor.")
+					to_chat(user, "<span class='notice'>You disconnect the monitor.</span>")
 					var/obj/structure/computerframe/A = new /obj/structure/computerframe( src.loc )
 					var/obj/item/weapon/circuitboard/comm_server/M = new /obj/item/weapon/circuitboard/comm_server( A )
 					for(var/obj/C in src)
@@ -216,4 +216,4 @@
 		if(!emagged)
 			playsound(src.loc, 'sound/effects/sparks4.ogg', 75, 1)
 			emagged = 1
-			to_chat(user, "\blue You you disable the security protocols")
+			to_chat(user, "<span class='notice'>You you disable the security protocols</span>")

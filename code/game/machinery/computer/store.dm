@@ -140,8 +140,8 @@ td.cost.toomuch {
 			updateUsrDialog()
 			return
 		if(!centcomm_store.PlaceOrder(usr,itemID))
-			to_chat(usr, "\red Unable to charge your account.")
+			to_chat(usr, "<span class='warning'>Unable to charge your account.</span>")
 		else
-			to_chat(usr, "\blue You've successfully purchased the item.  It should be in your hands or on the floor.")
+			to_chat(usr, "<span class='notice'>You've successfully purchased the item.  It should be in your hands or on the floor.</span>")
 	src.updateUsrDialog()
 	return

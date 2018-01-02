@@ -378,7 +378,7 @@
 "hn" = (/obj/item/device/radio/intercom/syndicate{pixel_x = 0; pixel_y = 25},/obj/item/weapon/twohanded/required/kirbyplants,/turf/unsimulated/floor{icon_state = "bar"; dir = 2},/area/syndicate_mothership)
 "ho" = (/obj/effect/decal/warning_stripes/east,/turf/simulated/floor/plating/airless,/area/syndicate_mothership)
 "hp" = (/obj/structure/table/woodentable,/turf/unsimulated/floor{dir = 8; icon_state = "wood"},/area/centcom/ferry)
-"hq" = (/obj/structure/stool/bed/chair/comfy/black{dir = 8},/turf/unsimulated/floor{dir = 8; icon_state = "wood"},/area/centcom/ferry)
+"hq" = (/obj/structure/stool/bed/chair/comfy/black{dir = 8},/obj/effect/landmark{name = "ERT Director"},/turf/unsimulated/floor{dir = 8; icon_state = "wood"},/area/centcom/ferry)
 "hr" = (/turf/unsimulated/wall/fakeglass{icon_state = "fakewindows2"; dir = 6},/area/centcom/control)
 "hs" = (/obj/machinery/door/window/northleft{dir = 2; name = "Centcom Security"; req_access_txt = "101"},/turf/unsimulated/floor{icon_state = "dark"},/area/centcom/evac)
 "ht" = (/obj/structure/table/reinforced,/turf/unsimulated/floor{tag = "icon-darkred (SOUTHWEST)"; icon_state = "darkred"; dir = 10},/area/centcom/evac)

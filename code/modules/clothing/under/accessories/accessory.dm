@@ -6,7 +6,7 @@
 	item_state = ""	//no inhands
 	item_color = "bluetie"
 	slot_flags = SLOT_TIE
-	w_class = 2
+	w_class = WEIGHT_CLASS_SMALL
 	var/slot = "decor"
 	var/obj/item/clothing/under/has_suit = null		//the suit the tie may be attached to
 	var/image/inv_overlay = null	//overlay used when attached to clothing.
@@ -14,6 +14,12 @@
 /obj/item/clothing/accessory/New()
 	..()
 	inv_overlay = image("icon" = 'icons/obj/clothing/ties_overlay.dmi', "icon_state" = "[item_color? "[item_color]" : "[icon_state]"]")
+
+/obj/item/clothing/accessory/Destroy()
+	if(has_suit)
+		has_suit.accessories -= src
+		on_removed(null)
+	return ..()
 
 //when user attached an accessory to S
 /obj/item/clothing/accessory/proc/on_attached(obj/item/clothing/under/S, mob/user as mob)
@@ -37,7 +43,7 @@
 		to_chat(user, "<span class='notice'>You attach [src] to [has_suit].</span>")
 	src.add_fingerprint(user)
 
-/obj/item/clothing/accessory/proc/on_removed(mob/user as mob)
+/obj/item/clothing/accessory/proc/on_removed(mob/user)
 	if(!has_suit)
 		return
 	has_suit.overlays -= inv_overlay
@@ -53,8 +59,9 @@
 		has_suit.armor[armor_type] -= armor[armor_type]
 
 	has_suit = null
-	usr.put_in_hands(src)
-	src.add_fingerprint(user)
+	if(user)
+		user.put_in_hands(src)
+		add_fingerprint(user)
 
 /obj/item/clothing/accessory/attack(mob/living/carbon/human/H, mob/living/user)
 	// This code lets you put accessories on other people by attacking their sprite with the accessory
@@ -243,7 +250,7 @@
 		to_chat(user, "Waving around a badge before swiping an ID would be pretty pointless.")
 		return
 	if(isliving(user))
-		user.visible_message("\red [user] displays their Nanotrasen Internal Security Legal Authorization Badge.\nIt reads: [stored_name], NT Security.","\red You display your Nanotrasen Internal Security Legal Authorization Badge.\nIt reads: [stored_name], NT Security.")
+		user.visible_message("<span class='warning'>[user] displays their Nanotrasen Internal Security Legal Authorization Badge.\nIt reads: [stored_name], NT Security.</span>","<span class='warning'>You display your Nanotrasen Internal Security Legal Authorization Badge.\nIt reads: [stored_name], NT Security.</span>")
 
 /obj/item/clothing/accessory/holobadge/attackby(var/obj/item/O as obj, var/mob/user as mob, params)
 	if(istype(O, /obj/item/weapon/card/id) || istype(O, /obj/item/device/pda))
@@ -268,16 +275,16 @@
 
 /obj/item/clothing/accessory/holobadge/emag_act(user as mob)
 	if(emagged)
-		to_chat(user, "\red [src] is already cracked.")
+		to_chat(user, "<span class='warning'>[src] is already cracked.</span>")
 		return
 	else
 		emagged = 1
-		to_chat(user, "\red You swipe the card and crack the holobadge security checks.")
+		to_chat(user, "<span class='warning'>You swipe the card and crack the holobadge security checks.</span>")
 		return
 
 /obj/item/clothing/accessory/holobadge/attack(mob/living/carbon/human/M, mob/living/user)
 	if(isliving(user))
-		user.visible_message("\red [user] invades [M]'s personal space, thrusting [src] into their face insistently.","\red You invade [M]'s personal space, thrusting [src] into their face insistently. You are the law.")
+		user.visible_message("<span class='warning'>[user] invades [M]'s personal space, thrusting [src] into their face insistently.</span>","<span class='warning'>You invade [M]'s personal space, thrusting [src] into their face insistently. You are the law.</span>")
 
 /obj/item/weapon/storage/box/holobadge
 	name = "holobadge box"
@@ -377,6 +384,177 @@
 	icon_state = "stripedbluescarf"
 	item_color = "stripedbluescarf"
 
+//Necklaces
+/obj/item/clothing/accessory/necklace
+	name = "necklace"
+	desc = "A simple necklace."
+	icon_state = "necklace"
+	item_state = "necklace"
+	item_color = "necklace"
+	slot_flags = SLOT_MASK | SLOT_TIE
+
+/obj/item/clothing/accessory/necklace/locket
+	name = "gold locket"
+	desc = "A gold locket that seems to have space for a photo within."
+	icon_state = "locket"
+	item_state = "locket"
+	item_color = "locket"
+	slot_flags = SLOT_MASK | SLOT_TIE
+	var/base_icon
+	var/open
+	var/obj/item/held //Item inside locket.
+
+/obj/item/clothing/accessory/necklace/locket/Destroy()
+	QDEL_NULL(held)
+	return ..()
+
+
+/obj/item/clothing/accessory/necklace/locket/attack_self(mob/user as mob)
+	if(!base_icon)
+		base_icon = icon_state
+
+	if(!("[base_icon]_open" in icon_states(icon)))
+		to_chat(user, "[src] doesn't seem to open.")
+		return
+
+	open = !open
+	to_chat(user, "You flip [src] [open?"open":"closed"].")
+	if(open)
+		icon_state = "[base_icon]_open"
+		if(held)
+			to_chat(user, "[held] falls out!")
+			held.forceMove(get_turf(user))
+			held = null
+	else
+		icon_state = "[base_icon]"
+
+/obj/item/clothing/accessory/necklace/locket/attackby(var/obj/item/O as obj, mob/user as mob)
+	if(!open)
+		to_chat(user, "You have to open it first.")
+		return
+
+	if(istype(O,/obj/item/weapon/paper) || istype(O, /obj/item/weapon/photo) && !(istype(O, /obj/item/weapon/paper/talisman)))
+		if(held)
+			to_chat(usr, "[src] already has something inside it.")
+		else
+			to_chat(usr, "You slip [O] into [src].")
+			user.drop_item()
+			O.forceMove(src)
+			held = O
+	else
+		return ..()
+
+//Cowboy Shirts
+/obj/item/clothing/accessory/cowboyshirt
+	name = "black cowboy shirt"
+	desc = "For a real western look. Looks like it can clip on to a uniform."
+	icon_state = "cowboyshirt"
+	item_state = "cowboyshirt"
+	item_color = "cowboyshirt"
+	species_fit = list("Vox")
+	sprite_sheets = list(
+		"Vox" = 'icons/mob/species/vox/suit.dmi'
+		)
+
+/obj/item/clothing/accessory/cowboyshirt/short_sleeved
+	name = "shortsleeved black cowboy shirt"
+	desc = "For when it's a hot day in the west. Looks like it can clip on to a uniform."
+	icon_state = "cowboyshirt_s"
+	item_state = "cowboyshirt_s"
+	item_color = "cowboyshirt_s"
+	species_fit = list("Vox")
+	sprite_sheets = list(
+		"Vox" = 'icons/mob/species/vox/suit.dmi'
+		)
+
+/obj/item/clothing/accessory/cowboyshirt/white
+	name = "white cowboy shirt"
+	desc = "For the rancher in us all. Looks like it can clip on to a uniform."
+	icon_state = "cowboyshirt_white"
+	item_state = "cowboyshirt_white"
+	item_color = "cowboyshirt_white"
+	species_fit = list("Vox")
+	sprite_sheets = list(
+		"Vox" = 'icons/mob/species/vox/suit.dmi'
+		)
+
+/obj/item/clothing/accessory/cowboyshirt/white/short_sleeved
+	name = "short sleeved white cowboy shirt"
+	desc = "Best for midday cattle tending. Looks like it can clip on to a uniform."
+	icon_state = "cowboyshirt_whites"
+	item_state = "cowboyshirt_whites"
+	item_color = "cowboyshirt_whites"
+	species_fit = list("Vox")
+	sprite_sheets = list(
+		"Vox" = 'icons/mob/species/vox/suit.dmi'
+		)
+
+/obj/item/clothing/accessory/cowboyshirt/pink
+	name = "pink cowboy shirt"
+	desc = "For only the manliest of men, or girliest of girls. Looks like it can clip on to a uniform."
+	icon_state = "cowboyshirt_pink"
+	item_state = "cowboyshirt_pink"
+	item_color = "cowboyshirt_pink"
+	species_fit = list("Vox")
+	sprite_sheets = list(
+		"Vox" = 'icons/mob/species/vox/suit.dmi'
+		)
+
+/obj/item/clothing/accessory/cowboyshirt/pink/short_sleeved
+	name = "short sleeved pink cowboy shirt"
+	desc = "For a real buckle bunny. Looks like it can clip on to a uniform."
+	icon_state = "cowboyshirt_pinks"
+	item_state = "cowboyshirt_pinks"
+	item_color = "cowboyshirt_pinks"
+	species_fit = list("Vox")
+	sprite_sheets = list(
+		"Vox" = 'icons/mob/species/vox/suit.dmi'
+		)
+
+/obj/item/clothing/accessory/cowboyshirt/navy
+	name = "navy cowboy shirt"
+	desc = "Now yer a real cowboy. Looks like it can clip on to a uniform."
+	icon_state = "cowboyshirt_navy"
+	item_state = "cowboyshirt_navy"
+	item_color = "cowboyshirt_navy"
+	species_fit = list("Vox")
+	sprite_sheets = list(
+		"Vox" = 'icons/mob/species/vox/suit.dmi'
+		)
+
+/obj/item/clothing/accessory/cowboyshirt/navy/short_sleeved
+	name = "short sleeved navy cowboy shirt"
+	desc = "Sometimes ya need to roll up your sleeves. Looks like it can clip on to a uniform."
+	icon_state = "cowboyshirt_navys"
+	item_state = "cowboyshirt_navys"
+	item_color = "cowboyshirt_navys"
+	species_fit = list("Vox")
+	sprite_sheets = list(
+		"Vox" = 'icons/mob/species/vox/suit.dmi'
+		)
+
+/obj/item/clothing/accessory/cowboyshirt/red
+	name = "red cowboy shirt"
+	desc = "It's high noon. Looks like it can clip on to a uniform."
+	icon_state = "cowboyshirt_red"
+	item_state = "cowboyshirt_red"
+	item_color = "cowboyshirt_red"
+	species_fit = list("Vox")
+	sprite_sheets = list(
+		"Vox" = 'icons/mob/species/vox/suit.dmi'
+		)
+
+/obj/item/clothing/accessory/cowboyshirt/red/short_sleeved
+	name = "short sleeved red cowboy shirt"
+	desc = "Life on the open range is quite dangeorus, you never know what to expect. Looks like it can clip on to a uniform."
+	icon_state = "cowboyshirt_reds"
+	item_state = "cowboyshirt_reds"
+	item_color = "cowboyshirt_reds"
+	species_fit = list("Vox")
+	sprite_sheets = list(
+		"Vox" = 'icons/mob/species/vox/suit.dmi'
+		)
+
 /obj/item/clothing/accessory/petcollar
 	name = "pet collar"
 	desc = "The latest fashion accessory for your favorite pets!"
@@ -442,7 +620,7 @@
 		return
 
 	var/area/t = get_area(M)
-	var/obj/item/device/radio/headset/a = new /obj/item/device/radio/headset(null)
+	var/obj/item/device/radio/headset/a = new /obj/item/device/radio/headset(src)
 	if(istype(t, /area/syndicate_station) || istype(t, /area/syndicate_mothership) || istype(t, /area/shuttle/syndicate_elite) )
 		//give the syndicats a bit of stealth
 		a.autosay("[M] has been vandalized in Space!", "[M]'s Death Alarm")

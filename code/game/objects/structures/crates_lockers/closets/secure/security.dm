@@ -327,7 +327,7 @@
 		new /obj/item/clothing/suit/storage/det_suit(src)
 		new /obj/item/clothing/suit/storage/det_suit/forensics/blue(src)
 		new /obj/item/clothing/suit/storage/det_suit/forensics/red(src)
-		new /obj/item/clothing/gloves/color/black(src)
+		new /obj/item/clothing/gloves/color/black/forensics(src)
 		new /obj/item/clothing/head/det_hat(src)
 		new /obj/item/clothing/shoes/brown(src)
 		new /obj/item/weapon/storage/box/evidence(src)
@@ -376,8 +376,10 @@
 
 	New()
 		..()
-		new /obj/item/clothing/under/color/orange/prison( src )
-		new /obj/item/clothing/shoes/orange( src )
+		new /obj/item/clothing/under/color/orange/prison(src)
+		new /obj/item/clothing/shoes/orange(src)
+		new /obj/item/weapon/card/id/prisoner/random(src)
+		new /obj/item/device/radio/headset(src)
 
 
 

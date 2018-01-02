@@ -6,7 +6,7 @@
 	icon = 'icons/obj/guns/magic.dmi'
 	slot_flags = SLOT_BACK
 	item_state = "staffofstorms"
-	w_class = 4
+	w_class = WEIGHT_CLASS_BULKY
 	force = 25
 	damtype = BURN
 	hitsound = 'sound/weapons/sear.ogg'

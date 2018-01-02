@@ -70,8 +70,8 @@
 
 					if(ishuman(M)) //Edge case housekeeping
 						var/mob/living/carbon/human/C = M
-						/*if(C.internal_organs_by_name  && item_to_retrive in C.internal_organs_by_name ) //This won't work, as we use organ datums instead of objects. --DZD
-							C.internal_organs_by_name  -= item_to_retrive
+						/*if(C.internal_bodyparts_by_name  && item_to_retrive in C.internal_bodyparts_by_name ) //This won't work, as we use organ datums instead of objects. --DZD
+							C.internal_bodyparts_by_name  -= item_to_retrive
 							if(istype(marked_item, /obj/item/brain)) //If this code ever runs I will be happy
 								var/obj/item/brain/B = new /obj/item/brain(target.loc)
 								B.transfer_identity(C)
@@ -79,6 +79,14 @@
 								add_logs(target, C, "magically debrained", addition="INTENT: [uppertext(target.a_intent)]")*/
 						if(C.stomach_contents && item_to_retrive in C.stomach_contents)
 							C.stomach_contents -= item_to_retrive
+						for(var/X in C.bodyparts)
+							var/obj/item/organ/external/part = X
+							if(item_to_retrive in part.embedded_objects)
+								part.embedded_objects -= item_to_retrive
+								to_chat(C, "<span class='warning'>The [item_to_retrive] that was embedded in your [part] has mysteriously vanished. How fortunate!</span>")
+								if(!C.has_embedded_objects())
+									C.clear_alert("embeddedobject")
+								break
 
 				else
 					if(istype(item_to_retrive.loc,/obj/machinery/portable_atmospherics/)) //Edge cases for moved machinery

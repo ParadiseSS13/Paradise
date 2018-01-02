@@ -45,7 +45,7 @@
 	if(enemies.len && prob(10))
 		enemies = list()
 		LoseTarget()
-		src.visible_message("\blue [src] calms down.")
+		src.visible_message("<span class='notice'>[src] calms down.</span>")
 
 	var/obj/structure/spacevine/SV = locate(/obj/structure/spacevine) in loc
 	if(SV)
@@ -59,7 +59,7 @@
 
 /mob/living/simple_animal/hostile/retaliate/goat/Retaliate()
 	..()
-	src.visible_message("\red [src] gets an evil-looking gleam in their eye.")
+	src.visible_message("<span class='warning'>[src] gets an evil-looking gleam in their eye.</span>")
 
 /mob/living/simple_animal/hostile/retaliate/goat/Move()
 	..()
@@ -78,9 +78,9 @@
 			G.reagents.add_reagent("milk", transfered)
 			milk_content -= transfered
 		else if(G.reagents.total_volume >= G.volume)
-			to_chat(user, "\red \The [O] is full.")
+			to_chat(user, "<span class='warning'>\The [O] is full.</span>")
 		else
-			to_chat(user, "\red The udder is dry. Wait a bit longer...")
+			to_chat(user, "<span class='warning'>The udder is dry. Wait a bit longer...</span>")
 	else
 		..()
 
@@ -124,9 +124,9 @@
 			G.reagents.add_reagent("milk", transfered)
 			milk_content -= transfered
 		else if(G.reagents.total_volume >= G.volume)
-			to_chat(user, "\red \The [O] is full.")
+			to_chat(user, "<span class='warning'>\The [O] is full.</span>")
 		else
-			to_chat(user, "\red The udder is dry. Wait a bit longer...")
+			to_chat(user, "<span class='warning'>The udder is dry. Wait a bit longer...</span>")
 	else
 		..()
 
@@ -136,7 +136,7 @@
 		milk_content = min(50, milk_content+rand(5, 10))
 
 /mob/living/simple_animal/cow/attack_hand(mob/living/carbon/M as mob)
-	if(!stat && M.a_intent == I_DISARM && icon_state != icon_dead)
+	if(!stat && M.a_intent == INTENT_DISARM && icon_state != icon_dead)
 		M.visible_message("<span class='warning'>[M] tips over [src].</span>","<span class='notice'>You tip over [src].</span>")
 		Weaken(30)
 		icon_state = icon_dead
