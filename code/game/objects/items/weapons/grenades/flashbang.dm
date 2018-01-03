@@ -37,7 +37,7 @@
 			var/mob/living/carbon/human/H = M
 			var/obj/item/organ/internal/eyes/E = H.get_int_organ(/obj/item/organ/internal/eyes)
 			if(E)
-				E.take_damage(8, 1)
+				E.receive_damage(8, 1)
 
 	if(M.flash_eyes(affect_silicon = 1))
 		M.Stun(max(10/distance, 3))

@@ -50,7 +50,7 @@
 		var/obj/item/organ/external/affected = target.get_organ(target_zone)
 		user.visible_message("<span class='warning'> [user]'s hand slips, slicing [target]'s throat wth \the [tool]!</span>" , \
 		"<span class='warning'> Your hand slips, slicing [target]'s throat wth \the [tool]!</span>" )
-		affected.take_damage(60)
+		affected.receive_damage(60)
 		target.AdjustLoseBreath(4)
 
 		return 0
