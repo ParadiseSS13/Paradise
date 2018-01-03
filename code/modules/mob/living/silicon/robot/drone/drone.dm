@@ -1,3 +1,4 @@
+#define EMAG_TIMER 3000
 /mob/living/silicon/robot/drone
 	name = "drone"
 	real_name = "drone"
@@ -30,6 +31,7 @@
 	var/mail_destination = 0
 	var/reboot_cooldown = 60 // one minute
 	var/last_reboot
+	var/emagged_time
 
 	holder_type = /obj/item/weapon/holder/drone
 //	var/sprite[0]
@@ -192,6 +194,7 @@
 	ventcrawler = 0
 	pass_flags = 0
 	add_language("Galactic Common", 1)
+	emagged_time = world.time
 	to_chat(src, "<span class='warning'>The new malware has destroyed your ability to ventcrawl or crawl on tables, but has granted you the ability to speak Galactic Common!</span>")
 	default_language = "Galactic Common"
 	icon_state = "repairbot-emagged"
@@ -352,6 +355,8 @@
 	. = ..()
 	if(emagged)
 		density = 1
+		if(world.time - emagged_time > EMAG_TIMER)
+			shut_down()
 		return
 	density = 0 //this is reset every canmove update otherwise
 
