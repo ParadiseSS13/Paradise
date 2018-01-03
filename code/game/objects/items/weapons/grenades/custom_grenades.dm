@@ -147,20 +147,23 @@
 		beakers += B2
 
 // Assembly Variants
-/obj/item/weapon/grenade/chem_grenade/explosion/remote
-	New()
-		..()
-		CreateDefaultTrigger(/obj/item/device/assembly/signaler)
+/obj/item/weapon/grenade/chem_grenade/explosion/remote/New()
+	..()
+	CreateDefaultTrigger(/obj/item/device/assembly/signaler)
 
-/obj/item/weapon/grenade/chem_grenade/explosion/prox
-	New()
-		..()
-		CreateDefaultTrigger(/obj/item/device/assembly/prox_sensor)
+/obj/item/weapon/grenade/chem_grenade/explosion/prox/New()
+	..()
+	CreateDefaultTrigger(/obj/item/device/assembly/prox_sensor)
 
-/obj/item/weapon/grenade/chem_grenade/explosion/mine
-	New()
-		..()
-		CreateDefaultTrigger(/obj/item/device/assembly/mousetrap)
+/obj/item/weapon/grenade/chem_grenade/explosion/mine/New()
+	..()
+	CreateDefaultTrigger(/obj/item/device/assembly/mousetrap)
+
+/obj/item/weapon/grenade/chem_grenade/explosion/mine_armed/New()
+	..()
+	CreateDefaultTrigger(/obj/item/device/assembly/mousetrap/armed)
+
+
 
 // Basic EMP grenade
 /obj/item/weapon/grenade/chem_grenade/emp

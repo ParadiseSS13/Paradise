@@ -51,3 +51,6 @@
 			Beacon.loc = loc
 
 	update_icon()
+
+/obj/machinery/bluespace_beacon/syndicate
+	syndicate = 1

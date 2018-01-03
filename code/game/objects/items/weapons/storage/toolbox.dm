@@ -86,6 +86,11 @@
 	new /obj/item/device/multitool(src)
 	new /obj/item/clothing/gloves/combat(src)
 
+/obj/item/weapon/storage/toolbox/syndicate/trapped/New()
+	..()
+	new /obj/item/weapon/grenade/chem_grenade/explosion/mine_armed(src)
+
+
 /obj/item/weapon/storage/toolbox/drone
 	name = "mechanical toolbox"
 	icon_state = "blue"

@@ -121,3 +121,11 @@
 	..()
 	new /obj/item/documents/syndicate/blue(src)
 	update_icon()
+
+/obj/item/weapon/folder/syndicate/yellow
+	icon_state = "folder_syellow"
+
+/obj/item/weapon/folder/syndicate/yellow/New()
+	..()
+	new /obj/item/documents/syndicate/yellow(src)
+	update_icon()

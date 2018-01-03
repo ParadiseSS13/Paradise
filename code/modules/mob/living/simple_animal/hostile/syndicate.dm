@@ -65,6 +65,8 @@
 		visible_message("<span class='danger'>[src] blocks [Proj] with its shield!</span>")
 	return 0
 
+/mob/living/simple_animal/hostile/syndicate/melee/autogib
+	loot = list(/obj/effect/landmark/mobcorpse/syndicateautogib)
 
 /mob/living/simple_animal/hostile/syndicate/melee/space
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)

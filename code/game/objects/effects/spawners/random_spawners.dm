@@ -110,64 +110,112 @@
 	/obj/effect/decal/cleanable/fungus = 7)
 
 
+// Used in depot on z6
+
 /obj/effect/spawner/random_spawners/syndicate
 
-/obj/effect/spawner/random_spawners/turret_internal
+// Turrets
+
+/obj/effect/spawner/random_spawners/syndicate/turret_internal
 	name = "50pc int turret"
+	icon_state = "x"
 	result = list(
 	/obj/machinery/porta_turret/syndicate/interior  = 1,
 	/obj/effect/particle_effect/sparks = 1)
 
-/obj/effect/spawner/random_spawners/turret_external
+/obj/effect/spawner/random_spawners/syndicate/turret_external
 	name = "50pc ext turret"
+	icon_state = "x"
 	result = list(
 	/obj/machinery/porta_turret/syndicate/exterior  = 1,
 	/obj/effect/particle_effect/sparks = 1)
 
-/obj/effect/spawner/random_spawners/syndicate/tc50
-	name = "50pc TC"
+
+// Mobs
+/obj/effect/spawner/random_spawners/syndicate/melee
+	name = "50pc melee syndimob"
 	result = list(
-	/obj/item/stack/telecrystal  = 1,
+	/mob/living/simple_animal/hostile/syndicate/melee/autogib = 1,
 	/obj/effect/particle_effect/sparks = 1)
 
-
-/obj/effect/spawner/random_spawners/syndicate/tc25
-	name = "25pc TC"
-	result = list(
-	/obj/item/stack/telecrystal  = 1,
-	/obj/effect/particle_effect/sparks = 3)
-
-/obj/effect/spawner/random_spawners/syndicate/tc25
-	name = "25pc TC"
-	result = list(
-	/obj/item/stack/telecrystal  = 1,
-	/obj/effect/particle_effect/sparks = 3)
+// Traps
 
 /obj/effect/spawner/random_spawners/syndicate/pizzabomb
-	name = "50pc pizza or bomb"
+	name = "50pc trap pizza"
 	result = list(
 	/obj/item/pizzabox/meat = 1,
 	/obj/item/device/pizza_bomb/autoarm = 1)
 
 /obj/effect/spawner/random_spawners/syndicate/medbot
-	name = "50pc emagged medbot"
+	name = "50pc trap medibot"
 	result = list(
-	/mob/living/simple_animal/bot/medbot/syndicate = 1
+	/mob/living/simple_animal/bot/medbot/syndicate = 1,
 	/mob/living/simple_animal/bot/medbot/syndicate/emagged = 1)
 
 /obj/effect/spawner/random_spawners/syndicate/mine
-	name = "50pc landmine"
+	name = "50pc trap landmine"
 	result = list(
 	/obj/effect/mine/explosive = 1,
 	/obj/effect/particle_effect/sparks = 1)
 
+/obj/effect/spawner/random_spawners/syndicate/toolbox
+	name = "50pc trap toolbox"
+	result = list(
+	/obj/item/weapon/storage/toolbox/syndicate = 1,
+	/obj/item/weapon/storage/toolbox/syndicate/trapped = 1)
+
+
+// Loot
+
 /obj/effect/spawner/random_spawners/syndicate/spacepod
-	name = "50pc spacepod"
+	name = "50pc loot spacepod"
+	icon_state = "x3"
 	result = list(
 	/obj/spacepod/civilian = 1,
 	/obj/effect/particle_effect/sparks = 1)
 
+/obj/effect/spawner/random_spawners/syndicate/radiokey
+	name = "50pc loot key"
+	icon_state = "x3"
+	result = list(
+	/obj/item/device/radio/headset/syndicate = 1,
+	/obj/item/device/encryptionkey/syndicate = 1,
+	/obj/effect/particle_effect/sparks = 2)
+
+
+/obj/effect/spawner/random_spawners/syndicate/jammer_loot
+	name = "50pc loot jammer"
+	icon_state = "x3"
+	result = list(
+	/obj/item/device/jammer = 1,
+	/obj/effect/particle_effect/sparks = 1)
+
+/obj/effect/spawner/random_spawners/syndicate/spacepod
+	name = "50pc loot spacepod"
+	icon_state = "x3"
+	result = list(
+	/obj/spacepod/civilian = 1,
+	/obj/effect/particle_effect/sparks = 1)
+
+/obj/effect/spawner/random_spawners/syndicate/x
+	name = "50pc x"
+	icon_state = "x3"
+	result = list(
+	/obj/item/weapon/storage/toolbox/syndicate = 1,
+	/obj/item/weapon/storage/toolbox/syndicate/trapped = 1)
 
 
 
+// Area features
 
+/obj/effect/spawner/random_spawners/syndicate/telebeacon
+	name = "50pc feature telebeacon"
+	result = list(
+	/obj/machinery/bluespace_beacon/syndicate = 1,
+	/obj/effect/particle_effect/sparks = 1)
+
+/obj/effect/spawner/random_spawners/syndicate/jammer_structure
+	name = "50pc feature strong jammer"
+	result = list(
+	/obj/structure/syndijammer = 1,
+	/obj/effect/particle_effect/sparks = 1)

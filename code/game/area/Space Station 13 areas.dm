@@ -551,18 +551,30 @@ var/list/ghostteleportlocs = list()
 	icon_state = "red"
 	tele_proof = 1
 	requires_power = 0
+	var/used_lockdown = FALSE
 	var/called_backup = FALSE
 
-/area/syndicate_depot/proc/call_backup()
-	if(called_backup)
+/area/syndicate_depot/proc/activate_lockdown()
+	if(used_lockdown)
 		return
-	called_backup = TRUE
+	used_lockdown = TRUE
 	set_fire_alarm_effect()
 	for(var/obj/machinery/door/airlock/A in src)
 		spawn(0)
 			A.close()
 			if(A.density)
 				A.lock()
+
+/area/syndicate_depot/proc/toggle_door_locks()
+	for(var/obj/machinery/door/airlock/A in src)
+		A.emergency = !A.emergency
+		A.update_icon()
+
+/area/syndicate_depot/proc/call_backup()
+	if(called_backup)
+		return
+	called_backup = TRUE
+	activate_lockdown()
 	for(var/obj/effect/landmark/L in landmarks_list)
 		if(L.name == "syndi_depot_backup")
 			var/mob/living/simple_animal/hostile/syndicate/ranged/space/autogib/S = new /mob/living/simple_animal/hostile/syndicate/ranged/space/autogib(get_turf(L))

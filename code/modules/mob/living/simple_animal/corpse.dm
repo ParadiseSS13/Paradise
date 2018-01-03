@@ -119,6 +119,7 @@
 	var/mob/living/carbon/human/M = new /mob/living/carbon/human(src.loc)
 	M.real_name = src.name
 	M.gib()
+	qdel(src)
 
 
 /obj/effect/landmark/mobcorpse/clown
