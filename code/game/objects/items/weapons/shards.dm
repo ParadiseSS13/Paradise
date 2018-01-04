@@ -47,7 +47,7 @@
 			if(affecting.status & ORGAN_ROBOT)
 				return
 			to_chat(H, "<span class='warning'>[src] cuts into your hand!</span>")
-			if(affecting.take_damage(force*0.5))
+			if(affecting.receive_damage(force*0.5))
 				H.UpdateDamageIcon()
 				H.updatehealth()
 
@@ -84,7 +84,7 @@
 				if(affecting.status & ORGAN_ROBOT)
 					return
 				H.Weaken(3)
-				if(affecting.take_damage(5, 0))
+				if(affecting.receive_damage(5, 0))
 					H.UpdateDamageIcon()
 				H.updatehealth()
 	..()

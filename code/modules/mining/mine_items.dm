@@ -495,7 +495,7 @@
 	var/buildstacktype = /obj/item/stack/sheet/metal
 	var/buildstackamount = 5
 
-/obj/structure/fans/proc/deconstruct()
+/obj/structure/fans/deconstruct()
 	if(buildstacktype)
 		new buildstacktype(loc, buildstackamount)
 	qdel(src)

@@ -210,6 +210,7 @@
 	animate(src, pixel_x = target_pixel_x, pixel_y = target_pixel_y, alpha = 0, time = duration)
 
 /obj/effect/overlay/temp/dir_setting/bloodsplatter/xenosplatter
+	color = null
 	splatter_type = "xsplatter"
 
 /obj/effect/overlay/wall_rot

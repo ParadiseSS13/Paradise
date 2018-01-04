@@ -15,6 +15,7 @@
 /obj/item/organ/internal/liver/drask
 	name = "metabolic strainer"
 	icon = 'icons/obj/surgery_drask.dmi'
+	icon_state = "kidneys"
 	alcohol_intensity = 0.8
 	species = "Drask"
 

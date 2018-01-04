@@ -54,7 +54,7 @@
 
 /obj/structure/mineral_door/attack_animal(mob/user)
 	return TryToSwitchState(user)
-	
+
 /obj/structure/mineral_door/attack_ghost(mob/user)
 	if(user.can_advanced_admin_interact())
 		SwitchState()
@@ -68,11 +68,11 @@
 	return !density
 
 /obj/structure/mineral_door/proc/TryToSwitchState(atom/user)
-	if(isSwitchingStates) 
+	if(isSwitchingStates)
 		return
 	if(isliving(user))
 		var/mob/living/M = user
-		if(world.time - user.last_bumped <= 60) 
+		if(world.time - user.last_bumped <= 60)
 			return //NOTE do we really need that?
 		if(M.client)
 			if(iscarbon(M))
@@ -101,7 +101,7 @@
 	air_update_turf(1)
 	update_icon()
 	isSwitchingStates = 0
-	
+
 	if(close_delay != -1)
 		spawn(close_delay)
 			Close()
@@ -157,7 +157,7 @@
 	if(hardness <= 0)
 		deconstruct(FALSE)
 
-/obj/structure/mineral_door/proc/deconstruct(disassembled = TRUE)
+/obj/structure/mineral_door/deconstruct(disassembled = TRUE)
 	var/turf/T = get_turf(src)
 	if(sheetType)
 		if(disassembled)

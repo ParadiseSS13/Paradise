@@ -101,7 +101,7 @@
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
 	user.visible_message("<span class='warning'> [user]'s hand slips, damaging the bone in [target]'s [affected.name] with \the [tool]!</span>" , \
 		"<span class='warning'> Your hand slips, damaging the bone in [target]'s [affected.name] with \the [tool]!</span>")
-	affected.take_damage(5)
+	affected.receive_damage(5)
 	return 0
 
 /datum/surgery_step/mend_skull
@@ -135,7 +135,7 @@
 	user.visible_message("<span class='warning'>[user]'s hand slips, damaging [target]'s face with \the [tool]!</span>"  , \
 		"<span class='warning'>Your hand slips, damaging [target]'s face with \the [tool]!</span>")
 	var/obj/item/organ/external/head/h = affected
-	h.take_damage(10)
+	h.receive_damage(10)
 	h.disfigured = 1
 	return 0
 

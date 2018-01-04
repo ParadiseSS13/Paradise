@@ -62,7 +62,7 @@
 	var/obj/item/organ/external/chest/affected = target.get_organ(target_zone)
 	user.visible_message("<span class='warning'> [user]'s hand slips, scraping around inside [target]'s [affected.name] with \the [tool]!</span>", \
 	"<span class='warning'> Your hand slips, scraping around inside [target]'s [affected.name] with \the [tool]!</span>")
-	affected.take_damage(20)
+	affected.receive_damage(20)
 
 /datum/surgery_step/cavity/make_space
 	name = "make cavity space"

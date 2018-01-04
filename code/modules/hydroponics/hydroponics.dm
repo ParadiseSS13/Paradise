@@ -1,5 +1,3 @@
-#define HYDRO_CYCLES_PER_AGE	2	//Adjust this to adjust how many hydroponics cycles it takes to increase age. Positive integers only.
-
 /obj/machinery/hydroponics
 	name = "hydroponics tray"
 	icon = 'icons/obj/hydroponics/equipment.dmi'
@@ -22,7 +20,6 @@
 	var/lastproduce = 0		//Last time it was harvested
 	var/lastcycle = 0		//Used for timing of cycles.
 	var/cycledelay = 200	//About 10 seconds / cycle
-	var/current_cycle = 0	//Used for tracking when to age
 	var/harvest = 0			//Ready to harvest?
 	var/obj/item/seeds/myseed = null	//The currently planted seed
 	var/rating = 1
@@ -155,10 +152,7 @@
 		lastcycle = world.time
 		if(myseed && !dead)
 			// Advance age
-			current_cycle++
-			if(current_cycle == HYDRO_CYCLES_PER_AGE)
-				age++
-				current_cycle = 0
+			age++
 			if(age < myseed.maturation)
 				lastproduce = age
 
@@ -1029,5 +1023,3 @@
 		qdel(src)
 	else
 		..()
-
-#undef HYDRO_CYCLES_PER_AGE
