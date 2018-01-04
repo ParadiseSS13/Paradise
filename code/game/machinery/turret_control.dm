@@ -25,7 +25,7 @@
 	var/check_anomalies = 1	//checks if it can shoot at unidentified lifeforms (ie xenos)
 	var/check_synth = 0 	//if active, will shoot at anything not an AI or cyborg
 	var/ailock = 0 	//Silicons cannot use this
-	
+
 	var/syndicate = 0
 	var/faction = "" // Turret controls can only access turrets that are in the same faction
 
@@ -39,23 +39,24 @@
 	enabled = 1
 	lethal = 1
 	icon_state = "control_kill"
-	
+
 /obj/machinery/turretid/syndicate
 	enabled = 1
 	lethal = 1
 	icon_state = "control_kill"
-	
+
 	lethal = 1
 	check_arrest = 0
 	check_records = 0
 	check_weapons = 0
 	check_access = 0
-	check_anomalies = 1	
+	check_anomalies = 1
 	check_synth	= 1
 	ailock = 1
-	
+
 	syndicate = 1
 	faction = "syndicate"
+	req_access = list(access_syndicate_leader)
 
 /obj/machinery/turretid/Destroy()
 	if(control_area)

@@ -236,6 +236,9 @@
 	icon = 'icons/obj/doors/Doorhatchele.dmi'
 	assemblytype = /obj/structure/door_assembly/door_assembly_hatch
 
+/obj/machinery/door/airlock/hatch/syndicate
+	req_access_txt = "150"
+
 /obj/machinery/door/airlock/hatch/gamma
 	name = "gamma level hatch"
 	hackProof = 1

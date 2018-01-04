@@ -200,6 +200,10 @@ Auto Patrol[]"},
 	if(disabled)
 		return
 
+	ed209_ai()
+
+
+/mob/living/simple_animal/bot/ed209/proc/ed209_ai()
 	var/list/targets = list()
 	for(var/mob/living/carbon/C in view(7, src)) //Let's find us a target
 		var/threatlevel = 0

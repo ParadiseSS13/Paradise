@@ -9,6 +9,7 @@
 	/obj/effect/decal/cleanable/blood/splatter = 1,
 	/obj/effect/decal/cleanable/blood/oil = 1,
 	/obj/effect/decal/cleanable/fungus = 1)
+	var/spawn_nothing_percentage = 0
 
 // This needs to come before the initialization wave because
 // the thing it creates might need to be initialized too
@@ -18,11 +19,12 @@
 	if(!T)
 		log_runtime(EXCEPTION("Spawner placed in nullspace!"), src)
 		return
-	var/thing_to_place = pickweight(result)
-	if(ispath(thing_to_place, /turf))
-		T.ChangeTurf(thing_to_place)
-	else
-		new thing_to_place(T)
+	if(!prob(spawn_nothing_percentage))
+		var/thing_to_place = pickweight(result)
+		if(ispath(thing_to_place, /turf))
+			T.ChangeTurf(thing_to_place)
+		else
+			new thing_to_place(T)
 	qdel(src)
 
 /obj/effect/spawner/random_spawners/blood_maybe
@@ -113,109 +115,237 @@
 // Used in depot on z6
 
 /obj/effect/spawner/random_spawners/syndicate
+	spawn_nothing_percentage = 50
 
 // Turrets
 
-/obj/effect/spawner/random_spawners/syndicate/turret_internal
+/obj/effect/spawner/random_spawners/syndicate/turret
 	name = "50pc int turret"
-	icon_state = "x"
+	icon = 'icons/obj/turrets.dmi'
+	icon_state = "syndieturret0"
+	color = "#FF0000"
 	result = list(
-	/obj/machinery/porta_turret/syndicate/interior  = 1,
-	/obj/effect/particle_effect/sparks = 1)
+	/obj/machinery/porta_turret/syndicate/interior  = 1
+	)
 
-/obj/effect/spawner/random_spawners/syndicate/turret_external
+/obj/effect/spawner/random_spawners/syndicate/turret/external
 	name = "50pc ext turret"
-	icon_state = "x"
 	result = list(
-	/obj/machinery/porta_turret/syndicate/exterior  = 1,
-	/obj/effect/particle_effect/sparks = 1)
+	/obj/machinery/porta_turret/syndicate/exterior  = 1
+	)
 
 
 // Mobs
-/obj/effect/spawner/random_spawners/syndicate/melee
+/obj/effect/spawner/random_spawners/syndicate/mob
 	name = "50pc melee syndimob"
+	icon = 'icons/mob/animal.dmi'
+	icon_state = "syndicatemelee"
+	color = "#FF0000"
 	result = list(
-	/mob/living/simple_animal/hostile/syndicate/melee/autogib = 1,
-	/obj/effect/particle_effect/sparks = 1)
+	/mob/living/simple_animal/hostile/syndicate/melee/autogib = 1
+	)
 
 // Traps
 
-/obj/effect/spawner/random_spawners/syndicate/pizzabomb
+/obj/effect/spawner/random_spawners/syndicate/trap
+	color = "#FF0000"
+
+/obj/effect/spawner/random_spawners/syndicate/trap/pizzabomb
 	name = "50pc trap pizza"
+	icon = 'icons/obj/food/food.dmi'
+	icon_state = "pizzabox1"
+	spawn_nothing_percentage = 0
 	result = list(
 	/obj/item/pizzabox/meat = 1,
-	/obj/item/device/pizza_bomb/autoarm = 1)
+	/obj/item/device/pizza_bomb/autoarm = 1
+	)
 
-/obj/effect/spawner/random_spawners/syndicate/medbot
+/obj/effect/spawner/random_spawners/syndicate/trap/medbot
 	name = "50pc trap medibot"
+	icon = 'icons/obj/aibots.dmi'
+	icon_state = "medibot0"
 	result = list(
-	/mob/living/simple_animal/bot/medbot/syndicate = 1,
-	/mob/living/simple_animal/bot/medbot/syndicate/emagged = 1)
+	/mob/living/simple_animal/bot/medbot/syndicate/emagged = 1
+	)
 
-/obj/effect/spawner/random_spawners/syndicate/mine
+/obj/effect/spawner/random_spawners/syndicate/trap/mine
 	name = "50pc trap landmine"
+	icon = 'icons/obj/weapons.dmi'
+	icon_state = "uglyminearmed"
 	result = list(
-	/obj/effect/mine/explosive = 1,
-	/obj/effect/particle_effect/sparks = 1)
+	/obj/effect/mine/explosive = 1
+	)
 
-/obj/effect/spawner/random_spawners/syndicate/toolbox
+/obj/effect/spawner/random_spawners/syndicate/trap/toolbox
 	name = "50pc trap toolbox"
+	icon = 'icons/obj/storage.dmi'
+	icon_state = "syndicate"
+	spawn_nothing_percentage = 0
 	result = list(
 	/obj/item/weapon/storage/toolbox/syndicate = 1,
-	/obj/item/weapon/storage/toolbox/syndicate/trapped = 1)
+	/obj/item/weapon/storage/toolbox/syndicate/trapped = 1
+	)
 
+/obj/effect/spawner/random_spawners/syndicate/trap/documents
+	icon = 'icons/obj/bureaucracy.dmi'
+	icon_state = "folder_syellow"
+	spawn_nothing_percentage = 0
+	result = list(
+	/obj/item/weapon/folder/syndicate/yellow = 1,
+	/obj/item/weapon/folder/syndicate/yellow_trapped = 1
+	)
 
 // Loot
 
-/obj/effect/spawner/random_spawners/syndicate/spacepod
-	name = "50pc loot spacepod"
-	icon_state = "x3"
-	result = list(
-	/obj/spacepod/civilian = 1,
-	/obj/effect/particle_effect/sparks = 1)
+/obj/effect/spawner/random_spawners/syndicate/loot
 
-/obj/effect/spawner/random_spawners/syndicate/radiokey
+/obj/effect/spawner/random_spawners/syndicate/loot/spacepod
+	name = "50pc loot spacepod"
+	icon = 'icons/goonstation/48x48/pods.dmi'
+	icon_state = "pod_civ"
+	result = list(
+	/obj/spacepod/civilian = 1
+	)
+
+/obj/effect/spawner/random_spawners/syndicate/loot/radiokey
 	name = "50pc loot key"
-	icon_state = "x3"
+	icon = 'icons/obj/radio.dmi'
+	icon_state = "cypherkey"
 	result = list(
 	/obj/item/device/radio/headset/syndicate = 1,
-	/obj/item/device/encryptionkey/syndicate = 1,
-	/obj/effect/particle_effect/sparks = 2)
+	/obj/item/device/encryptionkey/syndicate = 1
+	)
 
 
-/obj/effect/spawner/random_spawners/syndicate/jammer_loot
+/obj/effect/spawner/random_spawners/syndicate/loot/jammer
 	name = "50pc loot jammer"
-	icon_state = "x3"
+	icon = 'icons/obj/device.dmi'
+	icon_state = "jammer"
 	result = list(
-	/obj/item/device/jammer = 1,
-	/obj/effect/particle_effect/sparks = 1)
+	/obj/item/device/jammer = 1
+	)
 
-/obj/effect/spawner/random_spawners/syndicate/spacepod
+/obj/effect/spawner/random_spawners/syndicate/loot/spacepod
 	name = "50pc loot spacepod"
-	icon_state = "x3"
+	icon_state = "pod_civ"
 	result = list(
-	/obj/spacepod/civilian = 1,
-	/obj/effect/particle_effect/sparks = 1)
+	/obj/spacepod/civilian = 1
+	)
 
-/obj/effect/spawner/random_spawners/syndicate/x
-	name = "50pc x"
-	icon_state = "x3"
+
+/obj/effect/spawner/random_spawners/syndicate/loot/spacesuit
+	name = "50pc loot spacesuit kit"
+	icon = 'icons/obj/storage.dmi'
+	icon_state = "box_of_doom"
 	result = list(
-	/obj/item/weapon/storage/toolbox/syndicate = 1,
-	/obj/item/weapon/storage/toolbox/syndicate/trapped = 1)
+	/obj/item/weapon/storage/box/syndie_kit/space = 1
+	)
+
+/obj/effect/spawner/random_spawners/syndicate/loot/thermals
+	name = "50pc loot thermals"
+	icon = 'icons/obj/clothing/glasses.dmi'
+	icon_state = "thermal"
+	result = list(
+	/obj/item/clothing/glasses/thermal = 1
+	)
+
+/obj/effect/spawner/random_spawners/syndicate/loot/armor
+	name = "50pc loot armor"
+	icon = 'icons/obj/clothing/suits.dmi'
+	icon_state = "armor-combat"
+	result = list(
+	/obj/item/clothing/suit/armor/vest/combat = 1
+	)
+
+/obj/effect/spawner/random_spawners/syndicate/loot/cigs
+	name = "50pc loot cigs"
+	icon = 'icons/obj/cigarettes.dmi'
+	icon_state = "syndiepacket"
+	result = list(
+	/obj/item/weapon/storage/fancy/cigarettes/cigpack_syndicate = 1
+	)
+
+/obj/effect/spawner/random_spawners/syndicate/loot/pistol
+	name = "50pc loot stechkin pistol"
+	icon = 'icons/obj/guns/projectile.dmi'
+	icon_state = "pistol"
+	result = list(
+	/obj/item/weapon/gun/projectile/automatic/pistol = 1
+	)
+
+/obj/effect/spawner/random_spawners/syndicate/loot/ammo10mm
+	name = "50pc loot 10mm ammo"
+
+	icon_state = "9x19p"
+	result = list(
+	/obj/item/ammo_box/magazine/m10mm = 1
+	)
+
+/obj/effect/spawner/random_spawners/syndicate/loot/m90
+	name = "50pc loot m90 auto carbine"
+	icon = 'icons/obj/guns/projectile.dmi'
+	icon_state = "m90"
+	result = list(
+	/obj/item/weapon/gun/projectile/automatic/m90 = 1
+	)
+
+/obj/effect/spawner/random_spawners/syndicate/loot/m90ammo
+	name = "50pc loot ammo for m90"
+	icon = 'icons/obj/ammo.dmi'
+	icon_state = "a762-50"
+	result = list(
+	/obj/item/ammo_box/magazine/m556 = 1
+	)
+
+/obj/effect/spawner/random_spawners/syndicate/loot/camoprojector
+	name = "50pc loot camo projector"
+	icon = 'icons/obj/device.dmi'
+	icon_state = "shield0"
+	result = list(
+	/obj/item/device/chameleon = 1
+	)
 
 
+/obj/effect/spawner/random_spawners/syndicate/loot/medicalkit
+	name = "medkit 50pc tactical"
+	icon = 'icons/obj/storage.dmi'
+	icon_state = "bezerk"
+	spawn_nothing_percentage = 0
+	result = list(
+	/obj/item/weapon/storage/firstaid = 1,
+	/obj/item/weapon/storage/firstaid/tactical = 1
+	)
 
-// Area features
 
-/obj/effect/spawner/random_spawners/syndicate/telebeacon
+// Key layout features
+
+/obj/effect/spawner/random_spawners/syndicate/layout
+	color = "#0000FF"
+
+/obj/effect/spawner/random_spawners/syndicate/layout/door
+	name = "50pc door 25pc falsewall 25pc wall"
+	icon = 'icons/obj/doors/Doorhatchele.dmi'
+	icon_state = "door_closed"
+	color = "#0000FF"
+	spawn_nothing_percentage = 0
+	result = list(
+	/obj/machinery/door/airlock/hatch/syndicate = 2,
+	/turf/simulated/wall/r_wall = 1,
+	/obj/structure/falsewall/reinforced = 1
+	)
+
+/obj/effect/spawner/random_spawners/syndicate/layout/telebeacon
 	name = "50pc feature telebeacon"
+	icon = 'icons/obj/objects.dmi'
+	icon_state = "floor_beaconf"
 	result = list(
-	/obj/machinery/bluespace_beacon/syndicate = 1,
-	/obj/effect/particle_effect/sparks = 1)
+	/obj/machinery/bluespace_beacon/syndicate = 1
+	)
 
-/obj/effect/spawner/random_spawners/syndicate/jammer_structure
+/obj/effect/spawner/random_spawners/syndicate/layout/jammer_structure
 	name = "50pc feature strong jammer"
+	icon = 'icons/obj/singularity.dmi'
+	icon_state = "beaconsynd1"
 	result = list(
-	/obj/structure/syndijammer = 1,
-	/obj/effect/particle_effect/sparks = 1)
+	/obj/structure/syndijammer = 1
+	)

@@ -547,18 +547,89 @@ var/list/ghostteleportlocs = list()
 	icon_state = "syndie-elite"
 
 /area/syndicate_depot
-	name = "\improper Suspicious Supply Depot"
+	name = "Suspicious Supply Depot"
 	icon_state = "red"
 	tele_proof = 1
 	requires_power = 0
-	var/used_lockdown = FALSE
+	var/local_alarm = FALSE
 	var/called_backup = FALSE
+	var/used_self_destruct = FALSE
 
+	var/used_lockdown = FALSE
+	var/center_landmark = "syndi_depot_reactor"
+
+/area/syndicate_depot/proc/increase_alert()
+	if(!local_alarm)
+		local_alarm()
+		return
+	if(!called_backup)
+		call_backup()
+		return
+	if(!used_self_destruct)
+		activate_self_destruct(FALSE)
+
+/area/syndicate_depot/proc/local_alarm(silent)
+	if(local_alarm)
+		return
+	local_alarm = TRUE
+	if(!silent)
+		announce_here("Incursion detected. Red alert!")
+		var/list/possible_bot_spawns = list()
+		for(var/obj/effect/landmark/L in landmarks_list)
+			if(L.name == "syndi_depot_bot")
+				possible_bot_spawns |= L
+		if(possible_bot_spawns.len)
+			var/obj/effect/landmark/S = pick(possible_bot_spawns)
+			new /mob/living/simple_animal/bot/ed209/syndicate(get_turf(S))
+	spawn(0)
+		set_fire_alarm_effect()
+
+/area/syndicate_depot/proc/call_backup()
+	if(!used_lockdown)
+		activate_lockdown()
+	if(called_backup || used_self_destruct)
+		return
+	called_backup = TRUE
+	announce_here("Critical breach. Locking down the depot and requesting backup from Syndicate HQ.")
+	spawn(0)
+		for(var/obj/effect/landmark/L in landmarks_list)
+			if(L.name == "syndi_depot_backup")
+				var/mob/living/simple_animal/hostile/syndicate/ranged/space/autogib/S = new /mob/living/simple_animal/hostile/syndicate/ranged/space/autogib(get_turf(L))
+				S.name = "Syndicate Backup"
+
+/area/syndicate_depot/proc/activate_self_destruct(var/deliberate, var/mob/user)
+	if(used_self_destruct)
+		return
+	used_self_destruct = TRUE
+	local_alarm(TRUE)
+	activate_lockdown()
+	if(!deliberate)
+		announce_here("Defeat imminent. Self-destruct active.")
+	if(user)
+		var/turf/T = get_turf(user)
+		var/area/A = get_area(T)
+		var/log_msg = "[key_name(user)] has armed the depot self destruct device at [A.name] ([T.x],[T.y],[T.z])"
+		message_admins(log_msg)
+		bombers += "log_msg"
+		log_game("log_msg")
+		playsound(user, 'sound/machines/Alarm.ogg', 100, 0, 0)
+	else
+		log_game("Depot self destruct activated.")
+
+	for(var/obj/effect/landmark/L in landmarks_list)
+		if(L.name == center_landmark)
+			var/obj/effect/overload/O = new /obj/effect/overload(get_turf(L))
+			if(deliberate)
+				O.deliberate = TRUE
+				O.max_cycles = 7
+
+
+// Depot computer procs.
 /area/syndicate_depot/proc/activate_lockdown()
 	if(used_lockdown)
 		return
 	used_lockdown = TRUE
-	set_fire_alarm_effect()
+
 	for(var/obj/machinery/door/airlock/A in src)
 		spawn(0)
 			A.close()
@@ -568,21 +639,23 @@ var/list/ghostteleportlocs = list()
 /area/syndicate_depot/proc/toggle_door_locks()
 	for(var/obj/machinery/door/airlock/A in src)
 		A.emergency = !A.emergency
+		if(A.locked)
+			A.locked = !A.locked
 		A.update_icon()
 
-/area/syndicate_depot/proc/call_backup()
-	if(called_backup)
-		return
-	called_backup = TRUE
-	activate_lockdown()
-	for(var/obj/effect/landmark/L in landmarks_list)
-		if(L.name == "syndi_depot_backup")
-			var/mob/living/simple_animal/hostile/syndicate/ranged/space/autogib/S = new /mob/living/simple_animal/hostile/syndicate/ranged/space/autogib(get_turf(L))
-			S.name = "Syndicate Backup"
-
-
-/area/syndicate_depot/backup
-	name = "\improper Suspicious Space"
+/area/syndicate_depot/proc/announce_here(var/a_text)
+	var/msg_text = "<font size=4 color='red'>Depot Defense Alert</font><br><font color='red'>[a_text]</font>"
+	var/list/receivers = list()
+	for(var/mob/M in mob_list)
+		if(!M.ckey)
+			continue
+		var/turf/T = get_turf(M)
+		if(T.loc != src)
+			continue
+		receivers |= M
+	for(var/mob/R in receivers)
+		to_chat(R, msg_text)
+		R << sound('sound/misc/notice1.ogg')
 
 
 //EXTRA

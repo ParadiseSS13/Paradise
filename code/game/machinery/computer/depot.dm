@@ -21,18 +21,21 @@
 	else
 		return attack_hand(user)
 
+/obj/machinery/computer/syndicate_depot/allowed(var/mob/user)
+	if(user.can_admin_interact())
+		return 1
+	return ..()
+
 /obj/machinery/computer/syndicate_depot/attack_hand(var/mob/user as mob)
+	if(..())
+		return
+	if(stat & (NOPOWER|BROKEN))
+		return
 	if(!allowed(user))
 		to_chat(user, "<span class='warning'>Access Denied.</span>")
 		return
-
-	if(..())
-		return
-
 	user.set_machine(src)
-
 	var/dat = get_menu()
-
 	user << browse(dat, "window=computer;size=575x450")
 	onclose(user, "computer")
 	return
@@ -40,28 +43,28 @@
 /obj/machinery/computer/syndicate_depot/Topic(href, href_list)
 	if(..())
 		return 1
-
 	if((usr.contents.Find(src) || (in_range(src, usr) && istype(loc, /turf))) || (istype(usr, /mob/living/silicon)))
 		usr.set_machine(src)
-
 	if(href_list["activate"])
 		activate(usr)
-
+	//if(href_list["activate2"])
+	//	activate2(usr)
 	add_fingerprint(usr)
 	updateUsrDialog()
 	return
 
 /obj/machinery/computer/syndicate_depot/proc/summon()
-	var/area/syndicate_depot/A = myArea
+	var/area/syndicate_depot/A = areaMaster
 	if(A)
 		A.call_backup(src)
 
 /obj/machinery/computer/syndicate_depot/Destroy()
 	summon()
-	..()
+	return ..()
 
 /obj/machinery/computer/syndicate_depot/set_broken()
-	summon()
+	return
+	//summon()
 	..()
 
 /obj/machinery/computer/syndicate_depot/proc/get_menu()
@@ -74,7 +77,10 @@
 	if(D)
 		D.toggle_door_locks(src)
 
-
+/obj/machinery/computer/syndicate_depot/proc/raise_alert()
+	var/area/syndicate_depot/D = get_area(src)
+	if(D)
+		D.increase_alert()
 
 /obj/machinery/computer/syndicate_depot/selfdestruct
 	name = "reactor control computer"
@@ -91,27 +97,43 @@
 		playsound(user, 'sound/machines/buzz-sigh.ogg', 50, 0)
 		return
 	activated = TRUE
-
 	playsound(user, 'sound/machines/click.ogg', 20, 1)
-
 	sleep(5)
-
-	playsound(src, 'sound/machines/Alarm.ogg', 100, 0, 0)
-
-	sleep(5)
-
 	var/area/syndicate_depot/D = get_area(src)
 	if(D)
-		D.activate_lockdown(src)
+		D.activate_self_destruct(TRUE, user)
 
-	sleep(10)
 
-	var/turf/T = get_turf(src)
-	var/area/A = get_area(T)
-	bombers += "[key_name(user)] has armed a self destruct device using a [name] at [A.name] ([T.x],[T.y],[T.z]"
-	log_game("[key_name(user)] has armed a self destruct device using a [name] at [A.name] ([T.x],[T.y],[T.z]")
 
-	for(var/obj/effect/landmark/L in landmarks_list)
-		if(L.name == landmark_name)
-			explosion(get_turf(L), 20, 30, 40, 50, 1, 1, 40, 0, 1)
+
+/obj/machinery/computer/syndicate_depot/syndiecomms
+	name = "syndicate communications computer"
+	icon_state = "computer"
+	req_access = list(access_syndicate)
+
+/obj/machinery/computer/syndicate_depot/syndiecomms/get_menu()
+	return {"<B>Syndicate Communications Relay</B><HR>
+	<BR><BR><a href='?src=[UID()];activate=1'>Contact Syndicate Command</a>
+	<BR>"}
+
+/obj/machinery/computer/syndicate_depot/syndiecomms/activate(var/mob/user)
+	if(activated)
+		playsound(user, 'sound/machines/buzz-sigh.ogg', 50, 0)
+		to_chat(user, "<span class='userdanger'>ERROR: terminal already used.</span>")
+		return
+	activated = TRUE
+	var/is_syndie = FALSE
+	if(user.mind && user.mind.special_role == SPECIAL_ROLE_TRAITOR)
+		is_syndie = TRUE
+	if(is_syndie)
+		var/input = stripped_input(user, "Please choose a message to transmit to Syndicate HQ via quantum entanglement.  Transmission does not guarantee a response. This terminal may only be used ONCE.", "To abort, send an empty message.", "") as text|null
+		if(!input)
+			activated = FALSE
+			return
+		Syndicate_announce(input, user)
+		to_chat(user, "Message transmitted.")
+		log_say("[key_name(user)] has made a Syndicate announcement: [input]")
+	else
+		to_chat(user, "<span class='userdanger'>ERROR: unauthorized access detected. [user] does not work for us.</span>")
+		raise_alert()
 

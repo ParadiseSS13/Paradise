@@ -68,6 +68,38 @@
 /mob/living/simple_animal/hostile/syndicate/melee/autogib
 	loot = list(/obj/effect/landmark/mobcorpse/syndicateautogib)
 
+/mob/living/simple_animal/hostile/syndicate/melee/autogib/depotboss
+	name = "Syndicate Officer"
+	var/area/syndicate_depot/depotarea
+	var/raised_alert = FALSE
+	var/seen_enemy = FALSE
+	var/aggro_cycles = 0
+
+/mob/living/simple_animal/hostile/syndicate/melee/autogib/depotboss/New()
+	..()
+	depotarea = areaMaster
+
+/mob/living/simple_animal/hostile/syndicate/melee/autogib/depotboss/Aggro()
+	seen_enemy = TRUE
+	..()
+
+/mob/living/simple_animal/hostile/syndicate/melee/autogib/depotboss/handle_automated_action()
+	if(seen_enemy)
+		aggro_cycles++
+		if(!raised_alert && aggro_cycles >= 60)
+			raise_alert()
+	..()
+
+/mob/living/simple_animal/hostile/syndicate/melee/autogib/depotboss/proc/raise_alert()
+	if(depotarea)
+		say("Intruder!")
+		depotarea.increase_alert()
+
+/mob/living/simple_animal/hostile/syndicate/melee/autogib/depotboss/death()
+	raise_alert()
+	return ..()
+
+
 /mob/living/simple_animal/hostile/syndicate/melee/space
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
 	minbodytemp = 0
@@ -104,7 +136,6 @@
 
 /mob/living/simple_animal/hostile/syndicate/ranged/space/autogib
 	loot = list(/obj/effect/landmark/mobcorpse/syndicateautogib)
-
 
 
 /mob/living/simple_animal/hostile/viscerator
