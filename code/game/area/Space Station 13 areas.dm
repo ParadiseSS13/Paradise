@@ -624,7 +624,6 @@ var/list/ghostteleportlocs = list()
 				O.max_cycles = 7
 
 
-// Depot computer procs.
 /area/syndicate_depot/proc/activate_lockdown()
 	if(used_lockdown)
 		return
