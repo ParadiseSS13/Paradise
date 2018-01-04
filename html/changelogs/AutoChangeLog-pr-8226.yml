@@ -1,0 +1,7 @@
+author: "Anasari"
+delete-after: True
+changes: 
+  - tweak: "A lot of underused nuke op items made cheaper."
+  - tweak: "Syndicate hardsuit removed from nuke op because you already got one free."
+  - tweak: "Tactical medkit give you four synthflesh patch, no more stetho or lethal syringe."
+  - rscadd: "RSG added to nuke op uplink. Dart gun no longer available."
