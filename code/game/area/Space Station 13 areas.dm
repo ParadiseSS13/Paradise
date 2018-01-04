@@ -610,8 +610,8 @@ var/list/ghostteleportlocs = list()
 		var/area/A = get_area(T)
 		var/log_msg = "[key_name(user)] has armed the depot self destruct device at [A.name] ([T.x],[T.y],[T.z])"
 		message_admins(log_msg)
-		bombers += "log_msg"
-		log_game("log_msg")
+		bombers += log_msg
+		log_game(log_msg)
 		playsound(user, 'sound/machines/Alarm.ogg', 100, 0, 0)
 	else
 		log_game("Depot self destruct activated.")

@@ -47,8 +47,6 @@
 		usr.set_machine(src)
 	if(href_list["activate"])
 		activate(usr)
-	//if(href_list["activate2"])
-	//	activate2(usr)
 	add_fingerprint(usr)
 	updateUsrDialog()
 	return
@@ -61,11 +59,6 @@
 /obj/machinery/computer/syndicate_depot/Destroy()
 	summon()
 	return ..()
-
-/obj/machinery/computer/syndicate_depot/set_broken()
-	return
-	//summon()
-	..()
 
 /obj/machinery/computer/syndicate_depot/proc/get_menu()
 	return {"<B>Syndicate Depot Door Control Computer</B><HR>
@@ -98,7 +91,6 @@
 		return
 	activated = TRUE
 	playsound(user, 'sound/machines/click.ogg', 20, 1)
-	sleep(5)
 	var/area/syndicate_depot/D = get_area(src)
 	if(D)
 		D.activate_self_destruct(TRUE, user)
@@ -122,10 +114,7 @@
 		to_chat(user, "<span class='userdanger'>ERROR: terminal already used.</span>")
 		return
 	activated = TRUE
-	var/is_syndie = FALSE
 	if(user.mind && user.mind.special_role == SPECIAL_ROLE_TRAITOR)
-		is_syndie = TRUE
-	if(is_syndie)
 		var/input = stripped_input(user, "Please choose a message to transmit to Syndicate HQ via quantum entanglement.  Transmission does not guarantee a response. This terminal may only be used ONCE.", "To abort, send an empty message.", "") as text|null
 		if(!input)
 			activated = FALSE
