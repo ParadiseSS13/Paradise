@@ -1,4 +1,0 @@
-author: "Kyep"
-delete-after: True
-changes: 
-  - tweak: "Improved wild west away mission. Fixes issues such as lack of magboots, and 'projectile gun's appearing. Adds some flavor items (syndie soap in shower, medkits in storage). Also adds syndie comms device which alters the mission depending on how it is used."
