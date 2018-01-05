@@ -398,16 +398,16 @@
 		if(owner.getToxLoss() >= 60 && !owner.reagents.has_reagent("charcoal"))
 			//Healthy liver suffers on its own
 			if(damage < min_broken_damage)
-				take_damage(0.2 * PROCESS_ACCURACY)
+				receive_damage(0.2 * PROCESS_ACCURACY)
 			//Damaged one shares the fun
 			else
 				var/obj/item/organ/internal/O = pick(owner.internal_organs)
 				if(O)
-					O.take_damage(0.2  * PROCESS_ACCURACY)
+					O.receive_damage(0.2  * PROCESS_ACCURACY)
 
 		//Detox can heal small amounts of damage
 		if(damage && damage < min_bruised_damage && owner.reagents.has_reagent("charcoal"))
-			take_damage(-0.2 * PROCESS_ACCURACY)
+			receive_damage(-0.2 * PROCESS_ACCURACY)
 
 		// Get the effectiveness of the liver.
 		var/filter_effect = 3
