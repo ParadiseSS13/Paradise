@@ -18,7 +18,9 @@
 	faction = list("syndicate")
 	shoot_sound = 'sound/weapons/wave.ogg'
 	anchored = 1
-
+	pressure_resistance = 100    //100 kPa difference required to push
+	throw_pressure_limit = 120
+	var/turf/saved_turf
 	var/stepsound = 'sound/mecha/mechstep.ogg'
 
 
@@ -58,11 +60,11 @@
 	to_chat(user, "<span class='warning'>[src] has no card reader slot!</span>")
 	return
 
-///mob/living/simple_animal/bot/ed209/syndicate/walk_to(tgt,num)
-//	playsound(src, stepsound, 40, 1)
-//	..(tgt,num)
-
 /mob/living/simple_animal/bot/ed209/syndicate/ed209_ai()
+	var/turf/current_turf = get_turf(src)
+	if(saved_turf && current_turf != saved_turf)
+		playsound(src.loc, stepsound, 40, 1)
+	saved_turf = current_turf
 	switch(mode)
 		if(BOT_IDLE)
 			walk_to(src,0)
@@ -99,7 +101,6 @@
 /mob/living/simple_animal/bot/ed209/syndicate/look_for_perp()
 	if(disabled)
 		return
-	anchored = 0
 	for(var/mob/M in view(7, src))
 		if(M.invisibility > see_invisible)
 			continue
@@ -125,6 +126,7 @@
 	s.set_up(3, 1, src)
 	s.start()
 	new /obj/effect/decal/cleanable/blood/oil(loc)
+	qdel(src)
 
 
 /mob/living/simple_animal/bot/ed209/syndicate/set_weapon()
@@ -134,6 +136,9 @@
 
 /mob/living/simple_animal/bot/ed209/syndicate/emp_act(severity)
 	return
+
+/mob/living/simple_animal/bot/ed209/shootAt(atom/A)
+	..(get_turf(A))
 
 /mob/living/simple_animal/bot/ed209/UnarmedAttack(atom/A)
 	if(!on)
@@ -148,3 +153,6 @@
 
 /mob/living/simple_animal/bot/ed209/syndicate/speak()
 	return
+
+/mob/living/simple_animal/bot/ed209/syndicate/Process_Spacemove(var/movement_dir = 0)
+	return 1

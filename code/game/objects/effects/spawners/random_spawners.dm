@@ -202,7 +202,7 @@
 /obj/effect/spawner/random_spawners/syndicate/loot/spacepod
 	name = "50pc loot spacepod"
 	icon = 'icons/goonstation/48x48/pods.dmi'
-	icon_state = "pod_civ"
+	icon_state = "pod_synd"
 	result = list(
 	/obj/spacepod/civilian = 1
 	)
@@ -305,7 +305,6 @@
 	/obj/item/device/chameleon = 1
 	)
 
-
 /obj/effect/spawner/random_spawners/syndicate/loot/medicalkit
 	name = "medkit 50pc tactical"
 	icon = 'icons/obj/storage.dmi'
@@ -316,6 +315,57 @@
 	/obj/item/weapon/storage/firstaid/tactical = 1
 	)
 
+/obj/effect/spawner/random_spawners/syndicate/loot/cyborg
+	name = "cyborg 50pc borgupgrade"
+	icon = 'icons/obj/module.dmi'
+	icon_state = "cyborg_upgrade3"
+	result = list(
+	/obj/item/weapon/stock_parts/cell/bluespace = 1,
+	/obj/item/borg/upgrade/vtec = 1,
+	/obj/item/borg/upgrade/syndicate = 1,
+	/obj/item/borg/upgrade/selfrepair = 1
+	)
+
+/obj/effect/spawner/random_spawners/syndicate/loot/drugs
+	name = "medical 50pc drugs"
+	icon = 'icons/obj/chemical.dmi'
+	icon_state = "pill4"
+	result = list(
+	/obj/item/weapon/storage/pill_bottle/happy = 1,
+	/obj/item/weapon/storage/pill_bottle/zoom = 1,
+	/obj/item/weapon/storage/pill_bottle/random_drug_bottle = 3
+	)
+
+/obj/effect/spawner/random_spawners/syndicate/loot/minerals
+	name = "minerals 75pc"
+	icon = 'icons/obj/items.dmi'
+	icon_state = "sheet-gold"
+	spawn_nothing_percentage = 25
+	result = list(
+	/obj/item/stack/sheet/mineral/diamond = 1,
+	/obj/item/stack/sheet/mineral/uranium = 1,
+	/obj/item/stack/sheet/mineral/plasma = 1,
+	/obj/item/stack/sheet/mineral/silver = 1,
+	/obj/item/stack/sheet/mineral/gold = 1
+	)
+
+/obj/effect/spawner/random_spawners/syndicate/loot/shoes
+	name = "shoes 50pc"
+	icon = 'icons/obj/clothing/shoes.dmi'
+	icon_state = "brown"
+	spawn_nothing_percentage = 50
+	result = list(
+	/obj/item/clothing/shoes/syndigaloshes = 1
+	)
+
+/obj/effect/spawner/random_spawners/syndicate/loot/rcd
+	name = "rcd 50pc"
+	icon = 'icons/obj/tools.dmi'
+	icon_state = "rcd"
+	result = list(
+	/obj/item/weapon/rcd_ammo = 1,
+	/obj/item/weapon/rcd = 1
+	)
 
 // Key layout features
 
@@ -326,7 +376,6 @@
 	name = "50pc door 25pc falsewall 25pc wall"
 	icon = 'icons/obj/doors/Doorhatchele.dmi'
 	icon_state = "door_closed"
-	color = "#0000FF"
 	spawn_nothing_percentage = 0
 	result = list(
 	/obj/machinery/door/airlock/hatch/syndicate = 2,
@@ -340,12 +389,4 @@
 	icon_state = "floor_beaconf"
 	result = list(
 	/obj/machinery/bluespace_beacon/syndicate = 1
-	)
-
-/obj/effect/spawner/random_spawners/syndicate/layout/jammer_structure
-	name = "50pc feature strong jammer"
-	icon = 'icons/obj/singularity.dmi'
-	icon_state = "beaconsynd1"
-	result = list(
-	/obj/structure/syndijammer = 1
 	)

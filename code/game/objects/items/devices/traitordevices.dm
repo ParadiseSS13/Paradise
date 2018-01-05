@@ -159,31 +159,9 @@ effective or pretty fucking useless.
 	return ..()
 
 /obj/item/device/jammer/attack_self(mob/user)
-	toggle_active(user)
-
-/obj/item/device/jammer/proc/toggle_active(mob/user)
-	if(user)
-		to_chat(user,"<span class='notice'>You [active ? "deactivate" : "activate"] the [src].</span>")
+	to_chat(user,"<span class='notice'>You [active ? "deactivate" : "activate"] the [src].</span>")
 	active = !active
 	if(active)
 		active_jammers |= src
 	else
 		active_jammers -= src
-
-/obj/structure/syndijammer
-	name = "syndicate wide-area radio jammer"
-	desc = "Device used to disrupt radio communications over a wide area"
-	icon = 'icons/obj/singularity.dmi'
-	icon_state = "beaconsynd1"
-	anchored = TRUE
-	var/obj/item/device/jammer/myjammer
-
-/obj/structure/syndijammer/New()
-	myjammer = new /obj/item/device/jammer(src)
-	myjammer.range = 30
-	myjammer.toggle_active()
-
-/obj/structure/syndijammer/Destroy()
-	if(myjammer)
-		qdel(myjammer)
-

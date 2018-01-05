@@ -556,7 +556,7 @@ var/list/ghostteleportlocs = list()
 	var/used_self_destruct = FALSE
 
 	var/used_lockdown = FALSE
-	var/center_landmark = "syndi_depot_reactor"
+	var/obj/structure/fusionreactor/reactor
 
 /area/syndicate_depot/proc/increase_alert()
 	if(!local_alarm)
@@ -584,13 +584,15 @@ var/list/ghostteleportlocs = list()
 	spawn(0)
 		set_fire_alarm_effect()
 
-/area/syndicate_depot/proc/call_backup()
-	if(!used_lockdown)
-		activate_lockdown()
+/area/syndicate_depot/proc/call_backup(silent)
 	if(called_backup || used_self_destruct)
 		return
 	called_backup = TRUE
-	announce_here("Critical breach. Locking down the depot and requesting backup from Syndicate HQ.")
+	if(!silent)
+		announce_here("Critical breach. Locking down the depot and requesting backup from Syndicate HQ.")
+	for(var/obj/machinery/door/poddoor/P in airlocks)
+		if(P.density && P.id_tag == "syndi_depot_lvl2" && !P.operating)
+			P.open()
 	spawn(0)
 		for(var/obj/effect/landmark/L in landmarks_list)
 			if(L.name == "syndi_depot_backup")
@@ -602,7 +604,7 @@ var/list/ghostteleportlocs = list()
 		return
 	used_self_destruct = TRUE
 	local_alarm(TRUE)
-	activate_lockdown()
+	activate_lockdown(TRUE)
 	if(!deliberate)
 		announce_here("Defeat imminent. Self-destruct active.")
 	if(user)
@@ -616,12 +618,8 @@ var/list/ghostteleportlocs = list()
 	else
 		log_game("Depot self destruct activated.")
 
-	for(var/obj/effect/landmark/L in landmarks_list)
-		if(L.name == center_landmark)
-			var/obj/effect/overload/O = new /obj/effect/overload(get_turf(L))
-			if(deliberate)
-				O.deliberate = TRUE
-				O.max_cycles = 7
+	if(reactor)
+		reactor.overload(FALSE)
 
 
 /area/syndicate_depot/proc/activate_lockdown()
@@ -655,6 +653,10 @@ var/list/ghostteleportlocs = list()
 	for(var/mob/R in receivers)
 		to_chat(R, msg_text)
 		R << sound('sound/misc/notice1.ogg')
+
+/area/syndicate_depot/outer
+	name = "Suspicious Asteroid"
+	icon_state = "green"
 
 
 //EXTRA

@@ -213,3 +213,11 @@ Transponder Codes:<UL>"}
 			codes[newkey] = newval
 
 			updateDialog()
+
+
+/obj/machinery/navbeacon/invisible
+	invisibility = 101
+
+/obj/machinery/navbeacon/invisible/hide(intact)
+	invisibility = 101
+	updateicon()

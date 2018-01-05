@@ -9,8 +9,10 @@
 	var/activated = FALSE
 
 /obj/machinery/computer/syndicate_depot/attack_ai(var/mob/user as mob)
-	to_chat(user, "<span class='warning'>A firewall blocks your access.</span>")
-	return 1
+	if(req_access.len)
+		to_chat(user, "<span class='warning'>A firewall blocks your access.</span>")
+		return 1
+	..()
 
 /obj/machinery/computer/syndicate_depot/emp_act(severity)
 	return
@@ -78,7 +80,6 @@
 /obj/machinery/computer/syndicate_depot/selfdestruct
 	name = "reactor control computer"
 	req_access = list()
-	var/landmark_name = "syndi_depot_reactor"
 
 /obj/machinery/computer/syndicate_depot/selfdestruct/get_menu()
 	return {"<B>Syndicate Depot Fission Reactor Control</B><HR>
@@ -101,7 +102,7 @@
 /obj/machinery/computer/syndicate_depot/syndiecomms
 	name = "syndicate communications computer"
 	icon_state = "computer"
-	req_access = list(access_syndicate)
+	req_access = list()
 
 /obj/machinery/computer/syndicate_depot/syndiecomms/get_menu()
 	return {"<B>Syndicate Communications Relay</B><HR>
