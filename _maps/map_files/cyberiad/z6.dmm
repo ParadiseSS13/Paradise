@@ -754,7 +754,7 @@
 "oz" = (/obj/structure/closet/crate,/obj/effect/spawner/random_spawners/syndicate/loot/radiokey,/turf/simulated/floor/plasteel{icon_state = "dark"},/area/syndicate_depot)
 "oA" = (/obj/structure/closet/crate,/obj/effect/spawner/random_spawners/syndicate/loot/pistol,/turf/simulated/floor/plasteel{icon_state = "dark"},/area/syndicate_depot)
 "oB" = (/obj/machinery/light{dir = 1; on = 1},/turf/simulated/floor/plating/airless/asteroid,/area/syndicate_depot)
-"oC" = (/obj/machinery/door_control{active_power_usage = 0; id = "syndi_depot_rear"; idle_power_usage = 0; name = "mysterious button"; normaldoorcontrol = 1; use_power = 0},/obj/structure/sign/poster/contraband/syndicate_recruitment,/turf/simulated/wall,/area/syndicate_depot)
+"oC" = (/obj/machinery/door_control{active_power_usage = 0; id = "syndi_depot_rear"; idle_power_usage = 0; name = "mysterious button"; normaldoorcontrol = 0; use_power = 0},/obj/structure/sign/poster/contraband/syndicate_recruitment,/turf/simulated/wall,/area/syndicate_depot)
 "oD" = (/obj/effect/spawner/random_spawners/blood_maybe,/turf/simulated/floor/plating/airless/asteroid,/area/syndicate_depot)
 "oE" = (/turf/simulated/floor/plasteel{icon_state = "dark"},/area/space)
 "oF" = (/obj/structure/closet/crate,/turf/simulated/floor/plasteel{icon_state = "dark"},/area/syndicate_depot)
