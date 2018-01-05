@@ -53,9 +53,6 @@
 	target = H
 	mode = BOT_HUNT
 
-/mob/living/simple_animal/bot/ed209/syndicate(mob/M)
-	return
-
 /mob/living/simple_animal/bot/ed209/syndicate/emag_act(mob/user)
 	to_chat(user, "<span class='warning'>[src] has no card reader slot!</span>")
 	return
