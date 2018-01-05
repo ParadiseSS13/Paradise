@@ -130,18 +130,3 @@
 			for(var/res in resources)
 				var/obj/item/stack/R = new res(src)
 				R.amount = R.max_amount
-
-
-/obj/structure/closet/syndicate/depot
-	name = "supply depot closet"
-	desc = ""
-	icon_state = "syndicate"
-	icon_closed = "syndicate"
-	icon_opened = "syndicateopen"
-	anchored = 1
-
-/obj/structure/closet/syndicate/depot/open()
-	..()
-
-/obj/structure/closet/syndicate/depot/Destroy()
-	..()

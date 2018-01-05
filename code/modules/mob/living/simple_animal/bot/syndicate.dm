@@ -2,11 +2,8 @@
 /mob/living/simple_animal/bot/ed209/syndicate
 	name = "ED-411 Security Robot"
 	desc = "A syndicate security bot."
-
-	//icon_state = "red2091"
 	icon = 'icons/mecha/mecha.dmi'
 	icon_state = "darkgygax"
-
 	radio_channel = "Syndicate"
 	health = 300
 	maxHealth = 300
@@ -55,6 +52,9 @@
 		return
 	target = H
 	mode = BOT_HUNT
+
+/mob/living/simple_animal/bot/ed209/syndicate(mob/M)
+	return
 
 /mob/living/simple_animal/bot/ed209/syndicate/emag_act(mob/user)
 	to_chat(user, "<span class='warning'>[src] has no card reader slot!</span>")
@@ -112,7 +112,6 @@
 			continue
 		target = M
 		oldtarget_name = M.name
-		visible_message("<b>[src]</b> points at [M.name]!")
 		mode = BOT_HUNT
 		spawn(0)
 			handle_automated_action()
@@ -126,13 +125,12 @@
 	s.set_up(3, 1, src)
 	s.start()
 	new /obj/effect/decal/cleanable/blood/oil(loc)
+	new /obj/effect/decal/mecha_wreckage/gygax/dark(loc)
 	qdel(src)
 
 
 /mob/living/simple_animal/bot/ed209/syndicate/set_weapon()
 	projectile = /obj/item/projectile/bullet/a40mm
-	///obj/item/projectile/bullet/incendiary/shell/dragonsbreath
-	///obj/item/projectile/bullet/sniper/penetrator
 
 /mob/living/simple_animal/bot/ed209/syndicate/emp_act(severity)
 	return

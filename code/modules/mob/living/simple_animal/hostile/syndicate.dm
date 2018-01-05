@@ -91,9 +91,11 @@
 	..()
 
 /mob/living/simple_animal/hostile/syndicate/melee/autogib/depotboss/proc/raise_alert()
-	if(depotarea)
+	if(depotarea && !raised_alert)
 		say("Intruder!")
+		raised_alert = TRUE
 		depotarea.increase_alert()
+
 
 /mob/living/simple_animal/hostile/syndicate/melee/autogib/depotboss/death()
 	raise_alert()

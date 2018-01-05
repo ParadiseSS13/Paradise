@@ -552,6 +552,9 @@ obj/spacepod/proc/add_equipment(mob/user, var/obj/item/device/spacepod_equipment
 	health = 400
 	unlocked = FALSE
 
+/obj/spacepod/syndi/unlocked
+	unlocked = TRUE
+
 /obj/spacepod/sec/New()
 	..()
 	var/obj/item/device/spacepod_equipment/weaponry/burst_taser/T = new /obj/item/device/spacepod_equipment/weaponry/taser

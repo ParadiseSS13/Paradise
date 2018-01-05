@@ -204,7 +204,8 @@
 	icon = 'icons/goonstation/48x48/pods.dmi'
 	icon_state = "pod_synd"
 	result = list(
-	/obj/spacepod/civilian = 1
+	/obj/spacepod/syndi = 1,
+	/obj/spacepod/syndi/unlocked = 1
 	)
 
 /obj/effect/spawner/random_spawners/syndicate/loot/radiokey
