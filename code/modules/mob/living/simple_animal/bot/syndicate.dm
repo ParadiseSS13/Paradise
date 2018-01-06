@@ -1,6 +1,6 @@
 
 /mob/living/simple_animal/bot/ed209/syndicate
-	name = "ED-411 Security Robot"
+	name = "Syndicate Sentry Bot"
 	desc = "A syndicate security bot."
 	icon = 'icons/mecha/mecha.dmi'
 	icon_state = "darkgygax"
@@ -19,6 +19,8 @@
 	throw_pressure_limit = 120
 	var/turf/saved_turf
 	var/stepsound = 'sound/mecha/mechstep.ogg'
+	var/area/syndicate_depot/depotarea
+	var/raised_alert = FALSE
 
 
 /mob/living/simple_animal/bot/ed209/syndicate/New()
@@ -123,6 +125,7 @@
 	s.start()
 	new /obj/effect/decal/cleanable/blood/oil(loc)
 	new /obj/effect/decal/mecha_wreckage/gygax/dark(loc)
+	raise_alert("[src] destroyed.")
 	qdel(src)
 
 
@@ -151,3 +154,15 @@
 
 /mob/living/simple_animal/bot/ed209/syndicate/Process_Spacemove(var/movement_dir = 0)
 	return 1
+
+/mob/living/simple_animal/bot/ed209/syndicate/start_patrol()
+	if(tries >= BOT_STEP_MAX_RETRIES)
+		raise_alert("[src] captured by hostile forces.")
+	return ..()
+
+/mob/living/simple_animal/bot/ed209/syndicate/proc/raise_alert(var/reason)
+	if(raised_alert)
+		return
+	raised_alert = TRUE
+	if(depotarea)
+		depotarea.increase_alert(reason)

@@ -77,6 +77,7 @@
 
 /mob/living/simple_animal/hostile/syndicate/melee/autogib/depotboss/New()
 	..()
+	name = "[name] [pick(last_names)]"
 	depotarea = areaMaster
 
 /mob/living/simple_animal/hostile/syndicate/melee/autogib/depotboss/Aggro()
@@ -87,18 +88,18 @@
 	if(seen_enemy)
 		aggro_cycles++
 		if(!raised_alert && aggro_cycles >= 60)
-			raise_alert()
+			raise_alert("[name] has reported contact with hostile forces.")
 	..()
 
-/mob/living/simple_animal/hostile/syndicate/melee/autogib/depotboss/proc/raise_alert()
+/mob/living/simple_animal/hostile/syndicate/melee/autogib/depotboss/proc/raise_alert(var/reason)
 	if(depotarea && !raised_alert)
 		say("Intruder!")
 		raised_alert = TRUE
-		depotarea.increase_alert()
+		depotarea.increase_alert(reason)
 
 
 /mob/living/simple_animal/hostile/syndicate/melee/autogib/depotboss/death()
-	raise_alert()
+	raise_alert("[name] has died.")
 	return ..()
 
 

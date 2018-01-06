@@ -550,46 +550,66 @@ var/list/ghostteleportlocs = list()
 	name = "Suspicious Supply Depot"
 	icon_state = "red"
 	tele_proof = 1
-	requires_power = 0
-	var/local_alarm = FALSE
-	var/called_backup = FALSE
-	var/used_self_destruct = FALSE
-
+	var/local_alarm = FALSE // Level 1: Local alarm tripped, bot spawned, red fire overlay activated
+	var/called_backup = FALSE // Level 2: Remote alarm tripped. Bot may path through depot. Backup spawned.
+	var/used_self_destruct = FALSE // Level 3: Self destruct activated. Depot will be destroyed shortly.
+	var/list/guards_spawned = list()
 	var/used_lockdown = FALSE
+	var/destroyed = FALSE
 	var/obj/structure/fusionreactor/reactor
 
-/area/syndicate_depot/proc/increase_alert()
+
+/area/syndicate_depot/updateicon()
+	if(destroyed)
+		icon_state = null
+		invisibility = INVISIBILITY_MAXIMUM
+	else if(used_self_destruct)
+		icon_state = "radiation"
+		invisibility = INVISIBILITY_LIGHTING
+	else if(called_backup)
+		icon_state = "red"
+		invisibility = INVISIBILITY_LIGHTING
+	else if(local_alarm)
+		icon_state = "bluenew"
+		invisibility = INVISIBILITY_LIGHTING
+	else
+		icon_state = null
+		invisibility = INVISIBILITY_MAXIMUM
+
+/area/syndicate_depot/proc/increase_alert(var/reason)
 	if(!local_alarm)
-		local_alarm()
+		local_alarm(reason, FALSE)
 		return
 	if(!called_backup)
-		call_backup()
+		call_backup(reason, FALSE)
 		return
 	if(!used_self_destruct)
-		activate_self_destruct(FALSE)
+		activate_self_destruct(FALSE, null)
+	updateicon()
 
-/area/syndicate_depot/proc/local_alarm(silent)
+/area/syndicate_depot/proc/local_alarm(var/reason, var/silent)
 	if(local_alarm)
 		return
 	local_alarm = TRUE
 	if(!silent)
-		announce_here("Incursion detected. Red alert!")
+		announce_here("Depot Code BLUE", reason)
 		var/list/possible_bot_spawns = list()
 		for(var/obj/effect/landmark/L in landmarks_list)
 			if(L.name == "syndi_depot_bot")
 				possible_bot_spawns |= L
 		if(possible_bot_spawns.len)
 			var/obj/effect/landmark/S = pick(possible_bot_spawns)
-			new /mob/living/simple_animal/bot/ed209/syndicate(get_turf(S))
-	spawn(0)
-		set_fire_alarm_effect()
+			var/mob/living/simple_animal/bot/ed209/syndicate/B = new /mob/living/simple_animal/bot/ed209/syndicate(get_turf(S))
+			guards_spawned |= B
+			B.depotarea = src
+	updateicon()
 
-/area/syndicate_depot/proc/call_backup(silent)
+/area/syndicate_depot/proc/call_backup(var/reason, var/silent)
 	if(called_backup || used_self_destruct)
 		return
 	called_backup = TRUE
 	if(!silent)
-		announce_here("Critical breach. Locking down the depot and requesting backup from Syndicate HQ.")
+		announce_here("Depot Code RED", reason)
 	for(var/obj/machinery/door/poddoor/P in airlocks)
 		if(P.density && P.id_tag == "syndi_depot_lvl2" && !P.operating)
 			P.open()
@@ -598,15 +618,19 @@ var/list/ghostteleportlocs = list()
 			if(L.name == "syndi_depot_backup")
 				var/mob/living/simple_animal/hostile/syndicate/ranged/space/autogib/S = new /mob/living/simple_animal/hostile/syndicate/ranged/space/autogib(get_turf(L))
 				S.name = "Syndicate Backup"
+	updateicon()
 
-/area/syndicate_depot/proc/activate_self_destruct(var/deliberate, var/mob/user)
+/area/syndicate_depot/proc/activate_self_destruct(var/containment_failure, var/mob/user)
 	if(used_self_destruct)
 		return
 	used_self_destruct = TRUE
-	local_alarm(TRUE)
+	local_alarm("", TRUE)
 	activate_lockdown(TRUE)
-	if(!deliberate)
-		announce_here("Defeat imminent. Self-destruct active.")
+	if(containment_failure)
+		announce_here("Depot Code DELTA","Fusion reactor containment failure. All hands, evacuate. All hands, evacuate. Core breach imminent!")
+	else
+		announce_here("Depot Code DELTA","Depot declared lost to hostile forces. Priming self-destruct!")
+
 	if(user)
 		var/turf/T = get_turf(user)
 		var/area/A = get_area(T)
@@ -617,10 +641,8 @@ var/list/ghostteleportlocs = list()
 		playsound(user, 'sound/machines/Alarm.ogg', 100, 0, 0)
 	else
 		log_game("Depot self destruct activated.")
-
-	if(reactor)
-		reactor.overload(FALSE)
-
+	reactor.overload(containment_failure)
+	updateicon()
 
 /area/syndicate_depot/proc/activate_lockdown()
 	if(used_lockdown)
@@ -640,8 +662,17 @@ var/list/ghostteleportlocs = list()
 			A.locked = !A.locked
 		A.update_icon()
 
-/area/syndicate_depot/proc/announce_here(var/a_text)
-	var/msg_text = "<font size=4 color='red'>Depot Defense Alert</font><br><font color='red'>[a_text]</font>"
+/area/syndicate_depot/proc/toggle_falsewalls()
+	for(var/obj/structure/falsewall/reinforced/F in src)
+		spawn(0)
+			F.toggle()
+
+/area/syndicate_depot/proc/toggle_teleport_beacon()
+	for(var/obj/machinery/bluespace_beacon/syndicate/B in src)
+		return B.toggle()
+
+/area/syndicate_depot/proc/announce_here(var/a_header = "Depot Defense Alert", var/a_text = "")
+	var/msg_text = "<font size=4 color='red'>[a_header]</font><br><font color='red'>[a_text]</font>"
 	var/list/receivers = list()
 	for(var/mob/M in mob_list)
 		if(!M.ckey)

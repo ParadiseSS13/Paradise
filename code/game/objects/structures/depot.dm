@@ -2,12 +2,10 @@
 /obj/structure/fusionreactor
 	name = "syndicate fusion reactor"
 	desc = ""
-	icon = 'icons/obj/singularity.dmi'
-	icon_state = "beaconsynd1"
-	//icon = 'icons/obj/device.dmi'
-	//icon_state = "powersink1"
+	icon = 'icons/obj/device.dmi'
+	icon_state = "powersink1"
 	anchored = 1
-	var/health = 30
+	max_integrity = 50
 	var/area/syndicate_depot/depotarea
 
 /obj/structure/fusionreactor/New()
@@ -17,17 +15,17 @@
 		depotarea.reactor = src
 
 /obj/structure/fusionreactor/ex_act(severity)
-	health -= 10 * severity
+	obj_integrity -= 10 * severity
 	healthcheck()
 
 /obj/structure/fusionreactor/bullet_act(var/obj/item/projectile/Proj)
-	health -= Proj.damage
+	obj_integrity -= Proj.damage
 	..()
 	healthcheck()
 
 /obj/structure/fusionreactor/proc/healthcheck()
-	if(health <= 0)
-		overload(FALSE)
+	if(obj_integrity <= 0)
+		overload(TRUE)
 
 /obj/structure/fusionreactor/attackby(obj/item/I, mob/user, params)
 	if(iswrench(I))
@@ -43,9 +41,9 @@
 	else
 		return ..(I, user, params)
 
-/obj/structure/fusionreactor/proc/overload(var/deliberate)
+/obj/structure/fusionreactor/proc/overload(var/containment_failure)
 	var/obj/effect/overload/O = new /obj/effect/overload(get_turf(src))
-	if(deliberate)
+	if(containment_failure)
 		O.deliberate = TRUE
 		O.max_cycles = 7
 	qdel(src)
@@ -60,10 +58,17 @@
 	var/beepsound = 'sound/items/timer.ogg'
 	var/deliberate = FALSE
 	var/max_cycles = 15
+	var/max_fire_range = 6
+	var/area/syndicate_depot/depotarea
 
 /obj/effect/overload/New()
 	..()
 	processing_objects.Add(src)
+	depotarea = areaMaster
+	if(depotarea)
+		if(!depotarea.used_self_destruct)
+			depotarea.used_self_destruct = TRUE // Silences all further alerts from this point onwards.
+			depotarea.updateicon()
 
 /obj/effect/overload/process()
 	if(cycles < max_cycles)
@@ -71,15 +76,17 @@
 			playsound(loc, beepsound, 50, 0)
 		cycles++
 		var/fire_range = cycles
-		if(fire_range > 3)
-			fire_range = 5
+		if(max_fire_range > 6)
+			max_fire_range = 6
 		var/turf/T = get_turf(src)
 		for(var/turf/simulated/turf in range(fire_range, T))
 			new /obj/effect/hotspot(turf)
 		return
 
-	if(areaMaster.fire)
-		areaMaster.fire_reset()
-	explosion(get_turf(src), 20, 30, 40, 50, 1, 1, 40, 0, 1)
+	if(depotarea)
+		depotarea.destroyed = TRUE
+		depotarea.updateicon()
+
+	explosion(get_turf(src), 25, 35, 45, 55, 1, 1, 60, 0, 0)
 	processing_objects.Remove(src)
 	qdel(src)

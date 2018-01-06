@@ -383,11 +383,3 @@
 	/turf/simulated/wall/r_wall = 1,
 	/obj/structure/falsewall/reinforced = 1
 	)
-
-/obj/effect/spawner/random_spawners/syndicate/layout/telebeacon
-	name = "50pc feature telebeacon"
-	icon = 'icons/obj/objects.dmi'
-	icon_state = "floor_beaconf"
-	result = list(
-	/obj/machinery/bluespace_beacon/syndicate = 1
-	)
