@@ -226,20 +226,13 @@
 	/obj/item/device/jammer = 1
 	)
 
-/obj/effect/spawner/random_spawners/syndicate/loot/spacepod
-	name = "50pc loot spacepod"
-	icon_state = "pod_civ"
-	result = list(
-	/obj/spacepod/civilian = 1
-	)
-
-
 /obj/effect/spawner/random_spawners/syndicate/loot/spacesuit
 	name = "50pc loot spacesuit kit"
 	icon = 'icons/obj/storage.dmi'
 	icon_state = "box_of_doom"
 	result = list(
-	/obj/item/weapon/storage/box/syndie_kit/space = 1
+	/obj/item/weapon/storage/box/syndie_kit/space = 1,
+	/obj/item/weapon/storage/box/syndie_kit/hardsuit = 1
 	)
 
 /obj/effect/spawner/random_spawners/syndicate/loot/thermals

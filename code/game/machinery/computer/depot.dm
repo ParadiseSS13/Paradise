@@ -11,6 +11,7 @@
 	var/sound_no = 'sound/machines/buzz-sigh.ogg'
 	var/sound_click = 'sound/machines/click.ogg'
 	var/area/syndicate_depot/depotarea
+	var/alerts_when_broken = TRUE
 
 /obj/machinery/computer/syndicate_depot/New()
 	. = ..()
@@ -50,6 +51,12 @@
 	onclose(user, "computer")
 	return
 
+
+/obj/machinery/computer/syndicate_depot/set_broken()
+	. = ..()
+	if(alerts_when_broken)
+		raise_alert("[src] destroyed.")
+
 /obj/machinery/computer/syndicate_depot/Topic(href, href_list)
 	if(..())
 		return 1
@@ -81,11 +88,12 @@
 /obj/machinery/computer/syndicate_depot/proc/primary(var/mob/user)
 	if(depotarea)
 		depotarea.toggle_door_locks(src)
+		to_chat(user, "<span class='notice'>Door locks toggled.</span>")
 
 /obj/machinery/computer/syndicate_depot/proc/secondary(var/mob/user)
 	if(depotarea)
 		depotarea.toggle_falsewalls(src)
-
+		to_chat(user, "<span class='notice'>False walls toggled.</span>")
 
 /obj/machinery/computer/syndicate_depot/proc/raise_alert(var/reason)
 	if(depotarea)
@@ -110,7 +118,7 @@
 	activated = TRUE
 	playsound(user, sound_click, 20, 1)
 	if(depotarea)
-		depotarea.activate_self_destruct(TRUE, user)
+		depotarea.activate_self_destruct("Fusion reactor containment failure. All hands, evacuate. All hands, evacuate. Core breach imminent!", TRUE, user)
 
 
 

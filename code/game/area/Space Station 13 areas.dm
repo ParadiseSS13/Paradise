@@ -576,6 +576,12 @@ var/list/ghostteleportlocs = list()
 		icon_state = null
 		invisibility = INVISIBILITY_MAXIMUM
 
+/area/syndicate_depot/proc/reset_alert()
+	local_alarm = FALSE
+	called_backup = FALSE
+	used_self_destruct = FALSE
+	updateicon()
+
 /area/syndicate_depot/proc/increase_alert(var/reason)
 	if(!local_alarm)
 		local_alarm(reason, FALSE)
@@ -584,7 +590,7 @@ var/list/ghostteleportlocs = list()
 		call_backup(reason, FALSE)
 		return
 	if(!used_self_destruct)
-		activate_self_destruct(FALSE, null)
+		activate_self_destruct(reason, FALSE, null)
 	updateicon()
 
 /area/syndicate_depot/proc/local_alarm(var/reason, var/silent)
@@ -620,16 +626,16 @@ var/list/ghostteleportlocs = list()
 				S.name = "Syndicate Backup"
 	updateicon()
 
-/area/syndicate_depot/proc/activate_self_destruct(var/containment_failure, var/mob/user)
+/area/syndicate_depot/proc/activate_self_destruct(var/reason, var/containment_failure, var/mob/user)
 	if(used_self_destruct)
 		return
 	used_self_destruct = TRUE
 	local_alarm("", TRUE)
 	activate_lockdown(TRUE)
 	if(containment_failure)
-		announce_here("Depot Code DELTA","Fusion reactor containment failure. All hands, evacuate. All hands, evacuate. Core breach imminent!")
+		announce_here("Depot Code DELTA", reason)
 	else
-		announce_here("Depot Code DELTA","Depot declared lost to hostile forces. Priming self-destruct!")
+		announce_here("Depot Code DELTA","[reason] Depot declared lost to hostile forces. Priming self-destruct!")
 
 	if(user)
 		var/turf/T = get_turf(user)
@@ -641,7 +647,10 @@ var/list/ghostteleportlocs = list()
 		playsound(user, 'sound/machines/Alarm.ogg', 100, 0, 0)
 	else
 		log_game("Depot self destruct activated.")
-	reactor.overload(containment_failure)
+	if(reactor)
+		reactor.overload(containment_failure)
+	else
+		message_admins("<span class='adminnotice'>Syndicate Depot lacks reactor to initiate self-destruct. Must be destroyed manually.</span>")
 	updateicon()
 
 /area/syndicate_depot/proc/activate_lockdown()

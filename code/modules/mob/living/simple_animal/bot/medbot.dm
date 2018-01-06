@@ -86,6 +86,7 @@
 /mob/living/simple_animal/bot/medbot/syndicate/New()
 	..()
 	Radio.syndie = 1
+	faction |= "syndicate"
 
 /mob/living/simple_animal/bot/medbot/syndicate/emagged
 	emagged = 2

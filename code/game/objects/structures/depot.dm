@@ -44,6 +44,7 @@
 /obj/structure/fusionreactor/proc/overload(var/containment_failure)
 	var/obj/effect/overload/O = new /obj/effect/overload(get_turf(src))
 	if(containment_failure)
+		playsound(loc, 'sound/machines/Alarm.ogg', 100, 0, 0)
 		O.deliberate = TRUE
 		O.max_cycles = 7
 	qdel(src)

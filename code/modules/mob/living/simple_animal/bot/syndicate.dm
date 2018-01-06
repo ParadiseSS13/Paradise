@@ -2,6 +2,7 @@
 /mob/living/simple_animal/bot/ed209/syndicate
 	name = "Syndicate Sentry Bot"
 	desc = "A syndicate security bot."
+	model = "Guardian"
 	icon = 'icons/mecha/mecha.dmi'
 	icon_state = "darkgygax"
 	radio_channel = "Syndicate"
@@ -17,11 +18,13 @@
 	anchored = 1
 	pressure_resistance = 100    //100 kPa difference required to push
 	throw_pressure_limit = 120
+	window_id = "syndiebot"
+	window_name = "Syndicate Bot Interface"
 	var/turf/saved_turf
 	var/stepsound = 'sound/mecha/mechstep.ogg'
 	var/area/syndicate_depot/depotarea
 	var/raised_alert = FALSE
-
+	var/turf/spawn_turf
 
 /mob/living/simple_animal/bot/ed209/syndicate/New()
 	..()
@@ -29,6 +32,7 @@
 		access_card.access = list(access_syndicate)
 	set_weapon()
 	update_icon()
+	spawn_turf = get_turf(src)
 
 
 /mob/living/simple_animal/bot/ed209/syndicate/update_icon()
@@ -63,6 +67,11 @@
 	var/turf/current_turf = get_turf(src)
 	if(saved_turf && current_turf != saved_turf)
 		playsound(src.loc, stepsound, 40, 1)
+	if(spawn_turf && current_turf.z != spawn_turf.z)
+		raise_alert("[src] lost in space.")
+		raised_alert = FALSE
+		raise_alert("[src] activated self-destruct.")
+		qdel(src)
 	saved_turf = current_turf
 	switch(mode)
 		if(BOT_IDLE)
@@ -117,15 +126,30 @@
 		break
 
 
+/mob/living/simple_animal/bot/ed209/syndicate/shootAt(atom/target)
+	if(lastfired && world.time - lastfired < shot_delay)
+		return
+	lastfired = world.time
+	var/obj/item/projectile/P = new projectile(loc)
+	playsound(loc, shoot_sound, 100, 1)
+	P.current = loc
+	P.starting = loc
+	P.firer = src
+	P.yo = target.y - loc.y
+	P.xo = target.x - loc.x
+	P.original = target
+	P.fire()
+
 /mob/living/simple_animal/bot/ed209/syndicate/explode()
 	walk_to(src,0)
-	visible_message("<span class='userdanger'>[src] blows apart!</span>")
-	var/datum/effect_system/spark_spread/s = new /datum/effect_system/spark_spread
-	s.set_up(3, 1, src)
-	s.start()
-	new /obj/effect/decal/cleanable/blood/oil(loc)
-	new /obj/effect/decal/mecha_wreckage/gygax/dark(loc)
-	raise_alert("[src] destroyed.")
+	if(!qdeleted(src))
+		visible_message("<span class='userdanger'>[src] blows apart!</span>")
+		var/datum/effect_system/spark_spread/s = new /datum/effect_system/spark_spread
+		s.set_up(3, 1, src)
+		s.start()
+		new /obj/effect/decal/cleanable/blood/oil(loc)
+		new /obj/effect/decal/mecha_wreckage/gygax/dark(loc)
+		raise_alert("[src] destroyed.")
 	qdel(src)
 
 
@@ -134,9 +158,6 @@
 
 /mob/living/simple_animal/bot/ed209/syndicate/emp_act(severity)
 	return
-
-/mob/living/simple_animal/bot/ed209/shootAt(atom/A)
-	..(get_turf(A))
 
 /mob/living/simple_animal/bot/ed209/UnarmedAttack(atom/A)
 	if(!on)

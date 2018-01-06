@@ -83,6 +83,8 @@
 /mob/living/simple_animal/hostile/syndicate/melee/autogib/depotboss/Aggro()
 	seen_enemy = TRUE
 	..()
+	if(target && istype(target, /obj/mecha))
+		mech_alert()
 
 /mob/living/simple_animal/hostile/syndicate/melee/autogib/depotboss/handle_automated_action()
 	if(seen_enemy)
@@ -97,6 +99,10 @@
 		raised_alert = TRUE
 		depotarea.increase_alert(reason)
 
+/mob/living/simple_animal/hostile/syndicate/melee/autogib/depotboss/proc/mech_alert()
+	if(depotarea)
+		say("They have a mech!")
+		depotarea.increase_alert("Hostile mecha detected.")
 
 /mob/living/simple_animal/hostile/syndicate/melee/autogib/depotboss/death()
 	raise_alert("[name] has died.")
