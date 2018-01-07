@@ -1256,7 +1256,7 @@
 
 /obj/item/clothing/under/fluff/lfvicsuit //Lightfire: Hyperion
 	name = "Classy victorian suit"
-	desc = "A purple and black victorian suit with silver buttons, very fancy!"
+	desc = "A blue and black victorian suit with silver buttons, very fancy!"
 	icon = 'icons/obj/custom_items.dmi'
 	icon_state = "victorianlightfire"
 	item_state = "victorianvest"
