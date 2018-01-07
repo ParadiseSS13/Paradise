@@ -3,7 +3,7 @@
 	set desc = "Turns your marked object into a JSON string you can later use to re-create the object"
 	set category = "Debug"
 
-	if(!check_rights(R_ADMIN))
+	if(!check_rights(R_ADMIN|R_DEBUG))
 		return
 
 	if(!istype(holder.marked_datum, /atom/movable))
@@ -18,7 +18,7 @@
 	set desc = "Creates an object from a JSON string"
 	set category = "Debug"
 
-	if(!check_rights(R_ADMIN|R_DEBUG))
+	if(!check_rights(R_SPAWN)) // this involves spawning things
 		return
 
 	var/json_text = input("Enter the JSON code:","Text") as message|null

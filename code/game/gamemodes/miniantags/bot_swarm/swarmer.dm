@@ -433,7 +433,7 @@
 	spawn(5)
 		qdel(src)
 
-/obj/structure/swarmer/proc/TakeDamage(damage)
+/obj/structure/swarmer/take_damage(damage)
 	health -= damage
 	if(health <= 0)
 		qdel(src)
@@ -441,14 +441,14 @@
 /obj/structure/swarmer/bullet_act(obj/item/projectile/Proj)
 	if(Proj.damage)
 		if((Proj.damage_type == BRUTE || Proj.damage_type == BURN))
-			TakeDamage(Proj.damage)
+			take_damage(Proj.damage)
 	..()
 
 /obj/structure/swarmer/attackby(obj/item/weapon/I, mob/living/user, params)
 	if(istype(I, /obj/item/weapon))
 		user.changeNext_move(CLICK_CD_MELEE)
 		user.do_attack_animation(src)
-		TakeDamage(I.force)
+		take_damage(I.force)
 	return
 
 /obj/structure/swarmer/ex_act()
@@ -462,14 +462,13 @@
 /obj/structure/swarmer/emp_act()
 	qdel(src)
 	return
-
 /obj/structure/swarmer/attack_animal(mob/living/user)
 	if(isanimal(user))
 		var/mob/living/simple_animal/S = user
 		S.do_attack_animation(src)
 		user.changeNext_move(CLICK_CD_MELEE)
 		if(S.melee_damage_type == BRUTE || S.melee_damage_type == BURN)
-			TakeDamage(rand(S.melee_damage_lower, S.melee_damage_upper))
+			take_damage(rand(S.melee_damage_lower, S.melee_damage_upper))
 	return
 
 /obj/structure/swarmer/trap

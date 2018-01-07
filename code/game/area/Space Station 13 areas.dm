@@ -1515,7 +1515,7 @@ var/list/ghostteleportlocs = list()
 
 /area/medical/biostorage
 	name = "\improper Secondary Storage"
-	icon_state = "medbay2"
+	icon_state = "medbaysecstorage"
 	music = 'sound/ambience/signal.ogg'
 
 /area/medical/reception
@@ -1525,12 +1525,12 @@ var/list/ghostteleportlocs = list()
 
 /area/medical/psych
 	name = "\improper Psych Room"
-	icon_state = "medbay3"
+	icon_state = "medbaypsych"
 	music = 'sound/ambience/signal.ogg'
 
 /area/medical/medbreak
 	name = "\improper Break Room"
-	icon_state = "medbay3"
+	icon_state = "medbaybreak"
 	music = 'sound/ambience/signal.ogg'
 
 /area/medical/patients_rooms
@@ -1539,23 +1539,23 @@ var/list/ghostteleportlocs = list()
 
 /area/medical/ward
 	name = "\improper Medbay Patient Ward"
-	icon_state = "patients"
+	icon_state = "patientsward"
 
 /area/medical/patient_a
 	name = "\improper Isolation A"
-	icon_state = "patients"
+	icon_state = "medbayisoa"
 
 /area/medical/patient_b
 	name = "\improper Isolation B"
-	icon_state = "patients"
+	icon_state = "medbayisob"
 
 /area/medical/patient_c
 	name = "\improper Isolation C"
-	icon_state = "patients"
+	icon_state = "medbayisoc"
 
 /area/medical/iso_access
 	name = "\improper Isolation Access"
-	icon_state = "patients"
+	icon_state = "medbayisoaccess"
 
 /area/medical/cmo
 	name = "\improper Chief Medical Officer's office"
@@ -2145,26 +2145,39 @@ area/security/podbay
 
 /area/constructionsite/science
 	name = "\improper Construction Site Research"
+	icon_state = "medresearch"
 
 /area/constructionsite/bridge
 	name = "\improper Construction Site Bridge"
 	icon_state = "bridge"
 
-/area/constructionsite/maintenance
-	name = "\improper Construction Site Maintenance"
-	icon_state = "yellow"
+/area/constructionsite/hallway/center
+	name = "\improper Construction Site Central Hallway"
+	icon_state = "hallC"
 
-/area/constructionsite/hallway/aft
-	name = "\improper Construction Site Aft Hallway"
+/area/constructionsite/hallway/engcore
+	name = "\improper Construction Site Eng Core"
+	icon_state = "green"
+
+/area/constructionsite/hallway/scicore
+	name = "\improper Construction Site Sci Core"
+	icon_state = "green"
+
+/area/constructionsite/hallway/port
+	name = "\improper Construction Site Port"
 	icon_state = "hallP"
 
-/area/constructionsite/hallway/fore
-	name = "\improper Construction Site Fore Hallway"
+/area/constructionsite/hallway/aft
+	name = "\improper Construction Site Aft"
+	icon_state = "hallA"
+
+/area/constructionsite/hallway/starboard
+	name = "\improper Construction Site Starboard"
 	icon_state = "hallS"
 
 /area/constructionsite/atmospherics
 	name = "\improper Construction Site Atmospherics"
-	icon_state = "green"
+	icon_state = "atmos"
 
 /area/constructionsite/medical
 	name = "\improper Construction Site Medbay"
@@ -2180,13 +2193,7 @@ area/security/podbay
 
 /area/solar/constructionsite
 	name = "\improper Construction Site Solars"
-	icon_state = "aft"
-
-//area/constructionsite
-//	name = "\improper Construction Site Shuttle"
-
-//area/constructionsite
-//	name = "\improper Construction Site Shuttle"
+	icon_state = "panelsA"
 
 
 //Construction

@@ -28,7 +28,7 @@
 /obj/item/weapon/nullrod/attack_self(mob/user)
 	if(reskinned)
 		return
-	if(user.mind && (user.mind.assigned_role == "Chaplain"))
+	if(user.mind && (user.mind.assigned_role == "Chaplain" || user.mind.special_role == SPECIAL_ROLE_ERT))
 		reskin_holy_weapon(user)
 
 /obj/item/weapon/nullrod/proc/reskin_holy_weapon(mob/M)
@@ -335,7 +335,7 @@
 /obj/item/weapon/nullrod/carp/attack_self(mob/living/user)
 	if(used_blessing)
 		return
-	if(user.mind && (user.mind.assigned_role != "Chaplain"))
+	if(user.mind && (user.mind.assigned_role != "Chaplain" && user.mind.special_role != SPECIAL_ROLE_ERT))
 		return
 	to_chat(user, "You are blessed by Carp-Sie. Wild space carp will no longer attack you.")
 	user.faction |= "carp"
@@ -406,7 +406,7 @@
 	if(!iscarbon(M))
 		return ..()
 
-	if(!user.mind || user.mind.assigned_role != "Chaplain")
+	if(!user.mind || (user.mind.assigned_role != "Chaplain" && user.mind.special_role != SPECIAL_ROLE_ERT))
 		to_chat(user, "<span class='notice'>You are not close enough with [ticker.Bible_deity_name] to use [src].</span>")
 		return
 
@@ -469,7 +469,7 @@
 
 /obj/item/weapon/nullrod/salt/attack_self(mob/user)
 
-	if(!user.mind || user.mind.assigned_role != "Chaplain")
+	if(!user.mind || (user.mind.assigned_role != "Chaplain" && user.mind.special_role != SPECIAL_ROLE_ERT ))
 		to_chat(user, "<span class='notice'>You are not close enough with [ticker.Bible_deity_name] to use [src].</span>")
 		return
 

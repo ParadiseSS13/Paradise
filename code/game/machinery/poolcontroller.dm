@@ -59,11 +59,11 @@
 				qdel(decal)
 
 /obj/machinery/poolcontroller/proc/handleTemp(var/mob/M)
+	M.water_act(100, 0, src)//leave temp at 0, we handle it in the switch.
 	if(temperature == "normal")		//This setting does nothing, so let's skip the next checks since we won't be doing jack
 		return
 	if(!M || isAIEye(M) || issilicon(M) || isobserver(M) || M.stat == DEAD)
 		return
-
 	switch(temperature) //Apply different effects based on what the temperature is set to.
 		if("scalding") //Burn the mob.
 			M.bodytemperature = min(500, M.bodytemperature + 35) //heat mob at 35k(elvin) per cycle
@@ -93,7 +93,7 @@
 	if(drownee && (drownee.lying || deep_water)) //Mob lying down or water is deep (determined by controller)
 		if(drownee.internal)
 			return //Has internals, no drowning
-		if((NO_BREATHE in drownee.species.species_traits) || (NO_BREATHE in drownee.mutations))
+		if((NO_BREATHE in drownee.species.species_traits) || (BREATHLESS in drownee.mutations))
 			return //doesn't breathe, no drowning
 		if(drownee.get_species() == "Skrell" || drownee.get_species() == "Neara")
 			return //fish things don't drown

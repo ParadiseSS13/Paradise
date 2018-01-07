@@ -81,6 +81,9 @@ log transactions
 
 /obj/machinery/atm/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/weapon/card))
+		if(!powered())
+			return
+
 		if(!held_card)
 			user.drop_item()
 			I.forceMove(src)
@@ -91,6 +94,8 @@ log transactions
 	else if(authenticated_account)
 		if(istype(I, /obj/item/stack/spacecash))
 			//consume the money
+			if(!powered())
+				return
 			var/obj/item/stack/spacecash/C = I
 			authenticated_account.money += C.amount
 			playsound(loc, pick('sound/items/polaroid1.ogg', 'sound/items/polaroid2.ogg'), 50, 1)
@@ -118,7 +123,7 @@ log transactions
 		to_chat(user, "<span class='warning'>Artificial unit recognized. Artificial units do not currently receive monetary compensation, as per Nanotrasen regulation #1005.</span>")
 		return
 	ui_interact(user)
-	
+
 /obj/machinery/atm/attack_ghost(mob/user)
 	ui_interact(user)
 

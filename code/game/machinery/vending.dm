@@ -898,7 +898,8 @@
 					/obj/item/weapon/reagent_containers/glass/bottle/toxin = 4,/obj/item/weapon/reagent_containers/syringe/antiviral = 6,/obj/item/weapon/reagent_containers/syringe/insulin = 4,
 					/obj/item/weapon/reagent_containers/syringe = 12,/obj/item/device/healthanalyzer = 5,/obj/item/device/healthupgrade = 5,/obj/item/weapon/reagent_containers/glass/beaker = 4,
 					/obj/item/weapon/reagent_containers/dropper = 2,/obj/item/stack/medical/bruise_pack/advanced = 3, /obj/item/stack/medical/ointment/advanced = 3,
-					/obj/item/stack/medical/bruise_pack = 3,/obj/item/stack/medical/splint = 4, /obj/item/device/sensor_device = 2, /obj/item/weapon/reagent_containers/hypospray/autoinjector = 4)
+					/obj/item/stack/medical/bruise_pack = 3,/obj/item/stack/medical/splint = 4, /obj/item/device/sensor_device = 2, /obj/item/weapon/reagent_containers/hypospray/autoinjector = 4,
+					/obj/item/weapon/pinpointer/crew = 2)
 	contraband = list(/obj/item/weapon/reagent_containers/glass/bottle/pancuronium = 1,/obj/item/weapon/reagent_containers/glass/bottle/sulfonal = 1)
 
 
@@ -951,7 +952,8 @@
 	icon_deny = "sec-deny"
 	req_access_txt = "1"
 	products = list(/obj/item/weapon/restraints/handcuffs = 8,/obj/item/weapon/restraints/handcuffs/cable/zipties = 8,/obj/item/weapon/grenade/flashbang = 4,/obj/item/device/flash = 5,
-					/obj/item/weapon/reagent_containers/food/snacks/donut = 12,/obj/item/weapon/storage/box/evidence = 6,/obj/item/device/flashlight/seclite = 4,/obj/item/weapon/restraints/legcuffs/bola/energy = 7)
+					/obj/item/weapon/reagent_containers/food/snacks/donut = 12,/obj/item/weapon/storage/box/evidence = 6,/obj/item/device/flashlight/seclite = 4,/obj/item/weapon/restraints/legcuffs/bola/energy = 7,
+					/obj/item/clothing/mask/muzzle/safety = 4)
 	contraband = list(/obj/item/clothing/glasses/sunglasses = 2,/obj/item/weapon/storage/fancy/donut_box = 2,/obj/item/device/hailer = 5)
 
 /obj/machinery/vending/hydronutrients

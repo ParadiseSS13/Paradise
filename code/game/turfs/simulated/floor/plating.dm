@@ -227,7 +227,7 @@
 
 /turf/simulated/floor/plating/airless/catwalk/update_icon(var/propogate=1)
 	underlays.Cut()
-	underlays += new /icon('icons/turf/space.dmi',"[((x + y) ^ ~(x * y) + z) % 25]")
+	underlays += new /icon('icons/turf/space.dmi',SPACE_ICON_STATE)
 
 	var/dirs = 0
 	for(var/direction in cardinal)

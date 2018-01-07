@@ -27,7 +27,7 @@ var/global/list/datum/stack_recipe/metal_recipes = list(
 	new /datum/stack_recipe_list("office chairs",list(
 		new /datum/stack_recipe("dark office chair", /obj/structure/stool/bed/chair/office/dark, 5, one_per_turf = 1, on_floor = 1),
 		new /datum/stack_recipe("light office chair", /obj/structure/stool/bed/chair/office/light, 5, one_per_turf = 1, on_floor = 1),
-	), 5),
+	)),
 
 	new /datum/stack_recipe_list("comfy chairs", list(
 		new /datum/stack_recipe("beige comfy chair", /obj/structure/stool/bed/chair/comfy/beige, 2, one_per_turf = 1, on_floor = 1),
@@ -39,7 +39,7 @@ var/global/list/datum/stack_recipe/metal_recipes = list(
 		new /datum/stack_recipe("blue comfy chair", /obj/structure/stool/bed/chair/comfy/blue, 2, one_per_turf = 1, on_floor = 1),
 		new /datum/stack_recipe("purple comfy chair", /obj/structure/stool/bed/chair/comfy/purp, 2, one_per_turf = 1, on_floor = 1),
 		new /datum/stack_recipe("green comfy chair", /obj/structure/stool/bed/chair/comfy/green, 2, one_per_turf = 1, on_floor = 1),
-	), 2),
+	)),
 
 	null,
 	new /datum/stack_recipe("table parts", /obj/item/weapon/table_parts, 2),
@@ -68,15 +68,15 @@ var/global/list/datum/stack_recipe/metal_recipes = list(
 		new /datum/stack_recipe("mining airlock assembly", /obj/structure/door_assembly/door_assembly_min, 4, time = 50, one_per_turf = 1, on_floor = 1),
 		new /datum/stack_recipe("atmospherics airlock assembly", /obj/structure/door_assembly/door_assembly_atmo, 4, time = 50, one_per_turf = 1, on_floor = 1),
 		new /datum/stack_recipe("research airlock assembly", /obj/structure/door_assembly/door_assembly_research, 4, time = 50, one_per_turf = 1, on_floor = 1),
+		new /datum/stack_recipe("science airlock assembly", /obj/structure/door_assembly/door_assembly_science, 4, time = 50, one_per_turf = 1, on_floor = 1),
 		new /datum/stack_recipe("medical airlock assembly", /obj/structure/door_assembly/door_assembly_med, 4, time = 50, one_per_turf = 1, on_floor = 1),
 		new /datum/stack_recipe("maintenance airlock assembly", /obj/structure/door_assembly/door_assembly_mai, 4, time = 50, one_per_turf = 1, on_floor = 1),
 		new /datum/stack_recipe("external airlock assembly", /obj/structure/door_assembly/door_assembly_ext, 4, time = 50, one_per_turf = 1, on_floor = 1),
 		new /datum/stack_recipe("freezer airlock assembly", /obj/structure/door_assembly/door_assembly_fre, 4, time = 50, one_per_turf = 1, on_floor = 1),
 		new /datum/stack_recipe("airtight hatch assembly", /obj/structure/door_assembly/door_assembly_hatch, 4, time = 50, one_per_turf = 1, on_floor = 1),
 		new /datum/stack_recipe("maintenance hatch assembly", /obj/structure/door_assembly/door_assembly_mhatch, 4, time = 50, one_per_turf = 1, on_floor = 1),
-		new /datum/stack_recipe("high security airlock assembly", /obj/structure/door_assembly/door_assembly_highsecurity, 4, time = 50, one_per_turf = 1, on_floor = 1),
 		new /datum/stack_recipe("multi-tile airlock assembly", /obj/structure/door_assembly/multi_tile, 4, time = 50, one_per_turf = 1, on_floor = 1),
-	), 4),
+	)),
 	null,
 	new /datum/stack_recipe("mass driver button frame", /obj/item/mounted/frame/driver_button, 1, time = 50, one_per_turf = 0, on_floor = 1),
 	new /datum/stack_recipe("light switch frame", /obj/item/mounted/frame/light_switch, 1, time = 50, one_per_turf = 0, on_floor = 1),
@@ -126,7 +126,12 @@ var/global/list/datum/stack_recipe/plasteel_recipes = list(
 	new /datum/stack_recipe("bomb assembly", /obj/machinery/syndicatebomb/empty, 10, time = 50),
 	new /datum/stack_recipe("Surgery Table", /obj/machinery/optable, 5, time = 50, one_per_turf = 1, on_floor = 1),
 	new /datum/stack_recipe("Metal crate", /obj/structure/closet/crate, 10, time = 50, one_per_turf = 1),
-	new /datum/stack_recipe("Mass Driver frame", /obj/machinery/mass_driver_frame, 3, time = 50, one_per_turf = 1)
+	new /datum/stack_recipe("Mass Driver frame", /obj/machinery/mass_driver_frame, 3, time = 50, one_per_turf = 1),
+	null,
+	new /datum/stack_recipe_list("airlock assemblies", list(
+		new /datum/stack_recipe("vault door assembly", /obj/structure/door_assembly/door_assembly_vault, 4, time = 50, one_per_turf = 1, on_floor = 1),
+		new /datum/stack_recipe("high security airlock assembly", /obj/structure/door_assembly/door_assembly_highsecurity, 4, time = 50, one_per_turf = 1, on_floor = 1),
+	), 4),
 )
 
 /obj/item/stack/sheet/plasteel
@@ -258,13 +263,13 @@ var/global/list/datum/stack_recipe/cardboard_recipes = list (
  * Runed Metal
  */
 
-var/global/list/datum/stack_recipe/runed_metal_recipes = list ( \
-	new/datum/stack_recipe("runed door", /obj/machinery/door/airlock/cult, 1, time = 50, one_per_turf = 1, on_floor = 1),
-	new/datum/stack_recipe("runed girder", /obj/structure/girder/cult, 1, time = 50, one_per_turf = 1, on_floor = 1), \
-	new/datum/stack_recipe("pylon", /obj/structure/cult/functional/pylon, 3, time = 40, one_per_turf = 1, on_floor = 1), \
-	new/datum/stack_recipe("forge", /obj/structure/cult/functional/forge, 5, time = 40, one_per_turf = 1, on_floor = 1), \
-	new/datum/stack_recipe("archives", /obj/structure/cult/functional/tome, 2, time = 40, one_per_turf = 1, on_floor = 1), \
-	new/datum/stack_recipe("altar", /obj/structure/cult/functional/talisman, 5, time = 40, one_per_turf = 1, on_floor = 1), \
+var/global/list/datum/stack_recipe/cult = list ( \
+	new/datum/stack_recipe/cult("runed door", /obj/machinery/door/airlock/cult, 1, time = 50, one_per_turf = 1, on_floor = 1),
+	new/datum/stack_recipe/cult("runed girder", /obj/structure/girder/cult, 1, time = 50, one_per_turf = 1, on_floor = 1), \
+	new/datum/stack_recipe/cult("pylon", /obj/structure/cult/functional/pylon, 3, time = 40, one_per_turf = 1, on_floor = 1), \
+	new/datum/stack_recipe/cult("forge", /obj/structure/cult/functional/forge, 5, time = 40, one_per_turf = 1, on_floor = 1), \
+	new/datum/stack_recipe/cult("archives", /obj/structure/cult/functional/tome, 2, time = 40, one_per_turf = 1, on_floor = 1), \
+	new/datum/stack_recipe/cult("altar", /obj/structure/cult/functional/talisman, 5, time = 40, one_per_turf = 1, on_floor = 1), \
 	)
 
 /obj/item/stack/sheet/runed_metal
@@ -280,13 +285,27 @@ var/global/list/datum/stack_recipe/runed_metal_recipes = list ( \
 	if(!iscultist(user))
 		to_chat(user, "<span class='warning'>Only one with forbidden knowledge could hope to work this metal...</span>")
 		return
+	if(!is_level_reachable(user.z))
+		to_chat(user, "<span class='warning'>The energies of this place interfere with the metal shaping!</span>")
+		return
+
 	return ..()
+
+/datum/stack_recipe/cult
+   one_per_turf = 1
+   on_floor = 1
+
+/datum/stack_recipe/cult/post_build(obj/item/stack/S, obj/result)
+   if(ishuman(S.loc))
+      var/mob/living/carbon/human/H = S.loc
+      H.bleed(5)
+   ..()
 
 /obj/item/stack/sheet/runed_metal/fifty
 	amount = 50
 
 /obj/item/stack/sheet/runed_metal/New(var/loc, var/amount=null)
-	recipes = runed_metal_recipes
+	recipes = cult
 	return ..()
 
 /*

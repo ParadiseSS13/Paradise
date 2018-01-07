@@ -62,7 +62,7 @@
 	if(cooldown_on || disabled)
 		return
 	else
-		new /obj/structure/foam(loc)
+		new /obj/effect/particle_effect/foam(loc)
 		uses--
 		cooldown_on = TRUE
 		cooldown_time = world.timeofday + 100

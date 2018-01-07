@@ -44,3 +44,8 @@
 	display_name = "cowboy boots, pink"
 	cost = 1
 	path = /obj/item/clothing/shoes/cowboyboots/pink
+	
+/datum/gear/shoes/laceup
+	display_name = "laceup shoes"
+	cost = 1
+	path = /obj/item/clothing/shoes/laceup

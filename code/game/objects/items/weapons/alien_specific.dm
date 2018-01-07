@@ -40,7 +40,7 @@
 			to_chat(user, "<span class='notice'>\The [src] is full.</span>")
 			return
 	reagents.remove_reagent(25,"water")
-	var/datum/effect/system/bad_smoke_spread/smoke = new /datum/effect/system/bad_smoke_spread()
+	var/datum/effect_system/smoke_spread/bad/smoke = new
 	smoke.set_up(5, 0, user.loc)
 	smoke.start()
 	playsound(user.loc, 'sound/effects/bamf.ogg', 50, 2)

@@ -33,7 +33,7 @@ Pipelines + Other Objects -> Pipe network
 
 /obj/machinery/atmospherics/New()
 	..()
-
+	atmos_machinery += src
 	if(!icon_manager)
 		icon_manager = new()
 
@@ -54,6 +54,7 @@ Pipelines + Other Objects -> Pipe network
 
 /obj/machinery/atmospherics/Destroy()
 	QDEL_NULL(stored)
+	atmos_machinery -= src
 	for(var/mob/living/L in src) //ventcrawling is serious business
 		L.remove_ventcrawl()
 		L.forceMove(get_turf(src))
@@ -186,7 +187,7 @@ Pipelines + Other Objects -> Pipe network
 			//You unwrenched a pipe full of pressure? let's splat you into the wall silly.
 			if(unsafe_wrenching)
 				unsafe_pressure_release(user,internal_pressure)
-			Deconstruct()
+			deconstruct()
 	else
 		return ..()
 
@@ -207,7 +208,7 @@ Pipelines + Other Objects -> Pipe network
 	//Values based on 2*ONE_ATMOS (the unsafe pressure), resulting in 20 range and 4 speed
 	user.throw_at(general_direction,pressures/10,pressures/50)
 
-/obj/machinery/atmospherics/proc/Deconstruct()
+/obj/machinery/atmospherics/deconstruct()
 	if(can_unwrench)
 		stored.loc = get_turf(src)
 		transfer_fingerprints_to(stored)
@@ -320,7 +321,7 @@ Pipelines + Other Objects -> Pipe network
 
 /obj/machinery/atmospherics/singularity_pull(S, current_size)
 	if(current_size >= STAGE_FIVE)
-		Deconstruct()
+		deconstruct()
 
 /obj/machinery/atmospherics/update_remote_sight(mob/user)
 	user.sight |= (SEE_TURFS|BLIND)

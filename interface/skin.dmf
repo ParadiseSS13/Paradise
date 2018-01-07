@@ -1611,20 +1611,6 @@ window "rpane"
 		type = MAIN
 		saved-params = "pos;size;is-minimized;is-maximized"
 		is-pane = true
-	elem "donate"
-		type = BUTTON
-		pos = 480,-2
-		size = 60x20
-		background-color = #8080ff
-		text = "Donate"
-		command = "Donate"
-	elem "karma"
-		type = BUTTON
-		pos = 410,0
-		size = 67x16
-		background-color = #ff8040
-		text = "Karma Shop"
-		command = "karmashop"
 	elem "rpanewindow"
 		type = CHILD
 		pos = -9,15
@@ -1637,30 +1623,6 @@ window "rpane"
 		is-vert = false
 		splitter = 50
 		show-splitter = true
-	elem "rulesb"
-		type = BUTTON
-		pos = 278,0
-		size = 60x16
-		text = "Rules"
-		command = "rules"
-	elem "changelog"
-		type = BUTTON
-		pos = 341,0
-		size = 67x16
-		text = "Changelog"
-		command = "Changelog"
-	elem "forumb"
-		type = BUTTON
-		pos = 215,0
-		size = 60x16
-		text = "Forum"
-		command = "forum"
-	elem "wikib"
-		type = BUTTON
-		pos = 152,0
-		size = 60x16
-		text = "Wiki"
-		command = "wiki"
 	elem "textb"
 		type = BUTTON
 		pos = 0,0
@@ -1672,16 +1634,6 @@ window "rpane"
 		is-checked = true
 		group = "rpanemode"
 		button-type = pushbox
-	elem "browseb"
-		type = BUTTON
-		pos = 561,0
-		size = 60x16
-		is-visible = false
-		saved-params = "is-checked"
-		text = "Browser"
-		command = ".winset \"rpanewindow.left=browserwindow\""
-		group = "rpanemode"
-		button-type = pushbox
 	elem "infob"
 		type = BUTTON
 		pos = 64,0
@@ -1690,6 +1642,60 @@ window "rpane"
 		saved-params = "is-checked"
 		text = "Info"
 		command = ".winset \"rpanewindow.left=infowindow\""
+		group = "rpanemode"
+		button-type = pushbox
+	elem "wikib"
+		type = BUTTON
+		pos = 155,0
+		size = 60x16
+		text = "Wiki"
+		command = "wiki"
+	elem "forumb"
+		type = BUTTON
+		pos = 220,0
+		size = 60x16
+		text = "Forum"
+		command = "forum"
+	elem "rulesb"
+		type = BUTTON
+		pos = 285,0
+		size = 60x16
+		text = "Rules"
+		command = "rules"
+	elem "githubb"
+		type = BUTTON
+		pos = 350,0
+		size = 60x16
+		text = "GitHub"
+		command = "github"
+	elem "changelog"
+		type = BUTTON
+		pos = 415,0
+		size = 67x16
+		text = "Changelog"
+		command = "Changelog"
+	elem "karma"
+		type = BUTTON
+		pos = 487,0
+		size = 67x16
+		background-color = #ff8040
+		text = "Karma Shop"
+		command = "karmashop"
+	elem "donate"
+		type = BUTTON
+		pos = 559,0
+		size = 60x16
+		background-color = #8080ff
+		text = "Donate"
+		command = "Donate"
+	elem "browseb"
+		type = BUTTON
+		pos = 561,0
+		size = 60x16
+		is-visible = false
+		saved-params = "is-checked"
+		text = "Browser"
+		command = ".winset \"rpanewindow.left=browserwindow\""
 		group = "rpanemode"
 		button-type = pushbox
 

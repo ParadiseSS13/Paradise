@@ -114,7 +114,7 @@
 	else
 		attack_hand(user)
 
-/obj/machinery.computer/security/proc/get_user_access(mob/user)
+/obj/machinery/computer/security/proc/get_user_access(mob/user)
 	var/list/access = list()
 	if(ishuman(user))
 		access = user.get_access()
