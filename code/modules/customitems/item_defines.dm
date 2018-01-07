@@ -1261,4 +1261,4 @@
 	icon_state = "victorianlightfire"
 	item_state = "victorianvest"
 	item_color = "victorianlightfire"
-	displays_id = 0
+	displays_id = FALSE
