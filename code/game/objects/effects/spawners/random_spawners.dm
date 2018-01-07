@@ -19,6 +19,9 @@
 	if(!T)
 		log_runtime(EXCEPTION("Spawner placed in nullspace!"), src)
 		return
+	spawn_item(T)
+
+/obj/effect/spawner/random_spawners/proc/spawn_item(var/turf/T)
 	if(!prob(spawn_nothing_percentage))
 		var/thing_to_place = pickweight(result)
 		if(ispath(thing_to_place, /turf))
@@ -112,10 +115,12 @@
 	/obj/effect/decal/cleanable/fungus = 7)
 
 
-// Used in depot on z6
+
+// z6 DEPOT SPAWNERS
 
 /obj/effect/spawner/random_spawners/syndicate
 	spawn_nothing_percentage = 50
+
 
 // Turrets
 
@@ -136,6 +141,7 @@
 
 
 // Mobs
+
 /obj/effect/spawner/random_spawners/syndicate/mob
 	name = "50pc melee syndimob"
 	icon = 'icons/mob/animal.dmi'
@@ -144,6 +150,7 @@
 	result = list(
 	/mob/living/simple_animal/hostile/syndicate/melee/autogib = 1
 	)
+
 
 // Traps
 
@@ -176,16 +183,6 @@
 	/obj/effect/mine/explosive = 1
 	)
 
-/obj/effect/spawner/random_spawners/syndicate/trap/toolbox
-	name = "50pc trap toolbox"
-	icon = 'icons/obj/storage.dmi'
-	icon_state = "syndicate"
-	spawn_nothing_percentage = 0
-	result = list(
-	/obj/item/weapon/storage/toolbox/syndicate = 1,
-	/obj/item/weapon/storage/toolbox/syndicate/trapped = 1
-	)
-
 /obj/effect/spawner/random_spawners/syndicate/trap/documents
 	icon = 'icons/obj/bureaucracy.dmi'
 	icon_state = "folder_syellow"
@@ -195,173 +192,77 @@
 	/obj/item/weapon/folder/syndicate/yellow_trapped = 1
 	)
 
+
+
 // Loot
 
 /obj/effect/spawner/random_spawners/syndicate/loot
-
-/obj/effect/spawner/random_spawners/syndicate/loot/spacepod
-	name = "50pc loot spacepod"
-	icon = 'icons/goonstation/48x48/pods.dmi'
-	icon_state = "pod_synd"
+	name = "common loot"
+	icon = 'icons/misc/debug_rebuild.dmi'
+	icon_state = "1"
 	result = list(
-	/obj/spacepod/syndi = 1,
-	/obj/spacepod/syndi/unlocked = 1
+	/obj/item/weapon/storage/toolbox/syndicate = 1,
+	/obj/item/weapon/storage/toolbox/syndicate/trapped = 1,
+	/obj/item/weapon/storage/fancy/cigarettes/cigpack_syndicate = 1,
+	/obj/item/stack/sheet/mineral/plasma = 1,
+	/obj/item/stack/sheet/mineral/silver = 1,
+	/obj/item/stack/sheet/mineral/gold = 1,
 	)
 
-/obj/effect/spawner/random_spawners/syndicate/loot/radiokey
-	name = "50pc loot key"
-	icon = 'icons/obj/radio.dmi'
-	icon_state = "cypherkey"
-	result = list(
-	/obj/item/device/radio/headset/syndicate = 1,
-	/obj/item/device/encryptionkey/syndicate = 1
-	)
+/obj/effect/spawner/random_spawners/syndicate/loot/spawn_item(var/turf/T)
+	if(!prob(spawn_nothing_percentage))
+		var/thing_to_place = pickweight(result)
+		if(ispath(thing_to_place, /turf))
+			T.ChangeTurf(thing_to_place)
+		else
+			var/obj/O = new thing_to_place(T)
+			var/obj/structure/closet/secure_closet/syndicate/depot/E = new /obj/structure/closet/secure_closet/syndicate/depot(T)
+			O.forceMove(E)
+	qdel(src)
 
-
-/obj/effect/spawner/random_spawners/syndicate/loot/jammer
-	name = "50pc loot jammer"
-	icon = 'icons/obj/device.dmi'
-	icon_state = "jammer"
-	result = list(
-	/obj/item/device/jammer = 1
-	)
-
-/obj/effect/spawner/random_spawners/syndicate/loot/spacesuit
-	name = "50pc loot spacesuit kit"
-	icon = 'icons/obj/storage.dmi'
-	icon_state = "box_of_doom"
+/obj/effect/spawner/random_spawners/syndicate/loot/level2
+	name = "rare loot"
+	icon_state = "2"
 	result = list(
 	/obj/item/weapon/storage/box/syndie_kit/space = 1,
-	/obj/item/weapon/storage/box/syndie_kit/hardsuit = 1
+	/obj/item/weapon/storage/box/syndie_kit/hardsuit = 1,
+	/obj/item/clothing/suit/armor/vest/combat = 1,
+	/obj/item/weapon/gun/projectile/automatic/pistol = 1,
+	/obj/item/ammo_box/magazine/m10mm = 1,
+	/obj/item/weapon/storage/pill_bottle/happy = 1,
+	/obj/item/weapon/storage/pill_bottle/zoom = 1,
+	/obj/item/weapon/storage/pill_bottle/random_drug_bottle = 2,
+	/obj/item/clothing/shoes/syndigaloshes = 1,
+	/obj/item/weapon/rcd_ammo = 1,
 	)
-
-/obj/effect/spawner/random_spawners/syndicate/loot/thermals
-	name = "50pc loot thermals"
-	icon = 'icons/obj/clothing/glasses.dmi'
-	icon_state = "thermal"
+/obj/effect/spawner/random_spawners/syndicate/loot/level3
+	name = "officer loot"
+	icon_state = "3"
 	result = list(
-	/obj/item/clothing/glasses/thermal = 1
-	)
-
-/obj/effect/spawner/random_spawners/syndicate/loot/armor
-	name = "50pc loot armor"
-	icon = 'icons/obj/clothing/suits.dmi'
-	icon_state = "armor-combat"
-	result = list(
-	/obj/item/clothing/suit/armor/vest/combat = 1
-	)
-
-/obj/effect/spawner/random_spawners/syndicate/loot/cigs
-	name = "50pc loot cigs"
-	icon = 'icons/obj/cigarettes.dmi'
-	icon_state = "syndiepacket"
-	result = list(
-	/obj/item/weapon/storage/fancy/cigarettes/cigpack_syndicate = 1
-	)
-
-/obj/effect/spawner/random_spawners/syndicate/loot/pistol
-	name = "50pc loot stechkin pistol"
-	icon = 'icons/obj/guns/projectile.dmi'
-	icon_state = "pistol"
-	result = list(
-	/obj/item/weapon/gun/projectile/automatic/pistol = 1
-	)
-
-/obj/effect/spawner/random_spawners/syndicate/loot/ammo10mm
-	name = "50pc loot 10mm ammo"
-
-	icon_state = "9x19p"
-	result = list(
-	/obj/item/ammo_box/magazine/m10mm = 1
-	)
-
-/obj/effect/spawner/random_spawners/syndicate/loot/m90
-	name = "50pc loot m90 auto carbine"
-	icon = 'icons/obj/guns/projectile.dmi'
-	icon_state = "m90"
-	result = list(
-	/obj/item/weapon/gun/projectile/automatic/m90 = 1
-	)
-
-/obj/effect/spawner/random_spawners/syndicate/loot/m90ammo
-	name = "50pc loot ammo for m90"
-	icon = 'icons/obj/ammo.dmi'
-	icon_state = "a762-50"
-	result = list(
-	/obj/item/ammo_box/magazine/m556 = 1
-	)
-
-/obj/effect/spawner/random_spawners/syndicate/loot/camoprojector
-	name = "50pc loot camo projector"
-	icon = 'icons/obj/device.dmi'
-	icon_state = "shield0"
-	result = list(
-	/obj/item/device/chameleon = 1
-	)
-
-/obj/effect/spawner/random_spawners/syndicate/loot/medicalkit
-	name = "medkit 50pc tactical"
-	icon = 'icons/obj/storage.dmi'
-	icon_state = "bezerk"
-	spawn_nothing_percentage = 0
-	result = list(
+	/obj/item/device/jammer = 1,
 	/obj/item/weapon/storage/firstaid = 1,
-	/obj/item/weapon/storage/firstaid/tactical = 1
-	)
-
-/obj/effect/spawner/random_spawners/syndicate/loot/cyborg
-	name = "cyborg 50pc borgupgrade"
-	icon = 'icons/obj/module.dmi'
-	icon_state = "cyborg_upgrade3"
-	result = list(
+	/obj/item/weapon/storage/firstaid/tactical = 1,
 	/obj/item/weapon/stock_parts/cell/bluespace = 1,
 	/obj/item/borg/upgrade/vtec = 1,
 	/obj/item/borg/upgrade/syndicate = 1,
-	/obj/item/borg/upgrade/selfrepair = 1
-	)
-
-/obj/effect/spawner/random_spawners/syndicate/loot/drugs
-	name = "medical 50pc drugs"
-	icon = 'icons/obj/chemical.dmi'
-	icon_state = "pill4"
-	result = list(
-	/obj/item/weapon/storage/pill_bottle/happy = 1,
-	/obj/item/weapon/storage/pill_bottle/zoom = 1,
-	/obj/item/weapon/storage/pill_bottle/random_drug_bottle = 3
-	)
-
-/obj/effect/spawner/random_spawners/syndicate/loot/minerals
-	name = "minerals 75pc"
-	icon = 'icons/obj/items.dmi'
-	icon_state = "sheet-gold"
-	spawn_nothing_percentage = 25
-	result = list(
+	/obj/item/borg/upgrade/selfrepair = 1,
 	/obj/item/stack/sheet/mineral/diamond = 1,
 	/obj/item/stack/sheet/mineral/uranium = 1,
-	/obj/item/stack/sheet/mineral/plasma = 1,
-	/obj/item/stack/sheet/mineral/silver = 1,
-	/obj/item/stack/sheet/mineral/gold = 1
+	/obj/item/weapon/rcd = 1,
 	)
-
-/obj/effect/spawner/random_spawners/syndicate/loot/shoes
-	name = "shoes 50pc"
-	icon = 'icons/obj/clothing/shoes.dmi'
-	icon_state = "brown"
-	spawn_nothing_percentage = 50
+/obj/effect/spawner/random_spawners/syndicate/loot/level4
+	name = "armory loot"
+	icon_state = "4"
 	result = list(
-	/obj/item/clothing/shoes/syndigaloshes = 1
+	/obj/item/clothing/glasses/thermal = 1,
+	/obj/item/weapon/gun/projectile/automatic/m90 = 1,
+	/obj/item/ammo_box/magazine/m556 = 1,
+	/obj/item/device/chameleon = 1,
+	/obj/item/device/radio/headset/syndicate = 1,
 	)
 
-/obj/effect/spawner/random_spawners/syndicate/loot/rcd
-	name = "rcd 50pc"
-	icon = 'icons/obj/tools.dmi'
-	icon_state = "rcd"
-	result = list(
-	/obj/item/weapon/rcd_ammo = 1,
-	/obj/item/weapon/rcd = 1
-	)
 
-// Key layout features
+// Layout-affecting spawns
 
 /obj/effect/spawner/random_spawners/syndicate/layout
 	color = "#0000FF"
@@ -375,4 +276,13 @@
 	/obj/machinery/door/airlock/hatch/syndicate = 2,
 	/turf/simulated/wall/r_wall = 1,
 	/obj/structure/falsewall/reinforced = 1
+	)
+
+/obj/effect/spawner/random_spawners/syndicate/layout/spacepod
+	name = "50pc loot spacepod"
+	icon = 'icons/goonstation/48x48/pods.dmi'
+	icon_state = "pod_synd"
+	result = list(
+	/obj/spacepod/syndi = 1,
+	/obj/spacepod/syndi/unlocked = 1
 	)

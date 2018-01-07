@@ -550,12 +550,18 @@ var/list/ghostteleportlocs = list()
 	name = "Suspicious Supply Depot"
 	icon_state = "red"
 	tele_proof = 1
+
 	var/local_alarm = FALSE // Level 1: Local alarm tripped, bot spawned, red fire overlay activated
 	var/called_backup = FALSE // Level 2: Remote alarm tripped. Bot may path through depot. Backup spawned.
 	var/used_self_destruct = FALSE // Level 3: Self destruct activated. Depot will be destroyed shortly.
+
 	var/list/guards_spawned = list()
 	var/used_lockdown = FALSE
 	var/destroyed = FALSE
+	var/something_looted = FALSE
+	var/on_peaceful = FALSE
+	var/list/peaceful_visitors = list()
+	var/peace_betrayed = FALSE
 	var/obj/structure/fusionreactor/reactor
 
 
@@ -563,6 +569,9 @@ var/list/ghostteleportlocs = list()
 	if(destroyed)
 		icon_state = null
 		invisibility = INVISIBILITY_MAXIMUM
+	else if(on_peaceful)
+		icon_state = "green"
+		invisibility = INVISIBILITY_LIGHTING
 	else if(used_self_destruct)
 		icon_state = "radiation"
 		invisibility = INVISIBILITY_LIGHTING
@@ -583,6 +592,11 @@ var/list/ghostteleportlocs = list()
 	updateicon()
 
 /area/syndicate_depot/proc/increase_alert(var/reason)
+	if(on_peaceful)
+		peaceful_mode(FALSE)
+		peace_betrayed = TRUE
+		activate_self_destruct("Depot has been infiltrated by double-agents.", FALSE, null)
+		return
 	if(!local_alarm)
 		local_alarm(reason, FALSE)
 		return
@@ -591,6 +605,40 @@ var/list/ghostteleportlocs = list()
 		return
 	if(!used_self_destruct)
 		activate_self_destruct(reason, FALSE, null)
+	updateicon()
+
+
+/area/syndicate_depot/proc/locker_looted()
+	something_looted = TRUE
+	if(on_peaceful)
+		peaceful_mode(FALSE)
+		increase_alert("Nobody steals from the Syndicate!")
+
+/area/syndicate_depot/proc/peaceful_mode(var/newvalue)
+	if(newvalue)
+		for(var/mob/living/simple_animal/bot/medbot/syndicate/B in src)
+			qdel(B)
+		for(var/obj/structure/closet/secure_closet/syndicate/depot/L in src)
+			if(L.opened)
+				L.close()
+			if(!L.locked)
+				L.locked = 1
+			L.req_access = list(access_syndicate_leader)
+			L.update_icon()
+	else
+		for(var/obj/machinery/door/airlock/A in src)
+			A.req_access_txt = "[access_syndicate_leader]"
+	on_peaceful = newvalue
+	if(newvalue)
+		announce_here("Depot Code WHITE","Depot access granted to visitors. Defenses deactivated. Any attempt to steal depot supplies will result in revocation of access and summary execution!")
+	else
+		announce_here("Depot Alert","Depot access revoked. Defenses active! Shoot all visitors on sight.")
+		message_admins("Syndicate Depot has been robbed by Syndicate agents! Involved parties:")
+		for(var/mob/M in peaceful_visitors)
+			if("syndicate" in M.faction)
+				M.faction -= "syndicate"
+				message_admins("- SYNDI DEPOT ROBBER: [ADMIN_FULLMONTY(M)]")
+		peaceful_visitors = list()
 	updateicon()
 
 /area/syndicate_depot/proc/local_alarm(var/reason, var/silent)
@@ -605,8 +653,10 @@ var/list/ghostteleportlocs = list()
 				possible_bot_spawns |= L
 		if(possible_bot_spawns.len)
 			var/obj/effect/landmark/S = pick(possible_bot_spawns)
+			new /obj/effect/portal(get_turf(S))
 			var/mob/living/simple_animal/bot/ed209/syndicate/B = new /mob/living/simple_animal/bot/ed209/syndicate(get_turf(S))
 			guards_spawned |= B
+
 			B.depotarea = src
 	updateicon()
 
@@ -618,7 +668,8 @@ var/list/ghostteleportlocs = list()
 		announce_here("Depot Code RED", reason)
 	for(var/obj/machinery/door/poddoor/P in airlocks)
 		if(P.density && P.id_tag == "syndi_depot_lvl2" && !P.operating)
-			P.open()
+			spawn(0)
+				P.open()
 	spawn(0)
 		for(var/obj/effect/landmark/L in landmarks_list)
 			if(L.name == "syndi_depot_backup")

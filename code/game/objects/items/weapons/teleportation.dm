@@ -107,9 +107,11 @@ Frequency:
 
 /obj/item/weapon/hand_tele/attack_self(mob/user as mob)
 	var/turf/current_location = get_turf(user)//What turf is the user on?
-	if(!current_location||!is_teleport_allowed(current_location.z))//If turf was not found or they're somewhere teleproof
+	var/area/current_area = get_area(user)
+	if(!current_location||!is_teleport_allowed(current_location.z) || current_area.tele_proof)//If turf was not found or they're somewhere teleproof
 		to_chat(user, "<span class='notice'>\The [src] is malfunctioning.</span>")
 		return
+
 	var/list/L = list(  )
 	for(var/obj/machinery/computer/teleporter/com in world)
 		if(com.target)
