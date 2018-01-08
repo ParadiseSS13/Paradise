@@ -1481,10 +1481,28 @@ var/list/robot_verbs_default = list(
 	radio.recalculateChannels()
 	aiCamera = new/obj/item/device/camera/siliconcam/robot_camera(src)
 
-/mob/living/silicon/robot/ert/New(loc)
-	..()
+/mob/living/silicon/robot/ert/New(loc, cyborg_unlock)
+	..(loc)
 	cell.maxcharge = 25000
 	cell.charge = 25000
+	var/rnum = rand(1,1000)
+	var/borgname = "ERT [rnum]"
+	name = borgname
+	custom_name = borgname
+	real_name = name
+	mind = new
+	mind.current = src
+	mind.original = src
+	mind.assigned_role = "MODE"
+	mind.special_role = SPECIAL_ROLE_ERT
+	if(cyborg_unlock)
+		crisis = 1
+	if(!(mind in ticker.minds))
+		ticker.minds += mind
+	ticker.mode.ert += mind
+
+/mob/living/silicon/robot/ert/gamma
+	crisis = 1
 
 /mob/living/silicon/robot/nations
 	base_icon = "droidpeace"

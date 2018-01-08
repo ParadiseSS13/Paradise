@@ -29,7 +29,7 @@ var/ert_request_answered = 0
 		to_chat(usr, "<span class='warning'>The round hasn't started yet!</span>")
 		return
 
-	if(send_emergency_team)
+	if(send_emergency_team > 0)
 		to_chat(usr, "<span class='warning'>Central Command has already dispatched an emergency response team!</span>")
 		return
 
@@ -115,23 +115,7 @@ var/ert_request_answered = 0
 	if(class == "Cyborg")
 		active_team.reduceCyborgSlots()
 		var/cyborg_unlock = active_team.getCyborgUnlock()
-		var/mob/living/silicon/robot/ert/R = new()
-		R.forceMove(spawn_location)
-		var/rnum = rand(1,1000)
-		var/borgname = "ERT [rnum]"
-		R.name = borgname
-		R.custom_name = borgname
-		R.real_name = R.name
-		R.mind = new
-		R.mind.current = R
-		R.mind.original = R
-		R.mind.assigned_role = "MODE"
-		R.mind.special_role = SPECIAL_ROLE_ERT
-		if(cyborg_unlock)
-			R.crisis = 1
-		if(!(R.mind in ticker.minds))
-			ticker.minds += R.mind //Adds them to regular mind list.
-		ticker.mode.ert += R.mind
+		var/mob/living/silicon/robot/ert/R = new /mob/living/silicon/robot/ert(spawn_location, cyborg_unlock)
 		return R
 
 	var/mob/living/carbon/human/M = new(null)
