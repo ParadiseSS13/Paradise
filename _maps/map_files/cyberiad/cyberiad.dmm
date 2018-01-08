@@ -7219,7 +7219,7 @@
 "cIQ" = (/obj/structure/table,/obj/item/device/radio{pixel_x = -6; pixel_y = 4},/obj/item/device/radio{pixel_x = 6; pixel_y = 4},/obj/item/device/radio,/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{dir = 9},/turf/simulated/floor/plasteel,/area/atmos)
 "cIR" = (/obj/structure/sign/fire{pixel_y = -32},/turf/simulated/floor/plating,/area/maintenance/asmaint)
 "cIS" = (/obj/item/device/radio/intercom{dir = 8; name = "station intercom (General)"; pixel_x = -28},/obj/machinery/atmospherics/pipe/simple/visible/purple{dir = 5},/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,/turf/simulated/floor/plasteel,/area/atmos)
-"cIT" = (/obj/machinery/atmospherics/trinary/filter{name = "Gas filter (N2 tank)"; dir = 4; step_x = 0; density = 0; on = 1; filter_type = 2},/turf/simulated/floor/plasteel,/area/atmos)
+"cIT" = (/obj/machinery/atmospherics/trinary/filter{name = "Gas filter (N2 tank)"; dir = 4; density = 0; on = 1; filter_type = 2},/turf/simulated/floor/plasteel,/area/atmos)
 "cIU" = (/obj/effect/spawner/window/reinforced,/obj/machinery/door/poddoor{density = 0; icon_state = "pdoor0"; id_tag = "atmos"; name = "Atmos Blast Door"; opacity = 0},/obj/machinery/atmospherics/pipe/manifold/visible/cyan,/turf/simulated/floor/plating,/area/atmos)
 "cIV" = (/obj/machinery/atmospherics/pipe/simple/visible/cyan{dir = 10; initialize_directions = 10; level = 2},/turf/simulated/floor/plating/airless/catwalk{tag = "icon-catwalk6"; icon_state = "catwalk6"},/area/space)
 "cIW" = (/obj/structure/lattice,/obj/machinery/atmospherics/pipe/simple/heat_exchanging,/obj/machinery/atmospherics/pipe/simple/visible/cyan{dir = 4; level = 2},/turf/space,/area/space)
