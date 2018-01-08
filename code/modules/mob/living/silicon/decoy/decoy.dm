@@ -4,6 +4,7 @@
 	icon_state = "ai"
 	anchored = 1 // -- TLE
 	canmove = 0
+	a_intent = "harm" // This is apparently the only thing that stops other mobs walking through them as if they were thin air.
 
 /mob/living/silicon/decoy/New()
 	src.icon = 'icons/mob/AI.dmi'

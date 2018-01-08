@@ -612,8 +612,7 @@ var/list/ghostteleportlocs = list()
 /area/syndicate_depot/proc/locker_looted()
 	something_looted = TRUE
 	if(on_peaceful)
-		peaceful_mode(FALSE)
-		increase_alert("Nobody steals from the Syndicate!")
+		increase_alert("Thieves!")
 
 /area/syndicate_depot/proc/saw_mech()
 	if(detected_mech)
@@ -632,6 +631,9 @@ var/list/ghostteleportlocs = list()
 				L.locked = 1
 			L.req_access = list(access_syndicate_leader)
 			L.update_icon()
+		for(var/obj/machinery/computer/syndicate_depot/teleporter/P in src)
+			if(!P.portal_enabled)
+				P.toggle_portal()
 	else
 		for(var/obj/machinery/door/airlock/A in src)
 			A.req_access_txt = "[access_syndicate_leader]"
@@ -671,6 +673,7 @@ var/list/ghostteleportlocs = list()
 	if(called_backup || used_self_destruct)
 		return
 	called_backup = TRUE
+	lockout_computers()
 	if(!silent)
 		announce_here("Depot Code RED", reason)
 	for(var/obj/machinery/door/poddoor/P in airlocks)
@@ -690,6 +693,8 @@ var/list/ghostteleportlocs = list()
 	used_self_destruct = TRUE
 	local_alarm("", TRUE)
 	activate_lockdown(TRUE)
+	lockout_computers()
+	updateicon()
 	if(containment_failure)
 		announce_here("Depot Code DELTA", reason)
 	else
@@ -721,6 +726,10 @@ var/list/ghostteleportlocs = list()
 			A.close()
 			if(A.density)
 				A.lock()
+
+/area/syndicate_depot/proc/lockout_computers()
+	for(var/obj/machinery/computer/syndicate_depot/C in src)
+		C.activate_security_lockout()
 
 /area/syndicate_depot/proc/toggle_door_locks()
 	for(var/obj/machinery/door/airlock/A in src)
