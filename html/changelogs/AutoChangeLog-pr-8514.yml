@@ -1,0 +1,4 @@
+author: "Kyep"
+delete-after: True
+changes: 
+  - bugfix: "All mineral floor tiles no longer incorrectly show up as abductor flooring."
