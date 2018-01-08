@@ -562,6 +562,7 @@ var/list/ghostteleportlocs = list()
 	var/on_peaceful = FALSE
 	var/list/peaceful_visitors = list()
 	var/peace_betrayed = FALSE
+	var/detected_mech = FALSE
 	var/obj/structure/fusionreactor/reactor
 
 
@@ -613,6 +614,12 @@ var/list/ghostteleportlocs = list()
 	if(on_peaceful)
 		peaceful_mode(FALSE)
 		increase_alert("Nobody steals from the Syndicate!")
+
+/area/syndicate_depot/proc/saw_mech()
+	if(detected_mech)
+		return
+	detected_mech = TRUE
+	increase_alert("Hostile mecha detected.")
 
 /area/syndicate_depot/proc/peaceful_mode(var/newvalue)
 	if(newvalue)

@@ -101,8 +101,7 @@
 
 /mob/living/simple_animal/hostile/syndicate/melee/autogib/depotboss/proc/mech_alert()
 	if(depotarea)
-		say("They have a mech!")
-		depotarea.increase_alert("Hostile mecha detected.")
+		depotarea.saw_mech()
 
 /mob/living/simple_animal/hostile/syndicate/melee/autogib/depotboss/death()
 	raise_alert("[name] has died.")
