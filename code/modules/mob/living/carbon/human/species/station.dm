@@ -714,6 +714,7 @@
 		)
 
 	brute_mod = 1.25 //greys are fragile
+	brain_mod = 0 // wrinklebrained
 
 	default_genes = list(REMOTE_TALK)
 
