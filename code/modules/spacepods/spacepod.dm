@@ -545,6 +545,13 @@ obj/spacepod/proc/add_equipment(mob/user, var/obj/item/device/spacepod_equipment
 	icon_state = "pod_mil"
 	health = 400
 
+/obj/spacepod/syndi
+	name = "syndicate spacepod"
+	desc = "An armed spacepod painted in syndicate colors."
+	icon_state = "pod_synd"
+	health = 400
+	unlocked = FALSE
+
 /obj/spacepod/sec/New()
 	..()
 	var/obj/item/device/spacepod_equipment/weaponry/burst_taser/T = new /obj/item/device/spacepod_equipment/weaponry/taser

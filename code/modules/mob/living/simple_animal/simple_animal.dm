@@ -67,7 +67,7 @@
 
 	var/gold_core_spawnable = CHEM_MOB_SPAWN_INVALID //if CHEM_MOB_SPAWN_HOSTILE can be spawned by plasma with gold core, CHEM_MOB_SPAWN_FRIENDLY are 'friendlies' spawned with blood
 
-	var/master_commander = null //holding var for determining who own/controls a sentient simple animal (for sentience potions).
+	var/mob/living/carbon/human/master_commander = null //holding var for determining who own/controls a sentient simple animal (for sentience potions).
 
 	var/mob/living/simple_animal/hostile/spawner/nest
 

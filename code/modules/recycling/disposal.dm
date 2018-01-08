@@ -197,10 +197,6 @@
 	update()
 	return
 
-// can breath normally in the disposal
-/obj/machinery/disposal/alter_health()
-	return get_turf(src)
-
 // attempt to move while inside
 /obj/machinery/disposal/relaymove(mob/user as mob)
 	if(user.stat || src.flushing)
