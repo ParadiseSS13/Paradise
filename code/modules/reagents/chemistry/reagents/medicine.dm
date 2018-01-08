@@ -92,7 +92,7 @@
 
 		//Mitocholide is hard enough to get, it's probably fair to make this all internal organs
 		for(var/obj/item/organ/internal/I in H.internal_organs)
-			I.take_damage(-0.4)
+			I.receive_damage(-0.4)
 	..()
 
 /datum/reagent/medicine/mitocholide/reaction_obj(obj/O, volume)
@@ -512,7 +512,7 @@
 			var/mob/living/carbon/human/H = M
 			var/obj/item/organ/internal/eyes/E = H.get_int_organ(/obj/item/organ/internal/eyes)
 			if(istype(E))
-				E.take_damage(-1)
+				E.receive_damage(-1)
 		M.AdjustEyeBlurry(-1)
 		M.AdjustEarDamage(-1)
 	if(prob(50))

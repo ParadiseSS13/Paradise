@@ -46,7 +46,7 @@
 					if(prob(75))
 						var/obj/item/organ/external/affecting = H.get_organ("head")
 						if(affecting)
-							affecting.take_damage(5, 10)
+							affecting.receive_damage(5, 10)
 							H.UpdateDamageIcon()
 							H.emote("scream")
 					else
@@ -75,7 +75,7 @@
 					if(prob(75))
 						var/obj/item/organ/external/affecting = H.get_organ("head")
 						if(affecting)
-							affecting.take_damage(0, 20)
+							affecting.receive_damage(0, 20)
 							H.UpdateDamageIcon()
 							H.emote("scream")
 					else

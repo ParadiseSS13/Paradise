@@ -152,7 +152,7 @@
 // A check to make sure both nodes exist - self-delete if they aren't present
 /obj/machinery/atmospherics/pipe/simple/check_nodes_exist()
 	if(!node1 && !node2)
-		Deconstruct()
+		deconstruct()
 		return 0 // 0: No nodes exist
 	// 1: 1-2 nodes exist, we continue existing
 	return 1

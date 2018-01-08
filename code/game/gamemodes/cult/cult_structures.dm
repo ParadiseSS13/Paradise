@@ -73,7 +73,7 @@
 	if(health <= 0)
 		destroy_structure()
 
-/obj/structure/cult/functional/proc/take_damage(damage, damage_type = BRUTE)
+/obj/structure/cult/functional/take_damage(damage, damage_type = BRUTE)
 	if(damage_type == BRUTE || damage_type == BURN)
 		health -= damage
 		updatehealth()
