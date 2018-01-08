@@ -34,24 +34,24 @@
 			else								//Everyone else fails, skip the emote attempt
 				return
 		if("drone","drones","hum","hums","rumble","rumbles")
-			if(species.name == "Drask")		//Only Drask can make whale noises
+			if(get_species() == "Drask")		//Only Drask can make whale noises
 				on_CD = handle_emote_CD()			//proc located in code\modules\mob\emote.dm
 			else
 				return
 		if("howl", "howls")
-			if (species.name == "Vulpkanin")		//Only Vulpkanin can howl
+			if(get_species() == "Vulpkanin")		//Only Vulpkanin can howl
 				on_CD = handle_emote_CD(100)
 			else
 				return
 		if("growl", "growls")
-			if (species.name == "Vulpkanin")		//Only Vulpkanin can growl
+			if(get_species() == "Vulpkanin")		//Only Vulpkanin can growl
 				on_CD = handle_emote_CD()
 			else
 				return
 		if("squish", "squishes")
 			var/found_slime_bodypart = 0
 
-			if(species.name == "Slime People")	//Only Slime People can squish
+			if(get_species() == "Slime People")	//Only Slime People can squish
 				on_CD = handle_emote_CD()			//proc located in code\modules\mob\emote.dm'
 				found_slime_bodypart = 1
 			else
@@ -65,25 +65,31 @@
 				return
 
 		if("clack", "clacks")
-			if(species.name == "Kidan")	//Only Kidan can clack and rightfully so.
+			if(get_species() == "Kidan")	//Only Kidan can clack and rightfully so.
 				on_CD = handle_emote_CD()			//proc located in code\modules\mob\emote.dm'
 			else								//Everyone else fails, skip the emote attempt
 				return
 
 		if("click", "clicks")
-			if(species.name == "Kidan")	//Only Kidan can click and rightfully so.
+			if(get_species() == "Kidan")	//Only Kidan can click and rightfully so.
 				on_CD = handle_emote_CD()			//proc located in code\modules\mob\emote.dm'
 			else								//Everyone else fails, skip the emote attempt
 				return
 
 		if("creaks", "creak")
-			if(species.name == "Diona") //Only Dionas can Creaks.
+			if(get_species() == "Diona") //Only Dionas can Creaks.
 				on_CD = handle_emote_CD()			//proc located in code\modules\mob\emote.dm'
 			else								//Everyone else fails, skip the emote attempt
 				return
 
 		if("hiss", "hisses")
-			if(species.name == "Unathi") //Only Unathi can hiss.
+			if(get_species() == "Unathi") //Only Unathi can hiss.
+				on_CD = handle_emote_CD()			//proc located in code\modules\mob\emote.dm'
+			else								//Everyone else fails, skip the emote attempt
+				return
+
+		if("quill", "quills")
+			if(get_species() == "Vox") //Only Vox can rustle their quills.
 				on_CD = handle_emote_CD()			//proc located in code\modules\mob\emote.dm'
 			else								//Everyone else fails, skip the emote attempt
 				return
@@ -188,6 +194,13 @@
 
 			message = "<B>[src]</B> hisses[M ? " at [M]" : ""]."
 			playsound(loc, 'sound/effects/unathihiss.ogg', 50, 0) //Credit to Jamius (freesound.org) for the sound.
+			m_type = 2
+
+		if("quill", "quills")
+			var/M = handle_emote_param(param)
+
+			message = "<B>[src]</B> rustles their quills[M ? " at [M]" : ""]."
+			playsound(loc, 'sound/effects/voxrustle.ogg', 50, 0) //Credit to sound-ideas (freesfx.co.uk) for the sound.
 			m_type = 2
 
 		if("yes")
@@ -858,7 +871,7 @@
 			+ " deathgasp(s), drool(s), eyebrow, fart(s), faint(s), flap(s), flip(s), frown(s), gasp(s), giggle(s), glare(s)-(none)/mob, grin(s), groan(s), grumble(s), grin(s)," \
 			+ " handshake-mob, hug(s)-(none)/mob, hem, highfive, johnny, jump, laugh(s), look(s)-(none)/mob, moan(s), mumble(s), nod(s), pale(s), point(s)-atom, quiver(s), raise(s), salute(s)-(none)/mob, scream(s), shake(s)," \
 			+ " shiver(s), shrug(s), sigh(s), signal(s)-#1-10,slap(s)-(none)/mob, smile(s),snap(s), sneeze(s), sniff(s), snore(s), stare(s)-(none)/mob, swag(s), tremble(s), twitch(es), twitch(es)_s," \
-			+ " wag(s), wave(s),  whimper(s), wink(s), yawn(s)"
+			+ " wag(s), wave(s),  whimper(s), wink(s), yawn(s), quill(s)"
 
 			switch(species.name)
 				if("Machine")
@@ -871,6 +884,8 @@
 					emotelist += "\nUnathi specific emotes :- hiss(es)"
 				if("Vulpkanin")
 					emotelist += "\nVulpkanin specific emotes :- growl(s)-none/mob, howl(s)-none/mob"
+				if("Vox")
+					emotelist += "\nVox specific emotes :- quill(s)"
 				if("Diona")
 					emotelist += "\nDiona specific emotes :- creak(s)"
 

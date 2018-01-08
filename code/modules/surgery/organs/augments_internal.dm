@@ -30,7 +30,7 @@
 	parent_organ = "head"
 
 /obj/item/organ/internal/cyberimp/brain/emp_act(severity)
-	if(!owner)
+	if(!owner || emp_proof)
 		return
 	var/stun_amount = 5 + (severity-1 ? 0 : 5)
 	owner.Stun(stun_amount)
@@ -91,7 +91,7 @@
 		r_hand_obj = null
 
 /obj/item/organ/internal/cyberimp/brain/anti_drop/emp_act(severity)
-	if(!owner)
+	if(!owner || emp_proof)
 		return
 	var/range = severity ? 10 : 5
 	var/atom/A
@@ -138,7 +138,7 @@
 		owner.SetWeakened(STUN_SET_AMOUNT)
 
 /obj/item/organ/internal/cyberimp/brain/anti_stun/emp_act(severity)
-	if(crit_fail)
+	if(crit_fail || emp_proof)
 		return
 	crit_fail = 1
 	spawn(90 / severity)
@@ -158,6 +158,8 @@
 	origin_tech = "materials=2;biotech=3"
 
 /obj/item/organ/internal/cyberimp/mouth/breathing_tube/emp_act(severity)
+	if(emp_proof)
+		return
 	if(prob(60/severity) && owner)
 		to_chat(owner, "<span class='warning'>Your breathing tube suddenly closes!</span>")
 		owner.AdjustLoseBreath(2)
@@ -203,7 +205,7 @@
 			synthesizing = 0
 
 /obj/item/organ/internal/cyberimp/chest/nutriment/emp_act(severity)
-	if(!owner)
+	if(!owner || emp_proof)
 		return
 	owner.reagents.add_reagent("????",poison_amount / severity) //food poisoning
 	to_chat(owner, "<span class='warning'>You feel like your insides are burning.</span>")
@@ -258,13 +260,13 @@
 	reviving = 1
 
 /obj/item/organ/internal/cyberimp/chest/reviver/emp_act(severity)
-	if(!owner)
+	if(!owner || emp_proof)
 		return
 	if(reviving)
 		revive_cost += 200
 	else
 		cooldown += 200
-	if(istype(owner, /mob/living/carbon/human))
+	if(ishuman(owner))
 		var/mob/living/carbon/human/H = owner
 		if(H.stat != DEAD && prob(50 / severity))
 			H.set_heartattack(TRUE)

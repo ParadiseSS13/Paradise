@@ -397,7 +397,7 @@
 	if(notice)
 		return null
 	//Totally nanite construction system not an immersion breaking spawning
-	var/datum/effect/system/harmless_smoke_spread/s = new /datum/effect/system/harmless_smoke_spread()
+	var/datum/effect_system/smoke_spread/s = new
 	s.set_up(4, 0, get_turf(centerpiece))
 	s.start()
 	var/obj/machinery/bsa/full/cannon = new(get_turf(centerpiece),centerpiece.get_cannon_direction())

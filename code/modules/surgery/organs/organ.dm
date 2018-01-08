@@ -1,5 +1,3 @@
-var/list/organ_cache = list()
-
 /obj/item/organ
 	name = "organ"
 	icon = 'icons/obj/surgery.dmi'
@@ -31,6 +29,7 @@ var/list/organ_cache = list()
 
 	var/sterile = FALSE //can the organ be infected by germs?
 	var/tough = FALSE //can organ be easily damaged?
+	var/emp_proof = FALSE //is the organ immune to EMPs?
 
 
 /obj/item/organ/Destroy()
@@ -170,7 +169,7 @@ var/list/organ_cache = list()
 	..()
 	if(germ_level >= INFECTION_LEVEL_TWO)
 		if(prob(3))	//about once every 30 seconds
-			take_damage(1,silent=prob(30))
+			receive_damage(1,silent=prob(30))
 
 /obj/item/organ/proc/rejuvenate()
 	damage = 0
@@ -221,7 +220,7 @@ var/list/organ_cache = list()
 	W.time_inflicted = world.time
 
 //Note: external organs have their own version of this proc
-/obj/item/organ/proc/take_damage(amount, silent = 0)
+/obj/item/organ/proc/receive_damage(amount, silent = 0)
 	if(tough)
 		return
 	if(status & ORGAN_ROBOT)
@@ -254,43 +253,45 @@ var/list/organ_cache = list()
 	min_broken_damage = 35
 
 /obj/item/organ/external/emp_act(severity)
-	if(!(status & ORGAN_ROBOT))
+	if(!(status & ORGAN_ROBOT) || emp_proof)
 		return
 	if(tough)
 		switch(severity)
 			if(1)
-				take_damage(0, 5.5)
+				receive_damage(0, 5.5)
 				if(owner)
 					owner.Stun(10)
 			if(2)
-				take_damage(0, 2.8)
+				receive_damage(0, 2.8)
 				if(owner)
 					owner.Stun(5)
 	else
 		switch(severity)
 			if(1)
-				take_damage(0, 20)
+				receive_damage(0, 20)
 			if(2)
-				take_damage(0, 7)
+				receive_damage(0, 7)
 
 /obj/item/organ/internal/emp_act(severity)
-	if(!robotic)
+	if(!robotic || emp_proof)
 		return
 	if(robotic == 2)
 		switch(severity)
 			if(1.0)
-				take_damage(20, 1)
+				receive_damage(20, 1)
 			if(2.0)
-				take_damage(7, 1)
+				receive_damage(7, 1)
 	else if(robotic == 1)
-		take_damage(11, 1)
+		receive_damage(11, 1)
 
 /obj/item/organ/internal/heart/emp_act(intensity)
+	if(emp_proof)
+		return
 	if(owner && robotic == 2)
 		Stop() // In the name of looooove~!
 		owner.visible_message("<span class='danger'>[owner] clutches their chest and gasps!</span>","<span class='userdanger'>You clutch your chest in pain!</span>")
 	else if(owner && robotic == 1)
-		take_damage(11,1)
+		receive_damage(11,1)
 
 /obj/item/organ/proc/remove(var/mob/living/user,special = 0)
 	if(!istype(owner))

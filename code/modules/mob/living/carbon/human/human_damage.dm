@@ -37,7 +37,7 @@
 		if(sponge)
 			if(species)
 				amount = amount * species.brain_mod
-			sponge.take_damage(amount, 1)
+			sponge.receive_damage(amount, 1)
 			brainloss = sponge.damage
 		else
 			brainloss = 200
@@ -112,7 +112,7 @@
 		var/obj/item/organ/external/O = get_organ(organ_name)
 
 		if(amount > 0)
-			O.take_damage(amount, 0, sharp=is_sharp(damage_source), used_weapon=damage_source)
+			O.receive_damage(amount, 0, sharp=is_sharp(damage_source), used_weapon=damage_source)
 		else
 			//if you don't want to heal robot organs, they you will have to check that yourself before using this proc.
 			O.heal_damage(-amount, 0, internal=0, robo_repair=(O.status & ORGAN_ROBOT))
@@ -126,7 +126,7 @@
 		var/obj/item/organ/external/O = get_organ(organ_name)
 
 		if(amount > 0)
-			O.take_damage(0, amount, sharp=is_sharp(damage_source), used_weapon=damage_source)
+			O.receive_damage(0, amount, sharp=is_sharp(damage_source), used_weapon=damage_source)
 		else
 			//if you don't want to heal robot organs, they you will have to check that yourself before using this proc.
 			O.heal_damage(0, -amount, internal=0, robo_repair=(O.status & ORGAN_ROBOT))
@@ -240,7 +240,7 @@
 	if(!parts.len)
 		return
 	var/obj/item/organ/external/picked = pick(parts)
-	if(picked.take_damage(brute, burn, sharp))
+	if(picked.receive_damage(brute, burn, sharp))
 		UpdateDamageIcon()
 	updatehealth()
 	speech_problem_flag = 1
@@ -285,7 +285,7 @@
 		var/burn_was = picked.burn_dam
 
 
-		update |= picked.take_damage(brute_per_part, burn_per_part, sharp, used_weapon)
+		update |= picked.receive_damage(brute_per_part, burn_per_part, sharp, used_weapon)
 
 		brute	-= (picked.brute_dam - brute_was)
 		burn	-= (picked.burn_dam - burn_was)
@@ -355,7 +355,7 @@ This function restores all organs.
 			if(species)
 				damage = damage * species.brute_mod
 
-			if(organ.take_damage(damage, 0, sharp, used_weapon))
+			if(organ.receive_damage(damage, 0, sharp, used_weapon))
 				UpdateDamageIcon()
 
 			if(LAssailant && ishuman(LAssailant)) //superheros still get the comical hit markers
@@ -372,7 +372,7 @@ This function restores all organs.
 						dmgIcon.pixel_y = (!lying) ? rand(-11,9) : rand(-10,1)
 						flick_overlay(dmgIcon, attack_bubble_recipients, 9)
 
-			receive_damage()
+			receiving_damage()
 
 		if(BURN)
 			damageoverlaytemp = 20
@@ -380,7 +380,7 @@ This function restores all organs.
 			if(species)
 				damage = damage * species.burn_mod
 
-			if(organ.take_damage(0, damage, sharp, used_weapon))
+			if(organ.receive_damage(0, damage, sharp, used_weapon))
 				UpdateDamageIcon()
 
 	// Will set our damageoverlay icon to the next level, which will then be set back to the normal level the next mob.Life().

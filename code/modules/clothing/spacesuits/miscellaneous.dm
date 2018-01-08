@@ -77,7 +77,7 @@
 	desc = "An armored beret commonly used by special operations officers."
 	icon_state = "beret_officer"
 	armor = list(melee = 65, bullet = 55, laser = 35, energy = 20, bomb = 30, bio = 30, rad = 30)
-	flags = HEADCOVERSEYES | HEADCOVERSMOUTH | STOPSPRESSUREDMAGE | THICKMATERIAL //idfk
+	flags =  STOPSPRESSUREDMAGE | THICKMATERIAL
 
 /obj/item/clothing/suit/space/deathsquad/officer
 	name = "officer jacket"

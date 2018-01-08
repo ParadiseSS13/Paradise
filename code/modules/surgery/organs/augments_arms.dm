@@ -53,7 +53,9 @@
 /obj/item/organ/internal/cyberimp/arm/emag_act()
 	return 0
 
-/obj/item/organ/internal/cyberimp/arm/gun/emp_act(severity)
+/obj/item/organ/internal/cyberimp/arm/emp_act(severity)
+	if(emp_proof)
+		return
 	if(prob(15/severity) && owner)
 		to_chat(owner, "<span class='warning'>[src] is hit by EMP!</span>")
 		// give the owner an idea about why his implant is glitching
@@ -141,6 +143,8 @@
 
 
 /obj/item/organ/internal/cyberimp/arm/gun/emp_act(severity)
+	if(emp_proof)
+		return
 	if(prob(30/severity) && owner && !crit_fail)
 		Retract()
 		owner.visible_message("<span class='danger'>A loud bang comes from [owner]\'s [parent_organ == "r_arm" ? "right" : "left"] arm!</span>")
@@ -251,6 +255,8 @@
 /obj/item/organ/internal/cyberimp/arm/power_cord/emp_act(severity)
 	// To allow repair via nanopaste/screwdriver
 	// also so IPCs don't also catch on fire and fall even more apart upon EMP
+	if(emp_proof)
+		return
 	damage = 1
 	crit_fail = TRUE
 
@@ -275,7 +281,7 @@
 	var/mob/living/carbon/human/H = user
 	if(H.get_int_organ(/obj/item/organ/internal/cell))
 		if(A.emagged || A.stat & BROKEN)
-			var/datum/effect/system/spark_spread/s = new /datum/effect/system/spark_spread
+			var/datum/effect_system/spark_spread/s = new /datum/effect_system/spark_spread
 			s.set_up(3, 1, A)
 			s.start()
 			to_chat(H, "<span class='warning'>The APC power currents surge erratically, damaging your chassis!</span>")

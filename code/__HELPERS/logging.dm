@@ -49,6 +49,10 @@
 /proc/log_say(text)
 	if(config.log_say)
 		diary << "\[[time_stamp()]]SAY: [text]"
+		
+/proc/log_robot(text)
+	if(config.log_say)
+		diary << "\[[time_stamp()]]ROBOT: [text]"
 
 /proc/log_ooc(text)
 	if(config.log_ooc)

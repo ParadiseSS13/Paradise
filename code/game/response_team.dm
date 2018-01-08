@@ -51,7 +51,7 @@ var/ert_request_answered = 0
 		to_chat(src, "<span class='warning'>This role is not yet available to you. You need to wait another [player_age_check] days.</span>")
 		return 0
 
-	if(has_enabled_antagHUD == 1 && config.antag_hud_restricted)
+	if(cannotPossess(src))
 		to_chat(src, "<span class='boldnotice'>Upon using the antagHUD you forfeited the ability to join the round.</span>")
 		return 0
 
@@ -118,7 +118,9 @@ var/ert_request_answered = 0
 		var/mob/living/silicon/robot/ert/R = new()
 		R.forceMove(spawn_location)
 		var/rnum = rand(1,1000)
-		R.name = "ERT [rnum]"
+		var/borgname = "ERT [rnum]"
+		R.name = borgname
+		R.custom_name = borgname
 		R.real_name = R.name
 		R.mind = new
 		R.mind.current = R

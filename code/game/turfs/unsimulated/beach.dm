@@ -54,7 +54,7 @@
 		/turf/unsimulated/beach/water/drop, /turf/unsimulated/beach/water/drop/dense,
 		/turf/unsimulated/beach/water, /turf/unsimulated/beach/water/dense,
 		/turf/unsimulated/beach/water/edge_drop)
-	var/obj/effect/effect/beach_drop_overlay/water_overlay
+	var/obj/effect/beach_drop_overlay/water_overlay
 
 /turf/unsimulated/beach/water/drop/New()
 	..()
@@ -64,7 +64,7 @@
 	QDEL_NULL(water_overlay)
 	return ..()
 
-/obj/effect/effect/beach_drop_overlay
+/obj/effect/beach_drop_overlay
 	name = "Water"
 	icon = 'icons/turf/floors/seadrop-o.dmi'
 	layer = MOB_LAYER + 0.1

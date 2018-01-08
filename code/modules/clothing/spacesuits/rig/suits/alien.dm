@@ -5,7 +5,7 @@
 	icon_state = "breacher_rig_cheap"
 	armor = list(melee = 30, bullet = 30, laser = 30, energy = 30, bomb = 45, bio = 100, rad = 50)
 	emp_protection = -20
-	slowdown = 6
+	active_slowdown = 6
 	offline_slowdown = 10
 	vision_restriction = 1
 	offline_vision_restriction = 2

@@ -80,10 +80,7 @@
 
 		if(istype(E, /datum/stack_recipe_list))
 			var/datum/stack_recipe_list/srl = E
-			if(amount >= srl.req_amount)
-				t1 += "<a href='?src=[UID()];sublist=[i]'>[srl.title] ([srl.req_amount] [singular_name]\s)</a>"
-			else
-				t1 += "[srl.title] ([srl.req_amount] [singular_name]\s)<br>"
+			t1 += "<a href='?src=[UID()];sublist=[i]'>[srl.title]</a>"
 
 		if(istype(E, /datum/stack_recipe))
 			var/datum/stack_recipe/R = E

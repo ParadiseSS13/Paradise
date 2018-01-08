@@ -50,7 +50,7 @@
 	duration = 80
 
 /obj/effect/overlay/temp/teleport_abductor/New()
-	var/datum/effect/system/spark_spread/S = new
+	var/datum/effect_system/spark_spread/S = new
 	S.set_up(10,0,loc)
 	S.start()
 	..()
