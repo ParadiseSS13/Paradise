@@ -29,7 +29,7 @@ var/ert_request_answered = 0
 		to_chat(usr, "<span class='warning'>The round hasn't started yet!</span>")
 		return
 
-	if(send_emergency_team > 0)
+	if(send_emergency_team)
 		to_chat(usr, "<span class='warning'>Central Command has already dispatched an emergency response team!</span>")
 		return
 
