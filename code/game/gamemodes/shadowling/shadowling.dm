@@ -205,6 +205,13 @@ Made by Xhuis
 			continue
 		if(shadow.current.stat == DEAD)
 			continue
+		if(world.time - round_start_time > (config.shadowling_max_age * 10))
+			if(ishuman(shadow.current))
+				var/mob/living/carbon/human/H = shadow.current
+				if(!istype(H.species, /datum/species/shadow))
+					H.take_overall_damage(1, 0)
+					to_chat(H, "<span class='userdanger'>You cannot contain your shadowling essense any longer! You must hatch, or die!</span>")
+					H << 'sound/weapons/sear.ogg'
 		shadows_alive++
 	if(shadows_alive)
 		return ..()
