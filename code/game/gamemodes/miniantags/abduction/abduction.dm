@@ -282,6 +282,7 @@
 			var/datum/objective/objective = team_objectives[team_number]
 			if(con.experiment.points >= objective.target_amount)
 				shuttle_master.emergency.request(null, 0.5)
+				shuttle_master.emergency.canRecall = FALSE
 				finished = 1
 				return ..()
 	return ..()

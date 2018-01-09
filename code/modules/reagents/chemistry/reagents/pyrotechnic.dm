@@ -140,7 +140,7 @@
 /*
 /datum/reagent/blackpowder/on_ex_act()
 	var/location = get_turf(holder.my_atom)
-	var/datum/effect/system/spark_spread/s = new /datum/effect/system/spark_spread
+	var/datum/effect_system/spark_spread/s = new /datum/effect_system/spark_spread
 	s.set_up(2, 1, location)
 	s.start()
 	sleep(rand(10,15))

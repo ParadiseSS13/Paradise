@@ -403,7 +403,7 @@ Class Procs:
 		return 1
 	return 0
 
-/obj/machinery/proc/deconstruct(disassembled = TRUE)
+/obj/machinery/deconstruct(disassembled = TRUE)
 	on_deconstruction()
 	spawn_frame()
 	for(var/obj/item/I in component_parts)
@@ -556,7 +556,7 @@ Class Procs:
 		return 0
 	if((TK in user.mutations) && !Adjacent(user))
 		return 0
-	var/datum/effect/system/spark_spread/s = new /datum/effect/system/spark_spread
+	var/datum/effect_system/spark_spread/s = new /datum/effect_system/spark_spread
 	s.set_up(5, 1, src)
 	s.start()
 	if(electrocute_mob(user, get_area(src), src, 0.7))

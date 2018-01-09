@@ -41,7 +41,7 @@
 	w_class = WEIGHT_CLASS_NORMAL
 	materials = list(MAT_METAL = 75000, MAT_GLASS = 37500)
 	origin_tech = "engineering=4;materials=2"
-	var/datum/effect/system/spark_spread/spark_system
+	var/datum/effect_system/spark_spread/spark_system
 	var/lastused
 	var/iconrotation = 0 //used to orient icons and pipes
 	var/mode = 1 //Disposals, atmospherics, etc.
@@ -53,7 +53,7 @@
 
 /obj/item/weapon/rpd/New()
 	..()
-	spark_system = new /datum/effect/system/spark_spread()
+	spark_system = new /datum/effect_system/spark_spread()
 	spark_system.set_up(1, 0, src)
 	spark_system.attach(src)
 

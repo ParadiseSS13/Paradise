@@ -11,9 +11,6 @@
 	var/icon_resting = ""
 	var/icon_gib = null	//We only try to show a gibbing animation if this exists.
 
-	var/oxygen_alert = 0
-	var/toxins_alert = 0
-	var/fire_alert = 0
 	var/healable = 1
 
 	var/list/speak = list()
@@ -70,7 +67,7 @@
 
 	var/gold_core_spawnable = CHEM_MOB_SPAWN_INVALID //if CHEM_MOB_SPAWN_HOSTILE can be spawned by plasma with gold core, CHEM_MOB_SPAWN_FRIENDLY are 'friendlies' spawned with blood
 
-	var/master_commander = null //holding var for determining who own/controls a sentient simple animal (for sentience potions).
+	var/mob/living/carbon/human/master_commander = null //holding var for determining who own/controls a sentient simple animal (for sentience potions).
 
 	var/mob/living/simple_animal/hostile/spawner/nest
 
@@ -201,7 +198,7 @@
 
 	var/areatemp = get_temperature(environment)
 
-	if(abs(areatemp - bodytemperature) > 40 && !(flags & NO_BREATHE))
+	if(abs(areatemp - bodytemperature) > 40 && !(BREATHLESS in mutations))
 		var/diff = areatemp - bodytemperature
 		diff = diff / 5
 		bodytemperature += diff
@@ -213,21 +210,23 @@
 
 	if(atmos_requirements["min_oxy"] && oxy < atmos_requirements["min_oxy"])
 		atmos_suitable = 0
-		throw_alert("oxy", /obj/screen/alert/oxy)
+		throw_alert("not_enough_oxy", /obj/screen/alert/not_enough_oxy)
 	else if(atmos_requirements["max_oxy"] && oxy > atmos_requirements["max_oxy"])
 		atmos_suitable = 0
-		throw_alert("oxy", /obj/screen/alert/too_much_oxy)
+		throw_alert("too_much_oxy", /obj/screen/alert/too_much_oxy)
 	else
-		clear_alert("oxy")
+		clear_alert("not_enough_oxy")
+		clear_alert("too_much_oxy")
 
 	if(atmos_requirements["min_tox"] && tox < atmos_requirements["min_tox"])
 		atmos_suitable = 0
-		throw_alert("tox_in_air", /obj/screen/alert/not_enough_tox)
+		throw_alert("not_enough_tox", /obj/screen/alert/not_enough_tox)
 	else if(atmos_requirements["max_tox"] && tox > atmos_requirements["max_tox"])
 		atmos_suitable = 0
-		throw_alert("tox_in_air", /obj/screen/alert/tox_in_air)
+		throw_alert("too_much_tox", /obj/screen/alert/too_much_tox)
 	else
-		clear_alert("tox_in_air")
+		clear_alert("too_much_tox")
+		clear_alert("not_enough_tox")
 
 	if(atmos_requirements["min_n2"] && n2 < atmos_requirements["min_n2"])
 		atmos_suitable = 0

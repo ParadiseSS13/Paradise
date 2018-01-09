@@ -1,11 +1,11 @@
 /obj/structure/spacepoddoor
-	name = "Podlock"
+	name = "podlock"
 	desc = "Why it no open!!!"
 	icon = 'icons/effects/beam.dmi'
 	icon_state = "n_beam"
-	var/id = 1.0
 	density = 0
 	anchored = 1
+	var/id = 1.0
 
 /obj/structure/spacepoddoor/initialize()
 	..()

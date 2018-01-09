@@ -9,7 +9,6 @@
 	var/health = 200
 	var/can_displace = TRUE //If the girder can be moved around by crowbarring it
 	var/metalUsed = 2 //used to determine amount returned in deconstruction
-	var/can_deconstruct = TRUE
 
 /obj/structure/girder/examine(mob/user)
 	. = ..()
@@ -42,7 +41,7 @@
 			take_damage(rand(25, 75))
 			return
 
-/obj/structure/girder/proc/take_damage(amount)
+/obj/structure/girder/take_damage(amount)
 	health -= amount
 	if(health <= 0)
 		new /obj/item/stack/sheet/metal(get_turf(src))
@@ -369,7 +368,7 @@
 		var/atom/movable/mover = caller
 		. = . || mover.checkpass(PASSGRILLE)
 
-/obj/structure/girder/proc/deconstruct(disassembled = TRUE)
+/obj/structure/girder/deconstruct(disassembled = TRUE)
 	if(can_deconstruct)
 		var/remains = pick(/obj/item/stack/rods,/obj/item/stack/sheet/metal)
 		new remains(loc)

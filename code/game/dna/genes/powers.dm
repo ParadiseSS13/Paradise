@@ -7,11 +7,11 @@
 	activation_messages=list("You feel no need to breathe.")
 	deactivation_messages=list("You feel the need to breathe, once more.")
 	instability = GENE_INSTABILITY_MODERATE
-	mutation=NO_BREATH
+	mutation = BREATHLESS
 	activation_prob=25
 
 /datum/dna/gene/basic/nobreath/New()
-	block=NOBREATHBLOCK
+	block = BREATHLESSBLOCK
 
 
 /datum/dna/gene/basic/regenerate
@@ -48,7 +48,7 @@
 	activation_messages=list("Your skin is icy to the touch.")
 	deactivation_messages=list("Your skin no longer feels icy to the touch.")
 	instability = GENE_INSTABILITY_MODERATE
-	mutation=RESIST_HEAT
+	mutation = HEATRES
 
 /datum/dna/gene/basic/heat_resist/New()
 	block=COLDBLOCK
@@ -61,7 +61,7 @@
 	activation_messages=list("Your body is filled with warmth.")
 	deactivation_messages=list("Your body is no longer filled with warmth.")
 	instability = GENE_INSTABILITY_MODERATE
-	mutation=RESIST_COLD
+	mutation = COLDRES
 
 /datum/dna/gene/basic/cold_resist/New()
 	block=FIREBLOCK

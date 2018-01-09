@@ -68,7 +68,7 @@
 				var/mob/living/carbon/human/H = src
 				var/obj/item/organ/external/organ = H.get_organ("chest")
 				if(istype(organ))
-					if(organ.take_damage(d, 0))
+					if(organ.receive_damage(d, 0))
 						H.UpdateDamageIcon()
 
 				H.updatehealth()
@@ -327,15 +327,15 @@
 			if(1)
 				to_chat(src, "<span class='warning'>Your eyes sting a little.</span>")
 				if(prob(40)) //waiting on carbon organs
-					E.take_damage(1, 1)
+					E.receive_damage(1, 1)
 
 			if(2)
 				to_chat(src, "<span class='warning'>Your eyes burn.</span>")
-				E.take_damage(rand(2, 4), 1)
+				E.receive_damage(rand(2, 4), 1)
 
 			else
 				to_chat(src, "Your eyes itch and burn severely!</span>")
-				E.take_damage(rand(12, 16), 1)
+				E.receive_damage(rand(12, 16), 1)
 
 		if(E.damage > E.min_bruised_damage)
 			AdjustEyeBlind(damage)
@@ -668,7 +668,7 @@ var/list/ventcrawl_machinery = list(/obj/machinery/atmospherics/unary/vent_pump,
 				if(do_mob(usr, src, POCKET_STRIP_DELAY))
 					if(internal)
 						internal = null
-						update_internals_hud_icon(0)
+						update_action_buttons_icon()
 					else
 						var/no_mask2
 						if(!get_organ_slot("breathing_tube"))
@@ -679,7 +679,7 @@ var/list/ventcrawl_machinery = list(/obj/machinery/atmospherics/unary/vent_pump,
 							to_chat(usr, "<span class='warning'>[src] is not wearing a suitable mask or helmet!</span>")
 							return
 						internal = ITEM
-						update_internals_hud_icon(1)
+						update_action_buttons_icon()
 
 					visible_message("<span class='danger'>[usr] [internal ? "opens" : "closes"] the valve on [src]'s [ITEM].</span>", \
 									"<span class='userdanger'>[usr] [internal ? "opens" : "closes"] the valve on [src]'s [ITEM].</span>")
@@ -1060,10 +1060,6 @@ so that different stomachs can handle things in different ways VB*/
 		return TRUE
 
 	return FALSE
-
-/mob/living/carbon/proc/update_internals_hud_icon(internal_state = 0)
-	if(hud_used && hud_used.internals)
-		hud_used.internals.icon_state = "internal[internal_state]"
 
 //to recalculate and update the mob's total tint from tinted equipment it's wearing.
 /mob/living/carbon/proc/update_tint()
