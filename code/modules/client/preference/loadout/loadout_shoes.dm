@@ -17,13 +17,15 @@
 
 /datum/gear/shoes/fancysandals
 	display_name = "sandals, fancy"
-	cost = 5
+	cost = 1
 	path = /obj/item/clothing/shoes/sandal/fancy
+	allowed_roles = list("Nanotrasen Representative", "Captain", "Blueshield", "Head of Personnel", "Internal Affairs Agent", "Magistrate", "Chief Medical Officer", "Chief Engineer", "Research Director", "Head of Security", "Quartermaster", "Warden")
 
 /datum/gear/shoes/dressshoes
 	display_name = "dress shoes"
-	cost = 5
+	cost = 1
 	path = /obj/item/clothing/shoes/centcom
+	allowed_roles = list("Nanotrasen Representative", "Captain", "Blueshield", "Head of Personnel", "Internal Affairs Agent", "Magistrate")
 
 /datum/gear/shoes/cowboyboots
 	display_name = "cowboy boots, brown"
