@@ -200,6 +200,7 @@ Made by Xhuis
 
 /datum/game_mode/shadowling/check_finished()
 	var/shadows_alive = 0 //and then shadowling was kill
+	var/shadow_nag_messages = list("You can barely hold yourself in this lesser form!", "The urge to become something greater is overwhelming!", "You feel a burning passion to hatch free of this shell and assume godhood!")
 	for(var/datum/mind/shadow in shadows) //but what if shadowling was not kill?
 		if(!istype(shadow.current,/mob/living/carbon/human) && !istype(shadow.current,/mob/living/simple_animal/ascendant_shadowling))
 			continue
@@ -210,7 +211,7 @@ Made by Xhuis
 				var/mob/living/carbon/human/H = shadow.current
 				if(!istype(H.species, /datum/species/shadow))
 					H.take_overall_damage(1, 0)
-					to_chat(H, "<span class='userdanger'>You cannot contain your shadowling essense any longer! You must hatch, or die!</span>")
+					to_chat(H, "<span class='userdanger'>[pick(shadow_nag_messages)]</span>")
 					H << 'sound/weapons/sear.ogg'
 		shadows_alive++
 	if(shadows_alive)
