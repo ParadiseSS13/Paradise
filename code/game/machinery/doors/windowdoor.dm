@@ -144,7 +144,7 @@
 	operating = 0
 	return 1
 
-/obj/machinery/door/window/proc/take_damage(damage)
+/obj/machinery/door/window/take_damage(damage)
 	health = max(0, health - damage)
 	if(health <= 0)
 		var/debris = list(
