@@ -227,7 +227,7 @@
 		else if(depotarea.on_peaceful)
 			if(subcommand == DEPOT_VISITOR_END)
 				if(check_rights(R_ADMIN, 0, user))
-					depotarea.peaceful_mode(FALSE)
+					depotarea.peaceful_mode(FALSE, TRUE)
 			else if (subcommand == DEPOT_VISITOR_ADD)
 				if(user.mind && user.mind.special_role == SPECIAL_ROLE_TRAITOR)
 					if(user in depotarea.peaceful_visitors)
@@ -242,7 +242,7 @@
 				raise_alert("Thieving con-men detected!")
 			else if(user.mind && user.mind.special_role == SPECIAL_ROLE_TRAITOR)
 				grant_syndie_faction(user)
-				depotarea.peaceful_mode(TRUE)
+				depotarea.peaceful_mode(TRUE, TRUE)
 			else
 				to_chat(user, "<span class='userdanger'>[src]: Request denied. You are not recognized as an Agent of the Syndicate.</span>")
 		else

@@ -237,7 +237,16 @@
 	assemblytype = /obj/structure/door_assembly/door_assembly_hatch
 
 /obj/machinery/door/airlock/hatch/syndicate
+	name = "syndicate hatch"
 	req_access_txt = "150"
+
+/obj/machinery/door/airlock/hatch/syndicate/vault
+	name = "syndicate vault hatch"
+	req_access_txt = "151"
+	icon = 'icons/obj/doors/hightechsecurity.dmi'
+	assemblytype = /obj/structure/door_assembly/door_assembly_highsecurity
+	hackProof = 1
+	aiControlDisabled = 1
 
 /obj/machinery/door/airlock/hatch/gamma
 	name = "gamma level hatch"

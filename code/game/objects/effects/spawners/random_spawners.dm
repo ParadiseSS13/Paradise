@@ -207,6 +207,7 @@
 	/obj/item/stack/sheet/mineral/plasma = 1,
 	/obj/item/stack/sheet/mineral/silver = 1,
 	/obj/item/stack/sheet/mineral/gold = 1,
+	/obj/item/toy/syndicateballoon = 1
 	)
 
 /obj/effect/spawner/random_spawners/syndicate/loot/spawn_item(var/turf/T)
@@ -277,6 +278,29 @@
 	/turf/simulated/wall/r_wall = 1,
 	/obj/structure/falsewall/reinforced = 1
 	)
+
+/obj/effect/spawner/random_spawners/syndicate/layout/door/secret
+	name = "50pc falsewall 50pc wall"
+	icon_state = "door_closed"
+	color = "#00FFFF"
+	spawn_nothing_percentage = 0
+	result = list(
+	/turf/simulated/wall/r_wall = 1,
+	/obj/structure/falsewall/reinforced = 1
+	)
+
+/obj/effect/spawner/random_spawners/syndicate/layout/door/vault
+	name = "50pc vaultdoor 25pc falsewall 25pc wall"
+	icon = 'icons/obj/doors/hightechsecurity.dmi'
+	icon_state = "door_closed"
+	color = "#00FFFF"
+	spawn_nothing_percentage = 0
+	result = list(
+	/obj/machinery/door/airlock/hatch/syndicate/vault = 2,
+	/turf/simulated/wall/r_wall = 1,
+	/obj/structure/falsewall/reinforced = 1
+	)
+
 
 /obj/effect/spawner/random_spawners/syndicate/layout/spacepod
 	name = "50pc loot spacepod"

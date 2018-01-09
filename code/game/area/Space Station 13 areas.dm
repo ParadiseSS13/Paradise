@@ -594,9 +594,9 @@ var/list/ghostteleportlocs = list()
 
 /area/syndicate_depot/proc/increase_alert(var/reason)
 	if(on_peaceful)
-		peaceful_mode(FALSE)
+		peaceful_mode(FALSE, FALSE)
 		peace_betrayed = TRUE
-		activate_self_destruct("Depot has been infiltrated by double-agents.", FALSE, null)
+		activate_self_destruct("Depot has been infiltrated by double-agents.", TRUE, null)
 		return
 	if(!local_alarm)
 		local_alarm(reason, FALSE)
@@ -620,7 +620,7 @@ var/list/ghostteleportlocs = list()
 	detected_mech = TRUE
 	increase_alert("Hostile mecha detected.")
 
-/area/syndicate_depot/proc/peaceful_mode(var/newvalue)
+/area/syndicate_depot/proc/peaceful_mode(var/newvalue, var/bycomputer)
 	if(newvalue)
 		for(var/mob/living/simple_animal/bot/medbot/syndicate/B in src)
 			qdel(B)
@@ -634,19 +634,34 @@ var/list/ghostteleportlocs = list()
 		for(var/obj/machinery/computer/syndicate_depot/teleporter/P in src)
 			if(!P.portal_enabled)
 				P.toggle_portal()
+		for(var/obj/machinery/door/airlock/hatch/syndicate/vault/V in src)
+			if(!V.density)
+				V.close()
+			V.emergency = 0
+			if(!V.locked)
+				V.locked = !V.locked
+			V.update_icon()
 	else
 		for(var/obj/machinery/door/airlock/A in src)
 			A.req_access_txt = "[access_syndicate_leader]"
+		for(var/obj/structure/closet/secure_closet/syndicate/depot/L in src)
+			if(L.locked)
+				L.locked = !L.locked
+			L.req_access = list()
+			L.update_icon()
 	on_peaceful = newvalue
 	if(newvalue)
 		announce_here("Depot Code WHITE","Depot access granted to visitors. Defenses deactivated. Any attempt to steal depot supplies will result in revocation of access and summary execution!")
 	else
 		announce_here("Depot Alert","Depot access revoked. Defenses active! Shoot all visitors on sight.")
-		message_admins("Syndicate Depot has been robbed by Syndicate agents! Involved parties:")
+		if(bycomputer)
+			message_admins("Syndicate Depot visitor mode deactivated. Visitors:")
+		else
+			message_admins("Syndicate Depot visitor mode auto-deactivated because visitors robbed depot! Visitors:")
 		for(var/mob/M in peaceful_visitors)
 			if("syndicate" in M.faction)
 				M.faction -= "syndicate"
-				message_admins("- SYNDI DEPOT ROBBER: [ADMIN_FULLMONTY(M)]")
+				message_admins("- SYNDI DEPOT VISITOR: [ADMIN_FULLMONTY(M)]")
 		peaceful_visitors = list()
 	updateicon()
 

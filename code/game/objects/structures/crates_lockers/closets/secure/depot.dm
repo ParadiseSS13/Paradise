@@ -2,9 +2,15 @@
 /obj/structure/closet/secure_closet/syndicate/depot
 	name = "depot supply closet"
 	desc = ""
+	locked = 0
 	anchored = 1
 	health = 200
 	req_access = list()
+
+
+/obj/structure/closet/secure_closet/syndicate/depot/New()
+	. = ..()
+	update_icon()
 
 /obj/structure/closet/secure_closet/syndicate/depot/emag_act()
 	. = ..()
