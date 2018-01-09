@@ -27,7 +27,7 @@
 	see_in_dark = 8
 	mob_size = MOB_SIZE_LARGE
 	ventcrawler = 0
-	loot = list()
+	gold_core_spawnable = CHEM_MOB_SPAWN_INVALID
 
 
 
