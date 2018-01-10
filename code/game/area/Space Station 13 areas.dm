@@ -614,6 +614,11 @@ var/list/ghostteleportlocs = list()
 	if(on_peaceful)
 		increase_alert("Thieves!")
 
+/area/syndicate_depot/proc/turret_died()
+	something_looted = TRUE
+	if(on_peaceful)
+		increase_alert("Vandals!")
+
 /area/syndicate_depot/proc/saw_mech()
 	if(detected_mech)
 		return

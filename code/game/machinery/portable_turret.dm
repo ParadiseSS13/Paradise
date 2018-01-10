@@ -983,6 +983,10 @@ var/list/turret_icons
 /obj/machinery/porta_turret/syndicate
 	projectile = /obj/item/projectile/bullet
 	eprojectile = /obj/item/projectile/bullet
+	// Syndicate turrets *always* operate in lethal mode.
+	// So, nothing, not even emagging them, makes them switch bullet type.
+	// So, its best to always have their projectile and eprojectile settings be the same. That way, you know what they will shoot.
+	// Otherwise, you end up with situations where one of the two bullet types will never be used.
 	shot_sound = 'sound/weapons/Gunshot.ogg'
 	eshot_sound = 'sound/weapons/Gunshot.ogg'
 
@@ -1010,6 +1014,12 @@ var/list/turret_icons
 	check_anomalies = 1
 	check_synth	= 1
 	ailock = 1
+
+/obj/machinery/porta_turret/syndicate/die()
+	. = ..()
+	var/area/syndicate_depot/depotarea = areaMaster
+	if(depotarea)
+		depotarea.turret_died()
 
 /obj/machinery/porta_turret/syndicate/New()
 	..()
@@ -1047,17 +1057,17 @@ var/list/turret_icons
 	name = "machine gun turret (7.62)"
 	desc = "Syndicate exterior defense turret chambered for 7.62 rounds. Designed to down intruders with heavy calliber bullets."
 	projectile = /obj/item/projectile/bullet
-	eprojectile = /obj/item/projectile/bullet/midbullet
+	eprojectile = /obj/item/projectile/bullet
 
 /obj/machinery/porta_turret/syndicate/grenade
 	name = "mounted grenade launcher (40mm)"
 	desc = "Syndicate 40mm grenade launcher defense turret. If you've had this much time to look at it, you're probably already dead."
 	projectile = /obj/item/projectile/bullet/a40mm
-	eprojectile = /obj/item/projectile/bullet/midbullet
+	eprojectile = /obj/item/projectile/bullet/a40mm
 
 /obj/machinery/porta_turret/syndicate/assault_pod
 	name = "machine gun turret (4.6x30mm)"
 	desc = "Syndicate exterior defense turret chambered for 4.6x30mm rounds. Designed to be fitted to assault pods, it uses low calliber bullets to save space."
 	health = 100
 	projectile = /obj/item/projectile/bullet/weakbullet3
-	eprojectile = /obj/item/projectile/bullet/midbullet
+	eprojectile = /obj/item/projectile/bullet/weakbullet3
