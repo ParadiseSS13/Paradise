@@ -2,6 +2,13 @@
 /mob/living/Destroy()
 	if(ranged_ability)
 		ranged_ability.remove_ranged_ability(src)
+	if(LAZYLEN(status_effects))
+		for(var/s in status_effects)
+			var/datum/status_effect/S = s
+			if(S.on_remove_on_mob_delete) //the status effect calls on_remove when its mob is deleted
+				qdel(S)
+			else
+				S.be_replaced()
 	return ..()
 
 /mob/living/ghostize(can_reenter_corpse = 1)

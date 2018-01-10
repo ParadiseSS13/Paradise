@@ -840,14 +840,13 @@
 		if("highfive")
 			if(restrained())
 				return
-			if(EFFECT_HIGHFIVE in active_effect)
-				to_chat(src, "You give up on the high-five.")
-				active_effect -= EFFECT_HIGHFIVE
-				return
-			active_effect |= EFFECT_HIGHFIVE
-			for(var/mob/living/carbon/C in orange(1))
-				if(EFFECT_HIGHFIVE in C.active_effect)
-					if((C.mind.special_role == SPECIAL_ROLE_WIZARD) && (mind.special_role == SPECIAL_ROLE_WIZARD))
+			visible_message("<b>[name]</b> requests a highfive.", "You request a highfive.")
+			if(!has_status_effect(STATUS_EFFECT_HIGHFIVE))
+				apply_status_effect(STATUS_EFFECT_HIGHFIVE)
+
+			if(has_status_effect(STATUS_EFFECT_HIGHFIVE))
+				for(var/mob/living/carbon/C in orange(1))
+					if((mind.special_role == SPECIAL_ROLE_WIZARD) && (C.mind && (C.mind.special_role == SPECIAL_ROLE_WIZARD)))
 						visible_message("<span class='danger'><b>[name]</b> and <b>[C.name]</b> high-five EPICALLY!</span>")
 						status_flags |= GODMODE
 						C.status_flags |= GODMODE
@@ -855,16 +854,9 @@
 						status_flags &= ~GODMODE
 						C.status_flags &= ~GODMODE
 						break
-				visible_message("<b>[name]</b> and <b>[C.name]</b> high-five!")
-				C.active_effect -= EFFECT_HIGHFIVE
-				active_effect -= EFFECT_HIGHFIVE
-				playsound('sound/effects/snap.ogg', 50)
-				break
-			if(EFFECT_HIGHFIVE in active_effect)
-				visible_message("<b>[name]</b> requests a highfive.", "You request a highfive.")
-				if(do_after(src, 25, target = src))
-					visible_message("[name] was left hanging. Embarrassing.", "You are left hanging. How embarrassing!")
-					active_effect -= EFFECT_HIGHFIVE
+					visible_message("<b>[name]</b> and <b>[C.name]</b> high-five!")
+					playsound('sound/effects/snap.ogg', 50)
+					break
 
 		if("help")
 			var/emotelist = "aflap(s), airguitar, blink(s), blink(s)_r, blush(es), bow(s)-(none)/mob, burp(s), choke(s), chuckle(s), clap(s), collapse(s), cough(s),cry, cries, custom, dance, dap(s)(none)/mob," \

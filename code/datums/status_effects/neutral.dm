@@ -1,0 +1,6 @@
+//entirely neutral or internal status effects go here
+
+/datum/status_effect/high_five
+	id = "high_five"
+	duration = 25
+	alert_type = null

@@ -64,3 +64,6 @@
 
 	var/list/recent_tastes = list()
 	var/blood_volume = 0 //how much blood the mob has
+
+	var/list/status_effects //a list of all status effects the mob has
+
