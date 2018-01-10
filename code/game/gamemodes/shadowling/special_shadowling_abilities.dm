@@ -9,6 +9,7 @@ var/list/possibleShadowlingNames = list("U'ruan", "Y`shej", "Nex", "Hel-uae", "N
 	range = -1
 	include_user = 1
 	action_icon_state = "hatch"
+	var/cycles_unused = 0
 
 /obj/effect/proc_holder/spell/targeted/shadowling_hatch/cast(list/targets, mob/user = usr)
 	if(user.stat || !ishuman(user) || !user || !is_shadow(user || isinspace(user)))
