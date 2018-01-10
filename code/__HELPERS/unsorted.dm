@@ -1923,3 +1923,10 @@ var/mob/dview/dview_mob = new
 			shift = list("x" = -amount_x, "y" = -amount_y)
 
 	return shift
+
+//Return a list of atoms in a location of a given type. Can be refined to look for pixel-shift.
+/proc/get_atoms_of_type_here(var/atom/here, var/type, var/p_x = 0, var/p_y = 0)
+	. = list()
+	for(var/atom/thing in here)
+		if(istype(thing, type) && (p_x && thing.pixel_x == p_x) && (p_y && thing.pixel_y == p_y))
+			. += thing
