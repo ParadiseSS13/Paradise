@@ -261,9 +261,9 @@
 
 	// Find a blood decal or create a new one.
 	var/obj/effect/decal/cleanable/blood/splatter/B = locate() in T
-	var/list/bloods = get_atoms_of_type_here(T, B, 0, 0) //Get all the non-projectile-splattered blood on this turf.
+	var/list/bloods = get_atoms_of_type(T, B, TRUE, 0, 0) //Get all the non-projectile-splattered blood on this turf (not pixel-shifted).
 	if(shift_x || shift_y)
-		bloods = get_atoms_of_type_here(T, B, shift_x, shift_y) //Get all the projectile-splattered blood at these pixels on this turf.
+		bloods = get_atoms_of_type(T, B, TRUE, shift_x, shift_y) //Get all the projectile-splattered blood at these pixels on this turf (pixel-shifted).
 		B = locate() in bloods
 	if(!B)
 		B = new(T)
@@ -287,9 +287,9 @@
 		T = get_turf(src)
 
 	var/obj/effect/decal/cleanable/blood/xeno/splatter/B = locate() in T
-	var/list/bloods = get_atoms_of_type_here(T, B, 0, 0) //The more the better.
+	var/list/bloods = get_atoms_of_type(T, B, TRUE, 0, 0) //The more the better.
 	if(shift_x || shift_y)
-		bloods = get_atoms_of_type_here(T, B, shift_x, shift_y)
+		bloods = get_atoms_of_type(T, B, TRUE, shift_x, shift_y)
 		B = locate() in bloods
 	if(!B)
 		B = new(T)
@@ -306,9 +306,9 @@
 		T = get_turf(src)
 
 	var/obj/effect/decal/cleanable/blood/oil/streak/O = locate() in T
-	var/list/oils = get_atoms_of_type_here(T, O, 0, 0) //Don't let OSHA catch wind of this.
+	var/list/oils = get_atoms_of_type(T, O, TRUE, 0, 0) //Don't let OSHA catch wind of this.
 	if(shift_x || shift_y)
-		oils = get_atoms_of_type_here(T, O, shift_x, shift_y)
+		oils = get_atoms_of_type(T, O, TRUE, shift_x, shift_y)
 		O = locate() in oils
 	if(!O)
 		O = new(T)
