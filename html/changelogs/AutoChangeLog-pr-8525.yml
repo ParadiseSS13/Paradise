@@ -1,4 +1,0 @@
-author: "Kyep"
-delete-after: True
-changes: 
-  - bugfix: "Department management (aka: demotion) consoles only worked for their respective head of staff. Captains, CC characters, etc could not use them."

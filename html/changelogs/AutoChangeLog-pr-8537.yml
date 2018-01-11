@@ -1,4 +1,0 @@
-author: "Kyep"
-delete-after: True
-changes: 
-  - bugfix: "Fixed two brown wooden doors in wizard academy away mission which had space turfs under them, leading to nasty results with fastmos."
