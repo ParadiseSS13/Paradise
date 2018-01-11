@@ -502,11 +502,11 @@
 
 	if(shuttle_master.cancelEvac(user))
 		log_game("[key_name(user)] has recalled the shuttle.")
-		message_admins("[key_name_admin(user)] has recalled the shuttle - [formatJumpTo(user)].", 1)
+		message_admins("[key_name_admin(user)] has recalled the shuttle - [ADMIN_FLW(user)].", 1)
 	else
-		to_chat(user, "The shuttle can not be recalled! Central Orders!")
+		to_chat(user, "<span class='warning'>The shuttle can not be recalled! Central Orders!</span>")
 		log_game("[key_name(user)] has tried and failed to recall the shuttle.")
-		message_admins("[key_name_admin(user)] has tried and failed to recall the shuttle - [formatJumpTo(user)].", 1)
+		message_admins("[key_name_admin(user)] has tried and failed to recall the shuttle - [ADMIN_FLW(user)].", 1)
 
 /proc/post_status(command, data1, data2, mob/user = null)
 
