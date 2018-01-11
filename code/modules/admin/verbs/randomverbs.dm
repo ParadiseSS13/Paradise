@@ -762,6 +762,11 @@ Traitors and the like can also be revived with the previous role mostly intact.
 
 	var/confirm = alert(src, "You sure?", "Confirm", "Yes", "No")
 	if(confirm != "Yes") return
+	switch(alert(src, "Can the crew recall?", "Recallable?", "Yes", "No"))
+		if("Yes")
+			shuttle_master.emergency.canRecall = TRUE
+		else
+			shuttle_master.emergency.canRecall = FALSE
 
 	shuttle_master.emergency.request()
 
@@ -781,7 +786,9 @@ Traitors and the like can also be revived with the previous role mostly intact.
 	if(shuttle_master.emergency.mode >= SHUTTLE_DOCKED)
 		return
 
+	shuttle_master.emergency.canRecall = TRUE // Resets incase the admin recalls a round ender for some reason.
 	shuttle_master.emergency.cancel()
+
 	feedback_add_details("admin_verb","CCSHUT") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 	log_admin("[key_name(usr)] admin-recalled the emergency shuttle.")
 	message_admins("<span class='adminnotice'>[key_name_admin(usr)] admin-recalled the emergency shuttle.</span>")
