@@ -115,6 +115,10 @@
 	item_state = "syndballoon"
 	w_class = WEIGHT_CLASS_BULKY
 
+/obj/item/toy/syndicateballoon/attack_self(mob/user)
+	var/playverb = pick("bat [src]", "tug on [src]'s string", "play with [src]")
+	user.visible_message("<span class = 'notice'>[user] plays with [src].</span>", "<span class = 'notice'>You [playverb].</span>")
+
 /*
  * Fake telebeacon
  */
