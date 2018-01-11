@@ -1621,6 +1621,7 @@
 #include "code\modules\mob\living\carbon\human\species\skeleton.dm"
 #include "code\modules\mob\living\carbon\human\species\species.dm"
 #include "code\modules\mob\living\carbon\human\species\station.dm"
+#include "code\modules\mob\living\carbon\human\species\voxarmalis.dm"
 #include "code\modules\mob\living\carbon\slime\death.dm"
 #include "code\modules\mob\living\carbon\slime\emote.dm"
 #include "code\modules\mob\living\carbon\slime\examine.dm"

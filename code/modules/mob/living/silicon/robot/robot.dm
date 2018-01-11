@@ -348,6 +348,7 @@ var/list/robot_verbs_default = list(
 			module_sprites["Bloodhound"] = "bloodhound"
 			module_sprites["Standard"] = "robotSecy"
 			module_sprites["Noble-SEC"] = "Noble-SEC"
+			to_chat(src, "<span class='warning'><big><b>Regardless of your module, your wishes, or the needs of the beings around you, absolutely nothing takes higher priority than following your silicon lawset.</b></big></span>")
 			status_flags &= ~CANPUSH
 
 		if("Engineering")
