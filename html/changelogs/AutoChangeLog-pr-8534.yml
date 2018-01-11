@@ -1,0 +1,4 @@
+author: "uraniummeltdown"
+delete-after: True
+changes: 
+  - bugfix: "Freezers and other atmos machines will drop frame and parts correctly again"
