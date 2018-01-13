@@ -565,7 +565,5 @@ It'll return null if the organ doesn't correspond, so include null checks when u
 		H.see_invisible = H.see_override
 
 /datum/species/proc/water_act(mob/living/carbon/human/M, volume, temperature, source)
-	if(temperature >= 330)
-		M.bodytemperature = M.bodytemperature + (temperature - M.bodytemperature)
-	if(temperature <= 280)
-		M.bodytemperature = M.bodytemperature - (M.bodytemperature - temperature)
+	if(abs(temperature - M.bodytemperature) > 10) //If our water and mob temperature varies by more than 10K, cool or/ heat them appropriately
+		M.bodytemperature = (temperature + M.bodytemperature) * 0.5 //Approximation for gradual heating or cooling

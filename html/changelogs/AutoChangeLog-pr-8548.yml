@@ -1,0 +1,5 @@
+author: "Citinited"
+delete-after: True
+changes: 
+  - bugfix: "The ocean and the pool are no longer colder than outer space."
+  - tweak: "Water now cools or heats you gradually, not all at once."
