@@ -120,7 +120,7 @@
 	if(world.time - lastused < CLICK_CD_MELEE)
 		return
 	var/playverb = pick("bat [src]", "tug on [src]'s string", "play with [src]")
-	user.visible_message("<span class = 'notice'>[user] plays with [src].</span>", "<span class = 'notice'>You [playverb].</span>")
+	user.visible_message("<span class='notice'>[user] plays with [src].</span>", "<span class='notice'>You [playverb].</span>")
 	lastused = world.time
 
 /*
