@@ -1246,3 +1246,19 @@
 	icon_state = "sheetcosmos"
 	item_state = "sheetcosmos"
 	item_color = "sheetcosmos"
+
+
+/obj/item/clothing/head/fluff/lfbowler //Lightfire: Hyperion
+	name = "Classy bowler hat"
+	desc = "a very classy looking bowler hat"
+	icon = 'icons/obj/custom_items.dmi'
+	icon_state = "bowler_lightfire"
+
+/obj/item/clothing/under/fluff/lfvicsuit //Lightfire: Hyperion
+	name = "Classy victorian suit"
+	desc = "A blue and black victorian suit with silver buttons, very fancy!"
+	icon = 'icons/obj/custom_items.dmi'
+	icon_state = "victorianlightfire"
+	item_state = "victorianvest"
+	item_color = "victorianlightfire"
+	displays_id = FALSE
