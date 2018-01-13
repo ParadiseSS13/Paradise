@@ -1,5 +1,0 @@
-author: "Kyep"
-delete-after: True
-changes: 
-  - tweak: "Refactored Paranormal/Janitor dress code, and Cyborg ERT spawn code."
-  - rscadd: "Signing up for ERT, then going AFK, such that your AFKness prevents you and/or others spawning as ERT within a reasonable (2 minute) period of time, now generates a warning to online admins."
