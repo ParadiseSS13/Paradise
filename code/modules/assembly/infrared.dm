@@ -26,7 +26,7 @@
 	return ..()
 
 /obj/item/device/assembly/infra/describe()
-	return "The assembly is [secured?"secure":"not secure"]. The infrared trigger is [on?"on":"off"]."
+	return "The assembly is [secured ? "secure" : "not secure"]. The infrared trigger is [on ? "on" : "off"]."
 
 /obj/item/device/assembly/infra/examine(mob/user)
 	..()
@@ -52,11 +52,11 @@
 
 /obj/item/device/assembly/infra/New()
 	..()
-	if (!secured)
+	if(!secured)
 		toggle_secure()
 
 /obj/item/device/assembly/infra/proc/arm() // Forces the device to arm no matter its current state.
-	if (!secured) // Checked because arm() might be called sometime after the object is spawned.
+	if(!secured) // Checked because arm() might be called sometime after the object is spawned.
 		toggle_secure()
 	on = 1
 
