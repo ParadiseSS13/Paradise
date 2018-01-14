@@ -787,11 +787,14 @@ Traitors and the like can also be revived with the previous role mostly intact.
 		return
 
 	if(shuttle_master.emergency.canRecall == FALSE)
-		if(alert("Shuttle is currently set to be nonrecallable. Normally this happens due to round ending events. Respect Recall Status?", "Override Recall Status?", "Yes", "No") == "Yes")
-			shuttle_master.emergency.canRecall = TRUE // Resets incase the admin recalls a round ender for some reason.
-			shuttle_master.emergency.cancel()
-		else
+		if(alert("Shuttle is currently set to be nonrecallable. Recalling may break things. Respect Recall Status?", "Override Recall Status?", "Yes", "No") == "Yes")
 			return
+		else
+			var/keepStatus = alert("Maintain recall status on future shuttle calls?", "Maintain Status?", "Yes", "No") == "Yes" //Keeps or drops recallability
+			shuttle_master.emergency.canRecall = TRUE // must be true for cancel proc to work
+			shuttle_master.emergency.cancel()
+			if(keepStatus)
+				shuttle_master.emergency.canRecall = FALSE // restores original status
 	else
 		shuttle_master.emergency.cancel()
 
