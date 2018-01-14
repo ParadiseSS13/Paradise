@@ -9,6 +9,7 @@
 	hitsound = 'sound/weapons/blade1.ogg' // Probably more appropriate than the previous hitsound. -- Dave
 	usesound = 'sound/weapons/blade1.ogg'
 	toolspeed = 1
+	var/colormap[0]
 
 /obj/item/weapon/melee/energy/suicide_act(mob/user)
 	user.visible_message(pick("<span class='suicide'>[user] is slitting \his stomach open with the [src.name]! It looks like \he's trying to commit seppuku.</span>", \
@@ -31,6 +32,7 @@
 			icon_state = icon_state_on
 		else
 			icon_state = "sword[item_color]"
+			set_light(2, 2, colormap[item_color])
 		w_class = w_class_on
 		playsound(user, 'sound/weapons/saberon.ogg', 35, 1) //changed it from 50% volume to 35% because deafness
 		to_chat(user, "<span class='notice'>[src] is now active.</span>")
@@ -44,6 +46,7 @@
 		icon_state = initial(icon_state)
 		w_class = initial(w_class)
 		playsound(user, 'sound/weapons/saberoff.ogg', 35, 1)  //changed it from 50% volume to 35% because deafness
+		set_light(0)
 		to_chat(user, "<span class='notice'>[src] can now be concealed.</span>")
 	if(istype(user,/mob/living/carbon/human))
 		var/mob/living/carbon/human/H = user
@@ -97,6 +100,11 @@
 /obj/item/weapon/melee/energy/sword/New()
 	if(item_color == null)
 		item_color = pick("red", "blue", "green", "purple")
+	colormap["red"] = LIGHT_COLOR_RED
+	colormap["blue"] = LIGHT_COLOR_LIGHTBLUE
+	colormap["green"] = LIGHT_COLOR_GREEN
+	colormap["purple"] = LIGHT_COLOR_PURPLE
+	colormap["rainbow"] = LIGHT_COLOR_WHITE
 
 /obj/item/weapon/melee/energy/sword/hit_reaction(mob/living/carbon/human/owner, attack_text, final_block_chance)
 	if(active)
