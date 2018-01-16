@@ -84,9 +84,10 @@
 				walk_to(src,0)
 				back_to_idle()
 			if(target)
-				if(target.stat == DEAD)
-					back_to_idle()
-					return
+				if(isliving(target))
+					if(target.stat == DEAD)
+						back_to_idle()
+						return
 				shootAt(target)
 				var/turf/olddist = get_dist(src, target)
 				walk_to(src, target,1,4)
@@ -120,6 +121,21 @@
 			continue
 		target = M
 		oldtarget_name = M.name
+		mode = BOT_HUNT
+		spawn(0)
+			handle_automated_action()
+		break
+	for(var/obj/spacepod/P in view(7, src))
+		if((P.name == oldtarget_name) && (world.time < last_found + 100))
+			continue
+		if(!P.pilot)
+			continue
+		if("syndicate" in P.pilot.faction)
+			continue
+		if(P.pilot.stat == DEAD)
+			continue
+		target = P
+		oldtarget_name = P.name
 		mode = BOT_HUNT
 		spawn(0)
 			handle_automated_action()

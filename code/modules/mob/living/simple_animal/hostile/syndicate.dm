@@ -120,6 +120,9 @@
 /mob/living/simple_animal/hostile/syndicate/melee/space/Process_Spacemove(var/movement_dir = 0)
 	return
 
+/mob/living/simple_animal/hostile/syndicate/melee/space/autogib
+	loot = list(/obj/effect/landmark/mobcorpse/syndicateautogib)
+
 /mob/living/simple_animal/hostile/syndicate/ranged
 	ranged = 1
 	rapid = 1

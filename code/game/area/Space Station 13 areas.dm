@@ -703,7 +703,7 @@ var/list/ghostteleportlocs = list()
 	spawn(0)
 		for(var/obj/effect/landmark/L in landmarks_list)
 			if(L.name == "syndi_depot_backup")
-				var/mob/living/simple_animal/hostile/syndicate/ranged/space/autogib/S = new /mob/living/simple_animal/hostile/syndicate/ranged/space/autogib(get_turf(L))
+				var/mob/living/simple_animal/hostile/syndicate/melee/space/autogib/S = new /mob/living/simple_animal/hostile/syndicate/melee/space/autogib(get_turf(L))
 				S.name = "Syndicate Backup"
 	updateicon()
 
