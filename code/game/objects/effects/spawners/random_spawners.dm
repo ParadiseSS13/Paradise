@@ -108,3 +108,22 @@
 	result = list(
 	/turf/simulated/wall = 1,
 	/obj/effect/decal/cleanable/fungus = 7)
+
+	//Medbay Cloning Spawners
+/obj/effect/spawner/random_spawners/medbay_cloning_console
+	name = "Cloning Console"
+	result = list(
+	/obj/effect/decal/warning_stripes/blue/hollow = 50,
+	/obj/machinery/computer/cloning = 50)
+
+/obj/effect/spawner/random_spawners/medbay_cloning_pod
+	name = "Cloning Pod"
+	result = list(
+	/obj/effect/decal/warning_stripes/blue/hollow = 75,
+	/obj/machinery/clonepod/biomass = 25)
+
+/obj/effect/spawner/random_spawners/medbay_cloning_scanner
+	name = "Cloning Scanner"
+	result = list(
+	/obj/effect/decal/warning_stripes/blue/hollow = 75,
+	/obj/machinery/dna_scannernew = 25)
