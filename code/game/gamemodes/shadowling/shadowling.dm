@@ -209,7 +209,7 @@ Made by Xhuis
 		if(shadow.special_role == SPECIAL_ROLE_SHADOWLING && config.shadowling_max_age)
 			if(ishuman(shadow.current))
 				var/mob/living/carbon/human/H = shadow.current
-				if(!istype(H.species, /datum/species/shadow))
+				if(H.get_species() != "Shadow")
 					for(var/obj/effect/proc_holder/spell/targeted/shadowling_hatch/hatch_ability in shadow.spell_list)
 						hatch_ability.cycles_unused++
 						if(!H.stunned && prob(20) && hatch_ability.cycles_unused > config.shadowling_max_age)
