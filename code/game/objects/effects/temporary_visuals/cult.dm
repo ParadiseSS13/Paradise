@@ -1,6 +1,6 @@
 //temporary visual effects(/obj/effect/overlay/temp) used by cult stuff
 /obj/effect/overlay/temp/cult
-	icon = 'icons/effects/effects.dmi'
+	icon = 'icons/effects/cult_effects.dmi'
 	randomdir = FALSE
 	duration = 10
 
@@ -12,6 +12,7 @@
 /obj/effect/overlay/temp/dir_setting/cult/phase
 	name = "phase glow"
 	duration = 7
+	icon = 'icons/effects/cult_effects.dmi'
 	icon_state = "cultin"
 
 /obj/effect/overlay/temp/dir_setting/cult/phase/out

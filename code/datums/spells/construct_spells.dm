@@ -94,7 +94,7 @@
 /obj/effect/forcefield/cult
 	desc = "That eerie looking obstacle seems to have been pulled from another dimension through sheer force"
 	name = "eldritch wall"
-	icon = 'icons/effects/effects.dmi'
+	icon = 'icons/effects/cult_effects.dmi'
 	icon_state = "m_shield_cult"
 	light_color = LIGHT_COLOR_PURE_RED
 
