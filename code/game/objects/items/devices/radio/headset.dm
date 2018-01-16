@@ -114,6 +114,14 @@
 	icon_state = "sec_headset_alt"
 	item_state = "sec_headset_alt"
 
+/obj/item/device/radio/headset/headset_iaa
+	name = "IAA radio headset"
+	desc = "This is used by internal affairs agents. Protects ears from flashbangs."
+	flags = EARBANGPROTECT
+	icon_state = "sec_headset_alt"
+	item_state = "sec_headset_alt"
+	ks2type = /obj/item/device/encryptionkey/headset_iaa
+
 /obj/item/device/radio/headset/headset_eng
 	name = "engineering radio headset"
 	desc = "When the engineers wish to chat like girls."
