@@ -871,19 +871,40 @@ $(function() {
 		setCookie('pingdisabled', (opts.pingDisabled ? 'true' : 'false'), 365);
 	});
 
-	$('#saveLog').click(function(e) {
-		var openWindow = function (content) { //opens a window
-			var win;
-			try {
-				win = window.open('', 'RAW Chat Log', 'toolbar=no, location=no, directories=no, status=no, menubar=yes, scrollbars=yes, resizable=yes, width=1200, height=800, top='+(screen.height-400)+', left='+(screen.width-840));
-			} catch (e) {
-				return;
+	$('#saveLog').click(function(e) {	//note that this will only work in browsers supporting CORS (IE 8+ and literally every alternative)
+		var makeHaste = function(txt) { //creates a haste and returns the url
+			if (window.XMLHttpRequest) {
+				hasteRequest = new XMLHttpRequest();
+			} else {
+				hasteRequest = new ActiveXObject("Microsoft.XMLHTTP");
 			}
-			if (win && win.document && window.document.body) {
-				win.document.body.innerHTML = content;
-				return win;
-			}
-		};
+			hasteRequest.open('POST', 'http://localhost:7777/documents', true);
+			hasteRequest.onerror = function () {
+				internalOutput('Error in CORS request.');
+			};
+			hasteRequest.onreadystatechange = function() {
+				if(hasteRequest.readyState == XMLHttpRequest.DONE) {
+					if(hasteRequest.responseText != '') {
+						var data = JSON.parse(hasteRequest.responseText);	
+						if(data.key) {
+							var d = new Date();
+							var timestamp = d.getFullYear()+'-'+(d.getMonth()+1)+'-'+d.getDate()+' '+
+											d.getHours()+':'+d.getMinutes()+':'+d.getSeconds();
+					
+							internalOutput('Chat log generated. Please click the link below to view the raw data.');
+							internalOutput('To save your log: Open it, right click anywhere on the page, then select Save As.<br> \
+											For best results, save the file as [name].html then open it in any browser.');
+							internalOutput('<a href="http://localhost:7777/raw/'+data.key+'">Chat Log: '+timestamp+'</a>');
+						} else {
+							internalOutput('Error in CORS Response, no key provided Response: '+JSON.stringify(hasteRequest.responseText));
+						}
+					} else {
+						internalOutput('Error in CORS Response, null sting recieved')
+					}
+				}
+			};
+			hasteRequest.send(txt);
+		}
 
 		if (window.XMLHttpRequest) {
 			xmlHttp = new XMLHttpRequest();
@@ -893,36 +914,30 @@ $(function() {
 		
 		// synchronous requests are depricated in modern browsers
 		xmlHttp.open('GET', 'browserOutput.css', true);			
-		xmlHttp.onload = function (e) {
-			if (xmlHttp.status === 200) {	// request successful
-				
+		xmlHttp.onload = function () {
+			if (xmlHttp.status == 200) {	// request successful
 				// Generate Log
 				var saved = '<style>'+xmlHttp.responseText+'</style>';
 				saved += $messages.html();
-				saved = saved.replace(/&/g, '&amp;');
-				saved = saved.replace(/</g, '&lt;');
 				
-				// Generate final output and open the window
-				var finalText = '<head><title>Chat Log</title></head> \
-					<iframe src="saveInstructions.html" id="instructions" style="border:none;" height="220" width="100%"></iframe>'+
-					saved
-				openWindow(finalText);
+				//Tell the user something is happening
+				internalOutput('Generating Chat Log, Note that size can affect prep time.');
+				
+				// Generate final output and send off to hastebin
+				var finalText = '<head><title>Chat Log</title></head>' + saved
+				makeHaste(finalText);
 			} else {						// request returned http error
-				openWindow('Style Doc Retrieve Error: '+xmlHttp.statusText);
+					internalOutput('Style Doc Retrieve Error: '+xmlHttp.statusText);
 			}
 		}
 		
-		// timeout and request errors
-		xmlHttp.timeout = 300;
-		xmlHttp.ontimeout = function (e) {
-			openWindow('XMLHttpRequest Timeout');
-		}
-		xmlHttp.onerror = function (e) {
-			openWindow('XMLHttpRequest Error: '+xmlHttp.statusText);
+		// Request error handler
+		xmlHttp.onerror = function () {
+			internalOutput('XMLHttpRequest Error: '+xmlHttp.statusText);
 		}
 		// css needs special headers
 		xmlHttp.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
-		xmlHttp.send(null);
+		xmlHttp.send(null);	
 	});
 
 	$('#highlightTerm').click(function(e) {
