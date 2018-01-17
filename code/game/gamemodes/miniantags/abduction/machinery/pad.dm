@@ -15,15 +15,13 @@
 	flick("alien-pad", src)
 	for(var/mob/living/target in loc)
 		target.forceMove(teleport_target)
-		spawn(0)
-			anim(target.loc,target,'icons/mob/mob.dmi',,"uncloak",,target.dir)
+		new /obj/effect/overlay/temp/dir_setting/ninja(get_turf(target), target.dir)
 		to_chat(target, "<span class='warning'>The instability of the warp leaves you disoriented!</span>")
 		target.Stun(3)
 
 /obj/machinery/abductor/pad/proc/Retrieve(mob/living/target)
 	flick("alien-pad", src)
-	spawn(0)
-		anim(target.loc,target,'icons/mob/mob.dmi',,"uncloak",,target.dir)
+	new /obj/effect/overlay/temp/dir_setting/ninja(get_turf(target), target.dir)
 	Warp(target)
 
 /obj/machinery/abductor/pad/proc/MobToLoc(place,mob/living/target)
@@ -31,7 +29,7 @@
 	sleep(80)
 	flick("alien-pad", src)
 	target.forceMove(place)
-	anim(target.loc,target,'icons/mob/mob.dmi',,"uncloak",,target.dir)
+	new /obj/effect/overlay/temp/dir_setting/ninja(get_turf(target), target.dir)
 
 /obj/machinery/abductor/pad/proc/PadToLoc(place)
 	new/obj/effect/overlay/temp/teleport_abductor(place)
@@ -39,9 +37,7 @@
 	flick("alien-pad", src)
 	for(var/mob/living/target in src.loc)
 		target.forceMove(place)
-		spawn(0)
-			anim(target.loc,target,'icons/mob/mob.dmi',,"uncloak",,target.dir)
-
+		new /obj/effect/overlay/temp/dir_setting/ninja(get_turf(target), target.dir)
 
 /obj/effect/overlay/temp/teleport_abductor
 	name = "Huh"

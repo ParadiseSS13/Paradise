@@ -54,6 +54,57 @@
 	randomdir = FALSE
 	layer = MOB_LAYER - 0.2
 
+/obj/effect/overlay/temp/dir_setting/ninja
+	name = "ninja shadow"
+	icon = 'icons/mob/mob.dmi'
+	icon_state = "uncloak"
+	duration = 9
+
+/obj/effect/overlay/temp/dir_setting/ninja/cloak
+	icon_state = "cloak"
+
+/obj/effect/overlay/temp/dir_setting/ninja/shadow
+	icon_state = "shadow"
+
+/obj/effect/overlay/temp/dir_setting/ninja/phase
+	name = "ninja energy"
+	icon_state = "phasein"
+
+/obj/effect/overlay/temp/dir_setting/ninja/phase/out
+	icon_state = "phaseout"
+
+/obj/effect/overlay/temp/dir_setting/wraith
+	name = "blood"
+	icon = 'icons/mob/mob.dmi'
+	icon_state = "phase_shift2"
+	duration = 12
+
+/obj/effect/overlay/temp/dir_setting/wraith/out
+	icon_state = "phase_shift"
+
+/obj/effect/overlay/temp/wizard
+	name = "water"
+	icon = 'icons/mob/mob.dmi'
+	icon_state = "reappear"
+	duration = 5
+
+/obj/effect/overlay/temp/wizard/out
+	icon_state = "liquify"
+	duration = 12
+
+/obj/effect/overlay/temp/monkeyify
+	icon = 'icons/mob/mob.dmi'
+	icon_state = "h2monkey"
+	duration = 22
+
+/obj/effect/overlay/temp/monkeyify/humanify
+	icon_state = "monkey2h"
+
+/obj/effect/overlay/temp/borgflash
+	icon = 'icons/mob/mob.dmi'
+	icon_state = "blspell"
+	duration = 5
+
 /obj/effect/overlay/temp/guardian
 	randomdir = FALSE
 
@@ -90,6 +141,16 @@
 	name = "glowing cracks"
 	icon_state = "purplecrack"
 	duration = 6
+
+/obj/effect/overlay/temp/gravpush
+	name = "gravity wave"
+	icon_state = "shieldsparkles"
+	duration = 5
+
+/obj/effect/overlay/temp/telekinesis
+	name = "telekinetic force"
+	icon_state = "empdisable"
+	duration = 5
 
 /obj/effect/overlay/temp/emp
 	name = "emp sparks"
@@ -134,3 +195,14 @@
 	icon_state = "explosionfast"
 	duration = 4
 
+/obj/effect/overlay/temp/heart
+	name = "heart"
+	icon = 'icons/mob/animal.dmi'
+	icon_state = "heart"
+	duration = 25
+
+/obj/effect/overlay/temp/heart/New(loc)
+	..()
+	pixel_x = rand(-4,4)
+	pixel_y = rand(-4,4)
+	animate(src, pixel_y = pixel_y + 32, alpha = 0, time = 25)

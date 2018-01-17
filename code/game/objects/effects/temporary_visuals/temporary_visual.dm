@@ -10,8 +10,6 @@
 	if(randomdir)
 		setDir(pick(cardinal))
 
-	flick("[icon_state]", src) //Because we might be pulling it from a pool, flick whatever icon it uses so it starts at the start of the icon's animation.
-
 	QDEL_IN(src, duration)
 
 /obj/effect/overlay/temp/singularity_act()
