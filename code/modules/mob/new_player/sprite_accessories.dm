@@ -2750,3 +2750,48 @@
 	species_allowed = list("Unathi")
 	icon_state = "head_sharp"
 	suffix = "sharp"
+
+
+//Ume hairstyles go hea//
+
+
+/datum/sprite_accessory/hair/amanitashort
+	name = "Amanita Short"
+	icon_state = "hair_short-amanita"
+
+/datum/sprite_accessory/hair/bigbow
+	name = "Big Bow"
+	icon_state = "hair_bigbow"
+
+/datum/sprite_accessory/hair/shortbuns
+	name = "Double Buns"
+	icon_state = "hair_buns"
+
+/datum/sprite_accessory/hair/longbuns
+	name = "Double Buns Long"
+	icon_state = "hair_longbuns"
+
+/datum/sprite_accessory/hair/longbunsalt
+	name = "Double Buns Long alt"
+	icon_state = "hair_longbunsalt"
+
+/datum/sprite_accessory/hair/ombretwin
+	name = "Ombre Twin Tails"
+	icon_state = "hair_ombretwintails"
+
+/datum/sprite_accessory/hair/ombretwinalt
+	name = "Ombrre Twin Tails Alt"
+	icon_state = "hair_ombretwintailsalt"
+
+/datum/sprite_accessory/hair/sailormoon
+	name = "Sailor Spessman"
+	icon_state = "hair_sailor"
+
+/datum/sprite_accessory/hair/twintails
+	name = "Twin Tails"
+	icon_state = "hair_twintails"
+
+/datum/sprite_accessory/hair/sailorslime
+	name = "Sailor Slime"
+	icon_state = "hair_slimetwins"
+	species_allowed = list("Slime People")
