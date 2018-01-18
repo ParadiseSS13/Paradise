@@ -78,6 +78,10 @@
 	new /obj/structure/table/wood(loc)
 	qdel(src)
 
+/obj/structure/table/ratvar_act()
+	new /obj/structure/table/reinforced/brass(loc)
+	qdel(src)
+
 /obj/structure/table/ex_act(severity)
 	switch(severity)
 		if(1)
@@ -477,8 +481,9 @@
 	burn_state = FLAMMABLE
 	burntime = 20
 
-/obj/structure/table/wood/narsie_act()
-	return
+/obj/structure/table/wood/narsie_act(total_override = TRUE)
+	if(!total_override)
+		..()
 
 /obj/structure/table/wood/poker //No specialties, Just a mapping object.
 	name = "gambling table"
@@ -488,8 +493,7 @@
 	buildstack = /obj/item/stack/tile/carpet
 
 /obj/structure/table/wood/poker/narsie_act()
-	new /obj/structure/table/wood(loc)
-	qdel(src)
+	..(FALSE)
 
 /*
  * Fancy Tables
@@ -564,6 +568,29 @@
 					deconstruction_ready = TRUE
 	else
 		. = ..()
+
+/obj/structure/table/reinforced/brass
+	name = "brass table"
+	desc = "A solid, slightly beveled brass table."
+	icon = 'icons/obj/smooth_structures/brass_table.dmi'
+	icon_state = "brass_table"
+	burn_state = FIRE_PROOF
+	frame = /obj/structure/table_frame/brass
+	framestack = /obj/item/stack/tile/brass
+	buildstack = /obj/item/stack/tile/brass
+	framestackamount = 1
+	buildstackamount = 1
+	canSmoothWith = list(/obj/structure/table/reinforced/brass)
+
+/obj/structure/table/reinforced/brass/narsie_act()
+	take_damage(rand(15, 45), BRUTE)
+	if(src) //do we still exist?
+		var/previouscolor = color
+		color = "#960000"
+		animate(src, color = previouscolor, time = 8)
+
+/obj/structure/table/reinforced/brass/ratvar_act()
+	obj_integrity = max_integrity
 
 /*
  * Racks

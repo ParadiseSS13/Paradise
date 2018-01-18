@@ -1,12 +1,13 @@
-/* Diffrent misc types of sheets
+/* Different misc types of sheets
  * Contains:
- *		Metal
- *		Plasteel
- *		Wood
- *		Cloth
- *		Plastic
- *		Cardboard
- *		Runed Metal (cult)
+ * Metal
+ * Plasteel
+ * Wood
+ * Cloth
+ * Plastic
+ * Cardboard
+ * Runed Metal (cult)
+ * Brass (clockwork cult)
  */
 
 /*
@@ -107,10 +108,13 @@ var/global/list/datum/stack_recipe/metal_recipes = list(
 /obj/item/stack/sheet/metal/fifty
 	amount = 50
 
+/obj/item/stack/sheet/metal/ratvar_act()
+	new /obj/item/stack/tile/brass(loc, amount)
+	qdel(src)
+
 /obj/item/stack/sheet/metal/narsie_act()
-	if(prob(20))
-		new /obj/item/stack/sheet/runed_metal(loc, amount)
-		qdel(src)
+	new /obj/item/stack/sheet/runed_metal(loc, amount)
+	qdel(src)
 
 /obj/item/stack/sheet/metal/New(var/loc, var/amount=null)
 	recipes = metal_recipes
@@ -273,11 +277,14 @@ var/global/list/datum/stack_recipe/cult = list ( \
 /obj/item/stack/sheet/runed_metal
 	name = "runed metal"
 	desc = "Sheets of cold metal with shifting inscriptions writ upon them."
-	singular_name = "runed metal"
+	singular_name = "runed metal sheet"
 	icon_state = "sheet-runed"
-	icon = 'icons/obj/items.dmi'
 	sheettype = "runed"
 	merge_type = /obj/item/stack/sheet/runed_metal
+
+/obj/item/stack/sheet/runed_metal/ratvar_act()
+	new /obj/item/stack/tile/brass(loc, amount)
+	qdel(src)
 
 /obj/item/stack/sheet/runed_metal/attack_self(mob/living/user)
 	if(!iscultist(user))
@@ -305,6 +312,39 @@ var/global/list/datum/stack_recipe/cult = list ( \
 /obj/item/stack/sheet/runed_metal/New(var/loc, var/amount=null)
 	recipes = cult
 	return ..()
+
+/*
+ * Brass
+ */
+var/global/list/datum/stack_recipe/brass_recipes = list ( \
+	new/datum/stack_recipe("brass table frame", /obj/structure/table_frame/brass, 1, time = 5, one_per_turf = TRUE, on_floor = TRUE), \
+	)
+
+/obj/item/stack/tile/brass
+	name = "brass"
+	desc = "Sheets made out of brass."
+	singular_name = "brass sheet"
+	icon_state = "sheet-brass"
+	icon = 'icons/obj/items.dmi'
+	burn_state = FIRE_PROOF
+	throwforce = 10
+	max_amount = 50
+	throw_speed = 1
+	throw_range = 3
+	turf_type = /turf/simulated/floor/clockwork
+
+/obj/item/stack/tile/brass/narsie_act()
+	new /obj/item/stack/sheet/runed_metal(loc, amount)
+	qdel(src)
+
+/obj/item/stack/tile/brass/New(loc, amount=null)
+	recipes = brass_recipes
+	. = ..()
+	pixel_x = 0
+	pixel_y = 0
+
+/obj/item/stack/tile/brass/fifty
+	amount = 50
 
 /*
  * Bones
