@@ -116,6 +116,9 @@
 	jaunt_in_type = /obj/effect/temp_visual/dir_setting/wraith
 	jaunt_out_type = /obj/effect/temp_visual/dir_setting/wraith/out
 
+/obj/effect/proc_holder/spell/targeted/ethereal_jaunt/shift/jaunt_steam(mobloc)
+	return
+
 /obj/effect/proc_holder/spell/targeted/projectile/magic_missile/lesser
 	name = "Lesser Magic Missile"
 	desc = "This spell fires several, slow moving, magic projectiles at nearby targets."

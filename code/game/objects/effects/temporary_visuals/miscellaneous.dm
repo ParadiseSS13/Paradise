@@ -48,7 +48,6 @@
 
 /obj/effect/temp_visual/dir_setting/speedbike_trail
 	name = "speedbike trails"
-	icon = 'icons/effects/effects.dmi'
 	icon_state = "ion_fade"
 	duration = 10
 	randomdir = FALSE
@@ -134,7 +133,6 @@
 
 /obj/effect/temp_visual/revenant
 	name = "spooky lights"
-	icon = 'icons/effects/effects.dmi'
 	icon_state = "purplesparkles"
 
 /obj/effect/temp_visual/revenant/cracks
@@ -154,7 +152,6 @@
 
 /obj/effect/temp_visual/emp
 	name = "emp sparks"
-	icon = 'icons/effects/effects.dmi'
 	icon_state = "empdisable"
 
 /obj/effect/temp_visual/emp/pulse
@@ -165,7 +162,6 @@
 
 /obj/effect/temp_visual/heal //color is white by default, set to whatever is needed
 	name = "healing glow"
-	icon = 'icons/effects/effects.dmi'
 	icon_state = "heal"
 	duration = 15
 
