@@ -15,8 +15,8 @@
 
 	var/jaunt_duration = 50 //in deciseconds
 	var/jaunt_in_time = 5
-	var/jaunt_in_type = /obj/effect/overlay/temp/wizard
-	var/jaunt_out_type = /obj/effect/overlay/temp/wizard/out
+	var/jaunt_in_type = /obj/effect/temp_visual/wizard
+	var/jaunt_out_type = /obj/effect/temp_visual/wizard/out
 
 	action_icon_state = "jaunt"
 

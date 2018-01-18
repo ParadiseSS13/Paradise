@@ -78,13 +78,13 @@
 			if(starting)
 				splatter_dir = get_dir(starting, target_loca)
 			if(isalien(L))
-				new /obj/effect/overlay/temp/dir_setting/bloodsplatter/xenosplatter(target_loca, splatter_dir)
+				new /obj/effect/temp_visual/dir_setting/bloodsplatter/xenosplatter(target_loca, splatter_dir)
 			else
 				var/blood_color = "#C80000"
 				if(ishuman(target))
 					H = target
 					blood_color = H.species.blood_color
-				new /obj/effect/overlay/temp/dir_setting/bloodsplatter(target_loca, splatter_dir, blood_color)
+				new /obj/effect/temp_visual/dir_setting/bloodsplatter(target_loca, splatter_dir, blood_color)
 			if(prob(33))
 				var/list/shift = list("x" = 0, "y" = 0)
 				var/turf/step_over = get_step(target_loca, splatter_dir)

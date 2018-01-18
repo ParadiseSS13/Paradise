@@ -113,8 +113,8 @@
 	jaunt_duration = 50 //in deciseconds
 	centcom_cancast = 0 //Stop people from getting to centcom
 	jaunt_in_time = 12
-	jaunt_in_type = /obj/effect/overlay/temp/dir_setting/wraith
-	jaunt_out_type = /obj/effect/overlay/temp/dir_setting/wraith/out
+	jaunt_in_type = /obj/effect/temp_visual/dir_setting/wraith
+	jaunt_out_type = /obj/effect/temp_visual/dir_setting/wraith/out
 
 /obj/effect/proc_holder/spell/targeted/projectile/magic_missile/lesser
 	name = "Lesser Magic Missile"

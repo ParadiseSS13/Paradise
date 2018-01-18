@@ -334,7 +334,7 @@
 	cooldown_min = 150
 	selection_type = "view"
 	var/maxthrow = 5
-	var/sparkle_path = /obj/effect/overlay/temp/gravpush
+	var/sparkle_path = /obj/effect/temp_visual/gravpush
 	action_icon_state = "repulse"
 	sound = 'sound/magic/Repulse.ogg'
 

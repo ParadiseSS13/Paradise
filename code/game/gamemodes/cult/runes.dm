@@ -427,7 +427,7 @@ var/list/teleport_runes = list()
 			sacrificed.Add(T.mind)
 			if(is_sacrifice_target(T.mind))
 				sacrifice_fulfilled = 1
-		new /obj/effect/overlay/temp/cult/sac(loc)
+		new /obj/effect/temp_visual/cult/sac(loc)
 		if(ticker && ticker.mode && ticker.mode.name == "cult")
 
 			cult_mode.harvested++

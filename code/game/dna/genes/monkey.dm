@@ -25,7 +25,7 @@
 	H.icon = null
 	H.invisibility = 101
 
-	new /obj/effect/overlay/temp/monkeyify(H.loc)
+	new /obj/effect/temp_visual/monkeyify(H.loc)
 	sleep(22)
 
 	H.SetStunned(0)
@@ -63,7 +63,7 @@
 	H.icon = null
 	H.invisibility = 101
 
-	new /obj/effect/overlay/temp/monkeyify/humanify(H.loc)
+	new /obj/effect/temp_visual/monkeyify/humanify(H.loc)
 	sleep(22)
 
 	H.SetStunned(0)

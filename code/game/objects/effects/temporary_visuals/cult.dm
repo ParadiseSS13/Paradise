@@ -1,40 +1,40 @@
-//temporary visual effects(/obj/effect/overlay/temp) used by cult stuff
-/obj/effect/overlay/temp/cult
+//temporary visual effects(/obj/effect/temp_visual) used by cult stuff
+/obj/effect/temp_visual/cult
 	icon = 'icons/effects/cult_effects.dmi'
 	randomdir = FALSE
 	duration = 10
 
-/obj/effect/overlay/temp/cult/sparks
+/obj/effect/temp_visual/cult/sparks
 	randomdir = TRUE
 	name = "blood sparks"
 	icon_state = "bloodsparkles"
 
-/obj/effect/overlay/temp/dir_setting/cult/phase
+/obj/effect/temp_visual/dir_setting/cult/phase
 	name = "phase glow"
 	duration = 7
 	icon = 'icons/effects/cult_effects.dmi'
 	icon_state = "cultin"
 
-/obj/effect/overlay/temp/dir_setting/cult/phase/out
+/obj/effect/temp_visual/dir_setting/cult/phase/out
 	icon_state = "cultout"
 
-/obj/effect/overlay/temp/cult/sac
+/obj/effect/temp_visual/cult/sac
 	name = "maw of Nar-Sie"
 	icon_state = "sacconsume"
 
-/obj/effect/overlay/temp/cult/door
+/obj/effect/temp_visual/cult/door
 	name = "unholy glow"
 	icon_state = "doorglow"
 	layer = 3.17 //above closed doors
 
-/obj/effect/overlay/temp/cult/door/unruned
+/obj/effect/temp_visual/cult/door/unruned
 	icon_state = "unruneddoorglow"
 
-/obj/effect/overlay/temp/cult/turf
+/obj/effect/temp_visual/cult/turf
 	name = "unholy glow"
 	icon_state = "wallglow"
 	layer = TURF_LAYER + 0.07
 
-/obj/effect/overlay/temp/cult/turf/open/floor
+/obj/effect/temp_visual/cult/turf/open/floor
 	icon_state = "floorglow"
 	duration = 5

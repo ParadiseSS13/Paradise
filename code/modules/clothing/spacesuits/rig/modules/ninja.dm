@@ -52,7 +52,7 @@
 	to_chat(H, "<span class='danger'>You are now visible.</span>")
 	H.invisibility = 0
 
-	new /obj/effect/overlay/temp/dir_setting/ninja(get_turf(H), H.dir)
+	new /obj/effect/temp_visual/dir_setting/ninja(get_turf(H), H.dir)
 
 	for(var/mob/O in oviewers(H))
 		O.show_message("[H.name] appears from thin air!",1)
@@ -82,7 +82,7 @@
 	holder.spark_system.start()
 	playsound(T, 'sound/effects/phasein.ogg', 25, 1)
 	playsound(T, 'sound/effects/sparks2.ogg', 50, 1)
-	new /obj/effect/overlay/temp/dir_setting/ninja/phase(T, M.dir)
+	new /obj/effect/temp_visual/dir_setting/ninja/phase(T, M.dir)
 
 /obj/item/rig_module/teleporter/proc/phase_out(var/mob/M,var/turf/T)
 
@@ -90,7 +90,7 @@
 		return
 
 	playsound(T, "sparks", 50, 1)
-	new /obj/effect/overlay/temp/dir_setting/ninja/phase/out(T, M.dir)
+	new /obj/effect/temp_visual/dir_setting/ninja/phase/out(T, M.dir)
 
 /obj/item/rig_module/teleporter/engage(var/atom/target, var/notify_ai)
 
