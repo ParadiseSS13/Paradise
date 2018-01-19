@@ -32,10 +32,10 @@
 
 	for(var/client/C in admins)
 		if(check_rights(R_ADMIN|R_MOD|R_MENTOR, 0, C.mob))
-			var/display_name = src.key
+			var/display_name = key
 			if(holder.fakekey)
 				if(C.holder.rights & R_ADMIN)
-					display_name = "[holder.fakekey]/([src.key])"
+					display_name = "[holder.fakekey]/([key])"
 				else
 					display_name = holder.fakekey
 			to_chat(C, "<span class='[check_rights(R_ADMIN, 0) ? "mentor_channel_admin" : "mentor_channel"]'>MENTOR: <span class='name'>[display_name]</span> ([admin_jump_link(mob)]): <span class='message'>[msg]</span></span>")
