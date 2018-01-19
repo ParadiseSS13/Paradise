@@ -222,6 +222,12 @@
 	taste_message = "<span class='userdanger'>ACID</span>"
 
 /datum/reagent/sacid/on_mob_life(mob/living/M)
+
+	if(ishuman(M))
+		var/mob/living/carbon/human/H = M
+		if(H.get_species() == "Grey")
+			return ..()
+
 	M.adjustFireLoss(1)
 	..()
 
