@@ -404,14 +404,19 @@ Class Procs:
 	return 0
 
 /obj/machinery/deconstruct(disassembled = TRUE)
-	on_deconstruction()
-	spawn_frame()
-	for(var/obj/item/I in component_parts)
-		I.forceMove(loc)
+	if(can_deconstruct)
+		on_deconstruction()
+		if(component_parts && component_parts.len)
+			spawn_frame()
+			for(var/obj/item/I in component_parts)
+				I.forceMove(loc)
 	qdel(src)
 
-/obj/machinery/proc/spawn_frame()
+/obj/machinery/proc/spawn_frame(disassembled)
 	var/obj/machinery/constructable_frame/machine_frame/M = new /obj/machinery/constructable_frame/machine_frame(loc)
+	if(!disassembled)
+		M.obj_integrity = M.max_integrity * 0.5 //the frame is already half broken
+	transfer_fingerprints_to(M)
 	M.state = 2
 	M.icon_state = "box_1"
 

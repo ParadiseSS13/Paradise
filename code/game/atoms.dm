@@ -610,6 +610,9 @@ var/list/blood_splatter_icons = list()
 /atom/proc/narsie_act()
 	return
 
+/atom/proc/ratvar_act()
+	return
+
 /atom/proc/atom_say(message)
 	if(!message)
 		return

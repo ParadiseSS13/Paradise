@@ -24,7 +24,6 @@
 		/obj/item/mounted/frame/firealarm,
 		/obj/item/mounted/frame/newscaster_frame,
 		/obj/item/mounted/frame/intercom,
-		/obj/item/weapon/table_parts,
 		/obj/item/weapon/rack_parts,
 		/obj/item/weapon/camera_assembly,
 		/obj/item/weapon/tank,

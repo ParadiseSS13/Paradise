@@ -1,12 +1,13 @@
-/* Diffrent misc types of sheets
+/* Different misc types of sheets
  * Contains:
- *		Metal
- *		Plasteel
- *		Wood
- *		Cloth
- *		Plastic
- *		Cardboard
- *		Runed Metal (cult)
+ * Metal
+ * Plasteel
+ * Wood
+ * Cloth
+ * Plastic
+ * Cardboard
+ * Runed Metal (cult)
+ * Brass (clockwork cult)
  */
 
 /*
@@ -42,8 +43,6 @@ var/global/list/datum/stack_recipe/metal_recipes = list(
 	)),
 
 	null,
-	new /datum/stack_recipe("table parts", /obj/item/weapon/table_parts, 2),
-	new /datum/stack_recipe("glass table frame parts", /obj/item/weapon/table_parts/glass, 2),
 	new /datum/stack_recipe("rack parts", /obj/item/weapon/rack_parts),
 	new /datum/stack_recipe("closet", /obj/structure/closet, 2, time = 15, one_per_turf = 1, on_floor = 1),
 	null,
@@ -109,10 +108,13 @@ var/global/list/datum/stack_recipe/metal_recipes = list(
 /obj/item/stack/sheet/metal/fifty
 	amount = 50
 
+/obj/item/stack/sheet/metal/ratvar_act()
+	new /obj/item/stack/tile/brass(loc, amount)
+	qdel(src)
+
 /obj/item/stack/sheet/metal/narsie_act()
-	if(prob(20))
-		new /obj/item/stack/sheet/runed_metal(loc, amount)
-		qdel(src)
+	new /obj/item/stack/sheet/runed_metal(loc, amount)
+	qdel(src)
 
 /obj/item/stack/sheet/metal/New(var/loc, var/amount=null)
 	recipes = metal_recipes
@@ -156,7 +158,7 @@ var/global/list/datum/stack_recipe/plasteel_recipes = list(
 var/global/list/datum/stack_recipe/wood_recipes = list(
 	new /datum/stack_recipe("wooden sandals", /obj/item/clothing/shoes/sandal, 1),
 	new /datum/stack_recipe("wood floor tile", /obj/item/stack/tile/wood, 1, 4, 20),
-	new /datum/stack_recipe("table parts", /obj/item/weapon/table_parts/wood, 2),
+	new /datum/stack_recipe("wood table frame", /obj/structure/table_frame/wood, 2, time = 10), \
 	new /datum/stack_recipe("wooden chair", /obj/structure/stool/bed/chair/wood/normal, 3, time = 10, one_per_turf = 1, on_floor = 1),
 	new /datum/stack_recipe("wooden barricade", /obj/structure/barricade/wooden, 5, time = 50, one_per_turf = 1, on_floor = 1),
 	new /datum/stack_recipe("bookcase", /obj/structure/bookcase, 5, time = 50, one_per_turf = 1, on_floor = 1),
@@ -275,11 +277,14 @@ var/global/list/datum/stack_recipe/cult = list ( \
 /obj/item/stack/sheet/runed_metal
 	name = "runed metal"
 	desc = "Sheets of cold metal with shifting inscriptions writ upon them."
-	singular_name = "runed metal"
+	singular_name = "runed metal sheet"
 	icon_state = "sheet-runed"
-	icon = 'icons/obj/items.dmi'
 	sheettype = "runed"
 	merge_type = /obj/item/stack/sheet/runed_metal
+
+/obj/item/stack/sheet/runed_metal/ratvar_act()
+	new /obj/item/stack/tile/brass(loc, amount)
+	qdel(src)
 
 /obj/item/stack/sheet/runed_metal/attack_self(mob/living/user)
 	if(!iscultist(user))
@@ -307,6 +312,39 @@ var/global/list/datum/stack_recipe/cult = list ( \
 /obj/item/stack/sheet/runed_metal/New(var/loc, var/amount=null)
 	recipes = cult
 	return ..()
+
+/*
+ * Brass
+ */
+var/global/list/datum/stack_recipe/brass_recipes = list ( \
+	new/datum/stack_recipe("brass table frame", /obj/structure/table_frame/brass, 1, time = 5, one_per_turf = TRUE, on_floor = TRUE), \
+	)
+
+/obj/item/stack/tile/brass
+	name = "brass"
+	desc = "Sheets made out of brass."
+	singular_name = "brass sheet"
+	icon_state = "sheet-brass"
+	icon = 'icons/obj/items.dmi'
+	burn_state = FIRE_PROOF
+	throwforce = 10
+	max_amount = 50
+	throw_speed = 1
+	throw_range = 3
+	turf_type = /turf/simulated/floor/clockwork
+
+/obj/item/stack/tile/brass/narsie_act()
+	new /obj/item/stack/sheet/runed_metal(loc, amount)
+	qdel(src)
+
+/obj/item/stack/tile/brass/New(loc, amount=null)
+	recipes = brass_recipes
+	. = ..()
+	pixel_x = 0
+	pixel_y = 0
+
+/obj/item/stack/tile/brass/fifty
+	amount = 50
 
 /*
  * Bones
