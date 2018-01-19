@@ -2757,11 +2757,11 @@
 
 /datum/sprite_accessory/hair/amanitashort
 	name = "Amanita Short"
-	icon_state = "hair_short-amanita"
+	icon_state = "hair_amanita_short"
 
 /datum/sprite_accessory/hair/bigbow
 	name = "Big Bow"
-	icon_state = "hair_bigbow"
+	icon_state = "hair_big_bow"
 
 /datum/sprite_accessory/hair/shortbuns
 	name = "Double Buns"
@@ -2769,19 +2769,19 @@
 
 /datum/sprite_accessory/hair/longbuns
 	name = "Double Buns Long"
-	icon_state = "hair_longbuns"
+	icon_state = "hair_long_buns"
 
 /datum/sprite_accessory/hair/longbunsalt
 	name = "Double Buns Long alt"
-	icon_state = "hair_longbunsalt"
+	icon_state = "hair_long_bunsalt"
 
 /datum/sprite_accessory/hair/ombretwin
 	name = "Ombre Twin Tails"
-	icon_state = "hair_ombretwintails"
+	icon_state = "hair_ombre_twintails"
 
 /datum/sprite_accessory/hair/ombretwinalt
 	name = "Ombrre Twin Tails Alt"
-	icon_state = "hair_ombretwintailsalt"
+	icon_state = "hair_ombre_twintails_alt"
 
 /datum/sprite_accessory/hair/sailormoon
 	name = "Sailor Spessman"
@@ -2789,9 +2789,9 @@
 
 /datum/sprite_accessory/hair/twintails
 	name = "Twin Tails"
-	icon_state = "hair_twintails"
+	icon_state = "hair_twins"
 
 /datum/sprite_accessory/hair/sailorslime
 	name = "Sailor Slime"
-	icon_state = "hair_slimetwins"
+	icon_state = "hair_slime_twins"
 	species_allowed = list("Slime People")
