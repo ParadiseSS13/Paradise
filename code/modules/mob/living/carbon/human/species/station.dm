@@ -777,6 +777,7 @@
 	unarmed_type = /datum/unarmed_attack/diona
 	//primitive_form = "Nymph"
 	slowdown = 5
+	hunger_drain = .6
 	remains_type = /obj/effect/decal/cleanable/ash
 
 
