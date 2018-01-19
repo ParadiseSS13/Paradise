@@ -1,10 +1,11 @@
 //A barebones antagonist team.
-/datum/objective_team
+/datum/team
 	var/list/datum/mind/members = list()
 	var/name = "team"
 	var/member_name = "member"
+	var/list/objectives = list() //common objectives, these won't be added or removed automatically, subtypes handle this, this is here for bookkeeping purposes.
 
-/datum/objective_team/New(starting_members)
+/datum/team/New(starting_members)
 	. = ..()
 	if(starting_members)
 		if(islist(starting_members))
@@ -12,13 +13,12 @@
 				add_member(M)
 		else
 			add_member(starting_members)
-		members += starting_members
 
-/datum/objective_team/proc/is_solo()
+/datum/team/proc/is_solo()
 	return members.len == 1
 
-/datum/objective_team/proc/add_member(datum/mind/new_member)
+/datum/team/proc/add_member(datum/mind/new_member)
 	members |= new_member
 
-/datum/objective_team/proc/remove_member(datum/mind/member)
+/datum/team/proc/remove_member(datum/mind/member)
 	members -= member
