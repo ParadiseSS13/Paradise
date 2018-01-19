@@ -29,6 +29,9 @@
 
 			var/mob/living/carbon/human/H = M
 
+			if(IS_PLANT in H.species.species_traits)
+				H.nutrition = min(H.nutrition+volume, NUTRITION_LEVEL_WELL_FED+10)
+
 			if(H.get_species() != "Grey") //God this is so gross I hate it.
 				return
 
@@ -57,6 +60,9 @@
 	if(method == INGEST)
 		if(ishuman(M))
 			var/mob/living/carbon/human/H = M
+
+			if(IS_PLANT in H.species.species_traits)
+				H.nutrition = min(H.nutrition+volume, NUTRITION_LEVEL_WELL_FED+10)
 
 			if(H.get_species() != "Grey")
 				return
@@ -514,3 +520,10 @@
 		var/t_loc = get_turf(O)
 		qdel(O)
 		new /obj/item/clothing/shoes/galoshes/dry(t_loc)
+
+/datum/reagent/drying_agent/reaction_mob(mob/living/M, method=TOUCH, volume)
+	if(ishuman(M))
+		var/mob/living/carbon/human/H = M
+		if(IS_PLANT in H.species.species_traits)
+			H.nutrition -= volume
+			H.adjustToxLoss(50)

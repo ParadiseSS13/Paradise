@@ -58,6 +58,7 @@
 	default_headacc = "Simple"
 	default_headacc_colour = "#404040"
 	butt_sprite = "unathi"
+	brute_mod = 1.05
 
 	has_organ = list(
 		"heart" =    /obj/item/organ/internal/heart,
@@ -77,6 +78,24 @@
 		"is jamming their claws into their eye sockets!",
 		"is twisting their own neck!",
 		"is holding their breath!")
+
+	species_abilities = list(
+		/mob/living/carbon/human/proc/tail_lash
+		)
+
+/mob/living/carbon/human/proc/tail_lash()
+	set category = "IC"
+	set name = "Tail Lash"
+	set desc = "lash someone with your tail"
+
+	for(var/mob/living/carbon/human/C in orange(1))
+		var/obj/item/organ/external/E = C.get_organ(pick("l_leg", "r_leg", "l_foot", "r_foot", "groin"))
+		if(E)
+			visible_message("<span class='danger'> [src] smacks [C] in the [E] with thier tail!</span>", "<span class='danger'>You hit [C] with your tail!</span>")
+			adjustStaminaLoss(15)
+			C.apply_damage(5, BRUTE, E)
+
+
 
 /datum/species/unathi/handle_death(var/mob/living/carbon/human/H)
 	H.stop_tail_wagging(1)
@@ -163,6 +182,7 @@
 	clothing_flags = HAS_UNDERWEAR | HAS_UNDERSHIRT | HAS_SOCKS
 	bodyflags = HAS_TAIL | TAIL_WAGGING | TAIL_OVERLAPPED | HAS_HEAD_ACCESSORY | HAS_MARKINGS | HAS_SKIN_COLOR
 	dietflags = DIET_OMNI
+	hunger_drain = 1
 	taste_sensitivity = TASTE_SENSITIVITY_SHARP
 	reagent_tag = PROCESS_ORG
 	flesh_color = "#966464"
@@ -781,7 +801,7 @@
 
 	species_traits = list(NO_BREATHE, RADIMMUNE, IS_PLANT, NO_BLOOD, NO_PAIN)
 	clothing_flags = HAS_SOCKS
-	dietflags = 0		//Diona regenerate nutrition in light, no diet necessary
+	dietflags = 0		//Diona regenerate nutrition in light and water, no diet necessary
 	taste_sensitivity = TASTE_SENSITIVITY_NO_TASTE
 
 	oxy_mod = 0
@@ -832,6 +852,10 @@
 
 	return ..()
 
+/datum/species/diona/water_act(var/mob/living/carbon/C, volume, temperature, source)
+	..()
+	C.nutrition = min(C.nutrition+volume, NUTRITION_LEVEL_WELL_FED+10)
+
 /datum/species/diona/handle_life(var/mob/living/carbon/human/H)
 	H.radiation = Clamp(H.radiation, 0, 100) //We have to clamp this first, then decrease it, or there's a few edge cases of massive heals if we clamp and decrease at the same time.
 	var/rads = H.radiation / 25
@@ -844,15 +868,14 @@
 	if(isturf(H.loc)) //else, there's considered to be no light
 		var/turf/T = H.loc
 		light_amount = min(T.get_lumcount() * 10, 5)  //hardcapped so it's not abused by having a ton of flashlights
-	H.nutrition = min(H.nutrition+light_amount, NUTRITION_LEVEL_WELL_FED+10)
 
 	if(light_amount > 0)
 		H.clear_alert("nolight")
 	else
 		H.throw_alert("nolight", /obj/screen/alert/nolight)
 
-	if((light_amount >= 5) && !H.suiciding) //if there's enough light, heal
-
+	if((light_amount >= 5 && H.nutrition >= NUTRITION_LEVEL_FULL ) && !H.suiciding) //if there's enough light, heal
+		H.nutrition = min(H.nutrition+light_amount, NUTRITION_LEVEL_FULL)
 		H.adjustBruteLoss(-(light_amount/2))
 		H.adjustFireLoss(-(light_amount/4))
 	if(H.nutrition < NUTRITION_LEVEL_STARVING+50)
