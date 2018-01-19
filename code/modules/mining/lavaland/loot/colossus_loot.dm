@@ -203,7 +203,7 @@
 			NewTerrainFloors = /turf/simulated/floor/grass
 			NewTerrainWalls = /turf/simulated/wall/mineral/sandstone
 			NewTerrainChairs = /obj/structure/stool/bed/chair/wood/normal
-			NewTerrainTables = /obj/structure/table/woodentable
+			NewTerrainTables = /obj/structure/table/wood
 			NewFlora = list(/obj/structure/flora/ausbushes/sparsegrass, /obj/structure/flora/ausbushes/fernybush, /obj/structure/flora/ausbushes/leafybush,
 							/obj/structure/flora/ausbushes/grassybush, /obj/structure/flora/ausbushes/sunnybush, /obj/structure/flora/tree/palm, /mob/living/carbon/human/monkey,
 							/obj/item/weapon/gun/projectile/bow, /obj/item/weapon/storage/backpack/quiver/full)
