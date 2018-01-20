@@ -182,21 +182,17 @@
 		return
 
 	to_chat(user, "<span class='warning'>You swipe the sequencer across [src]'s interface and watch its eyes flicker.</span>")
-	to_chat(src, "<span class='warning'>You feel a sudden burst of malware loaded into your execute-as-root buffer. Your tiny brain methodically parses, loads and executes the script.</span>")
+	to_chat(src, "<span class='warning'>You feel a sudden burst of malware loaded into your execute-as-root buffer. Your tiny brain methodically parses, loads and executes the script. You sense you have five minutes before the drone server detects this and automatically shuts you down.</span>")
 
 	message_admins("[key_name_admin(user)] emagged drone [key_name_admin(src)].  Laws overridden.")
 	log_game("[key_name(user)] emagged drone [key_name(src)].  Laws overridden.")
 	var/time = time2text(world.realtime,"hh:mm:ss")
 	lawchanges.Add("[time] <B>:</B> [H.name]([H.key]) emagged [name]([key])")
 
+	emagged_time = world.time
 	emagged = 1
 	density = 1
-	ventcrawler = 0
 	pass_flags = 0
-	add_language("Galactic Common", 1)
-	emagged_time = world.time
-	to_chat(src, "<span class='warning'>The new malware has destroyed your ability to ventcrawl or crawl on tables, but has granted you the ability to speak Galactic Common!</span>")
-	default_language = "Galactic Common"
 	icon_state = "repairbot-emagged"
 	holder_type = /obj/item/weapon/holder/drone/emagged
 	update_icons()
@@ -254,10 +250,16 @@
 			full_law_reset()
 			show_laws()
 
-/mob/living/silicon/robot/drone/proc/shut_down()
-	if(stat != 2)
-		to_chat(src, "<span class='warning'>You feel a system kill order percolate through your tiny brain, and you obediently destroy yourself.</span>")
-		death()
+/mob/living/silicon/robot/drone/proc/shut_down(force=FALSE)
+	if(stat == 2)
+		return
+
+	if(emagged && !force)
+		to_chat(src, "<span class='warning'>You feel a system kill order percolate through your tiny brain, but it doesn't seem like a good idea to you.</span>")
+		return
+
+	to_chat(src, "<span class='warning'>You feel a system kill order percolate through your tiny brain, and you obediently destroy yourself.</span>")
+	death()
 
 /mob/living/silicon/robot/drone/proc/full_law_reset()
 	clear_supplied_laws()
@@ -356,7 +358,7 @@
 	if(emagged)
 		density = 1
 		if(world.time - emagged_time > EMAG_TIMER)
-			shut_down()
+			shut_down(TRUE)
 		return
 	density = 0 //this is reset every canmove update otherwise
 
