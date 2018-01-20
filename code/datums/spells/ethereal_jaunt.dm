@@ -36,7 +36,7 @@
 	target.ExtinguishMob()
 	target.forceMove(holder)
 	target.reset_perspective(holder)
-	target.notransform=0 //mob is safely inside holder now, no need for protection.
+	target.notransform = 0 //mob is safely inside holder now, no need for protection.
 	jaunt_steam(mobloc)
 
 	sleep(jaunt_duration)
