@@ -126,7 +126,8 @@
 
 		if(stat == 2)
 
-			if(!config.allow_drone_spawn || emagged || health < -35) //It's dead, Dave.
+			if(!config.allow_drone_spawn || 
+			ged || health < -35) //It's dead, Dave.
 				to_chat(user, "<span class='warning'>The interface is fried, and a distressing burned smell wafts from the robot's interior. You're not rebooting this one.</span>")
 				return
 
@@ -152,10 +153,7 @@
 
 		else
 			user.visible_message("<span class='warning'>\the [user] swipes \his ID card through \the [src], attempting to shut it down.</span>", "<span class='warning'>You swipe your ID card through \the [src], attempting to shut it down.</span>")
-
-			if(emagged)
-				return
-
+			
 			if(allowed(usr))
 				shut_down()
 			else
@@ -164,44 +162,6 @@
 		return
 
 	..()
-
-/mob/living/silicon/robot/drone/emag_act(user as mob)
-	if(!client || stat == 2)
-		to_chat(user, "<span class='warning'>There's not much point subverting this heap of junk.</span>")
-		return
-
-	if(!ishuman(user))
-		return
-	var/mob/living/carbon/human/H = user
-
-	if(emagged)
-		to_chat(src, "<span class='warning'>[user] attempts to load subversive software into you, but your hacked subroutined ignore the attempt.</span>")
-		to_chat(user, "<span class='warning'>You attempt to subvert [src], but the sequencer has no effect.</span>")
-		return
-
-	to_chat(user, "<span class='warning'>You swipe the sequencer across [src]'s interface and watch its eyes flicker.</span>")
-	to_chat(src, "<span class='warning'>You feel a sudden burst of malware loaded into your execute-as-root buffer. Your tiny brain methodically parses, loads and executes the script.</span>")
-
-	message_admins("[key_name_admin(user)] emagged drone [key_name_admin(src)].  Laws overridden.")
-	log_game("[key_name(user)] emagged drone [key_name(src)].  Laws overridden.")
-	var/time = time2text(world.realtime,"hh:mm:ss")
-	lawchanges.Add("[time] <B>:</B> [H.name]([H.key]) emagged [name]([key])")
-
-	emagged = 1
-	icon_state = "repairbot-emagged"
-	holder_type = /obj/item/weapon/holder/drone/emagged
-	update_icons()
-	lawupdate = 0
-	connected_ai = null
-	clear_supplied_laws()
-	clear_inherent_laws()
-	laws = new /datum/ai_laws/syndicate_override
-	set_zeroth_law("Only [H.real_name] and people he designates as being such are Syndicate Agents.")
-
-	to_chat(src, "<b>Obey these laws:</b>")
-	laws.show_laws(src)
-	to_chat(src, "<span class='boldwarning'>ALERT: [H.real_name] is your new master. Obey your new laws and his commands.</span>")
-	return
 
 //DRONE LIFE/DEATH
 
@@ -236,22 +196,11 @@
 
 
 //CONSOLE PROCS
-/mob/living/silicon/robot/drone/proc/law_resync()
-	if(stat != 2)
-		if(emagged)
-			to_chat(src, "<span class='warning'>You feel something attempting to modify your programming, but your hacked subroutines are unaffected.</span>")
-		else
-			to_chat(src, "<span class='warning'>A reset-to-factory directive packet filters through your data connection, and you obediently modify your programming to suit it.</span>")
-			full_law_reset()
-			show_laws()
 
 /mob/living/silicon/robot/drone/proc/shut_down()
 	if(stat != 2)
-		if(emagged)
-			to_chat(src, "<span class='warning'>You feel a system kill order percolate through your tiny brain, but it doesn't seem like a good idea to you.</span>")
-		else
-			to_chat(src, "<span class='warning'>You feel a system kill order percolate through your tiny brain, and you obediently destroy yourself.</span>")
-			death()
+		to_chat(src, "<span class='warning'>You feel a system kill order percolate through your tiny brain, and you obediently destroy yourself.</span>")
+		death()
 
 /mob/living/silicon/robot/drone/proc/full_law_reset()
 	clear_supplied_laws()
