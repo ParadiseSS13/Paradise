@@ -908,7 +908,8 @@
 		H.throw_alert("nolight", /obj/screen/alert/nolight)
 
 	if((light_amount >= 5 && H.nutrition >= NUTRITION_LEVEL_FED ) && !H.suiciding) //if there's enough light, heal
-		H.nutrition += min(H.nutrition+light_amount, NUTRITION_LEVEL_FED)
+		if(H.nutrition >= NUTRITION_LEVEL_WELL_FED)
+			H.nutrition += min(H.nutrition+light_amount, NUTRITION_LEVEL_FED)
 		H.adjustBruteLoss(-(light_amount/2))
 		H.adjustFireLoss(-(light_amount/4))
 	if(H.nutrition < NUTRITION_LEVEL_STARVING+50)
