@@ -526,4 +526,3 @@
 		var/mob/living/carbon/human/H = M
 		if(IS_PLANT in H.species.species_traits)
 			H.nutrition -= volume
-			H.adjustToxLoss(50)

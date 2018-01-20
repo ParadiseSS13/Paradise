@@ -79,21 +79,36 @@
 		"is twisting their own neck!",
 		"is holding their breath!")
 
-	species_abilities = list(
-		/mob/living/carbon/human/proc/tail_lash
-		)
+	var/datum/action/innate/tail_lash/lash = new()
 
-/mob/living/carbon/human/proc/tail_lash()
-	set category = "IC"
-	set name = "Tail Lash"
-	set desc = "lash someone with your tail"
 
+/datum/species/unathi/handle_post_spawn(var/mob/living/carbon/human/H)
+
+	lash.Grant(H)
+	..()
+
+/datum/action/innate/tail_lash
+	name = "Tail lash"
+	icon_icon = 'icons/effects/effects.dmi'
+	button_icon_state = "tail"
+
+/datum/action/innate/tail_lash/Activate()
+	var/mob/living/carbon/human/user = owner
+	if(!user.restrained() || !user.buckled)
+		to_chat(user, "You need freedom of movment to tail lash!")
+		return
 	for(var/mob/living/carbon/human/C in orange(1))
 		var/obj/item/organ/external/E = C.get_organ(pick("l_leg", "r_leg", "l_foot", "r_foot", "groin"))
 		if(E)
-			visible_message("<span class='danger'> [src] smacks [C] in the [E] with thier tail!</span>", "<span class='danger'>You hit [C] with your tail!</span>")
-			adjustStaminaLoss(15)
-			C.apply_damage(5, BRUTE, E)
+			if(user.getStaminaLoss() >= 50)
+				to_chat(user, "Rest before tail lashing again!")
+			else
+				user.changeNext_move(CLICK_CD_MELEE)
+				user.visible_message("<span class='danger'> [src] smacks [C] in the [E] with thier tail!</span>", "<span class='danger'>You hit [C] in the [E] with your tail!</span>")
+				user.adjustStaminaLoss(15)
+				C.apply_damage(5, BRUTE, E)
+				user.spin(20,1)
+				playsound(user.loc, 'sound/weapons/slash.ogg', 50, 0)
 
 
 
@@ -571,10 +586,26 @@
 
 	var/list/mob/living/carbon/human/recolor_list = list()
 
+	var/datum/action/innate/regrow/grow = new()
+
 	species_abilities = list(
 		/mob/living/carbon/human/verb/toggle_recolor_verb,
 		/mob/living/carbon/human/proc/regrow_limbs
 		)
+
+/datum/species/slime/handle_post_spawn(var/mob/living/carbon/human/H)
+	grow.Grant(H)
+	..()
+
+/datum/action/innate/regrow
+	name = "Regrow limbs"
+	icon_icon = 'icons/effects/effects.dmi'
+	button_icon_state = "greenglow"
+
+/datum/action/innate/regrow/Activate()
+	var/mob/living/carbon/human/user = owner
+	user.regrow_limbs()
+
 
 /datum/species/slime/handle_life(var/mob/living/carbon/human/H)
 //This is allegedly for code "style". Like a plaid sweater?
@@ -777,7 +808,7 @@
 	unarmed_type = /datum/unarmed_attack/diona
 	//primitive_form = "Nymph"
 	slowdown = 5
-	hunger_drain = .6
+	hunger_drain = 0.6
 	remains_type = /obj/effect/decal/cleanable/ash
 
 
@@ -802,6 +833,7 @@
 
 	species_traits = list(NO_BREATHE, RADIMMUNE, IS_PLANT, NO_BLOOD, NO_PAIN)
 	clothing_flags = HAS_SOCKS
+	default_hair_colour = "#000000"
 	dietflags = 0		//Diona regenerate nutrition in light and water, no diet necessary
 	taste_sensitivity = TASTE_SENSITIVITY_NO_TASTE
 
@@ -875,8 +907,8 @@
 	else
 		H.throw_alert("nolight", /obj/screen/alert/nolight)
 
-	if((light_amount >= 5 && H.nutrition >= NUTRITION_LEVEL_FULL ) && !H.suiciding) //if there's enough light, heal
-		H.nutrition = min(H.nutrition+light_amount, NUTRITION_LEVEL_FULL)
+	if((light_amount >= 5 && H.nutrition >= NUTRITION_LEVEL_FED ) && !H.suiciding) //if there's enough light, heal
+		H.nutrition += min(H.nutrition+light_amount, NUTRITION_LEVEL_FED)
 		H.adjustBruteLoss(-(light_amount/2))
 		H.adjustFireLoss(-(light_amount/4))
 	if(H.nutrition < NUTRITION_LEVEL_STARVING+50)
