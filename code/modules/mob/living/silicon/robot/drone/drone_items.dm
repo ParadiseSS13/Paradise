@@ -330,14 +330,6 @@
 
 	dat += tools
 
-	if(emagged)
-		if(!module.emag)
-			dat += text("<B>Resource depleted</B><BR>")
-		else if(activated(module.emag))
-			dat += text("[module.emag]: <B>Activated</B><BR>")
-		else
-			dat += text("[module.emag]: <A HREF=?src=[UID()];act=\ref[module.emag]>Activate</A><BR>")
-
 	dat += resources
 
 	src << browse(dat, "window=robotmod&can_close=0")
