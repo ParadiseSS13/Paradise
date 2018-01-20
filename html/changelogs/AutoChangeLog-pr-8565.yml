@@ -1,0 +1,6 @@
+author: "uraniummeltdown"
+delete-after: True
+changes: 
+  - bugfix: "Fixed issues with ethereal jaunt directions, wraith jaunt no longer shows the wizard effects"
+  - bugfix: "Guardians phasing in/out will properly show a little animation"
+  - tweak: "The petting heart animation is smoother"
