@@ -13,7 +13,7 @@
 /turf/simulated/wall/cult/New()
 	..()
 	if(ticker.mode)//game hasn't started offically don't do shit..
-		new /obj/effect/overlay/temp/cult/turf(src)
+		new /obj/effect/temp_visual/cult/turf(src)
 		icon_state = ticker.mode.cultdat.cult_wall_icon_state
 
 /turf/simulated/wall/cult/artificer
@@ -21,11 +21,11 @@
 	desc = "A cold stone wall engraved with indecipherable symbols. Studying them causes your head to pound."
 
 /turf/simulated/wall/cult/artificer/break_wall()
-	new /obj/effect/overlay/temp/cult/turf(get_turf(src))
+	new /obj/effect/temp_visual/cult/turf(get_turf(src))
 	return null //excuse me we want no runed metal here
 
 /turf/simulated/wall/cult/artificer/devastate_wall()
-	new /obj/effect/overlay/temp/cult/turf(get_turf(src))
+	new /obj/effect/temp_visual/cult/turf(get_turf(src))
 
 /turf/simulated/wall/cult/narsie_act()
 	return

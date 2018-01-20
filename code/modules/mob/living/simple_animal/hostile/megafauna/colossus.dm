@@ -97,7 +97,7 @@ Difficulty: Very Hard
 	..()
 	internal_gps = new/obj/item/device/gps/internal/colossus(src)
 
-/obj/effect/overlay/temp/at_shield
+/obj/effect/temp_visual/at_shield
 	name = "anti-toolbox field"
 	desc = "A shimmering forcefield protecting the colossus."
 	icon = 'icons/effects/effects.dmi'
@@ -107,7 +107,7 @@ Difficulty: Very Hard
 	duration = 8
 	var/target
 
-/obj/effect/overlay/temp/at_shield/New(new_loc, new_target)
+/obj/effect/temp_visual/at_shield/New(new_loc, new_target)
 	..()
 	target = new_target
 	spawn(0)
@@ -115,7 +115,7 @@ Difficulty: Very Hard
 
 /mob/living/simple_animal/hostile/megafauna/colossus/bullet_act(obj/item/projectile/P)
 	if(!stat)
-		var/obj/effect/overlay/temp/at_shield/AT = new /obj/effect/overlay/temp/at_shield(loc, src)
+		var/obj/effect/temp_visual/at_shield/AT = new /obj/effect/temp_visual/at_shield(loc, src)
 		var/random_x = rand(-32, 32)
 		AT.pixel_x += random_x
 
