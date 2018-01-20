@@ -744,6 +744,12 @@
 	if(speech_pref)
 		H.mind.speech_span = "wingdings"
 
+/datum/species/grey/handle_reagents(mob/living/carbon/human/H, datum/reagent/R)
+	if (R.id == "sacid")
+		H.reagents.del_reagent(R.id)
+		return 0
+	return 1
+
 /datum/species/diona
 	name = "Diona"
 	name_plural = "Dionaea"
