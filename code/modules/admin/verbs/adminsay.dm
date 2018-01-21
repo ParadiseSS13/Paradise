@@ -34,7 +34,7 @@
 		if(check_rights(R_ADMIN|R_MOD|R_MENTOR, 0, C.mob))
 			var/display_name = key
 			if(holder.fakekey)
-				if(C.holder.rights & R_ADMIN)
+				if(C.holder && C.holder.rights & R_ADMIN)
 					display_name = "[holder.fakekey]/([key])"
 				else
 					display_name = holder.fakekey
