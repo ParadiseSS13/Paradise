@@ -65,9 +65,9 @@
 			if(istype(summoner.loc, /obj/effect))
 				Recall(TRUE)
 			else
-				new /obj/effect/overlay/temp/guardian/phase/out(loc)
+				new /obj/effect/temp_visual/guardian/phase/out(loc)
 				forceMove(summoner.loc) //move to summoner's tile, don't recall
-				new /obj/effect/overlay/temp/guardian/phase(loc)
+				new /obj/effect/temp_visual/guardian/phase(loc)
 
 /mob/living/simple_animal/hostile/guardian/Move() //Returns to summoner if they move out of range
 	..()
@@ -136,7 +136,7 @@
 	if(cooldown > world.time && !forced)
 		return
 	if(!summoner) return
-	new /obj/effect/overlay/temp/guardian/phase/out(get_turf(src))
+	new /obj/effect/temp_visual/guardian/phase/out(get_turf(src))
 	forceMove(summoner)
 	buckled = null
 	cooldown = world.time + 30

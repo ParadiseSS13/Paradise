@@ -61,7 +61,7 @@
 		melee_damage_lower = 50
 		melee_damage_upper = 50
 		armour_penetration = 100
-		new /obj/effect/overlay/temp/guardian/phase(get_turf(src))
+		new /obj/effect/temp_visual/guardian/phase(get_turf(src))
 		alpha = 15
 		if(!forced)
 			to_chat(src, "<span class='danger'>You enter stealth, empowering your next attack.</span>")
