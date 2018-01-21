@@ -61,7 +61,7 @@
 
 /obj/machinery/door/poddoor/open()
 	if(operating || emagged) //doors can still open when emag-disabled
-		return
+		return 0
 	if(!ticker)
 		return 0
 	if(!operating) //in case of emag
@@ -84,7 +84,7 @@
 
 /obj/machinery/door/poddoor/close()
 	if(operating)
-		return
+		return 0
 	operating = 1
 	flick("pdoorc1", src)
 	icon_state = "pdoor1"
@@ -97,10 +97,37 @@
 	sleep(5)
 
 	operating = 0
-	return
+	return 1
 
 /obj/machinery/door/poddoor/multi_tile // Whoever wrote the old code for multi-tile spesspod doors needs to burn in hell.
 	name = "large pod door"
+
+/obj/machinery/door/poddoor/multi_tile/New()
+	. = ..()
+	apply_opacity_to_my_turfs(opacity)
+
+/obj/machinery/door/poddoor/multi_tile/open()
+	if (..())
+		apply_opacity_to_my_turfs(opacity)
+
+
+/obj/machinery/door/poddoor/multi_tile/close()
+	if (..())
+		apply_opacity_to_my_turfs(opacity)
+
+/obj/machinery/door/poddoor/multi_tile/Destroy()
+	apply_opacity_to_my_turfs(0)
+	return ..()
+
+/obj/machinery/door/poddoor/multi_tile/proc/apply_opacity_to_my_turfs(var/new_opacity)
+	var/numsteps = 1
+	var/turf/current_turf = get_turf(src)
+	while(numsteps <= width)
+		current_turf.opacity = new_opacity
+		var/turf/next_turf = get_step(current_turf, dir)
+		current_turf = next_turf
+		numsteps++
+	update_freelook_sight()
 
 /obj/machinery/door/poddoor/multi_tile/four_tile_ver/
 	icon = 'icons/obj/doors/1x4blast_vert.dmi'
