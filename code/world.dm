@@ -23,14 +23,9 @@ var/global/datum/global_init/init = new ()
 var/global/list/map_transition_config = MAP_TRANSITION_CONFIG
 
 /world/New()
-	//logs
-	var/date_string = time2text(world.realtime, "YYYY/MM-Month/DD-Day")
-	href_logfile = file("data/logs/[date_string] hrefs.htm")
-	diary = file("data/logs/[date_string].log")
-	diaryofmeanpeople = file("data/logs/[date_string] Attack.log")
+	setLog()
 	diary << "\n\nStarting up. [time2text(world.timeofday, "hh:mm.ss")]\n---------------------"
 	diaryofmeanpeople << "\n\nStarting up. [time2text(world.timeofday, "hh:mm.ss")]\n---------------------"
-
 	if(byond_version < RECOMMENDED_VERSION)
 		log_to_dd("Your server's byond version does not meet the recommended requirements for this code. Please update BYOND")
 
@@ -264,6 +259,14 @@ var/world_topic_spam_protect_time = world.timeofday
 
 		return "Kick Successful"
 
+	else if("setlog" in input)
+		if(!key_valid)
+			return keySpamProtect(addr)
+
+		setLog()
+
+		return "Logs set to current date"
+
 /proc/keySpamProtect(var/addr)
 	if(world_topic_spam_protect_ip == addr && abs(world_topic_spam_protect_time - world.time) < 50)
 		spawn(50)
@@ -453,6 +456,12 @@ var/world_topic_spam_protect_time = world.timeofday
 var/failed_db_connections = 0
 var/failed_old_db_connections = 0
 
+/world/proc/setLog()
+	var/date_string = time2text(world.realtime, "YYYY/MM-Month/DD-Day")
+	href_logfile = file("data/logs/[date_string] hrefs.htm")
+	diary = file("data/logs/[date_string].log")
+	diaryofmeanpeople = file("data/logs/[date_string] Attack.log")
+
 /hook/startup/proc/connectDB()
 	if(!setup_database_connection())
 		log_to_dd("Your server failed to establish a connection with the feedback database.")
@@ -495,3 +504,4 @@ proc/establish_db_connection()
 		return 1
 
 #undef FAILED_DB_CONNECTION_CUTOFF
+
