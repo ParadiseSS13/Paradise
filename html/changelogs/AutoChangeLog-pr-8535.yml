@@ -1,5 +1,0 @@
-author: "KasparoVy"
-delete-after: True
-changes: 
-  - bugfix: "Avoids wanton bloodshed by revising logic that checks for blood already in the splat zone."
-  - rscadd: "Adds a helper proc with which you can get a list of all atoms of a type at a given location."
