@@ -7,7 +7,7 @@ var/global/datum/global_init/init = new ()
 
 	makeDatumRefLists()
 	load_configuration()
-
+	setLog()
 	del(src)
 
 /world
@@ -23,7 +23,6 @@ var/global/datum/global_init/init = new ()
 var/global/list/map_transition_config = MAP_TRANSITION_CONFIG
 
 /world/New()
-	setLog()
 	diary << "\n\nStarting up. [time2text(world.timeofday, "hh:mm.ss")]\n---------------------"
 	diaryofmeanpeople << "\n\nStarting up. [time2text(world.timeofday, "hh:mm.ss")]\n---------------------"
 	if(byond_version < RECOMMENDED_VERSION)
@@ -456,7 +455,7 @@ var/world_topic_spam_protect_time = world.timeofday
 var/failed_db_connections = 0
 var/failed_old_db_connections = 0
 
-/world/proc/setLog()
+proc/setLog()
 	var/date_string = time2text(world.realtime, "YYYY/MM-Month/DD-Day")
 	href_logfile = file("data/logs/[date_string] hrefs.htm")
 	diary = file("data/logs/[date_string].log")
