@@ -471,8 +471,9 @@
 	unarmed_type = /datum/unarmed_attack/claws
 
 	brute_mod = 0.8
+	tox_mod = 1.3
 
-	species_traits = list(NO_SCAN, IS_WHITELISTED)
+	species_traits = list(IS_WHITELISTED)
 	clothing_flags = HAS_UNDERWEAR | HAS_UNDERSHIRT | HAS_SOCKS
 	bodyflags = HAS_HEAD_ACCESSORY | HAS_HEAD_MARKINGS | HAS_BODY_MARKINGS
 	eyes = "kidan_eyes_s"
