@@ -732,7 +732,7 @@
 "pG" = (/obj/effect/decal/cleanable/blood/gibs/body,/turf/unsimulated/floor{tag = "icon-cultdamage2"; icon_state = "cultdamage2"},/area/wizard_station)
 "pH" = (/obj/structure/table/wood/poker,/obj/item/toy/cards/cardhand,/turf/unsimulated/floor{tag = "icon-cultdamage2"; icon_state = "cultdamage2"},/area/wizard_station)
 "pP" = (/obj/machinery/computer/telecrystals/boss,/turf/unsimulated/floor{icon_state = "floor4"},/area/syndicate_mothership)
-"pS" = (/obj/machinery/door/airlock/multi_tile/glass{name = "Equipment Room"; opacity = 0; req_access_txt = "150"},/turf/unsimulated/floor{icon_state = "bar"; dir = 2},/area/syndicate_mothership)
+"pS" = (/obj/machinery/door/airlock/multi_tile/glass{name = "Equipment Room"; req_access_txt = "150"},/turf/unsimulated/floor{icon_state = "bar"; dir = 2},/area/syndicate_mothership)
 "pT" = (/obj/structure/lattice,/obj/effect/forcefield,/turf/space/transit,/area/wizard_station)
 "pU" = (/obj/machinery/vending/magivend,/turf/unsimulated/floor{tag = "icon-cult"; icon_state = "cult"},/area/wizard_station)
 "pV" = (/obj/machinery/vending/snack,/turf/unsimulated/floor{tag = "icon-cultdamage"; icon_state = "cultdamage"},/area/wizard_station)
