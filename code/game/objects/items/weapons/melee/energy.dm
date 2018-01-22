@@ -9,8 +9,9 @@
 	hitsound = 'sound/weapons/blade1.ogg' // Probably more appropriate than the previous hitsound. -- Dave
 	usesound = 'sound/weapons/blade1.ogg'
 	toolspeed = 1
-	var/colormap[0]
-
+	var/brightness_on = 2
+	var/colormap = list(red=LIGHT_COLOR_RED, blue=LIGHT_COLOR_LIGHTBLUE, green=LIGHT_COLOR_GREEN, purple=LIGHT_COLOR_PURPLE, rainbow=LIGHT_COLOR_WHITE)
+	
 /obj/item/weapon/melee/energy/suicide_act(mob/user)
 	user.visible_message(pick("<span class='suicide'>[user] is slitting \his stomach open with the [src.name]! It looks like \he's trying to commit seppuku.</span>", \
 						"<span class='suicide'>[user] is falling on the [src.name]! It looks like \he's trying to commit suicide.</span>"))
@@ -30,9 +31,10 @@
 			attack_verb = attack_verb_on
 		if(!item_color)
 			icon_state = icon_state_on
+			set_light(brightness_on, 2)
 		else
 			icon_state = "sword[item_color]"
-			set_light(2, 2, colormap[item_color])
+			set_light(brightness_on, 2, colormap[item_color])
 		w_class = w_class_on
 		playsound(user, 'sound/weapons/saberon.ogg', 35, 1) //changed it from 50% volume to 35% because deafness
 		to_chat(user, "<span class='notice'>[src] is now active.</span>")
@@ -74,6 +76,7 @@
 	attack_verb = list("attacked", "chopped", "cleaved", "torn", "cut")
 	attack_verb_on = list()
 	sharp = 1
+	light_color = LIGHT_COLOR_WHITE
 
 /obj/item/weapon/melee/energy/axe/suicide_act(mob/user)
 	user.visible_message("<span class='suicide'>[user] swings the [src.name] towards /his head! It looks like \he's trying to commit suicide.</span>")
@@ -95,16 +98,10 @@
 	block_chance = 50
 	sharp = 1
 	var/hacked = 0
-	var/blade_color
 
 /obj/item/weapon/melee/energy/sword/New()
 	if(item_color == null)
 		item_color = pick("red", "blue", "green", "purple")
-	colormap["red"] = LIGHT_COLOR_RED
-	colormap["blue"] = LIGHT_COLOR_LIGHTBLUE
-	colormap["green"] = LIGHT_COLOR_GREEN
-	colormap["purple"] = LIGHT_COLOR_PURPLE
-	colormap["rainbow"] = LIGHT_COLOR_WHITE
 
 /obj/item/weapon/melee/energy/sword/hit_reaction(mob/living/carbon/human/owner, attack_text, final_block_chance)
 	if(active)
@@ -137,6 +134,7 @@
 	hitcost = 75 //Costs more than a standard cyborg esword
 	item_color = null
 	w_class = WEIGHT_CLASS_NORMAL
+	light_color = LIGHT_COLOR_WHITE
 
 /obj/item/weapon/melee/energy/sword/cyborg/saw/New()
 	..()
@@ -200,6 +198,7 @@
 	desc = "Arrrr matey."
 	icon_state = "cutlass0"
 	icon_state_on = "cutlass1"
+	light_color = LIGHT_COLOR_RED
 
 /obj/item/weapon/melee/energy/sword/pirate/New()
 	return
