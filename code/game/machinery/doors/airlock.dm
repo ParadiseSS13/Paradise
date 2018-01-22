@@ -55,9 +55,11 @@ var/list/airlock_overlays = list()
 	var/safe = 1
 	var/obj/item/weapon/airlock_electronics/electronics = null
 	var/hasShocked = 0 //Prevents multiple shocks from happening
+	var/obj/item/weapon/note //Any papers pinned to the airlock
 	var/previous_airlock //what airlock assembly mineral plating was applied to
 	var/airlock_material = null //material of inner filling; if its an airlock with glass, this should be set to "glass"
 	var/overlays_file = 'icons/obj/doors/airlocks/station/overlays.dmi'
+	var/note_overlay_file = 'icons/obj/doors/airlocks/station/overlays.dmi' //Used for papers and photos pinned to the airlock
 
 	var/image/old_frame_overlay //keep those in order to prevent unnecessary updating
 	var/image/old_filling_overlay
@@ -65,6 +67,7 @@ var/list/airlock_overlays = list()
 	var/image/old_panel_overlay
 	var/image/old_weld_overlay
 	var/image/old_sparks_overlay
+	var/image/old_note_overlay
 
 	var/doorOpen = 'sound/machines/airlock_open.ogg'
 	var/doorClose = 'sound/machines/airlock_close.ogg'
@@ -117,7 +120,13 @@ About the new airlock wires panel:
 	if(electrified_timer)
 		deltimer(electrified_timer)
 		electrified_timer = null
+	qdel(note)
 	return ..()
+
+/obj/machinery/door/airlock/handle_atom_del(atom/A)
+	if(A == note)
+		note = null
+		update_icon()
 
 /obj/machinery/door/airlock/bumpopen(mob/living/user) //Airlocks now zap you when you 'bump' them open when they're electrified. --NeoFite
 	if(!issilicon(usr))
@@ -291,6 +300,8 @@ About the new airlock wires panel:
 	var/image/panel_overlay
 	var/image/weld_overlay
 	var/image/sparks_overlay
+	var/image/note_overlay
+	var/notetype = note_type()
 
 	switch(state)
 		if(AIRLOCK_CLOSED)
@@ -308,6 +319,9 @@ About the new airlock wires panel:
 					lights_overlay = get_airlock_overlay("lights_bolts", overlays_file)
 				else if(emergency)
 					lights_overlay = get_airlock_overlay("lights_emergency", overlays_file)
+			if(note)
+				note_overlay = get_airlock_overlay(notetype, note_overlay_file)
+
 		if(AIRLOCK_DENY)
 			if(!arePowerSystemsOn())
 				return
@@ -321,6 +335,9 @@ About the new airlock wires panel:
 			if(welded)
 				weld_overlay = get_airlock_overlay("welded", overlays_file)
 			lights_overlay = get_airlock_overlay("lights_denied", overlays_file)
+			if(note)
+				note_overlay = get_airlock_overlay(notetype, note_overlay_file)
+
 		if(AIRLOCK_EMAG)
 			frame_overlay = get_airlock_overlay("closed", icon)
 			sparks_overlay = get_airlock_overlay("sparks", overlays_file)
@@ -332,6 +349,8 @@ About the new airlock wires panel:
 				panel_overlay = get_airlock_overlay("panel_closed", overlays_file)
 			if(welded)
 				weld_overlay = get_airlock_overlay("welded", overlays_file)
+			if(note)
+				note_overlay = get_airlock_overlay(notetype, note_overlay_file)
 
 		if(AIRLOCK_CLOSING)
 			frame_overlay = get_airlock_overlay("closing", icon)
@@ -343,6 +362,8 @@ About the new airlock wires panel:
 				lights_overlay = get_airlock_overlay("lights_closing", overlays_file)
 			if(p_open)
 				panel_overlay = get_airlock_overlay("panel_closing", overlays_file)
+			if(note)
+				note_overlay = get_airlock_overlay("[notetype]_closing", note_overlay_file)
 
 		if(AIRLOCK_OPEN)
 			frame_overlay = get_airlock_overlay("open", icon)
@@ -352,6 +373,8 @@ About the new airlock wires panel:
 				filling_overlay = get_airlock_overlay("fill_open", icon)
 			if(p_open)
 				panel_overlay = get_airlock_overlay("panel_open", overlays_file)
+			if(note)
+				note_overlay = get_airlock_overlay("[notetype]_open", note_overlay_file)
 
 		if(AIRLOCK_OPENING)
 			frame_overlay = get_airlock_overlay("opening", icon)
@@ -363,6 +386,8 @@ About the new airlock wires panel:
 				lights_overlay = get_airlock_overlay("lights_opening", overlays_file)
 			if(p_open)
 				panel_overlay = get_airlock_overlay("panel_opening", overlays_file)
+			if(note)
+				note_overlay = get_airlock_overlay("[notetype]_opening", note_overlay_file)
 
 	//doesn't use overlays.Cut() for performance reasons
 	if(frame_overlay != old_frame_overlay)
@@ -389,6 +414,10 @@ About the new airlock wires panel:
 		overlays -= old_sparks_overlay
 		overlays += sparks_overlay
 		old_sparks_overlay = sparks_overlay
+	if(note_overlay != old_note_overlay)
+		overlays -= old_note_overlay
+		overlays += note_overlay
+		old_note_overlay = note_overlay
 
 /proc/get_airlock_overlay(icon_state, icon_file)
 	var/iconkey = "[icon_state][icon_file]"
@@ -414,6 +443,12 @@ About the new airlock wires panel:
 	..()
 	if(emagged)
 		to_chat(user, "<span class='warning'>Its access panel is smoking slightly.</span>")
+	if(note)
+		if(!in_range(user, src))
+			to_chat(user, "There's a [note.name] pinned to the front. You can't [note_type() == "note" ? "read" : "see"] it from here.")
+		else
+			to_chat(user, "There's a [note.name] pinned to the front...")
+			note.examine(user)
 
 /obj/machinery/door/airlock/attack_ghost(mob/user)
 	if(p_open)
@@ -678,7 +713,14 @@ About the new airlock wires panel:
 		playsound(loc, C.usesound, 50, 1)
 		update_icon()
 	else if(iswirecutter(C))
-		return attack_hand(user)
+		if(note)
+			user.visible_message("<span class='notice'>[user] cuts down [note] from [src].</span>", "<span class='notice'>You remove [note] from [src].</span>")
+			playsound(src, 'sound/items/Wirecutter.ogg', 50, 1)
+			note.forceMove(get_turf(user))
+			note = null
+			update_icon()
+		else
+			return attack_hand(user)
 	else if(ismultitool(C))
 		return attack_hand(user)
 	else if(istype(C, /obj/item/device/assembly/signaler))
@@ -686,6 +728,17 @@ About the new airlock wires panel:
 	else if(istype(C, /obj/item/weapon/pai_cable))	// -- TLE
 		var/obj/item/weapon/pai_cable/cable = C
 		cable.plugin(src, user)
+	else if(istype(C, /obj/item/weapon/paper) || istype(C, /obj/item/weapon/photo))
+		if(note)
+			to_chat(user, "<span class='warning'>There's already something pinned to this airlock! Use wirecutters to remove it.</span>")
+			return
+		if(!user.unEquip(C))
+			to_chat(user, "<span class='warning'>For some reason, you can't attach [C]!</span>")
+			return
+		C.forceMove(src)
+		user.visible_message("<span class='notice'>[user] pins [C] to [src].</span>", "<span class='notice'>You pin [C] to [src].</span>")
+		note = C
+		update_icon()
 	else if(iscrowbar(C) || istype(C, /obj/item/weapon/twohanded/fireaxe))
 		var/beingcrowbarred = null
 		if(iscrowbar(C))
@@ -964,6 +1017,14 @@ About the new airlock wires panel:
 			ae.icon_state = "door_electronics_smoked"
 			operating = 0
 	qdel(src)
+
+/obj/machinery/door/airlock/proc/note_type() //Returns a string representing the type of note pinned to this airlock
+	if(!note)
+		return
+	else if(istype(note, /obj/item/weapon/paper))
+		return "note"
+	else if(istype(note, /obj/item/weapon/photo))
+		return "photo"
 
 /obj/machinery/door/airlock/narsie_act()
 	var/turf/T = get_turf(src)
