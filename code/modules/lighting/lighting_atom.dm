@@ -20,6 +20,11 @@
 
 	update_light()
 
+/atom/proc/flash_light(l_range, l_power, l_color = NONSENSICAL_VALUE, time = 2)
+	set_light(l_range, l_power, l_color)
+	spawn(time)
+		set_light(0)
+
 #undef NONSENSICAL_VALUE
 
 /atom/proc/update_light()
