@@ -38,11 +38,11 @@ Bonus
 			if(3, 4)
 				to_chat(M, "<span class='warning'><b>Your eyes burn!</b></span>")
 				M.EyeBlurry(20)
-				eyes.take_damage(1)
+				eyes.receive_damage(1)
 			else
 				to_chat(M, "<span class='userdanger'>Your eyes burn horrificly!</span>")
 				M.EyeBlurry(30)
-				eyes.take_damage(5)
+				eyes.receive_damage(5)
 				if(eyes.damage >= 10)
 					M.BecomeNearsighted()
 					if(prob(eyes.damage - 10 + 1))

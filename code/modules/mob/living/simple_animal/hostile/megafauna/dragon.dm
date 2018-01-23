@@ -86,7 +86,7 @@ Difficulty: Medium
 /mob/living/simple_animal/hostile/megafauna/dragon/Process_Spacemove(movement_dir = 0)
 	return 1
 
-/obj/effect/overlay/temp/fireball
+/obj/effect/temp_visual/fireball
 	icon = 'icons/obj/wizard.dmi'
 	icon_state = "fireball"
 	name = "fireball"
@@ -96,18 +96,18 @@ Difficulty: Medium
 	duration = 12
 	pixel_z = 500
 
-/obj/effect/overlay/temp/fireball/New(loc)
+/obj/effect/temp_visual/fireball/New(loc)
 	..()
 	animate(src, pixel_z = 0, time = 12)
 
-/obj/effect/overlay/temp/target
+/obj/effect/temp_visual/target
 	icon = 'icons/mob/actions.dmi'
 	icon_state = "sniper_zoom"
 	layer = MOB_LAYER - 0.1
 	luminosity = 2
 	duration = 12
 
-/obj/effect/overlay/temp/dragon_swoop
+/obj/effect/temp_visual/dragon_swoop
 	name = "certain death"
 	desc = "Don't just stand there, move!"
 	icon = 'icons/effects/96x96.dmi'
@@ -118,18 +118,18 @@ Difficulty: Medium
 	color = "#FF0000"
 	duration = 10
 
-/obj/effect/overlay/temp/target/ex_act()
+/obj/effect/temp_visual/target/ex_act()
 	return
 
-/obj/effect/overlay/temp/target/New(loc)
+/obj/effect/temp_visual/target/New(loc)
 	..()
 	spawn(0)
 		fall()
 
-/obj/effect/overlay/temp/target/proc/fall()
+/obj/effect/temp_visual/target/proc/fall()
 	var/turf/T = get_turf(src)
 	playsound(T,'sound/magic/Fireball.ogg', 200, 1)
-	new /obj/effect/overlay/temp/fireball(T)
+	new /obj/effect/temp_visual/fireball(T)
 	sleep(12)
 	explosion(T, 0, 0, 1, 0, 0, 0, 1)
 
@@ -161,7 +161,7 @@ Difficulty: Medium
 	visible_message("<span class='boldwarning'>Fire rains from the sky!</span>")
 	for(var/turf/turf in range(12,get_turf(src)))
 		if(prob(10))
-			new /obj/effect/overlay/temp/target(turf)
+			new /obj/effect/temp_visual/target(turf)
 
 /mob/living/simple_animal/hostile/megafauna/dragon/proc/fire_walls()
 	playsound(get_turf(src),'sound/magic/Fireball.ogg', 200, 1)
@@ -223,7 +223,7 @@ Difficulty: Medium
 	else
 		tturf = get_turf(src)
 	forceMove(tturf)
-	new /obj/effect/overlay/temp/dragon_swoop(tturf)
+	new /obj/effect/temp_visual/dragon_swoop(tturf)
 	animate(src, pixel_x = initial(pixel_x), pixel_z = 0, time = 10)
 	sleep(10)
 	playsound(src.loc, 'sound/effects/meteorimpact.ogg', 200, 1)

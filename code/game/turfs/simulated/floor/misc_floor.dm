@@ -67,3 +67,32 @@
 
 /turf/simulated/floor/noslip/MakeSlippery()
 	return
+
+//Clockwork floor: Slowly heals toxin damage on nearby servants.
+/turf/simulated/floor/clockwork
+	name = "clockwork floor"
+	desc = "Tightly-pressed brass tiles. They emit minute vibration."
+	icon_state = "clockwork_floor"
+
+/turf/simulated/floor/clockwork/attackby(obj/item/I, mob/living/user, params)
+	if(iscrowbar(I))
+		user.visible_message("<span class='notice'>[user] begins slowly prying up [src]...</span>", "<span class='notice'>You begin painstakingly prying up [src]...</span>")
+		playsound(src, I.usesound, 20, 1)
+		if(!do_after(user, 70*I.toolspeed, target = src))
+			return 0
+		user.visible_message("<span class='notice'>[user] pries up [src]!</span>", "<span class='notice'>You pry up [src]!</span>")
+		playsound(src, I.usesound, 80, 1)
+		make_plating()
+		return 1
+	return ..()
+
+/turf/simulated/floor/clockwork/make_plating()
+	new /obj/item/stack/tile/brass(src)
+	return ..()
+
+/turf/simulated/floor/clockwork/narsie_act()
+	..()
+	if(istype(src, /turf/simulated/floor/clockwork)) //if we haven't changed type
+		var/previouscolor = color
+		color = "#960000"
+		animate(src, color = previouscolor, time = 8)

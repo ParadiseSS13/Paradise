@@ -125,9 +125,9 @@
 						if((Z.temperature > 270) && (Z.temperature < 360))
 							var/pressure = Z.return_pressure()
 							if((pressure > 20) && (pressure < 550))
-								new /obj/effect/overlay/temp/guardian/phase/out(get_turf(A))
+								new /obj/effect/temp_visual/guardian/phase/out(get_turf(A))
 								do_teleport(A, beacon, 0)
-								new /obj/effect/overlay/temp/guardian/phase(get_turf(A))
+								new /obj/effect/temp_visual/guardian/phase(get_turf(A))
 						else
 							to_chat(src, "<span class='danger'>The beacon isn't in a safe location!</span>")
 					else
