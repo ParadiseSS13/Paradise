@@ -14,18 +14,6 @@
 	overlay.layer = MOB_LAYER + 0.1
 	overlays += overlay
 
-/obj/effect/overlay/temp/speedbike_trail
-	name = "speedbike trails"
-	icon = 'icons/effects/effects.dmi'
-	icon_state = "ion_fade"
-	duration = 10
-	randomdir = 0
-	layer = MOB_LAYER - 0.2
-
-/obj/effect/overlay/temp/speedbike_trail/New(loc,move_dir)
-	..()
-	dir = move_dir
-
 /obj/vehicle/space/speedbike/Move(newloc,move_dir)
 	if(has_buckled_mobs())
 		new /obj/effect/temp_visual/dir_setting/speedbike_trail(loc)
