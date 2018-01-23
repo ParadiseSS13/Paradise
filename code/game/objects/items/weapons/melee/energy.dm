@@ -207,13 +207,13 @@
 	throw_speed = 3
 	throw_range = 1
 	w_class = WEIGHT_CLASS_BULKY //So you can't hide it in your pocket or some such.
-	var/datum/effect/system/spark_spread/spark_system
+	var/datum/effect_system/spark_spread/spark_system
 	sharp = 1
 
 //Most of the other special functions are handled in their own files. aka special snowflake code so kewl
 /obj/item/weapon/melee/energy/blade/New()
 	..()
-	spark_system = new /datum/effect/system/spark_spread()
+	spark_system = new /datum/effect_system/spark_spread()
 	spark_system.set_up(5, 0, src)
 	spark_system.attach(src)
 

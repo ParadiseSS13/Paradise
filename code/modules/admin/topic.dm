@@ -1785,7 +1785,7 @@
 				H.gene_stability = 100
 				logmsg = "permanent regeneration."
 			if("Super Powers")
-				var/list/default_genes = list(REGENERATEBLOCK, NOBREATHBLOCK, COLDBLOCK)
+				var/list/default_genes = list(REGENERATEBLOCK, BREATHLESSBLOCK, COLDBLOCK)
 				for(var/gene in default_genes)
 					H.dna.SetSEState(gene, 1)
 					genemutcheck(H, gene,  null, MUTCHK_FORCED)

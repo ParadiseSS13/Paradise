@@ -21,7 +21,7 @@
 			if(E.is_broken() && E.internal_organs && E.internal_organs.len && prob(15))
 				var/obj/item/organ/internal/I = pick(E.internal_organs)
 				custom_pain("You feel broken bones moving in your [E.name]!", 1)
-				I.take_damage(rand(3,5))
+				I.receive_damage(rand(3,5))
 
 	//handle_stance()
 	handle_grasp()
@@ -107,7 +107,7 @@
 
 			custom_emote(1, "drops what they were holding, their [E.name] malfunctioning!")
 
-			var/datum/effect/system/spark_spread/spark_system = new /datum/effect/system/spark_spread()
+			var/datum/effect_system/spark_spread/spark_system = new /datum/effect_system/spark_spread()
 			spark_system.set_up(5, 0, src)
 			spark_system.attach(src)
 			spark_system.start()

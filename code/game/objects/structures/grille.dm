@@ -11,7 +11,6 @@
 	level = 3
 	var/health = 10
 	var/broken = 0
-	var/can_deconstruct = TRUE
 	var/rods_type = /obj/item/stack/rods
 	var/rods_amount = 2
 	var/rods_broken = 1
@@ -243,7 +242,17 @@
 			visible_message("<span class='danger'>[user] has hit [src] with [I]!</span>")
 	take_damage(I.force * 0.3, I.damtype)
 
-/obj/structure/grille/proc/deconstruct(disassembled = TRUE)
+/obj/structure/grille/play_attack_sound(damage_amount, damage_type = BRUTE, damage_flag = 0)
+	switch(damage_type)
+		if(BRUTE)
+			if(damage_amount)
+				playsound(src, 'sound/effects/grillehit.ogg', 80, 1)
+			else
+				playsound(src, 'sound/weapons/tap.ogg', 50, 1)
+		if(BURN)
+			playsound(src, 'sound/items/welder.ogg', 80, 1)
+
+/obj/structure/grille/deconstruct(disassembled = TRUE)
 	if(!loc) //if already qdel'd somehow, we do nothing
 		return
 	if(can_deconstruct)
@@ -258,20 +267,10 @@
 		transfer_fingerprints_to(R)
 		qdel(src)
 
-/obj/structure/grille/proc/take_damage(damage, damage_type = BRUTE, sound_effect = 1)
-	switch(damage_type)
-		if(BURN)
-			if(sound_effect)
-				playsound(loc, 'sound/items/welder.ogg', 80, 1)
-		if(BRUTE)
-			if(sound_effect)
-				if(damage)
-					playsound(loc, 'sound/effects/grillehit.ogg', 80, 1)
-				else
-					playsound(loc, 'sound/weapons/tap.ogg', 50, 1)
-		else
-			return
-	health -= damage
+/obj/structure/grille/take_damage(damage_amount, damage_type = BRUTE, damage_flag = 0, sound_effect = 1, attack_dir)
+	if(sound_effect)
+		play_attack_sound(damage_amount, damage_type, damage_flag)
+	health -= damage_amount
 	if(health <= 0)
 		if(!broken)
 			obj_break()
@@ -293,7 +292,7 @@
 	var/obj/structure/cable/C = T.get_cable_node()
 	if(C)
 		if(electrocute_mob(user, C, src))
-			var/datum/effect/system/spark_spread/s = new /datum/effect/system/spark_spread
+			var/datum/effect_system/spark_spread/s = new /datum/effect_system/spark_spread
 			s.set_up(3, 1, src)
 			s.start()
 			return 1

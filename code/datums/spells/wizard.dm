@@ -25,7 +25,7 @@
 	proj_trail_icon_state = "magicmd"
 
 	action_icon_state = "magicm"
-	
+
 	sound = 'sound/magic/MAGIC_MISSILE.ogg'
 
 /obj/effect/proc_holder/spell/targeted/inflict_handler/magic_missile
@@ -97,7 +97,7 @@
 
 	emp_heavy = 6
 	emp_light = 10
-	
+
 	sound = 'sound/magic/Disable_Tech.ogg'
 
 /obj/effect/proc_holder/spell/targeted/turf_teleport/blink
@@ -123,7 +123,7 @@
 	centcom_cancast = 0 //prevent people from getting to centcom
 
 	action_icon_state = "blink"
-	
+
 	sound1 = 'sound/magic/blink.ogg'
 	sound2 = 'sound/magic/blink.ogg'
 
@@ -144,7 +144,7 @@
 	smoke_amt = 5
 
 	action_icon_state = "spell_teleport"
-	
+
 	sound1 = 'sound/magic/Teleport_diss.ogg'
 	sound2 = 'sound/magic/Teleport_app.ogg'
 
@@ -194,7 +194,7 @@
 	summon_type = list(/mob/living/simple_animal/hostile/carp)
 
 	cast_sound = 'sound/magic/Summon_Karp.ogg'
-	
+
 /obj/effect/proc_holder/spell/aoe_turf/conjure/construct
 	name = "Artificer"
 	desc = "This spell conjures a construct which may be controlled by Shades"
@@ -334,7 +334,7 @@
 	cooldown_min = 150
 	selection_type = "view"
 	var/maxthrow = 5
-
+	var/sparkle_path = /obj/effect/temp_visual/gravpush
 	action_icon_state = "repulse"
 	sound = 'sound/magic/Repulse.ogg'
 
@@ -347,16 +347,13 @@
 		for(var/atom/movable/AM in T)
 			thrownatoms += AM
 
-	for(var/atom/movable/AM in thrownatoms)
-		if(AM == user || AM.anchored) continue
+	for(var/am in thrownatoms)
+		var/atom/movable/AM = am
+		if(AM == user || AM.anchored)
+			continue
 
-		var/obj/effect/overlay/targeteffect	= new /obj/effect/overlay{icon='icons/effects/effects.dmi'; icon_state="shieldsparkles"; mouse_opacity=0; density = 0}()
-		AM.overlays += targeteffect
 		throwtarget = get_edge_target_turf(user, get_dir(user, get_step_away(AM, user)))
 		distfromcaster = get_dist(user, AM)
-		spawn(10)
-			AM.overlays -= targeteffect
-			qdel(targeteffect)
 		if(distfromcaster == 0)
 			if(istype(AM, /mob/living))
 				var/mob/living/M = AM
@@ -364,11 +361,13 @@
 				M.adjustBruteLoss(5)
 				to_chat(M, "<span class='userdanger'>You're slammed into the floor by a mystical force!</span>")
 		else
+			new sparkle_path(get_turf(AM), get_dir(user, AM)) //created sparkles will disappear on their own
 			if(istype(AM, /mob/living))
 				var/mob/living/M = AM
 				M.Weaken(2)
 				to_chat(M, "<span class='userdanger'>You're thrown back by a mystical force!</span>")
-			spawn(0) AM.throw_at(throwtarget, ((Clamp((maxthrow - (Clamp(distfromcaster - 2, 0, distfromcaster))), 3, maxthrow))), 1)//So stuff gets tossed around at the same time.
+			spawn(0)
+				AM.throw_at(throwtarget, ((Clamp((maxthrow - (Clamp(distfromcaster - 2, 0, distfromcaster))), 3, maxthrow))), 1)//So stuff gets tossed around at the same time.
 
 /obj/effect/proc_holder/spell/targeted/sacred_flame
 	name = "Sacred Flame"

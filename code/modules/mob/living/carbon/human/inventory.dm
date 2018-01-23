@@ -152,7 +152,7 @@
 			update_head_accessory()
 		if(internal && !get_organ_slot("breathing_tube"))
 			internal = null
-			update_internals_hud_icon(0)
+			update_action_buttons_icon()
 		wear_mask_update(I, toggle_off = FALSE)
 		sec_hud_set_ID()
 		update_inv_wear_mask()

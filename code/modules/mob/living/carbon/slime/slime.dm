@@ -66,6 +66,10 @@
 		coretype = text2path("/obj/item/slime_extract/[sanitizedcolour]")
 	..()
 
+/mob/living/carbon/slime/random/New()
+	colour = pick("grey","orange", "metal", "blue", "purple", "dark purple", "dark blue", "green", "silver", "yellow", "gold", "yellow", "red", "silver", "pink", "cerulean", "sepia", "bluespace", "pyrite", "light pink", "oil", "adamantine", "black")
+	..()
+
 /mob/living/carbon/slime/Destroy()
 	for(var/obj/machinery/computer/camera_advanced/xenobio/X in machines)
 		if(src in X.stored_slimes)

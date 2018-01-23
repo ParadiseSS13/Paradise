@@ -559,9 +559,10 @@
 
 	if(!message)
 		return
-
+	
+	log_robot("[key_name(speaker)] : [message]")
 	var/message_start = "<i><span class='game say'>[name], <span class='name'>[speaker.name]</span>"
-	var/message_body = "<span class='message'>[speaker.say_quote(message)], \"[message]\"</span></span></i>"
+	var/message_body = "<span class='message'>[speaker.say_quote(message)],</i> <span class='ibm'>\"[message]\"</span></span></span>"
 
 	for(var/mob/M in dead_mob_list)
 		if(!isnewplayer(M) && !isbrain(M))

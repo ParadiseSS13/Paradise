@@ -1,3 +1,4 @@
+#define EMAG_TIMER 3000
 /mob/living/silicon/robot/drone
 	name = "drone"
 	real_name = "drone"
@@ -30,6 +31,7 @@
 	var/mail_destination = 0
 	var/reboot_cooldown = 60 // one minute
 	var/last_reboot
+	var/emagged_time
 
 	holder_type = /obj/item/weapon/holder/drone
 //	var/sprite[0]
@@ -180,14 +182,17 @@
 		return
 
 	to_chat(user, "<span class='warning'>You swipe the sequencer across [src]'s interface and watch its eyes flicker.</span>")
-	to_chat(src, "<span class='warning'>You feel a sudden burst of malware loaded into your execute-as-root buffer. Your tiny brain methodically parses, loads and executes the script.</span>")
+	to_chat(src, "<span class='warning'>You feel a sudden burst of malware loaded into your execute-as-root buffer. Your tiny brain methodically parses, loads and executes the script. You sense you have five minutes before the drone server detects this and automatically shuts you down.</span>")
 
 	message_admins("[key_name_admin(user)] emagged drone [key_name_admin(src)].  Laws overridden.")
 	log_game("[key_name(user)] emagged drone [key_name(src)].  Laws overridden.")
 	var/time = time2text(world.realtime,"hh:mm:ss")
 	lawchanges.Add("[time] <B>:</B> [H.name]([H.key]) emagged [name]([key])")
 
+	emagged_time = world.time
 	emagged = 1
+	density = 1
+	pass_flags = 0
 	icon_state = "repairbot-emagged"
 	holder_type = /obj/item/weapon/holder/drone/emagged
 	update_icons()
@@ -196,11 +201,11 @@
 	clear_supplied_laws()
 	clear_inherent_laws()
 	laws = new /datum/ai_laws/syndicate_override
-	set_zeroth_law("Only [H.real_name] and people he designates as being such are Syndicate Agents.")
+	set_zeroth_law("Only [H.real_name] and people [H.real_name] designates as being such are Syndicate Agents.")
 
 	to_chat(src, "<b>Obey these laws:</b>")
 	laws.show_laws(src)
-	to_chat(src, "<span class='boldwarning'>ALERT: [H.real_name] is your new master. Obey your new laws and his commands.</span>")
+	to_chat(src, "<span class='boldwarning'>ALERT: [H.real_name] is your new master. Obey your new laws and [H.real_name]'s commands.</span>")
 	return
 
 //DRONE LIFE/DEATH
@@ -245,13 +250,16 @@
 			full_law_reset()
 			show_laws()
 
-/mob/living/silicon/robot/drone/proc/shut_down()
-	if(stat != 2)
-		if(emagged)
-			to_chat(src, "<span class='warning'>You feel a system kill order percolate through your tiny brain, but it doesn't seem like a good idea to you.</span>")
-		else
-			to_chat(src, "<span class='warning'>You feel a system kill order percolate through your tiny brain, and you obediently destroy yourself.</span>")
-			death()
+/mob/living/silicon/robot/drone/proc/shut_down(force=FALSE)
+	if(stat == 2)
+		return
+
+	if(emagged && !force)
+		to_chat(src, "<span class='warning'>You feel a system kill order percolate through your tiny brain, but it doesn't seem like a good idea to you.</span>")
+		return
+
+	to_chat(src, "<span class='warning'>You feel a system kill order percolate through your tiny brain, and you obediently destroy yourself.</span>")
+	death()
 
 /mob/living/silicon/robot/drone/proc/full_law_reset()
 	clear_supplied_laws()
@@ -263,7 +271,7 @@
 
 /mob/living/silicon/robot/drone/proc/request_player()
 	for(var/mob/dead/observer/O in player_list)
-		if(O.has_enabled_antagHUD == 1 && config.antag_hud_restricted)
+		if(cannotPossess(O))
 			continue
 		if(jobban_isbanned(O,"nonhumandept") || jobban_isbanned(O,"Drone"))
 			continue
@@ -347,6 +355,11 @@
 
 /mob/living/silicon/robot/drone/update_canmove(delay_action_updates = 0)
 	. = ..()
+	if(emagged)
+		density = 1
+		if(world.time - emagged_time > EMAG_TIMER)
+			shut_down(TRUE)
+		return
 	density = 0 //this is reset every canmove update otherwise
 
 /mob/living/simple_animal/drone/flash_eyes(intensity = 1, override_blindness_check = 0, affect_silicon = 0)

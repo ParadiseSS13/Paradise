@@ -171,7 +171,7 @@
 			   DAMAGE PROCS
 ****************************************************/
 
-/obj/item/organ/external/take_damage(brute, burn, sharp, used_weapon = null, list/forbidden_limbs = list(), ignore_resists = FALSE)
+/obj/item/organ/external/receive_damage(brute, burn, sharp, used_weapon = null, list/forbidden_limbs = list(), ignore_resists = FALSE)
 	if(tough && !ignore_resists)
 		brute = max(0, brute - 5)
 		burn = max(0, burn - 4)
@@ -194,7 +194,7 @@
 		// Damage an internal organ
 		if(internal_organs && internal_organs.len)
 			var/obj/item/organ/internal/I = pick(internal_organs)
-			I.take_damage(brute * 0.5)
+			I.receive_damage(brute * 0.5)
 			brute -= brute * 0.5
 
 	if(status & ORGAN_BROKEN && prob(40) && brute)
@@ -246,7 +246,7 @@
 			if(possible_points.len)
 				//And pass the pain around
 				var/obj/item/organ/external/target = pick(possible_points)
-				target.take_damage(brute, burn, sharp, used_weapon, forbidden_limbs + src, ignore_resists = TRUE) //If the damage was reduced before, don't reduce it again
+				target.receive_damage(brute, burn, sharp, used_weapon, forbidden_limbs + src, ignore_resists = TRUE) //If the damage was reduced before, don't reduce it again
 
 			if(dismember_at_max_damage && body_part != UPPER_TORSO && body_part != LOWER_TORSO) // We've ensured all damage to the mob is retained, now let's drop it, if necessary.
 				droplimb(1) //Clean loss, just drop the limb and be done
@@ -524,7 +524,7 @@ Note that amputating the affected organ does in fact remove the infection from t
 			for(var/obj/item/organ/external/E in children) //Factor in the children's brute and burn into how much will transfer
 				total_brute += E.brute_dam
 				total_burn += E.burn_dam
-			parent.take_damage(total_brute, total_burn, ignore_resists = TRUE) //Transfer the full damage to the parent, bypass limb damage reduction.
+			parent.receive_damage(total_brute, total_burn, ignore_resists = TRUE) //Transfer the full damage to the parent, bypass limb damage reduction.
 		parent = null
 
 	spawn(1)
@@ -702,7 +702,7 @@ Note that amputating the affected organ does in fact remove the infection from t
 			"<span class='danger'>Your [src.name] explodes!</span>",\
 			"<span class='danger'>You hear an explosion!</span>")
 		explosion(get_turf(owner),-1,-1,2,3)
-		var/datum/effect/system/spark_spread/spark_system = new /datum/effect/system/spark_spread()
+		var/datum/effect_system/spark_spread/spark_system = new /datum/effect_system/spark_spread()
 		spark_system.set_up(5, 0, victim)
 		spark_system.attach(owner)
 		spark_system.start()

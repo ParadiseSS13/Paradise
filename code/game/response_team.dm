@@ -51,7 +51,7 @@ var/ert_request_answered = 0
 		to_chat(src, "<span class='warning'>This role is not yet available to you. You need to wait another [player_age_check] days.</span>")
 		return 0
 
-	if(has_enabled_antagHUD == 1 && config.antag_hud_restricted)
+	if(cannotPossess(src))
 		to_chat(src, "<span class='boldnotice'>Upon using the antagHUD you forfeited the ability to join the round.</span>")
 		return 0
 
@@ -90,6 +90,16 @@ var/ert_request_answered = 0
 		return 0
 
 	var/index = 1
+	var/ert_spawn_seconds = 120
+	spawn(ert_spawn_seconds * 10) // to account for spawn() using deciseconds
+		var/list/unspawnable_ert = list()
+		for(var/mob/M in response_team_members)
+			if(M)
+				unspawnable_ert |= M
+		if(unspawnable_ert.len)
+			message_admins("ERT SPAWN: The following ERT members could not be spawned within [ert_spawn_seconds] seconds:")
+			for(var/mob/M in unspawnable_ert)
+				message_admins("- Unspawned ERT: [ADMIN_FULLMONTY(M)]")
 	for(var/mob/M in response_team_members)
 		if(index > emergencyresponseteamspawn.len)
 			index = 1
@@ -115,21 +125,7 @@ var/ert_request_answered = 0
 	if(class == "Cyborg")
 		active_team.reduceCyborgSlots()
 		var/cyborg_unlock = active_team.getCyborgUnlock()
-		var/mob/living/silicon/robot/ert/R = new()
-		R.forceMove(spawn_location)
-		var/rnum = rand(1,1000)
-		R.name = "ERT [rnum]"
-		R.real_name = R.name
-		R.mind = new
-		R.mind.current = R
-		R.mind.original = R
-		R.mind.assigned_role = "MODE"
-		R.mind.special_role = SPECIAL_ROLE_ERT
-		if(cyborg_unlock)
-			R.crisis = 1
-		if(!(R.mind in ticker.minds))
-			ticker.minds += R.mind //Adds them to regular mind list.
-		ticker.mode.ert += R.mind
+		var/mob/living/silicon/robot/ert/R = new /mob/living/silicon/robot/ert(spawn_location, cyborg_unlock)
 		return R
 
 	var/mob/living/carbon/human/M = new(null)

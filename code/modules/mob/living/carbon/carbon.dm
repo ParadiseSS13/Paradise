@@ -68,7 +68,7 @@
 				var/mob/living/carbon/human/H = src
 				var/obj/item/organ/external/organ = H.get_organ("chest")
 				if(istype(organ))
-					if(organ.take_damage(d, 0))
+					if(organ.receive_damage(d, 0))
 						H.UpdateDamageIcon()
 
 				H.updatehealth()
@@ -313,6 +313,7 @@
 /mob/living/carbon/flash_eyes(intensity = 1, override_blindness_check = 0, affect_silicon = 0, visual = 0)
 	. = ..()
 	var/damage = intensity - check_eye_prot()
+	var/extra_damage = 0
 	if(.)
 		if(visual)
 			return
@@ -323,19 +324,32 @@
 		if(!E || (E && E.weld_proof))
 			return
 
+		var/extra_darkview = 0
+		if(E.dark_view)
+			extra_darkview = max(E.dark_view - 2, 0)
+			extra_damage = extra_darkview
+
+		var/light_amount = 10 // assume full brightness
+		if(isturf(src.loc))
+			var/turf/T = src.loc
+			light_amount = round(T.get_lumcount() * 10)
+
+		// a dark view of 8, in full darkness, will result in maximum 1st tier damage
+		var/extra_prob = (10 - light_amount) * extra_darkview
+
 		switch(damage)
 			if(1)
 				to_chat(src, "<span class='warning'>Your eyes sting a little.</span>")
-				if(prob(40)) //waiting on carbon organs
-					E.take_damage(1, 1)
-
+				var/minor_damage_multiplier = min(40 + extra_prob, 100) / 100
+				var/minor_damage = minor_damage_multiplier * (1 + extra_damage)
+				E.receive_damage(minor_damage, 1)
 			if(2)
 				to_chat(src, "<span class='warning'>Your eyes burn.</span>")
-				E.take_damage(rand(2, 4), 1)
+				E.receive_damage(rand(2, 4) + extra_damage, 1)
 
 			else
 				to_chat(src, "Your eyes itch and burn severely!</span>")
-				E.take_damage(rand(12, 16), 1)
+				E.receive_damage(rand(12, 16) + extra_damage, 1)
 
 		if(E.damage > E.min_bruised_damage)
 			AdjustEyeBlind(damage)
@@ -668,7 +682,7 @@ var/list/ventcrawl_machinery = list(/obj/machinery/atmospherics/unary/vent_pump,
 				if(do_mob(usr, src, POCKET_STRIP_DELAY))
 					if(internal)
 						internal = null
-						update_internals_hud_icon(0)
+						update_action_buttons_icon()
 					else
 						var/no_mask2
 						if(!get_organ_slot("breathing_tube"))
@@ -679,7 +693,7 @@ var/list/ventcrawl_machinery = list(/obj/machinery/atmospherics/unary/vent_pump,
 							to_chat(usr, "<span class='warning'>[src] is not wearing a suitable mask or helmet!</span>")
 							return
 						internal = ITEM
-						update_internals_hud_icon(1)
+						update_action_buttons_icon()
 
 					visible_message("<span class='danger'>[usr] [internal ? "opens" : "closes"] the valve on [src]'s [ITEM].</span>", \
 									"<span class='userdanger'>[usr] [internal ? "opens" : "closes"] the valve on [src]'s [ITEM].</span>")
@@ -1060,10 +1074,6 @@ so that different stomachs can handle things in different ways VB*/
 		return TRUE
 
 	return FALSE
-
-/mob/living/carbon/proc/update_internals_hud_icon(internal_state = 0)
-	if(hud_used && hud_used.internals)
-		hud_used.internals.icon_state = "internal[internal_state]"
 
 //to recalculate and update the mob's total tint from tinted equipment it's wearing.
 /mob/living/carbon/proc/update_tint()

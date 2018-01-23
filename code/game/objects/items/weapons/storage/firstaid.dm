@@ -165,12 +165,12 @@
 /obj/item/weapon/storage/firstaid/tactical/New()
 	..()
 	if(empty) return
-	new /obj/item/clothing/accessory/stethoscope( src )
-	new /obj/item/weapon/defibrillator/compact/combat/loaded(src)
 	new /obj/item/weapon/reagent_containers/hypospray/combat(src)
-	new /obj/item/weapon/reagent_containers/food/pill/patch/styptic(src)
-	new /obj/item/weapon/reagent_containers/food/pill/patch/silver_sulf(src)
-	new /obj/item/weapon/reagent_containers/ld50_syringe/lethal(src)
+	new /obj/item/weapon/reagent_containers/food/pill/patch/synthflesh(src) // Because you ain't got no time to look at what damage dey taking yo
+	new /obj/item/weapon/reagent_containers/food/pill/patch/synthflesh(src)
+	new /obj/item/weapon/reagent_containers/food/pill/patch/synthflesh(src)
+	new /obj/item/weapon/reagent_containers/food/pill/patch/synthflesh(src)
+	new /obj/item/weapon/defibrillator/compact/combat/loaded(src)
 	new /obj/item/clothing/glasses/hud/health/night(src)
 	return
 

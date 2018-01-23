@@ -10,7 +10,6 @@
 	eyes = "blank_eyes"
 	has_organ = list(
 		"heart" =    /obj/item/organ/internal/heart,
-		"lungs" =    /obj/item/organ/internal/lungs,
 		"liver" =    /obj/item/organ/internal/liver,
 		"kidneys" =  /obj/item/organ/internal/kidneys,
 		"brain" =    /obj/item/organ/internal/brain,

@@ -22,6 +22,7 @@ var/global/list/image/splatter_cache=list()
 	var/amount = 5
 	appearance_flags = NO_CLIENT_COLOR
 	var/dry_timer = 0
+	var/off_floor = FALSE
 
 /obj/effect/decal/cleanable/blood/New()
 	..()
@@ -88,7 +89,7 @@ var/global/list/image/splatter_cache=list()
 
 //Add "bloodiness" of this blood's type, to the human's shoes
 /obj/effect/decal/cleanable/blood/Crossed(atom/movable/O)
-	if(ishuman(O))
+	if(!off_floor && ishuman(O))
 		var/mob/living/carbon/human/H = O
 		var/obj/item/organ/external/l_foot = H.get_organ("l_foot")
 		var/obj/item/organ/external/r_foot = H.get_organ("r_foot")

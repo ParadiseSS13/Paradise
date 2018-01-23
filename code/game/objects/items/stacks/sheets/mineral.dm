@@ -96,7 +96,7 @@ var/global/list/datum/stack_recipe/tranquillite_recipes = list ( \
 var/global/list/datum/stack_recipe/abductor_recipes = list ( \
 	new/datum/stack_recipe("alien bed", /obj/structure/stool/bed/abductor, 2, one_per_turf = 1, on_floor = 1), \
 	new/datum/stack_recipe("alien locker", /obj/structure/closet/abductor, 1, time = 15, one_per_turf = 1, on_floor = 1), \
-	new/datum/stack_recipe("alien table frame", /obj/structure/abductor_tableframe, 1, time = 15, one_per_turf = 1, on_floor = 1), \
+	new/datum/stack_recipe("alien table frame", /obj/structure/table_frame/abductor, 1, time = 15, one_per_turf = 1, on_floor = 1), \
 	null, \
 	new/datum/stack_recipe("alien floor tile", /obj/item/stack/tile/mineral/abductor, 1, 4, 20), \
 	)
@@ -168,6 +168,7 @@ var/global/list/datum/stack_recipe/abductor_recipes = list ( \
 	if(is_hot(W) > 300)//If the temperature of the object is over 300, then ignite
 		message_admins("Plasma sheets ignited by [key_name_admin(user)](<A HREF='?_src_=holder;adminmoreinfo=\ref[user]'>?</A>) (<A HREF='?_src_=holder;adminplayerobservefollow=\ref[user]'>FLW</A>) in ([x],[y],[z] - <A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[x];Y=[y];Z=[z]'>JMP</a>)",0,1)
 		log_game("Plasma sheets ignited by [key_name(user)] in ([x],[y],[z])")
+		investigate_log("was <font color='red'><b>ignited</b></font> by [key_name(user)]","atmos")
 		fire_act()
 	else
 		return ..()

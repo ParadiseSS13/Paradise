@@ -399,24 +399,6 @@
 	new /obj/effect/gibspawner/generic(get_turf(loc)) //I REPLACE YOUR TECHNOLOGY WITH FLESH!
 	qdel(src)
 
-
-// ???
-// This looks cool, although mildly broken, should it be included again?
-/obj/machinery/sleeper/alter_health(mob/living/M as mob)
-	if(M.health > 0)
-		if(M.getOxyLoss() >= 10)
-			var/amount = max(0.15, 1)
-			M.adjustOxyLoss(-amount)
-		else
-			M.adjustOxyLoss(-12)
-		M.updatehealth()
-	M.AdjustParalysis(-4)
-	M.AdjustWeakened(-4)
-	M.AdjustStunned(-4)
-	if(M:reagents.get_reagent_amount("salglu_solution") < 5)
-		M:reagents.add_reagent("salglu_solution", 5)
-	return
-
 /obj/machinery/sleeper/proc/toggle_filter()
 	if(filtering)
 		filtering = 0
