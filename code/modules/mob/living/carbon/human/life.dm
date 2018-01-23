@@ -707,7 +707,7 @@
 				Paralyse(5/sober_str)
 				Drowsy(30/sober_str)
 				if(L)
-					L.take_damage(0.1, 1)
+					L.receive_damage(0.1, 1)
 				adjustToxLoss(0.1)
 		else //stuff only for synthetics
 			if(alcohol_strength >= spark_start && prob(25))
@@ -879,11 +879,11 @@
 		var/obj/item/organ/external/BP = X
 		for(var/obj/item/I in BP.embedded_objects)
 			if(prob(I.embedded_pain_chance))
-				BP.take_damage(I.w_class*I.embedded_pain_multiplier)
+				BP.receive_damage(I.w_class*I.embedded_pain_multiplier)
 				to_chat(src, "<span class='userdanger'>[I] embedded in your [BP.name] hurts!</span>")
 
 			if(prob(I.embedded_fall_chance))
-				BP.take_damage(I.w_class*I.embedded_fall_pain_multiplier)
+				BP.receive_damage(I.w_class*I.embedded_fall_pain_multiplier)
 				BP.embedded_objects -= I
 				I.forceMove(get_turf(src))
 				visible_message("<span class='danger'>[I] falls out of [name]'s [BP.name]!</span>","<span class='userdanger'>[I] falls out of your [BP.name]!</span>")

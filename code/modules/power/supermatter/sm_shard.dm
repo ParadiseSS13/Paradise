@@ -56,7 +56,7 @@
 				var/obj/item/organ/external/affecting = H.get_organ(pick("l_foot", "r_foot"))
 				if(affecting.status & ORGAN_ROBOT)
 					return
-				if(affecting.take_damage(5, 20))
+				if(affecting.receive_damage(5, 20))
 					H.UpdateDamageIcon()
 				H.updatehealth()
 				if(!(H.species && (H.species.flags & NO_PAIN)))

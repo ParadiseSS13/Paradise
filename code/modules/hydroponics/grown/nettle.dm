@@ -57,7 +57,7 @@
 	var/organ = ((H.hand ? "l_":"r_") + "arm")
 	var/obj/item/organ/external/affecting = H.get_organ(organ)
 	if(affecting)
-		if(affecting.take_damage(0, force))
+		if(affecting.receive_damage(0, force))
 			H.UpdateDamageIcon()
 	to_chat(H, "<span class='userdanger'>The nettle burns your bare hand!</span>")
 	return 1

@@ -46,7 +46,7 @@
 					if(prob(75))
 						var/obj/item/organ/external/affecting = H.get_organ("head")
 						if(affecting)
-							affecting.take_damage(5, 10)
+							affecting.receive_damage(5, 10)
 							H.UpdateDamageIcon()
 							H.emote("scream")
 					else
@@ -75,7 +75,7 @@
 					if(prob(75))
 						var/obj/item/organ/external/affecting = H.get_organ("head")
 						if(affecting)
-							affecting.take_damage(0, 20)
+							affecting.receive_damage(0, 20)
 							H.UpdateDamageIcon()
 							H.emote("scream")
 					else
@@ -132,18 +132,27 @@
 	taste_message = "floor cleaner"
 
 /datum/reagent/space_cleaner/reaction_obj(obj/O, volume)
-	if(istype(O, /obj/effect/decal/cleanable))
-		qdel(O)
+	if(is_cleanable(O))
+		var/obj/effect/decal/cleanable/blood/B = O
+		if(!(istype(B) && B.off_floor))
+			qdel(O)
 	else
-		O.color = initial(O.color)
+		if(!istype(O, /atom/movable/lighting_overlay))
+			O.color = initial(O.color)
 		O.clean_blood()
 
 /datum/reagent/space_cleaner/reaction_turf(turf/T, volume)
 	if(volume >= 1)
-		T.color = initial(T.color)
-		T.clean_blood()
+		var/floor_only = TRUE
 		for(var/obj/effect/decal/cleanable/C in src)
-			qdel(C)
+			var/obj/effect/decal/cleanable/blood/B = C
+			if(istype(B) && B.off_floor)
+				floor_only = FALSE
+			else
+				qdel(C)
+		T.color = initial(T.color)
+		if(floor_only)
+			T.clean_blood()
 
 		for(var/mob/living/carbon/slime/M in T)
 			M.adjustToxLoss(rand(5,10))

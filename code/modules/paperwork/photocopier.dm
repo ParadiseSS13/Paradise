@@ -250,7 +250,7 @@
 			var/mob/living/carbon/human/H = ass
 			to_chat(H, "<span class='notice'>Something smells toasty...</span>")
 			var/obj/item/organ/external/G = H.get_organ("groin")
-			G.take_damage(0, 30)
+			G.receive_damage(0, 30)
 			spawn(20)
 				H.emote("scream")
 			emag_cooldown = world.time + EMAG_DELAY
