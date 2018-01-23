@@ -79,3 +79,14 @@
 	display_name = "Nano-Mob Hunter GO! Cartridge"
 	path = /obj/item/weapon/cartridge/mob_hunt_game
 	cost = 2
+
+/datum/gear/mug
+	display_name = "random coffee mug"
+	description = "A randomly colored coffee mug. You'll need to supply your own beverage though."
+	path = /obj/item/weapon/reagent_containers/food/drinks/mug
+
+/datum/gear/novelty_mug
+	display_name = "novelty coffee mug"
+	description = "A random novelty coffee mug. You'll need to supply your own beverage though."
+	path = /obj/item/weapon/reagent_containers/food/drinks/mug/novelty
+	cost = 2

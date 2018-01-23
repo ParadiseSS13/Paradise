@@ -1359,6 +1359,7 @@
 #include "code\modules\food_and_drinks\drinks\drinks\bottle.dm"
 #include "code\modules\food_and_drinks\drinks\drinks\cans.dm"
 #include "code\modules\food_and_drinks\drinks\drinks\drinkingglass.dm"
+#include "code\modules\food_and_drinks\drinks\drinks\mugs.dm"
 #include "code\modules\food_and_drinks\drinks\drinks\shotglass.dm"
 #include "code\modules\food_and_drinks\food\candy.dm"
 #include "code\modules\food_and_drinks\food\condiment.dm"
