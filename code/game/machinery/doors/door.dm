@@ -11,7 +11,6 @@
 	var/open_layer = OPEN_DOOR_LAYER
 	var/closed_layer = CLOSED_DOOR_LAYER
 	var/visible = 1
-	var/p_open = 0
 	var/operating = 0
 	var/autoclose = 0
 	var/autoclose_timer
@@ -69,7 +68,7 @@
 	return ..()
 
 /obj/machinery/door/Bumped(atom/AM)
-	if(p_open || operating || emagged)
+	if(panel_open || operating || emagged)
 		return
 	if(isliving(AM))
 		var/mob/living/M = AM
@@ -215,12 +214,12 @@
 /obj/machinery/door/proc/do_animate(animation)
 	switch(animation)
 		if("opening")
-			if(p_open)
+			if(panel_open)
 				flick("o_doorc0", src)
 			else
 				flick("doorc0", src)
 		if("closing")
-			if(p_open)
+			if(panel_open)
 				flick("o_doorc1", src)
 			else
 				flick("doorc1", src)

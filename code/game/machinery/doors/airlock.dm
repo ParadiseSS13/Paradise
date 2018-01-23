@@ -310,7 +310,7 @@ About the new airlock wires panel:
 				filling_overlay = get_airlock_overlay("[airlock_material]_closed", overlays_file)
 			else
 				filling_overlay = get_airlock_overlay("fill_closed", icon)
-			if(p_open)
+			if(panel_open)
 				panel_overlay = get_airlock_overlay("panel_closed", overlays_file)
 			if(welded)
 				weld_overlay = get_airlock_overlay("welded", overlays_file)
@@ -330,7 +330,7 @@ About the new airlock wires panel:
 				filling_overlay = get_airlock_overlay("[airlock_material]_closed", overlays_file)
 			else
 				filling_overlay = get_airlock_overlay("fill_closed", icon)
-			if(p_open)
+			if(panel_open)
 				panel_overlay = get_airlock_overlay("panel_closed", overlays_file)
 			if(welded)
 				weld_overlay = get_airlock_overlay("welded", overlays_file)
@@ -345,7 +345,7 @@ About the new airlock wires panel:
 				filling_overlay = get_airlock_overlay("[airlock_material]_closed", overlays_file)
 			else
 				filling_overlay = get_airlock_overlay("fill_closed", icon)
-			if(p_open)
+			if(panel_open)
 				panel_overlay = get_airlock_overlay("panel_closed", overlays_file)
 			if(welded)
 				weld_overlay = get_airlock_overlay("welded", overlays_file)
@@ -360,7 +360,7 @@ About the new airlock wires panel:
 				filling_overlay = get_airlock_overlay("fill_closing", icon)
 			if(lights && arePowerSystemsOn())
 				lights_overlay = get_airlock_overlay("lights_closing", overlays_file)
-			if(p_open)
+			if(panel_open)
 				panel_overlay = get_airlock_overlay("panel_closing", overlays_file)
 			if(note)
 				note_overlay = get_airlock_overlay("[notetype]_closing", note_overlay_file)
@@ -371,7 +371,7 @@ About the new airlock wires panel:
 				filling_overlay = get_airlock_overlay("[airlock_material]_open", overlays_file)
 			else
 				filling_overlay = get_airlock_overlay("fill_open", icon)
-			if(p_open)
+			if(panel_open)
 				panel_overlay = get_airlock_overlay("panel_open", overlays_file)
 			if(note)
 				note_overlay = get_airlock_overlay("[notetype]_open", note_overlay_file)
@@ -384,7 +384,7 @@ About the new airlock wires panel:
 				filling_overlay = get_airlock_overlay("fill_opening", icon)
 			if(lights && arePowerSystemsOn())
 				lights_overlay = get_airlock_overlay("lights_opening", overlays_file)
-			if(p_open)
+			if(panel_open)
 				panel_overlay = get_airlock_overlay("panel_opening", overlays_file)
 			if(note)
 				note_overlay = get_airlock_overlay("[notetype]_opening", note_overlay_file)
@@ -451,7 +451,7 @@ About the new airlock wires panel:
 			note.examine(user)
 
 /obj/machinery/door/airlock/attack_ghost(mob/user)
-	if(p_open)
+	if(panel_open)
 		wires.Interact(user)
 	ui_interact(user)
 
@@ -563,7 +563,7 @@ About the new airlock wires panel:
 				visible_message("<span class='warning'>[user] headbutts the airlock. Good thing they're wearing a helmet.</span>")
 			return
 
-	if(p_open)
+	if(panel_open)
 		wires.Interact(user)
 	else
 		..(user)
@@ -708,8 +708,8 @@ About the new airlock wires panel:
 		else
 			return
 	else if(isscrewdriver(C))
-		p_open = !p_open
-		to_chat(user, "<span class='notice'>You [p_open ? "open":"close"] the maintenance panel of the airlock.</span>")
+		panel_open = !panel_open
+		to_chat(user, "<span class='notice'>You [panel_open ? "open":"close"] the maintenance panel of the airlock.</span>")
 		playsound(loc, C.usesound, 50, 1)
 		update_icon()
 	else if(iswirecutter(C))
@@ -745,7 +745,7 @@ About the new airlock wires panel:
 			beingcrowbarred = 1 //derp, Agouri
 		else
 			beingcrowbarred = 0
-		if(beingcrowbarred && p_open && (emagged || (density && welded && (!operating || emagged) && !arePowerSystemsOn() && !locked)))
+		if(beingcrowbarred && panel_open && (emagged || (density && welded && !operating && !arePowerSystemsOn() && !locked)))
 			playsound(loc, C.usesound, 100, 1)
 			user.visible_message("[user] removes the electronics from the airlock assembly.", "You start to remove electronics from the airlock assembly.")
 			if(do_after(user, 40 * C.toolspeed, target = src))
