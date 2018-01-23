@@ -2,8 +2,8 @@
 	name = "airlock assembly"
 	icon = 'icons/obj/doors/airlocks/station/public.dmi'
 	icon_state = "construction"
-	anchored = 0
-	density = 1
+	anchored = FALSE
+	density = TRUE
 	var/overlays_file = 'icons/obj/doors/airlocks/station/overlays.dmi'
 	var/state = AIRLOCK_ASSEMBLY_NEEDS_WIRES
 	var/mineral = null
@@ -22,6 +22,7 @@
 /obj/structure/door_assembly/New()
 	update_icon()
 	update_name()
+	..()
 
 /obj/structure/door_assembly/Destroy()
 	QDEL_NULL(electronics)

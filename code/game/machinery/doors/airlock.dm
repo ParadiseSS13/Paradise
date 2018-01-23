@@ -56,7 +56,7 @@ var/list/airlock_overlays = list()
 	var/obj/item/weapon/airlock_electronics/electronics = null
 	var/hasShocked = 0 //Prevents multiple shocks from happening
 	var/obj/item/weapon/note //Any papers pinned to the airlock
-	var/previous_airlock //what airlock assembly mineral plating was applied to
+	var/previous_airlock = /obj/structure/door_assembly //what airlock assembly mineral plating was applied to
 	var/airlock_material = null //material of inner filling; if its an airlock with glass, this should be set to "glass"
 	var/overlays_file = 'icons/obj/doors/airlocks/station/overlays.dmi'
 	var/note_overlay_file = 'icons/obj/doors/airlocks/station/overlays.dmi' //Used for papers and photos pinned to the airlock
@@ -435,6 +435,7 @@ About the new airlock wires panel:
 		if("deny")
 			if(!stat)
 				update_icon(AIRLOCK_DENY)
+				playsound(src,doorDeni,50,0,3)
 				sleep(6)
 				update_icon(AIRLOCK_CLOSED)
 				icon_state = "closed"
