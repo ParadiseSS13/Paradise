@@ -455,7 +455,7 @@ var/world_topic_spam_protect_time = world.timeofday
 var/failed_db_connections = 0
 var/failed_old_db_connections = 0
 
-proc/setLog()
+/proc/setLog()
 	var/date_string = time2text(world.realtime, "YYYY/MM-Month/DD-Day")
 	href_logfile = file("data/logs/[date_string] hrefs.htm")
 	diary = file("data/logs/[date_string].log")
@@ -468,7 +468,7 @@ proc/setLog()
 		log_to_dd("Feedback database connection established.")
 	return 1
 
-proc/setup_database_connection()
+/proc/setup_database_connection()
 
 	if(failed_db_connections > FAILED_DB_CONNECTION_CUTOFF)	//If it failed to establish a connection more than 5 times in a row, don't bother attempting to conenct anymore.
 		return 0
