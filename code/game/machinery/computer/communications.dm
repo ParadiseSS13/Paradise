@@ -504,7 +504,7 @@
 		log_game("[key_name(user)] has recalled the shuttle.")
 		message_admins("[key_name_admin(user)] has recalled the shuttle - [ADMIN_FLW(user)].", 1)
 	else
-		to_chat(user, "<span class='warning'>The shuttle can not be recalled! Central Orders!</span>")
+		to_chat(user, "<span class='warning'>Central Command has refused the recall request!</span>")
 		log_game("[key_name(user)] has tried and failed to recall the shuttle.")
 		message_admins("[key_name_admin(user)] has tried and failed to recall the shuttle - [ADMIN_FLW(user)].", 1)
 
