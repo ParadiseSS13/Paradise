@@ -252,7 +252,7 @@ var/const/access_trade_sol = 160
 	return list(access_syndicate, access_syndicate_leader, access_vox)
 
 /proc/get_all_misc_access()
-	return list(access_salvage_captain)
+	return list(access_salvage_captain, access_trade_sol, access_crate_cash, access_away01)
 
 /proc/get_absolutely_all_accesses()
 	return (get_all_accesses() | get_all_centcom_access() | get_all_syndicate_access() | get_all_misc_access())

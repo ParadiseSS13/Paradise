@@ -194,6 +194,8 @@ var/time_last_changed_position = 0
 		return 1
 	if(!scan.assignment)
 		return 0
+	if(access_captain in scan.access)
+		return 1
 	if(!targetjob || !targetjob.title)
 		return 0
 	if(targetjob.title in get_subordinates(scan.assignment, includecivs))

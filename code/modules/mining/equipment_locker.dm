@@ -562,7 +562,7 @@
 
 /obj/item/device/wormhole_jaunter/attack_self(mob/user)
 	var/turf/device_turf = get_turf(user)
-	if(!device_turf||is_teleport_allowed(device_turf.z))
+	if(!device_turf || !is_teleport_allowed(device_turf.z))
 		to_chat(user, "<span class='notice'>You're having difficulties getting the [src.name] to work.</span>")
 		return
 	else
