@@ -33,7 +33,7 @@
 /obj/effect/anomaly/proc/anomalyNeutralize()
 	var/turf/T = get_turf(src)
 
-	new /obj/effect/effect/bad_smoke(T)
+	new /obj/effect/particle_effect/smoke/bad(T)
 
 	if(aSignal)
 		aSignal.forceMove(T)

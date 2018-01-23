@@ -77,7 +77,7 @@
 	desc = "An armored beret commonly used by special operations officers."
 	icon_state = "beret_officer"
 	armor = list(melee = 65, bullet = 55, laser = 35, energy = 20, bomb = 30, bio = 30, rad = 30)
-	flags = HEADCOVERSEYES | HEADCOVERSMOUTH | STOPSPRESSUREDMAGE | THICKMATERIAL //idfk
+	flags =  STOPSPRESSUREDMAGE | THICKMATERIAL
 
 /obj/item/clothing/suit/space/deathsquad/officer
 	name = "officer jacket"
@@ -246,24 +246,3 @@
 	species_fit = null
 	sprite_sheets = null
 	sprite_sheets_obj = null
-
-/obj/item/clothing/head/helmet/space/freedom
-	name = "eagle helmet"
-	desc = "An advanced, space-proof helmet. It appears to be modeled after an old-world eagle."
-	icon_state = "griffinhat"
-	item_state = "griffinhat"
-	armor = list(melee = 20, bullet = 40, laser = 30, energy = 25, bomb = 100, bio = 100, rad = 100)
-	max_heat_protection_temperature = FIRE_IMMUNITY_HELM_MAX_TEMP_PROTECT
-	unacidable = 1
-	strip_delay = 130
-
-/obj/item/clothing/suit/space/freedom
-	name = "eagle suit"
-	desc = "An advanced, light suit, fabricated from a mixture of synthetic feathers and space-resistant material. A gun holster appears to be integrated into the suit and the wings appear to be stuck in 'freedom' mode."
-	icon_state = "freedom"
-	item_state = "freedom"
-	allowed = list(/obj/item/weapon/gun,/obj/item/ammo_box,/obj/item/ammo_casing,/obj/item/weapon/melee/baton,/obj/item/weapon/restraints/handcuffs,/obj/item/weapon/tank)
-	armor = list(melee = 20, bullet = 40, laser = 30, energy = 25, bomb = 100, bio = 100, rad = 100)
-	max_heat_protection_temperature = FIRE_IMMUNITY_HELM_MAX_TEMP_PROTECT
-	unacidable = 1
-	strip_delay = 130

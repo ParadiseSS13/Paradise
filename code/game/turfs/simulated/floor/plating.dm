@@ -146,6 +146,13 @@
 /turf/simulated/floor/engine/cult/narsie_act()
 	return
 
+/turf/simulated/floor/engine/cult/ratvar_act()
+	. = ..()
+	if(istype(src, /turf/simulated/floor/engine/cult)) //if we haven't changed type
+		var/previouscolor = color
+		color = "#FAE48C"
+		animate(src, color = previouscolor, time = 8)
+
 /turf/simulated/floor/engine/n20/New()
 	..()
 	var/datum/gas_mixture/adding = new
@@ -227,7 +234,7 @@
 
 /turf/simulated/floor/plating/airless/catwalk/update_icon(var/propogate=1)
 	underlays.Cut()
-	underlays += new /icon('icons/turf/space.dmi',"[((x + y) ^ ~(x * y) + z) % 25]")
+	underlays += new /icon('icons/turf/space.dmi',SPACE_ICON_STATE)
 
 	var/dirs = 0
 	for(var/direction in cardinal)

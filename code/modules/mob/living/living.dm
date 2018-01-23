@@ -898,13 +898,13 @@
 	// And animate the attack!
 	animate(I, alpha = 175, pixel_x = 0, pixel_y = 0, pixel_z = 0, time = 3)
 
-/atom/movable/proc/receive_damage(atom/A)
+/atom/movable/proc/receiving_damage(atom/A)
 	var/pixel_x_diff = rand(-3,3)
 	var/pixel_y_diff = rand(-3,3)
 	animate(src, pixel_x = pixel_x + pixel_x_diff, pixel_y = pixel_y + pixel_y_diff, time = 2)
 	animate(pixel_x = initial(pixel_x), pixel_y = initial(pixel_y), time = 2)
 
-/mob/living/receive_damage(atom/A)
+/mob/living/receiving_damage(atom/A)
 	..()
 	floating = 0 // If we were without gravity, the bouncing animation got stopped, so we make sure we restart the bouncing after the next movement.
 
@@ -1038,7 +1038,7 @@
 		return //no message spam
 
 	if(final_taste_list.len == 0)//too many reagents - none meet their thresholds
-		to_chat(src, "<span class='notice'>You you can't really make out what you're tasting...</span>")
+		to_chat(src, "<span class='notice'>You can't really make out what you're tasting...</span>")
 		return
 
 	to_chat(src, "<span class='notice'>You can taste [english_list(final_taste_list)].</span>")

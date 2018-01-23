@@ -27,7 +27,7 @@
 	M.update_sight()
 
 /obj/item/organ/internal/cyberimp/eyes/emp_act(severity)
-	if(!owner)
+	if(!owner || emp_proof)
 		return
 	if(severity > 1)
 		if(prob(10 * severity))

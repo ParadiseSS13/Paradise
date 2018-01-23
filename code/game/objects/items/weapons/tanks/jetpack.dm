@@ -5,7 +5,7 @@
 	w_class = WEIGHT_CLASS_BULKY
 	item_state = "jetpack"
 	distribute_pressure = ONE_ATMOSPHERE*O2STANDARD
-	var/datum/effect/system/ion_trail_follow/ion_trail
+	var/datum/effect_system/trail_follow/ion/ion_trail
 	actions_types = list(/datum/action/item_action/set_internals, /datum/action/item_action/toggle_jetpack, /datum/action/item_action/jetpack_stabilization)
 	var/on = 0
 	var/stabilizers = 0
@@ -13,7 +13,7 @@
 
 /obj/item/weapon/tank/jetpack/New()
 	..()
-	ion_trail = new /datum/effect/system/ion_trail_follow()
+	ion_trail = new /datum/effect_system/trail_follow/ion()
 	ion_trail.set_up(src)
 
 /obj/item/weapon/tank/jetpack/Destroy()
@@ -143,7 +143,7 @@
 
 /obj/item/weapon/tank/jetpack/carbondioxide/New()
 	..()
-	ion_trail = new /datum/effect/system/ion_trail_follow()
+	ion_trail = new /datum/effect_system/trail_follow/ion()
 	ion_trail.set_up(src)
 	air_contents.carbon_dioxide = (6*ONE_ATMOSPHERE)*volume/(R_IDEAL_GAS_EQUATION*T20C)
 

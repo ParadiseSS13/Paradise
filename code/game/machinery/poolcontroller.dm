@@ -1,3 +1,9 @@
+#define FRIGID		80
+#define COOL		290
+#define NORMAL		310
+#define WARM		330
+#define SCALDING	500
+
 /obj/machinery/poolcontroller
 	name = "Pool Controller"
 	desc = "A controller for the nearby pool."
@@ -6,7 +12,7 @@
 	anchored = 1 //this is what I get for assuming /obj/machinery has anchored set to 1 by default
 	var/list/linkedturfs = list() //List contains all of the linked pool turfs to this controller, assignment happens on New()
 	var/linked_area = null
-	var/temperature = "normal" //The temperature of the pool, starts off on normal, which has no effects.
+	var/temperature = NORMAL //The temperature of the pool, starts off on normal, which has no effects.
 	var/temperaturecolor = "" //used for nanoUI fancyness
 	var/srange = 5 //The range of the search for pool turfs, change this for bigger or smaller pools.
 	var/list/linkedmist = list() //Used to keep track of created mist
@@ -59,32 +65,23 @@
 				qdel(decal)
 
 /obj/machinery/poolcontroller/proc/handleTemp(var/mob/M)
-	if(temperature == "normal")		//This setting does nothing, so let's skip the next checks since we won't be doing jack
-		return
 	if(!M || isAIEye(M) || issilicon(M) || isobserver(M) || M.stat == DEAD)
 		return
-
+	M.water_act(100, temperature, src)//leave temp at 0, we handle it in the switch. oh wait
 	switch(temperature) //Apply different effects based on what the temperature is set to.
-		if("scalding") //Burn the mob.
-			M.bodytemperature = min(500, M.bodytemperature + 35) //heat mob at 35k(elvin) per cycle
+		if(SCALDING) //Burn the mob.
 			to_chat(M, "<span class='danger'>The water is searing hot!</span>")
 
-		if("warm") //Gently warm the mob.
-			M.bodytemperature = min(330, M.bodytemperature + 10) //Heats up mobs to just over normal, not enough to burn
+		if(WARM) //Warm the mob.
 			if(prob(50)) //inform the mob of warm water half the time
 				to_chat(M, "<span class='warning'>The water is quite warm.</span>")//Inform the mob it's warm water.
 
-
-		if("cool") //Gently cool the mob.
-			M.bodytemperature = max(290, M.bodytemperature - 10) //Cools mobs to just below normal, not enough to burn
+		if(COOL) //Cool the mob.
 			if(prob(50)) //inform the mob of cold water half the time
 				to_chat(M, "<span class='warning'>The water is chilly.</span>")//Inform the mob it's chilly water.
 
-
-		if("frigid") //Freeze the mob.
-			M.bodytemperature = max(80, M.bodytemperature - 35) //cool mob at -35k per cycle
+		if(FRIGID) //YOU'RE AS COLD AS ICE
 			to_chat(M, "<span class='danger'>The water is freezing!</span>")
-	return
 
 /obj/machinery/poolcontroller/proc/handleDrowning(var/mob/living/carbon/human/drownee)
 	if(!drownee)
@@ -93,7 +90,7 @@
 	if(drownee && (drownee.lying || deep_water)) //Mob lying down or water is deep (determined by controller)
 		if(drownee.internal)
 			return //Has internals, no drowning
-		if((NO_BREATHE in drownee.species.species_traits) || (NO_BREATHE in drownee.mutations))
+		if((NO_BREATHE in drownee.species.species_traits) || (BREATHLESS in drownee.mutations))
 			return //doesn't breathe, no drowning
 		if(drownee.get_species() == "Skrell" || drownee.get_species() == "Neara")
 			return //fish things don't drown
@@ -136,8 +133,19 @@
 
 /obj/machinery/poolcontroller/ui_data(mob/user, ui_key = "main", datum/topic_state/state = default_state)
 	var/data[0]
-
-	data["currentTemp"] = temperature
+	var/currenttemp
+	switch(temperature) //So we can output nice things like "Cool" to nanoUI
+		if(FRIGID)
+			currenttemp = "frigid"
+		if(COOL)
+			currenttemp = "cool"
+		if(NORMAL)
+			currenttemp = "normal"
+		if(WARM)
+			currenttemp = "warm"
+		if(SCALDING)
+			currenttemp = "scalding"
+	data["currentTemp"] = currenttemp
 	data["emagged"] = emagged
 	data["TempColor"] = temperaturecolor
 
@@ -152,25 +160,25 @@
 		if("Scalding")
 			if(!emagged)
 				return 0
-			temperature = "scalding"
+			temperature = SCALDING
 			temperaturecolor = "#FF0000"
 			miston()
 		if("Frigid")
 			if(!emagged)
 				return 0
-			temperature = "frigid"
+			temperature = FRIGID
 			temperaturecolor = "#00CCCC"
 			mistoff()
 		if("Warm")
-			temperature = "warm"
+			temperature = WARM
 			temperaturecolor = "#990000"
 			mistoff()
 		if("Cool")
-			temperature = "cool"
+			temperature = COOL
 			temperaturecolor = "#009999"
 			mistoff()
 		if("Normal")
-			temperature = "normal"
+			temperature = NORMAL
 			temperaturecolor = ""
 			mistoff()
 
@@ -201,3 +209,9 @@
 			animate(decal, alpha = 10, time = 20)
 			spawn(25)
 				qdel(decal)
+
+#undef FRIGID
+#undef COOL
+#undef NORMAL
+#undef WARM
+#undef SCALDING

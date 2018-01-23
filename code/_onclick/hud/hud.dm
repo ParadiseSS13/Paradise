@@ -36,8 +36,6 @@
 	var/obj/screen/movable/action_button/hide_toggle/hide_actions_toggle
 	var/action_buttons_hidden = 0
 
-	var/obj/screen/internals
-
 /mob/proc/create_mob_hud()
 	if(client && !hud_used)
 		hud_used = new /datum/hud(src)
@@ -81,7 +79,6 @@
 	alien_plasma_display = null
 	vampire_blood_display = null
 	nightvisionicon = null
-	internals = null
 
 	mymob = null
 	return ..()

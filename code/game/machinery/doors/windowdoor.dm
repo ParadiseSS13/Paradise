@@ -3,12 +3,12 @@
 	desc = "A strong door."
 	icon = 'icons/obj/doors/windoor.dmi'
 	icon_state = "left"
-	var/base_state = "left"
-	var/health = 150.0 //If you change this, consider changing ../door/window/brigdoor/ health at the bottom of this .dm file
 	visible = 0.0
 	flags = ON_BORDER
 	opacity = 0
 	var/obj/item/weapon/airlock_electronics/electronics = null
+	var/base_state = "left"
+	var/health = 150.0 //If you change this, consider changing ../door/window/brigdoor/ health at the bottom of this .dm file
 
 /obj/machinery/door/window/New()
 	..()
@@ -28,7 +28,6 @@
 	QDEL_NULL(electronics)
 	return ..()
 
-
 /obj/machinery/door/window/proc/open_and_close()
 	open()
 	if(check_access(null))
@@ -37,7 +36,7 @@
 		sleep(20)
 	close()
 
-/obj/machinery/door/window/Bumped(atom/movable/AM as mob|obj)
+/obj/machinery/door/window/Bumped(atom/movable/AM)
 	if(operating || !density)
 		return
 	if(!ismob(AM))
@@ -55,8 +54,8 @@
 		bumpopen(M)
 	return
 
-/obj/machinery/door/window/bumpopen(mob/user as mob)
-	if( operating || !density )
+/obj/machinery/door/window/bumpopen(mob/user)
+	if(operating || !density)
 		return
 	add_fingerprint(user)
 	if(!requiresID())
@@ -76,17 +75,17 @@
 	else
 		return 1
 
-/obj/machinery/door/window/CanAtmosPass(var/turf/T)
+/obj/machinery/door/window/CanAtmosPass(turf/T)
 	if(get_dir(loc, T) == dir)
 		return !density
 	else
 		return 1
 
 //used in the AStar algorithm to determinate if the turf the door is on is passable
-/obj/machinery/door/window/CanAStarPass(var/obj/item/weapon/card/id/ID, var/to_dir)
+/obj/machinery/door/window/CanAStarPass(obj/item/weapon/card/id/ID, to_dir)
 	return !density || (dir != to_dir) || (check_access(ID) && !(stat & NOPOWER))
 
-/obj/machinery/door/window/CheckExit(atom/movable/mover as mob|obj, turf/target as turf)
+/obj/machinery/door/window/CheckExit(atom/movable/mover, turf/target)
 	if(istype(mover) && mover.checkpass(PASSGLASS))
 		return 1
 	if(get_dir(loc, target) == dir)
@@ -94,7 +93,7 @@
 	else
 		return 1
 
-/obj/machinery/door/window/open(var/forced=0)
+/obj/machinery/door/window/open(forced=0)
 	if(operating) //doors can still open when emag-disabled
 		return 0
 	if(!ticker)
@@ -121,7 +120,7 @@
 		operating = 0
 	return 1
 
-/obj/machinery/door/window/close(var/forced=0)
+/obj/machinery/door/window/close(forced=0)
 	if(operating)
 		return 0
 	if(!forced)
@@ -145,7 +144,7 @@
 	operating = 0
 	return 1
 
-/obj/machinery/door/window/proc/take_damage(var/damage)
+/obj/machinery/door/window/take_damage(damage)
 	health = max(0, health - damage)
 	if(health <= 0)
 		var/debris = list(
@@ -160,7 +159,7 @@
 		qdel(src)
 		return
 
-/obj/machinery/door/window/bullet_act(var/obj/item/projectile/Proj)
+/obj/machinery/door/window/bullet_act(obj/item/projectile/Proj)
 	if(Proj.damage)
 		if((Proj.damage_type == BRUTE || Proj.damage_type == BURN))
 			take_damage(round(Proj.damage / 2))
@@ -193,7 +192,7 @@
 	if(user.can_advanced_admin_interact())
 		return attack_hand(user)
 
-/obj/machinery/door/window/proc/attack_generic(mob/user as mob, damage = 0)
+/obj/machinery/door/window/proc/attack_generic(mob/user, damage = 0)
 	if(operating)
 		return
 	user.changeNext_move(CLICK_CD_MELEE)
@@ -203,24 +202,24 @@
 				"<span class='userdanger'>[user] smashes against the [name].</span>")
 	take_damage(damage)
 
-/obj/machinery/door/window/attack_alien(mob/living/user as mob)
+/obj/machinery/door/window/attack_alien(mob/living/user)
 	if(islarva(user))
 		return
 	attack_generic(user, 25)
 
-/obj/machinery/door/window/attack_animal(mob/living/user as mob)
+/obj/machinery/door/window/attack_animal(mob/living/user)
 	if(!isanimal(user))
 		return
 	var/mob/living/simple_animal/M = user
 	if(M.melee_damage_upper > 0 && (M.melee_damage_type == BRUTE || M.melee_damage_type == BURN))
 		attack_generic(M, M.melee_damage_upper)
 
-/obj/machinery/door/window/attack_slime(mob/living/carbon/slime/user as mob)
+/obj/machinery/door/window/attack_slime(mob/living/carbon/slime/user)
 	if(!user.is_adult)
 		return
 	attack_generic(user, 25)
 
-/obj/machinery/door/window/attack_hand(mob/user as mob)
+/obj/machinery/door/window/attack_hand(mob/user)
 	return attackby(user, user)
 
 /obj/machinery/door/window/emag_act(mob/user, obj/weapon)
@@ -232,7 +231,7 @@
 		desc += "<BR><span class='warning'>Its access panel is smoking slightly.</span>"
 		if(istype(weapon, /obj/item/weapon/melee/energy/blade))
 			var/obj/item/weapon/melee/energy/blade/B
-			var/datum/effect/system/spark_spread/spark_system = new /datum/effect/system/spark_spread()
+			var/datum/effect_system/spark_spread/spark_system = new /datum/effect_system/spark_spread()
 			spark_system.set_up(5, 0, loc)
 			spark_system.start()
 			playsound(loc, "sparks", 50, 1)
@@ -245,7 +244,7 @@
 		emagged = 1
 		return 1
 
-/obj/machinery/door/window/attackby(obj/item/weapon/I as obj, mob/living/user as mob, params)
+/obj/machinery/door/window/attackby(obj/item/weapon/I, mob/living/user, params)
 
 	//If it's in the process of opening/closing, ignore the click
 	if(operating)
@@ -258,16 +257,16 @@
 		emag_act(user,I)
 		return 1
 
-	if(istype(I, /obj/item/weapon/screwdriver))
+	if(isscrewdriver(I))
 		if(density || operating)
 			to_chat(user, "<span class='warning'>You need to open the door to access the maintenance panel.</span>")
 			return
 		playsound(loc, I.usesound, 50, 1)
-		p_open = !( p_open )
+		p_open = !p_open
 		to_chat(user, "<span class='notice'>You [p_open ? "open":"close"] the maintenance panel of the [name].</span>")
 		return
 
-	if(istype(I, /obj/item/weapon/crowbar))
+	if(iscrowbar(I))
 		if(p_open && !density && !operating)
 			playsound(loc, I.usesound, 100, 1)
 			user.visible_message("<span class='warning'>[user] removes the electronics from the [name].</span>", \
@@ -302,7 +301,7 @@
 
 					var/obj/item/weapon/airlock_electronics/ae
 					if(!electronics)
-						ae = new/obj/item/weapon/airlock_electronics( loc )
+						ae = new/obj/item/weapon/airlock_electronics(loc)
 						if(!req_access)
 							check_access()
 						if(req_access.len)
@@ -320,7 +319,7 @@
 
 
 	//If windoor is unpowered, crowbar, fireaxe and armblade can force it.
-	if(istype(I, /obj/item/weapon/crowbar) || istype(I, /obj/item/weapon/twohanded/fireaxe))
+	if(iscrowbar(I) || istype(I, /obj/item/weapon/twohanded/fireaxe))
 		if(stat & NOPOWER)
 			if(density)
 				open(2)
@@ -329,10 +328,10 @@
 			return
 
 	//If it's a weapon, smash windoor. Unless it's an id card, agent card, ect.. then ignore it (Cards really shouldnt damage a door anyway)
-	if(density && istype(I, /obj/item/weapon) && !istype(I, /obj/item/weapon/card) )
+	if(density && istype(I, /obj/item/weapon) && !istype(I, /obj/item/weapon/card))
 		user.changeNext_move(CLICK_CD_MELEE)
 		user.do_attack_animation(src)
-		if( (I.flags&NOBLUDGEON) || !I.force )
+		if((I.flags&NOBLUDGEON) || !I.force)
 			return
 		var/aforce = I.force
 		playsound(loc, 'sound/effects/Glasshit.ogg', 75, 1)
@@ -356,16 +355,13 @@
 
 	return
 
-
-
 /obj/machinery/door/window/brigdoor
 	name = "secure door"
 	icon = 'icons/obj/doors/windoor.dmi'
 	icon_state = "leftsecure"
 	base_state = "leftsecure"
-	var/id = null
 	health = 300.0 //Stronger doors for prison (regular window door health is 200)
-
+	var/id = null
 
 /obj/machinery/door/window/northleft
 	dir = NORTH

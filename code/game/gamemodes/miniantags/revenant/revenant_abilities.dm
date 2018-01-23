@@ -209,10 +209,10 @@
 						if(!L.on)
 							return
 						L.visible_message("<span class='warning'><b>\The [L] suddenly flares brightly and begins to spark!</span>")
-						var/datum/effect/system/spark_spread/s = new /datum/effect/system/spark_spread/
+						var/datum/effect_system/spark_spread/s = new /datum/effect_system/spark_spread/
 						s.set_up(4, 0, L)
 						s.start()
-						new/obj/effect/overlay/temp/revenant(L.loc)
+						new/obj/effect/temp_visual/revenant(L.loc)
 						sleep(20)
 						if(!L.on) //wait, wait, don't shock me
 							return
@@ -222,7 +222,7 @@
 								return
 							M.Beam(L,icon_state="purple_lightning",icon='icons/effects/effects.dmi',time=5)
 							M.electrocute_act(shock_damage, "[L.name]", safety=1)
-							var/datum/effect/system/spark_spread/z = new /datum/effect/system/spark_spread/
+							var/datum/effect_system/spark_spread/z = new /datum/effect_system/spark_spread/
 							z.set_up(4, 0, M)
 							z.start()
 							playsound(M, 'sound/machines/defib_zap.ogg', 50, 1, -1)
@@ -249,23 +249,23 @@
 			spawn(0)
 				if(T.flags & NOJAUNT)
 					T.flags -= NOJAUNT
-					new/obj/effect/overlay/temp/revenant(T)
+					new/obj/effect/temp_visual/revenant(T)
 				for(var/mob/living/carbon/human/human in T.contents)
 					to_chat(human, "<span class='warning'>You suddenly feel [pick("sick and tired", "tired and confused", "nauseated", "dizzy")].</span>")
 					human.adjustStaminaLoss(stamdamage)
 					human.adjustToxLoss(toxdamage)
 					human.AdjustConfused(confusion, bound_lower = 0, bound_upper = maxconfusion)
-					new/obj/effect/overlay/temp/revenant(human.loc)
+					new/obj/effect/temp_visual/revenant(human.loc)
 				if(!istype(T, /turf/simulated/shuttle) && !istype(T, /turf/simulated/wall/rust) && !istype(T, /turf/simulated/wall/r_wall) && istype(T, /turf/simulated/wall) && prob(15))
-					new/obj/effect/overlay/temp/revenant(T)
+					new/obj/effect/temp_visual/revenant(T)
 					T.ChangeTurf(/turf/simulated/wall/rust)
 				if(!istype(T, /turf/simulated/wall/r_wall/rust) && istype(T, /turf/simulated/wall/r_wall) && prob(15))
-					new/obj/effect/overlay/temp/revenant(T)
+					new/obj/effect/temp_visual/revenant(T)
 					T.ChangeTurf(/turf/simulated/wall/r_wall/rust)
 				for(var/obj/structure/window/window in T.contents)
 					window.hit(rand(30,80))
 					if(window && window.is_fulltile())
-						new/obj/effect/overlay/temp/revenant/cracks(window.loc)
+						new/obj/effect/temp_visual/revenant/cracks(window.loc)
 				for(var/obj/structure/closet/closet in T.contents)
 					closet.open()
 
@@ -296,26 +296,26 @@
 			spawn(0)
 				for(var/mob/living/simple_animal/bot/bot in T.contents)
 					if(!bot.emagged)
-						new/obj/effect/overlay/temp/revenant(bot.loc)
+						new/obj/effect/temp_visual/revenant(bot.loc)
 						bot.locked = 0
 						bot.open = 1
 						bot.emag_act(null)
 				for(var/mob/living/carbon/human/human in T.contents)
 					to_chat(human, "<span class='warning'>You feel [pick("your sense of direction flicker out", "a stabbing pain in your head", "your mind fill with static")].</span>")
-					new/obj/effect/overlay/temp/revenant(human.loc)
+					new/obj/effect/temp_visual/revenant(human.loc)
 					human.emp_act(1)
 				for(var/obj/thing in T.contents)
 					if(istype(thing, /obj/machinery/power/apc) || istype(thing, /obj/machinery/power/smes)) //Doesn't work on dominators, SMES and APCs, to prevent kekkery
 						continue
 					if(prob(20))
 						if(prob(50))
-							new/obj/effect/overlay/temp/revenant(thing.loc)
+							new/obj/effect/temp_visual/revenant(thing.loc)
 						thing.emag_act(null)
 					else
 						if(!istype(thing, /obj/machinery/clonepod)) //I hate everything but mostly the fact there's no better way to do this without just not affecting it at all
 							thing.emp_act(1)
 				for(var/mob/living/silicon/robot/S in T.contents) //Only works on cyborgs, not AI
 					playsound(S, 'sound/machines/warning-buzzer.ogg', 50, 1)
-					new/obj/effect/overlay/temp/revenant(S.loc)
+					new/obj/effect/temp_visual/revenant(S.loc)
 					S.spark_system.start()
 					S.emp_act(1)

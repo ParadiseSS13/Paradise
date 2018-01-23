@@ -71,3 +71,4 @@
 		else if(light_amount < 2) //heal in the dark
 			H.heal_overall_damage(1,1)
 			H.clear_alert("lightexposure")
+	..()

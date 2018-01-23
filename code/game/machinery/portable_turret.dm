@@ -49,7 +49,7 @@
 	var/shot_sound 			//what sound should play when the turret fires
 	var/eshot_sound			//what sound should play when the emagged turret fires
 
-	var/datum/effect/system/spark_spread/spark_system	//the spark system, used for generating... sparks?
+	var/datum/effect_system/spark_spread/spark_system	//the spark system, used for generating... sparks?
 
 	var/wrenching = 0
 	var/last_target //last target fired at, prevents turrets from erratically firing at all valid targets in range
@@ -96,7 +96,7 @@
 	one_access = 1
 
 	//Sets up a spark system
-	spark_system = new /datum/effect/system/spark_spread
+	spark_system = new /datum/effect_system/spark_spread
 	spark_system.set_up(5, 0, src)
 	spark_system.attach(src)
 
@@ -453,7 +453,7 @@ var/list/turret_icons
 		sleep(60) //6 seconds for the traitor to gtfo of the area before the turret decides to ruin his shit
 		enabled = 1 //turns it back on. The cover popUp() popDown() are automatically called in process(), no need to define it here
 
-/obj/machinery/porta_turret/proc/take_damage(var/force)
+/obj/machinery/porta_turret/take_damage(force)
 	if(!raised && !raising)
 		force = force / 8
 		if(force < 5)

@@ -611,6 +611,9 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 		if(available_in_playtime)
 			HTML += "<del>[rank]</del></td><td> \[ " + get_exp_format(available_in_playtime) + " as " + job.get_exp_req_type()  + " \]</td></tr>"
 			continue
+		if(job.barred_by_disability(user.client))
+			HTML += "<del>[rank]</del></td><td> \[ DISABILITY \]</td></tr>"
+			continue
 		if(!job.player_old_enough(user.client))
 			var/available_in_days = job.available_in_days(user.client)
 			HTML += "<del>[rank]</del></td><td> \[IN [(available_in_days)] DAYS]</td></tr>"
@@ -1730,7 +1733,7 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 						nanotrasen_relation = new_relation
 
 				if("flavor_text")
-					var/msg = input(usr,"Set the flavor text in your 'examine' verb. This can also be used for OOC notes and preferences!","Flavor Text",html_decode(flavor_text)) as message
+					var/msg = input(usr,"Set the flavor text in your 'examine' verb. The flavor text should be a physical descriptor of your character at a glance. SFW Drawn Art of your character is acceptable.","Flavor Text",html_decode(flavor_text)) as message
 
 					if(msg != null)
 						msg = copytext(msg, 1, MAX_MESSAGE_LEN)

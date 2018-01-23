@@ -54,9 +54,7 @@
 	stealth_active = 1
 	if(ishuman(loc))
 		var/mob/living/carbon/human/M = src.loc
-		spawn(0)
-			anim(M.loc,M,'icons/mob/mob.dmi',,"cloak",,M.dir)
-
+		new /obj/effect/temp_visual/dir_setting/ninja/cloak(get_turf(M), M.dir)
 		M.name_override = disguise.name
 		M.icon = disguise.icon
 		M.icon_state = disguise.icon_state
@@ -70,8 +68,7 @@
 	stealth_active = 0
 	if(ishuman(loc))
 		var/mob/living/carbon/human/M = src.loc
-		spawn(0)
-			anim(M.loc,M,'icons/mob/mob.dmi',,"uncloak",,M.dir)
+		new /obj/effect/temp_visual/dir_setting/ninja(get_turf(M), M.dir)
 		M.name_override = null
 		M.overlays.Cut()
 		M.regenerate_icons()
@@ -461,7 +458,7 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 /obj/item/weapon/restraints/handcuffs/energy/used/dropped(mob/user)
 	user.visible_message("<span class='danger'>[user]'s [src] break in a discharge of energy!</span>", \
 							"<span class='userdanger'>[user]'s [src] break in a discharge of energy!</span>")
-	var/datum/effect/system/spark_spread/S = new
+	var/datum/effect_system/spark_spread/S = new
 	S.set_up(4,0,user.loc)
 	S.start()
 	qdel(src)
@@ -539,19 +536,22 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 	icon = 'icons/obj/abductor.dmi'
 	icon_state = "bed"
 
-/obj/structure/abductor_tableframe
+/obj/structure/table_frame/abductor
 	name = "alien table frame"
 	desc = "A sturdy table frame made from alien alloy."
 	icon_state = "alien_frame"
-	density = 1
+	framestack = /obj/item/stack/sheet/mineral/abductor
+	framestackamount = 1
+	density = TRUE
 
-/obj/structure/abductor_tableframe/attackby(obj/item/I, mob/user, params)
-	if(istype(I, /obj/item/weapon/wrench))
+/obj/structure/table_frame/abductor/attackby(obj/item/I, mob/user, params)
+	if(iswrench(I))
 		to_chat(user, "<span class='notice'>You start disassembling [src]...</span>")
-		playsound(src.loc, I.usesound, 50, 1)
-		if(do_after(user, 30 * I.toolspeed, target = src))
-			playsound(src.loc, I.usesound, 50, 1)
-			new /obj/item/stack/sheet/mineral/abductor(get_turf(src))
+		playsound(loc, I.usesound, 50, 1)
+		if(do_after(user, 30*I.toolspeed, target = src))
+			playsound(loc, 'sound/items/deconstruct.ogg', 50, 1)
+			for(var/i = 1, i <= framestackamount, i++)
+				new framestack(get_turf(src))
 			qdel(src)
 			return
 	if(istype(I, /obj/item/stack/sheet/mineral/abductor))
@@ -560,9 +560,9 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 			to_chat(user, "<span class='warning'>You need one alien alloy sheet to do this!</span>")
 			return
 		to_chat(user, "<span class='notice'>You start adding [P] to [src]...</span>")
-		if(do_after(user, 50 * I.toolspeed, target = src))
+		if(do_after(user, 50, target = src))
 			P.use(1)
-			new /obj/structure/table/abductor(src.loc)
+			new /obj/structure/table/abductor(loc)
 			qdel(src)
 		return
 	if(istype(I, /obj/item/stack/sheet/mineral/silver))
@@ -581,8 +581,12 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 	desc = "Advanced flat surface technology at work!"
 	icon = 'icons/obj/smooth_structures/alien_table.dmi'
 	icon_state = "alien_table"
+	buildstack = /obj/item/stack/sheet/mineral/abductor
+	framestack = /obj/item/stack/sheet/mineral/abductor
+	buildstackamount = 1
+	framestackamount = 1
 	canSmoothWith = null
-	parts = /obj/item/stack/sheet/mineral/abductor
+	frame = /obj/structure/table_frame/abductor
 
 /obj/machinery/optable/abductor
 	icon = 'icons/obj/abductor.dmi'

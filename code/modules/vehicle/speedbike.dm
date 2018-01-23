@@ -28,7 +28,7 @@
 
 /obj/vehicle/space/speedbike/Move(newloc,move_dir)
 	if(has_buckled_mobs())
-		new /obj/effect/overlay/temp/speedbike_trail(loc)
+		new /obj/effect/temp_visual/dir_setting/speedbike_trail(loc)
 	. = ..()
 
 /obj/vehicle/space/speedbike/handle_vehicle_layer()

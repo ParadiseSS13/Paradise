@@ -223,5 +223,10 @@ var/list/icons_to_ignore_at_floor_init = list("damaged1","damaged2","damaged3","
 	if(prob(20))
 		ChangeTurf(/turf/simulated/floor/engine/cult)
 
+/turf/simulated/floor/ratvar_act(force, ignore_mobs)
+	. = ..()
+	if(.)
+		ChangeTurf(/turf/simulated/floor/clockwork)
+
 /turf/simulated/floor/can_have_cabling()
 	return !burnt && !broken

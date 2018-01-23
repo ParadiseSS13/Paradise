@@ -246,7 +246,7 @@
 					if(prob(75))
 						var/obj/item/organ/external/affecting = H.get_organ("head")
 						if(affecting)
-							affecting.take_damage(5, 10)
+							affecting.receive_damage(5, 10)
 							H.UpdateDamageIcon()
 							H.emote("scream")
 					else
@@ -272,7 +272,7 @@
 					if(prob(75))
 						var/obj/item/organ/external/affecting = H.get_organ("head")
 						if(affecting)
-							affecting.take_damage(0, 20)
+							affecting.receive_damage(0, 20)
 							H.UpdateDamageIcon()
 							H.emote("scream")
 					else
@@ -323,12 +323,12 @@
 	M.EyeBlurry(3)
 	..()
 
-/datum/reagent/beer2	//disguised as normal beer for use by emagged brobots
+/datum/reagent/beer2	//disguised as normal beer for use by emagged service borgs
 	name = "Beer"
 	id = "beer2"
 	description = "An alcoholic beverage made from malted grains, hops, yeast, and water."
 	color = "#664300" // rgb: 102, 67, 0
-	metabolization_rate = 1.5 * REAGENTS_METABOLISM
+	metabolization_rate = 0.1 * REAGENTS_METABOLISM
 	drink_icon ="beerglass"
 	drink_name = "Beer glass"
 	drink_desc = "A freezing pint of beer"
@@ -624,7 +624,7 @@
 
 				if(!H.unacidable)
 					var/obj/item/organ/external/affecting = H.get_organ("head")
-					affecting.take_damage(0, 75)
+					affecting.receive_damage(0, 75)
 					H.UpdateDamageIcon()
 					H.emote("scream")
 					H.status_flags |= DISFIGURED
@@ -1131,31 +1131,4 @@
 		shock_timer = 0
 		M.electrocute_act(rand(5,20), "Teslium in their body", 1, 1) //Override because it's caused from INSIDE of you
 		playsound(M, "sparks", 50, 1)
-	..()
-
-/datum/reagent/peaceborg/confuse
-	name = "Dizzying Solution"
-	id = "dizzysolution"
-	description = "Makes the target off balance and dizzy"
-	metabolization_rate = 1.5 * REAGENTS_METABOLISM
-
-/datum/reagent/peaceborg/confuse/on_mob_life(mob/living/M)
-	M.AdjustConfused(3, bound_lower = 0, bound_upper = 5)
-	M.AdjustDizzy(3, bound_lower = 0, bound_upper = 5)
-	if(prob(20))
-		to_chat(M, "<span class='warning'>You feel confused and disorientated.</span>")
-	..()
-
-/datum/reagent/peaceborg/tire
-	name = "Tiring Solution"
-	id = "tiresolution"
-	description = "An extremely weak stamina-toxin that tires out the target. Completely harmless."
-	metabolization_rate = 1.5 * REAGENTS_METABOLISM
-
-/datum/reagent/peaceborg/tire/on_mob_life(mob/living/M)
-	var/healthcomp = (M.maxHealth - M.health)
-	if(M.staminaloss < (45 - healthcomp))	//At 50 health you would have 200 - 150 health meaning 50 compensation. 60 - 50 = 10, so would only do 10-19 stamina.)
-		M.adjustStaminaLoss(10)
-	if(prob(30))
-		to_chat(M, "<span class='warning'>You feel like you should sit down and take a rest...</span>")
 	..()

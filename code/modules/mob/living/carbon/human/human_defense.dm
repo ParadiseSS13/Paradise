@@ -311,7 +311,7 @@ emp_act
 					L.embedded_objects |= I
 					I.add_mob_blood(src)//it embedded itself in you, of course it's bloody!
 					I.forceMove(src)
-					L.take_damage(I.w_class*I.embedded_impact_pain_multiplier)
+					L.receive_damage(I.w_class*I.embedded_impact_pain_multiplier)
 					visible_message("<span class='danger'>[I] embeds itself in [src]'s [L.name]!</span>","<span class='userdanger'>[I] embeds itself in your [L.name]!</span>")
 					hitpush = 0
 					skipcatch = 1 //can't catch the now embedded item
@@ -358,10 +358,10 @@ emp_act
 				if("brute")
 					if(M.force > 20)
 						Paralyse(1)
-					update |= affecting.take_damage(rand(M.force/2, M.force), 0)
+					update |= affecting.receive_damage(rand(M.force/2, M.force), 0)
 					playsound(src, 'sound/weapons/punch4.ogg', 50, 1)
 				if("fire")
-					update |= affecting.take_damage(0, rand(M.force/2, M.force))
+					update |= affecting.receive_damage(0, rand(M.force/2, M.force))
 					playsound(src, 'sound/items/Welder.ogg', 50, 1)
 				if("tox")
 					M.mech_toxin_damage(src)

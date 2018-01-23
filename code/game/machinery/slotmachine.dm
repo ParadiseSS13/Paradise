@@ -47,14 +47,14 @@
 		if(operation == 1) // Play
 			if(working == 1)
 				return
-			if(!account || account.money < 100)
+			if(!account || account.money < 10)
 				return
-			if(!account.charge(100, transaction_purpose = "Bet", dest_name = name))
+			if(!account.charge(10, transaction_purpose = "Bet", dest_name = name))
 				return
 			plays += 1
 			working = 1
 			icon_state = "slots-on"
-			var/roll = rand(1,20000)
+			var/roll = rand(1,4050)
 			playsound(src.loc, 'sound/machines/ding.ogg', 50, 1)
 			spawn(25)
 				if(roll == 1)
@@ -69,27 +69,27 @@
 					result = "Big Winner! You win a hundred thousand credits!"
 					resultlvl = "good"
 					win_money(100000, 'sound/goonstation/misc/klaxon.ogg')
-				else if(roll > 5 && roll <= 25)
+				else if(roll > 5 && roll <= 50)
 					visible_message("<b>[src]</b> says, 'Big Winner! [usr.name] has won ten thousand credits!'")
 					result = "You win ten thousand credits!"
 					resultlvl = "good"
 					win_money(10000, 'sound/goonstation/misc/klaxon.ogg')
-				else if(roll > 25 && roll <= 50)
+				else if(roll > 50 && roll <= 100)
 					visible_message("<b>[src]</b> says, 'Winner! [usr.name] has won a thousand credits!'")
 					result = "You win a thousand credits!"
 					resultlvl = "good"
 					win_money(1000, 'sound/goonstation/misc/bell.ogg')
-				else if(roll > 50 && roll <= 100)
+				else if(roll > 100 && roll <= 200)
 					visible_message("<b>[src]</b> says, 'Winner! [usr.name] has won a hundred credits!'")
 					result = "You win a hundred credits!"
 					resultlvl = "good"
 					win_money(100, 'sound/goonstation/misc/bell.ogg')
-				else if(roll > 100 && roll <= 200)
+				else if(roll > 200 && roll <= 300)
 					visible_message("<b>[src]</b> says, 'Winner! [usr.name] has won fifty credits!'")
 					result = "You win fifty credits!"
 					resultlvl = "good"
 					win_money(50)
-				else if(roll > 200 && roll <= 500)
+				else if(roll > 300 && roll <= 600)
 					visible_message("<b>[src]</b> says, 'Winner! [usr.name] has won ten credits!'")
 					result = "You win ten credits!"
 					resultlvl = "good"
