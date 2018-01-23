@@ -297,7 +297,7 @@
 	var/obj/item/weapon/paper/reqform = new /obj/item/weapon/paper(_loc)
 	playsound(_loc, 'sound/goonstation/machines/printer_thermal.ogg', 50, 1)
 	reqform.name = "Requisition Form - [crates] '[object.name]' for [orderedby]"
-	reqform.info += "<h3>[station_name] Supply Requisition Form</h3><hr>"
+	reqform.info += "<h3>[station_name()] Supply Requisition Form</h3><hr>"
 	reqform.info += "INDEX: #[shuttle_master.ordernum]<br>"
 	reqform.info += "REQUESTED BY: [orderedby]<br>"
 	reqform.info += "RANK: [orderedbyRank]<br>"
@@ -330,7 +330,7 @@
 	slip.points = object.cost
 	slip.ordernumber = ordernum
 
-	var/stationName = (errors & MANIFEST_ERROR_NAME) ? new_station_name() : station_name()
+	var/stationName = station_name()
 	var/packagesAmt = shuttle_master.shoppinglist.len + ((errors & MANIFEST_ERROR_COUNT) ? rand(1,2) : 0)
 
 	slip.name = "Shipping Manifest - '[object.name]' for [orderedby]"
