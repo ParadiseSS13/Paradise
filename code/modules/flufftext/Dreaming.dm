@@ -2,8 +2,7 @@
 
 
 /mob/living/carbon/proc/dream()
-	var/list/dreams = dream_strings.Copy()
-	dreams = custom_dreams(dreams, src)
+	var/list/dreams = custom_dreams(dream_strings, src)
 
 	for(var/obj/item/weapon/bedsheet/sheet in loc)
 		dreams += sheet.dream_messages
