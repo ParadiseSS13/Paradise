@@ -107,7 +107,7 @@
 				set_light(1, 1)
 
 /turf/simulated/floor/carpet
-	name = "Carpet"
+	name = "carpet"
 	icon = 'icons/turf/floors/carpet.dmi'
 	icon_state = "carpet"
 	floor_tile = /obj/item/stack/tile/carpet

@@ -173,7 +173,7 @@ Class Procs:
 	if(use_power && stat == 0)
 		use_power(7500/severity)
 
-	new/obj/effect/overlay/temp/emp(loc)
+	new/obj/effect/temp_visual/emp(loc)
 	..()
 
 /obj/machinery/ex_act(severity)
