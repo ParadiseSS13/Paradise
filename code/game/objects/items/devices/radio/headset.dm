@@ -17,6 +17,8 @@
 	var/ks1type = null
 	var/ks2type = null
 
+	var/datum/mind/original_owner = null
+
 /obj/item/device/radio/headset/New()
 	..()
 	internal_channels.Cut()
@@ -63,6 +65,13 @@
 /obj/item/device/radio/headset/is_listening()
 	if(ishuman(loc))
 		var/mob/living/carbon/human/H = loc
+
+		if(syndie && H.mind)
+			if(!original_owner)
+				original_owner = H.mind
+			else if(original_owner != H.mind)
+				unmake_syndie()
+
 		if(H.l_ear == src || H.r_ear == src)
 			return ..()
 	else if(isanimal(loc) || isAI(loc))
@@ -309,18 +318,18 @@
 		return
 
 	if(istype(W, /obj/item/weapon/screwdriver))
-		if(keyslot1 || keyslot2)
+		if((keyslot1 && !keyslot1.syndie) || (keyslot2 && !keyslot2.syndie))
 
 			for(var/ch_name in channels)
 				radio_controller.remove_object(src, radiochannels[ch_name])
 				secure_radio_connections[ch_name] = null
 
-			if(keyslot1)
+			if(keyslot1 && !keyslot1.syndie)
 				var/turf/T = get_turf(user)
 				if(T)
 					keyslot1.loc = T
 					keyslot1 = null
-			if(keyslot2)
+			if(keyslot2 && !keyslot2.syndie)
 				var/turf/T = get_turf(user)
 				if(T)
 					keyslot2.loc = T
@@ -415,4 +424,14 @@
 	qdel(keyslot1)
 	keyslot1 = new /obj/item/device/encryptionkey/syndicate
 	syndie = 1
+	recalculateChannels()
+
+/obj/item/device/radio/headset/proc/unmake_syndie() // Turns Syndicate radios into normal radios!
+	if(keyslot1 && keyslot1.syndie)
+		QDEL_NULL(keyslot1)
+
+	if(keyslot2 && keyslot2.syndie)
+		QDEL_NULL(keyslot2)
+
+	syndie = 0
 	recalculateChannels()
