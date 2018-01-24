@@ -9,6 +9,7 @@
 	hitsound = 'sound/weapons/blade1.ogg' // Probably more appropriate than the previous hitsound. -- Dave
 	usesound = 'sound/weapons/blade1.ogg'
 	toolspeed = 1
+	light_power = 2
 	var/brightness_on = 2
 	var/colormap = list(red=LIGHT_COLOR_RED, blue=LIGHT_COLOR_LIGHTBLUE, green=LIGHT_COLOR_GREEN, purple=LIGHT_COLOR_PURPLE, rainbow=LIGHT_COLOR_WHITE)
 	
@@ -31,10 +32,10 @@
 			attack_verb = attack_verb_on
 		if(!item_color)
 			icon_state = icon_state_on
-			set_light(brightness_on, 2)
+			set_light(brightness_on)
 		else
 			icon_state = "sword[item_color]"
-			set_light(brightness_on, 2, colormap[item_color])
+			set_light(brightness_on, l_color=colormap[item_color])
 		w_class = w_class_on
 		playsound(user, 'sound/weapons/saberon.ogg', 35, 1) //changed it from 50% volume to 35% because deafness
 		to_chat(user, "<span class='notice'>[src] is now active.</span>")
