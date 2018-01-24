@@ -1891,10 +1891,16 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 							organ_data[organ] = "mechanical"
 
 				if("clientfps")
-					var/desiredfps = input(user, "Choose your desired fps. (0 = synced with server tick rate (currently:[world.fps]))", "Character Preference", clientfps)  as null|num
+					var/version_message
+					if(user.client && user.client.byond_version < 511)
+						version_message = "\nYou need to be using byond version 511 or later to take advantage of this feature, your version of [user.client.byond_version] is too low"
+					if(world.byond_version < 511)
+						version_message += "\nThis server does not currently support client side fps. You can set now for when it does."
+					var/desiredfps = input(user, "Choose your desired fps.[version_message]\n(0 = synced with server tick rate (currently:[world.fps]))", "Character Preference", clientfps)  as null|num
 					if(!isnull(desiredfps))
 						clientfps = desiredfps
-						parent.fps = clientfps
+						if(world.byond_version >= 511 && user.client && user.client.byond_version >= 511)
+							parent.fps = clientfps
 
 /*
 				if("skin_style")
