@@ -99,10 +99,16 @@
 	operating = 0
 	return 1
 
-/obj/machinery/door/poddoor/multi_tile // Whoever wrote the old code for multi-tile spesspod doors needs to burn in hell.
+ // Whoever wrote the old code for multi-tile spesspod doors needs to burn in hell. - Unknown
+ // Wise words. - Bxil
+/obj/machinery/door/poddoor/multi_tile
 	name = "large pod door"
+	var/idir 		//Initial Direction. For some reason upon spawning these doors always turn to south.
+					//We must force them to their corret direction, so we store it here.
+					//Bad solution, I know. If you know how to fix please do. - Bxil
 
 /obj/machinery/door/poddoor/multi_tile/New()
+	idir = dir
 	. = ..()
 	apply_opacity_to_my_turfs(opacity)
 
@@ -119,12 +125,14 @@
 	apply_opacity_to_my_turfs(0)
 	return ..()
 
+//Poddoors don't turn opaque automatically. Fear not, here is the fix.
+//A bad fix. Which needs exorcism. (Disclaimer: exorcism in not in the code YET. Upon being coded, please apply immediately.)
 /obj/machinery/door/poddoor/multi_tile/proc/apply_opacity_to_my_turfs(var/new_opacity)
 	var/numsteps = 1
 	var/turf/current_turf = get_turf(src)
 	while(numsteps <= width)
 		current_turf.opacity = new_opacity
-		var/turf/next_turf = get_step(current_turf, dir)
+		var/turf/next_turf = get_step(current_turf, idir)
 		current_turf = next_turf
 		numsteps++
 	update_freelook_sight()
