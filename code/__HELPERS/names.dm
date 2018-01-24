@@ -38,8 +38,6 @@ var/religion_name = null
 	
 /proc/world_name(var/name)
 
-	station_name = name
-
 	if(config && config.server_name)
 		world.name = "[config.server_name]: [name]"
 	else
