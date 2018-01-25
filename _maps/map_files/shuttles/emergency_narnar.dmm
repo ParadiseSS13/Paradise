@@ -54,7 +54,7 @@
 "bb" = (/obj/machinery/light/spot{tag = "icon-tube1 (EAST)"; icon_state = "tube1"; dir = 4},/turf/simulated/floor/engine/cult,/area/shuttle/escape)
 "bc" = (/obj/effect/decal/cleanable/blood/gibs,/turf/simulated/floor/engine/cult,/area/shuttle/escape)
 "bd" = (/obj/effect/decal/cleanable/blood/splatter,/obj/effect/decal/cleanable/blood/gibs,/turf/simulated/floor/engine/cult,/area/shuttle/escape)
-"be" = (/obj/structure/table/woodentable,/obj/item/weapon/tome,/turf/simulated/floor/engine/cult,/area/shuttle/escape)
+"be" = (/obj/structure/table/wood,/obj/item/weapon/tome,/turf/simulated/floor/engine/cult,/area/shuttle/escape)
 "bf" = (/obj/structure/stool/bed,/obj/item/weapon/bedsheet/cult,/turf/simulated/floor/engine/cult,/area/shuttle/escape)
 "bg" = (/obj/machinery/sleeper{tag = "icon-sleeper (NORTH)"; icon_state = "sleeper"; dir = 1},/obj/effect/decal/cleanable/blood/splatter,/turf/simulated/floor/engine/cult,/area/shuttle/escape)
 "bh" = (/obj/structure/window/reinforced{dir = 1},/obj/structure/shuttle/engine/heater,/obj/structure/cult/forge,/turf/simulated/floor/plating/airless,/area/shuttle/escape)

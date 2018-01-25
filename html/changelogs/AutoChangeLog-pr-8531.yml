@@ -1,0 +1,4 @@
+author: "Kyep"
+delete-after: True
+changes: 
+  - rscadd: "Added config option to limit the amount of time shadowlings can remain unhatched before they start getting pushed to hatch."

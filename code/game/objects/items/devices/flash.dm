@@ -179,21 +179,11 @@
 
 /obj/item/device/flash/cyborg/attack(mob/living/M, mob/user)
 	..()
-	cyborg_flash_animation(user)
+	new /obj/effect/temp_visual/borgflash(get_turf(src))
 
 /obj/item/device/flash/cyborg/attack_self(mob/user)
 	..()
-	cyborg_flash_animation(user)
-
-/obj/item/device/flash/cyborg/proc/cyborg_flash_animation(var/mob/living/user)
-	var/atom/movable/overlay/animation = new(user.loc)
-	animation.layer = user.layer + 1
-	animation.icon_state = "blank"
-	animation.icon = 'icons/mob/mob.dmi'
-	animation.master = user
-	flick("blspell", animation)
-	sleep(5)
-	qdel(animation)
+	new /obj/effect/temp_visual/borgflash(get_turf(src))
 
 /obj/item/device/flash/memorizer
 	name = "memorizer"

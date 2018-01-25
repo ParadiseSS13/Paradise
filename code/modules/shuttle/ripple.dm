@@ -1,4 +1,4 @@
-/obj/effect/overlay/temp/ripple
+/obj/effect/temp_visual/ripple
 	name = "hyperspace ripple"
 	desc = "Something is coming through hyperspace, you can see the \
 		visual disturbances. It's probably best not to be on top of these \
@@ -13,7 +13,7 @@
 	duration = 3 * SHUTTLE_RIPPLE_TIME
 	mouse_opacity = 1
 
-/obj/effect/overlay/temp/ripple/New()
+/obj/effect/temp_visual/ripple/New()
 	. = ..()
 	smooth_icon(src)
 	animate(src, alpha=255, time=SHUTTLE_RIPPLE_TIME)
