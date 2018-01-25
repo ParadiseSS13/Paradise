@@ -1,0 +1,50 @@
+"a" = (/turf/template_noop,/area/template_noop)
+"b" = (/turf/open/floor/plating/asteroid/basalt/lava_land_surface,/area/template_noop)
+"c" = (/turf/closed/wall,/area/ruin/powered)
+"d" = (/obj/effect/spawner/structure/window/reinforced,/turf/open/floor/plating,/area/ruin/powered)
+"e" = (/obj/machinery/vending,/obj/effect/decal/cleanable/dirt,/obj/effect/decal/cleanable/cobweb,/turf/open/floor/pod/light,/area/ruin/powered)
+"f" = (/obj/structure/rack,/obj/item/weapon/storage/toolbox/electrical,/obj/item/weapon/storage/toolbox/mechanical,/obj/effect/decal/cleanable/dirt,/obj/item/weapon/shovel,/obj/item/device/flashlight,/turf/open/floor/pod/light,/area/ruin/powered)
+"g" = (/obj/structure/rack,/obj/item/weapon/storage/toolbox,/obj/item/weapon/storage/toolbox/syndicate,/obj/effect/decal/cleanable/dirt,/obj/effect/decal/cleanable/cobweb2,/turf/open/floor/pod/light,/area/ruin/powered)
+"h" = (/obj/effect/decal/cleanable/dirt,/obj/effect/decal/cleanable/generic,/turf/open/floor/pod/light,/area/ruin/powered)
+"i" = (/obj/effect/decal/cleanable/dirt,/turf/open/floor/pod/light,/area/ruin/powered)
+"j" = (/obj/effect/decal/cleanable/dirt,/obj/item/organ/tongue/bone/chatter,/turf/open/floor/pod/light,/area/ruin/powered)
+"k" = (/obj/effect/spawner/structure/window/reinforced,/turf/closed/wall,/area/ruin/powered)
+"l" = (/obj/effect/decal/cleanable/dirt,/obj/structure/rack,/obj/item/stack/medical/bruise_pack,/obj/item/stack/medical/bruise_pack,/obj/item/stack/medical/ointment,/obj/item/stack/medical/gauze,/turf/open/floor/pod/light,/area/ruin/powered)
+"m" = (/turf/closed/wall{baseturf = /turf/open/floor/plating/lava/smooth/lava_land_surface},/area/ruin/powered)
+"n" = (/obj/effect/decal/cleanable/dirt,/obj/item/device/flashlight/flare,/turf/open/floor/pod/light,/area/ruin/powered)
+"o" = (/obj/machinery/door/airlock/glass_external,/obj/structure/fans/tiny/invisible,/turf/open/floor/plating,/area/ruin/powered)
+"p" = (/turf/open/floor/plating,/area/ruin/powered)
+"q" = (/obj/effect/decal/cleanable/generic,/turf/open/floor/pod/light,/area/ruin/powered)
+"r" = (/obj/effect/decal/cleanable/dirt,/obj/effect/decal/cleanable/oil,/turf/open/floor/pod/light,/area/ruin/powered)
+"s" = (/obj/effect/decal/cleanable/dirt,/obj/effect/decal/cleanable/cobweb,/obj/structure/tank_dispenser/oxygen,/turf/open/floor/pod/light,/area/ruin/powered)
+"t" = (/obj/effect/decal/cleanable/dirt,/obj/item/toy/figure/ce,/obj/item/weapon/firstaid_arm_assembly,/turf/open/floor/pod/light,/area/ruin/powered)
+"u" = (/obj/effect/decal/cleanable/dirt,/obj/structure/rack,/obj/item/clothing/suit/space/hardsuit/carp,/turf/open/floor/pod/light,/area/ruin/powered)
+"v" = (/obj/effect/decal/cleanable/dirt,/obj/machinery/suit_storage_unit/ert/engineer,/turf/open/floor/pod/light,/area/ruin/powered)
+"w" = (/obj/item/toy/snappop,/obj/item/toy/snappop,/obj/item/toy/snappop,/obj/item/toy/snappop,/obj/item/toy/snappop,/obj/item/toy/snappop,/obj/item/toy/snappop,/obj/item/toy/snappop,/obj/item/toy/snappop,/obj/item/toy/snappop,/obj/item/toy/snappop,/obj/machinery/door/airlock/hatch,/obj/structure/fans/tiny/invisible,/turf/open/floor/plasteel/airless/floorgrime,/area/ruin/powered)
+"x" = (/obj/effect/decal/cleanable/dirt,/obj/item/weapon/broken_bottle,/turf/open/floor/pod/light,/area/ruin/powered)
+"y" = (/obj/effect/decal/cleanable/dirt,/obj/item/toy/figure/engineer,/turf/open/floor/pod/light,/area/ruin/powered)
+"z" = (/obj/effect/decal/cleanable/dirt,/obj/effect/decal/cleanable/dirt,/obj/effect/decal/cleanable/robot_debris,/turf/open/floor/pod/light,/area/ruin/powered)
+"A" = (/obj/item/weapon/surgical_drapes,/obj/effect/decal/cleanable/dirt,/turf/open/floor/pod/light,/area/ruin/powered)
+"B" = (/obj/effect/decal/cleanable/dirt,/obj/effect/decal/remains/robot,/turf/open/floor/pod/light,/area/ruin/powered)
+"C" = (/obj/effect/decal/cleanable/dirt,/obj/structure/rack,/obj/item/clothing/head/rice_hat,/obj/item/clothing/head/soft,/obj/item/clothing/suit/poncho,/turf/open/floor/pod/light,/area/ruin/powered)
+"D" = (/obj/effect/decal/cleanable/dirt,/obj/item/weapon/c_tube,/obj/item/toy/cattoy,/turf/open/floor/pod/light,/area/ruin/powered)
+"E" = (/obj/effect/decal/cleanable/dirt,/obj/structure/rack,/obj/item/clothing/head/kitty,/obj/item/clothing/head/kitty,/obj/item/clothing/suit/jacket/miljacket,/obj/item/clothing/under/janimaid,/obj/item/toy/figure/qm,/turf/open/floor/pod/light,/area/ruin/powered)
+"F" = (/obj/effect/decal/cleanable/dirt,/obj/structure/rack,/obj/item/clothing/suit/jacket/puffer,/turf/open/floor/pod/light,/area/ruin/powered)
+
+(1,1,1) = {"
+aaaaaaaaaaaaaaa
+aaaaabbbbbaaaaa
+aaaabbbbbbbaaaa
+aaaabcccccbbaaa
+aaabbdefgcbbbaa
+aabbbdhijkbbbba
+aabbbdiilcbbbbb
+abbmmciincckccc
+abbopoiqrcstuvc
+abbmmmiiiwixiyc
+abbbbczABcCDEFc
+aabbbckkkcccccc
+aaaabbbbbbbbbbb
+aaaaabbbbbbbbba
+aaaaaaaaaaaaaaa
+"}

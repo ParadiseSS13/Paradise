@@ -1,0 +1,35 @@
+"a" = (/turf/open/floor/plating/asteroid/basalt/lava_land_surface,/area/lavaland/surface/outdoors/mapgen_protected)
+"b" = (/obj/effect/mob_spawn/human/corpse/nanotrasensoldier,/turf/open/floor/plating/asteroid/basalt/lava_land_surface,/area/lavaland/surface/outdoors/mapgen_protected)
+"c" = (/turf/closed/mineral/volcanic/lava_land_surface,/area/lavaland/surface/outdoors/mapgen_protected)
+"d" = (/turf/open/floor/plating/lava/smooth/lava_land_surface,/area/lavaland/surface/outdoors/mapgen_protected)
+"e" = (/mob/living/simple_animal/hostile/asteroid/goliath/beast,/turf/open/floor/plating/asteroid/basalt/lava_land_surface,/area/lavaland/surface/outdoors/mapgen_protected)
+"f" = (/turf/closed/mineral/volcanic/lava_land_surface,/area/ruin/unpowered)
+"g" = (/mob/living/simple_animal/hostile/asteroid/goliath/beast,/turf/open/floor/plating/asteroid/basalt/lava_land_surface,/area/ruin/unpowered)
+"h" = (/turf/open/floor/plating/asteroid/basalt/lava_land_surface,/area/ruin/unpowered)
+"i" = (/obj/item/device/flashlight/lantern{in_use = 1},/turf/open/floor/plating/asteroid/basalt/lava_land_surface,/area/ruin/unpowered)
+"j" = (/obj/item/weapon/storage/bag/ore/holding,/mob/living/simple_animal/hostile/asteroid/goliath/beast,/turf/open/floor/plating/asteroid/basalt/lava_land_surface,/area/ruin/unpowered)
+"k" = (/obj/item/weapon/lazarus_injector,/turf/open/floor/plating/asteroid/basalt/lava_land_surface,/area/ruin/unpowered)
+"l" = (/obj/item/modkit,/obj/effect/mob_spawn/human/corpse/damaged,/obj/item/weapon/gun/energy/kinetic_accelerator/hyper,/turf/open/floor/plating/asteroid/basalt/lava_land_surface,/area/ruin/unpowered)
+"m" = (/obj/item/weapon/mining_voucher,/turf/open/floor/plating/asteroid/basalt/lava_land_surface,/area/ruin/unpowered)
+
+(1,1,1) = {"
+aaaaaaabaaaaacaaaaaaa
+aadaadccaacaaaaaadaca
+aadaaacaaaccdcbdadaaa
+aaaaaaaaaaaeaaaaadcaa
+ccaaaffafffafaaaadcca
+aaabddfffffffffaaacca
+aaaaafffffffffffaaaaa
+aceaaafffghhhgffffdaa
+aaabffffhhgijhfffabaa
+caaaadffghklmhgfffaea
+aaaaafffhhgmghgffffac
+caadadffgfhghhhfffdac
+aaadaaaffffffggffadaa
+ccadcfaffffffffffaaaa
+ccadaffffafaffffaadac
+aaabaadafaddffafaadaa
+aaaaaadaaaaaafaacadaa
+aaaceadaacabaaeaaadca
+aacaaaaaacaaccaccaaaa
+"}
