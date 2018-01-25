@@ -1,0 +1,39 @@
+"a" = (/turf/template_noop,/area/template_noop)
+"b" = (/turf/closed/wall/shuttle/smooth,/area/ruin/powered)
+"c" = (/obj/effect/spawner/structure/window/reinforced,/turf/open/floor/plating,/area/ruin/powered)
+"d" = (/obj/structure/shuttle/engine/propulsion{icon_state = "propulsion"; dir = 4},/turf/closed/wall/shuttle/smooth,/area/ruin/powered)
+"e" = (/obj/structure/shuttle/engine/heater{icon_state = "heater"; dir = 8},/turf/closed/wall/shuttle/interior,/area/ruin/powered)
+"f" = (/obj/machinery/suit_storage_unit/standard_unit{helmet_type = null; suit_type = /obj/item/clothing/suit/space/hardsuit/ert/sec},/obj/effect/decal/cleanable/dirt,/obj/effect/decal/cleanable/cobweb,/obj/effect/decal/cleanable/dirt,/turf/open/floor/plasteel/yellowsiding{dir = 1},/area/ruin/powered)
+"g" = (/obj/effect/decal/cleanable/generic,/obj/effect/decal/cleanable/dirt,/obj/effect/decal/cleanable/molten_item,/obj/item/weapon/restraints/handcuffs,/turf/open/floor/plasteel/yellowsiding{dir = 1},/area/ruin/powered)
+"h" = (/obj/item/weapon/paper/crumpled{name = "Crumpled Note"},/obj/effect/decal/cleanable/dirt,/turf/open/floor/plasteel/yellowsiding{dir = 1},/area/ruin/powered)
+"i" = (/obj/effect/decal/cleanable/cobweb2,/obj/machinery/computer,/turf/open/floor/plasteel/yellowsiding{dir = 1},/area/ruin/powered)
+"j" = (/obj/machinery/door/airlock/glass_external,/obj/structure/fans/tiny/invisible,/turf/open/floor/plating,/area/ruin/powered)
+"k" = (/obj/effect/decal/cleanable/dirt,/turf/open/floor/plasteel/warning{dir = 8},/area/ruin/powered)
+"l" = (/obj/effect/decal/cleanable/generic,/obj/effect/decal/cleanable/dirt,/obj/item/weapon/circuitboard/computer/crew,/obj/item/trash/chips,/turf/open/floor/plasteel/neutral{baseturf = /turf/open/floor/plating/lava/smooth/lava_land_surface; initial_gas_mix = "o2=14;n2=23;TEMP=300"},/area/ruin/powered)
+"m" = (/obj/effect/decal/cleanable/vomit,/obj/effect/mob_spawn/human/corpse/nanotrasensoldier,/obj/effect/decal/cleanable/generic,/obj/effect/decal/cleanable/dirt,/obj/effect/decal/cleanable/dirt,/turf/open/floor/plasteel/neutral{baseturf = /turf/open/floor/plating/lava/smooth/lava_land_surface; initial_gas_mix = "o2=14;n2=23;TEMP=300"},/area/ruin/powered)
+"n" = (/obj/item/trash/deadmouse,/obj/effect/decal/cleanable/dirt,/obj/item/wallframe/apc,/obj/item/weapon/electronics/apc,/turf/open/floor/plasteel/neutral{baseturf = /turf/open/floor/plating/lava/smooth/lava_land_surface; initial_gas_mix = "o2=14;n2=23;TEMP=300"},/area/ruin/powered)
+"o" = (/obj/structure/chair/office/dark{dir = 1},/obj/effect/decal/cleanable/dirt,/turf/open/floor/plasteel/neutral{baseturf = /turf/open/floor/plating/lava/smooth/lava_land_surface; initial_gas_mix = "o2=14;n2=23;TEMP=300"},/area/ruin/powered)
+"p" = (/obj/effect/decal/cleanable/cobweb2,/obj/machinery/computer,/turf/open/floor/plasteel/neutral{baseturf = /turf/open/floor/plating/lava/smooth/lava_land_surface; initial_gas_mix = "o2=14;n2=23;TEMP=300"},/area/ruin/powered)
+"q" = (/obj/effect/decal/cleanable/dirt,/obj/effect/decal/cleanable/dirt,/turf/open/floor/plasteel/warning{dir = 8},/area/ruin/powered)
+"r" = (/obj/item/trash/raisins,/obj/item/trash/candy,/obj/item/trash/chips,/obj/item/trash/chips,/obj/item/trash/chips,/obj/item/trash/chips,/obj/item/trash/sosjerky,/obj/item/trash/raisins,/obj/item/trash/raisins,/obj/item/trash/cheesie,/obj/effect/decal/cleanable/generic,/obj/effect/decal/cleanable/dirt,/obj/effect/decal/cleanable/dirt,/turf/open/floor/plasteel/neutral{baseturf = /turf/open/floor/plating/lava/smooth/lava_land_surface; initial_gas_mix = "o2=14;n2=23;TEMP=300"},/area/ruin/powered)
+"s" = (/obj/item/trash/candy,/obj/item/trash/chips,/obj/item/trash/sosjerky,/obj/item/trash/sosjerky,/obj/item/trash/raisins,/obj/item/trash/cheesie,/obj/item/trash/cheesie,/obj/item/trash/cheesie,/obj/item/trash/cheesie,/obj/effect/decal/cleanable/generic,/obj/effect/decal/cleanable/dirt,/obj/effect/decal/cleanable/dirt,/obj/effect/decal/cleanable/dirt,/turf/open/floor/plasteel/neutral{baseturf = /turf/open/floor/plating/lava/smooth/lava_land_surface; initial_gas_mix = "o2=14;n2=23;TEMP=300"},/area/ruin/powered)
+"t" = (/obj/effect/decal/cleanable/generic,/obj/effect/decal/cleanable/generic,/obj/effect/decal/cleanable/dirt,/turf/open/floor/plasteel/neutral{baseturf = /turf/open/floor/plating/lava/smooth/lava_land_surface; initial_gas_mix = "o2=14;n2=23;TEMP=300"},/area/ruin/powered)
+"u" = (/obj/structure/chair/office/dark{dir = 4},/obj/effect/decal/cleanable/dirt,/turf/open/floor/plasteel/neutral{baseturf = /turf/open/floor/plating/lava/smooth/lava_land_surface; initial_gas_mix = "o2=14;n2=23;TEMP=300"},/area/ruin/powered)
+"v" = (/obj/machinery/computer,/turf/open/floor/plasteel/neutral{baseturf = /turf/open/floor/plating/lava/smooth/lava_land_surface; initial_gas_mix = "o2=14;n2=23;TEMP=300"},/area/ruin/powered)
+"w" = (/obj/machinery/vending/snack{product_slogans = "Use Getmore Chocolate to avoid starving to death on a crashed ship in the middle of a volcanic wasteland!"; products = list(/obj/item/weapon/reagent_containers/food/snacks/candy = 0, /obj/item/weapon/reagent_containers/food/drinks/dry_ramen = 0, /obj/item/weapon/reagent_containers/food/snacks/chips = 0, /obj/item/weapon/reagent_containers/food/snacks/sosjerky = 0, /obj/item/weapon/reagent_containers/food/snacks/no_raisin = 0, /obj/item/weapon/reagent_containers/food/snacks/spacetwinkie = 0, /obj/item/weapon/reagent_containers/food/snacks/cheesiehonkers = 0); slogan_delay = 1000},/obj/effect/decal/cleanable/dirt,/turf/open/floor/plasteel/yellowsiding,/area/ruin/powered)
+"x" = (/obj/item/trash/candy,/obj/item/trash/candy,/obj/item/trash/candy,/obj/item/trash/candy,/obj/item/trash/sosjerky,/obj/item/trash/sosjerky,/obj/item/trash/sosjerky,/obj/effect/decal/cleanable/dirt,/obj/effect/decal/cleanable/dirt,/turf/open/floor/plasteel/yellowsiding,/area/ruin/powered)
+"y" = (/obj/item/weapon/storage/box/hug/medical,/obj/item/weapon/storage/box/hug/medical,/obj/effect/decal/cleanable/dirt,/obj/effect/decal/cleanable/robot_debris,/turf/open/floor/plasteel/yellowsiding,/area/ruin/powered)
+"z" = (/obj/machinery/computer,/turf/open/floor/plasteel/yellowsiding,/area/ruin/powered)
+
+(1,1,1) = {"
+aaaaaaaaaa
+aaaaaaaaaa
+aabbccbbaa
+adefghibba
+ajklmnopba
+ajqrstuvba
+adewxyzbba
+aabbccbbaa
+aaaaaaaaaa
+aaaaaaaaaa
+"}
