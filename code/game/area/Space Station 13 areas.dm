@@ -2128,8 +2128,8 @@ area/security/podbay
 	name = "\improper Construction Site Eng Core"
 	icon_state = "green"
 
-/area/constructionsite/hallway/scicore
-	name = "\improper Construction Site Sci Core"
+/area/constructionsite/hallway/fore
+	name = "\improper Construction Site Fore"
 	icon_state = "green"
 
 /area/constructionsite/hallway/port
