@@ -1,0 +1,8 @@
+author: "IK3I"
+delete-after: True
+changes: 
+  - bugfix: "Cancel means Cancel on admeme console reports!"
+  - bugfix: "When eldritch gods, demons, handsy aliens, and incarnations of darkness tell you it's time to go, you go"
+  - tweak: "Comms Console will tell you when the shuttle can't be recalled"
+  - tweak: "Admemes can now designate whether a shuttle they call is recallable"
+  - tweak: "Admemes can exercise their power to recall any shuttle, even in defiance of spooky ghosts!"

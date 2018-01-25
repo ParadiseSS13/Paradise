@@ -94,7 +94,7 @@
 /obj/effect/forcefield/cult
 	desc = "That eerie looking obstacle seems to have been pulled from another dimension through sheer force"
 	name = "eldritch wall"
-	icon = 'icons/effects/effects.dmi'
+	icon = 'icons/effects/cult_effects.dmi'
 	icon_state = "m_shield_cult"
 	light_color = LIGHT_COLOR_PURE_RED
 
@@ -110,10 +110,14 @@
 	invocation_type = "none"
 	range = -1
 	include_user = 1
-	phaseshift = 1
 	jaunt_duration = 50 //in deciseconds
 	centcom_cancast = 0 //Stop people from getting to centcom
+	jaunt_in_time = 12
+	jaunt_in_type = /obj/effect/temp_visual/dir_setting/wraith
+	jaunt_out_type = /obj/effect/temp_visual/dir_setting/wraith/out
 
+/obj/effect/proc_holder/spell/targeted/ethereal_jaunt/shift/jaunt_steam(mobloc)
+	return
 
 /obj/effect/proc_holder/spell/targeted/projectile/magic_missile/lesser
 	name = "Lesser Magic Missile"

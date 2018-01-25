@@ -383,7 +383,7 @@
 /obj/docking_port/mobile/proc/create_ripples(obj/docking_port/stationary/S1)
 	var/list/turfs = ripple_area(S1)
 	for(var/i in turfs)
-		ripples += new /obj/effect/overlay/temp/ripple(i)
+		ripples += new /obj/effect/temp_visual/ripple(i)
 
 /obj/docking_port/mobile/proc/remove_ripples()
 	if(ripples.len)
