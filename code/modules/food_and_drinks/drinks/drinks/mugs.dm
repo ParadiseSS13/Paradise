@@ -5,6 +5,7 @@
 	icon = 'icons/obj/mugs.dmi'
 	icon_state = "mug"
 	var/novelty = FALSE
+	var/preset = FALSE
 
 /obj/item/weapon/reagent_containers/food/drinks/mug/novelty
 	name = "novelty coffee mug"
@@ -13,6 +14,8 @@
 
 /obj/item/weapon/reagent_containers/food/drinks/mug/New()
 	..()
+	if(preset)
+		return
 	if(novelty)
 		var/novelty_select = pick("peace", "fire", "best", "worst", "insult", "pda", "rad", "tide", "happy", "pills", "rainbow")
 		switch(novelty_select)
@@ -68,4 +71,68 @@
 	else
 		icon_state = pick("mug_black", "mug_white", "mug_red", "mug_blue", "mug_green", "mug_pink")
 
+/obj/item/weapon/reagent_containers/food/drinks/mug/eng
+	name = "engineer's mug"
+	desc = "A mug engineered to hold your beverage... IN SPACE!"
+	icon_state = "mug_eng"
+	preset = TRUE
 
+/obj/item/weapon/reagent_containers/food/drinks/mug/med
+	name = "doctor's mug"
+	desc = "A mug that can hold the cure for what ails you!"
+	icon_state = "mug_med"
+	preset = TRUE
+
+/obj/item/weapon/reagent_containers/food/drinks/mug/sci
+	name = "scientist's mug"
+	desc = "Nothing fuels research like a coffee mug... or grant money!"
+	icon_state = "mug_sci"
+	preset = TRUE
+
+/obj/item/weapon/reagent_containers/food/drinks/mug/sec
+	name = "officer's mug"
+	desc = "The perfect partner for a sprinkled donut or stunbaton!"
+	icon_state = "mug_sec"
+	preset = TRUE
+
+/obj/item/weapon/reagent_containers/food/drinks/mug/serv
+	name = "crewmember's mug"
+	desc = "Serve your thirst better than you serve the rest of the crew!"
+	icon_state = "mug_serv"
+	preset = TRUE
+
+/obj/item/weapon/reagent_containers/food/drinks/mug/ce
+	name = "chief engineer's mug"
+	desc = "Broken and welded back together countless times, just like the station! Probably microwave safe."
+	icon_state = "mug_ce"
+	preset = TRUE
+
+/obj/item/weapon/reagent_containers/food/drinks/mug/hos
+	name = "head of security's mug"
+	desc = "If only your officers were as robust as this coffee's flavor!"
+	icon_state = "mug_hos"
+	preset = TRUE
+
+/obj/item/weapon/reagent_containers/food/drinks/mug/rd
+	name = "research director's mug"
+	desc = "Energy tech level: 99"
+	icon_state = "mug_rd"
+	preset = TRUE
+
+/obj/item/weapon/reagent_containers/food/drinks/mug/cmo
+	name = "chief medical officer's mug"
+	desc = "Fill it with something to keep you awake while you try to keep the crew alive."
+	icon_state = "mug_cmo"
+	preset = TRUE
+
+/obj/item/weapon/reagent_containers/food/drinks/mug/hop
+	name = "head of personnel's mug"
+	desc = "Are the stains on the bottom coffee or ink?"
+	icon_state = "mug_hop"
+	preset = TRUE
+
+/obj/item/weapon/reagent_containers/food/drinks/mug/cap
+	name = "captain's mug"
+	desc = "An inscription on the side reads \"Best Captain 2559\"... The last time the station had a worthy captain."
+	icon_state = "mug_cap"
+	preset = TRUE
