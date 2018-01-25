@@ -75,7 +75,7 @@ var/global/admin_ooc_colour = "#b82e00"
 			if(holder)
 				if(holder.fakekey)
 					if(C.holder && C.holder.rights & R_ADMIN)
-						display_name = "[holder.fakekey]/([src.key])"
+						display_name = "[holder.fakekey]/([key])"
 					else
 						display_name = holder.fakekey
 
