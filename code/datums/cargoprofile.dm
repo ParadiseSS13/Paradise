@@ -139,8 +139,7 @@
 	whitelist = list(/obj/item/stack/cable_coil,/obj/item/stack/rods,
 					/obj/item/stack/sheet/metal,/obj/item/stack/sheet/plasteel,
 					/obj/item/stack/sheet/glass,/obj/item/stack/sheet/rglass,
-					/obj/item/stack/tile,/obj/item/weapon/light,
-					/obj/item/weapon/table_parts)
+					/obj/item/stack/tile,/obj/item/weapon/light)
 	//todo: maybe stack things while we're here?
 
 /datum/cargoprofile/exotics
