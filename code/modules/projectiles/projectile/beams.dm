@@ -69,6 +69,7 @@
 	damage = 30
 	legacy = 1
 	animate_movement = SLIDE_STEPS
+	light_color = LIGHT_COLOR_GREEN
 
 /obj/item/projectile/beam/emitter/singularity_pull()
 	return //don't want the emitters to miss
