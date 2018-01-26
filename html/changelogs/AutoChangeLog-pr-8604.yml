@@ -1,0 +1,4 @@
+author: "tigercat2000"
+delete-after: True
+changes: 
+  - bugfix: "Insta-movement works marginally better"
