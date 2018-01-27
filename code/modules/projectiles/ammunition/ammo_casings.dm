@@ -380,3 +380,9 @@
 	caliber = "laser"
 	projectile_type = /obj/item/projectile/beam/laser
 	icon_state = "lasercasing"
+
+/obj/item/ammo_casing/shotgun/flare
+	name = "flare shell"
+	desc = "A low powered flare shell."
+	icon_state = "fshell"
+	projectile_type = /obj/item/projectile/bullet/reusable/flare

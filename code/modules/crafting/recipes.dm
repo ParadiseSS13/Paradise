@@ -222,6 +222,16 @@
 	time = 100
 	category = CAT_WEAPON
 
+/datum/crafting_recipe/flaregun
+	name = "Flare Rifle"
+	result = /obj/item/weapon/gun/projectile/revolver/doublebarrel/improvised/flare
+	reqs = list(/obj/item/weaponcrafting/receiver = 1,
+				/obj/item/weaponcrafting/flaregunparts = 1)
+	tools = list(/obj/item/weapon/screwdriver,
+				/obj/item/weapon/wrench)
+	time = 100
+	category = CAT_WEAPON
+
 /datum/crafting_recipe/chainsaw
 	name = "Chainsaw"
 	result = /obj/item/weapon/twohanded/required/chainsaw

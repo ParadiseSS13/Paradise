@@ -64,3 +64,51 @@
 	ammo_type = /obj/item/ammo_casing/caseless/foam_dart/riot
 	stamina = 25
 	log_override = FALSE
+
+//Flare's aren't really reusable, but the code works almost too well to not use it here
+
+/obj/item/projectile/bullet/reusable/flare
+	name = "flare"
+	desc = "Hot stuff."
+	damage = 10					//It's a low velocity flare, its mostly going to thud and burn you some
+	damage_type = BURN
+	icon_state = "flare"
+	ammo_type = /obj/item/device/flashlight/flare/shot
+	range = 10
+
+
+/obj/item/projectile/bullet/reusable/flare/Move()
+	..()
+	light_color = "#ff0000"
+	set_light(7)
+
+/obj/item/device/flashlight/flare/shot	//The drop for the flare shot above
+	name = "flare"
+	desc = "A red flare."
+	w_class = 2
+	icon_state = "flareshot"
+
+/obj/item/device/flashlight/flare/shot/New()
+	fuel = rand(200, 500)
+	on = TRUE
+	src.force = on_damage
+	src.damtype = "fire"
+	processing_objects += src
+	..()
+
+/obj/item/device/flashlight/flare/shot/turn_off()
+	on = 0
+	src.force = initial(src.force)
+	src.damtype = initial(src.damtype)
+	if(ismob(loc))
+		var/mob/U = loc
+		update_brightness(U)
+	else
+		update_brightness(null)
+
+/obj/item/device/flashlight/flare/shot/update_brightness(var/mob/user = null)
+	..()
+	if(on)
+		item_state = "[initial(item_state)]-on"
+	else
+		item_state = "[initial(item_state)]-emptie"

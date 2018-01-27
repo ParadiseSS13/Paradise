@@ -656,6 +656,14 @@
 	build_path = /obj/item/weaponcrafting/receiver
 	category = list("hacked", "Security")
 
+/datum/design/flare_parts
+	name = "Flare Rifle Parts"
+	id = "flaregunparts"
+	build_type = AUTOLATHE
+	materials = list(MAT_METAL = 30000)
+	build_path = /obj/item/weaponcrafting/flaregunparts
+	category = list("hacked", "Security")
+
 /datum/design/shotgun_slug
 	name = "Shotgun Slug"
 	id = "shotgun_slug"
@@ -687,6 +695,14 @@
 	materials = list(MAT_METAL = 4000)
 	build_path = /obj/item/ammo_casing/shotgun/incendiary
 	category = list("hacked", "Security")
+
+/datum/design/shotgun_slug
+	name = "Shotgun Flare"
+	id = "shotgun_flare"
+	build_type = AUTOLATHE
+	materials = list(MAT_METAL = 10000)
+	build_path = /obj/item/ammo_casing/shotgun/flare
+	category = list("initial", "Security")
 
 /datum/design/riot_dart
 	name = "Foam riot dart"

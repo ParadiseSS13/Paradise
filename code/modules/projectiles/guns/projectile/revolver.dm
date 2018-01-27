@@ -341,7 +341,6 @@
 			icon_state = "ishotgunsling"
 			to_chat(user, "<span class='notice'>You tie the lengths of cable to the shotgun, making a sling.</span>")
 			slung = 1
-			update_icon()
 		else
 			to_chat(user, "<span class='warning'>You need at least ten lengths of cable if you want to make a sling.</span>")
 			return
@@ -406,3 +405,16 @@
 
 	if(desc)
 		to_chat(user, desc)
+
+/obj/item/weapon/gun/projectile/revolver/doublebarrel/improvised/flare
+	name = "flare rifle"
+	desc = "A large flare gun made to help reduce mining acidents by letting miners light caves from afar."
+	icon_state = "flare_rifle"
+	force = 10
+	sawn_desc = "I'll light the way."
+
+
+/obj/item/weapon/gun/projectile/revolver/doublebarrel/improvised/flare/attackby(obj/item/A, mob/user, params)
+	if(istype(A, /obj/item/stack/cable_coil))
+		return
+	..()

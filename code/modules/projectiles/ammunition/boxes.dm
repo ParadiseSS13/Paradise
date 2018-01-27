@@ -103,6 +103,12 @@
 	ammo_type = /obj/item/ammo_casing/shotgun/rubbershot
 	materials = list(MAT_METAL=1750)
 
+/obj/item/ammo_box/shotgun/flare
+	name = "Shotgun Speedloader (flare shells)"
+	icon_state = "flareloader"
+	ammo_type = /obj/item/ammo_casing/shotgun/flare
+	materials = list(MAT_METAL=1750)
+
 
 /obj/item/ammo_box/shotgun/tranquilizer
 	name = "Shotgun Speedloader (tranquilizer darts)"
