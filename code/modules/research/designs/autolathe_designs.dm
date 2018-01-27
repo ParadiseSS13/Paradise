@@ -660,7 +660,7 @@
 	name = "Flare Rifle Parts"
 	id = "flaregunparts"
 	build_type = AUTOLATHE
-	materials = list(MAT_METAL = 30000)
+	materials = list(MAT_METAL = 60000)
 	build_path = /obj/item/weaponcrafting/flaregunparts
 	category = list("hacked", "Security")
 
