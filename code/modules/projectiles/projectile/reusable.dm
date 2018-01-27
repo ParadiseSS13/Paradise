@@ -84,31 +84,14 @@
 
 /obj/item/device/flashlight/flare/shot	//The drop for the flare shot above
 	name = "flare"
-	desc = "A red flare."
+	desc = "A small red flare."
 	w_class = 2
 	icon_state = "flareshot"
 
 /obj/item/device/flashlight/flare/shot/New()
-	fuel = rand(200, 500)
-	on = TRUE
+	on = 1
 	src.force = on_damage
 	src.damtype = "fire"
 	processing_objects += src
 	..()
-
-/obj/item/device/flashlight/flare/shot/turn_off()
-	on = 0
-	src.force = initial(src.force)
-	src.damtype = initial(src.damtype)
-	if(ismob(loc))
-		var/mob/U = loc
-		update_brightness(U)
-	else
-		update_brightness(null)
-
-/obj/item/device/flashlight/flare/shot/update_brightness(var/mob/user = null)
-	..()
-	if(on)
-		item_state = "[initial(item_state)]-on"
-	else
-		item_state = "[initial(item_state)]-emptie"
+	fuel = rand(200, 500)

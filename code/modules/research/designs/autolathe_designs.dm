@@ -696,7 +696,7 @@
 	build_path = /obj/item/ammo_casing/shotgun/incendiary
 	category = list("hacked", "Security")
 
-/datum/design/shotgun_slug
+/datum/design/shotgun_flare
 	name = "Shotgun Flare"
 	id = "shotgun_flare"
 	build_type = AUTOLATHE
