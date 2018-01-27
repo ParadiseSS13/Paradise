@@ -73,7 +73,7 @@
 	if(health <= 0)
 		destroy_structure()
 
-/obj/structure/cult/functional/proc/take_damage(damage, damage_type = BRUTE)
+/obj/structure/cult/functional/take_damage(damage, damage_type = BRUTE)
 	if(damage_type == BRUTE || damage_type == BURN)
 		health -= damage
 		updatehealth()
@@ -208,7 +208,7 @@ var/list/blacklisted_pylon_turfs = typecacheof(list(
 		for(var/mob/living/L in range(5, src))
 			if(iscultist(L) || istype(L, /mob/living/simple_animal/shade) || istype(L, /mob/living/simple_animal/hostile/construct))
 				if(L.health != L.maxHealth)
-					new /obj/effect/overlay/temp/heal(get_turf(src), "#960000")
+					new /obj/effect/temp_visual/heal(get_turf(src), "#960000")
 					if(ishuman(L))
 						L.adjustBruteLoss(-1)
 						L.adjustFireLoss(-1)
@@ -237,7 +237,7 @@ var/list/blacklisted_pylon_turfs = typecacheof(list(
 		else
 			var/turf/simulated/floor/engine/cult/F = safepick(cultturfs)
 			if(F)
-				new /obj/effect/overlay/temp/cult/turf/open/floor(F)
+				new /obj/effect/temp_visual/cult/turf/open/floor(F)
 			else
 				// Are we in space or something? No cult turfs or
 				// convertable turfs?

@@ -373,9 +373,8 @@
 
 //Door
 /obj/machinery/door/airlock/survival_pod
-	name = "Airlock"
 	icon = 'icons/obj/doors/survival.dmi'
-	assembly_type = /obj/structure/door_assembly/door_assembly_pod
+	assemblytype = /obj/structure/door_assembly/door_assembly_pod
 	opacity = 0
 	glass = 1
 
@@ -496,7 +495,7 @@
 	var/buildstacktype = /obj/item/stack/sheet/metal
 	var/buildstackamount = 5
 
-/obj/structure/fans/proc/deconstruct()
+/obj/structure/fans/deconstruct()
 	if(buildstacktype)
 		new buildstacktype(loc, buildstackamount)
 	qdel(src)

@@ -83,15 +83,43 @@ var/list/wireColours = list("red", "blue", "green", "black", "orange", "brown", 
 
 /datum/wires/ui_data(mob/user, ui_key = "main", datum/topic_state/state = physical_state)
 	var/data[0]
+	var/list/replace_colours = null
+	if(ishuman(user))
+		var/mob/living/carbon/human/H = user
+		var/obj/item/organ/internal/eyes/eyes = H.get_int_organ(/obj/item/organ/internal/eyes)
+		if(eyes && H.disabilities & COLOURBLIND)
+			replace_colours = eyes.replace_colours
+
 
 	var/list/W[0]
 	for(var/colour in wires)
-		W[++W.len] = list("colour" = capitalize(colour), "cut" = IsColourCut(colour), "index" = can_see_wire_index(user) ? GetWireName(GetIndex(colour)) : null, "attached" = IsAttached(colour))
+		var/new_colour = colour
+		var/colour_name = colour
+		if(colour in replace_colours)
+			new_colour = replace_colours[colour]
+			if(new_colour in LIST_REPLACE_RENAME)
+				colour_name = LIST_REPLACE_RENAME[new_colour]
+			else
+				colour_name = new_colour
+		else
+			new_colour = colour
+			colour_name = new_colour
+		W[++W.len] = list("colour_name" = capitalize(colour_name), "seen_colour" = capitalize(new_colour),"colour" = capitalize(colour), "cut" = IsColourCut(colour), "index" = can_see_wire_index(user) ? GetWireName(GetIndex(colour)) : null, "attached" = IsAttached(colour))
 
 	if(W.len > 0)
 		data["wires"] = W
 
 	var/list/status = get_status()
+	if(replace_colours)
+		var/i
+		for(i=1, i<=status.len, i++)
+			for(var/colour in replace_colours)
+				var/new_colour = replace_colours[colour]
+				if(new_colour in LIST_REPLACE_RENAME)
+					new_colour = LIST_REPLACE_RENAME[new_colour]
+				if(findtext(status[i],colour))
+					status[i] = replacetext(status[i],colour,new_colour)
+					break
 	data["status_len"] = status.len
 	data["status"] = status
 
@@ -99,7 +127,7 @@ var/list/wireColours = list("red", "blue", "green", "black", "orange", "brown", 
 
 /datum/wires/nano_host()
 	return holder
-	
+
 /datum/wires/proc/can_see_wire_index(mob/user)
 	if(user.can_admin_interact())
 		return TRUE
@@ -107,13 +135,12 @@ var/list/wireColours = list("red", "blue", "green", "black", "orange", "brown", 
 		var/obj/item/device/multitool/M = user.get_active_hand()
 		if(M.shows_wire_information)
 			return TRUE
-		
+
 	return FALSE
 
 /datum/wires/Topic(href, href_list)
 	if(..())
 		return 1
-
 	var/mob/L = usr
 	if(CanUse(L) && href_list["action"])
 		var/obj/item/I = L.get_active_hand()
@@ -212,7 +239,7 @@ var/const/POWER = 8
 		return index
 	else
 		CRASH("[colour] is not a key in wires.")
-		
+
 /datum/wires/proc/GetWireName(index)
 	return
 

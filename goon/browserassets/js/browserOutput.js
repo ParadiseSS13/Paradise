@@ -32,6 +32,9 @@ var opts = {
 	'chatMode': 'default', //The mode the chat is in
 	'priorChatHeight': 0, //Thing for height-resizing detection
 	'restarting': false, //Is the round restarting?
+	'previousMessage': '',
+	'previousMessageCount': 1,
+	'hideSpam': true,
 
 	//Options menu
 	'subOptionsLoop': null, //Contains the interval loop for closing the options menu
@@ -268,8 +271,27 @@ function output(message, flag) {
 		emojiparse(entry);
 	}
 
-
-	$messages[0].appendChild(entry);
+	if (opts.hideSpam && entry.innerHTML === opts.previousMessage) {
+		opts.previousMessageCount++;
+		var lastIndex = $messages[0].children.length - 1;
+		var countBadge = '<span class="repeatBadge">x' + opts.previousMessageCount + '</span>';
+		var lastEntry = $messages[0].children[lastIndex];
+		lastEntry.innerHTML = opts.previousMessage + countBadge;
+		var insertedBadge = $(lastEntry).find('.repeatBadge');
+		insertedBadge.animate({
+			"font-size": "0.9em"
+		}, 100, function() {
+			insertedBadge.animate({
+				"font-size": "0.7em"
+			}, 100);
+		});
+		entry = lastEntry;
+	}
+	else {
+		opts.previousMessage = entry.innerHTML;
+		opts.previousMessageCount = 1;
+		$messages[0].appendChild(entry);
+	}
 
 	//Actually do the snap
 	if (!filteredOut && atBottom) {
@@ -533,6 +555,7 @@ $(function() {
 		'spingDisabled': getCookie('pingdisabled'),
 		'shighlightTerms': getCookie('highlightterms'),
 		'shighlightColor': getCookie('highlightcolor'),
+		'shideSpam': getCookie('hidespam'),
 	};
 
 	if (savedConfig.sfontSize) {
@@ -567,6 +590,10 @@ $(function() {
 	if (savedConfig.shighlightColor) {
 		opts.highlightColor = savedConfig.shighlightColor;
 		internalOutput('<span class="internal boldnshit">Loaded highlight color of: '+savedConfig.shighlightColor+'</span>', 'internal');
+	}
+	if (savedConfig.shideSpam) {
+		opts.hideSpam = $.parseJSON(savedConfig.shideSpam);
+		internalOutput('<span class="internal boldnshit">Loaded hide spam preference of: ' + savedConfig.shideSpam + '</span>', 'internal');
 	}
 
 	(function() {
@@ -827,6 +854,12 @@ $(function() {
 		setCookie('fonttype', font, 365);
 	});
 
+	$('#toggleHideSpam').click(function(e) {
+		opts.hideSpam = !opts.hideSpam;
+		setCookie('hidespam', opts.hideSpam, 365);
+		internalOutput('<span class="internal boldnshit">Duplicate chat line condensing set to ' + opts.hideSpam + '</span>', 'internal');
+	});
+
 	$('#togglePing').click(function(e) {
 		if (opts.pingDisabled) {
 			$('#ping').slideDown('fast');
@@ -932,6 +965,8 @@ $(function() {
 	$('#clearMessages').click(function() {
 		$messages.empty();
 		opts.messageCount = 0;
+		opts.previousMessage = '';
+		opts.previousMessageCount = 1;
 	});
 
 	// Tell BYOND to give us a macro list.

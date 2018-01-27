@@ -229,22 +229,6 @@
 
 	fix_modules()
 
-/obj/item/weapon/robot_module/peacekeeper
-	name = "peacekeeping robot module"
-	module_type = "Standard"
-
-/obj/item/weapon/robot_module/peacekeeper/New()
-	..()
-	modules += new /obj/item/weapon/cookiesynth(src)
-	modules += new /obj/item/device/harmalarm(src)
-	modules += new /obj/item/weapon/reagent_containers/borghypo/peace(src)
-	modules += new /obj/item/taperoll/police(src)
-	modules += new /obj/item/borg/cyborghug/peacekeeper(src)
-	modules += new /obj/item/weapon/extinguisher(src)
-	emag = new /obj/item/weapon/reagent_containers/borghypo/peace/hacked(src)
-
-	fix_modules()
-
 /obj/item/weapon/robot_module/janitor
 	name = "janitorial robot module"
 	module_type = "Janitor"
@@ -517,8 +501,6 @@
 	modules += new /obj/item/weapon/soap(src)
 	modules += new /obj/item/device/t_scanner(src)
 	modules += new /obj/item/weapon/rpd(src)
-
-	emag = new /obj/item/weapon/pickaxe/drill/cyborg/diamond(src)
 
 	for(var/T in stacktypes)
 		var/obj/item/stack/sheet/W = new T(src)

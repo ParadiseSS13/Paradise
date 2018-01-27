@@ -11,6 +11,13 @@
 	materials = list(MAT_METAL=500)
 	var/obj/item/weapon/disk/nuclear/the_disk = null
 	var/active = 0
+	var/shows_nuke_timer = TRUE
+	var/icon_off = "pinoff"
+	var/icon_null = "pinonnull"
+	var/icon_direct = "pinondirect"
+	var/icon_close = "pinonclose"
+	var/icon_medium = "pinonmedium"
+	var/icon_far = "pinonfar"
 
 /obj/item/weapon/pinpointer/New()
 	..()
@@ -29,7 +36,7 @@
 		to_chat(usr, "<span class='notice'>You activate the pinpointer.</span>")
 	else
 		active = 0
-		icon_state = "pinoff"
+		icon_state = icon_off
 		to_chat(usr, "<span class='notice'>You deactivate the pinpointer.</span>")
 
 /obj/item/weapon/pinpointer/proc/scandisk()
@@ -40,25 +47,25 @@
 	if(!active)
 		return
 	if(!target)
-		icon_state = "pinonnull"
+		icon_state = icon_null
 		return
 
 	var/turf/T = get_turf(target)
 	var/turf/L = get_turf(src)
 
 	if(T.z != L.z)
-		icon_state = "pinonnull"
+		icon_state = icon_null
 	else
 		dir = get_dir(L, T)
 		switch(get_dist(L, T))
 			if(-1)
-				icon_state = "pinondirect"
+				icon_state = icon_direct
 			if(1 to 8)
-				icon_state = "pinonclose"
+				icon_state = icon_close
 			if(9 to 16)
-				icon_state = "pinonmedium"
+				icon_state = icon_medium
 			if(16 to INFINITY)
-				icon_state = "pinonfar"
+				icon_state = icon_far
 	if(spawnself)
 		spawn(5)
 			.()
@@ -71,6 +78,9 @@
 
 /obj/item/weapon/pinpointer/examine(mob/user)
 	..(user)
+	if(!shows_nuke_timer)
+		return
+
 	for(var/obj/machinery/nuclearbomb/bomb in machines)
 		if(bomb.timing)
 			to_chat(user, "Extreme danger.  Arming signal detected.   Time remaining: [bomb.timeleft]")
@@ -94,7 +104,7 @@
 		to_chat(usr, "<span class='notice'>You activate the pinpointer.</span>")
 	else
 		active = 0
-		icon_state = "pinoff"
+		icon_state = icon_off
 		to_chat(usr, "<span class='notice'>You deactivate the pinpointer.</span>")
 
 /obj/item/weapon/pinpointer/advpinpointer/workdisk()
@@ -113,7 +123,7 @@
 		return
 
 	active = 0
-	icon_state = "pinoff"
+	icon_state = icon_off
 	target = null
 	location = null
 
@@ -192,7 +202,7 @@
 			to_chat(user, "<span class='notice'>Shuttle Locator active.</span>")
 	else
 		active = 0
-		icon_state = "pinoff"
+		icon_state = icon_off
 		to_chat(user, "<span class='notice'>You deactivate the pinpointer.</span>")
 
 /obj/item/weapon/pinpointer/nukeop/workdisk()
@@ -208,18 +218,18 @@
 		return		//Get outta here
 	scandisk()
 	if(!the_disk)
-		icon_state = "pinonnull"
+		icon_state = icon_null
 		return
 	dir = get_dir(src, the_disk)
 	switch(get_dist(src, the_disk))
 		if(0)
-			icon_state = "pinondirect"
+			icon_state = icon_direct
 		if(1 to 8)
-			icon_state = "pinonclose"
+			icon_state = icon_close
 		if(9 to 16)
-			icon_state = "pinonmedium"
+			icon_state = icon_medium
 		if(16 to INFINITY)
-			icon_state = "pinonfar"
+			icon_state = icon_far
 
 	spawn(5) .()
 
@@ -238,21 +248,21 @@
 	if(!home)
 		home = shuttle_master.getShuttle("syndicate")
 		if(!home)
-			icon_state = "pinonnull"
+			icon_state = icon_null
 			return
 	if(loc.z != home.z)	//If you are on a different z-level from the shuttle
-		icon_state = "pinonnull"
+		icon_state = icon_null
 	else
 		dir = get_dir(src, home)
 		switch(get_dist(src, home))
 			if(0)
-				icon_state = "pinondirect"
+				icon_state = icon_direct
 			if(1 to 8)
-				icon_state = "pinonclose"
+				icon_state = icon_close
 			if(9 to 16)
-				icon_state = "pinonmedium"
+				icon_state = icon_medium
 			if(16 to INFINITY)
-				icon_state = "pinonfar"
+				icon_state = icon_far
 
 	spawn(5)
 		.()
@@ -272,7 +282,7 @@
 		to_chat(usr, "<span class='notice'>You activate the pinpointer.</span>")
 	else
 		active = 0
-		icon_state = "pinoff"
+		icon_state = icon_off
 		to_chat(usr, "<span class='notice'>You deactivate the pinpointer.</span>")
 
 /obj/item/weapon/pinpointer/operative/proc/scan_for_ops()
@@ -300,3 +310,83 @@
 			to_chat(user, "Nearest operative detected is <i>[nearest_op.real_name].</i>")
 		else
 			to_chat(user, "No operatives detected within scanning range.")
+
+/obj/item/weapon/pinpointer/crew
+	name = "crew pinpointer"
+	desc = "A handheld tracking device that points to crew suit sensors."
+	shows_nuke_timer = FALSE
+	icon_state = "pinoff_crew"
+	icon_off = "pinoff_crew"
+	icon_null = "pinonnull_crew"
+	icon_direct = "pinondirect_crew"
+	icon_close = "pinonclose_crew"
+	icon_medium = "pinonmedium_crew"
+	icon_far = "pinonfar_crew"
+
+/obj/item/weapon/pinpointer/crew/proc/trackable(mob/living/carbon/human/H)
+	var/turf/here = get_turf(src)
+	if(istype(H.w_uniform, /obj/item/clothing/under))
+		var/obj/item/clothing/under/U = H.w_uniform
+
+		// Suit sensors must be on maximum.
+		if(!U.has_sensor || U.sensor_mode < 3)
+			return FALSE
+
+		var/turf/there = get_turf(U)
+		return there && there.z == here.z
+
+	return FALSE
+
+/obj/item/weapon/pinpointer/crew/attack_self(mob/living/user)
+	if(active)
+		active = FALSE
+		icon_state = icon_off
+		user.visible_message("<span class='notice'>[user] deactivates their pinpointer.</span>", "<span class='notice'>You deactivate your pinpointer.</span>")
+		return
+
+	var/list/name_counts = list()
+	var/list/names = list()
+
+	for(var/mob/living/carbon/human/H in mob_list)
+		if(!trackable(H))
+			continue
+
+		var/name = "Unknown"
+		if(H.wear_id)
+			var/obj/item/weapon/card/id/I = H.wear_id.GetID()
+			name = I.registered_name
+
+		while(name in name_counts)
+			name_counts[name]++
+			name = text("[] ([])", name, name_counts[name])
+		names[name] = H
+		name_counts[name] = 1
+
+	if(!names.len)
+		user.visible_message("<span class='notice'>[user]'s pinpointer fails to detect a signal.</span>", "<span class='notice'>Your pinpointer fails to detect a signal.</span>")
+		return
+
+	var/A = input(user, "Person to track", "Pinpoint") in names
+	if(!src || !user || (user.get_active_hand() != src) || user.incapacitated() || !A)
+		return
+
+	var/target = names[A]
+	active = TRUE
+	user.visible_message("<span class='notice'>[user] activates their pinpointer.</span>", "<span class='notice'>You activate your pinpointer.</span>")
+	point_at(target)
+
+/obj/item/weapon/pinpointer/crew/point_at(atom/target, spawnself = 1)
+	if(!active)
+		return
+
+	if(!trackable(target) || !target)
+		icon_state = icon_null
+		return
+
+	..(target, spawnself = 0)
+	if(spawnself)
+		spawn(5)
+			.()
+
+/obj/item/weapon/pinpointer/crew/examine(mob/user)
+	..(user)
