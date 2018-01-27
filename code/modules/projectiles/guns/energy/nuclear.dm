@@ -47,6 +47,21 @@
 	if(gun_light && gun_light.on)
 		overlays += "mini-light"
 
+/obj/item/weapon/gun/energy/gun/pistol
+	name = "energy pistol"
+	desc = "A small, pistol-sized energy gun made to be a side arm to it's larger carbine cousin. It has two settings: stun and kill."
+	icon_state = "epistol"
+	item_state = "gun"
+	w_class = WEIGHT_CLASS_SMALL
+	ammo_x_offset = 1
+	charge_sections = 4
+	can_flashlight = 0 // Can't attach or detach a flashlight
+
+/obj/item/weapon/gun/energy/gun/pistol/New()
+	..()
+	power_supply.maxcharge = 500
+	power_supply.charge = 500
+
 /obj/item/weapon/gun/energy/gun/hos
 	name = "\improper X-01 MultiPhase Energy Gun"
 	desc = "This is an expensive, modern recreation of an antique laser gun. This gun has several unique firemodes, but lacks the ability to recharge over time."
