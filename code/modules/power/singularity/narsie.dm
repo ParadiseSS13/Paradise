@@ -38,6 +38,7 @@
 
 	sleep(70)
 	shuttle_master.emergency.request(null, 0.3) // Cannot recall
+	shuttle_master.emergency.canRecall = FALSE
 
 /obj/singularity/narsie/large/attack_ghost(mob/dead/observer/user as mob)
 	makeNewConstruct(/mob/living/simple_animal/hostile/construct/harvester, user, null, 1)
