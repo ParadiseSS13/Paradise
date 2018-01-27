@@ -89,9 +89,9 @@
 	icon_state = "flareshot"
 
 /obj/item/device/flashlight/flare/shot/New()
-	on = 1
+	on = 1						//starts already turned on
 	src.force = on_damage
 	src.damtype = "fire"
 	processing_objects += src
 	..()
-	fuel = rand(200, 500)
+	fuel = rand(50, 100)		//about 1/20th to 1/10th the time of a normal flare
