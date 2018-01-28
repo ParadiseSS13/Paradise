@@ -1,0 +1,4 @@
+author: "IK3I"
+delete-after: True
+changes: 
+  - bugfix: "Saving a chat log no longer hangs you."
