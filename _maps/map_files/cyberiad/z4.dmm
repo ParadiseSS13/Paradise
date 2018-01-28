@@ -297,7 +297,7 @@
 "fK" = (/obj/structure/sink{dir = 4; icon_state = "sink"; pixel_x = 11; pixel_y = 0},/turf/simulated/floor/plasteel{icon_state = "vault"; dir = 5},/area/engiestation)
 "fL" = (/obj/structure/mirror,/turf/simulated/wall,/area/engiestation)
 "fM" = (/obj/machinery/computer/station_alert,/turf/simulated/floor/plasteel,/area/engiestation)
-"fN" = (/obj/structure/table/woodentable,/obj/item/ashtray/plastic,/obj/structure/sign/poster/random{pixel_y = -32},/turf/simulated/floor/plasteel{icon_state = "wood"},/area/engiestation)
+"fN" = (/obj/structure/table/wood,/obj/item/ashtray/plastic,/obj/structure/sign/poster/random{pixel_y = -32},/turf/simulated/floor/plasteel{icon_state = "wood"},/area/engiestation)
 "fO" = (/obj/structure/stool/bed/chair/comfy/black{dir = 8},/turf/simulated/floor/plasteel{icon_state = "wood"},/area/engiestation)
 "fP" = (/obj/machinery/light,/obj/item/device/radio/intercom{dir = 1; name = "station intercom (General)"; pixel_y = -28},/turf/simulated/floor/plasteel{icon_state = "wood"},/area/engiestation)
 "fQ" = (/turf/simulated/floor/plating/airless,/turf/simulated/floor/plating/airless/catwalk{tag = "icon-catwalk5"; icon_state = "catwalk5"},/area/space)
