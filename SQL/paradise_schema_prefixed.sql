@@ -263,6 +263,7 @@ CREATE TABLE `SS13_player` (
   `windowflashing` smallint(4) DEFAULT '1',
   `ghost_anonsay` tinyint(1) NOT NULL DEFAULT '0',
   `exp` mediumtext,
+  `clientfps` smallint(4) DEFAULT '0',
   PRIMARY KEY (`id`),
   UNIQUE KEY `ckey` (`ckey`)
 ) ENGINE=InnoDB AUTO_INCREMENT=32446 DEFAULT CHARSET=latin1;

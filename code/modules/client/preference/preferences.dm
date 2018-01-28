@@ -68,6 +68,7 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 #define TAB_GEAR 2
 
 /datum/preferences
+	var/client/parent
 	//doohickeys for savefiles
 //	var/path
 	var/default_slot = 1				//Holder so it doesn't default to slot 1, rather the last one used
@@ -94,6 +95,7 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 	var/UI_style_color = "#ffffff"
 	var/UI_style_alpha = 255
 	var/windowflashing = TRUE
+	var/clientfps = 0
 
 	//ghostly preferences
 	var/ghost_anonsay = 0
@@ -203,6 +205,7 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 	var/gear_tab = "General"
 
 /datum/preferences/New(client/C)
+	parent = C
 	b_type = pick(4;"O-", 36;"O+", 3;"A-", 28;"A+", 1;"B-", 20;"B+", 1;"AB-", 5;"AB+")
 
 	max_gear_slots = config.max_loadout_points
@@ -448,7 +451,7 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 			dat += "<b>Ghost sight:</b> <a href='?_src_=prefs;preference=ghost_sight'><b>[(toggles & CHAT_GHOSTSIGHT) ? "Nearest Creatures" : "All Emotes"]</b></a><br>"
 			dat += "<b>Ghost radio:</b> <a href='?_src_=prefs;preference=ghost_radio'><b>[(toggles & CHAT_GHOSTRADIO) ? "Nearest Speakers" : "All Chatter"]</b></a><br>"
 			dat += "<b>Deadchat anonymity:</b> <a href='?_src_=prefs;preference=ghost_anonsay'><b>[ghost_anonsay ? "Anonymous" : "Not Anonymous"]</b></a><br>"
-
+			dat += "<b>FPS:</b> <a href='?_src_=prefs;preference=clientfps;task=input'>[clientfps]</a><br>"
 			dat += "</td><td width='300px' height='300px' valign='top'>"
 			dat += "<h2>Special Role Settings</h2>"
 			if(jobban_isbanned(user, "Syndicate"))
@@ -1887,6 +1890,18 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 						if("Mechanical")
 							organ_data[organ] = "mechanical"
 
+				if("clientfps")
+					var/version_message
+					if(user.client && user.client.byond_version < 511)
+						version_message = "\nYou need to be using byond version 511 or later to take advantage of this feature, your version of [user.client.byond_version] is too low"
+					if(world.byond_version < 511)
+						version_message += "\nThis server does not currently support client side fps. You can set now for when it does."
+					var/desiredfps = input(user, "Choose your desired fps.[version_message]\n(0 = synced with server tick rate (currently:[world.fps]))", "Character Preference", clientfps)  as null|num
+					if(!isnull(desiredfps))
+						clientfps = desiredfps
+						if(world.byond_version >= 511 && user.client && user.client.byond_version >= 511)
+							parent.fps = clientfps
+
 /*
 				if("skin_style")
 					var/skin_style_name = input(user, "Select a new skin style") as null|anything in list("default1", "default2", "default3")
@@ -1932,7 +1947,6 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 
 				if("hear_adminhelps")
 					sound ^= SOUND_ADMINHELP
-
 				if("ui")
 					switch(UI_style)
 						if("Midnight")
