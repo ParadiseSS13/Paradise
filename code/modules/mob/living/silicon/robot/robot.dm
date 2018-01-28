@@ -360,6 +360,11 @@ var/list/robot_verbs_default = list(
 			module_sprites["Peacekeeper"] = "peace"
 			status_flags &= ~CANPUSH
 
+		if("Peacekeeper")
+			module = new /obj/item/weapon/robot_module/peacekeeper(src)
+			module_sprites["Peacekeeper"] = "peace"
+			status_flags &= ~CANPUSH
+
 		if("Engineering")
 			module = new /obj/item/weapon/robot_module/engineering(src)
 			module.channels = list("Engineering" = 1)
