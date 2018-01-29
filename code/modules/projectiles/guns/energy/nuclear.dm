@@ -30,7 +30,6 @@
 	name = "miniature energy gun"
 	desc = "A small, pistol-sized energy gun with a built-in flashlight. It has two settings: stun and kill."
 	icon_state = "mini"
-	item_state = "gun"
 	w_class = WEIGHT_CLASS_SMALL
 	ammo_x_offset = 2
 	charge_sections = 3
@@ -39,28 +38,13 @@
 /obj/item/weapon/gun/energy/gun/mini/New()
 	gun_light = new /obj/item/device/flashlight/seclite(src)
 	..()
-	power_supply.maxcharge = 600
-	power_supply.charge = 600
+	power_supply.maxcharge = 500
+	power_supply.charge = 500
 
 /obj/item/weapon/gun/energy/gun/mini/update_icon()
 	..()
 	if(gun_light && gun_light.on)
 		overlays += "mini-light"
-
-/obj/item/weapon/gun/energy/gun/pistol
-	name = "energy pistol"
-	desc = "A small, pistol-sized energy gun made to be a side arm to it's larger carbine cousin. It has two settings: stun and kill."
-	icon_state = "epistol"
-	item_state = "gun"
-	w_class = WEIGHT_CLASS_SMALL
-	ammo_x_offset = 1
-	charge_sections = 4
-	can_flashlight = 0 // Can't attach or detach a flashlight
-
-/obj/item/weapon/gun/energy/gun/pistol/New()
-	..()
-	power_supply.maxcharge = 500
-	power_supply.charge = 500
 
 /obj/item/weapon/gun/energy/gun/hos
 	name = "\improper X-01 MultiPhase Energy Gun"
