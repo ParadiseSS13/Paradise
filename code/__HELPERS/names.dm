@@ -34,11 +34,6 @@ var/religion_name = null
 	return using_map.starsys_name
 
 /proc/station_name()
-	if(config && config.server_name)
-		world.name = "[config.server_name]: station_name()"
-	else
-		world.name = station_name()
-
 	return using_map.station_name
 	
 /proc/world_name(var/name)
