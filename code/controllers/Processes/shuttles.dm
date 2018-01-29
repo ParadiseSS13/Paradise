@@ -137,7 +137,7 @@ DECLARE_GLOBAL_CONTROLLER(shuttle, shuttle_master)
 	if(seclevel2num(get_security_level()) >= SEC_LEVEL_RED) // There is a serious threat we gotta move no time to give them five minutes.
 		if(world.time - emergency_sec_level_time < emergencyCallTime * 0.5)
 			// It hasn't been five minutes since the alert was raised! They're cheesing the shuttle.
-			to_chat(user, "A priority emergency shuttle is being prepared. Please wait another [abs(round(((emergency_sec_level_time + emergencyCallTime * 0.5) - world.time)/600))] minutes before trying again.")
+			to_chat(user, "The NTV Charon Emergency Shuttle is being relocated to a Rapid Response Location due to your Code Red Emergency. Please wait another [abs(round(((emergency_sec_level_time + emergencyCallTime * 0.5) - world.time)/600))] minutes before trying again.")
 			return
 		emergency.request(null, 0.5, signal_origin, html_decode(emergency_reason), 1)
 	else
