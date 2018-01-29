@@ -1,0 +1,4 @@
+author: "MarcellusPye"
+delete-after: True
+changes: 
+  - tweak: "Changes the ghost preferences section of game preferences to display the currently active option instead of the inactive option."
