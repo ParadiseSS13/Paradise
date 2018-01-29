@@ -249,7 +249,8 @@
 
 	if(previewJob)
 		mannequin.job = previewJob.title
-		previewJob.equip(mannequin, TRUE)
+		to_chat(world, "[previewJob][previewJob.title]")
+		previewJob.equip(mannequin, TRUE, previewJob.title)
 
 	CHECK_TICK
 	preview_icon = icon('icons/effects/effects.dmi', "nothing")

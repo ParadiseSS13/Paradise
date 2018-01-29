@@ -24,7 +24,7 @@
 	var/list/backpack_contents = list() // In the list(path=count,otherpath=count) format
 
 
-/datum/outfit/proc/pre_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
+/datum/outfit/proc/pre_equip(mob/living/carbon/human/H, visualsOnly = FALSE, alt_title)
 	//to be overriden for customization depending on client prefs,species etc
 	return
 
@@ -40,8 +40,8 @@
 	//to be overriden for toggling internals, id binding, access etc
 	return
 
-/datum/outfit/proc/equip(mob/living/carbon/human/H, visualsOnly = FALSE)
-	pre_equip(H, visualsOnly)
+/datum/outfit/proc/equip(mob/living/carbon/human/H, visualsOnly = FALSE, alt_title)
+	pre_equip(H, visualsOnly, alt_title)
 
 	//Start with uniform,suit,backpack for additional slots
 	if(uniform)
