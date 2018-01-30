@@ -165,7 +165,8 @@
 
 /obj/item/weapon/gun/projectile/shotgun/automatic/shoot_live_shot(mob/living/user as mob|obj)
 	..()
-	pump(user)
+	if(!istype(chambered, /obj/item/ammo_casing/shotgun/flare))
+		pump(user)
 
 /obj/item/weapon/gun/projectile/shotgun/automatic/combat
 	name = "combat shotgun"

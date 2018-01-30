@@ -412,9 +412,48 @@
 	icon_state = "flare_rifle"
 	force = 10
 	sawn_desc = "I'll light the way."
+	var/reinforced = FALSE
+	var/sawn = FALSE
 
 
 /obj/item/weapon/gun/projectile/revolver/doublebarrel/improvised/flare/attackby(obj/item/A, mob/user, params)
 	if(istype(A, /obj/item/stack/cable_coil))
 		return
+	if(istype(A, /obj/item/stack/sheet/plasteel))
+		to_chat(user, "<span class='notice'>You begin to reinforce the barrel...</span>")
+		if(magazine.ammo_count())
+			afterattack(user, user)
+			user.visible_message("<span class='danger'>[src] goes off!</span>", "<span class='userdanger'>[src] goes off in your face!</span>")
+			return
+		var/obj/item/stack/sheet/plasteel/C = A
+		if(C.use(2))
+			if(do_after(user, 30, target = src))
+				reinforced = TRUE
+				to_chat(user, "<span class='notice'>You reinforce the barrel to allow it to shoot high power shells.</span>")
+				if(sawn)
+					desc = "I'll light the way, and drive the darkness away."
+				else
+					desc = "A large flare gun made to help reduce mining acidents by letting miners light caves from afar... this one has a reinforced barrel."
+				sawn_desc = "I'll light the way, and drive the darkness away."
+				return
+		else
+			to_chat(user, "<span class='warning'>You need at least two sheets of plasteel to reinforce the barrel.</span>")
+			return
 	..()
+
+
+
+/obj/item/weapon/gun/projectile/revolver/doublebarrel/improvised/flare/process_fire(atom/target as mob|obj|turf, mob/living/user as mob|obj, message = 1, params, zone_override = "")
+	var/ammo = magazine.stored_ammo[1]
+	if(!reinforced)
+		if(!istype(ammo, /obj/item/ammo_casing/shotgun/flare))
+			if(prob(40))
+				to_chat(user, "<span class='userdanger'>[src] blows up in your face!</span>")
+				afterattack(user, user)
+//				user.unEquip(src)		//Makes it jump out of their hands when it explodes, I, shazbot, disabled it, but am leaving the code incase someone wants to re-activate it
+				return 0
+	..()
+
+/obj/item/weapon/gun/projectile/revolver/doublebarrel/improvised/flare/sawoff(mob/user)
+	. = ..()
+	sawn = TRUE
