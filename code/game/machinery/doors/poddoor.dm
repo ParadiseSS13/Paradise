@@ -101,6 +101,7 @@
 
 /obj/machinery/door/poddoor/multi_tile // Whoever wrote the old code for multi-tile spesspod doors needs to burn in hell.
 	name = "large pod door"
+	layer = CLOSED_DOOR_LAYER
 
 /obj/machinery/door/poddoor/multi_tile/four_tile_ver/
 	icon = 'icons/obj/doors/1x4blast_vert.dmi'

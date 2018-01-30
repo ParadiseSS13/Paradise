@@ -88,7 +88,7 @@
 "bJ" = (/obj/structure/stool/bed/chair/wood/normal{tag = "icon-wooden_chair (EAST)"; icon_state = "wooden_chair"; dir = 4},/turf/simulated/floor/plasteel{icon_state = "bar"},/area/awaymission/example)
 "bK" = (/obj/structure/stool/bed/chair/wood/normal{tag = "icon-wooden_chair (WEST)"; icon_state = "wooden_chair"; dir = 8},/turf/simulated/floor/plasteel{icon_state = "bar"},/area/awaymission/example)
 "bL" = (/obj/structure/bookcase{density = 0; pixel_y = 32},/turf/simulated/floor/plasteel{icon_state = "bar"},/area/awaymission/example)
-"bM" = (/obj/structure/table/woodentable,/obj/item/weapon/reagent_containers/food/drinks/bottle/wine,/turf/simulated/floor/plasteel{icon_state = "bar"},/area/awaymission/example)
+"bM" = (/obj/structure/table/wood,/obj/item/weapon/reagent_containers/food/drinks/bottle/wine,/turf/simulated/floor/plasteel{icon_state = "bar"},/area/awaymission/example)
 "bN" = (/obj/structure/stool/bed/chair/wood/normal{tag = "icon-wooden_chair (NORTH)"; icon_state = "wooden_chair"; dir = 1},/turf/simulated/floor/plasteel{icon_state = "bar"},/area/awaymission/example)
 "bO" = (/obj/machinery/vending/snack,/turf/simulated/floor/plasteel,/area/awaymission/example)
 "bP" = (/obj/structure/table,/obj/machinery/light/small,/obj/item/weapon/paper{info = "X X O<br>X O X<br>O X"},/turf/simulated/floor/plasteel{icon_state = "bar"},/area/awaymission/example)

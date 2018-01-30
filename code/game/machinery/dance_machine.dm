@@ -236,7 +236,7 @@
 
 /obj/machinery/disco/proc/hierofunk()
 	for(var/i in 1 to 10)
-		new /obj/effect/overlay/temp/hierophant/telegraph/edge(get_turf(src))
+		new /obj/effect/temp_visual/hierophant/telegraph/edge(get_turf(src))
 		sleep(5)
 
 /obj/machinery/disco/proc/lights_spin()
