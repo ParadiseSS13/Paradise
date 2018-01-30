@@ -615,7 +615,7 @@
 
 	return 0 //Unsupported slot
 
-/mob/living/carbon/human/proc/equipOutfit(outfit, visualsOnly = FALSE)
+/mob/living/carbon/human/proc/equipOutfit(outfit, visualsOnly = FALSE, alt_title)
 	var/datum/outfit/O = null
 
 	if(ispath(outfit))
@@ -627,4 +627,4 @@
 	if(!O)
 		return 0
 
-	return O.equip(src, visualsOnly)
+	return O.equip(src, visualsOnly, alt_title)

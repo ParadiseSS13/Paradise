@@ -139,11 +139,9 @@
 	. = ..()
 	if(!alt_title)
 		alt_title = H.mind && H.mind.role_alt_title ? H.mind.role_alt_title : null
-	if(alt_title)
-		switch(alt_title)
-			if("Forensic Technician")
-				suit = /obj/item/clothing/suit/storage/det_suit/forensics/blue
-				head = null
+	if(alt_title && alt_title == "Forensic Technician" )
+		suit = /obj/item/clothing/suit/storage/det_suit/forensics/blue
+		head = null
 
 
 /datum/outfit/job/detective/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)

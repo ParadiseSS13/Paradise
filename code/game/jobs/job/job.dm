@@ -68,14 +68,14 @@
 
 /datum/job/proc/announce(mob/living/carbon/human/H)
 
-/datum/job/proc/equip(mob/living/carbon/human/H, visualsOnly = FALSE, announce = TRUE)
+/datum/job/proc/equip(mob/living/carbon/human/H, visualsOnly = FALSE, announce = TRUE, alt_title)
 	if(!H)
 		return 0
 
 	H.species.before_equip_job(src, H, visualsOnly)
 
 	if(outfit)
-		H.equipOutfit(outfit, visualsOnly)
+		H.equipOutfit(outfit, visualsOnly, alt_title)
 
 	H.species.after_equip_job(src, H, visualsOnly)
 

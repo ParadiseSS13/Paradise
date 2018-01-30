@@ -249,8 +249,7 @@
 
 	if(previewJob)
 		mannequin.job = previewJob.title
-		to_chat(world, "[previewJob][previewJob.title]")
-		previewJob.equip(mannequin, TRUE, previewJob.title)
+		previewJob.equip(mannequin, TRUE, alt_title = GetPlayerAltTitle(previewJob))
 
 	CHECK_TICK
 	preview_icon = icon('icons/effects/effects.dmi', "nothing")
