@@ -615,6 +615,7 @@ var/list/blood_splatter_icons = list()
 
 //This proc is called on the location of an atom when the atom is Destroy()'d
 /atom/proc/handle_atom_del(atom/A)
+	return
 
 /atom/proc/atom_say(message)
 	if(!message)

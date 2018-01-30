@@ -8,7 +8,7 @@
 //Simple animals
 #define isshade(A) (istype(A, /mob/living/simple_animal/shade))
 
-#define isconstruct(A) (istype(A, /mob/living/simple_animal/construct))
+#define isconstruct(A) (istype(A, /mob/living/simple_animal/hostile/construct))
 
 //Objects
 
