@@ -18,6 +18,11 @@
 #define RWALL_SUPPORT_RODS 5
 #define RWALL_SHEATH 6
 
+//airlock assembly construction states
+#define AIRLOCK_ASSEMBLY_NEEDS_WIRES 0
+#define AIRLOCK_ASSEMBLY_NEEDS_ELECTRONICS 1
+#define AIRLOCK_ASSEMBLY_NEEDS_SCREWDRIVER 2
+
 //plastic flaps construction states
 #define PLASTIC_FLAPS_NORMAL 0
 #define PLASTIC_FLAPS_DETACHED 1
