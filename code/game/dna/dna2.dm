@@ -100,7 +100,7 @@ var/global/list/bad_blocks[0]
 	var/real_name          // Stores the real name of the person who originally got this dna datum. Used primarily for changelings,
 
 	// New stuff
-	var/species = "Human"
+	var/datum/species/species = new /datum/species/human()
 
 // Make a copy of this strand.
 // USE THIS WHEN COPYING STUFF OR YOU'LL GET CORRUPTION!

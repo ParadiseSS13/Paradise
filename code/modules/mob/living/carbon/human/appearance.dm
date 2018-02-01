@@ -4,19 +4,19 @@
 	AC.ui_interact(user, state = state)
 
 /mob/living/carbon/human/proc/change_species(var/new_species)
-	if(!new_species || species == new_species || !(new_species in all_species))
+	if(!new_species || dna.species == new_species || !(new_species in all_species))
 		return
 
 	set_species(new_species, null, 1)
 	reset_hair()
-	if(species.bodyflags & HAS_MARKINGS)
+	if(dna.species.bodyflags & HAS_MARKINGS)
 		reset_markings()
 
 	return 1
 
 /mob/living/carbon/human/proc/change_gender(var/new_gender, var/update_dna = 1)
 	var/obj/item/organ/external/head/H = bodyparts_by_name["head"]
-	if(gender == new_gender || (gender == PLURAL && species.has_gender))
+	if(gender == new_gender || (gender == PLURAL && dna.species.has_gender))
 		return
 
 	gender = new_gender
@@ -129,7 +129,7 @@
 
 /mob/living/carbon/human/proc/change_alt_head(var/alternate_head)
 	var/obj/item/organ/external/head/H = get_organ("head")
-	if(!H || H.alt_head == alternate_head || (H.status & ORGAN_ROBOT) || (!(species.bodyflags & HAS_ALT_HEADS) && alternate_head != "None") || !(alternate_head in alt_heads_list))
+	if(!H || H.alt_head == alternate_head || (H.status & ORGAN_ROBOT) || (!(dna.species.bodyflags & HAS_ALT_HEADS) && alternate_head != "None") || !(alternate_head in alt_heads_list))
 		return
 
 	H.alt_head = alternate_head
@@ -296,7 +296,7 @@
 
 
 /mob/living/carbon/human/proc/change_skin_color(var/colour = "#000000")
-	if(colour == skin_colour || !(species.bodyflags & HAS_SKIN_COLOR))
+	if(colour == skin_colour || !(dna.species.bodyflags & HAS_SKIN_COLOR))
 		return
 
 	skin_colour = colour
@@ -306,7 +306,7 @@
 	return 1
 
 /mob/living/carbon/human/proc/change_skin_tone(var/tone)
-	if(s_tone == tone || !((species.bodyflags & HAS_SKIN_TONE) || (species.bodyflags & HAS_ICON_SKIN_TONE)))
+	if(s_tone == tone || !((dna.species.bodyflags & HAS_SKIN_TONE) || (dna.species.bodyflags & HAS_ICON_SKIN_TONE)))
 		return
 
 	s_tone = tone
@@ -421,7 +421,7 @@
 			continue
 		if(S.marking_location != location) //If the marking isn't for the location we desire, skip.
 			continue
-		if(!(species.name in S.species_allowed)) //If the user is not of a species the marking style allows, skip it. Otherwise, add it to the list.
+		if(!(dna.species.name in S.species_allowed)) //If the user is not of a species the marking style allows, skip it. Otherwise, add it to the list.
 			continue
 		if(location == "tail")
 			if(!body_accessory)
@@ -456,7 +456,7 @@
 			if(!istype(A))
 				valid_body_accessories["None"] = "None" //The only null entry should be the "None" option.
 				continue
-			if(species.name in A.allowed_species) //If the user is not of a species the body accessory style allows, skip it. Otherwise, add it to the list.
+			if(dna.species.name in A.allowed_species) //If the user is not of a species the body accessory style allows, skip it. Otherwise, add it to the list.
 				valid_body_accessories += B
 
 	return valid_body_accessories

@@ -50,7 +50,7 @@
 
 	var/datum/martial_art/attacker_style = M.martial_art
 
-	species.handle_attack_hand(src,M)
+	dna.species.handle_attack_hand(src,M)
 
 	switch(M.a_intent)
 		if(INTENT_HELP)
@@ -109,7 +109,7 @@
 		if(INTENT_HARM)
 			//Vampire code
 			if(M.mind && M.mind.vampire && (M.mind in ticker.mode.vampires) && !M.mind.vampire.draining && M.zone_sel && M.zone_sel.selecting == "head" && src != M)
-				if((NO_BLOOD in species.species_traits) || species.exotic_blood || !blood_volume)
+				if((NO_BLOOD in dna.species.species_traits) || dna.species.exotic_blood || !blood_volume)
 					to_chat(M, "<span class='warning'>They have no blood!</span>")
 					return
 				if(mind && mind.vampire && (mind in ticker.mode.vampires))

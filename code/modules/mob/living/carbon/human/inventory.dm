@@ -419,7 +419,7 @@
 	..(what, who, where, silent = is_silent)
 
 /mob/living/carbon/human/can_equip(obj/item/I, slot, disable_warning = 0)
-	switch(species.handle_can_equip(I, slot, disable_warning, src))
+	switch(dna.species.handle_can_equip(I, slot, disable_warning, src))
 		if(1)	return 1
 		if(2)	return 0 //if it returns 2, it wants no normal handling
 
@@ -473,7 +473,7 @@
 		if(slot_belt)
 			if(belt)
 				return 0
-			if(!w_uniform)
+			if(!w_uniform && !(dna && dna.species.nojumpsuit))
 				if(!disable_warning)
 					to_chat(src, "<span class='alert'>You need a jumpsuit before you can attach this [name].</span>")
 				return 0

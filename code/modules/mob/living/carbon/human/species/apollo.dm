@@ -1,4 +1,5 @@
 /datum/species/wryn
+	id = "wryn"
 	name = "Wryn"
 	name_plural = "Wryn"
 	icobase = 'icons/mob/human_races/r_wryn.dmi'
@@ -84,6 +85,7 @@
 			return 0
 
 /datum/species/nucleation
+	id = "nucleation"
 	name = "Nucleation"
 	name_plural = "Nucleations"
 	icobase = 'icons/mob/human_races/r_nucleation.dmi'
@@ -114,7 +116,7 @@
 		)
 	vision_organ = /obj/item/organ/internal/eyes/luminescent_crystal
 
-/datum/species/nucleation/handle_post_spawn(var/mob/living/carbon/human/H)
+/datum/species/nucleation/on_species_gain(var/mob/living/carbon/human/H)
 	H.light_color = "#1C1C00"
 	H.set_light(2)
 	return ..()

@@ -1,4 +1,5 @@
 /datum/species/human
+	id = "human"
 	name = "Human"
 	name_plural = "Humans"
 	icobase = 'icons/mob/human_races/r_human.dmi'
@@ -11,6 +12,7 @@
 	bodyflags = HAS_SKIN_TONE | HAS_BODY_MARKINGS
 	dietflags = DIET_OMNI
 	unarmed_type = /datum/unarmed_attack/punch
+	skinned_type = /obj/item/stack/sheet/animalhide/human
 	blurb = "Humanity originated in the Sol system, and over the last five centuries has spread \
 	colonies across a wide swathe of space. They hold a wide range of forms and creeds.<br/><br/> \
 	While the central Sol government maintains control of its far-flung people, powerful corporate \
@@ -21,6 +23,7 @@
 	//Has standard darksight of 2.
 
 /datum/species/unathi
+	id = "unathi"
 	name = "Unathi"
 	name_plural = "Unathi"
 	icobase = 'icons/mob/human_races/r_lizard.dmi'
@@ -30,6 +33,7 @@
 	language = "Sinta'unathi"
 	tail = "sogtail"
 	unarmed_type = /datum/unarmed_attack/claws
+	skinned_type = /obj/item/stack/sheet/animalhide/lizard
 	primitive_form = "Stok"
 
 	blurb = "A heavily reptillian species, Unathi (or 'Sinta as they call themselves) hail from the \
@@ -82,6 +86,7 @@
 	H.stop_tail_wagging(1)
 
 /datum/species/tajaran
+	id = "tajaran"
 	name = "Tajaran"
 	name_plural = "Tajaran"
 	icobase = 'icons/mob/human_races/r_tajaran.dmi'
@@ -91,6 +96,7 @@
 	language = "Siik'tajr"
 	tail = "tajtail"
 	unarmed_type = /datum/unarmed_attack/claws
+	skinned_type = /obj/item/stack/sheet/animalhide/cat
 
 	blurb = "The Tajaran race is a species of feline-like bipeds hailing from the planet of Ahdomai in the \
 	S'randarr system. They have been brought up into the space age by the Humans and Skrell, and have been \
@@ -142,6 +148,7 @@
 	H.stop_tail_wagging(1)
 
 /datum/species/vulpkanin
+	id = "vulpkanin"
 	name = "Vulpkanin"
 	name_plural = "Vulpkanin"
 	icobase = 'icons/mob/human_races/r_vulpkanin.dmi'
@@ -195,6 +202,7 @@
 	H.stop_tail_wagging(1)
 
 /datum/species/skrell
+	id = "skrell"
 	name = "Skrell"
 	name_plural = "Skrell"
 	icobase = 'icons/mob/human_races/r_skrell.dmi'
@@ -245,6 +253,7 @@
 		"is strangling themselves with their own tendrils!")
 
 /datum/species/vox
+	id = "vox"
 	name = "Vox"
 	name_plural = "Vox"
 	icobase = 'icons/mob/human_races/vox/r_vox.dmi'
@@ -354,7 +363,7 @@
 	H.internal = H.l_hand
 	H.update_action_buttons_icon()
 
-/datum/species/vox/handle_post_spawn(var/mob/living/carbon/human/H)
+/datum/species/vox/on_species_gain(var/mob/living/carbon/human/H)
 	updatespeciescolor(H)
 	H.update_icons()
 	//H.verbs += /mob/living/carbon/human/proc/leap
@@ -399,12 +408,13 @@
 
 	return ..()
 
-/datum/species/vox/armalis/handle_post_spawn(var/mob/living/carbon/human/H)
+/datum/species/vox/armalis/on_species_gain(var/mob/living/carbon/human/H)
 	H.verbs += /mob/living/carbon/human/proc/leap
 	H.verbs += /mob/living/carbon/human/proc/gut
 	..()
 
 /datum/species/vox/armalis
+	id = "armalis"
 	name = "Vox Armalis"
 	name_plural = "Vox Armalis"
 	icobase = 'icons/mob/human_races/r_armalis.dmi'
@@ -461,6 +471,7 @@
 	return 1
 
 /datum/species/kidan
+	id = "kidan"
 	name = "Kidan"
 	name_plural = "Kidan"
 	icobase = 'icons/mob/human_races/r_kidan.dmi'
@@ -505,6 +516,7 @@
 		"is holding their breath!")
 
 /datum/species/slime
+	id = "slime people"
 	name = "Slime People"
 	name_plural = "Slime People"
 	default_language = "Galactic Common"
@@ -625,7 +637,7 @@
 	for(var/l in bodyparts_by_name)
 		var/obj/item/organ/external/E = bodyparts_by_name[l]
 		if(!istype(E))
-			var/list/limblist = species.has_limbs[l]
+			var/list/limblist = dna.species.has_limbs[l]
 			var/obj/item/organ/external/limb = limblist["path"]
 			var/parent_organ = initial(limb.parent_organ)
 			var/obj/item/organ/external/parentLimb = bodyparts_by_name[parent_organ]
@@ -661,7 +673,7 @@
 			stored_burn = doomedStump.burn_dam
 			qdel(O)
 
-		var/limb_list = species.has_limbs[chosen_limb]
+		var/limb_list = dna.species.has_limbs[chosen_limb]
 		var/obj/item/organ/external/limb_path = limb_list["path"]
 		// Parent check
 		var/obj/item/organ/external/potential_parent = bodyparts_by_name[initial(limb_path.parent_organ)]
@@ -687,12 +699,13 @@
 #undef SLIMEPERSON_MINHUNGER
 #undef SLIMEPERSON_REGROWTHDELAY
 
-/datum/species/slime/handle_pre_change(var/mob/living/carbon/human/H)
+/datum/species/slime/on_species_gain(var/mob/living/carbon/human/H)
 	..()
 	if(H in recolor_list)
 		H.toggle_recolor(silent = 1)
 
 /datum/species/grey
+	id = "grey"
 	name = "Grey"
 	name_plural = "Greys"
 	icobase = 'icons/mob/human_races/r_grey.dmi'
@@ -745,6 +758,7 @@
 		H.mind.speech_span = "wingdings"
 
 /datum/species/diona
+	id = "diona"
 	name = "Diona"
 	name_plural = "Dionaea"
 	icobase = 'icons/mob/human_races/r_diona.dmi'
@@ -755,6 +769,7 @@
 	speech_sounds = list('sound/voice/dionatalk1.ogg') //Credit https://www.youtube.com/watch?v=ufnvlRjsOTI [0:13 - 0:16]
 	speech_chance = 20
 	unarmed_type = /datum/unarmed_attack/diona
+	skinned_type = /obj/item/stack/sheet/wood
 	//primitive_form = "Nymph"
 	slowdown = 5
 	remains_type = /obj/effect/decal/cleanable/ash
@@ -827,7 +842,7 @@
 		return 1
 	return 0
 
-/datum/species/diona/handle_post_spawn(var/mob/living/carbon/human/H)
+/datum/species/diona/on_species_gain(var/mob/living/carbon/human/H)
 	H.gender = NEUTER
 
 	return ..()
@@ -860,6 +875,7 @@
 	..()
 
 /datum/species/machine
+	id = "machine"
 	name = "Machine"
 	name_plural = "Machines"
 
@@ -949,6 +965,7 @@
 			H.update_fhair()
 
 /datum/species/drask
+	id = "drask"
 	name = "Drask"
 	name_plural = "Drask"
 	icobase = 'icons/mob/human_races/r_drask.dmi'

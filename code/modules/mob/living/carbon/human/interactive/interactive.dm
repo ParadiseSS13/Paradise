@@ -128,7 +128,7 @@
 	//this is here because this has no client/prefs/brain whatever.
 	age = rand(AGE_MIN, AGE_MAX)
 	change_gender(pick("male", "female"))
-	rename_character(real_name, species.get_random_name(gender))
+	rename_character(real_name, dna.species.get_random_name(gender))
 	//job handling
 	myjob = new default_job()
 	job = myjob.title

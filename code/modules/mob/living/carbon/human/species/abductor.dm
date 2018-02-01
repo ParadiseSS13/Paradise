@@ -1,4 +1,5 @@
 /datum/species/abductor
+	id = "abductor"
 	name = "Abductor"
 	name_plural = "Abductors"
 	icobase = 'icons/mob/human_races/r_abductor.dmi'
@@ -32,7 +33,7 @@
 /datum/species/abductor/can_understand(mob/other) //Abductors can understand everyone, but they can only speak over their mindlink to another team-member
 	return 1
 
-/datum/species/abductor/handle_post_spawn(mob/living/carbon/human/H)
+/datum/species/abductor/on_species_gain(mob/living/carbon/human/H)
 	H.gender = NEUTER
 	if(H.mind)
 		H.mind.abductor = new /datum/abductor

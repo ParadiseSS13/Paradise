@@ -7,7 +7,6 @@
 
 	//why are these here and not in human_defines.dm
 	//var/list/hud_list[10]
-	var/datum/species/species //Contains icon generation and language information, set during New().
 	var/obj/item/weapon/rig/wearing_rig // This is very not good, but it's much much better than calling get_rig() every update_canmove() call.
 
 /mob/living/carbon/human/New(var/new_loc, var/new_species = null, var/delay_ready_dna = 0)
@@ -16,7 +15,7 @@
 		dna = new /datum/dna(null)
 		// Species name is handled by set_species()
 
-	if(!species)
+	if(!dna.species)
 		if(new_species)
 			set_species(new_species, 1, delay_icon_update = 1)
 		else
@@ -24,8 +23,8 @@
 
 	..()
 
-	if(species)
-		real_name = species.get_random_name(gender)
+	if(dna.species)
+		real_name = dna.species.get_random_name(gender)
 		name = real_name
 		if(mind)
 			mind.name = real_name
@@ -506,7 +505,7 @@
 		else
 			dat += "<tr><td><B>Uniform:</B></td><td><A href='?src=[UID()];item=[slot_w_uniform]'>[(w_uniform && !(w_uniform.flags&ABSTRACT)) ? w_uniform : "<font color=grey>Empty</font>"]</A></td></tr>"
 
-		if(w_uniform == null || (slot_w_uniform in obscured))
+		if((w_uniform == null && !(dna && dna.species.nojumpsuit)) || (slot_w_uniform in obscured))
 			dat += "<tr><td><font color=grey>&nbsp;&#8627;<B>Pockets:</B></font></td></tr>"
 			dat += "<tr><td><font color=grey>&nbsp;&#8627;<B>ID:</B></font></td></tr>"
 			dat += "<tr><td><font color=grey>&nbsp;&#8627;<B>Belt:</B></font></td></tr>"
@@ -652,7 +651,7 @@
 		grant_death_vision()
 		return
 
-	species.update_sight(src)
+	dna.species.update_sight(src)
 
 //Removed the horrible safety parameter. It was only being used by ninja code anyways.
 //Now checks siemens_coefficient of the affected area by default
@@ -682,8 +681,8 @@
 		if(gloves)
 			var/obj/item/clothing/gloves/G = gloves
 			gloves_siemens_coeff = G.siemens_coefficient
-		if(species)
-			species_siemens_coeff = species.siemens_coeff
+		if(dna.species)
+			species_siemens_coeff = dna.species.siemens_coeff
 		siemens_coeff = gloves_siemens_coeff * species_siemens_coeff
 	if(undergoing_cardiac_arrest())
 		if(shock_damage * siemens_coeff >= 1 && prob(25))
@@ -1138,10 +1137,10 @@
 
 /mob/living/carbon/human/get_species()
 
-	if(!species)
+	if(!dna.species)
 		set_species()
 
-	return species.name
+	return dna.species.name
 
 /mob/living/carbon/human/proc/play_xylophone()
 	if(!src.xylophone)
@@ -1273,7 +1272,7 @@
 	surgeries.Cut() //End all surgeries.
 	update_revive()
 
-	if(species.name != "Skeleton" && (SKELETON in mutations))
+	if(dna.species.name != "Skeleton" && (SKELETON in mutations))
 		mutations.Remove(SKELETON)
 	if(NOCLONE in mutations)
 		mutations.Remove(NOCLONE)
@@ -1336,7 +1335,7 @@
 		..()
 
 /mob/living/carbon/human/generate_name()
-	name = species.makeName(gender,src)
+	name = dna.species.makeName(gender,src)
 	real_name = name
 	if(dna)
 		dna.real_name = name
@@ -1376,7 +1375,8 @@
 		to_chat(usr, "<span class='notice'>[self ? "Your" : "[src]'s"] pulse is [src.get_pulse(GETPULSE_HAND)].</span>")
 
 /mob/living/carbon/human/proc/set_species(var/new_species, var/default_colour, var/delay_icon_update = 0)
-	var/datum/species/oldspecies = species
+	dna.species.on_species_loss(src)
+	var/datum/species/oldspecies = dna.species
 	var/datum/species/NS = all_species[new_species]
 	if(!dna)
 		if(!new_species)
@@ -1387,76 +1387,73 @@
 		else
 			dna.species = new_species
 
-	if(species)
-		if(species.name && species.name == new_species)
+	if(dna.species)
+		if(dna.species.name && dna.species.name == new_species)
 			return
 
-		if(species.language)
-			remove_language(species.language)
+		if(dna.species.language)
+			remove_language(dna.species.language)
 
-		if(species.default_language)
-			remove_language(species.default_language)
+		if(dna.species.default_language)
+			remove_language(dna.species.default_language)
 
 		if(gender == PLURAL && NS.has_gender)
 			change_gender(pick(MALE,FEMALE))
-		species.handle_pre_change(src)
 
-	species = all_species[new_species]
+	dna.species = all_species[new_species]
 
 	if(oldspecies)
 		if(oldspecies.default_genes.len)
 			oldspecies.handle_dna(src,1) // Remove any genes that belong to the old species
 
-	tail = species.tail
+	dna.tail = dna.species.tail
 
-	maxHealth = species.total_health
+	maxHealth = dna.species.total_health
 
-	if(species.language)
-		add_language(species.language)
+	if(dna.species.language)
+		add_language(dna.species.language)
 
-	if(species.default_language)
-		add_language(species.default_language)
+	if(dna.species.default_language)
+		add_language(dna.species.default_language)
 
-	hunger_drain = species.hunger_drain
-	digestion_ratio = species.digestion_ratio
+	hunger_drain = dna.species.hunger_drain
+	digestion_ratio = dna.species.digestion_ratio
 
-	if(species.base_color && default_colour)
+	if(dna.species.base_color && default_colour)
 		//Apply colour.
-		skin_colour = species.base_color
+		skin_colour = dna.species.base_color
 	else
 		skin_colour = "#000000"
 
-	if(!(species.bodyflags & HAS_SKIN_TONE))
+	if(!(dna.species.bodyflags & HAS_SKIN_TONE))
 		s_tone = 0
-
-	species.create_organs(src)
 
 	//Handle default hair/head accessories for created mobs.
 	var/obj/item/organ/external/head/H = get_organ("head")
-	if(species.default_hair)
-		H.h_style = species.default_hair
+	if(dna.species.default_hair)
+		H.h_style = dna.species.default_hair
 	else
 		H.h_style = "Bald"
-	if(species.default_fhair)
-		H.f_style = species.default_fhair
+	if(dna.species.default_fhair)
+		H.f_style = dna.species.default_fhair
 	else
 		H.f_style = "Shaved"
-	if(species.default_headacc)
-		H.ha_style = species.default_headacc
+	if(dna.species.default_headacc)
+		H.ha_style = dna.species.default_headacc
 	else
 		H.ha_style = "None"
 
-	if(species.default_hair_colour)
+	if(dna.species.default_hair_colour)
 		//Apply colour.
-		H.hair_colour = species.default_hair_colour
+		H.hair_colour = dna.species.default_hair_colour
 	else
 		H.hair_colour = "#000000"
-	if(species.default_fhair_colour)
-		H.facial_colour = species.default_fhair_colour
+	if(dna.species.default_fhair_colour)
+		H.facial_colour = dna.species.default_fhair_colour
 	else
 		H.facial_colour = "#000000"
-	if(species.default_headacc_colour)
-		H.headacc_colour = species.default_headacc_colour
+	if(dna.species.default_headacc_colour)
+		H.headacc_colour = dna.species.default_headacc_colour
 	else
 		H.headacc_colour = "#000000"
 
@@ -1466,18 +1463,18 @@
 
 	if(!dna)
 		dna = new /datum/dna(null)
-		dna.species = species.name
+		dna.species = dna.species.name
 		dna.real_name = real_name
 
-	species.handle_post_spawn(src)
+	dna.species.on_species_gain(src, oldspecies)
 
-	see_in_dark = species.get_resultant_darksight(src)
+	see_in_dark = dna.species.get_resultant_darksight(src)
 	if(see_in_dark > 2)
 		see_invisible = SEE_INVISIBLE_LEVEL_ONE
 	else
 		see_invisible = SEE_INVISIBLE_LIVING
 
-	species.handle_dna(src) //Give them whatever special dna business they got.
+	dna.species.handle_dna(src) //Give them whatever special dna business they got.
 
 	update_client_colour(0)
 
@@ -1489,7 +1486,7 @@
 	if(!delay_icon_update)
 		UpdateAppearance()
 
-	if(species)
+	if(dna.species)
 		return 1
 	else
 		return 0
@@ -1498,9 +1495,9 @@
 	if(default_language)
 		return default_language
 
-	if(!species)
+	if(!dna.species)
 		return null
-	return species.default_language ? all_languages[species.default_language] : null
+	return dna.species.default_language ? all_languages[dna.species.default_language] : null
 
 /mob/living/carbon/human/proc/bloody_doodle()
 	set category = "IC"
@@ -1567,7 +1564,7 @@
 		to_chat(src, "<span class='warning'>Where's your head at? Can't change your monitor/display without one.</span>")
 		return
 
-	if(species.bodyflags & ALL_RPARTS) //If they can have a fully cybernetic body...
+	if(dna.species.bodyflags & ALL_RPARTS) //If they can have a fully cybernetic body...
 		var/datum/robolimb/robohead = all_robolimbs[head_organ.model]
 		if(!head_organ)
 			return
@@ -1807,7 +1804,7 @@
 
 
 /mob/living/carbon/human/IsAdvancedToolUser()
-	if(species.has_fine_manipulation)
+	if(dna.species.has_fine_manipulation)
 		return 1
 	return 0
 
@@ -1842,7 +1839,7 @@
 			return 1
 
 /mob/living/carbon/human/can_eat(flags = 255)
-	return species && (species.dietflags & flags)
+	return dna.species && (dna.species.dietflags & flags)
 
 /mob/living/carbon/human/selfFeed(var/obj/item/weapon/reagent_containers/food/toEat, fullness)
 	if(!check_has_mouth())
@@ -1903,7 +1900,7 @@
 				. |= A.GetAccess()
 
 /mob/living/carbon/human/is_mechanical()
-	return ..() || (species.bodyflags & ALL_RPARTS) != 0
+	return ..() || (dna.species.bodyflags & ALL_RPARTS) != 0
 
 /mob/living/carbon/human/can_use_guns(var/obj/item/weapon/gun/G)
 	. = ..()
@@ -1912,7 +1909,7 @@
 		if(HULK in mutations)
 			to_chat(src, "<span class='warning'>Your meaty finger is much too large for the trigger guard!</span>")
 			return 0
-		if(NOGUNS in species.species_traits)
+		if(NOGUNS in dna.species.species_traits)
 			to_chat(src, "<span class='warning'>Your fingers don't fit in the trigger guard!</span>")
 			return 0
 
@@ -2041,8 +2038,8 @@
 	. += "---"
 
 /mob/living/carbon/human/get_taste_sensitivity()
-	if(species)
-		return species.taste_sensitivity
+	if(dna.species)
+		return dna.species.taste_sensitivity
 	else
 		return 1
 

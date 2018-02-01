@@ -4,7 +4,7 @@
 /mob/living/carbon/human/handle_autohiss(message, datum/language/L)
 	if(!client || client.prefs.autohiss_mode == AUTOHISS_OFF) // no need to process if there's no client or they have autohiss off
 		return message
-	return species.handle_autohiss(message, L, client.prefs.autohiss_mode)
+	return dna.species.handle_autohiss(message, L, client.prefs.autohiss_mode)
 
 /client/verb/toggle_autohiss()
 	set name = "Toggle Auto-Accent"

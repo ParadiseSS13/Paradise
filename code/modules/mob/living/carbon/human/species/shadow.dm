@@ -1,4 +1,5 @@
 /datum/species/shadow
+	id = "shadow"
 	name = "Shadow"
 	name_plural = "Shadows"
 
