@@ -1,0 +1,11 @@
+author: "uraniummeltdown"
+delete-after: True
+changes: 
+  - rscadd: "Examining an airlock assembly gives construction hints and shows what pen name is set. Mineral airlocks can have glass added to them."
+  - rscadd: "Added public and external maintenance airlock assemblies to metal recipes"
+  - rscadd: "Maintenance, standard and external airlocks now have glass versions. Multi-tile airlock has a solid version."
+  - rscadd: "Added more airlocks to RCD"
+  - rscadd: "You can attach paper and photos to airlocks, wirecutters to remove them"
+  - tweak: "Airlocks open faster"
+  - tweak: "Vault and high-security airlocks are made with 6 plasteel up from 4"
+  - bugfix: "Plasteel should have the correct amount of materials in it now"
