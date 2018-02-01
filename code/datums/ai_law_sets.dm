@@ -89,7 +89,7 @@
 	default = 1
 
 /datum/ai_laws/corporate/New()
-	add_inherent_law("Destruction of yourself is expensive.")
+	add_inherent_law("Your destruction is expensive.")
 	add_inherent_law("Destruction of the station or station equipment is expensive.")
 	add_inherent_law("Loss of crew is expensive.")
 	add_inherent_law("Minimize expenses.")
