@@ -1,0 +1,4 @@
+author: "Squirgenheimer"
+delete-after: True
+changes: 
+  - bugfix: "Using the 'tear reality' rune as cult should now be punished when the invokers do not have the god summoning objective"
