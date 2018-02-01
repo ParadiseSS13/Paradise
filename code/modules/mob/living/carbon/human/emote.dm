@@ -844,10 +844,12 @@
 			if(!has_status_effect(STATUS_EFFECT_HIGHFIVE))
 				apply_status_effect(STATUS_EFFECT_HIGHFIVE)
 
-			if(has_status_effect(STATUS_EFFECT_HIGHFIVE))
-				for(var/mob/living/carbon/C in orange(1))
-					if(!C)
-						visible_message("[name] was left hanging. Embarrassing.", "You are left hanging. How embarrassing!")
+			for(var/mob/living/carbon/C in orange(1))
+				if(!C || C == src)
+					visible_message("[name] was left hanging. Embarrassing.", "You are left hanging. How embarrassing!")
+				else
+					C.apply_status_effect(STATUS_EFFECT_HIGHFIVE)
+				if(C.has_status_effect(STATUS_EFFECT_HIGHFIVE))
 					if((mind.special_role == SPECIAL_ROLE_WIZARD) && (C.mind && (C.mind.special_role == SPECIAL_ROLE_WIZARD)))
 						visible_message("<span class='danger'><b>[name]</b> and <b>[C.name]</b> high-five EPICALLY!</span>")
 						status_flags |= GODMODE
