@@ -990,6 +990,11 @@ var/list/teleport_runes = list()
 		fail_invoke()
 		log_game("Manifest rune failed - user not standing on rune")
 		return list()
+	if(user.has_status_effect(STATUS_EFFECT_SUMMONEDGHOST))
+		to_chat(user, "<span class='cult italic'>Ghosts can't summon more ghosts!</span>")
+		fail_invoke()
+		log_game("Manifest rune failed - user is a ghost")
+		return list()
 	var/list/ghosts_on_rune = list()
 	for(var/mob/dead/observer/O in get_turf(src))
 		if(O.client && !jobban_isbanned(O, ROLE_CULTIST) && !jobban_isbanned(O, ROLE_SYNDICATE))
@@ -1012,6 +1017,7 @@ var/list/teleport_runes = list()
 	new_human.real_name = ghost_to_spawn.real_name
 	new_human.alpha = 150 //Makes them translucent
 	new_human.equipOutfit(/datum/outfit/ghost_cultist) //give them armor
+	new_human.apply_status_effect(STATUS_EFFECT_SUMMONEDGHOST) //ghosts can't summon more ghosts
 	new_human.color = "grey" //heh..cult greytide...litterly...
 	..()
 
