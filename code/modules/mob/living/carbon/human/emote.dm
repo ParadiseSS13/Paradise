@@ -847,7 +847,6 @@
 			visible_message("<b>[name]</b> requests a highfive.", "You request a high five.")
 			apply_status_effect(STATUS_EFFECT_HIGHFIVE)
 			for(var/mob/living/L in orange(1))
-				L.apply_status_effect(STATUS_EFFECT_HIGHFIVE)
 				if(L.has_status_effect(STATUS_EFFECT_HIGHFIVE))
 					if((mind && mind.special_role == SPECIAL_ROLE_WIZARD) && (L.mind && L.mind.special_role == SPECIAL_ROLE_WIZARD))
 						visible_message("<span class='danger'><b>[name]</b> and <b>[L.name]</b> high-five EPICALLY!</span>")
