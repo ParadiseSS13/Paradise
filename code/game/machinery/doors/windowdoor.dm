@@ -6,6 +6,7 @@
 	visible = 0.0
 	flags = ON_BORDER
 	opacity = 0
+	dir = EAST
 	var/obj/item/weapon/airlock_electronics/electronics = null
 	var/base_state = "left"
 	var/health = 150.0 //If you change this, consider changing ../door/window/brigdoor/ health at the bottom of this .dm file
