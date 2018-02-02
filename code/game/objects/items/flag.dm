@@ -31,7 +31,11 @@
 
 /obj/item/flag/update_icon()
 	overlays.Cut()
-	icon_state = replacetext(icon_state, "_rolled", "") //This will totally not break in the future
+	if(istype(src, /obj/item/flag/chameleon))
+		var/obj/item/flag/chameleon/C = src
+		icon_state = C.updated_icon_state
+	else
+		icon_state = initial(icon_state)
 	item_state = icon_state
 	if(rolled)
 		icon_state = "[icon_state]_rolled"
@@ -200,7 +204,12 @@
 	desc = "A poor recreation of the official NT flag. It seems to shimmer a little."
 	icon_state = "ntflag"
 	origin_tech = "syndicate=4;magnets=4"
+	var/updated_icon_state = null
 	var/used = FALSE
+
+/obj/item/flag/chameleon/New()
+	updated_icon_state = icon_state
+	..()
 
 /obj/item/flag/chameleon/attack_self(mob/user)
 	if(used)
@@ -221,9 +230,10 @@
 
 		var/obj/item/flag/chosen_flag = flag[input_flag]
 
-		if(chosen_flag)
+		if(chosen_flag && !used)
 			name = chosen_flag.name
 			icon_state = chosen_flag.icon_state
+			updated_icon_state = icon_state
 			desc = chosen_flag.desc
 			used = TRUE
 
