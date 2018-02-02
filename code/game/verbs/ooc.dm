@@ -60,7 +60,7 @@ var/global/admin_ooc_colour = "#b82e00"
 
 	for(var/client/C in clients)
 		if(C.prefs.toggles & CHAT_OOC)
-			var/display_name = src.key
+			var/display_name = key
 
 			if(prefs.unlock_content)
 				if(prefs.toggles & MEMBER_PUBLIC)
@@ -74,8 +74,8 @@ var/global/admin_ooc_colour = "#b82e00"
 
 			if(holder)
 				if(holder.fakekey)
-					if(C.holder)
-						display_name = "[holder.fakekey]/([src.key])"
+					if(C.holder && C.holder.rights & R_ADMIN)
+						display_name = "[holder.fakekey]/([key])"
 					else
 						display_name = holder.fakekey
 

@@ -46,6 +46,12 @@
 /datum/atom_hud/data/diagnostic
 	hud_icons = list (DIAG_HUD, DIAG_STAT_HUD, DIAG_BATT_HUD, DIAG_MECH_HUD, DIAG_BOT_HUD, DIAG_TRACK_HUD)
 
+/datum/atom_hud/data/diagnostic/advanced
+	hud_icons = list (DIAG_HUD, DIAG_STAT_HUD, DIAG_BATT_HUD, DIAG_MECH_HUD, DIAG_BOT_HUD, DIAG_TRACK_HUD, DIAG_PATH_HUD)
+
+/datum/atom_hud/data/bot_path
+	hud_icons = list(DIAG_PATH_HUD)
+
 /datum/atom_hud/data/hydroponic
 	hud_icons = list (PLANT_NUTRIENT_HUD, PLANT_WATER_HUD, PLANT_STATUS_HUD, PLANT_HEALTH_HUD, PLANT_TOXIN_HUD, PLANT_PEST_HUD, PLANT_WEED_HUD)
 
@@ -120,6 +126,7 @@
 			return "health-100" //doc u had 1 job
 	return "0"
 
+
 ///HOOKS
 
 //called when a human changes suit sensors
@@ -128,22 +135,26 @@
 	B.update_suit_sensors(src)
 
 
-//called when a carbon changes health
-/mob/living/carbon/proc/med_hud_set_health()
+//called when a living mob changes health
+/mob/living/proc/med_hud_set_health()
 	var/image/holder = hud_list[HEALTH_HUD]
-	if(stat == 2)
-		holder.icon_state = "hudhealth-100"
-	else
-		holder.icon_state = "hud[RoundHealth(health)]"
+	holder.icon_state = "hud[RoundHealth(src)]"
+
 
 //called when a carbon changes stat, virus or XENO_HOST
-/mob/living/carbon/proc/med_hud_set_status()
+/mob/living/proc/med_hud_set_status()
 	var/image/holder = hud_list[STATUS_HUD]
-	//var/image/holder2 = hud_list[STATUS_HUD_OOC]
-	var/mob/living/simple_animal/borer/B = has_brain_worms()
-	if(stat == 2)
+	if(stat == DEAD)
 		holder.icon_state = "huddead"
-		//holder2.icon_state = "huddead"
+	else
+		holder.icon_state = "hudhealthy"
+
+//called when a carbon changes stat, virus or XENO_HOST
+/mob/living/carbon/med_hud_set_status()
+	var/image/holder = hud_list[STATUS_HUD]
+	var/mob/living/simple_animal/borer/B = has_brain_worms()
+	if(stat == DEAD)
+		holder.icon_state = "huddead"
 	else if(status_flags & XENO_HOST)
 		holder.icon_state = "hudxeno"
 	else if(check_virus())
@@ -152,7 +163,6 @@
 		holder.icon_state = "hudbrainworm"
 	else
 		holder.icon_state = "hudhealthy"
-		//holder2.icon_state = "hudhealthy"
 
 
 

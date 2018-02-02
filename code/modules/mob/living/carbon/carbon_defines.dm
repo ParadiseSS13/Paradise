@@ -1,6 +1,5 @@
 /mob/living/carbon
 	gender = MALE
-	hud_possible = list(HEALTH_HUD,STATUS_HUD,SPECIALROLE_HUD)
 	var/list/stomach_contents = list()
 	var/list/internal_organs	= list()
 	var/list/internal_organs_slot	= list()	//Same as above, but stores "slot ID" - "organ" pairs for easy access.
