@@ -138,7 +138,7 @@
 //called when a living mob changes health
 /mob/living/proc/med_hud_set_health()
 	var/image/holder = hud_list[HEALTH_HUD]
-	holder.icon_state = "hud[RoundHealth(src)]"
+	holder.icon_state = "hud[RoundHealth(health)]"
 
 
 //called when a carbon changes stat, virus or XENO_HOST
