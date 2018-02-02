@@ -4,3 +4,6 @@
 	id = "high_five"
 	duration = 25
 	alert_type = null
+
+/datum/status_effect/high_five/on_timeout()
+	owner.visible_message("[owner] was left hanging....")
