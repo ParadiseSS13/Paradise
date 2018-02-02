@@ -32,7 +32,7 @@
 					to_chat(affected_mob, "<span class='danger'>You feel something in your throat!</span>")
 					affected_mob.emote("cough")
 				else
-					affected_mob.say( pick( list("Mew", "meow", "Nya!") ) )
+					affected_mob.say(pick(list("Mew", "Meow!", "Nya!~")))
 		if(4)
 			if(prob(5))
 				if(affected_mob.get_species() == "Tajaran")
@@ -40,7 +40,7 @@
 													"<span class='userdanger'>You cough up a hairball!</span>")
 					affected_mob.Stun(5)
 				else
-					affected_mob.visible_message("<span class='danger'>[affected_mob] form contorts into something more feline!</span>", \
+					affected_mob.visible_message("<span class='danger'>[affected_mob]'s form contorts into something more feline!</span>", \
 													"<span class='userdanger'>YOU TURN INTO A TAJARAN!</span>")
 					var/mob/living/carbon/human/catface = affected_mob
 					catface.set_species("Tajaran")

@@ -32,7 +32,7 @@
 			if(prob(5))
 				affected_mob.visible_message("<span class='danger'>[affected_mob] howls!</span>", \
 												"<span class='userdanger'>You howl!</span>")
-				affected_mob.AdjustConfused(rand(6,8))
+				affected_mob.AdjustConfused(rand(6, 8))
 			if(prob(3))
 				var/list/puppytype = list(/mob/living/simple_animal/pet/corgi/puppy, /mob/living/simple_animal/pet/pug, /mob/living/simple_animal/pet/fox)
 				var/mob/living/puppypicked = pick(puppytype)
