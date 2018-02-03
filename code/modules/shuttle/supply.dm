@@ -330,7 +330,7 @@
 	slip.points = object.cost
 	slip.ordernumber = ordernum
 
-	var/stationName = station_name()
+	var/stationName = (errors & MANIFEST_ERROR_NAME) ? new_station_name() : station_name()
 	var/packagesAmt = shuttle_master.shoppinglist.len + ((errors & MANIFEST_ERROR_COUNT) ? rand(1,2) : 0)
 
 	slip.name = "Shipping Manifest - '[object.name]' for [orderedby]"
