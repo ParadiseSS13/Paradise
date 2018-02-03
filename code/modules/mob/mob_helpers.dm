@@ -370,18 +370,6 @@ var/list/intents = list(INTENT_HELP,INTENT_DISARM,INTENT_GRAB,INTENT_HARM)
 				else
 					hud_used.action_intent.icon_state = "help"
 
-
-/mob/living/verb/mob_sleep()
-	set name = "Sleep"
-	set category = "IC"
-
-	if(sleeping)
-		to_chat(src, "<span class='notice'>You are already sleeping.</span>")
-		return
-	else
-		if(alert(src, "You sure you want to sleep for a while?", "Sleep", "Yes", "No") == "Yes")
-			SetSleeping(20) //Short nap
-
 /mob/living/verb/lay_down()
 	set name = "Rest"
 	set category = "IC"

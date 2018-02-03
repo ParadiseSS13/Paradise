@@ -31,7 +31,6 @@
 	var/list/alien_organs = list()
 
 /mob/living/carbon/alien/New()
-	verbs += /mob/living/verb/mob_sleep
 	verbs += /mob/living/verb/lay_down
 	alien_organs += new /obj/item/organ/internal/brain/xeno
 	alien_organs += new /obj/item/organ/internal/xenos/hivenode
