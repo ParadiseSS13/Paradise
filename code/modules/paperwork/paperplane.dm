@@ -10,6 +10,7 @@
 	w_class = WEIGHT_CLASS_TINY
 	burn_state = FLAMMABLE
 	burntime = 5
+	no_spin = TRUE
 
 	var/obj/item/weapon/paper/internal_paper
 
@@ -34,13 +35,13 @@
 
 /obj/item/weapon/paperplane/suicide_act(mob/living/user)
 	user.Stun(10)
-	user.visible_message("<span class='suicide'>[user] jams [src.name] in \his nose. It looks like \he's trying to commit suicide!</span>")
+	user.visible_message("<span class='suicide'>[user] jams [name] in \his nose. It looks like \he's trying to commit suicide!</span>")
 	user.EyeBlurry(6)
 	var/obj/item/organ/internal/eyes/E = user.get_int_organ(/obj/item/organ/internal/eyes)
 	if(E)
 		E.take_damage(8, 1)
 	sleep(10)
-	return (BRUTELOSS)
+	return BRUTELOSS
 
 /obj/item/weapon/paperplane/update_icon()
 	overlays.Cut()
@@ -84,14 +85,10 @@
 		if(!in_range(user, src)) //to prevent issues as a result of telepathically lighting a paper
 			return
 		user.unEquip(src)
-		user.visible_message("<span class='danger'>[user] lights [src] ablaze with [P]!</span>", "<span class='danger'>You light [src] on fire!</span>")
+		user.visible_message("<span class='danger'>[user] lights [src] on fire with [P]!</span>", "<span class='danger'>You lights [src] on fire!</span>")
 		fire_act()
 
 	add_fingerprint(user)
-
-
-/obj/item/weapon/paperplane/throw_at(atom/target, range, speed, mob/thrower, spin = FALSE, diagonals_first = FALSE, datum/callback/callback)
-	. = ..(target, range, speed, thrower, FALSE, diagonals_first, callback)
 
 /obj/item/weapon/paperplane/throw_impact(atom/hit_atom)
 	if(..())
@@ -130,4 +127,4 @@
 		I = new /obj/item/weapon/paperplane(user, src)
 		user.put_in_hands(I)
 	else
-		to_chat(user, "<span class='notice'>You lack the dexterity to fold [src]. </span>")
+		to_chat(user, "<span class='notice'>You lack the dexterity to fold [src].</span>")
