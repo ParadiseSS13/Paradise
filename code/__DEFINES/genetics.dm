@@ -20,6 +20,7 @@
 #define DISABILITY_FLAG_LISP        8192
 #define DISABILITY_FLAG_DIZZY       16384
 #define DISABILITY_FLAG_SMALLSIZE   32768
+#define DISABILITY_FLAG_COMIC		65536
 ///////////////////////////////////////
 // MUTATIONS
 ///////////////////////////////////////
