@@ -41,6 +41,21 @@
 	var/adminseal = FALSE
 	var/name_color = "white"//only used with protector shields for the time being
 
+/mob/living/simple_animal/hostile/guardian/med_hud_set_health()
+	if(summoner)
+		var/image/holder = hud_list[HEALTH_HUD]
+		holder.icon_state = "hud[RoundHealth(summoner)]"
+
+/mob/living/simple_animal/hostile/guardian/med_hud_set_status()
+	if(summoner)
+		var/image/holder = hud_list[STATUS_HUD]
+		var/icon/I = icon(icon, icon_state, dir)
+		holder.pixel_y = I.Height() - world.icon_size
+		if(summoner.stat == DEAD)
+			holder.icon_state = "huddead"
+		else
+			holder.icon_state = "hudhealthy"
+
 /mob/living/simple_animal/hostile/guardian/Life() //Dies if the summoner dies
 	..()
 	if(summoner)
@@ -88,7 +103,8 @@
 			resulthealth = round((summoner.health / summoner.maxHealth) * 100)
 		if(hud_used)
 			hud_used.guardianhealthdisplay.maptext = "<div align='center' valign='middle' style='position:relative; top:0px; left:6px'><font color='#efeeef'>[resulthealth]%</font></div>"
-
+		med_hud_set_health()
+		med_hud_set_status()
 
 /mob/living/simple_animal/hostile/guardian/adjustHealth(amount) //The spirit is invincible, but passes on damage to the summoner
 	var/damage = amount * damage_transfer
