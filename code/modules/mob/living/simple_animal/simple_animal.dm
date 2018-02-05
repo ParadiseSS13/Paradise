@@ -110,7 +110,7 @@
 
 /mob/living/simple_animal/handle_hud_icons_health()
 	..()
-	RoundHealth(health / maxHealth * 30)
+	RoundHealth(health / maxHealth * 100)
 
 /mob/living/simple_animal/proc/process_ai()
 	handle_automated_movement()
