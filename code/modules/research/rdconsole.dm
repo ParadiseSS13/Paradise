@@ -98,6 +98,8 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 				return_name = "Bananium"
 			if("mime")
 				return_name = "Tranquillite"
+			if("titanium")
+				return_name = "Titanium"
 		return return_name
 	else
 		for(var/R in subtypesof(/datum/reagent))
@@ -808,6 +810,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 			materials_list[++materials_list.len] = list("name" = "Diamond", "id" = MAT_DIAMOND, "amount" = linked_lathe.materials.amount(MAT_DIAMOND))
 			materials_list[++materials_list.len] = list("name" = "Bananium", "id" = MAT_BANANIUM, "amount" = linked_lathe.materials.amount(MAT_BANANIUM))
 			materials_list[++materials_list.len] = list("name" = "Tranquillite", "id" = MAT_TRANQUILLITE, "amount" = linked_lathe.materials.amount(MAT_TRANQUILLITE))
+			materials_list[++materials_list.len] = list("name" = "Titanium", "id" = MAT_TITANIUM, "amount" = linked_lathe.materials.amount(MAT_TITANIUM))
 		if(submenu == 3)
 			var/list/loaded_chemicals = list()
 			data["loaded_chemicals"] = loaded_chemicals

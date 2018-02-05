@@ -94,6 +94,7 @@
 	basestate = "window"
 	health = 160
 	reinf = 1
+	explosion_block = 3
 
 /obj/structure/window/full/shuttle/New()
 	..()
