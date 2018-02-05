@@ -144,6 +144,9 @@
 /mob/living/carbon/human/stok/New(var/new_loc)
 	..(new_loc, "Stok")
 
+/mob/living/carbon/human/murghal/New(var/new_loc)
+	..(new_loc, "Murghal")
+
 /mob/living/carbon/human/Stat()
 	..()
 	statpanel("Status")
