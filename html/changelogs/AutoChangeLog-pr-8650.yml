@@ -1,0 +1,4 @@
+author: "uraniummeltdown"
+delete-after: True
+changes: 
+  - bugfix: "Multitile airlock opening/closing animation is no longer glitchy and paper/photos don't float in the air when opening/closing them"
