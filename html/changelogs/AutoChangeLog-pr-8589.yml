@@ -1,0 +1,5 @@
+author: "MarsM0nd"
+delete-after: True
+changes: 
+  - bugfix: "Pod lock busters can now unlock pods"
+  - tweak: "Pods can only be locked with a locking system installed."
