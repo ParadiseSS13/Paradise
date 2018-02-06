@@ -76,8 +76,15 @@
 	return 0
 
 //helper for getting the appropriate health status UPDATED BY PUCKABOO2 TO INCLUDE NEGATIVES.
-/proc/RoundHealth(health)
-	switch(health)
+/proc/RoundHealth(mob/living/M)
+	if(M.stat == DEAD || (M.status_flags & FAKEDEATH))
+		return "health-100" //what's our health? it doesn't matter, we're dead, or faking
+	var/maxi_health = M.maxHealth
+	if(iscarbon(M) && M.health < 0)
+		maxi_health = 100 //so crit shows up right for aliens and other high-health carbon mobs; noncarbons don't have crit.
+	var/resulthealth = (M.health / maxi_health) * 100
+
+	switch(resulthealth)
 		if(100 to INFINITY)
 			return "health100"
 		if(95 to 100)
@@ -138,7 +145,7 @@
 //called when a living mob changes health
 /mob/living/proc/med_hud_set_health()
 	var/image/holder = hud_list[HEALTH_HUD]
-	holder.icon_state = "hud[RoundHealth(health)]"
+	holder.icon_state = "hud[RoundHealth(src)]"
 
 
 //called when a carbon changes stat, virus or XENO_HOST
