@@ -533,6 +533,9 @@ var/list/robot_verbs_default = list(
 	else
 		stat(null, text("No Cell Inserted!"))
 
+/mob/living/silicon/robot/proc/show_position()
+	var/turf/pos = get_turf(src)
+	stat(null, text("Position: ([pos.x], [pos.y], [pos.z])"))
 
 // update the status screen display
 /mob/living/silicon/robot/Stat()
@@ -540,6 +543,7 @@ var/list/robot_verbs_default = list(
 	statpanel("Status")
 	if(client.statpanel == "Status")
 		show_cell_power()
+		show_position()
 
 /mob/living/silicon/robot/restrained()
 	return 0
