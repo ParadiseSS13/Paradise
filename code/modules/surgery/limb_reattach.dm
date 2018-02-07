@@ -76,7 +76,7 @@
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
 	if(affected)
 		return 0
-	var/list/organ_data = target.species.has_limbs["[target_zone]"]
+	var/list/organ_data = target.dna.species.has_limbs["[target_zone]"]
 	return !isnull(organ_data)
 
 /datum/surgery_step/limb/attach
@@ -233,7 +233,7 @@
 		for(var/part_name in L.part)
 			if(!isnull(target.get_organ(part_name)))
 				continue
-			var/list/organ_data = target.species.has_limbs["[part_name]"]
+			var/list/organ_data = target.dna.species.has_limbs["[part_name]"]
 			if(!organ_data)
 				continue
 			// This will break if there's more than one stump ever

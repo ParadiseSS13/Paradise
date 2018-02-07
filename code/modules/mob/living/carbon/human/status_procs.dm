@@ -9,7 +9,7 @@
 	..()
 
 /mob/living/carbon/human/SetParalysis(amount, updating = 1, force = 0)
-	if(species)
+	if(dna.species)
 		amount = amount * dna.species.stun_mod
 	..()
 

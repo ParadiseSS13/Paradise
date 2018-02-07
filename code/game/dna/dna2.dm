@@ -141,7 +141,7 @@ var/global/list/bad_blocks[0]
 	// FIXME:  Species-specific defaults pls
 	var/obj/item/organ/external/head/H = character.get_organ("head")
 	var/obj/item/organ/internal/eyes/eyes_organ = character.get_int_organ(/obj/item/organ/internal/eyes)
-	var/datum/species/S = character.species
+	var/datum/species/S = character.dna.species
 
 	/*// Body Accessory
 	if(!character.body_accessory)

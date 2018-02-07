@@ -298,7 +298,7 @@
 	grant_abilities(C)
 
 	for(var/slot_id in no_equip)
-		var/obj/item/thing = C.get_item_by_slot(slot_id)
+		var/obj/item/clothing/thing = C.get_item_by_slot(slot_id)
 		if(thing && (!thing.species_restricted || !is_type_in_list(src,thing.species_restricted)))
 			C.drop_item(thing)
 

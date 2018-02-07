@@ -356,7 +356,7 @@
 		return
 	if(scan_brain && !can_brainscan())
 		return
-	if((isnull(subject)) || (!(ishuman(subject))) || (!subject.dna) || (NO_SCAN in subject.species.species_traits))
+	if((isnull(subject)) || (!(ishuman(subject))) || (!subject.dna) || (NO_SCAN in subject.dna.species.species_traits))
 		scantemp = "<span class=\"bad\">Error: Unable to locate valid genetic data.</span>"
 		nanomanager.update_uis(src)
 		return
@@ -405,7 +405,7 @@
 		var/datum/species/S = all_species[R.dna.species]
 		if(NO_SCAN in S.species_traits)
 			extra_info = "Proper genetic interface not found, defaulting to genetic data of the body."
-			R.dna.species = subject.species.name
+			R.dna.species = subject.dna.species.name
 		R.id= copytext(md5(B.dna.real_name), 2, 6)
 		R.name=B.dna.real_name
 	else

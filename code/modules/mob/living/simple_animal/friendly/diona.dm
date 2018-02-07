@@ -178,7 +178,7 @@
 	if(!M || !src)
 		return
 
-	if(NO_BLOOD in M.species.species_traits)
+	if(NO_BLOOD in M.dna.species.species_traits)
 		to_chat(src, "<span class='warning'>That donor has no blood to take.</span>")
 		return
 

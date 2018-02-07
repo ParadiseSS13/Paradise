@@ -284,7 +284,7 @@
 			qdel(I)
 
 	H.equipOutfit(selected_outfit)
-	H.species.after_equip_job(null, H)
+	H.dna.species.after_equip_job(null, H)
 
 /obj/machinery/transformer/transmogrifier
 	name = "species transmogrifier"

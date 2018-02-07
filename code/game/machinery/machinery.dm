@@ -536,7 +536,7 @@ Class Procs:
 		if(istype(perp.belt, /obj/item/weapon/gun) || istype(perp.belt, /obj/item/weapon/melee))
 			threatcount += 2
 
-		if(perp.species.name != "Human") //beepsky so racist.
+		if(perp.dna.species.name != "Human") //beepsky so racist.
 			threatcount += 2
 
 	if(check_records || check_arrest)

@@ -634,8 +634,8 @@
 						TH.transfer_mob_blood_dna(src)
 						if(ishuman(src))
 							var/mob/living/carbon/human/H = src
-							if(H.species.blood_color)
-								TH.color = H.species.blood_color
+							if(H.dna.species.blood_color)
+								TH.color = H.dna.species.blood_color
 						else
 							TH.color = "#A10808"
 

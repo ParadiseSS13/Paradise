@@ -31,7 +31,7 @@ proc/build_virtual_avatar(mob/living/carbon/human/H, location, datum/map_templat
 	var/mob/living/carbon/human/virtual_reality/vr_avatar
 	location = get_turf(location)
 	vr_avatar = new /mob/living/carbon/human/virtual_reality(location)
-	vr_avatar.set_species(H.species.name)
+	vr_avatar.set_species(H.dna.species.name)
 	if(istype(H, /mob/living/carbon/human/virtual_reality))
 		var/mob/living/carbon/human/virtual_reality/V = H
 		vr_avatar.real_me = V.real_me

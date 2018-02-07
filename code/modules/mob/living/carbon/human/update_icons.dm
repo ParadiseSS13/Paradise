@@ -244,7 +244,7 @@ var/global/list/damage_icon_parts = list()
 			icon_key += "1"
 
 		if(part)
-			icon_key += "[part.species.race_key]"
+			icon_key += "[part.dna.species.race_key]"
 			icon_key += "[part.dna.GetUIState(DNA_UI_GENDER)]"
 			icon_key += "[part.dna.GetUIValue(DNA_UI_SKIN_TONE)]"
 			if(part.s_col)
@@ -402,10 +402,10 @@ var/global/list/damage_icon_parts = list()
 
 	//base icons
 	var/icon/head_accessory_standing	= new /icon('icons/mob/body_accessory.dmi',"accessory_none_s")
-	if(head_organ.ha_style && (head_organ.species.bodyflags & HAS_HEAD_ACCESSORY))
+	if(head_organ.ha_style && (head_organ.dna.species.bodyflags & HAS_HEAD_ACCESSORY))
 		var/datum/sprite_accessory/head_accessory/head_accessory_style = head_accessory_styles_list[head_organ.ha_style]
 		if(head_accessory_style && head_accessory_style.species_allowed)
-			if(head_organ.species.name in head_accessory_style.species_allowed)
+			if(head_organ.dna.species.name in head_accessory_style.species_allowed)
 				var/icon/head_accessory_s = new/icon("icon" = head_accessory_style.icon, "icon_state" = "[head_accessory_style.icon_state]_s")
 				if(head_accessory_style.do_colouration)
 					head_accessory_s.Blend(head_organ.headacc_colour, ICON_ADD)
@@ -446,9 +446,9 @@ var/global/list/damage_icon_parts = list()
 		//if(!src.get_int_organ(/obj/item/organ/internal/brain) && src.get_species() != "Machine" )//make it obvious we have NO BRAIN
 		//	hair_standing.Blend(debrained_s, ICON_OVERLAY)
 		if(hair_style && hair_style.species_allowed)
-			if((head_organ.species.name in hair_style.species_allowed) || (head_organ.species.bodyflags & ALL_RPARTS)) //If the head's species is in the list of allowed species for the hairstyle, or the head's species is one flagged to have bodies comprised wholly of cybernetics...
+			if((head_organ.dna.species.name in hair_style.species_allowed) || (head_organ.dna.species.bodyflags & ALL_RPARTS)) //If the head's species is in the list of allowed species for the hairstyle, or the head's species is one flagged to have bodies comprised wholly of cybernetics...
 				var/icon/hair_s = new/icon("icon" = hair_style.icon, "icon_state" = "[hair_style.icon_state]_s")
-				if(head_organ.species.name == "Slime People") // I am el worstos
+				if(head_organ.dna.species.name == "Slime People") // I am el worstos
 					hair_s.Blend("[skin_colour]A0", ICON_AND)
 				else if(hair_style.do_colouration)
 					hair_s.Blend(head_organ.hair_colour, ICON_ADD)
@@ -492,9 +492,9 @@ var/global/list/damage_icon_parts = list()
 	if(head_organ.f_style)
 		var/datum/sprite_accessory/facial_hair/facial_hair_style = facial_hair_styles_list[head_organ.f_style]
 		if(facial_hair_style && facial_hair_style.species_allowed)
-			if((head_organ.species.name in facial_hair_style.species_allowed) || (head_organ.species.bodyflags & ALL_RPARTS)) //If the head's species is in the list of allowed species for the hairstyle, or the head's species is one flagged to have bodies comprised wholly of cybernetics...
+			if((head_organ.dna.species.name in facial_hair_style.species_allowed) || (head_organ.dna.species.bodyflags & ALL_RPARTS)) //If the head's species is in the list of allowed species for the hairstyle, or the head's species is one flagged to have bodies comprised wholly of cybernetics...
 				var/icon/facial_s = new/icon("icon" = facial_hair_style.icon, "icon_state" = "[facial_hair_style.icon_state]_s")
-				if(head_organ.species.name == "Slime People") // I am el worstos
+				if(head_organ.dna.species.name == "Slime People") // I am el worstos
 					facial_s.Blend("[skin_colour]A0", ICON_AND)
 				else if(facial_hair_style.do_colouration)
 					facial_s.Blend(head_organ.facial_colour, ICON_ADD)
@@ -754,8 +754,8 @@ var/global/list/damage_icon_parts = list()
 
 		if(glasses.icon_override)
 			new_glasses = image("icon" = glasses.icon_override, "icon_state" = "[glasses.icon_state]")
-		else if(glasses.sprite_sheets && glasses.sprite_sheets[head_organ.species.name])
-			new_glasses = image("icon" = glasses.sprite_sheets[head_organ.species.name], "icon_state" = "[glasses.icon_state]")
+		else if(glasses.sprite_sheets && glasses.sprite_sheets[head_organ.dna.species.name])
+			new_glasses = image("icon" = glasses.sprite_sheets[head_organ.dna.species.name], "icon_state" = "[glasses.icon_state]")
 		else
 			new_glasses = image("icon" = 'icons/mob/eyes.dmi', "icon_state" = "[glasses.icon_state]")
 

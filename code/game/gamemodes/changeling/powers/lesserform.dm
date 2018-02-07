@@ -17,7 +17,7 @@
 
 	var/mob/living/carbon/human/H = user
 
-	if(!istype(H) || !H.species.primitive_form)
+	if(!istype(H) || !H.dna.species.primitive_form)
 		to_chat(H, "<span class='warning'>We cannot perform this ability in this form!</span>")
 		return
 

@@ -219,7 +219,7 @@
 	var/datum/dna/owner_dna = H.dna
 	clone.rename_character(clone.name, owner_dna.real_name)
 	clone.dna = owner_dna.Clone()
-	clone.set_species(H.species.name)
+	clone.set_species(H.dna.species.name)
 	clone.body_accessory = H.body_accessory
 	domutcheck(clone)
 

@@ -16,7 +16,7 @@
 /proc/genemutcheck(var/mob/living/M, var/block, var/connected=null, var/flags=0)
 	if(ishuman(M)) // Would've done this via species instead of type, but the basic mob doesn't have a species, go figure.
 		var/mob/living/carbon/human/H = M
-		if(NO_DNA in H.species.species_traits)
+		if(NO_DNA in H.dna.species.species_traits)
 			return
 	if(!M)
 		return
@@ -42,7 +42,7 @@
 	var/defaultgenes // Do not mutate inherent species abilities
 	if(ishuman(M))
 		var/mob/living/carbon/human/H = M
-		defaultgenes = H.species.default_genes
+		defaultgenes = H.dna.species.default_genes
 
 		if((gene in defaultgenes) && gene_active)
 			return

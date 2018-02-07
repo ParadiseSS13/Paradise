@@ -1,7 +1,7 @@
 /proc/issmall(A)
 	if(A && istype(A, /mob/living/carbon/human))
 		var/mob/living/carbon/human/H = A
-		if(H.species && H.species.is_small)
+		if(H.dna.species && H.dna.species.is_small)
 			return 1
  	return 0
 

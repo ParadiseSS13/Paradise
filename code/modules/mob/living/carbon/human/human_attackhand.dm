@@ -130,7 +130,7 @@
 			if(attacker_style && attacker_style.harm_act(H, src))
 				return 1
 			else
-				var/datum/unarmed_attack/attack = M.species.unarmed
+				var/datum/unarmed_attack/attack = M.dna.species.unarmed
 
 				M.do_attack_animation(src)
 				add_logs(M, src, "[pick(attack.attack_verb)]ed")
@@ -140,7 +140,7 @@
 				else
 					LAssailant = M
 
-				var/damage = rand(M.species.punchdamagelow, M.species.punchdamagehigh)
+				var/damage = rand(M.dna.species.punchdamagelow, M.dna.species.punchdamagehigh)
 				damage += attack.damage
 				if(!damage)
 					playsound(loc, attack.miss_sound, 25, 1, -1)
@@ -159,7 +159,7 @@
 				visible_message("<span class='danger'>[M] [pick(attack.attack_verb)]ed [src]!</span>")
 
 				apply_damage(damage, BRUTE, affecting, armor_block, sharp = attack.sharp) //moving this back here means Armalis are going to knock you down  70% of the time, but they're pure adminbus anyway.
-				if((stat != DEAD) && damage >= M.species.punchstunthreshold)
+				if((stat != DEAD) && damage >= M.dna.species.punchstunthreshold)
 					visible_message("<span class='danger'>[M] has weakened [src]!</span>", \
 									"<span class='userdanger'>[M] has weakened [src]!</span>")
 					apply_effect(4, WEAKEN, armor_block)

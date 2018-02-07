@@ -133,7 +133,7 @@
 		var/mob/living/carbon/human/H = src
 		var/obj/item/organ/external/head/head_organ = H.get_organ("head")
 		var/obj/item/organ/internal/eyes/eye_organ = H.get_int_organ(/obj/item/organ/internal/eyes)
-		var/datum/species/S = H.species
+		var/datum/species/S = H.dna.species
 		if(istype(head_organ))
 			dna.write_head_attributes(head_organ)
 		if(istype(eye_organ))

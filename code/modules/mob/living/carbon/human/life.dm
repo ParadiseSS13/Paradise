@@ -343,7 +343,7 @@
 		if(bodytemperature > dna.species.heat_level_2 && bodytemperature <= dna.species.heat_level_3)
 			throw_alert("temp", /obj/screen/alert/hot, 2)
 			take_overall_damage(burn=mult*HEAT_DAMAGE_LEVEL_2, used_weapon = "High Body Temperature")
-		if(bodytemperature > species.heat_level_3 && bodytemperature < INFINITY)
+		if(bodytemperature > dna.species.heat_level_3 && bodytemperature < INFINITY)
 			throw_alert("temp", /obj/screen/alert/hot, 3)
 			if(on_fire)
 				take_overall_damage(burn=mult*HEAT_DAMAGE_LEVEL_3, used_weapon = "Fire")
@@ -977,7 +977,7 @@
 			var/obj/item/clothing/mask/M = H.wear_mask
 			if(M && (M.flags_cover & MASKCOVERSMOUTH))
 				return
-			if(NO_BREATHE in H.species.species_traits)
+			if(NO_BREATHE in H.dna.species.species_traits)
 				return //no puking if you can't smell!
 			// Humans can lack a mind datum, y'know
 			if(H.mind && (H.mind.assigned_role == "Detective" || H.mind.assigned_role == "Coroner"))

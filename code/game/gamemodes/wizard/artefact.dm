@@ -586,9 +586,9 @@ var/global/list/multiverse = list()
 	M.equip_to_slot_or_del(W, slot_wear_id)
 
 	if(M.get_species() == "Vox")
-		M.species.after_equip_job(null, M) //Voxygen(tm)
+		M.dna.species.after_equip_job(null, M) //Voxygen(tm)
 	if(M.get_species() == "Plasmaman")
-		M.species.after_equip_job(null, M) //No fireballs from other dimensions.
+		M.dna.species.after_equip_job(null, M) //No fireballs from other dimensions.
 
 	M.update_icons()
 

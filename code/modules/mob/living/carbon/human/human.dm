@@ -1239,9 +1239,9 @@
 
 	//Replacing lost limbs with the species default.
 	var/mob/living/carbon/human/temp_holder
-	for(var/limb_type in H.species.has_limbs)
+	for(var/limb_type in H.dna.species.has_limbs)
 		if(!(limb_type in H.bodyparts_by_name))
-			var/list/organ_data = H.species.has_limbs[limb_type]
+			var/list/organ_data = H.dna.species.has_limbs[limb_type]
 			var/limb_path = organ_data["path"]
 			var/obj/item/organ/external/O = new limb_path(temp_holder)
 			if(H.get_limb_by_name(O.name)) //Check to see if the user already has an limb with the same name as the 'missing limb'. If they do, skip regrowth.
@@ -1254,8 +1254,8 @@
 
 	//Replacing lost organs with the species default.
 	temp_holder = new /mob/living/carbon/human()
-	for(var/index in H.species.has_organ)
-		var/organ = H.species.has_organ[index]
+	for(var/index in H.dna.species.has_organ)
+		var/organ = H.dna.species.has_organ[index]
 		if(!(organ in types_of_int_organs)) //If the mob is missing this particular organ...
 			var/obj/item/organ/internal/I = new organ(temp_holder) //Create the organ inside our holder so we can check it before implantation.
 			if(H.get_organ_slot(I.slot)) //Check to see if the user already has an organ in the slot the 'missing organ' belongs to. If they do, skip implantation.
@@ -1374,7 +1374,7 @@
 	else
 		to_chat(usr, "<span class='notice'>[self ? "Your" : "[src]'s"] pulse is [src.get_pulse(GETPULSE_HAND)].</span>")
 
-/mob/living/carbon/human/proc/set_species(var/new_species, var/default_colour, var/delay_icon_update = 0)
+/mob/living/carbon/human/proc/set_species(var/datum/species/new_species, var/default_colour, var/delay_icon_update = 0)
 	dna.species.on_species_loss(src)
 	var/datum/species/oldspecies = dna.species
 	var/datum/species/NS = all_species[new_species]
@@ -1406,7 +1406,7 @@
 		if(oldspecies.default_genes.len)
 			oldspecies.handle_dna(src,1) // Remove any genes that belong to the old species
 
-	dna.tail = dna.species.tail
+	tail = dna.species.tail
 
 	maxHealth = dna.species.total_health
 

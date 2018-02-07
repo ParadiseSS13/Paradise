@@ -323,7 +323,7 @@
 					var/arrivalmessage = announcer.arrivalmsg
 					arrivalmessage = replacetext(arrivalmessage,"$name",character.real_name)
 					arrivalmessage = replacetext(arrivalmessage,"$rank",rank ? "[rank]" : "visitor")
-					arrivalmessage = replacetext(arrivalmessage,"$species",character.species.name)
+					arrivalmessage = replacetext(arrivalmessage,"$species",character.dna.species.name)
 					arrivalmessage = replacetext(arrivalmessage,"$age",num2text(character.age))
 					arrivalmessage = replacetext(arrivalmessage,"$gender",character.gender == FEMALE ? "Female" : "Male")
 					announcer.say(";[arrivalmessage]")
