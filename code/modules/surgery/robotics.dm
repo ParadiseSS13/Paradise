@@ -485,11 +485,11 @@
 		"<span class='warning'> Your hand slips, gumming up the mechanisms inside of [target]'s [affected.name] with \the [tool]!</span>")
 
 		target.adjustToxLoss(5)
-		affected.take_damage(5)
+		affected.receive_damage(5)
 
 		for(var/obj/item/organ/internal/I in affected.internal_organs)
 			if(I)
-				I.take_damage(rand(3,5),0)
+				I.receive_damage(rand(3,5),0)
 
 	else if(current_type == "insert")
 		user.visible_message("<span class='warning'> [user]'s hand slips, disconnecting \the [tool].</span>", \

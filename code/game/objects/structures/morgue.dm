@@ -92,10 +92,6 @@
 				return
 	return
 
-/obj/structure/morgue/alter_health()
-	return loc
-
-
 /obj/structure/morgue/attack_hand(mob/user as mob)
 	if(connected)
 		for(var/atom/movable/A as mob|obj in connected.loc)
@@ -289,10 +285,6 @@
 				qdel(src)
 				return
 	return
-
-/obj/structure/crematorium/alter_health()
-	return loc
-
 
 /obj/structure/crematorium/attack_hand(mob/user as mob)
 	if(cremating)

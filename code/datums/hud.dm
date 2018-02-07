@@ -1,4 +1,5 @@
 /* HUD DATUMS */
+var/global/list/all_huds = list()
 
 ///GLOBAL HUD LIST
 var/datum/atom_hud/huds = list( \
@@ -7,6 +8,7 @@ var/datum/atom_hud/huds = list( \
 	DATA_HUD_MEDICAL_BASIC = new/datum/atom_hud/data/human/medical/basic(), \
 	DATA_HUD_MEDICAL_ADVANCED = new/datum/atom_hud/data/human/medical/advanced(), \
 	DATA_HUD_DIAGNOSTIC = new/datum/atom_hud/data/diagnostic(), \
+	DATA_HUD_DIAGNOSTIC_ADVANCED = new/datum/atom_hud/data/diagnostic/advanced(), \
 	DATA_HUD_HYDROPONIC = new/datum/atom_hud/data/hydroponic(), \
 	GAME_HUD_NATIONS = new/datum/atom_hud/antag(), \
 	ANTAG_HUD_CULT = new/datum/atom_hud/antag(), \
@@ -25,6 +27,18 @@ var/datum/atom_hud/huds = list( \
 	var/list/atom/hudatoms = list() //list of all atoms which display this hud
 	var/list/mob/hudusers = list() //list with all mobs who can see the hud
 	var/list/hud_icons = list() //these will be the indexes for the atom's hud_list
+
+
+/datum/atom_hud/New()
+	all_huds += src
+
+/datum/atom_hud/Destroy()
+	for(var/v in hudusers)
+		remove_hud_from(v)
+	for(var/v in hudatoms)
+		remove_from_hud(v)
+	all_huds -= src
+	return ..()
 
 /datum/atom_hud/proc/remove_hud_from(mob/M)
 	if(!M)
@@ -82,7 +96,7 @@ var/datum/atom_hud/huds = list( \
 			serv_huds += serv.thrallhud
 
 
-	for(var/datum/atom_hud/hud in (huds|serv_huds))//|gang_huds))
+	for(var/datum/atom_hud/hud in (all_huds|serv_huds))//|gang_huds))
 		if(src in hud.hudusers)
 			hud.add_hud_to(src)
 

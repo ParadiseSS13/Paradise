@@ -11,7 +11,7 @@
 "k" = (/obj/structure/table/survival_pod,/turf/simulated/floor/pod,/area/survivalpod)
 "l" = (/obj/structure/tubes,/obj/structure/stool/bed/chair/comfy/black{dir = 8},/turf/simulated/floor/pod,/area/survivalpod)
 "m" = (/obj/structure/sign/mining/survival,/turf/simulated/wall/survival,/area/survivalpod)
-"n" = (/obj/structure/fans/tiny,/obj/machinery/door/airlock/survival_pod,/turf/simulated/floor/pod,/area/survivalpod)
+"n" = (/obj/structure/fans/tiny,/obj/machinery/door/airlock/survival_pod/glass,/turf/simulated/floor/pod,/area/survivalpod)
 "o" = (/obj/structure/sign/mining,/turf/simulated/wall/survival,/area/survivalpod)
 
 (1,1,1) = {"

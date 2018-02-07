@@ -59,7 +59,7 @@ var/global/sent_honksquad = 0
 				new_honksquad.key = pick(commandos)
 				commandos -= new_honksquad.key
 				new_honksquad.internal = new_honksquad.s_store
-				new_honksquad.update_internals_hud_icon(1)
+				new_honksquad.update_action_buttons_icon()
 
 			//So they don't forget their code or mission.
 			new_honksquad.mind.store_memory("<B>Mission:</B> <span class='warning'>[input].</span>")

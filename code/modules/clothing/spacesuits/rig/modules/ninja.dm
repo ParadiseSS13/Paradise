@@ -40,8 +40,6 @@
 	to_chat(H, "<font color='blue'><b>You are now invisible to normal detection.</b></font>")
 	H.invisibility = INVISIBILITY_LEVEL_TWO
 
-	anim(get_turf(H), H, 'icons/effects/effects.dmi', "electricity",null,20,null)
-
 	H.visible_message("[H.name] vanishes into thin air!",1)
 
 /obj/item/rig_module/stealth_field/deactivate()
@@ -54,8 +52,7 @@
 	to_chat(H, "<span class='danger'>You are now visible.</span>")
 	H.invisibility = 0
 
-	anim(get_turf(H), H,'icons/mob/mob.dmi',,"uncloak",,H.dir)
-	anim(get_turf(H), H, 'icons/effects/effects.dmi', "electricity",null,20,null)
+	new /obj/effect/temp_visual/dir_setting/ninja(get_turf(H), H.dir)
 
 	for(var/mob/O in oviewers(H))
 		O.show_message("[H.name] appears from thin air!",1)
@@ -85,7 +82,7 @@
 	holder.spark_system.start()
 	playsound(T, 'sound/effects/phasein.ogg', 25, 1)
 	playsound(T, 'sound/effects/sparks2.ogg', 50, 1)
-	anim(T,M,'icons/mob/mob.dmi',,"phasein",,M.dir)
+	new /obj/effect/temp_visual/dir_setting/ninja/phase(T, M.dir)
 
 /obj/item/rig_module/teleporter/proc/phase_out(var/mob/M,var/turf/T)
 
@@ -93,7 +90,7 @@
 		return
 
 	playsound(T, "sparks", 50, 1)
-	anim(T,M,'icons/mob/mob.dmi',,"phaseout",,M.dir)
+	new /obj/effect/temp_visual/dir_setting/ninja/phase/out(T, M.dir)
 
 /obj/item/rig_module/teleporter/engage(var/atom/target, var/notify_ai)
 

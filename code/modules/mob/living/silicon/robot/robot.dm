@@ -274,11 +274,7 @@ var/list/robot_verbs_default = list(
 /mob/living/silicon/robot/proc/pick_module()
 	if(module)
 		return
-	var/list/modules = list("Standard", "Engineering", "Medical", "Miner", "Janitor", "Service")
-	if(!config.forbid_secborg)
-		modules += "Security"
-	if(!config.forbid_peaceborg)
-		modules += "Peacekeeper"
+	var/list/modules = list("Standard", "Engineering", "Medical", "Miner", "Janitor", "Service", "Security")
 	if(islist(force_modules) && force_modules.len)
 		modules = force_modules.Copy()
 	if(security_level == (SEC_LEVEL_GAMMA || SEC_LEVEL_EPSILON) || crisis)
@@ -354,11 +350,6 @@ var/list/robot_verbs_default = list(
 			module_sprites["Noble-SEC"] = "Noble-SEC"
 			status_flags &= ~CANPUSH
 
-		if("Peacekeeper")
-			module = new /obj/item/weapon/robot_module/peacekeeper(src)
-			module_sprites["Peacekeeper"] = "peace"
-			status_flags &= ~CANPUSH
-
 		if("Engineering")
 			module = new /obj/item/weapon/robot_module/engineering(src)
 			module.channels = list("Engineering" = 1)
@@ -411,7 +402,7 @@ var/list/robot_verbs_default = list(
 	feedback_inc("cyborg_[lowertext(modtype)]",1)
 	rename_character(real_name, get_default_name())
 
-	if(modtype == "Medical" || modtype == "Security" || modtype == "Combat" || modtype == "Peacekeeper" || modtype == "Nations")
+	if(modtype == "Medical" || modtype == "Security" || modtype == "Combat" || modtype == "Nations")
 		status_flags &= ~CANPUSH
 
 	choose_icon(6,module_sprites)
@@ -1181,14 +1172,18 @@ var/list/robot_verbs_default = list(
 		if(module.type == /obj/item/weapon/robot_module/janitor)
 			var/turf/tile = loc
 			if(isturf(tile))
-				tile.clean_blood()
+				var/floor_only = TRUE
 				if(istype(tile, /turf/simulated))
 					var/turf/simulated/S = tile
 					S.dirt = 0
 				for(var/A in tile)
 					if(istype(A, /obj/effect))
 						if(is_cleanable(A))
-							qdel(A)
+							var/obj/effect/decal/cleanable/blood/B = A
+							if(istype(B) && B.off_floor)
+								floor_only = FALSE
+							else
+								qdel(A)
 					else if(istype(A, /obj/item))
 						var/obj/item/cleaned_item = A
 						cleaned_item.clean_blood()
@@ -1209,6 +1204,8 @@ var/list/robot_verbs_default = list(
 								cleaned_human.update_inv_shoes(0,0)
 							cleaned_human.clean_blood()
 							to_chat(cleaned_human, "<span class='danger'>[src] cleans your face!</span>")
+				if(floor_only)
+					tile.clean_blood()
 		return
 #undef BORG_CAMERA_BUFFER
 
@@ -1484,10 +1481,28 @@ var/list/robot_verbs_default = list(
 	radio.recalculateChannels()
 	aiCamera = new/obj/item/device/camera/siliconcam/robot_camera(src)
 
-/mob/living/silicon/robot/ert/New(loc)
-	..()
+/mob/living/silicon/robot/ert/New(loc, cyborg_unlock)
+	..(loc)
 	cell.maxcharge = 25000
 	cell.charge = 25000
+	var/rnum = rand(1,1000)
+	var/borgname = "ERT [rnum]"
+	name = borgname
+	custom_name = borgname
+	real_name = name
+	mind = new
+	mind.current = src
+	mind.original = src
+	mind.assigned_role = "MODE"
+	mind.special_role = SPECIAL_ROLE_ERT
+	if(cyborg_unlock)
+		crisis = 1
+	if(!(mind in ticker.minds))
+		ticker.minds += mind
+	ticker.mode.ert += mind
+
+/mob/living/silicon/robot/ert/gamma
+	crisis = 1
 
 /mob/living/silicon/robot/nations
 	base_icon = "droidpeace"

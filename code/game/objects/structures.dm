@@ -138,7 +138,7 @@
 
 			if(affecting)
 				to_chat(M, "<span class='warning'>You land heavily on your [affecting.name]!</span>")
-				affecting.take_damage(damage, 0)
+				affecting.receive_damage(damage, 0)
 				if(affecting.parent)
 					affecting.parent.add_autopsy_data("Misadventure", damage)
 			else
