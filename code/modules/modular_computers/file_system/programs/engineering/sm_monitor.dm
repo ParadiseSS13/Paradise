@@ -123,13 +123,13 @@
 /datum/computer_file/program/supermatter_monitor/Topic(href, href_list)
 	if(..())
 		return 1
-	if( href_list["clear"] )
+	if(href_list["clear"])
 		active = null
 		return 1
-	if( href_list["refresh"] )
+	if(href_list["refresh"])
 		refresh()
 		return 1
-	if( href_list["set"] )
+	if(href_list["set"])
 		var/newuid = text2num(href_list["set"])
 		for(var/obj/machinery/power/supermatter_shard/S in supermatters)
 			if(S.uid == newuid)
