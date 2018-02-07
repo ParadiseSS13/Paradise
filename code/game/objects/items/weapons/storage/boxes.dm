@@ -639,19 +639,25 @@
 	slot_flags = SLOT_BELT
 	can_hold = list(/obj/item/weapon/match)
 
-	New()
-		..()
-		for(var/i=1; i <= storage_slots; i++)
-			new /obj/item/weapon/match(src)
+/obj/item/weapon/storage/box/matches/New()
+	..()
+	for(var/i in 1 to storage_slots)
+		new /obj/item/weapon/match(src)
 
-	attackby(obj/item/weapon/match/W as obj, mob/user as mob, params)
-		if(istype(W, /obj/item/weapon/match) && W.lit == 0)
-			W.lit = 1
-			W.icon_state = "match_lit"
-			processing_objects.Add(W)
-			playsound(user.loc, 'sound/goonstation/misc/matchstick_light.ogg', 50, 1)
-		W.update_icon()
-		return
+/obj/item/weapon/storage/box/matches/attackby(obj/item/weapon/match/W, mob/user, params)
+	if(istype(W, /obj/item/weapon/match) && W.lit == 0)
+		W.lit = 1
+		W.icon_state = "match_lit"
+		W.damtype = "fire"
+		W.force = 3
+		W.item_state = "cigon"
+		W.name = "lit match"
+		W.desc = "A match. This one is lit."
+		W.attack_verb = list("burnt","singed")
+		processing_objects.Add(W)
+		playsound(user.loc, 'sound/goonstation/misc/matchstick_light.ogg', 50, 1)
+	W.update_icon()
+	return
 
 /obj/item/weapon/storage/box/autoinjectors
 	name = "box of injectors"

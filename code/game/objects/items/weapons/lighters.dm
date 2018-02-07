@@ -13,7 +13,7 @@
 	throwforce = 4
 	flags = CONDUCT
 	slot_flags = SLOT_BELT
-	attack_verb = list("burnt", "singed")
+	attack_verb = null
 	var/lit = 0
 
 /obj/item/weapon/lighter/zippo
@@ -38,6 +38,10 @@
 			w_class = WEIGHT_CLASS_BULKY
 			icon_state = icon_on
 			item_state = icon_on
+			force = 5
+			damtype = "fire"
+			hitsound = 'sound/items/welder.ogg'
+			attack_verb = list("burnt", "singed")
 			if(istype(src, /obj/item/weapon/lighter/zippo) )
 				user.visible_message("<span class='rose'>Without even breaking stride, [user] flips open and lights [src] in one smooth movement.</span>")
 				playsound(src.loc, 'sound/items/ZippoLight.ogg', 25, 1)
@@ -62,6 +66,9 @@
 			w_class = WEIGHT_CLASS_TINY
 			icon_state = icon_off
 			item_state = icon_off
+			hitsound = "swing_hit"
+			force = 0
+			attack_verb = null //human_defense.dm takes care of it
 			if(istype(src, /obj/item/weapon/lighter/zippo) )
 				user.visible_message("<span class='rose'>You hear a quiet click, as [user] shuts off [src] without even looking at what they're doing. Wow.")
 				playsound(src.loc, 'sound/items/ZippoClose.ogg', 25, 1)
@@ -149,21 +156,27 @@
 	var/smoketime = 5
 	w_class = WEIGHT_CLASS_TINY
 	origin_tech = "materials=1"
-	attack_verb = list("burnt", "singed")
+	attack_verb = null
 
 /obj/item/weapon/match/process()
 	var/turf/location = get_turf(src)
 	smoketime--
 	if(smoketime < 1)
-		icon_state = "match_burnt"
 		lit = -1
+		damtype = "brute"
+		force = 0
+		icon_state = "match_burnt"
+		item_state = "cigoff"
+		name = "burnt match"
+		desc = "A match. This one has seen better days."
+		attack_verb = null
 		processing_objects.Remove(src)
 		return
 	if(location)
 		location.hotspot_expose(700, 5)
 		return
 
-/obj/item/weapon/match/dropped(mob/user as mob)
+/obj/item/weapon/match/dropped(mob/user)
 	if(lit == 1)
 		lit = -1
 		damtype = "brute"
@@ -171,6 +184,7 @@
 		item_state = "cigoff"
 		name = "burnt match"
 		desc = "A match. This one has seen better days."
+		attack_verb = null
 		processing_objects.Remove(src)
 	return ..()
 
