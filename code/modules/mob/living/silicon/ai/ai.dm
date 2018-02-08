@@ -229,10 +229,10 @@ var/list/ai_verbs_default = list(
 /mob/living/silicon/ai/Stat()
 	..()
 	if(statpanel("Status"))
-		if(!stat)
-			show_borg_info()
+		if(stat)
+			stat(null, text("Systems nonfunctional"))
 			return
-		stat(null, text("Systems nonfunctional"))
+		show_borg_info()
 
 /mob/living/silicon/ai/proc/show_borg_info()
 	stat(null, text("Connected cyborgs: [connected_robots.len]"))
