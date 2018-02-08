@@ -163,6 +163,8 @@ obj/item/weapon/wirerod/attackby(obj/item/I, mob/user, params)
 	w_class = WEIGHT_CLASS_HUGE
 	var/homerun_ready = 0
 	var/homerun_able = 0
+	var/swing_power = 0
+	var/at_bat = FALSE
 
 /obj/item/weapon/melee/baseball_bat/homerun
 	name = "home run bat"
@@ -170,22 +172,68 @@ obj/item/weapon/wirerod/attackby(obj/item/I, mob/user, params)
 	homerun_able = 1
 
 /obj/item/weapon/melee/baseball_bat/attack_self(mob/user)
+	wind_up(user)
+	..()
+
+/obj/item/weapon/melee/baseball_bat/proc/wind_up(mob/user)
+	if(at_bat)
+		return
+	if(swing_power == 3)
+		return
+	at_bat = TRUE
+	to_chat(user, "<span class='notice'>You begin gathering strength...</span>")
+	if(swing_power == 0  && at_bat)
+		if(do_after(user, 10, target = src) && at_bat)
+			swing_power = 1
+			user.playsound_local(null, 'sound/items/timer.ogg', 50, 0)
+	if(swing_power == 1  && at_bat)
+		if(do_after(user, 20, target = src) && at_bat)
+			swing_power = 2
+			user.playsound_local(null, 'sound/items/timer.ogg', 50, 0)
+	if(swing_power == 2  && at_bat)
+		if(do_after(user, 40, target = src) && at_bat)
+			swing_power = 3
+			user.playsound_local(null, 'sound/items/timer.ogg', 50, 0)
+	at_bat = FALSE
+	spawn(30)
+		if(!at_bat && swing_power)
+			wind_down(user)
+
+/obj/item/weapon/melee/baseball_bat/homerun/wind_up(mob/user)
 	if(!homerun_able)
 		..()
 		return
 	if(homerun_ready)
 		to_chat(user, "<span class='notice'>You're already ready to do a home run!</span>")
-		..()
 		return
 	to_chat(user, "<span class='warning'>You begin gathering strength...</span>")
 	playsound(get_turf(src), 'sound/magic/lightning_chargeup.ogg', 65, 1)
 	if(do_after(user, 90, target = src))
 		to_chat(user, "<span class='userdanger'>You gather power! Time for a home run!</span>")
 		homerun_ready = 1
+
+/obj/item/weapon/melee/baseball_bat/proc/wind_down(mob/user)
+	if(at_bat || !swing_power)
+		return
+	spawn(10)
+		if(at_bat)
+			return
+		if(swing_power)
+			swing_power--
+		if(!swing_power)
+			to_chat(user, "<span class='warning'>You relax your swing stance.</span>")
+			user.playsound_local(null, 'sound/machines/synth_no.ogg', 50, 0)
+		else
+			wind_down(user)
+
+/obj/item/weapon/melee/baseball_bat/dropped()
+	at_bat = FALSE
+	swing_power = 0
 	..()
 
 /obj/item/weapon/melee/baseball_bat/attack(mob/living/target, mob/living/user)
 	. = ..()
+	at_bat = FALSE
 	var/atom/throw_target = get_edge_target_turf(target, user.dir)
 	if(homerun_ready)
 		user.visible_message("<span class='userdanger'>It's a home run!</span>")
@@ -194,8 +242,9 @@ obj/item/weapon/wirerod/attackby(obj/item/I, mob/user, params)
 		playsound(get_turf(src), 'sound/weapons/HOMERUN.ogg', 100, 1)
 		homerun_ready = 0
 		return
-	else
-		target.throw_at(throw_target, rand(1,2), 7, user)
+	else if(swing_power)
+		target.throw_at(throw_target, swing_power, 7, user)
+		swing_power = 0
 
 /obj/item/weapon/melee/baseball_bat/ablative
 	name = "metal baseball bat"
