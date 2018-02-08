@@ -1,7 +1,30 @@
+/mob/living/New()
+	. = ..()
+	var/datum/atom_hud/data/human/medical/advanced/medhud = huds[DATA_HUD_MEDICAL_ADVANCED]
+	medhud.add_to_hud(src)
+
+/mob/living/prepare_huds()
+	..()
+	prepare_data_huds()
+
+/mob/living/proc/prepare_data_huds()
+	..()
+	med_hud_set_health()
+	med_hud_set_status()
+
 
 /mob/living/Destroy()
 	if(ranged_ability)
 		ranged_ability.remove_ranged_ability(src)
+	remove_from_all_data_huds()
+
+	if(LAZYLEN(status_effects))
+		for(var/s in status_effects)
+			var/datum/status_effect/S = s
+			if(S.on_remove_on_mob_delete) //the status effect calls on_remove when its mob is deleted
+				qdel(S)
+			else
+				S.be_replaced()
 	return ..()
 
 /mob/living/ghostize(can_reenter_corpse = 1)
@@ -214,6 +237,7 @@
 		stat = CONSCIOUS
 		return
 	health = maxHealth - getOxyLoss() - getToxLoss() - getFireLoss() - getBruteLoss() - getCloneLoss()
+	med_hud_set_health()
 
 
 //This proc is used for mobs which are affected by pressure to calculate the amount of pressure that actually
@@ -896,13 +920,13 @@
 	// And animate the attack!
 	animate(I, alpha = 175, pixel_x = 0, pixel_y = 0, pixel_z = 0, time = 3)
 
-/atom/movable/proc/receive_damage(atom/A)
+/atom/movable/proc/receiving_damage(atom/A)
 	var/pixel_x_diff = rand(-3,3)
 	var/pixel_y_diff = rand(-3,3)
 	animate(src, pixel_x = pixel_x + pixel_x_diff, pixel_y = pixel_y + pixel_y_diff, time = 2)
 	animate(pixel_x = initial(pixel_x), pixel_y = initial(pixel_y), time = 2)
 
-/mob/living/receive_damage(atom/A)
+/mob/living/receiving_damage(atom/A)
 	..()
 	floating = 0 // If we were without gravity, the bouncing animation got stopped, so we make sure we restart the bouncing after the next movement.
 
@@ -1036,7 +1060,7 @@
 		return //no message spam
 
 	if(final_taste_list.len == 0)//too many reagents - none meet their thresholds
-		to_chat(src, "<span class='notice'>You you can't really make out what you're tasting...</span>")
+		to_chat(src, "<span class='notice'>You can't really make out what you're tasting...</span>")
 		return
 
 	to_chat(src, "<span class='notice'>You can taste [english_list(final_taste_list)].</span>")

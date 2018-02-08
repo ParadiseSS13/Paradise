@@ -34,8 +34,15 @@
 	..()
 
 /atom/proc/prepare_huds()
+	hud_list = list()
 	for(var/hud in hud_possible)
-		hud_list[hud] = image('icons/mob/hud.dmi', src, "")
+		var/hint = hud_possible[hud]
+		switch(hint)
+			if(HUD_LIST_LIST)
+				hud_list[hud] = list()
+			else
+				var/image/I = image('icons/mob/hud.dmi', src, "")
+				hud_list[hud] = I
 
 /mob/proc/generate_name()
 	return name
@@ -1265,3 +1272,20 @@ var/list/slot_equipment_priority = list( \
 	.["Remove Verb"] = "?_src_=vars;remverb=[UID()]"
 
 	.["Gib"] = "?_src_=vars;gib=[UID()]"
+
+/mob/proc/spin(spintime, speed)
+	set waitfor = 0
+	var/D = dir
+	while(spintime >= speed)
+		sleep(speed)
+		switch(D)
+			if(NORTH)
+				D = EAST
+			if(SOUTH)
+				D = WEST
+			if(EAST)
+				D = SOUTH
+			if(WEST)
+				D = NORTH
+		setDir(D)
+		spintime -= speed

@@ -13,109 +13,89 @@
 	nonabstract_req = 1
 	centcom_cancast = 0 //Prevent people from getting to centcom
 
-	var phaseshift = 0
 	var/jaunt_duration = 50 //in deciseconds
+	var/jaunt_in_time = 5
+	var/jaunt_in_type = /obj/effect/temp_visual/wizard
+	var/jaunt_out_type = /obj/effect/temp_visual/wizard/out
 
 	action_icon_state = "jaunt"
 
 /obj/effect/proc_holder/spell/targeted/ethereal_jaunt/cast(list/targets, mob/user = usr) //magnets, so mostly hardcoded
+	playsound(get_turf(user), 'sound/magic/Ethereal_Enter.ogg', 50, 1, -1)
 	for(var/mob/living/target in targets)
 		if(!target.can_safely_leave_loc()) // No more brainmobs hopping out of their brains
 			to_chat(target, "<span class='warning'>You are somehow too bound to your current location to abandon it.</span>")
 			continue
-		spawn(0)
+		addtimer(src, "do_jaunt", 0, FALSE, target)
 
-			if(target.buckled)
-				var/obj/structure/stool/bed/buckled_to = target.buckled.
-				buckled_to.unbuckle_mob()
+/obj/effect/proc_holder/spell/targeted/ethereal_jaunt/proc/do_jaunt(mob/living/target)
+	target.notransform = 1
+	var/turf/mobloc = get_turf(target)
+	var/obj/effect/dummy/spell_jaunt/holder = new /obj/effect/dummy/spell_jaunt(mobloc)
+	new jaunt_out_type(mobloc, target.dir)
+	target.ExtinguishMob()
+	target.forceMove(holder)
+	target.reset_perspective(holder)
+	target.notransform = 0 //mob is safely inside holder now, no need for protection.
+	jaunt_steam(mobloc)
 
-			var/mobloc = get_turf(target.loc)
-			var/obj/effect/dummy/spell_jaunt/holder = new /obj/effect/dummy/spell_jaunt( mobloc )
-			var/atom/movable/overlay/animation = new /atom/movable/overlay( mobloc )
-			animation.name = "water"
-			animation.density = 0
-			animation.anchored = 1
-			animation.icon = 'icons/mob/mob.dmi'
-			animation.icon_state = "liquify"
-			animation.layer = 5
-			animation.master = holder
-			target.ExtinguishMob()
-			if(target.buckled)
-				target.buckled.unbuckle_mob()
-			if(phaseshift == 1)
-				animation.dir = target.dir
-				flick("phase_shift",animation)
-				target.loc = holder
-				target.client.eye = holder
-				sleep(jaunt_duration)
-				mobloc = get_turf(target.loc)
-				animation.loc = mobloc
-				target.canmove = 0
-				sleep(20)
-				animation.dir = target.dir
-				flick("phase_shift2",animation)
-				sleep(5)
-				if(!target.Move(mobloc))
-					for(var/direction in list(1,2,4,8,5,6,9,10))
-						var/turf/T = get_step(mobloc, direction)
-						if(T)
-							if(target.Move(T))
-								break
-				target.canmove = 1
-				target.client.eye = target
-				qdel(animation)
-				qdel(holder)
-			else
-				flick("liquify",animation)
-				target.loc = holder
-				target.client.eye = holder
-				var/datum/effect/system/steam_spread/steam = new /datum/effect/system/steam_spread()
-				steam.set_up(10, 0, mobloc)
-				steam.start()
-				sleep(jaunt_duration)
-				mobloc = get_turf(target.loc)
-				animation.loc = mobloc
-				steam.location = mobloc
-				steam.start()
-				target.canmove = 0
-				sleep(20)
-				flick("reappear",animation)
-				sleep(5)
-				if(!target.Move(mobloc))
-					for(var/direction in list(1,2,4,8,5,6,9,10))
-						var/turf/T = get_step(mobloc, direction)
-						if(T)
-							if(target.Move(T))
-								break
-				target.canmove = 1
-				target.client.eye = target
-				qdel(animation)
-				qdel(holder)
+	sleep(jaunt_duration)
+
+	if(target.loc != holder) //mob warped out of the warp
+		qdel(holder)
+		return
+	mobloc = get_turf(target.loc)
+	jaunt_steam(mobloc)
+	target.canmove = 0
+	holder.reappearing = 1
+	playsound(get_turf(target), 'sound/magic/Ethereal_Exit.ogg', 50, 1, -1)
+	sleep(25 - jaunt_in_time)
+	new jaunt_in_type(mobloc, holder.dir)
+	target.setDir(holder.dir)
+	sleep(jaunt_in_time)
+	qdel(holder)
+	if(!qdeleted(target))
+		if(mobloc.density)
+			for(var/direction in alldirs)
+				var/turf/T = get_step(mobloc, direction)
+				if(T)
+					if(target.Move(T))
+						break
+		target.canmove = 1
+
+/obj/effect/proc_holder/spell/targeted/ethereal_jaunt/proc/jaunt_steam(mobloc)
+	var/datum/effect_system/steam_spread/steam = new /datum/effect_system/steam_spread()
+	steam.set_up(10, 0, mobloc)
+	steam.start()
 
 /obj/effect/dummy/spell_jaunt
 	name = "water"
 	icon = 'icons/effects/effects.dmi'
 	icon_state = "nothing"
-	var/canmove = 1
+	var/reappearing = 0
+	var/movedelay = 0
+	var/movespeed = 2
 	density = 0
 	anchored = 1
+	invisibility = 60
 	burn_state = LAVA_PROOF
 
 /obj/effect/dummy/spell_jaunt/Destroy()
 	// Eject contents if deleted somehow
 	for(var/atom/movable/AM in src)
-		AM.loc = get_turf(src)
+		AM.forceMove(get_turf(src))
 	return ..()
 
-/obj/effect/dummy/spell_jaunt/relaymove(var/mob/user, direction)
-	if(!src.canmove) return
+/obj/effect/dummy/spell_jaunt/relaymove(mob/user, direction)
+	if((movedelay > world.time) || reappearing || !direction)
+		return
 	var/turf/newLoc = get_step(src,direction)
+	setDir(direction)
 	if(!(newLoc.flags & NOJAUNT))
-		loc = newLoc
+		forceMove(newLoc)
 	else
 		to_chat(user, "<span class='warning'>Some strange aura is blocking the way!</span>")
-	src.canmove = 0
-	spawn(2) src.canmove = 1
+	movedelay = world.time + movespeed
 
 /obj/effect/dummy/spell_jaunt/ex_act(blah)
 	return

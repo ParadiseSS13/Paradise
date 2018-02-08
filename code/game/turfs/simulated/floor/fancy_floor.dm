@@ -107,7 +107,7 @@
 				set_light(1, 1)
 
 /turf/simulated/floor/carpet
-	name = "Carpet"
+	name = "carpet"
 	icon = 'icons/turf/floors/carpet.dmi'
 	icon_state = "carpet"
 	floor_tile = /obj/item/stack/tile/carpet
@@ -159,3 +159,9 @@
 /turf/simulated/floor/fakespace/New()
 	..()
 	icon_state = "[rand(0,25)]"
+
+/turf/simulated/floor/carpet/arcade
+	icon = 'icons/goonstation/turf/floor.dmi'
+	icon_state = "arcade"
+	floor_tile = /obj/item/stack/tile/arcade_carpet
+	smooth = SMOOTH_FALSE

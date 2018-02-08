@@ -128,7 +128,7 @@
 
 /obj/machinery/atmospherics/omni/attack_ghost(mob/user)
 	ui_interact(user)
-	
+
 /obj/machinery/atmospherics/omni/proc/build_icons()
 	if(!check_icon_cache())
 		return
@@ -293,7 +293,7 @@
 			P.parent = New
 
 
-/obj/machinery/atmospherics/omni/process()
+/obj/machinery/atmospherics/omni/process_atmos()
 	..()
 	for(var/datum/omni_port/port in ports)
 		if(!port.parent)

@@ -8,7 +8,9 @@
 	gas_transfer_coefficient = 0.90
 	put_on_delay = 20
 	var/resist_time = 0 //deciseconds of how long you need to gnaw to get rid of the gag, 0 to make it impossible to remove
-	var/mute = 1 // 1 - completely mutes you, 0 - muffles everything you say "MHHPHHMMM!!!"
+	var/mute = MUTE_ALL
+	var/security_lock = FALSE // Requires brig access to remove 0 - Remove as normal
+	var/locked = FALSE //Indicates if a mask is locked, should always start as 0.
 	species_fit = list("Vox")
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/species/vox/mask.dmi'
@@ -18,7 +20,65 @@
 /obj/item/clothing/mask/muzzle/attack_hand(mob/user as mob)
 	if(user.wear_mask == src && !user.IsAdvancedToolUser())
 		return 0
+	else if(security_lock && locked)
+		if(do_unlock(user))
+			visible_message("<span class='danger'>[user] unlocks their [src.name].</span>", \
+								"<span class='userdanger'>[user] unlocks their [src.name].</span>")
 	..()
+	return 1
+
+/obj/item/clothing/mask/muzzle/proc/do_break()
+	if(security_lock)
+		security_lock = FALSE
+		locked = FALSE
+		flags &= ~NODROP
+		desc += " This one appears to be broken."
+		return TRUE
+	else
+		return FALSE
+
+/obj/item/clothing/mask/muzzle/proc/do_unlock(mob/living/carbon/human/user)
+	if(istype(user.get_inactive_hand(), /obj/item/weapon/card/emag))
+		to_chat(user, "<span class='warning'>The lock vibrates as the card forces its locking system open.</span>")
+		do_break()
+		return TRUE
+	else if(access_brig in user.get_access())
+		to_chat(user, "<span class='warning'>The muzzle unlocks with a click.</span>")
+		locked = FALSE
+		flags &= ~NODROP
+		return TRUE
+
+	to_chat(user, "<span class='warning'>You must be wearing a security ID card or have one in your inactive hand to remove the muzzle.</span>")
+	return FALSE
+
+/obj/item/clothing/mask/muzzle/proc/do_lock(mob/living/carbon/human/user)
+	if(security_lock)
+		locked = TRUE
+		flags |= NODROP
+		return TRUE
+	return FALSE
+
+/obj/item/clothing/mask/muzzle/Topic(href, href_list)
+	..()
+	if(href_list["locked"])
+		var/mob/living/carbon/wearer = locate(href_list["locked"])
+		var/success = 0
+		if(ishuman(usr))
+			visible_message("<span class='danger'>[usr] tries to [locked ? "unlock" : "lock"] [wearer]'s [name].</span>", \
+							"<span class='userdanger'>[usr] tries to [locked ? "unlock" : "lock"] [wearer]'s [name].</span>")
+			if(do_mob(usr, wearer, POCKET_STRIP_DELAY))
+				if(locked)
+					success = do_unlock(usr)
+				else
+					success = do_lock(usr)
+			if(success)
+				visible_message("<span class='danger'>[usr] [locked ? "locks" : "unlocks"] [wearer]'s [name].</span>", \
+									"<span class='userdanger'>[usr] [locked ? "locks" : "unlocks"] [wearer]'s [name].</span>")
+				if(usr.machine == wearer && in_range(src, usr))
+					wearer.show_inv(usr)
+		else
+			to_chat(usr, "You lack the ability to manipulate the lock.")
+
 
 /obj/item/clothing/mask/muzzle/gag
 	name = "gag"
@@ -33,7 +93,7 @@
 	item_state = null
 	w_class = WEIGHT_CLASS_TINY
 	resist_time = 150
-	mute = 0
+	mute = MUTE_MUFFLE
 	species_fit = list("Vox", "Unathi", "Tajaran", "Vulpkanin", "Grey")
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/species/vox/mask.dmi',
@@ -52,6 +112,15 @@
 	spawn(0) // Because of how dropping is done, if the muzzle gets deleted now, icons won't properly update and the whole unEquip() proc will break stuff.
 		qdel(src) // This makes sure it gets deleted AFTER all that has to be done is done.
 		user.emote("scream")
+
+/obj/item/clothing/mask/muzzle/safety
+	name = "safety muzzle"
+	desc = "A muzzle designed to prevent biting."
+	resist_time = 600
+	mute = MUTE_NONE
+	security_lock = TRUE
+	locked = FALSE
+
 
 /obj/item/clothing/mask/surgical
 	name = "sterile mask"

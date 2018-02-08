@@ -180,18 +180,7 @@ var/const/tk_maxrange = 15
 /obj/item/tk_grab/proc/apply_focus_overlay()
 	if(!focus)
 		return
-	// Oh jeez ow
-	var/obj/effect/overlay/O = new /obj/effect/overlay(locate(focus.x,focus.y,focus.z))
-	O.name = "sparkles"
-	O.anchored = 1
-	O.density = 0
-	O.layer = FLY_LAYER
-	O.dir = pick(cardinal)
-	O.icon = 'icons/effects/effects.dmi'
-	O.icon_state = "nothing"
-	flick("empdisable",O)
-	spawn(5)
-		qdel(O)
+	new /obj/effect/temp_visual/telekinesis(get_turf(focus))
 
 /obj/item/tk_grab/proc/form_grab(mob/user, obj/target)
 	user.put_in_active_hand(src)

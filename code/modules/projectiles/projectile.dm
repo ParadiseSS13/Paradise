@@ -71,21 +71,34 @@
 	if(!isliving(target))
 		return 0
 	var/mob/living/L = target
+	var/mob/living/carbon/human/H
 	if(blocked < 100) // not completely blocked
 		if(damage && L.blood_volume && damage_type == BRUTE)
 			var/splatter_dir = dir
 			if(starting)
 				splatter_dir = get_dir(starting, target_loca)
 			if(isalien(L))
-				new /obj/effect/overlay/temp/dir_setting/bloodsplatter/xenosplatter(target_loca, splatter_dir)
+				new /obj/effect/temp_visual/dir_setting/bloodsplatter/xenosplatter(target_loca, splatter_dir)
 			else
 				var/blood_color = "#C80000"
 				if(ishuman(target))
-					var/mob/living/carbon/human/H = target
+					H = target
 					blood_color = H.species.blood_color
-				new /obj/effect/overlay/temp/dir_setting/bloodsplatter(target_loca, splatter_dir, blood_color)
+				new /obj/effect/temp_visual/dir_setting/bloodsplatter(target_loca, splatter_dir, blood_color)
 			if(prob(33))
-				L.add_splatter_floor(target_loca)
+				var/list/shift = list("x" = 0, "y" = 0)
+				var/turf/step_over = get_step(target_loca, splatter_dir)
+
+				if(get_splatter_blockage(step_over, target, splatter_dir, target_loca)) //If you can't cross the tile or any of its relevant obstacles...
+					shift = pixel_shift_dir(splatter_dir) //Pixel shift the blood there instead (so you can't see wallsplatter through walls).
+				else
+					target_loca = step_over
+				L.add_splatter_floor(target_loca, shift_x = shift["x"], shift_y = shift["y"])
+				if(istype(H))
+					for(var/mob/living/carbon/human/M in step_over) //Bloody the mobs who're infront of the spray.
+						M.bloody_hands(H)
+						/* Uncomment when bloody_body stops randomly not transferring blood colour.
+						M.bloody_body(H) */
 
 		var/organ_hit_text = ""
 		if(L.has_limbs)
@@ -109,6 +122,15 @@
 	if(!log_override && firer && original)
 		add_logs(firer, L, "shot", src, reagent_note)
 	return L.apply_effects(stun, weaken, paralyze, irradiate, slur, stutter, eyeblur, drowsy, blocked, stamina, jitter)
+
+/obj/item/projectile/proc/get_splatter_blockage(var/turf/step_over, var/atom/target, var/splatter_dir, var/target_loca) //Check whether the place we want to splatter blood is blocked (i.e. by windows).
+	var/turf/step_cardinal = !(splatter_dir in list(NORTH, SOUTH, EAST, WEST)) ? get_step(target_loca, get_cardinal_dir(target_loca, step_over)) : null
+
+	if(step_over.density && !step_over.CanPass(target, step_over, 1)) //Preliminary simple check.
+		return TRUE
+	for(var/atom/movable/border_obstacle in step_over) //Check to see if we're blocked by a (non-full) window or some such. Do deeper investigation if we're splattering blood diagonally.
+		if(border_obstacle.flags&ON_BORDER && get_dir(step_cardinal ? step_cardinal : target_loca, step_over) ==  turn(border_obstacle.dir, 180))
+			return TRUE
 
 /obj/item/projectile/proc/vol_by_damage()
 	if(damage)

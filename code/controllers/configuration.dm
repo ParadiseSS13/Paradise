@@ -50,8 +50,6 @@
 	var/humans_need_surnames = 0
 	var/allow_random_events = 0			// enables random events mid-round when set to 1
 	var/allow_ai = 1					// allow ai job
-	var/forbid_secborg = 0				// disallow secborg module to be chosen.
-	var/forbid_peaceborg = 0			// disallow peacekeeper module to be chosen.
 	var/hostedby = null
 	var/respawn = 0
 	var/guest_jobban = 1
@@ -70,6 +68,7 @@
 	var/assistantratio = 2 //how many assistants to security members
 
 	var/traitor_objectives_amount = 2
+	var/shadowling_max_age = 0
 
 	var/max_maint_drones = 5				//This many drones can spawn,
 	var/allow_drone_spawn = 1				//assuming the admin allow them to.
@@ -84,6 +83,7 @@
 	var/wikiurl = "http://example.org"
 	var/forumurl = "http://example.org"
 	var/rulesurl = "http://example.org"
+	var/githuburl = "http://example.org"
 	var/donationsurl = "http://example.org"
 	var/repositoryurl = "http://example.org"
 
@@ -261,6 +261,9 @@
 				if("jobs_have_minimal_access")
 					config.jobs_have_minimal_access = 1
 
+				if("shadowling_max_age")
+					config.shadowling_max_age = text2num(value)
+
 				if("log_ooc")
 					config.log_ooc = 1
 
@@ -336,12 +339,6 @@
 				if("allow_ai")
 					config.allow_ai = 1
 
-				if("disable_secborg")
-					forbid_secborg = 1
-
-				if("disable_peaceborg")
-					forbid_peaceborg = 1
-
 //				if("authentication")
 //					config.enable_authentication = 1
 
@@ -374,6 +371,9 @@
 
 				if("rulesurl")
 					config.rulesurl = value
+
+				if("githuburl")
+					config.githuburl = value
 
 				if("donationsurl")
 					config.donationsurl = value

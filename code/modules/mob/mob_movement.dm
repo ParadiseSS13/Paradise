@@ -147,11 +147,12 @@
 			mob.control_object.forceMove(get_step(mob.control_object, direct))
 	return
 
-
+#define MOVEMENT_DELAY_BUFFER 0.75
+#define MOVEMENT_DELAY_BUFFER_DELTA 1.25
 /client/Move(n, direct)
 	if(world.time < move_delay)
 		return
-
+	var/old_move_delay = move_delay
 	move_delay = world.time + world.tick_lag //this is here because Move() can now be called multiple times per tick
 	if(!mob || !mob.loc)
 		return 0
@@ -220,7 +221,11 @@
 
 	//We are now going to move
 	moving = 1
-	move_delay = mob.movement_delay() + world.time
+	var/delay = mob.movement_delay()
+	if(old_move_delay + (delay * MOVEMENT_DELAY_BUFFER_DELTA) + MOVEMENT_DELAY_BUFFER > world.time)
+		move_delay = old_move_delay + delay
+	else
+		move_delay = delay + world.time
 	mob.last_movement = world.time
 
 	if(locate(/obj/item/weapon/grab, mob))
@@ -361,13 +366,12 @@
 				spawn(0)
 					var/limit = 2//For only two trailing shadows.
 					for(var/turf/T in getline(mobloc, L.loc))
-						spawn(0)
-							anim(T,L,'icons/mob/mob.dmi',,"shadow",,L.dir)
+						new /obj/effect/temp_visual/dir_setting/ninja/shadow(T, L.dir)
 						limit--
-						if(limit<=0)	break
+						if(limit<=0)
+							break
 			else
-				spawn(0)
-					anim(mobloc,mob,'icons/mob/mob.dmi',,"shadow",,L.dir)
+				new /obj/effect/temp_visual/dir_setting/ninja/shadow(mobloc, L.dir)
 				L.forceMove(get_step(L, direct))
 			L.dir = direct
 		if(3) //Incorporeal move, but blocked by holy-watered tiles

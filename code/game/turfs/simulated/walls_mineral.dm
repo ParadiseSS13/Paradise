@@ -96,6 +96,7 @@
 	if(is_hot(W) > 300)//If the temperature of the object is over 300, then ignite
 		message_admins("Plasma wall ignited by [key_name_admin(user)] in ([x], [y], [z] - <A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[x];Y=[y];Z=[z]'>JMP</a>)",0,1)
 		log_game("Plasma wall ignited by [key_name(user)] in ([x], [y], [z])")
+		investigate_log("was <font color='red'><b>ignited</b></font> by [key_name(user)]","atmos")
 		ignite(is_hot(W))
 		return
 	..()
@@ -125,7 +126,7 @@
 	desc = "A strange-looking alien wall."
 	icon = 'icons/turf/walls/plasma_wall.dmi'
 	icon_state = "plasma"
-	sheet_type = null
+	sheet_type = /obj/item/stack/sheet/mineral/abductor
 	canSmoothWith = list(/turf/simulated/wall/mineral/alien, /obj/structure/falsewall/alien)
 
 /turf/simulated/wall/mineral/wood
@@ -152,6 +153,7 @@
 	desc = "A wall with alien alloy plating."
 	icon = 'icons/turf/walls/abductor_wall.dmi'
 	icon_state = "abductor"
+	smooth = SMOOTH_TRUE|SMOOTH_DIAGONAL
 	sheet_type = /obj/item/stack/sheet/mineral/abductor
 	explosion_block = 3
 	canSmoothWith = list(/turf/simulated/wall/mineral/abductor, /obj/structure/falsewall/abductor)

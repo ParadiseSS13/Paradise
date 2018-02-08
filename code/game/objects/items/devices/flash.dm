@@ -122,7 +122,7 @@
 				for(var/obj/item/borg/combat/shield/S in R.module.modules)
 					if(R.activated(S))
 						add_logs(user, M, "flashed", object="[src.name]")
-						user.visible_message("<span class='disarm'>[user] tries to overloads [M]'s sensors with the [src.name], but if blocked by [M]'s shield!</span>", "<span class='danger'>You try to overload [M]'s sensors with the [src.name], but are blocked by his shield!</span>")
+						user.visible_message("<span class='disarm'>[user] tries to overloads [M]'s sensors with the [src.name], but is blocked by [M]'s shield!</span>", "<span class='danger'>You try to overload [M]'s sensors with the [src.name], but are blocked by their shield!</span>")
 						return 1
 		add_logs(user, M, "flashed", object="[src.name]")
 		if(M.flash_eyes(affect_silicon = 1))
@@ -179,21 +179,11 @@
 
 /obj/item/device/flash/cyborg/attack(mob/living/M, mob/user)
 	..()
-	cyborg_flash_animation(user)
+	new /obj/effect/temp_visual/borgflash(get_turf(src))
 
 /obj/item/device/flash/cyborg/attack_self(mob/user)
 	..()
-	cyborg_flash_animation(user)
-
-/obj/item/device/flash/cyborg/proc/cyborg_flash_animation(var/mob/living/user)
-	var/atom/movable/overlay/animation = new(user.loc)
-	animation.layer = user.layer + 1
-	animation.icon_state = "blank"
-	animation.icon = 'icons/mob/mob.dmi'
-	animation.master = user
-	flick("blspell", animation)
-	sleep(5)
-	qdel(animation)
+	new /obj/effect/temp_visual/borgflash(get_turf(src))
 
 /obj/item/device/flash/memorizer
 	name = "memorizer"

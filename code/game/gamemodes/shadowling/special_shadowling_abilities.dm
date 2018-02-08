@@ -9,6 +9,7 @@ var/list/possibleShadowlingNames = list("U'ruan", "Y`shej", "Nex", "Hel-uae", "N
 	range = -1
 	include_user = 1
 	action_icon_state = "hatch"
+	var/cycles_unused = 0
 
 /obj/effect/proc_holder/spell/targeted/shadowling_hatch/cast(list/targets, mob/user = usr)
 	if(user.stat || !ishuman(user) || !user || !is_shadow(user || isinspace(user)))
@@ -178,6 +179,7 @@ var/list/possibleShadowlingNames = list("U'ruan", "Y`shej", "Nex", "Hel-uae", "N
 				sleep(50)
 				if(!ticker.mode.shadowling_ascended)
 					shuttle_master.emergency.request(null, 0.3)
+					shuttle_master.emergency.canRecall = FALSE
 				ticker.mode.shadowling_ascended = 1
 				A.mind.RemoveSpell(src)
 				qdel(H)

@@ -9,8 +9,7 @@
 	var/obj/item/device/modular_computer/holder = null
 	// Computer that holds this hardware, if any.
 
-	var/obj_integrity = 200
-	var/max_integrity = 200
+	max_integrity = 200
 
 	var/power_usage = 0 			// If the hardware uses extra power, change this.
 	var/enabled = 1					// If the hardware is turned off set this to 0.
@@ -77,7 +76,7 @@
 	return TRUE // Good to go.
 
 // Handles damage checks
-/obj/item/weapon/computer_hardware/proc/take_damage(damage_amount)
+/obj/item/weapon/computer_hardware/take_damage(damage_amount)
 	obj_integrity = max(obj_integrity - damage_amount, 0)
 
 /obj/item/weapon/computer_hardware/examine(var/mob/user)

@@ -16,7 +16,7 @@
 	humanize_prompt += " Role: [spider_role_summary]"
 	if(user.ckey in ts_ckey_blacklist)
 		error_on_humanize = "You are not able to control any terror spider this round."
-	else if(user.has_enabled_antagHUD == 1 && config.antag_hud_restricted)
+	else if(cannotPossess(user))
 		error_on_humanize = "You have enabled antag HUD and are unable to re-enter the round."
 	else if(spider_awaymission)
 		error_on_humanize = "Terror spiders that are part of an away mission cannot be controlled by ghosts."

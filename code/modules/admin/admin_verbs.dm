@@ -171,9 +171,9 @@ var/list/admin_verbs_debug = list(
 	/client/proc/map_template_upload,
 	/client/proc/view_runtimes,
 	/client/proc/admin_serialize,
-	/client/proc/admin_deserialize,
 	/client/proc/jump_to_ruin,
-	/client/proc/toggle_medal_disable
+	/client/proc/toggle_medal_disable,
+	/client/proc/startadmintickets,
 	)
 var/list/admin_verbs_possess = list(
 	/proc/possess,
@@ -220,6 +220,12 @@ var/list/admin_verbs_snpc = list(
 	/client/proc/customiseSNPC,
 	/client/proc/hide_snpc_verbs
 )
+var/list/admin_verbs_ticket = list(
+	/client/proc/openTicketUI,
+	/client/proc/toggleticketlogs,
+	/client/proc/resolveAllTickets,
+	/client/proc/openUserUI
+)
 
 /client/proc/on_holder_add()
 	if(chatOutput && chatOutput.loaded)
@@ -232,6 +238,7 @@ var/list/admin_verbs_snpc = list(
 			verbs += /client/proc/togglebuildmodeself
 		if(holder.rights & R_ADMIN)
 			verbs += admin_verbs_admin
+			verbs += admin_verbs_ticket
 			spawn(1)
 				control_freak = 0
 		if(holder.rights & R_BAN)
@@ -282,7 +289,8 @@ var/list/admin_verbs_snpc = list(
 		admin_verbs_show_debug_verbs,
 		/client/proc/readmin,
 		admin_verbs_snpc,
-		/client/proc/hide_snpc_verbs
+		/client/proc/hide_snpc_verbs,
+		admin_verbs_ticket
 	)
 
 /client/proc/hide_verbs()
@@ -918,6 +926,20 @@ var/list/admin_verbs_snpc = list(
 		to_chat(usr, "You now won't get admin log messages.")
 	else
 		to_chat(usr, "You now will get admin log messages.")
+
+/client/proc/toggleticketlogs()
+	set name = "Toggle Admin Ticket Messgaes"
+	set category = "Preferences"
+
+	if(!check_rights(R_ADMIN))
+		return
+
+	prefs.toggles ^= CHAT_NO_TICKETLOGS
+	prefs.save_preferences(src)
+	if(prefs.toggles & CHAT_NO_TICKETLOGS)
+		to_chat(usr, "You now won't get admin ticket messages.")
+	else
+		to_chat(usr, "You now will get admin ticket messages.")
 
 /client/proc/toggledrones()
 	set name = "Toggle Maintenance Drones"

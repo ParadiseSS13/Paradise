@@ -19,6 +19,8 @@
 	bot_core_type = /obj/machinery/bot_core/medbot
 	window_id = "automed"
 	window_name = "Automatic Medical Unit v1.1"
+	path_image_color = "#DDDDFF"
+	data_hud_type = DATA_HUD_MEDICAL_ADVANCED
 
 	var/obj/item/weapon/reagent_containers/glass/reagent_glass = null //Can be set to draw from this for reagents.
 	var/skin = null //Set to "tox", "ointment" or "o2" for the other two firstaid kits.
@@ -569,7 +571,7 @@
 	if(prob(50))
 		new /obj/item/robot_parts/l_arm(Tsec)
 
-	var/datum/effect/system/spark_spread/s = new /datum/effect/system/spark_spread
+	var/datum/effect_system/spark_spread/s = new /datum/effect_system/spark_spread
 	s.set_up(3, 1, src)
 	s.start()
 	..()

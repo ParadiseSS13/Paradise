@@ -217,7 +217,7 @@
 
 			for(var/turf/T in linkedholodeck)
 				if(prob(30))
-					var/datum/effect/system/spark_spread/s = new /datum/effect/system/spark_spread
+					var/datum/effect_system/spark_spread/s = new /datum/effect_system/spark_spread
 					s.set_up(2, 1, T)
 					s.start()
 				T.ex_act(3)
@@ -257,7 +257,7 @@
 				if(L.name=="Atmospheric Test Start")
 					spawn(20)
 						var/turf/T = get_turf(L)
-						var/datum/effect/system/spark_spread/s = new /datum/effect/system/spark_spread
+						var/datum/effect_system/spark_spread/s = new /datum/effect_system/spark_spread
 						s.set_up(2, 1, T)
 						s.start()
 						if(T)
@@ -306,7 +306,7 @@
 /*			if(L.name=="Atmospheric Test Start")
 				spawn(20)
 					var/turf/T = get_turf(L)
-					var/datum/effect/system/spark_spread/s = new /datum/effect/system/spark_spread
+					var/datum/effect_system/spark_spread/s = new /datum/effect_system/spark_spread
 					s.set_up(2, 1, T)
 					s.start()
 					if(T)
@@ -353,30 +353,15 @@
 	// HOLOFLOOR DOES NOT GIVE A FUCK
 
 /obj/structure/table/holotable
-	name = "table"
-
-/obj/structure/table/holotable/attack_alien(mob/user as mob)
-	return attack_hand(user)
-
-/obj/structure/table/holotable/attack_animal(mob/living/simple_animal/user as mob)
-	return attack_hand(user)
-
-/obj/structure/table/holotable/attack_hand(mob/user as mob)
-	return // HOLOTABLE DOES NOT GIVE A FUCK
-
-/obj/structure/table/holotable/attackby(obj/item/weapon/W as obj, mob/user as mob, params)
-	if(istype(W, /obj/item/weapon/grab))
-		return ..()
-
-	if(istype(W, /obj/item/weapon/wrench))
-		to_chat(user, "<span class='warning'>It's a holotable! There are no bolts!</span>")
-		return
+	can_deconstruct = FALSE
+	canSmoothWith = list(/obj/structure/table/holotable)
 
 /obj/structure/table/holotable/wood
-	name = "table"
+	name = "wooden table"
 	desc = "A square piece of wood standing on four wooden legs. It can not move."
-	icon = 'icons/obj/structures.dmi'
+	icon = 'icons/obj/smooth_structures/wood_table.dmi'
 	icon_state = "wood_table"
+	canSmoothWith = list(/obj/structure/table/holotable/wood)
 
 /obj/item/clothing/gloves/boxing/hologlove
 	name = "boxing gloves"
@@ -396,21 +381,7 @@
 	flags = ON_BORDER
 
 /obj/structure/rack/holorack
-	name = "rack"
-
-/obj/structure/rack/holorack/attack_alien(mob/user as mob)
-	return attack_hand(user)
-
-/obj/structure/rack/holorack/attack_animal(mob/living/simple_animal/user as mob)
-	return attack_hand(user)
-
-/obj/structure/rack/holorack/attack_hand(mob/user as mob)
-	return // HOLORACK DOES NOT GIVE A FUCK
-
-/obj/structure/rack/holorack/attackby(obj/item/weapon/W as obj, mob/user as mob, params)
-	if(istype(W, /obj/item/weapon/wrench))
-		to_chat(user, "<span class='warning'>It's a holorack! There are no bolts!</span>")
-		return
+	can_deconstruct = FALSE
 
 /obj/item/weapon/holo
 	damtype = STAMINA
