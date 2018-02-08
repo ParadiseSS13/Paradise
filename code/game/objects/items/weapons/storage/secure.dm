@@ -207,6 +207,12 @@
 	add_fingerprint(user)
 	return
 
+/obj/item/weapon/storage/secure/briefcase/MouseDrop_T(obj/item/weapon/restraints/handcuffs/I, mob/user)
+	applyHandcuff(I, user)
+
+/obj/item/weapon/storage/secure/briefcase/MouseDrop(mob/living/carbon/human/user)
+	toggleHandcuff(user)
+
 //Syndie variant of Secure Briefcase. Contains space cash, slightly more robust.
 /obj/item/weapon/storage/secure/briefcase/syndie
 	force = 15

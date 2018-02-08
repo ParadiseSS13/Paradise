@@ -24,6 +24,8 @@
 	var/collection_mode = 1;  //0 = pick one at a time, 1 = pick all on tile
 	var/foldable = null	// BubbleWrap - if set, can be folded (when empty) into a sheet of cardboard
 	var/use_sound = "rustle"	//sound played when used. null for no sound.
+	var/cuff = FALSE // Used for applying cuffs briefcases. TRUE/FALSE if it has a cuff attached
+	var/cuff_active = FALSE // TRUE/FALSE is the applied cuff locked or unlocked. TRUE = locked FALSE = unlocked
 
 /obj/item/weapon/storage/MouseDrop(obj/over_object as obj)
 	if(ishuman(usr)) //so monkeys can take off their backpacks -- Urist
@@ -573,3 +575,50 @@
 		else
 			log_runtime(EXCEPTION("Non-list thing found in storage/deserialize."), src, list("Thing: [thing]"))
 	..()
+
+/obj/item/weapon/storage/proc/applyHandcuff(obj/item/weapon/restraints/handcuffs/I, mob/user)
+	if(user.incapacitated() || !ishuman(user))
+		return
+
+	if(cuff)
+		to_chat(user, "<span class='notice'>[src] already has a handcuff attached!</span>")
+
+	else
+		to_chat(user, "<span class='notice'>You start attaching [I] to [src]'s handle.</span>")
+		if(do_after(user, 20, target = user))
+			cuff = TRUE
+			playsound(loc, 'sound/weapons/handcuffs.ogg', 30, 1, -2)
+			to_chat(user, "<span class='notice'>You successfully clip the shackle of [I] around [src]'s handle.'</span>")
+			qdel(I)
+			desc += " It has a handcuff attached to its handle."
+
+/obj/item/weapon/storage/proc/toggleHandcuff(mob/living/carbon/human/user)
+	if(!cuff)
+		return ..()
+
+	var/hand
+	if(user.incapacitated())
+		return
+
+	if(user.l_hand == src)
+		if(do_after(user, 20, target = user))
+			playsound(loc, 'sound/weapons/handcuffs.ogg', 30, 1, -2)
+			user.l_hand.flags ^= NODROP
+			cuff_active = !cuff_active
+			hand = "left"
+
+	else if(user.r_hand == src)
+		if(do_after(user, 20, target = user))
+			playsound(loc, 'sound/weapons/handcuffs.ogg', 30, 1, -2)
+			user.r_hand.flags ^= NODROP
+			cuff_active = !cuff_active
+			hand = "right"
+
+	else
+		to_chat(user, "<span class='notice'>[src] isn't in your hand!</span>")
+		return
+
+	if(cuff_active)
+		to_chat(user, "<span class='notice'>You clip [src]'s handcuff around your [hand] wrist.</span>")
+	else
+		to_chat(user, "<span class='notice'>You unclip [src]'s shackle.</span>")
