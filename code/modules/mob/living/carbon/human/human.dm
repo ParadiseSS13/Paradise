@@ -1828,9 +1828,9 @@
 
 /mob/living/carbon/human/canBeHandcuffed()
 	if(get_num_arms() >= 2)
-		return 1
+		return TRUE
 	else
-		return 0
+		return FALSE
 
 /mob/living/carbon/human/InCritical()
 	return (health <= config.health_threshold_crit && stat == UNCONSCIOUS)

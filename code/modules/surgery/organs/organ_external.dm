@@ -523,28 +523,45 @@ Note that amputating the affected organ does in fact remove the infection from t
 			qdel(src) // If you flashed away to ashes, YOU FLASHED AWAY TO ASHES
 			return null
 
-/obj/item/organ/external/chest/droplimb()
-	if(cannot_amputate || !owner || !hasorgans(src))
+/obj/item/organ/external/chest/proc/droplimb()
+	if(!owner || !hasorgans(src))
 		return
 
 	var/mob/living/carbon/C = owner
 
-	var/organ_spilled = 0
+	var/organ_spilled = FALSE
 	var/turf/T = get_turf(C)
 	C.add_splatter_floor(T)
 	playsound(get_turf(C), 'sound/effects/splat.ogg', 25, 1)
 	for(var/X in C.internal_organs)
 		var/obj/item/organ/O = X
-		var/org_zone = check_zone(O.parent_organ)
-		if(org_zone == "chest" || org_zone == "groin")
-			O.remove(C)
-			O.forceMove(T)
-			organ_spilled = 1
+		O.remove(C)
+		O.forceMove(T)
+		organ_spilled = TRUE
 
 	if(organ_spilled)
 		C.visible_message("<span class='danger'><B>[C]'s internal organs spill out onto the floor!</B></span>")
-	return 1
+	return TRUE
 
+/obj/item/organ/external/groin/proc/droplimb()
+	if(!owner || !hasorgans(src))
+		return
+
+	var/mob/living/carbon/C = owner
+
+	var/organ_spilled = FALSE
+	var/turf/T = get_turf(C)
+	C.add_splatter_floor(T)
+	playsound(get_turf(C), 'sound/effects/splat.ogg', 25, 1)
+	for(var/X in C.internal_organs)
+		var/obj/item/organ/O = X
+		O.remove(C)
+		O.forceMove(T)
+		organ_spilled = TRUE
+
+	if(organ_spilled)
+		C.visible_message("<span class='danger'><B>[C]'s internal organs spill out onto the floor!</B></span>")
+	return TRUE
 
 /obj/item/organ/external/attackby(obj/item/I, mob/user, params)
 	if(I.sharp)
