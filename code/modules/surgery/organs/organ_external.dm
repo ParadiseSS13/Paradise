@@ -221,6 +221,8 @@
 
 			if(dismember_at_max_damage && body_part != UPPER_TORSO && body_part != LOWER_TORSO) // We've ensured all damage to the mob is retained, now let's drop it, if necessary.
 				droplimb(1) //Clean loss, just drop the limb and be done
+			if(dismember_at_max_damage && (body_part == UPPER_TORSO || body_part == LOWER_TORSO))
+				disembowel()
 
 	// See if bones need to break
 	check_fracture()
@@ -230,7 +232,10 @@
 		if(!cannot_amputate && (brute_dam) >= (max_damage))
 			if(prob(brute / 2))
 				if(sharp)
-					droplimb(0, DROPLIMB_SHARP)
+					if(body_part == UPPER_TORSO || body_part == LOWER_TORSO)
+						disembowel()
+					else
+						droplimb(0, DROPLIMB_SHARP)
 
 	if(owner_old)
 		owner_old.updatehealth()
@@ -523,7 +528,7 @@ Note that amputating the affected organ does in fact remove the infection from t
 			qdel(src) // If you flashed away to ashes, YOU FLASHED AWAY TO ASHES
 			return null
 
-/obj/item/organ/external/chest/proc/droplimb()
+/obj/item/organ/external/proc/disembowel()
 	if(!owner || !hasorgans(src))
 		return
 
@@ -543,25 +548,6 @@ Note that amputating the affected organ does in fact remove the infection from t
 		C.visible_message("<span class='danger'><B>[C]'s internal organs spill out onto the floor!</B></span>")
 	return TRUE
 
-/obj/item/organ/external/groin/proc/droplimb()
-	if(!owner || !hasorgans(src))
-		return
-
-	var/mob/living/carbon/C = owner
-
-	var/organ_spilled = FALSE
-	var/turf/T = get_turf(C)
-	C.add_splatter_floor(T)
-	playsound(get_turf(C), 'sound/effects/splat.ogg', 25, 1)
-	for(var/X in C.internal_organs)
-		var/obj/item/organ/O = X
-		O.remove(C)
-		O.forceMove(T)
-		organ_spilled = TRUE
-
-	if(organ_spilled)
-		C.visible_message("<span class='danger'><B>[C]'s internal organs spill out onto the floor!</B></span>")
-	return TRUE
 
 /obj/item/organ/external/attackby(obj/item/I, mob/user, params)
 	if(I.sharp)
