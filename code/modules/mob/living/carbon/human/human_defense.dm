@@ -219,15 +219,12 @@ emp_act
 		if(I.attack_verb && I.attack_verb.len)
 			visible_message("<span class='combat danger'>[src] has been [pick(I.attack_verb)] in the [hit_area] with [I] by [user]!</span>",
 			"<span class='combat userdanger'>[src] has been [pick(I.attack_verb)] in the [hit_area] with [I] by [user]!</span>"))
-		else if(I.force == 0)
-			visible_message("<span class='combat danger'>[src] has been [pick("tapped","patted")] on the [hit_area] with [I] by [user]!</span>", \
-			"<span class='combat userdanger'>[src] has been [pick("tapped","patted")] on the [hit_area] with [I] by [user]!</span>")
-		else
+		else if(I.force)
 			visible_message("<span class='combat danger'>[src] has been attacked in the [hit_area] with [I] by [user]!</span>",
 			"<span class='combat userdanger'>[src] has been attacked in the [hit_area] with [I] by [user]!</span>"))
+		else
+			return 0
 
-	if(!I.force)
-		return 0
 	var/armor = run_armor_check(affecting, "melee", "<span class='warning'>Your armour has protected your [hit_area].</span>", "<span class='warning'>Your armour has softened hit to your [hit_area].</span>", armour_penetration = I.armour_penetration)
 	var/weapon_sharp = is_sharp(I)
 	if(weapon_sharp && prob(getarmor(user.zone_sel.selecting, "melee")))

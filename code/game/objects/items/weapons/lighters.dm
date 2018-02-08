@@ -168,10 +168,10 @@
 		location.hotspot_expose(700, 5)
 		return
 
-/obj/item/match/fire_act()
+/obj/item/weapon/match/fire_act()
 	matchignite()
 
-/obj/item/match/proc/matchignite()
+/obj/item/weapon/match/proc/matchignite()
 	if(!lit && !burnt)
 		lit = TRUE
 		icon_state = "match_lit"
@@ -185,7 +185,7 @@
 		processing_objects.Add(src)
 		update_icon()
 
-/obj/item/match/proc/matchburnout()
+/obj/item/weapon/match/proc/matchburnout()
 	if(lit)
 		lit = FALSE
 		burnt = TRUE
@@ -198,7 +198,7 @@
 		attack_verb = list("flicked")
 		processing_objects.Remove(src)
 
-/obj/item/match/dropped(mob/user)
+/obj/item/weapon/match/dropped(mob/user)
 	matchburnout()
 	. = ..()
 

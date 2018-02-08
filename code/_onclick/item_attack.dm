@@ -20,7 +20,7 @@
 	I.attack(src, user)
 
 /mob/living/proc/attacked_by(obj/item/I, mob/living/user, def_zone)
-	apply_damage(I.force, I.damtype)
+	apply_damage(I.force, I.damtype, def_zone)
 	if(I.damtype == "brute")
 		if(prob(33) && I.force)
 			add_splatter_floor()
@@ -29,7 +29,7 @@
 	if(user)
 		showname = " by [user]!"
 		user.do_attack_animation(src)
-	if(!(user in viewers(I, null)))
+	if(!(user in viewers(src, null)))
 		showname = "."
 
 	if(I.attack_verb && I.attack_verb.len)
@@ -38,9 +38,16 @@
 	else if(I.force)
 		visible_message("<span class='combat danger'>[src] has been attacked with [I][showname]</span>",
 		"<span class='userdanger'>[src] has been attacked with [I][showname]</span>")
-	if(!showname && user)
-		if(user.client)
-			to_chat(user, "<span class='combat danger'>You attack [M] with [src]. </span>")
+
+/mob/living/simple_animal/attacked_by(obj/item/I, mob/living/user)
+	if(!I.force)
+		user.visible_message("<span class='warning'>[user] gently taps [src] with [I].</span>",\
+						"<span class='warning'>This weapon is ineffective, it does no damage.</span>")
+	else if(I.force >= force_threshold && I.damtype != STAMINA)
+		..()
+	else
+		visible_message("<span class='danger'>[I] bounces harmlessly off of [src].</span>",\
+					"<span class='userdanger'>[I] bounces harmlessly off of [src].</span>")
 
 // Proximity_flag is 1 if this afterattack was called on something adjacent, in your square, or on your person.
 // Click parameters is the params string from byond Click() code, see that documentation.
@@ -85,7 +92,7 @@
 	/////////////////////////
 	user.lastattacked = M
 	M.lastattacker = user
-	add_logs(user, M, "attacked", name, "(INTENT: [uppertext(user.a_intent)]) (DAMTYE: [uppertext(damtype)])", print_attack_log = (force > 0))//print it if stuff deals damage
+	add_logs(user, M, "attacked", name, "(INTENT: [uppertext(user.a_intent)]) (DAMTYPE: [uppertext(damtype)])", print_attack_log = (force > 0))//print it if stuff deals damage
 
 	if(!iscarbon(user))
 		M.LAssailant = null

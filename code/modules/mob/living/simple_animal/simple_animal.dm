@@ -276,9 +276,6 @@
 		var/damage = rand(M.melee_damage_lower, M.melee_damage_upper)
 		attack_threshold_check(damage,M.melee_damage_type)
 
-/mob/living/simple_animal/proc/attacked_by(obj/item/I, mob/living/user) // Handled in _onclick/click.dm
-	return
-
 /mob/living/simple_animal/bullet_act(var/obj/item/projectile/Proj)
 	if(!Proj)
 		return
@@ -422,6 +419,7 @@
 				else
 					visible_message("<span class='danger'>[O] bounces harmlessly off of [src].</span>",\
 									"<span class='userdanger'>[O] bounces harmlessly off of [src].</span>")
+				playsound(loc, O.hitsound, 50, 1, -1)
 			else
 				user.visible_message("<span class='warning'>[user] gently taps [src] with [O].</span>",\
 									"<span class='warning'>This weapon is ineffective, it does no damage.</span>")
