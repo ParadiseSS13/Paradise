@@ -524,10 +524,13 @@ Note that amputating the affected organ does in fact remove the infection from t
 			return null
 
 /obj/item/organ/external/chest/droplimb()
-	if(!owner || !hasorgans(src))
+	if(!owner)
 		return
 
 	var/mob/living/carbon/C = owner
+
+	if(!hasorgans(C))
+		return
 
 	var/organ_spilled = FALSE
 	var/turf/T = get_turf(C)
@@ -546,10 +549,13 @@ Note that amputating the affected organ does in fact remove the infection from t
 	return TRUE
 
 /obj/item/organ/external/groin/droplimb()
-	if(!owner || !hasorgans(src))
+	if(!owner)
 		return
 
 	var/mob/living/carbon/C = owner
+
+	if(!hasorgans(C))
+		return
 
 	var/organ_spilled = FALSE
 	var/turf/T = get_turf(C)
