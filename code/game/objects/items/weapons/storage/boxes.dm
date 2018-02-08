@@ -645,18 +645,9 @@
 		new /obj/item/weapon/match(src)
 
 /obj/item/weapon/storage/box/matches/attackby(obj/item/weapon/match/W, mob/user, params)
-	if(istype(W, /obj/item/weapon/match) && W.lit == 0)
-		W.lit = 1
-		W.icon_state = "match_lit"
-		W.damtype = "fire"
-		W.force = 3
-		W.item_state = "cigon"
-		W.name = "lit match"
-		W.desc = "A match. This one is lit."
-		W.attack_verb = list("burnt","singed")
-		processing_objects.Add(W)
+	if(istype(W, /obj/item/weapon/match) && !W.lit)
+		W.matchignite()
 		playsound(user.loc, 'sound/goonstation/misc/matchstick_light.ogg', 50, 1)
-	W.update_icon()
 	return
 
 /obj/item/weapon/storage/box/autoinjectors
