@@ -166,4 +166,4 @@
 /obj/machinery/door/poddoor/multi_tile/two_tile_hor/
 	icon = 'icons/obj/doors/1x2blast_hor.dmi'
 	width = 2
-dir = EAST
+	dir = EAST
