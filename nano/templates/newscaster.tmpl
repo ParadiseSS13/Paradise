@@ -97,6 +97,13 @@ Property of Nanotrasen</font><br>
 			</div>
 		</div>
 		<div class='item'>
+			<div class='itemLabel'>Title:</div>
+			<div class='itemContent'>
+				<a style='float: left; padding-right: 6px;'>{{:data.title}}</a>
+				{{:helper.link('Edit', 'pencil', {'set_message_title' : 1})}}
+			</div>
+		</div>
+		<div class='item'>
 			<div class='itemLabel'>Message body:</div>
 			<div class='itemContent'>
 				<a style='float: left; padding-right: 6px;'>{{:data.msg}}</a>
@@ -132,7 +139,8 @@ Property of Nanotrasen</font><br>
 		{{else}}
 			{{for data.messages}}
 				<div class='statusDisplay'>
-					- {{:value.body}}<br>
+					<b>{{:value.title}}</b><br>
+					{{:value.body}}<br>
 					{{if value.img}}
 						<img src='data:image/png;base64,{{:value.img}}' width=180><br>
 					{{/if}}
