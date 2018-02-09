@@ -523,7 +523,7 @@ Note that amputating the affected organ does in fact remove the infection from t
 			qdel(src) // If you flashed away to ashes, YOU FLASHED AWAY TO ASHES
 			return null
 
-/obj/item/organ/external/chest/droplimb()
+/obj/item/organ/external/proc/disembowel(spillage_zone = "chest")
 	if(!owner)
 		return
 
@@ -539,7 +539,7 @@ Note that amputating the affected organ does in fact remove the infection from t
 	for(var/X in C.internal_organs)
 		var/obj/item/organ/O = X
 		var/org_zone = check_zone(O.parent_organ)
-		if(org_zone == "chest")
+		if(org_zone == spillage_zone)
 			O.remove(C)
 			O.forceMove(T)
 			organ_spilled = TRUE
@@ -547,31 +547,15 @@ Note that amputating the affected organ does in fact remove the infection from t
 	if(organ_spilled)
 		C.visible_message("<span class='danger'><B>[C]'s internal organs spill out onto the floor!</B></span>")
 	return TRUE
+
+/obj/item/organ/external/chest/droplimb()
+	if(disembowel())
+		return TRUE
 
 /obj/item/organ/external/groin/droplimb()
-	if(!owner)
-		return
+	if(disembowel("groin"))
+		return TRUE
 
-	var/mob/living/carbon/C = owner
-
-	if(!hasorgans(C))
-		return
-
-	var/organ_spilled = FALSE
-	var/turf/T = get_turf(C)
-	C.add_splatter_floor(T)
-	playsound(get_turf(C), 'sound/effects/splat.ogg', 25, 1)
-	for(var/X in C.internal_organs)
-		var/obj/item/organ/O = X
-		var/org_zone = check_zone(O.parent_organ)
-		if(org_zone == "groin")
-			O.remove(C)
-			O.forceMove(T)
-			organ_spilled = TRUE
-
-	if(organ_spilled)
-		C.visible_message("<span class='danger'><B>[C]'s internal organs spill out onto the floor!</B></span>")
-	return TRUE
 
 
 /obj/item/organ/external/attackby(obj/item/I, mob/user, params)
