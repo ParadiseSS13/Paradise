@@ -14,8 +14,6 @@
 	attack_verb = list("bashed", "battered", "bludgeoned", "thrashed", "whacked")
 	burn_state = FLAMMABLE
 	burntime = 20
-	var/cuff
-	var/cuff_active = FALSE
 
 /obj/item/weapon/storage/briefcase/New()
 	..()

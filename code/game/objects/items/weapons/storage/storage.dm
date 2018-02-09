@@ -31,6 +31,9 @@
 	if(ishuman(usr)) //so monkeys can take off their backpacks -- Urist
 		var/mob/M = usr
 
+		if(checkCuffActive(M))
+			return
+
 		if(istype(usr.loc,/obj/mecha)) // stops inventory actions in a mech
 			return
 
@@ -103,6 +106,10 @@
 	return L
 
 /obj/item/weapon/storage/proc/show_to(mob/user as mob)
+
+	if(checkCuffActive(user))
+		return
+
 	if(user.s_active != src)
 		for(var/obj/item/I in src)
 			if(I.on_found(user))
@@ -130,6 +137,7 @@
 	return
 
 /obj/item/weapon/storage/proc/open(mob/user as mob)
+
 	if(src.use_sound)
 		playsound(src.loc, src.use_sound, 50, 1, -5)
 
@@ -143,6 +151,12 @@
 	src.hide_from(user)
 	user.s_active = null
 	return
+
+/obj/item/weapon/storage/proc/checkCuffActive(mob/user)
+	if(cuff_active)
+		if(user)
+			to_chat(user, "<span class='notice'>The case is held closed by its cuff!</span>")
+		return TRUE
 
 //This proc draws out the inventory and places the items on it. tx and ty are the upper left tile and mx, my are the bottm right.
 //The numbers are calculated from the bottom-left The bottom-left slot being 1,1.
@@ -235,6 +249,9 @@
 //Set the stop_messages to stop it from printing messages
 /obj/item/weapon/storage/proc/can_be_inserted(obj/item/W as obj, stop_messages = 0)
 	if(!istype(W) || (W.flags & ABSTRACT)) return //Not an item
+
+	if(checkCuffActive())
+		return 0 //Case is handcuffed shut
 
 	if(src.loc == W)
 		return 0 //Means the item is already in the storage item
