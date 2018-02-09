@@ -349,8 +349,6 @@
 		holiday_master.holidays = list()
 	holiday_master.holidays[H.name] = H
 
-	station_name = null
-	station_name()
 	//update our hub status
 	world.update_status()
 
