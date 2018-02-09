@@ -35,7 +35,7 @@
 		H.gib()
 		return
 
-	H.set_species(H.dna.species.primitive_form)
+	H.change_species(H.dna.species.primitive_form)
 
 	QDEL_NULL(H.hud_used)
 
@@ -73,7 +73,7 @@
 		H.gib()
 		return
 
-	H.set_species(H.dna.species.greater_form)
+	H.change_species(H.dna.species.greater_form)
 	H.real_name = H.dna.real_name
 	H.name = H.real_name
 

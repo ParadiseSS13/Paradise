@@ -200,7 +200,7 @@
 			if(ishuman(affected_mob))
 				var/mob/living/carbon/human/human = affected_mob
 				if(human.dna.species.name != "Slime People")
-					human.set_species("Slime People")
+					human.change_species("Slime People")
 
 /datum/disease/transformation/corgi
 	name = "The Barkening"

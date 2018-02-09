@@ -2065,9 +2065,10 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 	ShowChoices(user)
 	return 1
 
-/datum/preferences/proc/copy_to(mob/living/carbon/human/character)
+/datum/preferences/proc/copy_to(mob/living/carbon/human/character, var/recycle_species)
 	var/datum/species/S = all_species[species]
-	character.change_species(species) // Yell at me if this causes everything to melt
+	if(character.get_species() != species && recycle_species)
+		character.set_species(S, null, 1) // Yell at me if this causes everything to melt
 	if(be_random_name)
 		real_name = random_name(gender,species)
 
@@ -2080,7 +2081,6 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 			real_name += "[pick(last_names)]"
 
 	character.add_language(language)
-
 
 	character.real_name = real_name
 	character.dna.real_name = real_name
@@ -2097,28 +2097,22 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 
 	//Head-specific
 	var/obj/item/organ/external/head/H = character.get_organ("head")
-
+	H.h_style = h_style
 	H.hair_colour = h_colour
-
 	H.sec_hair_colour = h_sec_colour
 
-	H.facial_colour = f_colour
-
-	H.sec_facial_colour = f_sec_colour
-
-	H.h_style = h_style
 	H.f_style = f_style
+	H.facial_colour = f_colour
+	H.sec_facial_colour = f_sec_colour
 
 	H.alt_head = alt_head
 	//End of head-specific.
 
 	character.skin_colour = s_colour
-
 	character.s_tone = s_tone
 
 	// Destroy/cyborgize organs
 	for(var/name in organ_data)
-
 		var/status = organ_data[name]
 		var/obj/item/organ/external/O = character.bodyparts_by_name[name]
 		if(O)
@@ -2166,12 +2160,6 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 		character.body_accessory = body_accessory_by_name["[body_accessory]"]
 
 	character.backbag = backbag
-
-	//Debugging report to track down a bug, which randomly assigned the plural gender to people.
-	if(S.has_gender && (character.gender in list(PLURAL, NEUTER)))
-		if(isliving(src)) //Ghosts get neuter by default
-			message_admins("[key_name_admin(character)] has spawned with their gender as plural or neuter. Please notify coders.")
-			character.change_gender(MALE)
 
 	character.change_eye_color(e_colour)
 
@@ -2226,12 +2214,8 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 
 	character.dna.ready_dna(character, flatten_SE = 0)
 	character.sync_organ_dna(assimilate=1)
-	character.UpdateAppearance()
-
-	// Do the initial caching of the player's body icons.
-	character.force_update_limbs()
 	character.update_eyes()
-	character.regenerate_icons()
+	character.UpdateAppearance() //Do the initial caching of the player's body icons.
 
 /datum/preferences/proc/open_load_dialog(mob/user)
 

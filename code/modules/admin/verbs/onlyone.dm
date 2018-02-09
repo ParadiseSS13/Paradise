@@ -10,7 +10,7 @@
 		if(is_special_character(H))
 			continue
 		if(H.dna.species.name in incompatible_species)
-			H.set_species("Human")
+			H.change_species("Human")
 			var/datum/preferences/A = new()	// Randomize appearance
 			A.copy_to(H)
 

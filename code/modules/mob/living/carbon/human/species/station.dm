@@ -1,4 +1,4 @@
-/datum/species/human
+/datum/species/human //SPECIES_HUMAN
 	id = "human"
 	name = "Human"
 	name_plural = "Humans"
@@ -22,7 +22,7 @@
 	reagent_tag = PROCESS_ORG
 	//Has standard darksight of 2.
 
-/datum/species/unathi
+/datum/species/unathi //SPECIES_UNATHI
 	id = "unathi"
 	name = "Unathi"
 	name_plural = "Unathi"
@@ -85,7 +85,7 @@
 /datum/species/unathi/handle_death(var/mob/living/carbon/human/H)
 	H.stop_tail_wagging(1)
 
-/datum/species/tajaran
+/datum/species/tajaran //SPECIES_TAJARAN
 	id = "tajaran"
 	name = "Tajaran"
 	name_plural = "Tajaran"
@@ -147,7 +147,7 @@
 /datum/species/tajaran/handle_death(var/mob/living/carbon/human/H)
 	H.stop_tail_wagging(1)
 
-/datum/species/vulpkanin
+/datum/species/vulpkanin //SPECIES_VULPKANIN
 	id = "vulpkanin"
 	name = "Vulpkanin"
 	name_plural = "Vulpkanin"
@@ -201,7 +201,7 @@
 /datum/species/vulpkanin/handle_death(var/mob/living/carbon/human/H)
 	H.stop_tail_wagging(1)
 
-/datum/species/skrell
+/datum/species/skrell //SPECIES_SKRELL
 	id = "skrell"
 	name = "Skrell"
 	name_plural = "Skrell"
@@ -252,7 +252,7 @@
 		"makes like a fish and suffocates!",
 		"is strangling themselves with their own tendrils!")
 
-/datum/species/vox
+/datum/species/vox //SPECIES_VOX
 	id = "vox"
 	name = "Vox"
 	name_plural = "Vox"
@@ -364,41 +364,43 @@
 	H.update_action_buttons_icon()
 
 /datum/species/vox/on_species_gain(var/mob/living/carbon/human/H)
-	updatespeciescolor(H)
-	H.update_icons()
+	if(myhuman == H)
+		updatespeciescolor(myhuman) //Don't update DNA before organs are created in the parent call.
 	//H.verbs += /mob/living/carbon/human/proc/leap
 	..()
 
-/datum/species/vox/updatespeciescolor(var/mob/living/carbon/human/H, var/owner_sensitive = 1) //Handling species-specific skin-tones for the Vox race.
+/datum/species/vox/updatespeciescolor(var/mob/living/carbon/human/H, var/update_dna) //Handling species-specific skin-tones for the Vox race.
 	if(H.dna.species.bodyflags & HAS_ICON_SKIN_TONE) //Making sure we don't break Armalis.
-		var/new_icobase = 'icons/mob/human_races/vox/r_vox.dmi' //Default Green Vox.
-		var/new_deform = 'icons/mob/human_races/vox/r_def_vox.dmi' //Default Green Vox.
+		var/datum/species/S = H.dna.species
 		switch(H.s_tone)
 			if(6) //Azure Vox.
-				new_icobase = 'icons/mob/human_races/vox/r_voxazu.dmi'
-				new_deform = 'icons/mob/human_races/vox/r_def_voxazu.dmi'
-				H.tail = "voxtail_azu"
+				S.icobase	= 'icons/mob/human_races/vox/r_voxazu.dmi'
+				S.deform	= 'icons/mob/human_races/vox/r_def_voxazu.dmi'
+				S.tail		= "voxtail_azu"
 			if(5) //Emerald Vox.
-				new_icobase = 'icons/mob/human_races/vox/r_voxemrl.dmi'
-				new_deform = 'icons/mob/human_races/vox/r_def_voxemrl.dmi'
-				H.tail = "voxtail_emrl"
+				S.icobase	= 'icons/mob/human_races/vox/r_voxemrl.dmi'
+				S.deform	= 'icons/mob/human_races/vox/r_def_voxemrl.dmi'
+				S.tail		= "voxtail_emrl"
 			if(4) //Grey Vox.
-				new_icobase = 'icons/mob/human_races/vox/r_voxgry.dmi'
-				new_deform = 'icons/mob/human_races/vox/r_def_voxgry.dmi'
-				H.tail = "voxtail_gry"
+				S.icobase	= 'icons/mob/human_races/vox/r_voxgry.dmi'
+				S.deform	= 'icons/mob/human_races/vox/r_def_voxgry.dmi'
+				S.tail		= "voxtail_gry"
 			if(3) //Brown Vox.
-				new_icobase = 'icons/mob/human_races/vox/r_voxbrn.dmi'
-				new_deform = 'icons/mob/human_races/vox/r_def_voxbrn.dmi'
-				H.tail = "voxtail_brn"
+				S.icobase	= 'icons/mob/human_races/vox/r_voxbrn.dmi'
+				S.deform	= 'icons/mob/human_races/vox/r_def_voxbrn.dmi'
+				S.tail		= "voxtail_brn"
 			if(2) //Dark Green Vox.
-				new_icobase = 'icons/mob/human_races/vox/r_voxdgrn.dmi'
-				new_deform = 'icons/mob/human_races/vox/r_def_voxdgrn.dmi'
-				H.tail = "voxtail_dgrn"
+				S.icobase	= 'icons/mob/human_races/vox/r_voxdgrn.dmi'
+				S.deform	= 'icons/mob/human_races/vox/r_def_voxdgrn.dmi'
+				S.tail		= "voxtail_dgrn"
 			else  //Default Green Vox.
-				H.tail = "voxtail" //Ensures they get an appropriately coloured tail depending on the skin-tone.
+				S.icobase	= 'icons/mob/human_races/vox/r_vox.dmi'
+				S.deform	= 'icons/mob/human_races/vox/r_def_vox.dmi'
+				S.tail		= "voxtail"
 
-		H.change_icobase(new_icobase, new_deform, owner_sensitive) //Update the icobase/deform of all our organs, but make sure we don't mess with frankenstein limbs in doing so.
-		H.update_dna()
+		H.tail = tail
+		if(update_dna)
+			H.update_dna()
 
 /datum/species/vox/handle_reagents(var/mob/living/carbon/human/H, var/datum/reagent/R)
 	if(R.id == "oxygen") //Armalis are above such petty things.
@@ -413,7 +415,7 @@
 	H.verbs += /mob/living/carbon/human/proc/gut
 	..()
 
-/datum/species/vox/armalis
+/datum/species/vox/armalis //SPECIES_VOX_ARMALIS
 	id = "armalis"
 	name = "Vox Armalis"
 	name_plural = "Vox Armalis"
@@ -470,7 +472,7 @@
 /datum/species/vox/armalis/handle_reagents() //Skip the Vox oxygen reagent toxicity. Armalis are above such things.
 	return 1
 
-/datum/species/kidan
+/datum/species/kidan //SPECIES_KIDAN
 	id = "kidan"
 	name = "Kidan"
 	name_plural = "Kidan"
@@ -515,7 +517,7 @@
 		"is stabbing themselves with their mandibles!",
 		"is holding their breath!")
 
-/datum/species/slime
+/datum/species/slime //SPECIES_SLIME
 	id = "slime people"
 	name = "Slime People"
 	name_plural = "Slime People"
@@ -704,7 +706,7 @@
 	if(H in recolor_list)
 		H.toggle_recolor(silent = 1)
 
-/datum/species/grey
+/datum/species/grey //SPECIES_GREY
 	id = "grey"
 	name = "Grey"
 	name_plural = "Greys"
@@ -757,7 +759,7 @@
 	if(speech_pref)
 		H.mind.speech_span = "wingdings"
 
-/datum/species/diona
+/datum/species/diona //SPECIES_DIONA
 	id = "diona"
 	name = "Diona"
 	name_plural = "Dionaea"
@@ -874,7 +876,7 @@
 		H.take_overall_damage(10,0)
 	..()
 
-/datum/species/machine
+/datum/species/machine //SPECIES_MACHINE
 	id = "machine"
 	name = "Machine"
 	name_plural = "Machines"
@@ -964,7 +966,7 @@
 			H.update_hair()
 			H.update_fhair()
 
-/datum/species/drask
+/datum/species/drask //SPECIES_DRASK
 	id = "drask"
 	name = "Drask"
 	name_plural = "Drask"

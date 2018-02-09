@@ -322,11 +322,11 @@ var/global/list/multiverse = list()
 	to_chat(M, "<B>You are an alternate version of [user.real_name] from another universe! Help them accomplish their goals at all costs.</B>")
 	M.faction = list("[user.real_name]")
 	if(duplicate_self)
-		M.set_species(user.get_species()) //duplicate the sword user's species.
+		M.change_species(user.get_species()) //duplicate the sword user's species.
 	else
 		if(prob(50))
 			var/list/all_species = list("Human","Unathi","Skrell","Tajaran","Kidan","Golem","Diona","Machine","Slime People","Grey","Vulpkanin")
-			M.set_species(pick(all_species))
+			M.change_species(pick(all_species))
 	M.real_name = user.real_name //this is clear down here in case the user happens to become a golem; that way they have the proper name.
 	M.name = user.real_name
 	if(duplicate_self)
@@ -647,7 +647,7 @@ var/global/list/multiverse = list()
 	if(heresy)
 		spawnheresy(M)//oh god why
 	else
-		M.set_species("Skeleton")
+		M.change_species("Skeleton")
 		M.visible_message("<span class = 'warning'> A massive amount of flesh sloughs off [M] and a skeleton rises up!</span>")
 		M.revive()
 		equip_skeleton(M)
@@ -714,11 +714,11 @@ var/global/list/multiverse = list()
 			H.equip_to_slot_or_del(new /obj/item/weapon/twohanded/spear(H), slot_back)
 
 /obj/item/device/necromantic_stone/proc/spawnheresy(mob/living/carbon/human/H as mob)
-	H.set_species("Human")
+	H.change_species("Human")
 	if(H.gender == MALE)
 		H.change_gender(FEMALE)
 
-	var/list/anime_hair =list("Odango", "Kusanagi Hair", "Pigtails", "Hime Cut", "Floorlength Braid", "Ombre", "Twincurls", "Twincurls 2")
+	var/list/anime_hair = list("Odango", "Kusanagi Hair", "Pigtails", "Hime Cut", "Floorlength Braid", "Ombre", "Twincurls", "Twincurls 2")
 	H.change_hair(pick(anime_hair))
 
 	var/list/anime_hair_colours = list(list(216, 192, 120),

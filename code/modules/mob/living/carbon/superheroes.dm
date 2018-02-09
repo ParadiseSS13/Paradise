@@ -217,7 +217,7 @@
 		to_chat(target, "<span class='deadsay'><b>You must follow the orders of [user], and help him succeed in \his dastardly schemes.</span>")
 		to_chat(target, "<span class='deadsay'>You may not harm other Greyshirt or [user]. However, you do not need to obey other Greyshirts.</span>")
 		ticker.mode.greyshirts += target.mind
-		target.set_species("Human")
+		target.set_species(SPECIES_HUMAN)
 		head_organ.h_style = "Bald"
 		head_organ.f_style = "Shaved"
 		target.s_tone = 35

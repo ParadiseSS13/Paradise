@@ -1,7 +1,6 @@
 /obj/item/organ/internal/liver/vox
 	alcohol_intensity = 1.6
-	species = "Vox"
-
+	species = SPECIES_VOX
 
 /obj/item/organ/internal/stack
 	name = "cortical stack"
@@ -14,3 +13,4 @@
 
 /obj/item/organ/internal/stack/vox
 	name = "vox cortical stack"
+	species = SPECIES_VOX

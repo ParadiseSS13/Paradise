@@ -139,7 +139,7 @@ var/ert_request_answered = 0
 		else
 			M.change_gender(FEMALE)
 
-	M.set_species("Human",1)
+	M.change_species("Human",1)
 	M.dna.ready_dna(M)
 	M.reagents.add_reagent("mutadone", 1) //No fat/blind/colourblind/epileptic/whatever ERT.
 	M.overeatduration = 0

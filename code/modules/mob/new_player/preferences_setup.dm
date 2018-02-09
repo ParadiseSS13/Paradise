@@ -1,10 +1,10 @@
 /datum/preferences
 	//The mob should have a gender you want before running this proc. Will run fine without H
 /datum/preferences/proc/random_character(gender_override)
-	var/datum/species/S = all_species[species]
+	var/datum/species/S = new all_species[species]
 	if(!istype(S)) //The species was invalid. Set the species to the default, fetch the datum for that species and generate a random character.
 		species = initial(species)
-		S = all_species[species]
+		S = new all_species[species]
 	var/datum/robolimb/robohead
 
 	if(S.bodyflags & ALL_RPARTS)
@@ -222,15 +222,11 @@
 	var/coloured_tail
 	if(current_species)
 		if(current_species.bodyflags & HAS_ICON_SKIN_TONE) //Handling species-specific icon-based skin tones by flagged race.
-			var/mob/living/carbon/human/H = new
-			H.dna.species = current_species
-			H.s_tone = s_tone
-			H.dna.species.updatespeciescolor(H, 0) //The mob's species wasn't set, so it's almost certainly different than the character's species at the moment. Thus, we need to be owner-insensitive.
-			var/obj/item/organ/external/chest/C = H.get_organ("chest")
-			icobase = C.icobase ? C.icobase : C.dna.species.icobase
+			var/mob/living/carbon/human/H = new(new_species = current_species)
+			H.change_skin_tone(s_tone)
+			icobase = H.dna.species.icobase
 			if(H.dna.species.bodyflags & HAS_TAIL)
-				coloured_tail = H.tail ? H.tail : H.dna.species.tail
-
+				coloured_tail = H.dna.species.tail ? H.dna.species.tail : (H.tail ? H.tail : null)
 			qdel(H)
 		else
 			icobase = current_species.icobase

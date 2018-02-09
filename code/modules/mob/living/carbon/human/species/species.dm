@@ -167,6 +167,7 @@
 		"r_foot" = list("path" = /obj/item/organ/external/foot/right)
 		)
 	var/list/proc/species_abilities = list()
+	var/myhuman		//Mob reference
 
 /datum/species/New()
 	//If the species has eyes, they are the default vision organ
@@ -177,12 +178,16 @@
 
 	..()
 
+/datum/species/Destroy()
+	if(myhuman)
+		myhuman = null
+	..()
+
 /datum/species/proc/get_random_name(var/gender)
 	var/datum/language/species_language = all_languages[language]
 	return species_language.get_random_name(gender)
 
 /datum/species/proc/create_organs(var/mob/living/carbon/human/H) //Handles creation of mob organs.
-
 	QDEL_LIST(H.internal_organs)
 	QDEL_LIST(H.bodyparts)
 
@@ -302,7 +307,7 @@
 		if(thing && (!thing.species_restricted || !is_type_in_list(src,thing.species_restricted)))
 			C.drop_item(thing)
 
-	create_organs(C,old_species)
+	create_organs(C, old_species)
 
 	if(exotic_blood && C.dna.b_type != exotic_blood)
 		C.dna.b_type = exotic_blood

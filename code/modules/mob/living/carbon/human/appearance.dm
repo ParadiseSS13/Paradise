@@ -3,18 +3,20 @@
 	AC.flags = flags
 	AC.ui_interact(user, state = state)
 
-/mob/living/carbon/human/proc/change_species(var/new_species)
-	if(!new_species || dna.species == new_species || !(new_species in all_species))
+/mob/living/carbon/human/proc/change_species(var/new_species) //T E X T
+	if(!new_species || dna.species.name == new_species || !(new_species in all_species))
 		return
 
-	set_species(new_species, null, 1)
-	reset_hair()
-	if(dna.species.bodyflags & HAS_MARKINGS)
-		reset_markings()
+	var/datum/species/NS = all_species[new_species]
+	if(istype(NS))
+		set_species(NS, null, 1)
+		reset_hair()
+		if(dna.species.bodyflags & HAS_MARKINGS)
+			reset_markings()
 
-	return 1
+		return 1
 
-/mob/living/carbon/human/proc/change_gender(var/new_gender, var/update_dna = 1)
+/mob/living/carbon/human/proc/change_gender(var/new_gender, var/update_dna = 1, var/delay_icon_update)
 	var/obj/item/organ/external/head/H = bodyparts_by_name["head"]
 	if(gender == new_gender || (gender == PLURAL && dna.species.has_gender))
 		return
@@ -32,7 +34,8 @@
 	if(update_dna)
 		update_dna()
 	sync_organ_dna(assimilate = 0)
-	update_body()
+	if(!delay_icon_update)
+		update_body()
 	return 1
 
 /mob/living/carbon/human/proc/change_hair(var/hair_style, var/fluff)

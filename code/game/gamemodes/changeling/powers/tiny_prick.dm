@@ -116,7 +116,7 @@
 		target.real_name = NewDNA.real_name
 		var/mob/living/carbon/human/H = target
 		if(istype(H))
-			H.set_species()
+			H.set_species(NewDNA.species)
 		target.UpdateAppearance()
 		domutcheck(target, null)
 	feedback_add_details("changeling_powers","TS")

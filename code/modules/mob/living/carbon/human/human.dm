@@ -10,16 +10,14 @@
 	var/obj/item/weapon/rig/wearing_rig // This is very not good, but it's much much better than calling get_rig() every update_canmove() call.
 
 /mob/living/carbon/human/New(var/new_loc, var/new_species = null, var/delay_ready_dna = 0)
-
 	if(!dna)
 		dna = new /datum/dna(null)
 		// Species name is handled by set_species()
 
-	if(!dna.species)
-		if(new_species)
-			set_species(new_species, 1, delay_icon_update = 1)
-		else
-			set_species(delay_icon_update = 1)
+	if(new_species)
+		set_species(new_species, 1, delay_icon_update = 1)
+	else if(!dna.species)
+		set_species(delay_icon_update = 1)
 
 	..()
 
@@ -1136,7 +1134,6 @@
 	return
 
 /mob/living/carbon/human/get_species()
-
 	if(!dna.species)
 		set_species()
 
@@ -1225,7 +1222,7 @@
 	else
 		germ_level += n
 
-/mob/living/carbon/human/proc/check_and_regenerate_organs(var/mob/living/carbon/human/H) //Regenerates missing limbs/organs.
+/mob/living/carbon/human/proc/check_and_regenerate_organs(var/mob/living/carbon/human/H = src) //Regenerates missing limbs/organs.
 	var/list/types_of_int_organs = list() //This will hold all the types of organs in the mob before rejuvenation.
 	for(var/obj/item/organ/internal/I in H.internal_organs)
 		types_of_int_organs |= I.type //Compiling the list of organ types. It is possible for organs to be missing from this list if they are absent from the mob.
@@ -1268,7 +1265,7 @@
 /mob/living/carbon/human/revive()
 	//Fix up all organs and replace lost ones.
 	restore_all_organs() //Rejuvenate and reset all existing organs.
-	check_and_regenerate_organs(src) //Regenerate limbs and organs only if they're really missing.
+	check_and_regenerate_organs() //Regenerate limbs and organs only if they're really missing.
 	surgeries.Cut() //End all surgeries.
 	update_revive()
 
@@ -1374,38 +1371,37 @@
 	else
 		to_chat(usr, "<span class='notice'>[self ? "Your" : "[src]'s"] pulse is [src.get_pulse(GETPULSE_HAND)].</span>")
 
-/mob/living/carbon/human/proc/set_species(var/datum/species/new_species, var/default_colour, var/delay_icon_update = 0)
-	dna.species.on_species_loss(src)
+/mob/living/carbon/human/proc/set_species(var/datum/species/new_species, var/default_colour, var/delay_icon_update = 0) //D A T U M
 	var/datum/species/oldspecies = dna.species
-	var/datum/species/NS = all_species[new_species]
+	if(istext(new_species)) //new_species should be a datum, but just in case. it isn't we can still do the conversion...
+		new_species = all_species[new_species] //New, unique type will be iterated from this.
+
 	if(!dna)
+		dna = new /datum/dna(null)
+		dna.real_name = real_name
 		if(!new_species)
-			new_species = "Human"
+			new_species = SPECIES_HUMAN
 	else
 		if(!new_species)
 			new_species = dna.species
-		else
-			dna.species = new_species
 
-	if(dna.species)
-		if(dna.species.name && dna.species.name == new_species)
-			return
-
+	if(dna.species) //Still the old species.
+		//if(dna.species.name && dna.species.name == new_species.name)
+			//return
 		if(dna.species.language)
 			remove_language(dna.species.language)
-
 		if(dna.species.default_language)
 			remove_language(dna.species.default_language)
+		dna.species.on_species_loss(src)
 
-		if(gender == PLURAL && NS.has_gender)
-			change_gender(pick(MALE,FEMALE))
-
-	dna.species = all_species[new_species]
+	dna.species = new new_species.type //Now change it.
+	dna.species.myhuman = src //Link the mob to its unique iteration of their species.
 
 	if(oldspecies)
 		if(oldspecies.default_genes.len)
-			oldspecies.handle_dna(src,1) // Remove any genes that belong to the old species
+			oldspecies.handle_dna(src, 1) //Remove any genes that belong to the old species
 
+	dna.species.on_species_gain(src)
 	tail = dna.species.tail
 
 	maxHealth = dna.species.total_health
@@ -1418,6 +1414,8 @@
 
 	hunger_drain = dna.species.hunger_drain
 	digestion_ratio = dna.species.digestion_ratio
+	if(dna.species.has_gender && (gender in list(PLURAL, NEUTER)))
+		change_gender(pick(MALE,FEMALE), 1, 0)
 
 	if(dna.species.base_color && default_colour)
 		//Apply colour.
@@ -1460,13 +1458,6 @@
 	m_styles = DEFAULT_MARKING_STYLES //Wipes out markings, setting them all to "None".
 	m_colours = DEFAULT_MARKING_COLOURS //Defaults colour to #00000 for all markings.
 	body_accessory = null
-
-	if(!dna)
-		dna = new /datum/dna(null)
-		dna.species = dna.species.name
-		dna.real_name = real_name
-
-	dna.species.on_species_gain(src, oldspecies)
 
 	see_in_dark = dna.species.get_resultant_darksight(src)
 	if(see_in_dark > 2)
@@ -1918,10 +1909,6 @@
 		return 0
 
 	return .
-
-/mob/living/carbon/human/proc/change_icobase(var/new_icobase, var/new_deform, var/owner_sensitive)
-	for(var/obj/item/organ/external/O in bodyparts)
-		O.change_organ_icobase(new_icobase, new_deform, owner_sensitive) //Change the icobase/deform of all our organs. If owner_sensitive is set, that means the proc won't mess with frankenstein limbs.
 
 /mob/living/carbon/human/serialize()
 	// Currently: Limbs/organs only

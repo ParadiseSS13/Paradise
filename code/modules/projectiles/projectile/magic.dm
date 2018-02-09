@@ -233,7 +233,7 @@ proc/wabbajack(mob/living/M)
 					new_species |= "Golem" // Also, golems, sure, why not
 					var/picked_species = pick(new_species)
 					var/mob/living/carbon/human/H = new_mob
-					H.set_species(picked_species)
+					H.change_species(picked_species)
 					randomize = picked_species
 					var/datum/preferences/A = new()	//Randomize appearance for the human
 					A.copy_to(new_mob)

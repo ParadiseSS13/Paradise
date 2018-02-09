@@ -444,15 +444,14 @@
 /mob/new_player/proc/create_character()
 	spawning = 1
 	close_spawn_windows()
-
 	check_prefs_are_sane()
-	var/mob/living/carbon/human/new_character = new(loc)
+	var/mob/living/carbon/human/new_character = new(loc, client.prefs.species)
 	new_character.lastarea = get_area(loc)
 
 	if(ticker.random_players || appearance_isbanned(new_character))
 		client.prefs.random_character()
 		client.prefs.real_name = random_name(client.prefs.gender)
-	client.prefs.copy_to(new_character)
+	client.prefs.copy_to(new_character, 1)
 
 	stop_sound_channel(CHANNEL_LOBBYMUSIC)
 

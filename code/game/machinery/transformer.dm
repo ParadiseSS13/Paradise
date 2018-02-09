@@ -295,10 +295,11 @@
 /obj/machinery/transformer/transmogrifier/do_transform(mob/living/carbon/human/H)
 	if(!istype(H))
 		return
-	if(!(target_species in all_species))
+	var/datum/species/TS = all_species[target_species]
+	if(!istype(TS))
 		to_chat(H, "<span class='warning'>'[target_species]' is not a valid species!</span>")
 		return
-	H.set_species(target_species)
+	H.change_species(target_species)
 
 
 /obj/machinery/transformer/dnascrambler

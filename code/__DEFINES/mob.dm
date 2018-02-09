@@ -133,6 +133,36 @@
 //Human sub-species
 #define isabductor(A) (is_species(A, "Abductor"))
 
+//Species datums
+#define SPECIES_HUMAN				/datum/species/human
+#define SPECIES_UNATHI				/datum/species/unathi
+#define SPECIES_TAJARAN				/datum/species/tajaran
+#define SPECIES_VULPKANIN			/datum/species/vulpkanin
+#define SPECIES_SKRELL				/datum/species/skrell
+#define SPECIES_VOX					/datum/species/vox
+#define SPECIES_ARMALIS				/datum/species/vox/armalis
+#define SPECIES_KIDAN				/datum/species/kidan
+#define SPECIES_SLIME				/datum/species/slime
+#define SPECIES_GREY				/datum/species/grey
+#define SPECIES_KIDAN				/datum/species/kidan
+#define SPECIES_DIONA				/datum/species/diona
+#define SPECIES_MACHINE				/datum/species/machine
+#define SPECIES_DRASK				/datum/species/drask
+#define SPECIES_SKELETON			/datum/species/skeleton
+#define SPECIES_SHADOW				/datum/species/shadow
+#define SPECIES_SHADOWLING			/datum/species/shadow/ling
+#define SPECIES_LESSER_SHADOWLING	/datum/species/shadow/ling/lesser
+#define SPECIES_PLASMAMAN			/datum/species/plasmaman
+#define SPECIES_GOLEM				/datum/species/golem
+#define SPECIES_ABDUCTOR			/datum/species/abductor
+#define SPECIES_WRYN				/datum/species/wryn
+#define SPECIES_NUCLEATION			/datum/species/nucleation
+#define SPECIES_MONKEY				/datum/species/monkey
+#define SPECIES_FARWA				/datum/species/monkey/tajaran
+#define SPECIES_WOLPIN				/datum/species/monkey/vulpkanin
+#define SPECIES_NEARA				/datum/species/monkey/skrell
+#define SPECIES_STOK				/datum/species/monkey/unathi
+
 #define isanimal(A)		(istype((A), /mob/living/simple_animal))
 #define iscorgi(A)		(istype((A), /mob/living/simple_animal/pet/corgi))
 #define ismouse(A)		(istype((A), /mob/living/simple_animal/mouse))

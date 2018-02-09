@@ -208,7 +208,7 @@
 			var/datum/dna/toDoppel = chosen.dna
 
 			T.real_name = toDoppel.real_name
-			T.set_species(chosen.dna.species.name)
+			T.set_species(chosen.dna.species)
 			T.body_accessory = chosen.body_accessory
 			T.dna = toDoppel.Clone()
 			T.UpdateAppearance()
