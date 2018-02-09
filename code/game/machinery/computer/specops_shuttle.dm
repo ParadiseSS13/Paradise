@@ -231,7 +231,7 @@ var/specops_shuttle_timeleft = 0
 
 	for(var/turf/T in get_area_turfs(end_location) )
 		var/mob/M = locate(/mob) in T
-		to_chat(M, "<span class='warning'>You have arrived to [station_name]. Commence operation!</span>")
+		to_chat(M, "<span class='warning'>You have arrived to [station_name()]. Commence operation!</span>")
 
 	for(var/obj/machinery/computer/specops_shuttle/S in world)
 		S.specops_shuttle_timereset = world.time + SPECOPS_RETURN_DELAY
@@ -275,8 +275,8 @@ var/specops_shuttle_timeleft = 0
 		dat = temp
 	else
 		dat += {"<BR><B>Special Operations Shuttle</B><HR>
-		\nLocation: [specops_shuttle_moving_to_station || specops_shuttle_moving_to_centcom ? "Departing for [station_name] in ([specops_shuttle_timeleft] seconds.)":specops_shuttle_at_station ? "Station":"Dock"]<BR>
-		[specops_shuttle_moving_to_station || specops_shuttle_moving_to_centcom ? "\n*The Special Ops. shuttle is already leaving.*<BR>\n<BR>":specops_shuttle_at_station ? "\n<A href='?src=[UID()];sendtodock=1'>Shuttle standing by...</A><BR>\n<BR>":"\n<A href='?src=[UID()];sendtostation=1'>Depart to [station_name]</A><BR>\n<BR>"]
+		\nLocation: [specops_shuttle_moving_to_station || specops_shuttle_moving_to_centcom ? "Departing for [station_name()] in ([specops_shuttle_timeleft] seconds.)":specops_shuttle_at_station ? "Station":"Dock"]<BR>
+		[specops_shuttle_moving_to_station || specops_shuttle_moving_to_centcom ? "\n*The Special Ops. shuttle is already leaving.*<BR>\n<BR>":specops_shuttle_at_station ? "\n<A href='?src=[UID()];sendtodock=1'>Shuttle standing by...</A><BR>\n<BR>":"\n<A href='?src=[UID()];sendtostation=1'>Depart to [station_name()]</A><BR>\n<BR>"]
 		\n<A href='?src=[user.UID()];mach_close=computer'>Close</A>"}
 
 	user << browse(dat, "window=computer;size=575x450")
@@ -318,7 +318,7 @@ var/specops_shuttle_timeleft = 0
 			to_chat(usr, "<span class='warning'>The Special Operations shuttle is unable to leave.</span>")
 			return
 
-		to_chat(usr, "<span class='notice'>The Special Operations shuttle will arrive on [station_name] in [(SPECOPS_MOVETIME/10)] seconds.</span>")
+		to_chat(usr, "<span class='notice'>The Special Operations shuttle will arrive on [station_name()] in [(SPECOPS_MOVETIME/10)] seconds.</span>")
 
 		temp += "Shuttle departing.<BR><BR><A href='?src=[UID()];mainmenu=1'>OK</A>"
 		updateUsrDialog()
