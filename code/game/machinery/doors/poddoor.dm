@@ -103,6 +103,7 @@
  // Wise words. - Bxil
 /obj/machinery/door/poddoor/multi_tile
 	name = "large pod door"
+	layer = CLOSED_DOOR_LAYER
 	var/idir 		//Initial Direction. For some reason upon spawning these doors always turn to south.
 					//We must force them to their corret direction, so we store it here.
 					//Bad solution, I know. If you know how to fix please do. - Bxil
