@@ -17,7 +17,7 @@ var/church_name = null
 
 var/command_name = null
 /proc/command_name()
-+	return using_map.dock_name
+	return using_map.dock_name
 
 var/religion_name = null
 /proc/religion_name()
@@ -32,7 +32,7 @@ var/religion_name = null
 	return capitalize(name)
 
 /proc/system_name()
-+	return using_map.starsys_name
+	return using_map.starsys_name
 
 /proc/station_name()
 	return using_map.station_name
