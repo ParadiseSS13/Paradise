@@ -105,6 +105,12 @@
 	screen_loc = "WEST,SOUTH to EAST,NORTH"
 	icon_state = "druggy"
 
+/obj/screen/fullscreen/darksight
+	icon = null
+	screen_loc = "WEST,SOUTH to EAST,NORTH"
+	layer = LIGHTING_LAYER + 0.1
+
+
 #undef FULLSCREEN_LAYER
 #undef BLIND_LAYER
 #undef DAMAGE_LAYER

@@ -68,3 +68,5 @@
 
 	var/list/status_effects //a list of all status effects the mob has
 
+	var/image/dsoverlay = null //Overlay used for darksight eye adjustments
+

@@ -2,6 +2,14 @@
 	. = ..()
 	var/datum/atom_hud/data/human/medical/advanced/medhud = huds[DATA_HUD_MEDICAL_ADVANCED]
 	medhud.add_to_hud(src)
+	dsoverlay = image('icons/mob/darksight.dmi',screens["darksight"]) //This is a secret overlay! Go look at the file, you'll see.
+	var/mutable_appearance/dsma = new(dsoverlay) //Changing like ten things, might as well.
+	dsma.alpha = 0
+	dsma.plane = LIGHTING_PLANE
+	dsma.layer = LIGHTING_LAYER + 0.1
+	dsma.blend_mode = BLEND_ADD
+	dsoverlay.appearance = dsma
+
 
 /mob/living/prepare_huds()
 	..()
@@ -17,6 +25,9 @@
 	if(ranged_ability)
 		ranged_ability.remove_ranged_ability(src)
 	remove_from_all_data_huds()
+
+	dsoverlay.loc = null
+	dsoverlay = null
 
 	if(LAZYLEN(status_effects))
 		for(var/s in status_effects)
