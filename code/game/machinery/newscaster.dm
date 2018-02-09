@@ -252,7 +252,7 @@ var/list/obj/machinery/newscaster/allCasters = list() //Global list that will co
 			var/list/messages = list()
 			data["messages"] = messages
 			for(var/datum/feed_message/M in viewing_channel.messages)
-				messages[++messages.len] = list("body" = M.body, "body_redacted" = (M.body == REDACTED ? 1 : 0) , "message_type" = M.message_type, "author" = M.author, "author_redacted" = (M.author == REDACTED ? 1 : 0), "ref" = "\ref[M]", "view_count" = M.view_count)
+				messages[++messages.len] = list("title" = M.title, "body" = M.body, "body_redacted" = (M.body == REDACTED ? 1 : 0) , "message_type" = M.message_type, "author" = M.author, "author_redacted" = (M.author == REDACTED ? 1 : 0), "ref" = "\ref[M]", "view_count" = M.view_count)
 		if(10)
 			var/wanted_already = 0
 			var/end_param = 1

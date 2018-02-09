@@ -206,7 +206,8 @@ Property of Nanotrasen</font><br>
 		<i>{{:helper.link(data.author_redacted ? 'Undo author censorship' : 'Censor channel author', null, {'censor_channel_author' : data.ref})}}</i><br><hr>
 		{{for data.messages}}
 			<div class='statusDisplay'>
-				- {{:value.body}}<br>
+				<b>{{:value.title}}</b><br>
+				{{:value.body}}<br>
 				{{if value.img}}
 					<img src='{{:value.img}}' width=180><br>
 				{{/if}}
@@ -234,7 +235,8 @@ Property of Nanotrasen</font><br>
 		{{else}}
 			{{for data.messages}}
 				<div class='statusDisplay'>
-					- {{:value.body}}<br>
+					<b>{{:value.title}}</b><br>
+					{{:value.body}}<br>
 					{{if value.img}}
 						<img src='{{:value.img}}' width=180><br>
 					{{/if}}
