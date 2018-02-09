@@ -141,7 +141,7 @@
 	else
 		attacked_by(W, user)
 
-/obj/structure/mineral_door/proc/attacked_by(obj/item/I, mob/user)
+/obj/structure/mineral_door/attacked_by(obj/item/I, mob/user)
 	if(I.damtype != STAMINA)
 		user.changeNext_move(CLICK_CD_MELEE)
 		user.do_attack_animation(src)

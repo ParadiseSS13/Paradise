@@ -833,7 +833,7 @@
 	else
 		return attacked_by(W, user)
 
-/obj/mecha/proc/attacked_by(obj/item/I, mob/user)
+/obj/mecha/attacked_by(obj/item/I, mob/user)
 	log_message("Attacked by [I]. Attacker - [user]")
 	user.changeNext_move(CLICK_CD_MELEE)
 	user.do_attack_animation(src)

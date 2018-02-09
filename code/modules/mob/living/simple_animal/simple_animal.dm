@@ -382,7 +382,7 @@
 
 	return
 
-/mob/living/simple_animal/attackby(var/obj/item/O as obj, var/mob/living/user as mob)  //Marker -Agouri
+/mob/living/simple_animal/attackby(obj/item/O, mob/living/user)
 	if(can_collar && !collar && istype(O, /obj/item/clothing/accessory/petcollar))
 		var/obj/item/clothing/accessory/petcollar/C = O
 		user.drop_item()
@@ -396,34 +396,7 @@
 			real_name = C.tagname
 		return
 	else
-		user.changeNext_move(CLICK_CD_MELEE)
-		if(attempt_harvest(O, user))
-			return
-		user.do_attack_animation(src)
-		if(istype(O) && istype(user) && !O.attack(src, user))
-			var/damage = 0
-			if(O.force)
-				if(O.force >= force_threshold)
-					damage = O.force
-					if(O.damtype == STAMINA)
-						damage = 0
-					if(O.damtype == BRUTE)
-						if(prob(33))
-							O.add_mob_blood(src)
-							var/turf/location = get_turf(src)
-							add_splatter_floor(location)
-							if(get_dist(user, src) <= 1)	//people with TK won't get smeared with blood
-								user.add_mob_blood(src)
-					visible_message("<span class='danger'>[user] has [O.attack_verb.len ? "[pick(O.attack_verb)]": "attacked"] [src] with [O]!</span>",\
-									"<span class='userdanger'>[user] has [O.attack_verb.len ? "[pick(O.attack_verb)]": "attacked"] you with [O]!</span>")
-				else
-					visible_message("<span class='danger'>[O] bounces harmlessly off of [src].</span>",\
-									"<span class='userdanger'>[O] bounces harmlessly off of [src].</span>")
-				playsound(loc, O.hitsound, 50, 1, -1)
-			else
-				user.visible_message("<span class='warning'>[user] gently taps [src] with [O].</span>",\
-									"<span class='warning'>This weapon is ineffective, it does no damage.</span>")
-			adjustBruteLoss(damage)
+		..()
 
 /mob/living/simple_animal/movement_delay()
 	. = ..()

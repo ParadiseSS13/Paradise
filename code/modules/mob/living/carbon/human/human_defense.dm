@@ -215,15 +215,10 @@ emp_act
 	if(istype(I,/obj/item/weapon/card/emag))
 		emag_act(user, affecting)
 
-	if(!I.discrete)
-		if(I.attack_verb && I.attack_verb.len)
-			visible_message("<span class='combat danger'>[src] has been [pick(I.attack_verb)] in the [hit_area] with [I] by [user]!</span>",
-			"<span class='combat userdanger'>[src] has been [pick(I.attack_verb)] in the [hit_area] with [I] by [user]!</span>"))
-		else if(I.force)
-			visible_message("<span class='combat danger'>[src] has been attacked in the [hit_area] with [I] by [user]!</span>",
-			"<span class='combat userdanger'>[src] has been attacked in the [hit_area] with [I] by [user]!</span>"))
-		else
-			return 0
+	send_item_attack_message(I, user, hit_area)
+
+	if(!I.force)
+		return 0 //item force is zero
 
 	var/armor = run_armor_check(affecting, "melee", "<span class='warning'>Your armour has protected your [hit_area].</span>", "<span class='warning'>Your armour has softened hit to your [hit_area].</span>", armour_penetration = I.armour_penetration)
 	var/weapon_sharp = is_sharp(I)

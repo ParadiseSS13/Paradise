@@ -234,7 +234,7 @@
 			W.update_icon()
 		return
 
-/obj/structure/grille/proc/attacked_by(obj/item/I, mob/living/user)
+/obj/structure/grille/attacked_by(obj/item/I, mob/living/user)
 	user.changeNext_move(CLICK_CD_MELEE)
 	user.do_attack_animation(src)
 	if(!(I.flags&NOBLUDGEON))
