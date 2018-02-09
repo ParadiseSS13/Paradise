@@ -54,9 +54,7 @@
 	stealth_active = 1
 	if(ishuman(loc))
 		var/mob/living/carbon/human/M = src.loc
-		spawn(0)
-			anim(M.loc,M,'icons/mob/mob.dmi',,"cloak",,M.dir)
-
+		new /obj/effect/temp_visual/dir_setting/ninja/cloak(get_turf(M), M.dir)
 		M.name_override = disguise.name
 		M.icon = disguise.icon
 		M.icon_state = disguise.icon_state
@@ -70,8 +68,7 @@
 	stealth_active = 0
 	if(ishuman(loc))
 		var/mob/living/carbon/human/M = src.loc
-		spawn(0)
-			anim(M.loc,M,'icons/mob/mob.dmi',,"uncloak",,M.dir)
+		new /obj/effect/temp_visual/dir_setting/ninja(get_turf(M), M.dir)
 		M.name_override = null
 		M.overlays.Cut()
 		M.regenerate_icons()
@@ -604,3 +601,12 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 	icon_closed = "abductor"
 	icon_opened = "abductoropen"
 	material_drop = /obj/item/stack/sheet/mineral/abductor
+
+/obj/structure/door_assembly/door_assembly_abductor
+	name = "alien airlock assembly"
+	icon = 'icons/obj/doors/airlocks/abductor/abductor_airlock.dmi'
+	base_name = "alien airlock"
+	overlays_file = 'icons/obj/doors/airlocks/abductor/overlays.dmi'
+	airlock_type = /obj/machinery/door/airlock/abductor
+	material_type = /obj/item/stack/sheet/mineral/abductor
+	noglass = TRUE

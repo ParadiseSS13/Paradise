@@ -1,6 +1,5 @@
 /mob/living/carbon
 	gender = MALE
-	hud_possible = list(HEALTH_HUD,STATUS_HUD,SPECIALROLE_HUD)
 	var/list/stomach_contents = list()
 	var/list/internal_organs	= list()
 	var/list/internal_organs_slot	= list()	//Same as above, but stores "slot ID" - "organ" pairs for easy access.
@@ -24,7 +23,6 @@
 	var/wetlevel = 0 //how wet the mob is
 
 	var/failed_last_breath = FALSE //This is used to determine if the mob failed a breath. If they did fail a brath, they will attempt to breathe each tick, otherwise just once per 4 ticks.
-	var/list/active_effect = list()
 	var/co2overloadtime = null
 
 	blood_volume = BLOOD_VOLUME_NORMAL

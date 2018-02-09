@@ -208,15 +208,21 @@
 	attack_verb = list("attacked", "slashed", "stabbed", "sliced", "torn", "ripped", "diced", "cut")
 	block_chance = 75
 	sharp = 1
+	light_power = 2
+	var/brightness_on = 2
+	var/colormap = list(red=LIGHT_COLOR_RED, blue=LIGHT_COLOR_LIGHTBLUE, green=LIGHT_COLOR_GREEN, purple=LIGHT_COLOR_PURPLE, rainbow=LIGHT_COLOR_WHITE)
 
 /obj/item/weapon/twohanded/dualsaber/New()
-	blade_color = pick("red", "blue", "green", "purple")
+	if(!blade_color)
+		blade_color = pick("red", "blue", "green", "purple")
 
 /obj/item/weapon/twohanded/dualsaber/update_icon()
 	if(wielded)
 		icon_state = "dualsaber[blade_color][wielded]"
+		set_light(brightness_on, l_color=colormap[blade_color])
 	else
 		icon_state = "dualsaber0"
+		set_light(0)
 
 /obj/item/weapon/twohanded/dualsaber/attack(target as mob, mob/living/user as mob)
 	if(HULK in user.mutations)
@@ -239,16 +245,16 @@
 		return ..()
 	return 0
 
-/obj/item/weapon/twohanded/dualsaber/green/New()
+/obj/item/weapon/twohanded/dualsaber/green
 	blade_color = "green"
 
-/obj/item/weapon/twohanded/dualsaber/red/New()
+/obj/item/weapon/twohanded/dualsaber/red
 	blade_color = "red"
 
-/obj/item/weapon/twohanded/dualsaber/purple/New()
+/obj/item/weapon/twohanded/dualsaber/purple
 	blade_color = "purple"
 
-/obj/item/weapon/twohanded/dualsaber/blue/New()
+/obj/item/weapon/twohanded/dualsaber/blue
 	blade_color = "blue"
 
 /obj/item/weapon/twohanded/dualsaber/unwield()

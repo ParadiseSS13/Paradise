@@ -1,8 +1,0 @@
-author: "uraniummeltdown"
-delete-after: True
-changes: 
-  - bugfix: "Wooden holodeck table sprites show up properly"
-  - tweak: "Table construction has been changed a bit, apply stack items (carpet, metal, glass, wood) to table frames to build tables instead of using table parts."
-  - tweak: "Slightly increased the health of racks and tables with low health"
-  - tweak: "Holodeck tables will now smooth with one another"
-  - tweak: "Holodeck tables and racks can be interacted with in more ways"

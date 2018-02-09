@@ -189,7 +189,7 @@
 		if(!istype(T))
 			return
 		if(!istype(T, turf_type))
-			var/obj/effect/overlay/temp/lavastaff/L = new /obj/effect/overlay/temp/lavastaff(T)
+			var/obj/effect/temp_visual/lavastaff/L = new /obj/effect/temp_visual/lavastaff(T)
 			L.alpha = 0
 			animate(L, alpha = 255, time = create_delay)
 			user.visible_message("<span class='danger'>[user] points [src] at [T]!</span>")
@@ -211,6 +211,6 @@
 			timer = world.time + reset_cooldown
 		playsound(T,'sound/magic/Fireball.ogg', 200, 1)
 
-/obj/effect/overlay/temp/lavastaff
+/obj/effect/temp_visual/lavastaff
 	icon_state = "lavastaff_warn"
 	duration = 50
