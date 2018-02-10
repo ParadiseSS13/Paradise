@@ -1334,8 +1334,7 @@ var/global/list/damage_icon_parts = list()
 
 	//Begin appending miscellaneous effects.
 	if(eyes_shine())
-		var/obj/item/organ/internal/eyes/E = get_int_organ(/obj/item/organ/internal/eyes)
-		misc_effect_overlays += E.get_eye_shine() //Image layer is specified in get_eye_shine() proc as LIGHTING_LAYER + 1.
+		misc_effect_overlays += get_eye_shine() //Image layer is specified in get_eye_shine() proc as LIGHTING_LAYER + 1.
 
 /mob/living/carbon/human/proc/force_update_limbs()
 	for(var/obj/item/organ/external/O in bodyparts)
