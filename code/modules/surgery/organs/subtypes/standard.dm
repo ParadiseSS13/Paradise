@@ -45,7 +45,6 @@
 	w_class = WEIGHT_CLASS_BULKY // if you know what I mean ;)
 	body_part = LOWER_TORSO
 	vital = 1
-	cannot_amputate = TRUE
 	parent_organ = "chest"
 	amputation_point = "lumbar"
 	gendered_icon = 1
