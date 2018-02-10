@@ -7,6 +7,7 @@
 	flags = ON_BORDER
 	opacity = 0
 	dir = EAST
+	armor = list(melee = 20, bullet = 50, laser = 50, energy = 50, bomb = 10, bio = 100, rad = 100)
 	var/obj/item/weapon/airlock_electronics/electronics = null
 	var/base_state = "left"
 	var/health = 150.0 //If you change this, consider changing ../door/window/brigdoor/ health at the bottom of this .dm file

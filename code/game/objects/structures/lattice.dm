@@ -5,6 +5,7 @@
 	icon_state = "latticefull"
 	density = 0
 	anchored = 1.0
+	armor = list(melee = 50, bullet = 0, laser = 0, energy = 0, bomb = 0, bio = 0, rad = 0)
 	layer = 2.3 //under pipes
 	//	flags = CONDUCT
 

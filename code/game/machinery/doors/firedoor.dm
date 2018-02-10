@@ -19,6 +19,7 @@
 	closed_layer = 3.11
 	auto_close_time = 50
 	assemblytype = /obj/structure/firelock_frame
+	armor = list("melee" = 30, "bullet" = 30, "laser" = 20, "energy" = 20, "bomb" = 10, "bio" = 100, "rad" = 100)
 	var/can_force = TRUE
 	var/force_open_time = 300
 	var/can_crush = TRUE

@@ -8,6 +8,7 @@
 	density = 1
 	layer = OPEN_DOOR_LAYER
 	power_channel = ENVIRON
+	armor = list(melee = 30, bullet = 30, laser = 20, energy = 20, bomb = 10, bio = 100, rad = 100)
 	var/open_layer = OPEN_DOOR_LAYER
 	var/closed_layer = CLOSED_DOOR_LAYER
 	var/visible = 1

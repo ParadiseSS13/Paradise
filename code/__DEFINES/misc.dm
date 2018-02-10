@@ -294,12 +294,6 @@
 #define RADIO_CONNECTION_FAIL 0
 #define RADIO_CONNECTION_NON_SUBSPACE 1
 
-//Fire stuff, for burn_state
-#define LAVA_PROOF -2
-#define FIRE_PROOF -1
-#define FLAMMABLE 0
-#define ON_FIRE 1
-
 // Bluespace shelter deploy checks
 #define SHELTER_DEPLOY_ALLOWED "allowed"
 #define SHELTER_DEPLOY_BAD_TURFS "bad turfs"

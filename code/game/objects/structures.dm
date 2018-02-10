@@ -3,6 +3,7 @@
 	pressure_resistance = 8
 	var/climbable
 	var/mob/climber
+	var/broken = FALSE
 
 /obj/structure/blob_act()
 	if(prob(50))

@@ -138,6 +138,8 @@
 		terminal.connect_to_network()
 
 /obj/machinery/power/apc/New(turf/loc, var/ndir, var/building=0)
+	if(!armor)
+		armor = list(melee = 20, bullet = 20, laser = 10, energy = 100, bomb = 30, bio = 100, rad = 100)
 	..()
 	apcs += src
 	apcs = sortAtom(apcs)
