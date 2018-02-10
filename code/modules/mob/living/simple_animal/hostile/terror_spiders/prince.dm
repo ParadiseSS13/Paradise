@@ -24,7 +24,7 @@
 	move_to_delay = 4 // faster than normal
 	ventcrawler = 0
 	ai_ventcrawls = 0
-	environment_smash = 3
+	environment_smash = ENVIRONMENT_SMASH_RWALLS
 	loot = list(/obj/item/clothing/accessory/medal)
 	idle_ventcrawl_chance = 0
 	spider_tier = TS_TIER_3

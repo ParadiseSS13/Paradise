@@ -39,7 +39,7 @@
 #include "code\__DEFINES\machines.dm"
 #include "code\__DEFINES\math.dm"
 #include "code\__DEFINES\misc.dm"
-#include "code\__DEFINES\mob.dm"
+#include "code\__DEFINES\mobs.dm"
 #include "code\__DEFINES\pda.dm"
 #include "code\__DEFINES\preferences.dm"
 #include "code\__DEFINES\process_scheduler.dm"

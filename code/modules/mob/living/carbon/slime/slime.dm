@@ -215,8 +215,8 @@
 		return // can't attack while eating!
 
 	M.do_attack_animation(src)
-	visible_message("<span class='danger'> The [M.name] has glomped [src]!</span>", \
-			"<span class='userdanger'> The [M.name] has glomped [src]!</span>")
+	visible_message("<span class='danger'>[M.name] has glomped [src]!</span>", \
+			"<span class='userdanger'>[M.name] has glomped [src]!</span>")
 	var/damage = rand(1, 3)
 	attacked += 5
 	if(M.is_adult)

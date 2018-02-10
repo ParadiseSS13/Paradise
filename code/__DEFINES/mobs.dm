@@ -107,6 +107,12 @@
 #define AI_CHECK_WIRELESS 1
 #define AI_CHECK_RADIO 2
 
+//determines if a mob can smash through it
+#define ENVIRONMENT_SMASH_NONE 0
+#define ENVIRONMENT_SMASH_STRUCTURES 1 //crates, lockers, ect
+#define ENVIRONMENT_SMASH_WALLS 2   //walls
+#define ENVIRONMENT_SMASH_RWALLS 4  //rwalls
+
 #define POCKET_STRIP_DELAY			40	//time taken (in deciseconds) to search somebody's pockets
 
 #define DEFAULT_ITEM_STRIP_DELAY		40  //time taken (in deciseconds) to strip somebody

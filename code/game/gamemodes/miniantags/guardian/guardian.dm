@@ -22,6 +22,7 @@
 	maxHealth = INFINITY //The spirit itself is invincible
 	health = INFINITY
 	environment_smash = 0
+	obj_damage = 40
 	melee_damage_lower = 15
 	melee_damage_upper = 15
 	AIStatus = AI_OFF

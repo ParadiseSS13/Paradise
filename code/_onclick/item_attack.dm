@@ -13,14 +13,8 @@
 	return TRUE //return FALSE to avoid calling attackby after this proc does stuff
 
 // No comment
-/atom/proc/attackby(obj/item/W, mob/living/user, params)
+/atom/proc/attackby(obj/item/W, mob/user, params)
 	return
-
-/atom/movable/attackby(obj/item/W, mob/living/user, params)
-	user.changeNext_move(CLICK_CD_MELEE)
-	user.do_attack_animation(src)
-	if(!(W.flags&NOBLUDGEON))
-		visible_message("<span class='danger'>[src] has been hit by [user] with [W].</span>")
 
 /obj/attackby(obj/item/I, mob/living/user, params)
 	return I.attack_obj(src, user)
@@ -94,7 +88,8 @@
 
 /obj/attacked_by(obj/item/I, mob/living/user)
 	if(I.force)
-		user.visible_message("<span class='danger'>[user] has hit [src] with [I]!</span>", "<span class='danger'>You hit [src] with [I]!</span>")
+		user.visible_message("<span class='danger'>[src] has been hit by [user] with [I]!</span>", "<span class='danger'>You hit [src] with [I]!</span>")
+	take_damage(I.force, I.damtype, "melee", 1)
 
 /mob/living/attacked_by(obj/item/I, mob/living/user, def_zone)
 	send_item_attack_message(I, user)
@@ -142,9 +137,9 @@
 	var/message_hit_area = ""
 	if(hit_area)
 		message_hit_area = " in the [hit_area]"
-	var/attack_message = "[src] has been [message_verb][message_hit_area] with [I]."
+	var/attack_message = "[user] has [message_verb] [src][message_hit_area] with [I]!"
 	if(user in viewers(src, null))
-		attack_message = "[src] has been [message_verb][message_hit_area] with [I] by [user]!"
-	visible_message("<span class='danger'>[attack_message]</span>",
-		"<span class='userdanger'>[attack_message]</span>")
+		attack_message = "[user] has [message_verb] [src][message_hit_area] with [I]!"
+	visible_message("<span class='combat danger'>[attack_message]</span>",\
+		"<span class='combat userdanger'>[attack_message]</span>")
 	return 1

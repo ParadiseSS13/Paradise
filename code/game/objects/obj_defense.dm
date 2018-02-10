@@ -19,11 +19,8 @@
 
 //returns the damage value of the attack after processing the obj's various armor protections
 /obj/proc/run_obj_armor(damage_amount, damage_type, damage_flag = 0, attack_dir, armour_penetration = 0)
-	switch(damage_type)
-		if(BRUTE)
-		if(BURN)
-		else
-			return 0
+	if(!(damage_type in list(BRUTE, BURN)))
+		return 0
 	var/armor_protection = 0
 	if(damage_flag)
 		armor_protection = armor[damage_flag]
@@ -51,6 +48,86 @@
 		var/obj/O = AM
 		tforce = O.throwforce
 	take_damage(tforce, BRUTE, "melee", 1, get_dir(src, AM))
+
+/obj/ex_act(severity, target)
+	if(resistance_flags & INDESTRUCTIBLE)
+		return
+	..() //contents explosion
+	if(target == src)
+		obj_integrity = 0
+		qdel(src)
+		return
+	switch(severity)
+		if(1)
+			obj_integrity = 0
+			qdel(src)
+		if(2)
+			take_damage(rand(100, 250), BRUTE, "bomb", 0)
+		if(3)
+			take_damage(rand(10, 90), BRUTE, "bomb", 0)
+
+/obj/bullet_act(obj/item/projectile/P)
+	. = ..()
+	playsound(src, P.hitsound, 50, 1)
+	visible_message("<span class='danger'>[src] is hit by \a [P]!</span>")
+	take_damage(P.damage, P.damage_type, P.flag, 0, turn(P.dir, 180), P.armour_penetration)
+
+/obj/blob_act(obj/structure/blob/B)
+	if(isturf(loc))
+		var/turf/T = loc
+		if(T.intact && level == 1) //the blob doesn't destroy thing below the floor
+			return
+	take_damage(400, BRUTE, "melee", 0, get_dir(src, B))
+
+/obj/proc/attack_generic(mob/user, damage_amount = 0, damage_type = BRUTE, damage_flag = 0, sound_effect = 1, armor_penetration = 0) //used by attack_alien, attack_animal, and attack_slime
+	user.do_attack_animation(src)
+	user.changeNext_move(CLICK_CD_MELEE)
+	return take_damage(damage_amount, damage_type, damage_flag, sound_effect, get_dir(src, user), armor_penetration)
+
+/obj/attack_alien(mob/living/carbon/alien/humanoid/user)
+	if(attack_generic(user, 60, BRUTE, "melee", 0))
+		playsound(loc, 'sound/weapons/slash.ogg', 100, 1)
+
+/obj/attack_animal(mob/living/simple_animal/M)
+	if(!M.melee_damage_upper && !M.obj_damage)
+		M.custom_emote(1, "[M.friendly] [src]")
+		return 0
+	else
+		var/play_soundeffect = 1
+		if(M.environment_smash)
+			play_soundeffect = 0
+		if(M.obj_damage)
+			. = attack_generic(M, M.obj_damage, M.melee_damage_type, "melee", play_soundeffect, M.armour_penetration)
+		else
+			. = attack_generic(M, rand(M.melee_damage_lower,M.melee_damage_upper), M.melee_damage_type, "melee", play_soundeffect, M.armour_penetration)
+		if(. && !play_soundeffect)
+			playsound(src, 'sound/effects/meteorimpact.ogg', 100, 1)
+
+/obj/attack_slime(mob/living/carbon/slime/user)
+	if(!user.is_adult)
+		return
+	attack_generic(user, rand(10, 15), "melee", 1)
+
+/obj/mech_melee_attack(obj/mecha/M)
+	M.do_attack_animation(src)
+	var/play_soundeffect = 0
+	var/mech_damtype = M.damtype
+	if(M.selected)
+		mech_damtype = M.selected.damtype
+		play_soundeffect = 1
+	else
+		switch(M.damtype)
+			if(BRUTE)
+				playsound(src, 'sound/weapons/punch4.ogg', 50, 1)
+			if(BURN)
+				playsound(src, 'sound/items/welder.ogg', 50, 1)
+			if(TOX)
+				playsound(src, 'sound/effects/spray2.ogg', 50, 1)
+				return 0
+			else
+				return 0
+	visible_message("<span class='danger'>[M.name] has hit [src].</span>")
+	return take_damage(M.force*3, mech_damtype, "melee", play_soundeffect, get_dir(src, M)) // multiplied by 3 so we can hit objs hard but not be overpowered against mobs.
 
 /obj/singularity_act()
 	ex_act(1)
@@ -101,7 +178,7 @@
 
 //what happens when the obj's integrity reaches zero.
 /obj/proc/obj_destruction(damage_flag)
-	if(damage_flag == "fire")
+	if(damage_flag == BURN)
 		burn()
 	else
 		deconstruct(FALSE)

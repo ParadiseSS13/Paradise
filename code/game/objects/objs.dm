@@ -14,7 +14,7 @@
 	var/force = 0
 	var/list/armor
 	var/obj_integrity	//defaults to max_integrity
-	var/max_integrity = 500
+	var/max_integrity = INFINITY
 	var/integrity_failure = 0 //0 if we have no special broken behavior
 
 	var/resistance_flags = NONE // INDESTRUCTIBLE

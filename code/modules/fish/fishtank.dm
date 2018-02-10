@@ -595,7 +595,7 @@
 		playsound(loc, 'sound/effects/Glasshit.ogg', 75, 1)
 	check_health()
 
-/obj/machinery/fishtank/proc/attack_generic(mob/living/user as mob, damage = 0)	//used by attack_alien, attack_animal, and attack_slime
+/obj/machinery/fishtank/attack_generic(mob/living/user, damage = 0)	//used by attack_alien, attack_animal, and attack_slime
 	user.changeNext_move(CLICK_CD_MELEE)
 	user.do_attack_animation(src)
 	cur_health -= damage

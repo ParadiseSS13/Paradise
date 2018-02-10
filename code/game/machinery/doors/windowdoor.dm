@@ -194,7 +194,7 @@
 	if(user.can_advanced_admin_interact())
 		return attack_hand(user)
 
-/obj/machinery/door/window/proc/attack_generic(mob/user, damage = 0)
+/obj/machinery/door/window/attack_generic(mob/user, damage = 0)
 	if(operating)
 		return
 	user.changeNext_move(CLICK_CD_MELEE)

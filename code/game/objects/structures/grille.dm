@@ -15,7 +15,7 @@
 	var/rods_type = /obj/item/stack/rods
 	var/rods_amount = 2
 	var/rods_broken = 1
-	var/grille_type = null
+	var/grille_type
 	var/broken_type = /obj/structure/grille/broken
 
 /obj/structure/grille/fence/
@@ -95,36 +95,6 @@
 	if(!shock(user, 70))
 		take_damage(20, BRUTE, "melee", 1)
 
-/obj/structure/grille/attack_slime(mob/living/user)
-	user.changeNext_move(CLICK_CD_MELEE)
-	user.do_attack_animation(src)
-	var/mob/living/carbon/slime/S = user
-	if(!S.is_adult)
-		return
-
-	playsound(loc, 'sound/effects/grillehit.ogg', 80, 1)
-	user.visible_message("<span class='warning'>[user] smashes against [src].</span>", \
-						 "<span class='warning'>You smash against [src].</span>", \
-						 "You hear twisting metal.")
-
-	take_damage(rand(1,2))
-
-/obj/structure/grille/attack_animal(mob/living/simple_animal/M)
-	if(M.melee_damage_upper == 0 || (M.melee_damage_type != BRUTE && M.melee_damage_type != BURN))
-		return
-	M.changeNext_move(CLICK_CD_MELEE)
-	M.do_attack_animation(src)
-	playsound(loc, 'sound/effects/grillehit.ogg', 80, 1)
-	M.visible_message("<span class='warning'>[M] smashes against [src].</span>", \
-					  "<span class='warning'>You smash against [src].</span>", \
-					  "You hear twisting metal.")
-
-	take_damage(rand(M.melee_damage_lower,M.melee_damage_upper), M.melee_damage_type, "melee", 1)
-
-/obj/structure/grille/mech_melee_attack(obj/mecha/M)
-	if(..())
-		take_damage(M.force * 0.5, M.damtype)
-
 /obj/structure/grille/CanPass(atom/movable/mover, turf/target, height=0)
 	if(height==0)
 		return 1
@@ -142,10 +112,6 @@
 		var/atom/movable/mover = caller
 		. = . || mover.checkpass(PASSGRILLE)
 
-/obj/structure/grille/bullet_act(obj/item/projectile/Proj)
-	. = ..()
-	take_damage(Proj.damage*0.3, Proj.damage_type)
-
 /obj/structure/grille/attackby(obj/item/weapon/W, mob/user, params)
 	user.changeNext_move(CLICK_CD_MELEE)
 	add_fingerprint(user)
@@ -155,7 +121,7 @@
 			deconstruct()
 	else if((isscrewdriver(W)) && (istype(loc, /turf/simulated) || anchored))
 		if(!shock(user, 90))
-			playsound(loc, W.usesound, 100, 1)
+			playsound(src, W.usesound, 100, 1)
 			anchored = !anchored
 			user.visible_message("<span class='notice'>[user] [anchored ? "fastens" : "unfastens"] [src].</span>", \
 								 "<span class='notice'>You [anchored ? "fasten [src] to" : "unfasten [src] from"] the floor.</span>")
@@ -177,7 +143,7 @@
 //window placing end
 
 	else if(istype(W, /obj/item/weapon/shard) || !shock(user, 70))
-		return attacked_by(W, user)
+		return ..()
 
 /obj/structure/grille/proc/build_window(obj/item/stack/sheet/S, mob/user)
 	if(!istype(S) || !user)

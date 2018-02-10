@@ -148,7 +148,7 @@ var/global/wcCommon = pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e", "#8f
 	return
 
 
-/obj/structure/window/proc/attack_generic(mob/living/user as mob, damage = 0)	//used by attack_alien, attack_animal, and attack_slime
+/obj/structure/window/attack_generic(mob/living/user, damage = 0)	//used by attack_alien, attack_animal, and attack_slime
 	user.changeNext_move(CLICK_CD_MELEE)
 	user.do_attack_animation(src)
 	health -= damage

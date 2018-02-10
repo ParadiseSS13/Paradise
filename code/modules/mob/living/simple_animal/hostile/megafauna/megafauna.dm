@@ -7,7 +7,8 @@
 	maxHealth = 1000
 	a_intent = INTENT_HARM
 	sentience_type = SENTIENCE_BOSS
-	environment_smash = 3
+	environment_smash = ENVIRONMENT_SMASH_RWALLS
+	obj_damage = 400
 	luminosity = 3
 	faction = list("mining", "boss")
 	weather_immunities = list("lava","ash")
