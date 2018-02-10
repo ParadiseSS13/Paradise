@@ -226,7 +226,7 @@ Property of Nanotrasen</font><br>
 		</div>
 	{{else data.screen == 9}} <!-- NEWSCASTER_D_NOTICE_FC -->
 		<b>{{:data.channel_name}}</b> <i><font size=1>[created by: <span class='good'>{{:data.author}}</span>]</font></i><br>
-		<i>Channel messages listed below. If you deem them dangerous to the station, you can <div style='clear: both;'>{{:helper.link('Bestow a D-Notice upon the channel', null, {'toggle_d_notice' : data.ref})}}</div></i><br><hr>
+		<i>Channel messages listed below. If you deem them dangerous to the station, you can <div style='clear: both;'>{{:helper.link(data.censored ? 'Remove the D-Notice on the channel' : 'Bestow a D-Notice upon the channel', null, {'toggle_d_notice' : data.ref})}}</div></i><br><hr>
 		{{if data.censored}}
 			<div class='statusDisplay'>
 				<b class='bad'>ATTENTION: </b>This channel has been deemed as threatening to the welfare of the station, and marked with a Nanotrasen D-Notice. 
