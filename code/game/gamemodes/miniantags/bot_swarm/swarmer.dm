@@ -112,6 +112,7 @@
 	loot = list(/obj/effect/decal/cleanable/blood/gibs/robot, /obj/item/weapon/ore/bluespace_crystal/artificial)
 	deathmessage = "The swarmer explodes with a sharp pop!"
 	del_on_death = 1
+	hud_possible = list(SPECIALROLE_HUD, DIAG_STAT_HUD, DIAG_HUD)
 
 /mob/living/simple_animal/hostile/swarmer/Login()
 	..()
@@ -127,7 +128,21 @@
 	..()
 	add_language("Swarmer", 1)
 	verbs -= /mob/living/verb/pulled
+	for(var/datum/atom_hud/data/diagnostic/diag_hud in huds)
+		diag_hud.add_to_hud(src)
 	updatename()
+
+/mob/living/simple_animal/hostile/swarmer/med_hud_set_health()
+	var/image/holder = hud_list[DIAG_HUD]
+	var/icon/I = icon(icon, icon_state, dir)
+	holder.pixel_y = I.Height() - world.icon_size
+	holder.icon_state = "huddiag[RoundDiagBar(health / maxHealth)]"
+
+/mob/living/simple_animal/hostile/swarmer/med_hud_set_status()
+	var/image/holder = hud_list[DIAG_STAT_HUD]
+	var/icon/I = icon(icon, icon_state, dir)
+	holder.pixel_y = I.Height() - world.icon_size
+	holder.icon_state = "hudstat"
 
 /mob/living/simple_animal/hostile/swarmer/Stat()
 	..()

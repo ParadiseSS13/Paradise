@@ -112,7 +112,7 @@
 "ch" = (/obj/machinery/door/airlock,/turf/simulated/floor/plasteel,/area/awaymission/example)
 "ci" = (/turf/simulated/floor/plasteel{dir = 4; icon_state = "yellow"},/area/awaymission/example)
 "cj" = (/obj/item/weapon/paper{info = "Hey Ted, remind me to take Angeline out some time before I ship out. You know how bad my memory is, so don't get all high and mighty with me. READ THIS."; name = "note"},/turf/simulated/floor/plasteel,/area/awaymission/example)
-"ck" = (/obj/machinery/door/airlock/glass,/turf/simulated/floor/plasteel,/area/awaymission/example)
+"ck" = (/obj/machinery/door/airlock/public/glass,/turf/simulated/floor/plasteel,/area/awaymission/example)
 "cl" = (/obj/structure/noticeboard{pixel_y = 32},/obj/item/weapon/paper{info = "Remember, friday is David Bowie night! You guys had better fucking <i>be there!</i>"; name = "friday night"},/obj/item/weapon/cigbutt,/turf/simulated/floor/plasteel{icon_state = "yellowcorner"},/area/awaymission/example)
 "cm" = (/obj/item/trash/pistachios,/turf/simulated/floor/plasteel,/area/awaymission/example)
 "cn" = (/obj/effect/landmark{name = "awaystart"},/turf/simulated/floor/plasteel,/area/awaymission/example)
