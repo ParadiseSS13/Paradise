@@ -170,9 +170,9 @@ I use this to standardize shadowling dethrall code
 -- Crazylemon
 */
 /mob/living/carbon/human/proc/named_organ_parent(var/organ_name)
-	if(!get_int_organ(organ_name))
+	if(!get_int_organ_tag(organ_name))
 		return null
-	var/obj/item/organ/internal/O = get_int_organ(organ_name)
+	var/obj/item/organ/internal/O = get_int_organ_tag(organ_name)
 	return O.parent_organ
 
 /mob/living/carbon/human/has_organic_damage()
