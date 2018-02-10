@@ -67,9 +67,13 @@
 
 	var/move_delay = 2
 	var/next_move = 0
+	var/can_paint = TRUE
 
 /obj/spacepod/proc/apply_paint(mob/user as mob)
 	var/part_type
+	if(can_paint == FALSE)
+		to_chat(user, "You can't repaint this type of pod!")
+
 	var/part = input(user, "Choose part", null) as null|anything in list("Lights","Rim","Paint","Windows")
 	switch(part)
 		if("Lights")

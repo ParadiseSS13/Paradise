@@ -1262,3 +1262,29 @@
 	item_state = "victorianvest"
 	item_color = "victorianlightfire"
 	displays_id = FALSE
+
+
+/obj/item/device/fluff/decemviri_spacepod_kit //Decemviri: Sylus Cain
+	name = "Spacepod mod kit"
+	desc = "a kit on tools and a blueprint detailing how to reconfigure a spacepod"
+	icon_state = "modkit"
+	used = 0
+
+/obj/item/device/fluff/decemviri_spacepod_kit/afterattack(atom/target, mob/user, proximity)
+	if(!proximity || !ishuman(user) || user.incapacitated())
+		return
+	if(used)
+		to_chat(user, "<span class='warning'>The doesn't have any spare parts to use on another pod!</span>")
+	else
+		if(istype(target, /obj/spacepod))
+			to_chat(user, "<span class='notice'>You modify the appearance of [target] based on the kite blueprints.</span>")
+			var/obj/spacepod/pod = target
+			pod.icon = 'icons/48x48/custom_pod.dmi'
+			pod.icon_state = "pod_dece"
+			pod.name = "sleek spacepod"
+			pod.desc = "A modified varient of a space pod."
+			pod.can_paint = FALSE
+			used = 1
+			qdel(src)
+			return
+		to_chat(user, "<span class='warning'>You can't modify [target]!</span>")
