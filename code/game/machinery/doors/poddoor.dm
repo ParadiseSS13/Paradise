@@ -105,7 +105,7 @@
 	name = "large pod door"
 	layer = CLOSED_DOOR_LAYER
 	var/idir 		//Initial Direction. For some reason upon spawning these doors always turn to south.
-					//We must force them to their corret direction, so we store it here.
+					//We must force them to their correct direction, so we store it here.
 					//Bad solution, I know. If you know how to fix please do. - Bxil
 
 /obj/machinery/door/poddoor/multi_tile/New()
@@ -133,6 +133,8 @@
 	var/turf/current_turf = get_turf(src)
 	while(numsteps <= width)
 		current_turf.opacity = new_opacity
+		current_turf.has_opaque_atom = new_opacity
+		current_turf.reconsider_lights()
 		var/turf/next_turf = get_step(current_turf, idir)
 		current_turf = next_turf
 		numsteps++
