@@ -178,11 +178,11 @@
 	floor_tile = /obj/item/stack/tile/mineral/abductor
 	icons = list("alienpod1", "alienpod2", "alienpod3", "alienpod4", "alienpod5", "alienpod6", "alienpod7", "alienpod8", "alienpod9")
 
-/turf/simulated/floor/mineral/New()
+/turf/simulated/floor/mineral/abductor/New()
 	..()
 	icon_state = "alienpod[rand(1,9)]"
 
-/turf/simulated/floor/mineral/break_tile()
+/turf/simulated/floor/mineral/abductor/break_tile()
 	return //unbreakable
 
 /turf/simulated/floor/mineral/abductor/burn_tile()

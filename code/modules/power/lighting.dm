@@ -457,7 +457,7 @@
 				to_chat(user, "You try to remove the light [fitting], but you burn your hand on it!")
 
 				var/obj/item/organ/external/affecting = H.get_organ("[user.hand ? "l" : "r" ]_hand")
-				if(affecting.take_damage( 0, 5 ))		// 5 burn damage
+				if(affecting.receive_damage( 0, 5 ))		// 5 burn damage
 					H.UpdateDamageIcon()
 				H.updatehealth()
 				return

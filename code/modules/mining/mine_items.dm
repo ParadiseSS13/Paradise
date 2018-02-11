@@ -373,14 +373,21 @@
 
 //Door
 /obj/machinery/door/airlock/survival_pod
-	icon = 'icons/obj/doors/survival.dmi'
+	icon = 'icons/obj/doors/airlocks/survival/survival.dmi'
+	overlays_file = 'icons/obj/doors/airlocks/survival/survival_overlays.dmi'
 	assemblytype = /obj/structure/door_assembly/door_assembly_pod
-	opacity = 0
-	glass = 1
+
+/obj/machinery/door/airlock/survival_pod/glass
+	opacity = FALSE
+	glass = TRUE
 
 /obj/structure/door_assembly/door_assembly_pod
-	base_icon_state = "survival_pod"
-	glass_type = "/survival_pod"
+	name = "pod airlock assembly"
+	icon = 'icons/obj/doors/airlocks/survival/survival.dmi'
+	base_name = "pod airlock"
+	overlays_file = 'icons/obj/doors/airlocks/survival/survival_overlays.dmi'
+	airlock_type = /obj/machinery/door/airlock/survival_pod
+	glass_type = /obj/machinery/door/airlock/survival_pod/glass
 
 //Windoor
 /obj/machinery/door/window/survival_pod
@@ -495,7 +502,7 @@
 	var/buildstacktype = /obj/item/stack/sheet/metal
 	var/buildstackamount = 5
 
-/obj/structure/fans/proc/deconstruct()
+/obj/structure/fans/deconstruct()
 	if(buildstacktype)
 		new buildstacktype(loc, buildstackamount)
 	qdel(src)

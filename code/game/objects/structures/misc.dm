@@ -46,8 +46,7 @@
 
 					playsound(user.loc, 'sound/effects/phasein.ogg', 25, 1)
 					playsound(user.loc, 'sound/effects/sparks2.ogg', 50, 1)
-					anim(user.loc,user,'icons/mob/mob.dmi',,"phasein",,user.dir)
-
+					new /obj/effect/temp_visual/dir_setting/ninja/phase(get_turf(user), user.dir)
 					to_chat(user, "<span class='boldnotice'>VOID-Shift</span> translocation successful")
 
 				if("No")

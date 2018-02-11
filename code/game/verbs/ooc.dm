@@ -60,7 +60,7 @@ var/global/admin_ooc_colour = "#b82e00"
 
 	for(var/client/C in clients)
 		if(C.prefs.toggles & CHAT_OOC)
-			var/display_name = src.key
+			var/display_name = key
 
 			if(prefs.unlock_content)
 				if(prefs.toggles & MEMBER_PUBLIC)
@@ -74,28 +74,15 @@ var/global/admin_ooc_colour = "#b82e00"
 
 			if(holder)
 				if(holder.fakekey)
-					if(C.holder)
-						display_name = "[holder.fakekey]/([src.key])"
+					if(C.holder && C.holder.rights & R_ADMIN)
+						display_name = "[holder.fakekey]/([key])"
 					else
 						display_name = holder.fakekey
 
 			if(!config.disable_ooc_emoji)
 				msg = "<span class='emoji_enabled'>[msg]</span>"
 
-			msg = apply_formatting(msg)
-
 			to_chat(C, "<font color='[display_colour]'><span class='ooc'><span class='prefix'>OOC:</span> <EM>[display_name]:</EM> <span class='message'>[msg]</span></span></font>")
-
-/proc/apply_formatting(message)
-	var/static/regex/italics = new("(?<!\\\\)\\*(.*?)(?<!\\\\)\\*", "g")
-	var/static/regex/strikethrough = new("(?<!\\\\)~(?<!\\\\)~(.*?)(?<!\\\\)~(?<!\\\\)~", "g")
-	var/static/regex/escape = new("(?<!\\\\)\\\\(\[~\\*\\\\\])", "g")
-
-	message = italics.Replace(message, "<i>$1</i>")
-	message = strikethrough.Replace(message, "<s>$1</s>")
-	message = escape.Replace(message, "$1")//jesus christ, regex
-
-	return message
 
 /proc/toggle_ooc()
 	config.ooc_allowed = ( !config.ooc_allowed )

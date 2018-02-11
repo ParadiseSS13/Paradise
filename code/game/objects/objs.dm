@@ -9,9 +9,13 @@
 	var/list/attack_verb = list() //Used in attackby() to say how something was attacked "[x] has been [z.attack_verb] by [y] with [z]"
 	var/sharp = 0		// whether this object cuts
 	var/in_use = 0 // If we have a user using us, this will be set on. We will check if the user has stopped using us, and thus stop updating and LAGGING EVERYTHING!
-
+	var/can_deconstruct = TRUE
 	var/damtype = "brute"
 	var/force = 0
+
+	var/obj_integrity	//defaults to max_integrity
+	var/max_integrity = 500
+	var/integrity_failure = 0 //0 if we have no special broken behavior
 
 	var/Mtoollink = 0 // variable to decide if an object should show the multitool menu linking menu, not all objects use it
 
@@ -25,7 +29,8 @@
 
 /obj/New()
 	. = ..()
-
+	if(obj_integrity == null)
+		obj_integrity = max_integrity
 	if(on_blueprints && isturf(loc))
 		var/turf/T = loc
 		if(force_blueprints)
@@ -158,10 +163,6 @@
 	if(istype(M) && M.client && M.machine == src)
 		src.attack_self(M)
 
-
-/obj/proc/alter_health()
-	return 1
-
 /obj/proc/hide(h)
 	return
 
@@ -253,12 +254,6 @@ a {
 	user.set_machine(src)
 	onclose(user, "mtcomputer")
 
-/obj/singularity_act()
-	ex_act(1.0)
-	if(src && isnull(gcDestroyed))
-		qdel(src)
-	return 2
-
 /obj/singularity_pull(S, current_size)
 	if(anchored)
 		if(current_size >= STAGE_FIVE)
@@ -269,39 +264,8 @@ a {
 /obj/proc/container_resist(var/mob/living)
 	return
 
-/obj/proc/tesla_act(var/power)
-	being_shocked = 1
-	var/power_bounced = power * 0.5
-	tesla_zap(src, 3, power_bounced)
-	addtimer(src, "reset_shocked", 10)
-
-/obj/proc/reset_shocked()
-	being_shocked = 0
-
 /obj/proc/CanAStarPass()
 	. = !density
-
-/obj/fire_act(global_overlay=1)
-	if(!burn_state)
-		burn_state = ON_FIRE
-		fire_master.burning += src
-		burn_world_time = world.time + burntime*rand(10,20)
-		if(global_overlay)
-			overlays += fire_overlay
-		return 1
-
-/obj/proc/burn()
-	empty_object_contents(1, loc)
-	var/obj/effect/decal/cleanable/ash/A = new(loc)
-	A.desc = "Looks like this used to be a [name] some time ago."
-	fire_master.burning -= src
-	qdel(src)
-
-/obj/proc/extinguish()
-	if(burn_state == ON_FIRE)
-		burn_state = FLAMMABLE
-		overlays -= fire_overlay
-		fire_master.burning -= src
 
 /obj/proc/empty_object_contents(burn = 0, new_loc = loc)
 	for(var/obj/item/Item in contents) //Empty out the contents

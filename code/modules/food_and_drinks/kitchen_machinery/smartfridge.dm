@@ -429,9 +429,9 @@
 		component_parts.Cut()
 	component_parts = null
 
-/obj/machinery/smartfridge/drying_rack/Destroy()
+/obj/machinery/smartfridge/drying_rack/on_deconstruction()
 	new /obj/item/stack/sheet/wood(loc, 10)
-	return ..()
+	..()
 
 /obj/machinery/smartfridge/drying_rack/RefreshParts()
 	return

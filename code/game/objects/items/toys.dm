@@ -114,6 +114,14 @@
 	icon_state = "syndballoon"
 	item_state = "syndballoon"
 	w_class = WEIGHT_CLASS_BULKY
+	var/lastused = null
+
+/obj/item/toy/syndicateballoon/attack_self(mob/user)
+	if(world.time - lastused < CLICK_CD_MELEE)
+		return
+	var/playverb = pick("bat [src]", "tug on [src]'s string", "play with [src]")
+	user.visible_message("<span class='notice'>[user] plays with [src].</span>", "<span class='notice'>You [playverb].</span>")
+	lastused = world.time
 
 /*
  * Fake telebeacon
@@ -201,6 +209,7 @@
 	force_wielded = 0
 	origin_tech = null
 	attack_verb = list("attacked", "struck", "hit")
+	brightness_on = 0
 
 /obj/item/weapon/twohanded/dualsaber/toy/hit_reaction()
 	return 0

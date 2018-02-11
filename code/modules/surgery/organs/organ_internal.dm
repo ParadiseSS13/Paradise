@@ -297,7 +297,7 @@
 	var/eye_colour = "#000000"
 	var/list/colourmatrix = null
 	var/list/colourblind_matrix = MATRIX_GREYSCALE //Special colourblindness parameters. By default, it's black-and-white.
-	var/colourblind_darkview = null
+	var/list/replace_colours = LIST_GREYSCALE_REPLACE
 	var/dependent_disabilities = null //Gets set by eye-dependent disabilities such as colourblindness so the eyes can transfer the disability during transplantation.
 	var/dark_view = 2 //Default dark_view for Humans.
 	var/weld_proof = null //If set, the eyes will not take damage during welding. eg. IPC optical sensors do not take damage when they weld things while all other eyes will.
@@ -312,10 +312,7 @@
 		return colourmatrix
 
 /obj/item/organ/internal/eyes/proc/get_dark_view() //Returns dark_view (if the eyes are organic) for see_invisible handling in species.dm to be autoprocessed by life().
-	if(!robotic && colourblind_darkview && owner.disabilities & COLOURBLIND) //Returns special darkview value if colourblind and it exists, otherwise reuse current.
-		return colourblind_darkview
-	else
-		return dark_view
+	return dark_view
 
 /obj/item/organ/internal/eyes/insert(mob/living/carbon/human/M, special = 0)
 	..()
@@ -401,16 +398,16 @@
 		if(owner.getToxLoss() >= 60 && !owner.reagents.has_reagent("charcoal"))
 			//Healthy liver suffers on its own
 			if(damage < min_broken_damage)
-				take_damage(0.2 * PROCESS_ACCURACY)
+				receive_damage(0.2 * PROCESS_ACCURACY)
 			//Damaged one shares the fun
 			else
 				var/obj/item/organ/internal/O = pick(owner.internal_organs)
 				if(O)
-					O.take_damage(0.2  * PROCESS_ACCURACY)
+					O.receive_damage(0.2  * PROCESS_ACCURACY)
 
 		//Detox can heal small amounts of damage
 		if(damage && damage < min_bruised_damage && owner.reagents.has_reagent("charcoal"))
-			take_damage(-0.2 * PROCESS_ACCURACY)
+			receive_damage(-0.2 * PROCESS_ACCURACY)
 
 		// Get the effectiveness of the liver.
 		var/filter_effect = 3
