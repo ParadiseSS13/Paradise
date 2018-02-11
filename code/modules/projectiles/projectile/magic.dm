@@ -27,7 +27,7 @@
 /obj/item/projectile/magic/death/on_hit(var/mob/living/carbon/G)
 	. = ..()
 	if(isliving(G))
-		if(istype(G, /mob/living/carbon/human/machine)) //speshul snowfleks deserv speshul treetment
+		if(G.get_species() == "Machine") //speshul snowfleks deserv speshul treetment
 			G.adjustFireLoss(6969)  //remember - slimes love fire
 		else
 			G.death()
