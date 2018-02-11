@@ -172,10 +172,9 @@ Class Procs:
 	return PROCESS_KILL
 
 /obj/machinery/emp_act(severity)
-	if(use_power && stat == 0)
+	if(use_power && !stat)
 		use_power(7500/severity)
-
-	new/obj/effect/temp_visual/emp(loc)
+		new /obj/effect/temp_visual/emp(loc)
 	..()
 
 /obj/machinery/ex_act(severity)
@@ -416,11 +415,17 @@ Class Procs:
 
 /obj/machinery/proc/spawn_frame(disassembled)
 	var/obj/machinery/constructable_frame/machine_frame/M = new /obj/machinery/constructable_frame/machine_frame(loc)
+	. = M
+	M.anchored = anchored
 	if(!disassembled)
 		M.obj_integrity = M.max_integrity * 0.5 //the frame is already half broken
 	transfer_fingerprints_to(M)
 	M.state = 2
 	M.icon_state = "box_1"
+
+/obj/machinery/obj_break(damage_flag)
+	if(can_deconstruct)
+		stat |= BROKEN
 
 /obj/machinery/proc/default_deconstruction_screwdriver(var/mob/user, var/icon_state_open, var/icon_state_closed, var/obj/item/weapon/screwdriver/S)
 	if(istype(S))
@@ -599,6 +604,6 @@ Class Procs:
 	if(prob(85) && explosive)
 		explosion(loc, 1, 2, 4, flame_range = 2, adminlog = 0, smoke = 0)
 	else if(prob(50))
-		emp_act(2)
+		emp_act(EMP_LIGHT)
 	else
-		ex_act(2)
+		ex_act(EXPLODE_HEAVY)

@@ -341,5 +341,8 @@
 #define BLOOD_STATE_XENO			"xeno"
 #define BLOOD_STATE_NOT_BLOODY		"no blood whatsoever"
 
+//for obj explosion block calculation
+#define EXPLOSION_BLOCK_PROC -1
+
 // The SQL version required by this version of the code
 #define SQL_VERSION 2

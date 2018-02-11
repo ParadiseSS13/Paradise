@@ -52,7 +52,6 @@
 /obj/ex_act(severity, target)
 	if(resistance_flags & INDESTRUCTIBLE)
 		return
-	..() //contents explosion
 	if(target == src)
 		obj_integrity = 0
 		qdel(src)
@@ -203,3 +202,7 @@
 		obj_break(damage_type)
 		return TRUE
 	return FALSE
+
+//returns how much the object blocks an explosion
+/obj/proc/GetExplosionBlock()
+	CRASH("Unimplemented GetExplosionBlock()")
