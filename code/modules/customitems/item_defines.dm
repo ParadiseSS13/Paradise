@@ -1262,3 +1262,13 @@
 	item_state = "victorianvest"
 	item_color = "victorianlightfire"
 	displays_id = FALSE
+
+/obj/item/weapon/bikehorn/fluff/pinkbikehorn
+	name = "Honkinator5000"
+	desc = "This horn may look ridiculous but is the new hot item for clowns in the Clown Empire. It has a fine print on its side reading: Property of Prince Honktertong the IV"
+	icon = 'icons/obj/custom_items.dmi'
+	lefthand_file = 'icons/mob/inhands/fluff_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/fluff_righthand.dmi'
+	icon_state = "teri_horn"
+	item_state = "teri_horn"
+	honk_sound = 'sound/items/teri_horn.ogg'
