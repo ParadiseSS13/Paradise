@@ -74,8 +74,9 @@
 		to_chat(src, "<span class='warning'>Error 404: Custom chassis not found. Revoking customization option.</span>")
 	else
 		icon = 'icons/mob/custom_synthetic/custom-synthetic.dmi'
-		if(emagged)
+		if(emagged)			//prevents someone from
 			icon_state = "[ckey]-drone-emagged"
+//			icon_state = "repairbot-emagged"		//in case someone wants to make the emagged droneslook just like normal emagged drones, comment out the line above and uncomment this line
 		else
 			icon_state = "[ckey]-drone"
 		to_chat(src, "<span class='notice'>You reconfigure your chassis and improve the station through your new aesthetics.</span>")

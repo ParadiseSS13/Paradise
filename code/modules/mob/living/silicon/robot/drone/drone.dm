@@ -194,6 +194,7 @@
 	density = 1
 	pass_flags = 0
 	icon_state = "[icon_state]-emagged"
+//	icon_state = "repairbot-emagged"	//in case someone wants to make the emagged drones look just like normal emagged drones, comment out the line above and uncomment this line
 	holder_type = /obj/item/weapon/holder/drone/emagged
 	update_icons()
 	lawupdate = 0
