@@ -5,7 +5,7 @@
 
 /obj/structure/spider/spiderling/terror_spiderling
 	name = "spiderling"
-	desc = "A fast-moving tiny spider, prone to making aggressive hissing sounds. Hope it doesn't grow up."
+	desc = "It moves very quickly, hissing loudly for its size... and it has disproportionately large fangs. Hopefully it does not grow up..."
 	icon_state = "spiderling"
 	anchored = 0
 	layer = 2.75

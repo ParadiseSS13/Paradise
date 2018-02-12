@@ -270,6 +270,8 @@ var/global/list/ts_spiderling_list = list()
 	// after 30 seconds, assuming nobody took control of it yet, offer it to ghosts.
 	addtimer(src, "CheckFaction", 150)
 	addtimer(src, "announcetoghosts", 300)
+	var/datum/atom_hud/U = huds[DATA_HUD_MEDICAL_ADVANCED]
+	U.add_hud_to(src)
 
 /mob/living/simple_animal/hostile/poison/terror_spider/proc/announcetoghosts()
 	if(spider_awaymission)

@@ -252,16 +252,22 @@
 
 /mob/living/simple_animal/hostile/poison/terror_spider/proc/DoVentSmash()
 	if(do_after(src, 40, target = loc))
-		for(var/obj/machinery/atmospherics/unary/vent_pump/P in view(1, src))
+		for(var/obj/machinery/atmospherics/unary/vent_pump/P in range(1, get_turf(src)))
 			if(P.welded)
 				P.welded = 0
 				P.update_icon()
+				P.update_pipe_image()
+				forceMove(P.loc)
 				P.visible_message("<span class='danger'>[src] smashes the welded cover off [P]!</span>")
+				playsound(P.loc, 'sound/machines/airlock_alien_prying.ogg', 50, 0)
 				return
-		for(var/obj/machinery/atmospherics/unary/vent_scrubber/C in view(1, src))
+		for(var/obj/machinery/atmospherics/unary/vent_scrubber/C in range(1, get_turf(src)))
 			if(C.welded)
 				C.welded = 0
 				C.update_icon()
+				C.update_pipe_image()
+				forceMove(C.loc)
 				C.visible_message("<span class='danger'>[src] smashes the welded cover off [C]!</span>")
+				playsound(C.loc, 'sound/machines/airlock_alien_prying.ogg', 50, 0)
 				return
 		to_chat(src, "<span class='danger'>There is no welded vent or scrubber close enough to do this.</span>")

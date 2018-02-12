@@ -3,25 +3,32 @@
 // --------------------------------------------------------------------------------
 // -------------: ROLE: breaking vents
 // -------------: AI: ventcrawls a lot, breaks open vents
-// -------------: SPECIAL: nothing
-// -------------: TO FIGHT IT: blast it before it can get away
-// -------------: SPRITES FROM: FoS, http://nanotrasen.se/phpBB3/memberlist.php?mode=viewprofile&u=386
+// -------------: SPECIAL: ventsmash
+// -------------: TO FIGHT IT: blast it before it can get away!
+// -------------: SPRITES FROM: IK3I
 
 /mob/living/simple_animal/hostile/poison/terror_spider/brown
-	name = "Ghostly Nightmare spider"
-	desc = "An ominous-looking white spider, its ghostly eyes and vicious-looking fangs are the stuff of nightmares. This one has extra-long claws protruding from its feet."
-	spider_role_summary = "Tunneling spider that smashes open vents"
+	name = "Brown Terror spider"
+	desc = "An ominous-looking spider, colored brown like the dirt it crawled out of. Its forearms have sharp digging claws."
+	spider_role_summary = "Vent-breaking spider that breaches into new areas."
 	ai_target_method = TS_DAMAGE_BRUTE
-	icon_state = "terror_gray2"
-	icon_living = "terror_gray2"
-	icon_dead = "terror_gray2_dead"
-	maxHealth = 120
+	icon_state = "terror_brown"
+	icon_living = "terror_brown"
+	icon_dead = "terror_brown_dead"
+	maxHealth = 120 // Low
 	health = 120
-	melee_damage_lower = 10
-	melee_damage_upper = 25
-	move_to_delay = 4
+	melee_damage_lower = 20
+	melee_damage_upper = 30
+	move_to_delay = 20 // Slow.
+	spider_opens_doors = 2 // Breach specialist.
+	environment_smash = 3 // Breaks anything.
 	spider_tier = TS_TIER_2
-
 	ai_ventbreaker = 1
-	freq_ventcrawl_combat = 600 // 1 minute, quite frequent!
-	freq_ventcrawl_idle =  6000 // 10 minutes
+	freq_ventcrawl_combat = 600 // Ventcrawls very frequently, breaking open vents as it goes.
+	freq_ventcrawl_idle =  1800
+	var/datum/action/innate/terrorspider/ventsmash/ventsmash_action
+
+/mob/living/simple_animal/hostile/poison/terror_spider/brown/New()
+	..()
+	ventsmash_action = new()
+	ventsmash_action.Grant(src)

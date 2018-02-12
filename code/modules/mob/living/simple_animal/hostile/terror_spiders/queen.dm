@@ -23,6 +23,15 @@
 	melee_damage_upper = 20
 	move_to_delay = 15 // yeah, this is very slow, but
 	ventcrawler = 1
+	idle_ventcrawl_chance = 0
+	force_threshold = 18 // outright immune to anything of force under 18, this means welders can't hurt it, only guns can
+	ranged = 1
+	retreat_distance = 5
+	minimum_distance = 5
+	projectilesound = 'sound/weapons/pierce.ogg'
+	projectiletype = /obj/item/projectile/terrorqueenspit
+	spider_tier = TS_TIER_4
+	spider_opens_doors = 2
 	var/spider_spawnfrequency = 1200 // 120 seconds
 	var/spider_spawnfrequency_stable = 1200 // 120 seconds. Spawnfrequency is set to this on ai spiders once nest setup is complete.
 	var/spider_lastspawn = 0
@@ -34,16 +43,8 @@
 	var/canlay = 4 // main counter for egg-laying ability! # = num uses, incremented at intervals
 	var/eggslaid = 0
 	var/spider_can_fakelings = 3 // spawns defective spiderlings that don't grow up, used to freak out crew, atmosphere
-	idle_ventcrawl_chance = 0
-	force_threshold = 18 // outright immune to anything of force under 18, this means welders can't hurt it, only guns can
-	ranged = 1
-	retreat_distance = 5
-	minimum_distance = 5
-	projectilesound = 'sound/weapons/pierce.ogg'
-	projectiletype = /obj/item/projectile/terrorqueenspit
-	spider_tier = TS_TIER_4
-	spider_opens_doors = 2
-	loot = list(/obj/item/clothing/accessory/medal)
+	var/list/spider_types_standard = list(/mob/living/simple_animal/hostile/poison/terror_spider/red, /mob/living/simple_animal/hostile/poison/terror_spider/gray, /mob/living/simple_animal/hostile/poison/terror_spider/green)
+	var/list/spider_types_advanced = list(/mob/living/simple_animal/hostile/poison/terror_spider/black, /mob/living/simple_animal/hostile/poison/terror_spider/purple, /mob/living/simple_animal/hostile/poison/terror_spider/brown, /mob/living/simple_animal/hostile/poison/terror_spider/white)
 	var/datum/action/innate/terrorspider/queen/queennest/queennest_action
 	var/datum/action/innate/terrorspider/queen/queensense/queensense_action
 	var/datum/action/innate/terrorspider/queen/queeneggs/queeneggs_action
@@ -98,12 +99,18 @@
 	for(var/mob/living/simple_animal/hostile/poison/terror_spider/T in ts_spiderlist)
 		T.enemies |= enemies
 
+/mob/living/simple_animal/hostile/poison/terror_spider/queen/proc/ai_nest_is_full()
+	var/numspiders = CountSpiders()
+	if(numspiders >= spider_max_per_nest)
+		return TRUE
+	return FALSE
+
 /mob/living/simple_animal/hostile/poison/terror_spider/queen/handle_automated_action()
 	..()
 	if(!stat && !ckey && AIStatus != AI_OFF && !target && !path_to_vent)
 		switch(neststep)
 			if(0)
-				// we have no nest :(
+				// No nest. If current location is eligible for nesting, advance to step 1.
 				var/ok_to_nest = 1
 				var/area/new_area = get_area(loc)
 				if(new_area)
@@ -140,84 +147,53 @@
 					qdel(src)
 					new /obj/effect/portal(get_turf(loc))
 			if(1)
+				// No nest, and we should create one. Start NestMode(), then advance to step 2.
 				if(world.time > (lastnestsetup + nestfrequency))
 					lastnestsetup = world.time
 					neststep = 2
 					NestMode()
 			if(2)
+				// Create initial pair of purple nest guards.
 				if(world.time > (lastnestsetup + nestfrequency))
 					lastnestsetup = world.time
 					spider_lastspawn = world.time
 					DoLayTerrorEggs(/mob/living/simple_animal/hostile/poison/terror_spider/purple, 2, 0)
 					neststep = 3
 			if(3)
+				// Create spiders (random T1 types) until nest is full.
 				if(world.time > (spider_lastspawn + spider_spawnfrequency))
 					if(prob(20))
-						var/obj/structure/spider/eggcluster/terror_eggcluster/N = locate() in get_turf(src)
-						if(!N)
-							spider_lastspawn = world.time
-							DoLayTerrorEggs(/mob/living/simple_animal/hostile/poison/terror_spider/green, 2, 0)
+						if(ai_nest_is_full())
+							if(spider_awaymission)
+								spider_spawnfrequency = spider_spawnfrequency_stable
 							neststep = 4
+						else
+							var/obj/structure/spider/eggcluster/terror_eggcluster/N = locate() in get_turf(src)
+							if(!N)
+								spider_lastspawn = world.time
+								DoLayTerrorEggs(pick(spider_types_standard), 2, 0)
 			if(4)
+				// Nest should be full. If so, pulse attack command. Otherwise, start replenishing nest (stage 5).
 				if(world.time > (spider_lastspawn + spider_spawnfrequency))
 					if(prob(20))
-						var/obj/structure/spider/eggcluster/terror_eggcluster/N = locate() in get_turf(src)
-						if(!N)
-							spider_lastspawn = world.time
-							DoLayTerrorEggs(/mob/living/simple_animal/hostile/poison/terror_spider/red, 2, 1)
+						if(ai_nest_is_full())
+							SetHiveCommand(0, 15) // AI=0 (attack everyone), ventcrawl=15%/tick
+						else
 							neststep = 5
 			if(5)
+				// If already replenished, go idle (stage 4). Otherwise, replenish nest.
 				if(world.time > (spider_lastspawn + spider_spawnfrequency))
 					if(prob(20))
-						var/obj/structure/spider/eggcluster/terror_eggcluster/N = locate() in get_turf(src)
-						if(!N)
-							if(!spider_awaymission)
-								QueenFakeLings()
-							spider_lastspawn = world.time
-							if(prob(33))
-								DoLayTerrorEggs(/mob/living/simple_animal/hostile/poison/terror_spider/gray, 2, 1)
-							else if(prob(50))
-								DoLayTerrorEggs(/mob/living/simple_animal/hostile/poison/terror_spider/red, 2, 1)
-							else
-								DoLayTerrorEggs(/mob/living/simple_animal/hostile/poison/terror_spider/green, 2, 1)
-					var/spidercount = CountSpiders()
-					if(spidercount >= spider_max_per_nest) // station overwhelmed!
-						neststep = 6
-			if(6)
-				if(world.time > (spider_lastspawn + spider_spawnfrequency))
-					spider_lastspawn = world.time
-					// go hostile, EXTERMINATE MODE.
-					SetHiveCommand(0, 15) // AI=0 (attack everyone), ventcrawl=15%/tick
-					var/numspiders = CountSpiders()
-					if(numspiders < spider_max_per_nest)
-						var/numbreakers = CountSpidersType(/mob/living/simple_animal/hostile/poison/terror_spider/brown)
-						if(!numbreakers)
-							DoLayTerrorEggs(/mob/living/simple_animal/hostile/poison/terror_spider/white/tunneler, 1, 1)
-						else if(prob(33))
-							DoLayTerrorEggs(/mob/living/simple_animal/hostile/poison/terror_spider/black, 2, 1)
-						else if(prob(50))
-							DoLayTerrorEggs(/mob/living/simple_animal/hostile/poison/terror_spider/red, 2, 0)
+						if(ai_nest_is_full())
+							neststep = 4
 						else
-							DoLayTerrorEggs(/mob/living/simple_animal/hostile/poison/terror_spider/green, 2, 1)
-					else if(spider_awaymission)
-						neststep = 7
-						spider_spawnfrequency = spider_spawnfrequency_stable
-						// if we're an away mission queen... don't keep spawning spiders at high rates. Away team should have a chance.
-			if(7)
-				if(world.time > (spider_lastspawn + spider_spawnfrequency))
-					spider_lastspawn = world.time
-					var/numspiders = CountSpiders()
-					if(numspiders < spider_max_per_nest)
-						// someone is killing my children...
-						if(prob(25))
-							DoLayTerrorEggs(/mob/living/simple_animal/hostile/poison/terror_spider/black, 2, 1)
-						else if(prob(33))
-							DoLayTerrorEggs(/mob/living/simple_animal/hostile/poison/terror_spider/red, 2, 0)
-						else if(prob(50))
-							DoLayTerrorEggs(/mob/living/simple_animal/hostile/poison/terror_spider/green, 2, 1)
-						else
-							DoLayTerrorEggs(/mob/living/simple_animal/hostile/poison/terror_spider/purple, 2, 0)
-						neststep = 6
+							var/obj/structure/spider/eggcluster/terror_eggcluster/N = locate() in get_turf(src)
+							if(!N)
+								spider_lastspawn = world.time
+								if(prob(0))
+									DoLayTerrorEggs(pick(spider_types_standard), 2, 0)
+								else
+									DoLayTerrorEggs(pick(spider_types_advanced), 2, 0)
 
 /mob/living/simple_animal/hostile/poison/terror_spider/queen/proc/NestPrompt()
 	var/confirm = alert(src, "Are you sure you want to nest? You will be able to lay eggs, and smash walls, but not ventcrawl.","Nest?","Yes","No")
@@ -267,6 +243,8 @@
 			to_chat(src, "<span class='danger'>Too soon to attempt that again. Wait just a few more seconds...</span>")
 		return
 	var/list/eggtypes = list(TS_DESC_RED, TS_DESC_GRAY, TS_DESC_GREEN, TS_DESC_BLACK, TS_DESC_PURPLE)
+	if(canlay >= 4)
+		eggtypes |= TS_DESC_BROWN
 	if(canlay >= 12)
 		eggtypes |= TS_DESC_MOTHER
 		eggtypes |= TS_DESC_PRINCE
@@ -290,6 +268,13 @@
 			else if(eggtype == TS_DESC_PRINCE)
 				canlay -= 12
 				DoLayTerrorEggs(/mob/living/simple_animal/hostile/poison/terror_spider/prince, 1, 0)
+		return
+	else if(eggtype == TS_DESC_BROWN)
+		if(canlay < 4)
+			to_chat(src, "<span class='danger'>Insufficient strength. It takes as much effort to lay one of those as it does to lay 4 normal eggs.</span>")
+		else
+			canlay -= 4
+			DoLayTerrorEggs(/mob/living/simple_animal/hostile/poison/terror_spider/brown, 1, 0)
 		return
 	var/numlings = 1
 	if(eggtype != TS_DESC_PURPLE)
@@ -337,8 +322,6 @@
 			var/obj/structure/spider/spiderling/terror_spiderling/S = new /obj/structure/spider/spiderling/terror_spiderling(get_turf(src))
 			S.grow_as = /mob/living/simple_animal/hostile/poison/terror_spider/red
 			S.stillborn = 1
-			S.name = "Evil-Looking Spiderling"
-			S.desc = "It moves very quickly, hisses loudly for its size... and has disproportionately large fangs. Hopefully it does not grow up..."
 		if(!spider_can_fakelings)
 			queenfakelings_action.Remove(src)
 	else
