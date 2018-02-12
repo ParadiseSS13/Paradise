@@ -26,6 +26,7 @@
 	var/obj/screen/action_intent
 	var/obj/screen/move_intent
 	var/obj/screen/module_store_icon
+	var/obj/screen/darksight
 
 	var/list/static_inventory = list()		//the screen objects which are static
 	var/list/toggleable_inventory = list()	//the screen objects which can be hidden
@@ -79,6 +80,7 @@
 	alien_plasma_display = null
 	vampire_blood_display = null
 	nightvisionicon = null
+	darksight = null
 
 	mymob = null
 	return ..()

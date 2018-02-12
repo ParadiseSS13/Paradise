@@ -107,7 +107,7 @@
 
 /obj/screen/fullscreen/darksight
 	icon = null
-	screen_loc = "WEST,SOUTH to EAST,NORTH"
+	screen_loc = "1,1"
 	layer = LIGHTING_LAYER + 0.1
 
 
