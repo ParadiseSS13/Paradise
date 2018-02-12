@@ -22,12 +22,13 @@
 	see_in_dark = 5
 	childtype = /mob/living/simple_animal/pet/corgi/puppy
 	simplespecies = /mob/living/simple_animal/pet/corgi
+	gold_core_spawnable = CHEM_MOB_SPAWN_FRIENDLY
 	var/shaved = 0
 	var/obj/item/inventory_head
 	var/obj/item/inventory_back
 	var/facehugger
 	var/default_atmos_requirements = 0
-	gold_core_spawnable = CHEM_MOB_SPAWN_FRIENDLY
+	var/last_eaten = 0
 
 /mob/living/simple_animal/pet/corgi/New()
 	..()
@@ -59,7 +60,8 @@
 	if(can_collar)
 		dat += "<tr><td>&nbsp;</td></tr>"
 		dat += "<tr><td><B>Collar:</B></td><td><A href='?src=[UID()];item=[slot_collar]'>[(collar && !(collar.flags&ABSTRACT)) ? collar : "<font color=grey>Empty</font>"]</A></td></tr>"
-
+	if(facehugger)
+		dat += "<tr><td><B>Facehugger:</B></td><td><A href='?src=[UID()];remove_hugger=1'>[facehugger]</A></td></tr>"
 	dat += {"</table>
 	<A href='?src=[user.UID()];mach_close=mob\ref[src]'>Close</A>
 	"}
@@ -102,11 +104,10 @@
 
 /mob/living/simple_animal/pet/corgi/Topic(href, href_list)
 	if(usr.stat) return
-
+	if((!ishuman(usr) && !isrobot(usr)) || !Adjacent(usr))
+		return
 	//Removing from inventory
 	if(href_list["remove_inv"])
-		if(!Adjacent(usr) || !(ishuman(usr) || isrobot(usr) ||  isalienadult(usr)))
-			return
 		var/remove_from = href_list["remove_inv"]
 		switch(remove_from)
 			if("head")
@@ -122,7 +123,7 @@
 					emote_see = list("shakes its head", "shivers")
 					desc = "It's a corgi."
 					set_light(0)
-					flags &= ~NO_BREATHE
+					mutations.Remove(BREATHLESS)
 					atmos_requirements = default_atmos_requirements
 					minbodytemp = initial(minbodytemp)
 					inventory_head.loc = src.loc
@@ -142,14 +143,9 @@
 				else
 					to_chat(usr, "<span class='danger'>There is nothing to remove from its [remove_from].</span>")
 					return
-
 		show_inv(usr)
-
 	//Adding things to inventory
 	else if(href_list["add_inv"])
-		if(!Adjacent(usr) || !(ishuman(usr) || isrobot(usr) ||  isalienadult(usr)))
-			return
-
 		var/add_to = href_list["add_inv"]
 
 		switch(add_to)
@@ -200,7 +196,16 @@
 					item_to_add.loc = src
 					src.inventory_back = item_to_add
 					regenerate_icons()
-
+		show_inv(usr)
+//Removing facehuggers
+	else if(href_list["remove_hugger"])
+		if(!facehugger)
+			return
+		var/obj/item/F = facehugger
+		F.forceMove(loc)
+		facehugger = null
+		to_chat(usr, "<span class='notice'>You remove [F] from [src]'s face. [src] pants for air and barks.</span>")
+		regenerate_icons()
 		show_inv(usr)
 	else
 		..()
@@ -360,7 +365,7 @@
 				name = "Space Explorer [real_name]"
 				desc = "That's one small step for a corgi. One giant yap for corgikind."
 				valid = 1
-				flags |= NO_BREATHE
+				mutations.Add(BREATHLESS)
 				atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
 				minbodytemp = 0
 
@@ -461,10 +466,7 @@
 
 		if(prob(1))
 			custom_emote(1, pick("dances around.","chases its tail!"))
-			spawn(0)
-				for(var/i in list(1,2,4,8,4,2,1,2,4,8,4,2,1,2,4,8,4,2))
-					dir = i
-					sleep(1)
+			spin(20, 1)
 
 /obj/item/weapon/reagent_containers/food/snacks/meat/corgi
 	name = "Corgi meat"
@@ -549,10 +551,7 @@
 	if(!resting && !buckled)
 		if(prob(1))
 			custom_emote(1, pick("dances around.","chases her tail."))
-			spawn(0)
-				for(var/i in list(1,2,4,8,4,2,1,2,4,8,4,2,1,2,4,8,4,2))
-					dir = i
-					sleep(1)
+			spin(20, 1)
 
 /mob/living/simple_animal/pet/corgi/attack_hand(mob/living/carbon/human/M)
 	. = ..()
@@ -564,7 +563,7 @@
 	if(change)
 		if(change > 0)
 			if(M && stat != DEAD) // Added check to see if this mob (the corgi) is dead to fix issue 2454
-				flick_overlay(image('icons/mob/animal.dmi',src,"heart-ani2",MOB_LAYER+1), list(M.client), 20)
+				new /obj/effect/temp_visual/heart(loc)
 				custom_emote(1, "yaps happily!")
 		else
 			if(M && stat != DEAD) // Same check here, even though emote checks it as well (poor form to check it only in the help case)
@@ -622,12 +621,12 @@
 
 	//spark for no reason
 	if(prob(5))
-		var/datum/effect/system/spark_spread/s = new /datum/effect/system/spark_spread
+		var/datum/effect_system/spark_spread/s = new /datum/effect_system/spark_spread
 		s.set_up(3, 1, src)
 		s.start()
 
 /mob/living/simple_animal/pet/corgi/Ian/borgi/death(gibbed)
-	var/datum/effect/system/spark_spread/s = new /datum/effect/system/spark_spread
+	var/datum/effect_system/spark_spread/s = new /datum/effect_system/spark_spread
 	s.set_up(3, 1, src)
 	s.start()
 	..()

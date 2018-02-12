@@ -237,7 +237,7 @@
 				E = locate() in get_turf(src)
 				if(!E)
 					var/obj/structure/spider/eggcluster/C = new /obj/structure/spider/eggcluster(src.loc)
-					C.faction = faction
+					C.faction = faction.Copy()
 					C.master_commander = master_commander
 					if(ckey)
 						C.player_spiders = 1

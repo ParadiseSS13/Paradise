@@ -33,14 +33,10 @@
 	if(ishuman(target))
 		var/mob/living/carbon/human/H = target
 		var/obj/item/organ/external/affected = H.get_organ(user.zone_sel.selecting)
-		if(!affected) return 0
+		if(!affected)
+			return 0
 
-		var/internal_bleeding = 0
-		for(var/datum/wound/W in affected.wounds)
-			if(W.internal)
-				internal_bleeding = 1
-				break
-		if(internal_bleeding)
+		if(affected.internal_bleeding)
 			return 1
 		return 0
 
@@ -66,7 +62,7 @@
 	name = "mend internal bleeding"
 	allowed_tools = list(
 	/obj/item/weapon/FixOVein = 100, \
-	/obj/item/stack/cable_coil = 75
+	/obj/item/stack/cable_coil = 90
 	)
 	can_infect = 1
 	blood_level = 1
@@ -75,15 +71,10 @@
 
 /datum/surgery_step/fix_vein/can_use(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool,datum/surgery/surgery)
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
-	if(!affected) return 0
+	if(!affected)
+		return 0
 
-	var/internal_bleeding = 0
-	for(var/datum/wound/W in affected.wounds)
-		if(W.internal)
-			internal_bleeding = 1
-			break
-
-	return internal_bleeding
+	return affected.internal_bleeding
 
 /datum/surgery_step/fix_vein/begin_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool,datum/surgery/surgery)
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
@@ -97,9 +88,7 @@
 	user.visible_message("<span class='notice'> [user] has patched the damaged vein in [target]'s [affected.name] with \the [tool].</span>", \
 		"<span class='notice'> You have patched the damaged vein in [target]'s [affected.name] with \the [tool].</span>")
 
-	for(var/datum/wound/W in affected.wounds) if(W.internal)
-		affected.wounds -= W
-		affected.update_damages()
+	affected.internal_bleeding = FALSE
 	if(ishuman(user) && prob(40))
 		var/mob/living/carbon/human/U = user
 		U.bloody_hands(target, 0)
@@ -110,7 +99,7 @@
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
 	user.visible_message("<span class='warning'> [user]'s hand slips, smearing [tool] in the incision in [target]'s [affected.name]!</span>" , \
 	"<span class='warning'> Your hand slips, smearing [tool] in the incision in [target]'s [affected.name]!</span>")
-	affected.take_damage(5, 0)
+	affected.receive_damage(5, 0)
 
 	return 0
 
@@ -118,8 +107,8 @@
 	name = "remove dead tissue"
 	allowed_tools = list(
 		/obj/item/weapon/scalpel = 100,		\
-		/obj/item/weapon/kitchen/knife = 75,	\
-		/obj/item/weapon/shard = 50, 		\
+		/obj/item/weapon/kitchen/knife = 90,	\
+		/obj/item/weapon/shard = 60, 		\
 	)
 
 	can_infect = 1
@@ -159,7 +148,7 @@
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
 	user.visible_message("<span class='warning'> [user]'s hand slips, slicing an artery inside [target]'s [affected.name] with \the [tool]!</span>", \
 	"<span class='warning'> Your hand slips, slicing an artery inside [target]'s [affected.name] with \the [tool]!</span>")
-	affected.createwound(CUT, 20, 1)
+	affected.receive_damage(20)
 
 	return 0
 
@@ -167,12 +156,12 @@
 	name = "treat necrosis"
 	allowed_tools = list(
 		/obj/item/weapon/reagent_containers/dropper = 100,
-		/obj/item/weapon/reagent_containers/glass/bottle = 75,
-		/obj/item/weapon/reagent_containers/food/drinks/drinkingglass = 70,
-		/obj/item/weapon/reagent_containers/food/drinks/bottle = 65,
-		/obj/item/weapon/reagent_containers/glass/beaker = 60,
-		/obj/item/weapon/reagent_containers/spray = 50,
-		/obj/item/weapon/reagent_containers/glass/bucket = 40
+		/obj/item/weapon/reagent_containers/glass/bottle = 90,
+		/obj/item/weapon/reagent_containers/food/drinks/drinkingglass = 85,
+		/obj/item/weapon/reagent_containers/food/drinks/bottle = 80,
+		/obj/item/weapon/reagent_containers/glass/beaker = 75,
+		/obj/item/weapon/reagent_containers/spray = 60,
+		/obj/item/weapon/reagent_containers/glass/bucket = 50
 	)
 
 	can_infect = 0
@@ -256,8 +245,10 @@
 	possible_locs = list("head", "chest", "groin")
 
 /datum/surgery/remove_thrall/synth
+	name = "Debug Shadow Tumor"
 	steps = list(/datum/surgery_step/robotics/external/unscrew_hatch,/datum/surgery_step/robotics/external/open_hatch,/datum/surgery_step/internal/dethrall,/datum/surgery_step/robotics/external/close_hatch)
 	possible_locs = list("head", "chest", "groin")
+	requires_organic_bodypart = 0
 
 /datum/surgery/remove_thrall/can_start(mob/user, mob/living/carbon/human/target)
 	if(!istype(target))

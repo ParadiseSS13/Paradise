@@ -427,7 +427,7 @@ var/list/teleport_runes = list()
 			sacrificed.Add(T.mind)
 			if(is_sacrifice_target(T.mind))
 				sacrifice_fulfilled = 1
-		new /obj/effect/overlay/temp/cult/sac(loc)
+		new /obj/effect/temp_visual/cult/sac(loc)
 		if(ticker && ticker.mode && ticker.mode.name == "cult")
 
 			cult_mode.harvested++
@@ -495,6 +495,7 @@ var/list/teleport_runes = list()
 		message_admins("[key_name_admin(user)] tried to summonn an eldritch horror when the objective was wrong")
 		burn_invokers(invokers)
 		log_game("Summon Nar-Sie rune failed - improper objective")
+		return
 	if(!is_station_level(user.z))
 		message_admins("[key_name_admin(user)] tried to summon an eldritch horror off station")
 		burn_invokers(invokers)
@@ -608,6 +609,7 @@ var/list/teleport_runes = list()
 	new /mob/living/simple_animal/slaughter/cult(T, pick(NORTHEAST, SOUTHEAST, NORTHWEST, SOUTHWEST))
 	cult_mode.demons_summoned = 1
 	shuttle_master.emergency.request(null, 0.5,null)
+	shuttle_master.emergency.canRecall = FALSE
 	cult_mode.third_phase()
 	qdel(src)
 
@@ -636,17 +638,17 @@ var/list/teleport_runes = list()
 		log_game("Raise Dead rune failed - no catalyst corpse")
 		return
 	mob_to_sacrifice = input(user, "Choose a corpse to sacrifice.", "Corpse to Sacrifice") as null|anything in potential_sacrifice_mobs
-	if(!Adjacent(user) || !src || qdeleted(src) || user.incapacitated() || !mob_to_revive || !mob_to_sacrifice || rune_in_use)
+	if(!Adjacent(user) || !src || qdeleted(src) || user.incapacitated() || !mob_to_sacrifice || rune_in_use)
 		return
 	for(var/mob/living/M in T.contents)
 		if(M.stat == DEAD)
 			potential_revive_mobs.Add(M)
 	if(!potential_revive_mobs.len)
 		to_chat(user, "<span class='cultitalic'>There is no eligible revival target on the rune!</span>")
-		log_game("Raise Dead rune failed - no corpse to revived")
+		log_game("Raise Dead rune failed - no corpse to revive")
 		return
 	mob_to_revive = input(user, "Choose a corpse to revive.", "Corpse to Revive") as null|anything in potential_revive_mobs
-	if(!Adjacent(user) || !src || qdeleted(src) || user.incapacitated() || rune_in_use)
+	if(!Adjacent(user) || !src || qdeleted(src) || user.incapacitated() || rune_in_use || !mob_to_revive)
 		return
 	if(!in_range(mob_to_sacrifice,src))
 		to_chat(user, "<span class='cultitalic'>The sacrificial target has been moved!</span>")
@@ -670,7 +672,7 @@ var/list/teleport_runes = list()
 		user.say("Pasnar val'keriam usinar. Savrae ines amutan. Yam'toth remium il'tarat!")
 	..()
 	mob_to_sacrifice.visible_message("<span class='warning'><b>[mob_to_sacrifice]'s body rises into the air, connected to [mob_to_revive] by a glowing tendril!</span>")
-	mob_to_revive.Beam(mob_to_sacrifice,icon_state="sendbeam",icon='icons/effects/effects.dmi',time=20)
+	mob_to_revive.Beam(mob_to_sacrifice,icon_state="sendbeam",time=20)
 	sleep(20)
 	if(!mob_to_sacrifice || !in_range(mob_to_sacrifice, src))
 		mob_to_sacrifice.visible_message("<span class='warning'><b>[mob_to_sacrifice] disintegrates into a pile of bones</span>")
@@ -770,7 +772,7 @@ var/list/teleport_runes = list()
 		affecting.apply_damage(1, BRUTE)
 		if(!(user in T.contents))
 			user.visible_message("<span class='warning'>A spectral tendril wraps around [user] and pulls them back to the rune!</span>")
-			Beam(user,icon_state="drainbeam",icon='icons/effects/effects.dmi',time=2)
+			Beam(user,icon_state="drainbeam",time=2)
 			user.forceMove(get_turf(src)) //NO ESCAPE :^)
 		if(user.key)
 			user.visible_message("<span class='warning'>[user] slowly relaxes, the glow around them dimming.</span>", \
@@ -926,7 +928,7 @@ var/list/teleport_runes = list()
 			M.apply_damage(drained_amount, BRUTE, "chest")
 			user.adjustBruteLoss(-drained_amount)
 			to_chat(M, "<span class='cultitalic'>You feel extremely weak.</span>")
-	user.Beam(T,icon_state="drainbeam",icon='icons/effects/effects.dmi',time=5)
+	user.Beam(T,icon_state="drainbeam",time=5)
 	user.visible_message("<span class='warning'>Blood flows from the rune into [user]!</span>", \
 	"<span class='cult'>Blood flows into you, healing your wounds and revitalizing your spirit.</span>")
 

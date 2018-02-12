@@ -302,10 +302,17 @@
 
 	if(old_danger_level!=danger_level)
 		apply_danger_level()
+		if(mode == AALARM_MODE_SCRUBBING && danger_level == ATMOS_ALARM_DANGER)
+			if(pressure_dangerlevel == ATMOS_ALARM_DANGER)
+				mode = AALARM_MODE_OFF
+				if(temperature_dangerlevel == ATMOS_ALARM_DANGER && cur_tlv.max2 <= environment.temperature)
+					mode = AALARM_MODE_PANIC
+		apply_mode()
 
 	if(mode == AALARM_MODE_REPLACEMENT && environment_pressure < ONE_ATMOSPHERE * 0.05)
 		mode = AALARM_MODE_SCRUBBING
 		apply_mode()
+
 
 /obj/machinery/alarm/proc/handle_heating_cooling(var/datum/gas_mixture/environment, var/datum/tlv/cur_tlv, var/turf/simulated/location)
 	cur_tlv = TLV["temperature"]

@@ -298,6 +298,12 @@ var/global/datum/prizes/global_prizes = new
 	typepath = /obj/item/stack/tile/fakespace/loaded
 	cost = 150
 
+/datum/prize_item/arcadecarpet
+	name = "Arcade Carpet"
+	desc = "A stack of genuine arcade carpet tiles, complete with authentic soft drink stains!"
+	typepath = /obj/item/stack/tile/arcade_carpet/loaded
+	cost = 150
+
 /datum/prize_item/bike
 	name = "Awesome Bike!"
 	desc = "WOAH."

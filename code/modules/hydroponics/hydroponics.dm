@@ -1,5 +1,3 @@
-#define HYDRO_CYCLES_PER_AGE	2	//Adjust this to adjust how many hydroponics cycles it takes to increase age. Positive integers only.
-
 /obj/machinery/hydroponics
 	name = "hydroponics tray"
 	icon = 'icons/obj/hydroponics/equipment.dmi'
@@ -22,7 +20,6 @@
 	var/lastproduce = 0		//Last time it was harvested
 	var/lastcycle = 0		//Used for timing of cycles.
 	var/cycledelay = 200	//About 10 seconds / cycle
-	var/current_cycle = 0	//Used for tracking when to age
 	var/harvest = 0			//Ready to harvest?
 	var/obj/item/seeds/myseed = null	//The currently planted seed
 	var/rating = 1
@@ -30,6 +27,8 @@
 	var/lid_state = 0
 	var/recent_bee_visit = FALSE //Have we been visited by a bee recently, so bees dont overpollinate one plant
 	var/using_irrigation = FALSE //If the tray is connected to other trays via irrigation hoses
+	var/self_sufficiency_req = 20 //Required total dose to make a self-sufficient hydro tray. 1:1 with earthsblood.
+	var/self_sufficiency_progress = 0
 	var/self_sustaining = FALSE //If the tray generates nutrients and water on its own
 	hud_possible = list (PLANT_NUTRIENT_HUD, PLANT_WATER_HUD, PLANT_STATUS_HUD, PLANT_HEALTH_HUD, PLANT_TOXIN_HUD, PLANT_PEST_HUD, PLANT_WEED_HUD)
 
@@ -153,10 +152,7 @@
 		lastcycle = world.time
 		if(myseed && !dead)
 			// Advance age
-			current_cycle++
-			if(current_cycle == HYDRO_CYCLES_PER_AGE)
-				age++
-				current_cycle = 0
+			age++
 			if(age < myseed.maturation)
 				lastproduce = age
 
@@ -358,6 +354,9 @@
 	if(!self_sustaining)
 		to_chat(user, "<span class='info'>Water: [waterlevel]/[maxwater]</span>")
 		to_chat(user, "<span class='info'>Nutrient: [nutrilevel]/[maxnutri]</span>")
+		if(self_sufficiency_progress > 0)
+			var/percent_progress = round(self_sufficiency_progress * 100 / self_sufficiency_req)
+			to_chat(user, "<span class='info'>Treatment for self-sustenance are [percent_progress]% complete.</span>")
 	else
 		to_chat(user, "<span class='info'>It doesn't require any water or nutrients.</span>")
 
@@ -392,7 +391,7 @@
 		if(4 to 5)
 			myseed = new /obj/item/seeds/plump(src)
 		else
-			myseed = new /obj/item/seeds/weeds(src)
+			myseed = new /obj/item/seeds/starthistle(src)
 	age = 0
 	plant_health = myseed.endurance
 	lastcycle = world.time
@@ -546,6 +545,14 @@
 		adjustNutri(round(S.get_reagent_amount("fishwater") * 0.75))
 		adjustWater(round(S.get_reagent_amount("fishwater") * 1))
 
+	// Ambrosia Gaia produces earthsblood.
+	if(S.has_reagent("earthsblood"))
+		self_sufficiency_progress += S.get_reagent_amount("earthsblood")
+		if(self_sufficiency_progress >= self_sufficiency_req)
+			become_self_sufficient()
+		else if(!self_sustaining)
+			to_chat(user, "<span class='notice'>[src] warms as it might on a spring day under a genuine Sun.</span>")
+
 	// Antitoxin binds shit pretty well. So the tox goes significantly down
 	if(S.has_reagent("charcoal", 1))
 		adjustToxic(-round(S.get_reagent_amount("charcoal") * 2))
@@ -697,7 +704,7 @@
 		adjustPests(rand(2,4))
 
 	// FEED ME SEYMOUR
-	if(S.has_reagent("strangereagent", 1))
+	if(S.has_reagent("strange_reagent", 1))
 		spawnplant()
 
 	// The best stuff there is. For testing/debugging.
@@ -720,33 +727,7 @@
 
 /obj/machinery/hydroponics/attackby(obj/item/O, mob/user, params)
 	//Called when mob user "attacks" it with object O
-	if(istype(O, /obj/item/weapon/reagent_containers/food/snacks/grown/ambrosia/gaia)) //Checked early on so it doesn't have to deal with composting checks
-		if(self_sustaining)
-			to_chat(user, "<span class='warning'>This [name] is already self-sustaining!</span>")
-			return
-		if(myseed || weedlevel)
-			to_chat(user, "<span class='warning'>[src] needs to be clear of plants and weeds!</span>")
-			return
-		if(alert(user, "This will make [src] self-sustaining but consume [O] forever. Are you sure?", "[name]", "I'm Sure", "Abort") == "Abort" || !user)
-			return
-		if(!O || qdeleted(O))
-			return
-		if(!Adjacent(user))
-			return
-		if(self_sustaining)
-			to_chat(user, "<span class='warning'>This [name] is already self-sustaining!</span>")
-			return
-		if(myseed || weedlevel)
-			to_chat(user, "<span class='warning'>[src] needs to be clear of plants and weeds!</span>")
-			return
-		user.visible_message("<span class='notice'>[user] gently pulls open the soil for [O] and places it inside.</span>", "<span class='notice'>You tenderly root [O] into [src].</span>")
-		user.drop_item()
-		qdel(O)
-		visible_message("<span class='boldnotice'>[src] begins to glow with a beautiful light!</span>")
-		self_sustaining = TRUE
-		update_icon()
-
-	else if(istype(O, /obj/item/weapon/reagent_containers) )  // Syringe stuff (and other reagent containers now too)
+	if(istype(O, /obj/item/weapon/reagent_containers))  // Syringe stuff (and other reagent containers now too)
 		var/obj/item/weapon/reagent_containers/reagent_source = O
 
 		if(istype(reagent_source, /obj/item/weapon/reagent_containers/syringe))
@@ -763,10 +744,13 @@
 		var/target = myseed ? myseed.plantname : src
 		var/visi_msg = ""
 		var/irrigate = 0	//How am I supposed to irrigate pill contents?
+		var/transfer_amount
 
 		if(istype(reagent_source, /obj/item/weapon/reagent_containers/food/snacks) || istype(reagent_source, /obj/item/weapon/reagent_containers/food/pill))
 			visi_msg="[user] composts [reagent_source], spreading it through [target]"
+			transfer_amount = reagent_source.reagents.total_volume
 		else
+			transfer_amount = reagent_source.amount_per_transfer_from_this
 			if(istype(reagent_source, /obj/item/weapon/reagent_containers/syringe/))
 				var/obj/item/weapon/reagent_containers/syringe/syr = reagent_source
 				visi_msg="[user] injects [target] with [syr]"
@@ -776,14 +760,14 @@
 				visi_msg="[user] sprays [target] with [reagent_source]"
 				playsound(loc, 'sound/effects/spray3.ogg', 50, 1, -6)
 				irrigate = 1
-			else if(reagent_source.amount_per_transfer_from_this) // Droppers, cans, beakers, what have you.
+			else if(transfer_amount) // Droppers, cans, beakers, what have you.
 				visi_msg="[user] uses [reagent_source] on [target]"
 				irrigate = 1
 			// Beakers, bottles, buckets, etc.  Can't use is_open_container though.
 			if(istype(reagent_source, /obj/item/weapon/reagent_containers/glass/))
 				playsound(loc, 'sound/effects/slosh.ogg', 25, 1)
 
-		if(irrigate && reagent_source.amount_per_transfer_from_this > 30 && reagent_source.reagents.total_volume >= 30 && using_irrigation)
+		if(irrigate && transfer_amount > 30 && reagent_source.reagents.total_volume >= 30 && using_irrigation)
 			trays = FindConnected()
 			if (trays.len > 1)
 				visi_msg += ", setting off the irrigation system"
@@ -791,7 +775,7 @@
 		if(visi_msg)
 			visible_message("<span class='notice'>[visi_msg].</span>")
 
-		var/split = round(reagent_source.amount_per_transfer_from_this/trays.len)
+		var/split = round(transfer_amount/trays.len)
 
 		for(var/obj/machinery/hydroponics/H in trays)
 		//cause I don't want to feel like im juggling 15 tamagotchis and I can get to my real work of ripping flooring apart in hopes of validating my life choices of becoming a space-gardener
@@ -988,6 +972,11 @@
 	var/mob/living/simple_animal/hostile/C = new chosen
 	C.faction = list("plants")
 
+/obj/machinery/hydroponics/proc/become_self_sufficient() // Ambrosia Gaia effect
+	visible_message("<span class='boldnotice'>[src] begins to glow with a beautiful light!</span>")
+	self_sustaining = TRUE
+	update_icon()
+
 ///Diona Nymph Related Procs///
 /obj/machinery/hydroponics/CanPass(atom/movable/mover, turf/target, height=0) //So nymphs can climb over top of trays.
 	if(height==0)
@@ -1034,5 +1023,3 @@
 		qdel(src)
 	else
 		..()
-
-#undef HYDRO_CYCLES_PER_AGE

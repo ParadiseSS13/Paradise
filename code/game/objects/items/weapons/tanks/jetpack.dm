@@ -1,5 +1,3 @@
-//This file was auto-corrected by findeclaration.exe on 25.5.2012 20:42:32
-
 /obj/item/weapon/tank/jetpack
 	name = "Jetpack (Empty)"
 	desc = "A tank of compressed gas for use as propulsion in zero-gravity areas. Use with caution."
@@ -7,7 +5,7 @@
 	w_class = WEIGHT_CLASS_BULKY
 	item_state = "jetpack"
 	distribute_pressure = ONE_ATMOSPHERE*O2STANDARD
-	var/datum/effect/system/ion_trail_follow/ion_trail
+	var/datum/effect_system/trail_follow/ion/ion_trail
 	actions_types = list(/datum/action/item_action/set_internals, /datum/action/item_action/toggle_jetpack, /datum/action/item_action/jetpack_stabilization)
 	var/on = 0
 	var/stabilizers = 0
@@ -15,7 +13,7 @@
 
 /obj/item/weapon/tank/jetpack/New()
 	..()
-	ion_trail = new /datum/effect/system/ion_trail_follow()
+	ion_trail = new /datum/effect_system/trail_follow/ion()
 	ion_trail.set_up(src)
 
 /obj/item/weapon/tank/jetpack/Destroy()
@@ -109,6 +107,14 @@
 	..()
 	air_contents.oxygen = (6*ONE_ATMOSPHERE)*volume/(R_IDEAL_GAS_EQUATION*T20C)
 
+/obj/item/weapon/tank/jetpack/oxygen/captain
+	name = "Captain's jetpack"
+	desc = "A compact, lightweight jetpack containing a high amount of compressed oxygen."
+	icon_state = "jetpack-captain"
+	item_state = "jetpack-captain"
+	volume = 90
+	w_class = WEIGHT_CLASS_NORMAL
+
 /obj/item/weapon/tank/jetpack/oxygen/harness
 	name = "jet harness (oxygen)"
 	desc = "A lightweight tactical harness, used by those who don't want to be weighed down by traditional jetpacks."
@@ -137,7 +143,7 @@
 
 /obj/item/weapon/tank/jetpack/carbondioxide/New()
 	..()
-	ion_trail = new /datum/effect/system/ion_trail_follow()
+	ion_trail = new /datum/effect_system/trail_follow/ion()
 	ion_trail.set_up(src)
 	air_contents.carbon_dioxide = (6*ONE_ATMOSPHERE)*volume/(R_IDEAL_GAS_EQUATION*T20C)
 

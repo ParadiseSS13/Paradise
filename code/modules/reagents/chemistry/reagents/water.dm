@@ -18,6 +18,7 @@
 	drink_icon = "glass_clear"
 	drink_name = "Glass of Water"
 	drink_desc = "The father of all refreshments."
+	taste_message = null
 
 /datum/reagent/water/reaction_mob(mob/living/M, method=TOUCH, volume)
 	if(method == TOUCH)
@@ -45,7 +46,7 @@
 					if(prob(75))
 						var/obj/item/organ/external/affecting = H.get_organ("head")
 						if(affecting)
-							affecting.take_damage(5, 10)
+							affecting.receive_damage(5, 10)
 							H.UpdateDamageIcon()
 							H.emote("scream")
 					else
@@ -74,7 +75,7 @@
 					if(prob(75))
 						var/obj/item/organ/external/affecting = H.get_organ("head")
 						if(affecting)
-							affecting.take_damage(0, 20)
+							affecting.receive_damage(0, 20)
 							H.UpdateDamageIcon()
 							H.emote("scream")
 					else
@@ -98,8 +99,7 @@
 		qdel(hotspot)
 
 /datum/reagent/water/reaction_obj(obj/O, volume)
-	if(istype(O))
-		O.extinguish()
+	O.extinguish()
 
 	if(istype(O, /obj/item/weapon/reagent_containers/food/snacks/monkeycube))
 		var/obj/item/weapon/reagent_containers/food/snacks/monkeycube/cube = O
@@ -116,6 +116,7 @@
 	description = "Lubricant is a substance introduced between two moving surfaces to reduce the friction and wear between them. giggity."
 	reagent_state = LIQUID
 	color = "#1BB1AB"
+	taste_message = "oil"
 
 /datum/reagent/lube/reaction_turf(turf/simulated/T, volume)
 	if(volume >= 1 && istype(T))
@@ -128,22 +129,30 @@
 	description = "A compound used to clean things. Now with 50% more sodium hypochlorite!"
 	reagent_state = LIQUID
 	color = "#61C2C2"
+	taste_message = "floor cleaner"
 
 /datum/reagent/space_cleaner/reaction_obj(obj/O, volume)
-	if(O && !istype(O, /atom/movable/lighting_overlay))
-		O.color = initial(O.color)
-	if(istype(O, /obj/effect/decal/cleanable))
-		qdel(O)
-	else if(O)
+	if(is_cleanable(O))
+		var/obj/effect/decal/cleanable/blood/B = O
+		if(!(istype(B) && B.off_floor))
+			qdel(O)
+	else
+		if(!istype(O, /atom/movable/lighting_overlay))
+			O.color = initial(O.color)
 		O.clean_blood()
 
 /datum/reagent/space_cleaner/reaction_turf(turf/T, volume)
 	if(volume >= 1)
-		if(T)
-			T.color = initial(T.color)
-		T.clean_blood()
+		var/floor_only = TRUE
 		for(var/obj/effect/decal/cleanable/C in src)
-			qdel(C)
+			var/obj/effect/decal/cleanable/blood/B = C
+			if(istype(B) && B.off_floor)
+				floor_only = FALSE
+			else
+				qdel(C)
+		T.color = initial(T.color)
+		if(floor_only)
+			T.clean_blood()
 
 		for(var/mob/living/carbon/slime/M in T)
 			M.adjustToxLoss(rand(5,10))
@@ -194,6 +203,7 @@
 	drink_icon = "glass_red"
 	drink_name = "Glass of Tomato juice"
 	drink_desc = "Are you sure this is tomato juice?"
+	taste_message = "<span class='warning'>blood</span>"
 
 /datum/reagent/blood/reaction_mob(mob/living/M, method=TOUCH, volume)
 	if(data && data["viruses"])
@@ -214,7 +224,7 @@
 			if((!data || !(data["blood_type"] in get_safe_blood(C.dna.b_type))))
 				C.reagents.add_reagent("toxin", volume * 0.5)
 			else
-				C.blood_volume = min(C.blood_volume + round(volume, 0.1), BLOOD_VOLUME_MAXIMUM)
+				C.blood_volume = min(C.blood_volume + round(volume, 0.1), BLOOD_VOLUME_NORMAL)
 
 /datum/reagent/blood/on_new(list/data)
 	if(istype(data))
@@ -294,6 +304,7 @@
 	description = "Smelly water from a fish tank. Gross!"
 	reagent_state = LIQUID
 	color = "#757547"
+	taste_message = "puke"
 
 /datum/reagent/fishwater/reaction_mob(mob/living/M, method=TOUCH, volume)
 	if(method == INGEST)
@@ -313,6 +324,7 @@
 	description = "Filthy water scoured from a nasty toilet bowl. Absolutely disgusting."
 	reagent_state = LIQUID
 	color = "#757547"
+	taste_message = "puke"
 
 /datum/reagent/fishwater/toiletwater/reaction_mob(mob/living/M, method=TOUCH, volume) //For shennanigans
 	return
@@ -327,6 +339,7 @@
 	drink_icon = "glass_clear"
 	drink_name = "Glass of Water"
 	drink_desc = "The father of all refreshments."
+	taste_message = null
 
 /datum/reagent/holywater/on_mob_life(mob/living/M)
 	M.AdjustJitter(-5)
@@ -353,22 +366,46 @@
 			M.SetConfused(0)
 			return
 	if(ishuman(M) && M.mind && M.mind.vampire && !M.mind.vampire.get_ability(/datum/vampire_passive/full) && prob(80))
-		switch(current_cycle)
-			if(1 to 4)
-				to_chat(M, "<span class = 'warning'>Something sizzles in your veins!</span>")
-				M.mind.vampire.nullified = max(5, M.mind.vampire.nullified + 2)
-			if(5 to 12)
-				to_chat(M, "<span class = 'danger'>You feel an intense burning inside of you!</span>")
-				M.adjustFireLoss(1)
-				M.mind.vampire.nullified = max(5, M.mind.vampire.nullified + 2)
-			if(13 to INFINITY)
-				to_chat(M, "<span class = 'danger'>You suddenly ignite in a holy fire!</span>")
-				for(var/mob/O in viewers(M, null))
-					O.show_message(text("<span class = 'danger'>[] suddenly bursts into flames!<span>", M), 1)
-				M.fire_stacks = min(5,M.fire_stacks + 3)
-				M.IgniteMob()			//Only problem with igniting people is currently the commonly availible fire suits make you immune to being on fire
-				M.adjustFireLoss(3)		//Hence the other damages... ain't I a bastard?
-				M.mind.vampire.nullified = max(5, M.mind.vampire.nullified + 2)
+		var/mob/living/carbon/V = M
+		if(M.mind.vampire.bloodusable)
+			M.Stuttering(1)
+			M.Jitter(30)
+			M.adjustStaminaLoss(5)
+			if(prob(20))
+				M.emote("scream")
+			M.mind.vampire.nullified = max(5, M.mind.vampire.nullified + 2)
+			M.mind.vampire.bloodusable = max(M.mind.vampire.bloodusable - 3,0)
+			if(M.mind.vampire.bloodusable)
+				V.vomit(0,1)
+			else
+				holder.remove_reagent(id, volume)
+				V.vomit(0,0)
+				return
+		else
+			switch(current_cycle)
+				if(1 to 4)
+					to_chat(M, "<span class = 'warning'>Something sizzles in your veins!</span>")
+					M.mind.vampire.nullified = max(5, M.mind.vampire.nullified + 2)
+				if(5 to 12)
+					to_chat(M, "<span class = 'danger'>You feel an intense burning inside of you!</span>")
+					M.adjustFireLoss(1)
+					M.Stuttering(1)
+					M.Jitter(20)
+					if(prob(20))
+						M.emote("scream")
+					M.mind.vampire.nullified = max(5, M.mind.vampire.nullified + 2)
+				if(13 to INFINITY)
+					to_chat(M, "<span class = 'danger'>You suddenly ignite in a holy fire!</span>")
+					for(var/mob/O in viewers(M, null))
+						O.show_message(text("<span class = 'danger'>[] suddenly bursts into flames!<span>", M), 1)
+					M.fire_stacks = min(5,M.fire_stacks + 3)
+					M.IgniteMob()			//Only problem with igniting people is currently the commonly availible fire suits make you immune to being on fire
+					M.adjustFireLoss(3)		//Hence the other damages... ain't I a bastard?
+					M.Stuttering(1)
+					M.Jitter(30)
+					if(prob(40))
+						M.emote("scream")
+					M.mind.vampire.nullified = max(5, M.mind.vampire.nullified + 2)
 	..()
 
 
@@ -402,6 +439,7 @@
 	description = "Something that shouldn't exist on this plane of existance."
 	process_flags = ORGANIC | SYNTHETIC //ethereal means everything processes it.
 	metabolization_rate = 1
+	taste_message = null
 
 /datum/reagent/fuel/unholywater/on_mob_life(mob/living/M)
 	if(iscultist(M))
@@ -428,7 +466,8 @@
 	description = "YOUR FLESH! IT BURNS!"
 	process_flags = ORGANIC | SYNTHETIC		//Admin-bus has no brakes! KILL THEM ALL.
 	metabolization_rate = 1
-	can_synth = 0
+	can_synth = FALSE
+	taste_message = "admin abuse"
 
 /datum/reagent/hellwater/on_mob_life(mob/living/M)
 	M.fire_stacks = min(5, M.fire_stacks + 3)
@@ -444,9 +483,10 @@
 	color = "#FF9966"
 	description = "You don't even want to think about what's in here."
 	reagent_state = LIQUID
+	taste_message = "meat"
 
 /datum/reagent/liquidgibs/reaction_turf(turf/T, volume) //yes i took it from synthflesh...
-	if(volume >= 5 && !istype(T, /turf/space))
+	if(volume >= 5 && !isspaceturf(T))
 		new /obj/effect/decal/cleanable/blood/gibs/cleangibs(T)
 		playsound(T, 'sound/effects/splat.ogg', 50, 1, -3)
 
@@ -456,6 +496,7 @@
 	description = "Also known as sodium hydroxide."
 	reagent_state = LIQUID
 	color = "#FFFFD6" // very very light yellow
+	taste_message = "<span class='userdanger'>ACID</span>"//don't drink lye, kids
 
 /datum/reagent/drying_agent
 	name = "Drying agent"

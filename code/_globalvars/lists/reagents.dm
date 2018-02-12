@@ -17,7 +17,7 @@ var/list/standard_chemicals = list("slimejelly","blood","water","lube","charcoal
 								"lipolicide","condensedcapsaicin","frostoil","amanitin","psilocybin",
 								"enzyme","nothing","salglu_solution","antifreeze","neurotoxin")
 // Rare chemicals
-var/list/rare_chemicals = list("minttoxin","nanites","xenomicrobes","adminordrazine")
+var/list/rare_chemicals = list("minttoxin","syndicate_nanites", "xenomicrobes")
 // Standard medicines
 var/list/standard_medicines = list("charcoal","toxin","cyanide","morphine","epinephrine","space_drugs",
 								"serotrotium","mutadone","mutagen","teporone","lexorin","silver_sulfadiazine",
@@ -27,7 +27,7 @@ var/list/standard_medicines = list("charcoal","toxin","cyanide","morphine","epin
 								"diethylamine","antihol","pancuronium","lipolicide","condensedcapsaicin",
 								"frostoil","amanitin","psilocybin","nothing","salglu_solution","neurotoxin")
 // Rare medicines
-var/list/rare_medicines = list("nanites","xenomicrobes","minttoxin","adminordrazine","blood")
+var/list/rare_medicines = list("syndicate_nanites","minttoxin","blood", "xenomicrobes")
 // Drinks
 var/list/drinks = list("beer2","hot_coco","orangejuice","tomatojuice","limejuice","carrotjuice",
 					"berryjuice","poisonberryjuice","watermelonjuice","lemonjuice","banana",
@@ -44,7 +44,7 @@ var/list/drinks = list("beer2","hot_coco","orangejuice","tomatojuice","limejuice
 					"vodkatonic","ginfizz","bahama_mama","singulo","sbiten","devilskiss","red_mead",
 					"mead","iced_beer","grog","aloe","andalusia","alliescocktail","soy_latte",
 					"cafe_latte","acidspit","amasec","neurotoxin","hippiesdelight","bananahonk",
-					"silencer","changelingsting","irishcarbomb","syndicatebomb","erikasurprise","driestmartini")
+					"silencer","changelingsting","irishcarbomb","syndicatebomb","erikasurprise","driestmartini", "flamingmoe")
 
 //Random chem blacklist
 var/global/list/blocked_chems = list("polonium", "initropidril", "concentrated_initro",
@@ -56,9 +56,6 @@ var/global/list/blocked_chems = list("polonium", "initropidril", "concentrated_i
 							"envenomed_filaments", "lexorin_jelly", "kinetic",
 							"cryogenic_liquid", "dark_matter", "b_sorium",
 							"reagent", "life","dragonsbreath")
-
-//List of chems/mixtures that can't grow in plants (in addition to the global random chem blacklist)
-var/global/list/plant_blocked_chems = list()	//filled in /datum/reagents/New() with chems that have can_grow_in_plants = 0
 
 var/global/list/safe_chem_list = list("antihol", "charcoal", "epinephrine", "insulin", "teporone","silver_sulfadiazine", "salbutamol",
 									  "omnizine", "stimulants", "synaptizine", "potass_iodide", "oculine", "mannitol", "styptic_powder",

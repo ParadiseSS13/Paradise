@@ -2,24 +2,13 @@
 	var/canEnterVentWith = "/obj/item/weapon/implant=0&/obj/item/clothing/mask/facehugger=0&/obj/item/device/radio/borg=0&/obj/machinery/camera=0"
 	var/datum/middleClickOverride/middleClickOverride = null
 
-/mob/living/carbon/prepare_huds()
-	..()
-	prepare_data_huds()
-
-/mob/living/carbon/proc/prepare_data_huds()
-	..()
-	med_hud_set_health()
-	med_hud_set_status()
-
-/mob/living/carbon/updatehealth()
-	..()
-	med_hud_set_health()
-	med_hud_set_status()
-
 /mob/living/carbon/Destroy()
 	QDEL_LIST(internal_organs)
 	QDEL_LIST(stomach_contents)
-	remove_from_all_data_huds()
+	var/mob/living/simple_animal/borer/B = has_brain_worms()
+	if(B)
+		B.leave_host()
+		qdel(B)
 	return ..()
 
 /mob/living/carbon/blob_act()
@@ -64,7 +53,7 @@
 				var/mob/living/carbon/human/H = src
 				var/obj/item/organ/external/organ = H.get_organ("chest")
 				if(istype(organ))
-					if(organ.take_damage(d, 0))
+					if(organ.receive_damage(d, 0))
 						H.UpdateDamageIcon()
 
 				H.updatehealth()
@@ -216,15 +205,18 @@
 				"<span class='notice'>You check yourself for injuries.</span>" \
 				)
 
-			for(var/obj/item/organ/external/org in H.bodyparts)
+			var/list/missing = list("head", "chest", "groin", "l_arm", "r_arm", "l_hand", "r_hand", "l_leg", "r_leg", "l_foot", "r_foot")
+			for(var/X in H.bodyparts)
+				var/obj/item/organ/external/LB = X
+				missing -= LB.limb_name
 				var/status = ""
-				var/brutedamage = org.brute_dam
-				var/burndamage = org.burn_dam
+				var/brutedamage = LB.brute_dam
+				var/burndamage = LB.burn_dam
 
 				if(brutedamage > 0)
 					status = "bruised"
 				if(brutedamage > 20)
-					status = "bleeding"
+					status = "battered"
 				if(brutedamage > 40)
 					status = "mangled"
 				if(brutedamage > 0 && burndamage > 0)
@@ -236,16 +228,17 @@
 					status += "blistered"
 				else if(burndamage > 0)
 					status += "numb"
-				if(org.status & ORGAN_DESTROYED)
-					status = "MISSING!"
-				if(org.status & ORGAN_MUTATED)
+				if(LB.status & ORGAN_MUTATED)
 					status = "weirdly shapen."
 				if(status == "")
 					status = "OK"
-				src.show_message(text("\t []My [] is [].",status=="OK"?"<span class='notice'></span>":"<span class='warning'></span>",org.name,status),1)
+				to_chat(src, "\t <span class='[status == "OK" ? "notice" : "warning"]'>Your [LB.name] is [status].</span>")
 
-				for(var/obj/item/I in org.embedded_objects)
-					to_chat(src, "\t <a href='byond://?src=[UID()];embedded_object=[I.UID()];embedded_limb=[org.UID()]' class='warning'>There is \a [I] embedded in your [org.name]!</a>")
+				for(var/obj/item/I in LB.embedded_objects)
+					to_chat(src, "\t <a href='byond://?src=[UID()];embedded_object=[I.UID()];embedded_limb=[LB.UID()]' class='warning'>There is \a [I] embedded in your [LB.name]!</a>")
+
+			for(var/t in missing)
+				to_chat(src, "<span class='boldannounce'>Your [parse_zone(t)] is missing!</span>")
 
 			if(H.bleed_rate)
 				to_chat(src, "<span class='danger'>You are bleeding!</span>")
@@ -297,12 +290,15 @@
 					)
 					if(istype(src,/mob/living/carbon/human))
 						var/mob/living/carbon/human/H = src
-						if(H.w_uniform)
+						if(H.wear_suit)
+							H.wear_suit.add_fingerprint(M)
+						else if(H.w_uniform)
 							H.w_uniform.add_fingerprint(M)
 
 /mob/living/carbon/flash_eyes(intensity = 1, override_blindness_check = 0, affect_silicon = 0, visual = 0)
 	. = ..()
 	var/damage = intensity - check_eye_prot()
+	var/extra_damage = 0
 	if(.)
 		if(visual)
 			return
@@ -313,19 +309,32 @@
 		if(!E || (E && E.weld_proof))
 			return
 
+		var/extra_darkview = 0
+		if(E.dark_view)
+			extra_darkview = max(E.dark_view - 2, 0)
+			extra_damage = extra_darkview
+
+		var/light_amount = 10 // assume full brightness
+		if(isturf(src.loc))
+			var/turf/T = src.loc
+			light_amount = round(T.get_lumcount() * 10)
+
+		// a dark view of 8, in full darkness, will result in maximum 1st tier damage
+		var/extra_prob = (10 - light_amount) * extra_darkview
+
 		switch(damage)
 			if(1)
 				to_chat(src, "<span class='warning'>Your eyes sting a little.</span>")
-				if(prob(40)) //waiting on carbon organs
-					E.damage += 1
-
+				var/minor_damage_multiplier = min(40 + extra_prob, 100) / 100
+				var/minor_damage = minor_damage_multiplier * (1 + extra_damage)
+				E.receive_damage(minor_damage, 1)
 			if(2)
 				to_chat(src, "<span class='warning'>Your eyes burn.</span>")
-				E.damage += rand(2, 4)
+				E.receive_damage(rand(2, 4) + extra_damage, 1)
 
 			else
 				to_chat(src, "Your eyes itch and burn severely!</span>")
-				E.damage += rand(12, 16)
+				E.receive_damage(rand(12, 16) + extra_damage, 1)
 
 		if(E.damage > E.min_bruised_damage)
 			AdjustEyeBlind(damage)
@@ -615,6 +624,13 @@ var/list/ventcrawl_machinery = list(/obj/machinery/atmospherics/unary/vent_pump,
 
 	dat += "<tr><td><B>Mask:</B></td><td><A href='?src=[UID()];item=[slot_wear_mask]'>[(wear_mask && !(wear_mask.flags&ABSTRACT)) ? wear_mask : "<font color=grey>Empty</font>"]</A></td></tr>"
 
+	if(istype(wear_mask, /obj/item/clothing/mask/muzzle))
+		var/obj/item/clothing/mask/muzzle/M = wear_mask
+		if(M.security_lock)
+			dat += "&nbsp;<A href='?src=[M.UID()];locked=\ref[src]'>[M.locked ? "Disable Lock" : "Set Lock"]</A>"
+
+		dat += "</td></tr><tr><td>&nbsp;</td></tr>"
+
 	if(handcuffed)
 		dat += "<tr><td><B>Handcuffed:</B> <A href='?src=[UID()];item=[slot_handcuffed]'>Remove</A></td></tr>"
 	if(legcuffed)
@@ -651,7 +667,7 @@ var/list/ventcrawl_machinery = list(/obj/machinery/atmospherics/unary/vent_pump,
 				if(do_mob(usr, src, POCKET_STRIP_DELAY))
 					if(internal)
 						internal = null
-						update_internals_hud_icon(0)
+						update_action_buttons_icon()
 					else
 						var/no_mask2
 						if(!get_organ_slot("breathing_tube"))
@@ -662,7 +678,7 @@ var/list/ventcrawl_machinery = list(/obj/machinery/atmospherics/unary/vent_pump,
 							to_chat(usr, "<span class='warning'>[src] is not wearing a suitable mask or helmet!</span>")
 							return
 						internal = ITEM
-						update_internals_hud_icon(1)
+						update_action_buttons_icon()
 
 					visible_message("<span class='danger'>[usr] [internal ? "opens" : "closes"] the valve on [src]'s [ITEM].</span>", \
 									"<span class='userdanger'>[usr] [internal ? "opens" : "closes"] the valve on [src]'s [ITEM].</span>")
@@ -716,23 +732,6 @@ var/list/ventcrawl_machinery = list(/obj/machinery/atmospherics/unary/vent_pump,
 
 /mob/living/carbon/is_muzzled()
 	return(istype(src.wear_mask, /obj/item/clothing/mask/muzzle))
-
-/mob/living/carbon/proc/spin(spintime, speed)
-	spawn()
-		var/D = dir
-		while(spintime >= speed)
-			sleep(speed)
-			switch(D)
-				if(NORTH)
-					D = EAST
-				if(SOUTH)
-					D = WEST
-				if(EAST)
-					D = SOUTH
-				if(WEST)
-					D = NORTH
-			dir = D
-			spintime -= speed
 
 /mob/living/carbon/resist_buckle()
 	spawn(0)
@@ -792,6 +791,8 @@ var/list/ventcrawl_machinery = list(/obj/machinery/atmospherics/unary/vent_pump,
 		if(do_after(src, time, 0, target = src))
 			visible_message("<span class='warning'>[src] removes [I]!</span>")
 			to_chat(src, "<span class='notice'>You get rid of [I]!</span>")
+			if(I.security_lock)
+				I.do_break()
 			unEquip(I)
 
 
@@ -887,11 +888,11 @@ var/list/ventcrawl_machinery = list(/obj/machinery/atmospherics/unary/vent_pump,
 	..()
 
 /mob/living/carbon/Stat()
+	..()
 	if(statpanel("Status"))
 		var/obj/item/organ/internal/xenos/plasmavessel/vessel = get_int_organ(/obj/item/organ/internal/xenos/plasmavessel)
 		if(vessel)
 			stat(null, "Plasma Stored: [vessel.stored_plasma]/[vessel.max_plasma]")
-	..()
 
 /mob/living/carbon/get_all_slots()
 	return list(l_hand,
@@ -930,7 +931,7 @@ var/list/ventcrawl_machinery = list(/obj/machinery/atmospherics/unary/vent_pump,
 				W.plane = initial(W.plane)
 
 
-/mob/living/carbon/proc/slip(var/description, var/stun, var/weaken, var/tilesSlipped, var/walkSafely, var/slipAny)
+/mob/living/carbon/proc/slip(description, stun, weaken, tilesSlipped, walkSafely, slipAny, slipVerb = "slip")
 	if(flying || buckled || (walkSafely && m_intent == MOVE_INTENT_WALK))
 		return 0
 	if((lying) && (!(tilesSlipped)))
@@ -944,10 +945,10 @@ var/list/ventcrawl_machinery = list(/obj/machinery/atmospherics/unary/vent_pump,
 		for(var/t = 0, t<=tilesSlipped, t++)
 			spawn (t) step(src, src.dir)
 	stop_pulling()
-	to_chat(src, "<span class='notice'>You slipped on [description]!</span>")
+	to_chat(src, "<span class='notice'>You [slipVerb]ped on [description]!</span>")
 	playsound(src.loc, 'sound/misc/slip.ogg', 50, 1, -3)
-	if(stun)
-		Stun(stun)
+	// Something something don't run with scissors
+	Stun(stun)
 	Weaken(weaken)
 	return 1
 
@@ -971,7 +972,7 @@ var/list/ventcrawl_machinery = list(/obj/machinery/atmospherics/unary/vent_pump,
 	else
 		if(!forceFed(toEat, user, fullness))
 			return 0
-	consume(toEat, bitesize_override)
+	consume(toEat, bitesize_override, taste = toEat.taste)
 	score_foodeaten++
 	return 1
 
@@ -1024,7 +1025,7 @@ var/list/ventcrawl_machinery = list(/obj/machinery/atmospherics/unary/vent_pump,
 
 /*TO DO - If/when stomach organs are introduced, override this at the human level sending the item to the stomach
 so that different stomachs can handle things in different ways VB*/
-/mob/living/carbon/proc/consume(var/obj/item/weapon/reagent_containers/food/toEat, var/bitesize_override)
+/mob/living/carbon/proc/consume(var/obj/item/weapon/reagent_containers/food/toEat, var/bitesize_override, var/taste = TRUE)
 	var/this_bite = bitesize_override ? bitesize_override : toEat.bitesize
 	if(!toEat.reagents)
 		return
@@ -1033,6 +1034,8 @@ so that different stomachs can handle things in different ways VB*/
 	if(toEat.consume_sound)
 		playsound(loc, toEat.consume_sound, rand(10,50), 1)
 	if(toEat.reagents.total_volume)
+		if(taste)
+			taste_reagents(toEat.reagents)
 		var/fraction = min(this_bite/toEat.reagents.total_volume, 1)
 		toEat.reagents.reaction(src, toEat.apply_type, fraction)
 		toEat.reagents.trans_to(src, this_bite*toEat.transfer_efficiency)
@@ -1056,10 +1059,6 @@ so that different stomachs can handle things in different ways VB*/
 		return TRUE
 
 	return FALSE
-
-/mob/living/carbon/proc/update_internals_hud_icon(internal_state = 0)
-	if(hud_used && hud_used.internals)
-		hud_used.internals.icon_state = "internal[internal_state]"
 
 //to recalculate and update the mob's total tint from tinted equipment it's wearing.
 /mob/living/carbon/proc/update_tint()

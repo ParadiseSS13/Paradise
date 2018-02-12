@@ -96,8 +96,7 @@
 		var/obj/item/organ/external/affecting = H.get_organ(user.zone_sel.selecting)
 
 		if(affecting.open == 0)
-			affecting.bandage()
-			affecting.disinfect()
+			affecting.germ_level = 0
 
 			user.visible_message("<span class='green'>[user] bandages the wounds on [H]'s [affecting.name].</span>", \
 							 	 "<span class='green'>You bandage the wounds on [H]'s [affecting.name].</span>" )
@@ -142,7 +141,7 @@
 		var/obj/item/organ/external/affecting = H.get_organ(user.zone_sel.selecting)
 
 		if(affecting.open == 0)
-			affecting.salve()
+			affecting.germ_level = 0
 
 			user.visible_message("<span class='green'>[user] salves the wounds on [H]'s [affecting.name].</span>", \
 							 	 "<span class='green'>You salve the wounds on [H]'s [affecting.name].</span>" )
@@ -208,6 +207,7 @@
 			to_chat(user, "<span class='danger'>[H]'s [limb] is already splinted!</span>")
 			if(alert(user, "Would you like to remove the splint from [H]'s [limb]?", "Removing.", "Yes", "No") == "Yes")
 				affecting.status &= ~ORGAN_SPLINTED
+				H.handle_splints()
 				to_chat(user, "<span class='notice'>You remove the splint from [H]'s [limb].</span>")
 			return
 		if(M == user)
@@ -222,4 +222,7 @@
 								 "<span class='green'>You hear something being wrapped.</span>")
 
 		affecting.status |= ORGAN_SPLINTED
+		affecting.splinted_count = H.step_count
+		H.handle_splints()
+
 		use(1)

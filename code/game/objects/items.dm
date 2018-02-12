@@ -87,6 +87,15 @@ var/global/image/fire_overlay = image("icon" = 'icons/goonstation/effects/fire.d
 	var/sprite_sheets_obj = null //Used to override hardcoded clothing inventory object dmis in human clothing proc.
 	var/list/species_fit = null //This object has a different appearance when worn by these species
 
+	var/trip_verb = TV_TRIP
+	var/trip_chance = 0
+
+	var/trip_stun = 0
+	var/trip_weaken = 0
+	var/trip_any = FALSE
+	var/trip_walksafe = TRUE
+	var/trip_tiles = 0
+
 /obj/item/New()
 	..()
 	for(var/path in actions_types)
@@ -193,7 +202,7 @@ var/global/image/fire_overlay = image("icon" = 'icons/goonstation/effects/fire.d
 		to_chat(user, msg)
 
 
-/obj/item/attack_hand(mob/user as mob)
+/obj/item/attack_hand(mob/user as mob, pickupfireoverride = FALSE)
 	if(!user) return 0
 	if(hasorgans(user))
 		var/mob/living/carbon/human/H = user
@@ -207,7 +216,7 @@ var/global/image/fire_overlay = image("icon" = 'icons/goonstation/effects/fire.d
 			to_chat(user, "<span class='warning'>You try to move your [temp.name], but cannot!</span>")
 			return 0
 
-	if(burn_state == ON_FIRE)
+	if(burn_state == ON_FIRE && !pickupfireoverride)
 		var/mob/living/carbon/human/H = user
 		if(istype(H))
 			if(H.gloves && (H.gloves.max_heat_protection_temperature > 360))
@@ -216,7 +225,7 @@ var/global/image/fire_overlay = image("icon" = 'icons/goonstation/effects/fire.d
 			else
 				to_chat(user, "<span class='warning'>You burn your hand on [src]!</span>")
 				var/obj/item/organ/external/affecting = H.get_organ("[user.hand ? "l" : "r" ]_arm")
-				if(affecting && affecting.take_damage(0, 5))		// 5 burn damage
+				if(affecting && affecting.receive_damage(0, 5))		// 5 burn damage
 					H.UpdateDamageIcon()
 				H.updatehealth()
 				return
@@ -368,15 +377,12 @@ var/global/image/fire_overlay = image("icon" = 'icons/goonstation/effects/fire.d
 
 	if(!(usr)) //BS12 EDIT
 		return
-	if(!usr.canmove || usr.stat || usr.restrained() || !Adjacent(usr))
+	if(usr.incapacitated() || !Adjacent(usr))
 		return
-	if((!istype(usr, /mob/living/carbon)) || (istype(usr, /mob/living/carbon/brain)))//Is humanoid, and is not a brain
+	if(!iscarbon(usr) || isbrain(usr)) //Is humanoid, and is not a brain
 		to_chat(usr, "<span class='warning'>You can't pick things up!</span>")
 		return
-	if( usr.stat || usr.restrained() )//Is not asleep/dead and is not restrained
-		to_chat(usr, "<span class='warning'>You can't pick things up!</span>")
-		return
-	if(src.anchored) //Object isn't anchored
+	if(anchored) //Object isn't anchored
 		to_chat(usr, "<span class='warning'>You can't pick that up!</span>")
 		return
 	if(!usr.hand && usr.r_hand) //Right hand is not full
@@ -385,12 +391,11 @@ var/global/image/fire_overlay = image("icon" = 'icons/goonstation/effects/fire.d
 	if(usr.hand && usr.l_hand) //Left hand is not full
 		to_chat(usr, "<span class='warning'>Your left hand is full.</span>")
 		return
-	if(!istype(src.loc, /turf)) //Object is on a turf
+	if(!isturf(loc)) //Object is on a turf
 		to_chat(usr, "<span class='warning'>You can't pick that up!</span>")
 		return
 	//All checks are done, time to pick it up!
 	usr.UnarmedAttack(src)
-	return
 
 
 //This proc is executed when someone clicks the on-screen UI button.
@@ -449,9 +454,9 @@ var/global/image/fire_overlay = image("icon" = 'icons/goonstation/effects/fire.d
 		var/obj/item/organ/internal/eyes/eyes = H.get_int_organ(/obj/item/organ/internal/eyes)
 		if(!eyes) // should still get stabbed in the head
 			var/obj/item/organ/external/head/head = H.bodyparts_by_name["head"]
-			head.take_damage(rand(10,14), 1)
+			head.receive_damage(rand(10,14), 1)
 			return
-		eyes.take_damage(rand(3,4), 1)
+		eyes.receive_damage(rand(3,4), 1)
 		if(eyes.damage >= eyes.min_bruised_damage)
 			if(M.stat != 2)
 				if(!(eyes.status & ORGAN_ROBOT) || !(eyes.status & ORGAN_ASSISTED))  //robot eyes bleeding might be a bit silly
@@ -467,7 +472,7 @@ var/global/image/fire_overlay = image("icon" = 'icons/goonstation/effects/fire.d
 				if(M.stat != 2)
 					to_chat(M, "<span class='danger'>You go blind!</span>")
 		var/obj/item/organ/external/affecting = H.get_organ("head")
-		if(affecting.take_damage(7))
+		if(affecting.receive_damage(7))
 			H.UpdateDamageIcon()
 	else
 		M.take_organ_damage(7)
@@ -530,3 +535,12 @@ var/global/image/fire_overlay = image("icon" = 'icons/goonstation/effects/fire.d
 
 /obj/item/proc/is_equivalent(obj/item/I)
 	return I == src
+
+/obj/item/Crossed(atom/movable/AM)
+	if(prob(trip_chance) && ishuman(AM))
+		var/mob/living/carbon/human/H = AM
+		on_trip(H)
+
+/obj/item/proc/on_trip(mob/living/carbon/human/H)
+	if(H.slip(src, trip_stun, trip_weaken, trip_tiles, trip_walksafe, trip_any, trip_verb))
+		return TRUE

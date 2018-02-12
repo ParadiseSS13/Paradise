@@ -270,7 +270,7 @@
 	result = /obj/item/weapon/reagent_containers/food/snacks/bigbiteburger
 
 /datum/recipe/microwave/enchiladas
-	items = list(/obj/item/weapon/reagent_containers/food/snacks/cutlet, /obj/item/weapon/reagent_containers/food/snacks/grown/chili, /obj/item/weapon/reagent_containers/food/snacks/grown/corn)
+	items = list(/obj/item/weapon/reagent_containers/food/snacks/cutlet, /obj/item/weapon/reagent_containers/food/snacks/grown/chili, /obj/item/weapon/reagent_containers/food/snacks/grown/chili, /obj/item/weapon/reagent_containers/food/snacks/grown/corn)
 	result = /obj/item/weapon/reagent_containers/food/snacks/enchiladas
 
 /datum/recipe/microwave/burrito
@@ -540,6 +540,10 @@ datum/recipe/microwave/slimesandwich
 	var/obj/item/weapon/reagent_containers/food/snacks/validsalad/being_cooked = ..()
 	being_cooked.reagents.del_reagent("toxin")
 	return being_cooked
+
+/datum/recipe/microwave/onionrings
+	items = list(/obj/item/weapon/reagent_containers/food/snacks/onion_slice)
+	result = /obj/item/weapon/reagent_containers/food/snacks/onionrings
 
 ////////////////////////////FOOD ADDITTIONS///////////////////////////////
 

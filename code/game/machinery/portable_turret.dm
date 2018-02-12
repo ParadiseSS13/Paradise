@@ -49,7 +49,7 @@
 	var/shot_sound 			//what sound should play when the turret fires
 	var/eshot_sound			//what sound should play when the emagged turret fires
 
-	var/datum/effect/system/spark_spread/spark_system	//the spark system, used for generating... sparks?
+	var/datum/effect_system/spark_spread/spark_system	//the spark system, used for generating... sparks?
 
 	var/wrenching = 0
 	var/last_target //last target fired at, prevents turrets from erratically firing at all valid targets in range
@@ -96,7 +96,7 @@
 	one_access = 1
 
 	//Sets up a spark system
-	spark_system = new /datum/effect/system/spark_spread
+	spark_system = new /datum/effect_system/spark_spread
 	spark_system.set_up(5, 0, src)
 	spark_system.attach(src)
 
@@ -411,8 +411,7 @@ var/list/turret_icons
 		if(I.force * 0.5 > 1) //if the force of impact dealt at least 1 damage, the turret gets pissed off
 			if(!attacked && !emagged)
 				attacked = 1
-				spawn()
-					sleep(60)
+				spawn(60)
 					attacked = 0
 
 		..()
@@ -454,7 +453,7 @@ var/list/turret_icons
 		sleep(60) //6 seconds for the traitor to gtfo of the area before the turret decides to ruin his shit
 		enabled = 1 //turns it back on. The cover popUp() popDown() are automatically called in process(), no need to define it here
 
-/obj/machinery/porta_turret/proc/take_damage(var/force)
+/obj/machinery/porta_turret/take_damage(force)
 	if(!raised && !raising)
 		force = force / 8
 		if(force < 5)
@@ -473,8 +472,7 @@ var/list/turret_icons
 	if(enabled)
 		if(!attacked && !emagged)
 			attacked = 1
-			spawn()
-				sleep(60)
+			spawn(60)
 				attacked = 0
 
 	..()
@@ -539,48 +537,52 @@ var/list/turret_icons
 
 	var/list/targets = list()			//list of primary targets
 	var/list/secondarytargets = list()	//targets that are least important
+	var/static/things_to_scan = typecacheof(list(/obj/mecha, /obj/spacepod, /obj/vehicle, /mob/living))
 
-	for(var/obj/mecha/ME in view(scan_range,src))
-		assess_and_assign(ME.occupant, targets, secondarytargets)
+	for(var/A in typecache_filter_list(view(scan_range, src), things_to_scan))
+		var/atom/AA = A
 
-	for(var/obj/spacepod/SP in view(scan_range,src))
-		assess_and_assign(SP.pilot, targets, secondarytargets)
+		if(AA.invisibility > SEE_INVISIBLE_LIVING) //Let's not do typechecks and stuff on invisible things
+			continue
 
-	for(var/obj/vehicle/T in view(scan_range,src))
-		assess_and_assign(T.buckled_mob, targets, secondarytargets)
+		if(istype(A, /obj/mecha))
+			var/obj/mecha/ME = A
+			assess_and_assign(ME.occupant, targets, secondarytargets)
 
-	for(var/mob/living/C in view(scan_range,src))	//loops through all living lifeforms in view
-		assess_and_assign(C, targets, secondarytargets)
+		if(istype(A, /obj/spacepod))
+			var/obj/spacepod/SP = A
+			assess_and_assign(SP.pilot, targets, secondarytargets)
+
+		if(istype(A, /obj/vehicle))
+			var/obj/vehicle/T = A
+			assess_and_assign(T.buckled_mob, targets, secondarytargets)
+
+		if(isliving(A))
+			var/mob/living/C = A
+			assess_and_assign(C, targets, secondarytargets)
 
 	if(!tryToShootAt(targets))
 		if(!tryToShootAt(secondarytargets)) // if no valid targets, go for secondary targets
 			if(!always_up)
-				spawn()
-					popDown() // no valid targets, close the cover
+				popDown() // no valid targets, close the cover
 
 /obj/machinery/porta_turret/proc/in_faction(mob/living/target)
 	if(!(faction in target.faction))
 		return 0
 	return 1
 
-/obj/machinery/porta_turret/proc/assess_and_assign(var/mob/living/L, var/list/targets, var/list/secondarytargets)
+/obj/machinery/porta_turret/proc/assess_and_assign(mob/living/L, list/targets, list/secondarytargets)
 	switch(assess_living(L))
 		if(TURRET_PRIORITY_TARGET)
 			targets += L
 		if(TURRET_SECONDARY_TARGET)
 			secondarytargets += L
 
-/obj/machinery/porta_turret/proc/assess_living(var/mob/living/L)
-	if(!istype(L))
+/obj/machinery/porta_turret/proc/assess_living(mob/living/L)
+	if(!L)
 		return TURRET_NOT_TARGET
 
 	if(get_turf(L) == get_turf(src))
-		return TURRET_NOT_TARGET
-
-	if(L.invisibility >= INVISIBILITY_LEVEL_ONE) // Cannot see him. see_invisible is a mob-var
-		return TURRET_NOT_TARGET
-
-	if(!L)
 		return TURRET_NOT_TARGET
 
 	if(!emagged && !syndicate && (issilicon(L) || isbot(L)))	// Don't target silica
@@ -687,31 +689,25 @@ var/list/turret_icons
 	raising = is_raising
 	density = is_raised || is_raising
 
-/obj/machinery/porta_turret/proc/target(var/mob/living/target)
+/obj/machinery/porta_turret/proc/target(mob/living/target)
 	if(disabled)
 		return
 	if(target)
 		last_target = target
 		if(has_cover)
-			spawn()
-				popUp()				//pop the turret up if it's not already up.
-		dir = get_dir(src, target)	//even if you can't shoot, follow the target
-		spawn()
-			shootAt(target)
-		return 1
-	return
+			popUp()				//pop the turret up if it's not already up.
+		setDir(get_dir(src, target))	//even if you can't shoot, follow the target
+		shootAt(target)
+		return TRUE
 
-/obj/machinery/porta_turret/proc/shootAt(var/mob/living/target)
+/obj/machinery/porta_turret/proc/shootAt(mob/living/target)
 	if(!raised && has_cover) //the turret has to be raised in order to fire - makes sense, right?
 		return
-	//any emagged turrets will shoot extremely fast! This not only is deadly, but drains a lot power!
-	if(!emagged)	//if it hasn't been emagged, it has to obey a cooldown rate
-		if(last_fired || !raised)	//prevents rapid-fire shooting, unless it's been emagged
+
+	if(!emagged)	//if it hasn't been emagged, cooldown before shooting again
+		if((last_fired + shot_delay > world.time) || !raised)
 			return
-		last_fired = 1
-		spawn()
-			sleep(shot_delay)
-			last_fired = 0
+		last_fired = world.time
 
 	var/turf/T = get_turf(src)
 	var/turf/U = get_turf(target)
@@ -733,11 +729,14 @@ var/list/turret_icons
 	// Emagged turrets again use twice as much power due to higher firing rates
 	use_power(reqpower * (2 * (emagged || lethal)) * (2 * emagged))
 
-	A.original = target
-	A.current = T
-	A.yo = U.y - T.y
-	A.xo = U.x - T.x
-	A.fire()
+	if(istype(A))
+		A.original = target
+		A.current = T
+		A.yo = U.y - T.y
+		A.xo = U.x - T.x
+		A.fire()
+	else
+		A.throw_at(target, scan_range, 1)
 	return A
 
 /datum/turret_checks
@@ -1062,4 +1061,3 @@ var/list/turret_icons
 	health = 100
 	projectile = /obj/item/projectile/bullet/weakbullet3
 	eprojectile = /obj/item/projectile/bullet/midbullet
-

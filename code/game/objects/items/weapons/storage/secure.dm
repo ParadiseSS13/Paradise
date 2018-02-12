@@ -74,7 +74,7 @@
 		overlays += image('icons/obj/storage.dmi', icon_locking)
 		locked = 0
 		if(istype(weapon, /obj/item/weapon/melee/energy/blade))
-			var/datum/effect/system/spark_spread/spark_system = new /datum/effect/system/spark_spread()
+			var/datum/effect_system/spark_spread/spark_system = new /datum/effect_system/spark_spread()
 			spark_system.set_up(5, 0, src.loc)
 			spark_system.start()
 			playsound(loc, 'sound/weapons/blade1.ogg', 50, 1)
@@ -215,6 +215,14 @@
 	..()
 	for(var/i = 0, i < storage_slots - 2, i++)
 		handle_item_insertion(new /obj/item/stack/spacecash/c1000, 1)
+
+/obj/item/weapon/storage/secure/briefcase/reaper/New()
+	..()
+	handle_item_insertion(new /obj/item/weapon/gun/energy/kinetic_accelerator/crossbow, 1)
+	handle_item_insertion(new /obj/item/weapon/gun/projectile/revolver/mateba, 1)
+	handle_item_insertion(new /obj/item/ammo_box/a357, 1)
+	handle_item_insertion(new /obj/item/weapon/grenade/plastic/c4, 1)
+
 
 // -----------------------------
 //        Secure Safe

@@ -115,6 +115,7 @@
 
 /mob/living/simple_animal/borer/New(atom/newloc, var/gen=1)
 	..(newloc)
+	remove_from_all_data_huds()
 	generation = gen
 	add_language("Cortical Link")
 	notify_ghosts("A cortical borer has been created in [get_area(src)]!", enter_link = "<a href=?src=[UID()];ghostjoin=1>(Click to enter)</a>", source = src, action = NOTIFY_ATTACK)
@@ -123,6 +124,9 @@
 	GrantBorerActions()
 
 /mob/living/simple_animal/borer/attack_ghost(mob/user)
+	if(cannotPossess(user))
+		to_chat(user, "<span class='boldnotice'>Upon using the antagHUD you forfeited the ability to join the round.</span>")
+		return
 	if(jobban_isbanned(user, "Syndicate"))
 		return
 	if(key)
@@ -351,7 +355,7 @@
 		to_chat(src, "They are no longer in range!")
 		return
 
-/mob/living/simple_animal/borer/proc/perform_infestation(var/mob/living/carbon/M)
+/mob/living/simple_animal/borer/proc/perform_infestation(mob/living/carbon/M)
 	if(!M)
 		return
 
@@ -359,6 +363,7 @@
 		to_chat(src, "<span class='warning'>[M] is already infested!</span>")
 		return
 	host = M
+	M.borer = src
 	forceMove(M)
 
 	host.status_flags |= PASSEMOTES
@@ -564,7 +569,8 @@
 	host.reset_perspective(null)
 	host.machine = null
 
-	var/mob/living/H = host
+	var/mob/living/carbon/H = host
+	H.borer = null
 	H.verbs -= /mob/living/proc/borer_comm
 	talk_to_borer_action.Remove(host)
 	H.status_flags &= ~PASSEMOTES
@@ -704,10 +710,12 @@
 
 //Check for brain worms in head.
 /mob/proc/has_brain_worms()
+	return FALSE
 
-	for(var/I in contents)
-		if(istype(I,/mob/living/simple_animal/borer))
-			return I
+/mob/living/carbon/has_brain_worms()
+
+	if(borer)
+		return borer
 
 	return FALSE
 

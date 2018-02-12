@@ -50,7 +50,6 @@
 	heat_level_1 = 380 //Default 360 - Higher is better
 	heat_level_2 = 420 //Default 400
 	heat_level_3 = 480 //Default 460
-	heat_level_3_breathe = 1100 //Default 1000
 
 	flesh_color = "#34AF10"
 	reagent_tag = PROCESS_ORG
@@ -106,7 +105,6 @@
 	heat_level_1 = 340
 	heat_level_2 = 380
 	heat_level_3 = 440
-	heat_level_3_breathe = 900
 
 	primitive_form = "Farwa"
 
@@ -114,6 +112,7 @@
 	clothing_flags = HAS_UNDERWEAR | HAS_UNDERSHIRT | HAS_SOCKS
 	bodyflags = HAS_TAIL | HAS_HEAD_ACCESSORY | HAS_HEAD_MARKINGS | HAS_BODY_MARKINGS | HAS_SKIN_COLOR | TAIL_WAGGING
 	dietflags = DIET_OMNI
+	taste_sensitivity = TASTE_SENSITIVITY_SHARP
 	reagent_tag = PROCESS_ORG
 	flesh_color = "#AFA59E"
 	base_color = "#424242"
@@ -164,6 +163,7 @@
 	clothing_flags = HAS_UNDERWEAR | HAS_UNDERSHIRT | HAS_SOCKS
 	bodyflags = HAS_TAIL | TAIL_WAGGING | TAIL_OVERLAPPED | HAS_HEAD_ACCESSORY | HAS_MARKINGS | HAS_SKIN_COLOR
 	dietflags = DIET_OMNI
+	taste_sensitivity = TASTE_SENSITIVITY_SHARP
 	reagent_tag = PROCESS_ORG
 	flesh_color = "#966464"
 	base_color = "#CF4D2F"
@@ -215,6 +215,7 @@
 	clothing_flags = HAS_UNDERWEAR | HAS_UNDERSHIRT | HAS_SOCKS
 	bodyflags = HAS_SKIN_COLOR | HAS_BODY_MARKINGS
 	dietflags = DIET_HERB
+	taste_sensitivity = TASTE_SENSITIVITY_DULL
 	flesh_color = "#8CD7A3"
 	blood_color = "#1D2CBF"
 	base_color = "#38b661" //RGB: 56, 182, 97.
@@ -273,23 +274,9 @@
 	cold_level_2 = 50
 	cold_level_3 = 0
 
-	atmos_requirements = list(
-		"min_oxy" = 0,
-		"max_oxy" = 1,
-		"min_nitro" = 16,
-		"max_nitro" = 0,
-		"min_tox" = 0,
-		"max_tox" = 0.005,
-		"min_co2" = 0,
-	 	"max_co2" = 10,
-	 	"sa_para" = 1,
-		"sa_sleep" = 5
-		)
+	breathid = "n2"
 
 	eyes = "vox_eyes_s"
-
-	breath_type = "nitrogen"
-	poison_type = "oxygen"
 
 	species_traits = list(NO_SCAN, IS_WHITELISTED, NOTRANSSTING)
 	clothing_flags = HAS_SOCKS
@@ -323,7 +310,7 @@
 
 	has_organ = list(
 		"heart" =    /obj/item/organ/internal/heart,
-		"lungs" =    /obj/item/organ/internal/lungs,
+		"lungs" =    /obj/item/organ/internal/lungs/vox,
 		"liver" =    /obj/item/organ/internal/liver/vox,
 		"kidneys" =  /obj/item/organ/internal/kidneys,
 		"brain" =    /obj/item/organ/internal/brain,
@@ -365,7 +352,7 @@
 		H.equip_or_collect(new /obj/item/weapon/tank/emergency_oxygen/vox(H), slot_l_hand)
 	to_chat(H, "<span class='notice'>You are now running on nitrogen internals from the [H.l_hand] in your hand. Your species finds oxygen toxic, so you must breathe nitrogen only.</span>")
 	H.internal = H.l_hand
-	H.update_internals_hud_icon(1)
+	H.update_action_buttons_icon()
 
 /datum/species/vox/handle_post_spawn(var/mob/living/carbon/human/H)
 	updatespeciescolor(H)
@@ -435,14 +422,11 @@
 	heat_level_1 = 2000
 	heat_level_2 = 3000
 	heat_level_3 = 4000
-	heat_level_3_breathe = 4000
 
 	brute_mod = 0.2
 	burn_mod = 0.2
 
 	eyes = "blank_eyes"
-	breath_type = "nitrogen"
-	poison_type = "oxygen"
 
 	species_traits = list(NO_SCAN, NO_BLOOD, NO_PAIN, IS_WHITELISTED)
 	bodyflags = HAS_TAIL
@@ -458,7 +442,7 @@
 
 	has_organ = list(
 		"heart" =    /obj/item/organ/internal/heart,
-		"lungs" =    /obj/item/organ/internal/lungs,
+		"lungs" =    /obj/item/organ/internal/lungs/vox,
 		"liver" =    /obj/item/organ/internal/liver,
 		"kidneys" =  /obj/item/organ/internal/kidneys,
 		"brain" =    /obj/item/organ/internal/brain,
@@ -535,7 +519,7 @@
 	cold_level_1 = 280
 	cold_level_2 = 240
 	cold_level_3 = 200
-	cold_env_multiplier = 3
+	coldmod = 3
 
 	oxy_mod = 0
 	brain_mod = 2.5
@@ -581,11 +565,8 @@
 	if((H in recolor_list) && H.reagents.total_volume > SLIMEPERSON_COLOR_SHIFT_TRIGGER)
 		var/blood_amount = H.blood_volume
 		var/r_color = mix_color_from_reagents(H.reagents.reagent_list)
-		var/new_body_color = BlendRGB(r_color, rgb(H.r_skin, H.g_skin, H.b_skin), (blood_amount*SLIMEPERSON_BLOOD_SCALING_FACTOR)/((blood_amount*SLIMEPERSON_BLOOD_SCALING_FACTOR)+(H.reagents.total_volume)))
-		var/list/new_color_list = ReadRGB(new_body_color)
-		H.r_skin = new_color_list[1]
-		H.g_skin = new_color_list[2]
-		H.b_skin = new_color_list[3]
+		var/new_body_color = BlendRGB(r_color, H.skin_colour, (blood_amount*SLIMEPERSON_BLOOD_SCALING_FACTOR)/((blood_amount*SLIMEPERSON_BLOOD_SCALING_FACTOR)+(H.reagents.total_volume)))
+		H.skin_colour = new_body_color
 		if(world.time % SLIMEPERSON_ICON_UPDATE_PERIOD > SLIMEPERSON_ICON_UPDATE_PERIOD - 20) // The 20 is because this gets called every 2 seconds, from the mob controller
 			for(var/organname in H.bodyparts_by_name)
 				var/obj/item/organ/external/E = H.bodyparts_by_name[organname]
@@ -593,7 +574,7 @@
 					E.sync_colour_to_human(H)
 			H.update_hair(0)
 			H.update_body()
-	return ..()
+	..()
 
 #undef SLIMEPERSON_COLOR_SHIFT_TRIGGER
 #undef SLIMEPERSON_ICON_UPDATE_PERIOD
@@ -643,12 +624,12 @@
 	var/list/missing_limbs = list()
 	for(var/l in bodyparts_by_name)
 		var/obj/item/organ/external/E = bodyparts_by_name[l]
-		if(!istype(E) || istype(E, /obj/item/organ/external/stump))
+		if(!istype(E))
 			var/list/limblist = species.has_limbs[l]
 			var/obj/item/organ/external/limb = limblist["path"]
 			var/parent_organ = initial(limb.parent_organ)
 			var/obj/item/organ/external/parentLimb = bodyparts_by_name[parent_organ]
-			if(!istype(parentLimb) || parentLimb.is_stump())
+			if(!istype(parentLimb))
 				continue
 			missing_limbs[initial(limb.name)] = l
 
@@ -674,21 +655,17 @@
 		var/stored_brute = 0
 		var/stored_burn = 0
 		if(istype(O))
-			if(!O.is_stump())
-				to_chat(src, "<span class='warning'>Your limb has already been replaced in some way!</span>")
-				return
-			else
-				to_chat(src, "<span class='warning'>You distribute the damaged tissue around your body, out of the way of your new pseudopod!</span>")
-				var/obj/item/organ/external/doomedStump = O
-				stored_brute = doomedStump.brute_dam
-				stored_burn = doomedStump.burn_dam
-				qdel(O)
+			to_chat(src, "<span class='warning'>You distribute the damaged tissue around your body, out of the way of your new pseudopod!</span>")
+			var/obj/item/organ/external/doomedStump = O
+			stored_brute = doomedStump.brute_dam
+			stored_burn = doomedStump.burn_dam
+			qdel(O)
 
 		var/limb_list = species.has_limbs[chosen_limb]
 		var/obj/item/organ/external/limb_path = limb_list["path"]
 		// Parent check
 		var/obj/item/organ/external/potential_parent = bodyparts_by_name[initial(limb_path.parent_organ)]
-		if(!istype(potential_parent) || potential_parent.is_stump())
+		if(!istype(potential_parent))
 			to_chat(src, "<span class='danger'>You've lost the organ that you've been growing your new part on!</span>")
 			return // No rayman for you
 		// Grah this line will leave a "not used" warning, in spite of the fact that the new() proc WILL do the thing.
@@ -775,6 +752,8 @@
 	path = /mob/living/carbon/human/diona
 	default_language = "Galactic Common"
 	language = "Rootspeak"
+	speech_sounds = list('sound/voice/dionatalk1.ogg') //Credit https://www.youtube.com/watch?v=ufnvlRjsOTI [0:13 - 0:16]
+	speech_chance = 20
 	unarmed_type = /datum/unarmed_attack/diona
 	//primitive_form = "Nymph"
 	slowdown = 5
@@ -791,7 +770,6 @@
 	heat_level_1 = 300
 	heat_level_2 = 340
 	heat_level_3 = 400
-	heat_level_3_breathe = 700
 
 	blurb = "Commonly referred to (erroneously) as 'plant people', the Dionaea are a strange space-dwelling collective \
 	species hailing from Epsilon Ursae Minoris. Each 'diona' is a cluster of numerous cat-sized organisms called nymphs; \
@@ -804,6 +782,7 @@
 	species_traits = list(NO_BREATHE, RADIMMUNE, IS_PLANT, NO_BLOOD, NO_PAIN)
 	clothing_flags = HAS_SOCKS
 	dietflags = 0		//Diona regenerate nutrition in light, no diet necessary
+	taste_sensitivity = TASTE_SENSITIVITY_NO_TASTE
 
 	oxy_mod = 0
 
@@ -866,7 +845,6 @@
 		var/turf/T = H.loc
 		light_amount = min(T.get_lumcount() * 10, 5)  //hardcapped so it's not abused by having a ton of flashlights
 	H.nutrition = min(H.nutrition+light_amount, NUTRITION_LEVEL_WELL_FED+10)
-	H.traumatic_shock -= light_amount
 
 	if(light_amount > 0)
 		H.clear_alert("nolight")
@@ -879,7 +857,7 @@
 		H.adjustFireLoss(-(light_amount/4))
 	if(H.nutrition < NUTRITION_LEVEL_STARVING+50)
 		H.take_overall_damage(10,0)
-		H.traumatic_shock++
+	..()
 
 /datum/species/machine
 	name = "Machine"
@@ -911,6 +889,7 @@
 	clothing_flags = HAS_UNDERWEAR | HAS_UNDERSHIRT | HAS_SOCKS
 	bodyflags = HAS_SKIN_COLOR | HAS_HEAD_MARKINGS | HAS_HEAD_ACCESSORY | ALL_RPARTS
 	dietflags = 0		//IPCs can't eat, so no diet
+	taste_sensitivity = TASTE_SENSITIVITY_NO_TASTE
 	blood_color = "#1F181F"
 	flesh_color = "#AAAAAA"
 	//Default styles for created mobs.
@@ -1014,13 +993,12 @@
 	cold_level_1 = -1 //Default 260 - Lower is better
 	cold_level_2 = -1 //Default 200
 	cold_level_3 = -1 //Default 120
-	cold_env_multiplier = -1
+	coldmod = -1
 
 	heat_level_1 = 300 //Default 360 - Higher is better
 	heat_level_2 = 340 //Default 400
 	heat_level_3 = 400 //Default 460
-	heat_level_3_breathe = 600 //Default 1000
-	hot_env_multiplier = 2
+	heatmod = 2
 
 	flesh_color = "#a3d4eb"
 	reagent_tag = PROCESS_ORG
@@ -1035,39 +1013,3 @@
 		"eyes" =     				/obj/item/organ/internal/eyes/drask, //5 darksight.
 		"brain" =  					/obj/item/organ/internal/brain/drask
 		)
-
-/datum/species/drask/handle_temperature(datum/gas_mixture/breath, var/mob/living/carbon/human/H)
-	if( abs(310.15 - breath.temperature) > 50)
-		if(H.status_flags & GODMODE)	return 1	//godmode
-		if(breath.temperature < 260)
-			if(prob(20))
-				to_chat(H, "<span class='notice'> You feel an invigorating coldness in your lungs!</span>")
-		if(breath.temperature > heat_level_1)
-			if(prob(20))
-				to_chat(H, "<span class='warning'>You feel your face burning and a searing heat in your lungs!</span>")
-
-		switch(breath.temperature)
-
-			if(-INFINITY to 60)
-				H.adjustFireLoss(cold_env_multiplier*COLD_GAS_DAMAGE_LEVEL_3*0.5) //3 points healed, applied every 4 ticks
-				H.adjustBruteLoss(cold_env_multiplier*COLD_GAS_DAMAGE_LEVEL_3)
-				H.throw_alert("temp", /obj/screen/alert/cold/drask, 3)
-
-			if(61 to 200)
-				H.adjustFireLoss(cold_env_multiplier*COLD_GAS_DAMAGE_LEVEL_2*0.5) //1.5 healed every 4 ticks
-				H.adjustBruteLoss(cold_env_multiplier*COLD_GAS_DAMAGE_LEVEL_2)
-				H.throw_alert("temp", /obj/screen/alert/cold/drask, 2)
-
-			if(201 to 260)
-				H.adjustFireLoss(cold_env_multiplier*COLD_GAS_DAMAGE_LEVEL_1*0.5) //0.5 healed every 4 ticks
-				H.adjustBruteLoss(cold_env_multiplier*COLD_GAS_DAMAGE_LEVEL_1)
-				H.throw_alert("temp", /obj/screen/alert/cold/drask, 1)
-
-			if(heat_level_1 to heat_level_2)
-				H.apply_damage(hot_env_multiplier*HEAT_GAS_DAMAGE_LEVEL_1, BURN, "head", used_weapon = "Excessive Heat")
-
-			if(heat_level_2 to heat_level_3_breathe)
-				H.apply_damage(hot_env_multiplier*HEAT_GAS_DAMAGE_LEVEL_2, BURN, "head", used_weapon = "Excessive Heat")
-
-			if(heat_level_3_breathe to INFINITY)
-				H.apply_damage(hot_env_multiplier*HEAT_GAS_DAMAGE_LEVEL_3, BURN, "head", used_weapon = "Excessive Heat")

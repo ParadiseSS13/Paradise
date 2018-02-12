@@ -1,5 +1,3 @@
-#define LING_ABSORB_RECENT_SPEECH			8	//The amount of recent spoken lines to gain on absorbing a mob
-
 /obj/effect/proc_holder/changeling/absorbDNA
 	name = "Absorb DNA"
 	desc = "Absorb the DNA of our victim."

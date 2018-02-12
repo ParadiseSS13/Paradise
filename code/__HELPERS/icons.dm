@@ -884,9 +884,16 @@ proc/sort_atoms_by_layer(var/list/atoms)
 		icon = J
 		return J
 	return 0
-	
+
 //Hook, override to run code on- wait this is images
 //Images have dir without being an atom, so they get their own definition.
 //Lame.
 /image/proc/setDir(newdir)
 	dir = newdir
+
+proc/rand_hex_color()
+	var/list/colors = list("0","1","2","3","4","5","6","7","8","9","a","b","c","d","e","f")
+	var/color=""
+	for(var/i=0;i<6;i++)
+		color = color+pick(colors)
+	return "#[color]"

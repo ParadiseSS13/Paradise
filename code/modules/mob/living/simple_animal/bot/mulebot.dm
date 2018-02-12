@@ -1,5 +1,3 @@
-//This file was auto-corrected by findeclaration.exe on 25.5.2012 20:42:31
-
 // Mulebot - carries crates around for Quartermaster
 // Navigates via floor navbeacons
 // Remote Controlled from QM's PDA
@@ -28,6 +26,8 @@
 	model = "MULE"
 	bot_purpose = "deliver crates and other packages between departments, as requested"
 	bot_core_type = /obj/machinery/bot_core/mulebot
+	path_image_color = "#7F5200"
+
 
 	suffix = ""
 
@@ -504,7 +504,7 @@
 				var/turf/next = path[1]
 				reached_target = 0
 				if(next == loc)
-					path -= next
+					increment_path()
 					return
 				if(istype(next, /turf/simulated))
 //					to_chat(world, "at ([x],[y]) moving to ([next.x],[next.y])")
@@ -515,7 +515,7 @@
 					if(moved && oldloc!=loc)	// successful move
 //						to_chat(world, "Successful move.")
 						blockcount = 0
-						path -= loc
+						increment_path()
 
 						if(destination == home_destination)
 							mode = BOT_GO_HOME
@@ -572,7 +572,7 @@
 // given an optional turf to avoid
 /mob/living/simple_animal/bot/mulebot/calc_path(turf/avoid = null)
 	check_bot_access()
-	path = get_path_to(src, target, /turf/proc/Distance_cardinal, 0, 250, id=access_card, exclude=avoid)
+	set_path(get_path_to(src, target, /turf/proc/Distance_cardinal, 0, 250, id=access_card, exclude=avoid))
 
 // sets the current destination
 // signals all beacons matching the delivery code
@@ -683,11 +683,12 @@
 			if(istype(M,/mob/living/silicon/robot))
 				visible_message("<span class='danger'>[src] bumps into [M]!</span>")
 			else
-				add_logs(src, M, "knocked down")
-				visible_message("<span class='danger'>[src] knocks over [M]!</span>")
-				M.stop_pulling()
-				M.Stun(8)
-				M.Weaken(5)
+				if(!paicard)
+					add_logs(src, M, "knocked down")
+					visible_message("<span class='danger'>[src] knocks over [M]!</span>")
+					M.stop_pulling()
+					M.Stun(8)
+					M.Weaken(5)
 	return ..()
 
 /mob/living/simple_animal/bot/mulebot/proc/RunOver(mob/living/carbon/human/H)
@@ -835,7 +836,7 @@
 		cell.update_icon()
 		cell = null
 
-	var/datum/effect/system/spark_spread/s = new /datum/effect/system/spark_spread
+	var/datum/effect_system/spark_spread/s = new /datum/effect_system/spark_spread
 	s.set_up(3, 1, src)
 	s.start()
 

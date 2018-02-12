@@ -19,6 +19,8 @@
 	bot_core_type = /obj/machinery/bot_core/medbot
 	window_id = "automed"
 	window_name = "Automatic Medical Unit v1.1"
+	path_image_color = "#DDDDFF"
+	data_hud_type = DATA_HUD_MEDICAL_ADVANCED
 
 	var/obj/item/weapon/reagent_containers/glass/reagent_glass = null //Can be set to draw from this for reagents.
 	var/skin = null //Set to "tox", "ointment" or "o2" for the other two firstaid kits.
@@ -429,6 +431,7 @@
 		chemscan(src, A)
 
 /mob/living/simple_animal/bot/medbot/proc/medicate_patient(mob/living/carbon/C)
+	var/inject_beaker = FALSE
 	if(!on)
 		return
 
@@ -484,7 +487,8 @@
 		if(reagent_id && use_beaker && reagent_glass && reagent_glass.reagents.total_volume)
 			for(var/datum/reagent/R in reagent_glass.reagents.reagent_list)
 				if(!C.reagents.has_reagent(R.id))
-					reagent_id = "internal_beaker"
+					reagent_id = R.id
+					inject_beaker = TRUE
 					break
 
 	if(!reagent_id) //If they don't need any of that they're probably cured!
@@ -501,7 +505,7 @@
 
 		spawn(30)//replace with do mob
 			if((get_dist(src, patient) <= 1) && on && assess_patient(patient))
-				if(reagent_id == "internal_beaker")
+				if(inject_beaker)
 					if(use_beaker && reagent_glass && reagent_glass.reagents.total_volume)
 						var/fraction = min(injection_amount/reagent_glass.reagents.total_volume, 1)
 						reagent_glass.reagents.reaction(patient, INGEST, fraction)
@@ -567,7 +571,7 @@
 	if(prob(50))
 		new /obj/item/robot_parts/l_arm(Tsec)
 
-	var/datum/effect/system/spark_spread/s = new /datum/effect/system/spark_spread
+	var/datum/effect_system/spark_spread/s = new /datum/effect_system/spark_spread
 	s.set_up(3, 1, src)
 	s.start()
 	..()

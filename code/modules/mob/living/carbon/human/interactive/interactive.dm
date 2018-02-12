@@ -72,6 +72,8 @@
 	var/forceProcess = 0
 	var/processTime = 10
 	var/speak_file = "npc_chatter.json"
+	var/debugexamine = FALSE //If we show debug info in our examine
+	var/showexaminetext = TRUE	//If we show our telltale examine text
 
 	var/list/knownStrings = list()
 
@@ -616,7 +618,7 @@
 							if(istype(D,/obj/machinery/door/airlock))
 								var/obj/machinery/door/airlock/AL = D
 								if(!AL.CanAStarPass(RPID)) // only crack open doors we can't get through
-									AL.p_open = 1
+									AL.panel_open = 1
 									AL.update_icon()
 									AL.shock(src, mistake_chance)
 									sleep(5)
@@ -636,7 +638,7 @@
 									if(prob(mistake_chance) && !AL.wires.IsIndexCut(AIRLOCK_WIRE_ELECTRIFY))
 										AL.wires.CutWireIndex(AIRLOCK_WIRE_ELECTRIFY)
 									sleep(5)
-									AL.p_open = 0
+									AL.panel_open = 0
 									AL.update_icon()
 							D.open()
 

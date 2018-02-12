@@ -154,7 +154,7 @@
 		to_chat(user, "<span class='warning'>This will only work on normal organic beings.</span>")
 		return
 
-	if(RESIST_COLD in C.mutations)
+	if(COLDRES in C.mutations)
 		C.visible_message("<span class='warning'>A cloud of fine ice crystals engulfs [C.name], but disappears almost instantly!</span>")
 		return
 	var/handle_suit = 0

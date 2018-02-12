@@ -46,6 +46,12 @@
 			M.unset_machine() //to properly reset the view of the users if the console is deleted.
 	return ..()
 
+/obj/machinery/computer/security/proc/isCameraFarAway(obj/machinery/camera/C)
+	var/turf/consoleturf = get_turf(src)
+	var/turf/cameraturf = get_turf(C)
+	if((is_away_level(cameraturf.z) || is_away_level(consoleturf.z)) && !atoms_share_level(cameraturf, consoleturf)) //can only recieve away mission cameras on away missions
+		return TRUE
+
 /obj/machinery/computer/security/check_eye(mob/user)
 	if(!(user in watchers))
 		user.unset_machine()
@@ -54,6 +60,9 @@
 		user.unset_machine()
 		return
 	var/obj/machinery/camera/C = watchers[user]
+	if(isCameraFarAway(C))
+		user.unset_machine()
+		return
 	if(!can_access_camera(C, user))
 		user.unset_machine()
 		return
@@ -78,6 +87,25 @@
 	else
 		..()
 
+/obj/machinery/computer/security/telescreen/attackby(obj/item/I, mob/user, params)
+	if(ismultitool(I))
+		var/direction = input(user, "Which direction?", "Select direction!") as null|anything in list("North", "East", "South", "West", "Centre")
+		if(!direction || !Adjacent(user))
+			return
+		pixel_x = 0
+		pixel_y = 0
+		switch(direction)
+			if("North")
+				pixel_y = 32
+			if("East")
+				pixel_x = 32
+			if("South")
+				pixel_y = -32
+			if("West")
+				pixel_x = -32
+	else
+		..()
+
 /obj/machinery/computer/security/emag_act(user as mob)
 	if(!emagged)
 		emagged = 1
@@ -86,7 +114,7 @@
 	else
 		attack_hand(user)
 
-/obj/machinery.computer/security/proc/get_user_access(mob/user)
+/obj/machinery/computer/security/proc/get_user_access(mob/user)
 	var/list/access = list()
 	if(ishuman(user))
 		access = user.get_access()
@@ -113,7 +141,7 @@
 
 	var/list/cameras = list()
 	for(var/obj/machinery/camera/C in cameranet.cameras)
-		if((is_away_level(z) || is_away_level(C.z)) && !atoms_share_level(C, src)) //can only recieve away mission cameras on away missions
+		if(isCameraFarAway(C))
 			continue
 		if(!can_access_camera(C, user))
 			continue
@@ -284,39 +312,36 @@
 
 // Other computer monitors.
 /obj/machinery/computer/security/telescreen
-	name = "\improper Telescreen"
+	name = "telescreen"
 	desc = "Used for watching camera networks."
-	icon = 'icons/obj/stationobjs.dmi'
-	icon_state = "telescreen"
+	icon_state = "telescreen_console"
+	icon_screen = "telescreen"
+	icon_keyboard = null
 	light_range_on = 0
-	network = list("SS13")
 	density = 0
-
-/obj/machinery/computer/security/telescreen/update_icon()
-	icon_state = initial(icon_state)
-	if(stat & BROKEN)
-		icon_state += "b"
-	return
+	circuit = /obj/item/weapon/circuitboard/camera/telescreen
 
 /obj/machinery/computer/security/telescreen/entertainment
 	name = "entertainment monitor"
 	desc = "Damn, they better have Paradise TV on these things."
-	icon = 'icons/obj/status_display.dmi'
-	icon_state = "entertainment"
+	icon_state = "entertainment_console"
+	icon_screen = "entertainment"
 	light_color = "#FFEEDB"
 	light_range_on = 0
 	network = list("news")
 	luminosity = 0
+	circuit = /obj/item/weapon/circuitboard/camera/telescreen/entertainment
 
 /obj/machinery/computer/security/wooden_tv
 	name = "security camera monitor"
-	desc = "An old TV hooked into the stations camera network."
+	desc = "An old TV hooked into the station's camera network."
 	icon_state = "television"
 	icon_keyboard = null
 	icon_screen = "detective_tv"
 	light_color = "#3848B3"
 	light_power_on = 0.5
 	network = list("SS13")
+	circuit = /obj/item/weapon/circuitboard/camera/wooden_tv
 
 /obj/machinery/computer/security/mining
 	name = "outpost camera monitor"
@@ -325,6 +350,7 @@
 	icon_screen = "mining"
 	light_color = "#F9BBFC"
 	network = list("Mining Outpost")
+	circuit = /obj/item/weapon/circuitboard/camera/mining
 
 /obj/machinery/computer/security/engineering
 	name = "engineering camera monitor"
@@ -333,3 +359,4 @@
 	icon_screen = "engie_cams"
 	light_color = "#FAC54B"
 	network = list("Power Alarms","Atmosphere Alarms","Fire Alarms")
+	circuit = /obj/item/weapon/circuitboard/camera/engineering

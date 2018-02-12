@@ -166,11 +166,14 @@ Class Procs:
 /obj/machinery/process() // If you dont use process or power why are you here
 	return PROCESS_KILL
 
+/obj/machinery/proc/process_atmos() //If you dont use process why are you here
+	return PROCESS_KILL
+
 /obj/machinery/emp_act(severity)
 	if(use_power && stat == 0)
 		use_power(7500/severity)
 
-	new/obj/effect/overlay/temp/emp(loc)
+	new/obj/effect/temp_visual/emp(loc)
 	..()
 
 /obj/machinery/ex_act(severity)
@@ -400,15 +403,20 @@ Class Procs:
 		return 1
 	return 0
 
-/obj/machinery/proc/deconstruct(disassembled = TRUE)
-	on_deconstruction()
-	spawn_frame()
-	for(var/obj/item/I in component_parts)
-		I.forceMove(loc)
+/obj/machinery/deconstruct(disassembled = TRUE)
+	if(can_deconstruct)
+		on_deconstruction()
+		if(component_parts && component_parts.len)
+			spawn_frame()
+			for(var/obj/item/I in component_parts)
+				I.forceMove(loc)
 	qdel(src)
 
-/obj/machinery/proc/spawn_frame()
+/obj/machinery/proc/spawn_frame(disassembled)
 	var/obj/machinery/constructable_frame/machine_frame/M = new /obj/machinery/constructable_frame/machine_frame(loc)
+	if(!disassembled)
+		M.obj_integrity = M.max_integrity * 0.5 //the frame is already half broken
+	transfer_fingerprints_to(M)
 	M.state = 2
 	M.icon_state = "box_1"
 
@@ -553,7 +561,7 @@ Class Procs:
 		return 0
 	if((TK in user.mutations) && !Adjacent(user))
 		return 0
-	var/datum/effect/system/spark_spread/s = new /datum/effect/system/spark_spread
+	var/datum/effect_system/spark_spread/s = new /datum/effect_system/spark_spread
 	s.set_up(5, 1, src)
 	s.start()
 	if(electrocute_mob(user, get_area(src), src, 0.7))

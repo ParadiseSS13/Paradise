@@ -180,7 +180,7 @@
 /obj/structure/constructshell
 	name = "empty shell"
 	icon = 'icons/obj/wizard.dmi'
-	icon_state = "construct"
+	icon_state = "construct-cult"
 	desc = "A wicked machine used by those skilled in magical arts. It is inactive"
 
 /obj/structure/constructshell/examine(mob/user)
@@ -206,7 +206,7 @@
 
 ////////////////////////////Proc for moving soul in and out off stone//////////////////////////////////////
 
-/obj/item/proc/transfer_soul(var/choice as text, var/target, var/mob/U as mob).
+/obj/item/proc/transfer_soul(var/choice as text, var/target, var/mob/U as mob)
 	switch(choice)
 		if("FORCE")
 			var/obj/item/device/soulstone/C = src

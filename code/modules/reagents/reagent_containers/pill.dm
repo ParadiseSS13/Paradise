@@ -10,6 +10,7 @@
 	possible_transfer_amounts = null
 	volume = 50
 	consume_sound = null
+	taste = FALSE
 
 /obj/item/weapon/reagent_containers/food/pill/New()
 	..()
@@ -53,13 +54,13 @@
 /obj/item/weapon/reagent_containers/food/pill/tox
 	name = "Toxins pill"
 	desc = "Highly toxic."
-	icon_state = "pill5"
+	icon_state = "pill21"
 	list_reagents = list("toxin" = 50)
 
 /obj/item/weapon/reagent_containers/food/pill/initropidril
 	name = "initropidril pill"
 	desc = "Don't swallow this."
-	icon_state = "pill5"
+	icon_state = "pill21"
 	list_reagents = list("initropidril" = 50)
 
 /obj/item/weapon/reagent_containers/food/pill/adminordrazine

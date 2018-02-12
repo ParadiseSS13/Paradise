@@ -30,22 +30,16 @@
 		randomize_hair_color("facial")
 	if(S.bodyflags & HAS_HEAD_ACCESSORY)
 		ha_style = random_head_accessory(species)
-		var/list/colours = randomize_skin_color(1)
-		r_headacc = colours["red"]
-		g_headacc = colours["green"]
-		b_headacc = colours["blue"]
+		hacc_colour = randomize_skin_color(1)
 	if(S.bodyflags & HAS_HEAD_MARKINGS)
 		m_styles["head"] = random_marking_style("head", species, robohead, null, alt_head)
-		var/list/colours = randomize_skin_color(1)
-		m_colours["head"] = rgb(colours["red"], colours["green"], colours["blue"])
+		m_colours["head"] = randomize_skin_color(1)
 	if(S.bodyflags & HAS_BODY_MARKINGS)
 		m_styles["body"] = random_marking_style("body", species)
-		var/list/colours = randomize_skin_color(1)
-		m_colours["body"] = rgb(colours["red"], colours["green"], colours["blue"])
+		m_colours["body"] = randomize_skin_color(1)
 	if(S.bodyflags & HAS_TAIL_MARKINGS) //Species with tail markings.
 		m_styles["tail"] = random_marking_style("tail", species, null, body_accessory)
-		var/list/colours = randomize_skin_color(1)
-		m_colours["tail"] = rgb(colours["red"], colours["green"], colours["blue"])
+		m_colours["tail"] = randomize_skin_color(1)
 	if(!(S.bodyflags & ALL_RPARTS))
 		randomize_eyes_color()
 	if(S.bodyflags & HAS_SKIN_COLOR)
@@ -56,9 +50,7 @@
 
 /datum/preferences/proc/randomize_hair_color(var/target = "hair")
 	if(prob (75) && target == "facial") // Chance to inherit hair color
-		r_facial = r_hair
-		g_facial = g_hair
-		b_facial = b_hair
+		f_colour = h_colour
 		return
 
 	var/red
@@ -106,13 +98,9 @@
 
 	switch(target)
 		if("hair")
-			r_hair = red
-			g_hair = green
-			b_hair = blue
+			h_colour = rgb(red, green, blue)
 		if("facial")
-			r_facial = red
-			g_facial = green
-			b_facial = blue
+			f_colour = rgb(red, green, blue)
 
 /datum/preferences/proc/randomize_eyes_color()
 	var/red
@@ -158,11 +146,9 @@
 	green = max(min(green + rand (-25, 25), 255), 0)
 	blue = max(min(blue + rand (-25, 25), 255), 0)
 
-	r_eyes = red
-	g_eyes = green
-	b_eyes = blue
+	e_colour = rgb(red, green, blue)
 
-/datum/preferences/proc/randomize_skin_color(var/pass_to_list)
+/datum/preferences/proc/randomize_skin_color(var/pass_on)
 	var/red
 	var/green
 	var/blue
@@ -206,17 +192,10 @@
 	green = max(min(green + rand (-25, 25), 255), 0)
 	blue = max(min(blue + rand (-25, 25), 255), 0)
 
-	if(pass_to_list)
-		var/list/colours = list(
-			"red" = red,
-			"blue" = blue,
-			"green" = green
-			)
-		return colours
+	if(pass_on)
+		return rgb(red, green, blue)
 	else
-		r_skin = red
-		g_skin = green
-		b_skin = blue
+		s_colour = rgb(red, green, blue)
 
 /datum/preferences/proc/blend_backpack(var/icon/clothes_s,var/backbag,var/satchel,var/backpack="backpack")
 	switch(backbag)
@@ -284,7 +263,7 @@
 
 	// Skin color
 	if(current_species && (current_species.bodyflags & HAS_SKIN_COLOR))
-		preview_icon.Blend(rgb(r_skin, g_skin, b_skin), ICON_ADD)
+		preview_icon.Blend(s_colour, ICON_ADD)
 
 	// Skin tone
 	if(current_species && (current_species.bodyflags & HAS_SKIN_TONE))
@@ -325,7 +304,7 @@
 			temp.Shift(NORTH, tail_shift_y)
 
 		if(current_species && (current_species.bodyflags & HAS_SKIN_COLOR))
-			temp.Blend(rgb(r_skin, g_skin, b_skin), blend_mode)
+			temp.Blend(s_colour, blend_mode)
 
 		if(current_species && (current_species.bodyflags & HAS_TAIL_MARKINGS))
 			var/tail_marking = m_styles["tail"]
@@ -358,22 +337,22 @@
 	var/icon/face_s = new/icon("icon" = 'icons/mob/human_face.dmi', "icon_state" = "bald_s")
 	if(!(current_species.bodyflags & NO_EYES))
 		var/icon/eyes_s = new/icon("icon" = 'icons/mob/human_face.dmi', "icon_state" = current_species ? current_species.eyes : "eyes_s")
-		eyes_s.Blend(rgb(r_eyes, g_eyes, b_eyes), ICON_ADD)
+		eyes_s.Blend(e_colour, ICON_ADD)
 		face_s.Blend(eyes_s, ICON_OVERLAY)
 
 
-	var/datum/sprite_accessory/hair_style = hair_styles_list[h_style]
+	var/datum/sprite_accessory/hair_style = hair_styles_full_list[h_style]
 	if(hair_style)
 		var/icon/hair_s = new/icon("icon" = hair_style.icon, "icon_state" = "[hair_style.icon_state]_s")
 		if(current_species.name == "Slime People") // whee I am part of the problem
-			hair_s.Blend(rgb(r_skin, g_skin, b_skin, 160), ICON_ADD)
+			hair_s.Blend("[s_colour]A0", ICON_ADD)
 		else
-			hair_s.Blend(rgb(r_hair, g_hair, b_hair), ICON_ADD)
+			hair_s.Blend(h_colour, ICON_ADD)
 
 		if(hair_style.secondary_theme)
 			var/icon/hair_secondary_s = new/icon("icon" = hair_style.icon, "icon_state" = "[hair_style.icon_state]_[hair_style.secondary_theme]_s")
 			if(!hair_style.no_sec_colour)
-				hair_secondary_s.Blend(rgb(r_hair_sec, g_hair_sec, b_hair_sec), ICON_ADD)
+				hair_secondary_s.Blend(h_sec_colour, ICON_ADD)
 			hair_s.Blend(hair_secondary_s, ICON_OVERLAY)
 
 		face_s.Blend(hair_s, ICON_OVERLAY)
@@ -383,21 +362,21 @@
 		var/datum/sprite_accessory/head_accessory_style = head_accessory_styles_list[ha_style]
 		if(head_accessory_style && head_accessory_style.species_allowed)
 			var/icon/head_accessory_s = new/icon("icon" = head_accessory_style.icon, "icon_state" = "[head_accessory_style.icon_state]_s")
-			head_accessory_s.Blend(rgb(r_headacc, g_headacc, b_headacc), ICON_ADD)
+			head_accessory_s.Blend(hacc_colour, ICON_ADD)
 			face_s.Blend(head_accessory_s, ICON_OVERLAY)
 
 	var/datum/sprite_accessory/facial_hair_style = facial_hair_styles_list[f_style]
 	if(facial_hair_style && facial_hair_style.species_allowed)
 		var/icon/facial_s = new/icon("icon" = facial_hair_style.icon, "icon_state" = "[facial_hair_style.icon_state]_s")
 		if(current_species.name == "Slime People") // whee I am part of the problem
-			facial_s.Blend(rgb(r_skin, g_skin, b_skin, 160), ICON_ADD)
+			facial_s.Blend("[s_colour]A0", ICON_ADD)
 		else
-			facial_s.Blend(rgb(r_facial, g_facial, b_facial), ICON_ADD)
+			facial_s.Blend(f_colour, ICON_ADD)
 
 		if(facial_hair_style.secondary_theme)
 			var/icon/facial_secondary_s = new/icon("icon" = facial_hair_style.icon, "icon_state" = "[facial_hair_style.icon_state]_[facial_hair_style.secondary_theme]_s")
 			if(!facial_hair_style.no_sec_colour)
-				facial_secondary_s.Blend(rgb(r_facial_sec, g_facial_sec, b_facial_sec), ICON_ADD)
+				facial_secondary_s.Blend(f_sec_colour, ICON_ADD)
 			facial_s.Blend(facial_secondary_s, ICON_OVERLAY)
 
 		face_s.Blend(facial_s, ICON_OVERLAY)

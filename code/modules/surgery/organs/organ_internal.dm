@@ -9,6 +9,7 @@
 	// DO NOT add slots with matching names to different zones - it will break internal_organs_slot list!
 	vital = 0
 	var/non_primary = 0
+	var/unremovable = FALSE //Whether it shows up as an option to remove during surgery.
 
 /obj/item/organ/internal/New(var/mob/living/carbon/holder)
 	..()
@@ -258,43 +259,13 @@
 		var/mob/living/carbon/human/H = owner
 		if(istype(H))
 			if(!(NO_BLOOD in H.species.species_traits))
-				H.blood_volume = min(H.blood_volume + cursed_heart.blood_loss*0.5, BLOOD_VOLUME_MAXIMUM)
+				H.blood_volume = min(H.blood_volume + cursed_heart.blood_loss*0.5, BLOOD_VOLUME_NORMAL)
 				if(owner.client)
 					owner.client.color = ""
 
 				H.adjustBruteLoss(-cursed_heart.heal_brute)
 				H.adjustFireLoss(-cursed_heart.heal_burn)
 				H.adjustOxyLoss(-cursed_heart.heal_oxy)
-
-/obj/item/organ/internal/lungs
-	name = "lungs"
-	icon_state = "lungs"
-	gender = PLURAL
-	organ_tag = "lungs"
-	parent_organ = "chest"
-	slot = "lungs"
-	vital = 1
-
-//Insert something neat here.
-///obj/item/organ/internal/lungs/remove(mob/living/carbon/M, special = 0)
-//	owner.losebreath += 10
-	//insert oxy damage extream here.
-//	. = ..()
-
-
-/obj/item/organ/internal/lungs/on_life()
-	..()
-	if(germ_level > INFECTION_LEVEL_ONE)
-		if(prob(5))
-			owner.emote("cough")		//respitory tract infection
-
-	if(is_bruised())
-		if(prob(2))
-			owner.custom_emote(1, "coughs up blood!")
-			owner.bleed(1)
-		if(prob(4))
-			owner.custom_emote(1, "gasps for air!")
-			owner.AdjustLoseBreath(5)
 
 /obj/item/organ/internal/kidneys
 	name = "kidneys"
@@ -305,7 +276,6 @@
 	slot = "kidneys"
 
 /obj/item/organ/internal/kidneys/on_life()
-	..()
 	// Coffee is really bad for you with busted kidneys.
 	// This should probably be expanded in some way, but fucked if I know
 	// what else kidneys can process in our reagent list.
@@ -324,10 +294,10 @@
 	organ_tag = "eyes"
 	parent_organ = "head"
 	slot = "eyes"
-	var/list/eye_colour = list(0,0,0)
+	var/eye_colour = "#000000"
 	var/list/colourmatrix = null
 	var/list/colourblind_matrix = MATRIX_GREYSCALE //Special colourblindness parameters. By default, it's black-and-white.
-	var/colourblind_darkview = null
+	var/list/replace_colours = LIST_GREYSCALE_REPLACE
 	var/dependent_disabilities = null //Gets set by eye-dependent disabilities such as colourblindness so the eyes can transfer the disability during transplantation.
 	var/dark_view = 2 //Default dark_view for Humans.
 	var/weld_proof = null //If set, the eyes will not take damage during welding. eg. IPC optical sensors do not take damage when they weld things while all other eyes will.
@@ -342,10 +312,7 @@
 		return colourmatrix
 
 /obj/item/organ/internal/eyes/proc/get_dark_view() //Returns dark_view (if the eyes are organic) for see_invisible handling in species.dm to be autoprocessed by life().
-	if(!robotic && colourblind_darkview && owner.disabilities & COLOURBLIND) //Returns special darkview value if colourblind and it exists, otherwise reuse current.
-		return colourblind_darkview
-	else
-		return dark_view
+	return dark_view
 
 /obj/item/organ/internal/eyes/insert(mob/living/carbon/human/M, special = 0)
 	..()
@@ -418,7 +385,6 @@
 	var/alcohol_intensity = 1
 
 /obj/item/organ/internal/liver/on_life()
-	..()
 	if(germ_level > INFECTION_LEVEL_ONE)
 		if(prob(1))
 			to_chat(owner, "<span class='warning'> Your skin itches.</span>")
@@ -431,20 +397,17 @@
 		//High toxins levels are dangerous
 		if(owner.getToxLoss() >= 60 && !owner.reagents.has_reagent("charcoal"))
 			//Healthy liver suffers on its own
-			if(src.damage < min_broken_damage)
-				src.damage += 0.2 * PROCESS_ACCURACY
+			if(damage < min_broken_damage)
+				receive_damage(0.2 * PROCESS_ACCURACY)
 			//Damaged one shares the fun
 			else
 				var/obj/item/organ/internal/O = pick(owner.internal_organs)
 				if(O)
-					O.damage += 0.2  * PROCESS_ACCURACY
+					O.receive_damage(0.2  * PROCESS_ACCURACY)
 
 		//Detox can heal small amounts of damage
-		if(src.damage && src.damage < src.min_bruised_damage && owner.reagents.has_reagent("charcoal"))
-			src.damage -= 0.2 * PROCESS_ACCURACY
-
-		if(src.damage < 0)
-			src.damage = 0
+		if(damage && damage < min_bruised_damage && owner.reagents.has_reagent("charcoal"))
+			receive_damage(-0.2 * PROCESS_ACCURACY)
 
 		// Get the effectiveness of the liver.
 		var/filter_effect = 3
@@ -454,7 +417,7 @@
 			filter_effect -= 2
 
 		// Damaged liver means some chemicals are very dangerous
-		if(src.damage >= src.min_bruised_damage)
+		if(damage >= min_bruised_damage)
 			for(var/datum/reagent/R in owner.reagents.reagent_list)
 				// Ethanol and all drinks are bad
 				if(istype(R, /datum/reagent/consumable/ethanol))
@@ -536,10 +499,6 @@
 	var/organhonked = 0
 	var/suffering_delay = 900
 
-/obj/item/organ/internal/honktumor/New()
-	..()
-	processing_objects.Add(src)
-
 /obj/item/organ/internal/honktumor/insert(mob/living/carbon/M, special = 0)
 	..()
 	M.mutations.Add(CLUMSY)
@@ -559,23 +518,9 @@
 	M.dna.SetSEState(COMICBLOCK,0)
 	genemutcheck(M,CLUMSYBLOCK,null,MUTCHK_FORCED)
 	genemutcheck(M,COMICBLOCK,null,MUTCHK_FORCED)
-
-/obj/item/organ/internal/honktumor/Destroy()
-	processing_objects.Remove(src)
-	return ..()
-
-/obj/item/organ/internal/honktumor/process()
-	if(isturf(loc))
-		visible_message("<span class='warning'>[src] honks in on itself!</span>")
-		new /obj/item/weapon/grown/bananapeel(get_turf(loc))
-		qdel(src)
-
+	qdel(src)
 
 /obj/item/organ/internal/honktumor/on_life()
-
-	if(!owner)
-		return
-
 	if(organhonked < world.time)
 		organhonked = world.time + suffering_delay
 		to_chat(owner, "<font color='red' size='7'>HONK</font>")
@@ -590,7 +535,7 @@
 		else
 			owner.Jitter(500)
 
-		if(istype(owner, /mob/living/carbon/human))
+		if(ishuman(owner))
 			var/mob/living/carbon/human/H = owner
 			if(isobj(H.shoes))
 				var/thingy = H.shoes
@@ -599,17 +544,15 @@
 					spawn(20)
 						if(thingy)
 							walk(thingy,0)
-	..()
 
 /obj/item/organ/internal/honktumor/cursed
+	unremovable = TRUE
 
-/obj/item/organ/internal/honktumor/cursed/remove(mob/living/carbon/M, special = 0, clean_remove = 0)
-	. = ..()
-	if(!clean_remove)
-		visible_message("<span class='warning'>[src] vanishes into dust, and a [M] emits a loud honk!</span>", "<span class='notice'>You hear a loud honk.</span>")
-		insert(M) //You're not getting away that easily!
-	else
-		qdel(src)
+/obj/item/organ/internal/honktumor/cursed/on_life() //No matter what you do, no matter who you are, no matter where you go, you're always going to be a fat, stuttering dimwit.
+	..()
+	owner.setBrainLoss(80)
+	owner.nutrition = 9000
+	owner.overeatduration = 9000
 
 /obj/item/organ/internal/beard
 	name = "beard organ"
@@ -633,13 +576,9 @@
 				head_organ.h_style = "Mohawk"
 			else
 				head_organ.h_style = "Very Long Hair"
-			head_organ.r_hair = 216
-			head_organ.g_hair = 192
-			head_organ.b_hair = 120
+			head_organ.hair_colour = "#D8C078"
 			H.update_hair()
 		if(!(head_organ.f_style == "Very Long Beard"))
 			head_organ.f_style = "Very Long Beard"
-			head_organ.r_facial = 216
-			head_organ.g_facial = 192
-			head_organ.b_facial = 120
+			head_organ.facial_colour = "#D8C078"
 			H.update_fhair()

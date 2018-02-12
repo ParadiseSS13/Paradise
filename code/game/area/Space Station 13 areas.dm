@@ -30,6 +30,8 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	luminosity = 0
 	mouse_opacity = 0
 	invisibility = INVISIBILITY_LIGHTING
+	var/valid_territory = TRUE //used for cult summoning areas on station zlevel
+	var/map_name // Set in New(); preserves the name set by the map maker, even if renamed by the Blueprints.
 	var/lightswitch = 1
 
 	var/eject = null
@@ -59,6 +61,7 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	var/no_teleportlocs = 0
 
 	var/outdoors = 0 //For space, the asteroid, lavaland, etc. Used with blueprints to determine if we are adding a new area (vs editing a station room)
+	var/xenobiology_compatible = FALSE //Can the Xenobio management console transverse this area by default?
 
 /*Adding a wizard area teleport list because motherfucking lag -- Urist*/
 /*I am far too lazy to make it a proper list of areas so I'll just make it run the usual telepot routine at the start of the game*/
@@ -122,6 +125,7 @@ var/list/ghostteleportlocs = list()
 	power_light = 0
 	power_equip = 0
 	power_environ = 0
+	valid_territory = FALSE
 	outdoors = 1
 	ambientsounds = list('sound/ambience/ambispace.ogg','sound/music/title2.ogg','sound/music/space.ogg','sound/music/traitor.ogg')
 
@@ -150,6 +154,7 @@ var/list/ghostteleportlocs = list()
 /area/shuttle
 	no_teleportlocs = 1
 	requires_power = 0
+	valid_territory = FALSE
 
 /area/shuttle/arrival
 	name = "\improper Arrival Shuttle"
@@ -554,6 +559,7 @@ var/list/ghostteleportlocs = list()
 	name = "\improper Asteroid"
 	icon_state = "asteroid"
 	requires_power = 0
+	valid_territory = FALSE
 
 /area/asteroid/cave				// -- TLE
 	name = "\improper Asteroid - Underground"
@@ -881,6 +887,7 @@ var/list/ghostteleportlocs = list()
 //Maintenance
 /area/maintenance
 	ambientsounds = list('sound/ambience/ambimaint1.ogg', 'sound/ambience/ambimaint2.ogg', 'sound/ambience/ambimaint3.ogg', 'sound/ambience/ambimaint4.ogg', 'sound/ambience/ambimaint5.ogg')
+	valid_territory = FALSE
 
 /area/maintenance/atmos_control
 	name = "Atmospherics Maintenance"
@@ -1137,6 +1144,7 @@ var/list/ghostteleportlocs = list()
 /area/crew_quarters/sleep
 	name = "\improper Dormitories"
 	icon_state = "Sleep"
+	valid_territory = FALSE
 
 /area/crew_quarters/sleep_male
 	name = "\improper Male Dorm"
@@ -1372,6 +1380,7 @@ var/list/ghostteleportlocs = list()
 /area/solar
 	requires_power = 0
 	dynamic_lighting = 0
+	valid_territory = FALSE
 
 	auxport
 		name = "\improper Fore Port Solar Array"
@@ -1480,7 +1489,7 @@ var/list/ghostteleportlocs = list()
 
 /area/medical/biostorage
 	name = "\improper Secondary Storage"
-	icon_state = "medbay2"
+	icon_state = "medbaysecstorage"
 	music = 'sound/ambience/signal.ogg'
 
 /area/medical/reception
@@ -1490,12 +1499,12 @@ var/list/ghostteleportlocs = list()
 
 /area/medical/psych
 	name = "\improper Psych Room"
-	icon_state = "medbay3"
+	icon_state = "medbaypsych"
 	music = 'sound/ambience/signal.ogg'
 
 /area/medical/medbreak
 	name = "\improper Break Room"
-	icon_state = "medbay3"
+	icon_state = "medbaybreak"
 	music = 'sound/ambience/signal.ogg'
 
 /area/medical/patients_rooms
@@ -1504,23 +1513,23 @@ var/list/ghostteleportlocs = list()
 
 /area/medical/ward
 	name = "\improper Medbay Patient Ward"
-	icon_state = "patients"
+	icon_state = "patientsward"
 
 /area/medical/patient_a
 	name = "\improper Isolation A"
-	icon_state = "patients"
+	icon_state = "medbayisoa"
 
 /area/medical/patient_b
 	name = "\improper Isolation B"
-	icon_state = "patients"
+	icon_state = "medbayisob"
 
 /area/medical/patient_c
 	name = "\improper Isolation C"
-	icon_state = "patients"
+	icon_state = "medbayisoc"
 
 /area/medical/iso_access
 	name = "\improper Isolation Access"
-	icon_state = "patients"
+	icon_state = "medbayisoaccess"
 
 /area/medical/cmo
 	name = "\improper Chief Medical Officer's office"
@@ -1860,6 +1869,7 @@ area/security/podbay
 /area/toxins/xenobiology
 	name = "\improper Xenobiology Lab"
 	icon_state = "toxmix"
+	xenobiology_compatible = TRUE
 
 /area/toxins/xenobiology/xenoflora_storage
 	name = "\improper Xenoflora Storage"
@@ -1876,6 +1886,7 @@ area/security/podbay
 /area/toxins/test_area
 	name = "\improper Toxins Test Area"
 	icon_state = "toxtest"
+	valid_territory = FALSE
 
 /area/toxins/mixing
 	name = "\improper Toxins Mixing Room"
@@ -2105,26 +2116,39 @@ area/security/podbay
 
 /area/constructionsite/science
 	name = "\improper Construction Site Research"
+	icon_state = "medresearch"
 
 /area/constructionsite/bridge
 	name = "\improper Construction Site Bridge"
 	icon_state = "bridge"
 
-/area/constructionsite/maintenance
-	name = "\improper Construction Site Maintenance"
-	icon_state = "yellow"
+/area/constructionsite/hallway/center
+	name = "\improper Construction Site Central Hallway"
+	icon_state = "hallC"
 
-/area/constructionsite/hallway/aft
-	name = "\improper Construction Site Aft Hallway"
-	icon_state = "hallP"
+/area/constructionsite/hallway/engcore
+	name = "\improper Construction Site Eng Core"
+	icon_state = "green"
 
 /area/constructionsite/hallway/fore
-	name = "\improper Construction Site Fore Hallway"
+	name = "\improper Construction Site Fore"
+	icon_state = "green"
+
+/area/constructionsite/hallway/port
+	name = "\improper Construction Site Port"
+	icon_state = "hallP"
+
+/area/constructionsite/hallway/aft
+	name = "\improper Construction Site Aft"
+	icon_state = "hallA"
+
+/area/constructionsite/hallway/starboard
+	name = "\improper Construction Site Starboard"
 	icon_state = "hallS"
 
 /area/constructionsite/atmospherics
 	name = "\improper Construction Site Atmospherics"
-	icon_state = "green"
+	icon_state = "atmos"
 
 /area/constructionsite/medical
 	name = "\improper Construction Site Medbay"
@@ -2140,13 +2164,7 @@ area/security/podbay
 
 /area/solar/constructionsite
 	name = "\improper Construction Site Solars"
-	icon_state = "aft"
-
-//area/constructionsite
-//	name = "\improper Construction Site Shuttle"
-
-//area/constructionsite
-//	name = "\improper Construction Site Shuttle"
+	icon_state = "panelsA"
 
 
 //Construction

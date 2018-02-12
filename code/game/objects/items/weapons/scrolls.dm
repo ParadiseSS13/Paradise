@@ -59,7 +59,7 @@
 		to_chat(user, "A mysterious force disrupts your arcane spell matrix, and you remain where you are.")
 		return
 
-	var/datum/effect/system/harmless_smoke_spread/smoke = new /datum/effect/system/harmless_smoke_spread()
+	var/datum/effect_system/smoke_spread/smoke = new
 	smoke.set_up(5, 0, user.loc)
 	smoke.attach(user)
 	smoke.start()

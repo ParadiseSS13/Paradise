@@ -9,6 +9,8 @@
 	flag = "laser"
 	eyeblur = 2
 	is_reflectable = TRUE
+	light_range = 2
+	light_color = LIGHT_COLOR_RED
 
 /obj/item/projectile/beam/laser
 
@@ -35,6 +37,7 @@
 	irradiate = 30
 	forcedodge = 1
 	range = 15
+	light_color = LIGHT_COLOR_GREEN
 
 /obj/item/projectile/beam/disabler
 	name = "disabler beam"
@@ -44,11 +47,13 @@
 	flag = "energy"
 	hitsound = 'sound/weapons/tap.ogg'
 	eyeblur = 0
+	light_color = LIGHT_COLOR_CYAN
 
 /obj/item/projectile/beam/pulse
 	name = "pulse"
 	icon_state = "u_laser"
 	damage = 50
+	light_color = LIGHT_COLOR_DARKBLUE
 
 /obj/item/projectile/beam/pulse/on_hit(var/atom/target, var/blocked = 0)
 	if(istype(target,/turf/)||istype(target,/obj/structure/))
@@ -64,6 +69,7 @@
 	damage = 30
 	legacy = 1
 	animate_movement = SLIDE_STEPS
+	light_color = LIGHT_COLOR_GREEN
 
 /obj/item/projectile/beam/emitter/singularity_pull()
 	return //don't want the emitters to miss
@@ -77,6 +83,7 @@
 	flag = "laser"
 	var/suit_types = list(/obj/item/clothing/suit/redtag, /obj/item/clothing/suit/bluetag)
 	log_override = TRUE
+	light_color = LIGHT_COLOR_DARKBLUE
 
 /obj/item/projectile/beam/lasertag/on_hit(atom/target, blocked = 0)
 	. = ..()
@@ -94,6 +101,7 @@
 /obj/item/projectile/beam/lasertag/redtag
 	icon_state = "laser"
 	suit_types = list(/obj/item/clothing/suit/bluetag)
+	light_color = LIGHT_COLOR_RED
 
 /obj/item/projectile/beam/lasertag/bluetag
 	icon_state = "bluelaser"
@@ -106,6 +114,7 @@
 	stun = 5
 	weaken = 5
 	stutter = 5
+	light_color = LIGHT_COLOR_PINK
 
 /obj/item/projectile/beam/immolator
 	name = "immolation beam"
@@ -122,12 +131,15 @@
 	icon_state = "purple_laser"
 	damage = 200
 	damage_type = BURN
+	light_color = LIGHT_COLOR_PURPLE
 
 /obj/item/projectile/beam/instakill/blue
 	icon_state = "blue_laser"
+	light_color = LIGHT_COLOR_DARKBLUE
 
 /obj/item/projectile/beam/instakill/red
 	icon_state = "red_laser"
+	light_color = LIGHT_COLOR_RED
 
 /obj/item/projectile/beam/instakill/on_hit(atom/target)
 	. = ..()

@@ -55,7 +55,7 @@
 		vendor_account = department_accounts["Vendor"]
 
 	if(!current_date_string)
-		current_date_string = "[num2text(rand(1,31))] [pick("January","February","March","April","May","June","July","August","September","October","November","December")], 2557"
+		current_date_string = "[time2text(world.timeofday, "DD MM")], [game_year]"
 
 	machine_id = "[station_name()] Acc. DB #[num_financial_terminals++]"
 	..()

@@ -1,5 +1,3 @@
-//This file was auto-corrected by findeclaration.exe on 25.5.2012 20:42:31
-
 /*
  * A large number of misc global procs.
  */
@@ -516,23 +514,6 @@ proc/GaussRand(var/sigma)
 //returns random gauss number, rounded to 'roundto'
 proc/GaussRandRound(var/sigma,var/roundto)
 	return round(GaussRand(sigma),roundto)
-
-proc/anim(turf/location as turf,target as mob|obj,a_icon,a_icon_state as text,flick_anim as text,sleeptime = 0,direction as num)
-//This proc throws up either an icon or an animation for a specified amount of time.
-//The variables should be apparent enough.
-	var/atom/movable/overlay/animation = new(location)
-	if(direction)
-		animation.dir = direction
-	animation.icon = a_icon
-	animation.layer = target:layer+1
-	if(a_icon_state)
-		animation.icon_state = a_icon_state
-	else
-		animation.icon_state = "blank"
-		animation.master = target
-		flick(flick_anim, animation)
-	sleep(max(sleeptime, 15))
-	qdel(animation)
 
 //Will return the contents of an atom recursivly to a depth of 'searchDepth'
 /atom/proc/GetAllContents(searchDepth = 5)
@@ -1450,15 +1431,6 @@ atom/proc/GetTypeInAllContents(typepath)
 			colour += temp_col
 	return colour
 
-/proc/get_random_chemical(var/is_plant = 0)
-	var/list/blocked = blocked_chems.Copy()		//blocked_chems list is found in code/_globalvars/lists/reagents.dm
-	if(is_plant)
-		blocked.Add(plant_blocked_chems.Copy())	//plant_blocked_chems list is found in code/_globalvars/lists/reagents.dm
-	var/picked_chem = pick(chemical_reagents_list)
-	if(blocked.Find(picked_chem))
-		return get_random_chemical(is_plant)
-	return picked_chem
-
 /proc/get_distant_turf(var/turf/T,var/direction,var/distance)
 	if(!T || !direction || !distance)	return
 
@@ -1741,53 +1713,81 @@ var/mob/dview/dview_mob = new
 				closest_atom = A
 	return closest_atom
 
-/proc/pick_closest_path(value)
-	var/list/matches = get_fancy_list_of_types()
-	if(!isnull(value) && value!="")
+/proc/pick_closest_path(value, list/matches = get_fancy_list_of_atom_types())
+	if(value == FALSE) //nothing should be calling us with a number, so this is safe
+		value = input("Enter type to find (blank for all, cancel to cancel)", "Search for type") as null|text
+		if(isnull(value))
+			return
+	value = trim(value)
+	if(!isnull(value) && value != "")
 		matches = filter_fancy_list(matches, value)
 
-	if(matches.len==0)
+	if(matches.len == 0)
 		return
 
 	var/chosen
-	if(matches.len==1)
+	if(matches.len == 1)
 		chosen = matches[1]
 	else
-		chosen = input("Select an atom type", "Spawn Atom", matches[1]) as null|anything in matches
+		chosen = input("Select a type", "Pick Type", matches[1]) as null|anything in matches
 		if(!chosen)
 			return
 	chosen = matches[chosen]
 	return chosen
 
+/proc/make_types_fancy(var/list/types)
+	if(ispath(types))
+		types = list(types)
+	. = list()
+	for(var/type in types)
+		var/typename = "[type]"
+		var/static/list/TYPES_SHORTCUTS = list(
+			/obj/effect/decal/cleanable = "CLEANABLE",
+			/obj/item/device/radio/headset = "HEADSET",
+			/obj/item/clothing/head/helmet/space = "SPESSHELMET",
+			/obj/item/weapon/book/manual = "MANUAL",
+			/obj/item/weapon/reagent_containers/food/drinks = "DRINK", //longest paths comes first
+			/obj/item/weapon/reagent_containers/food = "FOOD",
+			/obj/item/weapon/reagent_containers = "REAGENT_CONTAINERS",
+			/obj/item/weapon = "WEAPON",
+			/obj/machinery/atmospherics = "ATMOS_MECH",
+			/obj/machinery/portable_atmospherics = "PORT_ATMOS",
+			/obj/item/mecha_parts/mecha_equipment/weapon/ballistic/missile_rack = "MECHA_MISSILE_RACK",
+			/obj/item/mecha_parts/mecha_equipment = "MECHA_EQUIP",
+			/obj/item/organ = "ORGAN",
+			/obj/item = "ITEM",
+			/obj/machinery = "MACHINERY",
+			/obj/effect = "EFFECT",
+			/obj = "O",
+			/datum = "D",
+			/turf/simulated/floor = "FLOOR",
+			/turf/simulated/wall = "WALL",
+			/turf = "T",
+			/mob/living/carbon = "CARBON",
+			/mob/living/simple_animal = "SIMPLE",
+			/mob/living = "LIVING",
+			/mob = "M"
+		)
+		for(var/tn in TYPES_SHORTCUTS)
+			if(copytext(typename, 1, length("[tn]/") + 1) == "[tn]/")
+				typename = TYPES_SHORTCUTS[tn]+copytext(typename,length("[tn]/"))
+				break
+		.[typename] = type
 
-var/list/TYPES_SHORTCUTS = list(
-	/obj/effect/decal/cleanable = "CLEANABLE",
-	/obj/item/device/radio/headset = "HEADSET",
-	/obj/item/clothing/head/helmet/space = "SPESSHELMET",
-	/obj/item/weapon/book/manual = "MANUAL",
-	/obj/item/weapon/reagent_containers/food/drinks = "DRINK", //longest paths comes first
-	/obj/item/weapon/reagent_containers/food = "FOOD",
-	/obj/item/weapon/reagent_containers = "REAGENT_CONTAINERS",
-	/obj/machinery/atmospherics = "ATMOS",
-	/obj/machinery/portable_atmospherics = "PORT_ATMOS",
-//	/obj/item/mecha_parts/mecha_equipment/weapon/ballistic/launcher/missile_rack = "MECHA_MISSILE_RACK",
-	/obj/item/mecha_parts/mecha_equipment = "MECHA_EQUIP",
-//	/obj/item/organ/internal = "ORGAN_INT",
-)
 
-var/global/list/g_fancy_list_of_types = null
-/proc/get_fancy_list_of_types()
-	if(isnull(g_fancy_list_of_types)) //init
-		var/list/temp = sortList(subtypesof(/atom) - typesof(/area) - /atom/movable)
-		g_fancy_list_of_types = new(temp.len)
-		for(var/type in temp)
-			var/typename = "[type]"
-			for(var/tn in TYPES_SHORTCUTS)
-				if(copytext(typename,1, length("[tn]/")+1)=="[tn]/" /*findtextEx(typename,"[tn]/",1,2)*/ )
-					typename = TYPES_SHORTCUTS[tn]+copytext(typename,length("[tn]/"))
-					break
-			g_fancy_list_of_types[typename] = type
-	return g_fancy_list_of_types
+/proc/get_fancy_list_of_atom_types()
+	var/static/list/pre_generated_list
+	if(!pre_generated_list) //init
+		pre_generated_list = make_types_fancy(typesof(/atom))
+	return pre_generated_list
+
+
+/proc/get_fancy_list_of_datum_types()
+	var/static/list/pre_generated_list
+	if(!pre_generated_list) //init
+		pre_generated_list = make_types_fancy(sortList(typesof(/datum) - typesof(/atom)))
+	return pre_generated_list
+
 
 /proc/filter_fancy_list(list/L, filter as text)
 	var/list/matches = new
@@ -1882,3 +1882,35 @@ var/global/list/g_fancy_list_of_types = null
 		num_sample -= num
 		result += (1 << num)
 	return result
+
+/proc/pixel_shift_dir(var/dir, var/amount_x = 32, var/amount_y = 32) //Returns a list with pixel_shift values that will shift an object's icon one tile in the direction passed.
+	amount_x = min(max(0, amount_x), 32) //No less than 0, no greater than 32.
+	amount_y = min(max(0, amount_x), 32)
+	var/list/shift = list("x" = 0, "y" = 0)
+	switch(dir)
+		if(NORTH)
+			shift["y"] = amount_y
+		if(SOUTH)
+			shift["y"] = -amount_y
+		if(EAST)
+			shift["x"] = amount_x
+		if(WEST)
+			shift["x"] = -amount_x
+		if(NORTHEAST)
+			shift = list("x" = amount_x, "y" = amount_y)
+		if(NORTHWEST)
+			shift = list("x" = -amount_x, "y" = amount_y)
+		if(SOUTHEAST)
+			shift = list("x" = amount_x, "y" = -amount_y)
+		if(SOUTHWEST)
+			shift = list("x" = -amount_x, "y" = -amount_y)
+
+	return shift
+
+//Return a list of atoms in a location of a given type. Can be refined to look for pixel-shift.
+/proc/get_atoms_of_type(var/atom/here, var/type, var/check_shift, var/shift_x = 0, var/shift_y = 0)
+	. = list()
+	if(here)
+		for(var/atom/thing in here)
+			if(istype(thing, type) && (check_shift && thing.pixel_x == shift_x && thing.pixel_y == shift_y))
+				. += thing

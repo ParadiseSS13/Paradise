@@ -1,5 +1,3 @@
-//This file was auto-corrected by findeclaration.exe on 25.5.2012 20:42:31
-
 /*
  * GAMEMODES (by Rastaf0)
  *
@@ -338,7 +336,8 @@
 /datum/game_mode/proc/get_living_heads()
 	. = list()
 	for(var/mob/living/carbon/human/player in mob_list)
-		if(player.stat != DEAD && player.mind && (player.mind.assigned_role in command_positions))
+		var/list/real_command_positions = command_positions.Copy() - "Nanotrasen Representative"
+		if(player.stat != DEAD && player.mind && (player.mind.assigned_role in real_command_positions))
 			. |= player.mind
 
 
@@ -348,7 +347,8 @@
 /datum/game_mode/proc/get_all_heads()
 	. = list()
 	for(var/mob/player in mob_list)
-		if(player.mind && (player.mind.assigned_role in command_positions))
+		var/list/real_command_positions = command_positions.Copy() - "Nanotrasen Representative"
+		if(player.mind && (player.mind.assigned_role in real_command_positions))
 			. |= player.mind
 
 //////////////////////////////////////////////
@@ -575,5 +575,5 @@ proc/display_roundstart_logout_report()
 
 	to_chat(M, "You suddenly remember \an [adjective] note you received earlier informing you that a chance to [action_words] may present itself today. An agent of the [organization] may contact you for help.")
 	to_chat(M, "The note had the words \"[my_word]\" and \"[my_reply]\" written at the bottom, which you memorized just in case.")
-	to_chat(M, "<span class='warning'>You are NOT an antagonist, so self-antagging rules still apply to you. Use your good judgement and ahelp if you are unsure of what you are allowed to do.</span>")
+	to_chat(M, "<span class='warning'>Unless stated otherwise; you are NOT an antagonist, so self-antagging rules may still apply to you. Use your good judgement and ahelp if you are unsure of what you are allowed to do.</span>")
 	M.mind.store_memory("<b>Important Words</b>: \"[my_word]\", \"[my_reply]\"")

@@ -9,6 +9,7 @@
 	universal_speak = 1
 	health = 40
 	maxHealth = 40
+	pass_flags = PASSTABLE
 
 	melee_damage_lower = 2
 	melee_damage_upper = 2

@@ -1,4 +1,3 @@
-
 var/global/BSACooldown = 0
 var/global/nologevent = 0
 
@@ -21,6 +20,13 @@ var/global/nologevent = 0
 					if(!istype(C, /mob/living))
 						var/msg = rendered
 						to_chat(C, msg)
+
+/proc/message_adminTicket(var/msg)
+	msg = "<span class='adminticket'><span class='prefix'>ADMIN TICKET:</span> [msg]</span>"
+	for(var/client/C in admins)
+		if(R_ADMIN & C.holder.rights)
+			if(C.prefs && !(C.prefs.toggles & CHAT_NO_TICKETLOGS))
+				to_chat(C, msg)
 
 
 ///////////////////////////////////////////////////////////////////////////////////////////////Panels
@@ -103,8 +109,13 @@ var/global/nologevent = 0
 		<A href='?_src_=holder;narrateto=\ref[M]'>Narrate to</A> |
 		<A href='?_src_=holder;subtlemessage=\ref[M]'>Subtle message</A>
 	"}
+
 	if(check_rights(R_EVENT, 0))
 		body += {" | <A href='?_src_=holder;Bless=[M.UID()]'>Bless</A> | <A href='?_src_=holder;Smite=[M.UID()]'>Smite</A>"}
+
+	if(isLivingSSD(M))
+		if(!istype(M.loc, /obj/machinery/cryopod))
+			body += {" | <A href='?_src_=holder;cryossd=[M.UID()]'>Cryo</A> "}
 
 	if(M.client)
 		if(!istype(M, /mob/new_player))

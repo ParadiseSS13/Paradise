@@ -289,9 +289,9 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 
 	switch(data_hud_seen) //give new huds
 		if(0)
-			show_me_the_hud(DATA_HUD_SECURITY_BASIC)
+			show_me_the_hud(DATA_HUD_SECURITY_ADVANCED)
 			to_chat(src, "<span class='notice'>Security HUD set.</span>")
-		if(DATA_HUD_SECURITY_BASIC)
+		if(DATA_HUD_SECURITY_ADVANCED)
 			show_me_the_hud(DATA_HUD_MEDICAL_ADVANCED)
 			to_chat(src, "<span class='notice'>Medical HUD set.</span>")
 		if(DATA_HUD_MEDICAL_ADVANCED)
@@ -657,7 +657,7 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 
 	return FALSE
 
-/mob/dead/observer/incapacitated()
+/mob/dead/observer/incapacitated(ignore_restraints = FALSE, ignore_grab = FALSE, ignore_lying = FALSE)
 	return TRUE
 
 //this is a mob verb instead of atom for performance reasons

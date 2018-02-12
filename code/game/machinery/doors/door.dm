@@ -1,43 +1,39 @@
-//This file was auto-corrected by findeclaration.exe on 25.5.2012 20:42:31
-#define DOOR_OPEN_LAYER 2.7		//Under all objects if opened. 2.7 due to tables being at 2.6
-#define DOOR_CLOSED_LAYER 3.1	//Above most items if closed
-
 /obj/machinery/door
-	name = "Door"
+	name = "door"
 	desc = "It opens and closes."
 	icon = 'icons/obj/doors/Doorint.dmi'
 	icon_state = "door1"
 	anchored = 1
 	opacity = 1
 	density = 1
-	layer = DOOR_OPEN_LAYER
-	var/open_layer = DOOR_OPEN_LAYER
-	var/closed_layer = DOOR_CLOSED_LAYER
-
+	layer = OPEN_DOOR_LAYER
+	power_channel = ENVIRON
+	var/open_layer = OPEN_DOOR_LAYER
+	var/closed_layer = CLOSED_DOOR_LAYER
 	var/visible = 1
-	var/p_open = 0
 	var/operating = 0
 	var/autoclose = 0
 	var/autoclose_timer
 	var/glass = 0
+	var/welded = FALSE
 	var/normalspeed = 1
 	var/auto_close_time = 150
 	var/auto_close_time_dangerous = 5
+	var/assemblytype //the type of door frame to drop during deconstruction
 	var/heat_proof = 0 // For rglass-windowed airlocks and firedoors
 	var/emergency = 0
 	var/air_properties_vary_with_direction = 0
 	var/block_air_zones = 1 //If set, air zones cannot merge across the door even when it is opened.
 
 	//Multi-tile doors
-	dir = EAST
 	var/width = 1
 
 /obj/machinery/door/New()
 	. = ..()
 	if(density)
-		layer = closed_layer
+		layer = closed_layer //Above most items if closed
 	else
-		layer = open_layer
+		layer = open_layer //Under all objects if opened. 2.7 due to tables being at 2.6
 
 	update_dir()
 	update_freelook_sight()
@@ -71,14 +67,20 @@
 	return ..()
 
 /obj/machinery/door/Bumped(atom/AM)
-	if(p_open || operating || emagged)
+	if(panel_open || operating || emagged)
 		return
 	if(isliving(AM))
 		var/mob/living/M = AM
-		if(world.time - M.last_bumped <= 10) return	//Can bump-open one airlock per second. This is to prevent shock spam.
+		if(world.time - M.last_bumped <= 10)
+			return	//Can bump-open one airlock per second. This is to prevent shock spam.
 		M.last_bumped = world.time
-		if(!M.restrained() && M.mob_size > MOB_SIZE_SMALL)
-			bumpopen(M)
+		if(!M.restrained())
+			if(M.mob_size > MOB_SIZE_SMALL)
+				bumpopen(M)
+			else if(ispet(M))
+				var/mob/living/simple_animal/A = AM
+				if(A.collar)
+					bumpopen(M)
 		return
 
 	if(istype(AM, /obj/mecha))
@@ -91,6 +93,18 @@
 		return
 	return
 
+/obj/machinery/door/Move(new_loc, new_dir)
+	var/turf/T = loc
+	. = ..()
+	move_update_air(T)
+
+	if(width > 1)
+		if(dir in list(EAST, WEST))
+			bound_width = width * world.icon_size
+			bound_height = world.icon_size
+		else
+			bound_width = world.icon_size
+			bound_height = width * world.icon_size
 
 /obj/machinery/door/CanPass(atom/movable/mover, turf/target, height=0)
 	if(istype(mover) && mover.checkpass(PASSGLASS))
@@ -169,28 +183,25 @@
 		qdel(src)
 	return
 
-
 /obj/machinery/door/emp_act(severity)
 	if(prob(20/severity) && (istype(src,/obj/machinery/door/airlock) || istype(src,/obj/machinery/door/window)) )
 		spawn(0)
 			open()
 	..()
 
-
 /obj/machinery/door/ex_act(severity)
 	switch(severity)
-		if(1.0)
+		if(1)
 			qdel(src)
-		if(2.0)
+		if(2)
 			if(prob(25))
 				qdel(src)
-		if(3.0)
+		if(3)
 			if(prob(80))
-				var/datum/effect/system/spark_spread/s = new /datum/effect/system/spark_spread
+				var/datum/effect_system/spark_spread/s = new /datum/effect_system/spark_spread
 				s.set_up(2, 1, src)
 				s.start()
 	return
-
 
 /obj/machinery/door/update_icon()
 	if(density)
@@ -202,12 +213,12 @@
 /obj/machinery/door/proc/do_animate(animation)
 	switch(animation)
 		if("opening")
-			if(p_open)
+			if(panel_open)
 				flick("o_doorc0", src)
 			else
 				flick("doorc0", src)
 		if("closing")
-			if(p_open)
+			if(panel_open)
 				flick("o_doorc1", src)
 			else
 				flick("doorc1", src)
@@ -281,7 +292,6 @@
 		var/turf/location = get_turf(src)
 		L.add_splatter_floor(location)
 
-
 /obj/machinery/door/proc/requiresID()
 	return 1
 
@@ -290,19 +300,6 @@
 	if(!qdeleted(src) && !density && !operating && autoclose)
 		close()
 	return
-
-/obj/machinery/door/Move(new_loc, new_dir)
-	var/turf/T = loc
-	. = ..()
-	move_update_air(T)
-
-	if(width > 1)
-		if(dir in list(EAST, WEST))
-			bound_width = width * world.icon_size
-			bound_height = world.icon_size
-		else
-			bound_width = world.icon_size
-			bound_height = width * world.icon_size
 
 /obj/machinery/door/proc/update_freelook_sight()
 	// Glass door glass = 1

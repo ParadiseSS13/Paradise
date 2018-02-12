@@ -127,7 +127,7 @@
 					H.apply_damage(trap_damage, BRUTE,"chest")
 				else
 					H.apply_damage(trap_damage, BRUTE,(pick("l_leg", "r_leg")))
-				if(!H.legcuffed) //beartrap can't cuff you leg if there's already a beartrap or legcuffs.
+				if(!H.legcuffed && H.get_num_legs() >= 2) //beartrap can't cuff you leg if there's already a beartrap or legcuffs.
 					H.legcuffed = src
 					forceMove(H)
 					H.update_inv_legcuffed()
@@ -147,7 +147,7 @@
 	..()
 	spawn(100)
 		if(!istype(loc, /mob))
-			var/datum/effect/system/spark_spread/sparks = new /datum/effect/system/spark_spread
+			var/datum/effect_system/spark_spread/sparks = new /datum/effect_system/spark_spread
 			sparks.set_up(1, 1, src)
 			sparks.start()
 			qdel(src)

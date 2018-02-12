@@ -275,6 +275,10 @@ You are weak to holy things and starlight. Don't go into space and avoid the Cha
 	var/blood = 0
 	var/old_bloodtotal = 0 //used to see if we increased our blood total
 	var/old_bloodusable = 0 //used to see if we increased our blood usable
+	if(owner.is_muzzled())
+		to_chat(owner, "<span class='warning'>[owner.wear_mask] prevents you from biting [H]!</span>")
+		draining = null
+		return
 	owner.create_attack_log("<font color='red'>Bit [H] ([H.ckey]) in the neck and draining their blood</font>")
 	H.create_attack_log("<font color='orange'>Has been bit in the neck by [owner] ([owner.ckey])</font>")
 	log_attack("[owner] ([owner.ckey]) bit [H] ([H.ckey]) in the neck")

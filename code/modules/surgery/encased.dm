@@ -25,7 +25,7 @@
 	allowed_tools = list(
 	/obj/item/weapon/circular_saw = 100, \
 	/obj/item/weapon/melee/energy/sword/cyborg/saw = 100, \
-	/obj/item/weapon/hatchet = 75
+	/obj/item/weapon/hatchet = 90
 	)
 
 	time = 54
@@ -61,7 +61,7 @@
 	user.visible_message("<span class='warning'> [user]'s hand slips, cracking [target]'s [affected.encased] with \the [tool]!</span>" , \
 	"<span class='warning'> Your hand slips, cracking [target]'s [affected.encased] with \the [tool]!</span>" )
 
-	affected.createwound(CUT, 20)
+	affected.receive_damage(20)
 	affected.fracture()
 
 	return 0
@@ -72,7 +72,7 @@
 	allowed_tools = list(
 	/obj/item/weapon/scalpel/laser/manager = 100, \
 	/obj/item/weapon/retractor = 100, 	\
-	/obj/item/weapon/crowbar = 75
+	/obj/item/weapon/crowbar = 90
 	)
 
 	time = 24
@@ -113,7 +113,7 @@
 	var/self_msg = "<span class='warning'> Your hand slips, cracking [target]'s  [affected.encased]!</span>"
 	user.visible_message(msg, self_msg)
 
-	affected.createwound(BRUISE, 20)
+	affected.receive_damage(20)
 	affected.fracture()
 
 	return 0
@@ -123,7 +123,7 @@
 	allowed_tools = list(
 	/obj/item/weapon/scalpel/laser/manager = 100, \
 	/obj/item/weapon/retractor = 100, 	\
-	/obj/item/weapon/crowbar = 75
+	/obj/item/weapon/crowbar = 90
 	)
 
 	time = 24
@@ -164,7 +164,7 @@
 	var/self_msg = "<span class='warning'> Your hand slips, bending [target]'s [affected.encased] the wrong way!</span>"
 	user.visible_message(msg, self_msg)
 
-	affected.createwound(BRUISE, 20)
+	affected.receive_damage(20)
 	affected.fracture()
 
 	return 0
@@ -173,7 +173,7 @@
 	name = "mend bone"
 	allowed_tools = list(
 	/obj/item/weapon/bonegel = 100,	\
-	/obj/item/weapon/screwdriver = 75
+	/obj/item/weapon/screwdriver = 90
 	)
 
 	time = 24

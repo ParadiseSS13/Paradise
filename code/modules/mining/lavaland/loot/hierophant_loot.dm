@@ -38,7 +38,7 @@
 			timer = world.time + cooldown_time
 			if(isliving(target) && chaser_timer <= world.time) //living and chasers off cooldown? fire one!
 				chaser_timer = world.time + chaser_cooldown
-				new /obj/effect/overlay/temp/hierophant/chaser(get_turf(user), user, target, 1.5, friendly_fire_check)
+				new /obj/effect/temp_visual/hierophant/chaser(get_turf(user), user, target, 1.5, friendly_fire_check)
 				add_logs(user, target, "fired a chaser at", src)
 			else
 				spawn(0)
@@ -63,7 +63,7 @@
 			if(do_after(user, 50, target = user))
 				var/turf/T = get_turf(user)
 				playsound(T,'sound/magic/Blind.ogg', 200, 1, -4)
-				new /obj/effect/overlay/temp/hierophant/telegraph/teleport(T, user)
+				new /obj/effect/temp_visual/hierophant/telegraph/teleport(T, user)
 				var/obj/effect/hierophant/H = new/obj/effect/hierophant(T)
 				rune = H
 				user.update_action_buttons_icon()
@@ -93,8 +93,8 @@
 			to_chat(user, "<span class='warning'>The rune is blocked by something, preventing teleportation!</span>")
 			user.update_action_buttons_icon()
 			return
-		new /obj/effect/overlay/temp/hierophant/telegraph(T, user)
-		new /obj/effect/overlay/temp/hierophant/telegraph(source, user)
+		new /obj/effect/temp_visual/hierophant/telegraph(T, user)
+		new /obj/effect/temp_visual/hierophant/telegraph(source, user)
 		playsound(T,'sound/magic/blink.ogg', 200, 1)
 		//playsound(T,'sound/magic/Wand_Teleport.ogg', 200, 1)
 		playsound(source,'sound/magic/blink.ogg', 200, 1)
@@ -110,13 +110,13 @@
 			user.update_action_buttons_icon()
 			return
 		add_logs(user, rune, "teleported self from ([source.x],[source.y],[source.z]) to")
-		new /obj/effect/overlay/temp/hierophant/telegraph/teleport(T, user)
-		new /obj/effect/overlay/temp/hierophant/telegraph/teleport(source, user)
+		new /obj/effect/temp_visual/hierophant/telegraph/teleport(T, user)
+		new /obj/effect/temp_visual/hierophant/telegraph/teleport(source, user)
 		for(var/t in RANGE_TURFS(1, T))
-			var/obj/effect/overlay/temp/hierophant/blast/B = new /obj/effect/overlay/temp/hierophant/blast(t, user, TRUE) //blasts produced will not hurt allies
+			var/obj/effect/temp_visual/hierophant/blast/B = new /obj/effect/temp_visual/hierophant/blast(t, user, TRUE) //blasts produced will not hurt allies
 			B.damage = 30
 		for(var/t in RANGE_TURFS(1, source))
-			var/obj/effect/overlay/temp/hierophant/blast/B = new /obj/effect/overlay/temp/hierophant/blast(t, user, TRUE) //but absolutely will hurt enemies
+			var/obj/effect/temp_visual/hierophant/blast/B = new /obj/effect/temp_visual/hierophant/blast(t, user, TRUE) //but absolutely will hurt enemies
 			B.damage = 30
 		for(var/mob/living/L in range(1, source))
 			spawn(0)
@@ -155,11 +155,11 @@
 /obj/item/weapon/hierophant_staff/proc/cardinal_blasts(turf/T, mob/living/user) //fire cardinal cross blasts with a delay
 	if(!T)
 		return
-	new /obj/effect/overlay/temp/hierophant/telegraph/cardinal(T, user)
+	new /obj/effect/temp_visual/hierophant/telegraph/cardinal(T, user)
 	playsound(T,'sound/magic/blink.ogg', 200, 1)
 	//playsound(T,'sound/effects/bin_close.ogg', 200, 1)
 	sleep(2)
-	new /obj/effect/overlay/temp/hierophant/blast(T, user, friendly_fire_check)
+	new /obj/effect/temp_visual/hierophant/blast(T, user, friendly_fire_check)
 	for(var/d in cardinal)
 		spawn(0)
 			blast_wall(T, d, user)
@@ -173,16 +173,16 @@
 	for(var/i in 1 to range)
 		if(!J)
 			return
-		new /obj/effect/overlay/temp/hierophant/blast(J, user, friendly_fire_check)
+		new /obj/effect/temp_visual/hierophant/blast(J, user, friendly_fire_check)
 		previousturf = J
 		J = get_step(previousturf, dir)
 
 /obj/item/weapon/hierophant_staff/proc/aoe_burst(turf/T, mob/living/user) //make a 3x3 blast around a target
 	if(!T)
 		return
-	new /obj/effect/overlay/temp/hierophant/telegraph(T, user)
+	new /obj/effect/temp_visual/hierophant/telegraph(T, user)
 	playsound(T,'sound/magic/blink.ogg', 200, 1)
 	//playsound(T,'sound/effects/bin_close.ogg', 200, 1)
 	sleep(2)
 	for(var/t in RANGE_TURFS(1, T))
-		new /obj/effect/overlay/temp/hierophant/blast(t, user, friendly_fire_check)
+		new /obj/effect/temp_visual/hierophant/blast(t, user, friendly_fire_check)

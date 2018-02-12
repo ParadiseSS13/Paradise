@@ -24,7 +24,6 @@
 		/obj/item/mounted/frame/firealarm,
 		/obj/item/mounted/frame/newscaster_frame,
 		/obj/item/mounted/frame/intercom,
-		/obj/item/weapon/table_parts,
 		/obj/item/weapon/rack_parts,
 		/obj/item/weapon/camera_assembly,
 		/obj/item/weapon/tank,
@@ -161,8 +160,8 @@
 
 	name = "matter decompiler"
 	desc = "Eating trash, bits of glass, or other debris will replenish your stores."
-	icon = 'icons/obj/device.dmi'
-	icon_state = "decompiler"
+	icon = 'icons/obj/toy.dmi'
+	icon_state = "minigibber"
 
 	//Metal, glass, wood, plastic.
 	var/list/stored_comms = list(

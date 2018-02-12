@@ -1,5 +1,3 @@
-//This file was auto-corrected by findeclaration.exe on 25.5.2012 20:42:31
-
 /var/const/access_security = 1 // Security equipment
 /var/const/access_brig = 2 // Brig timers and permabrig
 /var/const/access_armory = 3
@@ -254,7 +252,7 @@ var/const/access_trade_sol = 160
 	return list(access_syndicate, access_syndicate_leader, access_vox)
 
 /proc/get_all_misc_access()
-	return list(access_salvage_captain)
+	return list(access_salvage_captain, access_trade_sol, access_crate_cash, access_away01)
 
 /proc/get_absolutely_all_accesses()
 	return (get_all_accesses() | get_all_centcom_access() | get_all_syndicate_access() | get_all_misc_access())

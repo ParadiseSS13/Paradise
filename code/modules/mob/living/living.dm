@@ -1,7 +1,30 @@
+/mob/living/New()
+	. = ..()
+	var/datum/atom_hud/data/human/medical/advanced/medhud = huds[DATA_HUD_MEDICAL_ADVANCED]
+	medhud.add_to_hud(src)
+
+/mob/living/prepare_huds()
+	..()
+	prepare_data_huds()
+
+/mob/living/proc/prepare_data_huds()
+	..()
+	med_hud_set_health()
+	med_hud_set_status()
+
 
 /mob/living/Destroy()
 	if(ranged_ability)
 		ranged_ability.remove_ranged_ability(src)
+	remove_from_all_data_huds()
+
+	if(LAZYLEN(status_effects))
+		for(var/s in status_effects)
+			var/datum/status_effect/S = s
+			if(S.on_remove_on_mob_delete) //the status effect calls on_remove when its mob is deleted
+				qdel(S)
+			else
+				S.be_replaced()
 	return ..()
 
 /mob/living/ghostize(can_reenter_corpse = 1)
@@ -168,23 +191,23 @@
 
 //same as above
 /mob/living/pointed(atom/A as mob|obj|turf in view())
-	if(incapacitated())
-		return 0
+	if(incapacitated(ignore_lying = TRUE))
+		return FALSE
 	if(status_flags & FAKEDEATH)
-		return 0
+		return FALSE
 	if(!..())
-		return 0
+		return FALSE
 	var/obj/item/hand_item = get_active_hand()
 	if(istype(hand_item, /obj/item/weapon/gun) && A != hand_item)
 		if(a_intent == INTENT_HELP || !ismob(A))
 			visible_message("<b>[src]</b> points to [A] with [hand_item]")
-			return 1
+			return TRUE
 		A.visible_message("<span class='danger'>[src] points [hand_item] at [A]!</span>",
 											"<span class='userdanger'>[src] points [hand_item] at you!</span>")
 		A << 'sound/weapons/TargetOn.ogg'
-		return 1
+		return TRUE
 	visible_message("<b>[src]</b> points to [A]")
-	return 1
+	return TRUE
 
 /mob/living/verb/succumb()
 	set hidden = 1
@@ -214,6 +237,7 @@
 		stat = CONSCIOUS
 		return
 	health = maxHealth - getOxyLoss() - getToxLoss() - getFireLoss() - getBruteLoss() - getCloneLoss()
+	med_hud_set_health()
 
 
 //This proc is used for mobs which are affected by pressure to calculate the amount of pressure that actually
@@ -896,13 +920,13 @@
 	// And animate the attack!
 	animate(I, alpha = 175, pixel_x = 0, pixel_y = 0, pixel_z = 0, time = 3)
 
-/atom/movable/proc/receive_damage(atom/A)
+/atom/movable/proc/receiving_damage(atom/A)
 	var/pixel_x_diff = rand(-3,3)
 	var/pixel_y_diff = rand(-3,3)
 	animate(src, pixel_x = pixel_x + pixel_x_diff, pixel_y = pixel_y + pixel_y_diff, time = 2)
 	animate(pixel_x = initial(pixel_x), pixel_y = initial(pixel_y), time = 2)
 
-/mob/living/receive_damage(atom/A)
+/mob/living/receiving_damage(atom/A)
 	..()
 	floating = 0 // If we were without gravity, the bouncing animation got stopped, so we make sure we restart the bouncing after the next movement.
 
@@ -1002,3 +1026,41 @@
 		to_chat(src, "<span class='warning'>You don't have the dexterity to do this!</span>")
 		return 0
 	return 1
+
+/mob/living/proc/get_taste_sensitivity()
+	return 1
+
+/mob/living/proc/taste_reagents(datum/reagents/tastes)
+	if(!get_taste_sensitivity())//this also works for IPCs and stuff that returns 0 here
+		return
+
+	var/do_not_taste_at_all = 1//so we don't spam with recent tastes
+
+	var/taste_sum = 0
+	var/list/taste_list = list()//associative list so we can stack stuff that tastes the same
+	var/list/final_taste_list = list()//final list of taste strings
+
+	for(var/datum/reagent/R in tastes.reagent_list)
+		taste_sum += R.volume * R.taste_strength
+		if(!R.taste_message)//set to null; no taste, like water
+			continue
+		taste_list[R.taste_message] += R.volume * R.taste_strength
+
+	for(var/R in taste_list)
+		if(recent_tastes[R] && (world.time - recent_tastes[R] < 12 SECONDS))
+			continue
+
+		do_not_taste_at_all = 0//something was fresh enough to taste; could still be bland enough to be unrecognizable
+
+		if(taste_list[R] / taste_sum >= 0.15 / get_taste_sensitivity())//we return earlier if the proc returns a 0; won't break the universe
+			final_taste_list += R
+			recent_tastes[R] = world.time
+
+	if(do_not_taste_at_all)
+		return //no message spam
+
+	if(final_taste_list.len == 0)//too many reagents - none meet their thresholds
+		to_chat(src, "<span class='notice'>You can't really make out what you're tasting...</span>")
+		return
+
+	to_chat(src, "<span class='notice'>You can taste [english_list(final_taste_list)].</span>")

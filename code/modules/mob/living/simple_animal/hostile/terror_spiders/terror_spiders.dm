@@ -38,6 +38,8 @@ var/global/list/ts_spiderling_list = list()
 	// Movement
 	move_to_delay = 6
 	turns_per_move = 5
+	pressure_resistance = 50    //50 kPa difference required to push
+	throw_pressure_limit = 100  //100 kPa difference required to throw
 	pass_flags = PASSTABLE
 
 	// Ventcrawling
