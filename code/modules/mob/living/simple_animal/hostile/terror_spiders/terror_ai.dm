@@ -268,7 +268,9 @@
 						if(ai_ventbreaker && exit_vent.welded)
 							exit_vent.welded = 0
 							exit_vent.update_icon()
+							exit_vent.update_pipe_image()
 							exit_vent.visible_message("<span class='danger'>[src] smashes the welded cover off [exit_vent]!</span>")
+							playsound(exit_vent.loc, 'sound/machines/airlock_alien_prying.ogg', 50, 0)
 						forceMove(exit_vent.loc)
 						entry_vent = null
 						var/area/new_area = get_area(loc)
