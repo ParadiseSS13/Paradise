@@ -74,7 +74,10 @@
 		to_chat(src, "<span class='warning'>Error 404: Custom chassis not found. Revoking customization option.</span>")
 	else
 		icon = 'icons/mob/custom_synthetic/custom-synthetic.dmi'
-		icon_state = "[ckey]-drone"
+		if(emagged)
+			icon_state = "[ckey]-drone-emagged"
+		else
+			icon_state = "[ckey]-drone"
 		to_chat(src, "<span class='notice'>You reconfigure your chassis and improve the station through your new aesthetics.</span>")
 	verbs -= /mob/living/silicon/robot/drone/verb/customize
 
