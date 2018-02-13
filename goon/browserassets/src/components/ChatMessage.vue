@@ -18,10 +18,12 @@ export default {
   name: 'ChatMessage',
   data: () => ({
     badgeStyle: '',
+    height: 0,
   }),
   props: {
     message: Object,
     onMount: Function,
+    onUnmount: Function,
   },
   computed: {
     processed: function() {
@@ -40,6 +42,10 @@ export default {
   },
   mounted: function() {
     this.onMount();
+    this.height = this.$el.offsetHeight;
+  },
+  beforeDestroy: function() {
+    this.onUnmount(this.height);
   },
 }
 </script>
