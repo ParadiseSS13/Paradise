@@ -1,6 +1,12 @@
 <template>
   <div id="app">
     <ChatContent v-bind:style="style" :messages="messages" />
+    <div
+       v-if="noResponse"
+       class="connectionClosed internal"
+       :class="{restored: restored}">
+      {{errorMessage}}
+    </div>
   </div>
 </template>
 
@@ -43,11 +49,32 @@ export default {
   data: function() {
     return {
       style: {fontSize: '20px'},
+      noResponse: false,
+      restored: false,
+      errorMessage: '',
     }
   },
   props: {
     messages: Array,
     output: Function,
+    ehjaxInfo: Object,
+    onSetClientData: Function,
+  },
+  computed: {
+    lastPang: function() {
+      return this.ehjaxInfo.lastPang;
+    },
+  },
+  watch: {
+    lastPang() {
+      if (this.ehjaxInfo.lastPang + this.ehjaxInfo.pangLimit < Date.now()) {
+        this.loseConnection();
+        return;
+      }
+      if (this.noResponse) {
+        this.restoreConnection();
+      }
+    },
   },
   mounted: function() {
     // Tell BYOND to give us a macro list.
@@ -75,6 +102,16 @@ export default {
     },
     notify: function(text) {
       this.output(`<span class="internal boldnshit">${text}</span>`, 'internal');
+    },
+    loseConnection: function() {
+      this.noResponse = true;
+      this.errorMessage = "You are either AFK, experiencing lag or the connection has closed."
+    },
+    restoreConnection: function() {
+      // On restore connection, the user will be notified for 3 seconds that this has happened, no need to fill the screen with these.
+      this.restored = true;
+      this.errorMessage = 'Your connection has been restored (probably)!';
+      setTimeout(() => {this.noResponse = false}, 2000);
     },
   }
 }
