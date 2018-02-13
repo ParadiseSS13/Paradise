@@ -46,7 +46,7 @@
 	log_game("[user.ckey] became [mob_name]")
 	create(ckey = user.ckey)
 
-/obj/effect/mob_spawn/initialize()
+/obj/effect/mob_spawn/New()
 	. = ..()
 	if(instant || (roundstart && (ticker && ticker.current_state > GAME_STATE_SETTING_UP)))
 		create()
@@ -143,7 +143,7 @@
 	var/skin_tone
 
 
-/obj/effect/mob_spawn/human/initialize()
+/obj/effect/mob_spawn/human/New()
 	if(ispath(outfit))
 		outfit = new outfit()
 	if(!outfit)
@@ -318,7 +318,7 @@
 	id_job = "Clown"
 	outfit = /datum/outfit/job/clown
 
-/obj/effect/mob_spawn/human/clown/initialize()
+/obj/effect/mob_spawn/human/clown/New()
 	mob_name = pick(clown_names)
 	..()
 
@@ -356,7 +356,7 @@
 	id_job = "Mime"
 	outfit = /datum/outfit/job/mime
 
-/obj/effect/mob_spawn/human/mime/initialize()
+/obj/effect/mob_spawn/human/mime/New()
 	mob_name = pick(mime_names)
 	..()
 
