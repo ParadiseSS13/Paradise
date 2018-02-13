@@ -131,6 +131,10 @@
 		)
 		inaccurate = 1
 	else if(W.w_class <= WEIGHT_CLASS_SMALL && istype(src,/obj/item/weapon/reagent_containers/food/snacks/sliceable))
+		if(contents.len)
+			// Nope, no bluespace slice food
+			to_chat(user, "<span class='warning'>Something is already in the [src]!</span>")
+			return 1
 		if(!iscarbon(user))
 			return 1
 		to_chat(user, "<span class='warning'>You slip [W] inside [src].</span>")
