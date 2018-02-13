@@ -84,7 +84,7 @@
 
 /obj/machinery/door/poddoor/close()
 	if(operating)
-		return 0
+		return FALSE
 	operating = 1
 	flick("pdoorc1", src)
 	icon_state = "pdoor1"
@@ -97,7 +97,7 @@
 	sleep(5)
 
 	operating = 0
-	return 1
+	return TRUE
 
  // Whoever wrote the old code for multi-tile spesspod doors needs to burn in hell. - Unknown
  // Wise words. - Bxil
