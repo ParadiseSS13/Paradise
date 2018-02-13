@@ -6,6 +6,7 @@ import ehjaxHelper from './utils/ehjax';
 Vue.config.productionTip = false;
 
 let messages = [];
+let messageLimit = 2053;
 let nextMessageId = 0;
 let clientData = [];
 const ehjaxInfo = {
@@ -25,22 +26,26 @@ function setClientData(newClientData) {
 }
 
 export default function output(message, flag='') {
-  if (messages.length) {
-    const lastMessage = messages[messages.length - 1];
-    if (lastMessage.message === message) {
-      lastMessage.count++;
-      return;
-    }
-  }
-
   const newMessage = new Message(
     message,
     nextMessageId,
     flag === 'preventLink',
   );
 
+  if (messages.length) {
+    const lastMessage = messages[messages.length - 1];
+    if (lastMessage.message === newMessage.message) {
+      lastMessage.count++;
+      return;
+    }
+  }
+
   messages.push(newMessage);
   nextMessageId++;
+
+  if (messages.length > messageLimit) {
+    messages.shift();
+  }
 }
 
 // if (!window.attachEvent || window.addEventListener) {

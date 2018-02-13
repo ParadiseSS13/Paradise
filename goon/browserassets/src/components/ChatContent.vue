@@ -1,10 +1,11 @@
 <template>
-  <div ref="chatContent" class="chatContent">
+  <div class="chatContent">
     <ChatMessage
       v-for="message in messages"
       :message="message"
       :key="message.messageId"
       :onMount="snapIfAtBottom"
+      :onUnmount="scrollUp"
     />
   </div>
 </template>
@@ -34,18 +35,30 @@ export default {
   },
   methods: {
     atBottom: function() {
-      const element = this.$refs.chatContent;
+      const element = this.$el;
       const scrollSnapTolerance = 10;
-      return (document.documentElement.clientHeight + document.documentElement.scrollTop >= element.offsetHeight - scrollSnapTolerance);
+      const scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
+      return (document.documentElement.clientHeight + scrollTop >= element.offsetHeight - scrollSnapTolerance);
     },
     snapToBottom: function() {
-      document.documentElement.scrollTop = document.documentElement.scrollTopMax;
-      document.documentElement.scrollTop = this.$refs.chatContent.offsetHeight;
+      this.scrollTo(this.$el.offsetHeight);
     },
     snapIfAtBottom: function() {
       if (this.atBottom()) {
 	this.snapToBottom();
       }
+    },
+    scrollUp: function(distance) {
+      console.log(distance);
+      if (!this.atBottom()) {
+	const scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
+	const newPos = scrollTop - distance;
+	this.scrollTo(newPos);
+      }
+    },
+    scrollTo: function(pos) {
+      document.body.scrollTop = pos;
+      document.documentElement.scrollTop = pos;
     },
   },
 }
