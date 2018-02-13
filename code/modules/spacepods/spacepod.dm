@@ -7,7 +7,7 @@
 
 /obj/item/weapon/pod_paint_bucket
 	name = "space pod paintkit"
-	desc = "Pimp your ride"
+	desc = "Pimp your ride.It is highly recommended the user does not drink his paint and the paint is only used for painting."
 	icon = 'icons/obj/items.dmi'
 	icon_state = "paint_red"
 
