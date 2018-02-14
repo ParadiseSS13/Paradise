@@ -15,6 +15,7 @@ const ehjaxInfo = {
   lastPang: 0,
   pangLimit: 35000,
   admin: false,
+  cookieLoaded: false,
 }
 
 function ehjaxCallback(data) {

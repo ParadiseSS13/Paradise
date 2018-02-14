@@ -48,7 +48,7 @@ export default {
   },
   data: function() {
     return {
-      style: {fontSize: '20px'},
+      style: {},
       noResponse: false,
       restored: false,
       errorMessage: '',
@@ -64,6 +64,9 @@ export default {
     lastPang: function() {
       return this.ehjaxInfo.lastPang;
     },
+    cookieLoaded: function() {
+      return this.ehjaxInfo.cookieLoaded;
+    },
   },
   watch: {
     lastPang() {
@@ -75,6 +78,11 @@ export default {
         this.restoreConnection();
       }
     },
+    cookieLoaded() {
+      if (this.ehjaxInfo.cookieLoaded) {
+        this.loadCookieStyles();
+      }
+    },
   },
   mounted: function() {
     // Tell BYOND to give us a macro list.
@@ -83,16 +91,12 @@ export default {
     runByond('byond://winset?id=mainwindow&macro=macro');
     runByond('byond://winget?callback=wingetMacros&id=hotkeymode.*&property=command');
     runByond('?_src_=chat&proc=doneLoading');
-    this.notify('Welcome!');
-    this.notify(this.style.fontSize);
-    this.loadCookieStyles();
   },
   methods: {
     loadCookieStyles: function() {
-      this.notify('wtf?!');
-      for (const [cookieStyleField, styleName] in cookieStyleFields) {
+      for (const cookieStyleField in cookieStyleFields) {
         const styleValue = cookies.getCookie(cookieStyleField);
-        this.notify(styleValue);
+        const styleName = cookieStyleFields[cookieStyleField];
 
         if (styleValue) {
           this.style[styleName] = styleValue;
