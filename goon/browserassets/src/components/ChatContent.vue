@@ -4,9 +4,15 @@
       v-for="message in messages"
       :message="message"
       :key="message.messageId"
-      :onMount="snapIfAtBottom"
+      :atBottom="atBottom"
+      :snapToBottom="snapToBottom"
       :onUnmount="scrollUp"
+      :onNewUnseenMessage="newUnseenMessage"
     />
+    <a href="#" v-on:click.prevent="snapToBottom" v-if="newMessages > 0" id="newMessages">
+      <span>{{newMessages}} new message{{newMessages > 1 ? 's' : ''}}</span>
+      <i class="icon-double-angle-down" />
+    </a>
   </div>
 </template>
 
@@ -18,6 +24,11 @@ export default {
   components: {
     ChatMessage,
   },
+  data: function() {
+    return {
+      newMessages: 0,
+    };
+  },
   props: {
     messages: Array,
   },
@@ -27,11 +38,11 @@ export default {
     },
   },
   watch: {
-    // lastMessageId() {
-    //   if (this.atBottom()) {
-    // 	const element = this.$refs.chatContent;
-    //   }
-    // },
+    newMessages() {
+      if (this.atBottom()) {
+	this.snapToBottom();
+      }
+    }
   },
   methods: {
     atBottom: function() {
@@ -42,14 +53,9 @@ export default {
     },
     snapToBottom: function() {
       this.scrollTo(this.$el.offsetHeight);
-    },
-    snapIfAtBottom: function() {
-      if (this.atBottom()) {
-	this.snapToBottom();
-      }
+      this.newMessages = 0;
     },
     scrollUp: function(distance) {
-      console.log(distance);
       if (!this.atBottom()) {
 	const scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
 	const newPos = scrollTop - distance;
@@ -59,6 +65,9 @@ export default {
     scrollTo: function(pos) {
       document.body.scrollTop = pos;
       document.documentElement.scrollTop = pos;
+    },
+    newUnseenMessage: function() {
+      this.newMessages++;
     },
   },
 }

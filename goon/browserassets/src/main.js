@@ -22,6 +22,8 @@ function ehjaxCallback(data) {
   ehjaxHelper(data, ehjaxInfo, clientData);
 }
 
+window.ehjaxCallback = ehjaxCallback;
+
 function setClientData(newClientData) {
   clientData = newClientData;
 }
@@ -50,8 +52,8 @@ export default function output(message, flag='') {
 }
 
 // if (!window.attachEvent || window.addEventListener) {
-if (true) {
-  new Vue({
+
+new Vue({
   data: {
     messages: messages,
     output: output,
@@ -66,8 +68,4 @@ if (true) {
       onSetClientData: setClientData,
     }
   }),
-  }).$mount('#app');
-}
-
-
-window.ehjaxCallback = ehjaxCallback;
+}).$mount('#app');
