@@ -75,7 +75,6 @@
 	else
 		icon = 'icons/mob/custom_synthetic/custom-synthetic.dmi'
 		if(emagged)			//prevents someone from changing their sprite to their default custom sprite when emagged
-//			icon_state = "[ckey]-drone-emagged"		//in case custom emagged drones are allowed, comment out the line bellow and uncomment this line
 			icon_state = "repairbot-emagged"
 		else
 			icon_state = "[ckey]-drone"

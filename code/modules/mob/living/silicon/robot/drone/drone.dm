@@ -193,7 +193,6 @@
 	emagged = 1
 	density = 1
 	pass_flags = 0
-//	icon_state = "[icon_state]-emagged"	//in case custom emagged drones are allowed, comment out the line bellow and uncomment this line
 	icon_state = "repairbot-emagged"
 	holder_type = /obj/item/weapon/holder/drone/emagged
 	update_icons()
