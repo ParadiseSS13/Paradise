@@ -7,7 +7,7 @@
 /mob/living/simple_animal/hostile/floor_cluwne
 	name = "???"
 	desc = "...."
-	icon = 'icons/goonstation/mob/clothing/mask.dmi'
+	icon = 'icons/goonstation/objects/clothing/mask.dmi'
 	icon_state = "cursedclown"
 	icon_living = "cursedclown"
 	icon_gib = "clown_gib"
@@ -298,7 +298,7 @@
 				H.emote("scream")
 				H.adjustBruteLoss(10)
 				if(!eating)
-					addtimer(src, "Grab", H, 50)
+					addtimer(src, "Grab", 50, FALSE, H)
 					for(var/turf/simulated/floor/O in range(src, 6))
 						O.MakeSlippery(TURF_WET_LUBE, 20)
 						playsound(src, 'sound/effects/meteorimpact.ogg', 30, 1)
@@ -327,7 +327,7 @@
 			H.mouse_opacity = 0
 			H.density = FALSE
 			H.anchored = TRUE
-			addtimer(src, "Kill", H, 100)
+			addtimer(src, "Kill", 100, FALSE, H)
 			visible_message("<span class='danger'>[src] pulls [H] under!</span>")
 			to_chat(H, "<span class='userdanger'>[src] drags you underneath the floor!</span>")
 	else
