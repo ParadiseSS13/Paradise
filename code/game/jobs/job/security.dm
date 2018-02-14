@@ -253,7 +253,7 @@
 	suit_store = /obj/item/weapon/gun/energy/gun/advtaser
 	pda = /obj/item/device/pda/security
 	backpack_contents = list(
-		/obj/item/weapon/restraints/handcuffs = 1
+		/obj/item/weapon/restraints/handcuffs = 1,
 		/obj/item/weapon/pod_paint_bucket = 1
 	)
 	implants = list(/obj/item/weapon/implant/mindshield)
