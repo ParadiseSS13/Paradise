@@ -394,6 +394,9 @@
 
 		if(cargo_hold.storage_slots > 0 && !hatch_open && unlocked) // must be the last option as all items not listed prior will be stored
 			cargo_hold.attackby(W, user, params)
+		if(istype(W, /obj/item/weapon/pod_paint_bucket))
+			apply_paint(user)
+		return
 
 obj/spacepod/proc/add_equipment(mob/user, var/obj/item/device/spacepod_equipment/SPE, var/slot)
 	if(equipment_system.vars[slot])
@@ -480,9 +483,6 @@ obj/spacepod/proc/add_equipment(mob/user, var/obj/item/device/spacepod_equipment
 			return
 		if("Lock System")
 			remove_equipment(user, equipment_system.lock_system, "lock_system")
-	if(istype(W, /obj/item/weapon/pod_paint_bucket))
-		apply_paint(user)
-		return
 
 /obj/spacepod/proc/remove_equipment(mob/user, var/obj/item/device/spacepod_equipment/SPE, var/slot)
 
