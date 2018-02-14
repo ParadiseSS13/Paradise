@@ -10,12 +10,9 @@ function getCookie(cname) {
   const name = 'paradise-' + cname + '=';
   const ca = document.cookie.split(';');
   for (let i = 0; i < ca.length; i++) {
-    let c = ca[i];
-    while (c.charAt(0) === ' ') {
-      c = c.substring(1);
-    }
+    const c = ca[i].trim();
     if (c.indexOf(name) === 0) {
-      return decodeURIComponent(c.substring(name.length,c.length));
+      return decodeURIComponent(c.substring(name.length));
     }
   }
   return '';

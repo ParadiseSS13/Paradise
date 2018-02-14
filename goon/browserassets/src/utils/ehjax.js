@@ -88,6 +88,7 @@ export default function ehjaxHelper(data, info, clientData) {
                        data.clientData.ip,
                        data.clientData.compid,
                        clientData);
+      info.cookieLoaded = true;
     }
   }
   else if (data.loadAdminCode) {
