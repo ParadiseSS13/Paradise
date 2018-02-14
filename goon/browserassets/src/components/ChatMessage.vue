@@ -19,11 +19,14 @@ export default {
   data: () => ({
     badgeStyle: '',
     height: 0,
+    shouldSnapToBottom: false,
   }),
   props: {
     message: Object,
-    onMount: Function,
+    atBottom: Function,
+    snapToBottom: Function,
     onUnmount: Function,
+    onNewUnseenMessage: Function,
   },
   computed: {
     processed: function() {
@@ -40,9 +43,18 @@ export default {
       timerId = setTimeout(() => {this.badgeStyle = ''}, 200);
     },
   },
+  beforeMount: function() {
+    this.shouldSnapToBottom = this.atBottom();
+  },
   mounted: function() {
-    this.onMount();
     this.height = this.$el.offsetHeight;
+
+    if (this.shouldSnapToBottom) {
+      this.snapToBottom();
+      return;
+    }
+
+    this.onNewUnseenMessage();
   },
   beforeDestroy: function() {
     this.onUnmount(this.height);
