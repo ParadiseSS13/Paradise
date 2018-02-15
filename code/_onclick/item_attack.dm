@@ -62,11 +62,6 @@
 	user.lastattacked = M
 	M.lastattacker = user
 
-	if(!iscarbon(user))
-		M.LAssailant = null
-	else
-		M.LAssailant = user
-
 	if(user != M)
 		user.do_attack_animation(M)
 	M.attacked_by(src, user, def_zone)

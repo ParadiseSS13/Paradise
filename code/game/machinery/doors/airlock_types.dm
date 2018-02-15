@@ -248,8 +248,10 @@
 	assemblytype = /obj/structure/door_assembly/door_assembly_titanium
 	icon = 'icons/obj/doors/airlocks/shuttle/shuttle.dmi'
 	overlays_file = 'icons/obj/doors/airlocks/shuttle/overlays.dmi'
+	normal_integrity = 400
 
 /obj/machinery/door/airlock/titanium/glass
+	normal_integrity = 350
 	opacity = 0
 	glass = TRUE
 
