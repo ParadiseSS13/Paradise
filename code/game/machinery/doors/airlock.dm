@@ -1071,7 +1071,7 @@ About the new airlock wires panel:
 	density = FALSE
 	air_update_turf(1)
 	sleep(1)
-	layer = open_layer
+	layer = OPEN_DOOR_LAYER
 	update_icon(AIRLOCK_OPEN, 1)
 	operating = FALSE
 
@@ -1108,7 +1108,7 @@ About the new airlock wires panel:
 
 	operating = TRUE
 	update_icon(AIRLOCK_CLOSING, 1)
-	layer = closed_layer
+	layer = CLOSED_DOOR_LAYER
 	if(!override)
 		sleep(1)
 	density = TRUE

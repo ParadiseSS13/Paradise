@@ -277,7 +277,7 @@
 	..()
 
 /obj/structure/grille/hitby(atom/movable/AM)
-	if(isobj(AM))
+	if(istype(AM, /obj))
 		if(prob(50) && anchored && !broken)
 			var/turf/T = get_turf(src)
 			var/obj/structure/cable/C = T.get_cable_node()

@@ -3,8 +3,11 @@
 	desc = "A heavy duty blast door that opens mechanically."
 	icon = 'icons/obj/doors/blastdoor.dmi'
 	icon_state = "closed"
+	layer = BLASTDOOR_LAYER
+	closingLayer = CLOSED_BLASTDOOR_LAYER
 	explosion_block = 3
 	heat_proof = TRUE
+	safe = FALSE
 	armor = list(melee = 50, bullet = 100, laser = 100, energy = 100, bomb = 50, bio = 100, rad = 100)
 	burn_state = FIRE_PROOF
 	damage_deflection = 70
@@ -53,6 +56,7 @@
 /obj/machinery/door/poddoor/multi_tile // Whoever wrote the old code for multi-tile spesspod doors needs to burn in hell.
 	name = "large pod door"
 	layer = CLOSED_DOOR_LAYER
+	closingLayer = CLOSED_DOOR_LAYER
 
 /obj/machinery/door/poddoor/multi_tile/four_tile_ver/
 	icon = 'icons/obj/doors/1x4blast_vert.dmi'

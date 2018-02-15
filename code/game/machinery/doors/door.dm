@@ -10,8 +10,7 @@
 	power_channel = ENVIRON
 	max_integrity = 350
 	armor = list(melee = 30, bullet = 30, laser = 20, energy = 20, bomb = 10, bio = 100, rad = 100)
-	var/open_layer = OPEN_DOOR_LAYER
-	var/closed_layer = CLOSED_DOOR_LAYER
+	var/closingLayer = CLOSED_DOOR_LAYER
 	var/visible = 1
 	var/operating = FALSE
 	var/autoclose = 0
@@ -29,19 +28,13 @@
 	var/real_explosion_block	//ignore this, just use explosion_block
 	var/heat_proof = FALSE // For rglass-windowed airlocks and firedoors
 	var/emergency = FALSE
-	var/air_properties_vary_with_direction = 0
-	var/block_air_zones = 1 //If set, air zones cannot merge across the door even when it is opened.
 
 	//Multi-tile doors
 	var/width = 1
 
 /obj/machinery/door/New()
 	..()
-	if(density)
-		layer = closed_layer //Above most items if closed
-	else
-		layer = open_layer //Under all objects if opened. 2.7 due to tables being at 2.6
-
+	set_init_door_layer()
 	update_dir()
 	update_freelook_sight()
 	airlocks += src
@@ -51,6 +44,12 @@
 	//doors only block while dense though so we have to use the proc
 	real_explosion_block = explosion_block
 	explosion_block = EXPLOSION_BLOCK_PROC
+
+/obj/machinery/door/proc/set_init_door_layer()
+	if(density)
+		layer = closingLayer
+	else
+		layer = initial(layer)
 
 /obj/machinery/door/setDir(newdir)
 	..()
@@ -275,7 +274,7 @@
 	sleep(5)
 	density = FALSE
 	sleep(5)
-	layer = open_layer
+	layer = initial(layer)
 	update_icon()
 	set_opacity(0)
 	operating = FALSE
@@ -307,7 +306,7 @@
 		autoclose_timer = 0
 
 	do_animate("closing")
-	layer = closed_layer
+	layer = closingLayer
 	sleep(5)
 	density = TRUE
 	sleep(5)

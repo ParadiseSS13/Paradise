@@ -3,6 +3,8 @@
 	desc = "A strong door."
 	icon = 'icons/obj/doors/windoor.dmi'
 	icon_state = "left"
+	layer = ABOVE_WINDOW_LAYER
+	closingLayer = ABOVE_WINDOW_LAYER
 	visible = 0
 	flags = ON_BORDER
 	opacity = 0

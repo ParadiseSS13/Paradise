@@ -44,7 +44,7 @@
 	var/tforce = 0
 	if(ismob(AM))
 		tforce = 10
-	else if(isobj(AM))
+	else if(istype(AM, /obj))
 		var/obj/O = AM
 		tforce = O.throwforce
 	take_damage(tforce, BRUTE, "melee", 1, get_dir(src, AM))
