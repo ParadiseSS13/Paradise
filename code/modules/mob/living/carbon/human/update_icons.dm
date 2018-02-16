@@ -578,7 +578,7 @@ var/global/list/damage_icon_parts = list()
 	..()
 	if(notransform)		return
 	update_mutations(0)
-	update_body(0, 1) //Update the body and force limb icon regeneration.
+	force_update_limbs(1) //Force limb icon generation and rebuild the body from scratch.
 	update_hair(0)
 	update_head_accessory(0)
 	update_fhair(0)
@@ -602,7 +602,6 @@ var/global/list/damage_icon_parts = list()
 	update_inv_pockets(0)
 	update_inv_wear_pda(0)
 	UpdateDamageIcon(0)
-	force_update_limbs()
 	update_tail_layer(0)
 	overlays.Cut() // Force all overlays to regenerate
 	update_fire()
@@ -1324,10 +1323,11 @@ var/global/list/damage_icon_parts = list()
 
 	if(update_icons)   update_icons()
 
-/mob/living/carbon/human/proc/force_update_limbs()
+/mob/living/carbon/human/proc/force_update_limbs(var/rebuild_base)
 	for(var/obj/item/organ/external/O in bodyparts)
 		O.sync_colour_to_human(src)
-	update_body(0)
+
+	update_body(0, rebuild_base)
 
 /mob/living/carbon/human/proc/get_overlays_copy(list/unwantedLayers)
 	var/list/out = new

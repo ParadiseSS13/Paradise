@@ -9,7 +9,7 @@
 	//var/list/hud_list[10]
 	var/obj/item/weapon/rig/wearing_rig // This is very not good, but it's much much better than calling get_rig() every update_canmove() call.
 
-/mob/living/carbon/human/New(var/new_loc, var/new_species = null, var/delay_ready_dna = 0)
+/mob/living/carbon/human/New(var/new_loc, var/new_species = "Human", var/delay_ready_dna = 0)
 	if(!dna)
 		dna = new /datum/dna(null)
 		// Species name is handled by set_species()
@@ -17,7 +17,7 @@
 	if(new_species)
 		set_species(new_species, 1, delay_icon_update = 1)
 	else if(!dna.species)
-		set_species(delay_icon_update = 1)
+		set_species("Human", delay_icon_update = 1)
 
 	..()
 

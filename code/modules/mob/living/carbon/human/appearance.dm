@@ -9,7 +9,7 @@
 
 	var/datum/species/NS = all_species[new_species]
 	if(istype(NS))
-		set_species(NS, null, 1)
+		set_species(NS, null)
 		reset_hair()
 		if(dna.species.bodyflags & HAS_MARKINGS)
 			reset_markings()
