@@ -60,17 +60,16 @@ function loadFirebug() {
 }
 
 export default function ehjaxHelper(data, info, clientData) {
-  const callBack = callbacks[data];
+  const callback = callbacks[data];
 
   info.lastPang = Date.now();
 
-  if (callBack) {
-    callBack(info);
+  if (callback) {
+    callback(info);
     return;
   }
 
   // Handle data instead of instruction
-
   try {
     data = JSON.parse(data);
   }

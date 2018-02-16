@@ -1,8 +1,10 @@
 <template>
   <div id="app">
-    <ChatContent v-bind:style="style" :messages="messages" />
+    <ChatToolbar :ping="ping" :onIncreaseFontsize="increaseFontsize" />
+    <ChatContent ref="chatContent" :style="style" :messages="messages" />
     <div
        v-if="noResponse"
+       :style="style"
        class="connectionClosed internal"
        :class="{restored: restored}">
       {{errorMessage}}
@@ -12,6 +14,7 @@
 
 <script>
 import ChatContent from './components/ChatContent.vue';
+import ChatToolbar from './components/ChatToolbar.vue';
 import runByond from './utils/runByond';
 import cookies from './utils/cookies';
 
@@ -45,10 +48,14 @@ export default {
   name: 'App',
   components: {
     ChatContent,
+    ChatToolbar,
   },
   data: function() {
     return {
-      style: {},
+      style: {
+	'font-size': '14px',
+	'font-family': 'Verdana',
+      },
       noResponse: false,
       restored: false,
       errorMessage: '',
@@ -61,23 +68,14 @@ export default {
     onSetClientData: Function,
   },
   computed: {
-    lastPang: function() {
-      return this.ehjaxInfo.lastPang;
-    },
     cookieLoaded: function() {
       return this.ehjaxInfo.cookieLoaded;
     },
+    ping: function() {
+      return Math.ceil((this.ehjaxInfo.pongTime - this.ehjaxInfo.pingTime) / 2);
+    },
   },
   watch: {
-    lastPang() {
-      if (this.ehjaxInfo.lastPang + this.ehjaxInfo.pangLimit < Date.now()) {
-        this.loseConnection();
-        return;
-      }
-      if (this.noResponse) {
-        this.restoreConnection();
-      }
-    },
     cookieLoaded() {
       if (this.ehjaxInfo.cookieLoaded) {
         this.loadCookieStyles();
@@ -91,6 +89,7 @@ export default {
     runByond('byond://winset?id=mainwindow&macro=macro');
     runByond('byond://winget?callback=wingetMacros&id=hotkeymode.*&property=command');
     runByond('?_src_=chat&proc=doneLoading');
+    setInterval(this.checkConnection, 2000);
   },
   methods: {
     loadCookieStyles: function() {
@@ -107,6 +106,15 @@ export default {
     notify: function(text) {
       this.output(`<span class="internal boldnshit">${text}</span>`, 'internal');
     },
+    checkConnection: function() {
+      if (this.ehjaxInfo.lastPang + this.ehjaxInfo.pangLimit < Date.now()) {
+        this.loseConnection();
+        return;
+      }
+      if (this.noResponse) {
+        this.restoreConnection();
+      }
+    },
     loseConnection: function() {
       this.noResponse = true;
       this.errorMessage = "You are either AFK, experiencing lag or the connection has closed."
@@ -115,7 +123,14 @@ export default {
       // On restore connection, the user will be notified for 3 seconds that this has happened, no need to fill the screen with these.
       this.restored = true;
       this.errorMessage = 'Your connection has been restored (probably)!';
-      setTimeout(() => {this.noResponse = false}, 2000);
+      setTimeout(() => {this.restored = this.noResponse = false}, 3000);
+    },
+    increaseFontsize: function(amount) {
+      const currentFontsize = this.style['font-size'] ||
+            getComputedStyle(this.$refs.chatContent.$el)['font-size'];
+      const newFontsize = `${parseInt(currentFontsize) + amount}px`;
+      this.style['font-size'] = newFontsize;
+      cookies.setCookie('fontsize', newFontsize, 365);
     },
   }
 }
