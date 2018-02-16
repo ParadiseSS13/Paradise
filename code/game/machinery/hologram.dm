@@ -208,13 +208,13 @@ var/list/holopads = list()
 				new /datum/holocall(usr, src, callnames[result])
 
 	else if(href_list["connectcall"])
-		var/datum/holocall/call_to_connect = locateUID("connectcall")
+		var/datum/holocall/call_to_connect = locateUID(href_list["connectcall"])
 		if(!qdeleted(call_to_connect))
 			call_to_connect.Answer(src)
 		temp = ""
 
 	else if(href_list["disconnectcall"])
-		var/datum/holocall/call_to_disconnect = locateUID("disconnectcall")
+		var/datum/holocall/call_to_disconnect = locateUID(href_list["disconnectcall"])
 		if(!qdeleted(call_to_disconnect))
 			call_to_disconnect.Disconnect(src)
 		temp = ""
