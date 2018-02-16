@@ -38,8 +38,7 @@
 	while(spawncount >= 1 && vents.len)
 		var/obj/vent = pick(vents)
 		var/obj/structure/spider/spiderling/terror_spiderling/S = new(vent.loc)
-		S.name = "evil-looking spiderling"
 		S.grow_as = spider_type
-		S.amount_grown = 75
+		S.amount_grown = 90
 		vents -= vent
 		spawncount--
