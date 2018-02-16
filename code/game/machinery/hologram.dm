@@ -146,7 +146,7 @@ var/list/holopads = list()
 		for(var/I in holo_calls)
 			var/datum/holocall/HC = I
 			if(HC.connected_holopad != src)
-				dat += "<a href='?src=[UID()];connectcall=\ref[HC]'>Answer call from [get_area(HC.calling_holopad)].</a><br>"
+				dat += "<a href='?src=[UID()];connectcall=[HC.UID()]'>Answer call from [get_area(HC.calling_holopad)].</a><br>"
 				one_unanswered_call = TRUE
 			else
 				one_answered_call = TRUE
@@ -157,10 +157,10 @@ var/list/holopads = list()
 		for(var/I in holo_calls)
 			var/datum/holocall/HC = I
 			if(HC.connected_holopad == src)
-				dat += "<a href='?src=[UID()];disconnectcall=\ref[HC]'>Disconnect call from [HC.user].</a><br>"
+				dat += "<a href='?src=[UID()];disconnectcall=[HC.UID()] '>Disconnect call from [HC.user].</a><br>"
 
 
-	var/datum/browser/popup = new(user, "holopad", name, 300, 130)
+	var/datum/browser/popup = new(user, "holopad", name, 400, 300)
 	popup.set_content(dat)
 	popup.set_title_image(user.browse_rsc_icon(icon, icon_state))
 	popup.open()
@@ -211,13 +211,13 @@ var/list/holopads = list()
 
 	else if(href_list["connectcall"])
 		var/datum/holocall/call_to_connect = locateUID(href_list["connectcall"])
-		if(!qdeleted(call_to_connect))
+		if(exists(call_to_connect) && (call_to_connect in holo_calls))
 			call_to_connect.Answer(src)
 		temp = ""
 
 	else if(href_list["disconnectcall"])
 		var/datum/holocall/call_to_disconnect = locateUID(href_list["disconnectcall"])
-		if(!qdeleted(call_to_disconnect))
+		if(exists(call_to_disconnect) && (call_to_disconnect in holo_calls))
 			call_to_disconnect.Disconnect(src)
 		temp = ""
 
