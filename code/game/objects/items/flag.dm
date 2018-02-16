@@ -31,11 +31,7 @@
 
 /obj/item/flag/update_icon()
 	overlays.Cut()
-	if(istype(src, /obj/item/flag/chameleon))
-		var/obj/item/flag/chameleon/C = src
-		icon_state = C.updated_icon_state
-	else
-		icon_state = initial(icon_state)
+	updateFlagIcon()
 	item_state = icon_state
 	if(rolled)
 		icon_state = "[icon_state]_rolled"
@@ -49,6 +45,9 @@
 		var/mob/M = loc
 		M.update_inv_r_hand()
 		M.update_inv_l_hand()
+
+/obj/item/flag/proc/updateFlagIcon()
+	icon_state = initial(icon_state)
 
 /obj/item/flag/nt
 	name = "Nanotrasen flag"
@@ -240,3 +239,6 @@
 /obj/item/flag/chameleon/burn()
 	explosion(loc,1,2,4,4, flame_range = 4)
 	qdel(src)
+
+/obj/item/flag/chameleon/updateFlagIcon()
+	icon_state = updated_icon_state
