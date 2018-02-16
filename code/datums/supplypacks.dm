@@ -250,6 +250,17 @@ var/list/all_supply_groups = list(supply_emergency,supply_security,supply_engine
 	cost = 10
 	containername = "disabler crate"
 
+/datum/supply_packs/security/fenforcer
+	name = "Foam Enforcer Crate"
+	contains = list(/obj/item/weapon/gun/projectile/automatic/toy/pistol/enforcer,
+					/obj/item/weapon/gun/projectile/automatic/toy/pistol/enforcer,
+					/obj/item/weapon/gun/projectile/automatic/toy/pistol/enforcer,
+					/obj/item/ammo_box/magazine/toy/enforcer,
+					/obj/item/ammo_box/magazine/toy/enforcer,
+					/obj/item/ammo_box/magazine/toy/enforcer)
+	cost = 10
+	containername = "foam enforcer crate"
+
 /datum/supply_packs/security/forensics
 	name = "Forensics Crate"
 	contains = list(/obj/item/device/detective_scanner,
