@@ -129,8 +129,8 @@
 	total_positions = 2
 	spawn_positions = 2
 	is_medical = 1
-	supervisors = "the chief medical officer and the research director"
-	department_head = list("Chief Medical Officer", "Research Director")
+	supervisors = "the research director"
+	department_head = list("Research Director")
 	selection_color = "#ffeef0"
 	access = list(access_genetics, access_research, access_mineral_storeroom)
 	minimal_access = list(access_genetics, access_research, access_maint_tunnels)
