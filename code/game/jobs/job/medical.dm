@@ -171,40 +171,6 @@
 	satchel = /obj/item/weapon/storage/backpack/satchel_chem
 	dufflebag = /obj/item/weapon/storage/backpack/duffel/chemistry
 
-/datum/job/geneticist
-	title = "Geneticist"
-	flag = GENETICIST
-	department_flag = MEDSCI
-	total_positions = 2
-	spawn_positions = 2
-	is_medical = 1
-	supervisors = "the chief medical officer and the research director"
-	department_head = list("Chief Medical Officer", "Research Director")
-	selection_color = "#ffeef0"
-	access = list(access_medical, access_morgue, access_surgery, access_chemistry, access_virology, access_genetics, access_research, access_mineral_storeroom)
-	minimal_access = list(access_medical, access_morgue, access_genetics, access_research, access_maint_tunnels)
-	minimal_player_age = 3
-	exp_requirements = 180
-	exp_type = EXP_TYPE_CREW
-	outfit = /datum/outfit/job/geneticist
-
-/datum/outfit/job/geneticist
-	name = "Geneticist"
-	jobtype = /datum/job/geneticist
-
-	uniform = /obj/item/clothing/under/rank/geneticist
-	suit = /obj/item/clothing/suit/storage/labcoat/genetics
-	shoes = /obj/item/clothing/shoes/white
-	l_ear = /obj/item/device/radio/headset/headset_medsci
-	id = /obj/item/weapon/card/id/medical
-	suit_store = /obj/item/device/flashlight/pen
-	pda = /obj/item/device/pda/geneticist
-
-	backpack = /obj/item/weapon/storage/backpack/genetics
-	satchel = /obj/item/weapon/storage/backpack/satchel_gen
-	dufflebag = /obj/item/weapon/storage/backpack/duffel/genetics
-
-
 /datum/job/virologist
 	title = "Virologist"
 	flag = VIROLOGIST
