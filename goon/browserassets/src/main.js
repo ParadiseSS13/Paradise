@@ -2,6 +2,7 @@ import Vue from 'vue';
 import App from './App.vue';
 import Message from './classes/Message';
 import ehjaxHelper from './utils/ehjax';
+import macros from './utils/macros';
 
 Vue.config.productionTip = false;
 
@@ -16,13 +17,16 @@ const ehjaxInfo = {
   pangLimit: 35000,
   admin: false,
   cookieLoaded: false,
-}
+};
 
 function ehjaxCallback(data) {
   ehjaxHelper(data, ehjaxInfo, clientData);
 }
 
 window.ehjaxCallback = ehjaxCallback;
+
+// Callback for winget.
+window.wingetMacros = macros.wingetMacros;
 
 function setClientData(newClientData) {
   clientData = newClientData;

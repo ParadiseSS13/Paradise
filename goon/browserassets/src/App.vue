@@ -1,7 +1,12 @@
 <template>
   <div id="app">
     <ChatToolbar :ping="ping" :onIncreaseFontsize="increaseFontsize" />
-    <ChatContent ref="chatContent" :style="style" :messages="messages" />
+    <ChatContent
+       ref="chatContent"
+       class="chatContent"
+       :style="style"
+       :messages="messages"
+       />
     <div
        v-if="noResponse"
        :style="style"
@@ -17,32 +22,14 @@ import ChatContent from './components/ChatContent.vue';
 import ChatToolbar from './components/ChatToolbar.vue';
 import runByond from './utils/runByond';
 import cookies from './utils/cookies';
-
-const macros = {};
-
-// Callback for winget.
-function wingetMacros(newMacros) {
-  const idRegex = /.*?\.(?!(?:CRTL|ALT|SHIFT)\+)(.*?)(?:\+REP)?\.command/;
-  // Do NOT match macros which need crtl, alt or shift to be held down.
-  for (const key in newMacros) {
-    const match = idRegex.exec(key);
-
-    if (match === null) {
-      continue;
-    }
-
-    const macroID = match[1].toUpperCase();
-
-    macros[macroID] = newMacros[key];
-  }
-}
-
-window.wingetMacros = wingetMacros;
+import macros from './utils/macros';
 
 const cookieStyleFields = {
   fontsize: 'font-size',
   fonttype: 'font-family',
 }
+
+let intervalId;
 
 export default {
   name: 'App',
@@ -89,7 +76,12 @@ export default {
     runByond('byond://winset?id=mainwindow&macro=macro');
     runByond('byond://winget?callback=wingetMacros&id=hotkeymode.*&property=command');
     runByond('?_src_=chat&proc=doneLoading');
-    setInterval(this.checkConnection, 2000);
+    intervalId = setInterval(this.checkConnection, 2000);
+    document.addEventListener('keydown', this.handleKeydown);
+  },
+  destroyed: function() {
+    document.removeEventListener('keydown', this.handleKeydown);
+    clearInterval(intervalId);
   },
   methods: {
     loadCookieStyles: function() {
@@ -131,6 +123,33 @@ export default {
       const newFontsize = `${parseInt(currentFontsize) + amount}px`;
       this.style['font-size'] = newFontsize;
       cookies.setCookie('fontsize', newFontsize, 365);
+    },
+    handleKeydown: function(event) {
+      if (event.target.nodeName === 'INPUT' || event.target.nodeName === 'TEXTAREA') {
+        return;
+      }
+
+      event.preventDefault();
+
+      // Hardcoded because else there would be no feedback message.
+      if (event.key === 'F2') {
+        runByond('byond://winset?screenshot=auto');
+        this.notify('Screenshot taken');
+      }
+
+      const command = macros.keyToCommand(event.key);
+
+      if (command) {
+        runByond('byond://winset?mapwindow.map.focus=true;command='+command);
+        return;
+      }
+
+      if (event.key.length === 1) {
+        runByond('byond://winset?mapwindow.map.focus=true;mainwindow.input.text=' + event.key.toLowerCase());
+        return;
+      }
+
+      runByond('byond://winset?mapwindow.map.focus=true');
     },
   }
 }
