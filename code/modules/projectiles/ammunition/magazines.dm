@@ -448,6 +448,7 @@
 		return 1
 	return 0
 
+/obj/item/ammo_box/magazine/toy/enforcer/empty
 
 /obj/item/ammo_box/magazine/toy/enforcer/empty/New()
 	update_icon()
