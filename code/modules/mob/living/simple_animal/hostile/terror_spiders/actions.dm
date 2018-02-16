@@ -251,6 +251,17 @@
 		stop_automated_movement = 0
 
 /mob/living/simple_animal/hostile/poison/terror_spider/proc/DoVentSmash()
+	var/valid_target = FALSE
+	for(var/obj/machinery/atmospherics/unary/vent_pump/P in range(1, get_turf(src)))
+		if(P.welded)
+			valid_target = TRUE
+	for(var/obj/machinery/atmospherics/unary/vent_scrubber/C in range(1, get_turf(src)))
+		if(C.welded)
+			valid_target = TRUE
+	if(!valid_target)
+		to_chat(src, "<span class='warning'>No welded vent or scrubber nearby!</span>")
+		return
+	playsound(get_turf(src), 'sound/machines/airlock_alien_prying.ogg', 50, 0)
 	if(do_after(src, 40, target = loc))
 		for(var/obj/machinery/atmospherics/unary/vent_pump/P in range(1, get_turf(src)))
 			if(P.welded)
@@ -259,7 +270,6 @@
 				P.update_pipe_image()
 				forceMove(P.loc)
 				P.visible_message("<span class='danger'>[src] smashes the welded cover off [P]!</span>")
-				playsound(P.loc, 'sound/machines/airlock_alien_prying.ogg', 50, 0)
 				return
 		for(var/obj/machinery/atmospherics/unary/vent_scrubber/C in range(1, get_turf(src)))
 			if(C.welded)
@@ -268,6 +278,5 @@
 				C.update_pipe_image()
 				forceMove(C.loc)
 				C.visible_message("<span class='danger'>[src] smashes the welded cover off [C]!</span>")
-				playsound(C.loc, 'sound/machines/airlock_alien_prying.ogg', 50, 0)
 				return
 		to_chat(src, "<span class='danger'>There is no welded vent or scrubber close enough to do this.</span>")

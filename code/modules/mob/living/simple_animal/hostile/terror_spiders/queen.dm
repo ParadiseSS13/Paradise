@@ -43,8 +43,7 @@
 	var/canlay = 4 // main counter for egg-laying ability! # = num uses, incremented at intervals
 	var/eggslaid = 0
 	var/spider_can_fakelings = 3 // spawns defective spiderlings that don't grow up, used to freak out crew, atmosphere
-	var/list/spider_types_standard = list(/mob/living/simple_animal/hostile/poison/terror_spider/red, /mob/living/simple_animal/hostile/poison/terror_spider/gray, /mob/living/simple_animal/hostile/poison/terror_spider/green)
-	var/list/spider_types_advanced = list(/mob/living/simple_animal/hostile/poison/terror_spider/black, /mob/living/simple_animal/hostile/poison/terror_spider/purple, /mob/living/simple_animal/hostile/poison/terror_spider/brown, /mob/living/simple_animal/hostile/poison/terror_spider/white)
+	var/list/spider_types_standard = list(/mob/living/simple_animal/hostile/poison/terror_spider/red, /mob/living/simple_animal/hostile/poison/terror_spider/gray, /mob/living/simple_animal/hostile/poison/terror_spider/green, /mob/living/simple_animal/hostile/poison/terror_spider/black)
 	var/datum/action/innate/terrorspider/queen/queennest/queennest_action
 	var/datum/action/innate/terrorspider/queen/queensense/queensense_action
 	var/datum/action/innate/terrorspider/queen/queeneggs/queeneggs_action
@@ -190,10 +189,17 @@
 							var/obj/structure/spider/eggcluster/terror_eggcluster/N = locate() in get_turf(src)
 							if(!N)
 								spider_lastspawn = world.time
-								if(prob(0))
-									DoLayTerrorEggs(pick(spider_types_standard), 2, 0)
+								var num_purple = CountSpidersType(/mob/living/simple_animal/hostile/poison/terror_spider/purple)
+								var num_white = CountSpidersType(/mob/living/simple_animal/hostile/poison/terror_spider/white)
+								var num_brown = CountSpidersType(/mob/living/simple_animal/hostile/poison/terror_spider/brown)
+								if(num_purple < 4)
+									DoLayTerrorEggs(/mob/living/simple_animal/hostile/poison/terror_spider/purple, 2, 0)
+								else if(num_white < 2)
+									DoLayTerrorEggs(/mob/living/simple_animal/hostile/poison/terror_spider/white, 2, 0)
+								else if(num_brown < 2)
+									DoLayTerrorEggs(/mob/living/simple_animal/hostile/poison/terror_spider/brown, 2, 0)
 								else
-									DoLayTerrorEggs(pick(spider_types_advanced), 2, 0)
+									DoLayTerrorEggs(pick(spider_types_standard), 2, 0)
 
 /mob/living/simple_animal/hostile/poison/terror_spider/queen/proc/NestPrompt()
 	var/confirm = alert(src, "Are you sure you want to nest? You will be able to lay eggs, and smash walls, but not ventcrawl.","Nest?","Yes","No")
