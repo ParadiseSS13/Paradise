@@ -148,7 +148,7 @@
 		playsound(src, 'sound/machines/buzz-sigh.ogg', 30, 1)
 		return
 	visible_message("<span class='warning'>The console sparks, and some items fall out!</span>")
-	var/datum/effect/system/spark_spread/sparks = new
+	var/datum/effect_system/spark_spread/sparks = new
 	sparks.set_up(5, 1, src)
 	sparks.start()
 	for(var/obj/item/I in objective_items)
@@ -747,8 +747,9 @@
 		for(var/obj/item/O in I) // the things inside the tools, if anything; mainly for janiborg trash bags
 			O.loc = R
 		qdel(I)
-	R.module.remove_subsystems_and_actions(R)
-	qdel(R.module)
+	if(R.module)
+		R.module.remove_subsystems_and_actions(R)
+		qdel(R.module)
 
 	return ..()
 

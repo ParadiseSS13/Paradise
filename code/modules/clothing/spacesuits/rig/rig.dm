@@ -43,6 +43,7 @@
 	//Component/device holders.
 	var/obj/item/weapon/tank/air_supply                       // Air tank, if any.
 	var/obj/item/clothing/shoes/magboots/boots = null             // Deployable boots, if any.
+	var/obj/item/clothing/shoes/under_boots = null								//Boots that are between the feet and the rig boots, if any.
 	var/obj/item/clothing/suit/space/new_rig/chest                // Deployable chestpiece, if any.
 	var/obj/item/clothing/head/helmet/space/new_rig/helmet = null // Deployable helmet, if any.
 	var/obj/item/clothing/gloves/rig/gloves = null            // Deployable gauntlets, if any.
@@ -71,6 +72,7 @@
 	var/sealing                                               // Keeps track of seal status independantly of NODROP.
 	var/offline = 1                                           // Should we be applying suit maluses?
 	var/offline_slowdown = 3                                  // If the suit is deployed and unpowered, it sets slowdown to this.
+	var/active_slowdown = 3																		// How much the deployed suit slows down if powered.
 	var/vision_restriction
 	var/offline_vision_restriction = 1                        // 0 - none, 1 - welder vision, 2 - blind. Maybe move this to helmets.
 	var/airtight = 1 //If set, will adjust AIRTIGHT and STOPSPRESSUREDMAGE flags on components. Otherwise it should leave them untouched.
@@ -80,7 +82,7 @@
 
 	// Wiring! How exciting.
 	var/datum/wires/rig/wires
-	var/datum/effect/system/spark_spread/spark_system
+	var/datum/effect_system/spark_spread/spark_system
 
 /obj/item/weapon/rig/examine()
 	to_chat(usr, "This is [bicon(src)][src.name].")
@@ -108,7 +110,7 @@
 	spark_system.set_up(5, 0, src)
 	spark_system.attach(src)
 
-	processing_objects |= src
+	processing_objects.Add(src)
 
 	if(initial_modules && initial_modules.len)
 		for(var/path in initial_modules)
@@ -164,7 +166,7 @@
 		if(istype(M))
 			M.unEquip(piece)
 		qdel(piece)
-	processing_objects -= src
+	processing_objects.Remove(src)
 	QDEL_NULL(wires)
 	QDEL_NULL(spark_system)
 	return ..()
@@ -438,6 +440,15 @@
 				M.unEquip(piece)
 			piece.forceMove(src)
 
+	if(cell && cell.charge > 0 && electrified > 0)
+		electrified--
+
+	if(malfunction_delay > 0)
+		malfunction_delay--
+	else if(malfunctioning)
+		malfunctioning--
+		malfunction()
+
 	if(!istype(wearer) || loc != wearer || wearer.back != src || !(flags & NODROP) || !cell || cell.charge <= 0)
 		if(!cell || cell.charge <= 0)
 			if(electrified > 0)
@@ -462,7 +473,7 @@
 			offline = 0
 			if(istype(wearer) && !wearer.wearing_rig)
 				wearer.wearing_rig = src
-			chest.slowdown = initial(slowdown)
+			chest.slowdown = active_slowdown
 
 	if(offline)
 		if(offline == 1)
@@ -472,14 +483,6 @@
 			chest.slowdown = offline_slowdown
 		return
 
-	if(cell && cell.charge > 0 && electrified > 0)
-		electrified--
-
-	if(malfunction_delay > 0)
-		malfunction_delay--
-	else if(malfunctioning)
-		malfunctioning--
-		malfunction()
 
 	for(var/obj/item/rig_module/module in installed_modules)
 		cell.use(module.process()*10)
@@ -721,6 +724,12 @@
 					if(isliving(uneq_piece.loc))
 						var/mob/living/L = uneq_piece.loc
 						L.unEquip(uneq_piece, 1)
+						if(uneq_piece == boots)
+							if(under_boots)
+								if(L.equip_to_slot_if_possible(under_boots, slot_shoes))
+									under_boots = null
+								else
+									to_chat(user, "<span class='warning'>Somehow, your [under_boots] got stuck to the [boots], and were retracted with them. ((This shouldn't happen, bug report this.))</span>")
 					uneq_piece.forceMove(src)
 		return 0
 
@@ -767,7 +776,12 @@
 
 			if(to_strip)
 				to_strip.unEquip(use_obj, 1)
-
+				if(use_obj == boots)
+					if(under_boots)
+						if(to_strip.equip_to_slot_if_possible(under_boots, slot_shoes))
+							under_boots = null
+						else
+							to_chat(user, "<span class='warning'>Somehow, your [under_boots] got stuck to the [boots], and were retracted with them. ((This shouldn't happen, bug report this.))</span>")
 			use_obj.forceMove(src)
 			if(wearer)
 				to_chat(wearer, "<span class='notice'>Your [use_obj] [use_obj.gender == PLURAL ? "retract" : "retracts"] swiftly.")
@@ -775,8 +789,13 @@
 		else if(deploy_mode != ONLY_RETRACT)
 			if(check_slot)
 				if(check_slot != use_obj) //If use_obj is already in check_slot, silently bail. Otherwise, tell the user why the part didn't deploy.
-					to_chat(wearer, "<span class='danger'>You are unable to deploy \the [piece] as \the [check_slot] [check_slot.gender == PLURAL ? "are" : "is"] in the way.</span>")
-				return
+					if(use_obj == boots)
+						under_boots = check_slot
+						wearer.unEquip(under_boots)
+						under_boots.forceMove(src)
+					else
+						to_chat(wearer, "<span class='danger'>You are unable to deploy \the [piece] as \the [check_slot] [check_slot.gender == PLURAL ? "are" : "is"] in the way.</span>")
+						return
 			use_obj.forceMove(wearer)
 			if(!wearer.equip_to_slot_if_possible(use_obj, equip_to, 0, 1))
 				use_obj.forceMove(src)
@@ -798,9 +817,9 @@
 		if(gloves && wearer.gloves && wearer.gloves != gloves)
 			to_chat(user, "<span class='danger'>\The [wearer.gloves] is preventing \the [src] from deploying!</span>")
 			return 0
-		if(boots && wearer.shoes && wearer.shoes != boots)
+		/*if(boots && wearer.shoes && wearer.shoes != boots)
 			to_chat(user, "<span class='danger'>\The [wearer.shoes] is preventing \the [src] from deploying!</span>")
-			return 0
+			return 0*/
 		if(chest && wearer.wear_suit && wearer.wear_suit != chest)
 			to_chat(user, "<span class='danger'>\The [wearer.wear_suit] is preventing \the [src] from deploying!</span>")
 			return 0
@@ -836,10 +855,11 @@
 	take_hit((100/severity_class), "electrical pulse", 1)
 
 /obj/item/weapon/rig/proc/shock(mob/user)
-	if(electrocute_mob(user, cell, src)) //electrocute_mob() handles removing charge from the cell, no need to do that here.
-		spark_system.start()
-		if(user.stunned)
-			return 1
+	if(get_dist(src, user) <= 1) //Needs to be adjecant to the rig to get shocked.
+		if(electrocute_mob(user, cell, src)) //electrocute_mob() handles removing charge from the cell, no need to do that here.
+			spark_system.start()
+			if(user.stunned)
+				return 1
 	return 0
 
 /obj/item/weapon/rig/proc/take_hit(damage, source, is_emp=0)

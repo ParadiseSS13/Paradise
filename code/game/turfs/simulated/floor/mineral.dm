@@ -38,7 +38,8 @@
 /turf/simulated/floor/mineral/plasma/attackby(obj/item/weapon/W, mob/user, params)
 	if(is_hot(W) > 300)//If the temperature of the object is over 300, then ignite
 		message_admins("Plasma flooring was ignited by [key_name_admin(user)](<A HREF='?_src_=holder;adminmoreinfo=\ref[user]'>?</A>) (<A HREF='?_src_=holder;adminplayerobservefollow=\ref[user]'>FLW</A>) in ([x],[y],[z] - <A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[x];Y=[y];Z=[z]'>JMP</a>)",0,1)
-		log_game("Plasma flooring was ignited by [key_name(user)] in ([x],[y],[z])")
+		log_game("Plasma flooring was <b>ignited by [key_name(user)] in ([x],[y],[z])")
+		investigate_log("was <font color='red'><b>ignited</b></font> by [key_name(user)]","atmos")
 		ignite(is_hot(W))
 		return
 	..()
@@ -177,11 +178,11 @@
 	floor_tile = /obj/item/stack/tile/mineral/abductor
 	icons = list("alienpod1", "alienpod2", "alienpod3", "alienpod4", "alienpod5", "alienpod6", "alienpod7", "alienpod8", "alienpod9")
 
-/turf/simulated/floor/mineral/New()
+/turf/simulated/floor/mineral/abductor/New()
 	..()
 	icon_state = "alienpod[rand(1,9)]"
 
-/turf/simulated/floor/mineral/break_tile()
+/turf/simulated/floor/mineral/abductor/break_tile()
 	return //unbreakable
 
 /turf/simulated/floor/mineral/abductor/burn_tile()

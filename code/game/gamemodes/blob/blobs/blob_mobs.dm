@@ -97,7 +97,7 @@
 /mob/living/simple_animal/hostile/blob/blobspore/death(gibbed)
 	..()
 	// On death, create a small smoke of harmful gas (s-Acid)
-	var/datum/effect/system/chem_smoke_spread/S = new
+	var/datum/effect_system/smoke_spread/chem/S = new
 	var/turf/location = get_turf(src)
 
 	// Create the reagents to put into the air

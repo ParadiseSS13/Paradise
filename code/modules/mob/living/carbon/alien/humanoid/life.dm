@@ -1,10 +1,3 @@
-/mob/living/carbon/alien/humanoid
-	oxygen_alert = 0
-	toxins_alert = 0
-	fire_alert = 0
-	pass_flags = PASSTABLE
-
-
 /mob/living/carbon/alien/humanoid/Life()
 	. = ..()
 	update_icons()

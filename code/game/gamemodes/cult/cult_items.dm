@@ -165,7 +165,7 @@
 	if(current_charges)
 		owner.visible_message("<span class='danger'>\The [attack_text] is deflected in a burst of blood-red sparks!</span>")
 		current_charges--
-		new /obj/effect/overlay/temp/cult/sparks(get_turf(owner))
+		new /obj/effect/temp_visual/cult/sparks(get_turf(owner))
 		if(!current_charges)
 			owner.visible_message("<span class='danger'>The runed shield around [owner] suddenly disappears!</span>")
 			owner.update_inv_wear_suit()
@@ -235,7 +235,7 @@
 	icon = 'icons/obj/projectiles.dmi'
 	icon_state ="bluespace"
 	color = "#ff0000"
-	var/static/curselimit = 0
+	var/global/curselimit = 0
 
 /obj/item/device/shuttle_curse/attack_self(mob/user)
 	if(!iscultist(user))
@@ -246,6 +246,10 @@
 	if(curselimit > 1)
 		to_chat(user, "<span class='notice'>We have exhausted our ability to curse the shuttle.</span>")
 		return
+	if(locate(/obj/singularity/narsie) in poi_list || locate(/mob/living/simple_animal/slaughter/cult) in mob_list)
+		to_chat(user, "<span class='warning'>Nar-Sie or his avatars are already on this plane, there is no delaying the end of all things.</span>")
+		return
+
 	if(shuttle_master.emergency.mode == SHUTTLE_CALL)
 		var/cursetime = 1800
 		var/timer = shuttle_master.emergency.timeLeft(1) + cursetime
@@ -325,14 +329,14 @@
 		if(uses <= 0)
 			icon_state ="shifter_drained"
 		playsound(mobloc, "sparks", 50, 1)
-		new /obj/effect/overlay/temp/cult/phase/out(mobloc)
+		new /obj/effect/temp_visual/dir_setting/cult/phase/out(mobloc, C.dir)
 
 		var/atom/movable/pulled = handle_teleport_grab(destination, C)
 		C.forceMove(destination)
 		if(pulled)
 			C.start_pulling(pulled) //forcemove resets pulls, so we need to re-pull
 
-		new /obj/effect/overlay/temp/cult/phase(destination)
+		new /obj/effect/temp_visual/dir_setting/cult/phase(destination, C.dir)
 		playsound(destination, 'sound/effects/phasein.ogg', 25, 1)
 		playsound(destination, "sparks", 50, 1)
 

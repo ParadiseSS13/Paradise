@@ -278,7 +278,7 @@
 	updateUsrDialog()
 
 /obj/machinery/mineral/ore_redemption/ex_act(severity, target)
-	var/datum/effect/system/spark_spread/s = new /datum/effect/system/spark_spread
+	var/datum/effect_system/spark_spread/s = new /datum/effect_system/spark_spread
 	s.set_up(5, 1, src)
 	s.start()
 	if(severity == 1)
@@ -506,7 +506,7 @@
 	qdel(voucher)
 
 /obj/machinery/mineral/equipment_vendor/ex_act(severity, target)
-	var/datum/effect/system/spark_spread/s = new /datum/effect/system/spark_spread
+	var/datum/effect_system/spark_spread/s = new /datum/effect_system/spark_spread
 	s.set_up(5, 1, src)
 	s.start()
 	if(prob(50 / severity) && severity < 3)
@@ -562,7 +562,7 @@
 
 /obj/item/device/wormhole_jaunter/attack_self(mob/user)
 	var/turf/device_turf = get_turf(user)
-	if(!device_turf||is_teleport_allowed(device_turf.z))
+	if(!device_turf || !is_teleport_allowed(device_turf.z))
 		to_chat(user, "<span class='notice'>You're having difficulties getting the [src.name] to work.</span>")
 		return
 	else
@@ -906,10 +906,10 @@
 			minerals += M
 	if(minerals.len)
 		for(var/turf/simulated/mineral/M in minerals)
-			var/obj/effect/overlay/temp/mining_overlay/C = new/obj/effect/overlay/temp/mining_overlay(M)
+			var/obj/effect/temp_visual/mining_overlay/C = new/obj/effect/temp_visual/mining_overlay(M)
 			C.icon_state = M.scan_state
 
-/obj/effect/overlay/temp/mining_overlay
+/obj/effect/temp_visual/mining_overlay
 	layer = 18
 	icon = 'icons/turf/mining.dmi'
 	anchored = 1
@@ -1009,7 +1009,7 @@
 		var/target_turf = get_turf(target)
 		if(istype(target_turf, /turf/simulated/mineral))
 			var/turf/simulated/mineral/M = target_turf
-			new /obj/effect/overlay/temp/kinetic_blast(M)
+			new /obj/effect/temp_visual/kinetic_blast(M)
 			M.gets_drilled(firer)
 	..()
 
@@ -1035,7 +1035,7 @@
 		return
 	if(proximity_flag && target == mark && isliving(target))
 		var/mob/living/L = target
-		new /obj/effect/overlay/temp/kinetic_blast(get_turf(L))
+		new /obj/effect/temp_visual/kinetic_blast(get_turf(L))
 		mark = 0
 		if(L.mob_size >= MOB_SIZE_LARGE)
 			L.underlays -= marked_image

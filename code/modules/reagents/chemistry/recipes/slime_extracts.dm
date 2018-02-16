@@ -681,8 +681,7 @@
 
 /datum/chemical_reaction/slimeRNG/on_reaction(datum/reagents/holder)
 	feedback_add_details("slime_cores_used","[type]")
-	var/mob/living/carbon/slime/S = new /mob/living/carbon/slime
-	S.colour = pick("grey","orange", "metal", "blue", "purple", "dark purple", "dark blue", "green", "silver", "yellow", "gold", "yellow", "red", "silver", "pink", "cerulean", "sepia", "bluespace", "pyrite", "light pink", "oil", "adamantine", "black")
+	var/mob/living/carbon/slime/random/S = new /mob/living/carbon/slime/random
 	S.forceMove(get_turf(holder.my_atom))
 	S.visible_message("<span class='danger'>Infused with plasma, the core begins to quiver and grow, and soon a new baby slime emerges from it!</span>")
 

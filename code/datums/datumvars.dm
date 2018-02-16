@@ -795,24 +795,28 @@
 				A.create_reagents(amount)
 
 		if(A.reagents)
-			var/list/reagent_options = list()
-			for(var/r_id in chemical_reagents_list)
-				var/datum/reagent/R = chemical_reagents_list[r_id]
-				reagent_options[R.name] = r_id
-
-			if(reagent_options.len)
-				reagent_options = sortAssoc(reagent_options)
-				reagent_options.Insert(1, "CANCEL")
-
-				var/chosen = input(usr, "Choose a reagent to add.", "Choose a reagent.") in reagent_options
-				var/chosen_id = reagent_options[chosen]
-
-				if(chosen_id)
-					var/amount = input(usr, "Choose the amount to add.", "Choose the amount.", A.reagents.maximum_volume) as num
-					if(amount)
-						A.reagents.add_reagent(chosen_id, amount)
-						log_admin("[key_name(usr)] has added [amount] units of [chosen] to \the [A]")
-						message_admins("[key_name_admin(usr)] has added [amount] units of [chosen] to \the [A]")
+			var/chosen_id
+			var/list/reagent_options = sortAssoc(chemical_reagents_list)
+			switch(alert(usr, "Choose a method.", "Add Reagents", "Enter ID", "Choose ID"))
+				if("Enter ID")
+					var/valid_id
+					while(!valid_id)
+						chosen_id = stripped_input(usr, "Enter the ID of the reagent you want to add.")
+						if(!chosen_id) //Get me out of here!
+							break
+						for(var/ID in reagent_options)
+							if(ID == chosen_id)
+								valid_id = 1
+						if(!valid_id)
+							to_chat(usr, "<span class='warning'>A reagent with that ID doesn't exist!</span>")
+				if("Choose ID")
+					chosen_id = input(usr, "Choose a reagent to add.", "Choose a reagent.") as null|anything in reagent_options
+			if(chosen_id)
+				var/amount = input(usr, "Choose the amount to add.", "Choose the amount.", A.reagents.maximum_volume) as num
+				if(amount)
+					A.reagents.add_reagent(chosen_id, amount)
+					log_admin("[key_name(usr)] has added [amount] units of [chosen_id] to \the [A]")
+					message_admins("<span class='notice'>[key_name(usr)] has added [amount] units of [chosen_id] to \the [A]</span>")
 
 	else if(href_list["explode"])
 		if(!check_rights(R_DEBUG|R_EVENT))	return

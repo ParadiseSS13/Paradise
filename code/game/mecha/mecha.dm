@@ -37,7 +37,7 @@
 	var/maint_access = 1
 	var/dna	//dna-locking the mech
 	var/list/proc_res = list() //stores proc owners, like proc_res["functionname"] = owner reference
-	var/datum/effect/system/spark_spread/spark_system = new
+	var/datum/effect_system/spark_spread/spark_system = new
 	var/lights = 0
 	var/lights_power = 6
 	var/emagged = 0
@@ -98,8 +98,8 @@
 	log_message("[src] created.")
 	mechas_list += src //global mech list
 	prepare_huds()
-	var/datum/atom_hud/data/diagnostic/diag_hud = huds[DATA_HUD_DIAGNOSTIC]
-	diag_hud.add_to_hud(src)
+	for(var/datum/atom_hud/data/diagnostic/diag_hud in huds)
+		diag_hud.add_to_hud(src)
 	diag_hud_set_mechhealth()
 	diag_hud_set_mechcell()
 	diag_hud_set_mechstat()
@@ -447,7 +447,7 @@
 ////////  Health related procs  ////////
 ////////////////////////////////////////
 
-/obj/mecha/proc/take_damage(amount, type="brute")
+/obj/mecha/take_damage(amount, type="brute")
 	if(amount)
 		var/damage = absorbDamage(amount,type)
 		health -= damage

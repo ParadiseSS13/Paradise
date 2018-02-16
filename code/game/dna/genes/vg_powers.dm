@@ -205,7 +205,7 @@
 	var/list/targets = new /list()
 	var/list/validtargets = new /list()
 	var/turf/T = get_turf(user)
-	for(var/mob/M in range(14, T))
+	for(var/mob/living/M in range(14, T))
 		if(M && M.mind)
 			if(M == user)
 				continue

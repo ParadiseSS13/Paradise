@@ -54,13 +54,13 @@
 /obj/item/weapon/reagent_containers/food/pill/tox
 	name = "Toxins pill"
 	desc = "Highly toxic."
-	icon_state = "pill5"
+	icon_state = "pill21"
 	list_reagents = list("toxin" = 50)
 
 /obj/item/weapon/reagent_containers/food/pill/initropidril
 	name = "initropidril pill"
 	desc = "Don't swallow this."
-	icon_state = "pill5"
+	icon_state = "pill21"
 	list_reagents = list("initropidril" = 50)
 
 /obj/item/weapon/reagent_containers/food/pill/adminordrazine

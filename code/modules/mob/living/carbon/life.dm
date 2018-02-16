@@ -27,7 +27,7 @@
 
 //Start of a breath chain, calls breathe()
 /mob/living/carbon/handle_breathing()
-	if(mob_master.current_cycle%4==2 || failed_last_breath)
+	if(mob_master.current_cycle % 4 == 2 || failed_last_breath)
 		breathe() //Breathe per 4 ticks, unless suffocating
 	else
 		if(istype(loc, /obj/))
@@ -40,8 +40,6 @@
 		return
 	if(istype(loc, /obj/machinery/atmospherics/unary/cryo_cell))
 		return
-	if(NO_BREATH in mutations)
-		return // No breath mutation means no breathing.
 
 	var/datum/gas_mixture/environment
 	if(loc)
@@ -52,6 +50,7 @@
 	if(health <= config.health_threshold_crit)
 		AdjustLoseBreath(1)
 
+	//Suffocate
 	if(losebreath > 0)
 		AdjustLoseBreath(-1)
 		if(prob(10))
@@ -75,7 +74,6 @@
 					breath_moles = environment.total_moles()*BREATH_PERCENTAGE
 
 				breath = loc.remove_air(breath_moles)
-
 		else //Breathe from loc as obj again
 			if(istype(loc, /obj/))
 				var/obj/loc_as_obj = loc
@@ -90,14 +88,18 @@
 //Third link in a breath chain, calls handle_breath_temperature()
 /mob/living/carbon/proc/check_breath(datum/gas_mixture/breath)
 	if(status_flags & GODMODE)
-		return 0
+		return FALSE
+
+	var/lungs = get_organ_slot("lungs")
+	if(!lungs)
+		adjustOxyLoss(2)
 
 	//CRIT
-	if(!breath || (breath.total_moles() == 0))
+	if(!breath || (breath.total_moles() == 0) || !lungs)
 		adjustOxyLoss(1)
-		failed_last_breath = 1
-		throw_alert("oxy", /obj/screen/alert/oxy)
-		return 0
+		failed_last_breath = TRUE
+		throw_alert("not_enough_oxy", /obj/screen/alert/not_enough_oxy)
+		return FALSE
 
 	var/safe_oxy_min = 16
 	var/safe_co2_max = 10
@@ -117,20 +119,20 @@
 		if(prob(20))
 			emote("gasp")
 		if(O2_partialpressure > 0)
-			var/ratio = safe_oxy_min/O2_partialpressure
+			var/ratio = 1 - O2_partialpressure/safe_oxy_min
 			adjustOxyLoss(min(5*ratio, 3))
-			failed_last_breath = 1
-			oxygen_used = breath.oxygen*ratio/6
+			failed_last_breath = TRUE
+			oxygen_used = breath.oxygen*ratio
 		else
 			adjustOxyLoss(3)
-			failed_last_breath = 1
-		throw_alert("oxy", /obj/screen/alert/oxy)
+			failed_last_breath = TRUE
+		throw_alert("not_enough_oxy", /obj/screen/alert/not_enough_oxy)
 
 	else //Enough oxygen
-		failed_last_breath = 0
+		failed_last_breath = FALSE
 		adjustOxyLoss(-5)
-		oxygen_used = breath.oxygen/6
-		clear_alert("oxy")
+		oxygen_used = breath.oxygen
+		clear_alert("not_enough_oxy")
 
 	breath.oxygen -= oxygen_used
 	breath.carbon_dioxide += oxygen_used
@@ -146,17 +148,17 @@
 				adjustOxyLoss(8)
 		if(prob(20))
 			emote("cough")
+
 	else
 		co2overloadtime = 0
 
 	//TOXINS/PLASMA
 	if(Toxins_partialpressure > safe_tox_max)
 		var/ratio = (breath.toxins/safe_tox_max) * 10
-		if(reagents)
-			reagents.add_reagent("plasma", Clamp(ratio, MIN_PLASMA_DAMAGE, MAX_PLASMA_DAMAGE))
-		throw_alert("tox_in_air", /obj/screen/alert/tox_in_air)
+		adjustToxLoss(Clamp(ratio, MIN_TOXIC_GAS_DAMAGE, MAX_TOXIC_GAS_DAMAGE))
+		throw_alert("too_much_tox", /obj/screen/alert/too_much_tox)
 	else
-		clear_alert("tox_in_air")
+		clear_alert("too_much_tox")
 
 	//TRACE GASES
 	if(breath.trace_gases.len)
@@ -173,7 +175,7 @@
 	//BREATH TEMPERATURE
 	handle_breath_temperature(breath)
 
-	return 1
+	return TRUE
 
 //Fourth and final link in a breath chain
 /mob/living/carbon/proc/handle_breath_temperature(datum/gas_mixture/breath)
@@ -189,12 +191,9 @@
 					internal = null //turn off internals
 
 		if(internal)
-			update_internals_hud_icon(1)
 			return internal.remove_air_volume(volume_needed)
 		else
-			update_internals_hud_icon(0)
-
-	return
+			update_action_buttons_icon()
 
 /mob/living/carbon/handle_diseases()
 	for(var/thing in viruses)
