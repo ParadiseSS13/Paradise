@@ -46,6 +46,7 @@ var/list/holopads = list()
 	layer = TURF_LAYER+0.1 //Preventing mice and drones from sneaking under them.
 
 	var/list/masters = list()//List of living mobs that use the holopad
+	var/list/holorays = list()//Holoray-mob link.
 	var/last_request = 0 //to prevent request spam. ~Carn
 	var/holo_range = 5 // Change to change how far the AI can move away from the holopad before deactivating.
 	var/temp = ""
@@ -53,6 +54,7 @@ var/list/holopads = list()
 	var/datum/holocall/outgoing_call	//do not modify the datums only check and call the public procs
 	var/static/force_answer_call = FALSE	//Calls will be automatically answered after a couple rings, here for debugging
 	var/static/list/holopads = list()
+	var/obj/effect/overlay/holoray/ray
 
 /obj/machinery/hologram/holopad/New()
 	..()
@@ -291,6 +293,7 @@ var/list/holopads = list()
 		var/obj/effect/overlay/holo_pad_hologram/H = masters[user]
 		H.setDir(get_dir(H.loc, new_turf))
 		H.loc = new_turf
+		update_holoray(user, new_turf)
 		if(ishuman(user))
 			var/area/holo_area = get_area(src)
 			var/area/eye_area = get_area(new_turf.loc)
@@ -324,6 +327,7 @@ var/list/holopads = list()
 		hologram.anchored = 1//So space wind cannot drag it.
 		hologram.name = "[user.name] (hologram)"//If someone decides to right click.
 		hologram.set_light(2)	//hologram lighting
+		move_hologram()
 
 		set_holo(user, hologram)
 
@@ -366,11 +370,13 @@ For the other part of the code, check silicon say.dm. Particularly robot talk.*/
 
 /obj/machinery/hologram/holopad/proc/set_holo(mob/living/user, var/obj/effect/overlay/holo_pad_hologram/h)
 	masters[user] = h
+	holorays[user] = new /obj/effect/overlay/holoray(loc)
 	var/mob/living/silicon/ai/AI = user
 	if(istype(AI))
 		AI.current = src
 		h.forceMove(get_turf(AI.eyeobj))
 	SetLightsAndPower()
+	update_holoray(user, get_turf(loc))
 	return TRUE
 
 /obj/machinery/hologram/holopad/proc/clear_holo(mob/living/user)
@@ -383,8 +389,34 @@ For the other part of the code, check silicon say.dm. Particularly robot talk.*/
 	if(istype(AI) && AI.current == src)
 		AI.current = null
 	masters -= user // Discard AI from the list of those who use holopad
+	qdel(holorays[user])
+	holorays -= user
 	SetLightsAndPower()
 	return TRUE
+
+/obj/machinery/hologram/holopad/proc/update_holoray(mob/living/user, turf/new_turf)
+	var/obj/effect/overlay/holo_pad_hologram/holo = masters[user]
+	var/obj/effect/overlay/holoray/ray = holorays[user]
+	var/disty = holo.y - ray.y
+	var/distx = holo.x - ray.x
+	var/newangle
+	if(!disty)
+		if(distx >= 0)
+			newangle = 90
+		else
+			newangle = 270
+	else
+		newangle = arctan(distx/disty)
+		if(disty < 0)
+			newangle += 180
+		else if(distx < 0)
+			newangle += 360
+	var/matrix/M = matrix()
+	if (get_dist(get_turf(holo),new_turf) <= 1)
+		animate(ray, transform = turn(M.Scale(1,sqrt(distx*distx+disty*disty)),newangle),time = 1)
+	else
+		ray.transform = turn(M.Scale(1,sqrt(distx*distx+disty*disty)),newangle)
+
 
 /obj/effect/overlay/holo_pad_hologram
 	var/mob/living/Impersonation
@@ -403,6 +435,19 @@ For the other part of the code, check silicon say.dm. Particularly robot talk.*/
 	if(Impersonation)
 		return Impersonation.examine(user)
 	return ..()
+
+
+/obj/effect/overlay/holoray
+	name = "holoray"
+	icon = 'icons/effects/96x96.dmi'
+	icon_state = "holoray"
+	layer = FLY_LAYER
+	density = FALSE
+	anchored = TRUE
+	mouse_opacity = 1
+	pixel_x = -32
+	pixel_y = -32
+	alpha = 100
 
 /*
  * Other Stuff: Is this even used?
