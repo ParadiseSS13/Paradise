@@ -14,4 +14,7 @@
 		var/datum/soullink/S = s
 		S.sharerDies(gibbed, src)
 
+	med_hud_set_health()
+	med_hud_set_status()
+
 	..(gibbed)
