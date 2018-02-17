@@ -5,7 +5,7 @@
       <span class="ms">{{ping}}ms</span>
     </div>
     <div id="options">
-      <a href="#" v-on:click.prevent="showOptions = !showOptions" class="toggle" title="Options">
+      <a href="#" v-on:click.prevent.stop="showOptions = !showOptions" class="toggle" title="Options">
         <i class="icon-cog"></i>
       </a>
       <div v-if="showOptions" v-click-outside="hide" class="sub" style="display: block">
