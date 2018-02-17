@@ -6,7 +6,10 @@
        class="chatContent"
        :style="style"
        :messages="messages"
-       />
+       v-on:click.native="handleClick($event)"
+       v-on:mousedown.native="handleMousedown($event)"
+       v-on:mouseup.native="handleMouseup($event)"
+    />
     <div
        v-if="noResponse"
        :style="style"
@@ -27,6 +30,12 @@ import macros from './utils/macros';
 const cookieStyleFields = {
   fontsize: 'font-size',
   fonttype: 'font-family',
+}
+
+const mouseInfo = {
+  downX: 0,
+  downY: 0,
+  tolerance: 10,
 }
 
 let intervalId;
@@ -125,10 +134,6 @@ export default {
       cookies.setCookie('fontsize', newFontsize, 365);
     },
     handleKeydown: function(event) {
-      if (event.target.nodeName === 'INPUT' || event.target.nodeName === 'TEXTAREA') {
-        return;
-      }
-
       event.preventDefault();
 
       // Hardcoded because else there would be no feedback message.
@@ -149,6 +154,34 @@ export default {
         return;
       }
 
+      this.focusMap();
+    },
+    handleClick: function(event) {
+      // Handle byond links and open external links in external browser
+      if (event.target.nodeName === 'A') {
+        event.preventDefault();
+        const href = event.target.getAttribute('href');
+
+        if (href[0] === '?' || href.startsWith('byond://')) {
+          runByond(href);
+          return;
+        }
+
+        runByond('?action=openLink&link=' + encodeURIComponent(href));
+      }
+    },
+    handleMousedown: function(event) {
+      mouseInfo.downX = event.pageX;
+      mouseInfo.downY = event.pageY;
+    },
+    handleMouseup: function(event) {
+      if (Math.abs(mouseInfo.downX - event.pageX) <= mouseInfo.tolerance &&
+          Math.abs(mouseInfo.downY - event.pageY) <= mouseInfo.tolerance) {
+        // Focus map after all other event handlers finish
+        setTimeout(this.focusMap, 0);
+      }
+    },
+    focusMap: function() {
       runByond('byond://winset?mapwindow.map.focus=true');
     },
   }

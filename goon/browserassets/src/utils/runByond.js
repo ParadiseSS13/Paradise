@@ -1,3 +1,3 @@
 export default function runByond(uri) {
-	window.location = uri;
+  window.location = uri;
 }
