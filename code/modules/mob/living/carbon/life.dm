@@ -21,7 +21,7 @@
 		germ_level++
 		
 	if(mind && mind.assigned_role != "Cluwne" && ckey == "alexkar598")
-		H.makeCluwne()
+		makeCluwne()
 
 
 ///////////////
