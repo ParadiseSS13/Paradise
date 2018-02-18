@@ -3,6 +3,7 @@
     <ChatToolbar
        :ping="ping"
        :onIncreaseFontsize="increaseFontsize"
+       :onRequestFontChange="() => fontSelectOpen = true"
        :getChatHtml="getChatHtml"
        :onClearMessages="onClearMessages"
        :settings="settings"
@@ -25,12 +26,14 @@
        :class="{restored: restored}">
       {{errorMessage}}
     </div>
+    <FontSelect :onFontChange="changeFontFamily" :open.sync="fontSelectOpen" />
   </div>
 </template>
 
 <script>
 import ChatContent from './components/ChatContent.vue';
 import ChatToolbar from './components/ChatToolbar.vue';
+import FontSelect from './components/FontSelect.vue';
 import runByond from './utils/runByond';
 import cookies from './utils/cookies';
 import macros from './utils/macros';
@@ -53,6 +56,7 @@ export default {
   components: {
     ChatContent,
     ChatToolbar,
+    FontSelect,
   },
   data: function() {
     return {
@@ -66,6 +70,7 @@ export default {
       noResponse: false,
       restored: false,
       errorMessage: '',
+      fontSelectOpen: false,
     }
   },
   props: {
@@ -96,6 +101,7 @@ export default {
     runByond('byond://winset?id=mainwindow&macro=macro');
     runByond('byond://winget?callback=wingetMacros&id=hotkeymode.*&property=command');
     runByond('?_src_=chat&proc=doneLoading');
+
     intervalId = setInterval(this.checkConnection, 2000);
     document.addEventListener('keydown', this.handleKeydown);
   },
@@ -143,6 +149,10 @@ export default {
       const newFontsize = `${parseInt(currentFontsize) + amount}px`;
       this.style['font-size'] = newFontsize;
       cookies.setCookie('fontsize', newFontsize, 365);
+    },
+    changeFontFamily: function(newFontFamily) {
+      this.style['font-family'] = newFontFamily;
+      cookies.setCookie('fonttype', newFontFamily, 365);
     },
     handleKeydown: function(event) {
       event.preventDefault();
