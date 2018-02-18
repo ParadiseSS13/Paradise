@@ -4,6 +4,7 @@
        :ping="ping"
        :onIncreaseFontsize="increaseFontsize"
        :getChatHtml="getChatHtml"
+       :onClearMessages="onClearMessages"
     />
     <ChatContent
        ref="chatContent"
@@ -65,7 +66,7 @@ export default {
     messages: Array,
     output: Function,
     ehjaxInfo: Object,
-    onSetClientData: Function,
+    onClearMessages: Function,
   },
   computed: {
     cookieLoaded: function() {

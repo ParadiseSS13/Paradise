@@ -6,7 +6,7 @@ import macros from './utils/macros';
 
 Vue.config.productionTip = false;
 
-let messages = [];
+const messages = [];
 let messageLimit = 2053;
 let nextMessageId = 0;
 let clientData = [];
@@ -28,8 +28,8 @@ window.ehjaxCallback = ehjaxCallback;
 // Callback for winget.
 window.wingetMacros = macros.wingetMacros;
 
-function setClientData(newClientData) {
-  clientData = newClientData;
+function clearMessages() {
+  messages.splice(0, messages.length);
 }
 
 export default function output(message, flag='') {
@@ -62,14 +62,14 @@ new Vue({
     messages: messages,
     output: output,
     ehjaxInfo: ehjaxInfo,
-    onSetClientData: setClientData,
+    onClearMessages: clearMessages,
   },
   render: createElement => createElement(App, {
     props: {
       messages: messages,
       output: output,
       ehjaxInfo: ehjaxInfo,
-      onSetClientData: setClientData,
+      onClearMessages: clearMessages,
     }
   }),
 }).$mount('#app');
