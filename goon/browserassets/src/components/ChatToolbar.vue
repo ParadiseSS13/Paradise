@@ -19,7 +19,7 @@
         <a href="#" class="chooseFont">
           Change font <i class="icon-font"></i>
         </a>
-        <a href="#" class="toggleHideSpam">
+        <a href="#" v-on:click.prevent="toggleHidespam" class="toggleHideSpam">
           <span>Condense chat</span> <i class="icon-ban-circle"></i>
         </a>
         <a href="#" v-on:click.prevent="showPing = !showPing" class="togglePing">
@@ -75,6 +75,8 @@ export default {
     onIncreaseFontsize: Function,
     getChatHtml: Function,
     onClearMessages: Function,
+    settings: Object,
+    onUpdateSettings: Function,
   },
   computed: {
     pingCircleColor() {
@@ -127,6 +129,9 @@ export default {
       xmlHttp.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
       xmlHttp.send(null);
       return;
+    },
+    toggleHidespam() {
+      this.onUpdateSettings('hidespam', !this.settings.hidespam);
     },
   },
 }

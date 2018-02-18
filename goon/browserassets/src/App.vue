@@ -5,12 +5,15 @@
        :onIncreaseFontsize="increaseFontsize"
        :getChatHtml="getChatHtml"
        :onClearMessages="onClearMessages"
+       :settings="settings"
+       :onUpdateSettings="updateSettings"
     />
     <ChatContent
        ref="chatContent"
        class="chatContent"
        :style="style"
        :messages="messages"
+       :shouldCondenseChat="settings.hidespam"
        v-on:click.native="handleClick($event)"
        v-on:mousedown.native="handleMousedown($event)"
        v-on:mouseup.native="handleMouseup($event)"
@@ -56,6 +59,9 @@ export default {
       style: {
 	'font-size': '14px',
 	'font-family': 'Verdana',
+      },
+      settings: {
+        hidespam: true,
       },
       noResponse: false,
       restored: false,
@@ -191,6 +197,10 @@ export default {
     },
     getChatHtml: function() {
       return this.$refs.chatContent.$el.outerHTML;
+    },
+    updateSettings: function(setting, value) {
+      this.settings[setting] = value;
+      console.log(value);
     },
   }
 }
