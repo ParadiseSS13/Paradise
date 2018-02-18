@@ -31,7 +31,7 @@
         <a href="#" v-on:click.prevent="saveChatLog" class="saveLog">
           <span>Save chat log</span> <i class="icon-save"></i>
         </a>
-        <a href="#" class="clearMessages">
+        <a href="#" v-on:click.prevent="onClearMessages" class="clearMessages">
           <span>Clear all messages</span> <i class="icon-eraser"></i>
         </a>
       </div>
@@ -74,6 +74,7 @@ export default {
     ping: Number,
     onIncreaseFontsize: Function,
     getChatHtml: Function,
+    onClearMessages: Function,
   },
   computed: {
     pingCircleColor() {
