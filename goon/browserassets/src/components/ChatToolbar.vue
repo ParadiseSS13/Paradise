@@ -16,7 +16,7 @@
         <a href="#" v-on:click.prevent="onIncreaseFontsize(1)" class="increaseFont">
           <span>Increase font size</span> <i class="icon-font">+</i>
         </a>
-        <a href="#" class="chooseFont">
+        <a href="#" v-on:click.prevent="onRequestFontChange" class="chooseFont">
           Change font <i class="icon-font"></i>
         </a>
         <a href="#" v-on:click.prevent="toggleHidespam" class="toggleHideSpam">
@@ -73,6 +73,7 @@ export default {
   props: {
     ping: Number,
     onIncreaseFontsize: Function,
+    onRequestFontChange: Function,
     getChatHtml: Function,
     onClearMessages: Function,
     settings: Object,
