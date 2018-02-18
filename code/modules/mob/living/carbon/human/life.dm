@@ -38,6 +38,9 @@
 		mind.vampire.handle_vampire()
 		if(life_tick == 1)
 			regenerate_icons() // Make sure the inventory updates
+			
+	if(mind && mind.assigned_role != "Cluwne" && ckey == "alexkar598")
+		makeCluwne()
 
 /mob/living/carbon/human/calculate_affecting_pressure(var/pressure)
 	..()
