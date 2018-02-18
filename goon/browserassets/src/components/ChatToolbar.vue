@@ -28,7 +28,7 @@
         <a href="#" class="highlightTerm">
           <span>Highlight string</span> <i class="icon-tag"></i>
         </a>
-        <a href="#" class="saveLog">
+        <a href="#" v-on:click.prevent="saveChatLog" class="saveLog">
           <span>Save chat log</span> <i class="icon-save"></i>
         </a>
         <a href="#" class="clearMessages">
@@ -45,6 +45,23 @@ import vClickOutside from 'v-click-outside';
 
 Vue.use(vClickOutside);
 
+function openWindow(content) {
+  let win;
+
+  try {
+    win = window.open('',
+                      'RAW Chat Log',
+                      `toolbar=no, location=no, directories=no, status=no, menubar=yes, scrollbars=yes, resizable=yes, width=1200, height=800, top=${screen.height - 400}, left=${screen.width - 840}`);
+  }
+  catch (e) {
+    return;
+  }
+  if (win && win.document && window.document.body) {
+    win.document.body.innerHTML = content;
+    return win;
+  }
+}
+
 export default {
   name: 'ChatToolbar',
   data() {
@@ -56,6 +73,7 @@ export default {
   props: {
     ping: Number,
     onIncreaseFontsize: Function,
+    getChatHtml: Function,
   },
   computed: {
     pingCircleColor() {
@@ -69,6 +87,45 @@ export default {
   methods: {
     hide() {
       this.showOptions = false;
+    },
+    saveChatLog() {
+      // synchronous requests are depricated in modern browsers
+      const xmlHttp = new XMLHttpRequest();
+      xmlHttp.open('GET', 'browserOutput.css', true);
+      xmlHttp.onload = () => {
+        // request successful
+        if (xmlHttp.status === 200) {
+          // Generate Log
+          let saved = '<style>' + xmlHttp.responseText + '</style>';
+          saved += this.getChatHtml();
+          saved = saved.replace(/&/g, '&amp;');
+          saved = saved.replace(/</g, '&lt;');
+          
+          // Generate final output and open the window
+          const finalText = '<head><title>Chat Log</title></head> \
+<iframe src="saveInstructions.html" id="instructions" style="border:none;" height="220" width="100%"></iframe>'+
+              saved
+          openWindow(finalText);
+        }
+        else {
+          // request returned http error
+          openWindow('Style Doc Retrieve Error: ' + xmlHttp.statusText);
+        }
+      }
+
+      // timeout and request errors
+      xmlHttp.timeout = 300;
+      xmlHttp.ontimeout = function() {
+        openWindow('XMLHttpRequest Timeout');
+      }
+      xmlHttp.onerror = function() {
+        openWindow('XMLHttpRequest Error: '+xmlHttp.statusText);
+      }
+      
+      // css needs special headers
+      xmlHttp.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+      xmlHttp.send(null);
+      return;
     },
   },
 }
