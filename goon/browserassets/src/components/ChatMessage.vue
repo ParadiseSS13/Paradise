@@ -2,7 +2,7 @@
   <div>
     <span v-html="processed" />
     <span
-       v-if="message.count > 1"
+       v-if="shouldCondenseChat && message.count > 1"
        class="repeatBadge"
        :style="{animation: badgeStyle}">
       x{{message.count}}
@@ -27,10 +27,15 @@ export default {
     snapToBottom: Function,
     onUnmount: Function,
     onNewUnseenMessage: Function,
+    shouldCondenseChat: Boolean,
   },
   computed: {
     processed: function() {
-      return this.message.process();
+      const processedMessage = this.message.process();
+      if (this.shouldCondenseChat) {
+        return processedMessage;
+      }
+      return Array(this.message.count).fill(processedMessage).join('<br>');
     },
     count: function() {
       return this.message.count;
@@ -42,6 +47,9 @@ export default {
       clearTimeout(timerId);
       timerId = setTimeout(() => {this.badgeStyle = ''}, 200);
     },
+  },
+  updated: function() {
+    this.height = this.$el.offsetHeight;
   },
   beforeMount: function() {
     this.shouldSnapToBottom = this.atBottom();

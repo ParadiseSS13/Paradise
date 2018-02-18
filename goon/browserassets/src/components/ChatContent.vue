@@ -8,6 +8,7 @@
       :snapToBottom="snapToBottom"
       :onUnmount="scrollUp"
       :onNewUnseenMessage="newUnseenMessage"
+      :shouldCondenseChat="shouldCondenseChat"
     />
     <a href="#" v-on:click.prevent="snapToBottom" v-if="newMessages > 0" id="newMessages">
       <span>{{newMessages}} new message{{newMessages > 1 ? 's' : ''}}</span>
@@ -31,6 +32,7 @@ export default {
   },
   props: {
     messages: Array,
+    shouldCondenseChat: Boolean,
   },
   computed: {
     lastMessageId: function() {
