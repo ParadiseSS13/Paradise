@@ -1,6 +1,10 @@
 <template>
   <div id="app">
-    <ChatToolbar :ping="ping" :onIncreaseFontsize="increaseFontsize" />
+    <ChatToolbar
+       :ping="ping"
+       :onIncreaseFontsize="increaseFontsize"
+       :getChatHtml="getChatHtml"
+    />
     <ChatContent
        ref="chatContent"
        class="chatContent"
@@ -183,6 +187,9 @@ export default {
     },
     focusMap: function() {
       runByond('byond://winset?mapwindow.map.focus=true');
+    },
+    getChatHtml: function() {
+      return this.$refs.chatContent.$el.outerHTML;
     },
   }
 }
