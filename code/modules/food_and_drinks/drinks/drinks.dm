@@ -359,10 +359,10 @@
 	name = "Drink bag"
 	desc = "Normally put in wine boxes, or down pants at stadium events."
 	icon_state = "goonbag"
-	volume = 150
+	volume = 70
 
 /obj/item/weapon/reagent_containers/food/drinks/bag/goonbag
 	name = "Goon from a Blue Toolbox special edition"
 	desc = "Wine from the land down under, where the dingos roam and the roos do wander."
 	icon_state = "goonbag"
-	list_reagents = list("wine" = 150)
+	list_reagents = list("wine" = 70)
