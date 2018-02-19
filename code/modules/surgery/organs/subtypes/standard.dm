@@ -106,8 +106,9 @@
 	amputation_point = "left ankle"
 	can_stand = 1
 
-/obj/item/organ/external/foot/remove()
-	if(owner && owner.shoes) owner.unEquip(owner.shoes)
+/obj/item/organ/external/foot/droplimb()
+	if(owner && owner.shoes)
+		owner.unEquip(owner.shoes)
 	. = ..()
 
 /obj/item/organ/external/foot/right
@@ -131,7 +132,7 @@
 	amputation_point = "left wrist"
 	can_grasp = 1
 
-/obj/item/organ/external/hand/remove()
+/obj/item/organ/external/hand/droplimb()
 	if(owner)
 		if(owner.gloves)
 			owner.unEquip(owner.gloves)
@@ -180,7 +181,7 @@
 	var/sec_facial_colour = "#000000"
 	var/f_style = "Shaved"
 
-/obj/item/organ/external/head/remove()
+/obj/item/organ/external/head/droplimb()
 	if(owner)
 		if(!istype(dna))
 			dna = owner.dna.Clone()

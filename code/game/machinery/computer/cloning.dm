@@ -363,7 +363,7 @@
 	if(subject.get_int_organ(/obj/item/organ/internal/brain))
 		var/obj/item/organ/internal/brain/Brn = subject.get_int_organ(/obj/item/organ/internal/brain)
 		if(istype(Brn))
-			var/datum/species/S = all_species[Brn.dna.species] // stepladder code wooooo
+			var/datum/species/S = all_species[Brn.dna.species.name] // stepladder code wooooo
 			if(NO_SCAN in S.species_traits)
 				scantemp = "<span class=\"bad\">Error: Subject's brain is incompatible.</span>"
 				nanomanager.update_uis(src)
@@ -402,7 +402,7 @@
 		var/obj/item/organ/B = subject.get_int_organ(/obj/item/organ/internal/brain)
 		B.dna.check_integrity()
 		R.dna=B.dna.Clone()
-		var/datum/species/S = all_species[R.dna.species]
+		var/datum/species/S = all_species[R.dna.species.name]
 		if(NO_SCAN in S.species_traits)
 			extra_info = "Proper genetic interface not found, defaulting to genetic data of the body."
 			R.dna.species = subject.dna.species.name
