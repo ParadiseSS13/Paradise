@@ -1,6 +1,6 @@
 <template>
   <div>
-    <span v-html="processed" />
+    <span v-show="filters[messageType]" ref="messageContent" v-html="processed" />
     <span
        v-if="shouldCondenseChat && message.count > 1"
        class="repeatBadge"
@@ -11,8 +11,31 @@
 </template>
 
 <script>
+import filterClasses from './filterClasses';
 const bubbleAnimation = 'fontbubble 0.2s infinite';
-let timerId = null;
+
+function determineMessageType(element) {
+  const classNames = element.className.split(' ');
+
+  for (const [filterName, classes] of Object.entries(filterClasses)) {
+    if (classNames.some(className => classes.includes(className))) {
+      return filterName;
+    }
+  }
+
+  if (classNames.some(className => className.includes('radio'))) {
+    return 'radios';
+  }
+
+  for (const child of element.children) {
+    const childType = determineMessageType(child);
+    if (childType) {
+      return childType;
+    }
+  }
+
+  return null;
+}
 
 export default {
   name: 'ChatMessage',
@@ -21,6 +44,8 @@ export default {
     height: 0,
     shouldSnapToBottom: false,
     emojiEnabled: false,
+    timerId: null,
+    messageType: 'other',
   }),
   props: {
     message: Object,
@@ -29,6 +54,8 @@ export default {
     onUnmount: Function,
     onNewUnseenMessage: Function,
     shouldCondenseChat: Boolean,
+    filters: Object,
+    onNewMessage: Function,
   },
   computed: {
     processed: function() {
@@ -45,8 +72,8 @@ export default {
   watch: {
     count() {
       this.badgeStyle = bubbleAnimation;
-      clearTimeout(timerId);
-      timerId = setTimeout(() => {this.badgeStyle = ''}, 200);
+      clearTimeout(this.timerId);
+      this.timerId = setTimeout(() => {this.badgeStyle = ''}, 200);
     },
   },
   updated: function() {
@@ -58,7 +85,10 @@ export default {
   mounted: function() {
     this.height = this.$el.offsetHeight;
     this.emojiEnabled = this.shouldEmojify();
-
+    this.setMessageType();
+    if (this.filters[this.messageType]) {
+      this.onNewMessage();
+    }
     if (this.shouldSnapToBottom) {
       this.snapToBottom();
       return;
@@ -73,7 +103,9 @@ export default {
     shouldEmojify: function() {
       return this.$el.querySelector('.emoji_enabled') !== null;
     },
+    setMessageType: function() {
+      this.messageType = determineMessageType(this.$refs.messageContent.firstChild) || 'other';
+    },
   },
 }
 </script>
-

@@ -1,5 +1,10 @@
 <template>
-  <div id="userBar">
+  <div>
+    <div class="newTab">
+      <a href="#" v-on:click.prevent.stop="onNewTab" class="toggle" title="Options">
+        <i class="icon-plus" />
+      </a>
+    </div>
     <div v-if="showPing" id="ping">
       <i :style="pingCircleColor" class="icon-circle"></i>
       <span class="ms">{{ping}}ms</span>
@@ -40,11 +45,6 @@
 </template>
 
 <script>
-import Vue from 'vue';
-import vClickOutside from 'v-click-outside';
-
-Vue.use(vClickOutside);
-
 function openWindow(content) {
   let win;
 
@@ -78,6 +78,7 @@ export default {
     onClearMessages: Function,
     settings: Object,
     onUpdateSettings: Function,
+    onNewTab: Function,
   },
   computed: {
     pingCircleColor() {
