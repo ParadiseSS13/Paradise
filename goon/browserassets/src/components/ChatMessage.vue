@@ -20,6 +20,7 @@ export default {
     badgeStyle: '',
     height: 0,
     shouldSnapToBottom: false,
+    emojiEnabled: false,
   }),
   props: {
     message: Object,
@@ -31,7 +32,7 @@ export default {
   },
   computed: {
     processed: function() {
-      const processedMessage = this.message.process();
+      const processedMessage = this.message.process(this.emojiEnabled);
       if (this.shouldCondenseChat) {
         return processedMessage;
       }
@@ -56,6 +57,7 @@ export default {
   },
   mounted: function() {
     this.height = this.$el.offsetHeight;
+    this.emojiEnabled = this.shouldEmojify();
 
     if (this.shouldSnapToBottom) {
       this.snapToBottom();
@@ -66,6 +68,11 @@ export default {
   },
   beforeDestroy: function() {
     this.onUnmount(this.height);
+  },
+  methods: {
+    shouldEmojify: function() {
+      return this.$el.querySelector('.emoji_enabled') !== null;
+    },
   },
 }
 </script>
