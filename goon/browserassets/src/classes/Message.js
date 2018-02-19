@@ -1,3 +1,6 @@
+import twemoji from 'twemoji';
+import emoji_map from '../utils/unicode_9_annotations';
+
 class Message {
   constructor(message, messageId, preventLink=false, count=1) {
     // Basically we url_encode twice server side so we can manually read the encoded version and actually do UTF-8.
@@ -13,7 +16,7 @@ class Message {
   }
   //Shit fucking piece of crap that doesn't work god fuckin damn it
   linkify(text) {
-    const rex = /((?:<a|<iframe|<img)(?:.*?(?:src=["']|href=["']).*?))?(?:(?:https?:\/\/)|(?:www\.))+(?:[^ ]*?\.[^ ]*?)+[-A-Za-z0-9+&@#\/%?=~_|$!:,.;]+/ig;
+    const rex = /((?:<a|<iframe|<img)(?:.*?(?:src=["']|href=["']).*?))?(?:(?:https?:\/\/)|(?:www\.))+(?:[^ ]*?\.[^ ]*?)+[-A-Za-z0-9+&@#/%?=~_|$!:,.;]+/ig;
     return text.replace(rex, function ($0, $1) {
       if(/^https?:\/\/.+/i.test($0)) {
 	return $1 ? $0: '<a href="'+$0+'">'+$0+'</a>';
@@ -24,11 +27,24 @@ class Message {
     });
   }
 
-  process() {
-    if (this.preventLink) {
-      return this.message;
+  emojify(text) {
+    const html = text.replace(/:(.*?):/g,
+                              (match, p1) => emoji_map[p1] || match);
+    return twemoji.parse(html, {size: 'svg', ext: '.svg'});
+  }
+
+  process(emoji=false) {
+    let out = this.message;
+
+    if (emoji) {
+      out = this.emojify(out);
     }
-    return this.linkify(this.message);
+
+    if (this.preventLink) {
+      return out;
+    }
+
+    return this.linkify(out);
   }
 }
 
