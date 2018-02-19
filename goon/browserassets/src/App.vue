@@ -1,5 +1,14 @@
 <template>
   <div id="app">
+    <ChatTabBar
+       v-if="tabs.length > 1"
+       :style="style"
+       :tabs="tabs"
+       :activeTabIdx.sync="activeTabIdx"
+       :onTabRename="updateTabName"
+       :onSetFilter="updateTabFilter"
+       :onCloseTab="closeTab"
+    />
     <ChatToolbar
        :ping="ping"
        :onIncreaseFontsize="increaseFontsize"
@@ -8,13 +17,22 @@
        :onClearMessages="onClearMessages"
        :settings="settings"
        :onUpdateSettings="updateSettings"
+       :onNewTab="addTab"
     />
     <ChatContent
+       v-for="(tab, tabIdx) in tabs"
+       v-show="activeTabIdx === tabIdx"
+       :key="tabIdx"
        ref="chatContent"
        class="chatContent"
-       :style="style"
+       :style="[style, chatContentStyle]"
        :messages="messages"
        :shouldCondenseChat="settings.hidespam"
+       :filters="tab.filters"
+       :active="activeTabIdx === tabIdx"
+       :tabIdx="tabIdx"
+       :unread.sync="tab.unread"
+       :onUpdateTabUnread="updateTabUnread"
        v-on:click.native="handleClick($event)"
        v-on:mousedown.native="handleMousedown($event)"
        v-on:mouseup.native="handleMouseup($event)"
@@ -33,10 +51,16 @@
 <script>
 import ChatContent from './components/ChatContent.vue';
 import ChatToolbar from './components/ChatToolbar.vue';
+import ChatTabBar from './components/ChatTabBar.vue';
 import FontSelect from './components/FontSelect.vue';
+import Tab from './classes/Tab';
 import runByond from './utils/runByond';
 import cookies from './utils/cookies';
 import macros from './utils/macros';
+import vClickOutside from 'v-click-outside';
+import Vue from 'vue';
+
+Vue.use(vClickOutside);
 
 const cookieStyleFields = {
   fontsize: 'font-size',
@@ -56,6 +80,7 @@ export default {
   components: {
     ChatContent,
     ChatToolbar,
+    ChatTabBar,
     FontSelect,
   },
   data: function() {
@@ -67,6 +92,10 @@ export default {
       settings: {
         hidespam: true,
       },
+      tabs: [
+        new Tab('Main'),
+      ],
+      activeTabIdx: 0,
       noResponse: false,
       restored: false,
       errorMessage: '',
@@ -85,6 +114,9 @@ export default {
     },
     ping: function() {
       return Math.ceil((this.ehjaxInfo.pongTime - this.ehjaxInfo.pingTime) / 2);
+    },
+    chatContentStyle: function () {
+      return this.tabs.length > 1 ? {'padding-top': '42px'} : {};
     },
   },
   watch: {
@@ -211,6 +243,27 @@ export default {
     updateSettings: function(setting, value) {
       this.settings[setting] = value;
       console.log(value);
+    },
+    updateTabName: function(tabIdx, newName) {
+      this.tabs[tabIdx].name = newName;
+    },
+    updateTabFilter: function(tabIdx, filterName, newValue) {
+      if (filterName === 'All') {
+        const tab = this.tabs[tabIdx];
+        const allEnabled = Object.values(tab.filters).every(val => val);
+        Object.keys(tab.filters).map(filterName => tab.filters[filterName] = !allEnabled);
+        return;
+      }
+      this.tabs[tabIdx].filters[filterName] = newValue;
+    },
+    addTab: function() {
+      this.tabs.push(new Tab());
+    },
+    closeTab: function(tabIdx) {
+      this.tabs.splice(tabIdx, 1);
+    },
+    updateTabUnread: function(tabIdx, newValue) {
+      this.tabs[tabIdx].unread = newValue;
     },
   }
 }
