@@ -215,6 +215,7 @@
 #include "code\datums\mind.dm"
 #include "code\datums\mixed.dm"
 #include "code\datums\modules.dm"
+#include "code\datums\mutable_appearance.dm"
 #include "code\datums\periodic_news.dm"
 #include "code\datums\progressbar.dm"
 #include "code\datums\recipe.dm"
