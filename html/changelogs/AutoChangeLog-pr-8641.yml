@@ -1,5 +1,0 @@
-author: "Alffd"
-delete-after: True
-changes: 
-  - tweak: "Reduce all atmospheric stuns by 80%"
-  - tweak: "Cap the maximum atmospheric stun time to 4 seconds"
