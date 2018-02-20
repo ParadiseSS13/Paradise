@@ -53,13 +53,13 @@
 			var/image/stampoverlay = image('icons/obj/bureaucracy.dmi', "paperplane_[initial(stamp.icon_state)]")
 			overlays += stampoverlay
 
-/obj/item/weapon/paperplane/attack_self(mob/user)
+/obj/item/weapon/paperplane/attack_self(mob/user) // Unfold the paper plane
 	to_chat(user, "<span class='notice'>You unfold [src].</span>")
-	var/atom/movable/internal_paper_tmp = internal_paper
-	internal_paper_tmp.forceMove(loc)
-	internal_paper = null
-	qdel(src)
-	user.put_in_hands(internal_paper_tmp)
+	if(internal_paper)
+		internal_paper.forceMove(get_turf(src))
+		user.put_in_hands(internal_paper)
+		internal_paper = null
+		qdel(src)
 
 /obj/item/weapon/paperplane/attackby(obj/item/P, mob/living/carbon/human/user, params)
 	..()
