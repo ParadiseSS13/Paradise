@@ -1,0 +1,5 @@
+author: "Fox McCloud"
+delete-after: True
+changes: 
+  - tweak: "IEDs now have a blast radius again"
+  - tweak: "Slap crafting of IEDs is gone; use personal crafting instead"
