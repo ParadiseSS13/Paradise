@@ -17,3 +17,9 @@
 
 /obj/item/weapon/storage/briefcase/New()
 	..()
+
+/obj/item/weapon/storage/briefcase/MouseDrop_T(obj/item/weapon/restraints/handcuffs/I, mob/user)
+	applyHandcuff(I, user)
+
+/obj/item/weapon/storage/briefcase/MouseDrop(mob/living/carbon/human/user)
+	toggleHandcuff(user)
