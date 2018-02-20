@@ -15,7 +15,7 @@
 	var/obj/item/weapon/paper/internal_paper
 
 /obj/item/weapon/paperplane/New(loc, obj/item/weapon/paper/new_paper)
-	. = ..()
+	..()
 	pixel_y = rand(-8, 8)
 	pixel_x = rand(-9, 9)
 	if(new_paper)
@@ -29,7 +29,7 @@
 
 /obj/item/weapon/paperplane/Destroy()
 	if(internal_paper)
-		qdel(internal_paper)
+		QDEL_NULL(internal_paper)
 		internal_paper = null
 	return ..()
 
@@ -105,6 +105,7 @@
 			return
 		visible_message("<span class='danger'>[src] hits [H] in the eye!</span>")
 		H.EyeBlurry(6)
+		H.Weaken(2)
 		var/obj/item/organ/internal/eyes/E = H.get_int_organ(/obj/item/organ/internal/eyes)
 		if(E)
 			E.take_damage(8, 1)
