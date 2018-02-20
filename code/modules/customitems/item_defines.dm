@@ -1263,7 +1263,7 @@
 	item_color = "victorianlightfire"
 	displays_id = FALSE
 
-/obj/item/weapon/bikehorn/fluff/pinkbikehorn
+/obj/item/weapon/bikehorn/fluff/pinkbikehorn //Xerdies: Squiddle Toodle
 	name = "Honkinator5000"
 	desc = "This horn may look ridiculous but is the new hot item for clowns in the Clown Empire. It has a fine print on its side reading: Property of Prince Honktertong the IV"
 	icon = 'icons/obj/custom_items.dmi'
