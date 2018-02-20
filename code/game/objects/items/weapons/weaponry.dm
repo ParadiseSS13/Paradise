@@ -165,6 +165,7 @@ obj/item/weapon/wirerod/attackby(obj/item/I, mob/user, params)
 	var/homerun_able = 0
 	var/swing_power = 0
 	var/at_bat = FALSE
+	var/timer_id = 0
 
 /obj/item/weapon/melee/baseball_bat/homerun
 	name = "home run bat"
@@ -181,6 +182,9 @@ obj/item/weapon/wirerod/attackby(obj/item/I, mob/user, params)
 	if(swing_power == 3)
 		return
 	at_bat = TRUE
+	if(timer_id)
+		deltimer(timer_id)
+		timer_id = 0
 	to_chat(user, "<span class='notice'>You begin gathering strength...</span>")
 	if(swing_power == 0  && at_bat)
 		if(do_after(user, 10, target = src) && at_bat)
@@ -195,9 +199,7 @@ obj/item/weapon/wirerod/attackby(obj/item/I, mob/user, params)
 			swing_power = 3
 			user.playsound_local(null, 'sound/items/timer.ogg', 50, 0)
 	at_bat = FALSE
-	spawn(30)
-		if(!at_bat && swing_power)
-			wind_down(user)
+	timer_id = addtimer(src, "wind_down", 40, TRUE, user)
 
 /obj/item/weapon/melee/baseball_bat/homerun/wind_up(mob/user)
 	if(!homerun_able)
@@ -215,20 +217,23 @@ obj/item/weapon/wirerod/attackby(obj/item/I, mob/user, params)
 /obj/item/weapon/melee/baseball_bat/proc/wind_down(mob/user)
 	if(at_bat || !swing_power)
 		return
-	spawn(10)
-		if(at_bat)
-			return
-		if(swing_power)
-			swing_power--
-		if(!swing_power)
-			to_chat(user, "<span class='warning'>You relax your swing stance.</span>")
-			user.playsound_local(null, 'sound/machines/synth_no.ogg', 50, 0)
-		else
-			wind_down(user)
+	if(swing_power)
+		swing_power--
+	if(!swing_power)
+		to_chat(user, "<span class='warning'>You relax your swing stance.</span>")
+		user.playsound_local(null, 'sound/machines/synth_no.ogg', 50, 0)
+	else
+		if(timer_id)
+			deltimer(timer_id)
+			timer_id = 0
+		timer_id = addtimer(src, "wind_down", 10, TRUE, user)
 
 /obj/item/weapon/melee/baseball_bat/dropped()
 	at_bat = FALSE
 	swing_power = 0
+	if(timer_id)
+		deltimer(timer_id)
+		timer_id = 0
 	..()
 
 /obj/item/weapon/melee/baseball_bat/attack(mob/living/target, mob/living/user)
@@ -245,6 +250,9 @@ obj/item/weapon/wirerod/attackby(obj/item/I, mob/user, params)
 	else if(swing_power)
 		target.throw_at(throw_target, swing_power, 7, user)
 		swing_power = 0
+		if(timer_id)
+			deltimer(timer_id)
+			timer_id = 0
 
 /obj/item/weapon/melee/baseball_bat/ablative
 	name = "metal baseball bat"
