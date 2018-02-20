@@ -62,7 +62,7 @@
 	name = "network card"
 	id = "netcard_basic"
 	req_tech = list("programming" = 2, "engineering" = 1)
-	build_type = IMPRINTER
+	build_type = PROTOLATHE
 	materials = list(MAT_METAL = 250, MAT_GLASS = 100, "sacid" = 20)
 	build_path = /obj/item/weapon/computer_hardware/network_card
 	category = list("Computer Parts")
@@ -71,7 +71,7 @@
 	name = "advanced network card"
 	id = "netcard_advanced"
 	req_tech = list("programming" = 4, "engineering" = 2)
-	build_type = IMPRINTER
+	build_type = PROTOLATHE
 	materials = list(MAT_METAL = 500, MAT_GLASS = 200, "sacid" = 20)
 	build_path = /obj/item/weapon/computer_hardware/network_card/advanced
 	category = list("Computer Parts")
@@ -80,7 +80,7 @@
 	name = "wired network card"
 	id = "netcard_wired"
 	req_tech = list("programming" = 5, "engineering" = 3)
-	build_type = IMPRINTER
+	build_type = PROTOLATHE
 	materials = list(MAT_METAL = 2500, MAT_GLASS = 400, "sacid" = 20)
 	build_path = /obj/item/weapon/computer_hardware/network_card/wired
 	category = list("Computer Parts")
