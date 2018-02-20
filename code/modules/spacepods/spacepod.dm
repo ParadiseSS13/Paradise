@@ -7,7 +7,7 @@
 
 /obj/item/weapon/pod_paint_bucket
 	name = "space pod paintkit"
-	desc = "Pimp your ride"
+	desc = "Pimp your ride.It is highly recommended the user does not drink his paint and the paint is only used for painting."
 	icon = 'icons/obj/items.dmi'
 	icon_state = "paint_red"
 
@@ -394,6 +394,9 @@
 
 		if(cargo_hold.storage_slots > 0 && !hatch_open && unlocked) // must be the last option as all items not listed prior will be stored
 			cargo_hold.attackby(W, user, params)
+		if(istype(W, /obj/item/weapon/pod_paint_bucket))
+			apply_paint(user)
+		return
 
 obj/spacepod/proc/add_equipment(mob/user, var/obj/item/device/spacepod_equipment/SPE, var/slot)
 	if(equipment_system.vars[slot])
@@ -533,12 +536,6 @@ obj/spacepod/proc/add_equipment(mob/user, var/obj/item/device/spacepod_equipment
 /obj/spacepod/civilian
 	icon_state = "pod_civ"
 	desc = "A sleek civilian space pod."
-
-/obj/spacepod/civilian/attackby(obj/item/W as obj, mob/user as mob, params)
-	..()
-	if(istype(W, /obj/item/weapon/pod_paint_bucket))
-		apply_paint(user)
-		return
 
 /obj/spacepod/random
 	icon_state = "pod_civ"
