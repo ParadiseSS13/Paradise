@@ -178,56 +178,56 @@
 		if(t.x == cen.x && t.y > cen.y)
 			var/obj/item/device/flashlight/spotlight/L = new /obj/item/device/flashlight/spotlight(t)
 			L.light_color = "red"
-			L.light_power = 30-(get_dist(src,L)*8)
+			L.light_power = 30 - (get_dist(src, L) * 8)
 			L.range = 1+get_dist(src, L)
 			spotlights+=L
 			continue
 		if(t.x == cen.x && t.y < cen.y)
 			var/obj/item/device/flashlight/spotlight/L = new /obj/item/device/flashlight/spotlight(t)
 			L.light_color = "purple"
-			L.light_power = 30-(get_dist(src,L)*8)
+			L.light_power = 30 - (get_dist(src, L) * 8)
 			L.range = 1+get_dist(src, L)
 			spotlights+=L
 			continue
 		if(t.x > cen.x && t.y == cen.y)
 			var/obj/item/device/flashlight/spotlight/L = new /obj/item/device/flashlight/spotlight(t)
 			L.light_color = "#ffff00"
-			L.light_power = 30-(get_dist(src,L)*8)
+			L.light_power = 30 - (get_dist(src, L) * 8)
 			L.range = 1+get_dist(src, L)
 			spotlights+=L
 			continue
 		if(t.x < cen.x && t.y == cen.y)
 			var/obj/item/device/flashlight/spotlight/L = new /obj/item/device/flashlight/spotlight(t)
 			L.light_color = "green"
-			L.light_power = 30-(get_dist(src,L)*8)
+			L.light_power = 30 - (get_dist(src, L) * 8)
 			L.range = 1+get_dist(src, L)
 			spotlights+=L
 			continue
 		if((t.x+1 == cen.x && t.y+1 == cen.y) || (t.x+2==cen.x && t.y+2 == cen.y))
 			var/obj/item/device/flashlight/spotlight/L = new /obj/item/device/flashlight/spotlight(t)
 			L.light_color = "sw"
-			L.light_power = 30-(get_dist(src,L)*8)
+			L.light_power = 30 - (get_dist(src, L) * 8)
 			L.range = 1.4+get_dist(src, L)
 			spotlights+=L
 			continue
 		if((t.x-1 == cen.x && t.y-1 == cen.y) || (t.x-2==cen.x && t.y-2 == cen.y))
 			var/obj/item/device/flashlight/spotlight/L = new /obj/item/device/flashlight/spotlight(t)
 			L.light_color = "ne"
-			L.light_power = 30-(get_dist(src,L)*8)
+			L.light_power = 30 - (get_dist(src, L) * 8)
 			L.range = 1.4+get_dist(src, L)
 			spotlights+=L
 			continue
 		if((t.x-1 == cen.x && t.y+1 == cen.y) || (t.x-2==cen.x && t.y+2 == cen.y))
 			var/obj/item/device/flashlight/spotlight/L = new /obj/item/device/flashlight/spotlight(t)
 			L.light_color = "se"
-			L.light_power = 30-(get_dist(src,L)*8)
+			L.light_power = 30 - (get_dist(src, L) * 8)
 			L.range = 1.4+get_dist(src, L)
 			spotlights+=L
 			continue
 		if((t.x+1 == cen.x && t.y-1 == cen.y) || (t.x+2==cen.x && t.y-2 == cen.y))
 			var/obj/item/device/flashlight/spotlight/L = new /obj/item/device/flashlight/spotlight(t)
 			L.light_color = "nw"
-			L.light_power = 30-(get_dist(src,L)*8)
+			L.light_power = 30 - (get_dist(src, L) * 8)
 			L.range = 1.4+get_dist(src, L)
 			spotlights+=L
 			continue
