@@ -178,7 +178,7 @@
 				error = "Missing Hardware: Your computer does not have required hardware to complete this operation."
 				return 1
 			if(!printer.print_text(prepare_printjob(F.stored_data, computer.emagged ? CRAYON_FONT : PRINTER_FONT), open_file))
-				error = "Hardware error: Printer was unable to print the file. It may be out of paper."
+				error = "Hardware error: Printer was unable to print the file. It may be out of paper or already printing."
 				return 1
 		if("PRG_copytousb")
 			. = 1

@@ -6,6 +6,7 @@
 	icon_state = "printer"
 	w_class = WEIGHT_CLASS_NORMAL
 	device_type = MC_PRINT
+	var/printing = FALSE										// Prevent printing spam
 	var/stored_paper = 20
 	var/max_paper = 30
 
@@ -24,40 +25,74 @@
 	if(!check_functionality())
 		return FALSE
 
-	var/obj/item/weapon/paper/P = new/obj/item/weapon/paper(get_turf(holder))
+	if(!printing)
+		printing = TRUE
+		playsound(loc, 'sound/goonstation/machines/printer_thermal.ogg', 50, 1)
+		sleep(50)
+		var/obj/item/weapon/paper/P = new/obj/item/weapon/paper(get_turf(holder))
 
 	// Damaged printer causes the resulting paper to be somewhat harder to read.
-	if(damage > damage_malfunction)
-		P.info = stars(text_to_print, 100-malfunction_probability)
+
+		if(damage > damage_malfunction)
+			P.info = stars(text_to_print, 100-malfunction_probability)
+		else
+			P.info = text_to_print
+		if(paper_title)
+			P.name = paper_title
+
+		P.update_icon()
+		P.populatefields()
+		P.updateinfolinks()
+		stored_paper--
+		P = null
+		printing = FALSE
+		return TRUE
 	else
-		P.info = text_to_print
-	if(paper_title)
-		P.name = paper_title
-	P.update_icon()
-	P.populatefields()
-	P.updateinfolinks()
-	stored_paper--
-	P = null
-
-	playsound(loc, 'sound/goonstation/machines/printer_thermal.ogg', 50, 1)
-
-	return TRUE
+		to_chat(usr, "<span class='notice'>[src] is already printing. Please wait</span>")
 
 /obj/item/weapon/computer_hardware/printer/try_insert(obj/item/I, mob/living/user = null)
+	var/obj/item/weapon/computer_hardware/hard_drive/HDD = holder.all_components[MC_HDD]
 	if(istype(I, /obj/item/weapon/paper))
+		var/obj/item/weapon/paper/P = I
 		if(stored_paper >= max_paper)
 			if(user)
 				to_chat(user, "<span class='warning'>You try to add \the [I] into [src], but its paper bin is full!</span>")
 			return FALSE
-
 		if(user && !user.unEquip(I))
 			return FALSE
-
 		if(user)
-			to_chat(user, "<span class='notice'>You insert \the [I] into [src]'s paper recycler.</span>")
+			user.put_in_hands(P)
+			if(P.info == null)
+				to_chat(user, "<span class='notice'>You insert \the [I] into [src]'s paper recycler.</span>")
+			else
+				switch(alert("How would you like to proceed?", "Options.", "Scan Paper","Recycle Paper", "Abort"))
+					if("Abort")
+						return 0
+					if("Scan Paper")
+						to_chat(user, "<span class='notice'>You scan \the [I] with [src]'s paper scanner.</span>")
+						var/datum/computer_file/data/F = new/datum/computer_file/data()
+						F.filename = "[P.name] [worldtime2text()]"
+						F.filetype = "PDF"
+						F.stored_data = P.info
+						F.do_not_edit = 1
+						HDD.store_file(F)
+						return 0
+					if("Recycle Paper")
+						to_chat(user, "<span class='notice'>You insert \the [I] into [src]'s paper recycler.</span>")
 		qdel(I)
 		stored_paper++
 		return TRUE
+	if(istype(I, /obj/item/weapon/paper_bundle))
+		var/obj/item/weapon/paper_bundle/B = I
+		var/datum/computer_file/data/F = new/datum/computer_file/data()
+		F.filename = "paper bundle - [B.name] [worldtime2text()]"
+		F.stored_data = ""
+		F.do_not_edit = 1
+		F.filetype = "PDF"
+		to_chat(user, "<span class='notice'>You scan the bundle [I] with [src]'s paper scanner.</span>")
+		for(var/obj/item/weapon/paper/P in B)
+			F.stored_data += "<br><hr><b><center>[P.name]</center></b><br>[P.info]"
+		HDD.store_file(F)
 	return FALSE
 
 /obj/item/weapon/computer_hardware/printer/mini

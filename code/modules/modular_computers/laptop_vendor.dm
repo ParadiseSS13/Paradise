@@ -22,6 +22,7 @@
 	var/dev_cpu = 1							// 1: Default, 2: Upgraded
 	var/dev_battery = 1						// 1: Default, 2: Upgraded, 3: Advanced
 	var/dev_disk = 1						// 1: Default, 2: Upgraded, 3: Advanced
+	var/dev_portable = 1					// 1: Default, 2: Upgraded, 3: Advanced
 	var/dev_netcard = 0						// 0: None, 1: Basic, 2: Long-Range
 	var/dev_apc_recharger = 0				// 0: None, 1: Standard (LAPTOP ONLY)
 	var/dev_printer = 0						// 0: None, 1: Standard
@@ -92,6 +93,19 @@
 				if(fabricate)
 					fabricated_laptop.install_component(new /obj/item/weapon/computer_hardware/network_card/advanced)
 				total_price += 299
+		switch(dev_portable)
+			if(1) // Basic(16QC)
+				if(fabricate)
+					fabricated_laptop.install_component(new /obj/item/weapon/computer_hardware/hard_drive/portable)
+				total_price += 50
+			if(2) // Upgraded(64GQ)
+				if(fabricate)
+					fabricated_laptop.install_component(new /obj/item/weapon/computer_hardware/hard_drive/portable/advanced)
+				total_price += 99
+			if(3) // Advanced(256GQ)
+				if(fabricate)
+					fabricated_laptop.install_component(new /obj/item/weapon/computer_hardware/hard_drive/portable/super)
+				total_price += 299
 		if(dev_apc_recharger)
 			total_price += 399
 			if(fabricate)
@@ -147,6 +161,19 @@
 				if(fabricate)
 					fabricated_tablet.install_component(new/obj/item/weapon/computer_hardware/network_card/advanced)
 				total_price += 299
+		switch(dev_portable)
+			if(1) // Basic(16QC)
+				if(fabricate)
+					fabricated_tablet.install_component(new /obj/item/weapon/computer_hardware/hard_drive/portable)
+				total_price += 50
+			if(2) // Upgraded(64GQ)
+				if(fabricate)
+					fabricated_tablet.install_component(new /obj/item/weapon/computer_hardware/hard_drive/portable/advanced)
+				total_price += 99
+			if(3) // Advanced(256GQ)
+				if(fabricate)
+					fabricated_tablet.install_component(new /obj/item/weapon/computer_hardware/hard_drive/portable/super)
+				total_price += 299
 		if(dev_printer)
 			total_price += 99
 			if(fabricate)
@@ -197,6 +224,10 @@
 			dev_netcard = text2num(href_list["netcard"])
 			fabricate_and_recalc_price(0)
 			return 1
+		if("hw_portable")
+			dev_portable = text2num(href_list["portable"])
+			fabricate_and_recalc_price(0)
+			return 1
 		if("hw_tesla")
 			dev_apc_recharger = text2num(href_list["tesla"])
 			fabricate_and_recalc_price(0)
@@ -229,6 +260,7 @@
 		data["hw_battery"] = dev_battery
 		data["hw_disk"] = dev_disk
 		data["hw_netcard"] = dev_netcard
+		data["hw_portable"] = dev_portable
 		data["hw_tesla"] = dev_apc_recharger
 		data["hw_nanoprint"] = dev_printer
 		data["hw_card"] = dev_card
