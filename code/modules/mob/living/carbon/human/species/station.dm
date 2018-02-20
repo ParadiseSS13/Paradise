@@ -748,7 +748,7 @@
 	if(R.id == "sacid")
 		H.reagents.del_reagent(R.id)
 		return 0
-	return 1
+	return ..()
 
 /datum/species/diona
 	name = "Diona"
