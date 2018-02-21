@@ -242,3 +242,26 @@
 	for(var/i in 1 to 3)
 		new/obj/item/cardboard_cutout/adaptive(src)
 	new/obj/item/toy/crayon/spraycan(src)
+
+/obj/item/weapon/storage/box/syndie_kit/bonerepair
+	name = "bone repair kit"
+	desc = "A box containing one prototype field bone repair kit."
+
+/obj/item/weapon/storage/box/syndie_kit/bonerepair/New()
+	..()
+	new /obj/item/weapon/reagent_containers/hypospray/autoinjector/nanocalcium(src)
+	var/obj/item/weapon/paper/P = new /obj/item/weapon/paper(src)
+	P.name = "Bone repair guide"
+	P.info = {"
+<b>Prototype Bone Repair Nanites</b><br /> <br />
+
+<b>Usage:</b> <br />
+
+This is a highly experimental prototype chemical designed to repair damaged bones of soldiers in the field, use only as a last resort. The autoinjector contains prototype nanites bearing a calcium based payload. The nanites will simultaneously shut down body systems whilst aiding bone repair.<br />
+
+Warning: Side effects can cause temporary paralysis, loss of co-ordination and sickness. <b>Do not use with any kind of stimulant or drugs. Serious damage can occur!</b> <br />
+
+To apply, hold the injector a short distance away from the outer thigh before applying firmly to the skin surface. Bones should begin repair after a short time, during which you are advised to remain still. <br /> <br />
+
+After use you are advised to see a doctor at the next available opportunity. Mild scarring and tissue damage may occur after use. This is a prototype.
+	"}
