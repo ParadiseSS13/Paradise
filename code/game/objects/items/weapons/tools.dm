@@ -58,7 +58,7 @@
 	icon_state = "drill_bolt"
 	item_state = "drill"
 	usesound = 'sound/items/drill_use.ogg'
-	materials = list(MAT_METAL=150,MAT_SILVER=50,MAT_GOLD=25)
+	materials = list(MAT_METAL=150,MAT_SILVER=50,MAT_TITANIUM=25)
 	origin_tech = "materials=2;engineering=2" //done for balance reasons, making them high value for research, but harder to get
 	force = 8 //might or might not be too high, subject to change
 	throwforce = 8
@@ -180,7 +180,7 @@
 	desc = "A simple hand drill with a screwdriver bit attached."
 	icon_state = "drill_screw"
 	item_state = "drill"
-	materials = list(MAT_METAL=150,MAT_SILVER=50,MAT_GOLD=25)
+	materials = list(MAT_METAL=150,MAT_SILVER=50,MAT_TITANIUM=25)
 	origin_tech = "materials=2;engineering=2" //done for balance reasons, making them high value for research, but harder to get
 	force = 8 //might or might not be too high, subject to change
 	throwforce = 8
@@ -276,7 +276,7 @@
 	icon_state = "jaws_cutter"
 	item_state = "jawsoflife"
 	origin_tech = "materials=2;engineering=2"
-	materials = list(MAT_METAL=150,MAT_SILVER=50,MAT_GOLD=25)
+	materials = list(MAT_METAL=150,MAT_SILVER=50,MAT_TITANIUM=25)
 	usesound = 'sound/items/jaws_cut.ogg'
 	toolspeed = 0.25
 
@@ -691,7 +691,7 @@ obj/item/weapon/weldingtool/experimental/process()
 	desc = "A set of jaws of life, the magic of science has managed to fit it down into a device small enough to fit in a tool belt. It's fitted with a prying head."
 	icon_state = "jaws_pry"
 	item_state = "jawsoflife"
-	materials = list(MAT_METAL=150,MAT_SILVER=50,MAT_DIAMOND=25)
+	materials = list(MAT_METAL=150,MAT_SILVER=50,MAT_TITANIUM=25)
 	origin_tech = "materials=2;engineering=2"
 	usesound = 'sound/items/jaws_pry.ogg'
 	force = 15
