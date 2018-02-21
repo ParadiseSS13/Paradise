@@ -132,8 +132,8 @@
 			istype(W, /obj/item/weapon/hatchet) \
 		)
 		inaccurate = 1
-	if(total_w_class > MAX_WEIGHT_CLASS && istype(src,/obj/item/weapon/reagent_containers/food/snacks/sliceable))
-		if(contents.len)
+	else if(W.w_class <= WEIGHT_CLASS_SMALL && istype(src,/obj/item/weapon/reagent_containers/food/snacks/sliceable))
+		if(total_w_class > MAX_WEIGHT_CLASS)
 			// Nope, no bluespace slice food
 			to_chat(user, "<span class='warning'>Something is already in [src]!</span>")
 			return 1
