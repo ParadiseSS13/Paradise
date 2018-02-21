@@ -138,7 +138,7 @@ DECLARE_GLOBAL_CONTROLLER(shuttle, shuttle_master)
 		var/extra_minutes = 0
 		var/priority_time = emergencyCallTime * 0.5
 		if(world.time - emergency_sec_level_time < priority_time)
-			extra_minutes = abs(round(((emergency_sec_level_time + priority_time) - world.time)/600)) + 1
+			extra_minutes = 5
 		emergency.request(null, 0.5 + extra_minutes / (emergencyCallTime / 600), signal_origin, html_decode(emergency_reason), 1)
 	else
 		emergency.request(null, 1, signal_origin, html_decode(emergency_reason), 0)
