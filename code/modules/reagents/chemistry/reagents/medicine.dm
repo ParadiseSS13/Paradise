@@ -1061,7 +1061,7 @@
 		if(44)
 			to_chat(M, "<span class='notice'>Your body goes rigid, you cannot move at all!</span>")
 			M.AdjustWeakened(15)
-		if(45 to 60) // Start fixing bones | If they have stimulants or stimulant drugs in their system then the nanites won't work.
+		if(45 to INFINITY) // Start fixing bones | If they have stimulants or stimulant drugs in their system then the nanites won't work.
 			if(M.reagents.has_reagent("methamphetamine") || M.reagents.has_reagent("crank") || M.reagents.has_reagent("bath_salts") || M.reagents.has_reagent("stimulative_agent") || M.reagents.has_reagent("stimulants"))
 				return ..()
 			else
