@@ -6,6 +6,7 @@
  * Bananium floor
  * Diamond floor
  * Uranium floor
+ * Shuttle floor (Titanium)
  */
 
 /turf/simulated/floor/mineral
@@ -75,6 +76,61 @@
 	icon_state = "silverfancy"
 	floor_tile = /obj/item/stack/tile/mineral/silver/fancy
 	icons = list("silverfancy","silverfancy_dam")
+
+//TITANIUM (shuttle)
+
+/turf/simulated/floor/mineral/titanium/blue
+	icon_state = "shuttlefloor"
+	icons = list("shuttlefloor","shuttlefloor_dam")
+
+/turf/simulated/floor/mineral/titanium/blue/airless
+	oxygen = 0.01
+	nitrogen = 0.01
+	temperature = TCMB
+
+/turf/simulated/floor/mineral/titanium/yellow
+	icon_state = "shuttlefloor2"
+	icons = list("shuttlefloor2","shuttlefloor2_dam")
+
+/turf/simulated/floor/mineral/titanium/yellow/airless
+	oxygen = 0.01
+	nitrogen = 0.01
+	temperature = TCMB
+
+/turf/simulated/floor/mineral/titanium
+	name = "shuttle floor"
+	icon_state = "shuttlefloor3"
+	floor_tile = /obj/item/stack/tile/mineral/titanium
+	icons = list("shuttlefloor3","shuttlefloor3_dam")
+
+/turf/simulated/floor/mineral/titanium/airless
+	oxygen = 0.01
+	nitrogen = 0.01
+	temperature = TCMB
+
+/turf/simulated/floor/mineral/titanium/purple
+	icon_state = "shuttlefloor5"
+	icons = list("shuttlefloor5","shuttlefloor5_dam")
+
+/turf/simulated/floor/mineral/titanium/purple/airless
+	oxygen = 0.01
+	nitrogen = 0.01
+	temperature = TCMB
+
+//PLASTITANIUM (syndieshuttle)
+/turf/simulated/floor/mineral/plastitanium
+	name = "shuttle floor"
+	icon_state = "shuttlefloor4"
+	floor_tile = /obj/item/stack/tile/mineral/plastitanium
+	icons = list("shuttlefloor4","shuttlefloor4_dam")
+
+/turf/simulated/floor/mineral/plastitanium/airless
+	oxygen = 0.01
+	nitrogen = 0.01
+	temperature = TCMB
+
+/turf/simulated/floor/mineral/plastitanium/brig
+	name = "brig floor"
 
 //BANANIUM
 /turf/simulated/floor/mineral/bananium
