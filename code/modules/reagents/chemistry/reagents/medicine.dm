@@ -1035,3 +1035,26 @@
 	color = "#F5F5F5"
 
 // This reagent's effects are handled in heart attack handling code
+
+/datum/reagent/medicine/nanocalcium
+	name = "Nano-Calcium"
+	id = "nanocalcium"
+	description = "Highly advanced nanites equipped with calcium payloads designed to repair bones without surgery suspended in synthetic blood plasma."
+	color = "#9b3401"
+	metabolization_rate = 0.5
+
+/datum/reagent/medicine/nanocalcium/on_mob_life(mob/living/M)
+	switch(current_cycle)
+		if(1 to 44)
+			if(M.has_reagent("methamphetamine"))
+				M.adjustToxLoss(2)
+			else
+				if(prob(50))
+					M.AdjustConfused(5)
+				else
+					M.AdjustWeakened(5)
+		//apply debilitating effects
+		if(45 to 55)
+		//fix minor bones as we go
+		if(56 to 60)
+		//fix major bones
