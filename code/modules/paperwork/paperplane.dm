@@ -28,8 +28,7 @@
 	update_icon()
 
 /obj/item/weapon/paperplane/Destroy()
-	if(internal_paper)
-		QDEL_NULL(internal_paper)
+	QDEL_NULL(internal_paper)
 	return ..()
 
 /obj/item/weapon/paperplane/suicide_act(mob/living/user)
