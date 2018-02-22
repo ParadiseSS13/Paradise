@@ -149,8 +149,9 @@
 
 
 /mob/living/simple_animal/hostile/floor_cluwne/proc/Manifest()//handles disappearing and appearance anim
+	var/obj/effect/temp_visual/fcluwne_manifest/manifest = /obj/effect/temp_visual/fcluwne_manifest
 	if(manifested)
-		new /obj/effect/temp_visual/fcluwne_manifest(src.loc)
+		new manifest(src.loc)
 		addtimer(src, "Appear", MANIFEST_DELAY)
 
 	else
@@ -158,6 +159,7 @@
 		invisibility = INVISIBILITY_MAXIMUM
 		mouse_opacity = 0
 		density = FALSE
+		qdel(manifest)
 
 
 /mob/living/simple_animal/hostile/floor_cluwne/proc/Appear()//handled in a seperate proc so floor cluwne doesn't appear before the animation finishes
@@ -188,7 +190,7 @@
 				H.playsound_local(src,'sound/spookoween/insane_low_laugh.ogg', 1)
 
 			if(prob(5))
-				H.playsound_local(src,'sound/spookoween/scary_horn.ogg', 5)
+				H.playsound_local(src,'sound/spookoween/ghost_whisper.ogg', 5)
 
 			if(prob(3))
 				var/obj/item/I = locate() in orange(H, 8)
@@ -374,6 +376,7 @@
 	eating = FALSE
 	switch_stage = switch_stage * 0.75 //he gets faster after each feast
 	Acquire_Victim()
+
 	interest = 0
 
 //manifestation animation
