@@ -159,7 +159,8 @@
 		invisibility = INVISIBILITY_MAXIMUM
 		mouse_opacity = 0
 		density = FALSE
-		qdel(manifest)
+		if(manifest)
+			qdel(manifest)
 
 
 /mob/living/simple_animal/hostile/floor_cluwne/proc/Appear()//handled in a seperate proc so floor cluwne doesn't appear before the animation finishes
