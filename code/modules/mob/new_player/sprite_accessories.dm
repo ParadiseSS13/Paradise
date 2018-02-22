@@ -983,11 +983,11 @@
 	gender = FEMALE
 
 /datum/sprite_accessory/hair/skrell/skr_tentacleslong
-	name = "Long Skrell tentacles"
+	name = "Long Skrell Tentacles"
 	icon_state = "skrell_hair_verylong"
 
 /datum/sprite_accessory/hair/skrell/skr_tentaclesshort
-	name = "Short Skrell tentacles"
+	name = "Short Skrell Tentacles"
 	icon_state = "skrell_hair_veryshort"
 
 /datum/sprite_accessory/hair/skrell/skr_gold_m
@@ -1017,24 +1017,24 @@
 	secondary_theme = "cloth"
 
 /datum/sprite_accessory/hair/skrell/skr_gclothtentacle_m
-	name = "Gradient cloth draped Skrell Male Tentacles"
+	name = "Ombre Dye, Skrell Male Tentacles"
 	icon_state = "skrell_hair_m"
 	gender = MALE
 	secondary_theme = "gradient"
 
 /datum/sprite_accessory/hair/skrell/skr_gclothtentacle_f
-	name = "Gradient cloth draped Skrell Female Tentacles"
+	name = "Ombre Dye, Skrell Female Tentacles"
 	icon_state = "skrell_hair_f"
 	gender = FEMALE
 	secondary_theme = "gradient"
 
 /datum/sprite_accessory/hair/skrell/skr_gclothtentacleslong
-	name = "Gradient cloth draped Long Skrell Tentacles"
+	name = "Ombre Dye, Long Skrell Tentacles"
 	icon_state = "skrell_hair_verylong"
 	secondary_theme = "gradient"
 
 /datum/sprite_accessory/hair/skrell/skr_gclothtentaclesshort
-	name = "Gradient cloth draped Short Skrell Tentacles"
+	name = "Ombre Dye, Short Skrell Tentacles"
 	icon_state = "skrell_hair_veryshort"
 	secondary_theme = "gradient"
 
