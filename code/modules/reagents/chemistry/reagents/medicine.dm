@@ -1048,7 +1048,7 @@
 		if(1 to 19)
 			M.AdjustJitter(4)
 			if(prob(10))
-				to_chat(M, "<span class='notice'>Your skin feels hot and your veins are on fire!</span>")
+				to_chat(M, "<span class='warning'>Your skin feels hot and your veins are on fire!</span>")
 		if(20 to 43)
 			//If they have stimulants or stimulant drugs then just apply toxin damage instead.
 			if(M.reagents.has_reagent("methamphetamine") || M.reagents.has_reagent("crank") || M.reagents.has_reagent("bath_salts") || M.reagents.has_reagent("stimulative_agent") || M.reagents.has_reagent("stimulants"))
@@ -1059,7 +1059,7 @@
 				else
 					M.AdjustWeakened(5)
 		if(44)
-			to_chat(M, "<span class='notice'>Your body goes rigid, you cannot move at all!</span>")
+			to_chat(M, "<span class='warning'>Your body goes rigid, you cannot move at all!</span>")
 			M.AdjustWeakened(15)
 		if(45 to INFINITY) // Start fixing bones | If they have stimulants or stimulant drugs in their system then the nanites won't work.
 			if(M.reagents.has_reagent("methamphetamine") || M.reagents.has_reagent("crank") || M.reagents.has_reagent("bath_salts") || M.reagents.has_reagent("stimulative_agent") || M.reagents.has_reagent("stimulants"))
@@ -1070,7 +1070,5 @@
 						if(prob(50)) // Each tick has a 50% chance of repearing a bone.
 							to_chat(M, "<span class='notice'>You feel a burning sensation in your [E.name] as it straightens involuntarily!</span>")
 							E.rejuvenate() //Repair it completely.
-						return ..()
-					else
-						continue
+							break
 	..()

@@ -113,7 +113,7 @@
 	list_reagents = list("stimulants" = 50)
 
 /obj/item/weapon/reagent_containers/hypospray/autoinjector/nanocalcium
-	name = "Nanocalcium autoinjector"
+	name = "nanocalcium autoinjector"
 	desc = "After a short period of time the nanites will slow the body's systems and assist with bone repair. WARNING: Do not use with stimulants!"
 	icon_state = "bonepen"
 	amount_per_transfer_from_this = 30
