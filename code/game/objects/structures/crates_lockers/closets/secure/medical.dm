@@ -111,8 +111,15 @@
 	..()
 	new /obj/item/weapon/reagent_containers/food/pill/haloperidol(src)
 	new /obj/item/weapon/reagent_containers/food/pill/haloperidol(src)
+	new /obj/item/weapon/reagent_containers/food/pill/haloperidol(src)
 	new /obj/item/weapon/reagent_containers/food/pill/methamphetamine(src)
 	new /obj/item/weapon/reagent_containers/food/pill/methamphetamine(src)
+	new /obj/item/weapon/reagent_containers/food/pill/methamphetamine(src)
+	new /obj/item/weapon/reagent_containers/food/pill/patch/nicotine(src)
+	new /obj/item/weapon/reagent_containers/food/pill/patch/nicotine(src)
+	new /obj/item/weapon/reagent_containers/food/pill/patch/nicotine(src)
+	new /obj/item/weapon/reagent_containers/food/pill/hydrocodone(src)
+	new /obj/item/weapon/reagent_containers/food/pill/hydrocodone(src)
 
 /obj/structure/closet/secure_closet/psychiatrist
 	name = "psychiatrist's locker"
@@ -130,6 +137,12 @@
 	new /obj/item/weapon/reagent_containers/syringe(src)
 	new /obj/item/weapon/reagent_containers/glass/bottle/ether(src)
 	new /obj/item/weapon/storage/pill_bottle/psychiatrist(src)
+	new /obj/random/plushie(src)
+	var/i = 0
+	while(i < 3)
+		var/candy = pick(subtypesof(/obj/item/weapon/reagent_containers/food/snacks/candy/fudge))
+		new candy(src)
+		i++
 
 
 /obj/structure/closet/secure_closet/CMO
