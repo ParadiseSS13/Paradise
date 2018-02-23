@@ -138,12 +138,9 @@
 	new /obj/item/weapon/reagent_containers/glass/bottle/ether(src)
 	new /obj/item/weapon/storage/pill_bottle/psychiatrist(src)
 	new /obj/random/plushie(src)
-	var/i = 0
-	while(i < 3)
+	for(var/i = 0, i < 3, i++)
 		var/candy = pick(subtypesof(/obj/item/weapon/reagent_containers/food/snacks/candy/fudge))
 		new candy(src)
-		i++
-
 
 /obj/structure/closet/secure_closet/CMO
 	name = "chief medical officer's locker"
