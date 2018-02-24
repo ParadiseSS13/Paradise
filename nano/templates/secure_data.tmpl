@@ -143,9 +143,6 @@ Used In File(s): \code\game\machinery\computer\security.dm
 					</td>
 					<td valign='middle' align='center' style='width: 300px;'>
 						{{if data.general.has_photos}}
-							<div style="text-align: center;">
-								<div style="display: inline-block;">{{:helper.link('Print photo', 'camera', {'print_p' : 1})}}</div>
-							</div>
 							{{for data.general.photos}}
 								{{if value.photo}}
 									<img src={{:value.photo}} height=96 width=96 border=5>

@@ -369,15 +369,6 @@
 				P.name = "paper - 'Security Record'"
 				printing = 0
 
-		else if(href_list["print_p"])
-			if(!printing)
-				printing = 1
-				playsound(loc, "sound/goonstation/machines/printer_dotmatrix.ogg", 50, 1)
-				sleep(50)
-				if(istype(active1, /datum/data/record) && data_core.general.Find(active1))
-					create_record_photo(active1)
-				printing = 0
-
 		else if(href_list["printlogs"])
 			if(cell_logs.len && !printing)
 				var/obj/item/weapon/paper/P = input(usr, "Select log to print", "Available Cell Logs") as null|anything in cell_logs
