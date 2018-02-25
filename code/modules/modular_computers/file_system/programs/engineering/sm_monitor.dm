@@ -5,10 +5,9 @@
 	program_icon_state = "smmon_0"
 	extended_desc = "This program connects to specially calibrated supermatter sensors to provide information on the status of supermatter-based engines."
 	requires_ntnet = TRUE
-	transfer_access = access_engine
+	transfer_access = access_construction
 	network_destination = "supermatter monitoring system"
 	size = 5
-	requires_ntnet = 1
 	var/last_status = SUPERMATTER_INACTIVE
 	var/list/supermatters
 	var/obj/machinery/power/supermatter_shard/active		// Currently selected supermatter crystal.
@@ -21,7 +20,8 @@
 		last_status = new_status
 		ui_header = "smmon_[last_status].gif"
 		program_icon_state = "smmon_[last_status]"
-		update_computer_icon()
+		if(istype(computer))
+			computer.update_icon()
 
 /datum/computer_file/program/supermatter_monitor/run_program(mob/living/user)
 	. = ..(user)
@@ -122,16 +122,16 @@
 
 /datum/computer_file/program/supermatter_monitor/Topic(href, href_list)
 	if(..())
-		return 1
+		return TRUE
 	if(href_list["clear"])
 		active = null
-		return 1
+		return TRUE
 	if(href_list["refresh"])
 		refresh()
-		return 1
+		return TRUE
 	if(href_list["set"])
 		var/newuid = text2num(href_list["set"])
 		for(var/obj/machinery/power/supermatter_shard/S in supermatters)
 			if(S.uid == newuid)
 				active = S
-		return 1
+		return TRUE
