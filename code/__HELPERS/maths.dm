@@ -116,3 +116,8 @@ var/gaussian_next
 	if(num < 0)
 		return 0
 	return sqrt(num)
+
+/proc/round_down(num)
+	if(round(num) != num)
+		return round(num--)
+	else return num

@@ -362,15 +362,6 @@
 	icon_regular_floor = "podfloor"
 	floor_tile = /obj/item/stack/tile/pod
 
-//Walls
-/turf/simulated/wall/survival
-	name = "pod wall"
-	desc = "An easily-compressable wall used for temporary shelter."
-	icon = 'icons/turf/walls/survival_pod_walls.dmi'
-	icon_state = "smooth"
-	smooth = SMOOTH_MORE|SMOOTH_DIAGONAL
-	canSmoothWith = list(/turf/simulated/wall/survival, /obj/machinery/door/airlock/survival_pod)
-
 //Door
 /obj/machinery/door/airlock/survival_pod
 	icon = 'icons/obj/doors/airlocks/survival/survival.dmi'
