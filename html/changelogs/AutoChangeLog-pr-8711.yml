@@ -1,0 +1,4 @@
+author: "Birdtalon"
+delete-after: True
+changes: 
+  - rscdel: "Removes printing photos on security consoles."
