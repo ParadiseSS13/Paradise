@@ -17,26 +17,29 @@
 
 //The byond version of these verbs wait for the next tick before acting.
 //	instant verbs however can run mid tick or even during the time between ticks.
+#define DO_MOVE(this_dir) var/final_dir = turn(this_dir, -dir2angle(dir)); Move(get_step(mob, final_dir), final_dir);
+
 /client/verb/moveup()
 	set name = ".moveup"
 	set instant = 1
-	Move(get_step(mob, NORTH), NORTH)
+	DO_MOVE(NORTH)
 
 /client/verb/movedown()
 	set name = ".movedown"
 	set instant = 1
-	Move(get_step(mob, SOUTH), SOUTH)
+	DO_MOVE(SOUTH)
 
 /client/verb/moveright()
 	set name = ".moveright"
 	set instant = 1
-	Move(get_step(mob, EAST), EAST)
+	DO_MOVE(EAST)
 
 /client/verb/moveleft()
 	set name = ".moveleft"
 	set instant = 1
-	Move(get_step(mob, WEST), WEST)
+	DO_MOVE(WEST)
 
+#undef DO_MOVE
 
 /client/Northeast()
 	swap_hand()

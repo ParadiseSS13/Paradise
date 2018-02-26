@@ -246,6 +246,15 @@
 	mineral = "sandstone"
 	glass_type = /obj/machinery/door/airlock/sandstone/glass
 
+/obj/structure/door_assembly/door_assembly_titanium
+	name = "titanium airlock assembly"
+	icon = 'icons/obj/doors/airlocks/shuttle/shuttle.dmi'
+	base_name = "shuttle airlock"
+	overlays_file = 'icons/obj/doors/airlocks/shuttle/overlays.dmi'
+	glass_type = /obj/machinery/door/airlock/titanium/glass
+	airlock_type = /obj/machinery/door/airlock/titanium
+	mineral = "titanium"
+
 /obj/structure/door_assembly/door_assembly_wood
 	name = "wooden airlock assembly"
 	icon = 'icons/obj/doors/airlocks/station/wood.dmi'
