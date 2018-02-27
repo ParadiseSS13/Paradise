@@ -252,6 +252,7 @@
 	new /obj/item/weapon/reagent_containers/hypospray/autoinjector/nanocalcium(src)
 	var/obj/item/weapon/paper/P = new /obj/item/weapon/paper(src)
 	P.name = "Bone repair guide"
+	P.desc = "For when you want to safely get off Mr Bones' Wild Ride."
 	P.info = {"
 <font face="Verdana" color=black></font><font face="Verdana" color=black><center><B>Prototype Bone Repair Nanites</B><HR></center><BR><BR>
 
