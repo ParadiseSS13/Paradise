@@ -3,9 +3,27 @@
 	var/datum/atom_hud/data/human/medical/advanced/medhud = huds[DATA_HUD_MEDICAL_ADVANCED]
 	medhud.add_to_hud(src)
 
+
 /mob/living/prepare_huds()
 	..()
 	prepare_data_huds()
+
+
+/mob/living/proc/init_darksight()
+	var/obj/screen/fullscreen/darksight/darksight_screen = screens["darksight"]
+	if(!screens["darksight"])
+		overlay_fullscreen("darksight", /obj/screen/fullscreen/darksight, null, TRUE) //Initialize the darksight hanger in the mob's screens.
+		darksight_screen = screens["darksight"]
+
+	if(darksight_screen.overlays)
+		darksight_screen.overlays.Cut()
+
+	dsoverlay = image('icons/mob/darksight.dmi', darksight_screen)
+	var/mutable_appearance/dsma = new(dsoverlay) //Changing like ten things, might as well.
+	dsma.alpha = 0
+	dsma.layer = LIGHTING_PLANE
+	dsma.blend_mode = BLEND_ADD
+	dsoverlay.appearance = dsma
 
 /mob/living/proc/prepare_data_huds()
 	..()
@@ -17,6 +35,10 @@
 	if(ranged_ability)
 		ranged_ability.remove_ranged_ability(src)
 	remove_from_all_data_huds()
+
+	if(dsoverlay)
+		dsoverlay.loc = null
+		dsoverlay = null
 
 	if(LAZYLEN(status_effects))
 		for(var/s in status_effects)
