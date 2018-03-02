@@ -467,8 +467,6 @@ obj/structure/cable/proc/cableColor(var/colorC)
 // Definitions
 ////////////////////////////////
 
-#define MAXCOIL 30
-
 var/global/list/datum/stack_recipe/cable_coil_recipes = list(
 	new /datum/stack_recipe/cable_restraints("cable restraints", /obj/item/weapon/restraints/handcuffs/cable, 15),
 )
