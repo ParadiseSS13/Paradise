@@ -3,6 +3,7 @@
 	desc = "Heavy duty metal shutters that opens mechanically."
 	icon = 'icons/obj/doors/rapid_pdoor.dmi'
 	icon_state = "shutter1"
+	dir = EAST
 
 /obj/machinery/door/poddoor/shutters/New()
 	..()

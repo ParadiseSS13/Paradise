@@ -795,6 +795,12 @@
 	if(speech_pref)
 		H.mind.speech_span = "wingdings"
 
+/datum/species/grey/handle_reagents(mob/living/carbon/human/H, datum/reagent/R)
+	if(R.id == "sacid")
+		H.reagents.del_reagent(R.id)
+		return 0
+	return ..()
+
 /datum/species/diona
 	name = "Diona"
 	name_plural = "Dionaea"
@@ -1019,10 +1025,10 @@
 	speech_chance = 20
 	male_scream_sound = 'sound/voice/DraskTalk2.ogg'
 	female_scream_sound = 'sound/voice/DraskTalk2.ogg'
-	male_cough_sounds = null      //whale cough when
-	female_cough_sounds = null
-	male_sneeze_sound = null
-	female_sneeze_sound = null
+	male_cough_sounds = 'sound/voice/DraskCough.ogg'
+	female_cough_sounds = 'sound/voice/DraskCough.ogg'
+	male_sneeze_sound = 'sound/voice/DraskSneeze.ogg'
+	female_sneeze_sound = 'sound/voice/DraskSneeze.ogg'
 
 	burn_mod = 2
 	//exotic_blood = "cryoxadone"

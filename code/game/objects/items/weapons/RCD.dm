@@ -34,18 +34,22 @@ RCD
 	var/list/door_accesses_list = list()
 	var/one_access
 	var/locked = 1
-	var/static/list/allowed_door_types = list(/obj/machinery/door/airlock = "Standard",
-		/obj/machinery/door/airlock/command = "Command", /obj/machinery/door/airlock/security = "Security",
-		/obj/machinery/door/airlock/engineering = "Engineering", /obj/machinery/door/airlock/medical = "Medical",
-		/obj/machinery/door/airlock/maintenance = "Maintenance", /obj/machinery/door/airlock/external = "External",
-		/obj/machinery/door/airlock/glass = "Standard (Glass)", /obj/machinery/door/airlock/freezer = "Freezer",
-		/obj/machinery/door/airlock/glass_command = "Command (Glass)", /obj/machinery/door/airlock/glass_engineering = "Engineering (Glass)",
-		/obj/machinery/door/airlock/glass_security = "Security (Glass)", /obj/machinery/door/airlock/glass_medical = "Medical (Glass)",
-		/obj/machinery/door/airlock/mining = "Mining", /obj/machinery/door/airlock/atmos = "Atmospherics",
-		/obj/machinery/door/airlock/research = "Research", /obj/machinery/door/airlock/glass_research = "Research (Glass)",
-		/obj/machinery/door/airlock/glass_mining = "Mining (Glass)", /obj/machinery/door/airlock/glass_atmos = "Atmospherics (Glass)",
-		/obj/machinery/door/airlock/science = "Science", /obj/machinery/door/airlock/glass_science = "Science (Glass)",
-		/obj/machinery/door/airlock/hatch = "Airtight Hatch", /obj/machinery/door/airlock/maintenance_hatch = "Maintenance Hatch")
+	var/static/list/allowed_door_types = list(
+		/obj/machinery/door/airlock = "Standard", /obj/machinery/door/airlock/glass = "Standard (Glass)",
+		/obj/machinery/door/airlock/command = "Command", /obj/machinery/door/airlock/command/glass = "Command (Glass)",
+		/obj/machinery/door/airlock/security = "Security", /obj/machinery/door/airlock/security/glass = "Security (Glass)",
+		/obj/machinery/door/airlock/engineering = "Engineering", /obj/machinery/door/airlock/engineering/glass = "Engineering (Glass)",
+		/obj/machinery/door/airlock/medical = "Medical", /obj/machinery/door/airlock/medical/glass = "Medical (Glass)",
+		/obj/machinery/door/airlock/maintenance = "Maintenance", /obj/machinery/door/airlock/maintenance/glass = "Maintenance (Glass)",
+		/obj/machinery/door/airlock/external = "External", /obj/machinery/door/airlock/external/glass = "External (Glass)",
+		/obj/machinery/door/airlock/maintenance/external = "External Maintenance", /obj/machinery/door/airlock/maintenance/external/glass = "External Maintenance (Glass)",
+		/obj/machinery/door/airlock/freezer = "Freezer",
+		/obj/machinery/door/airlock/mining = "Mining", /obj/machinery/door/airlock/mining/glass = "Mining (Glass)",
+		/obj/machinery/door/airlock/research = "Research", /obj/machinery/door/airlock/research/glass = "Research (Glass)",
+		/obj/machinery/door/airlock/atmos = "Atmospherics", /obj/machinery/door/airlock/atmos/glass = "Atmospherics (Glass)",
+		/obj/machinery/door/airlock/science = "Science", /obj/machinery/door/airlock/science/glass = "Science (Glass)",
+		/obj/machinery/door/airlock/hatch = "Airtight Hatch",
+		/obj/machinery/door/airlock/maintenance_hatch = "Maintenance Hatch")
 
 /obj/item/weapon/rcd/New()
 	desc = "A RCD. It currently holds [matter]/[max_matter] matter-units."

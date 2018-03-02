@@ -19,7 +19,7 @@
 	var/ore_pickup_rate = 15
 	var/sheet_per_ore = 1
 	var/point_upgrade = 1
-	var/list/ore_values = list(("sand" = 1), ("iron" = 1), ("plasma" = 15), ("silver" = 16), ("gold" = 18), ("uranium" = 30), ("diamond" = 50), ("bluespace crystal" = 50), ("bananium" = 60), ("tranquillite" = 60))
+	var/list/ore_values = list(("sand" = 1), ("iron" = 1), ("plasma" = 15), ("silver" = 16), ("gold" = 18), ("titanium" = 30), ("uranium" = 30), ("diamond" = 50), ("bluespace crystal" = 50), ("bananium" = 60), ("tranquillite" = 60))
 	var/list/supply_consoles = list("Science", "Robotics", "Research Director's Desk", "Mechanic", "Engineering" = list("metal", "glass", "plasma"), "Chief Engineer's Desk" = list("metal", "glass", "plasma"), "Atmospherics" = list("metal", "glass", "plasma"), "Bar" = list("uranium", "plasma"), "Virology" = list("plasma", "uranium", "gold"))
 	speed_process = 1
 
@@ -175,17 +175,28 @@
 				dat += "<br>"		//just looks nicer
 			dat += text("[capitalize(s.name)]: [s.amount] <A href='?src=[UID()];release=[s.type]'>Release</A><br>")
 
-	if((/obj/item/stack/sheet/metal in stack_list) && (/obj/item/stack/sheet/mineral/plasma in stack_list))
-		var/obj/item/stack/sheet/metalstack = stack_list[/obj/item/stack/sheet/metal]
-		var/obj/item/stack/sheet/plasmastack = stack_list[/obj/item/stack/sheet/mineral/plasma]
-		if(min(metalstack.amount, plasmastack.amount))
-			dat += text("Plasteel Alloy (Metal + Plasma): <A href='?src=[UID()];plasteel=1'>Smelt</A><BR>")
-	if((/obj/item/stack/sheet/glass in stack_list) && (/obj/item/stack/sheet/mineral/plasma in stack_list))
-		var/obj/item/stack/sheet/glassstack = stack_list[/obj/item/stack/sheet/glass]
-		var/obj/item/stack/sheet/plasmastack = stack_list[/obj/item/stack/sheet/mineral/plasma]
-		if(min(glassstack.amount, plasmastack.amount))
-			dat += "Plasma Glass (Glass + Plasma): <A href='?src=[UID()];plasglass=1'>Smelt</A><BR>"
+	var/obj/item/stack/sheet/metalstack
+	if(/obj/item/stack/sheet/metal in stack_list)
+		metalstack = stack_list[/obj/item/stack/sheet/metal]
 
+	var/obj/item/stack/sheet/glass/glassstack
+	if(/obj/item/stack/sheet/glass in stack_list)
+		glassstack = stack_list[/obj/item/stack/sheet/glass]
+
+	var/obj/item/stack/sheet/plasmastack
+	if((/obj/item/stack/sheet/mineral/plasma in stack_list))
+		plasmastack = stack_list[/obj/item/stack/sheet/mineral/plasma]
+
+	var/obj/item/stack/sheet/mineral/titaniumstack
+	if((/obj/item/stack/sheet/mineral/titanium in stack_list))
+		titaniumstack = stack_list[/obj/item/stack/sheet/mineral/titanium]
+
+	if(metalstack && plasmastack && min(metalstack.amount, plasmastack.amount))
+		dat += text("Plasteel Alloy (Metal + Plasma): <A href='?src=[UID()];alloytype1=/obj/item/stack/sheet/metal;alloytype2=/obj/item/stack/sheet/mineral/plasma;alloytypeout=/obj/item/stack/sheet/plasteel'>Smelt</A><BR>")
+	if(titaniumstack && plasmastack && min(titaniumstack.amount, plasmastack.amount))
+		dat += text("Plastitanium Alloy (Titanium + Plasma): <A href='?src=[UID()];alloytype1=/obj/item/stack/sheet/mineral/titanium;alloytype2=/obj/item/stack/sheet/mineral/plasma;alloytypeout=/obj/item/stack/sheet/mineral/plastitanium'>Smelt</A><BR>")
+	if(glassstack && plasmastack && min(glassstack.amount, plasmastack.amount))
+		dat += text("Plasma Glass (Glass + Plasma): <A href='?src=[UID()];alloytype1=/obj/item/stack/sheet/glass;alloytype2=/obj/item/stack/sheet/mineral/plasma;alloytypeout=/obj/item/stack/sheet/plasmaglass'>Smelt</A><BR>")
 	dat += text("<br><div class='statusDisplay'><b>Mineral Value List:</b><BR>[get_ore_values()]</div>")
 
 	var/datum/browser/popup = new(user, "console_stacking_machine", "Ore Redemption Machine", 400, 500)
@@ -242,37 +253,24 @@
 		else
 			to_chat(usr, "<span class='warning'>Required access not found.</span>")
 
-	if(href_list["plasteel"])
+	if(href_list["alloytype1"] && href_list["alloytype2"] && href_list["alloytypeout"])
+		var/alloytype1 = text2path(href_list["alloytype1"])
+		var/alloytype2 = text2path(href_list["alloytype2"])
+		var/alloytypeout = text2path(href_list["alloytypeout"])
 		if(check_access(inserted_id) || allowed(usr))
-			if(!(/obj/item/stack/sheet/metal in stack_list)) return
-			if(!(/obj/item/stack/sheet/mineral/plasma in stack_list)) return
-			var/obj/item/stack/sheet/metalstack = stack_list[/obj/item/stack/sheet/metal]
-			var/obj/item/stack/sheet/plasmastack = stack_list[/obj/item/stack/sheet/mineral/plasma]
-
+			if(!(alloytype1 in stack_list))
+				return
+			if(!(alloytype2 in stack_list))
+				return
+			var/obj/item/stack/sheet/stack1 = stack_list[alloytype1]
+			var/obj/item/stack/sheet/stack2 = stack_list[alloytype2]
 			var/desired = input("How much?", "How much would you like to smelt?", 1) as num
-			var/obj/item/stack/sheet/plasteel/plasteelout = new
-			plasteelout.amount = round(min(desired,50,metalstack.amount,plasmastack.amount))
-			if(plasteelout.amount >= 1)
-				metalstack.amount -= plasteelout.amount
-				plasmastack.amount -= plasteelout.amount
-				unload_mineral(plasteelout)
-		else
-			to_chat(usr, "<span class='warning'>Required access not found.</span>")
-
-	if(href_list["plasglass"])
-		if(check_access(inserted_id) || allowed(usr))
-			if(!(/obj/item/stack/sheet/glass in stack_list)) return
-			if(!(/obj/item/stack/sheet/mineral/plasma in stack_list)) return
-			var/obj/item/stack/sheet/glassstack = stack_list[/obj/item/stack/sheet/glass]
-			var/obj/item/stack/sheet/plasmastack = stack_list[/obj/item/stack/sheet/mineral/plasma]
-
-			var/desired = input("How much?", "How much would you like to smelt?", 1) as num
-			var/obj/item/stack/sheet/plasmaglass/plasglassout = new
-			plasglassout.amount = round(min(desired, 50, glassstack.amount, plasmastack.amount))
-			if(plasglassout.amount >= 1)
-				glassstack.amount -= plasglassout.amount
-				plasmastack.amount -= plasglassout.amount
-				unload_mineral(plasglassout)
+			var/obj/item/stack/sheet/alloyout = new alloytypeout
+			alloyout.amount = round(min(desired,50,stack1.amount,stack2.amount))
+			if(alloyout.amount >= 1)
+				stack1.amount -= alloyout.amount
+				stack2.amount -= alloyout.amount
+				unload_mineral(alloyout)
 		else
 			to_chat(usr, "<span class='warning'>Required access not found.</span>")
 	updateUsrDialog()
