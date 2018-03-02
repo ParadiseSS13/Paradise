@@ -36,6 +36,8 @@
 		attempt_init()
 
 /atom/movable/Destroy()
+	if(loc)
+		loc.handle_atom_del(src)
 	for(var/atom/movable/AM in contents)
 		qdel(AM)
 	var/turf/un_opaque

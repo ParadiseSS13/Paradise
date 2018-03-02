@@ -2,20 +2,6 @@
 	var/canEnterVentWith = "/obj/item/weapon/implant=0&/obj/item/clothing/mask/facehugger=0&/obj/item/device/radio/borg=0&/obj/machinery/camera=0"
 	var/datum/middleClickOverride/middleClickOverride = null
 
-/mob/living/carbon/prepare_huds()
-	..()
-	prepare_data_huds()
-
-/mob/living/carbon/proc/prepare_data_huds()
-	..()
-	med_hud_set_health()
-	med_hud_set_status()
-
-/mob/living/carbon/updatehealth()
-	..()
-	med_hud_set_health()
-	med_hud_set_status()
-
 /mob/living/carbon/Destroy()
 	QDEL_LIST(internal_organs)
 	QDEL_LIST(stomach_contents)
@@ -23,7 +9,6 @@
 	if(B)
 		B.leave_host()
 		qdel(B)
-	remove_from_all_data_huds()
 	return ..()
 
 /mob/living/carbon/blob_act()

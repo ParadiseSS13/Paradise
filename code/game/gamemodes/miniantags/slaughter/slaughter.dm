@@ -57,6 +57,7 @@
 
 /mob/living/simple_animal/slaughter/New()
 	..()
+	remove_from_all_data_huds()
 	var/obj/effect/proc_holder/spell/bloodcrawl/bloodspell = new
 	AddSpell(bloodspell)
 	whisper_action = new()

@@ -13,7 +13,6 @@
 	vital = 1
 	amputation_point = "spine"
 	gendered_icon = 1
-	cannot_amputate = 1
 	parent_organ = null
 	encased = "ribcage"
 	var/fat = FALSE
@@ -46,7 +45,6 @@
 	w_class = WEIGHT_CLASS_BULKY // if you know what I mean ;)
 	body_part = LOWER_TORSO
 	vital = 1
-	cannot_amputate = TRUE
 	parent_organ = "chest"
 	amputation_point = "lumbar"
 	gendered_icon = 1

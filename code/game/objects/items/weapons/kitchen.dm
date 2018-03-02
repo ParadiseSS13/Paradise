@@ -82,6 +82,18 @@
 	icon_state = "pspoon"
 	attack_verb = list("attacked", "poked")
 
+/obj/item/weapon/kitchen/utensil/spork
+	name = "spork"
+	desc = "It's a spork. Marvel at its innovative design."
+	icon_state = "spork"
+	attack_verb = list("attacked", "sporked")
+
+/obj/item/weapon/kitchen/utensil/pspork
+	name = "plastic spork"
+	desc = "It's a plastic spork. It's the fork side of the spoon!"
+	icon_state = "pspork"
+	attack_verb = list("attacked", "sporked")
+
 /*
  * Knives
  */

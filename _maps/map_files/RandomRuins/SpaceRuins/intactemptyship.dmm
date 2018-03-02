@@ -18,7 +18,7 @@
 "r" = (/obj/structure/table,/obj/item/weapon/paper_bin,/obj/item/weapon/pen,/turf/simulated/shuttle/floor{tag = "icon-floor5"; icon_state = "floor5"},/area/ruin/powered)
 "s" = (/obj/machinery/door/poddoor{id_tag = "strange ship"; name = "Strange Ship Blast Door"},/turf/simulated/shuttle/floor{tag = "icon-floor5"; icon_state = "floor5"},/area/ruin/powered)
 "t" = (/obj/machinery/door/airlock/external,/turf/simulated/shuttle/floor{tag = "icon-floor5"; icon_state = "floor5"},/area/ruin/powered)
-"u" = (/obj/machinery/door/airlock/glass,/turf/simulated/shuttle/floor{tag = "icon-floor5"; icon_state = "floor5"},/area/ruin/powered)
+"u" = (/obj/machinery/door/airlock/public/glass,/turf/simulated/shuttle/floor{tag = "icon-floor5"; icon_state = "floor5"},/area/ruin/powered)
 "v" = (/obj/structure/stool/bed/chair{dir = 4},/turf/simulated/shuttle/floor{tag = "icon-floor5"; icon_state = "floor5"},/area/ruin/powered)
 "w" = (/obj/structure/table,/obj/item/weapon/paper,/obj/item/weapon/pen,/turf/simulated/shuttle/floor{tag = "icon-floor5"; icon_state = "floor5"},/area/ruin/powered)
 "x" = (/obj/machinery/door_control{name = "Strange Ship Door Control"; pixel_x = 6; pixel_y = 0; id = "strange ship"},/turf/simulated/shuttle/wall{icon_state = "wall3"},/area/ruin/powered)

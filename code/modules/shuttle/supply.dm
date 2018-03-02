@@ -297,7 +297,7 @@
 	var/obj/item/weapon/paper/reqform = new /obj/item/weapon/paper(_loc)
 	playsound(_loc, 'sound/goonstation/machines/printer_thermal.ogg', 50, 1)
 	reqform.name = "Requisition Form - [crates] '[object.name]' for [orderedby]"
-	reqform.info += "<h3>[station_name] Supply Requisition Form</h3><hr>"
+	reqform.info += "<h3>[station_name()] Supply Requisition Form</h3><hr>"
 	reqform.info += "INDEX: #[shuttle_master.ordernum]<br>"
 	reqform.info += "REQUESTED BY: [orderedby]<br>"
 	reqform.info += "RANK: [orderedbyRank]<br>"

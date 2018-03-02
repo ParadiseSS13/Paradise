@@ -106,19 +106,8 @@
 /mob/living/simple_animal/updatehealth()
 	..()
 	health = Clamp(health, 0, maxHealth)
+	med_hud_set_status()
 
-/mob/living/simple_animal/handle_hud_icons_health()
-	..()
-	if(healths && maxHealth > 0)
-		switch(health / maxHealth * 30)
-			if(30 to INFINITY)		healths.icon_state = "health0"
-			if(26 to 29)			healths.icon_state = "health1"
-			if(21 to 25)			healths.icon_state = "health2"
-			if(16 to 20)			healths.icon_state = "health3"
-			if(11 to 15)			healths.icon_state = "health4"
-			if(6 to 10)				healths.icon_state = "health5"
-			if(1 to 5)				healths.icon_state = "health6"
-			if(0)					healths.icon_state = "health7"
 
 /mob/living/simple_animal/proc/process_ai()
 	handle_automated_movement()
