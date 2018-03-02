@@ -121,6 +121,7 @@
 				if(thick)
 					W.opacity = 1
 					W.name = "thick terror web"
+					W.health = W.health * 2
 				if(web_infects)
 					W.infectious = 1
 					W.name = "sharp terror web"
