@@ -319,7 +319,6 @@
 /obj/machinery/door/airlock/hatch/syndicate/vault
 	name = "syndicate vault hatch"
 	req_access_txt = "151"
-	icon = 'icons/obj/doors/hightechsecurity.dmi'
 	assemblytype = /obj/structure/door_assembly/door_assembly_highsecurity
 	hackProof = 1
 	aiControlDisabled = 1

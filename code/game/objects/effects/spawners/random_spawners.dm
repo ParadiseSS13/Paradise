@@ -305,8 +305,6 @@
 
 /obj/effect/spawner/random_spawners/syndicate/layout/door
 	name = "50pc door 25pc falsewall 25pc wall"
-	icon = 'icons/obj/doors/Doorhatchele.dmi'
-	icon_state = "door_closed"
 	spawn_nothing_percentage = 0
 	result = list(
 	/obj/machinery/door/airlock/hatch/syndicate = 2,
@@ -316,7 +314,6 @@
 
 /obj/effect/spawner/random_spawners/syndicate/layout/door/secret
 	name = "50pc falsewall 50pc wall"
-	icon_state = "door_closed"
 	color = "#00FFFF"
 	spawn_nothing_percentage = 0
 	result = list(
@@ -326,8 +323,6 @@
 
 /obj/effect/spawner/random_spawners/syndicate/layout/door/vault
 	name = "50pc vaultdoor 25pc falsewall 25pc wall"
-	icon = 'icons/obj/doors/hightechsecurity.dmi'
-	icon_state = "door_closed"
 	color = "#00FFFF"
 	spawn_nothing_percentage = 0
 	result = list(
