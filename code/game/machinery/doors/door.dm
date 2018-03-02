@@ -26,7 +26,6 @@
 	var/block_air_zones = 1 //If set, air zones cannot merge across the door even when it is opened.
 
 	//Multi-tile doors
-	dir = EAST
 	var/width = 1
 
 /obj/machinery/door/New()
