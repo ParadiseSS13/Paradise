@@ -6,6 +6,7 @@
 	visible = 0.0
 	flags = ON_BORDER
 	opacity = 0
+	dir = EAST
 	var/obj/item/weapon/airlock_electronics/electronics = null
 	var/base_state = "left"
 	var/health = 150.0 //If you change this, consider changing ../door/window/brigdoor/ health at the bottom of this .dm file
@@ -262,17 +263,17 @@
 			to_chat(user, "<span class='warning'>You need to open the door to access the maintenance panel.</span>")
 			return
 		playsound(loc, I.usesound, 50, 1)
-		p_open = !p_open
-		to_chat(user, "<span class='notice'>You [p_open ? "open":"close"] the maintenance panel of the [name].</span>")
+		panel_open = !panel_open
+		to_chat(user, "<span class='notice'>You [panel_open ? "open":"close"] the maintenance panel of the [name].</span>")
 		return
 
 	if(iscrowbar(I))
-		if(p_open && !density && !operating)
+		if(panel_open && !density && !operating)
 			playsound(loc, I.usesound, 100, 1)
 			user.visible_message("<span class='warning'>[user] removes the electronics from the [name].</span>", \
 								 "You start to remove electronics from the [name].")
 			if(do_after(user, 40 * I.toolspeed, target = src))
-				if(p_open && !density && !operating && loc)
+				if(panel_open && !density && !operating && loc)
 					var/obj/structure/windoor_assembly/WA = new /obj/structure/windoor_assembly(loc)
 					switch(base_state)
 						if("left")

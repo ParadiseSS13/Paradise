@@ -502,8 +502,6 @@
 	modules += new /obj/item/device/t_scanner(src)
 	modules += new /obj/item/weapon/rpd(src)
 
-	emag = new /obj/item/weapon/pickaxe/drill/cyborg/diamond(src)
-
 	for(var/T in stacktypes)
 		var/obj/item/stack/sheet/W = new T(src)
 		W.amount = stacktypes[T]

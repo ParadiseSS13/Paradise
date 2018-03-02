@@ -260,11 +260,14 @@
 			return
 
 	// Find a blood decal or create a new one.
-	var/obj/effect/decal/cleanable/blood/B
-	if(!(locate(B) in T) || pixel_x || pixel_y)
-		B = new /obj/effect/decal/cleanable/blood/splatter(T)
-	else
-		B = locate() in T
+	var/obj/effect/decal/cleanable/blood/splatter/B = locate() in T
+	var/list/bloods = get_atoms_of_type(T, B, TRUE, 0, 0) //Get all the non-projectile-splattered blood on this turf (not pixel-shifted).
+	if(shift_x || shift_y)
+		bloods = get_atoms_of_type(T, B, TRUE, shift_x, shift_y) //Get all the projectile-splattered blood at these pixels on this turf (pixel-shifted).
+		B = locate() in bloods
+	if(!B)
+		B = new(T)
+
 	B.transfer_mob_blood_dna(src) //give blood info to the blood decal.
 	if(temp_blood_DNA)
 		B.blood_DNA |= temp_blood_DNA
@@ -282,11 +285,15 @@
 /mob/living/carbon/alien/add_splatter_floor(turf/T, small_drip, shift_x, shift_y)
 	if(!T)
 		T = get_turf(src)
-	var/obj/effect/decal/cleanable/blood/xeno/B
-	if(!(locate(B) in T) || pixel_x || pixel_y)
+
+	var/obj/effect/decal/cleanable/blood/xeno/splatter/B = locate() in T
+	var/list/bloods = get_atoms_of_type(T, B, TRUE, 0, 0) //The more the better.
+	if(shift_x || shift_y)
+		bloods = get_atoms_of_type(T, B, TRUE, shift_x, shift_y)
+		B = locate() in bloods
+	if(!B)
 		B = new(T)
-	else
-		B = locate() in T
+
 	B.blood_DNA["UNKNOWN DNA"] = "X*"
 	B.pixel_x = (shift_x)
 	B.pixel_y = (shift_y)
@@ -297,13 +304,17 @@
 /mob/living/silicon/robot/add_splatter_floor(turf/T, small_drip, shift_x, shift_y)
 	if(!T)
 		T = get_turf(src)
-	var/obj/effect/decal/cleanable/blood/oil/B
-	if(!(locate(B) in T) || pixel_x || pixel_y)
-		B = new(T)
-	else
-		B = locate() in T
-	B.pixel_x = (shift_x)
-	B.pixel_y = (shift_y)
+
+	var/obj/effect/decal/cleanable/blood/oil/streak/O = locate() in T
+	var/list/oils = get_atoms_of_type(T, O, TRUE, 0, 0) //Don't let OSHA catch wind of this.
 	if(shift_x || shift_y)
-		B.off_floor = TRUE
-		B.layer = BELOW_MOB_LAYER
+		oils = get_atoms_of_type(T, O, TRUE, shift_x, shift_y)
+		O = locate() in oils
+	if(!O)
+		O = new(T)
+
+	O.pixel_x = (shift_x)
+	O.pixel_y = (shift_y)
+	if(shift_x || shift_y)
+		O.off_floor = TRUE
+		O.layer = BELOW_MOB_LAYER

@@ -500,10 +500,13 @@
 	if(ticker.mode.name == "meteor")
 		return
 
-	shuttle_master.cancelEvac(user)
-	log_game("[key_name(user)] has recalled the shuttle.")
-	message_admins("[key_name_admin(user)] has recalled the shuttle - [formatJumpTo(user)].", 1)
-	return
+	if(shuttle_master.cancelEvac(user))
+		log_game("[key_name(user)] has recalled the shuttle.")
+		message_admins("[key_name_admin(user)] has recalled the shuttle - [ADMIN_FLW(user)].", 1)
+	else
+		to_chat(user, "<span class='warning'>Central Command has refused the recall request!</span>")
+		log_game("[key_name(user)] has tried and failed to recall the shuttle.")
+		message_admins("[key_name_admin(user)] has tried and failed to recall the shuttle - [ADMIN_FLW(user)].", 1)
 
 /proc/post_status(command, data1, data2, mob/user = null)
 
