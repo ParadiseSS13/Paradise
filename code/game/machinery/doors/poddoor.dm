@@ -114,12 +114,12 @@
 	apply_opacity_to_my_turfs(opacity)
 
 /obj/machinery/door/poddoor/multi_tile/open()
-	if (..())
+	if(..())
 		apply_opacity_to_my_turfs(opacity)
 
 
 /obj/machinery/door/poddoor/multi_tile/close()
-	if (..())
+	if(..())
 		apply_opacity_to_my_turfs(opacity)
 
 /obj/machinery/door/poddoor/multi_tile/Destroy()
@@ -129,14 +129,10 @@
 //Poddoors don't turn opaque automatically. Fear not, here is the fix.
 //A bad fix. Which needs exorcism. (Disclaimer: exorcism in not in the code YET. Upon being coded, please apply immediately.)
 /obj/machinery/door/poddoor/multi_tile/proc/apply_opacity_to_my_turfs(var/new_opacity)
-	var/numsteps = 1
-	var/turf/current_turf = get_turf(src)
-	while(numsteps <= width)
-		current_turf.opacity = new_opacity
-		current_turf.has_opaque_atom = new_opacity
-		current_turf.reconsider_lights()
-		var/turf/next_turf = get_step(current_turf, idir)
-		current_turf = next_turf
+	for(var/turf/T in locs)
+		T.opacity = new_opacity
+		T.has_opaque_atom = new_opacity
+		T.reconsider_lights()
 		numsteps++
 	update_freelook_sight()
 
