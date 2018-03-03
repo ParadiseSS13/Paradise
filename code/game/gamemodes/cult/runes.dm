@@ -495,6 +495,7 @@ var/list/teleport_runes = list()
 		message_admins("[key_name_admin(user)] tried to summonn an eldritch horror when the objective was wrong")
 		burn_invokers(invokers)
 		log_game("Summon Nar-Sie rune failed - improper objective")
+		return
 	if(!is_station_level(user.z))
 		message_admins("[key_name_admin(user)] tried to summon an eldritch horror off station")
 		burn_invokers(invokers)

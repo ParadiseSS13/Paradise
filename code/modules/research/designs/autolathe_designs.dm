@@ -263,6 +263,22 @@
 	build_path = /obj/item/weapon/kitchen/utensil/fork
 	category = list("initial","Dinnerware")
 
+/datum/design/spoon
+	name = "Spoon"
+	id = "spoon"
+	build_type = AUTOLATHE
+	materials = list(MAT_METAL = 80)
+	build_path = /obj/item/weapon/kitchen/utensil/spoon
+	category = list("initial","Dinnerware")
+
+/datum/design/spork
+	name = "Spork"
+	id = "spork"
+	build_type = AUTOLATHE
+	materials = list(MAT_METAL = 80)
+	build_path = /obj/item/weapon/kitchen/utensil/spork
+	category = list("initial","Dinnerware")
+
 /datum/design/tray
 	name = "Tray"
 	id = "tray"

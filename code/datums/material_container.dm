@@ -40,6 +40,8 @@
 		materials[MAT_BANANIUM] = new /datum/material/bananium()
 	if(mat_list[MAT_TRANQUILLITE])
 		materials[MAT_TRANQUILLITE] = new /datum/material/tranquillite()
+	if(mat_list[MAT_TITANIUM])
+		materials[MAT_TITANIUM] = new /datum/material/titanium()
 
 /datum/material_container/Destroy()
 	QDEL_LIST_ASSOC_VAL(materials)
@@ -275,6 +277,13 @@
 	..()
 	material_type = MAT_TRANQUILLITE
 	sheet_type = /obj/item/stack/sheet/mineral/tranquillite
+
+/datum/material/titanium
+
+/datum/material/titanium/New()
+	..()
+	material_type = MAT_TITANIUM
+	sheet_type = /obj/item/stack/sheet/mineral/titanium
 
 /datum/material/biomass
 

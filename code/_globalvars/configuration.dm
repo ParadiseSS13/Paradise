@@ -2,7 +2,6 @@ var/datum/configuration/config = null
 
 var/host = null
 var/join_motd = null
-var/station_name = "NSS Cyberiad"
 var/game_version = "Custom ParaCode"
 var/changelog_hash = md5('html/changelog.html') //used to check if the CL changed
 var/game_year = (text2num(time2text(world.realtime, "YYYY")) + 544)
