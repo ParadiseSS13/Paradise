@@ -1402,13 +1402,13 @@ obj/item/toy/cards/deck/syndicate/black
 		if(bullet_position > 1)
 			user.visible_message("<span class='danger'>*click*</span>")
 			playsound(src, 'sound/weapons/empty.ogg', 100, 1)
-			bullet_position --
+			bullet_position--
 			return
 		else
 			bullet_position = null
 			playsound(src, 'sound/weapons/Gunshot.ogg', 50, 1)
 			user.visible_message("<span class='danger'>[src] goes off!</span>")
-			user.apply_damage(200, BRUTE, "head", sharp =1, used_weapon = "Self-inflicted gunshot wound to the head.")
+			user.apply_damage(200, BRUTE, "head", sharp = 1, used_weapon = "Self-inflicted gunshot wound to the head.")
 			user.death()
 	else
 		user.visible_message("<span class='danger'>[user] lowers [src] from their head.</span>")
