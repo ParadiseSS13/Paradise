@@ -43,7 +43,7 @@
 			debug_variables(ticker)
 			feedback_add_details("admin_verb","DTicker")
 		if("Air")
-			debug_variables(air_master)
+			debug_variables(SSair)
 			feedback_add_details("admin_verb","DAir")
 		if("Jobs")
 			debug_variables(job_master)

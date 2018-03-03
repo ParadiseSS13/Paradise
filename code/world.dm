@@ -55,7 +55,6 @@ var/global/list/map_transition_config = MAP_TRANSITION_CONFIG
 		processScheduler.setup()
 
 		master_controller.setup()
-		sleep_offline = 1
 
 	if(using_map && using_map.name)
 		map_name = "[using_map.name]"

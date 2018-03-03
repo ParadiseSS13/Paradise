@@ -126,8 +126,8 @@ turf/CanPass(atom/movable/mover, turf/target, height=1.5)
 /turf/proc/air_update_turf(var/command = 0)
 	if(command)
 		CalculateAdjacentTurfs()
-	if(air_master)
-		air_master.add_to_active(src,command)
+	if(SSair)
+		SSair.add_to_active(src,command)
 
 /atom/movable/proc/move_update_air(var/turf/T)
     if(istype(T,/turf))
@@ -184,4 +184,4 @@ var/const/SPAWN_AIR = 256
 		G.nitrogen += MOLES_N2STANDARD * amount
 
 	air.merge(G)
-	air_master.add_to_active(src, 0)
+	SSair.add_to_active(src, 0)

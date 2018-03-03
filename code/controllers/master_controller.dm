@@ -82,26 +82,4 @@ var/global/pipe_processing_killed = 0
 		count++
 	log_startup_progress("	Initialized [count] objects in [stop_watch(watch)]s.")
 
-	watch = start_watch()
-	count = 0
-	log_startup_progress("Initializing atmospherics machinery...")
-	for(var/obj/machinery/atmospherics/unary/U in machines)
-		if(istype(U, /obj/machinery/atmospherics/unary/vent_pump))
-			var/obj/machinery/atmospherics/unary/vent_pump/T = U
-			T.broadcast_status()
-			count++
-		else if(istype(U, /obj/machinery/atmospherics/unary/vent_scrubber))
-			var/obj/machinery/atmospherics/unary/vent_scrubber/T = U
-			T.broadcast_status()
-			count++
-	log_startup_progress("	Initialized [count] atmospherics machines in [stop_watch(watch)]s.")
-
-	watch = start_watch()
-	count = 0
-	log_startup_progress("Initializing pipe networks...")
-	for(var/obj/machinery/atmospherics/machine in machines)
-		machine.build_network()
-		count++
-	log_startup_progress("	Initialized [count] pipes in [stop_watch(watch)]s.")
-
 	log_startup_progress("Finished object initializations in [stop_watch(overwatch)]s.")
