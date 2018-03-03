@@ -1,8 +1,0 @@
-author: "Serket"
-delete-after: True
-changes: 
-  - bugfix: "Death Wand can kill slimes and hopefully everything"
-  - bugfix: "Wizards can no longer mind-swap borgs"
-  - rscadd: "ERT Specops Office now comes with extra privacy (borgs can't open the ERT mech room, etc.)"
-  - bugfix: "Removed snow from Mr Chang's"
-  - bugfix: "Fixed a dethralling error causing message typos"

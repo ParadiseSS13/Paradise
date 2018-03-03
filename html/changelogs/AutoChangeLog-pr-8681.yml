@@ -1,4 +1,0 @@
-author: "DarkPyrolord"
-delete-after: True
-changes: 
-  - bugfix: "Sliceable food items are no longer hammerspace capable"

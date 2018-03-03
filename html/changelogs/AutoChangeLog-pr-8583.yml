@@ -1,7 +1,0 @@
-author: "FalseIncarnate"
-delete-after: True
-changes: 
-  - rscadd: "Adds colored, departmental, and novelty mugs to the hot drinks machine and loadout menu under \"Mugs\"."
-  - rscadd: "Adds Head of Staff coffee mugs to their respective lockers."
-  - rscadd: "Adds support for inserting items into vendors and having the vendor interact with said item when vending items."
-  - rscadd: "Adds the ability to insert containers into the hot drink machine, filling the container with your purchase."
