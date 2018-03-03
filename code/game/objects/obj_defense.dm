@@ -26,7 +26,7 @@
 		armor_protection = armor[damage_flag]
 	if(armor_protection)		//Only apply weak-against-armor/hollowpoint effects if there actually IS armor.
 		armor_protection = Clamp(armor_protection - armour_penetration, 0, 100)
-	return round(damage_amount * (100 - armor_protection)*0.01, 0.1)
+	return round(damage_amount * (100 - armor_protection) * 0.01, 0.1)
 
 //the sound played when the obj is damaged.
 /obj/proc/play_attack_sound(damage_amount, damage_type = BRUTE, damage_flag = 0)

@@ -86,7 +86,7 @@ obj/structure/windoor_assembly/Destroy()
 					if(do_after(user, 40 * WT.toolspeed, target = src))
 						if(!src || !WT.isOn())
 							return
-						to_chat(user, "<span class='notice'>You disasemble the windoor assembly.</span>")
+						to_chat(user, "<span class='notice'>You disassemble the windoor assembly.</span>")
 						var/obj/item/stack/sheet/rglass/RG = new (get_turf(src), 5)
 						RG.add_fingerprint(user)
 						if(secure)

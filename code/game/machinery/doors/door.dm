@@ -223,7 +223,7 @@
 			else if(damage_amount)
 				playsound(loc, 'sound/weapons/smash.ogg', 50, 1)
 			else
-				playsound(src, 'sound/weapons/tap.ogg', 50, 1)
+				playsound(loc, 'sound/weapons/tap.ogg', 50, 1)
 		if(BURN)
 			playsound(loc, 'sound/items/welder.ogg', 100, 1)
 

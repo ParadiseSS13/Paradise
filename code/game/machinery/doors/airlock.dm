@@ -824,7 +824,7 @@ About the new airlock wires panel:
 						return
 					to_chat(user, "<span class='notice'>You begin cutting the panel's shielding...</span>")
 					playsound(loc, WT.usesound, 40, 1)
-					if(do_after(user, 40*WT.toolspeed, 1, target = src))
+					if(do_after(user, 40 * WT.toolspeed, 1, target = src))
 						if(!panel_open || !WT.isOn())
 							return
 						playsound(loc, WT.usesound, 50, 1)
@@ -840,7 +840,7 @@ About the new airlock wires panel:
 					var/obj/item/weapon/crowbar/W = C
 					to_chat(user, "<span class='notice'>You start removing the inner layer of shielding...</span>")
 					playsound(src, W.usesound, 100, 1)
-					if(do_after(user, 40*W.toolspeed, 1, target = src))
+					if(do_after(user, 40 * W.toolspeed, 1, target = src))
 						if(!panel_open)
 							return
 						if(security_level != AIRLOCK_SECURITY_PLASTEEL_I_S)
@@ -860,7 +860,7 @@ About the new airlock wires panel:
 						return
 					to_chat(user, "<span class='notice'>You begin cutting the inner layer of shielding...</span>")
 					playsound(loc, WT.usesound, 40, 1)
-					if(do_after(user, 40*WT.toolspeed, 1, target = src))
+					if(do_after(user, 40 * WT.toolspeed, 1, target = src))
 						if(!panel_open || !WT.isOn())
 							return
 						playsound(loc, WT.usesound, 50, 1)
@@ -874,7 +874,7 @@ About the new airlock wires panel:
 					var/obj/item/weapon/crowbar/W = C
 					to_chat(user, "<span class='notice'>You start removing outer layer of shielding...</span>")
 					playsound(src, W.usesound, 100, 1)
-					if(do_after(user, 40*W.toolspeed, 1, target = src))
+					if(do_after(user, 40 * W.toolspeed, 1, target = src))
 						if(!panel_open)
 							return
 						if(security_level != AIRLOCK_SECURITY_PLASTEEL_O_S)
@@ -891,7 +891,7 @@ About the new airlock wires panel:
 						return
 					to_chat(user, "<span class='notice'>You begin cutting the outer layer of shielding...</span>")
 					playsound(loc, WT.usesound, 40, 1)
-					if(do_after(user, 40*WT.toolspeed, 1, target = src))
+					if(do_after(user, 40 * WT.toolspeed, 1, target = src))
 						if(!panel_open || !WT.isOn())
 							return
 						playsound(loc, WT.usesound, 50, 1)
@@ -907,7 +907,7 @@ About the new airlock wires panel:
 						return
 					to_chat(user, "<span class='notice'>You start cutting through the outer grille.</span>")
 					playsound(src, W.usesound, 100, 1)
-					if(do_after(user, 10*W.toolspeed, 1, target = src))
+					if(do_after(user, 10 * W.toolspeed, 1, target = src))
 						if(!panel_open)
 							return
 						user.visible_message("<span class='notice'>[user] cut through \the [src]'s outer grille.</span>",
@@ -953,12 +953,12 @@ About the new airlock wires panel:
 /obj/machinery/door/airlock/try_to_weld(obj/item/weapon/weldingtool/W, mob/user)
 	if(!operating && density)
 		if(user.a_intent != INTENT_HELP)
-			if(W.remove_fuel(0,user))
+			if(W.remove_fuel(0, user))
 				user.visible_message("[user] is [welded ? "unwelding":"welding"] the airlock.", \
 								"<span class='notice'>You begin [welded ? "unwelding":"welding"] the airlock...</span>", \
 								"<span class='italics'>You hear welding.</span>")
 				playsound(loc, W.usesound, 40, 1)
-				if(do_after(user,40*W.toolspeed, 1, target = src, extra_checks = CALLBACK(src, .proc/weld_checks, W, user)))
+				if(do_after(user, 40 * W.toolspeed, 1, target = src, extra_checks = CALLBACK(src, .proc/weld_checks, W, user)))
 					playsound(loc, 'sound/items/welder2.ogg', 50, 1)
 					welded = !welded
 					user.visible_message("[user.name] has [welded? "welded shut":"unwelded"] [src].", \
@@ -966,12 +966,12 @@ About the new airlock wires panel:
 					update_icon()
 		else
 			if(obj_integrity < max_integrity)
-				if(W.remove_fuel(0,user))
+				if(W.remove_fuel(0, user))
 					user.visible_message("[user] is welding the airlock.", \
 									"<span class='notice'>You begin repairing the airlock...</span>", \
 									"<span class='italics'>You hear welding.</span>")
 					playsound(loc, W.usesound, 40, 1)
-					if(do_after(user,40*W.toolspeed, 1, target = src, extra_checks = CALLBACK(src, .proc/weld_checks, W, user)))
+					if(do_after(user, 40 * W.toolspeed, 1, target = src, extra_checks = CALLBACK(src, .proc/weld_checks, W, user)))
 						playsound(loc, 'sound/items/welder2.ogg', 50, 1)
 						obj_integrity = max_integrity
 						stat &= ~BROKEN
@@ -994,7 +994,7 @@ About the new airlock wires panel:
 		playsound(loc, I.usesound, 100, 1)
 		user.visible_message("[user] removes the electronics from the airlock assembly.", \
 							 "<span class='notice'>You start to remove electronics from the airlock assembly...</span>")
-		if(do_after(user,40*I.toolspeed, target = src))
+		if(do_after(user, 40 * I.toolspeed, target = src))
 			deconstruct(TRUE, user)
 			return
 	else if(arePowerSystemsOn())
@@ -1021,7 +1021,7 @@ About the new airlock wires panel:
 
 	if(istype(I, /obj/item/weapon/crowbar/power))
 		if(isElectrified())
-			shock(user,100)//it's like sticking a forck in a power socket
+			shock(user, 100)//it's like sticking a forck in a power socket
 			return
 
 		if(!density)//already open
@@ -1038,9 +1038,9 @@ About the new airlock wires panel:
 		var/time_to_open = 5
 		if(arePowerSystemsOn() && !prying_so_hard)
 			time_to_open = 50
-			playsound(src, 'sound/machines/airlock_alien_prying.ogg',100,1) //is it aliens or just the CE being a dick?
+			playsound(src, 'sound/machines/airlock_alien_prying.ogg', 100, 1) //is it aliens or just the CE being a dick?
 			prying_so_hard = TRUE
-			var/result = do_after(user, time_to_open,target = src)
+			var/result = do_after(user, time_to_open, target = src)
 			prying_so_hard = FALSE
 			if(result)
 				open(1)

@@ -99,5 +99,5 @@
 #define FLAMMABLE 0
 #define ON_FIRE 1
 
-//resistant_flags
+//resistance_flags
 #define INDESTRUCTIBLE 64 //doesn't take damage

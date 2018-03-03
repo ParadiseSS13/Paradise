@@ -119,9 +119,9 @@
 	if(W.remove_fuel(0, user))
 		playsound(get_turf(src), W.usesound, 50, 1)
 		user.visible_message("<span class='notice'>[user] starts [welded ? "unwelding" : "welding"] [src].</span>", "<span class='notice'>You start welding [src].</span>")
-		if(do_after(user, 40*W.toolspeed, 1, target=src))
+		if(do_after(user, 40 * W.toolspeed, 1, target=src))
 			welded = !welded
-			to_chat(user, "<span class='danger'>[user] [welded?"welds":"unwelds"] [src].</span>", "<span class='notice'>You [welded ? "weld" : "unweld"] [src].</span>")
+			to_chat(user, "<span class='danger'>[user] [welded ? "welds" : "unwelds"] [src].</span>", "<span class='notice'>You [welded ? "weld" : "unweld"] [src].</span>")
 			update_icon()
 
 /obj/machinery/door/firedoor/try_to_crowbar(obj/item/I, mob/user)
