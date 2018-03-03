@@ -12,76 +12,76 @@
 	desc = "A fun mug for your coffee or other hot beverage!"
 	novelty = TRUE
 
-/datum/novelty
+/datum/novelty_mug
 	var/name = "novelty coffee mug"
 	var/description = "A fun mug for your coffee or other hot beverage!"
 	var/state = "mug"
 
-/datum/novelty/peace
+/datum/novelty_mug/peace
 	name = "peaceful mug"
 	description = "It's like... so peaceful, man."
 	state = "mug_peace"
 
-/datum/novelty/fire
+/datum/novelty_mug/fire
 	name = "fire mug"
 	description = "Caution: contents and design may be incredibly hot."
 	state = "mug_fire"
 
-/datum/novelty/best
+/datum/novelty_mug/best
 	name = "best mug"
 	description = "By decree of this mug, you are the best!"
 	state = "mug_best"
 
-/datum/novelty/best/New()
+/datum/novelty_mug/best/New()
 	var/locale = pick("Room's", "Department's", "Station's", "World's", "Sector's", "System's", "Galaxy's", "Universe's", "Multi-verse's", "Nanotrasen's", "Syndicate's")
 	var/what = pick("Crewmember", "Spessman", "Employee", "Coffee", "Coffee-drinker", "Survivor", "Personality", "Lifeform", "Doctor", "Scientist", "Engineer", "Officer", "Civillian", "Captain", "Agent")
 	name = "\"[locale] Best [what]\" mug"
 
-/datum/novelty/worst
+/datum/novelty_mug/worst
 	name = "worst mug"
 	description = "By decree of this mug, you are the worst!"
 	state = "mug_worst"
 
-/datum/novelty/worst/New()
+/datum/novelty_mug/worst/New()
 	var/locale = pick("Room's", "Department's", "Station's", "World's", "Sector's", "System's", "Galaxy's", "Universe's", "Multi-verse's", "Nanotrasen's", "Syndicate's")
 	var/what = pick("Crewmember", "Spessman", "Employee", "Coffee", "Coffee-drinker", "Survivor", "Personality", "Lifeform", "Doctor", "Scientist", "Engineer", "Officer", "Civillian", "Captain", "Agent")
 	name = "\"[locale] Worst [what]\" mug"
 
-/datum/novelty/insult
+/datum/novelty_mug/insult
 	name = "insulting coffee mug"
 	description = "How rude!"
 	state = "mug_insult"
 
-/datum/novelty/insult/New()
+/datum/novelty_mug/insult/New()
 	var/insult = pick("There isn't enough coffee to make you tolerable.", "I drink coffee so I can pretend to like people.", "I haven't had my coffee yet... What's your excuse?", "This coffee is more robust than you.", "Decaf is for weaklings like you.")
 	description = "This one says:\"[insult]\""
 
-/datum/novelty/pda
+/datum/novelty_mug/pda
 	name = "PDA mug"
 	description = "Finally, a use for one of these!"
 	state = "mug_pda"
 
-/datum/novelty/rad
+/datum/novelty_mug/rad
 	name = "radioactive mug"
 	description = "Is coffee supposed to be green... and glowing?"
 	state = "mug_rad"
 
-/datum/novelty/tide
+/datum/novelty_mug/tide
 	name = "greytide mug"
 	description = "This coffee packs almost as much of a punch as a toolbox to the face!"
 	state = "mug_tide"
 
-/datum/novelty/happy
+/datum/novelty_mug/happy
 	name = "happy mug"
 	description = "Even when you aren't, this mug helps you look happy around coworkers."
 	state = "mug_happy"
 
-/datum/novelty/pills
+/datum/novelty_mug/pills
 	name = "prescription mug"
 	description = "Prescription: caffeine. Dosage: As much as it takes."
 	state = "mug_pills"
 
-/datum/novelty/rainbow
+/datum/novelty_mug/rainbow
 	name = "rainbow mug"
 	description = "So mesmerizing!"
 	state = "mug_rainbow"
@@ -91,8 +91,8 @@
 	if(preset)
 		return
 	if(novelty)
-		var/novelty_type = pick(subtypesof(/datum/novelty))
-		var/datum/novelty/selected = new novelty_type
+		var/novelty_type = pick(subtypesof(/datum/novelty_mug))
+		var/datum/novelty_mug/selected = new novelty_type
 		name = selected.name
 		desc = selected.description
 		icon_state = selected.state
