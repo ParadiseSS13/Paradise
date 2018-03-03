@@ -264,9 +264,10 @@ var/list/holopads = list()
 
 					var/obj/machinery/hologram/holopad/pad_close = get_closest_atom(/obj/machinery/hologram/holopad, holopads, AI.eyeobj)
 					if(get_dist(pad_close, AI.eyeobj) <= pad_close.holo_range)
+						var/obj/effect/overlay/holo_pad_hologram/H = masters[master]
 						clear_holo(AI)
 						if(!pad_close.outgoing_call)
-							pad_close.activate_holo(AI, 1)
+							pad_close.set_holo(AI, H)
 				else
 					continue
 
@@ -414,7 +415,7 @@ For the other part of the code, check silicon say.dm. Particularly robot talk.*/
 		else if(distx < 0)
 			newangle += 360
 	var/matrix/M = matrix()
-	if(get_dist(get_turf(holo),new_turf) <= 1)
+	if(get_dist(get_turf(holo), new_turf) <= 1)
 		animate(ray, transform = turn(M.Scale(1,sqrt(distx*distx+disty*disty)),newangle),time = 1)
 	else
 		ray.transform = turn(M.Scale(1,sqrt(distx*distx+disty*disty)),newangle)
