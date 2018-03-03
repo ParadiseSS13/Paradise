@@ -31,8 +31,9 @@
 		var/obj/machinery/hologram/holopad/H = I
 		if(!qdeleted(H) && !(H.stat & NOPOWER))
 			dialed_holopads += H
+			var/area/area = get_area(H)
 			LAZYADD(H.holo_calls, src)
-			H.atom_say("Incoming call from [caller]!")
+			H.atom_say("[area] pad beeps: Incoming call from [caller]!")
 
 	if(!dialed_holopads.len)
 		calling_holopad.atom_say("Connection failure.")
@@ -48,7 +49,7 @@
 		user.reset_perspective()
 		user.remote_control = null
 
-	if(!qdeleted(eye))
+	if(exists(eye))
 		if(user_good && user.client)
 			for(var/datum/camerachunk/chunk in eye.visibleCameraChunks)
 				chunk.remove(eye)

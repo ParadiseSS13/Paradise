@@ -159,8 +159,8 @@ var/list/holopads = list()
 			if(HC.connected_holopad == src)
 				dat += "<a href='?src=[UID()];disconnectcall=[HC.UID()] '>Disconnect call from [HC.user].</a><br>"
 
-
-	var/datum/browser/popup = new(user, "holopad", name, 400, 300)
+	var/area/area = get_area(src)
+	var/datum/browser/popup = new(user, "holopad", "[area] holopad", 400, 300)
 	popup.set_content(dat)
 	popup.set_title_image(user.browse_rsc_icon(icon, icon_state))
 	popup.open()
@@ -211,7 +211,7 @@ var/list/holopads = list()
 
 	else if(href_list["connectcall"])
 		var/datum/holocall/call_to_connect = locateUID(href_list["connectcall"])
-		if(exists(call_to_connect) && (call_to_connect in holo_calls))
+		if(!qdeleted(call_to_connect) && (call_to_connect in holo_calls))
 			call_to_connect.Answer(src)
 		temp = ""
 
@@ -232,12 +232,14 @@ var/list/holopads = list()
 /obj/machinery/hologram/holopad/attack_ai(mob/living/silicon/ai/user)
 	if(!istype(user))
 		return
+	if(outgoing_call)
+		return
 	/*There are pretty much only three ways to interact here.
 	I don't need to check for client since they're clicking on an object.
 	This may change in the future but for now will suffice.*/
 	if(user.eyeobj.loc != loc)//Set client eye on the object if it's not already.
 		user.eyeobj.setLoc(get_turf(src))
-	else if(!masters[user])//If there is no hologram, possibly make one.
+	else if(!LAZYLEN(masters) || !masters[user])//If there is no hologram, possibly make one.
 		activate_holo(user, 1)
 	else//If there is a hologram, remove it.
 		clear_holo(user)
@@ -263,7 +265,8 @@ var/list/holopads = list()
 					var/obj/machinery/hologram/holopad/pad_close = get_closest_atom(/obj/machinery/hologram/holopad, holopads, AI.eyeobj)
 					if(get_dist(pad_close, AI.eyeobj) <= pad_close.holo_range)
 						clear_holo(AI)
-						pad_close.activate_holo(AI, 1)
+						if(!pad_close.outgoing_call)
+							pad_close.activate_holo(AI, 1)
 				else
 					continue
 
@@ -292,7 +295,7 @@ var/list/holopads = list()
 	if(masters[user])
 		var/obj/effect/overlay/holo_pad_hologram/H = masters[user]
 		H.setDir(get_dir(H.loc, new_turf))
-		H.loc = new_turf
+		H.forceMove(new_turf)
 		update_holoray(user, new_turf)
 		if(ishuman(user))
 			var/area/holo_area = get_area(src)
@@ -374,7 +377,6 @@ For the other part of the code, check silicon say.dm. Particularly robot talk.*/
 	var/mob/living/silicon/ai/AI = user
 	if(istype(AI))
 		AI.current = src
-		h.forceMove(get_turf(AI.eyeobj))
 	SetLightsAndPower()
 	update_holoray(user, get_turf(loc))
 	return TRUE
@@ -412,7 +414,7 @@ For the other part of the code, check silicon say.dm. Particularly robot talk.*/
 		else if(distx < 0)
 			newangle += 360
 	var/matrix/M = matrix()
-	if (get_dist(get_turf(holo),new_turf) <= 1)
+	if(get_dist(get_turf(holo),new_turf) <= 1)
 		animate(ray, transform = turn(M.Scale(1,sqrt(distx*distx+disty*disty)),newangle),time = 1)
 	else
 		ray.transform = turn(M.Scale(1,sqrt(distx*distx+disty*disty)),newangle)
