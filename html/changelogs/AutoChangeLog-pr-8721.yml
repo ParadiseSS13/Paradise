@@ -1,0 +1,4 @@
+author: "Citinited"
+delete-after: True
+changes: 
+  - bugfix: "IPCs can now lose russian roulette without going to nullspace"
