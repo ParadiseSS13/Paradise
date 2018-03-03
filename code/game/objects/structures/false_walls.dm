@@ -80,9 +80,9 @@
 
 /obj/structure/falsewall/update_icon()
 	if(density)
+		icon_state = initial(icon_state)
 		smooth = SMOOTH_TRUE
 		smooth_icon(src)
-		icon_state = ""
 	else
 		icon_state = "fwall_open"
 
@@ -305,3 +305,21 @@
 	mineral = "abductor"
 	walltype = "abductor"
 	canSmoothWith = list(/obj/structure/falsewall/abductor, /turf/simulated/wall/mineral/abductor)
+
+/obj/structure/falsewall/titanium
+	desc = "A light-weight titanium wall used in shuttles."
+	icon = 'icons/turf/walls/shuttle_wall.dmi'
+	icon_state = "shuttle"
+	mineral = /obj/item/stack/sheet/mineral/titanium
+	walltype = /turf/simulated/wall/mineral/titanium
+	smooth = SMOOTH_MORE
+	canSmoothWith = list(/turf/simulated/wall/mineral/titanium, /obj/machinery/door/airlock/shuttle, /obj/machinery/door/airlock, /obj/structure/window/full/shuttle, /obj/structure/shuttle/engine/heater)
+
+/obj/structure/falsewall/plastitanium
+	desc = "An evil wall of plasma and titanium."
+	icon = 'icons/turf/walls/plastitanium_wall.dmi'
+	icon_state = "shuttle"
+	mineral = /obj/item/stack/sheet/mineral/plastitanium
+	walltype = /turf/simulated/wall/mineral/plastitanium
+	smooth = SMOOTH_MORE
+	canSmoothWith = list(/turf/simulated/wall/mineral/plastitanium, /obj/machinery/door/airlock/shuttle, /obj/machinery/door/airlock, /obj/structure/window/full/shuttle, /obj/structure/shuttle/engine/heater)

@@ -25,6 +25,7 @@ var/global/list/respawnable_list = list()			//List of all mobs, dead or in mindl
 var/global/list/non_respawnable_keys = list()	//List of ckeys that are excluded from respawning for remainder of round.
 var/global/list/simple_animal_list = list()			//List of all simple animals, including clientless
 var/global/list/snpc_list = list()      			//List of all snpc's, including clientless
+var/global/list/bots_list = list() 					//List of all bots(beepsky, medibots,etc)
 
 var/global/list/med_hud_users = list()
 var/global/list/sec_hud_users = list()
