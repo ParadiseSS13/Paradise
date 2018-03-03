@@ -383,20 +383,6 @@
 			G.attacktext = "swarms"
 			G.speak_emote = list("chitters")
 
-
-
-//			G.name_color = picked_color
-//			G.icon = 'icons/mob/mob.dmi'
-//			picked_name = pick("brood", "hive", "nest")
-//			to_chat(user, "[G.bio_fluff_string].")
-//			G.name = "[picked_name] swarm"
-//			G.color = picked_color
-//			G.real_name = "[picked_name] swarm"
-//			G.icon_living = "headcrab"
-//			G.icon_state = "headcrab"
-//			G.attacktext = "swarms"
-//			G.speak_emote = list("chitters")
-
 /obj/item/weapon/guardiancreator/choose
 	random = FALSE
 
