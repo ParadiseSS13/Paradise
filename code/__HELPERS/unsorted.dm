@@ -1914,3 +1914,10 @@ var/mob/dview/dview_mob = new
 		for(var/atom/thing in here)
 			if(istype(thing, type) && (check_shift && thing.pixel_x == shift_x && thing.pixel_y == shift_y))
 				. += thing
+
+//gives us the stack trace from CRASH() without ending the current proc.
+/proc/stack_trace(msg)
+	CRASH(msg)
+
+/datum/proc/stack_trace(msg)
+	CRASH(msg)

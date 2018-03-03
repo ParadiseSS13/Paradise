@@ -1,6 +1,6 @@
-//simplified MC that is designed to fail when procs 'break'. When it fails it's just replaced with a new one.
-//It ensures master_controller.process() is never doubled up by killing the MC (hence terminating any of its sleeping procs)
-//WIP, needs lots of work still
+// old deprecated rusted piece of shit MC
+// All this does now is misc. world init stuff because too lazy to put it somewhere else
+// It used to run all of the repeating processes controlling the game but now the SMC and Process Scheduler do that
 
 var/global/datum/controller/game_controller/master_controller //Set in world.New()
 
@@ -9,16 +9,6 @@ var/global/last_tick_duration = 0
 
 var/global/air_processing_killed = 0
 var/global/pipe_processing_killed = 0
-
-/datum/controller
-	var/processing = 0
-	var/iteration = 0
-	var/processing_interval = 0
-
-	// Dummy object to let us click it to debug while in the stat panel
-	var/obj/effect/statclick/debug/statclick
-
-/datum/controller/proc/recover() // If we are replacing an existing controller (due to a crash) we attempt to preserve as much as we can.
 
 /datum/controller/game_controller
 	var/list/shuttle_list											// For debugging and VV
@@ -46,8 +36,6 @@ var/global/pipe_processing_killed = 0
 	return QDEL_HINT_HARDDEL_NOW
 
 /datum/controller/game_controller/proc/setup()
-	world.tick_lag = config.Ticklag
-
 	preloadTemplates()
 	if(!config.disable_away_missions)
 		createRandomZlevel()

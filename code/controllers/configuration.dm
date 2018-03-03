@@ -189,6 +189,16 @@
 
 	var/disable_karma = 0 // Disable all karma functions and unlock karma jobs by default
 
+	// StonedMC
+	var/tick_limit_mc_init = TICK_LIMIT_MC_INIT_DEFAULT	//SSinitialization throttling
+
+	// Highpop tickrates
+	var/base_mc_tick_rate = 1
+	var/high_pop_mc_tick_rate = 1.1
+
+	var/high_pop_mc_mode_amount = 65
+	var/disable_high_pop_mc_mode_amount	= 60
+
 /datum/configuration/New()
 	var/list/L = subtypesof(/datum/game_mode)
 	for(var/T in L)

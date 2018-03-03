@@ -4,9 +4,6 @@ var/global/datum/global_init/init = new ()
 	Pre-map initialization stuff should go here.
 */
 /datum/global_init/New()
-
-	makeDatumRefLists()
-	load_configuration()
 	setLog()
 	del(src)
 
@@ -37,6 +34,7 @@ var/global/list/map_transition_config = MAP_TRANSITION_CONFIG
 
 	timezoneOffset = text2num(time2text(0,"hh")) * 36000
 
+
 	callHook("startup")
 
 	src.update_status()
@@ -47,6 +45,8 @@ var/global/list/map_transition_config = MAP_TRANSITION_CONFIG
 	populate_robolimb_list()
 
 	space_manager.initialize() //Before the MC starts up
+
+	Master.Initialize(10, FALSE)
 
 	processScheduler = new
 	master_controller = new /datum/controller/game_controller()
