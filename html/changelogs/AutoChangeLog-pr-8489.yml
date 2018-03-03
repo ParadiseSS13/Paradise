@@ -1,0 +1,6 @@
+author: "KasparoVy"
+delete-after: True
+changes: 
+  - rscadd: "The eyes of humanoids who have XRAY vision mutation, sufficiently high darkview, synthetic eyes or eye implants now appear to shine in the dark."
+  - rscadd: "Adds a way to 'cut' one icon's pixels out of another by using the get_icon_difference() proc."
+  - bugfix: "get_location_accessible() now checks the appropriate flags when determining the accessibility of eyes."
