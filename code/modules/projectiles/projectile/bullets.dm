@@ -281,6 +281,12 @@
 	..()
 	reagents.add_reagent("haloperidol", 15)
 
+/obj/item/projectile/bullet/dart/syringe/foam
+	name = "foam dart syringe"
+	icon = 'icons/obj/guns/toy.dmi'
+	icon_state = "foamdart_chem"
+	damage = 1
+
 /obj/item/projectile/bullet/neurotoxin
 	name = "neurotoxin spit"
 	icon_state = "neurotoxin"
