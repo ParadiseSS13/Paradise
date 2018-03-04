@@ -33,14 +33,6 @@
 		qdel(W)
 		qdel(src)
 		return
-	else if(istype(W,/obj/item/weaponcrafting/flaregunparts))
-		to_chat(user, "You loosely attach the flare rifle parts to the receiver. The barrel seem very loose.")
-		var/obj/item/weaponcrafting/flaregunconstruction/I = new /obj/item/weaponcrafting/flaregunconstruction
-		user.unEquip(src)
-		user.put_in_hands(I)
-		qdel(W)
-		qdel(src)
-		return
 
 // SHOTGUN //
 
@@ -94,35 +86,3 @@
 		else
 			to_chat(user, "<span class='warning'>You need at least five feet of wrapping paper to secure the stock.</span>")
 			return
-
-//Flare Rifle//
-
-/obj/item/weaponcrafting/flaregunconstruction
-	name = "slightly assembled flare rifle"
-	desc = "A loosely assembled flare rifle. The barrel seem loose."
-	icon = 'icons/obj/improvised.dmi'
-	icon_state = "flaregunstep1"
-
-/obj/item/weaponcrafting/flaregunconstruction/attackby(var/obj/item/I, mob/user as mob, params)
-	..()
-	if(istype(I, /obj/item/weapon/wrench))
-		var/obj/item/weaponcrafting/flaregunconstruction2/C = new /obj/item/weaponcrafting/flaregunconstruction2
-		user.unEquip(src)
-		user.put_in_hands(C)
-		to_chat(user, "<span class='notice'>You wrench the barrel into place, but now it seems like everything else is loose enough to fall off.</span>")
-		qdel(src)
-
-/obj/item/weaponcrafting/flaregunconstruction2
-	name = "slightly assembled flare rifle"
-	desc = "A loosely assembled flare rifle. The barrel seem loose."
-	icon = 'icons/obj/improvised.dmi'
-	icon_state = "flaregunstep2"
-
-/obj/item/weaponcrafting/flaregunconstruction2/attackby(var/obj/item/I, mob/user as mob, params)
-	..()
-	if(istype(I, /obj/item/weapon/screwdriver))
-		var/obj/item/weapon/gun/projectile/revolver/doublebarrel/improvised/flare/W = new /obj/item/weapon/gun/projectile/revolver/doublebarrel/improvised/flare
-		user.unEquip(src)
-		user.put_in_hands(W)
-		to_chat(user, "<span class='notice'>You screw all the furniture on the gun, securing it enough to be operational.</span>")
-		qdel(src)
