@@ -1,7 +1,0 @@
-author: "Fethas"
-delete-after: True
-changes: 
-  - rscadd: "TG Port, ais now have an advanced diagnostic hud that lets them see the path a bot is taking."
-  - tweak: "Bots get access for 60 seconds to all doors to get to thier locations.
-rscadd:Pai controlled bots will get a notification they are being called.
-rscadd:all living mobs now can have a med hud."

@@ -120,6 +120,7 @@
 
 #define TINT_IMPAIR 2			//Threshold of tint level to apply weld mask overlay
 #define TINT_BLIND 3			//Threshold of tint level to obscure vision fully
+#define EYE_SHINE_THRESHOLD 6	//dark_view threshold past which a humanoid's eyes will 'shine' in the dark.
 
 #define isliving(A)		(istype((A), /mob/living))
 #define iscarbon(A)		(istype((A), /mob/living/carbon))
@@ -171,6 +172,3 @@
 #define hasorgans(A)	(ishuman(A))
 
 #define is_admin(user)	(check_rights(R_ADMIN, 0, (user)) != 0)
-
-//effects
-#define EFFECT_HIGHFIVE "highfiving"

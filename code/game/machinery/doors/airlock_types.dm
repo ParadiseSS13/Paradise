@@ -234,6 +234,16 @@
 	opacity = 0
 	glass = TRUE
 
+/obj/machinery/door/airlock/titanium
+	name = "shuttle airlock"
+	assemblytype = /obj/structure/door_assembly/door_assembly_titanium
+	icon = 'icons/obj/doors/airlocks/shuttle/shuttle.dmi'
+	overlays_file = 'icons/obj/doors/airlocks/shuttle/overlays.dmi'
+
+/obj/machinery/door/airlock/titanium/glass
+	opacity = 0
+	glass = TRUE
+
 //////////////////////////////////
 /*
 	Station2 Airlocks
@@ -481,9 +491,11 @@
 //Terribly sorry for the code doubling, but things go derpy otherwise.
 /obj/machinery/door/airlock/multi_tile
 	name = "large airlock"
+	dir = EAST
 	width = 2
 	icon = 'icons/obj/doors/airlocks/glass_large/glass_large.dmi'
 	overlays_file = 'icons/obj/doors/airlocks/glass_large/overlays.dmi'
+	note_overlay_file = 'icons/obj/doors/airlocks/glass_large/overlays.dmi'
 	assemblytype = "obj/structure/door_assembly/multi_tile"
 
 /obj/machinery/door/airlock/multi_tile/narsie_act()

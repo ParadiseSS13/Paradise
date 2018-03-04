@@ -19,7 +19,8 @@
 								MAT_GOLD=0,
 								MAT_PLASMA=0,
 								MAT_SILVER=0,
-								MAT_URANIUM=0
+								MAT_URANIUM=0,
+								MAT_TITANIUM=0
 								)
 	var/res_max_amount = 200000
 	var/datum/research/files
@@ -435,6 +436,8 @@
 			type = /obj/item/stack/sheet/mineral/bananium
 		if(MAT_TRANQUILLITE)
 			type = /obj/item/stack/sheet/mineral/tranquillite
+		if(MAT_TITANIUM)
+			type = /obj/item/stack/sheet/mineral/titanium
 		else
 			return 0
 	var/result = 0
@@ -492,6 +495,8 @@
 				material = MAT_TRANQUILLITE
 			if(/obj/item/stack/sheet/mineral/uranium)
 				material = MAT_URANIUM
+			if(/obj/item/stack/sheet/mineral/titanium)
+				material = MAT_TITANIUM
 			else
 				return ..()
 

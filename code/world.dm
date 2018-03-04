@@ -61,8 +61,12 @@ var/global/list/map_transition_config = MAP_TRANSITION_CONFIG
 		map_name = "[using_map.name]"
 	else
 		map_name = "Unknown"
-
-
+	
+	
+	if(config && config.server_name)
+		name = "[config.server_name]: [station_name()]"
+	else
+		name = station_name()
 
 
 #undef RECOMMENDED_VERSION
