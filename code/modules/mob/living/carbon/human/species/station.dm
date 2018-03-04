@@ -97,18 +97,18 @@
 	if(!user.restrained() || !user.buckled)
 		to_chat(user, "You need freedom of movment to tail lash!")
 		return
+	if(user.getStaminaLoss() >= 50)
+		to_chat(user, "Rest before tail lashing again!")
+		return
 	for(var/mob/living/carbon/human/C in orange(1))
 		var/obj/item/organ/external/E = C.get_organ(pick("l_leg", "r_leg", "l_foot", "r_foot", "groin"))
 		if(E)
-			if(user.getStaminaLoss() >= 50)
-				to_chat(user, "Rest before tail lashing again!")
-			else
-				user.changeNext_move(CLICK_CD_MELEE)
-				user.visible_message("<span class='danger'> [src] smacks [C] in the [E] with thier tail!</span>", "<span class='danger'>You hit [C] in the [E] with your tail!</span>")
-				user.adjustStaminaLoss(15)
-				C.apply_damage(5, BRUTE, E)
-				user.spin(20,1)
-				playsound(user.loc, 'sound/weapons/slash.ogg', 50, 0)
+			user.changeNext_move(CLICK_CD_MELEE)
+			user.visible_message("<span class='danger'> [src] smacks [C] in [E] with thier tail! </span>", "<span class='danger'>You hit [C] in [E] with your tail! </span>")
+			user.adjustStaminaLoss(15)
+			C.apply_damage(5, BRUTE, E)
+			user.spin(20, 1)
+			playsound(user.loc, 'sound/weapons/slash.ogg', 50, 0)
 
 
 
@@ -893,13 +893,13 @@
 
 /datum/species/diona/water_act(var/mob/living/carbon/C, volume, temperature, source)
 	..()
-	C.nutrition = min(C.nutrition+volume, NUTRITION_LEVEL_WELL_FED+10)
+	C.nutrition = min(C.nutrition + volume, NUTRITION_LEVEL_WELL_FED+10)
 
 /datum/species/diona/handle_life(var/mob/living/carbon/human/H)
 	H.radiation = Clamp(H.radiation, 0, 100) //We have to clamp this first, then decrease it, or there's a few edge cases of massive heals if we clamp and decrease at the same time.
 	var/rads = H.radiation / 25
-	H.radiation = max(H.radiation-rads, 0)
-	H.nutrition = min(H.nutrition+rads, NUTRITION_LEVEL_WELL_FED+10)
+	H.radiation = max(H.radiation - rads, 0)
+	H.nutrition = min(H.nutrition + rads, NUTRITION_LEVEL_WELL_FED+10)
 	H.adjustBruteLoss(-(rads))
 	H.adjustToxLoss(-(rads))
 
