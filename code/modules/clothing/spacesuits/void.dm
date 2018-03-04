@@ -94,3 +94,38 @@
 	allowed = list(/obj/item/weapon/gun,/obj/item/ammo_box,/obj/item/ammo_casing,/obj/item/weapon/melee/baton,/obj/item/weapon/melee/energy/sword/saber,/obj/item/weapon/restraints/handcuffs,/obj/item/weapon/tank)
 	armor = list(melee = 40, bullet = 50, laser = 30, energy = 15, bomb = 30, bio = 30, rad = 30)
 
+//random spawner
+
+/obj/item/device/voidsuitspawner
+	name = "NASA Void Suit Spawner"
+	icon = 'icons/obj/clothing/suits.dmi'
+	icon_state = "void-red"
+	desc = "You shouldn't see this, a spawner for NASE Void Suits."
+	var/suits = list("red", "green", "ntblue", "purple", "yellow", "ltblue")
+	var/obj/item/clothing/head/helmet/space/voidsuit/H
+	var/obj/item/clothing/suit/space/voidsuit/S
+
+/obj/item/device/voidsuitspawner/New()
+	var/suit_pick = pick(suits)
+	switch(suit_pick)
+		if("red")
+			H = new /obj/item/clothing/head/helmet/space/voidsuit
+			S = new /obj/item/clothing/suit/space/voidsuit
+		if("green")
+			H = new /obj/item/clothing/head/helmet/space/voidsuit/green
+			S = new /obj/item/clothing/suit/space/voidsuit/green
+		if("ntblue")
+			H = new /obj/item/clothing/head/helmet/space/voidsuit/ntblue
+			S = new /obj/item/clothing/suit/space/voidsuit/ntblue
+		if("purple")
+			H = new /obj/item/clothing/head/helmet/space/voidsuit/purple
+			S = new /obj/item/clothing/suit/space/voidsuit/purple
+		if("yellow")
+			H = new /obj/item/clothing/head/helmet/space/voidsuit/yellow
+			S = new /obj/item/clothing/suit/space/voidsuit/yellow
+		if("ltblue")
+			H = new /obj/item/clothing/head/helmet/space/voidsuit/ltblue
+			S = new /obj/item/clothing/suit/space/voidsuit/ltblue
+	H.loc = get_turf(src)
+	S.loc = get_turf(src)
+	qdel(src)
