@@ -84,7 +84,7 @@ datum/theft_objective/ai/check_special_completion(var/obj/item/device/aicard/C)
 
 /datum/theft_objective/voidsuit
 	name = "a nasa voidsuit"
-	typepath = /obj/item/clothing/suit/space/voidsuit
+	typepath = /obj/item/clothing/suit/space/nasavoid
 	protected_jobs = list("Research Director")
 
 /datum/theft_objective/slime_extract
