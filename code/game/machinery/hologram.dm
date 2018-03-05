@@ -266,9 +266,9 @@ var/list/holopads = list()
 					var/obj/machinery/hologram/holopad/pad_close = get_closest_atom(/obj/machinery/hologram/holopad, holopads, AI.eyeobj)
 					if(get_dist(pad_close, AI.eyeobj) <= pad_close.holo_range)
 						var/obj/effect/overlay/holo_pad_hologram/H = masters[master]
-						clear_holo(AI)
+						unset_holo(master)
 						if(!pad_close.outgoing_call)
-							pad_close.set_holo(AI, H)
+							pad_close.set_holo(master, H)
 						continue
 				else
 					continue
