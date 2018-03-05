@@ -1,4 +1,0 @@
-author: "Funce"
-delete-after: True
-changes: 
-  - bugfix: "APC Interface lock UI works for silicons."
