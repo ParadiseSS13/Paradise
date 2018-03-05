@@ -55,6 +55,7 @@ var/list/holopads = list()
 	var/static/force_answer_call = FALSE	//Calls will be automatically answered after a couple rings, here for debugging
 	var/static/list/holopads = list()
 	var/obj/effect/overlay/holoray/ray
+	var/ringing = FALSE
 
 /obj/machinery/hologram/holopad/New()
 	..()
@@ -268,6 +269,7 @@ var/list/holopads = list()
 						clear_holo(AI)
 						if(!pad_close.outgoing_call)
 							pad_close.set_holo(AI, H)
+						continue
 				else
 					continue
 
@@ -275,6 +277,8 @@ var/list/holopads = list()
 
 	if(outgoing_call)
 		outgoing_call.Check()
+
+	ringing = FALSE
 
 	for(var/I in holo_calls)
 		var/datum/holocall/HC = I
@@ -291,6 +295,9 @@ var/list/holopads = list()
 				HC.Disconnect(src)//can't answer calls while calling
 			else
 				playsound(src, 'sound/machines/twobeep.ogg', 100)	//bring, bring!
+				ringing = TRUE
+
+	update_icon()
 
 /obj/machinery/hologram/holopad/proc/move_hologram(mob/living/user, turf/new_turf)
 	if(masters[user])
@@ -371,6 +378,17 @@ For the other part of the code, check silicon say.dm. Particularly robot talk.*/
 	else
 		set_light(0)
 		icon_state = "holopad0"
+	update_icon()
+
+/obj/machinery/hologram/holopad/update_icon()
+	var/total_users = LAZYLEN(masters) + LAZYLEN(holo_calls)
+	if(ringing)
+		icon_state = "holopad_ringing"
+	else if(total_users)
+		icon_state = "holopad1"
+	else
+		icon_state = "holopad0"
+
 
 /obj/machinery/hologram/holopad/proc/set_holo(mob/living/user, var/obj/effect/overlay/holo_pad_hologram/h)
 	masters[user] = h
