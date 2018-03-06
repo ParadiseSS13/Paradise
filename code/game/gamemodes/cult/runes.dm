@@ -120,7 +120,7 @@ structure_check() searches for nearby cultist structures required for the invoca
 	//This proc determines if the rune can be invoked at the time. If there are multiple required cultists, it will find all nearby cultists.
 	var/list/invokers = list() //people eligible to invoke the rune
 	var/list/chanters = list() //people who will actually chant the rune when passed to invoke()
-	if(invisibility == 0)
+	if(invisibility == INVISIBILITY_OBSERVER)//hidden rune
 		return
 	if(user)
 		chanters |= user
