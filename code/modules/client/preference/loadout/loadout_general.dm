@@ -80,6 +80,11 @@
 	path = /obj/item/weapon/cartridge/mob_hunt_game
 	cost = 2
 
+/datum/gear/zippo
+    display_name = "zippo"
+    path = /obj/item/weapon/lighter/zippo
+    cost = 2
+
 //////////////////////
 //		Mugs		//
 //////////////////////
