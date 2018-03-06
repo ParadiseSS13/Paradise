@@ -1388,8 +1388,8 @@ obj/item/toy/cards/deck/syndicate/black
 		user.visible_message("<span class='warning'>[user] spins the cylinder on [src]!</span>")
 
 
-/obj/item/toy/russian_revolver/attack(atom/target, mob/living/carbon/human/user)
-	if(target != user) //can't use this on other people
+/obj/item/toy/russian_revolver/attack(mob/living/carbon/M, mob/living/carbon/human/user)
+	if(M != user) //can't use this on other people
 		return
 	if(!bullet_position)
 		to_chat(user, "<span class='notice'>[src] is empty.</span>")
@@ -1398,7 +1398,7 @@ obj/item/toy/cards/deck/syndicate/black
 		to_chat(user, "<span class='notice'>Playing this game without a head would be classed as cheating.</span>")
 		return
 	user.visible_message("<span class='danger'>[user] points [src] at their head, ready to pull the trigger!</span>")
-	if(do_after(user, 30, target = user))
+	if(do_after(user, 30, M = user))
 		if(bullet_position > 1)
 			user.visible_message("<span class='danger'>*click*</span>")
 			playsound(src, 'sound/weapons/empty.ogg', 100, 1)
