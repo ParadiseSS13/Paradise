@@ -1,4 +1,0 @@
-author: "Regen"
-delete-after: True
-changes: 
-  - rscdel: "Removes the purple hair flower pin from loadout and general player access, because this is a fluff item."
