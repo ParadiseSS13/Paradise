@@ -272,7 +272,7 @@
 
 /obj/item/ammo_casing/foamsyringe
 	name = "foam dart syringe"
-	desc = "A foam dart with a small syringe in it. It looks to fragile to be re-used."
+	desc = "A foam dart with a small syringe in it. It looks too fragile to be re-used."
 	icon = 'icons/obj/guns/toy.dmi'
 	icon_state = "foamdart_chem"
 	caliber = "foam_force"
