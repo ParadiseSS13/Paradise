@@ -378,7 +378,7 @@ var/list/uplink_items = list()
 
 /datum/uplink_item/dangerous/carbine
 	name = "M-90gl Carbine"
-	desc = "A fully-loaded three-round burst carbine that uses 30-round 5.56mm magazines with a togglable underslung 40mm grenade launcher."
+	desc = "A fully-loaded three-round burst carbine that uses 30-round 5.56x45mm magazines with a togglable underslung 40mm grenade launcher."
 	reference = "AR"
 	item = /obj/item/weapon/gun/projectile/automatic/m90
 	cost = 18
@@ -387,7 +387,7 @@ var/list/uplink_items = list()
 
 /datum/uplink_item/dangerous/machinegun
 	name = "L6 Squad Automatic Weapon"
-	desc = "A fully-loaded Aussec Armory belt-fed machine gun. This deadly weapon has a massive 50-round magazine of devastating 7.62x51mm ammunition."
+	desc = "A fully-loaded Aussec Armory belt-fed machine gun. This deadly weapon has a massive 50-round magazine of devastating .308 Win. ammunition."
 	reference = "LMG"
 	item = /obj/item/weapon/gun/projectile/automatic/l6_saw
 	cost = 40
@@ -659,8 +659,8 @@ var/list/uplink_items = list()
 	gamemodes = list(/datum/game_mode/nuclear)
 
 /datum/uplink_item/ammo/carbine
-	name = "Toploader Magazine - 5.56"
-	desc = "An additional 30-round 5.56 magazine for use in the M-90gl carbine. These bullets don't have the punch to knock most targets down, but dish out higher overall damage."
+	name = "Toploader Magazine - 5.56x45mm"
+	desc = "An additional 30-round 5.56x45mm magazine for use in the M-90gl carbine. These bullets don't have the punch to knock most targets down, but dish out higher overall damage."
 	reference = "556"
 	item = /obj/item/ammo_box/magazine/m556
 	cost = 2
@@ -675,10 +675,10 @@ var/list/uplink_items = list()
 	gamemodes = list(/datum/game_mode/nuclear)
 
 /datum/uplink_item/ammo/machinegun
-	name = "Box Magazine - 5.56x45mm"
-	desc = "A 50-round magazine of 5.56x45mm ammunition for use in the L6 SAW machine gun. By the time you need to use this, you'll already be on a pile of corpses."
+	name = "Box Magazine - .308 Win."
+	desc = "A 50-round magazine of .308 Win. ammunition for use in the L6 SAW machine gun. By the time you need to use this, you'll already be on a pile of corpses."
 	reference = "762"
-	item = /obj/item/ammo_box/magazine/mm556x45
+	item = /obj/item/ammo_box/magazine/win308
 	cost = 12
 	gamemodes = list(/datum/game_mode/nuclear)
 	surplus = 0

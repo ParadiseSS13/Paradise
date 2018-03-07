@@ -350,7 +350,7 @@
 	max_ammo = 8
 
 /obj/item/ammo_box/magazine/m556
-	name = "toploader magazine (5.56mm)"
+	name = "toploader magazine (5.56x45mm)"
 	icon_state = "5.56m"
 	origin_tech = "combat=5;syndicate=1"
 	ammo_type = /obj/item/ammo_casing/a556

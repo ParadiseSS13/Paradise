@@ -126,7 +126,7 @@
 
 /obj/item/weapon/gun/projectile/automatic/m90
 	name = "\improper M-90gl Carbine"
-	desc = "A three-round burst 5.56 toploading carbine, designated 'M-90gl'. Has an attached underbarrel grenade launcher which can be toggled on and off."
+	desc = "A three-round burst 5.56x45mm toploading carbine, designated 'M-90gl'. Has an attached underbarrel grenade launcher which can be toggled on and off."
 	icon_state = "m90"
 	item_state = "m90"
 	origin_tech = "combat=5;materials=2;syndicate=6"
