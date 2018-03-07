@@ -87,7 +87,7 @@
 			if(!D.welded)
 				D.activate_alarm()
 				if(D.operating)
-					D.nextstate = CLOSED
+					D.nextstate = FD_CLOSED
 				else if(!D.density)
 					spawn(0)
 						D.close()
