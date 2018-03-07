@@ -569,4 +569,9 @@
 	desc = "A healthy crew is a happy crew!"
 	icon_state = "poster40_legit"
 
+/obj/structure/sign/poster/official/george
+	name = "Stop Space George!"
+	desc = "\"He is Space George, one of the most influential millionaires in space, and he has a very <span class='warning'>EVIL</span> plan! Do not let Space George laugh last!\""
+	icon_state = "poster41_legit"
+
 #undef PLACE_SPEED
