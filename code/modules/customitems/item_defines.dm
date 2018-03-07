@@ -588,7 +588,7 @@
 /obj/item/clothing/head/fluff/heather_winceworth // Regens: Heather Winceworth
 	name= "Heather's rose"
 	desc= "A beautiful purple rose for your hair."
-	icon= 'icons/obj/clothing/hats.dmi'
+	icon= 'icons/obj/custom_items.dmi'
 	icon_state = "hairflowerp"
 	item_state = "hairflowerp"
 

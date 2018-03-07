@@ -1668,6 +1668,41 @@
 	G.icon_state = "grabbed1"
 	G.synch()
 
+/mob/living/carbon/human/proc/get_eyecon()
+	var/obj/item/organ/internal/eyes/eyes = get_int_organ(/obj/item/organ/internal/eyes)
+	var/obj/item/organ/internal/cyberimp/eyes/eye_implant = get_int_organ(/obj/item/organ/internal/cyberimp/eyes)
+	if(istype(species) && species.eyes)
+		var/icon/eyes_icon = new/icon('icons/mob/human_face.dmi', species.eyes)
+		if(eye_implant) //Eye implants override native DNA eye colo(u)r
+			eyes_icon = eye_implant.generate_icon()
+		else if(eyes)
+			eyes_icon = eyes.generate_icon()
+		else
+			eyes_icon.Blend("#800000", ICON_ADD)
+
+		return eyes_icon
+
+/mob/living/carbon/human/proc/get_eye_shine() //Referenced cult constructs for shining in the dark. Needs to be above lighting effects such as shading.
+	var/obj/item/organ/external/head/head_organ = get_organ("head")
+	var/datum/sprite_accessory/hair/hair_style = hair_styles_full_list[head_organ.h_style]
+	var/icon/hair = new /icon("icon" = hair_style.icon, "icon_state" = "[hair_style.icon_state]_s")
+
+	return image(get_icon_difference(get_eyecon(), hair), layer = LIGHTING_LAYER + 1) //Cut the hair's pixels from the eyes icon so eyes covered by bangs stay hidden even while on a higher layer.
+
+/*Used to check if eyes should shine in the dark. Returns the image of the eyes on the layer where they will appear to shine.
+Eyes need to have significantly high darksight to shine unless the mob has the XRAY vision mutation. Eyes will not shine if they are covered in any way.*/
+/mob/living/carbon/human/proc/eyes_shine()
+	var/obj/item/organ/internal/eyes/eyes = get_int_organ(/obj/item/organ/internal/eyes)
+	var/obj/item/organ/internal/cyberimp/eyes/eye_implant = get_int_organ(/obj/item/organ/internal/cyberimp/eyes)
+	if(!(istype(eyes) || istype(eye_implant)))
+		return FALSE
+	if(!get_location_accessible(src, "eyes"))
+		return FALSE
+	if(!(eyes.shine()) && !istype(eye_implant) && !(XRAY in mutations)) //If their eyes don't shine, they don't have other augs, nor do they have X-RAY vision
+		return FALSE
+
+	return TRUE
+
 /mob/living/carbon/human/proc/gut()
 	set category = "Abilities"
 	set name = "Gut"
