@@ -164,7 +164,7 @@
 			. = stored_mmi
 			if(owner.mind)
 				owner.mind.transfer_to(stored_mmi.brainmob)
-			stored_mmi.forceMove(get_turf(src))
+			stored_mmi.forceMove(get_turf(owner))
 			stored_mmi = null
 	..()
 	qdel(src)

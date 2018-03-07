@@ -97,6 +97,9 @@
 	var/obj/item/weapon/coin/coin
 	var/datum/wires/vending/wires = null
 
+	var/item_slot = FALSE
+	var/obj/item/inserted_item = null
+
 /obj/machinery/vending/New()
 	..()
 	wires = new(src)
@@ -118,6 +121,10 @@
 		return
 
 	return
+
+/obj/machinery/vending/Destroy()
+	eject_item()
+	return ..()
 
 /**
  *  Build src.produdct_records from the products lists
@@ -281,8 +288,53 @@
 			return;
 		else
 			to_chat(user, "<span class='notice'>You should probably unscrew the service panel first.</span>")
+	else if(item_slot_check(user, I))
+		insert_item(user, I)
+		return
 	else
 		..()
+
+//Override this proc to do per-machine checks on the inserted item, but remember to call the parent to handle these generic checks before your logic!
+/obj/machinery/vending/proc/item_slot_check(mob/user, obj/item/I)
+	if(!item_slot)
+		return FALSE
+	if(alert(user, "Do you want to attempt to insert [I]?", "","Yes", "No") == "No")
+		return FALSE
+	if(inserted_item)
+		to_chat(user, "<span class='warning'>There is something already inserted!</span>")
+		return FALSE
+	return TRUE
+
+/* Example override for item_slot_check proc:
+/obj/machinery/vending/example/item_slot_check(mob/user, obj/item/I)
+	if(!..())
+		return FALSE
+	if(!istype(I, /obj/item/toy))
+		to_chat(user, "<span class='warning'>[I] isn't compatible with this machine's slot.</span>")
+		return FALSE
+	return TRUE
+*/
+
+/obj/machinery/vending/proc/insert_item(mob/user, obj/item/I)
+	if(!item_slot || inserted_item)
+		return
+	if(!user.canUnEquip(I))
+		to_chat(user, "<span class='warning'>[I] is stuck to your hand, you can't seem to put it down!</span>")
+		return
+
+	user.unEquip(I)
+	inserted_item = I
+	I.forceMove(src)
+
+	to_chat(user, "<span class='notice'>You insert [I] into [src].</span>")
+	nanomanager.update_uis(src)
+
+/obj/machinery/vending/proc/eject_item()
+	if(!item_slot || !inserted_item)
+		return
+	inserted_item.forceMove(get_turf(src))
+	inserted_item = null
+	nanomanager.update_uis(src)
 
 /obj/machinery/vending/emag_act(user as mob)
 	emagged = 1
@@ -439,12 +491,21 @@
 
 		data["products"] = listed_products
 
-	if(src.coin)
-		data["coin"] = src.coin.name
+	if(coin)
+		data["coin"] = coin.name
 
-	if(src.panel_open)
+	if(item_slot)
+		data["item_slot"] = 1
+		if(inserted_item)
+			data["inserted_item"] = inserted_item
+		else
+			data["inserted_item"] = null
+	else
+		data["item_slot"] = 0
+
+	if(panel_open)
 		data["panel"] = 1
-		data["speaker"] = src.shut_up ? 0 : 1
+		data["speaker"] = shut_up ? 0 : 1
 	else
 		data["panel"] = 0
 	return data
@@ -462,6 +523,9 @@
 		coin = null
 		to_chat(usr, "<span class='notice'>You remove [coin] from [src].</span>")
 		categories &= ~CAT_COIN
+
+	if(href_list["remove_item"])
+		eject_item()
 
 	if(href_list["pay"])
 		if(currently_vending && vendor_account && !vendor_account.suspended)
@@ -562,13 +626,31 @@
 	use_power(vend_power_usage)	//actuators and stuff
 	if(icon_vend) //Show the vending animation if needed
 		flick(icon_vend,src)
-	spawn(src.vend_delay)
-		new R.product_path(get_turf(src))
+	spawn(vend_delay)
+		do_vend(R)
 		status_message = ""
 		status_error = 0
 		vend_ready = 1
 		currently_vending = null
 		nanomanager.update_uis(src)
+
+//override this proc to add handling for what to do with the vended product when you have a inserted item and remember to include a parent call for this generic handling
+/obj/machinery/vending/proc/do_vend(datum/data/vending_product/R)
+	if(!item_slot || !inserted_item)
+		new R.product_path(get_turf(src))
+		return TRUE
+	return FALSE
+
+/* Example override for do_vend proc:
+/obj/machinery/vending/example/do_vend(datum/data/vending_product/R)
+	if(..())
+		return
+	var/obj/item/vended = new R.product_path()
+	if(inserted_item.force == initial(inserted_item.force)
+		inserted_item.force += vended.force
+	inserted_item.damtype = vended.damtype
+	qdel(vended)
+*/
 
 /obj/machinery/vending/proc/stock(var/datum/data/vending_product/R, var/mob/user)
 	if(panel_open)
@@ -701,6 +783,7 @@
 					/obj/item/weapon/reagent_containers/food/drinks/bottle/vermouth = 5,
 					/obj/item/weapon/reagent_containers/food/drinks/bottle/rum = 5,
 					/obj/item/weapon/reagent_containers/food/drinks/bottle/wine = 5,
+					/obj/item/weapon/reagent_containers/food/drinks/bag/goonbag = 3,
 					/obj/item/weapon/reagent_containers/food/drinks/bottle/cognac = 5,
 					/obj/item/weapon/reagent_containers/food/drinks/bottle/kahlua = 5,
 					/obj/item/weapon/reagent_containers/food/drinks/cans/beer = 6,
@@ -737,18 +820,22 @@
 	component_parts += new /obj/item/weapon/vending_refill/boozeomat(0)
 	component_parts += new /obj/item/weapon/vending_refill/boozeomat(0)
 
+
 /obj/machinery/vending/coffee
 	name = "\improper Hot Drinks machine"
 	desc = "A vending machine which dispenses hot drinks."
 	product_ads = "Have a drink!;Drink up!;It's good for you!;Would you like a hot joe?;I'd kill for some coffee!;The best beans in the galaxy.;Only the finest brew for you.;Mmmm. Nothing like a coffee.;I like coffee, don't you?;Coffee helps you work!;Try some tea.;We hope you like the best!;Try our new chocolate!;Admin conspiracies"
 	icon_state = "coffee"
 	icon_vend = "coffee-vend"
+	item_slot = TRUE
 	vend_delay = 34
 	products = list(/obj/item/weapon/reagent_containers/food/drinks/coffee = 25,/obj/item/weapon/reagent_containers/food/drinks/tea = 25,/obj/item/weapon/reagent_containers/food/drinks/h_chocolate = 25,
-					/obj/item/weapon/reagent_containers/food/drinks/chocolate = 10, /obj/item/weapon/reagent_containers/food/drinks/chicken_soup = 10,/obj/item/weapon/reagent_containers/food/drinks/weightloss = 10)
+					/obj/item/weapon/reagent_containers/food/drinks/chocolate = 10, /obj/item/weapon/reagent_containers/food/drinks/chicken_soup = 10,/obj/item/weapon/reagent_containers/food/drinks/weightloss = 10,
+					/obj/item/weapon/reagent_containers/food/drinks/mug = 15)
 	contraband = list(/obj/item/weapon/reagent_containers/food/drinks/ice = 10)
+	premium = list(/obj/item/weapon/reagent_containers/food/drinks/mug/novelty = 5)
 	prices = list(/obj/item/weapon/reagent_containers/food/drinks/coffee = 25, /obj/item/weapon/reagent_containers/food/drinks/tea = 25, /obj/item/weapon/reagent_containers/food/drinks/h_chocolate = 25, /obj/item/weapon/reagent_containers/food/drinks/chocolate = 25,
-				  /obj/item/weapon/reagent_containers/food/drinks/chicken_soup = 30,/obj/item/weapon/reagent_containers/food/drinks/weightloss = 50)
+				  /obj/item/weapon/reagent_containers/food/drinks/chicken_soup = 30,/obj/item/weapon/reagent_containers/food/drinks/weightloss = 50, /obj/item/weapon/reagent_containers/food/drinks/mug = 50)
 	refill_canister = /obj/item/weapon/vending_refill/coffee
 
 /obj/machinery/vending/coffee/New()
@@ -760,6 +847,33 @@
 	component_parts += new /obj/item/weapon/vending_refill/coffee(0)
 	component_parts += new /obj/item/weapon/vending_refill/coffee(0)
 	component_parts += new /obj/item/weapon/vending_refill/coffee(0)
+
+/obj/machinery/vending/coffee/item_slot_check(mob/user, obj/item/I)
+	if(!..())
+		return FALSE
+	if(!(istype(I, /obj/item/weapon/reagent_containers/glass) || istype(I, /obj/item/weapon/reagent_containers/food/drinks)))
+		to_chat(user, "<span class='warning'>[I] is not compatible with this machine.</span>")
+		return FALSE
+	if(!I.is_open_container())
+		to_chat(user, "<span class='warning>You need to open [I] before you insert it.</span>")
+		return FALSE
+	return TRUE
+
+/obj/machinery/vending/coffee/do_vend(datum/data/vending_product/R)
+	if(..())
+		return
+	var/obj/item/weapon/reagent_containers/food/drinks/vended = new R.product_path()
+
+	if(istype(vended, /obj/item/weapon/reagent_containers/food/drinks/mug))
+		vended.forceMove(get_turf(src))
+		return
+
+	vended.reagents.trans_to(inserted_item, vended.reagents.total_volume)
+	if(vended.reagents.total_volume)
+		vended.forceMove(get_turf(src))
+	else
+		qdel(vended)
+
 
 /obj/machinery/vending/snack
 	name = "\improper Getmore Chocolate Corp"
