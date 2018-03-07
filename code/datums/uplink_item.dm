@@ -385,6 +385,15 @@ var/list/uplink_items = list()
 	gamemodes = list(/datum/game_mode/nuclear)
 	surplus = 50
 
+/datum/uplink_item/dangerous/grenade
+	name = "CP-40"
+	desc = "A light weight break-operated grenade launcher."
+	reference = "GL"
+	item = /obj/item/weapon/gun/projectile/revolver/grenadelauncher/syndi
+	cost = 12
+	gamemodes = list(/datum/game_mode/nuclear)
+	surplus = 10
+
 /datum/uplink_item/dangerous/machinegun
 	name = "L6 Squad Automatic Weapon"
 	desc = "A fully-loaded Aussec Armory belt-fed machine gun. This deadly weapon has a massive 50-round magazine of devastating 7.62x51mm ammunition."
