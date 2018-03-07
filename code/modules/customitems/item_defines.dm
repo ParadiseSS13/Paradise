@@ -276,7 +276,7 @@
 		to_chat(target, "<span class='notice'>You comb your tail with the [src].</span>")
 		used = 1
 
-/obj/item/device/fluff/desolate_coat_kit //DesolateG: Michael Smith
+/obj/item/device/fluff/desolate_coat_kit //DesolateG: Micheal Smith
 	name = "armored jacket conversion kit"
 	desc = "Flaps of dark fabric, probably used to somehow modify some sort of an armored garment. Won't help with protection, though."
 	icon_state = "modkit"
@@ -335,7 +335,7 @@
 
 	to_chat(user, "<span class='warning'>You can't modify [target]!</span>")
 
-/obj/item/device/fluff/desolate_baton_kit //DesolateG: Michael Smith
+/obj/item/device/fluff/desolate_baton_kit //DesolateG: Micheal Smith
 	name = "stun baton conversion kit"
 	desc = "Some sci-fi looking parts for a stun baton."
 	icon = 'icons/obj/custom_items.dmi'
@@ -563,6 +563,22 @@
 		qdel(src)
 	else
 		to_chat(user, "<span class='warning'>You can't modify [target]!</span>")
+
+
+
+/obj/item/weapon/fluff/dancebutton //DesolateG: Micheal Smith
+	name = "Big Red Button"
+	desc = "This button looks almost too tempting to press."
+	icon = 'icons/obj/assemblies.dmi'
+	icon_state = "bigred"
+	force = 2
+
+/obj/item/weapon/fluff/dancebutton/attack_self(mob/user)
+	user.visible_message("<span class='notice'>[user] presses the button.</span>", "<span class='notice'>You press the button.</span>")
+	var/obj/machinery/disco/C = new /obj/machinery/disco(get_turf(user))
+	C.visible_message("<span class='notice'>[C] suddenly winks into existence where [user]is standing!</span>")
+	to_chat(user, "<span class='danger'>The [src] disapears from your hands!</span>")
+	qdel(src)
 
 //////////////////////////////////
 //////////// Clothing ////////////
