@@ -198,15 +198,15 @@
 	for(var/i in 1 to 7)
 		new /obj/item/ammo_casing/shotgun/rubbershot(src)
 
-/obj/item/weapon/storage/box/tranquilizer
-	name = "Ammunition Box (Tranquilizer darts)"
+/obj/item/weapon/storage/box/antistimulant
+	name = "Ammunition Box (anti-stimulant darts)"
 	desc = "A small box capable of holding seven shotgun shells."
 	icon_state = "tranqbox"
 
-/obj/item/weapon/storage/box/tranquilizer/New()
+/obj/item/weapon/storage/box/antistimulant/New()
 	..()
 	for(var/i in 1 to 7)
-		new /obj/item/ammo_casing/shotgun/tranquilizer(src)
+		new /obj/item/ammo_casing/shotgun/antistimulant(src)
 
 /obj/item/weapon/storage/box/flashbangs
 	name = "box of flashbangs (WARNING)"
