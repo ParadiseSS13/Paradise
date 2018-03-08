@@ -564,22 +564,6 @@
 	else
 		to_chat(user, "<span class='warning'>You can't modify [target]!</span>")
 
-
-
-/obj/item/weapon/fluff/dancebutton //DesolateG: Micheal Smith
-	name = "Instant Party Button"
-	desc = "The instructions on the bottom seem to indicate that pressing the button will bring out the Dancing Machine in you."
-	icon = 'icons/obj/assemblies.dmi'
-	icon_state = "bigred"
-	force = 2
-
-/obj/item/weapon/fluff/dancebutton/attack_self(mob/user)
-	user.visible_message("<span class='notice'>[user] presses the [src].</span>", "<span class='notice'>You press the [src].</span>")
-	var/obj/machinery/disco/C = new /obj/machinery/disco(get_turf(user))
-	C.visible_message("<span class='notice'>[C] suddenly winks into existence where [user]is standing!</span>")
-	to_chat(user, "<span class='danger'>The [src] disapears from your hands!</span>")
-	qdel(src)
-
 //////////////////////////////////
 //////////// Clothing ////////////
 //////////////////////////////////
