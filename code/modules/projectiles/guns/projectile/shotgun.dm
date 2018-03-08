@@ -134,6 +134,7 @@
 /obj/item/device/riot_upgrade/long
 	name = "single use riot shotgun conversion kit"
 	desc = "An upgrade kit that lets you install a full length barrel and magazine onto an assault shotgun. This one is only good for one use."
+	style = 1
 
 ///////////////////////
 // BOLT ACTION RIFLE //
