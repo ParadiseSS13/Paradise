@@ -347,6 +347,33 @@ var/list/all_supply_groups = list(supply_emergency,supply_security,supply_engine
 	cost = 50
 	containername = "riot shotgun crate"
 
+/datum/supply_packs/security/armory/ballisticshort
+	name = "Assualt Shotguns Crate"
+	contains = list(/obj/item/weapon/gun/projectile/shotgun/riot/short,
+					/obj/item/weapon/gun/projectile/shotgun/riot/short,
+					/obj/item/weapon/gun/projectile/shotgun/riot/short,
+					/obj/item/weapon/storage/belt/bandolier,
+					/obj/item/weapon/storage/belt/bandolier,
+					/obj/item/weapon/storage/belt/bandolier)
+	cost = 50
+	containername = "assault shotgun crate"
+
+/datum/supply_packs/security/armory/ballistickit_s
+	name = "Assault Shotgun Conversion Kit Crate"
+	contains = list(/obj/item/device/riot_upgrade/single_use,
+					/obj/item/device/riot_upgrade/single_use,
+					/obj/item/device/riot_upgrade/single_use)
+	cost = 30
+	containername = "assault shotgun conversion kit crate"
+
+/datum/supply_packs/security/armory/ballistickit_l
+	name = "Riot Shotgun Conversion Kit Crate"
+	contains = list(/obj/item/device/riot_upgrade/single_use/long,
+					/obj/item/device/riot_upgrade/single_use/long,
+					/obj/item/device/riot_upgrade/single_use/long)
+	cost = 30
+	containername = "riot shotgun conversion kit crate"
+
 /datum/supply_packs/security/armory/ballisticauto
 	name = "Combat Shotguns Crate"
 	contains = list(/obj/item/weapon/gun/projectile/shotgun/automatic/combat,
