@@ -1357,6 +1357,7 @@ obj/item/toy/cards/deck/syndicate/black
 	item_state = "gun"
 	lefthand_file = 'icons/mob/inhands/guns_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/guns_righthand.dmi'
+	hitsound = "swing_hit"
 	flags =  CONDUCT
 	slot_flags = SLOT_BELT
 	materials = list(MAT_METAL=2000)
@@ -1364,7 +1365,7 @@ obj/item/toy/cards/deck/syndicate/black
 	throwforce = 5
 	throw_speed = 4
 	throw_range = 5
-	force = 5.0
+	force = 5
 	origin_tech = "combat=1"
 	attack_verb = list("struck", "hit", "bashed")
 	var/bullet_position = 1
@@ -1387,10 +1388,9 @@ obj/item/toy/cards/deck/syndicate/black
 		spin_cylinder()
 		user.visible_message("<span class='warning'>[user] spins the cylinder on [src]!</span>")
 
-
-/obj/item/toy/russian_revolver/attack(mob/living/carbon/M, mob/living/carbon/human/user)
+/obj/item/toy/russian_revolver/attack(mob/living/carbon/human/M, mob/living/carbon/human/user)
 	if(M != user) //can't use this on other people
-		return
+		return ..()
 	if(!bullet_position)
 		to_chat(user, "<span class='notice'>[src] is empty.</span>")
 		return
@@ -1398,7 +1398,7 @@ obj/item/toy/cards/deck/syndicate/black
 		to_chat(user, "<span class='notice'>Playing this game without a head would be classed as cheating.</span>")
 		return
 	user.visible_message("<span class='danger'>[user] points [src] at their head, ready to pull the trigger!</span>")
-	if(do_after(user, 30, M = user))
+	if(do_after(user, 30, target = user))
 		if(bullet_position > 1)
 			user.visible_message("<span class='danger'>*click*</span>")
 			playsound(src, 'sound/weapons/empty.ogg', 100, 1)
@@ -1412,7 +1412,6 @@ obj/item/toy/cards/deck/syndicate/black
 			user.death()
 	else
 		user.visible_message("<span class='danger'>[user] lowers [src] from their head.</span>")
-
 
 /obj/item/toy/russian_revolver/proc/spin_cylinder()
 	bullet_position = rand(1,6)
