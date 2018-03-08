@@ -1,0 +1,4 @@
+author: "shazbot"
+delete-after: True
+changes: 
+  - bugfix: "Fixes up Desolate's name on his other items."
