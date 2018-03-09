@@ -2,8 +2,8 @@
 	name = "paper"
 	icon_state = "paper_stack"
 	item_state = "paper"
-	var copied = 0
-	var iscopy = 0
+	var/copied = 0
+	var/iscopy = 0
 
 
 /obj/item/weapon/paper/carbon/update_icon()
