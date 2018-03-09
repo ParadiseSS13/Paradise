@@ -82,39 +82,6 @@
 	mag_type = /obj/item/ammo_box/magazine/internal/shot/riot
 	var/style = 1
 
-/obj/item/weapon/gun/projectile/shotgun/riot/attackby(obj/item/A, mob/user, params)
-	..()
-	if(istype(A, /obj/item/device/riot_upgrade))
-		var/obj/item/device/riot_upgrade/C = A
-		if(C.style == style)
-			to_chat(user, "<span class='notice'>[src] is already set up in this style!</span>")
-			return
-		if(istype(loc, /obj/item/weapon/storage))
-			to_chat(user, "<span class='info'>How do you plan to modify [src] while it's in a bag.</span>")
-			return
-		if(magazine.ammo_count() || chambered)
-			afterattack(user, user)
-			user.visible_message("<span class='danger'>[src] goes off!</span>", "<span class='userdanger'>[src] goes off in your face!</span>")
-			return
-		if(do_after(user, 10, target = src))
-			style = C.style
-			if(style == 1)
-				to_chat(user, "<span class='notice'>You install the longer barrel and magazine onto [src].</span>")
-				w_class = WEIGHT_CLASS_BULKY
-				magazine.max_ammo = 6
-				name = "riot shotgun"
-				icon_state = "riotshotgun"
-				desc = "A sturdy shotgun with a longer magazine and a fixed tactical stock designed for non-lethal riot control."
-			if(style == 2)
-				to_chat(user, "<span class='notice'>You install the shorter barrel and magazine onto [src].</span>")
-				w_class = WEIGHT_CLASS_NORMAL
-				magazine.max_ammo = 3
-				name = "sssualt shotgun"
-				icon_state = "riotshotgun-short"
-				desc = "A shortened riot shotgun that has been shortened enough to fit inside a bag."
-			qdel(C)
-
-
 /obj/item/weapon/gun/projectile/shotgun/riot/short
 	name = "assualt shotgun"
 	desc = "A shortened riot shotgun that has been shortened enough to fit inside a bag."
@@ -124,15 +91,47 @@
 	style = 2
 
 /obj/item/device/riot_upgrade
-	name = "single use assualt shotgun conversion kit"
+	name = "assualt shotgun conversion kit"
 	desc = "An upgrade kit that lets you install a shortened barrel and magazine onto a riot shotgun. This one is only good for one use."
 	icon_state = "modkit"
 	origin_tech = "combat=3;materials=2"
 	usesound = 'sound/items/Deconstruct.ogg'
 	var/style = 2									// 2 means it's ready to shorten a riot shotgun, 1 means it's ready to return one to normal
 
+/obj/item/device/riot_upgrade/afterattack(obj/item/A, mob/user)
+	if(istype(A, /obj/item/weapon/gun/projectile/shotgun/riot))
+		var/obj/item/weapon/gun/projectile/shotgun/riot/C = A
+		if(C.style == style)
+			to_chat(user, "<span class='notice'>This [src] is already set up in this style!</span>")
+			return
+		if(istype(C.loc, /obj/item/weapon/storage))
+			to_chat(user, "<span class='info'>How do you plan to modify [src] while it's in a bag.</span>")
+			return
+		if(C.magazine.ammo_count() || C.chambered)
+			C.afterattack(user, user)
+			user.visible_message("<span class='danger'>[src] goes off!</span>", "<span class='userdanger'>[src] goes off in your face!</span>")
+			return
+		if(do_after(user, 10, target = src))
+			C.style = style
+			if(style == 1)
+				to_chat(user, "<span class='notice'>You install the longer barrel and magazine onto [src].</span>")
+				C.w_class = WEIGHT_CLASS_BULKY
+				C.magazine.max_ammo = 6
+				C.name = "riot shotgun"
+				C.current_skin = "riotshotgun"
+				C.desc = "A sturdy shotgun with a longer magazine and a fixed tactical stock designed for non-lethal riot control."
+			if(style == 2)
+				to_chat(user, "<span class='notice'>You install the shorter barrel and magazine onto [src].</span>")
+				C.w_class = WEIGHT_CLASS_NORMAL
+				C.magazine.max_ammo = 3
+				C.name = "assualt shotgun"
+				C.current_skin = "riotshotgun-short"
+				C.desc = "A shortened riot shotgun that has been shortened enough to fit inside a bag."
+			C.update_icon()
+			qdel(src)
+
 /obj/item/device/riot_upgrade/long
-	name = "single use riot shotgun conversion kit"
+	name = "riot shotgun conversion kit"
 	desc = "An upgrade kit that lets you install a full length barrel and magazine onto an assault shotgun. This one is only good for one use."
 	style = 1
 
