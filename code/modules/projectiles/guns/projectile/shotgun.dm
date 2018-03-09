@@ -88,6 +88,7 @@
 	icon_state = "riotshotgun-short"
 	mag_type = /obj/item/ammo_box/magazine/internal/shot/riot/short
 	w_class = WEIGHT_CLASS_NORMAL
+	slot_flags = null
 	style = 2
 
 /obj/item/device/riot_upgrade
@@ -116,6 +117,7 @@
 			if(style == 1)
 				to_chat(user, "<span class='notice'>You install the longer barrel and magazine onto [src].</span>")
 				C.w_class = WEIGHT_CLASS_BULKY
+				C.slot_flags = SLOT_BACK
 				C.magazine.max_ammo = 6
 				C.name = "riot shotgun"
 				C.current_skin = "riotshotgun"
@@ -123,6 +125,7 @@
 			if(style == 2)
 				to_chat(user, "<span class='notice'>You install the shorter barrel and magazine onto [src].</span>")
 				C.w_class = WEIGHT_CLASS_NORMAL
+				C.slot_flags = null
 				C.magazine.max_ammo = 3
 				C.name = "assualt shotgun"
 				C.current_skin = "riotshotgun-short"
