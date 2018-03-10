@@ -89,6 +89,7 @@
 	R.add_language("Bubblish", 0)
 	R.add_language("Orluum", 0)
 	R.add_language("Clownish",0)
+	R.add_language("Yakar", 0)
 
 /obj/item/weapon/robot_module/proc/add_subsystems_and_actions(mob/living/silicon/robot/R)
 	R.verbs |= subsystems
@@ -334,6 +335,7 @@
 	R.add_language("Chittin", 1)
 	R.add_language("Bubblish", 1)
 	R.add_language("Clownish",1)
+	R.add_language("Yakar", 1)
 
 
 /obj/item/weapon/robot_module/miner
