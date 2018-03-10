@@ -2910,7 +2910,7 @@
 	icon_state = "hair_ombre_twintails"
 
 /datum/sprite_accessory/hair/ombretwinalt
-	icon
+	icon = 'icons/mob/umehairs.dmi'
 	name = "Ombrre Twin Tails Alt"
 	icon_state = "hair_ombre_twintails_alt"
 
