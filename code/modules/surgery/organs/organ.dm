@@ -337,6 +337,14 @@ I use this so that this can be made better once the organ overhaul rolls out -- 
 		return 0
 	return src == O.get_int_organ(organ_tag)
 
+/obj/item/organ/proc/is_robotic(var/purist = FALSE)
+	if(purist && (robotic > 1 || status & (ORGAN_ROBOT))) //Only the robotiest.
+		return TRUE
+	if(robotic || status & (ORGAN_ROBOT|ORGAN_ASSISTED)) //Any tech will do.
+		return TRUE
+
+	return FALSE
+
 /obj/item/organ/serialize()
 	var/data = ..()
 	if(status != 0)
