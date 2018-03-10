@@ -140,7 +140,7 @@
 
 /datum/species/tajaran/handle_death(var/mob/living/carbon/human/H)
 	H.stop_tail_wagging(1)
-
+/*
 /datum/species/vulpkanin
 	name = "Vulpkanin"
 	name_plural = "Vulpkanin"
@@ -193,6 +193,7 @@
 
 /datum/species/vulpkanin/handle_death(var/mob/living/carbon/human/H)
 	H.stop_tail_wagging(1)
+*/
 
 /datum/species/skrell
 	name = "Skrell"
@@ -970,13 +971,13 @@
 	name = "Murghal"
 	name_plural = "Murghals"
 	icobase = 'icons/mob/human_races/r_murghal.dmi'
-	deform = 'icons/mob/human_races/r_def_tajaran.dmi'
+	deform = 'icons/mob/human_races/r_def_murghal.dmi'
 	path = /mob/living/carbon/human/murghal
 	default_language = "Galactic Common"
 	language = "Yakar"
 	unarmed_type = /datum/unarmed_attack/claws
 
-	blurb = "Murghals are bipeds from planeta Gadanzaar. They are slightly smaller and more fragile than humans \
+	blurb = "Murghals are bipeds from planet Gadanzaar. They are slightly smaller and more fragile than humans \
 	but with a powerful leg bone muscle structure which makes them very good runners. The also have powerful claws \
 	and a strong bioengineered chitin armor covering several parts of their body."
 
@@ -990,25 +991,25 @@
 
 	primitive_form = "Farwa"
 
-	species_traits = list(LIPS, CAN_BE_FAT)
-	clothing_flags = HAS_UNDERWEAR | HAS_UNDERSHIRT | HAS_SOCKS
-	bodyflags = HAS_TAIL | HAS_HEAD_ACCESSORY | HAS_HEAD_MARKINGS | HAS_BODY_MARKINGS | HAS_SKIN_COLOR | TAIL_WAGGING
+	species_traits = list(LIPS)
+	bodyflags = HAS_HEAD_ACCESSORY | HAS_BODY_MARKINGS | HAS_SKIN_TONE
 	dietflags = DIET_OMNI
 	taste_sensitivity = TASTE_SENSITIVITY_SHARP
 	reagent_tag = PROCESS_ORG
 	flesh_color = "#000000"
 	base_color = "#000000"
+	blood_color = "#470101"
 	butt_sprite = "human"
 
 	has_organ = list(
 		"heart" =    /obj/item/organ/internal/heart,
 		"lungs" =    /obj/item/organ/internal/lungs,
-		"liver" =    /obj/item/organ/internal/liver/tajaran,
+		"liver" =    /obj/item/organ/internal/liver,
 		"kidneys" =  /obj/item/organ/internal/kidneys,
 		"brain" =    /obj/item/organ/internal/brain,
 		"appendix" = /obj/item/organ/internal/appendix,
-		"eyes" =     /obj/item/organ/internal/eyes/tajaran /*Most Tajara see in full colour as a result of genetic augmentation, although it cost them their darksight (darksight = 2)
-															 unless they choose otherwise by selecting the colourblind disability in character creation (darksight = 8 but colourblind).*/
+		"gland" =  /obj/item/organ/internal/adrenal,
+		"eyes" =     /obj/item/organ/internal/eyes/
 		)
 
 	allowed_consumed_mobs = list(/mob/living/simple_animal/mouse, /mob/living/simple_animal/chick, /mob/living/simple_animal/butterfly, /mob/living/simple_animal/parrot,
