@@ -349,6 +349,8 @@
 	new /obj/item/clothing/glasses/sunglasses/yeah(src)
 	new /obj/item/device/flashlight/seclite(src)
 	new /obj/item/clothing/accessory/black(src)
+	new /obj/item/device/taperecorder(src)
+	new /obj/item/weapon/storage/box/tapes(src)
 
 /obj/structure/closet/secure_closet/detective/update_icon()
 	if(broken)
