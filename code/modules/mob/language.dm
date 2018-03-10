@@ -636,7 +636,7 @@
 
 /datum/language/murghal/get_random_name()
 	var/new_name = "[pick(list("Kana", "Keri", "Kili", "Tau", "Chi", "Kai", "Ling", "Niki", "Rem", "vasi", "Kira", "Ikchi", "Kiro", "Rem", "Kata"))]"
-	new_name += "-[pick(list("taka","kara","kaar","kin","ra","rana","kai","link","ita","ki","ixis","ko", "linka","lenka","neko","koru","ker","liska"))]"
+	new_name += "[pick(list("taka","kara","kaar","kin","ra","rana","kai","link","ita","ki","ixis","ko", "linka","lenka","neko","koru","ker","liska"))]"
 	return new_name
 
 // Language handling.
