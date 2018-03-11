@@ -176,6 +176,7 @@ var/list/ai_verbs_default = list(
 	add_language("Chittin", 0)
 	add_language("Bubblish", 0)
 	add_language("Clownish", 0)
+	add_language("Yakar", 0)
 
 	if(!safety)//Only used by AIize() to successfully spawn an AI.
 		if(!B)//If there is no player/brain inside.

@@ -2929,3 +2929,9 @@
 	name = "Sailor Slime"
 	icon_state = "hair_slime_twins"
 	species_allowed = list("Slime People")
+	
+/datum/sprite_accessory/hair/murghal4
+	icon = 'icons/mob/murghalhairs.dmi'
+	name = "Broad Quills"
+	icon_state = "four_quills"
+	species_allowed = list("Murghal")
