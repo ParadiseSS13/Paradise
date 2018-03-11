@@ -180,7 +180,10 @@ var/list/pipemenu = list(
 /obj/item/weapon/rpd/afterattack(atom/target, mob/user, proximity)
 	..()
 	var/turf/T = get_turf(target)
-	if(src.loc != user || ismob(target) || istype(target, /obj/structure/window) || !proximity || world.time < lastused + spawndelay)
+	if(loc != user || ismob(target) || istype(target, /obj/structure/window) || !proximity || world.time < lastused + spawndelay)
+		return
+	if(!(T.flags & RPD_ALLOWED_HERE))
+		to_chat(user, "<span class='notice'>[src] beeps, \"Unable to interface with [T]. Please try again later.\"</span>")
 		return
 	if(mode == ATMOS_MODE && !istype(T, /turf/simulated/shuttle)) //No pipes on shuttles nerds
 		if(istype(T, /turf/simulated/wall)) //Drilling into walls takes time
