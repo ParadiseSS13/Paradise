@@ -185,7 +185,7 @@ var/list/pipemenu = list(
 	if(!(T.flags & RPD_ALLOWED_HERE))
 		to_chat(user, "<span class='notice'>[src] beeps, \"Unable to interface with [T]. Please try again later.\"</span>")
 		return
-	if(mode == ATMOS_MODE && !istype(T, /turf/simulated/shuttle)) //No pipes on shuttles nerds
+	if(mode == ATMOS_MODE)
 		if(istype(T, /turf/simulated/wall)) //Drilling into walls takes time
 			playsound(loc, "sound/weapons/circsawhit.ogg", 50, 1)
 			user.visible_message("<span class = 'notice'>[user] starts drilling a hole in [T]...</span>", "<span class = 'notice'>You start drilling a hole in [T]...</span>", "<span class = 'warning'>You hear a drill.</span>")
