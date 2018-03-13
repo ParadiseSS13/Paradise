@@ -369,6 +369,7 @@
 				P.name = "paper - 'Security Record'"
 				printing = 0
 
+/* Removed due to BYOND issue
 		else if(href_list["print_p"])
 			if(!printing)
 				printing = 1
@@ -377,6 +378,7 @@
 				if(istype(active1, /datum/data/record) && data_core.general.Find(active1))
 					create_record_photo(active1)
 				printing = 0
+*/
 
 		else if(href_list["printlogs"])
 			if(cell_logs.len && !printing)
@@ -510,6 +512,8 @@
 /obj/machinery/computer/secure_data/proc/setTemp(text, list/buttons = list())
 	temp = list("text" = text, "buttons" = buttons, "has_buttons" = buttons.len > 0)
 
+/* Proc disabled due to BYOND Issue
+
 /obj/machinery/computer/secure_data/proc/create_record_photo(datum/data/record/R)
 	// basically copy-pasted from the camera code but different enough that it has to be redone
 	var/icon/photoimage = get_record_photo(R)
@@ -535,6 +539,8 @@
 
 	var/obj/item/weapon/photo/PH = new/obj/item/weapon/photo(loc)
 	PH.construct(P)
+
+*/
 
 /obj/machinery/computer/secure_data/proc/get_record_photo(datum/data/record/R)
 	// similar to the code to make a photo, but of course the actual rendering is completely different

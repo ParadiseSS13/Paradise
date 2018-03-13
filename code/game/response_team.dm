@@ -146,7 +146,7 @@ var/ert_request_answered = 0
 
 	var/hair_c = pick("#8B4513","#000000","#FF4500","#FFD700") // Brown, black, red, blonde
 	var/eye_c = pick("#000000","#8B4513","1E90FF") // Black, brown, blue
-	var/skin_tone = pick(-50, -30, -10, 0, 0, 0, 10) // Caucasian/black
+	var/skin_tone = rand(-120, 20) // A range of skin colors
 
 	head_organ.facial_colour = hair_c
 	head_organ.sec_facial_colour = hair_c

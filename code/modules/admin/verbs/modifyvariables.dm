@@ -1,7 +1,7 @@
 var/list/VVlocked = list("vars", "var_edited", "client", "firemut", "ishulk", "telekinesis", "xray", "ka", "virus", "viruses", "cuffed", "last_eaten", "unlock_content") // R_DEBUG
 var/list/VVicon_edit_lock = list("icon", "icon_state", "overlays", "underlays", "resize") // R_EVENT | R_DEBUG
 var/list/VVckey_edit = list("key", "ckey") // R_EVENT | R_DEBUG
-var/list/VVpixelmovement = list("step_x", "step_y", "bound_height", "bound_width", "bound_x", "bound_y") // R_DEBUG + warning
+var/list/VVpixelmovement = list("step_x", "step_y", "step_size", "bound_height", "bound_width", "bound_x", "bound_y") // R_DEBUG + warning
 /client/proc/vv_get_class(var/var_value)
 	if(isnull(var_value))
 		. = VV_NULL

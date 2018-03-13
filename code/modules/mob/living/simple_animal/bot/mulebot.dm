@@ -26,6 +26,8 @@
 	model = "MULE"
 	bot_purpose = "deliver crates and other packages between departments, as requested"
 	bot_core_type = /obj/machinery/bot_core/mulebot
+	path_image_color = "#7F5200"
+
 
 	suffix = ""
 
@@ -502,7 +504,7 @@
 				var/turf/next = path[1]
 				reached_target = 0
 				if(next == loc)
-					path -= next
+					increment_path()
 					return
 				if(istype(next, /turf/simulated))
 //					to_chat(world, "at ([x],[y]) moving to ([next.x],[next.y])")
@@ -513,7 +515,7 @@
 					if(moved && oldloc!=loc)	// successful move
 //						to_chat(world, "Successful move.")
 						blockcount = 0
-						path -= loc
+						increment_path()
 
 						if(destination == home_destination)
 							mode = BOT_GO_HOME
@@ -570,7 +572,7 @@
 // given an optional turf to avoid
 /mob/living/simple_animal/bot/mulebot/calc_path(turf/avoid = null)
 	check_bot_access()
-	path = get_path_to(src, target, /turf/proc/Distance_cardinal, 0, 250, id=access_card, exclude=avoid)
+	set_path(get_path_to(src, target, /turf/proc/Distance_cardinal, 0, 250, id=access_card, exclude=avoid))
 
 // sets the current destination
 // signals all beacons matching the delivery code

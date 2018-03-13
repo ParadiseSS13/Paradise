@@ -37,7 +37,7 @@
 /obj/item/weapon/vending_refill/coffee
 	machine_name = "hot drinks"
 	icon_state = "refill_joe"
-	charges = 28//of 85
+	charges = 35//of 105
 
 /obj/item/weapon/vending_refill/snack
 	machine_name = "Getmore Chocolate Corp"
