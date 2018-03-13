@@ -234,6 +234,16 @@
 	opacity = 0
 	glass = TRUE
 
+/obj/machinery/door/airlock/titanium
+	name = "shuttle airlock"
+	assemblytype = /obj/structure/door_assembly/door_assembly_titanium
+	icon = 'icons/obj/doors/airlocks/shuttle/shuttle.dmi'
+	overlays_file = 'icons/obj/doors/airlocks/shuttle/overlays.dmi'
+
+/obj/machinery/door/airlock/titanium/glass
+	opacity = 0
+	glass = TRUE
+
 //////////////////////////////////
 /*
 	Station2 Airlocks

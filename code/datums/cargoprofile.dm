@@ -1,4 +1,3 @@
-#define MAXCOIL 30
 /datum/cargoprofile
 	var/name = "All Items"
 	var/id = "all" // unique ID for the UI
@@ -787,4 +786,3 @@
 		var/punches = punch(M,remaining / PUNCH_WORK)
 		if(punches>1)master.sleep++
 		return punches * PUNCH_WORK
-#undef MAXCOIL

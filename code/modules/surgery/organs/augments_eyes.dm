@@ -18,6 +18,9 @@
 
 /obj/item/organ/internal/cyberimp/eyes/insert(var/mob/living/carbon/M, var/special = 0)
 	..()
+	var/mob/living/carbon/human/H = M
+	if(istype(H) && eye_colour)
+		H.update_body() //Apply our eye colour to the target.
 	if(aug_message && !special)
 		to_chat(owner, "<span class='notice'>[aug_message]</span>")
 	M.update_sight()
@@ -25,6 +28,15 @@
 /obj/item/organ/internal/cyberimp/eyes/remove(var/mob/living/carbon/M, var/special = 0)
 	. = ..()
 	M.update_sight()
+
+/obj/item/organ/internal/cyberimp/eyes/proc/generate_icon(var/mob/living/carbon/human/HA)
+	var/mob/living/carbon/human/H = HA
+	if(!istype(H))
+		H = owner
+	var/icon/cybereyes_icon = new /icon('icons/mob/human_face.dmi', H.species.eyes)
+	cybereyes_icon.Blend(eye_colour, ICON_ADD) // Eye implants override native DNA eye color
+
+	return cybereyes_icon
 
 /obj/item/organ/internal/cyberimp/eyes/emp_act(severity)
 	if(!owner || emp_proof)
@@ -34,8 +46,6 @@
 			return
 	to_chat(owner, "<span class='warning'>Static obfuscates your vision!</span>")
 	owner.flash_eyes(visual = 1)
-
-
 
 /obj/item/organ/internal/cyberimp/eyes/xray
 	name = "X-ray implant"
