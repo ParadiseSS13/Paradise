@@ -888,7 +888,7 @@
 		var/mob/M = locate(href_list["boot2"])
 		if(ismob(M))
 			if(M.client && M.client.holder && (M.client.holder.rights & R_BAN))
-				to_chat(src, "you acnt kick this fucker")
+				to_chat(src, "<span class='warning'>[key_name_admin(M)] cannot be kicked from the server.</span>")
 				return
 			to_chat(M, "<span class='warning'>You have been kicked from the server</span>")
 			log_admin("[key_name(usr)] booted [key_name(M)].")
