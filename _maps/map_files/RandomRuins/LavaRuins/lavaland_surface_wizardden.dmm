@@ -1,0 +1,44 @@
+"a" = (/turf/open/floor/plating/asteroid/basalt/lava_land_surface,/area/lavaland/surface/outdoors)
+"b" = (/turf/closed/wall/mineral/wood,/area/ruin/powered)
+"c" = (/turf/open/floor/plating/asteroid/basalt/lava_land_surface,/area/ruin/powered)
+"d" = (/obj/structure/table/wood,/obj/item/clothing/suit/space/hardsuit/wizard,/turf/open/floor/wood,/area/ruin/powered)
+"e" = (/obj/structure/table/wood,/obj/item/clothing/head/wizard{pixel_x = 5; pixel_y = 5},/obj/item/clothing/head/wizard/black{pixel_x = -5; pixel_y = 8},/obj/item/clothing/head/wizard/yellow,/obj/item/clothing/head/wizard/red{pixel_x = -7},/obj/item/clothing/head/wizard/marisa{pixel_x = 8; pixel_y = -7},/turf/open/floor/wood,/area/ruin/powered)
+"f" = (/obj/structure/table/wood,/obj/item/clothing/suit/wizrobe/black{pixel_x = 7; pixel_y = 6},/obj/item/clothing/suit/wizrobe,/obj/item/clothing/suit/wizrobe/red{pixel_x = 3; pixel_y = -8},/obj/item/clothing/suit/wizrobe/yellow{pixel_x = -7; pixel_y = 5},/obj/item/clothing/suit/wizrobe/marisa{pixel_x = 7; pixel_y = -6},/turf/open/floor/wood,/area/ruin/powered)
+"g" = (/obj/effect/decal/cleanable/dirt,/turf/open/floor/wood,/area/ruin/powered)
+"h" = (/turf/open/floor/wood,/area/ruin/powered)
+"i" = (/obj/structure/mineral_door/wood,/obj/structure/fans/tiny/invisible,/turf/open/floor/wood,/area/ruin/powered)
+"j" = (/obj/structure/table/wood,/obj/item/weapon/gun/magic/wand/resurrection/inert,/turf/open/floor/wood,/area/ruin/powered)
+"k" = (/obj/machinery/light/small{dir = 8},/turf/open/floor/wood,/area/ruin/powered)
+"l" = (/obj/structure/table/wood,/obj/item/weapon/gun/magic/wand/resurrection/inert,/obj/machinery/light/small{dir = 4},/turf/open/floor/wood,/area/ruin/powered)
+"m" = (/obj/structure/bookcase,/turf/open/floor/wood,/area/ruin/powered)
+"n" = (/obj/structure/table/wood,/obj/item/weapon/spellbook/oneuse/random,/turf/open/floor/wood,/area/ruin/powered)
+"o" = (/obj/structure/table/wood,/obj/item/clothing/suit/wizrobe/magusblue,/obj/item/clothing/head/magus,/turf/open/floor/wood,/area/ruin/powered)
+"p" = (/obj/structure/table/wood,/obj/item/clothing/suit/wizrobe/magusred,/obj/item/clothing/head/magus,/turf/open/floor/wood,/area/ruin/powered)
+"q" = (/obj/structure/table/wood,/obj/item/toy/carpplushie,/turf/open/floor/wood,/area/ruin/powered)
+"r" = (/obj/machinery/light/small{dir = 4},/mob/living/simple_animal/hostile/carp/ranged/chaos{name = "Puddles"},/turf/open/floor/wood,/area/ruin/powered)
+"s" = (/obj/structure/table/wood,/obj/item/weapon/reagent_containers/food/snacks/pizzaslice/donkpocket,/turf/open/floor/wood,/area/ruin/powered)
+"t" = (/obj/structure/table/wood,/obj/item/weapon/reagent_containers/food/snacks/pizza/donkpocket,/obj/machinery/light/small{dir = 8},/turf/open/floor/wood,/area/ruin/powered)
+"u" = (/mob/living/simple_animal/hostile/wizard{name = "Malarky The Mad"},/turf/open/floor/wood,/area/ruin/powered)
+"v" = (/obj/machinery/light/small{dir = 4},/turf/open/floor/wood,/area/ruin/powered)
+"w" = (/turf/open/floor/wood{icon_state = "wood-broken"},/area/ruin/powered)
+"x" = (/obj/effect/decal/cleanable/dirt,/turf/open/floor/wood{icon_state = "wood-broken3"},/area/ruin/powered)
+"y" = (/obj/effect/decal/remains/human,/turf/open/floor/wood,/area/ruin/powered)
+"z" = (/obj/structure/table/wood,/obj/item/weapon/teleportation_scroll/apprentice,/turf/open/floor/wood,/area/ruin/powered)
+"A" = (/obj/structure/chair/wood/normal{dir = 8},/turf/open/floor/wood,/area/ruin/powered)
+"B" = (/obj/structure/bed,/obj/item/weapon/bedsheet/wiz,/obj/item/toy/stuffedmonkey,/turf/open/floor/wood,/area/ruin/powered)
+"C" = (/obj/machinery/light/small{dir = 8},/turf/open/floor/wood{icon_state = "wood-broken4"},/area/ruin/powered)
+"T" = (/obj/structure/table/wood,/obj/item/weapon/spellbook/oneuse/random,/obj/effect/spawner/mapset{prob_nothing = 90},/turf/open/floor/wood,/area/ruin/powered)
+
+(1,1,1) = {"
+aaaaaaaaaaaaaaaaaa
+abbbbbbbbbbcaaaaaa
+abdefbghijbbbbbbba
+abkghihhblbmmTnTba
+abopqbhrbbbhhhhhba
+abbbbbhhbsbthugvba
+aahhwbhgihhghhhhba
+aaxyhihhbhhhhzABba
+aabChbbbbbbbbbbbba
+aaaaaaaaaaaaaaaaaa
+"}
+

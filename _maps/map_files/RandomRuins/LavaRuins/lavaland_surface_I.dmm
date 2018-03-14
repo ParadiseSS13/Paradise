@@ -1,0 +1,76 @@
+"a" = (/turf/open/floor/plating/lava/smooth/lava_land_surface,/area/lavaland/surface/outdoors)
+"b" = (/turf/closed/wall/mineral/iron,/area/ruin/unpowered)
+"c" = (/obj/structure/closet/coffin,/obj/effect/mob_spawn/human/skeleton,/turf/open/floor/plasteel/black,/area/ruin/unpowered)
+"d" = (/obj/structure/closet/coffin,/obj/effect/mob_spawn/human/skeleton,/obj/item/weapon/shield/riot/buckler,/turf/open/floor/plasteel/black,/area/ruin/unpowered)
+"e" = (/obj/structure/closet/coffin,/obj/item/weapon/shield/riot/buckler,/obj/item/weapon/twohanded/spear,/turf/open/floor/plasteel/black,/area/ruin/unpowered)
+"f" = (/obj/structure/closet/coffin,/obj/effect/mob_spawn/human/skeleton,/obj/item/weapon/twohanded/spear,/turf/open/floor/plasteel/black,/area/ruin/unpowered)
+"g" = (/obj/structure/closet/coffin,/obj/effect/decal/cleanable/dirt,/turf/open/floor/plasteel/black,/area/ruin/unpowered)
+"h" = (/turf/open/floor/plasteel/black,/area/ruin/unpowered)
+"i" = (/obj/effect/decal/cleanable/dirt,/turf/open/floor/plasteel/black,/area/ruin/unpowered)
+"j" = (/mob/living/simple_animal/hostile/skeleton/eskimo,/turf/open/floor/plasteel/black,/area/ruin/unpowered)
+"k" = (/obj/structure/mineral_door/iron,/obj/structure/fans/tiny/invisible,/turf/open/floor/plasteel/black,/area/ruin/unpowered)
+"l" = (/obj/effect/decal/remains/human,/turf/open/floor/plasteel/black,/area/ruin/unpowered)
+"m" = (/obj/effect/decal/cleanable/blood/old,/obj/effect/decal/cleanable/blood/old,/turf/open/floor/plasteel/black,/area/ruin/unpowered)
+"n" = (/mob/living/simple_animal/hostile/skeleton/templar{speak = list("THE NECROPOLIS WILLS IT!","DEUS VULT!","REMOVE KABAB!"); speak_chance = 0},/turf/open/floor/plasteel/black,/area/ruin/unpowered)
+"o" = (/obj/effect/decal/cleanable/blood/old,/turf/open/floor/plasteel/black,/area/ruin/unpowered)
+"p" = (/obj/effect/mob_spawn/human/skeleton,/turf/open/floor/plasteel/black,/area/ruin/unpowered)
+"q" = (/obj/effect/decal/cleanable/dirt,/obj/effect/decal/remains/human,/turf/open/floor/plasteel/black,/area/ruin/unpowered)
+"r" = (/obj/structure/closet/coffin,/obj/effect/mob_spawn/human/skeleton,/obj/effect/decal/cleanable/dirt,/turf/open/floor/plasteel/black,/area/ruin/unpowered)
+"s" = (/obj/structure/closet/coffin,/obj/effect/decal/cleanable/dirt,/obj/item/weapon/shield/riot/buckler,/obj/item/weapon/twohanded/spear,/turf/open/floor/plasteel/black,/area/ruin/unpowered)
+"t" = (/obj/structure/closet/coffin,/turf/open/floor/plasteel/black,/area/ruin/unpowered)
+"u" = (/obj/structure/mineral_door/gold,/obj/structure/fans/tiny/invisible,/turf/open/floor/plasteel/black,/area/ruin/unpowered)
+"v" = (/obj/structure/mineral_door/iron,/obj/structure/fans/tiny/invisible,/turf/open/floor/plating/lava/smooth/lava_land_surface,/area/ruin/unpowered)
+"w" = (/obj/item/stack/sheet/mineral/gold,/turf/open/floor/plasteel/black,/area/ruin/unpowered)
+"x" = (/obj/item/weapon/ore/silver,/turf/open/floor/plasteel/black,/area/ruin/unpowered)
+"y" = (/obj/structure/closet/coffin,/obj/item/device/immortality_talisman,/obj/effect/mob_spawn/human/skeleton,/turf/open/floor/mineral/diamond,/area/ruin/unpowered)
+"z" = (/obj/structure/table,/obj/item/device/wisp_lantern,/obj/structure/sign/securearea{desc = "Under the painting a plaque reads: 'While the meat grinder may not have spared you, fear not. Not one part of you has gone to waste... You were delicious.'"; icon_state = "monkey_painting"; name = "Mr. Deempisi portrait"; pixel_x = 0; pixel_y = 28},/turf/open/floor/mineral/diamond,/area/ruin/unpowered)
+"A" = (/obj/structure/table,/obj/item/device/necromantic_stone,/obj/item/stack/sheet/mineral/diamond,/turf/open/floor/mineral/diamond,/area/ruin/unpowered)
+"B" = (/obj/effect/decal/cleanable/dirt,/obj/item/weapon/ore/silver,/obj/item/weapon/ore/silver,/turf/open/floor/plasteel/black,/area/ruin/unpowered)
+"C" = (/obj/effect/decal/cleanable/dirt,/turf/open/floor/mineral/diamond,/area/ruin/unpowered)
+"D" = (/obj/item/chair,/turf/open/floor/mineral/diamond,/area/ruin/unpowered)
+"E" = (/obj/structure/table,/obj/item/weapon/book/codex_gigas,/turf/open/floor/mineral/diamond,/area/ruin/unpowered)
+"F" = (/mob/living/simple_animal/hostile/skeleton,/turf/open/floor/plasteel/black,/area/ruin/unpowered)
+"G" = (/obj/structure/mineral_door/transparent/diamond,/obj/structure/fans/tiny/invisible,/turf/open/floor/mineral/diamond,/area/ruin/unpowered)
+"H" = (/obj/item/stack/sheet/mineral/silver,/turf/open/floor/plasteel/black,/area/ruin/unpowered)
+"I" = (/obj/effect/decal/cleanable/dirt,/obj/effect/decal/remains/human,/obj/item/weapon/coin/gold,/turf/open/floor/plasteel/black,/area/ruin/unpowered)
+"J" = (/obj/effect/decal/cleanable/blood/old,/obj/item/stack/sheet/mineral/gold,/turf/open/floor/plasteel/black,/area/ruin/unpowered)
+"K" = (/obj/effect/decal/cleanable/dirt,/mob/living/simple_animal/hostile/skeleton,/turf/open/floor/plasteel/black,/area/ruin/unpowered)
+"L" = (/obj/structure/table,/obj/item/device/flashlight/lantern,/turf/open/floor/plasteel/black,/area/ruin/unpowered)
+"M" = (/obj/structure/table,/obj/item/weapon/twohanded/spear,/turf/open/floor/plasteel/black,/area/ruin/unpowered)
+"N" = (/obj/item/weapon/coin/gold,/turf/open/floor/plasteel/black,/area/ruin/unpowered)
+"O" = (/turf/template_noop,/area/lavaland/surface/outdoors)
+"P" = (/turf/open/floor/plating/asteroid/basalt/lava_land_surface,/area/lavaland/surface/outdoors)
+"Q" = (/turf/open/floor/plasteel/black,/area/lavaland/surface/outdoors)
+"R" = (/obj/effect/decal/remains/human,/turf/open/floor/plating/asteroid/basalt/lava_land_surface,/area/lavaland/surface/outdoors)
+"S" = (/obj/effect/mob_spawn/human/skeleton,/turf/open/floor/plating/asteroid/basalt/lava_land_surface,/area/lavaland/surface/outdoors)
+
+(1,1,1) = {"
+aaaaaaaaaaaaaaaaaaaaaaaaa
+abbbabababababababababbba
+abbbbbbbbbbbbbbbbbbbbbbba
+abbbbbbbbbbbbbbbbbbbbbbba
+aabbcdbebfbdbgbhhhihhbbaa
+abbbhhbhihhhhhbhijhhibbba
+aabbiikilmnihhkhopijhbbaa
+abbbilbhhihhhhbhjhqhhbbba
+aabbhhbrbsbfbtbhihhhhbbaa
+abbbuubbbbbbbbbvbbkbvbbba
+aabbhhhwxhbyzAbohhhhhbbaa
+abbbhixhBhbCDEbhhFiFhbbba
+aabbhnonwxbbGbbhqhohhbbaa
+abbbhhbbHinihbbhFbbhhbbba
+aabbIiJhnhbbbbbhhhhhKbbaa
+abbbhnhphHbLiMbihFphhbbba
+aabbNhihxNbihhkhhhihhbbaa
+abbbbbbbbbbbbkbbbbbbbbbba
+abbbbbbbbbbbbhbbbbbbbbbba
+abbbababababhhhbabababbba
+aaaaaaaaaaaahhhaaaaaaaaaa
+OOOOOPPPPPPPPQPPOOOOOOOOO
+OOOOPPPPPPPPPQPPOOOOOOOOO
+OOOOPRRSRQPPQQPPOOOOOOOOO
+OOOOPPRRSPQPPOOOOOOOOOOOO
+OOOOPRPPRPOOOOOOOOOOOOOOO
+OOOOPPRPPOOOOOOOOOOOOOOOO
+OOOOOOOOOOOOOOOOOOOOOOOOO
+"}

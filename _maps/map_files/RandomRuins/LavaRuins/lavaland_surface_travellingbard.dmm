@@ -1,0 +1,31 @@
+"a" = (/turf/open/floor/plating/asteroid/basalt/lava_land_surface,/area/lavaland/surface/outdoors)
+"b" = (/obj/machinery/light,/turf/open/floor/plating/asteroid/basalt/lava_land_surface,/area/lavaland/surface/outdoors)
+"c" = (/turf/closed/wall/shuttle/smooth/nodiagonal,/area/ruin/powered)
+"d" = (/obj/machinery/door/airlock/external,/obj/structure/fans/tiny/invisible,/turf/open/floor/vault,/area/ruin/powered)
+"e" = (/obj/structure/mirror{pixel_y = -6},/turf/closed/wall/shuttle/smooth/nodiagonal,/area/ruin/powered)
+"f" = (/obj/machinery/vending/wallmed,/turf/closed/wall/shuttle,/area/ruin/powered)
+"g" = (/obj/machinery/newscaster,/turf/closed/wall/shuttle,/area/ruin/powered)
+"h" = (/turf/closed/wall/shuttle,/area/ruin/powered)
+"i" = (/turf/open/floor/wood,/area/ruin/powered)
+"j" = (/obj/structure/chair/comfy/teal{icon_state = "comfychair"; dir = 4},/turf/open/floor/wood,/area/ruin/powered)
+"k" = (/obj/structure/table,/obj/item/weapon/reagent_containers/pill/stimulant{pixel_x = 3; pixel_y = 4},/obj/item/weapon/reagent_containers/pill/stimulant,/obj/item/weapon/survivalcapsule{pixel_x = -7; pixel_y = 8},/obj/item/weapon/survivalcapsule{pixel_x = -6; pixel_y = 7},/turf/open/floor/wood,/area/ruin/powered)
+"l" = (/obj/structure/shuttle/engine/propulsion{icon_state = "propulsion_l"; dir = 4},/turf/open/floor/plating/asteroid/basalt/lava_land_surface,/area/lavaland/surface/outdoors)
+"m" = (/obj/structure/shuttle/engine/heater{dir = 8},/turf/closed/wall/shuttle,/area/ruin/powered)
+"n" = (/obj/structure/table,/obj/item/weapon/storage/firstaid/brute{pixel_x = -6; pixel_y = 5},/obj/item/weapon/storage/firstaid/fire,/obj/item/weapon/storage/firstaid/toxin{pixel_x = 3; pixel_y = 5},/turf/open/floor/wood,/area/ruin/powered)
+"o" = (/obj/machinery/light,/turf/open/floor/wood,/area/ruin/powered)
+"p" = (/obj/structure/table,/obj/item/device/instrument/violin,/obj/item/ship_in_a_bottle,/obj/item/weapon/storage/backpack/dufflebag/clown,/turf/open/floor/wood,/area/ruin/powered)
+"q" = (/obj/machinery/door/airlock/hatch,/turf/open/floor/vault,/area/ruin/powered)
+"r" = (/obj/structure/table,/obj/item/weapon/tank/internals/emergency_oxygen/double,/obj/item/clothing/mask/breath,/obj/item/device/flashlight/lantern{pixel_x = -7},/obj/item/device/gps/mining{pixel_x = 6},/obj/machinery/light{icon_state = "tube1"; dir = 8},/turf/open/floor/wood,/area/ruin/powered)
+"s" = (/obj/structure/table,/obj/item/weapon/reagent_containers/food/drinks/coffee,/obj/item/weapon/reagent_containers/food/drinks/coffee{pixel_x = 9; pixel_y = 7},/obj/item/weapon/reagent_containers/food/drinks/coffee{pixel_x = 7},/obj/item/weapon/reagent_containers/food/drinks/coffee{pixel_x = 8; pixel_y = 4},/obj/item/weapon/reagent_containers/food/snacks/burger/bigbite{pixel_x = -3},/turf/open/floor/wood,/area/ruin/powered)
+"t" = (/obj/machinery/light/small,/obj/effect/mob_spawn/human/travelling_bard,/turf/open/floor/vault,/area/ruin/powered)
+
+(1,1,1) = {"
+ababaaaa
+acdefgha
+ahiijkha
+lmnioiha
+lmpicqca
+ahrshtha
+ahhhchha
+aaaaaaaa
+"}
