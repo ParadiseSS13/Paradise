@@ -9,17 +9,17 @@
 	name = "wall"
 	icon = 'icons/turf/walls.dmi'
 	explosion_block = 50
-	unacidable = TRUE
+//	unacidable = TRUE
 
 
 /turf/closed/indestructible/riveted
 	icon_state = "riveted"
 
-/turf/closed/indestructible/riveted/New()
-	..()
-	if(smooth)
-		queue_smooth(src)
-		icon_state = ""
+//turf/closed/indestructible/riveted/New()
+//	..()
+//	if(smooth)
+//		queue_smooth(src)
+//		icon_state = ""
 
 /turf/closed/indestructible/riveted/uranium
 	icon = 'icons/turf/walls/uranium_wall.dmi'
