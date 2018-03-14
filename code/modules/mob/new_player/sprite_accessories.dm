@@ -2874,3 +2874,64 @@
 	species_allowed = list("Unathi")
 	icon_state = "head_sharp"
 	suffix = "sharp"
+
+
+//Ume hairstyles go hea//
+
+
+/datum/sprite_accessory/hair/amanitashort
+	icon = 'icons/mob/umehairs.dmi'
+	name = "Amanita Short"
+	icon_state = "hair_amanita_short"
+
+/datum/sprite_accessory/hair/bigbow
+	icon = 'icons/mob/umehairs.dmi'
+	name = "Big Bow"
+	icon_state = "hair_big_bow"
+
+/datum/sprite_accessory/hair/shortbuns
+	icon = 'icons/mob/umehairs.dmi'
+	name = "Double Buns"
+	icon_state = "hair_buns"
+
+/datum/sprite_accessory/hair/longbuns
+	icon = 'icons/mob/umehairs.dmi'
+	name = "Double Buns Long"
+	icon_state = "hair_long_buns"
+
+/datum/sprite_accessory/hair/longbunsalt
+	icon = 'icons/mob/umehairs.dmi'
+	name = "Double Buns Long alt"
+	icon_state = "hair_long_bunsalt"
+
+/datum/sprite_accessory/hair/ombretwin
+	icon = 'icons/mob/umehairs.dmi'
+	name = "Ombre Twin Tails"
+	icon_state = "hair_ombre_twintails"
+
+/datum/sprite_accessory/hair/ombretwinalt
+	icon = 'icons/mob/umehairs.dmi'
+	name = "Ombrre Twin Tails Alt"
+	icon_state = "hair_ombre_twintails_alt"
+
+/datum/sprite_accessory/hair/sailormoon
+	icon = 'icons/mob/umehairs.dmi'
+	name = "Sailor Spessman"
+	icon_state = "hair_sailor"
+
+/datum/sprite_accessory/hair/twintails
+	icon = 'icons/mob/umehairs.dmi'
+	name = "Twin Tails"
+	icon_state = "hair_twins"
+
+/datum/sprite_accessory/hair/sailorslime
+	icon = 'icons/mob/umehairs.dmi'
+	name = "Sailor Slime"
+	icon_state = "hair_slime_twins"
+	species_allowed = list("Slime People")
+	
+/datum/sprite_accessory/hair/murghal4
+	icon = 'icons/mob/murghalhairs.dmi'
+	name = "Broad Quills"
+	icon_state = "four_quills"
+	species_allowed = list("Murghal")

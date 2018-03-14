@@ -140,7 +140,7 @@
 
 /datum/species/tajaran/handle_death(var/mob/living/carbon/human/H)
 	H.stop_tail_wagging(1)
-
+/*
 /datum/species/vulpkanin
 	name = "Vulpkanin"
 	name_plural = "Vulpkanin"
@@ -193,6 +193,7 @@
 
 /datum/species/vulpkanin/handle_death(var/mob/living/carbon/human/H)
 	H.stop_tail_wagging(1)
+*/
 
 /datum/species/skrell
 	name = "Skrell"
@@ -403,62 +404,6 @@
 	H.verbs += /mob/living/carbon/human/proc/leap
 	H.verbs += /mob/living/carbon/human/proc/gut
 	..()
-
-/datum/species/vox/armalis
-	name = "Vox Armalis"
-	name_plural = "Vox Armalis"
-	icobase = 'icons/mob/human_races/r_armalis.dmi'
-	deform = 'icons/mob/human_races/r_armalis.dmi'
-	path = /mob/living/carbon/human/voxarmalis
-	unarmed_type = /datum/unarmed_attack/claws/armalis
-
-	warning_low_pressure = 50
-	hazard_low_pressure = 0
-
-	cold_level_1 = 80
-	cold_level_2 = 50
-	cold_level_3 = 0
-
-	heat_level_1 = 2000
-	heat_level_2 = 3000
-	heat_level_3 = 4000
-
-	brute_mod = 0.2
-	burn_mod = 0.2
-
-	eyes = "blank_eyes"
-
-	species_traits = list(NO_SCAN, NO_BLOOD, NO_PAIN, IS_WHITELISTED)
-	bodyflags = HAS_TAIL
-	dietflags = DIET_OMNI	//should inherit this from vox, this is here just in case
-
-	blood_color = "#2299FC"
-	flesh_color = "#808D11"
-
-	reagent_tag = PROCESS_ORG
-
-	tail = "armalis_tail"
-	icon_template = 'icons/mob/human_races/r_armalis.dmi'
-
-	has_organ = list(
-		"heart" =    /obj/item/organ/internal/heart,
-		"lungs" =    /obj/item/organ/internal/lungs/vox,
-		"liver" =    /obj/item/organ/internal/liver,
-		"kidneys" =  /obj/item/organ/internal/kidneys,
-		"brain" =    /obj/item/organ/internal/brain,
-		"eyes" =     /obj/item/organ/internal/eyes, //Default darksight of 2.
-		"stack" =    /obj/item/organ/internal/stack/vox //Not the same as the cortical stack implant Vox Raiders spawn with. The cortical stack implant is used
-		)												//for determining the success of the heist game-mode's 'leave nobody behind' objective, while this is just an organ.
-
-	suicide_messages = list(
-		"is attempting to bite their tongue off!",
-		"is jamming their claws into their eye sockets!",
-		"is twisting their own neck!",
-		"is holding their breath!",
-		"is huffing oxygen!")
-
-/datum/species/vox/armalis/handle_reagents() //Skip the Vox oxygen reagent toxicity. Armalis are above such things.
-	return 1
 
 /datum/species/kidan
 	name = "Kidan"
@@ -1021,3 +966,57 @@
 		"eyes" =     				/obj/item/organ/internal/eyes/drask, //5 darksight.
 		"brain" =  					/obj/item/organ/internal/brain/drask
 		)
+
+/datum/species/murghal
+	name = "Murghal"
+	name_plural = "Murghals"
+	icobase = 'icons/mob/human_races/r_murghal.dmi'
+	deform = 'icons/mob/human_races/r_def_murghal.dmi'
+	path = /mob/living/carbon/human/murghal
+	default_language = "Galactic Common"
+	language = "Yakar"
+	unarmed_type = /datum/unarmed_attack/claws
+
+	blurb = "Murghals are bipeds from planet Gadanzaar. They are slightly smaller and more fragile than humans \
+	but with a powerful leg bone muscle structure which makes them very good runners. The also have powerful claws \
+	and a strong bioengineered chitin armor covering several parts of their body."
+
+	cold_level_1 = 240
+	cold_level_2 = 180
+	cold_level_3 = 100
+
+	heat_level_1 = 340
+	heat_level_2 = 380
+	heat_level_3 = 440
+
+	primitive_form = "Farwa"
+
+	species_traits = list(LIPS)
+	bodyflags = HAS_HEAD_ACCESSORY | HAS_BODY_MARKINGS | HAS_SKIN_TONE
+	dietflags = DIET_OMNI
+	taste_sensitivity = TASTE_SENSITIVITY_SHARP
+	reagent_tag = PROCESS_ORG
+	flesh_color = "#000000"
+	base_color = "#000000"
+	blood_color = "#470101"
+	butt_sprite = "human"
+
+	has_organ = list(
+		"heart" =    /obj/item/organ/internal/heart,
+		"lungs" =    /obj/item/organ/internal/lungs,
+		"liver" =    /obj/item/organ/internal/liver,
+		"kidneys" =  /obj/item/organ/internal/kidneys,
+		"brain" =    /obj/item/organ/internal/brain,
+		"appendix" = /obj/item/organ/internal/appendix,
+		"gland" =  /obj/item/organ/internal/adrenal,
+		"eyes" =     /obj/item/organ/internal/eyes/
+		)
+
+	allowed_consumed_mobs = list(/mob/living/simple_animal/mouse, /mob/living/simple_animal/chick, /mob/living/simple_animal/butterfly, /mob/living/simple_animal/parrot,
+								 /mob/living/simple_animal/tribble)
+
+	suicide_messages = list(
+		"is attempting to bite their tongue off!",
+		"is jamming their claws into their eye sockets!",
+		"is twisting their own neck!",
+		"is holding their breath!")
