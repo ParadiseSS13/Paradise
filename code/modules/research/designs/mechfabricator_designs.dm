@@ -318,7 +318,7 @@
 	id = "gygax_armor"
 	build_type = MECHFAB
 	build_path = /obj/item/mecha_parts/part/gygax_armour
-	materials = list(MAT_METAL=25000,MAT_DIAMOND=10000)
+	materials = list(MAT_METAL=15000,MAT_DIAMOND=10000,MAT_TITANIUM=10000)
 	construction_time = 600
 	category = list("Gygax")
 
@@ -391,7 +391,7 @@
 	id = "durand_armor"
 	build_type = MECHFAB
 	build_path = /obj/item/mecha_parts/part/durand_armor
-	materials = list(MAT_METAL=50000,MAT_URANIUM=30000)
+	materials = list(MAT_METAL=30000,MAT_URANIUM=25000,MAT_TITANIUM=20000)
 	construction_time = 600
 	category = list("Durand")
 
@@ -592,7 +592,7 @@
 	id = "phazon_armor"
 	build_type = MECHFAB
 	build_path = /obj/item/mecha_parts/part/phazon_armor
-	materials = list(MAT_METAL=45000,MAT_PLASMA=30000)
+	materials = list(MAT_METAL=25000,MAT_PLASMA=20000,MAT_TITANIUM=20000)
 	construction_time = 300
 	category = list("Phazon")
 

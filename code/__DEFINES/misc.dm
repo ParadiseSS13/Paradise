@@ -162,20 +162,6 @@
 #define MIN_SUPPLIED_LAW_NUMBER 15
 #define MAX_SUPPLIED_LAW_NUMBER 50
 
-//Material defines
-#define MAT_METAL			"$metal"
-#define MAT_GLASS			"$glass"
-#define MAT_SILVER			"$silver"
-#define MAT_GOLD			"$gold"
-#define MAT_DIAMOND			"$diamond"
-#define MAT_URANIUM			"$uranium"
-#define MAT_PLASMA			"$plasma"
-#define MAT_BANANIUM		"$bananium"
-#define MAT_TRANQUILLITE	"$tranquillite"
-#define MAT_BIOMASS			"$biomass"
-
-#define MAX_STACK_SIZE 50
-
 //check_target_facings() return defines
 #define FACING_FAILED											0
 #define FACING_SAME_DIR											1
@@ -362,4 +348,4 @@
 #define BLOOD_STATE_NOT_BLOODY		"no blood whatsoever"
 
 // The SQL version required by this version of the code
-#define SQL_VERSION 1
+#define SQL_VERSION 2

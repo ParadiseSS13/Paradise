@@ -4,8 +4,8 @@
 #define CONSTRUCTION_GUTTED 3 //Wires are removed, circuit ready to remove
 #define CONSTRUCTION_NOCIRCUIT 4 //Circuit board removed, can safely weld apart
 
-/var/const/OPEN = 1
-/var/const/CLOSED = 2
+/var/const/FD_OPEN = 1
+/var/const/FD_CLOSED = 2
 
 /obj/machinery/door/firedoor
 	name = "firelock"
@@ -27,7 +27,7 @@
 	var/active_alarm = FALSE
 
 /obj/machinery/door/firedoor/Bumped(atom/AM)
-	if(p_open || operating)
+	if(panel_open || operating)
 		return
 	if(!density)
 		return ..()
@@ -189,10 +189,10 @@
 	if(operating || stat & NOPOWER || !nextstate)
 		return
 	switch(nextstate)
-		if(OPEN)
+		if(FD_OPEN)
 			nextstate = null
 			open(auto_close)
-		if(CLOSED)
+		if(FD_CLOSED)
 			nextstate = null
 			close()
 

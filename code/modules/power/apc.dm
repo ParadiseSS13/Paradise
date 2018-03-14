@@ -769,6 +769,7 @@
 	data["totalLoad"] = round(lastused_equip + lastused_light + lastused_environ)
 	data["coverLocked"] = coverlocked
 	data["siliconUser"] = istype(user, /mob/living/silicon)
+	data["siliconLock"] = locked
 	data["malfStatus"] = get_malf_status(user)
 
 	var/powerChannels[0]
