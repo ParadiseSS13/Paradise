@@ -272,7 +272,7 @@
 	src.energy += gain
 	if(istype(A, /obj/machinery/power/supermatter_shard) && !consumedSupermatter)
 		desc = "[initial(desc)] It glows fiercely with inner fire."
-		name = "supermatter-charged [initial(name)]"
+		name = "Hawking-level [initial(name)]"
 		consumedSupermatter = 1
 		light_range = 10
 	return
