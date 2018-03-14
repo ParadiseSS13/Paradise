@@ -332,8 +332,8 @@
 	var/processing = 0
 	luminosity = 1
 	flags = 0
-	unacidable = 1
-	var/static/list/safeties_typecache = list(/obj/structure/lattice/catwalk)
+//	unacidable = 1
+	var/static/list/safeties_typecache = list(/turf/unsimulated/floor/plating/airless/catwalk)
 
 /turf/open/floor/plating/lava/smooth
 	name = "lava"
@@ -341,4 +341,3 @@
 	icon = 'icons/turf/floors/lava.dmi'
 	icon_state = "unsmooth"
 	smooth = SMOOTH_MORE | SMOOTH_BORDER
-	canSmoothWith = list(/turf/closed/wall, /turf/closed/mineral, /turf/open/floor/plating/lava/smooth, /turf/open/floor/plating/lava/smooth/lava_land_surface)
