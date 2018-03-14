@@ -50,9 +50,9 @@
 	supervisors = "the chief medical officer"
 	department_head = list("Chief Medical Officer")
 	selection_color = "#ffeef0"
-	access = list(access_medical, access_morgue, access_surgery, access_chemistry, access_virology, access_genetics, access_mineral_storeroom)
+	access = list(access_medical, access_morgue, access_surgery, access_chemistry, access_virology, access_genetics, access_mineral_storeroom, access_psychiatrist, access_paramedic, access_external_airlocks)
 	minimal_access = list(access_medical, access_morgue, access_surgery, access_maint_tunnels)
-	alt_titles = list("Surgeon","Nurse")
+	alt_titles = list("Surgeon","Nurse", "Coroner", "Chemist", "Geneticist", "Virologist", "Psychiatrist", "Paramedic")
 	minimal_player_age = 3
 	exp_requirements = 180
 	exp_type = EXP_TYPE_CREW
@@ -75,6 +75,7 @@
 	satchel = /obj/item/weapon/storage/backpack/satchel_med
 	dufflebag = /obj/item/weapon/storage/backpack/duffel/medical
 
+/*
 /datum/job/coroner
 	title = "Coroner"
 	flag = CORONER
@@ -115,6 +116,7 @@
 					/obj/item/device/mass_spectrometer = 1,
 					/obj/item/weapon/storage/box/bodybags = 1)
 
+*/
 /datum/outfit/job/doctor/pre_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
 	. = ..()
 	if(H.mind.role_alt_title)
@@ -124,6 +126,23 @@
 				head = /obj/item/clothing/head/surgery/blue
 			if("Medical Doctor")
 				uniform = /obj/item/clothing/under/rank/medical
+			if("Coroner")
+				uniform = /obj/item/clothing/under/rank/medical
+				suit = /obj/item/clothing/suit/storage/labcoat/mortician
+			if("Chemist")
+				uniform = /obj/item/clothing/under/rank/chemist
+				suit = /obj/item/clothing/suit/storage/labcoat/chemist
+			if("Geneticist")
+				uniform = /obj/item/clothing/under/rank/geneticist
+				suit = /obj/item/clothing/suit/storage/labcoat/genetics
+			if("Virologist")
+				uniform = /obj/item/clothing/under/rank/virologist
+				suit = /obj/item/clothing/suit/storage/labcoat/virologist
+			if("Psychiatrist")
+				uniform = /obj/item/clothing/under/rank/medical
+				suit = /obj/item/clothing/suit/storage/labcoat
+			if("Paramedic")
+				uniform = /obj/item/clothing/under/rank/medical/paramedic
 			if("Nurse")
 				if(H.gender == FEMALE)
 					if(prob(50))
@@ -137,6 +156,7 @@
 
 
 //Chemist is a medical job damnit	//YEAH FUCK YOU SCIENCE	-Pete	//Guys, behave -Erro
+/*
 /datum/job/chemist
 	title = "Chemist"
 	flag = CHEMIST
@@ -171,6 +191,8 @@
 	satchel = /obj/item/weapon/storage/backpack/satchel_chem
 	dufflebag = /obj/item/weapon/storage/backpack/duffel/chemistry
 
+*/
+/*
 /datum/job/geneticist
 	title = "Geneticist"
 	flag = GENETICIST
@@ -203,8 +225,8 @@
 	backpack = /obj/item/weapon/storage/backpack/genetics
 	satchel = /obj/item/weapon/storage/backpack/satchel_gen
 	dufflebag = /obj/item/weapon/storage/backpack/duffel/genetics
-
-
+*/
+/*
 /datum/job/virologist
 	title = "Virologist"
 	flag = VIROLOGIST
@@ -239,7 +261,8 @@
 	backpack = /obj/item/weapon/storage/backpack/virology
 	satchel = /obj/item/weapon/storage/backpack/satchel_vir
 	dufflebag = /obj/item/weapon/storage/backpack/duffel/virology
-
+*/
+/*
 /datum/job/psychiatrist
 	title = "Psychiatrist"
 	flag = PSYCHIATRIST
@@ -277,7 +300,8 @@
 				uniform = /obj/item/clothing/under/rank/psych/turtleneck
 			if("Therapist")
 				uniform = /obj/item/clothing/under/rank/medical
-
+*/
+/*
 /datum/job/paramedic
 	title = "Paramedic"
 	flag = PARAMEDIC
@@ -315,4 +339,4 @@
 	satchel = /obj/item/weapon/storage/backpack/satchel_med
 	dufflebag = /obj/item/weapon/storage/backpack/duffel/medical
 	box = /obj/item/weapon/storage/box/engineer
-
+*/

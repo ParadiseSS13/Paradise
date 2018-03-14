@@ -838,6 +838,8 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 	HTML += ShowDisabilityState(user,DISABILITY_FLAG_LISP,"Lisp")
 	HTML += ShowDisabilityState(user,DISABILITY_FLAG_DIZZY,"Dizziness")
 	HTML += ShowDisabilityState(user,DISABILITY_FLAG_SCRAMBLED,"Can't speak properly")
+	HTML += ShowDisabilityState(user,DISABILITY_FLAG_SMALLSIZE,"Smaller than average")
+	HTML += ShowDisabilityState(user,DISABILITY_FLAG_COMIC,"Speak in Comic Sans")
 
 
 	HTML += {"</ul>
@@ -1264,7 +1266,7 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 					if(new_age)
 						age = max(min(round(text2num(new_age)), AGE_MAX),AGE_MIN)
 				if("species")
-					var/list/new_species = list("Human", "Tajaran", "Skrell", "Unathi", "Diona", "Vulpkanin")
+					var/list/new_species = list("Human", /*"Tajaran"*/ "Skrell", "Unathi", "Diona", /*"Vulpkanin"*/, "Murghal")
 					var/prev_species = species
 //						var/whitelisted = 0
 
@@ -2217,6 +2219,12 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 
 	if(disabilities & DISABILITY_FLAG_SCRAMBLED)
 		character.dna.SetSEState(SCRAMBLEBLOCK,1,1)
+
+	if(disabilities & DISABILITY_FLAG_SMALLSIZE)
+		character.dna.SetSEState(SMALLSIZEBLOCK,1,1)
+
+	if(disabilities & DISABILITY_FLAG_COMIC)
+		character.dna.SetSEState(COMICBLOCK,1,1)
 
 	S.handle_dna(character)
 

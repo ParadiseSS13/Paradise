@@ -89,6 +89,7 @@
 	R.add_language("Bubblish", 0)
 	R.add_language("Orluum", 0)
 	R.add_language("Clownish",0)
+	R.add_language("Yakar", 0)
 
 /obj/item/weapon/robot_module/proc/add_subsystems_and_actions(mob/living/silicon/robot/R)
 	R.verbs |= subsystems
@@ -229,6 +230,22 @@
 
 	fix_modules()
 
+/obj/item/weapon/robot_module/peacekeeper
+	name = "peacekeeping robot module"
+	module_type = "Standard"
+
+/obj/item/weapon/robot_module/peacekeeper/New()
+	..()
+	modules += new /obj/item/weapon/cookiesynth(src)
+	modules += new /obj/item/device/harmalarm(src)
+	modules += new /obj/item/weapon/reagent_containers/borghypo/peace(src)
+	modules += new /obj/item/taperoll/police(src)
+	modules += new /obj/item/borg/cyborghug/peacekeeper(src)
+	modules += new /obj/item/weapon/extinguisher(src)
+	emag = new /obj/item/weapon/reagent_containers/borghypo/peace/hacked(src)
+
+	fix_modules()
+
 /obj/item/weapon/robot_module/janitor
 	name = "janitorial robot module"
 	module_type = "Janitor"
@@ -318,6 +335,7 @@
 	R.add_language("Chittin", 1)
 	R.add_language("Bubblish", 1)
 	R.add_language("Clownish",1)
+	R.add_language("Yakar", 1)
 
 
 /obj/item/weapon/robot_module/miner
