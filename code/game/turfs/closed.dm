@@ -11,35 +11,6 @@
 	explosion_block = 50
 	unacidable = TRUE
 
-/turf/closed/indestructible/oldshuttle
-	name = "strange shuttle wall"
-	icon = 'icons/turf/shuttleold.dmi'
-	icon_state = "block"
-
-/turf/closed/indestructible/oldshuttle/corner
-	icon_state = "corner"
-
-
-
-
-/turf/closed/indestructible/splashscreen
-	name = "Space Station 13"
-	icon = 'icons/misc/fullscreen.dmi'
-	icon_state = "title"
-	layer = FLY_LAYER
-	var/titlescreen = TITLESCREEN
-	var/titlescreenalt = TITLESCREEN_ALT
-
-/turf/closed/indestructible/splashscreen/New()
-	..()
-	if(titlescreen)
-		if(titlescreenalt)
-			if(prob(50))
-				icon_state = titlescreen
-			else
-				icon_state = titlescreenalt
-		else
-			icon_state = titlescreen
 
 /turf/closed/indestructible/riveted
 	icon_state = "riveted"
