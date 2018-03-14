@@ -1,0 +1,151 @@
+"aa" = (/turf/template_noop,/area/template_noop)
+"ab" = (/turf/closed/wall/shuttle/smooth,/area/ruin/powered)
+"ac" = (/obj/machinery/computer/operating,/turf/open/floor/plasteel/white,/area/ruin/powered)
+"ad" = (/obj/structure/table/optable,/turf/open/floor/plasteel/white,/area/ruin/powered)
+"ae" = (/obj/structure/table,/obj/item/weapon/surgicaldrill,/obj/item/weapon/surgical_drapes,/obj/item/weapon/book/manual/wiki/surgery,/turf/open/floor/plasteel/white,/area/ruin/powered)
+"af" = (/obj/structure/reagent_dispensers/watertank,/turf/open/floor/plasteel/white,/area/ruin/powered)
+"ag" = (/obj/structure/table,/obj/item/clothing/mask/surgical,/obj/item/clothing/suit/apron/surgical,/obj/item/clothing/gloves/color/latex,/turf/open/floor/plasteel/white,/area/ruin/powered)
+"ah" = (/obj/structure/table,/obj/item/stack/medical/bruise_pack,/turf/open/floor/plasteel/white,/area/ruin/powered)
+"ai" = (/turf/open/floor/plasteel/white,/area/ruin/powered)
+"aj" = (/obj/structure/table,/obj/item/stack/medical/gauze,/turf/open/floor/plasteel/white,/area/ruin/powered)
+"ak" = (/obj/structure/sink{icon_state = "sink"; dir = 8; pixel_x = -12; pixel_y = 2},/turf/open/floor/plasteel/white,/area/ruin/powered)
+"al" = (/obj/structure/table,/obj/item/weapon/retractor,/obj/item/weapon/hemostat,/turf/open/floor/plasteel/white,/area/ruin/powered)
+"am" = (/obj/structure/table,/obj/item/weapon/scalpel,/obj/item/weapon/circular_saw,/obj/item/weapon/cautery,/turf/open/floor/plasteel/white,/area/ruin/powered)
+"an" = (/turf/closed/wall/shuttle/smooth/nodiagonal,/area/ruin/powered)
+"ao" = (/obj/machinery/door/airlock/shuttle{name = "Surgery"},/obj/structure/fans/tiny/invisible,/turf/open/floor/plasteel/white,/area/ruin/powered)
+"ap" = (/obj/structure/table,/obj/item/weapon/lighter,/obj/item/clothing/mask/cigarette/cigar,/turf/open/floor/carpet,/area/ruin/powered)
+"aq" = (/obj/structure/bed,/obj/item/weapon/bedsheet/medical,/obj/effect/mob_spawn/human/orion_doctor,/turf/open/floor/carpet,/area/ruin/powered)
+"ar" = (/obj/structure/table,/obj/item/weapon/storage/box/monkeycubes,/obj/item/weapon/reagent_containers/food/snacks/honeybun,/turf/open/floor/carpet,/area/ruin/powered)
+"as" = (/obj/structure/bed,/obj/item/weapon/bedsheet/medical,/obj/effect/mob_spawn/human/orion_doctor,/mob/living/carbon/monkey,/turf/open/floor/carpet,/area/ruin/powered)
+"at" = (/obj/structure/toilet{dir = 4},/turf/open/floor/plasteel/bar,/area/ruin/powered)
+"au" = (/obj/effect/mob_spawn/human/orion_doctor,/turf/open/floor/plasteel/bar,/area/ruin/powered)
+"av" = (/obj/structure/table,/obj/item/weapon/storage/bag/chemistry,/obj/item/weapon/reagent_containers/glass/beaker/bluespace,/obj/item/weapon/reagent_containers/syringe/bluespace,/turf/open/floor/plasteel/white,/area/ruin/powered)
+"aw" = (/obj/machinery/chem_dispenser,/turf/open/floor/plasteel/white,/area/ruin/powered)
+"ax" = (/obj/machinery/chem_master,/turf/open/floor/plasteel/white,/area/ruin/powered)
+"ay" = (/obj/structure/window/reinforced{dir = 4},/obj/structure/window/reinforced{dir = 8},/obj/machinery/door/window/southleft,/mob/living/carbon/monkey,/turf/open/floor/plasteel/white,/area/ruin/powered)
+"az" = (/obj/structure/sign/chemistry,/turf/closed/wall/shuttle/smooth,/area/ruin/powered)
+"aA" = (/turf/open/floor/carpet,/area/ruin/powered)
+"aB" = (/mob/living/carbon/monkey,/turf/open/floor/carpet,/area/ruin/powered)
+"aC" = (/obj/item/weapon/lipstick/random,/turf/open/floor/plasteel/bar,/area/ruin/powered)
+"aD" = (/obj/structure/sink{dir = 4; icon_state = "sink"; pixel_x = 11; pixel_y = 0},/mob/living/carbon/monkey,/turf/open/floor/plasteel/bar,/area/ruin/powered)
+"aE" = (/obj/structure/extinguisher_cabinet{pixel_x = 4},/turf/closed/wall/shuttle/smooth,/area/ruin/powered)
+"aF" = (/obj/structure/chair/office/light{dir = 1},/turf/open/floor/plasteel/white,/area/ruin/powered)
+"aG" = (/obj/machinery/door/airlock/shuttle{name = "Chemistry Module 1"},/obj/structure/fans/tiny/invisible,/turf/open/floor/plasteel/white,/area/ruin/powered)
+"aH" = (/obj/machinery/door/airlock/shuttle{name = "Resting Room 1"},/obj/structure/fans/tiny/invisible,/turf/open/floor/carpet,/area/ruin/powered)
+"aI" = (/obj/machinery/door/airlock/shuttle{name = "Resting Room 2"},/obj/structure/fans/tiny/invisible,/turf/open/floor/carpet,/area/ruin/powered)
+"aJ" = (/obj/machinery/door/airlock/shuttle{name = "Resting Room 3"},/obj/structure/fans/tiny/invisible,/turf/open/floor/plasteel/bar,/area/ruin/powered)
+"aK" = (/obj/machinery/chem_heater,/turf/open/floor/plasteel/white,/area/ruin/powered)
+"aL" = (/obj/structure/table,/obj/item/stack/sheet/mineral/uranium{amount = 3},/obj/item/stack/sheet/mineral/silver{amount = 3},/obj/item/stack/sheet/mineral/gold{amount = 3},/obj/item/stack/sheet/mineral/plasma{amount = 5},/turf/open/floor/plasteel/white,/area/ruin/powered)
+"aM" = (/obj/structure/table,/obj/machinery/reagentgrinder,/turf/open/floor/plasteel/white,/area/ruin/powered)
+"aN" = (/obj/structure/table,/obj/item/weapon/storage/box/syringes,/obj/item/weapon/gun/syringe,/obj/item/weapon/storage/box/pillbottles,/obj/item/weapon/storage/box/pillbottles,/obj/item/weapon/book/manual/wiki/chemistry,/turf/open/floor/plasteel/white,/area/ruin/powered)
+"aO" = (/obj/machinery/smartfridge/chemistry,/turf/open/floor/plasteel/white,/area/ruin/powered)
+"aP" = (/obj/machinery/door/airlock/shuttle{name = "Resting Rooms"},/obj/structure/fans/tiny/invisible,/turf/open/floor/plasteel/white,/area/ruin/powered)
+"aQ" = (/obj/machinery/door/airlock/shuttle{name = "Medical Airlock"},/obj/structure/fans/tiny/invisible,/turf/open/floor/plasteel/white,/area/ruin/powered)
+"aR" = (/obj/machinery/door/airlock/shuttle{name = "Medical Storage"},/obj/structure/fans/tiny/invisible,/turf/open/floor/plasteel/white,/area/ruin/powered)
+"aS" = (/obj/machinery/vending/snack,/turf/open/floor/plasteel/white,/area/ruin/powered)
+"aT" = (/obj/structure/table,/obj/item/weapon/reagent_containers/glass/beaker/cryoxadone,/turf/open/floor/plasteel/white,/area/ruin/powered)
+"aU" = (/obj/machinery/atmospherics/components/unary/cryo_cell,/turf/open/floor/plasteel/white,/area/ruin/powered)
+"aV" = (/obj/structure/table,/obj/item/weapon/reagent_containers/glass/beaker/large/epinephrine,/obj/item/weapon/reagent_containers/glass/beaker/large/epinephrine,/turf/open/floor/plasteel/white,/area/ruin/powered)
+"aW" = (/obj/machinery/door/airlock/shuttle{name = "Chemistry Module 2"},/obj/structure/fans/tiny/invisible,/turf/open/floor/plasteel/white,/area/ruin/powered)
+"aX" = (/obj/item/weapon/storage/belt/medical,/turf/open/floor/plasteel/white,/area/ruin/powered)
+"aY" = (/obj/machinery/atmospherics/pipe/simple{dir = 5},/turf/open/floor/plasteel/white,/area/ruin/powered)
+"aZ" = (/obj/machinery/atmospherics/pipe/manifold,/turf/open/floor/plasteel/white,/area/ruin/powered)
+"ba" = (/obj/machinery/atmospherics/pipe/simple{dir = 10},/turf/open/floor/plasteel/white,/area/ruin/powered)
+"bb" = (/obj/structure/table,/obj/item/weapon/reagent_containers/glass/beaker/large/charcoal,/obj/item/weapon/reagent_containers/glass/beaker/large/charcoal,/turf/open/floor/plasteel/white,/area/ruin/powered)
+"bc" = (/obj/machinery/door/airlock/shuttle{name = "Cryogenics"},/obj/structure/fans/tiny/invisible,/turf/open/floor/plasteel/white,/area/ruin/powered)
+"bd" = (/obj/machinery/atmospherics/pipe/simple,/obj/structure/table,/obj/item/weapon/storage/box/beakers,/obj/item/weapon/reagent_containers/glass/beaker/large,/obj/item/weapon/reagent_containers/glass/beaker/large,/turf/open/floor/plasteel/white,/area/ruin/powered)
+"be" = (/obj/structure/table,/obj/item/weapon/reagent_containers/glass/beaker/cryoxadone,/obj/item/weapon/reagent_containers/glass/beaker/cryoxadone,/turf/open/floor/plasteel/white,/area/ruin/powered)
+"bf" = (/obj/machinery/atmospherics/pipe/simple{dir = 6},/turf/open/floor/plasteel/white,/area/ruin/powered)
+"bg" = (/obj/machinery/atmospherics/pipe/manifold{dir = 1},/turf/open/floor/plasteel/white,/area/ruin/powered)
+"bh" = (/obj/machinery/atmospherics/pipe/manifold{dir = 4},/turf/open/floor/plasteel/white,/area/ruin/powered)
+"bi" = (/obj/structure/closet/crate/freezer,/obj/item/weapon/reagent_containers/blood/random,/obj/item/weapon/reagent_containers/blood/random,/obj/item/weapon/reagent_containers/blood/random,/obj/item/weapon/reagent_containers/blood/random,/obj/item/weapon/reagent_containers/blood/random,/turf/open/floor/plasteel/white,/area/ruin/powered)
+"bj" = (/obj/structure/table,/turf/open/floor/plasteel/white,/area/ruin/powered)
+"bk" = (/obj/structure/closet/wardrobe/white,/turf/open/floor/plasteel/white,/area/ruin/powered)
+"bl" = (/obj/machinery/dna_scannernew,/turf/open/floor/plasteel/white,/area/ruin/powered)
+"bm" = (/obj/machinery/computer/cloning,/turf/open/floor/plasteel/white,/area/ruin/powered)
+"bn" = (/obj/machinery/clonepod,/turf/open/floor/plasteel/white,/area/ruin/powered)
+"bo" = (/obj/machinery/vending/cola,/turf/open/floor/plasteel/white,/area/ruin/powered)
+"bp" = (/obj/structure/table,/obj/item/weapon/wrench/medical,/obj/item/weapon/paper{info = "Wrench both O2 tanks and turn on the freezer, don't forget to set it to the lowest temperature possible by hitting the minus buttons! Once you've done that take the cryoxadone beakers and slot them into the cryotubes, keep in mind that any chem works in cryo not just cryoxadone; this means you can create medical concoctions to heal an individual much much faster."; name = "Cryo Setup"},/turf/open/floor/plasteel/white,/area/ruin/powered)
+"bq" = (/obj/machinery/atmospherics/components/unary/portables_connector/visible{dir = 1; layer = 2.9},/obj/machinery/portable_atmospherics/canister/oxygen,/obj/structure/window/reinforced{dir = 8},/obj/machinery/door/window/northleft,/turf/open/floor/plasteel/white,/area/ruin/powered)
+"br" = (/obj/machinery/atmospherics/components/unary/portables_connector/visible{dir = 1; layer = 2.9},/obj/machinery/portable_atmospherics/canister/oxygen,/obj/structure/window/reinforced{dir = 4},/obj/machinery/door/window/northright,/turf/open/floor/plasteel/white,/area/ruin/powered)
+"bs" = (/obj/machinery/atmospherics/components/unary/thermomachine/freezer{dir = 1},/turf/open/floor/plasteel/white,/area/ruin/powered)
+"bt" = (/obj/machinery/iv_drip,/turf/open/floor/plasteel/white,/area/ruin/powered)
+"bu" = (/obj/structure/table,/obj/item/weapon/defibrillator/loaded,/turf/open/floor/plasteel/white,/area/ruin/powered)
+"bv" = (/obj/machinery/door/airlock/shuttle{name = "Cloning"},/obj/structure/fans/tiny/invisible,/turf/open/floor/plasteel/white,/area/ruin/powered)
+"bw" = (/turf/open/floor/plasteel/blueyellow,/area/ruin/powered)
+"bx" = (/obj/machinery/door/airlock/shuttle{name = "Foyer Desk"},/obj/structure/fans/tiny/invisible,/turf/open/floor/plasteel/blueyellow,/area/ruin/powered)
+"by" = (/turf/open/floor/plasteel/cmo,/area/ruin/powered)
+"bz" = (/obj/item/weapon/cigbutt/cigarbutt,/turf/open/floor/plasteel/cmo,/area/ruin/powered)
+"bA" = (/obj/machinery/smartfridge,/turf/open/floor/plasteel/white,/area/ruin/powered)
+"bB" = (/obj/structure/table,/obj/item/clothing/glasses/hud/health,/obj/item/clothing/glasses/hud/health,/obj/item/clothing/glasses/hud/health,/turf/open/floor/plasteel/white,/area/ruin/powered)
+"bC" = (/obj/structure/table,/obj/item/clothing/head/welding,/turf/open/floor/plasteel/white,/area/ruin/powered)
+"bD" = (/obj/structure/sign/nosmoking_2,/turf/closed/wall/shuttle/smooth,/area/ruin/powered)
+"bE" = (/obj/structure/table/glass,/obj/item/weapon/coin/silver,/obj/item/clothing/head/festive,/turf/open/floor/plasteel/cmo,/area/ruin/powered)
+"bF" = (/obj/structure/chair/comfy/teal{dir = 8},/turf/open/floor/plasteel/cmo,/area/ruin/powered)
+"bG" = (/obj/structure/table,/obj/item/weapon/storage/toolbox/mechanical,/turf/open/floor/plasteel/white,/area/ruin/powered)
+"bH" = (/obj/structure/table,/obj/item/weapon/mop,/obj/item/weapon/reagent_containers/glass/bucket,/obj/item/weapon/soap/deluxe,/turf/open/floor/plasteel/white,/area/ruin/powered)
+"bI" = (/obj/structure/flora/kirbyplants,/turf/open/floor/plasteel/white,/area/ruin/powered)
+"bJ" = (/obj/structure/chair/office/light{dir = 4},/turf/open/floor/plasteel/blueyellow,/area/ruin/powered)
+"bK" = (/obj/structure/table/reinforced,/obj/structure/bedsheetbin,/obj/item/weapon/reagent_containers/food/snacks/honeybar,/turf/open/floor/plasteel/blueyellow,/area/ruin/powered)
+"bL" = (/obj/structure/table/glass,/obj/item/weapon/dice/d20,/turf/open/floor/plasteel/cmo,/area/ruin/powered)
+"bM" = (/obj/structure/closet/crate/bin,/obj/item/weapon/folder/white,/turf/open/floor/plasteel/blueyellow,/area/ruin/powered)
+"bN" = (/obj/structure/table/reinforced,/obj/item/weapon/paper_bin,/obj/item/weapon/phone,/obj/item/device/flashlight/pen,/turf/open/floor/plasteel/blueyellow,/area/ruin/powered)
+"bO" = (/obj/structure/bed,/obj/item/weapon/bedsheet,/turf/open/floor/plasteel/red,/area/ruin/powered)
+"bP" = (/turf/open/floor/plasteel/red,/area/ruin/powered)
+"bQ" = (/obj/machinery/door/airlock/glass_security{name = "Holding Cell"; req_access_txt = "63"},/turf/open/floor/plasteel/red,/area/ruin/powered)
+"bR" = (/obj/structure/showcase,/turf/open/floor/plasteel/red,/area/ruin/powered)
+"bS" = (/obj/machinery/door/airlock/glass_security{name = "Spaceport Security"; req_access_txt = "63"},/obj/structure/fans/tiny/invisible,/turf/open/floor/plasteel/red,/area/ruin/powered)
+"bT" = (/obj/machinery/door/airlock/glass_large,/obj/structure/fans/tiny/invisible,/turf/open/floor/plasteel/cmo,/area/ruin/powered)
+"bU" = (/obj/structure/fans/tiny/invisible,/turf/open/floor/plasteel/cmo,/area/ruin/powered)
+"bV" = (/obj/effect/spawner/structure/window/reinforced,/obj/structure/grille,/turf/open/floor/plasteel/red,/area/ruin/powered)
+"bW" = (/obj/item/device/flashlight/seclite,/turf/open/floor/plasteel/red,/area/ruin/powered)
+"bX" = (/obj/item/weapon/tank/internals/emergency_oxygen/double,/turf/open/floor/plasteel/red,/area/ruin/powered)
+"bY" = (/obj/effect/mob_spawn/human/orion_security,/turf/open/floor/plasteel/red,/area/ruin/powered)
+"bZ" = (/obj/structure/table,/turf/open/floor/plasteel/red,/area/ruin/powered)
+"ca" = (/obj/structure/bed/roller,/turf/open/floor/plasteel/cmo,/area/ruin/powered)
+"cb" = (/obj/structure/chair/office/light,/turf/open/floor/plasteel/red,/area/ruin/powered)
+"cc" = (/obj/structure/chair/office/light{dir = 4},/turf/open/floor/plasteel/red,/area/ruin/powered)
+"cd" = (/obj/structure/table,/obj/item/weapon/storage/box/handcuffs,/obj/item/weapon/shield/riot,/obj/item/weapon/melee/baton/loaded,/turf/open/floor/plasteel/red,/area/ruin/powered)
+"ce" = (/obj/structure/closet/emcloset,/turf/open/floor/plasteel/cmo,/area/ruin/powered)
+"cf" = (/obj/structure/table,/obj/item/weapon/paper_bin,/obj/item/weapon/pen,/obj/item/weapon/reagent_containers/food/snacks/donut/jelly{pixel_x = -6; pixel_y = 5},/turf/open/floor/plasteel/red,/area/ruin/powered)
+"cg" = (/obj/structure/closet{name = "Contraband Locker"},/obj/item/clothing/head/collectable/HoS,/turf/open/floor/plasteel/red,/area/ruin/powered)
+"ch" = (/obj/structure/closet{name = "Contraband Locker"},/obj/item/weapon/storage/belt/security,/turf/open/floor/plasteel/red,/area/ruin/powered)
+"ci" = (/obj/structure/table,/obj/item/stack/medical/bruise_pack,/obj/item/stack/medical/gauze,/obj/item/stack/medical/ointment,/turf/open/floor/plasteel/red,/area/ruin/powered)
+"cj" = (/obj/structure/table,/obj/machinery/recharger,/turf/open/floor/plasteel/red,/area/ruin/powered)
+"ck" = (/obj/structure/sign/bluecross_2,/turf/closed/wall/shuttle/smooth,/area/ruin/powered)
+"cl" = (/obj/machinery/door/airlock/glass_large{name = "Orion Medical Outpost V"},/obj/structure/fans/tiny/invisible,/turf/open/floor/plasteel/cmo,/area/ruin/powered)
+"cm" = (/turf/open/floor/plating/asteroid/basalt/lava_land_surface,/area/lavaland/surface/outdoors)
+"cn" = (/obj/item/weapon/emptysandbag,/turf/open/floor/plating/asteroid/basalt/lava_land_surface,/area/lavaland/surface/outdoors)
+"co" = (/obj/effect/decal/remains/human,/turf/open/floor/plasteel/cmo,/area/ruin/powered)
+"cp" = (/obj/item/weapon/emptysandbag,/turf/open/floor/plasteel/cmo,/area/ruin/powered)
+
+(1,1,1) = {"
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaababababababababaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaabacadaeafagahabaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaabaiaiaiaiaiajabaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaabakalamaiaiaiababababababababababaaaaaaaa
+aaaaaaaaabababababanaoabapaqabarasabatauabaaaaaaaa
+aaaaaaaaabavawaxayazaiabaAaBabaAaAabaCaDabaaaaaaaa
+aaaaaaaaaEaiaFaiaiaGaiabaHabanaIabanaJababaaaaaaaa
+aaaaaaaaabaKaLaMaNaOaiaPaiaiaiaiaiaiaiaiabaaaaaaaa
+aaaaaaaaabababababanaQababababababanaRabababaaaaaa
+aaaaaaaaabavawaxayazaiaSabaTaUaUaTabaiaiaVabaaaaaa
+aaaaaaaaaEaiaFaiaiaWaXaiabaiaYaZbaabaiaibbabaaaaaa
+aaaaaaaaabaKaLaMaNaOaiaibcaiaiaibdabaiaibeabaaaaaa
+aaaaaaaaabababababanaiaiabaibfbgbhabbiaibjabaaaaaa
+aaaaaaaaabbkblbmbnabaiboabbpbqbrbsabbtaibjabaaaaaa
+aaaaaaaaabaiaiaiaiabaQababababababanaiaibuabaaaaaa
+aaaaaaaaabakaiaiaibvbwbwbxbybzbybybAaiaibBabaaaaaa
+aaaaaaaaabbCaiaibkabbwbwbDbybybEbFanababababaaaaaa
+aaaaaaaaabbGbHbIbkabbwbJbKbybybLbFabaaaaaaaaaaaaaa
+aaaaaaabababababababbwbMbNbybybybFabaaaaaaaaaaaaaa
+aaaaaaabbObPbQbPbRabbSabababbTbUababaaaaaaaaaaaaaa
+aaaaaaabbObPbVbWbXbYbPbZabcabybycaabaaaaaaaaaaaaaa
+aaaaaaabbObPbVcbbPbPcccdabcebybycaabaaaaaaaaaaaaaa
+aaaaaaabbObPbVcfcgchcicjabckclbUckanaaaaaaaaaaaaaa
+aaaaaaanababababababababanbybybybycmbybybyabaaaaaa
+aaaaaaaaaaaaaaaaaacmcmcmbycncocpbycnbycmcmcmaaaaaa
+aaaaaaaaaaaaaaaaaacmabbybybycnbyabbyabcmcmcmaaaaaa
+aaaaaaaaaaaaaaaaaacmcmcmcmabcmcmcmcmcmcmcmaaaaaaaa
+"}
