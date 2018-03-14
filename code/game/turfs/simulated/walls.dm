@@ -444,3 +444,26 @@
 /turf/simulated/wall/narsie_act()
 	if(prob(20))
 		ChangeTurf(/turf/simulated/wall/cult)
+
+/turf/closed/wall
+	name = "wall"
+	desc = "A huge chunk of metal used to separate rooms."
+	icon = 'icons/turf/walls/wall.dmi'
+	icon_state = "wall"
+	var/mineral = "metal"
+	explosion_block = 1
+
+	thermal_conductivity = WALL_HEAT_TRANSFER_COEFFICIENT
+	heat_capacity = 312500 //a little over 5 cm thick , 312500 for 1 m by 2.5 m by 0.25 m plasteel wall
+
+	var/walltype = "metal"
+	var/hardness = 40 //lower numbers are harder. Used to determine the probability of a hulk smashing through.
+	var/slicing_duration = 100  //default time taken to slice the wall
+	var/sheet_type = /obj/item/stack/sheet/metal
+	var/obj/item/stack/sheet/builtin_sheet = null
+
+	canSmoothWith = list(
+	/turf/closed/wall,
+	/obj/structure/falsewall,
+	/obj/structure/falsewall/reinforced)
+	smooth = SMOOTH_TRUE

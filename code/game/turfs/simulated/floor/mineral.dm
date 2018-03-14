@@ -256,3 +256,4 @@
 
 /turf/simulated/floor/plating/abductor2/burn_tile()
 	return //unburnable
+
