@@ -36,6 +36,7 @@
 	#define LAVALAND "Lavaland"
 	#define EMPTY_AREA_2 "Empty Area 2"
 	#define AWAY_MISSION "Away Mission"
+	#define EMPTY_AREA "Empty Area"
 
 // Convenience define
 	#define DECLARE_LEVEL(NAME,LINKS,TRAITS) list("name" = NAME, "linkage" = LINKS, "attributes" = TRAITS)
