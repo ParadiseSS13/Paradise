@@ -50,8 +50,8 @@
 			src.gets_drilled(null, 1)
 	return
 
-/turf/closed/mineral/Spread(turf/T)
-	new src.type(T)
+//turf/closed/mineral/Spread(turf/T)
+//	new src.type(T)
 
 /turf/closed/mineral/random
 	var/mineralSpawnChanceList
@@ -76,8 +76,8 @@
 		if(T && istype(T, /turf/closed/mineral))
 			var/turf/closed/mineral/M = T
 			M.mineralAmt = rand(1, 5)
-			M.environment_type = src.environment_type
-			M.turf_type = src.turf_type
+//			M.environment_type = src.environment_type
+//			M.turf_type = src.turf_type
 			M.baseturf = src.baseturf
 			src = M
 			M.levelupdate()
@@ -360,7 +360,7 @@
 	new turf_type(T)
 /turf/open/floor/plating/asteroid/airless/cave/proc/SpawnMonster(turf/T)
 	if(prob(30))
-		if(istype(loc, /area/mine/explored))
+		if(istype(loc, /area/mine/dangerous/explored))
 			return
 		for(var/atom/A in urange(12,T))//Lowers chance of mob clumps
 			if(T.x < 75)
@@ -462,7 +462,7 @@
 	var/sand_type = /obj/item/weapon/ore/glass
 
 /turf/open/floor/plating/asteroid/airless
-	initial_gas_mix = "TEMP=2.7"
+//	initial_gas_mix = "TEMP=2.7"
 	turf_type = /turf/open/floor/plating/asteroid/airless
 
 /turf/open/floor/plating/asteroid/basalt
@@ -470,8 +470,8 @@
 	baseturf = /turf/open/floor/plating/asteroid/basalt
 	icon = 'icons/turf/floors.dmi'
 	icon_state = "basalt"
-	icon_plating = "basalt"
-	environment_type = "basalt"
+//	icon_plating = "basalt"
+//	environment_type = "basalt"
 	sand_type = /obj/item/weapon/ore/glass/basalt
 
 /turf/open/floor/plating/asteroid/basalt/lava //lava underneath
@@ -489,7 +489,7 @@
 //	icon_plating = "snow"
 //	initial_gas_mix = "TEMP=180"
 	slowdown = 2
-	environment_type = "snow"
+//	environment_type = "snow"
 //	sand_type = /obj/item/stack/sheet/mineral/snow
 
 /turf/open/floor/plating/asteroid/snow/airless
@@ -502,8 +502,8 @@
 	var/proper_name = name
 	..()
 	name = proper_name
-	if(prob(20))
-		icon_state = "[environment_type][rand(0,12)]"
+//	if(prob(20))
+//		icon_state = "[environment_type][rand(0,12)]"
 
 ///turf/open/floor/plating/asteroid/burn_tile()
 //	return
@@ -573,8 +573,8 @@
 	for(var/i in 1 to 5)
 		new sand_type(src)
 	dug = 1
-	icon_plating = "[environment_type]_dug"
-	icon_state = "[environment_type]_dug"
+//	icon_plating = "[environment_type]_dug"
+//	icon_state = "[environment_type]_dug"
 	slowdown = 0
 	return
 
@@ -598,25 +598,25 @@
 //	planetary_atmos = TRUE
 	baseturf = /turf/open/chasm/straight_down/lava_land_surface
 
-/turf/open/chasm/straight_down/lava_land_surface/drop(atom/movable/AM)
-	if(!AM)
-		return
-	if(!AM.invisibility)
-		AM.visible_message("<span class='boldwarning'>[AM] falls into [src]!</span>", "<span class='userdanger'>You stumble and stare into an abyss before you. It stares back, and you fall \
-		into the enveloping dark.</span>")
-		if(isliving(AM))
-			var/mob/living/L = AM
-			L.notransform = TRUE
-			L.Stun(10)
-			L.resting = TRUE
-		animate(AM, transform = matrix() - matrix(), alpha = 0, color = rgb(0, 0, 0), time = 10)
-		for(var/i in 1 to 5)
-			AM.pixel_y--
-			sleep(2)
-		if(isrobot(AM))
-			var/mob/living/silicon/robot/S = AM
-			qdel(S.mmi)
-		qdel(AM)
+///turf/open/chasm/straight_down/lava_land_surface/drop(atom/movable/AM)
+//	if(!AM)
+//		return
+//	if(!AM.invisibility)
+//		AM.visible_message("<span class='boldwarning'>[AM] falls into [src]!</span>", "<span class='userdanger'>You stumble and stare into an abyss before you. It stares back, and you fall \
+//		into the enveloping dark.</span>")
+//		if(isliving(AM))
+//			var/mob/living/L = AM
+//			L.notransform = TRUE
+//			L.Stun(10)
+//			L.resting = TRUE
+//		animate(AM, transform = matrix() - matrix(), alpha = 0, color = rgb(0, 0, 0), time = 10)
+//		for(var/i in 1 to 5)
+//			AM.pixel_y--
+//			sleep(2)
+//		if(isrobot(AM))
+//			var/mob/living/silicon/robot/S = AM
+//			qdel(S.mmi)
+//		qdel(AM)
 
 /turf/closed/mineral/volcanic/lava_land_surface
 //	environment_type = "basalt"
@@ -649,7 +649,7 @@
 
 /turf/open/floor/plating/lava/smooth/lava_land_surface
 //	initial_gas_mix = "o2=14;n2=23;TEMP=300"
-	planetary_atmos = TRUE
+//	planetary_atmos = TRUE
 	baseturf = /turf/open/chasm/straight_down/lava_land_surface
 
 /turf/closed/mineral/gibtonite/volcanic
