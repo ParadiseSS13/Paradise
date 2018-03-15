@@ -368,7 +368,7 @@ var/global/list/lrockTurfEdgeCache = list(
 	var/turf/simulated/floor/plating/airless/asteroid/gibtonite_remains/G = ChangeTurf(/turf/simulated/floor/plating/airless/asteroid/gibtonite_remains)
 	G.fullUpdateMineralOverlays()
 
-/turf/simulated/floor/plating/airless/asteroid/gibtonite_remains
+/turf/simulated/floor/plating/airless/lavaland/gibtonite_remains
 	var/ldet_time = 0
 	var/lstage = 0
 
@@ -407,7 +407,7 @@ var/global/list/lrockTurfEdgeCache = list(
 		for(i=0;i<mineralAmt;i++)
 			new mineralType(src)
 		feedback_add_details("ore_mined","[mineralType]|[mineralAmt]")
-	var/turf/simulated/floor/plating/airless/asteroid/N = ChangeTurf(/turf/simulated/floor/plating/airless/asteroid)
+	var/turf/simulated/floor/plating/airless/lavaland/N = ChangeTurf(/turf/simulated/floor/plating/airless/lavaland)
 	playsound(src, 'sound/effects/break_stone.ogg', 50, 1) //beautiful destruction
 	N.fullUpdateMineralOverlays()
 
@@ -453,9 +453,9 @@ var/global/list/lrockTurfEdgeCache = list(
 
 /turf/simulated/floor/plating/airless/lavaland
 	name = "Ash Floor"
-	icon = 'icons/turf/floors/ash.dmi'
-	icon_state = "rockyash"
-	icon_plating = "asteroid"
+	icon = 'icons/turf/floors.dmi'
+	icon_state = "basalt"
+//	icon_plating = ""
 	var/dug = 0       //0 = has not yet been dug, 1 = has already been dug
 	oxygen = 0.01
 	nitrogen = 0.01
@@ -466,9 +466,9 @@ var/global/list/lrockTurfEdgeCache = list(
 	..()
 	name = proper_name
 	if(prob(20))
-		icon_state = "rockyash[rand(0,12)]"
+		icon_state = "basalt[rand(0,12)]"
 
-/turf/simulated/floor/plating/airless/asteroid/ex_act(severity, target)
+/turf/simulated/floor/plating/airless/lavalandw/ex_act(severity, target)
 	switch(severity)
 		if(3.0)
 			return
@@ -543,7 +543,7 @@ var/global/list/lrockTurfEdgeCache = list(
 	icon_state = "asteroid_dug"
 	return
 
-/turf/proc/updateMineralOverlays()
+/turf/proc/updatelMineralOverlays()
 	src.overlays.Cut()
 
 	if(istype(get_step(src, NORTH), /turf/simulated/lmineral))
