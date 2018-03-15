@@ -64,7 +64,7 @@
 "bl" = (/obj/effect/spawner/window/reinforced,/turf/simulated/floor/plating{baseturf = /turf/simulated/floor/mineral},/area/mine/production)
 "bm" = (/obj/structure/table,/obj/item/stack/packageWrap,/obj/item/stack/packageWrap,/obj/item/stack/packageWrap,/obj/item/weapon/hand_labeler,/turf/simulated/floor/plasteel{baseturf = /turf/simulated/floor/mineral; dir = 8; icon_state = "purplecorner"},/area/mine/eva)
 "bn" = (/obj/machinery/light/small{dir = 8},/turf/simulated/floor/mineral,/area/lavaland/surface/outdoors)
-"bo" = (/obj/docking_port/stationary{area_type = /area/lavaland/surface/outdoors; dir = 8; dwidth = 2; height = 5; id = "laborcamp_away"; name = "labor camp"; turf_type = /turf/simulated/floor/plating/lava/smooth; width = 9},/turf/simulated/floor/mineral,/area/lavaland/surface/outdoors)
+"bo" = (/obj/docking_port/stationary{area_type = /area/lavaland/surface/outdoors; dir = 8; dwidth = 2; height = 5; id = "laborcamp_away"; name = "labor camp"; turf_type = /turf/simulated/floor/mineral; width = 9},/turf/simulated/floor/mineral,/area/lavaland/surface/outdoors)
 "bp" = (/obj/machinery/door/airlock/security/glass{name = "Labor Camp Shuttle Prisoner Airlock"; req_access_txt = "0"},/turf/simulated/floor/plasteel{baseturf = /turf/simulated/floor/mineral},/area/mine/laborcamp)
 "bq" = (/obj/structure/cable{d1 = 2; d2 = 4; icon_state = "2-4"},/turf/simulated/floor/plasteel{baseturf = /turf/simulated/floor/mineral},/area/mine/laborcamp)
 "br" = (/obj/structure/cable{d1 = 4; d2 = 8; icon_state = "4-8"; pixel_x = 0},/turf/simulated/floor/plasteel{baseturf = /turf/simulated/floor/mineral},/area/mine/laborcamp)
