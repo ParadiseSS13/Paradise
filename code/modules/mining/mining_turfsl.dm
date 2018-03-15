@@ -468,7 +468,7 @@ var/global/list/lrockTurfEdgeCache = list(
 	if(prob(20))
 		icon_state = "basalt[rand(0,12)]"
 
-/turf/simulated/floor/plating/airless/lavalandw/ex_act(severity, target)
+/turf/simulated/floor/plating/airless/lavaland/ex_act(severity, target)
 	switch(severity)
 		if(3.0)
 			return
