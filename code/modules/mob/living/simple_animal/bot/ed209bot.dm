@@ -62,11 +62,12 @@
 			check_records = 0//Don't actively target people set to arrest
 			arrest_type = 1//Don't even try to cuff
 			bot_core.req_access = list(access_maint_tunnels, access_theatre)
-			arrest_type = 1
-			if((lasercolor == "b") && (name == "\improper ED-209 Security Robot"))//Picks a name if there isn't already a custome one
-				name = pick("BLUE BALLER","SANIC","BLUE KILLDEATH MURDERBOT")
-			if((lasercolor == "r") && (name == "\improper ED-209 Security Robot"))
-				name = pick("RED RAMPAGE","RED ROVER","RED KILLDEATH MURDERBOT")
+
+			if(created_name == "ED-209 Security Robot")
+				if(lasercolor == "b")
+					name = pick("BLUE BALLER","SANIC","BLUE KILLDEATH MURDERBOT")
+				else if (lasercolor == "r")
+					name = pick("RED RAMPAGE","RED ROVER","RED KILLDEATH MURDERBOT")
 
 	//SECHUD
 	var/datum/atom_hud/secsensor = huds[DATA_HUD_SECURITY_ADVANCED]
@@ -101,30 +102,32 @@
 	dat += hack(user)
 	dat += showpai(user)
 	dat += text({"
-<TT><B>Security Unit v2.6 controls</B></TT><BR><BR>
-Status: []<BR>
-Behaviour controls are [locked ? "locked" : "unlocked"]<BR>
-Maintenance panel panel is [open ? "opened" : "closed"]<BR>"},
+	<TT><B>Security Unit v2.6 controls</B></TT><BR><BR>
+	Status: []<BR>
+	Behaviour controls are [locked ? "locked" : "unlocked"]<BR>
+	Maintenance panel panel is [open ? "opened" : "closed"]<BR>"},
 
-"<A href='?src=[UID()];power=1'>[on ? "On" : "Off"]</A>" )
+	"<A href='?src=[UID()];power=1'>[on ? "On" : "Off"]</A>" )
 
 	if(!locked || issilicon(user) || user.can_admin_interact())
+		dat += text({"Auto Patrol[]<BR>"},
+
+		"<A href='?src=[UID()];operation=patrol'>[auto_patrol ? "On" : "Off"]</A>")
+
 		if(!lasercolor)
 			dat += text({"<BR>
-Arrest Unidentifiable Persons: []<BR>
-Arrest for Unauthorized Weapons: []<BR>
-Arrest for Warrant: []<BR>
-<BR>
-Operating Mode: []<BR>
-Report Arrests[]<BR>
-Auto Patrol[]"},
+			Arrest Unidentifiable Persons: []<BR>
+			Arrest for Unauthorized Weapons: []<BR>
+			Arrest for Warrant: []<BR>
+			<BR>
+			Operating Mode: []<BR>
+			Report Arrests[]<BR>"},
 
-"<A href='?src=[UID()];operation=idcheck'>[idcheck ? "Yes" : "No"]</A>",
-"<A href='?src=[UID()];operation=weaponscheck'>[weaponscheck ? "Yes" : "No"]</A>",
-"<A href='?src=[UID()];operation=ignorerec'>[check_records ? "Yes" : "No"]</A>",
-"<A href='?src=[UID()];operation=switchmode'>[arrest_type ? "Detain" : "Arrest"]</A>",
-"<A href='?src=[UID()];operation=declarearrests'>[declare_arrests ? "Yes" : "No"]</A>",
-"<A href='?src=[UID()];operation=patrol'>[auto_patrol ? "On" : "Off"]</A>" )
+			"<A href='?src=[UID()];operation=idcheck'>[idcheck ? "Yes" : "No"]</A>",
+			"<A href='?src=[UID()];operation=weaponscheck'>[weaponscheck ? "Yes" : "No"]</A>",
+			"<A href='?src=[UID()];operation=ignorerec'>[check_records ? "Yes" : "No"]</A>",
+			"<A href='?src=[UID()];operation=switchmode'>[arrest_type ? "Detain" : "Arrest"]</A>",
+			"<A href='?src=[UID()];operation=declarearrests'>[declare_arrests ? "Yes" : "No"]</A>")
 
 	return dat
 
