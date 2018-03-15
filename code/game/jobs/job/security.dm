@@ -113,6 +113,7 @@
 	exp_type = EXP_TYPE_CREW
 	outfit = /datum/outfit/job/detective
 
+/*
 /datum/outfit/job/detective
 	name = "Detective"
 	jobtype = /datum/job/detective
@@ -143,7 +144,7 @@
 			if("Forensic Technician")
 				suit = /obj/item/clothing/suit/storage/det_suit/forensics/blue
 				head = null
-
+*/
 /datum/outfit/job/detective/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
 	. = ..()
 	if(visualsOnly)
@@ -163,7 +164,8 @@
 	supervisors = "the head of security"
 	department_head = list("Head of Security")
 	selection_color = "#ffeeee"
-	access = list(access_security, access_sec_doors, access_brig, access_court, access_maint_tunnels, access_morgue, access_weapons)
+	alt_titles = list("Security Investigator", "Security Medic", "Security Pilot")
+	access = list(access_security, access_sec_doors, access_brig, access_court, access_maint_tunnels, access_morgue, access_weapons, access_forensics_lockers, access_medical)
 	minimal_access = list(access_security, access_sec_doors, access_brig, access_court, access_maint_tunnels, access_weapons)
 	minimal_player_age = 14
 	exp_requirements = 300
@@ -191,8 +193,38 @@
 	satchel = /obj/item/weapon/storage/backpack/satchel_sec
 	dufflebag = /obj/item/weapon/storage/backpack/duffel/security
 
-
-
+/datum/outfit/job/officer/pre_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
+	. = ..()
+	if(H.mind.role_alt_title)
+		switch(H.mind.role_alt_title)
+			if("Security Investigator")
+				uniform = /obj/item/clothing/under/det
+				suit = /obj/item/clothing/suit/storage/det_suit
+				gloves = /obj/item/clothing/gloves/color/black
+				backpack_contents = list(
+					/obj/item/weapon/storage/box/evidence = 1,
+					/obj/item/device/detective_scanner = 1,
+					/obj/item/weapon/melee/classic_baton/telescopic = 1,
+					/obj/item/weapon/restraints/handcuffs = 1
+					)
+			if("Security Medic")
+				uniform = /obj/item/clothing/under/rank/security/brigphys
+				suit = /obj/item/clothing/suit/storage/fr_jacket
+				shoes = /obj/item/clothing/shoes/white
+				l_ear = /obj/item/device/radio/headset/headset_sec/alt
+				glasses = /obj/item/clothing/glasses/hud/health/health_advanced
+				suit_store = /obj/item/device/flashlight/pen
+				l_hand = /obj/item/weapon/storage/firstaid/adv
+				pda = /obj/item/device/pda/medical
+				backpack = /obj/item/weapon/storage/backpack/medic
+				satchel = /obj/item/weapon/storage/backpack/satchel_med
+				dufflebag = /obj/item/weapon/storage/backpack/duffel/medical
+			if("Security Pilot")
+				uniform = /obj/item/clothing/under/rank/security/pod_pilot
+				suit = /obj/item/clothing/suit/jacket/pilot
+				gloves = /obj/item/clothing/gloves/color/black
+				box = /obj/item/weapon/storage/box/engineer
+/*
 /datum/job/brigdoc
 	title = "Brig Physician"
 	flag = BRIGDOC
@@ -223,8 +255,8 @@
 	backpack = /obj/item/weapon/storage/backpack/medic
 	satchel = /obj/item/weapon/storage/backpack/satchel_med
 	dufflebag = /obj/item/weapon/storage/backpack/duffel/medical
-
-
+*/
+/*
 /datum/job/pilot
 	title = "Security Pod Pilot"
 	flag = PILOT
@@ -235,7 +267,7 @@
 	supervisors = "the head of security"
 	department_head = list("Head of Security")
 	selection_color = "#ffeeee"
-	access = list(access_security, access_sec_doors, access_brig, access_court, access_maint_tunnels, access_morgue, access_weapons, access_pilot, access_external_airlocks)
+	access = list(access_security, access_sec_doors, access_brig, access_court, access_maint_tunnels, access_morgue, access_weapons, access_pilot, access_external_airlocks, access_pilot, access_external_airlocks)
 	minimal_access = list(access_security, access_sec_doors, access_brig, access_court, access_maint_tunnels, access_weapons, access_pilot, access_external_airlocks)
 	minimal_player_age = 7
 	outfit = /datum/outfit/job/pilot
@@ -260,3 +292,5 @@
 	satchel = /obj/item/weapon/storage/backpack/satchel_sec
 	dufflebag = /obj/item/weapon/storage/backpack/duffel/security
 	box = /obj/item/weapon/storage/box/engineer
+
+	*/
