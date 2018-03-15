@@ -97,8 +97,7 @@
 				)
 
 			else
-				uniform = /obj/item/clothing/under/rank/scientist
-				suit = /obj/item/clothing/suit/storage/labcoat/science
+				uniform = /obj/item/clothing/under/rank/engineer
 
 
 /*
