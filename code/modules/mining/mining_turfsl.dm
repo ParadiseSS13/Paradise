@@ -454,8 +454,8 @@ var/global/list/lrockTurfEdgeCache = list(
 /turf/simulated/floor/plating/airless/lavaland
 	name = "Ash Floor"
 	icon = 'icons/turf/floors.dmi'
-	icon_state = "basalt"
-	icon_plating = "basalt"
+	icon_state = "basalt0"
+	icon_plating = "basalt0"
 	var/dug = 0       //0 = has not yet been dug, 1 = has already been dug
 	oxygen = 0.01
 	nitrogen = 0.01
