@@ -1,6 +1,6 @@
 /turf/simulated/lmineral //wall piece
-	name = "Rock"
-	icon = 'icons/turf/mining.dmi'
+	name = "Rocky Ash"
+	icon = 'icons/turf/lavamining.dmi'
 	icon_state = "rock_nochance"
 	oxygen = 0
 	nitrogen = 0
@@ -57,42 +57,42 @@
 /turf/simulated/lmineral/proc/HideRock()
 	if(hidden)
 		name = "rock"
-		icon_state = "rock"
+		icon_state = "rockyash"
 	return
 
 /turf/simulated/lmineral/proc/Spread(var/turf/T)
 	new src.type(T)
 
-/hook/startup/proc/add_mineral_edges()
+/hook/startup/proc/add_lmineral_edges()
 	var/watch = start_watch()
 	log_startup_progress("Reticulating splines...")
-	for(var/turf/simulated/mineral/M in mineral_turfs)
+	for(var/turf/simulated/lmineral/M in mineral_turfs)
 		M.add_edges()
 	log_startup_progress(" Splines reticulated in [stop_watch(watch)]s.")
 	return 1
 
-/turf/simulated/lmineral/proc/add_edges()
-	var/turf/T
-	if((istype(get_step(src, NORTH), /turf/simulated/floor)) || (istype(get_step(src, NORTH), /turf/space)))
-		T = get_step(src, NORTH)
-		if(T)
-			T.overlays += rockTurfEdgeCache[SOUTH_EDGING]
-	if((istype(get_step(src, SOUTH), /turf/simulated/floor)) || (istype(get_step(src, SOUTH), /turf/space)))
-		T = get_step(src, SOUTH)
-		if(T)
-			T.overlays += rockTurfEdgeCache[NORTH_EDGING]
-	if((istype(get_step(src, EAST), /turf/simulated/floor)) || (istype(get_step(src, EAST), /turf/space)))
-		T = get_step(src, EAST)
-		if(T)
-			T.overlays += rockTurfEdgeCache[WEST_EDGING]
-	if((istype(get_step(src, WEST), /turf/simulated/floor)) || (istype(get_step(src, WEST), /turf/space)))
-		T = get_step(src, WEST)
-		if(T)
-			T.overlays += rockTurfEdgeCache[EAST_EDGING]
+//turf/simulated/lmineral/proc/add_edges()
+//	var/turf/T
+//	if((istype(get_step(src, NORTH), /turf/simulated/floor)) || (istype(get_step(src, NORTH), /turf/space)))
+//		T = get_step(src, NORTH)
+//		if(T)
+//			T.overlays += rockTurfEdgeCache[SOUTH_EDGING]
+//	if((istype(get_step(src, SOUTH), /turf/simulated/floor)) || (istype(get_step(src, SOUTH), /turf/space)))
+//		T = get_step(src, SOUTH)
+//		if(T)
+//			T.overlays += rockTurfEdgeCache[NORTH_EDGING]
+//	if((istype(get_step(src, EAST), /turf/simulated/floor)) || (istype(get_step(src, EAST), /turf/space)))
+//		T = get_step(src, EAST)
+//		if(T)
+//			T.overlays += rockTurfEdgeCache[WEST_EDGING]
+//	if((istype(get_step(src, WEST), /turf/simulated/floor)) || (istype(get_step(src, WEST), /turf/space)))
+//		T = get_step(src, WEST)
+//		if(T)
+//			T.overlays += rockTurfEdgeCache[EAST_EDGING]
 
 /turf/simulated/lmineral/random
 	name = "mineral deposit"
-	icon_state = "rock"
+	icon_state = "rockyash"
 	var/mineralSpawnChanceList = list(
 		"Uranium" = 5, "Diamond" = 1, "Gold" = 10,
 		"Silver" = 12, "Plasma" = 20, "Iron" = 40,
@@ -109,29 +109,29 @@
 			var/turf/simulated/lmineral/M
 			switch(mName)
 				if("Uranium")
-					M = new/turf/simulated/mineral/uranium(src)
+					M = new/turf/simulated/lmineral/uranium(src)
 				if("Iron")
-					M = new/turf/simulated/mineral/iron(src)
+					M = new/turf/simulated/lmineral/iron(src)
 				if("Diamond")
-					M = new/turf/simulated/mineral/diamond(src)
+					M = new/turf/simulated/lmineral/diamond(src)
 				if("Gold")
-					M = new/turf/simulated/mineral/gold(src)
+					M = new/turf/simulated/lmineral/gold(src)
 				if("Silver")
-					M = new/turf/simulated/mineral/silver(src)
+					M = new/turf/simulated/lmineral/silver(src)
 				if("Plasma")
-					M = new/turf/simulated/mineral/plasma(src)
+					M = new/turf/simulated/lmineral/plasma(src)
 				if("Cave")
-					new/turf/simulated/floor/plating/airless/asteroid/cave(src)
+					new/turf/simulated/floor/plating/airless/lavaland/cave(src)
 				if("Gibtonite")
-					M = new/turf/simulated/mineral/gibtonite(src)
+					M = new/turf/simulated/lmineral/gibtonite(src)
 				if("Bananium")
-					M = new/turf/simulated/mineral/clown(src)
+					M = new/turf/simulated/lmineral/clown(src)
 				if("Tranquillite")
-					M = new/turf/simulated/mineral/mime(src)
+					M = new/turf/simulated/lmineral/mime(src)
 				if("Titanium")
-					M = new/turf/simulated/mineral/titanium(src)
+					M = new/turf/simulated/lmineral/titanium(src)
 				if("BScrystal")
-					M = new/turf/simulated/mineral/bscrystal(src)
+					M = new/turf/simulated/lmineral/bscrystal(src)
 			if(M)
 				M.mineralAmt = rand(1, 5)
 				src = M
@@ -356,8 +356,8 @@
 	G.fullUpdateMineralOverlays()
 
 /turf/simulated/floor/plating/airless/asteroid/gibtonite_remains
-	var/det_time = 0
-	var/stage = 0
+	var/ldet_time = 0
+	var/lstage = 0
 
 ////////////////////////////////End Gibtonite
 
@@ -439,9 +439,9 @@
 /**********************Asteroid**************************/
 
 /turf/simulated/floor/plating/airless/lavaland
-	name = "Asteroid"
-	icon = 'icons/turf/floors.dmi'
-	icon_state = "asteroid"
+	name = "Ash Floor"
+	icon = 'icons/turf/floor/rocky_ash.dmi'
+	icon_state = "rockyash"
 	icon_plating = "asteroid"
 	var/dug = 0       //0 = has not yet been dug, 1 = has already been dug
 	oxygen = 0.01
@@ -453,7 +453,7 @@
 	..()
 	name = proper_name
 	if(prob(20))
-		icon_state = "asteroid[rand(0,12)]"
+		icon_state = "rockyash[rand(0,12)]"
 
 /turf/simulated/floor/plating/airless/asteroid/ex_act(severity, target)
 	switch(severity)
@@ -516,7 +516,7 @@
 	else
 		..()
 
-/turf/simulated/floor/plating/airless/asteroid/proc/gets_dug()
+/turf/simulated/floor/plating/airless/lavaland/proc/gets_dug()
 	if(dug)
 		return
 	new/obj/item/weapon/ore/glass(src)
@@ -533,13 +533,13 @@
 /turf/proc/updateMineralOverlays()
 	src.overlays.Cut()
 
-	if(istype(get_step(src, NORTH), /turf/simulated/mineral))
+	if(istype(get_step(src, NORTH), /turf/simulated/lmineral))
 		src.overlays += rockTurfEdgeCache[NORTH_EDGING]
-	if(istype(get_step(src, SOUTH), /turf/simulated/mineral))
+	if(istype(get_step(src, SOUTH), /turf/simulated/lmineral))
 		src.overlays += rockTurfEdgeCache[SOUTH_EDGING]
-	if(istype(get_step(src, EAST), /turf/simulated/mineral))
+	if(istype(get_step(src, EAST), /turf/simulated/lmineral))
 		src.overlays += rockTurfEdgeCache[EAST_EDGING]
-	if(istype(get_step(src, WEST), /turf/simulated/mineral))
+	if(istype(get_step(src, WEST), /turf/simulated/lmineral))
 		src.overlays += rockTurfEdgeCache[WEST_EDGING]
 
 /turf/simulated/lmineral/updateMineralOverlays()
