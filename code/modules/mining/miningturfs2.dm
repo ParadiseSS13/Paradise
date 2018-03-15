@@ -33,7 +33,7 @@
 
 /turf/closed/mineral/volcanic
 //	environment_type = "basalt"
-	turf_type = /turf/open/floor/plating/asteroid/basalt
+//	turf_type = /turf/open/floor/plating/asteroid/basalt
 	baseturf = /turf/open/floor/plating/asteroid/basalt
 //	initial_gas_mix = "o2=14;n2=23;TEMP=300"
 
@@ -266,9 +266,9 @@
 	var/turf/simulated/floor/plating/airless/asteroid/gibtonite_remains/G = ChangeTurf(/turf/simulated/floor/plating/airless/asteroid/gibtonite_remains)
 	G.fullUpdateMineralOverlays()
 
-	ChangeTurf(turf_type, defer_change)
-	spawn(10)
-		AfterChange()
+//	ChangeTurf(turf_type, defer_change)
+//	spawn(10)
+//		AfterChange()
 
 /turf/closed/mineral/gibtonite/volcanic
 //	initial_gas_mix = "o2=14;n2=23;TEMP=300"
@@ -288,7 +288,7 @@
 //		/mob/living/simple_animal/hostile/spawner/lavaland = 2, /mob/living/simple_animal/hostile/spawner/lavaland/goliath = 3, /mob/living/simple_animal/hostile/spawner/lavaland/legion = 3, \
 
 	turf_type = /turf/open/floor/plating/asteroid/basalt/lava_land_surface
-	initial_gas_mix = "o2=14;n2=23;TEMP=300"
+//	initial_gas_mix = "o2=14;n2=23;TEMP=300"
 
 /turf/open/floor/plating/asteroid/airless/cave/New(loc, length, go_backwards = 1, exclude_dir = -1)
 	// If length (arg2) isn't defined, get a random length; otherwise assign our length to the length arg.
@@ -350,7 +350,7 @@
 
 /turf/open/floor/plating/asteroid/airless/cave/proc/SpawnFloor(turf/T)
 	for(var/turf/S in range(2,T))
-		if(istype(S, /turf/open/space) || istype(S.loc, /area/mine/explored))
+		if(istype(S, /turf/space) || istype(S.loc, /area/mine/dangerous/explored))
 			sanity = 0
 			break
 	if(!sanity)
@@ -398,15 +398,19 @@
 	return
 
 /turf/closed/mineral/proc/gets_drilled()
-	if (mineralType && (src.mineralAmt > 0) && (src.mineralAmt < 11))
+	if(mineralType && (src.mineralAmt > 0) && (src.mineralAmt < 11))
 		var/i
-		for (i=0;i<mineralAmt;i++)
+		for(i=0;i<mineralAmt;i++)
 			new mineralType(src)
 		feedback_add_details("ore_mined","[mineralType]|[mineralAmt]")
-	ChangeTurf(turf_type, defer_change)
-	spawn(10)
-		AfterChange()
+	var/turf/simulated/floor/plating/airless/asteroid/N = ChangeTurf(/turf/simulated/floor/plating/airless/asteroid)
 	playsound(src, 'sound/effects/break_stone.ogg', 50, 1) //beautiful destruction
+	N.fullUpdateMineralOverlays()
+
+	if(rand(1,750) == 1)
+		visible_message("<span class='notice'>An old dusty crate was buried within!</span>")
+		new /obj/structure/closet/crate/secure/loot(src)
+
 	return
 
 /turf/closed/mineral/attack_animal(mob/living/simple_animal/user)
@@ -451,8 +455,8 @@
 	baseturf = /turf/open/floor/plating/asteroid
 	icon = 'icons/turf/floors.dmi'
 	icon_state = "asteroid"
-	icon_plating = "asteroid"
-	var/environment_type = "asteroid"
+//	icon_plating = "asteroid"
+//	var/environment_type = "asteroid"
 	var/turf_type = /turf/open/floor/plating/asteroid //Because caves do whacky shit to revert to normal
 	var/dug = 0       //0 = has not yet been dug, 1 = has already been dug
 	var/sand_type = /obj/item/weapon/ore/glass
@@ -474,7 +478,7 @@
 	baseturf = /turf/open/floor/plating/lava/smooth
 
 /turf/open/floor/plating/asteroid/basalt/airless
-	initial_gas_mix = "TEMP=2.7"
+//	initial_gas_mix = "TEMP=2.7"
 
 /turf/open/floor/plating/asteroid/snow
 	name = "snow"
@@ -482,17 +486,17 @@
 	icon = 'icons/turf/snow.dmi'
 	baseturf = /turf/open/floor/plating/asteroid/snow
 	icon_state = "snow"
-	icon_plating = "snow"
-	initial_gas_mix = "TEMP=180"
+//	icon_plating = "snow"
+//	initial_gas_mix = "TEMP=180"
 	slowdown = 2
 	environment_type = "snow"
-	sand_type = /obj/item/stack/sheet/mineral/snow
+//	sand_type = /obj/item/stack/sheet/mineral/snow
 
 /turf/open/floor/plating/asteroid/snow/airless
-	initial_gas_mix = "TEMP=2.7"
+//	initial_gas_mix = "TEMP=2.7"
 
 /turf/open/floor/plating/asteroid/snow/temperatre
-	initial_gas_mix = "TEMP=255.37"
+//	initial_gas_mix = "TEMP=255.37"
 
 /turf/open/floor/plating/asteroid/New()
 	var/proper_name = name
@@ -501,67 +505,67 @@
 	if(prob(20))
 		icon_state = "[environment_type][rand(0,12)]"
 
-/turf/open/floor/plating/asteroid/burn_tile()
-	return
+///turf/open/floor/plating/asteroid/burn_tile()
+//	return
 
-/turf/open/floor/plating/asteroid/ex_act(severity, target)
-	contents_explosion(severity, target)
-	switch(severity)
-		if(3)
-			return
-		if(2)
-			if (prob(20))
-				src.gets_dug()
-		if(1)
-			src.gets_dug()
-	return
+//turf/open/floor/plating/asteroid/ex_act(severity, target)
+//	contents_explosion(severity, target)
+//	switch(severity)
+//		if(3)
+//			return
+//		if(2)
+//			if (prob(20))
+//				src.gets_dug()
+//		if(1)
+//			src.gets_dug()
+//	return
 
-/turf/open/floor/plating/asteroid/attackby(obj/item/weapon/W, mob/user, params)
-	//note that this proc does not call ..()
-	if(!W || !user)
-		return 0
-	var/digging_speed = 0
-	if (istype(W, /obj/item/weapon/shovel))
-		var/obj/item/weapon/shovel/S = W
-		digging_speed = S.digspeed
-	else if (istype(W, /obj/item/weapon/pickaxe))
-		var/obj/item/weapon/pickaxe/P = W
-		digging_speed = P.digspeed
-	if (digging_speed)
-		var/turf/T = user.loc
-		if (!( istype(T, /turf) ))
-			return
+//turf/open/floor/plating/asteroid/attackby(obj/item/weapon/W, mob/user, params)
+//	//note that this proc does not call ..()
+//	if(!W || !user)
+//		return 0
+//	var/digging_speed = 0
+//	if (istype(W, /obj/item/weapon/shovel))
+//		var/obj/item/weapon/shovel/S = W
+//		digging_speed = S.digspeed
+//	else if (istype(W, /obj/item/weapon/pickaxe))
+//		var/obj/item/weapon/pickaxe/P = W
+//		digging_speed = P.digspeed
+//	if (digging_speed)
+//		var/turf/T = user.loc
+//		if (!( istype(T, /turf) ))
+//			return
 
-		if (dug)
-			to_chat(user, "<span class='warning'>This area has already been dug!</span>")
-			return
+//		if (dug)
+//			to_chat(user, "<span class='warning'>This area has already been dug!</span>")
+//			return
 
-		to_chat(user, "<span class='notice'>You start digging...</span>")
-		playsound(src, 'sound/effects/shovel_dig.ogg', 50, 1)
+//		to_chat(user, "<span class='notice'>You start digging...</span>")
+//		playsound(src, 'sound/effects/shovel_dig.ogg', 50, 1)
 
-		if(do_after(user, digging_speed, target = src))
-			if(istype(src, /turf/open/floor/plating/asteroid))
-				to_chat(user, "<span class='notice'>You dig a hole.</span>")
-				gets_dug()
-				feedback_add_details("pick_used_mining","[W.type]")
+//		if(do_after(user, digging_speed, target = src))
+//			if(istype(src, /turf/open/floor/plating/asteroid))
+//				to_chat(user, "<span class='notice'>You dig a hole.</span>")
+//				gets_dug()
+//				feedback_add_details("pick_used_mining","[W.type]")
 
-	if(istype(W,/obj/item/weapon/storage/bag/ore))
-		var/obj/item/weapon/storage/bag/ore/S = W
-		if(S.collection_mode == 1)
-			for(var/obj/item/weapon/ore/O in src.contents)
-				O.attackby(W,user)
-				return
+//	if(istype(W,/obj/item/weapon/storage/bag/ore))
+//		var/obj/item/weapon/storage/bag/ore/S = W
+//		if(S.collection_mode == 1)
+//			for(var/obj/item/weapon/ore/O in src.contents)
+//				O.attackby(W,user)
+//				return
 
-	if(istype(W, /obj/item/stack/tile))
-		var/obj/item/stack/tile/Z = W
-		if(!Z.use(1))
-			return
-		var/turf/open/floor/T = ChangeTurf(Z.turf_type)
-		if(istype(Z,/obj/item/stack/tile/light)) //TODO: get rid of this ugly check somehow
-			var/obj/item/stack/tile/light/L = Z
-			var/turf/open/floor/light/F = T
-			F.state = L.state
-		playsound(src, 'sound/weapons/Genhit.ogg', 50, 1)
+//	if(istype(W, /obj/item/stack/tile))
+//		var/obj/item/stack/tile/Z = W
+//		if(!Z.use(1))
+//			return
+//		var/turf/open/floor/T = ChangeTurf(Z.turf_type)
+//		if(istype(Z,/obj/item/stack/tile/light)) //TODO: get rid of this ugly check somehow
+//			var/obj/item/stack/tile/light/L = Z
+//			var/turf/open/floor/light/F = T
+//			F.state = L.state
+//		playsound(src, 'sound/weapons/Genhit.ogg', 50, 1)
 
 /turf/open/floor/plating/asteroid/proc/gets_dug()
 	if(dug)
@@ -615,17 +619,17 @@
 		qdel(AM)
 
 /turf/closed/mineral/volcanic/lava_land_surface
-	environment_type = "basalt"
-	turf_type = /turf/open/floor/plating/asteroid/basalt/lava_land_surface
+//	environment_type = "basalt"
+//	turf_type = /turf/open/floor/plating/asteroid/basalt/lava_land_surface
 	baseturf = /turf/open/floor/plating/lava/smooth/lava_land_surface
-	defer_change = 1
+//	defer_change = 1
 
 /turf/closed/mineral/random/volcanic
-	environment_type = "basalt"
-	turf_type = /turf/open/floor/plating/asteroid/basalt/lava_land_surface
+//	environment_type = "basalt"
+//	turf_type = /turf/open/floor/plating/asteroid/basalt/lava_land_surface
 	baseturf = /turf/open/floor/plating/lava/smooth/lava_land_surface
 //	initial_gas_mix = "o2=14;n2=23;TEMP=300"
-	defer_change = 1
+//	defer_change = 1
 
 	mineralChance = 10
 	mineralSpawnChanceList = list(
@@ -634,11 +638,11 @@
 		/turf/closed/mineral/gibtonite/volcanic = 4, /turf/open/floor/plating/asteroid/airless/cave/volcanic = 1, /turf/closed/mineral/bscrystal/volcanic = 1)
 
 /turf/closed/mineral/random/high_chance/volcanic
-	environment_type = "basalt"
-	turf_type = /turf/open/floor/plating/asteroid/basalt/lava_land_surface
-	baseturf = /turf/open/floor/plating/lava/smooth/lava_land_surface
+//	environment_type = "basalt"
+//	turf_type = /turf/open/floor/plating/asteroid/basalt/lava_land_surface
+//	baseturf = /turf/open/floor/plating/lava/smooth/lava_land_surface
 //	initial_gas_mix = "o2=14;n2=23;TEMP=300"
-	defer_change = 1
+//	defer_change = 1
 	mineralSpawnChanceList = list(
 		/turf/closed/mineral/uranium/volcanic = 35, /turf/closed/mineral/diamond/volcanic = 30, /turf/closed/mineral/gold/volcanic = 45,
 		/turf/closed/mineral/silver/volcanic = 50, /turf/closed/mineral/plasma/volcanic = 50, /turf/closed/mineral/bscrystal/volcanic = 20)
@@ -649,60 +653,60 @@
 	baseturf = /turf/open/chasm/straight_down/lava_land_surface
 
 /turf/closed/mineral/gibtonite/volcanic
-	environment_type = "basalt"
-	turf_type = /turf/open/floor/plating/asteroid/basalt/lava_land_surface
+//	environment_type = "basalt"
+//	turf_type = /turf/open/floor/plating/asteroid/basalt/lava_land_surface
 	baseturf = /turf/open/floor/plating/asteroid/basalt/lava_land_surface
 //	initial_gas_mix = "o2=14;n2=23;TEMP=300"
-	defer_change = 1
+//	defer_change = 1
 
 /turf/closed/mineral/uranium/volcanic
-	environment_type = "basalt"
-	turf_type = /turf/open/floor/plating/asteroid/basalt/lava_land_surface
+//	environment_type = "basalt"
+//	turf_type = /turf/open/floor/plating/asteroid/basalt/lava_land_surface
 	baseturf = /turf/open/floor/plating/asteroid/basalt/lava_land_surface
 //	initial_gas_mix = "o2=14;n2=23;TEMP=300"
-	defer_change = 1
+//	defer_change = 1
 
 /turf/closed/mineral/diamond/volcanic
-	environment_type = "basalt"
-	turf_type = /turf/open/floor/plating/asteroid/basalt/lava_land_surface
+//	environment_type = "basalt"
+//	turf_type = /turf/open/floor/plating/asteroid/basalt/lava_land_surface
 	baseturf = /turf/open/floor/plating/asteroid/basalt/lava_land_surface
 //	initial_gas_mix = "o2=14;n2=23;TEMP=300"
-	defer_change = 1
+//	defer_change = 1
 
 /turf/closed/mineral/gold/volcanic
-	environment_type = "basalt"
-	turf_type = /turf/open/floor/plating/asteroid/basalt/lava_land_surface
+//	environment_type = "basalt"
+//	turf_type = /turf/open/floor/plating/asteroid/basalt/lava_land_surface
 	baseturf = /turf/open/floor/plating/asteroid/basalt/lava_land_surface
 //	initial_gas_mix = "o2=14;n2=23;TEMP=300"
-	defer_change = 1
+//	defer_change = 1
 
 /turf/closed/mineral/silver/volcanic
-	environment_type = "basalt"
-	turf_type = /turf/open/floor/plating/asteroid/basalt/lava_land_surface
+//	environment_type = "basalt"
+//	turf_type = /turf/open/floor/plating/asteroid/basalt/lava_land_surface
 	baseturf = /turf/open/floor/plating/asteroid/basalt/lava_land_surface
 //	initial_gas_mix = "o2=14;n2=23;TEMP=300"
-	defer_change = 1
+//	defer_change = 1
 
 /turf/closed/mineral/plasma/volcanic
-	environment_type = "basalt"
-	turf_type = /turf/open/floor/plating/asteroid/basalt/lava_land_surface
+//	environment_type = "basalt"
+//	turf_type = /turf/open/floor/plating/asteroid/basalt/lava_land_surface
 	baseturf = /turf/open/floor/plating/asteroid/basalt/lava_land_surface
 //	initial_gas_mix = "o2=14;n2=23;TEMP=300"
-	defer_change = 1
+//	defer_change = 1
 
 /turf/closed/mineral/iron/volcanic
-	environment_type = "basalt"
-	turf_type = /turf/open/floor/plating/asteroid/basalt/lava_land_surface
-	baseturf = /turf/open/floor/plating/asteroid/basalt/lava_land_surface
+//	environment_type = "basalt"
+//	turf_type = /turf/open/floor/plating/asteroid/basalt/lava_land_surface
+//	baseturf = /turf/open/floor/plating/asteroid/basalt/lava_land_surface
 //	initial_gas_mix = "o2=14;n2=23;TEMP=300"
-	defer_change = 1
+//	defer_change = 1
 
 /turf/closed/mineral/bscrystal/volcanic
-	environment_type = "basalt"
-	turf_type = /turf/open/floor/plating/asteroid/basalt/lava_land_surface
+//	environment_type = "basalt"
+//	turf_type = /turf/open/floor/plating/asteroid/basalt/lava_land_surface
 	baseturf = /turf/open/floor/plating/asteroid/basalt/lava_land_surface
 //	initial_gas_mix = "o2=14;n2=23;TEMP=300"
-	defer_change = 1
+//	defer_change = 1
 
 
 //BECAUSE ONE PLANET WASNT ENOUGH
@@ -710,15 +714,15 @@
 /turf/closed/mineral/ash_rock //wall piece
 	name = "rock"
 	icon = 'icons/turf/mining.dmi'
-	smooth_icon = 'icons/turf/walls/rock_wall.dmi'
+//	smooth_icon = 'icons/turf/walls/rock_wall.dmi'
 	icon_state = "rock"
 	smooth = SMOOTH_MORE|SMOOTH_BORDER
 	canSmoothWith = list (/turf/closed/mineral, /turf/closed/wall)
 	baseturf = /turf/open/floor/plating/ash
 //	initial_gas_mix = "o2=14;n2=23;TEMP=300"
-	environment_type = "waste"
-	turf_type = /turf/open/floor/plating/ash
-	defer_change = 1
+//	environment_type = "waste"
+//	turf_type = /turf/open/floor/plating/ash
+//	defer_change = 1
 
 /turf/open/floor/plating/ash
 	icon = 'icons/turf/mining.dmi'
@@ -731,7 +735,7 @@
 	baseturf = /turf/open/floor/plating/ash //I assume this will be a chasm eventually, once this becomes an actual surface
 	slowdown = 1
 //	initial_gas_mix = "o2=14;n2=23;TEMP=300"
-	planetary_atmos = TRUE
+//	planetary_atmos = TRUE
 
 /turf/open/floor/plating/ash/New()
 	pixel_y = -4
