@@ -91,7 +91,7 @@
 				dufflebag = /obj/item/weapon/storage/backpack/duffel/atmos
 			if("Mechanic")
 				uniform = /obj/item/clothing/under/rank/mechanic
-				belt = /obj/item/weapon/storage/belt/utility/ful
+				belt = /obj/item/weapon/storage/belt/utility/full
 				backpack_contents = list(
 					/obj/item/weapon/pod_paint_bucket = 1
 				)

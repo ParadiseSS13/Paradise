@@ -164,7 +164,7 @@
 	supervisors = "the head of security"
 	department_head = list("Head of Security")
 	selection_color = "#ffeeee"
-	alt_titles = list("Security Investigator", "Security Medic" "Security Pilot")
+	alt_titles = list("Security Investigator", "Security Medic", "Security Pilot")
 	access = list(access_security, access_sec_doors, access_brig, access_court, access_maint_tunnels, access_morgue, access_weapons, access_forensics_lockers, access_medical)
 	minimal_access = list(access_security, access_sec_doors, access_brig, access_court, access_maint_tunnels, access_weapons)
 	minimal_player_age = 14
@@ -204,7 +204,7 @@
 				backpack_contents = list(
 					/obj/item/weapon/storage/box/evidence = 1,
 					/obj/item/device/detective_scanner = 1,
-					/obj/item/weapon/melee/classic_baton/telescopic = 1
+					/obj/item/weapon/melee/classic_baton/telescopic = 1,
 					/obj/item/weapon/restraints/handcuffs = 1
 					)
 			if("Security Medic")
@@ -223,7 +223,7 @@
 				uniform = /obj/item/clothing/under/rank/security/pod_pilot
 				suit = /obj/item/clothing/suit/jacket/pilot
 				gloves = /obj/item/clothing/gloves/color/black
-			    box = /obj/item/weapon/storage/box/engineer
+				box = /obj/item/weapon/storage/box/engineer
 /*
 /datum/job/brigdoc
 	title = "Brig Physician"
