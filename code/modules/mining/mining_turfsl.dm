@@ -1,3 +1,16 @@
+
+#define NORTH_EDGING	"north"
+#define SOUTH_EDGING	"south"
+#define EAST_EDGING		"east"
+#define WEST_EDGING		"west"
+
+var/global/list/lrockTurfEdgeCache = list(
+	NORTH_EDGING = image('icons/turf/lavamining.dmi', "rock_side_n", layer = 6),
+	SOUTH_EDGING =  image('icons/turf/lavamining.dmi', "rock_side_s"),
+	EAST_EDGING = image('icons/turf/lavamining.dmi', "rock_side_e", layer = 6),
+	WEST_EDGING = image('icons/turf/lavamining.dmi', "rock_side_w", layer = 6))
+
+
 /turf/simulated/lmineral //wall piece
 	name = "Rocky Ash"
 	icon = 'icons/turf/lavamining.dmi'
@@ -71,24 +84,24 @@
 	log_startup_progress(" Splines reticulated in [stop_watch(watch)]s.")
 	return 1
 
-//turf/simulated/lmineral/proc/add_edges()
-//	var/turf/T
-//	if((istype(get_step(src, NORTH), /turf/simulated/floor)) || (istype(get_step(src, NORTH), /turf/space)))
-//		T = get_step(src, NORTH)
-//		if(T)
-//			T.overlays += rockTurfEdgeCache[SOUTH_EDGING]
-//	if((istype(get_step(src, SOUTH), /turf/simulated/floor)) || (istype(get_step(src, SOUTH), /turf/space)))
-//		T = get_step(src, SOUTH)
-//		if(T)
-//			T.overlays += rockTurfEdgeCache[NORTH_EDGING]
-//	if((istype(get_step(src, EAST), /turf/simulated/floor)) || (istype(get_step(src, EAST), /turf/space)))
-//		T = get_step(src, EAST)
-//		if(T)
-//			T.overlays += rockTurfEdgeCache[WEST_EDGING]
-//	if((istype(get_step(src, WEST), /turf/simulated/floor)) || (istype(get_step(src, WEST), /turf/space)))
-//		T = get_step(src, WEST)
-//		if(T)
-//			T.overlays += rockTurfEdgeCache[EAST_EDGING]
+/turf/simulated/lmineral/proc/add_edges()
+	var/turf/T
+	if((istype(get_step(src, NORTH), /turf/simulated/floor)) || (istype(get_step(src, NORTH), /turf/space)))
+		T = get_step(src, NORTH)
+		if(T)
+			T.overlays += lrockTurfEdgeCache[SOUTH_EDGING]
+	if((istype(get_step(src, SOUTH), /turf/simulated/floor)) || (istype(get_step(src, SOUTH), /turf/space)))
+		T = get_step(src, SOUTH)
+		if(T)
+			T.overlays += lrockTurfEdgeCache[NORTH_EDGING]
+	if((istype(get_step(src, EAST), /turf/simulated/floor)) || (istype(get_step(src, EAST), /turf/space)))
+		T = get_step(src, EAST)
+		if(T)
+			T.overlays += lrockTurfEdgeCache[WEST_EDGING]
+	if((istype(get_step(src, WEST), /turf/simulated/floor)) || (istype(get_step(src, WEST), /turf/space)))
+		T = get_step(src, WEST)
+		if(T)
+			T.overlays += lrockTurfEdgeCache[EAST_EDGING]
 
 /turf/simulated/lmineral/random
 	name = "mineral deposit"
@@ -440,7 +453,7 @@
 
 /turf/simulated/floor/plating/airless/lavaland
 	name = "Ash Floor"
-	icon = 'icons/turf/floor/rocky_ash.dmi'
+	icon = 'icons/turf/floors/ash.dmi'
 	icon_state = "rockyash"
 	icon_plating = "asteroid"
 	var/dug = 0       //0 = has not yet been dug, 1 = has already been dug
@@ -534,13 +547,13 @@
 	src.overlays.Cut()
 
 	if(istype(get_step(src, NORTH), /turf/simulated/lmineral))
-		src.overlays += rockTurfEdgeCache[NORTH_EDGING]
+		src.overlays += lrockTurfEdgeCache[NORTH_EDGING]
 	if(istype(get_step(src, SOUTH), /turf/simulated/lmineral))
-		src.overlays += rockTurfEdgeCache[SOUTH_EDGING]
+		src.overlays += lrockTurfEdgeCache[SOUTH_EDGING]
 	if(istype(get_step(src, EAST), /turf/simulated/lmineral))
-		src.overlays += rockTurfEdgeCache[EAST_EDGING]
+		src.overlays += lrockTurfEdgeCache[EAST_EDGING]
 	if(istype(get_step(src, WEST), /turf/simulated/lmineral))
-		src.overlays += rockTurfEdgeCache[WEST_EDGING]
+		src.overlays += lrockTurfEdgeCache[WEST_EDGING]
 
 /turf/simulated/lmineral/updateMineralOverlays()
 	return
@@ -548,7 +561,7 @@
 /turf/simulated/wall/updateMineralOverlays()
 	return
 
-/turf/proc/fullUpdateMineralOverlays()
+/turf/proc/fullUpdatelMineralOverlays()
 	for(var/turf/t in range(1,src))
 		t.updateMineralOverlays()
 
