@@ -392,7 +392,7 @@ var/global/list/lrockTurfEdgeCache = list(
 		P.playDigSound()
 
 		if(do_after(user, P.digspeed, target = src))
-			if(istype(src, /turf/simulated/mineral)) //sanity check against turf being deleted during digspeed delay
+			if(istype(src, /turf/simulated/lmineral)) //sanity check against turf being deleted during digspeed delay
 				to_chat(user, "<span class='notice'>You finish cutting into the rock.</span>")
 				P.update_icon()
 				gets_drilled(user)
@@ -455,7 +455,7 @@ var/global/list/lrockTurfEdgeCache = list(
 	name = "Ash Floor"
 	icon = 'icons/turf/floors.dmi'
 	icon_state = "basalt"
-//	icon_plating = ""
+	icon_plating = "basalt"
 	var/dug = 0       //0 = has not yet been dug, 1 = has already been dug
 	oxygen = 0.01
 	nitrogen = 0.01
