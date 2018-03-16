@@ -240,7 +240,7 @@
 				back_to_idle()
 
 			if(target)		// make sure target exists
-				if(Adjacent(target) && isturf(target.loc)) // if right next to perp
+				if(Adjacent(target) && isturf(target.loc) && !lasercolor) // if right next to perp and we're not playing laser tag
 					stun_attack(target)
 
 					mode = BOT_PREP_ARREST
@@ -409,7 +409,7 @@
 	shoot_sound = 'sound/weapons/laser.ogg'
 	if(emagged == 2)
 		if(lasercolor)
-			projectile = /obj/item/projectile/beam/lasertag
+			projectile = /obj/item/projectile/beam/disabler
 		else
 			projectile = /obj/item/projectile/beam
 	else
