@@ -23,7 +23,7 @@ var/global/list/lrockTurfEdgeCache = list(
 	opacity = 1
 	density = 1
 	blocks_air = 1
-	temperature = TCMB
+	temperature = T20C
 	var/mineralType = null
 	var/mineralAmt = 3
 	var/mineralName = null
@@ -477,8 +477,8 @@ var/global/list/lrockTurfEdgeCache = list(
 	var/dug = 0       //0 = has not yet been dug, 1 = has already been dug
 	oxygen = 0.01
 	nitrogen = 0.01
-	water = 500
-	temperature = TCMB
+	water = 50
+	temperature = T20C
 
 /turf/simulated/floor/plating/airless/lavaland/New()
 	var/proper_name = name
@@ -589,7 +589,7 @@ var/global/list/lrockTurfEdgeCache = list(
 /turf/simulated/floor/plating/airless/lavaland/cave
 	water_overlay_image = "water_deep"
 	var/length = 100
-	var/mob_spawn_list = list("Goldgrub" = 1, "Goliath" = 5, "Basilisk" = 4, "Hivelord" = 3, "Carp" = 5, "Mega Carp" = 1)
+	var/mob_spawn_list = list("Goldgrub" = 10, "Goliath" = 50, "Basilisk" = 40, "Hivelord" = 30, "Carp" = 50, "Mega Carp" = 10, "Kraken" = 3)
 	var/sanity = 1
 
 /turf/simulated/floor/plating/airless/lavaland/cave/New(loc, var/length, var/go_backwards = 1, var/exclude_dir = -1)
@@ -684,6 +684,8 @@ var/global/list/lrockTurfEdgeCache = list(
 				new /mob/living/simple_animal/hostile/retaliate/carp(T)
 			if("Mega Carp")
 				new /mob/living/simple_animal/hostile/carp/megacarp(T)
+			if("Kraken")
+				new /mob/living/simple_animal/hostile/deathsquid/kraken(T)
 	return
 
 #undef NORTH_EDGING
