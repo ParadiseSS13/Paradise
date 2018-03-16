@@ -567,7 +567,7 @@ var/global/list/lrockTurfEdgeCache = list(
 
 /turf/simulated/floor/plating/airless/lavaland/cave
 	var/length = 100
-	var/mob_spawn_list = list("Goldgrub" = 1, "Goliath" = 5, "Basilisk" = 4, "Hivelord" = 3)
+	var/mob_spawn_list = list("Goldgrub" = 1, "Goliath" = 5, "Basilisk" = 4, "Hivelord" = 3, "Carp" = 5, "Mega Carp" = 1)
 	var/sanity = 1
 
 /turf/simulated/floor/plating/airless/lavaland/cave/New(loc, var/length, var/go_backwards = 1, var/exclude_dir = -1)
@@ -658,6 +658,10 @@ var/global/list/lrockTurfEdgeCache = list(
 				new /mob/living/simple_animal/hostile/asteroid/basilisk(T)
 			if("Hivelord")
 				new /mob/living/simple_animal/hostile/asteroid/hivelord(T)
+			if("Carp")
+				new /mob/living/simple_animal/hostile/retaliate/carp(T)
+			if("Mega Carp")
+				new /mob/living/simple_animal/hostile/carp/megacarp(T)
 	return
 
 #undef NORTH_EDGING
