@@ -15,6 +15,8 @@ var/global/list/lrockTurfEdgeCache = list(
 	name = "Rocky Ash"
 	icon = 'icons/turf/lavamining.dmi'
 	icon_state = "rock_nochance"
+	var/water_overlay_image = null
+	mouse_opacity = 0
 	oxygen = 0
 	nitrogen = 0
 	opacity = 1
@@ -56,6 +58,9 @@ var/global/list/lrockTurfEdgeCache = list(
 
 /turf/simulated/lmineral/New()
 	..()
+	if(water_overlay_image)
+		overlays += image("icon"='icons/misc/beach.dmi',"icon_state"= water_overlay_image,"layer"=MOB_LAYER+0.1)
+
 	mineral_turfs += src
 
 	if(mineralType && mineralAmt && spread && spreadChance)
@@ -189,6 +194,7 @@ var/global/list/lrockTurfEdgeCache = list(
 	icon_state = "rock_Iron"
 	mineralType = /obj/item/weapon/ore/iron
 	mineralName = "Iron"
+	water_overlay_image = "water_deep"
 	spreadChance = 20
 	spread = 1
 	hidden = 0
@@ -197,6 +203,7 @@ var/global/list/lrockTurfEdgeCache = list(
 	name = "uranium deposit"
 	mineralType = /obj/item/weapon/ore/uranium
 	mineralName = "Uranium"
+	water_overlay_image = "water_deep"
 	spreadChance = 5
 	spread = 1
 	hidden = 1
@@ -206,6 +213,7 @@ var/global/list/lrockTurfEdgeCache = list(
 	name = "diamond deposit"
 	mineralType = /obj/item/weapon/ore/diamond
 	mineralName = "Diamond"
+	water_overlay_image = "water_deep"
 	spreadChance = 0
 	spread = 1
 	hidden = 1
@@ -215,6 +223,7 @@ var/global/list/lrockTurfEdgeCache = list(
 	name = "gold deposit"
 	mineralType = /obj/item/weapon/ore/gold
 	mineralName = "Gold"
+	water_overlay_image = "water_deep"
 	spreadChance = 5
 	spread = 1
 	hidden = 1
@@ -224,6 +233,7 @@ var/global/list/lrockTurfEdgeCache = list(
 	name = "silver deposit"
 	mineralType = /obj/item/weapon/ore/silver
 	mineralName = "Silver"
+	water_overlay_image = "water_deep"
 	spreadChance = 5
 	spread = 1
 	hidden = 1
@@ -232,6 +242,7 @@ var/global/list/lrockTurfEdgeCache = list(
 /turf/simulated/lmineral/titanium
 	name = "titanium deposit"
 	mineralType = /obj/item/weapon/ore/titanium
+	water_overlay_image = "water_deep"
 	spreadChance = 5
 	spread = 1
 	hidden = 1
@@ -242,6 +253,7 @@ var/global/list/lrockTurfEdgeCache = list(
 	icon_state = "rock_Plasma"
 	mineralType = /obj/item/weapon/ore/plasma
 	mineralName = "Plasma"
+	water_overlay_image = "water_deep"
 	spreadChance = 8
 	spread = 1
 	hidden = 1
@@ -252,6 +264,7 @@ var/global/list/lrockTurfEdgeCache = list(
 	icon_state = "rock_Clown"
 	mineralType = /obj/item/weapon/ore/bananium
 	mineralName = "Bananium"
+	water_overlay_image = "water_deep"
 	mineralAmt = 3
 	spreadChance = 0
 	spread = 0
@@ -261,6 +274,7 @@ var/global/list/lrockTurfEdgeCache = list(
 	name = "tranquillite deposit"
 	icon_state = "rock_Mime"
 	mineralType = /obj/item/weapon/ore/tranquillite
+	water_overlay_image = "water_deep"
 	mineralAmt = 3
 	spreadChance = 0
 	spread = 0
@@ -271,6 +285,7 @@ var/global/list/lrockTurfEdgeCache = list(
 	icon_state = "rock_BScrystal"
 	mineralType = /obj/item/weapon/ore/bluespace_crystal
 	mineralName = "Bluespace crystal"
+	water_overlay_image = "water_deep"
 	mineralAmt = 1
 	spreadChance = 0
 	spread = 0
@@ -283,6 +298,7 @@ var/global/list/lrockTurfEdgeCache = list(
 	icon_state = "rock_Gibtonite"
 	mineralAmt = 1
 	mineralName = "Gibtonite"
+	water_overlay_image = "water_deep"
 	spreadChance = 0
 	spread = 0
 	hidden = 1
@@ -456,6 +472,7 @@ var/global/list/lrockTurfEdgeCache = list(
 	icon = 'icons/turf/floors.dmi'
 	icon_state = "basalt0"
 	icon_plating = "basalt0"
+	var/water_overlay_image = "water_deep"
 	var/dug = 0       //0 = has not yet been dug, 1 = has already been dug
 	oxygen = 0.01
 	nitrogen = 0.01
@@ -465,6 +482,8 @@ var/global/list/lrockTurfEdgeCache = list(
 	var/proper_name = name
 	..()
 	name = proper_name
+	if(water_overlay_image)
+		overlays += image("icon"='icons/misc/beach.dmi',"icon_state"= water_overlay_image,"layer"=MOB_LAYER+0.1)
 	if(prob(20))
 		icon_state = "basalt[rand(0,12)]"
 
