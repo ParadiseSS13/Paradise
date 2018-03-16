@@ -123,4 +123,4 @@
 #define ATMOS_ALARM_DANGER					2
 
 // Water properties. For WaterWorld
-#define MOLES_WATER_VISIBLE				0.5		//Moles in a standard cell after which watergas is visible
+#define MOLES_WATER_VISIBLE				50		//Moles in a standard cell after which watergas is visible
