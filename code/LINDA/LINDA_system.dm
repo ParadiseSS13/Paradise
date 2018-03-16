@@ -176,7 +176,7 @@ var/const/SPAWN_AIR = 256
 	if(flag & SPAWN_NITROGEN)
 		G.nitrogen += amount
 
-		if(flag & SPAWN_WATER)
+	if(flag & SPAWN_WATER)
 		G.water += amount
 
 	if(flag & SPAWN_N2O)

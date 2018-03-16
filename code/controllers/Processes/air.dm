@@ -185,7 +185,7 @@ DECLARE_GLOBAL_CONTROLLER(air_system, air_master)
 	plmaster.mouse_opacity = 0
 
 	wtmaster = new /obj/effect/overlay()
-	wtmaster.icon = 'icons/misc/beach.dmi'
+	wtmaster.icon = 'icons/effects/tile_effects.dmi'
 	wtmaster.icon_state = "seashallow"
 	wtmaster.layer = FLY_LAYER
 	wtmaster.mouse_opacity = 0

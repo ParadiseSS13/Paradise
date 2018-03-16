@@ -334,7 +334,7 @@ REAGENT SCANNER
 		var/n2_concentration = environment.nitrogen/total_moles
 		var/co2_concentration = environment.carbon_dioxide/total_moles
 		var/plasma_concentration = environment.toxins/total_moles
-		var/water_concentration = environment.water/total_moles
+//		var/water_concentration = environment.water/total_moles
 
 		var/unknown_concentration =  1-(o2_concentration+n2_concentration+co2_concentration+plasma_concentration)
 		if(abs(n2_concentration - N2STANDARD) < 20)
