@@ -94,7 +94,7 @@
 "bP" = (/obj/machinery/power/terminal,/obj/structure/cable{d2 = 8; icon_state = "0-8"},/turf/simulated/floor/plating{baseturf = /turf/simulated/floor/plating/airless/lavaland},/area/mine/laborcamp)
 "bQ" = (/obj/machinery/light/small{dir = 1},/turf/simulated/floor/plating{baseturf = /turf/simulated/floor/plating/airless/lavaland},/area/mine/laborcamp)
 "bR" = (/turf/simulated/floor/plating{baseturf = /turf/simulated/floor/plating/airless/lavaland},/area/mine/laborcamp)
-"bS" = (/obj/docking_port/stationary{area_type = /area/lavaland/surface/outdoors; dir = 8; dwidth = 3; height = 5; id = "mining_water"; name = "lavaland mine"; turf_type = /turf/simulated/floor/plating/airless/lavaland; width = 7},/turf/simulated/floor/plating/airless/lavaland,/area/lavaland/surface/outdoors)
+"bS" = (/obj/docking_port/stationary{area_type = /area/lavaland/surface/outdoors; dir = 8; dwidth = 3; height = 5; id = "mining_away"; name = "lavaland mine"; turf_type = /turf/simulated/floor/plating/airless/lavaland; width = 7},/turf/simulated/floor/plating/airless/lavaland,/area/lavaland/surface/outdoors)
 "bT" = (/obj/machinery/door/airlock/external{glass = 1; name = "Mining Shuttle Airlock"; opacity = 0; req_access_txt = "0"},/turf/simulated/floor/plasteel{baseturf = /turf/simulated/floor/plating/airless/lavaland},/area/mine/production)
 "bU" = (/turf/simulated/floor/plasteel{baseturf = /turf/simulated/floor/plating/airless/lavaland; dir = 8; icon_state = "brown"},/area/mine/production)
 "bV" = (/obj/machinery/atmospherics/unary/vent_pump{dir = 4; layer = 2.4; on = 1},/turf/simulated/floor/plasteel{baseturf = /turf/simulated/floor/plating/airless/lavaland},/area/mine/production)
