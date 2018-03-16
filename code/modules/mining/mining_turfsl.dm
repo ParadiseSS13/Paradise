@@ -19,6 +19,7 @@ var/global/list/lrockTurfEdgeCache = list(
 	mouse_opacity = 0
 	oxygen = 0
 	nitrogen = 0
+	water = 0
 	opacity = 1
 	density = 1
 	blocks_air = 1
@@ -585,6 +586,7 @@ var/global/list/lrockTurfEdgeCache = list(
 		t.updateMineralOverlays()
 
 /turf/simulated/floor/plating/airless/lavaland/cave
+	water_overlay_image = "water_deep"
 	var/length = 100
 	var/mob_spawn_list = list("Goldgrub" = 1, "Goliath" = 5, "Basilisk" = 4, "Hivelord" = 3, "Carp" = 5, "Mega Carp" = 1)
 	var/sanity = 1

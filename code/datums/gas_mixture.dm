@@ -7,8 +7,9 @@ What are the archived variables for?
 #define SPECIFIC_HEAT_TOXIN		200
 #define SPECIFIC_HEAT_AIR		20
 #define SPECIFIC_HEAT_CDO		30
-#define HEAT_CAPACITY_CALCULATION(oxygen,carbon_dioxide,nitrogen,toxins) \
-	(carbon_dioxide*SPECIFIC_HEAT_CDO + (oxygen+nitrogen)*SPECIFIC_HEAT_AIR + toxins*SPECIFIC_HEAT_TOXIN)
+#define SPECIFIC_HEAT_WATER		200
+#define HEAT_CAPACITY_CALCULATION(oxygen,carbon_dioxide,nitrogen,toxins,water) \
+	(carbon_dioxide*SPECIFIC_HEAT_CDO + (oxygen+nitrogen)*SPECIFIC_HEAT_AIR + toxins*SPECIFIC_HEAT_TOXIN + water*SPECIFIC_HEAT_WATER)
 
 #define MINIMUM_HEAT_CAPACITY	0.0003
 #define QUANTIZE(variable)		(round(variable,0.0001))
@@ -34,6 +35,7 @@ What are the archived variables for?
 	var/carbon_dioxide = 0
 	var/nitrogen = 0
 	var/toxins = 0
+	var/water = 0
 
 	var/volume = CELL_VOLUME
 
@@ -48,6 +50,7 @@ What are the archived variables for?
 	var/tmp/carbon_dioxide_archived
 	var/tmp/nitrogen_archived
 	var/tmp/toxins_archived
+	var/tmp/water_archived
 
 	var/tmp/temperature_archived
 
@@ -55,7 +58,7 @@ What are the archived variables for?
 
 	//PV=nRT - related procedures
 /datum/gas_mixture/proc/heat_capacity()
-	var/heat_capacity = HEAT_CAPACITY_CALCULATION(oxygen,carbon_dioxide,nitrogen,toxins)
+	var/heat_capacity = HEAT_CAPACITY_CALCULATION(oxygen,carbon_dioxide,nitrogen,toxins,water)
 
 	for(var/gas in trace_gases)
 		var/datum/gas/trace_gas = gas
@@ -64,7 +67,7 @@ What are the archived variables for?
 
 
 /datum/gas_mixture/proc/heat_capacity_archived()
-	var/heat_capacity_archived = HEAT_CAPACITY_CALCULATION(oxygen_archived,carbon_dioxide_archived,nitrogen_archived,toxins_archived)
+	var/heat_capacity_archived = HEAT_CAPACITY_CALCULATION(oxygen_archived,carbon_dioxide_archived,nitrogen_archived,toxins_archived,water_archived)
 
 	for(var/gas in trace_gases)
 		var/datum/gas/trace_gas = gas
@@ -73,7 +76,7 @@ What are the archived variables for?
 
 
 /datum/gas_mixture/proc/total_moles()
-	var/moles = oxygen + carbon_dioxide + nitrogen + toxins
+	var/moles = oxygen + carbon_dioxide + nitrogen + toxins + water
 
 	for(var/gas in trace_gases)
 		var/datum/gas/trace_gas = gas
@@ -227,6 +230,7 @@ What are the archived variables for?
 	carbon_dioxide_archived = carbon_dioxide
 	nitrogen_archived =  nitrogen
 	toxins_archived = toxins
+	water_archived = water
 
 	for(var/gas in trace_gases)
 		var/datum/gas/trace_gas = gas
@@ -276,11 +280,13 @@ What are the archived variables for?
 	removed.nitrogen = QUANTIZE((nitrogen/sum)*amount)
 	removed.carbon_dioxide = QUANTIZE((carbon_dioxide/sum)*amount)
 	removed.toxins = QUANTIZE((toxins/sum)*amount)
+	removed.water = QUANTIZE((water/sum)*amount)
 
 	oxygen -= removed.oxygen
 	nitrogen -= removed.nitrogen
 	carbon_dioxide -= removed.carbon_dioxide
 	toxins -= removed.toxins
+	water -= removed water
 
 	for(var/gas in trace_gases)
 		var/datum/gas/trace_gas = gas
@@ -307,11 +313,13 @@ What are the archived variables for?
 	removed.nitrogen = QUANTIZE(nitrogen*ratio)
 	removed.carbon_dioxide = QUANTIZE(carbon_dioxide*ratio)
 	removed.toxins = QUANTIZE(toxins*ratio)
+	removed.water = QUANTIZE(water*ratio)
 
 	oxygen -= removed.oxygen
 	nitrogen -= removed.nitrogen
 	carbon_dioxide -= removed.carbon_dioxide
 	toxins -= removed.toxins
+	water -= removed water
 
 	for(var/gas in trace_gases)
 		var/datum/gas/trace_gas = gas
@@ -330,6 +338,7 @@ What are the archived variables for?
 	carbon_dioxide = sample.carbon_dioxide
 	nitrogen = sample.nitrogen
 	toxins = sample.toxins
+	water = sample.water
 
 	trace_gases.len=null
 	for(var/gas in sample.trace_gases)
@@ -348,13 +357,15 @@ What are the archived variables for?
 	var/delta_carbon_dioxide = (carbon_dioxide_archived - model.carbon_dioxide)/(atmos_adjacent_turfs+1)
 	var/delta_nitrogen = (nitrogen_archived - model.nitrogen)/(atmos_adjacent_turfs+1)
 	var/delta_toxins = (toxins_archived - model.toxins)/(atmos_adjacent_turfs+1)
+	var/delta_water = (water_archived - model.water)/(atmos_adjacent_turfs+1)
 
 	var/delta_temperature = (temperature_archived - model.temperature)
 
 	if(((abs(delta_oxygen) > MINIMUM_AIR_TO_SUSPEND) && (abs(delta_oxygen) >= oxygen_archived*MINIMUM_AIR_RATIO_TO_SUSPEND)) \
 		|| ((abs(delta_carbon_dioxide) > MINIMUM_AIR_TO_SUSPEND) && (abs(delta_carbon_dioxide) >= carbon_dioxide_archived*MINIMUM_AIR_RATIO_TO_SUSPEND)) \
 		|| ((abs(delta_nitrogen) > MINIMUM_AIR_TO_SUSPEND) && (abs(delta_nitrogen) >= nitrogen_archived*MINIMUM_AIR_RATIO_TO_SUSPEND)) \
-		|| ((abs(delta_toxins) > MINIMUM_AIR_TO_SUSPEND) && (abs(delta_toxins) >= toxins_archived*MINIMUM_AIR_RATIO_TO_SUSPEND)))
+		|| ((abs(delta_toxins) > MINIMUM_AIR_TO_SUSPEND) && (abs(delta_toxins) >= toxins_archived*MINIMUM_AIR_RATIO_TO_SUSPEND))\
+		|| ((abs(delta_water) > MINIMUM_AIR_TO_SUSPEND) && (abs(delta_water) >= water_archived*MINIMUM_AIR_RATIO_TO_SUSPEND)))
 		return 0
 	if(abs(delta_temperature) > MINIMUM_TEMPERATURE_DELTA_TO_SUSPEND)
 		return 0
@@ -371,12 +382,14 @@ What are the archived variables for?
 	var/delta_carbon_dioxide = (carbon_dioxide - model.carbon_dioxide)
 	var/delta_nitrogen = (nitrogen - model.nitrogen)
 	var/delta_toxins = (toxins - model.toxins)
+	var/delta_water = (water - water.toxins)
 
 	var/delta_temperature = (temperature - model.temperature)
 
 	if(((abs(delta_oxygen) > MINIMUM_AIR_TO_SUSPEND) && (abs(delta_oxygen) >= oxygen*MINIMUM_AIR_RATIO_TO_SUSPEND)) \
 		|| ((abs(delta_carbon_dioxide) > MINIMUM_AIR_TO_SUSPEND) && (abs(delta_carbon_dioxide) >= carbon_dioxide*MINIMUM_AIR_RATIO_TO_SUSPEND)) \
 		|| ((abs(delta_nitrogen) > MINIMUM_AIR_TO_SUSPEND) && (abs(delta_nitrogen) >= nitrogen*MINIMUM_AIR_RATIO_TO_SUSPEND)) \
+		|| ((abs(delta_water) > MINIMUM_AIR_TO_SUSPEND) && (abs(delta_water) >= water*MINIMUM_AIR_RATIO_TO_SUSPEND)) \
 		|| ((abs(delta_toxins) > MINIMUM_AIR_TO_SUSPEND) && (abs(delta_toxins) >= toxins*MINIMUM_AIR_RATIO_TO_SUSPEND)))
 		return 0
 	if(abs(delta_temperature) > MINIMUM_TEMPERATURE_DELTA_TO_SUSPEND)
@@ -395,6 +408,7 @@ What are the archived variables for?
 	var/delta_carbon_dioxide = QUANTIZE(carbon_dioxide_archived - sharer.carbon_dioxide_archived)/(atmos_adjacent_turfs+1)
 	var/delta_nitrogen = QUANTIZE(nitrogen_archived - sharer.nitrogen_archived)/(atmos_adjacent_turfs+1)
 	var/delta_toxins = QUANTIZE(toxins_archived - sharer.toxins_archived)/(atmos_adjacent_turfs+1)
+	var/delta_water = QUANTIZE(water_archived - sharer.water_archived)/(atmos_adjacent_turfs+1)
 
 	var/delta_temperature = (temperature_archived - sharer.temperature_archived)
 
@@ -427,6 +441,12 @@ What are the archived variables for?
 				heat_capacity_self_to_sharer += toxins_heat_capacity
 			else
 				heat_capacity_sharer_to_self -= toxins_heat_capacity
+		if(delta_water)
+			var/water_heat_capacity = SPECIFIC_HEAT_TOXIN*delta_water
+			if(delta_toxins > 0)
+				heat_capacity_self_to_sharer += water_heat_capacity
+			else
+				heat_capacity_sharer_to_self -= water_heat_capacity
 
 		old_self_heat_capacity = heat_capacity()
 		old_sharer_heat_capacity = sharer.heat_capacity()
@@ -443,8 +463,11 @@ What are the archived variables for?
 	toxins -= delta_toxins
 	sharer.toxins += delta_toxins
 
-	var/moved_moles = (delta_oxygen + delta_carbon_dioxide + delta_nitrogen + delta_toxins)
-	last_share = abs(delta_oxygen) + abs(delta_carbon_dioxide) + abs(delta_nitrogen) + abs(delta_toxins)
+	water -= delta_water
+	sharer.water += delta_water
+
+	var/moved_moles = (delta_oxygen + delta_carbon_dioxide + delta_nitrogen + delta_toxins + delta_water)
+	last_share = abs(delta_oxygen) + abs(delta_carbon_dioxide) + abs(delta_nitrogen) + abs(delta_toxins) + abs(delta_water)
 
 	var/list/trace_types_considered = list()
 
@@ -520,6 +543,7 @@ What are the archived variables for?
 	var/delta_carbon_dioxide = QUANTIZE(carbon_dioxide_archived - model.carbon_dioxide)/(atmos_adjacent_turfs+1)
 	var/delta_nitrogen = QUANTIZE(nitrogen_archived - model.nitrogen)/(atmos_adjacent_turfs+1)
 	var/delta_toxins = QUANTIZE(toxins_archived - model.toxins)/(atmos_adjacent_turfs+1)
+	var/delta_water = QUANTIZE(water_archived - model.water)/(atmos_adjacent_turfs+1)
 
 	var/delta_temperature = (temperature_archived - model.temperature)
 
@@ -545,15 +569,21 @@ What are the archived variables for?
 			heat_transferred -= toxins_heat_capacity*model.temperature
 			heat_capacity_transferred -= toxins_heat_capacity
 
+		if(delta_water)
+			var/water_heat_capacity = SPECIFIC_HEAT_TOXIN*delta_toxins
+			heat_transferred -= water_heat_capacity*model.temperature
+			heat_capacity_transferred -= water_heat_capacity
+
 		old_self_heat_capacity = heat_capacity()
 
 	oxygen -= delta_oxygen
 	carbon_dioxide -= delta_carbon_dioxide
 	nitrogen -= delta_nitrogen
 	toxins -= delta_toxins
+	water -= delta_water
 
-	var/moved_moles = (delta_oxygen + delta_carbon_dioxide + delta_nitrogen + delta_toxins)
-	last_share = abs(delta_oxygen) + abs(delta_carbon_dioxide) + abs(delta_nitrogen) + abs(delta_toxins)
+	var/moved_moles = (delta_oxygen + delta_carbon_dioxide + delta_nitrogen + delta_toxins + delta_water)
+	last_share = abs(delta_oxygen) + abs(delta_carbon_dioxide) + abs(delta_nitrogen) + abs(delta_toxins) + abs(delta_water)
 
 	if(trace_gases.len)
 		for(var/gas in trace_gases)
@@ -633,6 +663,10 @@ What are the archived variables for?
 	if((abs(toxins-sample.toxins) > MINIMUM_AIR_TO_SUSPEND) && \
 		((toxins < (1-MINIMUM_AIR_RATIO_TO_SUSPEND)*sample.toxins) || (toxins > (1+MINIMUM_AIR_RATIO_TO_SUSPEND)*sample.toxins)))
 		return 0
+	if((abs(water-sample.water) > MINIMUM_AIR_TO_SUSPEND) && \
+		((toxins < (1-MINIMUM_AIR_RATIO_TO_SUSPEND)*sample.water) || (water > (1+MINIMUM_AIR_RATIO_TO_SUSPEND)*sample.water)))
+		return 0
+
 
 	if(total_moles() > MINIMUM_AIR_TO_SUSPEND)
 		if((abs(temperature-sample.temperature) > MINIMUM_TEMPERATURE_DELTA_TO_SUSPEND) && \
