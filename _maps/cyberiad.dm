@@ -17,7 +17,7 @@ z7 = empty
 	#include "map_files\cyberiad\z2.dmm"
 	#include "map_files\cyberiad\z3.dmm"
 	#include "map_files\cyberiad\z4.dmm"
-	#include "map_files\generic\z5.dmm"
+//	#include "map_files\generic\z5.dmm"
 	#include "map_files\cyberiad\z6.dmm"
 	#include "map_files\generic\z7.dmm"
 	#include "map_files\generic\lavaland.dmm"
@@ -27,11 +27,10 @@ DECLARE_LEVEL(MAIN_STATION, CROSSLINKED, list(STATION_LEVEL,STATION_CONTACT,REAC
 DECLARE_LEVEL(CENTCOMM, SELFLOOPING, list(ADMIN_LEVEL, BLOCK_TELEPORT, IMPEDES_MAGIC)),\
 DECLARE_LEVEL(TELECOMMS, CROSSLINKED, list(REACHABLE, BOOSTS_SIGNAL, AI_OK)),\
 DECLARE_LEVEL(CONSTRUCTION, CROSSLINKED, list(REACHABLE)),\
-DECLARE_LEVEL(MINING, CROSSLINKED, list(REACHABLE, STATION_CONTACT, HAS_WEATHER, ORE_LEVEL, AI_OK)),\
 DECLARE_LEVEL(DERELICT, CROSSLINKED, list(REACHABLE)),\
 DECLARE_LEVEL(LAVALAND, SELFLOOPING, list(REACHABLE, ORE_LEVEL)),\
 DECLARE_LEVEL(EMPTY_AREA, CROSSLINKED, list(REACHABLE)))
-
+//DECLARE_LEVEL(MINING, CROSSLINKED, list(REACHABLE, STATION_CONTACT, HAS_WEATHER, ORE_LEVEL, AI_OK)),\
 	#define USING_MAP_DATUM /datum/map/
 
 #elif !defined(MAP_OVERRIDE)
