@@ -87,7 +87,7 @@
 	end_overlay = "light_ash"
 
 	area_type = /area/mine/dangerous
-	target_z = MINING
+	target_z = LAVALAND
 
 	immunity_type = "ash"
 
