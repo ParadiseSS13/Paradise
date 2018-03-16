@@ -38,12 +38,17 @@ var/static/list/scarySounds = list('sound/weapons/thudswoosh.ogg','sound/weapons
 //If you don't want to fuck up disposals, add to this list, and don't change the order.
 //If you insist on changing the order, you'll have to change every sort junction to reflect the new order. --Pete
 
-var/list/TAGGERLOCATIONS = list("Disposals",
-	"Cargo Bay", "QM Office", "Engineering", "CE Office",
-	"Atmospherics", "HoS Office", "Security", "Medbay",
-	"CMO Office", "Chemistry", "Research", "RD Office",
-	"Robotics", "HoP Office", "Library", "Chapel", "Captain's Office",
-	"Bar", "Kitchen", "Hydroponics", "Janitor Closet","Genetics","Brig Physician")
+var/list/TAGGERLOCATIONS = list(
+	"Disposals", "Cargo Bay", "QM Office",
+	"Brig Physician", "Security", "HoS Office",
+	"Bar", "Kitchen", "Hydroponics", "Library", "Chapel",
+	"Captain's Office",
+	"Medbay", "Chemistry", "CMO Office", "Genetics",
+	// sortTypeA above sortTypeB below
+	"Robotics", "Research", "RD Office",
+	"Janitor Closet",
+	"Atmospherics", "CE Office", "Engineering",
+	"HoP Office")
 
 var/list/hit_appends = list("-OOF", "-ACK", "-UGH", "-HRNK", "-HURGH", "-GLORF")
 

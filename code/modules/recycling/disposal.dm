@@ -952,46 +952,47 @@
 
 
 	// next direction to move
-	// if coming in from secondary dirs, then next is primary dir
-	// if coming in from primary dir, then next is equal chance of other dirs
+	// If pipe is T, only direct side flow to arrow
+	// If pipe is Y, send all flow to arrow
 
 /obj/structure/disposalpipe/junction/nextdir(var/fromdir)
 	var/flipdir = turn(fromdir, 180)
-	if(flipdir != dir)	// came from secondary dir
-		return dir		// so exit through primary
-	else				// came from primary
-						// so need to choose either secondary exit
-		var/mask = ..(fromdir)
+	if(dpdir & flipdir && dpdir & fromdir)	// came from straight section
+		if(icon_state == "pipe-y")			// follow arrow if Y
+			return dir
+		return fromdir						// otherwise go straight
+	else									// came from side
+		return dir							// so go with arrow
 
-		// find a bit which is set
-		var/setbit = 0
-		if(mask & NORTH)
-			setbit = NORTH
-		else if(mask & SOUTH)
-			setbit = SOUTH
-		else if(mask & EAST)
-			setbit = EAST
-		else
-			setbit = WEST
-
-		if(prob(50))	// 50% chance to choose the found bit or the other one
-			return setbit
-		else
-			return mask & (~setbit)
 
 //a three-way junction that sorts objects
 /obj/structure/disposalpipe/sortjunction
 
 	icon_state = "pipe-j1s"
-	var/sortType = 0	//Look at the list called TAGGERLOCATIONS in /code/_globalvars/lists/flavor_misc.dm
+	var/sortTypeA = 0	//Look at the list called TAGGERLOCATIONS in /code/_globalvars/lists/flavor_misc.dm
+	var/sortTypeB = 0	//Bitwise operators only extend 16 bits
 	var/posdir = 0
 	var/negdir = 0
 	var/sortdir = 0
 
 	proc/updatedesc()
+		var/tag = ""
 		desc = "An underfloor disposal pipe with a package sorting mechanism."
-		if(sortType>0)
-			var/tag = uppertext(TAGGERLOCATIONS[sortType])
+		var/i = 0
+		while(sortTypeA >= 2**i)
+			if(sortTypeA & 2**i)
+				if(tag)
+					tag += ", "
+				tag += uppertext(TAGGERLOCATIONS[i+1])
+			i++
+		i = 0
+		while(sortTypeB >= 2**i)
+			if(sortTypeB & 2**i)
+				if(tag)
+					tag += ", "
+				tag += uppertext(TAGGERLOCATIONS[i+17])
+			i++
+		if (tag)
 			desc += "\nIt's tagged with [tag]"
 
 	proc/updatedir()
@@ -1021,29 +1022,39 @@
 			var/obj/item/device/destTagger/O = I
 
 			if(O.currTag > 0)// Tag set
-				sortType = O.currTag
+				if(O.currTag < 17)
+					sortTypeA ^= 2**(O.currTag - 1)
+				else
+					sortTypeB ^= 2**(O.currTag - 17)
 				playsound(src.loc, 'sound/machines/twobeep.ogg', 100, 1)
-				var/tag = uppertext(TAGGERLOCATIONS[O.currTag])
-				to_chat(user, "<span class='notice'>Changed filter to [tag]</span>")
+				var/tag = TAGGERLOCATIONS[O.currTag]
+				to_chat(user, "<span class='notice'>Toggled Shipping to [tag]</span>")
 				updatedesc()
 
 
 	// next direction to move
-	// if coming in from negdir, then next is primary dir or sortdir
-	// if coming in from posdir, then flip around and go back to posdir
+	// if coming from straight section, either continue on or go to sort
 	// if coming in from sortdir, go to posdir
 
 	nextdir(var/fromdir, var/sortTag)
 		//var/flipdir = turn(fromdir, 180)
-		if(fromdir != sortdir)	// probably came from the negdir
+		if(fromdir != turn(sortdir, 180))
+			if(!sortTag && src.sortTypeA == 1)	//If untagged
+				return sortdir					//Go to disposals
 
-			if(src.sortType == sortTag) //if destination matches filtered type...
-				return sortdir		// exit through sortdirection
+			if(sortTag < 17)
+				if(src.sortTypeA & 2**(sortTag - 1)) 	//if destination matches filtered type...
+					return sortdir						//exit through sortdirection
+				else
+					return fromdir						//ignore packages destined elsewhere
 			else
-				return posdir
-		else				// came from sortdir
-							// so go with the flow to positive direction
-			return posdir
+				if(src.sortTypeB & 2**(sortTag - 17)) 	//Same as above...
+					return sortdir
+				else
+					return fromdir
+
+		else							// came from sortdir
+			return posdir 				// so go with the flow to positive direction
 
 	transfer(var/obj/structure/disposalholder/H)
 		var/nextdir = nextdir(H.dir, H.destinationTag)
