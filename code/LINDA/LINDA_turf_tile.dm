@@ -19,6 +19,7 @@
 	GM.carbon_dioxide = carbon_dioxide
 	GM.nitrogen = nitrogen
 	GM.toxins = toxins
+	GM.water = water
 
 	GM.temperature = temperature
 
@@ -27,12 +28,13 @@
 /turf/remove_air(amount as num)
 	var/datum/gas_mixture/GM = new
 
-	var/sum = oxygen + carbon_dioxide + nitrogen + toxins
+	var/sum = oxygen + carbon_dioxide + nitrogen + toxins + water
 	if(sum>0)
 		GM.oxygen = (oxygen/sum)*amount
 		GM.carbon_dioxide = (carbon_dioxide/sum)*amount
 		GM.nitrogen = (nitrogen/sum)*amount
 		GM.toxins = (toxins/sum)*amount
+		GM.water = (water/sum)*amount
 
 	GM.temperature = temperature
 
@@ -63,6 +65,7 @@
 		air.carbon_dioxide = carbon_dioxide
 		air.nitrogen = nitrogen
 		air.toxins = toxins
+		air.water = water
 
 		air.temperature = temperature
 
@@ -263,13 +266,17 @@
 			return plmaster
 		if("sleeping_agent")
 			return slmaster
+		if("water")
+			return wtmaster
 	return null
 
 /turf/simulated/proc/tile_graphic()
 	if(air.toxins > MOLES_PLASMA_VISIBLE)
 		mouse_opacity = 0
 		return "plasma"
-
+	if(air.water > MOLES_WATER_VISIBLE)
+		mouse_opacity = 0
+		return "water"
 	var/datum/gas/sleeping_agent = locate(/datum/gas/sleeping_agent) in air.trace_gases
 	if(sleeping_agent && (sleeping_agent.moles > 1))
 		mouse_opacity = 0
@@ -396,6 +403,7 @@
 		A.carbon_dioxide+= T.air.carbon_dioxide
 		A.nitrogen 		+= T.air.nitrogen
 		A.toxins 		+= T.air.toxins
+		A.water			+= T.air.water
 
 		if(T.air.trace_gases.len)
 			for(var/datum/gas/N in T.air.trace_gases)
@@ -406,6 +414,7 @@
 		T.air.carbon_dioxide= A.carbon_dioxide/turf_list.len
 		T.air.nitrogen		= A.nitrogen/turf_list.len
 		T.air.toxins		= A.toxins/turf_list.len
+		T.air.water			= A.water/turf_list.len
 
 		if(S.moles > 0)
 			if(T.air.trace_gases.len)

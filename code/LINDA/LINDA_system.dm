@@ -151,6 +151,8 @@ var/const/SPAWN_NITROGEN = 32
 
 var/const/SPAWN_N2O = 64
 
+var/const/SPAWN_WATER = 128
+
 var/const/SPAWN_AIR = 256
 
 /turf/simulated/proc/atmos_spawn_air(var/flag, var/amount)
@@ -173,6 +175,9 @@ var/const/SPAWN_AIR = 256
 		G.carbon_dioxide += amount
 	if(flag & SPAWN_NITROGEN)
 		G.nitrogen += amount
+
+		if(flag & SPAWN_WATER)
+		G.water += amount
 
 	if(flag & SPAWN_N2O)
 		var/datum/gas/sleeping_agent/T = new
