@@ -13,6 +13,7 @@
 #define GAS_PL	(1 << 2)
 #define GAS_CO2	(1 << 3)
 #define GAS_N2O	(1 << 4)
+#define GAS_WAT	(1 << 5)
 
 //stuff you should probably leave well alone!
 //ATMOS
@@ -120,3 +121,6 @@
 #define ATMOS_ALARM_NONE					0
 #define ATMOS_ALARM_WARNING					1
 #define ATMOS_ALARM_DANGER					2
+
+// Water properties. For WaterWorld
+#define MOLES_WATER_VISIBLE				0.5		//Moles in a standard cell after which watergas is visible
