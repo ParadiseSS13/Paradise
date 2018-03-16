@@ -7,7 +7,7 @@ What are the archived variables for?
 #define SPECIFIC_HEAT_TOXIN		200
 #define SPECIFIC_HEAT_AIR		20
 #define SPECIFIC_HEAT_CDO		30
-#define SPECIFIC_HEAT_WATER		200
+#define SPECIFIC_HEAT_WATER		50
 #define HEAT_CAPACITY_CALCULATION(oxygen,carbon_dioxide,nitrogen,toxins,water) \
 	(carbon_dioxide*SPECIFIC_HEAT_CDO + (oxygen+nitrogen)*SPECIFIC_HEAT_AIR + toxins*SPECIFIC_HEAT_TOXIN + water*SPECIFIC_HEAT_WATER)
 
@@ -286,7 +286,7 @@ What are the archived variables for?
 	nitrogen -= removed.nitrogen
 	carbon_dioxide -= removed.carbon_dioxide
 	toxins -= removed.toxins
-	water -= removed water
+	water -= removed.water
 
 	for(var/gas in trace_gases)
 		var/datum/gas/trace_gas = gas
@@ -319,7 +319,7 @@ What are the archived variables for?
 	nitrogen -= removed.nitrogen
 	carbon_dioxide -= removed.carbon_dioxide
 	toxins -= removed.toxins
-	water -= removed water
+	water -= removed.water
 
 	for(var/gas in trace_gases)
 		var/datum/gas/trace_gas = gas
@@ -382,7 +382,7 @@ What are the archived variables for?
 	var/delta_carbon_dioxide = (carbon_dioxide - model.carbon_dioxide)
 	var/delta_nitrogen = (nitrogen - model.nitrogen)
 	var/delta_toxins = (toxins - model.toxins)
-	var/delta_water = (water - water.toxins)
+	var/delta_water = (water - model.water)
 
 	var/delta_temperature = (temperature - model.temperature)
 
