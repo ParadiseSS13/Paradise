@@ -61,7 +61,7 @@
 			shot_delay = 6//Longer shot delay because JESUS CHRIST
 			check_records = 0//Don't actively target people set to arrest
 			arrest_type = 1//Don't even try to cuff
-			bot_core.req_access = list(access_maint_tunnels, access_theatre)
+			bot_core.req_access = list(access_maint_tunnels, access_theatre, access_robotics)
 
 			if(created_name == "ED-209 Security Robot")
 				if(lasercolor == "b")
