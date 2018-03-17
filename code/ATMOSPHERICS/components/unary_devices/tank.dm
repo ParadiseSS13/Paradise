@@ -104,4 +104,4 @@
 	icon_state = "o2"
 	air_contents.volume = volume
 	air_contents.temperature = T20C
-	aircontents.water = (25*ONE_ATMOSPHERE)*(air_contents.volume)/(R_IDEAL_GAS_EQUATION*air_contents.temperature)
+	air_contents.water = (25*ONE_ATMOSPHERE)*(air_contents.volume)/(R_IDEAL_GAS_EQUATION*air_contents.temperature)

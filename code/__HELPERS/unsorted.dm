@@ -251,6 +251,7 @@ Turf and target are seperate in case you want to teleport some distance from a t
 		var/n2_concentration = air_contents.nitrogen/total_moles
 		var/co2_concentration = air_contents.carbon_dioxide/total_moles
 		var/plasma_concentration = air_contents.toxins/total_moles
+		var/wat_concentration = air_contents.water/total_moles
 
 		var/unknown_concentration =  1-(o2_concentration+n2_concentration+co2_concentration+plasma_concentration)
 
