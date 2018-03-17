@@ -15,7 +15,7 @@ var/global/list/lrockTurfEdgeCache = list(
 	name = "Rocky Ash"
 	icon = 'icons/turf/lavamining.dmi'
 	icon_state = "rock_nochance"
-	var/water_overlay_image = null
+//	var/water_overlay_image = null
 	mouse_opacity = 0
 	oxygen = 0
 	nitrogen = 0
@@ -59,8 +59,8 @@ var/global/list/lrockTurfEdgeCache = list(
 
 /turf/simulated/lmineral/New()
 	..()
-	if(water_overlay_image)
-		overlays += image("icon"='icons/misc/beach.dmi',"icon_state"= water_overlay_image,"layer"=MOB_LAYER+0.1)
+//	if(water_overlay_image)
+//		overlays += image("icon"='icons/misc/beach.dmi',"icon_state"= water_overlay_image,"layer"=MOB_LAYER+0.1)
 
 	mineral_turfs += src
 
@@ -473,7 +473,7 @@ var/global/list/lrockTurfEdgeCache = list(
 	icon = 'icons/turf/floors.dmi'
 	icon_state = "basalt0"
 	icon_plating = "basalt0"
-	var/water_overlay_image = "water_deep"
+//	var/water_overlay_image = "water_deep"
 	var/dug = 0       //0 = has not yet been dug, 1 = has already been dug
 	oxygen = 0.01
 	nitrogen = 0.01
@@ -484,8 +484,8 @@ var/global/list/lrockTurfEdgeCache = list(
 	var/proper_name = name
 	..()
 	name = proper_name
-	if(water_overlay_image)
-		overlays += image("icon"='icons/misc/beach.dmi',"icon_state"= water_overlay_image,"layer"=MOB_LAYER+0.1)
+//	if(water_overlay_image)
+//		overlays += image("icon"='icons/misc/beach.dmi',"icon_state"= water_overlay_image,"layer"=MOB_LAYER+0.1)
 	if(prob(20))
 		icon_state = "basalt[rand(0,12)]"
 
@@ -681,9 +681,9 @@ var/global/list/lrockTurfEdgeCache = list(
 			if("Hivelord")
 				new /mob/living/simple_animal/hostile/asteroid/hivelord(T)
 			if("Carp")
-				new /mob/living/simple_animal/hostile/retaliate/carp(T)
+				new /mob/living/simple_animal/hostile/lcarp/carp(T)
 			if("Mega Carp")
-				new /mob/living/simple_animal/hostile/carp/megacarp(T)
+				new /mob/living/simple_animal/hostile/lcarp/megacarp(T)
 			if("Kraken")
 				new /mob/living/simple_animal/hostile/deathsquid/kraken(T)
 	return

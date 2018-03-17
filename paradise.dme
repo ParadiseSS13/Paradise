@@ -1770,6 +1770,7 @@
 #include "code\modules\mob\living\simple_animal\hostile\illusion.dm"
 #include "code\modules\mob\living\simple_animal\hostile\jungle_animals.dm"
 #include "code\modules\mob\living\simple_animal\hostile\killertomato.dm"
+#include "code\modules\mob\living\simple_animal\hostile\lcarp.dm"
 #include "code\modules\mob\living\simple_animal\hostile\mimic.dm"
 #include "code\modules\mob\living\simple_animal\hostile\mining_mobs.dm"
 #include "code\modules\mob\living\simple_animal\hostile\mushroom.dm"
