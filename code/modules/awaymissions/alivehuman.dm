@@ -8,7 +8,8 @@
 	var/suit = null
 	var/shoes = null
 	var/gloves = null
-	var/radio = null
+	var/l_ear = null
+	var/r_ear = null
 	var/glasses = null
 	var/mask = null
 	var/helmet = null
@@ -115,7 +116,7 @@ qdel(src)
 	if(gloves)
 		H.equip_to_slot_or_del(new gloves(H), slot_gloves)
 	if(radio)
-		H.equip_to_slot_or_del(new radio(H), slot_lear)
+		H.equip_to_slot_or_del(new radio(H), slot_l_ear)
 	if(glasses)
 		H.equip_to_slot_or_del(new glasses(H), slot_glasses)
 	if(mask)
