@@ -5,8 +5,8 @@ var/list/barometers = list()
 /obj/machinery/lavaland_controller
 	name = "weather control machine"
 	desc = "Dont use this ya shit."
-	icon = 'icons/obj/machines/telecomms.dmi'
-	icon_state = "processor"
+	icon = 'icons/obj/stationobjs.dmi'
+	icon_state = "bus"
 
 
 
@@ -29,72 +29,72 @@ var/list/barometers = list()
 
 //Free Golems
 
-/obj/item/weapon/disk/design_disk/golem_shell
-	name = "Golem Creation Disk"
-	desc = "A gift from the Liberator."
-	icon_state = "datadisk1"
-	max_blueprints = 1
+//obj/item/weapon/disk/design_disk/golem_shell
+//	name = "Golem Creation Disk"
+//	desc = "A gift from the Liberator."
+//	icon_state = "datadisk1"
+//	max_blueprints = 1
 
-/obj/item/weapon/disk/design_disk/golem_shell/New()
-	..()
-	var/datum/design/golem_shell/G = new
-	blueprints[1] = G
+//obj/item/weapon/disk/design_disk/golem_shell/New()
+//	..()
+//	var/datum/design/golem_shell/G = new
+//	blueprints[1] = G
 
-/datum/design/golem_shell
-	name = "Golem Shell Construction"
-	desc = "Allows for the construction of a Golem Shell."
-	id = "golem"
-	req_tech = list("materials" = 12)
-	build_type = AUTOLATHE
-	materials = list(MAT_METAL = 40000)
-	build_path = /obj/item/golem_shell
-	category = list("Imported")
+//datum/design/golem_shell
+//	name = "Golem Shell Construction"
+//	desc = "Allows for the construction of a Golem Shell."
+//	id = "golem"
+//	req_tech = list("materials" = 12)
+//	build_type = AUTOLATHE
+//	materials = list(MAT_METAL = 40000)
+//	build_path = /obj/item/golem_shell
+//	category = list("Imported")
 
-/obj/item/golem_shell
-	name = "incomplete golem shell"
-	icon = 'icons/obj/wizard.dmi'
-	icon_state = "construct"
-	desc = "The incomplete body of a golem. Add ten sheets of any mineral to finish."
+//obj/item/golem_shell
+//	name = "incomplete golem shell"
+//	icon = 'icons/obj/wizard.dmi'
+//	icon_state = "construct"
+//	desc = "The incomplete body of a golem. Add ten sheets of any mineral to finish."
 
-/obj/item/golem_shell/attackby(obj/item/I, mob/user, params)
-	..()
-	var/species
-	if(istype(I, /obj/item/stack/sheet))
-		var/obj/item/stack/sheet/O = I
+//obj/item/golem_shell/attackby(obj/item/I, mob/user, params)
+//	..()
+//	var/species
+//	if(istype(I, /obj/item/stack/sheet))
+//		var/obj/item/stack/sheet/O = I
 
-		if(istype(O, /obj/item/stack/sheet/metal))
-			species = /datum/species/golem
+//		if(istype(O, /obj/item/stack/sheet/metal))
+//					species = /datum/species/golem
 
-		if(istype(O, /obj/item/stack/sheet/mineral/plasma))
-			species = /datum/species/golem/plasma
+//		if(istype(O, /obj/item/stack/sheet/mineral/plasma))
+//			species = /datum/species/golem/plasma
 
-		if(istype(O, /obj/item/stack/sheet/mineral/diamond))
-			species = /datum/species/golem/diamond
+//		if(istype(O, /obj/item/stack/sheet/mineral/diamond))
+//			species = /datum/species/golem/diamond
 
-		if(istype(O, /obj/item/stack/sheet/mineral/gold))
-			species = /datum/species/golem/gold
+//		if(istype(O, /obj/item/stack/sheet/mineral/gold))
+//			species = /datum/species/golem/gold
 
-		if(istype(O, /obj/item/stack/sheet/mineral/silver))
-			species = /datum/species/golem/silver
+//		if(istype(O, /obj/item/stack/sheet/mineral/silver))
+//			species = /datum/species/golem/silver
 
-		if(istype(O, /obj/item/stack/sheet/mineral/uranium))
-			species = /datum/species/golem/uranium
+//		if(istype(O, /obj/item/stack/sheet/mineral/uranium))
+//			species = /datum/species/golem/uranium
 
-		if(species)
-			if(O.use(10))
-				user << "You finish up the golem shell with ten sheets of [O]."
-				var/obj/effect/mob_spawn/human/golem/G = new(get_turf(src))
-				G.mob_species = species
-				qdel(src)
-			else
-				user << "You need at least ten sheets to finish a golem."
-		else
-			user << "You can't build a golem out of this kind of material."
+//		if(species)
+//			if(O.use(10))
+//				user << "You finish up the golem shell with ten sheets of [O]."
+//				var/obj/effect/mob_spawn/human/golem/G = new(get_turf(src))
+//				G.mob_species = species
+//				qdel(src)
+//			else
+//				user << "You need at least ten sheets to finish a golem."
+//		else
+//			user << "You can't build a golem out of this kind of material."
 
 
 ///Syndicate Listening Post
 
-/obj/effect/mob_spawn/human/lavaland_syndicate
+/obj/effect/landmark/human/lavaland_syndicate
 	name = "Syndicate Bioweapon Scientist"
 	uniform = /obj/item/clothing/under/syndicate
 	suit = /obj/item/clothing/suit/toggle/labcoat
@@ -107,17 +107,17 @@ var/list/barometers = list()
 	id_job = "Syndicate Researcher"
 	id_access = "syndicate"
 	roundstart = FALSE
-	death = FALSE
+//	death = FALSE
 	icon = 'icons/obj/Cryogenic2.dmi'
 	icon_state = "sleeper_s"
 	flavour_text = "<font size=3>You are a syndicate agent, employed in a top secret research facility developing biological weapons. Unfortunatley, your hated enemy, Nanotrasen, has begun mining in this sector. <b>Continue your research as best you can, and try to keep a low profile. Do not abandon the base without good cause.</b> The base is rigged with explosives should the worst happen, do not let the base fall into enemy hands!</b>"
 	jobban_type = "lavaland"
 
-/obj/effect/mob_spawn/human/lavaland_syndicate/special(mob/living/L)
+/obj/effect/landmark/human/lavaland_syndicate/special(mob/living/L)
 	L.add_memory("You are a syndicate agent, employed in a top secret research facility developing biological weapons. Unfortunatley, your hated enemy, Nanotrasen, has begun mining in this sector. Continue your research as best you can, and try to keep a low profile. Do not abandon the base unless it is uninhabitable. The base is rigged with explosives should the worst happen, do not let the base fall into enemy hands!")
 
 
-/obj/effect/mob_spawn/human/lavaland_syndicate/comms
+/obj/effect/landmark/human/lavaland_syndicate/comms
 	name = "Syndicate Comms Agent"
 	r_hand = /obj/item/weapon/melee/energy/sword/saber
 	mask = /obj/item/clothing/mask/chameleon
@@ -126,11 +126,11 @@ var/list/barometers = list()
 	pocket2 = /obj/item/weapon/gun/projectile/automatic/pistol
 	id_job = "Syndicate Comms Agent"
 
-/obj/effect/mob_spawn/human/lavaland_syndicate/comms/special(mob/living/L)
+/obj/effect/landmark/human/lavaland_syndicate/comms/special(mob/living/L)
 	L.add_memory("You are a syndicate agent, employed in a top secret research facility developing biological weapons. Unfortunatley, your hated enemy, Nanotrasen, has begun mining in this sector. Monitor enemy activity as best you can, and try to keep a low profile. Do not abandon the base without good cause. Use the communication equipment to provide support to any field agents, and sow disinformation to throw Nanotrasen off your trail. Do not let the base fall into enemy hands!")
 
 
-/obj/effect/mob_spawn/human/lavaland_syndicate/comms/equip(mob/living/carbon/human/H)
+/obj/effect/landmark/human/lavaland_syndicate/comms/equip(mob/living/carbon/human/H)
 	..()
 	var/obj/item/clothing/mask/chameleon/M = H.wear_mask
 	if(M && M.chameleon)
@@ -140,7 +140,7 @@ var/list/barometers = list()
 
 ///Syndicate Xenobiologist
 
-/obj/effect/mob_spawn/human/syndicate_xenobiologist
+/obj/effect/landmark/human/syndicate_xenobiologist
 	name = "Syndicate Xenomorph Scientist"
 	uniform = /obj/item/clothing/under/syndicate
 	shoes = /obj/item/clothing/shoes/combat
@@ -155,23 +155,23 @@ var/list/barometers = list()
 	id_access = "syndicate"
 	flavour_text = "<font size=3><b></b></font><b>You have awoken from cryosleep, it is time to begin experimentation on these alien lifeforms known as 'xenomorphs' in the hopes of weaponising them against Nanotrasen and other corporate enemies. The egg chamber is located in the bottom right of the facility right beneath the prisoner cells, don't worry about them resisting; they have lost their will to think. The combat environment room is in the bottom left of the facility while surgery and containment is right below where your sleeper is installed. How you go about testing is up to you and your accomplices, however you are to exercise extreme caution, these lifeforms are not dumb animals; should any damage be sustained to the facility there is some spare construction materials in the observation room. DO NOT under any circumstances attempt to leave the Facility."
 	roundstart = FALSE
-	death = FALSE
+//	death = FALSE
 	icon = 'icons/obj/Cryogenic2.dmi'
 	icon_state = "sleeper_s"
 	jobban_type = "lavaland"
 
-/obj/effect/mob_spawn/human/syndicate_xenobiologist/special(mob/living/L)
+/obj/effect/landmark/human/syndicate_xenobiologist/special(mob/living/L)
 	L.add_memory("You have awoken from cryosleep, it is time to begin experimentation on these alien lifeforms known as 'xenomorphs' in the hopes of weaponising them against Nanotrasen and other corporate enemies. The egg chamber is located in the bottom right of the facility right beneath the prisoner cells, don't worry about them resisting; they have lost their will to think. The combat environment room is in the bottom left of the facility while surgery and containment is right below where your sleeper is installed. How you go about testing is up to you and your accomplices, however you are to exercise extreme caution, these lifeforms are not dumb animals; should any damage be sustained to the facility there is some spare construction materials in the observation room. DO NOT under any circumstances attempt to leave the Facility.")
 
 /obj/item/clothing/mask/facehugger/syndie
-	hive_faction = "syndicate"
+	faction = list("syndicate")
 
 /obj/structure/alien/egg/syndie
-	hive_faction = "syndicate"
+	faction = list("syndicate")
 
 ///Space Mercenaries
 
-/obj/effect/mob_spawn/human/space_mercenary
+/obj/effect/landmark/human/space_mercenary
 	name = "Space Mercenary"
 	uniform = /obj/item/clothing/under/syndicate/tacticool
 	suit = /obj/item/clothing/suit/armor/vest
@@ -194,7 +194,7 @@ var/list/barometers = list()
 	icon_state = "sleeper"
 	jobban_type = "lavaland"
 
-/obj/effect/mob_spawn/human/space_mercenary_leader
+/obj/effect/landmark/human/space_mercenary_leader
 	name = "Space Mercenary Leader"
 	uniform = /obj/item/clothing/under/syndicate/tacticool
 	suit = /obj/item/clothing/suit/armor/vest
@@ -219,7 +219,7 @@ var/list/barometers = list()
 
 ///Travelling Bard
 
-/obj/effect/mob_spawn/human/travelling_bard
+/obj/effect/landmark/human/travelling_bard
 	name = "Travelling Bard"
 	uniform = /obj/item/clothing/under/jester
 	shoes = /obj/item/clothing/shoes/sneakers/green
@@ -240,12 +240,12 @@ var/list/barometers = list()
 	icon_state = "sleeper"
 	jobban_type = "lavaland"
 
-/obj/effect/mob_spawn/human/travelling_bard/special(mob/living/L)
+/obj/effect/landmark/human/travelling_bard/special(mob/living/L)
 	L.add_memory("You are a travelling Bard! Your only purpose in life is to travel the galaxy, playing songs and telling epic tales of adventure, you have seen many things and you only wish to share your knowledge with all those who you pass. You are a very passive person and dislike the idea of killing another sentient person, if you cannot stop conflict through peace then you would rather remain neutral. Despite your peaceful demeanor, you are not immune to brainwashing or conversion techniques, if converted or brainwashed you are to follow the will of your masters.")
 
 ///Orion Medical Outpost Staff
 
-/obj/effect/mob_spawn/human/orion_doctor
+/obj/effect/landmark/human/orion_doctor
 	name = "Orion Outpost Doctor"
 	uniform = /obj/item/clothing/under/rank/medical
 	shoes = /obj/item/clothing/shoes/sneakers/white
@@ -262,10 +262,10 @@ var/list/barometers = list()
 	icon_state = "sleeper"
 	jobban_type = "lavaland"
 
-/obj/effect/mob_spawn/human/orion_doctor/special(mob/living/L)
+/obj/effect/landmark/human/orion_doctor/special(mob/living/L)
 	L.add_memory("You were working on a medical outpost on Orion when a bluespace translocation was reported in the vicinity, it seems to have moved the outpost to some strange ashen wasteland, regardless of the situation the medical supplies are low and medical scanners report you aren't the first here, time to put your expertise to use and see if there's anyone out there who needs help.")
 
-/obj/effect/mob_spawn/human/orion_security
+/obj/effect/landmark/human/orion_security
 	name = "Orion Outpost Security Officer"
 	uniform = /obj/item/clothing/under/syndicate
 	shoes = /obj/item/clothing/shoes/combat
@@ -288,5 +288,5 @@ var/list/barometers = list()
 	icon_state = "sleeper_s"
 	jobban_type = "lavaland"
 
-/obj/effect/mob_spawn/human/orion_security/special(mob/living/L)
+/obj/effect/landmark/human/orion_security/special(mob/living/L)
 	L.add_memory("You are an Orion Spaceport officer, the outpost you were assigned to was moved due to a bluespace anomaly, you are to ensure that no harm comes to the outpost or its staff. You do not follow Space Law. You are the Law.")
