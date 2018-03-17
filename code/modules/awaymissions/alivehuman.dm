@@ -10,6 +10,7 @@
 	var/gloves = null
 	var/l_ear = null
 	var/r_ear = null
+	var/radio = null
 	var/glasses = null
 	var/mask = null
 	var/helmet = null
@@ -159,4 +160,4 @@ qdel(src)
 
 	for(var/I in implants)
 		var/obj/item/weapon/implant/X = new I
-X.implant(H)
+		X.implant(H)

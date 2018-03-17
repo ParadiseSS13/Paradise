@@ -80,8 +80,8 @@
 			amount += idle_power_usage
 		if(scrub_N2O)
 			amount += idle_power_usage
-			if(scrub_water)
-		amount += idle_power_usage
+		if(scrub_water)
+			amount += idle_power_usage
 	else
 		amount = active_power_usage
 

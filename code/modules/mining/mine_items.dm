@@ -91,6 +91,17 @@
 	usesound = 'sound/effects/picaxe1.ogg'
 	toolspeed = 1
 
+
+/obj/item/weapon/pickaxe/mini
+	name = "compact pickaxe"
+	desc = "A smaller, compact version of the standard pickaxe."
+	icon_state = "minipick"
+	force = 10
+	throwforce = 7
+	slot_flags = SLOT_BELT
+	w_class = 3
+	materials = list(MAT_METAL=1000)
+
 /obj/item/weapon/pickaxe/proc/playDigSound()
 	playsound(src, pick(digsound),20,1)
 
