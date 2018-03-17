@@ -1,4 +1,4 @@
-/mob/living/simple_animal/hostile/carp
+/mob/living/simple_animal/hostile/lcarp
 	name = "Deep Sea Carp"
 	desc = "A ferocious, fang-bearing creature that resembles a fish."
 	icon_state = "carp"
@@ -57,7 +57,7 @@
 	del_on_death = 1
 
 
-/mob/living/simple_animal/hostile/carp/megacarp
+/mob/living/simple_animal/hostile/lcarp/megalcarp
 	icon = 'icons/mob/alienqueen.dmi'
 	name = "Mega Deep Sea Carp"
 	desc = "A ferocious, fang bearing creature that resembles a shark. This one seems especially ticked off."

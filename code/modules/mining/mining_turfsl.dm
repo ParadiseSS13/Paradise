@@ -681,9 +681,9 @@ var/global/list/lrockTurfEdgeCache = list(
 			if("Hivelord")
 				new /mob/living/simple_animal/hostile/asteroid/hivelord(T)
 			if("Carp")
-				new /mob/living/simple_animal/hostile/lcarp/carp(T)
+				new /mob/living/simple_animal/hostile/lcarp(T)
 			if("Mega Carp")
-				new /mob/living/simple_animal/hostile/lcarp/megacarp(T)
+				new /mob/living/simple_animal/hostile/lcarp/megalcarp(T)
 			if("Kraken")
 				new /mob/living/simple_animal/hostile/deathsquid/kraken(T)
 	return
