@@ -587,7 +587,7 @@ var/global/list/lrockTurfEdgeCache = list(
 		t.updateMineralOverlays()
 
 /turf/simulated/floor/plating/airless/lavaland/cave
-	water_overlay_image = "water_deep"
+//	water_overlay_image = "water_deep"
 	var/length = 100
 	var/mob_spawn_list = list("Goldgrub" = 10, "Goliath" = 50, "Basilisk" = 40, "Hivelord" = 30, "Carp" = 50, "Mega Carp" = 10, "Kraken" = 3)
 	var/sanity = 1
