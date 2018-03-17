@@ -61,9 +61,10 @@
 			shot_delay = 6//Longer shot delay because JESUS CHRIST
 			check_records = 0//Don't actively target people set to arrest
 			arrest_type = 1//Don't even try to cuff
+			declare_arrests = 0 // Don't spam sec
 			bot_core.req_access = list(access_maint_tunnels, access_theatre, access_robotics)
 
-			if(created_name == "ED-209 Security Robot")
+			if(created_name == "ED-209 Security Robot" || !created_name)
 				if(lasercolor == "b")
 					name = pick("BLUE BALLER","SANIC","BLUE KILLDEATH MURDERBOT")
 				else if (lasercolor == "r")
@@ -240,21 +241,27 @@
 				back_to_idle()
 
 			if(target)		// make sure target exists
-				if(Adjacent(target) && isturf(target.loc) && !lasercolor) // if right next to perp and we're not playing laser tag
+				if(Adjacent(target) && isturf(target.loc)) // if right next to perp
 					stun_attack(target)
-
-					mode = BOT_PREP_ARREST
-					anchored = 1
-					target_lastloc = target.loc
-					return
+					if(!lasercolor)
+						mode = BOT_PREP_ARREST
+						anchored = 1
+						target_lastloc = target.loc
+						return
+					else
+						mode = BOT_HUNT
+						target = null
+						target_lastloc = null
+						return
 
 				else								// not next to perp
-					var/turf/olddist = get_dist(src, target)
-					walk_to(src, target,1,4)
-					if((get_dist(src, target)) >= (olddist))
-						frustration++
-					else
-						frustration = 0
+					if(!disabled)
+						var/turf/olddist = get_dist(src, target)
+						walk_to(src, target,1,4)
+						if((get_dist(src, target)) >= (olddist))
+							frustration++
+						else
+							frustration = 0
 			else
 				back_to_idle()
 
@@ -504,6 +511,7 @@
 		if(lasertag_check)
 			icon_state = "[lasercolor]ed2090"
 			disabled = 1
+			walk_to(src, 0)
 			target = null
 			spawn(100)
 				disabled = 0
