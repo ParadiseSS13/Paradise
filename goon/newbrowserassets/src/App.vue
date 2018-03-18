@@ -21,8 +21,8 @@
     />
     <ChatContent
        v-for="(tab, tabIdx) in tabs"
-       v-show="activeTabIdx === tabIdx"
        :key="tabIdx"
+       v-show="activeTabIdx === tabIdx"
        ref="chatContent"
        class="chatContent"
        :style="[style, chatContentStyle]"
@@ -31,17 +31,18 @@
        :filters="tab.filters"
        :active="activeTabIdx === tabIdx"
        :tabIdx="tabIdx"
-       :unread.sync="tab.unread"
+       :unread="tab.unread"
        :onUpdateTabUnread="updateTabUnread"
-       v-on:click.native="handleClick($event)"
-       v-on:mousedown.native="handleMousedown($event)"
-       v-on:mouseup.native="handleMouseup($event)"
+       @click.native="handleClick($event)"
+       @mousedown.native="handleMousedown($event)"
+       @mouseup.native="handleMouseup($event)"
     />
     <div
        v-if="noResponse"
        :style="style"
        class="connectionClosed internal"
-       :class="{restored: restored}">
+       :class="{restored: restored}"
+    >
       {{errorMessage}}
     </div>
     <FontSelect :onFontChange="changeFontFamily" :open.sync="fontSelectOpen" />

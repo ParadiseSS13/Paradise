@@ -55,8 +55,6 @@ export default function output(message, flag='') {
   }
 }
 
-// if (!window.attachEvent || window.addEventListener) {
-
 new Vue({
   data: {
     messages: messages,
