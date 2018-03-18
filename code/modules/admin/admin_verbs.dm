@@ -906,9 +906,9 @@ var/list/admin_verbs_ticket = list(
 	if(!check_rights(R_ADMIN))
 		return
 
-	prefs.toggles ^= CHAT_ATTACKLOGS
+	prefs.admintoggles ^= CHAT_ATTACKLOGS
 	prefs.save_preferences(src)
-	if(prefs.toggles & CHAT_ATTACKLOGS)
+	if(prefs.admintoggles & CHAT_ATTACKLOGS)
 		to_chat(usr, "You now will get attack log messages")
 	else
 		to_chat(usr, "You now won't get attack log messages")
@@ -920,9 +920,9 @@ var/list/admin_verbs_ticket = list(
 	if(!check_rights(R_ADMIN))
 		return
 
-	prefs.toggles ^= CHAT_NO_ADMINLOGS
+	prefs.admintoggles ^= CHAT_NO_ADMINLOGS
 	prefs.save_preferences(src)
-	if(prefs.toggles & CHAT_NO_ADMINLOGS)
+	if(prefs.admintoggles & CHAT_NO_ADMINLOGS)
 		to_chat(usr, "You now won't get admin log messages.")
 	else
 		to_chat(usr, "You now will get admin log messages.")
@@ -934,9 +934,9 @@ var/list/admin_verbs_ticket = list(
 	if(!check_rights(R_ADMIN))
 		return
 
-	prefs.toggles ^= CHAT_NO_TICKETLOGS
+	prefs.admintoggles ^= CHAT_NO_TICKETLOGS
 	prefs.save_preferences(src)
-	if(prefs.toggles & CHAT_NO_TICKETLOGS)
+	if(prefs.admintoggles & CHAT_NO_TICKETLOGS)
 		to_chat(usr, "You now won't get admin ticket messages.")
 	else
 		to_chat(usr, "You now will get admin ticket messages.")
@@ -959,9 +959,9 @@ var/list/admin_verbs_ticket = list(
 	if(!check_rights(R_DEBUG))
 		return
 
-	prefs.toggles ^= CHAT_DEBUGLOGS
+	prefs.admintoggles ^= CHAT_DEBUGLOGS
 	prefs.save_preferences(src)
-	if(prefs.toggles & CHAT_DEBUGLOGS)
+	if(prefs.admintoggles & CHAT_DEBUGLOGS)
 		to_chat(usr, "You now will get debug log messages")
 	else
 		to_chat(usr, "You now won't get debug log messages")

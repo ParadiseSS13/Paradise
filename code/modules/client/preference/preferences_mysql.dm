@@ -8,6 +8,7 @@
 					be_role,
 					default_slot,
 					toggles,
+					admintoggles,
 					sound,
 					randomslot,
 					volume,
@@ -38,22 +39,24 @@
 		be_special = params2list(query.item[5])
 		default_slot = text2num(query.item[6])
 		toggles = text2num(query.item[7])
-		sound = text2num(query.item[8])
-		randomslot = text2num(query.item[9])
-		volume = text2num(query.item[10])
-		nanoui_fancy = text2num(query.item[11])
-		show_ghostitem_attack = text2num(query.item[12])
-		lastchangelog = query.item[13]
-		windowflashing = text2num(query.item[14])
-		ghost_anonsay = text2num(query.item[15])
-		exp = query.item[16]
-		clientfps = text2num(query.item[17])
+		admintoggles = text2num(query.item[8])
+		sound = text2num(query.item[9])
+		randomslot = text2num(query.item[10])
+		volume = text2num(query.item[11])
+		nanoui_fancy = text2num(query.item[12])
+		show_ghostitem_attack = text2num(query.item[13])
+		lastchangelog = query.item[14]
+		windowflashing = text2num(query.item[15])
+		ghost_anonsay = text2num(query.item[16])
+		exp = query.item[17]
+		clientfps = text2num(query.item[18])
 
 	//Sanitize
 	ooccolor		= sanitize_hexcolor(ooccolor, initial(ooccolor))
 	UI_style		= sanitize_inlist(UI_style, list("White", "Midnight"), initial(UI_style))
 	default_slot	= sanitize_integer(default_slot, 1, max_save_slots, initial(default_slot))
 	toggles			= sanitize_integer(toggles, 0, 65535, initial(toggles))
+	admintoggles = sanitize_integer(admintoggles, 0, 65535, initial(admintoggles))
 	sound			= sanitize_integer(sound, 0, 65535, initial(sound))
 	UI_style_color	= sanitize_hexcolor(UI_style_color, initial(UI_style_color))
 	UI_style_alpha	= sanitize_integer(UI_style_alpha, 0, 255, initial(UI_style_alpha))
@@ -85,6 +88,7 @@
 					be_role='[sanitizeSQL(list2params(be_special))]',
 					default_slot='[default_slot]',
 					toggles='[toggles]',
+					admintoggles='[admintoggles]',
 					sound='[sound]',
 					randomslot='[randomslot]',
 					volume='[volume]',

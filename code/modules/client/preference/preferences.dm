@@ -90,6 +90,7 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 	var/UI_style = "Midnight"
 	var/nanoui_fancy = TRUE
 	var/toggles = TOGGLES_DEFAULT
+	var/admintoggles = TOGGLES_ADMIN_DEFAULT
 	var/sound = SOUND_DEFAULT
 	var/show_ghostitem_attack = TRUE
 	var/UI_style_color = "#ffffff"

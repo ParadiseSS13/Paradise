@@ -254,6 +254,7 @@ CREATE TABLE `SS13_player` (
   `be_role` mediumtext,
   `default_slot` smallint(4) DEFAULT '1',
   `toggles` mediumint(8) DEFAULT '383',
+  `admintoggles` mediumint(8) DEFAULT '0',
   `sound` mediumint(8) DEFAULT '31',
   `randomslot` tinyint(1) DEFAULT '0',
   `volume` smallint(4) DEFAULT '100',

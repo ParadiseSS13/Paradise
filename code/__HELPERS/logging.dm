@@ -30,7 +30,7 @@
 		diary << "\[[time_stamp()]]DEBUG: [text]"
 
 	for(var/client/C in admins)
-		if(check_rights(R_DEBUG, 0, C.mob) && (C.prefs.toggles & CHAT_DEBUGLOGS))
+		if(check_rights(R_DEBUG, 0, C.mob) && (C.prefs.admintoggles & CHAT_DEBUGLOGS))
 			to_chat(C, "DEBUG: [text]")
 
 
@@ -49,7 +49,7 @@
 /proc/log_say(text)
 	if(config.log_say)
 		diary << "\[[time_stamp()]]SAY: [text]"
-		
+
 /proc/log_robot(text)
 	if(config.log_say)
 		diary << "\[[time_stamp()]]ROBOT: [text]"
