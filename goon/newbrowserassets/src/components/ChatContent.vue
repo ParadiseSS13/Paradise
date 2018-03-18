@@ -73,9 +73,8 @@ export default {
       return (document.documentElement.clientHeight + scrollTop >= element.offsetHeight - scrollSnapTolerance);
     },
     snapToBottom: function() {
-      this.scrollTo(this.$el.offsetHeight);
+      this.$nextTick(this.scrollTo(this.$el.offsetHeight));
       this.newMessages = 0;
-      console.log(`${this.tabIdx} 0`);
       this.onUpdateTabUnread(this.tabIdx, 0);
     },
     scrollUp: function(distance) {
@@ -94,8 +93,6 @@ export default {
     },
     onNewMessage: function() {
       if (!this.active) {
-        console.log(this.unread);
-        console.log(this.unread + 1);
         this.onUpdateTabUnread(this.tabIdx, this.unread + 1);
       }
     },
