@@ -1,22 +1,22 @@
 var/list/chatResources = list(
-	"goon/browserassets_ie8/js/jquery.min.js",
-	"goon/browserassets_ie8/js/jquery.mark.min.js",
-	"goon/browserassets_ie8/js/json2.min.js",
-	"goon/browserassets_ie8/js/twemoji.min.js",
-	"goon/browserassets_ie8/js/browserOutput.js",
-	"goon/browserassets_ie8/css/fonts/fontawesome-webfont.eot",
-	"goon/browserassets_ie8/css/fonts/fontawesome-webfont.svg",
-	"goon/browserassets_ie8/css/fonts/fontawesome-webfont.ttf",
-	"goon/browserassets_ie8/css/fonts/fontawesome-webfont.woff",
-	"goon/browserassets_ie8/css/fonts/PxPlus_IBM_MDA.ttf",
-	"goon/browserassets_ie8/css/font-awesome.css",
-	"goon/browserassets_ie8/css/browserOutput.css",
+	"goon/browserassets/js/jquery.min.js",
+	"goon/browserassets/js/jquery.mark.min.js",
+	"goon/browserassets/js/json2.min.js",
+	"goon/browserassets/js/twemoji.min.js",
+	"goon/browserassets/js/browserOutput.js",
+	"goon/browserassets/css/fonts/fontawesome-webfont.eot",
+	"goon/browserassets/css/fonts/fontawesome-webfont.svg",
+	"goon/browserassets/css/fonts/fontawesome-webfont.ttf",
+	"goon/browserassets/css/fonts/fontawesome-webfont.woff",
+	"goon/browserassets/css/fonts/PxPlus_IBM_MDA.ttf",
+	"goon/browserassets/css/font-awesome.css",
+	"goon/browserassets/css/browserOutput.css",
 	"goon/browserassets/css/browserOutput-dark.css",
-	"goon/browserassets_ie8/json/unicode_9_annotations.json",
-	"goon/browserassets_ie8/html/saveInstructions.html",
-	"goon/browserassets/dist/app.js",
-	"goon/browserassets/dist/manifest.js",
-	"goon/browserassets/dist/vendor.js",
+	"goon/browserassets/json/unicode_9_annotations.json",
+	"goon/browserassets/html/saveInstructions.html",
+	"goon/newbrowserassets/dist/app.js",
+	"goon/newbrowserassets/dist/manifest.js",
+	"goon/newbrowserassets/dist/vendor.js",
 )
 
 //Should match the value set in the browser js
@@ -73,7 +73,7 @@ var/list/chatResources = list(
 			owner << browse_rsc(file(asset))
 
 		for(var/subattempts in 1 to 3)
-			owner << browse(file2text("goon/browserassets/dist/index.html"), "window=browseroutput")
+			owner << browse(file2text("goon/newbrowserassets/dist/index.html"), "window=browseroutput")
 			sleep(10 SECONDS)
 			if(!owner || loaded)
 				return
@@ -135,7 +135,7 @@ var/list/chatResources = list(
 	C << output("[data]", "[window]:ehjaxCallback")
 
 /datum/chatOutput/proc/loadAdmin()
-	var/data = json_encode(list("loadAdminCode" = replacetext(replacetext(file2text("goon/browserassets_ie8/html/adminOutput.html"), "\n", ""), "\t", "")))
+	var/data = json_encode(list("loadAdminCode" = replacetext(replacetext(file2text("goon/browserassets/html/adminOutput.html"), "\n", ""), "\t", "")))
 	ehjax_send(data = url_encode(data))
 
 /datum/chatOutput/proc/sendClientData()
