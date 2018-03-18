@@ -1,6 +1,6 @@
 <template>
-  <div>
-    <span v-show="filters[messageType]" ref="messageContent" v-html="processed" />
+  <div v-show="filters[messageType]">
+    <span ref="messageContent" v-html="processed" />
     <span
        v-if="shouldCondenseChat && message.count > 1"
        class="repeatBadge"
