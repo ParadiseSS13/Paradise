@@ -499,3 +499,179 @@
 	area_whitelist = list()
 	turf_whitelist = list()
 	lifetime = 2000
+
+/datum/mob_hunt/feweh
+	mob_name = "Feweh"
+	run_chance = 10
+	min_level = 5
+	max_level = 20
+	primary_type = TYPE_FLYING
+	secondary_type = TYPE_WATER
+	icon_state_normal = "feweh"
+	icon_state_shiny = "feweh"
+	lifetime = 9001
+
+/datum/mob_hunt/furweh
+	mob_name = "Furweh"
+	run_chance = 10
+	min_level = 5
+	max_level = 20
+	primary_type = TYPE_FLYING
+	secondary_type = TYPE_WATER
+	icon_state_normal = "feweh"
+	icon_state_shiny = "feweh"
+	lifetime = 9001
+
+/datum/mob_hunt/farweh
+	mob_name = "Farweh"
+	run_chance = 10
+	min_level = 5
+	max_level = 20
+	primary_type = TYPE_FLYING
+	secondary_type = TYPE_WATER
+	icon_state_normal = "feweh"
+	icon_state_shiny = "feweh"
+	lifetime = 9001
+
+/datum/mob_hunt/hewef
+	mob_name = "Hewef"
+	run_chance = 10
+	min_level = 5
+	max_level = 20
+	primary_type = TYPE_FLYING
+	secondary_type = TYPE_WATER
+	icon_state_normal = "feweh"
+	icon_state_shiny = "feweh"
+	lifetime = 9001
+
+/datum/mob_hunt/wefeh
+	mob_name = "Wefeh"
+	run_chance = 10
+	min_level = 5
+	max_level = 20
+	primary_type = TYPE_FLYING
+	secondary_type = TYPE_WATER
+	icon_state_normal = "feweh"
+	icon_state_shiny = "feweh"
+	lifetime = 9001
+
+/datum/mob_hunt/fewehr
+	mob_name = "Fewehr"
+	run_chance = 10
+	min_level = 5
+	max_level = 20
+	primary_type = TYPE_FLYING
+	secondary_type = TYPE_WATER
+	icon_state_normal = "feweh"
+	icon_state_shiny = "feweh"
+	lifetime = 9001
+
+/datum/mob_hunt/fehwer
+	mob_name = "Fehwer"
+	run_chance = 10
+	min_level = 5
+	max_level = 20
+	primary_type = TYPE_FLYING
+	secondary_type = TYPE_WATER
+	icon_state_normal = "feweh"
+	icon_state_shiny = "feweh"
+	lifetime = 9001
+
+/datum/mob_hunt/feweeb
+	mob_name = "Feweeb"
+	run_chance = 10
+	min_level = 5
+	max_level = 20
+	primary_type = TYPE_FLYING
+	secondary_type = TYPE_WATER
+	icon_state_normal = "feweh"
+	icon_state_shiny = "feweh"
+	lifetime = 9001
+
+/datum/mob_hunt/hewfeh
+	mob_name = "Hewfeh"
+	run_chance = 10
+	min_level = 5
+	max_level = 20
+	primary_type = TYPE_FLYING
+	secondary_type = TYPE_WATER
+	icon_state_normal = "feweh"
+	icon_state_shiny = "feweh"
+	lifetime = 9001
+
+/datum/mob_hunt/wefheh
+	mob_name = "Wefheh"
+	run_chance = 10
+	min_level = 5
+	max_level = 20
+	primary_type = TYPE_FLYING
+	secondary_type = TYPE_WATER
+	icon_state_normal = "feweh"
+	icon_state_shiny = "feweh"
+	lifetime = 9001
+
+/datum/mob_hunt/fewagghh
+	mob_name = "Fewagghh"
+	run_chance = 10
+	min_level = 5
+	max_level = 20
+	primary_type = TYPE_FLYING
+	secondary_type = TYPE_WATER
+	icon_state_normal = "feweh"
+	icon_state_shiny = "feweh"
+	lifetime = 9001
+
+/datum/mob_hunt/fewere
+	mob_name = "Fewere"
+	run_chance = 10
+	min_level = 5
+	max_level = 20
+	primary_type = TYPE_FLYING
+	secondary_type = TYPE_WATER
+	icon_state_normal = "feweh"
+	icon_state_shiny = "feweh"
+	lifetime = 9001
+
+/datum/mob_hunt/ferweh
+	mob_name = "Ferweh"
+	run_chance = 10
+	min_level = 5
+	max_level = 20
+	primary_type = TYPE_FLYING
+	secondary_type = TYPE_WATER
+	icon_state_normal = "feweh"
+	icon_state_shiny = "feweh"
+	lifetime = 9001
+
+/datum/mob_hunt/fewoh
+	mob_name = "Fewoh"
+	run_chance = 10
+	min_level = 5
+	max_level = 20
+	primary_type = TYPE_FLYING
+	secondary_type = TYPE_WATER
+	icon_state_normal = "feweh"
+	icon_state_shiny = "feweh"
+	lifetime = 9001
+
+/datum/mob_hunt/fawah
+	mob_name = "Fawah"
+	run_chance = 10
+	min_level = 5
+	max_level = 20
+	primary_type = TYPE_FLYING
+	secondary_type = TYPE_WATER
+	icon_state_normal = "feweh"
+	icon_state_shiny = "feweh"
+	lifetime = 9001
+
+/datum/mob_hunt/feweh2
+	mob_name = "FEWEH"
+	run_chance = 10
+	min_level = 5
+	max_level = 20
+	primary_type = TYPE_FLYING
+	secondary_type = TYPE_WATER
+	icon_state_normal = "feweh"
+	icon_state_shiny = "feweh"
+	lifetime = 9001
