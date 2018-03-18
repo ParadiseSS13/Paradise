@@ -5,3 +5,8 @@
 #define CAT_FOOD	"Food"
 #define CAT_MISC	"Misc"
 #define CAT_PRIMAL  "Tribal"
+
+#define RECIPE_MICROWAVE	"Microwave"
+#define RECIPE_OVEN			"Oven"
+#define RECIPE_GRILL		"Grill"
+#define RECIPE_CANDY		"Candy"

@@ -16,10 +16,7 @@
 	var/list/cook_verbs = list("Cooking")
 	//Recipe & Item vars
 	var/recipe_type		//Make sure to set this on the machine definition, or else you're gonna runtime on New()
-	var/list/datum/recipe/available_recipes // List of the recipes you can use
-	var/list/acceptable_items // List of the items you can put in
-	var/list/acceptable_reagents // List of the reagents you can put in
-	var/max_n_of_items = 0
+	var/max_n_of_items = 25
 	//Icon states
 	var/off_icon
 	var/on_icon
@@ -34,23 +31,24 @@
 /obj/machinery/kitchen_machine/New()
 	create_reagents(100)
 	reagents.set_reacting(FALSE)
-	if(!available_recipes)
-		available_recipes = new
-		acceptable_items = new
-		acceptable_reagents = new
-		for(var/type in subtypesof(recipe_type))
-			var/datum/recipe/recipe = new type
-			if(recipe.result) // Ignore recipe subtypes that lack a result
-				available_recipes += recipe
-				for(var/item in recipe.items)
-					acceptable_items |= item
-				for(var/reagent in recipe.reagents)
-					acceptable_reagents |= reagent
-				if(recipe.items)
-					max_n_of_items = max(max_n_of_items,recipe.count_n_items())
-			else
-				qdel(recipe)
-		acceptable_items |= /obj/item/weapon/reagent_containers/food/snacks/grown
+	if(!cooking_recipes[recipe_type])
+		cooking_recipes[recipe_type] = list()
+		cooking_ingredients[recipe_type] = list()
+		cooking_reagents[recipe_type] = list()
+	for(var/type in subtypesof(cooking_recipe_types[recipe_type]))
+		var/datum/recipe/recipe = new type
+		if(recipe in cooking_recipes[recipe_type])
+			qdel(recipe)
+			continue
+		if(recipe.result) // Ignore recipe subtypes that lack a result
+			cooking_recipes[recipe_type] += recipe
+			for(var/item in recipe.items)
+				cooking_ingredients[recipe_type] |= item
+			for(var/reagent in recipe.reagents)
+				cooking_reagents[recipe_type] |= reagent
+		else
+			qdel(recipe)
+	cooking_ingredients[recipe_type] |= /obj/item/weapon/reagent_containers/food/snacks/grown
 
 /*******************
 *   Item Adding
@@ -124,7 +122,7 @@
 		else //Otherwise bad luck!!
 			to_chat(user, "<span class='alert'>It's dirty!</span>")
 			return 1
-	else if(is_type_in_list(O,acceptable_items))
+	else if(is_type_in_list(O, cooking_ingredients[recipe_type]))
 		if(contents.len>=max_n_of_items)
 			to_chat(user, "<span class='alert'>This [src] is full of ingredients, you cannot put more.</span>")
 			return 1
@@ -150,7 +148,7 @@
 		if(!O.reagents)
 			return 1
 		for(var/datum/reagent/R in O.reagents.reagent_list)
-			if(!(R.id in acceptable_reagents))
+			if(!(R.id in cooking_reagents[recipe_type]))
 				to_chat(user, "<span class='alert'>Your [O] contains components unsuitable for cookery.</span>")
 				return 1
 		//G.reagents.trans_to(src,G.amount_per_transfer_from_this)
@@ -259,7 +257,7 @@
 		stop()
 		return
 
-	var/datum/recipe/recipe = select_recipe(available_recipes,src)
+	var/datum/recipe/recipe = select_recipe(cooking_recipes[recipe_type], src)
 	var/obj/cooked
 	var/obj/byproduct
 	if(!recipe)

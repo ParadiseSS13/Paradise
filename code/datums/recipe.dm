@@ -95,16 +95,16 @@
 	container.reagents.clear_reagents()
 	return result_obj
 
-/proc/select_recipe(list/datum/recipe/avaiable_recipes, obj/obj, exact = 1 as num)
+/proc/select_recipe(list/datum/recipe/available_recipes, obj/obj, exact = 1 as num)
 	if(!exact)
 		exact = -1
 	var/list/datum/recipe/possible_recipes = new
-	for(var/datum/recipe/recipe in avaiable_recipes)
-		if(recipe.check_reagents(obj.reagents)==exact && recipe.check_items(obj)==exact)
-			possible_recipes+=recipe
-	if(possible_recipes.len==0)
+	for(var/datum/recipe/recipe in available_recipes)
+		if(recipe.check_reagents(obj.reagents) == exact && recipe.check_items(obj) == exact)
+			possible_recipes += recipe
+	if(possible_recipes.len == 0)
 		return null
-	else if(possible_recipes.len==1)
+	else if(possible_recipes.len == 1)
 		return possible_recipes[1]
 	else //okay, let's select the most complicated recipe
 		var/r_count = 0

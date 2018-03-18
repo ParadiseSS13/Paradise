@@ -5,7 +5,7 @@
 	icon = 'icons/obj/kitchen.dmi'
 	icon_state = "mw"
 	cook_verbs = list("Microwaving", "Reheating", "Heating")
-	recipe_type = /datum/recipe/microwave
+	recipe_type = RECIPE_MICROWAVE
 	off_icon = "mw"
 	on_icon = "mw1"
 	broken_icon = "mwb"

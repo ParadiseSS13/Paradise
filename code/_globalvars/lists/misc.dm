@@ -30,3 +30,13 @@ var/list/round_end_sounds = list( // Maps available round end sounds to their du
 		'sound/goonstation/misc/newround1.ogg' = 6.9 SECONDS,
 		'sound/goonstation/misc/newround2.ogg' = 14.8 SECONDS
 		)
+
+var/list/cooking_recipe_types = list(
+	RECIPE_MICROWAVE = /datum/recipe/microwave,
+	RECIPE_OVEN = /datum/recipe/oven,
+	RECIPE_GRILL = /datum/recipe/grill,
+	RECIPE_CANDY = /datum/recipe/candy
+	)
+var/list/cooking_recipes = list(RECIPE_MICROWAVE = list(), RECIPE_OVEN = list(), RECIPE_GRILL = list(), RECIPE_CANDY = list())
+var/list/cooking_ingredients = list(RECIPE_MICROWAVE = list(), RECIPE_OVEN = list(), RECIPE_GRILL = list(), RECIPE_CANDY = list())
+var/list/cooking_reagents = list(RECIPE_MICROWAVE = list(), RECIPE_OVEN = list(), RECIPE_GRILL = list(), RECIPE_CANDY = list())
