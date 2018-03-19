@@ -813,7 +813,6 @@
 	unarmed_type = /datum/unarmed_attack/diona
 	//primitive_form = "Nymph"
 	slowdown = 5
-	hunger_drain = 0.4
 	remains_type = /obj/effect/decal/cleanable/ash
 
 
@@ -890,15 +889,11 @@
 
 	return ..()
 
-/datum/species/diona/water_act(var/mob/living/carbon/C, volume, temperature, source)
-	..()
-	C.nutrition = min(C.nutrition + volume, NUTRITION_LEVEL_WELL_FED + 10)
-
 /datum/species/diona/handle_life(var/mob/living/carbon/human/H)
 	H.radiation = Clamp(H.radiation, 0, 100) //We have to clamp this first, then decrease it, or there's a few edge cases of massive heals if we clamp and decrease at the same time.
 	var/rads = H.radiation / 25
-	H.radiation = max(H.radiation - rads, 0)
-	H.nutrition = min(H.nutrition + rads, NUTRITION_LEVEL_WELL_FED + 10)
+	H.radiation = max(H.radiation-rads, 0)
+	H.nutrition = min(H.nutrition+rads, NUTRITION_LEVEL_WELL_FED+10)
 	H.adjustBruteLoss(-(rads))
 	H.adjustToxLoss(-(rads))
 
@@ -906,18 +901,19 @@
 	if(isturf(H.loc)) //else, there's considered to be no light
 		var/turf/T = H.loc
 		light_amount = min(T.get_lumcount() * 10, 5)  //hardcapped so it's not abused by having a ton of flashlights
+	H.nutrition = min(H.nutrition+light_amount, NUTRITION_LEVEL_WELL_FED+10)
 
 	if(light_amount > 0)
 		H.clear_alert("nolight")
 	else
 		H.throw_alert("nolight", /obj/screen/alert/nolight)
-		H.nutrition -= 20
 
-	if((light_amount >= 5 && H.nutrition >= NUTRITION_LEVEL_FED) && !H.suiciding) //if there's enough light, heal
-		H.adjustBruteLoss(-(light_amount / 2))
-		H.adjustFireLoss(-(light_amount / 4))
-	if(H.nutrition < NUTRITION_LEVEL_STARVING + 50)
-		H.take_overall_damage(10, 0)
+	if((light_amount >= 5) && !H.suiciding) //if there's enough light, heal
+
+		H.adjustBruteLoss(-(light_amount/2))
+		H.adjustFireLoss(-(light_amount/4))
+	if(H.nutrition < NUTRITION_LEVEL_STARVING+50)
+		H.take_overall_damage(10,0)
 	..()
 
 /datum/species/machine
