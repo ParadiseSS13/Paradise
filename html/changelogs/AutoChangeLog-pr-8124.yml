@@ -1,0 +1,7 @@
+author: "Fethas"
+delete-after: True
+changes: 
+  - rscadd: "Bedsheets can contribute to dream messages."
+  - rscadd: "sometimes dreams will be nightmares."
+  - tweak: "Moves dream/nightmare strings to txt files.
+rscadd:sleeping has a small change to heal brute/fire. but you need a bed..and a bed sheet to be effective."
