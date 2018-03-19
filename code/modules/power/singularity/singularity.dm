@@ -1,6 +1,6 @@
 /obj/singularity
 	name = "gravitational singularity"
-	desc = "A gravitational singularity."
+	desc = "Consideration of black holes suggests, not only that God does play dice, but that he sometimes confuses us by throwing them where they can't be seen."
 	icon = 'icons/obj/singularity.dmi'
 	icon_state = "singularity_s1"
 	anchored = 1
@@ -272,7 +272,7 @@
 	src.energy += gain
 	if(istype(A, /obj/machinery/power/supermatter_shard) && !consumedSupermatter)
 		desc = "[initial(desc)] It glows fiercely with inner fire."
-		name = "supermatter-charged [initial(name)]"
+		name = "Hawking-level [initial(name)]"
 		consumedSupermatter = 1
 		light_range = 10
 	return
