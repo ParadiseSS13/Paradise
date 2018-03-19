@@ -366,6 +366,16 @@ var/list/uplink_items = list()
 	item = /obj/item/weapon/gun/projectile/revolver
 	cost = 13
 	surplus = 50
+	excludefrom = list(/datum/game_mode/nuclear)
+
+/datum/uplink_item/dangerous/revolvernukie
+	name = "Syndicate .357 Revolver"
+	reference = "SRN"
+	desc = "A brutally simple syndicate revolver that fires .357 Magnum cartridges and has 7 chambers."
+	item = /obj/item/weapon/gun/projectile/revolver
+	cost = 7
+	surplus = 0
+	gamemodes = list(/datum/game_mode/nuclear)
 
 /datum/uplink_item/dangerous/smg
 	name = "C-20r Submachine Gun"
