@@ -1,0 +1,4 @@
+author: "IK3I"
+delete-after: True
+changes: 
+  - bugfix: "Lord Singuloth's wrath can no longer be bypassed by baking your input device."
