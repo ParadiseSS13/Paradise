@@ -1,0 +1,4 @@
+author: "Shazbot"
+delete-after: True
+changes: 
+  - rscadd: "Adds an ammo counter to the icon and the in hand icon for the M90-gl"
