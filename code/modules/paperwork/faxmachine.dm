@@ -30,9 +30,12 @@ var/list/alldepartments = list()
 /obj/machinery/photocopier/faxmachine/New()
 	..()
 	allfaxes += src
+	update_network()
 
-	if( !(("[department]" in alldepartments) || ("[department]" in admin_departments)) )
-		alldepartments |= department
+/obj/machinery/photocopier/faxmachine/proc/update_network()
+	if(department != "Unknown")
+		if( !(("[department]" in alldepartments) || ("[department]" in admin_departments) || ("[department]" in hidden_admin_departments)) )
+			alldepartments |= department
 
 /obj/machinery/photocopier/faxmachine/longrange
 	name = "long range fax machine"
