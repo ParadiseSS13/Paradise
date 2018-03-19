@@ -95,16 +95,16 @@
 /datum/action/innate/tail_lash/Activate()
 	var/mob/living/carbon/human/user = owner
 	if(!user.restrained() || !user.buckled)
-		to_chat(user, "You need freedom of movment to tail lash!")
+		to_chat(user, "<span class='warning'>You need freedom of movment to tail lash!</span>")
 		return
 	if(user.getStaminaLoss() >= 50)
-		to_chat(user, "Rest before tail lashing again!")
+		to_chat(user, "<span class='warning'>Rest before tail lashing again!</span>")
 		return
 	for(var/mob/living/carbon/human/C in orange(1))
 		var/obj/item/organ/external/E = C.get_organ(pick("l_leg", "r_leg", "l_foot", "r_foot", "groin"))
 		if(E)
 			user.changeNext_move(CLICK_CD_MELEE)
-			user.visible_message("<span class='danger'> [src] smacks [C] in [E] with thier tail! </span>", "<span class='danger'>You hit [C] in [E] with your tail! </span>")
+			user.visible_message("<span class='danger'> [src] smacks [C] in [E] with their tail! </span>", "<span class='danger'>You hit [C] in [E] with your tail!</span>")
 			user.adjustStaminaLoss(15)
 			C.apply_damage(5, BRUTE, E)
 			user.spin(20, 1)
