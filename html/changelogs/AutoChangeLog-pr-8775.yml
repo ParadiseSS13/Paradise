@@ -1,4 +1,0 @@
-author: "Birdtalon"
-delete-after: True
-changes: 
-  - tweak: "re-adds the inline \"take\" shortcut for adminhelps"
