@@ -224,3 +224,10 @@
 	display_name = "pants, camo"
 	path = /obj/item/clothing/under/pants/camo
 
+/datum/gear/uniform/jumpsuit
+    subtype_path = /datum/gear/uniform/jumpsuit
+
+/datum/gear/uniform/jumpsuit/femininejumpsuit
+    display_name = "feminine jumpsuit, black"
+    path = /obj/item/clothing/under/color/blackf
+
