@@ -83,7 +83,6 @@
 
 
 /datum/species/unathi/handle_post_spawn(var/mob/living/carbon/human/H)
-
 	lash.Grant(H)
 	..()
 
@@ -95,7 +94,7 @@
 /datum/action/innate/tail_lash/Activate()
 	var/mob/living/carbon/human/user = owner
 	if(!user.restrained() || !user.buckled)
-		to_chat(user, "<span class='warning'>You need freedom of movment to tail lash!</span>")
+		to_chat(user, "<span class='warning'>You need freedom of movement to tail lash!</span>")
 		return
 	if(user.getStaminaLoss() >= 50)
 		to_chat(user, "<span class='warning'>Rest before tail lashing again!</span>")
@@ -104,7 +103,7 @@
 		var/obj/item/organ/external/E = C.get_organ(pick("l_leg", "r_leg", "l_foot", "r_foot", "groin"))
 		if(E)
 			user.changeNext_move(CLICK_CD_MELEE)
-			user.visible_message("<span class='danger'> [src] smacks [C] in [E] with their tail! </span>", "<span class='danger'>You hit [C] in [E] with your tail!</span>")
+			user.visible_message("<span class='danger'>[src] smacks [C] in [E] with their tail! </span>", "<span class='danger'>You hit [C] in [E] with your tail!</span>")
 			user.adjustStaminaLoss(15)
 			C.apply_damage(5, BRUTE, E)
 			user.spin(20, 1)
@@ -814,7 +813,7 @@
 	unarmed_type = /datum/unarmed_attack/diona
 	//primitive_form = "Nymph"
 	slowdown = 5
-	hunger_drain = 0.6
+	hunger_drain = 0.4
 	remains_type = /obj/effect/decal/cleanable/ash
 
 
@@ -893,13 +892,13 @@
 
 /datum/species/diona/water_act(var/mob/living/carbon/C, volume, temperature, source)
 	..()
-	C.nutrition = min(C.nutrition + volume, NUTRITION_LEVEL_WELL_FED+10)
+	C.nutrition = min(C.nutrition + volume, NUTRITION_LEVEL_WELL_FED + 10)
 
 /datum/species/diona/handle_life(var/mob/living/carbon/human/H)
 	H.radiation = Clamp(H.radiation, 0, 100) //We have to clamp this first, then decrease it, or there's a few edge cases of massive heals if we clamp and decrease at the same time.
 	var/rads = H.radiation / 25
 	H.radiation = max(H.radiation - rads, 0)
-	H.nutrition = min(H.nutrition + rads, NUTRITION_LEVEL_WELL_FED+10)
+	H.nutrition = min(H.nutrition + rads, NUTRITION_LEVEL_WELL_FED + 10)
 	H.adjustBruteLoss(-(rads))
 	H.adjustToxLoss(-(rads))
 
@@ -914,11 +913,11 @@
 		H.throw_alert("nolight", /obj/screen/alert/nolight)
 		H.nutrition -= 20
 
-	if((light_amount >= 5 && H.nutrition >= NUTRITION_LEVEL_FED ) && !H.suiciding) //if there's enough light, heal
-		H.adjustBruteLoss(-(light_amount/2))
-		H.adjustFireLoss(-(light_amount/4))
-	if(H.nutrition < NUTRITION_LEVEL_STARVING+50)
-		H.take_overall_damage(10,0)
+	if((light_amount >= 5 && H.nutrition >= NUTRITION_LEVEL_FED) && !H.suiciding) //if there's enough light, heal
+		H.adjustBruteLoss(-(light_amount / 2))
+		H.adjustFireLoss(-(light_amount / 4))
+	if(H.nutrition < NUTRITION_LEVEL_STARVING + 50)
+		H.take_overall_damage(10, 0)
 	..()
 
 /datum/species/machine
