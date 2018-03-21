@@ -363,7 +363,7 @@
 		var/mob/living/carbon/human/H = target
 		H.visible_message("<span class='warning'>[H]'s skin suddenly bubbles and shifts around their body!</span>", \
 							 "<span class='shadowling'>You regenerate your protective armor and cleanse your form of defects.</span>")
-		H.adjustCloneLoss(target.getCloneLoss())
+		H.adjustCloneLoss(-target.getCloneLoss())
 		H.equip_to_slot_or_del(new /obj/item/clothing/under/shadowling(H), slot_w_uniform)
 		H.equip_to_slot_or_del(new /obj/item/clothing/shoes/shadowling(H), slot_shoes)
 		H.equip_to_slot_or_del(new /obj/item/clothing/suit/space/shadowling(H), slot_wear_suit)
@@ -473,7 +473,7 @@
 		B.reagents.clear_reagents() //Just in case!
 		B.icon_state = null //Invisible
 		B.reagents.add_reagent("blindness_smoke", 10)
-		var/datum/effect/system/chem_smoke_spread/S = new /datum/effect/system/chem_smoke_spread
+		var/datum/effect_system/smoke_spread/chem/S = new
 		S.attach(B)
 		if(S)
 			S.set_up(B.reagents, 10, 0, B.loc)
@@ -535,7 +535,7 @@
 				to_chat(S, "<span class='warning'><b>ERROR $!(@ ERROR )#^! SENSORY OVERLOAD \[$(!@#</b></span>")
 				S << 'sound/misc/interference.ogg'
 				playsound(S, 'sound/machines/warning-buzzer.ogg', 50, 1)
-				var/datum/effect/system/spark_spread/sp = new /datum/effect/system/spark_spread
+				var/datum/effect_system/spark_spread/sp = new /datum/effect_system/spark_spread
 				sp.set_up(5, 1, S)
 				sp.start()
 				S.Weaken(6)

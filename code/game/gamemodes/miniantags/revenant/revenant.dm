@@ -53,6 +53,7 @@
 	var/perfectsouls = 0 //How many perfect, regen-cap increasing souls the revenant has.
 	var/image/ghostimage = null //Visible to ghost with darkness off
 
+
 /mob/living/simple_animal/revenant/Life()
 	..()
 	if(revealed && essence <= 0)
@@ -117,6 +118,7 @@
 	ghostimage = image(src.icon,src,src.icon_state)
 	ghost_darkness_images |= ghostimage
 	updateallghostimages()
+	remove_from_all_data_huds()
 
 	spawn(5)
 		if(src.mind)

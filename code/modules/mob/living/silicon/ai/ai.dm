@@ -226,6 +226,27 @@ var/list/ai_verbs_default = list(
 
 	job = "AI"
 
+/mob/living/silicon/ai/Stat()
+	..()
+	if(statpanel("Status"))
+		if(stat)
+			stat(null, text("Systems nonfunctional"))
+			return
+		show_borg_info()
+
+/mob/living/silicon/ai/proc/show_borg_info()
+	stat(null, text("Connected cyborgs: [connected_robots.len]"))
+	for(var/mob/living/silicon/robot/R in connected_robots)
+		var/robot_status = "Nominal"
+		if(R.stat || !R.client)
+			robot_status = "OFFLINE"
+		else if(!R.cell || R.cell.charge <= 0)
+			robot_status = "DEPOWERED"
+		// Name, Health, Battery, Module, Area, and Status! Everything an AI wants to know about its borgies!
+		var/area/A = get_area(R)
+		stat(null, text("[R.name] | S.Integrity: [R.health]% | Cell: [R.cell ? "[R.cell.charge] / [R.cell.maxcharge]" : "Empty"] | \
+		Module: [R.designation] | Loc: [sanitize(A.name)] | Status: [robot_status]"))
+
 /mob/living/silicon/ai/rename_character(oldname, newname)
 	if(!..(oldname, newname))
 		return FALSE
@@ -706,7 +727,19 @@ var/list/ai_verbs_default = list(
 		visible_message("<span class='danger'><B>[M]</B> [M.attacktext] [src]!")
 		add_logs(M, src, "attacked", admin=0, print_attack_log = 0)
 		var/damage = rand(M.melee_damage_lower, M.melee_damage_upper)
-		adjustBruteLoss(damage)
+		switch(M.melee_damage_type)
+			if(BRUTE)
+				adjustBruteLoss(damage)
+			if(BURN)
+				adjustFireLoss(damage)
+			if(TOX)
+				adjustToxLoss(damage)
+			if(OXY)
+				adjustOxyLoss(damage)
+			if(CLONE)
+				adjustCloneLoss(damage)
+			if(STAMINA)
+				adjustStaminaLoss(damage)
 		updatehealth()
 
 /mob/living/silicon/ai/reset_perspective(atom/A)

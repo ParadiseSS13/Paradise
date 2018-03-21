@@ -36,6 +36,8 @@
 		attempt_init()
 
 /atom/movable/Destroy()
+	if(loc)
+		loc.handle_atom_del(src)
 	for(var/atom/movable/AM in contents)
 		qdel(AM)
 	var/turf/un_opaque
@@ -359,3 +361,14 @@
 				dense_object_backup = AM
 				break
 	. = dense_object_backup
+
+/atom/movable/proc/transfer_prints_to(atom/movable/target = null, overwrite = FALSE)
+	if(!target)
+		return
+	if(overwrite)
+		target.fingerprints = fingerprints
+		target.fingerprintshidden = fingerprintshidden
+	else
+		target.fingerprints += fingerprints
+		target.fingerprintshidden += fingerprintshidden
+	target.fingerprintslast = fingerprintslast

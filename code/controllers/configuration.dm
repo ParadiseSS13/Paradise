@@ -68,6 +68,7 @@
 	var/assistantratio = 2 //how many assistants to security members
 
 	var/traitor_objectives_amount = 2
+	var/shadowling_max_age = 0
 
 	var/max_maint_drones = 5				//This many drones can spawn,
 	var/allow_drone_spawn = 1				//assuming the admin allow them to.
@@ -82,6 +83,7 @@
 	var/wikiurl = "http://example.org"
 	var/forumurl = "http://example.org"
 	var/rulesurl = "http://example.org"
+	var/githuburl = "http://example.org"
 	var/donationsurl = "http://example.org"
 	var/repositoryurl = "http://example.org"
 
@@ -259,6 +261,9 @@
 				if("jobs_have_minimal_access")
 					config.jobs_have_minimal_access = 1
 
+				if("shadowling_max_age")
+					config.shadowling_max_age = text2num(value)
+
 				if("log_ooc")
 					config.log_ooc = 1
 
@@ -366,6 +371,9 @@
 
 				if("rulesurl")
 					config.rulesurl = value
+
+				if("githuburl")
+					config.githuburl = value
 
 				if("donationsurl")
 					config.donationsurl = value

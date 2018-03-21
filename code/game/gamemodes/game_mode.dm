@@ -336,7 +336,8 @@
 /datum/game_mode/proc/get_living_heads()
 	. = list()
 	for(var/mob/living/carbon/human/player in mob_list)
-		if(player.stat != DEAD && player.mind && (player.mind.assigned_role in command_positions))
+		var/list/real_command_positions = command_positions.Copy() - "Nanotrasen Representative"
+		if(player.stat != DEAD && player.mind && (player.mind.assigned_role in real_command_positions))
 			. |= player.mind
 
 
@@ -346,7 +347,8 @@
 /datum/game_mode/proc/get_all_heads()
 	. = list()
 	for(var/mob/player in mob_list)
-		if(player.mind && (player.mind.assigned_role in command_positions))
+		var/list/real_command_positions = command_positions.Copy() - "Nanotrasen Representative"
+		if(player.mind && (player.mind.assigned_role in real_command_positions))
 			. |= player.mind
 
 //////////////////////////////////////////////

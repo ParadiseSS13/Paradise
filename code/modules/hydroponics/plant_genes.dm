@@ -402,7 +402,7 @@
 	name = "gaseous decomposition"
 
 /datum/plant_gene/trait/smoke/on_squash(obj/item/weapon/reagent_containers/food/snacks/grown/G, atom/target)
-	var/datum/effect/system/chem_smoke_spread/S = new
+	var/datum/effect_system/smoke_spread/chem/S = new
 	var/splat_location = get_turf(target)
 	var/smoke_amount = round(sqrt(G.seed.potency * 0.1), 1)
 	S.attach(splat_location)

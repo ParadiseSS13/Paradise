@@ -79,6 +79,7 @@ var/list/admin_verbs_admin = list(
 	/client/proc/reset_all_tcs,			/*resets all telecomms scripts*/
 	/client/proc/toggle_mentor_chat,
 	/client/proc/toggle_advanced_interaction, /*toggle admin ability to interact with not only machines, but also atoms such as buttons and doors*/
+	/client/proc/list_ssds,
 )
 var/list/admin_verbs_ban = list(
 	/client/proc/unban_panel,
@@ -107,6 +108,8 @@ var/list/admin_verbs_event = list(
 	/client/proc/toggle_random_events,
 	/client/proc/toggle_ert_calling,
 	/client/proc/cmd_admin_change_custom_event,
+	/client/proc/cmd_admin_custom_event_info,
+	/client/proc/cmd_view_custom_event_info,
 	/datum/admins/proc/access_news_network,	/*allows access of newscasters*/
 	/client/proc/cmd_admin_direct_narrate,	/*send text directly to a player with no padding. Useful for narratives and fluff-text*/
 	/client/proc/cmd_admin_world_narrate,	/*sends text to all players with no padding*/
@@ -168,9 +171,9 @@ var/list/admin_verbs_debug = list(
 	/client/proc/map_template_upload,
 	/client/proc/view_runtimes,
 	/client/proc/admin_serialize,
-	/client/proc/admin_deserialize,
 	/client/proc/jump_to_ruin,
-	/client/proc/toggle_medal_disable
+	/client/proc/toggle_medal_disable,
+	/client/proc/startadmintickets,
 	)
 var/list/admin_verbs_possess = list(
 	/proc/possess,
@@ -217,6 +220,12 @@ var/list/admin_verbs_snpc = list(
 	/client/proc/customiseSNPC,
 	/client/proc/hide_snpc_verbs
 )
+var/list/admin_verbs_ticket = list(
+	/client/proc/openTicketUI,
+	/client/proc/toggleticketlogs,
+	/client/proc/resolveAllTickets,
+	/client/proc/openUserUI
+)
 
 /client/proc/on_holder_add()
 	if(chatOutput && chatOutput.loaded)
@@ -229,6 +238,7 @@ var/list/admin_verbs_snpc = list(
 			verbs += /client/proc/togglebuildmodeself
 		if(holder.rights & R_ADMIN)
 			verbs += admin_verbs_admin
+			verbs += admin_verbs_ticket
 			spawn(1)
 				control_freak = 0
 		if(holder.rights & R_BAN)
@@ -279,7 +289,8 @@ var/list/admin_verbs_snpc = list(
 		admin_verbs_show_debug_verbs,
 		/client/proc/readmin,
 		admin_verbs_snpc,
-		/client/proc/hide_snpc_verbs
+		/client/proc/hide_snpc_verbs,
+		admin_verbs_ticket
 	)
 
 /client/proc/hide_verbs()
@@ -346,10 +357,12 @@ var/list/admin_verbs_snpc = list(
 		if(mob.invisibility == INVISIBILITY_OBSERVER)
 			mob.invisibility = initial(mob.invisibility)
 			to_chat(mob, "<span class='danger'>Invisimin off. Invisibility reset.</span>")
+			mob.add_to_all_human_data_huds()
 			//TODO: Make some kind of indication for the badmin that they are currently invisible
 		else
 			mob.invisibility = INVISIBILITY_OBSERVER
 			to_chat(mob, "<span class='notice'>Invisimin on. You are now as invisible as a ghost.</span>")
+			mob.remove_from_all_data_huds()
 
 /client/proc/player_panel()
 	set name = "Player Panel"
@@ -913,6 +926,20 @@ var/list/admin_verbs_snpc = list(
 		to_chat(usr, "You now won't get admin log messages.")
 	else
 		to_chat(usr, "You now will get admin log messages.")
+
+/client/proc/toggleticketlogs()
+	set name = "Toggle Admin Ticket Messgaes"
+	set category = "Preferences"
+
+	if(!check_rights(R_ADMIN))
+		return
+
+	prefs.toggles ^= CHAT_NO_TICKETLOGS
+	prefs.save_preferences(src)
+	if(prefs.toggles & CHAT_NO_TICKETLOGS)
+		to_chat(usr, "You now won't get admin ticket messages.")
+	else
+		to_chat(usr, "You now will get admin ticket messages.")
 
 /client/proc/toggledrones()
 	set name = "Toggle Maintenance Drones"

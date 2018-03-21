@@ -24,7 +24,7 @@
 	if(prob(75))
 		take_damage(obj_integrity, BRUTE)
 
-/obj/item/device/modular_computer/proc/take_damage(damage_amount, damage_type = BRUTE, damage_flag = 0, sound_effect = 1)
+/obj/item/device/modular_computer/take_damage(damage_amount, damage_type = BRUTE, damage_flag = 0, sound_effect = 1)
 	. = ..()
 	var/component_probability = min(50, max(damage_amount*0.1, 1 - obj_integrity/max_integrity))
 	switch(damage_flag)

@@ -28,13 +28,14 @@
 	processing_objects.Remove(src)
 	return ..()
 
-/obj/item/weapon/stock_parts/cell/on_varedit(modified_var)
-	if(modified_var == "self_recharge")
-		if(self_recharge)
-			processing_objects.Add(src)
-		else
-			processing_objects.Remove(src)
-	..()
+/obj/item/weapon/stock_parts/cell/vv_edit_var(var_name, var_value)
+	switch(var_name)
+		if("self_recharge")
+			if(var_value)
+				processing_objects.Add(src)
+			else
+				processing_objects.Remove(src)
+	. = ..()
 
 /obj/item/weapon/stock_parts/cell/suicide_act(mob/user)
 	to_chat(viewers(user), "<span class='suicide'>[user] is licking the electrodes of the [src.name]! It looks like \he's trying to commit suicide.</span>")
@@ -170,6 +171,7 @@
 	icon_state = "yellow slime extract"
 	materials = list()
 	self_recharge = 1 // Infused slime cores self-recharge, over time
+	chargerate = 500
 
 /obj/item/weapon/stock_parts/cell/pulse //200 pulse shots
 	name = "pulse rifle power cell"

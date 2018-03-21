@@ -204,17 +204,17 @@
 
 /obj/item/weapon/paper/proc/parsepencode(var/t, var/obj/item/weapon/pen/P, mob/user as mob)
 	t = pencode_to_html(t, usr, P, TRUE, TRUE, TRUE, deffont, signfont, crayonfont)
+	return t
 
-//Count the fields
+/obj/item/weapon/paper/proc/populatefields()
+		//Count the fields
 	var/laststart = 1
 	while(fields < MAX_PAPER_FIELDS)
-		var/i = findtext(t, "<span class=\"paper_field\">", laststart)
+		var/i = findtext(info, "<span class=\"paper_field\">", laststart)
 		if(i==0)
 			break
 		laststart = i+1
 		fields++
-
-	return t
 
 
 /obj/item/weapon/paper/proc/openhelp(mob/user as mob)
@@ -239,6 +239,7 @@
 		\[list\] - \[/list\] : A list.<br>
 		\[*\] : A dot used for lists.<br>
 		\[hr\] : Adds a horizontal rule.
+		\[time\] : Inserts the current station time in HH:MM:SS.<br>
 	</BODY></HTML>"}, "window=paper_help")
 
 /obj/item/weapon/paper/Topic(href, href_list)
@@ -279,7 +280,9 @@
 			addtofield(text2num(id), t) // He wants to edit a field, let him.
 		else
 			info += t // Oh, he wants to edit to the end of the file, let him.
-			updateinfolinks()
+
+		populatefields()
+		updateinfolinks()
 
 		i.on_write(src,usr)
 

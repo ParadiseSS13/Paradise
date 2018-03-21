@@ -191,7 +191,7 @@
 	icon_state = "snappop"
 
 /obj/item/projectile/clown/Bump(atom/A as mob|obj|turf|area)
-	var/datum/effect/system/spark_spread/s = new /datum/effect/system/spark_spread
+	var/datum/effect_system/spark_spread/s = new /datum/effect_system/spark_spread
 	s.set_up(3, 1, src)
 	s.start()
 	new /obj/effect/decal/cleanable/ash(loc)
@@ -203,9 +203,10 @@
 	name = "bluespace beam"
 	icon_state = "spark"
 	hitsound = "sparks"
-	damage = 3
+	damage = 0
 	var/obj/item/weapon/gun/energy/wormhole_projector/gun
 	color = "#33CCFF"
+	nodamage = TRUE
 
 /obj/item/projectile/beam/wormhole/orange
 	name = "orange bluespace beam"

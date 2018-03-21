@@ -61,7 +61,7 @@
 	if(usr)
 		if(usr.client)
 			if(usr.client.holder)
-				to_chat(M, "<b>old You hear a voice in your head... <i>[msg]</i></b>")
+				to_chat(M, "<b>You hear a voice in your head... <i>[msg]</i></b>")
 
 	log_admin("SubtlePM: [key_name(usr)] -> [key_name(M)] : [msg]")
 	message_admins("<span class='boldnotice'>SubtleMessage: [key_name_admin(usr)] -> [key_name_admin(M)] : [msg]</span>", 1)
@@ -410,7 +410,7 @@ Traitors and the like can also be revived with the previous role mostly intact.
 		if("Death Commando")//Leaves them at late-join spawn.
 			new_character.equip_death_commando()
 			new_character.internal = new_character.s_store
-			new_character.update_internals_hud_icon(1)
+			new_character.update_action_buttons_icon()
 		else//They may also be a cyborg or AI.
 			switch(new_character.mind.assigned_role)
 				if("Cyborg")//More rigging to make em' work and check if they're traitor.
@@ -576,9 +576,9 @@ Traitors and the like can also be revived with the previous role mostly intact.
 
 			command_announcement.Announce(input, customname, MsgSound[beepsound], , , type)
 			print_command_report(input, "[command_name()] Update")
-		else if("No")
+		if("No")
 			//same thing as the blob stuff - it's not public, so it's classified, dammit
-			command_announcement.Announce("A report has been downloaded and printed out at all communications consoles.", "Incoming Classified Message", 'sound/AI/commandreport.ogg', from = "[command_name()] Update")
+			command_announcer.autosay("A classified message has been printed out at all communication consoles.");
 			print_command_report(input, "Classified [command_name()] Update")
 		else
 			return
@@ -588,22 +588,30 @@ Traitors and the like can also be revived with the previous role mostly intact.
 	feedback_add_details("admin_verb","CCR") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
 
-/client/proc/cmd_admin_delete(atom/O as obj|mob|turf in view())
+/client/proc/cmd_admin_delete(atom/A as obj|mob|turf in view())
 	set category = "Admin"
 	set name = "Delete"
 
 	if(!check_rights(R_ADMIN))
 		return
 
-	if(alert(src, "Are you sure you want to delete:\n[O]\nat ([O.x], [O.y], [O.z])?", "Confirmation", "Yes", "No") == "Yes")
-		log_admin("[key_name(usr)] deleted [O] at ([O.x],[O.y],[O.z])")
-		message_admins("[key_name_admin(usr)] deleted [O] at ([O.x],[O.y],[O.z])", 1)
+	admin_delete(A)
+
+/client/proc/admin_delete(datum/D)
+	if(istype(D) && !D.can_vv_delete())
+		to_chat(src, "[D] rejected your deletion")
+		return
+	var/atom/A = D
+	var/coords = istype(A) ? "at ([A.x], [A.y], [A.z])" : ""
+	if(alert(src, "Are you sure you want to delete:\n[D]\n[coords]?", "Confirmation", "Yes", "No") == "Yes")
+		log_admin("[key_name(usr)] deleted [D][coords]")
+		message_admins("[key_name_admin(usr)] deleted [D][coords]", 1)
 		feedback_add_details("admin_verb","DEL") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
-		if(istype(O, /turf))
-			var/turf/T = O
+		if(isturf(D))
+			var/turf/T = D
 			T.ChangeTurf(/turf/space)
-			return
-		qdel(O)
+		else
+			qdel(D)
 
 /client/proc/cmd_admin_list_open_jobs()
 	set category = "Admin"
@@ -755,6 +763,11 @@ Traitors and the like can also be revived with the previous role mostly intact.
 	var/confirm = alert(src, "You sure?", "Confirm", "Yes", "No")
 	if(confirm != "Yes") return
 
+	if(alert("Set Shuttle Recallable (Select Yes unless you know what this does)", "Recallable?", "Yes", "No") == "Yes")
+		shuttle_master.emergency.canRecall = TRUE
+	else
+		shuttle_master.emergency.canRecall = FALSE
+
 	shuttle_master.emergency.request()
 
 	feedback_add_details("admin_verb","CSHUT") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
@@ -773,7 +786,18 @@ Traitors and the like can also be revived with the previous role mostly intact.
 	if(shuttle_master.emergency.mode >= SHUTTLE_DOCKED)
 		return
 
-	shuttle_master.emergency.cancel()
+	if(shuttle_master.emergency.canRecall == FALSE)
+		if(alert("Shuttle is currently set to be nonrecallable. Recalling may break things. Respect Recall Status?", "Override Recall Status?", "Yes", "No") == "Yes")
+			return
+		else
+			var/keepStatus = alert("Maintain recall status on future shuttle calls?", "Maintain Status?", "Yes", "No") == "Yes" //Keeps or drops recallability
+			shuttle_master.emergency.canRecall = TRUE // must be true for cancel proc to work
+			shuttle_master.emergency.cancel()
+			if(keepStatus)
+				shuttle_master.emergency.canRecall = FALSE // restores original status
+	else
+		shuttle_master.emergency.cancel()
+
 	feedback_add_details("admin_verb","CCSHUT") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 	log_admin("[key_name(usr)] admin-recalled the emergency shuttle.")
 	message_admins("<span class='adminnotice'>[key_name_admin(usr)] admin-recalled the emergency shuttle.</span>")
@@ -881,6 +905,48 @@ Traitors and the like can also be revived with the previous role mostly intact.
 	log_admin("[key_name(usr)] blanked all telecomms scripts.")
 	message_admins("[key_name_admin(usr)] blanked all telecomms scripts.")
 	feedback_add_details("admin_verb","RAT") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
+
+/client/proc/list_ssds()
+	set category = "Admin"
+	set name = "List SSDs"
+	set desc = "Lists SSD players"
+
+	if(!check_rights(R_ADMIN))
+		return
+
+	var/msg = "<html><head><title>SSD Report</title></head><body>"
+	msg += "SSD Players:<BR><TABLE border='1'>"
+	msg += "<TR><TD><B>Key</B></TD><TD><B>Real Name</B></TD><TD><B>Job</B></TD><TD><B>Mins SSD</B></TD><TD><B>Special Role</B></TD><TD><B>Area</B></TD><TD><B>PPN</B></TD><TD><B>Cryo</B></TD></TR>"
+	var/mins_ssd
+	var/job_string
+	var/key_string
+	var/role_string
+	for(var/mob/living/carbon/human/H in living_mob_list)
+		if(!isLivingSSD(H))
+			continue
+		mins_ssd = round((world.time - H.last_logout) / 600)
+		if(H.job)
+			job_string = H.job
+		else
+			job_string = "-"
+		key_string = H.key
+		if(job_string in command_positions)
+			job_string = "<U>" + job_string + "</U>"
+		role_string = "-"
+		if(H.mind)
+			if(H.mind.special_role)
+				role_string = "<U>[H.mind.special_role]</U>"
+			if(!H.key && H.mind.key)
+				key_string = H.mind.key
+		msg += "<TR><TD>[key_string]</TD><TD>[H.real_name]</TD><TD>[job_string]</TD><TD>[mins_ssd]</TD><TD>[role_string]</TD>"
+		msg += "<TD>[get_area(H)]</TD><TD><A HREF='?_src_=holder;adminplayeropts=\ref[H]'>PP</A></TD>"
+		if(istype(H.loc, /obj/machinery/cryopod))
+			msg += "<TD>In Cryo</TD>"
+		else
+			msg += "<TD><A href='?_src_=holder;cryossd=[H.UID()]'>Cryo</A></TD>"
+		msg += "</TR>"
+	msg += "</TABLE></BODY></HTML>"
+	src << browse(msg, "window=Player_ssd_check")
 
 /client/proc/toggle_ert_calling()
 	set category = "Event"

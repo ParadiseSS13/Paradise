@@ -50,6 +50,19 @@
 				rig.electrified = 30
 			rig.shock(usr,100)
 
+/datum/wires/rig/GetWireName(index)
+	switch(index)
+		if(RIG_SECURITY)
+			return "ID check"
+		if(RIG_AI_OVERRIDE)
+			return "AI control"
+		if(RIG_SYSTEM_CONTROL)
+			return "System control"
+		if(RIG_INTERFACE_LOCK)
+			return "Interface lock"
+		if(RIG_INTERFACE_SHOCK)
+			return "Electrification"
+
 /datum/wires/rig/CanUse(var/mob/living/L)
 	var/obj/item/weapon/rig/rig = holder
 	if(rig.open)

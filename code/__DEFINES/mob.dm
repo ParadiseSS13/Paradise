@@ -19,6 +19,8 @@
 #define LEFT 1
 #define RIGHT 2
 
+#define SPLINT_LIFE 2000 //number of steps splints stay on
+
 
 //Pulse levels, very simplified
 #define PULSE_NONE		0	//so !M.pulse checks would be possible
@@ -118,6 +120,7 @@
 
 #define TINT_IMPAIR 2			//Threshold of tint level to apply weld mask overlay
 #define TINT_BLIND 3			//Threshold of tint level to obscure vision fully
+#define EYE_SHINE_THRESHOLD 6	//dark_view threshold past which a humanoid's eyes will 'shine' in the dark.
 
 #define isliving(A)		(istype((A), /mob/living))
 #define iscarbon(A)		(istype((A), /mob/living/carbon))

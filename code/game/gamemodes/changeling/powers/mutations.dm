@@ -147,7 +147,7 @@
 		return
 	if(istype(target, /obj/structure/table))
 		var/obj/structure/table/T = target
-		T.destroy()
+		T.deconstruct(FALSE)
 
 	else if(istype(target, /obj/machinery/computer))
 		var/obj/machinery/computer/C = target
@@ -167,7 +167,7 @@
 			user.visible_message("<span class='warning'>[user] jams [src] into the airlock and starts prying it open!</span>", "<span class='warning'>We start forcing the airlock open.</span>", \
 			"<span class='italics'>You hear a metal screeching sound.</span>")
 			playsound(A, 'sound/machines/airlock_alien_prying.ogg', 150, 1)
-			if(!do_after(user, 150, target = A))
+			if(!do_after(user, 100, target = A))
 				return
 
 		//user.say("Heeeeeeeeeerrre's Johnny!")

@@ -43,6 +43,9 @@
 
 /obj/item/weapon/reagent_containers/food/drinks/MouseDrop(atom/over_object) //CHUG! CHUG! CHUG!
 	var/mob/living/carbon/chugger = over_object
+	if (!(flags & OPENCONTAINER))
+		to_chat(chugger, "<span class='notice'>You need to open [src] first!</span>")
+		return
 	if(istype(chugger) && loc == chugger && src == chugger.get_active_hand() && reagents.total_volume)
 		chugger.visible_message("<span class='notice'>[chugger] raises the [src] to their mouth and starts [pick("chugging","gulping")] it down like [pick("a savage","a mad beast","it's going out of style","there's no tomorrow")]!</span>", "<span class='notice'>You start chugging \the [src].</span>", "<span class='notice'>You hear what sounds like gulping.</span>")
 		while(do_mob(chugger, chugger, 40)) //Between the default time for do_mob and the time it takes for a vampire to suck blood.
@@ -350,3 +353,16 @@
 	icon = 'icons/obj/lavaland/ash_flora.dmi'
 	icon_state = "mushroom_bowl"
 	w_class = WEIGHT_CLASS_SMALL
+
+
+/obj/item/weapon/reagent_containers/food/drinks/bag
+	name = "Drink bag"
+	desc = "Normally put in wine boxes, or down pants at stadium events."
+	icon_state = "goonbag"
+	volume = 70
+
+/obj/item/weapon/reagent_containers/food/drinks/bag/goonbag
+	name = "Goon from a Blue Toolbox special edition"
+	desc = "Wine from the land down under, where the dingos roam and the roos do wander."
+	icon_state = "goonbag"
+	list_reagents = list("wine" = 70)

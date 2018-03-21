@@ -15,6 +15,7 @@
 	name = "Robotic Cavity Implant/Removal"
 	steps = list(/datum/surgery_step/robotics/external/unscrew_hatch,/datum/surgery_step/robotics/external/open_hatch,/datum/surgery_step/cavity/place_item,/datum/surgery_step/robotics/external/close_hatch)
 	possible_locs = list("chest","head","groin")
+	requires_organic_bodypart = 0
 
 /datum/surgery/cavity_implant/can_start(mob/user, mob/living/carbon/human/target)
 	if(!istype(target))
@@ -61,14 +62,14 @@
 	var/obj/item/organ/external/chest/affected = target.get_organ(target_zone)
 	user.visible_message("<span class='warning'> [user]'s hand slips, scraping around inside [target]'s [affected.name] with \the [tool]!</span>", \
 	"<span class='warning'> Your hand slips, scraping around inside [target]'s [affected.name] with \the [tool]!</span>")
-	affected.take_damage(20)
+	affected.receive_damage(20)
 
 /datum/surgery_step/cavity/make_space
 	name = "make cavity space"
 	allowed_tools = list(
 	/obj/item/weapon/surgicaldrill = 100,	\
-	/obj/item/weapon/pen = 75,	\
-	/obj/item/stack/rods = 50
+	/obj/item/weapon/pen = 90,	\
+	/obj/item/stack/rods = 60
 	)
 
 	time = 54
@@ -92,9 +93,9 @@
 	allowed_tools = list(
 	/obj/item/weapon/scalpel/laser = 100, \
 	/obj/item/weapon/cautery = 100,			\
-	/obj/item/clothing/mask/cigarette = 75,	\
-	/obj/item/weapon/lighter = 50,			\
-	/obj/item/weapon/weldingtool = 25
+	/obj/item/clothing/mask/cigarette = 90,	\
+	/obj/item/weapon/lighter = 60,			\
+	/obj/item/weapon/weldingtool = 30
 	)
 
 	time = 24

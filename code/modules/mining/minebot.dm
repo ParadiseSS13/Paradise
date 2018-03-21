@@ -37,7 +37,8 @@
 	speak_emote = list("states")
 	wanted_objects = list(/obj/item/weapon/ore/diamond, /obj/item/weapon/ore/gold, /obj/item/weapon/ore/silver,
 						  /obj/item/weapon/ore/plasma,  /obj/item/weapon/ore/uranium,    /obj/item/weapon/ore/iron,
-						  /obj/item/weapon/ore/bananium, /obj/item/weapon/ore/tranquillite, /obj/item/weapon/ore/glass)
+						  /obj/item/weapon/ore/bananium, /obj/item/weapon/ore/tranquillite, /obj/item/weapon/ore/glass,
+						  /obj/item/weapon/ore/titanium)
 	healable = 0
 	var/mode = MINEDRONE_COLLECT
 	var/light_on = 0
@@ -60,6 +61,11 @@
 	dump_ore_action.Grant(src)
 
 	SetCollectBehavior()
+
+/mob/living/simple_animal/hostile/mining_drone/emp_act(severity)
+	adjustHealth(100 / severity)
+	to_chat(src, "<span class='userdanger'>NOTICE: EMP detected, systems damaged!</span>")
+	visible_message("<span class='warning'>[src] crackles and buzzes violently!</span>")
 
 /mob/living/simple_animal/hostile/mining_drone/sentience_act()
 	AIStatus = AI_OFF

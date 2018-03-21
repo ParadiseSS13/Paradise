@@ -40,7 +40,7 @@
 	var/datum/global_iterator/pr_int_temp_processor //normalizes internal air mixture temperature
 	var/datum/global_iterator/pr_give_air //moves air from tank to cabin
 
-	var/datum/effect/system/ion_trail_follow/space_trail/ion_trail
+	var/datum/effect_system/trail_follow/ion/space_trail/ion_trail
 
 	var/hatch_open = 0
 
@@ -63,13 +63,18 @@
 									 "pod_black" = "#3B8FE5", \
 									 "pod_industrial" = "#CCCC00")
 
-	var/unlocked = 1
+	var/unlocked = TRUE
 
 	var/move_delay = 2
 	var/next_move = 0
+	var/can_paint = TRUE
 
 /obj/spacepod/proc/apply_paint(mob/user as mob)
 	var/part_type
+	if(!can_paint)
+		to_chat(user, "<span class='warning'>You can't repaint this type of pod!</span>")
+		return
+
 	var/part = input(user, "Choose part", null) as null|anything in list("Lights","Rim","Paint","Windows")
 	switch(part)
 		if("Lights")
@@ -106,7 +111,7 @@
 	battery = new battery_type(src)
 	add_cabin()
 	add_airtank()
-	src.ion_trail = new /datum/effect/system/ion_trail_follow/space_trail()
+	src.ion_trail = new /datum/effect_system/trail_follow/ion/space_trail()
 	src.ion_trail.set_up(src)
 	src.ion_trail.start()
 	src.use_internal_tank = 1
@@ -378,12 +383,17 @@
 					"<span class='notice'>You start drilling through the [src]'s lock!</span>")
 				if(do_after(user, 100 * W.toolspeed, target = src))
 					QDEL_NULL(equipment_system.lock_system)
+					unlocked = TRUE
 					user.visible_message(user, "<span class='warning'>[user] has destroyed the [src]'s lock!</span>",
 						"<span class='notice'>You destroy the [src]'s lock!</span>")
 				else
 					user.visible_message(user, "<span class='warning'>[user] fails to break through the [src]'s lock!</span>",
 					"<span class='notice'>You were unable to break through the [src]'s lock!</span>")
 				return
+			if(L.on && unlocked == FALSE) //The buster is on, we don't have a lock system, and the pod is still somehow locked, unlocking.
+				unlocked = TRUE
+				user.visible_message(user, "<span class='notice'>[user] repairs [src]'s doors with [L].</span>",
+					"<span class='notice'>You repair [src]'s doors with [L].</span>")
 			to_chat(user, "<span class='notice'>Turn the [L] on first.</span>")
 			return
 
@@ -545,6 +555,13 @@ obj/spacepod/proc/add_equipment(mob/user, var/obj/item/device/spacepod_equipment
 	icon_state = "pod_mil"
 	health = 400
 
+/obj/spacepod/syndi
+	name = "syndicate spacepod"
+	desc = "An armed spacepod painted in syndicate colors."
+	icon_state = "pod_synd"
+	health = 400
+	unlocked = FALSE
+
 /obj/spacepod/sec/New()
 	..()
 	var/obj/item/device/spacepod_equipment/weaponry/burst_taser/T = new /obj/item/device/spacepod_equipment/weaponry/taser
@@ -599,7 +616,7 @@ obj/spacepod/proc/add_equipment(mob/user, var/obj/item/device/spacepod_equipment
 		return
 
 	if(usr != src.pilot)
-		to_chat(usr, "<span class='notice'>You can't reach the controls from your chair")
+		to_chat(usr, "<span class='notice'>You can't reach the controls from your chair.</span>")
 		return
 	use_internal_tank = !use_internal_tank
 	to_chat(usr, "<span class='notice'>Now taking air from [use_internal_tank?"internal airtank":"environment"].</span>")
@@ -818,11 +835,15 @@ obj/spacepod/proc/add_equipment(mob/user, var/obj/item/device/spacepod_equipment
 		return
 
 	if(usr in passengers && usr != src.pilot)
-		to_chat(usr, "<span class='notice'>You can't reach the controls from your chair")
+		to_chat(usr, "<span class='notice'>You can't reach the controls from your chair.</span>")
 		return
 
-	unlocked = !unlocked
-	to_chat(usr, "<span class='warning'>You [unlocked ? "unlock" : "lock"] the doors.</span>")
+	if(!equipment_system.lock_system)
+		to_chat(usr, "<span class='warning'>[src] has no locking mechanism.</span>")
+		unlocked = TRUE //Should never be false without a lock, but if it somehow happens, that will force an unlock.
+	else
+		unlocked = !unlocked
+		to_chat(usr, "<span class='warning'>You [unlocked ? "unlock" : "lock"] the doors.</span>")
 
 
 /obj/spacepod/verb/toggleDoors()
@@ -834,7 +855,7 @@ obj/spacepod/proc/add_equipment(mob/user, var/obj/item/device/spacepod_equipment
 		return
 
 	if(usr != src.pilot)
-		to_chat(usr, "<span class='notice'>You can't reach the controls from your chair")
+		to_chat(usr, "<span class='notice'>You can't reach the controls from your chair</span>")
 		return
 
 	for(var/obj/machinery/door/poddoor/multi_tile/P in orange(3,src))
@@ -869,7 +890,7 @@ obj/spacepod/proc/add_equipment(mob/user, var/obj/item/device/spacepod_equipment
 		return
 
 	if(usr != src.pilot)
-		to_chat(usr, "<span class='notice'>You can't reach the controls from your chair")
+		to_chat(usr, "<span class='notice'>You can't reach the controls from your chair.</span>")
 		return
 	if(!equipment_system.weapon_system)
 		to_chat(usr, "<span class='warning'>[src] has no weapons!</span>")
@@ -886,7 +907,7 @@ obj/spacepod/proc/add_equipment(mob/user, var/obj/item/device/spacepod_equipment
 		return
 
 	if(usr != src.pilot)
-		to_chat(usr, "<span class='notice'>You can't reach the controls from your chair")
+		to_chat(usr, "<span class='notice'>You can't reach the controls from your chair.</span>")
 		return
 	if(!equipment_system.cargo_system)
 		to_chat(usr, "<span class='warning'>[src] has no cargo system!</span>")
@@ -902,7 +923,7 @@ obj/spacepod/proc/add_equipment(mob/user, var/obj/item/device/spacepod_equipment
 		return
 
 	if(usr != src.pilot)
-		to_chat(usr, "<span class='notice'>You can't reach the controls from your chair")
+		to_chat(usr, "<span class='notice'>You can't reach the controls from your chair.</span>")
 		return
 	lightsToggle()
 

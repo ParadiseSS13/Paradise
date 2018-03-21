@@ -31,17 +31,18 @@
 
 	var/area/A = get_area(src)
 	if(A)
-		var/image/alert_overlay = image('icons/effects/effects.dmi', "ghostalertsie")
+		var/image/alert_overlay = image('icons/effects/cult_effects.dmi', "ghostalertsie")
 		notify_ghosts("Nar-Sie has risen in \the [A.name]. Reach out to the Geometer to be given a new shell for your soul.", source = src, alert_overlay = alert_overlay, action=NOTIFY_ATTACK)
 
 	narsie_spawn_animation()
 
 	sleep(70)
 	shuttle_master.emergency.request(null, 0.3) // Cannot recall
+	shuttle_master.emergency.canRecall = FALSE
 
 /obj/singularity/narsie/large/attack_ghost(mob/dead/observer/user as mob)
 	makeNewConstruct(/mob/living/simple_animal/hostile/construct/harvester, user, null, 1)
-	new /obj/effect/effect/sleep_smoke(user.loc)
+	new /obj/effect/particle_effect/smoke/sleeping(user.loc)
 
 
 /obj/singularity/narsie/process()

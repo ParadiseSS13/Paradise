@@ -266,6 +266,13 @@
 	item_state = "cigpacket"
 	default_reagents = list("nicotine" = 15, "omnizine" = 15)
 
+/obj/item/weapon/storage/fancy/cigarettes/cigpack_med
+	name = "Medical Marijuana Packet"
+	desc = "A prescription packet containing six marijuana cigarettes."
+	icon_state = "medpacket"
+	item_state = "cigpacket"
+	default_reagents = list("thc" = 15)
+
 /obj/item/weapon/storage/fancy/cigarettes/cigpack_uplift
 	name = "\improper Uplift Smooth packet"
 	desc = "Your favorite brand, now menthol flavored."

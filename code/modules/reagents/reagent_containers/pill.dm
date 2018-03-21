@@ -54,13 +54,13 @@
 /obj/item/weapon/reagent_containers/food/pill/tox
 	name = "Toxins pill"
 	desc = "Highly toxic."
-	icon_state = "pill5"
+	icon_state = "pill21"
 	list_reagents = list("toxin" = 50)
 
 /obj/item/weapon/reagent_containers/food/pill/initropidril
 	name = "initropidril pill"
 	desc = "Don't swallow this."
-	icon_state = "pill5"
+	icon_state = "pill21"
 	list_reagents = list("initropidril" = 50)
 
 /obj/item/weapon/reagent_containers/food/pill/adminordrazine
@@ -110,3 +110,9 @@
 	desc = "Used to treat respiratory distress."
 	icon_state = "pill8"
 	list_reagents = list("salbutamol" = 20)
+
+/obj/item/weapon/reagent_containers/food/pill/hydrocodone
+	name = "Hydrocodone pill"
+	desc = "Used to treat extreme pain."
+	icon_state = "pill6"
+	list_reagents = list("hydrocodone" = 15)

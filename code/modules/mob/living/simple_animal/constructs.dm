@@ -67,7 +67,7 @@
 		if(health < maxHealth)
 			adjustBruteLoss(-5)
 			if(src != M)
-				Beam(M,icon_state="sendbeam",icon='icons/effects/effects.dmi',time=4)
+				Beam(M,icon_state="sendbeam",time=4)
 				M.visible_message("<span class='danger'>[M] repairs some of \the <b>[src]'s</b> dents.</span>", \
 						   "<span class='cult'>You repair some of <b>[src]'s</b> dents, leaving <b>[src]</b> at <b>[health]/[maxHealth]</b> health.</span>")
 			else
@@ -181,7 +181,7 @@
 /mob/living/simple_animal/hostile/construct/builder
 	name = "Artificer"
 	real_name = "Artificer"
-	desc = "A bulbous construct dedicated to building and maintaining The Cult of Nar-Sie's armies"
+	desc = "A bulbous construct dedicated to building and maintaining Cult armies."
 	icon = 'icons/mob/mob.dmi'
 	icon_state = "artificer"
 	icon_living = "artificer"

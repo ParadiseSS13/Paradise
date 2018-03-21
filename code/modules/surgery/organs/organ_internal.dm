@@ -9,6 +9,7 @@
 	// DO NOT add slots with matching names to different zones - it will break internal_organs_slot list!
 	vital = 0
 	var/non_primary = 0
+	var/unremovable = FALSE //Whether it shows up as an option to remove during surgery.
 
 /obj/item/organ/internal/New(var/mob/living/carbon/holder)
 	..()
@@ -266,36 +267,6 @@
 				H.adjustFireLoss(-cursed_heart.heal_burn)
 				H.adjustOxyLoss(-cursed_heart.heal_oxy)
 
-/obj/item/organ/internal/lungs
-	name = "lungs"
-	icon_state = "lungs"
-	gender = PLURAL
-	organ_tag = "lungs"
-	parent_organ = "chest"
-	slot = "lungs"
-	vital = 1
-
-//Insert something neat here.
-///obj/item/organ/internal/lungs/remove(mob/living/carbon/M, special = 0)
-//	owner.losebreath += 10
-	//insert oxy damage extream here.
-//	. = ..()
-
-
-/obj/item/organ/internal/lungs/on_life()
-	..()
-	if(germ_level > INFECTION_LEVEL_ONE)
-		if(prob(5))
-			owner.emote("cough")		//respitory tract infection
-
-	if(is_bruised())
-		if(prob(2))
-			owner.custom_emote(1, "coughs up blood!")
-			owner.bleed(1)
-		if(prob(4))
-			owner.custom_emote(1, "gasps for air!")
-			owner.AdjustLoseBreath(5)
-
 /obj/item/organ/internal/kidneys
 	name = "kidneys"
 	icon_state = "kidneys"
@@ -305,7 +276,6 @@
 	slot = "kidneys"
 
 /obj/item/organ/internal/kidneys/on_life()
-	..()
 	// Coffee is really bad for you with busted kidneys.
 	// This should probably be expanded in some way, but fucked if I know
 	// what else kidneys can process in our reagent list.
@@ -324,16 +294,25 @@
 	organ_tag = "eyes"
 	parent_organ = "head"
 	slot = "eyes"
-	var/list/eye_colour = list(0,0,0)
+	var/eye_colour = "#000000"
 	var/list/colourmatrix = null
 	var/list/colourblind_matrix = MATRIX_GREYSCALE //Special colourblindness parameters. By default, it's black-and-white.
-	var/colourblind_darkview = null
+	var/list/replace_colours = LIST_GREYSCALE_REPLACE
 	var/dependent_disabilities = null //Gets set by eye-dependent disabilities such as colourblindness so the eyes can transfer the disability during transplantation.
 	var/dark_view = 2 //Default dark_view for Humans.
 	var/weld_proof = null //If set, the eyes will not take damage during welding. eg. IPC optical sensors do not take damage when they weld things while all other eyes will.
 
 /obj/item/organ/internal/eyes/proc/update_colour()
 	dna.write_eyes_attributes(src)
+
+/obj/item/organ/internal/eyes/proc/generate_icon(var/mob/living/carbon/human/HA)
+	var/mob/living/carbon/human/H = HA
+	if(!istype(H))
+		H = owner
+	var/icon/eyes_icon = new /icon('icons/mob/human_face.dmi', H.species.eyes)
+	eyes_icon.Blend(eye_colour, ICON_ADD)
+
+	return eyes_icon
 
 /obj/item/organ/internal/eyes/proc/get_colourmatrix() //Returns a special colour matrix if the eyes are organic and the mob is colourblind, otherwise it uses the current one.
 	if(!robotic && owner.disabilities & COLOURBLIND)
@@ -342,10 +321,11 @@
 		return colourmatrix
 
 /obj/item/organ/internal/eyes/proc/get_dark_view() //Returns dark_view (if the eyes are organic) for see_invisible handling in species.dm to be autoprocessed by life().
-	if(!robotic && colourblind_darkview && owner.disabilities & COLOURBLIND) //Returns special darkview value if colourblind and it exists, otherwise reuse current.
-		return colourblind_darkview
-	else
-		return dark_view
+	return dark_view
+
+/obj/item/organ/internal/eyes/proc/shine()
+	if(is_robotic() || (dark_view > EYE_SHINE_THRESHOLD))
+		return TRUE
 
 /obj/item/organ/internal/eyes/insert(mob/living/carbon/human/M, special = 0)
 	..()
@@ -418,7 +398,6 @@
 	var/alcohol_intensity = 1
 
 /obj/item/organ/internal/liver/on_life()
-	..()
 	if(germ_level > INFECTION_LEVEL_ONE)
 		if(prob(1))
 			to_chat(owner, "<span class='warning'> Your skin itches.</span>")
@@ -432,16 +411,16 @@
 		if(owner.getToxLoss() >= 60 && !owner.reagents.has_reagent("charcoal"))
 			//Healthy liver suffers on its own
 			if(damage < min_broken_damage)
-				take_damage(0.2 * PROCESS_ACCURACY)
+				receive_damage(0.2 * PROCESS_ACCURACY)
 			//Damaged one shares the fun
 			else
 				var/obj/item/organ/internal/O = pick(owner.internal_organs)
 				if(O)
-					O.take_damage(0.2  * PROCESS_ACCURACY)
+					O.receive_damage(0.2  * PROCESS_ACCURACY)
 
 		//Detox can heal small amounts of damage
 		if(damage && damage < min_bruised_damage && owner.reagents.has_reagent("charcoal"))
-			take_damage(-0.2 * PROCESS_ACCURACY)
+			receive_damage(-0.2 * PROCESS_ACCURACY)
 
 		// Get the effectiveness of the liver.
 		var/filter_effect = 3
@@ -533,10 +512,6 @@
 	var/organhonked = 0
 	var/suffering_delay = 900
 
-/obj/item/organ/internal/honktumor/New()
-	..()
-	processing_objects.Add(src)
-
 /obj/item/organ/internal/honktumor/insert(mob/living/carbon/M, special = 0)
 	..()
 	M.mutations.Add(CLUMSY)
@@ -556,23 +531,9 @@
 	M.dna.SetSEState(COMICBLOCK,0)
 	genemutcheck(M,CLUMSYBLOCK,null,MUTCHK_FORCED)
 	genemutcheck(M,COMICBLOCK,null,MUTCHK_FORCED)
-
-/obj/item/organ/internal/honktumor/Destroy()
-	processing_objects.Remove(src)
-	return ..()
-
-/obj/item/organ/internal/honktumor/process()
-	if(isturf(loc))
-		visible_message("<span class='warning'>[src] honks in on itself!</span>")
-		new /obj/item/weapon/grown/bananapeel(get_turf(loc))
-		qdel(src)
-
+	qdel(src)
 
 /obj/item/organ/internal/honktumor/on_life()
-
-	if(!owner)
-		return
-
 	if(organhonked < world.time)
 		organhonked = world.time + suffering_delay
 		to_chat(owner, "<font color='red' size='7'>HONK</font>")
@@ -587,7 +548,7 @@
 		else
 			owner.Jitter(500)
 
-		if(istype(owner, /mob/living/carbon/human))
+		if(ishuman(owner))
 			var/mob/living/carbon/human/H = owner
 			if(isobj(H.shoes))
 				var/thingy = H.shoes
@@ -596,17 +557,15 @@
 					spawn(20)
 						if(thingy)
 							walk(thingy,0)
-	..()
 
 /obj/item/organ/internal/honktumor/cursed
+	unremovable = TRUE
 
-/obj/item/organ/internal/honktumor/cursed/remove(mob/living/carbon/M, special = 0, clean_remove = 0)
-	. = ..()
-	if(!clean_remove)
-		visible_message("<span class='warning'>[src] vanishes into dust, and a [M] emits a loud honk!</span>", "<span class='notice'>You hear a loud honk.</span>")
-		insert(M) //You're not getting away that easily!
-	else
-		qdel(src)
+/obj/item/organ/internal/honktumor/cursed/on_life() //No matter what you do, no matter who you are, no matter where you go, you're always going to be a fat, stuttering dimwit.
+	..()
+	owner.setBrainLoss(80)
+	owner.nutrition = 9000
+	owner.overeatduration = 9000
 
 /obj/item/organ/internal/beard
 	name = "beard organ"
@@ -630,13 +589,9 @@
 				head_organ.h_style = "Mohawk"
 			else
 				head_organ.h_style = "Very Long Hair"
-			head_organ.r_hair = 216
-			head_organ.g_hair = 192
-			head_organ.b_hair = 120
+			head_organ.hair_colour = "#D8C078"
 			H.update_hair()
 		if(!(head_organ.f_style == "Very Long Beard"))
 			head_organ.f_style = "Very Long Beard"
-			head_organ.r_facial = 216
-			head_organ.g_facial = 192
-			head_organ.b_facial = 120
+			head_organ.facial_colour = "#D8C078"
 			H.update_fhair()

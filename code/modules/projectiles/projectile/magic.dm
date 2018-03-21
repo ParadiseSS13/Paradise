@@ -17,7 +17,7 @@
 	damage = 10
 	damage_type = BRUTE
 	nodamage = 0
-	
+
 	//explosion values
 	var/exp_heavy = 0
 	var/exp_light = 2
@@ -27,7 +27,11 @@
 /obj/item/projectile/magic/death/on_hit(var/mob/living/carbon/G)
 	. = ..()
 	if(isliving(G))
-		G.adjustFireLoss(3000)
+		if(G.get_species() == "Machine") //speshul snowfleks deserv speshul treetment
+			G.adjustFireLoss(6969)  //remember - slimes love fire
+		else
+			G.death()
+
 		visible_message("<span class='danger'>[G] topples backwards as the death bolt impacts them!</span>")
 
 /obj/item/projectile/magic/fireball/Range()
@@ -55,7 +59,7 @@
 	if(ismob(target)) //multiple flavors of pain
 		var/mob/living/M = target
 		M.take_overall_damage(0,10) //between this 10 burn, the 10 brute, the explosion brute, and the onfire burn, your at about 65 damage if you stop drop and roll immediately
-		
+
 
 /obj/item/projectile/magic/fireball/infernal
 	name = "infernal fireball"
@@ -100,7 +104,7 @@
 		if(!stuff.anchored && stuff.loc)
 			teleammount++
 			do_teleport(stuff, stuff, 10)
-			var/datum/effect/system/harmless_smoke_spread/smoke = new /datum/effect/system/harmless_smoke_spread()
+			var/datum/effect_system/smoke_spread/smoke = new
 			smoke.set_up(max(round(10 - teleammount),1), 0, stuff.loc) //Smoke drops off if a lot of stuff is moved for the sake of sanity
 			smoke.start()
 
@@ -187,7 +191,7 @@ proc/wabbajack(mob/living/M)
 					if(ishuman(M))
 						Robot.mmi.transfer_identity(M)	//Does not transfer key/client.
 				if("slime")
-					new_mob = new /mob/living/carbon/slime(M.loc)
+					new_mob = new /mob/living/carbon/slime/random(M.loc)
 					new_mob.universal_speak = 1
 				if("xeno")
 					if(prob(50))
@@ -293,4 +297,4 @@ proc/wabbajack(mob/living/M)
 	damage_type = BURN
 	flag = "magic"
 	dismemberment = 50
-	nodamage = 0		
+	nodamage = 0

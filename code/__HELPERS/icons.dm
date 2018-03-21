@@ -884,9 +884,25 @@ proc/sort_atoms_by_layer(var/list/atoms)
 		icon = J
 		return J
 	return 0
-	
+
 //Hook, override to run code on- wait this is images
 //Images have dir without being an atom, so they get their own definition.
 //Lame.
 /image/proc/setDir(newdir)
 	dir = newdir
+
+proc/rand_hex_color()
+	var/list/colors = list("0","1","2","3","4","5","6","7","8","9","a","b","c","d","e","f")
+	var/color=""
+	for(var/i=0;i<6;i++)
+		color = color+pick(colors)
+	return "#[color]"
+
+//Imagine removing pixels from the main icon that are covered by pixels from the mask icon.
+proc/get_icon_difference(var/icon/main, var/icon/mask)
+	if(istype(main) && istype(mask))
+		mask.Blend(rgb(255,255,255), ICON_SUBTRACT) //Make all pixels on the mask as black as possible.
+		mask.Opaque(rgb(255,255,255)) //Make the transparent pixels (background) white.
+		mask.BecomeAlphaMask() //Make all the black pixels vanish (fully transparent), leaving only the white pixels.
+		main.AddAlphaMask(mask) //Make the pixels in the main icon that are in the transparent zone of the mask icon also vanish (fully transparent).
+		return main

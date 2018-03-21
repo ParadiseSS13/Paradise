@@ -515,8 +515,10 @@ var/list/blood_splatter_icons = list()
 	germ_level = 0
 	if(islist(blood_DNA))
 		blood_DNA = null
-		return 1
+		return TRUE
 
+/obj/effect/decal/cleanable/blood/clean_blood()
+	return // While this seems nonsensical, clean_blood isn't supposed to be used like this on a blood decal.
 
 /obj/item/clean_blood()
 	. = ..()
@@ -608,6 +610,13 @@ var/list/blood_splatter_icons = list()
 /atom/proc/narsie_act()
 	return
 
+/atom/proc/ratvar_act()
+	return
+
+//This proc is called on the location of an atom when the atom is Destroy()'d
+/atom/proc/handle_atom_del(atom/A)
+	return
+
 /atom/proc/atom_say(message)
 	if(!message)
 		return
@@ -616,7 +625,20 @@ var/list/blood_splatter_icons = list()
 /atom/proc/speech_bubble(var/bubble_state = "",var/bubble_loc = src, var/list/bubble_recipients = list())
 	return
 
-/atom/on_varedit(modified_var)
+/atom/vv_edit_var(var_name, var_value)
 	if(!Debug2)
 		admin_spawned = TRUE
-	..()
+	. = ..()
+	switch(var_name)
+		if("light_power", "light_range", "light_color")
+			update_light()
+
+
+/atom/vv_get_dropdown()
+	. = ..()
+	var/turf/curturf = get_turf(src)
+	if(curturf)
+		.["Jump to turf"] = "?_src_=holder;adminplayerobservecoodjump=1;X=[curturf.x];Y=[curturf.y];Z=[curturf.z]"
+	.["Add reagent"] = "?_src_=vars;addreagent=[UID()]"
+	.["Trigger explosion"] = "?_src_=vars;explode=[UID()]"
+	.["Trigger EM pulse"] = "?_src_=vars;emp=[UID()]"

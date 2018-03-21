@@ -38,6 +38,7 @@
 	max_w_class = WEIGHT_CLASS_HUGE
 	max_combined_w_class = 35
 	burn_state = FIRE_PROOF
+	cant_hold = list(/obj/item/weapon/storage/backpack/holding)
 
 /obj/item/weapon/storage/backpack/holding/New()
 	..()
@@ -383,6 +384,13 @@
 	desc = "A duffelbag designed to hold tools."
 	icon_state = "duffel-eng"
 	item_state = "duffel-eng"
+	burn_state = FIRE_PROOF
+
+/obj/item/weapon/storage/backpack/duffel/atmos
+	name = "atmospherics duffelbag"
+	desc = "A duffelbag designed to hold tools. This one is specially designed for atmospherics."
+	icon_state = "duffel-atmos"
+	item_state = "duffel-atmos"
 	burn_state = FIRE_PROOF
 
 /obj/item/weapon/storage/backpack/duffel/hydro

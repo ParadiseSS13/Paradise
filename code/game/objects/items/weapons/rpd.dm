@@ -39,9 +39,9 @@
 	throw_speed = 3
 	throw_range = 5
 	w_class = WEIGHT_CLASS_NORMAL
-	materials = list(MAT_METAL = 30000, MAT_GLASS = 5000)
+	materials = list(MAT_METAL = 75000, MAT_GLASS = 37500)
 	origin_tech = "engineering=4;materials=2"
-	var/datum/effect/system/spark_spread/spark_system
+	var/datum/effect_system/spark_spread/spark_system
 	var/lastused
 	var/iconrotation = 0 //used to orient icons and pipes
 	var/mode = 1 //Disposals, atmospherics, etc.
@@ -53,7 +53,7 @@
 
 /obj/item/weapon/rpd/New()
 	..()
-	spark_system = new /datum/effect/system/spark_spread()
+	spark_system = new /datum/effect_system/spark_spread()
 	spark_system.set_up(1, 0, src)
 	spark_system.attach(src)
 
@@ -180,9 +180,12 @@ var/list/pipemenu = list(
 /obj/item/weapon/rpd/afterattack(atom/target, mob/user, proximity)
 	..()
 	var/turf/T = get_turf(target)
-	if(src.loc != user || ismob(target) || istype(target, /obj/structure/window) || !proximity || world.time < lastused + spawndelay)
+	if(loc != user || ismob(target) || istype(target, /obj/structure/window) || !proximity || world.time < lastused + spawndelay)
 		return
-	if(mode == ATMOS_MODE && !istype(T, /turf/simulated/shuttle)) //No pipes on shuttles nerds
+	if(!(T.flags & RPD_ALLOWED_HERE))
+		to_chat(user, "<span class='notice'>[src] beeps, \"Unable to interface with [T]. Please try again later.\"</span>")
+		return
+	if(mode == ATMOS_MODE)
 		if(istype(T, /turf/simulated/wall)) //Drilling into walls takes time
 			playsound(loc, "sound/weapons/circsawhit.ogg", 50, 1)
 			user.visible_message("<span class = 'notice'>[user] starts drilling a hole in [T]...</span>", "<span class = 'notice'>You start drilling a hole in [T]...</span>", "<span class = 'warning'>You hear a drill.</span>")

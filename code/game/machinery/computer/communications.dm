@@ -255,6 +255,7 @@
 					nanomanager.update_uis(src)
 					return
 				Centcomm_announce(input, usr)
+				print_centcom_report(input, worldtime2text() +" Captain's Message")
 				to_chat(usr, "Message transmitted.")
 				log_say("[key_name(usr)] has made a Centcomm announcement: [input]")
 				centcomm_message_cooldown = 1
@@ -308,6 +309,9 @@
 			trade_dock_timelimit = 0
 			trade_dockrequest_timelimit = 0
 			event_announcement.Announce("Docking request for trading ship denied.", "Docking request")
+		if("ToggleATC")
+			atc.squelched = !atc.squelched
+			to_chat(usr, "<span class='notice'>ATC traffic is now: [atc.squelched ? "Disabled" : "Enabled"].</span>")
 
 	nanomanager.update_uis(src)
 	return 1
@@ -407,6 +411,8 @@
 	else
 		data["dock_request"] = 0
 
+	data["atcSquelched"] = atc.squelched
+
 	return data
 
 
@@ -494,10 +500,13 @@
 	if(ticker.mode.name == "meteor")
 		return
 
-	shuttle_master.cancelEvac(user)
-	log_game("[key_name(user)] has recalled the shuttle.")
-	message_admins("[key_name_admin(user)] has recalled the shuttle - [formatJumpTo(user)].", 1)
-	return
+	if(shuttle_master.cancelEvac(user))
+		log_game("[key_name(user)] has recalled the shuttle.")
+		message_admins("[key_name_admin(user)] has recalled the shuttle - [ADMIN_FLW(user)].", 1)
+	else
+		to_chat(user, "<span class='warning'>Central Command has refused the recall request!</span>")
+		log_game("[key_name(user)] has tried and failed to recall the shuttle.")
+		message_admins("[key_name_admin(user)] has tried and failed to recall the shuttle - [ADMIN_FLW(user)].", 1)
 
 /proc/post_status(command, data1, data2, mob/user = null)
 
@@ -548,6 +557,25 @@
 	for(var/datum/computer_file/program/comm/P in shuttle_caller_list)
 		var/turf/T = get_turf(P.computer)
 		if(T && P.program_state != PROGRAM_STATE_KILLED && is_station_contact(T.z))
+			if(P.computer)
+				var/obj/item/weapon/computer_hardware/printer/printer = P.computer.all_components[MC_PRINT]
+				if(printer)
+					printer.print_text(text, "paper- '[title]'")
+			P.messagetitle.Add("[title]")
+			P.messagetext.Add(text)
+
+/proc/print_centcom_report(text = "", title = "Incoming Message")
+	for(var/obj/machinery/computer/communications/C in shuttle_caller_list)
+		if(!(C.stat & (BROKEN|NOPOWER)) && is_admin_level(C.z))
+			var/obj/item/weapon/paper/P = new /obj/item/weapon/paper(C.loc)
+			P.name = "paper- '[title]'"
+			P.info = text
+			P.update_icon()
+			C.messagetitle.Add("[title]")
+			C.messagetext.Add(text)
+	for(var/datum/computer_file/program/comm/P in shuttle_caller_list)
+		var/turf/T = get_turf(P.computer)
+		if(T && P.program_state != PROGRAM_STATE_KILLED && is_admin_level(T.z))
 			if(P.computer)
 				var/obj/item/weapon/computer_hardware/printer/printer = P.computer.all_components[MC_PRINT]
 				if(printer)

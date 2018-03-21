@@ -11,6 +11,9 @@
 	projectile_type = /obj/item/projectile/beam/laser
 	select_name = "kill"
 
+/obj/item/ammo_casing/energy/laser/cyborg //to balance cyborg energy cost seperately
+    e_cost = 250
+
 /obj/item/ammo_casing/energy/lasergun
 	projectile_type = /obj/item/projectile/beam/laser
 	e_cost = 83
@@ -125,6 +128,9 @@
 	select_name  = "disable"
 	e_cost = 50
 	fire_sound = 'sound/weapons/taser2.ogg'
+
+/obj/item/ammo_casing/energy/disabler/cyborg //seperate balancing for cyborg, again
+	e_cost = 250
 
 /obj/item/ammo_casing/energy/plasma
 	projectile_type = /obj/item/projectile/plasma

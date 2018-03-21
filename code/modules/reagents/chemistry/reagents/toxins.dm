@@ -246,7 +246,7 @@
 					if(prob(75))
 						var/obj/item/organ/external/affecting = H.get_organ("head")
 						if(affecting)
-							affecting.take_damage(5, 10)
+							affecting.receive_damage(5, 10)
 							H.UpdateDamageIcon()
 							H.emote("scream")
 					else
@@ -272,7 +272,7 @@
 					if(prob(75))
 						var/obj/item/organ/external/affecting = H.get_organ("head")
 						if(affecting)
-							affecting.take_damage(0, 20)
+							affecting.receive_damage(0, 20)
 							H.UpdateDamageIcon()
 							H.emote("scream")
 					else
@@ -323,12 +323,12 @@
 	M.EyeBlurry(3)
 	..()
 
-/datum/reagent/beer2	//disguised as normal beer for use by emagged brobots
+/datum/reagent/beer2	//disguised as normal beer for use by emagged service borgs
 	name = "Beer"
 	id = "beer2"
 	description = "An alcoholic beverage made from malted grains, hops, yeast, and water."
 	color = "#664300" // rgb: 102, 67, 0
-	metabolization_rate = 1.5 * REAGENTS_METABOLISM
+	metabolization_rate = 0.1 * REAGENTS_METABOLISM
 	drink_icon ="beerglass"
 	drink_name = "Beer glass"
 	drink_desc = "A freezing pint of beer"
@@ -624,7 +624,7 @@
 
 				if(!H.unacidable)
 					var/obj/item/organ/external/affecting = H.get_organ("head")
-					affecting.take_damage(0, 75)
+					affecting.receive_damage(0, 75)
 					H.UpdateDamageIcon()
 					H.emote("scream")
 					H.status_flags |= DISFIGURED
