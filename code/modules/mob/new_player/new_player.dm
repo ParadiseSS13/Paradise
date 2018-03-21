@@ -32,9 +32,11 @@
 		if(!ready)	output += "<p><a href='byond://?src=[UID()];ready=1'>Declare Ready</A></p>"
 		else	output += "<p><b>You are ready</b> (<a href='byond://?src=[UID()];ready=2'>Cancel</A>)</p>"
 
-		if(!skip_antag) output += "<p><a href='byond://?src=[UID()];skip_antag=1'>Toggle Antag Rolling</A>"
-		else	output += "<p><a href='byond://?src=[UID()];skip_antag=2'>Toggle Antag Rolling</A>"
-		output += "<br /><b>[skip_antag ? "Disabled" : "Enabled"]</b></p>"
+		var/list/antags = client.prefs.be_special
+		if(antags && antags.len)
+			if(!skip_antag) output += "<p><a href='byond://?src=[UID()];skip_antag=1'>Toggle Antag Rolling</A>"
+			else	output += "<p><a href='byond://?src=[UID()];skip_antag=2'>Toggle Antag Rolling</A>"
+			output += "<br /><b>[skip_antag ? "Disabled" : "Enabled"]</b></p>"
 	else
 		output += "<p><a href='byond://?src=[UID()];manifest=1'>View the Crew Manifest</A></p>"
 		output += "<p><a href='byond://?src=[UID()];late_join=1'>Join Game!</A></p>"
