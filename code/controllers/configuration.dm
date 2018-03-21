@@ -197,7 +197,7 @@
 	var/high_pop_mc_tick_rate = 1.1
 
 	var/high_pop_mc_mode_amount = 65
-	var/disable_high_pop_mc_mode_amount	= 60
+	var/disable_high_pop_mc_mode_amount = 60
 
 /datum/configuration/New()
 	var/list/L = subtypesof(/datum/game_mode)

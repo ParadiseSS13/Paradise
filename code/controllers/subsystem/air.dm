@@ -144,7 +144,7 @@ SUBSYSTEM_DEF(air)
 	currentpart = SSAIR_PIPENETS
 
 /datum/controller/subsystem/air/proc/process_deferred_pipenets(resumed = 0)
-	if (!resumed)
+	if(!resumed)
 		src.currentrun = deferred_pipenet_rebuilds.Copy()
 	//cache for sanic speed (lists are references anyways)
 	var/list/currentrun = src.currentrun
@@ -159,7 +159,7 @@ SUBSYSTEM_DEF(air)
 			return
 
 /datum/controller/subsystem/air/proc/process_pipenets(resumed = 0)
-	if (!resumed)
+	if(!resumed)
 		src.currentrun = networks.Copy()
 	//cache for sanic speed (lists are references anyways)
 	var/list/currentrun = src.currentrun
@@ -175,7 +175,7 @@ SUBSYSTEM_DEF(air)
 
 /datum/controller/subsystem/air/proc/process_atmos_machinery(resumed = 0)
 	var/seconds = wait * 0.1
-	if (!resumed)
+	if(!resumed)
 		src.currentrun = atmos_machinery.Copy()
 	//cache for sanic speed (lists are references anyways)
 	var/list/currentrun = src.currentrun
@@ -188,7 +188,7 @@ SUBSYSTEM_DEF(air)
 			return
 
 /datum/controller/subsystem/air/proc/process_super_conductivity(resumed = 0)
-	if (!resumed)
+	if(!resumed)
 		src.currentrun = active_super_conductivity.Copy()
 	//cache for sanic speed (lists are references anyways)
 	var/list/currentrun = src.currentrun
@@ -200,14 +200,14 @@ SUBSYSTEM_DEF(air)
 			return
 
 /datum/controller/subsystem/air/proc/process_hotspots(resumed = 0)
-	if (!resumed)
+	if(!resumed)
 		src.currentrun = hotspots.Copy()
 	//cache for sanic speed (lists are references anyways)
 	var/list/currentrun = src.currentrun
 	while(currentrun.len)
 		var/obj/effect/hotspot/H = currentrun[currentrun.len]
 		currentrun.len--
-		if (H)
+		if(H)
 			H.process()
 		else
 			hotspots -= H
@@ -215,7 +215,7 @@ SUBSYSTEM_DEF(air)
 			return
 
 /datum/controller/subsystem/air/proc/process_high_pressure_delta(resumed = 0)
-	while (high_pressure_delta.len)
+	while(high_pressure_delta.len)
 		var/turf/simulated/T = high_pressure_delta[high_pressure_delta.len]
 		high_pressure_delta.len--
 		T.high_pressure_movements()
@@ -226,20 +226,20 @@ SUBSYSTEM_DEF(air)
 /datum/controller/subsystem/air/proc/process_active_turfs(resumed = 0)
 	//cache for sanic speed
 	var/fire_count = times_fired
-	if (!resumed)
+	if(!resumed)
 		src.currentrun = active_turfs.Copy()
 	//cache for sanic speed (lists are references anyways)
 	var/list/currentrun = src.currentrun
 	while(currentrun.len)
 		var/turf/simulated/T = currentrun[currentrun.len]
 		currentrun.len--
-		if (T)
+		if(T)
 			T.process_cell(fire_count)
-		if (MC_TICK_CHECK)
+		if(MC_TICK_CHECK)
 			return
 
 /datum/controller/subsystem/air/proc/process_excited_groups(resumed = 0)
-	if (!resumed)
+	if(!resumed)
 		src.currentrun = excited_groups.Copy()
 	//cache for sanic speed (lists are references anyways)
 	var/list/currentrun = src.currentrun
@@ -251,7 +251,7 @@ SUBSYSTEM_DEF(air)
 			EG.self_breakdown()
 		else if(EG.breakdown_cooldown >= 20)
 			EG.dismantle()
-		if (MC_TICK_CHECK)
+		if(MC_TICK_CHECK)
 			return
 
 /datum/controller/subsystem/air/proc/remove_from_active(turf/simulated/T)
@@ -294,24 +294,24 @@ SUBSYSTEM_DEF(air)
 /turf/simulated/proc/resolve_active_graph()
 	. = list()
 	var/datum/excited_group/EG = excited_group
-	if (blocks_air || !air)
+	if(blocks_air || !air)
 		return
-	if (!EG)
+	if(!EG)
 		EG = new
 		EG.add_turf(src)
 
-	for (var/turf/simulated/ET in atmos_adjacent_turfs)
-		if ( ET.blocks_air || !ET.air)
+	for(var/turf/simulated/ET in atmos_adjacent_turfs)
+		if(ET.blocks_air || !ET.air)
 			continue
 
 		var/ET_EG = ET.excited_group
-		if (ET_EG)
-			if (ET_EG != EG)
+		if(ET_EG)
+			if(ET_EG != EG)
 				EG.merge_groups(ET_EG)
 				EG = excited_group //merge_groups() may decide to replace our current EG
 		else
 			EG.add_turf(ET)
-		if (!ET.excited)
+		if(!ET.excited)
 			ET.excited = 1
 			. += ET
 
@@ -358,7 +358,7 @@ SUBSYSTEM_DEF(air)
 	icemaster = new /obj/effect/overlay()
 	icemaster.icon = 'icons/turf/overlays.dmi'
 	icemaster.icon_state = "snowfloor"
-	icemaster.layer = TURF_LAYER+0.1
+	icemaster.layer = TURF_LAYER + 0.1
 	icemaster.mouse_opacity = 0
 
 #undef SSAIR_PIPENETS
