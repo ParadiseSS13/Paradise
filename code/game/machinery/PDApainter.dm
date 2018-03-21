@@ -49,7 +49,7 @@
 			to_chat(user, "There is already a PDA inside.")
 			return
 		else
-			var/obj/item/device/pda/P = usr.get_active_hand()
+			var/obj/item/device/pda/P = usr.get_active_held_item()
 			if(istype(P))
 				user.drop_item()
 				storedpda = P

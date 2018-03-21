@@ -542,9 +542,9 @@
 	update_hands = 1
 
 /mob/living/carbon/human/interactive/proc/take_to_slot(obj/item/G, var/hands=0)
-	var/list/slots = list("left pocket" = slot_l_store, "right pocket" = slot_r_store, "left hand" = slot_l_hand, "right hand" = slot_r_hand)
+	var/list/slots = list("left pocket" = slot_l_store, "right pocket" = slot_r_store, "left hand" = slot_hands, "right hand" = slot_r_hand)
 	if(hands)
-		slots = list("left hand" = slot_l_hand, "right hand" = slot_r_hand)
+		slots = list("left hand" = slot_hands, "right hand" = slot_r_hand)
 	G.loc = src
 	if(G.force && G.force > best_force)
 		best_force = G.force
@@ -552,7 +552,7 @@
 	update_hands = 1
 
 /mob/living/carbon/human/interactive/proc/insert_into_backpack()
-	var/list/slots = list(slot_l_store, slot_r_store, slot_l_hand, slot_r_hand)
+	var/list/slots = list(slot_l_store, slot_r_store, slot_hands)
 	var/obj/item/I = get_item_by_slot(pick(slots))
 	var/obj/item/weapon/storage/BP = get_item_by_slot(slot_back)
 	if(back && BP && I)

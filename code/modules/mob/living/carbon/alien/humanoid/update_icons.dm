@@ -60,8 +60,7 @@
 
 	update_inv_head(0,0)
 	update_inv_wear_suit(0,0)
-	update_inv_r_hand(0)
-	update_inv_l_hand(0)
+	update_inv_hands(0)
 	update_inv_pockets(0)
 	update_icons()
 	update_fire()
@@ -104,8 +103,7 @@
 			standing.overlays	+= image("icon" = 'icons/effects/blood.dmi', "icon_state" = "[t_suit]blood")
 
 		if(wear_suit.breakouttime)
-			drop_r_hand()
-			drop_l_hand()
+			drop_all_held_items()
 
 		overlays_standing[X_SUIT_LAYER]	= standing
 	else
@@ -132,24 +130,12 @@
 	if(r_store)		r_store.screen_loc = ui_storage2
 	if(update_icons)	update_icons()
 
-
-/mob/living/carbon/alien/humanoid/update_inv_r_hand(var/update_icons=1)
-	..(1)
-	if(r_hand)
-		var/t_state = r_hand.item_state
-		if(!t_state)	t_state = r_hand.icon_state
-		r_hand.screen_loc = ui_rhand
-		overlays_standing[X_R_HAND_LAYER]	= image("icon" = r_hand.righthand_file, "icon_state" = t_state)
-	else
-		overlays_standing[X_R_HAND_LAYER]	= null
-	if(update_icons)	update_icons()
-
-/mob/living/carbon/alien/humanoid/update_inv_l_hand(var/update_icons=1)
+/mob/living/carbon/alien/humanoid/update_inv_hands(var/update_icons=1)
 	..(1)
 	if(l_hand)
 		var/t_state = l_hand.item_state
 		if(!t_state)	t_state = l_hand.icon_state
-		l_hand.screen_loc = ui_lhand
+		l_hand.screen_loc = ui_hand_position(1)
 		overlays_standing[X_L_HAND_LAYER]	= image("icon" = l_hand.lefthand_file, "icon_state" = t_state)
 	else
 		overlays_standing[X_L_HAND_LAYER]	= null

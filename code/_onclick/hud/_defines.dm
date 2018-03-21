@@ -28,11 +28,21 @@
 #define ui_id "CENTER-4:12,SOUTH:5"
 #define ui_belt "CENTER-3:14,SOUTH:5"
 #define ui_back "CENTER-2:14,SOUTH:5"
-#define ui_rhand "CENTER:-16,SOUTH:5"
-#define ui_lhand "CENTER: 16,SOUTH:5"
-#define ui_equip "CENTER:-16,SOUTH+1:5"
-#define ui_swaphand1 "CENTER:-16,SOUTH+1:5"
-#define ui_swaphand2 "CENTER: 16,SOUTH+1:5"
+
+/proc/ui_hand_position(i) //Based on original hand hand positions (CENTER:+- 16, SOUTH:5)
+	var/x_off = -(!(i % 2)) //breaks hands into pairs then orients odd hands to the left
+	var/y_off = round((i-1)/2) //stacks pairs of hands
+	return "CENTER+[x_off]:16,SOUTH+[y_off]:5"
+
+/proc/ui_equip_position(mob/M) // Lifts equip button above hand gui
+	var/y_off = round((M.held_items.len-1) / 2)
+	return "CENTER:-16,SOUTH+[y_off+1]:5
+
+/proc/ui_swaphand_position(mob/M, which = 1) // Shows the right hand
+	var/x_off = which == 1 ? -1 : 0
+	var/y_off = round((M.held_items.len-1) / 2)
+	return "CENTER+[x_off]:16,SOUTH+[y_off+1]:5"
+
 #define ui_storage1 "CENTER+1:18,SOUTH:5"
 #define ui_storage2 "CENTER+2:20,SOUTH:5"
 #define ui_pda "CENTER+3:22,SOUTH:5"

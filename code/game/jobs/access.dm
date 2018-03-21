@@ -553,13 +553,13 @@ proc/GetIdCard(var/mob/living/carbon/human/H)
 		var/id = H.wear_id.GetID()
 		if(id)
 			return id
-	if(H.get_active_hand())
-		var/obj/item/I = H.get_active_hand()
+	if(H.get_active_held_item())
+		var/obj/item/I = H.get_active_held_item()
 		return I.GetID()
 
 proc/FindNameFromID(var/mob/living/carbon/human/H)
 	ASSERT(istype(H))
-	var/obj/item/weapon/card/id/C = H.get_active_hand()
+	var/obj/item/weapon/card/id/C = H.get_active_held_item()
 	if( istype(C) || istype(C, /obj/item/device/pda) )
 		var/obj/item/weapon/card/id/ID = C
 

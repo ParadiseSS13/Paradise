@@ -12,7 +12,7 @@
 	light_power = 2
 	var/brightness_on = 2
 	var/colormap = list(red=LIGHT_COLOR_RED, blue=LIGHT_COLOR_LIGHTBLUE, green=LIGHT_COLOR_GREEN, purple=LIGHT_COLOR_PURPLE, rainbow=LIGHT_COLOR_WHITE)
-	
+
 /obj/item/weapon/melee/energy/suicide_act(mob/user)
 	user.visible_message(pick("<span class='suicide'>[user] is slitting \his stomach open with the [src.name]! It looks like \he's trying to commit seppuku.</span>", \
 						"<span class='suicide'>[user] is falling on the [src.name]! It looks like \he's trying to commit suicide.</span>"))
@@ -53,8 +53,7 @@
 		to_chat(user, "<span class='notice'>[src] can now be concealed.</span>")
 	if(istype(user,/mob/living/carbon/human))
 		var/mob/living/carbon/human/H = user
-		H.update_inv_l_hand()
-		H.update_inv_r_hand()
+		H.update_inv_hands()
 	add_fingerprint(user)
 	return
 
@@ -187,9 +186,9 @@
 				// Updating overlays, copied from welder code.
 				// I tried calling attack_self twice, which looked cool, except it somehow didn't update the overlays!!
 				if(user.r_hand == src)
-					user.update_inv_r_hand()
+					user.update_inv_hands()
 				else if(user.l_hand == src)
-					user.update_inv_l_hand()
+					user.update_inv_hands()
 
 		else
 			to_chat(user, "<span class='warning'>It's already fabulous!</span>")

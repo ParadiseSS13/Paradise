@@ -146,7 +146,7 @@ RCD
 		if(istype(usr,/mob/living/silicon))
 			locked = 0
 		else
-			var/obj/item/I = usr.get_active_hand()
+			var/obj/item/I = usr.get_active_held_item()
 			if(istype(I, /obj/item/device/pda))
 				var/obj/item/device/pda/pda = I
 				I = pda.id

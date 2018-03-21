@@ -2,12 +2,12 @@
 //as they handle all relevant stuff like adding it to the player's screen and updating their overlays.
 
 //Returns the thing in our active hand
-/mob/proc/get_active_hand()
+/mob/proc/get_active_held_item()
 	if(hand)	return l_hand
 	else		return r_hand
 
 /mob/proc/is_in_active_hand(obj/item/I)
-	var/obj/item/item_to_test = get_active_hand()
+	var/obj/item/item_to_test = get_active_held_item()
 
 	return item_to_test && item_to_test.is_equivalent(I)
 
@@ -40,10 +40,10 @@
 		l_hand = W
 		W.layer = 20	//TODO: move to equipped?
 		W.plane = HUD_PLANE	//TODO: move to equipped?
-		W.equipped(src,slot_l_hand)
+		W.equipped(src,slot_hands)
 		if(pulling == W)
 			stop_pulling()
-		update_inv_l_hand()
+		update_inv_hands()
 		return 1
 	return 0
 
@@ -59,7 +59,7 @@
 		W.equipped(src,slot_r_hand)
 		if(pulling == W)
 			stop_pulling()
-		update_inv_r_hand()
+		update_inv_hands()
 		return 1
 	return 0
 
@@ -126,10 +126,10 @@
 
 	if(I == r_hand)
 		r_hand = null
-		update_inv_r_hand()
+		update_inv_hands()
 	else if(I == l_hand)
 		l_hand = null
-		update_inv_l_hand()
+		update_inv_hands()
 	else if(I in tkgrabbed_objects)
 		var/obj/item/tk_grab/tkgrab = tkgrabbed_objects[I]
 		unEquip(tkgrab, force)
@@ -176,15 +176,15 @@
 	return items
 
 /obj/item/proc/equip_to_best_slot(mob/M)
-	if(src != M.get_active_hand())
+	if(src != M.get_active_held_item())
 		to_chat(M, "<span class='warning'>You are not holding anything to equip!</span>")
 		return 0
 
 	if(M.equip_to_appropriate_slot(src))
 		if(M.hand)
-			M.update_inv_l_hand(0)
+			M.update_inv_hands(0)
 		else
-			M.update_inv_r_hand(0)
+			M.update_inv_hands(0)
 		return 1
 
 	if(M.s_active && M.s_active.can_be_inserted(src, 1))	//if storage active insert there
@@ -221,7 +221,7 @@
 
 /mob/proc/get_item_by_slot(slot_id)
 	switch(slot_id)
-		if(slot_l_hand)
+		if(slot_hands)
 			return l_hand
 		if(slot_r_hand)
 			return r_hand

@@ -90,7 +90,7 @@
 				machine.points = 0
 				to_chat(src, "Points transferred.")
 		else if(href_list["choice"] == "insert")
-			var/obj/item/weapon/card/id/prisoner/I = usr.get_active_hand()
+			var/obj/item/weapon/card/id/prisoner/I = usr.get_active_held_item()
 			if(istype(I))
 				usr.drop_item()
 				I.loc = src

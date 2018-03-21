@@ -36,8 +36,7 @@
 		P.loc = src
 		if(istype(user,/mob/living/carbon/human))
 			var/mob/living/carbon/human/H = user
-			H.update_inv_l_hand()
-			H.update_inv_r_hand()
+			H.update_inv_hands()
 	else if(istype(W, /obj/item/weapon/photo))
 		amount++
 		if(screen == 2)
@@ -83,7 +82,7 @@
 		"[class]You hold \the [P] up to \the [src], burning it slowly.")
 
 		spawn(20)
-			if(get_dist(src, user) < 2 && user.get_active_hand() == P && P.lit)
+			if(get_dist(src, user) < 2 && user.get_active_held_item() == P && P.lit)
 				user.visible_message("[class][user] burns right through \the [src], turning it to ash. It flutters through the air before settling on the floor in a heap.", \
 				"[class]You burn right through \the [src], turning it to ash. It flutters through the air before settling on the floor in a heap.")
 

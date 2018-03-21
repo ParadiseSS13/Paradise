@@ -91,9 +91,9 @@
 /obj/item/weapon/grab/proc/synch()
 	if(affecting)
 		if(assailant.r_hand == src)
-			hud.screen_loc = ui_rhand
+			hud.screen_loc = ui_hand_position(2)
 		else
-			hud.screen_loc = ui_lhand
+			hud.screen_loc = ui_hand_position(1)
 		assailant.client.screen += hud
 
 /obj/item/weapon/grab/process()
@@ -139,8 +139,7 @@
 			hud.icon_state = "!reinforce"
 
 	if(state >= GRAB_AGGRESSIVE)
-		affecting.drop_r_hand()
-		affecting.drop_l_hand()
+		affecting.drop_all_held_items()
 
 
 		//var/announce = 0

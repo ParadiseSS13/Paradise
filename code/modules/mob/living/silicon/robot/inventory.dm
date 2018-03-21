@@ -2,7 +2,7 @@
 //as they handle all relevant stuff like adding it to the player's screen and such
 
 //Returns the thing in our active hand (whatever is in our active module-slot, in this case)
-/mob/living/silicon/robot/get_active_hand()
+/mob/living/silicon/robot/get_active_held_item()
 	return module_active
 
 /mob/living/silicon/robot/get_all_slots()
@@ -104,7 +104,7 @@
 		return 0
 
 /mob/living/silicon/robot/drop_item()
-	var/obj/item/I = get_active_hand()
+	var/obj/item/I = get_active_held_item()
 	if(istype(I, /obj/item/weapon/gripper))
 		var/obj/item/weapon/gripper/G = I
 		G.drop_item_p(silent = 1)

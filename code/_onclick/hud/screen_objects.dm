@@ -160,7 +160,7 @@
 	if(istype(usr.loc,/obj/mecha)) // stops inventory actions in a mech
 		return 1
 	if(master)
-		var/obj/item/I = usr.get_active_hand()
+		var/obj/item/I = usr.get_active_held_item()
 		if(I)
 			master.attackby(I, usr, params)
 	return 1
@@ -282,20 +282,20 @@
 	if(istype(usr.loc,/obj/mecha)) // stops inventory actions in a mech
 		return 1
 	if(usr.attack_ui(slot_id))
-		usr.update_inv_l_hand(0)
-		usr.update_inv_r_hand(0)
+		usr.update_inv_hands()
 	return 1
 
 /obj/screen/inventory/hand
 	var/image/active_overlay
 	var/image/handcuff_overlay
+	var/held_index = 0
 
 /obj/screen/inventory/hand/update_icon()
 	..()
 	if(!active_overlay)
 		active_overlay = image("icon"=icon, "icon_state"="hand_active")
 	if(!handcuff_overlay)
-		var/state = (slot_id == slot_r_hand) ? "markus" : "gabrielle"
+		var/state = (!(held_index % 2)) ? "markus" : "gabrielle"
 		handcuff_overlay = image("icon"='icons/mob/screen_gen.dmi', "icon_state"=state)
 
 	overlays.Cut()
@@ -306,9 +306,7 @@
 			if(C.handcuffed)
 				overlays += handcuff_overlay
 
-		if(slot_id == slot_l_hand && hud.mymob.hand)
-			overlays += active_overlay
-		else if(slot_id == slot_r_hand && !hud.mymob.hand)
+		if(held_index)
 			overlays += active_overlay
 
 /obj/screen/inventory/hand/Click()
@@ -323,11 +321,7 @@
 
 	if(ismob(usr))
 		var/mob/M = usr
-		switch(name)
-			if("right hand", "r_hand")
-				M.activate_hand("r")
-			if("left hand", "l_hand")
-				M.activate_hand("l")
+		M.swap_hand(held_index)
 	return 1
 
 /obj/screen/swap_hand

@@ -59,10 +59,8 @@
 
 		var/obj/item/weapon/implantcase/case
 
-		if(istype(user.get_item_by_slot(slot_l_hand), /obj/item/weapon/implantcase))
-			case = user.get_item_by_slot(slot_l_hand)
-		else if(istype(user.get_item_by_slot(slot_r_hand), /obj/item/weapon/implantcase))
-			case = user.get_item_by_slot(slot_r_hand)
+		if(istype(user.get_item_by_slot(slot_hands), /obj/item/weapon/implantcase))
+			case = user.get_item_by_slot(slot_hands)
 		else
 			case = locate(/obj/item/weapon/implantcase) in get_turf(target)
 

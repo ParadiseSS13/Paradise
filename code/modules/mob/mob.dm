@@ -175,7 +175,7 @@
 
 //This proc is called whenever someone clicks an inventory ui slot.
 /mob/proc/attack_ui(slot)
-	var/obj/item/W = get_active_hand()
+	var/obj/item/W = get_active_held_item()
 
 	if(istype(W))
 		if(istype(W, /obj/item/clothing))
@@ -196,9 +196,7 @@
 		src:update_fhair()
 
 /mob/proc/put_in_any_hand_if_possible(obj/item/W as obj, del_on_fail = 0, disable_warning = 1, redraw_mob = 1)
-	if(equip_to_slot_if_possible(W, slot_l_hand, del_on_fail, disable_warning, redraw_mob))
-		return 1
-	else if(equip_to_slot_if_possible(W, slot_r_hand, del_on_fail, disable_warning, redraw_mob))
+	if(equip_to_slot_if_possible(W, slot_hands, del_on_fail, disable_warning, redraw_mob))
 		return 1
 	return 0
 
@@ -303,12 +301,8 @@ var/list/slot_equipment_priority = list( \
 		var/mob/living/carbon/human/H = M
 
 		switch(slot)
-			if(slot_l_hand)
+			if(slot_hands)
 				if(H.l_hand)
-					return 0
-				return 1
-			if(slot_r_hand)
-				if(H.r_hand)
 					return 0
 				return 1
 			if(slot_wear_mask)
@@ -536,7 +530,7 @@ var/list/slot_equipment_priority = list( \
 /mob/proc/show_inv(mob/user)
 	user.set_machine(src)
 	var/dat = {"<table>
-	<tr><td><B>Left Hand:</B></td><td><A href='?src=[UID()];item=[slot_l_hand]'>[(l_hand && !(l_hand.flags&ABSTRACT)) ? l_hand : "<font color=grey>Empty</font>"]</A></td></tr>
+	<tr><td><B>Left Hand:</B></td><td><A href='?src=[UID()];item=[slot_hands]'>[(l_hand && !(l_hand.flags&ABSTRACT)) ? l_hand : "<font color=grey>Empty</font>"]</A></td></tr>
 	<tr><td><B>Right Hand:</B></td><td><A href='?src=[UID()];item=[slot_r_hand]'>[(r_hand && !(r_hand.flags&ABSTRACT)) ? r_hand : "<font color=grey>Empty</font>"]</A></td></tr>
 	<tr><td>&nbsp;</td></tr>"}
 	dat += {"</table>
@@ -633,12 +627,12 @@ var/list/slot_equipment_priority = list( \
 		var/obj/item/W = l_hand
 		if(W)
 			W.attack_self(src)
-			update_inv_l_hand()
+			update_inv_hands()
 	else
 		var/obj/item/W = r_hand
 		if(W)
 			W.attack_self(src)
-			update_inv_r_hand()
+			update_inv_hands()
 	return
 
 /*
@@ -1003,8 +997,7 @@ var/list/slot_equipment_priority = list( \
 	return 1
 
 /mob/proc/fall(var/forced)
-	drop_l_hand()
-	drop_r_hand()
+	drop_all_held_items()
 
 /mob/proc/facedir(ndir)
 	if(!canface())

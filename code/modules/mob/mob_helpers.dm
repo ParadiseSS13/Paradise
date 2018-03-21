@@ -408,7 +408,7 @@ var/list/intents = list(INTENT_HELP,INTENT_DISARM,INTENT_GRAB,INTENT_HARM)
 	// Get tool
 	var/obj/item/device/multitool/P
 	if(isrobot(user) || ishuman(user))
-		P = user.get_active_hand()
+		P = user.get_active_held_item()
 	else if(isAI(user))
 		var/mob/living/silicon/ai/AI=user
 		P = AI.aiMulti

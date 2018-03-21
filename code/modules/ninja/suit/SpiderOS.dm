@@ -220,7 +220,7 @@
 				to_chat(display_to, "<span class='danger'>Error: unable to deliver message.</span>")
 				display_spideros()
 				return
-			
+
 			var/datum/data/pda/app/messenger/M = P.find_program(/datum/data/pda/app/messenger)
 			M.notify("<b>Message from unknown source: </b>\"[t]\" (Unable to Reply)", 0)
 
@@ -256,7 +256,7 @@
 
 		if("Eject Disk")
 			var/turf/T = get_turf(loc)
-			if(!U.get_active_hand())
+			if(!U.get_active_held_item())
 				U.put_in_hands(t_disk)
 				t_disk.add_fingerprint(U)
 				t_disk = null

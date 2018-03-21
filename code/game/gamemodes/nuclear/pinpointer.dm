@@ -367,7 +367,7 @@
 		return
 
 	var/A = input(user, "Person to track", "Pinpoint") in names
-	if(!src || !user || (user.get_active_hand() != src) || user.incapacitated() || !A)
+	if(!src || !user || (user.get_active_held_item() != src) || user.incapacitated() || !A)
 		return
 
 	var/target = names[A]

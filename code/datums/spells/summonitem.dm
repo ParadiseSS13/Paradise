@@ -17,7 +17,7 @@
 
 /obj/effect/proc_holder/spell/targeted/summonitem/cast(list/targets, mob/user = usr)
 	for(var/mob/living/target in targets)
-		var/list/hand_items = list(target.get_active_hand(),target.get_inactive_hand())
+		var/list/hand_items = list(target.get_active_held_item(),target.get_inactive_hand())
 		var/butterfingers = 0
 		var/message
 
@@ -105,12 +105,12 @@
 
 
 			if(target.hand) //left active hand
-				if(!target.equip_to_slot_if_possible(item_to_retrive, slot_l_hand, 0, 1, 1))
+				if(!target.equip_to_slot_if_possible(item_to_retrive, slot_hands, 0, 1, 1))
 					if(!target.equip_to_slot_if_possible(item_to_retrive, slot_r_hand, 0, 1, 1))
 						butterfingers = 1
 			else			//right active hand
 				if(!target.equip_to_slot_if_possible(item_to_retrive, slot_r_hand, 0, 1, 1))
-					if(!target.equip_to_slot_if_possible(item_to_retrive, slot_l_hand, 0, 1, 1))
+					if(!target.equip_to_slot_if_possible(item_to_retrive, slot_hands, 0, 1, 1))
 						butterfingers = 1
 			if(butterfingers)
 				item_to_retrive.loc = target.loc

@@ -187,7 +187,7 @@
 				return
 			visible_message("[usr] switches [on ? "on" : "off"] [src].")
 		if("cellremove")
-			if(open && cell && !usr.get_active_hand())
+			if(open && cell && !usr.get_active_held_item())
 				cell.updateicon()
 				usr.put_in_active_hand(cell)
 				cell.add_fingerprint(usr)
@@ -196,7 +196,7 @@
 				usr.visible_message("<span class='notice'>[usr] removes the power cell from [src].</span>", "<span class='notice'>You remove the power cell from [src].</span>")
 		if("cellinsert")
 			if(open && !cell)
-				var/obj/item/weapon/stock_parts/cell/C = usr.get_active_hand()
+				var/obj/item/weapon/stock_parts/cell/C = usr.get_active_held_item()
 				if(istype(C))
 					usr.drop_item()
 					cell = C

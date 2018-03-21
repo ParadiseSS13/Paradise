@@ -45,7 +45,7 @@
 
 		pinned_target.loc = user.loc
 		if(ishuman(user))
-			if(!user.get_active_hand())
+			if(!user.get_active_held_item())
 				user.put_in_hands(pinned_target)
 				to_chat(user, "You take the target out of the stake.")
 		else

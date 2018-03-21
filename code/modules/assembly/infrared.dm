@@ -66,7 +66,7 @@
 			return .(A.loc, A, level + 1)
 	else if(ismob(A))
 		var/mob/user = A
-		if(user.get_active_hand() == prev || user.get_inactive_hand() == prev)
+		if(user.get_active_held_item() == prev || user.get_inactive_hand() == prev)
 			return .(A.loc, A, level + 1)
 	return null
 

@@ -40,8 +40,7 @@
 		name = "[initial(name)]"
 	update_icon()
 	if(user)
-		user.update_inv_r_hand()
-		user.update_inv_l_hand()
+		user.update_inv_hands()
 	if(isrobot(user))
 		to_chat(user, "<span class='notice'>You free up your module.</span>")
 	else
@@ -68,8 +67,7 @@
 	name = "[name] (Wielded)"
 	update_icon()
 	if(user)
-		user.update_inv_r_hand()
-		user.update_inv_l_hand()
+		user.update_inv_hands()
 	if(isrobot(user))
 		to_chat(user, "<span class='notice'>You dedicate your module to [name].</span>")
 	else
@@ -147,7 +145,7 @@
 
 /obj/item/weapon/twohanded/required/equipped(mob/user, slot)
 	..()
-	if(slot == slot_l_hand || slot == slot_r_hand)
+	if(slot == slot_hands || slot == slot_r_hand)
 		wield(user)
 	else
 		unwield(user)
@@ -462,9 +460,8 @@
 	else
 		hitsound = "swing_hit"
 
-	if(src == user.get_active_hand()) //update inhands
-		user.update_inv_l_hand()
-		user.update_inv_r_hand()
+	if(src == user.get_active_held_item()) //update inhands
+		user.update_inv_hands()
 	for(var/X in actions)
 		var/datum/action/A = X
 		A.UpdateButtonIcon()

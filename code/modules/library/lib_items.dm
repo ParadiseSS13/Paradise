@@ -87,7 +87,7 @@
 		if(choice)
 			if(user.incapacitated() || user.lying || !Adjacent(user))
 				return
-			if(!user.get_active_hand())
+			if(!user.get_active_held_item())
 				user.put_in_hands(choice)
 			else
 				choice.forceMove(get_turf(src))

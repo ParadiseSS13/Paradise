@@ -141,9 +141,9 @@
 	infodisplay += mymob.healths
 
 //Installed Module
-	mymob.hands = new /obj/screen/robot/module()
-	mymob.hands.screen_loc = ui_borg_module
-	static_inventory += mymob.hands
+	mymobR.hands = new /obj/screen/robot/module()
+	mymobR.hands.screen_loc = ui_borg_module
+	static_inventory += mymobR.hands
 
 	module_store_icon = new /obj/screen/robot/store()
 	module_store_icon.screen_loc = ui_borg_store

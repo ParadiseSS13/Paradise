@@ -347,9 +347,9 @@
 	H.equip_or_collect(new /obj/item/clothing/mask/breath/vox(H), slot_wear_mask)
 	var/tank_pref = H.client && H.client.prefs ? H.client.prefs.speciesprefs : null
 	if(tank_pref)//Diseasel, here you go
-		H.equip_or_collect(new /obj/item/weapon/tank/nitrogen(H), slot_l_hand)
+		H.equip_or_collect(new /obj/item/weapon/tank/nitrogen(H), slot_hands)
 	else
-		H.equip_or_collect(new /obj/item/weapon/tank/emergency_oxygen/vox(H), slot_l_hand)
+		H.equip_or_collect(new /obj/item/weapon/tank/emergency_oxygen/vox(H), slot_hands)
 	to_chat(H, "<span class='notice'>You are now running on nitrogen internals from the [H.l_hand] in your hand. Your species finds oxygen toxic, so you must breathe nitrogen only.</span>")
 	H.internal = H.l_hand
 	H.update_action_buttons_icon()

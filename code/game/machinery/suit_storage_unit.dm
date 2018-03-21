@@ -899,7 +899,7 @@
 
 /*	else if((href_list["cutwire"]) && (src.panel_open))
 		var/twire = text2num(href_list["cutwire"])
-		if(!( istype(usr.get_active_hand(), /obj/item/weapon/wirecutters) ))
+		if(!( istype(usr.get_active_held_item(), /obj/item/weapon/wirecutters) ))
 			to_chat(usr, "You need wirecutters!")
 			return
 		if(src.isWireColorCut(twire))
@@ -909,7 +909,7 @@
 
 	else if((href_list["pulsewire"]) && (src.panel_open))
 		var/twire = text2num(href_list["pulsewire"])
-		if(!istype(usr.get_active_hand(), /obj/item/device/multitool))
+		if(!istype(usr.get_active_held_item(), /obj/item/device/multitool))
 			to_chat(usr, "You need a multitool!")
 			return
 		if(src.isWireColorCut(twire))

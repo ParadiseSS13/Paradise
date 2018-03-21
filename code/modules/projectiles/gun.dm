@@ -225,10 +225,7 @@ obj/item/weapon/gun/proc/newshot()
 			semicd = 0
 
 	if(user)
-		if(user.hand)
-			user.update_inv_l_hand()
-		else
-			user.update_inv_r_hand()
+		user.update_inv_hands()
 	feedback_add_details("gun_fired","[type]")
 
 /obj/item/weapon/gun/attack(mob/M as mob, mob/user)

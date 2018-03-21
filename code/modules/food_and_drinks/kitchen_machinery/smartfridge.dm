@@ -257,7 +257,7 @@
 				S.remove_from_storage(I, src)
 			else if(istype(I.loc, /mob))
 				var/mob/M = I.loc
-				if(M.get_active_hand() == I)
+				if(M.get_active_held_item() == I)
 					if(!M.drop_item())
 						to_chat(user, "<span class='warning'>\The [I] is stuck to you!</span>")
 						return 0

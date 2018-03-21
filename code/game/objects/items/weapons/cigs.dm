@@ -106,8 +106,7 @@ LIGHTERS ARE IN LIGHTERS.DM
 
 	//can't think of any other way to update the overlays :<
 	user.update_inv_wear_mask()
-	user.update_inv_l_hand()
-	user.update_inv_r_hand()
+	user.update_inv_hands()
 	return
 
 

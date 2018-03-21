@@ -535,8 +535,8 @@
 			if(A)
 				paid = pay_with_account(A)
 				handled = 1
-			else if(istype(usr.get_active_hand(), /obj/item/weapon/card))
-				paid = pay_with_card(usr.get_active_hand())
+			else if(istype(usr.get_active_held_item(), /obj/item/weapon/card))
+				paid = pay_with_card(usr.get_active_held_item())
 				handled = 1
 			else if(usr.can_admin_interact())
 				paid = 1

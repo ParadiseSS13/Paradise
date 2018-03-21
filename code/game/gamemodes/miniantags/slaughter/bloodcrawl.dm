@@ -6,7 +6,7 @@
 
 	if(iscarbon(src))
 		var/mob/living/carbon/C = src
-		if(C.l_hand || C.r_hand)
+		if(C.held_items)
 			to_chat(C, "<span class='warning'>You may not hold items while blood crawling!</span>")
 			return 0
 		var/obj/item/weapon/bloodcrawl/B1 = new(C)

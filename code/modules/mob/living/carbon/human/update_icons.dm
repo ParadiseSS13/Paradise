@@ -49,8 +49,7 @@ There are several things that need to be remembered:
 		update_inv_shoes()
 		update_inv_w_uniform()
 		update_inv_glasse()
-		update_inv_l_hand()
-		update_inv_r_hand()
+		update_inv_hands()
 		update_inv_belt()
 		update_inv_wear_id()
 		update_inv_ears()
@@ -78,13 +77,11 @@ There are several things that need to be remembered:
 	it manually:
 		e.g.
 		update_inv_head(0)
-		update_inv_l_hand(0)
-		update_inv_r_hand()		//<---calls update_icons()
+		update_inv_hands(0)
 
 	or equivillantly:
 		update_inv_head(0)
-		update_inv_l_hand(0)
-		update_inv_r_hand(0)
+		update_inv_hands(0)
 		update_icons()
 
 >	If you need to update all overlays you can use regenerate_icons(). it works exactly like update_clothing used to.
@@ -600,8 +597,7 @@ var/global/list/damage_icon_parts = list()
 	update_inv_belt(0)
 	update_inv_back(0)
 	update_inv_wear_suit(0)
-	update_inv_r_hand(0)
-	update_inv_l_hand(0)
+	update_inv_hands(0)
 	update_inv_handcuffed(0)
 	update_inv_legcuffed(0)
 	update_inv_pockets(0)
@@ -963,8 +959,7 @@ var/global/list/damage_icon_parts = list()
 
 
 		if(wear_suit.breakouttime)
-			drop_l_hand()
-			drop_r_hand()
+			drop_all_held_items()
 
 
 		if(wear_suit.blood_DNA)
@@ -1100,24 +1095,7 @@ var/global/list/damage_icon_parts = list()
 	if(update_icons)
 		update_icons()
 
-
-/mob/living/carbon/human/update_inv_r_hand(var/update_icons=1)
-	..()
-	if(r_hand)
-		var/t_state = r_hand.item_state
-		if(!t_state)
-			t_state = r_hand.icon_state
-
-		var/image/I = image("icon" = r_hand.righthand_file, "icon_state" = "[t_state]")
-		I = center_image(I, r_hand.inhand_x_dimension, r_hand.inhand_y_dimension)
-		overlays_standing[R_HAND_LAYER] = I
-	else
-		overlays_standing[R_HAND_LAYER] = null
-	if(update_icons)
-		update_icons()
-
-
-/mob/living/carbon/human/update_inv_l_hand(var/update_icons=1)
+/mob/living/carbon/human/update_inv_hands(var/update_icons=1)
 	..()
 	if(l_hand)
 		var/t_state = l_hand.item_state

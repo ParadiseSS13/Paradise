@@ -291,7 +291,7 @@
 			return//don't do shit
 
 	var/mob/living/carbon/human/H = user
-	var/dam_zone = pick("head", "chest", "groin", "l_arm", "l_hand", "r_arm", "r_hand", "l_leg", "l_foot", "r_leg", "r_foot")
+	var/dam_zone = pick("head", "chest", "groin", "l_arm", "r_arm", "hands", "l_leg", "l_foot", "r_leg", "r_foot")
 	var/obj/item/organ/external/affecting = H.get_organ(ran_zone(dam_zone))
 	user.visible_message("<span class='warning'>[user] cuts open their \The [affecting] and begins writing in their own blood!</span>", "<span class='cult'>You slice open your [affecting] and begin drawing a sigil of [ticker.mode.cultdat.entity_title3].</span>")
 	user.apply_damage(initial(rune_to_scribe.scribe_damage), BRUTE , affecting)

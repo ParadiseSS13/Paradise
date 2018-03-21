@@ -454,7 +454,7 @@
 
 	if(!target)
 		if(get_fuel() >= 0)
-			var/obj/item/weapon/weldingtool/W = holder.wearer.get_active_hand()
+			var/obj/item/weapon/weldingtool/W = holder.wearer.get_active_held_item()
 			if(istype(W))
 				fill_welder(W)
 			else

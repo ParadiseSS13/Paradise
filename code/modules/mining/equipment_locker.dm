@@ -127,7 +127,7 @@
 		if(!powered())
 			return
 		else
-			var/obj/item/weapon/card/id/I = usr.get_active_hand()
+			var/obj/item/weapon/card/id/I = usr.get_active_held_item()
 			if(istype(I) && !istype(inserted_id))
 				if(!user.drop_item())
 					return
@@ -229,7 +229,7 @@
 				else
 					to_chat(usr, "<span class='warning'>Required access not found.</span>")
 		else if(href_list["choice"] == "insert")
-			var/obj/item/weapon/card/id/I = usr.get_active_hand()
+			var/obj/item/weapon/card/id/I = usr.get_active_held_item()
 			if(istype(I))
 				if(!usr.drop_item())
 					return 1
@@ -437,7 +437,7 @@
 				inserted_id.verb_pickup()
 				inserted_id = null
 		else if(href_list["choice"] == "insert")
-			var/obj/item/weapon/card/id/I = usr.get_active_hand()
+			var/obj/item/weapon/card/id/I = usr.get_active_held_item()
 			if(istype(I))
 				if(!usr.drop_item())
 					return
@@ -476,7 +476,7 @@
 		if(!powered())
 			return
 		else
-			var/obj/item/weapon/card/id/C = usr.get_active_hand()
+			var/obj/item/weapon/card/id/C = usr.get_active_held_item()
 			if(istype(C) && !istype(inserted_id))
 				if(!usr.drop_item())
 					return

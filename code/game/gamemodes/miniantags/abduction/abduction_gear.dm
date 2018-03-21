@@ -59,8 +59,7 @@
 		M.icon = disguise.icon
 		M.icon_state = disguise.icon_state
 		M.overlays = disguise.overlays
-		M.update_inv_r_hand()
-		M.update_inv_l_hand()
+		M.update_inv_hands()
 
 /obj/item/clothing/suit/armor/abductor/vest/proc/DeactivateStealth()
 	if(!stealth_active)
@@ -372,8 +371,7 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 	toggle(user)
 	if(ishuman(user))
 		var/mob/living/carbon/human/H = user
-		H.update_inv_l_hand()
-		H.update_inv_r_hand()
+		H.update_inv_hands()
 
 /obj/item/weapon/abductor_baton/proc/StunAttack(mob/living/L,mob/living/user)
 	user.lastattacked = L

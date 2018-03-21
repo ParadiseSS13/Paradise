@@ -23,7 +23,7 @@
 		return 1
 
 /obj/item/clothing/accessory/holster/attack_self()
-	var/holsteritem = usr.get_active_hand()
+	var/holsteritem = usr.get_active_held_item()
 	if(!holstered)
 		holster(holsteritem, usr)
 	else
@@ -57,7 +57,7 @@
 	if(!holstered)
 		return
 
-	if(istype(user.get_active_hand(),/obj) && istype(user.get_inactive_hand(),/obj))
+	if(istype(user.get_active_held_item(),/obj) && istype(user.get_inactive_hand(),/obj))
 		to_chat(user, "<span class='warning'>You need an empty hand to draw the [holstered]!</span>")
 	else
 		if(user.a_intent == INTENT_HARM)
@@ -121,10 +121,10 @@
 		to_chat(usr, "<span class='warning'>Something is very wrong.</span>")
 
 	if(!H.holstered)
-		if(!istype(usr.get_active_hand(), /obj/item/weapon/gun))
+		if(!istype(usr.get_active_held_item(), /obj/item/weapon/gun))
 			to_chat(usr, "<span class='warning'>You need your gun equiped to holster it.</span>")
 			return
-		var/obj/item/weapon/gun/W = usr.get_active_hand()
+		var/obj/item/weapon/gun/W = usr.get_active_held_item()
 		H.holster(W, usr)
 	else
 		H.unholster(usr)

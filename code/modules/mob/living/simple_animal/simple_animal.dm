@@ -598,8 +598,7 @@
 
 /mob/living/simple_animal/update_canmove(delay_action_updates = 0)
 	if(paralysis || stunned || weakened || stat || resting)
-		drop_r_hand()
-		drop_l_hand()
+		drop_all_held_items()
 		canmove = 0
 	else if(buckled)
 		canmove = 0

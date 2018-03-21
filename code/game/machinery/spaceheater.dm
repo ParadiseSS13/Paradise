@@ -55,7 +55,7 @@
 				return
 			else
 				// insert cell
-				var/obj/item/weapon/stock_parts/cell/C = usr.get_active_hand()
+				var/obj/item/weapon/stock_parts/cell/C = usr.get_active_held_item()
 				if(istype(C))
 					user.drop_item()
 					cell = C
@@ -125,7 +125,7 @@
 				set_temperature = dd_range(0, 90, set_temperature + value)
 
 			if("cellremove")
-				if(open && cell && !usr.get_active_hand())
+				if(open && cell && !usr.get_active_held_item())
 					cell.updateicon()
 					usr.put_in_hands(cell)
 					cell.add_fingerprint(usr)
@@ -135,7 +135,7 @@
 
 			if("cellinstall")
 				if(open && !cell)
-					var/obj/item/weapon/stock_parts/cell/C = usr.get_active_hand()
+					var/obj/item/weapon/stock_parts/cell/C = usr.get_active_held_item()
 					if(istype(C))
 						usr.drop_item()
 						cell = C

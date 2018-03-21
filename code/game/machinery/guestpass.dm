@@ -137,7 +137,7 @@
 				if(giver)
 					if(ishuman(usr))
 						giver.loc = usr.loc
-						if(!usr.get_active_hand())
+						if(!usr.get_active_held_item())
 							usr.put_in_hands(giver)
 						giver = null
 					else
@@ -145,7 +145,7 @@
 						giver = null
 					accesses.Cut()
 				else
-					var/obj/item/I = usr.get_active_hand()
+					var/obj/item/I = usr.get_active_held_item()
 					if(istype(I, /obj/item/weapon/card/id))
 						usr.drop_item()
 						I.loc = src

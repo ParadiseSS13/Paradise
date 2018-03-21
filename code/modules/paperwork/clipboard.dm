@@ -122,7 +122,7 @@ obj/item/weapon/clipboard/proc/penPlacement(mob/user, obj/item/weapon/pen/P, pla
 	..()
 	if(!Adjacent(usr) || usr.incapacitated())
 		return
-	var/obj/item/I = usr.get_active_hand()
+	var/obj/item/I = usr.get_active_held_item()
 	if(href_list["doPenThings"])
 		if(href_list["doPenThings"] == "Add")
 			penPlacement(usr, I, TRUE)

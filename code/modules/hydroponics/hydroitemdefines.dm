@@ -171,8 +171,7 @@
 	sharp = extend
 	if(ishuman(user))
 		var/mob/living/carbon/human/H = user
-		H.update_inv_l_hand()
-		H.update_inv_r_hand()
+		H.update_inv_hands()
 	add_fingerprint(user)
 	if(!blood_DNA)
 		return

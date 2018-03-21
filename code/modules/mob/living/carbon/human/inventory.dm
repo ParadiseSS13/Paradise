@@ -2,7 +2,7 @@
 	set name = "quick-equip"
 	set hidden = 1
 
-	var/obj/item/I = get_active_hand()
+	var/obj/item/I = get_active_held_item()
 	if(I)
 		I.equip_to_best_slot(src)
 
@@ -36,7 +36,7 @@
 			return has_organ("l_hand") && has_organ("r_hand")
 		if(slot_legcuffed)
 			return has_organ("l_leg") && has_organ("r_leg")
-		if(slot_l_hand)
+		if(slot_hands)
 			return has_organ("l_hand")
 		if(slot_r_hand)
 			return has_organ("r_hand")
@@ -177,10 +177,10 @@
 		update_inv_back()
 	else if(I == r_hand)
 		r_hand = null
-		update_inv_r_hand()
+		update_inv_hands()
 	else if(I == l_hand)
 		l_hand = null
-		update_inv_l_hand()
+		update_inv_hands()
 
 
 
@@ -194,10 +194,10 @@
 
 	if(W == src.l_hand)
 		src.l_hand = null
-		update_inv_l_hand() //So items actually disappear from hands.
+		update_inv_hands() //So items actually disappear from hands.
 	else if(W == src.r_hand)
 		src.r_hand = null
-		update_inv_r_hand()
+		update_inv_hands()
 
 	W.screen_loc = null
 	W.loc = src
@@ -225,12 +225,9 @@
 		if(slot_legcuffed)
 			legcuffed = W
 			update_inv_legcuffed(redraw_mob)
-		if(slot_l_hand)
+		if(slot_hands)
 			l_hand = W
-			update_inv_l_hand(redraw_mob)
-		if(slot_r_hand)
-			r_hand = W
-			update_inv_r_hand(redraw_mob)
+			update_inv_hands(redraw_mob)
 		if(slot_belt)
 			belt = W
 			update_inv_belt(redraw_mob)
@@ -307,7 +304,7 @@
 			s_store = W
 			update_inv_s_store(redraw_mob)
 		if(slot_in_backpack)
-			if(get_active_hand() == W)
+			if(get_active_held_item() == W)
 				unEquip(W)
 			W.loc = back
 		if(slot_tie)
@@ -335,7 +332,7 @@
 			return handcuffed
 		if(slot_legcuffed)
 			return legcuffed
-		if(slot_l_hand)
+		if(slot_hands)
 			return l_hand
 		if(slot_r_hand)
 			return r_hand
@@ -432,7 +429,7 @@
 				return 0
 
 	switch(slot)
-		if(slot_l_hand)
+		if(slot_hands)
 			if(l_hand)
 				return 0
 			return 1

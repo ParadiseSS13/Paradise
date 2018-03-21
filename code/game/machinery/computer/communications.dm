@@ -127,7 +127,7 @@
 				return 1
 
 			var/mob/living/carbon/human/L = usr
-			var/obj/item/card = L.get_active_hand()
+			var/obj/item/card = L.get_active_held_item()
 			var/obj/item/weapon/card/id/I = (card && card.GetID()) || L.wear_id || L.wear_pda
 			if(istype(I, /obj/item/device/pda))
 				var/obj/item/device/pda/pda = I

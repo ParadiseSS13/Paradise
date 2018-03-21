@@ -19,7 +19,7 @@ var/global/vox_tick = 1
 			equip_to_slot_or_del(new /obj/item/device/chameleon(src), slot_l_store)
 
 			var/obj/item/weapon/gun/projectile/automatic/spikethrower/W = new(src)
-			equip_to_slot_or_del(W, slot_r_hand)
+			equip_to_slot_or_del(W, slot_hands)
 
 
 		if(2) // Vox engineer!
@@ -27,8 +27,8 @@ var/global/vox_tick = 1
 			equip_to_slot_or_del(new /obj/item/clothing/head/helmet/space/vox/pressure(src), slot_head)
 			equip_to_slot_or_del(new /obj/item/weapon/storage/belt/utility/full(src), slot_belt)
 			equip_to_slot_or_del(new /obj/item/clothing/glasses/meson(src), slot_glasses) // REPLACE WITH CODED VOX ALTERNATIVE.
-			equip_to_slot_or_del(new /obj/item/weapon/storage/box/emps(src), slot_r_hand)
-			equip_to_slot_or_del(new /obj/item/device/multitool(src), slot_l_hand)
+			equip_to_slot_or_del(new /obj/item/weapon/storage/box/emps(src), slot_hands)
+			equip_to_slot_or_del(new /obj/item/device/multitool(src), slot_hands)
 
 
 		if(3) // Vox saboteur!
@@ -37,8 +37,8 @@ var/global/vox_tick = 1
 			equip_to_slot_or_del(new /obj/item/weapon/storage/belt/utility/full(src), slot_belt)
 			equip_to_slot_or_del(new /obj/item/clothing/glasses/thermal/monocle(src), slot_glasses) // REPLACE WITH CODED VOX ALTERNATIVE.
 			equip_to_slot_or_del(new /obj/item/weapon/card/emag(src), slot_l_store)
-			equip_to_slot_or_del(new /obj/item/weapon/gun/dartgun/vox/raider(src), slot_r_hand)
-			equip_to_slot_or_del(new /obj/item/device/multitool(src), slot_l_hand)
+			equip_to_slot_or_del(new /obj/item/weapon/gun/dartgun/vox/raider(src), slot_hands)
+			equip_to_slot_or_del(new /obj/item/device/multitool(src), slot_hands)
 
 		if(4) // Vox medic!
 			equip_to_slot_or_del(new /obj/item/clothing/suit/space/vox/medic(src), slot_wear_suit)
@@ -46,7 +46,7 @@ var/global/vox_tick = 1
 			equip_to_slot_or_del(new /obj/item/weapon/storage/belt/utility/full(src), slot_belt) // Who needs actual surgical tools?
 			equip_to_slot_or_del(new /obj/item/clothing/glasses/hud/health(src), slot_glasses) // REPLACE WITH CODED VOX ALTERNATIVE.
 			equip_to_slot_or_del(new /obj/item/weapon/circular_saw(src), slot_l_store)
-			equip_to_slot_or_del(new /obj/item/weapon/gun/dartgun/vox/medical, slot_r_hand)
+			equip_to_slot_or_del(new /obj/item/weapon/gun/dartgun/vox/medical, slot_hands)
 
 	equip_to_slot_or_del(new /obj/item/clothing/mask/breath/vox(src), slot_wear_mask)
 	equip_to_slot_or_del(new /obj/item/weapon/tank/nitrogen(src), slot_back)

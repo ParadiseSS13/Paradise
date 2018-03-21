@@ -25,7 +25,7 @@
 				loaded.forceMove(src)
 				loaded.max_amount = max_amount //We store a lot.
 			else
-				to_chat(user, "<span class='warning'>[user.get_active_hand()] is stuck to your hand!</span>")
+				to_chat(user, "<span class='warning'>[user.get_active_held_item()] is stuck to your hand!</span>")
 				return
 		else
 			if(loaded.amount < max_amount)

@@ -38,7 +38,7 @@ var/list/possible_uplinker_IDs = list("Alfa","Bravo","Charlie","Delta","Echo","F
 			return
 
 		if(O.hidden_uplink)
-			var/obj/item/P = user.get_active_hand()
+			var/obj/item/P = user.get_active_held_item()
 			user.drop_item()
 			uplinkholder = P
 			P.loc = src

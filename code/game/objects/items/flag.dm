@@ -43,8 +43,7 @@
 		overlays += image('icons/obj/flag.dmi', src , "fire")
 	if(ismob(loc))
 		var/mob/M = loc
-		M.update_inv_r_hand()
-		M.update_inv_l_hand()
+		M.update_inv_hands()
 
 /obj/item/flag/proc/updateFlagIcon()
 	icon_state = initial(icon_state)

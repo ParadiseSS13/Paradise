@@ -279,7 +279,7 @@ proc/add_logs(mob/user, mob/target, what_done, var/object=null, var/addition=nul
 
 	var/target_loc = target.loc
 
-	var/holding = user.get_active_hand()
+	var/holding = user.get_active_held_item()
 	var/datum/progressbar/progbar
 	if(progress)
 		progbar = new(user, time, target)
@@ -301,7 +301,7 @@ proc/add_logs(mob/user, mob/target, what_done, var/object=null, var/addition=nul
 			drifting = 0
 			user_loc = user.loc
 
-		if((!drifting && user.loc != user_loc) || target.loc != target_loc || user.get_active_hand() != holding || user.incapacitated() || user.lying )
+		if((!drifting && user.loc != user_loc) || target.loc != target_loc || user.get_active_held_item() != holding || user.incapacitated() || user.lying )
 			. = 0
 			break
 	if(progress)
@@ -320,7 +320,7 @@ proc/add_logs(mob/user, mob/target, what_done, var/object=null, var/addition=nul
 	if(!user.Process_Spacemove(0) && user.inertia_dir)
 		drifting = 1
 
-	var/holding = user.get_active_hand()
+	var/holding = user.get_active_held_item()
 
 	var/holdingnull = 1 //User's hand started out empty, check for an empty hand
 	if(holding)
@@ -357,7 +357,7 @@ proc/add_logs(mob/user, mob/target, what_done, var/object=null, var/addition=nul
 				if(!holding)
 					. = 0
 					break
-			if(user.get_active_hand() != holding)
+			if(user.get_active_held_item() != holding)
 				. = 0
 				break
 	if(progress)

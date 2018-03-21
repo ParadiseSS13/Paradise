@@ -54,7 +54,7 @@
 							"<span class='warning'>You fail to grab ahold of [D]!</span>")
 		return 1
 	D.grabbedby(A,1)
-	var/obj/item/weapon/grab/G = A.get_active_hand()
+	var/obj/item/weapon/grab/G = A.get_active_held_item()
 	if(G)
 		D.visible_message("<span class='danger'>[A] grabs ahold of [D] drunkenly!</span>", \
 								"<span class='userdanger'>[A] grabs ahold of [D] drunkenly!</span>")

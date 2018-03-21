@@ -228,7 +228,7 @@
 		target.rename_character(target.real_name, "Generic Henchman ([rand(1, 1000)])")
 		target.equip_to_slot_or_del(new /obj/item/clothing/under/color/grey/greytide(target), slot_w_uniform)
 		target.equip_to_slot_or_del(new /obj/item/clothing/shoes/black/greytide(target), slot_shoes)
-		target.equip_to_slot_or_del(new /obj/item/weapon/storage/toolbox/mechanical/greytide(target), slot_l_hand)
+		target.equip_to_slot_or_del(new /obj/item/weapon/storage/toolbox/mechanical/greytide(target), slot_hands)
 		target.equip_to_slot_or_del(new /obj/item/device/radio/headset(target), slot_l_ear)
 		var/obj/item/weapon/card/id/syndicate/W = new(target)
 		W.icon_state = "lifetimeid"

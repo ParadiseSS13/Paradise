@@ -197,7 +197,7 @@
 		return FALSE
 	if(!..())
 		return FALSE
-	var/obj/item/hand_item = get_active_hand()
+	var/obj/item/hand_item = get_active_held_item()
 	if(istype(hand_item, /obj/item/weapon/gun) && A != hand_item)
 		if(a_intent == INTENT_HELP || !ismob(A))
 			visible_message("<b>[src]</b> points to [A] with [hand_item]")
@@ -821,7 +821,7 @@
 // The src mob is trying to place an item on someone
 // Override if a certain mob should be behave differently when placing items (can't, for example)
 /mob/living/stripPanelEquip(obj/item/what, mob/who, where, var/silent = 0)
-	what = get_active_hand()
+	what = get_active_held_item()
 	if(what && (what.flags & NODROP))
 		to_chat(src, "<span class='warning'>You can't put \the [what.name] on [who], it's stuck to your hand!</span>")
 		return

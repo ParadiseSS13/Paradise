@@ -941,11 +941,11 @@ var/list/non_fakeattack_weapons = list(/obj/item/weapon/gun/projectile, /obj/ite
 //			to_chat(src, "Traitor Items")
 			if(!halitem)
 				halitem = new
-				var/list/slots_free = list(ui_lhand,ui_rhand)
+				var/list/slots_free = list(ui_hand_position(1),ui_hand_position(2))
 				if(l_hand)
-					slots_free -= ui_lhand
+					slots_free -= ui_hand_position(1)
 				if(r_hand)
-					slots_free -= ui_rhand
+					slots_free -= ui_hand_position(2)
 				if(istype(src,/mob/living/carbon/human))
 					var/mob/living/carbon/human/H = src
 					if(!H.belt)

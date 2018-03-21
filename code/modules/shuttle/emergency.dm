@@ -35,7 +35,7 @@
 			return 0
 
 		var/choice = alert(user, text("Would you like to (un)authorize a shortened launch time? [] authorization\s are still needed. Use abort to cancel all authorizations.", src.auth_need - src.authorized.len), "Shuttle Launch", "Authorize", "Repeal", "Abort")
-		if(shuttle_master.emergency.mode != SHUTTLE_DOCKED || user.get_active_hand() != W)
+		if(shuttle_master.emergency.mode != SHUTTLE_DOCKED || user.get_active_held_item() != W)
 			return 0
 
 		var/seconds = shuttle_master.emergency.timeLeft()

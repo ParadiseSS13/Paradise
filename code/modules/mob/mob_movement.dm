@@ -71,7 +71,7 @@
 /client/Northwest()
 	if(iscarbon(usr))
 		var/mob/living/carbon/C = usr
-		if(!C.get_active_hand())
+		if(!C.get_active_held_item())
 			to_chat(usr, "<span class='warning'>You have nothing to drop in your hand.</span>")
 			return
 		drop_item()

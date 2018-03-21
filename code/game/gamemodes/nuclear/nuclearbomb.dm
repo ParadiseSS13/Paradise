@@ -246,7 +246,7 @@ var/bomb_set
 			yes_code = 0
 			auth = null
 		else
-			var/obj/item/I = usr.get_active_hand()
+			var/obj/item/I = usr.get_active_held_item()
 			if(istype(I, /obj/item/weapon/disk/nuclear))
 				usr.drop_item()
 				I.loc = src

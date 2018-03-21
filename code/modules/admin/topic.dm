@@ -1617,7 +1617,7 @@
 			to_chat(usr, "This can only be used on instances of type /mob/living/carbon/human")
 			return
 
-		H.equip_to_slot_or_del( new /obj/item/weapon/reagent_containers/food/snacks/cookie(H), slot_l_hand )
+		H.equip_to_slot_or_del( new /obj/item/weapon/reagent_containers/food/snacks/cookie(H), slot_hands )
 		if(!(istype(H.l_hand,/obj/item/weapon/reagent_containers/food/snacks/cookie)))
 			H.equip_to_slot_or_del( new /obj/item/weapon/reagent_containers/food/snacks/cookie(H), slot_r_hand )
 			if(!(istype(H.r_hand,/obj/item/weapon/reagent_containers/food/snacks/cookie)))
@@ -1625,9 +1625,9 @@
 				message_admins("[key_name_admin(H)] has their hands full, so they did not receive their cookie, spawned by [key_name_admin(src.owner)].")
 				return
 			else
-				H.update_inv_r_hand()//To ensure the icon appears in the HUD
+				H.update_inv_hands()//To ensure the icon appears in the HUD
 		else
-			H.update_inv_l_hand()
+			H.update_inv_hands()
 		log_admin("[key_name(H)] got their cookie, spawned by [key_name(src.owner)]")
 		message_admins("[key_name_admin(H)] got their cookie, spawned by [key_name_admin(src.owner)]")
 		feedback_inc("admin_cookies_spawned",1)
@@ -1898,7 +1898,7 @@
 				evilcookie.bitesize = 100
 				evilcookie.flags = NODROP
 				H.drop_l_hand()
-				H.equip_to_slot_or_del(evilcookie, slot_l_hand)
+				H.equip_to_slot_or_del(evilcookie, slot_hands)
 				logmsg = "a mutagen cookie."
 			if("Hellwater Cookie")
 				var/obj/item/weapon/reagent_containers/food/snacks/cookie/evilcookie = new /obj/item/weapon/reagent_containers/food/snacks/cookie
@@ -1907,7 +1907,7 @@
 				evilcookie.bitesize = 100
 				evilcookie.flags = NODROP
 				H.drop_l_hand()
-				H.equip_to_slot_or_del(evilcookie, slot_l_hand)
+				H.equip_to_slot_or_del(evilcookie, slot_hands)
 				logmsg = "a hellwater cookie."
 			if("Hunter")
 				logmsg = "hunter."

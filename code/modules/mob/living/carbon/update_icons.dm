@@ -38,27 +38,18 @@
 /mob/living/carbon/proc/update_hud_handcuffed()
 	if(hud_used)
 		var/obj/screen/inventory/R = hud_used.inv_slots[slot_r_hand]
-		var/obj/screen/inventory/L = hud_used.inv_slots[slot_l_hand]
+		var/obj/screen/inventory/L = hud_used.inv_slots[slot_hands]
 		if(R && L)
 			R.update_icon()
 			L.update_icon()
 
-/mob/living/carbon/update_inv_r_hand(ignore_cuffs)
-	if(handcuffed && !ignore_cuffs)
-		drop_r_hand()
-		return
-	if(r_hand)
-		if(client && hud_used && hud_used.hud_version != HUD_STYLE_NOHUD)
-			r_hand.screen_loc = ui_rhand
-			client.screen += r_hand
-
-/mob/living/carbon/update_inv_l_hand(ignore_cuffs)
+/mob/living/carbon/update_inv_hands(ignore_cuffs)
 	if(handcuffed && !ignore_cuffs)
 		drop_l_hand()
 		return
 	if(l_hand)
 		if(client && hud_used && hud_used.hud_version != HUD_STYLE_NOHUD)
-			l_hand.screen_loc = ui_lhand
+			l_hand.screen_loc = ui_hand_position(1)
 			client.screen += l_hand
 
 /mob/living/carbon/update_inv_wear_mask()

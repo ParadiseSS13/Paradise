@@ -75,7 +75,7 @@
 			if(user.incapacitated())
 				to_chat(user, "You're in no condition to perform this action.")
 				return
-			if(W != user.get_active_hand())
+			if(W != user.get_active_held_item())
 				to_chat(user, "You must be holding the pen to perform this action.")
 				return
 			if(! Adjacent(user))

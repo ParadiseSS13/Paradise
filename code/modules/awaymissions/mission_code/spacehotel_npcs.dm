@@ -35,7 +35,7 @@
 
 /mob/living/carbon/human/interactive/away/hotel/concierge/random()
 	..()
-	equip_or_collect(new /obj/item/weapon/clipboard(src), slot_l_hand)
+	equip_or_collect(new /obj/item/weapon/clipboard(src), slot_hands)
 
 /mob/living/carbon/human/interactive/away/hotel/concierge/doSetup()
 	..("Concierge")

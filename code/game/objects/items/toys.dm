@@ -172,8 +172,7 @@
 
 	if(istype(user,/mob/living/carbon/human))
 		var/mob/living/carbon/human/H = user
-		H.update_inv_l_hand()
-		H.update_inv_r_hand()
+		H.update_inv_hands()
 	add_fingerprint(user)
 	return
 
@@ -605,7 +604,7 @@ obj/item/toy/cards/cardhand/Topic(href, href_list)
 	var/mob/living/carbon/human/cardUser = usr
 	var/O = src
 	if(href_list["pick"])
-		if(cardUser.get_item_by_slot(slot_l_hand) == src || cardUser.get_item_by_slot(slot_r_hand) == src)
+		if(cardUser.get_item_by_slot(slot_hands) == src || cardUser.get_item_by_slot(slot_r_hand) == src)
 			var/choice = href_list["pick"]
 			var/obj/item/toy/cards/singlecard/C = new/obj/item/toy/cards/singlecard(cardUser.loc)
 			currenthand -= choice
@@ -680,7 +679,7 @@ obj/item/toy/cards/singlecard/examine(mob/user)
 	if(..(user, 0))
 		if(ishuman(user))
 			var/mob/living/carbon/human/cardUser = user
-			if(cardUser.get_item_by_slot(slot_l_hand) == src || cardUser.get_item_by_slot(slot_r_hand) == src)
+			if(cardUser.get_item_by_slot(slot_hands) == src || cardUser.get_item_by_slot(slot_r_hand) == src)
 				cardUser.visible_message("<span class='notice'>[cardUser] checks \his card.</span>", "<span class='notice'>The card reads: [src.cardname]</span>")
 			else
 				to_chat(cardUser, "<span class='notice'>You need to have the card in your hand to check it.</span>")

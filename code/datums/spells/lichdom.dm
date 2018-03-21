@@ -28,7 +28,7 @@
 		config.continuous_rounds = 0
 	return ..()
 
-/obj/effect/proc_holder/spell/targeted/lichdom/cast(list/targets,mob/user = usr)	
+/obj/effect/proc_holder/spell/targeted/lichdom/cast(list/targets,mob/user = usr)
 	if(!config.continuous_rounds)
 		existence_stops_round_end = 1
 		config.continuous_rounds = 1
@@ -36,7 +36,7 @@
 	for(var/mob/M in targets)
 		var/list/hand_items = list()
 		if(iscarbon(M))
-			hand_items = list(M.get_active_hand(),M.get_inactive_hand())
+			hand_items = list(M.get_active_held_item(),M.get_inactive_hand())
 
 		if(marked_item && !stat_allowed) //sanity, shouldn't happen without badminry
 			marked_item = null

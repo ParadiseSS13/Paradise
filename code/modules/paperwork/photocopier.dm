@@ -21,7 +21,7 @@
 
 /obj/machinery/photocopier/attack_ai(mob/user)
 	return attack_hand(user)
-	
+
 /obj/machinery/photocopier/attack_ghost(mob/user)
 	return attack_hand(user)
 
@@ -87,7 +87,7 @@
 		if(copyitem)
 			copyitem.forceMove(get_turf(src))
 			if(ishuman(usr))
-				if(!usr.get_active_hand())
+				if(!usr.get_active_held_item())
 					usr.put_in_hands(copyitem)
 			to_chat(usr, "<span class='notice'>You take \the [copyitem] out of \the [src].</span>")
 			copyitem = null

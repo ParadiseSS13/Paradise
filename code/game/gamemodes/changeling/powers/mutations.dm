@@ -22,23 +22,18 @@
 	var/weapon_name_simple
 
 /obj/effect/proc_holder/changeling/weapon/try_to_sting(var/mob/user, var/mob/target)
-	if(istype(user.l_hand, weapon_type)) //Not the nicest way to do it, but eh
-		qdel(user.l_hand)
-		if(!silent)
-			user.visible_message("<span class='warning'>With a sickening crunch, [user] reforms his [weapon_name_simple] into an arm!</span>", "<span class='notice'>We assimilate the [weapon_name_simple] back into our body.</span>", "<span class='warning>You hear organic matter ripping and tearing!</span>")
-		user.update_inv_l_hand()
-		return
-	if(istype(user.r_hand, weapon_type))
-		qdel(user.r_hand)
-		if(!silent)
-			user.visible_message("<span class='warning'>With a sickening crunch, [user] reforms his [weapon_name_simple] into an arm!</span>", "<span class='notice'>We assimilate the [weapon_name_simple] back into our body.</span>", "<span class='warning>You hear organic matter ripping and tearing!</span>")
-		user.update_inv_r_hand()
-		return
+	for(var/obj/item/I in user.held_items)
+		if(istype(I, weapon_type)
+			qdel(I)
+			if(!silent)
+				user.visible_message("<span class='warning'>With a sickening crunch, [user] reforms his [weapon_name_simple] into an arm!</span>", "<span class='notice'>We assimilate the [weapon_name_simple] back into our body.</span>", "<span class='warning>You hear organic matter ripping and tearing!</span>")
+			user.update_inv_hands()
+			return
 	..(user, target)
 
 /obj/effect/proc_holder/changeling/weapon/sting_action(var/mob/user)
 	if(!user.drop_item())
-		to_chat(user, "The [user.get_active_hand()] is stuck to your hand, you cannot grow a [weapon_name_simple] over it!")
+		to_chat(user, "The [user.get_active_held_item()] is stuck to your hand, you cannot grow a [weapon_name_simple] over it!")
 		return
 	var/obj/item/W = new weapon_type(user, silent)
 	user.put_in_hands(W)
@@ -276,10 +271,13 @@
 
 /mob/proc/tentacle_stab(mob/living/carbon/C)
 	if(Adjacent(C))
-		var/obj/item/I = r_hand
-		if(!is_sharp(I))
-			I = l_hand
-		if(!is_sharp(I))
+		var/obj/item/I
+		for(var/obj/item/O in held_items
+			if(is_sharp(O)
+				I = O
+				break
+
+		if(!I)
 			return
 
 		C.visible_message("<span class='danger'>[src] impales [C] with [I]!</span>", "<span class='userdanger'>[src] impales you with [I]!</span>")
@@ -314,7 +312,7 @@
 						return 1
 
 					if(INTENT_DISARM)
-						var/obj/item/I = C.get_active_hand()
+						var/obj/item/I = C.get_active_held_item()
 						if(I)
 							if(C.drop_item())
 								C.visible_message("<span class='danger'>[I] is yanked out of [C]'s hand by [src]!</span>","<span class='userdanger'>A tentacle pulls [I] away from you!</span>")

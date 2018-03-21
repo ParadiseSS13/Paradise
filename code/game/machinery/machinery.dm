@@ -527,10 +527,7 @@ Class Procs:
 		threatcount += 4
 
 	if(auth_weapons && !allowed(perp))
-		if(istype(perp.l_hand, /obj/item/weapon/gun) || istype(perp.l_hand, /obj/item/weapon/melee))
-			threatcount += 4
-
-		if(istype(perp.r_hand, /obj/item/weapon/gun) || istype(perp.r_hand, /obj/item/weapon/melee))
+		if(is_type_in_list(/obj/item/weapon/gun, perp.held_items) || is_type_in_list(/obj/item/weapon/melee, perp.held_items))
 			threatcount += 4
 
 		if(istype(perp.belt, /obj/item/weapon/gun) || istype(perp.belt, /obj/item/weapon/melee))

@@ -818,7 +818,7 @@
 						"backpack" = slot_in_backpack,
 						"left pocket" = slot_l_store,
 						"right pocket" = slot_r_store,
-						"left hand" = slot_l_hand,
+						"left hand" = slot_hands,
 						"right hand" = slot_r_hand,
 					)
 					var/where = H.equip_in_one_of_slots(T, slots)
@@ -1349,7 +1349,7 @@
 			"backpack" = slot_in_backpack,
 			"left pocket" = slot_l_store,
 			"right pocket" = slot_r_store,
-			"left hand" = slot_l_hand,
+			"left hand" = slot_hands,
 			"right hand" = slot_r_hand,
 		)
 		var/where = H.equip_in_one_of_slots(T, slots)

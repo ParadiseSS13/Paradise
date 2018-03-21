@@ -73,10 +73,8 @@
 		else // If we're inside a toolbox or something, we are inside the item rather than the item inside us. This is so people can see the item in the toolbox.
 			forceMove( possessed_item )
 
-	if(l_hand) // Incase object interactions put things directly into our hands. (Like cameras, or gun magizines)
-		drop_l_hand()
-	if(r_hand)
-		drop_r_hand()
+	if(held_items) // Incase object interactions put things directly into our hands. (Like cameras, or gun magizines)
+		drop_all_held_items()
 
 /mob/living/simple_animal/possessed_object/Login()
 	..()
@@ -109,7 +107,7 @@
 	animate_ghostly_presence(src, -1, 20, 1)
 
 
-/mob/living/simple_animal/possessed_object/get_active_hand() // So that our attacks count as attacking with the item we've possessed.
+/mob/living/simple_animal/possessed_object/get_active_held_item() // So that our attacks count as attacking with the item we've possessed.
 	return possessed_item
 
 

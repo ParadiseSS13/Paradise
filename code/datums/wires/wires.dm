@@ -131,8 +131,8 @@ var/list/wireColours = list("red", "blue", "green", "black", "orange", "brown", 
 /datum/wires/proc/can_see_wire_index(mob/user)
 	if(user.can_admin_interact())
 		return TRUE
-	else if(istype(user.get_active_hand(), /obj/item/device/multitool))
-		var/obj/item/device/multitool/M = user.get_active_hand()
+	else if(istype(user.get_active_held_item(), /obj/item/device/multitool))
+		var/obj/item/device/multitool/M = user.get_active_held_item()
 		if(M.shows_wire_information)
 			return TRUE
 
@@ -143,7 +143,7 @@ var/list/wireColours = list("red", "blue", "green", "black", "orange", "brown", 
 		return 1
 	var/mob/L = usr
 	if(CanUse(L) && href_list["action"])
-		var/obj/item/I = L.get_active_hand()
+		var/obj/item/I = L.get_active_held_item()
 		var/colour = lowertext(href_list["wire"])
 		holder.add_hiddenprint(L)
 		switch(href_list["action"])
@@ -170,7 +170,7 @@ var/list/wireColours = list("red", "blue", "green", "black", "orange", "brown", 
 						if(L.drop_item())
 							Attach(colour, I)
 						else
-							to_chat(L, "<span class='warning'>[L.get_active_hand()] is stuck to your hand!</span>")
+							to_chat(L, "<span class='warning'>[L.get_active_held_item()] is stuck to your hand!</span>")
 					else
 						to_chat(L, "<span class='error'>You need a remote signaller!</span>")
 

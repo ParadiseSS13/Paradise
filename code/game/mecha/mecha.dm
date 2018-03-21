@@ -1318,14 +1318,14 @@
 /obj/mecha/proc/operation_allowed(mob/living/carbon/human/H)
 	if(!ishuman(H))
 		return 0
-	for(var/ID in list(H.get_active_hand(), H.wear_id, H.belt))
+	for(var/ID in list(H.get_active_held_item(), H.wear_id, H.belt))
 		if(check_access(ID,operation_req_access))
 			return 1
 	return 0
 
 
 /obj/mecha/proc/internals_access_allowed(mob/living/carbon/human/H)
-	for(var/atom/ID in list(H.get_active_hand(), H.wear_id, H.belt))
+	for(var/atom/ID in list(H.get_active_held_item(), H.wear_id, H.belt))
 		if(check_access(ID,internals_req_access))
 			return 1
 	return 0

@@ -609,8 +609,8 @@ var/list/obj/machinery/newscaster/allCasters = list() //Global list that will co
 			photo.forceMove(get_turf(src))
 			user.put_in_inactive_hand(photo)
 		photo = null
-	if(istype(user.get_active_hand(), /obj/item/weapon/photo))
-		photo = user.get_active_hand()
+	if(istype(user.get_active_held_item(), /obj/item/weapon/photo))
+		photo = user.get_active_held_item()
 		user.drop_item()
 		photo.forceMove(src)
 	else if(issilicon(user))

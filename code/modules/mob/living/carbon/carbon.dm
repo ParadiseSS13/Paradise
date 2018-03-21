@@ -45,7 +45,7 @@
 			if(M.client)
 				M.show_message(text("<span class='warning'>You hear something rumbling inside [src]'s stomach...</span>"), 2)
 
-		var/obj/item/I = user.get_active_hand()
+		var/obj/item/I = user.get_active_held_item()
 		if(I && I.force)
 			var/d = rand(round(I.force / 4), I.force)
 
@@ -168,16 +168,16 @@
 
 
 /mob/living/carbon/swap_hand()
-	var/obj/item/item_in_hand = src.get_active_hand()
+	var/obj/item/item_in_hand = src.get_active_held_item()
 	if(item_in_hand) //this segment checks if the item in your hand is twohanded.
 		if(istype(item_in_hand,/obj/item/weapon/twohanded))
 			if(item_in_hand:wielded == 1)
 				to_chat(usr, "<span class='warning'>Your other hand is too busy holding the [item_in_hand.name]</span>")
 				return
 	src.hand = !( src.hand )
-	if(hud_used && hud_used.inv_slots[slot_l_hand] && hud_used.inv_slots[slot_r_hand])
+	if(hud_used && hud_used.inv_slots[slot_hands] && hud_used.inv_slots[slot_r_hand])
 		var/obj/screen/inventory/hand/H
-		H = hud_used.inv_slots[slot_l_hand]
+		H = hud_used.inv_slots[slot_hands]
 		H.update_icon()
 		H = hud_used.inv_slots[slot_r_hand]
 		H.update_icon()
@@ -538,7 +538,7 @@ var/list/ventcrawl_machinery = list(/obj/machinery/atmospherics/unary/vent_pump,
 		throw_mode_off()
 		return
 
-	var/obj/item/I = src.get_active_hand()
+	var/obj/item/I = src.get_active_held_item()
 
 	if(!I || I.override_throw(src, target) || (I.flags & NODROP))
 		throw_mode_off()
@@ -610,7 +610,7 @@ var/list/ventcrawl_machinery = list(/obj/machinery/atmospherics/unary/vent_pump,
 	user.set_machine(src)
 
 	var/dat = {"<table>
-	<tr><td><B>Left Hand:</B></td><td><A href='?src=[UID()];item=[slot_l_hand]'>[(l_hand && !(l_hand.flags&ABSTRACT)) ? l_hand : "<font color=grey>Empty</font>"]</A></td></tr>
+	<tr><td><B>Left Hand:</B></td><td><A href='?src=[UID()];item=[slot_hands]'>[(l_hand && !(l_hand.flags&ABSTRACT)) ? l_hand : "<font color=grey>Empty</font>"]</A></td></tr>
 	<tr><td><B>Right Hand:</B></td><td><A href='?src=[UID()];item=[slot_r_hand]'>[(r_hand && !(r_hand.flags&ABSTRACT)) ? r_hand : "<font color=grey>Empty</font>"]</A></td></tr>
 	<tr><td>&nbsp;</td></tr>"}
 
@@ -693,7 +693,7 @@ var/list/ventcrawl_machinery = list(/obj/machinery/atmospherics/unary/vent_pump,
 			return handcuffed
 		if(slot_legcuffed)
 			return legcuffed
-		if(slot_l_hand)
+		if(slot_hands)
 			return l_hand
 		if(slot_r_hand)
 			return r_hand
@@ -858,13 +858,12 @@ var/list/ventcrawl_machinery = list(/obj/machinery/atmospherics/unary/vent_pump,
 /mob/living/carbon/proc/update_handcuffed()
 	if(handcuffed)
 		//we don't want problems with nodrop shit if there ever is more than one nodrop twohanded
-		var/obj/item/I = get_active_hand()
+		var/obj/item/I = get_active_held_item()
 		if(istype(I, /obj/item/weapon/twohanded))
 			var/obj/item/weapon/twohanded/TH = I //FML
 			if(TH.wielded)
 				TH.unwield()
-		drop_r_hand()
-		drop_l_hand()
+		drop_all_held_items()
 		stop_pulling()
 		throw_alert("handcuffed", /obj/screen/alert/restrained/handcuffed, new_master = src.handcuffed)
 	else
@@ -1043,7 +1042,7 @@ so that different stomachs can handle things in different ways VB*/
 /mob/living/carbon/get_access()
 	. = ..()
 
-	var/obj/item/RH = get_active_hand()
+	var/obj/item/RH = get_active_held_item()
 	if(RH)
 		. |= RH.GetAccess()
 

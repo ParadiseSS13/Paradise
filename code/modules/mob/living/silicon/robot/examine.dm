@@ -3,7 +3,7 @@
 	..(user)
 
 	var/msg = "<span class='info'>"
-	var/obj/act_module = get_active_hand()
+	var/obj/act_module = get_active_held_item()
 	if(act_module)
 		msg += "It is holding [bicon(act_module)] \a [act_module].\n"
 	msg += "<span class='warning'>"

@@ -81,8 +81,7 @@
 		buckled.unbuckle_mob()
 
 	//Quick fix for corpses kept propped up in chairs. ~Z
-	drop_r_hand()
-	drop_l_hand()
+	drop_all_held_items()
 	//End of fix.
 
 	timeofdeath = world.time

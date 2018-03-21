@@ -13,7 +13,7 @@
 		update_inv_pockets()
 
 /mob/living/carbon/alien/humanoid/attack_ui(slot_id)
-	var/obj/item/W = get_active_hand()
+	var/obj/item/W = get_active_held_item()
 	if(W)
 		if(!istype(W))	return
 		switch(slot_id)

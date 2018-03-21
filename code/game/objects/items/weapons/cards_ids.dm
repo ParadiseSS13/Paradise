@@ -336,7 +336,7 @@
 	H.dir = SOUTH
 	faked.Insert(getFlatIcon(H), dir = SOUTH)
 	H.dir = storedDir
-	H.equip_to_slot_if_possible(src, slot_l_hand, 0, 1)
+	H.equip_to_slot_if_possible(src, slot_hands, 0, 1)
 
 	return faked
 

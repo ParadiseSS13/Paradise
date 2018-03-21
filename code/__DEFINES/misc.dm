@@ -223,11 +223,10 @@
 #define COLLAR_LAYER			27
 #define HANDCUFF_LAYER			28
 #define LEGCUFF_LAYER			29
-#define L_HAND_LAYER			30
-#define R_HAND_LAYER			31
-#define TARGETED_LAYER			32	//BS12: Layer for the target overlay from weapon targeting system
-#define FIRE_LAYER				33	//If you're on fire
-#define TOTAL_LAYERS			33
+#define HANDS_LAYER				30
+#define TARGETED_LAYER			31	//BS12: Layer for the target overlay from weapon targeting system
+#define FIRE_LAYER				32	//If you're on fire
+#define TOTAL_LAYERS			32
 
 ///Access Region Codes///
 #define REGION_ALL			0

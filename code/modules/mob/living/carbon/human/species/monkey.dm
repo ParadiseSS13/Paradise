@@ -59,7 +59,7 @@
 
 /datum/species/monkey/handle_can_equip(obj/item/I, slot, disable_warning = 0, mob/living/carbon/human/user)
 	switch(slot)
-		if(slot_l_hand)
+		if(slot_hands)
 			if(user.l_hand)
 				return 2
 			return 1

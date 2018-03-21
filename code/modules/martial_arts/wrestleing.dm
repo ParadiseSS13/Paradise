@@ -9,7 +9,7 @@
 
 /datum/martial_art/wrestling/harm_act(var/mob/living/carbon/human/A, var/mob/living/carbon/human/D)
 	D.grabbedby(A,1)
-	var/obj/item/weapon/grab/G = A.get_active_hand()
+	var/obj/item/weapon/grab/G = A.get_active_held_item()
 	if(G && prob(50))
 		G.state = GRAB_AGGRESSIVE
 		D.visible_message("<span class='danger'>[A] has [D] in a clinch!</span>", \

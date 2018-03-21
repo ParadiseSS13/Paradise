@@ -305,11 +305,11 @@ log transactions
 				if(held_card)
 					held_card.forceMove(loc)
 					authenticated_account = null
-					if(ishuman(usr) && !usr.get_active_hand())
+					if(ishuman(usr) && !usr.get_active_held_item())
 						usr.put_in_hands(held_card)
 					held_card = null
 				else
-					var/obj/item/I = usr.get_active_hand()
+					var/obj/item/I = usr.get_active_held_item()
 					if(istype(I, /obj/item/weapon/card/id))
 						usr.drop_item()
 						I.forceMove(src)

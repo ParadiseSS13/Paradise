@@ -51,10 +51,8 @@
 				I.layer = 20
 				I.plane = HUD_PLANE
 				I.add_fingerprint(target)
-				src.update_inv_l_hand()
-				src.update_inv_r_hand()
-				target.update_inv_l_hand()
-				target.update_inv_r_hand()
+				src.update_inv_hands()
+				target.update_inv_hands()
 				target.visible_message("<span class='notice'> [usr.name] handed \the [I.name] to [target.name].</span>")
 			if("No")
 				target.visible_message("<span class='warning'> [usr.name] tried to hand [I.name] to [target.name] but [target.name] didn't want it.</span>")

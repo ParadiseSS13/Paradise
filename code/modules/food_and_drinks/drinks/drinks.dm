@@ -46,7 +46,7 @@
 	if (!(flags & OPENCONTAINER))
 		to_chat(chugger, "<span class='notice'>You need to open [src] first!</span>")
 		return
-	if(istype(chugger) && loc == chugger && src == chugger.get_active_hand() && reagents.total_volume)
+	if(istype(chugger) && loc == chugger && src == chugger.get_active_held_item() && reagents.total_volume)
 		chugger.visible_message("<span class='notice'>[chugger] raises the [src] to their mouth and starts [pick("chugging","gulping")] it down like [pick("a savage","a mad beast","it's going out of style","there's no tomorrow")]!</span>", "<span class='notice'>You start chugging \the [src].</span>", "<span class='notice'>You hear what sounds like gulping.</span>")
 		while(do_mob(chugger, chugger, 40)) //Between the default time for do_mob and the time it takes for a vampire to suck blood.
 			chugger.eat(src, chugger, 25) //Half of a glass, quarter of a bottle.

@@ -364,7 +364,7 @@ var/global/list/obj/item/device/pda/PDAs = list()
 			to_chat(user, "<span class='notice'>You remove the [O] from [src].</span>")
 			if(istype(loc, /mob))
 				var/mob/M = loc
-				if(M.get_active_hand() == null)
+				if(M.get_active_held_item() == null)
 					M.put_in_hands(O)
 					return
 			O.forceMove(get_turf(src))
@@ -378,13 +378,13 @@ var/global/list/obj/item/device/pda/PDAs = list()
 		if(id)
 			remove_id(user)
 		else
-			var/obj/item/I = user.get_active_hand()
+			var/obj/item/I = user.get_active_held_item()
 			if(istype(I, /obj/item/weapon/card/id))
 				user.drop_item()
 				I.forceMove(src)
 				id = I
 	else
-		var/obj/item/weapon/card/I = user.get_active_hand()
+		var/obj/item/weapon/card/I = user.get_active_held_item()
 		if(istype(I, /obj/item/weapon/card/id) && I:registered_name)
 			var/obj/old_id = id
 			user.drop_item()

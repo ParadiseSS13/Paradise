@@ -36,7 +36,7 @@
 	shoes = /obj/item/clothing/shoes/brown
 	l_ear = /obj/item/device/radio/headset/heads/rd
 	id = /obj/item/weapon/card/id/rd
-	l_hand = /obj/item/weapon/clipboard
+	held_items[1] = /obj/item/weapon/clipboard
 	pda = /obj/item/device/pda/heads/rd
 	backpack_contents = list(
 		/obj/item/weapon/melee/classic_baton/telescopic = 1

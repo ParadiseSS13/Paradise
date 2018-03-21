@@ -88,13 +88,13 @@
 		step_to(D,get_step(D,D.dir),1)
 
 		D.grabbedby(A, 1)
-		var/obj/item/weapon/grab/G = A.get_active_hand()
+		var/obj/item/weapon/grab/G = A.get_active_held_item()
 		if(G)
 			G.state = GRAB_NECK
 
 		var/I = 0
 		while(I < 20) // Loop to process the silence for the person being strangled so we don't have to add 20 silence all at once.
-			if(G == A.get_active_hand() && G.state >= GRAB_NECK) // Grab must be in the user's active hand for the duration of the strangle.
+			if(G == A.get_active_held_item() && G.state >= GRAB_NECK) // Grab must be in the user's active hand for the duration of the strangle.
 				D.silent += 1
 				D.adjustOxyLoss(1)
 			else
@@ -137,7 +137,7 @@
 
 /datum/martial_art/ninja_martial_art/grab_act(var/mob/living/carbon/human/A, var/mob/living/carbon/human/D) //Instant aggressive grab
 	D.grabbedby(A)
-	var/obj/item/weapon/grab/G = A.get_active_hand()
+	var/obj/item/weapon/grab/G = A.get_active_held_item()
 	if(G)
 		G.state = GRAB_AGGRESSIVE
 

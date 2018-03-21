@@ -177,7 +177,7 @@ proc/issyndicate(mob/living/M as mob)
 	to_chat(synd_mind.current, "<B>In your hand you will find a special item capable of triggering a greater challenge for your team. Examine it carefully and consult with your fellow operatives before activating it.</B>")
 
 	var/obj/item/device/nuclear_challenge/challenge = new /obj/item/device/nuclear_challenge
-	synd_mind.current.equip_to_slot_or_del(challenge, slot_r_hand)
+	synd_mind.current.put_in_hands_or_del(challenge)
 
 	var/list/foundIDs = synd_mind.current.search_contents_for(/obj/item/weapon/card/id)
 
@@ -267,8 +267,9 @@ proc/issyndicate(mob/living/M as mob)
 		switch(race)
 			if("Vox" || "Vox Armalis")
 				synd_mob.equip_to_slot_or_del(new /obj/item/clothing/mask/gas/syndicate(synd_mob), slot_wear_mask)
-				synd_mob.equip_to_slot_or_del(new /obj/item/weapon/tank/nitrogen(synd_mob), slot_l_hand)
-				synd_mob.internal = synd_mob.l_hand
+				var/obj/item/weapon/tank/nitrogen/T = new /obj/item/weapon/tank/nitrogen(synd_mob)
+				synd_mob.put_in_hands_or_del(T)
+				synd_mob.internal = T
 				synd_mob.update_action_buttons_icon()
 
 	var/obj/item/weapon/implant/explosive/E = new/obj/item/weapon/implant/explosive(synd_mob)

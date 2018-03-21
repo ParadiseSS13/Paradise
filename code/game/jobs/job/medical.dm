@@ -30,7 +30,7 @@
 	l_ear = /obj/item/device/radio/headset/heads/cmo
 	id = /obj/item/weapon/card/id/cmo
 	suit_store = /obj/item/device/flashlight/pen
-	l_hand = /obj/item/weapon/storage/firstaid/adv
+	held_items[1] = /obj/item/weapon/storage/firstaid/adv
 	pda = /obj/item/device/pda/heads/cmo
 	backpack_contents = list(
 		/obj/item/weapon/melee/classic_baton/telescopic = 1
@@ -68,7 +68,7 @@
 	l_ear = /obj/item/device/radio/headset/headset_med
 	id = /obj/item/weapon/card/id/medical
 	suit_store = /obj/item/device/flashlight/pen
-	l_hand = /obj/item/weapon/storage/firstaid/adv
+	held_items[1] = /obj/item/weapon/storage/firstaid/adv
 	pda = /obj/item/device/pda/medical
 
 	backpack = /obj/item/weapon/storage/backpack/medic
@@ -102,7 +102,7 @@
 	l_ear = /obj/item/device/radio/headset/headset_med
 	id = /obj/item/weapon/card/id/medical
 	suit_store = /obj/item/device/flashlight/pen
-	l_hand = /obj/item/weapon/clipboard
+	held_items[1] = /obj/item/weapon/clipboard
 	pda = /obj/item/device/pda/medical
 
 	backpack = /obj/item/weapon/storage/backpack/medic

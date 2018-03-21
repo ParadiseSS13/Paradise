@@ -168,7 +168,7 @@
 	entry.name = target.name
 	entry.icon = target.icon
 	entry.icon_state = target.icon_state
-	entry.overlays = target.get_overlays_copy(list(L_HAND_LAYER,R_HAND_LAYER))
+	entry.overlays = target.get_overlays_copy(list(HANDS_LAYER))
 	//Update old disguise instead of adding new one
 	if(disguises[entry.name])
 		disguises[entry.name] = entry

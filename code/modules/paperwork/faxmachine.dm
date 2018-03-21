@@ -43,8 +43,8 @@ var/list/alldepartments = list()
 	ui_interact(user)
 
 /obj/machinery/photocopier/faxmachine/attack_ghost(mob/user)
-	ui_interact(user)	
-	
+	ui_interact(user)
+
 /obj/machinery/photocopier/faxmachine/attackby(obj/item/weapon/item, mob/user, params)
 	if(istype(item,/obj/item/weapon/card/id) && !scan)
 		scan(item)
@@ -103,11 +103,11 @@ var/list/alldepartments = list()
 	else if(user.can_admin_interact())
 		return TRUE
 	return FALSE
-	
+
 /obj/machinery/photocopier/faxmachine/Topic(href, href_list)
 	if(..())
 		return 1
-		
+
 	var/is_authenticated = is_authenticated(usr)
 	if(href_list["send"])
 		if(copyitem && is_authenticated)
@@ -125,12 +125,12 @@ var/list/alldepartments = list()
 		if(copyitem)
 			copyitem.forceMove(get_turf(src))
 			if(ishuman(usr))
-				if(!usr.get_active_hand() && Adjacent(usr))
+				if(!usr.get_active_held_item() && Adjacent(usr))
 					usr.put_in_hands(copyitem)
 			to_chat(usr, "<span class='notice'>You eject \the [copyitem] from \the [src].</span>")
 			copyitem = null
 		else
-			var/obj/item/I = usr.get_active_hand()
+			var/obj/item/I = usr.get_active_held_item()
 			if(istype(I, /obj/item/weapon/paper) || istype(I, /obj/item/weapon/photo) || istype(I, /obj/item/weapon/paper_bundle))
 				usr.drop_item()
 				copyitem = I
@@ -180,7 +180,7 @@ var/list/alldepartments = list()
 	if(scan) // Card is in machine
 		if(ishuman(usr))
 			scan.forceMove(get_turf(src))
-			if(!usr.get_active_hand() && Adjacent(usr))
+			if(!usr.get_active_held_item() && Adjacent(usr))
 				usr.put_in_hands(scan)
 			scan = null
 		else
@@ -188,7 +188,7 @@ var/list/alldepartments = list()
 			scan = null
 	else if(Adjacent(usr))
 		if(!card)
-			var/obj/item/I = usr.get_active_hand()
+			var/obj/item/I = usr.get_active_held_item()
 			if(istype(I, /obj/item/weapon/card/id))
 				usr.drop_item()
 				I.forceMove(src)
@@ -198,19 +198,19 @@ var/list/alldepartments = list()
 			card.forceMove(src)
 			scan = card
 	nanomanager.update_uis(src)
-	
+
 /obj/machinery/photocopier/faxmachine/verb/eject_id()
 	set category = null
 	set name = "Eject ID Card"
 	set src in oview(1)
 
-	if(usr.restrained())	
+	if(usr.restrained())
 		return
 
 	if(scan)
 		to_chat(usr, "You remove \the [scan] from \the [src].")
 		scan.forceMove(get_turf(src))
-		if(!usr.get_active_hand() && Adjacent(usr))
+		if(!usr.get_active_held_item() && Adjacent(usr))
 			usr.put_in_hands(scan)
 		scan = null
 	else
@@ -270,7 +270,7 @@ var/list/alldepartments = list()
 /obj/machinery/photocopier/faxmachine/proc/send_admin_fax(var/mob/sender, var/destination)
 	if(stat & (BROKEN|NOPOWER))
 		return
-		
+
 	if(sendcooldown)
 		return
 

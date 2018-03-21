@@ -96,7 +96,7 @@
 	if(href_list["id"])
 		switch(href_list["id"])
 			if("0")
-				var/obj/item/weapon/card/id/prisoner/I = usr.get_active_hand()
+				var/obj/item/weapon/card/id/prisoner/I = usr.get_active_held_item()
 				if(istype(I))
 					usr.drop_item()
 					I.loc = src

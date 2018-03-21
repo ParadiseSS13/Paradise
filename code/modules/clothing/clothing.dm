@@ -37,7 +37,7 @@
 		return 0
 
 	// Skip species restriction checks on non-equipment slots
-	if(slot in list(slot_r_hand, slot_l_hand, slot_in_backpack, slot_l_store, slot_r_store))
+	if(slot in list(slot_hands, slot_in_backpack, slot_l_store, slot_r_store))
 		return 1
 
 	if(species_restricted && istype(M,/mob/living/carbon/human))

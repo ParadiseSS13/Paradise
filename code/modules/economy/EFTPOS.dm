@@ -155,14 +155,14 @@
 				if(!linked_db)
 					reconnect_database()
 				if(linked_db && linked_account)
-					var/obj/item/I = usr.get_active_hand()
+					var/obj/item/I = usr.get_active_held_item()
 					if(istype(I, /obj/item/weapon/card))
 						scan_card(I, usr)
 				else
 					to_chat(usr, "[bicon(src)]<span class='warning'>Unable to link accounts.</span>")
 			if("reset")
 				//reset the access code - requires HoP/captain access
-				var/obj/item/I = usr.get_active_hand()
+				var/obj/item/I = usr.get_active_held_item()
 				if(istype(I, /obj/item/weapon/card))
 					var/obj/item/weapon/card/id/C = I
 					if(access_cent_commander in C.access || access_hop in C.access || access_captain in C.access)

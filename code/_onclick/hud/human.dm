@@ -113,31 +113,13 @@
 	inv_box.alpha = ui_alpha
 	toggleable_inventory += inv_box
 
-	inv_box = new /obj/screen/inventory/hand()
-	inv_box.name = "r_hand"
-	inv_box.icon = ui_style
-	inv_box.icon_state = "hand_r"
-	inv_box.color = ui_color
-	inv_box.alpha = ui_alpha
-	inv_box.screen_loc = ui_rhand
-	inv_box.slot_id = slot_r_hand
-	static_inventory += inv_box
-
-	inv_box = new /obj/screen/inventory/hand()
-	inv_box.name = "l_hand"
-	inv_box.icon = ui_style
-	inv_box.icon_state = "hand_l"
-	inv_box.color = ui_color
-	inv_box.alpha = ui_alpha
-	inv_box.screen_loc = ui_lhand
-	inv_box.slot_id = slot_l_hand
-	static_inventory += inv_box
+	build_hand_slots(ui_style)
 
 	using = new /obj/screen/swap_hand()
 	using.name = "hand"
 	using.icon = ui_style
 	using.icon_state = "swap_1"
-	using.screen_loc = ui_swaphand1
+	using.screen_loc = ui_swaphand_position(owner,1)
 	using.color = ui_color
 	using.alpha = ui_alpha
 	static_inventory += using
@@ -146,7 +128,7 @@
 	using.name = "hand"
 	using.icon = ui_style
 	using.icon_state = "swap_2"
-	using.screen_loc = ui_swaphand2
+	using.screen_loc = ui_swaphand_position(owner,2)
 	using.color = ui_color
 	using.alpha = ui_alpha
 	static_inventory += using
@@ -436,17 +418,13 @@
 			H.r_store.screen_loc = null
 
 	if(hud_version != HUD_STYLE_NOHUD)
-		if(H.r_hand)
-			H.r_hand.screen_loc = ui_rhand
-			H.client.screen += H.r_hand
-		if(H.l_hand)
-			H.l_hand.screen_loc = ui_lhand
-			H.client.screen += H.l_hand
+		for(var/obj/item/I in H.held_items)
++			I.screen_loc = ui_hand_position(H.get_held_index_of_item(I))
++			H.client.screen += I
 	else
-		if(H.r_hand)
-			H.r_hand.screen_loc = null
-		if(H.l_hand)
-			H.l_hand.screen_loc = null
+		for(var/obj/item/I in H.held_items)
++			I.screen_loc = null
++			H.client.screen -= I
 
 
 /mob/living/carbon/human/verb/toggle_hotkey_verbs()

@@ -169,7 +169,7 @@
 				modify.name = "[modify.registered_name]'s ID Card ([modify.assignment])"
 				card_slot.try_eject(1, user)
 			else
-				var/obj/item/I = usr.get_active_hand()
+				var/obj/item/I = usr.get_active_held_item()
 				if(istype(I, /obj/item/weapon/card/id))
 					if(!usr.drop_item())
 						return
@@ -180,7 +180,7 @@
 			if(scan)
 				card_slot.try_eject(2, user)
 			else
-				var/obj/item/I = usr.get_active_hand()
+				var/obj/item/I = usr.get_active_held_item()
 				if(istype(I, /obj/item/weapon/card/id))
 					if(!usr.drop_item())
 						return
