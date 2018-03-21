@@ -141,24 +141,22 @@
 /obj/item/organ/external/attack(mob/living/carbon/C, mob/user)
 	if(ishuman(C))
 		var/mob/living/carbon/human/H = C
-		if(H.species && H.species.name == "Machine" && src.status == ORGAN_ROBOT)
+		if(H.species && H.species.name == "Machine" && status == ORGAN_ROBOT)
 			if(!H.get_organ(limb_name))
-				if(H == user)
-					H.visible_message("<span class='notice'>[H] is attempting to re-attach [src]...</span>")
-					do_mob(user, H, 120)
-					H.visible_message("<span class='warning'>[H] jams [src] into the empty socket!</span>",\
-					"<span class='notice'>You force [src] into your empty socket, and it locks into place!</span>")
-				else
-					H.visible_message("<span class='notice'>[H] is attempting to re-attach [src]...</span>")
-					do_mob(user, H, 60)
-					H.visible_message("<span class='warning'>[user] jams [src] into [H]'s empty socket!</span>",\
-					"<span class='notice'>[user] forces [src] into your empty socket, and it locks into place!</span>")
-				user.unEquip(src)
-				src.replaced(H)
-				H.update_body()
-				H.updatehealth()
-				H.UpdateDamageIcon()
-				return
+				H.visible_message("<span class='notice'>[H] is attempting to re-attach the [src]...</span>")
+				if(do_mob(user, H, 120))
+					if(H == user)
+						H.visible_message("<span class='warning'>[H] jams the [src] into the empty socket!</span>",\
+						"<span class='notice'>You force [src] into your empty socket, and it locks into place!</span>")
+					else
+						H.visible_message("<span class='warning'>[user] jams the [src] into [H]'s empty socket!</span>",\
+						"<span class='notice'>[user] forces [src] into your empty socket, and it locks into place!</span>")
+					user.unEquip(src)
+					replaced(H)
+					H.update_body()
+					H.updatehealth()
+					H.UpdateDamageIcon()
+					return
 	..()
 
 
