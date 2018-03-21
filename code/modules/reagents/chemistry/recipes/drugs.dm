@@ -99,19 +99,3 @@
 	required_reagents = list("diethylamine" = 1, "fungus" = 1)
 	result_amount = 3
 	mix_message = "The mixture turns a rather unassuming color and settles."
-
-/datum/chemical_reaction/lube/ultra
-	name = "Ultra-Lube"
-	id = "ultralube"
-	result = "ultralube"
-	required_reagents = list("lube" = 2, "formaldehyde" = 1, "cryostylane" = 1)
-	result_amount = 2
-	mix_message = "The mixture darkens and appears to partially vaporize into a chilling aerosol."
-
-/datum/chemical_reaction/surge
-	name = "Surge"
-	id = "surge"
-	result = "surge"
-	required_reagents = list("thermite" = 3, "uranium" = 1, "fluorosurfactant" = 1, "sacid" = 1)
-	result_amount = 6
-	mix_message = "The mixture congeals into a metallic green gel that crackles with electrical activity."

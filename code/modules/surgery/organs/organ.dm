@@ -255,7 +255,7 @@
 /obj/item/organ/external/emp_act(severity)
 	if(!(status & ORGAN_ROBOT) || emp_proof)
 		return
-	if(tough)
+	if(tough) // Augmented Robotic Limbs
 		switch(severity)
 			if(1)
 				receive_damage(0, 5.5)
@@ -265,12 +265,18 @@
 				receive_damage(0, 2.8)
 				if(owner)
 					owner.Stun(5)
-	else
+	else // IPC Robotic Limbs
 		switch(severity)
 			if(1)
-				receive_damage(0, 20)
+				receive_damage(5, 10)
+				owner.Stun(30)
+				owner.AdjustSilence(30)
+				if(src.body_part != UPPER_TORSO && src.body_part != LOWER_TORSO && prob(15)) // Rolled on each EMP'd limb, except for the torso.
+					src.droplimb(0, DROPLIMB_BLUNT) // Blows them off.
 			if(2)
-				receive_damage(0, 7)
+				receive_damage(0, 5)
+				owner.Stun(5)
+				owner.AdjustSilence(10)
 
 /obj/item/organ/internal/emp_act(severity)
 	if(!robotic || emp_proof)
