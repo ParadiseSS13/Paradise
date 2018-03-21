@@ -254,7 +254,7 @@ CREATE TABLE `player` (
   `UI_style_alpha` smallint(4) DEFAULT '255',
   `be_role` mediumtext,
   `default_slot` smallint(4) DEFAULT '1',
-  `toggles` mediumint(8) DEFAULT '383',
+  `toggles` mediumint(8) DEFAULT '7231',
   `admintoggles` mediumint(8) DEFAULT '0',
   `sound` mediumint(8) DEFAULT '31',
   `randomslot` tinyint(1) DEFAULT '0',
