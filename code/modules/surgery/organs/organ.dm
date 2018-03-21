@@ -268,15 +268,15 @@
 	else // IPC Robotic Limbs
 		switch(severity)
 			if(1)
-				receive_damage(5, 10)
-				owner.Stun(30)
-				owner.AdjustSilence(30)
-				if(src.body_part != UPPER_TORSO && src.body_part != LOWER_TORSO && prob(15)) // Rolled on each EMP'd limb, except for the torso.
-					src.droplimb(0, DROPLIMB_BLUNT) // Blows them off.
+				receive_damage(5, 8)
+				if(owner)
+					owner.Stun(30)
+					if(body_part != UPPER_TORSO && body_part != LOWER_TORSO && prob(15)) // Rolled on each EMP'd limb, except for the torso.
+						droplimb(1) // Blows them off.
 			if(2)
-				receive_damage(0, 5)
-				owner.Stun(5)
-				owner.AdjustSilence(10)
+				receive_damage(2, 5)
+				if(owner)
+					owner.Stun(5)
 
 /obj/item/organ/internal/emp_act(severity)
 	if(!robotic || emp_proof)
