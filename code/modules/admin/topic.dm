@@ -887,7 +887,8 @@
 	else if(href_list["boot2"])
 		var/mob/M = locate(href_list["boot2"])
 		if(ismob(M))
-			if(!check_if_greater_rights_than(M.client))
+			if(M.client && M.client.holder && (M.client.holder.rights & R_BAN))
+				to_chat(src, "<span class='warning'>[key_name_admin(M)] cannot be kicked from the server.</span>")
 				return
 			to_chat(M, "<span class='warning'>You have been kicked from the server</span>")
 			log_admin("[key_name(usr)] booted [key_name(M)].")
@@ -959,8 +960,6 @@
 
 		var/mob/M = locate(href_list["newban"])
 		if(!ismob(M)) return
-
-		if(M.client && M.client.holder)	return	//admins cannot be banned. Even if they could, the ban doesn't affect them anyway
 
 		switch(alert("Temporary Ban?",,"Yes","No", "Cancel"))
 			if("Yes")

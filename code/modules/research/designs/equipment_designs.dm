@@ -186,7 +186,7 @@
 	id = "handdrill"
 	req_tech = list("materials" = 4, "engineering" = 6)
 	build_type = PROTOLATHE
-	materials = list(MAT_METAL = 3500, MAT_SILVER = 1500, MAT_GOLD = 1000)
+	materials = list(MAT_METAL = 3500, MAT_SILVER = 1500, MAT_TITANIUM = 2500)
 	build_path = /obj/item/weapon/screwdriver/power
 	category = list("Equipment")
 
@@ -197,7 +197,7 @@
 	req_tech = list("materials" = 4, "engineering" = 6, "magnets" = 6) // added one more requirment since the Jaws of Life are a bit OP
 	build_path = /obj/item/weapon/crowbar/power
 	build_type = PROTOLATHE
-	materials = list(MAT_METAL = 4500, MAT_SILVER = 2500, MAT_DIAMOND = 1000)
+	materials = list(MAT_METAL = 4500, MAT_SILVER = 2500, MAT_TITANIUM = 3500)
 	category = list("Equipment")
 
 /datum/design/alienwrench
@@ -207,7 +207,7 @@
 	req_tech = list("engineering" = 5, "materials" = 5, "abductor" = 4)
 	build_path = /obj/item/weapon/wrench/abductor
 	build_type = PROTOLATHE
-	materials = list(MAT_METAL = 5000, MAT_SILVER = 2500, MAT_PLASMA = 1000, MAT_DIAMOND = 2000)
+	materials = list(MAT_METAL = 5000, MAT_SILVER = 2500, MAT_PLASMA = 1000, MAT_TITANIUM = 2000, MAT_DIAMOND = 2000)
 	category = list("Equipment")
 
 /datum/design/alienwirecutters
@@ -217,7 +217,7 @@
 	req_tech = list("engineering" = 5, "materials" = 5, "abductor" = 4)
 	build_path = /obj/item/weapon/wirecutters/abductor
 	build_type = PROTOLATHE
-	materials = list(MAT_METAL = 5000, MAT_SILVER = 2500, MAT_PLASMA = 1000, MAT_DIAMOND = 2000)
+	materials = list(MAT_METAL = 5000, MAT_SILVER = 2500, MAT_PLASMA = 1000, MAT_TITANIUM = 2000, MAT_DIAMOND = 2000)
 	category = list("Equipment")
 
 /datum/design/alienscrewdriver
@@ -227,7 +227,7 @@
 	req_tech = list("engineering" = 5, "materials" = 5, "abductor" = 4)
 	build_path = /obj/item/weapon/screwdriver/abductor
 	build_type = PROTOLATHE
-	materials = list(MAT_METAL = 5000, MAT_SILVER = 2500, MAT_PLASMA = 1000, MAT_DIAMOND = 2000)
+	materials = list(MAT_METAL = 5000, MAT_SILVER = 2500, MAT_PLASMA = 1000, MAT_TITANIUM = 2000, MAT_DIAMOND = 2000)
 	category = list("Equipment")
 
 /datum/design/aliencrowbar
@@ -237,7 +237,7 @@
 	req_tech = list("engineering" = 5, "materials" = 5, "abductor" = 4)
 	build_path = /obj/item/weapon/crowbar/abductor
 	build_type = PROTOLATHE
-	materials = list(MAT_METAL = 5000, MAT_SILVER = 2500, MAT_PLASMA = 1000, MAT_DIAMOND = 2000)
+	materials = list(MAT_METAL = 5000, MAT_SILVER = 2500, MAT_PLASMA = 1000, MAT_TITANIUM = 2000, MAT_DIAMOND = 2000)
 	category = list("Equipment")
 
 /datum/design/alienwelder
@@ -247,7 +247,7 @@
 	req_tech = list("engineering" = 5, "plasmatech" = 5, "abductor" = 4)
 	build_path = /obj/item/weapon/weldingtool/abductor
 	build_type = PROTOLATHE
-	materials = list(MAT_METAL = 5000, MAT_SILVER = 2500, MAT_PLASMA = 5000, MAT_DIAMOND = 2000)
+	materials = list(MAT_METAL = 5000, MAT_SILVER = 2500, MAT_PLASMA = 5000, MAT_TITANIUM = 2000, MAT_DIAMOND = 2000)
 	category = list("Equipment")
 
 /datum/design/alienmultitool
@@ -257,5 +257,5 @@
 	req_tech = list("engineering" = 5, "programming" = 5, "abductor" = 4)
 	build_path = /obj/item/device/multitool/abductor
 	build_type = PROTOLATHE
-	materials = list(MAT_METAL = 5000, MAT_SILVER = 2500, MAT_PLASMA = 5000, MAT_DIAMOND = 2000)
+	materials = list(MAT_METAL = 5000, MAT_SILVER = 2500, MAT_PLASMA = 5000, MAT_TITANIUM = 2000, MAT_DIAMOND = 2000)
 	category = list("Equipment")

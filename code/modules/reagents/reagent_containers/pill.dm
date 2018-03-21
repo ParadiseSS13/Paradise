@@ -110,3 +110,9 @@
 	desc = "Used to treat respiratory distress."
 	icon_state = "pill8"
 	list_reagents = list("salbutamol" = 20)
+
+/obj/item/weapon/reagent_containers/food/pill/hydrocodone
+	name = "Hydrocodone pill"
+	desc = "Used to treat extreme pain."
+	icon_state = "pill6"
+	list_reagents = list("hydrocodone" = 15)
