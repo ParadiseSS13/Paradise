@@ -133,9 +133,6 @@ proc/build_virtual_avatar(mob/living/carbon/human/H, location, datum/vr_room/roo
 	vr_avatar.dna = H.dna.Clone()
 	vr_avatar.sync_organ_dna(assimilate=1)
 	vr_avatar.set_species(H.species.name)
-	var/obj/item/organ/external/head/new_head = vr_avatar.get_organ("head")
-	var/obj/item/organ/external/head/old_head = H.get_organ("head")
-	new_head.copy_hair_from(old_head)
 	vr_avatar.update_mutantrace(1)
 	vr_avatar.UpdateAppearance()
 
