@@ -388,14 +388,14 @@
 
 	New()
 		..()
-		new /obj/item/clothing/glasses/vr_goggles/exile(src)
-		new /obj/item/clothing/glasses/vr_goggles/exile(src)
-		new /obj/item/clothing/glasses/vr_goggles/exile(src)
-		new /obj/item/clothing/glasses/vr_goggles/exile(src)
-		new /obj/item/clothing/glasses/vr_goggles/exile(src)
-		new /obj/item/clothing/glasses/vr_goggles/exile(src)
-		new /obj/item/clothing/glasses/vr_goggles/exile(src)
-		new /obj/item/clothing/glasses/vr_goggles/exile(src)
+		new /obj/item/clothing/ears/vr_goggles/exile(src)
+		new /obj/item/clothing/ears/vr_goggles/exile(src)
+		new /obj/item/clothing/ears/vr_goggles/exile(src)
+		new /obj/item/clothing/ears/vr_goggles/exile(src)
+		new /obj/item/clothing/ears/vr_goggles/exile(src)
+		new /obj/item/clothing/ears/vr_goggles/exile(src)
+		new /obj/item/clothing/ears/vr_goggles/exile(src)
+		new /obj/item/clothing/ears/vr_goggles/exile(src)
 
 /obj/structure/closet/secure_closet/courtroom
 	name = "courtroom locker"

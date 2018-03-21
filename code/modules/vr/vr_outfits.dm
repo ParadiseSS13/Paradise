@@ -2,7 +2,7 @@
 
 /datum/outfit/vr/vr_basic
 	name = "basic vr"
-	uniform = /obj/item/clothing/under/psysuit
+	uniform = /obj/item/clothing/under/virtual_reality
 
 /datum/outfit/vr/roman
 	name = "roman"
@@ -33,3 +33,22 @@
 	id = /obj/item/weapon/card/id/medical
 	glasses = /obj/item/clothing/glasses/science
 	gloves = /obj/item/clothing/gloves/color/latex
+
+/datum/outfit/vr/research
+	name = "medical"
+	uniform = /obj/item/clothing/under/rank/medical
+	suit = /obj/item/clothing/suit/storage/labcoat
+	shoes = /obj/item/clothing/shoes/white
+	id = /obj/item/weapon/card/id/research
+	glasses = /obj/item/clothing/glasses/science
+	gloves = /obj/item/clothing/gloves/color/latex
+
+/datum/outfit/vr/engineering
+	name = "engineering"
+	uniform = /obj/item/clothing/under/rank/engineer
+	suit = /obj/item/clothing/suit/storage/hazardvest
+	shoes = /obj/item/clothing/shoes/workboots
+	id = /obj/item/weapon/card/id/engineering
+	gloves = /obj/item/clothing/gloves/color/yellow
+	belt = /obj/item/weapon/storage/belt/utility/chief/full
+	back = /obj/item/weapon/storage/backpack/industrial

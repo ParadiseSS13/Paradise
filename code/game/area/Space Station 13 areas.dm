@@ -2595,7 +2595,7 @@ area/security/podbay
 ////////////////////////VR AREAS///////////////////////////////////
 
 /area/vr
-	name = "VR"
+	name = "\improper VR"
 	requires_power = 0
 	dynamic_lighting = 0
 	no_teleportlocs = 1
@@ -2603,13 +2603,21 @@ area/security/podbay
 	there_can_be_many = 1
 
 /area/vr/lobby
-	name = "VR Lobby"
+	name = "\improper VR Lobby"
 
 /area/vr/roman
-	name = "VR Roman Arena"
+	name = "\improper VR Roman Arena"
 
 /area/vr/medical
-	name = "VR Medical Trainer"
+	name = "\improper VR Medical Trainer"
+
+/area/vr/bombs
+	name = "\improper VR Bomb Range"
+
+/area/vr/engineering
+	name = "\improper VR Engineering Trainer"
+	requires_power = 1
+	dynamic_lighting = 1
 
 /////////////////////////////////////////////////////////////////////
 /*

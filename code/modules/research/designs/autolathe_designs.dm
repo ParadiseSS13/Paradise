@@ -856,3 +856,11 @@
 	materials = list(MAT_GLASS = 750, MAT_METAL = 250)
 	build_path = /obj/item/weapon/circuitboard/vendor
 	category = list("initial", "Electronics")
+
+/datum/design/vr_goggles
+	name = "VR Goggles"
+	id = "vr_goggles"
+	build_type = AUTOLATHE
+	materials = list(MAT_METAL = 50, MAT_GLASS = 20)
+	build_path = /obj/item/clothing/ears/vr_goggles
+	category = list("initial","Miscellaneous")

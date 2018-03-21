@@ -4,11 +4,6 @@
 	icon_screen = "comm_logs"
 	var/making_room = 0
 	light_color = LIGHT_COLOR_DARKGREEN
-	var/list/dummylist = list()
-
-/obj/machinery/computer/vr_control/New()
-	dummylist = vr_templates
-	..()
 
 /obj/machinery/computer/vr_control/Destroy()
 	return ..()
@@ -67,7 +62,7 @@
 	var/templates[0]
 	for(var/R in vr_templates)
 		var/datum/map_template/vr/level/temp = vr_templates[R]
-		if(temp.id == "lobby")
+		if(temp.system)
 			continue
 		templates.Add(list(list("name" = temp.name, "id" = temp.id, "description" = temp.description))) // list in a list because Byond merges the first list..
 	data["templates"] = templates

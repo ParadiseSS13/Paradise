@@ -10,6 +10,7 @@
 	var/list/loot_rare = null
 	var/prefix = null
 	var/suffix = null
+	var/system = 0
 
 /datum/map_template/vr/New()
 	if(!name && id)

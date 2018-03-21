@@ -23,6 +23,9 @@
 		if("avatarspawn")
 			avatarspawn += loc
 
+		if("resetpoint")
+			resetpoint += loc
+
 		if("vr_loot_common")
 			vr_loot_common += loc
 

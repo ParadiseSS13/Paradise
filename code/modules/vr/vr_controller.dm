@@ -3,7 +3,6 @@
 var/list/vr_rooms = list()
 var/list/vr_rooms_official = list()
 var/list/vr_all_players = list()
-var/roomcap = 20
 
 /datum/vr_room
 	var/name = null
@@ -16,6 +15,7 @@ var/roomcap = 20
 	var/delete_timer = null
 	var/round_timer = null
 	var/round_end = null
+	var/obj/effect/landmark/reset_point = null
 	var/list/waitlist = list()
 	var/list/templatelist = list()
 
@@ -31,6 +31,8 @@ var/roomcap = 20
 	for(var/atom/landmark in chunk.search_chunk(landmarks_list))
 		if(landmark.name == "avatarspawn")
 			spawn_points.Add(landmark)
+		if(landmark.name == "resetpoint")
+			reset_point = landmark
 		if(landmark.name == "vr_loot_common" && template.loot_common.len > 0)
 			if(prob(90))
 				var/picked = pick(template.loot_common)
@@ -39,6 +41,10 @@ var/roomcap = 20
 			if(prob(50))
 				var/picked = pick(template.loot_rare)
 				new picked(get_turf(landmark))
+
+/datum/vr_room/proc/assign_buttons()
+	for(var/obj/machinery/vr_reset_button/b in chunk.search_chunk(vr_reset_buttons))
+		b.room = src
 
 /datum/vr_room/proc/vr_round()
 	if(players.len == 1)
@@ -107,6 +113,7 @@ proc/make_vr_room(name, template, expires, creator)
 		R.round_end = world.time + 3 MINUTES
 
 	R.sort_landmarks()
+	R.assign_buttons()
 
 	return R
 
@@ -138,15 +145,18 @@ proc/build_virtual_avatar(mob/living/carbon/human/H, location, datum/vr_room/roo
 	vr_avatar.underwear = H.underwear
 	vr_avatar.equipOutfit(room.template.outfit)
 
+	var/obj/item/device/radio/headset/R = new /obj/item/device/radio/headset/vr(vr_avatar)
+	vr_avatar.equip_to_slot_or_del(R, slot_l_ear)
+
 	if(vr_avatar.species.name == "Plasmaman")
-		vr_avatar.unEquip(vr_avatar.back)
-		vr_avatar.equip_or_collect(new /obj/item/weapon/storage/backpack(vr_avatar), slot_back)
+		for(var/obj/item/weapon/plasmensuit_cartridge/C in vr_avatar.loc)
+			qdel(C)
 
 	vr_avatar.species.after_equip_job(null, vr_avatar)
 
 	vr_avatar.myroom = room
 	vr_all_players.Add(vr_avatar)
-	for (var/obj/item/clothing/glasses/vr_goggles/g in H.contents)
+	for (var/obj/item/clothing/ears/vr_goggles/g in H.contents)
 		g.vr_human = vr_avatar
 
 	if(room.name == "Lobby")
@@ -182,7 +192,5 @@ proc/vr_kick_all_players()
 /hook/roundstart/proc/starting_levels()
 	make_vr_room("Lobby", "lobby", 0)
 	var/datum/vr_room/roman = make_vr_room("Roman Arena", "roman1", 2)
-	var/datum/vr_room/ship = make_vr_room("Ship Arena", "ship1", 2)
 	roman.templatelist = list("roman1","roman2","roman3")
-	ship.templatelist = ("ship1")
 	return 1

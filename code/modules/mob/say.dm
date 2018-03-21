@@ -127,8 +127,8 @@
 		return standard_mode
 
 	if(length(message) >= 2)
-		var/channel_prefix = copytext(message, 1 ,3)
-		return department_radio_keys[channel_prefix]
+		var/channel_prefix = trim_right(lowertext(copytext(message, 1 ,4)))
+		return channel_prefix
 
 	return null
 
