@@ -4,7 +4,7 @@
 #define RANDOM_LOWER_X 50
 #define RANDOM_LOWER_Y 50
 
-/proc/spawn_rivers(target_z = 5, nodes = 4, turf_type = /turf/simulated/floor/plating/airless/lavaland, whitelist_area = /area/lavaland/surface/outdoors, min_x = RANDOM_LOWER_X, min_y = RANDOM_LOWER_Y, max_x = RANDOM_UPPER_X, max_y = RANDOM_UPPER_Y)
+/proc/spawn_rivers(target_z = 5, nodes = 4, turf_type = /turf/simulated/floor/plating/airless/lavaland, whitelist_area = /area/mine/dangerous/explored, min_x = RANDOM_LOWER_X, min_y = RANDOM_LOWER_Y, max_x = RANDOM_UPPER_X, max_y = RANDOM_UPPER_Y)
 	var/list/river_nodes = list()
 	var/num_spawned = 0
 	var/sanity = 100 //how many times we will try again if we hit a protected area
@@ -55,7 +55,7 @@
 				continue
 			else
 				var/turf/open/river_turf = new turf_type(cur_turf)
-				river_turf.Spread(30, 25, whitelist_area)
+				river_turf.rSpread(30, 25, whitelist_area)
 
 	for(var/WP in river_nodes)
 		qdel(WP)
@@ -64,10 +64,10 @@
 /obj/effect/landmark/river_waypoint
 	name = "river waypoint"
 	var/connected = 0
-	invisibility = INVISIBILITY_ABSTRACT
+	invisibility = 101
 
 
-/turf/proc/Spread(probability = 30, prob_loss = 25, whitelist_area)
+/turf/proc/rSpread(probability = 30, prob_loss = 25, whitelist_area)
 	if(probability <= 0)
 		return
 
@@ -75,11 +75,11 @@
 		var/area/A = get_area(F)
 		if((whitelist_area && !istype(A, whitelist_area)) || A.mapgen_protected)
 			continue
-		if(!F.density || istype(F, /turf/closed/mineral))
+		if(!F.density || istype(F, /turf/simulated/floor/plating/airless/lavaland))
 			var/turf/L = new src.type(F)
 
 			if(L && prob(probability))
-				L.Spread(probability - prob_loss)
+				L.rSpread(probability - prob_loss)
 
 
 #undef RANDOM_UPPER_X

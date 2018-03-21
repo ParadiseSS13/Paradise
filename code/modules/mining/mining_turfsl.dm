@@ -63,7 +63,7 @@ var/global/list/lrockTurfEdgeCache = list(
 			if(prob(spreadChance))
 				var/turf/T = get_step(src, dir)
 				if(istype(T, /turf/simulated/mineral/random))
-					Spread(T)
+					LSpread(T)
 
 	HideRock()
 
@@ -73,7 +73,7 @@ var/global/list/lrockTurfEdgeCache = list(
 		icon_state = "rockyash"
 	return
 
-/turf/simulated/lmineral/proc/Spread(var/turf/T)
+/turf/simulated/lmineral/proc/LSpread(var/turf/T)
 	new src.type(T)
 
 /hook/startup/proc/add_lmineral_edges()
