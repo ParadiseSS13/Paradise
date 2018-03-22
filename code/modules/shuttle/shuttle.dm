@@ -33,6 +33,9 @@
 
 		return QDEL_HINT_LETMELIVE
 
+/obj/docking_port/take_damage()
+	return
+
 /obj/docking_port/singularity_pull()
 	return
 

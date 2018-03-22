@@ -16,6 +16,7 @@
 	icon_state = "tube-construct-stage1"
 	anchored = 1
 	layer = 5
+	armor = list(melee = 50, bullet = 10, laser = 10, energy = 0, bomb = 0, bio = 0, rad = 0)
 	var/stage = 1
 	var/fixture_type = "tube"
 	var/sheets_refunded = 2

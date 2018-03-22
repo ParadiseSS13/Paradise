@@ -7,7 +7,7 @@
 
 	icon = 'icons/obj/doors/mineral_doors.dmi'
 	icon_state = "metal"
-
+	armor = list(melee = 10, bullet = 0, laser = 0, energy = 100, bomb = 10, bio = 100, rad = 100)
 	var/initial_state
 	var/state = 0 //closed, 1 == open
 	var/isSwitchingStates = 0
@@ -141,7 +141,7 @@
 	else
 		attacked_by(W, user)
 
-/obj/structure/mineral_door/proc/attacked_by(obj/item/I, mob/user)
+/obj/structure/mineral_door/attacked_by(obj/item/I, mob/user)
 	if(I.damtype != STAMINA)
 		user.changeNext_move(CLICK_CD_MELEE)
 		user.do_attack_animation(src)
