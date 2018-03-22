@@ -82,42 +82,6 @@
 	new /obj/structure/table/reinforced/brass(loc)
 	qdel(src)
 
-/obj/structure/table/ex_act(severity)
-	switch(severity)
-		if(1)
-			qdel(src)
-			return
-		if(2)
-			if(prob(50))
-				qdel(src)
-				return
-		if(3)
-			if(prob(25))
-				deconstruct(FALSE)
-		else
-	return
-
-/obj/structure/table/blob_act()
-	if(prob(75))
-		qdel(src)
-
-/obj/structure/table/attack_alien(mob/living/user)
-	user.do_attack_animation(src)
-	playsound(loc, 'sound/weapons/bladeslice.ogg', 50, 1)
-	visible_message("<span class='danger'>[user] slices [src] apart!</span>")
-	deconstruct(FALSE)
-
-/obj/structure/table/mech_melee_attack(obj/mecha/M)
-	visible_message("<span class='danger'>[M] smashes [src] apart!</span>")
-	deconstruct(FALSE)
-
-/obj/structure/table/attack_animal(mob/living/simple_animal/user)
-	if(user.environment_smash)
-		user.do_attack_animation(src)
-		playsound(loc, 'sound/weapons/Genhit.ogg', 50, 1)
-		visible_message("<span class='danger'>[user] smashes [src] apart!</span>")
-		deconstruct(FALSE)
-
 /obj/structure/table/attack_hand(mob/living/user)
 	if(HULK in user.mutations)
 		user.do_attack_animation(src)
@@ -254,18 +218,7 @@
 	if(isrobot(user))
 		return
 
-	if(istype(I, /obj/item/weapon/melee/energy/blade))
-		var/datum/effect_system/spark_spread/spark_system = new /datum/effect_system/spark_spread()
-		spark_system.set_up(5, 0, loc)
-		spark_system.start()
-		playsound(loc, I.usesound, 50, 1)
-		playsound(loc, "sparks", 50, 1)
-		for(var/mob/O in viewers(user, 4))
-			O.show_message("<span class='notice'>The [src] was sliced apart by [user]!</span>", 1, "<span class='warning'>You hear [src] coming apart.</span>", 2)
-		deconstruct(FALSE)
-		return
-
-	if(!(I.flags & ABSTRACT))
+	if(user.a_intent != INTENT_HARM && !(I.flags & ABSTRACT))
 		if(user.drop_item())
 			I.Move(loc)
 			var/list/click_params = params2list(params)
@@ -275,8 +228,8 @@
 			//Clamp it so that the icon never moves more than 16 pixels in either direction (thus leaving the table turf)
 			I.pixel_x = Clamp(text2num(click_params["icon-x"]) - 16, -(world.icon_size/2), world.icon_size/2)
 			I.pixel_y = Clamp(text2num(click_params["icon-y"]) - 16, -(world.icon_size/2), world.icon_size/2)
-
-	return
+	else
+		return ..()
 
 /obj/structure/table/deconstruct(disassembled = TRUE, wrench_disassembly = 0)
 	if(can_deconstruct)
@@ -401,6 +354,7 @@
 	icon_state = "glass_table"
 	buildstack = /obj/item/stack/sheet/glass
 	max_integrity = 70
+	unacidable = 1
 	canSmoothWith = null
 	var/list/debris = list()
 
@@ -464,6 +418,11 @@
 				AM.forceMove(T)
 				debris -= AM
 	qdel(src)
+
+/obj/structure/table/glass/narsie_act()
+	color = NARSIE_WINDOW_COLOUR
+	for(var/obj/item/weapon/shard/S in debris)
+		S.color = NARSIE_WINDOW_COLOUR
 
 /*
  * Wooden tables
@@ -534,6 +493,7 @@
 	canSmoothWith = list(/obj/structure/table/reinforced, /obj/structure/table)
 	max_integrity = 200
 	integrity_failure = 50
+	armor = list(melee = 10, bullet = 30, laser = 30, energy = 100, bomb = 20, bio = 0, rad = 0)
 
 /obj/structure/table/reinforced/deconstruction_hints(mob/user)
 	if(deconstruction_ready)
@@ -601,36 +561,14 @@
 	icon = 'icons/obj/objects.dmi'
 	icon_state = "rack"
 	layer = TABLE_LAYER
-	density = 1
-	anchored = 1
+	density = TRUE
+	anchored = TRUE
 	pass_flags = LETPASSTHROW
 	max_integrity = 20
 
 /obj/structure/rack/examine(mob/user)
 	..()
 	to_chat(user, "<span class='notice'>It's held together by a couple of <b>bolts</b>.</span>")
-
-/obj/structure/rack/ex_act(severity)
-	switch(severity)
-		if(1)
-			qdel(src)
-		if(2)
-			qdel(src)
-			if(prob(50))
-				new /obj/item/weapon/rack_parts(loc)
-		if(3)
-			if(prob(25))
-				qdel(src)
-				new /obj/item/weapon/rack_parts(loc)
-
-/obj/structure/rack/blob_act()
-	if(prob(75))
-		qdel(src)
-		return
-	else if(prob(50))
-		new /obj/item/weapon/rack_parts(loc)
-		qdel(src)
-		return
 
 /obj/structure/rack/CanPass(atom/movable/mover, turf/target, height=0)
 	if(height==0)
@@ -667,46 +605,21 @@
 		return
 	if(isrobot(user))
 		return
+	if(user.a_intent == INTENT_HARM)
+		return ..()
 	if(!(W.flags & ABSTRACT))
 		if(user.drop_item())
 			W.Move(loc)
 	return
 
-/obj/structure/rack/attack_hand(mob/user)
-	if(HULK in user.mutations)
-		visible_message("<span class='danger'>[user] smashes [src] apart!</span>")
-		user.say(pick(";RAAAAAAAARGH!", ";HNNNNNNNNNGGGGGGH!", ";GWAAAAAAAARRRHHH!", "NNNNNNNNGGGGGGGGHH!", ";AAAAAAARRRGH!" ))
-		deconstruct()
-	else
-		user.changeNext_move(CLICK_CD_MELEE)
-		user.do_attack_animation(src)
-		playsound(loc, 'sound/items/dodgeball.ogg', 80, 1)
-		user.visible_message("<span class='warning'>[user] kicks [src].</span>", \
-							 "<span class='danger'>You kick [src].</span>")
-		obj_integrity -= rand(1,2)
-		healthcheck()
-
-/obj/structure/rack/mech_melee_attack(obj/mecha/M)
-	visible_message("<span class='danger'>[M] smashes [src] apart!</span>")
-	deconstruct()
-
-/obj/structure/rack/attack_alien(mob/living/user)
+/obj/structure/rack/attack_hand(mob/living/user)
+	if(user.weakened || user.resting || user.lying)
+		return
+	user.changeNext_move(CLICK_CD_MELEE)
 	user.do_attack_animation(src)
-	visible_message("<span class='danger'>[user] slices [src] apart!</span>")
-	deconstruct()
-
-/obj/structure/rack/attack_animal(mob/living/simple_animal/user)
-	if(user.environment_smash)
-		user.do_attack_animation(src)
-		visible_message("<span class='danger'>[user] smashes [src] apart!</span>")
-		deconstruct()
-
-/obj/structure/rack/attack_tk() // no telehulk sorry
-	return
-
-/obj/structure/rack/proc/healthcheck()
-	if(obj_integrity <= 0)
-		deconstruct()
+	user.visible_message("<span class='warning'>[user] kicks [src].</span>", \
+							 "<span class='danger'>You kick [src].</span>")
+	take_damage(rand(4,8), BRUTE, "melee", 1)
 
 /obj/structure/rack/play_attack_sound(damage_amount, damage_type = BRUTE, damage_flag = 0)
 	switch(damage_type)

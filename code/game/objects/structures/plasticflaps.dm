@@ -6,6 +6,7 @@
 	density = 0
 	anchored = 1
 	layer = 4
+	armor = list(melee = 100, bullet = 80, laser = 80, energy = 100, bomb = 50, bio = 100, rad = 100)
 	var/list/mobs_can_pass = list(
 		/mob/living/carbon/slime,
 		/mob/living/simple_animal/mouse,

@@ -95,6 +95,7 @@
 	health = 160
 	reinf = 1
 	explosion_block = 3
+	armor = list("melee" = 50, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 50, "bio" = 100, "rad" = 100)
 
 /obj/structure/window/full/shuttle/New()
 	..()

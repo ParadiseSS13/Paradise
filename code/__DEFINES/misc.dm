@@ -294,12 +294,6 @@
 #define RADIO_CONNECTION_FAIL 0
 #define RADIO_CONNECTION_NON_SUBSPACE 1
 
-//Fire stuff, for burn_state
-#define LAVA_PROOF -2
-#define FIRE_PROOF -1
-#define FLAMMABLE 0
-#define ON_FIRE 1
-
 // Bluespace shelter deploy checks
 #define SHELTER_DEPLOY_ALLOWED "allowed"
 #define SHELTER_DEPLOY_BAD_TURFS "bad turfs"
@@ -346,6 +340,9 @@
 #define BLOOD_STATE_HUMAN			"blood"
 #define BLOOD_STATE_XENO			"xeno"
 #define BLOOD_STATE_NOT_BLOODY		"no blood whatsoever"
+
+//for obj explosion block calculation
+#define EXPLOSION_BLOCK_PROC -1
 
 // The SQL version required by this version of the code
 #define SQL_VERSION 2
