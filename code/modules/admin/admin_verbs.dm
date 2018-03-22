@@ -974,8 +974,8 @@ var/list/admin_verbs_ticket = list(
 	if(!check_rights(R_ADMIN))
 		return
 
-	to_chat(T, "<span class='notice'><b><font size=3>Man up and deal with it.</font></b></span>")
-	to_chat(T, "<span class='notice'>Move on.</span>")
+	to_chat(T, "<br><center><span class='notice'><b><font size=4>Man up.<br> Deal with it.</font></b><br>Move on.</span></center><br>")
+	T << 'sound/voice/ManUp1.ogg'
 
 	log_admin("[key_name(usr)] told [key_name(T)] to man up and deal with it.")
 	message_admins("[key_name_admin(usr)] told [key_name(T)] to man up and deal with it.")
