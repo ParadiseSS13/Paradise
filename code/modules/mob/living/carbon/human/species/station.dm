@@ -93,7 +93,7 @@
 
 /datum/action/innate/tail_lash/Activate()
 	var/mob/living/carbon/human/user = owner
-	if(!user.restrained() || !user.buckled)
+	if(user.restrained() || user.buckled)
 		to_chat(user, "<span class='warning'>You need freedom of movement to tail lash!</span>")
 		return
 	if(user.getStaminaLoss() >= 50)
@@ -108,6 +108,7 @@
 			C.apply_damage(5, BRUTE, E)
 			user.spin(20, 1)
 			playsound(user.loc, 'sound/weapons/slash.ogg', 50, 0)
+			add_logs(user, C, "tail whipped")
 
 
 
