@@ -54,13 +54,13 @@ var/list/vr_all_players = list()
 	for(var/mob/living/carbon/human/virtual_reality/player in players)
 		player.death()
 
-		if(templatelist.len)
-			template = pick(templatelist)
-		else
-			cleanup()
-			return
+	if(templatelist.len)
+		template = pick(templatelist)
+	else
+		cleanup()
+		return
 
-	if(players.len >= 1)
+	if(waitlist.len > 1)
 		template = vr_templates[template]
 		spawn_points = list()
 		spawn(0)
