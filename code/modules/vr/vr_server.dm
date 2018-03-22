@@ -93,7 +93,7 @@ var/vr_server_status = VR_SERVER_OFF
 	var/list/listening_turfs = list()
 	for(var/mob/living/carbon/human/virtual_reality/P in vr_all_players)
 		var/turf/T = P.loc
-		if(freq)
+		if(freq && P.real_me)
 			for(var/obj/item/device/radio/headset/H in P.real_me.get_head_slots())
 				for(var/channel in H.channels)
 					if(radiochannels[channel] == freq)
@@ -105,7 +105,7 @@ var/vr_server_status = VR_SERVER_OFF
 /obj/item/device/radio/internal/vr/send_hear(freq, level)
 	var/list/listening_mobs = list()
 	for(var/mob/living/carbon/human/virtual_reality/P in vr_all_players)
-		if(freq)
+		if(freq && P.real_me)
 			for(var/obj/item/device/radio/headset/H in P.real_me.get_head_slots())
 				for(var/channel in H.channels)
 					if(radiochannels[channel] == freq)

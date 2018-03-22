@@ -153,13 +153,14 @@ proc/build_virtual_avatar(mob/living/carbon/human/H, location, datum/vr_room/roo
 
 	vr_avatar.myroom = room
 	vr_all_players.Add(vr_avatar)
-	for (var/obj/item/clothing/ears/vr_goggles/g in H.contents)
+	for (var/obj/item/clothing/ears/vr_headset/g in H.contents)
 		g.vr_human = vr_avatar
 
 	if(room.name == "Lobby")
 		if(vr_avatar.a_intent != INTENT_HELP)
 			vr_avatar.a_intent_change(INTENT_HELP)
 		vr_avatar.can_change_intents = 0 //Now you have no choice but to be helpful.
+	H.vr_avatar = vr_avatar
 	return vr_avatar
 
 

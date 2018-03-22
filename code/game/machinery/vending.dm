@@ -1284,7 +1284,7 @@
 	products = list(/obj/item/weapon/reagent_containers/food/snacks/tofu = 24,
 					/obj/item/weapon/reagent_containers/food/drinks/ice = 12,
 					/obj/item/weapon/reagent_containers/food/snacks/candy/candy_corn = 6,
-					/obj/item/clothing/ears/vr_goggles = 5)
+					/obj/item/clothing/ears/vr_headset = 5)
 	contraband = list(/obj/item/weapon/kitchen/knife = 6)
 
 /obj/machinery/vending/hatdispenser
@@ -1431,5 +1431,5 @@
 /obj/machinery/vending/vr
 	name = "\improper N.T.S.R.S. Storage Unit"
 	desc = "A storage unit for NanoTrasen. Simulated. Reality. System."
-	icon_state = "robotics"
-	products = list(/obj/item/clothing/ears/vr_goggles = 100)
+	icon_state = "expvendor"
+	products = list(/obj/item/clothing/ears/vr_headset = 100)

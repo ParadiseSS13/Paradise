@@ -395,14 +395,14 @@
 
 /obj/structure/closet/secure_closet/vr/New()
 		..()
-		new /obj/item/clothing/ears/vr_goggles/exile(src)
-		new /obj/item/clothing/ears/vr_goggles/exile(src)
-		new /obj/item/clothing/ears/vr_goggles/exile(src)
-		new /obj/item/clothing/ears/vr_goggles/exile(src)
-		new /obj/item/clothing/ears/vr_goggles/exile(src)
-		new /obj/item/clothing/ears/vr_goggles/exile(src)
-		new /obj/item/clothing/ears/vr_goggles/exile(src)
-		new /obj/item/clothing/ears/vr_goggles/exile(src)
+		new /obj/item/clothing/ears/vr_headset/exile(src)
+		new /obj/item/clothing/ears/vr_headset/exile(src)
+		new /obj/item/clothing/ears/vr_headset/exile(src)
+		new /obj/item/clothing/ears/vr_headset/exile(src)
+		new /obj/item/clothing/ears/vr_headset/exile(src)
+		new /obj/item/clothing/ears/vr_headset/exile(src)
+		new /obj/item/clothing/ears/vr_headset/exile(src)
+		new /obj/item/clothing/ears/vr_headset/exile(src)
 
 /obj/structure/closet/secure_closet/courtroom
 	name = "courtroom locker"

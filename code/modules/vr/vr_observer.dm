@@ -2,28 +2,22 @@
 	name = "observer"
 	icon = 'icons/obj/items.dmi'
 	desc = "the all seeing eye always watching."
-	icon_state = "videocam"
-	item_state = "videocam"
+	icon_state = "observingeye"
+	item_state = "observingeye"
 	w_class = WEIGHT_CLASS_SMALL
 	slot_flags = SLOT_EARS
 	flags = NODROP
 	var/on = 0
 	var/obj/machinery/camera/camera
-	var/icon_on = "videocam_on"
-	var/icon_off = "videocam"
 	var/canhear_range = 7
 
 /obj/item/device/observer/equipped()
 	..()
 	var/mob/living/carbon/human/H = loc
 	if(camera)
-		src.icon_state = icon_on
 		camera.network = list("news")
 		camera.c_tag = H.name
-
 	else
-
-		src.icon_state = icon_on
 		camera = new /obj/machinery/camera(src)
 		camera.network = list("news")
 		cameranet.removeCamera(camera)

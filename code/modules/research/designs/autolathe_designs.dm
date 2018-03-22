@@ -890,10 +890,10 @@
 	build_path = /obj/item/mounted/mirror
 	category = list("initial", "Miscellaneous")
 
-/datum/design/vr_goggles
+/datum/design/vr_headset
 	name = "VR Goggles"
 	id = "vr_goggles"
 	build_type = AUTOLATHE
 	materials = list(MAT_METAL = 50, MAT_GLASS = 20)
-	build_path = /obj/item/clothing/ears/vr_goggles
+	build_path = /obj/item/clothing/ears/vr_headset
 	category = list("initial","Miscellaneous")

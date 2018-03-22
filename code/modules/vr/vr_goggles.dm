@@ -1,40 +1,36 @@
 //Glorified teleporter that puts you in a new human body.
 // it's """VR"""
 
-/obj/item/clothing/ears/vr_goggles
+/obj/item/clothing/ears/vr_headset
 	desc = "Your ticket to another reality. Designed to be worn above the ears."
 	name = "VR Headset"
-	icon_state = "earmuffs"
-	item_state = "earmuffs"
-	species_fit = list("Vox")
-	sprite_sheets = list(
-		"Vox" = 'icons/mob/species/vox/eyes.dmi'
-		)
+	icon_state = "brainset"
+	item_state = "brainset"
 	actions_types = list(/datum/action/item_action/enter_vr)
-	var/you_die_in_the_game_you_die_for_real = FALSE
+	var/you_die_in_the_game_you_die_for_real = FALSE //Perhaps some day
 	var/mob/living/carbon/human/virtual_reality/vr_human = null
 	var/user_health = 0
 	var/exile = 0
 
 
-/obj/item/clothing/ears/vr_goggles/Destroy()
+/obj/item/clothing/ears/vr_headset/Destroy()
 	if(vr_human)
 		vr_human.revert_to_reality(1)
 		cleanup_vr_avatar()
 	processing_objects.Remove(src)
 	return ..()
 
-/obj/item/clothing/ears/vr_goggles/dropped()
+/obj/item/clothing/ears/vr_headset/dropped()
 	if(vr_human)
 		vr_human.revert_to_reality(0)
 	processing_objects.Remove(src)
 	..()
 
-/obj/item/clothing/ears/vr_goggles/proc/cleanup_vr_avatar()
+/obj/item/clothing/ears/vr_headset/proc/cleanup_vr_avatar()
 	if(vr_human)
 		vr_human = null
 
-/obj/item/clothing/ears/vr_goggles/proc/contained()
+/obj/item/clothing/ears/vr_headset/proc/contained()
 	if(exile && vr_server_status == VR_SERVER_ON)
 		return 1
 	else if (!exile && vr_server_status == VR_SERVER_EMAG)
@@ -42,7 +38,7 @@
 	else
 		return 0
 
-/obj/item/clothing/ears/vr_goggles/proc/enter_vr()
+/obj/item/clothing/ears/vr_headset/proc/enter_vr()
 	var/area/A = get_area(src)
 	var/mob/living/carbon/human/H = loc
 	if(vr_server_status == VR_SERVER_OFF)
@@ -61,22 +57,26 @@
 		user_health = H.health
 		processing_objects.Add(src)
 
-/obj/item/clothing/ears/vr_goggles/equipped()
+/obj/item/clothing/ears/vr_headset/equipped()
 	..()
 	if(exile)
 		enter_vr()
 
-/obj/item/clothing/ears/vr_goggles/attack_self()
+/obj/item/clothing/ears/vr_headset/item_action_slot_check(slot, mob/user)
+    if(slot == slot_l_ear || slot == slot_r_ear)
+        return 1
+
+/obj/item/clothing/ears/vr_headset/ui_action_click()
 	enter_vr()
 
-/obj/item/clothing/ears/vr_goggles/process()
+/obj/item/clothing/ears/vr_headset/process()
 	var/mob/living/carbon/human/H = loc
 	if(user_health - H.health > 50 && !contained())
 		vr_human.revert_to_reality(0)
 
-/obj/item/clothing/ears/vr_goggles/exile
+/obj/item/clothing/ears/vr_headset/exile
 	desc = "The mind is just another prison with the right bars."
 	name = "Exile VR Goggles"
-	icon_state = "earmuffs"
-	item_state = "earmuffs"
+	icon_state = "prisonerset"
+	item_state = "prisonerset"
 	exile = 1

@@ -357,7 +357,10 @@
 					msg += "<span class='deadsay'>[t_He] [t_is] appears to be [interestdebug] and [dodebug].</span>\n"
 			else if(species.show_ssd)
 				if(!key)
-					msg += "<span class='deadsay'>[t_He] [t_is] totally catatonic. The stresses of life in deep-space must have been too much for [t_him]. Any recovery is unlikely.</span>\n"
+					if(!vr_avatar)
+						msg += "<span class='deadsay'>[t_He] [t_is] totally catatonic. The stresses of life in deep-space must have been too much for [t_him]. Any recovery is unlikely.</span>\n"
+					else
+						msg += "<span class='deadsay'>[t_He] [t_is] in virtual reality, [t_his] body is totally limp with all muscle inputs being captured by the headgear.</span>\n"
 				else if(!client)
 					msg += "[t_He] [t_has] suddenly fallen asleep, suffering from Space Sleep Disorder. [t_He] may wake up soon.\n"
 

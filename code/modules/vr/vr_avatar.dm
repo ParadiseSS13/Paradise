@@ -63,13 +63,13 @@
 		real_me.EyeBlind(2)
 		real_me.Confused(2)
 		var/mob/living/carbon/human/virtual_reality/vr = src
-		var/obj/item/clothing/ears/vr_goggles/goggles
-		for(var/obj/item/clothing/ears/vr_goggles/g in vr.real_me.contents)
+		var/obj/item/clothing/ears/vr_headset/goggles
+		for(var/obj/item/clothing/ears/vr_headset/g in vr.real_me.contents)
 			goggles = g
 		if(goggles.contained() && vr_server_status == VR_SERVER_EMAG)
 			real_me.adjustBrainLoss(60)
 			real_me.vomit(20)
-		for(var/obj/item/clothing/ears/vr_goggles/g in vr.real_me.contents)
+		for(var/obj/item/clothing/ears/vr_headset/g in vr.real_me.contents)
 			processing_objects.Remove(g)
 		if(remove)
 			src.death()
@@ -81,19 +81,20 @@
 		var/mob/living/carbon/human/virtual_reality/new_vr
 		var/datum/vr_room/lobby = vr_rooms_official["Lobby"]
 		new_vr = spawn_vr_avatar(src, lobby)
-		for(var/obj/item/clothing/ears/vr_goggles/g in new_vr.real_me.contents)
+		for(var/obj/item/clothing/ears/vr_headset/g in new_vr.real_me.contents)
 			g.vr_human = new_vr
 
 
 /datum/action/quit_vr
 	name = "Quit Virtual Reality"
+	button_icon_state = "shutdown"
 
 /datum/action/quit_vr/Trigger()
 	if(..())
 		if(istype(owner, /mob/living/carbon/human/virtual_reality))
 			var/mob/living/carbon/human/virtual_reality/vr = owner
-			var/obj/item/clothing/ears/vr_goggles/goggles
-			for(var/obj/item/clothing/ears/vr_goggles/g in vr.real_me.contents)
+			var/obj/item/clothing/ears/vr_headset/goggles
+			for(var/obj/item/clothing/ears/vr_headset/g in vr.real_me.contents)
 				goggles = g
 			if(!goggles.contained())
 				vr.revert_to_reality(1)
@@ -104,6 +105,7 @@
 
 /datum/action/back_to_lobby
 	name = "Return To Lobby"
+	button_icon_state = "lobby"
 
 /datum/action/back_to_lobby/Trigger()
 	if(..())
@@ -115,13 +117,14 @@
 
 /datum/action/detach_from_avatar
 	name = "Detach From Avatar"
+	button_icon_state = "logout"
 
 /datum/action/detach_from_avatar/Trigger()
 	if(..())
 		if(istype(owner, /mob/living/carbon/human/virtual_reality))
 			var/mob/living/carbon/human/virtual_reality/vr = owner
-			var/obj/item/clothing/ears/vr_goggles/goggles
-			for(var/obj/item/clothing/ears/vr_goggles/g in vr.real_me.contents)
+			var/obj/item/clothing/ears/vr_headset/goggles
+			for(var/obj/item/clothing/ears/vr_headset/g in vr.real_me.contents)
 				goggles = g
 			if(!goggles.contained())
 				vr.revert_to_reality(0)
