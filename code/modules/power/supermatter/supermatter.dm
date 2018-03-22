@@ -56,6 +56,7 @@
 	var/explosion_power = 8
 
 	var/lastwarning = 0				// Time in 1/10th of seconds since the last sent warning
+	var/last_zap = 0				// Time in 1/10th of seconds since the last tesla zap
 	var/power = 0
 
 	var/oxygen = 0					// Moving this up here for easier debugging.
@@ -103,6 +104,7 @@
 	radio = new(src)
 	radio.listening = 0
 	investigate_log("has been created.", "supermatter")
+
 
 /obj/machinery/power/supermatter_shard/proc/handle_admin_warnings()
 	if(disable_adminwarn)
@@ -188,6 +190,10 @@
 
 			explode()
 			emergency_lighting(0)
+
+	if(damage > warning_point && world.timeofday > last_zap)
+		last_zap = world.timeofday + rand(80,200)
+		supermatter_zap()
 
 	//Ok, get the air from the turf
 	var/datum/gas_mixture/env = L.return_air()
@@ -283,6 +289,7 @@
 			has_been_powered = 1
 	else
 		damage += Proj.damage * config_bullet_energy
+	supermatter_zap()
 	return 0
 
 /obj/machinery/power/supermatter_shard/singularity_act()
@@ -400,6 +407,8 @@
 		qdel(AM)
 
 	power += 200
+	supermatter_zap()
+
 
 	//Some poor sod got eaten, go ahead and irradiate people nearby.
 	for(var/mob/living/L in range(10))
@@ -457,4 +466,7 @@
 			A.radiation_alert()
 		else
 			A.reset_radiation_alert()
-	
+
+/obj/machinery/power/supermatter_shard/proc/supermatter_zap()
+	playsound(src.loc, 'sound/magic/LightningShock.ogg', 100, 1, extrarange = 5)
+	tesla_zap(src, 10, max(1000,power * damage / explosion_point))
