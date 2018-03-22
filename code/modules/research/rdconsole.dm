@@ -534,11 +534,12 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 					var/P = being_built.build_path //lets save these values before the spawn() just in case. Nobody likes runtimes.
 					
 					spawn(IMPRINTER_DELAY)
-						if(g2g)
+						if(g2g) //Spending power regardless
+						for(var/i = 0, i<amount, i++)				
 							var/obj/item/new_item = new P(src)
 							new_item.loc = linked_imprinter.loc
-						linked_imprinter.busy = 0
 						clear_wait_message()
+						linked_imprinter.busy = 0
 						SSnanoui.update_uis(src)
 
 	else if(href_list["disposeI"] && linked_imprinter)  //Causes the circuit imprinter to dispose of a single reagent (all of it)
