@@ -71,6 +71,7 @@
 
 /obj/item/clothing/ears/vr_headset/process()
 	var/mob/living/carbon/human/H = loc
+	H.Weaken(2)
 	if(user_health - H.health > 50 && !contained())
 		vr_human.revert_to_reality(0)
 
