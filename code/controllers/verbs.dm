@@ -79,7 +79,7 @@
 			debug_variables(vote)
 			feedback_add_details("admin_verb","DVote")
 		if("Fires")
-			debug_variables(fire_master)
+			debug_variables(SSfire_burning)
 			feedback_add_details("admin_verb","DFires")
 		if("Mob")
 			debug_variables(mob_master)
