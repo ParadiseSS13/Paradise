@@ -1042,6 +1042,7 @@
 	description = "Highly advanced nanites equipped with calcium payloads designed to repair bones. Nanomachines son."
 	color = "#9b3401"
 	metabolization_rate = 0.5
+	can_synth = FALSE
 
 /datum/reagent/medicine/nanocalcium/on_mob_life(mob/living/carbon/human/M)
 	switch(current_cycle)
