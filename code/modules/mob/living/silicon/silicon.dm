@@ -224,10 +224,11 @@
 /mob/living/silicon/proc/remove_med_sec_hud()
 	var/datum/atom_hud/secsensor = huds[sec_hud]
 	var/datum/atom_hud/medsensor = huds[med_hud]
-	var/datum/atom_hud/diagsensor = huds[d_hud]
+	for(var/datum/atom_hud/data/diagnostic/diagsensor in huds)
+		diagsensor.remove_hud_from(src)
 	secsensor.remove_hud_from(src)
 	medsensor.remove_hud_from(src)
-	diagsensor.remove_hud_from(src)
+
 
 /mob/living/silicon/proc/add_sec_hud()
 	var/datum/atom_hud/secsensor = huds[sec_hud]
