@@ -35,7 +35,7 @@ Pipelines + Other Objects -> Pipe network
 	if(!armor)
 		armor = list(melee = 25, bullet = 10, laser = 10, energy = 100, bomb = 0, bio = 100, rad = 100)
 	..()
-	atmos_machinery += src
+	SSair.atmos_machinery += src
 	if(!icon_manager)
 		icon_manager = new()
 
@@ -56,7 +56,7 @@ Pipelines + Other Objects -> Pipe network
 
 /obj/machinery/atmospherics/Destroy()
 	QDEL_NULL(stored)
-	atmos_machinery -= src
+	SSair.atmos_machinery -= src
 	for(var/mob/living/L in src) //ventcrawling is serious business
 		L.remove_ventcrawl()
 		L.forceMove(get_turf(src))
