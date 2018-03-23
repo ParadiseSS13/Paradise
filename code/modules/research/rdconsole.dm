@@ -535,9 +535,9 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 					
 					spawn(IMPRINTER_DELAY)
 						if(g2g) //Spending power regardless
-						for(var/i = 0, i<amount, i++)				
-							var/obj/item/new_item = new P(src)
-							new_item.loc = linked_imprinter.loc
+							for(var/i = 0, i<amount, i++)				
+								var/obj/item/new_item = new P(src)
+								new_item.loc = linked_imprinter.loc
 						clear_wait_message()
 						linked_imprinter.busy = 0
 						SSnanoui.update_uis(src)
