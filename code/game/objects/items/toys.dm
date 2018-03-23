@@ -1406,8 +1406,7 @@ obj/item/toy/cards/deck/syndicate/black
 			is_empty = 1
 			playsound(src, 'sound/weapons/Gunshot.ogg', 50, 1)
 			user.visible_message("<span class='danger'>The [src] goes off!</span>")
-			M.apply_damage(200, BRUTE, "head", sharp =1, used_weapon = "Self-inflicted gunshot wound to the head.")
-			M.death()
+			M.apply_damage(500, BRUTE, "head", sharp =1, used_weapon = "Self-inflicted gunshot wound to the head.")
 	else
 		user.visible_message("<span class='danger'>[user] lowers the [src] from their head.</span>")
 
