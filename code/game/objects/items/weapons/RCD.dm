@@ -192,7 +192,7 @@ RCD
 
 	switch(mode)
 		if(1)
-			if(istype(A, /turf/space))
+			if(istype(A, /turf/space) || istype(A, /obj/structure/lattice))
 				if(useResource(1, user))
 					to_chat(user, "Building Floor...")
 					activate()
