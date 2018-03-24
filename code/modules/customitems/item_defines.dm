@@ -719,15 +719,25 @@
 /obj/item/clothing/suit/jacket/miljacket/patch/attack_self(mob/user)
 	var/list/options = list()
 	options["purple"] = "shazjacket_purple"
+	options["purple light"] = "shazjacket_purple_light"
 	options["yellow"] = "shazjacket_yellow"
 	options["blue"] = "shazjacket_blue"
+	options["cyan"] = "shazjacket_cyan"
+	options["command blue"] = "shazjacket_command"
 	options["brown"] = "shazjacket_brown"
 	options["orange"] = "shazjacket_orange"
+	options["engi orange"] = "shazjacket_engi"
 	options["grey"] = "shazjacket_grey"
 	options["black"] ="shazjacket_black"
 	options["red"] ="shazjacket_red"
+	options["red light"] ="shazjacket_red_light"
+	options["pink"] ="shazjacket_pink"
+	options["magenta"] ="shazjacket_magenta"
 	options["navy"] ="shazjacket_navy"
 	options["white"] ="shazjacket_white"
+	options["green"] ="shazjacket_green"
+	options["lime"] ="shazjacket_lime"
+	options["army green"] ="shazjacket_army"
 
 	var/choice = input(user, "What color do you wish your jacket to be?", "Change color") as null|anything in options
 
@@ -1262,3 +1272,37 @@
 	item_state = "victorianvest"
 	item_color = "victorianlightfire"
 	displays_id = FALSE
+
+
+/obj/item/device/fluff/decemviri_spacepod_kit //Decemviri: Sylus Cain
+	name = "Spacepod mod kit"
+	desc = "a kit on tools and a blueprint detailing how to reconfigure a spacepod"
+	icon_state = "modkit"
+
+/obj/item/device/fluff/decemviri_spacepod_kit/afterattack(atom/target, mob/user, proximity)
+	if(!proximity || !ishuman(user) || user.incapacitated())
+		return
+
+	if(!istype(target, /obj/spacepod))
+		to_chat(user, "<span class='warning'>You can't modify [target]!</span>")
+		return
+
+	to_chat(user, "<span class='notice'>You modify the appearance of [target] based on the kite blueprints.</span>")
+	var/obj/spacepod/pod = target
+	pod.icon = 'icons/48x48/custom_pod.dmi'
+	pod.icon_state = "pod_dece"
+	pod.name = "sleek spacepod"
+	pod.desc = "A modified varient of a space pod."
+	pod.can_paint = FALSE
+	used = 1
+	qdel(src)
+	
+/obj/item/weapon/bikehorn/fluff/pinkbikehorn //Xerdies: Squiddle Toodle
+	name = "Honkinator5000"
+	desc = "This horn may look ridiculous but is the new hot item for clowns in the Clown Empire. It has a fine print on its side reading: Property of Prince Honktertong the IV"
+	icon = 'icons/obj/custom_items.dmi'
+	lefthand_file = 'icons/mob/inhands/fluff_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/fluff_righthand.dmi'
+	icon_state = "teri_horn"
+	item_state = "teri_horn"
+	honk_sound = 'sound/items/teri_horn.ogg'

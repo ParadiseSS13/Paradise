@@ -25,7 +25,7 @@
 	spider_opens_doors = 2
 	ventcrawler = 0
 	ai_ventcrawls = 0
-	environment_smash = 3
+	environment_smash = ENVIRONMENT_SMASH_RWALLS
 	idle_ventcrawl_chance = 0 // stick to the queen!
 	var/dcheck_counter = 0
 	var/queen_visible = 1

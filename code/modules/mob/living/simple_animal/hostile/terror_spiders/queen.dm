@@ -232,7 +232,7 @@
 	hasnested = 1
 	ventcrawler = 0
 	ai_ventcrawls = 0
-	environment_smash = 3
+	environment_smash = ENVIRONMENT_SMASH_RWALLS
 	DoQueenScreech(8, 100, 8, 100)
 	MassFlicker()
 	to_chat(src, "<span class='notice'>You have matured to your egglaying stage. You can now smash through walls, and lay eggs, but can no longer ventcrawl.</span>")
