@@ -187,16 +187,16 @@ RCD
 	if(!proximity) return
 	if(istype(A,/area/shuttle)||istype(A,/turf/space/transit))
 		return 0
-	if(!(istype(A, /turf) || istype(A, /obj/machinery/door/airlock) || istype(A, /obj/structure/grille) || istype(A, /obj/structure/window)))
+	if(!(istype(A, /turf) || istype(A, /obj/machinery/door/airlock) || istype(A, /obj/structure/grille) || istype(A, /obj/structure/window) || istype(A, /obj/structure/lattice)))
 		return 0
 
 	switch(mode)
 		if(1)
-			if(istype(A, /turf/space))
+			if(istype(A, /turf/space) || istype(A, /obj/structure/lattice))
 				if(useResource(1, user))
 					to_chat(user, "Building Floor...")
 					activate()
-					var/turf/AT = A
+					var/turf/AT = get_turf(A)
 					AT.ChangeTurf(/turf/simulated/floor/plating)
 					return 1
 				return 0
