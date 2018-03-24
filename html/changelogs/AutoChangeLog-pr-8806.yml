@@ -1,0 +1,4 @@
+author: "matt81093"
+delete-after: True
+changes: 
+  - bugfix: "Borgs no longer keep their special vision when reset with the reset module"
