@@ -93,7 +93,7 @@
 	dufflebag = /obj/item/weapon/storage/backpack/duffel/security
 
 
-
+/*
 /datum/job/detective
 	title = "Detective"
 	flag = DETECTIVE
@@ -113,7 +113,7 @@
 	exp_type = EXP_TYPE_CREW
 	outfit = /datum/outfit/job/detective
 
-/*
+
 /datum/outfit/job/detective
 	name = "Detective"
 	jobtype = /datum/job/detective
@@ -164,7 +164,7 @@
 	supervisors = "the head of security"
 	department_head = list("Head of Security")
 	selection_color = "#ffeeee"
-	alt_titles = list("Security Investigator", "Security Medic", "Security Pilot")
+	alt_titles = list("Detective", "Security Medic", "Security Pilot")
 	access = list(access_security, access_sec_doors, access_brig, access_court, access_maint_tunnels, access_morgue, access_weapons, access_forensics_lockers, access_medical)
 	minimal_access = list(access_security, access_sec_doors, access_brig, access_court, access_maint_tunnels, access_weapons)
 	minimal_player_age = 14
@@ -197,7 +197,7 @@
 	. = ..()
 	if(H.mind.role_alt_title)
 		switch(H.mind.role_alt_title)
-			if("Security Investigator")
+			if("Detective")
 				uniform = /obj/item/clothing/under/det
 				suit = /obj/item/clothing/suit/storage/det_suit
 				gloves = /obj/item/clothing/gloves/color/black
