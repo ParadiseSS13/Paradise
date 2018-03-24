@@ -819,7 +819,6 @@
 						"left pocket" = slot_l_store,
 						"right pocket" = slot_r_store,
 						"left hand" = slot_hands,
-						"right hand" = slot_r_hand,
 					)
 					var/where = H.equip_in_one_of_slots(T, slots)
 					if(!where)
@@ -1350,7 +1349,6 @@
 			"left pocket" = slot_l_store,
 			"right pocket" = slot_r_store,
 			"left hand" = slot_hands,
-			"right hand" = slot_r_hand,
 		)
 		var/where = H.equip_in_one_of_slots(T, slots)
 		if(!where)

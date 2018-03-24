@@ -390,7 +390,7 @@ var/list/SpookyGhosts = list("ghost","shade","shade2","ghost-narsie","horror","s
 /obj/item/device/camera/proc/printpicture(mob/user, var/datum/picture/P)
 	var/obj/item/weapon/photo/Photo = new/obj/item/weapon/photo()
 	Photo.loc = user.loc
-	if(!user.get_inactive_hand())
+	if(!user.get_inactive_held_item())
 		user.put_in_inactive_hand(Photo)
 
 	if(blueprints)

@@ -148,7 +148,7 @@
 		B.forceMove(get_turf(src))
 		to_chat(user, "You armed the robot frame")
 		M.use(1)
-		if(user.get_inactive_hand()==src)
+		if(user.get_inactive_held_item()==src)
 			user.unEquip(src)
 			user.put_in_inactive_hand(B)
 		qdel(src)

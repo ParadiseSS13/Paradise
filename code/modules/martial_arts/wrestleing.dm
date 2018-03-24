@@ -39,8 +39,8 @@
 	return
 
 /datum/martial_art/wrestling/disarm_act(var/mob/living/carbon/human/A, var/mob/living/carbon/human/D)
-	if(istype(A.get_inactive_hand(),/obj/item/weapon/grab))
-		var/obj/item/weapon/grab/G = A.get_inactive_hand()
+	if(istype(A.get_inactive_held_item(),/obj/item/weapon/grab))
+		var/obj/item/weapon/grab/G = A.get_inactive_held_item()
 		if(G.affecting == D)
 			Suplex(A,D)
 			return 1

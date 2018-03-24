@@ -47,7 +47,7 @@
 		to_chat(user, "<span class='notice'>You are now carrying the [name] with one hand.</span>")
 	if(unwieldsound)
 		playsound(loc, unwieldsound, 50, 1)
-	var/obj/item/weapon/twohanded/offhand/O = user.get_inactive_hand()
+	var/obj/item/weapon/twohanded/offhand/O = user.get_inactive_held_item()
 	if(O && istype(O))
 		O.unwield()
 	return
@@ -59,7 +59,7 @@
 		if(H.species.is_small)
 			to_chat(user, "<span class='warning'>It's too heavy for you to wield fully.</span>")
 			return
-	if(user.get_inactive_hand())
+	if(user.get_inactive_held_item())
 		to_chat(user, "<span class='warning'>You need your other hand to be empty!</span>")
 		return
 	wielded = 1
@@ -84,7 +84,7 @@
 	..()
 	//handles unwielding a twohanded weapon when dropped as well as clearing up the offhand
 	if(user)
-		var/obj/item/weapon/twohanded/O = user.get_inactive_hand()
+		var/obj/item/weapon/twohanded/O = user.get_inactive_held_item()
 		if(istype(O))
 			O.unwield(user)
 	return unwield(user)
@@ -133,7 +133,7 @@
 	return ..()
 
 /obj/item/weapon/twohanded/required/attack_hand(mob/user)//Can't even pick it up without both hands empty
-	var/obj/item/weapon/twohanded/required/H = user.get_inactive_hand()
+	var/obj/item/weapon/twohanded/required/H = user.get_inactive_held_item()
 	if(get_dist(src,user) > 1)
 		return 0
 	if(H != null)
@@ -145,7 +145,7 @@
 
 /obj/item/weapon/twohanded/required/equipped(mob/user, slot)
 	..()
-	if(slot == slot_hands || slot == slot_r_hand)
+	if(slot == slot_hands)
 		wield(user)
 	else
 		unwield(user)

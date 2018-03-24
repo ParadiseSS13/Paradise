@@ -1046,7 +1046,7 @@ so that different stomachs can handle things in different ways VB*/
 	if(RH)
 		. |= RH.GetAccess()
 
-	var/obj/item/LH = get_inactive_hand()
+	var/obj/item/LH = get_inactive_held_item()
 	if(LH)
 		. |= LH.GetAccess()
 

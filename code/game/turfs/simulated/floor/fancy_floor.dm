@@ -19,10 +19,10 @@
 	if(T.turf_type == type)
 		return
 	var/obj/item/weapon/tool
-	if(isscrewdriver(user.get_inactive_hand()))
-		tool = user.get_inactive_hand()
-	if(!tool && iscrowbar(user.get_inactive_hand()))
-		tool = user.get_inactive_hand()
+	if(isscrewdriver(user.get_inactive_held_item()))
+		tool = user.get_inactive_held_item()
+	if(!tool && iscrowbar(user.get_inactive_held_item()))
+		tool = user.get_inactive_held_item()
 	if(!tool)
 		return
 	var/turf/simulated/floor/plating/P = pry_tile(tool, user, TRUE)

@@ -458,7 +458,7 @@
 			if(istype(W))
 				fill_welder(W)
 			else
-				W = holder.wearer.get_inactive_hand()
+				W = holder.wearer.get_inactive_held_item()
 				if(istype(W))
 					fill_welder(W)
 		else

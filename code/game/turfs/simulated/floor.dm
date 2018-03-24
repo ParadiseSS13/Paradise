@@ -170,8 +170,8 @@ var/list/icons_to_ignore_at_floor_init = list("damaged1","damaged2","damaged3","
 	if(T.turf_type == type)
 		return
 	var/obj/item/weapon/crowbar/CB
-	if(iscrowbar(user.get_inactive_hand()))
-		CB = user.get_inactive_hand()
+	if(iscrowbar(user.get_inactive_held_item()))
+		CB = user.get_inactive_held_item()
 	if(!CB)
 		return
 	var/turf/simulated/floor/plating/P = pry_tile(CB, user, TRUE)

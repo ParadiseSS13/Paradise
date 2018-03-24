@@ -639,8 +639,8 @@
 	if(check_hands)
 		if(istype(get_active_held_item(), /obj/item/weapon/card/id))
 			id = get_active_held_item()
-		else if(istype(get_inactive_hand(), /obj/item/weapon/card/id))
-			id = get_inactive_hand()
+		else if(istype(get_inactive_held_item(), /obj/item/weapon/card/id))
+			id = get_inactive_held_item()
 
 	if(istype(id))
 		return id

@@ -284,7 +284,7 @@
 
 /obj/item/weapon/twohanded/shockpaddles/dropped(mob/user as mob)
 	if(user)
-		var/obj/item/weapon/twohanded/offhand/O = user.get_inactive_hand()
+		var/obj/item/weapon/twohanded/offhand/O = user.get_inactive_held_item()
 		if(istype(O))
 			O.unwield()
 		to_chat(user, "<span class='notice'>The paddles snap back into the main unit.</span>")

@@ -28,7 +28,7 @@
 	if(!ishuman(user))
 		return
 	var/mob/living/carbon/human/H = user
-	if(slot == slot_r_hand || slot == slot_hands)
+	if(slot == slot_hands)
 		if(H.martial_art && H.martial_art != style)
 			style.teach(H, 1)
 			to_chat(H, "<span class='notice'>THERE CAN ONLY BE ONE!</span>")

@@ -102,7 +102,7 @@
 			user.visible_message("<span class='danger'>[user] fires [src]!</span>", "<span class='danger'>You fire [src]!</span>", "You hear \a [fire_sound_text]!")
 
 	if(weapon_weight >= WEAPON_MEDIUM)
-		if(user.get_inactive_hand())
+		if(user.get_inactive_held_item())
 			if(prob(15))
 				if(user.drop_item())
 					user.visible_message("<span class='danger'>[src] flies out of [user]'s hands!</span>", "<span class='userdanger'>[src] kicks out of your grip!</span>")
@@ -147,7 +147,7 @@
 				user.drop_item()
 				return
 
-	if(weapon_weight == WEAPON_HEAVY && user.get_inactive_hand())
+	if(weapon_weight == WEAPON_HEAVY && user.get_inactive_held_item())
 		to_chat(user, "<span class='userdanger'>You need both hands free to fire \the [src]!</span>")
 		return
 
@@ -171,7 +171,7 @@ obj/item/weapon/gun/proc/newshot()
 		return
 
 	if(weapon_weight)
-		if(user.get_inactive_hand())
+		if(user.get_inactive_held_item())
 			recoil = 4 //one-handed kick
 		else
 			recoil = initial(recoil)
