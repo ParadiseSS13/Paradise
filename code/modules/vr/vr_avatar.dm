@@ -23,6 +23,14 @@
 		myroom.delete_timer = addtimer(myroom, "cleanup", 3 MINUTES)
 	else if((myroom.players.len == 1) && (myroom.expires == 2))
 		myroom.round_timer = addtimer(myroom, "vr_round", 10 SECONDS)
+		var/mob/living/carbon/human/virtual_reality/winner = myroom.players[1]
+		myroom.round_end = world.time + 1 MINUTES
+		for(var/mob/living/carbon/human/virtual_reality/P in vr_all_players)
+			if(P.ckey)
+				to_chat(P, "SYSTEM MESSAGE: [winner.name] has won the PVP match in The [myroom.name]. New match in one minute, please be in the lobby.")
+			else if(P.real_me.can_hear() && P.real_me.ckey && P in myroom.waitlist)
+				to_chat(P.real_me, "\[VR HEADSET\]: [winner.name] has won the PVP match in The [myroom.name]. New match in one minute, please be in the lobby.")
+
 	if(src.ckey)
 		return_to_lobby()
 	var/mob/living/carbon/human/virtual_reality/vr = src
@@ -51,7 +59,7 @@
 	revert_to_reality(FALSE)
 	if(H)
 		H.ghost()
-	src.death()
+	death()
 
 /mob/living/carbon/human/virtual_reality/say(var/message)
 	real_me.say(message)
@@ -72,7 +80,7 @@
 		for(var/obj/item/clothing/ears/vr_headset/g in vr.real_me.contents)
 			processing_objects.Remove(g)
 		if(remove)
-			src.death()
+			death()
 		else
 			return src
 

@@ -35,8 +35,6 @@
 		return 1
 	else if (!exile && vr_server_status == VR_SERVER_EMAG)
 		return 1
-	else
-		return 0
 
 /obj/item/clothing/ears/vr_headset/proc/enter_vr()
 	var/area/A = get_area(src)
@@ -54,12 +52,13 @@
 					vr_human = spawn_vr_avatar(H, lobby)
 				else
 					control_remote(H, vr_human)
-		user_health = H.health
-		processing_objects.Add(src)
+				user_health = H.health
+				processing_objects.Add(src)
 
 /obj/item/clothing/ears/vr_headset/equipped()
 	..()
-	if(exile)
+	var/area/A = get_area(src)
+	if(exile && (istype(A, /area/security/vr)))
 		enter_vr()
 
 /obj/item/clothing/ears/vr_headset/item_action_slot_check(slot, mob/user)
@@ -71,8 +70,9 @@
 
 /obj/item/clothing/ears/vr_headset/process()
 	var/mob/living/carbon/human/H = loc
+	var/area/A = get_area(src)
 	H.Weaken(2)
-	if(user_health - H.health > 50 && !contained())
+	if((user_health - H.health > 50 && !contained()) || (exile && !(istype(A, /area/security/vr))))
 		vr_human.revert_to_reality(0)
 
 /obj/item/clothing/ears/vr_headset/exile

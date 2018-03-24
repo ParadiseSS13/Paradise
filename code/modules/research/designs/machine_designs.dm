@@ -541,3 +541,13 @@
 	materials = list(MAT_GLASS=1000, "sacid"=20)
 	build_path = /obj/item/weapon/circuitboard/machine/ntnet_relay
 	category = list("Subspace Telecomms")
+
+/datum/design/vr_server
+	name = "Machine Design (VR Server Board)"
+	desc = "The circuit board for the VR control server."
+	id = "vr_server"
+	req_tech = list("programming" = 1)
+	build_type = IMPRINTER
+	materials = list(MAT_GLASS=1000, "sacid"=20)
+	build_path = /obj/item/weapon/circuitboard/vr_server
+	category = list ("Misc. Machinery")
