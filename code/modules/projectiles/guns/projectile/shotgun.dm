@@ -82,61 +82,80 @@
 	mag_type = /obj/item/ammo_box/magazine/internal/shot/riot
 	var/style = 1
 
+/obj/item/weapon/gun/projectile/shotgun/riot/attackby(obj/item/A, mob/user, params)
+	..()
+	var/temp_sawing = 0
+	if(istype(A, /obj/item/weapon/circular_saw) || istype(A, /obj/item/weapon/gun/energy/plasmacutter))
+		temp_sawing = 1
+	if(istype(A, /obj/item/weapon/melee/energy))
+		var/obj/item/weapon/melee/energy/W = A
+		if(W.active)
+			temp_sawing = 1
+	if(temp_sawing)
+		if(style == 2)
+			to_chat(user, "<span class='notice'>[src] is already sawn off!</span>")
+			return
+		if(chambered)
+			afterattack(user, user)
+			user.visible_message("<span class='danger'>[src] goes off!</span>", "<span class='userdanger'>[src] goes off in your face!</span>")
+			return
+		if(magazine.ammo_count())
+			user.visible_message("<span class='danger'>[user.name] saws open [src] and the shells go goes flying around!</span>", "<span class='userdanger'>You saw open [src] and the shells go goes flying everywhere!!</span>")
+			while(get_ammo() > 0)
+				var/obj/item/ammo_casing/CB
+				CB = magazine.get_round(0)
+				if(CB)
+					CB.loc = get_turf(loc)
+					CB.update_icon()
+		if(do_after(user, 10, target = src))
+			style = 2
+			to_chat(user, "<span class='notice'>You saw the barrel and magazine of the [src].</span>")
+			w_class = WEIGHT_CLASS_NORMAL
+			slot_flags = null
+			magazine.max_ammo = 3
+			name = "assault shotgun"
+			current_skin = "riotshotgun-short"
+			desc = "A shortened riot shotgun that has been shortened enough to fit inside a bag."
+			update_icon()
+	if(istype(A, /obj/item/pipe))
+		if(style == 1)
+			to_chat(user, "<span class='notice'>[src] already has a full barrel and magazine!</span>")
+			return
+		if(istype(loc, /obj/item/weapon/storage))
+			to_chat(user, "<span class='info'>How do you plan to modify [src] while it's in a bag.</span>")
+			return
+		if(chambered)
+			afterattack(user, user)
+			user.visible_message("<span class='danger'>[src] goes off!</span>", "<span class='userdanger'>[src] goes off in your face!</span>")
+			return
+		if(magazine.ammo_count())
+			user.visible_message("<span class='danger'>[user.name] opens [src] up and the shells go goes flying around!</span>", "<span class='userdanger'>You open [src] up and the shells go goes flying everywhere!!</span>")
+			while(get_ammo() > 0)
+				var/obj/item/ammo_casing/CB
+				CB = magazine.get_round(0)
+				if(CB)
+					CB.loc = get_turf(loc)
+					CB.update_icon()
+		if(do_after(user, 10, target = src))
+			style = 1
+			to_chat(user, "<span class='notice'>You install the longer barrel and magazine onto [src].</span>")
+			w_class = WEIGHT_CLASS_BULKY
+			slot_flags = SLOT_BACK
+			magazine.max_ammo = 6
+			name = "riot shotgun"
+			current_skin = "riotshotgun"
+			desc = "A sturdy shotgun with a longer magazine and a fixed tactical stock designed for non-lethal riot control."
+			update_icon()
+			qdel(A)
+
 /obj/item/weapon/gun/projectile/shotgun/riot/short
-	name = "assualt shotgun"
+	name = "assault shotgun"
 	desc = "A shortened riot shotgun that has been shortened enough to fit inside a bag."
 	icon_state = "riotshotgun-short"
 	mag_type = /obj/item/ammo_box/magazine/internal/shot/riot/short
 	w_class = WEIGHT_CLASS_NORMAL
 	slot_flags = null
 	style = 2
-
-/obj/item/device/riot_upgrade
-	name = "assualt shotgun conversion kit"
-	desc = "An upgrade kit that lets you install a shortened barrel and magazine onto a riot shotgun. This one is only good for one use."
-	icon_state = "modkit"
-	origin_tech = "combat=3;materials=2"
-	usesound = 'sound/items/Deconstruct.ogg'
-	var/style = 2									// 2 means it's ready to shorten a riot shotgun, 1 means it's ready to return one to normal
-
-/obj/item/device/riot_upgrade/afterattack(obj/item/A, mob/user)
-	if(istype(A, /obj/item/weapon/gun/projectile/shotgun/riot))
-		var/obj/item/weapon/gun/projectile/shotgun/riot/C = A
-		if(C.style == style)
-			to_chat(user, "<span class='notice'>This [src] is already set up in this style!</span>")
-			return
-		if(istype(C.loc, /obj/item/weapon/storage))
-			to_chat(user, "<span class='info'>How do you plan to modify [src] while it's in a bag.</span>")
-			return
-		if(C.magazine.ammo_count() || C.chambered)
-			C.afterattack(user, user)
-			user.visible_message("<span class='danger'>[src] goes off!</span>", "<span class='userdanger'>[src] goes off in your face!</span>")
-			return
-		if(do_after(user, 10, target = src))
-			C.style = style
-			if(style == 1)
-				to_chat(user, "<span class='notice'>You install the longer barrel and magazine onto [src].</span>")
-				C.w_class = WEIGHT_CLASS_BULKY
-				C.slot_flags = SLOT_BACK
-				C.magazine.max_ammo = 6
-				C.name = "riot shotgun"
-				C.current_skin = "riotshotgun"
-				C.desc = "A sturdy shotgun with a longer magazine and a fixed tactical stock designed for non-lethal riot control."
-			if(style == 2)
-				to_chat(user, "<span class='notice'>You install the shorter barrel and magazine onto [src].</span>")
-				C.w_class = WEIGHT_CLASS_NORMAL
-				C.slot_flags = null
-				C.magazine.max_ammo = 3
-				C.name = "assualt shotgun"
-				C.current_skin = "riotshotgun-short"
-				C.desc = "A shortened riot shotgun that has been shortened enough to fit inside a bag."
-			C.update_icon()
-			qdel(src)
-
-/obj/item/device/riot_upgrade/long
-	name = "riot shotgun conversion kit"
-	desc = "An upgrade kit that lets you install a full length barrel and magazine onto an assault shotgun. This one is only good for one use."
-	style = 1
 
 ///////////////////////
 // BOLT ACTION RIFLE //
