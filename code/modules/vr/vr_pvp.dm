@@ -62,12 +62,17 @@ obj/machinery/computer/vr_pvp/Topic(href, href_list)
 
 /obj/machinery/status_display/vr
 	name = "VR round timer"
+	var/room_name = "VR Room here"
 	ignore_friendc = 1
-	var/round_end = 0
+	var/datum/vr_room/myroom
 
 /obj/machinery/status_display/vr/update()
-	var/timeleft = (round_end - world.time)/10
-	timeleft = "[add_zero(num2text((timeleft / 60) % 60),2)]:[add_zero(num2text(timeleft % 60), 2)]"
+	var/timeleft
+	if(myroom)
+		timeleft = (myroom.round_end - world.time)/10
+		timeleft = "[add_zero(num2text((timeleft / 60) % 60),2)]:[add_zero(num2text(timeleft % 60), 2)]"
+	else
+		timeleft = "ERROR"
 	message1 = "Arena"
 	message2 = "[timeleft]"
 	if(lentext(message2) > CHARS_PER_LINE)
@@ -76,6 +81,7 @@ obj/machinery/computer/vr_pvp/Topic(href, href_list)
 
 /obj/machinery/status_display/vr/roman
 	name = "roman arena timer"
+	room_name = "Roman Arena"
 
 /obj/machinery/status_display/vr/ship
 	name = "ship arena timer"

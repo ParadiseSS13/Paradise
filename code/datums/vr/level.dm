@@ -6,10 +6,6 @@
 	suffix = null
 	name = "Error Error"
 	description = "You should not see this."
-	death_type = VR_DROP_NONE
-	drop_whitelist = null
-	drop_blacklist = null
-	outfit = null
 
 /datum/map_template/vr/level/lobby
 	id = "lobby"
@@ -110,7 +106,7 @@
 							/obj/item/clothing/gloves/color/yellow, /obj/item/weapon/storage/belt/utility/chief/full, /obj/item/weapon/storage/backpack/industrial)
 	outfit = /datum/outfit/vr/engineering
 
-/datum/map_template/vr/level/bomb_range
+/datum/map_template/vr/level/engine
 	id = "engine"
 	suffix = "engine.dmm"
 	name = "Engineering Simulator"

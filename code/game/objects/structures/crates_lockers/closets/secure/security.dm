@@ -394,15 +394,10 @@
 	anchored = 1
 
 /obj/structure/closet/secure_closet/vr/New()
-		..()
+	..()
+	for(var/i in 0 to 7)
 		new /obj/item/clothing/ears/vr_headset/exile(src)
-		new /obj/item/clothing/ears/vr_headset/exile(src)
-		new /obj/item/clothing/ears/vr_headset/exile(src)
-		new /obj/item/clothing/ears/vr_headset/exile(src)
-		new /obj/item/clothing/ears/vr_headset/exile(src)
-		new /obj/item/clothing/ears/vr_headset/exile(src)
-		new /obj/item/clothing/ears/vr_headset/exile(src)
-		new /obj/item/clothing/ears/vr_headset/exile(src)
+
 
 /obj/structure/closet/secure_closet/courtroom
 	name = "courtroom locker"

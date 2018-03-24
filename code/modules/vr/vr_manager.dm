@@ -46,30 +46,32 @@ var/list/vr_all_players = list()
 	for(var/obj/machinery/vr_reset_button/b in chunk.search_chunk(vr_reset_buttons))
 		b.room = src
 
-/datum/vr_room/proc/vr_round()
-	if(players.len == 1)
-		var/mob/living/carbon/human/virtual_reality/winner = players[1]
-		to_chat(vr_all_players, "SYSTEM MESSAGE: [winner] has won the PVP match in The [name]. New match in 60 seconds, please be in the lobby.")
+/datum/vr_room/proc/assign_timers()
+	for(var/obj/machinery/status_display/vr/T in world)
+		if(T.room_name == name)
+			T.myroom = src
 
+/datum/vr_room/proc/vr_round()
 	for(var/mob/living/carbon/human/virtual_reality/player in players)
 		player.death()
 
 	if(templatelist.len)
-		template = pick(templatelist)
+		template = vr_templates[pick(templatelist)]
 	else
 		cleanup()
 		return
 
 	if(waitlist.len > 1)
-		template = vr_templates[template]
 		spawn_points = list()
 		spawn(0)
 			space_manager.free_space(src.chunk)
-		sleep(1 MINUTES)
+		round_end = world.time + 50 SECONDS
+		sleep(50 SECONDS)
 		chunk = space_manager.allocate_space(template.width, template.height)
 		template.load(locate(chunk.x,chunk.y,chunk.zpos), centered = FALSE)
 
 		sort_landmarks()
+		assign_timers()
 
 		for(var/mob/living/carbon/human/virtual_reality/player in waitlist)
 			waitlist.Remove(player)
@@ -84,13 +86,6 @@ var/list/vr_all_players = list()
 		to_chat(waitlist, "There are not enough players to start the round, checking again in one minute")
 		round_timer = addtimer(src, "vr_round", 1 MINUTES)
 		round_end = world.time + 1 MINUTES
-
-	if(name == "Roman Arena")
-		for(var/obj/machinery/status_display/vr/roman/timer in world)
-			timer.round_end = round_end
-	else if(name == "Ship Arena")
-		for(var/obj/machinery/status_display/vr/ship/timer in world)
-			timer.round_end = round_end
 
 proc/make_vr_room(name, template, expires, creator)
 	var/datum/vr_room/R = new
@@ -114,6 +109,8 @@ proc/make_vr_room(name, template, expires, creator)
 
 	R.sort_landmarks()
 	R.assign_buttons()
+	if(expires == 2 || expires == 0)
+		R.assign_timers()
 
 	return R
 
@@ -141,6 +138,9 @@ proc/build_virtual_avatar(mob/living/carbon/human/H, location, datum/vr_room/roo
 	vr_avatar.undershirt = H.undershirt
 	vr_avatar.underwear = H.underwear
 	vr_avatar.equipOutfit(room.template.outfit)
+	if(H.body_accessory)
+		vr_avatar.body_accessory = H.body_accessory
+	vr_avatar.update_tail_layer()
 
 	var/obj/item/device/radio/headset/R = new /obj/item/device/radio/headset/vr(vr_avatar)
 	vr_avatar.equip_to_slot_or_del(R, slot_l_ear)

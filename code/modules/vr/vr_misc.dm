@@ -80,7 +80,7 @@ obj/machinery/vr_reset_button/bombs
 	template_id = "bomb_range"
 
 obj/machinery/vr_reset_button/engineering
-	template_id = "engineering"
+	template_id = "engine"
 
 /obj/machinery/the_singularitygen/vr
 	creation_type = /obj/singularity/vr

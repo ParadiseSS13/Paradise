@@ -19,6 +19,8 @@ var/vr_server_status = VR_SERVER_OFF
 /obj/machinery/vr_server/update_icon()
 	if((stat & (BROKEN|NOPOWER)))
 		icon_state = "server-nopower"
+	else if(emagged)
+		icon_state = "server-emag"
 	else if(!active)
 		icon_state = "server-off"
 	else
@@ -39,7 +41,10 @@ var/vr_server_status = VR_SERVER_OFF
 					else
 						set_state(VR_SERVER_EMAG)
 				else
-					set_state(VR_SERVER_OFF)
+					if(!emagged)
+						set_state(VR_SERVER_OFF)
+					else
+						to_chat(user, "The server refuses to respond to your commands and the main circuit board appears to be fried.")
 				update_icon()
 	return
 
@@ -47,6 +52,8 @@ var/vr_server_status = VR_SERVER_OFF
 	if(istype(I, /obj/item/weapon/circuitboard/vr_server) && emagged)
 		set_state(VR_SERVER_ON)
 		emagged = FALSE
+		desc = null
+		qdel(I)
 
 /obj/machinery/vr_server/Destroy()
 	set_state(VR_SERVER_OFF)
@@ -82,6 +89,8 @@ var/vr_server_status = VR_SERVER_OFF
 
 /obj/machinery/vr_server/emag_act(user as mob)
 	set_state(VR_SERVER_EMAG)
+	to_chat(user, "You fry the containment circuits trapping all the players and releasing all the prisoners.")
+	desc = "Its main circuit board appears to be fried."
 	for(var/mob/living/carbon/human/virtual_reality/player in vr_all_players)
 		to_chat(player, "ERROR: Containment protocal has encountered a fatal exception.")
 
