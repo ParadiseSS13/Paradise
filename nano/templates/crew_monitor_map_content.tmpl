@@ -10,6 +10,13 @@ Used In File(s): \code\game\machinery\computer\crew.dm
             </div>
         </div>
     {{/if}}
+    {{if value.sensor_type == 4}}
+        <div class="mapIcon mapIcon16 rank-{{:value.rank.ckey()}} {{:value.dead ? 'dead' : 'average'}}" style="left: {{:(value.x)}}px; bottom: {{:(value.y - 1)}}px;" unselectable="on">
+            <div class="tooltip hidden">
+                {{:value.name}} ({{:value.assignment}}) ({{:value.dead ? "<span class='bad'>Deceased</span>" : "<span class='average'>Living</span>"}}) (<span class="oxyloss_light">{{:value.oxy}}</span>/<span class="toxin_light">{{:value.tox}}</span>/<span class="burn">{{:value.fire}}</span>/<span class="brute">{{:value.brute}}</span>) ({{:value.area}}: {{:value.x}}, {{:value.y}})
+            </div>
+        </div>
+    {{/if}}
 {{/for}}
 
 <div class="mapIcon mapIcon16 rank-captain alive"  style="left: 10px; bottom: 10px;" unselectable="on"></div>
