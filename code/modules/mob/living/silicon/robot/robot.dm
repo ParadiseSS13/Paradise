@@ -567,10 +567,7 @@ var/list/robot_verbs_default = list(
 	return 2
 
 
-/mob/living/silicon/robot/attackby(obj/item/weapon/W as obj, mob/user as mob, params)
-	if(istype(W, /obj/item/weapon/restraints/handcuffs)) // fuck i don't even know why isrobot() in handcuff code isn't working so this will have to do
-		return
-
+/mob/living/silicon/robot/attackby(obj/item/weapon/W, mob/user, params)
 	if(opened) // Are they trying to insert something?
 		for(var/V in components)
 			var/datum/robot_component/C = components[V]
@@ -610,6 +607,7 @@ var/list/robot_verbs_default = list(
 
 
 	else if(istype(W, /obj/item/stack/cable_coil) && user.a_intent == INTENT_HELP && (wiresexposed || istype(src,/mob/living/silicon/robot/drone)))
+		user.changeNext_move(CLICK_CD_MELEE)
 		if(!getFireLoss())
 			to_chat(user, "<span class='notice'>Nothing to fix!</span>")
 			return
@@ -744,8 +742,12 @@ var/list/robot_verbs_default = list(
 				to_chat(user, "<span class='danger'>Upgrade error.</span>")
 
 	else
-		spark_system.start()
 		return ..()
+
+/mob/living/silicon/robot/attacked_by(obj/item/I, mob/living/user, def_zone)
+	if(I.force && I.damtype != STAMINA && stat != DEAD) //only sparks if real damage is dealt.
+		spark_system.start()
+	..()
 
 /mob/living/silicon/robot/emag_act(user as mob)
 	if(!ishuman(user) && !issilicon(user))

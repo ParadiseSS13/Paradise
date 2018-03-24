@@ -4,6 +4,7 @@
 	unsuitable_atmos_damage = 15
 	faction = list("mining")
 	weather_immunities = list("lava","ash")
+	obj_damage = 30
 	environment_smash = 2
 	minbodytemp = 0
 	heat_damage_per_tick = 20
@@ -65,6 +66,7 @@
 	maxHealth = 200
 	health = 200
 	harm_intent_damage = 5
+	obj_damage = 60
 	melee_damage_lower = 12
 	melee_damage_upper = 12
 	attacktext = "bites into"
@@ -125,6 +127,7 @@
 	maxHealth = 300
 	health = 300
 	harm_intent_damage = 1 //Only the manliest of men can kill a Goliath with only their fists.
+	obj_damage = 100
 	melee_damage_lower = 25
 	melee_damage_upper = 25
 	attacktext = "pulverizes"

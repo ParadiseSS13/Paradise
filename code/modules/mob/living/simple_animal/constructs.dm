@@ -100,6 +100,7 @@
 	health = 250
 	response_harm   = "harmlessly punches"
 	harm_intent_damage = 0
+	obj_damage = 90
 	melee_damage_lower = 30
 	melee_damage_upper = 30
 	attacktext = "smashes their armoured gauntlet into"
@@ -181,7 +182,7 @@
 /mob/living/simple_animal/hostile/construct/builder
 	name = "Artificer"
 	real_name = "Artificer"
-	desc = "A bulbous construct dedicated to building and maintaining The Cult of Nar-Sie's armies"
+	desc = "A bulbous construct dedicated to building and maintaining Cult armies."
 	icon = 'icons/mob/mob.dmi'
 	icon_state = "artificer"
 	icon_living = "artificer"
@@ -189,6 +190,7 @@
 	health = 50
 	response_harm = "viciously beats"
 	harm_intent_damage = 5
+	obj_damage = 60
 	melee_damage_lower = 5
 	melee_damage_upper = 5
 	attacktext = "rams"
@@ -302,7 +304,7 @@
 	melee_damage_lower = 1
 	melee_damage_upper = 5
 	attacktext = "prods"
-	environment_smash = 3
+	environment_smash = ENVIRONMENT_SMASH_RWALLS
 	see_in_dark = 8
 	attack_sound = 'sound/weapons/tap.ogg'
 	const_type = "harvester"
