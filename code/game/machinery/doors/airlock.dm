@@ -1272,8 +1272,7 @@ About the new airlock wires panel:
 		var/obj/item/weapon/airlock_electronics/ae
 		if(!electronics)
 			ae = new/obj/item/weapon/airlock_electronics(loc)
-			if(!req_access)
-				check_access()
+			check_access()
 			if(req_access.len)
 				ae.conf_access = req_access
 			else if(req_one_access.len)
