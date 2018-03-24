@@ -224,7 +224,7 @@ BLIND     // can't see anything
 		to_chat(user, "This suit does not have any sensors.")
 		return 0
 
-	var/list/modes = list("Off", "Binary sensors", "Vitals tracker", "Tracking beacon")
+	var/list/modes = list("Off", "Binary sensors", "Vitals tracker", "Tracking beacon","Emergency")
 	var/switchMode = input("Select a sensor mode:", "Suit Sensor Mode", modes[sensor_mode + 1]) in modes
 	if(get_dist(user, src) > 1)
 		to_chat(user, "You have moved too far away.")
@@ -241,6 +241,8 @@ BLIND     // can't see anything
 				to_chat(user, "Your suit will now report your vital lifesigns.")
 			if(3)
 				to_chat(user, "Your suit will now report your vital lifesigns as well as your coordinate position.")
+			if(4)
+				to_chat(user, "Your suit will now report distress along with your vital life signs as well as your coordinate position.")
 		if(istype(user,/mob/living/carbon/human))
 			var/mob/living/carbon/human/H = user
 			if(H.w_uniform == src)
@@ -260,6 +262,9 @@ BLIND     // can't see anything
 			if(3)
 				for(var/mob/V in viewers(user, 1))
 					V.show_message("[user] sets [src.loc]'s sensors to maximum.", 1)
+			if(4)
+				for(var/mob/V in viewers(user, 1))
+					V.show_message("[user] sets [src.loc]'s sensors to emergency.", 1)
 		if(istype(src,/mob/living/carbon/human))
 			var/mob/living/carbon/human/H = src
 			if(H.w_uniform == src)
