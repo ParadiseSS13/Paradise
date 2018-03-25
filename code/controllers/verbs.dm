@@ -49,7 +49,7 @@
 			debug_variables(job_master)
 			feedback_add_details("admin_verb","DJobs")
 		if("Sun")
-			debug_variables(sun)
+			debug_variables(SSsun)
 			feedback_add_details("admin_verb","DSun")
 		if("Radio")
 			debug_variables(radio_controller)
