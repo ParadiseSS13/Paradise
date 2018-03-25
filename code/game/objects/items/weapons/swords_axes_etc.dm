@@ -7,9 +7,10 @@
 /*
  * Banhammer
  */
-/obj/item/weapon/banhammer/attack(mob/M as mob, mob/user as mob)
+/obj/item/weapon/banhammer/attack(mob/M, mob/user)
 	to_chat(M, "<font color='red'><b> You have been banned FOR NO REISIN by [user]<b></font>")
 	to_chat(user, "<font color='red'> You have <b>BANNED</b> [M]</font>")
+	playsound(loc, 'sound/effects/adminhelp.ogg', 15) //keep it at 15% volume so people don't jump out of their skin too much
 
 /*
  * Classic Baton

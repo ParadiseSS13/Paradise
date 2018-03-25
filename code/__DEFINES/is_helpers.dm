@@ -12,6 +12,8 @@
 
 //Objects
 
+#define ismecha(A) (istype(A, /obj/mecha))
+
 #define is_cleanable(A) (istype(A, /obj/effect/decal/cleanable) || istype(A, /obj/effect/rune)) //if something is cleanable
 
 #define is_pen(W) (istype(W, /obj/item/weapon/pen))
