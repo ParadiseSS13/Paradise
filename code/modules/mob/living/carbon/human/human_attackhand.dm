@@ -1,8 +1,4 @@
-/mob/living/carbon/human/attack_hand(mob/living/carbon/human/M as mob)
-	if(istype(loc, /turf) && istype(loc.loc, /area/start))
-		to_chat(M, "No attacking people at spawn, you jackass.")
-		return
-
+/mob/living/carbon/human/attack_hand(mob/living/carbon/human/M)
 	if(frozen)
 		to_chat(M, "<span class='warning'>Do not touch Admin-Frozen people.</span>")
 		return
@@ -78,7 +74,7 @@
 			if(attacker_style && attacker_style.grab_act(H, src))
 				return 1
 			else
-				src.grabbedby(M)
+				grabbedby(M)
 				return 1
 
 		if(INTENT_HARM)
@@ -147,7 +143,7 @@
 				return 1
 			else
 				add_attack_logs(M, src, "Disarmed")
-
+				M.do_attack_animation(src)
 				if(w_uniform)
 					w_uniform.add_fingerprint(M)
 				var/obj/item/organ/external/affecting = get_organ(ran_zone(M.zone_sel.selecting))

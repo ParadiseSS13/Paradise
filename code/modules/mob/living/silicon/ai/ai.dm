@@ -686,62 +686,6 @@ var/list/ai_verbs_default = list(
 	updatehealth()
 	return 2
 
-
-/mob/living/silicon/ai/attack_alien(mob/living/carbon/alien/humanoid/M)
-	if(!ticker)
-		to_chat(M, "You cannot attack people before the game has started.")
-		return
-
-	if(isturf(loc) && istype(loc.loc, /area/start))
-		to_chat(M, "No attacking people at spawn, you jackass.")
-		return
-
-	switch(M.a_intent)
-
-		if(INTENT_HELP)
-			visible_message("<span class='notice'>[M] caresses [src]'s plating with its scythe like arm.</span>")
-
-		else //harm
-			M.do_attack_animation(src)
-			var/damage = rand(10, 20)
-			if(prob(90))
-				playsound(loc, 'sound/weapons/slash.ogg', 25, 1, -1)
-				visible_message("<span class='danger'>[M] has slashed at [src]!</span>",\
-								"<span class='userdanger'>[M] has slashed at [src]!</span>")
-				adjustBruteLoss(damage)
-				updatehealth()
-			else
-				playsound(loc, 'sound/weapons/slashmiss.ogg', 25, 1, -1)
-				visible_message("<span class='danger'>[M] took a swipe at [src]!</span>", \
-								"<span class='userdanger'>[M] took a swipe at [src]!</span>")
-
-	return
-
-/mob/living/silicon/ai/attack_animal(mob/living/simple_animal/M)
-	if(M.melee_damage_upper == 0)
-		M.custom_emote(1, "[M.friendly] [src]")
-	else
-		M.do_attack_animation(src)
-		if(M.attack_sound)
-			playsound(loc, M.attack_sound, 50, 1, 1)
-		visible_message("<span class='danger'><B>[M]</B> [M.attacktext] [src]!")
-		add_attack_logs(M, src, "Animal attacked", FALSE)
-		var/damage = rand(M.melee_damage_lower, M.melee_damage_upper)
-		switch(M.melee_damage_type)
-			if(BRUTE)
-				adjustBruteLoss(damage)
-			if(BURN)
-				adjustFireLoss(damage)
-			if(TOX)
-				adjustToxLoss(damage)
-			if(OXY)
-				adjustOxyLoss(damage)
-			if(CLONE)
-				adjustCloneLoss(damage)
-			if(STAMINA)
-				adjustStaminaLoss(damage)
-		updatehealth()
-
 /mob/living/silicon/ai/reset_perspective(atom/A)
 	if(camera_light_on)
 		light_cameras()

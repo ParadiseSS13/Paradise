@@ -207,73 +207,32 @@
 	return
 
 /mob/living/carbon/slime/attack_slime(mob/living/carbon/slime/M)
-	if(!ticker)
-		to_chat(M, "You cannot attack people before the game has started.")
-		return
-
-	if(Victim)
-		return // can't attack while eating!
-
-	M.do_attack_animation(src)
-	visible_message("<span class='danger'>[M.name] has glomped [src]!</span>", \
-			"<span class='userdanger'>[M.name] has glomped [src]!</span>")
+	..()
 	var/damage = rand(1, 3)
 	attacked += 5
 	if(M.is_adult)
 		damage = rand(1, 6)
 	else
 		damage = rand(1, 3)
-	if(health > -100)
-		adjustBruteLoss(damage)
-		updatehealth()
-	return
+	adjustBruteLoss(damage)
+	updatehealth()
 
-/mob/living/carbon/slime/attack_animal(mob/living/simple_animal/M as mob)
-	if(M.melee_damage_upper == 0)
-		M.custom_emote(1, "[M.friendly] [src]")
-	else
-		M.do_attack_animation(src)
-		if(M.attack_sound)
-			playsound(loc, M.attack_sound, 50, 1, 1)
-		visible_message("<span class='danger'>[M] [M.attacktext] [src]!</span>", \
-				"<span class='userdanger'>[M] [M.attacktext] [src]!</span>")
+/mob/living/carbon/slime/attack_animal(mob/living/simple_animal/M)
+	if(..())
 		var/damage = rand(M.melee_damage_lower, M.melee_damage_upper)
-		add_attack_logs(src, M, "Slime'd for [damage] damage")
 		attacked += 10
 		adjustBruteLoss(damage)
 		updatehealth()
 
-/mob/living/carbon/slime/attack_larva(mob/living/carbon/alien/larva/L as mob)
+/mob/living/carbon/slime/attack_larva(mob/living/carbon/alien/larva/L)
+	if(..()) //successful larva bite.
+		var/damage = rand(1, 3)
+		if(stat != DEAD)
+			L.amount_grown = min(L.amount_grown + damage, L.max_grown)
+			adjustBruteLoss(damage)
+			updatehealth()
 
-	switch(L.a_intent)
-
-		if(INTENT_HELP)
-			visible_message("<span class='notice'>[L] rubs its head against [src].</span>")
-
-
-		else
-			L.do_attack_animation(src)
-			attacked += 10
-			visible_message("<span class='danger'>[L] bites [src]!</span>", \
-					"<span class='userdanger'>[L] bites [src]!</span>")
-			playsound(loc, 'sound/weapons/bite.ogg', 50, 1, -1)
-
-			if(stat != DEAD)
-				var/damage = rand(1, 3)
-				L.amount_grown = min(L.amount_grown + damage, L.max_grown)
-				adjustBruteLoss(damage)
-
-/mob/living/carbon/slime/attack_hand(mob/living/carbon/human/M as mob)
-	if(!ticker)
-		to_chat(M, "You cannot attack people before the game has started.")
-		return
-
-	if(istype(loc, /turf) && istype(loc.loc, /area/start))
-		to_chat(M, "No attacking people at spawn, you jackass.")
-		return
-
-	..()
-
+/mob/living/carbon/slime/attack_hand(mob/living/carbon/human/M)
 	if(Victim)
 		if(Victim == M)
 			if(prob(60))
@@ -298,6 +257,7 @@
 			return
 
 		else
+			M.do_attack_animation(src)
 			if(prob(30))
 				visible_message("<span class='warning'>[M] attempts to wrestle \the [name] off of [Victim]!</span>")
 				playsound(loc, 'sound/weapons/punchmiss.ogg', 25, 1, -1)
@@ -340,7 +300,6 @@
 		else
 			M.do_attack_animation(src)
 			var/damage = rand(1, 9)
-
 			attacked += 10
 			if(prob(90))
 				if(HULK in M.mutations)
@@ -352,16 +311,16 @@
 						if(prob(80) && !client)
 							Discipline++
 					spawn(0)
-
 						step_away(src,M,15)
 						sleep(3)
 						step_away(src,M,15)
 
 
 				playsound(loc, "punch", 25, 1, -1)
+				add_attack_logs(M, src, "Melee attacked with fists")
 				visible_message("<span class='danger'>[M] has punched [src]!</span>", \
 						"<span class='userdanger'>[M] has punched [src]!</span>")
-				if(health > -100)
+				if(stat != DEAD)
 					adjustBruteLoss(damage)
 					updatehealth()
 			else
@@ -369,23 +328,9 @@
 				visible_message("<span class='danger'>[M] has attempted to punch [src]!</span>")
 	return
 
-
-
-/mob/living/carbon/slime/attack_alien(mob/living/carbon/alien/humanoid/M as mob)
-	if(!ticker)
-		to_chat(M, "You cannot attack people before the game has started.")
-		return
-
-	if(istype(loc, /turf) && istype(loc.loc, /area/start))
-		to_chat(M, "No attacking people at spawn, you jackass.")
-		return
-
-	switch(M.a_intent)
-		if(INTENT_HELP)
-			visible_message("<span class='notice'>[M] caresses [src] with its scythe like arm.</span>")
-
-		if(INTENT_HARM)
-			M.do_attack_animation(src)
+/mob/living/carbon/slime/attack_alien(mob/living/carbon/alien/humanoid/M)
+	if(..()) //if harm or disarm intent.
+		if(M.a_intent == INTENT_HARM)
 			if(prob(95))
 				attacked += 10
 				playsound(loc, 'sound/weapons/slice.ogg', 25, 1, -1)
@@ -397,7 +342,8 @@
 				else
 					visible_message("<span class='danger'>[M] has wounded [name]!</span>", \
 							"<span class='userdanger'>)[M] has wounded [name]!</span>")
-				if(health > -100)
+				add_attack_logs(M, src, "Alien attacked")
+				if(stat != DEAD)
 					adjustBruteLoss(damage)
 					updatehealth()
 			else
@@ -405,11 +351,7 @@
 				visible_message("<span class='danger'>[M] has attempted to lunge at [name]!</span>", \
 						"<span class='userdanger'>[M] has attempted to lunge at [name]!</span>")
 
-		if(INTENT_GRAB)
-			grabbedby(M)
-
-		if(INTENT_DISARM)
-			M.do_attack_animation(src)
+		if(M.a_intent == INTENT_DISARM)
 			playsound(loc, 'sound/weapons/pierce.ogg', 25, 1, -1)
 			var/damage = 5
 			attacked += 10
@@ -424,7 +366,7 @@
 					anchored = 0
 					if(prob(80) && !client)
 						Discipline++
-						if(!istype(src, /mob/living/carbon/slime))
+						if(!isslime(src))
 							if(Discipline == 1)
 								attacked = 0
 
@@ -442,11 +384,12 @@
 				drop_item()
 				visible_message("<span class='danger'>[M] has disarmed [name]!</span>",
 						"<span class='userdanger'>[M] has disarmed [name]!</span>")
+			add_attack_logs(M, src, "Alien disarmed")
 			adjustBruteLoss(damage)
 			updatehealth()
 	return
 
-/mob/living/carbon/slime/attackby(obj/item/W, mob/user, params)
+/mob/living/carbon/slime/attackby(obj/item/W, mob/living/user, params)
 	if(stat == DEAD && surgeries.len)
 		if(user.a_intent == INTENT_HELP)
 			for(var/datum/surgery/S in surgeries)
@@ -464,6 +407,7 @@
 	else if(W.force > 0)
 		attacked += 10
 		if(prob(25))
+			user.do_attack_animation(src)
 			to_chat(user, "<span class='danger'>[W] passes right through [src]!</span>")
 			return
 		if(Discipline && prob(50)) // wow, buddy, why am I getting attacked??
