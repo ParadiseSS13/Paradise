@@ -366,7 +366,7 @@
 				else
 					P.info += "<B>Security Record Lost!</B><BR>"
 				P.info += "</TT>"
-				P.name = "paper - 'Security Record'"
+				P.name = "paper - 'Security Record: [active1.fields["name"]]'"
 				printing = 0
 
 /* Removed due to BYOND issue
