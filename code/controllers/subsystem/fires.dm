@@ -1,5 +1,5 @@
-SUBSYSTEM_DEF(fire_burning)
-	name = "Fire Burning"
+SUBSYSTEM_DEF(fires)
+	name = "Fires"
 	priority = FIRE_PRIOTITY_BURNING
 	flags = SS_NO_INIT|SS_BACKGROUND
 	runlevels = RUNLEVEL_GAME | RUNLEVEL_POSTGAME
@@ -7,11 +7,11 @@ SUBSYSTEM_DEF(fire_burning)
 	var/list/currentrun = list()
 	var/list/processing = list()
 
-/datum/controller/subsystem/fire_burning/stat_entry()
+/datum/controller/subsystem/fires/stat_entry()
 	..("P:[processing.len]")
 
 
-/datum/controller/subsystem/fire_burning/fire(resumed = 0)
+/datum/controller/subsystem/fires/fire(resumed = 0)
 	if(!resumed)
 		src.currentrun = processing.Copy()
 

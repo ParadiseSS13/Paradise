@@ -208,7 +208,7 @@
 #include "code\controllers\ProcessScheduler\core\process.dm"
 #include "code\controllers\ProcessScheduler\core\processScheduler.dm"
 #include "code\controllers\subsystem\air.dm"
-#include "code\controllers\subsystem\fire_burning.dm"
+#include "code\controllers\subsystem\fires.dm"
 #include "code\controllers\subsystem\spacedrift.dm"
 #include "code\controllers\subsystem\throwing.dm"
 #include "code\datums\action.dm"
