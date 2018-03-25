@@ -207,6 +207,13 @@
 					/obj/item/weapon/melee/classic_baton/telescopic = 1,
 					/obj/item/weapon/restraints/handcuffs = 1
 					)
+				head = /obj/item/clothing/head/det_hat
+				glasses = /obj/item/clothing/glasses/sunglasses/noir
+				gloves = /obj/item/clothing/gloves/color/black
+				shoes = /obj/item/clothing/shoes/brown
+				l_pocket = /obj/item/toy/crayon/white
+				r_pocket = /obj/item/weapon/lighter/zippo
+				pda = /obj/item/device/pda/detective
 			if("Security Medic")
 				uniform = /obj/item/clothing/under/rank/security/brigphys
 				suit = /obj/item/clothing/suit/storage/fr_jacket
