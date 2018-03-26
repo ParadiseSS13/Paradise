@@ -296,7 +296,7 @@ obj/machinery/lapvend/attackby(obj/item/I, mob/user)
 			T.amount = "[total_price]"
 			T.source_terminal = name
 			T.date = current_date_string
-			T.time = worldtime2text()
+			T.time = station_time_timestamp()
 			vendor_account.transaction_log.Add(T)
 			return 1
 		return 0

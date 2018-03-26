@@ -79,3 +79,5 @@ var/timezoneOffset = 0 // The difference betwen midnight (of the host computer) 
 // For FTP requests. (i.e. downloading runtime logs.)
 // However it'd be ok to use for accessing attack logs and such too, which are even laggier.
 var/fileaccess_timer = 0
+
+GLOBAL_VAR_INIT(gametime_offset, 432000) // 12:00 in seconds

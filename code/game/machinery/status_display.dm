@@ -98,7 +98,7 @@
 					message2 = "Error!"
 			else
 				message1 = "TIME"
-				message2 = worldtime2text()
+				message2 = station_time_timestamp("hh:mm")
 			update_display(message1, message2, use_warn)
 			return 1
 		if(STATUS_DISPLAY_MESSAGE)	//custom messages
@@ -126,7 +126,7 @@
 			return 1
 		if(STATUS_DISPLAY_TIME)
 			message1 = "TIME"
-			message2 = worldtime2text()
+			message2 = station_time_timestamp("hh:mm")
 			update_display(message1, message2)
 			return 1
 	return 0

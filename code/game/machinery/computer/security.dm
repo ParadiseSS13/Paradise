@@ -198,7 +198,7 @@
 							active2.fields["criminal"] = "Released"
 					var/newstatus = active2.fields["criminal"]
 					log_admin("[key_name_admin(usr)] set secstatus of [their_rank] [their_name] to [newstatus], comment: [t1]")
-					active2.fields["comments"] += "Set to [newstatus] by [usr.name] ([rank]) on [current_date_string] [worldtime2text()], comment: [t1]"
+					active2.fields["comments"] += "Set to [newstatus] by [usr.name] ([rank]) on [current_date_string] [station_time_timestamp()], comment: [t1]"
 					update_all_mob_security_hud()
 			if("rank")
 				if(active1)
@@ -404,7 +404,7 @@
 				var/t1 = copytext(trim(sanitize(input("Add Comment:", "Secure. records", null, null) as message)), 1, MAX_MESSAGE_LEN)
 				if(!t1 || ..() || active2 != a2)
 					return 1
-				active2.fields["comments"] += "Made by [authenticated] ([rank]) on [current_date_string] [worldtime2text()]<BR>[t1]"
+				active2.fields["comments"] += "Made by [authenticated] ([rank]) on [current_date_string] [station_time_timestamp()]<BR>[t1]"
 
 		else if(href_list["del_c"])
 			var/index = min(max(text2num(href_list["del_c"]) + 1, 1), length(active2.fields["comments"]))

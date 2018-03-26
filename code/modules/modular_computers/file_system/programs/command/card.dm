@@ -259,7 +259,7 @@
 					var/title
 					var/content
 					if(mode == 2)
-						title = "crew manifest ([worldtime2text()])"
+						title = "crew manifest ([station_time_timestamp()])"
 						content = "<h4>Crew Manifest</h4><br>[data_core ? data_core.get_manifest(0) : ""]"
 					else if(modify && !mode)
 						title = "access report"

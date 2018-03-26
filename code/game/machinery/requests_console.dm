@@ -221,7 +221,7 @@ var/list/obj/machinery/requests_console/allConsoles = list()
 				radiochannel = "AI Private"
 			if(recipient == "Cargo Bay")
 				radiochannel = "Supply"
-			message_log += "<B>Message sent to [recipient] at [worldtime2text()]</B><BR>[message]"
+			message_log += "<B>Message sent to [recipient] at [station_time_timestamp()]</B><BR>[message]"
 			Radio.autosay("Alert; a new requests console message received for [recipient] from [department]", null, "[radiochannel]")
 		else
 			audible_message(text("[bicon(src)] *The Requests Console beeps: '<b>NOTICE:</b> No server detected!'"),,4)

@@ -203,7 +203,7 @@
 							T.amount = "[transaction_amount]"
 						T.source_terminal = machine_id
 						T.date = current_date_string
-						T.time = worldtime2text()
+						T.time = station_time_timestamp()
 						D.transaction_log.Add(T)
 						//
 						T = new()
@@ -212,7 +212,7 @@
 						T.amount = "[transaction_amount]"
 						T.source_terminal = machine_id
 						T.date = current_date_string
-						T.time = worldtime2text()
+						T.time = station_time_timestamp()
 						linked_account.transaction_log.Add(T)
 					else
 						to_chat(user, "[bicon(src)]<span class='warning'>You don't have that much money!</span>")

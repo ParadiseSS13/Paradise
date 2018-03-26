@@ -107,7 +107,7 @@ log transactions
 			T.amount = C.amount
 			T.source_terminal = machine_id
 			T.date = current_date_string
-			T.time = worldtime2text()
+			T.time = station_time_timestamp()
 			authenticated_account.transaction_log.Add(T)
 
 			to_chat(user, "<span class='info'>You insert [C] into [src].</span>")
@@ -183,7 +183,7 @@ log transactions
 							T.purpose = transfer_purpose
 							T.source_terminal = machine_id
 							T.date = current_date_string
-							T.time = worldtime2text()
+							T.time = station_time_timestamp()
 							T.amount = "([transfer_amount])"
 							authenticated_account.transaction_log.Add(T)
 						else
@@ -225,7 +225,7 @@ log transactions
 										T.purpose = "Unauthorised login attempt"
 										T.source_terminal = machine_id
 										T.date = current_date_string
-										T.time = worldtime2text()
+										T.time = station_time_timestamp()
 										failed_account.transaction_log.Add(T)
 								else
 									to_chat(usr, "[bicon(src)]<span class='warning'>Incorrect pin/account combination entered, [max_pin_attempts - number_incorrect_tries] attempts remaining.</span>")
@@ -245,7 +245,7 @@ log transactions
 							T.purpose = "Remote terminal access"
 							T.source_terminal = machine_id
 							T.date = current_date_string
-							T.time = worldtime2text()
+							T.time = station_time_timestamp()
 							authenticated_account.transaction_log.Add(T)
 							to_chat(usr, "[bicon(src)]<span class='notice'>Access granted. Welcome user '[authenticated_account.owner_name].'</span>")
 						previous_account_number = tried_account_num
@@ -271,7 +271,7 @@ log transactions
 						T.amount = "([amount])"
 						T.source_terminal = machine_id
 						T.date = current_date_string
-						T.time = worldtime2text()
+						T.time = station_time_timestamp()
 						authenticated_account.transaction_log.Add(T)
 					else
 						to_chat(usr, "[bicon(src)]<span class='warning'>You don't have enough funds to do that!</span>")
@@ -288,7 +288,7 @@ log transactions
 						<i>Account holder:</i> [authenticated_account.owner_name]<br>
 						<i>Account number:</i> [authenticated_account.account_number]<br>
 						<i>Balance:</i> $[authenticated_account.money]<br>
-						<i>Date and time:</i> [worldtime2text()], [current_date_string]<br><br>
+						<i>Date and time:</i> [station_time_timestamp()], [current_date_string]<br><br>
 						<i>Service terminal ID:</i> [machine_id]<br>"}
 
 					//stamp the paper
@@ -345,7 +345,7 @@ log transactions
 					T.purpose = "Remote terminal access"
 					T.source_terminal = machine_id
 					T.date = current_date_string
-					T.time = worldtime2text()
+					T.time = station_time_timestamp()
 					authenticated_account.transaction_log.Add(T)
 
 					view_screen = NO_SCREEN

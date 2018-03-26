@@ -23,15 +23,27 @@
 	return wtime + (time_offset + wusage) * world.tick_lag
 
 //Returns the world time in english
-/proc/worldtime2text(time = world.time)
-	time = (round_start_time ? (time - round_start_time) : (time - world.time))
-	return "[round(time / 36000)+12]:[(time / 600 % 60) < 10 ? add_zero(time / 600 % 60, 1) : time / 600 % 60]"
+/proc/worldtime2text()
+	return gameTimestamp("hh:mm:ss", world.time)
 
-/proc/time_stamp()
-	return time2text(world.timeofday, "hh:mm:ss")
+/proc/time_stamp(format = "hh:mm:ss", show_ds)
+	var/time_string = time2text(world.timeofday, format)
+	return show_ds ? "[time_string]:[world.timeofday % 10]" : time_string
 
-/proc/gameTimestamp(format = "hh:mm:ss") // Get the game time in text
-	return time2text(world.time - timezoneOffset + 432000, format)
+/proc/gameTimestamp(format = "hh:mm:ss", wtime=null)
+	if(!wtime)
+		wtime = world.time
+	return time2text(wtime - timezoneOffset, format)
+
+/* This is used for displaying the "station time" equivelent of a world.time value
+ Calling it with no args will give you the current time, but you can specify a world.time-based value as an argument
+ - You can use this, for example, to do "This will expire at [station_time_at(world.time + 500)]" to display a "station time" expiration date 
+   which is much more useful for a player)*/
+/proc/station_time(time=world.time)
+	return ((((time - round_start_time)) + GLOB.gametime_offset) % 864000) - timezoneOffset
+
+/proc/station_time_timestamp(format = "hh:mm:ss", time=world.time)
+	return time2text(station_time(time), format)
 
 /* Returns 1 if it is the selected month and day */
 proc/isDay(var/month, var/day)

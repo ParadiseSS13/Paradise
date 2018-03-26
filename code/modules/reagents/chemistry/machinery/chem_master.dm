@@ -99,7 +99,7 @@
 			playsound(loc, 'sound/goonstation/machines/printer_dotmatrix.ogg', 50, 1)
 			var/obj/item/weapon/paper/P = new /obj/item/weapon/paper(loc)
 			P.info = "<CENTER><B>Chemical Analysis</B></CENTER><BR>"
-			P.info += "<b>Time of analysis:</b> [worldtime2text(world.time)]<br><br>"
+			P.info += "<b>Time of analysis:</b> [station_time_timestamp()]<br><br>"
 			P.info += "<b>Chemical name:</b> [href_list["name"]]<br>"
 			if(href_list["name"] == "Blood")
 				var/datum/reagents/R = beaker.reagents

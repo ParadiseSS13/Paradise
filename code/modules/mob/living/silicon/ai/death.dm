@@ -44,6 +44,6 @@
 			loc.icon_state = "aicard-404"
 
 	timeofdeath = world.time
-	if(mind)	mind.store_memory("Time of death: [worldtime2text(timeofdeath)]", 0)
+	if(mind)	mind.store_memory("Time of death: [station_time_timestamp("hh:mm:ss", timeofdeath)]", 0)
 
 	return ..(gibbed)

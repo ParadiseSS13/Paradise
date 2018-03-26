@@ -113,5 +113,5 @@
 	T.purpose = "Slot Winnings"
 	T.amount = "[amt]"
 	T.date = current_date_string
-	T.time = worldtime2text()
+	T.time = station_time_timestamp()
 	account.transaction_log.Add(T)

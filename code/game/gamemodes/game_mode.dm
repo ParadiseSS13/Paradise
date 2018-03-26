@@ -164,7 +164,7 @@
 						T.purpose = "Payment"
 						T.amount = pay
 						T.date = current_date_string
-						T.time = worldtime2text()
+						T.time = station_time_timestamp()
 						T.source_terminal = "\[CLASSIFIED\] Terminal #[rand(111,333)]"
 						M.mind.initial_account.transaction_log.Add(T)
 						msg += "You have been sent the $[pay], as agreed."

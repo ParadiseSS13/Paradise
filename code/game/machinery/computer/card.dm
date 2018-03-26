@@ -429,7 +429,7 @@ var/time_last_changed_position = 0
 
 					var/obj/item/weapon/paper/P = new(loc)
 					if(mode == 2)
-						P.name = text("crew manifest ([])", worldtime2text())
+						P.name = "crew manifest ([station_time_timestamp()])"
 						P.info = {"<h4>Crew Manifest</h4>
 							<br>
 							[data_core ? data_core.get_manifest(0) : ""]
