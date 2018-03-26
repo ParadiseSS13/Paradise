@@ -526,6 +526,14 @@ proc/GaussRandRound(var/sigma,var/roundto)
 
 	return toReturn
 
+//Searches contents of the atom and returns the sum of all w_class of obj/item within
+/atom/proc/GetTotalContentsWeight(searchDepth = 5)
+	var/weight = 0
+	var/list/content = GetAllContents(searchDepth)
+	for(var/obj/item/I in content)
+		weight += I.w_class
+	return weight
+
 //Step-towards method of determining whether one atom can see another. Similar to viewers()
 /proc/can_see(var/atom/source, var/atom/target, var/length=5) // I couldnt be arsed to do actual raycasting :I This is horribly inaccurate.
 	var/turf/current = get_turf(source)
