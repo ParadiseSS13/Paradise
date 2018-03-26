@@ -112,8 +112,8 @@
 			)
 			if(do_after(user, 20 * O.toolspeed, target = src))
 				user.visible_message( \
-					"<span class='notice'>[user]  has cleaned \the [src].</span>", \
-					"<span class='notice'>You have cleaned \the [src].</span>" \
+					"<span class='notice'>[user]  has cleaned [src].</span>", \
+					"<span class='notice'>You have cleaned [src].</span>" \
 				)
 				dirty = 0 // It's clean!
 				broken = 0 // just to be sure
@@ -122,7 +122,7 @@
 		else //Otherwise bad luck!!
 			to_chat(user, "<span class='alert'>It's dirty!</span>")
 			return 1
-	else if(is_type_in_list(O, cooking_ingredients[recipe_type]))
+	else if(is_type_in_list(O, cooking_ingredients[recipe_type]) || istype(O, /obj/item/mixing_bowl))
 		if(contents.len>=max_n_of_items)
 			to_chat(user, "<span class='alert'>This [src] is full of ingredients, you cannot put more.</span>")
 			return 1
@@ -130,21 +130,16 @@
 			new O.type (src)
 			O:use(1)
 			user.visible_message( \
-				"<span class='notice'>[user] has added one of [O] to \the [src].</span>", \
-				"<span class='notice'>You add one of [O] to \the [src].</span>")
+				"<span class='notice'>[user] has added one of [O] to [src].</span>", \
+				"<span class='notice'>You add one of [O] to [src].</span>")
 		else
 			if(!user.drop_item())
-				to_chat(user, "<span class='notice'>\The [O] is stuck to your hand, you cannot put it in \the [src]</span>")
+				to_chat(user, "<span class='notice'>\The [O] is stuck to your hand, you cannot put it in [src]</span>")
 				return 0
 
 			O.forceMove(src)
-			user.visible_message( \
-				"<span class='notice'>[user] has added \the [O] to \the [src].</span>", \
-				"<span class='notice'>You add \the [O] to \the [src].</span>")
-	else if(istype(O,/obj/item/weapon/reagent_containers/glass) || \
-	        istype(O,/obj/item/weapon/reagent_containers/food/drinks) || \
-	        istype(O,/obj/item/weapon/reagent_containers/food/condiment) \
-		)
+			user.visible_message("<span class='notice'>[user] has added [O] to [src].</span>", "<span class='notice'>You add [O] to [src].</span>")
+	else if(is_type_in_list(O, list(/obj/item/weapon/reagent_containers/glass, /obj/item/weapon/reagent_containers/food/drinks, /obj/item/weapon/reagent_containers/food/condiment)))
 		if(!O.reagents)
 			return 1
 		for(var/datum/reagent/R in O.reagents.reagent_list)
@@ -257,10 +252,10 @@
 		stop()
 		return
 
-	var/datum/recipe/recipe = select_recipe(cooking_recipes[recipe_type], src)
-	var/obj/cooked
-	var/obj/byproduct
-	if(!recipe)
+	var/list/recipes_to_make = choose_recipes()
+
+
+	if(recipes_to_make.len == 1 && recipes_to_make[1][2] == null)
 		dirty += 1
 		if(prob(max(10,dirty*5)))
 			if(!wzhzhzh(4))
@@ -286,24 +281,69 @@
 			fail()
 			return
 	else
-		var/halftime = round(recipe.time/10/2)
-		if(!wzhzhzh(halftime))
+		if(!wzhzhzh(5))
 			abort()
 			return
-		if(!wzhzhzh(halftime))
+		if(!wzhzhzh(5))
 			abort()
 			fail()
 			return
-		cooked = recipe.make_food(src)
-		byproduct = recipe.get_byproduct()
-		stop()
-		if(cooked)
-			cooked.forceMove(loc)
-		for(var/i=1,i<efficiency,i++)
-			cooked = new cooked.type(loc)
-		if(byproduct)
-			new byproduct(loc)
+		make_recipes(recipes_to_make)
+
+/obj/machinery/kitchen_machine/proc/choose_recipes()
+	var/list/recipes_to_make = list()
+	for(var/obj/O in contents)
+		if(istype(O, /obj/item/mixing_bowl))
+			var/obj/item/mixing_bowl/mb = O
+			var/datum/recipe/recipe = select_recipe(cooking_recipes[recipe_type], mb)
+			if(recipe)
+				recipes_to_make.Add(list(list(mb, recipe)))
+			else
+				recipes_to_make.Add(list(list(mb, null)))
+
+	var/datum/recipe/recipe_src = select_recipe(cooking_recipes[recipe_type], src, ignored_items = list(/obj/item/mixing_bowl))
+	if(recipe_src)
+		recipes_to_make.Add(list(list(src, recipe_src)))
+	else
+		if(!recipes_to_make.len)
+			recipes_to_make.Add(list(list(src, null)))
+	return recipes_to_make
+
+/obj/machinery/kitchen_machine/proc/make_recipes(list/recipes_to_make)
+	if(!recipes_to_make)
 		return
+	var/datum/reagents/temp_reagents = new(500)
+	for(var/i=1 to recipes_to_make.len)
+		var/list/L = recipes_to_make[i]
+		var/obj/source = L[1]
+		var/datum/recipe/recipe = L[2]
+		if(!recipe)
+			//failed recipe
+			fail()
+		else
+			for(var/obj/O in source.contents)
+				if(istype(O, /obj/item/mixing_bowl))
+					continue
+				if(O.reagents)
+					O.reagents.del_reagent("nutriment")
+					O.reagents.update_total()
+					O.reagents.trans_to(temp_reagents, O.reagents.total_volume)
+				qdel(O)
+			source.reagents.clear_reagents()
+			for(var/e=1 to efficiency)
+				var/obj/cooked = new recipe.result()
+				temp_reagents.trans_to(cooked, temp_reagents.total_volume/efficiency)
+				cooked.forceMove(loc)
+			temp_reagents.clear_reagents()
+			var/obj/byproduct = recipe.get_byproduct()
+			if(byproduct)
+				new byproduct(loc)
+			if(istype(source, /obj/item/mixing_bowl))
+				var/obj/item/mixing_bowl/mb = source
+				mb.make_dirty(5 * efficiency)
+				mb.forceMove(loc)
+	stop()
+	return
 
 /obj/machinery/kitchen_machine/proc/wzhzhzh(seconds)
 	for(var/i=1 to seconds)
@@ -315,10 +355,7 @@
 
 /obj/machinery/kitchen_machine/proc/has_extra_item()
 	for(var/obj/O in contents)
-		if( \
-				!istype(O,/obj/item/weapon/reagent_containers/food) && \
-				!istype(O, /obj/item/weapon/grown) \
-			)
+		if(!is_type_in_list(O, list(/obj/item/weapon/reagent_containers/food, /obj/item/weapon/grown, /obj/item/mixing_bowl)))
 			return 1
 	return 0
 
@@ -373,19 +410,29 @@
 	updateUsrDialog()
 
 /obj/machinery/kitchen_machine/proc/fail()
-	var/obj/item/weapon/reagent_containers/food/snacks/badrecipe/ffuu = new(src)
 	var/amount = 0
-	for(var/obj/O in contents-ffuu)
+	for(var/obj/O in contents)
+		if(istype(O, /obj/item/mixing_bowl))
+			var/obj/item/mixing_bowl/mb = O
+			mb.fail(src)
+			mb.forceMove(get_turf(src))
+			continue
 		amount++
 		if(O.reagents)
 			var/id = O.reagents.get_master_reagent_id()
 			if(id)
 				amount+=O.reagents.get_reagent_amount(id)
 		qdel(O)
+	if(reagents && reagents.total_volume)
+		var/id = reagents.get_master_reagent_id()
+		if(id)
+			amount += reagents.get_reagent_amount(id)
 	reagents.clear_reagents()
-	ffuu.reagents.add_reagent("carbon", amount)
-	ffuu.reagents.add_reagent("????", amount/10)
-	ffuu.forceMove(get_turf(src))
+	if(amount)
+		var/obj/item/weapon/reagent_containers/food/snacks/badrecipe/ffuu = new(src)
+		ffuu.reagents.add_reagent("carbon", amount)
+		ffuu.reagents.add_reagent("????", amount/10)
+		ffuu.forceMove(get_turf(src))
 
 /obj/machinery/kitchen_machine/Topic(href, href_list)
 	if(..() || panel_open)
