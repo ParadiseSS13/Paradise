@@ -122,7 +122,7 @@
 				var/mob/living/carbon/human/H = target //typecast to human
 				prob_chance *= get_pain_modifier(H)//operating on conscious people is hard.
 
-		if(prob(prob_chance) || isrobot(user))
+		if(prob(prob_chance))
 			if(end_step(user, target, target_zone, tool, surgery))
 				advance = 1
 		else
