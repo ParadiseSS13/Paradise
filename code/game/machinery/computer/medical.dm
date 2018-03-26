@@ -515,7 +515,7 @@
 				else
 					P.info += "<B>Medical Record Lost!</B><BR>"
 				P.info += "</TT>"
-				P.name = "paper- 'Medical Record'"
+				P.name = "paper- 'Medical Record: [active1.fields["name"]]'"
 				printing = 0
 	return 1
 
