@@ -312,6 +312,10 @@
 	if(last_forced_movement >= SSair.times_fired)
 		return 0
 	else if(!anchored && !pulledby)
+		var/turf/target = get_turf(src)
+		var/datum/gas_mixture/target_air = target.return_air()
+		if(isunsimulatedturf(target) || pressure_resistance > target_air.return_pressure())
+			return 0
 		if(pressure_difference >= throw_pressure_limit)
 			var/general_direction = get_edge_target_turf(src, direction)
 			if(last_forced_movement + 10 < SSair.times_fired && is_valid_tochat_target(src)) //the first check prevents spamming throw to_chat
@@ -322,13 +326,10 @@
 			spawn()
 				var/max_distance = 14 // reduce by one each calculation to prevent infinate loops.
 				var/min_observed_pressure = INFINITY
-				var/turf/target = get_turf(src)
-				if(isunsimulatedturf(target))
-					return 0
 				var/turf/possible_target = get_turf(src)
 				while(!isunsimulatedturf(target) && max_distance > 0)
 					max_distance--
-					var/datum/gas_mixture/target_air = target.return_air()
+					target_air = target.return_air()
 					min_observed_pressure = target_air.return_pressure()
 					possible_target = get_step_towards(target,general_direction)
 					if(istype(possible_target, /turf/space))
