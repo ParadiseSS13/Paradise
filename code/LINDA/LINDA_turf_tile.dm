@@ -320,9 +320,6 @@
 			var/general_direction = get_edge_target_turf(src, direction)
 			if(last_forced_movement + 10 < SSair.times_fired && is_valid_tochat_target(src)) //the first check prevents spamming throw to_chat
 				to_chat(src, "<span class='userdanger'>The pressure sends you flying!</span>")
-			if(ishuman(src))
-				var/mob/living/carbon/human/H = src
-				H.Weaken(min(pressure_difference / 50, 2))
 			spawn()
 				var/max_distance = 14 // reduce by one each calculation to prevent infinate loops.
 				var/min_observed_pressure = INFINITY
