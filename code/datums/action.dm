@@ -101,7 +101,7 @@
 //Presets for item actions
 /datum/action/item_action
 	check_flags = AB_CHECK_RESTRAINED|AB_CHECK_STUNNED|AB_CHECK_LYING|AB_CHECK_CONSCIOUS
-
+	var/use_itemicon = TRUE
 /datum/action/item_action/New(Target)
 	..()
 	var/obj/item/I = target
@@ -121,17 +121,19 @@
 	return 1
 
 /datum/action/item_action/ApplyIcon(obj/screen/movable/action_button/current_button)
-	current_button.overlays.Cut()
-	if(target)
-		var/obj/item/I = target
-		var/old_layer = I.layer
-		var/old_plane = I.plane
-		I.layer = 21
-		I.plane = HUD_PLANE
-		current_button.overlays += I
-		I.layer = old_layer
-		I.plane = old_plane
-
+	if(use_itemicon)
+		current_button.overlays.Cut()
+		if(target)
+			var/obj/item/I = target
+			var/old_layer = I.layer
+			var/old_plane = I.plane
+			I.layer = 21
+			I.plane = HUD_PLANE
+			current_button.overlays += I
+			I.layer = old_layer
+			I.plane = old_plane
+	else
+		..()
 /datum/action/item_action/toggle_light
 	name = "Toggle Light"
 
