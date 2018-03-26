@@ -32,21 +32,12 @@ using metal and glass, it uses glass and reagents (usually sulfuric acis).
 /obj/machinery/r_n_d/circuit_imprinter/New()
 	..()
 	component_parts = list()
-<<<<<<< HEAD
 	component_parts += new /obj/item/circuitboard/circuit_imprinter(null)
 	component_parts += new /obj/item/stock_parts/matter_bin(null)
 	component_parts += new /obj/item/stock_parts/manipulator(null)
 	component_parts += new /obj/item/reagent_containers/glass/beaker(null)
 	component_parts += new /obj/item/reagent_containers/glass/beaker(null)
-	materials = new(src, list(MAT_METAL=1, MAT_GLASS=1, MAT_SILVER=1, MAT_GOLD=1, MAT_DIAMOND=1, MAT_PLASMA=1, MAT_URANIUM=1, MAT_BANANIUM=1, MAT_TRANQUILLITE=1))
-=======
-	component_parts += new /obj/item/weapon/circuitboard/circuit_imprinter(null)
-	component_parts += new /obj/item/weapon/stock_parts/matter_bin(null)
-	component_parts += new /obj/item/weapon/stock_parts/manipulator(null)
-	component_parts += new /obj/item/weapon/reagent_containers/glass/beaker(null)
-	component_parts += new /obj/item/weapon/reagent_containers/glass/beaker(null)
 	materials = new(src, list(MAT_METAL=1, MAT_GLASS=1, MAT_GOLD=1, MAT_DIAMOND=1))
->>>>>>> Imprinter can only take metal, glass, gold, and diamond now
 	RefreshParts()
 	
 	reagents.my_atom = src
