@@ -9,6 +9,10 @@ var/global/list/antagonists = list()
 	var/delete_on_mind_deletion = TRUE
 	var/antag_role //the antag type
 	var/replace_banned = TRUE //Should replace jobbaned player with ghosts if granted.
+	var/list/objectives = list()
+	var/antag_memory = ""//These will be removed with antag datum
+
+
 
 /datum/antagonist/New(datum/mind/new_owner)
 	antagonists += src
