@@ -1209,7 +1209,7 @@
 					/obj/item/weapon/reagent_containers/food/condiment/pack/hotsauce = 5,
 					/obj/item/weapon/reagent_containers/food/condiment/saltshaker =5,
 					/obj/item/weapon/reagent_containers/food/condiment/peppermill =5,
-					/obj/item/weapon/whetstone = 2,
+					/obj/item/weapon/whetstone = 2, /obj/item/mixing_bowl = 10,
 					/obj/item/weapon/kitchen/mould/bear = 1, /obj/item/weapon/kitchen/mould/worm = 1,
 					/obj/item/weapon/kitchen/mould/bean = 1, /obj/item/weapon/kitchen/mould/ball = 1,
 					/obj/item/weapon/kitchen/mould/cane = 1, /obj/item/weapon/kitchen/mould/cash = 1,
