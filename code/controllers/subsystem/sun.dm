@@ -40,10 +40,3 @@ SUBSYSTEM_DEF(sun)
 			solars.Remove(SC)
 			continue
 		SC.update()
-
-
-
-
-
-
-
