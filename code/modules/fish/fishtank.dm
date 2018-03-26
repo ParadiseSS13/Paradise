@@ -523,7 +523,7 @@
 						if(water_level && prob(45))			//If there is water, there is a chance the cat will slip, Syndicat will spark like E-N when this happens
 							M.visible_message("[M.name] slipped and got soaked!", "You slipped and got soaked!")
 							if(istype(M, /mob/living/simple_animal/pet/cat/Syndi))
-								var/datum/effect/system/spark_spread/s = new /datum/effect/system/spark_spread
+								var/datum/effect_system/spark_spread/s = new /datum/effect_system/spark_spread
 								s.set_up(3, 1, src)
 								s.start()
 						else								//No water or didn't slip, get that fish!
@@ -595,7 +595,7 @@
 		playsound(loc, 'sound/effects/Glasshit.ogg', 75, 1)
 	check_health()
 
-/obj/machinery/fishtank/proc/attack_generic(mob/living/user as mob, damage = 0)	//used by attack_alien, attack_animal, and attack_slime
+/obj/machinery/fishtank/attack_generic(mob/living/user, damage = 0)	//used by attack_alien, attack_animal, and attack_slime
 	user.changeNext_move(CLICK_CD_MELEE)
 	user.do_attack_animation(src)
 	cur_health -= damage

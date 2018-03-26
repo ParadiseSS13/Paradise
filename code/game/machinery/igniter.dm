@@ -3,6 +3,7 @@
 	desc = "It's useful for igniting plasma."
 	icon = 'icons/obj/stationobjs.dmi'
 	icon_state = "igniter1"
+	armor = list(melee = 50, bullet = 30, laser = 70, energy = 50, bomb = 20, bio = 0, rad = 0)
 	var/id = null
 	var/on = 1.0
 	anchored = 1.0
@@ -98,7 +99,7 @@
 
 
 	flick("[base_state]-spark", src)
-	var/datum/effect/system/spark_spread/s = new /datum/effect/system/spark_spread
+	var/datum/effect_system/spark_spread/s = new /datum/effect_system/spark_spread
 	s.set_up(2, 1, src)
 	s.start()
 	src.last_spark = world.time

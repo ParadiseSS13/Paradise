@@ -14,6 +14,7 @@
 	maxHealth = 100
 	health = 100
 	harm_intent_damage = 5
+	obj_damage = 60
 	melee_damage_lower = 25
 	melee_damage_upper = 25
 	attacktext = "slashes"
@@ -23,6 +24,8 @@
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
 	unsuitable_atmos_damage = 15
 	heat_damage_per_tick = 20
+	pressure_resistance = 100    //100 kPa difference required to push
+	throw_pressure_limit = 120   //120 kPa difference required to throw
 	faction = list("alien")
 	status_flags = CANPUSH
 	minbodytemp = 0
@@ -143,6 +146,7 @@
 	melee_damage_upper = 0
 	a_intent = INTENT_HELP
 	friendly = "caresses"
+	obj_damage = 0
 	environment_smash = 0
 	icon_state = "maid"
 	icon_living = "maid"

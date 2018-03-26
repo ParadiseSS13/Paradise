@@ -75,7 +75,7 @@
 				var/obj/item/organ/internal/eyes/eyes = H.get_int_organ(/obj/item/organ/internal/eyes)
 				if(M.stat == DEAD || !eyes || M.disabilities & BLIND)	//mob is dead or fully blind
 					to_chat(user, "<span class='notice'>[M]'s pupils are unresponsive to the light!</span>")
-				else if((XRAY in M.mutations) || (eyes.colourblind_darkview && eyes.colourblind_darkview == eyes.get_dark_view())) //The mob's either got the X-RAY vision or has a tapetum lucidum (extreme nightvision, i.e. Vulp/Tajara with COLOURBLIND & their monkey forms).
+				else if((XRAY in M.mutations) || eyes.get_dark_view() >= 8) //The mob's either got the X-RAY vision or has a tapetum lucidum (extreme nightvision, i.e. Vulp/Tajara with COLOURBLIND & their monkey forms).
 					to_chat(user, "<span class='notice'>[M]'s pupils glow eerily!</span>")
 				else //they're okay!
 					if(M.flash_eyes(visual = 1))
@@ -284,3 +284,19 @@ obj/item/device/flashlight/lamp/bananalamp
 	else
 		to_chat(user, "<span class='warning'>\The [src] needs time to recharge!</span>")
 	return
+
+/obj/item/device/flashlight/spotlight //invisible lighting source
+	name = "disco light"
+	desc = "Groovy..."
+	icon_state = null
+	light_color = null
+	brightness_on = 0
+	light_range = 0
+	light_power = 10
+	alpha = 0
+	layer = 0
+	on = TRUE
+	anchored = TRUE
+	var/range = null
+	unacidable = TRUE
+	burn_state = LAVA_PROOF

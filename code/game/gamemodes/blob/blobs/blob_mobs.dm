@@ -34,6 +34,8 @@
 	maxHealth = 40
 	melee_damage_lower = 2
 	melee_damage_upper = 4
+	obj_damage = 20
+	environment_smash = ENVIRONMENT_SMASH_STRUCTURES
 	attacktext = "hits"
 	attack_sound = 'sound/weapons/genhit1.ogg'
 	speak_emote = list("pulses")
@@ -41,6 +43,8 @@
 	var/list/human_overlays = list()
 	var/is_zombie = 0
 	gold_core_spawnable = CHEM_MOB_SPAWN_HOSTILE
+	pressure_resistance = 100    //100 kPa difference required to push
+	throw_pressure_limit = 120  //120 kPa difference required to throw
 
 /mob/living/simple_animal/hostile/blob/blobspore/fire_act(datum/gas_mixture/air, exposed_temperature, exposed_volume)
 	..()
@@ -88,12 +92,14 @@
 	human_overlays = H.overlays
 	update_icons()
 	H.loc = src
+	pressure_resistance = 20  //5 kPa difference required to push lowered
+	throw_pressure_limit = 30  //15 kPa difference required to throw lowered
 	loc.visible_message("<span class='warning'>The corpse of [H.name] suddenly rises!</span>")
 
 /mob/living/simple_animal/hostile/blob/blobspore/death(gibbed)
 	..()
 	// On death, create a small smoke of harmful gas (s-Acid)
-	var/datum/effect/system/chem_smoke_spread/S = new
+	var/datum/effect_system/smoke_spread/chem/S = new
 	var/turf/location = get_turf(src)
 
 	// Create the reagents to put into the air
@@ -154,6 +160,7 @@
 	maxHealth = 240
 	melee_damage_lower = 20
 	melee_damage_upper = 20
+	obj_damage = 60
 	attacktext = "hits"
 	attack_sound = 'sound/effects/blobattack.ogg'
 	speak_emote = list("gurgles")
@@ -161,8 +168,10 @@
 	maxbodytemp = 360
 	force_threshold = 10
 	mob_size = MOB_SIZE_LARGE
-	environment_smash = 3
+	environment_smash = ENVIRONMENT_SMASH_RWALLS
 	gold_core_spawnable = CHEM_MOB_SPAWN_HOSTILE
+	pressure_resistance = 100    //100 kPa difference required to push
+	throw_pressure_limit = 120  //120 kPa difference required to throw
 
 
 /mob/living/simple_animal/hostile/blob/blobbernaut/blob_act()

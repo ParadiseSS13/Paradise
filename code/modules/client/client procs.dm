@@ -418,6 +418,8 @@
 		preferences_datums[ckey] = prefs
 	prefs.last_ip = address				//these are gonna be used for banning
 	prefs.last_id = computer_id			//these are gonna be used for banning
+	if(world.byond_version >= 511 && byond_version >= 511 && prefs.clientfps)
+		fps = prefs.clientfps
 
 	spawn() // Goonchat does some non-instant checks in start()
 		chatOutput.start()
@@ -436,6 +438,8 @@
 		on_holder_add()
 		add_admin_verbs()
 		admin_memo_output("Show", 0, 1)
+		if(custom_event_admin_msg && custom_event_admin_msg != "" && check_rights(R_EVENT))
+			cmd_view_custom_event_info()
 
 	// Forcibly enable hardware-accelerated graphics, as we need them for the lighting overlays.
 	// (but turn them off first, since sometimes BYOND doesn't turn them on properly otherwise)
@@ -474,6 +478,8 @@
 	if(!tooltips)
 		tooltips = new /datum/tooltip(src)
 
+	Master.UpdateTickRate()
+
 //////////////
 //DISCONNECT//
 //////////////
@@ -483,6 +489,7 @@
 		admins -= src
 	directory -= ckey
 	clients -= src
+	Master.UpdateTickRate()
 	return ..()
 
 

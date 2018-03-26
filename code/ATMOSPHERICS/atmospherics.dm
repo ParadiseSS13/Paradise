@@ -32,8 +32,10 @@ Pipelines + Other Objects -> Pipe network
 	var/global/datum/pipe_icon_manager/icon_manager
 
 /obj/machinery/atmospherics/New()
+	if(!armor)
+		armor = list(melee = 25, bullet = 10, laser = 10, energy = 100, bomb = 0, bio = 100, rad = 100)
 	..()
-
+	SSair.atmos_machinery += src
 	if(!icon_manager)
 		icon_manager = new()
 
@@ -54,6 +56,7 @@ Pipelines + Other Objects -> Pipe network
 
 /obj/machinery/atmospherics/Destroy()
 	QDEL_NULL(stored)
+	SSair.atmos_machinery -= src
 	for(var/mob/living/L in src) //ventcrawling is serious business
 		L.remove_ventcrawl()
 		L.forceMove(get_turf(src))
@@ -166,7 +169,9 @@ Pipelines + Other Objects -> Pipe network
 		add_fingerprint(user)
 
 		var/unsafe_wrenching = FALSE
-		var/internal_pressure = int_air.return_pressure()-env_air.return_pressure()
+		var/I = int_air ? int_air.return_pressure() : 0
+		var/E = env_air ? env_air.return_pressure() : 0
+		var/internal_pressure = I - E
 
 		playsound(src.loc, W.usesound, 50, 1)
 		to_chat(user, "<span class='notice'>You begin to unfasten \the [src]...</span>")
@@ -184,7 +189,7 @@ Pipelines + Other Objects -> Pipe network
 			//You unwrenched a pipe full of pressure? let's splat you into the wall silly.
 			if(unsafe_wrenching)
 				unsafe_pressure_release(user,internal_pressure)
-			Deconstruct()
+			deconstruct(TRUE)
 	else
 		return ..()
 
@@ -205,13 +210,16 @@ Pipelines + Other Objects -> Pipe network
 	//Values based on 2*ONE_ATMOS (the unsafe pressure), resulting in 20 range and 4 speed
 	user.throw_at(general_direction,pressures/10,pressures/50)
 
-/obj/machinery/atmospherics/proc/Deconstruct()
-	if(can_unwrench)
-		stored.loc = get_turf(src)
-		transfer_fingerprints_to(stored)
-		stored = null
-
-	qdel(src)
+/obj/machinery/atmospherics/deconstruct(disassembled = TRUE)
+	if(can_deconstruct)
+		if(can_unwrench)
+			if(stored)
+				stored.forceMove(get_turf(src))
+				if(!disassembled)
+					stored.obj_integrity = stored.max_integrity * 0.5
+				transfer_fingerprints_to(stored)
+				stored = null
+	..()
 
 /obj/machinery/atmospherics/on_construction(D, P, C)
 	if(C)
@@ -318,7 +326,7 @@ Pipelines + Other Objects -> Pipe network
 
 /obj/machinery/atmospherics/singularity_pull(S, current_size)
 	if(current_size >= STAGE_FIVE)
-		Deconstruct()
+		deconstruct(FALSE)
 
 /obj/machinery/atmospherics/update_remote_sight(mob/user)
 	user.sight |= (SEE_TURFS|BLIND)

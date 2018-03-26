@@ -8,7 +8,7 @@
 	health = 100
 	maxHealth = 100
 	damage_coeff = list(BRUTE = 0.5, BURN = 0.7, TOX = 0, CLONE = 0, STAMINA = 0, OXY = 0)
-
+	obj_damage = 60
 	environment_smash = 2 //Walls can't stop THE LAW
 	mob_size = MOB_SIZE_LARGE
 
@@ -20,6 +20,8 @@
 	bot_core = /obj/machinery/bot_core/secbot
 	window_id = "autoed209"
 	window_name = "Automatic Security Unit v2.6"
+	path_image_color = "#FF0000"
+	data_hud_type = DATA_HUD_SECURITY_ADVANCED
 
 	var/lastfired = 0
 	var/shot_delay = 3 //.3 seconds between shots
@@ -393,7 +395,7 @@ Auto Patrol[]"},
 			if(lasercolor == "r")
 				new /obj/item/clothing/suit/redtag(Tsec)
 
-	var/datum/effect/system/spark_spread/s = new /datum/effect/system/spark_spread
+	var/datum/effect_system/spark_spread/s = new /datum/effect_system/spark_spread
 	s.set_up(3, 1, src)
 	s.start()
 

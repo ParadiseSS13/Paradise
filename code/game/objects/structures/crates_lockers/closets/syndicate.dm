@@ -27,6 +27,7 @@
 	new /obj/item/clothing/mask/gas/syndicate(src)
 	new /obj/item/clothing/suit/space/hardsuit/syndi(src)
 	new /obj/item/weapon/tank/jetpack/oxygen/harness(src)
+	new /obj/item/clothing/shoes/magboots/syndie(src)
 
 /obj/structure/closet/syndicate/nuclear
 	desc = "It's a storage unit for a Syndicate boarding party.."
@@ -99,6 +100,14 @@
 		if(pickednum >= 40)
 			new /obj/item/stack/sheet/mineral/uranium(src, rand(rare_min, rare_max))
 
+		//Titanium (rare ore)
+		if(pickednum >= 40)
+			new /obj/item/stack/sheet/mineral/titanium(src, rand(rare_min, rare_max))
+
+		//Plastitanium (rare ore)
+		if(pickednum >= 40)
+			new /obj/item/stack/sheet/mineral/plastitanium(src, rand(rare_min, rare_max))
+
 		//Diamond (rare HONK)
 		if(pickednum >= 45)
 			new /obj/item/stack/sheet/mineral/diamond(src, rand(rare_min, rare_max))
@@ -121,6 +130,8 @@
 		/obj/item/stack/sheet/mineral/uranium,
 		/obj/item/stack/sheet/mineral/diamond,
 		/obj/item/stack/sheet/mineral/bananium,
+		/obj/item/stack/sheet/mineral/titanium,
+		/obj/item/stack/sheet/mineral/plastitanium,
 		/obj/item/stack/sheet/plasteel,
 		/obj/item/stack/rods
 		)

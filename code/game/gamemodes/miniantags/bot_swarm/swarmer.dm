@@ -90,6 +90,7 @@
 	melee_damage_upper = 15
 	melee_damage_type = STAMINA
 	damage_coeff = list(BRUTE = 1, BURN = 1, TOX = 0, CLONE = 0, STAMINA = 0, OXY = 0)
+	obj_damage = 0
 	environment_smash = 0
 	attacktext = "shocks"
 	attack_sound = 'sound/effects/EMPulse.ogg'
@@ -112,6 +113,7 @@
 	loot = list(/obj/effect/decal/cleanable/blood/gibs/robot, /obj/item/weapon/ore/bluespace_crystal/artificial)
 	deathmessage = "The swarmer explodes with a sharp pop!"
 	del_on_death = 1
+	hud_possible = list(SPECIALROLE_HUD, DIAG_STAT_HUD, DIAG_HUD)
 
 /mob/living/simple_animal/hostile/swarmer/Login()
 	..()
@@ -127,7 +129,21 @@
 	..()
 	add_language("Swarmer", 1)
 	verbs -= /mob/living/verb/pulled
+	for(var/datum/atom_hud/data/diagnostic/diag_hud in huds)
+		diag_hud.add_to_hud(src)
 	updatename()
+
+/mob/living/simple_animal/hostile/swarmer/med_hud_set_health()
+	var/image/holder = hud_list[DIAG_HUD]
+	var/icon/I = icon(icon, icon_state, dir)
+	holder.pixel_y = I.Height() - world.icon_size
+	holder.icon_state = "huddiag[RoundDiagBar(health / maxHealth)]"
+
+/mob/living/simple_animal/hostile/swarmer/med_hud_set_status()
+	var/image/holder = hud_list[DIAG_STAT_HUD]
+	var/icon/I = icon(icon, icon_state, dir)
+	holder.pixel_y = I.Height() - world.icon_size
+	holder.icon_state = "hudstat"
 
 /mob/living/simple_animal/hostile/swarmer/Stat()
 	..()
@@ -433,7 +449,7 @@
 	spawn(5)
 		qdel(src)
 
-/obj/structure/swarmer/proc/TakeDamage(damage)
+/obj/structure/swarmer/take_damage(damage)
 	health -= damage
 	if(health <= 0)
 		qdel(src)
@@ -441,14 +457,14 @@
 /obj/structure/swarmer/bullet_act(obj/item/projectile/Proj)
 	if(Proj.damage)
 		if((Proj.damage_type == BRUTE || Proj.damage_type == BURN))
-			TakeDamage(Proj.damage)
+			take_damage(Proj.damage)
 	..()
 
 /obj/structure/swarmer/attackby(obj/item/weapon/I, mob/living/user, params)
 	if(istype(I, /obj/item/weapon))
 		user.changeNext_move(CLICK_CD_MELEE)
 		user.do_attack_animation(src)
-		TakeDamage(I.force)
+		take_damage(I.force)
 	return
 
 /obj/structure/swarmer/ex_act()
@@ -462,14 +478,13 @@
 /obj/structure/swarmer/emp_act()
 	qdel(src)
 	return
-
 /obj/structure/swarmer/attack_animal(mob/living/user)
 	if(isanimal(user))
 		var/mob/living/simple_animal/S = user
 		S.do_attack_animation(src)
 		user.changeNext_move(CLICK_CD_MELEE)
 		if(S.melee_damage_type == BRUTE || S.melee_damage_type == BURN)
-			TakeDamage(rand(S.melee_damage_lower, S.melee_damage_upper))
+			take_damage(rand(S.melee_damage_lower, S.melee_damage_upper))
 	return
 
 /obj/structure/swarmer/trap

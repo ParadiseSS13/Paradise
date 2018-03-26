@@ -83,8 +83,9 @@
 
 	return 0
 
-/obj/machinery/atmospherics/omni/mixer/process()
-	if(!..() || !on)
+/obj/machinery/atmospherics/omni/mixer/process_atmos()
+	..()
+	if(!on)
 		return 0
 
 	var/datum/gas_mixture/output_air = output.air

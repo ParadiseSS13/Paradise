@@ -13,6 +13,7 @@
 	materials = list(MAT_GLASS=MINERAL_MATERIAL_AMOUNT)
 	attack_verb = list("stabbed", "slashed", "sliced", "cut")
 	hitsound = 'sound/weapons/bladeslice.ogg'
+	armor = list("melee" = 100, "bullet" = 0, "laser" = 0, "energy" = 100, "bomb" = 0, "bio" = 0, "rad" = 0)
 
 /obj/item/weapon/shard/suicide_act(mob/user)
 		to_chat(viewers(user), pick("<span class='danger'>[user] is slitting \his wrists with \the [src]! It looks like \he's trying to commit suicide.</span>",
@@ -47,7 +48,7 @@
 			if(affecting.status & ORGAN_ROBOT)
 				return
 			to_chat(H, "<span class='warning'>[src] cuts into your hand!</span>")
-			if(affecting.take_damage(force*0.5))
+			if(affecting.receive_damage(force*0.5))
 				H.UpdateDamageIcon()
 				H.updatehealth()
 
@@ -84,7 +85,7 @@
 				if(affecting.status & ORGAN_ROBOT)
 					return
 				H.Weaken(3)
-				if(affecting.take_damage(5, 0))
+				if(affecting.receive_damage(5, 0))
 					H.UpdateDamageIcon()
 				H.updatehealth()
 	..()

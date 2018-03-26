@@ -38,7 +38,7 @@
 		if(isliving(usr))
 			var/mob/living/L = usr
 			if(L.electrocute_act(17, src))
-				var/datum/effect/system/spark_spread/s = new /datum/effect/system/spark_spread
+				var/datum/effect_system/spark_spread/s = new /datum/effect_system/spark_spread
 				s.set_up(5, 1, src)
 				s.start()
 				return 2
@@ -115,7 +115,7 @@
 					if(!(E.rcell && E.rcell.use(E.chargecost)))
 						to_chat(user, "<span class='notice'>Unable to teleport, insufficient charge.</span>")
 						return
-					var/datum/effect/system/spark_spread/s = new /datum/effect/system/spark_spread
+					var/datum/effect_system/spark_spread/s = new /datum/effect_system/spark_spread
 					s.set_up(5, 1, src)
 					s.start()
 					do_teleport(src, E.pad, 0)
@@ -139,7 +139,7 @@
 				if(!(E.rcell && E.rcell.use(E.chargecost)))
 					to_chat(user, "<span class='notice'>Unable to teleport, insufficient charge.</span>")
 					return
-				var/datum/effect/system/spark_spread/s = new /datum/effect/system/spark_spread
+				var/datum/effect_system/spark_spread/s = new /datum/effect_system/spark_spread
 				s.set_up(5, 1, src)
 				s.start()
 				do_teleport(src, L)
@@ -217,7 +217,7 @@
 			if(isliving(user))
 				var/mob/living/L = user
 				if(L.electrocute_act(17, src))
-					var/datum/effect/system/spark_spread/s = new /datum/effect/system/spark_spread
+					var/datum/effect_system/spark_spread/s = new /datum/effect_system/spark_spread
 					s.set_up(5, 1, src)
 					s.start()
 					return
@@ -443,9 +443,9 @@
 	anchored = TRUE
 
 /obj/structure/closet/crate/can/attackby(obj/item/weapon/W, mob/living/user, params)
-	add_fingerprint(user)
-	user.changeNext_move(CLICK_CD_MELEE)
 	if(iswrench(W))
+		add_fingerprint(user)
+		user.changeNext_move(CLICK_CD_MELEE)
 		if(anchored)
 			playsound(loc, W.usesound, 100, 1)
 			user.visible_message("[user] starts loosening [src]'s floor casters.", \
@@ -469,6 +469,8 @@
 				user.visible_message("[user] has secured [src]'s floor casters.", \
 						 								"<span class='notice'>You have secured [src]'s floor casters.</span>")
 				anchored = TRUE
+	else
+		..()
 
 /obj/structure/closet/crate/radiation
 	desc = "A crate with a radiation sign on it."

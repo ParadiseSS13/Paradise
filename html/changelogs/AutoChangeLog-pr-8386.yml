@@ -1,0 +1,5 @@
+author: "Alffd"
+delete-after: True
+changes: 
+  - rscadd: "Logic checks to lessen death from flying objects due to atmospheric breaches."
+  - rscdel: "Removes atmospheric stunning while thrown."

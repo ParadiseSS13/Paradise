@@ -36,40 +36,45 @@
 /mob/living/carbon/human/Move(NewLoc, direct)
 	. = ..()
 	if(.) // did we actually move?
-		if(!lying && !buckled)
-			var/obj/item/clothing/shoes/S = shoes
-			if(!has_gravity(loc))
-				return
-			//Bloody footprints
-			var/turf/T = get_turf(src)
-			var/obj/item/organ/external/l_foot = get_organ("l_foot")
-			var/obj/item/organ/external/r_foot = get_organ("r_foot")
-			var/hasfeet = 1
-			if(!l_foot && !r_foot)
-				hasfeet = 0
+		if(!lying && !buckled && !throwing)
+			for(var/obj/item/organ/external/splinted in splinted_limbs)
+				splinted.update_splints()
+        
+	if(!has_gravity(loc))
+		return
+	
+	var/obj/item/clothing/shoes/S = shoes
+			
+	//Bloody footprints
+	var/turf/T = get_turf(src)
+	var/obj/item/organ/external/l_foot = get_organ("l_foot")
+	var/obj/item/organ/external/r_foot = get_organ("r_foot")
+	var/hasfeet = TRUE
+	if(!l_foot && !r_foot)
+		hasfeet = FALSE
 
-			if(shoes)
-				if(S.bloody_shoes && S.bloody_shoes[S.blood_state])
-					var/obj/effect/decal/cleanable/blood/footprints/oldFP = locate(/obj/effect/decal/cleanable/blood/footprints) in T
-					if(oldFP && oldFP.blood_state == S.blood_state && oldFP.basecolor == S.blood_color)
-						return
-					else
-						//No oldFP or it's a different kind of blood
-						S.bloody_shoes[S.blood_state] = max(0, S.bloody_shoes[S.blood_state] - BLOOD_LOSS_PER_STEP)
-						createFootprintsFrom(shoes, dir, T)
-						update_inv_shoes()
-			else if(hasfeet)
-				if(bloody_feet && bloody_feet[blood_state])
-					var/obj/effect/decal/cleanable/blood/footprints/oldFP = locate(/obj/effect/decal/cleanable/blood/footprints) in T
-					if(oldFP && oldFP.blood_state == blood_state && oldFP.basecolor == feet_blood_color)
-						return
-					else
-						bloody_feet[blood_state] = max(0, bloody_feet[blood_state] - BLOOD_LOSS_PER_STEP)
-						createFootprintsFrom(src, dir, T)
-						update_inv_shoes()
-			//End bloody footprints
-			if(S)
-				S.step_action(src)
+	if(shoes)
+		if(S.bloody_shoes && S.bloody_shoes[S.blood_state])
+			var/obj/effect/decal/cleanable/blood/footprints/oldFP = locate(/obj/effect/decal/cleanable/blood/footprints) in T
+			if(oldFP && oldFP.blood_state == S.blood_state && oldFP.basecolor == S.blood_color)
+				return
+			else
+				//No oldFP or it's a different kind of blood
+				S.bloody_shoes[S.blood_state] = max(0, S.bloody_shoes[S.blood_state] - BLOOD_LOSS_PER_STEP)
+				createFootprintsFrom(shoes, dir, T)
+				update_inv_shoes()
+	else if(hasfeet)
+		if(bloody_feet && bloody_feet[blood_state])
+			var/obj/effect/decal/cleanable/blood/footprints/oldFP = locate(/obj/effect/decal/cleanable/blood/footprints) in T
+			if(oldFP && oldFP.blood_state == blood_state && oldFP.basecolor == feet_blood_color)
+				return
+			else
+				bloody_feet[blood_state] = max(0, bloody_feet[blood_state] - BLOOD_LOSS_PER_STEP)
+				createFootprintsFrom(src, dir, T)
+				update_inv_shoes()
+	//End bloody footprints
+	if(S)
+		S.step_action(src)
 
 /mob/living/carbon/human/handle_footstep(turf/T)
 	if(..())

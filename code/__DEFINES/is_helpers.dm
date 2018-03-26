@@ -5,9 +5,18 @@
 // Mobs
 #define ismegafauna(A) istype(A, /mob/living/simple_animal/hostile/megafauna)
 
+//Simple animals
+#define isshade(A) (istype(A, /mob/living/simple_animal/shade))
+
+#define isconstruct(A) (istype(A, /mob/living/simple_animal/hostile/construct))
+
 //Objects
 
+#define ismecha(A) (istype(A, /obj/mecha))
+
 #define is_cleanable(A) (istype(A, /obj/effect/decal/cleanable) || istype(A, /obj/effect/rune)) //if something is cleanable
+
+#define is_pen(W) (istype(W, /obj/item/weapon/pen))
 
 var/list/static/global/pointed_types = typecacheof(list(
 	/obj/item/weapon/pen,

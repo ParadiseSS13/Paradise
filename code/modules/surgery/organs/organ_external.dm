@@ -58,6 +58,8 @@
 	var/can_grasp
 	var/can_stand
 
+	var/splinted_count = 0 //Time when this organ was last splinted
+
 /obj/item/organ/external/necrotize(update_sprite=TRUE)
 	if(status & (ORGAN_ROBOT|ORGAN_DEAD))
 		return
@@ -84,6 +86,7 @@
 
 	if(owner)
 		owner.bodyparts_by_name[limb_name] = null
+		owner.splinted_limbs -= src
 
 	QDEL_LIST(children)
 
@@ -92,35 +95,6 @@
 	QDEL_NULL(hidden)
 
 	return ..()
-
-/obj/item/organ/external/attackby(obj/item/weapon/W as obj, mob/user as mob)
-	switch(open)
-		if(0)
-			if(istype(W,/obj/item/weapon/scalpel))
-				spread_germs_to_organ(src, user, W)
-				user.visible_message("<span class='danger'><b>[user]</b> cuts [src] open with [W]!</span>")
-				open++
-				return
-		if(1)
-			if(istype(W,/obj/item/weapon/retractor))
-				spread_germs_to_organ(src, user, W)
-				user.visible_message("<span class='danger'><b>[user]</b> cracks [src] open like an egg with [W]!</span>")
-				open++
-				return
-		if(2)
-			if(istype(W,/obj/item/weapon/hemostat))
-				spread_germs_to_organ(src, user, W)
-				if(contents.len)
-					var/obj/item/removing = pick(contents)
-					var/obj/item/organ/internal/O = removing
-					if(istype(O))
-						spread_germs_to_organ(O, user, W) // This wouldn't be any cleaner than the actual surgery
-					user.put_in_hands(removing)
-					user.visible_message("<span class='danger'><b>[user]</b> extracts [removing] from [src] with [W]!</span>")
-				else
-					user.visible_message("<span class='danger'><b>[user]</b> fishes around fruitlessly in [src] with [W].</span>")
-				return
-	. = ..()
 
 
 /obj/item/organ/external/update_health()
@@ -168,7 +142,7 @@
 			   DAMAGE PROCS
 ****************************************************/
 
-/obj/item/organ/external/take_damage(brute, burn, sharp, used_weapon = null, list/forbidden_limbs = list(), ignore_resists = FALSE)
+/obj/item/organ/external/receive_damage(brute, burn, sharp, used_weapon = null, list/forbidden_limbs = list(), ignore_resists = FALSE)
 	if(tough && !ignore_resists)
 		brute = max(0, brute - 5)
 		burn = max(0, burn - 4)
@@ -191,11 +165,15 @@
 		// Damage an internal organ
 		if(internal_organs && internal_organs.len)
 			var/obj/item/organ/internal/I = pick(internal_organs)
-			I.take_damage(brute * 0.5)
+			I.receive_damage(brute * 0.5)
 			brute -= brute * 0.5
 
 	if(status & ORGAN_BROKEN && prob(40) && brute)
 		owner.emote("scream")	//getting hit on broken hand hurts
+	if(status & ORGAN_SPLINTED && prob((brute + burn)*4)) //taking damage to splinted limbs removes the splints
+		status &= ~ORGAN_SPLINTED
+		owner.visible_message("<span class='danger'>The splint on [owner]'s left arm unravels from their [name]!</span>","<span class='userdanger'>The splint on your [name] unravels!</span>")
+		owner.handle_splints()
 	if(used_weapon)
 		add_autopsy_data("[used_weapon]", brute + burn)
 
@@ -239,7 +217,7 @@
 			if(possible_points.len)
 				//And pass the pain around
 				var/obj/item/organ/external/target = pick(possible_points)
-				target.take_damage(brute, burn, sharp, used_weapon, forbidden_limbs + src, ignore_resists = TRUE) //If the damage was reduced before, don't reduce it again
+				target.receive_damage(brute, burn, sharp, used_weapon, forbidden_limbs + src, ignore_resists = TRUE) //If the damage was reduced before, don't reduce it again
 
 			if(dismember_at_max_damage && body_part != UPPER_TORSO && body_part != LOWER_TORSO) // We've ensured all damage to the mob is retained, now let's drop it, if necessary.
 				droplimb(1) //Clean loss, just drop the limb and be done
@@ -458,6 +436,18 @@ Note that amputating the affected organ does in fact remove the infection from t
 		tbrute = 3
 	return "[tbrute][tburn]"
 
+/obj/item/organ/external/proc/update_splints()
+	if(!(status & ORGAN_SPLINTED))
+		owner.splinted_limbs -= src
+		return
+	if(owner.step_count >= splinted_count + SPLINT_LIFE)
+		status &= ~ORGAN_SPLINTED //oh no, we actually need surgery now!
+		owner.visible_message("<span class='danger'>[owner] screams in pain as their splint pops off their [name]!</span>","<span class='userdanger'>You scream in pain as your splint pops off your [name]!</span>")
+		owner.emote("scream")
+		owner.Stun(2)
+		owner.handle_splints()
+
+
 /****************************************************
 			   DISMEMBERMENT
 ****************************************************/
@@ -505,7 +495,7 @@ Note that amputating the affected organ does in fact remove the infection from t
 			for(var/obj/item/organ/external/E in children) //Factor in the children's brute and burn into how much will transfer
 				total_brute += E.brute_dam
 				total_burn += E.burn_dam
-			parent.take_damage(total_brute, total_burn, ignore_resists = TRUE) //Transfer the full damage to the parent, bypass limb damage reduction.
+			parent.receive_damage(total_brute, total_burn, ignore_resists = TRUE) //Transfer the full damage to the parent, bypass limb damage reduction.
 		parent = null
 
 	spawn(1)
@@ -532,6 +522,63 @@ Note that amputating the affected organ does in fact remove the infection from t
 		else
 			qdel(src) // If you flashed away to ashes, YOU FLASHED AWAY TO ASHES
 			return null
+
+/obj/item/organ/external/proc/disembowel(spillage_zone = "chest")
+	if(!owner)
+		return
+
+	var/mob/living/carbon/C = owner
+
+	if(!hasorgans(C))
+		return
+
+	var/organ_spilled = FALSE
+	var/turf/T = get_turf(C)
+	C.add_splatter_floor(T)
+	playsound(get_turf(C), 'sound/effects/splat.ogg', 25, 1)
+	for(var/X in C.internal_organs)
+		var/obj/item/organ/O = X
+		var/org_zone = check_zone(O.parent_organ)
+		if(org_zone == spillage_zone)
+			O.remove(C)
+			O.forceMove(T)
+			organ_spilled = TRUE
+
+	if(organ_spilled)
+		C.visible_message("<span class='danger'><B>[C]'s internal organs spill out onto the floor!</B></span>")
+	return TRUE
+
+/obj/item/organ/external/chest/droplimb()
+	if(disembowel())
+		return TRUE
+
+/obj/item/organ/external/groin/droplimb()
+	if(disembowel("groin"))
+		return TRUE
+
+
+
+/obj/item/organ/external/attackby(obj/item/I, mob/user, params)
+	if(I.sharp)
+		add_fingerprint(user)
+		if(!contents.len)
+			to_chat(user, "<span class='warning'>There is nothing left inside [src]!</span>")
+			return
+		playsound(loc, 'sound/weapons/slice.ogg', 50, 1, -1)
+		user.visible_message("<span class='warning'>[user] begins to cut open [src].</span>",\
+			"<span class='notice'>You begin to cut open [src]...</span>")
+		if(do_after(user, 54, target = src))
+			drop_organs(user)
+	else
+		return ..()
+
+//empties the bodypart from its organs and other things inside it
+/obj/item/organ/external/proc/drop_organs(mob/user)
+	var/turf/T = get_turf(src)
+	if(status != ORGAN_ROBOT)
+		playsound(T, 'sound/effects/splat.ogg', 25, 1)
+	for(var/obj/item/I in src)
+		I.forceMove(T)
 
 /****************************************************
 			   HELPERS
@@ -645,8 +692,10 @@ Note that amputating the affected organ does in fact remove the infection from t
 
 	if(!owner)
 		return
-	var/is_robotic = status & ORGAN_ROBOT
 	var/mob/living/carbon/human/victim = owner
+
+	if(status & ORGAN_SPLINTED)
+		victim.splinted_limbs -= src
 
 	for(var/obj/item/I in embedded_objects)
 		embedded_objects -= I
@@ -674,13 +723,13 @@ Note that amputating the affected organ does in fact remove the infection from t
 		victim.bodyparts_by_name[limb_name] = null	// Remove from owner's vars.
 
 	//Robotic limbs explode if sabotaged.
-	if(is_robotic && sabotaged)
+	if(is_robotic() && sabotaged)
 		victim.visible_message(
 			"<span class='danger'>\The [victim]'s [src.name] explodes violently!</span>",\
 			"<span class='danger'>Your [src.name] explodes!</span>",\
 			"<span class='danger'>You hear an explosion!</span>")
 		explosion(get_turf(owner),-1,-1,2,3)
-		var/datum/effect/system/spark_spread/spark_system = new /datum/effect/system/spark_spread()
+		var/datum/effect_system/spark_spread/spark_system = new /datum/effect_system/spark_spread()
 		spark_system.set_up(5, 0, victim)
 		spark_system.attach(owner)
 		spark_system.start()

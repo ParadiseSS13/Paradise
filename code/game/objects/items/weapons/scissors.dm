@@ -58,8 +58,8 @@
 		//handle normal hair
 		var/list/species_hair = list()
 		if(C.species)
-			for(var/i in hair_styles_list)
-				var/datum/sprite_accessory/hair/tmp_hair = hair_styles_list[i]
+			for(var/i in hair_styles_public_list)
+				var/datum/sprite_accessory/hair/tmp_hair = hair_styles_public_list[i]
 				if(C.species.name in tmp_hair.species_allowed) //If the species is allowed to have the style, add the style to the list. Or, if the character has a prosthetic head, give them the human facial hair styles.
 					if(C.species.bodyflags & ALL_RPARTS) //If the character is of a species that can have full body prosthetics and their head doesn't suport human hair 'wigs', don't add the style to the list.
 						if(robohead.is_monitor)
@@ -76,7 +76,7 @@
 							to_chat(user, "<span class='warning'>You are unable to find anything on [H]'s head worth cutting. How disappointing.</span>")
 							return
 		else
-			species_hair = hair_styles_list
+			species_hair = hair_styles_public_list
 		var/h_new_style = input(user, "Select a hair style", "Grooming")  as null|anything in species_hair
 		user.visible_message("<span class='notice'>[user] starts cutting [M]'s hair!</span>", "<span class='notice'>You start cutting [M]'s hair!</span>") //arguments for this are: 1. what others see 2. what the user sees. --Fixed grammar, (TGameCo)
 		playsound(loc, 'sound/goonstation/misc/Scissor.ogg', 100, 1)

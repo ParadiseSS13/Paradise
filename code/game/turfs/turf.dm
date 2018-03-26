@@ -56,12 +56,12 @@
 
 /turf/Destroy()
 // Adds the adjacent turfs to the current atmos processing
-	if(air_master)
+	if(SSair)
 		for(var/direction in cardinal)
 			if(atmos_adjacent_turfs & direction)
 				var/turf/simulated/T = get_step(src, direction)
 				if(istype(T))
-					air_master.add_to_active(T)
+					SSair.add_to_active(T)
 	..()
 	return QDEL_HINT_HARDDEL_NOW
 
@@ -167,8 +167,8 @@
 	var/old_corners = corners
 
 	BeforeChange()
-	if(air_master)
-		air_master.remove_from_active(src)
+	if(SSair)
+		SSair.remove_from_active(src)
 	var/turf/W = new path(src)
 	if(!defer_change)
 		W.AfterChange()
@@ -204,8 +204,8 @@
 	levelupdate()
 	CalculateAdjacentTurfs()
 
-	if(air_master && !ignore_air)
-		air_master.add_to_active(src)
+	if(SSair && !ignore_air)
+		SSair.add_to_active(src)
 
 	if(!keep_cabling && !can_have_cabling())
 		for(var/obj/structure/cable/C in contents)
@@ -246,8 +246,8 @@
 		air.carbon_dioxide = (aco/max(turf_count,1))
 		air.toxins = (atox/max(turf_count,1))
 		air.temperature = (atemp/max(turf_count,1))//Trace gases can get bant
-		if(air_master)
-			air_master.add_to_active(src)
+		if(SSair)
+			SSair.add_to_active(src)
 
 /turf/proc/ReplaceWithLattice()
 	src.ChangeTurf(/turf/space)
@@ -415,6 +415,15 @@
 /turf/proc/can_lay_cable()
 	return can_have_cabling() & !intact
 
+/turf/ratvar_act(force, ignore_mobs, probability = 40)
+	. = (prob(probability) || force)
+	for(var/I in src)
+		var/atom/A = I
+		if(ignore_mobs && ismob(A))
+			continue
+		if(ismob(A) || .)
+			A.ratvar_act()
+
 /turf/proc/add_blueprints(atom/movable/AM)
 	var/image/I = new
 	I.appearance = AM.appearance
@@ -448,6 +457,6 @@
 
 	T0.ChangeTurf(turf_type)
 
-	air_master.remove_from_active(T0)
+	SSair.remove_from_active(T0)
 	T0.CalculateAdjacentTurfs()
-	air_master.add_to_active(T0,1)
+	SSair.add_to_active(T0,1)

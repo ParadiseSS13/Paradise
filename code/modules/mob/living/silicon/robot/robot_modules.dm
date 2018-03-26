@@ -229,22 +229,6 @@
 
 	fix_modules()
 
-/obj/item/weapon/robot_module/peacekeeper
-	name = "peacekeeping robot module"
-	module_type = "Standard"
-
-/obj/item/weapon/robot_module/peacekeeper/New()
-	..()
-	modules += new /obj/item/weapon/cookiesynth(src)
-	modules += new /obj/item/device/harmalarm(src)
-	modules += new /obj/item/weapon/reagent_containers/borghypo/peace(src)
-	modules += new /obj/item/taperoll/police(src)
-	modules += new /obj/item/borg/cyborghug/peacekeeper(src)
-	modules += new /obj/item/weapon/extinguisher(src)
-	emag = new /obj/item/weapon/reagent_containers/borghypo/peace/hacked(src)
-
-	fix_modules()
-
 /obj/item/weapon/robot_module/janitor
 	name = "janitorial robot module"
 	module_type = "Janitor"
@@ -270,10 +254,27 @@
 /obj/item/weapon/robot_module/butler/New()
 	..()
 	modules += new /obj/item/weapon/reagent_containers/food/drinks/cans/beer(src)
+	modules += new /obj/item/weapon/reagent_containers/food/drinks/cans/cola(src)
+	modules += new /obj/item/weapon/reagent_containers/food/drinks/cans/sodawater(src)
 	modules += new /obj/item/weapon/reagent_containers/food/condiment/enzyme(src)
+	modules += new /obj/item/weapon/reagent_containers/food/drinks/bottle/orangejuice(src) // -0.3 oxy/sec
+	modules += new /obj/item/weapon/reagent_containers/food/drinks/bottle/tomatojuice(src) // -0.2 fire/sec
+	modules += new /obj/item/weapon/reagent_containers/food/drinks/bottle/limejuice(src) // -0.2 tox/sec
+	modules += new /obj/item/weapon/reagent_containers/food/drinks/coffee(src) // -1 paralysis stunned & weakened/sec
+	modules += new /obj/item/weapon/reagent_containers/food/drinks/tea(src)
+	modules += new /obj/item/weapon/reagent_containers/food/drinks/bottle/milk(src) // -0.2 brute/sec
+	modules += new /obj/item/weapon/reagent_containers/food/condiment/sugar(src)
+	modules += new /obj/item/weapon/reagent_containers/food/drinks/ice(src)
+	modules += new /obj/item/weapon/reagent_containers/food/drinks/bottle/cream(src)
+
+	modules += new /obj/item/weapon/reagent_containers/food/drinks/bottle/tequila(src)
+	modules += new /obj/item/weapon/reagent_containers/food/drinks/bottle/vodka(src)
+	modules += new /obj/item/weapon/reagent_containers/food/drinks/bottle/whiskey(src)
+
 	modules += new /obj/item/weapon/pen(src)
 	modules += new /obj/item/weapon/razor(src)
 	modules += new /obj/item/device/instrument/piano_synth(src)
+	modules += new /obj/item/device/healthanalyzer/advanced(src)
 
 	var/obj/item/weapon/rsf/M = new /obj/item/weapon/rsf(src)
 	M.matter = 30
@@ -500,8 +501,6 @@
 	modules += new /obj/item/weapon/soap(src)
 	modules += new /obj/item/device/t_scanner(src)
 	modules += new /obj/item/weapon/rpd(src)
-
-	emag = new /obj/item/weapon/pickaxe/drill/cyborg/diamond(src)
 
 	for(var/T in stacktypes)
 		var/obj/item/stack/sheet/W = new T(src)

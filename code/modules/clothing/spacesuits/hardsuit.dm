@@ -347,6 +347,15 @@
 		var/datum/action/A = X
 		A.UpdateButtonIcon()
 
+/obj/item/clothing/head/helmet/space/hardsuit/syndi/freedom
+	name = "eagle helmet"
+	desc = "An advanced, space-proof helmet. It appears to be modeled after an old-world eagle."
+	icon_state = "griffinhat"
+	item_state = "griffinhat"
+
+/obj/item/clothing/head/helmet/space/hardsuit/syndi/freedom/update_icon()
+	return
+
 /obj/item/clothing/suit/space/hardsuit/syndi
 	name = "blood-red hardsuit"
 	desc = "A dual-mode advanced hardsuit designed for work in special operations. It is in travel mode. Property of Gorlex Marauders."
@@ -428,6 +437,16 @@
 	else
 		name = "elite syndicate hardsuit (combat)"
 		desc = "An elite version of the syndicate hardsuit, with improved armour and fire shielding. It is in combat mode. Property of Gorlex Marauders."
+
+
+/obj/item/clothing/suit/space/hardsuit/syndi/freedom
+	name = "eagle suit"
+	desc = "An advanced, light suit, fabricated from a mixture of synthetic feathers and space-resistant material. A gun holster appears to be integrated into the suit."
+	icon_state = "freedom"
+	item_state = "freedom"
+
+/obj/item/clothing/suit/space/hardsuit/syndi/freedom/update_icon()
+	return
 
 //Wizard hardsuit
 /obj/item/clothing/head/helmet/space/hardsuit/wizard
@@ -571,7 +590,7 @@
 
 /obj/item/clothing/suit/space/hardsuit/shielded/hit_reaction(mob/living/carbon/human/owner, attack_text)
 	if(current_charges > 0)
-		var/datum/effect/system/spark_spread/s = new
+		var/datum/effect_system/spark_spread/s = new
 		s.set_up(2, 1, src)
 		s.start()
 		owner.visible_message("<span class='danger'>[owner]'s shields deflect [attack_text] in a shower of sparks!</span>")

@@ -19,7 +19,8 @@
 								MAT_GOLD=0,
 								MAT_PLASMA=0,
 								MAT_SILVER=0,
-								MAT_URANIUM=0
+								MAT_URANIUM=0,
+								MAT_TITANIUM=0
 								)
 	var/res_max_amount = 200000
 	var/datum/research/files
@@ -328,9 +329,9 @@
 /obj/machinery/mecha_part_fabricator/Topic(href, href_list)
 	if(..())
 		return 1
-	var/datum/topic_input/filter = new /datum/topic_input(href,href_list)
+	var/datum/topic_input/afilter = new /datum/topic_input(href,href_list)
 	if(href_list["part_set"])
-		var/tpart_set = filter.getStr("part_set")
+		var/tpart_set = afilter.getStr("part_set")
 		if(tpart_set)
 			if(tpart_set=="clear")
 				part_set = null
@@ -338,7 +339,7 @@
 				part_set = tpart_set
 				screen = "parts"
 	if(href_list["part"])
-		var/T = filter.getStr("part")
+		var/T = afilter.getStr("part")
 		var/datum/design/D = files.known_designs[T]
 		if(D && (D.build_type & MECHFAB))
 			if(!processing_queue)
@@ -346,16 +347,16 @@
 			else
 				add_to_queue(D)
 	if(href_list["add_to_queue"])
-		var/T = filter.getStr("add_to_queue")
+		var/T = afilter.getStr("add_to_queue")
 		var/datum/design/D = files.known_designs[T]
 		if(D && D.build_type & MECHFAB)
 			add_to_queue(D)
 		return update_queue_on_page()
 	if(href_list["remove_from_queue"])
-		remove_from_queue(filter.getNum("remove_from_queue"))
+		remove_from_queue(afilter.getNum("remove_from_queue"))
 		return update_queue_on_page()
 	if(href_list["partset_to_queue"])
-		add_part_set_to_queue(filter.get("partset_to_queue"))
+		add_part_set_to_queue(afilter.get("partset_to_queue"))
 		return update_queue_on_page()
 	if(href_list["process_queue"])
 		spawn(-1)
@@ -369,8 +370,8 @@
 	if(href_list["screen"])
 		screen = href_list["screen"]
 	if(href_list["queue_move"] && href_list["index"])
-		var/index = filter.getNum("index")
-		var/new_index = index + filter.getNum("queue_move")
+		var/index = afilter.getNum("index")
+		var/new_index = index + afilter.getNum("queue_move")
 		if(isnum(index) && isnum(new_index))
 			if(IsInRange(new_index,1,queue.len))
 				queue.Swap(index,new_index)
@@ -381,7 +382,7 @@
 	if(href_list["sync"])
 		sync()
 	if(href_list["part_desc"])
-		var/T = filter.getStr("part_desc")
+		var/T = afilter.getStr("part_desc")
 		var/datum/design/D = files.known_designs[T]
 		if(D && D.build_type & MECHFAB)
 			var/obj/part = D.build_path
@@ -435,6 +436,8 @@
 			type = /obj/item/stack/sheet/mineral/bananium
 		if(MAT_TRANQUILLITE)
 			type = /obj/item/stack/sheet/mineral/tranquillite
+		if(MAT_TITANIUM)
+			type = /obj/item/stack/sheet/mineral/titanium
 		else
 			return 0
 	var/result = 0
@@ -492,6 +495,8 @@
 				material = MAT_TRANQUILLITE
 			if(/obj/item/stack/sheet/mineral/uranium)
 				material = MAT_URANIUM
+			if(/obj/item/stack/sheet/mineral/titanium)
+				material = MAT_TITANIUM
 			else
 				return ..()
 

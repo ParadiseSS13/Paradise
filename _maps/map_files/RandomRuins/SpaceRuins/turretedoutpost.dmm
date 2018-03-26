@@ -18,7 +18,7 @@
 "r" = (/obj/structure/rack,/turf/simulated/floor/plasteel{icon_state = "vault"; dir = 8},/area/ruin/unpowered)
 "s" = (/obj/item/weapon/rack_parts,/turf/simulated/floor/plasteel{icon_state = "vault"; dir = 8},/area/ruin/unpowered)
 "t" = (/obj/item/weapon/rack_parts,/obj/machinery/light{dir = 1},/turf/simulated/floor/plasteel{icon_state = "vault"; dir = 8},/area/ruin/unpowered)
-"u" = (/obj/machinery/door/airlock/glass,/turf/simulated/floor/plasteel,/area/ruin/unpowered)
+"u" = (/obj/machinery/door/airlock/public/glass,/turf/simulated/floor/plasteel,/area/ruin/unpowered)
 "v" = (/obj/machinery/door/airlock,/turf/simulated/floor/plasteel,/area/ruin/unpowered)
 "w" = (/obj/machinery/power/apc/noalarm{dir = 2; name = "Outpost APC"; keep_preset_name = 1; pixel_y = -24},/turf/simulated/floor/plasteel,/area/ruin/unpowered)
 "x" = (/turf/simulated/floor/plasteel{icon_state = "dark"},/area/ruin/unpowered)
@@ -39,10 +39,10 @@
 "M" = (/obj/structure/table/reinforced,/obj/machinery/light,/obj/item/device/camera_bug,/turf/simulated/floor/plasteel,/area/ruin/unpowered)
 "N" = (/obj/structure/table/reinforced,/obj/item/weapon/paper_bin,/turf/simulated/floor/plasteel,/area/ruin/unpowered)
 "O" = (/obj/structure/table/reinforced,/obj/item/weapon/pen/blue,/turf/simulated/floor/plasteel,/area/ruin/unpowered)
-"P" = (/obj/structure/table/woodentable,/obj/item/weapon/reagent_containers/food/drinks/bottle/vodka{pixel_x = -4; pixel_y = 4},/obj/item/weapon/reagent_containers/food/drinks/bottle/vodka{pixel_x = 3},/turf/simulated/floor/plasteel,/area/ruin/unpowered)
+"P" = (/obj/structure/table/wood,/obj/item/weapon/reagent_containers/food/drinks/bottle/vodka{pixel_x = -4; pixel_y = 4},/obj/item/weapon/reagent_containers/food/drinks/bottle/vodka{pixel_x = 3},/turf/simulated/floor/plasteel,/area/ruin/unpowered)
 "Q" = (/obj/structure/rack,/obj/item/weapon/storage/belt/military,/obj/machinery/light,/turf/simulated/floor/plasteel{icon_state = "vault"; dir = 8},/area/ruin/unpowered)
 "R" = (/obj/structure/rack,/obj/item/clothing/head/helmet/riot,/turf/simulated/floor/plasteel{icon_state = "vault"; dir = 8},/area/ruin/unpowered)
-"S" = (/obj/structure/table/woodentable,/obj/item/weapon/reagent_containers/food/snacks/rawcutlet,/obj/machinery/light{icon_state = "tube1"; dir = 8},/turf/simulated/floor/plasteel,/area/ruin/unpowered)
+"S" = (/obj/structure/table/wood,/obj/item/weapon/reagent_containers/food/snacks/rawcutlet,/obj/machinery/light{icon_state = "tube1"; dir = 8},/turf/simulated/floor/plasteel,/area/ruin/unpowered)
 
 (1,1,1) = {"
 aaaaaaaaaaaaaaaaaabbab

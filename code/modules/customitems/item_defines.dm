@@ -276,7 +276,7 @@
 		to_chat(target, "<span class='notice'>You comb your tail with the [src].</span>")
 		used = 1
 
-/obj/item/device/fluff/desolate_coat_kit //DesolateG: Michael Smith
+/obj/item/device/fluff/desolate_coat_kit //DesolateG: Micheal Smith
 	name = "armored jacket conversion kit"
 	desc = "Flaps of dark fabric, probably used to somehow modify some sort of an armored garment. Won't help with protection, though."
 	icon_state = "modkit"
@@ -335,7 +335,7 @@
 
 	to_chat(user, "<span class='warning'>You can't modify [target]!</span>")
 
-/obj/item/device/fluff/desolate_baton_kit //DesolateG: Michael Smith
+/obj/item/device/fluff/desolate_baton_kit //DesolateG: Micheal Smith
 	name = "stun baton conversion kit"
 	desc = "Some sci-fi looking parts for a stun baton."
 	icon = 'icons/obj/custom_items.dmi'
@@ -588,7 +588,7 @@
 /obj/item/clothing/head/fluff/heather_winceworth // Regens: Heather Winceworth
 	name= "Heather's rose"
 	desc= "A beautiful purple rose for your hair."
-	icon= 'icons/obj/clothing/hats.dmi'
+	icon= 'icons/obj/custom_items.dmi'
 	icon_state = "hairflowerp"
 	item_state = "hairflowerp"
 
@@ -719,15 +719,25 @@
 /obj/item/clothing/suit/jacket/miljacket/patch/attack_self(mob/user)
 	var/list/options = list()
 	options["purple"] = "shazjacket_purple"
+	options["purple light"] = "shazjacket_purple_light"
 	options["yellow"] = "shazjacket_yellow"
 	options["blue"] = "shazjacket_blue"
+	options["cyan"] = "shazjacket_cyan"
+	options["command blue"] = "shazjacket_command"
 	options["brown"] = "shazjacket_brown"
 	options["orange"] = "shazjacket_orange"
+	options["engi orange"] = "shazjacket_engi"
 	options["grey"] = "shazjacket_grey"
 	options["black"] ="shazjacket_black"
 	options["red"] ="shazjacket_red"
+	options["red light"] ="shazjacket_red_light"
+	options["pink"] ="shazjacket_pink"
+	options["magenta"] ="shazjacket_magenta"
 	options["navy"] ="shazjacket_navy"
 	options["white"] ="shazjacket_white"
+	options["green"] ="shazjacket_green"
+	options["lime"] ="shazjacket_lime"
+	options["army green"] ="shazjacket_army"
 
 	var/choice = input(user, "What color do you wish your jacket to be?", "Change color") as null|anything in options
 
@@ -748,6 +758,19 @@
 	desc = "A worn leather jacket. Some burn holes have been patched."
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|ARMS
 	icon_state = "dusty_jacket"
+
+/obj/item/clothing/suit/fluff/supplymaster_jacket //Denthamos: Henry Grandpa Gadow
+	name = "faded NT Supply Master's Coat"
+	desc = "A faded leather overcoat bearing a worn out badge from the NAS Crescent on the shoulder, and a designation tag of Supply Master on the front.  A tarnished gold nameplate says H.Gadow on it."
+	icon_state = "supplymaster_jacket_open"
+	item_state = "supplymaster_jacket_open"
+	ignore_suitadjust = 0
+	suit_adjusted = 1
+	allowed = list(/obj/item/device/flashlight,/obj/item/weapon/tank/emergency_oxygen,/obj/item/toy,/obj/item/weapon/storage/fancy/cigarettes,/obj/item/weapon/lighter)
+	body_parts_covered = UPPER_TORSO|LOWER_TORSO|ARMS
+	cold_protection = UPPER_TORSO|LOWER_TORSO|ARMS
+	actions_types = list(/datum/action/item_action/button)
+	adjust_flavour = "unbutton"
 
 /obj/item/clothing/suit/storage/labcoat/fluff/aeneas_rinil //Socialsystem: Lynn Fea
 	name = "Robotics labcoat"
@@ -1195,6 +1218,26 @@
 		return 1
 	..()
 
+/obj/item/fluff/zekemirror //phantasmicdream : Zeke Varloss
+	name = "engraved hand mirror"
+	desc = "A very classy hand mirror, with fancy detailing."
+	icon = 'icons/obj/custom_items.dmi'
+	icon_state = "hand_mirror"
+	attack_verb = list("smacked")
+	hitsound = 'sound/weapons/tap.ogg'
+	force = 0
+	throwforce = 0
+	w_class = WEIGHT_CLASS_SMALL
+
+/obj/item/fluff/zekemirror/attack_self(mob/user)
+	var/mob/living/carbon/human/target = user
+	if(!istype(target) || target.get_species() != "Skrell") // It'd be strange to see other races with head tendrils.
+		return
+
+	if(target.change_hair("Zekes Tentacles", 1))
+		to_chat(target, "<span class='notice'>You take time to admire yourself in [src], brushing your tendrils down and revealing their true length.</span>")
+
+
 /obj/item/clothing/accessory/necklace/locket/fluff/fethasnecklace //Fethas: Sefra'neem
 	name = "Orange gemmed locket"
 	desc = "A locket with a orange gem set on the front, the picture inside seems to be of a Tajaran."
@@ -1213,3 +1256,53 @@
 	icon_state = "sheetcosmos"
 	item_state = "sheetcosmos"
 	item_color = "sheetcosmos"
+
+
+/obj/item/clothing/head/fluff/lfbowler //Lightfire: Hyperion
+	name = "Classy bowler hat"
+	desc = "a very classy looking bowler hat"
+	icon = 'icons/obj/custom_items.dmi'
+	icon_state = "bowler_lightfire"
+
+/obj/item/clothing/under/fluff/lfvicsuit //Lightfire: Hyperion
+	name = "Classy victorian suit"
+	desc = "A blue and black victorian suit with silver buttons, very fancy!"
+	icon = 'icons/obj/custom_items.dmi'
+	icon_state = "victorianlightfire"
+	item_state = "victorianvest"
+	item_color = "victorianlightfire"
+	displays_id = FALSE
+
+
+/obj/item/device/fluff/decemviri_spacepod_kit //Decemviri: Sylus Cain
+	name = "Spacepod mod kit"
+	desc = "a kit on tools and a blueprint detailing how to reconfigure a spacepod"
+	icon_state = "modkit"
+
+/obj/item/device/fluff/decemviri_spacepod_kit/afterattack(atom/target, mob/user, proximity)
+	if(!proximity || !ishuman(user) || user.incapacitated())
+		return
+
+	if(!istype(target, /obj/spacepod))
+		to_chat(user, "<span class='warning'>You can't modify [target]!</span>")
+		return
+
+	to_chat(user, "<span class='notice'>You modify the appearance of [target] based on the kite blueprints.</span>")
+	var/obj/spacepod/pod = target
+	pod.icon = 'icons/48x48/custom_pod.dmi'
+	pod.icon_state = "pod_dece"
+	pod.name = "sleek spacepod"
+	pod.desc = "A modified varient of a space pod."
+	pod.can_paint = FALSE
+	used = 1
+	qdel(src)
+	
+/obj/item/weapon/bikehorn/fluff/pinkbikehorn //Xerdies: Squiddle Toodle
+	name = "Honkinator5000"
+	desc = "This horn may look ridiculous but is the new hot item for clowns in the Clown Empire. It has a fine print on its side reading: Property of Prince Honktertong the IV"
+	icon = 'icons/obj/custom_items.dmi'
+	lefthand_file = 'icons/mob/inhands/fluff_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/fluff_righthand.dmi'
+	icon_state = "teri_horn"
+	item_state = "teri_horn"
+	honk_sound = 'sound/items/teri_horn.ogg'

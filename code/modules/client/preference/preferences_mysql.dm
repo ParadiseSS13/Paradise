@@ -16,7 +16,8 @@
 					lastchangelog,
 					windowflashing,
 					ghost_anonsay,
-					exp
+					exp,
+					clientfps
 					FROM [format_table_name("player")]
 					WHERE ckey='[C.ckey]'"}
 					)
@@ -46,6 +47,7 @@
 		windowflashing = text2num(query.item[14])
 		ghost_anonsay = text2num(query.item[15])
 		exp = query.item[16]
+		clientfps = text2num(query.item[17])
 
 	//Sanitize
 	ooccolor		= sanitize_hexcolor(ooccolor, initial(ooccolor))
@@ -63,6 +65,7 @@
 	windowflashing = sanitize_integer(windowflashing, 0, 1, initial(windowflashing))
 	ghost_anonsay = sanitize_integer(ghost_anonsay, 0, 1, initial(ghost_anonsay))
 	exp	= sanitize_text(exp, initial(exp))
+	clientfps = sanitize_integer(clientfps, 0, 1000, initial(clientfps))
 	return 1
 
 /datum/preferences/proc/save_preferences(client/C)
@@ -89,7 +92,8 @@
 					show_ghostitem_attack='[show_ghostitem_attack]',
 					lastchangelog='[lastchangelog]',
 					windowflashing='[windowflashing]',
-					ghost_anonsay='[ghost_anonsay]'
+					ghost_anonsay='[ghost_anonsay]',
+					clientfps='[clientfps]'
 					WHERE ckey='[C.ckey]'"}
 					)
 
@@ -263,7 +267,7 @@
 	for(var/marking_location in m_colours)
 		m_colours[marking_location] = sanitize_hexcolor(m_colours[marking_location], DEFAULT_MARKING_COLOURS[marking_location])
 	hacc_colour		= sanitize_hexcolor(hacc_colour)
-	h_style			= sanitize_inlist(h_style, hair_styles_list, initial(h_style))
+	h_style			= sanitize_inlist(h_style, hair_styles_public_list, initial(h_style))
 	f_style			= sanitize_inlist(f_style, facial_hair_styles_list, initial(f_style))
 	for(var/marking_location in m_styles)
 		m_styles[marking_location] = sanitize_inlist(m_styles[marking_location], marking_styles_list, DEFAULT_MARKING_STYLES[marking_location])

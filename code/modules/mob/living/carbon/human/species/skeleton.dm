@@ -32,7 +32,6 @@
 	heat_level_1 = 999999999
 	heat_level_2 = 999999999
 	heat_level_3 = 999999999
-	heat_level_3_breathe = 999999999
 
 	suicide_messages = list(
 		"is snapping their own bones!",
@@ -54,6 +53,7 @@
 					if(L.brute_dam < L.min_broken_damage)
 						L.status &= ~ORGAN_BROKEN
 						L.status &= ~ORGAN_SPLINTED
+						H.handle_splints()
 						L.perma_injury = 0
 					break // We're only checking one limb here, bucko
 		if(prob(3))

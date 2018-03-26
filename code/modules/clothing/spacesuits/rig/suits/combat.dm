@@ -6,7 +6,7 @@
 	icon_state = "security_rig"
 	suit_type = "combat hardsuit"
 	armor = list(melee = 80, bullet = 80, laser = 50, energy = 50, bomb = 100, bio = 100, rad = 100)
-	slowdown = 1
+	active_slowdown = 1
 	offline_slowdown = 3
 	offline_vision_restriction = 1
 

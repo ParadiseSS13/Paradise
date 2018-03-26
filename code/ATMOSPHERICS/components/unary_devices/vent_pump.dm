@@ -1,7 +1,6 @@
 #define EXTERNAL_PRESSURE_BOUND ONE_ATMOSPHERE
 #define INTERNAL_PRESSURE_BOUND 0
 #define PRESSURE_CHECKS 1
-#undefine
 
 /obj/machinery/atmospherics/unary/vent_pump
 	icon = 'icons/atmos/vent_pump.dmi'
@@ -121,8 +120,9 @@
 	update_icon()
 	update_underlays()
 
-/obj/machinery/atmospherics/unary/vent_pump/process()
-	if(!..() || (stat & (NOPOWER|BROKEN)))
+/obj/machinery/atmospherics/unary/vent_pump/process_atmos()
+	..()
+	if((stat & (NOPOWER|BROKEN)))
 		return 0
 	if(!node)
 		on = 0
@@ -146,7 +146,7 @@
 
 		if(pressure_delta > 0.5)
 			if(air_contents.temperature > 0)
-				var/transfer_moles = pressure_delta*environment.volume/(air_contents.temperature * R_IDEAL_GAS_EQUATION)
+				var/transfer_moles = pressure_delta*environment.volume/(air_contents.temperature * R_IDEAL_GAS_EQUATION) / 5
 
 				var/datum/gas_mixture/removed = air_contents.remove(transfer_moles)
 
@@ -164,7 +164,7 @@
 
 		if(pressure_delta > 0.5)
 			if(environment.temperature > 0)
-				var/transfer_moles = pressure_delta*air_contents.volume/(environment.temperature * R_IDEAL_GAS_EQUATION)
+				var/transfer_moles = pressure_delta*air_contents.volume/(environment.temperature * R_IDEAL_GAS_EQUATION) / 5
 
 				var/datum/gas_mixture/removed = loc.remove_air(transfer_moles)
 				if(isnull(removed)) //in space

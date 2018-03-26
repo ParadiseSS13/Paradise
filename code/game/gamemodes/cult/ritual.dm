@@ -109,6 +109,7 @@
 	target cultists!). If this creature has a mind, a soulstone will be created and the creature's soul transported to it. Sacrificing the dead can be done alone, but sacrificing living crew <b>or your cult's target</b> will require 3 cultists. \
 	Soulstones used on construct shells will move that soul into a powerful construct of your choice.<br><br>"
 
+
 	text += "<font color='red'><b>Rite of Resurrection</b></font><br>This rune requires two corpses. To perform the ritual, place the corpse you wish to revive onto \
 	the rune and the offering body adjacent to it. When the rune is invoked, the body to be sacrificed will turn to dust, the life force flowing into the revival target. Assuming the target is not moved \
 	within a few seconds, they will be brought back to life, healed of all ailments.<br><br>"
@@ -201,6 +202,7 @@
 
 /obj/item/weapon/tome/proc/finale_runes_ok(mob/living/user, obj/effect/rune/rune_to_scribe)
 	var/datum/game_mode/cult/cult_mode = ticker.mode
+	var/area/A = get_area(src)
 	if(GAMEMODE_IS_CULT)
 		if(!canbypass)//not an admin-tome, check things
 			if(!cult_mode.narsie_condition_cleared)
@@ -214,6 +216,9 @@
 				return 0
 			if(!((CULT_ELDERGOD in cult_mode.objectives) || (CULT_SLAUGHTER in cult_mode.objectives)))
 				to_chat(user, "<span class='warning'>[cult_mode.cultdat.entity_name]'s power does not wish to be unleashed!</span>")
+				return 0
+			if(!(A in summon_spots))
+				to_chat(user, "<span class='cultlarge'>[cult_mode.cultdat.entity_name] can only be summoned where the veil is weak - in [english_list(summon_spots)]!</span>")
 				return 0
 		var/confirm_final = alert(user, "This is the FINAL step to summon your deities power, it is a long, painful ritual and the crew will be alerted to your presence", "Are you prepared for the final battle?", "My life for [cult_mode.cultdat.entity_name]!", "No")
 		if(confirm_final == "No" || confirm_final == null)
@@ -236,6 +241,7 @@
 	var/entered_rune_name
 	var/list/possible_runes = list()
 	var/list/shields = list()
+	var/area/A = get_area(src)
 	if(locate(/obj/effect/rune) in runeturf)
 		to_chat(user, "<span class='cult'>There is already a rune here.</span>")
 		return
@@ -261,6 +267,7 @@
 	if(!rune_to_scribe)
 		return
 	runeturf = get_turf(user) //we may have moved. adjust as needed...
+	A = get_area(src)
 	if(locate(/obj/effect/rune) in runeturf)
 		to_chat(user, "<span class='cult'>There is already a rune here.</span>")
 		return
@@ -268,7 +275,11 @@
 		return
 	if(ispath(rune_to_scribe, /obj/effect/rune/narsie) || ispath(rune_to_scribe, /obj/effect/rune/slaughter))//may need to change this - Fethas
 		if(finale_runes_ok(user,rune_to_scribe))
-			command_announcement.Announce("Figments from an eldritch god are being summoned somwhere on the station from an unknown dimension. Disrupt the ritual at all costs!","Central Command Higher Dimensional Affairs", 'sound/AI/spanomalies.ogg')
+			A = get_area(src)
+			if(!(A in summon_spots))  // Check again to make sure they didn't move
+				to_chat(user, "<span class='cultlarge'>The ritual can only begin where the veil is weak - in [english_list(summon_spots)]!</span>")
+				return
+			command_announcement.Announce("Figments from an eldritch god are being summoned somewhere on the station from an unknown dimension. Disrupt the ritual at all costs!","Central Command Higher Dimensional Affairs", 'sound/AI/spanomalies.ogg')
 			for(var/B in spiral_range_turfs(1, user, 1))
 				var/turf/T = B
 				var/obj/machinery/shield/N = new(T)
@@ -283,7 +294,7 @@
 	var/mob/living/carbon/human/H = user
 	var/dam_zone = pick("head", "chest", "groin", "l_arm", "l_hand", "r_arm", "r_hand", "l_leg", "l_foot", "r_leg", "r_foot")
 	var/obj/item/organ/external/affecting = H.get_organ(ran_zone(dam_zone))
-	user.visible_message("<span class='warning'>[user] cuts open their \The [affecting] and begins writing in their own blood!</span>", "<span class='cult'>You slice open your [affecting] and begin drawing a sigil of [ticker.mode.cultdat.entity_title3].</span>")
+	user.visible_message("<span class='warning'>[user] cuts open their [affecting] and begins writing in their own blood!</span>", "<span class='cult'>You slice open your [affecting] and begin drawing a sigil of [ticker.mode.cultdat.entity_title3].</span>")
 	user.apply_damage(initial(rune_to_scribe.scribe_damage), BRUTE , affecting)
 	if(!do_after(user, initial(rune_to_scribe.scribe_delay)-scribereduct, target = get_turf(user)))
 		for(var/V in shields)

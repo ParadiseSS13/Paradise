@@ -5,6 +5,7 @@
 	icon_state = "meterX"
 	var/obj/machinery/atmospherics/pipe/target = null
 	anchored = 1
+	armor = list(melee = 0, bullet = 0, laser = 0, energy = 100, bomb = 0, bio = 100, rad = 100)
 	power_channel = ENVIRON
 	var/frequency = 0
 	var/id
@@ -18,12 +19,14 @@
 
 /obj/machinery/meter/New()
 	..()
+	SSair.atmos_machinery += src
 	target = locate(/obj/machinery/atmospherics/pipe) in loc
 	if(id && !id_tag)//i'm not dealing with further merge conflicts, fuck it
 		id_tag = id
 	return 1
 
 /obj/machinery/meter/Destroy()
+	SSair.atmos_machinery -= src
 	target = null
 	return ..()
 
@@ -32,7 +35,7 @@
 	if(!target)
 		target = locate(/obj/machinery/atmospherics/pipe) in loc
 
-/obj/machinery/meter/process()
+/obj/machinery/meter/process_atmos()
 	if(!target)
 		icon_state = "meterX"
 		return 0

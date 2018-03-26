@@ -109,7 +109,7 @@
 				user.visible_message("<span class='notice'>[user] starts to shave their facial hair with \the [src].</span>", \
 				"<span class='notice'>You take a moment shave your facial hair with \the [src].</span>")
 				if(do_after(user, 50 * toolspeed, target = H))
-					user.visible_message("<span class='notice'>[user] shaves his facial hair clean with the [src].</span>", \
+					user.visible_message("<span class='notice'>[user] shaves \his facial hair clean with the [src].</span>", \
 					"<span class='notice'>You finish shaving with the [src]. Fast and clean!</span>")
 					C.f_style = "Shaved"
 					H.update_fhair()
@@ -143,8 +143,8 @@
 				user.visible_message("<span class='warning'>[user] starts to shave their head with \the [src].</span>", \
 				"<span class='warning'>You start to shave your head with \the [src].</span>")
 				if(do_after(user, 50 * toolspeed, target = H))
-					user.visible_message("<span class='notice'>[user] shaves his head with the [src].</span>", \
-					"<span class='notice'>You finish shaving with the [src].</span>")
+					user.visible_message("<span class='notice'>[user] shaves \his head with \the [src].</span>", \
+					"<span class='notice'>You finish shaving with \the [src].</span>")
 					C.h_style = "Skinhead"
 					H.update_hair()
 					playsound(src.loc, usesound, 40, 1)

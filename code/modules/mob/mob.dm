@@ -34,8 +34,15 @@
 	..()
 
 /atom/proc/prepare_huds()
+	hud_list = list()
 	for(var/hud in hud_possible)
-		hud_list[hud] = image('icons/mob/hud.dmi', src, "")
+		var/hint = hud_possible[hud]
+		switch(hint)
+			if(HUD_LIST_LIST)
+				hud_list[hud] = list()
+			else
+				var/image/I = image('icons/mob/hud.dmi', src, "")
+				hud_list[hud] = I
 
 /mob/proc/generate_name()
 	return name
@@ -939,6 +946,25 @@ var/list/slot_equipment_priority = list( \
 
 			if(processScheduler)
 				processScheduler.statProcesses()
+		if(statpanel("MC")) //looking at that panel
+			var/turf/T = get_turf(client.eye)
+			stat("Location:", COORD(T))
+			stat("CPU:", "[world.cpu]")
+			stat("Instances:", "[num2text(world.contents.len, 10)]")
+			GLOB.stat_entry()
+			stat(null)
+			if(Master)
+				Master.stat_entry()
+			else
+				stat("Master Controller:", "ERROR")
+			if(Failsafe)
+				Failsafe.stat_entry()
+			else
+				stat("Failsafe Controller:", "ERROR")
+			if(Master)
+				stat(null)
+				for(var/datum/controller/subsystem/SS in Master.subsystems)
+					SS.stat_entry()
 
 	statpanel("Status") // Switch to the Status panel again, for the sake of the lazy Stat procs
 
@@ -1265,3 +1291,20 @@ var/list/slot_equipment_priority = list( \
 	.["Remove Verb"] = "?_src_=vars;remverb=[UID()]"
 
 	.["Gib"] = "?_src_=vars;gib=[UID()]"
+
+/mob/proc/spin(spintime, speed)
+	set waitfor = 0
+	var/D = dir
+	while(spintime >= speed)
+		sleep(speed)
+		switch(D)
+			if(NORTH)
+				D = EAST
+			if(SOUTH)
+				D = WEST
+			if(EAST)
+				D = SOUTH
+			if(WEST)
+				D = NORTH
+		setDir(D)
+		spintime -= speed

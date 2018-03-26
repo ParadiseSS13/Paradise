@@ -21,7 +21,7 @@
 	return ..()
 
 /obj/effect/waterfall/proc/drip()
-	var/obj/effect/effect/water/W = new(loc)
+	var/obj/effect/particle_effect/water/W = new(loc)
 	W.dir = dir
 	spawn(1)
 		W.loc = get_step(W, dir)

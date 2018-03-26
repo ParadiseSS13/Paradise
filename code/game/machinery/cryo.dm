@@ -6,7 +6,7 @@
 	anchored = 1.0
 	layer = 2.8
 	interact_offline = 1
-
+	armor = list(melee = 0, bullet = 0, laser = 0, energy = 100, bomb = 0, bio = 100, rad = 100)
 	var/on = 0
 	var/temperature_archived
 	var/mob/living/carbon/occupant = null
@@ -126,6 +126,15 @@
 				on = 0
 				go_out()
 				playsound(src.loc, 'sound/machines/ding.ogg', 50, 1)
+
+	if(air_contents)
+		if(occupant)
+			process_occupant()
+
+	return 1
+
+/obj/machinery/atmospherics/unary/cryo_cell/process_atmos()
+	..()
 	if(!node)
 		return
 	if(!on)
@@ -135,12 +144,8 @@
 		temperature_archived = air_contents.temperature
 		heat_gas_contents()
 
-		if(occupant)
-			process_occupant()
 	if(abs(temperature_archived-air_contents.temperature) > 1)
 		parent.update = 1
-
-	return 1
 
 
 /obj/machinery/atmospherics/unary/cryo_cell/allow_drop()

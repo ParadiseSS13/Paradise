@@ -29,6 +29,7 @@
 	health = 10
 	faction = list("hostile")
 	move_to_delay = 0
+	obj_damage = 0
 	environment_smash = 0
 	mouse_opacity = 2
 	pass_flags = PASSTABLE | PASSGRILLE | PASSMOB
@@ -126,9 +127,6 @@
 	if(B.beegent && beegent && B.beegent.id != beegent.id || B.beegent && !beegent || !B.beegent && beegent)
 		return 1
 	return 0
-
-
-
 
 //Botany Worker Bees
 /mob/living/simple_animal/hostile/poison/bees/worker
@@ -253,6 +251,9 @@
 		if(S.reagents.has_reagent("royal_bee_jelly")) //checked twice, because I really don't want royal bee jelly to be duped
 			if(S.reagents.has_reagent("royal_bee_jelly",5))
 				S.reagents.remove_reagent("royal_bee_jelly", 5)
+				if(!queen.beegent.can_synth)
+					to_chat(user, "<span class='warning'>You inject [src] with the royal bee jelly. It's ineffective! Maybe it's something to do with the [src] reagent.</span>")
+					return
 				var/obj/item/queen_bee/qb = new(get_turf(user))
 				qb.queen = new(qb)
 				if(queen && queen.beegent)

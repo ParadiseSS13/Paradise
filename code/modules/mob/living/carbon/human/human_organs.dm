@@ -21,7 +21,7 @@
 			if(E.is_broken() && E.internal_organs && E.internal_organs.len && prob(15))
 				var/obj/item/organ/internal/I = pick(E.internal_organs)
 				custom_pain("You feel broken bones moving in your [E.name]!", 1)
-				I.take_damage(rand(3,5))
+				I.receive_damage(rand(3,5))
 
 	//handle_stance()
 	handle_grasp()
@@ -107,7 +107,7 @@
 
 			custom_emote(1, "drops what they were holding, their [E.name] malfunctioning!")
 
-			var/datum/effect/system/spark_spread/spark_system = new /datum/effect/system/spark_spread()
+			var/datum/effect_system/spark_spread/spark_system = new /datum/effect_system/spark_spread()
 			spark_system.set_up(5, 0, src)
 			spark_system.attach(src)
 			spark_system.start()
@@ -170,9 +170,9 @@ I use this to standardize shadowling dethrall code
 -- Crazylemon
 */
 /mob/living/carbon/human/proc/named_organ_parent(var/organ_name)
-	if(!get_int_organ(organ_name))
+	if(!get_int_organ_tag(organ_name))
 		return null
-	var/obj/item/organ/internal/O = get_int_organ(organ_name)
+	var/obj/item/organ/internal/O = get_int_organ_tag(organ_name)
 	return O.parent_organ
 
 /mob/living/carbon/human/has_organic_damage()
@@ -182,3 +182,9 @@ I use this to standardize shadowling dethrall code
 			odmg += O.brute_dam
 			odmg += O.burn_dam
 	return (health < (100 - odmg))
+
+/mob/living/carbon/human/proc/handle_splints() //proc that rebuilds the list of splints on this person, for ease of processing
+	splinted_limbs.Cut()
+	for(var/obj/item/organ/external/limb in bodyparts)
+		if(limb.status & ORGAN_SPLINTED)
+			splinted_limbs += limb

@@ -80,6 +80,7 @@
 	active_power_usage = 8
 	power_channel = ENVIRON
 	req_one_access = list(access_atmospherics, access_engine_equip)
+	armor = list(melee = 0, bullet = 0, laser = 0, energy = 100, bomb = 0, bio = 100, rad = 100)
 	var/alarm_id = null
 	var/frequency = 1439
 	//var/skipprocess = 0 //Experimenting
@@ -302,10 +303,17 @@
 
 	if(old_danger_level!=danger_level)
 		apply_danger_level()
+		if(mode == AALARM_MODE_SCRUBBING && danger_level == ATMOS_ALARM_DANGER)
+			if(pressure_dangerlevel == ATMOS_ALARM_DANGER)
+				mode = AALARM_MODE_OFF
+				if(temperature_dangerlevel == ATMOS_ALARM_DANGER && cur_tlv.max2 <= environment.temperature)
+					mode = AALARM_MODE_PANIC
+		apply_mode()
 
 	if(mode == AALARM_MODE_REPLACEMENT && environment_pressure < ONE_ATMOSPHERE * 0.05)
 		mode = AALARM_MODE_SCRUBBING
 		apply_mode()
+
 
 /obj/machinery/alarm/proc/handle_heating_cooling(var/datum/gas_mixture/environment, var/datum/tlv/cur_tlv, var/turf/simulated/location)
 	cur_tlv = TLV["temperature"]

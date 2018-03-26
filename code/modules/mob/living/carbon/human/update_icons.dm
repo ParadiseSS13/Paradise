@@ -105,6 +105,7 @@ Please contact me on #coderbus IRC. ~Carn x
 
 /mob/living/carbon/human
 	var/list/overlays_standing[TOTAL_LAYERS]
+	var/list/misc_effect_overlays = list() //Overlays that are applied at a custom layer (defined in each image's .layer property) outside of standard overlay application. Updated in update_misc_effects()
 	var/previous_damage_appearance // store what the body last looked like, so we only have to update it if something changed
 	var/icon/skeleton
 	var/list/cached_standing_overlays = list() // List of everything currently in a human's actual overlays
@@ -153,6 +154,10 @@ Please contact me on #coderbus IRC. ~Carn x
 					// Since we avoid full overlay rebuilds, we have to reorganize the layers manually
 					I.layer = (-2 - (TOTAL_LAYERS - i)) // Highest layer gets -2, each prior layer is 1 lower
 				new_overlays += I
+
+		update_misc_effects()
+		if(misc_effect_overlays)
+			new_overlays += misc_effect_overlays
 
 		if(frozen) // Admin freeze overlay
 			new_overlays += frozen
@@ -442,7 +447,7 @@ var/global/list/damage_icon_parts = list()
 	//var/icon/debrained_s = new /icon("icon"='icons/mob/human_face.dmi', "icon_state" = "debrained_s")
 
 	if(head_organ.h_style && !(head && (head.flags & BLOCKHEADHAIR) && !(isSynthetic())))
-		var/datum/sprite_accessory/hair/hair_style = hair_styles_list[head_organ.h_style]
+		var/datum/sprite_accessory/hair/hair_style = hair_styles_full_list[head_organ.h_style]
 		//if(!src.get_int_organ(/obj/item/organ/internal/brain) && src.get_species() != "Machine" )//make it obvious we have NO BRAIN
 		//	hair_standing.Blend(debrained_s, ICON_OVERLAY)
 		if(hair_style && hair_style.species_allowed)
@@ -539,7 +544,7 @@ var/global/list/damage_icon_parts = list()
 			if(LASER)
 				standing.overlays	+= "lasereyes_s"
 				add_image = 1
-	if((RESIST_COLD in mutations) && (RESIST_HEAT in mutations))
+	if((COLDRES in mutations) && (HEATRES in mutations))
 		standing.underlays	-= "cold[fat]_s"
 		standing.underlays	-= "fire[fat]_s"
 		standing.underlays	+= "coldfire[fat]_s"
@@ -759,7 +764,7 @@ var/global/list/damage_icon_parts = list()
 		else
 			new_glasses = image("icon" = 'icons/mob/eyes.dmi', "icon_state" = "[glasses.icon_state]")
 
-		var/datum/sprite_accessory/hair/hair_style = hair_styles_list[head_organ.h_style]
+		var/datum/sprite_accessory/hair/hair_style = hair_styles_full_list[head_organ.h_style]
 		if(hair_style && hair_style.glasses_over) //Select which layer to use based on the properties of the hair style. Hair styles with hair that don't overhang the arms of the glasses should have glasses_over set to a positive value.
 			overlays_standing[GLASSES_OVER_LAYER] = new_glasses
 		else
@@ -1323,6 +1328,13 @@ var/global/list/damage_icon_parts = list()
 	overlays_standing[COLLAR_LAYER]	= standing
 
 	if(update_icons)   update_icons()
+
+/mob/living/carbon/human/proc/update_misc_effects()
+	misc_effect_overlays.Cut()
+
+	//Begin appending miscellaneous effects.
+	if(eyes_shine())
+		misc_effect_overlays += get_eye_shine() //Image layer is specified in get_eye_shine() proc as LIGHTING_LAYER + 1.
 
 /mob/living/carbon/human/proc/force_update_limbs()
 	for(var/obj/item/organ/external/O in bodyparts)

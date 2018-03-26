@@ -4,12 +4,12 @@
 	icon = 'icons/obj/closet.dmi'
 	icon_state = "closed"
 	density = 1
+	armor = list(melee = 20, bullet = 10, laser = 10, energy = 0, bomb = 10, bio = 0, rad = 0)
 	var/icon_closed = "closed"
 	var/icon_opened = "open"
 	var/opened = 0
 	var/welded = 0
 	var/locked = 0
-	var/broken = 0
 	var/wall_mounted = 0 //never solid (You can always pass over it)
 	var/health = 100
 	var/lastbang
@@ -32,9 +32,6 @@
 /obj/structure/closet/Destroy()
 	dump_contents()
 	return ..()
-
-/obj/structure/closet/alter_health()
-	return get_turf(src)
 
 /obj/structure/closet/CanPass(atom/movable/mover, turf/target, height=0)
 	if(height==0 || wall_mounted) return 1
@@ -212,7 +209,7 @@
 					if(!(E.rcell && E.rcell.use(E.chargecost)))
 						to_chat(user, "<span class='notice'>Unable to teleport, insufficient charge.</span>")
 						return
-					var/datum/effect/system/spark_spread/s = new /datum/effect/system/spark_spread
+					var/datum/effect_system/spark_spread/s = new /datum/effect_system/spark_spread
 					s.set_up(5, 1, src)
 					s.start()
 					do_teleport(src, E.pad, 0)
@@ -239,7 +236,7 @@
 				if(!(E.rcell && E.rcell.use(E.chargecost)))
 					to_chat(user, "<span class='notice'>Unable to teleport, insufficient charge.</span>")
 					return
-				var/datum/effect/system/spark_spread/s = new /datum/effect/system/spark_spread
+				var/datum/effect_system/spark_spread/s = new /datum/effect_system/spark_spread
 				s.set_up(5, 1, src)
 				s.start()
 				do_teleport(src, L)

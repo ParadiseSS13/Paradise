@@ -4,10 +4,7 @@ var/global/datum/global_init/init = new ()
 	Pre-map initialization stuff should go here.
 */
 /datum/global_init/New()
-
-	makeDatumRefLists()
-	load_configuration()
-
+	setLog()
 	del(src)
 
 /world
@@ -23,14 +20,8 @@ var/global/datum/global_init/init = new ()
 var/global/list/map_transition_config = MAP_TRANSITION_CONFIG
 
 /world/New()
-	//logs
-	var/date_string = time2text(world.realtime, "YYYY/MM-Month/DD-Day")
-	href_logfile = file("data/logs/[date_string] hrefs.htm")
-	diary = file("data/logs/[date_string].log")
-	diaryofmeanpeople = file("data/logs/[date_string] Attack.log")
 	diary << "\n\nStarting up. [time2text(world.timeofday, "hh:mm.ss")]\n---------------------"
 	diaryofmeanpeople << "\n\nStarting up. [time2text(world.timeofday, "hh:mm.ss")]\n---------------------"
-
 	if(byond_version < RECOMMENDED_VERSION)
 		log_to_dd("Your server's byond version does not meet the recommended requirements for this code. Please update BYOND")
 
@@ -43,6 +34,7 @@ var/global/list/map_transition_config = MAP_TRANSITION_CONFIG
 
 	timezoneOffset = text2num(time2text(0,"hh")) * 36000
 
+
 	callHook("startup")
 
 	src.update_status()
@@ -54,6 +46,8 @@ var/global/list/map_transition_config = MAP_TRANSITION_CONFIG
 
 	space_manager.initialize() //Before the MC starts up
 
+	Master.Initialize(10, FALSE)
+
 	processScheduler = new
 	master_controller = new /datum/controller/game_controller()
 	spawn(1)
@@ -61,15 +55,17 @@ var/global/list/map_transition_config = MAP_TRANSITION_CONFIG
 		processScheduler.setup()
 
 		master_controller.setup()
-		sleep_offline = 1
 
-	#ifdef MAP_NAME
-	map_name = "[MAP_NAME]"
-	#else
-	map_name = "Unknown"
-	#endif
-
-
+	if(using_map && using_map.name)
+		map_name = "[using_map.name]"
+	else
+		map_name = "Unknown"
+	
+	
+	if(config && config.server_name)
+		name = "[config.server_name]: [station_name()]"
+	else
+		name = station_name()
 
 
 #undef RECOMMENDED_VERSION
@@ -265,6 +261,14 @@ var/world_topic_spam_protect_time = world.timeofday
 
 		return "Kick Successful"
 
+	else if("setlog" in input)
+		if(!key_valid)
+			return keySpamProtect(addr)
+
+		setLog()
+
+		return "Logs set to current date"
+
 /proc/keySpamProtect(var/addr)
 	if(world_topic_spam_protect_ip == addr && abs(world_topic_spam_protect_time - world.time) < 50)
 		spawn(50)
@@ -454,6 +458,12 @@ var/world_topic_spam_protect_time = world.timeofday
 var/failed_db_connections = 0
 var/failed_old_db_connections = 0
 
+/proc/setLog()
+	var/date_string = time2text(world.realtime, "YYYY/MM-Month/DD-Day")
+	href_logfile = file("data/logs/[date_string] hrefs.htm")
+	diary = file("data/logs/[date_string].log")
+	diaryofmeanpeople = file("data/logs/[date_string] Attack.log")
+
 /hook/startup/proc/connectDB()
 	if(!setup_database_connection())
 		log_to_dd("Your server failed to establish a connection with the feedback database.")
@@ -461,7 +471,7 @@ var/failed_old_db_connections = 0
 		log_to_dd("Feedback database connection established.")
 	return 1
 
-proc/setup_database_connection()
+/proc/setup_database_connection()
 
 	if(failed_db_connections > FAILED_DB_CONNECTION_CUTOFF)	//If it failed to establish a connection more than 5 times in a row, don't bother attempting to conenct anymore.
 		return 0
@@ -496,3 +506,4 @@ proc/establish_db_connection()
 		return 1
 
 #undef FAILED_DB_CONNECTION_CUTOFF
+

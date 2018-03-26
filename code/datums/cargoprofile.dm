@@ -1,4 +1,3 @@
-#define MAXCOIL 30
 /datum/cargoprofile
 	var/name = "All Items"
 	var/id = "all" // unique ID for the UI
@@ -139,8 +138,7 @@
 	whitelist = list(/obj/item/stack/cable_coil,/obj/item/stack/rods,
 					/obj/item/stack/sheet/metal,/obj/item/stack/sheet/plasteel,
 					/obj/item/stack/sheet/glass,/obj/item/stack/sheet/rglass,
-					/obj/item/stack/tile,/obj/item/weapon/light,
-					/obj/item/weapon/table_parts)
+					/obj/item/stack/tile,/obj/item/weapon/light)
 	//todo: maybe stack things while we're here?
 
 /datum/cargoprofile/exotics
@@ -788,4 +786,3 @@
 		var/punches = punch(M,remaining / PUNCH_WORK)
 		if(punches>1)master.sleep++
 		return punches * PUNCH_WORK
-#undef MAXCOIL

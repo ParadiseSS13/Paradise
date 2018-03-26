@@ -100,8 +100,6 @@
 
 	var/in_throw_mode = 0
 
-	var/coughedtime = null
-
 	var/emote_cd = 0		// Used to supress emote spamming. 1 if on CD, 2 if disabled by admin (manually set), else 0
 
 	var/job = null//Living
