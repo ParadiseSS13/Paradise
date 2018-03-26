@@ -129,11 +129,10 @@
 	mix_sound = null
 
 /datum/chemical_reaction/blackpowder_explosion/on_reaction(datum/reagents/holder, created_volume)
-	var/turf/location = get_turf(holder.my_atom)
+	var/location = get_turf(holder.my_atom)
 	var/datum/effect_system/spark_spread/s = new /datum/effect_system/spark_spread
 	s.set_up(2, 1, location)
 	s.start()
-	message_admins("Black Powder explosion imminment at [location.x] [location.y] [location.z] [ADMIN_JMP(location)] with volume [created_volume]")
 	sleep(rand(20,30))
 	blackpowder_detonate(holder, created_volume)
 
