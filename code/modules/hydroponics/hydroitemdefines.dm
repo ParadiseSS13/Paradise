@@ -119,6 +119,7 @@
 	hitsound = 'sound/weapons/bladeslice.ogg'
 	sharp = 1
 	var/extend = 1
+	var/swiping = FALSE
 
 /obj/item/weapon/scythe/suicide_act(mob/user)
 	user.visible_message("<span class='suicide'>[user] is beheading \himself with the [src.name]! It looks like \he's trying to commit suicide.</span>")
@@ -129,6 +130,21 @@
 			affecting.droplimb(1, DROPLIMB_SHARP)
 			playsound(loc, pick('sound/misc/desceration-01.ogg','sound/misc/desceration-02.ogg','sound/misc/desceration-01.ogg'), 50, 1, -1)
 	return (BRUTELOSS)
+
+/obj/item/weapon/scythe/pre_attackby(atom/A, mob/living/user, params)
+	if(swiping || !istype(A, /obj/structure/spacevine) || get_turf(A) == get_turf(user))
+		return ..()
+	else
+		var/turf/user_turf = get_turf(user)
+		var/dir_to_target = get_dir(user_turf, get_turf(A))
+		swiping = TRUE
+		var/static/list/scythe_slash_angles = list(0, 45, 90, -45, -90)
+		for(var/i in scythe_slash_angles)
+			var/turf/T = get_step(user_turf, turn(dir_to_target, i))
+			for(var/obj/structure/spacevine/V in T)
+				if(user.Adjacent(V))
+					melee_attack_chain(user, V)
+		swiping = FALSE
 
 /obj/item/weapon/scythe/tele
 	icon_state = "tscythe0"

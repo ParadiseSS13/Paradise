@@ -27,6 +27,11 @@
 #define PLASTIC_FLAPS_NORMAL 0
 #define PLASTIC_FLAPS_DETACHED 1
 
+//other construction-related things
+
+//windows affected by nar-sie turn this color.
+#define NARSIE_WINDOW_COLOUR "#7D1919"
+
 //Material defines, for determining how much of a given material an item contains
 #define MAT_METAL			"$metal"
 #define MAT_GLASS			"$glass"

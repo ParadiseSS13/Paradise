@@ -692,7 +692,6 @@ Note that amputating the affected organ does in fact remove the infection from t
 
 	if(!owner)
 		return
-	var/is_robotic = status & ORGAN_ROBOT
 	var/mob/living/carbon/human/victim = owner
 
 	if(status & ORGAN_SPLINTED)
@@ -724,7 +723,7 @@ Note that amputating the affected organ does in fact remove the infection from t
 		victim.bodyparts_by_name[limb_name] = null	// Remove from owner's vars.
 
 	//Robotic limbs explode if sabotaged.
-	if(is_robotic && sabotaged)
+	if(is_robotic() && sabotaged)
 		victim.visible_message(
 			"<span class='danger'>\The [victim]'s [src.name] explodes violently!</span>",\
 			"<span class='danger'>Your [src.name] explodes!</span>",\

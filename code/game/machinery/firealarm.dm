@@ -12,6 +12,7 @@ FIRE ALARM
 	var/timing = 0.0
 	var/lockdownbyai = 0
 	anchored = 1.0
+	armor = list(melee = 0, bullet = 0, laser = 0, energy = 0, bomb = 0, bio = 100, rad = 100)
 	use_power = 1
 	idle_power_usage = 2
 	active_power_usage = 6

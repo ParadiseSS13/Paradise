@@ -66,7 +66,7 @@
 	add_fingerprint(user)
 	return
 
-/obj/structure/inflatable/proc/attack_generic(mob/user as mob, damage = 0)	//used by attack_alien, attack_animal, and attack_slime
+/obj/structure/inflatable/attack_generic(mob/user, damage = 0)	//used by attack_alien, attack_animal, and attack_slime
 	health -= damage
 	if(health <= 0)
 		user.visible_message("<span class='danger'>[user] tears open [src]!</span>")
