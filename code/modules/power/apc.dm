@@ -913,7 +913,7 @@
 		if(!is_authenticated(usr))
 			return
 
-		if(last_nightshift_switch < world.time + 100) // don't spam...
+		if(last_nightshift_switch > world.time + 100) // don't spam...
 			to_chat(usr, "<span class='warning'>[src]'s night lighting circuit breaker is still cycling!</span>")
 			return
 		last_nightshift_switch = world.time

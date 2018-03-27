@@ -142,7 +142,7 @@
 	var/static_power_used = 0
 	var/brightness_range = 8	// luminosity when on, also used in power calculation
 	var/brightness_power = 1
-	var/brightness_color = null
+	var/brightness_color = "#FFFFFF"
 	var/status = LIGHT_OK		// LIGHT_OK, _EMPTY, _BURNED or _BROKEN
 	var/flickering = 0
 	var/light_type = /obj/item/weapon/light/tube		// the type of light item
