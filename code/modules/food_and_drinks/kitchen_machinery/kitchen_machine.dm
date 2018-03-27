@@ -174,11 +174,11 @@
 		return
 	var/dat = ""
 	if(broken > 0)
-		dat = {"<TT>Bzzzzttttt</TT>"}
+		dat = {"<code>Bzzzzttttt</code>"}
 	else if(operating)
-		dat = {"<TT>[pick(cook_verbs)] in progress!<BR>Please wait...!</TT>"}
+		dat = {"<code>[pick(cook_verbs)] in progress!<BR>Please wait...!</code>"}
 	else if(dirty==100)
-		dat = {"<TT>This [src] is dirty!<BR>Please clean it before use!</TT>"}
+		dat = {"<code>This [src] is dirty!<BR>Please clean it before use!</code>"}
 	else
 		var/list/items_counts = new
 		var/list/items_measures = new

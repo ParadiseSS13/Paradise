@@ -53,7 +53,7 @@
 /obj/item/mixing_bowl/attack_self(mob/user)
 	var/dat = ""
 	if(dirty)
-		dat = {"<TT>This [src] is dirty!<BR>Please clean it before use!</TT>"}
+		dat = {"<code>This [src] is dirty!<BR>Please clean it before use!</code>"}
 	else
 		var/list/items_counts = new
 		var/list/items_measures = new
