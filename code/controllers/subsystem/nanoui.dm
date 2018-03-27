@@ -1,5 +1,5 @@
 SUBSYSTEM_DEF(nanoui)
-	name = "nanoui"
+	name = "Nanoui"
 	wait = 9
 	flags = SS_NO_INIT
 	priority = FIRE_PRIORITY_NANOUI
