@@ -32,6 +32,8 @@ Pipelines + Other Objects -> Pipe network
 	var/global/datum/pipe_icon_manager/icon_manager
 
 /obj/machinery/atmospherics/New()
+	if(!armor)
+		armor = list(melee = 25, bullet = 10, laser = 10, energy = 100, bomb = 0, bio = 100, rad = 100)
 	..()
 	atmos_machinery += src
 	if(!icon_manager)

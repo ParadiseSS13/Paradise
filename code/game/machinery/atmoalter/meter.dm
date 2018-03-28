@@ -5,6 +5,7 @@
 	icon_state = "meterX"
 	var/obj/machinery/atmospherics/pipe/target = null
 	anchored = 1
+	armor = list(melee = 0, bullet = 0, laser = 0, energy = 100, bomb = 0, bio = 100, rad = 100)
 	power_channel = ENVIRON
 	var/frequency = 0
 	var/id
