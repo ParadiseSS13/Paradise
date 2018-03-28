@@ -17,7 +17,10 @@
 	message_admins("Admin [key_name_admin(usr)] has restarted the [controller] controller.")
 	return
 
-/client/proc/debug_controller(controller in list("Master","failsafe","Ticker","Air","Jobs","Sun","Radio","Configuration","pAI", "Cameras","Garbage", "Transfer Controller","Event","Alarm","Scheduler","Nano","Vote","Diseases","Fires","Mob","NPC AI","Shuttle","Timer","Weather","Space","Mob Hunt Server"))
+/client/proc/debug_controller(controller in list("Master",
+	"failsafe","Scheduler","StonedMaster","Ticker","Air","Jobs","Sun","Radio","Configuration","pAI",
+	"Cameras","Garbage", "Transfer Controller","Event","Alarm","Nano","Vote","Fires",
+	"Mob","NPC AI","Shuttle","Timer","Weather","Space","Mob Hunt Server"))
 	set category = "Debug"
 	set name = "Debug Controller"
 	set desc = "Debug the various periodic loop controllers for the game (be careful!)"
@@ -28,13 +31,19 @@
 			debug_variables(master_controller)
 			feedback_add_details("admin_verb","DMC")
 		if("failsafe")
-			debug_variables(failsafe)
+			debug_variables(Failsafe)
 			feedback_add_details("admin_verb", "dfailsafe")
+		if("Scheduler")
+			debug_variables(processScheduler)
+			feedback_add_details("admin_verb","DprocessScheduler")
+		if("StonedMaster")
+			debug_variables(Master)
+			feedback_add_details("admin_verb","Dsmc")
 		if("Ticker")
 			debug_variables(ticker)
 			feedback_add_details("admin_verb","DTicker")
 		if("Air")
-			debug_variables(air_master)
+			debug_variables(SSair)
 			feedback_add_details("admin_verb","DAir")
 		if("Jobs")
 			debug_variables(job_master)
@@ -63,9 +72,6 @@
 		if("Garbage")
 			debug_variables(garbageCollector)
 			feedback_add_details("admin_verb","DGarbage")
-		if("Scheduler")
-			debug_variables(processScheduler)
-			feedback_add_details("admin_verb","DprocessScheduler")
 		if("Nano")
 			debug_variables(nanomanager)
 			feedback_add_details("admin_verb","DNano")

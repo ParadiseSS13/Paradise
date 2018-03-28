@@ -493,15 +493,15 @@
 			T1.shuttleRotate(rotation)
 
 		//lighting stuff
-		air_master.remove_from_active(T1)
+		SSair.remove_from_active(T1)
 		T1.CalculateAdjacentTurfs()
-		air_master.add_to_active(T1,1)
+		SSair.add_to_active(T1,1)
 
 		T0.ChangeTurf(turf_type)
 
-		air_master.remove_from_active(T0)
+		SSair.remove_from_active(T0)
 		T0.CalculateAdjacentTurfs()
-		air_master.add_to_active(T0,1)
+		SSair.add_to_active(T0,1)
 
 	for(var/A1 in L1)
 		var/turf/T1 = A1

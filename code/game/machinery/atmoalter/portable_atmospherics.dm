@@ -14,7 +14,7 @@
 
 /obj/machinery/portable_atmospherics/New()
 	..()
-	atmos_machinery += src
+	SSair.atmos_machinery += src
 
 	air_contents.volume = volume
 	air_contents.temperature = T20C
@@ -37,7 +37,7 @@
 		update_icon()
 
 /obj/machinery/portable_atmospherics/Destroy()
-	atmos_machinery -= src
+	SSair.atmos_machinery -= src
 	disconnect()
 	QDEL_NULL(air_contents)
 	QDEL_NULL(holding)
