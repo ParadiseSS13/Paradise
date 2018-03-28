@@ -348,6 +348,13 @@ emp_act
 
 	if(penetrated_dam) SS.create_breaches(damtype, penetrated_dam)
 
+/mob/living/carbon/human/attack_hand(mob/user)
+	if(..())	//to allow surgery to return properly.
+		return
+	if(ishuman(user))
+		var/mob/living/carbon/human/H = user
+		species.spec_attack_hand(H, src)
+
 /mob/living/carbon/human/attack_larva(mob/living/carbon/alien/larva/L)
 	if(..()) //successful larva bite.
 		var/damage = rand(1, 3)

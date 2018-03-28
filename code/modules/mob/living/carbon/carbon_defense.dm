@@ -38,6 +38,12 @@
 		var/datum/disease/D = thing
 		if(D.IsSpreadByTouch())
 			ContractDisease(D)
+
+	if(lying && surgeries.len)
+		if(user.a_intent == INTENT_HELP)
+			for(var/datum/surgery/S in surgeries)
+				if(S.next_step(user, user.a_intent))
+					return 1
 	return 0
 
 /mob/living/carbon/attack_slime(mob/living/carbon/slime/M)
