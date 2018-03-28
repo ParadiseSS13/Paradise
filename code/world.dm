@@ -4,9 +4,6 @@ var/global/datum/global_init/init = new ()
 	Pre-map initialization stuff should go here.
 */
 /datum/global_init/New()
-
-	makeDatumRefLists()
-	load_configuration()
 	setLog()
 	del(src)
 
@@ -37,6 +34,7 @@ var/global/list/map_transition_config = MAP_TRANSITION_CONFIG
 
 	timezoneOffset = text2num(time2text(0,"hh")) * 36000
 
+
 	callHook("startup")
 
 	src.update_status()
@@ -48,6 +46,8 @@ var/global/list/map_transition_config = MAP_TRANSITION_CONFIG
 
 	space_manager.initialize() //Before the MC starts up
 
+	Master.Initialize(10, FALSE)
+
 	processScheduler = new
 	master_controller = new /datum/controller/game_controller()
 	spawn(1)
@@ -55,7 +55,6 @@ var/global/list/map_transition_config = MAP_TRANSITION_CONFIG
 		processScheduler.setup()
 
 		master_controller.setup()
-		sleep_offline = 1
 
 	if(using_map && using_map.name)
 		map_name = "[using_map.name]"

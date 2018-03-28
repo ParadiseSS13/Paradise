@@ -148,7 +148,7 @@ var/global/wcCommon = pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e", "#8f
 	return
 
 
-/obj/structure/window/proc/attack_generic(mob/living/user as mob, damage = 0)	//used by attack_alien, attack_animal, and attack_slime
+/obj/structure/window/attack_generic(mob/living/user, damage = 0)	//used by attack_alien, attack_animal, and attack_slime
 	user.changeNext_move(CLICK_CD_MELEE)
 	user.do_attack_animation(src)
 	health -= damage
@@ -446,6 +446,7 @@ var/global/wcCommon = pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e", "#8f
 	shardtype = /obj/item/weapon/shard/plasma
 	glasstype = /obj/item/stack/sheet/plasmaglass
 	health = 120
+	armor = list("melee" = 75, "bullet" = 5, "laser" = 0, "energy" = 0, "bomb" = 45, "bio" = 100, "rad" = 100)
 
 /obj/structure/window/plasmabasic/New(Loc,re=0)
 	..()
@@ -474,7 +475,7 @@ var/global/wcCommon = pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e", "#8f
 	glasstype = /obj/item/stack/sheet/plasmaglass
 	reinf = 1
 	health = 160
-
+	armor = list("melee" = 85, "bullet" = 20, "laser" = 0, "energy" = 0, "bomb" = 60, "bio" = 100, "rad" = 100)
 
 /obj/structure/window/plasmareinforced/New(Loc,re=0)
 	..()
@@ -499,6 +500,7 @@ var/global/wcCommon = pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e", "#8f
 	reinf = 1
 	basestate = "rwindow"
 	health = 40
+	armor = list("melee" = 50, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 25, "bio" = 100, "rad" = 100)
 
 /obj/structure/window/reinforced/tinted
 	name = "tinted window"

@@ -12,7 +12,7 @@
 	light_power = 2
 	var/brightness_on = 2
 	var/colormap = list(red=LIGHT_COLOR_RED, blue=LIGHT_COLOR_LIGHTBLUE, green=LIGHT_COLOR_GREEN, purple=LIGHT_COLOR_PURPLE, rainbow=LIGHT_COLOR_WHITE)
-	
+
 /obj/item/weapon/melee/energy/suicide_act(mob/user)
 	user.visible_message(pick("<span class='suicide'>[user] is slitting \his stomach open with the [src.name]! It looks like \he's trying to commit seppuku.</span>", \
 						"<span class='suicide'>[user] is falling on the [src.name]! It looks like \he's trying to commit suicide.</span>"))
@@ -70,7 +70,7 @@
 	throw_range = 5
 	w_class = WEIGHT_CLASS_NORMAL
 	w_class_on = WEIGHT_CLASS_HUGE
-	hitsound = "swing_hit"
+	hitsound = 'sound/weapons/bladeslice.ogg'
 	flags = CONDUCT
 	armour_penetration = 100
 	origin_tech = "combat=4;magnets=3"

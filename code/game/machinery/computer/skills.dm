@@ -232,7 +232,7 @@
 				else
 					P.info += "<B>General Record Lost!</B><BR>"
 				P.info += "</TT>"
-				P.name = "paper - 'Employment Record'"
+				P.name = "paper - 'Employment Record: [active1.fields["name"]]'"
 				printing = 0
 
 		if(href_list["field"])

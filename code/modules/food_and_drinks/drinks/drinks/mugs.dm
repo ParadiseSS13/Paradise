@@ -79,7 +79,7 @@
 /datum/novelty_mug/pills
 	name = "prescription mug"
 	description = "Prescription: caffeine. Dosage: As much as it takes."
-	state = "mug_pills"
+	state = "mug_pill"
 
 /datum/novelty_mug/rainbow
 	name = "rainbow mug"
