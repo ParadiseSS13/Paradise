@@ -44,7 +44,7 @@
 	ui_interact(user)
 
 /obj/machinery/computer/secure_data/ui_interact(mob/user, ui_key = "main", var/datum/nanoui/ui = null, var/force_open = 1)
-	ui = nanomanager.try_update_ui(user, src, ui_key, ui, force_open)
+	ui = SSnanoui.try_update_ui(user, src, ui_key, ui, force_open)
 	if(!ui)
 		ui = new(user, src, ui_key, "secure_data.tmpl", name, 800, 380)
 		ui.open()

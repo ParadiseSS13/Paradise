@@ -182,7 +182,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 		to_chat(user, "<span class='notice'>You add the disk to the machine!</span>")
 	else if(!(linked_destroy && linked_destroy.busy) && !(linked_lathe && linked_lathe.busy) && !(linked_imprinter && linked_imprinter.busy))
 		..()
-	nanomanager.update_uis(src)
+	SSnanoui.update_uis(src)
 	return
 
 /obj/machinery/computer/rdconsole/emag_act(user as mob)
@@ -234,7 +234,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 		spawn(TECH_UPDATE_DELAY)
 			clear_wait_message()
 			files.AddTech2Known(t_disk.stored)
-			nanomanager.update_uis(src)
+			SSnanoui.update_uis(src)
 			griefProtection() //Update centcom too
 
 	else if(href_list["clear_tech"]) //Erase data on the technology disk.
@@ -259,7 +259,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 		spawn(DESIGN_UPDATE_DELAY)
 			clear_wait_message()
 			files.AddDesign2Known(d_disk.blueprint)
-			nanomanager.update_uis(src)
+			SSnanoui.update_uis(src)
 			griefProtection() //Update centcom too
 
 	else if(href_list["clear_design"]) //Erases data on the design disk.
@@ -312,7 +312,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 		log_admin("[key_name(usr)] has maximized the research levels.")
 		message_admins("[key_name_admin(usr)] has maximized the research levels.")
 		Maximize()
-		nanomanager.update_uis(src)
+		SSnanoui.update_uis(src)
 		griefProtection() //Update centcomm too
 
 	else if(href_list["deconstruct"]) //Deconstruct the item in the destructive analyzer and update the research holder.
@@ -332,7 +332,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 					return
 			linked_destroy.busy = 1
 			add_wait_message("Processing and Updating Database...", DECONSTRUCT_DELAY)
-			nanomanager.update_uis(src)
+			SSnanoui.update_uis(src)
 			flick("d_analyzer_process", linked_destroy)
 			spawn(DECONSTRUCT_DELAY)
 				clear_wait_message()
@@ -374,7 +374,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 								qdel(I)
 								linked_destroy.icon_state = "d_analyzer"
 					use_power(250)
-					nanomanager.update_uis(src)
+					SSnanoui.update_uis(src)
 
 	else if(href_list["sync"]) //Sync the research holder with all the R&D consoles in the game that aren't sync protected.
 		if(!sync)
@@ -397,7 +397,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 							server_processed = 1
 						if(!istype(S, /obj/machinery/r_n_d/server/centcom) && server_processed)
 							S.produce_heat(100)
-					nanomanager.update_uis(src)
+					SSnanoui.update_uis(src)
 
 	else if(href_list["togglesync"]) //Prevents the console from being synced by other consoles. Can still send data.
 		sync = !sync
@@ -479,7 +479,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 									new_item.loc = linked_lathe.loc
 						clear_wait_message()
 						linked_lathe.busy = 0
-						nanomanager.update_uis(src)
+						SSnanoui.update_uis(src)
 
 	else if(href_list["imprint"]) //Causes the Circuit Imprinter to build something.
 		var/coeff = linked_imprinter.efficiency_coeff
@@ -527,7 +527,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 							new_item.loc = linked_imprinter.loc
 						linked_imprinter.busy = 0
 						clear_wait_message()
-						nanomanager.update_uis(src)
+						SSnanoui.update_uis(src)
 
 	else if(href_list["disposeI"] && linked_imprinter)  //Causes the circuit imprinter to dispose of a single reagent (all of it)
 		linked_imprinter.reagents.del_reagent(href_list["disposeI"])
@@ -588,7 +588,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 		spawn(SYNC_DEVICE_DELAY)
 			SyncRDevices()
 			clear_wait_message()
-			nanomanager.update_uis(src)
+			SSnanoui.update_uis(src)
 
 	else if(href_list["disconnect"]) //The R&D console disconnects with a specific device.
 		switch(href_list["disconnect"])
@@ -611,7 +611,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 			files = new /datum/research(src)
 			spawn(RESET_RESEARCH_DELAY)
 				clear_wait_message()
-				nanomanager.update_uis(src)
+				SSnanoui.update_uis(src)
 
 	else if(href_list["search"]) //Search for designs with name matching pattern
 		var/compare
@@ -633,7 +633,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 
 		selected_category = "Search Results for '[href_list["to_search"]]'"
 
-	nanomanager.update_uis(src)
+	SSnanoui.update_uis(src)
 	return
 
 
@@ -647,7 +647,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 
 /obj/machinery/computer/rdconsole/ui_interact(mob/user, ui_key="main", var/datum/nanoui/ui = null, var/force_open = 1)
 	user.set_machine(src)
-	ui = nanomanager.try_update_ui(user, src, ui_key, ui, force_open)
+	ui = SSnanoui.try_update_ui(user, src, ui_key, ui, force_open)
 	if(!ui)
 		ui = new(user, src, ui_key, "r_n_d.tmpl", src.name, 800, 550)
 		ui.open()
@@ -884,7 +884,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 		// if the timer calls this function
 		deltimer(wait_message_timer)
 		wait_message_timer = 0
-	nanomanager.update_uis(src)
+	SSnanoui.update_uis(src)
 
 
 /obj/machinery/computer/rdconsole/core

@@ -199,7 +199,7 @@ var/list/non_simple_animals = typecacheof(list(/mob/living/carbon/human/monkey,/
 	ui_interact(user)
 
 /obj/machinery/dna_vault/ui_interact(mob/user, ui_key = "main", var/datum/nanoui/ui = null, var/force_open = 1)
-	ui = nanomanager.try_update_ui(user, src, ui_key, ui, force_open)
+	ui = SSnanoui.try_update_ui(user, src, ui_key, ui, force_open)
 	if(!ui)
 		roll_powers(user)
 		ui = new(user, src, ui_key, "dna_vault.tmpl", name, 550, 400)
