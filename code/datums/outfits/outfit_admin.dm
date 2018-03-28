@@ -140,6 +140,8 @@
 /datum/outfit/admin/syndicate/officer
 	name = "Syndicate Officer"
 
+	head = /obj/item/clothing/head/beret
+	mask = /obj/item/clothing/mask/cigarette/cigar/havana
 	belt = /obj/item/weapon/gun/projectile/automatic/pistol/deagle/camo
 	l_ear = /obj/item/device/radio/headset/syndicate/alt
 	l_pocket = /obj/item/weapon/pinpointer/advpinpointer
@@ -150,7 +152,8 @@
 		/obj/item/weapon/reagent_containers/food/pill/initropidril = 1,
 		/obj/item/weapon/reagent_containers/food/snacks/syndidonkpocket = 1,
 		/obj/item/ammo_box/magazine/m50 = 2,
-		/obj/item/clothing/shoes/magboots/syndie/advance = 1
+		/obj/item/clothing/shoes/magboots/syndie/advance = 1,
+		/obj/item/weapon/lighter/zippo/gonzofist = 1
 	)
 
 	id_icon = "commander"
