@@ -139,7 +139,7 @@
 /obj/fire_act(global_overlay=1)
 	if(!burn_state)
 		burn_state = ON_FIRE
-		fire_master.burning += src
+		SSfires.processing[src] = src
 		burn_world_time = world.time + burntime*rand(10,20)
 		if(global_overlay)
 			overlays += fire_overlay
@@ -149,14 +149,14 @@
 	empty_object_contents(1, loc)
 	var/obj/effect/decal/cleanable/ash/A = new(loc)
 	A.desc = "Looks like this used to be a [name] some time ago."
-	fire_master.burning -= src
+	SSfires.processing -= src
 	qdel(src)
 
 /obj/proc/extinguish()
 	if(burn_state == ON_FIRE)
 		burn_state = FLAMMABLE
 		overlays -= fire_overlay
-		fire_master.burning -= src
+		SSfires.processing -= src
 
 /obj/proc/tesla_act(power)
 	being_shocked = TRUE

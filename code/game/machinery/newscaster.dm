@@ -186,7 +186,7 @@ var/list/obj/machinery/newscaster/allCasters = list() //Global list that will co
 	user.set_machine(src)
 	if(can_scan(user))
 		scan_user(user)
-	ui = nanomanager.try_update_ui(user, src, ui_key, ui, force_open)
+	ui = SSnanoui.try_update_ui(user, src, ui_key, ui, force_open)
 	if(!ui)
 		ui = new(user, src, ui_key, "newscaster.tmpl", name, 400, 600)
 		ui.open()
@@ -566,7 +566,7 @@ var/list/obj/machinery/newscaster/allCasters = list() //Global list that will co
 	else if(href_list["jobs"])
 		screen = NEWSCASTER_JOBS
 
-	nanomanager.update_uis(src)
+	SSnanoui.update_uis(src)
 	return 1
 
 /obj/machinery/newscaster/attackby(obj/item/I, mob/living/user, params)

@@ -160,7 +160,7 @@
 	if(..())
 		return 1
 
-	var/datum/nanoui/ui = nanomanager.get_open_ui(usr, src, "main")
+	var/datum/nanoui/ui = SSnanoui.get_open_ui(usr, src, "main")
 
 	if(computer)
 		switch(href_list["action"])

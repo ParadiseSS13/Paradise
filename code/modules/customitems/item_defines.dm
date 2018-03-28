@@ -940,6 +940,14 @@
 	flags_inv = HIDEEARS
 
 //////////// Uniforms ////////////
+/obj/item/clothing/under/fluff/soviet_casual_uniform // Norstead : Natalya Sokolova
+    icon = 'icons/obj/custom_items.dmi'
+    name = "Soviet Casual Uniform"
+    desc = "Female U.S.S.P. casual wear. Dlya Rodiny!"
+    icon_state = "soviet_casual_uniform"
+    item_state = "soviet_casual_uniform"
+    item_color = "soviet_casual_uniform"
+
 /obj/item/clothing/under/fluff/kharshai // Kharshai: Athena Castile
 	name = "Castile formal outfit"
 	desc = "A white and gold formal uniform, accompanied by a small pin with the numbers '004' etched upon it."

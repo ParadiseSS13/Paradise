@@ -547,7 +547,7 @@ About the new airlock wires panel:
 	ui_interact(user)
 
 /obj/machinery/door/airlock/ui_interact(mob/user, ui_key = "main", datum/nanoui/ui = null, force_open = 1)
-	ui = nanomanager.try_update_ui(user, src, ui_key, ui, force_open)
+	ui = SSnanoui.try_update_ui(user, src, ui_key, ui, force_open)
 	if(!ui)
 		ui = new(user, src, ui_key, "door_control.tmpl", "Door Controls - [src]", 600, 375)
 		ui.open()
@@ -1272,8 +1272,7 @@ About the new airlock wires panel:
 		var/obj/item/weapon/airlock_electronics/ae
 		if(!electronics)
 			ae = new/obj/item/weapon/airlock_electronics(loc)
-			if(!req_access)
-				check_access()
+			check_access()
 			if(req_access.len)
 				ae.conf_access = req_access
 			else if(req_one_access.len)

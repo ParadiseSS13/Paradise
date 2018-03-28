@@ -384,8 +384,8 @@ You are weak to holy things and starlight. Don't go into space and avoid the Cha
 	var/ay = owner.y
 
 	for(var/i = 1 to 20)
-		ax += sun.dx
-		ay += sun.dy
+		ax += SSsun.dx
+		ay += SSsun.dy
 
 		var/turf/T = locate(round(ax, 0.5), round(ay, 0.5), owner.z)
 
