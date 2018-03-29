@@ -86,7 +86,7 @@ SUBSYSTEM_DEF(garbage)
 	var/queue = GC_QUEUE_PREQUEUE
 
 	while(state == SS_RUNNING)
-		switch (queue)
+		switch(queue)
 			if(GC_QUEUE_PREQUEUE)
 				HandlePreQueue()
 				queue = GC_QUEUE_PREQUEUE+1
@@ -113,7 +113,7 @@ SUBSYSTEM_DEF(garbage)
 	for(var/ref in tobequeued)
 		count++
 		Queue(ref, GC_QUEUE_PREQUEUE+1)
-		if (MC_TICK_CHECK)
+		if(MC_TICK_CHECK)
 			break
 	if(count)
 		tobequeued.Cut(1,count+1)
@@ -407,7 +407,7 @@ SUBSYSTEM_DEF(garbage)
 		var/list/L = D.vars
 
 		for(var/varname in L)
-			if (varname == "vars")
+			if(varname == "vars")
 				continue
 			var/variable = L[varname]
 
@@ -420,13 +420,13 @@ SUBSYSTEM_DEF(garbage)
 	else if(islist(X))
 		var/normal = IS_NORMAL_LIST(X)
 		for(var/I in X)
-			if (I == src)
+			if(I == src)
 				testing("Found [src.type] \ref[src] in list [Xname].")
 
-			else if (I && !isnum(I) && normal && X[I] == src)
+			else if(I && !isnum(I) && normal && X[I] == src)
 				testing("Found [src.type] \ref[src] in list [Xname]\[[I]\]")
 
-			else if (islist(I))
+			else if(islist(I))
 				DoSearchVar(I, "[Xname] -> list", recursive_limit-1)
 
 #ifndef FIND_REF_NO_CHECK_TICK
