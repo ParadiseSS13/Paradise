@@ -485,7 +485,7 @@ var/global/image/fire_overlay = image("icon" = 'icons/goonstation/effects/fire.d
 		else ..()
 
 /obj/item/throw_impact(atom/A)
-	if(A && !qdeleted(A))
+	if(A && !QDELETED(A))
 		var/itempush = 1
 		if(w_class < WEIGHT_CLASS_BULKY)
 			itempush = 0 // too light to push anything

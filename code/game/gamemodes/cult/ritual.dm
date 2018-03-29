@@ -252,7 +252,7 @@
 	if(!possible_runes.len)
 		return
 	entered_rune_name = input(user, "Choose a rite to scribe.", "Sigils of Power") as null|anything in possible_runes
-	if(!Adjacent(user) || !src || qdeleted(src) || user.incapacitated())
+	if(!Adjacent(user) || !src || QDELETED(src) || user.incapacitated())
 		return
 	for(var/T in typesof(/obj/effect/rune))
 		var/obj/effect/rune/R = T
@@ -271,7 +271,7 @@
 	if(locate(/obj/effect/rune) in runeturf)
 		to_chat(user, "<span class='cult'>There is already a rune here.</span>")
 		return
-	if(!Adjacent(user) || !src || qdeleted(src) || user.incapacitated())
+	if(!Adjacent(user) || !src || QDELETED(src) || user.incapacitated())
 		return
 	if(ispath(rune_to_scribe, /obj/effect/rune/narsie) || ispath(rune_to_scribe, /obj/effect/rune/slaughter))//may need to change this - Fethas
 		if(finale_runes_ok(user,rune_to_scribe))
@@ -299,7 +299,7 @@
 	if(!do_after(user, initial(rune_to_scribe.scribe_delay)-scribereduct, target = get_turf(user)))
 		for(var/V in shields)
 			var/obj/machinery/shield/S = V
-			if(S && !qdeleted(S))
+			if(S && !QDELETED(S))
 				qdel(S)
 		return
 	if(locate(/obj/effect/rune) in runeturf)
@@ -309,7 +309,7 @@
 						 "<span class='cult'>You finish drawing the arcane markings of [ticker.mode.cultdat.entity_title3].</span>")
 	for(var/V in shields)
 		var/obj/machinery/shield/S = V
-		if(S && !qdeleted(S))
+		if(S && !QDELETED(S))
 			qdel(S)
 	var/obj/effect/rune/R = new rune_to_scribe(runeturf, chosen_keyword)
 	R.blood_DNA = list()

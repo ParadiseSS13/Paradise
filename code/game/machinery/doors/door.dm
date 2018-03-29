@@ -353,7 +353,7 @@
 
 /obj/machinery/door/proc/autoclose()
 	autoclose_timer = 0
-	if(!qdeleted(src) && !density && !operating && !locked && !welded && autoclose)
+	if(!QDELETED(src) && !density && !operating && !locked && !welded && autoclose)
 		close()
 
 /obj/machinery/door/proc/update_freelook_sight()

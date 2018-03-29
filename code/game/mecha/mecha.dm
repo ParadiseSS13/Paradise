@@ -1275,7 +1275,7 @@
 			occupant = null
 			return
 		else
-			if(!AI.linked_core || qdeleted(AI.linked_core))
+			if(!AI.linked_core || QDELETED(AI.linked_core))
 				to_chat(AI, "<span class='userdanger'>Inactive core destroyed. Unable to return.</span>")
 				AI.linked_core = null
 				return

@@ -180,7 +180,7 @@ About the new airlock wires panel:
 
 /obj/machinery/door/airlock/autoclose()
 	autoclose_timer = 0
-	if(!qdeleted(src) && !density && !operating && !locked && !welded && autoclose)
+	if(!QDELETED(src) && !density && !operating && !locked && !welded && autoclose)
 		close()
 	return
 
@@ -1161,7 +1161,7 @@ About the new airlock wires panel:
 		operating = TRUE
 		update_icon(AIRLOCK_EMAG, 1)
 		sleep(6)
-		if(qdeleted(src))
+		if(QDELETED(src))
 			return
 		operating = FALSE
 		if(!open())

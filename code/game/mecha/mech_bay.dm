@@ -162,11 +162,11 @@
 	var/data[0]
 	if(!recharge_port)
 		reconnect()
-	if(recharge_port && !qdeleted(recharge_port))
+	if(recharge_port && !QDELETED(recharge_port))
 		data["recharge_port"] = list("mech" = null)
-		if(recharge_port.recharging_mecha && !qdeleted(recharge_port.recharging_mecha))
+		if(recharge_port.recharging_mecha && !QDELETED(recharge_port.recharging_mecha))
 			data["recharge_port"]["mech"] = list("health" = recharge_port.recharging_mecha.health, "maxhealth" = initial(recharge_port.recharging_mecha.health), "cell" = null)
-			if(recharge_port.recharging_mecha.cell && !qdeleted(recharge_port.recharging_mecha.cell))
+			if(recharge_port.recharging_mecha.cell && !QDELETED(recharge_port.recharging_mecha.cell))
 				data["has_mech"] = 1
 				data["mecha_name"] = recharge_port.recharging_mecha || "None"
 				data["mecha_charge"] = isnull(recharge_port.recharging_mecha) ? 0 : recharge_port.recharging_mecha.cell.charge

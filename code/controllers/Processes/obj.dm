@@ -15,7 +15,7 @@
 /datum/controller/process/obj/doWork()
 	for(last_object in processing_objects)
 		var/datum/O = last_object
-		if(istype(O) && isnull(O.gcDestroyed))
+		if(istype(O) && !QDELETED(O))
 			try
 				// Reagent datums get shoved in here, but the process proc isn't on the
 				//  base datum type, so we just call it blindly.
