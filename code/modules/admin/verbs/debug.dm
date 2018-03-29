@@ -780,6 +780,33 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 
 	usr << browse(dellog.Join(), "window=dellog")
 
+/client/proc/cmd_display_del_log_simple()
+	set category = "Debug"
+	set name = "Display Simple del() Log"
+	set desc = "Display a compacted del's log."
+
+	if(!check_rights(R_DEBUG))
+		return
+
+	var/dat = "<B>List of things that failed to GC this round</B><BR><BR>"
+	for(var/path in SSgarbage.items)
+		var/datum/qdel_item/I = SSgarbage.items[path]
+		if(I.failures)
+			dat += "[I] - [I.failures] times<BR>"
+
+	dat += "<B>List of paths that did not return a qdel hint in Destroy()</B><BR><BR>"
+	for(var/path in SSgarbage.items)
+		var/datum/qdel_item/I = SSgarbage.items[path]
+		if(I.no_hint)
+			dat += "[I]<BR>"
+
+	dat += "<B>List of paths that slept in Destroy()</B><BR><BR>"
+	for(var/path in SSgarbage.items)
+		var/datum/qdel_item/I = SSgarbage.items[path]
+		if(I.slept_destroy)
+			dat += "[I]<BR>"
+
+	usr << browse(dat, "window=simpledellog")
 
 /client/proc/cmd_admin_toggle_block(var/mob/M,var/block)
 	if(!check_rights(R_SPAWN))

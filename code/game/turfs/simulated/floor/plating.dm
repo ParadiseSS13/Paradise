@@ -140,7 +140,7 @@
 
 /turf/simulated/floor/engine/cult/New()
 	..()
-	if(ticker)//only do this if the round is going..otherwise..fucking asteroid..
+	if(ticker.mode)//only do this if the round is going..otherwise..fucking asteroid..
 		icon_state = ticker.cultdat.cult_floor_icon_state
 
 /turf/simulated/floor/engine/cult/narsie_act()
