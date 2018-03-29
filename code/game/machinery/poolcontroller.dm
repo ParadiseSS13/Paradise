@@ -100,7 +100,7 @@
 		if(drownee.losebreath > 20)	//You've probably got bigger problems than drowning at this point, so we won't add to it until you get that under control.
 			return
 
-		if (isLivingSSD(drownee))
+		if(isLivingSSD(drownee))
 			add_logs(src, drownee, "drowned", null, null, 0, 1)	// Notify admins, since the person is SSD
 		else
 			add_logs(src, drownee, "drowned", null, null, 0, 0)	// Do not notify admins.
