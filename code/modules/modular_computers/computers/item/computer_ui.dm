@@ -29,7 +29,7 @@
 		to_chat(user, "<span class='danger'>\The [src] beeps three times, it's screen displaying a \"DISK ERROR\" warning.</span>")
 		return // No HDD, No HDD files list or no stored files. Something is very broken.
 
-	ui = nanomanager.try_update_ui(user, src, ui_key, ui, force_open)
+	ui = SSnanoui.try_update_ui(user, src, ui_key, ui, force_open)
 	if(!ui)
 		var/datum/asset/assets = get_asset_datum(/datum/asset/simple/headers)
 		assets.send(user)

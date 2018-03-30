@@ -240,7 +240,7 @@
 	return
 
 /obj/machinery/disposal/ui_interact(mob/user, ui_key = "main", var/datum/nanoui/ui = null, var/force_open = 1)
-	ui = nanomanager.try_update_ui(user, src, ui_key, ui, force_open)
+	ui = SSnanoui.try_update_ui(user, src, ui_key, ui, force_open)
 	if(!ui)
 		ui = new(user, src, ui_key, "disposal_bin.tmpl", "Waste Disposal Unit", 395, 250)
 		ui.open()

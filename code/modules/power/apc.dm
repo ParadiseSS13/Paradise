@@ -756,7 +756,7 @@
 		return
 
 	// update the ui if it exists, returns null if no ui is passed/found
-	ui = nanomanager.try_update_ui(user, src, ui_key, ui, force_open)
+	ui = SSnanoui.try_update_ui(user, src, ui_key, ui, force_open)
 	if(!ui)
 		// the ui does not exist, so we'll create a new one
 		ui = new(user, src, ui_key, "apc.tmpl", "[area.name] - APC", 510, issilicon(user) ? 535 : 460)
@@ -955,7 +955,7 @@
 		update_icon()
 		update()
 	else if( href_list["close"] )
-		nanomanager.close_user_uis(usr, src)
+		SSnanoui.close_user_uis(usr, src)
 
 		return 0
 	else if(href_list["close2"])

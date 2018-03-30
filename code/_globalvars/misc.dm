@@ -2,8 +2,6 @@ var/global/obj/effect/overlay/plmaster = null
 var/global/obj/effect/overlay/slmaster = null
 var/global/obj/effect/overlay/icemaster = null
 
-// nanomanager, the manager for Nano UIs
-var/datum/nanomanager/nanomanager = new()
 // Event Manager, the manager for events.
 var/datum/event_manager/event_manager = new()
 // Announcer intercom, because too much stuff creates an intercom for one message then hard del()s it.

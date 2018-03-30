@@ -1,5 +1,5 @@
 /mob/Logout()
-	nanomanager.user_logout(src) // this is used to clean up (remove) this user's Nano UIs
+	SSnanoui.user_logout(src) // this is used to clean up (remove) this user's Nano UIs
 	unset_machine()
 	player_list -= src
 	log_access("Logout: [key_name(src)]")

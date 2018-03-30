@@ -234,7 +234,7 @@
 			vend(currently_vending, usr)
 			return
 		else if(handled)
-			nanomanager.update_uis(src)
+			SSnanoui.update_uis(src)
 			return // don't smack that machine with your 2 thalers
 
 	if(default_unfasten_wrench(user, I, time = 60))
@@ -247,7 +247,7 @@
 		overlays.Cut()
 		if(panel_open)
 			overlays += image(icon, "[initial(icon_state)]-panel")
-		nanomanager.update_uis(src)  // Speaker switch is on the main UI, not wires UI
+		SSnanoui.update_uis(src)  // Speaker switch is on the main UI, not wires UI
 		return
 
 	if(panel_open)
@@ -269,7 +269,7 @@
 		coin = I
 		categories |= CAT_COIN
 		to_chat(user, "<span class='notice'>You insert the [I] into the [src]</span>")
-		nanomanager.update_uis(src)
+		SSnanoui.update_uis(src)
 		return
 	else if(istype(I, refill_canister) && refill_canister != null)
 		if(stat & (BROKEN|NOPOWER))
@@ -327,14 +327,14 @@
 	I.forceMove(src)
 
 	to_chat(user, "<span class='notice'>You insert [I] into [src].</span>")
-	nanomanager.update_uis(src)
+	SSnanoui.update_uis(src)
 
 /obj/machinery/vending/proc/eject_item()
 	if(!item_slot || !inserted_item)
 		return
 	inserted_item.forceMove(get_turf(src))
 	inserted_item = null
-	nanomanager.update_uis(src)
+	SSnanoui.update_uis(src)
 
 /obj/machinery/vending/emag_act(user as mob)
 	emagged = 1
@@ -458,7 +458,7 @@
 /obj/machinery/vending/ui_interact(mob/user, ui_key = "main", var/datum/nanoui/ui = null, var/force_open = 1)
 	user.set_machine(src)
 
-	ui = nanomanager.try_update_ui(user, src, ui_key, ui, force_open)
+	ui = SSnanoui.try_update_ui(user, src, ui_key, ui, force_open)
 	if(!ui)
 		ui = new(user, src, ui_key, "vending_machine.tmpl", src.name, 440, 600)
 		ui.open()
@@ -545,7 +545,7 @@
 				vend(currently_vending, usr)
 				return
 			else if(handled)
-				nanomanager.update_uis(src)
+				SSnanoui.update_uis(src)
 				return // don't smack that machine with your 2 credits
 
 	if((href_list["vend"]) && vend_ready && !currently_vending)
@@ -584,7 +584,7 @@
 		shut_up = !src.shut_up
 
 	add_fingerprint(usr)
-	nanomanager.update_uis(src)
+	SSnanoui.update_uis(src)
 
 /obj/machinery/vending/proc/vend(datum/data/vending_product/R, mob/user)
 	if(!allowed(usr) && !usr.can_admin_interact() && !emagged && scan_id)	//For SECURE VENDING MACHINES YEAH
@@ -599,7 +599,7 @@
 	vend_ready = 0 //One thing at a time!!
 	status_message = "Vending..."
 	status_error = 0
-	nanomanager.update_uis(src)
+	SSnanoui.update_uis(src)
 
 	if(R.category & CAT_COIN)
 		if(!coin)
@@ -632,7 +632,7 @@
 		status_error = 0
 		vend_ready = 1
 		currently_vending = null
-		nanomanager.update_uis(src)
+		SSnanoui.update_uis(src)
 
 //override this proc to add handling for what to do with the vended product when you have a inserted item and remember to include a parent call for this generic handling
 /obj/machinery/vending/proc/do_vend(datum/data/vending_product/R)

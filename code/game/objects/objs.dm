@@ -66,7 +66,7 @@
 /obj/Destroy()
 	machines -= src
 	processing_objects -= src
-	nanomanager.close_uis(src)
+	SSnanoui.close_uis(src)
 	return ..()
 
 /obj/proc/process()

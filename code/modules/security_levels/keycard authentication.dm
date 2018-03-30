@@ -70,7 +70,7 @@
 
 	user.set_machine(src)
 
-	ui = nanomanager.try_update_ui(user, src, ui_key, ui, force_open)
+	ui = SSnanoui.try_update_ui(user, src, ui_key, ui, force_open)
 	if(!ui)
 		ui = new(user, src, ui_key, "keycard_auth.tmpl", "Keycard Authentication Device UI", 540, 320)
 		ui.open()
@@ -98,7 +98,7 @@
 	if(href_list["ert"])
 		ert_reason = input(usr, "Reason for ERT Call:", "", "")
 
-	nanomanager.update_uis(src)
+	SSnanoui.update_uis(src)
 	add_fingerprint(usr)
 	return
 
