@@ -16,6 +16,9 @@
 	var/datum/hud/hud = null
 	appearance_flags = NO_CLIENT_COLOR
 
+/obj/screen/take_damage()
+	return
+
 /obj/screen/Destroy()
 	master = null
 	return ..()

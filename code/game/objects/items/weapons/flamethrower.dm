@@ -193,7 +193,7 @@
 	//Burn it based on transfered gas
 	target.hotspot_expose((ptank.air_contents.temperature*2) + 380,500) // -- More of my "how do I shot fire?" dickery. -- TLE
 	//location.hotspot_expose(1000,500,1)
-	air_master.add_to_active(target, 0)
+	SSair.add_to_active(target, 0)
 	return
 
 

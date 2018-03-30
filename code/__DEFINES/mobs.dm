@@ -107,6 +107,12 @@
 #define AI_CHECK_WIRELESS 1
 #define AI_CHECK_RADIO 2
 
+//determines if a mob can smash through it
+#define ENVIRONMENT_SMASH_NONE 0
+#define ENVIRONMENT_SMASH_STRUCTURES 1 //crates, lockers, ect
+#define ENVIRONMENT_SMASH_WALLS 2   //walls
+#define ENVIRONMENT_SMASH_RWALLS 4  //rwalls
+
 #define POCKET_STRIP_DELAY			40	//time taken (in deciseconds) to search somebody's pockets
 
 #define DEFAULT_ITEM_STRIP_DELAY		40  //time taken (in deciseconds) to strip somebody
@@ -120,6 +126,7 @@
 
 #define TINT_IMPAIR 2			//Threshold of tint level to apply weld mask overlay
 #define TINT_BLIND 3			//Threshold of tint level to obscure vision fully
+#define EYE_SHINE_THRESHOLD 6	//dark_view threshold past which a humanoid's eyes will 'shine' in the dark.
 
 #define isliving(A)		(istype((A), /mob/living))
 #define iscarbon(A)		(istype((A), /mob/living/carbon))

@@ -353,3 +353,16 @@
 	icon = 'icons/obj/lavaland/ash_flora.dmi'
 	icon_state = "mushroom_bowl"
 	w_class = WEIGHT_CLASS_SMALL
+
+
+/obj/item/weapon/reagent_containers/food/drinks/bag
+	name = "Drink bag"
+	desc = "Normally put in wine boxes, or down pants at stadium events."
+	icon_state = "goonbag"
+	volume = 70
+
+/obj/item/weapon/reagent_containers/food/drinks/bag/goonbag
+	name = "Goon from a Blue Toolbox special edition"
+	desc = "Wine from the land down under, where the dingos roam and the roos do wander."
+	icon_state = "goonbag"
+	list_reagents = list("wine" = 70)

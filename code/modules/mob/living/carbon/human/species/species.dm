@@ -287,6 +287,7 @@
 
 // Do species-specific reagent handling here
 // Return 1 if it should do normal processing too
+// Return the parent value if processing does not explicitly stop
 // Return 0 if it shouldn't deplete and do its normal effect
 // Other return values will cause weird badness
 /datum/species/proc/handle_reagents(mob/living/carbon/human/H, datum/reagent/R)

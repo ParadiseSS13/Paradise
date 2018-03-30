@@ -49,7 +49,7 @@
 			state_change = 1
 
 	if(state_change)
-		nanomanager.update_uis(src)
+		SSnanoui.update_uis(src)
 
 /obj/machinery/chem_heater/proc/eject_beaker()
 	if(beaker)
@@ -58,7 +58,7 @@
 		beaker = null
 		icon_state = "mixer0b"
 		on = FALSE
-		nanomanager.update_uis(src)
+		SSnanoui.update_uis(src)
 
 /obj/machinery/chem_heater/power_change()
 	if(powered())
@@ -66,7 +66,7 @@
 	else
 		spawn(rand(0, 15))
 			stat |= NOPOWER
-	nanomanager.update_uis(src)
+	SSnanoui.update_uis(src)
 
 /obj/machinery/chem_heater/attackby(obj/item/I, mob/user)
 	if(isrobot(user))
@@ -82,7 +82,7 @@
 			I.forceMove(src)
 			to_chat(user, "<span class='notice'>You add the beaker to the machine!</span>")
 			icon_state = "mixer1b"
-			nanomanager.update_uis(src)
+			SSnanoui.update_uis(src)
 
 	if(default_deconstruction_screwdriver(user, "mixer0b", "mixer0b", I))
 		return
@@ -131,7 +131,7 @@
 		return
 
 	// update the ui if it exists, returns null if no ui is passed/found
-	ui = nanomanager.try_update_ui(user, src, ui_key, ui)
+	ui = SSnanoui.try_update_ui(user, src, ui_key, ui)
 	if(!ui)
 		ui = new(user, src, ui_key, "chem_heater.tmpl", "ChemHeater", 350, 270)
 		ui.open()

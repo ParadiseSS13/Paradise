@@ -152,7 +152,3 @@
 /datum/gear/hat/flowerpin
 	display_name = "hair flower"
 	path = /obj/item/clothing/head/hairflower
-
-/datum/gear/hat/flowerpinpurp
-	display_name = "hair flower, purple"
-	path = /obj/item/clothing/head/hairflower/purple

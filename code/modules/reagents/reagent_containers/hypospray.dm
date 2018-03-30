@@ -39,6 +39,8 @@
 
 			add_logs(user, M, "injected", src, "([contained])")
 
+		return TRUE
+
 /obj/item/weapon/reagent_containers/hypospray/CMO
 	list_reagents = list("omnizine" = 30)
 
@@ -75,6 +77,7 @@
 		return
 	..()
 	update_icon()
+	return TRUE
 
 /obj/item/weapon/reagent_containers/hypospray/autoinjector/update_icon()
 	if(reagents.total_volume > 0)
@@ -111,3 +114,16 @@
 	possible_transfer_amounts = list(50)
 	volume = 50
 	list_reagents = list("stimulants" = 50)
+
+/obj/item/weapon/reagent_containers/hypospray/autoinjector/nanocalcium
+	name = "nanocalcium autoinjector"
+	desc = "After a short period of time the nanites will slow the body's systems and assist with bone repair. Nanomachines son."
+	icon_state = "bonepen"
+	amount_per_transfer_from_this = 30
+	possible_transfer_amounts = list(30)
+	volume = 30
+	list_reagents = list("nanocalcium" = 30)
+
+/obj/item/weapon/reagent_containers/hypospray/autoinjector/nanocalcium/attack(mob/living/M, mob/user)
+	if(..())
+		playsound(loc, 'sound/weapons/smg_empty_alarm.ogg', 20, 1)

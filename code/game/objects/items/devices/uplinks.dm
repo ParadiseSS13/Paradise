@@ -129,7 +129,7 @@ var/list/world_uplinks = list()
 	if(!UI)
 		return
 	UI.buy(src,usr)
-	nanomanager.update_uis(src)
+	SSnanoui.update_uis(src)
 
 	/* var/list/L = UI.spawn_item(get_turf(usr),src)
 	if(ishuman(usr))
@@ -190,7 +190,7 @@ var/list/world_uplinks = list()
 /obj/item/device/uplink/hidden/ui_interact(mob/user, ui_key = "main", var/datum/nanoui/ui = null, var/force_open = 1, var/datum/topic_state/state = inventory_state)
 	var/title = "Remote Uplink"
 	// update the ui if it exists, returns null if no ui is passed/found
-	ui = nanomanager.try_update_ui(user, src, ui_key, ui, force_open)
+	ui = SSnanoui.try_update_ui(user, src, ui_key, ui, force_open)
 	if(!ui)
 		// the ui does not exist, so we'll create a new() one
         // for a list of parameters and their descriptions see the code docs in \code\modules\nano\nanoui.dm
@@ -224,7 +224,7 @@ var/list/world_uplinks = list()
 	if(!( istype(usr, /mob/living/carbon/human)))
 		return 1
 	var/mob/user = usr
-	var/datum/nanoui/ui = nanomanager.get_open_ui(user, src, "main")
+	var/datum/nanoui/ui = SSnanoui.get_open_ui(user, src, "main")
 	if((usr.contents.Find(src.loc) || (in_range(src.loc, usr) && istype(src.loc.loc, /turf))))
 		usr.set_machine(src)
 		if(..(href, href_list))
@@ -246,7 +246,7 @@ var/list/world_uplinks = list()
 			show_descriptions = !show_descriptions
 			update_nano_data()
 
-	nanomanager.update_uis(src)
+	SSnanoui.update_uis(src)
 	return 1
 
 /obj/item/device/uplink/hidden/proc/update_nano_data(var/id)
