@@ -35,7 +35,7 @@
 	var/spider_spawnfrequency = 1200 // 120 seconds
 	var/spider_spawnfrequency_stable = 1200 // 120 seconds. Spawnfrequency is set to this on ai spiders once nest setup is complete.
 	var/spider_lastspawn = 0
-	var/nestfrequency = 150 // 15 seconds
+	var/nestfrequency = 300 // 30 seconds
 	var/lastnestsetup = 0
 	var/neststep = 0
 	var/hasnested = 0
