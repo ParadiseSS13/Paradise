@@ -80,6 +80,8 @@
 
 	var/translator_on = 0 // keeps track of the translator module
 
+	var/flashlight_on = 0 //keeps track of the flashlight module
+
 	var/current_pda_messaging = null
 	var/custom_sprite = 0
 	var/slowdown = 0
