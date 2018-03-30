@@ -322,35 +322,8 @@
 		target.help_shake_act(user)
 		add_attack_logs(user, target, "Shaked")
 		return 1
-	if(!user.check_has_mouth())
-		to_chat(user, "<span class='danger'>You don't have a mouth, you cannot perform CPR!</span>")
-		return
-	if(!target.check_has_mouth())
-		to_chat(user, "<span class='danger'>They don't have a mouth, you cannot perform CPR!</span>")
-		return
-	if((user.head && (user.head.flags_cover & HEADCOVERSMOUTH)) || (user.wear_mask && (user.wear_mask.flags_cover & MASKCOVERSMOUTH) && !user.wear_mask.mask_adjusted))
-		to_chat(user, "<span class='warning'>Remove your mask!</span>")
-		return 0
-	if((target.head && (target.head.flags_cover & HEADCOVERSMOUTH)) || (target.wear_mask && (target.wear_mask.flags_cover & MASKCOVERSMOUTH) && !target.wear_mask.mask_adjusted))
-		to_chat(user, "<span class='warning'>Remove his mask!</span>")
-		return 0
-
-	user.visible_message("<span class='danger'>\The [user] is trying to perform CPR on \the [target]!</span>", \
-					  "<span class='danger'>You try to perform CPR on \the [target]!</span>")
-	if(do_mob(user, target, 40))
-		if(target.health > config.health_threshold_dead && target.health <= config.health_threshold_crit)
-			var/suff = min(target.getOxyLoss(), 7)
-			target.adjustOxyLoss(-suff)
-			target.updatehealth()
-			user.visible_message("<span class='danger'>\The [user] performs CPR on \the [target]!</span>", \
-							  "<span class='notice'>You perform CPR on \the [target].</span>")
-
-			to_chat(target, "<span class='notice'>You feel a breath of fresh air enter your lungs. It feels good.</span>")
-			to_chat(user, "<span class='alert'>Repeat at least every 7 seconds.")
-			add_attack_logs(user, target, "CPRed", FALSE)
-			return 1
 	else
-		to_chat(user, "<span class='danger'>You need to stay still while performing CPR!</span>")
+		user.do_cpr(target)
 
 /datum/species/proc/grab(mob/living/carbon/human/user, mob/living/carbon/human/target, datum/martial_art/attacker_style)
 	if(attacker_style && attacker_style.grab_act(user, target))

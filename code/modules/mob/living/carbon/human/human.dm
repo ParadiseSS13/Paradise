@@ -1728,6 +1728,39 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 		return
 	..()
 
+/mob/living/carbon/human/proc/do_cpr(mob/living/carbon/human/H)
+	if(H.stat == DEAD || (H.status_flags & FAKEDEATH))
+		to_chat(src, "<span class='warning'>[H.name] is dead!</span>")
+		return
+	if(!check_has_mouth())
+		to_chat(src, "<span class='danger'>You don't have a mouth, you cannot perform CPR!</span>")
+		return
+	if(!H.check_has_mouth())
+		to_chat(src, "<span class='danger'>They don't have a mouth, you cannot perform CPR!</span>")
+		return
+	if((head && (head.flags_cover & HEADCOVERSMOUTH)) || (wear_mask && (wear_mask.flags_cover & MASKCOVERSMOUTH) && !wear_mask.mask_adjusted))
+		to_chat(src, "<span class='warning'>Remove your mask first!</span>")
+		return 0
+	if((H.head && (H.head.flags_cover & HEADCOVERSMOUTH)) || (H.wear_mask && (H.wear_mask.flags_cover & MASKCOVERSMOUTH) && !H.wear_mask.mask_adjusted))
+		to_chat(src, "<span class='warning'>Remove their mask first!</span>")
+		return 0
+	visible_message("<span class='danger'>[src] is trying to perform CPR on [H.name]!</span>", \
+					  "<span class='danger'>You try to perform CPR on [H.name]!</span>")
+	if(do_mob(src, H, 40))
+		if(H.health > config.health_threshold_dead && H.health <= config.health_threshold_crit)
+			var/suff = min(H.getOxyLoss(), 7)
+			H.adjustOxyLoss(-suff)
+			H.updatehealth()
+			visible_message("<span class='danger'>[src] performs CPR on [H.name]!</span>", \
+							  "<span class='notice'>You perform CPR on [H.name].</span>")
+
+			to_chat(H, "<span class='notice'>You feel a breath of fresh air enter your lungs. It feels good.</span>")
+			to_chat(src, "<span class='alert'>Repeat at least every 7 seconds.")
+			add_logs(src, H, "CPRed")
+			return 1
+	else
+		to_chat(src, "<span class='danger'>You need to stay still while performing CPR!</span>")
+
 /mob/living/carbon/human/canBeHandcuffed()
 	if(get_num_arms() >= 2)
 		return TRUE
