@@ -1,0 +1,4 @@
+author: "matt81093"
+delete-after: True
+changes: 
+  - bugfix: "fish duplication when pulling out multiple fish at once"
