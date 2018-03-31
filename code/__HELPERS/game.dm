@@ -519,3 +519,6 @@ proc/pollCandidates(Question, be_special_type, antag_age_check = 0, poll_time = 
 	if(!C || !C.prefs.windowflashing)
 		return
 	winset(C, "mainwindow", "flash=5")
+
+/proc/isobject(x)
+	return (istype(x, /datum) || istype(x, /list) || istype(x, /savefile) || istype(x, /client) || (x == world))

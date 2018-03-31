@@ -548,4 +548,8 @@ proc/checkhtml(var/t)
 	text = replacetext(text, "<img src = ntlogo.png>",	"\[logo\]")
 	return text
 
+/proc/lower_if_text(var/string)
+	if(istext(string))
+		return lowertext(string)
+
 #define string2charlist(string) (splittext(string, regex("(\\x0A|.)")) - splittext(string, ""))
