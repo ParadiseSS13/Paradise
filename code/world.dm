@@ -60,8 +60,8 @@ var/global/list/map_transition_config = MAP_TRANSITION_CONFIG
 		map_name = "[using_map.name]"
 	else
 		map_name = "Unknown"
-	
-	
+
+
 	if(config && config.server_name)
 		name = "[config.server_name]: [station_name()]"
 	else
@@ -117,6 +117,9 @@ var/world_topic_spam_protect_time = world.timeofday
 		s["host"] = host ? host : null
 		s["players"] = list()
 		s["stationtime"] = worldtime2text()
+		s["listed"] = "Public"
+		if(!hub_password)
+			s["listed"] = "Invisible"
 		var/player_count = 0
 		var/admin_count = 0
 
@@ -268,6 +271,18 @@ var/world_topic_spam_protect_time = world.timeofday
 		setLog()
 
 		return "Logs set to current date"
+
+	else if("setlist" in input)
+		if(!key_valid)
+			return keySpamProtect(addr)
+		if(input["req"] == "public")
+			hub_password = hub_password_base
+			update_status()
+			return "Set listed status to public."
+		else
+			hub_password = ""
+			update_status()
+			return "Set listed status to invisible."
 
 /proc/keySpamProtect(var/addr)
 	if(world_topic_spam_protect_ip == addr && abs(world_topic_spam_protect_time - world.time) < 50)
