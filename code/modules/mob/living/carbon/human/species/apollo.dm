@@ -57,9 +57,7 @@
 			to_chat(C, "<span class='danger'>It feels like part of you has died.</span>")
 
 /datum/species/wryn/harm(mob/living/carbon/human/user, mob/living/carbon/human/target, datum/martial_art/attacker_style)
-	if(target.handcuffed)
-		if(!target.get_int_organ(/obj/item/organ/internal/wryn/hivenode))
-			return
+	if(target.handcuffed && target.get_int_organ(/obj/item/organ/internal/wryn/hivenode))
 
 		user.visible_message("<span class='notice'>[user] begins to violently pull off [target]'s antennae.</span>")
 		to_chat(target, "<span class='danger'><B>[user] grips your antennae and starts violently pulling!<B></span>")

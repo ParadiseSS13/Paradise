@@ -140,39 +140,27 @@
 
 /obj/item/slimepotion/docility/attack(mob/living/carbon/slime/M, mob/user)
 	if(!isslime(M))
-		to_chat(user, "<span class='warning'> The potion only works on slimes!</span>")
+		to_chat(user, "<span class='warning'>The potion only works on slimes!</span>")
 		return
 	if(M.stat)
-		to_chat(user, "<span class='warning'> The slime is dead!</span>")
-		return
-	if(M.mind)
-		to_chat(user, "<span class='warning'> The slime resists!</span>")
+		to_chat(user, "<span class='warning'>The slime is dead!</span>")
 		return
 	if(being_used)
-		to_chat(user, "<span class='warning'> You're already using this on another slime!</span>")
+		to_chat(user, "<span class='warning'>You're already using this on another slime!</span>")
 		return
 
-	var/mob/living/simple_animal/slime/pet
-	if(M.is_adult)
-		pet = new /mob/living/simple_animal/slime/adult(M.loc)
-		pet.icon_state = "[M.colour] adult slime"
-		pet.icon_living = "[M.colour] adult slime"
-	else
-		pet = new /mob/living/simple_animal/slime(M.loc)
-		pet.icon_state = "[M.colour] baby slime"
-		pet.icon_living = "[M.colour] baby slime"
-	pet.icon_dead = "[M.colour] baby slime dead"
-	pet.colour = "[M.colour]"
-	qdel(M)
+	M.docile = 1
+	M.nutrition = 700
+	to_chat(M, "<span class='warning'>You absorb the potion and feel your intense desire to feed melt away.</span>")
+	to_chat(user, "<span class='notice'>You feed the slime the potion, removing its hunger and calming it.</span>")
 	being_used = 1
 	var/newname = sanitize(copytext(input(user, "Would you like to give the slime a name?", "Name your new pet", "pet slime") as null|text,1,MAX_NAME_LEN))
 
 	if(!newname)
 		newname = "pet slime"
-	pet.name = newname
-	pet.real_name = newname
+	M.name = newname
+	M.real_name = newname
 	qdel(src)
-	to_chat(user, "You feed the slime the potion, removing it's powers and calming it.")
 
 /obj/item/slimepotion/sentience
 	name = "sentience potion"

@@ -5,18 +5,14 @@
 	pass_flags = PASSTABLE
 	ventcrawler = 2
 	speak_emote = list("telepathically chirps")
-
 	layer = 5
-
 	maxHealth = 150
 	health = 150
 	gender = NEUTER
-
 	nutrition = 700
-
 	see_in_dark = 8
 	update_slimes = 0
-
+	faction = list("slime","neutral")
 	// canstun and canweaken don't affect slimes because they ignore stun and weakened variables
 	// for the sake of cleanliness, though, here they are.
 	status_flags = CANPARALYSE|CANPUSH
@@ -44,7 +40,7 @@
 
 	var/mood = "" // To show its face
 	var/is_adult = 0
-
+	var/docile = 0
 	var/core_removal_stage = 0 //For removing cores.
 	var/mutator_used = FALSE //So you can't shove a dozen mutators into a single slime
 
@@ -140,7 +136,8 @@
 		stat(null, "Health: [round((health / 150) * 100)]%")
 
 	if(client.statpanel == "Status")
-		stat(null, "Nutrition: [nutrition]/[get_max_nutrition()]")
+		if(!docile)
+			stat(null, "Nutrition: [nutrition]/[get_max_nutrition()]")
 		if(amount_grown >= 10)
 			if(is_adult)
 				stat(null, "You can reproduce!")
@@ -194,9 +191,9 @@
 	return
 
 /mob/living/carbon/slime/MouseDrop(atom/movable/A)
-	if(isliving(A) && A != usr)
+	if(isliving(A) && A != src && usr == src)
 		var/mob/living/Food = A
-		if(Food.Adjacent(usr) && !stat && Food.stat != DEAD) //messy
+		if(Food.Adjacent(src) && !stat && Food.stat != DEAD) //messy
 			Feedon(Food)
 	..()
 
@@ -208,14 +205,19 @@
 
 /mob/living/carbon/slime/attack_slime(mob/living/carbon/slime/M)
 	..()
-	var/damage = rand(1, 3)
+	if(Victim)
+		Victim = null
+		visible_message("<span class='danger'>[M] pulls [src] off!</span>")
+		return
 	attacked += 5
-	if(M.is_adult)
-		damage = rand(1, 6)
-	else
-		damage = rand(1, 3)
-	adjustBruteLoss(damage)
-	updatehealth()
+	if(nutrition >= 100) //steal some nutrition. negval handled in life()
+		nutrition -= (50 + (5 * M.amount_grown))
+		M.add_nutrition(50 + (5 * M.amount_grown))
+	if(health > 0)
+		adjustBruteLoss(4 + (2 * M.amount_grown)) //amt_grown isn't very linear but it works
+		updatehealth()
+		M.adjustBruteLoss(-4 + (-2 * M.amount_grown))
+		M.updatehealth()
 
 /mob/living/carbon/slime/attack_animal(mob/living/simple_animal/M)
 	if(..())
@@ -282,12 +284,9 @@
 				step_away(src,M)
 
 			return
-	else
-		if(stat == DEAD && surgeries.len)
-			if(M.a_intent == INTENT_HELP)
-				for(var/datum/surgery/S in surgeries)
-					if(S.next_step(M, src))
-						return 1
+
+	if(..()) //To allow surgery to return properly.
+		return
 
 	switch(M.a_intent)
 
@@ -390,11 +389,6 @@
 	return
 
 /mob/living/carbon/slime/attackby(obj/item/W, mob/living/user, params)
-	if(stat == DEAD && surgeries.len)
-		if(user.a_intent == INTENT_HELP)
-			for(var/datum/surgery/S in surgeries)
-				if(S.next_step(user, src))
-					return 1
 	if(istype(W,/obj/item/stack/sheet/mineral/plasma)) //Lets you feed slimes plasma.
 		if(user in Friends)
 			++Friends[user]
