@@ -259,6 +259,57 @@
 	if(istype(I))
 		apply_to_card(I, H, get_centcom_access("Nanotrasen Navy Representative"), "Nanotrasen Diplomat")
 
+
+/datum/outfit/admin/nt_undercover
+	name = "NT Undercover Operative"
+	// Disguised NT special forces, sent to quietly eliminate mutinous people in high positions (e.g: captain)
+
+	uniform = /obj/item/clothing/under/chameleon
+	back = /obj/item/weapon/storage/backpack
+	belt = /obj/item/weapon/storage/belt/utility/full/multitool
+	gloves = /obj/item/clothing/gloves/combat
+	shoes = /obj/item/clothing/shoes/syndigaloshes
+	l_ear = /obj/item/device/radio/headset/heads/captain
+	id = /obj/item/weapon/card/id/syndicate
+	pda = /obj/item/device/pda
+	backpack_contents = list(
+		/obj/item/weapon/storage/box/engineer = 1,
+		/obj/item/device/flashlight = 1,
+		/obj/item/weapon/gun/projectile/automatic/proto = 1, // NT saber SMG
+		/obj/item/weapon/suppressor = 1, // silencer for SMG
+		/obj/item/ammo_box/magazine/smgm9mm = 3, // SMG ammo
+		/obj/item/weapon/door_remote/omni = 1,
+		/obj/item/weapon/implanter/mindshield = 1, // not implanted by default, as that would make them suspicious
+		/obj/item/weapon/implanter/storage = 1 // do not auto-implant this, that causes a bug
+	)
+	implants = list(
+		/obj/item/weapon/implant/dust
+	)
+	cybernetic_implants = list(
+		/obj/item/organ/internal/cyberimp/eyes/hud/security,
+		/obj/item/organ/internal/cyberimp/eyes/xray,
+		/obj/item/organ/internal/cyberimp/brain/anti_drop,
+		/obj/item/organ/internal/cyberimp/brain/anti_stun,
+		/obj/item/organ/internal/cyberimp/chest/nutriment/plus
+	)
+
+/datum/outfit/admin/nt_undercover/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
+	. = ..()
+	if(visualsOnly)
+		return
+
+	var/obj/item/weapon/card/id/I = H.wear_id
+	if(istype(I))
+		apply_to_card(I, H, get_all_accesses(), "Civilian")
+		I.icon_state = "deathsquad"
+
+
+	var/obj/item/device/radio/R = H.l_ear
+	if(istype(R))
+		R.name = "radio headset"
+		R.icon_state = "headset"
+
+
 /datum/outfit/admin/death_commando
 	name = "NT Death Commando"
 
@@ -723,6 +774,7 @@
 	name = "Wizard Hardsuit"
 	suit = /obj/item/clothing/suit/space/hardsuit/wizard
 	head = /obj/item/clothing/head/helmet/space/hardsuit/wizard
+	shoes = /obj/item/clothing/shoes/magboots
 
 /datum/outfit/admin/hardsuit/medical
 	name = "Medical Hardsuit"
@@ -938,7 +990,7 @@
 		/obj/item/weapon/suppressor = 1,
 		/obj/item/weapon/card/emag = 1,
 		/obj/item/device/flashlight = 1,
-		/obj/item/weapon/implanter/storage = 1 // do not auto-implant this, it causes a bug
+		/obj/item/weapon/implanter/storage = 1 // do not auto-implant this, that causes a bug
 	)
 	implants = list(
 		/obj/item/weapon/implant/dust
@@ -993,6 +1045,46 @@
 	if(istype(I))
 		apply_to_card(I, H, get_all_accesses(), "Dark Lord", "syndie")
 
+
+/datum/outfit/admin/ancient_vampire
+	name = "Ancient Vampire"
+	// Vampire with tons of blood, and ability to convert others into vampires.
+
+	uniform = /obj/item/clothing/under/color/black
+	suit = /obj/item/clothing/suit/hooded/chaplain_hoodie
+	back = /obj/item/weapon/storage/backpack
+	gloves = /obj/item/clothing/gloves/color/black
+	shoes = /obj/item/clothing/shoes/black
+	l_ear = /obj/item/device/radio/headset/syndicate
+	id = /obj/item/weapon/card/id/syndicate
+	backpack_contents = list(
+		/obj/item/weapon/storage/box/survival = 1,
+		/obj/item/device/flashlight = 1,
+	)
+
+/datum/outfit/admin/ancient_vampire/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
+	. = ..()
+	if(visualsOnly)
+		return
+
+	var/obj/item/clothing/suit/hooded/chaplain_hoodie/C = H.wear_suit
+	if(istype(C))
+		C.name = "ancient robes"
+		C.hood.name = "ancient hood"
+
+	var/obj/item/weapon/card/id/I = H.wear_id
+	if(istype(I))
+		apply_to_card(I, H, get_all_accesses(), "Ancient", "syndie")
+
+	H.make_vampire()
+	if(H.mind && H.mind.vampire)
+		H.mind.vampire.bloodtotal = 2500
+		H.mind.vampire.bloodusable = 2500
+		H.mind.vampire.add_ability(/obj/effect/proc_holder/spell/vampire/targetted/sire)
+		H.mind.vampire.check_vampire_upgrade()
+
+
+
 /datum/outfit/admin/wizard
 	uniform = /obj/item/clothing/under/color/lightpurple
 	suit = /obj/item/clothing/suit/wizrobe
@@ -1033,6 +1125,38 @@
 	suit = /obj/item/clothing/suit/wizrobe/marisa
 	shoes = /obj/item/clothing/shoes/sandal/marisa
 	head = /obj/item/clothing/head/wizard/marisa
+
+/datum/outfit/admin/wizard/arch
+	name = "Arch Wizard"
+
+	suit = /obj/item/clothing/suit/wizrobe/magusred
+	head = /obj/item/clothing/head/wizard/magus
+	belt = /obj/item/weapon/storage/belt/wands/full
+	l_hand = null
+	backpack_contents = list(
+		/obj/item/weapon/storage/box/engineer = 1,
+		/obj/item/clothing/suit/space/hardsuit/wizard = 1,
+		/obj/item/clothing/head/helmet/space/hardsuit/wizard = 1,
+		/obj/item/clothing/shoes/magboots = 1,
+		/obj/item/weapon/kitchen/knife/ritual  = 1,
+		/obj/item/clothing/suit/wizrobe/red = 1,
+		/obj/item/clothing/head/wizard/red = 1
+	)
+
+/datum/outfit/admin/wizard/arch/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
+	. = ..()
+	if(visualsOnly)
+		return
+	//if(H.mind)
+	//	H.mind.make_wizard()
+	var/obj/item/weapon/spellbook/B = H.r_hand
+	if(istype(B))
+		B.owner = H // force-bind it so it can never be stolen, no matter what.
+		B.name = "Archwizard Spellbook"
+		B.uses = 50
+	var/obj/item/weapon/card/id/I = H.wear_id
+	if(istype(I))
+		apply_to_card(I, H, get_all_accesses(), "Arch Wizard")
 
 
 /datum/outfit/admin/dark_priest
