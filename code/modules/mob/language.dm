@@ -178,7 +178,7 @@
 	syllables = list("rr","rr","tajr","kir","raj","kii","mir","kra","ahk","nal","vah","khaz","jri","ran","darr", \
 	"mi","jri","dynh","manq","rhe","zar","rrhaz","kal","chur","eech","thaa","dra","jurl","mah","sanu","dra","ii'r", \
 	"ka","aasi","far","wa","baq","ara","qara","zir","sam","mak","hrar","nja","rir","khan","jun","dar","rik","kah", \
-	"hal","ket","jurl","mah","tul","cresh","azu","ragh")
+	"hal","ket","jurl","mah","tul","cresh","azu","ragh","mew","meow","mrowl","mrowls")
 
 /datum/language/tajaran/get_random_name(gender)
 	var/new_name = ..(gender,1)
@@ -200,7 +200,7 @@
 	syllables = list("rur","ya","cen","rawr","bar","kuk","tek","qat","uk","wu","vuh","tah","tch","schz","auch", \
 	"ist","ein","entch","zwichs","tut","mir","wo","bis","es","vor","nic","gro","lll","enem","zandt","tzch","noch", \
 	"hel","ischt","far","wa","baram","iereng","tech","lach","sam","mak","lich","gen","or","ag","eck","gec","stag","onn", \
-	"bin","ket","jarl","vulf","einech","cresthz","azunein","ghzth")
+	"bin","ket","jarl","vulf","einech","cresthz","azunein","ghzth","murr","vulp","woof","oof","bark","yiff","sergal","adopt","commission","fur")
 
 /datum/language/skrell
 	name = "Skrellian"
@@ -283,7 +283,7 @@
 	colour = "slime"
 	key = "f"
 	flags = RESTRICTED | WHITELISTED
-	syllables = list("blob","plop","pop","bop","boop")
+	syllables = list("blob","plop","pop","bop","boop","squish","squash","squosh","sloosh")
 
 /datum/language/grey
 	name = "Psionic Communication"
@@ -368,7 +368,9 @@
 	colour = "solcom"
 	key = "1"
 	flags = RESTRICTED
-	syllables = list("tao","shi","tzu","yi","com","be","is","i","op","vi","ed","lec","mo","cle","te","dis","e")
+	syllables = list("tao","shi","tzu","yi","com","be","is","i","op","vi","ed","lec","mo","cle","te","dis","e","b","p","m","f","d","t","n","l",\
+	"k","h","j","q","x","zh","ch","r","z","c","s","a","e","i","o","u","ang","ong","iang.","ing","in","ian","ui","uang","ong",\
+	"iong","uo","duwang")
 	english_names = 1
 
 /datum/language/human/get_spoken_verb(msg_end)
@@ -559,7 +561,7 @@
 
 	if(!message)
 		return
-	
+
 	log_robot("[key_name(speaker)] : [message]")
 	var/message_start = "<i><span class='game say'>[name], <span class='name'>[speaker.name]</span>"
 	var/message_body = "<span class='message'>[speaker.say_quote(message)],</i> <span class='ibm'>\"[message]\"</span></span></span>"
