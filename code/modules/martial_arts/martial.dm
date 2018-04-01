@@ -4,7 +4,7 @@
 	var/max_streak_length = 6
 	var/current_target = null
 	var/temporary = 0
-	var/datum/martial_art/base = null // The permanent style
+	var/datum/martial_art/base = null // Boxing is more civilized
 	var/deflection_chance = 0 //Chance to deflect projectiles
 	var/help_verb = null
 	var/no_guns = FALSE	//set to TRUE to prevent users of this style from using guns (sleeping carp, highlander). They can still pick them up, but not fire them.
@@ -81,29 +81,21 @@
 /datum/martial_art/proc/remove(var/mob/living/carbon/human/H)
 	if(H.martial_art != src)
 		return
-	H.martial_art = base
+	if(base)
+		H.martial_art = base
+	else
+		H.martial_art = new/datum/martial_art/boxing
 	if(help_verb)
 		H.verbs -= help_verb
 
 //ITEMS
 
 /obj/item/clothing/gloves/boxing
-	var/datum/martial_art/boxing/style = new
 
 /obj/item/clothing/gloves/boxing/equipped(mob/user, slot)
-	if(!ishuman(user))
-		return
-	if(slot == slot_gloves)
-		var/mob/living/carbon/human/H = user
-		style.teach(H,1)
 	return
 
 /obj/item/clothing/gloves/boxing/dropped(mob/user)
-	if(!ishuman(user))
-		return
-	var/mob/living/carbon/human/H = user
-	if(H.get_item_by_slot(slot_gloves) == src)
-		style.remove(H)
 	return
 
 /obj/item/weapon/storage/belt/champion/wrestling
