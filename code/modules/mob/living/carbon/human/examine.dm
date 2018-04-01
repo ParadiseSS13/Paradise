@@ -118,19 +118,13 @@
 		else
 			msg += "[t_He] [t_has] [bicon(back)] \a [back] on [t_his] back.\n"
 
-	//left hand
-	if(l_hand && !(l_hand.flags & ABSTRACT))
-		if(l_hand.blood_DNA)
-			msg += "<span class='warning'>[t_He] [t_is] holding [bicon(l_hand)] [l_hand.gender==PLURAL?"some":"a"] [l_hand.blood_color != "#030303" ? "blood-stained":"oil-stained"] [l_hand.name] in [t_his] left hand!</span>\n"
-		else
-			msg += "[t_He] [t_is] holding [bicon(l_hand)] \a [l_hand] in [t_his] left hand.\n"
-
-	//right hand
-	if(r_hand && !(r_hand.flags & ABSTRACT))
-		if(r_hand.blood_DNA)
-			msg += "<span class='warning'>[t_He] [t_is] holding [bicon(r_hand)] [r_hand.gender==PLURAL?"some":"a"] [r_hand.blood_color != "#030303" ? "blood-stained":"oil-stained"] [r_hand.name] in [t_his] right hand!</span>\n"
-		else
-			msg += "[t_He] [t_is] holding [bicon(r_hand)] \a [r_hand] in [t_his] right hand.\n"
+	//hands
+	for(var/obj/item/I in held_items)
+		if(!(I.flags & ABSTRACT))
+			if(I.blood_DNA)
+				msg += "<span class='warning'>[t_He] [t_is] holding [bicon(I)] [l_hand.gender==PLURAL?"some":"a"] [I.blood_color != "#030303" ? "blood-stained":"oil-stained"] [I.name] in [t_his] [get_held_index_name(get_held_index_of_item(I))]!</span>\n"
+			else
+				msg += "[t_He] [t_is] holding [bicon(I)] \a [I] in [t_his] [get_held_index_name(get_held_index_of_item(I))].\n"
 
 	//gloves
 	if(gloves && !skipgloves && !(gloves.flags & ABSTRACT))

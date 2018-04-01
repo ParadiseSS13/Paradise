@@ -221,7 +221,7 @@
 	using.icon = ui_style
 	using.color = ui_color
 	using.alpha = ui_alpha
-	using.screen_loc = ui_equip
+	using.screen_loc = ui_equip_position(src)
 	static_inventory += using
 
 	inv_box = new /obj/screen/inventory()
@@ -419,12 +419,12 @@
 
 	if(hud_version != HUD_STYLE_NOHUD)
 		for(var/obj/item/I in H.held_items)
-+			I.screen_loc = ui_hand_position(H.get_held_index_of_item(I))
-+			H.client.screen += I
+			I.screen_loc = ui_hand_position(H.get_index_of_held_item(I))
+			H.client.screen += I
 	else
 		for(var/obj/item/I in H.held_items)
-+			I.screen_loc = null
-+			H.client.screen -= I
+			I.screen_loc = null
+			H.client.screen -= I
 
 
 /mob/living/carbon/human/verb/toggle_hotkey_verbs()

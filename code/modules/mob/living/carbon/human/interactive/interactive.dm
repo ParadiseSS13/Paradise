@@ -48,7 +48,7 @@
 	var/obj/item/weapon/card/id/RPID // the "real" idea they use
 	var/obj/item/device/pda/MYPDA
 	var/obj/item/main_hand
-	var/obj/item/other_hand
+	var/list/obj/item/other_hands
 	var/TRAITS = 0
 	var/obj/item/weapon/card/id/Path_ID
 	var/default_job = /datum/job/civilian	// the type for the default job
@@ -517,34 +517,40 @@
 	return 0
 
 /mob/living/carbon/human/interactive/proc/enforce_hands()
-	if(main_hand)
-		if(main_hand.loc != src)
-			main_hand = null
-	if(other_hand)
-		if(other_hand.loc != src)
-			other_hand = null
-	if(hand)
-		if(!l_hand)
-			main_hand = null
-			if(r_hand)
-				swap_hands()
+	var/swap = 1 //If the main hand still exists keep it active
+	if(main_hand.loc != src)
+		main_hand = null
 	else
-		if(!r_hand)
-			main_hand = null
-			if(l_hand)
-				swap_hands()
+		swap = 0
 
-/mob/living/carbon/human/interactive/proc/swap_hands()
-	hand = !hand
-	var/obj/item/T = other_hand
-	main_hand = other_hand
-	other_hand = T
+	//Verify all the other items still exist, and swap if main hand empty
+	for(var/obj/item/I in other_hands)
+		if(!I)
+			continue
+
+		if (I.loc != src) //Prunes dropepd items
+			other_hands ^= I
+
+		if(swap) //Switches to first held item if empty main hand
+			var/hand_index = get_index_of_held_item(I)
+			swap_hands(hand_index)
+			swap = 0
+
+
+/mob/living/carbon/human/interactive/proc/swap_hands(var/i)
+	var/obj/item/I = get_item_for_held_index(i)
+	other_hands ^= list(get_active_held_item(), I)
+	main_hand = I
+	if(active_hand_index >= hand_slots)
+		active_hand_index = 1
+	else
+		active_hand_index += 1
 	update_hands = 1
 
 /mob/living/carbon/human/interactive/proc/take_to_slot(obj/item/G, var/hands=0)
-	var/list/slots = list("left pocket" = slot_l_store, "right pocket" = slot_r_store, "left hand" = slot_hands, "right hand" = slot_r_hand)
+	var/list/slots = list("left pocket" = slot_l_store, "right pocket" = slot_r_store, "hands" = slot_hands)
 	if(hands)
-		slots = list("left hand" = slot_hands, "right hand" = slot_r_hand)
+		slots = list("hands" = slot_hands)
 	G.loc = src
 	if(G.force && G.force > best_force)
 		best_force = G.force
@@ -643,17 +649,12 @@
 							D.open()
 
 	if(update_hands)
-		if(l_hand || r_hand)
-			if(l_hand)
-				hand = 1
-				main_hand = l_hand
-				if(r_hand)
-					other_hand = r_hand
-			else if(r_hand)
-				hand = 0
-				main_hand = r_hand
-				if(l_hand) //this technically shouldnt occur, but its a redundancy
-					other_hand = l_hand
+		var/change = 0
+		for(var/obj/item/I in held_items)
+			if(I)
+				change = 1
+
+		if(change)
 			update_icons()
 		update_hands = 0
 
@@ -699,12 +700,12 @@
 			else if(istype(TARGET, /obj/item/weapon))
 				var/obj/item/weapon/W = TARGET
 				if(W.force >= best_force || prob((SNPC_FUZZY_CHANCE_LOW + SNPC_FUZZY_CHANCE_HIGH) / 2) || favouredObjIn(list(W)))
-					if(!l_hand || !r_hand)
+					if(get_empty_held_indices)
 						put_in_hands(W)
 					else
 						insert_into_backpack()
 			else
-				if(!l_hand || !r_hand)
+				if(get_empty_held_indices())
 					put_in_hands(TARGET)
 				else
 					insert_into_backpack()

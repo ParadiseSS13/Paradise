@@ -77,8 +77,7 @@
 	var/m_intent = MOVE_INTENT_RUN//Living
 	var/lastKnownIP = null
 	var/atom/movable/buckled = null//Living
-	var/obj/item/l_hand = null//Living
-	var/obj/item/r_hand = null//Living
+	var/list/obj/item/held_items = list()//Living
 	var/obj/item/weapon/back = null//Human/Monkey
 	var/obj/item/weapon/tank/internal = null//Human/Monkey
 	var/obj/item/weapon/storage/s_active = null//Carbon

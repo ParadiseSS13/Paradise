@@ -23,7 +23,7 @@
 
 /obj/effect/proc_holder/changeling/weapon/try_to_sting(var/mob/user, var/mob/target)
 	for(var/obj/item/I in user.held_items)
-		if(istype(I, weapon_type)
+		if(istype(I, weapon_type))
 			qdel(I)
 			if(!silent)
 				user.visible_message("<span class='warning'>With a sickening crunch, [user] reforms his [weapon_name_simple] into an arm!</span>", "<span class='notice'>We assimilate the [weapon_name_simple] back into our body.</span>", "<span class='warning>You hear organic matter ripping and tearing!</span>")
@@ -272,8 +272,8 @@
 /mob/proc/tentacle_stab(mob/living/carbon/C)
 	if(Adjacent(C))
 		var/obj/item/I
-		for(var/obj/item/O in held_items
-			if(is_sharp(O)
+		for(var/obj/item/O in held_items)
+			if(is_sharp(O))
 				I = O
 				break
 

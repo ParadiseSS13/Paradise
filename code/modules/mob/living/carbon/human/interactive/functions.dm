@@ -709,8 +709,13 @@
 								sleep(15)
 								throw_item(TARGET)
 
-				if(!main_hand && other_hand)
-					swap_hands()
+				var/obj/item/has_item = null
+				for(var/obj/item/I in other_hands)
+					if(I)
+						has_item = I
+						break
+				if(!main_hand && has_item)
+					swap_hands(get_index_of_held_item(has_item))
 				if(main_hand)
 					if(main_hand.force != 0)
 						if(istype(main_hand,/obj/item/weapon/gun))

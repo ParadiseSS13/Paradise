@@ -428,10 +428,12 @@
 	var/has_breathable_mask = istype(wear_mask, /obj/item/clothing/mask) || get_organ_slot("breathing_tube")
 	var/list/obscured = check_obscured_slots()
 
-	var/dat = {"<table>
-	<tr><td><B>Left Hand:</B></td><td><A href='?src=[UID()];item=[slot_hands]'>[(l_hand && !(l_hand.flags&ABSTRACT)) ? l_hand : "<font color=grey>Empty</font>"]</A></td></tr>
-	<tr><td><B>Right Hand:</B></td><td><A href='?src=[UID()];item=[slot_r_hand]'>[(r_hand && !(r_hand.flags&ABSTRACT)) ? r_hand : "<font color=grey>Empty</font>"]</A></td></tr>
-	<tr><td>&nbsp;</td></tr>"}
+	var/dat = "<table>"
+	for(var/i in 1 to held_items.len)
+		var/fluff = make_title_case(get_held_index_name(i)) + ":"
+		var/held = get_index_of_held_item(i)
+		dat += "<tr><td><B>[fluff]</B></td><td><A href='?src=[UID()];item=[held]'>[(held && !(held.flags&ABSTRACT)) ? held : "<font color=grey>Empty</font>"]</A></td></tr>"
+	dat+= "<tr><td>&nbsp;</td></tr>"
 
 	dat += "<tr><td><B>Back:</B></td><td><A href='?src=[UID()];item=[slot_back]'>[(back && !(back.flags&ABSTRACT)) ? back : "<font color=grey>Empty</font>"]</A>"
 	if(has_breathable_mask && istype(back, /obj/item/weapon/tank))
@@ -1123,10 +1125,11 @@
 
 
 /mob/living/carbon/human/abiotic(var/full_body = 0)
-	if(full_body && ((src.l_hand && !(src.l_hand.flags & ABSTRACT)) || (src.r_hand && !(src.r_hand.flags & ABSTRACT)) || (src.back || src.wear_mask || src.head || src.shoes || src.w_uniform || src.wear_suit || src.glasses || src.l_ear || src.r_ear || src.gloves)))
-		return 1
+	for(var/obj/item/I in held_items)
+		if(I && !(I.flags & ABSTRACT))
+			return 1
 
-	if((src.l_hand && !(src.l_hand.flags & ABSTRACT)) || (src.r_hand && !(src.r_hand.flags & ABSTRACT)))
+	if(full_body && (src.back || src.wear_mask || src.head || src.shoes || src.w_uniform || src.wear_suit || src.glasses || src.l_ear || src.r_ear || src.gloves))
 		return 1
 
 	return 0
@@ -1648,21 +1651,15 @@
 		src.Weaken(5)
 		return
 
-	var/use_hand = "left"
-	if(l_hand)
-		if(r_hand)
-			to_chat(src, "<span class='warning'>You need to have one hand free to grab someone.</span>")
-			return
-		else
-			use_hand = "right"
+	var/use_hand = get_empty_held_index()
+	if(!use_hand)
+		to_chat(src, "<span class='warning'>You need to have one hand free to grab someone.</span>")
+		return
 
 	src.visible_message("<span class='warning'><b>\The [src]</b> seizes [T] aggressively!</span>")
 
 	var/obj/item/weapon/grab/G = new(src,T)
-	if(use_hand == "left")
-		l_hand = G
-	else
-		r_hand = G
+	put_in_hand(G, use_hand)
 
 	G.state = GRAB_AGGRESSIVE
 	G.icon_state = "grabbed1"
@@ -1751,7 +1748,7 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 		if(lasercolor == "b")//Lasertag turrets target the opposing team, how great is that? -Sieve
 			if(istype(wear_suit, /obj/item/clothing/suit/redtag))
 				threatcount += 4
-			if((istype(r_hand,/obj/item/weapon/gun/energy/laser/redtag)) || (istype(l_hand,/obj/item/weapon/gun/energy/laser/redtag)))
+			if(is_holding_item_of_type(/obj/item/weapon/gun/energy/laser/redtag))
 				threatcount += 4
 			if(istype(belt, /obj/item/weapon/gun/energy/laser/redtag))
 				threatcount += 2
@@ -1759,7 +1756,7 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 		if(lasercolor == "r")
 			if(istype(wear_suit, /obj/item/clothing/suit/bluetag))
 				threatcount += 4
-			if((istype(r_hand,/obj/item/weapon/gun/energy/laser/bluetag)) || (istype(l_hand,/obj/item/weapon/gun/energy/laser/bluetag)))
+			if(is_holding_item_of_type(/obj/item/weapon/gun/energy/laser/bluetag))
 				threatcount += 4
 			if(istype(belt, /obj/item/weapon/gun/energy/laser/bluetag))
 				threatcount += 2
@@ -1774,10 +1771,9 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 	//Check for weapons
 	if(judgebot.weaponscheck)
 		if(!idcard || !(access_weapons in idcard.access))
-			if(judgebot.check_for_weapons(l_hand))
-				threatcount += 4
-			if(judgebot.check_for_weapons(r_hand))
-				threatcount += 4
+			for(var/obj/item/I in held_items)
+				if(judgebot.check_for_weapons(I))
+					threatcount += 4
 			if(judgebot.check_for_weapons(belt))
 				threatcount += 2
 
@@ -1824,10 +1820,9 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 
 /mob/living/carbon/human/singularity_pull(S, current_size)
 	if(current_size >= STAGE_THREE)
-		var/list/handlist = list(l_hand, r_hand)
-		for(var/obj/item/hand in handlist)
-			if(prob(current_size * 5) && hand.w_class >= ((11-current_size)/2)	&& unEquip(hand))
-				step_towards(hand, src)
+		for(var/obj/item/I in held_items)
+			if(prob(current_size * 5) && I.w_class >= ((11-current_size)/2)	&& unEquip(hand))
+				step_towards(I, src)
 				to_chat(src, "<span class='warning'>\The [S] pulls \the [hand] from your grip!</span>")
 	apply_effect(current_size * 3, IRRADIATE)
 	if(mob_negates_gravity())

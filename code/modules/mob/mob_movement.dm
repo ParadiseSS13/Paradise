@@ -294,13 +294,9 @@
 	if(mob.grabbed_by.len)
 		var/list/grabbing = list()
 
-		if(istype(mob.l_hand, /obj/item/weapon/grab))
-			var/obj/item/weapon/grab/G = mob.l_hand
-			grabbing += G.affecting
-
-		if(istype(mob.r_hand, /obj/item/weapon/grab))
-			var/obj/item/weapon/grab/G = mob.r_hand
-			grabbing += G.affecting
+		for(var/obj/item/weapon/grab/G in mob.held_items)
+			if(istype(G))
+				grabbing += G.affecting
 
 		for(var/X in mob.grabbed_by)
 			var/obj/item/weapon/grab/G = X

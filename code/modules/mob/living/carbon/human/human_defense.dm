@@ -122,14 +122,10 @@ emp_act
 		var/obj/item/I = wear_suit
 		if(I.IsReflect(def_zone) == 1)
 			return 1
-	if(l_hand && istype(l_hand, /obj/item/))
-		var/obj/item/I = l_hand
-		if(I.IsReflect(def_zone) == 1)
-			return 1
-	if(r_hand && istype(r_hand, /obj/item/))
-		var/obj/item/I = r_hand
-		if(I.IsReflect(def_zone) == 1)
-			return 1
+	for(var/obj/item/I in held_items)
+		if(istype(I))
+			if(I.IsReflect(def_zone) == 1)
+				return 1
 	return 0
 
 
@@ -138,14 +134,11 @@ emp_act
 /mob/living/carbon/human/proc/check_shields(damage = 0, attack_text = "the attack", atom/movable/AM, attack_type = MELEE_ATTACK, armour_penetration = 0)
 	var/block_chance_modifier = round(damage / -3)
 
-	if(l_hand && !istype(l_hand, /obj/item/clothing))
-		var/final_block_chance = l_hand.block_chance - (Clamp((armour_penetration-l_hand.armour_penetration)/2,0,100)) + block_chance_modifier //So armour piercing blades can still be parried by other blades, for example
-		if(l_hand.hit_reaction(src, attack_text, final_block_chance, damage, attack_type))
-			return 1
-	if(r_hand && !istype(r_hand, /obj/item/clothing))
-		var/final_block_chance = r_hand.block_chance - (Clamp((armour_penetration-r_hand.armour_penetration)/2,0,100)) + block_chance_modifier //Need to reset the var so it doesn't carry over modifications between attempts
-		if(r_hand.hit_reaction(src, attack_text, final_block_chance, damage, attack_type))
-			return 1
+	for(var/obj/item/clothing/C in held_items)
+		if(istype(C))
+			var/final_block_chance = C.block_chance - (Clamp((armour_penetration-C.armour_penetration)/2,0,100)) + block_chance_modifier //So armour piercing blades can still be parried by other blades, for example
+			if(C.hit_reaction(src, attack_text, final_block_chance, damage, attack_type))
+				return 1
 	if(wear_suit)
 		var/final_block_chance = wear_suit.block_chance - (Clamp((armour_penetration-wear_suit.armour_penetration)/2,0,100)) + block_chance_modifier
 		if(wear_suit.hit_reaction(src, attack_text, final_block_chance, damage, attack_type))

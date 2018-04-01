@@ -98,6 +98,6 @@
 		H.icon_state = "drone"
 		H.item_state = "drone"
 	grabber.put_in_active_hand(H)//for some reason unless i call this it dosen't work
-	grabber.update_inv_hands())
+	grabber.update_inv_hands()
 
 	return H

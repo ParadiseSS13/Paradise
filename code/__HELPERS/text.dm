@@ -224,6 +224,15 @@ proc/checkhtml(var/t)
 		t = replacetext(t, char, repl_chars[char])
 	return t
 
+/proc/make_title_case(var/t)
+	t = copytext(upper(copytext(t, 1, 2)), 1, 2)
+	for(var/i in 1 to lentext(t))
+		i = findtext(t, " ", i) + 1
+		if(i == 1) //No more spaces
+			break
+		t = copytext(upper(copytext(t, i, i + 1)), i, i + 1)
+
+
 //Strips the first char and returns it and the new string as a list
 /proc/strip_first(t)
 	return list(copytext(t, 1, 2), copytext(t, 2, 0))

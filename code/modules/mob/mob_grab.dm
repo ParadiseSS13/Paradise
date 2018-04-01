@@ -115,14 +115,10 @@
 	if(state <= GRAB_AGGRESSIVE)
 		allow_upgrade = 1
 		//disallow upgrading if we're grabbing more than one person
-		if((assailant.l_hand && assailant.l_hand != src && istype(assailant.l_hand, /obj/item/weapon/grab)))
-			var/obj/item/weapon/grab/G = assailant.l_hand
-			if(G.affecting != affecting)
-				allow_upgrade = 0
-		if((assailant.r_hand && assailant.r_hand != src && istype(assailant.r_hand, /obj/item/weapon/grab)))
-			var/obj/item/weapon/grab/G = assailant.r_hand
-			if(G.affecting != affecting)
-				allow_upgrade = 0
+		for(var/obj/item/weapon/grab/G in assailent.held_items)
+			if(istype(G) && G != src)
+				if(G.affecting != affecting)
+					allow_upgrade = 0
 
 		//disallow upgrading past aggressive if we're being grabbed aggressively
 		for(var/obj/item/weapon/grab/G in affecting.grabbed_by)

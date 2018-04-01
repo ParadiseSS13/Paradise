@@ -117,9 +117,33 @@
 	owner = target
 	forceMove(owner)
 	if(istype(owner))
-		if(!isnull(owner.bodyparts_by_name[limb_name]))
-			log_debug("Duplicate organ in slot \"[limb_name]\", mob '[target]'")
-		owner.bodyparts_by_name[limb_name] = src
+
+		//Arms and Hands can potentially have extra pairs and they need to be compatable
+		if(istype(src, /obj/item/organ/external/arm) || istype(src, /obj/item/organ/external/hand/))
+			if(istype(src, /obj/item/organ/external/hand/right) || istype(src, /obj/item/organ/external/arm/right))
+				for(var/i in 2 to hand_bodyparts.len step 2)
+					if(isnull(owner.bodyparts_by_name["[limb_name]_[i]"]))
+						owner.bodyparts_by_name["[limb_name]_[i]"] = src
+						if(istype(src, /obj/item/organ/external/hand))
+							hand_bodyparts[i] = src
+						break
+				if(i >= hand_bodyparts.len)
+					log_debug("Failed to add \"[limb_name]\", mob '[target]'")
+					return
+			else
+				for(var/i in 1 to hand_bodyparts.len step 2)
+					if(!isnull(owner.bodyparts_by_name["[limb_name]_[i]"]))
+						owner.bodyparts_by_name["[limb_name]_[i]"] = src
+						if(istype(src, /obj/item/organ/external/hand))
+							hand_bodyparts[i] = src
+						break
+				if(i >= hand_bodyparts.len)
+					log_debug("Failed to add \"[limb_name]\", mob '[target]'")
+					return
+		else
+			if(!isnull(owner.bodyparts_by_name[limb_name]))
+				log_debug("Duplicate organ in slot \"[limb_name]\", mob '[target]'")
+			owner.bodyparts_by_name[limb_name] = src
 		owner.bodyparts |= src
 		for(var/atom/movable/stuff in src)
 			stuff.attempt_become_organ(src, owner)
@@ -721,6 +745,9 @@ Note that amputating the affected organ does in fact remove the infection from t
 	victim.bodyparts -= src
 	if(is_primary_organ(victim))
 		victim.bodyparts_by_name[limb_name] = null	// Remove from owner's vars.
+		if(istype(src, /obj/item/organ/external/hand)) // Removes hands from owner registry
+			var/hand_index = victim.hand_bodyparts.Find(src)
+			victim.hand_bodyparts[hand_index] = null
 
 	//Robotic limbs explode if sabotaged.
 	if(is_robotic() && sabotaged)

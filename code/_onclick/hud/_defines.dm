@@ -36,7 +36,7 @@
 
 /proc/ui_equip_position(mob/M) // Lifts equip button above hand gui
 	var/y_off = round((M.held_items.len-1) / 2)
-	return "CENTER:-16,SOUTH+[y_off+1]:5
+	return "CENTER:-16,SOUTH+[y_off+1]:5"
 
 /proc/ui_swaphand_position(mob/M, which = 1) // Shows the right hand
 	var/x_off = which == 1 ? -1 : 0

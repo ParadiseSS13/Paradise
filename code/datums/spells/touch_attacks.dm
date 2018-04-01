@@ -27,7 +27,7 @@
 	var/hand_handled = 1
 	attached_hand = new hand_path(src)
 
-	if(!user.put_in_hands_or_del(attached_hand)
+	if(!user.put_in_hands_or_del(attached_hand))
 		hand_handled = 0
 
 	if(!hand_handled)

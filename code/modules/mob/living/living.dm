@@ -117,10 +117,9 @@
 	if(!(M.status_flags & CANPUSH))
 		return 1
 	//anti-riot equipment is also anti-push
-	if(M.r_hand && (prob(M.r_hand.block_chance * 2)) && !istype(M.r_hand, /obj/item/clothing))
-		return 1
-	if(M.l_hand && (prob(M.l_hand.block_chance * 2)) && !istype(M.l_hand, /obj/item/clothing))
-		return 1
+	for(var/obj/item/I in M.held_items)
+		if(I && (prob(I.block_chance * 2)) && !istype(I, /obj/item/clothing))
+			return 1
 
 //Called when we bump into an obj
 /mob/living/proc/ObjBump(obj/O)
@@ -883,10 +882,9 @@
 
 	// What icon do we use for the attack?
 	var/image/I
-	if(hand && l_hand) // Attacked with item in left hand.
-		I = image(l_hand.icon, A, l_hand.icon_state, A.layer + 1)
-	else if(!hand && r_hand) // Attacked with item in right hand.
-		I = image(r_hand.icon, A, r_hand.icon_state, A.layer + 1)
+	var/obj/item/I = get_active_held_item()
+	if(I)
+		I = image(I.icon, A, I.icon_state, A.layer + 1)
 	else // Attacked with a fist?
 		return
 

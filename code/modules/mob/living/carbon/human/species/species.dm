@@ -176,12 +176,13 @@
 
 	LAZYREINITLIST(H.bodyparts)
 	LAZYREINITLIST(H.bodyparts_by_name)
+	LAZEREINITLIST(H.hand_bodyparts)
 	LAZYREINITLIST(H.internal_organs)
 
 	for(var/limb_type in has_limbs)
 		var/list/organ_data = has_limbs[limb_type]
 		var/limb_path = organ_data["path"]
-		var/obj/item/organ/O = new limb_path(H)
+		var/obj/item/organ/O = new limb_path(H) //Calls replace in New()
 		organ_data["descriptor"] = O.name
 
 	for(var/index in has_organ)
@@ -194,6 +195,8 @@
 
 	for(var/obj/item/organ/external/O in H.bodyparts)
 		O.owner = H
+		if(istype(O, /obj/item/organ/external/hand)) //Inits the list of bodyparts
+			H.hand_bodyparts += O
 
 /datum/species/proc/breathe(mob/living/carbon/human/H)
 	if((NO_BREATHE in species_traits) || (BREATHLESS in H.mutations))

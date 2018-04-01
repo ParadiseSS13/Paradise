@@ -45,12 +45,8 @@
 
 /mob/living/carbon/update_inv_hands(ignore_cuffs)
 	if(handcuffed && !ignore_cuffs)
-		drop_l_hand()
+		drop_all_held_items()
 		return
-	if(l_hand)
-		if(client && hud_used && hud_used.hud_version != HUD_STYLE_NOHUD)
-			l_hand.screen_loc = ui_hand_position(1)
-			client.screen += l_hand
 
 /mob/living/carbon/update_inv_wear_mask()
 	if(istype(wear_mask, /obj/item/clothing/mask))

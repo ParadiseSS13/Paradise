@@ -302,7 +302,7 @@ var/list/slot_equipment_priority = list( \
 
 		switch(slot)
 			if(slot_hands)
-				if(H.l_hand)
+				if(H.get_empty_held_index()
 					return 0
 				return 1
 			if(slot_wear_mask)
@@ -529,11 +529,12 @@ var/list/slot_equipment_priority = list( \
 
 /mob/proc/show_inv(mob/user)
 	user.set_machine(src)
-	var/dat = {"<table>
-	<tr><td><B>Left Hand:</B></td><td><A href='?src=[UID()];item=[slot_hands]'>[(l_hand && !(l_hand.flags&ABSTRACT)) ? l_hand : "<font color=grey>Empty</font>"]</A></td></tr>
-	<tr><td><B>Right Hand:</B></td><td><A href='?src=[UID()];item=[slot_r_hand]'>[(r_hand && !(r_hand.flags&ABSTRACT)) ? r_hand : "<font color=grey>Empty</font>"]</A></td></tr>
-	<tr><td>&nbsp;</td></tr>"}
-	dat += {"</table>
+	var/dat = "<table>"
+	for(var/i in 1 to held_items.len)
+		var/fluff = make_titel_case(get_held_index_name(i)) + ":"
+		var/held = get_index_of_held_item(i)
+		dat += "<tr><td><B>[fluff]</B></td><td><A href='?src=[UID()];item=[held]'>[(held && !(held.flags&ABSTRACT)) ? held : "<font color=grey>Empty</font>"]</A></td></tr>"
+	dat += {"<tr><td>&nbsp;</td></tr></table>
 	<A href='?src=[user.UID()];mach_close=mob\ref[src]'>Close</A>
 	"}
 
@@ -582,29 +583,23 @@ var/list/slot_equipment_priority = list( \
 	return 1
 
 /mob/proc/ret_grab(obj/effect/list_container/mobl/L as obj, flag)
-	if((!( istype(l_hand, /obj/item/weapon/grab) ) && !( istype(r_hand, /obj/item/weapon/grab) )))
-		if(!( L ))
+	if(!is_holding_item_of_type(/obj/item/weapon/grab))
+		if(!L)
 			return null
 		else
 			return L.container
 	else
-		if(!( L ))
+		if(!L)
 			L = new /obj/effect/list_container/mobl( null )
 			L.container += src
 			L.master = src
-		if(istype(l_hand, /obj/item/weapon/grab))
-			var/obj/item/weapon/grab/G = l_hand
-			if(!( L.container.Find(G.affecting) ))
-				L.container += G.affecting
-				if(G.affecting)
-					G.affecting.ret_grab(L, 1)
-		if(istype(r_hand, /obj/item/weapon/grab))
-			var/obj/item/weapon/grab/G = r_hand
-			if(!( L.container.Find(G.affecting) ))
-				L.container += G.affecting
-				if(G.affecting)
-					G.affecting.ret_grab(L, 1)
-		if(!( flag ))
+		for(var/obj/item/weapon/grab/G in held_items)
+			if(istype(G))
+				if(!L.container.Find(G.affecting))
+					L.container += G.affecting
+					if(G.affecting)
+						G.affecting.ret_grab(L, 1)
+		if(!flag)
 			if(L.master == src)
 				var/list/temp = list(  )
 				temp += L.container
@@ -623,17 +618,11 @@ var/list/slot_equipment_priority = list( \
 
 	if(istype(loc,/obj/mecha)) return
 
-	if(hand)
-		var/obj/item/W = l_hand
-		if(W)
-			W.attack_self(src)
-			update_inv_hands()
-	else
-		var/obj/item/W = r_hand
-		if(W)
-			W.attack_self(src)
-			update_inv_hands()
-	return
+	var/obj/item/W = get_active_held_item()
+
+	if(W)
+		W.attack_self(src)
+		update_inv_hands()
 
 /*
 /mob/verb/dump_source()

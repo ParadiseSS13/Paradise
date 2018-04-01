@@ -202,20 +202,13 @@
 						stop_pulling()
 
 					//BubbleWrap: Disarming also breaks a grab - this will also stop someone being choked, won't it?
-					if(istype(l_hand, /obj/item/weapon/grab))
-						var/obj/item/weapon/grab/lgrab = l_hand
-						if(lgrab.affecting)
-							visible_message("<span class='danger'>[M] has broken [src]'s grip on [lgrab.affecting]!</span>")
-							talked = 1
-						spawn(1)
-							qdel(lgrab)
-					if(istype(r_hand, /obj/item/weapon/grab))
-						var/obj/item/weapon/grab/rgrab = r_hand
-						if(rgrab.affecting)
-							visible_message("<span class='danger'>[M] has broken [src]'s grip on [rgrab.affecting]!</span>")
-							talked = 1
-						spawn(1)
-							qdel(rgrab)
+					for(var/obj/item/weapon/grab/G in held_items)
+						if(istype(G))
+							if(G.affecting)
+								visible_message("<span class='danger'>[M] has broken [src]'s grip on [G.affecting]!</span>")
+								talked = 1
+							spawn(1)
+								qdel(G)
 					//End BubbleWrap
 
 					if(!talked)	//BubbleWrap

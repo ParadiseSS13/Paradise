@@ -103,7 +103,7 @@
 
 			item_to_retrive.loc.visible_message("<span class='warning'>The [item_to_retrive.name] suddenly disappears!</span>")
 
-			if(!target.put_in_hands(item_to_retrive)
+			if(!target.put_in_hands(item_to_retrive))
 				butterfingers = 1
 
 			if(butterfingers)

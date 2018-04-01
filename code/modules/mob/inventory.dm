@@ -24,6 +24,10 @@
 /mob/proc/has_hand_for_held_index(i)
 	return 1
 
+//checks for required organ on a side
+/mob/proc/has_hand_for_side(side = "left")
+	return 1
+
 //checks if required organ exists for active hand
 /mob/proc/has_active_hand()
 	return has_hand_for_held_index(active_hand_index)
@@ -97,7 +101,7 @@
 			holding_items += I
 	return holding_items
 
-//Returns all open hand indeces
+//Returns all open hand indices
 /mob/proc/get_empty_held_indices(all = 1)
 	var/list/L
 	for(var/i in 1 to held_items.len)
@@ -109,13 +113,17 @@
 			L += i
 	return L
 
+//Returns first open hand index
+/mob/proc/get_empty_held_index()
+	return get_empty_held_indices(0)
+
 //Returns index of held item
-mob/proc/get_held_index_of_item(obj/item/I)
+mob/proc/get_index_of_held_item(obj/item/I)
 	return held_items.Find(I)
 
 //Returns true if item is in any hand
 /mob/proc/is_holding(obj/item/I)
-	return get_held_index_of_item(I)
+	return get_index_of_held_item(I)
 
 //Returns matching item if of selected type
 /mob/proc/is_holding_item_of_type(typepath)
@@ -180,7 +188,7 @@ mob/proc/get_held_index_of_item(obj/item/I)
 	return put_in_hand(I, active_hand_index)
 
 //Tries to put an item in the hand opposite of our active hand
-/mob/proc/put_in_inactive_hand(obj/item/I
+/mob/proc/put_in_inactive_hand(obj/item/I)
 	return put_in_hand(I, get_inactive_held_item_index())
 
 //Tries to put item in any available hand or just drops it
@@ -190,11 +198,11 @@ mob/proc/get_held_index_of_item(obj/item/I)
 		return 0
 
 	//try the active hand first
-	if(put_in_active_hand(obj/item/I)
+	if(put_in_active_hand(obj/item/I))
 		return 1
 
 	//any hand will suffice
-	var/hand = get_empty_held_indices(0)
+	var/hand = get_empty_held_index()
 	if(hand)
 		if(put_in_hand(I, hand))
 			return 1
@@ -230,9 +238,13 @@ mob/proc/get_held_index_of_item(obj/item/I)
 
 //drops your current active item
 /mob/proc/drop_item()
+	return drop_index(get_active_held_item())
+
+//drops item in specific index
+/mob/proc/drop_index(var/i)
 	if(!loc || !loc.allow_drop())
 		return 0
-	var/obj/item/held = get_active_held_item()
+	var/obj/item/held = held_items[i]
 	return unEquip(held)
 
 ////////////////////////////////////
@@ -261,7 +273,7 @@ mob/proc/get_held_index_of_item(obj/item/I)
 	if(!canUnEquip(I, force))
 		return 0
 
-	var/hand_index = get_held_index_of_item(I)
+	var/hand_index = get_index_of_held_item(I)
 	if(hand_index)
 		held_items[hand_index] = null
 		update_inv_hands()
@@ -344,7 +356,7 @@ mob/proc/get_held_index_of_item(obj/item/I)
 	return 0
 
 /mob/proc/get_all_slots()
-	return list(wear_mask, back, l_hand, r_hand)
+	return list(wear_mask, back, hands)
 
 /mob/proc/get_id_card()
 	for(var/obj/item/I in get_all_slots())
@@ -353,11 +365,6 @@ mob/proc/get_held_index_of_item(obj/item/I)
 			break
 
 /mob/proc/get_item_by_slot(slot_id)
-	switch(slot_id)
-		if(slot_hands)
-			return l_hand
-		if(slot_r_hand)
-			return r_hand
 	return null
 
 

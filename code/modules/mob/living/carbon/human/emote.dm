@@ -619,12 +619,13 @@
 
 		if("signal", "signals")
 			if(!restrained())
+				var/full_hands = 0
+				for(var/obj/item in held_items)
+					full_hands++
+				var/max_fingers = (held_items.len - full_hands)*5
 				var/t1 = round(text2num(param))
-				if(isnum(t1))
-					if(t1 <= 5 && (!r_hand || !l_hand))
-						message = "<B>[src]</B> raises [t1] finger\s."
-					else if(t1 <= 10 && (!r_hand && !l_hand))
-						message = "<B>[src]</B> raises [t1] finger\s."
+				if(isnum(t1) && t1 <= max_fingers)
+					message = "<B>[src]</B> raises [t1] finger\s."
 			m_type = 1
 
 		if("smile", "smiles")
@@ -725,11 +726,12 @@
 
 		if("handshake")
 			m_type = 1
-			if(!restrained() && !r_hand)
+			var/hand = get_empty_held_index_for_side("r")
+			if(!restrained() && hand)
 				var/mob/M = handle_emote_param(param, 1, 1, 1) //Check to see if the param is valid (mob with the param name is in view) but exclude ourselves, only check mobs in our immediate vicinity (1 tile distance) and return the whole mob instead of just its name.
 
 				if(M)
-					if(M.canmove && !M.r_hand && !M.restrained())
+					if(M.canmove && M.get_empty_held_index_for_side("r") && !M.restrained())
 						message = "<B>[src]</B> shakes hands with [M]."
 					else
 						message = "<B>[src]</B> holds out \his hand to [M]."
@@ -778,16 +780,13 @@
 			if(prob(95))
 				m_type = 2
 				var/mob/living/carbon/human/H = src
-				var/obj/item/organ/external/L = H.get_organ("l_hand")
-				var/obj/item/organ/external/R = H.get_organ("r_hand")
-				var/left_hand_good = 0
-				var/right_hand_good = 0
-				if(L && (!(L.status & ORGAN_SPLINTED)) && (!(L.status & ORGAN_BROKEN)))
-					left_hand_good = 1
-				if(R && (!(R.status & ORGAN_SPLINTED)) && (!(R.status & ORGAN_BROKEN)))
-					right_hand_good = 1
+				var/has_good_hand = 0
+				for(var/obj/item/organ/external/O in H.hand_bodyparts)
+					if(O && (!(O.status & ORGAN_SPLINTED)) && (!(O.status & ORGAN_BROKEN)))
+						has_good_hand = 1
+						break
 
-				if(!left_hand_good && !right_hand_good)
+				if(!has_good_hand)
 					to_chat(usr, "You need at least one hand in good working order to snap your fingers.")
 					return
 

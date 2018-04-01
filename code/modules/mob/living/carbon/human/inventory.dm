@@ -6,6 +6,26 @@
 	if(I)
 		I.equip_to_best_slot(src)
 
+/mob/living/carbon/human/has_hand_for_held_index(i)
+	if(hand_bodyparts[i])
+		return 1
+	return 0
+
+/mob/living/carbon/human/has_hand_for_side(side = "left")
+	var/start = 0
+	var/list/lefts = list("l" = 1,"L" = 1,"LEFT" = 1,"left" = 1)
+	var/list/rights = list("r" = 1,"R" = 1,"RIGHT" = 1,"right" = 1)
+	if(lefts[side])
+		start = 1
+	else if(rights[side])
+		start = 2
+	if(!start)
+		return 0
+	for(var/i in start to held_items.len step 2)
+		if(hand_bodyparts[i])
+			return 1
+	return 0
+
 /mob/living/carbon/human/proc/equip_in_one_of_slots(obj/item/W, list/slots, del_on_fail = 1)
 	for(var/slot in slots)
 		if(equip_to_slot_if_possible(W, slots[slot], del_on_fail = 0))
@@ -13,14 +33,6 @@
 	if(del_on_fail)
 		qdel(W)
 	return null
-
-/mob/living/carbon/human/proc/is_in_hands(var/typepath)
-	if(istype(l_hand,typepath))
-		return l_hand
-	if(istype(r_hand,typepath))
-		return r_hand
-	return 0
-
 
 /mob/living/carbon/human/proc/has_organ(name)
 	var/obj/item/organ/external/O = bodyparts_by_name[name]
@@ -33,13 +45,11 @@
 		if(slot_wear_mask)
 			return has_organ("head")
 		if(slot_handcuffed)
-			return has_organ("l_hand") && has_organ("r_hand")
+			return has_hand_for_side(side = "l") && has_hand_for_side(side = "r")
 		if(slot_legcuffed)
 			return has_organ("l_leg") && has_organ("r_leg")
 		if(slot_hands)
-			return has_organ("l_hand")
-		if(slot_r_hand)
-			return has_organ("r_hand")
+			return has_hand_for_side(side = "l") && has_hand_for_side(side = "r")
 		if(slot_belt)
 			return has_organ("chest")
 		if(slot_wear_id)
@@ -54,7 +64,7 @@
 		if(slot_glasses)
 			return has_organ("head")
 		if(slot_gloves)
-			return has_organ("l_hand") && has_organ("r_hand")
+			return has_hand_for_side(side = "l") && has_hand_for_side(side = "r")
 		if(slot_head)
 			return has_organ("head")
 		if(slot_shoes)
@@ -175,13 +185,10 @@
 	else if(I == back)
 		back = null
 		update_inv_back()
-	else if(I == r_hand)
-		r_hand = null
+	if(is_holding(I))
+		var/hand_index = get_index_of_held_item(I)
+		held_items[hand_index] = null
 		update_inv_hands()
-	else if(I == l_hand)
-		l_hand = null
-		update_inv_hands()
-
 
 
 
@@ -192,11 +199,9 @@
 	if(!istype(W)) return
 	if(!has_organ_for_slot(slot)) return
 
-	if(W == src.l_hand)
-		src.l_hand = null
-		update_inv_hands() //So items actually disappear from hands.
-	else if(W == src.r_hand)
-		src.r_hand = null
+	if(is_holding(I)) // Removes from hand
+		var/hand_index = get_index_of_held_item(I)
+		held_items[hand_index] = null
 		update_inv_hands()
 
 	W.screen_loc = null
@@ -226,7 +231,7 @@
 			legcuffed = W
 			update_inv_legcuffed(redraw_mob)
 		if(slot_hands)
-			l_hand = W
+			put_in_hands(W)
 			update_inv_hands(redraw_mob)
 		if(slot_belt)
 			belt = W
@@ -429,14 +434,6 @@
 				return 0
 
 	switch(slot)
-		if(slot_hands)
-			if(l_hand)
-				return 0
-			return 1
-		if(slot_r_hand)
-			if(r_hand)
-				return 0
-			return 1
 		if(slot_wear_mask)
 			if(wear_mask)
 				return 0
@@ -625,3 +622,36 @@
 		return 0
 
 	return O.equip(src, visualsOnly)
+
+////////////////////////////////////
+/////////MAKING THE HANDS CHANGE////
+////////////////////////////////////
+
+/mob/living/carbon/human/change_number_of_hands(amt)
+	var/old_limbs = held_items.len
+	if(amt < old_limbs) //Your extra limbs will now be ejected
+		for(var/i in hand_bodyparts.len to amt step -1)
+			var/obj/item/organ/external/O = hand_bodyparts[i]
+			O.dismember()
+			hand_bodyparts[i] = null
+
+	hand_bodyparts.len = amt
+	held_items.len = amt
+
+	else if(amt > old_limbs) //Grow new limbs to house your hands
+		for(var/i in old_limbs+1 to amt)
+			var/temp_limb = species.has_limb[l_arm]
+				path_arm  = temp_limb["path"]
+				temp_limb = species.has_limb[l_hand]
+			var/path_hand = temp_limb["path"]
+
+			if(!(i % 2))
+				temp_limb = species.has_limb[r_arm]
+				path_arm  = temp_limb["path"]
+				temp_limb = species.has_limb[r_hand]
+				path_hand = temp_limb["path"]
+
+			var/obj/item/organ/external/new_arm = new path_arm()
+			var/obj/item/organ/external/new_hand = new path_hand()
+			replaced(new_arm)
+			replaced(new_hand)

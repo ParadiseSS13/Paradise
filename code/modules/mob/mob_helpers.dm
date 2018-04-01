@@ -315,10 +315,11 @@ proc/muffledspeech(phrase)
 
 
 /mob/proc/abiotic(var/full_body = 0)
-	if(full_body && ((l_hand && !(l_hand.flags & ABSTRACT)) || (r_hand && !(r_hand.flags & ABSTRACT)) || (back || wear_mask)))
-		return 1
+	for(var/obj/item/I in held_items)
+		if(I && !(I.flags & ABSTRACT))
+			return 1
 
-	if((l_hand && !(l_hand.flags & ABSTRACT)) || (r_hand && !(r_hand.flags & ABSTRACT)))
+	if(full_body && (back || wear_mask))
 		return 1
 
 	return 0
@@ -418,7 +419,7 @@ var/list/intents = list(INTENT_HELP,INTENT_DISARM,INTENT_GRAB,INTENT_HARM)
 	return P
 
 /proc/get_both_hands(mob/living/carbon/M)
-	return list(M.l_hand, M.r_hand)
+	return list(M.get_active_held_item(), M.get_inactive_held_item())
 
 
 //Direct dead say used both by emote and say

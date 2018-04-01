@@ -6,6 +6,7 @@
 
 /mob/living/carbon/human/var/list/bodyparts = list()
 /mob/living/carbon/human/var/list/bodyparts_by_name = list() // map organ names to organs
+/mob/living/carbon/human/var/list/hand_bodyparts = list() // holds the list of bodyparts mapped to each hand index
 
 // Takes care of organ related updates, such as broken and missing limbs
 /mob/living/carbon/human/proc/handle_organs()
@@ -51,10 +52,9 @@
 	// Canes and crutches help you stand (if the latter is ever added)
 	// One cane mitigates a broken leg+foot, or a missing foot.
 	// Two canes are needed for a lost leg. If you are missing both legs, canes aren't gonna help you.
-	if(l_hand && l_hand.is_crutch())
-		stance_damage -= 2
-	if(r_hand && r_hand.is_crutch())
-		stance_damage -= 2
+	for(var/obj/item/I in held_items)
+		if(I.is_crutch())
+			stance_damage -= 2
 
 	if(stance_damage < 0)
 		stance_damage = 0
@@ -70,7 +70,12 @@
 
 /mob/living/carbon/human/proc/handle_grasp()
 
-	if(!l_hand && !r_hand)
+	var/test = 1 // Skip if nothing being held
+	for(var/obj/item/I in held_items.len)
+		if(I == null)
+			continue
+		test = 0
+	if(test)
 		return
 
 	for(var/obj/item/organ/external/E in bodyparts)
@@ -78,15 +83,28 @@
 			continue
 
 		if(E.is_broken())
-			if((E.body_part == HAND_LEFT) || (E.body_part == ARM_LEFT))
-				if(!l_hand)
+			if(istype(E, /obj/item/organ/external/arm))
+				var/child_organs = E.children
+				if(!child_organs)
 					continue
-				if(!unEquip(l_hand))
+
+				var/held = 1
+				for(var/obj/item/organ/external/hand/child_hand in child_organs)
+					if(is_type(child_hand))
+						var/hand_index = hand_bodyparts.Find(child_hand)
+						if(get_item_for_held_index(hand_index) == null)
+							continue
+						if(!drop_held_index(hand_index))
+							continue
+						held = 0
+				if(held)
 					continue
-			else
-				if(!r_hand)
+
+			if(istype(E, /obj/item/organ/external/hand))
+				var/hand_index = hand_bodyparts.Find(E)
+				if(get_item_for_held_index(hand_index) == null)
 					continue
-				if(!unEquip(r_hand))
+				if(!drop_held_index(hand_index))
 					continue
 
 			var/emote_scream = pick("screams in pain and ", "lets out a sharp cry and ", "cries out and ")
@@ -94,15 +112,28 @@
 
 		else if(E.is_malfunctioning())
 
-			if((E.body_part == HAND_LEFT) || (E.body_part == ARM_LEFT))
-				if(!l_hand)
+			if(istype(E, /obj/item/organ/external/arm))
+				var/child_organs = E.children
+				if(!child_organs)
 					continue
-				if(!unEquip(l_hand))
+
+				var/held = 1
+				for(var/obj/item/organ/external/hand/child_hand in child_organs)
+					if(is_type(child_hand))
+						var/hand_index = hand_bodyparts.Find(child_hand)
+						if(get_item_for_held_index(hand_index) == null)
+							continue
+						if(!drop_held_index(hand_index))
+							continue
+						held = 0
+				if(held)
 					continue
-			else
-				if(!r_hand)
+
+			if(istype(E, /obj/item/organ/external/hand))
+				var/hand_index = hand_bodyparts.Find(E)
+				if(get_item_for_held_index(hand_index) == null)
 					continue
-				if(!unEquip(r_hand))
+				if(!drop_held_index(hand_index))
 					continue
 
 			custom_emote(1, "drops what they were holding, their [E.name] malfunctioning!")
