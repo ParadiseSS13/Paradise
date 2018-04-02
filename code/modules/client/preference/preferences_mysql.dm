@@ -47,7 +47,7 @@
 		windowflashing = text2num(query.item[14])
 		ghost_anonsay = text2num(query.item[15])
 		exp = query.item[16]
-		clientfps = query.item[17]
+		clientfps = text2num(query.item[17])
 
 	//Sanitize
 	ooccolor		= sanitize_hexcolor(ooccolor, initial(ooccolor))

@@ -97,14 +97,14 @@ var/global/list/datum/stack_recipe/abductor_recipes = list ( \
 	new/datum/stack_recipe("alien bed", /obj/structure/stool/bed/abductor, 2, one_per_turf = 1, on_floor = 1), \
 	new/datum/stack_recipe("alien locker", /obj/structure/closet/abductor, 1, time = 15, one_per_turf = 1, on_floor = 1), \
 	new/datum/stack_recipe("alien table frame", /obj/structure/table_frame/abductor, 1, time = 15, one_per_turf = 1, on_floor = 1), \
+	new/datum/stack_recipe("alien airlock assembly", /obj/structure/door_assembly/door_assembly_abductor, 4, time = 20, one_per_turf = 1, on_floor = 1), \
 	null, \
 	new/datum/stack_recipe("alien floor tile", /obj/item/stack/tile/mineral/abductor, 1, 4, 20), \
 	)
 
 /obj/item/stack/sheet/mineral
-	force = 5.0
+	force = 5
 	throwforce = 5
-	w_class = WEIGHT_CLASS_NORMAL
 	throw_speed = 3
 
 /obj/item/stack/sheet/mineral/New()
@@ -224,6 +224,56 @@ var/global/list/datum/stack_recipe/abductor_recipes = list ( \
 /obj/item/stack/sheet/mineral/tranquillite/New(loc, amount=null)
 	..()
 	recipes = tranquillite_recipes
+
+/*
+ * Titanium
+ */
+/obj/item/stack/sheet/mineral/titanium
+	name = "titanium"
+	icon_state = "sheet-titanium"
+	singular_name = "titanium sheet"
+	force = 5
+	throwforce = 5
+	w_class = WEIGHT_CLASS_NORMAL
+	throw_speed = 1
+	throw_range = 3
+	sheettype = "titanium"
+	materials = list(MAT_TITANIUM=MINERAL_MATERIAL_AMOUNT)
+
+var/global/list/datum/stack_recipe/titanium_recipes = list (
+	new/datum/stack_recipe("titanium tile", /obj/item/stack/tile/mineral/titanium, 1, 4, 20),
+	)
+
+/obj/item/stack/sheet/mineral/titanium/New(loc, amount=null)
+	recipes = titanium_recipes
+	..()
+
+/obj/item/stack/sheet/mineral/titanium/fifty
+	amount = 50
+
+
+/*
+ * Plastitanium
+ */
+/obj/item/stack/sheet/mineral/plastitanium
+	name = "plastitanium"
+	icon_state = "sheet-plastitanium"
+	singular_name = "plastitanium sheet"
+	force = 5
+	throwforce = 5
+	w_class = WEIGHT_CLASS_NORMAL
+	throw_speed = 1
+	throw_range = 3
+	sheettype = "plastitanium"
+	materials = list(MAT_TITANIUM=2000, MAT_PLASMA=2000)
+
+var/global/list/datum/stack_recipe/plastitanium_recipes = list (
+	new/datum/stack_recipe("plas-titanium tile", /obj/item/stack/tile/mineral/plastitanium, 1, 4, 20),
+	)
+
+/obj/item/stack/sheet/mineral/plastitanium/New(loc, amount=null)
+	recipes = plastitanium_recipes
+	..()
 
 /obj/item/stack/sheet/mineral/enruranium
 	name = "enriched uranium"

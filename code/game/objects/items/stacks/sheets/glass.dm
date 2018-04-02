@@ -271,7 +271,6 @@
 	created_window = /obj/structure/window/plasmabasic
 	full_window = /obj/structure/window/full/plasmabasic
 
-
 /obj/item/stack/sheet/plasmaglass/attack_self(mob/user as mob)
 	construct_window(user)
 
@@ -359,7 +358,7 @@
 	origin_tech = "plasmatech=2;materials=2"
 	created_window = /obj/structure/window/plasmareinforced
 	full_window = /obj/structure/window/full/plasmareinforced
-
+	armor = list("melee" = 20, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0)
 
 /obj/item/stack/sheet/plasmarglass/attack_self(mob/user as mob)
 	construct_window(user)

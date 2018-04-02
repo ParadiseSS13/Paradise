@@ -46,7 +46,7 @@
 				w_class = I.w_class
 
 		update_icon()
-		nanomanager.update_uis(src) // update all UIs attached to src
+		SSnanoui.update_uis(src) // update all UIs attached to src
 //TODO: Have this take an assemblyholder
 	else if(isassembly(I))
 		var/obj/item/device/assembly/A = I
@@ -67,7 +67,7 @@
 		msg_admin_attack("[key_name_admin(user)]attached [A] to a transfer valve.")
 		log_game("[key_name_admin(user)] attached [A] to a transfer valve.")
 		attacher = user
-		nanomanager.update_uis(src) // update all UIs attached to src
+		SSnanoui.update_uis(src) // update all UIs attached to src
 
 
 /obj/item/device/transfer_valve/HasProximity(atom/movable/AM)
@@ -90,7 +90,7 @@
 
 /obj/item/device/transfer_valve/ui_interact(mob/user, ui_key = "main", datum/nanoui/ui = null, force_open = 1)
 	// update the ui if it exists, returns null if no ui is passed/found
-	ui = nanomanager.try_update_ui(user, src, ui_key, ui, force_open)
+	ui = SSnanoui.try_update_ui(user, src, ui_key, ui, force_open)
 	if(!ui)
 		// the ui does not exist, so we'll create a new() one
         // for a list of parameters and their descriptions see the code docs in \code\modules\nano\nanoui.dm
