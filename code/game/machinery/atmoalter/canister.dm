@@ -50,6 +50,7 @@ var/datum/canister_icons/canister_icon_container = new()
 	density = 1
 	var/health = 100.0
 	flags = CONDUCT
+	armor = list(melee = 50, bullet = 50, laser = 50, energy = 100, bomb = 10, bio = 100, rad = 100)
 
 	var/menu = 0
 	//used by nanoui: 0 = main menu, 1 = relabel
@@ -366,7 +367,7 @@ update_flag
 
 	..()
 
-	nanomanager.update_uis(src) // Update all NanoUIs attached to src
+	SSnanoui.update_uis(src) // Update all NanoUIs attached to src
 
 
 
@@ -388,7 +389,7 @@ update_flag
 		return
 
 	// update the ui if it exists, returns null if no ui is passed/found
-	ui = nanomanager.try_update_ui(user, src, ui_key, ui, force_open)
+	ui = SSnanoui.try_update_ui(user, src, ui_key, ui, force_open)
 	if(!ui)
 		// the ui does not exist, so we'll create a new() one
         // for a list of parameters and their descriptions see the code docs in \code\modules\nano\nanoui.dm

@@ -9,8 +9,8 @@ var/global/list/potentialRandomZlevels = generateMapList(filename = "config/away
 		smoothTurfs = turfs
 
 	log_debug("Setting up atmos")
-	if(air_master)
-		air_master.setup_allturfs(turfs)
+	if(SSair)
+		SSair.setup_allturfs(turfs)
 	log_debug("\tTook [stop_watch(subtimer)]s")
 
 	subtimer = start_watch()

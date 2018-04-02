@@ -50,3 +50,4 @@
 	icon = 'icons/obj/janitor.dmi'
 	icon_state = "holosign"
 	anchored = 1
+	armor = list(melee = 0, bullet = 50, laser = 50, energy = 50, bomb = 0, bio = 0, rad = 0)

@@ -239,6 +239,7 @@
 		\[list\] - \[/list\] : A list.<br>
 		\[*\] : A dot used for lists.<br>
 		\[hr\] : Adds a horizontal rule.
+		\[time\] : Inserts the current station time in HH:MM:SS.<br>
 	</BODY></HTML>"}, "window=paper_help")
 
 /obj/item/weapon/paper/Topic(href, href_list)
