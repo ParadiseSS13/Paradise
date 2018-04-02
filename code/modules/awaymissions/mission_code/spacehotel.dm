@@ -289,16 +289,8 @@
 /obj/effect/hotel_controller/proc/deploy_sec(mob/living/target)
 	if(!istype(target) || !istype(get_area(target), /area/awaymission/spacehotel))
 		return
-
-	var/list/secs[0]
-	for(var/mob/living/carbon/human/interactive/away/hotel/guard/M in get_area(src))
-		if(!M.retal)
-			secs += M
-	var/mob/living/carbon/human/interactive/away/hotel/guard/S = safepick(secs)
-	if(!S)
-		return
-
-	S.retal_target = target
-	S.retal = 1
+	for(var/mob/living/simple_animal/hostile/retaliate/hotel_secbot/B in living_mob_list)
+		if(!(target in B.enemies))
+			B.enemies |= target
 
 #undef CHECKOUT_TIME

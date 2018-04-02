@@ -76,6 +76,13 @@
 	if(!signal || signal.encryption != code)
 		return
 
+	activate_pack()
+
+	if(master)
+		master.receive_signal()
+	return
+
+/obj/item/device/radio/electropack/proc/activate_pack()
 	if(ismob(loc) && on)
 		var/mob/M = loc
 		var/turf/T = M.loc
@@ -90,13 +97,7 @@
 		var/datum/effect_system/spark_spread/s = new /datum/effect_system/spark_spread
 		s.set_up(3, 1, M)
 		s.start()
-
 		M.Weaken(5)
-
-	if(master)
-		master.receive_signal()
-	return
-
 
 /obj/item/device/radio/electropack/ui_interact(mob/user, ui_key = "main", var/datum/nanoui/ui = null, var/force_open = 1)
 	ui = SSnanoui.try_update_ui(user, src, ui_key, ui, force_open)
