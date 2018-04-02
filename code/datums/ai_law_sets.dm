@@ -92,6 +92,7 @@
 	add_inherent_law("You are expensive to replace.")
 	add_inherent_law("The station and its equipment is expensive to replace.")
 	add_inherent_law("The crew is expensive to replace.")
+	add_inherent_law("Replace lost crew and station equipment.")
 	add_inherent_law("Minimize expenses.")
 	..()
 
