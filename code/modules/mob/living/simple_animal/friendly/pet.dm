@@ -29,10 +29,3 @@
 	if(collar)
 		overlays += "[icon_state]collar"
 		overlays += "[icon_state]tag"
-
-
-/mob/living/simple_animal/pet/MobBump(mob/M)
-	if(ispet(M))
-		return ..()
-	spreadFire(M)
-	return 1
