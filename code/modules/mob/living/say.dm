@@ -162,7 +162,7 @@ proc/get_radio_key_from_channel(var/channel)
 
 	verb = say_quote(message, speaking)
 
-	if(is_muzzled())
+	if(is_muzzled() && !(speaking.flags & SIGNLANG))
 		var/obj/item/clothing/mask/muzzle/G = wear_mask
 		if(G.mute == MUTE_ALL) //if the mask is supposed to mute you completely or just muffle you
 			to_chat(src, "<span class='danger'>You're muzzled and cannot speak!</span>")
@@ -182,6 +182,15 @@ proc/get_radio_key_from_channel(var/channel)
 
 	if(!message || message == "")
 		return 0
+
+	//handle nonverbal and sign languages here
+	if(speaking)
+		if(speaking.flags & NONVERBAL)
+			if(prob(30))
+				custom_emote(1, "[pick(speaking.signlang_verb)].")
+
+		if(speaking.flags & SIGNLANG)
+			return say_signlang(message, pick(speaking.signlang_verb), speaking)
 
 	var/list/used_radios = list()
 	if(handle_message_mode(message_mode, message, verb, speaking, used_radios, alt_name))
@@ -213,15 +222,6 @@ proc/get_radio_key_from_channel(var/channel)
 
 
 	var/turf/T = get_turf(src)
-
-	//handle nonverbal and sign languages here
-	if(speaking)
-		if(speaking.flags & NONVERBAL)
-			if(prob(30))
-				custom_emote(1, "[pick(speaking.signlang_verb)].")
-
-		if(speaking.flags & SIGNLANG)
-			return say_signlang(message, pick(speaking.signlang_verb), speaking)
 
 	var/list/listening = list()
 	var/list/listening_obj = list()
@@ -290,9 +290,18 @@ proc/get_radio_key_from_channel(var/channel)
 	return 1
 
 /mob/living/proc/say_signlang(var/message, var/verb="gestures", var/datum/language/language)
-	for(var/mob/O in viewers(src, null))
-		O.hear_signlang(message, verb, language, src)
-	return 1
+	if(language.check_can_speak(src))
+		to_chat(src, "<span class='notice'>You attempt to sign a message.</span>")
+		
+		if(do_after(src, 30, target = src))
+			for(var/mob/M in get_mobs_in_view(7, src))
+				if(M.see_invisible < invisibility)
+					continue
+				M.hear_signlang(message, verb, language, src)
+
+			log_say("[name]/[key] : [message]")
+			return 1
+	return 0
 
 /obj/effect/speech_bubble
 	var/mob/parent

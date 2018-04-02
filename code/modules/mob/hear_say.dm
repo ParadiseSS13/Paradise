@@ -154,16 +154,16 @@
 		return
 
 	if(say_understands(speaker, language))
-		message = "<B>[src]</B> [verb], \"[message]\""
+		message = "<span class='game say'><span class='name'>[speaker.name]</span> [verb], <span class='message'><span class='body'>\"[message]\"</span></span></span>"
 	else
-		message = "<B>[src]</B> [verb]."
+		message = "<span class='game say'><span class='name'>[speaker.name]</span> [verb] with their hands, but you don't understand.</span>"
 
 	if(src.status_flags & PASSEMOTES)
 		for(var/obj/item/weapon/holder/H in src.contents)
-			H.show_message(message)
+			H.show_message(message, 1)
 		for(var/mob/living/M in src.contents)
-			M.show_message(message)
-	src.show_message(message)
+			M.show_message(message, 1)
+	src.show_message(message, 1)
 
 /mob/proc/hear_sleep(var/message)
 	var/heard = ""
