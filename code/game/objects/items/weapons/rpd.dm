@@ -140,7 +140,7 @@ var/list/pipemenu = list(
 	ui_interact(user)
 
 /obj/item/weapon/rpd/ui_interact(mob/user, ui_key = "main", var/datum/nanoui/ui = null, var/force_open = 1, var/datum/topic_state/state = inventory_state)
-	ui = nanomanager.try_update_ui(user, src, ui_key, ui, force_open)
+	ui = SSnanoui.try_update_ui(user, src, ui_key, ui, force_open)
 	if(!ui)
 		ui = new(user, src, ui_key, "rpd.tmpl", "[name]", 400, 650, state = state)
 		ui.open()
@@ -173,16 +173,19 @@ var/list/pipemenu = list(
 		mode = text2num(sanitize(href_list["mode"]))
 	else
 		return
-	nanomanager.update_uis(src)
+	SSnanoui.update_uis(src)
 
 //What the RPD actually does
 
 /obj/item/weapon/rpd/afterattack(atom/target, mob/user, proximity)
 	..()
 	var/turf/T = get_turf(target)
-	if(src.loc != user || ismob(target) || istype(target, /obj/structure/window) || !proximity || world.time < lastused + spawndelay)
+	if(loc != user || ismob(target) || istype(target, /obj/structure/window) || !proximity || world.time < lastused + spawndelay)
 		return
-	if(mode == ATMOS_MODE && !istype(T, /turf/simulated/shuttle)) //No pipes on shuttles nerds
+	if(!(T.flags & RPD_ALLOWED_HERE))
+		to_chat(user, "<span class='notice'>[src] beeps, \"Unable to interface with [T]. Please try again later.\"</span>")
+		return
+	if(mode == ATMOS_MODE)
 		if(istype(T, /turf/simulated/wall)) //Drilling into walls takes time
 			playsound(loc, "sound/weapons/circsawhit.ogg", 50, 1)
 			user.visible_message("<span class = 'notice'>[user] starts drilling a hole in [T]...</span>", "<span class = 'notice'>You start drilling a hole in [T]...</span>", "<span class = 'warning'>You hear a drill.</span>")

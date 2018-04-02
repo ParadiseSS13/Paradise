@@ -88,7 +88,7 @@
 			W.loc = src
 			src.diskette = W
 			to_chat(user, "You insert [W].")
-			nanomanager.update_uis(src)
+			SSnanoui.update_uis(src)
 			return
 	else if(istype(W, /obj/item/device/multitool))
 		var/obj/item/device/multitool/M = W
@@ -122,7 +122,7 @@
 		return
 
 	// Set up the Nano UI
-	ui = nanomanager.try_update_ui(user, src, ui_key, ui, force_open)
+	ui = SSnanoui.try_update_ui(user, src, ui_key, ui, force_open)
 	if(!ui)
 		ui = new(user, src, ui_key, "cloning_console.tmpl", "Cloning Console UI", 640, 520)
 		ui.open()
@@ -204,16 +204,16 @@
 				scan_mob(scanner.occupant)
 
 			loading = 0
-			nanomanager.update_uis(src)
+			SSnanoui.update_uis(src)
 
 	if(href_list["task"])
 		switch(href_list["task"])
 			if("autoprocess")
 				autoprocess = 1
-				nanomanager.update_uis(src)
+				SSnanoui.update_uis(src)
 			if("stopautoprocess")
 				autoprocess = 0
-				nanomanager.update_uis(src)
+				SSnanoui.update_uis(src)
 
 	//No locking an open scanner.
 	else if((href_list["lock"]) && (!isnull(src.scanner)))
@@ -257,12 +257,12 @@
 			if("load")
 				if((isnull(src.diskette)) || isnull(src.diskette.buf))
 					src.temp = "<span class=\"bad\">Error: The disk's data could not be read.</span>"
-					nanomanager.update_uis(src)
+					SSnanoui.update_uis(src)
 					return
 				if(isnull(src.active_record))
 					src.temp = "<span class=\"bad\">Error: No active record was found.</span>"
 					src.menu = 1
-					nanomanager.update_uis(src)
+					SSnanoui.update_uis(src)
 					return
 
 				src.active_record = src.diskette.buf.copy()
@@ -277,7 +277,7 @@
 	else if(href_list["save_disk"]) //Save to disk!
 		if((isnull(src.diskette)) || (src.diskette.read_only) || (isnull(src.active_record)))
 			src.temp = "<span class=\"bad\">Error: The data could not be saved.</span>"
-			nanomanager.update_uis(src)
+			SSnanoui.update_uis(src)
 			return
 
 		// DNA2 makes things a little simpler.
@@ -294,7 +294,7 @@
 		src.temp = "Save \[[href_list["save_disk"]]\] successful."
 
 	else if(href_list["refresh"])
-		nanomanager.update_uis(src)
+		SSnanoui.update_uis(src)
 
 	else if(href_list["selectpod"])
 		var/obj/machinery/clonepod/selected = locate(href_list["selectpod"])
@@ -346,7 +346,7 @@
 			scan_mode = 0
 
 	src.add_fingerprint(usr)
-	nanomanager.update_uis(src)
+	SSnanoui.update_uis(src)
 	return
 
 /obj/machinery/computer/cloning/proc/scan_mob(mob/living/carbon/human/subject as mob, var/scan_brain = 0)
@@ -358,7 +358,7 @@
 		return
 	if((isnull(subject)) || (!(ishuman(subject))) || (!subject.dna) || (NO_SCAN in subject.species.species_traits))
 		scantemp = "<span class=\"bad\">Error: Unable to locate valid genetic data.</span>"
-		nanomanager.update_uis(src)
+		SSnanoui.update_uis(src)
 		return
 	if(subject.get_int_organ(/obj/item/organ/internal/brain))
 		var/obj/item/organ/internal/brain/Brn = subject.get_int_organ(/obj/item/organ/internal/brain)
@@ -366,31 +366,31 @@
 			var/datum/species/S = all_species[Brn.dna.species] // stepladder code wooooo
 			if(NO_SCAN in S.species_traits)
 				scantemp = "<span class=\"bad\">Error: Subject's brain is incompatible.</span>"
-				nanomanager.update_uis(src)
+				SSnanoui.update_uis(src)
 				return
 	if(!subject.get_int_organ(/obj/item/organ/internal/brain))
 		scantemp = "<span class=\"bad\">Error: No signs of intelligence detected.</span>"
-		nanomanager.update_uis(src)
+		SSnanoui.update_uis(src)
 		return
 	if(subject.suiciding)
 		scantemp = "<span class=\"bad\">Error: Subject's brain is not responding to scanning stimuli.</span>"
-		nanomanager.update_uis(src)
+		SSnanoui.update_uis(src)
 		return
 	if((!subject.ckey) || (!subject.client))
 		scantemp = "<span class=\"bad\">Error: Mental interface failure.</span>"
-		nanomanager.update_uis(src)
+		SSnanoui.update_uis(src)
 		return
 	if((NOCLONE in subject.mutations) && src.scanner.scan_level < 2)
 		scantemp = "<span class=\"bad\">Error: Mental interface failure.</span>"
-		nanomanager.update_uis(src)
+		SSnanoui.update_uis(src)
 		return
 	if(scan_brain && !subject.get_int_organ(/obj/item/organ/internal/brain))
 		scantemp = "<span class=\"bad\">Error: No brain found.</span>"
-		nanomanager.update_uis(src)
+		SSnanoui.update_uis(src)
 		return
 	if(!isnull(find_record(subject.ckey)))
 		scantemp = "Subject already in database."
-		nanomanager.update_uis(src)
+		SSnanoui.update_uis(src)
 		return
 
 	subject.dna.check_integrity()
@@ -427,7 +427,7 @@
 
 	src.records += R
 	scantemp = "Subject successfully scanned. " + extra_info
-	nanomanager.update_uis(src)
+	SSnanoui.update_uis(src)
 
 //Find a specific record by key.
 /obj/machinery/computer/cloning/proc/find_record(var/find_key)

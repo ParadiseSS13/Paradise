@@ -80,9 +80,9 @@
 				if(T.density && T.explosion_block)
 					cached_exp_block[T] += T.explosion_block
 
-				for(var/obj/machinery/door/D in T)
-					if(D.density && D.explosion_block)
-						cached_exp_block[T] += D.explosion_block
+				for(var/obj/O in T)
+					var/the_block = O.explosion_block
+					cached_exp_block[T] += the_block == EXPLOSION_BLOCK_PROC ? O.GetExplosionBlock() : the_block
 				CHECK_TICK
 
 		for(var/A in affected_turfs)
@@ -212,12 +212,12 @@
 			var/turf/TT = T
 			while(TT != epicenter)
 				TT = get_step_towards(TT,epicenter)
-				if(TT.density && TT.explosion_block)
+				if(TT.density)
 					dist += TT.explosion_block
 
-				for(var/obj/machinery/door/D in TT)
-					if(D.density && D.explosion_block)
-						dist += D.explosion_block
+				for(var/obj/O in T)
+					var/the_block = O.explosion_block
+					dist += the_block == EXPLOSION_BLOCK_PROC ? O.GetExplosionBlock() : the_block
 
 		if(dist < dev)
 			T.color = "red"

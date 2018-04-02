@@ -22,7 +22,6 @@
 	var/allow_quick_empty	//Set this variable to allow the object to have the 'empty' verb, which dumps all the contents on the floor.
 	var/allow_quick_gather	//Set this variable to allow the object to have the 'toggle mode' verb, which quickly collects all items from a tile.
 	var/collection_mode = 1;  //0 = pick one at a time, 1 = pick all on tile
-	var/foldable = null	// BubbleWrap - if set, can be folded (when empty) into a sheet of cardboard
 	var/use_sound = "rustle"	//sound played when used. null for no sound.
 
 /obj/item/weapon/storage/MouseDrop(obj/over_object as obj)
@@ -474,35 +473,12 @@
 	for(var/obj/O in contents)
 		O.hear_message(M, msg)
 
-// BubbleWrap - A box can be folded up to make card
-/obj/item/weapon/storage/attack_self(mob/user as mob)
+/obj/item/weapon/storage/attack_self(mob/user)
 
 	//Clicking on itself will empty it, if it has the verb to do that.
 	if(user.is_in_active_hand(src))
-		if(src.verbs.Find(/obj/item/weapon/storage/verb/quick_empty))
-			src.quick_empty()
-			return
-
-	//Otherwise we'll try to fold it.
-	if( contents.len )
-		return
-
-	if( !ispath(src.foldable) )
-		return
-	var/found = 0
-	// Close any open UI windows first
-	for(var/mob/M in range(1))
-		if(M.s_active == src)
-			src.close(M)
-		if( M == user )
-			found = 1
-	if( !found )	// User is too far away
-		return
-	// Now make the cardboard
-	to_chat(user, "<span class='notice'>You fold [src] flat.</span>")
-	new src.foldable(get_turf(src))
-	qdel(src)
-//BubbleWrap END
+		if(verbs.Find(/obj/item/weapon/storage/verb/quick_empty))
+			quick_empty()
 
 //Returns the storage depth of an atom. This is the number of storage items the atom is contained in before reaching toplevel (the area).
 //Returns -1 if the atom was not found on container.

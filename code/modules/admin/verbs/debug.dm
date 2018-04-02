@@ -773,7 +773,7 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 	set desc = "Force the client to redownload NanoUI Resources"
 
 	// Close open NanoUIs.
-	nanomanager.close_user_uis(usr)
+	SSnanoui.close_user_uis(usr)
 
 	// Re-load the assets.
 	var/datum/asset/assets = get_asset_datum(/datum/asset/nanoui)

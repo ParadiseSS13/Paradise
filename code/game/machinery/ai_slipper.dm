@@ -4,6 +4,7 @@
 	icon_state = "motion3"
 	layer = 3
 	anchored = 1.0
+	armor = list(melee = 50, bullet = 20, laser = 20, energy = 20, bomb = 0, bio = 0, rad = 0)
 	var/uses = 20
 	var/disabled = TRUE
 	var/lethal = 0

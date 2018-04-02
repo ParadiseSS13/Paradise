@@ -1,6 +1,7 @@
 /turf/simulated/shuttle
 	name = "shuttle"
 	icon = 'icons/turf/shuttle.dmi'
+	flags = null
 	thermal_conductivity = 0.05
 	heat_capacity = 0
 	layer = 2

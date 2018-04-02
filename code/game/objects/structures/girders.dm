@@ -32,8 +32,8 @@
 /obj/structure/girder/attack_animal(mob/living/simple_animal/M)
 	M.changeNext_move(CLICK_CD_MELEE)
 	M.do_attack_animation(src)
-	if(M.environment_smash >= 1)
-		if(M.environment_smash == 3)
+	if((M.environment_smash & ENVIRONMENT_SMASH_STRUCTURES) || (M.environment_smash & ENVIRONMENT_SMASH_WALLS) || (M.environment_smash & ENVIRONMENT_SMASH_RWALLS))
+		if(M.environment_smash & ENVIRONMENT_SMASH_RWALLS)
 			ex_act(2)
 			M.visible_message("<span class='warning'>[M] smashes through \the [src].</span>", "<span class='warning'>You smash through \the [src].</span>")
 		else
