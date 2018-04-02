@@ -350,62 +350,6 @@
 	add_logs(user, H, "vampire-thralled")
 
 
-/obj/effect/proc_holder/spell/vampire/targetted/sire
-	name = "Sire (300)"
-	desc = "You infect the mind of a human with one of your own kind, creating a new vampire."
-	gain_desc = "You have gained the sire ability which allows you to create new vampires."
-	action_icon_state = "vampire_enthrall"
-	required_blood = 300
-
-/obj/effect/proc_holder/spell/vampire/targetted/sire/cast(list/targets, mob/user = usr)
-	for(var/mob/living/target in targets)
-		user.visible_message("<span class='warning'>[user] bites [target]'s neck!</span>", "<span class='warning'>You bite [target]'s neck and begin the flow of power.</span>")
-		to_chat(target, "<span class='warning'>You feel the tendrils of evil invade your mind.</span>")
-		if(!ishuman(target))
-			to_chat(user, "<span class='warning'>You can only sire humans.</span>")
-			break
-		if(do_mob(user, target, 50))
-			if(can_sire(user, target))
-				handle_sire(user, target)
-			else
-				revert_cast(user)
-				to_chat(user, "<span class='warning'>You or your target either moved or you dont have enough usable blood.</span>")
-
-/obj/effect/proc_holder/spell/vampire/targetted/sire/proc/can_sire(mob/living/user, mob/living/carbon/C)
-	// Unlike can_enthrall, this proc allows usage on mindshielded and traitor targets. Deletes mindshield on use.
-	if(!C)
-		log_runtime(EXCEPTION("something bad happened on sireing a mob, attacker is [user] [user.key] \ref[user]"), user)
-		return 0
-	if(!C.mind)
-		to_chat(user, "<span class='warning'>[C.name]'s mind is not there for you to sire.</span>")
-		return 0
-	if( ( C.mind in ticker.mode.vampires )||( C.mind.vampire )||( C.mind in ticker.mode.vampire_enthralled ))
-		C.visible_message("<span class='warning'>[C] seems to resist the takeover!</span>", "<span class='notice'>You feel a familiar sensation in your skull that quickly dissipates.</span>")
-		return 0
-	if(!affects(C))
-		C.visible_message("<span class='warning'>[C] seems to resist the takeover!</span>", "<span class='notice'>Your faith of [ticker.Bible_deity_name] has kept your mind clear of all evil.</span>")
-		return 0
-	if(!ishuman(C))
-		to_chat(user, "<span class='warning'>You can only sire humans!</span>")
-		return 0
-	return 1
-
-/obj/effect/proc_holder/spell/vampire/targetted/sire/proc/handle_sire(mob/living/user, mob/living/carbon/human/H as mob)
-	if(!istype(H))
-		return 0
-	for(var/obj/item/weapon/implant/mindshield/L in H)
-		if(L && L.implanted)
-			to_chat(H, "<span class='boldannounce'>Your mental protection implant unexpectedly falters, dims, dies.</span>")
-			qdel(L)
-	H.make_vampire()
-	ticker.mode.forge_vampire_objectives(H.mind)
-	ticker.mode.greet_vampire(H.mind)
-	ticker.mode.update_vampire_icons_added(H.mind)
-	to_chat(H, "<span class='danger'>You have been sireed by [user]. Follow their every command.</span>")
-	to_chat(user, "<span class='warning'>You have successfully sireed [H].</span>")
-	add_logs(user, H, "vampire-sired")
-
-
 /obj/effect/proc_holder/spell/vampire/self/cloak
 	name = "Cloak of Darkness"
 	desc = "Toggles whether you are currently cloaking yourself in darkness."

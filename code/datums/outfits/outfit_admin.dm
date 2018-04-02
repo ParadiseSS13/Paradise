@@ -1046,45 +1046,6 @@
 		apply_to_card(I, H, get_all_accesses(), "Dark Lord", "syndie")
 
 
-/datum/outfit/admin/ancient_vampire
-	name = "Ancient Vampire"
-	// Vampire with tons of blood, and ability to convert others into vampires.
-
-	uniform = /obj/item/clothing/under/color/black
-	suit = /obj/item/clothing/suit/hooded/chaplain_hoodie
-	back = /obj/item/weapon/storage/backpack
-	gloves = /obj/item/clothing/gloves/color/black
-	shoes = /obj/item/clothing/shoes/black
-	l_ear = /obj/item/device/radio/headset/syndicate
-	id = /obj/item/weapon/card/id/syndicate
-	backpack_contents = list(
-		/obj/item/weapon/storage/box/survival = 1,
-		/obj/item/device/flashlight = 1,
-	)
-
-/datum/outfit/admin/ancient_vampire/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
-	. = ..()
-	if(visualsOnly)
-		return
-
-	var/obj/item/clothing/suit/hooded/chaplain_hoodie/C = H.wear_suit
-	if(istype(C))
-		C.name = "ancient robes"
-		C.hood.name = "ancient hood"
-
-	var/obj/item/weapon/card/id/I = H.wear_id
-	if(istype(I))
-		apply_to_card(I, H, get_all_accesses(), "Ancient", "syndie")
-
-	H.make_vampire()
-	if(H.mind && H.mind.vampire)
-		H.mind.vampire.bloodtotal = 2500
-		H.mind.vampire.bloodusable = 2500
-		H.mind.vampire.add_ability(/obj/effect/proc_holder/spell/vampire/targetted/sire)
-		H.mind.vampire.check_vampire_upgrade()
-
-
-
 /datum/outfit/admin/wizard
 	uniform = /obj/item/clothing/under/color/lightpurple
 	suit = /obj/item/clothing/suit/wizrobe
