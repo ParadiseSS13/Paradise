@@ -3,6 +3,10 @@
 	var/datum/middleClickOverride/middleClickOverride = null
 
 /mob/living/carbon/Destroy()
+	// This clause is here due to items falling off from limb deletion
+	for(var/obj/item in get_all_slots())
+		unEquip(item)
+		qdel(item)
 	QDEL_LIST(internal_organs)
 	QDEL_LIST(stomach_contents)
 	var/mob/living/simple_animal/borer/B = has_brain_worms()
