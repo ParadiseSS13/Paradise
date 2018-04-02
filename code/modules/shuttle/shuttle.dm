@@ -869,7 +869,7 @@
 	desc = "Used to call and send the SIT shuttle."
 	req_access = list(access_syndicate)
 	shuttleId = "sit"
-	possible_destinations = "sit_arrivals;sit_scimaint;sit_engshuttle;sit_away"
+	possible_destinations = "sit_arrivals;sit_engshuttle;sit_away"
 
 
 var/global/trade_dock_timelimit = 0
