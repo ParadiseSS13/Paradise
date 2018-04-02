@@ -17,8 +17,8 @@
 	response_disarm = "gently pushes aside"
 	response_harm = "kicks"
 	gold_core_spawnable = CHEM_MOB_SPAWN_FRIENDLY
-	melee_damage_lower = 18
-	melee_damage_upper = 18
+	melee_damage_lower = 0
+	melee_damage_upper = 0
 	health = 50
 	maxHealth = 50
 	speed = 2
