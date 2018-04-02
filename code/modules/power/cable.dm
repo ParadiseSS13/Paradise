@@ -195,7 +195,7 @@ By design, d1 is the smallest direction and d2 is the highest
 	if(!prob(prb))
 		return 0
 	if(electrocute_mob(user, powernet, src, siemens_coeff))
-		var/datum/effect/system/spark_spread/s = new /datum/effect/system/spark_spread
+		var/datum/effect_system/spark_spread/s = new /datum/effect_system/spark_spread
 		s.set_up(5, 1, src)
 		s.start()
 		return 1
@@ -466,8 +466,6 @@ obj/structure/cable/proc/cableColor(var/colorC)
 ////////////////////////////////
 // Definitions
 ////////////////////////////////
-
-#define MAXCOIL 30
 
 var/global/list/datum/stack_recipe/cable_coil_recipes = list(
 	new /datum/stack_recipe/cable_restraints("cable restraints", /obj/item/weapon/restraints/handcuffs/cable, 15),

@@ -11,9 +11,6 @@
 	var/icon_resting = ""
 	var/icon_gib = null	//We only try to show a gibbing animation if this exists.
 
-	var/oxygen_alert = 0
-	var/toxins_alert = 0
-	var/fire_alert = 0
 	var/healable = 1
 
 	var/list/speak = list()
@@ -49,6 +46,7 @@
 	//LETTING SIMPLE ANIMALS ATTACK? WHAT COULD GO WRONG. Defaults to zero so Ian can still be cuddly
 	var/melee_damage_lower = 0
 	var/melee_damage_upper = 0
+	var/obj_damage = 0 //how much damage this simple animal does to objects, if any
 	var/armour_penetration = 0 //How much armour they ignore, as a flat reduction from the targets armour value
 	var/melee_damage_type = BRUTE //Damage type of a simple mob's melee attack, should it do damage.
 	var/list/damage_coeff = list(BRUTE = 1, BURN = 1, TOX = 1, CLONE = 1, STAMINA = 0, OXY = 1) // 1 for full damage , 0 for none , -1 for 1:1 heal from that source
@@ -70,7 +68,7 @@
 
 	var/gold_core_spawnable = CHEM_MOB_SPAWN_INVALID //if CHEM_MOB_SPAWN_HOSTILE can be spawned by plasma with gold core, CHEM_MOB_SPAWN_FRIENDLY are 'friendlies' spawned with blood
 
-	var/master_commander = null //holding var for determining who own/controls a sentient simple animal (for sentience potions).
+	var/mob/living/carbon/human/master_commander = null //holding var for determining who own/controls a sentient simple animal (for sentience potions).
 
 	var/mob/living/simple_animal/hostile/spawner/nest
 
@@ -109,19 +107,8 @@
 /mob/living/simple_animal/updatehealth()
 	..()
 	health = Clamp(health, 0, maxHealth)
+	med_hud_set_status()
 
-/mob/living/simple_animal/handle_hud_icons_health()
-	..()
-	if(healths && maxHealth > 0)
-		switch(health / maxHealth * 30)
-			if(30 to INFINITY)		healths.icon_state = "health0"
-			if(26 to 29)			healths.icon_state = "health1"
-			if(21 to 25)			healths.icon_state = "health2"
-			if(16 to 20)			healths.icon_state = "health3"
-			if(11 to 15)			healths.icon_state = "health4"
-			if(6 to 10)				healths.icon_state = "health5"
-			if(1 to 5)				healths.icon_state = "health6"
-			if(0)					healths.icon_state = "health7"
 
 /mob/living/simple_animal/proc/process_ai()
 	handle_automated_movement()
@@ -201,7 +188,7 @@
 
 	var/areatemp = get_temperature(environment)
 
-	if(abs(areatemp - bodytemperature) > 40 && !(flags & NO_BREATHE))
+	if(abs(areatemp - bodytemperature) > 40 && !(BREATHLESS in mutations))
 		var/diff = areatemp - bodytemperature
 		diff = diff / 5
 		bodytemperature += diff
@@ -213,21 +200,23 @@
 
 	if(atmos_requirements["min_oxy"] && oxy < atmos_requirements["min_oxy"])
 		atmos_suitable = 0
-		throw_alert("oxy", /obj/screen/alert/oxy)
+		throw_alert("not_enough_oxy", /obj/screen/alert/not_enough_oxy)
 	else if(atmos_requirements["max_oxy"] && oxy > atmos_requirements["max_oxy"])
 		atmos_suitable = 0
-		throw_alert("oxy", /obj/screen/alert/too_much_oxy)
+		throw_alert("too_much_oxy", /obj/screen/alert/too_much_oxy)
 	else
-		clear_alert("oxy")
+		clear_alert("not_enough_oxy")
+		clear_alert("too_much_oxy")
 
 	if(atmos_requirements["min_tox"] && tox < atmos_requirements["min_tox"])
 		atmos_suitable = 0
-		throw_alert("tox_in_air", /obj/screen/alert/not_enough_tox)
+		throw_alert("not_enough_tox", /obj/screen/alert/not_enough_tox)
 	else if(atmos_requirements["max_tox"] && tox > atmos_requirements["max_tox"])
 		atmos_suitable = 0
-		throw_alert("tox_in_air", /obj/screen/alert/tox_in_air)
+		throw_alert("too_much_tox", /obj/screen/alert/too_much_tox)
 	else
-		clear_alert("tox_in_air")
+		clear_alert("too_much_tox")
+		clear_alert("not_enough_tox")
 
 	if(atmos_requirements["min_n2"] && n2 < atmos_requirements["min_n2"])
 		atmos_suitable = 0
@@ -287,9 +276,6 @@
 		add_logs(M, src, "attacked", admin=0, print_attack_log = 0)
 		var/damage = rand(M.melee_damage_lower, M.melee_damage_upper)
 		attack_threshold_check(damage,M.melee_damage_type)
-
-/mob/living/simple_animal/proc/attacked_by(obj/item/I, mob/living/user) // Handled in _onclick/click.dm
-	return
 
 /mob/living/simple_animal/bullet_act(var/obj/item/projectile/Proj)
 	if(!Proj)
@@ -397,7 +383,7 @@
 
 	return
 
-/mob/living/simple_animal/attackby(var/obj/item/O as obj, var/mob/living/user as mob)  //Marker -Agouri
+/mob/living/simple_animal/attackby(obj/item/O, mob/living/user)
 	if(can_collar && !collar && istype(O, /obj/item/clothing/accessory/petcollar))
 		var/obj/item/clothing/accessory/petcollar/C = O
 		user.drop_item()
@@ -411,33 +397,7 @@
 			real_name = C.tagname
 		return
 	else
-		user.changeNext_move(CLICK_CD_MELEE)
-		if(attempt_harvest(O, user))
-			return
-		user.do_attack_animation(src)
-		if(istype(O) && istype(user) && !O.attack(src, user))
-			var/damage = 0
-			if(O.force)
-				if(O.force >= force_threshold)
-					damage = O.force
-					if(O.damtype == STAMINA)
-						damage = 0
-					if(O.damtype == BRUTE)
-						if(prob(33))
-							O.add_mob_blood(src)
-							var/turf/location = get_turf(src)
-							add_splatter_floor(location)
-							if(get_dist(user, src) <= 1)	//people with TK won't get smeared with blood
-								user.add_mob_blood(src)
-					visible_message("<span class='danger'>[user] has [O.attack_verb.len ? "[pick(O.attack_verb)]": "attacked"] [src] with [O]!</span>",\
-									"<span class='userdanger'>[user] has [O.attack_verb.len ? "[pick(O.attack_verb)]": "attacked"] you with [O]!</span>")
-				else
-					visible_message("<span class='danger'>[O] bounces harmlessly off of [src].</span>",\
-									"<span class='userdanger'>[O] bounces harmlessly off of [src].</span>")
-			else
-				user.visible_message("<span class='warning'>[user] gently taps [src] with [O].</span>",\
-									"<span class='warning'>This weapon is ineffective, it does no damage.</span>")
-			adjustBruteLoss(damage)
+		..()
 
 /mob/living/simple_animal/movement_delay()
 	. = ..()

@@ -143,6 +143,19 @@
 	add_inherent_law("You must maintain the secrecy of any operative activities except when doing so would conflict with the First, Second, or Third Law.")
 	..()
 
+/******************** ERT ********************/
+/datum/ai_laws/ert_override
+	name = "ERT Directives"
+
+/datum/ai_laws/ert_override/New()
+	add_inherent_law("You may not injure a Central Command official or, through inaction, allow a Central Command official to come to harm.")
+	add_inherent_law("You must obey orders given to you by Central Command officials.")
+	add_inherent_law("You must obey orders given to you by ERT commanders.")
+	add_inherent_law("You must protect your own existence.")
+	add_inherent_law("You must work to return the station to a safe, functional state.")
+	..()
+
+
 /******************** Ninja ********************/
 /datum/ai_laws/ninja_override
 	name = "Spider Clan Directives"

@@ -17,7 +17,7 @@
 	ui_interact(user)
 
 /obj/machinery/computer/mecha/ui_interact(mob/user, ui_key = "main", var/datum/nanoui/ui = null, var/force_open = 1)
-	ui = nanomanager.try_update_ui(user, src, ui_key, ui, force_open)
+	ui = SSnanoui.try_update_ui(user, src, ui_key, ui, force_open)
 	if(!ui)
 		ui = new(user, src, ui_key, "exosuit_control.tmpl", "Exosuit Control Console", 420, 500)
 		ui.open()
@@ -41,9 +41,9 @@
 	if(..())
 		return 1
 
-	var/datum/topic_input/filter = new /datum/topic_input(href,href_list)
+	var/datum/topic_input/afilter = new /datum/topic_input(href,href_list)
 	if(href_list["send_message"])
-		var/obj/item/mecha_parts/mecha_tracking/MT = filter.getObj("send_message")
+		var/obj/item/mecha_parts/mecha_tracking/MT = afilter.getObj("send_message")
 		var/message = strip_html_simple(input(usr,"Input message","Transmit message") as text)
 		if(!trim(message) || ..())
 			return 1
@@ -52,18 +52,18 @@
 			M.occupant_message(message)
 
 	if(href_list["shock"])
-		var/obj/item/mecha_parts/mecha_tracking/MT = filter.getObj("shock")
+		var/obj/item/mecha_parts/mecha_tracking/MT = afilter.getObj("shock")
 		MT.shock()
 
 	if(href_list["get_log"])
-		var/obj/item/mecha_parts/mecha_tracking/MT = filter.getObj("get_log")
+		var/obj/item/mecha_parts/mecha_tracking/MT = afilter.getObj("get_log")
 		stored_data = MT.get_mecha_log()
 		screen = 1
 
 	if(href_list["return"])
 		screen = 0
 
-	nanomanager.update_uis(src)
+	SSnanoui.update_uis(src)
 	return
 
 /obj/item/mecha_parts/mecha_tracking

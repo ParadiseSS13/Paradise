@@ -642,7 +642,11 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 			if(dresscode == "emergency response team leader")
 				equip_team.equip_officer("Commander", M)
 			else
-				switch(alert("Loadout Type", "Emergency Response Team", "Security", "Engineer", "Medic"))
+				var/list/ert_outfits = list("Security", "Engineer", "Medic", "Janitor", "Paranormal")
+				var/echoice = input("Loadout Type", "Emergency Response Team") as null|anything in ert_outfits
+				if(!echoice)
+					return
+				switch(echoice)
 					if("Commander")
 						equip_team.equip_officer("Commander", M)
 					if("Security")
@@ -651,6 +655,10 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 						equip_team.equip_officer("Engineer", M)
 					if("Medic")
 						equip_team.equip_officer("Medic", M)
+					if("Janitor")
+						equip_team.equip_officer("Janitor", M)
+					if("Paranormal")
+						equip_team.equip_officer("Paranormal", M)
 					else
 						to_chat(src, "Invalid ERT Loadout selected")
 
@@ -765,7 +773,7 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 	set desc = "Force the client to redownload NanoUI Resources"
 
 	// Close open NanoUIs.
-	nanomanager.close_user_uis(usr)
+	SSnanoui.close_user_uis(usr)
 
 	// Re-load the assets.
 	var/datum/asset/assets = get_asset_datum(/datum/asset/nanoui)

@@ -111,8 +111,6 @@ nanoui is used to open and update nano browser uis
 
 	// CodeMirror
 	add_script("codemirror-compressed.js") // A custom minified JavaScript file of CodeMirror, with the following plugins: CSS Mode, NTSL Mode, CSS-hint addon, Search addon, Sublime Keymap.
-	add_stylesheet("codemirror.css")       // A CSS sheet containing the basic stylings and formatting information for CodeMirror.
-	add_stylesheet("cm_lesser-dark.css")   // A theme for CodeMirror to use, which closely resembles the rest of the NanoUI style.
 
  /**
   * Set the current status (also known as visibility) of this ui.
@@ -178,7 +176,7 @@ nanoui is used to open and update nano browser uis
 	var/name = "[src_object]"
 	var/list/config_data = list(
 			"title" = title,
-			"map" = MAP_NAME,
+			"map" = (using_map && using_map.name) ? using_map.name : "Unknown",
 			"srcObject" = list("name" = name),
 			"stateKey" = state_key,
 			"status" = status,
@@ -422,7 +420,7 @@ nanoui is used to open and update nano browser uis
 	winset(user, "mapwindow.map", "focus=true") // return keyboard focus to map
 	on_close_winset()
 	//onclose(user, window_id)
-	nanomanager.ui_opened(src)
+	SSnanoui.ui_opened(src)
 
 /**
  * Reinitialize the UI with
@@ -441,7 +439,7 @@ nanoui is used to open and update nano browser uis
   */
 /datum/nanoui/proc/close()
 	is_auto_updating = 0
-	nanomanager.ui_closed(src)
+	SSnanoui.ui_closed(src)
 	user << browse(null, "window=[window_id]")
 	for(var/datum/nanoui/child in children)
 		child.close()
@@ -498,7 +496,7 @@ nanoui is used to open and update nano browser uis
 		map_update = 1
 
 	if((src_object && src_object.Topic(href, href_list, 0, state)) || map_update)
-		nanomanager.update_uis(src_object) // update all UIs attached to src_object
+		SSnanoui.update_uis(src_object) // update all UIs attached to src_object
 
  /**
   * Process this UI, updating the entire UI or just the status (aka visibility)

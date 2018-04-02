@@ -333,9 +333,9 @@ BLIND     // can't see anything
 		if(adjusted_flags)
 			slot_flags = adjusted_flags
 		if(ishuman(user) && H.internal && !H.get_organ_slot("breathing_tube") && user.wear_mask == src) /*If the user was wearing the mask providing internals on their face at the time it was adjusted, turn off internals.
-																	Otherwise, they adjusted it while it was in their hands or some such so we won't be needing to turn off internals.*/
-			H.update_internals_hud_icon(0)
+																Otherwise, they adjusted it while it was in their hands or some such so we won't be needing to turn off internals.*/
 			H.internal = null
+			H.update_action_buttons_icon()
 		if(flags_inv & HIDEFACE) //Means that only things like bandanas and balaclavas will be affected since they obscure the identity of the wearer.
 			flags_inv &= ~HIDEFACE /*Done after the above to avoid having to do a check for initial(src.flags_inv == HIDEFACE).
 									This reveals the user's face since the bandana will now be going on their head.*/

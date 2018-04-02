@@ -92,7 +92,7 @@
 		if(H.a_intent == INTENT_HARM)
 			var/mob/living/carbon/C = A
 			if(cell.use(stun_cost))
-				var/datum/effect/system/spark_spread/s = new /datum/effect/system/spark_spread
+				var/datum/effect_system/spark_spread/s = new /datum/effect_system/spark_spread
 				s.set_up(5, 0, loc)
 				s.start()
 				playsound(loc, 'sound/weapons/Egloves.ogg', 50, 1, -1)

@@ -3,12 +3,18 @@
 	icon_state = "flashbang"
 	item_state = "flashbang"
 	origin_tech = "materials=2;combat=3"
+	light_power = 10
+	light_color = LIGHT_COLOR_WHITE
+	var/light_time = 2
 
 /obj/item/weapon/grenade/flashbang/prime()
 	update_mob()
 	var/flashbang_turf = get_turf(src)
 	if(!flashbang_turf)
 		return
+
+	set_light(7)
+
 	for(var/mob/living/M in hearers(7, flashbang_turf))
 		bang(get_turf(M), M)
 
@@ -16,7 +22,9 @@
 		var/damage = round(30/(get_dist(B,get_turf(src))+1))
 		B.health -= damage
 		B.update_icon()
-	qdel(src)
+
+	spawn(light_time)
+		qdel(src)
 
 /obj/item/weapon/grenade/flashbang/proc/bang(var/turf/T , var/mob/living/M)
 	M.show_message("<span class='warning'>BANG</span>", 2)
@@ -37,7 +45,7 @@
 			var/mob/living/carbon/human/H = M
 			var/obj/item/organ/internal/eyes/E = H.get_int_organ(/obj/item/organ/internal/eyes)
 			if(E)
-				E.take_damage(8, 1)
+				E.receive_damage(8, 1)
 
 	if(M.flash_eyes(affect_silicon = 1))
 		M.Stun(max(10/distance, 3))

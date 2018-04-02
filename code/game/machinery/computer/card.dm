@@ -138,7 +138,7 @@ var/time_last_changed_position = 0
 		id_card.loc = src
 		modify = id_card
 
-	nanomanager.update_uis(src)
+	SSnanoui.update_uis(src)
 	attack_hand(user)
 
 //Check if you can't touch a job in any way whatsoever
@@ -194,6 +194,8 @@ var/time_last_changed_position = 0
 		return 1
 	if(!scan.assignment)
 		return 0
+	if(access_captain in scan.access)
+		return 1
 	if(!targetjob || !targetjob.title)
 		return 0
 	if(targetjob.title in get_subordinates(scan.assignment, includecivs))
@@ -223,7 +225,7 @@ var/time_last_changed_position = 0
 /obj/machinery/computer/card/ui_interact(mob/user, ui_key = "main", var/datum/nanoui/ui = null, var/force_open = 1)
 	user.set_machine(src)
 
-	ui = nanomanager.try_update_ui(user, src, ui_key, ui, force_open)
+	ui = SSnanoui.try_update_ui(user, src, ui_key, ui, force_open)
 	if(!ui)
 		ui = new(user, src, ui_key, "identification_computer.tmpl", src.name, 775, 700)
 		ui.open()
@@ -404,7 +406,7 @@ var/time_last_changed_position = 0
 						modify.registered_name = temp_name
 					else
 						visible_message("<span class='notice'>[src] buzzes rudely.</span>")
-			nanomanager.update_uis(src)
+			SSnanoui.update_uis(src)
 
 		if("account")
 			if(is_authenticated(usr) && !target_dept)
@@ -412,7 +414,7 @@ var/time_last_changed_position = 0
 				if((modify == t2 && (in_range(src, usr) || (istype(usr, /mob/living/silicon))) && istype(loc, /turf)))
 					var/account_num = text2num(href_list["account"])
 					modify.associated_account_number = account_num
-			nanomanager.update_uis(src)
+			SSnanoui.update_uis(src)
 
 		if("mode")
 			mode = text2num(href_list["mode_target"])
@@ -423,7 +425,7 @@ var/time_last_changed_position = 0
 				playsound(loc, 'sound/goonstation/machines/printer_dotmatrix.ogg', 50, 1)
 				spawn(50)
 					printing = null
-					nanomanager.update_uis(src)
+					SSnanoui.update_uis(src)
 
 					var/obj/item/weapon/paper/P = new(loc)
 					if(mode == 2)
@@ -491,7 +493,7 @@ var/time_last_changed_position = 0
 				opened_positions[edit_job_target]++
 				log_game("[key_name(usr)] has opened a job slot for job \"[j]\".")
 				message_admins("[key_name_admin(usr)] has opened a job slot for job \"[j.title]\".")
-				nanomanager.update_uis(src)
+				SSnanoui.update_uis(src)
 
 		if("make_job_unavailable")
 			// MAKE JOB POSITION UNAVAILABLE FOR LATE JOINERS
@@ -511,7 +513,7 @@ var/time_last_changed_position = 0
 				opened_positions[edit_job_target]--
 				log_game("[key_name(usr)] has closed a job slot for job \"[j]\".")
 				message_admins("[key_name_admin(usr)] has closed a job slot for job \"[j.title]\".")
-				nanomanager.update_uis(src)
+				SSnanoui.update_uis(src)
 
 		if("prioritize_job")
 			// TOGGLE WHETHER JOB APPEARS AS PRIORITIZED IN THE LOBBY

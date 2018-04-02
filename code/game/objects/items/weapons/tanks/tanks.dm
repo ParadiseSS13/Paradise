@@ -8,14 +8,12 @@
 	slot_flags = SLOT_BACK
 	hitsound = 'sound/weapons/smash.ogg'
 	w_class = WEIGHT_CLASS_NORMAL
-
 	pressure_resistance = ONE_ATMOSPHERE*5
-
 	force = 5.0
 	throwforce = 10.0
 	throw_speed = 1
 	throw_range = 4
-
+	armor = list(melee = 0, bullet = 0, laser = 0, energy = 0, bomb = 10, bio = 0, rad = 0)
 	actions_types = list(/datum/action/item_action/set_internals)
 	var/datum/gas_mixture/air_contents = null
 	var/distribute_pressure = ONE_ATMOSPHERE
@@ -51,7 +49,6 @@
 	if(C.internal == src)
 		to_chat(C, "<span class='notice'>You close \the [src] valve.</span>")
 		C.internal = null
-		C.update_internals_hud_icon(0)
 	else
 		var/can_open_valve = 0
 		if(C.get_organ_slot("breathing_tube"))
@@ -71,7 +68,6 @@
 				if(!silent)
 					to_chat(C, "<span class='notice'>You open \the [src] valve.</span>")
 			C.internal = src
-			C.update_internals_hud_icon(1)
 		else
 			if(!silent)
 				to_chat(C, "<span class='notice'>You are not wearing a suitable mask or helmet.</span>")
@@ -145,7 +141,7 @@
 
 /obj/item/weapon/tank/ui_interact(mob/user, ui_key = "main", var/datum/nanoui/ui = null, var/force_open = 1)
 	// update the ui if it exists, returns null if no ui is passed/found
-	ui = nanomanager.try_update_ui(user, src, ui_key, ui, force_open)
+	ui = SSnanoui.try_update_ui(user, src, ui_key, ui, force_open)
 	if(!ui)
 		// the ui does not exist, so we'll create a new() one
         // for a list of parameters and their descriptions see the code docs in \code\modules\nano\nanoui.dm

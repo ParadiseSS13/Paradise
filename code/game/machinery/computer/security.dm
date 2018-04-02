@@ -44,7 +44,7 @@
 	ui_interact(user)
 
 /obj/machinery/computer/secure_data/ui_interact(mob/user, ui_key = "main", var/datum/nanoui/ui = null, var/force_open = 1)
-	ui = nanomanager.try_update_ui(user, src, ui_key, ui, force_open)
+	ui = SSnanoui.try_update_ui(user, src, ui_key, ui, force_open)
 	if(!ui)
 		ui = new(user, src, ui_key, "secure_data.tmpl", name, 800, 380)
 		ui.open()
@@ -167,9 +167,17 @@
 				if(active2)
 					var/their_name = active2.fields["name"]
 					var/their_rank = active2.fields["rank"]
-					var/t1 = copytext(trim(sanitize(input("Enter Reason:", "Secure. records", null, null) as text)), 1, MAX_MESSAGE_LEN)
-					if(!t1)
+					var/t1
+					if(temp_href[2] == "execute")
+						t1 = copytext(trim(sanitize(input("Explain why they are being executed. Include a list of their crimes, and victims.", "EXECUTION ORDER", null, null) as text)), 1, MAX_MESSAGE_LEN)
+					else
+						t1 = copytext(trim(sanitize(input("Enter Reason:", "Secure. records", null, null) as text)), 1, MAX_MESSAGE_LEN)
+					var/visible_reason
+					if(t1)
+						visible_reason = t1
+					else
 						t1 = "(none)"
+						visible_reason = "<span class='warning'>NO REASON PROVIDED</span>"
 					switch(temp_href[2])
 						if("none")
 							active2.fields["criminal"] = "None"
@@ -178,10 +186,9 @@
 						if("execute")
 							if((access_magistrate in authcard_access) || (access_armory in authcard_access))
 								active2.fields["criminal"] = "*Execute*"
-								message_admins("[key_name_admin(usr)] authorized execution for [their_rank] [their_name], with comment: [t1]")
+								message_admins("[ADMIN_FULLMONTY(usr)] authorized <span class='warning'>EXECUTION</span> for [their_rank] [their_name], with comment: [visible_reason]")
 							else
 								setTemp("<h3 class='bad'>Error: permission denied.</h3>")
-								//to_chat(usr, "<span class='notice'>Error: permission denied.</span>")
 								return 1
 						if("incarcerated")
 							active2.fields["criminal"] = "Incarcerated"
@@ -359,9 +366,10 @@
 				else
 					P.info += "<B>Security Record Lost!</B><BR>"
 				P.info += "</TT>"
-				P.name = "paper - 'Security Record'"
+				P.name = "paper - 'Security Record: [active1.fields["name"]]'"
 				printing = 0
 
+/* Removed due to BYOND issue
 		else if(href_list["print_p"])
 			if(!printing)
 				printing = 1
@@ -370,6 +378,7 @@
 				if(istype(active1, /datum/data/record) && data_core.general.Find(active1))
 					create_record_photo(active1)
 				printing = 0
+*/
 
 		else if(href_list["printlogs"])
 			if(cell_logs.len && !printing)
@@ -503,6 +512,8 @@
 /obj/machinery/computer/secure_data/proc/setTemp(text, list/buttons = list())
 	temp = list("text" = text, "buttons" = buttons, "has_buttons" = buttons.len > 0)
 
+/* Proc disabled due to BYOND Issue
+
 /obj/machinery/computer/secure_data/proc/create_record_photo(datum/data/record/R)
 	// basically copy-pasted from the camera code but different enough that it has to be redone
 	var/icon/photoimage = get_record_photo(R)
@@ -528,6 +539,8 @@
 
 	var/obj/item/weapon/photo/PH = new/obj/item/weapon/photo(loc)
 	PH.construct(P)
+
+*/
 
 /obj/machinery/computer/secure_data/proc/get_record_photo(datum/data/record/R)
 	// similar to the code to make a photo, but of course the actual rendering is completely different
@@ -571,6 +584,14 @@
 /obj/machinery/computer/secure_data/detective_computer
 	icon = 'icons/obj/computer.dmi'
 	icon_state = "messyfiles"
+
+/obj/machinery/computer/secure_data/laptop
+	name = "security laptop"
+	desc = "Nanotrasen Security laptop. Bringing modern compact computing to this century!"
+	icon_state = "laptop"
+	icon_keyboard = "seclaptop_key"
+	icon_screen = "seclaptop"
+	density = 0
 
 #undef SEC_DATA_R_LIST
 #undef SEC_DATA_MAINT

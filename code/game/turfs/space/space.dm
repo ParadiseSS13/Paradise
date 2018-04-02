@@ -3,6 +3,7 @@
 	name = "\proper space"
 	icon_state = "0"
 	dynamic_lighting = 0
+	flags = RPD_ALLOWED_HERE
 	luminosity = 1
 
 	temperature = TCMB
@@ -17,7 +18,7 @@
 	. = ..()
 
 	if(!istype(src, /turf/space/transit))
-		icon_state = "[((x + y) ^ ~(x * y) + z) % 25]"
+		icon_state = SPACE_ICON_STATE
 	update_starlight()
 
 /turf/space/Destroy(force)

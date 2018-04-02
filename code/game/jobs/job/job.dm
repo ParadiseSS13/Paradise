@@ -52,6 +52,8 @@
 	var/exp_requirements = 0
 	var/exp_type = ""
 
+	var/disabilities_allowed = 1
+
 	var/admin_only = 0
 	var/spawn_ert = 0
 
@@ -109,6 +111,18 @@
 		return 0
 
 	return max(0, minimal_player_age - C.player_age)
+
+/datum/job/proc/barred_by_disability(client/C)
+	if(!C)
+		return 0
+	if(disabilities_allowed)
+		return 0
+	var/list/prohibited_disabilities = list(DISABILITY_FLAG_DEAF, DISABILITY_FLAG_BLIND, DISABILITY_FLAG_MUTE, DISABILITY_FLAG_SCRAMBLED, DISABILITY_FLAG_EPILEPTIC, DISABILITY_FLAG_TOURETTES, DISABILITY_FLAG_NEARSIGHTED, DISABILITY_FLAG_DIZZY)
+	for(var/i = 1, i < prohibited_disabilities.len, i++)
+		var/this_disability = prohibited_disabilities[i]
+		if(C.prefs.disabilities & this_disability)
+			return 1
+	return 0
 
 /datum/job/proc/is_position_available()
 	return (current_positions < total_positions) || (total_positions == -1)

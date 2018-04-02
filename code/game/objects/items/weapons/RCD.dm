@@ -20,7 +20,7 @@ RCD
 	origin_tech = "engineering=4;materials=2"
 	toolspeed = 1
 	usesound = 'sound/items/Deconstruct.ogg'
-	var/datum/effect/system/spark_spread/spark_system
+	var/datum/effect_system/spark_spread/spark_system
 	var/max_matter = 100
 	var/matter = 0
 	var/working = 0
@@ -34,20 +34,26 @@ RCD
 	var/list/door_accesses_list = list()
 	var/one_access
 	var/locked = 1
-	var/static/list/allowed_door_types = list(/obj/machinery/door/airlock = "Standard",
-		/obj/machinery/door/airlock/command = "Command", /obj/machinery/door/airlock/security = "Security",
-		/obj/machinery/door/airlock/engineering = "Engineering", /obj/machinery/door/airlock/medical = "Medical",
-		/obj/machinery/door/airlock/maintenance = "Maintenance", /obj/machinery/door/airlock/external = "External",
-		/obj/machinery/door/airlock/glass = "Standard (Glass)", /obj/machinery/door/airlock/freezer = "Freezer",
-		/obj/machinery/door/airlock/glass_command = "Command (Glass)", /obj/machinery/door/airlock/glass_engineering = "Engineering (Glass)",
-		/obj/machinery/door/airlock/glass_security = "Security (Glass)", /obj/machinery/door/airlock/glass_medical = "Medical (Glass)",
-		/obj/machinery/door/airlock/mining = "Mining", /obj/machinery/door/airlock/atmos = "Atmospherics",
-		/obj/machinery/door/airlock/research = "Research", /obj/machinery/door/airlock/glass_research = "Research (Glass)",
-		/obj/machinery/door/airlock/glass_mining = "Mining (Glass)", /obj/machinery/door/airlock/glass_atmos = "Atmospherics (Glass)")
+	var/static/list/allowed_door_types = list(
+		/obj/machinery/door/airlock = "Standard", /obj/machinery/door/airlock/glass = "Standard (Glass)",
+		/obj/machinery/door/airlock/command = "Command", /obj/machinery/door/airlock/command/glass = "Command (Glass)",
+		/obj/machinery/door/airlock/security = "Security", /obj/machinery/door/airlock/security/glass = "Security (Glass)",
+		/obj/machinery/door/airlock/engineering = "Engineering", /obj/machinery/door/airlock/engineering/glass = "Engineering (Glass)",
+		/obj/machinery/door/airlock/medical = "Medical", /obj/machinery/door/airlock/medical/glass = "Medical (Glass)",
+		/obj/machinery/door/airlock/maintenance = "Maintenance", /obj/machinery/door/airlock/maintenance/glass = "Maintenance (Glass)",
+		/obj/machinery/door/airlock/external = "External", /obj/machinery/door/airlock/external/glass = "External (Glass)",
+		/obj/machinery/door/airlock/maintenance/external = "External Maintenance", /obj/machinery/door/airlock/maintenance/external/glass = "External Maintenance (Glass)",
+		/obj/machinery/door/airlock/freezer = "Freezer",
+		/obj/machinery/door/airlock/mining = "Mining", /obj/machinery/door/airlock/mining/glass = "Mining (Glass)",
+		/obj/machinery/door/airlock/research = "Research", /obj/machinery/door/airlock/research/glass = "Research (Glass)",
+		/obj/machinery/door/airlock/atmos = "Atmospherics", /obj/machinery/door/airlock/atmos/glass = "Atmospherics (Glass)",
+		/obj/machinery/door/airlock/science = "Science", /obj/machinery/door/airlock/science/glass = "Science (Glass)",
+		/obj/machinery/door/airlock/hatch = "Airtight Hatch",
+		/obj/machinery/door/airlock/maintenance_hatch = "Maintenance Hatch")
 
 /obj/item/weapon/rcd/New()
 	desc = "A RCD. It currently holds [matter]/[max_matter] matter-units."
-	spark_system = new /datum/effect/system/spark_spread
+	spark_system = new /datum/effect_system/spark_spread
 	spark_system.set_up(5, 0, src)
 	spark_system.attach(src)
 	rcd_list += src
@@ -74,7 +80,7 @@ RCD
 		playsound(loc, 'sound/machines/click.ogg', 50, 1)
 		to_chat(user, "<span class='notice'>The RCD now holds [matter]/[max_matter] matter-units.</span>")
 		desc = "A RCD. It currently holds [matter]/[max_matter] matter-units."
-		nanomanager.update_uis(src)
+		SSnanoui.update_uis(src)
 		return
 
 
@@ -86,7 +92,7 @@ RCD
 	ui_interact(user)
 
 /obj/item/weapon/rcd/ui_interact(mob/user, ui_key = "main", var/datum/nanoui/ui = null, var/force_open = 1, var/datum/topic_state/state = inventory_state)
-	ui = nanomanager.try_update_ui(user, src, ui_key, ui, force_open)
+	ui = SSnanoui.try_update_ui(user, src, ui_key, ui, force_open)
 	if(!ui)
 		ui = new(user, src, ui_key, "rcd.tmpl", "[name]", 450, 400, state = state)
 		ui.open()
@@ -345,14 +351,14 @@ RCD
 			to_chat(user, "ERROR: RCD in MODE: [mode] attempted use by [user]. Send this text #coderbus or an admin.")
 			return 0
 
-	nanomanager.update_uis(src)
+	SSnanoui.update_uis(src)
 
 /obj/item/weapon/rcd/proc/useResource(var/amount, var/mob/user)
 	if(matter < amount)
 		return 0
 	matter -= amount
 	desc = "A RCD. It currently holds [matter]/[max_matter] matter-units."
-	nanomanager.update_uis(src)
+	SSnanoui.update_uis(src)
 	return 1
 
 /obj/item/weapon/rcd/proc/checkResource(var/amount, var/mob/user)

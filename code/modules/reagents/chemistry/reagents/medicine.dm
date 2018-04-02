@@ -92,7 +92,7 @@
 
 		//Mitocholide is hard enough to get, it's probably fair to make this all internal organs
 		for(var/obj/item/organ/internal/I in H.internal_organs)
-			I.take_damage(-0.4)
+			I.receive_damage(-0.4)
 	..()
 
 /datum/reagent/medicine/mitocholide/reaction_obj(obj/O, volume)
@@ -512,7 +512,7 @@
 			var/mob/living/carbon/human/H = M
 			var/obj/item/organ/internal/eyes/E = H.get_int_organ(/obj/item/organ/internal/eyes)
 			if(istype(E))
-				E.take_damage(-1)
+				E.receive_damage(-1)
 		M.AdjustEyeBlurry(-1)
 		M.AdjustEarDamage(-1)
 	if(prob(50))
@@ -1035,3 +1035,40 @@
 	color = "#F5F5F5"
 
 // This reagent's effects are handled in heart attack handling code
+
+/datum/reagent/medicine/nanocalcium
+	name = "Nano-Calcium"
+	id = "nanocalcium"
+	description = "Highly advanced nanites equipped with calcium payloads designed to repair bones. Nanomachines son."
+	color = "#9b3401"
+	metabolization_rate = 0.5
+
+/datum/reagent/medicine/nanocalcium/on_mob_life(mob/living/carbon/human/M)
+	switch(current_cycle)
+		if(1 to 19)
+			M.AdjustJitter(4)
+			if(prob(10))
+				to_chat(M, "<span class='warning'>Your skin feels hot and your veins are on fire!</span>")
+		if(20 to 43)
+			//If they have stimulants or stimulant drugs then just apply toxin damage instead.
+			if(M.reagents.has_reagent("methamphetamine") || M.reagents.has_reagent("crank") || M.reagents.has_reagent("bath_salts") || M.reagents.has_reagent("stimulative_agent") || M.reagents.has_reagent("stimulants"))
+				M.adjustToxLoss(10)
+			else //apply debilitating effects
+				if(prob(75))
+					M.AdjustConfused(5)
+				else
+					M.AdjustWeakened(5)
+		if(44)
+			to_chat(M, "<span class='warning'>Your body goes rigid, you cannot move at all!</span>")
+			M.AdjustWeakened(15)
+		if(45 to INFINITY) // Start fixing bones | If they have stimulants or stimulant drugs in their system then the nanites won't work.
+			if(M.reagents.has_reagent("methamphetamine") || M.reagents.has_reagent("crank") || M.reagents.has_reagent("bath_salts") || M.reagents.has_reagent("stimulative_agent") || M.reagents.has_reagent("stimulants"))
+				return ..()
+			else
+				for(var/obj/item/organ/external/E in M.bodyparts)
+					if(E.is_broken())
+						if(prob(50)) // Each tick has a 50% chance of repearing a bone.
+							to_chat(M, "<span class='notice'>You feel a burning sensation in your [E.name] as it straightens involuntarily!</span>")
+							E.rejuvenate() //Repair it completely.
+							break
+	..()

@@ -7,7 +7,7 @@
 	idle_power_usage = 5
 	active_power_usage = 10
 	layer = 5
-
+	armor = list(melee = 50, bullet = 20, laser = 20, energy = 20, bomb = 0, bio = 0, rad = 0)
 	var/datum/wires/camera/wires = null // Wires datum
 	var/list/network = list("SS13")
 	var/c_tag = null
@@ -244,7 +244,7 @@
 
 	else if(istype(W, /obj/item/weapon/melee/energy/blade))//Putting it here last since it's a special case. I wonder if there is a better way to do these than type casting.
 		toggle_cam(user, 1)
-		var/datum/effect/system/spark_spread/spark_system = new /datum/effect/system/spark_spread()
+		var/datum/effect_system/spark_spread/spark_system = new /datum/effect_system/spark_spread()
 		spark_system.set_up(5, 0, loc)
 		spark_system.start()
 		playsound(loc, W.usesound, 50, 1)

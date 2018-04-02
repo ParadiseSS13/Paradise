@@ -149,6 +149,8 @@ Class Procs:
 	fast_processing -= src
 
 /obj/machinery/New() //new
+	if(!armor)
+		armor = list(melee = 25, bullet = 10, laser = 10, energy = 0, bomb = 0, bio = 0, rad = 0)
 	machines += src
 	..()
 
@@ -170,10 +172,9 @@ Class Procs:
 	return PROCESS_KILL
 
 /obj/machinery/emp_act(severity)
-	if(use_power && stat == 0)
+	if(use_power && !stat)
 		use_power(7500/severity)
-
-	new/obj/effect/overlay/temp/emp(loc)
+		new /obj/effect/temp_visual/emp(loc)
 	..()
 
 /obj/machinery/ex_act(severity)
@@ -403,17 +404,28 @@ Class Procs:
 		return 1
 	return 0
 
-/obj/machinery/proc/deconstruct(disassembled = TRUE)
-	on_deconstruction()
-	spawn_frame()
-	for(var/obj/item/I in component_parts)
-		I.forceMove(loc)
+/obj/machinery/deconstruct(disassembled = TRUE)
+	if(can_deconstruct)
+		on_deconstruction()
+		if(component_parts && component_parts.len)
+			spawn_frame()
+			for(var/obj/item/I in component_parts)
+				I.forceMove(loc)
 	qdel(src)
 
-/obj/machinery/proc/spawn_frame()
+/obj/machinery/proc/spawn_frame(disassembled)
 	var/obj/machinery/constructable_frame/machine_frame/M = new /obj/machinery/constructable_frame/machine_frame(loc)
+	. = M
+	M.anchored = anchored
+	if(!disassembled)
+		M.obj_integrity = M.max_integrity * 0.5 //the frame is already half broken
+	transfer_fingerprints_to(M)
 	M.state = 2
 	M.icon_state = "box_1"
+
+/obj/machinery/obj_break(damage_flag)
+	if(can_deconstruct)
+		stat |= BROKEN
 
 /obj/machinery/proc/default_deconstruction_screwdriver(var/mob/user, var/icon_state_open, var/icon_state_closed, var/obj/item/weapon/screwdriver/S)
 	if(istype(S))
@@ -490,7 +502,20 @@ Class Procs:
 		to_chat(user, "<span class='notice'>[bicon(C)] [C.name]</span>")
 
 /obj/machinery/examine(mob/user)
-	..(user)
+	..()
+	if(stat & BROKEN)
+		to_chat(user, "<span class='notice'>It looks broken and non-functional.</span>")
+	if(!(resistance_flags & INDESTRUCTIBLE))
+		if(burn_state == ON_FIRE)
+			to_chat(user, "<span class='warning'>It's on fire!</span>")
+		var/healthpercent = (obj_integrity/max_integrity) * 100
+		switch(healthpercent)
+			if(50 to 99)
+				to_chat(user,  "It looks slightly damaged.")
+			if(25 to 50)
+				to_chat(user,  "It appears heavily damaged.")
+			if(0 to 25)
+				to_chat(user,  "<span class='warning'>It's falling apart!</span>")
 	if(user.research_scanner && component_parts)
 		display_parts(user)
 
@@ -556,7 +581,7 @@ Class Procs:
 		return 0
 	if((TK in user.mutations) && !Adjacent(user))
 		return 0
-	var/datum/effect/system/spark_spread/s = new /datum/effect/system/spark_spread
+	var/datum/effect_system/spark_spread/s = new /datum/effect_system/spark_spread
 	s.set_up(5, 1, src)
 	s.start()
 	if(electrocute_mob(user, get_area(src), src, 0.7))
@@ -579,6 +604,6 @@ Class Procs:
 	if(prob(85) && explosive)
 		explosion(loc, 1, 2, 4, flame_range = 2, adminlog = 0, smoke = 0)
 	else if(prob(50))
-		emp_act(2)
+		emp_act(EMP_LIGHT)
 	else
-		ex_act(2)
+		ex_act(EXPLODE_HEAVY)

@@ -39,6 +39,7 @@
 	response_harm   = "hits"
 	maxHealth = 200
 	health = 200
+	obj_damage = 60
 	melee_damage_lower = 15
 	melee_damage_upper = 20
 	heat_damage_per_tick = 20	//amount of damage applied if animal's body temperature is higher than maxbodytemp
@@ -237,7 +238,7 @@
 				E = locate() in get_turf(src)
 				if(!E)
 					var/obj/structure/spider/eggcluster/C = new /obj/structure/spider/eggcluster(src.loc)
-					C.faction = faction
+					C.faction = faction.Copy()
 					C.master_commander = master_commander
 					if(ckey)
 						C.player_spiders = 1

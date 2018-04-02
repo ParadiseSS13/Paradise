@@ -22,6 +22,7 @@
 	maxHealth = INFINITY //The spirit itself is invincible
 	health = INFINITY
 	environment_smash = 0
+	obj_damage = 40
 	melee_damage_lower = 15
 	melee_damage_upper = 15
 	AIStatus = AI_OFF
@@ -40,6 +41,21 @@
 	var/admin_fluff_string = "URK URF!"//the wheels on the bus...
 	var/adminseal = FALSE
 	var/name_color = "white"//only used with protector shields for the time being
+
+/mob/living/simple_animal/hostile/guardian/med_hud_set_health()
+	if(summoner)
+		var/image/holder = hud_list[HEALTH_HUD]
+		holder.icon_state = "hud[RoundHealth(summoner)]"
+
+/mob/living/simple_animal/hostile/guardian/med_hud_set_status()
+	if(summoner)
+		var/image/holder = hud_list[STATUS_HUD]
+		var/icon/I = icon(icon, icon_state, dir)
+		holder.pixel_y = I.Height() - world.icon_size
+		if(summoner.stat == DEAD)
+			holder.icon_state = "huddead"
+		else
+			holder.icon_state = "hudhealthy"
 
 /mob/living/simple_animal/hostile/guardian/Life() //Dies if the summoner dies
 	..()
@@ -65,9 +81,9 @@
 			if(istype(summoner.loc, /obj/effect))
 				Recall(TRUE)
 			else
-				new /obj/effect/overlay/temp/guardian/phase/out(loc)
+				new /obj/effect/temp_visual/guardian/phase/out(loc)
 				forceMove(summoner.loc) //move to summoner's tile, don't recall
-				new /obj/effect/overlay/temp/guardian/phase(loc)
+				new /obj/effect/temp_visual/guardian/phase(loc)
 
 /mob/living/simple_animal/hostile/guardian/Move() //Returns to summoner if they move out of range
 	..()
@@ -86,8 +102,10 @@
 			resulthealth = round((abs(config.health_threshold_dead - summoner.health) / abs(config.health_threshold_dead - summoner.maxHealth)) * 100)
 		else
 			resulthealth = round((summoner.health / summoner.maxHealth) * 100)
-		hud_used.guardianhealthdisplay.maptext = "<div align='center' valign='middle' style='position:relative; top:0px; left:6px'><font color='#efeeef'>[resulthealth]%</font></div>"
-
+		if(hud_used)
+			hud_used.guardianhealthdisplay.maptext = "<div align='center' valign='middle' style='position:relative; top:0px; left:6px'><font color='#efeeef'>[resulthealth]%</font></div>"
+		med_hud_set_health()
+		med_hud_set_status()
 
 /mob/living/simple_animal/hostile/guardian/adjustHealth(amount) //The spirit is invincible, but passes on damage to the summoner
 	var/damage = amount * damage_transfer
@@ -135,7 +153,7 @@
 	if(cooldown > world.time && !forced)
 		return
 	if(!summoner) return
-	new /obj/effect/overlay/temp/guardian/phase/out(get_turf(src))
+	new /obj/effect/temp_visual/guardian/phase/out(get_turf(src))
 	forceMove(summoner)
 	buckled = null
 	cooldown = world.time + 30
@@ -325,8 +343,20 @@
 	"Lilac" = "#C7A0F6", \
 	"Orchid" = "#F62CF5")
 
+	var/bio_list = list("Rose" = "#F62C6B", \
+	"Peony" = "#E54750", \
+	"Lily" = "#F6562C", \
+	"Daisy" = "#ECCD39", \
+	"Zinnia" = "#89F62C", \
+	"Ivy" = "#5DF62C", \
+	"Iris" = "#2CF6B8", \
+	"Petunia" = "#51A9D4", \
+	"Violet" = "#8A347C", \
+	"Lilac" = "#C7A0F6", \
+	"Orchid" = "#F62CF5")
+
 	var/picked_name
-	var/picked_color = pick("#FFFFFF","#000000","#808080","#A52A2A","#FF0000","#8B0000","#DC143C","#FFA500","#FFFF00","#008000","#00FF00","#006400","#00FFFF","#0000FF","#000080","#008080","#800080","#4B0082")
+//	var/picked_color = pick("#FFFFFF","#000000","#808080","#A52A2A","#FF0000","#8B0000","#DC143C","#FFA500","#FFFF00","#008000","#00FF00","#006400","#00FFFF","#0000FF","#000080","#008080","#800080","#4B0082")
 
 	switch(theme)
 		if("magic")
@@ -355,15 +385,18 @@
 			to_chat(user, "[G.tech_fluff_string].")
 			G.speak_emote = list("states")
 		if("bio")
-			G.name_color = picked_color
-			G.icon = 'icons/mob/mob.dmi'
+			color = pick(bio_list) //technically not colors, just using the same flowers as tech currerntly
+			G.name_color = tech_list[color]
 			picked_name = pick("brood", "hive", "nest")
 			to_chat(user, "[G.bio_fluff_string].")
-			G.name = "[picked_name] swarm"
-			G.color = picked_color
-			G.real_name = "[picked_name] swarm"
-			G.icon_living = "headcrab"
-			G.icon_state = "headcrab"
+
+			G.name = "[color] [picked_name]"
+			G.real_name = "[color] [picked_name]"
+			G.icon_living = "[theme][color]"
+			G.icon_state = "[theme][color]"
+			G.icon_dead = "[theme][color]"
+
+			to_chat(user, "[G.bio_fluff_string].")
 			G.attacktext = "swarms"
 			G.speak_emote = list("chitters")
 

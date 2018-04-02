@@ -6,6 +6,7 @@
  * Bananium floor
  * Diamond floor
  * Uranium floor
+ * Shuttle floor (Titanium)
  */
 
 /turf/simulated/floor/mineral
@@ -38,7 +39,8 @@
 /turf/simulated/floor/mineral/plasma/attackby(obj/item/weapon/W, mob/user, params)
 	if(is_hot(W) > 300)//If the temperature of the object is over 300, then ignite
 		message_admins("Plasma flooring was ignited by [key_name_admin(user)](<A HREF='?_src_=holder;adminmoreinfo=\ref[user]'>?</A>) (<A HREF='?_src_=holder;adminplayerobservefollow=\ref[user]'>FLW</A>) in ([x],[y],[z] - <A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[x];Y=[y];Z=[z]'>JMP</a>)",0,1)
-		log_game("Plasma flooring was ignited by [key_name(user)] in ([x],[y],[z])")
+		log_game("Plasma flooring was <b>ignited by [key_name(user)] in ([x],[y],[z])")
+		investigate_log("was <font color='red'><b>ignited</b></font> by [key_name(user)]","atmos")
 		ignite(is_hot(W))
 		return
 	..()
@@ -74,6 +76,61 @@
 	icon_state = "silverfancy"
 	floor_tile = /obj/item/stack/tile/mineral/silver/fancy
 	icons = list("silverfancy","silverfancy_dam")
+
+//TITANIUM (shuttle)
+
+/turf/simulated/floor/mineral/titanium/blue
+	icon_state = "shuttlefloor"
+	icons = list("shuttlefloor","shuttlefloor_dam")
+
+/turf/simulated/floor/mineral/titanium/blue/airless
+	oxygen = 0.01
+	nitrogen = 0.01
+	temperature = TCMB
+
+/turf/simulated/floor/mineral/titanium/yellow
+	icon_state = "shuttlefloor2"
+	icons = list("shuttlefloor2","shuttlefloor2_dam")
+
+/turf/simulated/floor/mineral/titanium/yellow/airless
+	oxygen = 0.01
+	nitrogen = 0.01
+	temperature = TCMB
+
+/turf/simulated/floor/mineral/titanium
+	name = "shuttle floor"
+	icon_state = "shuttlefloor3"
+	floor_tile = /obj/item/stack/tile/mineral/titanium
+	icons = list("shuttlefloor3","shuttlefloor3_dam")
+
+/turf/simulated/floor/mineral/titanium/airless
+	oxygen = 0.01
+	nitrogen = 0.01
+	temperature = TCMB
+
+/turf/simulated/floor/mineral/titanium/purple
+	icon_state = "shuttlefloor5"
+	icons = list("shuttlefloor5","shuttlefloor5_dam")
+
+/turf/simulated/floor/mineral/titanium/purple/airless
+	oxygen = 0.01
+	nitrogen = 0.01
+	temperature = TCMB
+
+//PLASTITANIUM (syndieshuttle)
+/turf/simulated/floor/mineral/plastitanium
+	name = "shuttle floor"
+	icon_state = "shuttlefloor4"
+	floor_tile = /obj/item/stack/tile/mineral/plastitanium
+	icons = list("shuttlefloor4","shuttlefloor4_dam")
+
+/turf/simulated/floor/mineral/plastitanium/airless
+	oxygen = 0.01
+	nitrogen = 0.01
+	temperature = TCMB
+
+/turf/simulated/floor/mineral/plastitanium/brig
+	name = "brig floor"
 
 //BANANIUM
 /turf/simulated/floor/mineral/bananium
@@ -177,11 +234,11 @@
 	floor_tile = /obj/item/stack/tile/mineral/abductor
 	icons = list("alienpod1", "alienpod2", "alienpod3", "alienpod4", "alienpod5", "alienpod6", "alienpod7", "alienpod8", "alienpod9")
 
-/turf/simulated/floor/mineral/New()
+/turf/simulated/floor/mineral/abductor/New()
 	..()
 	icon_state = "alienpod[rand(1,9)]"
 
-/turf/simulated/floor/mineral/break_tile()
+/turf/simulated/floor/mineral/abductor/break_tile()
 	return //unbreakable
 
 /turf/simulated/floor/mineral/abductor/burn_tile()
